@@ -1,244 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F58542F6F6
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:47:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 337C742DA33
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425264; cv=none; b=Kip5OADXdhPCKnBWoK9/BXb1MaErQ17eyfKcpCaM6KIBsT0RXrkkawOLnVHjadb2m4ob3cWNWYL0Zr6fbuIWQvg3cM7/gMw23uHlCh1hJVElcJbZLkl7cbj5amCPg9oq9oJIO9hK3f0UKArZ/lHoKOjiOzsxAHgumsbT5+0JNU4=
+	t=1788425278; cv=none; b=usu3ZtCViTolT5ZIGpzi7BeeCPHVxSISGQu+m9eg28jx+OBNNdCGxBzsC2pyCt2yeECIyme2RltnvsK2OEmHjj7SKBQUCdu+3qstZifa/zbX+Zqo5S9CWgKgw6JILoZ6UxZCLFKir6cWBvUL12tEgh/3+p3KOznheh6GyZkVM/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425264; c=relaxed/simple;
-	bh=M7J6iZ+DDWsNVdCjahCrCY47a7y+n2CcoOosL5Xp8Kk=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UJbEqNKaDQ1wMoBB6AsF77o4iYla01UnO3uSSo8KGk1yBbQ7ta6OMBaBHfJQNHIRV71EyO2I0LQnt7cNc9Lcvr2cWQ4cFcU72rFMJ3pxWOZW3WPxTWzFC//FRuqBsnp2usLauDJDtfDDLmdWRHb5YcnqOF2z6oSpvgAopf3HqXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f93pKcVN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788425278; c=relaxed/simple;
+	bh=cMHOdkR6lWDmJ6Jo0NDTtkENm/gbWorfVHY+bJMMEmw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dnBCoQ3zlXj/Ok/+plZW9bG6hLTQ9SqGQmq6BvQD6/ynyRZNBJEq4ZVkR81z6PvMmWKKC0vhTNKsSQzFZwweOiZFaSCVsFOyR6ZuIjJckw9Ns2c7jTtfYGPOrewos1zlNShR7vXmxkK2Pk6tOlU4bARa7zPT2zKtHMyoccXKO4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4knzoVH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f93pKcVN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1268B1F01560
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:47:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4knzoVH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2791D1F00A3A;
+	Thu,  3 Sep 2026 08:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788425262;
-	bh=rUZuDzuerz9HTSNz5FjflHQQ0xAjPFwqwzxl7IPdHbU=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=f93pKcVN+gHTQdD+paQnjjkhRE+sHMYpzOtQjrfGYXyMpi0tEUzPKNvWKx7kEc1B4
-	 fjX6tK14zCNlCWCk5zQhxJnFTp+WHWNAQuDmw4Gm8qpYnJ8P8WSL8ka9jE4Yw8A/g8
-	 uSWv3uj43kLzE0n4Yw5M6lg/eJeAk5AvWZzg/yDP3X1euCuH6D0+/RalCO+kwToemF
-	 1TwAf2ABM+eO7iItTz0U4SR4Pcj9z0WpzcZpo0QN8zQItE3M5Elj9I5VTOAJST2VCS
-	 808B1EFd4F72tmAF7VDqTmrRhxUjODv4HsMG21FA8Mg4XRpyGNCO3bVRQNvaFpE9Kk
-	 qNFZOiFVjC1wg==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so17997161fa.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 01:47:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzERSfVWQ6ZqLG9KjJnqa0/j5oSIWnzqzM3TTwjI4AGhAWpQQd7IN+vTxb4c9uxKvhxJGjh4ubWkjCk@vger.kernel.org
-X-Gm-Message-State: AFuF++kS3/vcsBEhVyqJdFcGwK9XEQsTx+688wVDAQYcGSZJhCTuo2KE
-	ctnpseKI+vyy/aEEn5qDvDAjGKvTZmZyld1yBHYCJYzcToB8WKoAXBouXMEIO+95r2mBMYMvqXI
-	g+fqfSg7AD6mD3tYOBwyVhiumhLUehIN0PgzIMoBXJQ==
-X-Received: by 2002:a2e:a98d:0:b0:3a1:8510:cbab with SMTP id
- 38308e7fff4ca-3a34fd3b9f5mr20178881fa.12.1788425260597; Thu, 03 Sep 2026
- 01:47:40 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 01:47:39 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 01:47:39 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260903-pci-tc9563-aux-v2-3-34c625b542c1@oss.qualcomm.com>
+	s=k20260515; t=1788425275;
+	bh=1MbPZtrjXcuiYrNFx66PXepMfdC0u3KDbPTypXNTt2w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i4knzoVHSlk5kBc91raSBxgimUU6USYGhM2ngBRM5mcX5rBktZ4BUO+u4WpZOrNkK
+	 uPey0y6iZjOL/SBYbSri8aruPMWh+qAeTNvlq9s8u187W84L2n5vNWsn3zB0oR1N84
+	 c2PBx7q52v0CtrbdYFNfcLWZPB99cy7lZtWkcnnGB0JYLZ2zLedWgSAsPfmzgpzOlD
+	 ZdxiNZYliT8A9tCP5C28sV8y5YoWkWfqNj4pWLeqOHa/E4W3GykBzWqGUnpiNl7rbv
+	 KsgHClcf30ccMLnpToXWRD/7s2wMq/W+YFA0Ry4LfDqgPqjQlgawdVO6ShT8oK8DYo
+	 kz3gKBsSjJ04g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v3 05/10] net: ethernet: ravb: Propagate error
+ from ptp_clock_register()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260902084703.3228504-6-niklas.soderlund+renesas@ragnatech.se>
+References: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260902084703.3228504-6-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 08:47:54 +0000
+Message-Id: <20260903084755.2791D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com> <20260903-pci-tc9563-aux-v2-3-34c625b542c1@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 01:47:39 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MdpUaJ8sJczbN592wncBZvdhaUW2rcA3CjyxS8fPKAoGw@mail.gmail.com>
-X-Gm-Features: AcwNN1W4N5MlwjhagTYwb_RNFsJKpxi_ErCQwMyDXxajkEh9gtHOtruNUgarkj4
-Message-ID: <CAMRc=MdpUaJ8sJczbN592wncBZvdhaUW2rcA3CjyxS8fPKAoGw@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] PCI/pwrctrl: tc9563: add GPIO auxiliary device support
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>, 
-	Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 3 Sep 2026 09:52:59 +0200, Lorenzo Bianconi
-<lorenzo.bianconi@oss.qualcomm.com> said:
-> The TC9563 embeds a GPIO controller used for per-port reset signals.
-> Create an auxiliary device for it so the gpio-tc9563 driver can
-> register the GPIO chip and enable DT-based GPIO lookups. Pass the
-> tc9563 regmap to the auxiliary device as its platform data.
->
-> The downstream port DT parsing loop gains an of_node_is_type() filter
-> to skip non-PCI child nodes such as the GPIO controller node.
->
-> The pwrctrl driver does not wait for the GPIO chip to be probed. The
-> per-port reset GPIO lookup, returning -EPROBE_DEFER until the chip is
-> registered, is added in the next patch.
->
-> Select AUXILIARY_BUS and GPIO_TC9563 in Kconfig.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] Calling `ptp_clock_index()` with a NULL pointer causes a deter=
+ministic kernel panic when querying ethtool timestamp info.
+- [Critical] Failing to clear `priv->ptp.clock` in `ravb_ptp_stop()` leaves=
+ a dangling pointer, leading to a Use-After-Free during ethtool queries.
+--
 
-It's no longer true and also, it's clear from the patch so we don't have to
-have it in the commit message.
+commit 8ab377468104948ff315e1ab381238bac1a1783e
+Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
->
-> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> ---
->  drivers/pci/pwrctrl/Kconfig              |  1 +
->  drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 80 ++++++++++++++++++++++++++++++--
->  2 files changed, 78 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
-> index 1952ab4f29b6..38aab596aa04 100644
-> --- a/drivers/pci/pwrctrl/Kconfig
-> +++ b/drivers/pci/pwrctrl/Kconfig
-> @@ -29,6 +29,7 @@ config PCI_PWRCTRL_TC9563
->  	select PCI_PWRCTRL
->  	default m if ARCH_QCOM
->  	depends on I2C
-> +	depends on GPIO_TC9563
->  	select REGMAP_I2C
->  	help
->  	  Say Y here to enable the PCI Power Control driver of TC9563 PCIe
-> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> index b0d8912690a2..6df512d78b54 100644
-> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> @@ -4,11 +4,13 @@
->   */
->
->  #include <linux/array_size.h>
-> +#include <linux/auxiliary_bus.h>
->  #include <linux/bitfield.h>
->  #include <linux/bits.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
->  #include <linux/gpio/consumer.h>
-> +#include <linux/gpio/driver.h>
->  #include <linux/i2c.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> @@ -20,12 +22,10 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/string.h>
->  #include <linux/types.h>
-> +#include <linux/soc/qcom/tc9563.h>
->
->  #include "../pci.h"
->
-> -#define TC9563_GPIO_CONFIG		0x801208
-> -#define TC9563_RESET_GPIO		0x801210
-> -
->  #define TC9563_PORT_L0S_DELAY		0x82496c
->  #define TC9563_PORT_L1_DELAY		0x824970
->
-> @@ -393,6 +393,73 @@ static int tc9563_pwrctrl_parse_device_dt(struct device_node *node,
+net: ethernet: ravb: Propagate error from ptp_clock_register()
+
+If the PTP clock registration failed the error is silently ignored.
+Before reworking all callers of ravb_ptp_init() handle and propagate the
+error so it can be used.
+
+Link: https://sashiko.dev/#/patchset/20260610102432.3538432-2-niklas.soderl=
+und+renesas@ragnatech.se?part=3D1
+
+> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ether=
+net/renesas/ravb_main.c
+> index e44d065f77cc8..7c7b3ac81e5d6 100644
+> --- a/drivers/net/ethernet/renesas/ravb_main.c
+> +++ b/drivers/net/ethernet/renesas/ravb_main.c
+> @@ -1785,7 +1785,7 @@ static int ravb_get_ts_info(struct net_device *ndev,
+>  			(1 << HWTSTAMP_FILTER_NONE) |
+>  			(1 << HWTSTAMP_FILTER_PTP_V2_L2_EVENT) |
+>  			(1 << HWTSTAMP_FILTER_ALL);
+> -		info->phc_index =3D READ_ONCE(priv->ptp.phc_index);
+> +		info->phc_index =3D ptp_clock_index(priv->ptp.clock);
+
+[Severity: Critical]
+Can this code trigger a NULL pointer dereference if priv->ptp.clock is NULL?
+
+If the interface is not brought up yet, or if PTP registration failed during
+initialization, priv->ptp.clock will be NULL. When querying ethtool for
+timestamping information, ravb_get_ts_info() invokes
+ptp_clock_index(priv->ptp.clock).
+
+Since ptp_clock_index() unconditionally dereferences the pointer, it seems
+this could result in a crash.
+
+>  	}
+> =20
 >  	return 0;
->  }
->
-> +static void tc9563_pwrctrl_adev_release(struct device *dev)
-> +{
-> +	struct auxiliary_device *adev = to_auxiliary_dev(dev);
-> +
-> +	of_node_put(adev->dev.of_node);
-> +	kfree(adev);
-> +}
-> +
-> +static void tc9563_pwrctrl_adev_remove(void *data)
-> +{
-> +	struct auxiliary_device *adev = data;
-> +
-> +	auxiliary_device_delete(adev);
-> +	auxiliary_device_uninit(adev);
-> +}
-> +
-> +static int tc9563_pwrctrl_adev_add(struct device *dev, const char *name,
-> +				   u32 id, struct device_node *of_node,
-> +				   void *priv_data)
-> +{
-> +	struct auxiliary_device *adev;
-> +	int ret;
-> +
-> +	adev = kzalloc_obj(*adev);
-> +	if (!adev)
-> +		return -ENOMEM;
-> +
-> +	adev->id = id;
-> +	adev->name = name;
-> +	adev->dev.parent = dev;
-> +	adev->dev.platform_data = priv_data;
-> +	adev->dev.release = tc9563_pwrctrl_adev_release;
-> +	adev->dev.of_node = of_node_get(of_node);
 
-Ah you're doing it because .release() will be called if auxiliary_device_add()
-fails. It's fine I guess.
+[ ... ]
 
-> +
-> +	ret = auxiliary_device_init(adev);
-> +	if (ret) {
-> +		of_node_put(adev->dev.of_node);
-> +		kfree(adev);
-> +		return ret;
-> +	}
-> +
-> +	ret = auxiliary_device_add(adev);
-> +	if (ret) {
-> +		auxiliary_device_uninit(adev);
-> +		return ret;
-> +	}
-> +
-> +	return devm_add_action_or_reset(dev, tc9563_pwrctrl_adev_remove, adev);
-> +}
-> +
-> +static int tc9563_pwrctrl_add_gpio_adev(struct tc9563_pwrctrl *tc9563)
-> +{
-> +	struct device *dev = tc9563->pwrctrl.dev;
-> +	struct fwnode_handle *fwnode;
-> +	int ret;
-> +
-> +	fwnode = gpiochip_node_get_first(dev);
-> +	if (!fwnode)
-> +		return 0;
-> +
-> +	ret = tc9563_pwrctrl_adev_add(dev, TC9563_GPIO_DEV_NAME, 0,
-> +				      to_of_node(fwnode), tc9563->regmap);
-> +	fwnode_handle_put(fwnode);
-> +
-> +	return ret;
-> +}
-> +
->  static int tc9563_pwrctrl_power_off(struct pci_pwrctrl *pwrctrl)
+> diff --git a/drivers/net/ethernet/renesas/ravb_ptp.c b/drivers/net/ethern=
+et/renesas/ravb_ptp.c
+> index f70b616ac847c..19d039b9d24a5 100644
+> --- a/drivers/net/ethernet/renesas/ravb_ptp.c
+> +++ b/drivers/net/ethernet/renesas/ravb_ptp.c
+[ ... ]
+> @@ -369,14 +368,10 @@ static void ravb_ptp_sync_irqs(struct net_device *n=
+dev)
+>  void ravb_ptp_stop(struct net_device *ndev)
 >  {
->  	struct tc9563_pwrctrl *tc9563 = container_of(pwrctrl,
-> @@ -565,6 +632,9 @@ static int tc9563_pwrctrl_probe(struct platform_device *pdev)
->  	 */
->  	port = TC9563_USP;
->  	for_each_child_of_node_scoped(node, child) {
-> +		if (!of_node_is_type(child, "pci"))
-> +			continue;
-> +
->  		if (++port >= TC9563_MAX)
->  			break;
->
-> @@ -596,6 +666,10 @@ static int tc9563_pwrctrl_probe(struct platform_device *pdev)
->  	tc9563->pwrctrl.power_on = tc9563_pwrctrl_power_on;
->  	tc9563->pwrctrl.power_off = tc9563_pwrctrl_power_off;
->
-> +	ret = tc9563_pwrctrl_add_gpio_adev(tc9563);
-> +	if (ret)
-> +		goto remove_i2c;
-> +
->  	ret = devm_pci_pwrctrl_device_set_ready(dev, &tc9563->pwrctrl);
->  	if (ret)
->  		goto power_off;
->
-> --
-> 2.55.0
->
->
+>  	struct ravb_private *priv =3D netdev_priv(ndev);
+> -	struct ptp_clock *clock;
+> -
+> -	WRITE_ONCE(priv->ptp.phc_index, -1);
+> -	clock =3D xchg(&priv->ptp.clock, NULL);
+> =20
+>  	ravb_ptp_disable(ndev);
+>  	ravb_ptp_sync_irqs(ndev);
+> =20
+> -	if (clock)
+> -		ptp_clock_unregister(clock);
+> +	if (priv->ptp.clock)
+> +		ptp_clock_unregister(priv->ptp.clock);
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+[Severity: Critical]
+Does this leave priv->ptp.clock as a dangling pointer?
+
+The original code used xchg() to set priv->ptp.clock to NULL before
+unregistering it. With this change, when the interface is brought down,
+ravb_ptp_stop() unregisters and frees the PTP clock but leaves the pointer
+pointing to freed memory.
+
+If an unprivileged user or system daemon queries ethtool while the interface
+is down, ravb_get_ts_info() will pass this dangling pointer to
+ptp_clock_index(), potentially causing a use-after-free read. Should
+priv->ptp.clock be explicitly set to NULL here?
+
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902084703.3228=
+504-1-niklas.soderlund+renesas@ragnatech.se?part=3D5
