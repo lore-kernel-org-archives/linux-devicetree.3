@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3A94734CD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C06A44E648
 	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:23:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470626; cv=none; b=Nm893xFOdg1Bxzk1wh9aPhs9CEYD/j7J2fARQeAArsLbF0dTlzSNSK0KGiFaV0AIjmu7GqhsSZ9sLqO+vfmfPcvgwiU7122wj0UK8koVYyBjIXQCmE9fExqwIse+JoVbqcTGmEDigyR5J8pJp3NXbtM2Hw+pSY83U1/pfcgq+UE=
+	t=1788470626; cv=none; b=Pw13Q8A+Tac2at/D5UOX1Aud7z1M4Vit+Vq1AAMJoxZfd1f8zqpVKsZq25NIz8Wk0Nfoa6Br98n53gm3r6XrYXdfmmxtcwrGJ/SOm6LxxlSzLmsuCzZcZq2gXUqvR7+xJ2WsvX5reUYQZadULNr6iX4Zo6HV71anIbh4ASoBy/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788470626; c=relaxed/simple;
-	bh=Cu7Yp6tQ+jejPi7mhr+6x4eHJKr5kHNLrcxsvAjGzZI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EmoqSMxZCr/VrbxUs1ygMN2u2edU7XSZe7A10se6BdGwLgz6xzquLkhOc1Tsab5VabcAxeKlls4ZQdw0yzEdX6hfpqtzK0+FEaDR9D90Ghjj4igY+SRbCcPdJKdVj1Aklgv/3zHDZ7HhjFNKVvqW1ko6yVrsBpZ3P82BodRacWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t8VLo71W; arc=none smtp.client-ip=10.30.226.201
+	bh=EbrpFXcP7WqS/VSdLWd1gn6iHNZnciSa+KGonGeazdw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=SgvnaZ2mTZ4cL02K3AbdZn1QULH10tYF9SnlvrGkCtgjeNlfhExbI+4Vezsakr3OBs+5nWGK9a0TNJobcPvNeReHz/r02+vvTIjk/Q6HFesV0hhAnZ6VT6jlkfHkSPmBxg1D/7sOe4AEodQ1D6Q4lLCp9EIz0ovEiLEhfo92iA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCO5CRD2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t8VLo71W"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2713CC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCO5CRD2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 599ACC2BD01;
 	Thu,  3 Sep 2026 21:23:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788470626;
-	bh=Cu7Yp6tQ+jejPi7mhr+6x4eHJKr5kHNLrcxsvAjGzZI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=t8VLo71WOdma5yTUOohXnwvc8+yYsz+LclbYLU3nUaiNRa5UUtES3TqMivbj9mr6k
-	 PRq0pGRfMXu3X+M1mmqIn47CsJ1ZBdeUQ1bmrHuBjqimg954iSnzaFYg86lZJShl21
-	 7+xWt9HAPArUZ9LBkI/eMbneqfFe7RTBs8EYin47F00Z106WayGEvVp3vCq/cH7t82
-	 LzW/LrAY+U64Ch7FmTXcwmFZpMnY5NAL2xkkFSv/4vjIuNEuC2cXNesQuM7sRRcSIT
-	 qY8jWtHjVU/JbWg867hUDxceHZG9xC07FGtrZuXI2USrXl0YgCduhPHUAI6W9ruqU+
-	 BvR26rqNX7UPA==
+	bh=EbrpFXcP7WqS/VSdLWd1gn6iHNZnciSa+KGonGeazdw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=JCO5CRD2oUBPcsXtxsbPyHL8umMpuFc++503qKNJrjTWg7aSrGGWgc52GGFLNagO/
+	 EAFbs0qeO9SZmhp92PRRUsVEHI7szGsa39pXxv3NALuTdq4pjbbKZ45uz/6Z91xJab
+	 R6uYKMoYupiZ+WaF0FtWych0EadUQq/+eYRKeNMUpS9RDv+6yGwNq8nAXBtF4gUokv
+	 5K7an9ToMcBe/2sdQas8JWaMxX5qe6m/ApLjGtWyAh9tmkzANfZwNaeCcIv4TYAJ98
+	 ss2TjwJdzirArIFDFV+7jhNXaztzQR2VEkNM3Xa2DRnkfwA2l7+QrpN9XGW9BeFjId
+	 Nnb/9SLhmPDEA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02880C624D7;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 43030C624DB;
 	Thu,  3 Sep 2026 21:23:46 +0000 (UTC)
 From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
-Subject: [PATCH v6 00/12] arm64: dts: rockchip: Add NanoPi M6 board
-Date: Thu, 03 Sep 2026 23:23:12 +0200
-Message-Id: <20260903-nanopi-m6-v6-0-37416bbd6862@gmail.com>
+Date: Thu, 03 Sep 2026 23:23:16 +0200
+Subject: [PATCH v6 04/12] arm64: dts: rockchip: rk3588s-nanopi-r6: remove
+ pull up on rtc int pin
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,24 +41,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13OTW7DIBAF4KtErEvFDAzYWfUeVRaYn4SqtiOTo
- FaR716cqhL18knvezMPlsOSQmbHw4MtoaSc5qkG/XJg7mKnc+DJ18xQoBZGAJ/sNF8THzWPMYR
- okDB6w2r/uoSYvp5b76ffnO/DR3C3bWBrXFK+zcv381iBrfe3K5vdAlzwTiplgagn6N/Oo02fr
- 24e2bZbsJHQflSwSoWoDVlNSuBeylb+uymrRDSkTYyOvNtL1UrTSlXlIEH2YA0GBXtJjcSulVS
- lGxyEQfjOk27luq4/eCRhaJwBAAA=
-X-Change-ID: 20260701-nanopi-m6-ffeef7252fd7
+Message-Id: <20260903-nanopi-m6-v6-4-37416bbd6862@gmail.com>
+References: <20260903-nanopi-m6-v6-0-37416bbd6862@gmail.com>
+In-Reply-To: <20260903-nanopi-m6-v6-0-37416bbd6862@gmail.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
 Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, diederik@cknow-tech.com, 
- jonas@kwiboo.se, Joachim Eastwood <joachim.eastwood@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ jonas@kwiboo.se, Joachim Eastwood <joachim.eastwood@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788470611; l=4151;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788470611; l=849;
  i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
- bh=Cu7Yp6tQ+jejPi7mhr+6x4eHJKr5kHNLrcxsvAjGzZI=;
- b=/b2e7FpEBbNIj+TgPyd03X5EWm2UupMahyJ0VL5C6SSWMZ0VUaZXEBT1m98vywu8v8fKxcL7l
- LYNP7nf2SpdCaTwQ05re9y3QRX2olRDMUEUWBgs0N56r/aGlXET2Vvm
+ bh=bOUJsEUkqBQ7tLIttYbDSPYSPt/SU6MVMp2Nx20LXH8=;
+ b=M7yWuF50oFtxgqjBxoyFM3rg/PPm8GVwLNk2Ot/cAT5B3uwoCJugIYSKvyac8w0NDw9i8P/rG
+ tF2edHRcShwBzWMqZKxqK5CENm1f5jGbzCoLUVHRi5HLRTUDjBWPezI
 X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
  pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
 X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
@@ -65,90 +62,31 @@ X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
 X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
 Reply-To: joachim.eastwood@gmail.com
 
-This patch series add support for the NanoPi M6. This board is very
-similar to the NanoPi R6C and R6S boards which are already supported.
+From: Joachim Eastwood <joachim.eastwood@gmail.com>
 
-Main differences:
-* M.2 M-key slot with PCIe (Also present on R6C)
-* M.2 E-key slot with PCIe and USB (from hub)
-* 1 additional USB 2.0 port from an on-board USB hub
-* RT5616 audio CODEC
-
-Patch 1 documents the NanoPi M6 board compatibility string
-Patch 2 to 10 are fixes and additions to the nanopi-r6 base DT
-Patch 11 extracts the common NanoPi 6 series bits from nanopi-r6 into
-nanopi.dtsi
-The final patch adds support for NanoPi M6. Support for M6 has been
-split into two files; one dtsi and one dts file. This makes it easier
-to add support to the new M6V2 board at a later stage.
-
-All changes have been verified using the schematics for M6, R6C and R6S.
-Only M6 have been boot and runtime tested. Testers for R6x are welcome.
-
-Note that Sashiko may complain that u2phy0_otg is a dangling phandle in
-patch 11. This will never happen in practice so it's safe to ignore.
+All boards in the RK3588S NanoPi familiy has a pull on the PCB for the
+RTC interrupt pin. So there is no need to enable the pull-up in the SoC.
 
 Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
 ---
-Changes in v6:
-- Rebase on v7.3-rc1
-- Link to v5: https://patch.msgid.link/20260728-nanopi-m6-v5-0-cbc1eb0d8d56@gmail.com
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Changes in v5:
-- Switch from simple-audio-card to audio-graph-card as Sashiko
-  complains, rightfully, that the bindings are a mismash of both.
-- Add pull-up on sd cd pin. Noticed by Diederik.
-- Link to v4: https://patch.msgid.link/20260717-nanopi-m6-v4-0-b31391a72e41@gmail.com
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
+index 5bbd5d2fc5fa..f2b15e03d5ef 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi
+@@ -420,7 +420,7 @@ hdmi0_tx_on_h: hdmi0-tx-on-h {
+ 
+ 	hym8563 {
+ 		rtc_int: rtc-int {
+-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_up>;
++			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
+ 
 
-Changes in v4:
-- Remove boot-on reintroduction on vdd_npu_s0 in nanopi.dtsi during
-  refactor screw-up. Thanks to Sashiko for catching that.
-- Fix minor typo in "add gmac1 add phy-supply" commit message
-- Use schematic net names on PCIe reset lines. As suggested by Diederik.
-- Link to v3: https://patch.msgid.link/20260713-nanopi-m6-v3-0-227567ffc5dc@gmail.com
-
-Changes in v3:
-- Reorder patches so the DT fixes/additions are applied to
-  nanopi-r6.dtsi as suggested by Jonas Karlman
-- Add comment to gmac to rgmii-rxid phy-mode to explain usage
-- Addition of pinctrl to sd and pcie are now marked as fixes
-- Remove both always-on and boot-on from NPU regulator
-- Link to v2: https://patch.msgid.link/20260711-nanopi-m6-v2-0-422675a65402@gmail.com
-
-Changes in v2:
-- Organize DT such that adding support to NanoPi M6V2 later is easier
-- Use correct clk id for I2C mclk out as suggested by Diederik.
-- Add a couple of acks from Krzysztof Kozlowski.
-- Link to v1: https://patch.msgid.link/20260703-nanopi-m6-v1-0-8344a1559519@gmail.com
-
----
-Joachim Eastwood (12):
-      dt-bindings: arm: rockchip: add FriendlyElec NanoPi M6
-      arm64: dts: rockchip: rk3588s-nanopi-r6: fix missing sdmmc cd pinctrl
-      arm64: dts: rockchip: rk3588s-nanopi-r6: fix missing pcie rst pinctrl
-      arm64: dts: rockchip: rk3588s-nanopi-r6: remove pull up on rtc int pin
-      arm64: dts: rockchip: rk3588s-nanopi-r6: pcie2x1l2: add clkreq
-      arm64: dts: rockchip: rk3588s-nanopi-r6: remove always-on and boot-on from vdd_npu_s0 reg
-      arm64: dts: rockchip: rk3588s-nanopi-r6: remove useless vcc_3v3_pcie20
-      arm64: dts: rockchip: rk3588s-nanopi-r6: add gmac1 phy-supply
-      arm64: dts: rockchip: rk3588s-nanopi-r6: remove bogus vcc5v0_usb regulator
-      arm64: dts: rockchip: rk3588s-nanopi-r6: add comment about gmac phy-mode
-      arm64: dts: rockchip: rk3588s-nanopi-r6: refactor to support M6 boards
-      arm64: dts: rockchip: add support for NanoPi M6 board
-
- .../devicetree/bindings/arm/rockchip.yaml          |   3 +-
- arch/arm64/boot/dts/rockchip/Makefile              |   1 +
- .../arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi | 142 ++++
- .../boot/dts/rockchip/rk3588s-nanopi-m6v1.dts      |  57 ++
- .../arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 792 +-------------------
- arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi   | 797 +++++++++++++++++++++
- 6 files changed, 1000 insertions(+), 792 deletions(-)
----
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
-change-id: 20260701-nanopi-m6-ffeef7252fd7
-
-Best regards,
---  
-Joachim Eastwood <joachim.eastwood@gmail.com>
+-- 
+2.55.0
 
 
