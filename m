@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DBB6393DCD;
-	Thu,  3 Sep 2026 09:50:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E3F3D47A8;
+	Thu,  3 Sep 2026 09:53:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429026; cv=none; b=kvwsEQYzdGrU2rQmYwksrlcAkyoBWLRphjzLjz2w+HhoOhPNunGllwSXkD/2sw1MvQNUnn81z13GezobVw19KlouLKCL5dRpKxILPrqgOMKBjbiKp5LECAAs/GhS+RqIfZYRgBzseE9UtafCScyB1EdjMsNgIW43rKJLGPWvzjY=
+	t=1788429192; cv=none; b=jBhdPlKuOS4YaSh0XLJM53s4OF0Hqj2TYIVIcchdTdR8n7T+Ff48O0mcPiFHcpIaw3QljhpBEzl/Aa8qdNzWS3i0rni2veNQ6QM+dVy2v/NPeiaGTBhdkbUKFlMsDgF1RlteKUjnZPW48sa37KvRrHw1eBIkVSc4oSV41Zv+ExA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429026; c=relaxed/simple;
-	bh=b5TzHkGEGyHR+6ZvwTz08ec5FJValQ4AiUTb1S3iTdo=;
+	s=arc-20240116; t=1788429192; c=relaxed/simple;
+	bh=8AE2cjhdGtRwIw6fjDZrqgdZl2NnVgJZ58wH9fvfC4I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LKWPjCm/KJ521tXfAhLk+kUvQ5gxhrr7mXA4h0T2tEqaZBmJonSm775IiK7nYNYc/jfuTZsswKqjfEKN/pzAIPzG3I34Sa3be/uYBPOMOuY4CH/kgGQ2imRRITF3qXPQ320YelJSap+TdzsjqHlUShBEaeAixJ34OZv/EQagxoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3ISe/U7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=L4iJsqVeYNShp0RludWsl5NLvgWvmQO2DFrHZA6h013UFnNKwka7VEaDSKDt1M4rd5Ad0ABAda33ns+GSgW21/we4FBWO679+0YjszI/rI9nzLPavffvQ36MPdo73BzBS6wWCxAk3SvaYA39Ze3fxGZTokHN+UQFYOjpKiLZdQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DYpSzabT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3ISe/U7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4171F000E9;
-	Thu,  3 Sep 2026 09:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DYpSzabT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC5531F00A3D;
+	Thu,  3 Sep 2026 09:53:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788429024;
-	bh=7IEfRem7zTAQCSbosICsgQsKH/8v0Vv91wZSp6AITMU=;
+	s=k20260515; t=1788429191;
+	bh=Ig70CvKU23MKJaMu+7vf/X3puEFetI2IvCaYt7MGOTQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=b3ISe/U7RM7n/4cmXA1ZH4dFV3/JXBqCLF/2Zak2LXJ3h0dKjHezk//ZDr7WZHkOQ
-	 cAtJT7YQoYTh4s8cOl5UifKOCqCqDOmbNl7KQa6FwJjBtFVskaPuERB+EgZWxXc+re
-	 B2potJ0/vj+b8GFYIRL8B4ERvVVvzWlU1n+kNvQ/GljOzz7sr82N2VgjDvd08p7Bvy
-	 IDQx91VtvobrsOk0TFtNt06Kx6im4+RS2xI0V6mSi45/R2XghCCBkoOTK7HOekBUCi
-	 XpgY4ImxFAiAuXJnvh+VFLBOw8Pi2m1xm7PUpb90pQL5dBOudrPJ8/dObJck25j39Q
-	 99FHRY4JWYUow==
-Message-ID: <8e10a8c0-3648-47b5-9131-a1abdd7eb8c5@kernel.org>
-Date: Thu, 3 Sep 2026 11:50:15 +0200
+	b=DYpSzabTnx0TQpLw1BRY4h7flD3BtfPblDkynYp8vVUaF5FGUaFOfX2jcsyDUsytE
+	 SaL9yCjT9wTKRm37IVAMOfBEmaT+cAsURwKbzryA+4KvL6x/Z2qbjTtmuui5iaQgSv
+	 qiowfDuqhfmxLL/Et8mZB9RM5kYbzpg9DoGr1UN65qTBsV9CKdbH/Uv3K5bpPDY6x+
+	 En8kdNWM8QZmaBCinQX1ntGVaS5FqE6cWaLnqZqVTr0YLeY5BKOpDVNfIf1wwa6nqR
+	 seVIcW5qrzbmlpKjqAchigCtPUIDf4I77WMbaimexQ7KjlVfViwhkWfZPInhhe4xIq
+	 Lzebs//WeH52A==
+Message-ID: <39101571-58f2-43c5-b76d-62f8ab57d551@kernel.org>
+Date: Thu, 3 Sep 2026 11:53:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,14 +37,14 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 1/7] dt-bindings: phy: Add PHY_TYPE_DSI and
  PHY_TYPE_CSI definitions
-To: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+To: Michael Riesch <michael.riesch@collabora.com>,
+ Jason Yang <jason98166@gmail.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
  <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
  Guochun Huang <hero.huang@rock-chips.com>,
  Philipp Zabel <p.zabel@pengutronix.de>,
- Michael Riesch <michael.riesch@collabora.com>,
  Sebastian Reichel <sebastian.reichel@collabora.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
  linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
@@ -53,7 +53,7 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
 References: <20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com>
  <20260821-dcphy-rx-v1-v4-1-f1797634233d@gmail.com>
  <20260827-thundering-cream-saluki-dd05df@quoll>
- <CAPwA33K+XSRPDzv9xAcoPneUsp6A9OTwakJ1VJY=zXnHiH+5Wg@mail.gmail.com>
+ <7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -99,95 +99,87 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <CAPwA33K+XSRPDzv9xAcoPneUsp6A9OTwakJ1VJY=zXnHiH+5Wg@mail.gmail.com>
+In-Reply-To: <7425ac83-f6d8-4443-a26e-a47f9306aa24@collabora.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 28/08/2026 11:35, 楊智成 wrote:
+On 31/08/2026 13:32, Michael Riesch wrote:
 > Hi Krzysztof,
 > 
-> Thanks for the review.
-> 
-> (from the review of 2/7)
-> 
->> Please link/show the upstream DTS using simultaneously transmitter and
->> receiver, where the consumer does not know with whom is it talking to.
-> 
-> I grepped the tree and found a device tree that has simultaneously
-> transmitter and receiver. In the arch/arm/boot/dts/samsung/*,
-> exynos4412-midas.dtsi enables csis_0, and exynos4412-galaxy-s3.dtsi, which
-> includes it, enables dsi_0. Both consumers are declared in exynos4.dtsi,
-> on the same phy node:
-> 
->     dsi_0:  phys = <&mipi_phy 1>;
->     csis_0: phys = <&mipi_phy 0>;
-> 
-> Tracing that back, the provider is
-> Documentation/devicetree/bindings/phy/samsung,mipi-video-phy.yaml and
-> drivers/phy/samsung/phy-exynos-mipi-video.c.
-> It registers several struct phy in one node, and the binding says:
-
-Please do not bring 15 year old code as example how this should or could
-be done.
-
-And in Samsung - what makes you thinking this is the same phy? It's just
-way how it was represented in PMU, which is controlling power of entire
-SoC, including MIPI PHY0 and PHY1, even though there is only one device
-node in the code. Why taking some random anti-pattern into discussion
-here, really...
-
-I want to see your upstream DTS code.
-
-
-> 
->       For samsung,s5pv210-mipi-video-phy compatible PHYs the second cell in the
->       PHY specifier identifies the PHY and its meaning is as follows::
->         0 - MIPI CSIS 0,
->         1 - MIPI DSIM 0,
->         2 - MIPI CSIS 1,
->         3 - MIPI DSIM 1.
-> 
-> Resuming from the cover letter in v4, I treat this phy as one tx phy and one
-> rx phy. Maybe I can follow this pattern and introduce phy 0 and phy 1 in
-> rockchip,rk3588-mipi-dcphy.yaml, and add an enum for
-> SAMSUNG_MIPI_DCPHY_TX/RX in the driver. The binding would then say:
-
-But why is this one phy? Describe your hardware, show some diagrams from
-user manual etc.
-
-
-> 
->       Two cells select the mode and then one of the two PHYs that the
->       block contains:
->         0 - the transmitter, for a MIPI DSI host
->         1 - the receiver, for a MIPI CSI-2 host
-> 
->       A single cell is equivalent to a second cell of 0.
-> 
-> In this way, I don't need to add PHY_TYPE_CSI/DSI to
-> include/dt-bindings/phy/phy.h.
-> And I think this will not go against the discussion in v2, where Michael pointed
-> out that DSI and CSI are standard protocols and should not be named in
-> a Rockchip
-> specific header, and suggested introducing PHY_TYPE_CSI/DSI:
-> 
->> How is that Rockchip specific? As you state above this is either MIPI
->> CSI or MIPI DSI, two perfectly standard protocols.
+> On 8/27/26 13:45, Krzysztof Kozlowski wrote:
+>> On Fri, Aug 21, 2026 at 08:02:29PM +0800, Jason Yang wrote:
+>>> A MIPI D-PHY or C-PHY can be a transmitter (DSI) or a receiver (CSI),
+>>> and in some PHY blocks both work at the same time. The existing
+>>> PHY_TYPE_DPHY and PHY_TYPE_CPHY cannot tell whether a consumer wants
+>>> the transmitter or the receiver.
 >>
->> @all Would it be reasonable to introduce PHY_TYPE_CSI and PHY_TYPE_DSI?
+>> The consumer knows this already, no? Imagine consumer of the phy is some
+>> ISP receiving data over CSI for given port, thus consumer cannot
+>> transmit over that link.
+>>
+>> All this seems redundant.
 > 
-> https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collabora.com
+> Indeed the consumer should know what to request. For example, the MIPI
+> CSI receivers should request the PHY_TYPE_CSI PHY. But I am not sure why
+> this should be redundant?! Can you elaborate? TBH I don't really
+> understand your remark.
+
+It is redundant, because consumer CANNOT put there anything else than
+CSI type and the topology already defines that. It is basically
+duplicating existing information.
+
+
 > 
+>>> Add PHY_TYPE_DSI and PHY_TYPE_CSI, so that a binding can select both
+>>> D-PHY or C-PHY and transmitter or receiver. They do not replace
+>>> PHY_TYPE_DPHY/PHY_TYPE_CPHY, which remain the right choice where a cell
+>>> selects the mode. The first user is the Rockchip RK3588 MIPI DC-PHY
+>>> binding.
+>>>
+>>> Suggested-by: Michael Riesch <michael.riesch@collabora.com>
+>>> Link: https://lore.kernel.org/r/82da3622-9c3a-454c-87bc-fb4ec7adb68d@collabora.com
+>>> Signed-off-by: Jason Yang <jason98166@gmail.com>
+>>
 >> Where is any DTS using it? I did a search and no results of upstream
 >> posting.
+>>
+>>> ---
+>>>  include/dt-bindings/phy/phy.h | 2 ++
+>>>  1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/include/dt-bindings/phy/phy.h b/include/dt-bindings/phy/phy.h
+>>> index 979b5dfd8353..8ee3f88e6d80 100644
+>>> --- a/include/dt-bindings/phy/phy.h
+>>> +++ b/include/dt-bindings/phy/phy.h
+>>> @@ -24,6 +24,8 @@
+>>>  #define PHY_TYPE_CPHY		11
+>>>  #define PHY_TYPE_USXGMII	12
+>>>  #define PHY_TYPE_XAUI		13
+>>> +#define PHY_TYPE_DSI		14
+>>> +#define PHY_TYPE_CSI		15
+>>
+>> DSI and CSI does not look like types of PHY...
 > 
-> The user will be rk3588-base.dtsi. It adds csi0/1, which connect back
-> to the existing vicap_mipi0/1 ports. It also sets #phy-cells
+> Fair point. AFAIK both CSI and DSI are protocols on top of the physical
+> CPHY and DPHY communication. Maybe we should stick to
+> transmitter/receiver/RX/TX direction/.../something. Would work for me
+> too, my simple request is to *NOT* introduce the same magic for each
+> combo PHY block over and over again, but create something generic.
+> 
+> What about
+> 
+>     #define PHY_DIRECTION_RX	0
+>     #define PHY_DIRECTION_TX	1
+> 
+> or so?
 
-"Will" does not work that much because I doubt correctness of your
-design and that DTS might never be sent upstream.
+Well, I asked for any DTS user of it and I did not get it except
+pointing to irrelevant and completely different 15 year old Samsung chip
+and to some "future" work, so no clue. I still claim that direction is
+obvious from the graph between producer and consumer, thus is redundant,
+but I am happy to be corrected by showing me the code.
 
-Post your complete upstream DTS.
+Talk is cheap.
 
 
 Best regards,
