@@ -1,177 +1,353 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B007749480D
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 11:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436774; cv=none; b=GCtMxpRdN7hrkEwCCUt4GF9ECfRvmpI1mvUBMrWifk49aBYwbeGP+Lbk1fHo/ibpgWMQfzaO0lDTmC9Qu44cmA/v6qXUkYC6dk1QeVzNj4+VK1BWMPdZSEZ5H6cfGwbJhMQDIzqT7CaoSN3ojDwCAn71c+oBsPWZxjUCQgxsh/Y=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436774; c=relaxed/simple;
-	bh=7QmXtZAxTs7eawrjZ02CXScDt87oRJ5G/NUCVI6qPuo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dr4vfcPIKiK2kRAszgLJ0qYdFJMPlIcHI16gIgn3Bd8OPHtVMmUh09+Us0WgGASpJHFsauenHU2Qbhw6cdiFk5VukgkTXQPTCdbWTH0xcFKBuGzD3158/56VlyOsZT65D1AwKpAd/JxDSm7SeHKWTDj2oGYtIed01fOWsDtFXr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gxmLwF5f; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eux9TEup; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F334440A0B;
+	Thu,  3 Sep 2026 12:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788437327; cv=pass; b=ZIQySNTy9E61I96n0Vj9+QuAzRQG+aIoqwgUM+cMxmhCmqI/smAlLp17aILiT3x0TO2hrEjUCQQTC4ckiyicdaEUAqXaXdVjG/6GXMTTcX9njnKOQXyHrrsY53DBbtP25/IFusQpP7Yt/ahpzUl2AX61K88CM5jwF/35Z4aEL98=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788437327; c=relaxed/simple;
+	bh=mrO1iIz8K40Qek3AuIvwYygvK95u6FOPnqisgK9ORro=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HsD2O75BAcW/cOBdF7u/DpOas7WPPlWfWO6Djs63s+D8mL7oiTDTFcWeJC1GFnDkfhzuiSilDoQNYDWxZfBGDT94jdf2eY8eFiwb7eHl3sZ2JWIvKb6Yjy71BIkwvslXTUaPteMb8xwU15qf1SCAaWmH6ZhSVOdSjt3YDXpNDRs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=i7zLglKE; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gxmLwF5f";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eux9TEup"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHApO440123
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 11:59:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	G1Qym9kgY4rq9h5EI/XXBuMVMLgjEotX8kn67PH7ku0=; b=gxmLwF5fBmd8f75u
-	sRW6IU9ZMIG0PRXHPGElLnWFEJo4TKNXOKYuluMo14b/JlCYJvZ8EGGpOza4K1X6
-	sM25jcFk4HFwdTSdvxpaUVE/aj9of/m2Dyum9SXHIaYfjkLNqma7dB5fViCFfYZj
-	h8oTky5qQ9OeDJqrxRi8kYf9L1p5P5Ys25YlnNtDTbcCAsxoQXK2DUVn7Q0seEOo
-	BuIKAf0U/mxQu6sNp11ie2mgSrcPXoe3HwgK5YrtkszLW7bxTkanNEGXpgCNUElU
-	1p3GhJtaSdaA0WnDfBOb6IOsDMbXHyzNMsmpKWcDBXgvGbd1olhWmDMDVCEty64T
-	b28Krw==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf6p70f6j-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 11:59:31 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92eebb130dcso54497585a.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 04:59:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788436771; x=1789041571; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G1Qym9kgY4rq9h5EI/XXBuMVMLgjEotX8kn67PH7ku0=;
-        b=eux9TEupaydYJcau6OXsSY9Hjr9pURAILSGJ7okAOfMZFX3ApfbLc3UL/Yyy5aUUT2
-         ftiZHxCHy3cqr0hZQaFNCgTfzT+BHjHc5QY3BXdqym3Ks0K/o2N1/bBYlo0OH4v7D027
-         ssLYpW4Te+q9v4x1y72gVAV4aLLCRw2EbpQhO5yzz7B6t4czrkYkJd32f+RZ/WdS/c8n
-         /Z/Yjeu8u0pEzp64UePDgXZq5NQMc/tZ4KhKlnJjxzXTTq5ifxUWs78vdnqLB36AwnOD
-         vD3ey9U98wzJnbF6CRSbBZJumWQMZuuB5YZu28LaKXOC6EiliSbuAMI4qDZGJLnEJ85P
-         X1dQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436771; x=1789041571;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=G1Qym9kgY4rq9h5EI/XXBuMVMLgjEotX8kn67PH7ku0=;
-        b=Rav+/otiI3Stpblnj5mNvwy3WHoPeJDwztakhq+/g2/O6CZX8I+ev7RlgA7ZlBMpmw
-         5odPQQ3hFZPhb7OvUTxYb9xn1nNuWFzyod+q6TosYqqxDEBuXGcmH4Cxg0xPGyn7fQVz
-         nvfiJz5H52zmagVyfnAqs7n7nH/XG/q3Ww4Vbj3Pvih6C4puy2PEAh9heOg/sIR+QFfZ
-         //VRQNZDTqMR0q9j1uew3a/PSMeJVffcLIM0hhSR15rFEBaKfGDJjB8BzD00o7ttGfyP
-         O6xLZo1s+jqWz8W326RpVDPZrsrAi4w42f8+40X8LJ/mjyyD6FD26YzstSVdTh4qHVTD
-         DxAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxzV2bmwpghSJvTZpx0HlRNtYuoji6SL2AsPKJK0bneAFGFaAbshE0JbCA8305Ckqh2EvsYLbnPQTG@vger.kernel.org
-X-Gm-Message-State: AFuF++k7IJPUVPvrJkESzxCRLy0pq/6Jz+CefDuqCim2TXfhgTxkl1Ca
-	xR2GEHDOnlVUXOzeLw123pnyCh30QX5Dy9Q1yGYDf7O/Kt1cPoneq3PB/eJADg7U7EurjG0VJsq
-	RWRMnHPqJ1rXFBkqVN9cnWTZu9bIhktxlLFlOCP9+LPQOVLtLINz5O6g98UofgV/t
-X-Gm-Gg: AYBFou1q4ALzv58lQ9WnXrqemAFUyiUbuHq06xF1izGVqEBgZxPWIrTImror3nFZh+c
-	ZIZ4saYhjJCNH/zrqkmik0uXamq/Vj3cXaAIAKtdZsdmFYR6qiyrR+SCz0FWi2j4NOxOcrqGHzm
-	GvgkgCVp/z/XxQ5+yXZIFfiqyMK7CxvL3pVpkEQEE86tJtR/G6fnmjZ0Eg2UuRo2AwrIrvCmNFV
-	O3hXBYrfyyLW31qUIjjhvRTYAG0vUmHAS285BZ1P/aM/20gDEgCUlXhNBkAV+j8u3v7YSOf3Y75
-	iaUDIB1316730MGV0UIrtWQmcj+tN8RjUYFkVuJsMlA2CaGRCmCMsbxA2HnfCnRfxhmKza9Yfvh
-	fcWd26Qv+B99wuqj/q40fCA==
-X-Received: by 2002:a05:620a:6492:b0:937:6f83:e80f with SMTP id af79cd13be357-93960cd1505mr798651385a.1.1788436770809;
-        Thu, 03 Sep 2026 04:59:30 -0700 (PDT)
-X-Received: by 2002:a05:620a:6492:b0:937:6f83:e80f with SMTP id af79cd13be357-93960cd1505mr798646085a.1.1788436770236;
-        Thu, 03 Sep 2026 04:59:30 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25f42307e6sm88905266b.55.2026.09.03.04.59.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 04:59:29 -0700 (PDT)
-Message-ID: <e5509cfb-0b97-414a-98b2-c030758f9899@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 13:59:26 +0200
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="i7zLglKE"
+ARC-Seal: i=1; a=rsa-sha256; t=1788437276; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=UOqXUjksauaCF6j0R2WvQGx7W7ct+pOGuB7xfJWI66RWvgqGBovfoP+kY4t9s+SH9mCMM9/cXFYWNPdIhQqK2iKkAIwecmv7I/3pK+7dPJNb1yGfOXnwcfjSbBHg73HIzk1pa5dL0vKwa/Lh9G53Bg6TiUIKjDRf046YFW2tN8o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788437276; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=RJgIA2x6iwR3vu3rMv+chG5TvTVx8Bb5vQhtPq96FMU=; 
+	b=Cpx3fJTxmt/9BXiesVlQnNyKgX+2+JvqI4arZ0SEPUSgp+tEecPdWC+cOV+TDhZ8W1zQgjqahckbB+4yJarPi6t0b3b59JLuqtq/Sey4UAEVJ+N8SyssY6dJb3f0dbDTqxdbkETCADP6DU0qVrKrwu2vjYlQ/eNp4gxAHQKWFcA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788437276;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=RJgIA2x6iwR3vu3rMv+chG5TvTVx8Bb5vQhtPq96FMU=;
+	b=i7zLglKEVY7pNBWONkcosdNW3xTVTY80NNc0MyThCD612ifHLfShJ65cR8lTDK+d
+	yOF0t2u7N5U6qMf/3slzaROi2bOH+8oDZkgA6SNFhwpOebLhrj8HGjax+NEmswq59NM
+	3a27a0pwykeN6WQMcLLlSDKJLLkS4WjqCCGcREnDOWm7I6vcHl9Mtucspnoq+Zi34vM
+	ECsqq7V1ZYg3mSI/bJPIAo7moAWlEUO5LGbPNuKXskKj/QP4rlJiuodGxeAMKFu3ABk
+	UHQmB742mtntNXuc4JSMZRHoi/Je5bKp52TiXHSxAQoMiabCq6EGSBBy4gOEz29bp4W
+	WzYhWUzDXQ==
+Received: by mx.zohomail.com with SMTPS id 1788437273594422.63839805930354;
+	Thu, 3 Sep 2026 05:07:53 -0700 (PDT)
+Message-ID: <e492222feabaa5c72229c93ce75f9500e4346da1.camel@icenowy.me>
+Subject: Re: [PATCH v2 11/17] drm/spacemit: add Saturn DPU DRM device driver
+From: Icenowy Zheng <uwu@icenowy.me>
+To: codykang.hk@gmail.com, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann
+ <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Yixun Lan	
+ <dlan@kernel.org>, Vinod Koul <vkoul@kernel.org>, Neil Armstrong	
+ <neil.armstrong@linaro.org>, Haylen Chu <heylenay@4d2.org>, Michael
+ Turquette	 <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney	 <bmasney@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley	 <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou	 <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Yao Zi
+ <me@ziyao.cc>,  Uwe =?ISO-8859-1?Q?Kleine-K=F6nig?=	
+ <u.kleine-koenig@baylibre.com>, Guodong Xu <docular.xu@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org, 
+	devicetree@vger.kernel.org, spacemit@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, 
+	linux-clk@vger.kernel.org
+Date: Thu, 03 Sep 2026 20:07:32 +0800
+In-Reply-To: <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+References: <20260809-k3-display-v2-0-327d7910bf71@gmail.com>
+	 <20260809-k3-display-v2-11-327d7910bf71@gmail.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/12] clk: qcom: ipq-cmn-pll: Add clock gate support
- for fixed clocks
-To: Luo Jie <jie.luo@oss.qualcomm.com>,
-        Bjorn Andersson
- <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
-        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
-References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
- <20260814-qcom_ipq5210_cmnpll-v3-9-21c3db378611@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260814-qcom_ipq5210_cmnpll-v3-9-21c3db378611@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: 5vYKJVJ0JH5TOz9FtlOlbt2bUm21pNvF
-X-Proofpoint-ORIG-GUID: 5vYKJVJ0JH5TOz9FtlOlbt2bUm21pNvF
-X-Authority-Analysis: v=2.4 cv=OZyoyBTY c=1 sm=1 tr=0 ts=6a996123 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=lXqaDxtV36Dhfzo6gJMA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfX0CGQPHPDaWYk
- AXJ+BkKZBIEsikJ1Lqim47vMRjiHPBpRELR3jbpwv15sqj623ZB25ZzfTgw8cXCtk8qMCdPF0rA
- GrK8hLKE7/MWLR7r2gSV1ApjipHUflU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEwNCBTYWx0ZWRfX5QxpGGf7pK7n
- UBAj3Is08BASlmojUUEG6cbWll816ClYkMIX0QvwR74aO17eYJilYEYAYwEzqI2uWMjDgorsyQ/
- YeJbCBjFiJZOZ4Db5vnEDRHsFxuyv6CAxI7C5Nyo+1BkkpBwv201euLIFslTjUpSFtm5uU8BOXp
- MdyOuhtX8RX7K5tHfCskvPaov3WPrPSQenCdxIQwaAPLI/ViGoV1iyHO4NnoRHNS7QRe4VJJYIm
- F7wLA/Y8APWxlqauf0efp2XUQ5Lj4bgxAcQ08FFEJjRPN3hbF2XZAs1LpksCpNQGKEu3Vtp5a3D
- UflxkqmdVVCXp5yySuej2jFrUqtA0L7jSKQ1MDvEu1v5K36sE5rdGxyuQPAvpR3mWAcEXoqzoxS
- dKRf0D06rtq6vJA5+7iNoB0mPKpYWKwlm7B6SVGoY0YPb8cSL1Xx7zoirzcWL80fKxe0NS7zQ67
- RvkErs5GMEaFmzXp+JA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 priorityscore=1501 bulkscore=0
- suspectscore=0 impostorscore=0 clxscore=1015 malwarescore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030104
+X-ZohoMailClient: External
 
-On 8/14/26 2:48 PM, Luo Jie wrote:
-> Some CMN PLL output clocks require a hardware gate in addition to a
-> fixed rate. The gate control bits reside in the register
-> CMN_PLL_OUTPUT_RELATED_1 (0x79c). Each such clock is registered via a
-> new struct clk_fixed_gate and clk_fixed_gate_ops, combining a fixed
-> rate with enable/disable/is_enabled gate control through the shared
-> regmap for CMN_PLL_OUTPUT_RELATED_1.
-
-[...]
-
-> +static int clk_fixed_gate_enable(struct clk_hw *hw)
-> +{
-> +	struct clk_fixed_gate *gate_clk = to_clk_fixed_gate(hw);
+=E5=9C=A8 2026-08-09=E6=97=A5=E7=9A=84 21:14 +0800=EF=BC=8CCody Kang via B4=
+ Relay=E5=86=99=E9=81=93=EF=BC=9A
+> From: Cody Kang <codykang.hk@gmail.com>
+>=20
+> Add the DRM device for the SpacemiT K3 Saturn display processing unit
+> and hook the driver up to the build. The SoC has two DPU instances;
+> each drives one CRTC that scans out a single primary plane in linear
+> RGB at up to 3840x2160@60 and feeds a downstream DP/eDP controller
+> over an OF-graph endpoint. Buffers use drm_gem_shmem_helper. The
+> AFBC/compressed decode path is not exposed and writeback is not
+> implemented.
+>=20
+> Signed-off-by: Cody Kang <codykang.hk@gmail.com>
+>=20
+> ---
+> v2:
+> - check for an ERR_PTR component match before
+> =C2=A0 component_master_add_with_match() (Sashiko)
+> - add a comment explaining why commit_tail waits for flip_done before
+> =C2=A0 commit_hw_done (Sashiko)
+> ---
+> =C2=A0drivers/gpu/drm/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=C2=A0 1 +
+> =C2=A0drivers/gpu/drm/spacemit/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 |=C2=A0 18 ++++
+> =C2=A0drivers/gpu/drm/spacemit/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0 |=C2=A0 12 +++
+> =C2=A0drivers/gpu/drm/spacemit/spacemit_drm.c | 140
+> ++++++++++++++++++++++++++++++++
+> =C2=A05 files changed, 172 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/Kconfig b/drivers/gpu/drm/Kconfig
+> index 323422861e8f6..81081562a6da2 100644
+> --- a/drivers/gpu/drm/Kconfig
+> +++ b/drivers/gpu/drm/Kconfig
+> @@ -341,6 +341,7 @@ source "drivers/gpu/drm/renesas/Kconfig"
+> =C2=A0source "drivers/gpu/drm/rockchip/Kconfig"
+> =C2=A0source "drivers/gpu/drm/sitronix/Kconfig"
+> =C2=A0source "drivers/gpu/drm/solomon/Kconfig"
+> +source "drivers/gpu/drm/spacemit/Kconfig"
+> =C2=A0source "drivers/gpu/drm/sprd/Kconfig"
+> =C2=A0source "drivers/gpu/drm/sti/Kconfig"
+> =C2=A0source "drivers/gpu/drm/stm/Kconfig"
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index e97faabcd7830..4a105520ee912 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -204,6 +204,7 @@ obj-$(CONFIG_DRM_MSM) +=3D msm/
+> =C2=A0obj-$(CONFIG_DRM_TEGRA) +=3D tegra/
+> =C2=A0obj-$(CONFIG_DRM_STM) +=3D stm/
+> =C2=A0obj-$(CONFIG_DRM_STI) +=3D sti/
+> +obj-$(CONFIG_DRM_SPACEMIT) +=3D spacemit/
+> =C2=A0obj-y=C2=A0			+=3D imx/
+> =C2=A0obj-$(CONFIG_DRM_INGENIC) +=3D ingenic/
+> =C2=A0obj-$(CONFIG_DRM_LOGICVC) +=3D logicvc/
+> diff --git a/drivers/gpu/drm/spacemit/Kconfig
+> b/drivers/gpu/drm/spacemit/Kconfig
+> new file mode 100644
+> index 0000000000000..51e38dabfdba5
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/Kconfig
+> @@ -0,0 +1,18 @@
+> +# SPDX-License-Identifier: GPL-2.0
 > +
-> +	return regmap_set_bits(gate_clk->regmap, CMN_PLL_OUTPUT_RELATED_1,
-> +			       BIT(gate_clk->enable_bit));
+> +config DRM_SPACEMIT
+> +	tristate "DRM support for SpacemiT display controllers"
+> +	depends on DRM && OF && MMU
+> +	depends on ARCH_SPACEMIT || COMPILE_TEST
+> +	select DRM_CLIENT_SELECTION
+> +	select DRM_KMS_HELPER
+> +	select DRM_GEM_SHMEM_HELPER
+> +	select REGMAP_MMIO
+> +	select VIDEOMODE_HELPERS
+> +	help
+> +	=C2=A0 Choose this option if you have a SpacemiT SoC with the
+> Saturn
+> +	=C2=A0 display processing unit, such as the K3. The DPU scans out
+> +	=C2=A0 framebuffers through its private display MMU and feeds a
+> +	=C2=A0 DisplayPort or embedded DisplayPort controller.
+> +
+> +	=C2=A0 If M is selected the module will be called spacemit-drm.
+> diff --git a/drivers/gpu/drm/spacemit/Makefile
+> b/drivers/gpu/drm/spacemit/Makefile
+> new file mode 100644
+> index 0000000000000..b3b148000cf7b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/Makefile
+> @@ -0,0 +1,12 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +
+> +spacemit-drm-y :=3D spacemit_drm.o \
+> +		=C2=A0 spacemit_crtc.o \
+> +		=C2=A0 spacemit_cmdlist.o \
+> +		=C2=A0 spacemit_planes.o \
+> +		=C2=A0 spacemit_dmmu.o \
+> +		=C2=A0 dpu/dpu_saturn.o \
+> +		=C2=A0 dpu/dpu_saturn_hee.o \
+> +		=C2=A0 dpu/saturn_fbcmem.o
+> +
+> +obj-$(CONFIG_DRM_SPACEMIT) +=3D spacemit-drm.o
+> diff --git a/drivers/gpu/drm/spacemit/spacemit_drm.c
+> b/drivers/gpu/drm/spacemit/spacemit_drm.c
+> new file mode 100644
+> index 0000000000000..12b2fe8b6fc99
+> --- /dev/null
+> +++ b/drivers/gpu/drm/spacemit/spacemit_drm.c
+> @@ -0,0 +1,140 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) 2025-2026 SpacemiT Co., Ltd.
+> + *
+> + */
+> +
+> +#include <drm/drm_atomic_helper.h>
+> +#include <drm/drm_framebuffer.h>
+> +#include <drm/drm_gem_framebuffer_helper.h>
+> +#include <drm/drm_gem_shmem_helper.h>
+> +#include <drm/drm_of.h>
+> +#include <drm/drm_fbdev_shmem.h>
+> +#include <linux/component.h>
+> +#include <linux/of_graph.h>
+> +
+> +#include "spacemit_drm.h"
+> +#include "spacemit_crtc.h"
+> +
+> +#define DRIVER_NAME	"spacemit"
+> +#define DRIVER_DESC	"SpacemiT SoC DRM driver"
+> +#define DRIVER_MAJOR	1
+> +#define DRIVER_MINOR	0
+> +
+> +static void spacemit_drm_atomic_commit_tail(struct drm_atomic_commit
+> *old_state)
+> +{
+> +	struct drm_device *dev =3D old_state->dev;
+> +
+> +	drm_atomic_helper_commit_modeset_disables(dev, old_state);
+> +
+> +	drm_atomic_helper_commit_modeset_enables(dev, old_state);
+> +
+> +	drm_atomic_helper_commit_planes(dev, old_state,
+> +					DRM_PLANE_COMMIT_ACTIVE_ONLY
+> );
+> +
+> +	/*
+> +	 * Flip first, hw_done second: the cmdlist engine reads the
+> old
+> +	 * state's DMA buffers until the frame boundary, and hw_done
+> both
+> +	 * releases the next commit to start programming and lets
+> the old
+> +	 * state (with those buffers) be torn down.
+> +	 */
+> +	drm_atomic_helper_wait_for_flip_done(dev, old_state);
+> +
+> +	drm_atomic_helper_commit_hw_done(old_state);
+> +
+> +	drm_atomic_helper_cleanup_planes(dev, old_state);
 > +}
 > +
-> +static void clk_fixed_gate_disable(struct clk_hw *hw)
-> +{
-> +	struct clk_fixed_gate *gate_clk = to_clk_fixed_gate(hw);
+> +static const struct drm_mode_config_helper_funcs
+> spacemit_drm_mode_config_helper =3D {
+> +	.atomic_commit_tail =3D spacemit_drm_atomic_commit_tail,
+> +};
 > +
-> +	regmap_clear_bits(gate_clk->regmap, CMN_PLL_OUTPUT_RELATED_1,
-> +			  BIT(gate_clk->enable_bit));
+> +static const struct drm_mode_config_funcs
+> spacemit_drm_mode_config_funcs =3D {
+> +	.fb_create =3D drm_gem_fb_create,
+> +	.atomic_check =3D drm_atomic_helper_check,
+> +	.atomic_commit =3D drm_atomic_helper_commit,
+> +};
+> +
+> +int spacemit_drm_mode_config_init(struct drm_device *drm)
+> +{
+> +	int ret;
+> +
+> +	ret =3D drmm_mode_config_init(drm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	drm->mode_config.min_width =3D 1;
+> +	drm->mode_config.min_height =3D 1;
+> +	/* K3 user manual: each DPU scans out at most 3840x2160@60
+> */
+> +	drm->mode_config.max_width =3D 3840;
+> +	drm->mode_config.max_height =3D 2160;
+
+This is for the biggest possible framebuffer instead of the possible
+scanout pixel count.
+
+The width here should be based on the maximum allowed pitch of the
+display controller instead of the single-GPU maximum size, otherwise it
+won't be able to drive two 3840x2160 screens in a side-by-side
+configuration because this will create a 7680x2160 framebuffer.
+
+Thanks,
+Icenowy
+
+> +
+> +	drm->mode_config.funcs =3D &spacemit_drm_mode_config_funcs;
+> +	drm->mode_config.helper_private =3D
+> &spacemit_drm_mode_config_helper;
+> +
+> +	return 0;
 > +}
 > +
-> +static int clk_fixed_gate_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct clk_fixed_gate *gate_clk = to_clk_fixed_gate(hw);
+> +DEFINE_DRM_GEM_FOPS(spacemit_drm_fops);
 > +
-> +	return regmap_test_bits(gate_clk->regmap, CMN_PLL_OUTPUT_RELATED_1,
-> +				BIT(gate_clk->enable_bit));
+> +struct drm_driver spacemit_drm_drv =3D {
+> +	.driver_features =3D DRIVER_GEM | DRIVER_MODESET |
+> DRIVER_ATOMIC,
+> +	.fops =3D &spacemit_drm_fops,
+> +
+> +	DRM_GEM_SHMEM_DRIVER_OPS,
+> +	DRM_FBDEV_SHMEM_DRIVER_OPS,
+> +
+> +	.name		=3D DRIVER_NAME,
+> +	.desc		=3D DRIVER_DESC,
+> +	.major		=3D DRIVER_MAJOR,
+> +	.minor		=3D DRIVER_MINOR,
+> +};
+> +
+> +static int compare_of(struct device *dev, void *data)
+> +{
+> +	return dev->of_node =3D=3D data;
 > +}
-
-This is also all just clk_regmap / clk_branch
-
-Konrad
+> +
+> +int spacemit_drm_of_component_probe(struct device *dev)
+> +{
+> +	struct device_node *ports, *port, *ep;
+> +	struct device_node *remote;
+> +	struct component_match *match =3D NULL;
+> +
+> +	if (!dev->of_node)
+> +		return -EINVAL;
+> +
+> +	/* The DPU is the drm root: its OF graph names the DP/eDP
+> components. */
+> +	ports =3D of_get_child_by_name(dev->of_node, "ports");
+> +	if (!ports) {
+> +		dev_err(dev, "missing 'ports' child node\n");
+> +		return -EINVAL;
+> +	}
+> +
+> +	for_each_child_of_node(ports, port) {
+> +		if (!of_node_name_eq(port, "port"))
+> +			continue;
+> +		for_each_child_of_node(port, ep) {
+> +			if (!of_node_name_eq(ep, "endpoint"))
+> +				continue;
+> +			remote =3D
+> of_graph_get_remote_port_parent(ep);
+> +			if (!remote)
+> +				continue;
+> +			if (of_device_is_available(remote))
+> +				drm_of_component_match_add(dev,
+> &match,
+> +							=C2=A0=C2=A0
+> compare_of, remote);
+> +			of_node_put(remote);
+> +		}
+> +	}
+> +	of_node_put(ports);
+> +
+> +	if (!match) {
+> +		dev_err(dev, "no downstream component available\n");
+> +		return -ENODEV;
+> +	}
+> +	if (IS_ERR(match))
+> +		return PTR_ERR(match);
+> +
+> +	return component_master_add_with_match(dev,
+> &spacemit_drm_master_ops,
+> +					=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 match);
+> +}
