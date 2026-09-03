@@ -1,236 +1,210 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E10647F2C6;
-	Thu,  3 Sep 2026 10:11:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1761847F2D6;
+	Thu,  3 Sep 2026 10:12:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430309; cv=none; b=pGc+vw48EOuWxf65pri+VhGcc8qiTW97Dk5i4KJXm/X/+o+9yo2bxSbXsILboOkcj17ye4Xpin5s+9WueoE9A8GOOva99jAH9oDYVHvr0zuXQ5cNuw7WgEWoljlwgVQDy0qhpIFtlF8hNuztDtnpQhOu86PFW7OMpijJPByiQX4=
+	t=1788430326; cv=none; b=FdV2lOL6U8wXFwGrXZ+qY3fuRd7f3Xn3fP2S6wIhZ6V7w+cVu50aLrEhj6Bx+2twZ9I7rvvb+rgT/m5T53/DK1kYUalE8SnVjXYVITWmiX4vk3eleQl19BUhN/4Sm4j6dDiMNQJjBFFvimtnMQjGcUEgKl+67LSeJOiwUsB9DME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430309; c=relaxed/simple;
-	bh=n7swSSZsXkwQXXf3FTOofI0ze2+k05EVbwqIIR6pqc0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Bg+gRYjrVkJVTHvru41HyRPJPs0sGM2K+pNUfkKhDZvNDjFPmIrLBbgG+YO+pxwr6PgoAMHL0vPPmEoSTAEySM1es/PpGtPMnK12hZTs8uZrGaqIhhI3HBI0z8+izbAgbnECZclFnzj08LT8eIdu4R2ki8lkg8S9HxmN7AwR4mM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=hI/eXiUN; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1788430326; c=relaxed/simple;
+	bh=fEYMGsvJWJBa3n7iqlAGfU4k0c7yVYLaR3NvNMIrQAc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FCbVu2j4TjThzUbNPWG49LJBr5UQrdX7e653Gaz3DfJ4S80J7f8fJdvO/Iay0cWDDBqxW1rkw1GiXXaPq6aTeJ9JBDARQPTzWS5wGV/wHVf5OFy3CQLnnYZTWeQzcRSR1z2c32qh2joXtNRgN2hJveQl6wOj6nLlVzDX1gkewWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=XhOocVH9; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="hI/eXiUN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=ndHxkiz4Sw6RUcCan70ObV/pml1LJpVQN+b/i+zeJHo=; b=hI/eXiUNRA9aeMQUV6E5oOPM6k
-	i51i0cVA+1viGBhLr7CqyHzLtNs7QvkUAvl3ixoRsAPDZB5MO3CljPEUaxb6ssh8d8qS/gUpjGA7y
-	zjMmqd809mnD8yU5dkRzVVVC8DeGxj9gL/pSPjl3nwYbbs8tHHLc72O6H1s97j1nFsosgxvsTJH43
-	+Qf+osGcVNID88T6fAgeq9VTc5pmkaeyYqzN/auw2SQYk5W5kFB1kNXJsEZp0yEEjjRzU9WycQ3C4
-	sDE5dAtRfSPm+9e0+jPas8vgNq8vcZiajErKSe/0mLbtwnq3/NQgG4I8rZdjTzX6aZeBi4QuRoEfi
-	NVxDq5kQ==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x24Py-000NXW-1m;
-	Thu, 03 Sep 2026 12:11:38 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x24Py-000NxF-01;
-	Thu, 03 Sep 2026 12:11:38 +0200
-Message-ID: <090650a9be0df463b3d8ea49932cafa45c72c26c.camel@ew.tq-group.com>
-Subject: Re: [PATCH 1/2] ARM: dts: imx7-tqma7: correctly specify PMIC
- voltage constraints
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team
-	 <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Rob Herring
-	 <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	 <conor+dt@kernel.org>, linux@ew.tq-group.com, devicetree@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Thu, 03 Sep 2026 12:11:36 +0200
-In-Reply-To: <aphKnnReHQed9ahY@SMW015318>
-References: 
-	<9a916f24b610cc60e0efd13296f281e00b41391e.1788335665.git.nora.schiffer@ew.tq-group.com>
-	 <aphKnnReHQed9ahY@SMW015318>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="XhOocVH9"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8AF0D1596;
+	Thu,  3 Sep 2026 03:11:58 -0700 (PDT)
+Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4C29E3F673;
+	Thu,  3 Sep 2026 03:11:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788430322; bh=fEYMGsvJWJBa3n7iqlAGfU4k0c7yVYLaR3NvNMIrQAc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=XhOocVH9p5q/yKTJ31cE2iwnTkO7l23lA/UrdoxJvm3yGRToLj2JOKIDm44oH4/uW
+	 0LMxOEgssfPu2wluW9CeAMsSDcp77MlmGaWgD+y70mU6sOz4PZ3c92af/GGFMfacQx
+	 fiNiHTwoYPpeMZtzhJn+5YzMQekLxmHR1MdOZ7f0=
+Message-ID: <8f0c4f14-d0fd-4b57-a080-7011fbc54be0@arm.com>
+Date: Thu, 3 Sep 2026 11:11:57 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28112/Thu Sep  3 08:22:22 2026)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 00/15] arm-mpam: Add basic device tree support for
+ resctrl
+To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
+ Bjorn Andersson <andersson@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+ driver-core@lists.linux.dev, Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+Content-Language: en-US
+From: Ben Horgan <ben.horgan@arm.com>
+In-Reply-To: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2026-09-02 at 11:11 -0500, Frank Li wrote:
-> On Wed, Sep 02, 2026 at 10:05:37AM +0200, Nora Schiffer wrote:
-> > regulator-(min|max)-microvolt refer to the supported voltages according
-> > to board design, not the possible range of the regulators themselves.
->=20
-> I think make sense, but any document or mail list can be refer to?
->=20
-> Frank
+Hi Yin,
 
-Hi Frank,
+On 11/08/2026 14:30, Yin Li wrote:
+> Notes for James, Shanker and Rob
+> --------------------------------
+> This series builds directly on your not-yet-upstream MPAM snapshot
+> patches from the mpam/snapshot+extras/v6.18-rc1 branch. Two things I'd
+> like your guidance on:
+> 
+> 1. Do you mind us picking these up and continuing to extend them? We have
+>    kept the original authorship and Signed-off-by intact and documented
+>    the inherited-vs-new split below. If you would prefer a different
+>    attribution arrangement, or have your own plans to upstream MPAM DT
+>    support, please let us know so we can avoid duplicating effort.
+> > 2. The fixes to the inherited patches are kept as small, self-contained
+>    patches on top, purely to make review easier. Since fixes to
+>    not-yet-upstream patches would normally be squashed into the original
+>    commit by its author, please point out which of these you would like
+>    folded back, and we will reorganize accordingly.
 
-I've occasionally seen this being mentioned in reviews like [1] when the
-regulator-min/max was used incorrectly. The binding docs [2] say:
+Yes, MPAM DT support would be good but does rely on the DT maintainers having sufficient evidence of
+platforms that would benefit from it. Folding fixes into the patches is the way to go, you can use
+square brackets, e.g. [li: <what you changed>], in the trailers to make the differences clear. This
+way we avoid having commits with known bugs.
 
-  regulator-min-microvolt:
-    description: smallest voltage consumers may set
+Thanks,
 
-  regulator-max-microvolt:
-    description: largest voltage consumers may set
+Ben
 
-which is not as clear as I would like... Right now I don't have a source th=
-at
-feels definitive enough to include it in the commit description.
+> 
+> Rob kindly provided some early off-list feedback on an earlier draft,
+> which this series has tried to address.
+> 
+> Add Arm MPAM resctrl basic device tree support.
+> 
+> Arm Memory System Resource Partitioning and Monitoring (MPAM) with
+> resctrl requires device tree (DT) support as a prerequisite before any
+> higher-level functionality can be enabled. This series provides the
+> foundational DT binding and parsing support for MPAM, laying the
+> groundwork for subsequent features such as MPAM Firmware-backed
+> (MPAM-FB) partitioning.
+> 
+> The patches are based on earlier work by James Morse, Shanker
+> Donthineni and Rob Herring, with fixes and additions on top:
+> 
+> Inherited (authorship preserved, with fixes noted in each patch):
+> - dt-bindings: MPAM MSC binding [1]
+> - cacheinfo: expose cache-id generation from a device_node [2]
+> - arm_mpam: device tree support for MSC probing [3]
+> - arm_mpam: memory controller MSC support on DT platforms [4]
+> 
+> New on top:
+> - standalone fixes extracted from the inherited patches (device_node
+>   refcount, cache-id sentinel/type, RIS index range checks, MSC window
+>   size, accessibility return type, foundling MSC creation, cache-id
+>   error path)
+> - dt-bindings: schema and example fixes
+> - arm_mpam: derive MSC accessibility from per-RIS nodes as a fallback
+> 
+> [1] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=b38bed339681
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=2af39084438c
+> [3] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=a6ab8b6c77cb
+> [4] https://git.kernel.org/pub/scm/linux/kernel/git/morse/linux.git/commit/?h=mpam/snapshot+extras/v6.18-rc1&id=c1be40782ace
+> 
+> DT affinity model
+> -----------------
+> An MSC node is nested under the device it partitions or monitors. For a
+> cache MSC this is the cache node, so the MSC's CPU affinity is derived
+> from its parent cache; for a memory-controller MSC the parent is the
+> memory device, which is accessible from all CPUs. A per-RIS fallback is
+> also provided: when an MSC sits under a generic container with no
+> affinity-bearing parent, affinity is resolved from an explicit 'cpus'
+> phandle or an 'arm,mpam-device' phandle on each RIS node.
+> 
+> The Kaanapali DTS patch is for local enabling and verification only and
+> cannot be upstreamed: the platform is already upstream with a public
+> device tree, and production firmware does not allow the OS to write the
+> MSC registers, so this path only works on a local test setup. The MSC
+> nodes are disabled by default, serving as a reference example for other
+> platform DT authors.
+> 
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> ---
+> To: James Morse <james.morse@arm.com>
+> To: Rob Herring <robh@kernel.org>
+> To: Shanker Donthineni <sdonthineni@nvidia.com>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Ben Horgan <ben.horgan@arm.com>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> To: "Rafael J. Wysocki" <rafael@kernel.org>
+> To: Danilo Krummrich <dakr@kernel.org>
+> To: Reinette Chatre <reinette.chatre@intel.com>
+> To: Fenghua Yu <fenghuay@nvidia.com>
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Konrad Dybcio <konradybcio@kernel.org>
+> Cc: trilok.soni@oss.qualcomm.com
+> Cc: aiqun.yu@oss.qualcomm.com
+> Cc: ganapatrao.kulkarni@oss.qualcomm.com
+> Cc: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: driver-core@lists.linux.dev
+> Cc: devicetree@vger.kernel.org
+> Cc: trilok.soni@oss.qualcomm.com
+> Cc: aiqun.yu@oss.qualcomm.com
+> Cc: ganapatrao.kulkarni@oss.qualcomm.com
+> Cc: Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>
+> 
+> ---
+> James Morse (2):
+>       cacheinfo: Expose the code to generate a cache-id from a device_node
+>       arm_mpam: Add device tree support for MSC probing
+> 
+> Rob Herring (1):
+>       dt-bindings: arm: Add MPAM MSC binding
+> 
+> Shanker Donthineni (1):
+>       arm_mpam: Add support for memory controller MSC on DT platforms
+> 
+> Yin Li (11):
+>       arm_mpam: Fix device_node refcount in DT resource parsing
+>       arm_mpam: Fix cache ID sentinel from ~0UL to U32_MAX to match u32 return type
+>       arm_mpam: Fix the RIS index range check in mpam_ris_create_locked
+>       arm_mpam: Fix ris_idx type to prevent range check bypass on truncation
+>       arm_mpam: Fix MSC MMIO window size to use resource_size() instead of end - start
+>       arm_mpam: Fix update_msc_accessibility() return type to void
+>       arm_mpam: Fix mpam_dt_create_foundling_msc() to create MSC platform devices
+>       arm_mpam: Fix get_cpumask_from_cache() to clear mask on error
+>       dt-bindings: arm: Fix MPAM MSC binding schema and examples
+>       arm_mpam: Support MSC accessibility derivation from RIS nodes
+>       [DNM] arm64: dts: qcom: kaanapali: Add MPAM MSC nodes for the L2 caches
+> 
+>  .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 202 +++++++++++
+>  arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  50 ++-
+>  drivers/base/cacheinfo.c                           |  19 +-
+>  drivers/resctrl/mpam_devices.c                     | 401 +++++++++++++++++++--
+>  drivers/resctrl/mpam_internal.h                    |   2 +-
+>  include/linux/arm_mpam.h                           |   4 +-
+>  include/linux/cacheinfo.h                          |   3 +
+>  7 files changed, 638 insertions(+), 43 deletions(-)
+> ---
+> base-commit: 3d08ff75a47a3e7e2ab45a3bcab6723b4d906422
+> change-id: 20260731-mpam-resctrl-dt-knp-support-c15dcc3a4a98
+> 
+> Best regards,
+> --  
+> Yin Li <yin.li@oss.qualcomm.com>
+> 
 
-Best,
-Nora
-
-
-[1] https://lore.kernel.org/all/7b23de30-06e3-4f02-a8a5-90791628ceed@gmail.=
-com/
-[2]
-https://www.kernel.org/doc/Documentation/devicetree/bindings/regulator/regu=
-lator.yaml
-
-
->=20
-> > Update the configuration for the TQMa7x's PMIC and also add a comment
-> > regarding the PMIC's VCC_SD switching feature.
-> >=20
-> > Fixes: a80a1af6ec8a ("ARM: dts: tq imx7 common board support")
-> > Signed-off-by: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> > ---
-> >  arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi | 40 +++++++++++++----------
-> >  1 file changed, 23 insertions(+), 17 deletions(-)
-> >=20
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi b/arch/arm/boot/=
-dts/nxp/imx/imx7-tqma7.dtsi
-> > index e1f740edfb763..7f49c80fef4c6 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx7-tqma7.dtsi
-> > @@ -46,8 +46,8 @@ pfuze3000: pmic@8 {
-> >=20
-> >  		regulators {
-> >  			sw1a_reg: sw1a {
-> > -				regulator-min-microvolt =3D <700000>;
-> > -				regulator-max-microvolt =3D <3300000>;
-> > +				regulator-min-microvolt =3D <1000000>;
-> > +				regulator-max-microvolt =3D <1225000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  				regulator-ramp-delay =3D <6250>;
-> > @@ -55,34 +55,33 @@ sw1a_reg: sw1a {
-> >=20
-> >  			/* use sw1c_reg to align with pfuze100/pfuze200 */
-> >  			sw1c_reg: sw1b {
-> > -				regulator-min-microvolt =3D <700000>;
-> > -				regulator-max-microvolt =3D <1475000>;
-> > +				regulator-min-microvolt =3D <1000000>;
-> > +				regulator-max-microvolt =3D <1000000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  				regulator-ramp-delay =3D <6250>;
-> >  			};
-> >=20
-> >  			sw2_reg: sw2 {
-> > -				regulator-min-microvolt =3D <1500000>;
-> > -				regulator-max-microvolt =3D <1850000>;
-> > +				regulator-min-microvolt =3D <1800000>;
-> > +				regulator-max-microvolt =3D <1800000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			sw3a_reg: sw3 {
-> > -				regulator-min-microvolt =3D <900000>;
-> > -				regulator-max-microvolt =3D <1650000>;
-> > +				regulator-min-microvolt =3D <1350000>;
-> > +				regulator-max-microvolt =3D <1350000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			swbst_reg: swbst {
-> > -				regulator-min-microvolt =3D <5000000>;
-> > -				regulator-max-microvolt =3D <5150000>;
-> > +				/* Not connected and left unconfigured */
-> >  			};
-> >=20
-> >  			snvs_reg: vsnvs {
-> > -				regulator-min-microvolt =3D <1000000>;
-> > +				regulator-min-microvolt =3D <3000000>;
-> >  				regulator-max-microvolt =3D <3000000>;
-> >  				regulator-boot-on;
-> >  				regulator-always-on;
-> > @@ -95,18 +94,25 @@ vref_reg: vrefddr {
-> >=20
-> >  			vgen1_reg: vldo1 {
-> >  				regulator-min-microvolt =3D <1800000>;
-> > -				regulator-max-microvolt =3D <3300000>;
-> > +				regulator-max-microvolt =3D <1800000>;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			vgen2_reg: vldo2 {
-> > -				regulator-min-microvolt =3D <800000>;
-> > -				regulator-max-microvolt =3D <1550000>;
-> > +				regulator-min-microvolt =3D <1500000>;
-> > +				regulator-max-microvolt =3D <1500000>;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			vgen3_reg: vccsd {
-> > -				regulator-min-microvolt =3D <2850000>;
-> > +				/*
-> > +				 * Specified values refer to 3.3V operation; voltage for 1.8V
-> > +				 * operation is derived from this.
-> > +				 *
-> > +				 * The base board should usually mux GPIO1_IO08 to SD1_VSELECT for
-> > +				 * automatic switching of SD card IO voltage.
-> > +				 */
-> > +				regulator-min-microvolt =3D <3300000>;
-> >  				regulator-max-microvolt =3D <3300000>;
-> >  				regulator-always-on;
-> >  			};
-> > @@ -118,13 +124,13 @@ vgen4_reg: v33 {
-> >  			};
-> >=20
-> >  			vgen5_reg: vldo3 {
-> > -				regulator-min-microvolt =3D <1800000>;
-> > +				regulator-min-microvolt =3D <3300000>;
-> >  				regulator-max-microvolt =3D <3300000>;
-> >  				regulator-always-on;
-> >  			};
-> >=20
-> >  			vgen6_reg: vldo4 {
-> > -				regulator-min-microvolt =3D <1800000>;
-> > +				regulator-min-microvolt =3D <3300000>;
-> >  				regulator-max-microvolt =3D <3300000>;
-> >  				regulator-always-on;
-> >  			};
-> > --
-> > TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, =
-Germany
-> > Amtsgericht M=C3=BCnchen, HRB 105018
-> > Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan=
- Schneider
-> > https://www.tq-group.com/
-> >=20
-> >=20
-
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
