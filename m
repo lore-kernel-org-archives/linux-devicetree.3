@@ -1,103 +1,178 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-b2-smtp.messagingengine.com (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 272F943B4B6
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 11:08:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A0143F0A7
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 11:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433721; cv=none; b=PwODQnYdndvGtSSz4mC8oearN6dwlBSi6q9HfEoyNhJiU3gsQYohr/tJXKhzQg3bCnuvwTW8rbAlDxkitggT2ybgVEFSRbn3fKc1bd2w6BOtUpKyKBO/8B3ytbp+VMFgMTy1K7XQh97iyJtiLww+XchNaXxIUUNU3igVS9oRFkc=
+	t=1788433887; cv=none; b=Hra63MBD0INbWU9Jm5WxHplAyI7DkvT4MrgZJtP8EDrsvVBWYZlTqbMNUwWEdgGZL7YDRMb80jQQgefGvm+M/PCjaiJIknHF2dvVteG6cjQdifrURCJMYmPN/ZDhMxBEdIEzdjbaj3nwgrX/gJZuppJdhSpLrxbtGBr0tjcNGBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433721; c=relaxed/simple;
-	bh=+Skie+Ctzy/vwJso7w0xQxXsPtTldkh/pbc0+XR7nWM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oZx1BRZ/tO/X6UzAGQ3vn5bUjXtuoa8HMQxtfaBS3gdrrpPx5aqTc2Nx+bxEE/rRZyFCQI9IvN0PsIJBd/9Y+sKsOPlQKlGko5wcecCmGXcZ0ZoHNzMHFzIvpIpfqvUGda0F7UqjPLv94ZAOCKw/5Q4OM42twv6BHPffT0h0BEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KNsDiZAC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788433887; c=relaxed/simple;
+	bh=pcM2PW3sEaySd35PnKO6K0MrOzG5iUGvi8JIi2M0RGQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IAtyJUqjfDAGl6CZCNZBmR+Ox6mCfKfUPjMJcU2YPJhxBsh89o7wq5WE92L7bWxj6EqXfIPWVwq2pmHTM+shhy06N6ZvMakPS/y8vkFQp2WJx/KtGsh3w2RaY2aBC//Qi8EqgupxtFSAjokqyGS6SQ4jAvhWc9mPzXnXpcHTF0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=Qqh+KkE1; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=OHf4spSO; arc=none smtp.client-ip=202.12.124.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KNsDiZAC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3FE91F000E9;
-	Thu,  3 Sep 2026 11:08:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788433720;
-	bh=w643/YGZpy4UOGEWIzkNqKfuM5fKPqs0Qm/lDoZCrWc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KNsDiZACPv7ArkZiOf6m9dQF+NMpup2LiHqefzGxbRWCEhf2POwkvipy4MhJIfVe/
-	 u4iTMAkM1SF63foYTGXIRDlBcb/Q0uC0bcf0SvGzjfeIhRoffANk51EBxcLW8w2U8y
-	 +x2EyMn//epBX5a7GpvcNX3NOIi5n5tl2qxtKk/3JipsnDyeRZ37Bqwb8ChBcSjFO5
-	 u+uiB6ZGrTsryGViizSpbkOspIbprcBOb4Y3NBWAI513N+kNFo5NkeBUpWlPJ8ASCp
-	 44PqEYxx1tEEPBIixuDC+QRUlClmi/xBv7S/7USlu0ygPEIsb8IWoTfAAYNFHXvcnQ
-	 9JD7CZje2MnFA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] ARM: dts: aspeed: msx4: describe the I2C5 mux tree
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ender Hsieh" <andhsieh@nvidia.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260903105956.1709114-1-andhsieh@nvidia.com>
-References: <20260903105956.1709114-1-andhsieh@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 11:08:39 +0000
-Message-Id: <20260903110839.B3FE91F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="Qqh+KkE1";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="OHf4spSO"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id BFA387A0038;
+	Thu,  3 Sep 2026 07:11:23 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Thu, 03 Sep 2026 07:11:23 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788433883;
+	 x=1788520283; bh=KMu2Cz6fbNMKBj4yzwYFgm18OJUOPNan0SdRrspDzNw=; b=
+	Qqh+KkE1VM+NmEkoS6tYEoriatmpvEA8XbM5a8WQgobyXJW9sHo4Z1H+TaI4cnvh
+	dCiP1IaQZ0/IN+PsHAVWi4z5jS7DQIW4oQdAIgSuIgtTD5QgZT0uL/HY63lNwRQl
+	KMnLf9lynNadjbr3l7EHKvSgOLtxg2lDCn5JrmIBoK9l6vZWDBUTs8RWgzSC+MBg
+	HBJfr3DJAfgZz+y6xK6ajhIVtl/892UQQnEl3t+HXGptoVwtiO1HI/a9RsEFd70U
+	XLL7q0evHQ1OnvEp+PMIZUEqFHfzsEvOe+qTTd2IJXMzLyerk6L6aYK/JdNeNwbb
+	6hbzM3aQ3jXxzvK6e/ZA+w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788433883; x=
+	1788520283; bh=KMu2Cz6fbNMKBj4yzwYFgm18OJUOPNan0SdRrspDzNw=; b=O
+	Hf4spSO8sJH4t1mktT6jAT12F6+ELcR9VtbpEsAwEAxexih4mp0JWVgs62E2ECUX
+	p8xyy3lbDyiO6YLKQRTVLyIoWh0clUmz4HR0mWByy2Whk69TzNYZaijcsHe7LLeC
+	m3kpOXFPb7LRMeJ8dlGlp/vlQBzlJUUom+0tfUMCuFlwhAEPzBcjNm8919tYM17G
+	q3qy2ARmXy3T/HdEDlYtBMXh/qR/O3rAoBLcJythWwt5S9A4G68fn1lN8lDDwLte
+	cAskz4dmHdsftSUswcyoGTYLvhwvJWbOWEKxYBQy4XOAzKmtGoDjSvCjl3xNY8Js
+	vxXd61CiPY7v+dope+MrQ==
+X-ME-Sender: <xms:21WZalSJCeYB9QSDNw-QpRNHGpwXGPca5m15K6fQjZowlvIGvE_bdA>
+    <xme:21WZar6t9im6hFw3Y3UYtdSqPPYidDDxAfqAhpik6fBc_bXojPCSLWAvtT4B6yYHA
+    DbH-73gwB0HXk8xAG5vwOaT-Kxf1h4GtcLDqHcVc_mgnA0ZSR2AI4wj>
+X-ME-Received: <xmr:21WZap0HRXHg-oPWQx3niZnEBzzOoK6OO7y3FGWSmoS0EI-3TGmFtci3x0_RwItDorzmRHhDkeQokadlunHcxC5pPV6ypjs>
+X-ME-Proxy-Cause: dmFkZTFk1Ml/d9L1Z48Pp2GKA5ywPjiyyAIu/++q52mC/HDhV9zC8pF9HEAwgxFDOlkJGz
+    Vs+WwzEiVLmk7mqgn60jwnVvxkvtzPzObEbX6GgerHb5ZoerTkL8ik9iMJQFErq0nUCPhE
+    tzr35xb8Q9HPcuwBUeVALlTd4o4cQOwRXyQzi1UrG8Tk5bCccsJYPGzuEPJG4mNHgA5DKp
+    a0MBYaX9p439biTTRmlGac6JFBHfAUptCuOwIHdj8n5JpNEBZ9uJrRhjehZlj1uqvBVFWR
+    RtBbBcxuzgsCCBV7vF5ZiahFEu3LTrlzVLFORgxYvVfQ9UBrZ33JoDgdvicwAGHM58w2gO
+    HxcnxPeWWHp8RgrA4UTmSptM8DRTLFSrwY1ZakfUY9GCPwNWQyVB6Vf8V9nhhtwFZl840M
+    FJF1tnzEqXEAluJ2mEdZqR3nhE/Ap4qju2gCoLbS7INjwzizTFZ7xsuZX2m6pxuBeNnHyb
+    sJgWJE1zYM4xGVW1UmeeyNqZNtpmQs11Ct8m9k5Sdjk4GWMm20FmlfYHUwlJs/q59IHNua
+    kGRqLduRExVYKoOf5YI6hCN88FgjzbMbnYkdouxC9/bNCdAz8gx0E4DQ+HsejIzv5J2Cz9
+    FYth2PrK8cR2HsHcdT4ptmLsifpboRVOLNPG5l0IJStnWkPJB6YJAtUP3mlw
+X-ME-Proxy: <xmx:21WZauCTMMCVsaisk1h7jffW-dp2Y_kd0IvedLl0du4B4IM4tHgj2g>
+    <xmx:21WZasN3ewM7VnVViKO4pkOW9IoVnN1aZeIuHwaL8ZSOca-PpNdsig>
+    <xmx:21WZaraKsjObUzzA3yRVnQBI2PsK8ZenZs9s_89pg2KEzVt4MwRvCA>
+    <xmx:21WZajsDWgNo15DVqqr0-LvPSx9SkKOm95uwjpGyaiIQTQNRkQOuGw>
+    <xmx:21WZaqdzY84JZj2j4xRKYsD38TWDtScvS5YKgQi7SxP5LwRBzaAUai0v>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 3 Sep 2026 07:11:22 -0400 (EDT)
+Date: Thu, 3 Sep 2026 13:11:20 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com,
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH net-next v3 01/10] net: ethernet: ravb: Remove gPTP
+ control from WoL setup and restore
+Message-ID: <20260903111120.GE1116206@ragnatech.se>
+References: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
+ <20260902084703.3228504-2-niklas.soderlund+renesas@ragnatech.se>
+ <20260903084755.F15D91F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903084755.F15D91F000E9@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Using an exclusive `reset-gpios` on a single multiplexer to contro=
-l a shared hardware reset line causes dangerous out-of-band resets and I2C =
-bus corruption.
---
+On 2026-09-03 08:47:55 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] The patch erroneously removes `ravb_ptp_stop()` from `ravb_wol_setup()`, leaving the gPTP hardware active during a WoL-enabled suspend.
 
-commit 39e083fdd7c46105075bf4c6a524145f3ff70845
-Author: Ender Hsieh <andhsieh@nvidia.com>
+This is a non-issue as the module clock is the same, ignore.
 
-ARM: dts: aspeed: msx4: describe the I2C5 mux tree
+> --
+> 
+> commit bbd624fcad5eb4869638d985be16666aae0f0ca2
+> Author: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> 
+> net: ethernet: ravb: Remove gPTP control from WoL setup and restore
+> 
+> This commit removes explicit gPTP stop/init calls from the Wake-on-LAN setup
+> and restore paths. The commit message states this is redundant as the device
+> is always closed and re-opened during suspend and resume.
+> 
+> > net: ethernet: ravb: Remove gPTP control from WoL setup and restore
+> > 
+> > Since commit a6a85ba36fd0 ("net: ravb: Move PTP initialization in the
+> > driver's ndo_open API for ccc_gac platorms") the gPTP clock (if
+> > supported) is stopped and started by opening and closing the ndev.
+> > 
+> > This makes the special case to stop and start it when resuming from WoL
+> > redundant. As the ndev will always be closed and re-opened when
+> > suspending and resuming the system.
+> 
+> [Severity: High]
+> Is this description accurate when Wake-on-LAN is enabled?
+> 
+> Looking at ravb_suspend() in drivers/net/ethernet/renesas/ravb_main.c,
+> ravb_close() is explicitly bypassed when wol_enabled is true:
+> 
+> 	if (priv->wol_enabled) {
+> 		ret = ravb_wol_setup(ndev);
+> 		rtnl_unlock();
+> 		return ret;
+> 	}
+> 
+> 	ret = ravb_close(ndev);
+> 
+> > 
+> > Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> > Reviewed-by: Sergey Shtylyov <sergei.shtylyov@gmail.com>
+> >
+> > diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ethernet/renesas/ravb_main.c
+> > index ea1c7e536791e..36173a09e2fdb 100644
+> > --- a/drivers/net/ethernet/renesas/ravb_main.c
+> > +++ b/drivers/net/ethernet/renesas/ravb_main.c
+> > @@ -3182,9 +3182,6 @@ static int ravb_wol_setup(struct net_device *ndev)
+> >  	/* Enable MagicPacket */
+> >  	ravb_modify(ndev, ECMR, ECMR_MPDE, ECMR_MPDE);
+> >  
+> > -	if (priv->info->ccc_gac)
+> > -		ravb_ptp_stop(ndev);
+> > -
+> >  	return enable_irq_wake(priv->emac_irq);
+> >  }
+> 
+> [Severity: High]
+> Since ravb_close() is not called during a WoL-enabled suspend, doesn't removing
+> ravb_ptp_stop() here leave the gPTP hardware active during suspend?
+> 
+> >  
+> > @@ -3204,9 +3201,6 @@ static int ravb_wol_restore(struct net_device *ndev)
+> >  	if (error)
+> >  		return error;
+> >  
+> > -	if (priv->info->ccc_gac)
+> > -		ravb_ptp_init(ndev, priv->pdev);
+> > -
+> >  	if (info->nc_queues)
+> >  		napi_enable(&priv->napi[RAVB_NC]);
+> >  	napi_enable(&priv->napi[RAVB_BE]);
+> 
+> [Severity: High]
+> If the PTP clock remains active during suspend, won't it be abruptly torn down
+> by the ravb_close(ndev) call that occurs later in this ravb_wol_restore()
+> function?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se?part=1
 
-This commit describes the I2C5 multiplexer topology on the MSX4 BMC, explic=
-itly
-mapping out four PCA9548 8-channel muxes and downstream PCA9546 4-channel
-muxes. It also defines aliases to ensure stable bus numbering and assigns an
-exclusive reset GPIO to the first mux to allow driver recovery.
-
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts b/ar=
-ch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
-> index 29f56176e2cae..a9a491a873129 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
-[ ... ]
-> @@ -151,6 +200,364 @@ eeprom@51 {
-> =20
->  &i2c5 {
->  	status =3D "okay";
-> +
-> +	i2c-mux@70 {
-> +		compatible =3D "nxp,pca9548";
-> +		reg =3D <0x70>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <0>;
-> +		i2c-mux-idle-disconnect;
-> +		/*
-> +		 * The reset is described on this mux alone. The driver claims
-> +		 * the line exclusively, and this node is probed before the
-> +		 * others on the bus.
-> +		 */
-> +		reset-gpios =3D <&gpio0 ASPEED_GPIO(S, 2) GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-Does assigning an exclusive reset-gpios to a single multiplexer to control a
-shared hardware reset line risk out-of-band resets and I2C bus corruption?
-
-If i2c-mux@70 defers probe (for example, while waiting for the GPIO
-controller) or is manually unbound via sysfs, sibling muxes like i2c-mux@71
-could probe successfully because they lack the reset-gpios property. Their
-downstream devices might then begin active transactions.
-
-If i2c-mux@70 probes later and toggles the shared reset line, could this
-disrupt the state of the active sibling muxes and wedge the I2C bus if a
-downstream device holds SDA low because a read was interrupted?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903105956.1709=
-114-1-andhsieh@nvidia.com?part=3D1
+-- 
+Kind Regards,
+Niklas Söderlund
