@@ -1,180 +1,152 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CA4F4CA296
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45A094CB8AE
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448474; cv=none; b=RsYNL5lepoR5WFGU3yUI1iYoLpI/S/GiVIDB74Cr7Ao3fPoNmrcAkj9DU3TbiTHKuK6SDkEas2jDvDqqiQp/K65cLW3KgzqFZd34cARC/3MbB6EcqlBR4c2O1QrsVqPBh+Dc0vlSKjbOiWo+dA0bjAym16C0mLbtYg+3vPF5DOU=
+	t=1788448596; cv=none; b=ZEq8zkL3XWyKyGzx2HRIxmE8bLCsg25veR0xh6jm6dcWzl5ppnsROgQGxUrkqpTohSIajXXsi7xR3teA2GZ6MYLhcK9JwX4KYTQ4v1L/PH1pSi4N0sALhYlJ6u6IR+FQ7u+Jy9Vx7mGujulcUieBamWl1wss6rgBVFrrX8xp/4E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448474; c=relaxed/simple;
-	bh=AiYQDdr1GA2GGgxtoSCbSmmY5cDjwiV95VNMSZnOgqY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h8mM0R9Bo8mcEv/1DAc82xv2A2sw3hi/OwgQB3Oj7Ot588MAEfl3o52lt5WI+8E25pUsRC86QmcOfrhCN5GM6vlaDCnlc9swRe7MO/AlP1CDQHF51gTlJpJo9A3pqXkwZO5dxbXuaTB4SjlMd1xjrbx/oyCsl6AEZ8qxN5ZD/vo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hLybQAxw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bwDacICr; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788448596; c=relaxed/simple;
+	bh=3k0aNco/wk53J9o68OsFWzaMKHfhgDwFOg4q1Ff6mbo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OnSspcWZfRlnzAan9A3p6lvvvrGxxBpBzeWkwaMunsYdUDS1J3d6St3wjB/DoHVSXeFcPOiDwxUcChWwKaqUy+fbDz4p7O+/qeHvfxWh/7erzkJmAe47zqPeZLOTdqukdarWrN0RAMzRkeyRvV9F0tuVv/GlupxdkHSuLQHjLqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VmNxRC8s; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hLybQAxw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bwDacICr"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAkUC708044
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 15:14:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	J00Y5jbKG+LTIOozErGYVV5kDH4wOcI6n7Jz1ZNdUIc=; b=hLybQAxwHn+9hFwL
-	fBStui1wKAaJMVUD6eb41AZTw02LAlzRN7xihyBI9X0HCwGRDS0PCWp5Ikuu85CK
-	te2MVy3HFFaMRf81PRamfHht6gAs38VGRMVwP9/7lZICVAS6GCNgX2u7gRCbZORR
-	2YkBM6zXMnWRAtGYswNuzzJhrf5Vo/nuaTSfhlxs5ANXBehb7HeBhdUh1m37ognf
-	7/4AiH2a/aIoVgKLJbwvBe6qNQwmO9xfYTJlB5TNvCTNFAk2VrGTmGsD4qZ1bUij
-	eEPORVT5CKagGKvlhIp9kcAwvotHq5RzYzyXFe018oxaCBJzskIuNJS5/DiUSew1
-	UHLHlg==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf4ekhyej-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 15:14:32 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so19709a12.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:14:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VmNxRC8s"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-484374f54d0so1574310f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:16:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788448471; x=1789053271; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J00Y5jbKG+LTIOozErGYVV5kDH4wOcI6n7Jz1ZNdUIc=;
-        b=bwDacICrtKVadZR++rd/YFsPcWXv8O27Xr9LUgAu0fG3EXC+7ywE8hYxbi7Tqx0tJH
-         4SRXJS7TBTxqgA53osfFs8TIhVN0ks/oUmsUpJoHWZ9ZkttRyOk3PrFpzUVE4onaCKos
-         RWn78hdzIRLsRiq/A8oF89HF1aAsmt35mtgKFeab6Wa4NrvLjr5Z0kkU+rObj4mnE4SA
-         lZQgZV1TzBnaKOQMfQh22Mh1iP9B7mC3ANfCXojVtYGKVt+xKTbR57v9S19GcsPwey4P
-         VQXwXGC7pjwCguxm2+anLhKpyO2Nle0/LCSj8yCbtIncGy1hgNktLydkY499sMrmJWiL
-         UJJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448471; x=1789053271;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788448592; x=1789053392; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J00Y5jbKG+LTIOozErGYVV5kDH4wOcI6n7Jz1ZNdUIc=;
-        b=oTimHNn1bFRBVZT4aQAUmY07LIy5oIe0xqkjqyJnosdMMAG2HbWB835tvkyCrNIsiM
-         ihUvVdAneO6fviuNnNZdTLpXpEAcxrXUiCR3frycM9aOc7BIp2YNVLtj77m/BfO+ep1y
-         MJ4iUqzD/QddrHtq8b2rq6MtLn/HflECnVs0vxQ6F9GBNWCUhkBOgcSEh1B0N2CxEFct
-         pyT7AIZfpsn+ShQI1H1A8Ur2eQcy4kJf7Fj1ZPasNRQVD441yLrn8G9yT1/vEdPsnD3z
-         RfBOq5MGwk3L0hkJapu8gV1Hby16eKg26CvGoekBhbUt7YcXNOvaxaxaz9OkTx1qndDB
-         LDJA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwv4UD+TD667C48RhwP8QjXjaf88L7sDhoBgHNaEcT0jTNByteTAvCzT4vK1thMMtXpnFtY409yWFF@vger.kernel.org
-X-Gm-Message-State: AFuF++mDyyz20LeB5RcD2DpXp88zdOg3BtgL+vHWxBKEK0sJFaml77wD
-	YrDFhqX62WIzqQYBVA1QFAB69B76AclN5gUMUNqEeKFFpBoa+PvkxQWv/nYNGZocLwZY60vns7D
-	m4UjZpeyT/011TwMCEN/vQtK0PBDKfswNQB42G6Ly2jIA+KfX7xA6x+auwWYNEEsr
-X-Gm-Gg: AYBFou3djrJ2fI81wQ1H7tPajyg5SQ61PAb/5IeRLASCcd9fQGUJDsihyalR/nKMSRE
-	hk2wlkhAtKJGFiKhKMlayYgZskYwK83E3i/vIyWaWePiUOH9XW4gClu9uqeBAOR9LGZUnHlQtCE
-	KsKpwjVeQMuJlB2DEVRk9VW3aI0gbtwFCzbV2SlP09Co9YBUB+ZtNkT0vL0BP8neoJWIyM1WUqA
-	ehcnh6YAeqLJUu4p6FoyuNhZKQwjYawdizc0F1Q+I4VeOJGyRywMCeWzfSbndNWzXOdowytmW9z
-	SMISAxVl6snai/oI/QmMaIBMSDTV3LK+MAQPQ9SKWAmMoHV8kHtnBCSks5raluAi13cqT3Eh2dx
-	/1mEg1jvPHCnFb7thX/lIdFAyOTfNt9MEz6LrexJ3RCojJU2XyE3Anb4ntw7EZXE=
-X-Received: by 2002:a17:90b:4b0f:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-39aee152d1cmr18587612a91.12.1788448471215;
-        Thu, 03 Sep 2026 08:14:31 -0700 (PDT)
-X-Received: by 2002:a17:90b:4b0f:b0:38f:dec8:f7e9 with SMTP id 98e67ed59e1d1-39aee152d1cmr18587536a91.12.1788448470695;
-        Thu, 03 Sep 2026 08:14:30 -0700 (PDT)
-Received: from [10.133.33.96] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b083f04d1sm5864497a91.8.2026.09.03.08.14.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 08:14:30 -0700 (PDT)
-Message-ID: <7325c6a9-8e8d-48e0-b01a-68a287e7af5d@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 23:14:24 +0800
+        bh=pjN+r66d4VC/wMvjXwpeTffXWtgz3AZsnsncg2qP2S8=;
+        b=VmNxRC8sgLlWoU6oEyI3si05oltdjgG9W9rt2gy2KSUj80vFmX/phScTGxR9fKZwKd
+         fJs7JiloMoLScBIkadAGBwzPoau9wXPY1GV+IG25TzlDPC+qTp2CiBgkZDT90c9uX5Lp
+         hIaO+vZWa3YJhPsoM5/+eaFHDgdjGBvcz/8x77RlELa2tZxiTh4t0aCs0DPTW4WbbmUb
+         impW2hK+RAY9wFlYwbkAHfG694wjZACcEcgbsaXX5cC/12uvunJA1kMCc5d0RXSNemIt
+         i87QVEaAMln0g0E4nkvYQ1XCcQxr7F8Twofq5BcnTi0oIPVsMQYdjaRCrbOgAHfA0HEm
+         1Rog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788448592; x=1789053392;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pjN+r66d4VC/wMvjXwpeTffXWtgz3AZsnsncg2qP2S8=;
+        b=JzuWXJ+nbsyfS7xvKTvTAV16Ikear4/qlUaM9XdfdLrQMmBOJsGg2y+rWuH2lIB4LM
+         aSoZsR3N3SmsMfQtzCwsWcYRnXRT6cX8EIiu76XCMmnd95reio4Ci8PIMlxy4v4IztjE
+         Yj7r7wZ5c48HwGgLc+5B02cjHpa8XyhZM6zVABvvha13iOItslfrwXo9rbgN9Qj52Nt2
+         PKbnR2K5IpohmgW/XjYNetnqRSvZP4cMPu2Gu1sK6tTplC9EKywbhUf2JJ6hftwlKjJ6
+         weUq9N5XO/zpJg3McUR2sY7Zdy39klYvvsDVGYOkx+xH7JnsmshxidQx+zcIATH5le3Z
+         qqhA==
+X-Forwarded-Encrypted: i=1; AKwUvBwaTZhsQSTLG+KTpoStSo4xP4DFu8Kc1yar9c1WTQK1JKsY//YW0wKBG0WHY7zk+BqPqRnXJ3yJuG7t@vger.kernel.org
+X-Gm-Message-State: AFuF++lKPpdcTpJdLIV4UL3btZICaxrErlBdqIdml/5FGD4IqYNzx7Vb
+	au2q5lhhIGGc96bvwhnVRCbpndrlNO2VmmtuUwS8JgPBHRGrjo5hr5jVjfAkUZ0f
+X-Gm-Gg: AYBFou1RzYaJpVFPqe/zO1HTnaCeqiKMz+IJjHg2uK8Wn5sCXdm8GoRnKifOZBK1/NS
+	+VRmfKAboOuMH88oH9FVGtX0xnCOqeUrD1kfB/aWYgh0/ghyDeEL9hXPawFZVTBygC9nZo3zXI+
+	cAc7j/uPO0o9b5/bSGw2GBfrj9kMesYfETY7DmR6/Qh49pwn+eEhsFLAclCdIsk1gRidVGpUlS2
+	DKnzeFItvcCB59f8Ejkw+k/IpcDCrPH9QhW/fWQ+AXI9o6RSjWfZEZpH0tbVI7X6fyxVXHkQM3z
+	yfq3kZGfFrM9J3rY8cSisC3DPZTcirR9hMd0Vx8f2glvDQEdb9PRBoW3mlAPl/1sTrTz0ESCO43
+	ov7CM8/PqqSVqlaM4MuqTXvIUavg8/eGMhBOQN5MHRxf15bz4WwXPbBjBTmddOALEVFi+jZu7aL
+	NdAJ+md0R3Vy6bCTbqVErfWoL5LfSfWnNr4ARukLxf8Yul9gOIa1jReGVHuKYR/HCh+C9vKjJ2X
+	hchp/RymSecmf5EORolK9CqvnWVklG70kmSqQ==
+X-Received: by 2002:a05:600c:8012:b0:49a:252d:52f5 with SMTP id 5b1f17b1804b1-49ce583d99bmr267144185e9.11.1788448592068;
+        Thu, 03 Sep 2026 08:16:32 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee80eda4sm77119535e9.15.2026.09.03.08.16.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:16:31 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
+Date: Thu,  3 Sep 2026 18:16:27 +0300
+Message-ID: <20260903151627.5011-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
+References: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 05/12] clk: qcom: ipq-cmn-pll: Add NSS clock support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
-        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
-References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
- <20260814-qcom_ipq5210_cmnpll-v3-5-21c3db378611@oss.qualcomm.com>
- <9e6a0e54-d16c-4b8c-9034-1e682a420e7c@oss.qualcomm.com>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <9e6a0e54-d16c-4b8c-9034-1e682a420e7c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: yYsNUYF79NLke52mBAmwMJCsngkevykl
-X-Proofpoint-GUID: yYsNUYF79NLke52mBAmwMJCsngkevykl
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzMiBTYWx0ZWRfX20iqlBeZLqPD
- m882hD68K65b40R3DEkAl584SzkZsDcfLrWctwG3qzlF8gHtpN9oJTOYFaPFE7NARsqQhEE9C2h
- GN8LfaCDoP5e9j5OPblCq5HyNO6cyNwzgj8FOkCUpYzdaEXZkOWF/RxQhLJB6oUAr9Qv3+BUCeu
- iKERRMDPiaQYJ+ILmBdd2oEsVoGk4uHZG+GQeoqeK7BF/3AJ/emuSwJcm7kta8ZnVGRsqD9LyQ9
- EAZhkQziOluXr8e5kmZt+tS0VNCCV66JEvkIhkZeqQRgR71Q9iYOi+Cgj5WzvhERXhOokrVhRPy
- h4dJcIcAmcX1pWGXFRzaSxTjBd0txMpRsyo9EEXZWyfu7hRrDthgyfm7XCRFF+AKYtqJpuBflSH
- t+rqpVaFsI0oDyS5E5FCV9hhYykVyxURmuXcS93uiaTrWWbK7si8bOSJ/N6u6z8krtuLFfF8sb9
- idHWhs2rOr6CYe2mSNg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzMiBTYWx0ZWRfXy46AEardfe1z
- RXSMjQJV0WT7jcr2JFq2UitBa4qtzpCbhiMr5ufECmIxsSNIyVFCQlUGEPzZp0Eaun0xCXsdtDH
- YqPugFC6u+fzaXWl20HWcHOjBPbqwms=
-X-Authority-Analysis: v=2.4 cv=PKc/P/qC c=1 sm=1 tr=0 ts=6a998ed8 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=OvnJboicBg_-wI3pKI4A:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030132
+Content-Transfer-Encoding: quoted-printable
 
-
-
-On 9/3/2026 7:56 PM, Konrad Dybcio wrote:
-> On 8/14/26 2:48 PM, Luo Jie wrote:
->> The NSS (network subsystem) clock's parent is cmn_pll_div2 (CMN PLL
->> rate / 2); it is then further divided by a configurable 6-bit divider.
->>
->> Register the NSS clock through a new ipq_cmn_pll_regmap_div_register()
->> helper, built as a plain struct clk_regmap_div instance instead of
->> hand-rolling recalc_rate/set_rate. The helper takes the register field
->> mask and clock name as parameters so that the upcoming PPE clock, which
->> shares the same register with a different field, can reuse it.
->>
->> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
->> ---
-> 
-> [...]
-> 
->> +static struct clk_hw *ipq_cmn_pll_regmap_div_register(struct platform_device *pdev,
->> +						      struct regmap *regmap,
->> +						      struct clk_hw *parent_hw,
->> +						      const char *name,
->> +						      u32 field_mask)
-> 
-> Since we're doing clk_regmap now, you can just use the clk/qcom/common.c
-> infrastructure instead of NIH-ing it..
-> 
-> Konrad
-
-Thanks for taking a look. To clarify, this helper is already built on
-struct clk_regmap_div from clk-regmap-divider.h, using .ops =
-&clk_regmap_div_ops; it does not implement its own recalc_rate or
-set_rate operations.
-
-The wrapper only derives the shift and width from field_mask and calls
-devm_clk_register_regmap(). Since the NSS and PPE clocks use different
-fields within the same register, this avoids duplicating the
-registration boilerplate.
-
+On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote:=0D
+>On Wed, Sep 02, 2026 at 01:37:45PM -0500, David Lechner wrote:=0D
+>> On 9/2/26 12:22 PM, Flaviu Nistor wrote:=0D
+>=0D
+>...=0D
+>=0D
+>> > +		if (fwnode_property_present(node, "label")) {=0D
+>> > +			ret =3D fwnode_property_read_string(node, "label", &label);=0D
+>> > +			if (ret) {=0D
+>> > +				dev_err(dev, "invalid label on %pfw\n", node);=0D
+>> > +				return ret;=0D
+>=0D
+>				return dev_err_probe(...);=0D
+>=0D
+>> > +			}=0D
+>> > +			data->channel_data[channel].label =3D label;=0D
+>> > +		} else {=0D
+>> > +			data->channel_data[channel].label =3D "";=0D
+>> =0D
+>> I think the normal way to do this is to return -EINVAL on channels with =
+no=0D
+>> label rather than an empty string.=0D
+>=0D
+>=0D
+>In this case the whole dance with property_present is not required.=0D
+>(What you are saying sounds like label is mandatory property, but=0D
+> how the old DT will work that have no such property?)=0D
+>=0D
+=0D
+I also consider that since label is not a mandatory property it should=0D
+not return -EINVAL just be simply not being used in the device tree for=0D
+that channel. Since the iio core exposes in sysfs the in_volatagex_label=0D
+for all channels, there are 3 situations:=0D
+1. The channel is defined in the dts and has the optional label property=0D
+assigned, in which case a string is returned in the console in user space.=
+=0D
+2. The channel is defined in the dts but has no optional label property=0D
+defined in the dts, in which case it an empty string "" (a default) is=0D
+returned.=0D
+3. The channel is not defined in the dts (in_voltagex_label is still visibl=
+e=0D
+in the sysfs), and reading the label will cause "(null)\n" to be printed in=
+=0D
+the console (as indicated also by Sashiko boot), since the default "" value=
+=0D
+is not assigned during device_for_each_child_node_scoped(). I think this is=
+=0D
+not an issue since is just the way sysfs_emit() handles an NULL string.=0D
+=0D
+My initial version (v1) handeled all 3 cases, for case 2 and 3, an empty st=
+ring=0D
+"" was printed out.=0D
+=0D
+What would you prefer? Any further suggestions?=0D
+=0D
+Best regards,=0D
+Flaviu Nistor=0D
+=0D
+>> > +		}=0D
+>=0D
+>-- =0D
+>With Best Regards,=0D
+>Andy Shevchenko=
