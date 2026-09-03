@@ -1,84 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3073128D7;
-	Thu,  3 Sep 2026 01:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFB8331A6E
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 02:03:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788399711; cv=none; b=GHXHOFvfJcINjWBAsx9d08rNCb6GVypf61iCpNFRhvznANjZN7BNMEbbonDJE6xPJPAypOvl2/loO0eAJ62SQoH8myEZQ6897eJHQFdd0FHX48yLtc4oy8wSY6pNHb+Vj2BCVI82/loLzVbZbUQm67ZLOdqYdRtKsRNjc8tZ3u8=
+	t=1788401009; cv=none; b=W7AP8uSNEgXrIQmmIRNshSdZoxFw8vyK15WQJTX3T0lyIzD80RZ+0whqED7xi1YEksm6nouSYOWAJtcdEiQ5WA/1LU4nvkEDDiZ++rVQ1QFUbzGsGlCFDYRd2bh5+kjIDjzDsqDmkrKsumx02AAvoz7dRPOyHI0Tkz69GVvMbbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788399711; c=relaxed/simple;
-	bh=gTGTFtEjGigV+KMsPMepP8MaUMo5E8OEaMOlD8s5aC8=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=n4BnrJyAP8B44jeNRmUyvatQKySujaLP4LPHYPD0n2O6GJcynr2sFJJoNzEjnBANFzNI+7xsQpWgtHB/WJRbIboooYL2orkcET5uwM1Vixls+c0if9Ah5BxkooSjIvvtsvwUazk1ob0BGnOKd/8CYHE9pa7gxcQ72VAyWUUAGts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N/2Ctn1x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788401009; c=relaxed/simple;
+	bh=fMhzI8X3Hok8lOxj6VX1r6zGfn4fks2SS0FP4mBh2DU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gEpvJ0PyucW6K55EmVmIarY5bCdxkfIjDWJ4bUOJK2PF3k5wDvTwkgTq1jXv1TQuBvcau4V6RxewCnlBr0iB+kcD7A8HJleCVvpq4dNAoVFRR7EZFAmvJmLb4/PTdjTxOaQKqzTfLN6qJSlfqW4rHNtSwHhcNMyXtD2tCMPMesw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=Rm1NSdWW; arc=none smtp.client-ip=91.218.175.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N/2Ctn1x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7509C1F00A3A;
-	Thu,  3 Sep 2026 01:41:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788399709;
-	bh=VNSGAeT7uciZm8ppAmkEOoK7AJCszK21UEURh1WyfTQ=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=N/2Ctn1xAAVZhStSoLplbj/rpFHKNVa54aYAustpG3KM0WyDe6vZ7+lilcjvoINIM
-	 LZ95/Dr5tn42WIO5lXLUPPR0CIOZ/xdikBbcJauHazcWRIWnd2NGa8sQnxCCHmJQdC
-	 IlE8AMrIBc5BVVH9mAMzGXMtNkzrOSCYOlkoUlTo279PmdaqiIF+buYtWbFz2BRxj6
-	 MN7c+T3SZHN4LQZEEZ+0tYrHFEgEW8QBGj2qyY/trDwO9+07k0Mp5FRWOr9VJ1eJ3P
-	 apaHCn4pbO0sm91Zp+DW2fkjUQZPS99WfAcDeGjXX9uRdtEG+P7aCC2Whqb/UZjMlQ
-	 qVPa/v0t2rQyA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569CE3927054;
-	Thu,  3 Sep 2026 01:40:52 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="Rm1NSdWW"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fMhzI8X3Hok8lOxj6VX1r6zGfn4fks2SS0FP4mBh2DU=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788401004; v=1; x=1789005804;
+ b=Rm1NSdWWuYi8h02xvSc3+x4Wtl/F7vu1G7YDGirMIwkDIzzwfAaaX35l0XP6/jZTRXeuQpTH
+ oNz+gpCxUkNOYoL8gWGxJEAncSjTeNLZDNfbiMLXV7WgOVRTtZZTA0jXbtLV5PLwAwQpBhXEoT3
+ 0a3qu/PNy3RET582JxmDLhUifd+beyaCrZ4jqKUCBI6JX/i1aLoTByisS+YExkJA/LnYkReJ0oQ
+ lx/+JFDjBoHdJDK1J/QxMcQ0Ktp/5LDMXXqB224+CHazR0HnHaa+6Hocwy85k8mIRdy8YZOQJhA
+ n5j1b9HjAJgq/9+sLiqzL3VDgV+a2q3TNygDEeRhUSTsw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c2330e0bba2a5027;
+	Thu, 03 Sep 2026 02:03:14 +0000
+X-Mizu-Trace-ID: c2330e0bba2a5027
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Date: Wed, 02 Sep 2026 19:03:06 -0700
+Subject: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v3 0/3] net: dsa: realtek: enable RTL8365MB power
- supplies
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178839965088.3035212.12735726271200270390.git-patchwork-notify@kernel.org>
-Date: Thu, 03 Sep 2026 01:40:50 +0000
-References: <20260831123637.666457-1-o.rempel@pengutronix.de>
-In-Reply-To: <20260831123637.666457-1-o.rempel@pengutronix.de>
-To: Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: linusw@kernel.org, luizluca@gmail.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- kernel@pengutronix.de, linux-kernel@vger.kernel.org, a.fatoum@pengutronix.de,
- alvin.sipraga@analog.com, netdev@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ5AMBBA0avIrE1SpairiIXolBFK2hAi7q6xf
+ Iv/HwjkmQI0yQOeTg68uYgsTWCYejcSsokGKWQptJAYzFoXCpcR58Pc6OyAympSVaVynRuI4e7
+ J8vVP2+59P5VL3rpkAAAA
+X-Change-ID: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788400991; l=1832;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=fMhzI8X3Hok8lOxj6VX1r6zGfn4fks2SS0FP4mBh2DU=;
+ b=dutbgdT4lcSahJt3rMyBn9aPC1+A80dpRLeYOfrWAPlvWDFQ+Wavm9pHgsSmwkBKReAa7WtAF
+ HhJxRkM5c7yCbEOweP8Q6cf//AjBi1CXysJPRWZw/e4YSmTZohuxMZr
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-Hello:
+Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Downstream dtsi for reference:
+https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
 
-On Mon, 31 Aug 2026 14:36:34 +0200 you wrote:
-> The RTL8365MB family has several external power rails (analog, digital I/O
-> and PLL supplies) that on some boards are gated by regulators. Until now the
-> driver assumed they were always on, so it could not be used on designs that
-> keep these rails software-controlled.
-> 
-> This series adds a device-tree description for those supplies and enables
-> them in the driver before the chip is accessed:
-> 
-> [...]
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
 
-Here is the summary with links:
-  - [net-next,v3,1/3] dt-bindings: net: dsa: realtek: add RTL8365MB power supplies
-    https://git.kernel.org/netdev/net-next/c/f4d025418721
-  - [net-next,v3,2/3] net: dsa: realtek: rtl83xx: add support for enabling supplies
-    https://git.kernel.org/netdev/net-next/c/f82364499682
-  - [net-next,v3,3/3] net: dsa: realtek: rtl83xx: use dev_err_cast_probe() for reset GPIO
-    https://git.kernel.org/netdev/net-next/c/bd6b764f08de
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+index b030a10009c5..069d1cf3dead 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+@@ -471,6 +471,25 @@ &gpu {
+ 	status = "okay";
+ };
+ 
++&i2c3 {
++	clock-frequency = <1000000>;
++
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&nfc_default>;
++		pinctrl-names = "default";
++	};
++};
++
+ &ipa {
+ 	status = "okay";
+ };
+@@ -551,6 +570,11 @@ &qupv3_id_1 {
+ 	status = "okay";
+ };
+ 
++&qup_i2c3_default {
++	drive-strength = <2>;
++	bias-disable;
++};
++
+ &qup_uart9_rx {
+ 	drive-strength = <2>;
+ 	bias-pull-up;
+@@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
+ 		function = "gpio";
+ 		bias-pull-up;
+ 	};
++
++	nfc_default: nfc-default-state {
++		pins = "gpio12", "gpio62", "gpio63";
++		function = "gpio";
++		drive-strength = <6>;
++		bias-pull-up;
++	};
+ };
+ 
+ &uart6 {
 
-You are awesome, thank you!
+---
+base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Paul Sajna <sajattack@postmarketos.org>
 
