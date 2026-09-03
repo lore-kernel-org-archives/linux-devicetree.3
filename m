@@ -1,169 +1,106 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D204440647;
-	Thu,  3 Sep 2026 07:33:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848F73DFC8F
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 07:36:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788420789; cv=none; b=Y2QS0R2QOGp3e+EL0LzMXf/FXAp/XhaMMnljtTt+ZFOWbmEPHAJO5xb76IMDwRfoR7F5aNQmyX95yeXOjNXnUeEroxWY5fY/OiqoyOhw94GVeO7p3RE5K1pu8gOyZXir3P1Bt7dTBRZ2SeTdQZhO5/S7bvQ5xrJaAOAXUwp9DSw=
+	t=1788421005; cv=none; b=O4IJuLjV55ErMSSi0nLku/BqUdEgWWASZZqdwqCw4fGNjCdBuZMQyduZV9gyIhlmQqVu8Js7ePX1uFJ8tBUFuBE9XSYYpoApxknkFOqCQILEIZJGv9bCXxrfC9KCGuUN9vW/5FY35rpX9vdmOHenUyKLo3rgRbw9gp9VKBL0JDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788420789; c=relaxed/simple;
-	bh=AHPGNiaR5J3grPf0jqA8qefXFAPkTePC19VGEkjGmU8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=b8swguuRKr1pukrNjVwnvzr3tZ4P3/37K/7j10xvoW3HWaGT2/65MynMBo0xra1TSY5Oz6pJL3/ZB8SqRvgVY+YLwKQ7E6fcnOlrfwNhCR0A2RGgDF+t1oBotW/moM2sObiAuC0iTq7EIx0TalfdB68eTsWtFOFSqN5qIM4pofc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=bQV1zXZ4; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788421005; c=relaxed/simple;
+	bh=SX8dnvqNSY1Zx5QjGDxCaNrjVddLQgRZ8eMrdy1rcl4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EDw/+m/AHWoO7VfVXuvVTMx7dRmCDiXpq7QfQaN15bcnE9KwuFpNC8sSrIZp7lMznO313sVhTq7DAnxahK+cmv2qvw34zB/WYdPux/a0kFVVQ0l4LttnCMXYojJY6UQihQTmVI1VDL/zjoH0RAz17/5Q871bPCMb9eCe+g7E4ZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bKn5KEp9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="bQV1zXZ4"
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260903073300euoutp01f932cc3b5b8312ed22b276d0d0ac5943~RvzldRbJd3111131111euoutp01L;
-	Thu,  3 Sep 2026 07:33:00 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260903073300euoutp01f932cc3b5b8312ed22b276d0d0ac5943~RvzldRbJd3111131111euoutp01L
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788420780;
-	bh=4Rh82UpIZQ7NIonfNGs8YTQqWSqGT+MHCSLTl6BXJFs=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=bQV1zXZ4+kSUiD1UtpA8m7+DEFdp3b+UJT/x0X50HERkYva4J2b8M/D3zL6qOxYy5
-	 6lfDF3e+/r2d8teE3hZUKOHqLhKuqFmsKNY1MOeHj8gIqcQh65i9ERtw7Ct1LVadGN
-	 is0YSAfIOwuPbjiTdffjbCDzJGY3smVOZSHQSVyY=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260903073259eucas1p1129fec57788d227a159662ed4bbd4068~Rvzk9e9k82315423154eucas1p1i;
-	Thu,  3 Sep 2026 07:32:59 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260903073256eusmtip1b94b6b13230ed6f62847ad6ac2a1cf65~RvzhrjUza3241332413eusmtip1J;
-	Thu,  3 Sep 2026 07:32:56 +0000 (GMT)
-Message-ID: <859ff0c6-6c3f-47c1-95f5-0428d06f0b87@samsung.com>
-Date: Thu, 3 Sep 2026 09:32:55 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bKn5KEp9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92A71F000E9;
+	Thu,  3 Sep 2026 07:36:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788421004;
+	bh=EPTzsvt7zknDgykhy6/SS/ByprLd9bK8MMFBN4TQRm0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bKn5KEp9EzN8B4UrUmbpK8irSeGU+DyIO7Lxv+228AALpH4ZTSkXcUuHmcxi4kJFO
+	 fSYxdIr25errdX75xOpBPr8h1VrpUVk6u7cOeOM4cCBUSteF9LCdgrny1afZB0CgaE
+	 pHLysGFXQAX/TWWpIUlCuvnWLLrFbRF7V+mc5L6YRJ5BmYOzZ2GYyd9mhucwzsxW5N
+	 oGpxEPm3Y6u7UsscidtLHieygYJburKHzaz5rcFjo+FTtxAui8M/C/KRbZF04v6mQ9
+	 qAO2Yf4ydRYa4ll2N9c/ZWJiLX0vrDbQPNYS2LmBdjnHNc+ZD7CyGDfFrzBljgqHup
+	 85LrNvrqh4NKQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org, conor+dt@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260903-mibox4-dt-v1-2-f29f1e828ca3@stu.hqu.edu.cn>
+References: <20260903-mibox4-dt-v1-0-f29f1e828ca3@stu.hqu.edu.cn>
+ <20260903-mibox4-dt-v1-2-f29f1e828ca3@stu.hqu.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 07:36:43 +0000
+Message-Id: <20260903073643.B92A71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v6 09/10] of: reserved_mem: mark /memreserve/ entries as
- MEMBLOCK_NODUMP
-To: Wandun Chen <chenwandun1@gmail.com>, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, baoquan.he@linux.dev,
-	rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org
-Cc: mark.rutland@arm.com, kernel@xen0n.name, alex@ghiti.fr, hpa@zytor.com,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <20260902073116.802752-10-chenwandun1@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260903073259eucas1p1129fec57788d227a159662ed4bbd4068
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260902073334eucas1p1b0e997e1f1c9752bc9f48229d7922443
-X-EPHeader: CA
-X-CMS-RootMailID: 20260902073334eucas1p1b0e997e1f1c9752bc9f48229d7922443
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
-	<CGME20260902073334eucas1p1b0e997e1f1c9752bc9f48229d7922443@eucas1p1.samsung.com>
-	<20260902073116.802752-10-chenwandun1@gmail.com>
 
-On 02.09.2026 09:31, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
->
-> The /memreserve/ entries are memory reservations made by the bootloader
-> or firmware, their contents are not needed for kernel crash analysis,
-> so mark them MEMBLOCK_NODUMP to have kdump omit them from the vmcore.
->
-> Entries that overlap a dumpable region (such as CMA) are left unmarked,
-> because the pages of a dumpable region may carry crash-relevant data.
->
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The Mali GPU interrupt configuration incorrectly specifies 10 in=
+terrupts (Mali-450 MP3 configuration) instead of 8, conflicting with the S9=
+05L SoC's Mali-450 MP2 hardware.
+--
 
-Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+commit 8f654a48f8eb2e8df4804fdee2520ed242bedb16
+Author: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
 
-> ---
->  drivers/of/fdt.c             |  1 +
->  drivers/of/of_private.h      |  1 +
->  drivers/of/of_reserved_mem.c | 33 +++++++++++++++++++++++++++++++++
->  3 files changed, 35 insertions(+)
->
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index 286fd4db6312..9a727941b5af 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-> @@ -1286,6 +1286,7 @@ void __init unflatten_device_tree(void)
->  	/* Save the statically-placed regions in the reserved_mem array */
->  	fdt_scan_reserved_mem_late();
->  	fdt_mark_reserve_mem_nodump();
-> +	fdt_mark_memreserve_nodump();
->  
->  	/* Populate an empty root node when bootloader doesn't provide one */
->  	if (!fdt) {
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index 505735732c13..6497404ec751 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -188,6 +188,7 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
->  int fdt_scan_reserved_mem(void);
->  void __init fdt_scan_reserved_mem_late(void);
->  void __init fdt_mark_reserve_mem_nodump(void);
-> +void __init fdt_mark_memreserve_nodump(void);
->  
->  bool of_fdt_device_is_available(const void *blob, unsigned long node);
->  
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index f29a07e8fb23..a42cf6eac55b 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -251,6 +251,39 @@ static void __init __rmem_check_for_overlap(void)
->  	}
->  }
->  
-> +void __init fdt_mark_memreserve_nodump(void)
-> +{
-> +	u64 base, size;
-> +	int n;
-> +	const void *fdt = initial_boot_params;
-> +
-> +	if (!IS_ENABLED(CONFIG_CRASH_DUMP))
-> +		return;
-> +
-> +	if (!fdt)
-> +		return;
-> +
-> +	for (n = 0; ; n++) {
-> +		int i;
-> +
-> +		if (fdt_get_mem_rsv(fdt, n, &base, &size))
-> +			break;
-> +		if (!size)
-> +			break;
-> +
-> +		for (i = 0; i < reserved_mem_count; i++) {
-> +			struct reserved_mem *rmem = &reserved_mem[i];
-> +
-> +			if (rmem->dumpable &&
-> +			    base < (u64)rmem->base + (u64)rmem->size &&
-> +			    (u64)rmem->base < base + size)
-> +				break;
-> +		}
-> +		if (i == reserved_mem_count)
-> +			memblock_mark_nodump(base, size);
-> +	}
-> +}
-> +
->  /**
->   * fdt_scan_reserved_mem_late() - Scan FDT and initialize remaining reserved
->   * memory regions.
+arm64: dts: amlogic: add Xiaomi Mi Box 4 support
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Add initial device tree support for the Xiaomi Mi Box 4 (MDZ-21-AA),
+based on the Amlogic S905L SoC, enabling on-board peripherals.
 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-gxlx-mibox4.dts b/arch/arm=
+64/boot/dts/amlogic/meson-gxlx-mibox4.dts
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/amlogic/meson-gxlx-mibox4.dts
+
+[ ... ]
+
+> +&apb {
+> +	mali: gpu@c0000 {
+> +		interrupts =3D <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 166 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-names =3D "gp", "gpmmu", "pp", "pmu",
+> +			"pp0", "ppmmu0", "pp1", "ppmmu1",
+> +			"pp2", "ppmmu2";
+
+[Severity: Medium]
+Is this interrupt configuration correct for the S905L SoC?
+
+The S905L contains a Mali-450 MP2 GPU, but this specifies 10 interrupts
+which targets a Mali-450 MP3 configuration (including pp2 and ppmmu2).
+
+By providing interrupts for the non-existent pp2 and ppmmu2 cores, could
+this cause the Lima GPU driver to mistakenly attempt initialization of
+missing IP blocks? This might result in hardware initialization timeouts,
+spurious hardware reset errors in the kernel log, or potentially trigger
+a fatal bus error (SError) depending on how the SoC handles unmapped APB
+reads.
+
+> +	};
+> +};
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-mibox4-dt-=
+v1-0-f29f1e828ca3@stu.hqu.edu.cn?part=3D2
