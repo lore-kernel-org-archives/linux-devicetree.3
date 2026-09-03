@@ -1,158 +1,147 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CADB3B0AC6;
-	Thu,  3 Sep 2026 06:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796FC3F3288;
+	Thu,  3 Sep 2026 06:45:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417790; cv=none; b=U6gnhneklEiJwNGpWYxXvqKUb4obZCGL+KqAX9ZkTd3eo6TUIEvtGyCJN3z1LstAcyHnCZYGH+oG5pPWYJiNxfxB3YusdVyhXov/m6VJV+QXfgqAQkzbFuNnThF4orA7IrPTiQOImaDcotCoOoq+nnOf3VV/V3BOPNhDXjokF/c=
+	t=1788417939; cv=none; b=V66WGhAdlEHXA/fHncVGx5TGrugAvTvwWRRbnCbRol+qyXPevBxB+cflolzWH/RSkkRICj9IIdjfXJCV/fPoK52uAcwCSuk2PdsTiWchfE68l4d122Ek7s4QkFXIo2sizsqZmthtZ0gYKyUdqwzdpSNL4JWYFO4NQk5lojJmKVU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417790; c=relaxed/simple;
-	bh=zLDDEDOoPOZyiwGuhTcSuwpOsFNXAy79JRkPpolVxd4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=YBvInU/5JbwZvUDszNnTQRw0OacWXnqHmxS+kHDY3sXFafgkjWTdLfy899zae+VcSChphAep70OwK6eI24/Asc9UVKhYvwXkEUA1JCJhSoxJhhVvEEPByiJmOt2qG6bFi5ziOIpxDV5sTgkJd98pqygN5JoevuaicRe9oGCXREs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Ex2T0fKj; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1788417939; c=relaxed/simple;
+	bh=niLGgFuOlcgZCs0x3Efeu+NaKy9qbFZnkFrBvOrKHmg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DypJYp+pgeZ90KHSaH/o/t7mN05VQtVKLX7rsV3YfHBZ4phqKcovb92f7iKJyEmLxNdBlHwx9e5AgNJqRdJTMdRapm3/ER3Phs/IghsLtnHEFkBnZKtTSkGuZ9vYsa9MkCB5efwRrBCZGzCEytcyo45PA1V36ZQ2Bfei8U8MQCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VW9UEptl; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Ex2T0fKj"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=MIME-Version:Content-Transfer-Encoding:
-	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=h6xXnBIM//A962BwFEXD/J8go0ydGTpBGTmxqMZMF1c=; b=Ex2T0fKjQrVj6KSE7L3b3jqFAV
-	0jPQMx0XBp2mbfRSefriKvdT2pz9g4qEy15bcxB4eL6GUW4bn602jKAAUV/UFmv+MMEuMiggA8oaG
-	l+F7RKrTUMGtl+Ozq8ro5TIl4qadhy4XLGwFPTLy9ctjqzTorpngTPG8LrCd//nzUOhLh8+F1Xw+9
-	WS0gHzvICoCajQvauNZd6n9boeGdl9Oq5tWbFQc0b64TbVuesWS8CZcjZb3pUiLa0pIU/aiW3F0iZ
-	mPzf9CeLfiEKrqnS2QhcOjxhqygrue7vQ+DxkmeRnNMoXBO2EnM68tgS6a/LFAIXVImLbuesEmf3b
-	vVg6fi3w==;
-Received: from sslproxy02.your-server.de ([78.47.166.47])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x219x-000Jzu-0F;
-	Thu, 03 Sep 2026 08:42:53 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy02.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <nora.schiffer@ew.tq-group.com>)
-	id 1x219w-0003Og-2C;
-	Thu, 03 Sep 2026 08:42:52 +0200
-Message-ID: <62bb7c8527dea0e8af4e23e59dddb49c56d12853.camel@ew.tq-group.com>
-Subject: Re: [PATCH 1/7] dt-bindings: leds: pca995x: describe reset-gpios
- property
-From: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-To: Lee Jones <lee@kernel.org>, sashiko-reviews@lists.linux.dev
-Cc: linux-leds@vger.kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org,  robh@kernel.org
-Date: Thu, 03 Sep 2026 08:42:51 +0200
-In-Reply-To: <20260902161653.GB2133376@google.com>
-References: 
-	<6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
-	 <20260902123759.DC6841F00A3A@smtp.kernel.org>
-	 <20260902161653.GB2133376@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.52.3-0ubuntu1.1 
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VW9UEptl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788417937; x=1819953937;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=niLGgFuOlcgZCs0x3Efeu+NaKy9qbFZnkFrBvOrKHmg=;
+  b=VW9UEptlxqSA4HhEKnu1Uf8mONncVL/bjvMI5gYFBcsLqHLX2QsxJ0LM
+   4Ui/zKn4ChonwMIOCatWc5w/hxOnOB1CF7uTc3jqIkJ5imm21YA4OPxxA
+   jtx1qtqAM2n377DSgCJ851E+Ro+w4P5QIXq5RKWjWH6enA1mnFo1y5qzO
+   rfWXG2XAFuzrawVTnZVAuTT78wnhtiXipB3HEhwYuiAVY6BE2eT4s7T6Y
+   4VFOmcjB0rL39NFXwEb3/PRMc+H6kJb80adhr9VJjBw2CVAaDdHmxiAb1
+   cWlkdT456o8JmNOzMcslBDmnIEM5pxEn8LMvyOuPwETlF9lwUp1P9jQs+
+   A==;
+X-CSE-ConnectionGUID: +NWYescKSMmdGLv6osIeAA==
+X-CSE-MsgGUID: zY5AMGESQ4CoqnG3CTJ3og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88764629"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="88764629"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:45:27 -0700
+X-CSE-ConnectionGUID: Hk35I+GbS3+ym2HqwISfkA==
+X-CSE-MsgGUID: A0m+rinMSu2a64X9OH7Ncg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="274915729"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:45:24 -0700
+Date: Thu, 3 Sep 2026 09:45:21 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Andrei Stancovici <andrei.stancovici@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Beguin <liambeguin@gmail.com>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] iio: adc: ltc2497: add LTC2499 internal
+ temperature channel
+Message-ID: <apkXgcoYFiR4d0w9@ashevche-desk.local>
+References: <20260902064415.132588-1-andrei.stancovici@analog.com>
+ <20260902064415.132588-3-andrei.stancovici@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28111/Wed Sep  2 08:24:01 2026)
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260902064415.132588-3-andrei.stancovici@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, 2026-09-02 at 17:16 +0100, Lee Jones wrote:
-> On Wed, 02 Sep 2026, sashiko-bot@kernel.org wrote:
->=20
-> > Thank you for your contribution! Sashiko AI review found 2 potential is=
-sue(s) to consider:
-> >=20
-> > New issues:
-> > - [Low] The commit message description is not capitalized, violating th=
-e LED subsystem guidelines.
->=20
-> Please review, explain or fix the Sashiko review(s).
+On Wed, Sep 02, 2026 at 09:44:11AM +0300, Andrei Stancovici wrote:
+> The LTC2499 has an internal PTAT (proportional to absolute temperature)
+> sensor that is activated by a second I2C configuration byte (EN2 | IM).
+> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
+> standard IIO formula
+> 
+> 	T[m°C] = (raw + offset) * scale
+> 
+> reconstructs the temperature.
+> 
+> The PTAT sensor yields the absolute temperature as
+> 
+> 	T(K) = DATAOUT24 * Vref / 1570		(Vref in volts)
+> 
+> The raw value exported here is sign-extended and normalised to
+> 2^(resolution + 1) == 2^25, i.e. raw = 2 * DATAOUT24, so on the IIO
+> milli-degree-Celsius convention
+> 
+> 	scale[m°C/LSB] = Vref_uV / 3140000
+> 	offset         = -273150 * 3140000 / Vref_uV
+> 
+> The scale and offset are derived from the reference voltage returned by
+> regulator_get_voltage(); its error is propagated as before, so a board
+> that fails to describe vref-supply gets a clear read error instead of a
+> silently wrong temperature. No board-specific reference value is assumed
+> in the driver.
+> 
+> The single temperature channel is appended as the last entry of the
+> shared channel array and excluded via num_channels for parts without an
+> internal sensor, so the existing LTC2497 channel layout and device name
+> are unchanged.
+> 
+> The LTC2499 latches its converter configuration from the second command
+> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
+> selects the internal temperature sensor. Because a single-byte command,
+> or a second byte with EN2 = 0, means "keep previous", a one-byte channel
+> select cannot pull the device back out of temperature mode: after a
+> temperature read every subsequent voltage read would keep returning the
+> PTAT result instead of the selected input. Temperature support is
+> therefore only correct if the voltage path also emits a second command
+> byte that re-selects an external input.
+> 
+> Send two-byte commands for all conversions on parts that have the sensor
+> (has_temp):
+> 
+> 	temperature:	EN2 | IM
+> 	voltage:	EN2			(IM = 0 -> external input)
+> 
+> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
+> the original single-byte channel select and are unchanged.
 
-Hi Lee,
+Looks good to me,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-please see my reply to the Sashiko review on PATCH 2/7, as that one require=
-s a
-decision how we want to model the output-gain in the Device Tree. All other
-Sashiko review comments look correct and will be addressed in v2.
+...
 
-Best,
-Nora
+>  struct ltc2497_chip_info {
+>  	u32 resolution;
+> +	bool has_temp;
+>  	const char *name;
+
+While `pahole` probably has found no issues with this layout, I would still
+move boolean to be the last member here.
+
+>  };
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
->=20
-> If this is a set, this request includes the other patches too.
->=20
-> > Pre-existing issues:
-> > - [High] This problem wasn't introduced by this patch, but the driver v=
-alidates the child `reg` property against `PCA995X_MAX_OUTPUTS` (24) instea=
-d of the chip-specific `num_leds`. This allows 16-channel variants to confi=
-gure out-of-bounds LEDs.
-> > --
-> >=20
-> > commit ead1262f70ad0044c0eca7c693a6d898fbcc4d44
-> > Author: Nora Schiffer <nora.schiffer@ew.tq-group.com>
-> >=20
-> > dt-bindings: leds: pca995x: describe reset-gpios property
-> >=20
-> > This commit adds the reset-gpios property to the PCA995x device tree bi=
-nding.
-> > It allows the reset pin of the PCA995x to be described in the Device Tr=
-ee.
-> >=20
-> > > dt-bindings: leds: pca995x: describe reset-gpios property
-> >=20
-> > [Severity: Low]
-> > This isn't a bug, but does this commit message subject violate the LED
-> > subsystem capitalization rules? The description after the subsystem pre=
-fix
-> > should be capitalized.
-> >=20
-> > This is a pre-existing issue, but the driver validates the child reg
-> > property against PCA995X_MAX_OUTPUTS (24) instead of the chip-specific
-> > num_leds:
-> >=20
-> > drivers/leds/leds-pca995x.c:pca995x_probe() {
-> >     ...
-> > 	device_for_each_child_node_scoped(dev, child) {
-> > 		ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> > 		if (ret)
-> > 			return ret;
-> >=20
-> > 		if (reg < 0 || reg >=3D PCA995X_MAX_OUTPUTS || led_fwnodes[reg])
-> > 			return -EINVAL;
-> >     ...
-> > }
-> >=20
-> > [Severity: High]
-> > Does this allow 16-channel variants to configure out-of-bounds LEDs?
-> >=20
-> > Changing the brightness of out-of-bounds LED channels (16-23) on 16-cha=
-nnel
-> > variants (e.g. PCA9955B) calculates a pwmout_addr that overlaps with th=
-e
-> > IREF registers (output current control) for channels 0-7.
-> >=20
-> > Could this cause silent hardware state corruption and potential physica=
-l
-> > damage to LEDs?
-> >=20
-> > --=20
-> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/6d3600f99c77c31=
-166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com?part=
-=3D1
->=20
-
---=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-https://www.tq-group.com/
