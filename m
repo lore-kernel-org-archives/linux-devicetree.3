@@ -1,91 +1,154 @@
-Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E66A4E2343;
-	Thu,  3 Sep 2026 15:47:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784074E1408
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:53:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450440; cv=none; b=ZTz/1afxsqx0rAq07r0xTnanlti4cR4CP/AJCxZnEtlvuuoRZnYAuTuBSKBIpQqPZKNwnUlZjh/qPFJqY7AC28/fFFc2GnHSi19ju14l5aq28F8jaN+ujh/LCXDTeXxmptPu0Vkbvba6DioPmpQ8dmmhrz5csP8XIcdma5vjxKA=
+	t=1788450839; cv=none; b=DyzkJJ4USaWLzTFLhIkc3/GfhkgaCgnLgnu4GChE7hqK1LdLLr4onrjzqbzAuq+Ua0o2s1tSkkE59Y7AFRp1+5SJkmsh/zjEnSBhle/8VDsq93ifpFlE1XdjWK6oKfPuKoADj94Zia6CTeSKR6boCpMEfuwLraQzEnrIMKjCPk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450440; c=relaxed/simple;
-	bh=XM1j/aLph87KjehGhzloy5KQFE5iSI5nWnm3VvgFBCE=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mTwqVMsYSgQnxuRmtnIipYqE+8nPEg+bS1QL0axO14c5LELIxbSL++a9w9j48M935nD7XZz8+o6Gp0ILyfuz4zHlL9AkGNYolX7Y6ZWEXf6t+u52Urm82VR1otTMFXyXD/2cjGJ44SGskoyZ+P5Bm2tqx9cjyLE1fFHpisozYw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=NGyegiiF; arc=none smtp.client-ip=217.70.178.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1788450839; c=relaxed/simple;
+	bh=0hguMwtnR9d2M/DyIipVrWyM2z57mQu+BY3qOefLb/E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SPsuLnSMM7n82/UYSC5qL+poeIT0kOwWFTArJJ7Yrg4BlZm/8lNFB81bG89qDc/GObJzG4Zz/vtPT0aj4lEFcXje8n3q0dHT8RyDEx44XMxgUk6NODxUjjCLVIp3lHbi2Mib1bv4jVnbSEh5PpUz9CzJC9xRW40GJbIfIigcd+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nTHrT1Pk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="NGyegiiF"
-Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [IPv6:2001:4b98:dc4:8::221])
-	by mslow3.mail.gandi.net (Postfix) with ESMTP id 1AFC4583856;
-	Thu,  3 Sep 2026 15:10:57 +0000 (UTC)
-Received: by mail.gandi.net (Postfix) with ESMTPSA id 7D1133EF90;
-	Thu,  3 Sep 2026 15:10:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1788448254; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=uYXVTMatMDH0138orMZx6ToE2yw83S5uLOlwjJpjVh4=;
-	b=NGyegiiFn+j6/YRzTlbdj0VS4x/hJZZriNEvhhpWyEVsdgPxTMNFT/BNYuYZIqqFlpE2Zq
-	vy7IZ+5aRshKRX5KbUsb7+hjxXMrsy198rjXpVaBgBFUg1kedPRAENPul43JGP6YJhJVHn
-	qbpdBzX85Nb0jHB7PBb/JTFF+V91T5LQc1l7+AZGfnuhUN0ZTRkc1ov+Ih3wIHbxrMtXkY
-	m8VkQLwviddnw/a0lnnuevwaZoXdF9atIzHekZ26M+iIIlBpPyPSVBwXAKE5TrrHpvOnmu
-	42YTiwlExKT0IMDbZgdXNYfNeQCs/xRpW5LEimiGCh+a70GFpkPhFM/9pF97nA==
-Date: Thu, 3 Sep 2026 17:10:50 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [net-next,v6,3/3] w5100: detect carrier state using link status
- bit and optional interrupt
-Message-ID: <20260903151050.GA185059@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260831-wiznet-link-gpio-v6-3-abee6c5c966e@marmottus.net>
- <178839696443.3394541.11998106403165239318@kernel.org>
- <20260903130820.GA21664@marmottus.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nTHrT1Pk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CB61F000E9;
+	Thu,  3 Sep 2026 15:53:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788450838;
+	bh=dohr8Fu6mQO4OkEcpB+KgEEIRybvM0OAqar0j5HYfeQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nTHrT1PkryH9M+q3aEI5hXiyJ3h+xcnwr8seCk9q7kUlYAMprqasIsFrH9yRZU7Z2
+	 B7h4zvdY1vqFhDuotV19fSaKeWdDBI5rWHzFrGMTfiOHZcqL+UodR0EXpY5XT2VLJb
+	 IB/J2Y1AkaDwasWN0sah8LAiD8Ica9rDB0zeQlAnuqflyzhpABdkxpTE7dZRMONgfE
+	 NKp+0D3k7QT31EshdtCviYXGj5rjLXfZKT5ZrHKn2xHNQubMIf50OP08zcimOVV9rP
+	 VhPcWzo0pDDiQmz0SbA7lAE5Z6dyQUuu8MTQXhht1M7ik2DONUCSV/vvujseVK8m7s
+	 WWYtEwNetUPfA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/7] usb: dwc3: qcom: re-enable wakeup interrupts on
+ failed resume
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Faisal Hassan" <faisal.hassan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260903153827.3463313-2-faisal.hassan@oss.qualcomm.com>
+References: <20260903153827.3463313-1-faisal.hassan@oss.qualcomm.com>
+ <20260903153827.3463313-2-faisal.hassan@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 15:53:57 +0000
+Message-Id: <20260903155358.04CB61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260903130820.GA21664@marmottus.net>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-State: clean
-X-GND-Score: 0
-X-GND-Cause: dmFkZTFt7+Z64xoReW3on4YvpCbHIFE2WLFu56/NKaAgQeY5o5E/KZpcFfC28pZ2KfkCzOzhSxD3W01evXb0glBKmdMRdNyzgL9MvGQE/0gXySyrtuCXNf5hZOLxbT6nBe6gBoCtLVTyQL8n0CbF/jtzjtjT+SDrYGppumnq+Jo6x/lsx4+jSBbNsCEAO0skQSJGIQ1nzFftU6KzSkBp/WYiGpBGzgaxTE1Gy5QG7dr7s2nq+4w96Xe11e4lNDCBghVrUtVHkCsimKfUkr40/r0xDdxnBLgw5jMKNgomcxKC0BAGSaS1VXCtfpzawqwkFHhF7lJYfDuOOwDIP7Atj5wv20P5ft5k4uW/EIY83WAMCnHfATfu5TPqdzGGJ2sAX71EvKmXOyWrQ9LcJNkhdDx7wZHpra6KwcwVWvkI6JfHVXF+DlcelYnmOPJ7Nh7cw3xFQmifB6jQ5kR5+XgiH5XcXHme/rEh9R+4FWNxIU5lVeG1T0tTcxuLmDOsL8bunGr48SUxHpqjuXHygse+ckExl3ahhnD/hmBb7VIJSLWDI6lNFLHmTKHrOsAD53nNmXmHYeWkporxMDJeDC1w9QDIBtunlhd+9ht5EHVLNUtXLmB86+jzzRHIIHQZFhZ6zDW1E6fbZzprKB9JAoLGwy+BpEFZPpLSBpy1MGy4E4EHttSBZw
 
-On Thu, Sep 03, 2026 at 03:08:24PM +0200, Arthur Crepin Leblond wrote:
->On Thu, Sep 03, 2026 at 12:56:04AM +0000, netdev-bot+sashiko@kernel.org wrote:
->>Since || short-circuits, w5100_get_link() is not called at all when link_irq
->>is negative and the carrier is unconditionally turned on.  The ethtool
->>callback added just above, however, keys on the chip id rather than on
->>link_irq:
->>
->>	if (priv->ops->chip_id == W5500)
->>		return w5500_get_phycfgr_lnk(ndev);
->>
->
->Again, good catch! One could setup the w5500 without the link IRQ but
->still use the PHCFGR register for the carrier state.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-One more time about this one, if we use w5500 without an interrupt the
-carrier state will be the one read from PHYCFGR bit and will never
-change.
+New issues:
+- [High] Re-enabling wakeup interrupts on a failed resume path causes an un=
+recoverable interrupt storm.
 
-w5100_open:
-	w5100_get_link -> 0
-		netif_carrier_off      // stays off forever?
+Pre-existing issues:
+- [High] Using a read-modify-write operation (`dwc3_qcom_setbits`) to clear=
+ a Write-1-to-Clear (W1C) interrupt status register unintentionally clears =
+all other pending events.
+--
 
-There is probably no good solution, the user can only get the real
-state with .get_link.
+commit 04b120125f0ae65d0e301d68751f219b8e9f86e0
+Author: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
 
-I think netif_carrier_on should initially be called if there
-is no interrupt configured, that way the state stays on like on
-w5100/w5200.
+usb: dwc3: qcom: re-enable wakeup interrupts on failed resume
 
-Arthur
+This commit modifies dwc3_qcom_resume() to handle failures from
+clk_bulk_prepare_enable(). On failure, it jumps to a new enable_irq label
+that re-enables wakeup interrupts if they were disabled earlier.
+
+>     dwc3_qcom_resume() disables wakeup interrupts before re-enabling
+>     clocks, then re-enables them again once resume completes. If
+>     clk_bulk_prepare_enable() fails partway through, the function
+>     returns early without re-enabling the interrupts that were just
+>     disabled, leaving host-mode wakeup interrupts masked after a
+>     failed resume.
+>    =20
+>     Jump to a common cleanup path that re-enables the interrupts
+>     before returning the error, mirroring the success path.
+
+[Severity: High]
+Does the success path actually re-enable the interrupts? Looking at
+dwc3_qcom_resume(), the success path just returns 0 without re-enabling the=
+m,
+as wakeup interrupts are meant to be active only while the device is suspen=
+ded.
+
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index ac68b4218b56b..49698a31b2f41 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+> @@ -382,7 +382,7 @@ static int dwc3_qcom_resume(struct dwc3_qcom *qcom, b=
+ool wakeup)
+> =20
+>  	ret =3D clk_bulk_prepare_enable(qcom->num_clocks, qcom->clks);
+>  	if (ret < 0)
+> -		return ret;
+> +		goto enable_irq;
+
+[Severity: High]
+If we jump to enable_irq here, we bypass clearing the hardware events in
+pwr_evnt_irq_stat_reg (which happens later in this function). Since clearing
+the register requires the clocks to be enabled, jumping to the error path m=
+eans
+the pending hardware event is never cleared.
+
+Will re-enabling the interrupt line below without clearing this hardware ev=
+ent
+cause the interrupt to remain asserted? Since qcom_dwc3_resume_irq() returns
+IRQ_HANDLED, this could cause the kernel IRQ subsystem to unmask the line,
+resulting in an immediate interrupt storm that hangs the CPU.
+
+[ ... ]
+
+> @@ -398,6 +398,16 @@ static int dwc3_qcom_resume(struct dwc3_qcom *qcom, =
+bool wakeup)
+>  	qcom->is_suspended =3D false;
+> =20
+>  	return 0;
+> +
+> +enable_irq:
+> +	/*
+> +	 * Re-enable interrupts if they were disabled earlier, so a failed
+> +	 * resume doesn't leave wakeup interrupts masked.
+> +	 */
+> +	if (dwc3_qcom_is_host(qcom) && wakeup)
+> +		dwc3_qcom_enable_interrupts(qcom);
+
+[Severity: High]
+This is a pre-existing issue, but earlier in dwc3_qcom_resume() the code cl=
+ears
+L2-related events using dwc3_qcom_setbits():
+
+    for (i =3D 0; i < qcom->num_ports; i++) {
+        dwc3_qcom_setbits(qcom->qscratch_base,
+                  pwr_evnt_irq_stat_reg[i],
+                  PWR_EVNT_LPM_IN_L2_MASK | PWR_EVNT_LPM_OUT_L2_MASK);
+    }
+
+Since pwr_evnt_irq_stat_reg is a Write-1-to-Clear (W1C) register, doesn't u=
+sing
+a read-modify-write operation like dwc3_qcom_setbits() read all currently
+pending interrupts as '1's and write them back as '1's?
+
+Could this unintentionally acknowledge and clear every other unrelated pend=
+ing
+event in the register, causing missed hardware events and stuck states?
+
+> +
+> +	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903153827.3463=
+313-1-faisal.hassan@oss.qualcomm.com?part=3D1
