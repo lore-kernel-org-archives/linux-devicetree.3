@@ -1,117 +1,60 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313143515CF;
-	Thu,  3 Sep 2026 21:01:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61677421241;
+	Thu,  3 Sep 2026 21:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469278; cv=none; b=Zbfi7F4Pmh1zWJ4Ixogqz3EEqkPtklv2y/duGtYUTnb9D/b3zS3ougfDOpXx5qnYYFTiKkOkhXedVbSMQHzlNsMtkwn7ds1bVrHjfWvFeEQW1vgg0AJoF9/fjzkZBVhjOXfL24yg0hdfyluEdbaJ4FbubtGh/AWzy89PZc8xO/I=
+	t=1788469305; cv=none; b=UeA0hv8eKYFR+skNIfgWZa329kP/kxn5qOBsZtuO7rbUAbvGtRx8bu59+Lqwpv8ZPz8MZ1oLEYxZiVcL58icsP3Y+qqHpMyPJKzhxFL9KP88FPCg1BawGcK+R73L2psOn+qGAYZExzrNqB+kIz86lCI+2D7Y4YlfaTMGVD5DVYQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469278; c=relaxed/simple;
-	bh=YYxuBmZAH47wgXQP9XeaVmlhdYRTXofjQ1oQ/sIshac=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fj+w54Szbv7PdVZQKp1gzO8o4Xg/ar1Jv4dnTI13axcjsetLf4qsBfVa5dtTkE5K2Y89datbVyXnCRsoU9haFksZdAFBu6TY1xd5z+fRBTADVauV0Cu5sSaz9DTJSXSzyomeIisWtYW1Xh/hgt7IJ3NmOfrlI00gIs+DUqg6NsU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCl9wfTi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788469305; c=relaxed/simple;
+	bh=jma+xTlv2sm5UdHQPB5tIW2sujHNqqZiJ+1/ponjuhY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jaEzq+dF9p8Hro99yrIZTuauNmi355h/ydSwbpYw9x0b53pJFk2xMxZ2xaI+UVORrMC9q654i2KtZ1GA4MOqZv1CNtdcdGOtWimDMeOL6E8TTIGu5zzIaMYChj6TIYCwzyTwu4PrS+cAPTE0KB8WpBClH/pTJDxtvggiYEB4Bic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UlIAZako; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCl9wfTi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CDC91F000E9;
-	Thu,  3 Sep 2026 21:01:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UlIAZako"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 016721F000E9;
+	Thu,  3 Sep 2026 21:01:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788469267;
-	bh=Uv8ZzIHycIvf6yeL4vgkmrAt3UAxDnPLrH4lIK6QkvE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FCl9wfTilfdE1Ux2g/CYVVtvAQ3OD4ice2Ynu8cIiKzAaO46I1GdKOWUtMA9WHzk1
-	 3U5iryqL/7rPwvCcsLyEXL99ciO4qIvdxQmXMbkEQFo66Kka1THf+DoeLoJFIDl8en
-	 EFqrLypie86VuvRlaLPHRs9QGjXbkPnhgyJKAkkahDeghSpRj/slTWZpTfcsoCHIf7
-	 QpliT+m3Q4lNwyWdExztwk0RZCToYH3m9gjxvGbAEYf4eaNcrBusw8zKH+q6YGMWuD
-	 RYajAmAo+CMG9aKyfbj6IiO/G8AW75/43++pPMcM2Sy51XKmWdo5l+8Lm09SJBvNii
-	 IgD/jUox910vA==
-Date: Thu, 3 Sep 2026 22:01:02 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Diogo Ivo <diogo.ivo@bootlin.com>, Oder Chiou <oder_chiou@realtek.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Animesh Agarwal <animeshagarwal28@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org, Ben Zhang <benzh@chromium.org>
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
-Message-ID: <12b9d08f-e773-49a9-8b36-2088c8e13cf6@sirena.org.uk>
-References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
- <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
- <aplEfd33wSz59iLS@sirena.org.uk>
- <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
+	s=k20260515; t=1788469296;
+	bh=jma+xTlv2sm5UdHQPB5tIW2sujHNqqZiJ+1/ponjuhY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UlIAZako3VJvSi1E+xO5tY2JWuCg+Y9UC9xcVhfPU9fJPifO0e7rLR7btwrjtP72/
+	 14U2VcIvFvOPFPy/avwjR/hybYffzt3DrW3KsyGEEHfk3oTLb4gqE5/quNxxDXCWAc
+	 Y4EO2ztuNcb9cokKYGW6mRhBnskb32PLI58f+6nlNGyJzmEwuFKmMuM45yQNNPKvoZ
+	 CgvhviromqoSV3SCPDBBdMOqlwRi3ZEcC/mA8bJOK/H64+j0SeiW0q4I+tHUtx0A9W
+	 MbPp35F45EIbKDmCdbHNc4t6EJt4V0vy+HKU1ABzatTg2uam4kZixA//JZcQNfu9PG
+	 xPVkFMOKfVY0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/6] arm64: dts: renesas: r8a779f0: Add PCIe
+ Application/Local register reset
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, linux-pci@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260903205153.283553-4-marek.vasut+renesas@mailbox.org>
+References: <20260903205153.283553-1-marek.vasut+renesas@mailbox.org>
+ <20260903205153.283553-4-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 21:01:35 +0000
+Message-Id: <20260903210136.016721F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="M0WeFJ5o30F4cSnU"
-Content-Disposition: inline
-In-Reply-To: <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
-X-Cookie: One picture is worth 128K words.
 
+> Renesas R-Car S4 documentation R19UH0161EJ0140 Rev.1.40 , Jul. 31, 2026
+> chapter 9A.1.1.12 Software Reset Control Register 11 (SRCR11) bits 22
+> and 21 describe PCIEC ch1/ch0 Application/Local register reset. Add the
+> matching reset into both RC and EP DT nodes of both PCIe controllers.
+>=20
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
---M0WeFJ5o30F4cSnU
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-On Thu, Sep 03, 2026 at 03:26:46PM +0200, Diogo Ivo wrote:
-> On 9/3/26 11:57 AM, Mark Brown wrote:
-> > On Thu, Sep 03, 2026 at 12:11:00AM +0200, Diogo Ivo wrote:
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903205153.2835=
+53-1-marek.vasut+renesas@mailbox.org?part=3D4
 
-> > > +  clock-names:
-> > > +    items:
-> > > +      - const: mclk
-
-> > The driver code has a reference to MCLK1 which implies multiple MCLKs,
-> > unfortunately no pinout seems to be available and other references in
-> > the driver are just to MCLK so it could be cut'n'paste.
-
-> Thanks for raising this point, I had missed it completely. In fact,
-> looking at rt5677.h there are two places where MCLK2 is mentioned:
-
-> #define RT5677_MCLK_SRC_SFT                     10
-> #define RT5677_MCLK1_SRC                        (0x0 << 10)
-> #define RT5677_MCLK2_SRC                        (0x1 << 10)
-
-> and
-
-> #define RT5677_PLL2_PR_SRC_SFT                  15
-> #define RT5677_PLL2_PR_SRC_MCLK1                (0x0 << 15)
-> #define RT5677_PLL2_PR_SRC_MCLK2                (0x1 << 15)
-
-> so to me it _looks_ like there are indeed two MCLK inputs, both of which
-> can drive the MCLK clock and can also be the input of PLL2. However, as
-> you mentioned I also wasn't able to find the pinout/datasheet and I have
-> no way of testing this. I think the safest bet here is that I send a v2
-> where I rename "mclk" to "mclk1" that we know for a fact exists, and
-> then later on if someone with access to the actual datasheet comes along
-> and confirms the existence of "mclk2" we can add it to the binding.
-
-> Let me know what you think!
-
-That would be safe, but let's add the Realtek maintainer (who I'm
-surprised you didn't CC...).  I've also added Ben Zhang who did a bunch
-of work on the device for Chrome and might be able to check too.
-
---M0WeFJ5o30F4cSnU
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZ4A0ACgkQJNaLcl1U
-h9CCOQf9GzylS/V+CerOOxwbKCvbewffQbRcRgiXPgxRIhzHXEtGzmH4mOCrB5al
-lSBM3Sxkmg3FYsXOs6ZGjwYAj5gPuoruOu3ITBwTCieymS19GPfGNMLSzg+5FQL/
-nBb9V4nU5tnhbQP4Q4hHYXaVdqM/fAs7FdNCFBlMcMeUQIGfiZT3aJdqACkxh/DO
-oED1guanpd06xtdFrpN+S3UOv4+p76lB8MXlp/S0x6Lk9JAm0QRdVhCqngjP6Wuo
-BT5riCffnQdpLI2b3FMzqhZeik7YFAJfUYc8mmqbvWjzzdDqKUwgTNjcMu2sw2//
-OlBy7hSOXrqaocNlfaMyCsIIdNnMMA==
-=czcJ
------END PGP SIGNATURE-----
-
---M0WeFJ5o30F4cSnU--
