@@ -1,129 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD3E34B1B41;
-	Thu,  3 Sep 2026 14:04:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A7F2F8E86;
+	Thu,  3 Sep 2026 14:06:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444290; cv=none; b=euSpBCPPfBhKa3nRUgqtdHpgcyt7facJNQupGw7ZO+Ty0aRq+9RXNT9PQbaBP8uLmz9sz514+TSjuujBx99QCOemdkeRdVvoMj6d7BrgZ0I4ERbyel5MADsObiWh2942oNjnvvAVlX8le1bT48WfV0xoZ3WuI4GaA7AsqSKQqJE=
+	t=1788444420; cv=none; b=dgKysRfYgNTNOk4rFEIlrG3GD28dDPEwNJWdF7IwY9zHI2urIYGiInV5aVKhnpCdLT5npseWZqgtbl0o94WLP6+r5veCZEsDZaYOvRQ9xHvPiFgyab0qpFfYQqt7y4rehzdvyCsnI9QbK3Vc2B6RobBbLY3pMDBHlNdFZSIBoro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444290; c=relaxed/simple;
-	bh=MZP6hP8rd91/K4S3Pn8MLF8V/Tt5zYIAnML3hUEtVbU=;
+	s=arc-20240116; t=1788444420; c=relaxed/simple;
+	bh=LyHP8Bb3AiQCbPFSjeQIemdYCrjAICsf28GcYpX7sNE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UGVkklC/lD2yd/XclNv7L0SPgVOURiXeILc3flm66MpdFRtlH3f3PVXRHYnMb0ILmXHManA5IUnQziuPzEL9sDlnE4ReY+He9vGrzT/idiDiSbXTnWAmPdlSVQsBtnqEeF7WfkcUlGPUAbC/y9mKirBgZytQ1SfwfSmrjmArFDc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KP5K1Mwl; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lvEaH6Vh6rhgJBJDXgKoMTi7kcMznAyGEvzUPxnB0uQQ8B0iiJg7egjpJkNfsy5jwmN366AJwNbimWQ7BDLhd/qyi3qxum1LqoJcIc0nHHc4mpz11WLLKxRJ6/zvTM2Kcajd2kwv5zlkcqLAa8KWSyCcR3BsWwFL+xOvLk4d8vE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JuG6rXQd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KP5K1Mwl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE0B41F000E9;
-	Thu,  3 Sep 2026 14:04:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JuG6rXQd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139B71F000E9;
+	Thu,  3 Sep 2026 14:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444275;
-	bh=g4mXt9iRVDXINxrOOrDAeMi6YhwipTD2z6eOlh/OfqE=;
+	s=k20260515; t=1788444411;
+	bh=4O+cFRCtbfrFkucWjIpmN/RTgFXtwZtS/9pUBY5EbdQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KP5K1MwlpnmNXBzYNaKiTl9Bddzh6L05dRYfsmH6J60wkql/+C0qWrgjwZPtflWD+
-	 XBWH3AE17891s3puAiSnV0WiQ6zlAjPZTdx56Zn8pFuAAfHTh95eD6oePvf7YE4BW0
-	 yCv9ia2nm81lCH8tmoZvbnvjRu7n74f66nIQLkLXkq1nhw4Pqvf14cfl31O3UGEO9p
-	 5pmALcssc43PmkJj1KqkmFw3Nd2CEnuqOCzoOIDFUXIiSFLsXAfcpkblrVIzgFsi7q
-	 j6qJiBFBvCLZnk+iUZGtFTZDelPlV0MHSHky9S/fOdBPTlswqebvrGlJJ+LfrBx7Uz
-	 lu7yOBMTEeLiw==
-Date: Thu, 3 Sep 2026 16:04:16 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>, 
-	Daniel Thompson <daniel@riscstar.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 3/5] PCI/pwrctrl: tc9563: add GPIO auxiliary device
- support
-Message-ID: <3nlsilckqt673fs2qikpnniius7gxwxfit2xbwldp5ac74objo@yr5yhp267f3r>
-References: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com>
- <20260903-pci-tc9563-aux-v2-3-34c625b542c1@oss.qualcomm.com>
+	b=JuG6rXQdPR+1U2yUZJGPIP7TJjo6Tsb1RmEXBpridfX9LnWb5XAwBG3NigKwZf5Fl
+	 GQ2gIbhHlmb6Fjanp010CQfhmN7qLnbbVGJEdRpwx9yqDi95ge+yjdOGn6cTJGTIRg
+	 Ix7WRob1bcbsKR+g3leXu/oqnn4DT+1VYG1q1NJ71jqhQ7BpFLnQLjl9oueaYLQb62
+	 BGDn8Z8ouCliCVlGhg7Vxq77zfM9Bq89qTIJVMmZ0Mv2Z1ypUEk5uTd5OCulC6Dl88
+	 LmPmq+Xj+6zSLwg4Iyh8SF8Z+e4jmicUp/RwJCTO7ZUnqCHywDrcYNgtjhKPIEQwFm
+	 3jeITFfPq/k7A==
+Date: Thu, 3 Sep 2026 09:06:47 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maulik Shah <quic_mkshah@quicinc.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: shikra: Update rpm-stats
+ compatible to SoC specific
+Message-ID: <apl-vKnwHWFJ8Kru@baldur>
+References: <20260713-shikra_stats-v3-0-4be17121729d@oss.qualcomm.com>
+ <20260713-shikra_stats-v3-3-4be17121729d@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260903-pci-tc9563-aux-v2-3-34c625b542c1@oss.qualcomm.com>
+In-Reply-To: <20260713-shikra_stats-v3-3-4be17121729d@oss.qualcomm.com>
 
-On Thu, Sep 03, 2026 at 09:52:59AM +0200, Lorenzo Bianconi wrote:
-> The TC9563 embeds a GPIO controller used for per-port reset signals.
-> Create an auxiliary device for it so the gpio-tc9563 driver can
-> register the GPIO chip and enable DT-based GPIO lookups. Pass the
-> tc9563 regmap to the auxiliary device as its platform data.
+On Mon, Jul 13, 2026 at 01:46:56PM +0530, Sneh Mankad wrote:
+> A generic "qcom,rpm-stats" compatible only reads stats for SoC level LPM
+> stats like vmin and vlow.
 > 
-> The downstream port DT parsing loop gains an of_node_is_type() filter
-> to skip non-PCI child nodes such as the GPIO controller node.
+> Shikra SoC specific compatible allows reading individual subsystem level
+> LPM stats along with SoC level LPM stats. Change it.
 > 
-> The pwrctrl driver does not wait for the GPIO chip to be probed. The
-> per-port reset GPIO lookup, returning -EPROBE_DEFER until the chip is
-> registered, is added in the next patch.
-> 
-> Select AUXILIARY_BUS and GPIO_TC9563 in Kconfig.
-> 
-> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> Keep "qcom,rpm-stats" as fallback compatible.
 
-One comment below. With that addressed,
+So the fallback compatible works, but the more specific compatible gives
+you additional stats?
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+If that interpretation is correct then this patch is correct.
 
+But then you need to fix the binding.
+
+Regards,
+Bjorn
+
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 > ---
->  drivers/pci/pwrctrl/Kconfig              |  1 +
->  drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c | 80 ++++++++++++++++++++++++++++++--
->  2 files changed, 78 insertions(+), 3 deletions(-)
+>  arch/arm64/boot/dts/qcom/shikra.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
-> index 1952ab4f29b6..38aab596aa04 100644
-> --- a/drivers/pci/pwrctrl/Kconfig
-> +++ b/drivers/pci/pwrctrl/Kconfig
-> @@ -29,6 +29,7 @@ config PCI_PWRCTRL_TC9563
->  	select PCI_PWRCTRL
->  	default m if ARCH_QCOM
->  	depends on I2C
-> +	depends on GPIO_TC9563
->  	select REGMAP_I2C
->  	help
->  	  Say Y here to enable the PCI Power Control driver of TC9563 PCIe
-> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> index b0d8912690a2..6df512d78b54 100644
-> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> @@ -4,11 +4,13 @@
->   */
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> index 4e5bc9e17c8ed8914733ac9fdc9b69128b40216e..b299f316e3c61858c4b380f6211d0f36ef9fecf9 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -535,7 +535,7 @@ apss_mpm: sram@1b8 {
+>  		};
 >  
->  #include <linux/array_size.h>
-> +#include <linux/auxiliary_bus.h>
->  #include <linux/bitfield.h>
->  #include <linux/bits.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
->  #include <linux/gpio/consumer.h>
-> +#include <linux/gpio/driver.h>
->  #include <linux/i2c.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> @@ -20,12 +22,10 @@
->  #include <linux/regulator/consumer.h>
->  #include <linux/string.h>
->  #include <linux/types.h>
-> +#include <linux/soc/qcom/tc9563.h>
+>  		sram@4690000 {
+> -			compatible = "qcom,rpm-stats";
+> +			compatible = "qcom,shikra-rpm-stats", "qcom,rpm-stats";
+>  			reg = <0x0 0x04690000 0x0 0x14000>;
+>  		};
 >  
->  #include "../pci.h"
->  
-> -#define TC9563_GPIO_CONFIG		0x801208
-> -#define TC9563_RESET_GPIO		0x801210
-
-These definitions are still used in this patch and only removed in 4/5.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+> 
+> -- 
+> 2.34.1
+> 
