@@ -1,171 +1,211 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8666235CB6D
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:31:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A3C44DF4CD
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:32:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449516; cv=none; b=n+CN1RzVs+37ApV1LaH2838m849MQt8oiyjOv2iYLDBuRBiCPz9lngip4JHyeSpNEn2Bem9MOtLWKsHMRsTk3sH5pDMt2fIbtxLshiz/5SKt5bZRN5BNOYK6CkUL5COJCfZUCWCradWZfNki9RJIjR6zrVCwVWzqRoR9PJ+8Fpw=
+	t=1788449543; cv=none; b=Td5NS/74DyBZXVJu/bb+PeLCaJgaSWrV4uMFbz1Qno7uveKQOogJNIcTOIh+vLUb3yJdWwHrIsJ5ln3UyyqveDJSfKIRWbx7CpvD9H8stuVn51190S1hDLd5Fhv8nMfpx5WHe7BoHvbwMR52MmdHlkzxe8zEIxr4zqOj+85iKK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449516; c=relaxed/simple;
-	bh=5uzNDy7TqOIsnMifKUBCd6yHdFj8TpZZ1Usplw3pKow=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mI7qsJBu3Jo6V/dp0qxQh3rC9imdgtT5rayW+y+jUel17urV/Lx3TBjNo3B49LehvC0oI8WoO5+v41mLWRaRvjwAT1qlEKqgZtVV6cNn/HPvgEa31CpQmNuBpY2o/latlUoWhkh1ZqnnytVBY36DoWpdep/xJlVX2FTWcKVhQ84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NNDK1sS8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KW6pejZI; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NNDK1sS8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KW6pejZI"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DA5WO1704802
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 15:31:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ndIsPBfnQyXwgYz9iaRnRCca0ilHBDDADJqxAyoUAvE=; b=NNDK1sS8EU7+fuHi
-	Z47VrSMumg08C0vbtN2CdVFrp1d5hbQcCjYgAT3KzH4X89uHJYCuJwOfurfObbC6
-	UZHTPnqIQbItDcYvVQP8Kd1mLu3Jjzsc6IfdY76HiWM1UHSVnoWF5wsYGH6j/s0w
-	kxlb+xCdRd5RBX5COlqB7uROKlQ6U1APCVFvQb9EEIJJcT6jsmbahD258WmuGrkg
-	2qro2av21vsT4AVmhMluz2LLKp6zqL3g11cALp7xqUVLLuW5tJckKspauTG1UDQo
-	B7b5UW9CbdbyXSvMvIAmLoVZAJP9eu2R4yIX5Nr/SHORTrBtr3CLKmXT6jI4YIFB
-	kmDxow==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b18p7h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 15:31:53 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2cfa4e4684bso57920195ad.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:31:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788449513; x=1789054313; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ndIsPBfnQyXwgYz9iaRnRCca0ilHBDDADJqxAyoUAvE=;
-        b=KW6pejZIG9L2AqYOMBNOWo2+CEKKlXLie7X1ZZMVzvvt4v8IR6FtT/b37Cp/SEsyNT
-         0DEa72jMUaaH4mLsbSVy1McZomgIPQwCck/GM/DfyPcpMy/xv5YvryWxDNuikrYyVYW9
-         dRgfnIUoxkIXNxP9Z/nFXGSC/gNbnUAybtFKAbIzfhNP8/kOqEe9gh9rBPkDUh25HBDZ
-         dTsT2gUT5tH1B8HWvUNMbelSJHjwkd629FiPch+uriyiwiQgTdbez+6ZuRmDKYLaYd2h
-         YYIZ83zoTiuq8sFpEYd1HcF8RsjHaQarVe6yRZpyapJsWzSczBNrEKCYcfjpaVqjVe4X
-         eAtA==
+	s=arc-20240116; t=1788449543; c=relaxed/simple;
+	bh=O1T/S/tnLkdqmvZL1LvuEUmH7Qo5CdEtlWyLMpBc4J0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XAdvra2q5baDrvUzhdMvHtYPzAzJnmLODvYHIqzF/A19citoKJlYYTdmD6//ShEMwXhit/HwlGyKgiFb2KKcjzZxDfX5YjGYnpr72CwMo4HKe3vs4Q83PmgsoYXAvahuT8hXPprmWnmqp3KQja6b9VYpPW/Lg5DRBJrZEbVQaf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5bfa4c51c2aso1389e0c.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:32:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449513; x=1789054313;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ndIsPBfnQyXwgYz9iaRnRCca0ilHBDDADJqxAyoUAvE=;
-        b=WwfX2+z/BmrnlTRx7XTe+NpYmhkK2pbvY0qRjJLc1hUpK/qzSJ2toctCQDIpplOpoJ
-         vQM/PXrHVZ3a4tn6MrKTCK+x7vvvgA1BUqqOR54dxg/w89t/3HArhY03M1isbT8U3fYd
-         aUABbn2jUkkcvqaDHu43upcyvrFGgecw/4zDslj2HutOo2awMl9PtV626g/U+rwDKDk4
-         EZqv7Or/F/m+z41c14wMojtrVbgrYIDELNMqiwQl7BofIE2ELCs9a65U7LQNkgm6EoMJ
-         6rxreaOYCFozAy7O8tngL8HydPoPaD8I51MBsbGd2cfhCfRDhnrzDWUDTS+CFeXzchRc
-         3G+g==
-X-Forwarded-Encrypted: i=1; AKwUvBy8XXoofaaGMTVTulgMBs8r/zgg8ZZbgpYw8XKtOkqYleTgM7et2iqbzUByPXhapUbOlRwEcuNrxdbP@vger.kernel.org
-X-Gm-Message-State: AFuF++lz5rDOnKdE8zVv8t5Snawp2VAo+SrAXjNLdJKP3QS+AF6ib5VT
-	T7tw28DqlZ+qBXfXv5hDj6Hq7/xinS9RcTjg4es/SvFwvwp9pE28D/HXsAlI0zlh8t7o/CX1WBh
-	f4j6IKAZV6xmeOJS+p4xNasNcuL2FsAtV0yN8YLcKKIG/YqZwAIBFgdfiqjJ+uhss
-X-Gm-Gg: AYBFou0k+5g7Gz54E11SWIRdNCvZAMBI0/jTODcwe7B8/qtH5k8INvhuKcPpebyhWl7
-	EqBNCzPONV3dl4iMIdn9LAJOYEfMcxleQDwHbVxKyXGt2JSGzAyapIfCbVuv2mea/PB0pZFrJkn
-	M9cDP+o3o8Oxt9Eo5NH+UsDK5znc4Gb9CW64ryJ64D4BRcZVNqkwn6O9mFg3CxXUGLifJFYCaH8
-	1RD+EBYipuyBkUrXkTSzfQ/9MR7YdpxdGGJOJ/n0d8TteL35zBaXiXLZ8UrLlIA9Spp0cwlxQTn
-	J60I7/rW54R2vE6oRUJ5/8YM5ehFY9UEC96MeesyTOzOg7GiZb1WpLoboxC+LHhn55rPL3tymkF
-	QQgP09/fqJ5TJV7zENSAtJnbJ5m4B5XQGPnEHXezIiI/nzjv5rt+9DwT8mJjoa+lR
-X-Received: by 2002:a17:903:1aad:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2db106d909emr7514285ad.12.1788449512694;
-        Thu, 03 Sep 2026 08:31:52 -0700 (PDT)
-X-Received: by 2002:a17:903:1aad:b0:2d7:4cd4:5a7f with SMTP id d9443c01a7336-2db106d909emr7513075ad.12.1788449512195;
-        Thu, 03 Sep 2026 08:31:52 -0700 (PDT)
-Received: from [10.133.33.96] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe62d7c2sm11955965ad.29.2026.09.03.08.31.45
+        d=1e100.net; s=20251104; t=1788449541; x=1789054341;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=smhgAnbElT93Xc14KAwXUjbx11QNBeL7p1UChIAHiR4=;
+        b=fmwycM7td3+QOWfr4xE3f7UHNI2yhPUGFWerWqdVwHAK0QGg/3KSKPcnzKoZ5shg+O
+         /DZzJ/HqITATMhLZv42GXMHIzXhjTzSgkjDgLvsJyBhqWF7HlkTmHuGrZWLxcR/5DOZ5
+         qjE5guQqy1kPo8s9+eyGElRjmGN+uwnFkBD48bsFIlc86yW7v8UOd/Oq9mn2zsWafjyP
+         5A/GRE/6saGr1PM3kJqVlZwkHUIyX1cARPG3urfa0+i0TM8GiXRtrtFVaogPYknNxm3+
+         BSAENGSboPfRXyL09MzPDX6PzQWEjIcyIBoiC/RA2JbSo+Uu387FuI0zOLlMc2GTO+Wz
+         7L1g==
+X-Forwarded-Encrypted: i=1; AKwUvBzlamqReETY1dEQNM9vFs/xMT2zd2pA3Fw1WWAJvbtSUl7H84RkSkvctKauorR8CJwPPmNCIsk6FhD1@vger.kernel.org
+X-Gm-Message-State: AFuF++k81pc93zFhN32kqdjd8OFrkKtHr95eXa9CsPKCN2alE7XmpLCz
+	ol2TlgJe5osYa0A3rUTOVLnyttJvAZ8O1p8vh4lOMUkYXBtxVxaYOvnfepY5V4FNyq4=
+X-Gm-Gg: AYBFou3TXhyjW17Q2GjfIzhD+FCpv9IT4uilObc2iMkZPh75658LucO23R7rPhVIpep
+	BM07uCW/SSEzSjDgu3hwcj1hSOCyeeb7LGaC0y7WVnrD2tRj6X/+iuwUoVAGg8/uXaiiOdYbY5y
+	P293RSOBAQxV7ofGew+DDUalD/R+9zXK1/Go+gjoVZP6Fl7qwZvsoO0uS7RvNZVhZlrDB5pYiHv
+	961q0lYoDkYxO9ODK6qwYYn7h/al8Swlz+aWukrHeuYtMC22R0NOUd/v9d74IDzLlY779WF7tJB
+	4nql251zSk5diqk/+4VadPx8eRBZPojn9nnNfgcXyN0awlnTFGXhsZ6JogKzgy0rRs1pnmss4gU
+	cKd4HyrwbD3UNfXMq4LO5IpnJCbpi+3FG9J6Renka71qHZmEWBFEV3t9YQFed/ic9p4FOt0TSry
+	D2HpbMSfFRM44OoEugV1noTx2O+qhi00rBaMdJaU9x+v7VgJMLGT4MxcSpoJl4NrydFYBkzdqjx
+	SbUyjxrqY6xumgEXDmFFxWyaw==
+X-Received: by 2002:a05:6122:8d5:b0:5c7:ae9a:a056 with SMTP id 71dfb90a1353d-5c7d28b7ffdmr5547483e0c.8.1788449540967;
+        Thu, 03 Sep 2026 08:32:20 -0700 (PDT)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd92817asm4695199e0c.17.2026.09.03.08.32.20
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 08:31:51 -0700 (PDT)
-Message-ID: <d3d418e6-ab18-4a2a-9018-4eb961f9731c@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 23:31:43 +0800
+        Thu, 03 Sep 2026 08:32:20 -0700 (PDT)
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-97bf91b2e6eso10832241.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:32:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzq1iDV/jclPKsXNS/cgV+ICqRmab51gcSD61SRPV+gwENAcQx0lvGZOOU6ueqXAW/mxJWxDqMOC38t@vger.kernel.org
+X-Received: by 2002:a05:6102:e0d:b0:789:5f54:2367 with SMTP id
+ ada2fe7eead31-78a1f1f13e9mr4112330137.4.1788449534923; Thu, 03 Sep 2026
+ 08:32:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 08/12] clk: qcom: ipq-cmn-pll: Add EPHY-RAW clock
- support
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, quic_kkumarcs@quicinc.com,
-        quic_linchen@quicinc.com, quic_leiwei@quicinc.com,
-        quic_suruchia@quicinc.com
-References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
- <20260814-qcom_ipq5210_cmnpll-v3-8-21c3db378611@oss.qualcomm.com>
- <mdfw522n23py36txjtsesi3pkfhqljlkrabturbjumsdkeg5eg@h62ob3bxsa3b>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <mdfw522n23py36txjtsesi3pkfhqljlkrabturbjumsdkeg5eg@h62ob3bxsa3b>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: xJt36735EMLyP99Usk26UBS9IzPwYtmw
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzNSBTYWx0ZWRfXxhX5ZCArlhme
- BHnlpsxTuqaaacOUMSguFv7dFokYghC+5CBIybYua/1e/EyttMCig5/iCp1yqVAF7VLxEGor0vq
- a1ZfNOCi6VhjLiYkKv2Pw208lFq2QUs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzNSBTYWx0ZWRfX92MjV6VVl8zk
- LLejcInen1Ai9mpsskGlaR0nex5XrgqaAvTYrbEmNxlFG5o9CyCMg69N2DPYgr0pkItn7kpidbO
- oahZuP6rM1YqxvPYvTlLpJOZzwIiKbgnc7BSBPF+an512hBqWdyvVCyy/gXFAsid+jCoEgxMiaC
- Q5BCtEXY6VuxMC21klSBkN33jcH0/UA8KLLFvSZDA+X/lPgN1x9x8GS42jcr8rmdZeaB1xAi/y3
- MlGwNePOp4pZc4XjqST793MbFNPfUEHD4sRRIvwtjAbAXEMq+egglghzDv4UGs2XxOp75QZMxAy
- W0Nw1uwPGCTMAdpdUryQ4tuC7ImJ0g5ej9Ua9eiLUn/2etafNdiFLOf2d76qKaP+VBN0mXV+xw7
- /j4vlN0vAnrWeadhS955RJc5aZSN0PwTpvq7QWlJkVYZm7Uf2tOihnOKn7AcIr52ICOY9NbQgcM
- wkgdETZ3SpkqUYIkDGA==
-X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a9992e9 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=bLGlZ6Hhwxh5CS4LpkgA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: xJt36735EMLyP99Usk26UBS9IzPwYtmw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
- malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030135
+References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev> <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 17:32:03 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
+X-Gm-Features: AcwNN1WnpoMcG4OiqSwpOhcE41-w5QvCDbZ1B83z-OJyrnfhHqNepFiL_pVw_TE
+Message-ID: <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
+Subject: Re: [PATCH v6 3/5] pinctrl: renesas: rzg2l: Unify the power source handling
+To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, magnus.damm@gmail.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev, 
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
+
+Hi Claudiu,
+
+On Thu, 3 Sept 2026 at 13:34, Claudiu Beznea
+<claudiu.beznea+renesas@tuxon.dev> wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>
+> The previous code handled power sources using a mixture of power
+> source specific definitions and lookups in the available_ps[] array.
+> Unify the power source handling by introducing
+> struct rzg2l_pinctrl_ps_desc, whose purpose is to describe a power
+> source through its power source value, associated register value,
+> associated capabilities (e.g. Ethernet), and associated IOLH index.
+>
+> Introduce two new functions, rzg2l_ps_to_desc() and
+> rzg2l_pwr_reg_val_to_desc(), using the
+> RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC() macro, as their
+> implementations are similar.
+>
+> These functions retrieve a power source descriptor based on either a
+> power source value or a power source register value. Other functions
+> that need to perform power source specific operations can call them to
+> retrieve the corresponding power source descriptor.
+>
+> The register values for the soft power sources were kept to zero since
+> they are not used across the driver's code.
+>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+> ---
+>
+> Changes in v6:
+> - described all the available power sources in the available_ps[]
+>   array and dropped to wildcard approach to avoid letting the user
+>   selecting unavailable power source for pins
+> - simplified RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC()
+> - for these two points ^ didn't collect the Wolfram's Tb tag
+> - dropped rzg2l_ps_is_supported()
+> - used conditional operator in rzg2l_ps_to_iolh_idx()
+> - adjusted the patch description
+
+Thanks for the update!
+
+> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+
+> +static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
+> +       /* Ethernet I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+> +                             RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+> +                             RZG2L_IOLH_IDX_2V5),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+> +                             RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* SD I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_2V5),
+
+Before (see below), only Ethernet could select the 2.5V domain, so
+shouldn't this entry be dropped?
+
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* QSPI I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_2V5),
+
+Same here?
+
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* AWO I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_AWO_POC,
+> +                             RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_AWO_POC,
+> +                             RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* ISO I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_ISO_POC,
+> +                             RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_ISO_POC,
+> +                             RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* WDTOVF I/O voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_3V3),
+> +
+> +       /* Software voltage domains */
+> +       RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_1V8),
+> +       RZG2L_PINCTRL_PS_DESC(2500, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_2V5),
+> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_3V3),
+
+I never really understood PIN_CFG_SOFT_PS...
+
+> +};
+
+> -static int rzg2l_ps_to_pwr_reg_val(u32 ps, u32 caps)
+> +static int rzg2l_ps_to_pwr_reg_val(u16 ps, u32 caps)
+>  {
+> -       switch (ps) {
+> -       case 1800:
+> -               return PVDD_1800;
+> -       case 2500:
+> -               if (!(caps & (PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1)))
+> -                       return -EINVAL;
+> -               return PVDD_2500;
+> -       case 3300:
+> -               return PVDD_3300;
+> -       }
+> +       const struct rzg2l_pinctrl_ps_desc *desc;
+>
+> -       return -EINVAL;
+> +       desc = rzg2l_ps_to_desc(ps, caps);
+> +       if (!desc)
+> +               return -EINVAL;
+> +
+> +       return desc->pwr_reg_val;
+>  }
+>
+>  static int rzg2l_get_power_source(struct rzg2l_pinctrl *pctrl, u32 pin, u32 caps)
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-On 9/3/2026 9:08 PM, Abel Vesa wrote:
-> On 26-08-14 05:48:18, Luo Jie wrote:
->> The EPHY-RAW clock is an IPQ5210-specific output from the CMN PLL that
->> provides the raw reference clock to the SoC-integrated Ethernet PHY
->> (EPHY), which supports up to 2.5G link speed. The output frequency is
->> selected via bit 10 (CMN_PLL_GEPHY_312P5M_125M_SEL) of the
->> CMN_PLL_PON_CONFIG register:
->>
->> - 0: 125 MHz   - for 1G/100M/10M link speed
->> - 1: 312.5 MHz - for 2.5G link speed
->>
->> Parent it on cmn_pll_div2, like the rest of IPQ5210's output clocks,
->> for clock-tree consistency. This is functionally identical: the
->> output rate is purely register-bit-selected and never depends on the
->> parent rate.
-> 
-> So it is not a slice of the cmn_pll_div2 then. What is the actual source
-> of it then, in HW?
-
-Thanks for pointing this out. The wording is confusing. The EPHY-RAW
-clock is sourced from the CMN PLL /2 path in hardware, but its output
-rate is selected by the PLL/MUX logic controlled by
-CMN_PLL_GEPHY_312P5M_125M_SEL.
-
-I will drop the “never depends on the parent rate” wording to avoid
-implying that it is not sourced from cmn_pll_div2.
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
