@@ -1,40 +1,33 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A8838E5FF;
-	Thu,  3 Sep 2026 13:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 660A24AF9E3;
+	Thu,  3 Sep 2026 13:27:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442033; cv=none; b=bdYodjQTOvdUrVsluoiCn5pDVQ7I2LKl/tnoZQpU0HvFdVCmoq/AJzs3NsiEIfDLWYhu6X/yBre8hJJvUYqD2dXRTNZCG/NEyBHaunORc4YzwZ53+/B34OV9GIbTx4aBl0ugqpZvQebpCfbPl2FjFCK6onq6dbvIdbyM9x8yh4c=
+	t=1788442073; cv=none; b=Bx50NwvAErFvvTIPChM0GngiBqFw59Aou+wP96ResTuZp9OA+f48DopD9xCHCJbBCHR3ndKvUxURHhxXJwxFIOtvPg8yKmi5ujmVHIlQxzR6mNasABWQv/ubJ5SSOPiJi1OxAlbF4/wnFFf0hdbAPu5y68RfKgfuzJRPzPEJ7hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442033; c=relaxed/simple;
-	bh=kONAT1sWOqq2RkVXK2/3P7bl1cJC2j6xiUdKnuWxokE=;
+	s=arc-20240116; t=1788442073; c=relaxed/simple;
+	bh=VD9Fw4QuHL6SKMSXg0EPPW9KevYF76jq6T17BJzHOOg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gmcq1nZKbvxg3+/hFPlVPuN8wG9m0Zu03u8bvj9HSIaspa6G4uvXIZdx27MwPSwQ3zCrDx3hRPXiOABAU9yxeGb98cpq86c0ROBrZQqkKiqxDoDlnYjyuXRBRKN8y9wK667V5Qg9YdrEW5qwuZD1bStiWCYIPFdiLrayvOddA3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=JKj2t0Y+; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	 In-Reply-To:Content-Type; b=q25ZHTXFHpm135yUbMP/Vj/c82ou1Y9aTzilGWDiG8cWH0Wx0lMJGtc5GA6zjqQjUIlKqYsMnAsTCCJ8hRaDx970P6wAy9CfYb06DNahtz0XOIoC3y5rSnbA2ZFCdFWgPrIQq7pPx2+dQi7oBMdeRmMSd5W9Hrwg43u4ItunlOk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=JhknW58g; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="JKj2t0Y+"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BF74A4E414DB;
-	Thu,  3 Sep 2026 13:26:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 90479602B8;
-	Thu,  3 Sep 2026 13:26:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6640F11C7A01D;
-	Thu,  3 Sep 2026 15:26:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788442009; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=3fAcnP0xk5VImcOaCSVWFZKTfYi9ijAKHbQ0RnE0Z/o=;
-	b=JKj2t0Y+rLrVa8hQMDhuH5A6WBTEQV6WzzOGXWIeogW+5MKBSxcpl8sWzNWdSv7/W9f2HK
-	4I+SU7mG9L9YKyuvA6y6/pxdZIXS8zn2heIMRWxk6vvY8SpJmn87rErHdYd8D7l58dgwfP
-	5T6SijJWWnXY5DnJsTeBBQerxHA02r9RM6d3kf5c/1wZ3RZ+UJhPXUwndX/gVaLhE//h4W
-	k54jz75fPkwaOOVmxURByo6bOA0N4Wvmf/Yu7GpifzrQTy1Uw9IAI0c6BJIYY7l7WayU16
-	IAXNpL1IEkZL9mKA3Ar9n3UF7Q6F/d0zU6bDcBO6+N2BUe46lzZr34kMWD7AlA==
-Message-ID: <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
-Date: Thu, 3 Sep 2026 15:26:46 +0200
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="JhknW58g"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 329101596;
+	Thu,  3 Sep 2026 06:27:39 -0700 (PDT)
+Received: from [10.57.8.134] (unknown [10.57.8.134])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 95E743FA32;
+	Thu,  3 Sep 2026 06:27:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788442062; bh=VD9Fw4QuHL6SKMSXg0EPPW9KevYF76jq6T17BJzHOOg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=JhknW58g6ox//BfSRzAZeor+7IrbpWUxqL28Lee2KVsbpZtFsgwsvrg5rmHQf8kEN
+	 pYtP+slJ4FrNyPlxtEeWpe56Yt2JhJc7NuaKmx5i9t9Ul7bdvYHELrW2PiOECJhqCS
+	 VKEUgS4+oYYdX3pcoCYOWiDJBNnM6zSAEvqHMQ9g=
+Message-ID: <bf973056-590b-45d4-a66c-d61b480ce229@arm.com>
+Date: Thu, 3 Sep 2026 15:27:37 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -42,66 +35,158 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
-To: Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Animesh Agarwal <animeshagarwal28@gmail.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-tegra@vger.kernel.org
-References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
- <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
- <aplEfd33wSz59iLS@sirena.org.uk>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo@bootlin.com>
-In-Reply-To: <aplEfd33wSz59iLS@sirena.org.uk>
+Subject: Re: [PATCH RFC 08/15] arm_mpam: Fix ris_idx type to prevent range
+ check bypass on truncation
+To: Yin Li <yin.li@oss.qualcomm.com>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Shanker Donthineni <sdonthineni@nvidia.com>,
+ Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Reinette Chatre <reinette.chatre@intel.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, James Morse <james.morse@arm.com>,
+ Ben Horgan <ben.horgan@arm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+ trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+ driver-core@lists.linux.dev, Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>, Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+ linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
+ <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
+ <b6463a78-9aed-4e17-b044-83b734cc0f9a@oss.qualcomm.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <b6463a78-9aed-4e17-b044-83b734cc0f9a@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-Hi Mark,
+Hi,
 
-On 9/3/26 11:57 AM, Mark Brown wrote:
-> On Thu, Sep 03, 2026 at 12:11:00AM +0200, Diogo Ivo wrote:
->> Add a clock property as the RT5677 codec can be fed an
->> external clock signal.
+On 9/3/26 11:42, Yin Li wrote:
 > 
->> +  clocks:
->> +    items:
->> +      - description: phandle and clock specifier for codec MCLK.
->> +
->> +  clock-names:
->> +    items:
->> +      - const: mclk
 > 
-> The driver code has a reference to MCLK1 which implies multiple MCLKs,
-> unfortunately no pinout seems to be available and other references in
-> the driver are just to MCLK so it could be cut'n'paste.
+> On 9/3/2026 12:22 AM, Andre Przywara wrote:
+>> Hi,
+>>
+>> On 8/11/26 15:30, Yin Li wrote:
+>>> The RIS index is read from device tree as u64 via 
+>>> of_property_read_reg(),
+>>
+>> what does it do that using an u64, actually? Do you refer to the reg 
+>> property of the ris subnode, which has a limit of 0xf in the DT 
+>> binding? So shouldn't it be an u8 all along, and we fix the types up 
+>> at the sources, rather than widening everything needlessly to u64?
+>>
+> 
+> Hi Andre,
+> 
+> Thanks for the review.
+> 
+> Yes, this is the reg property of the ris subnode. The reason it starts
+> as u64 is that it's read via of_property_read_reg(), whose API takes a
 
-Thanks for raising this point, I had missed it completely. In fact,
-looking at rt5677.h there are two places where MCLK2 is mentioned:
+Yes, I figured as much, *after* hitting the Send button ;-)
 
-#define RT5677_MCLK_SRC_SFT                     10
-#define RT5677_MCLK1_SRC                        (0x0 << 10)
-#define RT5677_MCLK2_SRC                        (0x1 << 10)
+> u64* for the value — so ris_idx has to be u64 at that point, regardless
+> of the 0xf limit in the binding.
 
-and
+Which actually makes me wonder whether this is the right function to 
+use, since there would be no translation (as indeed guaranteed by this 
+function), but also no size, and I guess no cell size requirements 
+beyond 1. I think it has the added benefit of checking #address-cells 
+and #size-cells, but technically a standard of_property_read_u32() would 
+do as well? Though this probably has the same problem, just with u32 ...
 
-#define RT5677_PLL2_PR_SRC_SFT                  15
-#define RT5677_PLL2_PR_SRC_MCLK1                (0x0 << 15)
-#define RT5677_PLL2_PR_SRC_MCLK2                (0x1 << 15)
+> If ris_idx were narrowed to u8 before reaching the range check in
+> mpam_ris_create_locked() (ris_idx >= MPAM_MSC_MAX_NUM_RIS), an
+> out-of-range value such as 0x100 would be truncated to 0x00 and silently
+> bypass that check. Keeping the wider type through the chain lets that
+> check see the real value and reject invalid indices.
+> 
+> If you feel an explicit check right after of_property_read_reg() (with
+> the downstream types kept as u8) is cleaner, I'm glad to go that way —
+> whichever you prefer.
 
-so to me it _looks_ like there are indeed two MCLK inputs, both of which
-can drive the MCLK clock and can also be the input of PLL2. However, as
-you mentioned I also wasn't able to find the pinout/datasheet and I have
-no way of testing this. I think the safest bet here is that I send a v2
-where I rename "mclk" to "mclk1" that we know for a fact exists, and
-then later on if someone with access to the actual datasheet comes along
-and confirms the existence of "mclk2" we can add it to the binding.
+Yeah, I feel it's sane to already check the limit directly after parsing 
+from the DT, not only in mpam_ris_create() later. Do you know of any 
+particular reason this is done so late?
+If there is none, I think the cleanest is to keep of_property_read_reg() 
+and check against the limit already in that function. Then we can use a 
+u8 all along.
 
-Let me know what you think!
+Cheers,
+Andre
 
-Best regards,
-Diogo
+>>> but was narrowed to u32 when passed to mpam_dt_parse_resource() and
+>>> further to u8 when passed to mpam_ris_create(). A value exceeding
+>>> MPAM_MSC_MAX_NUM_RIS could be silently truncated to a small index that
+>>> passes the range check in mpam_ris_create_locked(), leading to incorrect
+>>> RIS creation.
+>>>
+>>> Widen the ris_idx parameter through mpam_dt_parse_resource(),
+>>> mpam_ris_create_locked(), and mpam_ris_create() to u64 so the value
+>>> is preserved until the range check in mpam_ris_create_locked() rejects
+>>> out-of-range indices.
+>>>
+>>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>>> ---
+>>>   drivers/resctrl/mpam_devices.c | 6 +++---
+>>>   include/linux/arm_mpam.h       | 4 ++--
+>>>   2 files changed, 5 insertions(+), 5 deletions(-)
+>>>
+>>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/ 
+>>> mpam_devices.c
+>>> index cc9fa1d78925..1e082fb60e30 100644
+>>> --- a/drivers/resctrl/mpam_devices.c
+>>> +++ b/drivers/resctrl/mpam_devices.c
+>>> @@ -260,7 +260,7 @@ static int mpam_dt_count_msc(void)
+>>>   }
+>>>   static int mpam_dt_parse_resource(struct mpam_msc *msc, struct 
+>>> device_node *np,
+>>> -                  u32 ris_idx)
+>>> +                  u64 ris_idx)
+>>>   {
+>>>       int err = 0;
+>>>       u32 class_id = 0;
+>>> @@ -712,7 +712,7 @@ static int mpam_ris_get_affinity(struct mpam_msc 
+>>> *msc, cpumask_t *affinity,
+>>>       return 0;
+>>>   }
+>>> -static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
+>>> +static int mpam_ris_create_locked(struct mpam_msc *msc, u64 ris_idx,
+>>>                     enum mpam_class_types type, u8 class_id,
+>>>                     int component_id)
+>>>   {
+>>> @@ -799,7 +799,7 @@ static void mpam_ris_destroy(struct mpam_msc_ris 
+>>> *ris)
+>>>           mpam_vmsc_destroy(vmsc);
+>>>   }
+>>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>>               enum mpam_class_types type, u8 class_id, int component_id)
+>>>   {
+>>>       int err;
+>>> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+>>> index f92a36187a52..30461cd71199 100644
+>>> --- a/include/linux/arm_mpam.h
+>>> +++ b/include/linux/arm_mpam.h
+>>> @@ -39,10 +39,10 @@ static inline int acpi_mpam_count_msc(void) 
+>>> { return -EINVAL; }
+>>>   #endif
+>>>   #ifdef CONFIG_ARM64_MPAM_DRIVER
+>>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>>               enum mpam_class_types type, u8 class_id, int 
+>>> component_id);
+>>>   #else
+>>> -static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>>> +static inline int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>>                     enum mpam_class_types type, u8 class_id,
+>>>                     int component_id)
+>>>   {
+>>>
+>>
+> 
+
