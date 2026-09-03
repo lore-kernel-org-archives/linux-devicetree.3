@@ -1,252 +1,120 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B36480961
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB3C4C77CF
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:08:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448025; cv=none; b=umIZ7E9TNvbkPmxXgyjORMKdhI82hWekqevXUtA1iYdCIqAZFuCJ/r2AU8LVkgdf+xDRdMnTo07l8nMjcP7KF2V+dCekyUNGeGQ3ypBmWpdWdMOihxJgUVxeLV1JLdZ9cNVxK7F/Lx8gx0xOhcmrYOxg5GRnGNQ4cVhOCLgIWiY=
+	t=1788448126; cv=none; b=YeKkOjzcihTEY/All2A7AGma30SQPMO43EY/b0PV0BeebxPEAMcoI54WLJbKy83PAHYXsAZmd76PdmA6Sj7p8ntkG2/yGjV5ILLVUvZyH4Iun8GUDVGWd90YOi5DPKDOiMAopxsBTCNMbKoT+ksZU1JzaZth8ZysoqvlZcjwsOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448025; c=relaxed/simple;
-	bh=UcMfgKoIgbjA/Yt1Y60klCeHwQzhR96tNxN6tCPrud4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HIxFxjtNtVv/IaqI++tvBZEAVRcxu8lhfcRUPT0DR7Gle4i1qKEgdHOnpPHt5rG1K2urFQuuQ8rNnN+Gkh6OKK88O3TUW9xG25gaOESM2yx//Fm7MmH+s8yE7viF61+i4vNOyJfZAy4GNWBqmnBjOJv2YL8NLi1eMB1bGU8epWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iTVtJ5V/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HsMRik9t; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788448126; c=relaxed/simple;
+	bh=3OrX5PBXaXmt4da+SJWUyL07eFz6FHls/F7bEpo/v7A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WEMbmkyW0QeVPJNhdc2wn5rcan+hdhrs0rABcJ2tHTs87Qhp+unmU8VSgrcCtlbhFI1CijpyUDEoWc4eKZVU+VFLlWCNbJi3A533Im27XbiYi9dRujZ+hubeCwEBy7bdsoTZP2MAxGXhMXJtYPUFlgp8emjloSw2GaORW7L3lwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGapKdkm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iTVtJ5V/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HsMRik9t"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAMSA1314581
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 15:07:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	IJQlwKWVKCEeiPvskX1SbJyL3p4M8HL541YIt9e58Tk=; b=iTVtJ5V/yDPSlXFV
-	Gq/ViW3j9yBXcY5xAmGzZN3sOcE8LJ57Rq9NoEI5hYN/Us9/0OMl/ilx55zoL99q
-	Ioj1bwu/iszqBdp15p8nD0D607dYHNUuGGVVWCJST24ZVJShQKQ0xCrrrkB7pRfA
-	FwgvWqvw1bUI5L7JStzfeGobAb+i62JlApnOg8a/2gJ2SAgyZooezJKvnSPqCt1B
-	/1UANVZeYmuYnB/kkL7VhBLl24QxqIOgJ95HTdmv7iWMAfbfoer6Rrb8bTilfTZg
-	1HzC626ud9Ko1niZj1A3dLBBtmA+Dpa+CHZ+Zlrhny12TCbQQG09QG1USReZxn/Y
-	lil0kQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gerdncxfn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 15:07:03 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d9057fab9eso38641685ad.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:07:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788448023; x=1789052823; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IJQlwKWVKCEeiPvskX1SbJyL3p4M8HL541YIt9e58Tk=;
-        b=HsMRik9tcvWmnMlbFKYW7k4oHx/qUUjglR4Vbw6pvXFijiJLsAa/u8Q0YfNSQPRGkK
-         LgxUH6EG2+xMgcRzSZnkAiY5STY3DfTBlDi29fKGZXa5F5gOtZIMwTa7p6vF4XU6yK+K
-         5ZcYGOw28BeFZZ0WVBoz4NDz1cXZSfm0/xZKAX10DQLotYuyQAyZTD7IkAK/p+n2PjpI
-         +CA0yvS1tDvvhiUIhuuwn/7TPKl2rkdVTMToHoT+GrNUNMfx0MGK7f5m4rxmvQYg+rkC
-         5PNtYbtMRewK+0+w+vOJqjkwwzqjB+2e58uPLHCLb69OzZJnU7k2jbztAHVFLj/jsxsG
-         yq9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448023; x=1789052823;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IJQlwKWVKCEeiPvskX1SbJyL3p4M8HL541YIt9e58Tk=;
-        b=An47NwE407zBCynWXn3bzfgdu3C4FdRrf8tMxDC9wAhguPQnJjo7uG5uMWZJG+fb2i
-         geLfNnpyiTnhYL+vhgq0lpV+rJMhyBVurQdXnP1uIvXcVE7raueoJtpJCc0nC5T6DzYO
-         UmloQmceFT8KFasroRYd+9br3mo7n+BYr1JSdobOeVPbRZOfJLQxEGzXP8+Ndu2qeXmy
-         CkVGGCBZCmziNCH5QxAFqoRoN2wBWd3tK6ZmyomtNzISFAkV1yGIskGM1MkKAOAsr4M1
-         DLko9nUZZYaGd1s1XslmIB/F1axz/7OyCCnOB+fZjebVQh70Wpwu2OH5YjE7KkfPohMo
-         Z1xQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwiWfHdSkLBFz24g43J10TvR5gKSCZZMpbD+SLQ24x+Xfmnla+tSEJWQH6Lv+hdG+Mr5i9dfnkOf3aM@vger.kernel.org
-X-Gm-Message-State: AFuF++mqJLSagwp25Y/jInfxku1xMq560grJFaBqWEHVQfPNhTK6sFkg
-	RFi/IURdvEgB430vebSejvJRPCGDyRJyL2vHhQjwp/8Hg+Vt1gSM06qZkp3ZRrIw99N3WI+0xzI
-	RFDnAx7qKuBRcb18DWUIsT49gCp/1a+4u/ftP4UzG9jzHP9NIs/k2p5k8u46UJgw2
-X-Gm-Gg: AYBFou1EgkfOFMPOq+KdYOJwpkQnDG+ttFxBeUNpDGqvSD9mnp0ET/pgMrc6bIz1jjB
-	LJCnQh4hqkmqAQXU00qFJLIt3+eJZlHr86tdtZyWqT0DP1dQuZapX8/nbOMZ7DHEorEGp+CjktB
-	SqDErM9qBpqRlVEYr46JIHhS/+l8WLlWSi83gc1rE3kx02GC6dPbFE41XpAjIC54wrqC2p4jCeV
-	akhqWPUGOSDJUCgcSLlxa+aMBNJz+qYO6qlk1z9F1g8/tDDtu4+AQiH2sKdrF8NGr45vJpHsRUa
-	vuwMjrlboLFKuhRTUWIw/EaApTBnVD4vIxUNT2HIKphoaACK0d4kxnQOCS6NnYK5TQ1iOelO/A9
-	3PLwWyA5d3sioAq08v5Ho8u/i8TZbVWXqS9lVaBDKzhpfxXy6Dwz+BfF2cvJJKqzN
-X-Received: by 2002:a17:903:3c65:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2db104e87famr6826045ad.1.1788448022439;
-        Thu, 03 Sep 2026 08:07:02 -0700 (PDT)
-X-Received: by 2002:a17:903:3c65:b0:2d9:b60d:7755 with SMTP id d9443c01a7336-2db104e87famr6824365ad.1.1788448021745;
-        Thu, 03 Sep 2026 08:07:01 -0700 (PDT)
-Received: from [10.133.33.96] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe929d77sm11790525ad.39.2026.09.03.08.06.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 08:07:01 -0700 (PDT)
-Message-ID: <d93ad481-b574-449e-97aa-f5d1828f583b@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 23:06:53 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGapKdkm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82B981F000E9;
+	Thu,  3 Sep 2026 15:08:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788448124;
+	bh=KU1tb2TWIaQLnnkjVIbtQX+OgwmcH0aKwZ8/YZf1Ivo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IGapKdkmU/lwENc91oFVA5YhQqcKAWruCzNP+To0xZsx1a2ZllX8cs1j9qsT3pVOI
+	 p5khOFDcl2myvqxxykr+ds84Cx7xNGHmHklq/Tc7be3BGevhiF2/k+V02yjKIxbzRC
+	 QQ3ottZRqbn3ctx3KyMhVRucdtejr5Jcw/TWHXS+HQ6hA/GtTMWCQyzUtVKiM+FhYC
+	 freW8z/deaHtdZvwyboysr7HaAMVfobz0Nf+MmUJp+gJgXlT3ja8juxu2epCIfS8Eb
+	 HgLZqaadmamUozKuLFUuaoip++6iN8rt1UVZTxjOYdRoNm6cnXdKzlWT1yVClsezBj
+	 00IZUjixYumOg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RESEND v3 3/4] firmware: raspberrypi: Add reboot mode
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Gregor Herburger" <gregor.herburger@linutronix.de>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260903-rpi-tryboot-v3-3-ce94c347e932@linutronix.de>
+References: <20260903-rpi-tryboot-v3-0-ce94c347e932@linutronix.de>
+ <20260903-rpi-tryboot-v3-3-ce94c347e932@linutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 15:08:44 +0000
+Message-Id: <20260903150844.82B981F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/12] clk: qcom: ipq-cmn-pll: Register CMN PLL /2
- clock
-To: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org, quic_kkumarcs@quicinc.com,
-        quic_linchen@quicinc.com, quic_leiwei@quicinc.com,
-        quic_suruchia@quicinc.com
-References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
- <20260814-qcom_ipq5210_cmnpll-v3-4-21c3db378611@oss.qualcomm.com>
- <j6m4b2psvvg65qksij63wxo3aqoc5ldlfehqnywa3i33v4pm5j@lr4i5o2g6tdt>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <j6m4b2psvvg65qksij63wxo3aqoc5ldlfehqnywa3i33v4pm5j@lr4i5o2g6tdt>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=YcmNIQRf c=1 sm=1 tr=0 ts=6a998d17 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=_0NKdZRjI3JEYUyFDiwA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzMiBTYWx0ZWRfX51yTv789AeCH
- Z3sT6UTSO862OTIsFQ4Zw5ScOcSasj2LfvitSOvOey9+OwIeadaOT839gENfh9otNHB2XYcTmsx
- 6qPw5jjwG+2L6NfduNddUzXL8W8BVyk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzMiBTYWx0ZWRfX4+xOV1o9uiVa
- skuQZIE7w1C7uliI7NcKfdObfh0yPocZod7KnIipdaGAmiSd9GJbc9KTpyVL3Z5p84cncddL0LG
- 60fQnHi5qZMFox7h0lHLMrL4FmpRGci5pJPWdR8DuKEHiFXJOHaOILejMi0vOf3SphqwguhVvCd
- gliDstQhXe2iGqj7rzvcbSeM7KKWD2ZshcSLrP3hcbSwzL2FmzLOLPMl3MXUFj1IUsmqXsjKRCu
- ijvlq94d710xhjodFMdlLRFhaFfZ73cel8oqX6Hqyj1YMMWLz+fgefy67R9wAr1DnajTJLW1mLN
- +MPOz2/NbdM95G6tQqXEoqL8JYwfgmpMtWTUQFFXG9Hh3eJkG9Feodxlr4/ResT8t0ny3U/jXVh
- rI04wJzhG1cCk/AR/bHRjWpVq5j0e6XKxSn/MWv77iJJV/Z37UmHqzq86jAOz8D1/K0eKaM/CuM
- FzRer7pE8fD8r9MUpow==
-X-Proofpoint-GUID: 7NaQBjDm2lpKRgY346WEk5AQHcy_lg3h
-X-Proofpoint-ORIG-GUID: 7NaQBjDm2lpKRgY346WEk5AQHcy_lg3h
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 priorityscore=1501 lowpriorityscore=0
- adultscore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609030132
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Use-after-free race condition if devm_add_action_or_reset() fails =
+after drvdata is set.
+--
 
+commit ea24b0bc9b26402781f7da38607787a0f6b47e39
+Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-On 9/3/2026 9:18 PM, Abel Vesa wrote:
-> On 26-08-14 05:48:14, Luo Jie wrote:
->> Most CMN PLL output clocks are derived from the 12 GHz PLL output
->> through a shared, physical /2 stage, ahead of any further per-clock
->> processing: a gated fixed rate (PCS/ETH0/ETH1/ETH2/EPHY/ETH), a
->> configurable divider (NSS/PPE/PON), or a rate-select bit (EPHY-RAW).
->> This /2 stage is present in the CMN PLL block on every SoC supported
->> by this driver, not just IPQ5210.
->>
->> Register this /2 stage once as a fixed-factor clock, "cmn_pll_div2",
->> and store it on struct clk_cmn_pll so the output clock types added by
->> later patches can parent on it. The two plain fixed-rate outputs,
->> xo-24mhz and sleep-32khz, are the exception on IPQ5210 SoC: they stay
->> parented directly on the main PLL clock.
->>
->> On SoCs other than IPQ5210, every output clock is a plain fixed-rate
->> clock (CMN_PLL_CLK_FIXED_RATE) whose rate is a hardcoded absolute
->> value rather than one computed from the parent rate, so this /2 clock
->> is registered there but currently has no consumers; IPQ5210 is simply
->> the first SoC in this driver whose output clocks are modeled as
->> depending on parent_rate, which is what makes the /2 stage significant.
->>
->> This patch only registers the clock; later patches wire it in as the
->> effective parent for the output clock types that sit downstream of it.
-> 
-> Do not mention future patches here. Each patch has to stand by itself.
-> 
+firmware: raspberrypi: Add reboot mode support
+   =20
+The Raspberry Pi firmware has a tryboot mode where it tries to boot from
+another partition. This can be used to create a A/B update scheme.
 
-I will remove the reference to later patches and ensure that this patch
-is self-contained.
+To enable this on the next boot, the RPI_FIRMWARE_SET_REBOOT_FLAGS
+message must be sent to the firmware. Add support for this by
+registering a reboot mode driver.
 
->>
->> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
->> ---
->>  drivers/clk/qcom/ipq-cmn-pll.c | 22 ++++++++++++++++++++++
->>  1 file changed, 22 insertions(+)
->>
->> diff --git a/drivers/clk/qcom/ipq-cmn-pll.c b/drivers/clk/qcom/ipq-cmn-pll.c
->> index 4fdf78f6829e..bcb51a5f559a 100644
->> --- a/drivers/clk/qcom/ipq-cmn-pll.c
->> +++ b/drivers/clk/qcom/ipq-cmn-pll.c
->> @@ -96,10 +96,17 @@ struct cmn_pll_fixed_output_clk {
->>   * struct clk_cmn_pll - CMN PLL hardware specific data
->>   * @regmap: hardware regmap.
->>   * @hw: handle between common and hardware-specific interfaces
->> + * @div2_hw: fixed /2 clock derived from the CMN PLL output; present on
->> + *           every supported SoC, but only IPQ5210 currently parents
->> + *           any output clock on it (every output clock except the
->> + *           plain fixed-rate xo/sleep clocks, which stay on the main
->> + *           PLL); other SoCs' output clocks use hardcoded rates that
->> + *           never depend on a parent
->>   */
->>  struct clk_cmn_pll {
->>  	struct regmap *regmap;
->>  	struct clk_hw hw;
->> +	struct clk_hw *div2_hw;
->>  };
->>  
->>  #define CLK_PLL_OUTPUT(_id, _name, _rate) {		\
->> @@ -362,6 +369,7 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
->>  	const struct cmn_pll_fixed_output_clk *p, *fixed_clk;
->>  	struct clk_hw_onecell_data *hw_data;
->>  	struct device *dev = &pdev->dev;
->> +	struct clk_cmn_pll *cmn_pll;
->>  	struct clk_hw *cmn_pll_hw;
->>  	unsigned int num_clks;
->>  	struct clk_hw *hw;
->> @@ -388,6 +396,20 @@ static int ipq_cmn_pll_register_clks(struct platform_device *pdev)
->>  	if (IS_ERR(cmn_pll_hw))
->>  		return PTR_ERR(cmn_pll_hw);
->>  
->> +	cmn_pll = to_clk_cmn_pll(cmn_pll_hw);
->> +
->> +	/*
->> +	 * The CMN PLL output feeds a shared, physical /2 stage ahead of
->> +	 * any further per-clock processing (a gated fixed rate, a
->> +	 * configurable divider, or a rate-select bit). Register it once
->> +	 * as a fixed-factor clock so the output clock types added by
->> +	 * later patches can parent on it.
-> 
-> The comment here should only say why this is needed. Do not mention
-> future patches.
-> 
+> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
+i.c
+> index 0aa322e9a2e73..2a0c40b8052e5 100644
+> --- a/drivers/firmware/raspberrypi.c
+> +++ b/drivers/firmware/raspberrypi.c
+[ ... ]
+> @@ -302,9 +331,14 @@ static int rpi_firmware_probe(struct platform_device=
+ *pdev)
+> =20
+>  	platform_set_drvdata(pdev, fw);
+> =20
+> +	ret =3D devm_add_action_or_reset(dev, devm_rpi_firmware_put, fw);
+> +	if (ret)
+> +		return ret;
 
-Understood, thanks.
+[Severity: High]
+If devm_add_action_or_reset() fails here, could this create a use-after-fre=
+e=20
+race condition?
 
->> +	 */
->> +	cmn_pll->div2_hw = devm_clk_hw_register_fixed_factor_parent_hw(dev, "cmn_pll_div2",
->> +								       cmn_pll_hw, 0, 1, 2);
->> +	if (IS_ERR(cmn_pll->div2_hw))
->> +		return PTR_ERR(cmn_pll->div2_hw);
-> 
-> In fact, I think this clock registering is self explanatory as is, so you
-> should drop the comment above it.
-> 
+When the failure occurs, devm_add_action_or_reset() immediately executes
+devm_rpi_firmware_put(), which drops the refcount and frees the fw context.=
+=20
+Because platform_set_drvdata() was already called, the driver data=20
+will point to this freed memory until the core probe cleanup mechanism=20
+eventually clears it.
 
-Agreed. I will drop the comment above the clock registration.
+During this window, a consumer driver could call rpi_firmware_get(), which
+performs a lockless lookup of drvdata and attempts to dereference the freed
+pointer:
 
->> +
->>  	/* Register the fixed rate output clocks. */
->>  	for (i = 0; i < num_clks; i++) {
->>  		struct clk_parent_data pdata = { .hw = cmn_pll_hw };
->>
->> -- 
->> 2.43.0
->>
+drivers/firmware/raspberrypi.c:rpi_firmware_get() {
+    ...
+	fw =3D platform_get_drvdata(pdev);
+	if (!fw)
+		goto err_put_device;
 
+	if (!kref_get_unless_zero(&fw->consumers))
+		goto err_put_device;
+    ...
+}
+
+> +
+>  	rpi_firmware_print_firmware_revision(fw);
+>  	rpi_register_hwmon_driver(dev, fw);
+>  	rpi_register_clk_driver(dev);
+> +	rpi_register_reboot_mode(dev, fw);
+> =20
+>  	return 0;
+>  }
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-rpi-tryboo=
+t-v3-0-ce94c347e932@linutronix.de?part=3D3
