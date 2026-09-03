@@ -1,57 +1,51 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70EA44C64B;
-	Thu,  3 Sep 2026 12:11:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 423F8456E04;
+	Thu,  3 Sep 2026 12:15:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437482; cv=none; b=FR+g7FhtTd+l/zkVjU89he6Y8zJPYG3HDFp+JZ/zKgOGjoR+qi1FZDf78GwHV3fPwLQnywrxwYPeXd0GFYK4uDFG0Yu3Df/wthTbKK31mT5yPMRkOpQS9wNqIsPOB30HNKMVfigLBb5MAR6s53ooA0318kZ1Hey+08g3JaF0H/s=
+	t=1788437731; cv=none; b=CJ4zj6+oQ26rQpeuvhTBn5I4OLGGU/i9WPpN5s90euCb/GGhTt7qE4EJ/zBEfmANKthUjk2rOfFFJyRS+S8yhJkbDdbNi/eWmak6x3+R1FOf2gTIbtc8UdkNEVsD+fm2Ypegy3pXMBDBy07OLjzYe2Lj0EYafcqR1b4CDzb0Cng=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437482; c=relaxed/simple;
-	bh=TmyulZ8mVnSltxZsjxwNrEta0HAnB/Gi4aRTsa6XtQU=;
+	s=arc-20240116; t=1788437731; c=relaxed/simple;
+	bh=QsJJKv84o4yFegTGOrPDVQ99tVJ5YNEisyGtASAATnw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mQTNHFJASSEs34AJHzIfR2yj39tkdCMHM7NtWQnAYtCdERFOfb7MELBrKIQpDUiATWCW44Y6eBUwvV9FsMPTVF1ssSVJ5qVFnO+PjbGffld4jRjNDpQloQ0hm4VyRTp97NMYHbAAhTcEDQR/d+4XNZC2JHWHSQiz7c6Oz2O24VM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bp2aa5Xz; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=EK/uMvClfStWAxDzRRUt7dLXXydOA1Fy5EWzNdibKq1zitCgYLOcTFZvHHJYCppy2ERzbNrNlwWTrvnoomo1RVqyFS1j5YQqnsux8wdC9qbFPn/FlH5DYiqIupYB7vXezPDKzK33UC3LBSzWVCnqqzaiNhtl7DIr2JcJb9hd5JM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wlhg71sE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bp2aa5Xz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xl5ihRMOzCbIkTbFuO/xpo8Dv4lTrmxjlUdD28fg19w=; b=bp2aa5XzrfyPcPnBIBwq6oHlN6
-	88BYK5dx03MiAIuG01aderzieEPs23O6qP3Y38H7x8YQJYPW4yzRH6a5dA6jFRrqwDRRC90fCvakK
-	pJXb3cmamC+YRs/FOUiMRMwkobrtsO3Ffc/SUrz0sBVS4Br3/JPjLg0QwcAIjK59pcw4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x26HG-002iLy-Sn; Thu, 03 Sep 2026 14:10:46 +0200
-Date: Thu, 3 Sep 2026 14:10:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wlhg71sE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4E7C1F000E9;
+	Thu,  3 Sep 2026 12:15:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788437729;
+	bh=BQZPrnDuGftEtbnqTGVPBifdVscC5mec8jxqTDh+SJM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Wlhg71sEdsZ12VOuBMKYZ+OVPWHR/+2qU3Rz9ebiVUVvBe7WpKVuelJcjp/f4b29g
+	 TvaIJR7Bs94UulLQXVkUtxPvBuITBUbf8griasJlRHwVlIxThtbW/abkXrDWPSqgoj
+	 GvsBJuxmwE5Rp0A4BaDO4rkO1HnG/xcQvGiivdPlhajCQe8tNk48XFKW5cVSrCzO5a
+	 XBxEdnl1Zgl/vKnVppsBHS1LxNE7qUmBtm+k00PB060y3Mh2EwJiThCrltiKrDSoys
+	 rAJCaAwHob/s9uZglPOtos9vt2YwyBKVPLTGIlpjF7I7qXIz87dpoB4c63gVX6XZeI
+	 yM2S6inSkCX2w==
+Date: Thu, 3 Sep 2026 13:15:22 +0100
+From: Will Deacon <will@kernel.org>
+To: Mark Rutland <mark.rutland@arm.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>, Sven Peter <sven@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-Message-ID: <1622b0a7-5516-4e72-b5e1-60c12b65b52e@lunn.ch>
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
- <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
- <178842162417.2701756.3296149694160507506.b4-reply@b4>
+	linux-efi@vger.kernel.org, asahi@lists.linux.dev
+Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
+ sharing EL2 for Apple Silicon
+Message-ID: <aplk2hHRB7Yw9FWW@willie-the-truck>
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+ <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+ <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,35 +54,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178842162417.2701756.3296149694160507506.b4-reply@b4>
+In-Reply-To: <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
 
-> > This looks to be 90% identical to dwmac-sophgo.c.
-> > 
-> > Do you expect any further changes to this driver? Is everything
-> > supported? Are there more clocks? A GPIO for WoL?
-> > 
-> > I'm just wondering if the common code should be pulled out, or even
-> > dwmac-sophgo.c made generic so it can handle all plain boring devices
-> > which have RGMII delays and not a lot else.
-> > 
+On Thu, Sep 03, 2026 at 12:42:39PM +0100, Mark Rutland wrote:
+> On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
+> > On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
+> > > This series adds a custom EFI table that points to a PSCI entry point
+> > > (plus some other stuff that has to be available before EFI runtime
+> > > services are set up) and adds support for this new conduit to the psci
+> > > code. We can't directly use the normal EFI runtime path because that one
+> > > takes a sleeping lock and we need to be able to call into PSCI from
+> > > atomic context during e.g. cpu bringup or during idle.
+> > > It also adds support for specifying the specific MAIR attributes for EFI
+> > > runtime mappings as defined in the latest UEFI spec since Apple Silicon
+> > > is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
 > 
-> The probe boilerplate is indeed largely similar because both drivers
-> use the common stmmac platform helpers. However, their platform-specific
-> requirements differ: Sophgo requires additional TX clock handling and
-> other configuration, while DP1000 requires fixed TX and RX delay
-> handling. ACPI support under development is also intended to use the
-> UltraRISC glue driver.
+> > >       dt-bindings: arm: psci: Add EFI conduit
+> > >       arm64/efi: Add and parse custom PSCI EFI configuration table
+> > >       efi: Add EFI_MEMORY_ISA_{MASK,VALID}
+> > >       arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
+> > >       firmware/psci: Add EFI runtime conduit
+> > >       arm64: dts: apple: t8103: Add PSCI and CPU idle states
+> > >
+> > 
+> > I've picked up patches #3 and #4, which are useful in their own right.
+> > 
+> > I'm not sure if the arm64 maintainers will want to consider this, but
+> > I think it's a reasonable compromise, as it puts the abstraction in
+> > the right place.
+> 
+> Sorry for the late reply; I've been away almost all of August and I'm
+> slowly catching up on things.
+> 
+> As with last time this was proposed (in abstract), I am not happy about
+> bodging an EFI conduit into PSCI, given that the manner in which state
+> is managed is completely different from SMCCC.
+> 
+> If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
+> that's one thing we can consider. I don't think we should pretend that
+> it is PSCI.
 
-ACPI is going to be fun, since nobody does ACPI networking.
+What do you have in mind for an alternative mechanism? I understand your
+objection to this proposal, but at least it keeps the interface fairly
+high-level and avoids opening the flood gates for a bunch of SoC-specific
+idle routines. Are you thinking of extensions to the PSCI spec or
+something else?
 
-But how big is the change to the glue driver? I expect the change will
-be minor, a call to devm_stmmac_probe_config_acpi(), in addition to
-devm_stmmac_probe_config_dt(). Anything else?
-
-One problem the stmmac driver has is cut/paste glue driver
-development. The same code is repeated again and again. Russell King
-spent a lot of time and effort trying to reduce the duplication. So we
-should not be adding more duplicated code unless it is actually
-required.
-
-	Andrew
+Will
