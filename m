@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB78411FA8
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:48:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F7B363C6C;
+	Thu,  3 Sep 2026 08:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788425283; cv=none; b=o8OW+b05DKFVxdfmgLuf0GVw3n07to3g8l0mCJCNGXZBeHxqBqQs+jh1FMXPY81jhn0YDQ0mWVohIGIpn/HtAx7NcJEC+caJwJIusz6KXj2sSNUMh2F65DFO6/Urg+Z7fuS+/WWPB4qw9nHjsWdQnOdnfdc6QPcP3bCjlwL/tOo=
+	t=1788425326; cv=none; b=PEEW2mbZTgE1cjYy3IqE9pyC+KHU1oUAxSawx52UJ/6zkM3cL88OvjY+7YDZ77+aDx/VdTtM29MAgWoGXjUegPefH3GwRsOsE9N5tqiO8XWbaIxPb3gJ2T4zWrvA1NR7FeMRE5P1aVeUgGBZQ8gtNvxQZYp0sEABuS42DwvP4nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788425283; c=relaxed/simple;
-	bh=neh//r+dVxoFqSYLpwS4f/r6pQ1DmoEj/9tEytHFTKw=;
+	s=arc-20240116; t=1788425326; c=relaxed/simple;
+	bh=bGYS6XisPwqR1nzJyBe36wiU9YiCp0NSqM0L5rNIMnQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xdw+Ekd8k8jFcOIUb6HgZt41c74HSPm3ACVrFJmtVgzzSIm91WhCmoZIPqxY6yvKwlHxMbU66es2y+jkhbmj/9IWJlKwBbCwLmfTeXg82Sb+Y9JPUVnesm3Umy7IF/F1LZR4nZzqXc8hBa9vC5c7nKxhOoPY4TZMipwLWrj0kxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDex25sS; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZXGJfHnYqVE4NnUMA5aeo79aqsLyEA7UX+wHhD7+idZ2FIpd1Nji0i0sVqNI3ZVLklZcE3zvjf4Fs+L8VI9dLI3IWIASD36O1yV+y+vJIuf5+vptP8YxSvTX2jhJDVAgPAIk2R3h+CgcsRZoEN/8IP0/+S8QH5D+zQzK4cs4SVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F7WYEdPn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDex25sS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199B91F00A3E;
-	Thu,  3 Sep 2026 08:48:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F7WYEdPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1CC11F000E9;
+	Thu,  3 Sep 2026 08:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788425281;
-	bh=lF7GVOj9RxLYp7RD22lm046c74Z5ppxHIHO28n4b8Vk=;
+	s=k20260515; t=1788425325;
+	bh=TWUTWJGyjUPVUGSmM7t7GB4z9LsTvPBtCuTBokjO+5Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oDex25sSvk3aWGR6Pto5l6o5iuLvQ74b5oEFUt1uYJSnTXMa41iYIEbQWSWL+nuJK
-	 mKoZba5CfPlFdoj46OMKN+U42Fd+MVwjaoJ22N1hMntrpyDMhb3lNLXyQy6IAub2b9
-	 4AMqhZRhPxUdqI9XhrOVj223ZscY30C5PT+Yv9E6bDdMQe1+iD/6Pt254TlwlskpA/
-	 ECvllTFTG3sAnLVv3RmBh5Sl6KsB8pgwU20xaz4a7Y3AA91sIAAOVZ8KskNLqRw0IY
-	 QBd5zX/kx1jJ64qEcQnV9M4pXd5y+hRcFPhkIW3Q9OpxA6bgvZn3NMFhPdG5CEN51U
-	 5B4Boaz193pCA==
+	b=F7WYEdPnY14+ekaDLiDPg/+7YwPmx2tMWX7aQsYd4NInSfKrhd1QpzzSboJfF3GVI
+	 oGjxqngl/EsdI6J9H0Tv03lwmVwnNjIXjr723+Wcc1+97BdXcs5AjHUZCWUEcR2XB8
+	 IILW/rNOpxh8wU9LQvgAK7ueSTj/cYip9KRDbxKkV4Vam9vU6Y4vYLQa7bRJ9/RFOh
+	 iFYpezVfuXTtumUl4GKzXmoa46uTD5A0mdrr8El40leQuT55uv51ARm35SV2liuNnv
+	 HeC0InxsBrFn6aAmR4DU73dQfBHo0PuTgBc8SKwhW4PGPBrKcLukcfualofpHzzEg3
+	 J6cSnyESI+6wg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v3 10/10] net: ethernet: ravb: Add gPTP support
- for Gen4
+Subject: Re: [PATCH v2 2/2] hwmon: add Axiado AX3000 and AX3005 PWM fan
+ controller driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902084703.3228504-11-niklas.soderlund+renesas@ragnatech.se>
-References: <20260902084703.3228504-1-niklas.soderlund+renesas@ragnatech.se>
- <20260902084703.3228504-11-niklas.soderlund+renesas@ragnatech.se>
+To: "Petar Stepanovic" <pstepanovic@axiado.com>
+Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260903-axiado-ax3000-pwm-fan-v2-2-ef43df46163e@axiado.com>
+References: <20260903-axiado-ax3000-pwm-fan-v2-0-ef43df46163e@axiado.com>
+ <20260903-axiado-ax3000-pwm-fan-v2-2-ef43df46163e@axiado.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 08:48:00 +0000
-Message-Id: <20260903084801.199B91F00A3E@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 08:48:44 +0000
+Message-Id: <20260903084844.D1CC11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,74 +47,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Missing `of_node_put()` in the error paths of `ravb_probe()` cau=
-ses a memory leak of the `ptp-timer` device node reference acquired by `rav=
-b_gen4_ptp_probe()`.
+- [High] The interrupt handler incorrectly returns IRQ_HANDLED for unhandle=
+d device interrupts, potentially causing an IRQ storm.
 --
 
-commit d2e45518cd8b99519759a683fe36054ff2cdc88d
-Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
+commit ac0edffb2c72d464c05c340c5df147fdcf10b0f4
+Author: Petar Stepanovic <pstepanovic@axiado.com>
 
-net: ethernet: ravb: Add gPTP support for Gen4
+hwmon: add Axiado AX3000 and AX3005 PWM fan controller driver
 
-This commit adds gPTP support for RAVB Gen4 platforms by utilizing a
-system-wide clock rather than an internal one. It updates the RAVB gPTP
-driver code to parse and use an optional "ptp-timer" device tree property
-for Gen4 devices.
+This commit adds support for the PWM fan controller found on the Axiado AX3=
+000
+and AX3005 SoCs. It measures fan speed via a hardware tachometer interrupt =
+and
+controls the fan via an external PWM signal.
 
-> diff --git a/drivers/net/ethernet/renesas/ravb_main.c b/drivers/net/ether=
-net/renesas/ravb_main.c
-> --- a/drivers/net/ethernet/renesas/ravb_main.c
-> +++ b/drivers/net/ethernet/renesas/ravb_main.c
-> @@ -2752,6 +2752,57 @@ static const struct ravb_hw_info ravb_gen3_hw_info=
- =3D {
-
+> diff --git a/drivers/hwmon/axiado-pwm-fan.c b/drivers/hwmon/axiado-pwm-fa=
+n.c
+> new file mode 100644
+> index 0000000000000..ac153afded47a
+> --- /dev/null
+> +++ b/drivers/hwmon/axiado-pwm-fan.c
 [ ... ]
-
-> +static int ravb_gen4_ptp_probe(struct net_device *ndev)
+> +static irqreturn_t axiado_tach_irq_handler(int irq, void *dev)
 > +{
-> +	struct ravb_private *priv =3D netdev_priv(ndev);
+> +	struct axiado_pwm_fan_ctx *ctx =3D dev;
+> +	u32 status;
 > +
-> +	priv->of_gptp =3D of_parse_phandle(priv->pdev->dev.of_node, "ptp-timer"=
-, 0);
-> +	if (!priv->of_gptp)
-> +		return 0;
+> +	status =3D ioread32(ctx->tach_base + AX_TACH_INT_STATUS_REG);
+> +
+> +	if (!status)
+> +		return IRQ_NONE;
 
-[ ... ]
+[Severity: High]
+Will this handler cause an IRQ storm if the hardware asserts an interrupt=20
+where the status is non-zero but AX_TACH_INT_PENDING is not set?
 
-> @@ -3188,6 +3239,7 @@ static void ravb_remove(struct platform_device *pde=
-v)
->  	pm_runtime_disable(&pdev->dev);
->  	pm_runtime_dont_use_autosuspend(dev);
->  	clk_unprepare(priv->refclk);
-> +	of_node_put(priv->of_gptp);
->  	reset_control_assert(priv->rstc);
->  	free_netdev(ndev);
->  	platform_set_drvdata(pdev, NULL);
+Since the condition only checks if status is zero, an unexpected bit could=
+=20
+bypass the IRQ_NONE return path. The handler would then proceed to clear on=
+ly=20
+the AX_TACH_INT_PENDING bit and return IRQ_HANDLED, leaving the actual=20
+hardware interrupt active and bypassing the kernel's spurious IRQ protectio=
+n.
 
-[Severity: Medium]
-Since priv->of_gptp acquires a node reference via of_parse_phandle() in
-ravb_gen4_ptp_probe(), and is correctly released here in ravb_remove(), do =
-the
-error paths in ravb_probe() also need to call of_node_put(priv->of_gptp)?
+Should this explicitly check if the AX_TACH_INT_PENDING bit is set before=20
+processing the interrupt?
 
-If an initialization step fails in ravb_probe() in
-drivers/net/ethernet/renesas/ravb_main.c after info->ptp->probe(ndev)
-successfully acquires the node reference, the error paths jump to these lab=
-els:
-
-out_rpm_disable:
-	pm_runtime_disable(&pdev->dev);
-	pm_runtime_dont_use_autosuspend(&pdev->dev);
-	clk_unprepare(priv->refclk);
-out_reset_assert:
-	reset_control_assert(rstc);
-out_free_netdev:
-	free_netdev(ndev);
-	return error;
-
-Will this leak the device node reference if probe fails here?
+> +
+> +	scoped_guard(spinlock_irqsave, &ctx->tach_lock) {
+> +		ctx->tach.count =3D ioread32(ctx->tach_base + AX_TACH_COUNT_REG);
+> +	}
+> +
+> +	iowrite32(AX_TACH_INT_PENDING, ctx->tach_base + AX_TACH_INT_STATUS_REG);
+> +
+> +	return IRQ_HANDLED;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902084703.3228=
-504-1-niklas.soderlund+renesas@ragnatech.se?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-axiado-ax3=
+000-pwm-fan-v2-0-ef43df46163e@axiado.com?part=3D2
