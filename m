@@ -1,59 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7EE50AC16;
-	Thu,  3 Sep 2026 20:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D08642E417;
+	Thu,  3 Sep 2026 20:58:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469082; cv=none; b=OINgWcfsJC3rJEGvoLQ0fPEx8ILZ/AwDIhEhC2+u14vwIi7/SeZ6kHIwCpO9iC553zW7ya6C3ZTdhmQf3lGpVSQR9mLqnsvolPa92hrFlYiWJC4mcBm5VfaaSvDZd2zk9D4628srAPDQYqxGbb51+KKWi9fPYY/701a73/wQiUk=
+	t=1788469116; cv=none; b=WVo9ALy4N4l5YhMq1csRpHFQ/U/bQP18z6nJY73KbLpg6aC0PfoVHIt2nsV8jJDkxkvw6TnlGz7mAa5Pni4s6iSBbCTrGluZAcudnqOiuwhuP5yQW3qKYcwSM8TNk2Df2PcmtNeN6AiUoKaO/XmbwQr7lyTdNz4xQ3YkTm3uK4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469082; c=relaxed/simple;
-	bh=x+OxLZkAAgIvx4QoE3yj/4uYcg3R/aAELQ+fu7v5Q0A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kIo+SfPgE4YEnXpQKYaEBfHPfC2+v8IhuZObAl9YuKBNs1cLCx/74XrViOEZUhjrX7DyM/e4kkf8AZuNYzWJ3Rsw7i9cU5ApRcqRpj/z0p2k47iw1UOJ5xbcxxehxD9Omj1kM9an0O3FPyAke3uQkqyxRw8Q+h6+XnrAXMCxrho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9eyB17M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788469116; c=relaxed/simple;
+	bh=WyLghW2Yt/XW78tU77Jb3nPkQaysxAJGDVLx3yZO+Y8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e5MNGwl9BUeAov1wD9Bn6/VNUKWed8uFIBx3qzK2y/NF1IXkl/WXlKsr5dxfGjPKEilQlgQkLAh0Lv975woFwzEx5V/57RsrPsmLFFvEnwRcWu1fMuMFj6MK53NUsRvycBE55Csa0um0pB1al/t6K76+xsX226gmoPozhRSNANI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=B7/WRPfB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VZrSnuTu; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9eyB17M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE3E1F00A3D;
-	Thu,  3 Sep 2026 20:57:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788469069;
-	bh=x+OxLZkAAgIvx4QoE3yj/4uYcg3R/aAELQ+fu7v5Q0A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M9eyB17MCMFCFUg3eZspx4TBVArMEU4Wgt4SG8h3SFVPWC0K8cwr1P1IjcbogrC6e
-	 4gNyp1BsC2c61KsL4cq9PVsQn8IwK/AmVARyo2TrCCgKJvtghS2tgx3mxuXU2WOsXW
-	 7tP7k7M/rFN2vAYinec6KT1sMBJ2H6nKVgIwaeK6dN3qyfn0k71pA1iYpJJ4tzv6Ow
-	 mmNP92URthgs/oZvLAXNdxVOIxi34krohJdrvaiGwAT5ScsnvWFMs7QmPyhpHYmhkX
-	 voaTF/0hga29pmaWulrg5DMBYxpyethpzTCq2fMu5NtNSdkwY5bgFXT2vy5a9I1Lc0
-	 7fJRvkVGrmpag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: PCI: rcar-gen4-pci-host: Document
- Application/Local register reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260903205153.283553-1-marek.vasut+renesas@mailbox.org>
-References: <20260903205153.283553-1-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 20:57:48 +0000
-Message-Id: <20260903205748.EDE3E1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="B7/WRPfB";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VZrSnuTu"
+Date: Thu, 3 Sep 2026 22:58:19 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788469100;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W477L/II8FxU5jV4Gwnwh9dbk0oImJX38o52mJuSnwY=;
+	b=B7/WRPfBfjfmwBzOzIgig7Kl95rP6c+s5VisJc0Zey7gf3liJKOgu5BNMObp3Uhh732l5B
+	LEwMz8J6Osovp+XoQgAwBODrbmV9kC9WC/xbaZgUCPz3x1IFu9nbq18DRnK4IqebrUhjBw
+	k2RVUQSLvuZo1sx0raqyS1dyh9vs9vAhDdqxNq93GDY3+ydadlr1ODfs2qYymFKPc58NnC
+	CaXPcaNL8t9USO7AjKV9O84+mV6V1ugRIVp46WNZfVpqTw3CBJfPHxbzd3JJsP0Tziet7C
+	3JD3DJ7qUDDaOmjxSd4xnBNyj6WQv2PHQ8nc4SeM96pWMKfUEwAJr/8OnDvJyg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788469100;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W477L/II8FxU5jV4Gwnwh9dbk0oImJX38o52mJuSnwY=;
+	b=VZrSnuTuOcjcBb6FSC5SVK0IX0F+vYHhmZrg0oqoQfFwXMGoqCA1uMo6zOoDdbzJ4NE80Z
+	hxzivuQsfZk9+qDg==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
+Message-ID: <gzc6sljogjijrlz5jdwxbbf352xigfpuaxeo542zcsq72dncqb@lltv7los5lie>
+References: <20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de>
+ <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
+ <apmfqyeWahoR0wab@apocalypse>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apmfqyeWahoR0wab@apocalypse>
 
-> The R-Car Gen4 PCIe controller does contain core reset, which puts
-> the controller back into well defined state, but it does also tear
-> down the PCIe link. This is called Application/Local register reset
-> in the documentation. Document this reset.
->=20
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+On Thu, Sep 03, 2026 at 06:26:19PM +0200, Andrea della Porta wrote:
+> Hi Gregor,
+> 
+> On 18:04 Tue 11 Aug     , Gregor Herburger wrote:
+> > The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+> > Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+> > the spi interface.
+> > 
+> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> > ---
+> >  arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 16 ++++++++++++++++
+> >  1 file changed, 16 insertions(+)
+> > 
+> > diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> > index 0fc57e72632ed..81aec81c5ce12 100644
+> > --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> > +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> > @@ -69,6 +69,14 @@ usb_vbus_default_state: usb-vbus-default-state {
+> >  		groups = "vbus1";
+> >  	};
+> >  
+> > +	rp1_spi0_default_state: rp1-spi0-default-state {
+> > +		function = "spi0";
+> > +		groups = "spi0";
+> > +		bias-disable;
+> > +		drive-strength = <12>;
+> > +		slew-rate = <1>;
+> > +	};
+> > +
+> >  	rp1_i2c4_default_state: rp1-i2c4-default-state {
+> >  		function = "i2c4";
+> >  		groups = "i2c4_2";
+> > @@ -94,6 +102,14 @@ &rp1_i2c6 {
+> >  	pinctrl-names = "default";
+> >  };
+> >  
+> > +&rp1_spi0 {
+> > +	pinctrl-0 = <&rp1_spi0_default_state>;
+> 
+> Is there any reason to avoid defining the CS pins as pulled-up gpios
+> in the rp1_gpio node and then referencing it in pinctrl-0?
+No there is no reason for this. I will try it and send a new version.
+> Something like thie following:
+> 
+> rp1_spi0_cs_default_state: rp1-spi0-cs-default-state {
+> 	function = "gpio";
+> 	pins = "gpio7", "gpio8";
+> 	bias-pull-up;
+> };
+> 
+> &rp1_spi0 {
+> 	...
+> 	pinctrl-0 = <&rp1_spi0_default_state &rp1_spi0_cs_default_state>;
+> 	...
+> };
+> 
+> 
+> Many thanks,
+> Andrea
+> 
+> > +	pinctrl-names = "default";
+> > +
+> > +	num-cs = <2>;
+> > +	cs-gpios = <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
+> > +};
+> > +
+> >  &rp1_usb0 {
+> >  	pinctrl-0 = <&usb_vbus_default_state>;
+> >  	pinctrl-names = "default";
+> > 
+> > -- 
+> > 2.47.3
+> > 
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+-- 
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903205153.2835=
-53-1-marek.vasut+renesas@mailbox.org?part=3D1
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
 
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
