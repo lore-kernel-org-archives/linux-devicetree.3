@@ -1,130 +1,107 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE2A3EAC71;
-	Thu,  3 Sep 2026 06:31:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B6D236212F
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 06:31:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788417084; cv=none; b=CjSA1oUYm5Gbp1+v9LnaJloH/98yDts8MpzryEj0sw0Fe9VhlrX/u3C/2JiEcaCj3znodrTThWA80ivqME7wCBzTTmsSSXe32MK4ydvJYYPBJHb22pqEIG8Nw4naCReBk3tTvQgJPRDsCJnVbd01Dx9jQwuxOLfPrAIfW3R4hf0=
+	t=1788417114; cv=none; b=HCl3rZTKvKor0S9/kbQk5AmHA0/fa4Gy6xbN38AK8AgO/ITLHULiMLdpqPUUbYj5bNiZRdFthjkKrrYgJaqICRTT5Y4wO6ly8n6fl6EEax1XjF+xZpAilnpUqYTrm9V4OHAyv7eTehItspFo4VwdRFtlXUTYYVxQrDys6r6pN7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788417084; c=relaxed/simple;
-	bh=KnGPxRYqa+YU4j0JBli/anSpWWwJeLJkR2/WWMw4sTA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IBNQ6tpKfzoME6WnLx7EV7q1W5VaHisyLPOp8ymMUNv+m2eSbMZolYcyV9IkeCvWGTY7tuhgsee9h5uWEJp/k7Yt19DkxBUPa4tzlMwihNNbN5/D6mlNZ5Damf6fYE9XD1zOoD126CQqh5qESAIVIRcPph2gW2VJR1hqa4iY0h4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m3zTTyuv; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788417114; c=relaxed/simple;
+	bh=6RmdioRbhdI2+CAQvwmTI3GTZ4X11E1ZAqyhyLmEoaY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iNJpnIAssYftO0BHqxQfYqO2buC1KWptqdv+2wQYQLuAFPwxHJQ8itTiggxBUwzyDhclKC0aAwnY52KplVtXeY1tOHS6Wt9fjQnrbRY5QMS7n45gQCDqcLFu6uhhXgMnaX3TROASxlAbNDdVOH/kHZydjXfMJYF7G1N4Z1KXb+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O0Slg1B8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m3zTTyuv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788417083; x=1819953083;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KnGPxRYqa+YU4j0JBli/anSpWWwJeLJkR2/WWMw4sTA=;
-  b=m3zTTyuvBf1WI8AipTiYiJgkrq2/CbdKDZlVY2mTZuYIN5h4RjIlNHHZ
-   3rZAzqMRLCbh0HUNZHdQ60Zde2vpl1aU796yqqh00scn/Zqt6ddgbzW25
-   vDKQC3a3n+kBFWjnYOzy+AXnnyEf8qnFA4UkK9wzrYGL1d7oOq05i6NhW
-   p0329FXIuZS+lsM4mzyeeaOK9Sv0i7fNlplAM+GH0Cba/DLKGAuuCmDPU
-   6+PFXwSgFu2ehMS6CF5cLkyZ6UGi1skMswPY19mY+TDf1SMXQ61CecokS
-   J/CjlD2fVOC0n53rsWowpzWx0pPwM/QNDHeDGy/apyHRAHt4i42zrz5TN
-   A==;
-X-CSE-ConnectionGUID: O4juEVl8R42tcs2+MwavoA==
-X-CSE-MsgGUID: XIVNHyeLQk++fLOwjfRlCQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="106252730"
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="106252730"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:22 -0700
-X-CSE-ConnectionGUID: Zenm2r2LRiKoIs5Vpnc1fg==
-X-CSE-MsgGUID: SUe2Q2yKQD+335Nz2YKkZg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="263451694"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 23:31:19 -0700
-Date: Thu, 3 Sep 2026 09:31:16 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
-	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
-	marcelo.schmitt1@gmail.com
-Subject: Re: [PATCH v1 06/13] iio: adc: ad4134: Add support for digital
- filter type selection
-Message-ID: <apkUNH9qCcfTNZqU@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <058e82fb421c6794cc3002bde25d9e3485f74be2.1788368334.git.marcelo.schmitt@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O0Slg1B8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 861631F000E9;
+	Thu,  3 Sep 2026 06:31:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788417113;
+	bh=eXRYvuoWhjpAFAs56As7/B0zK4Nhewhv/Z99ghulzgA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=O0Slg1B8lcydoOczFHYJF6kEDE0yyhOpXQXwNLxRARhN8o0RguXLYJVFKAgQ/F4mh
+	 ZZjyczu/iFG0gY4HVilD6He62Tuof/X8xZqhVgHWA01F5KsMir3BrnIBvYIm3119Wm
+	 CnRfJQebNSPrbekWx8etV1+FkpdQNmmidthRsXbeVGI5ASc0Sb7YVoqsDGqXSjnL5D
+	 kId7a7kQ1jetiEHu+rlIj+VPdnDMHBOf4vb+qcdcpqv+wiCDtUkaCJnKg8HGuJCzCV
+	 mscU7AWGYomr+T1s08tbUHOu/t6lP8ZTz9DH87AT2NME/ptjmafsHM4JhDLzvqUsNt
+	 k/MiFxqURZm7Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v18 5/8] regulator: p3h2x4x: Add driver for on-die
+ regulators in NXP P3H2x4x i3c hub
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, linux-i3c@lists.infradead.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260903062108.2712296-6-lakshay.piplani@nxp.com>
+References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
+ <20260903062108.2712296-6-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 06:31:52 +0000
+Message-Id: <20260903063152.861631F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <058e82fb421c6794cc3002bde25d9e3485f74be2.1788368334.git.marcelo.schmitt@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Sep 02, 2026 at 02:23:22PM -0300, Marcelo Schmitt wrote:
-> AD4134 supports four types of programmable digital filters that allow users
-> to choose between different output data rates and input bandwidths. Enable
-> basic digital filter configuration by providing a way to select which
-> filter type is activated for each channel.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Driver-specific header placed in the global include/linux/mfd/ dire=
+ctory.
+--
 
-...
+commit cbaa07506e1e33ad932d2b0d2d38edfb4437adc1
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-> +static const struct iio_chan_spec_ext_info ad4134_filter_type_ext_info[] = {
-> +	IIO_ENUM("filter_type", IIO_SEPARATE, &ad4134_filter_type_enum),
-> +	IIO_ENUM_AVAILABLE("filter_type", IIO_SEPARATE,
-> +			   &ad4134_filter_type_enum),
+regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x i3c hub
 
-Make it a single line (it's only 82 characters).
+This commit adds a regulator driver for the on-die regulators in the NXP=20
+P3H2x4x i3c hub. The driver registers the regulators using the MFD framewor=
+k=20
+and exposes them via the regulator subsystem.
 
-> +	{ }
-> +};
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d482a23c0bf78..bdf54313bc5f6 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19772,6 +19772,7 @@ L:	linux-i3c@lists.infradead.org
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
+>  F:	drivers/mfd/p3h2840.c
+> +F:	drivers/regulator/p3h2840_i3c_hub_regulator.c
+>  F:	include/linux/mfd/p3h2840.h
 
-...
+[ ... ]
 
-> +static int ad4134_get_filter_type(struct iio_dev *indio_dev,
-> +				  struct iio_chan_spec const *chan)
+> diff --git a/drivers/regulator/p3h2840_i3c_hub_regulator.c b/drivers/regu=
+lator/p3h2840_i3c_hub_regulator.c
+> new file mode 100644
+> index 0000000000000..244f2a4f70f38
+> --- /dev/null
+> +++ b/drivers/regulator/p3h2840_i3c_hub_regulator.c
+> @@ -0,0 +1,289 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright 2025-2026 NXP
+> + * NXP P3H2X4X regulator driver file contain functions for enable/disabl=
+e regulator
+> + * and voltage set/get.
+> + */
+> +#include <linux/bitfield.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/mfd/p3h2840.h>
 
-int
+[Severity: Low]
+Does this driver include a shared header from the globally exported include
+path rather than keeping it local?
 
-> +{
-> +	struct ad4134_state *st = iio_priv(indio_dev);
-> +	enum ad4134_filter_type f_type;
+The MFD subsystem guidelines state that driver-specific header files should
+be kept local to drivers/mfd/ if they are only used by the parent and its
+immediate children. Should p3h2840.h be moved out of the global namespace
+if it is only used by this device family?
 
-enum
-
-> +	unsigned int mask, reg_val;
-> +	int ret;
-> +
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	ret = regmap_read(st->regmap, AD4134_CHAN_DIG_FILTER_SEL_REG, &reg_val);
-> +	if (ret)
-> +		return ret;
-> +
-> +	mask = AD4134_CHAN_DIG_FILTER_SEL_CH_MASK(chan->channel);
-
-> +	f_type = field_get(mask, reg_val);
-> +
-> +	return f_type;
-
-field_get() macro...
-
-I think you can get rid of temporary variable if it's not used afterwards.
-
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903062108.2712=
+296-1-lakshay.piplani@nxp.com?part=3D5
