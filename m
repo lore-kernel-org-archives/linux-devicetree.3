@@ -1,93 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB2D36C9D9
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:05:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B2729B799;
+	Thu,  3 Sep 2026 08:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422721; cv=none; b=F2T2z16zfmZM+OsMhRbFYZLnsh3w3CKM/3/XxqQzeyXQHH1hb/sHxs6Jng5T77EMmufhnVdVdM82klasKch+vLI2+ggkTr91s1OC/wDOnPcsd/zMbcmVwe9A3pS2LeEY4e1Pqlb2dOrE8DK9lks0yjC+GiFs2iPCiacZv+TUU9U=
+	t=1788422777; cv=none; b=un1xF1rm8B0Fl4LLrRqgJ+m5m3LzbjVWT7dSAV4BIO7FhOZybnmU4v10Srrs+DklWK/oBUzyc375ladIkUD+aWgpkhNn7L+Zf+j/ZtLyWpcyDvYwK3psJKjdPfVGl2DUWm0zuRMpTDsa0payEX+chRkrNVUJwAFjTkresTkbYGM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422721; c=relaxed/simple;
-	bh=soZdwxjcxKLiH08uy9uVcx2v3MDNpRskzxB9KR1w5MM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FEiaEdCgNKeQnUquLWyLHI1DL5lu5ilnUFHSiZCYHzKPs1oitQf8d2mcQYxrz3xro8M863hrF35wakZYleNqa+gY+1N2Tj4Qbsmzp53Kr0bOkwPH8cD+fLKBhrgErnY/wdX/VgW3YvNJXH4fag6J/kf5mgpA3O4puqN1o7atJG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z1ZUU+ih; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788422777; c=relaxed/simple;
+	bh=TfEMK0a33NS2jaUvlauAHM7l7SnnnIidRASqMeaGC3E=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=WeDzMcPgGO/qepHe862BqtE0FLCdeIt4JAWcAvuTCTIpmO9Aeu4H9YyLYCSpfDpcMMQG31D5B4tjs3nGX+RLFqScA2O3Km7/U1ZwbdcsgENfNgEvl1Ssdu14xvMMKrAzFN1eNRSsniWw4ZpnNOywnp4moipn/g9DQsgIXeKAwWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B3MGEt7o; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z1ZUU+ih"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 892D71F00A3D;
-	Thu,  3 Sep 2026 08:05:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788422719;
-	bh=Wk/auHCLyxLc1aHeHsVTO5sT2v2zEhEOezEe+CjR1mI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Z1ZUU+ihEvho6DCkPz7j5dfZXJU2FwBXtCQOj8PYXl7rvLacvhRYqmWpWFAN2ytZj
-	 TUPgD/z1R/h5e0yP56czbn693WooMCLq4pgk2muXRsiWjF3ijZtqBiRjrjxCm1eMo3
-	 MZ/ovSSh9MT45kDf2ckhWM8K1ksz33QLC1it/mxR8poc0T7m9N8r5rQteRKJIHLqOi
-	 CBq/MD13NHWB2W/g5e+ofthuOPOZL3+nluXEzgUvSaYizf/UlC9CyPDFljOcUdLRA1
-	 ZQpptBr46/zKz4B2VFnifCUZ+os6oJN7NunW8MT9CcWFwYlJmZzIpx4SjvIOvF3xF/
-	 YZa5NdMKB//8w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V3 3/3] usb: host: xhci-tegra: Add Tegra264 XHCI support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wayne Chang" <waynec@nvidia.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260903074539.613220-4-waynec@nvidia.com>
-References: <20260903074539.613220-1-waynec@nvidia.com>
- <20260903074539.613220-4-waynec@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 08:05:19 +0000
-Message-Id: <20260903080519.892D71F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B3MGEt7o"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C4D3A4E4146F;
+	Thu,  3 Sep 2026 08:06:13 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 97DCF602B8;
+	Thu,  3 Sep 2026 08:06:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1907411C79B6F;
+	Thu,  3 Sep 2026 10:06:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788422772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=TfEMK0a33NS2jaUvlauAHM7l7SnnnIidRASqMeaGC3E=;
+	b=B3MGEt7o91rWgG+OB/jZ1KGIDkbGvXO5at21Ffhuhwy1BLzE7/eEvyCrcrZCz3B6PmJYwI
+	c2Kbsow6FPwqH6sYJflF0L917opYPsrVJEsRKMdIc0/3e2Wv1Ze0laRume828yiEgzxFVN
+	UBPjeyIziLfZJv7MggpfPWQIVKVKHgUxSlXqAL5vD2/yNgtNGXMvQ+IJJavF6S0cn4A6pT
+	4xolGMxPMlR0m/S4/mpwcwUThfNmj1pykbu5gApMlog13rrejTdvNibxWewkwdVg/avr4Z
+	mV9svE0JBMYT05Gj0Ay4yAPcbTPABP4VJyLxL8rZRhcelcHfjOubopJnlJClAA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Alexey Charkov <alchark@flipper.net>
+Cc: Srinivas Kandagatla <srini@kernel.org>,  Rob Herring <robh@kernel.org>,
+  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Conor Dooley
+ <conor+dt@kernel.org>,  Heiko Stuebner <heiko@sntech.de>,  Michael Walle
+ <michael@walle.cc>,  Finley Xiao <finley.xiao@rock-chips.com>,  Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>,  devicetree@vger.kernel.org,
+  linux-kernel@vger.kernel.org,  linux-rockchip@lists.infradead.org,
+  linux-arm-kernel@lists.infradead.org,  stable@vger.kernel.org
+Subject: Re: [PATCH 1/4] nvmem: rockchip-otp: Serialize reads
+In-Reply-To: <CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
+	(Alexey Charkov's message of "Wed, 2 Sep 2026 16:40:16 +0400")
+References: <20260901-rk3576-otp-cpuid-mac-v1-0-ea9135270fc2@flipper.net>
+	<20260901-rk3576-otp-cpuid-mac-v1-1-ea9135270fc2@flipper.net>
+	<87ecfc81e9.fsf@bootlin.com>
+	<CAKTNdwH5S3MxgR=5s2LXPquCFRXE-61LTTsZoHP9+YmXo_P4Ag@mail.gmail.com>
+	<87y0dk6jpn.fsf@bootlin.com>
+	<CAKTNdwF_wY8JSoQs=auK_9YNGT+hwQ=dAhcRVsf1E1CVvFs-XA@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Thu, 03 Sep 2026 10:06:08 +0200
+Message-ID: <87bjae7o9b.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Undocumented behavioral change: `.enable_firmware_messages` is d=
-isabled for Tegra264, contradicting the commit message.
---
+Hi Alexey,
 
-commit 9801b6744662599081fdad0fae6db596ecae9f70
-Author: Wayne Chang <waynec@nvidia.com>
+>> I haven't seen Sashiko's answer but isn't the goal of guards to just be
+>> released whatever the actual return path?
+>
+> I believe it's based on the guidance in [1]. In this particular case,
+> gotos don't jump outside the scope where I put the guard, so the
+> scope-based guard is still correct. However, stylistically, it is
+> indeed uncommon to see scope-based guards in functions using gotos.
+> Explicit lock/unlock is easy in this case, anyway.
+>
+> [1] https://elixir.bootlin.com/linux/v7.2.2/source/include/linux/cleanup.=
+h#L148-L153
 
-usb: host: xhci-tegra: Add Tegra264 XHCI support
+I never read that paragraph before, but okay, makes sense.
 
-This commit adds Tegra264 XUSB host mode controller support. The new host
-controller is described as being identical to the existing Tegra234 XHCI
-with the exception of the max_num_wakes value.
-
-> diff --git a/drivers/usb/host/xhci-tegra.c b/drivers/usb/host/xhci-tegra.c
-> index a16c4a8233472..a973cfa4b13b0 100644
-> --- a/drivers/usb/host/xhci-tegra.c
-> +++ b/drivers/usb/host/xhci-tegra.c
-[ ... ]
-> @@ -2753,12 +2753,40 @@ static const struct tegra_xusb_soc tegra234_soc =
-=3D {
->  	.enable_firmware_messages =3D true,
->  };
-> =20
-> +static const struct tegra_xusb_soc tegra264_soc =3D {
-[ ... ]
-> +	.lpm_support =3D true,
-> +	.has_bar2 =3D true,
-> +	.enable_firmware_messages =3D false,
-
-[Severity: Medium]
-The commit message states that the Tegra264 host controller is very similar
-to the existing Tegra234 XHCI, except for the number of max_num_wakes. Howe=
-ver,
-this structure explicitly disables firmware messages for tegra264_soc, wher=
-eas
-it is enabled for tegra234_soc.
-
-Is this undocumented change intentional? If so, could the commit message be
-updated to reflect that firmware messages are also disabled for Tegra264?
-
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903074539.6132=
-20-1-waynec@nvidia.com?part=3D3
+Thanks,
+Miqu=C3=A8l
