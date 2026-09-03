@@ -1,158 +1,111 @@
-Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5283546AA96
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 10:05:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAE53B5E08;
+	Thu,  3 Sep 2026 10:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429923; cv=none; b=h3ktuWeLf8o0WcO7UgXbpHmPsUjkjpDA05Tp0Jkbw4gSPDtFtexLUDfHkQi23j5FdSzAU2aMcniFBHO4iB11R+T3zP+plxjnw/XIQHzJs/IVFzZihHyTHBBIqygjheirYbqb6x0FH6dva7OcqJ24ZjJW4u/DFvTi4agg4Rx1QN8=
+	t=1788430019; cv=none; b=f0CBNVkxEbBk29VEplS+EoUU6irgNv/r4kpTbBjnrHwplpFmWAudpPGz2atcgUOU8ANB7MnS+Kif+UxOJJSUPkmBWBl2pTICjkfG6bnWq5Kh1SGeRCR8T+Yr+GZBs+O1cR7JrBg9EaseLtljY0nKNYqmMGwP58tipHDcQjZ5/n8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429923; c=relaxed/simple;
-	bh=wKv0G5pklL2Tau4nv5A69Up1Qi1EQE0aYPmrDPjRxmg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N5BroLOL5iGQBMIbnKDAC/UnakqeA3hkrKNb9L4fmtv2CWsYLQUgwyBHSvBLKfbqYfNdkDNuTLATJOJpe/+48/lvrwFyCHHSVR89FXI9IhLSKsEnnfHOIqtn10z6bbw6UE0iSPNUVqcPBTIwTLaHoojPUjrQlzkB8hQaPIoHL2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.128.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-86d43cdee51so19582907b3.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 03:05:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788429915; x=1789034715;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sB2LZifEeupjsxCHsRGx0RoKXBpeYPjdfUIFuUgunMM=;
-        b=oo9dBH1ei7h0eBAdvllCzn9zvMXFWnzoOUWaiLKEG51w/JyMyzW+0cMqNgyueYkBd+
-         gKegr45VAUlvAtwhxpE3twYyoh8nyv+Wjvmf5JVZYdJCtUmCNYOLe4H7hAHsj6zP7oC4
-         nq8dR1ID7BTC0QY1GKbD6RHkwnft1cZlpW1s5X9Lrzj613p7PkvRQmZCroNfdfrVV49H
-         OjxLCQXCBIZ0IiFVzvRF3LRQRjVh+kHxlni8kkv2jdKxCQGwuRmnO3nI61ZBem+qMutJ
-         cdXY+erzFcLYbsGpLKSFbiSYOy7C/sBPOrbOet6IRotYjWK1LpUR0+7fsiPy4QRaDkDM
-         c7lg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGzhc+ikRTEnVUNrSDV/ad5VRXUleQIxciYh8Fu6QuYS2RaFMBeADKx8pFnYb1IC0yvluFzdlzj4Ut@vger.kernel.org
-X-Gm-Message-State: AFuF++kWwq68xXrQ1XvwkiyI70MMH5XSbaIzEaFqpZF2EmI8Fl360gV1
-	ItKN0a5RhCz1LsSLJ5k8vF13i0s6oshrt+l28sRtLTpzLu01J3v2FbCjZ+VUfziMgTQ=
-X-Gm-Gg: AYBFou3WLYWYfg7a9NYZQqNq0TpTkXTWvmFKUZwOZBn02aTJfRt7VaGB0B+rHi8gn2z
-	TL1cA9ORhlFHO5/jYbDWgsFasD+VCInZt4gHoIiHSbru4ri/dGvAuTHZWL7E3T0jufp1av+zWRV
-	nBJi4zL+WPtZ8vmfQc4w1pY3oN2i8LmtUJcYyTvudyspboJA9SWT/wMc3FyzibkrNLLluF4J81e
-	19kmaYNMoRmrbV9PefMekeCIskrWIGy/tTQrngYk3S5PlVljC5lFSJCNdQHSaO7flp+VUH++CW3
-	A8Z5M77P+jhRc7Pzvg3dIEH7CHcWlqiNbhSC/C5egJmgfboG48Yns6YD1sX8/3sTcleojDolEj5
-	YWonmzecFLIBQCUa09A5qz2jbMKQHeyRXlpKWaZzynlCV3eC6UAT6Aouy4G5LXcnZeah6JE0sWj
-	rtCU375SMrLmbfzZ78Ecg3OuLQ92CYwQV4ebYh1amSsVgdHRqnTUCGxPLmlEuXiQn+Lrg1WqzLc
-	EByu7jgyaJcXZTsIntLiADvysmajdu9fLfqCCunZNmHlbJcjCABiBGNOXfPYvlBCg==
-X-Received: by 2002:a05:690e:2501:20b0:66e:51c5:f728 with SMTP id 956f58d0204a3-66f9bbf276emr3380017d50.28.1788429914682;
-        Thu, 03 Sep 2026 03:05:14 -0700 (PDT)
-Received: from mail-yx1-f41.google.com (mail-yx1-f41.google.com. [74.125.224.41])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66faa50d633sm1331449d50.1.2026.09.03.03.05.14
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 03:05:14 -0700 (PDT)
-Received: by mail-yx1-f41.google.com with SMTP id 956f58d0204a3-66f96418909so1270115d50.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 03:05:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzOwBgoMsTyI5dNZnb7KmPiao457uqdhzXYWE9DF49gb5YvIkVmIcFB4uD3oLMcPGGT7w2RLHhPhva3@vger.kernel.org
-X-Received: by 2002:a05:690e:4890:20b0:66f:afdc:b49b with SMTP id
- 956f58d0204a3-66fafdcb54bmr290871d50.0.1788429913913; Thu, 03 Sep 2026
- 03:05:13 -0700 (PDT)
+	s=arc-20240116; t=1788430019; c=relaxed/simple;
+	bh=qf2fubPmfLIDNUT2h+9n7NqOBCnS2zp/lbMin3g9bxk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IAqn1NoRPMl2kSeVf1FT8U710WphIjRBSaslhZn8+jVKTosC6fVfeih+BBkVJkja6tLZeWAMjSRtGf4LKVO5Ym68KPqhA3Vz5js2mMzY1VIhzVTrP4j//95IHXnXxfiXlAjt9voWq8pQzHLWfaohr++cs0p2dYW/IpIHw0zmqU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KM3e1OqK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KM3e1OqK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A4A41F000E9;
+	Thu,  3 Sep 2026 10:06:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788430015;
+	bh=JOjoOgvlM81zL+NiGiRTWOkPC5emIO7QZ5TW4bJblk8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KM3e1OqKYXCj7bP5cNJc3bDDzKOIbdHc4oa+CQE5WQzfVC0t/tQ76wyIjIZo7aKn4
+	 DSGWUN8Nc+lazZwr+OAX7VFZUEMG7PY5I2ODoU2QQm9V9uGLtSBMIozqCOUg9X/HuK
+	 TTSjMfoNA5k13NeGRL0rXhXkRex47CLoVwXInd86MhN8RnT2QX9OhFyv8dV0fLyqxP
+	 H0gVP43Dv9hOGbL/GIhrCz+IJ9k2t4sOqjLSMKFxvm2h47K7LUJ6M02sjxCmvf+fp9
+	 66ncduGIkhE6kof0T3vcL+sQvTHvRj1qd7E4gh+fp5LwSKb1g5kPBL+Md/THdcDMRq
+	 BksN1brdKv/Jg==
+Date: Thu, 3 Sep 2026 12:06:51 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lee Jones <lee@kernel.org>
+Cc: Conor Dooley <conor@kernel.org>, Frank.Li@oss.nxp.com, 
+	Support Opensource <support.opensource@diasemi.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	"open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
+ fallback to dlg,da9052
+Message-ID: <20260903-vague-sassy-cow-d2d6c8@quoll>
+References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
+ <20260901-devourer-pushover-f26c72688255@spud>
+ <20260902102532.GQ2943942@google.com>
+ <20260902-varied-unsent-b99f9f007685@spud>
+ <20260903090625.GI2133376@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260829094758.23248-1-tanure@linux.com> <178818026093.2318126.3676223463693214854.b4-ty@b4>
-In-Reply-To: <178818026093.2318126.3676223463693214854.b4-ty@b4>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Thu, 3 Sep 2026 11:05:02 +0100
-X-Gmail-Original-Message-ID: <CAJX_Q+17CLQ_4-rcj0KD6kzPWnChQfD3irCR7-h1bGH9hWiD7A@mail.gmail.com>
-X-Gm-Features: AcwNN1VRB2D0FTXRpcvHAcbTlWB5xZQpxaG0zutz7J3nfFbo_PpnG2ATadEMYz8
-Message-ID: <CAJX_Q+17CLQ_4-rcj0KD6kzPWnChQfD3irCR7-h1bGH9hWiD7A@mail.gmail.com>
-Subject: Re: (subset) [PATCH 0/4] arm64: amlogic: t7: describe the VIM4
- supplies and keep the fabric clocks running
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Jian Hu <jian.hu@amlogic.com>, 
-	Ronald Claveau <linux-kernel-dev@aliel.fr>, Brian Masney <bmasney@redhat.com>, 
-	Chuan Liu <chuan.liu@amlogic.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903090625.GI2133376@google.com>
 
-On Mon, Aug 31, 2026 at 1:44=E2=80=AFPM Neil Armstrong
-<neil.armstrong@linaro.org> wrote:
->
-> Hi,
->
-> On Sat, 29 Aug 2026 10:47:54 +0100, Lucas Tanure wrote:
-> > The Khadas VIM4 has needed clk_ignore_unused to boot reliably. Without =
-it
-> > the board hangs at random, loses storage and corrupts memory, and the
-> > failures move around from boot to boot.
-> >
-> > Six of the SoC's PWM outputs drive the board's voltage regulators: the
-> > always-on domain, both CPU clusters, the GPU, the NPU and the DRAM. Non=
-e
-> > of them were described, so Linux saw the outputs as unused and switched
-> > them off about a second into boot. The regulators then drifted away fro=
-m
-> > the levels the bootloader had set, which is where the corruption and th=
-e
-> > random hangs came from.
-> > Thanks to Chuan Liu from Amlogic for helping me indetify which clocks a=
-re
-> > critical.
-> >
-> > [...]
->
-> Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogi=
-c/linux.git (v7.3/fixes)
->
-> [2/4] arm64: dts: amlogic: t7: fix the pin groups of two PWM outputs
->       https://git.kernel.org/amlogic/c/ae7be5c58a819259e5eb98a3abfa608424=
-78f2ae
-> [3/4] arm64: dts: amlogic: t7: khadas-vim4: add the PWM-driven supplies
->       https://git.kernel.org/amlogic/c/1e5a53bd16ac501e68463e84023d1bff54=
-3cc696
-> [4/4] arm64: dts: amlogic: t7: fix the pin groups of the vsync PWM
->       https://git.kernel.org/amlogic/c/406292fd75f95aa3010fec95b5beb5a8b7=
-e3ba3a
->
-> These changes has been applied on the intermediate git tree [1].
->
-> The v7.3/fixes branch will then be sent via a formal Pull Request to the =
-Linux SoC maintainers
-> for inclusion in their intermediate git branches in order to be sent to L=
-inus during
-> the next merge window, or sooner if it's a set of fixes.
->
-> In the cases of fixes, those will be merged in the current release candid=
-ate
-> kernel and as soon they appear on the Linux master branch they will be
-> backported to the previous Stable and Long-Stable kernels [2].
->
-> The intermediate git branches are merged daily in the linux-next tree [3]=
-,
-> people are encouraged testing these pre-release kernels and report issues=
- on the
-> relevant mailing-lists.
->
-> If problems are discovered on those changes, please submit a signed-off-b=
-y revert
-> patch followed by a corrective changeset.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
-> [2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-> [3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
->
-> --
-> Neil
->
-Hi,
-Please don't take this. I will submit a better version.
-sys_ampipe_nand should not be critical.
+On Thu, Sep 03, 2026 at 10:06:25AM +0100, Lee Jones wrote:
+> On Wed, 02 Sep 2026, Conor Dooley wrote:
+> 
+> > On Wed, Sep 02, 2026 at 11:25:32AM +0100, Lee Jones wrote:
+> > > On Tue, 01 Sep 2026, Conor Dooley wrote:
+> > > 
+> > > > On Mon, Aug 31, 2026 at 04:15:21PM -0400, Frank.Li@oss.nxp.com wrote:
+> > > > > From: Frank Li <Frank.Li@nxp.com>
+> > > > > 
+> > > > > Allow dlg,da9053-aa fallback to dlg,da9052 to fix legacy platform (> 10
+> > > > > years) check_dtbs warnings:
+> > > > >   arch/arm/boot/dts/nxp/imx/imx53-voipac-bsb.dtb: dialog@48 (dlg,da9053-aa): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
+> > > > >         from schema $id: http://devicetree.org/schemas/mfd/dlg,da9052.yaml
+> > > > > 
+> > > > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > > > > ---
+> > > > > Previous try drop dlg,da9052 at
+> > > > > https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
+> > > > > 
+> > > > > but Krzy have concern about compablity.
+> > > > > 
+> > > > > https://lore.kernel.org/imx/20251107-matrimony-showdown-ba6ce6996b2f@spud/
+> > > > > 
+> > > > > Conor prefer update old dts.
+> > > > 
+> > > > I don't think these devices are actually compatible, so this fallback
+> > > > would be wrong.
+> > > > The data comes from the match data, be that spi or i2c, and there's
+> > > > explicitly different behaviour for the da9052 and da9053aa.
+> > > > I doubt the legacy platform ever worked properly, and this is what should
+> > > > have been explained in the PR that Krzysztof denied not just blindly
+> > > > citing a dtbs_check problem.
+> > > > 
+> > > > Nacked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > 
+> > > At first glance this looks like an Acked-by.
+> > > 
+> > > IMHO, this is going to cause issues - please rethink this.
+> > 
+> > As in, use NAKed-by instead or just say NAK without the name/mail?
+> > Not entirely sure what you're getting at.
+> 
+> As in, don't make NACKs looks like acceptance trailers.
+> 
+> If you're going to "NACK", which I always felt was a bit harsh anyway,
+> just say it without making it appear like an official sign-off.  Please.
 
-Thanks,
-Lucas
+Heh, tag is correct if maintainer, e.g. you in this case, would like to
+take such patch still. There were already such cases, I did it once as
+well to express that I do not agree with the approach taken by other
+maintainer and I want to be sure that a commit in git history will never
+be used in future discussions against my review (because this happens
+all the time "I found commit like this, so I can add here poor code").
+
+Best regards,
+Krzysztof
+
