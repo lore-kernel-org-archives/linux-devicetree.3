@@ -1,137 +1,343 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 173AF4B66D2;
-	Thu,  3 Sep 2026 17:24:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8CEC335BBB
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 17:30:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456249; cv=none; b=HRls6kE83LgPXxYUzQnsseyd39TpqykCApDpr+EvXYE4tUA61n8c6WvQ4/3JcUmuCn+4V9sVn+CMYKZyo/s5OIKiZHMWR47hZOzo2b2zu1bm0UiYk5uvjxW3g20b4fHeDJS0dLVIqomTzp3HGX1O0HarR7XEXZwsJSMbRG9CO08=
+	t=1788456613; cv=none; b=AT4arcXr4jQW09YBZbP5unt3rPUVSK+TmIGZcnQoGdHkimVGJ3b4Pn8UHhiaz/S0b6VVfxkpoXiIAjKcVS0fka/AmyRMUD52OREr86nHVYC03z1WO7rUVQ1O2/LvWLRbTx3kWEn57phxtPkeVrd3DzHzcFt2GcuWFiysp3Hlk2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456249; c=relaxed/simple;
-	bh=WZM66IndoDGw1AIvMt1UzAxbMH4mAm4nPrXkiYEywJk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kjBCoXrWQ+nY01hyImH/7/Gu3pS8DuUmp4B2JXCjBFIJ1bsQnDY+Vk2k1DzOOl4CY1GvQed/x/sgMi019b9062CupIDFo3YJPbLpzEUG79kPwjK5bn/TR6U+00zV0qdp+xizjayj4QkHpkYH60TW8T+Zb5A9Y5K48zOpOAa8L5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=eVcAGgRG; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788456613; c=relaxed/simple;
+	bh=kqRN0KkwKLzlSD27WEYVj3mqo9lQk4t/pj6M2HD1yFE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ka0bMVBzQTw0t4BNsHR8Tp11G3T8u8S8KoWc0V7PnGX/1cy+YZwqjGxUNwkhqA1DVvbafJkWuEGSkC03yvUr0GAuJwmKXXCcy03C0RfpkLoMmG0QJSx0eI6r2/9oGWaVUHGrbl3ukEiAxCgfcLoxwC+rbfCBZhOb3MLAWEX/bC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=IckVsKCY; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="eVcAGgRG"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 3264E53402CD;
-	Thu, 03 Sep 2026 19:24:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788456245;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QxpQpdJ8wdz2zI4beWu74d/wDFWkTRTp7Wa4gd8OYQk=;
-	b=eVcAGgRGKxQK6XDAz4t5exlGGadcE+215tyxqw8ocWQFFcW3JRw8NMehjHnERwKicpnBvu
-	nurmfX7la0tp7S6+enTHO5uXqVivvgc7Uz/QDimp9xIsebeKjBoRWUiMATmbLhLuLCQ0+z
-	W07tWe7z7QrXSY1Qs6snYwoIanOYcjU=
-Message-ID: <c5773a71-e7f0-44ae-8418-1e00de16d08f@ixit.cz>
-Date: Thu, 3 Sep 2026 19:24:04 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="IckVsKCY"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d91518a63fso794395ad.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 10:30:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788456610; x=1789061410; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oBzdii0EUHFGQFKd8zeKRUm0f/svlYti0FerJr5HoZQ=;
+        b=IckVsKCYqYhh5YhHpLKYfr3a0FpBdFNfYd2rJXNZUreCDSFCPMs7MxqgcwBWpVi7IY
+         fHnZOlbM1GvZugchNB4c2cBMEefxc3GbgclGGyIbyDSZK897d3bcfs86zlAU2AztzAxr
+         OrVaILhP3PkMRwXWXWmwlzOBXg60vg+USB1z1yU7jPiGTsj4ESKmNO+xbGQizOotAKZG
+         cvvY2TDP5XE+nyM6xLZW5e9RZp6IoEB5u1wiNcWKe6+tCMxeCNXTwehQgaB0TKz/dbrF
+         F3lw4hIiT/6j4/6sccPT0OKu4lHFGn7d6xD2bhuWoTewJS8XsmLcj/vWBH7/BGd2uLen
+         KTtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788456610; x=1789061410;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oBzdii0EUHFGQFKd8zeKRUm0f/svlYti0FerJr5HoZQ=;
+        b=QTDBgmY6LWlqJDxn2l0rxWqR1lHSN2YPiUjHN9g9uNNt7Gue+ZO+L44J1nMsYPOt+w
+         t2mlkev7sFTdSCX+5plTbTkpiwq040ASB//3EAN5ZAvpoTgAZGQyqjrNUwZ5iIAOz5oS
+         rN8bLCgDuKig3AnLAZlxk1OmwDdWJzCOAWOQxyV1B1V534XH9LE6HS9sVmx4EjNLfZd0
+         Eh4OodAZedCZ7lMUjWKL9u9jEnl1RNDDL1SITBFP3XPz6XvB2HKIXMxHkd5w7+rqQMsw
+         70QaqFYmuWLbQTiyLwyrSEdjrrBrexHY0xjCZFKej2BFotJy5wMhnbjA+idIHWFlaIuV
+         wrLA==
+X-Forwarded-Encrypted: i=1; AKwUvBwCwO2/wvdKVzrEUAYn8t8pMAxzTNTA7AgPNgY3vj4khsHWLd4l2D4aRN6soFi6J6es/eVsWBD+YGtj@vger.kernel.org
+X-Gm-Message-State: AFuF++ndJVwQPFR3V2hlzKrI/9egJfkwlMyj2ZqCM6Ko/MwXAsqQuOkA
+	1nh5OkxHqdJvqAxBi7KfZT87aLzvnPQ22ePDJbGBe8ns5qnJoMQqC/OsIfFoPSdc1Sw=
+X-Gm-Gg: AYBFou3fF/xRkBVD2NUU+1LQTOA8o3qqSuHiAwl5A/NTS3hVXy4z9iMtRTtAbj4ueb7
+	j6ExfMOVvja+WkMI71GCMNmZ4UD/gEG/Q2fYpJ8/9mkC2V7ZNfVBTuRoXXFHhOEWNfY+e9qTsJQ
+	nqtW/fzP7vJYRgMOxBrAm7xF8TTQbkAPpRMQLJwcO4l+FKicXmQZVr6eio1sCDoKDC4BSJyE8GF
+	iXoGUDKEoRUktooomK1yCSTp+WpShYt4fUupGtFCk10xWABO+ahCy2YW3nr2mAnBu4ZO7ECuWI9
+	hDl3XExI2dg3heg0jY2JiVxpzu3KrWVnI2+f+CcFbHfpbsaXlacPxxzXcEdn2K1sqx1H3iCDjez
+	6afV2h7qMb0n7E/9q4FSUwVI+YiaVHFZiZOA0UKXvqnIS9d0I6wfhPejKTCxq8UBhISf7wE7GJ6
+	cxR83abTe48RBKndLETcDzcHB1TXR/d/zHBhL5U3wElJHXtPXOxA3yPItCrspbRZepG5eLBygPj
+	94=
+X-Received: by 2002:a17:903:3848:b0:2d9:56dd:f804 with SMTP id d9443c01a7336-2db125f00c7mr7573775ad.13.1788456608541;
+        Thu, 03 Sep 2026 10:30:08 -0700 (PDT)
+Received: from p14s ([2604:3d09:148c:c800:40c0:ec33:6266:c275])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafed70184sm13249205ad.75.2026.09.03.10.30.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 10:30:07 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:30:04 -0600
+From: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: robh@kernel.org, krzk+dt@kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Shenwei Wang <shenwei.wang@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-imx@nxp.com, Arnaud POULIQUEN <arnaud.pouliquen@foss.st.com>,
+	b-padhi@ti.com, Andrew Lunn <andrew@lunn.ch>,
+	viresh.kumar@linaro.org
+Subject: Re: [PATCH v15 2/5] dt-bindings: remoteproc: imx_rproc: Add "rpmsg"
+ subnode support
+Message-ID: <apmunD8bkKOu5_Vm@p14s>
+References: <20260721204704.400781-1-shenwei.wang@oss.nxp.com>
+ <20260721204704.400781-3-shenwei.wang@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 6/6] arm64: dts: qcom: sdm845-google: Add basic audio
- support
-To: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
- David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- David Rhodes <drhodes@opensource.cirrus.com>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260705-pixel3-audio-v1-0-3b66f33859f1@ixit.cz>
- <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <20260705-pixel3-audio-v1-6-3b66f33859f1@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260721204704.400781-3-shenwei.wang@oss.nxp.com>
 
-On 05/07/2026 22:06, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
+Krzysztof and Rob - I'm seeking your advice on the best way to define bindings
+for this use case.
+
+Here is some background:
+
+The transport mechanic between the kernel and remote processors can take
+different forms.  As of this writing we have 'glink' and 'virtio'.  The protocol
+that runs on top of the transport mechanic is RPMSG.  All this is already
+implemented and stable.
+
+In this use case, we have GPIO controllers connected to the remote processor and
+we want to make them available to the kernel.  We also want to use the existing
+virtio-gpio protocol on top of RPMSG, allowing the kernel to interface with the
+GPIO controllers as if they were virtio-gpios.  This patchset is about providing
+a driver that will enact the virtio-gpio procotol on top of the mechanic used
+between the kernel and remote processor.
+
+Shenwei has proposed some bindings (below).  I think they can be improved to
+take into account the transport mechanic and be closer to what virtio-gpio
+currently does.  I'm proposing something like this:
+
+                        $(transport) {
+                                compatible = "$(transport),rpmsg";
+                                #address-cells = <1>;
+                                #size-cells = <0>;
+
+                                gpio {
+                                        compatible = "virtio,device29";
+                                        reg = <3>
+                                        gpio-controller;
+                                        #gpio-cells = <2>;
+                                        interrupt-controller;
+                                        #interrupt-cells = <2>;
+                                };  
+                                gpio {
+                                        compatible = "virtio,device29";
+                                        reg = <4>
+                                        gpio-controller;
+                                        #gpio-cells = <2>;
+                                        interrupt-controller;
+                                        #interrupt-cells = <2>;
+                                };  
+                        }
+
+A complete example with a virtio transport mechanic would look like:
+
+m4_rproc: m4@10000000 {
+                        compatible = "st,stm32mp1-m4";
+                        reg = <0x10000000 0x40000>,
+                              <0x30000000 0x40000>,
+                              <0x38000000 0x10000>;
+                        resets = <&rcc MCU_R>;
+                        reset-names = "mcu_rst";
+                        st,syscfg-holdboot = <&rcc 0x10C 0x1>;
+                        st,syscfg-pdds = <&pwr_mcu 0x0 0x1>;
+                        st,syscfg-rsc-tbl = <&tamp 0x144 0xFFFFFFFF>;
+                        st,syscfg-m4-state = <&tamp 0x148 0xFFFFFFFF>;
+                        status = "disabled";
+
+                        virtio {
+                                compatible = "virtio,rpmsg";
+                                #address-cells = <1>;
+                                #size-cells = <0>;
+
+                                gpio {
+                                        compatible = "virtio,device29";
+                                        reg = <3>
+                                        gpio-controller;
+                                        #gpio-cells = <2>;
+                                        interrupt-controller;
+                                        #interrupt-cells = <2>;
+                                };  
+                                gpio {
+                                        compatible = "virtio,device29";
+                                        reg = <4>
+                                        gpio-controller;
+                                        #gpio-cells = <2>;
+                                        interrupt-controller;
+                                        #interrupt-cells = <2>;
+                                };  
+                        }   
+                };  
+        };
+
+Let me know what you think.
+
+Thanks,
+Mathieu
+
+
+On Tue, Jul 21, 2026 at 03:46:45PM -0500, Shenwei Wang wrote:
+> From: Shenwei Wang <shenwei.wang@nxp.com>
 > 
-> Introduce support for sound card and wire two CS35L36 audio codecs for
-> top and bottom speakers.
+> Remote processors may announce multiple GPIO controllers over an RPMSG
+> channel. These GPIO controllers may require corresponding device tree
+> nodes, especially when acting as providers, to supply phandles for their
+> consumers.
 > 
-> Inspired by commit from Joel Selvaraj.
+> Define an RPMSG node to work as a container for a group of RPMSG channels
+> under the imx_rproc node. Each subnode within "rpmsg" represents an
+> individual RPMSG channel. The name of each subnode corresponds to the
+> channel name as defined by the remote processor.
 > 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-
-[...]
-
-> +&sound {
-> +	compatible = "qcom,sdm845-sndcard";
-> +	model = "Google Pixel 3";
-I see some new nodes using such as
-
-SC8280XP-MICROSOFT-SURFACE-PRO-9-5G
-sc7280-wcd938x-max98360a-1mic
-HUAWEI-PAK_AL09-M1040
-
-is there is a preferred syntax?
-
-I would go for blueline which translates into google-blueline profile.
-
-Thoughts?
-Thanks
-David
+> All remote devices associated with a given channel are defined as child
+> nodes under the corresponding channel node.
+> 
+> Signed-off-by: Shenwei Wang <shenwei.wang@nxp.com>
+> ---
+>  .../devicetree/bindings/gpio/gpio-rpmsg.yaml  | 55 +++++++++++++++++++
+>  .../bindings/remoteproc/fsl,imx-rproc.yaml    | 53 ++++++++++++++++++
+>  2 files changed, 108 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml b/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
+> new file mode 100644
+> index 000000000000..41eb2e149942
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/gpio/gpio-rpmsg.yaml
+> @@ -0,0 +1,55 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/gpio/gpio-rpmsg.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Generic RPMSG GPIO Controller
+> +
+> +maintainers:
+> +  - Shenwei Wang <shenwei.wang@nxp.com>
+> +
+> +description:
+> +  On an AMP platform, some GPIO controllers are exposed by the remote processor
+> +  through the RPMSG bus. The RPMSG GPIO transport protocol defines the packet
+> +  structure and communication flow between Linux and the remote firmware. Those
+> +  controllers are managed via this transport protocol. For more details of the
+> +  protocol, check the document below.
+> +  Documentation/driver-api/gpio/gpio-rpmsg.rst
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - fsl,rpmsg-gpio
+> +          - const: rpmsg-gpio
+> +      - const: rpmsg-gpio
+> +
+> +  reg:
+> +    description:
+> +      The reg property represents the index of the GPIO controllers. Since
+> +      the driver manages controllers on a remote system, this index tells
+> +      the remote system which controller to operate.
+> +    maxItems: 1
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  gpio-controller: true
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#gpio-cells"
+> +  - gpio-controller
+> +
+> +allOf:
+> +  - $ref: /schemas/gpio/gpio.yaml#
+> +
+> +unevaluatedProperties: false
+> diff --git a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+> index c18f71b64889..b9b559b186af 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/fsl,imx-rproc.yaml
+> @@ -88,6 +88,34 @@ properties:
+>        This property is to specify the resource id of the remote processor in SoC
+>        which supports SCFW
+>  
+> +  rpmsg:
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      Represents the RPMSG bus between Linux and the remote system. Contains
+> +      a group of RPMSG channel devices running on the bus.
+> +
+> +    properties:
+> +      rpmsg-io:
+> +        type: object
+> +        additionalProperties: false
+> +        properties:
+> +          '#address-cells':
+> +            const: 1
+> +
+> +          '#size-cells':
+> +            const: 0
+> +
+> +        patternProperties:
+> +          "^gpio@[0-9a-f]+$":
+> +            type: object
+> +            $ref: /schemas/gpio/gpio-rpmsg.yaml#
+> +            unevaluatedProperties: false
+> +
+> +        required:
+> +          - '#address-cells'
+> +          - '#size-cells'
+> +
+>  required:
+>    - compatible
+>  
+> @@ -150,5 +178,30 @@ examples:
+>                  &mu 3 1>;
+>        memory-region = <&vdev0buffer>, <&vdev0vring0>, <&vdev0vring1>, <&rsc_table>;
+>        syscon = <&src>;
+> +
+> +      rpmsg {
+> +        rpmsg-io {
+> +          #address-cells = <1>;
+> +          #size-cells = <0>;
+> +
+> +          gpio@0 {
+> +            compatible = "rpmsg-gpio";
+> +            reg = <0>;
+> +            gpio-controller;
+> +            #gpio-cells = <2>;
+> +            #interrupt-cells = <2>;
+> +            interrupt-controller;
+> +          };
+> +
+> +          gpio@1 {
+> +            compatible = "rpmsg-gpio";
+> +            reg = <1>;
+> +            gpio-controller;
+> +            #gpio-cells = <2>;
+> +            #interrupt-cells = <2>;
+> +            interrupt-controller;
+> +          };
+> +        };
+> +      };
+>      };
+>  ...
+> -- 
+> 2.43.0
+> 
