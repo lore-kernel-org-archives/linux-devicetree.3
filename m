@@ -1,575 +1,419 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010007.outbound.protection.outlook.com [52.101.193.7])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010057.outbound.protection.outlook.com [52.101.229.57])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A197C3B1014;
-	Thu,  3 Sep 2026 11:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373EE3EC689;
+	Thu,  3 Sep 2026 11:01:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.57
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433253; cv=fail; b=MzDbySF3HAQ5PGuCy9XzHjoDRLaNXbzXH0j9Gksu3mPocDHLurxC2wxlANqGhR0VZCkJGV7t46EmcVU6y0575qdPdWYy0yBi9PFzR0n0eRoixmwC7UYgTJqap/Ai3frO/seRNDIQAIm8DPRALjQYe2HK99CIOSYs3y1/sxg7sAQ=
+	t=1788433304; cv=fail; b=I+23FwSskWfP2GU6tMid0OP984KNd6FNKxE6Hyt2Gxyt5d9VlheOiZcXPgxaAJmO+TJ2cyx1plFGaBgWNbTGYU1CuWGHfBCSLtkSZXOa5D/GfGZEyNQNM6gWiQQ9X+S+MYoSay9P8sXCySjoIid7i/pOqYIqbm067c/oWA8sEZE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433253; c=relaxed/simple;
-	bh=ZhxsWND4UTh+Cht/zy9KQITxI4voyYZhRZ4azfr+AFo=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CpknOmb6PRBTcGaAz5Yz26G/BD54LwSbhjcozI3/nNEyxuwh1WeX46JLWHn8CvbrBxaBiLypN6KshItu3GLKBm2i+53d8ErS2S3NEcAXgTQZgIezq7Sd5PTPc9TXsW+OW0wPOOFPrrnu9ktd0c0Xa37fG/wOB3XAnufRYqtKcsU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S6etJKuZ; arc=fail smtp.client-ip=52.101.193.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1788433304; c=relaxed/simple;
+	bh=LyCouKNZ86lHkeAMBWekQLklATfRfzGqibhaSRqTtHM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=qxdCSVvOsXBoPKgx5Wi07iME7yOoNX27bPwMJxqRaEBqW/JAQmdQXUasFnO8YGq0xIfZ0ihWGO++H3EEVOZhb5afGXgw28sOomIIu2+MmaKn2ve+GKZRcbaSt4iAf+rZmdhqxVmA+PphyQqhKcmNvejemnQQ0ocYnBGcrgJ2Ei8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Sn8caC5t; arc=fail smtp.client-ip=52.101.229.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S6etJKuZ"
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Sn8caC5t"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qNET+FGKILrSsWvDmAJSAh5hZX4bihsj2fIpE1p6woQ2HPbfbmHU5TyIUlA3+nY5TWtNQmQW/37mAC/rWkYAT1vaRp/x7BnOhe8v7cOhwZJktL3I+s/xRq7Va5YqOZILdU4/GpDhdaSSYa6+S7sPPxl6dVWOWfbQG6ArjYfXK+6IGe9c6Cvi99yr33sqCIbD6Eav2vIJYzSOTOaYkus6vC4JsVO7jQJa28vrvFE+MuUCpu5aHoNjYn+UzidlIQkljxMzzKtoocNRGR3X3yio5B9AA7OcaBNq1egH6hbrlC1mWzRQNb/lge7Cra8m1V/xgwCZxTfMKo0Z+XKZNSxxiw==
+ b=Tg3Lwttk3+9AttolzRGQWn5o9CSDNns4khnTuBnlKLfWNYOSwd+hBU1ytlo7lgJ0keUZ1gAztxm//K/EPtZGxf8KwmlRF/EzUDVodZaZqaOR1Rlw3MTy7i2TQns39SEDlBlscEOThWUHiZjS59n4y15MeNrpV2/+kmVzn2knSHBEhPz13o8zny19DzqpMXZI+dP7xAHbfpFfwLCNi7xYOlnC3MBD8ru122rhcQiStPUicBdNa0G53FNQXWEv1WSRnuxOZ4lIUjuDaKTYxXdloxXL9sW097/f4qy0ZgKc+ylUi6ZiP8eWUtDbAf6te0pnonWw5Bxl0uz+OkEJZdgAZg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=atLxWKpy7AY3dwT+7ak/7PYbBxsxzg9EoHpHh512Uzo=;
- b=b/bwyzpSx+Oa5TLOoX7FtFucgYmnzuNDEOH0ShXoYDELOwoLH7ConSrIJB+C9cNTsnf+6zpzI8ZqoE14iV5fwS3t3STziJUj4WAUv7xLly6nyKunAgkfQu7o1JA3EugIjHak3gcgfU7PrTOeohSicexdClkKiDUdqGnLpQz5MCFB5oDP0OQPnH8UdyU5TwaCT8VkzJ0hgFXAZmNrmD8gLx0P2Ov6fpsZXeCIVhmFG5BlnK/Y2G1DCmRGbygUKtZV8xSIOtlg33+So/gdRm6ke+LHkiYvSSPT9N58jJlUPdJAapgR+BiHFc8L+hREU186gbmOGM4+ibsC77HJel9zfQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=tDIeaBX7/gVaygDG5qNq9IJJYO8cKLgH4ij6u19VTNw=;
+ b=yl1hq0IzhiKR3YUzjHxrbNlUxpgFUzm02lAPha6XUsvF97bS1vA8DL1ARJM9KS6rsRtQRFl+EdZi/l2ftCtc6Gh9N+k2bMQNF5ac4GigEJ/7JN2ZRZxXIEXWX4Aaf93JYaOdZY2hecyHxf/5CyvIxe9IjrX6aU6qt4Ebnwk3u3t+GhT3YyqsKiXzFi92zlYc6rRg0tkMdStljmdOAwKtrkj9Ebnmno0GLdtzTZyPdIf2EtnicYXNGc2uj6snqYHLRjowPD14FHidBa6gBLhooeJesiUuZR51rX800dZY57n8F+UY6k+wx/moXm2oRwiighRIzWFmsrM++cwFFm1MgQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=atLxWKpy7AY3dwT+7ak/7PYbBxsxzg9EoHpHh512Uzo=;
- b=S6etJKuZ4zCz6pSN1K6NfEKk51KXBLi6MTi6GxzaINSMEMAgsfd7YGsd54AC9kew0L55NDBoi92myJwH+EShsRCMZxYd/L0WI8gnV0l6jg2Rl3GRECKl0xK8aEctmqTysrTmm1BRNvj2i6/cY9ZI6k1Om/10GBg6scIIc+00C3xruIWd8xvcdD/pbq1/L3fk8kh4IYKSiHpOKM/2mx/KKnqJ1mJ25ZB0wiD+HL2y4Te6TqbZOpp7m4jFboohNWHlq4MwbXkr9gL7z4I+14XjCM8dGR51+olgtmpxOsZ+qTGpousiMKaQrZVUC18rPpccPzRihrVhCUYNpshn0TvQkA==
-Received: from CH2PR11CA0018.namprd11.prod.outlook.com (2603:10b6:610:54::28)
- by CY5PR12MB6455.namprd12.prod.outlook.com (2603:10b6:930:35::10) with
+ bh=tDIeaBX7/gVaygDG5qNq9IJJYO8cKLgH4ij6u19VTNw=;
+ b=Sn8caC5taSS+ZI6pjeXVruXGiOFTwzxuRckYy4lUfM8K5Ju74jiiuF/NGJ302DzROz7x8mjxVXKojMfZ3H42YX8cloDCPW6R/bqFRfQUbwZJJ51OL4l2jsN00bQcsD5AvVAtoBxG8zoGjYLUFdaVYSt3TnIUP6nBeGUxT6IBJpI=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by TYCPR01MB9796.jpnprd01.prod.outlook.com (2603:1096:400:20a::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
- 2026 11:00:46 +0000
-Received: from BL6PEPF00022575.namprd02.prod.outlook.com
- (2603:10b6:610:54:cafe::a5) by CH2PR11CA0018.outlook.office365.com
- (2603:10b6:610:54::28) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
- Sep 2026 11:00:45 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 11:00:45 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 04:00:22 -0700
-Received: from nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
- 2026 04:00:20 -0700
-From: Ender Hsieh <andhsieh@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
- Jeffery" <andrew@codeconstruct.com.au>
-CC: Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
-	<billy_tsai@aspeedtech.com>, Ender Hsieh <andhsieh@nvidia.com>,
-	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, "Marc
- Olberding" <molberding@nvidia.com>
-Subject: [PATCH] ARM: dts: aspeed: msx4: describe the I2C5 mux tree
-Date: Thu, 3 Sep 2026 19:59:56 +0900
-Message-ID: <20260903105956.1709114-1-andhsieh@nvidia.com>
-X-Mailer: git-send-email 2.34.1
+ 2026 11:01:39 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 11:01:38 +0000
+Date: Thu, 3 Sep 2026 13:01:20 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, tomm.merciai@gmail.com,
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+Message-ID: <aplTgBjpPX9d6XEh@tom-desktop>
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
+ <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+ <apgsOubuGuvw_0rf@tom-desktop>
+ <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+X-ClientProxiedBy: FR5P281CA0005.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f2::18) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|CY5PR12MB6455:EE_
-X-MS-Office365-Filtering-Correlation-Id: ad057df0-979a-4cb2-b728-08df09aa9ab1
-X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|TYCPR01MB9796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 17362145-10d6-457f-1210-08df09aaba5d
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|36860700016|82310400026|7416014|376014|1800799024|6133799003|56012099006|10067099003|5023799004|11063799006|18002099003;
+	BCL:0;ARA:13230040|376014|1800799024|52116014|23010399003|7416014|366016|38350700014|4143699003|5023799004|10067099003|11063799006|18002099003|22082099003|3023799007|56012099006;
 X-Microsoft-Antispam-Message-Info:
- 1fkpDU1Z+j2//UnLoEhfOGD3n9zKOScEzCF1R7bRsQbA5fTG3R9weIolwB7aah8LxJdrvjcdBqvP82/pUd6DUUIBKQ7GUyjsLfH1eZCcI1n657ivV+ugZmj4tY22RGFUFgmDmpDtUW8u9LPhaycWjz5SczylStnKH8SffucTykRDf6xxYhCS45OUDcaFqkyleBrqczsZB9qNTHsFZFyk9gOfjTRAps1Bipvbi+U97VMnn/dUrCtIFczx+UyGKM6Qy+n8fwE+srPXOG0F3cQXLRqWkW5CPh/6bBm1gyH6+Eq3GgFSzug6/dcJHKlJ7UqcOroqqyWV5HWs8jWkqrm5xlwceHB7vvLMZyyJpEegxPAppN12ZJx9MSyh4YbB+3C8rkSFjVUXIp955324GkgJdaNh/Owtg64uyTUSt0DplBILQDtZhGoPLOKZaRRTw2sp2uO0Q3EenbrJt8BM6RS3t3/8Igztr+8p8ljYeBpbPPRlCQGS0TYyxdo2R/YZLSo5q83l/BvmPVZrofRzNrvmD3cSyAsR1FenL6arwKQcnxLLqkEdxHo/niSiidQA0mq3EKK82tZxp916cP3iyIKC59YDwNjPA7CgIskNvOFTVb1FBXiiGEs0LwaqOuqW+5n4ceMieLlGJwkzyrDZk6av72bTvc7yKUgP6bHhtgMOy8izPLmbDip6aqSnyzbplLYo
+	5KeX3iuM9cRiK4HW1vhtVOL34fC4FCNCeQuuioPdgBRtCrNDsvZInHBjUv7Rc9azhIjILnaLptPbLENLdnpnj40p5knifLpyuy5TwEcaGdbgu8Oo8S1U/if2kLnv2jQDiXp9d/XScxVpq9IZ72A7ExlhfZMA4Gw6P3H2O7gnVzzj5+nzLNOWMIgBlPPggaBizZ+pMsuWBqBpafBPFoeyMnLmFGnPEH/Gn6OTrZGles1TsFvHZR/N9juuqnp4vTyHjG+DZXlfNC4UYjRh0/amSPlkhaEIAdNmOu3g+mj3sJSIpsvKNxLbWB0wDunvbMUgw2O+nrwr08BbyHrjugGkN70KIAf96z5/aFT49WiMlI5kmof+gtsuM1/q6lNTPBkNprVQ62RoxNUq+ZUO1S0YlOpL7R0+P8sqK2zTHJQmcCQH9BKVU6cMre4kzqOPie9RekqkmiDEri6muAZD/l9RVrAgY9rLVqBy4wVkxvR378I7/XoQRXdkSP09sTCsgCrtCIzeaSmNsWSv6tTdk16v9/2y6M5g4EY6SQSfiY023qo6u92AxpUtTP4UCmNRX33TvqPWDcAK1n57+31J2Qprc1Ta8oiGr2z/lS0YdG4qR97JA6pvYnrYzmTm/nnCxJd9nKEIXAI1VIdEEHahtnCsulR3AA8TLr58S6RSEQ/XTDg=
 X-Forefront-Antispam-Report:
- CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(7416014)(376014)(1800799024)(6133799003)(56012099006)(10067099003)(5023799004)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(52116014)(23010399003)(7416014)(366016)(38350700014)(4143699003)(5023799004)(10067099003)(11063799006)(18002099003)(22082099003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- lVXkMilnQpA7DsPBw/efttOw8botyzoAJ6PRURBq0aa4AhoZDRVKeWQ4sp7E+UecAPTd3yt+9wrlCXPVpilVKzXCDdiQfPmrvvdsxd/H9KoJlg0GM71nzlCWjlFqI/sRNOViA+nrvBtZzPxThZgI60OXCdYV+mKMNmCmXbHiy16wMT7ogLMb5HmtmWEHnHJmYfOaak2CtSe+RelcCbPGUTgIMhKF8kj8xI42RVsKmmkwSBufZT5X/3S3jaKcLCINpbDy85+JLlKQYFP5Wh5bW8/C8B1qUblspA/M1V8t9dLfPkj0sCY4v3CaqtM5tH7NPzCAqaOOvaSw2ecYNC8R6VDV0+AepnOf60WU9mVTN5dfr51MDFsqLM+2p2kHT2X3oHg6nnDbUn0WJuEQ+bio/M92bQpjdDVGEA4Ms2+5JHIKGH1oQI9v3ZGm4UAn9rxA
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:00:45.1234
+	=?us-ascii?Q?r+SOQQmPo9JgFd+3faetcSNNVfVOuD6bw7kVFUTR8I15Lb88lBTu6TjlQPBw?=
+ =?us-ascii?Q?1mgkYhjOVYQlKQwaeei6Hc4x1DXogBcmzl+MiqsioNDd2+l5Yz28lxhgd7Bg?=
+ =?us-ascii?Q?Bf/czjUyZjAP0KAqYc5ukc1oHrm9NkGgxVjlLDl5vQAi1R48oIHyQ7P2cYXQ?=
+ =?us-ascii?Q?Qzr35WftT1FvbX+NATtrSBCOw/CLlzWWRUXQLvIw0m+X5Bk++InmzTbmNfU8?=
+ =?us-ascii?Q?2+4h4VnmKyJWHow7D866vKby01C/UyjXEh5l+sLPv9fms/ZMLDedXmux5pA1?=
+ =?us-ascii?Q?SPQHbELRTVXlunSZ6v1ououErDR8MjrcmLMFKR22rwi6CaonJL0dvn+CQBfM?=
+ =?us-ascii?Q?EWGtIa88ADjN2mqmzW/+9wA+jFbfOD6VwjHPnkR5mM6gjW74y+klMZuiYPI2?=
+ =?us-ascii?Q?I18LDRL9xi5h+0n7peV7RcIM0LFtkD4wow/1m3B3NZWagpNH7k0nja9QQ9BV?=
+ =?us-ascii?Q?cJAocpSI0asj12uhDZRO06YUaU4oWa+19EnOUuu4h53o5ayD4NW1BSiA+8Of?=
+ =?us-ascii?Q?bsfI7PVwxEEnz3EgC3pLWdEyaVirWu7ykFKGW8jq/mZLWo4HryWVBhNiEvRE?=
+ =?us-ascii?Q?9yiCSmADAtGFxwfAD2Bc8rwJhrmkv4uZUf9vuCmFZXJy3UcuP9eomadXItyG?=
+ =?us-ascii?Q?eFIVSaq7ynJCQROpeb4A2TQ2aY+0TundOmKD/EbUmuQ650N3bTnypr3LOGhV?=
+ =?us-ascii?Q?Xd/CIAeANkeiKwx9fQBqjratBBfWZ+1MjQR/ZoFOVWWvErWDA+sfPr1TpZpm?=
+ =?us-ascii?Q?cAA9/Gh6Eo25jBMmKa6wvowSxPSajNz0LwyGsKReT6Jwr5JFoF1KMUkgaI3s?=
+ =?us-ascii?Q?R1+/K6AKmRCr1FKHwcVHSyTZC9VA8f8N4/L0eR6I2AEZMzZG1sG0bRRxOMu6?=
+ =?us-ascii?Q?1mm7OYD37XDnLVjkvIEoPFK+kLo3s13VUWPOYPDi1EZbSUkyptF2q2Ld4E0l?=
+ =?us-ascii?Q?/2Aw59les8NtIZ5qmDHuZcVtE0SkyKBUrcdefYAXhodeR+qQVUdWnlIBSpNP?=
+ =?us-ascii?Q?8rXW2y3NwVG+sjPCixo/Btab6+wSBHibh1h9tFpMr0lLyVUBAEThsOn5IPhf?=
+ =?us-ascii?Q?9cJfug0WoiMjmIRPs41cCLOLX+8hMM/Nn7cnnr7V9ac22lH1iaTqf+ABds26?=
+ =?us-ascii?Q?mRrJsueSHv5coxG6h78u29uZqaA3ft0Vv3nmANL5P2m+S/yUgoaMNEoauHJV?=
+ =?us-ascii?Q?Ze35Pqt4RmdPYamYipWYp0RFA3XAY3s17/ZpAqDnlKUz/wXclWUY5C8/NVRJ?=
+ =?us-ascii?Q?1dnrDUBwYiGjQp5dQQ1yvmd6ICb7DXppAXf+SFEtzlbaFDNg7EePApIammC9?=
+ =?us-ascii?Q?J/apijyuGfSITyJ7MOeMdHY6VUqw3gl4hKEwXHmk8J5iCXkraegc9cyk3ikw?=
+ =?us-ascii?Q?jmkhLSgwr/Tl9v6yjgUO1TQ604hFPgob+WvrHVK70IytT8GiH19JpQoVkdF1?=
+ =?us-ascii?Q?usjc3x9tF3P5YolP3jkgncaFV9CU+zLqW6VMZFZcWIjWL0D4MrwnebH8ONqF?=
+ =?us-ascii?Q?9H+QkM+LUtNNk0jmTue50RINGQS14IVZWg7Ig2juLtTyG+e5lvdQEvIU0pfj?=
+ =?us-ascii?Q?oJEXKlqe4M+ISJvUzmH6me26YZQYAM0FaYpqQsHe4JIm6PLrk7zGErjr5lze?=
+ =?us-ascii?Q?JkVHswz3azWEFHKBadEadjYwxbRiU4iLQ0wgSWde+hsGwkTj24o8CCfXMEZ8?=
+ =?us-ascii?Q?q09IlJ3i9dbGKZ9NpCt7ATvUErzZjpCN+DLMLkGm1o2ofe6zDvmRGTpR4Gnc?=
+ =?us-ascii?Q?yaTtSYr8hiocC882DTBBUM+rDPiBSBPMAQgIB9ZaafINTPrCtRUk?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 17362145-10d6-457f-1210-08df09aaba5d
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:01:38.9304
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: ad057df0-979a-4cb2-b728-08df09aa9ab1
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6455
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pKzdQMh/VakmYTQoXXiJtGQ60D6bmv7040fVNP/P4MndvfPXZGsGkSoLXlbAs6FWFb1LEPAHmAgOr4FUzhmeZ7Vgf+fs6c/HaV6ChvUUQUPh39VGFn/s8cMmdCvf6/OC
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB9796
 
-The MSX4 carries four PCA9548 8-channel muxes on I2C5, and a PCA9546
-4-channel mux behind channels 1 and 5 of the mux at 0x70 and channels 3
-and 7 of the mux at 0x73. None of that is described here, so the muxes
-are created from userspace and their channels are numbered in the order
-userspace happens to create them.
+Hi Geert,
 
-That makes a channel's bus number a function of discovery order rather
-than of where the channel sits in the topology, so anything that wants
-to identify a device by its position has nothing stable to key on.
+On Wed, Sep 02, 2026 at 04:20:51PM +0200, Geert Uytterhoeven wrote:
+> Hi all,
+> 
+> On Wed, 2 Sept 2026 at 16:03, Tommaso Merciai
+> <tommaso.merciai.xr@bp.renesas.com> wrote:
+> > On Wed, Sep 02, 2026 at 08:37:06AM +0200, Krzysztof Kozlowski wrote:
+> > > On Fri, Aug 28, 2026 at 02:21:04PM +0200, Tommaso Merciai wrote:
+> > > > The RZ/G3E Soc has 2 LCD controller (LCDC), contain a Frame Compression
+> > > > Processor (FCPVD), a Video Signal Processor (VSPD), Video Signal
+> > > > Processor (VSPD), and Display Unit (DU).
+> > > >
+> > > >  - LCDC0 supports DSI and LVDS (single or dual-channel) outputs.
+> > > >  - LCDC1 supports DSI, LVDS (single-channel), and RGB outputs.
+> > > >
+> > > > Add new SoC-specific compatible string 'renesas,r9a09g047-du'.
+> > > >
+> > > > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> 
+> > > > --- a/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > +++ b/Documentation/devicetree/bindings/display/renesas,rzg2l-du.yaml
+> > > > @@ -21,6 +21,7 @@ properties:
+> > > >            - renesas,r9a07g043u-du # RZ/G2UL
+> > > >            - renesas,r9a07g044-du # RZ/G2{L,LC}
+> > > >            - renesas,r9a08g046-du # RZ/G3L
+> > > > +          - renesas,r9a09g047-du # RZ/G3E
+> > > >            - renesas,r9a09g057-du # RZ/V2H(P)
+> > > >            - renesas,r9a09g077-du # RZ/T2H
+> > > >        - items:
+> > > > @@ -35,25 +36,51 @@ properties:
+> > > >            - const: renesas,r9a09g077-du # RZ/T2H fallback
+> > > >
+> > > >    reg:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reg-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > du is the name of the device, thus calling items "0" and "1" is pretty
+> > > pointless - indices already define that. Please drop the reg-names.
+> >
+> > Will drop this in v8.
+> >
+> > > >    interrupts:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  interrupt-names:
+> > > > +    items:
+> > > > +      - const: du.0
+> > > > +      - const: du.1
+> > >
+> > > Same here
+> >
+> > Same, thanks.
+> >
+> > >
+> > > >
+> > > >    clocks:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - description: Main clock
+> > > >        - description: Register access clock
+> > > >        - description: Video clock
+> > > > +      - description: Main clock for DU1
+> > > > +      - description: Register access clock for DU1
+> > > > +      - description: Video clock for DU1
+> > > >
+> > > >    clock-names:
+> > > > +    minItems: 3
+> > > >      items:
+> > > >        - const: aclk
+> > > >        - const: pclk
+> > > >        - const: vclk
+> > > > +      - const: aclk1
+> > > > +      - const: pclk1
+> > > > +      - const: vclk1
+> > > >
+> > > >    resets:
+> > > > -    maxItems: 1
+> > > > +    minItems: 1
+> > > > +    maxItems: 2
+> > > > +
+> > > > +  reset-names:
+> > > > +    items:
+> > > > +      - const: resetn
+> > > > +      - const: resetn1
+> > >
+> > > Drop reset-names
+> >
+> > For reset-names, I got the the following comment from Philipp in v7 [1].
+> >
+> > Dropping reset-names would force the driver back to an index-based
+> > lookup, which is what that comment explicitly asked me to avoid.
+> >
+> > [1] https://lore.kernel.org/all/8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de/
+> >
+> > Philipp, Krzysztof, could you agree on which way you'd prefer?
+> > I'll follow whatever you decide.
+> 
+> Until we get a variant with a third interrupt (or reset or reg),
+> which is not related to the number of channels...
 
-Describe the tree and give every channel an alias so the numbering comes
-from the description instead. The aliases reproduce the numbers the
-current userspace instantiation produces, so existing configuration
-keeps working.
+Just to make sure I follow: are you referring to variants like R-Car H3
+and M3-N, where the position in the array no longer matches the channel
+index? From renesas,du.yaml:
 
-The four PCA9546 all answer at 0x72, and two of them sit behind
-different PCA9548 on the same parent bus, so both can be exposed at once
-if their parents are left selected. i2c-mux-idle-disconnect prevents
-that.
+[renesas,du-r8a7795: 4 channels, two resets] [1]
+  reset-names:
+    items:
+      - const: du.0
+      - const: du.2
 
-Describe the reset line as well, so a mux that is powered but not
-responding can be recovered by the driver rather than by hand. The
-driver takes the line exclusively, so it is described on the mux that is
-probed first.
+[renesas,du-r8a77965: 3 channels, du.2 (channel 2) does not exist] [2]
+  clock-names:
+    items:
+      - const: du.0
+      - const: du.1
+      - const: du.3
+  reset-names:
+    items:
+      - const: du.0
+      - const: du.3
 
-Booted on an MSX4 from both a warm reboot and a cold power cycle. All
-eight muxes register, the channels come up as i2c-16 through i2c-63
-exactly as the aliases name them, and the eight FRU EEPROMs behind the
-second level read as before.
+If so, I agree: the names are what makes these unambiguous, and an
+index-based lookup could not express them.
 
-Cc: Marc Olberding <molberding@nvidia.com>
-Signed-off-by: Ender Hsieh <andhsieh@nvidia.com>
----
- .../dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts | 407 ++++++++++++++++++
- 1 file changed, 407 insertions(+)
+Then on RZ/G3E we can keep:
 
-diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
-index 29f56176e2ca..a9a491a87312 100644
---- a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
-+++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
-@@ -15,6 +15,55 @@ aliases {
- 		serial2 = &uart3;
- 		serial3 = &uart4;
- 		serial4 = &uart5;
-+
-+		i2c16 = &i2c5mux0chn0;
-+		i2c17 = &i2c5mux0chn1;
-+		i2c18 = &i2c5mux0chn2;
-+		i2c19 = &i2c5mux0chn3;
-+		i2c20 = &i2c5mux0chn4;
-+		i2c21 = &i2c5mux0chn5;
-+		i2c22 = &i2c5mux0chn6;
-+		i2c23 = &i2c5mux0chn7;
-+		i2c24 = &i2c5mux1chn0;
-+		i2c25 = &i2c5mux1chn1;
-+		i2c26 = &i2c5mux1chn2;
-+		i2c27 = &i2c5mux1chn3;
-+		i2c28 = &i2c5mux1chn4;
-+		i2c29 = &i2c5mux1chn5;
-+		i2c30 = &i2c5mux1chn6;
-+		i2c31 = &i2c5mux1chn7;
-+		i2c32 = &i2c5mux2chn0;
-+		i2c33 = &i2c5mux2chn1;
-+		i2c34 = &i2c5mux2chn2;
-+		i2c35 = &i2c5mux2chn3;
-+		i2c36 = &i2c5mux2chn4;
-+		i2c37 = &i2c5mux2chn5;
-+		i2c38 = &i2c5mux2chn6;
-+		i2c39 = &i2c5mux2chn7;
-+		i2c40 = &i2c5mux3chn0;
-+		i2c41 = &i2c5mux3chn1;
-+		i2c42 = &i2c5mux3chn2;
-+		i2c43 = &i2c5mux3chn3;
-+		i2c44 = &i2c5mux3chn4;
-+		i2c45 = &i2c5mux3chn5;
-+		i2c46 = &i2c5mux3chn6;
-+		i2c47 = &i2c5mux3chn7;
-+		i2c48 = &i2c17mux0chn0;
-+		i2c49 = &i2c17mux0chn1;
-+		i2c50 = &i2c17mux0chn2;
-+		i2c51 = &i2c17mux0chn3;
-+		i2c52 = &i2c21mux0chn0;
-+		i2c53 = &i2c21mux0chn1;
-+		i2c54 = &i2c21mux0chn2;
-+		i2c55 = &i2c21mux0chn3;
-+		i2c56 = &i2c35mux0chn0;
-+		i2c57 = &i2c35mux0chn1;
-+		i2c58 = &i2c35mux0chn2;
-+		i2c59 = &i2c35mux0chn3;
-+		i2c60 = &i2c39mux0chn0;
-+		i2c61 = &i2c39mux0chn1;
-+		i2c62 = &i2c39mux0chn2;
-+		i2c63 = &i2c39mux0chn3;
- 	};
- 
- 	chosen {
-@@ -151,6 +200,364 @@ eeprom@51 {
- 
- &i2c5 {
- 	status = "okay";
-+
-+	i2c-mux@70 {
-+		compatible = "nxp,pca9548";
-+		reg = <0x70>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;
-+		/*
-+		 * The reset is described on this mux alone. The driver claims
-+		 * the line exclusively, and this node is probed before the
-+		 * others on the bus.
-+		 */
-+		reset-gpios = <&gpio0 ASPEED_GPIO(S, 2) GPIO_ACTIVE_LOW>;
-+
-+		i2c5mux0chn0: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c5mux0chn1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+
-+			i2c-mux@72 {
-+				compatible = "nxp,pca9546";
-+				reg = <0x72>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				i2c-mux-idle-disconnect;
-+
-+				i2c17mux0chn0: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+
-+				i2c17mux0chn1: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+
-+				i2c17mux0chn2: i2c@2 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <2>;
-+				};
-+
-+				i2c17mux0chn3: i2c@3 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <3>;
-+				};
-+			};
-+		};
-+
-+		i2c5mux0chn2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c5mux0chn3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+
-+		i2c5mux0chn4: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+		};
-+
-+		i2c5mux0chn5: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+
-+			i2c-mux@72 {
-+				compatible = "nxp,pca9546";
-+				reg = <0x72>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				i2c-mux-idle-disconnect;
-+
-+				i2c21mux0chn0: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+
-+				i2c21mux0chn1: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+
-+				i2c21mux0chn2: i2c@2 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <2>;
-+				};
-+
-+				i2c21mux0chn3: i2c@3 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <3>;
-+				};
-+			};
-+		};
-+
-+		i2c5mux0chn6: i2c@6 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <6>;
-+		};
-+
-+		i2c5mux0chn7: i2c@7 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <7>;
-+		};
-+	};
-+
-+	i2c-mux@71 {
-+		compatible = "nxp,pca9548";
-+		reg = <0x71>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;
-+
-+		i2c5mux1chn0: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c5mux1chn1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c5mux1chn2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c5mux1chn3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+
-+		i2c5mux1chn4: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+		};
-+
-+		i2c5mux1chn5: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+		};
-+
-+		i2c5mux1chn6: i2c@6 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <6>;
-+		};
-+
-+		i2c5mux1chn7: i2c@7 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <7>;
-+		};
-+	};
-+
-+	i2c-mux@73 {
-+		compatible = "nxp,pca9548";
-+		reg = <0x73>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;
-+
-+		i2c5mux2chn0: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c5mux2chn1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c5mux2chn2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c5mux2chn3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+
-+			i2c-mux@72 {
-+				compatible = "nxp,pca9546";
-+				reg = <0x72>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				i2c-mux-idle-disconnect;
-+
-+				i2c35mux0chn0: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+
-+				i2c35mux0chn1: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+
-+				i2c35mux0chn2: i2c@2 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <2>;
-+				};
-+
-+				i2c35mux0chn3: i2c@3 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <3>;
-+				};
-+			};
-+		};
-+
-+		i2c5mux2chn4: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+		};
-+
-+		i2c5mux2chn5: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+		};
-+
-+		i2c5mux2chn6: i2c@6 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <6>;
-+		};
-+
-+		i2c5mux2chn7: i2c@7 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <7>;
-+
-+			i2c-mux@72 {
-+				compatible = "nxp,pca9546";
-+				reg = <0x72>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+				i2c-mux-idle-disconnect;
-+
-+				i2c39mux0chn0: i2c@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+				};
-+
-+				i2c39mux0chn1: i2c@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+				};
-+
-+				i2c39mux0chn2: i2c@2 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <2>;
-+				};
-+
-+				i2c39mux0chn3: i2c@3 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <3>;
-+				};
-+			};
-+		};
-+	};
-+
-+	i2c-mux@75 {
-+		compatible = "nxp,pca9548";
-+		reg = <0x75>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+		i2c-mux-idle-disconnect;
-+
-+		i2c5mux3chn0: i2c@0 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <0>;
-+		};
-+
-+		i2c5mux3chn1: i2c@1 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <1>;
-+		};
-+
-+		i2c5mux3chn2: i2c@2 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <2>;
-+		};
-+
-+		i2c5mux3chn3: i2c@3 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <3>;
-+		};
-+
-+		i2c5mux3chn4: i2c@4 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <4>;
-+		};
-+
-+		i2c5mux3chn5: i2c@5 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <5>;
-+		};
-+
-+		i2c5mux3chn6: i2c@6 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <6>;
-+		};
-+
-+		i2c5mux3chn7: i2c@7 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			reg = <7>;
-+		};
-+	};
- };
- 
- &i2c6 {
--- 
-2.34.1
+reg-names:
+    items:
+      - const: du.0
+      - const: du.1
 
+interrupt-names:
+    items:
+      - const: du.0
+      - const: du.1
+
+Maybe make sense also for reset-names having:
+
+reset-names:
+    items:
+      - const: du.0
+      - const: du.1
+
+?
+
+Then we can add struct rzg2l_du_channel_res:
+
+struct rzg2l_du_channel_res {
+	const char *reg;
+	const char *aclk;
+	const char *pclk;
+	const char *vclk;
+	const char *rst;
+};
+
+Into struct rzg2l_du_device_info in this way we can cover future cases
+du-r8a77965, du-r8a7795 -like using:
+
+static const struct rzg2l_du_channel_res rzg2l_du_r8a7795_channels_res[] = {
+	[0] = { "du.0", "aclk",  "pclk",  "vclk",  "du.0" },
+	[1] = { "du.1", "aclk1", "pclk1", "vclk1", "du.0" },
+	[2] = { "du.2", "aclk2", "pclk2", "vclk2", "du.2" },
+	[3] = { "du.3", "aclk3", "pclk3", "vclk3", "du.2" },
+};
+
+static const struct rzg2l_du_device_info rzg2l_du_r8a7795_info = {
+	.channels_mask = BIT(0) | BIT(1) | BIT(2) | BIT(3),
+	.channels_res = rzg2l_du_r8a7795_channels_res,
+	.num_channels_res = ARRAY_SIZE(rzg2l_du_r8a7795_channels_res),
+	.routes = {
+		[RZG2L_DU_OUTPUT_DPAD0] = {
+			.possible_crtcs = BIT(0),
+			.port = 0,
+		},
+		[RZG2L_DU_OUTPUT_DSI0] = {
+			.possible_crtcs = BIT(1) | BIT(2),
+			.port = 1,
+		},
+		[RZG2L_DU_OUTPUT_LVDS0] = {
+			.possible_crtcs = BIT(3),
+			.port = 3,
+		},
+	},
+	.mode_clock_min = 5440,
+	.mode_clock_max = 87000,
+};
+
+/* Channels 0, 1 and 3: channel 2 does not exist, so [2] is a hole. */
+static const struct rzg2l_du_channel_res rzg2l_du_r8a77965_channels_res[] = {
+	[0] = { "du.0", "aclk",  "pclk",  "vclk",  "du.0" },
+	[1] = { "du.1", "aclk1", "pclk1", "vclk1", "du.0" },
+	[3] = { "du.3", "aclk3", "pclk3", "vclk3", "du.3" },
+};
+
+static const struct rzg2l_du_device_info rzg2l_du_r8a77965_info = {
+	.channels_mask = BIT(0) | BIT(1) | BIT(3),
+	.channels_res = rzg2l_du_r8a77965_channels_res,
+	.num_channels_res = ARRAY_SIZE(rzg2l_du_r8a77965_channels_res),
+	.routes = {
+		/*
+		 * possible_crtcs is a software channel index: hardware channel
+		 * 3 is the third populated one, hence BIT(2) and not BIT(3).
+		 */
+		[RZG2L_DU_OUTPUT_DPAD0] = {
+			.possible_crtcs = BIT(0),
+			.port = 0,
+		},
+		[RZG2L_DU_OUTPUT_DSI0] = {
+			.possible_crtcs = BIT(1),
+			.port = 1,
+		},
+		[RZG2L_DU_OUTPUT_LVDS0] = {
+			.possible_crtcs = BIT(2),
+			.port = 2,
+		},
+	},
+	.mode_clock_min = 5440,
+	.mode_clock_max = 87000,
+};
+
+And for RZ/G3E we will have:
+
+static const struct rzg2l_du_channel_res rzg2l_du_r9a09g047_channels_res[] = {
+	[0] = { "du.0", "aclk",  "pclk",  "vclk",  "du.0" },
+	[1] = { "du.1", "aclk1", "pclk1", "vclk1", "du.1" },
+};
+
+static const struct rzg2l_du_device_info rzg2l_du_r9a09g047_info = {
+	.channels_mask = BIT(0) | BIT(1),
+	.channels_res = rzg2l_du_r9a09g047_channels_res,
+	.num_channels_res = ARRAY_SIZE(rzg2l_du_r9a09g047_channels_res),
+	.routes = {
+		[RZG2L_DU_OUTPUT_DSI0] = {
+			.possible_crtcs = BIT(0) | BIT(1),
+			.port = 0,
+		},
+		[RZG2L_DU_OUTPUT_DPAD0] = {
+			.possible_crtcs = BIT(1),
+			.port = 1,
+		},
+		[RZG2L_DU_OUTPUT_LVDS0] = {
+			.possible_crtcs = BIT(0),
+			.port = 2,
+		},
+		[RZG2L_DU_OUTPUT_LVDS1] = {
+			.possible_crtcs = BIT(0) | BIT(1),
+			.port = 3,
+		},
+	},
+	.mode_clock_min = 5400,
+	.mode_clock_max = 87000,
+};
+
+What do you think?
+
+[1] https://elixir.bootlin.com/linux/v7.2/source/arch/arm64/boot/dts/renesas/r8a77951.dtsi#L3363
+[2] https://elixir.bootlin.com/linux/v7.2/source/arch/arm64/boot/dts/renesas/r8a77965.dtsi#L2819
+
+Kind regards,
+Tommaso
+
+> 
+> Gr{oetje,eeting}s,
+> 
+>                         Geert
+> 
+> -- 
+> Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> 
+> In personal conversations with technical people, I call myself a hacker. But
+> when I'm talking to journalists I just say "programmer" or something like that.
+>                                 -- Linus Torvalds
