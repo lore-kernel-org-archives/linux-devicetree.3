@@ -1,159 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A49E38E8B1
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 09:18:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6722E2C032C
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 09:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788427140; cv=none; b=Jfz1cMp7J+5Nhs03jyoVqTTek0E/bAnKkMs4CHlC+q2GLzJReR37QN0Wf+U8Q4hoT2jd9pGkcMVlpFyQYP02jOmDPx/6rmApJjyksL6YQosQlhr6AH0u98/KaHSSGYdazOyD2oP0tYAvu2rPxIIwdaaTLaIKq/C2G7JBZJaPz88=
+	t=1788427183; cv=none; b=gRTLKRDGBfVJ5myl5+udkgPRfqXdnwkLKv5UcCWqjf8undE261m+xG9M0so9P9ZHh8lT2sb4z6V8xu5g4vBhdbIzj1OpH8zkd7a3gHYvH3A3mOAGa4pXyFmgYlqbq5uu8sUCnuPe2ft4lYjAgaa65/WbC5kEf9q7BHFSsMYfwns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788427140; c=relaxed/simple;
-	bh=SA/ByAfl33A3SmtveGFdEcVzOtWlDIVnIcu87FOB+mw=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RgdlXFC6LJdTQoIjbfESQO/EhlqRHnmTcmdzg6PKVSyJBjrYMNcO4LJXsxOZlznrmnaka1nsFfwWhKzGT/7uMYhj3qu6mqI/2CsmJCMXKnFlgfZHL/JtWL/lPuubjdFOW+qBjGDtlLTmAqANkYjWSHbwY9sF3YRWhJ6fAWCpwTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J31DsGVD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788427183; c=relaxed/simple;
+	bh=BmgUO4SFAAkiUvoLfEBeBlYNMtLkuXLP429hYzvKFDQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JS5KjCw6/3bqfCe6zWRbune3iEJ3E//9amwdOGekxFbvkDnGLTL2pnU7jZ9uCm0afvYAnoTpa1riTraiZI80BS/syALMG0AR75Mpn4ESerAeskCBt2WVUal9VeWeKSZDiZk4h+PMQBW7KBiAXxSiE5FvC6o6S6VJAlZiLdCNFXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D0mIS9/w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nbti1yzD; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J31DsGVD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0BB81F0155D
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 09:18:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788427138;
-	bh=TyP+1heiG2JEBN69Ba3VRBjXPtuiPpOB0ezh0Qpyxzw=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=J31DsGVDUutt95pMD514Ba8PAg7m8gJCdL92ln8qiLGGOmIftNAkLvBtj7g5svbZV
-	 GRgbC9rnXLwZJFgaCSY+56y6R8fTN6jQ7LKdvsWlig/gtFmNPXLZvaMFctf7lkcuMB
-	 crvPbdA2mUAGHUeQ6QiIoqoVBaSDHiizc/hyQ9TEZ5Uxv6ty9CLMoBQEnuGn+rS3sN
-	 EFI63w/XgsU5CnlpfeS7P89JVTOjhbg1X2dwaQH3VcAAyC2tJRdPwSeGlRWE0Lmomz
-	 5YtM9PPBG+SzCy0uKoHTu802YvG20C8wWW+uLnrPIOQYCV4Ej/jCE8iUkXiUpVi23P
-	 Q1ME/XlH7usNA==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a34f7ebcedso16994341fa.3
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 02:18:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByv8p1h+6Nx4wDl8rtXBmY+UezpsxKBq1f8Hm/LaKGlsSrEOijf29plE6pQuDzwL8Qa5BRis6XvaNOc@vger.kernel.org
-X-Gm-Message-State: AFuF++kX448qwfu74fkm/c4XqIvnaDH3Cn+RtCmBdHUIDLcc6dRlxu8O
-	ulh/IT8w5B7HFvlc5Z0UX4QY0Y5GNhfIgVwgiJKac3pK3std+s9J2bA6+pFPDBpzaBNGJGYMBUh
-	FAGEWHvdwsRbMvvG2Klmg9uSLcKNDRS4tMRWCdlUEgw==
-X-Received: by 2002:a05:6512:688:b0:5b2:158e:9918 with SMTP id
- 2adb3069b0e04-5b60868c684mr3234117e87.19.1788427136571; Thu, 03 Sep 2026
- 02:18:56 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 02:18:55 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 3 Sep 2026 02:18:55 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D0mIS9/w";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nbti1yzD"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68392wv5519703
+	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 09:19:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6R2GhQZHS8mATC1/nyqeLrqxV2PXKu/j5RnA39FZTiU=; b=D0mIS9/wojDJcQZy
+	zthgMQmrywmyA28v+PNALP5KAtb6kcOXJaHyXZ6kKmnBXXf3oEuNZIBMyvBT2qAU
+	JqUnqX7xZIuuiWp4EKp1mXxBy4Wrvz3pMPucU/ozHppczyEGLffrLBgOtCZAh5oH
+	ypjumB9ZEWG9QoMWLMWPPeGPNCiflLcTl2AeJ4QMmwpW+pClQxfbIDVBX4G/aWyS
+	3UFjDtrkUuv+quzDWpjqWYlM6zaWRRRpsmprALm24JV3CHCspXtl2qViL0rNGMqA
+	rXkQo/d+t/ZVohkBpGLaLjhqB4NGOv2D+NwYAuiB8FGdfPkITz7aqugPfYEy9fbJ
+	Vybr1g==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf1j4h5an-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 09:19:39 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52845bd815bso5497501cf.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 02:19:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788427178; x=1789031978; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6R2GhQZHS8mATC1/nyqeLrqxV2PXKu/j5RnA39FZTiU=;
+        b=Nbti1yzDBbclqXp55fKQb/kuqArrl2yFpJpVWxkU0dF3wCun9SVefdwB29UyC3gw+z
+         vtmHFJIItQUyxIy6782s7JvXqQHK7yp8UeUzE1BwHXK6nHe25jXdgNLCwtAgQKB1cywa
+         d7L9ScJRpBSkSmxD9YWRPspRdabtdLv1OXAFxp2eagixjMkNcFWe32TW95FoSzop/aCC
+         7LIEj/+pX9/IzOL0+y+FYGMNsOFrG+VIUpvd/9Zq1UdUNDKYHn3FoRlZxfbtCLSiGrgi
+         lmB81x0fWvENtBlNU0NOHOr7vG0ScjuJN5ovH8KJy6hVPPqxhT2HGu1kNgZoT/8Lfouw
+         1mPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788427178; x=1789031978;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6R2GhQZHS8mATC1/nyqeLrqxV2PXKu/j5RnA39FZTiU=;
+        b=Sr/gI7Zr8uVx2WkCt4JQXS29OWYwfoEHbwESHT5CtL4r2qJ7+DfodcW5sBCdo1rcWh
+         DY8X7AZlKN/ssWyj5JegZ/ECZ7IeALpvZS5qTOC7ON4r+e4Iot7s4xuEtN1rTPnN/NLZ
+         /O/HwqwPEXqchnJGbHqSHivK39I7+2zmLnC+C2KC0gN/1c0Zai8Pn/fTcbGEInIkPz27
+         2WtfZq1gb7tWKmsuJVZD13FXjrr5W1x1nx5zNbhpie1nYnd+Ouj4VUKXetXlZnCya9Dh
+         7fvghn30dGntuGfA5Xrc3awX5pG4z3T/E1DkBB3P8QkJalls1Ez/gCFeo5Jfk5/Bejem
+         gNAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwSTwcQXj1u09ft7hABhB68QNUZ3Ik2Kt4SXcFBv0QyQqVvZkAyHjeZe6c0F/Vd77D0XGzuvRXsL+c+@vger.kernel.org
+X-Gm-Message-State: AFuF++kGIYA9iL2x1umoeoI3vmHRh8rBhAJ70hzaICBZWLEQvwfvJlE8
+	aUjlQbcP/ZBCwVMl3AZeWJlh0DgI5lfLTP8TRIJBtJMIxLB68JQ0zSVd1xoyFHrFMpuO+4Z214U
+	HhWfJgswP5VTgrbKoqpuR4PaK5E7jAdoCrGFztnmGpw2RQuoQidTTy2hb/YqBk6FO
+X-Gm-Gg: AYBFou04RyQxOdeRh8n8djOrEymJob+VZBS1bmAboogITTCEYTsSqeoo6To5IYlY0sN
+	Y66UBJWpPtSa2+gapm6delhqmIBlMkTYcWKXeJCEVtGDpCdvtVd0a5H3SmtSTcB6JQAxlGhUby/
+	u3OFB4YxNp1agJFhFKyE75GW2sAJqcKemi+OBglEIZV1cMKof23CKx3GSCuhhmTp1Cnvzup7PKr
+	+LXUUiI9sHc7UbKAVbbMb3UTdXu7Ej2Cg7ZQKLa7Dpwo7Sv07g5/UZI/W2O9gv8xVIZx4e/uSVV
+	lbUwkn7RdCgrxtgxu8UyQB43Ztk0nifhB/aigHODSjUJTDOWZn+gJ0IKfILpf8pBjmXdHwSjuAQ
+	59UKV4D3hcr+vtQB6xPbqdQ==
+X-Received: by 2002:ac8:5f8e:0:b0:51b:f40b:2faf with SMTP id d75a77b69052e-53036d1a44bmr79746391cf.4.1788427178485;
+        Thu, 03 Sep 2026 02:19:38 -0700 (PDT)
+X-Received: by 2002:ac8:5f8e:0:b0:51b:f40b:2faf with SMTP id d75a77b69052e-53036d1a44bmr79745991cf.4.1788427177875;
+        Thu, 03 Sep 2026 02:19:37 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f952ed9sm2030616a12.27.2026.09.03.02.19.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 02:19:37 -0700 (PDT)
+Message-ID: <3ea5e40f-a80b-4290-a8a3-5adafd290af1@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 11:19:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com>
- <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
- <CAMRc=MfN73=K1nZrqUbhrMSijjpzhF_z_U9JU4_H163W0vRpqA@mail.gmail.com> <qg2nemg4mlxpancg7az2vsnjkfc4anxkieozoxh3mj3zgkyifd@b5b6yiz4uew3>
-Date: Thu, 3 Sep 2026 02:18:55 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MeizXYV+2B-OsXa6xWvaJX3moU7hMDNNZa60P5LBjuHxw@mail.gmail.com>
-X-Gm-Features: AcwNN1Xsuk5iYGbI7r2LEhNTEEDGndwtxO5wmbinbo_3GryhSalGZ9upGbmn2h4
-Message-ID: <CAMRc=MeizXYV+2B-OsXa6xWvaJX3moU7hMDNNZa60P5LBjuHxw@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Linus Walleij <linusw@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: Add Retroid Pocket Nova
+To: Aaron Kling <webgeek1234@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20260820-rp-qcs8550-v2-0-d4ce78fe9385@gmail.com>
+ <20260820-rp-qcs8550-v2-4-d4ce78fe9385@gmail.com>
+ <a518f6c8-7880-4854-8dc3-ac90f0eb93c3@oss.qualcomm.com>
+ <CALHNRZ8rqcDYcBJY0+Y_ioJroWsns_BFggMpuwZy9tiPavvBaA@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CALHNRZ8rqcDYcBJY0+Y_ioJroWsns_BFggMpuwZy9tiPavvBaA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=dufrzVg4 c=1 sm=1 tr=0 ts=6a993bab cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=pGLkceISAAAA:8 a=uam39J3oprqiAalIEG0A:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-GUID: oukoypHqSA-nH5FoPhIDLmZPQVg8jX34
+X-Proofpoint-ORIG-GUID: oukoypHqSA-nH5FoPhIDLmZPQVg8jX34
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4MCBTYWx0ZWRfX/GpXGAUKj6+u
+ hzAxZi5pXWGLM/2WTQYc+381Lt1dnlpBdn8hwDZMoxX2+uLz2B156+k00zWZ6XA5aroaabu8ZBF
+ qaXc+XO8rQiYcuZRGDiUbcuhby8BOgM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4MCBTYWx0ZWRfX9ebI7UvuZjl+
+ jDghqCfXrmeTSoFrRg+56hUWnR0HJRcFyR6c9c5SvdI7T6GozP98tx1sRjPa8SiuEq60NeVgq2D
+ vTEZ8L8EJI2Zr0bUldSg5uDMrOqY3GBLrFTCRvxqRv20on7wd671M6UJJxYz+fP8BPSCD0Q+hI6
+ o3Wa55Zdft9fbfBKTLo0QIBK557b62o9Q59Vf8bd2LLIBv5eh8YrMlevOPT4BefloSWcjOr9BAl
+ nXeT5C1NdffTLhd1UqaEREEN8OB241Rc+0TUPz3XQqWtPyO7oopcpGdUFG6bNVxgEUmMl5n0Eac
+ arFq0HNUmcb2BmvVC6kwN/Ml7h0QMb07lVHgx3n61uMacXTYjTbxHgBUZoK19VuSdCG+ntitliq
+ 9fWCYoXy197VurLETDNh0R8vGcr4WbO5LFgPwGdCaf3t3AasGS3jlh5LJJSBiFmUxcvyIYl1irc
+ WXQ9aXCC6K0dnBqJAkw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030080
 
-On Wed, 2 Sep 2026 15:22:36 +0200, Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> said:
-> On Wed, Sep 02, 2026 at 05:30:19AM -0700, Bartosz Golaszewski wrote:
->> On Wed, 2 Sep 2026 13:41:39 +0200, Ernest Van Hoecke
->> <ernestvanhoecke@gmail.com> said:
->> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->> >
->> > GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
->> > through gpio-map properties. fw_devlink instead parses GPIO properties as
+On 8/26/26 6:06 PM, Aaron Kling wrote:
+> On Tue, Aug 25, 2026 at 5:26 AM Konrad Dybcio
+> <konrad.dybcio@oss.qualcomm.com> wrote:
 >>
->> Unlike PWM, there's no such thing as "gpio-map" properties.
+>> On 8/21/26 5:30 AM, Aaron Kling via B4 Relay wrote:
+>>> From: Aaron Kling <webgeek1234@gmail.com>
+>>>
+>>> The Retroid Pocket Nova is a high-performance Android-based handheld
+>>> gaming console powered by the Qualcomm Snapdragon 8 Gen 2 processor
+>>> featuring a 4.5-inch 4:3 AMOLED touchscreen.
+>>>
+>>> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
+>>> ---
+
+[...]
+
+>>> +#include <dt-bindings/gpio/gpio.h>
+>>> +#include <dt-bindings/interrupt-controller/irq.h>
+>>> +#include "qcs8550-ayntec-common.dtsi"
+>>> +
+>>> +&{/} {
+>>> +     model = "Retroid Pocket Nova";
+>>> +     compatible = "retroidpocket,nova", "qcom,qcs8550", "qcom,sm8550";
 >>
-> Hi Bartosz,
->
-> bd6f2fd5a1d5 ("of: Support parsing phandle argument lists through a
-> nexus node") added support for nexus nodes, and then c11e6f0f04db ("gpio:
-> Support gpio nexus dt bindings") added support for "gpio-map".
->
-> Herve later added support for pwm nexus dt bindings modeled on the GPIO
-> support in e71e46a6f19c ("pwm: Add support for pwm nexus dt bindings").
->
-> Please let me know if I misunderstood something.
->
+>> Do these actually have any common lineage with the AYNTEC devices, the
+>> common DT for which you include above?
+> 
+> Please see the cover letter to this series.
 
-No, sorry, it's me who didn't get that part correctly.
+I'm sorry I didn't read it..
 
->> > direct phandle references, so it records the nexus node as the supplier
->> > rather than the mapped GPIO provider.
->> >
->>
->> Can you point me to an example? I'm not sure what a nexus node is in the
->> context of GPIO.
->
-> Stephen gave an example usage in his commit message implementing
-> of_parse_phandle_with_args_map():
-> 	soc {
-> 	        soc_gpio1: gpio-controller1 {
-> 	                #gpio-cells = <2>;
-> 	        };
->
-> 	        soc_gpio2: gpio-controller2 {
-> 	                #gpio-cells = <2>;
-> 	        };
-> 	};
->
-> 	connector: connector {
-> 	        #gpio-cells = <2>;
-> 	        gpio-map = <0 0 &soc_gpio1 1 0>,
-> 	                   <1 0 &soc_gpio2 4 0>,
-> 	                   <2 0 &soc_gpio1 3 0>,
-> 	                   <3 0 &soc_gpio2 2 0>;
-> 	        gpio-map-mask = <0xf 0x0>;
->         	gpio-map-pass-thru = <0x0 0x1>
-> 	};
->
-> 	expansion_device {
->         	reset-gpios = <&connector 2 GPIO_ACTIVE_LOW>;
-> 	};
->
-> Admittedly, this hasn't seen much (any?) actual use in the device trees
-> yet.
->
-> We (Toradex) would like to use it to specify a LVDS connector on our
-> boards. This connector appears on different carrier boards that all mate
-> with the same display and have the same pinout. The only potential
-> difference is which PWMs and GPIOs are connected to the connector.
->
-> There, specifying the LVDS connector as a nexus node on the relevant
-> carrier board DTS/DTSI would allow us to reuse the same display overlay.
-> That example usage is given by Leonardo Costa here:
-> https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jbauradujrre@gc5nbdhhixaf/
-> Note how we have the connector on imx8mp-verdin-dev.dtsi but could also
-> add it to other boards, i.e: imx8mp-verdin-mallow.dtsi
->
-> Note that in that example we used the "tdx,verdin-lvds-connector"
-> compatible for the connector. Since this is a nexus node and just a
-> dumb connector without driver, not having a compatible would make sense.
-> In a final implementation we could specify a compatible + binding if
-> that specifies the ABI better. It is not entirely clear to me what is
-> preferred at the moment, but that is disconnected from this patch
-> series.
->
-
-In that case it makes sense I guess and good to see someone actually using it
-eventually.
-
-Bartosz
+Konrad
