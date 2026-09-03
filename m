@@ -1,406 +1,303 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ironport.ite.com.tw (hc210-202-87-179.vdslpro.static.apol.com.tw [210.202.87.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB96481257;
-	Thu,  3 Sep 2026 10:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F221F411FB4;
+	Thu,  3 Sep 2026 10:16:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430579; cv=none; b=gjJpPjRw646B511wMjXcFYGtK3o7MW/Hr9b2OjG/m25ks79kvmj0/4YZdJWG2/Y6MDm04zLAP1O0+/JZXXg0pEjseXGnN095yvseRmHquGRANXoAg8aHrqOaIQr2tEjmxd37D9kOIeYbYb5q9KsyuysQ386ujX77um87USHuwFs=
+	t=1788430595; cv=none; b=p8i8/4WMMcJ8c0MRPbgxDnfQhspaY+uHrmXw/LivHPqbYKhZfcKRFY/f9oBFFpfYkKFCSclouCnNaQ+U0aiKSnMiKQ7pnBuODo3XxAeIjGuN8kEjt9cVWUsrvWNsWzt7VijpMfuhoOt5+JbrsasPGA9B9wDKklCkKv3zUsIXuDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430579; c=relaxed/simple;
-	bh=R+xKDK2nTnMwARl8glz7InHfn/eZY4VyUjeJ/bHhdr8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YovVenXxOwQu7EJOT8Hi2KpNq6x8nG2GdEHtcX1aB5HZlr4liCKZPBhCtnM/YRBCBZwrOt+4/2ykpzl4AkQQ2FDG0QyAdNlViBUu7c2op3lMnAX2zFvZvDFsU8WCapcdUBn4W9+vutbzcUUBPp0t3J79WEdS0Qu+6Pi9g5SM7es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CU8QQD8U; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788430595; c=relaxed/simple;
+	bh=ldipukv9pusXhp9hjPoYFCaQL2MpzifOv0fcA7Ty/os=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fk6N1w5FViUwBa6esb4Tw3ezK5LPvAIGYSb3OXXi8obo6vw/7h64mQ5zdWCP3Ej9pczhv7HCmmn+N3ow7TTPp9Ih8K9mg0umHK1D1P9qe6JBp5BDERQiIMaeLVacRg0zbKn/MIGryGl7+aPd0beeUiG+fe1R+u0JfBf2GSUAdVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=XFGn+v+2; arc=none smtp.client-ip=210.202.87.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CU8QQD8U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25051F00A3A;
-	Thu,  3 Sep 2026 10:15:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788430562;
-	bh=J+hHCoeCaNrFNAaS98mS3DbEz4agR3WizErmXjfn3jg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CU8QQD8UMQrrFMjNLbg7A1pr9E84x6mDUWy27MaJwjULD5tm0cXLa96RBBtUKykUs
-	 KUsSHj05V2V0RGg9VLN0WLxoYZZ9F7kTCM6nPvM2K39RhYgpvtOjlVT7aPAbEh3LTw
-	 YPPOpIoyFI+ugytlZOU4Ti9B7kS8DPBGC5kQoGkcEsceRUx+eZpNG0z10sMwsrfbjR
-	 eNR8JhhV/lbA5FSjN/CuTCuUgi21B7o9+5aj24ISK7Sx2vAe/1eZLAYEFrSP73gGkJ
-	 spSa3CqVNgwAsO+B05SBZhehzsZHorTvFI8x3efx8yjn8ryBow3PgVPjTas6g3/ZAg
-	 KMMQ3ptHS7ZYQ==
-Date: Thu, 3 Sep 2026 12:15:43 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-phy@lists.infradead.org, Thanh Quan <thanh.quan.xn@renesas.com>, 
-	Phong Hoang <phong.hoang.wz@renesas.com>, Hai Pham <hai.pham.ud@renesas.com>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Rob Herring <robh@kernel.org>, Tam Nguyen <tam.nguyen.xa@renesas.com>, 
-	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Vinh Nguyen <vinh.nguyen.xz@renesas.com>, 
-	Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH 2/2] phy: renesas: Add Renesas Multi-Protocol PHY driver
- for R-Car X5H
-Message-ID: <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
-References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
- <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="XFGn+v+2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=ite.com.tw; s=dkim;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:to:cc;
+  bh=76WSQpuQ/Dm4bFaRITCmBuN1RDkcqDthNRxUFzeBojA=;
+  b=XFGn+v+2g4nntFm0q/DEhAYCmfl4ZnD9BSeROhy9Hhn3XV6ORQN5vbei
+   +JqxHlvADT3aASEcf4cOdHbTxZf8OBeodNuHA/ACumCjmPk9k0z8jeGq4
+   cfYpgX74tq709u22Q1BnJh/xsaDKcmE3L68uzYgO7n0AgE0cDDdPB7hUK
+   TLYVhvYVQDzjuV6ZPdgzhSaymFfJ6KodE2e63MFr46A3DYBVGq2+fFAJv
+   S/XOzDuNrhL75M0l25A4PN9IsY2vNd290P85Mz4mITM0us1RSc4ohPAby
+   1CnYDJYlBjSpd4r6Hwq9to+Ljr+zjgc5TLtkTVvm6bBWooJLw3ngwk4fk
+   A==;
+X-CSE-ConnectionGUID: 0Vdxsr9sQzS3Zh9W1mtSig==
+X-CSE-MsgGUID: 8JRtMXdkRryh2McOQCveuw==
+Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
+  by ironport.ite.com.tw with ESMTP; 03 Sep 2026 18:15:07 +0800
+Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
+	by mse.ite.com.tw with ESMTP id 683AF3hR042979;
+	Thu, 3 Sep 2026 18:15:03 +0800 (+08)
+	(envelope-from ite_pd@ite.com.tw)
+Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
+	by jiraproxy.ite.com.tw (Postfix) with ESMTP id B180D2D58;
+	Thu,  3 Sep 2026 18:15:02 +0800 (CST)
+From: Amber Kao <ite_pd@ite.com.tw>
+Date: Thu, 03 Sep 2026 18:15:43 +0800
+Subject: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDXpDxWuIhbKtMaipEUk4u6K5
+ bd474KIgTBCk10Q8KBIi08QeQbD1HuHjMZkkFxqXnPFaCtlJZghP5J3rFC9qrTlphYWUrQGtHR
+ +w7b7HXcz47C9F7jvB3PNnsFyAAAA
+X-Change-ID: 20260903-it5271-binding-43a376f0b91f
+To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
+        Yaode Fang <Yaode.Fang@ite.com.tw>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
+X-Mailer: b4 0.15.2
+X-MAIL:mse.ite.com.tw 683AF3hR042979
 
-On Fri, Aug 28, 2026 at 09:21:40PM +0200, Marek Vasut wrote:
-> From: Thanh Quan <thanh.quan.xn@renesas.com>
-> 
-> Add Renesas Multi-Protocol PHY driver for R-Car X5H (R8A78000) SoC.
-> 
-> This is a multiplexing PHY block with inputs from five IPs, and outputs
-> to four separate IO blocks. The five inputs are two PCIe4, two USB 3.2,
-> and ethernet PCS, each connected into the PHY with up to 4 times 2 lanes.
-> The inputs can be multiplexed to the four IO blocks as needed.
-> 
-> The datasheet describes initialization procedure without many information
-> about registers' name/bits. So, this driver does contain a bit of magic
-> to initialize the hardware.
-> 
-> Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
-> Co-developed-by: Phong Hoang <phong.hoang.wz@renesas.com>
-> Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
-> Co-developed-by: Hai Pham <hai.pham.ud@renesas.com>
-> Signed-off-by: Hai Pham <hai.pham.ud@renesas.com>
-> Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Arnd Bergmann <arnd@arndb.de>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Hai Pham <hai.pham.ud@renesas.com>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Magnus Damm <magnus.damm@gmail.com>
-> Cc: Manivannan Sadhasivam <mani@kernel.org>
-> Cc: Neil Armstrong <neil.armstrong@linaro.org>
-> Cc: Phong Hoang <phong.hoang.wz@renesas.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Tam Nguyen <tam.nguyen.xa@renesas.com>
-> Cc: Thanh Quan <thanh.quan.xn@renesas.com>
-> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> Cc: Vinh Nguyen <vinh.nguyen.xz@renesas.com>
-> Cc: Vinod Koul <vkoul@kernel.org>
-> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> ---
->  drivers/phy/renesas/Kconfig               |   7 +
->  drivers/phy/renesas/Makefile              |   1 +
->  drivers/phy/renesas/phy-rcar-gen5-mpphy.c | 757 ++++++++++++++++++++++
->  3 files changed, 765 insertions(+)
->  create mode 100644 drivers/phy/renesas/phy-rcar-gen5-mpphy.c
-> 
-> diff --git a/drivers/phy/renesas/Kconfig b/drivers/phy/renesas/Kconfig
-> index 90a9ca2db7fc7..ac903b29cacbc 100644
-> --- a/drivers/phy/renesas/Kconfig
-> +++ b/drivers/phy/renesas/Kconfig
-> @@ -43,6 +43,13 @@ config PHY_RCAR_GEN3_USB3
->  	help
->  	  Support for USB 3.0 PHY found on Renesas R-Car generation 3 SoCs.
->  
-> +config PHY_RCAR_GEN5_MPPHY
-> +	tristate "Renesas R-Car generation 5 Multi-Protocol PHY driver"
-> +	depends on ARCH_RENESAS || COMPILE_TEST
-> +	select GENERIC_PHY
-> +	help
-> +	  Support for Multi-Protocol PHY found on Renesas R-Car generation 5 SoCs.
-> +
->  config PHY_RZ_G3E_USB3
->  	tristate "Renesas RZ/G3E USB 3.0 PHY driver"
->  	depends on ARCH_RENESAS || COMPILE_TEST
-> diff --git a/drivers/phy/renesas/Makefile b/drivers/phy/renesas/Makefile
-> index 0e98083f2f0c8..23d413cfa8ce0 100644
-> --- a/drivers/phy/renesas/Makefile
-> +++ b/drivers/phy/renesas/Makefile
-> @@ -4,4 +4,5 @@ obj-$(CONFIG_PHY_RCAR_GEN2)		+= phy-rcar-gen2.o
->  obj-$(CONFIG_PHY_RCAR_GEN3_PCIE)	+= phy-rcar-gen3-pcie.o
->  obj-$(CONFIG_PHY_RCAR_GEN3_USB2)	+= phy-rcar-gen3-usb2.o
->  obj-$(CONFIG_PHY_RCAR_GEN3_USB3)	+= phy-rcar-gen3-usb3.o
-> +obj-$(CONFIG_PHY_RCAR_GEN5_MPPHY)	+= phy-rcar-gen5-mpphy.o
->  obj-$(CONFIG_PHY_RZ_G3E_USB3)		+= phy-rzg3e-usb3.o
-> diff --git a/drivers/phy/renesas/phy-rcar-gen5-mpphy.c b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
-> new file mode 100644
-> index 0000000000000..31f17a4955e8e
-> --- /dev/null
-> +++ b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
-> @@ -0,0 +1,757 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Renesas Multi-Protocol PHY device driver
-> + *
-> + * Copyright (C) 2025-2026 Renesas Electronics Corporation
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/firmware.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/of_device.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <linux/types.h>
-> +
-> +#include <dt-bindings/phy/phy.h>
-> +
-> +#define MPPHY_NUM_CHANNELS		4
-> +
-> +/* Common registers */
-> +#define MPPHY_CMNCNT1			0x80000
-> +#define MPPHY_CMNCNT2			0x80004
-> +
-> +/* Channel register base and offsets */
-> +#define MPPHY_CHAN_BASE(ch)		(0x81000 + (ch) * 0x1000)
-> +#define MPPHY_PXCNTXT1(ch)		(MPPHY_CHAN_BASE(ch) + 0x4)
-> +#define MPPHY_PXCNTXT2(ch)		(MPPHY_CHAN_BASE(ch) + 0x8)
-> +#define MPPHY_PXTEST(ch)		(MPPHY_CHAN_BASE(ch) + 0xc)
-> +#define MPPHY_PXREFCLK(ch)		(MPPHY_CHAN_BASE(ch) + 0x14)
-> +#define MPPHY_PXRXREQ1(ch)		(MPPHY_CHAN_BASE(ch) + 0x24)
-> +#define MPPHY_PXRXCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x38)
-> +#define MPPHY_PXSRAMCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x40)
-> +#define MPPHY_PXTXREQ(ch)		(MPPHY_CHAN_BASE(ch) + 0x44)
-> +
-> +#define MPPHY_PCS0REG1			0x85000
-> +#define MPPHY_PCS0REG5			0x85010
-> +
-> +/* TCA (Type-C Adapter) Register Offsets within MP-PHY base */
-> +#define TCA_OFFSET(ch)			(0x90000 + (((ch) & 1) ? 0x10000 : 0))
-> +#define TCA_VBUS_CTRL			0x40
-> +
-> +/* PCS0REG1 register bits */
-> +#define MPPHY_PCS0REG1_VAL		BIT(16)
-> +
-> +/* PXTEST register bit */
-> +#define MPPHY_PXTEST_BIT		BIT(0)
-> +
-> +/* PXRXCNT register reset value */
-> +#define MPPHY_PXRXCNT_RESET_VAL		0x202
-> +
-> +/* PXSRAMCNT register bits */
-> +#define SRAM_EXT_LD_DONE		0x10
-> +
-> +/* PXREFCLK register value */
-> +#define MPPHY_PXREFCLK_VAL_ETH		0x55
-> +
-> +/* Firmware update */
-> +#define MPPHY_FW_BASE			0x10000
-> +#define MPPHY_FW_CH_OFFSET		0x20000
-> +#define MPPHY_FW_NAME			"rcar_gen5_mp_phy.bin"
+Add device tree binding documentation for the ITE IT527x series
+(IT5271, IT5272, IT5273, and IT5274) I2C-based USB Type-C Power
+Delivery (PD) controllers.
 
-Is this firmware redistributable? I would assume not as like other Renesas IP
-firmware. If so, you should add a documentation about how an user can get the
-firmware, and package it. Like,
-Documentation/PCI/controller/rcar-pcie-firmware.rst
+The series comprises four variants differing by port count and
+Power Range support:
+- IT5271: single-port, SPR (Standard Power Range)
+- IT5272: two-port, SPR
+- IT5273: single-port, EPR (Extended Power Range)
+- IT5274: two-port, EPR
 
-> +
-> +struct mp_phy_chan_priv {
-> +	struct phy *phy;
-> +	enum phy_mode protocol_id;
-> +	bool initialized;
-> +};
-> +
+Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+---
+The driver for this device family is shared with ITE IT8851/IT8853,
+currently under review as a separate series:
+https://patchwork.kernel.org/project/linux-usb/patch/20260807-ucsi-itepd-v7-2-998ac11ed0ef@ite.com.tw/
 
-[...]
+This binding is submitted independently so it can be reviewed on
+its own; once the driver series lands, IT527x support will be
+wired into it there.
+---
+ .../devicetree/bindings/usb/ite,it5271.yaml        | 176 +++++++++++++++++++++
+ MAINTAINERS                                        |   8 +
+ 2 files changed, 184 insertions(+)
 
-> +static int mp_phy_init(struct phy *phy)
-> +{
-> +	struct mp_phy_priv *priv = phy_get_drvdata(phy);
-> +	struct mp_phy_chan_priv *chan = &priv->chan[phy->id];
-> +	int ret;
-> +
-> +	/*
-> +	 * Note: Current source code support for Ethernet, PCIe
-> +	 * initialization is based on the bare metal code shared
-> +	 * by the board team.
-> +	 */
+diff --git a/Documentation/devicetree/bindings/usb/ite,it5271.yaml b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
+new file mode 100644
+index 000000000000..29cd7add9bde
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
+@@ -0,0 +1,176 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/ite,it5271.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ITE IT5271/IT5272/IT5273/IT5274 USB Type-C Power Delivery Controller
++
++maintainers:
++  - Amber Kao <amber.kao@ite.com.tw>
++
++description: |
++  The ITE IT527x series are I2C-based USB Type-C Power Delivery (PD)
++  controllers.
++  All variants support DFP/UFP/DRP roles, USB PD 3.1, Fast Role Swap,
++  USB4, and TBT3/TBT4 alternate modes.
++
++  The series comprises four ordering part numbers built on identical
++  silicon; port count and PD power range support are configured via
++  firmware/OTP rather than differing in the register interface itself:
++    - IT5271: single-port variant, SPR
++    - IT5272: two-port variant, SPR
++    - IT5273: single-port variant, EPR
++    - IT5274: two-port variant, EPR
++
++properties:
++  compatible:
++    oneOf:
++      - const: ite,it5271
++      - items:
++          - const: ite,it5272
++          - const: ite,it5271
++      - items:
++          - const: ite,it5273
++          - const: ite,it5271
++      - items:
++          - const: ite,it5274
++          - const: ite,it5271
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  wakeup-source: true
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++patternProperties:
++  '^connector@[01]$':
++    $ref: /schemas/connector/usb-connector.yaml#
++    properties:
++      reg:
++        maxItems: 1
++    required:
++      - reg
++    unevaluatedProperties: false
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++anyOf:
++  - required:
++      - connector@0
++  - required:
++      - connector@1
++
++allOf:
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - ite,it5272
++                - ite,it5274
++    then:
++      properties:
++        connector@1: false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        /* IT5274: two-port, EPR variant */
++        typec@26 {
++            compatible = "ite,it5274", "ite,it5271";
++            reg = <0x26>;
++            interrupts-extended = <&tlmm 129 IRQ_TYPE_EDGE_FALLING>;
++            wakeup-source;
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            connector@0 {
++                compatible = "usb-c-connector";
++                reg = <0>;
++                label = "USB-C-0";
++                power-role = "dual";
++                data-role = "dual";
++
++                ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    port@0 {
++                        reg = <0>;
++                        endpoint {
++                            remote-endpoint = <&eud_con>;
++                        };
++                    };
++
++                    port@1 {
++                        reg = <1>;
++                        endpoint {
++                            remote-endpoint = <&redriver_ss_out>;
++                        };
++                    };
++
++                    port@2 {
++                        reg = <2>;
++                        endpoint {
++                            remote-endpoint = <&dp_phy_out>;
++                        };
++                    };
++                };
++            };
++
++            connector@1 {
++                compatible = "usb-c-connector";
++                reg = <1>;
++                label = "USB-C-1";
++                power-role = "dual";
++                data-role = "dual";
++
++                ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    port@0 {
++                        reg = <0>;
++                        endpoint {
++                            remote-endpoint = <&usb1_hs_con>;
++                        };
++                    };
++
++                    port@1 {
++                        reg = <1>;
++                        endpoint {
++                            remote-endpoint = <&redriver1_ss_out>;
++                        };
++                    };
++
++                    port@2 {
++                        reg = <2>;
++                        endpoint {
++                            remote-endpoint = <&dp_phy1_out>;
++                        };
++                    };
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4dfc1fb14ef7..1a35242257fc 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13940,6 +13940,14 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
+ F:	Documentation/devicetree/bindings/display/bridge/ite,it66121.yaml
+ F:	drivers/gpu/drm/bridge/ite-it66121.c
+ 
++ITE IT5271 TYPE-C PD CONTROLLER DRIVER
++M:	Amber Kao <amber.kao@ite.com.tw>
++M:	ITE PD TEAM <ite_pd@ite.com.tw>
++R:	Yaode Fang <Yaode.Fang@ite.com.tw>
++L:	linux-usb@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/usb/ite,it5271.yaml
++
+ IVTV VIDEO4LINUX DRIVER
+ M:	Andy Walls <awalls@md.metrocast.net>
+ L:	linux-media@vger.kernel.org
 
-Nit: Make use of 80 column for comments
+---
+base-commit: 786262be6048deab760f68c8acc2c85607165894
+change-id: 20260903-it5271-binding-43a376f0b91f
 
-> +	ret = pm_runtime_get_sync(priv->pd_list->pd_devs[phy->id]);
-> +	if (ret < 0) {
-> +		dev_err(priv->dev,
-> +			"Failed to power on domain for channel %d: %d\n",
-> +			phy->id, ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Check if initialized with same protocol then skip */
-> +	if (chan->initialized)
+Best regards,
+--  
+Amber Kao <ite_pd@ite.com.tw>
 
-Comment indicates that the check is supposed to check the protocol, but the code
-is not doing it.
-
-> +		return 0;
-> +
-> +	if (chan->protocol_id == PHY_MODE_PCIE)
-> +		ret = mp_phy_init_pcie4(phy);
-> +	else if (chan->protocol_id == PHY_MODE_ETHERNET)
-> +		ret = mp_phy_init_ethernet(phy);
-> +	else
-> +		ret = mp_phy_init_usb(phy);
-> +	if (ret)
-> +		return ret;
-> +
-> +	chan->initialized = true;
-> +	dev_dbg(priv->dev,
-> +		"Channel %d successfully initialized for protocol %d\n",
-> +		phy->id, chan->protocol_id);
-> +
-> +	return 0;
-> +}
-> +
-
-[...]
-
-> +static int mp_phy_probe(struct platform_device *pdev)
-> +{
-> +	static const char *const pd_names[] = { "mpp0", "mpp1", "mpp2", "mpp3" };
-> +	const struct dev_pm_domain_attach_data pd_attach_data = {
-> +		.pd_names = pd_names,
-> +		.num_pd_names = ARRAY_SIZE(pd_names),
-> +		.pd_flags = 0,
-> +	};
-> +	struct device *dev = &pdev->dev;
-> +	struct phy_provider *provider;
-> +	struct mp_phy_priv *priv;
-> +	int i, ret;
-> +
-> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	priv->dev = dev;
-> +
-> +	ret = mp_phy_parse_dt(pdev, priv);
-> +	if (ret)
-> +		return ret;
-> +
-> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(priv->base))
-> +		return dev_err_probe(dev, PTR_ERR(priv->base), "Failed to map PHY registers\n");
-> +
-> +	priv->map = devm_regmap_init_mmio(dev, priv->base, &mp_phy_regmap_config);
-> +	if (IS_ERR(priv->map))
-> +		return PTR_ERR(priv->map);
-> +
-> +	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
-> +	if (priv->num_clks < 0)
-> +		return dev_err_probe(dev, priv->num_clks, "Failed to get PHY clocks\n");
-> +	if (priv->num_clks != 5)
-> +		return dev_err_probe(dev, -ENODEV, "Failed to get all PHY clocks\n");
-
-devm_clk_bulk_get_all() will fail if any of the clocks cannot be acquired. So I
-don't see a need to check for clock count.
-
-> +
-> +	/*
-> +	 * The reset ID order here does matters, reset_control_bulk_assert()
-> +	 * asserts these resets in this order, with mpphy02 reset being
-> +	 * asserted first, reset_control_bulk_deassert() deasserts these
-> +	 * resets in reverse order, with mpphy02 being reset being
-> +	 * deasserted last. This is the behavior the hardware expects.
-> +	 */
-> +	priv->resets[0].id = "mpphy02";
-> +	priv->resets[1].id = "mpphy01";
-> +	priv->resets[2].id = "mpphy11";
-> +	priv->resets[3].id = "mpphy21";
-> +	priv->resets[4].id = "mpphy31";
-> +	ret = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(priv->resets),
-> +						    priv->resets);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get PHY resets\n");
-> +
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	ret = dev_pm_domain_attach_list(dev, &pd_attach_data, &priv->pd_list);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "Failed to attach power domains\n");
-> +
-> +	ret = devm_pm_runtime_enable(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable PHY runtime PM\n");
-> +
-> +	provider = devm_of_phy_provider_register(dev, mp_phy_xlate);
-> +	if (IS_ERR(provider))
-> +		return dev_err_probe(dev, PTR_ERR(provider), "Failed to register PHY provider\n");
-> +
-> +	for (i = 0; i < MPPHY_NUM_CHANNELS; i++) {
-> +		priv->chan[i].phy = devm_phy_create(dev, NULL, &mp_phy_ops);
-> +		if (IS_ERR(priv->chan[i].phy)) {
-> +			return dev_err_probe(dev, PTR_ERR(priv->chan[i].phy),
-> +					     "Failed to create PHY %d\n", i);
-> +		}
-> +
-> +		priv->chan[i].phy->id = i;
-> +		phy_set_drvdata(priv->chan[i].phy, priv);
-> +	}
-> +
-> +	return pm_runtime_resume_and_get(dev);
-
-Since the runtime usage count is incremented and not dropped anywhere else, the
-driver will never runtime suspend.
-
-> +}
-> +
-> +static void mp_phy_remove(struct platform_device *pdev)
-> +{
-> +	struct mp_phy_priv *priv = dev_get_drvdata(&pdev->dev);
-> +	struct device *dev = &pdev->dev;
-> +
-> +	pm_runtime_put(dev);
-> +
-> +	dev_pm_domain_detach_list(priv->pd_list);
-> +
-> +	pm_runtime_disable(&pdev->dev);
-> +
-> +	if (priv->fw)
-> +		release_firmware(priv->fw);
-> +
-> +	platform_set_drvdata(pdev, NULL);
-> +}
-> +
-> +static int mp_phy_suspend(struct device *dev)
-> +{
-> +	struct mp_phy_priv *priv = dev_get_drvdata(dev);
-> +	int i;
-> +
-> +	for (i = 0; i < MPPHY_NUM_CHANNELS; i++)
-> +		priv->chan[i].initialized = false;
-> +
-> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
-> +
-> +	dev_info(dev, "Multi-Protocol PHY suspended\n");
-
-Please avoid spamming the log.
-
-I'm wondering how you managed to test runtime PM with
-pm_runtime_resume_and_get() above.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
