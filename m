@@ -1,89 +1,69 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BD2C511216
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 20:11:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F33511199;
+	Thu,  3 Sep 2026 20:14:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466328; cv=none; b=J0808I6B9CqDqkFDCjaw6q7DcCkYyuHyyWcRY8vAGDHZFLemFJCX2r5DerHpNMIzSZc+F6cHUMx7YyvToUAxtmoy4QVXAs3nEXXeA5LZ7Y2AfKoQCiywFLwgsTiME2OJ2Zz5ByQJWcRRS1UfunujuxlwQYYqpzxX70WqeA+UMMA=
+	t=1788466502; cv=none; b=l3RHtMwLrLeg0hOP77StOxqX03/EnDvYjXofn5KQNGe3ydyPpJpt1RTmRhgK/9KijsmwIF8jJDhtF0K0uIAF5E7IR4+obpLIAGY4N+kc9K8o2toTlkzKAkPnF8S26KVOfjjr6pZ/zkUm/hoEkICfTF6k5xhcZ3t6mm199esh2yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788466328; c=relaxed/simple;
-	bh=vmH0h3WK8ZD57844TEFW/v3WxY4vsVlqFAWdc0w4qDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=L/XjMZOuonhipjK+eUNLEJWBEMxnDpRAqeFgiEOgPFDsp2SwZBFkLZLPE0tL+E+49Q+P4weTxADPPQX4zwy2cwygy+AdpVmqisERrafRXihrkkhvjr/vQsGdh0hG3f61ANZzFyVhYQtb4S+sVzen/sZtcotAk48qIRhBbqCYZyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=j/yhbIOG; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1788466502; c=relaxed/simple;
+	bh=JD6s2kHwkwPhzFqZKuFvzzIItgnu6ajQQr+79Lir1RA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MH/vQIzp2LnIjJEtFbcTYoOsEy3jJCkAKSfdUGikcYbfZ2ilPofd/utKvx5tjD+MBKu0Rfzjpujb4gDpfFP3L5oxsaig5kNHXXXcJ16EZG2MZB5Qdom4cXotCRDRoIHumrFwTBoKzbw0c/KVl/jLuPBJr4p4x1snW/a7xeUZMgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YeTDl10c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="j/yhbIOG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=vmH0
-	h3WK8ZD57844TEFW/v3WxY4vsVlqFAWdc0w4qDI=; b=j/yhbIOGWR5UXucdwg+e
-	f9SSQWfvigGHOUE6drQChlLsmg+zoCYIw3Cy5DpybVZyZCEwdxIfi0R9gHPmTZEi
-	U4yDhNhK22lG81yO+TM42bttmOYcvvaynowsaPdo49j0IiZYtGTqFIv3pSXQGCgC
-	ac3hpejp1zAZkBT8Cekwfplo8fqRM1OjhwUSGIFdz0rpkNhmSFqySMUHFQsLGdor
-	QTr/8pAXytTClDC0a3eFNVRiYzn05d+gaFd/0jMZprBTjTkCQWkc8ES/a2MJJbB+
-	oeZThBZdR+tG1s56ma0IMwkjylFbl4wOmT+3GU8yehqpq0c6BQa9nwgkegU4EnCC
-	mg==
-Received: (qmail 1175407 invoked from network); 3 Sep 2026 22:11:46 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 3 Sep 2026 22:11:46 +0200
-X-UD-Smtp-Session: l3s3148p1@rFLewplaLM8ujntC
-Date: Thu, 3 Sep 2026 22:11:43 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Biju <biju.das.au@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: Re: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
-Message-ID: <apnUfCIcTG4bmYZF@ninjato>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YeTDl10c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39FE21F000E9;
+	Thu,  3 Sep 2026 20:14:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788466486;
+	bh=JD6s2kHwkwPhzFqZKuFvzzIItgnu6ajQQr+79Lir1RA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YeTDl10ce8PPb5dTUUFgO09pHOLQViDXiY7VklvzbMAUhnf7Y5jp4sXsUMZsJAHII
+	 KirTU9WqOr64Lo/L6hI137iUxqEtirAnnA9d86Rd5ioK243by8I/+ZPP1bKIgEcwv9
+	 DdE9r4i3QtQT1oN7xg6iuQcBQsP3w4FDT46SKfb8j4klP+RRiLUKMWfjy1GqiDTBCk
+	 9XbcmQPMbCSvGLprj9lYOZYsfp74uLFl7KR1u7/FgwfIdY1wxKfZ0MBYZu11cLVKA1
+	 gYn0tP3SOlJ32VEqKlWAM/P2f5oDxCXviJ4j59R9EaF6OKODhMzfR/5zoJGUbeA7E1
+	 8RQkVx+UnHNBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 3/4] dt-bindings: mfd: x-powers: Describe AC200
+ functions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "James Hilliard" <james.hilliard1@gmail.com>
+Cc: lee@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260903-submit-ac200-mfd-v9-3-6b7ed278989c@gmail.com>
+References: <20260903-submit-ac200-mfd-v9-0-6b7ed278989c@gmail.com>
+ <20260903-submit-ac200-mfd-v9-3-6b7ed278989c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 20:14:44 +0000
+Message-Id: <20260903201445.39FE21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yOE/FRGSfTSAVCGO"
-Content-Disposition: inline
-In-Reply-To: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
 
---yOE/FRGSfTSAVCGO
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+> From: Jernej Skrabec <jernej.skrabec@gmail.com>
+>=20
+> Describe the AC200 audio codec and TV encoder as child nodes of the
+> shared I2C register provider. Keep their analog supplies on the function
+> consumers and describe the TV encoder display graph and optional bandgap
+> calibration cell.
+>=20
+> Add the shared interrupt-controller properties and interrupt numbers need=
+ed
+> by the TV encoder. The Ethernet PHY remains represented on its primary MD=
+IO
+> bus and is therefore not an MFD child.
+>=20
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Although there are still issues to be handled, I tested this series on a
-R-Car S4 (Spider) with HS400 eMMC and on a R-Car V4H (SparrowHawk) with
-a UHS SD card. No regressions.
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-submit-ac2=
+00-mfd-v9-0-6b7ed278989c@gmail.com?part=3D3
 
-
---yOE/FRGSfTSAVCGO
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmqZ1HwACgkQFA3kzBSg
-KbbZ+RAAmh7Bk/uuR0hRrNkdvymdbyBydX8Nh4YqTkh4g4/0YEVLbBpJCK59Sjxx
-d3FRxJzRAPEmsxlcflWuGh6oEiK4LXh2wVfzBZur6yIGybfRFeYJSWaArDGkMuWM
-omc+Lh9K/33Rz1EAH+a/z86ve1ApKDcU0leVx6BbdfmoBmSbFA08NkBJpvSwmr/s
-jvtMOlm/sE13c/ZjAi70CxY8KHwsZpd+3/z5JZBqHcx4jpBtkqa/7BH06dacbl4h
-RH8ja4xPC8HZAlmLoYqAyhUV5d1T1E/J7xK8GDJzf+KjaH0a5x+xtTXxBcQkvebQ
-D0IEjuEDpR3C/unMZVDndyGQ52wBlm3KPAlIyGox8HaCIRbDMnquHK4hrLzp/pjT
-Gh0FosMu2Fdiz9I1ux+vgidb2ycsmEprsm4YbShm/elsHuwlGbhf7hjJiU6tLula
-HFD4F2N9OqB498w+7TRafVPHJgPkRn6fdKz4oHZOAuJCc0RhNF5+TZjeeJezL/6Z
-J+5Q8hmzjcAXWEywMexHiObS2u0t5J8v64w3NlyV2WAZd3Mx5/4WaweRa2pfSsev
-mmEkF0aPmfnP3PiTOYUKnMcunQGCD38FKj+Ya1vMlJklyAXQEw1u2Yx3mJ0asOFs
-BdcVb78D6jNFSaC7wTSg862j6JLdyUaLh7XDQvBVb0AREUYfk0M=
-=80b8
------END PGP SIGNATURE-----
-
---yOE/FRGSfTSAVCGO--
