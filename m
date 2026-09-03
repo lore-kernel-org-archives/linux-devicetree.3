@@ -1,108 +1,94 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFA84A3F2B;
-	Thu,  3 Sep 2026 12:10:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B70EA44C64B;
+	Thu,  3 Sep 2026 12:11:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788437443; cv=none; b=SQUX8OU5v758giX2UyF7/XGB5amD/PjNzJi+gIb3f/guEbWUh76jnr/QbwSk76aZ+sFLhUP7zhpAjgi8428HdQJD1Scj8ERNhwo7KgQwiSN7XgNSocN9bui703ytyiAkgcSozCaXGU4gb1HZiQGtPs5zC4mOyakpneu7rbenZyg=
+	t=1788437482; cv=none; b=FR+g7FhtTd+l/zkVjU89he6Y8zJPYG3HDFp+JZ/zKgOGjoR+qi1FZDf78GwHV3fPwLQnywrxwYPeXd0GFYK4uDFG0Yu3Df/wthTbKK31mT5yPMRkOpQS9wNqIsPOB30HNKMVfigLBb5MAR6s53ooA0318kZ1Hey+08g3JaF0H/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788437443; c=relaxed/simple;
-	bh=1owev+xK+tbBrZahEKLUE3lyt3+x00cAS8G6pcnn7Rk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AXUgsmGxuTs1RMuQd8NYw+vwLJ02+hViJiO8Nyg1J7qKcUfAmyUnFoPcUee+9QX5c0/0ogaQ+/UOJfaKYxZwAcYR/5X0/iyEUTvO/Y/9p2UovttzU/D+DhDUqtATF4IEtmVrvgrEV12+AQ3ZYfVYsr05iIEUm61sF7tCH9W1KNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=gIoPtyBv; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788437482; c=relaxed/simple;
+	bh=TmyulZ8mVnSltxZsjxwNrEta0HAnB/Gi4aRTsa6XtQU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mQTNHFJASSEs34AJHzIfR2yj39tkdCMHM7NtWQnAYtCdERFOfb7MELBrKIQpDUiATWCW44Y6eBUwvV9FsMPTVF1ssSVJ5qVFnO+PjbGffld4jRjNDpQloQ0hm4VyRTp97NMYHbAAhTcEDQR/d+4XNZC2JHWHSQiz7c6Oz2O24VM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=bp2aa5Xz; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="gIoPtyBv"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B31EC4C35;
-	Thu,  3 Sep 2026 14:08:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788437337;
-	bh=1owev+xK+tbBrZahEKLUE3lyt3+x00cAS8G6pcnn7Rk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=gIoPtyBv05yEXCNHJvkSg/NCXnaVCHq2hV5xvXdqmlqPa3upxYyhnwE1naMVCZXi0
-	 1UdzHimSqguTEJm3aAIOpVZ6SXzyYPhF7HNzM7wCKgwFHOTlWeLNNjhuw0t9I7TQL9
-	 CuNntT/JKefdnUFLhrjqqd9OFv+rAIlH68ZVkKkc=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 03 Sep 2026 15:10:00 +0300
-Subject: [PATCH 10/10] drm/tidss: oldi: Fix missing of_node_put()s in error
- paths
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="bp2aa5Xz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=xl5ihRMOzCbIkTbFuO/xpo8Dv4lTrmxjlUdD28fg19w=; b=bp2aa5XzrfyPcPnBIBwq6oHlN6
+	88BYK5dx03MiAIuG01aderzieEPs23O6qP3Y38H7x8YQJYPW4yzRH6a5dA6jFRrqwDRRC90fCvakK
+	pJXb3cmamC+YRs/FOUiMRMwkobrtsO3Ffc/SUrz0sBVS4Br3/JPjLg0QwcAIjK59pcw4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x26HG-002iLy-Sn; Thu, 03 Sep 2026 14:10:46 +0200
+Date: Thu, 3 Sep 2026 14:10:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+	Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
+ support
+Message-ID: <1622b0a7-5516-4e72-b5e1-60c12b65b52e@lunn.ch>
+References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+ <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
+ <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
+ <178842162417.2701756.3296149694160507506.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-tidss-pre-beagley-v1-10-93928baa8b12@ideasonboard.com>
-References: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
-In-Reply-To: <20260903-tidss-pre-beagley-v1-0-93928baa8b12@ideasonboard.com>
-To: Devarsh Thakkar <devarsht@ti.com>, Swamil Jain <s-jain1@ti.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ti.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1191;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=1owev+xK+tbBrZahEKLUE3lyt3+x00cAS8G6pcnn7Rk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqmWOpbXfj3o5ITekvXG+ih/c+YGnQm2o9kURAk
- f7ZWBTgnjyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCapljqQAKCRD6PaqMvJYe
- 9b9HEACny4WaBJWDBN8FluF+irw2zdbuKjzQc1MDI0FjsIx6XLUevscfrvWYQ4c3IlKqW1YjrPP
- Beadpw2pOsOW/HBuf1MJ5JIKzE5g6i5IAjLy+EbTZQu1xC8Bc7KgdpF6OHLuNOwlqgE/UqeSHPC
- rFkKvrK07BKBUXegeO6H65vzrDTqzYgDc5U37bA4QFABDHm0paSZaKTzPf/mZo5UCid5tV9B4i0
- pYH3OHbwr9wRSJdW82txhEzFNRMIG6pcflECjaRUwT2LFcxIwlV/sKp1jnWOTiB3/7HLtDZI/26
- gefPIFmOzjwBKofigRdHxPy61PzKWdMOToIo8swrO7MVLXKQsGUObzDDlBHWw3vFPqwlHFngYUM
- YIjHgNekGkqOh6kDBzw8tqcm+HMySCTLUlFO4Q36hYnZkG0GVqb+oqb/U2b6b0jfEfILlmD7eqK
- HT6KnOUbXsji0uK2KBv0p+UHGtpRYLp8hVZaRys88rFT7wJUWZOCNA59ln2QnI/GKTCqhFnr+Jl
- 1V3BS0Vw8ol7rGEUiybXBXyDXo75BmeeR7T5GxtqrgmCT6HWfsCnsH5eWH8OuuOZRv1YPfOMMF9
- I0yfzDVSwOGv+jAdyc7FPbl76tPoXZHFrRrZGPgoBOxNlHgYbJsv9Qi508nueMDkFXF8W5Gbu/6
- 9UX4S0HVOlzBrzg==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178842162417.2701756.3296149694160507506.b4-reply@b4>
 
-If get_oldi_mode() errors early in the function, we don't put the
-'companion' device_node. Add the of_node_put() calls.
+> > This looks to be 90% identical to dwmac-sophgo.c.
+> > 
+> > Do you expect any further changes to this driver? Is everything
+> > supported? Are there more clocks? A GPIO for WoL?
+> > 
+> > I'm just wondering if the common code should be pulled out, or even
+> > dwmac-sophgo.c made generic so it can handle all plain boring devices
+> > which have RGMII delays and not a lot else.
+> > 
+> 
+> The probe boilerplate is indeed largely similar because both drivers
+> use the common stmmac platform helpers. However, their platform-specific
+> requirements differ: Sophgo requires additional TX clock handling and
+> other configuration, while DP1000 requires fixed TX and RX delay
+> handling. ACPI support under development is also intended to use the
+> UltraRISC glue driver.
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Fixes: 7246e0929945 ("drm/tidss: Add OLDI bridge support")
----
- drivers/gpu/drm/tidss/tidss_oldi.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ACPI is going to be fun, since nobody does ACPI networking.
 
-diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-index 624f1646fb07..82b059f85244 100644
---- a/drivers/gpu/drm/tidss/tidss_oldi.c
-+++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-@@ -383,12 +383,16 @@ static int get_oldi_mode(struct device_node *oldi_tx, int *companion_instance)
- 		 */
- 		return OLDI_MODE_SINGLE_LINK;
- 
--	if (of_property_read_u32(companion, "reg", &companion_reg))
-+	if (of_property_read_u32(companion, "reg", &companion_reg)) {
-+		of_node_put(companion);
- 		return OLDI_MODE_UNSUPPORTED;
-+	}
- 
--	if (companion_reg > (TIDSS_MAX_OLDI_TXES - 1))
-+	if (companion_reg > (TIDSS_MAX_OLDI_TXES - 1)) {
- 		/* Invalid companion OLDI reg value. */
-+		of_node_put(companion);
- 		return OLDI_MODE_UNSUPPORTED;
-+	}
- 
- 	*companion_instance = (int)companion_reg;
- 
+But how big is the change to the glue driver? I expect the change will
+be minor, a call to devm_stmmac_probe_config_acpi(), in addition to
+devm_stmmac_probe_config_dt(). Anything else?
 
--- 
-2.43.0
+One problem the stmmac driver has is cut/paste glue driver
+development. The same code is repeated again and again. Russell King
+spent a lot of time and effort trying to reduce the duplication. So we
+should not be adding more duplicated code unless it is actually
+required.
 
+	Andrew
