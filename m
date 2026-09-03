@@ -1,138 +1,166 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E00D337187E
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:29:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951D1443E36;
+	Thu,  3 Sep 2026 08:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424145; cv=none; b=WgBEszQTJNItrsRBC3LNkDrkbBOzs7+I8HPdhm05gcRbJCkGfloA/438Q/eaFcqxZV6VufbisVMIy+q0JXaWieVQF27rD+cPapO9Xf26U4y2EsJHsTfDHMAgRKXFTvmefGERgtVp2qc3njpYAA0vymOtPinMgQk26O8xZApyji4=
+	t=1788424376; cv=none; b=mYVXS37bmksGDhGTZePL+yKLCqVnvrZh5nAGqtmlTcMhHH/6hMje6bl642jh8bCyK/ry7Yj6O4H8TQg6HrBZdPYS6i3nsM5ZsCJ5pJcMRPUkAE3XP4EUgil88IGgP4Bo42anESxtFq9kRrqa01hjvOSAiifh5Nds57mJFETsrJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424145; c=relaxed/simple;
-	bh=j/YkXCRb+DA7nNO9q31K7pBUxD0nnB4tRARb3P9panw=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
-	 References:In-Reply-To; b=l9NYxxWs3Yc4YXjiL45WGPACNnb/pOdVtpRCDjUgSaS+Nn56iwPGoscVeuxcxJwxJR4yTephZDnukdpCiVQpuCEkCRqgRNOD5W/9DANppjVeEwlvvGRyp5k1I5tL2v4haaeRVi35GHP5uO0ef5j4TNsBZ1ehZF9V2lKM31T9q40=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=mRFGQaQd; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788424376; c=relaxed/simple;
+	bh=706c7XlPLXsRsRqbTT2qHJpv1DQVqFBCKVgS9F9Rtrs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=OAOwu0iqJbXVGrI2wBgsKDSPAQ0MdD25Q/Qy9cIJCf+OEEZYYLzncvE91toJ9S5Vd1m4flmki5TeioDq92a/iUpJfWg7St9FsBDSdEu9hN7KqbvdtdgHbirfjz906+PoF0jIbnRu8+wAn8UT72gJSurhIxltXOLCw5prR81vOqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xmDQLfyS; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="mRFGQaQd"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-4843e9c5960so2009878f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 01:29:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788424141; x=1789028941; darn=vger.kernel.org;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=G4vKdHGO8+zOlAPBdoXMqgNoiUhAKGdphTDuXcL4XSA=;
-        b=mRFGQaQde7qdWnv+c98cI5KLyy/7vLcC8qeD9geIQc+8meImGBg7E2P6M+RiM5FP8Y
-         znQoySRkWarZkGMDGV93PPL6m4iXWuy74nkscUMmRYaaTpY35QUwXa2vm+ovvm1fCnU3
-         k+0mLyNheymZn6BYr7bg1qZwpX5vFSy815omfyPycxGMyrhQ91pcVFIocR9NWZQdLE/a
-         1+zbTYsgEl6M60qQeXjBhd7eo8fQQmA2D5cOaBPEhAVFg1t1Pxov+pcwCChLqMLPkaA1
-         3LRKwntbu4qUyV5VOZeL1Tbh45EgGZN2d9zLp5qAeVbV8OfCZDy0w04WP9ktkTpc2wQZ
-         ohWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788424141; x=1789028941;
-        h=in-reply-to:references:cc:to:from:subject:message-id:date
-         :content-type:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=G4vKdHGO8+zOlAPBdoXMqgNoiUhAKGdphTDuXcL4XSA=;
-        b=DsAQLn+CWGRYm32xXvGEChPazOMe6g5S9YDnyvavxeSkKJqUlVD1httukaCz62wa8B
-         aVAQ6v2oZqKvtBBa8Zjexf3pi0AtCnXDbfFM3cmsrr1hrVj4Q6z+WtSFbFlTpawtXSvj
-         tXht3AJqC/Uas1Y/1faDjJ3TM0GpR/s3e/wjL0uWDdrUagpx0/wHntlh/XdYi3ppPcEj
-         HBmzkkg1Zd2vYdBrm2kwTRNWh8iRTSRcZi9XpXr1US0OI5Njcds7Unpsj4m3/sBy2546
-         Ve09NpTpMUj0uHTcpl03imkrZUSEZl0aLuwB0afnuahj/ox5G7N8nTvXU7CDrDUnYhli
-         sChA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZf2twE1L9KpTEfzJdr/2pSzaReNbb7CCYrDbr7s2n1dT4pbMASPefY+pGP1lCdTQcd0piGPmLV2R/@vger.kernel.org
-X-Gm-Message-State: AFuF++nppgGfuyx7r0ZlWTPrcavSCKegnN5BlD+nNaHgkxVQG9sbFKQl
-	sQiJmIJIglmkPVI/Knba4rM3jWTvCGIwff8j2rVemIp9IY7idpvFQL50mSVIft0Iqn0=
-X-Gm-Gg: AYBFou0VrZaOr6RwjA9ZI46NFXk4yMfFR1+t42F/ksJLtE7Sv9Ws25AyVSLoFPV+0Mg
-	LGHbRQ6vE0r4T90yRt3WWcGPhzB/N8sMHe8+q/E19S6PcVHIhFnGftE7Wyi/YQtr9KxgzjwpLYM
-	XP7l8hlsyrtDNvyl0FS4Wy8p/D7HK66/XF+lLXG5YEaoYO93iATAHrDV6xU0Z3iZZbsKEyJ4Eyb
-	CKm5EpnpjeWM4CU4vTd+AsGjNe22xs9eslfiM4+BWs9T1retHJ8uJMx8K0Y0iwkaNI7RHyjZqKk
-	UGwr+8D71GYOysGkaiTP+peGiZLNsArOO3yrwoLVY4cGIBy9OiY718OzDaiqKjThEkgrL+1Yi0O
-	V/P0kySDUnXqigEldfFWfU7i2pPF4t/OwRftT3C30BQgyvBtcQ7ovBWNUerEFBK9dCLMKkAxyIW
-	vQH8QBESTlBPTs3M9kY8zHpcZKt4zFhI6yH0LV1M7FsODHBcm0Wdu7OTFr
-X-Received: by 2002:a05:6000:186e:b0:47f:8b24:ef01 with SMTP id ffacd0b85a97d-48488deedd2mr18283862f8f.1.1788424140416;
-        Thu, 03 Sep 2026 01:29:00 -0700 (PDT)
-Received: from localhost ([2001:4090:a244:80d4:489b:7642:1b32:84d6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448eea5b4sm12497978f8f.27.2026.09.03.01.28.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 01:28:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xmDQLfyS"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id ED51E4E414E3;
+	Thu,  3 Sep 2026 08:32:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BCFBE602B8;
+	Thu,  3 Sep 2026 08:32:46 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A82EF11C791C9;
+	Thu,  3 Sep 2026 10:32:35 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788424364; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=IyZA+ecio8dgqAefqnzmsKi9pbcS8BSqqmIH/9UMq/w=;
+	b=xmDQLfySV8a8MBc++crCZBbfP5E4IQF3AUhjAkH7pJHYZhs81ZtmJmArLA4/0O8f+u9NNp
+	FWpMxYVhjvG/sV7K8d8kqYx9eRtJpUzkQjUsZaZDvImEOA8jVPrp3J+09KHvidWEIzThxF
+	o1GzTpj7Pkbqd7EhjL1AlKn7+MAx6xryY0chcP9ouGvAQoS1UINYTI0NHO/ME5ZpDlAYWh
+	NkzB+AEvQrZvH16vItAtNer7BMLl6v5PVRRsoVuS22DK7K+Ldd0GQPFv3uTl3LlJViHMv8
+	FVNgZAI0stK1y6Z4MGFkbsbDiuEJ+BxV2d/vgr1Bg3hCmBF3LstSmarP78PpuQ==
+Message-ID: <0dec5462-f6d5-4ef9-9d02-5fdf7f3090a0@bootlin.com>
+Date: Thu, 3 Sep 2026 10:32:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Thu, 03 Sep 2026 10:28:51 +0200
-Message-Id: <DL5JFZPXGYZF.2JXFWOJHEMWAF@baylibre.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: can: m_can: add ti,am62-m_can
- compatible
-From: "Markus Schneider-Pargmann" <msp@baylibre.com>
-To: "Kendall Willis" <k-willis@ti.com>, "Markus Schneider-Pargmann"
- <msp@baylibre.com>, "Marc Kleine-Budde" <mkl@pengutronix.de>, "Vincent
- Mailhol" <mailhol@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Chandrasekar Ramakrishnan" <rcsekar@samsung.com>
-Cc: <s-kochidanadu@ti.com>, <a-kaur@ti.com>, <s-tripathi1@ti.com>,
- <vishalm@ti.com>, <linux-can@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0-146-gb5c16ebe1835
-References: <20260902-temp-v4-0-3896f7d16ce8@ti.com>
- <20260902-temp-v4-1-3896f7d16ce8@ti.com>
-In-Reply-To: <20260902-temp-v4-1-3896f7d16ce8@ti.com>
-
---a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 01/10] net: stmmac: move XPCS lifetime
+ management to platform drivers
+To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Romain Gantois <romain.gantois@bootlin.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
+ David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-renesas-soc@vger.kernel.org
+References: <20260901150111.141037-1-coiaprant@gmail.com>
+ <20260901150111.141037-2-coiaprant@gmail.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20260901150111.141037-2-coiaprant@gmail.com>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Kendall,
+Hi again,
 
-On Wed Sep 2, 2026 at 11:03 PM CEST, Kendall Willis wrote:
-> Add "ti,am62-m_can" to the list of compatible strings for the M_CAN
-> controller binding. This compatible identifies TI AM62 SoCs which
-> support out-of-band wakeup capability.
->
-> Signed-off-by: Kendall Willis <k-willis@ti.com>
+On 9/1/26 17:01, Coia Prant wrote:
+> The current XPCS creation logic in stmmac_pcs_setup() is problematic
+> for several reasons.
+> 
+> First, if a device tree specifies a "pcs-handle" but no select_pcs()
+> callback is provided by the platform driver, the created XPCS is never
+> used. The phylink framework requires select_pcs() to actually return
+> the PCS to the core, so the pcs-handle property becomes effectively
+> useless without the matching callback. This is confusing for developers
+> who expect that specifying a pcs-handle in their device tree should be
+> sufficient to enable the PCS.
+> 
+> Second, and more critically, when stmmac_pcs_setup() fails to create
+> an XPCS (either because no pcs-handle is present and no pcs_mask is
+> configured), it falls through to the else branch and leaves
+> priv->hw->xpcs as NULL. This will silently override any XPCS that a
+> platform driver may have already set up during its own initialization,
+> for example in a pcs_init() callback or during probe. The platform
+> driver has no way to prevent this override because the common code
+> runs unconditionally after the platform-specific initialization.
+> 
+> After commit 93f84152e4ae ("net: stmmac: clean up
+> stmmac_mac_select_pcs()"), the common code no longer falls back to
+> priv->hw->phylink_pcs if select_pcs() is not set. This change
+> reinforces that each platform must manage its own PCS life cycle
+> explicitly, but the XPCS creation code in stmmac_pcs_setup() was not
+> updated to match this new expectation, leaving a gap where platform
+> drivers have no clean way to take control of XPCS creation.
+> 
+> Address all of these issues by introducing pcs_init() and pcs_exit()
+> callbacks in plat_stmmacenet_data. These callbacks give platform
+> drivers full control over when and how the XPCS is created, configured,
+> and destroyed. The common stmmac_pcs_setup() and stmmac_pcs_clean()
+> functions are simplified to just call these callbacks, removing the
+> confusing and error-prone XPCS creation logic from the common code.
+> 
+> Platforms that do not need an XPCS simply leave the callbacks as NULL
+> and no change in behavior occurs. Platforms that do need an XPCS can
+> now create it with the exact configuration they require, including
+> wrapping it with custom phylink_pcs_ops when necessary.
+> 
+> Existing platform drivers (intel, rzn1, socfpga) are updated to use
+> the new callbacks by moving their XPCS creation and cleanup logic into
+> pcs_init() and pcs_exit(). In their pcs_exit() implementations, the
+> pointer to the destroyed PCS is explicitly set to NULL to avoid
+> dangling pointer references.
+> 
+> Signed-off-by: Coia Prant <coiaprant@gmail.com>
 > ---
->  Documentation/devicetree/bindings/net/can/bosch,m_can.yaml | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml b=
-/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> index 2c9d37975bedd652b3060ab11ba75c37565edaad..89e5a44453372c57506e9cf3a=
-009b55a70cc4446 100644
-> --- a/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> +++ b/Documentation/devicetree/bindings/net/can/bosch,m_can.yaml
-> @@ -16,7 +16,9 @@ allOf:
-> =20
->  properties:
->    compatible:
-> -    const: bosch,m_can
-> +    enum:
-> +      - bosch,m_can
-> +      - ti,am62-m_can
+>  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 44 +++++++++++++++++--
+>  .../stmicro/stmmac/dwmac-renesas-gbeth.c      |  7 ++-
+>  .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |  7 ++-
+>  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  7 ++-
+>  .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 37 +++-------------
+>  5 files changed, 61 insertions(+), 41 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> index f5f9fa67ecd77..fd5f01c8941c1 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
+> @@ -603,13 +603,47 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
+>  	plat->mdio_bus_data->needs_reset = true;
+>  }
+>  
+> +static int intel_mgbe_pcs_init(struct stmmac_priv *priv)
+> +{
+> +	struct fwnode_handle *devnode, *pcsnode;
+> +	struct dw_xpcs *xpcs = NULL;
+> +	int addr;
+> +
+> +	devnode = dev_fwnode(priv->device);
+> +
+> +	if (fwnode_property_present(devnode, "pcs-handle")) {
+> +		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
+> +		xpcs = xpcs_create_fwnode(pcsnode);
+> +		fwnode_handle_put(pcsnode);
+> +	} else {
+> +		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
+> +		xpcs = xpcs_create_mdiodev(priv->mii, addr);
+> +	}
 
-I think you should use oneOf here to allow the use of
+Sorry I had a second look at that after a good night's sleep, and actually here
+we may regress. The original logic checked for "pcs-handle" presence, then
+for the pcs mask, but if no PCS is found we didn't error out, we returned 0.
 
-  compatible =3D "ti,am62-m_can", "bosch,m_can";
+This is making it mandatory to have a PCS. Please handle gracefully the "there's no
+PCS" case :(
 
-Best
-Markus
 
---a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30
-Content-Type: application/pgp-signature; name="signature.asc"
+Maxime
 
------BEGIN PGP SIGNATURE-----
-
-iKMEABYKAEsWIQSJYVVm/x+5xmOiprOFwVZpkBVKUwUCapkvwxsUgAAAAAAEAA5t
-YW51MiwyLjUrMS4xMiwyLDIRHG1zcEBiYXlsaWJyZS5jb20ACgkQhcFWaZAVSlMr
-dwD+KU6CuPk9zJ8NzOMyi92mXbApr4jbJz7igogpPtqaSJMBAOSyx5B9ln3sgQco
-EmRUOaRu3BgZAwDtaQM5wfBkUNEF
-=6Jsh
------END PGP SIGNATURE-----
-
---a15e01d85f8a611c40ff4ae9385bc153f1f9fa83a0571b2a8a2491377b30--
