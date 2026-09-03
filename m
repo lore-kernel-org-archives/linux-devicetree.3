@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C4339A070;
-	Thu,  3 Sep 2026 09:40:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 812054334A9
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 09:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428444; cv=none; b=kv5XbEw2vO33kpstdZj1uSSHlY4UT0fnngehnG38P2A8ilQpf1L0KaASTrcW7jRDP70ltlZZ5jrL9WWQoF6qFWSUumh5D8AKuj8vPJTUZ6UeDdf7TMn8+E3q/JouDLjxU3LvijM0tz7JVCDq1eQEDIuE+6K+zcCgmL3jOBsIwCQ=
+	t=1788428560; cv=none; b=atx36JywMtNOTyPj+YbVDlJm7qVqGOtDmsggPL23MrvTYdo9/JhligP3vShcTywn7vyMuUGzu3dAvtlC9X0taogcyG3c7iUMbiioznXwAVS1r1t1ASuuqVmfovSazlUZZ5gvToGlTl1Qe9ZD+8NAX4IrGEFeV5sVtobsqkKOhwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428444; c=relaxed/simple;
-	bh=tmHhKD81GJ5Ayj6i4mrf+MgwpD93bsG6PHd4SfYJx7M=;
+	s=arc-20240116; t=1788428560; c=relaxed/simple;
+	bh=W2pM+s6RZdTdONP2DLs0my1ASvHPk5ZTKKrIo3pXhzw=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rrz0GMpG6OuWMMRYp8kPFW1Ph4OwuLMyuTSvQp22r6nXdLNtKkuDQvfd6Jfy9WTtRVe1HML6yqFjTBpli1wYqaX0GFdhOxRQZVuZkkmzs3Htvna1hdV5kpr/gtpmq4CPuodIfwhclarLpTn6+LmgZsWZVcIUqOE/O5U7nP7oER0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6pWuoaz; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=NAQXj/r0fQN4x/4LwqTcWRsFapugHMIjlG3lpDSkidMKhsQG32YvVXwDroPT+cpVa9sZBA6tLzJbOrv7VuzfzxkTQkt7yVSBwjR+RUISBXoCPydOGOfxTponhMMiOxn00/rjyZiaSb4N5XRnfJATVYZQLYUeFErc50WWZuL8lbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D05honEv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b371duus; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6pWuoaz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937581F000E9;
-	Thu,  3 Sep 2026 09:40:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788428442;
-	bh=pTYfmYEwT0KA9fc4+fPHisf+4KclABADdQHaSCS0zDI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=e6pWuoazL41rcTT1UePOwc1t6Ew83DCs0FoGLb8/a2tIWqc7Pv8frl+f85fNus4BN
-	 cb83dknR+yW5qsaF2UHiMgxJvCeWUd9NJtsi8BAUypZUNex9s2NkNzkIs1kFCczUxk
-	 N16YRWSxl4Pxf1qkITPc991qXX5QC8EXTS7/RWbenYSGKi/sTiXdB90dd30XiR3OOB
-	 9pgu2ydXirfdzOuxNy6MacXacqX7qiBf8bhsUa4GBXhDcH07k+v7nUtBxUq6WdF4aH
-	 /86yrQoNCnka6sSXP1ZV19jz4QsERRMRVJY++1DwFyQSZzd1RoLnAnIIpM+0SNI+5n
-	 K+la+0YO/JXDg==
-Message-ID: <05b84fc9-e71f-412f-bdf2-c0847c2441ff@kernel.org>
-Date: Thu, 3 Sep 2026 11:40:36 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D05honEv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b371duus"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683921hj3682315
+	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 09:42:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	EbC/aiEXygGDz6MUoegwJCLvCP5wYlDG/NMXYLQigks=; b=D05honEvlt/nGR9t
+	r29iJ6NAyWEB18MiFWj9gMAS5/nx9Dk6xn+LRhkPKDWGU1mMbVZGAMKHDsIdVElk
+	Om7SM8d+cSqjC61s0NqH6abHWs2Do3zQD1fVzb0U6buks0rMNxetuRV1RGI5B4AO
+	rYuR4heamylZcLbIHOmMtEXZP9vyFWfkltFyXHFi54NhC4Fbx+fcDhHCF8GzwReH
+	asSbTVD64xOoRTkPggzBaAsoVrb7x1o7EeD04cL8xSBmnIFErio0+XLAPrFd+xaf
+	R+1EzeNtWdZF/v7FGa0W/x2nZ+HiErccLb4ALQHzcYC8WKDp+xtSLBablp2synTY
+	C604Rg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf51m0dx7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 09:42:37 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cbe77d6864dso3380069a12.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 02:42:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788428557; x=1789033357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EbC/aiEXygGDz6MUoegwJCLvCP5wYlDG/NMXYLQigks=;
+        b=b371duus8Nosv32vzbkBqdqTDIcU3Uoqp9mfWe/yST9Eci/W4cl5QpB+vzKyEXKIxu
+         hnYGSFYJpOaDEQuYPTFP17FuBFtVvtBf02PC0AoV5Lrc12XAiqf0uirha3oOsNj34yz/
+         BlYVVNMzNuH9M6NE7LW5tRBnqv1jAp9Q0X1gTEJN4T3z3gVDA0bGZIHd4ccjRHe1On8q
+         Qr8hlNZREsNA306c9cCXf1wbO5oM1IR24q/ZtcguNHHionbu7Qqw4JUFGiCnw9MvrkIp
+         yDJRTEjl4PRNhlV2A0v1wyPm0/t0h9zPj5Wl0DyL9ZLigvhQsys/zBplOUcSYJbKln3d
+         smbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788428557; x=1789033357;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EbC/aiEXygGDz6MUoegwJCLvCP5wYlDG/NMXYLQigks=;
+        b=SXwgPEZCRx+BgMH3x3cHjV9unXehhLoEx+GEQ3RvGHFgOLe7dE+Veghd4DMxyZTH7S
+         GYJ8N0D4ZLEXx5/a0LHJGdfW2AxkvjFY64zpfFLRKCeQWgdf5/qjSuZ/5jVBKHA/VQFG
+         AJC5vFbwcsSfSKn8TYMrepJylmWt6+gh+jK8wC4GJXJVRG7JRqSPxdmQOAjXG3kUSCSi
+         DDJp8yMd/FkB6MVpk3GuEIoitbCceh74T1MTrFVei4A2wlLjVaRb6QpdoxPuZQ5HvtF5
+         KtoBX9Kegc3wbWqrAXtiFYXW3ilxpOINhQXC7gKjyQmS04MaBjxt8D6DbBQEpSVvg54S
+         x9VA==
+X-Forwarded-Encrypted: i=1; AKwUvBygXz/+97KorwmcRkr8A/vqDawWz/96wshxuve6J94BAuwzlD4qXF0bIR/5Bk1VC3tOSMc9wLpH2cdE@vger.kernel.org
+X-Gm-Message-State: AFuF++lEX+8MZEjqUqfqsWnR3xlAWeBD5crF/VLzb6IJh3tC6LhRMpxi
+	PcSdrBch7R+x/Xn5uRjlC+wjCJHPjH66+hBNOdMW0ty7NbUt93NTWVV30KkDd/C8RE+Fs/4+RzY
+	F+sDhZP9nGPoNc3sS4bin57XvrXgLcyQ7oNZnukimF6NKxMJUZxqqnyjcI5GHFy6l
+X-Gm-Gg: AYBFou2MM1yKJHdjcds/7IQhIgkSYxOF35bWRqrT0IhpSfgZUhTnUuZxb+hQvmNu4Im
+	B+nJ9Q11p2u+zRm+kgSxbZFAtuIBHbA8AR5Ob0Q33wgc0ubgu4B8ObWnHQMXjhakBgcj5F6zSMN
+	B+OsmG4fDjuAXRiyGY1Qdd6AwTA30zyDyNTTbtXUW++AM22IPyOh7LmjuAp2tnrxPNhNkeB7gh4
+	HupDpMmeof+/Iwjx+Rh5HwEX/7stouUmLji3iO9ZpJPcrF4oHzZnnjLUpUSlHVT7kgnzdFGsbmn
+	x2EgxHaIco35slnFQUGclfIhUmQrhhFMyN28CUNxUkXjGj5zK5UeBjCLX6hV5/I2FJry79BBGml
+	0bWEBmWLFYensz95p2A==
+X-Received: by 2002:a05:6a21:3947:b0:3c4:396d:4a6c with SMTP id adf61e73a8af0-3d9afafc369mr17369077637.5.1788428556827;
+        Thu, 03 Sep 2026 02:42:36 -0700 (PDT)
+X-Received: by 2002:a05:6a21:3947:b0:3c4:396d:4a6c with SMTP id adf61e73a8af0-3d9afafc369mr17369002637.5.1788428556313;
+        Thu, 03 Sep 2026 02:42:36 -0700 (PDT)
+Received: from [10.64.71.54] ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc43d39c899sm754924a12.9.2026.09.03.02.42.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 02:42:35 -0700 (PDT)
+Message-ID: <b6463a78-9aed-4e17-b044-83b734cc0f9a@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 17:42:27 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,95 +89,171 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: phy: airoha: Document support for
- AN7583 Gen3 PCIe PHY
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260827122127.18874-1-ansuelsmth@gmail.com>
- <20260827122127.18874-2-ansuelsmth@gmail.com>
- <20260831-elastic-turquoise-puma-f032fc@quoll>
- <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH RFC 08/15] arm_mpam: Fix ris_idx type to prevent range
+ check bypass on truncation
+To: Andre Przywara <andre.przywara@arm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+        driver-core@lists.linux.dev,
+        Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>,
+        Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
+ <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Yin Li <yin.li@oss.qualcomm.com>
+In-Reply-To: <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: N4NEkGgun2ho0NGt-mMxkfy1367jLyUf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4MyBTYWx0ZWRfX1wvOixOayQAA
+ jZ1dwNE4pwfbYA7eam3JR1VbsMVNUQnnlTAoi7zsi4HZYbx7B+/APXEZsXVm3Z6fGZpw6Tu6Dkt
+ q2hEGKXoxbH7D/IGqBt/RJdq8dHkOAQYiZgf1NrPtz7fEG9FtrG/33HORNZ+ZMK9j6NNcrMwtio
+ CBNyqAinYMjByHJ1TJG5Muol4YoUIRKDbZZUVkAe58JLwSdfbfq9ucCXV3/GWWZD8rQIwEbMuIu
+ AE5RsYb3mGOJ9XA2nHlAKwiQSvQvk3tlLb4iclobKaolnf/qoLvDR7d0b/Uu/rsn0Oolp1yNaq3
+ 9HiH4grBeE44olgqgjDkngm29jANS9nJl28rKdyZBphM9EgxivmeRY0NTNd/ZwEANWVJhr/O1rk
+ D0rnNHgdHLXkK5S7Bpj0BK0SsF4PwgJ5ZyZvwJnLxErW0/gdRojNSlIFNU4qAdycxo9oP3VfLWE
+ ur+0eCsUxWiODtRqJtA==
+X-Authority-Analysis: v=2.4 cv=X8Ji7mTe c=1 sm=1 tr=0 ts=6a99410d cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=cCZmPfQC1jL7EaltuNIA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4MyBTYWx0ZWRfX3X4y+WPAUMjF
+ jKJfU2P0tO6RiIyq2nrAl6eTN9tdyPtz4JT5J1+FrMbyYSK9JMNBoD1dHEXBkPmrRjPXZfYZ2Pt
+ MQS6G22VhGa0p2yGuxAV+fpz2bhwxc4=
+X-Proofpoint-ORIG-GUID: N4NEkGgun2ho0NGt-mMxkfy1367jLyUf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030083
 
-On 01/09/2026 15:11, Christian Marangi wrote:
-> On Mon, Aug 31, 2026 at 08:51:46AM +0200, Krzysztof Kozlowski wrote:
->> On Thu, Aug 27, 2026 at 02:21:20PM +0200, Christian Marangi wrote:
->>> +
->>> +examples:
->>> +  - |
->>> +    #include <dt-bindings/phy/phy.h>
->>> +
->>> +    phy@1fc7f000 {
->>> +        compatible = "airoha,an7583-pcie-gen3-phy";
->>> +        reg = <0x1fc7f000 0xfff>,
->>> +              <0x1fc7e000 0xfff>,
+
+
+On 9/3/2026 12:22 AM, Andre Przywara wrote:
+> Hi,
+> 
+> On 8/11/26 15:30, Yin Li wrote:
+>> The RIS index is read from device tree as u64 via of_property_read_reg(),
+> 
+> what does it do that using an u64, actually? Do you refer to the reg 
+> property of the ris subnode, which has a limit of 0xf in the DT binding? 
+> So shouldn't it be an u8 all along, and we fix the types up at the 
+> sources, rather than widening everything needlessly to u64?
+> 
+
+Hi Andre,
+
+Thanks for the review.
+
+Yes, this is the reg property of the ris subnode. The reason it starts
+as u64 is that it's read via of_property_read_reg(), whose API takes a
+u64* for the value — so ris_idx has to be u64 at that point, regardless
+of the 0xf limit in the binding.
+
+If ris_idx were narrowed to u8 before reaching the range check in
+mpam_ris_create_locked() (ris_idx >= MPAM_MSC_MAX_NUM_RIS), an
+out-of-range value such as 0x100 would be truncated to 0x00 and silently
+bypass that check. Keeping the wider type through the chain lets that
+check see the real value and reject invalid indices.
+
+If you feel an explicit check right after of_property_read_reg() (with
+the downstream types kept as u8) is cleaner, I'm glad to go that way —
+whichever you prefer.
+
+
+> Cheers,
+> Andre
+> 
+>> but was narrowed to u32 when passed to mpam_dt_parse_resource() and
+>> further to u8 when passed to mpam_ris_create(). A value exceeding
+>> MPAM_MSC_MAX_NUM_RIS could be silently truncated to a small index that
+>> passes the range check in mpam_ris_create_locked(), leading to incorrect
+>> RIS creation.
 >>
->> Sashiko has a valid point here.
+>> Widen the ris_idx parameter through mpam_dt_parse_resource(),
+>> mpam_ris_create_locked(), and mpam_ris_create() to u64 so the value
+>> is preserved until the range check in mpam_ris_create_locked() rejects
+>> out-of-range indices.
 >>
->> This should reflect real hardware, not current driver. It is very, very
->> unlikely that hardware designers designed a block of 0xfff size or 0x4
+>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>> ---
+>>   drivers/resctrl/mpam_devices.c | 6 +++---
+>>   include/linux/arm_mpam.h       | 4 ++--
+>>   2 files changed, 5 insertions(+), 5 deletions(-)
+>>
+>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/ 
+>> mpam_devices.c
+>> index cc9fa1d78925..1e082fb60e30 100644
+>> --- a/drivers/resctrl/mpam_devices.c
+>> +++ b/drivers/resctrl/mpam_devices.c
+>> @@ -260,7 +260,7 @@ static int mpam_dt_count_msc(void)
+>>   }
+>>   static int mpam_dt_parse_resource(struct mpam_msc *msc, struct 
+>> device_node *np,
+>> -                  u32 ris_idx)
+>> +                  u64 ris_idx)
+>>   {
+>>       int err = 0;
+>>       u32 class_id = 0;
+>> @@ -712,7 +712,7 @@ static int mpam_ris_get_affinity(struct mpam_msc 
+>> *msc, cpumask_t *affinity,
+>>       return 0;
+>>   }
+>> -static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
+>> +static int mpam_ris_create_locked(struct mpam_msc *msc, u64 ris_idx,
+>>                     enum mpam_class_types type, u8 class_id,
+>>                     int component_id)
+>>   {
+>> @@ -799,7 +799,7 @@ static void mpam_ris_destroy(struct mpam_msc_ris 
+>> *ris)
+>>           mpam_vmsc_destroy(vmsc);
+>>   }
+>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>               enum mpam_class_types type, u8 class_id, int component_id)
+>>   {
+>>       int err;
+>> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+>> index f92a36187a52..30461cd71199 100644
+>> --- a/include/linux/arm_mpam.h
+>> +++ b/include/linux/arm_mpam.h
+>> @@ -39,10 +39,10 @@ static inline int acpi_mpam_count_msc(void) 
+>> { return -EINVAL; }
+>>   #endif
+>>   #ifdef CONFIG_ARM64_MPAM_DRIVER
+>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>               enum mpam_class_types type, u8 class_id, int component_id);
+>>   #else
+>> -static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>> +static inline int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>                     enum mpam_class_types type, u8 class_id,
+>>                     int component_id)
+>>   {
 >>
 > 
-> Hi for 0xfff yes the block is 0x1000 but I was reporting how it was defined
-> in the original DTS. For the 0x4 is for real a single register for that
 
-And the original DTS was likely wrong...
+-- 
+Thx and BRs,
+Yin
 
-> usage. Documentation is scarce for that single block but this also reflect
-> the same implementation used on EN7581. I updated the example to address
-> the strange block of 0xfff.
-
-Best regards,
-Krzysztof
