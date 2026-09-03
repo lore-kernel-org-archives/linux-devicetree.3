@@ -1,33 +1,22 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686F8394EA6;
-	Thu,  3 Sep 2026 08:07:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A2973B636C
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:07:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422840; cv=none; b=VqU44svpqchHZdUs6k9UJGzizpEOsDi/UYN22IXSDVdloc/5meDLPHAKv5SMqOSmq+MV/pTsdzDgK9EiDIjn0SRocwTYH0ZGIQrQ17orjw7Y4TK2tAe4+cfsRbb9QdECUvtpPX8UJyNCTFdXBLI2dZM+7B2VYx+6XOIzgNPV/3Q=
+	t=1788422865; cv=none; b=B3JPWy4vFeHZ+WYuYXdvXUVhVgh35C288YPk8heDbESkt5FQghXq+xrA1sx4iHs2/EtsAg9GlG8WpIMybPvIXRNYKrPYIwJmim66AgScXbuuSGdjXkjaL8tJrVrV88IRBwRW2YUzkAA5QLjmvKKWxP2DoVKIagnm+uYdOFQsYnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422840; c=relaxed/simple;
-	bh=42IWgvhhxQ5Cn7Iq17fk4ip3S1rp086OFoOxt/vI7A4=;
+	s=arc-20240116; t=1788422865; c=relaxed/simple;
+	bh=FFv1El0cmfreCyaI5DuL1YXMiVHW7UPSUEXErngpJfI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gg/HOtNS1baB1WqgDjkcUqf60aAWiIq82jZr4qOPXKosg9W5L6o2k/AFLGq5xTWLeix+g5Wi1+6DoQW9nZtmEPPTbyatTCDYccnOlRpfGAfhWXG5IIW7dsflzWgPXFo5a95SyRR5gxwwQwC+QuuXHEe5bPDXM+wpCIAulFG7Alw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ow0s/RuU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ow0s/RuU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01AD11F000E9;
-	Thu,  3 Sep 2026 08:07:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788422839;
-	bh=xbdNz29gFkBpHAuWF9hc57v1cNCTm7tlivlqQ/wBvjw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ow0s/RuUk3ZEUFFkjbX2w8fKohfQKQA+AWW8wWOJfdv1ZOazzwmcrEWl4LmdXP8iQ
-	 J0BBZGvkPBG+7+o3kg0MhZ19B5MQEvCSOKXA5mK8Cdq2pHNkdeFYFP37Zd0K1+3o0l
-	 bjtqoetUY2YmqoYI15UYX7AHllC5F2AbY8MrfEQ1dRNtWssA5P2LPMZp8bsrlv63R+
-	 7JfMhq7z3kLGsZsuAABsCd25sjWiLd4bwJJkl06kIY6leFGd70wnRErSyJNw4KavFF
-	 p6XJI08BzAB1j0wacXvslW6JJ+vr4LcwbmyRU3Ta9wqgQiDzNjbEdeTr8AnBUFHju6
-	 POLannVscKepQ==
-Message-ID: <57dbc01b-6ac0-454f-976b-9ef92efd37a9@kernel.org>
-Date: Thu, 3 Sep 2026 10:07:11 +0200
+	 In-Reply-To:Content-Type; b=mpnhgU4eyF6a04UZ8Cc8cMsLIVXWwUSEhjjCPlIMX1h92cNYBKlb3LIF05nP62+8MBPv2D23mKmEUdMg8HvR/sx3xL1gsHNo0qPt7gW2usmGgVN9HKZknTcZ7Xe/kkTK2/JUe//P0X0LWrqhX9qfkKO++F5aDrci5AM33yPJweM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
+Received: from [198.18.0.1] (unknown [27.42.228.181])
+	by cmweb (Coremail) with SMTP id C_Ai0gAnitnFKplqiRYHAA--.14660S2;
+	Thu, 03 Sep 2026 16:07:34 +0800 (CST)
+Message-ID: <516d8904-ea21-4039-a621-b98a8a5cea83@stu.hqu.edu.cn>
+Date: Thu, 3 Sep 2026 16:07:31 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,84 +24,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V2 2/8] dt-bindings: usb: Add Tegra264 XUSB host support
-To: Wayne Chang <waynec@nvidia.com>
-Cc: "mathias.nyman@intel.com" <mathias.nyman@intel.com>,
- "vkoul@kernel.org" <vkoul@kernel.org>,
- "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
- "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
- <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
- "thierry.reding@gmail.com" <thierry.reding@gmail.com>,
- Jon Hunter <jonathanh@nvidia.com>,
- "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
- "linux-tegra@vger.kernel.org" <linux-tegra@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-phy@lists.infradead.org" <linux-phy@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-References: <20260831185835.3732707-1-waynec@nvidia.com>
- <20260831185835.3732707-3-waynec@nvidia.com>
- <20260901-solid-uber-coati-381d2d@quoll>
- <babe3a6d-987a-4a27-9270-dac214b7b701@nvidia.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <babe3a6d-987a-4a27-9270-dac214b7b701@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org,
+ linux-amlogic@lists.infradead.org, conor+dt@kernel.org
+References: <20260903-mibox4-dt-v1-0-f29f1e828ca3@stu.hqu.edu.cn>
+ <20260903-mibox4-dt-v1-2-f29f1e828ca3@stu.hqu.edu.cn>
+ <20260903073643.B92A71F000E9@smtp.kernel.org>
+ <ff197003-be1d-4934-bf33-9337bc833168@stu.hqu.edu.cn>
+ <3fc38e1c-d9cc-493c-a25a-61a8a173d987@linaro.org>
+From: Raspberry Kan <raspberrykan@stu.hqu.edu.cn>
+In-Reply-To: <3fc38e1c-d9cc-493c-a25a-61a8a173d987@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:C_Ai0gAnitnFKplqiRYHAA--.14660S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GrWrGw4ktrWxJF13Xr1xAFb_yoWDCwc_Xw
+	sxuryDZ3yUJ3WrZ39aqrn5Cryqgw4aqryayw1DWw4fArW3G3sF9F45WryIkF1jyr4F9FZx
+	Xa4FgFs7J34q9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb2xYjsxI4VWDJwAYFVCjjxCrM7AC8VAFwI0_Jr0_Gr1l1xkIjI8I
+	6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM2
+	8CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWUJVWUCwA2z4x0Y4vE2Ix0
+	cI8IcVCY1x0267AKxVWUJVW8JwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK
+	82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
+	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
+	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
+	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
+	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUxfHUDUUUU
+X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQASBGqYO2MCLgACsT
 
-On 03/09/2026 09:11, Wayne Chang wrote:
-> Hi Krzysztof,
-> 
-> Thanks for the review. I'll split the changes into three parts and 
-> address all the comments.
-> - phy: tegra: xusb: dt-bindings/phy + drivers/phy/tegra
-> - usb: host: xhci-tegra + its dt-bindings/usb
-> - arm64: DTS enablement
 
-Why are you top-posting? Does that mean you ignored the comments inline?
+On 2026/9/3 15:55, neil.armstrong@linaro.org wrote:
+> Sashiko is right, is it _really_ a GXLX you're running ? The 
+> S905L/GXLX does not have the PP2
+>
+> could you dump the soc info ?
+>
+> run:
+> grep ^ /sys/bus/soc/devices/soc*/*
+>
+> on the device running mainline linux.
+>
+> Neil
+
+Of course. Here is the output from the device running mainline Linux:
+
+|LibreELEC:~ # uname -a Linux LibreELEC 7.3.0-rc1 #1 SMP PREEMPT Thu Sep 
+3 05:37:37 UTC 2026 aarch64 GNU/Linux LibreELEC:~ # grep ^ 
+/sys/bus/soc/devices/soc*/* /sys/bus/soc/devices/soc0/family:Amlogic 
+Meson /sys/bus/soc/devices/soc0/machine:Xiaomi Mi Box 4 (MDZ-21-AA) 
+/sys/bus/soc/devices/soc0/revision:21:c - c4:2 
+/sys/bus/soc/devices/soc0/soc_id:GXL (S905L)|
+
+I also found a teardown photo of the Mi Box 4 which clearly shows the 
+SoC marking as S905L-H:
+
+https://data.znds.com/attachment/forum/202106/07/172555ezz4nnyn4gln8yl8.jpg 
+<https://data.znds.com/attachment/forum/202106/07/172555ezz4nnyn4gln8yl8.jpg>
 
 Best regards,
-Krzysztof
+YuChia
+
