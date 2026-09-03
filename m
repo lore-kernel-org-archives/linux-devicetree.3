@@ -1,93 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59A7F2F8E86;
-	Thu,  3 Sep 2026 14:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083E24B1B5B
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 14:07:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444420; cv=none; b=dgKysRfYgNTNOk4rFEIlrG3GD28dDPEwNJWdF7IwY9zHI2urIYGiInV5aVKhnpCdLT5npseWZqgtbl0o94WLP6+r5veCZEsDZaYOvRQ9xHvPiFgyab0qpFfYQqt7y4rehzdvyCsnI9QbK3Vc2B6RobBbLY3pMDBHlNdFZSIBoro=
+	t=1788444441; cv=none; b=AB5/GEhKBZd/pFFhrr+o6I0z+54f4n47bxpyrnXF/fzGO7Ax0SrGK4r82vfMtcsLI+ESpGpuQoJOH3lF1rbQBeYer0iTI/NyCghhmy4SKTt/y8OxX8R4a02KYlRi7VT//7Z2L8NkSlFopdAojaT388Q9dSW3HGeXUEZaVhvJkdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444420; c=relaxed/simple;
-	bh=LyHP8Bb3AiQCbPFSjeQIemdYCrjAICsf28GcYpX7sNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lvEaH6Vh6rhgJBJDXgKoMTi7kcMznAyGEvzUPxnB0uQQ8B0iiJg7egjpJkNfsy5jwmN366AJwNbimWQ7BDLhd/qyi3qxum1LqoJcIc0nHHc4mpz11WLLKxRJ6/zvTM2Kcajd2kwv5zlkcqLAa8KWSyCcR3BsWwFL+xOvLk4d8vE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JuG6rXQd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788444441; c=relaxed/simple;
+	bh=Ipn103QnOJj+g5+2vV3eK6EdSjIrlX1AnfeKc7VfOI4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UAQKl/oPOP1qClBmaDcEJYVs4/eQPiGvHYKiO4IhbcIFhbdpP1ZTfpUS8wzJ6U1r0bAgA/HckZ1TdS2yvnfAq4MXiAawANpBo7HdPNNmu5NUGuiplu0Cq3pVX9gIGmC2RkiKDhH5nU9fdJg7gUK9XDuAJkFabxCd0fNXHUOjWzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jQYYPLPC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Pc9UxEEF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JuG6rXQd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 139B71F000E9;
-	Thu,  3 Sep 2026 14:06:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788444411;
-	bh=4O+cFRCtbfrFkucWjIpmN/RTgFXtwZtS/9pUBY5EbdQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JuG6rXQdPR+1U2yUZJGPIP7TJjo6Tsb1RmEXBpridfX9LnWb5XAwBG3NigKwZf5Fl
-	 GQ2gIbhHlmb6Fjanp010CQfhmN7qLnbbVGJEdRpwx9yqDi95ge+yjdOGn6cTJGTIRg
-	 Ix7WRob1bcbsKR+g3leXu/oqnn4DT+1VYG1q1NJ71jqhQ7BpFLnQLjl9oueaYLQb62
-	 BGDn8Z8ouCliCVlGhg7Vxq77zfM9Bq89qTIJVMmZ0Mv2Z1ypUEk5uTd5OCulC6Dl88
-	 LmPmq+Xj+6zSLwg4Iyh8SF8Z+e4jmicUp/RwJCTO7ZUnqCHywDrcYNgtjhKPIEQwFm
-	 3jeITFfPq/k7A==
-Date: Thu, 3 Sep 2026 09:06:47 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maulik Shah <quic_mkshah@quicinc.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: shikra: Update rpm-stats
- compatible to SoC specific
-Message-ID: <apl-vKnwHWFJ8Kru@baldur>
-References: <20260713-shikra_stats-v3-0-4be17121729d@oss.qualcomm.com>
- <20260713-shikra_stats-v3-3-4be17121729d@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jQYYPLPC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Pc9UxEEF"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DARw41040654
+	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 14:07:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=m/l87Qv7rBaF1nYJ87j6T7Dv0oGuyZFmxug
+	NhyaL1vU=; b=jQYYPLPCtEIvflCxXp3Y2UK0JrlChvgzgSj+KMd/S5KF8CtV3yE
+	hFQnkMA8mcMWGMlj/9VV3YM0W3iLOZx/6h5hdak+J9oT0Bdv6YtdJKGyOLD7n6++
+	mnmHN0L6xafHN2b2/twlWJNBQpIkWwpfvcExEWl9CTJplH6NX1LZGW2MlebuGctw
+	XDh2W3Im2WrYxaGovQgBqlJ2jX5tmG54O+AVbomrp8HUIw5uh+PS0TIhy3mcDwPS
+	khWoP1WtV0jMjmKdTyewNXghBOXgVFqLH96x11qyGewrfWzYtT4e7NRZ6fWacC2l
+	xShwepaDA5SxiswByKoNQV0Qdj3ECUkPA7A==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf1j4j50a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 14:07:07 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso32680645ad.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 07:07:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788444426; x=1789049226; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=m/l87Qv7rBaF1nYJ87j6T7Dv0oGuyZFmxugNhyaL1vU=;
+        b=Pc9UxEEFItHLm1RN7ri0TtRNF2G4Cj6Dmi7wMeGEzkPVMxiGnLGVw0Oce6mwBgZPTs
+         01vw681vnfI3V+S0VqNPEULORNOMxki8FlPAvLKbkifnfL7doL8JYvUAocPFlpRasVoP
+         w6niMzgpJTTDnU0f6ZczjELiLSiFiZrXaoJiXEZE7tcuU58OT64PyOY7B5p7QkxmaD3k
+         EisBM7TwYYfpyZMHH8Kz+Ru4GTYdpZnOJiLNJHuKKUnVP3SRiv3wtA/cbAvkeaDq9+dg
+         GsXXg3F3R7RDKUy68AuUR7nDOh6949rxnS141WHOt+BcTefZ8LtEVxGtprPyBShGJCo/
+         SXew==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788444426; x=1789049226;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m/l87Qv7rBaF1nYJ87j6T7Dv0oGuyZFmxugNhyaL1vU=;
+        b=PndrgLs+caHZlTPShNstPiVOD90Pusw6gIR9VEC5i13HpKRNEYdqECKupLJlqiA2RG
+         oRNaET0/LsMkLogwzSyuS194Pwqw547aBY4Od2sGOd/TS/csUPbvKFoBY6NV/q8597r4
+         x85CIfV/i4Q4LL9IXSqoQgQRtCO3jdODQ8uPFRIT7EKBOSK10pmRpwjPK2pvB/HBkxrX
+         UG5JUnkN3yapg0Q8w/8z6Sz4OQNX0XQOQZRzx2diMYqxX71D4KV3Q3ILDGviWkQz4EsH
+         rrgawYJA3kNeRQ1AlvkCZ6eZbsJyR8PppON4ZO0o7WOYeTlhBt2YFYPPbSZ9fONMwruj
+         IL0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBztuuFaeEHSOjK1Qnv5HvxzBfx79kYbtWxB9gIs1La/9EQk61EViKvfmYHyTs8D0bvhVOI2s3tjEIMp@vger.kernel.org
+X-Gm-Message-State: AFuF++mHO9Filk12WKI1XfkXh3DSl8as3a6V20YDhFESZXRKvCK+5DdN
+	tE3VMPzV+mMIrvy8b37utdkP7FRoWEcQiY9a5Kiv95VWPESQ7gsDzIi1Msj8WK76lGhWEC3KE4C
+	GuL2y1R3OLg09+K9j6L5DEr9PLg2ENyg9/I5KF/DCyIioyCZUwOWEHoYJ+t2Ww7LI
+X-Gm-Gg: AYBFou2/VpfQ9+/9lYHx+KpHg7vBf9iT7V9TseH5Dhbu6VtivaleE6iv2WvoynMGzNh
+	h0a2xa/1scuNsNGlHpjnouVT6ugbhvqqWoQl+UKYFC2iWtBHyM2KqW+fpM+G4wIxzPfFxVFAkdZ
+	He5Tz54S4kdqyMlpJp65u6gPyWYnCviuXCHUa9ooLtBnxPQNFJRwvUdGl6OF6jGaMMB7ksokyWn
+	4FlsEddy2SH2Gd4fxxr2zzqT3Qd7uUED5TGxycG3uCBhCll90kzm7FE+KMwbHaPeFrJu6cL733K
+	i87jEqjyC7Zh9r+eQMd8EgDD5TJwoYpNYcwerUyygOTKpzrShhwZWn6++smhewJPGTWG8tgXtJv
+	BOHhByyNrXS4rg587y1dCuhcZuhf32xVNjpAWv5GUPjrKWKZZ75bBwHhAno6J
+X-Received: by 2002:a17:90a:e7c9:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39aedf5da48mr18097208a91.5.1788444426266;
+        Thu, 03 Sep 2026 07:07:06 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c9:b0:395:4290:46e0 with SMTP id 98e67ed59e1d1-39aedf5da48mr18097054a91.5.1788444425562;
+        Thu, 03 Sep 2026 07:07:05 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1431994fdd7sm6809098c88.10.2026.09.03.07.07.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:07:05 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+        Yadu M G <yadu.mg@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v14 0/6] Add initial device trees for Nord platform
+Date: Thu,  3 Sep 2026 22:06:11 +0800
+Message-ID: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260713-shikra_stats-v3-3-4be17121729d@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=dufrzVg4 c=1 sm=1 tr=0 ts=6a997f0b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=zn26RzM0P8J-Jt8AhNEA:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: mQmOCQYeas5t_VXQnvoyhj0TM5h4cgJ2
+X-Proofpoint-ORIG-GUID: mQmOCQYeas5t_VXQnvoyhj0TM5h4cgJ2
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX01c772kdlxTL
+ 80bVxM5Mv4te7ZJIy/dkdqyUn8EaTVf2DY2jsKqRH4coa86KIBZ62v13KD8XGGA5DSLL5Q5xhyL
+ Dzu07QuPAqlFJ8sUNCnmcd/lkX9ckMA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEyMyBTYWx0ZWRfX0r8F1LHk7pMA
+ uMcnRqu96RAE6W2geHPw7qCO7l+ThpcPW9IP9qEqPaKcM+Shjg+c4UNkZlt5DdqQd/C0echs6XT
+ AgLn6ZRa9wjCWAZ384zuq6H4O5JE6nRf2GoGYG9nKRzI7qei28ORb+kQK+8vxJcOEuYNDoIHCfC
+ xlq7L9h0o02U68mClf1KwzpVn4plSR2RQ6m1qy/6Y0CjDkOU/u57PCoBDlR/4AW9CUOkJwblZ02
+ 8hrpNUeI5XdnctQAyhnUY7UlhlLssShhiR5c0isLjqLd+YUEG5hxcPa1MUEEyUWL5pftuMeiRrh
+ CO/zi3e878LOWKgdv6iYwjxWssqe4mT3rRCI22eRShXeTBEAgvh2D5L19nSelYyPl6OVQ8KBnQc
+ cHMNJ4+m+rskeWRSr2QLdvf70J2plhZFJl65QawWHoUrKx3+5fzaNYCpq7iO6iMIqzrqYzpun1L
+ Kic4jNjHroKyz8v3MTQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 malwarescore=0 bulkscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 lowpriorityscore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030123
 
-On Mon, Jul 13, 2026 at 01:46:56PM +0530, Sneh Mankad wrote:
-> A generic "qcom,rpm-stats" compatible only reads stats for SoC level LPM
-> stats like vmin and vlow.
-> 
-> Shikra SoC specific compatible allows reading individual subsystem level
-> LPM stats along with SoC level LPM stats. Change it.
-> 
-> Keep "qcom,rpm-stats" as fallback compatible.
+This series adds initial device tree support for Qualcomm's Nord SoC
+and the reference design boards, SA8797P RIDE for Automotive and IQ10 RRD
+for Robotics.
 
-So the fallback compatible works, but the more specific compatible gives
-you additional stats?
+Nord includes two variants, GearVM and Embedded. The GearVM variant has
+platform resources (clocks, regulators, powerdomains, etc.) controlled
+by SCMI server running on a VM. And the Embedded variant has the resources
+directly controlled by the operating system.
 
-If that interpretation is correct then this patch is correct.
+SA8797P RIDE board is built on GearVM variant, while IQ10 RRD is built
+on Embedded variant.
 
-But then you need to fix the binding.
+Tested on next-20260831.
 
-Regards,
-Bjorn
+Changes for v14:
+- Drop SMPS regulators from from nord-rrd.dts, as the resources are
+  already managed as RPMh power domains (Thanks Konrad!)
+- Link to v13: https://lore.kernel.org/all/20260828034958.3165-1-shengchao.guo@oss.qualcomm.com/
 
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> index 4e5bc9e17c8ed8914733ac9fdc9b69128b40216e..b299f316e3c61858c4b380f6211d0f36ef9fecf9 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -535,7 +535,7 @@ apss_mpm: sram@1b8 {
->  		};
->  
->  		sram@4690000 {
-> -			compatible = "qcom,rpm-stats";
-> +			compatible = "qcom,shikra-rpm-stats", "qcom,rpm-stats";
->  			reg = <0x0 0x04690000 0x0 0x14000>;
->  		};
->  
-> 
-> -- 
-> 2.34.1
-> 
+Changes for v13:
+- Update commit log of patch 2/6 to reflect SCMI channels for I2C/SPI/UART
+- Include qcom,rpmhpd.h instead of qcom-rpmpd.h in nord-embedded.dtsi
+- Link to v12: https://lore.kernel.org/all/20260826041200.528588-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v12:
+- Update interconnect-names to be one-line-per-string style in
+  nord-embedded.dtsi
+- Fix SCMI channel for I2C and SPI in nord-gearvm.dtsi
+- Correct cpu_perf node in nord.dtsi to be a power-domain provider
+- Link to v11: https://lore.kernel.org/all/20260816125413.1635150-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v11:
+- Use hyphen in rpmhpd OPP node names (opp2/opp3 - copy & paste from
+  lemans.dtsi)
+- Link to v10: https://lore.kernel.org/all/20260810114313.776563-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v10:
+- Fix reg size for ICE to match hardware specification (Thanks Kuldeep!)
+- Link to v9: https://lore.kernel.org/all/20260806081554.448531-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v9:
+- Re-add UFS support for gearvm variant as the binding dependency is
+  resolved on linux-next
+- Add #cooling-cells for cpus to make cpu cooling devices available for
+  userspace to control
+- Include CTS/RTS into UART17 pinctrl state to ease the Bluetooth
+  enabling
+- Link to v8: https://lore.kernel.org/all/20260729010022.875799-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v8:
+- Drop UFS support from gearvm variant to clear binding dependency
+- Link to v7: https://lore.kernel.org/all/20260721044005.2882803-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v7:
+- Do not paste the comment of bootloader updating IRQ number for each of
+  the 64 SCMI instances
+- Correct crypto status to be "okay" in nord-embedded.dtsi
+- Drop scmi15 from nord-ride.dts as there is no consumers
+- Drop unneeded LDO/SMPS regulators comment from nord-rrd.dts
+- Drop regulator ufs_vdd_hba and ufs_vccq2 which do not exist on RRD
+- Drop always-on/boot-on flag for vreg_l3e_1p8 and vreg_l2i_1p2 in
+  nord-rrd.dts
+- Drop untested I2C device and add tested EPSON RX8900 RTC for
+  nord-rrd
+- Restrict nord-rrd UFS PHY regulators as HPM only to avoid potential
+  intermittent failures
+- Link to v6: https://lore.kernel.org/all/20260716142605.2398433-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v6:
+- Move ufs_mem_hc reg/reg-names from nord-embedded.dtsi into nord.dtsi
+- Enable crypto by default only for nord-embedded variant 
+- Add a comment above each SCMI 'interrupts' property to clarify that
+  the IRQ number is expected to be updated by the bootloader
+- Improve commit log of Embedded variant patch to be "directly controlled
+  by the operating system"
+- Merge two board binding patches into one
+- Rename sa8797p-ride.dts to nord-ride.dts, iq10-rrd.dts to nord-rrd.dts
+- Expand RRD acronym in DTS patch commit log
+- Fix copyright in RRD DTS file
+- Add firmware path for qupv3 nodes
+- Link to v5: https://lore.kernel.org/all/20260709132013.4096850-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v5:
+- Rename nord-sa8797p.dtsi to nord-gearvm.dtsi
+- Merge scmi-common.dtsi to nord-gearvm.dtsi
+- Drop "qcom,sa8797p" compatible
+- Add Nord Embedded variant and IQ10 RRD board support
+- Link to v4: https://lore.kernel.org/all/20260707123902.3868016-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v4:
+- Rebase on next-20260706
+- 1/4: Drop useless comments from arm,gic-v3 reg property
+- 1/4: One triple per line for qcom,pdc-ranges
+- 2/4: Improve commit log as suggested by Konrad
+- 4/4: Drop 0 polling-delay as that's the default value
+- 4/4: Name PMIC thermal zones with prefix "pmic" rather than "pm"
+- 4/4: Drop 135 C trip point from PMIC thermal zones as hardware will shutdown
+  at 125 C
+- 4/4: Have trip0 at 105 C as passive and trip1 at 115 C as critical for UFS
+  and SDRAM thermal zones
+- Link to v3: https://lore.kernel.org/all/20260526051300.1669201-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v3:
+- Rebase on next-20260525 and drop patches/dependencies that hit linux-next
+- Improve commit log of "Document SA8797P Ride board" to explain the need
+  of SA8797P model compatible
+- Fix the real issues reported by sashiko-bot
+  - Fix unit address of pdp0_a2p node
+  - Add missing compatible for i2c15 and spi15
+  - Drop GIC_CPU_MASK_SIMPLE(8) from arch_timer interrupts property
+  - Update commit log of "Add device tree for Nord SA8797P SoC" to match
+    code change
+  - Sort sa8797p-ride thermal trips in ascending order of temperature
+  - Fix sa8797p-ride thermal zones with identical trip0 and trip1
+- Link to v2: https://lore.kernel.org/all/20260519063505.883379-1-shengchao.guo@oss.qualcomm.com/
+
+Changes for v2:
+- Rebase on next-20260518 and drop dependencies that hit linux-next
+- Include SoC ID changes into the series
+- Include ICE binding change into the series as the prerequisite change
+  from Harshal [1] was merged to qcom soc tree instead of crypto
+- Improve commit log of SA8797P Ride binding change
+- Use label in nord-sa8797p.dtsi for referencing nodes defined in
+  the base nord.dtsi
+- Link to v1: https://lore.kernel.org/all/20260427023455.236410-1-shengchao.guo@oss.qualcomm.com/
+
+[1] https://lore.kernel.org/all/20260416-qcom_ice_power_and_clk_vote-v5-1-5ccf5d7e2846@oss.qualcomm.com
+
+Deepti Jaggi (2):
+  arm64: dts: qcom: Add device tree for Nord GearVM variant
+  arm64: dts: qcom: Add device tree for Nord Ride board
+
+Shawn Guo (4):
+  arm64: dts: qcom: Add device tree for Nord SoC series
+  arm64: dts: qcom: Add device tree for Nord Embedded variant
+  dt-bindings: arm: qcom: Document Nord reference boards
+  arm64: dts: qcom: Add device tree for Nord RRD board
+
+ .../devicetree/bindings/arm/qcom.yaml         |    6 +
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   | 1820 +++++++
+ arch/arm64/boot/dts/qcom/nord-gearvm.dtsi     | 2848 ++++++++++
+ arch/arm64/boot/dts/qcom/nord-ride.dts        |  254 +
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         |  424 ++
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 4605 +++++++++++++++++
+ 7 files changed, 9959 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-gearvm.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-ride.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-rrd.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/nord.dtsi
+
+-- 
+2.43.0
+
