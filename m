@@ -1,160 +1,85 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC354AFE04
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 13:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784274AE11C;
+	Thu,  3 Sep 2026 13:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442998; cv=none; b=RkWTk8jX0s5QqIVzpfQK6lNshLRSEPiuU8l5jvlZEZyQ4WLCa9q4mZGENLzlXnjkGNDF91E54G9GNTjPIpM8MSDNOYv5zx4tF19ZJw7qofgUm65sGtaxOrFWjTWU3bsHVV/NDLsf+d3VuzJ1jPQi/36m10mSDGoq+c6DEPdOtrY=
+	t=1788443026; cv=none; b=JftKUoYhX2TEeSCtCgvy4Kg8ChWM9+dRx4MW9xwxvpOLQf9qeF2zrytahZVSIvy3Heh/w1WmDhRyJ8AwSU/QFkQA5gMcFxHX53p01S1tCp868rEYjq+F+TJCZaAUfG1TJI/uKV8GY6Di0uD+e/1ayWgfN2CvMMNoEJysdQ1Bvlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442998; c=relaxed/simple;
-	bh=4KnmTBwok++fPaMfsVNwqmH+pEbhftNH5fl2TMl46Bk=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kEqSCvLRmc9NRHItiUEKGPbKiUIBRRbBhAjJK95o9gCizAq4EpWQRKMynGVYDvMfXjlJCaVM86AdCTmzvnXWBXOUYzxiyMcN6jCDIjZo1XesoRrIkzb3WwWt6GaMpzKCJSKgA2IzHcPlPKSoYafr9g+QDkQq5SjbH6BB0vFcvdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=Gjfuq+Cx; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788443026; c=relaxed/simple;
+	bh=OJgQG4aoN2v6u3KrwJtFEjjQWD570MEDeq1YgIwyOyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U03zh9YdlCUonLNlX/cDgRWuVrENK3G9tlv4noWa7MM3iniu89aLt9aXTxtzqmaBbLopVjFKKJ3LekMn7tlccbOxV0bFC3IvHH3k/FHO/Twm9NhSCa0C2YPCQMWAcOSDoHI5P6t9PDjyIV4eO/4vy2dhMsS++mP6ERJIAoo6v0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nGOJUMVe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="Gjfuq+Cx"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso24087355e9.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 06:43:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788442986; x=1789047786; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DQztoV93kUusu3+6iPjezagXhoWGmz6/B4T2KCFeXKk=;
-        b=Gjfuq+CxpxHphx7C/ZOt494FtUgWIzY+e7UBl7nvfbit4W7Ub0ZlQu/VXatfO9ApsV
-         NR4wHxQoQY2CBNBAGIxVcd2h3Y9IIkvwFGrZWWtx2q4VzY8J4whQpDwiUhCCaEoN0qUk
-         cdjfs2a5FNHdFQbixzYG8ewJ+DuffE9eMB11tVOuYjhfIOx1fOgZE/muJUURQRxLMpzd
-         dTUiLy5gttATDJvhudRcyMXvbfadCgiFJr6/oRff/vZvk+hMwTjAn4SooKBdx06mkJex
-         LAtWzH3MDSHdOPGEWnyH+3aC7zmcA0hH1fTXryvOWvVbd1SA6+k1mqlqqXZ8r53nbF0t
-         mYhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788442986; x=1789047786;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DQztoV93kUusu3+6iPjezagXhoWGmz6/B4T2KCFeXKk=;
-        b=mt7pyRkiXyyBhkyWmQ7gxBkink4UcmQiqr9qEa+ekSKltWYHEbny9xTB2yKrZaW+U0
-         /BNHYeIEgewZUFaoQ5e4q6GYCRnFsyCnPPOQvlXNdtIR58IhuSlw2kvMuuU1ncTRBCf/
-         YImRmksOOBEQYin3SJgxFCE5bQ8KG6fxO6olsOSYnQyWeHWb3+CM2B/m8bdjAKeiyLER
-         KwjSKYU9Kb8b+vYo4lGitFCEP9FQsADKD91qCbOP5z1LZP8+dwnJYB/qc70f7/JvaaDd
-         KXm9U7yJ8McW/wueMXaTikkfiZIEcRZmX8idHsJPwAXOs91aV2H2BrLDjTXxdZOSwPcL
-         cefA==
-X-Forwarded-Encrypted: i=1; AKwUvByyqhZEQ3zB//QILEpKeylECNdmTqdiv9cWmuLztrjzmAN2qZxbRMgoexEbp+A5/uQpD9VPAibZ5pIu@vger.kernel.org
-X-Gm-Message-State: AFuF++kftppczz+lSo0C1MaEJ97XjlfV7Acnc+1JE0LQV+opSpGt5KaO
-	Je7Y74SSpLOgYR8EdBwdgP60xDoPmzTRTIr89eZLNDcBd9pbCoYOtE+F6sAkHvnPQJo=
-X-Gm-Gg: AYBFou3DUxTmUODizDdPXCrHSjlSZJ3SBkY65EzmFYrLXj+cxgYCO//6pBB68o+aLBf
-	0G1mKGblb98V/wbg+fUaYgH2rtoHN059Gt54nW+j/6o4A3J6LLiYktTFxrRLtTj92lUom6yluKr
-	1/dxB+9h6JrZ6lDJwxp+w1qpXYxaHjVX+hVIRZy7KC4lbaSV/lhu3ffqBbpFW8ME6nc9mIa0r6r
-	ZxwwsiTcY/pzZZsY9BXTMKKmvbvEhB/ha/jh1ONRVyQWNQm3J8CPxzFkDRoRDyvweOQ8IM+y6j9
-	b5qO9jn1S4ypKoy2ba5rVQJmDxZ9aXcjjir+7z8U8xGztOZtQtM37vt6KRnSa9JYDx++mr1E7+4
-	euen6AnHiP1X9d2Cb5c7OPD2A3O+98BbvAa6EKVsb46kCrX/65EdEfIzEu6WxpZft3CDdaXYQP+
-	qatuUFAv26JZTJY+jR8enw9sKMxQPa60R8IARbG/CcUPEhkjDGJ6TLwVBg2A==
-X-Received: by 2002:a05:600c:e556:10b0:49c:db20:da13 with SMTP id 5b1f17b1804b1-49cf5baa013mr808885e9.5.1788442986610;
-        Thu, 03 Sep 2026 06:43:06 -0700 (PDT)
-Received: from localhost ([194.183.24.73])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee3b0af8sm74408515e9.0.2026.09.03.06.43.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 06:43:05 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 3 Sep 2026 15:46:45 +0200
-To: Peter Robinson <pbrobinson@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Stefan Wahren <wahrenst@gmx.net>,
-	Phil Elwell <phil@raspberrypi.com>, devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Andrea della Porta <andrea.porta@suse.com>
-Subject: Re: [PATCH 2/3] arm64: dts: broadcom: bcm2712: Add thermal monitor
-Message-ID: <apl6RddLcPz8Q2-O@apocalypse>
-References: <20260802145109.728793-1-pbrobinson@gmail.com>
- <20260802145109.728793-3-pbrobinson@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nGOJUMVe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D0FA1F00ACF;
+	Thu,  3 Sep 2026 13:43:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788442988;
+	bh=GqqeU21WTvVVG9cJbweTYHFWXJ8iuVAYNNT93dVhAwM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nGOJUMVeKq8v1x9zbifauFMgoZ4dSuUqcuC47AnaB4eaj6E9g/2SR6j/rbX0q5LAY
+	 v+CsTDIqv5lUIECZc2gZU+adRglEqp+wcIKuabNSvk/C8g1nDsStLi7FNCl5Qk88B0
+	 ZoT/M/Y5hSU0ZvCpwd7cEOhiebZBf2MdqEKd7atPjYYKtHEZK4R6zRUWCb1XE2Czjs
+	 q9x2VnGMwfCrJYmLsTsPKb3xX5Ns2nPVKHjarq6rPDWzuoXHAmzUGemIMmzA9Ihs7M
+	 1IhtMGpwWLTl6g7ZrtGKpXrgjlyVTgmvvTg+li9MCIk0A143azT86zB1napedWnVh1
+	 V5uOdJcHXY6uA==
+Date: Thu, 3 Sep 2026 15:43:04 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Peter Marshall <pm@petermarshall.ca>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+	Sylvain Petinot <sylvain.petinot@foss.st.com>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 7/7] MAINTAINERS: Update ST VD55G camera driver entry
+Message-ID: <20260903-effective-jellyfish-of-reverence-7a72a1@quoll>
+References: <20260902204549.657228-1-pm@petermarshall.ca>
+ <20260902204549.657228-8-pm@petermarshall.ca>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260802145109.728793-3-pbrobinson@gmail.com>
+In-Reply-To: <20260902204549.657228-8-pm@petermarshall.ca>
 
-Hi Peter,
-
-On 15:50 Sun 02 Aug     , Peter Robinson wrote:
-> The thermal sensors on the bcm2712 (rpi5) are the same
-> infrastructure as on the bcm2711 (rpi4) so add those
-> details so we can get thermal monitoring on the device
-> as it can get quite hot.
+On Wed, Sep 02, 2026 at 04:45:46PM -0400, Peter Marshall wrote:
+> Point to the updated vd55g sources and documentation, and add myself as
+> a maintainer.
 > 
-> Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
-> Cc: Florian Fainelli <florian.fainelli@broadcom.com>
-> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com
+> Signed-off-by: Peter Marshall <pm@petermarshall.ca>
 > ---
->  arch/arm64/boot/dts/broadcom/bcm2712.dtsi | 32 +++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
+>  MAINTAINERS | 7 ++++---
+>  1 file changed, 4 insertions(+), 3 deletions(-)
 > 
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-> index ae1fc9d728c00..c73ed9e066662 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
-> @@ -508,6 +508,18 @@ hdmi1: hdmi@7c706400 {
->  			ddc = <&ddc1>;
->  			status = "disabled";
->  		};
-> +
-> +		avs_monitor: avs-monitor@7d542000 {
-> +			compatible = "brcm,bcm2711-avs-monitor",
-> +						"syscon", "simple-mfd";
-> +			reg = <0x7d542000 0xf00>;
-> +			status = "okay";
-> +
-> +			thermal: thermal {
-> +				compatible = "brcm,bcm2711-thermal";
-> +				#thermal-sensor-cells = <0>;
-> +			};
-> +		};
->  	};
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 5114e6db7..b090e6318 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -25649,13 +25649,14 @@ F:	Documentation/devicetree/bindings/hwmon/st,tsc1641.yaml
+>  F:	Documentation/hwmon/tsc1641.rst
+>  F:	drivers/hwmon/tsc1641.c
 >  
->  	axi: axi {
-> @@ -724,4 +736,24 @@ hvs: hvs@107c580000 {
->  		interrupt-names = "ch0-eof", "ch1-eof", "ch2-eof";
->  		status = "disabled";
->  	};
-> +
-> +	thermal-zones {
-> +		cpu_thermal: cpu-thermal {
-> +			polling-delay-passive = <1000>;
-> +			polling-delay = <1000>;
-> +			coefficients = <(-550) 450000>;
-> +			thermal-sensors = <&thermal>;
-> +
-> +			thermal_trips: trips {
-> +				cpu_crit: cpu-crit {
-> +					temperature	= <110000>;
-> +					hysteresis	= <0>;
-> +					type		= "critical";
-> +				};
-> +			};
-> +
-> +			cooling_maps: cooling-maps {
-> +			};
-> +		};
-> +	};
->  };
-> -- 
-> 2.55.0
->
+> -ST VD55G1 DRIVER
+> +ST VD55G DRIVER
+>  M:	Benjamin Mugnier <benjamin.mugnier@foss.st.com>
+>  M:	Sylvain Petinot <sylvain.petinot@foss.st.com>
+> +M:	Peter Marshall <pm@petermarshall.ca>
+>  L:	linux-media@vger.kernel.org
+>  S:	Maintained
+> -F:	Documentation/devicetree/bindings/media/i2c/st,vd55g1.yaml
+> -F:	drivers/media/i2c/vd55g1.c
 
-Doesn't seem to apply cleanly on v7.3-rc1, could you please rebase?
+Your patches are completely unbisectable... you already removed these
+files so previous commits leave stale/wrong paths.
 
-Many thanks,
-Andrea 
+Removal of a file is only complete if you update all the paths. It is
+not a separate logical action from updating paths.
+
+Best regards,
+Krzysztof
+
