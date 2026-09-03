@@ -1,33 +1,21 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06161348C6E;
-	Thu,  3 Sep 2026 16:26:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C214EC65C;
+	Thu,  3 Sep 2026 16:32:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452785; cv=none; b=gGGzKn6P7MClAEcEvBXF+2oyOEgiVqr4V8Hj1hcIm4dGzEdhZXoQHLQPAlU5kr5Wj/mVmyGKB2tbNapyNXLzuUvOnAkXWlHKrPsqquErMhUNmx066StSDzvtbckn9ncD79o1o/tKL9hzoOEEHUYd6UWCmN8eWN52XxCEbdBxdK0=
+	t=1788453172; cv=none; b=KsgoOQSZHanR05Iz0MNFvtqH8RisWMyQXKUThYeCXxDLXAfZJpG8A0hsvk8tH1asHODduSXPb8JPusVcexHpK2+WsbYV5Gv9BqFKehlHcVOE+ryrKfWewxHuWIpei0HMN933hFKLhb8umILSa174T8GY5KBOkZ353prqHdl1Djk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452785; c=relaxed/simple;
-	bh=FTN85+wh6Pdn0k0De7Y3v0wgVKMDrH7hi/h5YG7U70A=;
+	s=arc-20240116; t=1788453172; c=relaxed/simple;
+	bh=6pHy9//q9H0Ofm6mQAv5BYFGgr3Hvu8T1FCebCcnZo4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ltUGxtXgUM1bN13f2ylaO/HwN7ey7kdWQ6EvKaz6d9ZNrtZYCstKxzXVLNVDPCDtwFs3m8PM1xvsDm/JDoE7IrRYxTGpZZMv9HgaJOoV3haAXFbebVMecr9ogj07FW37qkYnPOuVbgW1S0WdIOI4Bn9hEJOy36PN/85XAMFcWXM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BesfQ5/m; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BesfQ5/m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269911F000E9;
-	Thu,  3 Sep 2026 16:26:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788452783;
-	bh=Yklku70u8AEdfLgrIe06VUjsn48xfAtvDjV3kRMaOPc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BesfQ5/mUpvGx3f+5eEtnewfGkXq60IW2E7K8lGAqDntWpvphQ+1dpFUL1T4N7ZLw
-	 WtmmxSkCKv5vuExm2oFDDjhbgBaBFNGh8Msdb9AwAAl6dz9CNM8wmycJpaCFB2CohK
-	 B9/N5m+Ti5EigTEERBbSnH9jqMuwM82/6d7qcxDuUDX9eYOudRJIPzU2c8SVwel+2D
-	 0phIgmgO88ljgkKMm2xbXd2DkKS2ROPqORhMlx6xfgUn0q4pAIcNQqWpIEi79K4n1R
-	 X/nXhmP9qwHJllhWSBTSTUvREa+Coq8wP6pWSCp8iSybho7RIquD9R2XYNbEJ22Ktm
-	 5zU3fmtRl8eDw==
-Message-ID: <acdf2acc-a1a7-4a02-8924-4605e0d929b0@kernel.org>
-Date: Thu, 3 Sep 2026 18:26:18 +0200
+	 In-Reply-To:Content-Type; b=hoP1Sc39zbAUWscGLcUn1bASnBWYkgd+9eZ05tdgAHhzUv8jPUlYepJEWlg4+Y9OXvvhEP/vR8EO/USMwsryt7bYWahOCOs3UDGFGWPTHKy5xfpLHW5CPGXYU0vUCZRBwuZcFy+7RmpCL/FAVlbgdk93EBY+0+mcFFM5R+GIAC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF5D1F000E9;
+	Thu,  3 Sep 2026 16:32:47 +0000 (UTC)
+Message-ID: <40c96e12-f2f1-4d95-a95f-d4a9cbde7ab4@tuxon.dev>
+Date: Thu, 3 Sep 2026 19:32:45 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,108 +23,128 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
- sharing EL2 for Apple Silicon
-To: Ard Biesheuvel <ardb@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
- asahi@lists.linux.dev
-References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
- <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+Subject: Re: [PATCH v6 3/5] pinctrl: renesas: rzg2l: Unify the power source
+ handling
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, magnus.damm@gmail.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev>
+ <20260903113327.1217457-4-claudiu.beznea+renesas@tuxon.dev>
+ <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
 Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+From: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <CAMuHMdV9C6LVBqYWo=Njgf3v4a5R1LhBwKuB5H3TFctOCr338g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi Ard,
+Hi, Geert,
 
-On 03.09.26 13:34, Ard Biesheuvel wrote:
-> Hi Sven,
+On 9/3/26 18:32, Geert Uytterhoeven wrote:
+> Hi Claudiu,
 > 
-> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
->> Hi,
+> On Thu, 3 Sept 2026 at 13:34, Claudiu Beznea
+> <claudiu.beznea+renesas@tuxon.dev> wrote:
+>> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >>
->> Usually, idle and sleep state are implemented in firmware running in
->> e.g. EL3 with the kernel trapping into that from EL2. Unfortunately,
->> there's no EL3 on Apple Silicon machines and we'd rather not run the
->> kernel in EL1 since this would result in losing KVM support.
+>> The previous code handled power sources using a mixture of power
+>> source specific definitions and lookups in the available_ps[] array.
+>> Unify the power source handling by introducing
+>> struct rzg2l_pinctrl_ps_desc, whose purpose is to describe a power
+>> source through its power source value, associated register value,
+>> associated capabilities (e.g. Ethernet), and associated IOLH index.
 >>
->> While the shallower states could be implemented inside a custom cpuidle
->> driver (like we do downstream, see [1]) the deeper states result in a
->> complete loss of state and require bootstraping the cores again which is
->> quite involved. So instead we need some way to call back into our
->> open-source firmware to be able to handle that. This is even more
->> important for M4+ which don't even support the architectural wfi anymore
->> and always lose state when that instruction is executed.
+>> Introduce two new functions, rzg2l_ps_to_desc() and
+>> rzg2l_pwr_reg_val_to_desc(), using the
+>> RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC() macro, as their
+>> implementations are similar.
 >>
->> Luckily, EFI runtime services provide much of scaffolding we need,
->> namely a way to keep some code and data mapped and the ability to jump
->> into there from inside the kernel.
+>> These functions retrieve a power source descriptor based on either a
+>> power source value or a power source register value. Other functions
+>> that need to perform power source specific operations can call them to
+>> retrieve the corresponding power source descriptor.
 >>
->> This series adds a custom EFI table that points to a PSCI entry point
->> (plus some other stuff that has to be available before EFI runtime
->> services are set up) and adds support for this new conduit to the psci
->> code. We can't directly use the normal EFI runtime path because that one
->> takes a sleeping lock and we need to be able to call into PSCI from
->> atomic context during e.g. cpu bringup or during idle.
->> It also adds support for specifying the specific MAIR attributes for EFI
->> runtime mappings as defined in the latest UEFI spec since Apple Silicon
->> is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
+>> The register values for the soft power sources were kept to zero since
+>> they are not used across the driver's code.
 >>
->> This all results in a surprisingly small diffstat. I believe this
->> approach was originally suggested in some IRC discussion years ago,
->> possibly by Ard, but I can't find the old logs anymore.
->> Happy to add a Suggested-by tag though if anyone remembers.
->>
->> The firmware implementation I used for testing can be found at [2] and
->> the full kernel tree with this series applied at [3].
->>
->> Best,
->>
->> Sven
->>
->> [1]
->> https://github.com/AsahiLinux/linux/blob/asahi/drivers/cpuidle/cpuidle-apple.c
->> [2] https://github.com/AsahiLinux/m1n1/tree/psci-via-efi
->> [3]
->> https://git.kernel.org/pub/scm/linux/kernel/git/sven/linux.git/log/?h=efi-psci
->>
->> Signed-off-by: Sven Peter <sven@kernel.org>
+>> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >> ---
->> Sven Peter (6):
->>        dt-bindings: arm: psci: Add EFI conduit
->>        arm64/efi: Add and parse custom PSCI EFI configuration table
->>        efi: Add EFI_MEMORY_ISA_{MASK,VALID}
->>        arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
->>        firmware/psci: Add EFI runtime conduit
->>        arm64: dts: apple: t8103: Add PSCI and CPU idle states
 >>
+>> Changes in v6:
+>> - described all the available power sources in the available_ps[]
+>>    array and dropped to wildcard approach to avoid letting the user
+>>    selecting unavailable power source for pins
+>> - simplified RZG2L_PINCTRL_PS_DESC_MEMBER_TO_DESC_FUNC()
+>> - for these two points ^ didn't collect the Wolfram's Tb tag
+>> - dropped rzg2l_ps_is_supported()
+>> - used conditional operator in rzg2l_ps_to_iolh_idx()
+>> - adjusted the patch description
 > 
-> I've picked up patches #3 and #4, which are useful in their own right.
+> Thanks for the update!
+> 
+>> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+>> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+> 
+>> +static const struct rzg2l_pinctrl_ps_desc available_ps[] = {
+>> +       /* Ethernet I/O voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+>> +                             RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+>> +                             RZG2L_IOLH_IDX_2V5),
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_ETH0 | PIN_CFG_IO_VMC_ETH1,
+>> +                             RZG2L_IOLH_IDX_3V3),
+>> +
+>> +       /* SD I/O voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+>> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+>> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_2V5),
+> 
+> Before (see below), only Ethernet could select the 2.5V domain, so
+> shouldn't this entry be dropped?
 
-thanks, I think i had a fixup for one of those in my local v2. I'll 
-check and send it as a separate patch if it was important.
+That's a mistake. I'll drop it from here and from QSPI section.
 
 > 
-> I'm not sure if the arm64 maintainers will want to consider this, but
-> I think it's a reasonable compromise, as it puts the abstraction in
-> the right place.
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_SD0 | PIN_CFG_IO_VMC_SD1 |
+>> +                             PIN_CFG_IO_VMC_SD2, RZG2L_IOLH_IDX_3V3),
+>> +
+>> +       /* QSPI I/O voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(2500, 2, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_2V5),
 > 
-> I take it this will be contributed to u-boot if it gets accepted here?
+> Same here?
+> 
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_IO_VMC_QSPI, RZG2L_IOLH_IDX_3V3),
+>> +
+>> +       /* AWO I/O voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_AWO_POC,
+>> +                             RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_AWO_POC,
+>> +                             RZG2L_IOLH_IDX_3V3),
+>> +
+>> +       /* ISO I/O voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_PVDD1833_OTH_ISO_POC,
+>> +                             RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_PVDD1833_OTH_ISO_POC,
+>> +                             RZG2L_IOLH_IDX_3V3),
+>> +
+>> +       /* WDTOVF I/O voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 1, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_WDTOVF_N_POC, RZG2L_IOLH_IDX_3V3),
+>> +
+>> +       /* Software voltage domains */
+>> +       RZG2L_PINCTRL_PS_DESC(1800, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_1V8),
+>> +       RZG2L_PINCTRL_PS_DESC(2500, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_2V5),
+>> +       RZG2L_PINCTRL_PS_DESC(3300, 0, PIN_CFG_SOFT_PS, RZG2L_IOLH_IDX_3V3),
+> 
+> I never really understood PIN_CFG_SOFT_PS...
 
-Yeah, that was my plan: First agree on something that can be accepted 
-into the kernel and then work on the rest of the boot chain. The current 
-code in m1n1 that sets up bare bones EFI tables is just a hack to proof 
-this all actually works.
+That was to match b/w a voltage and an IOLH value according to the table from 
+45.3.7 Driving Ability Control Register (IOLH_m) in the RZ/G3S manual (rev.1.30)
 
-
-Sven
-
-
+Thank you,
+Claudiu
