@@ -1,151 +1,155 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D08642E417;
-	Thu,  3 Sep 2026 20:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF7A3451AB
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 20:59:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469116; cv=none; b=WVo9ALy4N4l5YhMq1csRpHFQ/U/bQP18z6nJY73KbLpg6aC0PfoVHIt2nsV8jJDkxkvw6TnlGz7mAa5Pni4s6iSBbCTrGluZAcudnqOiuwhuP5yQW3qKYcwSM8TNk2Df2PcmtNeN6AiUoKaO/XmbwQr7lyTdNz4xQ3YkTm3uK4Q=
+	t=1788469192; cv=none; b=EUNCeA7ZKP1nwIaLZ1/GKxqp+uxXmA0pIoQHdXCKlKYjsjVT1lLVHJYcn3j2LSJVLgESnXbOjuoNKgFzRs9X7Y622ax+ub3/8gNRWANQw/Bl1zH9VCMwGFmQkCnhZKpTZTj9jO2atJAhSeAc5gxFs4GsZqwZmCFIE6uGa0iRjhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469116; c=relaxed/simple;
-	bh=WyLghW2Yt/XW78tU77Jb3nPkQaysxAJGDVLx3yZO+Y8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e5MNGwl9BUeAov1wD9Bn6/VNUKWed8uFIBx3qzK2y/NF1IXkl/WXlKsr5dxfGjPKEilQlgQkLAh0Lv975woFwzEx5V/57RsrPsmLFFvEnwRcWu1fMuMFj6MK53NUsRvycBE55Csa0um0pB1al/t6K76+xsX226gmoPozhRSNANI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=B7/WRPfB; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VZrSnuTu; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788469192; c=relaxed/simple;
+	bh=U9dX1uUw1P/fMJt8kqyTHCOjePQxAPTVwQpD6KqJC/w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=p7mWelsVTH0CpweGTVseS0pOYG+i778anmn0WtLQFOn5v/d3BTN0FgyzhQe+Rk/i3aHp/GwLYSb4X87GBeyKoOeOxDuyp1ql22mn53v2nhmu1PPQHOZd8xkyszCnsPYcZ/4xrUH/Rh0my8sTb7qyZrkMR+u5NcIGfs9Ofd6HJ/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJdOcb8n; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="B7/WRPfB";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VZrSnuTu"
-Date: Thu, 3 Sep 2026 22:58:19 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788469100;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W477L/II8FxU5jV4Gwnwh9dbk0oImJX38o52mJuSnwY=;
-	b=B7/WRPfBfjfmwBzOzIgig7Kl95rP6c+s5VisJc0Zey7gf3liJKOgu5BNMObp3Uhh732l5B
-	LEwMz8J6Osovp+XoQgAwBODrbmV9kC9WC/xbaZgUCPz3x1IFu9nbq18DRnK4IqebrUhjBw
-	k2RVUQSLvuZo1sx0raqyS1dyh9vs9vAhDdqxNq93GDY3+ydadlr1ODfs2qYymFKPc58NnC
-	CaXPcaNL8t9USO7AjKV9O84+mV6V1ugRIVp46WNZfVpqTw3CBJfPHxbzd3JJsP0Tziet7C
-	3JD3DJ7qUDDaOmjxSd4xnBNyj6WQv2PHQ8nc4SeM96pWMKfUEwAJr/8OnDvJyg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788469100;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W477L/II8FxU5jV4Gwnwh9dbk0oImJX38o52mJuSnwY=;
-	b=VZrSnuTuOcjcBb6FSC5SVK0IX0F+vYHhmZrg0oqoQfFwXMGoqCA1uMo6zOoDdbzJ4NE80Z
-	hxzivuQsfZk9+qDg==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Andrea della Porta <andrea.porta@suse.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
- interface
-Message-ID: <gzc6sljogjijrlz5jdwxbbf352xigfpuaxeo542zcsq72dncqb@lltv7los5lie>
-References: <20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de>
- <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
- <apmfqyeWahoR0wab@apocalypse>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJdOcb8n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3561F000E9;
+	Thu,  3 Sep 2026 20:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788469180;
+	bh=u/e2f5Hq5Md42bO2T4K9PPa13TRu4bJu/rATXE+jYM8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IJdOcb8ncRAXiA7KOFdmYVKWHSbsHIFk6ER4gXRy1u0+pL1xmqHGbajcUVu+eQwSk
+	 8toANI6Zm0jSMItAmjOR5ZremUw3CXPcDOdfKX5fJFmRlsq2G/MEFlN8AWaCB1lY79
+	 7rWkbL0C/4LC05W6nCnQRYEF0kV+Gq1KiY3XNFpVjqAltsETYwZ14cMrrB/zHFI7kv
+	 slUKagaZK8KFBoFsXRp96xvYOVZvmEVo10SjHji3lB9KKEszU3Ox0kExd9UQk89zHd
+	 yG7PbPH+WKHpz4UIBCuuEdZ73KADhv7mmKSvKgdnzvu6lEyQ0RjECA1p60JUK/Y59e
+	 OvKvUpzoswm4A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, olteanv@gmail.com, vkoul@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260903-x1e-csi2-phy-v17-1-26606fa9a039@linaro.org>
+References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
+ <20260903-x1e-csi2-phy-v17-1-26606fa9a039@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 20:59:39 +0000
+Message-Id: <20260903205939.ED3561F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apmfqyeWahoR0wab@apocalypse>
 
-On Thu, Sep 03, 2026 at 06:26:19PM +0200, Andrea della Porta wrote:
-> Hi Gregor,
-> 
-> On 18:04 Tue 11 Aug     , Gregor Herburger wrote:
-> > The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
-> > Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
-> > the spi interface.
-> > 
-> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> > ---
-> >  arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 16 ++++++++++++++++
-> >  1 file changed, 16 insertions(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> > index 0fc57e72632ed..81aec81c5ce12 100644
-> > --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> > +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> > @@ -69,6 +69,14 @@ usb_vbus_default_state: usb-vbus-default-state {
-> >  		groups = "vbus1";
-> >  	};
-> >  
-> > +	rp1_spi0_default_state: rp1-spi0-default-state {
-> > +		function = "spi0";
-> > +		groups = "spi0";
-> > +		bias-disable;
-> > +		drive-strength = <12>;
-> > +		slew-rate = <1>;
-> > +	};
-> > +
-> >  	rp1_i2c4_default_state: rp1-i2c4-default-state {
-> >  		function = "i2c4";
-> >  		groups = "i2c4_2";
-> > @@ -94,6 +102,14 @@ &rp1_i2c6 {
-> >  	pinctrl-names = "default";
-> >  };
-> >  
-> > +&rp1_spi0 {
-> > +	pinctrl-0 = <&rp1_spi0_default_state>;
-> 
-> Is there any reason to avoid defining the CS pins as pulled-up gpios
-> in the rp1_gpio node and then referencing it in pinctrl-0?
-No there is no reason for this. I will try it and send a new version.
-> Something like thie following:
-> 
-> rp1_spi0_cs_default_state: rp1-spi0-cs-default-state {
-> 	function = "gpio";
-> 	pins = "gpio7", "gpio8";
-> 	bias-pull-up;
-> };
-> 
-> &rp1_spi0 {
-> 	...
-> 	pinctrl-0 = <&rp1_spi0_default_state &rp1_spi0_cs_default_state>;
-> 	...
-> };
-> 
-> 
-> Many thanks,
-> Andrea
-> 
-> > +	pinctrl-names = "default";
-> > +
-> > +	num-cs = <2>;
-> > +	cs-gpios = <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
-> > +};
-> > +
-> >  &rp1_usb0 {
-> >  	pinctrl-0 = <&usb_vbus_default_state>;
-> >  	pinctrl-names = "default";
-> > 
-> > -- 
-> > 2.47.3
-> > 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Medium] Missing `maxItems: 1` constraint on `endpoint@1` `data-lanes`.
+- [Low] Mismatch in `required-opps` array length relative to `power-domains=
+` in the example.
+- [Low] Type mismatch constraint on `clock-lanes` using a scalar `const`.
+--
 
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+commit be1ee8982134944fca33ceaa85eed2383dcf7ea6
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+This commit adds a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs.
+The PHY supports both C-PHY and D-PHY operation, as well as a combo-mode
+that allows for two sensors to be connected to one PHY.
+
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
+.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> new file mode 100644
+> index 0000000000000..993271c42fa06
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+[ ... ]
+> +        allOf:
+> +          - if:
+> +              required:
+> +                - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
+
+[Severity: Low]
+Will this pass dtbs_check validation?=20
+
+Because the clock-lanes property uses a -lanes suffix, dt-schema evaluates
+the payload from the device tree as an array. Using a scalar "const: 0"
+checks for an integer, which can cause a type mismatch.=20
+
+Should this be written as an array constraint, such as "items: - const: 0"?
+
+> +                    data-lanes:
+> +                      maxItems: 2
+> +                endpoint@1:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 3
+
+[Severity: Low]
+Similarly, should this use an array item constraint rather than a scalar
+constant to prevent a validation type mismatch with the clock-lanes array?
+
+> +                    data-lanes:
+> +                      items:
+> +                        - const: 4
+
+[Severity: Medium]
+Is it necessary to add "maxItems: 1" here to properly restrict the property
+to a single data lane?
+
+Since maxItems is inherited as 4 from the base definition, a configuration
+like data-lanes =3D <4 2> might falsely pass schema validation without an
+explicit maxItems override.
+
+> +              required:
+> +                - endpoint@0
+> +            else:
+> +              patternProperties:
+> +                "^endpoint(@0)?$":
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
+
+[Severity: Low]
+As with the other clock-lanes definitions above, does this scalar constant
+need to be updated to match the array evaluation of dt-schema?
+
+[ ... ]
+> +        csiphy_opp_table: opp-table {
+> +            compatible =3D "operating-points-v2";
+> +
+> +            opp-300000000 {
+> +                opp-hz =3D /bits/ 64 <300000000>;
+> +                required-opps =3D <&rpmhpd_opp_low_svs_d1>,
+> +                                <&rpmhpd_opp_low_svs_d1>;
+
+[Severity: Low]
+Does this required-opps array length match the power-domains definition
+provided earlier in the example?
+
+The example block defines 3 power-domains ("top", "mmcx", "mx") but only
+provides 2 entries here. In the Linux PM domain framework, required-opps
+maps 1:1 to power-domains by index, which leaves the scalable mx domain
+without an OPP mapping.=20
+
+Should this be padded to 3 entries (e.g., using <0> for the non-scalable
+GDSC)?
+
+> +            };
+> +        };
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-x1e-csi2-p=
+hy-v17-0-26606fa9a039@linaro.org?part=3D1
