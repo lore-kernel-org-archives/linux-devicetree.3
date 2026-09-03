@@ -1,226 +1,406 @@
-Received: from mail-ej2-f7.google.com (mail-ej2-f7.google.com [74.125.228.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B253A1A682E
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 10:16:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.135
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430578; cv=pass; b=eRIHNTHTqeQm0XMEDZX/WgJhZzG6RYP0U1xGXLYvw0xAq69jFH5VBXQxS7VqnZ3yFBh0zZXN87/yAuu0iTIM3Ejc/iJ8n057yfc+hvtEa+PNcdhYGJSF8BxD2cKWNOHIUdkVTdBWe/y3XR8jsUNxxmZ1beQgkMjiNfNv1qQ2s5M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430578; c=relaxed/simple;
-	bh=WVlbokzFReA7Tc6/DcRmPk4toil5vu4Fw2X7RHf/oFg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Atin4QBGFckMILLdEOpIKl2RCZqSF3Nguhinqx6Xqd5UdrhXkyxU2yzmT3rx+3EjtkY2/T5k5qtRoEiYuvXZtqXdmHXgsJv+VLMjBK9MHO0elZmhDafq+WjNf22h3m4hUdlnNiHhEru5ZB2GfFZ4UYk2M2xFzoczcwv3QtZaZyk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qWdqxMcz; arc=pass smtp.client-ip=74.125.228.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCB96481257;
+	Thu,  3 Sep 2026 10:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788430579; cv=none; b=gjJpPjRw646B511wMjXcFYGtK3o7MW/Hr9b2OjG/m25ks79kvmj0/4YZdJWG2/Y6MDm04zLAP1O0+/JZXXg0pEjseXGnN095yvseRmHquGRANXoAg8aHrqOaIQr2tEjmxd37D9kOIeYbYb5q9KsyuysQ386ujX77um87USHuwFs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788430579; c=relaxed/simple;
+	bh=R+xKDK2nTnMwARl8glz7InHfn/eZY4VyUjeJ/bHhdr8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YovVenXxOwQu7EJOT8Hi2KpNq6x8nG2GdEHtcX1aB5HZlr4liCKZPBhCtnM/YRBCBZwrOt+4/2ykpzl4AkQQ2FDG0QyAdNlViBUu7c2op3lMnAX2zFvZvDFsU8WCapcdUBn4W9+vutbzcUUBPp0t3J79WEdS0Qu+6Pi9g5SM7es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CU8QQD8U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qWdqxMcz"
-Received: by mail-ej2-f7.google.com with SMTP id a640c23a62f3a-c254cfed751so90995566b.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 03:16:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788430562; cv=none;
-        d=google.com; s=arc-20260327;
-        b=T912v6sg83/iEPP1nxJFm+zHbLMYfCiG9B2ZD89AuvMZCNecPhVMtmmjMt6SPG/YjY
-         OWfzjH14LWb+BYQbp3K4PambkIWWWaD1v9A1X8PDyM9AfwK79PBPRbR2U5RyhorwQwYd
-         YLo5Er66znpRe4AfsJmrBPUPETsdwT4njwBoQ2+FH7RYpTP05k7S0leKxNkouEAVu4fQ
-         8NwWYq40RRhNT6TPHGW3+HbrC3PjhVdXgKCCrCy9nIDQ+pq/ADMSoTy5VQ4wnCkE52dF
-         pz/K/fzJUd+LzGHReTdTV8wywqw2bUgpUZY3Cm58lC7rTvXl4wsMZIDBSxl7VRHRXXHx
-         2CPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XZZc60YapILALMj+sMrNLxAzX0DBFLxvwfnKJeCXNro=;
-        fh=o3s7+rMUNel7Js2/ogE+ecE2SgN/bTqZxCJAjuEgXWE=;
-        b=tByBeICWHd5smFA3MUskB6TrPS+mb20J8qLUvz0ZsYQ+4PVu5kSJ/hY1OFqNvKwkn9
-         bAyEfpIB1p7ADu7WkNp52VuUQdEmI7tDzmopvmSjbHA6HzLLgim2+SrI/6zjwSFkY5sd
-         VfmcbN9t3ZurIhsBTTf+D063JZlngocPdZs13bHR4v1Mpg4Unvo43ApNjqH1aJprks97
-         IjoJ3dRMDAPEf7XFxD8Ko1RKgEYJ+DMu5YDQv8+EOk9rqrBSeKeS0yQdhFWKtxjiLv8Z
-         EEKmgqgVJPs0lnViEIcFGeVB8ZWweWJ+c/YoCI3WuiDz/DWAWRttUMunOByb/jgD0QOc
-         CErg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788430562; x=1789035362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XZZc60YapILALMj+sMrNLxAzX0DBFLxvwfnKJeCXNro=;
-        b=qWdqxMczZ7H3eXZTsxRSgMTrRuvR0sQzkGGyIdOFsN0cX/JyX5AZtKNFGNigOfd+zt
-         FOsN0KjlyfMw2TmXeYwJ1u1uwWlIaNK+Y6EKjcl4anSE1aliDXDAOwcxFS6xzPNV8sqY
-         Ma+xUeGQQXh68mIcaWguPMm6Px+xkRrBceKEY4YcZGMsFnAV0SRATOF5ZFlJsmTjyAf9
-         R1zVeBBfPTEuqtq3lktzurbJlYFFqOBh47ct30fMu4SxBzqb01l2WwhHt1x3VzouI2Rj
-         wj29lfcFu5yqmpqwrY9L81j5QmkAkvJzyQHZp3oMbDZHzvWdggGbutVxjxUsnZgVrhB1
-         /Ajg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788430562; x=1789035362;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XZZc60YapILALMj+sMrNLxAzX0DBFLxvwfnKJeCXNro=;
-        b=JqtMm5DEcv9mc+rfI0ElmObwVQWy9dyKGcpSVJA1KmriQ28Hu4sW/q9VpTTHwGSC0B
-         YI7azutReJXYprcqVOw69OdZhz2SnjfSZTNGeXC2aa8Qd7iDt48wVZ8FVsekJR20Q7Vc
-         LYj+kySeQnMejnJgUg2yOh0RZiJznmqrdle56dgTDIkUIlx+wGKizQtLQKtYUatRtYCd
-         ogPpzqfB/fiKpE4msKDvHErS8d7Z0fCLBRXAJPwmG01ON+YGD5Q13qi7VwyMbHSPkkfK
-         sJV2W84HepIV4riXC09wrVc5YEd1JQZRHgW8VGiCU9NE+9GY52xAbs7KBdObSl7UZQU3
-         1lNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxG251083ZlNde2V80/yC0DOHpd8rpbQnbR5zRzZjyr9O/95RJcS6Nfh2hdk2wCiJwAGEygSZj1USTb@vger.kernel.org
-X-Gm-Message-State: AFuF++mHdhCWwcvF/fjEx77zw7DO7HJXYkc9W2ipejk74DCIqZfhaCPV
-	wZlgWks/TQ9Mx6uUhagTEjVSZ7XEKU0TlAD7es0full1RINTs1YRoMbLlzwpCoiy8Zr8kAmu20L
-	mk4bAp28EjXiltVFm8fYLqSmgMq4fdP/lUg2OnWQNBwcN
-X-Gm-Gg: AYBFou2cr5euGOj1NnlFQ8C8wiSigddQKP6liyCTy3mKUOXiolNzpfuurWhEtHIiOu2
-	VAqqM75XG2e6LP21OOrDgJSoSAhUGD2M3JA44vzBZWrEXiRtpb1MufCzTpxrpMf59j4CuN395kx
-	+r4HkbAsnAAmnd4Tobyz39/0IUVIapWTe2AV59d/wexqa94RWm1LWCT5rTcTE9xsX9TDVG1cyEC
-	s8CHkDy5YsUgj14JhjO8aNOTWTaC60PmZNY1KPDW8xRdAt7uhpJzlngg8Fo6OxC3Bs0xyECJDk8
-	vmmQf+hnhRZdDLtNaLybI/1/2Zdy4FjFEWWlr5EnpnIAz8q1Bid13oENN5s=
-X-Received: by 2002:a17:907:7203:b0:c25:254:292e with SMTP id
- a640c23a62f3a-c25d4c9f1a7mr635886866b.0.1788430561260; Thu, 03 Sep 2026
- 03:16:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CU8QQD8U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25051F00A3A;
+	Thu,  3 Sep 2026 10:15:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788430562;
+	bh=J+hHCoeCaNrFNAaS98mS3DbEz4agR3WizErmXjfn3jg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CU8QQD8UMQrrFMjNLbg7A1pr9E84x6mDUWy27MaJwjULD5tm0cXLa96RBBtUKykUs
+	 KUsSHj05V2V0RGg9VLN0WLxoYZZ9F7kTCM6nPvM2K39RhYgpvtOjlVT7aPAbEh3LTw
+	 YPPOpIoyFI+ugytlZOU4Ti9B7kS8DPBGC5kQoGkcEsceRUx+eZpNG0z10sMwsrfbjR
+	 eNR8JhhV/lbA5FSjN/CuTCuUgi21B7o9+5aj24ISK7Sx2vAe/1eZLAYEFrSP73gGkJ
+	 spSa3CqVNgwAsO+B05SBZhehzsZHorTvFI8x3efx8yjn8ryBow3PgVPjTas6g3/ZAg
+	 KMMQ3ptHS7ZYQ==
+Date: Thu, 3 Sep 2026 12:15:43 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-phy@lists.infradead.org, Thanh Quan <thanh.quan.xn@renesas.com>, 
+	Phong Hoang <phong.hoang.wz@renesas.com>, Hai Pham <hai.pham.ud@renesas.com>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Rob Herring <robh@kernel.org>, Tam Nguyen <tam.nguyen.xa@renesas.com>, 
+	Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, Vinh Nguyen <vinh.nguyen.xz@renesas.com>, 
+	Vinod Koul <vkoul@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 2/2] phy: renesas: Add Renesas Multi-Protocol PHY driver
+ for R-Car X5H
+Message-ID: <c2rlwdyn2xm3tti7skniz3uldwh4lly4jlqdmggqjm2a2xpyxq@nczmbl7tyqa7>
+References: <20260828192223.402422-1-marek.vasut+renesas@mailbox.org>
+ <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901150111.141037-1-coiaprant@gmail.com> <20260901150111.141037-8-coiaprant@gmail.com>
- <20260902150440.78D631F00A3D@smtp.kernel.org>
-In-Reply-To: <20260902150440.78D631F00A3D@smtp.kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Thu, 3 Sep 2026 18:15:50 +0800
-X-Gm-Features: AcwNN1WY1KXAlYP6ywO7GSbIWh5cdAyLJ9V8yYe_I0JGYIyWb1Ll7tKOm3JNX8k
-Message-ID: <CALj3r0jnyqvPgwURmggRBZiCqDiQ4f03=tn13BFez0=W8LH00Q@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 07/10] net: pcs: xpcs: add Rockchip RK3568
- platform glue driver
-To: sashiko-reviews@lists.linux.dev
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, 
-	olteanv@gmail.com, vkoul@kernel.org, devicetree@vger.kernel.org, 
-	robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260828192223.402422-2-marek.vasut+renesas@mailbox.org>
 
-<sashiko-bot@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=882=E6=97=A5=E5=91=
-=A8=E4=B8=89 23:04=E5=86=99=E9=81=93=EF=BC=9A
-> > diff --git a/drivers/net/pcs/Kconfig b/drivers/net/pcs/Kconfig
-> > --- a/drivers/net/pcs/Kconfig
-> > +++ b/drivers/net/pcs/Kconfig
-> > @@ -12,6 +12,29 @@ config PCS_XPCS
-> [ ... ]
-> > +config PCS_XPCS_ROCKCHIP
-> > +     tristate "Rockchip XPCS controller support"
-> > +     default ARCH_ROCKCHIP
-> > +     depends on OF && (ARCH_ROCKCHIP || COMPILE_TEST)
->
-> [Severity: High]
-> Is this missing a PM dependency?
->
-> If the kernel is built with CONFIG_PM disabled, pm_runtime_resume_and_get=
-()
-> returns 0 without enabling the hardware clock. This could lead to a
-> synchronous external abort (SError) when the unclocked APB registers are
-> subsequently accessed in xpcs_rk_read_reg().
+On Fri, Aug 28, 2026 at 09:21:40PM +0200, Marek Vasut wrote:
+> From: Thanh Quan <thanh.quan.xn@renesas.com>
+> 
+> Add Renesas Multi-Protocol PHY driver for R-Car X5H (R8A78000) SoC.
+> 
+> This is a multiplexing PHY block with inputs from five IPs, and outputs
+> to four separate IO blocks. The five inputs are two PCIe4, two USB 3.2,
+> and ethernet PCS, each connected into the PHY with up to 4 times 2 lanes.
+> The inputs can be multiplexed to the four IO blocks as needed.
+> 
+> The datasheet describes initialization procedure without many information
+> about registers' name/bits. So, this driver does contain a bit of magic
+> to initialize the hardware.
+> 
+> Signed-off-by: Thanh Quan <thanh.quan.xn@renesas.com>
+> Co-developed-by: Phong Hoang <phong.hoang.wz@renesas.com>
+> Signed-off-by: Phong Hoang <phong.hoang.wz@renesas.com>
+> Co-developed-by: Hai Pham <hai.pham.ud@renesas.com>
+> Signed-off-by: Hai Pham <hai.pham.ud@renesas.com>
+> Co-developed-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Signed-off-by: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Co-developed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> ---
+> Cc: Arnd Bergmann <arnd@arndb.de>
+> Cc: Biju Das <biju.das.jz@bp.renesas.com>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+> Cc: Hai Pham <hai.pham.ud@renesas.com>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Magnus Damm <magnus.damm@gmail.com>
+> Cc: Manivannan Sadhasivam <mani@kernel.org>
+> Cc: Neil Armstrong <neil.armstrong@linaro.org>
+> Cc: Phong Hoang <phong.hoang.wz@renesas.com>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Tam Nguyen <tam.nguyen.xa@renesas.com>
+> Cc: Thanh Quan <thanh.quan.xn@renesas.com>
+> Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> Cc: Vinh Nguyen <vinh.nguyen.xz@renesas.com>
+> Cc: Vinod Koul <vkoul@kernel.org>
+> Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-phy@lists.infradead.org
+> Cc: linux-renesas-soc@vger.kernel.org
+> ---
+>  drivers/phy/renesas/Kconfig               |   7 +
+>  drivers/phy/renesas/Makefile              |   1 +
+>  drivers/phy/renesas/phy-rcar-gen5-mpphy.c | 757 ++++++++++++++++++++++
+>  3 files changed, 765 insertions(+)
+>  create mode 100644 drivers/phy/renesas/phy-rcar-gen5-mpphy.c
+> 
+> diff --git a/drivers/phy/renesas/Kconfig b/drivers/phy/renesas/Kconfig
+> index 90a9ca2db7fc7..ac903b29cacbc 100644
+> --- a/drivers/phy/renesas/Kconfig
+> +++ b/drivers/phy/renesas/Kconfig
+> @@ -43,6 +43,13 @@ config PHY_RCAR_GEN3_USB3
+>  	help
+>  	  Support for USB 3.0 PHY found on Renesas R-Car generation 3 SoCs.
+>  
+> +config PHY_RCAR_GEN5_MPPHY
+> +	tristate "Renesas R-Car generation 5 Multi-Protocol PHY driver"
+> +	depends on ARCH_RENESAS || COMPILE_TEST
+> +	select GENERIC_PHY
+> +	help
+> +	  Support for Multi-Protocol PHY found on Renesas R-Car generation 5 SoCs.
+> +
+>  config PHY_RZ_G3E_USB3
+>  	tristate "Renesas RZ/G3E USB 3.0 PHY driver"
+>  	depends on ARCH_RENESAS || COMPILE_TEST
+> diff --git a/drivers/phy/renesas/Makefile b/drivers/phy/renesas/Makefile
+> index 0e98083f2f0c8..23d413cfa8ce0 100644
+> --- a/drivers/phy/renesas/Makefile
+> +++ b/drivers/phy/renesas/Makefile
+> @@ -4,4 +4,5 @@ obj-$(CONFIG_PHY_RCAR_GEN2)		+= phy-rcar-gen2.o
+>  obj-$(CONFIG_PHY_RCAR_GEN3_PCIE)	+= phy-rcar-gen3-pcie.o
+>  obj-$(CONFIG_PHY_RCAR_GEN3_USB2)	+= phy-rcar-gen3-usb2.o
+>  obj-$(CONFIG_PHY_RCAR_GEN3_USB3)	+= phy-rcar-gen3-usb3.o
+> +obj-$(CONFIG_PHY_RCAR_GEN5_MPPHY)	+= phy-rcar-gen5-mpphy.o
+>  obj-$(CONFIG_PHY_RZ_G3E_USB3)		+= phy-rzg3e-usb3.o
+> diff --git a/drivers/phy/renesas/phy-rcar-gen5-mpphy.c b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
+> new file mode 100644
+> index 0000000000000..31f17a4955e8e
+> --- /dev/null
+> +++ b/drivers/phy/renesas/phy-rcar-gen5-mpphy.c
+> @@ -0,0 +1,757 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Renesas Multi-Protocol PHY device driver
+> + *
+> + * Copyright (C) 2025-2026 Renesas Electronics Corporation
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/bitops.h>
+> +#include <linux/clk.h>
+> +#include <linux/delay.h>
+> +#include <linux/firmware.h>
+> +#include <linux/io.h>
+> +#include <linux/iopoll.h>
+> +#include <linux/module.h>
+> +#include <linux/of.h>
+> +#include <linux/of_device.h>
+> +#include <linux/phy/phy.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/pm_domain.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+> +#include <linux/types.h>
+> +
+> +#include <dt-bindings/phy/phy.h>
+> +
+> +#define MPPHY_NUM_CHANNELS		4
+> +
+> +/* Common registers */
+> +#define MPPHY_CMNCNT1			0x80000
+> +#define MPPHY_CMNCNT2			0x80004
+> +
+> +/* Channel register base and offsets */
+> +#define MPPHY_CHAN_BASE(ch)		(0x81000 + (ch) * 0x1000)
+> +#define MPPHY_PXCNTXT1(ch)		(MPPHY_CHAN_BASE(ch) + 0x4)
+> +#define MPPHY_PXCNTXT2(ch)		(MPPHY_CHAN_BASE(ch) + 0x8)
+> +#define MPPHY_PXTEST(ch)		(MPPHY_CHAN_BASE(ch) + 0xc)
+> +#define MPPHY_PXREFCLK(ch)		(MPPHY_CHAN_BASE(ch) + 0x14)
+> +#define MPPHY_PXRXREQ1(ch)		(MPPHY_CHAN_BASE(ch) + 0x24)
+> +#define MPPHY_PXRXCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x38)
+> +#define MPPHY_PXSRAMCNT(ch)		(MPPHY_CHAN_BASE(ch) + 0x40)
+> +#define MPPHY_PXTXREQ(ch)		(MPPHY_CHAN_BASE(ch) + 0x44)
+> +
+> +#define MPPHY_PCS0REG1			0x85000
+> +#define MPPHY_PCS0REG5			0x85010
+> +
+> +/* TCA (Type-C Adapter) Register Offsets within MP-PHY base */
+> +#define TCA_OFFSET(ch)			(0x90000 + (((ch) & 1) ? 0x10000 : 0))
+> +#define TCA_VBUS_CTRL			0x40
+> +
+> +/* PCS0REG1 register bits */
+> +#define MPPHY_PCS0REG1_VAL		BIT(16)
+> +
+> +/* PXTEST register bit */
+> +#define MPPHY_PXTEST_BIT		BIT(0)
+> +
+> +/* PXRXCNT register reset value */
+> +#define MPPHY_PXRXCNT_RESET_VAL		0x202
+> +
+> +/* PXSRAMCNT register bits */
+> +#define SRAM_EXT_LD_DONE		0x10
+> +
+> +/* PXREFCLK register value */
+> +#define MPPHY_PXREFCLK_VAL_ETH		0x55
+> +
+> +/* Firmware update */
+> +#define MPPHY_FW_BASE			0x10000
+> +#define MPPHY_FW_CH_OFFSET		0x20000
+> +#define MPPHY_FW_NAME			"rcar_gen5_mp_phy.bin"
 
-ARCH_ROCKCHIP already selects CONFIG_PM.
+Is this firmware redistributable? I would assume not as like other Renesas IP
+firmware. If so, you should add a documentation about how an user can get the
+firmware, and package it. Like,
+Documentation/PCI/controller/rcar-pcie-firmware.rst
 
-> > diff --git a/drivers/net/pcs/Makefile b/drivers/net/pcs/Makefile
-> > --- a/drivers/net/pcs/Makefile
-> > +++ b/drivers/net/pcs/Makefile
-> > @@ -1,10 +1,9 @@
-> >  # SPDX-License-Identifier: GPL-2.0
-> >  # Makefile for Linux PCS drivers
-> >
-> > -pcs_xpcs-$(CONFIG_PCS_XPCS)  :=3D pcs-xpcs.o pcs-xpcs-plat.o \
-> > -                                pcs-xpcs-nxp.o pcs-xpcs-wx.o
-> > -
-> > -obj-$(CONFIG_PCS_XPCS)               +=3D pcs_xpcs.o
-> > +obj-$(CONFIG_PCS_XPCS) +=3D pcs-xpcs.o pcs-xpcs-nxp.o pcs-xpcs-wx.o
->
-> [Severity: Low]
-> Does this syntax create separate modules instead of a composite module?
->
-> Because pcs-xpcs.c references functions like nxp_sja1105_sgmii_pma_config
-> defined in pcs-xpcs-nxp.c without EXPORT_SYMBOL being present, creating
-> separate modules will break symbol resolution and cause modpost linkage
-> failures when CONFIG_PCS_XPCS=3Dm.
+> +
+> +struct mp_phy_chan_priv {
+> +	struct phy *phy;
+> +	enum phy_mode protocol_id;
+> +	bool initialized;
+> +};
+> +
 
-Sure, I will revert it in next version.
+[...]
 
-> > diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-r=
-k.c
-> > --- /dev/null
-> > +++ b/drivers/net/pcs/pcs-xpcs-rk.c
-> [ ... ]
-> > +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
-> > +{
-> [ ... ]
-> > +     pm_runtime_set_suspended(dev);
-> > +     ret =3D devm_pm_runtime_enable(dev);
->
-> [Severity: High]
-> This devm action schedules pm_runtime_disable() to run during devres
-> cleanup on device removal.
+> +static int mp_phy_init(struct phy *phy)
+> +{
+> +	struct mp_phy_priv *priv = phy_get_drvdata(phy);
+> +	struct mp_phy_chan_priv *chan = &priv->chan[phy->id];
+> +	int ret;
+> +
+> +	/*
+> +	 * Note: Current source code support for Ethernet, PCIe
+> +	 * initialization is based on the bare metal code shared
+> +	 * by the board team.
+> +	 */
 
-Yes, I will fix it in next version.
+Nit: Make use of 80 column for comments
 
-> [ ... ]
-> > +static void xpcs_rk_remove(struct platform_device *pdev)
-> > +{
-> [ ... ]
-> > +     pm_runtime_force_suspend(&pdev->dev);
-> > +}
->
-> [Severity: High]
-> Will calling pm_runtime_force_suspend() here cause an unbalanced disable
-> depth?
->
-> Since pm_runtime_force_suspend() internally calls pm_runtime_disable(), t=
-he
-> disable depth is incremented twice during removal (once here, and once
-> during the devres cleanup). When the driver is rebound, it will only be
-> decremented once, leaving the depth at 1 and permanently breaking runtime
-> PM hardware access.
+> +	ret = pm_runtime_get_sync(priv->pd_list->pd_devs[phy->id]);
+> +	if (ret < 0) {
+> +		dev_err(priv->dev,
+> +			"Failed to power on domain for channel %d: %d\n",
+> +			phy->id, ret);
+> +		return ret;
+> +	}
+> +
+> +	/* Check if initialized with same protocol then skip */
+> +	if (chan->initialized)
 
-Yes, I will fix it in next version.
+Comment indicates that the check is supposed to check the protocol, but the code
+is not doing it.
 
-> [Severity: High]
-> Can a concurrent sysfs MDIO access race with xpcs_rk_remove() and crash t=
-he
-> system?
->
-> Because the MDIO bus is registered with devm_mdiobus_register(), it remai=
-ns
-> active and accessible until devres cleanup runs after xpcs_rk_remove()
-> returns. Calling pm_runtime_force_suspend() gates the hardware clock whil=
-e
-> the MDIO bus is still exposed to userspace. A concurrent sysfs read could
-> increment the usage counter, call into xpcs_rk_read_reg(), and execute
-> readl() on unclocked hardware, triggering an SError panic.
+> +		return 0;
+> +
+> +	if (chan->protocol_id == PHY_MODE_PCIE)
+> +		ret = mp_phy_init_pcie4(phy);
+> +	else if (chan->protocol_id == PHY_MODE_ETHERNET)
+> +		ret = mp_phy_init_ethernet(phy);
+> +	else
+> +		ret = mp_phy_init_usb(phy);
+> +	if (ret)
+> +		return ret;
+> +
+> +	chan->initialized = true;
+> +	dev_dbg(priv->dev,
+> +		"Channel %d successfully initialized for protocol %d\n",
+> +		phy->id, chan->protocol_id);
+> +
+> +	return 0;
+> +}
+> +
 
-Yes, I will fix it in next version.
+[...]
 
-> [ ... ]
-> > +struct dw_xpcs *xpcs_rk_create(struct device *dev, struct device_node =
-*np)
-> > +{
-> [ ... ]
-> > +     xpcs =3D xpcs_create_mdiodev(pxpcs->bus, (int)port);
-> > +     device_unlock(&pdev->dev);
-> > +     if (IS_ERR(xpcs)) {
-> > +             put_device(&pdev->dev);
-> > +             return xpcs;
-> > +     }
-> > +
-> > +     if (!device_link_add(dev, &pdev->dev, DL_FLAG_AUTOREMOVE_CONSUMER=
-)) {
->
-> [Severity: High]
-> Is there a race window between device_unlock() and device_link_add()?
->
-> If a concurrent unbind of the supplier proceeds after the lock is dropped
-> but before device_link_add() creates the dependency, the devm-managed
-> pxpcs->bus could be torn down and freed. This would allow the MAC driver
-> to continue probing with a freed MDIO bus, leading to a use-after-free.
+> +static int mp_phy_probe(struct platform_device *pdev)
+> +{
+> +	static const char *const pd_names[] = { "mpp0", "mpp1", "mpp2", "mpp3" };
+> +	const struct dev_pm_domain_attach_data pd_attach_data = {
+> +		.pd_names = pd_names,
+> +		.num_pd_names = ARRAY_SIZE(pd_names),
+> +		.pd_flags = 0,
+> +	};
+> +	struct device *dev = &pdev->dev;
+> +	struct phy_provider *provider;
+> +	struct mp_phy_priv *priv;
+> +	int i, ret;
+> +
+> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +
+> +	priv->dev = dev;
+> +
+> +	ret = mp_phy_parse_dt(pdev, priv);
+> +	if (ret)
+> +		return ret;
+> +
+> +	priv->base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(priv->base))
+> +		return dev_err_probe(dev, PTR_ERR(priv->base), "Failed to map PHY registers\n");
+> +
+> +	priv->map = devm_regmap_init_mmio(dev, priv->base, &mp_phy_regmap_config);
+> +	if (IS_ERR(priv->map))
+> +		return PTR_ERR(priv->map);
+> +
+> +	priv->num_clks = devm_clk_bulk_get_all(dev, &priv->clks);
+> +	if (priv->num_clks < 0)
+> +		return dev_err_probe(dev, priv->num_clks, "Failed to get PHY clocks\n");
+> +	if (priv->num_clks != 5)
+> +		return dev_err_probe(dev, -ENODEV, "Failed to get all PHY clocks\n");
 
-of_find_device_by_node() increments the reference count of pdev->dev,
-so the supplier cannot be unbound between the lock release and
-device_link_add(). The put_device() is only called after device_link_add()
-completes.
+devm_clk_bulk_get_all() will fail if any of the clocks cannot be acquired. So I
+don't see a need to check for clock count.
+
+> +
+> +	/*
+> +	 * The reset ID order here does matters, reset_control_bulk_assert()
+> +	 * asserts these resets in this order, with mpphy02 reset being
+> +	 * asserted first, reset_control_bulk_deassert() deasserts these
+> +	 * resets in reverse order, with mpphy02 being reset being
+> +	 * deasserted last. This is the behavior the hardware expects.
+> +	 */
+> +	priv->resets[0].id = "mpphy02";
+> +	priv->resets[1].id = "mpphy01";
+> +	priv->resets[2].id = "mpphy11";
+> +	priv->resets[3].id = "mpphy21";
+> +	priv->resets[4].id = "mpphy31";
+> +	ret = devm_reset_control_bulk_get_exclusive(&pdev->dev, ARRAY_SIZE(priv->resets),
+> +						    priv->resets);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get PHY resets\n");
+> +
+> +	platform_set_drvdata(pdev, priv);
+> +
+> +	ret = dev_pm_domain_attach_list(dev, &pd_attach_data, &priv->pd_list);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to attach power domains\n");
+> +
+> +	ret = devm_pm_runtime_enable(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable PHY runtime PM\n");
+> +
+> +	provider = devm_of_phy_provider_register(dev, mp_phy_xlate);
+> +	if (IS_ERR(provider))
+> +		return dev_err_probe(dev, PTR_ERR(provider), "Failed to register PHY provider\n");
+> +
+> +	for (i = 0; i < MPPHY_NUM_CHANNELS; i++) {
+> +		priv->chan[i].phy = devm_phy_create(dev, NULL, &mp_phy_ops);
+> +		if (IS_ERR(priv->chan[i].phy)) {
+> +			return dev_err_probe(dev, PTR_ERR(priv->chan[i].phy),
+> +					     "Failed to create PHY %d\n", i);
+> +		}
+> +
+> +		priv->chan[i].phy->id = i;
+> +		phy_set_drvdata(priv->chan[i].phy, priv);
+> +	}
+> +
+> +	return pm_runtime_resume_and_get(dev);
+
+Since the runtime usage count is incremented and not dropped anywhere else, the
+driver will never runtime suspend.
+
+> +}
+> +
+> +static void mp_phy_remove(struct platform_device *pdev)
+> +{
+> +	struct mp_phy_priv *priv = dev_get_drvdata(&pdev->dev);
+> +	struct device *dev = &pdev->dev;
+> +
+> +	pm_runtime_put(dev);
+> +
+> +	dev_pm_domain_detach_list(priv->pd_list);
+> +
+> +	pm_runtime_disable(&pdev->dev);
+> +
+> +	if (priv->fw)
+> +		release_firmware(priv->fw);
+> +
+> +	platform_set_drvdata(pdev, NULL);
+> +}
+> +
+> +static int mp_phy_suspend(struct device *dev)
+> +{
+> +	struct mp_phy_priv *priv = dev_get_drvdata(dev);
+> +	int i;
+> +
+> +	for (i = 0; i < MPPHY_NUM_CHANNELS; i++)
+> +		priv->chan[i].initialized = false;
+> +
+> +	clk_bulk_disable_unprepare(priv->num_clks, priv->clks);
+> +
+> +	dev_info(dev, "Multi-Protocol PHY suspended\n");
+
+Please avoid spamming the log.
+
+I'm wondering how you managed to test runtime PM with
+pm_runtime_resume_and_get() above.
+
+- Mani
+
+-- 
+மணிவண்ணன் சதாசிவம்
