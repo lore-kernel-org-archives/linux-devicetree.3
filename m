@@ -1,114 +1,174 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD37F3B9DBB
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:41:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499504AD7FE
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788471680; cv=none; b=d1mHIQHud0WM1KJbyH9lH0LXU8hQSo89ju7oBKcsMirKSuRwl4g/rlkd8ksI++9qWpc/gjJC8iVI6ooZ7K31R9fIJZGWiIWYYs/qhrp0CGlf5918tAbIphLMXK216NSxbglVfUr1C6n3M9NCoQrXQvcAN6gHjMiOwSvYI3dYvNU=
+	t=1788471681; cv=none; b=o8QtmLfbqtdCNUmKU+1YHtaGp1ZMbd9ayCUhxhKb0CYiTr86A5GIgiK0ypWypAb4p5R4xSxDXgIgHD3W8HQcGdxUAU9I7Uv4IK43KGoP2gtZRYIzV30+gowoApu/r4izhrBDEcQAjTTp0U962EyIEV3x6i4j/Pt6bjWCGnhIrHA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788471680; c=relaxed/simple;
-	bh=eBCNVRBlh/eJS/2vHC3TFbSdchgs4abcQBB1yCnagUA=;
+	s=arc-20240116; t=1788471681; c=relaxed/simple;
+	bh=A/QAFEAz9uU/xF653FtKqWXKWwlX1ut4lSJXC4g6bHs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jNzjNeoeeTwxiOEfAGtR9buUuMh0mmkVa1lhqc5kVIsTRON1GUV1miSlfol9hXpLsfb4HwMdIeFio39UpfwWQsSWksNtXsC3NGESkM7LSMp5RKji1QadAneh6N94P64XC3vvd3w+nCqhsYJpOO4bHZETpIkBSINDlL6YHuDtqyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e27QyBex; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HgvX5s0DdyEDNWr42ofKADzWqaFsq2RcmM+61ez1YJEM3VSNpgGL/w0y+HtcA1JMcPmoasoMWRuLJOkTZ4PHhssqAYWRK7K5QLIzl7llsT3CqKRj89z0pnNmpIfEmZYjdZDfB2vyUOeXtnuhoRCs0fc+L0PCXlnZeR53Fb7IlbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=asTg1Hnu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e27QyBex"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283391F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="asTg1Hnu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95C11F00A3E;
 	Thu,  3 Sep 2026 21:41:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788471679;
-	bh=y0chi/4d04VRFb+NbYZmUacDpjHM9myjRt58vGxwhw4=;
+	s=k20260515; t=1788471680;
+	bh=TVjd0QI8Sw8XxcLKVpwx88Te6iAlDcMOMznn3PZMbTI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e27QyBexGYFjM1/+QZGF2FnYfdw02fqMUOF9UfwLunZiok9YP1PqQ+OoXQtkkGaEz
-	 rDWf/AzsoiSf7YGdh8Ngw6gwSszfJU0bIXNJUDBROR9iZPI4/EcLgONs1wMFVG26cy
-	 BUo1cy0RYmiTSue8ZDOM47uXMhG760fakjcz1R8gojqB+2wbTHCq8Xo88q2+DpChRu
-	 9xAzm/gX8LFlJb0PKxr4juqilpa3IBmZ35x2ZAca9Bw/I4zG3XMs/yq+2IFkBkWApB
-	 5B6ExjElg2uPx1QBWFDmUNEEabLt9KR1IFySWCQjafNujAQ0dS9RzJxg7IQjd+LguH
-	 Z4mlPCLDzA0Bg==
+	b=asTg1HnuAne8quLouih+JzXSIrAqddNbL3djXKXNF7Nq1ERL895evztie1n5dypct
+	 pEJfA677+pI076v4RAsujkROKnwidYZCBItbOLmbM9lCK/9eVGQiywiiWjRn4NQxbU
+	 C7YHVk2s/az8jTLnGzgkPU0YucNfKbTNd8w5LSE5WqgoVeuJi/vN0Gv4pf124AY+gF
+	 +H5mvofPXx5Brm0/qtbW+IGmyDI7SVPHLJo7B0b5bxLNFUKxm8AWp0ks3T9NEk4njc
+	 VgBSC+0Zg/vwvie3rBYZqQsIbxuBO6v1RqEHOtqHJAYHr5u+FH+bY82BAGFZ7mi4Ct
+	 mEfwhjiC4KsBA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v8 05/15] dpll: sit9531x: register DPLL devices
- and pins
+Subject: Re: [PATCH net-next v8 10/15] dpll: sit9531x: add support to adjust
+ output phase
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ali Rouhi" <arouhi@sitime.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260902214030.20955-6-arouhi@sitime.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260902214030.20955-11-arouhi@sitime.com>
 References: <20260902214030.20955-1-arouhi@sitime.com>
- <20260902214030.20955-6-arouhi@sitime.com>
+ <20260902214030.20955-11-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 21:41:18 +0000
-Message-Id: <20260903214119.283391F00A3D@smtp.kernel.org>
+Date: Thu, 03 Sep 2026 21:41:19 +0000
+Message-Id: <20260903214119.E95C11F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Blind overwrite in priority table causes tracking mismatch and inp=
-ut receiver power leak.
+- [Medium] Positive phase adjustments bypass modulo folding and fail to fol=
+d back into a single output period.
+- [Medium] Phase adjust readback returns the cached requested value rather =
+than computing the actual hardware register state.
 --
 
-commit 53ae19cd79c8e3fbf98f8abaf885dd0d25a0d89d
+commit 5bf72d790f8a4746d1529ab82b4bac47ba928371
 Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 
-dpll: sit9531x: register DPLL devices and pins
+dpll: sit9531x: add support to adjust output phase
 
-This commit registers the four on-chip PLLs as DPLL devices, mapping their=
-=20
-inputs, crystal, and outputs as pins based on the loaded configuration. It=
-=20
-introduces a kthread worker to poll hardware registers twice a second to=20
-report lock status, mode, and pin directions to the subsystem.
+Shift an output in time against the others driven by the same PLL.  The
+device has a coarse delay counted in VCO cycles and a three-bit fine field
+in fixed thirty-picosecond steps, so a requested offset is split between
+the two and what the core reads back is what the registers hold rather
+than what was asked for.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
+> index 0f886cfd14013..be033d7cfe7c3 100644
 > --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
-
+> @@ -1342,6 +1342,149 @@ int sit9531x_output_freq_get(struct sit9531x_dev =
+*sitdev, u8 out_idx,
 [ ... ]
+> +	/*
+> +	 * Convert to unsigned absolute delay.  Negative phase (advance)
+> +	 * is rendered as T_out - |phase|, modulo the output period.
+> +	 */
+> +	if (phase_ps =3D=3D 0) {
+> +		abs_ps =3D 0;
+> +	} else if (phase_ps > 0) {
+> +		abs_ps =3D (u64)phase_ps;
 
-> +int sit9531x_input_prio_add(struct sit9531x_dev *sitdev, u8 pll_idx,
-> +			    u8 input_idx)
+[Severity: Medium]
+Will this assignment cause positive phase adjustments to bypass modulo fold=
+ing
+and fail to fold back into a single output period?
+
+The commit message states that "an offset larger than one output period is
+folded back into a single period". However, it seems a requested large posi=
+tive
+phase adjust directly sets abs_ps without applying the modulo by the output
+period.
+
+Could this result in asymmetrical and potentially very large hardware delays
+(up to 34 bits of VCO cycles, pausing the output), whereas a negative phase
+adjust is properly modulo-folded?
+
+> +	} else {
+> +		u64 t_out_ps =3D div64_u64(1000000000000ULL, freq);
+> +		u64 advance =3D (u64)(-(s64)phase_ps);
+[ ... ]
+> diff --git a/drivers/dpll/sit9531x/dpll.c b/drivers/dpll/sit9531x/dpll.c
+> index 6365a83e4c52b..c07fb22565107 100644
+> --- a/drivers/dpll/sit9531x/dpll.c
+> +++ b/drivers/dpll/sit9531x/dpll.c
+> @@ -736,12 +736,63 @@ sit9531x_dpll_output_pin_state_on_dpll_set(const st=
+ruct dpll_pin *pin,
+[ ... ]
+> +static int
+> +sit9531x_dpll_output_pin_phase_adjust_get(const struct dpll_pin *pin,
+> +					  void *pin_priv,
+> +					  const struct dpll_device *dpll,
+> +					  void *dpll_priv, s32 *phase_adjust,
+> +					  struct netlink_ext_ack *extack)
 > +{
-> +	u8 srcs[SIT9531X_PRIO_MAX_SLOTS];
-> +	u8 slot;
+> +	struct sit9531x_dpll_pin *dpin =3D pin_priv;
+> +
+> +	*phase_adjust =3D dpin->phase_adjust;
+
+[Severity: Medium]
+Does this readback intentionally return the cached requested value rather t=
+han
+computing the actual hardware register state?
+
+The commit message documents that "what the core reads back is what the
+registers hold rather than what was asked for." However, userspace reading =
+this
+will receive exactly what was requested, hiding any quantization errors or
+register limits.
+
+> +	return 0;
+> +}
+> +
+> +/*
+> + * sit9531x_dpll_output_pin_phase_adjust_set - set output phase adjustme=
+nt
+[ ... ]
+> +static int
+> +sit9531x_dpll_output_pin_phase_adjust_set(const struct dpll_pin *pin,
+> +					  void *pin_priv,
+> +					  const struct dpll_device *dpll,
+> +					  void *dpll_priv, s32 phase_adjust,
+> +					  struct netlink_ext_ack *extack)
+> +{
+> +	struct sit9531x_dpll_pin *dpin =3D pin_priv;
+> +	struct sit9531x_dpll *sitdpll =3D dpll_priv;
+> +	struct sit9531x_dev *sitdev =3D sitdpll->dev;
 > +	int rc;
 > +
-> +	lockdep_assert_held(&sitdev->multiop_lock);
+> +	mutex_lock(&sitdev->multiop_lock);
+> +	rc =3D sit9531x_output_phase_adjust_set(sitdev, dpin->id, phase_adjust);
+> +	mutex_unlock(&sitdev->multiop_lock);
 > +
-> +	if (pll_idx >=3D SIT9531X_NUM_PLLS)
-> +		return -EINVAL;
-> +
-> +	rc =3D sit9531x_prio_table_read(sitdev, pll_idx, srcs);
-> +	if (rc)
+> +	if (rc) {
+> +		NL_SET_ERR_MSG(extack, "Phase adjust failed");
 > +		return rc;
+> +	}
 > +
-> +	for (slot =3D 0; slot < SIT9531X_PRIO_MAX_SLOTS; slot++)
-> +		if (srcs[slot] =3D=3D input_idx)
-> +			return 0;
-> +
-> +	srcs[SIT9531X_PRIO_MAX_SLOTS - 1] =3D input_idx;
-> +
-> +	return sit9531x_prio_table_commit(sitdev, pll_idx, srcs);
+> +	dpin->phase_adjust =3D phase_adjust;
+
+[Severity: Medium]
+Should this cache the requested value unconditionally, or should it determi=
+ne
+and store the actual hardware-configured phase achieved by the math?
+
+This reinforces the issue above where readback returns the requested value
+rather than the true quantized phase offset.
+
+> +	return 0;
 > +}
-
-[Severity: High]
-Does this unconditionally overwrite the last priority slot without clearing
-the tracking state for the displaced source?
-
-In sit9531x_input_prio_add(), if the priority table already contains unique
-sources in every slot, assigning the new input_idx to the final slot
-(srcs[SIT9531X_PRIO_MAX_SLOTS - 1]) silently ejects the previous source from
-the hardware priority table.
-
-Because the displaced source's corresponding ref->pll_mask is not updated in
-software when this happens, can this cause the old source's input receiver
-to remain powered on indefinitely? If its pll_mask bit remains artificially
-set, it appears the DPLL core state will diverge from the hardware reality,
-leading to a resource leak.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902214030.2095=
-5-1-arouhi@sitime.com?part=3D5
+5-1-arouhi@sitime.com?part=3D10
