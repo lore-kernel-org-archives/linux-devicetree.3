@@ -1,177 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9B84B5CDD;
-	Thu,  3 Sep 2026 14:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFB640928C;
+	Thu,  3 Sep 2026 14:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445592; cv=none; b=QRJ0h9wBhdr3nb1LaKjaHiUTzU3Q4c5GrJu/EQeZRkMVzKfnl0lUpzLPv7Gm0d/7z91oKYYGUg/6F6MOwy0QuQQgkhRDH1WYyORDOwFTi03e/vS3/P7pygvEGMalv5//3GHB0qKTmqUS3+VmgeIRXVPejN9uH7+Fp7r/3GXKiCg=
+	t=1788446123; cv=none; b=cwbrttFMMbM31Ftl5Cc5pMKZ3yuK1c3Xiyg03M8zKEvO4jeumHMLPWWOFFgB/BtRVsP90cmsRshu0MsMDN2u3EP2jh5jJpNZdjxE4kEgnFTIp0mH80xBayEzH2aS4eocFEy+xSUg1qnBIQIxjeol7wL9UAxgtfzICfHFzKQlhDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445592; c=relaxed/simple;
-	bh=lYU+JaKTrxz/zR7uUr+TS+iFPeWmv8zTUgaDNZhq4Ww=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=E3PBCYMqfgMnxb0yBE7+TJi8DDZnE6p/B250yOaqa1M2nzurQoSm9WkJ6ApXNoM0xQHWf0/eKSToTxh2aMq8M++ursECbFY7jnHdcz5qPsBjidJBsDqijMJqqj23qoUojj5K+qX8SRb/lpRWli5xouxJDae7KpyK+VNpa2KQ0uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLfuWzI6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788446123; c=relaxed/simple;
+	bh=vkHtOBeqJKuWcc0Hcp4YMAdXb99vMRmxPJnYZQagXaQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eu4KdTHZic+0tYWL8x4e0wGC3UIi6Q5dPxPA6/dJZ4VAmY1ZOZ89mLwjkbcc8fXTUg0aCqUHooJ34DTn9HVxkXvPjAqatrm24tB+ffsCpijQLhYekgGgZIDbl1FQz0Joz17glwIc4/0tdy/p7VoX4HRM4ccn4dJZAwdvUWBqKJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=uLMvKxzL; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLfuWzI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5678F1F00ADB;
-	Thu,  3 Sep 2026 14:26:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788445568;
-	bh=SKbhH/yJev4U5qDLNZLWqB0aqWQtOQabQFXAP6Qz4ZM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=VLfuWzI6M1UuqhSFzrwxPTwogZdJepASYShqF9suC2kJCMxqIMmaNd4qOy3QODtA0
-	 N7Evhsuo5dteNxEOvh/1REpp4l6wGpiuswNIWM065A9Q/WkUlOzHs7ucS7jU36gJvp
-	 40aq3AXt2BHM681EPP9j7bdwfb0W+nC0CfT3bvainCK8v0IjOqW0UKA3Xq04EZ37bZ
-	 zYW4ceYsUS+TtnqrnQ3kojcaXqm8bU/VzMXP5mB/Q7VBp2cJY+lr6bfwcoqhjilOs8
-	 VAhGAfEOnKoj/lmb6cjzMuNudQ2ipTx9yXarJuebADtlPjftWirFDx7Q6og4HNf9x2
-	 ckcLgl6d7arGQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Thu, 03 Sep 2026 16:25:30 +0200
-Subject: [PATCH v2 3/5] phy: qcom-qusb2: Remove _SHIFT defines
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="uLMvKxzL"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 8D18A53405FD;
+	Thu, 03 Sep 2026 16:35:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788446109;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=Q5rOd/Qktib1iQtBnsgey0ILDazMjdhik5E1O2hY1ro=;
+	b=uLMvKxzLjt5vT5r4g2tOrTLKmJtUdqtmFDBbpxjR4ByP9TM1lXcSdScRqzAMWxwP39bPic
+	jH5Jdt5FFuOaRAxtJSYpteXijG2ZXFDphhXOhzi6VyZP/rWNvBOz5d4khi5UhNrKmw5WyV
+	WRQj/SwOLKOZZULZCCrJx7iFXewKZVk=
+Message-ID: <a1038b46-1d37-4563-a51c-f4432b557de1@ixit.cz>
+Date: Thu, 3 Sep 2026 16:35:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
+To: Paul Sajna <sajattack@postmarketos.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+References: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-topic-8996_61x5_qusb2phy-v2-3-4c3f980a4560@oss.qualcomm.com>
-References: <20260903-topic-8996_61x5_qusb2phy-v2-0-4c3f980a4560@oss.qualcomm.com>
-In-Reply-To: <20260903-topic-8996_61x5_qusb2phy-v2-0-4c3f980a4560@oss.qualcomm.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
- Iskren Chernev <me@iskren.info>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788445548; l=4069;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=4DL9fcjNJk7MXfdTRYqW0Ax5xXaUgoYEFk4XUmKw5UU=;
- b=g89we8bc/8i+YUYaw4/Sk3483pnzT5w6gOwN4vI6135tJvnm4rvE6ejUvo4/zfwraCo173kyS
- 736OzQNDRJnAO1J/Pl7HTu170TPorpJdcjnqmoFB2d8FJMDBKN2/7Rh
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On 03/09/2026 04:03, Paul Sajna wrote:
+> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+> 
+> Downstream dtsi for reference:
+> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+> 
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
+>   1 file changed, 31 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> index b030a10009c5..069d1cf3dead 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
+> @@ -471,6 +471,25 @@ &gpu {
+>   	status = "okay";
+>   };
+>   
+> +&i2c3 {
+> +	clock-frequency = <1000000>;
+> +
+> +	status = "okay";
+> +
+> +	nfc@28 {
+> +		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
+> +		reg = <0x28>;
+> +
+> +		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
+> +
+> +		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
+> +		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&nfc_default>;
+> +		pinctrl-names = "default";
+> +	};
+> +};
+> +
+>   &ipa {
+>   	status = "okay";
+>   };
+> @@ -551,6 +570,11 @@ &qupv3_id_1 {
+>   	status = "okay";
+>   };
+>   
+> +&qup_i2c3_default {
+> +	drive-strength = <2>;
+> +	bias-disable;
+> +};
+> +
+>   &qup_uart9_rx {
+>   	drive-strength = <2>;
+>   	bias-pull-up;
+> @@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
+>   		function = "gpio";
+>   		bias-pull-up;
+>   	};
+> +
+> +	nfc_default: nfc-default-state {
+> +		pins = "gpio12", "gpio62", "gpio63";
 
-These are unnecessary as they may be inferred from the mask. Drop them.
+if you want to, you could make it more descriptive with -pins,
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- drivers/phy/qualcomm/phy-qcom-qusb2.c | 33 +++++++++++++++------------------
- 1 file changed, 15 insertions(+), 18 deletions(-)
+see
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-index aac36ed994b1..50c60d56d447 100644
---- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
-@@ -3,6 +3,7 @@
-  * Copyright (c) 2017, 2019, The Linux Foundation. All rights reserved.
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/err.h>
-@@ -64,26 +65,20 @@
- 
- /* QUSB2PHY_IMP_CTRL1 register bits */
- #define IMP_RES_OFFSET_MASK			GENMASK(5, 0)
--#define IMP_RES_OFFSET_SHIFT			0x0
- 
- /* QUSB2PHY_PLL_BIAS_CONTROL_2 register bits */
- #define BIAS_CTRL2_RES_OFFSET_MASK		GENMASK(5, 0)
--#define BIAS_CTRL2_RES_OFFSET_SHIFT		0x0
- 
- /* QUSB2PHY_CHG_CONTROL_2 register bits */
- #define CHG_CTRL2_OFFSET_MASK			GENMASK(5, 4)
--#define CHG_CTRL2_OFFSET_SHIFT			0x4
- 
- /* QUSB2PHY_PORT_TUNE1 register bits */
- #define HSTX_TRIM_MASK				GENMASK(7, 4)
--#define HSTX_TRIM_SHIFT				0x4
- #define PREEMPH_WIDTH_HALF_BIT			BIT(2)
- #define PREEMPHASIS_EN_MASK			GENMASK(1, 0)
--#define PREEMPHASIS_EN_SHIFT			0x0
- 
- /* QUSB2PHY_PORT_TUNE2 register bits */
- #define HSDISC_TRIM_MASK			GENMASK(1, 0)
--#define HSDISC_TRIM_SHIFT			0x0
- 
- #define QUSB2PHY_PLL_ANALOG_CONTROLS_TWO	0x04
- #define QUSB2PHY_PLL_CLOCK_INVERTERS		0x18c
-@@ -545,28 +540,28 @@ static void qusb2_phy_override_phy_params(struct qusb2_phy *qphy)
- 
- 	if (or->imp_res_offset.override)
- 		qusb2_write_mask(qphy->base, QUSB2PHY_IMP_CTRL1,
--		or->imp_res_offset.value << IMP_RES_OFFSET_SHIFT,
--			     IMP_RES_OFFSET_MASK);
-+				 FIELD_PREP(IMP_RES_OFFSET_MASK, or->imp_res_offset.value),
-+				 IMP_RES_OFFSET_MASK);
- 
- 	if (or->bias_ctrl.override)
- 		qusb2_write_mask(qphy->base, QUSB2PHY_PLL_BIAS_CONTROL_2,
--		or->bias_ctrl.value << BIAS_CTRL2_RES_OFFSET_SHIFT,
--			   BIAS_CTRL2_RES_OFFSET_MASK);
-+				 FIELD_PREP(BIAS_CTRL2_RES_OFFSET_MASK, or->bias_ctrl.value),
-+				 BIAS_CTRL2_RES_OFFSET_MASK);
- 
- 	if (or->charge_ctrl.override)
- 		qusb2_write_mask(qphy->base, QUSB2PHY_CHG_CTRL2,
--		or->charge_ctrl.value << CHG_CTRL2_OFFSET_SHIFT,
--			     CHG_CTRL2_OFFSET_MASK);
-+				 FIELD_PREP(CHG_CTRL2_OFFSET_MASK, or->charge_ctrl.value),
-+				 CHG_CTRL2_OFFSET_MASK);
- 
- 	if (or->hstx_trim.override)
- 		qusb2_write_mask(qphy->base, cfg->regs[QUSB2PHY_PORT_TUNE1],
--		or->hstx_trim.value << HSTX_TRIM_SHIFT,
-+				 FIELD_PREP(HSTX_TRIM_MASK, or->hstx_trim.value),
- 				 HSTX_TRIM_MASK);
- 
- 	if (or->preemphasis.override)
- 		qusb2_write_mask(qphy->base, cfg->regs[QUSB2PHY_PORT_TUNE1],
--		or->preemphasis.value << PREEMPHASIS_EN_SHIFT,
--				PREEMPHASIS_EN_MASK);
-+				 FIELD_PREP(PREEMPHASIS_EN_MASK, or->preemphasis.value),
-+				 PREEMPHASIS_EN_MASK);
- 
- 	if (or->preemphasis_width.override) {
- 		if (or->preemphasis_width.value ==
-@@ -582,7 +577,7 @@ static void qusb2_phy_override_phy_params(struct qusb2_phy *qphy)
- 
- 	if (or->hsdisc_trim.override)
- 		qusb2_write_mask(qphy->base, cfg->regs[QUSB2PHY_PORT_TUNE2],
--		or->hsdisc_trim.value << HSDISC_TRIM_SHIFT,
-+				 FIELD_PREP(HSDISC_TRIM_MASK, or->hsdisc_trim.value),
- 				 HSDISC_TRIM_MASK);
- }
- 
-@@ -623,10 +618,12 @@ static void qusb2_phy_set_tune2_param(struct qusb2_phy *qphy)
- 	/* Fused TUNE1/2 value is the higher nibble only */
- 	if (cfg->update_tune1_with_efuse)
- 		qusb2_write_mask(qphy->base, cfg->regs[QUSB2PHY_PORT_TUNE1],
--				 hstx_trim << HSTX_TRIM_SHIFT, HSTX_TRIM_MASK);
-+				 FIELD_PREP(HSTX_TRIM_MASK, hstx_trim),
-+				 HSTX_TRIM_MASK);
- 	else
- 		qusb2_write_mask(qphy->base, cfg->regs[QUSB2PHY_PORT_TUNE2],
--				 hstx_trim << HSTX_TRIM_SHIFT, HSTX_TRIM_MASK);
-+				 FIELD_PREP(HSTX_TRIM_MASK, hstx_trim),
-+				 HSTX_TRIM_MASK);
- }
- 
- static int qusb2_phy_set_mode(struct phy *phy,
+https://lore.kernel.org/all/20260902-sdm670-sargo-nfc-v1-2-bed1cbbffc46@ixit.cz/
 
--- 
-2.55.0
+David
+
+> +		function = "gpio";
+> +		drive-strength = <6>;
+> +		bias-pull-up;
+> +	};
+>   };
+>   
+>   &uart6 {
+> 
+> ---
+> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+> change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
+> 
+> Best regards,
 
