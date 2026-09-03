@@ -1,156 +1,591 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4089739CD0F
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 10:22:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E2B41DDE8
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 10:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788430967; cv=none; b=MbsZtq/PuiBmaUdQSlwd5tVm9lCUsIazVDoeCXf7rgQY9N7LFbvJ+QYiJgcZS1zmNKec78soCLt07MRj71fWSxiKkKcw7W5/SWSE+AlQAfwuVLGLw16lM7RX07LE4E4ikE2747avcjP7IhyjQmG2r6pR6qik7IyJbLXyeX30W18=
+	t=1788431031; cv=none; b=o3SNMNCD/4zhGMAtBZzuQiV4vkLlC0nuhUd4x9oKes/P9a+yRCDUvxyq/YjseT9Qx44zs26zielUwQPIXAWZzBA32NGD2gnjF+kuxZtGmLlB2LUSZ2Z0BcyqeIaNmp3Gnp3zxMEH9o37yFpKz5a9unaLyCAJ+EzaiyH18Rpc7Bc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788430967; c=relaxed/simple;
-	bh=IMVVshXwxDDSJzE0l8MvT/fRHMRPsXvntd5GyUh3aFM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OhxtBNdk+77n70+5CWlTfLr5gar1YqCpNlPgCKbIzwhUUwyrE4EJuVTPtnaKhIa82+lbPw7eRtfoRw9qChGFMkhzijJyQxHvFzdkCQCnMCgNJofUOyPlVHUaxVWkah0UiPFp0ZhOa5HIaWi66p7axYeMPonirOa3Uoz2dMfzTBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E/t0/AIQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iHCvlG6V; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1788431031; c=relaxed/simple;
+	bh=odx09FB8/gdL958vYgn/vOV6oO41vdNuxUITtl31qQA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=J4uY7iAHOdkRpXLLsQY8FxXsgsG0VoIOMhmc2NZiIb2s7MJYMKXHy5ydFNitMhxl9gCMDT7kDAd+imbw3TCfvAZ1auPP8fccT6h7Ji9+//ezO20+khXjJKz/VfTMzq9x8T9zGCxTzbIJiMO3r7xm8o4hARCECDnnxsBPhiyAekw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=c3Z8L62K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eyJG6Gee; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E/t0/AIQ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iHCvlG6V"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AH2MF3720073
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 10:22:44 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="c3Z8L62K";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eyJG6Gee"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHIk1162960
+	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 10:23:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=MWzDrNxzthWPdsVZldsnWvMx
-	9IcczP+HYo1LJtEAQps=; b=E/t0/AIQJNXxavIvF4DSXyZj0XFMxzjyKFoBboju
-	8R6N1Darux0BmyjgQfyvsnYAbW88jDZ7/pMCxRBwQq73SRc0dKaeRXwoRvx4oU69
-	xYnX4LRp+pFaJqQJ/hXZWq7B7/KqK4Haa6o6ClZv4ZzJbrgzFYLuzG86M4ivfKzz
-	XR466xDjYKLFSGmrfvDG21XyL4wP9hQxCmouI8W7tvI6qYo6XovD8cD9inVfgmqg
-	Nio5fA/LHms+iuYTVX9x1HgmlOcKicjFFZhW8nA70nFniMJ5/CFchnI3w7vE1sUW
-	3To+/4/ZTDrHbDajvLFfE0A2Tc1w10AR+/bJy76HS7MFVA==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf0gjsnbh-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	OTzXRhSzRtnjRJ4J4oJH2ZZtAAGHA+EWF3AV+MLmAcI=; b=c3Z8L62KoHJrgPYP
+	zXIrSHaSVau5D+wB2EZIqPDnNsoSj4Q59pm0A0bu3JnogaGg7QgJ39cIW4FI9+p0
+	JaiywSkL/KpVde6wwafCkYEePWC2i4zz8Ll6uumPVQXe+am+8x5V2yy65Fgf8xfi
+	SZw17v0RNhkWfds/HLLUyrUmXCgaWEGi+ORcjsqE6gh0JutYpFZyLOLNaaRXjNd6
+	YP071Duv1AJWsrnMid0sSBdE7ztIK1vwim3yEkcxJBfhBA8Dqy2VrJyTY3N2gIuV
+	rj1AmKadvbD4RAM2AK8HXxfQANEBL5kd+zvgLLvjS19BhPDde/BWkW55VCV/coVt
+	FuTBFw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf6tx02cx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 10:22:44 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9308eafb465so570246085a.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 03:22:44 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 10:23:46 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dc0eee75dso541470a91.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 03:23:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788430963; x=1789035763; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MWzDrNxzthWPdsVZldsnWvMx9IcczP+HYo1LJtEAQps=;
-        b=iHCvlG6Vp1u7EWzgmoAR3o1n+AIUN1QOoekf8aA8lDEEJDGUyrepvCUUcG4zorY1iG
-         XoPnpmWX1XiHAfNFXNb7wnaX9rf5EQZtU12HBkgbTdOl3zdnJHo1jxlnutaso17Fv0nq
-         bf/fIhdN83dYv8FEcynUG/QnsbXGW2L/KiSOzA368HqaMUVn3jlM+aua5Krug7ZwDsOR
-         tsuheBiNLh5XtFGCwjdLIflsNkjD7/ZguDQg/HeSu1+hwJpx2vY1A+lSSGF9rLmVzanD
-         1DbmR+IOnBuDFbB+dRQeiM376v39lDDo7nMjZYRr/hyjytOxo0dF7CSfGgl2SjmhPftk
-         joXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788430963; x=1789035763;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788431026; x=1789035826; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MWzDrNxzthWPdsVZldsnWvMx9IcczP+HYo1LJtEAQps=;
-        b=I/OXrsnM8iIKnYQkLBDkF1hepuvOLWyI9HV5qe5lVc7oVIBG3NEjqqwX78ZnsASQ5F
-         5zA3SSzM7PPzIDdyu9YmAp5xaaeD3HUZup3oXrox9NEiQBkduU/napxHtQpfuAbkEOMm
-         hBnZfDM1eGOM+Yj1LTDFktbIjunxj0/6JAaJAi7vq0M7ueW+ja3ZGsB5AhLA8z+xzurN
-         pLPdu96IDl/ufUrVNNCnrKv442TJ2xM3UmTQiiI42ytrNVjRgvVgSZuiCYwEKC+K5ATM
-         Pd7/IAt2zmTO/tz9O3TR+EX8R/6qF0KaB4skIlkOW5UJENEGsoZuzQwRbZCL1sLyZ27u
-         byJg==
-X-Forwarded-Encrypted: i=1; AKwUvByCWSanJ+NsEyztSnv1EbrmHOl7gHlBxq1nj3VwDrp9n8d2Lu8tR3gOpac/WXTpXz4JVV71A7U2WG6X@vger.kernel.org
-X-Gm-Message-State: AFuF++lfK5KFlJDXByKDczk+vorJLAQjqnV7aoBK9+sIYMX9mVg5Q+xD
-	7PQXWO/ihCvkklb0KkLXt8pIZB9u6NhPgSfABYsHXlQoQpWLea1I5c61K+XOX9xcdHVcUV+bPv5
-	cYgpKn2I7yvH0ch2w0tpGmL7ILrJH3nZX34lXPiYBqQKBKK24/iuaeeOm8KqSgM3t
-X-Gm-Gg: AYBFou1McpLrVHF+tqp0aPeedeUMQi5Epyw1d76xpPRnfd8qN33i1cD56TK+JbB59Vp
-	NJmH8oQ8N9oYUDNa3FnbIVV5vwK436mGFyU1BHM5JFHVJumtVFf4GomdnzdWKp1IDUyjRbYPBDz
-	pOCRFsEsNq9X656NWJ+mRrr4rJRQYXYzqUEGoYezreQcNhz6hNXd6OEw4TB3DFDXsgNp9F7IIyK
-	5MmaHfXnvHvDZuoDL6198S44MrbsYA8NJCN7LZOhraKEMJGTgtaFUoDcPNn7ZKNZxp1K7OhtxOZ
-	GiZ7AWLh1xcsGXf8spHpqax+fsWaAr6xwBVhYXOEHVsqYj5fjY52lq5weH2J26ISqwxq1y8qMGb
-	LGI2nECUfYJ2t6A==
-X-Received: by 2002:a05:620a:6010:b0:939:6132:62cc with SMTP id af79cd13be357-93961326388mr1435826885a.27.1788430963429;
-        Thu, 03 Sep 2026 03:22:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:6010:b0:939:6132:62cc with SMTP id af79cd13be357-93961326388mr1435820785a.27.1788430962820;
-        Thu, 03 Sep 2026 03:22:42 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5e589bsm55667075e9.13.2026.09.03.03.22.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 03:22:40 -0700 (PDT)
-Date: Thu, 3 Sep 2026 13:22:37 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v5 07/15] interconnect: qcom: Add Kuno interconnect
- provider driver
-Message-ID: <xkyj7x2chonmrovnwaosd7sci2txi7bsbpvv522uzxdonkke7y@5kpqjal3i6nm>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-7-6d47636a8f09@oss.qualcomm.com>
+        bh=OTzXRhSzRtnjRJ4J4oJH2ZZtAAGHA+EWF3AV+MLmAcI=;
+        b=eyJG6GeelpFWnQRE1MdAFVno7XahD68KPj05wUCmswQs33TZ1C51Ff5odWPKdknDeH
+         rdgClsEtIf5nozAvgk7Hy25nHMsqu2lX7mbNDP4UQ3O91Iic/TfPm725FW84FaJMT2RR
+         KdSIFuWBuA9Kl/26h28zTPIShM8/QAtnICag8XuUGnd9PwXCU24IDYgrh82dTz+rKZg0
+         qZO7u/W5KDZ4EZKKC6yqt2MIknTPUn25fbDO0lUNUlc6rfw1fBLNvMR9lex+XXY0Z9qP
+         TY4XNJJQib9jqXMA0LCaUYxQ7pMI443JmxjaZquerzvuDN9bVFJfiGwuKrW0mgisF+ZY
+         JEXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788431026; x=1789035826;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OTzXRhSzRtnjRJ4J4oJH2ZZtAAGHA+EWF3AV+MLmAcI=;
+        b=oKlq0YTTzsHVKuu5o3g1GEIgAaB0z+c35YdTdVK93clLXJcqvy2PRD5d3v/SldmizG
+         Ldcod8C18ONAsDiO3sI3dQzqYuqDX8zce5KeGRiQd+FK17CUQQzvP04MYfVaiW9QORV7
+         NyQ23xmB9HDmqlTqsP3D7neR9cYgsT3AdYujGvuY6VIWB2OFQHabITvDZbvo7QBxUWc7
+         Sxs3bts/38SI2SBpO3OBMLfi4p6ET/XLaPKC2bPyxzNGWSe3rkiZQKReNymHP8+jKQ0U
+         kGcKTh/9JffG2T5Kr/KLxjhy8xDpD5UxssCCn0h4zdEtRaP5nQDMobvBxK1di9oYCHoL
+         03nQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFWGcyhD3kqH2GhcQ91I52fBMNlEXCBWTrZ0OBvHSifI31Ch7rekedYnj7w6LApIGUBKz+ciqR47/Y@vger.kernel.org
+X-Gm-Message-State: AFuF++nW+XRpOc+cVi0FqbkKKJCTzfoguatriPlpVqFgUweVJS7GreB9
+	LUvpihNjg9yzehDSYROYPDElk6wFd8BslTpU8PMStb6Ei9X+4xbfq37LG/FMGDgFRqpamH6DS7D
+	w+XVlqfUlxD/mbirl9Q48kLluw+3GZXqb4HBtLJ8gyqHH+mno+/UjJNpJePsqB6RT
+X-Gm-Gg: AYBFou1YuH9bib6GuCIzil3KBEm6qkl6CAv1XanJTigbmtCqo/DQkcN70EnwkrYdRAp
+	vtYWD1vScjQxaUUJvR00HOu7IvarJtLxepVK0chqCrBYS4jsgYR5fL4qIb0167jLImtfPV9vj36
+	0KpX2bBrwlp2fMSyE646jXphTldrf1HFeGPrbcwf/Ip7/AiaXwVAZS1FI7R3AY6qI6yVtON4ICc
+	LW45R8vOIEQbIPwhjTIuX2AO3Dlylyltf0wG3gLKPp6IhKSxWrghXHAWNHI1D+rjbHSD8qWC6Xj
+	1S6b2fSw9bJ4d3oC2KYvVfV3kBmNwF0yVSbm5uxPbUyUlGGbfnxAoE4jS+a8cRJQwND2dDLQTfM
+	crfFcQBKK/VaJWwLlfMWTXntPVdHkbw==
+X-Received: by 2002:a17:90b:4b8b:b0:38e:76f8:fcbb with SMTP id 98e67ed59e1d1-39aee1c6d08mr10332172a91.4.1788431025601;
+        Thu, 03 Sep 2026 03:23:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:4b8b:b0:38e:76f8:fcbb with SMTP id 98e67ed59e1d1-39aee1c6d08mr10332093a91.4.1788431024756;
+        Thu, 03 Sep 2026 03:23:44 -0700 (PDT)
+Received: from [10.219.30.245] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3325592ebb3sm5588824eec.14.2026.09.03.03.23.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 03:23:44 -0700 (PDT)
+Message-ID: <d03f0298-967c-4fe0-86c4-a27641701697@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 15:53:37 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827-kuno-soc-support-v5-7-6d47636a8f09@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfX8Gs+5p6waBqX
- foByQlHb8LvRmzjFxlPptRK60yM1aYYH1CFZU28EmloBjSxrLZ2BG7vL6hDSiUYUArV/CEL8GXl
- F5i5ZHESwLSEpYS54hQZubmFzRXIQSNRyzet8YVbOO/ZFdgngxLMleJDFkqM0bd+ByKStSE/prx
- DCepCggdPcYFHab+j75JxKF3IXLpdK+LK7vT7+HZl6HFEY1FcBym/qZLmr/XKjjjHl0G1qqVhOd
- ZEEY9kaWVWO8bbDfmnQ0xUhF9IvykaPabuwz3OLhX2bch3zL7064yemLC3IqOJCh1vRpU8HObLn
- 2iQaUP7QAjsAvqndUbGkpY4v3cKa+Pjo8S2n3S7VKEh1in6MtrGv95yARNRVRe8vs9ZsSRjc6AT
- Fya0/DHBXyQFzV2DpTmsGCPBZACj0P8Mmm6lssY0RiCY8OMM2PRJj/kNmABPqJzXEilRRCvO7rS
- TO2NRHFef8BuH64vLWw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfXzvTHL5KxeakE
- RYOH+6bOWqKQC9mf6mRQiqggmIMkTUP/mji9uJujle0YmjvuuGaMePWepfwsbdc0r1Llz6N7DoQ
- H8liQGZdUGW596xsnFDwzvflICTukME=
-X-Proofpoint-GUID: TD-MReNsBaCxytyCzEAfANOe-HzlQWyL
-X-Proofpoint-ORIG-GUID: TD-MReNsBaCxytyCzEAfANOe-HzlQWyL
-X-Authority-Analysis: v=2.4 cv=LZ4MLDfi c=1 sm=1 tr=0 ts=6a994a74 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=pe0felBmJweB1gBNqhwA:9 a=CjuIK1q_8ugA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: arm: ras: Introduce bindings for ARM
+ RAS error sources
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Ruidong Tian <tianruidong@linux.alibaba.com>,
+        Tony Luck
+ <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+        faruque.ansari@oss.qualcomm.com, avaneesh.dwivedi@oss.qualcomm.com
+References: <20260720081954.1858180-1-umang.chheda@oss.qualcomm.com>
+ <20260720081954.1858180-2-umang.chheda@oss.qualcomm.com>
+ <20260728-fervent-optimal-auk-7850ae@quoll>
+Content-Language: en-US
+From: Umang Chheda <umang.chheda@oss.qualcomm.com>
+In-Reply-To: <20260728-fervent-optimal-auk-7850ae@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: R2TobGuTM5sYeVduG7BfyBf_9jc2n2to
+X-Authority-Analysis: v=2.4 cv=TqjWQjXh c=1 sm=1 tr=0 ts=6a994ab2 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=P-IC7800AAAA:8 a=gEfo2CItAAAA:8 a=UXIAUNObAAAA:8 a=EUspDBNiAAAA:8
+ a=8vMulZHAkAiH2yylmEoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=d3PnA9EDa4IxuAV0gXij:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=a1s67YnXd6TbAZZNj1wK:22
+X-Proofpoint-ORIG-GUID: R2TobGuTM5sYeVduG7BfyBf_9jc2n2to
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfX4lq9/W5cGogR
+ 9RAJINDGecDrtZ52wHLUo3RU/ZG1a22iGGKFkO5UUUd2LI1yLGL9HVx21O2Mcum8MFy7Axo/aqc
+ 7tvVeTbH/LZzSyCkb6SeM2KJhKNm415HGXEsvWBcSg9yr9Bzl5dI/xTBAFQg12G5f0qaxDdlJEU
+ Kv58w3iOsFlUXH20oqDtp9ccUIWYOv8Psa9ST3uD756e4/ILZs8GMFP7JPMNCvSF3EZ7ahlcTTh
+ xlM8fQ0qGr8oeg2P7dFvTuZ2UJJgPclUbad+EcAWfiOfPyQEsXDdOk77ppa0TWYPyk/584CFB5W
+ neYwI7VRHPccs0HQyUi2+XCbTXncvsAs2XCaCZh2UR9pQUJNPJjt4N5DVRaPuJwfGL/TEa4XHKT
+ l3qROft7cu9gwNl9AHmb4VoiAGIB5CDMztOJdGQf/1EFDsEByiJ0r5tNe7LVCVdiaMWTm39ypCZ
+ o5HKtAZbGDhBqTzzviQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA4OSBTYWx0ZWRfX4DbwYl+jeKOO
+ UyZIw/oxiyb7OTsdfyBhfHCEdNCEODFGbl30ms8HycAAwoaJLqtRFvZFJixqvLr7g9UjsycIqqt
+ L8uYZIKSXYReJ0uXXO694g37HfU6jG8=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 impostorscore=0 malwarescore=0 phishscore=0
+ impostorscore=0 phishscore=0 suspectscore=0 lowpriorityscore=0 adultscore=0
+ clxscore=1015 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030089
 
-On 26-08-27 23:21:10, Hardeep Sharma wrote:
-> Add the interconnect provider driver for the Qualcomm Kuno SoC to
-> enable bus bandwidth voting on the platform. This includes the
-> aggre-noc and cnoc-main NoC instances with their associated BCM
-> nodes.
+Hi Krzysztof,
+
+
+On 7/28/2026 2:23 PM, Krzysztof Kozlowski wrote:
+> On Mon, Jul 20, 2026 at 01:49:51PM +0530, Umang Chheda wrote:
+>> ARMv8 and later processors implement the RAS (Reliability,
+>> Availability and Serviceability) extensions, exposing hardware
+>> error records through a standardised register interface.
+>>
+>> Add Device Tree bindings to describe RAS error sources.
+>>
+>> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
 > 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
+> A nit, subject: drop second/last, redundant "bindings for". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-Looks OK now, so:
+Ack, will fix the subject text in v3.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> 
+>> ---
+>>  .../bindings/arm/arm,ras-error-source.yaml    | 330 ++++++++++++++++++
+>>  include/dt-bindings/arm/arm-ras.h             |  11 +
+>>  2 files changed, 341 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml
+>>  create mode 100644 include/dt-bindings/arm/arm-ras.h
+>>
+>> diff --git a/Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml b/Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml
+>> new file mode 100644
+>> index 000000000000..add7063a1a62
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/arm/arm,ras-error-source.yaml
+> 
+> Filename should resemble compatible, so "arm,ras.yaml"
+
+Ack, will change the filename as suggested in v3.
+
+> 
+>> @@ -0,0 +1,330 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/arm/arm,ras-error-source.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: ARM RAS error source
+>> +
+>> +maintainers:
+>> +  - Umang Chheda <umang.chheda@oss.qualcomm.com>
+>> +
+>> +description: |
+>> +  ARMv8 and later processors implement the Reliability, Availability and
+>> +  Serviceability (RAS) extensions.  Hardware blocks that support RAS expose
+>> +  one or more error records through a standardised register interface.  Each
+>> +  error record captures information about a detected hardware error (cache
+>> +  ECC fault, TLB parity error, interconnect error, etc.) and can optionally
+>> +  signal the OS via an interrupt.
+>> +
+>> +  Each DT node described by this binding represents one RAS error source —
+>> +  a hardware block that exposes a set of error records.  Error records are
+>> +  accessed either through system registers (for processor-local resources
+>> +  such as L1/L2 caches and TLBs) or through a memory-mapped register window
+>> +  (for shared or off-core resources such as L3 caches, SMMUs and GICs).
+>> +
+>> +properties:
+>> +  compatible:
+>> +    description:
+>> +      Identifies the class of hardware block this error source belongs to.
+>> +      arm,ras-processor covers processor error sources (cache, TLB, etc.).
+>> +      arm,ras-smmu covers SMMU error sources.
+>> +      arm,ras-gic covers GIC error sources.
+>> +    enum:
+>> +      - arm,ras-processor
+>> +      - arm,ras-smmu
+>> +      - arm,ras-gic
+>> +
+>> +  reg:
+>> +    description:
+>> +      Register windows for this error source.  When absent the error records
+>> +      are accessed through system registers (ERRSELR_EL1 + ERX*_EL1).
+>> +      When present, the first range is the primary error-record window;
+>> +      additional named ranges are identified by reg-names.
+>> +    minItems: 1
+>> +    maxItems: 4
+>> +
+>> +  reg-names:
+>> +    description:
+>> +      Names for the optional additional register windows beyond the primary
+>> +      error-record window.  err-group is the error group status register
+>> +      window (ERRGSR).  fault-inject is the fault injection register window
+>> +      (ERXPFG*).  irq-config is the interrupt routing configuration window.
+>> +    minItems: 1
+>> +    maxItems: 3
+>> +    items:
+>> +      enum:
+>> +        - err-group
+>> +        - fault-inject
+>> +        - irq-config
+>> +
+>> +  interrupts:
+>> +    description:
+>> +      Interrupts signalled by this error source.  The first interrupt is the
+>> +      Fault Handling Interrupt (FHI), fired when a corrected error counter
+>> +      overflows or a deferred error is detected.  The optional second
+>> +      interrupt is the Error Recovery Interrupt (ERI), fired when an
+>> +      uncorrected recoverable error is detected.
+>> +    minItems: 1
+>> +    maxItems: 2
+>> +
+>> +  interrupt-names:
+>> +    description:
+>> +      Names identifying the interrupts.  "fhi" is the Fault Handling
+>> +      Interrupt; "eri" is the optional Error Recovery Interrupt.
+>> +    minItems: 1
+>> +    maxItems: 2
+>> +    items:
+>> +      enum:
+>> +        - fhi
+>> +        - eri
+>> +
+>> +  arm,group-format:
+>> +    description:
+>> +      Page granularity of the memory-mapped error record group register
+>> +      window.  Determines the ioremap size and the number of error group
+>> +      status registers (ERRGSR) available.  Required when reg is present.
+>> +      Use the ARM_RAS_GROUP_* constants from <dt-bindings/arm/arm-ras.h>.
+>> +      0 (ARM_RAS_GROUP_4K) is a 4 KiB window with 1 ERRGSR supporting up
+>> +      to 64 records.  1 (ARM_RAS_GROUP_16K) is 16 KiB with 4 ERRGSRs and
+>> +      up to 256 records.  2 (ARM_RAS_GROUP_64K) is 64 KiB with 14 ERRGSRs
+>> +      and up to 896 records.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    enum: [0, 1, 2]
+>> +
+>> +  arm,num-records:
+>> +    description:
+>> +      Total number of error records in this error source, including both
+>> +      implemented and unimplemented slots.
+>> +    $ref: /schemas/types.yaml#/definitions/uint32
+>> +    minimum: 1
+>> +
+>> +  arm,record-impl:
+>> +    description:
+>> +      Bitmap of implemented error records.  Bit N set to 1 means error
+>> +      record N is present and active in this error source.  Bit N set to 0
+>> +      means record N is not implemented and must be skipped.  The array
+>> +      length must equal the number of ERRGSRs implied by arm,group-format
+>> +      (1 element for 4K, 4 for 16K, 14 for 64K).  For system-register
+>> +      nodes (no reg property) a single u64 element is used.
+>> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+>> +    minItems: 1
+>> +    maxItems: 14
+>> +
+>> +  arm,status-reporting:
+>> +    description:
+>> +      Bitmap indicating which implemented error records must be polled
+>> +      directly by the OS.  Bit N set to 1 means record N does not report
+>> +      through the ERRGSR and must be polled by reading its ERX_STATUS
+>> +      register directly in the interrupt handler.  Bit N set to 0 means
+>> +      record N reports its status through the ERRGSR and will be discovered
+>> +      via the ERRGSR scan path.  For system-register nodes (no reg property)
+>> +      there is no ERRGSR, so every implemented record must be polled
+>> +      directly; arm,status-reporting must equal arm,record-impl for all
+>> +      system-register nodes.  Array length as for arm,record-impl.
+>> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+>> +    minItems: 1
+>> +    maxItems: 14
+>> +
+>> +  arm,addressing-mode:
+>> +    description:
+>> +      Bitmap indicating the type of address reported in the error address
+>> +      register (ERX_ADDR) for each error record.  Bit N set to 0 means
+>> +      record N reports a System Physical Address (SPA) that the OS can use
+>> +      directly.  Bit N set to 1 means record N reports a node-specific
+>> +      Logical Address (LA) that requires platform-specific translation to
+>> +      obtain a SPA.  Array length as for arm,record-impl.
+>> +    $ref: /schemas/types.yaml#/definitions/uint64-array
+>> +    minItems: 1
+>> +    maxItems: 14
+>> +
+>> +  # Processor error source properties (arm,ras-processor only)
+>> +
+>> +  cache:
+>> +    description:
+>> +      Phandle to the cache node (L1, L2, or L3) that this processor error
+>> +      source monitors.  The referenced node must have compatible = "cache"
+>> +      and a cache-level property identifying the level in the hierarchy.
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +
+>> +  # SMMU error source properties (arm,ras-smmu only)
+>> +
+>> +  iommus:
+>> +    description:
+>> +      Phandle to the SMMU node that this error source monitors.
+>> +    maxItems: 1
+>> +
+>> +  # GIC error source properties (arm,ras-gic only)
+>> +
+>> +  arm,gic-ref:
+>> +    description:
+>> +      Phandle to the GIC node that this error source monitors.
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +
+>> +required:
+>> +  - compatible
+>> +  - arm,num-records
+>> +  - arm,record-impl
+>> +  - arm,status-reporting
+>> +
+>> +allOf:
+>> +  - if:
+>> +      required:
+>> +        - reg
+>> +    then:
+>> +      required:
+>> +        - arm,group-format
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: arm,ras-processor
+>> +    then:
+>> +      required:
+>> +        - cache
+>> +      properties:
+>> +        cache: {}
+>> +    else:
+>> +      properties:
+>> +        cache: false
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: arm,ras-smmu
+>> +    then:
+>> +      required:
+>> +        - iommus
+>> +      properties:
+>> +        iommus: {}
+> 
+> 
+> What is with this syntax. There is no such style, drop.
+
+Ack
+
+> 
+> 
+>> +    else:
+>> +      properties:
+>> +        iommus: false
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: arm,ras-gic
+>> +    then:
+>> +      required:
+>> +        - arm,gic-ref
+>> +      properties:
+>> +        arm,gic-ref: {}
+> 
+> Drop. This is not an object, but phandle.
+
+Ack
+
+> 
+>> +    else:
+>> +      properties:
+>> +        arm,gic-ref: false
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/arm/arm-ras.h>
+>> +
+>> +    / {
+>> +        compatible = "qcom,sa8775p-ride", "qcom,sa8775p";
+>> +        model = "Qualcomm Technologies, Inc. SA8775P RAS example";
+>> +        #address-cells = <2>;
+>> +        #size-cells = <2>;
+>> +        interrupt-parent = <&intc>;
+> 
+> Drop, irrelevant.
+
+Ack
+
+> 
+>> +
+>> +        intc: interrupt-controller@17100000 {
+>> +            compatible = "arm,gic-v3";
+>> +            reg = <0x0 0x17100000 0x0 0x10000>,
+>> +                  <0x0 0x17180000 0x0 0x100000>;
+>> +            interrupt-controller;
+>> +            #interrupt-cells = <3>;
+>> +            #address-cells = <2>;
+>> +            #size-cells = <2>;
+>> +        };
+>> +
+>> +        cpus {
+>> +            #address-cells = <2>;
+>> +            #size-cells = <0>;
+>> +
+>> +            cpu0: cpu@0 {
+>> +                device_type = "cpu";
+>> +                compatible = "arm,armv8";
+>> +                reg = <0x0 0x0>;
+>> +                next-level-cache = <&l2_0>;
+>> +
+>> +                l2_0: l2-cache {
+>> +                    compatible = "cache";
+>> +                    cache-level = <2>;
+>> +                    cache-unified;
+>> +                    next-level-cache = <&l3_0>;
+>> +
+>> +                    l3_0: l3-cache {
+>> +                        compatible = "cache";
+>> +                        cache-level = <3>;
+>> +                        cache-unified;
+>> +                    };
+>> +                };
+>> +            };
+>> +        };
+> 
+> Drop all the nodes above, irrelevant.
+
+Ack
+
+> 
+>> +
+>> +        /*
+>> +         * Per-PE L1/L2 cache RAS error source.  System-register access,
+>> +         * per-CPU PPI.  Record 0 is implemented (arm,record-impl bit 0
+>> +         * set).  arm,status-reporting equals arm,record-impl because
+>> +         * system-register nodes have no ERRGSR; record 0 must be polled.
+>> +         */
+>> +        ras-l1l2-0 {
+> 
+> Node names should be generic. See also an explanation and list of
+> examples (not exhaustive) in DT specification:
+> https://devicetree-specification.readthedocs.io/en/latest/chapter2-devicetree-basics.html#generic-names-recommendation
+> If you cannot find a name matching your device, please check in kernel
+> sources for similar cases or you can grow the spec (via pull request to
+> DT spec repo).
+> 
+> Choose some generic name, but l1l2 does not sound like one.
+
+Ack, will add some generic node name as suggested.
+
+
+> 
+>> +            compatible = "arm,ras-processor";
+>> +            arm,num-records = <1>;
+>> +            arm,record-impl = /bits/ 64 <0x1>;
+>> +            arm,status-reporting = /bits/ 64 <0x1>;
+>> +            cache = <&l2_0>;
+>> +            interrupts = <GIC_PPI 0 IRQ_TYPE_LEVEL_HIGH>;
+>> +            interrupt-names = "fhi";
+> 
+> I had impression we agreed all this is part of actual CPU/GIC/cache node
+> or its subnode.
+> 
+> Keeping it separate does not feel right, if cache is the source of error reporting.
+
+Thanks for the discussion Krzysztof !
+
+As discussed, I'll retain the same node representation in v3. The
+rationale is that the interrupt lines and address space associated with
+the error nodes are independent of the parent monitored IP.
+Additionally, the ARM PMU provides a similar precedent: like RAS, it is
+represented as a separate entity in the Device Tree despite being
+associated with a monitored component.
+
+> 
+>> +        };
+>> +
+>> +        ras-l3-cluster0 {
+>> +            compatible = "arm,ras-processor";
+>> +            arm,num-records = <2>;
+>> +            arm,record-impl = /bits/ 64 <0x2>;
+>> +            arm,status-reporting = /bits/ 64 <0x2>;
+>> +            cache = <&l3_0>;
+>> +            interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
+>> +            interrupt-names = "fhi";
+>> +        };
+>> +    };
+>> +
+>> +  - |
+>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+>> +    #include <dt-bindings/arm/arm-ras.h>
+>> +
+>> +    / {
+>> +        compatible = "qcom,sa8775p-ride", "qcom,sa8775p";
+>> +        model = "Qualcomm Technologies, Inc. SA8775P RAS example";
+>> +        #address-cells = <2>;
+>> +        #size-cells = <2>;
+>> +        interrupt-parent = <&gic>;
+>> +
+>> +        /*
+>> +         * GICv3 interrupt controller with RAS support.
+>> +         */
+>> +        gic: interrupt-controller@17b00000 {
+>> +            compatible = "arm,gic-v3";
+>> +            reg = <0x0 0x17b00000 0x0 0x10000>,
+>> +                  <0x0 0x17b60000 0x0 0x100000>;
+>> +            interrupt-controller;
+>> +            #interrupt-cells = <3>;
+>> +        };
+>> +
+>> +        ras-gic-dist@17a00000 {
+>> +            compatible = "arm,ras-gic";
+>> +            reg = <0x0 0x17a00000 0x0 0x10000>;
+>> +            reg-names = "err-group";
+>> +            arm,group-format = <ARM_RAS_GROUP_4K>;
+>> +            arm,num-records = <1>;
+>> +            arm,record-impl = /bits/ 64 <0x1>;
+>> +            arm,status-reporting = /bits/ 64 <0x0>;
+>> +            arm,gic-ref = <&gic>;
+>> +            interrupts = <GIC_SPI 200 IRQ_TYPE_LEVEL_HIGH>;
+>> +            interrupt-names = "fhi";
+>> +        };
+>> +    };
+>> diff --git a/include/dt-bindings/arm/arm-ras.h b/include/dt-bindings/arm/arm-ras.h
+>> new file mode 100644
+>> index 000000000000..c2f4e1f8243e
+>> --- /dev/null
+>> +++ b/include/dt-bindings/arm/arm-ras.h
+> 
+> Filename must match binding or compatible.
+> 
+>> @@ -0,0 +1,11 @@
+>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>> +
+>> +#ifndef _DT_BINDINGS_ARM_RAS_H
+>> +#define _DT_BINDINGS_ARM_RAS_H
+> 
+> Best regards,
+> Krzysztof
+> 
+
+Thanks,
+Umang
+
+
