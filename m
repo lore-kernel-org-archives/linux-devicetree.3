@@ -1,153 +1,150 @@
-Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11020119.outbound.protection.outlook.com [52.101.84.119])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0584D8DBD
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:28:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449303; cv=none; b=o7EiVgEGE1j6h9rUcyCLqi+nl8TQT6uzFMS/p1kSTmkkMpdqegJPbRD/99vOVoVN0ZEpTt3wishfk395NpiOO+5IFT/afde71dtjHyNrNaY5hRCEzhIfiihsTT0P+nOxILaiziFpfOcUmGsKVWlgxYdpGIm3lPFR29sqRrY2OJk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449303; c=relaxed/simple;
-	bh=3OoVTmgZTrg4i4eHEg4VVIqIJ1fjXA1FcNrE3GukeZY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O4SE45HXdibCjmTbmkAOZakXYJWlaNxLkMZIFHybZns7RDlVGr27pASY6yPmmf7FWdv5eJoJMEhUAhjTUmJc0OFSBSenWs/ISX/P1/hL2BQz35GmfZ7OFscAkifsoLMuIOdaSqMt7JbmkpXimfv8kdPICxKxu/D4Qf21imnoZGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WFodjiYr; arc=none smtp.client-ip=209.85.161.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6E64DA52E;
+	Thu,  3 Sep 2026 15:29:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.119
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788449347; cv=fail; b=Sxfl+UN905GjS0arkdbdwJLn59SCC6rb+D7skjh0LIYvM2Uo+anq5eRsDv+tx06XMpk3NgRDZogrLI6kVlFeYNc6pDgno5xOUDqe2mnqNSE6OHX1/WeeJShIdn/wnponI1/+vYGPX3uGL846mtE1MrFkoYXy3OBOIl/P1kWFJm8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788449347; c=relaxed/simple;
+	bh=35GjeMFKgqfijokTyq3bPxSfGZvT1Onan3YiMXewUcM=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=pYkMDKGFAq5PyRO977yLGiz0n5D0nwsTGcyrHZHrNkDXguOVyz6ajvQq2xNFQzLtGvAAi11OJmj4bykGIIMgscY0IU1omVkMl49AbHF7gIrdRo9dVerMSwCW2riSjbuYfjfrxaKNwQXBnqPNr8VE1M2UJTNkEJvVLUimyW6eRaM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.com; spf=pass smtp.mailfrom=phytec.com; dkim=pass (2048-bit key) header.d=phytec.com header.i=@phytec.com header.b=tZKLGomj; arc=fail smtp.client-ip=52.101.84.119
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=phytec.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=phytec.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WFodjiYr"
-Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6b1334a3b16so1841493eaf.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:28:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788449300; x=1789054100; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=isVAKZBdOdl8BGB6lxhwXRv6fB/dregp4QMCpfueusA=;
-        b=WFodjiYrFzfmE/2V6oGcRMNwn1CWjJQKJEdVrUUjwhntJru8xk4i4PNiDo4+Z9kh0A
-         ox0ue5hPVYT3fdc362/CiXBnGrBDLjJKeNhnIOjBJMY3FYbBX9gnQMJVSf7N/jJNO6K8
-         QKmYLsOvdb3ajguPK6q8geWq8KSqMaE+O8R8ocXasPEYlg4dKnmxaLdBPPnN7QWnPkdw
-         gjyv6fnbrTu5EwvMwO7MJzOve3HpvZYENcqBLoNxJyqnHEg5wskJPQZAWV4P0AMY9p2/
-         mMRuqOSuI4Miko3v4ErUqmekkWlBq2zgLxaT1x8PhGNsK0Et/6ZBfoVS6d8N7qo2jOgA
-         gvpw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449300; x=1789054100;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=isVAKZBdOdl8BGB6lxhwXRv6fB/dregp4QMCpfueusA=;
-        b=F/RLe1jXIoDa9KikSRh1IdRNi5wT+ipKIsjQAU2Mpri0GYU+OMJJR3On6z2z2YUz0r
-         1+MplzbLNzAmgwCYt3q+sjAI6pAjhC4eRHQfG+RPlQKALRqzNv5qSzp9HuNcc3BkA5Kq
-         nrHVYhdXzdtV9sVJ5HzU3E5m3EUxyfxaA9c4/oru38WCQgoUezNL3lPRN47Z2Hm12vTl
-         qf5pjGTpqoJ+8lA2SFwJk7hpcvCrduHi2sN6hxEGepbmsxO6jWUAUduLZjVyy+ueZpv8
-         arCqAnqSQgKEVRBCcNIDbq6jBkw9Z+xvKUloz68MFaSt6mi5I0ngkPV3J5p8TiGLPf3r
-         TAIw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1DS424IKi2WJuO6McrCnnInD5vLpMKNQpKOyv/GlUr2yzjIoxNulu6LXbCcgx0RxLwsK6g6nPyqSS@vger.kernel.org
-X-Gm-Message-State: AFuF++k2IR02gx9k19YL8hXpjLUIXzM636GzJCVnd8Yq598DHvQBekW3
-	+S6iSUUt9GgmfNNo1O6ZUyBx9ZGboMzmujBYM48g5OEpL/r/9hpuWBGauLsx1uDyrVk=
-X-Gm-Gg: AYBFou3oq0KF9KN4wr7SKH0D4Kte1VXWlI2OXs8rcxmLf6UaQhXlyxI0AJDAWNBH8CF
-	3ECIXgKUcU4d4nEdycPS/fefNr/ui8+Q1o5nccB1MNRJ+W8VOTqzT0qcPhKZVsYllUy2yODn5we
-	WVWYP6RIppmRY/5kqh9tQ+0dcC62W5iV3sJIPeD1R5MsV4Ff2U6SGT/pgRKD/AmVmxRBiqx/+MR
-	uU5SVhjXb/V7USutAcwcbsmi7jeuBM58MjgQpP7XffGdZ2EjTdJhgngE5xhcY3dADmbv8DEL1Fk
-	gLVXTHa4updbZKHXAeJ/Uxoh6+1LCchjXVNJSB+77sebk7DNkJvtP6rypF0OpndEA8alPvMhzcC
-	sGENZPgvssci2fJFBPsVwN3Ex5peMJL824tkKxfvQAd3mBgy1Y5enoM/vXRvS9MlsuniVy7cDJd
-	ulyMbK6bSQ374s9IKngXQOlFMcue2mpnN/dJR0z88Om6HoKHV8U2OmwqrZoFMdiHOWe6gtvfrUc
-	0b/whd+3zE3vn4GTMuSK6OBsQWDVrDGp7Xr
-X-Received: by 2002:a05:6820:f09:b0:6b0:ab1f:ec11 with SMTP id 006d021491bc7-6b6e067e113mr163012eaf.29.1788449299639;
-        Thu, 03 Sep 2026 08:28:19 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:e24:471f:c835:8147? ([2600:8803:e7e4:500:e24:471f:c835:8147])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6b6dd07214bsm103730eaf.10.2026.09.03.08.28.17
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 08:28:18 -0700 (PDT)
-Message-ID: <c7381f65-d895-4ee4-be24-695ca69a0337@baylibre.com>
-Date: Thu, 3 Sep 2026 10:28:16 -0500
+	dkim=pass (2048-bit key) header.d=phytec.com header.i=@phytec.com header.b="tZKLGomj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XvMA/xZmhH+xKjAczKU8I5QARURU6WHj88VMdNb4lrHhFAZ9ZNZ8oin4L8lHg3aEBRV4skFy/48Kmc7SkCsZuWS1KIXeH/L0Pinne13GjsZ7qnYCwgzmKsHxrEGgQTDyN8jO8qhAhDggyDLHV/86IPudSDJ3CpJgDuzZGcoGaP7udwW6nQoxeJJUue4gn0lq93Ajworm22cbCzXb5hOUjvGj1VgoUnLy8i0n0u45Ya/Bwm7n8a+OKdI1t9Kf+1QbHWuC0Zo6hbm3/8AekzgjRDFc1r8IszXD6r182RnBSH/VnH1ZxQVjJICmJt2bkAQ0ZK0T/AFUfc7eCOvhKE3shw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=35GjeMFKgqfijokTyq3bPxSfGZvT1Onan3YiMXewUcM=;
+ b=ZnkwZs6BoLCuxm809Xww3ngR84BT5OeYAZJ9US1yNCvmomRVit2PO/Uny2JX4YWFeKiadJnDV88DM76h4wNmOxyKb341r8xzv2JFuOnc6/utXLJclKW+IbLXXKvnZVENSa9vrkDZ+t09SNIu+brS2Raylx/ST8uBYN5fwqE+YZneHrUxESjwYYu3WwnkWqcVnjAkiEVnSIl0wV1yBDXxTBTI5nPtIFWRoUM37Jh7EN9rJRlgE6wkY+aLdpb5xqVXq9sTwu1kGjJkZhFnx9BMkPCe812Ag35BYr2qaLlYnfM1FkM/ckhuIOMztelV2VftE8niPJylYo7uFZWU3yTPlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=phytec.com; dmarc=pass action=none header.from=phytec.com;
+ dkim=pass header.d=phytec.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=phytec.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=35GjeMFKgqfijokTyq3bPxSfGZvT1Onan3YiMXewUcM=;
+ b=tZKLGomjsSmCu/MGQICZXZlMVZeiMVO6pKya33YMTBjBj9Fs5MeYtYQZPoaxxmY6Ythj9+DET102EWq+tWzdGigqPT4ODeNd9SICHrl5U4N1UjA4Nnez3a9MCW9Azp68HZ+dy9tcUKbv69byIkvUgWWKdwbwdmmIYmwU8tIu4iDEX/c6L6lvt3WARD0l8QsZ4SRrSgoXKunZxGdI+ERr5EjaXVPP2rbqv2KGwscLl4R9SDOIzJ54ZYDJt2oTtMZiCmXYplTPSM30AxNFHD11Bw3gKgN3PFFPIqz86kpFC+0L2QK89D8jX+M6fEMrZlgZToWcYWbd+zZkQMQyaQiiWQ==
+Received: from DU0P195MB1745.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:3b7::10)
+ by DB9P195MB1395.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:327::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 15:29:01 +0000
+Received: from DU0P195MB1745.EURP195.PROD.OUTLOOK.COM
+ ([fe80::48f:7e75:c707:d440]) by DU0P195MB1745.EURP195.PROD.OUTLOOK.COM
+ ([fe80::48f:7e75:c707:d440%6]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 15:29:01 +0000
+From: Nathan Morrisson <nmorrisson@phytec.com>
+To: "nm@ti.com" <nm@ti.com>
+CC: "upstream@lists.phytec.de" <upstream@lists.phytec.de>, "afd@ti.com"
+	<afd@ti.com>, "kristo@kernel.org" <kristo@kernel.org>, "robh@kernel.org"
+	<robh@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "vigneshr@ti.com" <vigneshr@ti.com>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"sashiko-reviews@lists.linux.dev" <sashiko-reviews@lists.linux.dev>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [Upstream] [PATCH v4 1/2] dt-bindings: arm: ti: Add bindings for
+ PHYTEC AM67x based hardware
+Thread-Topic: [Upstream] [PATCH v4 1/2] dt-bindings: arm: ti: Add bindings for
+ PHYTEC AM67x based hardware
+Thread-Index: AQHdCLZYgQ7onOgaZkKfc6F+K/l22ba7/f8AgAFAfwCAACH3AA==
+Date: Thu, 3 Sep 2026 15:29:01 +0000
+Message-ID: <e7805ab3055241d5886f03407a71e87f3a6a42e4.camel@phytec.com>
+References: <20260630173131.3000303-1-nmorrisson@phytec.com>
+	 <648d3128d73c6b27c1fa9a3fb1ff5b39156810e6.camel@phytec.com>
+	 <20260903132726.us2vplb7fey77mqw@clarity>
+In-Reply-To: <20260903132726.us2vplb7fey77mqw@clarity>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=phytec.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DU0P195MB1745:EE_|DB9P195MB1395:EE_
+x-ms-office365-filtering-correlation-id: aeeddd81-5335-49f9-214f-08df09d014ce
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|7416014|366016|38070700021|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ gHJnCfSJmvvRNSoFtiGYVtSkN5o6Vmrzhl3H3sXemwqohmnQFNkz0/ByHc8F2sPCdDC5GXqutao+s5E7iLcP1dLbd+rDI18PgjNoao/1tInV2t/IeGRAFy5fS0QFPTJGD7oA6cgamcZ+66e93CgBD3bCiAkOD9ev2l7vTqE/7TZqIqvnSiX3Yjufx16LuAVWmcWVu/bSbSRjhW8ru4DZ8B+hQ2BOzHFkCaQtiDUIOH4AKSjTk1I6FRqOJbjB/5Q+KH2+aBr8HtaqLvkvOnsmtrAwJoE4hKFKUkBf6m1/VT6gn7QQq5GmntZcY6K9yLzGLKek/7Wkh0Hh4qq6R+WgoyTMLPTPSanukRDLdRDvt4CvGeTTi+K13bZf0ZFkvOD8xBQ3VngzcaN84vtnkG43IPSyiQQ1jIjqWvS995j4vQFOBXrjYLhTxxOdf8T2Pymid7aiC6SbP1G4Xy5rs/ZSPiFCaY7yYosnmfiaKXFnyu2RhAfrQzad4ZQWQnjsAydlqpHNKpuzFO06Gyyp3Pf/dh8o5mz6DyEQrvE1z644a1oOUDU/ihOywvEzVVoN8GsZbJmAySiCDmw4PSmZcEXaQ89nv/ipy0w4iRvYfTK1JEpC6ciDQIe3pYoYIdACX7VzAMPa74QQXa68N9PaakJ+MYI7KKYwvp+wThq8GkNsFKR1EuQIfZAeWzaobJgg5ACZN/3iN6zZjNxWMexaaN0+WT8pX9lKifVCsivBvNFh2Qo=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DU0P195MB1745.EURP195.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(7416014)(366016)(38070700021)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?MWRsdmthRGJaeUdRbjluRVYwVmw2d0xKUGlUcmFuQy9zcnVnS0s2MlFFY21v?=
+ =?utf-8?B?K0Y4KzlPSEUvYXc4NGwyekd2Mjl1UFNyUlFYZElna3BOazlQUG03MXFwdmFP?=
+ =?utf-8?B?Q21RcXdKUnNTS0tvZkhRaTZRR0NyVm05UGFuTWt0eXZWQmU3bUxWZEFzQndn?=
+ =?utf-8?B?OTcvdng0VTJoeUd6OXY3TjRRSCtTam82SENsK3MvRzlLSFVmcW1nZXV6Z1lF?=
+ =?utf-8?B?ZUgrS2lJVkFPYXhOa0lLZDFiRTkwY0Q2RE9KdDdMK1lIbU40RkF2dklIU1B0?=
+ =?utf-8?B?VEc1cUd3YTBLVmFTQWN6Ky8wV3JKVE5nSkJwQVFkZDd6cFlLdVhiNk9XSTNv?=
+ =?utf-8?B?MWtxNzZmQVV4NThSNzV5ZEpVZmxUNFpXUkpRTmpzVlBLL3JrOTVPWE16dDNk?=
+ =?utf-8?B?Wm14QjZzMTFvajdEeG5KUUduU3VkbUlqYmRpbS9NVUJHMlRDN3JkU1hrU0Zj?=
+ =?utf-8?B?THE4SzFrRU9EZEJTaHhiTHFrUk9aY2FxY1RuTmtaWFpBWEk3SGVVWC9zb2ox?=
+ =?utf-8?B?MHFLbEU0QkZvak9YQXVPQllSZmZmQWdzQlNNdHcwd1ZCSEY3QmZYOFVUek5J?=
+ =?utf-8?B?S1lKeVlMK213eFI1U3hRNGFnenZ3UlhWcnN5SUN2VHFQdnRLZ2ZGVGlzSWtk?=
+ =?utf-8?B?VWkzRDVXVXhxR0VSWHpuVU5oOHdMay9mZDFuQmpBOTMrTzk1SWM5cXNud3FO?=
+ =?utf-8?B?N3FOTkNuM3kvMEZibmZiYVdsMDNVK3l6UGpEWUk5dXJYWnVJc2JuL25WeWE1?=
+ =?utf-8?B?VDBhS2ZCM3lOb1VWWWlIQStNMEc3VmE2MTB5czd5MlVYSHBablpJZ2ltTkxp?=
+ =?utf-8?B?RnNDT3pidEg4MVJBNWMyOEFsa3Vsc2dCSk9zcEkxbE1SSDUvMFc2eld6TGtR?=
+ =?utf-8?B?VzZYWWpZTExzK1hnbWFpVWZNdmZHZExCZjltV2g3R3dwZFkrM1BhTzJGMWhP?=
+ =?utf-8?B?QnZJVURhQU1XNmN2R0srSXJnTHJtQTI1MVRYQlI1bXk5ajVmRE0zOVZqTFNa?=
+ =?utf-8?B?RVhrL0RXTkQ5dXlEb3Q3aEFRQXlzTWp6OVIxbFNTY01qM2xqeFNxV3BoTDlM?=
+ =?utf-8?B?eHpDek1ySkVLQzVMV2dTbFppNXgza1NFby94UzAyOHNXckpmK2xNWjVQZ0dO?=
+ =?utf-8?B?SmQ0eUExM2drSEltS1pkV2I5djBRMGFRUVM4M1Eyem9TSGkyMGdZamd4N0Jh?=
+ =?utf-8?B?aEltTDZnQlJtTFNxQ1JwdEJLMTJtVGd3K0cvOFR0NENCTzNQeXJvTFcvM2dt?=
+ =?utf-8?B?cUlkazJ5U1R0VFlCQzg0QVN1YmprOHh4RkNtYVdHTzJONUhuSk9XbkxZUVpy?=
+ =?utf-8?B?N0pVaVp5NmVPdWswQ1hadVBxMTBlVUFvcHJxTTg1bEtpTTZxT1RYeUZ4K1Ju?=
+ =?utf-8?B?SjBXRzRLSlBicGFJY3hWUE9iRXc1WmJwU1llZHRqSE81Y0RSdEhBMGp0bUU2?=
+ =?utf-8?B?SEowT0ZBb1k0NjVxZDRFcTRMeEVsQU9SVWZmOUZsMThwMXk2cUtlZ1U3NUh6?=
+ =?utf-8?B?NVlsdHIzS2tORGx2NURjOERTSlVQeDZFUGFpUHdNQXVFY204N0FoTEZka1J1?=
+ =?utf-8?B?b2lJZzFtRkRDbFRxdXVvWUtKbm5jaitsMnNiUkJJZDBER1pQUDFpWGtkR3Ix?=
+ =?utf-8?B?dS9XZCtZZmdPcmdXbGJsOHE0MERvZHMxcDZwTyt0Wmx1dCtLejdkaWx4MlJF?=
+ =?utf-8?B?RHZMQ1loVEt5UFhQSGUvckwvNXk0N1U3bHZpN015YXQ1eVZUWlRSYWh2NlhH?=
+ =?utf-8?B?OEpsRjJ3cTJZYzZKZEhYRzVsdlA3RVhnMUJRck9xdWVCWlo1Z3VVUjdsSDBL?=
+ =?utf-8?B?YmZ5MkxYVm9jVkpkaDlLbmlud0hPVU1PRkhiL1lJdlplQkZ0NUR1ajRMaEts?=
+ =?utf-8?B?bEV1RHFZd2ZDWjdmRmhKU1hzZUo5ejFGdWs2Ulozbi9wdFREUWxDMElTOU94?=
+ =?utf-8?B?TDlRd3E4QXgyOCtJTm5xeGo0ZmMyZW4xKzlXMi93YVkxeXFzS2RZalNydG5K?=
+ =?utf-8?B?VWdnb3YwWE1yRG1GeTZWSGQwaGlJNEovSVhvTjZDbTZ5TGYzcDI1NlNEa0xF?=
+ =?utf-8?B?c3ozdXlXanEraCt0V1VIQ1lKUkxITUF1eVI1U2xCM0xueUVGZ2VTckxQNDA3?=
+ =?utf-8?B?TFRNSjJzcGVkeTJlR05SbFpJK245RjBLRjRsYUdPZUNiYmNnNzBmeVZDVVZX?=
+ =?utf-8?B?NmIxbEE1L3BZRUxrK2h0Y3lQUitOSHV1QWllczJ5bnRGQnZ2NllpMzZhc0oz?=
+ =?utf-8?B?VWEvNUV2UXJJclVCTUxTM3RlMlN1SDlTWG83ellhdHdWYUd5SlJFRUZiNmxI?=
+ =?utf-8?B?SFdFNEw3eUFHZ20rK2FlM2IvaUx3NnZBY0FlaWc5em1NSUEvU3JYdz09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <DA8A79A4A89C8B4F8FB293890420D535@EURP195.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
-To: Flaviu Nistor <flaviu.nistor@gmail.com>, Andy Shevchenko <andy@kernel.org>
-Cc: Jonathan Cameron <jic23@kernel.org>, Nuno Sa <nuno.sa@analog.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Daniel Baluta <daniel.baluta@nxp.com>,
- Antoniu Miclaus <antoniu.miclaus@analog.com>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org
-References: <apkRJ8T-X-HoNiDB@ashevche-desk.local>
- <20260903151627.5011-1-flaviu.nistor@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <20260903151627.5011-1-flaviu.nistor@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-OriginatorOrg: phytec.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DU0P195MB1745.EURP195.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: aeeddd81-5335-49f9-214f-08df09d014ce
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 15:29:01.6768
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: e609157c-80e2-446d-9be3-9c99c2399d29
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: P7qrOkQr4bfhG3ccbWcUr4esd4Bi27F3t1FxBRQBNa7QhEr5td7BRk6NUQKjlfzV0ztWKGr9cuy6n2r7SRRzvw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9P195MB1395
 
-On 9/3/26 10:16 AM, Flaviu Nistor wrote:
-> On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote:
->> On Wed, Sep 02, 2026 at 01:37:45PM -0500, David Lechner wrote:
->>> On 9/2/26 12:22 PM, Flaviu Nistor wrote:
->>
->> ...
->>
->>>> +		if (fwnode_property_present(node, "label")) {
->>>> +			ret = fwnode_property_read_string(node, "label", &label);
->>>> +			if (ret) {
->>>> +				dev_err(dev, "invalid label on %pfw\n", node);
->>>> +				return ret;
->>
->> 				return dev_err_probe(...);
->>
->>>> +			}
->>>> +			data->channel_data[channel].label = label;
->>>> +		} else {
->>>> +			data->channel_data[channel].label = "";
->>>
->>> I think the normal way to do this is to return -EINVAL on channels with no
->>> label rather than an empty string.
->>
->>
->> In this case the whole dance with property_present is not required.
->> (What you are saying sounds like label is mandatory property, but
->> how the old DT will work that have no such property?)
->>
-> 
-> I also consider that since label is not a mandatory property it should
-> not return -EINVAL just be simply not being used in the device tree for
-> that channel. Since the iio core exposes in sysfs the in_volatagex_label
-> for all channels, there are 3 situations:
-> 1. The channel is defined in the dts and has the optional label property
-> assigned, in which case a string is returned in the console in user space.
-> 2. The channel is defined in the dts but has no optional label property
-> defined in the dts, in which case it an empty string "" (a default) is
-> returned.
-> 3. The channel is not defined in the dts (in_voltagex_label is still visible
-> in the sysfs), and reading the label will cause "(null)\n" to be printed in
-> the console (as indicated also by Sashiko boot), since the default "" value
-> is not assigned during device_for_each_child_node_scoped(). I think this is
-> not an issue since is just the way sysfs_emit() handles an NULL string.
-> 
-> My initial version (v1) handeled all 3 cases, for case 2 and 3, an empty string
-> "" was printed out.
-> 
-> What would you prefer? Any further suggestions?
-
-We should implement it like all of the other drivers that implement labels.
-I did not see any that have an empty string, so we should not do that. The
-sysfs attribute returns -EINVAL when read if there is not a label.
-
-(I think my previous comment was ambiguous. I was not suggesting that we
-return -EINVAL from probe.)
-
-> 
-> Best regards,
-> Flaviu Nistor
-> 
->>>> +		}
->>
->> -- 
->> With Best Regards,
->> Andy Shevchenko
-
+T24gVGh1LCAyMDI2LTA5LTAzIGF0IDA4OjI3IC0wNTAwLCBOaXNoYW50aCBNZW5vbiB3cm90ZToN
+Cj4gT24gMTg6MjAtMjAyNjA5MDIsIE5hdGhhbiBNb3JyaXNzb24gd3JvdGU6DQo+ID4gSGVsbG8s
+DQo+ID4gSSBqdXN0IHdhbnRlZCB0byBjaGVjayBvbiB0aGUgc3RhdHVzIG9mIHRoZXNlIHBhdGNo
+ZXMgYW5kIHNlZSBpZg0KPiA+IHRoZXJlDQo+ID4gaXMgYW55IGZ1cnRoZXIgYWN0aW9uIHJlcXVp
+cmVkIGJ5IG1lLg0KPiANCj4gQ291bGQgeW91IHJlYmFzZSB0byA3LjMtcmMxID8gU29ycnkgdGhh
+dCB0aGlzIG1pc3NlZCB0aGUgd2luZG93IGZvcg0KPiB3aGF0DQo+IGV2ZXIgcmVhc29uLg0KDQpO
+byBwcm9ibGVtLCB3aWxsIGRvLg0KDQpSZWdhcmRzLA0KTmF0aGFuDQo+IA0KDQo=
