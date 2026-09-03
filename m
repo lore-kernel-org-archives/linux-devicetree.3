@@ -1,89 +1,152 @@
-Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B9F53932EA
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 07:50:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DEB4156FB;
+	Thu,  3 Sep 2026 07:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421807; cv=none; b=BFF5yD9P/PAT8p3r6zfFfjK8VklGJZtpjN0DGDNNhGbqAIt92sLwWfhg3vfQ+X3YfA5W1gYvbA6vNpM0q4mPEySZRbILZX7ieKlUeNGkfn2Fy3LShrotFZf9A4lkA8VM+SpPMLR5iX6nXvEQV3cbQjX8X6OisO9TRwUYo4vz7UU=
+	t=1788421841; cv=none; b=DZT223+ILAyqFZv7vpj9Hp3VWLrDuC1Q8juHdBLDd3KHBEn/18PQ7UNGhTU2f3etRiPVYdJo5BVg3bvgPDYYB7Q7Ws3BlY/BbeV+sxBapJGU6UoM0oVoe28Q3XbJjQjjIV3+jjElZkG2nKqhU9pRxpHVsJCgPEfotvyNoEFzttI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421807; c=relaxed/simple;
-	bh=DKGeDKlPch6rqcA5xhMMLWOX0/Xs3Yd59Yr4R9+myeE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YsIBV8Bt+3pxn9s1Mh5o19aA6oYnpyQ3zoUoV5mYdoGb+zuvi+v1gK06G6pu3CIAPWqTyuO+cKFZhWSXOFNZvDD30ew8MvT7u4j4Fzlh8Ntq2FDvSj1xDhHe6YhDJtjl/q802yMqsxlDX9abkvL1CxMuATWTLJYxF13vAOx+99Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
-Received: from [198.18.0.1] (unknown [23.151.104.61])
-	by cmweb (Coremail) with SMTP id C_Ai0gAXetmcJplqdxEHAA--.14790S2;
-	Thu, 03 Sep 2026 15:49:54 +0800 (CST)
-Message-ID: <ff197003-be1d-4934-bf33-9337bc833168@stu.hqu.edu.cn>
-Date: Thu, 3 Sep 2026 15:49:45 +0800
+	s=arc-20240116; t=1788421841; c=relaxed/simple;
+	bh=blv4wdODRJoIJLSLs4PdhyTZCwXwZ/1oMYZyjK9NwJw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hVM301QMjfgruJnIaOHd531VJHpaENU6aFKtmSaEMcHGp06hWCI5s/aVe6nVFaT1Hss2ZFB38wBi03ccqFMB4OGvnvr6BfvgbCt/T5yShfJV4QB1N8511KRBVg3RwTAOJRA4YVENJj0ZDxfRzggwcaZfODOOQRUo80f3N9lSZ0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 45462200571;
+	Thu, 03 Sep 2026 09:50:35 +0200 (CEST)
+Message-ID: <0ffb792adfafd06a0d7fc65153707e3c728fe0ac.camel@pengutronix.de>
+Subject: Re: [PATCH v2 08/15] soc: starfive: Add jh7110-hdmi-subsystem driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Michal Wilczynski <m.wilczynski@samsung.com>, Vinod Koul
+ <vkoul@kernel.org>,  Neil Armstrong <neil.armstrong@linaro.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Andrzej Hajda	 <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>, Laurent Pinchart	
+ <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+ <luca.ceresoli@bootlin.com>, David Airlie	 <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Maarten Lankhorst	
+ <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+ Yan <andy.yan@rock-chips.com>, Emil Renner Berthing <kernel@esmil.dk>, Hal
+ Feng <hal.feng@starfivetech.com>, Michael Turquette	
+ <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Brian Masney	
+ <bmasney@redhat.com>, Heiko Stuebner <heiko@sntech.de>, Conor Dooley	
+ <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt	
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti	
+ <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Icenowy Zheng <uwu@icenowy.me>, Andy Yan	
+ <andyshrk@163.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Maud
+ Spierings	 <maudspierings@gocontroll.com>, Graham Markall
+ <hello@big-grey.co.uk>
+Date: Thu, 03 Sep 2026 09:50:35 +0200
+In-Reply-To: <20260828-jh7110-clean-send-v2-8-331680c8b9d1@samsung.com>
+References: <20260828-jh7110-clean-send-v2-0-331680c8b9d1@samsung.com>
+		<CGME20260828134828eucas1p1b4061de1538ef0d3322dc32f3db6140e@eucas1p1.samsung.com>
+	 <20260828-jh7110-clean-send-v2-8-331680c8b9d1@samsung.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org,
- linux-amlogic@lists.infradead.org, conor+dt@kernel.org,
- neil.armstrong@linaro.org
-References: <20260903-mibox4-dt-v1-0-f29f1e828ca3@stu.hqu.edu.cn>
- <20260903-mibox4-dt-v1-2-f29f1e828ca3@stu.hqu.edu.cn>
- <20260903073643.B92A71F000E9@smtp.kernel.org>
-From: Raspberry Kan <raspberrykan@stu.hqu.edu.cn>
-In-Reply-To: <20260903073643.B92A71F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-CM-TRANSID:C_Ai0gAXetmcJplqdxEHAA--.14790S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrKFW3ZF4kZF1ruw45Kw4DArb_yoW8JF13pF
-	97uas5KrWkC348Ww47XayxJFyYq397ZF4rZFn5Kr4kGr4DJF13tFZIkFW7KFWUXr18Jw4j
-	9Fs7A345K34YkaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUk2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1l42xK
-	82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGw
-	C20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48J
-	MIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMI
-	IF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E
-	87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUgtr4UUUUU
-X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQASBGqYO2MCFAAHss
 
-First of all, I checked the device tree extracted from the stock 
-firmware, and it explicitly describes a third pixel processor (|pp2|).
+On Fr, 2026-08-28 at 15:47 +0200, Michal Wilczynski wrote:
+> Add the parent driver for the monolithic JH7110 HDMI IP block.
+>=20
+> This driver binds to the starfive,jh7110-hdmi-subsystem node. It maps the
+> shared register block, creates a regmap, and calls
+> devm_of_platform_populate() to create its hdmi_phy and hdmi_controller
+> child devices, which retrieve the shared regmap from this parent.
+>=20
+> The NoC display-bus clock and reset gate access to the whole vout registe=
+r
+> region, and this subsystem's PHY child is the first device there to touch
+> registers. Enable the bus before populating the children; PD_VOUT is
+> handled by genpd through the power-domains property.
+>=20
+> Co-developed-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Dominique Belhachemi <db@domibel.de>
+> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+> ---
+>  drivers/soc/Kconfig                          |   1 +
+>  drivers/soc/Makefile                         |   1 +
+>  drivers/soc/starfive/Kconfig                 |  27 +++++++
+>  drivers/soc/starfive/Makefile                |   2 +
+>  drivers/soc/starfive/jh7110-hdmi-subsystem.c | 114 +++++++++++++++++++++=
+++++++
+>  5 files changed, 145 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/soc/starfive/jh7110-hdmi-subsystem.c b/drivers/soc/s=
+tarfive/jh7110-hdmi-subsystem.c
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..d893c1c29f98b072b09d26134=
+3d3317dbf4c75fe
+> --- /dev/null
+> +++ b/drivers/soc/starfive/jh7110-hdmi-subsystem.c
+> @@ -0,0 +1,114 @@
+[...]
+> +static int starfive_hdmi_subsys_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct reset_control *bus_rst;
+> +	void __iomem *regs;
+> +	struct regmap *regmap;
+> +	struct clk *bus_clk;
+> +	int ret;
+> +
+> +	/*
+> +	 * The NoC display-bus clock and reset gate access to the whole vout
+> +	 * register region, and this subsystem's PHY child is the first device =
+in
+> +	 * that region to touch registers. Bring the bus up here before
+> +	 * populating the children; PD_VOUT is powered on by genpd through the
+> +	 * power-domains property.
+> +	 */
+> +	bus_clk =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(bus_clk))
+> +		return dev_err_probe(dev, PTR_ERR(bus_clk),
+> +				     "Failed to get NoC bus clock\n");
+> +
+> +	ret =3D clk_prepare_enable(bus_clk);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable NoC bus clock\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, starfive_hdmi_subsys_clk_disable,=
+ bus_clk);
+> +	if (ret)
+> +		return ret;
 
-The original vendor DTS can be found here:
-https://github.com/Raspberry-Monster/MiBox4-LibreELEC/blob/misc/mibox4_gxl_tf_2g.dts#L10
+You can simplify this with devm_clk_get_enabled().
 
-It specifies three pixel processors and includes interrupts for |IRQPP2| 
-and |IRQPPMMU2|.
+> +	bus_rst =3D devm_reset_control_get_exclusive(dev, NULL);
+> +	if (IS_ERR(bus_rst))
+> +		return dev_err_probe(dev, PTR_ERR(bus_rst),
+> +				     "Failed to get NoC bus reset\n");
+> +
+> +	ret =3D reset_control_deassert(bus_rst);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to deassert NoC bus reset\n");
+> +
+> +	ret =3D devm_add_action_or_reset(dev, starfive_hdmi_subsys_rst_assert, =
+bus_rst);
+> +	if (ret)
+> +		return ret;
 
-I also verified this on the actual Xiaomi Mi Box 4 hardware. Lima 
-successfully detects three pixel processors:
+You can simplify this with
+devm_reset_control_get_exclusive_deasserted().
 
-|lima d00c0000.gpu: pp0 - mali450 version major 0 minor 0 lima 
-d00c0000.gpu: pp1 - mali450 version major 0 minor 0 lima d00c0000.gpu: 
-pp2 - mali450 version major 0 minor 0 |
-
-The corresponding |pp2| and |ppmmu2| interrupts are also registered:
-
-|GICv2 200 Level pp2 GICv2 201 Level ppmmu2 |
-
-The driver then initializes successfully:
-
-|[drm] Initialized lima 1.1.0 for d00c0000.gpu on minor 1 |
-
-So this particular S905L-based Mi Box 4 appears to use a Mali-450 MP3 
-configuration rather than MP2. I have not observed any initialization 
-timeouts, reset errors, or SError failures with the third PP enabled.
-
-As Neil mentioned above, the Mali GPU is already defined in 
-|meson-gx-mali450.dtsi|, so this redundant definition will be removed in v2.
-
-Thanks for the review.
-
+regards
+Philipp
