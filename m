@@ -1,150 +1,179 @@
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01FFF3D7D94
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 18:55:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.226
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788461741; cv=none; b=jWq1i8vY80PA7MVK8amSqrXj3qwhW12yogM/W5DaYFONa3K012te52bInrckti8una1n8/LOz9sFLVJlPn4LFiDy6aMdihlM0FHtwvZxv0GE49nxReFOqM01EwKGfo9sV/vvp+zS9fK1QUE6lPYcVOQTSmH1S2Fc2ujR12j61bI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788461741; c=relaxed/simple;
-	bh=NDTLeqHBxYrWJEkAwbE1NGBv8cUWJQGHJ7kE5AqEcfg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hjeedOr4nkHv5mHSweEp22ATxpCaV0qnd5UBv2sw3P7Fifv7jlOYSui97VMixM6IVWIAv4GiFz8kaztjYU9b0IxnfePiPZ7AWBim/s4Vtp5zN9oYETbycNZypaoWTJEV1v3zIIjb6KneiYvAhXafUT64zMxbFfm3YP1iGunlNQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=RZPO592b; arc=none smtp.client-ip=209.85.215.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 632723A875E
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 18:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788461952; cv=pass; b=aJxJXzZpIBHXwjn1DkCA0YbyRONMA4baT9ZkJ8OLdUhDHpIBKxRtlXL6zMzkr5oB2GvY0OUsYYdkK6KqTIJE2EM0IkKoxNG8grXwSvIlFtKOZqrhsV5hrpTo6bi+wIOVJrXOvOU9VGZ6y3c0iGPUo9UVGMgICOHHP+M9IWgw2/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788461952; c=relaxed/simple;
+	bh=/OxdHj9ysvfR57EEzc0+AuUsvMW1G0r5zIF1Md1GvvA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=U3eB+vV5xu08/TepyxnSA2y5RNr0dBNixbMjCMXcJotO468auTqCjbj0503hk1Zzs+Zc8BXmA8KiA6wDKq7f4u9ZldQ//9Exq0TrcTQfP6dGrgrV/C0HFEqJ+Vs28evh5IuUZbU4DwGKDftewKfBFmeaDhIyIhxF0kp3osn4Q0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=njSLHGQx; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="RZPO592b"
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc439aa0078so301624a12.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 11:55:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788461729; x=1789066529;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=jEsr9BGeNrd54LE/l0kGrNt8rZ6d+rV2KMdW7NWoYDQ=;
-        b=PF1yi0q3xX/0y5MSInTs9zwdxLI2Sj2LZXFZWqEUH19uP5sLVe/N5rrmhwL96wZnp6
-         wYUM2Zb7ue3ML/OQFx1K0WahmAwtoICDy9uL/luzT51q8haRubcD1JwZoYhAWp1ZbGOE
-         ki0lbugUeSkBF3P4Ap7ujtSqzifGdWPqfI1k7a9rrkkb1XKytQAOjBWQgLwqgy3yGVcm
-         J3bbNmSD4EJ5oDqiAoLcCpGdNk0pPQdxVw/7CyEWcrjK3MP0IVqQlf24OgmkPTwdUgK0
-         CHaA0W8Zwhkr8kFjEVVohCB9odjpzpIdzm9oYVq7IQeWnv+txXOhBy1zRyRN06YdwuzC
-         Wm6A==
-X-Forwarded-Encrypted: i=1; AKwUvBxJXA7NtXXmh5AVYU3j/AlBfz5Gw2PekCeV7PFOJvOJ2KpGOxS4d32+IGVQ70hJdRxtBJSzDzOgaphm@vger.kernel.org
-X-Gm-Message-State: AFuF++n3Q+nMfLtLJNRRqWYPvGa2+9EZiyC/mKHD0awHuv2IkFIB2EMu
-	bizMtg1KJ5qQcPYkn2sXID5PupAnEcfhcXrcZrnIrJiGjCEGj82+f0WyNi6RHrr7qm62xyza9ux
-	6aFeff/z0cmRk2fKyd1EQtQj5tuSV3l/P3tnMgDaYDiHce6qggvleLRqRPypT+BwdOv7m6d/wIo
-	jj7FjxLeyXmCI/MLeOhH4U1EnEQafakza4wLrFuxB2pcUaIGGC11YeEI8bOllhHODZmJfhqXoTQ
-	q1QZXfns/DS7f3ORl2TxA==
-X-Gm-Gg: AYBFou2BCPanOQ+IjTmBX60DE8gRO97FV+oKYb89M3ASy8J+pSjndKWl6xjisPwF2OY
-	lrCX8wS30tHk+Anbn23pF/YxOEgCAiGK321ql5+cWfuY23DfREBiqPuN4Yo3izeuXlYoMit7sXh
-	1SIMddXol6MWafczbh2sIYLxJ4IMaF0FIB/HQQuOf2vMT8KPAlkhwdN2t+z51eGYiRQ9YsGkDPJ
-	7GaRv7Ft2y81pvN8ymc8wDxyB+SiCfLTVyWTkDdAhuQSayBuCqdxtxP5eM9677NZWoMiF26+Y6c
-	bHJFYMZwP1MYsYePh+JzOGlBGTRe+iS88x/B5iMR0Z60yiqmopAm4xy+l3R4M5WaeSbQjdXoKH6
-	4r62MJQCB7qA09TC6+j5AMIBjVn1OBuZtEr0GBaO0rUIxMFKV9mI1gfjTqUzW+kiqian9WzNWcE
-	DkOyciMC3p4zPh5i7hHcZdd96bic0xsZrrPRZqsTfcdQ4=
-X-Received: by 2002:a17:90b:274c:b0:398:9be9:ab92 with SMTP id 98e67ed59e1d1-39b2629b27fmr834351a91.23.1788461728443;
-        Thu, 03 Sep 2026 11:55:28 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id a92af1059eb24-14324332bbcsm30794c88.2.2026.09.03.11.55.22
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2026 11:55:28 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-52ce3c7cb2eso5589561cf.3
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 11:55:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="njSLHGQx"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso156622a12.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 11:59:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788461945; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YSbPsMGfyY364QBfuZTjv9Hq3lud9+FKl2/OfIts/xOY1hXcpFeT3GK+uv6vmf+wnB
+         myvfcb8LoZhQCNqyC/ifcfA3uFY/45xbhQFrAJkd4TwflEFimudAJ+rW3tWESlFLTT/N
+         v7XyHlOzxaPURkgVpb9WJnOmV+GA6keWAN/rVzeX7i+m789SwU+mCFHlKIUOCB/IlRP/
+         LDu4OV3n9C8xASe+ZGRctsOGEJfEdjLC98yi2UzB/0iWg2KChwfZSulOIGxMgirnv8bQ
+         9VLgc5CbNvqvD8LYpMjZIi8Z4TZwNje0Nm13l5jLWIr3cSL/roo7Yd7b6F8iUb1ZuWyX
+         GIcw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nI/hqBwcSMNIp3RBgD0iAO6W4qosGQLQpAKeR8JRNrs=;
+        fh=uUNjYBd0MLCsd0yhx86O7NMWwS1lXwTZkCgV/zy2+HY=;
+        b=Fn8t75O9q93X+ii0t8c8dli9No2FF1zXUvu85rhzFNWX+C+P5fUcsTkJpaVnggXqAX
+         pvd3EpGKjzNYZEKH/eyCH32vdakD+9QllqXD5U4LCCwgHjZd4m0pMLG7NPs42vELG3p8
+         MyJhPl6N7FoHhvQ37h3dOG3SutDvnN3XaDVT+8HYvm9Cn1TIiUghratV63pYkZ4R9yCr
+         19HohnDSglFvhfq5XpzcXlVFJ5VR8pCloXRHvtB7ddP02mqyx8aKtpGe1td3G5IE2fG1
+         +S/rFrD81SKp9wc8GEAaF3Dr3AbuMw3vvm4jibUmXpzi8AKPKQ482WpLRPp1NNFkO51l
+         1bpA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788461721; x=1789066521; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788461945; x=1789066745; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nI/hqBwcSMNIp3RBgD0iAO6W4qosGQLQpAKeR8JRNrs=;
+        b=njSLHGQxCP2li48YR6bUqLXOlIVAOS9Y4DfCyF+hwyMgmNTpgeiJ5/HJ0/q0FpxfcH
+         zWNz3e/bRS6ozvpZiy//nb9Ywndb+AjQCmAFskXYWkIIoSGuz8C2RSwc4iREuLGrugnT
+         q3DzOlS4ydOhd6BdRx0AoN3EabGSxbkvWtVKukNvb4/swQcc3ZVNhBfZTHN/oTcW/hdp
+         SAwGo302vNaGl+2mAv9k6AZ+RtVMPcdEARFSVPFr/wCArpNHT1qn03CrC4AQeo2QvR4M
+         aDW9BIVfPgE/DgeuKDbQT3AQFbaDgZGdK3KJHxt871q6kx7pVeYaKfZhCiVwtNUFTuoY
+         z7ww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788461945; x=1789066745;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jEsr9BGeNrd54LE/l0kGrNt8rZ6d+rV2KMdW7NWoYDQ=;
-        b=RZPO592bBa5bdp9SHKUXE3NQzh/5Sj4PqIYv5ThwTDgOf/6gJsKSSrl1B/UXidNfFz
-         vejUyQ+W0pTMPmIuHvdLNh+FRtcUSrlcjmkzUzmQb7Igsj+PjBTpzhzprBEmNQBmlXTR
-         ahYQ8rhcHKE7rcP6ISHJvtpltC00vyIzAQd0o=
-X-Forwarded-Encrypted: i=1; AKwUvBxJhrcsxgv1dgNLo2tlufg8+h6BNBB7FLX++o77Nfq+DngvAlJ+oUBimwp3vQgYY14BPVsCxUvmyjBS@vger.kernel.org
-X-Received: by 2002:a05:622a:4cc4:b0:51a:6feb:dc8f with SMTP id d75a77b69052e-530548007e1mr10138911cf.9.1788461721184;
-        Thu, 03 Sep 2026 11:55:21 -0700 (PDT)
-X-Received: by 2002:a05:622a:4cc4:b0:51a:6feb:dc8f with SMTP id d75a77b69052e-530548007e1mr10138251cf.9.1788461720559;
-        Thu, 03 Sep 2026 11:55:20 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5305414a36bsm3321801cf.16.2026.09.03.11.55.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 11:55:20 -0700 (PDT)
-Message-ID: <4c67126b-798d-40d9-9ab6-8fc876fc5630@broadcom.com>
-Date: Thu, 3 Sep 2026 11:55:17 -0700
+        bh=nI/hqBwcSMNIp3RBgD0iAO6W4qosGQLQpAKeR8JRNrs=;
+        b=j991SqYFcbU6R8VK62qqv5eoUrpjf28CnZuF6R2zJPOsLBjxf1biB/hjNY5YfOpO7o
+         e+iyCIM3sPQGykITHYCVCAZA8BcmQOHeJqBT3caJFDahFgtIehHHKDpOMhhJJa1g7ho1
+         v3lVS5REi12RkVmaY7yTV/oJYkuo7fKbABPnAD7b3ssQgMSauWt2S/+LW5g9hQqqfxpR
+         L7DhBtWX2dgnbkD1J4cgcMeuCL7J6MKYAsFRl8p2sR2JaF8o+lpBmtR+xaalDJ9GH47I
+         ENKAKccb3fezH+DxnGRbsJRAeT6R1F5c1v4EzJn4xDRMRBXjYSzE8Y/ywvn48cVjIUYe
+         TRGA==
+X-Forwarded-Encrypted: i=1; AKwUvBzkz03PC+4ttuI7TCeaG3polY2/erbGxC5dFzWqqLeXYkHuXIh5mEjQtcMXVikQCv6j2D9T9DFBYiAB@vger.kernel.org
+X-Gm-Message-State: AFuF++lG5oCQmnnAwbBK/LT5KMYIPjHpPiYkQ3XyFbBcXUdUwqRsAq6+
+	vxxpD4eqd4zDrq9jWQAmZBx89xzd7D2JMKqfkPqC8pz+ZTuokNhRRa6CYd8hphgUqDmAAh30KU0
+	PyaHaZlsWM5ns/hK2bsO89Aag/xrkafs=
+X-Gm-Gg: AYBFou3yPOgKhtuAKFdMagIpTy7snfpfyCPAPzU0I/0xTJuKJ/kg94jwUAhhtLep5EP
+	WIUiaed2xxXHXYYJbBqPsc3XDOVhppGMxJCPomBc4IWnZseBK/cHF/LV/XSjdcP5oFy7U5B7h7Y
+	bOBTUhrWkkP0d/SGuucHD24D2rXEqX9ACQHtUl/M44ZbrIQsZ7unH536QanRHu5ctPPOpQZMljg
+	PYaaDGZo0YOZmbjYifqFKuTxTLiQ3mUxJ/XTJEHW+5YVsBsy+nvzPRTSawe0aKnYHqNIPX4kBxM
+	HTKbbQMtNvpUeP9NucZlPa/cc1RPi5HYNV+9zLmCDltwy4uQN2TgIhVtRA7s/utyK/zLixYp5IS
+	uW/qYmkRC37nMfk+vUJh4yB3O3TKgo7EpkvRv0uoTgBYk+VDxFxTIsciOzS06dvdcqvuPtpjVyT
+	c6c3wgFrEjm6ysXfGn9VcGKgUW58tf1vEBweiCowEElAZ29m7KZPtoLNM=
+X-Received: by 2002:a05:6402:3886:b0:6a6:32f5:5571 with SMTP id
+ 4fb4d7f45d1cf-6a7e8f946bfmr27530a12.19.1788461944874; Thu, 03 Sep 2026
+ 11:59:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] arm64: dts: broadcom: bcm2712: Add thermal monitor
-To: Stefan Wahren <wahrenst@gmx.net>, Peter Robinson <pbrobinson@gmail.com>,
- Andrea della Porta <andrea.porta@suse.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Phil Elwell <phil@raspberrypi.com>,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-References: <20260802145109.728793-1-pbrobinson@gmail.com>
- <20260802145109.728793-3-pbrobinson@gmail.com> <apl6RddLcPz8Q2-O@apocalypse>
- <CALeDE9NCSb_-DugUBkpa3iBBXbFxccfpt3gKw0-fN8czwnurSw@mail.gmail.com>
- <8f948621-fbeb-4807-a4c2-0214ce5d3bc3@gmx.net>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <8f948621-fbeb-4807-a4c2-0214ce5d3bc3@gmx.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+References: <20260901004203.49686-1-rosenp@gmail.com> <20260901-corrode-unvented-4cf271941722@spud>
+ <CAKxU2N9X=fvr-a5h5o5XaRLuRuSUq7wR85xmSduK9vff4z4CQA@mail.gmail.com> <20260903-pettiness-crested-c4fb1b3ac05a@spud>
+In-Reply-To: <20260903-pettiness-crested-c4fb1b3ac05a@spud>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Thu, 3 Sep 2026 11:58:53 -0700
+X-Gm-Features: AcwNN1VKJMbKCu_T1F0VY384x3qLO0B2LRU-9HQpE-yQn8Eo44X7b4XrjE7mWcM
+Message-ID: <CAKxU2N__+u-mJ4bbAEFcT3jbxPShi4BeEj+0cAN3oHWzqeGzZw@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart compatible
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-serial@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lubomir Rintel <lkundrak@v3.sk>, in file <devicetree@vger.kernel.org>, 
+	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/3/26 11:47, Stefan Wahren wrote:
-[snip]
->>> Doesn't seem to apply cleanly on v7.3-rc1, could you please rebase?
->> It should apply cleanly against Florian's next branch here:
->> https://github.com/Broadcom/stblinux/commits/devicetree-arm64/next
-> this branch based on 7.2-rc1, not sure this is intended.
+On Thu, Sep 3, 2026 at 8:42=E2=80=AFAM Conor Dooley <conor@kernel.org> wrot=
+e:
+>
+> On Wed, Sep 02, 2026 at 02:34:55PM -0700, Rosen Penev wrote:
+> > On Tue, Sep 1, 2026 at 10:51=E2=80=AFAM Conor Dooley <conor@kernel.org>=
+ wrote:
+> > >
+> > > On Mon, Aug 31, 2026 at 05:42:03PM -0700, Rosen Penev wrote:
+> > > > The Armada 38x and 98DX3236 SoCs use this compatible, either paired
+> > > > with "ns16550a" (armada-38x.dtsi) or on its own
+> > > > (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
+> > > > binding, so dtbs_check reports:
+> > > >
+> > > >   serial@12000: failed to match any schema with compatible:
+> > > >   ['marvell,armada-38x-uart', 'ns16550a']
+> > > >
+> > > > Add a standalone const entry and a two-string variant paired with
+> > > > "ns16550a".
+> > >
+> > > Only one of these is correct, add one and fix the users.
+> > > Given there's match data, it's probably the standalone one.
+>
+> > Commit 62480772263a adds the second one to support earlycon.
+>
+> So the one with the ns16550a fallback is the correct one?
+Good question. I posted an alternative to this patch here:
+https://lore.kernel.org/linux-serial/20260902222555.30C151F000E9@smtp.kerne=
+l.org/T/#t
 
-It is intended to be based upon the last -rc1 that was released. 
-v7.3-rc1 is not cut yet, but when it is, I will rebase all of the /next 
-branch on top.
--- 
-Florian
+If accepted, it would avoid needing ns16550a in dts, and a v2 of this
+patch would be the first hunk + dts fixup.
+>
+> > >
+> > > pw-bot: changes-requested
+> > >
+> > > Thanks,
+> > > Conor.
+> > >
+> > > >
+> > > > Validated with make dt_binding_check (8250.yaml) and dt-validate on
+> > > > armada-38x and armada-xp 98DX3236 boards: the UART schema errors ar=
+e
+> > > > gone.
+> > > >
+> > > > Assisted-by: opencode:big-pickle
+> > > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > > ---
+> > > >  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
+> > > >  1 file changed, 4 insertions(+)
+> > > >
+> > > > diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/D=
+ocumentation/devicetree/bindings/serial/8250.yaml
+> > > > index 8c2c177faf89..f71c6afe02f2 100644
+> > > > --- a/Documentation/devicetree/bindings/serial/8250.yaml
+> > > > +++ b/Documentation/devicetree/bindings/serial/8250.yaml
+> > > > @@ -109,6 +109,7 @@ properties:
+> > > >        - const: aspeed,ast2500-vuart
+> > > >        - const: intel,xscale-uart
+> > > >        - const: mrvl,pxa-uart
+> > > > +      - const: marvell,armada-38x-uart
+> > > >        - const: nuvoton,wpcm450-uart
+> > > >        - const: nuvoton,npcm750-uart
+> > > >        - const: nvidia,tegra20-uart
+> > > > @@ -119,6 +120,9 @@ properties:
+> > > >                - exar,xr16l2551
+> > > >                - exar,xr16l2550
+> > > >            - const: ns8250
+> > > > +      - items:
+> > > > +          - const: marvell,armada-38x-uart
+> > > > +          - const: ns16550a
+> > > >        - items:
+> > > >            - enum:
+> > > >                - altr,16550-FIFO32
+> > > > --
+> > > > 2.55.0
+> > > >
