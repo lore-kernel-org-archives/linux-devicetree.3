@@ -1,244 +1,267 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023127.outbound.protection.outlook.com [40.107.44.127])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C3D381EB8;
-	Thu,  3 Sep 2026 07:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.127
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788421332; cv=fail; b=VqYuK0qHiT8P66DMjgLD53buokMO6iljvDCvzLhiycxh8NcgLS3voBE2rWPIWDrpWvbK8zpH1+khWPeuooOpKR5EEGn58oNh3tSq+J+Fqav8PtQ/zH+rVM7UhEXJfjZ6PLR0O9ndU03Z/ivr6DD3eHhqtXOXh1XyLb4QCQHIHPk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788421332; c=relaxed/simple;
-	bh=21Y5V7q+anVLnkDqRgrSM844Ky/Ahdrhyw/n/hIsAo0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=smqnnlGJrAcztczGpUE0KKhtYkoLJEUQiunrW+D0DfhAqW5MwDuxm0AdZR4T7J+REsxUSzj0C40uENPtyCnQYwjr62K5+pFNuO8oB2/ig3VWlaW4fXcQXZg4oeEZvORn8DAOlvt5Y5bQgGe5PzlKTYWe+6hTvtLeNEfUuLxtUmc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=i1gZzXpR; arc=fail smtp.client-ip=40.107.44.127
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56C2D415F2E
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 07:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788421458; cv=none; b=gkEsG2JrPM0pMdfBUlmZYpozzAsPjxHPl314cDjH1F016KcgozKPEzaU9fsNM0CV9BkT1jwY7P983d8wCPkAj5qoEHoV2zEKYA4MBZQWrOBJ/jlh5fKsdnMvLL0pzgQmC6RZ00IRXr753NUb5+3xmDnn8hy+xBEpGEBJVsKalys=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788421458; c=relaxed/simple;
+	bh=3yBQW4M/U3usW5Bkp7d0eQGmzAcbhHS+cvRXVoYulCU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lplnrm2jzw6x1tRWz+J+gQrL1SLHsTJi5YPeGRTZqIRonwyNV7Jfs3LPsCis6CbEVdyJ1eL6lpjn85Otsi2vK1o28FTSYWTaEeC4tOBYV+xRTZ7NYR9Aj0FJEDTZ+OMU/BLVOc337BJnpWhzHifZUNf6A5ne9j1PWg8gkkfocNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xnqrar2n; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="i1gZzXpR"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=czdlml64KRGSg0tnE7zuwRgpKD9KUUZWcQoc2+ql1OIIPog1sDeY1bcrcfDpIM0ChTpMiP4o7zIsc39pnmjyyzTyLN6IbS1+vqk9kgBEaCbucp5z9rqo/8xJir2rxzGFCLbBjPErTk4jNwjwnHO92yJVUDAp+luo3rQ0dKt2GAeLifseYYfRInUQXDahqCQU+sotzgCScr0OFjurKQTS2QsnnjJdYcO7mzGV6ZTzG1JoqARFzq0DmlvPPatXdkVsaomh+AUqG2JWdBoN1XgKplASXtYRNWWQHvX8fizoAl/82y9674bHiQmyzfCOXT6X5f8lHDA+f7sVvlUHEF1v8Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fqlvDruJqYy23NDOTzURE8KzQWOgKafR8a6foB5tMwk=;
- b=Jsnq+tOB1d6nz/jmhaxnAfkKlPyJpc45FfhbyLqSxgGpuviNghTm66Fiis8jDbG8P2IF8JD/darWQv6Y3LjEbiytmyFtOV2adK2X6g6NzqkC8lZTZlTyI/pphpub80nT48vG/UT5RdK2LVnzIo0edq8nyrE7mz0XmzajQ6xvGheVkZN/gob1xzuO0ps2Ov7wonKXhxyR4AZwaAA6SDoSJR5GfHqj0QZyAVh1EjxS2ghlm8VPAx2bF89DNLc+PjLGbpCqpBi8rvgAumiywm7BzSUPdCCLXqu5AuoR+mKbVPDxfF2kRF/0erZiCKOSKaG2Z9abpHWz/M9CdOd+cZDdpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fqlvDruJqYy23NDOTzURE8KzQWOgKafR8a6foB5tMwk=;
- b=i1gZzXpR8yOayYRkvPNJaefArtao7lTTIOg2wg4uh1rh6FIS4Ccsudph8mYwH2EzXvtZs+6XLctThCyeZyL6SOhopXjO9BH0nLH7gb4fITRp8pGk5kPxyiF9V+0jb28yOR+k0ZqNEh1TYo9HaH/WPtdAG9Eawrv9iu5h4tHUCnsS5VzkbNMHjRVoVD4Gsw9KtG3+3W0wIWmkbXux/eICQjpZKlCb54Xxa43F4/ywbgKrcFjOeg0SSEp7HDmTjSx/ZQcfz0KOjLK272VYfG8Xjv+M4YFzLMPTKS68cubRtUB0sDBfnh5mSeGB953EU1Aw9/O2wf8kOKofbck/iGnBXQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
- by JH0PR03MB7446.apcprd03.prod.outlook.com (2603:1096:990:1b::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
- 2026 07:42:05 +0000
-Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
- ([fe80::78d4:9dee:2e32:d1e4%7]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
- 07:42:05 +0000
-Message-ID: <369a2699-52fa-45ec-b55a-99f2a8fbca4f@amlogic.com>
-Date: Thu, 3 Sep 2026 15:42:00 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 1/3] dt-bindings: dma: Add Amlogic A9 SoC DMA
-Content-Language: en-US
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, Frank Li <Frank.Li@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260903-amlogic-dma-v12-0-f769bc344056@amlogic.com>
- <20260903-amlogic-dma-v12-1-f769bc344056@amlogic.com>
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-In-Reply-To: <20260903-amlogic-dma-v12-1-f769bc344056@amlogic.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: JH0PR02CA0014.apcprd02.prod.outlook.com
- (2603:1096:990:5::19) To TYZPR03MB6896.apcprd03.prod.outlook.com
- (2603:1096:400:289::14)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xnqrar2n"
+Received: by mail-pj2-f11.google.com with SMTP id d9443c01a7336-2ceb5a39c48so5438135ad.1
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 00:44:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788421452; x=1789026252; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oUbrqLv47LI31OwZX/zERcJxLxOgrZ94RwwzK9bj0r8=;
+        b=Xnqrar2nWev6qOfBQMa1/a9DiIkw6FZjcf2U78Ru2/vPoc3zjssXDHl8Q6nJy/+QEB
+         0fQ8/bgdLZDoNQtFoBLVwQ2pTHLztek5+iT/pOMUnYCU/Iu96z3PH4HKpUIj+w5ibdoG
+         OeEDu4j1rN/sC4tOU8eU6GijZQW48yIshf+qXdtYoSiaD6N1FVwxSwD+xy03rkVfQ7Yw
+         Kx3WiClILqrxhpAljoizbDp0LABbr9/S7IblaidskNx2J9shVaPy9++bSo3FAUidsIJr
+         RfZ+MwH2gwv49jVbinY5/9Ic9D5gfPfhsqZjLd9WVanRxdAIiPSHxrQD8v8f75ELkpTV
+         2ofw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788421452; x=1789026252;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oUbrqLv47LI31OwZX/zERcJxLxOgrZ94RwwzK9bj0r8=;
+        b=W5WhrW6bPxXgOVNRFSSArSmj7oWihanQ2I/tIEjFZsldiO5iedMHOm4asj/RFlPxGp
+         r4aTWZdJ0ERJFpfRWOXP6f7sXMXVwPc+wAi4azoLVda25urRF0VAA7cWZmKBG4lgCXxO
+         coP4zlZHqBfdkh744P3/JW/t/AhE8Q5XgeDFxp1bZ+F34JZkFMdCY555vkyvOH3NP6VG
+         r/Vx6zkrUO6TS/G/XPNQDHCi8nK8wdnDrD7arVjU04TtKvFS+fsoLBCgZ4uCv0G4xC2T
+         PELcEG9ABX8V9ETyeZLzuFmw4b7I4vkkKeLhfonTQHjGVy5IbogsgZInJX0sY4MRjpLc
+         R3iA==
+X-Forwarded-Encrypted: i=1; AKwUvBwGDNNj6uFvUXqAmw1qmvwu9JQqk3+BnFl+ENSZ0eWBj3IoE0X/hgWnDe+da185LixWeaDxU85WYkWn@vger.kernel.org
+X-Gm-Message-State: AFuF++ktW3FC8o6fHqexy7h2LQGqnpdLXDIyhvMDLSxVIv/1zs2b+d+S
+	lrlZleK1SILDUT/yPWp6aY6LLQzpxG+1y+lUm+N40piroFDhu3pvkOFy
+X-Gm-Gg: AYBFou1XYBG3BT3nFGtQ2sEe0/WFMBOb8bflKJz1iKPDLFVEWw/NhmRqU5BoYo7Vs0Z
+	L7B8mkA9C+gRu0y8EAiXi017iwX/gjtiR5Adt7M7gCytF6Jp+l8OVAmMzL9bdzITuparx+t2HwV
+	W3qr8YnC/YvKDDYOABqWlMySALk9quXcigIUwqyeSPJjF142JVuPAS/SShrr8ARTHOx+4S4Lzmi
+	qan5Nlr8L35hXDCtutsHe+Tnsj10MSffBtmN0G5a5CtlQ76yot3zpOeP8iXoU95+th/6zYm8se8
+	4nR2qKH4fYRbK3y41n6b4l09LbuBpOV5WccNbAjLBn1bN8ct3AkNt04Dpk0mu058YamdKOqpElV
+	mteeFqwF26JaupX86Dha40Cb97qVtDV78+sB4oM15GSiig+H34vH3ESnkFRXYgNnhOct+9KHxbM
+	cPRSqEplr0ENbkAeAzekJj56Z6H6n7kOmZ7/ZzzlKASjJPMkI4wGz1RRdVFmEdjuqSi3fEC74y0
+	XHr6IM=
+X-Received: by 2002:a17:902:e809:b0:2d7:4b42:9352 with SMTP id d9443c01a7336-2daec60af43mr131715375ad.3.1788421451864;
+        Thu, 03 Sep 2026 00:44:11 -0700 (PDT)
+Received: from [10.125.112.20] ([122.11.210.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe62d7c2sm5931425ad.29.2026.09.03.00.44.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 00:44:11 -0700 (PDT)
+Message-ID: <edd83cd6-663f-43f5-8058-99e59d941d5b@gmail.com>
+Date: Thu, 3 Sep 2026 15:43:58 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|JH0PR03MB7446:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbd65545-3ef7-4d02-7d75-08df098ed9bb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|23010399003|1800799024|366016|6133799003|11063799006|56012099006|4143699003|10067099003|3023799007|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	M1nEeNHXx7FPLM55pLB7K2aqiKxWmz4V4aMSZY5+tjwOs+ElFjjnqPQmFRn4QWKXNvPbl+mYs36uIuDDzYeAKUDcPNE1+3hzaUG5DFi4rlA3pqis3ulp7FyHsiP2L0uqXygoXtuQWjH44PyRVM4pWLNrvnioPLFHEgNcxxoLPnbdHJDNvlNXArGZ5teDR4VhiEkoFXdea4jPNLmAogGDmv10dO8g0MBo6lHEHDp9A0xkl01ESshNtsSZclJwp2f5s92st32Y5Xy3qU9u+t+zdKP/9cJ3eNiTiuLz/NINPNJAZUW9E3YmCG/+7b+uXT8pTQDiNy8Tyc5QsEPb3JE/4o+LRLnxXSuBij+AfPS8CN1lf325bRlzY9c6lz/Y0fz3mzntL0SzE7qlinvJ01CxNSHxYBbE+uGQ5nnnAQbT4DboDx+tcju3rLpCI02msYJ3oWSblMjoo3p6XM9Zl9afSJye3PNSCy4JbgYkgIpkc78DhNOShpgsLqIE6hf+Buv0YGHnsPZSSXbOy9kbKMTWY3ZL6/fcuod+fsFvyCm3Czf8G0vcmEPQik5yz3utIhvpOBUPxVZ+3Vq2+3JwEAFwJfEBg4nxfnpeagAJJ88q364rzOp8Yr5gxaSv4UhQ/mVY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(6133799003)(11063799006)(56012099006)(4143699003)(10067099003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M3RlaEF2RnpRWUZqZ3N0cTB2d0tUUStTT0NaSmtUWVVLazR6MFZHdjQzNVhu?=
- =?utf-8?B?TkcyN2FJaldGQW52U2ppRFNUT0c1d1ZvZ2F3bGdXYmwvcTlLanBpR05VaTQx?=
- =?utf-8?B?aVlVTTlGQ1hQMmxpRW5pcUpsQkRDN0Z1dG1CbGVrM2crc0hZR1pKQm5yaEwz?=
- =?utf-8?B?aFcrQnROVHpWdERIZXk2cmpHeTZSTTU5MDFtMjBSRzlPUVYwSXErMCtTdFZX?=
- =?utf-8?B?Z2lnK1QvbEhKMHpkWWRPK0V5YnpRY3NDYmowM0k2WE1xZGtxWVY5VU5aYnVK?=
- =?utf-8?B?b1NlS1BkbkpMQVBLcXYyRk1FMTNUOTBxZlpUaitDc1psNlRTV3hheUJZdGVk?=
- =?utf-8?B?RU8zNkxGeXpNMlZzY0hTVjJ3akMxR3dub1RjaFFUdE80OFNjOWpBTm5PUTFR?=
- =?utf-8?B?ZFd3QXlTRVpPRFNTd1FVYUlxcWJjR0loWkJhS0hvZjJkUS92MlZoMUFjNnAz?=
- =?utf-8?B?RHJDVXBONGljb2V5bkVKcEVGbW9ESFJ5UTBOYmFVQk85YUNtU1FhbHRQWGow?=
- =?utf-8?B?bkdVTno3bWlZcCtDOXFCMGt2WnhWZWFHNlM5YzFOM2E0QVFiZjlZTlRDbEkx?=
- =?utf-8?B?dDJKZGkya2RpeENzOVAzUTR2MDlEanhQRVFtQWNEKzNJbWt0NERBblM5UVpa?=
- =?utf-8?B?dzhKdVhmRysxd3NLMW03eUlsY241SWl4TDJGWWx6SVNXYit6UjBtaFdONjdr?=
- =?utf-8?B?VzlNZ2QybTdqRTUxWlB4TFhJQll3RUE2bVoxcFJCMzRJOGtPV1dMWnFvc09l?=
- =?utf-8?B?b0h3a2hZYWNISk1ybEFkSFpyWHRJSzhKL2tQN1M5S2puL2tBcWFmeGxsMnJ6?=
- =?utf-8?B?Sm5WWHFKKy9JTDZwSmFnZGxPeVlsdG4xVEhmZWd4S2VoZ1g3R0hGQ245KzVC?=
- =?utf-8?B?UHRqZ0ZKTm5hNmpidkpndnlPZlBOTnEzckMzN0dIQzF2WlE5MzZqbUN2djRT?=
- =?utf-8?B?aFIvbmQ3djBjT2lCbVI2YjJzNGtQL0Rwamt1Y2ZkRE55U2dBejRyaGxRNE1t?=
- =?utf-8?B?cEVVdlB1V0lWMjF6bGpXdlpkWXRDQTVUbmFhY0pOQVFsWFhBRkF3QXoybFpk?=
- =?utf-8?B?bDdGbkVqNys1d0hnZXdGbHhyM0hhVlROTGRibnhFL1pxcWVrODdGWXY1OGVa?=
- =?utf-8?B?L2JheFIzVFI1VmxHR3NKV015R0VSb1NwdFVRL3RYQlJwMG5aaGVpdUhOQ0ox?=
- =?utf-8?B?NytqQjc0RDduYTZ3QlRVVmY2RThYRSs2OEYrMWVoNXBYU0Fkd3JEYlUyanVY?=
- =?utf-8?B?bFVlNVBvZnE3UEkyK1VnZTh5cFBsbFVRMXpRQVUwL2NiUGd1eW93WjI2NmhB?=
- =?utf-8?B?QUlWMWFBbnEwc0czV1RzYmtOb3lsNktxNHZRYnVYN1dwbXVWSjNmTmlFa2wx?=
- =?utf-8?B?UHJwbFd2d2dpSHRyR1NTdFFFeUpLbjB2bjFJWTFWN1JlVStOY1hYNFZRdkQ5?=
- =?utf-8?B?czA4Vmg4dWlVZG9xY3IzWUtJT1hxRTQzanFWd3dUK0s3cUI2QVlCL3hPMkVZ?=
- =?utf-8?B?VnR1a3p4NjVBcHBXUkJmbmFyNFZ2TlYwNXlFdi9hRWdvUTBQSFM0VUdBRXRX?=
- =?utf-8?B?aUhTSUU2eTV5OHVmK0paclNsRVA1TlUvMXVLTFQrNTR2VkpOT2hzMS9FcmFm?=
- =?utf-8?B?Zndlb21SVWk4ME53MlV4bFBtSmNFUmpEaHVuSlFFK1JKcUcxb01jMnM2Rm9T?=
- =?utf-8?B?RjdzWVNRNENXZzlXdVVmOWxNNkRBRXVLSXc2QkxZZnQ1ajZOa29MTExKMWpz?=
- =?utf-8?B?dlIxNmllK0xmL0syQThjUjJxNVpnUXZqWFBraGN3QzhyVlU3MEo2Rml2UzAw?=
- =?utf-8?B?MFRmOExYWnBtcjErT1Z2ck9sNUtxZDFFRGcwd0RYY3hCVkRSMEJHOUhSMHdS?=
- =?utf-8?B?a0c5OE1sUnZlRG1qYVVOSzNCTzJWSHhQdXZFL3JqVkVSL1hIWVZValFLRVdB?=
- =?utf-8?B?VjlsZG1PclUrQjhkbmdNaVhkUWNyMU1MSTlpL2hjZFBJblFtblJ2eFdqYlRX?=
- =?utf-8?B?UjdQbG1EWWRaSG96VkdIVWdSMjM1Y2UzcjJSRXorZlpBaGYrUDB2amkzR1Zk?=
- =?utf-8?B?TzR5WndrWFpyUjRWRVdnWTRLK0lCbmYzY0xFVThzMkFiNVdRbnQybnNFNVVN?=
- =?utf-8?B?c1JhY214N24wVGNlaDdROE5NM25PRFppZmJmby9aT29SZzVtMHN3Q1NYWWd4?=
- =?utf-8?B?QjIyTWdyMkRvRkR2cDczS2NjV0tBQlFrbGpvRHExT1RzQXdlTVE4ZitlZnZR?=
- =?utf-8?B?czExZnhhYUE4ODdZSkNzM1BtbXlLWk83U1FaUjlkcUk0b2h6WHU1NTVXejBa?=
- =?utf-8?B?cVdOdWFXZTkwN1B3SmJCcGl5OFptYmxBVGFCdUMwNFZvemxLM2VPUT09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbd65545-3ef7-4d02-7d75-08df098ed9bb
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 07:42:05.3684
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4ICMt2QqjzPNKwLpiQG0L2WRzMb4dwwlTB1ImiYQ9n4R4gIWEg39Q8uhKGb2NJWJrTVCmmrAFTImTDeWWHm7qY6DWyaRdZ9R8G4RAeD1EwQ=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB7446
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 00/10] kdump: reduce vmcore size and capture time
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
+ mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
+ robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
+ alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, robin.murphy@arm.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
+ iommu@lists.linux.dev
+References: <20260902073116.802752-1-chenwandun1@gmail.com>
+ <apfkDlcMYrgiuGYA@fedora> <6aef2f48-1cc5-408d-a5a2-2b4b4d45ad7b@gmail.com>
+ <apkiW8gn9Z5XaVQh@fedora>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <apkiW8gn9Z5XaVQh@fedora>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
-    Based on the bot and Vinod's suggestions, I added a prefix 
-"AMLOGIC_A9" for channel type. I didn't remove your Reviewed-by tag for 
-this change. Is this appropriate?
 
-On 2026/9/3 15:38, Xianwei Zhao via B4 Relay wrote:
-> From: Xianwei Zhao<xianwei.zhao@amlogic.com>
+
+On 9/3/26 15:31, Baoquan He wrote:
+> On 09/03/26 at 03:05pm, Wandun wrote:
+>>
+>>
+>> On 9/2/26 16:53, Baoquan He wrote:
+>>> Hi Wandun,
+>>>
+>>> On 09/02/26 at 03:31pm, Wandun Chen wrote:
+>>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>>
+>>>> On SoCs that carve out large firmware-owned reserved memory (GPU,
+>>>> camera ISP, ...), kdump currently dumps those carveouts as part of
+>>>> system RAM even though their contents are firmware state that is not
+>>>> useful for kernel crash analysis.
+>>>>
+>>>> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
+>>>> reserved memory on DT-based architectures (arm64, riscv, loongarch).
+>>>> Reserved regions default are marked MEMBLOCK_NODUMP so kdump omits them;
+>>>> reusable CMA regions are different because their pages are handed back
+>>>> to the buddy allocator and may carry crash-relevant data.
+>>>>
+>>>> ACPI systems already filter reserved memory out of the vmcore through
+>>>> their existing path; only DT-based systems currently fail to filter these
+>>>> regions, which is what this series addresses. The flag lives in memblock
+>>>> itself rather than in a DT-only structure, so the mechanism is generic and
+>>>> both ACPI and DT systems can benefit from it (suggested by Rob, thanks) [1].
+>>>
+>>> Thanks for the effort. I am not against this patchset, and I haven't
+>>> went through it carefully. Just from the cover letter, you mentioned
+>>> generic, I am wondering if this can be generic for excluding other
+>>> memory regions. Asking this because I try to find a way to exclude
+>>> unwanted memory regions too, please check below link where there's
+>>> the relevant discussion. We definitely don't like inventing wheels
+>>> time after time. Do you think this memblock region excluding can
+>>> be used in other places of kernel?
+>>>
+>>> https://lore.kernel.org/all/aoLFai0gzzH2bGgy@MiWiFi-R3L-srv/T/#u
+>>
+>>
+>> Thanks for taking a look, and for the pointer to the crash-wipe thread.
+>>
+>> To answer your question directly: the exclusion mechanism in this series
+>> is already generic, memblock_mark_nodump() is the entry point. Any code
+>> that wants a region out of the vmcore just marks it MEMBLOCK_NODUMP, when
+>> preparing vmcore elf header by walking memblock, these regionss are skipped;
+>> This series is simply one caller, marking the DTS /reserved-memory and
+>> /memreserve/ regions with MEMBLOCK_NODUMP.
 > 
-> Add documentation describing the Amlogic A9 SoC DMA. And add
-> the properties specific values defines into a new include file.
+> Thanks, for memory not allocated from memblock, e.g buddy, is it still
+> good?
+
+Yes, still good, only need to pass the physical range to memblock_mark_nodump().
+
 > 
-> Reviewed-by: Krzysztof Kozlowski<krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
-> ---
->   .../devicetree/bindings/dma/amlogic,a9-dma.yaml    | 68
-> ++++++++++++++++++++++
->   include/dt-bindings/dma/amlogic,a9-dma.h           |  8 +++
->   2 files changed, 76 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
-> b/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
-> new file mode 100644
-> index 000000000000..3e1a4fba3047
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dma/amlogic,a9-dma.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id:http://devicetree.org/schemas/dma/amlogic,a9-dma.yaml#
-> +$schema:http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic general DMA controller
-> +
-> +description:
-> +  This is a general-purpose peripheral DMA controller. It currently supports
-> +  major peripherals including I2C, I3C, PIO, and CAN-BUS. Transmit and receive
-> +  for the same peripheral use two separate channels, controlled by different
-> +  register sets. I2C and I3C transfer data in 1-byte units, while PIO and
-> +  CAN-BUS transfer data in 4-byte units. From the controller’s perspective,
-> +  there is no significant difference.
-> +
-> +maintainers:
-> +  - Xianwei Zhao<xianwei.zhao@amlogic.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,a9-dma
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    const: sys
-> +
-> +  '#dma-cells':
-> +    const: 2
-> +    description:
-> +      The first cell is the DMA channel type(AMLOGIC_A9_DMA_TX or AMLOGIC_A9_DMA_RX).
-> +      The second cell is the DMA channel index.
-> +
-> +  dma-channels:
-> +    maximum: 64
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - '#dma-cells'
-> +  - dma-channels
-> +
-> +allOf:
-> +  - $ref: dma-controller.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    dma-controller@fe400000 {
-> +        compatible = "amlogic,a9-dma";
-> +        reg = <0xfe400000 0x4000>;
-> +        interrupts = <GIC_SPI 35 IRQ_TYPE_EDGE_RISING>;
-> +        clocks = <&clkc 45>;
-> +        #dma-cells = <2>;
-> +        dma-channels = <28>;
-> +    };
-> diff --git a/include/dt-bindings/dma/amlogic,a9-dma.h b/include/dt-bindings/dma/amlogic,a9-dma.h
-> new file mode 100644
-> index 000000000000..ea7c90063572
-> --- /dev/null
-> +++ b/include/dt-bindings/dma/amlogic,a9-dma.h
-> @@ -0,0 +1,8 @@
-> +/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
-> +
-> +#ifndef __DT_BINDINGS_DMA_AMLOGIC_DMA_H__
-> +#define __DT_BINDINGS_DMA_AMLOGIC_DMA_H__
-> +
-> +#define AMLOGIC_A9_DMA_TX              0
-> +#define AMLOGIC_A9_DMA_RX              1
-> +#endif /* __DT_BINDINGS_DMA_AMLOGIC_DMA_H__ */
+>>
+>> x86 currently builds the vmcore elf header from iomem_resource, not
+>> memblock; it could be switched to memblock, but that would bring no
+>> benefit for the problem this series solves, so this series makes no
+>> x86 change. I'd personally be in favor of switching to memblock for
+>> a unified implementation across architectures.
+>>
+>> Best regards
+>> Wandun
+>>
+>>
+>>>
+>>>>
+>>>> Since the reserved memory regions are filtered out, the vmcore is
+>>>> smaller in size and faster to produce. 
+>>>>
+>>>> The series is based on linux-next and is organized as follows:
+>>>>
+>>>> Patches 1-4: Preparation and bugfixes: fix the missing HugeTLB
+>>>>              flagname, switch riscv crash_mem to memblock, fold the
+>>>>              duplicated per-arch memblock walks into the weak
+>>>>              defaults, and serialize crash header preparation against
+>>>>              memory hotplug.
+>>>> Patches 5-9: NODUMP infrastructure: switch crash_core to
+>>>>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
+>>>>              flag, add a dumpable flag to struct reserved_mem, and
+>>>>              mark /reserved-memory and /memreserve/ entries with
+>>>> 	     MEMBLOCK_NODUMP flag.
+>>>> Patch 10:    Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
+>>>>              header.
+>>>>
+>>>> In v5, Sashiko found some pre-existing issues related to reserved-memory,
+>>>> and has no dependency on this series, so these issues have been addressed
+>>>> in a separate series [2].
+>>>>
+>>>> v5 --> v6:
+>>>> 1. Serialize crash header preparation against memory hotplug to avoid
+>>>>    out-of-bounds or use-after-free issues.
+>>>>
+>>>> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
+>>>>    avoiding a panic from too few regions before resize is permitted.
+>>>>
+>>>> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
+>>>>
+>>>>
+>>>> v4 --> v5:
+>>>> 1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
+>>>>    (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
+>>>>    DT-only struct reserved_mem.
+>>>> 2. Switch the riscv vmcore elf header preparation to use memblock
+>>>>    instead of the resource tree, aligning it with arm64 and loongarch,
+>>>>    so riscv also can exclude reserved memory from vmcore.
+>>>> 3. Deduplicate the vmcore elf header preparation: arm64, riscv and
+>>>>    loongarch open-coded the same logic, so fold it into shared
+>>>>     __weak defaults in crash_core.
+>>>> 4.  Drop the v4 patch that saved /memreserve/ entries into the
+>>>>     reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
+>>>>     directly.
+>>>>
+>>>> v3 --> v4:
+>>>> 1. Rebase this series on v7.2-rc1.
+>>>> 2. Add two cleanup patches (patch 02/03).
+>>>> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
+>>>>    NULL multiple times, suggested by Rob.
+>>>>
+>>>> v2 --> v3:
+>>>> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
+>>>> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
+>>>> 3. Add some prepare patches.
+>>>>
+>>>> v1 --> v2:
+>>>> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+>>>>    feedback [3], v2 drop that property and exclude reserve memory
+>>>>    by default.
+>>>> 2. Split some prepared patches from the original patches.
+>>>> 3. Address coding-style comments on patch 5 from Rob.
+>>>>
+>>>> [1] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
+>>>> [2] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
+>>>> [3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+>>>>
+>>>> Meijing Zhao (1):
+>>>>   mm: memblock: add missing HugeTLB flag name
+>>>>
+>>>> Wandun Chen (9):
+>>>>   riscv: build crash_mem ranges from memblock instead of resource tree
+>>>>   crash_core: fold duplicated memblock arch hooks into the weak default
+>>>>   crash_core: serialize crash header preparation against hotplug
+>>>>   crash_core: replace for_each_mem_range() with for_each_mem_region()
+>>>>   memblock: introduce MEMBLOCK_NODUMP flag
+>>>>   of: reserved_mem: add dumpable flag to opt-in vmcore
+>>>>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
+>>>>   of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
+>>>>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
+>>>>     header
+>>>>
+>>>>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
+>>>>  arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
+>>>>  arch/riscv/Kconfig                         |  2 +-
+>>>>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
+>>>>  arch/x86/kernel/crash.c                    |  2 +-
+>>>>  drivers/of/fdt.c                           |  2 +
+>>>>  drivers/of/of_private.h                    |  2 +
+>>>>  drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
+>>>>  include/linux/crash_core.h                 |  2 +
+>>>>  include/linux/memblock.h                   |  9 ++++
+>>>>  include/linux/of_reserved_mem.h            |  1 +
+>>>>  kernel/crash_core.c                        | 51 ++++++++++++++++++++--
+>>>>  kernel/dma/contiguous.c                    |  1 +
+>>>>  mm/memblock.c                              | 17 ++++++++
+>>>>  14 files changed, 131 insertions(+), 95 deletions(-)
+>>>>
+>>>> -- 
+>>>> 2.43.0
+>>>>
+>>
+
