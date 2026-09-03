@@ -1,84 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24427.protonmail.ch (mail-24427.protonmail.ch [109.224.244.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98532AD35;
-	Thu,  3 Sep 2026 00:30:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AB0296BB8
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 00:41:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.27
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788395453; cv=none; b=DptBr+HHRxLbpod7sXSExjRNurbfEKiemwCEl1gTgt1PH5nn5o/EMTDbeO+fihqMv4UvaoupR+bUXaS08eZ1vKxLOBAb8VJmkaqhZtc4nbMOiAewNpn/1QEXFU0sNE76EeAGBpx7H0hhBN4EKkngrJ2Nei+O+IoPsXyVA/bb8bM=
+	t=1788396087; cv=none; b=Kniwcn8hQ9Jyey0bEtAy5F0u/HwiKQA80wfD0Je+DPJYIMN5FaxTljAkYSHM6GgjF6k993k5CcMMdp07/yw8aJ52iqz0ZvW4zCmD1AC8WG7CfBXBho2hDKAZVRIcyr0pa9qOtgy1x2vq39mpZXOOjEUxJCEmGIYtmkh0/unmH4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788395453; c=relaxed/simple;
-	bh=ua20xmgB1HptBEtU2b1WqsDmzDSvfIvJhA+CD0FX+O4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=OLKVNV4Cxr5QT7rxA/JE4YbHp0I1xiLZDq7HZAlxfbarPpHpHjCnQeGTghz3HpiS6CaATga8eqLC1u9twgivnb+pbRQMPnBjc7E51rblwDvAfML9YKwhUlKt99lHzjA0pcopHZeW7XeGETcV4LNJGAcXx4aXvg8kxERum79bPNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=An+asTJn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788396087; c=relaxed/simple;
+	bh=jMwOBwGiRU8fETlBy0Qnu3oQ54CAs0gRdMT8qbU+v98=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gR2qp9ntvT+upRcc90hTBviuiMULW3/yqn1I7O/kzHg8OGohltopE/RJHiGs0f5cYuGWfrBIBvxNDVDEFS4iR2MpMgM2roY1NkfQFUxeCUVs18LGg9xZSwxAXc+xSEvizMvylnYdfz0UemZYtUoTDZ6TyvBv4yPClJ9ET6cPIRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=q/l4gws5; arc=none smtp.client-ip=109.224.244.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="An+asTJn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84EA1F000E9;
-	Thu,  3 Sep 2026 00:30:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788395452;
-	bh=zvsv78XcfA5J5/VKfW3UfuCMKETIux8Z9sYyMuskzMs=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=An+asTJnapn3HR2PQjo9RIXrT9SrC9IWvmFaOv8XZXL3W2gqtqo6fLntVX3+/aM/Z
-	 7v/4kZFYD+nTa66VhYuwrxnZwGu8vyK4dQgngJ8GCtgNHicOoJvZg1bGoPKTSYmR3/
-	 ehZwkj3SZFevkiIhHyfQtxhIGucVjxNllHeWkqTWQFpQsabFLaKj36pdt5edoPX54x
-	 PYFUuRdppZ0LAFC04Ymo4I+Bf0jdcCFhpMNmg0fQZVomA/Z3PurHPXvO688vuIJnGC
-	 uYDx1qNvirBqj05ZECFS5wgVl0ipmTUpmvzB+OX0uV92AMkjCv561ZJvk+iVw6atUV
-	 hQ3CbqsMnSlyw==
-Message-ID: <0525e219-c39d-47f2-aca3-d79c45b1f62f@kernel.org>
-Date: Wed, 2 Sep 2026 19:30:50 -0500
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="q/l4gws5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1788396074; x=1788655274;
+	bh=u+EzJoDEG9W5tYl5Q0IYEK/9+yw3B8m1JuHAL+Fe8n4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=q/l4gws5khHQ9usVFhNy0enBWgX0xFWS+I2k5m6cemWpTllDUVh3FPqKFH8kVKUFv
+	 iJCxo5xmaJF+T33gO56nzM7+LirON14zZOmfgnX9JdJBdMq8YRUi7Dl9PINoAXXBDA
+	 CHyjVhOvu9EFUqZf3EzDPcGbjjys17oJptaYdcENSeL1uWc5x4/mMpDFTVfAUC1tOf
+	 AXs7UG7ZU3NxoN1+Jvc6c94MFtb1zh2t3Qz2FiHVehtm4DKGHsJu7CfVsE8VPshLVE
+	 BTwxh8DLOlnd2/zxsGGvi7jYMIV7Wj0nl6XWHZsxLKJ9agb+4coRDXNwH8Gtyc66aj
+	 nbozTG5nVArDA==
+Date: Thu, 03 Sep 2026 00:41:10 +0000
+To: aidenisik@member.fsf.org
+From: Aiden Isik <aidenisik@protonmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Aiden Isik <aidenisik+git@member.fsf.org>
+Subject: Re: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
+Message-ID: <4nry_0LYAWEUI1glONRapkF3AXjNNot6Rl4lQ91urHXgWoZKDAnfgn-VhZFPFqp9NPpuKAzYiaH9r2sVCcDgrp4hP6lsUWtcQuEB4vU5Vnc=@protonmail.com>
+In-Reply-To: <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
+References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org> <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
+Feedback-ID: 46524699:user:proton
+X-Pm-Message-ID: 84627e5c69c68b7676b45132793d9da796719d27
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] arm64: dts: intel: fix dw-apb-timer clock
- initialisation on Agilex and Agilex5
-Content-Language: en-US
-To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1779785788.git.adrian.ho.yin.ng@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <cover.1779785788.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+On Monday, August 17th, 2026 at 11:37 AM, Aiden Isik via B4 Relay <devnull+=
+aidenisik.member.fsf.org@kernel.org> wrote:
 
+> From: Aiden Isik <aidenisik@member.fsf.org>
+>=20
+> The Samsung Galaxy Watch FE (SM-R861/SM-R866), codenamed lucky7, is a
+> smartwatch developed by Samsung and released in 2024. It has 1.5GiB RAM,
+> 16GiB of eMMC storage, an Exynos5515 (W920) SoC, and a 396x396 display.
+>=20
+> Support for the following is added by this device tree:
+> - Bootloader framebuffer
+> - Memory
+>=20
+> Only the lowest 490MiB and highest 512MiB of memory are used for now.
+> The 488MiB between the addresses of 0x9ea00000 and 0xbe680000 is excluded
+> from the memory node due to a bug where if the kernel even knows about
+> the existence of this memory, one or both cores will lock up and cause
+> an RCU stall.
 
-On 5/26/26 17:00, Adrian Ng Ho Yin wrote:
-> The DesignWare APB timers on Intel Agilex and Agilex5 SoCs fail to
-> initialise because their clock managers are platform drivers registered
-> at core_initcall, which runs after time_init() where TIMER_OF_DECLARE
-> callbacks fire.  With clocks/clock-names in the DTS, the timer driver
-> calls clk_get() at a point when the clock provider is not yet
-> registered, causing the timers to never come up.
+This used to work fine on my 7.0 and 7.1-based branches, so I did a bit
+of bisecting and found that the issue was introduced in commit
+7b9f263909a57e2463c6a543d72651e00a3fd0d6
+(of: reserved_mem: only support one <base size> entry in reg property).
+
+This explains why hiding the memory from the kernel worked, I *was*
+reserving this memory but in a way which this commit discontinued.
+
+I initially thought this was some randomly-occurring "heisenbug", which
+is why I submitted the memory-hiding fix instead as it definitely worked,
+but now I know the real problem I will fix the reserved-memory node.
+
+I will fix this in the next version of this patchset, next merge window.
+
+>=20
+> Signed-off-by: Aiden Isik <aidenisik+git@member.fsf.org>
+> ---
+>  arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts | 106 +++++++++++++++++=
+++++++
+>  1 file changed, 106 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm6=
+4/boot/dts/exynos/exynos5515-lucky7.dts
+> new file mode 100644
+> index 000000000000..f91ea7e44cf8
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
+> @@ -0,0 +1,106 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +/*
+> + * Samsung Galaxy Watch FE (lucky7/SM-R861/SM-R866) device tree source
+> + *
+> + * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
+> + */
+> +
+> +/dts-v1/;
+> +#include "exynos5515.dtsi"
+> +
+> +/ {
+> +=09compatible =3D "samsung,lucky7", "samsung,exynos5515";
+> +=09chassis-type =3D "watch";
+> +=09model =3D "Samsung Galaxy Watch FE (SM-R861/SM-R866)";
+> +
+> +=09chosen {
+> +=09=09ranges;
+> +=09=09#address-cells =3D <2>;
+> +=09=09#size-cells =3D <1>;
+> +
+> +=09=09framebuffer@9e0cf000 {
+> +=09=09=09compatible =3D "simple-framebuffer";
+> +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
+> +=09=09=09format =3D "a8r8g8b8";
+> +=09=09=09height =3D <396>;
+> +=09=09=09stride =3D <(396 * 4)>;
+> +=09=09=09width =3D <396>;
+> +=09=09};
+> +=09};
+> +
+> +=09memory@80000000 {
+> +=09=09/*
+> +=09=09 * Use the lowest 490MiB and highest 512MiB of memory.
+> +=09=09 * The 488MiB between the addresses of 0x9ea00000 and
+> +=09=09 * 0xbe680000 is currently unused due to any memory accesses
+> +=09=09 * in several ranges between those addresses causing the core
+> +=09=09 * performing the accesses to stall.
+> +=09=09 */
+> +=09=09reg =3D <0x0 0x80000000 0x1ea00000>,
+> +=09=09      /* Crashing memory at 0x9ea00000-0xbe680000 */
+> +=09=09      /* Memory hole at 0xbe680000-0xc0000000 */
+> +=09=09      <0x0 0xc0000000 0x20000000>;
+> +=09=09device_type =3D "memory";
+> +=09};
+> +
+> +=09reserved-memory {
+> +=09=09ranges;
+> +=09=09#address-cells =3D <2>;
+> +=09=09#size-cells =3D <1>;
+> +
+> +=09=09framebuffer@9e0cf000 {
+> +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
+> +=09=09=09no-map;
+> +=09=09};
+> +
+> +=09=09misc-rmem {
+> +=09=09=09/*
+> +=09=09=09 * Some of these regions belong to memory-mapped
+> +=09=09=09 * devices, and will be assigned to drivers as support
+> +=09=09=09 * is added.
+> +=09=09=09 *
+> +=09=09=09 * Other regions belong to the TrustZone firmware
+> +=09=09=09 * and should never be touched.
+> +=09=09=09 */
+> +=09=09=09reg =3D <0x0 0x87000000 0x200000>,
+> +=09=09=09      <0x0 0x87fff000 0x1000>,
+> +=09=09=09      <0x0 0x8a000000 0x31000>,
+> +=09=09=09      <0x0 0x8d800000 0x180000>,
+> +=09=09=09      <0x0 0x8ffff000 0x33000>,
+> +=09=09=09      <0x0 0x90100000 0x200000>,
+> +=09=09=09      <0x0 0x98a00000 0x600000>,
+> +=09=09=09      <0x0 0x9a000000 0xc00000>,
+> +=09=09=09      <0x0 0x9b000000 0x400000>,
+> +=09=09=09      <0x0 0x9bd00000 0x208000>,
+> +=09=09=09      <0x0 0x9c000000 0x20000>,
+> +=09=09=09      <0x0 0xa0000000 0x10000>,
+> +=09=09=09      <0x0 0xa0010000 0x400000>,
+> +=09=09=09      <0x0 0xa0510000 0x1000>,
+> +=09=09=09      <0x0 0xa0900000 0x2000>,
+> +=09=09=09      <0x0 0xa0902000 0x1000>,
+> +=09=09=09      <0x0 0xa0910000 0x3c000>,
+> +=09=09=09      <0x0 0xb0000000 0x200000>,
+> +=09=09=09      <0x0 0xb1000000 0x200000>,
+> +=09=09=09      <0x0 0xbbfff000 0x1000000>,
+> +=09=09=09      <0x0 0xbcfff000 0x1000>,
+> +=09=09=09      <0x0 0xbd430000 0x1250000>,
+> +=09=09=09      <0x0 0xd0000000 0x5d00000>,
+> +=09=09=09      <0x0 0xdc444000 0x2bbc000>,
+> +=09=09=09      <0x0 0xdf005000 0x1000>,
+> +=09=09=09      <0x0 0xdf008000 0x1000>,
+> +=09=09=09      <0x0 0xdf009000 0x12000>,
+> +=09=09=09      <0x0 0xdf01b000 0x21000>,
+> +=09=09=09      <0x0 0xdf03c000 0x1000>,
+> +=09=09=09      <0x0 0xdf03d000 0xfc3000>;
+> +=09=09=09no-map;
+> +=09=09};
+> +=09};
+> +};
+> +
+> +&oscclk {
+> +=09clock-frequency =3D <26000000>;
+> +};
+> +
+> +&watchdog {
+> +=09status =3D "okay";
+> +};
+>=20
+> --
+> 2.54.0
+>=20
+>=20
 > 
-> Replace the clocks/clock-names reference in both DTSIs with a static
-> clock-frequency of 100 MHz, which is the L4_SP clock rate configured
-> by the bootloader.  The dw-apb-timer binding explicitly supports this
-> as an alternative when the clock framework is unavailable at probe time.
-> 
-> Adrian Ng Ho Yin (2):
->    arm64: dts: socfpga: agilex5: replace clocks reference with
->      clock-frequency for dw-apb-timer
->    arm64: dts: socfpga: agilex: replace clocks reference with
->      clock-frequency for dw-apb-timer
-> 
->   arch/arm64/boot/dts/intel/socfpga_agilex.dtsi  | 12 ++++--------
->   arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 12 ++++--------
->   2 files changed, 8 insertions(+), 16 deletions(-)
-> 
-
-Do you want this to get backported to stable releeases? If so, please 
-append a Fixes tag.
-
-I think the same patch can be applied to socfpga_stratix10.dtsi.
-
-Thanks,
-Dinh
-
