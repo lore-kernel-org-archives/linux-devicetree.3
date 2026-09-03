@@ -1,208 +1,131 @@
-Received: from mail-24427.protonmail.ch (mail-24427.protonmail.ch [109.224.244.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19AB0296BB8
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 00:41:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CBD526AC5;
+	Thu,  3 Sep 2026 00:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788396087; cv=none; b=Kniwcn8hQ9Jyey0bEtAy5F0u/HwiKQA80wfD0Je+DPJYIMN5FaxTljAkYSHM6GgjF6k993k5CcMMdp07/yw8aJ52iqz0ZvW4zCmD1AC8WG7CfBXBho2hDKAZVRIcyr0pa9qOtgy1x2vq39mpZXOOjEUxJCEmGIYtmkh0/unmH4c=
+	t=1788396964; cv=none; b=ZJakPw58fpQ1Jp+bGr9g5dB94t2ejYEX+qL/2fSWvgAwWQypbrMphcXiEpfsgYgC+ZIKeq1NoPoTDAPQHcB6SRWsKjrTniPWGHql2Q0Gw9iHYNmplBCbBjmZcWaPquNV5y6Vw8km8QncmlhR0Hyea/5LBI3DoPoXOZNOuUrVQkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788396087; c=relaxed/simple;
-	bh=jMwOBwGiRU8fETlBy0Qnu3oQ54CAs0gRdMT8qbU+v98=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gR2qp9ntvT+upRcc90hTBviuiMULW3/yqn1I7O/kzHg8OGohltopE/RJHiGs0f5cYuGWfrBIBvxNDVDEFS4iR2MpMgM2roY1NkfQFUxeCUVs18LGg9xZSwxAXc+xSEvizMvylnYdfz0UemZYtUoTDZ6TyvBv4yPClJ9ET6cPIRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=q/l4gws5; arc=none smtp.client-ip=109.224.244.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1788396964; c=relaxed/simple;
+	bh=qtVlNxCnVzLzBM9Vf+e2JmadYkECyr8fqlB/cwj1NvQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Gj87+KH1dPFxoEipFl12YkbreSqpDGMoSq/g2vlQi+I8PYJKeyM8IVxEz4MKVJMVscA4DB+u5pG2uvcDo7ZkgFbg0uyzfn8RcUIo2GOompp6Tby/Krxfe7UIhKU13NwcGCeG+elZCaYL4gm6ftfMXMJmBG4QNCu3Y+v4NLW8ATY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=norbZ+og; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="q/l4gws5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1788396074; x=1788655274;
-	bh=u+EzJoDEG9W5tYl5Q0IYEK/9+yw3B8m1JuHAL+Fe8n4=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=q/l4gws5khHQ9usVFhNy0enBWgX0xFWS+I2k5m6cemWpTllDUVh3FPqKFH8kVKUFv
-	 iJCxo5xmaJF+T33gO56nzM7+LirON14zZOmfgnX9JdJBdMq8YRUi7Dl9PINoAXXBDA
-	 CHyjVhOvu9EFUqZf3EzDPcGbjjys17oJptaYdcENSeL1uWc5x4/mMpDFTVfAUC1tOf
-	 AXs7UG7ZU3NxoN1+Jvc6c94MFtb1zh2t3Qz2FiHVehtm4DKGHsJu7CfVsE8VPshLVE
-	 BTwxh8DLOlnd2/zxsGGvi7jYMIV7Wj0nl6XWHZsxLKJ9agb+4coRDXNwH8Gtyc66aj
-	 nbozTG5nVArDA==
-Date: Thu, 03 Sep 2026 00:41:10 +0000
-To: aidenisik@member.fsf.org
-From: Aiden Isik <aidenisik@protonmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, Aiden Isik <aidenisik+git@member.fsf.org>
-Subject: Re: [PATCH 2/2] arm64: dts: exynos: Add initial support for Samsung Galaxy Watch FE
-Message-ID: <4nry_0LYAWEUI1glONRapkF3AXjNNot6Rl4lQ91urHXgWoZKDAnfgn-VhZFPFqp9NPpuKAzYiaH9r2sVCcDgrp4hP6lsUWtcQuEB4vU5Vnc=@protonmail.com>
-In-Reply-To: <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
-References: <20260817-for-next-lucky7-v1-0-42ffb2b71ba2@member.fsf.org> <20260817-for-next-lucky7-v1-2-42ffb2b71ba2@member.fsf.org>
-Feedback-ID: 46524699:user:proton
-X-Pm-Message-ID: 84627e5c69c68b7676b45132793d9da796719d27
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="norbZ+og"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1168F1F000E9;
+	Thu,  3 Sep 2026 00:56:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788396962;
+	bh=XqHrAGcUd2P6zGJxD2gyGcw4Dr0oavq/XJn+jXJPwuo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=norbZ+ogNZ8U6sL39LN07dZ1Xh90iqTjXcGcM4iEw9w0pxz0OgittRG1cUVb8kUa8
+	 CyrS8gmOXzVwfXILdnCW1A7DjY4HFgKE49fBL/kJ6MdmJJc0RqDhaxvYlIjZDT4qhD
+	 rRV7dnmCUiaEPT22mNL4jTTzfWY5ZM20dOQV0Uh1kK7Uuld7ZpaJDFUIC8UbBfLS2T
+	 wOiTCUs1wDjSaxkdE17C/1qXxddZO0MvMwpXP7CJGnM7+WCGtgXDjyzmpKLqxP8wcF
+	 nlvzyBpguoXbM3CTYxpbNuhDfl09EgyuZZgInNi4V1Lud/Chh7PI/rubBNtYqiv8b+
+	 XrjOBYlkT03SA==
+Subject:
+ Re: [net-next,v6,1/3] dt-bindings: net: wiznet,w5100: convert to DT schema
+From: netdev-bot+sashiko@kernel.org
+To: arthur@marmottus.net
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Thu, 03 Sep 2026 00:56:01 +0000
+Message-ID: <178839696151.3394541.8695572250360907851@kernel.org>
+In-Reply-To: <20260831-wiznet-link-gpio-v6-1-abee6c5c966e@marmottus.net>
+References: <20260831-wiznet-link-gpio-v6-1-abee6c5c966e@marmottus.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-On Monday, August 17th, 2026 at 11:37 AM, Aiden Isik via B4 Relay <devnull+=
-aidenisik.member.fsf.org@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-> From: Aiden Isik <aidenisik@member.fsf.org>
->=20
-> The Samsung Galaxy Watch FE (SM-R861/SM-R866), codenamed lucky7, is a
-> smartwatch developed by Samsung and released in 2024. It has 1.5GiB RAM,
-> 16GiB of eMMC storage, an Exynos5515 (W920) SoC, and a 396x396 display.
->=20
-> Support for the following is added by this device tree:
-> - Bootloader framebuffer
-> - Memory
->=20
-> Only the lowest 490MiB and highest 512MiB of memory are used for now.
-> The 488MiB between the addresses of 0x9ea00000 and 0xbe680000 is excluded
-> from the memory node due to a bug where if the kernel even knows about
-> the existence of this memory, one or both cores will lock up and cause
-> an RCU stall.
+Critical: 0 · High: 0 · Medium: 0 · Low: 1
 
-This used to work fine on my 7.0 and 7.1-based branches, so I did a bit
-of bisecting and found that the issue was introduced in commit
-7b9f263909a57e2463c6a543d72651e00a3fd0d6
-(of: reserved_mem: only support one <base size> entry in reg property).
+- [Low] The new schema enforces one `spi-max-frequency: maximum:
+  80000000` for all three compatibles (wiznet,w5100, wiznet,w5200,…
 
-This explains why hiding the memory from the kernel worked, I *was*
-reserving this memory but in a way which this commit discontinued.
+--
 
-I initially thought this was some randomly-occurring "heisenbug", which
-is why I submitted the memory-hiding fix instead as it definitely worked,
-but now I know the real problem I will fix the reserved-memory node.
+dt-bindings: net: wiznet,w5100: convert to DT schema
 
-I will fix this in the next version of this patchset, next merge window.
+This converts the Wiznet w5x00 SPI Ethernet controller binding from plain
+text to a YAML DT schema, covering the wiznet,w5100, wiznet,w5200 and
+wiznet,w5500 compatibles. The old wiznet,w5x00.txt file is removed.
 
->=20
-> Signed-off-by: Aiden Isik <aidenisik+git@member.fsf.org>
-> ---
->  arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts | 106 +++++++++++++++++=
-++++++
->  1 file changed, 106 insertions(+)
->=20
-> diff --git a/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts b/arch/arm6=
-4/boot/dts/exynos/exynos5515-lucky7.dts
+> diff --git a/Documentation/devicetree/bindings/net/wiznet,w5100.yaml b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
 > new file mode 100644
-> index 000000000000..f91ea7e44cf8
+> index 0000000000000..601d828bae927
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/exynos/exynos5515-lucky7.dts
-> @@ -0,0 +1,106 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Samsung Galaxy Watch FE (lucky7/SM-R861/SM-R866) device tree source
-> + *
-> + * Copyright (c) 2026 Aiden Isik <aidenisik+git@member.fsf.org>
-> + */
+> +++ b/Documentation/devicetree/bindings/net/wiznet,w5100.yaml
+> @@ -0,0 +1,66 @@
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - wiznet,w5100
+> +      - wiznet,w5200
+> +      - wiznet,w5500
 > +
-> +/dts-v1/;
-> +#include "exynos5515.dtsi"
+> +  interrupts:
+> +    maxItems: 1
 > +
-> +/ {
-> +=09compatible =3D "samsung,lucky7", "samsung,exynos5515";
-> +=09chassis-type =3D "watch";
-> +=09model =3D "Samsung Galaxy Watch FE (SM-R861/SM-R866)";
+> +  reg:
+> +    maxItems: 1
 > +
-> +=09chosen {
-> +=09=09ranges;
-> +=09=09#address-cells =3D <2>;
-> +=09=09#size-cells =3D <1>;
-> +
-> +=09=09framebuffer@9e0cf000 {
-> +=09=09=09compatible =3D "simple-framebuffer";
-> +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
-> +=09=09=09format =3D "a8r8g8b8";
-> +=09=09=09height =3D <396>;
-> +=09=09=09stride =3D <(396 * 4)>;
-> +=09=09=09width =3D <396>;
-> +=09=09};
-> +=09};
-> +
-> +=09memory@80000000 {
-> +=09=09/*
-> +=09=09 * Use the lowest 490MiB and highest 512MiB of memory.
-> +=09=09 * The 488MiB between the addresses of 0x9ea00000 and
-> +=09=09 * 0xbe680000 is currently unused due to any memory accesses
-> +=09=09 * in several ranges between those addresses causing the core
-> +=09=09 * performing the accesses to stall.
-> +=09=09 */
-> +=09=09reg =3D <0x0 0x80000000 0x1ea00000>,
-> +=09=09      /* Crashing memory at 0x9ea00000-0xbe680000 */
-> +=09=09      /* Memory hole at 0xbe680000-0xc0000000 */
-> +=09=09      <0x0 0xc0000000 0x20000000>;
-> +=09=09device_type =3D "memory";
-> +=09};
-> +
-> +=09reserved-memory {
-> +=09=09ranges;
-> +=09=09#address-cells =3D <2>;
-> +=09=09#size-cells =3D <1>;
-> +
-> +=09=09framebuffer@9e0cf000 {
-> +=09=09=09reg =3D <0x0 0x9e0cf000 (396 * 396 * 4)>;
-> +=09=09=09no-map;
-> +=09=09};
-> +
-> +=09=09misc-rmem {
-> +=09=09=09/*
-> +=09=09=09 * Some of these regions belong to memory-mapped
-> +=09=09=09 * devices, and will be assigned to drivers as support
-> +=09=09=09 * is added.
-> +=09=09=09 *
-> +=09=09=09 * Other regions belong to the TrustZone firmware
-> +=09=09=09 * and should never be touched.
-> +=09=09=09 */
-> +=09=09=09reg =3D <0x0 0x87000000 0x200000>,
-> +=09=09=09      <0x0 0x87fff000 0x1000>,
-> +=09=09=09      <0x0 0x8a000000 0x31000>,
-> +=09=09=09      <0x0 0x8d800000 0x180000>,
-> +=09=09=09      <0x0 0x8ffff000 0x33000>,
-> +=09=09=09      <0x0 0x90100000 0x200000>,
-> +=09=09=09      <0x0 0x98a00000 0x600000>,
-> +=09=09=09      <0x0 0x9a000000 0xc00000>,
-> +=09=09=09      <0x0 0x9b000000 0x400000>,
-> +=09=09=09      <0x0 0x9bd00000 0x208000>,
-> +=09=09=09      <0x0 0x9c000000 0x20000>,
-> +=09=09=09      <0x0 0xa0000000 0x10000>,
-> +=09=09=09      <0x0 0xa0010000 0x400000>,
-> +=09=09=09      <0x0 0xa0510000 0x1000>,
-> +=09=09=09      <0x0 0xa0900000 0x2000>,
-> +=09=09=09      <0x0 0xa0902000 0x1000>,
-> +=09=09=09      <0x0 0xa0910000 0x3c000>,
-> +=09=09=09      <0x0 0xb0000000 0x200000>,
-> +=09=09=09      <0x0 0xb1000000 0x200000>,
-> +=09=09=09      <0x0 0xbbfff000 0x1000000>,
-> +=09=09=09      <0x0 0xbcfff000 0x1000>,
-> +=09=09=09      <0x0 0xbd430000 0x1250000>,
-> +=09=09=09      <0x0 0xd0000000 0x5d00000>,
-> +=09=09=09      <0x0 0xdc444000 0x2bbc000>,
-> +=09=09=09      <0x0 0xdf005000 0x1000>,
-> +=09=09=09      <0x0 0xdf008000 0x1000>,
-> +=09=09=09      <0x0 0xdf009000 0x12000>,
-> +=09=09=09      <0x0 0xdf01b000 0x21000>,
-> +=09=09=09      <0x0 0xdf03c000 0x1000>,
-> +=09=09=09      <0x0 0xdf03d000 0xfc3000>;
-> +=09=09=09no-map;
-> +=09=09};
-> +=09};
-> +};
-> +
-> +&oscclk {
-> +=09clock-frequency =3D <26000000>;
-> +};
-> +
-> +&watchdog {
-> +=09status =3D "okay";
-> +};
->=20
-> --
-> 2.54.0
->=20
->=20
-> 
+> +  spi-max-frequency:
+> +    description:
+> +      According to the w5500 datasheet, the chip allows a maximum of 80 MHz,
+> +      however, board designs may need to limit this value.
+> +    maximum: 80000000
+
+[Severity: Low]
+Should the 80 MHz limit be conditional on the compatible string?
+
+The description scopes the number to the w5500 datasheet, but the maximum
+applies to all three compatibles enumerated just above, including
+wiznet,w5100 and wiznet,w5200, whose SPI slave interfaces are rated lower
+(the W5100 SPI timing figures are in the tens of MHz, not 80 MHz).
+
+With a single top-level maximum, a device tree that clocks a wiznet,w5100
+at 80000000 passes dt_binding_check without a complaint, and the value is
+then handed straight to spi->max_speed_hz for the register accesses done by
+w5100_spi_read()/w5100_spi_write() in
+drivers/net/ethernet/wiznet/w5100-spi.c, which use a different opcode
+protocol from the w5200/w5500 ops.
+
+Would per-variant limits be more accurate here, for example:
+
+    allOf:
+      - if:
+          properties:
+            compatible:
+              contains:
+                enum:
+                  - wiznet,w5100
+        then:
+          properties:
+            spi-max-frequency:
+              maximum: <w5100 limit>
+
+Note the exact W5100 and W5200 fSCLK ratings are not derivable from the
+tree, so this is based on the schema's own statement that the number comes
+from the w5500 datasheet.
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260831-wiznet-link-gpio-v6-0-abee6c5c966e%40marmottus.net
