@@ -1,86 +1,94 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39954137AD;
-	Thu,  3 Sep 2026 09:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B45412BFA;
+	Thu,  3 Sep 2026 09:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788429348; cv=none; b=jwGsh6PU/R3BrcTwzqaj5NhlwwPFB0Xb1+y5NvrAU5pdGVmMtjouXo+Bqf5fVGnZNOAifwuRaNVIE5peSyb6og0U3Ao5xur5Z8eZrqrHCROwsG0YLEPqDiQk8wWIuH9JAJEsKhrlWUqGCDCmYMJvAXu/OGfwcf6N/MkOwVQa8vA=
+	t=1788429444; cv=none; b=GeRsBusO4XsFguMFytHOyr9RWu/fPeEj1tnFUCq2J0z3+Cwm+yYjX3pp6XsKF/xWaokKZH66VTrvu8hdtSitM37fg0Y3ASF/BurpqyfMowRwEU7BAyPQ+tw2M+6sWpXnjptvRe4r0P2p4U00iaWZw0Ur9QtZXkVRHWMjeBslBXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788429348; c=relaxed/simple;
-	bh=j9ZyPbTzdCCAtLbjlBJ15/oK5M+alDjmIbbTPwPleRc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=H22dDYuTdC3XG0nJMyMpQ34Lvv92puMls6wHc3nwo4PyYlWjuUxOF1WgIZEHEFC2e8V1tGO6esSj6q+bx+1qvNnNQMrKpeVko2Q7qiFVBfzxeMMcsx/eOOQWeeRS9dJFRe7xwYq5HVkEDkvZADecarUVZCwvQkebarZFCQ39yG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wtWuKLHy; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788429444; c=relaxed/simple;
+	bh=0zJB0oT4kt0u1wn9CpgMQ95Xoqj+X+RrL5SxUzT7/cY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dq/ZOJWSURfvRZfhU77NxMUbFvtK4v9CSN6NOufmCnah9v5lcWRDy3Yzzm8AQuXO2G66gi//ghbD4TjFGXjTZ2GurXJXDeiHEOC3hpRYCgCVsSdKKulWdemC51+D2GS6lBAiIKg7yGGXXaQzfC9Wsl7bXU/dJoe+5bcqHlNXbPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nDXQYljP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wtWuKLHy"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 587124E414EB;
-	Thu,  3 Sep 2026 09:55:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2B838602B8;
-	Thu,  3 Sep 2026 09:55:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5875811C7817C;
-	Thu,  3 Sep 2026 11:55:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788429344; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=j9ZyPbTzdCCAtLbjlBJ15/oK5M+alDjmIbbTPwPleRc=;
-	b=wtWuKLHycFEkoRO1XLLppdIYBUfdCGyfY4ZaHVxXhwlqpUKyoZzOkJW3j8lCoI+uGfHnx2
-	DOoc+DvHiVGVXTBtlrqmkznq3gV9MlPFuXwnXJ6OoF5EaMFEi/Q0ZHY4ReJqsvstYu9Ppo
-	7cT8SiQTOKqWA92rqyYoruyIusgPyoV2p3/ScFrob0FeFLpQluN6uKfIteg5V9IMi1bAck
-	IDvy9ScXJE+VxyPtmH1XppKnG2TxPK7b6wqoVNcRs0rtsy4BUgWAnxhv0QTlI9jyR86hpV
-	jjMLBu0Iq/EFb9/gXRoG4yaUAP5GD2RismOrSFBq9fRmVOty4BLd3zDNQf+R4w==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Michael Turquette <mturquette@baylibre.com>
-Cc: Stephen Boyd <sboyd@kernel.org>,  Brian Masney <bmasney@redhat.com>,
-  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>,  Brendan Higgins
- <brendan.higgins@linux.dev>,  David Gow <david@davidgow.net>,  Rae Moar
- <raemoar63@gmail.com>,  Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-  Pascal EBERHARD <pascal.eberhard@se.com>,  Wolfram Sang
- <wsa+renesas@sang-engineering.com>,  Fran Li <Frank.li@oss.nxp.com>,
-  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,
-  linux-kernel@vger.kernel.org,  linux-kselftest@vger.kernel.org,
-  kunit-dev@googlegroups.com,  Frank Li <Frank.Li@nxp.com>,  Herve Codina
- <herve.codina@bootlin.com>
-Subject: Re: [PATCH v5 0/7] clk: Add support for clock nexus
-In-Reply-To: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com>
-	(Miquel Raynal's message of "Fri, 07 Aug 2026 17:24:01 +0200")
-References: <20260807-schneider-v7-2-rc1-eip201-upstream-v5-0-8785f9531cf0@bootlin.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Thu, 03 Sep 2026 11:55:38 +0200
-Message-ID: <878q5i64md.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nDXQYljP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AC401F000E9;
+	Thu,  3 Sep 2026 09:57:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788429443;
+	bh=bRNFYPRZsbDCetzN2gVQ/oeYpcjMrmA9gbbBr7n+CBA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nDXQYljP4r81aMX8xh/VF0cxK3WLx+c+7gtolXArRiMdngqFgMTqYvJoluYF/7489
+	 YD3hJ8r9CMfREGQZAz4zw3d8iq42hOBFREUFC+YhLiJ8uqihWylVYYZ5FBoav9O064
+	 S7OHr2DLwAUwvQM/tIuMWygEh8BULHeGDdq9wedpn6TeLnwlpw5jAfLTfQ4pKXpSz1
+	 EaikJV6Lw4NgVU22iChK/Qerc/AZyIs97hCNQVM8kNb6IBLXGFAlbhWDY79nwF0ZdL
+	 mQy58TEVKMPiXlj8J1Ys/jdxr9nFnuEqh/v7cVWqwGOMuPjJQmwvGUYAx76oPRR5iB
+	 OHpBcMaFp5Pig==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id D8092D89935; Thu, 03 Sep 2026 10:57:17 +0100 (BST)
+Date: Thu, 3 Sep 2026 10:57:17 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Diogo Ivo <diogo.ivo@bootlin.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Animesh Agarwal <animeshagarwal28@gmail.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
+Message-ID: <aplEfd33wSz59iLS@sirena.org.uk>
+References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
+ <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Lk5moJp7C7aAQOiL"
+Content-Disposition: inline
+In-Reply-To: <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
+X-Cookie: Orders subject to approval.
 
-Hello,
 
-On 07/08/2026 at 17:24:01 +02, "Miquel Raynal (Schneider Electric)" <miquel=
-.raynal@bootlin.com> wrote:
+--Lk5moJp7C7aAQOiL
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Adding support for clock nexus had some prerequisites requested by
-> Stephen, such as adding new selftests, the initial discussions come
-> from:
->
-> Link: https://lore.kernel.org/linux-clk/20260129201003.288605-1-miquel.ra=
-ynal@bootlin.com/
+On Thu, Sep 03, 2026 at 12:11:00AM +0200, Diogo Ivo wrote:
+> Add a clock property as the RT5677 codec can be fed an
+> external clock signal.
 
-I know Stephen had less availability to dedicate to clock matters
-recently and Brian offered to help. Brian already made feedback on it
-(thank you very much!), so in case there is no more debate, I hope it
-will be a good candidate for early adoption since -rc1 is now out! For
-the record, I already answered (several times) the various points
-Sashiko raised.
+> +  clocks:
+> +    items:
+> +      - description: phandle and clock specifier for codec MCLK.
+> +
+> +  clock-names:
+> +    items:
+> +      - const: mclk
 
-Thanks,
-Miqu=C3=A8l
+The driver code has a reference to MCLK1 which implies multiple MCLKs,
+unfortunately no pinout seems to be available and other references in
+the driver are just to MCLK so it could be cut'n'paste.
+
+--Lk5moJp7C7aAQOiL
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqZRHkACgkQJNaLcl1U
+h9Acngf+Oxwzx8pflcjt6BCITldOMzGbYDTqvnQzzB5zpR7bp0RqxF+EtiOB9/DJ
+0ZMHWdSp097jtVU83mdD4b3H+7g+c4tm4e/NCtODFjNBkPBMk98rJm4FlMdGRWDE
+iiaaHWxusWm56M5XHS6KGhpxAx5GAXIxS9i95nfmztoO9hXNib+DNg88/mSRNfLl
+DNtrtfIatp+z1fDgxZ/xzg9YIMUy4udD7jPxWvmRTOGG6KlGUuRSofk34u4jyrHj
+wd9MrsD1XtWDORtidYcgcZ6cil+9LYlP/EjF2qZTa3iH9FKSdUOLF7tHSsG1U1sy
+yuCQOpf+tvEHTJqgr/WrLl6CBnN2pQ==
+=2vkM
+-----END PGP SIGNATURE-----
+
+--Lk5moJp7C7aAQOiL--
