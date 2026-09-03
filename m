@@ -1,75 +1,79 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD35640681A;
-	Thu,  3 Sep 2026 12:26:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A17238E5FF;
+	Thu,  3 Sep 2026 12:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438413; cv=none; b=McyNbDkcs62HTQjK1HEECqA0gaPrx4p/jIZ7bTpmWAz/iUBQh0imamDvBdLsif1KTJVzWeRm+zvQ+5K2ePIY/CA/zLjw9ax5rrNxQGupAU/FqfjonUFhtDrOw6EyAp/HUQPVGQk9M1cRVDkbMp797eeo+LD40OOCciFQNW4+eZw=
+	t=1788438579; cv=none; b=k5bB8UghUNCP4sGoSK95FFbX3Js9d7BsDPFKRBc2qUnJEGBmM0X/+Z6NyWavLnKlj4OHCnymOldt9/x25zx+9ibVd9O0hFKK7Mdz6ZOYhZZY+vN+jxlT/NEalDdgQfp2UfmWTSTvq9eRel39cY/VqmHyJOBnZnMKfnFJXcUdB00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438413; c=relaxed/simple;
-	bh=aRVsZf+IeDg7H1USx6COdGFGSvxpXScpaNYJDUmI9tk=;
+	s=arc-20240116; t=1788438579; c=relaxed/simple;
+	bh=taYCNE3A/cg+QcAGbRYXuu/J3YhDCzaw2CbrT8phfwc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DYmlj3/B+u3FpIeTM+FKN7ZRMQaG55yWxLXxcmWyCerAOaffSnn4bWHkPpXaEysMDrmji2KjnNUF02mr8Z3nkhKUlPddqjD/Gv5K3gpdDpHvLaTB3TrAbF0RWyMROaXzF4CrEuBwEJjwjg0lXFio+SN07Ejgyd1wIwybHgsaW3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=wtlVfjjJ; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=gn0cgxIfHe6KH1fGUHO8ozMt+Bwpo+xEs3p3QC3EgIEP5QS6vpI4Z2NDrPky18YHt3Q4kG0ejcboM9qpKvJjbpvnV88XTXNRFcMZwejs1es0xeMmb8EC2c7Wwgl/toJ/nkC1R6v4DPwFfYnhc/ei8MP3KfPfqPvw+qwYXkMn/UI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mgpe7be7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="wtlVfjjJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=Fx0WgZnUlBwY/g9jObZUMhXjJIYEYr1WANTLvXc5zwI=; b=wtlVfjjJzc2EQQlqeJJbLoeGWl
-	x7tvmRKZXIaWwtC8nJ20IoXcNyJrVlhoUii3NPhqyr3MwjpPN/TIzFoQLZ8ORTkLmPcIMNDMBVaf1
-	soajtuG7qdsJ9aSK3JABVIQe7xyz7rK5SmD+GYD5ULRfhuG9J0f/XoblZHGUyjJYm+3Y=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x26WX-002ieC-6o; Thu, 03 Sep 2026 14:26:33 +0200
-Date: Thu, 3 Sep 2026 14:26:33 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next 2/3] net: mdio: realtek-rtl9300: Convert
- "fwnode" left-overs to "of"
-Message-ID: <4d692d7d-3b00-4ba5-bd22-3dcb4130c618@lunn.ch>
-References: <20260903122119.2638354-1-markus.stockhausen@gmx.de>
- <20260903122119.2638354-3-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mgpe7be7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AFB51F00A3A;
+	Thu,  3 Sep 2026 12:29:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788438577;
+	bh=wCXHOPjY6k6UIQDduJFqwM5ycSoiURySLqPJjkIRPw4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mgpe7be7S3WPXQ2VNZ2ZLKyQxx9cz3JZIKYqeWpB3IaUfjc+MJJUZ7prmJnWUctRD
+	 wk4RzXQbRdgIGX7NmilunN8FlQKtB84d/iWs5yYWd9wzatktwIDksrupN5byYEwpfT
+	 EBUkzX2htz59wop0OsmDI761PnMrTx5LNdJbOLvVIW9HsWnuN7XxM+SIArcuvxUgUd
+	 2O+0huu/ag3RREggcw0yOJkj/eAr2WngpMYG+YXdob/Lm9RrVLcPfdwDDRJvXvv4FP
+	 kVVQttiYv3qGGfEy61ze0IgF+YRzo2oqvSZ6/PzGVuyAEbfa9WE9rDddqcuVGTnIyI
+	 sfv3TVWW+WQoA==
+Date: Thu, 3 Sep 2026 14:29:33 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Xilin Wu <sophon@radxa.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+Subject: Re: [PATCH 2/6] dt-bindings: display: bridge: simple: document
+ Chrontel CH7218A
+Message-ID: <20260903-petite-charming-echidna-ccfefb@quoll>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+ <20260901-q8b-dts-v1-2-7de0b6a73d08@radxa.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260903122119.2638354-3-markus.stockhausen@gmx.de>
+In-Reply-To: <20260901-q8b-dts-v1-2-7de0b6a73d08@radxa.com>
 
-On Thu, Sep 03, 2026 at 02:21:18PM +0200, Markus Stockhausen wrote:
-> The latest developments of the MDIO driver consistently used the
-> "of" API. Convert the remaining "fwnode" left-overs too.
+On Tue, Sep 01, 2026 at 04:47:55PM +0800, Xilin Wu wrote:
+> The Chrontel CH7218A is a DisplayPort 1.4 to HDMI 2.1 protocol converter.
 > 
-> Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+> The device contains an embedded microcontroller and on-chip flash. It
+> automatically boots its firmware and requires no host-side configuration
+> for the on-board use case, so it can be represented by the simple bridge
+> binding.
+> 
+> Document the chrontel,ch7218a compatible.
+> 
+> Signed-off-by: Xilin Wu <sophon@radxa.com>
 > ---
->  drivers/net/mdio/mdio-realtek-rtl9300.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/mdio-realtek-rtl9300.c
-> index 11d078ef941c..429321e9114f 100644
-> --- a/drivers/net/mdio/mdio-realtek-rtl9300.c
-> +++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
-> @@ -831,14 +831,14 @@ static void otto_emdio_notify_phy_detach(struct phy_device *phydev)
->  }
->  
->  static int otto_emdio_probe_one(struct device *dev, struct otto_emdio_priv *priv,
-> -				 struct fwnode_handle *node)
-> +				struct device_node *node)
+>  Documentation/devicetree/bindings/display/bridge/simple-bridge.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-The indentation looks odd here.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-	Andrew
+Best regards,
+Krzysztof
+
