@@ -1,139 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mslow3.mail.gandi.net (mslow3.mail.gandi.net [217.70.178.249])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 642AA4E2367;
-	Thu,  3 Sep 2026 15:42:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E66A4E2343;
+	Thu,  3 Sep 2026 15:47:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.178.249
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788450172; cv=none; b=LEiG/L8Un5/uMck8CIl7czRkRq1DunkP6AeU9ErMAilzQC3i1CwS661oVPzoCx0I6TN1n+BI1+CKeK9F7ENGdrB/uRCzunNJa3a8Q/3rVU2FMaX3eNm+Tj79BxAFRHrPYTY6vsViTx+rgbmla+8AnfWirsF1YfrYTybMru3wodY=
+	t=1788450440; cv=none; b=ZTz/1afxsqx0rAq07r0xTnanlti4cR4CP/AJCxZnEtlvuuoRZnYAuTuBSKBIpQqPZKNwnUlZjh/qPFJqY7AC28/fFFc2GnHSi19ju14l5aq28F8jaN+ujh/LCXDTeXxmptPu0Vkbvba6DioPmpQ8dmmhrz5csP8XIcdma5vjxKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788450172; c=relaxed/simple;
-	bh=Yv8wTaciYZggWvkNJvSINmPoeNVSpvwetbo8Fkv1eJw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qpbDsJLBT3+oop0svw/JyTyGgEtpOsFy+lfYkSoMOnDfdfzjVOHUlpGWPdFFa12kvkK+CWpS0ucVzBAHg3sYl3ljIqUjEnJ0efZMaULh9iBozSOqQFt0nMbsqQ3iFcBuHvV9Mol+EZKliNIM4Xp2H1eUjrOKSdq6enQ9KJYAcsc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mYt594fQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788450440; c=relaxed/simple;
+	bh=XM1j/aLph87KjehGhzloy5KQFE5iSI5nWnm3VvgFBCE=;
+	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mTwqVMsYSgQnxuRmtnIipYqE+8nPEg+bS1QL0axO14c5LELIxbSL++a9w9j48M935nD7XZz8+o6Gp0ILyfuz4zHlL9AkGNYolX7Y6ZWEXf6t+u52Urm82VR1otTMFXyXD/2cjGJ44SGskoyZ+P5Bm2tqx9cjyLE1fFHpisozYw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=NGyegiiF; arc=none smtp.client-ip=217.70.178.249
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mYt594fQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 311091F00A3A;
-	Thu,  3 Sep 2026 15:42:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788450171;
-	bh=sivXHIUBZ7Xa/Z4kbeOOp8A8aDPzeMdDcwJpqwfu5YY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mYt594fQ3I7OFZbj4jVEcTMPYsuQTGqVfELe/FWDz0RSqWceyMPl7xIAlO9cYA5bk
-	 2K/aNTouAxXAAWpW3yu9/vqiOmYoNPuS3pdNvd6m5D0pvUj+INrAZ+DaTQInMGvmZg
-	 CTR4ARbB8yiuwWVm59U5hIboW7m9ecXyGhTPAe2lKWNwMAdtYCRFt1PDWpnRp2ps7b
-	 9SfCtBrm6gQdGklOGb+klrfeUslkZ8tneMN6D3FNCiCnPx2F7kUO3eSD4Ro3nv7N8Q
-	 K8Mvs2iAiKoEqY80Z9aDxC2ue6lkbkgpNElZi6tiW6D2bB1VztHTFp2MCyolRteie3
-	 1XULqWGXPbqpQ==
-Date: Thu, 3 Sep 2026 16:42:46 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-serial@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Lubomir Rintel <lkundrak@v3.sk>,
-	in file <devicetree@vger.kernel.org>,
-	"open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] dt-bindings: serial: 8250: add marvell,armada-38x-uart
- compatible
-Message-ID: <20260903-pettiness-crested-c4fb1b3ac05a@spud>
-References: <20260901004203.49686-1-rosenp@gmail.com>
- <20260901-corrode-unvented-4cf271941722@spud>
- <CAKxU2N9X=fvr-a5h5o5XaRLuRuSUq7wR85xmSduK9vff4z4CQA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="NGyegiiF"
+Received: from relay1-d.mail.gandi.net (relay1-d.mail.gandi.net [IPv6:2001:4b98:dc4:8::221])
+	by mslow3.mail.gandi.net (Postfix) with ESMTP id 1AFC4583856;
+	Thu,  3 Sep 2026 15:10:57 +0000 (UTC)
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 7D1133EF90;
+	Thu,  3 Sep 2026 15:10:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1788448254; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
+	bh=uYXVTMatMDH0138orMZx6ToE2yw83S5uLOlwjJpjVh4=;
+	b=NGyegiiFn+j6/YRzTlbdj0VS4x/hJZZriNEvhhpWyEVsdgPxTMNFT/BNYuYZIqqFlpE2Zq
+	vy7IZ+5aRshKRX5KbUsb7+hjxXMrsy198rjXpVaBgBFUg1kedPRAENPul43JGP6YJhJVHn
+	qbpdBzX85Nb0jHB7PBb/JTFF+V91T5LQc1l7+AZGfnuhUN0ZTRkc1ov+Ih3wIHbxrMtXkY
+	m8VkQLwviddnw/a0lnnuevwaZoXdF9atIzHekZ26M+iIIlBpPyPSVBwXAKE5TrrHpvOnmu
+	42YTiwlExKT0IMDbZgdXNYfNeQCs/xRpW5LEimiGCh+a70GFpkPhFM/9pF97nA==
+Date: Thu, 3 Sep 2026 17:10:50 +0200
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+To: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [net-next,v6,3/3] w5100: detect carrier state using link status
+ bit and optional interrupt
+Message-ID: <20260903151050.GA185059@marmottus.net>
+Reply-To: arthur@marmottus.net
+References: <20260831-wiznet-link-gpio-v6-3-abee6c5c966e@marmottus.net>
+ <178839696443.3394541.11998106403165239318@kernel.org>
+ <20260903130820.GA21664@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="DBKWE0sUUYkaBDGj"
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <CAKxU2N9X=fvr-a5h5o5XaRLuRuSUq7wR85xmSduK9vff4z4CQA@mail.gmail.com>
+In-Reply-To: <20260903130820.GA21664@marmottus.net>
+X-GND-Sasl: arthur@marmottus.net
+X-GND-State: clean
+X-GND-Score: 0
+X-GND-Cause: dmFkZTFt7+Z64xoReW3on4YvpCbHIFE2WLFu56/NKaAgQeY5o5E/KZpcFfC28pZ2KfkCzOzhSxD3W01evXb0glBKmdMRdNyzgL9MvGQE/0gXySyrtuCXNf5hZOLxbT6nBe6gBoCtLVTyQL8n0CbF/jtzjtjT+SDrYGppumnq+Jo6x/lsx4+jSBbNsCEAO0skQSJGIQ1nzFftU6KzSkBp/WYiGpBGzgaxTE1Gy5QG7dr7s2nq+4w96Xe11e4lNDCBghVrUtVHkCsimKfUkr40/r0xDdxnBLgw5jMKNgomcxKC0BAGSaS1VXCtfpzawqwkFHhF7lJYfDuOOwDIP7Atj5wv20P5ft5k4uW/EIY83WAMCnHfATfu5TPqdzGGJ2sAX71EvKmXOyWrQ9LcJNkhdDx7wZHpra6KwcwVWvkI6JfHVXF+DlcelYnmOPJ7Nh7cw3xFQmifB6jQ5kR5+XgiH5XcXHme/rEh9R+4FWNxIU5lVeG1T0tTcxuLmDOsL8bunGr48SUxHpqjuXHygse+ckExl3ahhnD/hmBb7VIJSLWDI6lNFLHmTKHrOsAD53nNmXmHYeWkporxMDJeDC1w9QDIBtunlhd+9ht5EHVLNUtXLmB86+jzzRHIIHQZFhZ6zDW1E6fbZzprKB9JAoLGwy+BpEFZPpLSBpy1MGy4E4EHttSBZw
 
---DBKWE0sUUYkaBDGj
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Thu, Sep 03, 2026 at 03:08:24PM +0200, Arthur Crepin Leblond wrote:
+>On Thu, Sep 03, 2026 at 12:56:04AM +0000, netdev-bot+sashiko@kernel.org wrote:
+>>Since || short-circuits, w5100_get_link() is not called at all when link_irq
+>>is negative and the carrier is unconditionally turned on.  The ethtool
+>>callback added just above, however, keys on the chip id rather than on
+>>link_irq:
+>>
+>>	if (priv->ops->chip_id == W5500)
+>>		return w5500_get_phycfgr_lnk(ndev);
+>>
+>
+>Again, good catch! One could setup the w5500 without the link IRQ but
+>still use the PHCFGR register for the carrier state.
 
-On Wed, Sep 02, 2026 at 02:34:55PM -0700, Rosen Penev wrote:
-> On Tue, Sep 1, 2026 at 10:51=E2=80=AFAM Conor Dooley <conor@kernel.org> w=
-rote:
-> >
-> > On Mon, Aug 31, 2026 at 05:42:03PM -0700, Rosen Penev wrote:
-> > > The Armada 38x and 98DX3236 SoCs use this compatible, either paired
-> > > with "ns16550a" (armada-38x.dtsi) or on its own
-> > > (armada-xp-98dx3236.dtsi). Neither form is covered by the 8250
-> > > binding, so dtbs_check reports:
-> > >
-> > >   serial@12000: failed to match any schema with compatible:
-> > >   ['marvell,armada-38x-uart', 'ns16550a']
-> > >
-> > > Add a standalone const entry and a two-string variant paired with
-> > > "ns16550a".
-> >
-> > Only one of these is correct, add one and fix the users.
-> > Given there's match data, it's probably the standalone one.
+One more time about this one, if we use w5500 without an interrupt the
+carrier state will be the one read from PHYCFGR bit and will never
+change.
 
-> Commit 62480772263a adds the second one to support earlycon.
+w5100_open:
+	w5100_get_link -> 0
+		netif_carrier_off      // stays off forever?
 
-So the one with the ns16550a fallback is the correct one?
+There is probably no good solution, the user can only get the real
+state with .get_link.
 
-> >
-> > pw-bot: changes-requested
-> >
-> > Thanks,
-> > Conor.
-> >
-> > >
-> > > Validated with make dt_binding_check (8250.yaml) and dt-validate on
-> > > armada-38x and armada-xp 98DX3236 boards: the UART schema errors are
-> > > gone.
-> > >
-> > > Assisted-by: opencode:big-pickle
-> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/serial/8250.yaml | 4 ++++
-> > >  1 file changed, 4 insertions(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/serial/8250.yaml b/Doc=
-umentation/devicetree/bindings/serial/8250.yaml
-> > > index 8c2c177faf89..f71c6afe02f2 100644
-> > > --- a/Documentation/devicetree/bindings/serial/8250.yaml
-> > > +++ b/Documentation/devicetree/bindings/serial/8250.yaml
-> > > @@ -109,6 +109,7 @@ properties:
-> > >        - const: aspeed,ast2500-vuart
-> > >        - const: intel,xscale-uart
-> > >        - const: mrvl,pxa-uart
-> > > +      - const: marvell,armada-38x-uart
-> > >        - const: nuvoton,wpcm450-uart
-> > >        - const: nuvoton,npcm750-uart
-> > >        - const: nvidia,tegra20-uart
-> > > @@ -119,6 +120,9 @@ properties:
-> > >                - exar,xr16l2551
-> > >                - exar,xr16l2550
-> > >            - const: ns8250
-> > > +      - items:
-> > > +          - const: marvell,armada-38x-uart
-> > > +          - const: ns16550a
-> > >        - items:
-> > >            - enum:
-> > >                - altr,16550-FIFO32
-> > > --
-> > > 2.55.0
-> > >
+I think netif_carrier_on should initially be called if there
+is no interrupt configured, that way the state stays on like on
+w5100/w5200.
 
---DBKWE0sUUYkaBDGj
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmVdgAKCRB4tDGHoIJi
-0ugJAP9CEpTAZrQshKhMIrGfdM5G0f/W63NRRd77zD72kYTIHwD8DPOP30z0tHZd
-IHsRfMHHMumLIQqpnD3I+fYWgtvdQgk=
-=XWeC
------END PGP SIGNATURE-----
-
---DBKWE0sUUYkaBDGj--
+Arthur
