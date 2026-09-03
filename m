@@ -1,152 +1,179 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5F54503FF
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:19:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0E574D90AC
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448786; cv=none; b=DfBUsXdiZFF+meRqlVrvYC2xEUevTT8kjnP0cTf+CBQ1KLTEwcxZsFr7IDpzlDCqMAbMQNI81ZCXy3iJHttxurJ69MUBX8FOUeytC4/HxnhbMBRZE3NRYT0NIwxpjbvh5h+he79ZX4IFz5C1h6No8nmG3BXMbNTaXOSDIKct/xg=
+	t=1788448899; cv=none; b=N5T55V1HL3CUISpiCyKB++0Fqcfpm8LmhHHIHSb5b5nprwSapSZ0PPmhkqcdkF+TySNSuq+wjO1DMLHCqqmkjH/OdFi6KuhtUgJVuLeQlOnkq+p2Q96GYOXsFNxvSrLNQXuEHc9nm9hu5rUuIXkw7LycSTS7fQ+cbS7ZseWivMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448786; c=relaxed/simple;
-	bh=nbUSOnH/yAvzACxNcixvd9qpwb8O+QZ2GQHLOMzuIPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lIaiEbJ2feb2l+0Jh6ysMLFj15p2HduuZm7VG4aJuw2OYOp+stHITG/9Hgkcjwvk48wo4Aa/XqO2OD2Z2PqdGY/NfZuEjquel3BaMwPuDvfqJ67c1PpKzkU4+0F8ZdqimMsj0d6jG9YAZaacqdQPfYl38YyLclXmrYB/3qF+srE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ7q/53U; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788448899; c=relaxed/simple;
+	bh=AJRmnZv8TBL24Tq4Nk/MVvTyAGNJB3SKUgQnbs7iPxY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rVLJ2KWoTYzmvG/L/R14mVwVSFU6zUJ/keIx5V9gi6wPJ028b3Ol6Z8VDiE6YbOzkBU84zNFS8Z7oMP5wHXEpA2aZJOkV1YkTuMAKYnS0LyWZ+yDLilp7AB10Xk2kmlhhI/Ar7JVIWRIkJOLkCrqfJPpPSX+xyMlDPFAwDORQgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VuImJggM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MtyFAJ3c; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ7q/53U"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2055573c8cso344731466b.3
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:19:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VuImJggM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MtyFAJ3c"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683DAPR2035512
+	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 15:21:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MDXm9sakiTVow2HHdoD2Gmx3gY3Rs3Pfdamjmd0bvo0=; b=VuImJggMuzKB4UNo
+	4VSWxjGM0gt7Rnn7mxvFDlGUG9Vjfux/uR55j/BDqogQzf7KWKHUgkGkxQDFV7ii
+	EDGnXWpSAsTTwy0gK7N/X39QdokV72HJAawjGkkt2eV9NmN8NbhltQEZQRFImDlJ
+	KdI1CHq4SFfk+9wveFkZq79j5+DHMcPjouWifhq7uTXOu+CR+beoL6JXTuSJC0Mz
+	16kzkMiBVK4GB6XgkCQqBc5vSixcfRPPe+CrXIBYpa3rmNjt8Nu8UDklfqF+wd5b
+	1PB7Nedvp2Ca5bqpSlHTbW/EcdagcwxyZVGTBykfaGXCvT1uv2BOzjVRvhRsVesW
+	EvgsEg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf51m1t0f-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 15:21:37 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d54187d8b0so67936855ad.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:21:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788448784; x=1789053584; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=c/Qt/fPdwPC3wUdBHPi4+U/TKrcXHOgncT4srAq3Wek=;
-        b=nJ7q/53URt/69k208sxM1yKudzlYB+L0/JyD4ElL255rqI9h+qVygVbjAAmMHxc2Fm
-         jO3hmE1Sk/w3cfsVNFKERUWj4KkNj1lt1dyWZh4ZNPI/fu0gKOyJWk/kwAcSEEZrx52/
-         oOlNtjE6LonmH6+llRBje4XOHbFQg6Az9LMaXoBiIg2663j6CGyQwb1cPMO1jwZ9Sx3V
-         KFz/MNlkJJOuP4jWcTsZgkSc6Ds0NzZZ9ReG6hWXFxDv7hsa6HpcOsaNx3gE72sCvLPk
-         6zS+u0TMTxGqSJEWWII2gkGS7REnC/ipy4RfNerlfXrxClD3L/XPlXqyCmWXGRawzSWe
-         7onw==
+        d=oss.qualcomm.com; s=google; t=1788448897; x=1789053697; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MDXm9sakiTVow2HHdoD2Gmx3gY3Rs3Pfdamjmd0bvo0=;
+        b=MtyFAJ3c5qoL3dhBc97U4WaJ4JzalsWo7/4yvsA2pYUw7/Q0uBF6M+KSk2J8NrLQWr
+         9wEDprd74XIy3POE/oVbNAe+E3pDsdI7s1QuP0gpOKJwpplsGqLoU6h8eYmjDI+89yzI
+         /6QnBLP5WPpl3zeK0KTi5gt20xxyVhhNdeIGu8DC5y1iBfeXbL2cU/ajkPf/MVB7GGuz
+         LShyEuVyjCBV9xTuTxNia/pY+bIB1EkU4d5oALqxs6RfbSteCgKVGZvCAHfrL4lnR6zu
+         ZTliT493+7glpbg/kjAuLjdwkdU2sUnxjV9/VLfK7dz439LJbvYPEaiqnC05YIp5Ia6V
+         plZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788448784; x=1789053584;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=c/Qt/fPdwPC3wUdBHPi4+U/TKrcXHOgncT4srAq3Wek=;
-        b=sIZZRs0A/2bde8KmuzreC8BrDecrT7oH+RFfHTqYXsOvfsI6TLEka/L3oHKkxzeqzN
-         Xyr0JRIYm7UbgIDmrkjqjax6e8euzefThLwu3hzh07+Gqfn0DKHzvClhKhm/U9QGL8XT
-         zCubQobiRBPeMpMAN7F9lTOkjAe2J81fty5ULNu97CqJxyhuWWK5KfogshRkqTxiw2p7
-         zZb06Gw2Fj85WNRiTi4Fp783A1TXEQpcUQTVHROK/wzqqyzvBODZMR6PdyCwJJMf0PZN
-         Zupa6lY5YNNi2A5FBBYChOG1L6YH7eUaSE1tKbkMImFDI7JKmUFRMn8i4RTKp/tlWvZD
-         b/NQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwhFMPKbdAFWVmSGpJGb1ywvqr4qJrq+QrbhhnrUb3UP1Z2L3HEy+JG3a3B4Zjjvc6TiRDEp5ZosDg@vger.kernel.org
-X-Gm-Message-State: AFuF++kqGqQPJZP2r7dFkd9cca2tgLyeB+LzxaeuF2QoWgMm6cNUeP/l
-	ua4muc9DS6Dys2MJpZWoWmAvD5WgNrDLUtcxQ/vUyTQWXyaaO1vJHZQq
-X-Gm-Gg: AYBFou2lkbR1ykIIwi+hIWpM/8/vPyNJ3os14HqdDSAmLhOA3vM8TJb+v3nNd2Z7yDo
-	y/SzIzkz6Llii17YXulVeQZtJA82FnBYq8PilROBR/UnE20HpX8jGHsKRFEdxLAfvwY//BnFv0x
-	Pkrk0aAus1SdrINxswHqowxQ1JOSr2NrW/m11tcadZoRIeMts9xV5g1AIFknWnYMM4kp+THhuLP
-	GExZPvsPbCr5NuR9KUoOC5SL09wil6lNCpPsUM1HO9Gp9XCezBZxsTzpHOc2l5BEdkjDmlfUcHQ
-	y1o1TVXAslt5JjBiHhKmLQ4WizVo51ifd+1sO2JQZcmmR+VyqBs4nHKvT8OGI3V7WAyPTuqIvh6
-	GGfwVzzlJRxZ8klfpz5xpDGFitfDAxcneffUgqZnQtAJ5B1zEtLy4+ZGU+/T/sa+XTeIUjbXn22
-	cMHoG3JrYi+u9aVmXF82FY4uQCRtKfd20LeJPuu03GN9SpMnCvmj2Ebw33JlPnM+DzA2KbozXy/
-	Al/ya97ugjaVnRFpxmh54fYYI1dSM1PEI0pXA==
-X-Received: by 2002:a17:907:3f88:b0:c21:450d:cd7e with SMTP id a640c23a62f3a-c25d53be168mr861775766b.9.1788448783664;
-        Thu, 03 Sep 2026 08:19:43 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e13db0sm14634897f8f.0.2026.09.03.08.19.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 08:19:43 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: David Lechner <dlechner@baylibre.com>
-Cc: Andy Shevchenko <andy@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>,
-	Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label property
-Date: Thu,  3 Sep 2026 18:19:39 +0300
-Message-ID: <20260903151939.5117-1-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
-References: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
+        d=1e100.net; s=20251104; t=1788448897; x=1789053697;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MDXm9sakiTVow2HHdoD2Gmx3gY3Rs3Pfdamjmd0bvo0=;
+        b=LhLl4L5uXv6HaRBH8dzehOxKaEsvNU6Qx3V3/MIzz4HdDLdi78XwQi0iHGtaWvEbuV
+         iTBdBNwZM/KXG9UUb+vZ6Uz6xbhXYcseI/G/ww4fSlDpUmVMuuhXERiTOTV5eDXD6Jpl
+         qb2U2E+2LYSow4Y2phhsjH6ROorgxoet4CGoFtqnlF8F7BkrHEmoq+mxLzvmvO5ZSfct
+         WFnLp7mIIA81ECd93V5e8nJHS78RtENyvLZWWheD3YOQuYR3cJSRbU9+m9gsvNPBik0P
+         h6FmtvlaCcgapBJC1oyOpV9lXqOFJWaOEKYMl/feDP6WIBvEW8MLdB+5Awa9U0HkW3vB
+         PnMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzYBlIpS270qqkFxVsXgGol7aiXCkkhtKSDTD6jmFQhI/TlVWUy7MT4yhiNj1aqlUhXfyKqRMG1OLQD@vger.kernel.org
+X-Gm-Message-State: AFuF++kjdiy5tBC0NaeDMF2QmzHEG04VheoaFZydWgwrhOQ6jU38Oc+6
+	70E5y39FHwTOyw5vFQJbprd/5q3s9pQWjfOr/chcg911DXyGG+/Lzj8ycGM/TZ3Dz29Hn8KrxuI
+	ea0PIjsH2LTWzNR9V1JD8YbOAgEOAiE7BZFpc68lwwgWS6CLEAPEaDak81+zUdRNU
+X-Gm-Gg: AYBFou0QtmZwndvdi5CpZL+2ZIJK6MUDpDjtQ9f1gR3jQb2Qm1BRxbTHaQ2uhtbzPFG
+	5CfW77D5C5GCMP1kaGoMeXuQlicWLDt0fct+I5bIdwEAr3/NAeBGvf6alAyD6p6IMcODzteR2bB
+	D5DNlP/+lE9EQg/epgELlpIwHtgpaZ6sJyTE6g+ZkyG32SXy2STSaO6nhfoatsqgHdHhhxv6kZN
+	CWTINQHTqi74uzXB6znqZ3h8jevgEGWH7RICmfZOPnM8d76SMy2Jt5pXlOMvBLq7VQTeIj7yqUi
+	+ESlgCZhid4pqUdcN0zoo7TnlnSyEVFkqfFFKKQW2Q0LiAFwYmywaVf27jxS0T/Igg4YIIef8Hs
+	wVear0oMlFbC3uBVowe4IV4ngWM0yw73WErzW3Fj9P1IfRmXy/zgk/ULH78EwjCgJ
+X-Received: by 2002:a17:903:22c5:b0:2da:eba4:b640 with SMTP id d9443c01a7336-2db10518c67mr5531105ad.6.1788448895656;
+        Thu, 03 Sep 2026 08:21:35 -0700 (PDT)
+X-Received: by 2002:a17:903:22c5:b0:2da:eba4:b640 with SMTP id d9443c01a7336-2db10518c67mr5530325ad.6.1788448895091;
+        Thu, 03 Sep 2026 08:21:35 -0700 (PDT)
+Received: from [10.133.33.96] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dafe62d8dcsm11883625ad.26.2026.09.03.08.21.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 08:21:33 -0700 (PDT)
+Message-ID: <75246b2d-4787-4748-831c-d66e3b42faa6@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 23:21:27 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 07/12] clk: qcom: ipq-cmn-pll: Add PON reference clock
+ support
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com,
+        quic_leiwei@quicinc.com, quic_suruchia@quicinc.com
+References: <20260814-qcom_ipq5210_cmnpll-v3-0-21c3db378611@oss.qualcomm.com>
+ <20260814-qcom_ipq5210_cmnpll-v3-7-21c3db378611@oss.qualcomm.com>
+ <7e32b791-b27a-4b0d-8143-ff4eadd11fa2@oss.qualcomm.com>
+Content-Language: en-US
+From: Jie Luo <jie.luo@oss.qualcomm.com>
+In-Reply-To: <7e32b791-b27a-4b0d-8143-ff4eadd11fa2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: TB4K9kE0HFmeTrs9DoA9nmqyVqzSUBeS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDEzMyBTYWx0ZWRfX1JUaNLgeJ6Q4
+ cVcVfu94A5i86VVqvVzZ2RnXfqg8l3VCfaJ8G+H2CojiGZcn6bOoRighWIr1zh2RpguFexRPL0J
+ +nVt0s04U/HEVVAjolOTFYcpA4qYek8uC4fzR1Ehr+3QEZ8gf5CWWkOnwfvN4PgzWuDEmbMhENr
+ wBbcEKHsfGkG+c8cjrtZhgV143XxYos4jMwHU1yuN+Iwk1LqCwNHaZZURWgmHEbyCqccxjXd1aD
+ q7kNEnRVL8AQBAWh5BI+iAYwElB+t9Qa/uPuJRRA70jjkdSMAxtrSgh7LlmYPn8qnhbY3oizUZj
+ ZZh1nD1oaXuQV2dHTKl0Cgqd2WYy5tuQHVk2XeSUbOBTEHbjb0vlM8bYulakohXF7xEvcHgMbZL
+ +dI3ij8Q4giG39LAmXTz8GaEDJbd0Ia2vuEu4lq0P2DOv0aNwlJV0MePKjTVjo6+EpCJKPZQBM8
+ 5GfGA5xNGIS/Cf0Di9Q==
+X-Authority-Analysis: v=2.4 cv=X8Ji7mTe c=1 sm=1 tr=0 ts=6a999081 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=eyD6XQoqffRT7lHHdTUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDEzMyBTYWx0ZWRfX0l/DrBxfaw6u
+ PPqRL3G7HQxV72C6TVQd1BZbmGcCwGR4+9mB8UVfBwwAxnwUK1WXe7h+ixtG6Aq9HtncvX9fIgq
+ BAiHN80cfm/nivEXQwe8TR/fTqe1s9I=
+X-Proofpoint-ORIG-GUID: TB4K9kE0HFmeTrs9DoA9nmqyVqzSUBeS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030133
 
-On Wed, Sep 2, 2026 at 9:31 PM, David Lechner wrote:=0D
->On 9/2/26 12:22 PM, Flaviu Nistor wrote:=0D
->> Add support for an optional label property per channel similar to other =
-adc=0D
->> chips. This allows assigning distinct names for each channel which can=0D
->> match the schematic signal name.=0D
->> =0D
->> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>=0D
->> ---=0D
->>  Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++=0D
->>  1 file changed, 6 insertions(+)=0D
->> =0D
->> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b=
-/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
->> index 718f633c6e04..777a75c21d7f 100644=0D
->> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
->> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
->> @@ -66,6 +66,11 @@ patternProperties:=0D
->>            - minimum: 0=0D
->>              maximum: 7=0D
->>  =0D
->> +      label:=0D
->> +        $ref: /schemas/types.yaml#/definitions/string=0D
->> +        description:=0D
->> +          A descriptive name for this channel, like "vcc_ram" or "CH3".=
-=0D
->> +=0D
->=0D
->Apparently this chip has quite old dt-bindings. Normally, we would have=0D
->included adc.yaml to get this and other channel properties.=0D
->=0D
->And we would have used diff-channels and single-channel from that to=0D
->describe which pins are associated with which channel rather than having=0D
->a magic number for reg. And the ti,datarate looks suspicious as sampling=0D
->frequency is usually we control at runtime.=0D
->=0D
->Anyway, none of that is really relevant to this patch. We'll see what=0D
->Jonathan says about using adc.yaml here vs. adding a label property.=0D
->=0D
-=0D
-Thanks for your feedback. I can also use:=0D
-=0D
-$ref: adc.yaml=0D
-unevaluatedProperties: false=0D
-=0D
-and move additionalProperties: false at the end of patternProperties block.=
-=0D
-Any other idea?=0D
-=0D
-Best regards,=0D
-Flaviu Nistor=0D
-=0D
->>        ti,gain:=0D
->>          $ref: /schemas/types.yaml#/definitions/uint32=0D
->>          minimum: 0=0D
->> @@ -125,6 +130,7 @@ examples:=0D
->>                  reg =3D <4>;=0D
->>                  ti,gain =3D <3>;=0D
->>                  ti,datarate =3D <5>;=0D
->> +                label =3D "CH3";=0D
->>              };=0D
->>          };=0D
->>      };=0D
+
+
+On 9/3/2026 7:57 PM, Konrad Dybcio wrote:
+> On 8/14/26 2:48 PM, Luo Jie wrote:
+>> The PON (Passive Optical Network) reference clock's parent is
+>> cmn_pll_div2 (CMN PLL rate / 2); it is then further divided by a
+>> configurable 8-bit divider (1-255). The clock supports two modes:
+> 
+> [...]
+> 
+>> +static const struct clk_ops clk_pon_clk_ops = {
+>> +	.enable = clk_pon_clk_enable,
+> 
+> clk_enable_regmap
+>> +	.disable = clk_pon_clk_disable,
+> 
+> clk_disable_regmap
+> 
+>> +	.is_enabled = clk_pon_clk_is_enabled,
+> 
+> clk_is_enabled_regmap
+> 
+>> +	.recalc_rate = clk_pon_clk_recalc_rate,
+>> +	.determine_rate = clk_pon_clk_determine_rate,
+>> +	.set_rate = clk_pon_clk_set_rate,
+> 
+> These seem genuinely new
+> 
+> Konrad
+
+Thanks. I’ll fix this by converting the PON clock to struct clk_regmap,
+setting enable_reg and enable_mask, and using clk_enable_regmap,
+clk_disable_regmap, and clk_is_enabled_regmap for the corresponding
+operations. I’ll retain the custom recalc_rate, determine_rate, and
+set_rate implementations as suggested.
+
+
