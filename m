@@ -1,153 +1,226 @@
-Received: from mail-pf1-f225.google.com (mail-pf1-f225.google.com [209.85.210.225])
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6619F511186
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BF3F509EF3
 	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 20:09:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.225
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788466215; cv=none; b=oCHnaPXfnR8p/ctQoaud//BXwWSypynVv79yneYGS0jLcJswYcq4hI2qj3duxyw9ZmyvUaaYP0kNZEjTtr+8GnV5sjLGD/KG/NktvOdIafx+pdJ+AprrTXnSz7gBWrojTU5tJToNc5w8aKJ9kDckT97JaUo2f3oYoq74nTJqYQU=
+	t=1788466215; cv=none; b=XhZ2rn0jwEf/4QSGe+G5Oee7n2e/pS1bWWvmkOjxIz4q/Udm3H3pT4rjOCEDFEITP8PXdDGAwPjOwnnA7K1Nzb74LnKkzhEV5VBx/YQusHN0KyEVnHxertVMEFrYhbeMViZYlhp054EU2XsKZqenJDc6eOV4ulXfrUj2OR1eoDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788466215; c=relaxed/simple;
-	bh=E1U5hho08XEzApGAbtz78unQ01JG6pZApPq0d7d4OYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=MQ8Tx1KMWyiQ41SsoUaAz6atzRa7ElJeXfP5yOLQx30sZuEw3EaDmku967RkChAU7/uA2D52ibW68xic4HwKxwLKW29KacdjORiPCcadmZtA1Y9deMscNJAU4D3g7fADjcMfx0H+/4LiLc8Ia0hE96fO+9/4iZoB0RGggHB3E00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=MBXWNDbB; arc=none smtp.client-ip=209.85.210.225
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	bh=33gmwnaoOgewiIfzCE3tR2Aa3m4ljb1ArNTdi+ongu8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=E1+5Bj3XUTwEYZIUJ5a96s71ZM8B8O9JJ//AyWKV3fyb5CHDW3HIfE6WsJgU1SLpj8Df9j3Y3g+ctqThlh6CMNscGbVA5iQiTtKnhQqj9IMgpHEsZhhVLTyak33s8mPMzgfGh1bUXPxLrhPEkRS7RPWtJArkR0CaA45PsNAMdhk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WHxYIucw; arc=none smtp.client-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="MBXWNDbB"
-Received: by mail-pf1-f225.google.com with SMTP id d2e1a72fcca58-85377c8bc96so248443b3a.3
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WHxYIucw"
+Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4b58562bdb4so226724b6e.1
         for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 13:09:58 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788466196; x=1789070996;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=H8F5ngdEDHcCWWcWsAIIbVDmiLa9rm9VXg/s743ljT4=;
-        b=pNP9fa8eEuenr3R09dsfA3bRWYybHkI/y1JbgcMBbFuukvbfq82yDHYG8efYe3ELGr
-         U2608jsdtFzlvYpBuuefADrIS3teckMFnqmzhpCRBVP4e0YwYMEU7en8MXDCOYV9OBoS
-         5L2AtckAwr44zIAOhr8TcT052MKsDIg7SNU5jZesY90g5pT0jEnDK8Jkt91AFTEY5cZ8
-         hV2nAMRUuSrCGN67CYV8FjY2HCxS0y6Yj7PcMjJ4s4UXWBhWafyaasKgZOpyyN62ewXN
-         wszzb7J+myczb2gv7bzjhnfoCGQ1Af8EhRLTN4fFdkbgcUjOijaGotPuQVaXymOzxVCw
-         GydQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzXJGIWOxRfcfUc8qYJc5nCp8SbJcXNnWznpeu4A+Uvh9hB06JCnS8x5yrPcYnte3N8vJH1JAR0NXWz@vger.kernel.org
-X-Gm-Message-State: AFuF++kK/g039bQRjiWAQEj9tXQ4vwiZNvDgQDI2Vbr2Jv//AcbNwC8Y
-	gLJt3YHHEQIkIlmu/GUvtEawv0U9bVhqnI3fZ9WL7ukKjhRMqQ332kxRw7RmvilFZdI4TXPC0YA
-	YEqRJWFJHdTYOnnARo4q9fzul1Kds/qSgY9Kq3r2Rcdk4cdlQYCHQlaqLdSiuWzGMYJew6+n++P
-	S34YtSmWJ+BjZrxSfVdnE0K3xZKjQyeBjUH3mLoi9cVvxfK5Yc0n23uRLtgBbgFU7jyFpnaioL9
-	Xhf+YUy+SYlSR79nAts8w==
-X-Gm-Gg: AYBFou2nR8oJLip2XNUDN9NVDdJamZiTYxjrdqdgKGGT5rfhgKK08hFcvrZE9u3x7rD
-	zNlGnqCqc1OEbpXewC/rR4gSfhIpCYqKH6T21DF/gozM+LfQ35T1WiPmazo0axs9c0n/t4UVzpi
-	LQY2YLEjs4ZW2/EBVjkM+cUFNyNGxEOQgONmeIO0P1j0MFvWyrspRFB5hng7u0h48e4HVhI2HaF
-	6MuJTmjpHl0TKFUfjAUejP9HDkNFkCvdwaVo27/qDLy8jwd9PcoDaUjZZ3i0aU0R1qF5t0ss+1U
-	d7cPcH8GaHWnsVe0A+oU7sMMonM9vELZVUqt2czuZ5Xn2LLFF4KzrsA1mua/TWZbgWKyGAn5zkW
-	+UjLzhb/XZl1I7suwU+wm8NSu17KHb28tERCGlN0+oIdWOlVI5wU0sBJXeAAQ0OlZkAprSycxyj
-	+dwjw++JD3KPvxNG2r28R58RMYuZSTHoPiZVOCx+Nw/RA=
-X-Received: by 2002:a05:6a00:8d8d:b0:855:eb7b:5804 with SMTP id d2e1a72fcca58-861662d4c0fmr2270575b3a.4.1788466195733;
-        Thu, 03 Sep 2026 13:09:55 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 41be03b00d2f7-cc45512cfacsm48158a12.2.2026.09.03.13.09.55
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2026 13:09:55 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-38dc085b0a7so361480a91.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 13:09:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788466194; x=1789070994; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=H8F5ngdEDHcCWWcWsAIIbVDmiLa9rm9VXg/s743ljT4=;
-        b=MBXWNDbBdgYRsb+TwRU+YCBT2vRXIAJHeboPbal2+w4748Anks2ZPE0jpi4vrhXWjn
-         y7DcWIeg6/CtpdDjvxNTQ6XsV2ekA9gHXy9RgMsvGvLN5/WjRk8DYefaFoO2lGHo2YGe
-         FpX3q+zbMg8OXss25ovtzpfg94i3bFfFNfHi0=
-X-Forwarded-Encrypted: i=1; AKwUvBwQdN4wdO1QWTS86+ISBMGVgslHdSE9anhZ6f78TTovjAKBoDoUCa/mLwKBX95v41iU1+evaqFpZ2rH@vger.kernel.org
-X-Received: by 2002:a17:90a:ec8d:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-39b261002f5mr1546089a91.6.1788466193823;
-        Thu, 03 Sep 2026 13:09:53 -0700 (PDT)
-X-Received: by 2002:a17:90a:ec8d:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-39b261002f5mr1546001a91.6.1788466193375;
-        Thu, 03 Sep 2026 13:09:53 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm1148434eec.13.2026.09.03.13.09.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        d=gmail.com; s=20251104; t=1788466193; x=1789070993; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=JWJmyHh0/BVQQFMvbAXDDBvFjk+duepqeHP4tC9bWq8=;
+        b=WHxYIucwKkn67UMOB4DS+x/eXuT70korgfOagsgZa2YosSuGl2X/Q7EGITzjsWSYnr
+         jODFwD6dBCFYaPTCNSoytAfh2uNRAJm8iRgwNIPjGVHZgHy4QbT9ZapT/R03fQx69Z7B
+         tsnjAjsHJWYT9Ml+NyabuTA4S/7ssrU5hrx33CAdhEbtCtvK66A9yuIYG1CcNcuQL/DZ
+         9DBDP7l0lFaF70kkdIYJ7ggozlZ2g8D3CJE1T4vYuzfS1pdoGpZOdHfjy7SppcWaJHk/
+         +wgBMe9PYkNZCoz0lTFFzjdNuqzuIbwKRpUhhgYDcrrCBbgieZfCmCJkWT5GCvbUiL8X
+         8SNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788466193; x=1789070993;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JWJmyHh0/BVQQFMvbAXDDBvFjk+duepqeHP4tC9bWq8=;
+        b=VV6XCYSe6SQaF/T0hstu+troP0x3fpN2ykIJ5QzXLX4jTRqWf48tZ8Z4cNR+psa+n0
+         QZDPzpHCdWJ8pVsiMhSLca+m945L1596f18GCo7n8JbQ456djeWQ5Fg1sQGNs40GNDmZ
+         R4UNKXqHxazlwUMl7uLC2f4sV/sFijjiWpyuhLFosqF5WBc73a9xubVkcZSJWup/NRgt
+         qLk2aqT4FEs7yn8n8vCUZbmbOO6xas0m+b2yyHMhxG7p5DnrBfGk4J9z/kDnwSyTo/EN
+         k1nC5sWO3OST4GqUg/ardG7I3If5V4K2OtYX3xKgKeOj2/nhL5kPd0muvFXHFQUSGw8Y
+         l8Dg==
+X-Forwarded-Encrypted: i=1; AKwUvBwis3JVJPw4dz5uuH2cDC3v7C8ZW3VVGlobWbOh36/cvrEXXqFxU8gtLD1nCcJRi862gYf63s+PFe4c@vger.kernel.org
+X-Gm-Message-State: AFuF++mkjglMM6OraPa4yZ2deE1twrM+0ROjwh+5XKCvHmv6+kqhY3YZ
+	VCYAyJUgWIe+aY+XUakQ3yknCh77uxcbn7xvSmsfftfYwcruLyjREUJV
+X-Gm-Gg: AYBFou1Rfh4laG4DFIDqp/h7lgnL+axVaN1fAAGAcEweitw2pW3VBnrXFA5+hauE5jq
+	dYjxgB6BCh0+TCKlMkCVRwL+7fCpGIDRFXJoW31VAbOJ20Vx3iLolEdRCopjDQhrJNh+uXtliYF
+	OeSILSOJavcZdLkZ4+s/OXwG2c134SHQNQ0kowOPoHO5yzDyXA+UlfHKmsfNCWXQFBKRsEumttv
+	NMDDGMGw+6Ec4Z3UASCjvg7rxO5x3vqhOlGDzF4JC24hHRIKEnOOlGIZmBx/bUdR/WV+3ONSohl
+	vTKa8xiKX0fQ11ju66kfcxcpdaiJDOLTv77Yp+aK6t3t26+Z1qGTxtrPgvDY+3kjh4/epmiMfto
+	OjwiojeLn/xmVyoYZD0nPQj8B1GAsWhOhNrougYFXmcTtxHDCnuyk+mAGeuMjP7UREGYJN6eTk0
+	5Oj0v64coKuFKQX8QbMwVekyulp5LilBAQQchVhKAxPY4oTPL0WjVNoB8BVKVAi/t4WRIIXMEV8
+	piAfnwKwJblABK07zIm83KPKiVJBOfdQAh38SHyZ6ryKVJWqqBPuHd4GmnNARTe3vy71go13eAr
+	XTB85EieCKxiDV4HhaU7Thngm76MbQs4a+rGPDoRkCSEteVR7+wROmab1LCjy9tr/Lz88UtS8LC
+	MplJyfa9J2zSLi1bsHj4=
+X-Received: by 2002:a05:6808:159b:b0:497:da47:df5f with SMTP id 5614622812f47-4b9623ccb8emr868245b6e.17.1788466192869;
         Thu, 03 Sep 2026 13:09:52 -0700 (PDT)
-Message-ID: <e05a1271-9286-4d14-88db-966c3745ca2e@broadcom.com>
-Date: Thu, 3 Sep 2026 13:09:48 -0700
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b971246d9csm252885b6e.7.2026.09.03.13.09.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 13:09:52 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v9 0/4] mfd: add X-Powers AC200 support
+Date: Thu, 03 Sep 2026 14:09:39 -0600
+Message-Id: <20260903-submit-ac200-mfd-v9-0-6b7ed278989c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] Some minor RPi5 bits
-To: Peter Robinson <pbrobinson@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Stefan Wahren <wahrenst@gmx.net>,
- Phil Elwell <phil@raspberrypi.com>, devicetree@vger.kernel.org,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Andrea della Porta <andrea.porta@suse.com>
-References: <20260802145109.728793-1-pbrobinson@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260802145109.728793-1-pbrobinson@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOTWrDMBAF4KsErTtlNETyqKveo3Sh30Qhtovli
+ oTgu1dOCwltoMsHb743F1HilGMRL5uLmGLNJY9DC+ZpI/zeDrsIObQsCEkjSwnl0/V5BusJEfo
+ UgJ0NOqCJxEq0s48ppny6km/v37ndHKKfV2dt7HOZx+l83axq7f3waG78qfFjgnAebJ89VAlVA
+ YJLViZWkh3x6663+fjsx16sQ1XfUY8+rboBXjlJhjxvzR+g+w/oGsAOdVKK7DZ0vwG+AQbpAcA
+ NIGtRd4SOrb8HlmX5AtPRB/SPAQAA
+X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
+To: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, linux-sunxi@lists.linux.dev, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-On 8/2/26 07:50, Peter Robinson wrote:
-> These are taken from the downstream kernel device tree. They
-> are small components that already have upstream support, from
-> older generation RPis or existing arm IP with just minor
-> changes for upstream, tested on rev C and D variants.
-> 
-> Peter Robinson (3):
->    arm64: dts: broadcom: bcm2712: add arm PMU
->    arm64: dts: broadcom: bcm2712: Add thermal monitor
->    arm64: dts: broadcom: bcm2712: Add USB OTG port
-> 
->   .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  6 ++
->   arch/arm64/boot/dts/broadcom/bcm2712.dtsi     | 66 +++++++++++++++++++
->   2 files changed, 72 insertions(+)
-> 
+The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with
+a paged register map shared by its audio, video, RTC and Fast Ethernet
+PHY functions.
 
-Applied all 3 to devicetree-arm64/next, thanks!
--- 
-Florian
+Add the parent binding and an I2C provider which enables and rate-locks
+the shared input clock, initializes the paged regmap and deasserts the
+common reset without resetting state left by firmware. The common reset
+remains deasserted during removal and shutdown, so unbinding the provider
+does not disrupt independently enumerated functions or discard wake state.
+
+Describe and instantiate the audio codec and TV encoder as MFD children,
+and provide the shared regmap interrupt controller needed by the TV
+encoder. Only enabled, DT-described function devices are instantiated;
+PHY-only systems therefore acquire no unused platform devices. The ASoC
+codec and DRM bridge drivers are separate subsystem work and are not part
+of this MFD-only series.
+
+The current regmap consumer is the separately submitted AC200/AC300
+Ethernet PHY series:
+
+  https://patch.msgid.link/20260818-submit-acx00-of-dynamic-v1-v9-0-b8c8d9ad0d83@gmail.com
+
+The PHY remains enumerated on MDIO, its primary management bus. Its AC200
+package node follows the x-powers,ac200 phandle for ancillary I2C register
+access, adds a managed device link and obtains the regmap with
+dev_get_regmap(). This series and the PHY series can be merged in either
+order; AC200 Ethernet support requires both.
+
+The child descriptions and MFD implementation are adapted from earlier
+work by Jernej Skrabec and Andre Przywara, with their authorship and
+sign-off chain retained:
+
+  https://github.com/jernejsk/linux-1/commits/opi3-eth/
+
+Public AC200 documentation is linked from:
+
+  https://linux-sunxi.org/AC200
+
+Validation included dt_binding_check with dtschema 2026.6, a W=1
+x86_64 object build and strict checkpatch checks. On AC200 hardware, a
+writable common-register marker survived supplier unbind and rebind. The
+provider and PHY then completed 100 overlapping bind cycles; both MFD
+cells were removed and recreated during every cycle while both device
+links remained valid and the 100 Mbps full-duplex link recovered.
+Afterward, 100 pings in each direction completed without loss and 8 MiB
+transfers in both directions compared correctly.
+
+The available board does not expose the codec, TV encoder or INTB pin, so
+the functional audio, video and interrupt paths were not runtime-tested.
+Temporary child nodes nevertheless instantiated both MFD devices, and a
+temporary probe driver bound to each and read the parent common-control
+register as 0x1.
+
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes v8 -> v9:
+- deassert common reset without first resetting the entire chip
+- leave common reset deasserted during removal and shutdown, preventing
+  supplier unbind from disrupting the PHY or discarding RTC/WoL state
+  (reported by Sashiko and queried by Lee Jones)
+- stop storing the regmap as unused driver data after dropping teardown
+  callbacks
+- describe the audio codec and TV encoder MFD children
+- add the AC200 interrupt definitions and shared regmap IRQ controller
+- register only enabled, DT-described codec and TV encoder function devices
+- retain Jernej Skrabec and Andre Przywara's authorship and sign-off chain
+  for the adapted child and MFD work
+- make the base provider depend on COMMON_CLK before child support is added
+- require an upstream interrupt when the parent is an interrupt controller
+- credit Jernej Skrabec in the module metadata
+- exercise child enumeration and parent-regmap access with temporary probes
+- rebase on the current MFD for-mfd-next branch
+- verify register-state preservation across supplier unbind and rebind
+- Link to v8: https://patch.msgid.link/20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com
+
+Changes v7 -> v8:
+- identify the PHY series as the current regmap consumer
+- describe future MFD children and the MDIO/I2C split
+- store the regmap directly as driver data  (suggested by Lee Jones)
+- reset the chip from the remove callback  (suggested by Lee Jones)
+- drop the revision log and inherited-driver attribution  (suggested by Lee Jones)
+- add Krzysztof's Reviewed-by tag to the binding
+- rebase on the current MFD for-mfd-next branch
+- Link to v7: https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
+
+Changes v6 -> v7:
+- drop the managed external-syscon helper and AC200 syscon registration
+- leave the regmap attached to the I2C provider for direct device lookup
+- reduce the MFD series from three patches to two
+- Link to v6: https://patch.msgid.link/20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com
+
+Changes v5 -> v6:
+- split the MFD work from the independently mergeable networking series
+- put the merge routing and shared DT design at the start of the cover letter
+- rebase on the MFD for-mfd-next branch
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
+
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+To: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sunxi@lists.linux.dev
+Cc: mfd@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (2):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: ac200: Add X-Powers AC200 support
+
+Jernej Skrabec (2):
+      dt-bindings: mfd: x-powers: Describe AC200 functions
+      mfd: ac200: Add codec and TV encoder cells
+
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 186 +++++++++++++++++
+ MAINTAINERS                                        |   9 +
+ drivers/mfd/Kconfig                                |  15 ++
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ac200.c                                | 230 +++++++++++++++++++++
+ include/dt-bindings/mfd/x-powers,ac200.h           |  13 ++
+ 6 files changed, 454 insertions(+)
+---
+base-commit: b07adc1a304c7ca9ac25a01051561538757363c9
+change-id: 20260811-submit-ac200-mfd-8bad6d09e285
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
