@@ -1,49 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1487049E5D3;
-	Thu,  3 Sep 2026 17:34:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB494A3D35;
+	Thu,  3 Sep 2026 17:36:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788456855; cv=none; b=ktdRjoJ6jVB1a1TCBeqxXttdd6smeb2tHwio9g3f30in8oXbZOXN78QNPav5ZenLtTen0lT2vgbp/zrBxj2Th9L1Dd8YTM/YYN+APuJIkV6axzb7xb/vjEyQxe2C+dE05lWXhByT9XTfMbnd65uzUqg31dfofouOrQ6IXw/I858=
+	t=1788457014; cv=none; b=hztPIJhAW7s6dnv3bxO++TjUV4raDzW4VmDecODWQFt7QZutJ0RrkTE9w5RWDVUyDhL9vAJYKn1TcKeUwapL/CQx6AuV0lAxResiNtARdQWrDFG0EJ+t2GQ0S77SgSR1sNWuKzwi/SY9olPARuhZl81i5PpgLObdddQV8hJve9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788456855; c=relaxed/simple;
-	bh=NYpQHrjsJvf8pKVE2GpTexSixvlMtoy3aWduLWczkEc=;
+	s=arc-20240116; t=1788457014; c=relaxed/simple;
+	bh=GYOszcyAv2MHFI4KF++FD4YVfwcmAEWNPRJzM4zf2i8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OYCihXmkMFgol69Zyubg1S1FUF94thsbh543noShZwQNuaquQu/Ak3NsPPppOrSkWLD16ZAbYwAxOoaWHVNmzuIGVf5dJ0u/Gvo2jkf6hCNo1gjpTOiks2pVRgrIJA5PQjD+wjFo2hvDiIif/j/SS76Sq492bheDgNZESfDnpsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFdoaqnL; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ux5c3QFDr1xBoO3exR1Ydj8SlNgLBxsN3ZF70xNQqsmVk8EEIyo2MyhE07i/s1o7lNOvICXrbr99AAAou68DhgPC8LuEiGCenfQac7CjbhPDzrpqKqUq2c/ZSUkWxy/kaRvWwemBquQirrvh7FS0IRv3DQp9SObZWNZorWTJrrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JkbwZNy8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFdoaqnL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 927221F000E9;
-	Thu,  3 Sep 2026 17:34:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JkbwZNy8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8FEA1F000E9;
+	Thu,  3 Sep 2026 17:36:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788456853;
-	bh=NYpQHrjsJvf8pKVE2GpTexSixvlMtoy3aWduLWczkEc=;
+	s=k20260515; t=1788457013;
+	bh=GYOszcyAv2MHFI4KF++FD4YVfwcmAEWNPRJzM4zf2i8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WFdoaqnLUk3HaTNd6HUuFF5+QP+sJz0ubZrssMmxLDDY7LE6BAcf6NtBJdBk4FuKm
-	 0EEDjzWb+nc6WMLy8y7RRKQa+rNq0Eu55R8XKibH0kHLyyGZcTILD84W0U0bnlXWSu
-	 pNnG6M/lgKehxsFqo7DDW0l6TRenm005mDLoYD/Z9S93nrwIi/ymLsKLdSxepzjHpM
-	 qQ6BZdnivOqpFK8yQalLTMNh2wBFrOGlDltNkM/qgYUhgBk2s1GP0JU5Z9rysf5sb2
-	 sELq7qRhTse7++FUySRdpcvQePQzrzAU/hrwpMHBEplymY1D/K4cQGyk9TSf5VJqVo
-	 gIENVLIxytCsA==
-Date: Thu, 3 Sep 2026 18:34:08 +0100
+	b=JkbwZNy8ok4L4oriC8g3PM+zQszbreb7sedqMSeb0lCmL8KNRQdk5SRx/ZaTNcXtz
+	 ufHDYwCIbZ7UMLbp4fN1OVUw9rOJElPyHPWGavsomJfga362CvrOIYJJ2HtE6uvyiH
+	 MJ1XEY6Fa7d+alzegb6GoFGsazjoCdrbMD/CRCS1/3vrx1Mw0iKXcJPodIBTcVKIrS
+	 mj1VNF5d6+5Kt5RsriKPeAWNX82Uu4wjnDBbrN1PhaQaJYv0NVfN1uIpnQtwe1UrOA
+	 ELWhCzT2guKZ968riHybpQ8mTazR2glo8JDvfyR8QvgBCV0QGc47urTPD3dNokOlFS
+	 WA/oBUDc6u7mw==
+Date: Thu, 3 Sep 2026 18:36:47 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Wayne Chang <waynec@nvidia.com>
-Cc: Vinod Koul <vkoul@kernel.org>, JC Kuo <jckuo@nvidia.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Tzu-Hao Wei <twei@axiado.com>, Swark Yang <syang@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH V3 1/4] dt-bindings: phy: tegra-xusb: Add support for
- Tegra264
-Message-ID: <20260903-autism-tranquil-15dd67d9cd2a@spud>
-References: <20260903071937.533646-1-waynec@nvidia.com>
- <20260903071937.533646-2-waynec@nvidia.com>
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+	SriNavmani A <srinavmani@axiado.com>,
+	Karthikeyan Mitran <kmitran@axiado.com>,
+	Michael Walle <mwalle@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: gpio: add Axiado AX3005 SGPIO
+ controller
+Message-ID: <20260903-duckbill-cartoon-d1877e4c0e3c@spud>
+References: <20260903-axiado-ax3000-sgpio-controller-v3-0-b30820e1b858@axiado.com>
+ <20260903-axiado-ax3000-sgpio-controller-v3-1-b30820e1b858@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,26 +53,40 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="q9uhrpU5IRC6OFsn"
+	protocol="application/pgp-signature"; boundary="OrWhVXbbco6P8u3i"
 Content-Disposition: inline
-In-Reply-To: <20260903071937.533646-2-waynec@nvidia.com>
+In-Reply-To: <20260903-axiado-ax3000-sgpio-controller-v3-1-b30820e1b858@axiado.com>
 
---q9uhrpU5IRC6OFsn
+--OrWhVXbbco6P8u3i
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Thu, Sep 03, 2026 at 12:11:32AM -0700, Petar Stepanovic wrote:
+> Add a Devicetree binding for the SGPIO controller found on the
+> Axiado AX3005 SoC.
+>=20
+> Each SGPIO position provides one fixed-direction input GPIO and one
+> fixed-direction output GPIO. Input GPIOs support edge-triggered
+> interrupts.
+>=20
+> The controller serializes output values and samples input values over
+> dedicated data, clock, and latch signals.
+>=20
+> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---q9uhrpU5IRC6OFsn
+--OrWhVXbbco6P8u3i
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmvkAAKCRB4tDGHoIJi
-0jD5AP0a6bqiLXcYQNaN8CsxuVSiDNsddxuqqt1yA1S2qLMJjAD8CCRYlaWXwDgV
-ff5GEGbWl5rKWquWipeLRs/ydPo6eg4=
-=EvH+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmwLwAKCRB4tDGHoIJi
+0nUSAP0dyjCLkvgRkuJeO5EQJWdRF9RerX1spQo+2jyKk4+HfwD/bcZvsxMEDDd3
+auDb1zeyszZb4i9nsXRYElsNRzHgAAk=
+=lVaB
 -----END PGP SIGNATURE-----
 
---q9uhrpU5IRC6OFsn--
+--OrWhVXbbco6P8u3i--
