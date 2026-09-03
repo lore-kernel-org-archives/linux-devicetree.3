@@ -1,85 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B320042589D;
-	Thu,  3 Sep 2026 08:24:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1C0439331;
+	Thu,  3 Sep 2026 08:28:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423894; cv=none; b=XYu8CJRRDs1k3IDwxxJZF6+mqxvxZb2opcpQn9r7yOPH45vpsojyeDWIBMlG8oJtY3S3lKkKYYQBPUPY0brrQpuXEon5M5Zdulwe6DF+G1Af/7gyAnUADrbwgqY8hma8Re4O+8pzCO6D63t7JD+LPCx+yHx+jv+7WTw+j4to9x0=
+	t=1788424107; cv=none; b=FR+v9sd+mAbZ5BTu8FvgrkQthXBoYP4txVUMuiN0ElBjpLqKlnXhVMexCLV1bPf60TYkFj5wn6EmdKvESRan3WAwZ1vt68D8NBcJpN809GTl6YA7YWRPilRcgYY4pN9iuLYz6otV+HVn1r0aMGZgxggYE/qnGTPJeu6H+0ti7T0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423894; c=relaxed/simple;
-	bh=bAmuj0O7v/xqEPt/dezy6Thdr4Kyk/d8UQ+n7ukuJBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ewFbQX752SsXMyRvzir8+rBvh5hh203BnUTvYY6v3yBo+eGr7J0FZ+8fnDexLmosQio+C4Q0s7/ycM1wKZ1S/UXms6FNk36040pcKmlna9uQxNq4qCXIB0KEyTgsj9myLUFh7ADH0tJikWSALn9l1NmdRWktD0ikW9OyIAONrZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zla5GHHc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788424107; c=relaxed/simple;
+	bh=gxyN0inF6LFVlALsQscUp0yPnDl9IKTwzmTnq1LtqMo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=L4WS30dq/Ac9sfIHawv3xnaxHYOAz/Ec/YQdfuO2oUXVKWW4a9Vv7p9xWheigMoqLCtwuxj/bxyN3tIzKwo73F1MsxnpKRB0daHSrjmbqpQFesCW3li/rDI7IRX/y4TxBk3xBdHm0KYl2Nz2Uw9LpNjnlJaRuIRmDcNaK9/OiuE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0MjF3X5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zla5GHHc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349611F000E9;
-	Thu,  3 Sep 2026 08:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0MjF3X5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215B51F00A3A;
+	Thu,  3 Sep 2026 08:28:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788423893;
-	bh=fbIaSZueJ9L7aZ2SFykAsrRHq34CEJ8hDtg94f4lxLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Zla5GHHcxSaHYLPcV7hDLgmsoz99LeWBz4LNzJGRDna/m4IQQN+EEDM1op7tVD2Lm
-	 OkYqsNGRl2ZFvclRMCzqO2geS3EHyWwFGN9eiVXLz7ibSjlrS3aG2y8AdsdVklpXql
-	 TTCs5EEVlAsYYTAW8jVLHvBJhfWPjsZlmwcw6noz/kePfzDRDtqWJLnQpu7WHT3HCw
-	 Z6S/3xlKd/iXYSekmNL+Mw3yDWCk4PYvN4YpDsoV4YwO15Enzpz5iRIl1yxaX6NG7i
-	 tFu1e6SBmaaR/dgf0DovIlUEEj4uwNpL3AD7HhyPHNg5GqLnxEXVSNkuw66CgjO+5H
-	 EgwDen6DuDT7A==
-Date: Thu, 3 Sep 2026 10:24:49 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sen Chu <sen.chu@mediatek.com>, Sean Wang <sean.wang@mediatek.com>, 
-	Macpaul Lin <macpaul.lin@mediatek.com>, Lee Jones <lee@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Liam Girdwood <lgirdwood@gmail.com>, 
-	Mark Brown <broonie@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Julien Massot <julien.massot@collabora.com>, Val Packett <val@packett.cool>, 
-	Fabien Parent <parent.f@gmail.com>, Akari Tsuyukusa <akkun11.open@gmail.com>, 
-	Chen Zhong <chen.zhong@mediatek.com>, linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, mfd@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v10 1/9] dt-bindings: mfd: mt6397: Add MT6392 PMIC
-Message-ID: <20260903-normal-electronic-bonobo-3f71eb@quoll>
-References: <20260902193351.185771-1-l.scorcia@gmail.com>
- <20260902193351.185771-2-l.scorcia@gmail.com>
+	s=k20260515; t=1788424106;
+	bh=VC4wHaers98T5HZdg4G5azg+tGdn9DxjhYKU+8WULhY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=l0MjF3X5L4D1m8zAbHfArXBpv1109NHOaIS4TQ4jY51lfp4iPu2mAavFHyuqpgssC
+	 HiqtQmYIV3wCxf84hFemXmqQSRZxlXPKgbg8gcrztJto2v4rKVnswUbBzT81eM1OKI
+	 7L1/83jYYV/1FnTKuSCEBAbXwEX6G540Un6RgQcGgYRlhGD5qpnnBAUobSlfGgx8ht
+	 PPpntG6/ytCVKW/0pUUpAfWodDDabV+Ef9U48S7PzVVrmhU9pepoqa3xPgKs2Zf2ea
+	 b8tsniYwjJpSckyRmDpnstdCvOtWywz6Qslo4CBf4j0xwLjy93wcgy2c+RDQJ9jtVe
+	 6T9MEfxav1DNw==
+Message-ID: <d23d74a8-2695-487f-af3c-4c74e3d61ac4@kernel.org>
+Date: Thu, 3 Sep 2026 10:28:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260902193351.185771-2-l.scorcia@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/9] dt-bindings: display: renesas,rzg2l-du: Document
+ RZ/G3E SoC
+To: Philipp Zabel <p.zabel@pengutronix.de>,
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+ biju.das.jz@bp.renesas.com, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260828122113.1426778-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260828122113.1426778-2-tommaso.merciai.xr@bp.renesas.com>
+ <20260902-heavenly-ambrosial-trogon-b7ab03@quoll>
+ <apgsOubuGuvw_0rf@tom-desktop>
+ <CAMuHMdU0y5Dg9tW7fAM3QQHKpAw_+vmjj7v-XeZmrushQgQFAA@mail.gmail.com>
+ <apg8luaJ3eobK8sm@tom-desktop>
+ <d50816260b8be29948c4cc04172b5c88ea3313a4.camel@pengutronix.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <d50816260b8be29948c4cc04172b5c88ea3313a4.camel@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 02, 2026 at 09:25:37PM +0200, Luca Leonardo Scorcia wrote:
-> Describe the MT6392 PMIC and its RTC and regulator devices. This device
-> is mostly based on MT6323 with some similarities to MT6397 and is usually
-> found on boards using the MT8516/MT8167 SoC.
+On 03/09/2026 10:17, Philipp Zabel wrote:
+> On Mi, 2026-09-02 at 17:11 +0200, Tommaso Merciai wrote:
+>>>>>> +  reset-names:
+>>>>>> +    items:
+>>>>>> +      - const: resetn
+>>>>>> +      - const: resetn1
+>>>>>
+>>>>> Drop reset-names
+>>>>
+>>>> For reset-names, I got the the following comment from Philipp in v7 [1].
+>>>>
+>>>> Dropping reset-names would force the driver back to an index-based
+>>>> lookup, which is what that comment explicitly asked me to avoid.
+>>>>
+>>>> [1] https://lore.kernel.org/all/8382e2b9fd07fb1132c26e228b3899336fc1fdd4.camel@pengutronix.de/
+>>>>
+>>>> Philipp, Krzysztof, could you agree on which way you'd prefer?
+>>>> I'll follow whatever you decide.
+>>>
+>>> Until we get a variant with a third interrupt (or reset or reg),
+>>> which is not related to the number of channels...
+>>
+>> Right, IMHO names keep the driver flexible enough for such a variant,
+>> indices don't.
 > 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-> ---
-> Previous version of this patch had the PMIC device declared with a
-> fallback compatible to "mediatek,mt6323". Sashiko pointed out in [1]
-> that it would have been wrong as the fallback device is not really
-> compatible with the new PMIC.
-> 
-> Since the change is significant I have not included the Reviewed-by tag
-> that Krzysztof Kozlowski kindly provided in v9 of this patch, I hope
-> this is the right thing. I really want to get the bindings right as they
-> are harder to fix in later commits if the need arises.
-> 
-> [1] https://sashiko.dev/#/message/20260820125850.3B34D1F000E9%40smtp.kernel.org
-> 
->  .../bindings/mfd/mediatek,mt6397.yaml         | 72 +++++++++++++++++++
->  1 file changed, 72 insertions(+)
+> I would like to get rid of the reset_control_get_by_index() API
+> altogether, if possible. Currently there are only users with index ==
+> 0, so this would be the first and so far only valid user. I'd prefer if
+> we could keep reset lookup aligned with clock lookup, with via clock-
+> names as well.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+...and clk uses indexing partially. clk_get() is the corresponding
+interface to get the index 0 and is widely used. I agree though there is
+no general get-by-index API. If reset won't provide such API, then fine
+for the names, but the order of entries is still fixed thus the names
+are NOT allowing to change the order.
+
+> 
+> That being said, why are the two DU units represented as a single
+> device tree node at all? Aren't they two completely separate instances
+> of the same IP core?
+
+
 
 Best regards,
 Krzysztof
-
