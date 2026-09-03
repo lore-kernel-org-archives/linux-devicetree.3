@@ -1,264 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D801A4FECD8
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:23:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C3A94734CD
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 21:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788470589; cv=none; b=F/1hwwj7Rmq/Cql3yplHXn47EAMJ07lK5+4eQo7dKzT7ybwRwkb1uDP010KmhFqgJhlArI2Uv/kmW5qP3fYjYJtRQ+yef4kC5hDmZRxZkWK45EUD9QzPBlape+zoNl+AvoJwxGCGWZAA3WA/RjADwjxke5sQhDXN37pLB7GHERc=
+	t=1788470626; cv=none; b=Nm893xFOdg1Bxzk1wh9aPhs9CEYD/j7J2fARQeAArsLbF0dTlzSNSK0KGiFaV0AIjmu7GqhsSZ9sLqO+vfmfPcvgwiU7122wj0UK8koVYyBjIXQCmE9fExqwIse+JoVbqcTGmEDigyR5J8pJp3NXbtM2Hw+pSY83U1/pfcgq+UE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788470589; c=relaxed/simple;
-	bh=Rsv0fDr/x2n166RwcClGD1jiJq33DcqdLQTpznpFEec=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D+C2phizwohUTflK+Fl7zvAe8Mn2KRLf7/AgVdH7kJ8pSuq74E3w/dLjL3ekr94nt9XAtx+Hsu+lAaqUKAztyPddi+kUWyLBaSKEbrzz7elk82MOeDz21/VJWc+NKxKu4hHwFzo6juFejIvWcLDDP19U7z13X+L/NwtncIWRZ3k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTqmgbOS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788470626; c=relaxed/simple;
+	bh=Cu7Yp6tQ+jejPi7mhr+6x4eHJKr5kHNLrcxsvAjGzZI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EmoqSMxZCr/VrbxUs1ygMN2u2edU7XSZe7A10se6BdGwLgz6xzquLkhOc1Tsab5VabcAxeKlls4ZQdw0yzEdX6hfpqtzK0+FEaDR9D90Ghjj4igY+SRbCcPdJKdVj1Aklgv/3zHDZ7HhjFNKVvqW1ko6yVrsBpZ3P82BodRacWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=t8VLo71W; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTqmgbOS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6F71F00A3D;
-	Thu,  3 Sep 2026 21:22:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788470571;
-	bh=vRhSnRanZNwZLwFNt4saFX2wPrzMt773aCMzA2+FDn4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lTqmgbOSiPQhdfai7XlrcHVNAabnFMiAErs8pOGVR96GvicAAmCqnDCYFKv+VJUoc
-	 SPh02oIlrdUoj71d4JHBd5Nr4ipdPcms5kRpwWRUvQ6I13hb08VWz0IUcaGubyQ/Cc
-	 IYPriLnqI+mfnotIYEOdmzQX4qu6obWwFEqqiyl+TF1U3+HbLNtqY39PL4/WHfskS4
-	 NH6WgJGOMPUpI8idzaeWUQtq9llYW1GCe99xivYSFkPUwj3LO9rZbhWvdrxwXmrb0D
-	 f6cgz3cWjYC0EilaEiyg+002u00N3Gs9zCvQva1QgvDiBG9MgFSixXHP6xhmXMfep2
-	 RL0QRKZo1w/WQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] nfc: st-nci: add raw NCI path for ST21NFCD
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kristian Brox" <isyourbrainfoss@proton.me>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260902-fp5-st21nfcd-v4-v4-2-ded2f1c501be@proton.me>
-References: <20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me>
- <20260902-fp5-st21nfcd-v4-v4-2-ded2f1c501be@proton.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 21:22:50 +0000
-Message-Id: <20260903212251.0E6F71F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="t8VLo71W"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2713CC2BCB8;
+	Thu,  3 Sep 2026 21:23:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788470626;
+	bh=Cu7Yp6tQ+jejPi7mhr+6x4eHJKr5kHNLrcxsvAjGzZI=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=t8VLo71WOdma5yTUOohXnwvc8+yYsz+LclbYLU3nUaiNRa5UUtES3TqMivbj9mr6k
+	 PRq0pGRfMXu3X+M1mmqIn47CsJ1ZBdeUQ1bmrHuBjqimg954iSnzaFYg86lZJShl21
+	 7+xWt9HAPArUZ9LBkI/eMbneqfFe7RTBs8EYin47F00Z106WayGEvVp3vCq/cH7t82
+	 LzW/LrAY+U64Ch7FmTXcwmFZpMnY5NAL2xkkFSv/4vjIuNEuC2cXNesQuM7sRRcSIT
+	 qY8jWtHjVU/JbWg867hUDxceHZG9xC07FGtrZuXI2USrXl0YgCduhPHUAI6W9ruqU+
+	 BvR26rqNX7UPA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 02880C624D7;
+	Thu,  3 Sep 2026 21:23:46 +0000 (UTC)
+From: Joachim Eastwood via B4 Relay <devnull+joachim.eastwood.gmail.com@kernel.org>
+Subject: [PATCH v6 00/12] arm64: dts: rockchip: Add NanoPi M6 board
+Date: Thu, 03 Sep 2026 23:23:12 +0200
+Message-Id: <20260903-nanopi-m6-v6-0-37416bbd6862@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/13OTW7DIBAF4KtErEvFDAzYWfUeVRaYn4SqtiOTo
+ FaR716cqhL18knvezMPlsOSQmbHw4MtoaSc5qkG/XJg7mKnc+DJ18xQoBZGAJ/sNF8THzWPMYR
+ okDB6w2r/uoSYvp5b76ffnO/DR3C3bWBrXFK+zcv381iBrfe3K5vdAlzwTiplgagn6N/Oo02fr
+ 24e2bZbsJHQflSwSoWoDVlNSuBeylb+uymrRDSkTYyOvNtL1UrTSlXlIEH2YA0GBXtJjcSulVS
+ lGxyEQfjOk27luq4/eCRhaJwBAAA=
+X-Change-ID: 20260701-nanopi-m6-ffeef7252fd7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, diederik@cknow-tech.com, 
+ jonas@kwiboo.se, Joachim Eastwood <joachim.eastwood@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788470611; l=4151;
+ i=joachim.eastwood@gmail.com; s=20260701; h=from:subject:message-id;
+ bh=Cu7Yp6tQ+jejPi7mhr+6x4eHJKr5kHNLrcxsvAjGzZI=;
+ b=/b2e7FpEBbNIj+TgPyd03X5EWm2UupMahyJ0VL5C6SSWMZ0VUaZXEBT1m98vywu8v8fKxcL7l
+ LYNP7nf2SpdCaTwQ05re9y3QRX2olRDMUEUWBgs0N56r/aGlXET2Vvm
+X-Developer-Key: i=joachim.eastwood@gmail.com; a=ed25519;
+ pk=ZN/8xWtdYaSd5oEfloYSZ1a+/ri0n0VZqjlEeHlbXFU=
+X-Endpoint-Received: by B4 Relay for joachim.eastwood@gmail.com/20260701
+ with auth_id=846
+X-Original-From: Joachim Eastwood <joachim.eastwood@gmail.com>
+Reply-To: joachim.eastwood@gmail.com
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+This patch series add support for the NanoPi M6. This board is very
+similar to the NanoPi R6C and R6S boards which are already supported.
 
-Pre-existing issues:
-- [Critical] Buffer overflow (`skb_over_panic`) in `st_nci_i2c_read()` due =
-to insufficient SKB allocation size.
-- [High] Missing cleanup of NCI device on IRQ request failure leads to Use-=
-After-Free.
-- [High] Improper teardown ordering in `ndlc_remove()` allows asynchronous =
-work to execute after structures are freed.
-- [High] Memory leak of supervisor `skb` frames in `llt_ndlc_rcv_queue()`.
---
+Main differences:
+* M.2 M-key slot with PCIe (Also present on R6C)
+* M.2 E-key slot with PCIe and USB (from hub)
+* 1 additional USB 2.0 port from an on-board USB hub
+* RT5616 audio CODEC
 
-commit c09112faf79ae0f9e5be39ae7d2605850d39efc5
-Author: Kristian Brox <isyourbrainfoss@proton.me>
+Patch 1 documents the NanoPi M6 board compatibility string
+Patch 2 to 10 are fixes and additions to the nanopi-r6 base DT
+Patch 11 extracts the common NanoPi 6 series bits from nanopi-r6 into
+nanopi.dtsi
+The final patch adds support for NanoPi M6. Support for M6 has been
+split into two files; one dtsi and one dts file. This makes it easier
+to add support to the new M6V2 board at a later stage.
 
-nfc: st-nci: add raw NCI path for ST21NFCD
+All changes have been verified using the schematics for M6, R6C and R6S.
+Only M6 have been boot and runtime tested. Testers for R6x are welcome.
 
-This commit adds raw NCI support for the ST21NFCD NFC controller. It bypass=
-es
-the NDLC PCB headers and ACK timers for I2C communication and consumes
-proprietary RF activity notifications.
+Note that Sashiko may complain that u2phy0_otg is a dangling phandle in
+patch 11. This will never happen in practice so it's safe to ignore.
 
-> diff --git a/drivers/nfc/st-nci/i2c.c b/drivers/nfc/st-nci/i2c.c
-> index 152c20b6bb01a..2ec029f31c673 100644
-> --- a/drivers/nfc/st-nci/i2c.c
-> +++ b/drivers/nfc/st-nci/i2c.c
-[ ... ]
-> @@ -111,6 +133,42 @@ static int st_nci_i2c_read(struct st_nci_i2c_phy *ph=
-y,
->  	u8 buf[ST_NCI_I2C_MAX_SIZE];
->  	struct i2c_client *client =3D phy->i2c_dev;
-> =20
-> +	if (phy->raw_nci) {
-[ ... ]
-> +	}
-> +
->  	r =3D i2c_master_recv(client, buf, ST_NCI_I2C_MIN_SIZE);
->  	if (r < 0) {  /* Retry, chip was in standby */
->  		usleep_range(1000, 4000);
->  		r =3D i2c_master_recv(client, buf, ST_NCI_I2C_MIN_SIZE);
->  	}
->=20
->  	if (r !=3D ST_NCI_I2C_MIN_SIZE)
->  		return -EREMOTEIO;
->=20
->  	len =3D be16_to_cpu(*(__be16 *) (buf + 2));
->  	if (len > ST_NCI_I2C_MAX_SIZE) {
->  		nfc_err(&client->dev, "invalid frame len\n");
->  		return -EBADMSG;
->  	}
->=20
->  	*skb =3D alloc_skb(ST_NCI_I2C_MIN_SIZE + len, GFP_KERNEL);
->  	if (*skb =3D=3D NULL)
->  		return -ENOMEM;
->=20
->  	skb_reserve(*skb, ST_NCI_I2C_MIN_SIZE);
->  	skb_put(*skb, ST_NCI_I2C_MIN_SIZE);
->  	memcpy((*skb)->data, buf, ST_NCI_I2C_MIN_SIZE);
->=20
->  	if (!len)
->  		return 0;
->=20
->  	r =3D i2c_master_recv(client, buf, len);
->  	if (r !=3D len) {
->  		kfree_skb(*skb);
->  		return -EREMOTEIO;
->  	}
->=20
->  	skb_put(*skb, len);
+Signed-off-by: Joachim Eastwood <joachim.eastwood@gmail.com>
+---
+Changes in v6:
+- Rebase on v7.3-rc1
+- Link to v5: https://patch.msgid.link/20260728-nanopi-m6-v5-0-cbc1eb0d8d56@gmail.com
 
-[Severity: Critical]
-This is a pre-existing issue, but does this allocation provide enough room
-for both the reserved headroom and the data being put into the SKB?
+Changes in v5:
+- Switch from simple-audio-card to audio-graph-card as Sashiko
+  complains, rightfully, that the bindings are a mismash of both.
+- Add pull-up on sd cd pin. Noticed by Diederik.
+- Link to v4: https://patch.msgid.link/20260717-nanopi-m6-v4-0-b31391a72e41@gmail.com
 
-When allocating an SKB of size ST_NCI_I2C_MIN_SIZE + len and then reserving
-ST_NCI_I2C_MIN_SIZE bytes, the available tailroom is reduced to just len.
-Since the code subsequently calls skb_put() for ST_NCI_I2C_MIN_SIZE bytes
-and then later for len bytes, the total space requested is
-ST_NCI_I2C_MIN_SIZE + len. Because the tailroom is only len, can this cause
-a buffer overflow leading to an skb_over_panic?
+Changes in v4:
+- Remove boot-on reintroduction on vdd_npu_s0 in nanopi.dtsi during
+  refactor screw-up. Thanks to Sashiko for catching that.
+- Fix minor typo in "add gmac1 add phy-supply" commit message
+- Use schematic net names on PCIe reset lines. As suggested by Diederik.
+- Link to v3: https://patch.msgid.link/20260713-nanopi-m6-v3-0-227567ffc5dc@gmail.com
 
-[ ... ]
-> @@ -231,8 +299,10 @@ static int st_nci_i2c_probe(struct i2c_client *clien=
-t)
-[ ... ]
->  	r =3D ndlc_probe(phy, &i2c_phy_ops, &client->dev,
-> -			ST_NCI_FRAME_HEADROOM, ST_NCI_FRAME_TAILROOM,
-> -			&phy->ndlc, &phy->se_status);
-> +			phy->raw_nci ? ST_NCI_RAW_FRAME_HEADROOM :
-> +				       ST_NCI_FRAME_HEADROOM,
-> +			ST_NCI_FRAME_TAILROOM,
-> +			&phy->ndlc, &phy->se_status, phy->raw_nci);
->  	if (r < 0) {
->  		nfc_err(&client->dev, "Unable to register ndlc layer\n");
->  		return r;
->  	}
->=20
->  	phy->irq_active =3D true;
->  	r =3D devm_request_threaded_irq(&client->dev, client->irq, NULL,
->  				st_nci_irq_thread_fn,
->  				IRQF_ONESHOT,
->  				ST_NCI_DRIVER_NAME, phy);
->  	if (r < 0)
->  		nfc_err(&client->dev, "Unable to register IRQ handler\n");
->=20
->  	return r;
->  }
+Changes in v3:
+- Reorder patches so the DT fixes/additions are applied to
+  nanopi-r6.dtsi as suggested by Jonas Karlman
+- Add comment to gmac to rgmii-rxid phy-mode to explain usage
+- Addition of pinctrl to sd and pcie are now marked as fixes
+- Remove both always-on and boot-on from NPU regulator
+- Link to v2: https://patch.msgid.link/20260711-nanopi-m6-v2-0-422675a65402@gmail.com
 
-[Severity: High]
-This is a pre-existing issue, but does this error path properly clean up the
-NCI device?
+Changes in v2:
+- Organize DT such that adding support to NanoPi M6V2 later is easier
+- Use correct clk id for I2C mclk out as suggested by Diederik.
+- Add a couple of acks from Krzysztof Kozlowski.
+- Link to v1: https://patch.msgid.link/20260703-nanopi-m6-v1-0-8344a1559519@gmail.com
 
-If devm_request_threaded_irq() fails, the function logs an error and
-returns directly, allowing devres to free the memory. However, the NCI
-device that was registered earlier via ndlc_probe() -> st_nci_probe()
-is never unregistered because ndlc_remove() is not called.
+---
+Joachim Eastwood (12):
+      dt-bindings: arm: rockchip: add FriendlyElec NanoPi M6
+      arm64: dts: rockchip: rk3588s-nanopi-r6: fix missing sdmmc cd pinctrl
+      arm64: dts: rockchip: rk3588s-nanopi-r6: fix missing pcie rst pinctrl
+      arm64: dts: rockchip: rk3588s-nanopi-r6: remove pull up on rtc int pin
+      arm64: dts: rockchip: rk3588s-nanopi-r6: pcie2x1l2: add clkreq
+      arm64: dts: rockchip: rk3588s-nanopi-r6: remove always-on and boot-on from vdd_npu_s0 reg
+      arm64: dts: rockchip: rk3588s-nanopi-r6: remove useless vcc_3v3_pcie20
+      arm64: dts: rockchip: rk3588s-nanopi-r6: add gmac1 phy-supply
+      arm64: dts: rockchip: rk3588s-nanopi-r6: remove bogus vcc5v0_usb regulator
+      arm64: dts: rockchip: rk3588s-nanopi-r6: add comment about gmac phy-mode
+      arm64: dts: rockchip: rk3588s-nanopi-r6: refactor to support M6 boards
+      arm64: dts: rockchip: add support for NanoPi M6 board
 
-Can this leave the NCI core and network stack with visibility to a freed
-device, eventually causing a use-after-free?
+ .../devicetree/bindings/arm/rockchip.yaml          |   3 +-
+ arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+ .../arm64/boot/dts/rockchip/rk3588s-nanopi-m6.dtsi | 142 ++++
+ .../boot/dts/rockchip/rk3588s-nanopi-m6v1.dts      |  57 ++
+ .../arm64/boot/dts/rockchip/rk3588s-nanopi-r6.dtsi | 792 +-------------------
+ arch/arm64/boot/dts/rockchip/rk3588s-nanopi.dtsi   | 797 +++++++++++++++++++++
+ 6 files changed, 1000 insertions(+), 792 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260701-nanopi-m6-ffeef7252fd7
 
-> diff --git a/drivers/nfc/st-nci/ndlc.c b/drivers/nfc/st-nci/ndlc.c
-> index be4808859cfa9..13026c4facb3a 100644
-> --- a/drivers/nfc/st-nci/ndlc.c
-> +++ b/drivers/nfc/st-nci/ndlc.c
-[ ... ]
-> @@ -154,6 +161,10 @@ static void llt_ndlc_rcv_queue(struct llt_ndlc *ndlc)
->  		pr_debug("rcvQlen=3D%d\n", ndlc->rcv_q.qlen);
-> =20
->  	while ((skb =3D skb_dequeue(&ndlc->rcv_q)) !=3D NULL) {
-> +		if (ndlc->raw_nci) {
-> +			nci_recv_frame(ndlc->ndev, skb);
-> +			continue;
-> +		}
->  		pcb =3D skb->data[0];
->  		skb_pull(skb, 1);
->  		if ((pcb & PCB_TYPE_MASK) =3D=3D PCB_TYPE_SUPERVISOR) {
-> 			switch (pcb & PCB_SYNC_MASK) {
-> 			case PCB_SYNC_ACK:
-> 				skb =3D skb_dequeue(&ndlc->ack_pending_q);
-> 				kfree_skb(skb);
-> 				timer_delete_sync(&ndlc->t1_timer);
+Best regards,
+--  
+Joachim Eastwood <joachim.eastwood@gmail.com>
 
-[Severity: High]
-This is a pre-existing issue, but does this loop leak the received supervis=
-or
-frame?
 
-When an incoming frame is dequeued from ndlc->rcv_q, it is stored in the
-local skb variable. In the PCB_SYNC_ACK case, this variable is overwritten
-with a frame from ack_pending_q, which is then freed. The original received
-ACK skb is never freed.
-
-Similarly, for PCB_SYNC_NACK and PCB_SYNC_WAIT, the switch breaks and the l=
-oop
-continues without freeing the original skb. Does this leak a frame for every
-acknowledgment received?
-
-[ ... ]
-
-While looking at the lifecycle management in ndlc.c, I noticed another
-pre-existing issue in ndlc_remove():
-
-	/* cancel work */
-	cancel_work_sync(&ndlc->sm_work);
-
-	st_nci_remove(ndlc->ndev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the teardown ordering here
-safe?
-
-The asynchronous work queue sm_work is cancelled before the NCI device is
-unregistered via st_nci_remove(). Because the NCI device is still fully
-registered, a concurrent thread like the network stack can send a frame by
-calling nci_send_frame() -> ndlc_send(), which unconditionally executes
-schedule_work(&ndlc->sm_work).
-
-Could this allow the re-armed work queue to execute after devres has freed
-the ndlc structures, leading to a use-after-free?
-
-> diff --git a/drivers/nfc/st-nci/spi.c b/drivers/nfc/st-nci/spi.c
-> index 7948c7e0c88c0..1ce80a85bfe6a 100644
-> --- a/drivers/nfc/st-nci/spi.c
-> +++ b/drivers/nfc/st-nci/spi.c
-[ ... ]
-> @@ -246,7 +246,7 @@ static int st_nci_spi_probe(struct spi_device *dev)
-> =20
->  	r =3D ndlc_probe(phy, &spi_phy_ops, &dev->dev,
->  			ST_NCI_FRAME_HEADROOM, ST_NCI_FRAME_TAILROOM,
-> -			&phy->ndlc, &phy->se_status);
-> +			&phy->ndlc, &phy->se_status, false);
->  	if (r < 0) {
->  		nfc_err(&dev->dev, "Unable to register ndlc layer\n");
->  		return r;
->  	}
-> =20
->  	phy->irq_active =3D true;
->  	r =3D devm_request_threaded_irq(&dev->dev, dev->irq, NULL,
->  				st_nci_irq_thread_fn,
->  				IRQF_ONESHOT,
->  				ST_NCI_SPI_DRIVER_NAME, phy);
->  	if (r < 0)
->  		nfc_err(&dev->dev, "Unable to register IRQ handler\n");
-> =20
->  	return r;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but st_nci_spi_probe() appears to have the
-exact same error handling flaw as st_nci_i2c_probe().
-
-If devm_request_threaded_irq() fails, the NCI device registered by
-ndlc_probe() is never unregistered, leaving a dangling reference.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260902-fp5-st21nf=
-cd-v4-v4-0-ded2f1c501be@proton.me?part=3D2
