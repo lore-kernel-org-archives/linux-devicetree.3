@@ -1,194 +1,575 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010007.outbound.protection.outlook.com [52.101.193.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E2EC49480A
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 10:57:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788433065; cv=none; b=YvFikQQ6STrD/ZdEsvzIJ+ulUbcbxfOSGXHvSuJVL8CEVVhsG1MTHFo3jPwM6AZ5+/gu1f7qRahwoK8Yt1cZ3JP8D83NbPJZtUogcYA+psq2ByU9kJ9bGauOXnS83sGlfbbC5uNwemrJXb1cyFQjeTYs44XFOLNKYU5ztvhXMjI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788433065; c=relaxed/simple;
-	bh=QEo9QxrcNRKVWIrskvYI0BS2e9up5gkgj2oc9zsqXFE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ff/5n2gJcA+QH1K7h2KfDZz7b3dOtG4iDAmkJMYdVMgVeJ0zBl0cBcbWKI74tIYMU3QRG0SJd5l2ZZvq9KO9cp1CP3u94zkpl7R2QUUODsOmGUzNBcxYkN/VslapM+MUNmNmwceuAfH3ijqhsxHNahp9MUF48d2cFByoaG6P4No=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SRdpJMIi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Suwu4xCS; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A197C3B1014;
+	Thu,  3 Sep 2026 11:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788433253; cv=fail; b=MzDbySF3HAQ5PGuCy9XzHjoDRLaNXbzXH0j9Gksu3mPocDHLurxC2wxlANqGhR0VZCkJGV7t46EmcVU6y0575qdPdWYy0yBi9PFzR0n0eRoixmwC7UYgTJqap/Ai3frO/seRNDIQAIm8DPRALjQYe2HK99CIOSYs3y1/sxg7sAQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788433253; c=relaxed/simple;
+	bh=ZhxsWND4UTh+Cht/zy9KQITxI4voyYZhRZ4azfr+AFo=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=CpknOmb6PRBTcGaAz5Yz26G/BD54LwSbhjcozI3/nNEyxuwh1WeX46JLWHn8CvbrBxaBiLypN6KshItu3GLKBm2i+53d8ErS2S3NEcAXgTQZgIezq7Sd5PTPc9TXsW+OW0wPOOFPrrnu9ktd0c0Xa37fG/wOB3XAnufRYqtKcsU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=S6etJKuZ; arc=fail smtp.client-ip=52.101.193.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SRdpJMIi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Suwu4xCS"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683AHE4e327174
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 10:57:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hnH4y9oFKK/g7NAxKawFtUfKKGQ9b2LE6XjrMUqzw7I=; b=SRdpJMIiq9NDmrdv
-	UAWcFDzUt9xsWYnKUJBQih4QlR5E/gTEnhcGm3caq99WQZrQfjKC8gIORrj/7c2w
-	ef9TqPTSXkvHfFVvSoOValzb/SEQbSiuSWMLO9nwCHOh+mmoooW8F6fO93Ut13JP
-	HlA2nXYEACjWPT8HSIzcJu93IHMuDpz+/Vdf5fgnzzOgU/ayi0NinCCNLWYF1ZS+
-	5RYtUlNt1eeGFBDEaMLvyCICVJul0NEQb6wz+I+fYqpuNRrUn1dyPuvbV0Gy8FFQ
-	w9HXAjqH4pS8y+xB5HlapeQoKl2h+DVezAApTWD/60X2z5vjNv9r6eP4nrYj4FCj
-	ppkyZQ==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf4ekgvc0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 10:57:42 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52d7ef17031so2249691cf.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 03:57:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788433057; x=1789037857; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hnH4y9oFKK/g7NAxKawFtUfKKGQ9b2LE6XjrMUqzw7I=;
-        b=Suwu4xCSYsl+5lkXstj9eGrPbkR/nP3Wh47gM4rVLL+XkfC/ofpUXyl2u0S6SWmPya
-         g2lfBmYmjyqJdhMiezE+/vN0ec4D3/XVu2PZiV3tc2O96yyRg5/n+UQb99VJXYfOZ7Wg
-         arfzmd6yoo+DfVaEo3DnkEyCfrtS9Z1hn7R6v5sCZVowllG0dxj9qT1oT1udBvF5SODE
-         xw2TSJxDTln+mabZ2Z/xUGRJaiE+YWScg1CMoWw0s+MVldTscPKoS2tcpTsMqxsKWl6k
-         sGKYbl9IATC9or+8jYMMc9ZQFOWLAFlHAEgCxvlpgSLM0kHCM2IgrteFFgh3l1DY0rm4
-         68GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788433057; x=1789037857;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hnH4y9oFKK/g7NAxKawFtUfKKGQ9b2LE6XjrMUqzw7I=;
-        b=EpGleCcvEWAtJFmXaFGxXc++/8kwyGFZLdMvXLeVACGKgbRYxvTMTB++uoyAUmuODX
-         q77llguOXoid5eqtPwSEgPI3/yYDHDa4mqRKwkXNqfjYMzco1BrEd2ftDodprRy/J4CA
-         62IpGCL3pObWpeFUfTyV8T20OtskKAIl7FHEkBg7Wc6BbgdwsuughO2SxVRCBYJbwxE9
-         zMXCP2J0fN1UQEk7mgB3QyJ7aifHpYHTsWCQomNB+TUaeLF+EPLV8vYlEOBX7SEMPRsX
-         oDf82G2atYnGINVNOcx2SKlZ5kPvIJ1+LtGzzpNprni+8lzZ+b/igfRE+6kzDVYAnIfP
-         Trcg==
-X-Forwarded-Encrypted: i=1; AKwUvBzg6PcLTC9vWiMhY2FwP6zabhY1YXLX9I1NztgLoD1pWuZ0n2cNyfQi4upxJXSTMnymYpsgUAXNglCf@vger.kernel.org
-X-Gm-Message-State: AFuF++nUPdOv9vWnbTXLVVeE+X3Ds9BkFjOA/wI+Dp5YdN9LjiGKHiRE
-	40SjxLFX/aNq0j9O69TRG+o5m9LHZNgBdYfyg/IxWZ2pAWWxwNoyUctlpFRem+69TCt8zpuzzXp
-	LfmUlFIKoG3EQ3AIq48kmgtA19/5KR4w80S4/ybiAfqfKSSzHmD/wZ23UicwIZqrc
-X-Gm-Gg: AYBFou1qMywoNjXoboJzLrqgiYCEeOJUwLtuV2De7aLsXKelMy5mtObq2HyavfgWGkb
-	UpayX9R4cr6tK/NIIuZZpW/zrPHuENCP7wVXRdnNqLPVj7gXr6yQ4GAS7Qa535zY45MqFwSwQDz
-	glZpizxe6Oc2otegMGrZpm6sYvSHz/irjGAM6QfZxdmWMfYPQdVWQQMtpwk2RdTlZ8V0NVqeNwJ
-	Qc+pAJqm9qNEuF2rYAkFR7iQqrFsiDPaKdpcVlvXtGqjvizskXoZYqyLbck3mUVoyPJtvqYmKtF
-	lKmYWBxD6WYC7yre8FECPwcQiafoCHUawH1Vxn2UrDWfSQQsD5eRsHiPjog4jTsSlOvOqEhE2S+
-	5zvhSj1RbrFODG5r5UGBEQg==
-X-Received: by 2002:ac8:7d44:0:b0:52e:467e:ea8a with SMTP id d75a77b69052e-53036b33098mr86032281cf.1.1788433056663;
-        Thu, 03 Sep 2026 03:57:36 -0700 (PDT)
-X-Received: by 2002:ac8:7d44:0:b0:52e:467e:ea8a with SMTP id d75a77b69052e-53036b33098mr86031871cf.1.1788433056291;
-        Thu, 03 Sep 2026 03:57:36 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a67f8bc496sm2173512a12.11.2026.09.03.03.57.32
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 03:57:35 -0700 (PDT)
-Message-ID: <97fd5a30-9469-482b-be0c-0ed6da6424e8@oss.qualcomm.com>
-Date: Thu, 3 Sep 2026 12:57:31 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="S6etJKuZ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qNET+FGKILrSsWvDmAJSAh5hZX4bihsj2fIpE1p6woQ2HPbfbmHU5TyIUlA3+nY5TWtNQmQW/37mAC/rWkYAT1vaRp/x7BnOhe8v7cOhwZJktL3I+s/xRq7Va5YqOZILdU4/GpDhdaSSYa6+S7sPPxl6dVWOWfbQG6ArjYfXK+6IGe9c6Cvi99yr33sqCIbD6Eav2vIJYzSOTOaYkus6vC4JsVO7jQJa28vrvFE+MuUCpu5aHoNjYn+UzidlIQkljxMzzKtoocNRGR3X3yio5B9AA7OcaBNq1egH6hbrlC1mWzRQNb/lge7Cra8m1V/xgwCZxTfMKo0Z+XKZNSxxiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=atLxWKpy7AY3dwT+7ak/7PYbBxsxzg9EoHpHh512Uzo=;
+ b=b/bwyzpSx+Oa5TLOoX7FtFucgYmnzuNDEOH0ShXoYDELOwoLH7ConSrIJB+C9cNTsnf+6zpzI8ZqoE14iV5fwS3t3STziJUj4WAUv7xLly6nyKunAgkfQu7o1JA3EugIjHak3gcgfU7PrTOeohSicexdClkKiDUdqGnLpQz5MCFB5oDP0OQPnH8UdyU5TwaCT8VkzJ0hgFXAZmNrmD8gLx0P2Ov6fpsZXeCIVhmFG5BlnK/Y2G1DCmRGbygUKtZV8xSIOtlg33+So/gdRm6ke+LHkiYvSSPT9N58jJlUPdJAapgR+BiHFc8L+hREU186gbmOGM4+ibsC77HJel9zfQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=atLxWKpy7AY3dwT+7ak/7PYbBxsxzg9EoHpHh512Uzo=;
+ b=S6etJKuZ4zCz6pSN1K6NfEKk51KXBLi6MTi6GxzaINSMEMAgsfd7YGsd54AC9kew0L55NDBoi92myJwH+EShsRCMZxYd/L0WI8gnV0l6jg2Rl3GRECKl0xK8aEctmqTysrTmm1BRNvj2i6/cY9ZI6k1Om/10GBg6scIIc+00C3xruIWd8xvcdD/pbq1/L3fk8kh4IYKSiHpOKM/2mx/KKnqJ1mJ25ZB0wiD+HL2y4Te6TqbZOpp7m4jFboohNWHlq4MwbXkr9gL7z4I+14XjCM8dGR51+olgtmpxOsZ+qTGpousiMKaQrZVUC18rPpccPzRihrVhCUYNpshn0TvQkA==
+Received: from CH2PR11CA0018.namprd11.prod.outlook.com (2603:10b6:610:54::28)
+ by CY5PR12MB6455.namprd12.prod.outlook.com (2603:10b6:930:35::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Thu, 3 Sep
+ 2026 11:00:46 +0000
+Received: from BL6PEPF00022575.namprd02.prod.outlook.com
+ (2603:10b6:610:54:cafe::a5) by CH2PR11CA0018.outlook.office365.com
+ (2603:10b6:610:54::28) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Thu, 3
+ Sep 2026 11:00:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BL6PEPF00022575.mail.protection.outlook.com (10.167.249.43) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Thu, 3 Sep 2026 11:00:45 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 04:00:22 -0700
+Received: from nvidia.com (10.126.230.37) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 3 Sep
+ 2026 04:00:20 -0700
+From: Ender Hsieh <andhsieh@nvidia.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, "Andrew
+ Jeffery" <andrew@codeconstruct.com.au>
+CC: Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
+	<billy_tsai@aspeedtech.com>, Ender Hsieh <andhsieh@nvidia.com>,
+	<devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-aspeed@lists.ozlabs.org>, <linux-kernel@vger.kernel.org>, "Marc
+ Olberding" <molberding@nvidia.com>
+Subject: [PATCH] ARM: dts: aspeed: msx4: describe the I2C5 mux tree
+Date: Thu, 3 Sep 2026 19:59:56 +0900
+Message-ID: <20260903105956.1709114-1-andhsieh@nvidia.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 15/15] ARM: dts: qcom: Add initial device tree for Kuno
- SoC
-To: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Radu Rendec <radu@rendec.net>, Robert Marko <robimarko@gmail.com>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Taniya Das <taniya.das@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-gpio@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
- <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260827-kuno-soc-support-v5-15-6d47636a8f09@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: N2XNaDtTKJqdxt0YIDQdp5GPgyrMhkBH
-X-Proofpoint-GUID: N2XNaDtTKJqdxt0YIDQdp5GPgyrMhkBH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA5NSBTYWx0ZWRfX0vvOUSpAwwGZ
- O9xSy4OwqoCu5ldD0K9V/CpIQIZpzQbHs55/TSXCZx9jadxHE6vgboNm4GgdRInDHFnFbLCLhqw
- zkTXC9crJeYiRrtfZrqkjXUvWrdq+mcK6bBfCxDW3n9rkwty+YlOMn+UsvhKkpb/lImwgYCsJyU
- YHA32jXdL5mafrP0OwjSX1MKcIBlnI5FqUEcAealvDkZardAUhMmVVxUdG4xIZU4ww7ujcVMa34
- yovpj4Hc16raCSwR5mfO4HAk9GxAFfOKqlr44N7CmXwEj0DZENetB+5W1DgxL3KxKac+fT/PLN0
- KlaYeXB6EeqGEgOXXLdcxAGMwmivMJ2VsnCFBiDWUW4CFT6IDHJfm8JGIHJ7xbiZUtW4Xy9H4tt
- wvHY8hm7UbOPdHXIumCQZxhEQDevAFdsmI9NnY4V5Gk0ufWmFczXL9U9KRLcv8JlPVrfIvccL4O
- 02T0+7Gbx2V8VGCuG3w==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA5NSBTYWx0ZWRfX672m+Xj4evDK
- aiJjNDg/cJwpYIldbmJ8sQG4UHXtzHBvChVvw/UC8jWerb4hquKaDLs0W/xy7ZiztQMywdoDSAA
- GEpEJVZgEY/luOtTH/PxLMMXW9aTmjk=
-X-Authority-Analysis: v=2.4 cv=PKc/P/qC c=1 sm=1 tr=0 ts=6a9952a6 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=OHs8NuuX1ptjo3lIKY8A:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_03,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 clxscore=1015 phishscore=0
- suspectscore=0 priorityscore=1501 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030095
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
+ rnnvmail201.nvidia.com (10.129.68.8)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF00022575:EE_|CY5PR12MB6455:EE_
+X-MS-Office365-Filtering-Correlation-Id: ad057df0-979a-4cb2-b728-08df09aa9ab1
+X-LD-Processed: 43083d15-7273-40c1-b7db-39efd9ccc17a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|36860700016|82310400026|7416014|376014|1800799024|6133799003|56012099006|10067099003|5023799004|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ 1fkpDU1Z+j2//UnLoEhfOGD3n9zKOScEzCF1R7bRsQbA5fTG3R9weIolwB7aah8LxJdrvjcdBqvP82/pUd6DUUIBKQ7GUyjsLfH1eZCcI1n657ivV+ugZmj4tY22RGFUFgmDmpDtUW8u9LPhaycWjz5SczylStnKH8SffucTykRDf6xxYhCS45OUDcaFqkyleBrqczsZB9qNTHsFZFyk9gOfjTRAps1Bipvbi+U97VMnn/dUrCtIFczx+UyGKM6Qy+n8fwE+srPXOG0F3cQXLRqWkW5CPh/6bBm1gyH6+Eq3GgFSzug6/dcJHKlJ7UqcOroqqyWV5HWs8jWkqrm5xlwceHB7vvLMZyyJpEegxPAppN12ZJx9MSyh4YbB+3C8rkSFjVUXIp955324GkgJdaNh/Owtg64uyTUSt0DplBILQDtZhGoPLOKZaRRTw2sp2uO0Q3EenbrJt8BM6RS3t3/8Igztr+8p8ljYeBpbPPRlCQGS0TYyxdo2R/YZLSo5q83l/BvmPVZrofRzNrvmD3cSyAsR1FenL6arwKQcnxLLqkEdxHo/niSiidQA0mq3EKK82tZxp916cP3iyIKC59YDwNjPA7CgIskNvOFTVb1FBXiiGEs0LwaqOuqW+5n4ceMieLlGJwkzyrDZk6av72bTvc7yKUgP6bHhtgMOy8izPLmbDip6aqSnyzbplLYo
+X-Forefront-Antispam-Report:
+ CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(7416014)(376014)(1800799024)(6133799003)(56012099006)(10067099003)(5023799004)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ lVXkMilnQpA7DsPBw/efttOw8botyzoAJ6PRURBq0aa4AhoZDRVKeWQ4sp7E+UecAPTd3yt+9wrlCXPVpilVKzXCDdiQfPmrvvdsxd/H9KoJlg0GM71nzlCWjlFqI/sRNOViA+nrvBtZzPxThZgI60OXCdYV+mKMNmCmXbHiy16wMT7ogLMb5HmtmWEHnHJmYfOaak2CtSe+RelcCbPGUTgIMhKF8kj8xI42RVsKmmkwSBufZT5X/3S3jaKcLCINpbDy85+JLlKQYFP5Wh5bW8/C8B1qUblspA/M1V8t9dLfPkj0sCY4v3CaqtM5tH7NPzCAqaOOvaSw2ecYNC8R6VDV0+AepnOf60WU9mVTN5dfr51MDFsqLM+2p2kHT2X3oHg6nnDbUn0WJuEQ+bio/M92bQpjdDVGEA4Ms2+5JHIKGH1oQI9v3ZGm4UAn9rxA
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 11:00:45.1234
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad057df0-979a-4cb2-b728-08df09aa9ab1
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: BL6PEPF00022575.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6455
 
-On 8/27/26 7:51 PM, Hardeep Sharma wrote:
-> Add SoC-level DTSI (qcom-kuno.dtsi) and IDP board DTS
-> (qcom-kuno-idp.dts) for the Qualcomm Kuno SoC.
-> 
-> Peripherals included in this initial set:
->   - Single Cortex-A7 CPU with PSCI idle states
->   - RPMh RSC with clock controller, power domains, and BCM voter
->   - GCC (Global Clock Controller)
->   - TLMM pin controller (110 GPIOs)
->   - Interconnect (aggre-noc, cnoc-main)
->   - GENI UART console (QUP SE3)
->   - SMEM, hardware spinlocks (TCSR mutex)
-> 
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
-> ---
+The MSX4 carries four PCA9548 8-channel muxes on I2C5, and a PCA9546
+4-channel mux behind channels 1 and 5 of the mux at 0x70 and channels 3
+and 7 of the mux at 0x73. None of that is described here, so the muxes
+are created from userspace and their channels are numbered in the order
+userspace happens to create them.
 
-[...]
+That makes a channel's bus number a function of discovery order rather
+than of where the channel sits in the topology, so anything that wants
+to identify a device by its position has nothing stable to key on.
 
-> +	soc: soc@0 {
-> +		compatible = "simple-bus";
-> +		#address-cells = <1>;
-> +		#size-cells = <1>;
-> +		ranges = <0 0 0xffffffff>;
+Describe the tree and give every channel an alias so the numbering comes
+from the description instead. The aliases reproduce the numbers the
+current userspace instantiation produces, so existing configuration
+keeps working.
 
-that's just "ranges;"
+The four PCA9546 all answer at 0x72, and two of them sit behind
+different PCA9548 on the same parent bus, so both can be exposed at once
+if their parents are left selected. i2c-mux-idle-disconnect prevents
+that.
 
-[...]
+Describe the reset line as well, so a mux that is powered but not
+responding can be recovered by the driver rather than by hand. The
+driver takes the line exclusively, so it is described on the mux that is
+probed first.
 
-> +		qup0: geniqup@9c0000 {
-> +			compatible = "qcom,geni-se-qup";
-> +			reg = <0x009c0000 0x2000>;
-> +			clocks = <&gcc GCC_QUPV3_WRAP_0_M_AHB_CLK>,
-> +				 <&gcc GCC_QUPV3_WRAP_0_S_AHB_CLK>;
-> +			clock-names = "m-ahb", "s-ahb";
-> +			#address-cells = <2>;
-> +			#size-cells = <2>;
-> +			ranges = <0x0 0x0 0x0 0x0 0x1000000>;
+Booted on an MSX4 from both a warm reboot and a cold power cycle. All
+eight muxes register, the channels come up as i2c-16 through i2c-63
+exactly as the aliases name them, and the eight FRU EEPROMs behind the
+second level read as before.
 
-likewise here, you don't need to precisely limit this.
+Cc: Marc Olberding <molberding@nvidia.com>
+Signed-off-by: Ender Hsieh <andhsieh@nvidia.com>
+---
+ .../dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts | 407 ++++++++++++++++++
+ 1 file changed, 407 insertions(+)
 
-Konrad
+diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
+index 29f56176e2ca..a9a491a87312 100644
+--- a/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
++++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-nvidia-msx4-bmc.dts
+@@ -15,6 +15,55 @@ aliases {
+ 		serial2 = &uart3;
+ 		serial3 = &uart4;
+ 		serial4 = &uart5;
++
++		i2c16 = &i2c5mux0chn0;
++		i2c17 = &i2c5mux0chn1;
++		i2c18 = &i2c5mux0chn2;
++		i2c19 = &i2c5mux0chn3;
++		i2c20 = &i2c5mux0chn4;
++		i2c21 = &i2c5mux0chn5;
++		i2c22 = &i2c5mux0chn6;
++		i2c23 = &i2c5mux0chn7;
++		i2c24 = &i2c5mux1chn0;
++		i2c25 = &i2c5mux1chn1;
++		i2c26 = &i2c5mux1chn2;
++		i2c27 = &i2c5mux1chn3;
++		i2c28 = &i2c5mux1chn4;
++		i2c29 = &i2c5mux1chn5;
++		i2c30 = &i2c5mux1chn6;
++		i2c31 = &i2c5mux1chn7;
++		i2c32 = &i2c5mux2chn0;
++		i2c33 = &i2c5mux2chn1;
++		i2c34 = &i2c5mux2chn2;
++		i2c35 = &i2c5mux2chn3;
++		i2c36 = &i2c5mux2chn4;
++		i2c37 = &i2c5mux2chn5;
++		i2c38 = &i2c5mux2chn6;
++		i2c39 = &i2c5mux2chn7;
++		i2c40 = &i2c5mux3chn0;
++		i2c41 = &i2c5mux3chn1;
++		i2c42 = &i2c5mux3chn2;
++		i2c43 = &i2c5mux3chn3;
++		i2c44 = &i2c5mux3chn4;
++		i2c45 = &i2c5mux3chn5;
++		i2c46 = &i2c5mux3chn6;
++		i2c47 = &i2c5mux3chn7;
++		i2c48 = &i2c17mux0chn0;
++		i2c49 = &i2c17mux0chn1;
++		i2c50 = &i2c17mux0chn2;
++		i2c51 = &i2c17mux0chn3;
++		i2c52 = &i2c21mux0chn0;
++		i2c53 = &i2c21mux0chn1;
++		i2c54 = &i2c21mux0chn2;
++		i2c55 = &i2c21mux0chn3;
++		i2c56 = &i2c35mux0chn0;
++		i2c57 = &i2c35mux0chn1;
++		i2c58 = &i2c35mux0chn2;
++		i2c59 = &i2c35mux0chn3;
++		i2c60 = &i2c39mux0chn0;
++		i2c61 = &i2c39mux0chn1;
++		i2c62 = &i2c39mux0chn2;
++		i2c63 = &i2c39mux0chn3;
+ 	};
+ 
+ 	chosen {
+@@ -151,6 +200,364 @@ eeprom@51 {
+ 
+ &i2c5 {
+ 	status = "okay";
++
++	i2c-mux@70 {
++		compatible = "nxp,pca9548";
++		reg = <0x70>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++		/*
++		 * The reset is described on this mux alone. The driver claims
++		 * the line exclusively, and this node is probed before the
++		 * others on the bus.
++		 */
++		reset-gpios = <&gpio0 ASPEED_GPIO(S, 2) GPIO_ACTIVE_LOW>;
++
++		i2c5mux0chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c5mux0chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++
++			i2c-mux@72 {
++				compatible = "nxp,pca9546";
++				reg = <0x72>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				i2c-mux-idle-disconnect;
++
++				i2c17mux0chn0: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++
++				i2c17mux0chn1: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				i2c17mux0chn2: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				i2c17mux0chn3: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		};
++
++		i2c5mux0chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c5mux0chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++
++		i2c5mux0chn4: i2c@4 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <4>;
++		};
++
++		i2c5mux0chn5: i2c@5 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <5>;
++
++			i2c-mux@72 {
++				compatible = "nxp,pca9546";
++				reg = <0x72>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				i2c-mux-idle-disconnect;
++
++				i2c21mux0chn0: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++
++				i2c21mux0chn1: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				i2c21mux0chn2: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				i2c21mux0chn3: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		};
++
++		i2c5mux0chn6: i2c@6 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <6>;
++		};
++
++		i2c5mux0chn7: i2c@7 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <7>;
++		};
++	};
++
++	i2c-mux@71 {
++		compatible = "nxp,pca9548";
++		reg = <0x71>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++
++		i2c5mux1chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c5mux1chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c5mux1chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c5mux1chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++
++		i2c5mux1chn4: i2c@4 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <4>;
++		};
++
++		i2c5mux1chn5: i2c@5 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <5>;
++		};
++
++		i2c5mux1chn6: i2c@6 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <6>;
++		};
++
++		i2c5mux1chn7: i2c@7 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <7>;
++		};
++	};
++
++	i2c-mux@73 {
++		compatible = "nxp,pca9548";
++		reg = <0x73>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++
++		i2c5mux2chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c5mux2chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c5mux2chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c5mux2chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++
++			i2c-mux@72 {
++				compatible = "nxp,pca9546";
++				reg = <0x72>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				i2c-mux-idle-disconnect;
++
++				i2c35mux0chn0: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++
++				i2c35mux0chn1: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				i2c35mux0chn2: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				i2c35mux0chn3: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		};
++
++		i2c5mux2chn4: i2c@4 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <4>;
++		};
++
++		i2c5mux2chn5: i2c@5 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <5>;
++		};
++
++		i2c5mux2chn6: i2c@6 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <6>;
++		};
++
++		i2c5mux2chn7: i2c@7 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <7>;
++
++			i2c-mux@72 {
++				compatible = "nxp,pca9546";
++				reg = <0x72>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++				i2c-mux-idle-disconnect;
++
++				i2c39mux0chn0: i2c@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++				};
++
++				i2c39mux0chn1: i2c@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++				};
++
++				i2c39mux0chn2: i2c@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++				};
++
++				i2c39mux0chn3: i2c@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++				};
++			};
++		};
++	};
++
++	i2c-mux@75 {
++		compatible = "nxp,pca9548";
++		reg = <0x75>;
++		#address-cells = <1>;
++		#size-cells = <0>;
++		i2c-mux-idle-disconnect;
++
++		i2c5mux3chn0: i2c@0 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <0>;
++		};
++
++		i2c5mux3chn1: i2c@1 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <1>;
++		};
++
++		i2c5mux3chn2: i2c@2 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <2>;
++		};
++
++		i2c5mux3chn3: i2c@3 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <3>;
++		};
++
++		i2c5mux3chn4: i2c@4 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <4>;
++		};
++
++		i2c5mux3chn5: i2c@5 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <5>;
++		};
++
++		i2c5mux3chn6: i2c@6 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <6>;
++		};
++
++		i2c5mux3chn7: i2c@7 {
++			#address-cells = <1>;
++			#size-cells = <0>;
++			reg = <7>;
++		};
++	};
+ };
+ 
+ &i2c6 {
+-- 
+2.34.1
+
