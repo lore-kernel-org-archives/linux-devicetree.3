@@ -1,321 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21A614FECD6;
-	Thu,  3 Sep 2026 18:26:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220B51A9B24
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 18:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788460004; cv=none; b=o7mhfYcuaSoM/FwayLyz2nETb/lsSj5T1tCjQ7Zkj2d1AaIuJCKQ0S/F3Yn3fG4jUg7mb/QEkqbNpyzu84TMdx/WAHebqdBb+ZJpbY+xbNFewH6RuzQUHkfMsyWMiwyJNa0rh3WCny0yRjM2bBWWRRgJ/FnlddRS8AA6yeoHdDI=
+	t=1788460853; cv=none; b=CTxgHWD5InAf8nDqsxCzjZyM+Vqr6Thkhom/u/Ncs4eET1zYHVLV6zv/SG3cggdwPu8YbcjrfS+y4OUkLFBG03ImpekSzz5N5nFoaIzBNOt1kgRhzHOHCbUqZBnkuQJoEWPdK01WupuDoo5fVhIlFXRJg+8byJX+LDm1pa4aaOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788460004; c=relaxed/simple;
-	bh=0Wny3MyWQ81+tlNB90k7g1GgQgq82xtFl3DomK3NlRU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fxK+l4CArASEW75U8N6csT5bTHdrg1wyZfy5kSEOcawlEoTHLT3uouAsLuvCNkb593ni1OD2aQ06BqpwdQt+1kdrUfmRGoYC0QkHE5m4/7FmIYkloy00o6XcBTF3bhTo3pRR3I4n7AUZg3PmyALKfZaPqCp08YoY496W/3VeEcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=qg6k6ynD; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788460853; c=relaxed/simple;
+	bh=sJkucRnOrxsMBqIi2+HABeKh84vsHz4l75giYUOW9RI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZDs4CNfWVM3n/QhQi2gUgbuiRqnM3wJp56UuvQECqXspd6sbHvdpvhzx4fkZXHjpfOlpb/HPDn3fsVBN8JRrOcweJLnNSrd8YZP322lHZ7u/5LosQJ13Pb+sHkgoQLYfUsT1v/TGTgENIdMUEjoyK1rwzhR9/i4aUxxCVvHZcEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZNaPgdX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="qg6k6ynD"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A494FC4AF54;
-	Thu,  3 Sep 2026 18:26:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788460003;
-	bh=0Wny3MyWQ81+tlNB90k7g1GgQgq82xtFl3DomK3NlRU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=qg6k6ynDxzgm/qBRr157zdb025YIaILciyYEMB2tAbtFR05zqCaontoV6ssirhJPx
-	 YeyT1+99MUdv2b1q+VAQkVxWrLGXYqdJDTjcrquFHpB3M2I8DKmpRatc1Fcehi4hvT
-	 DXpEAYd/qO+xrTuReioLwlXjIv2FfPdceDJubhrfK/GAbibm+Fu01deGmUNeeG635d
-	 4bCTjCfvdwkM7tSowHKgKODC2yClfZlFhvLw3cmlhXYnx8RhGkjHT4/TQIpxLQ91Es
-	 QMuaPjuYXic8XlK5vvKzoSY1dR+AQqFe/LCP/A4iZvaDu5qeYTJCrr+XaiVyAcye1A
-	 GzY+KJJKrEcjQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 925E1C624DA;
-	Thu,  3 Sep 2026 18:26:43 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 03 Sep 2026 20:26:42 +0200
-Subject: [PATCH RFC v2 6/6] arm64: dts: qcom: sdm845-google: Add basic
- audio support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZNaPgdX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20BBA1F000E9;
+	Thu,  3 Sep 2026 18:40:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788460850;
+	bh=rNAo1GiIlWMnw8Ina0VGuw8NdzepSTapy0MxM3/txlM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CZNaPgdXuFzpnTbbTCvnPKa8OXezJ0SdOEBWGIZs3n9Xb52BDACXD79My91TxzCVb
+	 3CGEW8tWF3yG0iKEchQiNssfNB2O+XblBkKYBNbRGEwGjc4jtFIaRrlAcJpHYyYDaz
+	 YG+r6R7VNH/NoB1K7Zuuhgvnx4ScQ608ScwQeFwOk331s1rFsqA1yaBVfFaztkmIUk
+	 /ueaS+gzszUKWiMy9PPK9xl993nKN6qtcWISHpWsBOeu6rAxf07fra1tCXu8ICRRPB
+	 lp4CByDS+K+rRKY8KXyiGfPVqIyWxuIR/pHTpqtLd+9miR8Yt78aK/4O/J44BduRz/
+	 nMlW5nwOfSw5g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 1/6] ASoC: qcom: sdm845: Demystify TDM masks a
+ bit
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Heidelberg" <david@ixit.cz>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260903-pixel3-audio-v2-1-7c22ed915291@ixit.cz>
+References: <20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz>
+ <20260903-pixel3-audio-v2-1-7c22ed915291@ixit.cz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 18:40:49 +0000
+Message-Id: <20260903184050.20BBA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-pixel3-audio-v2-6-7c22ed915291@ixit.cz>
-References: <20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz>
-In-Reply-To: <20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz>
-To: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- David Rhodes <drhodes@opensource.cirrus.com>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5540; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=kcOJuw/9+ohJx6Qaeb4TQNVMUEcnU0DSvegSZd7bX2g=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqmbvhTfl1EXtZDTwfw3yAzBzxGM/FJIhTIo2ys
- TErcfXu9aKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapm74QAKCRBgAj/E00kg
- ckGSD/wJ69vnz1ofZpIVB54E7qYekdE6wOfLXvQU1FH0YYOqrFMGRAU+JbWToP6a+MdIPQNksrH
- UulLFMOuFqpsYaeYOH3MWcCD81Qre+prVb1JOdG9wgu01HK/PPJmLm94fIcmTtGBsGtoZX5l3yd
- y1L8VAJXUrtWo7o2GgwPyI+2z74nzS97lZeNswWdumyVo0rym37nGkHCye0GZx3k0L4eaSefnmT
- 9fluoLkgSIc8RxJOoI9viLPGMFEnJ8C21kNiKpyeoqqX3G/DM1vzguJjwFecUxkKg1xifxNvUYs
- wcAp4bpmSVundraSCx2L9tH19n0y3s48eaYd+KZxfQW6uJjQBupSHiyEjN+k5WRhIQvg5dqY6mA
- pRoo6Wmqt7r5vCEWskufA8ys+vAoIt3pzOwb4u6tOnX3JuIsG8i6l0LrME8h1CfMKi8P8O4eTIF
- UzxabCiBsvwFAdPfnZrsKh8jrkbl3AizELlqnVtHURVNkhS5lpZAxEMZNfwt5NcTgWAkJJXyH4s
- XH7a3BNXhzWNBSozBwFcZkEtVOjoCEFMCvTBy1U4IgS/tacR8ryUbzMrVVG42WLQ8awIhqde9Zy
- 436Romslj+hPeZrDHFWhKlzNr9voN7wXvYY7FyuONlbk9GHiEaL2V6lbOseKge71k34yeeG6QeO
- +9+Ylw4IfRvUfWg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
 
-From: David Heidelberg <david@ixit.cz>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect semantic definition and conflation of TDM RX/TX masks for=
+ the CPU capture path.
+--
 
-Introduce support for sound card and wire two CS35L36 audio codecs for
-top and bottom speakers.
+commit 14c4efbbf7408318c5b2824f99db089826af6b11
+Author: David Heidelberg <david@ixit.cz>
 
-Inspired by commit from Joel Selvaraj.
+ASoC: qcom: sdm845: Demystify TDM masks a bit
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 132 ++++++++++++++++++++-
- 1 file changed, 130 insertions(+), 2 deletions(-)
+This commit attempts to clarify the TDM masks by defining individual bits
+for left/right speakers and microphones instead of using hardcoded hex valu=
+es.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 9e952f9862f24..cf87b582e3997 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -2,16 +2,18 @@
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-+#include <dt-bindings/sound/qcom,q6afe.h>
-+#include <dt-bindings/sound/qcom,q6asm.h>
- 
- #include "sdm845.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
-@@ -404,19 +406,61 @@ nfc@28 {
- 		firmware-gpios = <&tlmm 79 GPIO_ACTIVE_HIGH>;
- 
- 		pinctrl-0 = <&nfc_int_default &nfc_enable_default>;
- 		pinctrl-names = "default";
- 	};
- };
- 
- &i2c12 {
--	/* Bottom spkr (right) CS35L36 @ 40 */
-+	status = "okay";
-+
-+	cs35l36_bottom: audio-codec@40 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x40>;
-+		reset-gpios = <&tlmm 112 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Right"; /* Bottom */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 115 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_bottom_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <1>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- 
--	/* Top spkr (left) CS35L36 @ 41 */
-+	cs35l36_top: audio-codec@41 {
-+		compatible = "cirrus,cs35l36";
-+		reg = <0x41>;
-+		reset-gpios = <&tlmm 75 GPIO_ACTIVE_HIGH>;
-+		#sound-dai-cells = <0>;
-+		sound-name-prefix = "Left"; /* Top */
-+		VA-supply = <&vreg_s4a_1p8>;
-+		interrupts-extended = <&tlmm 40 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&cs35l36_top_default_state>;
-+		pinctrl-names = "default";
-+
-+		cirrus,boost-ind-nanohenry = <1000>;
-+		cirrus,boost-ctl-select = <0x01>;
-+		cirrus,boost-ctl-millivolt = <10000>;
-+		cirrus,boost-peak-milliamp = <3700>;
-+		cirrus,temp-warn-threshold = <1>;
-+		cirrus,multi-amp-mode;
-+		cirrus,irq-drive-select = <0>;
-+		cirrus,irq-gpio-select = <0>;
-+	};
- };
- 
- &ipa {
- 	firmware-name = "qcom/sdm845/Google/blueline/ipa_fws.mbn";
- 	memory-region = <&ipa_fw_mem>;
- 
- 	status = "okay";
- };
-@@ -449,16 +493,35 @@ &pm8998_resin {
- };
- 
- &pmi8998_charger {
- 	monitored-battery = <&battery>;
- 
- 	status = "okay";
- };
- 
-+&q6afedai {
-+	dai@72 {
-+		reg = <QUATERNARY_TDM_RX_0>;
-+
-+		qcom,tdm-sync-mode = <0>;
-+		qcom,tdm-sync-src = <1>;
-+		qcom,tdm-data-out = <0>;
-+		qcom,tdm-invert-sync = <0>;
-+		qcom,tdm-data-delay = <1>;
-+		qcom,tdm-data-align = <0>;
-+	};
-+};
-+
-+&q6asmdai {
-+	dai@0 {
-+		reg = <MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
- &qupv3_id_1 {
- 	status = "okay";
- };
- 
-@@ -467,16 +530,49 @@ &qup_uart9_rx {
- 	bias-pull-up;
- };
- 
- &qup_uart9_tx {
- 	drive-strength = <2>;
- 	bias-disable;
- };
- 
-+&sound {
-+	compatible = "qcom,sdm845-sndcard";
-+	model = "blueline";
-+	pinctrl-0 = <&quat_mi2s_active>, <&quat_mi2s_sd0_active>,
-+		    <&quat_mi2s_sd1_active>;
-+	pinctrl-names = "default";
-+
-+	/* mm[0-9]-dai-link nodes must be positioned first regardless of sorting */
-+	mm1-dai-link {
-+		link-name = "MultiMedia1";
-+
-+		cpu {
-+			sound-dai = <&q6asmdai MSM_FRONTEND_DAI_MULTIMEDIA1>;
-+		};
-+	};
-+
-+	cs35l36-dai-link {
-+		link-name = "Speaker Playback";
-+
-+		codec {
-+			sound-dai = <&cs35l36_bottom>, <&cs35l36_top>;
-+		};
-+
-+		cpu {
-+			sound-dai = <&q6afedai QUATERNARY_TDM_RX_0>;
-+		};
-+
-+		platform {
-+			sound-dai = <&q6routing>;
-+		};
-+	};
-+};
-+
- &tlmm {
- 	gpio-reserved-ranges = < 0 4>, /* SPI (Intel MNH Pixel Visual Core) */
- 			       <81 4>; /* SPI (most likely Fingerprint Cards FPC1075) */
- 
- 	nfc_int_default: nfc-int-default-state {
- 		pins = "gpio63";
- 		function = "gpio";
- 		drive-strength = <2>;
-@@ -505,16 +601,48 @@ touchscreen_pins: ts-pins-gpio-state {
- 	};
- 
- 	touchscreen_i2c_pins: qup-i2c2-gpio-state {
- 		pins = "gpio27", "gpio28";
- 		function = "gpio";
- 		drive-strength = <2>;
- 		bias-disable;
- 	};
-+
-+	cs35l36_bottom_default_state: cs35l36-bottom-default-state {
-+		reset-pins {
-+			pins = "gpio112";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		irq-pins {
-+			pins = "gpio115";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+	};
-+
-+	cs35l36_top_default_state: cs35l36-top-default-state {
-+		irq-pins {
-+			pins = "gpio40";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		reset-pins {
-+			pins = "gpio75";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
- };
- 
- &uart6 {
- 	pinctrl-0 = <&qup_uart6_4pin>;
- 
- 	status = "okay";
- 
- 	bluetooth {
+> diff --git a/sound/soc/qcom/sdm845.c b/sound/soc/qcom/sdm845.c
+> index 6843ab8ba017e..0ce8265ab1c1f 100644
+> --- a/sound/soc/qcom/sdm845.c
+> +++ b/sound/soc/qcom/sdm845.c
+> @@ -23,9 +23,14 @@
+>  #define DEFAULT_MCLK_RATE		24576000
+>  #define TDM_BCLK_RATE		6144000
+>  #define MI2S_BCLK_RATE		1536000
+> -#define LEFT_SPK_TDM_TX_MASK    0x30
+> -#define RIGHT_SPK_TDM_TX_MASK   0xC0
+> -#define SPK_TDM_RX_MASK         0x03
+> +#define LEFT_SPK_TDM_RX_MASK	BIT(0)
+> +#define RIGHT_SPK_TDM_RX_MASK	BIT(1)
+> +#define SPK_TDM_RX_MASK		(LEFT_SPK_TDM_RX_MASK | RIGHT_SPK_TDM_RX_MASK)
+> +#define MIC1_TDM_RX_MASK	BIT(2)
+> +#define MIC2_TDM_RX_MASK	BIT(3)
+> +#define MIC_TDM_RX_MASK		(MIC1_TDM_RX_MASK | MIC2_TDM_RX_MASK)
 
--- 
-2.55.0
+[Severity: Low]
+Is this naming convention accurate for the hardware routing?
 
+Microphones capture audio, meaning they transmit data to the CPU rather than
+receive it. Naming this an RX mask seems to misrepresent the physical data
+flow and makes the definitions confusing.
 
+> +#define LEFT_SPK_TDM_TX_MASK	(BIT(4) | BIT(5))
+> +#define RIGHT_SPK_TDM_TX_MASK	(BIT(6) | BIT(7))
+
+[ ... ]
+
+> @@ -128,8 +133,10 @@ static int sdm845_tdm_snd_hw_params(struct snd_pcm_s=
+ubstream *substream,
+>  			goto end;
+>  		}
+>  	} else {
+> -		ret =3D snd_soc_dai_set_tdm_slot(cpu_dai, 0xf, 0,
+> -				8, slot_width);
+> +		ret =3D snd_soc_dai_set_tdm_slot(cpu_dai,
+> +					       SPK_TDM_RX_MASK |
+> +					       MIC_TDM_RX_MASK, 0,
+> +					       NUM_TDM_SLOTS, slot_width);
+
+[Severity: Low]
+Does this combination of masks correctly reflect the TDM slot usage for
+capture in sdm845_tdm_snd_hw_params()?
+
+It appears the speaker mask, which defines playback slots on the DOUT wire,
+is being combined with the new microphone mask merely to mathematically
+reconstruct the previous 0xf value.
+
+Using an RX mask to configure the CPU transmit mask, which reads from the
+DIN wire, makes the capture path configuration difficult to follow. Could
+we define a proper set of TX masks for the capture path instead?
+
+>  		if (ret < 0) {
+>  			dev_err(rtd->dev, "%s: failed to set tdm slot, err:%d\n",
+>  					__func__, ret);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-pixel3-aud=
+io-v2-0-7c22ed915291@ixit.cz?part=3D1
