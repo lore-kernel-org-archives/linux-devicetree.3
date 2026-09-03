@@ -1,200 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA974A263F;
-	Thu,  3 Sep 2026 15:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B5F54503FF
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:19:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788448636; cv=none; b=MzCOiQl8CNW1teL03yhojslssjTurWZqcV6aOhcm3AdKHLGXRsNALG6WWaPgCL2mtjBeEjGobo31aUolNJuRqnxFS62Gi13Kw4j5dOT6a4JkWix1aLZRx1KH1n9kER6eQnLC0kckKDEF+NCm8FTrxN2/Mhy1zTRm3VXR0Nw7IZ4=
+	t=1788448786; cv=none; b=DfBUsXdiZFF+meRqlVrvYC2xEUevTT8kjnP0cTf+CBQ1KLTEwcxZsFr7IDpzlDCqMAbMQNI81ZCXy3iJHttxurJ69MUBX8FOUeytC4/HxnhbMBRZE3NRYT0NIwxpjbvh5h+he79ZX4IFz5C1h6No8nmG3BXMbNTaXOSDIKct/xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788448636; c=relaxed/simple;
-	bh=tBURLkKYMxsS6k8AUfswZerN2qyPXq+sNlV2gBUXm5A=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=T1fDoNt/4tWEYICvUIJ6wBEYN88dp7+dj8OO2kqHqwzM9hd/p/L2dZU4ZC3Hs5WnDfgMEm8uwiAOrB6VxghKWdBCB6GMnl/peHjdZrZ+fc+Wn6z13ZB2mTof2qCguLrkWokidCHOAEfHdc0t+QwME0zz6GxOuwmgg05+TuBd6YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9XAkhvW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788448786; c=relaxed/simple;
+	bh=nbUSOnH/yAvzACxNcixvd9qpwb8O+QZ2GQHLOMzuIPY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lIaiEbJ2feb2l+0Jh6ysMLFj15p2HduuZm7VG4aJuw2OYOp+stHITG/9Hgkcjwvk48wo4Aa/XqO2OD2Z2PqdGY/NfZuEjquel3BaMwPuDvfqJ67c1PpKzkU4+0F8ZdqimMsj0d6jG9YAZaacqdQPfYl38YyLclXmrYB/3qF+srE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nJ7q/53U; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9XAkhvW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01C271F000E9;
-	Thu,  3 Sep 2026 15:17:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788448633;
-	bh=IV3Cc66uozyYNimvsGwX6CGgpWkPF8bqTZuP7tq8OYs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=L9XAkhvWRUG/zrO+Bx6vUIUCCLX1e39IEwfyRRtFvfru6cZAqMXXjzzB1I0qjGBhJ
-	 ksal0HTyAnPVT+IOFhH/aoiPFNggpyIPmueau33CayQ/2MLcwJkATGhVxypYM1Oug2
-	 A0KWyN54Gpk2HcfwNGvK8lTbx8ww+un0SjqsN7BwAgcWLIcWZna7C3OR6ZG4f8tX1o
-	 3YmS8oSH80OlxJyU6k11VddPp61CsfDbRLtqlcwoKvdWIN4BN5/OJ45RDG3CDIkeFu
-	 kutBfYdoPkDziND1axKRkBYp3BELl983ku3Kx9AfPUgd0HRAN7Ic6nhFnKrOfBKh/C
-	 N0Fq3lS02/vCw==
-Subject: Re: [v3] dt-bindings: net: ti,davinci-emac: Convert to DT schema
-From: netdev-bot+sashiko@kernel.org
-To: j.bhargav.u@gmail.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, tony@atomide.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
- simona.toaca@nxp.com
-Date: Thu, 03 Sep 2026 15:17:12 +0000
-Message-ID: <178844863252.3394541.10006643092711574384@kernel.org>
-In-Reply-To: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
-References: <20260901-ti-davinci-emac-v3-1-db41e32f3f6d@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nJ7q/53U"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c2055573c8cso344731466b.3
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:19:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788448784; x=1789053584; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c/Qt/fPdwPC3wUdBHPi4+U/TKrcXHOgncT4srAq3Wek=;
+        b=nJ7q/53URt/69k208sxM1yKudzlYB+L0/JyD4ElL255rqI9h+qVygVbjAAmMHxc2Fm
+         jO3hmE1Sk/w3cfsVNFKERUWj4KkNj1lt1dyWZh4ZNPI/fu0gKOyJWk/kwAcSEEZrx52/
+         oOlNtjE6LonmH6+llRBje4XOHbFQg6Az9LMaXoBiIg2663j6CGyQwb1cPMO1jwZ9Sx3V
+         KFz/MNlkJJOuP4jWcTsZgkSc6Ds0NzZZ9ReG6hWXFxDv7hsa6HpcOsaNx3gE72sCvLPk
+         6zS+u0TMTxGqSJEWWII2gkGS7REnC/ipy4RfNerlfXrxClD3L/XPlXqyCmWXGRawzSWe
+         7onw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788448784; x=1789053584;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c/Qt/fPdwPC3wUdBHPi4+U/TKrcXHOgncT4srAq3Wek=;
+        b=sIZZRs0A/2bde8KmuzreC8BrDecrT7oH+RFfHTqYXsOvfsI6TLEka/L3oHKkxzeqzN
+         Xyr0JRIYm7UbgIDmrkjqjax6e8euzefThLwu3hzh07+Gqfn0DKHzvClhKhm/U9QGL8XT
+         zCubQobiRBPeMpMAN7F9lTOkjAe2J81fty5ULNu97CqJxyhuWWK5KfogshRkqTxiw2p7
+         zZb06Gw2Fj85WNRiTi4Fp783A1TXEQpcUQTVHROK/wzqqyzvBODZMR6PdyCwJJMf0PZN
+         Zupa6lY5YNNi2A5FBBYChOG1L6YH7eUaSE1tKbkMImFDI7JKmUFRMn8i4RTKp/tlWvZD
+         b/NQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxwhFMPKbdAFWVmSGpJGb1ywvqr4qJrq+QrbhhnrUb3UP1Z2L3HEy+JG3a3B4Zjjvc6TiRDEp5ZosDg@vger.kernel.org
+X-Gm-Message-State: AFuF++kqGqQPJZP2r7dFkd9cca2tgLyeB+LzxaeuF2QoWgMm6cNUeP/l
+	ua4muc9DS6Dys2MJpZWoWmAvD5WgNrDLUtcxQ/vUyTQWXyaaO1vJHZQq
+X-Gm-Gg: AYBFou2lkbR1ykIIwi+hIWpM/8/vPyNJ3os14HqdDSAmLhOA3vM8TJb+v3nNd2Z7yDo
+	y/SzIzkz6Llii17YXulVeQZtJA82FnBYq8PilROBR/UnE20HpX8jGHsKRFEdxLAfvwY//BnFv0x
+	Pkrk0aAus1SdrINxswHqowxQ1JOSr2NrW/m11tcadZoRIeMts9xV5g1AIFknWnYMM4kp+THhuLP
+	GExZPvsPbCr5NuR9KUoOC5SL09wil6lNCpPsUM1HO9Gp9XCezBZxsTzpHOc2l5BEdkjDmlfUcHQ
+	y1o1TVXAslt5JjBiHhKmLQ4WizVo51ifd+1sO2JQZcmmR+VyqBs4nHKvT8OGI3V7WAyPTuqIvh6
+	GGfwVzzlJRxZ8klfpz5xpDGFitfDAxcneffUgqZnQtAJ5B1zEtLy4+ZGU+/T/sa+XTeIUjbXn22
+	cMHoG3JrYi+u9aVmXF82FY4uQCRtKfd20LeJPuu03GN9SpMnCvmj2Ebw33JlPnM+DzA2KbozXy/
+	Al/ya97ugjaVnRFpxmh54fYYI1dSM1PEI0pXA==
+X-Received: by 2002:a17:907:3f88:b0:c21:450d:cd7e with SMTP id a640c23a62f3a-c25d53be168mr861775766b.9.1788448783664;
+        Thu, 03 Sep 2026 08:19:43 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([5.15.67.216])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e13db0sm14634897f8f.0.2026.09.03.08.19.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 08:19:43 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: David Lechner <dlechner@baylibre.com>
+Cc: Andy Shevchenko <andy@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: iio: adc: ti,ads1015: Add label property
+Date: Thu,  3 Sep 2026 18:19:39 +0300
+Message-ID: <20260903151939.5117-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
+References: <60dc58c6-dfe2-4377-9a73-f65cda56179c@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-- [Medium] The new schema lets `ti,dm816-emac` nodes carry either 1 or 2
-  `reg` entries with no further constraint, while the driver derives…
-- [Low] The schema makes `clocks` required (justified in the commit
-  message by 'driver probe fails without it') but leaves `power-domains`…
-
---
-
-dt-bindings: net: ti,davinci-emac: Convert to DT schema
-
-This converts the DaVinci EMAC text binding to YAML, documents clocks,
-clock-names, syscon, power-domains and ti,hwmods, and adds per-compatible
-conditionals restricting reg, syscon and clock-names.  clocks becomes a
-required property and ti,hwmods is marked deprecated.
-
-> diff --git a/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
-> new file mode 100644
-> index 0000000000000..f0c539d1bac79
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/ti,davinci-emac.yaml
-> @@ -0,0 +1,127 @@
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ti,davinci-dm6467-emac
-> +      - ti,am3517-emac
-> +      - ti,dm816-emac
-> +
-> +  reg:
-> +    minItems: 1
-> +    items:
-> +      - description: EMAC core
-> +      - description: EMAC control module
-
-[Severity: Medium]
-
-For ti,dm816-emac this leaves reg free to be either 1 or 2 entries, but the
-driver derives hardware semantics from the entry count.  In
-davinci_emac_probe() the presence of the second region is the only signal
-used, both for the control module base:
-
-	res_ctrl = platform_get_resource(pdev, IORESOURCE_MEM, 1);
-	if (res_ctrl) {
-		priv->ctrl_base =
-			devm_ioremap_resource(&pdev->dev, res_ctrl);
-		...
-	} else {
-		priv->ctrl_base = priv->remap_addr + pdata->ctrl_mod_reg_offset;
-	}
-
-and for the SCM eFuse MAC-ID instance:
-
-	rc = davinci_emac_try_get_mac(pdev, res_ctrl ? 0 : 1, priv->mac_addr);
-
-which flows into ti_cm_get_macid()/cpsw_am33xx_cm_get_macid() and selects the
-register pair at offset + slave * 8.
-
-Given that, can a schema-valid DM816x node land on the wrong hardware?  Two
-cases seem possible:
-
-A single-reg EMAC0 node with a 0x800 core window (as in dm816x.dtsi, where
-MDIO at 0x4a100800 is a separate node) plus ti,davinci-ctrl-mod-reg-offset =
-<0x900> would make ctrl_base point 0x900 past the end of the ioremap.
-
-An EMAC1 node written with two reg entries would be passed instance 0 and get
-EMAC0's factory MAC address, putting two interfaces on the wire with the same
-address.
-
-In-tree, arch/arm/boot/dts/ti/omap/dm816x.dtsi happens to pair these
-correctly (eth0 has two reg entries, eth1 has one), but nothing here requires
-that pairing.  Would it make sense to constrain this per instance, or at
-least document that the presence of the second reg entry also selects the
-MAC-ID instance?  The commit message line:
-
-    - Allow 1-2 reg entries for DM816.
-
-reads as though the choice is free.
-
-[ ... ]
-
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - ti,davinci-ctrl-reg-offset
-> +  - ti,davinci-ctrl-mod-reg-offset
-> +  - ti,davinci-ctrl-ram-offset
-> +  - ti,davinci-ctrl-ram-size
-> +  - clocks
-
-[Severity: Low]
-
-clocks is required here, but power-domains stays optional.  For
-ti,davinci-dm6467-emac, is clocks alone enough to describe an enabled module?
-davinci_emac_probe() only queries the rate and immediately drops the clock:
-
-	emac_clk = devm_clk_get(&pdev->dev, NULL);
-	if (IS_ERR(emac_clk)) { ... }
-	emac_bus_frequency = clk_get_rate(emac_clk);
-	devm_clk_put(&pdev->dev, emac_clk);
-
-There is no clk_prepare_enable() in probe, so the LPSC gate and local reset
-appear to be handled by the genpd reached through power-domains.  In
-drivers/clk/davinci/psc.c each LPSC registers a domain with
-GENPD_FLAG_PM_CLK and davinci_psc_genpd_attach_dev() adds the LPSC clock to
-the device's pm_clk list:
-
-	lpsc->pm_domain.attach_dev = davinci_psc_genpd_attach_dev;
-	lpsc->pm_domain.flags = GENPD_FLAG_PM_CLK;
-	pm_genpd_init(&lpsc->pm_domain, NULL, is_on);
-
-That matches da850.dtsi, the only in-tree user of this compatible, which
-carries both clocks = <&psc1 5> and power-domains = <&psc1 5>, and it matches
-the example added below.
-
-> +allOf:
-> +  - $ref: ethernet-controller.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ti,davinci-dm6467-emac
-> +    then:
-> +      properties:
-> +        syscon: false
-> +        clock-names: false
-> +        reg:
-> +          maxItems: 1
-
-Since this conditional already narrows reg, syscon and clock-names for
-ti,davinci-dm6467-emac, would adding power-domains to a required list here be
-appropriate?  Without it, a conforming node describes a module that is never
-ungated, while probe continues and later register access in emac_dev_open()
-and the cpdma setup targets a gated, reset-asserted module.
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260901-ti-davinci-emac-v3-1-db41e32f3f6d%40gmail.com
+On Wed, Sep 2, 2026 at 9:31 PM, David Lechner wrote:=0D
+>On 9/2/26 12:22 PM, Flaviu Nistor wrote:=0D
+>> Add support for an optional label property per channel similar to other =
+adc=0D
+>> chips. This allows assigning distinct names for each channel which can=0D
+>> match the schematic signal name.=0D
+>> =0D
+>> Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>=0D
+>> ---=0D
+>>  Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++=0D
+>>  1 file changed, 6 insertions(+)=0D
+>> =0D
+>> diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b=
+/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
+>> index 718f633c6e04..777a75c21d7f 100644=0D
+>> --- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
+>> +++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml=0D
+>> @@ -66,6 +66,11 @@ patternProperties:=0D
+>>            - minimum: 0=0D
+>>              maximum: 7=0D
+>>  =0D
+>> +      label:=0D
+>> +        $ref: /schemas/types.yaml#/definitions/string=0D
+>> +        description:=0D
+>> +          A descriptive name for this channel, like "vcc_ram" or "CH3".=
+=0D
+>> +=0D
+>=0D
+>Apparently this chip has quite old dt-bindings. Normally, we would have=0D
+>included adc.yaml to get this and other channel properties.=0D
+>=0D
+>And we would have used diff-channels and single-channel from that to=0D
+>describe which pins are associated with which channel rather than having=0D
+>a magic number for reg. And the ti,datarate looks suspicious as sampling=0D
+>frequency is usually we control at runtime.=0D
+>=0D
+>Anyway, none of that is really relevant to this patch. We'll see what=0D
+>Jonathan says about using adc.yaml here vs. adding a label property.=0D
+>=0D
+=0D
+Thanks for your feedback. I can also use:=0D
+=0D
+$ref: adc.yaml=0D
+unevaluatedProperties: false=0D
+=0D
+and move additionalProperties: false at the end of patternProperties block.=
+=0D
+Any other idea?=0D
+=0D
+Best regards,=0D
+Flaviu Nistor=0D
+=0D
+>>        ti,gain:=0D
+>>          $ref: /schemas/types.yaml#/definitions/uint32=0D
+>>          minimum: 0=0D
+>> @@ -125,6 +130,7 @@ examples:=0D
+>>                  reg =3D <4>;=0D
+>>                  ti,gain =3D <3>;=0D
+>>                  ti,datarate =3D <5>;=0D
+>> +                label =3D "CH3";=0D
+>>              };=0D
+>>          };=0D
+>>      };=0D
