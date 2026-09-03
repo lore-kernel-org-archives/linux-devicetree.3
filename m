@@ -1,101 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E69442B2E;
-	Thu,  3 Sep 2026 08:39:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BE83B2FCA
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424799; cv=none; b=YbNY/miD8nK/wFfVuepTqvZsaD8sARGygLbbZMR2uWUiiZweniHbZ3Z2mEKIGmwy+h4bVLdY0wQX1GzNWCW0n/6jkC89ImhkqSRAonf4QNMReOB9ZnlSa5ijDxa6cRMvIXCjYVkLtEDO1OpESKkaJkOvHed0sTp9yVIilvFFhJo=
+	t=1788424887; cv=none; b=D5bWs8+SXhyqqMdGEnqD+qSiY3mtmBtOe4dm98o/Y/6Fy+8Tx8bErINtmeau2tJv2QHax9sQMzquQBht0ooWplqxnZ4FRmLAhicIG3d5sjeNBCfJiHfQcwaf9LYZtw9C54bXiO/Y5PCqx9wT3vTLSrasOteeBi1AgOwDORSiYIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424799; c=relaxed/simple;
-	bh=0ara5kDWj9hWNdDhWaidn9fbQnuv77s70mCAisE4XsE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RcMXseEWCGsXNlXUxI7Mt+bchCO4seClmRMKLoSZTFotNx5gaZmLy7qsi3WQOJxs2rISsxsuEc/PnEpD/P3T9oiR5xyUwTxmos0Zz0tgaouXyreFiWR9ANNxDvYXC+argHHM/AWdifaidRhCaCcqozy+f26f1WG1kTXZQvYreYU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HgY3krhu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788424887; c=relaxed/simple;
+	bh=lEKb0+YOxXtzVgut+nkMzjsKSshlOe4U7D1aSjpZWVY=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J/its5atW0FVEPS789IJePebb2/SG557y5LcKUpAvHZLrXfl+UHp5Y7N4r8jlrQKto8KjT9kdo74bqw7czEuMVBXL3S6+7+C805Rgy6fa+DCaqg6aMkJSYYFIO6XiCjCmkZ2XzPgaCZiWgNwZD4bCgq3qMbnGxD+6KBczp0gjX0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWZX1qW/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HgY3krhu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2AF41F000E9;
-	Thu,  3 Sep 2026 08:39:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWZX1qW/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C16CA1F00ADF
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788424797;
-	bh=K1QDG/nvmF1UzRMpL95OuJsuTlpBW4aVBG+/KgNfMJY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HgY3krhukhz/jsQz/txmK6A6V0O58Du7ug2yft3bLKKaW/c4UMxNF30b9bOFmmcbf
-	 CCxY7F9ZUxe3CHJtTpcFbRwaR0frUVzJaKeotPv9cJ/Hc6L/K6nzVZCZitFh68UsMw
-	 Jmw0/ThpbToTDyBQ0xiEo7V+xUnf1lxluv9PYBjodx3WIQTlDAw5RAbMtkSWpLV6V/
-	 03CsNCnD947WQH2qDvL/7g3S3WSr53iCUCF87s4hbow8NC/WpM8K8XnmaTJxPWFe8w
-	 cQNIEb0Ci+3xW/s5d+BihB54zoqK+hGFqhM8mnK31xgl3h0L6VhSna5feVylo9O0mG
-	 dSmOamLsF9lvQ==
-Date: Thu, 3 Sep 2026 09:39:53 +0100
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: James Hilliard <james.hilliard1@gmail.com>, linux-sunxi@lists.linux.dev,
-	devicetree@vger.kernel.org, conor+dt@kernel.org,
-	mfd@lists.linux.dev, robh@kernel.org
-Subject: Re: [PATCH v8 2/2] mfd: ac200: Add X-Powers AC200 support
-Message-ID: <20260903083953.GF2133376@google.com>
-References: <20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com>
- <20260902-submit-ac200-mfd-v8-2-2aa06720b8ac@gmail.com>
- <20260902194008.8FF2A1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788424884;
+	bh=lEKb0+YOxXtzVgut+nkMzjsKSshlOe4U7D1aSjpZWVY=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=PWZX1qW/WeYi+NPCTIE1a9iJzrpdOSkQnaW1vd8IqVhnwuhHAsqx7MV5fv2qy4HTg
+	 lkbBRuhw0GVWTJEEWaE4DCgb9W+2bMIYBsaJzoGP9IFMvmkZIBTG0zJ9pOmdxpRq0A
+	 UiE+yJfXSSXjrN5bfxUOL9aRDS6x3QblLeKTafl/P3SNe34qRWykHYRvJpxELixLoL
+	 YPSj1L4L5t1tZJvoJkFeQ84zNCHph9anqB3qG25hkFngY2rtQxLelEwRJ3BfS+p7Yv
+	 SGV6qXEK0P+1fFw0YfClQ9sa1bUHsJzz8aqvBTsHmURLbj+zwXIi7hNIRGRrLcPfgB
+	 ++AoVVjc4Mlqg==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39c95395230so19186661fa.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 01:41:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz4MVF1ion+lRmEYuhpUSs7zNDvJfUhAdGj2TJ965+Q8lzpm0bXecYm5AftFjyI0/AVmGse9XB0IxNK@vger.kernel.org
+X-Gm-Message-State: AFuF++nrOFkxt4ZCfO/tBgFSJMM1BtAs+b85LRWDUBL94CPkB1oZH+PR
+	BTUt8NWkWYfFPgEG9bvsqvkTlWFsqR65LOMaM1nmzwGzQexFYKFuQz1mKiB4ujCcYGEdabzjwAG
+	YNSkLlItejc+FMQDI0iUEsvYpxjq6wwHQXZG8/y2Cwg==
+X-Received: by 2002:a05:651c:150b:b0:3a3:314d:1169 with SMTP id
+ 38308e7fff4ca-3a34fb36f0dmr21932931fa.1.1788424883342; Thu, 03 Sep 2026
+ 01:41:23 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Sep 2026 01:41:21 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 3 Sep 2026 01:41:21 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260903-pci-tc9563-aux-v2-5-34c625b542c1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902194008.8FF2A1F00A3A@smtp.kernel.org>
+References: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com> <20260903-pci-tc9563-aux-v2-5-34c625b542c1@oss.qualcomm.com>
+Date: Thu, 3 Sep 2026 01:41:21 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MfyWDZLT6yUw-AZ2Fscr7Gc-AWo4oDe2m5SpebU_t_FkA@mail.gmail.com>
+X-Gm-Features: AcwNN1VEBdJvpbmZUs6ofO5UN50QGhE_IwY4y99KQJVjcAeHhEHKvW5IuQHyt6Y
+Message-ID: <CAMRc=MfyWDZLT6yUw-AZ2Fscr7Gc-AWo4oDe2m5SpebU_t_FkA@mail.gmail.com>
+Subject: Re: [PATCH v2 5/5] arm64: dts: qcom: qcs6490-rb3gen2: enable TC9563
+ embedded GPIO controller
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 02 Sep 2026, sashiko-bot@kernel.org wrote:
+On Thu, 3 Sep 2026 09:53:01 +0200, Lorenzo Bianconi
+<lorenzo.bianconi@oss.qualcomm.com> said:
+> The Toshiba TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
+> lines.
+> The controller is registered as an auxiliary device by the TC9563 power
+> controller and accessed through the same i2c device.
+> Describe the controller as a "gpio" child node of the switch and use it
+> to control the PERST# reset lines of the two external downstream ports
+> (pcie@1,0 and pcie@2,0), as expected by the TC9563 power controller after
+> switching to the GPIO descriptor API for per-port resets.
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> ---
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Unconditional global chip reset in shutdown/remove breaks RTC wake, Wake-on-LAN, and live PHY state.
-
-Is that true?  Needs a response from you.
-
-> --
-> 
-> commit d8592c963caa9b21487926208ea5815e059be1be
-> Author: James Hilliard <james.hilliard1@gmail.com>
-> 
-> mfd: ac200: Add X-Powers AC200 support
->     
-> This commit adds support for the X-Powers AC200 mixed-signal companion IC.
-> It enables the shared input clock, initializes the paged regmap, and asserts
-> a chip reset during probe, driver removal, and system shutdown.
-> 
-> > diff --git a/drivers/mfd/ac200.c b/drivers/mfd/ac200.c
-> > new file mode 100644
-> > index 0000000000000..8445a460ef6c2
-> > --- /dev/null
-> > +++ b/drivers/mfd/ac200.c
-> 
-> [ ... ]
-> 
-> > +static void ac200_disable(struct regmap *regmap)
-> > +{
-> > +	regmap_write(regmap, AC200_SYS_CONTROL_REG, 0);
-> > +}
-> 
-> [Severity: High]
-> Does asserting a global chip reset here wipe the hardware state of all
-> co-packaged functions, including the RTC and Fast Ethernet PHY?
-> 
-> Since ac200_disable() is unconditionally called by ac200_shutdown() and
-> ac200_remove(), could this kill the PHY and clear the RTC during system
-> shutdown, breaking Wake-on-LAN and Wake-on-RTC from power-off states?
-> 
-> Furthermore, because the PHY is enumerated separately on the MDIO bus and
-> only references this MFD via a phandle, will unbinding the AC200 driver at
-> runtime (via ac200_remove) forcefully reset the PHY hardware out from under
-> the active MDIO PHY driver and lead to unpredictable network failures?
-> 
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com?part=2
-
--- 
-Lee Jones
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
