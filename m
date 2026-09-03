@@ -1,254 +1,210 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022110.outbound.protection.outlook.com [40.107.209.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578513FF1C0
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 07:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419162; cv=none; b=ro0Lovys4eY9JVtFiWiI0mP/yajB+KqEzorQ8Si9Or/yZBr/5BKviAADIwYVtspUoGlISi6Bq3RHtA0WnR5QMSEJXg7Ka+x27/J3wiZl5MXWnBwKCsijxqRk5AJhgIeE78Oa1JA2gKCreQyoUQXmcxfmncnAOEh5XpT11f2eFbo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419162; c=relaxed/simple;
-	bh=dpwvAG1CZNNRrq9B+EZ+U1jju+T//S6JWYGWkpV5pvM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UZshztObpooFQWcP5dSw/1rVFMLYHz34EhYq9TcMr+49Hvex4kJkxZ7l0qOZMf6vaAZxiNwx+eNIk/tpgc+Z/fKB/NS8JDKanpDfcUqPJoBmYYha6NlJHywSTNDtUBs/6bGPEXrv+uf7KBiMofWSPVvlEsPltvv0SnQnD4moXAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N9J+QLce; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26909368D4A;
+	Thu,  3 Sep 2026 07:09:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.110
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788419401; cv=fail; b=ngI0++aNe3I/BvzWBaP8UmCC3cPB4rS5p5VoBvwjRjAU1YpwERUtM3HG1ddv/AcktDboRGc93BKrQ7SugUR7b0rzTZr9tibGcXmjaqDN9UEPDmY2n+AjZO0xm42KHmTsDPEgkLyjya0H2dl35sONlXsua5XwRw0+90aDNp8XOLE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788419401; c=relaxed/simple;
+	bh=99uPn9bJ8Lu+6YZE0sjsLR+Vh9Smj9T+A1mM+bmXhkk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YEqSxvWfYUBwQ6/alQRMipQO3YkzGbl7Am+luJlFr1ktGUK38MF6bvOM9EdNfzgdNCJkJUKNECU+WVvYIbxBFD1UGSRz4my+S38GcCAmGLWoPtDvUshzG/Tdb4Y8lg5KG4pA6ar0rGn+vEmswLP+9zvQXopI0wMbJUDDNYaSnfs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=Y961wMEF; arc=fail smtp.client-ip=40.107.209.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N9J+QLce"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-38de693676dso1208036a91.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 00:05:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788419157; x=1789023957; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bPr0Tiyi9ufsaoMkecG9LBvmdZ8IsvdK2aRx8FqQP84=;
-        b=N9J+QLcejhT4AGsSRwbUFpqKzmhZqnqNygBB8Q/RR8ZL5qNQuARGoUk6F9JVXKBQET
-         9SZMEN8WNwKXEIv8FkjgA82pAClmyCvkiMNvEZHbCf70/Z0slt7LPv+BR1Z6ObWBAFsI
-         wsvU57tZS+t0sj4AsXuPtCjkTbphIKFD2HyjNxtzw/EHY+/lWsYp8r0K7q2pYFq7n428
-         Gyp/5NBBQaiLMgWJN2AW7AZPytah3dyiRLGPWoAALAxnsKeuW2DrzcLIuZtcup44Casq
-         SWjT5db2pd+eg/0wvKgikL9MzFTNfCxYayISYT48Ep1Tn/6z62dC1yd48VFAfUVIczUp
-         0Isg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788419157; x=1789023957;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bPr0Tiyi9ufsaoMkecG9LBvmdZ8IsvdK2aRx8FqQP84=;
-        b=aqq4k7RdSSEr1mhxGo23qlkhTvSHeLEGLIuy3ldSzkUBslkeokWgw7lVBEPK/HSrbZ
-         eARyJk+qwjGBhA+arRfWD1K3LBW477GTPvZXlui/0+2ylnOPLAyamZn2pdQI+vXh0+8J
-         yvgUMp8tN9d2TWoKE938fnOlAYRarW28lg//VZWXDLarG3huznFKw5pz4fIkDkffWINs
-         zELV+nx/D0+4zusFoJt5lUYxsy6kc73Jjhcdx2WLNp8lmnCyCGKZLhVllDs4sJJAFweQ
-         JaD8HkewJ2yzXQzh93ZZTJZG/xovQXoCFD8lOMVQ2zM+K/QfgQLiv/9S2y4RpWMxuZBW
-         KcRw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPFBjTwWBtciGPfs1BD1OKQ94E3hNtdFZaNoI6YQB1BYi19hEo4pBeDjp70Ycm+1SbWd2HPlKIJ2/Y@vger.kernel.org
-X-Gm-Message-State: AFuF++kXOGReYA80S3UpMPpMcUEE8bv06WW1QsaRNbYuyv7vE8b5GRX5
-	gznL976ZuQb5nIYAEPOIu3p/88SZbGjBzky0+MZoencDQC8bxpuZLFds
-X-Gm-Gg: AYBFou3oTaCCj2v1gAdr7yfk2Rh8HylktAix3geQHgAWhw6A2+0kPgsCBZNgZCsc6wn
-	TqSBfyYhHUBGunhBuzW3GnZnTl6nZZIB38hb2BBvmwA2nJt14XQpUxxtm8BSrpfwoPC8jy+7wC7
-	eyhQDGmg4FKRJudXTzurLSlkZ5slSEQGShzHxgju76ApoVMx5I1tKkvw5vegnwVwfHlCvULRXeY
-	qytWePV68UjpXaqt4yNdcMIpXHSd2KuiGFXJYmedV4dDYIOPI5Zj+z8JiZ0GdI5C2VoNbBXNQq5
-	YcReKKvGuCRsXdXmDqclgLZf22OKw7tEWUb/QSiFVahSRRrKXTvR18ET/8raG2y8Z7YyJrDqP41
-	Bmlkg51eMgtmvc+pX8o/t43N5p4OtpyJusNJUqseHxObrjPABUo0MmNMqQBrNtgTedvWEpriW2Z
-	CcV3eifXRD+AxDOj3mY6tyCm1MQFtPK6ES5o0dQXmtwTzRNXKKggGmDyniIlUuJ5trd0KdJGo2q
-	8hQNnM=
-X-Received: by 2002:a17:90b:2b46:b0:39a:e002:f192 with SMTP id 98e67ed59e1d1-39aee26d6c3mr16239819a91.22.1788419157335;
-        Thu, 03 Sep 2026 00:05:57 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b07b197a9sm3382844a91.0.2026.09.03.00.05.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 00:05:56 -0700 (PDT)
-Message-ID: <6aef2f48-1cc5-408d-a5a2-2b4b4d45ad7b@gmail.com>
-Date: Thu, 3 Sep 2026 15:05:44 +0800
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="Y961wMEF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=T9sHdYZBtKku7ApE7yzT1dLlVTFvbsNAxXltU8RtvAUWpRXaGptiIaBhb6+c25zI1KE5+D2c5+CTbNg5Qxk/QuzCQBqErN+q3dTsIqC68lPx7rO96gM53ptIcbkpdWuMlJIZ5LRFyVB3K8dMfZKvr8JWaTuTIRGH4cvmBa773K8zYhFtyLG2wKPdt/CP95ArIM5jsU9D7aquGslVU+nUfp9sIex4yoPULkisWV6AtfVmfirdfqbfauSKVhX6Zqwlc3ihFkR57XqUfJa/PRYc5igyiAdHitGgGGpYPmAcqS8BC8l4xWo798//sAKbpJsSmykUFj+u0OrVrdaRhlvtqw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6ZaPr1CQdtZqyfIIzj+X103gHwF5PUHQYcbTvs6ZTo4=;
+ b=UyTAa32iDM1ZF19h/LFBiOgoOHlyEW/MQWFvgquuia9ELtt6YLwhgux4FRiN96i9LhsaJgOZ7aLfcMFgtv4ypzdcnN5m5+UkztDIMj1R9nfHm4zNsnh5gtJR2rzzIOD/ZwqIkk/13eIhtllH0T2IfD7wsN6djiXOJJWxvqVtENI6W7Uejl5U3hD2fLrKC2BF2qQB6Zy3AUa4roa/qXD+nnO9bKF7R1AZ33UkuW0lM14zXqsgCuiEW7UIGPo8hIGoqFF8kySPED1GK7waltjXJHRygaT1zJwsmySfxBqAZLajV+iPyu+PRK99Lu7TZdCpSKOWyIx9QHBE6ED+fA/boA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 64.62.143.114) smtp.rcpttodomain=axiado.com smtp.mailfrom=axiado.com;
+ dmarc=none action=none header.from=axiado.com; dkim=none (message not
+ signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6ZaPr1CQdtZqyfIIzj+X103gHwF5PUHQYcbTvs6ZTo4=;
+ b=Y961wMEF66bnFL0vKE9OWbO19zjqKfmxTnU4d8jKaS39YOA6sFXTHNSwvK6VE7ZvanIPTgEYpDbcH5dtytp0JSdTWAxWx/fIwJccMdpDaTH6CpTIEfJM+QYlU4XR/mavyHotNVCFljHpOuRkV+JJlJtcnrSCR3WV5ikR5RNR8fPnQK828mNyZQLnhr8plHHXrWy+RvpVFfGMwuiFiLYyHIJ3EuAmX1H5A3kn+vky+24Sxw8POXlPgl/rjM1M4pgp8/jSwVTYyf70BOwnAqSWn6Ico6Oz0+c8zxD8GrokZ09t6Z0a59mpnBXvIlp2Hh0Pr5eIpj0sA6lvea0NYtHUgw==
+Received: from CY5PR13CA0035.namprd13.prod.outlook.com (2603:10b6:930:11::24)
+ by EA3PR18MB979725.namprd18.prod.outlook.com (2603:10b6:303:2e7::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Thu, 3 Sep
+ 2026 07:09:52 +0000
+Received: from CY4PEPF0000EE3F.namprd03.prod.outlook.com (2603:10b6:930:11::4)
+ by CY5PR13CA0035.outlook.office365.com (2603:10b6:930:11::24) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11
+ via Frontend Transport; Thu, 3 Sep 2026 07:09:52 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 64.62.143.114)
+ smtp.mailfrom=axiado.com; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received-SPF: Fail (protection.outlook.com: domain of axiado.com does not
+ designate 64.62.143.114 as permitted sender) receiver=protection.outlook.com;
+ client-ip=64.62.143.114; helo=smtp.corp.axiado.com;
+Received: from smtp.corp.axiado.com (64.62.143.114) by
+ CY4PEPF0000EE3F.mail.protection.outlook.com (10.167.242.17) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Thu, 3 Sep 2026 07:09:51 +0000
+Received: from axz-uw1-build-vm02.corp.axiado.com (unknown [10.14.1.22])
+	by smtp.corp.axiado.com (Postfix) with ESMTP id 4AA424186B5D;
+	Thu,  3 Sep 2026 00:09:51 -0700 (PDT)
+From: Petar Stepanovic <pstepanovic@axiado.com>
+Date: Thu, 03 Sep 2026 00:09:47 -0700
+Subject: [PATCH 1/2] dt-bindings: hwmon: Add Axiado AX3000 TSADC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] kdump: reduce vmcore size and capture time
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
- rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
- alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, robin.murphy@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
- iommu@lists.linux.dev
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <apfkDlcMYrgiuGYA@fedora>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <apfkDlcMYrgiuGYA@fedora>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260903-axiado-ax3000-tsadc-v1-1-a8a0f3b251f5@axiado.com>
+References: <20260903-axiado-ax3000-tsadc-v1-0-a8a0f3b251f5@axiado.com>
+In-Reply-To: <20260903-axiado-ax3000-tsadc-v1-0-a8a0f3b251f5@axiado.com>
+To: Akhila Kavi <akavi@axiado.com>, 
+ Prasad Bolisetty <pbolisetty@axiado.com>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Tzu-Hao Wei <twei@axiado.com>, 
+ Karthikeyan Mitran <kmitran@axiado.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, openbmc@lists.ozlabs.org, 
+ Petar Stepanovic <pstepanovic@axiado.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788419391; l=2816;
+ i=pstepanovic@axiado.com; s=20250916; h=from:subject:message-id;
+ bh=99uPn9bJ8Lu+6YZE0sjsLR+Vh9Smj9T+A1mM+bmXhkk=;
+ b=YT0LxeQ/usJXsknPFKvUfO+yFIsfNZOw9m+eT5ky8TOnv+VGnIRMvUPWNifxAoBd7alGsVfV/
+ AIye1PNz7MEBu3eiApXzFmo2xc2vFpzI/8iVIRW6BU0L+JQHsrC7F6e
+X-Developer-Key: i=pstepanovic@axiado.com; a=ed25519;
+ pk=70f1UJOGT9U11ZK6o+ENXtv0I5wBE3e+Y9YWODzRsdI=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3F:EE_|EA3PR18MB979725:EE_
+X-MS-Office365-Filtering-Correlation-Id: 184d61e0-12cf-4f56-1a24-08df098a594d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|7416014|376014|23010399003|82310400026|13003099007|921020|3023799007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Wta4KKfP3QLBPMnjR05z2TGjfNd4Yhl6BQeNdUQpdBPo8DYAh4W77zXco4SdbX0jXChaOMa9Yloa3NQ16pZzB2eH0GXaCa2F11Ps7xzg6ckhqf60Gbgov/UjQqLgwH9GEaK2lLRnM4ncvyrk5aK0qemnEoRUEbzuxsbMBuTAjFVl1AUdjt7MhfDy2TkffeAP1GP59sKZpp69qo0WQbyBrYxyPVCbTn4WlpbOjCTBrJpO3Ezt4xtnxtnC55M1YoSGyUnayKBiQtgdFUuXKhJ3Bmlhsywop2utcoClJkZ5+C0RN/oQu/vlEcZUsEUQ3grZVzQZkm+zNLjSglCYZZ/VnaTSvFOoqlIugJmRhnpu+MJNxTwqMryGbN7KLna0A69DKE9uUZBOrgYi44SiaX+djfVaixwBY7z6IosNE+9048tOdbt1p8I3R/fJ8eYYwzkkHa0CRCmWLzqANborL9tUCQ2dq+wwlSVzmQpPKjWGrQxme+yBGRaTYJ/nRETbZ0O30D62+yLQSDqMv0TDg4DHYf6ERCPM/dhMd/8BfcAulkDmxplM3uPSWl2oMUCgA/i3OPaSalU0Lhc9fFGYqItr7TURAuLxNbrEV6fWynvA3mltSEQGtdAtv4f2RT2scG1lGdVYrWjcDJtl2QFe76BXNlWYmLBL/Qp3NbJPXgHh/Ey8m+DBGs/w+tb1f93ZHrDD
+X-Forefront-Antispam-Report:
+	CIP:64.62.143.114;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtp.corp.axiado.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(7416014)(376014)(23010399003)(82310400026)(13003099007)(921020)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	afxwGKMIgM14I/SXsYfSY5IukRNgOBk+ljptoa8SluP29T6A22CGUwBQmQqZjC/Yu1kuVguTDLdwkCoIN53FhIrYlSTVR0bUA2slVQeswCQSg9qD37WHZz1/eQaJVgFHotKXjTIyO4zrogufLI+iua9bLo2iBO/PxupdJORSfYcKAHV/Yg+mdV86gHtK/btvo6hwJalBu8s2qZm32gp1cD1ifvbknZAPtXdyUP2Mcml9yTV9iyBxNVUkiKKzRQkv5eJWGf6K3Os5GCOAATc52pj7r2Fov54j8sVc6c04dhp6Y1XyaUKB+xl9v2KBvQO4WLsKga1nd08+6cmBCUHfo1CIwaLRqIgro2pLQUyI/RXVtlkf4IwOgn9hV+FdCht/IWtM0/vCS/LLEGnlo0y4LFfzFCpAtHdxUy7xLjhiTxapcRzGk0rwS/GspTrlQqrj
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Sep 2026 07:09:51.7331
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 184d61e0-12cf-4f56-1a24-08df098a594d
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=ff2db17c-4338-408e-9036-2dee8e3e17d7;Ip=[64.62.143.114];Helo=[smtp.corp.axiado.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3F.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EA3PR18MB979725
 
+Add a Devicetree binding for the temperature sensor ADC (TSADC)
+controller found on the Axiado AX3000 and AX3005 SoCs.
 
+The controller monitors the on-die temperature. An SoC may contain
+multiple TSADC controllers at different locations on the die, each
+represented by a separate Devicetree node.
 
-On 9/2/26 16:53, Baoquan He wrote:
-> Hi Wandun,
-> 
-> On 09/02/26 at 03:31pm, Wandun Chen wrote:
->> From: Wandun Chen <chenwandun@lixiang.com>
->>
->> On SoCs that carve out large firmware-owned reserved memory (GPU,
->> camera ISP, ...), kdump currently dumps those carveouts as part of
->> system RAM even though their contents are firmware state that is not
->> useful for kernel crash analysis.
->>
->> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
->> reserved memory on DT-based architectures (arm64, riscv, loongarch).
->> Reserved regions default are marked MEMBLOCK_NODUMP so kdump omits them;
->> reusable CMA regions are different because their pages are handed back
->> to the buddy allocator and may carry crash-relevant data.
->>
->> ACPI systems already filter reserved memory out of the vmcore through
->> their existing path; only DT-based systems currently fail to filter these
->> regions, which is what this series addresses. The flag lives in memblock
->> itself rather than in a DT-only structure, so the mechanism is generic and
->> both ACPI and DT systems can benefit from it (suggested by Rob, thanks) [1].
-> 
-> Thanks for the effort. I am not against this patchset, and I haven't
-> went through it carefully. Just from the cover letter, you mentioned
-> generic, I am wondering if this can be generic for excluding other
-> memory regions. Asking this because I try to find a way to exclude
-> unwanted memory regions too, please check below link where there's
-> the relevant discussion. We definitely don't like inventing wheels
-> time after time. Do you think this memblock region excluding can
-> be used in other places of kernel?
-> 
-> https://lore.kernel.org/all/aoLFai0gzzH2bGgy@MiWiFi-R3L-srv/T/#u
+AX3005 uses the same programming model as AX3000 and is compatible
+with the AX3000 implementation. Therefore, axiado,ax3000-tsadc is
+used as its fallback compatible.
 
+Also add a MAINTAINERS entry covering the binding and driver.
 
-Thanks for taking a look, and for the pointer to the crash-wipe thread.
+Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
+---
+ .../bindings/hwmon/axiado,ax3000-tsadc.yaml        | 45 ++++++++++++++++++++++
+ MAINTAINERS                                        |  8 ++++
+ 2 files changed, 53 insertions(+)
 
-To answer your question directly: the exclusion mechanism in this series
-is already generic, memblock_mark_nodump() is the entry point. Any code
-that wants a region out of the vmcore just marks it MEMBLOCK_NODUMP, when
-preparing vmcore elf header by walking memblock, these regionss are skipped;
-This series is simply one caller, marking the DTS /reserved-memory and
-/memreserve/ regions with MEMBLOCK_NODUMP.
+diff --git a/Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml b/Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml
+new file mode 100644
+index 000000000000..4b56e4fd9ef9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml
+@@ -0,0 +1,45 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/axiado,ax3000-tsadc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Axiado AX3000 and AX3005 TSADC
++
++maintainers:
++  - Petar Stepanovic <pstepanovic@axiado.com>
++  - Akhila Kavi <akavi@axiado.com>
++  - Prasad Bolisetty <pbolisetty@axiado.com>
++
++description: |
++  The Axiado AX3000 and AX3005 Temperature Sensor ADC (TSADC) controllers
++  monitor the on-die temperature of the SoC.
++
++properties:
++  compatible:
++    oneOf:
++      - const: axiado,ax3000-tsadc
++      - items:
++          - const: axiado,ax3005-tsadc
++          - const: axiado,ax3000-tsadc
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    temperature-sensor@33021000 {
++        compatible = "axiado,ax3000-tsadc";
++        reg = <0x33021000 0x100>;
++        clocks = <&refclk>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 77159f279621..c6efb04fc376 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -4467,6 +4467,14 @@ F:	Documentation/devicetree/bindings/spi/axiado,ax3000-spi.yaml
+ F:	drivers/spi/spi-axiado.c
+ F:	drivers/spi/spi-axiado.h
+ 
++AXIADO TSADC DRIVER
++M:	Petar Stepanovic <pstepanovic@axiado.com>
++M:	Akhila Kavi <akavi@axiado.com>
++M:	Prasad Bolisetty <pbolisetty@axiado.com>
++L:	linux-hwmon@vger.kernel.org
++S:	Supported
++F:	Documentation/devicetree/bindings/hwmon/axiado,ax3000-tsadc.yaml
++
+ AYANEO PLATFORM EC DRIVER
+ M:	Antheas Kapenekakis <lkml@antheas.dev>
+ L:	platform-driver-x86@vger.kernel.org
 
-x86 currently builds the vmcore elf header from iomem_resource, not
-memblock; it could be switched to memblock, but that would bring no
-benefit for the problem this series solves, so this series makes no
-x86 change. I'd personally be in favor of switching to memblock for
-a unified implementation across architectures.
-
-Best regards
-Wandun
-
-
-> 
->>
->> Since the reserved memory regions are filtered out, the vmcore is
->> smaller in size and faster to produce. 
->>
->> The series is based on linux-next and is organized as follows:
->>
->> Patches 1-4: Preparation and bugfixes: fix the missing HugeTLB
->>              flagname, switch riscv crash_mem to memblock, fold the
->>              duplicated per-arch memblock walks into the weak
->>              defaults, and serialize crash header preparation against
->>              memory hotplug.
->> Patches 5-9: NODUMP infrastructure: switch crash_core to
->>              for_each_mem_region(), introduce the MEMBLOCK_NODUMP
->>              flag, add a dumpable flag to struct reserved_mem, and
->>              mark /reserved-memory and /memreserve/ entries with
->> 	     MEMBLOCK_NODUMP flag.
->> Patch 10:    Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
->>              header.
->>
->> In v5, Sashiko found some pre-existing issues related to reserved-memory,
->> and has no dependency on this series, so these issues have been addressed
->> in a separate series [2].
->>
->> v5 --> v6:
->> 1. Serialize crash header preparation against memory hotplug to avoid
->>    out-of-bounds or use-after-free issues.
->>
->> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
->>    avoiding a panic from too few regions before resize is permitted.
->>
->> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
->>
->>
->> v4 --> v5:
->> 1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
->>    (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
->>    DT-only struct reserved_mem.
->> 2. Switch the riscv vmcore elf header preparation to use memblock
->>    instead of the resource tree, aligning it with arm64 and loongarch,
->>    so riscv also can exclude reserved memory from vmcore.
->> 3. Deduplicate the vmcore elf header preparation: arm64, riscv and
->>    loongarch open-coded the same logic, so fold it into shared
->>     __weak defaults in crash_core.
->> 4.  Drop the v4 patch that saved /memreserve/ entries into the
->>     reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
->>     directly.
->>
->> v3 --> v4:
->> 1. Rebase this series on v7.2-rc1.
->> 2. Add two cleanup patches (patch 02/03).
->> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
->>    NULL multiple times, suggested by Rob.
->>
->> v2 --> v3:
->> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
->> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
->> 3. Add some prepare patches.
->>
->> v1 --> v2:
->> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
->>    feedback [3], v2 drop that property and exclude reserve memory
->>    by default.
->> 2. Split some prepared patches from the original patches.
->> 3. Address coding-style comments on patch 5 from Rob.
->>
->> [1] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
->> [2] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
->> [3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
->>
->> Meijing Zhao (1):
->>   mm: memblock: add missing HugeTLB flag name
->>
->> Wandun Chen (9):
->>   riscv: build crash_mem ranges from memblock instead of resource tree
->>   crash_core: fold duplicated memblock arch hooks into the weak default
->>   crash_core: serialize crash header preparation against hotplug
->>   crash_core: replace for_each_mem_range() with for_each_mem_region()
->>   memblock: introduce MEMBLOCK_NODUMP flag
->>   of: reserved_mem: add dumpable flag to opt-in vmcore
->>   of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
->>   of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
->>   crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
->>     header
->>
->>  arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
->>  arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
->>  arch/riscv/Kconfig                         |  2 +-
->>  arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
->>  arch/x86/kernel/crash.c                    |  2 +-
->>  drivers/of/fdt.c                           |  2 +
->>  drivers/of/of_private.h                    |  2 +
->>  drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
->>  include/linux/crash_core.h                 |  2 +
->>  include/linux/memblock.h                   |  9 ++++
->>  include/linux/of_reserved_mem.h            |  1 +
->>  kernel/crash_core.c                        | 51 ++++++++++++++++++++--
->>  kernel/dma/contiguous.c                    |  1 +
->>  mm/memblock.c                              | 17 ++++++++
->>  14 files changed, 131 insertions(+), 95 deletions(-)
->>
->> -- 
->> 2.43.0
->>
+-- 
+2.34.1
 
