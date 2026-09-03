@@ -1,278 +1,165 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7AE37DE8D
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 22:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7C9335CBD6
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 22:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788476372; cv=none; b=nyozDYTj34OjYmaJBQ4oKr5E7LXoOHgMzD4XeyuGItmisCtXmoDdiYL/FD+kdkOyZkUFiaZvQy7UitPE4RXaYRxlJ75ATS/yACynzYSib5jVBdS1/hYIgrfkJsvnXg04/BDaZ/ZlvgsDjt5rEyY07cQJVAznOvSDesht/LIAlic=
+	t=1788476372; cv=none; b=K3+JDhjLORshQ5zfF+quPy7NQ1TQ6Cmu8+SNYtzITGo71TxGeaAY7CkhL6oqyLc1EWaz6VZNpk8So4e78iafy7i4TEqplpR4ZJSfSMMdOf0jUvs0e1InMS9oRSMrT5MagLq1YWWA8vXUeNCOa7ZnVP4lwHyEri/QbNGUkZ7mgK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788476372; c=relaxed/simple;
-	bh=k1XGa66sdyRnrjmsJGkxGLl+Wzt3DuRWA8x+khgbtf8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Dn4rz6zMh4uKpUukRSOll7LK02MJ+LdDQQisKmSt/BJQbBX7ZwiabepawIYNv7kkVrdTBEc1rWLABV2I00XEric5JaGGKYouwik/KWBO/vKd3N9GaFx4PPdr1yeiBIUhIIhUU1GFjG4l1gYPbu3o9QrOo6my3cvLH+OUExtZbYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nFdkjD5t; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nFdkjD5t"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-482e067e908so371842f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 15:59:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788476366; x=1789081166; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2qhZe+AZkcGx7QLrzdA5uk1gfgMc92J6S2jPh7AbCc=;
-        b=nFdkjD5tqo5o1OliOo/KnS+mzschbXbNUCyUNRwzpygVCCAsbvLeAZXl9AAoW9/PKY
-         qNiXnJcGKbDlpTtUlpjjsl8ngThvdp4E4jPHb6PRtqWOf9mPxP45t2edVNJuILOmsLJ6
-         bsXQnVycki9zvPFV5xT2DParoDMKG7zQJdT7D3/Enawk8O0SLnTczIG8DrazywwhQ6fJ
-         eMr/tegVJTYtZkRWzqKHEcF9vlX9gvpoKlJLsyhOXr25dnq50ZOZr3bvZinV3PhWpwlc
-         kZZNNLiWx6jZJer0p+UjsQo86PQXTBOLOO2loEpB3ce4AL+/ZEVfB6kcUsxphs5hLqSM
-         HilA==
+	bh=C6Ad2AD0siK4x4/GE1JAh5GTw84tgnx8SmNQ9vLx5Ok=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Wy4NP35fSDDs8jvngzE61iToW+tESzDt8m9FQeJvg9EBlabSSg+1ZmFMEWl9ANmEbTCzpql/o1t3vSKin+oyMXDNPRRH76An0V7UoTW7KEAdvN+mlz40aqYKHy4M7cDJYbAyMn0rCeAFtBzN5ikbxE++RqycVo9yiO0prz00TxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482e2fdf5abso185400f8f.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 15:59:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788476366; x=1789081166;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=f2qhZe+AZkcGx7QLrzdA5uk1gfgMc92J6S2jPh7AbCc=;
-        b=aB7B+ECoEct956K2p/LJ/ngkUcRMOnk8FaFf+OphPb45Og2vBPQwf+sd/tnkmGpEXE
-         Bzw78rKeE5jS8Czu0AyNWWLqbM1ICD2IfJRR4OGfLXvIAKHlBtKTslJA+xnBZUaABeQ8
-         u+gXCYYlGj59XAACbtGs3+M7lHMAq8v3a2CgW94soly4XPQMkk1YW50SAlwsEv6dX8cq
-         j6priwMytM4eYb9AZFk7wzA1o3afMxJhFVtO1FGwq+HOTcEyALlLv1RpVyiuhdPx7F/f
-         NngKbI1kcuZyZ9TOi2RTF4d6N0YJ4FBZH7HPAi2cKtwE8DR4kfCRB1qiKQgcRBC7BEn1
-         EGQg==
-X-Forwarded-Encrypted: i=1; AKwUvBypAfv15xU7cWDXN8OJTIaLX7sweuTe13h/iOO5mHQzfkhI8C7mj/OG2y7VJi/Sn6f51t7y172c6cWo@vger.kernel.org
-X-Gm-Message-State: AFuF++nLIiJ+IUr2DUYE9n6jzeMueEmo3ubM9NRYCd8Ztf60sW9/wrcp
-	q2sMmXRrVUYw0+u20f+osBYMsA5/7sxiBpCO7lODo0uFhiE7GWO8ORvMcyjLjHXiaTA=
-X-Gm-Gg: AYBFou0k7nWAbKbXvSFpLUdJ6TIobKlXwReu/GiIFqJ5vOrmysry1Xn0/pqDfYjie9L
-	sQuJ3Bgn9bUEaqiaLVFgNdBNP0kkD3FAW+eUbIjuGEH2ndKhV7deZYN3rl9F0hhxOcoXOhfBTKz
-	CiOpqHAMQy1wc1RJtTft+ftYiFnx7UI+pOMN77qSb8zSEOM+uZJ3SVermvoSmCtgkh/ZHTUoWnV
-	9MWIkTlQdFV7b/hnXiNih9TJETtzHdH7XBrNwaFva1E+V9qI4pEpoDEPsoCmZ23aic6H4NMkMAv
-	mFUWWZkIdBstgOXvdu0TUziPwSeCJQssgWnWRevXIOLmZVwnkbEUlDQ/RzQ90UquP/9pPfn8rip
-	o2EYRU0MWtheTTpyWOtSc9KI5p4Ozn1m19cPxG6nKyPlDZsQGRqFVqHFzKa+vp+E0APMpFTgSEG
-	YrtXg8r80yd5ODe+ssS+iqCdaORZbqGUuEypemGExETwEpapaH7oYI1RMWtqgMXcDvRkNE
-X-Received: by 2002:a05:6000:260d:b0:482:ea99:6166 with SMTP id ffacd0b85a97d-48587284922mr3907649f8f.7.1788476366585;
+        d=1e100.net; s=20251104; t=1788476367; x=1789081167;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/s6nvcJwx7Ifs5qcA8T+nQv2xmeJ2s33utca3H2YozM=;
+        b=TzIIK1JJIlfLq+L3nNhxHF6pGlgmF6lla4u4bePfS9vAu33KmsJZNjuFDynXWo8x5N
+         Dl3g7vI7341+ziEzNtFy97kK8WFWJmzlWbwBHXRjDq3I4x9MVIIBTlbHEqsxOxquvPYV
+         qBNti6XaAmDu7wrQa7C3kEHdc2ARBYarz53VJFE8n8IMOvXJkaq9f7t/19dfrbp6vbaa
+         EGrg+cFzef+LVqC4k7/xWtSNFKg/qemDTKgnf2FNRab25Vy5ZYXtV2Pm8keGq8CPDzQ2
+         XcubcA7/X3l+ekHX3Ka7EygwTIaNT6I2qqc+Lwuygf4V7vYbP6szg/T2Q2b0aN0CJVbF
+         5YBg==
+X-Forwarded-Encrypted: i=1; AKwUvBzMcj1osHLCr3m9G6SRv9finMF7f7kY+AuyfLxpq+3GmxcA3sX7K9O4AWhVOIhYDoegEezRus6XpE10@vger.kernel.org
+X-Gm-Message-State: AFuF++lhmo9SJZljbRcx2yQKuyQjeDQDFU/s6j6hYyupVlsdcT0Pqi0g
+	FJ59zsZl5Q/2mGL9rQHfJmuUCi2rNYAabxnu5beZMUk+9ybpUcZRyM/L
+X-Gm-Gg: AYBFou1q4A0hSajcbUJWbucmhrSIBI9LsbuqAqPZSiT3gitNJxNcc+HPSpROk2VtsWL
+	4bGsBy953ECeWnB7FMCTVMAuXqsCMSF5mR+xGfUhZ2CfWziFP11jxV2U8ylxsH356izbSPP+g21
+	0A4TBtiCVoX1jOjN0f1FDR/1DOALeFVykpzxHrfj2/YFMnaC2GyrP5PCP6e89kdDGfr0zODdY3m
+	3lH8g21l0PU62KcGw6fdU5FiPnyDbFzHD3TNnxQ8TeH2Balos2LFtCumXkHJEi3YeXbWZVTXGp/
+	1eN6EnuOwSGgoui+QEVTYTlZAnkZmj5f5pJuEEUgzFHHw/QRCllSKDJtiPUGjxfBCjuhwd7mVaY
+	Fu/L3uDGz3il12ltcwG28hlsWtJLb+O/WQBdtfJ1vtjJC5GBx81pfVB/s/fFTQOI087kYzRWxN7
+	JDG3htU/gyBOzFfx4ejgQpKHe4z6WtDQqwbxewni2/bucQKXsAdYwp+WyjPj7cUo7eBcRvgz4A/
+	/3UG33lpCIXtJ9P1/uSDxZfMmlsEbvfBPqYNfs=
+X-Received: by 2002:a05:6000:2505:b0:485:8ad5:f965 with SMTP id ffacd0b85a97d-4858ad5ff97mr104210f8f.2.1788476366934;
         Thu, 03 Sep 2026 15:59:26 -0700 (PDT)
-Received: from [192.168.0.35] ([93.107.91.8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9a56sm1448006f8f.15.2026.09.03.15.59.24
+Received: from threads.localdomain ([84.68.179.181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885c5bbdsm1686142f8f.36.2026.09.03.15.59.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 15:59:25 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Thu, 03 Sep 2026 23:59:08 +0100
-Subject: [PATCH v14 2/4] phy: core: Add phy_get_by_of_node()
+        Thu, 03 Sep 2026 15:59:26 -0700 (PDT)
+From: Lucas Tanure <tanure@linux.com>
+To: Ulf Hansson <ulfh@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Stephen Boyd <sboyd@kernel.org>
+Cc: Brian Masney <bmasney+clk@redhat.com>,
+	Chuan Liu <chuan.liu@amlogic.com>,
+	Jian Hu <jian.hu@amlogic.com>,
+	Ronald Claveau <linux-kernel-dev@aliel.fr>,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Claude Fable 5 <noreply@anthropic.com>
+Subject: [PATCH 2/4] mmc: meson-gx: enable the bus pipeline clock on T7
+Date: Thu,  3 Sep 2026 23:59:19 +0100
+Message-ID: <20260903225921.2290441-3-tanure@linux.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260903225921.2290441-1-tanure@linux.com>
+References: <20260903225921.2290441-1-tanure@linux.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-2-01ef1eced075@linaro.org>
-References: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
-In-Reply-To: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Todor Tomov <todor.too@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5245;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=k1XGa66sdyRnrjmsJGkxGLl+Wzt3DuRWA8x+khgbtf8=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmfvGJt1zjBtwQ6Abzx2EPfIgcbCAp3sKMemHI
- dvh4tk7UVeJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapn7xgAKCRAicTuzoY3I
- Ooc9D/9NFN/v9wQ+NLNklcLOIdKQf5J3v705i225e0kCFe2VK0eLuGYxyeyWQ5foYwLz73aViQ0
- ydKGszoNMu026Xaxi1NUynmI2QORqdRbz7VyRPaHsk2njMb5dGj78v0VHrHFAUm7Q6BSOOzLhAO
- Wk3Sah8SBwfw3X1vdzO7ineseDiUOz1sDldyRbVz9s2/UFta1i2PHgSqjBiAQatqEJCutSlhXbR
- R/WSIOnKDFwiSnqxfZT1kQb6uPUPV5X12xcyBdDmec/mAiqiDpU7bkHM0lq4dMJlxpfJIE9Gqgb
- 5nAVUhjug74LUY5G6CfeGcoHdrWyr40MpQZFIuBD+EAOckl/w8rw6rwx3nm9LxyuHGL+T1tVR8B
- TDIimnRqGx5mZFAoAJus4NFKywM9Or/P9S/g5i0k/TclYN+pYZBVMohKrI+5uK0owl/up8NRZMP
- dCnZW0+5ZbDu+wkj8RGs0SGSejBznZDTkcyixMiNY7K9yLSWo2IJva9SWbJC8XrR4Eyz2qJduUm
- ps2RJtNeb64rcP3BZ8BHQs4+lBe26T2WiNKBSTvGRDf+CRl0Smk4PT8YbXBWz8M0y3qW9Soly/D
- U/iaBpi51SnhhdQL1+MnkpkObnJ2vg0o1f60bCRbemVIh9qegYjmXFYG5tJZ42qZTs4LAa88j5t
- 1h8PgVdlVH3Syyw==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-Add new function phy_get_by_of_node() allowing lookup of a phy by
-device_node. Separates existing logic in _of_phy_get() into an internal
-helper method _of_phy_get_with_args() to allow for reuse in new method.
+On the T7 SoC, the bus path between the SD/eMMC controllers and the
+NIC_MATRIX fabric goes through a pipeline stage inserted by the hardware
+design to help timing closure. The stage has its own gate clock and,
+when that clock is disabled, a controller that starts a DMA transfer can
+never complete it, hanging the storage devices and, from there, the
+whole system.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add a dedicated match data for the amlogic,t7-mmc compatible that makes
+the driver claim and enable the "pipeline" clock for as long as the
+device is bound.
+
+The clock is deliberately not optional: the hardware cannot do DMA
+without it, and failing the probe with a clear error is preferable to
+booting and hitting an undiagnosable DMA hang later.
+
+Assisted-by: Claude Fable 5 <noreply@anthropic.com>
+Signed-off-by: Lucas Tanure <tanure@linux.com>
 ---
- drivers/phy/phy-core.c  | 93 +++++++++++++++++++++++++++++++++++++------------
- include/linux/phy/phy.h |  6 ++++
- 2 files changed, 76 insertions(+), 23 deletions(-)
+ drivers/mmc/host/meson-gx-mmc.c | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index cd9ace125567a..1d060bc22d02c 100644
---- a/drivers/phy/phy-core.c
-+++ b/drivers/phy/phy-core.c
-@@ -604,22 +604,49 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
- }
- EXPORT_SYMBOL_GPL(phy_validate);
+diff --git a/drivers/mmc/host/meson-gx-mmc.c b/drivers/mmc/host/meson-gx-mmc.c
+index 694bb443d5f3..68566d7eccc7 100644
+--- a/drivers/mmc/host/meson-gx-mmc.c
++++ b/drivers/mmc/host/meson-gx-mmc.c
+@@ -52,6 +52,7 @@
+ #define   CLK_RX_DELAY_MASK(h)		(h->data->rx_delay_mask)
+ #define   CLK_ALWAYS_ON(h)		(h->data->always_on)
+ #define   CLK_IRQ_SDIO_SLEEP(h)		(h->data->irq_sdio_sleep)
++#define   CLK_PIPELINE(h)		(h->data->has_pipeline_clk)
  
-+/**
-+ * _of_phy_get_with_args() - lookup and obtain a reference to a phy by of_phandle_args
-+ * @args: of_phandle_args to the phy
-+ *
-+ * Returns the phy from the provider's of_xlate, -ENODEV if disabled,
-+ * -EPROBE_DEFER if the provider is not yet registered.
-+ */
-+static struct phy *_of_phy_get_with_args(struct of_phandle_args *args)
-+{
-+	struct phy *phy;
-+	struct phy_provider *phy_provider;
+ #define SD_EMMC_DELAY 0x4
+ #define SD_EMMC_ADJUST 0x8
+@@ -139,6 +140,7 @@ struct meson_mmc_data {
+ 	unsigned int always_on;
+ 	unsigned int adjust;
+ 	unsigned int irq_sdio_sleep;
++	bool has_pipeline_clk;
+ };
+ 
+ struct sd_emmc_desc {
+@@ -1204,6 +1206,15 @@ static int meson_mmc_probe(struct platform_device *pdev)
+ 	if (IS_ERR(core_clk))
+ 		return PTR_ERR(core_clk);
+ 
++	if (CLK_PIPELINE(host)) {
++		struct clk *pipe_clk;
 +
-+	phy_provider = of_phy_provider_lookup(args->np);
-+	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner))
-+		return ERR_PTR(-EPROBE_DEFER);
-+
-+	if (!of_device_is_available(args->np)) {
-+		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
-+		phy = ERR_PTR(-ENODEV);
-+		goto out_put_module;
++		pipe_clk = devm_clk_get_enabled(&pdev->dev, "pipeline");
++		if (IS_ERR(pipe_clk))
++                      return dev_err_probe(&pdev->dev, PTR_ERR(pipe_clk),
++					   "missing pipeline clock\n");
 +	}
 +
-+	phy = phy_provider->of_xlate(phy_provider->dev, args);
-+
-+out_put_module:
-+	module_put(phy_provider->owner);
-+
-+	return phy;
-+}
-+
- /**
-  * _of_phy_get() - lookup and obtain a reference to a phy by phandle
-  * @np: device_node for which to get the phy
-  * @index: the index of the phy
-  *
-- * Returns the phy associated with the given phandle value,
-- * after getting a refcount to it or -ENODEV if there is no such phy or
-- * -EPROBE_DEFER if there is a phandle to the phy, but the device is
-- * not yet loaded. This function uses of_xlate call back function provided
-- * while registering the phy_provider to find the phy instance.
-+ * Returns the phy associated with the given phandle value after getting
-+ * a refcount to it; -ENODEV if there is no such phy or the phy is
-+ * disabled; -EPROBE_DEFER if the phy provider is not yet available.
-  */
- static struct phy *_of_phy_get(struct device_node *np, int index)
- {
- 	int ret;
--	struct phy_provider *phy_provider;
--	struct phy *phy = NULL;
-+	struct phy *phy;
- 	struct of_phandle_args args;
+ 	ret = meson_mmc_clk_init(host);
+ 	if (ret)
+ 		return ret;
+@@ -1322,12 +1333,22 @@ static const struct meson_mmc_data meson_axg_data = {
+ 	.irq_sdio_sleep	= CLK_V3_IRQ_SDIO_SLEEP,
+ };
  
- 	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
-@@ -633,22 +660,7 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
- 		goto out_put_node;
- 	}
- 
--	phy_provider = of_phy_provider_lookup(args.np);
--	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
--		phy = ERR_PTR(-EPROBE_DEFER);
--		goto out_put_node;
--	}
--
--	if (!of_device_is_available(args.np)) {
--		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
--		phy = ERR_PTR(-ENODEV);
--		goto out_put_module;
--	}
--
--	phy = phy_provider->of_xlate(phy_provider->dev, &args);
--
--out_put_module:
--	module_put(phy_provider->owner);
-+	phy = _of_phy_get_with_args(&args);
- 
- out_put_node:
- 	of_node_put(args.np);
-@@ -997,6 +1009,41 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- }
- EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
- 
-+/**
-+ * phy_get_by_of_node() - lookup and obtain a reference to a phy by device_node
-+ * @np: node containing the phy
-+ *
-+ * Returns the phy associated with the device node or ERR_PTR.
-+ */
-+struct phy *phy_get_by_of_node(struct device_node *np)
-+{
-+	struct of_phandle_args args = { .np = np, .args_count = 0 };
-+	struct phy *phy;
++static const struct meson_mmc_data meson_t7_data = {
++	.tx_delay_mask	= CLK_V3_TX_DELAY_MASK,
++	.rx_delay_mask	= CLK_V3_RX_DELAY_MASK,
++	.always_on	= CLK_V3_ALWAYS_ON,
++	.adjust		= SD_EMMC_V3_ADJUST,
++	.irq_sdio_sleep	= CLK_V3_IRQ_SDIO_SLEEP,
++	.has_pipeline_clk = true,
++};
 +
-+	if (!np)
-+		return ERR_PTR(-EINVAL);
-+
-+	mutex_lock(&phy_provider_mutex);
-+
-+	phy = _of_phy_get_with_args(&args);
-+
-+	if (IS_ERR(phy))
-+		goto out_unlock;
-+
-+	if (!try_module_get(phy->ops->owner)) {
-+		phy = ERR_PTR(-EPROBE_DEFER);
-+		goto out_unlock;
-+	}
-+
-+	get_device(&phy->dev);
-+
-+out_unlock:
-+	mutex_unlock(&phy_provider_mutex);
-+
-+	return phy;
-+}
-+EXPORT_SYMBOL_GPL(phy_get_by_of_node);
-+
- /**
-  * phy_create() - create a new phy
-  * @dev: device that is creating the new phy
-diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index ea47975e288ae..71c2e16397130 100644
---- a/include/linux/phy/phy.h
-+++ b/include/linux/phy/phy.h
-@@ -284,6 +284,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
- 				     const char *con_id);
- struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
- 				     int index);
-+struct phy *phy_get_by_of_node(struct device_node *np);
- void of_phy_put(struct phy *phy);
- void phy_put(struct device *dev, struct phy *phy);
- void devm_phy_put(struct device *dev, struct phy *phy);
-@@ -493,6 +494,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
- 	return ERR_PTR(-ENOSYS);
- }
- 
-+static inline struct phy *phy_get_by_of_node(struct device_node *np)
-+{
-+	return ERR_PTR(-ENOSYS);
-+}
-+
- static inline void of_phy_put(struct phy *phy)
- {
- }
-
+ static const struct of_device_id meson_mmc_of_match[] = {
+ 	{ .compatible = "amlogic,meson-gx-mmc",		.data = &meson_gx_data },
+ 	{ .compatible = "amlogic,meson-gxbb-mmc", 	.data = &meson_gx_data },
+ 	{ .compatible = "amlogic,meson-gxl-mmc",	.data = &meson_gx_data },
+ 	{ .compatible = "amlogic,meson-gxm-mmc",	.data = &meson_gx_data },
+ 	{ .compatible = "amlogic,meson-axg-mmc",	.data = &meson_axg_data },
++	{ .compatible = "amlogic,t7-mmc",		.data = &meson_t7_data },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, meson_mmc_of_match);
 -- 
 2.55.0
 
