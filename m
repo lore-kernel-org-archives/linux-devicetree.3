@@ -1,125 +1,182 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.smtpout.orange.fr (smtp-71.smtpout.orange.fr [80.12.242.71])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9163E3D80;
-	Thu,  3 Sep 2026 20:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D97738E5DF
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 20:38:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.12.242.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788467524; cv=none; b=oDeVAKQMbqu51fbn+OvbSd+dFnB+rwc+RI7EPju21HCKTJS6ExSQo9IjfjHVC7FylVevKK30O7TrK/75H9SdgO93zRme4gFjhE2DVD8QF2UOK6qiQqF88mytuqkJi6LJrYURVJIEssm5HuOJbpaHV87OSylG/mk2xscNlTFiZdM=
+	t=1788467909; cv=none; b=k5MwwlptVTYu4N06zGfN3Za0nNY9OC6dntLUmsjAMssIKRdlBIwUFCldnrqMYJVL7w4m6Agkgbu95D1GtdR6O1yM1Lz487XEROLK6jWJBI0VQn5EcnKtLu6meyhSrIH7yTOIgzuv1mR4TYnBIKi35nbRwnLHFkqt0apsrDzfiUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788467524; c=relaxed/simple;
-	bh=N+iJOjYWDEYF/A8iOrTnPS7U7qL5ueGDQ6IlXwuRZwk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MhK88kRzL8uvV9bd9/pKWKrYr6j/Kor3IAVQmqd+/XcaCtpHf85rNcRyqNvo+Ob5chjK9Q3Z0nQpA3GQfp5mlQaTqDwbU8rAhc2sUPo4CRXCn/Dz4ROC+Ogec6ZlRy/5QruBsnXmcaD0KwoWV1x/lrdyP3Q/dVs1GcA8ZWyNzAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=N8QAsxcW; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=QknhE9zh; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788467909; c=relaxed/simple;
+	bh=vG5ci2nWAgHZLCU6AvFsKiZ0VEOvWRRG6EEH5qQFh54=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=RO1yA9okFVCzQB9Hk5tq6YB19cgXaVWOzy5yq+G43oB4OnZNQG9GLu+3Qv13KGS1q8T5jo7tkp8VZh/XH/BS8jmkfSOmLMQpvXAmVz7vvwhOhfyc31pr9DqITWkN2vjKpqriyd/kYabPtWBmi1uiABUWgJ0rgTwQUwXqgY12+yE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr; spf=pass smtp.mailfrom=wanadoo.fr; dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b=TJDYEztg; arc=none smtp.client-ip=80.12.242.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="N8QAsxcW";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="QknhE9zh"
-Date: Thu, 3 Sep 2026 22:31:48 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788467509;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6pnDx8fNJobN9rbe3wNwxHqZd8eR6bqb/8fO1Oo1YFE=;
-	b=N8QAsxcWwwdlcbXC/1gZYHLdz20tGbSKaPShPKii8yExQeiJbkjDjign6PQZaIuZqhLBpd
-	tj46UtpqaA6LZZkvyRuIAnz3/9STTfU4hlsVQcSv6Cbvhu+AplU2IzSycqQ8ctF0NxJVLZ
-	FFsYcw3gq/zyH4nA5ChVxCy+sEUrzXh78CM+hT4yLhRi5oB44BVGk7G9WNEJj/AnjlcRsW
-	7XAtQDDVTC4Xl3+vy4wuvZvApizApuHmRyttbFd6nO42jbwnj9MzVunGbDjTT7zm0Nn8uR
-	MAEZeAQn2a0iRzek6mgEz9b7+J/gZvfbDF51yuqeoJDHC371ft1Jcbtka9Nxng==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788467509;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6pnDx8fNJobN9rbe3wNwxHqZd8eR6bqb/8fO1Oo1YFE=;
-	b=QknhE9zhIuoEYMZn/xI0i+3CR53zw1LZpaisgIVS4XOEU011yFIRRgVTc3vL22wfINo1mE
-	4W0YI2+fPhMRo8DA==
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-To: Stefan Wahren <wahrenst@gmx.net>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Ray Jui <rjui@broadcom.com>, 
-	Scott Branden <sbranden@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RESEND v3 3/4] firmware: raspberrypi: Add reboot mode
- support
-Message-ID: <a35cclkfw7w5b5dqgitnewfrw56ouwymkra3jmxbbtynrojghc@bzkz4xnrztur>
-References: <20260903-rpi-tryboot-v3-0-ce94c347e932@linutronix.de>
- <20260903-rpi-tryboot-v3-3-ce94c347e932@linutronix.de>
- <f85ebc81-c9e8-4014-bfed-66f9570eb1d2@gmx.net>
+	dkim=pass (2048-bit key) header.d=wanadoo.fr header.i=@wanadoo.fr header.b="TJDYEztg"
+Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e] ([10.65.86.62])
+	by smtp.orange.fr with ESMTP
+	id 2EBKxwjlI2cNb2EBKxrkjd; Thu, 03 Sep 2026 22:37:10 +0200
+Received: from [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
+ ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id 2EB8xKXgh2arj2EB8xJSGR; Thu, 03 Sep 2026 22:37:02 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1788467822;
+	bh=CwaKpZhY+U1YQ2Z3sLZB+CgUEjk+uqaSTrCtONQLkzo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=TJDYEztgMBZr5D+XpbvrUmYthbWh3TsgoaTswh87ZevYrHpSZk7puA/GvTLiGfzRp
+	 WLPJJ158Kq2q9AgfFG3m1CXjpTdi5kHg/M1zk7I1Ja6j6QfOGMet5wwl1YzvQbNSq3
+	 p7/uQLH1BAgihqSP+0g0KRN/JxTTOZu4S5YfAj0dMuXa576wIR9ILVg4oE3LhjkZhB
+	 xwiqdZYgRcgGG4RTDdT4buFeCs18f1OI7xtvU3pRFBWtiefvmIkzlWkeSvE2KXO3qR
+	 HTO/cKEio50iZEA7RgC4r87APvZHUW32JC+MCMQmVAcQh4xawDKumgLdL4XBks9EIA
+	 aMVAcnfgAZ9Tw==
+X-ME-Helo: [IPV6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e]
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Thu, 03 Sep 2026 22:37:02 +0200
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+Message-ID: <46772551-207f-4795-89d5-6c02a0b85410@wanadoo.fr>
+Date: Thu, 3 Sep 2026 22:36:57 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/3] pwm: rp1: Add RP1 PWM controller driver
+To: Andrea della Porta <andrea.porta@suse.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+ linux-pwm@vger.kernel.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Naushir Patuck <naush@raspberrypi.com>,
+ Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com,
+ Sean Young <sean@mess.org>, Julian Braha <julianbraha@gmail.com>
+References: <cover.1784539788.git.andrea.porta@suse.com>
+ <a83d65b2d91865eb722337c547c94dce175e6086.1784539788.git.andrea.porta@suse.com>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Content-Language: en-US, fr-FR
+In-Reply-To: <a83d65b2d91865eb722337c547c94dce175e6086.1784539788.git.andrea.porta@suse.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <f85ebc81-c9e8-4014-bfed-66f9570eb1d2@gmx.net>
 
-On Thu, Sep 03, 2026 at 08:08:22PM +0200, Stefan Wahren wrote:
-> Hi Gregor,
+Le 20/07/2026 Ã  11:44, Andrea della Porta a Ã©critÂ :
+> From: Naushir Patuck <naush@raspberrypi.com>
 > 
-> Am 03.09.26 um 16:48 schrieb Gregor Herburger:
-> > The Raspberry Pi firmware has a tryboot mode where it tries to boot from
-> > another partition. This can be used to create a A/B update scheme.
-> > 
-> > To enable this on the next boot, the RPI_FIRMWARE_SET_REBOOT_FLAGS
-> > message must be sent to the firmware. Add support for this by
-> > registering a reboot mode driver.
-> > 
-> > Furthermore, safely registering the reboot mode requires adjusting the
-> > teardown sequence. Replace the manually called rpi_firmware_put() with a
-> > devres-managed called (devm_add_action_or_reset). Without this, the
-> > cleanup function of devm_reboot_mode_register() would trigger a
-> > use-after-free error by attempting to access the firmware context after
-> > it had already been freed by rpi_firmware_remove().
-> > 
-> > Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> > ---
-> >   drivers/firmware/Kconfig                   |  2 ++
-> >   drivers/firmware/raspberrypi.c             | 40 ++++++++++++++++++++++++++----
-> >   include/soc/bcm2835/raspberrypi-firmware.h |  2 ++
-> >   3 files changed, 39 insertions(+), 5 deletions(-)
-> > 
-> > diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
-> > index bbd2155d84838..34605bf7c9734 100644
-> > --- a/drivers/firmware/Kconfig
-> > +++ b/drivers/firmware/Kconfig
-> > @@ -115,6 +115,8 @@ config ISCSI_IBFT
-> >   config RASPBERRYPI_FIRMWARE
-> >   	tristate "Raspberry Pi Firmware Driver"
-> >   	depends on BCM2835_MBOX
-> > +	select POWER_RESET
-> > +	select REBOOT_MODE
-> >   	help
-> >   	  This option enables support for communicating with the firmware on the
-> >   	  Raspberry Pi.
-> > 
-> this part doesn't apply anymore. Did you rebased against 7.3-rc1 ?
-I have not rebased. I just sent the series out again to get some feedback. I
-will rebase it and send it again. Sashiko found an issue anyways.
-
+> The Raspberry Pi RP1 southbridge features an embedded PWM
+> controller with 4 output channels, alongside an RPM interface
+> to read the fan speed on the Raspberry Pi 5.
 > 
-> Best regards
+> Add the supporting driver.
+> 
+> Signed-off-by: Naushir Patuck <naush@raspberrypi.com>
+> Co-developed-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
+> Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 
-Best regards
--- 
-Gregor Herburger
-Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
-Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
+Hi,
 
-Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
-can be found here): https://linutronix.de/legal/data-protection.php
+...
 
-Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
-Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
-806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
-Katharina Kopp, Alexander Gieringer
+> +static int rp1_pwm_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev = &pdev->dev;
+> +	struct device_node *np = dev->of_node;
+> +	unsigned long clk_rate;
+> +	struct pwm_chip *chip;
+> +	void __iomem	*base;
+> +	struct rp1_pwm *rp1;
+> +	int ret;
+> +
+> +	chip = devm_pwmchip_alloc(dev, RP1_PWM_NUM_PWMS, sizeof(*rp1));
+> +	if (IS_ERR(chip))
+> +		return PTR_ERR(chip);
+> +
+> +	rp1 = pwmchip_get_drvdata(chip);
+> +
+> +	base = devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+> +
+> +	rp1->regmap = devm_regmap_init_mmio(dev, base, &rp1_pwm_regmap_config);
+> +	if (IS_ERR(rp1->regmap))
+> +		return dev_err_probe(dev, PTR_ERR(rp1->regmap), "Cannot initialize regmap\n");
+> +
+> +	rp1->clk = devm_clk_get(dev, NULL);
+
+Could it be devm_clk_get_enabled() to simplify the error handling path 
+as done above with other devm function?
+...
+
+> +	if (IS_ERR(rp1->clk))
+> +		return dev_err_probe(dev, PTR_ERR(rp1->clk), "Clock not found\n");
+> +
+> +	ret = clk_prepare_enable(rp1->clk);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable clock\n");
+
+... this also saves these 3 lines.
+
+> +	rp1->clk_enabled = true;
+> +
+> +	ret = devm_clk_rate_exclusive_get(dev, rp1->clk);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to get exclusive rate\n");
+> +		goto err_disable_clk;
+> +	}
+> +
+> +	clk_rate = clk_get_rate(rp1->clk);
+> +	if (!clk_rate) {
+> +		ret = dev_err_probe(dev, -EINVAL, "Failed to get clock rate\n");
+> +		goto err_disable_clk;
+> +	}
+> +	/*
+> +	 * To prevent u64 overflow in period calculations:
+> +	 * mul_u64_u64_div_u64(period_ns, clk_rate, NSEC_PER_SEC)
+> +	 * If clk_rate > 1 GHz, the result can overflow.
+> +	 */
+> +	if (clk_rate > HZ_PER_GHZ) {
+> +		ret = dev_err_probe(dev, -EINVAL, "Clock rate > 1 GHz is not supported\n");
+> +		goto err_disable_clk;
+> +	}
+> +	rp1->clk_rate = clk_rate;
+> +
+> +	chip->ops = &rp1_pwm_ops;
+> +	chip->atomic = true;
+> +
+> +	platform_set_drvdata(pdev, chip);
+> +
+> +	ret = pwmchip_add(chip);
+
+Could it be devm_pwmchip_add() to simplify the error handling path as 
+done above with other devm function?
+
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to register PWM chip\n");
+> +		goto err_disable_clk;
+> +	}
+> +
+> +	ret = of_syscon_register_regmap(np, rp1->regmap);
+> +	if (ret) {
+> +		dev_err_probe(dev, ret, "Failed to register syscon\n");
+> +		goto err_remove_chip;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_remove_chip:
+> +	pwmchip_remove(chip);
+> +err_disable_clk:
+> +	clk_disable_unprepare(rp1->clk);
+> +
+> +	return ret;
+> +}
+...
+
+CJ
