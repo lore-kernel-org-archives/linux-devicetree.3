@@ -1,193 +1,405 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BD71DDC1B
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 07:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1AC375F88;
+	Thu,  3 Sep 2026 07:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788422034; cv=none; b=PyWesMI5v3bg0ZyCbz5oIQnIyxh7a8p0nydYeTqiU2kPh4zIFz1rQqVA1eRNxwmFQ+pwdXL+peRfnx3RWuU2M/o2iNnjKvQZchidfv82VwYuHfMoSEGHn6YJAkHvBtejU3SQ2Mpm9mrZ81TrDiyU1N08ULL0B1dFP6b+myenaXE=
+	t=1788422069; cv=none; b=Bpov6wfVp5Q5WvPJ1rEiMZ/aAbgMVD0dbqPOkBJNnb7oSco1M69DangtTI4hhFhRt9TwV7cl3miUxjpp3ddAkQ6IY6ZDLQ74eeI+U+oh9158X6Yp3TOt1YS90MzXloG1jvqfuL0hGWHq4WDMiWtDTHywZ7G5PPaDBjTq7EXF1mA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788422034; c=relaxed/simple;
-	bh=at32knaWNCI4MK+ZgXm4viSmUtWJZmXLxN5xEjZMDrU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SF+UzuRD0dKks4/SUxbRjmbSYTAbYmSvkN1zMxNFS61HmdUZ6JPh0/XdUSSNschagXUNECVsgEnFqcxbHI+2176f1A6j55Lb5R5RA4V3ERVFY9cXVC39TNkilDlV/WomclW5nPRNtgNvAOOkGE3fgzXoh+Vve+sz58jpQalEXro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RAkQ9M/q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E+ldrj9J; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788422069; c=relaxed/simple;
+	bh=5teIvxg5u9K0ClCWiNOyZr1F6owUQ7BEZazX5JMuq/8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TZBbGkomxuZ1hm6HUu0mwT/X7A7lWrOQgWcFjb6RZk58UvvfmMlgqTE85VIT3Nb8moVcv9mmgXtyXreqWf3OpmTuz7yk6Vlb4SUaxnvSpzFWn8Nn2FMl3zk5TLMqDCNKEMeZMLbXhg/TviYV9LPa8M74seHcHa5fMytEA5GX2b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epOJbXew; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RAkQ9M/q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E+ldrj9J"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6835lrXn3642520
-	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 07:53:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	wibuWzN+1YhKv9Jd4E2FJsvoSQMxMG2ONq6pDF3AqKk=; b=RAkQ9M/qq2IXHG3+
-	2KZzDBRG3DZkXBdKPgxqERg+lz12EkQewnCTwTCbRmezsMYATCNKELiM81WKCLvY
-	jJ35JldVfdPpSEy1yXhsO4JPu3wfEiWY4h2JkQQMjFlpQ7FvSP9s4Riz9cJz8sLl
-	33dwyRyzQwBXsKTOxRlKLISlE5+yoGLfckys5bCOG2kUREE2TZa7KMtkdeqwT4ic
-	EP7zSCB3d+FOdXv1aL+5sjDEnva/SvXlJ+0l2l4vA2kVXCrf+riNKPvtsFMVLBWn
-	tVIBxs6E+A/y9/t7vFKrQFxwsSRkANsit6ePbyIyHV5P767z5HDOP2p53jEk7JRq
-	2y9Chg==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4genrdut14-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 07:53:50 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9393ac4961fso145283785a.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 00:53:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788422030; x=1789026830; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wibuWzN+1YhKv9Jd4E2FJsvoSQMxMG2ONq6pDF3AqKk=;
-        b=E+ldrj9JlaA2lkATL/8lOT/yfntBWRlrhbaqn2R8pMm9oUpEJeaLjpq8gJm6/sDjHa
-         TZIJ2LiV2qr4wU8ukhKFTbN1kCqz1iu1f7/5Khc606rHn3yoZu8dXBWLtNGs9+NdqZ8i
-         NdUYP2yexbbgEzrkbYzYrZ07dMwIkTLC3EjO2/lQrKSDTNLgWZ5OGGt2d9n9gt1PF2KR
-         dEiIwV8k4nENwZ0Sg7uzPy+tuwFCrRTEe0gR7QYU7FQjN7tlYRIMjanvsTR1Pb+1XTU0
-         3aETSLi/UdVhGXKgWTsQkCY3eHRSLHIbUqAUX4tEw/StuWNjapv9uYOsGk7JfGoGS4XW
-         fc6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788422030; x=1789026830;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wibuWzN+1YhKv9Jd4E2FJsvoSQMxMG2ONq6pDF3AqKk=;
-        b=ncrCXl+hMniOyx/NC4Sz+k2MuIQBQ3hv2iZYkQuVFYduMuyMbw9pkOgCdIC9z7wV10
-         RITYOwb3klWhZFHffqpljNmoOF1hIaRH54bccLzCiyTRA1l6qVWRBgZMHYc+4p8bckpa
-         P1gsYkx+5WBdtRXn43TDftGwoWrgYLt5DYxrlU5KIUw9fdBGbSzG5abRUC4bpF9cxXNS
-         vUxPkDBk4D3401G2W5SFJ61ot9ZLGjzLBsPpsUXRiSboenKKxZK0tYTsfluPU8E0bl5t
-         2Kc1zyQ+giuzJMjWTbHRgvhHpvgS4MIXQAJXYuSwIegefSLOAFyXd+P0PRie4koSz+hk
-         nrUg==
-X-Forwarded-Encrypted: i=1; AKwUvBzCDVR1XduW/hkwAP44v/iVMBIvIsGZt9FDP/q5Tkqm0MRS/fu4+pH+rUVIEzJ+ydAN2v9JgjWHLQiU@vger.kernel.org
-X-Gm-Message-State: AFuF++kSlfUxeYhgQ8DUhLemVAqNRHCOoGNL/e3DdycDJU6gERcbDc6t
-	HawBSX3+nkVX0KCWQFWclP6kWpRdiD1gbS1NVd8Ev1oDCMXdmagQe/lN7qA9w6PrcgkeD/9djpk
-	0I39hjAECBJ7kMaYIjCc7liPTQs+a6O/CAIQJ1+acmrCJCGFoQ8WTxNU11gWn9eYb
-X-Gm-Gg: AYBFou3BvZXRgWnGalaSb5KtGaw2i9D4TXbhSyj3HB8xPmsanF4UytSn0Xx+MRjkJTj
-	iuqx6U98ukLivnxWWnGsw3JxB9pGJx+d5iMRmuIj76Q7xFUnVJXjzZcIBMppjqTinRWZf84aszn
-	9YPQGQk7MY1G+avv1wlaW6vbCMbR7cev+I8mI/vKUzV61rWSMO4nnSO4w0O8QcaUkmPWIgcRslA
-	YOkHfDXOu9gWn+unH2xVN3PrvREU6YlujuxZ/FOT5QKHc+HhACK+HwP3pAtGqiIJ3Pj7Xgvx/aa
-	0O34/2njbFmMNJzdzn/prXvYLG/zjYYd3Dv1JHrEVNysFbCt0b9NgvACVa9Do9lyhaWEA2EUZmY
-	c8lg6eJfw9CtleQ==
-X-Received: by 2002:a05:620a:45:b0:939:2d77:d6a8 with SMTP id af79cd13be357-93960f88048mr1029253485a.34.1788422029719;
-        Thu, 03 Sep 2026 00:53:49 -0700 (PDT)
-X-Received: by 2002:a05:620a:45:b0:939:2d77:d6a8 with SMTP id af79cd13be357-93960f88048mr1029235785a.34.1788422024450;
-        Thu, 03 Sep 2026 00:53:44 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80388sm13415622f8f.14.2026.09.03.00.53.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 00:53:43 -0700 (PDT)
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Date: Thu, 03 Sep 2026 09:53:01 +0200
-Subject: [PATCH v2 5/5] arm64: dts: qcom: qcs6490-rb3gen2: enable TC9563
- embedded GPIO controller
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epOJbXew"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D582A1F000E9;
+	Thu,  3 Sep 2026 07:54:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788422067;
+	bh=qf9Tn+bVBs74GFd2TUZ1Wsh5sBVkHOm+fXWdGHGqv9Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=epOJbXewM2oIGJOfQXzUoAdm4SBtuIgW4+jz9lSKy2UT1+8pmxh5k+9PMaXBze3Ep
+	 cQc+qiwXogyuPLG8nn3YrOClAPt9aMsDZZg1o0xnJv0tjNtiYl135/O3hTIWZ7hvaQ
+	 SNECD/RcFg3uGfUMTQjrH3DiHeF/hJGEVUyUCcTK7vyay6FTHt7fi96YHZ2nqPflfo
+	 Irae/ZyzB71gRQqAAC+MZ8o69ddzy0dwY+liXOKOLfiir1QkJkQOjmh/ZAJXqoStec
+	 vfYyu5rMo/5Kw9UJjvO2N6KuxfU7pYAIADbeDM/0Wwa5Ak2MVNIefnZg1StbSFgS+u
+	 /FYceF5PJRkFA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 2/3] dmaengine: amlogic: Add general DMA driver for
+ A9
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
+Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, robh@kernel.org, dmaengine@vger.kernel.org, linux-amlogic@lists.infradead.org, vkoul@kernel.org
+In-Reply-To: <20260903-amlogic-dma-v12-2-f769bc344056@amlogic.com>
+References: <20260903-amlogic-dma-v12-0-f769bc344056@amlogic.com>
+ <20260903-amlogic-dma-v12-2-f769bc344056@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 07:54:26 +0000
+Message-Id: <20260903075426.D582A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260903-pci-tc9563-aux-v2-5-34c625b542c1@oss.qualcomm.com>
-References: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com>
-In-Reply-To: <20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com>
-To: Bjorn Helgaas <bhelgaas@google.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Linus Walleij <linusw@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Michael Walle <mwalle@kernel.org>
-Cc: Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>,
-        linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Authority-Analysis: v=2.4 cv=H4/rBeYi c=1 sm=1 tr=0 ts=6a99278e cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=eJG0Ch9LUBsamovDncMA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=bTQJ7kPSJx9SKPbeHEYW:22
-X-Proofpoint-GUID: MIFIb6bQzQS82ztMRu2aGIgL4qPZJI38
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA2OSBTYWx0ZWRfXyEkqKFAHFZpY
- 5SbN9nHDswQ8Bi9IxXxHG1DlC6WV2dDNi70+e/YQBYx9i6lSaWYuBuMbSWqSYsLiM4OV+VbzQ0p
- 1AdaGNxExS43M4N0cZX0DntE2ElJaN3l7KKg4c+HaKRpq7fkFwBQC4px+l45aG9JFRw8PlV/X1J
- vCCu04bRT+T3vkE4Vn/jh+E4CCrOUXmzH7VQ4PUBdL9popHBlrY5oSkYcRx3KZyRVtbTzUCDlI3
- iTAMxzOTcOjC6RG6fSp4Cj6J0GNGsnW7GCm4OvLCdg5/UoF6SIpxzxMiDC/VzOEXaTjSvkkzhH8
- Mr15NyL6zRAoV77Wrdj5JaP9+sPTJRMCHNzbHpWaeA9xLht3y8YKgaLu5k6AH6bGd3TlC8Rrz/m
- RLBW/8EdAt1fcatX0ulhvCrBos6k8Ecg/Qa8jvzLFtueEJ2c/BIU3B3wSHfQHc8JnCRbyP/PcRO
- l/vdUG4PL45jt5ieJFA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA2OSBTYWx0ZWRfX+tNojfOSlnjD
- J5KT9Oy22ZrDNYzqrMd8SdUhqEVDcmdpzPKkK4HD7CfkeJH9ixCQtHtV76hLNSokmM2nSwi9LyE
- TOqA40qdi1yfdAj+eweDfh1MtROgeJ0=
-X-Proofpoint-ORIG-GUID: MIFIb6bQzQS82ztMRu2aGIgL4qPZJI38
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 adultscore=0 bulkscore=0 clxscore=1015
- malwarescore=0 spamscore=0 phishscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030069
 
-The Toshiba TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
-lines.
-The controller is registered as an auxiliary device by the TC9563 power
-controller and accessed through the same i2c device.
-Describe the controller as a "gpio" child node of the switch and use it
-to control the PERST# reset lines of the two external downstream ports
-(pcie@1,0 and pcie@2,0), as expected by the TC9563 power controller after
-switching to the GPIO descriptor API for per-port resets.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] Unmanaged workqueue `free_wq` leaks on probe errors, and premature=
+ tasklet termination in `remove()` causes Use-After-Free due to devres orde=
+ring.
+- [High] Bitwise ORing a host-endian constant into a little-endian (`__le32=
+`) variable causes data corruption on big-endian architectures.
+- [High] Failure to check `platform_get_irq()` return value breaks deferred=
+ probing.
+- [High] `aml_chan->status` and `aml_chan->err_num` are updated outside the=
+ channel lock in `aml_dma_terminate_all()`.
+- [High] `aml_dma_chan_resume()` fails to start descriptors that were issue=
+d while the channel was paused.
+- [Medium] `aml_dma_tx_status()` fails to check the `desc_submitted` list, =
+leading to false errors and incorrect residue.
+- [Medium] The interrupt handler unconditionally returns `IRQ_HANDLED`, def=
+eating spurious interrupt detection.
+- [Low] Taking the address of a member of a potentially NULL pointer in `am=
+l_dma_terminate_all()`.
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+commit 038e372b66227ebb6d24a3849c98d588ff0edcd7
+Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-index a13315bf0fb0..8670c4243b10 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-@@ -891,6 +891,11 @@ pcie@0,0 {
- 		pinctrl-0 = <&tc9563_resx_n>;
- 		pinctrl-names = "default";
- 
-+		tc9563_gpio0: gpio {
-+			gpio-controller;
-+			#gpio-cells = <2>;
-+		};
-+
- 		pcie1_switch0_dsp1: pcie@1,0 {
- 			reg = <0x20800 0x0 0x0 0x0 0x0>;
- 			#address-cells = <3>;
-@@ -899,6 +904,7 @@ pcie1_switch0_dsp1: pcie@1,0 {
- 			device_type = "pci";
- 			ranges;
- 			bus-range = <0x3 0xff>;
-+			reset-gpios = <&tc9563_gpio0 2 GPIO_ACTIVE_LOW>;
- 		};
- 
- 		pcie@2,0 {
-@@ -909,6 +915,7 @@ pcie@2,0 {
- 			device_type = "pci";
- 			ranges;
- 			bus-range = <0x4 0xff>;
-+			reset-gpios = <&tc9563_gpio0 3 GPIO_ACTIVE_LOW>;
- 
- 			/* Renesas μPD720201 PCIe USB3.0 Host Controller */
- 			usb-controller@0,0 {
+dmaengine: amlogic: Add general DMA driver for A9
 
--- 
-2.55.0
+Amlogic A9 SoCs include a general-purpose DMA controller that can be used
+by multiple peripherals, such as I2C PIO and I3C. Each peripheral group
+is associated with a dedicated DMA channel in hardware.
 
+> diff --git a/drivers/dma/amlogic-dma.c b/drivers/dma/amlogic-dma.c
+> new file mode 100644
+> index 0000000000000..b6687d98096c3
+> --- /dev/null
+> +++ b/drivers/dma/amlogic-dma.c
+
+[ ... ]
+
+> +static enum dma_status aml_dma_tx_status(struct dma_chan *chan,
+> +					 dma_cookie_t cookie,
+> +					 struct dma_tx_state *txstate)
+> +{
+> +	struct aml_dma_chan *aml_chan =3D to_aml_dma_chan(chan);
+> +	struct aml_dma_dev *aml_dma =3D aml_chan->aml_dma;
+> +	struct aml_dma_desc *aml_desc =3D NULL;
+> +	struct virt_dma_desc *vd;
+> +	u32 residue =3D 0, done =3D 0;
+> +	unsigned long flags;
+> +	enum dma_status ret;
+> +
+> +	ret =3D dma_cookie_status(chan, cookie, txstate);
+> +	if (ret =3D=3D DMA_COMPLETE)
+> +		return ret;
+> +
+> +	if (aml_chan->status =3D=3D DMA_PAUSED)
+> +		ret =3D DMA_PAUSED;
+> +	if (!txstate)
+> +		return ret;
+> +
+> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
+> +	vd =3D vchan_find_desc(&aml_chan->vchan, cookie);
+> +	if (vd) {
+> +		aml_desc =3D to_aml_dma_desc(vd);
+> +		residue =3D aml_desc->data_len;
+> +	} else if (aml_chan->cur_desc && aml_chan->cur_desc->vd.tx.cookie =3D=
+=3D cookie) {
+
+[Severity: Medium]
+Does this skip checking the desc_submitted list?
+
+When a DMA client submits a descriptor via tx_submit() but has not yet
+issued it via issue_pending(), the descriptor resides in desc_submitted.
+Since vchan_find_desc() only searches the desc_issued list, calling
+dma_tx_status() during this window will fail to find the descriptor.
+This causes the driver to incorrectly log a "cookie error" and return a
+residue of 0 instead of the full transfer length.
+
+> +		aml_desc =3D aml_chan->cur_desc;
+> +		regmap_read(aml_dma->regmap, aml_chan->reg_offs + RCH_RD_LEN, &done);
+> +		residue =3D aml_desc->data_len - done;
+> +	} else {
+> +		dev_err(aml_dma->dma_device.dev, "cookie error\n");
+> +	}
+> +	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
+> +	dma_set_residue(txstate, residue);
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static struct dma_async_tx_descriptor *aml_dma_prep_slave_sg
+> +		(struct dma_chan *chan, struct scatterlist *sgl,
+> +		unsigned int sg_len, enum dma_transfer_direction direction,
+> +		unsigned long flags, void *context)
+> +{
+
+[ ... ]
+
+> +		/* set dma address and len to sglink*/
+> +		sg_link->addr_low =3D cpu_to_le32(lower_32_bits(paddr));
+> +		sg_link->addr_high =3D cpu_to_le32(upper_32_bits(paddr));
+> +		sg_link->ctl =3D cpu_to_le32(FIELD_PREP(LINK_LEN, avail));
+> +
+> +		aml_desc->data_len +=3D sg_dma_len(sg);
+> +		sg_link++;
+> +	}
+> +
+> +	/* the last sg set eoc flag */
+> +	sg_link--;
+> +	sg_link->ctl |=3D LINK_EOC;
+
+[Severity: High]
+Can this cause data corruption on big-endian architectures?
+
+The sg_link->ctl field is populated as an __le32, but the LINK_EOC flag
+(which evaluates to a host-endian BIT(28)) is bitwise OR'd directly into it.
+On big-endian systems, this will set the wrong bit in the memory-backed
+descriptor, meaning the hardware won't see the End-Of-Chain flag and may
+fetch uninitialized memory. Wrapping it with cpu_to_le32(LINK_EOC) would
+prevent this.
+
+> +
+> +	return vchan_tx_prep(&aml_chan->vchan, &aml_desc->vd, flags);
+> +}
+
+[ ... ]
+
+> +static int aml_dma_chan_resume(struct dma_chan *chan)
+> +{
+> +	struct aml_dma_chan *aml_chan =3D to_aml_dma_chan(chan);
+> +	struct aml_dma_dev *aml_dma =3D aml_chan->aml_dma;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
+> +	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PA=
+USE);
+> +	aml_chan->status =3D aml_chan->pre_status;
+> +	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
+
+[Severity: High]
+Does aml_dma_chan_resume() fail to start descriptors that were issued while
+the channel was paused?
+
+When a channel is paused, aml_chan->status is set to DMA_PAUSED. Any
+subsequent calls to aml_dma_issue_pending() append descriptors to the
+desc_issued list but return immediately from aml_dma_start() without
+triggering the hardware.
+
+Because aml_dma_chan_resume() restores aml_chan->status to DMA_COMPLETE but
+does not check if the pending queue is non-empty, descriptors queued during
+the pause will stall indefinitely.
+
+> +
+> +	return 0;
+> +}
+> +
+> +static int aml_dma_terminate_all(struct dma_chan *chan)
+> +{
+> +	struct aml_dma_chan *aml_chan =3D to_aml_dma_chan(chan);
+> +	struct aml_dma_dev *aml_dma =3D aml_chan->aml_dma;
+> +	int chan_id =3D aml_chan->chan_id;
+> +	struct virt_dma_desc *cur_vd;
+> +	unsigned long flags;
+> +	LIST_HEAD(head);
+> +
+> +	spin_lock_irqsave(&aml_chan->vchan.lock, flags);
+> +	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PAUS=
+E);
+> +	regmap_set_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CLEA=
+R);
+> +
+> +	if (aml_chan->direction =3D=3D DMA_MEM_TO_DEV)
+> +		regmap_set_bits(aml_dma->regmap, RCH_INT_MASK, BIT(chan_id));
+> +	else if (aml_chan->direction =3D=3D DMA_DEV_TO_MEM)
+> +		regmap_set_bits(aml_dma->regmap, WCH_INT_MASK, BIT(chan_id));
+> +
+> +	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_PA=
+USE);
+> +	regmap_clear_bits(aml_dma->regmap, aml_chan->reg_offs + RCH_CFG, CFG_CL=
+EAR);
+> +
+> +	vchan_get_all_descriptors(&aml_chan->vchan, &head);
+> +	cur_vd =3D &aml_chan->cur_desc->vd;
+> +	aml_chan->cur_desc =3D NULL;
+> +	spin_unlock_irqrestore(&aml_chan->vchan.lock, flags);
+
+[Severity: Low]
+Is this taking the address of a member from a potentially NULL pointer?
+
+If there is no active transfer, aml_chan->cur_desc is NULL. Calculating
+&aml_chan->cur_desc->vd before checking for NULL is undefined behavior in
+standard C. While it safely evaluates to NULL in the kernel because vd is
+at offset 0 and GCC is invoked with -fno-delete-null-pointer-checks, this
+diverges from the correct pattern used elsewhere in the driver.
+
+> +	if (cur_vd)
+> +		aml_dma_free_desc(cur_vd);
+> +
+> +	vchan_dma_desc_free_list(&aml_chan->vchan, &head);
+> +
+> +	aml_chan->status =3D DMA_COMPLETE;
+> +	aml_chan->err_num =3D 0;
+
+[Severity: High]
+Is there a race condition here since aml_chan->status and err_num are
+updated outside of the vchan.lock?
+
+If a concurrent aml_dma_issue_pending() acquires the lock immediately after
+it is dropped here, it will see the stale aml_chan->status (e.g.,
+DMA_PAUSED). aml_dma_start() will then return without touching the hardware.
+terminate_all will subsequently set the status to DMA_COMPLETE, but the
+newly queued transfer will be permanently stuck.
+
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static irqreturn_t aml_dma_interrupt_handler(int irq, void *dev_id)
+> +{
+
+[ ... ]
+
+> +		vchan_cookie_complete(&aml_desc->vd);
+> +		aml_chan->cur_desc =3D NULL;
+> +		aml_dma_start(aml_chan);
+> +		spin_unlock(&aml_chan->vchan.lock);
+> +	}
+> +
+> +	return IRQ_HANDLED;
+
+[Severity: Medium]
+Does this unconditionally return IRQ_HANDLED even when no hardware bits
+were set?
+
+If the interrupt handler is invoked but the hardware did not assert the
+interrupt, the processing loops are skipped, but the function still returns
+IRQ_HANDLED. This violates the IRQ API contract (which requires returning
+IRQ_NONE) and prevents the core IRQ subsystem from detecting and disabling
+spurious interrupt storms.
+
+> +}
+
+[ ... ]
+
+> +static int aml_dma_probe(struct platform_device *pdev)
+> +{
+> +	struct device_node *np =3D pdev->dev.of_node;
+> +	struct dma_device *dma_dev;
+> +	struct aml_dma_dev *aml_dma;
+> +	int ret, i, len;
+> +	u32 chan_nr;
+> +
+> +	const struct regmap_config aml_regmap_config =3D {
+> +		.reg_bits =3D 32,
+> +		.val_bits =3D 32,
+> +		.reg_stride =3D 4,
+> +		.max_register =3D 0x3000,
+> +	};
+> +
+> +	ret =3D of_property_read_u32(np, "dma-channels", &chan_nr);
+> +	if (ret)
+> +		return dev_err_probe(&pdev->dev, ret, "failed to read dma-channels\n");
+> +	if (chan_nr > (MAX_CHAN_ID * 2))
+> +		return dev_err_probe(&pdev->dev, -EINVAL, "dma-channels unusual\n");
+> +
+> +	len =3D sizeof(struct aml_dma_dev) + sizeof(struct aml_dma_chan) * chan=
+_nr;
+> +	aml_dma =3D devm_kzalloc(&pdev->dev, len, GFP_KERNEL);
+> +	if (!aml_dma)
+> +		return -ENOMEM;
+> +
+> +	aml_dma->free_wq =3D alloc_ordered_workqueue("aml_dma_free", 0);
+> +	if (!aml_dma->free_wq)
+> +		return -ENOMEM;
+> +
+> +	aml_dma->chan_nr =3D chan_nr;
+> +
+> +	aml_dma->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(aml_dma->base))
+> +		return PTR_ERR(aml_dma->base);
+
+[Severity: High]
+Does this leak free_wq on probe errors?
+
+If devm_platform_ioremap_resource() or any subsequent registration fails
+during probe, the function returns an error without calling
+destroy_workqueue(aml_dma->free_wq), leaking the workqueue memory.
+
+> +
+> +	aml_dma->regmap =3D devm_regmap_init_mmio(&pdev->dev, aml_dma->base,
+> +						&aml_regmap_config);
+> +	if (IS_ERR_OR_NULL(aml_dma->regmap))
+> +		return PTR_ERR(aml_dma->regmap);
+> +
+> +	aml_dma->clk =3D devm_clk_get_enabled(&pdev->dev, NULL);
+> +	if (IS_ERR(aml_dma->clk))
+> +		return PTR_ERR(aml_dma->clk);
+> +
+> +	aml_dma->irq =3D platform_get_irq(pdev, 0);
+> +
+> +	aml_dma->pdev =3D pdev;
+> +	aml_dma->dma_device.dev =3D &pdev->dev;
+
+[Severity: High]
+Does this break deferred probing by missing a bounds check on the returned
+IRQ value?
+
+platform_get_irq() can return a negative error code such as -EPROBE_DEFER.
+By unconditionally assigning it to aml_dma->irq and passing it to
+devm_request_irq(), the IRQ core will reject the negative IRQ value and
+return -EINVAL. This overwrites the -EPROBE_DEFER error and causes a
+permanent failure to probe.
+
+> +
+> +	dma_dev =3D &aml_dma->dma_device;
+
+[ ... ]
+
+> +static void aml_dma_remove(struct platform_device *pdev)
+> +{
+> +	struct aml_dma_dev *aml_dma =3D platform_get_drvdata(pdev);
+> +	struct aml_dma_chan *aml_chan =3D NULL;
+> +	int i;
+> +
+> +	of_dma_controller_free((&pdev->dev)->of_node);
+> +
+> +	regmap_write(aml_dma->regmap, RCH_INT_MASK, INT_MASK);
+> +	regmap_write(aml_dma->regmap, WCH_INT_MASK, INT_MASK);
+> +
+> +	for (i =3D 0; i < MAX_CHAN_ID; i++) {
+> +		aml_chan =3D aml_dma->aml_rch[i];
+> +		if (aml_chan)
+> +			tasklet_kill(&aml_chan->vchan.task);
+> +		aml_chan =3D aml_dma->aml_wch[i];
+> +		if (aml_chan)
+> +			tasklet_kill(&aml_chan->vchan.task);
+> +	}
+> +	destroy_workqueue(aml_dma->free_wq);
+> +}
+
+[Severity: High]
+Is there a use-after-free race condition during driver unbind?
+
+The tasklets are killed here, but because devm_request_irq() was used
+during probe, the IRQ line remains active until devres runs after
+aml_dma_remove() returns.
+
+Without a call to synchronize_irq(), an in-flight interrupt on another CPU
+could schedule the tasklet again after tasklet_kill() has finished. When
+devres subsequently frees the driver's memory, the delayed tasklet will
+execute on freed memory.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-amlogic-dm=
+a-v12-0-f769bc344056@amlogic.com?part=3D2
