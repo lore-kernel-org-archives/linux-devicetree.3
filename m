@@ -1,126 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C2F4F0544
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 17:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3694D2EC0;
+	Thu,  3 Sep 2026 17:13:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788455509; cv=none; b=FJ0JxvdR3eiXjJN5ktvwvM7SBAws0ip715MJ2hVuMUS3C0jQpveKg/m5qi51cmWg3aWSj3gi97snYBY8BkkiYvpvFfUAcyUqiAmHC1YTjV26nIhMcq3RAu8k+YNzKHWIZiaDNKwzsXMwywF3qDkhRzgnjwfdA+7T8BLFmazCy8k=
+	t=1788455615; cv=none; b=kmpdkOF6R2xm9nlV7xJY/XiaZ+n5Kk+PatK8TB9R2UwxTFVog1hZEEZUu8VhyQXGidjWugzlEnd7l/tmwbfbbKFhAHf84u2NYfnl2CuSfBKxsRu76JlLCwCoJk7stY2Ywad3MOB0VecIJC5OxSuz+/WwAqncub9dvJpo58cv3/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788455509; c=relaxed/simple;
-	bh=br7nj5so9XXIb3ddRV0Js6A/aNCBt2FDaTzyEZaBivs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=P8rWAcOshYDdTdbc9LimxQNgk1EY5K5Ee0oVyw98maDidAMX9vgmxGvSCqrua4gQbOsnbFwxvHwEZvoY+dUz5e3LQ25rcQxmboz3z3bYgV6WnVtNrNyVES+TOvDSrsyzibBdkwlpX/j1x6C3UKJBo8kmXRh4FgPFYZpZ0ScUDJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibn13256; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788455615; c=relaxed/simple;
+	bh=R66FxBIYir0QdQQTT/vtLTGAdaKa/a4MhCMM+e0tavo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ODEITKephWRdxO7KbBwU10VmGBHvaLBxfKBQnf99S2WN4CBAuyI5ENenE9vzG/b7gegz3N1xPiMMJCxb2Kq3AeJpkh0fBVqAXshUJbxGW8AebfZmt9XMCG50/4BEEq01Dj8XvUPrvNq4sKmaav1Td53Km7s1fdBJZzVta4Trh4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ILTgpAJi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibn13256"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182B51F00A3D
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 17:11:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ILTgpAJi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09F291F000E9;
+	Thu,  3 Sep 2026 17:13:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788455508;
-	bh=1AV36kVhmlL5D/McqXi8geSrZx/Q6+1EOIxy2WI/hBQ=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=ibn13256RsVI1Iinyjm81qJWg32QimVHtgtNnWPSD/AYCnwwxeI+TOL9v6S3Q6iWc
-	 6F+yT9Q3xZSsx0Hqxm7UH7KeOvmpxrAc4TMXd9ZtHHQImjrDC+POBvfGvwLhGQNWYL
-	 9OngVozXkAZ252bEWF4BdfmqmBZCKpQHDPvjrtWkkNeK8KafXqiqJqL859vLGwhWhH
-	 cd70bnW3cFXUXdWIz6/qv2NleqL8YVLV/pVlettzclW+v2tWUIydBTwtHx5djKoriP
-	 mzJ5ZEOpfsKIXgm726dB94FDT4p/uRvDTCLOjJLepAOrwMVoqi2Xh5i30hU2rdsg/a
-	 zvITS9f9uoxIQ==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20dec69f9so1416811fa.3
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 10:11:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxwL9zJRShtQZou1jUfCtTA9z3jsFw63muMtpCYpN9cxv+NEvFxCmRRJtld4SHCNDhVdYspHEJuclQA@vger.kernel.org
-X-Gm-Message-State: AFuF++n6IbY7NhXMLS/iWAX08a/GuRq5EkOMAWhTJe78FdmlHz6dmPUO
-	Jy+ezzBRxzZeuO0yItmEXhYM1n1B5r2b9P6vf8AfD/FkP/lJSopYIqiPMUbUmn/EImyha9Ikoy9
-	KiXBU5wj/9hHkGmEz7sFvSETwrMe6+6o=
-X-Received: by 2002:a05:651c:198e:b0:3a3:37fb:27b0 with SMTP id
- 38308e7fff4ca-3a3719a563dmr389821fa.0.1788455506462; Thu, 03 Sep 2026
- 10:11:46 -0700 (PDT)
+	s=k20260515; t=1788455614;
+	bh=nGrHEKNFmHMs4D1H1YMKWL9z4uD/BM4vpQhnVD8Oqnk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ILTgpAJi52N71+dFWRRCo7oQCgHwvKYd6h+XIXqI33zqAS1V6hZLyfeRFbJzg+LEb
+	 Vz4F8wl+JyObsutBlNe8eIQi9qWUH7TeLqk3bwKAuN4XZEEB4TeZB3HBaM/etCWC5q
+	 adNCECeH6Fc9ttUkZCnUgB4A4xdn15XX9vhViLY0r9+JARWzuCPLZmdS6tqVUr5Krq
+	 8+d4UJv0mJ3ZaLwJ93A2K6UFQF2knqxj8d4eqJg3UEdiMPEJGCX4Pkyeb0NoO2P41L
+	 YDAczut6hB+K7c2QpdkAqJzBtLyywkJwOpcwyR04cwPbh+nVtPtsxCMyXsUaAjfnfU
+	 DKwNTOiajX+9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] arm64: dts: freescale: imx95-aquila: Add ENETC port
+ 2 in SGMII mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Franz Schnyder" <fra.schnyder@gmail.com>
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260903-add-enetc-port2-v1-2-2a21139d7a7c@toradex.com>
+References: <20260903-add-enetc-port2-v1-0-2a21139d7a7c@toradex.com>
+ <20260903-add-enetc-port2-v1-2-2a21139d7a7c@toradex.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 17:13:33 +0000
+Message-Id: <20260903171334.09F291F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
- <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
- <CAGb2v66Uz6hCQaf5Nk5Eup8wQ+Xo9tuAqm0+ZH9J5CbT0zyAPg@mail.gmail.com> <1jjyp38pa8.fsf@starbuckisacylon.baylibre.com>
-In-Reply-To: <1jjyp38pa8.fsf@starbuckisacylon.baylibre.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 4 Sep 2026 01:11:33 +0800
-X-Gmail-Original-Message-ID: <CAGb2v67FP9jLqs5OHWJQ1bfmFDyqBscqQnKJe9C88FA6X4wsZQ@mail.gmail.com>
-X-Gm-Features: AcwNN1UXur3_fu9zD6ZMtcX3N3JHKPwXli5C13AhpCSRSxZ9KS2GEHhEI0Ns9q0
-Message-ID: <CAGb2v67FP9jLqs5OHWJQ1bfmFDyqBscqQnKJe9C88FA6X4wsZQ@mail.gmail.com>
-Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
-To: Jerome Brunet <jbrunet@baylibre.com>
-Cc: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 3, 2026 at 2:46=E2=80=AFAM Jerome Brunet <jbrunet@baylibre.com>=
- wrote:
->
-> On dim. 23 ao=C3=BBt 2026 at 21:17, Chen-Yu Tsai <wens@kernel.org> wrote:
->
-> >>
-> >> +enum axp318_irqs {
-> >> +       AXP318_IRQ_DCDC1_V_LOW,
-> >> +       AXP318_IRQ_DCDC2_V_LOW,
-> >> +       AXP318_IRQ_DCDC3_V_LOW,
-> >> +       AXP318_IRQ_DCDC4_V_LOW,
-> >> +       AXP318_IRQ_DCDC5_V_LOW,
-> >> +       AXP318_IRQ_DCDC6_V_LOW,
-> >> +       AXP318_IRQ_DCDC7_V_LOW,
-> >> +       AXP318_IRQ_DCDC8_V_LOW,
-> >> +       AXP318_IRQ_DCDC9_V_LOW,
-> >> +       AXP318_IRQ_DIE_TEMP_HIGH_LV1,
-> >> +       AXP318_IRQ_DIE_TEMP_HIGH_LV2,
-> >
-> >> +       AXP318_IRQ_PEK_SHORT,
-> >> +       AXP318_IRQ_PEK_LONG,
-> >
-> > The order of these two are reversed.
-> >
-> >> +       AXP318_IRQ_PEK_FAL_EDGE,
-> >> +       AXP318_IRQ_PEK_RIS_EDGE,
-> >
-> > And these two as well.
->
-> Applied everything except this is last one.
-> AFAICT, the IRQ above are not inverted ... but it is slightly confusing
-> because the regmap_irqs orders it the other way
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Incorrect alphabetical ordering of Device Tree nodes in board file.
+--
 
-I'm reading them in ascending bit order, so it should be DCDC1 ~ 9,
-die temp high lv1, lv2, PEK long press, PEK short press, PEK falling
-edge, PEK rising edge.
+commit 0d298c35f819e60d18b42987638eda0dd342b16e
+Author: Franz Schnyder <franz.schnyder@toradex.com>
 
-I guess I got confused somewhere reading the list backwards...
+arm64: dts: freescale: imx95-aquila: Add ENETC port 2 in SGMII mode
 
-> Thanks for the detailed review
->
-> >
-> > Once all these are fixed,
-> > Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-> >
-> >
-> > ChenYu
-> >
-> >> +       AXP318_IRQ_GPIO1_INPUT =3D 20,
-> >> +       AXP318_IRQ_GPIO2_INPUT,
-> >> +       AXP318_IRQ_GPIO3_INPUT,
-> >> +       AXP318_IRQ_WDOG_EXPIRE =3D 24,
-> >> +};
-> >> +
-> >>  enum axp717_irqs {
-> >>         AXP717_IRQ_VBUS_FAULT,
-> >>         AXP717_IRQ_VBUS_OVER_V,
-> >>
-> >> --
-> >> 2.47.3
-> >>
->
-> --
-> Jerome
+This commit adds support for the Aquila ETH_2 using the ENETC port 2 as a
+SGMII Ethernet interface. It enables the required nodes in both the dev
+and clover carrier boards.
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts b/arch/ar=
+m64/boot/dts/freescale/imx95-aquila-dev.dts
+> index 3df17700b632f..2ff7bb8d6ac43 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-aquila-dev.dts
+> @@ -99,11 +99,29 @@ &dsi2dp_out {
+>  	remote-endpoint =3D <&dp_1_connector_in>;
+>  };
+> =20
+> +/* Aquila ETH_2_XGMII_MDIO, shared between all ethernet ports */
+> +&netc_emdio {
+
+[Severity: Low]
+This isn't a bug, but device tree node overrides in board files are
+conventionally ordered alphabetically by their label. Could this
+&netc_emdio node be placed after nodes starting with 'e', rather than before
+the &enetc_port0 node just below it? It appears this alphabetical ordering
+was followed correctly for imx95-aquila-clover.dts.
+
+> +	ethphy2: ethernet-phy@4 {
+> +		reg =3D <4>;
+> +		interrupt-parent =3D <&som_gpio_expander_1>;
+> +		interrupts =3D <8 IRQ_TYPE_EDGE_FALLING>;
+> +	};
+> +};
+> +
+>  /* Aquila ETH_1 */
+>  &enetc_port0 {
+>  	status =3D "okay";
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-add-enetc-=
+port2-v1-0-2a21139d7a7c@toradex.com?part=3D2
