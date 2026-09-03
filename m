@@ -1,94 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4949040B11D;
-	Wed,  2 Sep 2026 23:56:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98532AD35;
+	Thu,  3 Sep 2026 00:30:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788393364; cv=none; b=Jg56A9v7emNq+aoGu3K0CcKaT1cy9vXNqSq59p8QvVGGnc4l0vMxZ8u85Mn+oHTJDBcA4JjIkQuDKZysOjG5Djc5FFw12carTK0vgEMZ2CX+/pdn0ZKIJQoVQasrXSXPJx7cRVHpEdez/+EwVTbXiXlhNXgCxJLLE+CA8YIxoXg=
+	t=1788395453; cv=none; b=DptBr+HHRxLbpod7sXSExjRNurbfEKiemwCEl1gTgt1PH5nn5o/EMTDbeO+fihqMv4UvaoupR+bUXaS08eZ1vKxLOBAb8VJmkaqhZtc4nbMOiAewNpn/1QEXFU0sNE76EeAGBpx7H0hhBN4EKkngrJ2Nei+O+IoPsXyVA/bb8bM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788393364; c=relaxed/simple;
-	bh=NOk7kI8JQtFrJpqIJcLbMhNq6OxRG2pE6FVIUW+XZ60=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C6J7wbmCwDTEn3rEbCua8jMKkjrNoAbktGGLSIu02c363GLNfVbWz5mtV4s3QVKpJ1429c1O9jn+EvV/gju4gRRvqfOCUGxnJK5vo/EexptQpGH4aHsyoTah8+q+JLIXNQjRpfDYYpmI++Dx5lbFTN3CB0kPpUba+pqRts3UZxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AMplzgvI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788395453; c=relaxed/simple;
+	bh=ua20xmgB1HptBEtU2b1WqsDmzDSvfIvJhA+CD0FX+O4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=OLKVNV4Cxr5QT7rxA/JE4YbHp0I1xiLZDq7HZAlxfbarPpHpHjCnQeGTghz3HpiS6CaATga8eqLC1u9twgivnb+pbRQMPnBjc7E51rblwDvAfML9YKwhUlKt99lHzjA0pcopHZeW7XeGETcV4LNJGAcXx4aXvg8kxERum79bPNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=An+asTJn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AMplzgvI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8112F1F000E9;
-	Wed,  2 Sep 2026 23:56:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="An+asTJn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84EA1F000E9;
+	Thu,  3 Sep 2026 00:30:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788393362;
-	bh=KQ8itQNAoSXw+j8zxN/J6ovo3IIZujHCMg6JjIhFGfs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AMplzgvIVaiUAenE3Vgc6ji2TZkEc+5BAJdyLtn6RI8Zld4xwUd17jn6/guaveG+U
-	 334BU/q/a648Y3v7QCtivvSO8R/HMLWFilBYtiTzC4OhX94BuTVhNTZpLv/YPxGq3o
-	 nmlIIGCeUmEa9pQy47E6wXEFqsV2q4xFsng1U9xnMN/b0pBwfc25eG0fSU3vEGwQU+
-	 tMECrJCQFcKiMtlXo4fDuStA2ctlSPrF/6pCek+csQzzlycQsDaDAzrz3WobQSLrHZ
-	 46u6t1Y0ktL5S/as/uAysZICOtaYqG5BdR9zn/LbqBPSdvMMiEjdPkflVGNTzOQpjS
-	 xJrnyAPXSJzbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v11 2/2] leds: ltc3208: Add driver for LTC3208
- Multidisplay LED Driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jan Carlo Roleda" <jancarlo.roleda@analog.com>
-Cc: conor+dt@kernel.org, linux-leds@vger.kernel.org, lee@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260903-upstream-ltc3208-v11-2-28f5f0fd364e@analog.com>
-References: <20260903-upstream-ltc3208-v11-0-28f5f0fd364e@analog.com>
- <20260903-upstream-ltc3208-v11-2-28f5f0fd364e@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 02 Sep 2026 23:56:02 +0000
-Message-Id: <20260902235602.8112F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1788395452;
+	bh=zvsv78XcfA5J5/VKfW3UfuCMKETIux8Z9sYyMuskzMs=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=An+asTJnapn3HR2PQjo9RIXrT9SrC9IWvmFaOv8XZXL3W2gqtqo6fLntVX3+/aM/Z
+	 7v/4kZFYD+nTa66VhYuwrxnZwGu8vyK4dQgngJ8GCtgNHicOoJvZg1bGoPKTSYmR3/
+	 ehZwkj3SZFevkiIhHyfQtxhIGucVjxNllHeWkqTWQFpQsabFLaKj36pdt5edoPX54x
+	 PYFUuRdppZ0LAFC04Ymo4I+Bf0jdcCFhpMNmg0fQZVomA/Z3PurHPXvO688vuIJnGC
+	 uYDx1qNvirBqj05ZECFS5wgVl0ipmTUpmvzB+OX0uV92AMkjCv561ZJvk+iVw6atUV
+	 hQ3CbqsMnSlyw==
+Message-ID: <0525e219-c39d-47f2-aca3-d79c45b1f62f@kernel.org>
+Date: Wed, 2 Sep 2026 19:30:50 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] arm64: dts: intel: fix dw-apb-timer clock
+ initialisation on Agilex and Agilex5
+Content-Language: en-US
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1779785788.git.adrian.ho.yin.ng@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <cover.1779785788.git.adrian.ho.yin.ng@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incorrect assignment of num_reg_defaults using a register address m=
-acro instead of ARRAY_SIZE.
---
 
-commit 13fa42bec99e4f9ce4669e4a6a7c6f12807ee3a4
-Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
 
-leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
+On 5/26/26 17:00, Adrian Ng Ho Yin wrote:
+> The DesignWare APB timers on Intel Agilex and Agilex5 SoCs fail to
+> initialise because their clock managers are platform drivers registered
+> at core_initcall, which runs after time_init() where TIMER_OF_DECLARE
+> callbacks fire.  With clocks/clock-names in the DTS, the timer driver
+> calls clk_get() at a point when the clock provider is not yet
+> registered, causing the timers to never come up.
+> 
+> Replace the clocks/clock-names reference in both DTSIs with a static
+> clock-frequency of 100 MHz, which is the L4_SP clock rate configured
+> by the bootloader.  The dw-apb-timer binding explicitly supports this
+> as an alternative when the clock framework is unavailable at probe time.
+> 
+> Adrian Ng Ho Yin (2):
+>    arm64: dts: socfpga: agilex5: replace clocks reference with
+>      clock-frequency for dw-apb-timer
+>    arm64: dts: socfpga: agilex: replace clocks reference with
+>      clock-frequency for dw-apb-timer
+> 
+>   arch/arm64/boot/dts/intel/socfpga_agilex.dtsi  | 12 ++++--------
+>   arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 12 ++++--------
+>   2 files changed, 8 insertions(+), 16 deletions(-)
+> 
 
-This commit introduces a new kernel driver for the Analog Devices LTC3208
-Multi-display LED driver. It configures the device via I2C and supports up
-to 7 distinct LED channels with configurable current levels.
+Do you want this to get backported to stable releeases? If so, please 
+append a Fixes tag.
 
-> diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/leds/leds-ltc3208.c
+I think the same patch can be applied to socfpga_stratix10.dtsi.
 
-[ ... ]
+Thanks,
+Dinh
 
-> +static const struct regmap_config ltc3208_regmap_cfg =3D {
-> +	.reg_bits =3D 8,
-> +	.val_bits =3D 8,
-> +	.max_register =3D LTC3208_REG_G_OPT,
-> +	.cache_type =3D REGCACHE_FLAT_S,
-> +	.reg_defaults =3D ltc3208_reg_defaults,
-> +	.num_reg_defaults =3D LTC3208_REG_G_OPT,
-
-[Severity: Low]
-Does this code intentionally use a register address macro for the array len=
-gth
-instead of ARRAY_SIZE(ltc3208_reg_defaults)?
-
-Because LTC3208_REG_G_OPT happens to evaluate to 7, it coincidentally match=
-es
-the exact number of elements in the ltc3208_reg_defaults array. However,
-using a register address macro to specify an array length creates a brittle
-semantic dependency. If elements are removed from the array, or if a regist=
-er
-with a different address is added in the future, this will result in an
-incorrect size being passed to the regmap core.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-upstream-l=
-tc3208-v11-0-28f5f0fd364e@analog.com?part=3D2
