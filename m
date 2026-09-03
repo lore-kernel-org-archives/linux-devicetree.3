@@ -1,107 +1,135 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EF74DF4B3
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 15:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48A844B540A;
+	Thu,  3 Sep 2026 15:34:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788449642; cv=none; b=Mhl0DWgP/NSg0jr9dMX6H1VGLvwmJmyEzN6RWV4PnXsqHsP/WGwqslf45XOi0F7p41kHvhl1h5pkh8e+e5rmVt2HBqh3VO4HUzcv42ODks2wACahIuOCKzY6KKKAXcEE2ieubbqT5GklCBGwgwviIrogFBUytLKxzlIJa26Dssg=
+	t=1788449681; cv=none; b=L08N47eVnPEO3xNvC8F/Gvn1NtWgt0cMUZvPhespC/abRZ0EjfSAkxxYjm8I7tLmJ/LyQSUCwm2iXL4sXUKRlMIO6eH7n1JnVoHiiFe6wGPouYFeQSZh6aFxi0GSSSse9ex/gzeC/Ao3qhA2f24BPn8PX+OEeOD/3bBIPdT56A8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788449642; c=relaxed/simple;
-	bh=4ISs0p4OZ8p6JtAb2NqQCn3Ms3bwI1uZBinFoY6Hif8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iQeU9V/mqLBkvp23EifABvpo9oWbSpKeCk8jKX4cBddUGbaEl9ri6erDOSNmukMTMkbJqd9a9XPXto9GcY7AKrUNssfxQgHyGyj5Fi5oPciePJ8fa4vk+w0brhPsrLFTtNlRhv4fOAgy93bOdshR3O7SET7LzA64lV4x+kb0fkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c675e64ffcso1098006e0c.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:34:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788449640; x=1789054440;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Q4co215V8cCcryKl+ePptL3AZAP9ssa33MB98SUpHXE=;
-        b=Mqmlfe746AfzGHnlK+ySOxRBhkD/7OsbXwVWpz/0ljdWBq9dpXPmdhz4cga39nL5a5
-         +JRDFTy1gfLldgb7rpNoeC5vARu0V4G4IrIpJ7HXLsFRFRXX9ZRgGuZJG/t1oE6/e67o
-         PXhxlzqIzH2P6LF+RIUYGdjtvp8bhltXcnqgCL2Zr7dg7aLRexGTXSmic1zL+4BE13I1
-         yrDSfw1vB4PHscUP3TkRw9VQAqCTOrN4ajOMAhNKU1YD1HMjCE6JMuEA8fGriyjWinQ/
-         xsFGfu5hoB1yCUlPeHUPtP9Bou+SU5MLagS+9wj9V/pdsrXqZonKjXoa0pdZHWTBjcvd
-         nu9w==
-X-Forwarded-Encrypted: i=1; AKwUvByd4SP6P/x6UYdnyQ/6C+haHU4QsQE90YXxrGOis8YZ8UtEYahBGgNIVT8rm/vxPtIiC3Dfw7nxyLfL@vger.kernel.org
-X-Gm-Message-State: AFuF++koK3U4SvHH81glP51+I5T825vHxXGxqp2OQfda1tsM2Qp7n9ss
-	hxKw6NKhaIxmzCtVd/gCMTDBCi0ovmF5D0Gi2Ki9mh6cFeUiHGEVhTvPih1xEelfjE8=
-X-Gm-Gg: AYBFou23FM2qaape/ZEeZZIT6/hGMIaQOUGZraYD3pNTbxh+YeSSsE4Ux/WMryWQE0T
-	gLyEwm1pnd6JT622lyvXTnfYJY5SUQoeceZwu+s2n8RbF23h7TFDMPMW1gVNeMyWKWlNwGe4Gxa
-	yQkLQ/ekkcHFA9XJ7PST4hDOMxT+K4FUeb2UHVkoCd7wjfy+DKee2IICkpwz7YW4h8gXXNPlM5I
-	eOMXCkFsUf/1+YOwnHWmll5aDi1wHEsoz3DDBh7uGwc+NTee3XaxaTqtNgZmeGOtvjea+2sVYpf
-	OQiIDNgaPXaRhc4YuYQjS/oSjwN2ntA8sEKGPuEnKxXHipp1bpo3ftMqtZX0JNKHc8uhPG+WMeD
-	DsBNs1fHCIaFMnAV5BFee6JbDPtgHtFuhgfxYL7r24cY5MssmQYNoAP2mozoQtFbz3/Og5z1X1a
-	DJC9Xg8/HGWaNfsYQ1JYt97t1GoxsgyDhJ1jaS+ZbrDUtop7oIsXrzeto1Kiep2xhIexGStrsD0
-	2yrnvvfx12kmZc1ifRL12nlEA==
-X-Received: by 2002:a05:6122:4898:b0:5bd:b0a7:47e7 with SMTP id 71dfb90a1353d-5c7dce9ad94mr2241052e0c.3.1788449638778;
-        Thu, 03 Sep 2026 08:33:58 -0700 (PDT)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1097f4sm31211e0c.1.2026.09.03.08.33.58
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 08:33:58 -0700 (PDT)
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7894670be7dso497729137.0
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:33:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz1lcGanpAI7XUwwu9jDFxxUW4qw+QDQQf1YdbWTQcb3Pf5MqRldRZYTwoTwQWkYN3rrODqHqsEJYEb@vger.kernel.org
-X-Received: by 2002:a05:6102:8345:20b0:777:2e1b:1e2e with SMTP id
- ada2fe7eead31-78a2ed7ca4fmr1596359137.3.1788449635039; Thu, 03 Sep 2026
- 08:33:55 -0700 (PDT)
+	s=arc-20240116; t=1788449681; c=relaxed/simple;
+	bh=ghM4FSZQmHOtCtW/UfYTfnb8D4wLQaKNMfbZUlhpDs8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pVxhIcI99dpgC3NrbmPB1sVSozNa0lN3JSYsY+lcuoolk9TwNEviqAAYtVhy6V2L/ygAVjweR9uAt5SoOseXBIw00x6CDGCfpsc8ZatdsbhdhLkkEJJM4B/SqPO58fSgwjyeEucrUXHGBqdOFSQSz+MOHzZUSGhvAWCDL+nZ2rA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GingWM12; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GingWM12"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F9CE1F000E9;
+	Thu,  3 Sep 2026 15:34:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788449679;
+	bh=LVwvRtVb/M7XR6K0WzybbRVJHJwpcA9imnhXDdDApaA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GingWM12wQ/VrQAt4riQCZaejzKuTAkOQdvGF1UWFzneWfzOmVr023rDpfESFdqPE
+	 f3r+hN7lfQTzcBblrk5mqV7U6MALbUnpBL0pNPDdbH1uC0WsASPyl9L/GEKyMGmDQJ
+	 /uQB86o9adOWLc4lcjPkFrurM7r0kvaBnIhXR0FhbCLfAIfLwhfPwO8PXcTTcUbedl
+	 iBCsP70e4D7nzT20oETW86SVuqJnvrOObOlJ5JJfJJ640n7jpRX8Pv72VvG8RVgDni
+	 p90mRLzy1Sa1tNit5NYw7LDVoQvT5eUVgBBYUWhwOrYcfJvd2PhwEU94N+GTwQMOJv
+	 zvEiSZ21tA33w==
+Date: Thu, 3 Sep 2026 16:34:35 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Frank.Li@oss.nxp.com,
+	Support Opensource <support.opensource@diasemi.com>,
+	Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	"open list:MULTIFUNCTION DEVICES (MFD)" <mfd@lists.linux.dev>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev
+Subject: Re: [PATCH 1/1] dt-bindings: mfd: da9052: allow dlg,da9053-aa
+ fallback to dlg,da9052
+Message-ID: <20260903-agenda-lividly-41c3b6eb56fc@spud>
+References: <20260831201522.51294-1-Frank.Li@oss.nxp.com>
+ <20260901-devourer-pushover-f26c72688255@spud>
+ <20260903-succinct-military-macaw-9e6e71@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903113327.1217457-1-claudiu.beznea+renesas@tuxon.dev> <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260903113327.1217457-6-claudiu.beznea+renesas@tuxon.dev>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 3 Sep 2026 17:33:44 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWGCdFH4-+-0Cws402jvHO7YBAELUeobp1BbDpeAZguZw@mail.gmail.com>
-X-Gm-Features: AcwNN1VsYZsO5o2pygHZnaCq-bQizs6Zsc1Hfv4_iBmyRo69jsaq1nCLJ4t6av0
-Message-ID: <CAMuHMdWGCdFH4-+-0Cws402jvHO7YBAELUeobp1BbDpeAZguZw@mail.gmail.com>
-Subject: Re: [PATCH v6 5/5] pinctrl: renesas: rzg2l: Add RZ/G3S support for
- selecting the I3C power source
-To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, magnus.damm@gmail.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev, 
-	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cGOoTxa1hXWtpxP5"
+Content-Disposition: inline
+In-Reply-To: <20260903-succinct-military-macaw-9e6e71@quoll>
 
-On Thu, 3 Sept 2026 at 13:41, Claudiu Beznea
-<claudiu.beznea+renesas@tuxon.dev> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-> pin controller provides a register to select between these two options.
-> Update the Renesas RZ/G2L pin controller driver to allow selecting the
-> I3C power source on RZ/G3S SoC.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
->
-> Changes in v6:
-> - used bit 23 to define PIN_CFG_IO_VMC_I3C
-> - described the I3C power sources according to the new method; due
->   to this didn't collect the Wolfram's Tb tag.
+--cGOoTxa1hXWtpxP5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On Thu, Sep 03, 2026 at 12:04:42PM +0200, Krzysztof Kozlowski wrote:
+> On Tue, Sep 01, 2026 at 06:00:31PM +0100, Conor Dooley wrote:
+> > On Mon, Aug 31, 2026 at 04:15:21PM -0400, Frank.Li@oss.nxp.com wrote:
+> > > From: Frank Li <Frank.Li@nxp.com>
+> > >=20
+> > > Allow dlg,da9053-aa fallback to dlg,da9052 to fix legacy platform (> =
+10
+> > > years) check_dtbs warnings:
+> > >   arch/arm/boot/dts/nxp/imx/imx53-voipac-bsb.dtb: dialog@48 (dlg,da90=
+53-aa): compatible: ['dlg,da9053-aa', 'dlg,da9052'] is too long
+> > >         from schema $id: http://devicetree.org/schemas/mfd/dlg,da9052=
+=2Eyaml
+> > >=20
+> > > Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> > > ---
+> > > Previous try drop dlg,da9052 at
+> > > https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da=
+@quoll/
+> > >=20
+> > > but Krzy have concern about compablity.
+> > >=20
+> > > https://lore.kernel.org/imx/20251107-matrimony-showdown-ba6ce6996b2f@=
+spud/
+> > >=20
+> > > Conor prefer update old dts.
+> >=20
+> > I don't think these devices are actually compatible, so this fallback
+> > would be wrong.
+> > The data comes from the match data, be that spi or i2c, and there's
+> > explicitly different behaviour for the da9052 and da9053aa.
+>=20
+> Maybe I looked at wrong driver, where is the difference? I made a very
+> quick glance and I found the only difference in da9052_i2c_fix():
+>=20
+>  59         switch (da9052->chip_id) {
+>  60         case DA9052:
+>  61         case DA9053_AA:
+>  62         case DA9053_BA:
+>  63         case DA9053_BB:
+>=20
+> No differences in "da9052-core.c" and SPI, while looking for these
+> device type enum values.
 
-Gr{oetje,eeting}s,
+If you look further afield, since this is an mfd, in the regulator driver
+there's a lot of conditions there that depend on the chip_id. E.g. current
+limits and voltage steps differ. There's also one in the battery driver.
 
-                        Geert
+> > I doubt the legacy platform ever worked properly, and this is what shou=
+ld
+> > have been explained in the PR that Krzysztof denied not just blindly
+> > citing a dtbs_check problem.
+>=20
+> Well, yeah, I wanted an accurate reason with actual analysis, not
+> necessarily making devices compatible if they are not.
+>=20
+> >=20
+> > Nacked-by: Conor Dooley <conor.dooley@microchip.com>
+>=20
+> Best regards,
+> Krzysztof
+>=20
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+--cGOoTxa1hXWtpxP5
+Content-Type: application/pgp-signature; name=signature.asc
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapmTiwAKCRB4tDGHoIJi
+0hyCAPwMTGNQ5Lu7AdcSDddXHf86j3pCRARUzL2yMiCKEUScqwEA5pirDPWI6ion
+otwPCYxMPDfiTDWz4YC0Dxa3L+qpxQk=
+=Teac
+-----END PGP SIGNATURE-----
+
+--cGOoTxa1hXWtpxP5--
