@@ -1,166 +1,140 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09124A49BF
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 12:41:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC0D38C2BF
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 12:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788439274; cv=none; b=gxoLFIB9ADyrfMXIW2KxDKD02zWGC8cVksjNalpEVwYt2WM4qpHJ8BW9raBrQkU3PQzJ2rtOKbXcgsAZ26kDo7hlLCvJ5PtA1Y02mYWz87/Lm5zU+0URPGfcHZzwKLQI2yF2nh2P15SBy7IhLAuVpreKITROgXloJpGFK+2ekrE=
+	t=1788439326; cv=none; b=oJo6Gw5ezFnwFa7MzZv0fiC1Rtdeuk0kTwhZ2u24uoYk1EGrD9CmZJ6MQ6GpSbqNnf9wc9MyXlGm3AIjF+2DQrhBt3RE5qqG3pGz9xtQBxOkOU3GhsJXCUKg0k7wROB+pIPLB+nG/P+sCGUxKI2SrCVrkLXEKe/BjKQ64xzwlLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788439274; c=relaxed/simple;
-	bh=sOT52DbKgvkkHbkje73zUdH0VXn9AYdlxPV7LsvQoaI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=iQtpy8AjI5YJKRqlgwPqxqPb0KM2FTm3tBAYcE21AdM9lxKH2y1+X50PIP4Daedcwlpj8GhxYTrD6EsXz1h1aLOs1NEHjEslsRZkKx9P7mxrTQabewpEpv5EGrCwKCIC7o1ZSd85NoUlqVTqV6Q0651WdiqEd0asNiM+WAE2Ac0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FEytn8Mn; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FEytn8Mn"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-499ac87c92bso23751395e9.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 05:41:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788439271; x=1789044071; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+iNE6mGIoSx/OllUwsSZWUgexqjjfHjOUITVK9fxSRA=;
-        b=FEytn8MnCYevcmo5rurz/iEt+cB3MONh9wbG1/y8j5KSkhzK9vHlZNR2/c6sqh5Mbe
-         s4SBbdS3tJ13Q21/oA9MWnxRGiDJB4756nmGj/FmjHgB15tyVjNYJuWpVyo6scLQJkjs
-         kFBxvpitGD7qA+556YiKxACe/0Zzlko8zaKdM0EyFlBeUWsLrw9x31iGc0lf0QWOIz89
-         co3nhZdsv8BO8OQbvLhYGCB6eSgt+D38E7jLw6a9hoARTcgrCUS7DsDgcd/RuESGPa+s
-         0y3kDdmIhOEgx1/gT6froR3pWafvegCaeQQ5rDGNKSvWIIXMbUHd0igZ3EDrbzHxPCA0
-         HZHA==
+	s=arc-20240116; t=1788439326; c=relaxed/simple;
+	bh=52IhV1NlD8VpIKm2oG40lSwrnp/KluZG7LbmqWFL7xg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J4Fje8joyLVj+dcTsfTx5pEhn/mC0SBFQNppbXlX74k17R+Bg1MwmTa1MKDYdJmupBOuh8P/8HNwkhOygSJHi0ZyXM1p7IqAjDe/U84/qLcHxtSr4hxSVJJsdUwpb9bzB2Y42m29BtXdVotnaMgbJ8qXfo3qPrDfp5N9LgGKITY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c652293bcdso2454699e0c.1
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 05:42:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788439271; x=1789044071;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+iNE6mGIoSx/OllUwsSZWUgexqjjfHjOUITVK9fxSRA=;
-        b=Fk625Yt8h1OyDKAyoXleVvMRDrs2CCEIdThjGSqz48nw+iEeFA+LclyG73W5bSI7EY
-         XrDwfB9AwQXbJa9FW/Hd7TX2t2UO4KMlum/t9LJHbjxaSMrntTuB1nCMuwKTBRTOXr9h
-         EfhrJcavEMfvoax68BgYcFf6QyVMnFi3ZiQwmxug53QXUH9EDJn8flHrrK8NjiNbWiDW
-         IvDQSNCQVl82rkA7A3xZFN+33vZea22LM1oZGgOnaJ18jQfOb58N9QDtwQXoSXLxVbuA
-         ztKodGo02+z+1W85lElub5dOS3Hpmx4mVTumcMyRZibns7VpEKhiu9v66YzS7L2k+oWX
-         nXAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzMGhIuzhwS5GAkxsZRl32NIO0hoLzeRtR9WAqXrsaofz9gYJO0XP4y4Eenzdn9AgCO0+oqrHtIhQUp@vger.kernel.org
-X-Gm-Message-State: AFuF++lkJ0v/5QuXySHzr0qkZ5ShyQg6hG/DVQYByXdBvmGMYYsp31Cf
-	lnvfLJd/3Aj/Cjh2WCcx5dQlDpRHerXs5uoRTRcecAhSQElQV1Gm1NJhoBrQtqcy5zI=
-X-Gm-Gg: AYBFou07EqRf/fTE2cvy8P8XpBPoBhL4oKyKuUfaCxsJgVwDyWcKRHmZWIzb/ocHJec
-	av+rUrriaiYUeRXf7PPBk1ybnICwPN+CMRBIg6TPY/6cUifiG5TFJdhFnvjPjgjuOf+NkxqQfWe
-	NoqrJb0LMWz0C3sjLsKtjmWo2QUyZIwMJIozzqG4oCapHeoQl7/kPS4eced+WMmaB+tzLpw/ZLe
-	MGKssMehCH/NTD/O/xP4az2BwQLUbGgWT9P7XTiLyzmqDuchoVMBv2MQxUf8u04A2pSeKsJijpM
-	WcULeCPbk1qvIRero3tCy7+1XttYJEPh90kfmdWWjrNcs2OulYrhKrS42+vCD/SfO2Oa4qIb25G
-	4931ZabCi5S2M9ViykR5lw+wN3ZhHw/lZhVLJMBLSTYBVMlD866T5N9ASKfpddeXnfcT1l4qMlG
-	2J0Tvzvl968inny8jYOfbrg7Dziv+6waQWrcreODdzg9AcLa1a/ph2Q9RkUsMVviN8SOh7Ol2Gg
-	ilq0SQ=
-X-Received: by 2002:a7b:ca42:0:b0:49b:92df:87be with SMTP id 5b1f17b1804b1-49ce55fbdbemr151563565e9.4.1788439271011;
-        Thu, 03 Sep 2026 05:41:11 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e80798sm12957979f8f.13.2026.09.03.05.41.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 05:41:10 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lee Jones <lee@kernel.org>
-Cc: sashiko-bot@kernel.org, Mark Brown <broonie@kernel.org>,
- sashiko-reviews@lists.linux.dev, robh@kernel.org, mfd@lists.linux.dev,
- conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RESEND v6 4/5] mfd: axp20x: Add support for AXP318W PMIC
-In-Reply-To: <20260903090328.GH2133376@google.com>
-References: <20260812-axp318-regulator-v6-0-d6b84b55c000@baylibre.com>
- <20260812-axp318-regulator-v6-4-d6b84b55c000@baylibre.com>
- <20260812214019.CDF921F000E9@smtp.kernel.org>
- <1jldaafmpd.fsf@starbuckisacylon.baylibre.com>
- <20260813095600.GA1072730@google.com>
- <1j33wg6cpk.fsf@starbuckisacylon.baylibre.com>
- <20260827134235.GN770273@google.com>
- <1jld9j8pfg.fsf@starbuckisacylon.baylibre.com>
- <20260903090328.GH2133376@google.com>
-Date: Thu, 03 Sep 2026 14:41:08 +0200
-Message-ID: <1jh5k68q3f.fsf@starbuckisacylon.baylibre.com>
+        d=1e100.net; s=20251104; t=1788439322; x=1789044122;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4aThBV/MKXRTLxxMP9NP7CiDSYoBXBhVSup6n2UINuQ=;
+        b=HUU9i+TG3ebG4dwKwdhNgHTIzYQ6O/pT5DZWjxWhiXwNwDQ7moKlqkb2jzMfxM9w3Q
+         up7hy1+i1J0M0WzFkUdU7vbtWP0JTXd1ot4TMoi8NEpS6ppMT3O+trSZpSceyZoWsqZN
+         guWnQBruzKb/0PdbcWltuw9DAtsxZCe79NNyP4UQd4Q6FRRnbdEp59YNA4CSYnD/JpY+
+         Tyntn3TAzGYyCCrAHbi22AWyzcSkj+uTCjt9yfEA8NGi66locrxywAFpBLqkg0YArsZ6
+         11vrJD/o21bAkCFKNjVjv3yOLJ8aSMLfXQvcjKlR4ezNnTCHem/JQlgT0STLGMn7fsnJ
+         de6w==
+X-Forwarded-Encrypted: i=1; AKwUvBwpalbWS7XDcXUdaMP1hwyjx4UqZClnIbK2c2vuUFo9IFh6piKvxWK4fvOUsc5svZnZW/fYPPIMw4YP@vger.kernel.org
+X-Gm-Message-State: AFuF++kOvgFKeP2G20Bc+tGxsKMEj0gGotijGLDaHuj87/mMXNxH7S3g
+	xXopNBlOFZLzXJbXQ4efKkfjnb5ezA32bva+Mw5mt46BQq0hX/Hyje8Cow8XvVEp820=
+X-Gm-Gg: AYBFou3R2gFfHIj+OC7G7YOXfk5Ta3Hk0DUUAEU1IVnkNDhRO5ZF9RHLe8k05vDhL0g
+	qS4qc346hQy1koY4D9yCPdrd8TFRH9JMFdhcpdtFXqxjeZDAOuJqzzOF8XJ82OGL/tbljN5hVof
+	H5as/iYMYwsAf8dYpmpiFlfZVjrqoRHwev6HcyfojVRXYzbR5Qa0qGyYzYfCDBM+iSdgMosXUH+
+	HrlMVgf0pwHXTNbXXPTyjN/40jf3pgNioa+nRAP8wopgxI8gtPbzIZkx4I0yL6QWgMgnNFVfs1Y
+	b78mRliUsEygS//Z4+tIgTI6O9jEOssp5AHLFgcxfMXq7fRA19BSUgGSEAssp5CdSBPCKfqyB0x
+	mfT0uoDVp7oOMcds/4tHS/48XwGS+kgF80/IAkT2JJHZMc1RWW92G41Zj+UgGqc1ldjrzwJXjX5
+	aDIL8VLh+hhuIFsjXYksES486+8WxjzxOWj1DJAlY5csa0mWnm9aqMercWVYFl2MLbRzScZYK3u
+	CMqVnOxtct13XtD/eEO6BOaVdeOZ29ikZ89Og==
+X-Received: by 2002:a05:6123:2c5:b0:5c7:a844:48a with SMTP id 71dfb90a1353d-5c7d2801fd4mr5498159e0c.8.1788439322322;
+        Thu, 03 Sep 2026 05:42:02 -0700 (PDT)
+Received: from mail-vs1-f47.google.com (mail-vs1-f47.google.com. [209.85.217.47])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7cd94646csm4513118e0c.18.2026.09.03.05.42.01
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 05:42:01 -0700 (PDT)
+Received: by mail-vs1-f47.google.com with SMTP id ada2fe7eead31-785073ad5ccso1532382137.1
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 05:42:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxyxq9C2vEQ7itHYZMXaRJRsq+Nw25P9K+oOPAZIaoLRkV6Xinf7VQbBloWQqUfVDhy7jUSL5wJwSr+@vger.kernel.org
+X-Received: by 2002:a05:6102:330c:b0:786:fb19:d5d6 with SMTP id
+ ada2fe7eead31-78a1f19f88fmr5114359137.1.1788439321117; Thu, 03 Sep 2026
+ 05:42:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+References: <20260825095047.9971-1-biju.das.jz@bp.renesas.com> <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260825095047.9971-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 3 Sep 2026 14:41:46 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdW+ejFSGv-gTfvgk8ZSxX+QWns_kyteYr-KQkLnio8PJA@mail.gmail.com>
+X-Gm-Features: AcwNN1Uzwrt2F_57qLud1MQRI-EP0blNweC_SW2rpdknAoyXWxcnxu0jErknhrc
+Message-ID: <CAMuHMdW+ejFSGv-gTfvgk8ZSxX+QWns_kyteYr-KQkLnio8PJA@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: PCI: renesas,r9a08g045s33-pcie: Document
+ RZ/G3L SoC
+To: Biju <biju.das.au@gmail.com>
+Cc: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Rob Herring <robh@kernel.org>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On jeu. 03 sept. 2026 at 10:03, Lee Jones <lee@kernel.org> wrote:
+Hi Biju,
 
-> On Wed, 02 Sep 2026, Jerome Brunet wrote:
+On Tue, 25 Aug 2026 at 11:50, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >
->> On jeu. 27 ao=C3=BBt 2026 at 14:42, Lee Jones <lee@kernel.org> wrote:
->>=20
->> > On Fri, 14 Aug 2026, Jerome Brunet wrote:
->> >
->> >> On dim. 13 janv. 2008 at 11:56, Lee Jones <lee@kernel.org> wrote:
->> >>=20
->> >> > On Thu, 13 Aug 2026, Jerome Brunet wrote:
->> >> >
->> >> >> On sam. 12 janv. 2008 at 23:40, sashiko-bot@kernel.org wrote:
->> >> >>=20
->> >> >> > Thank you for your contribution! Sashiko AI review found 2 poten=
-tial issue(s) to consider:
->> >> >> > - [High] The corresponding regulator driver lacks support for
->> >> >> > `AXP318_ID`, causing the `axp20x-regulator` child device probe t=
-o fail.
->> >> >>=20
->> >> >> Funny sashiko did not pick up on this when v6 was first sent. This=
- is an
->> >> >> ordering problem. The regulator part should be applied before the =
-mfd
->> >> >> one.
->> >> >>=20
->> >> >> I could reorder here but there is not much point since the 2 chang=
-es will
->> >> >> land in different subsystems but it does bring a valid question:
->> >> >>=20
->> >> >> Lee, Mark, are you OK with picking the patches indended for your
->> >> >> subsystem or would you prefer that I split the series, regulator o=
-n one
->> >> >> side, mfd on the other (with a dep on the regulator one, of course=
-) ?
->> >> >
->> >> > Does this break existing devices or simply delay support for this n=
-ew one?
->> >>=20
->> >> Existing device are fine and untouched.
->> >>=20
->> >> I've just checked and if someone tried to run without PATCH 5 (regula=
-tors),
->> >> the main axp driver loads fine but the regulator part gives this
->> >>=20
->> >> axp20x-regulator axp20x-regulator.0: Unsupported AXP variant: 8
->> >
->> > Can you not enforce the deps with Kconfig?
->>=20
->> This is not a build problem so I do not think Kconfig will change
->> anything here. There is no specific config per chip.
->>=20
->> It is just a runtime ordering matter and not a problem. regulator and
->> mfd are split so at some point the support is incomplete.
->>=20
->> * MFD first, it is fine it just cant instantiate the regulator until it
->>   lands. it is (mostly) useless without it, which is fine.
->> * Regulator first. regulator will never be instanciate until MFD support
->>   lands, just as useless.
+> Extend the existing device tree bindings for Renesas RZ/G3S PCIe
+> controller to include support for the RZ/G3L (renesas,r9a08g046-pcie)
+> PCIe controller. The RZ/G3L PCIe controller is similar to RZ/G3S but has
+> some key differences:
+>      - Has 3 clocks compared to 2 on other SoCs.
+>      - Has a different set of reset signals
 >
-> Okay, this is normal.  So there are no deps between them?
+> Add device tree bindings for renesas,r9a08g046-pcie compatible IPs.
 >
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-I think it is normal yes.
+Thanks for your patch!
 
-There is a dependency as it stands. mfd change (PATCH 4) introduce a
-header it uses. The header is also used in the regulator change
-(PATCH 5).
+> --- a/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
+> +++ b/Documentation/devicetree/bindings/pci/renesas,r9a08g045-pcie.yaml
 
-I don't think the headers should be split in there own change
-but I can do it if you want.
+> @@ -87,14 +88,18 @@ properties:
+>    interrupt-controller: true
+>
+>    clocks:
+> +    minItems: 2
+>      items:
+>        - description: System clock
+>        - description: PM control clock or clock for L1 substate handling
+> +      - description: PM control clock or clock for L1 substate handling
 
-> --=20
-> Lee Jones
+As pointed out by Krzysztof, the "or ..." part should be dropped...
 
---=20
-Jerome
+>
+>    clock-names:
+> +    minItems: 2
+>      items:
+>        - const: aclk
+>        - enum: [pm, pmu]
+> +      - enum: [pm, pmu]
+
+... this can only be "pmu".
+
+>
+>    resets:
+>      minItems: 1
+
+The rest LGTM.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
