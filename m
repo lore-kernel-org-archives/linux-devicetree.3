@@ -1,79 +1,50 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4188E495514;
-	Thu,  3 Sep 2026 11:41:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 568C346AEDD;
+	Thu,  3 Sep 2026 11:42:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788435679; cv=none; b=e8bwWPNQLYX5tiSk6frVh4SW1rVTEPSeHMoe05VXJnu0Lo4pyn+ESSgYCFTSvZcB3Q5woZIlNlnldLzNpDzYvaUsQeMua+EOcWXNTSlQ79CmBl86sK5JuArofSjOlWptEv7w7dlX8dRtN/w6RuJItkKNKVq8T72Ah9xmGgoIWT0=
+	t=1788435780; cv=none; b=VFVWn0QsASGUDeE9ET/xJ5Zrz3F6eZDcqOLiVcstpR8mEi9Y89xniOzhu+5cPrcvtgvmHtBSVVwLJ6gndG3h07m+h9TE0ZVDucN+rwg3Rwvueges8+kU6NJB3PnTQqajUHz/JwM5KZtJjKtv9jYyv+wWh0P1/79q7kajDzTT5wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788435679; c=relaxed/simple;
-	bh=JSuJrngTC4olOG03288V/nmLwz2wwieT77d/P4LnfNw=;
+	s=arc-20240116; t=1788435780; c=relaxed/simple;
+	bh=siMXG41iJ3X/vqbf8RYp8LNhM43Y0Ves9W+OMagA4eg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PmoytiPDr+ZOPYyAnLfG87aUSP5vNLQQmdyQkMqyzvntgTJXwrCc3jZkxEXgOt1YQy70eS1X5QVqQcastYA4058mGOXbJud0bn2G/zB+dFJybkG6U/btB8LsHB7PyhrXqzBn+YP8OiNRUEkXRWwoTRzERm1alz1SYPrxRunllro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ers6gETO; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QC+Y7+cHAJP8hwPWpRdvHDn5kQ301QqM6IJNzH1HXiAs4eK36Fe9E/JDwFs+bJ0JEYG12bbE5Tvsc2nhg7Co4JqSFMFqMxUCv6jY7KedZpkTnUcG3GCVixHpyuRtK5P3zEzdWeNBoMejvwB15D83o0TsS2Snn1lbhjL/PbApFzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=C4o2G78x; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ers6gETO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788435669; x=1819971669;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=JSuJrngTC4olOG03288V/nmLwz2wwieT77d/P4LnfNw=;
-  b=ers6gETO8ILbcMJb30hBdA5cRb70xbXXtjmtpmnMrqLZDf9Pw0uSNZ3r
-   zmqIAUIgx5x889AyikDj7Evm82qvOtXjLITDCIeJ0P/3WEAFFPyextNh6
-   omDYIBCSFwm9AF6stJZhY30ciO+EnJXP4QTx/TmvBfp0syGTVTH+RUtw5
-   S4CEuwTUuc3xASw51Hn4NllaUzBW5+PBkuzk0RyRmJZ4juBOFdnGiP7qr
-   3Vl3HjsLOL8JIGvQyTDiJcnVLM2W4zo1M8/wocyUF9OStEYvhJV0LwjJa
-   3LG/PgvPt2lDmtVSNnRylNxKwcyarlessTa6+5JFWFR+REBuhhUsOqg48
-   Q==;
-X-CSE-ConnectionGUID: 1vwjF52/Te6RGSUL1Hx08A==
-X-CSE-MsgGUID: qxJCJcL0RDi82Dhyz9vVUw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88762626"
-X-IronPort-AV: E=Sophos;i="6.25,259,1779174000"; 
-   d="scan'208";a="88762626"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:41:03 -0700
-X-CSE-ConnectionGUID: q2c9BakcQlmPlwKURwZPPg==
-X-CSE-MsgGUID: IwhtTsApS+ukKqW3wbyOpg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="265355126"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 04:40:57 -0700
-Date: Thu, 3 Sep 2026 14:40:54 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao <longzhao@ambarella.com>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc <soc@lists.linux.dev>,
-	linux-arm-kernel <linux-arm-kernel@lists.infradead.org>,
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="C4o2G78x"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 468011596;
+	Thu,  3 Sep 2026 04:42:41 -0700 (PDT)
+Received: from J2N7QTR9R3.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 65C403F7D8;
+	Thu,  3 Sep 2026 04:42:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1788435765; bh=siMXG41iJ3X/vqbf8RYp8LNhM43Y0Ves9W+OMagA4eg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=C4o2G78xVRbsEO8NNa92eegrUnoKRBkTQi5AK6Z+uyRztqM2xYpbSXDOO3g4HxV/d
+	 W90CrGzaqSvWPTyHSZfMLw7Nf3Z27pletfVGLZwuwVUni4e2ZVUjRQ/BQfh4zPbzAP
+	 y2n+SDFMuPdpwTRzFydlZNGoYWT0LHGwitc3+Aa4=
+Date: Thu, 3 Sep 2026 12:42:39 +0100
+From: Mark Rutland <mark.rutland@arm.com>
+To: Ard Biesheuvel <ardb@kernel.org>
+Cc: Sven Peter <sven@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
+	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
 	Catalin Marinas <catalin.marinas@arm.com>,
 	Will Deacon <will@kernel.org>,
-	devicetree <devicetree@vger.kernel.org>,
-	linux-clk <linux-clk@vger.kernel.org>,
-	linux-gpio <linux-gpio@vger.kernel.org>,
-	linux-serial <linux-serial@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>,
-	Brian Masney <bmasney@redhat.com>, Lee Jones <lee@kernel.org>,
-	mfd <mfd@lists.linux.dev>
-Subject: Re: Re: [PATCH v5 10/12] serial: 8250: add Ambarella UART driver
-Message-ID: <aplcxoINt0YAjvxL@ashevche-desk.local>
-References: <20260818-cv75-v5-v5-0-7bbb12f0360f@ambarella.com>
- <20260818-cv75-v5-v5-10-7bbb12f0360f@ambarella.com>
- <aoRpc2RK2_X3CdAi@ashevche-desk.local>
- <162c0385.2c076.1a018b82fa7.Coremail.zl020895@163.com>
+	Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-efi@vger.kernel.org, asahi@lists.linux.dev
+Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
+ sharing EL2 for Apple Silicon
+Message-ID: <apldL6Ml91GW-tE9@J2N7QTR9R3.cambridge.arm.com>
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+ <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,33 +53,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <162c0385.2c076.1a018b82fa7.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
 
-On Wed, Aug 19, 2026 at 02:31:59PM +0800, zl020895 wrote:
+On Thu, Sep 03, 2026 at 01:34:56PM +0200, Ard Biesheuvel wrote:
+> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
+> > This series adds a custom EFI table that points to a PSCI entry point
+> > (plus some other stuff that has to be available before EFI runtime
+> > services are set up) and adds support for this new conduit to the psci
+> > code. We can't directly use the normal EFI runtime path because that one
+> > takes a sleeping lock and we need to be able to call into PSCI from
+> > atomic context during e.g. cpu bringup or during idle.
+> > It also adds support for specifying the specific MAIR attributes for EFI
+> > runtime mappings as defined in the latest UEFI spec since Apple Silicon
+> > is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
+
+> >       dt-bindings: arm: psci: Add EFI conduit
+> >       arm64/efi: Add and parse custom PSCI EFI configuration table
+> >       efi: Add EFI_MEMORY_ISA_{MASK,VALID}
+> >       arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
+> >       firmware/psci: Add EFI runtime conduit
+> >       arm64: dts: apple: t8103: Add PSCI and CPU idle states
+> >
 > 
-> Thanks for the review.
+> I've picked up patches #3 and #4, which are useful in their own right.
+> 
+> I'm not sure if the arm64 maintainers will want to consider this, but
+> I think it's a reasonable compromise, as it puts the abstraction in
+> the right place.
 
-> This is Ambarella 8250-compatible IP, not Synopsys DesignWare. We
-> first tried 8250_dw after Linus asked us to move to the 8250 library;
-> you then told us not to touch 8250_dw and to use 8250_ambarella
-> instead. That is what this patch is.
-> Background:
-> https://lore.kernel.org/r/CAD++jLm6HzEU1TM-c=Vtjv3FJEBecVP7TyxSgq_Q0zF-YwT6NA@mail.gmail.com/
-> https://lore.kernel.org/linux-serial/an8KvvHWX0naH3Xw@ashevche-desk.local/
-> https://lore.kernel.org/linux-serial/7E774305-3920-4BB7-BA46-E0772D6BED84@ambarella.com/
-> I will also switch to uart_read_port_properties() and trim the
-> 8250_dw-derived boilerplate.
+Sorry for the late reply; I've been away almost all of August and I'm
+slowly catching up on things.
 
-Thanks for the register descriptions, it was helpful. After going through them
-it seems the v3 as you made it is good enough (sorry for going back and forth).
-What it needs is better commit message explaining that while it's not a Synopsys
-DW IP, it was made to be quite compatible with that (on register level) and hence
-no new driver is required, just a small quirk.
+As with last time this was proposed (in abstract), I am not happy about
+bodging an EFI conduit into PSCI, given that the manner in which state
+is managed is completely different from SMCCC.
 
--- 
-With Best Regards,
-Andy Shevchenko
+If we need a mechanism for doing hotplug and/or idle without HVC/SMC,
+that's one thing we can consider. I don't think we should pretend that
+it is PSCI.
 
-
+Mark.
