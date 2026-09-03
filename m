@@ -1,144 +1,101 @@
-Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5C5388876
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 05:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB47E34DB6D;
+	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788411765; cv=none; b=FLxpbyeS9ttglIXhzHdyJI1B2vCD6xr9H5TS40okkaeoVfRJojRoVM0yM1ez1wU/XRRirJUs6aTueUyoIQlTJhol3h051QXWCiBiBXpMDoSgoeSxeTjZN5KmpkvlDiW78qg8QktimlKRL8sTJECVRSP90kYrXnSXqcd1GEFwSRw=
+	t=1788412973; cv=none; b=iU1+hkwHLRS8PwR80UbCZQ/IWWFgT0dvxj6BDqWeDxo2dDc7su4JNHDeLq8z0g93xG8YNZS/bTyxWuVs6L80tYuUHtAQHc90iapDpxvfXYTTAeOG/pucE2LeziIDIMS1F897k3EIp9s00jYXRE68NPF1bXt19PzDEgcCq3KyyBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788411765; c=relaxed/simple;
-	bh=j8QMTNW8XDHV+BH8mGTNiSJbNMOrQ1E2SamlbJ3guog=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L4fBtqdEhdPuwiuivkJ6ozh3ySkQ//4H9GXdDugzx3R30IPCk6FGLrOwRGkyLbMOxOTgfXdRJJtWK2Pa5n3yMmjB5AudthV1gF/p1SwGrf+pLiULoYLUVKf8h0GqwiekLHy6KCkH7QMkx9vPI8KpKXSdVO054HA4+VxnoHQLEq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hS9TovMd; arc=none smtp.client-ip=209.85.167.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788412973; c=relaxed/simple;
+	bh=O6vuoKCQoHoG2GbnoVIEO+PufAG+OYfaUyXLJ2wdgLk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n1EXWuWQoTPj49lKRLnocoDc1WgZkvRlFE68OIhC/1vZbp6FukuQaaQrfvscjjbMeTISyOWE2u6CRETK4RURK6nh0qRrI0v0CiFZi21+TOHxa26TarO/PYvb3KDzmsOC6BXkw4GqA+0bCCkSu5e36yZaAwojgaOVgazPLt0xb+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpO8MuWw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hS9TovMd"
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b0231a3e86so1722186e87.0
-        for <devicetree@vger.kernel.org>; Wed, 02 Sep 2026 22:02:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788411760; x=1789016560; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LwFiTvSfOdYmNglr5FoVqN597kWfjGSwy7pj4LDNId8=;
-        b=hS9TovMd5QZKIZNyOpwAJtQ57wR6xsF0NLxpWkjJu4Exxer+y0BAmxudl2pCbJZXB0
-         s8wHmZdgs62nqz5HLUL8CikyKRTmtWfxKYvHQpbvhMT4M9eLIt+xPStnUfjqImeyY8SJ
-         6BfRq71N/EKv1qxb6BGEorOvJAVGsuoE20AcBf1vmIhTfDld8Du7XIA/k2Qfr/1v6CQ7
-         fcg2ew6rq46UtaOg5tCt/aKdd75BMIzPLjM6FrbuTgenT7XvaTGqCYcjuul229whmLRU
-         sjs8OSK2lBQzCpQLt7bziAF2kArm6eWxxTC+Rt+UXE/DgVU0c1XWAQcTmJi4ONiTSP/P
-         tUMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788411760; x=1789016560;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LwFiTvSfOdYmNglr5FoVqN597kWfjGSwy7pj4LDNId8=;
-        b=dFSW/X2MhfMvQB7n3N1zKkBrU/TQZUt7nM6ye3JqUE9zGZzmyqGCEHXmozrC2IvMiV
-         RjWBThBrYx9hIG6ZjiSjxPHYynwsQVZS4inZeBblAPZEhJD9+RprGkZEbdCflvUt6pDv
-         OPhPg0vs7IMlutRqOdI13XpfU0J0OiHv3Zkpk2rQzocOSi2PxjQSLO961BwqoInRn3MX
-         6i9dz7SgCJg7QcZKFBczrWTBJ4DG7SV1FoqyYb5QNE18/ybnLJ3qHbaN3arv4MqVxC3n
-         6+K5W0pt8Jc30Rl+CkXMDbd++Kn7sFmt607KlZwJOfGVCeOga+HAx3xNLFoZ4T0OSx5D
-         1uOA==
-X-Forwarded-Encrypted: i=1; AKwUvBw35gxqZOJXxjLszTxPTLQWAkhWN7xp74w2P2Loc0mWOqAG3M/9me7XwXiRmUv7xa1g6THU3Ajfihar@vger.kernel.org
-X-Gm-Message-State: AFuF++lTl5QshPZoBF2qH5a+Yo0csNoc6aiK66S79Q9hz1jnXtTCqXyj
-	CaVCapCempcWmODco37ant/bo3FShQRPWD2bAMriEqiniW2PwPKFjNOL
-X-Gm-Gg: AYBFou00DSCSdOLSQ4HIbV2BcGZv59Pp+JmfPnDMrWZGRnpU7rA+hwq1nZiodvsEsAe
-	RXWIrsDJo/PrLBxIuTjnmRwKaDMRPXYnzzRAKKdjoBPy9kGwEjy6nqVkcCHbs7T0WUEozir41tt
-	uDM/Q/W44l/dC2qrIxFGCT1+zVZenvz1QWjpG2YA8PHRZ+FpHZA8J0qR498WB8adXEHPnce8nst
-	4aqquzpP/sh4norucO+wvsIJJ59wJ6n1qXfUL7tF3fXnbrju4RZtWtLnI5bGssKgfpjWbjuQFLs
-	1Xlr3oTks2iEMoj7VI48Yqx2RXLiL7HvToQIvIGTfZ0gArqrS/htz9vBHI2Ay+Rjz8P5sit6tTt
-	0T7tONZFO0uphucXFluNQB9Ys4EAA7WQyvsa/6hMBFSZEhVTahBq4jNBVo+USdIZ3SstKMNxa+N
-	1Odvw71Vi8Gg9de05iTwx4QftKWdNf/n9m9glMcN/whiHX/rTyksud1D39kGohJiphtCJYrKHzp
-	Ud/TMNqKqeVTiCGhPcYtYmQKUhdEiBAvtaAbKqZNDGb
-X-Received: by 2002:a05:6512:110d:b0:5b5:fae5:b241 with SMTP id 2adb3069b0e04-5b608559ac7mr3146149e87.14.1788411760490;
-        Wed, 02 Sep 2026 22:02:40 -0700 (PDT)
-Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b1cd21sm1021897e87.29.2026.09.02.22.02.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 02 Sep 2026 22:02:39 -0700 (PDT)
-Message-ID: <c2d07f77-1fe1-4d5c-af6b-703d4d767a83@gmail.com>
-Date: Thu, 3 Sep 2026 08:02:39 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpO8MuWw"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 626D2C2BCB8;
+	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788412973;
+	bh=O6vuoKCQoHoG2GbnoVIEO+PufAG+OYfaUyXLJ2wdgLk=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=DpO8MuWw2IvvfecBbQi6GXgQdmz5tBwa3Ti+2m2ENff9zEdS1TO692juiIL1ryiBz
+	 fZqqZk+sexvsMzGh3FQscBTGAAokKEoNG5qsqmQ6wsPdBeWB7EH7kZuRyqZpQbuXJ7
+	 2yPPYg9y1HLX/C9Aeitx4lkQxMWJ+M9rPPk8Z+6qHtWNhOu6ZnUsIXF7gSnLGe/RdZ
+	 9FQ+H7yfbyWbt5b+gwwk5CYhi8ABkJUdsTpAEVv0iHqNrI7zVaLsDkEtT0fsBAVsHg
+	 +vQTyBIP8bIjm0MwZhz6dhQpnCaeImgKAQKSjc+lSG9ApqZ+naA+N83uXsqYQDW3Gg
+	 FTEniLLsc0nYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3F2A0C624D4;
+	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Subject: [PATCH v3 0/2] ir: support IR for Amlogic A9 SoC
+Date: Thu, 03 Sep 2026 05:22:43 +0000
+Message-Id: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 09/10] gpio: bd73800: Support ROHM BD73800 PMIC GPIOs
-To: Linus Walleij <linusw@kernel.org>
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
- Matti Vaittinen <matti.vaittinen@linux.dev>, Lee Jones <lee@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Michael Walle <mwalle@kernel.org>, mfd@lists.linux.dev,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-rtc@vger.kernel.org
-References: <cover.1788346553.git.mazziesaccount@gmail.com>
- <5eb294e68b8d5d2c1d3a12b14a55dd2a9c075a09.1788346553.git.mazziesaccount@gmail.com>
- <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
-Content-Language: en-US, en-AU, en-GB, en-BW
-From: Matti Vaittinen <mazziesaccount@gmail.com>
-In-Reply-To: <CAD++jLkvELVwVD2B-OPF=mV8-F5xi7RZWJ7cvuyg2srnrJ2HLQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACMEmWoC/12MwQrCMBAFf6Xs2UiyrUnryf8QDzFN2gXbSCJBK
+ f13k4KgHufxZhaINpCNcKwWCDZRJD9nqHcVmFHPg2XUZwbkKLnikumOUWD1oXFX7JRVQkL+3oN
+ 19Nw650vmkeLDh9eWTaKs/4UkGGeN4y0a3WrtxElPNz+Q2Rs/QWkk/Pa6j4fFQ4OiV1o6Z369d
+ V3fqVH4+9QAAAA=
+X-Change-ID: 20260706-a9-ir-354fb297e716
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788412970; l=1103;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=O6vuoKCQoHoG2GbnoVIEO+PufAG+OYfaUyXLJ2wdgLk=;
+ b=ek1RQor0splhjxeQQVFAs1R0OdVSOoTglk2DuhmtTqu//HDjzRs9I1bYUYA00XWTiRCM1e3ES
+ Q5CSKHqRZAsDT08TVSsVam3GyxlUonGeEaf0rdbbyoyunzbKgPuMgcU
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-On 02/09/2026 15:39, Linus Walleij wrote:
-> Hi Matti,
-> 
-> thanks for your patch!
-> 
-> On Wed, Sep 2, 2026 at 1:07 PM Matti Vaittinen
-> <matti.vaittinen@linux.dev> wrote:
-> 
->> From: Matti Vaittinen <mazziesaccount@gmail.com>
->>
->> The ROHM BD73800 PMIC has 4 pins (named GPIO1, CLKOUT, FAULT_B and
->> EXTEN_OUT) which might have been set to operate as a GPI or GPO when OTP
->> (One Time Programmable memory) is written at device manufacturing.
->> Support the GPI/GPO use-case via GPIO framework.
->>
->> The default OTP for these pins is to not use any of them as GPI or GPO.
->> (The GPIO1 defaults as an ADC input regardless the naming). Hence the
->> driver assumes none of these pins is a GPI/GPO unless explicitly pointed
->> as GPI or GPO via device tree.
->>
->> Furthermore, pin's direction can't be changed after OTP configuration is
->> done. Also the default drive type for a GPO (CMOS / Open Drain) is set
->> by the OTP configuration. The BD73800 has a set of undocumented test
->> registers which should allow changing the drive type. Access to the test
->> register area or the test registers aren't documented and so this driver
->> does not support configuring the drive type even though it might be
->> doable.
->>
->> Signed-off-by: Matti Vaittinen <mazziesaccount@gmail.com>
-> 
-> Pretty neat with gpio-regmap isn't it? :)
+Document the Amlogic A9 IR controller compatible string and
+add the IR controller node for the Amlogic A9 SoC.
 
-Yep. I like the added flexibility now that it has got those callbacks a 
-driver can register... ;)
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+---
+Changes in v3:
+- Align the node of group-remote-input-ao-pins.
+- Link to v2: https://lore.kernel.org/r/20260709-a9-ir-v2-0-42c21d7a6ffc@amlogic.com
 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
+Changes in v2:
+- Rename the IR input pinctrl group and its phandle from remote_pins to remote_input_ao_pins.
+- Link to v1: https://lore.kernel.org/r/20260706-a9-ir-v1-0-4f082ca8aaf1@amlogic.com
 
-Thanks!
+---
+Xianwei Zhao (2):
+      dt-bindings: media: meson6-ir: Add Amlogic A9 IR compatible
+      arm64: dts: amlogic: a9: Add IR controller support
 
-Yours,
-	-- Matti
+ .../devicetree/bindings/media/amlogic,meson6-ir.yaml       |  4 ++++
+ arch/arm64/boot/dts/amlogic/amlogic-a9-a311y3-by401.dts    |  6 ++++++
+ arch/arm64/boot/dts/amlogic/amlogic-a9.dtsi                | 14 ++++++++++++++
+ 3 files changed, 24 insertions(+)
+---
+base-commit: 4336e970ec6890fbd424128c352564a9c1dd514a
+change-id: 20260706-a9-ir-354fb297e716
 
+Best regards,
 -- 
-Matti Vaittinen
-Linux kernel developer at ROHM Semiconductors
-Oulu Finland
+Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-~~ When things go utterly wrong vim users can always type :help! ~~
+
