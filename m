@@ -1,141 +1,74 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3080D33ADAF
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:34:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDB343553D;
+	Thu,  3 Sep 2026 08:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424482; cv=none; b=ZuqQ9xGWjcesb2ulCPZpHR2J3+6BQTLIKkPRVJ6PrTrA36ubbsb/bCdziZRP2y+ECwQh/EuqW4MyE60HMhv8Uk2k2f4Atd10GK/rWOj3J9nxEZV4IUbOE4UwrP1QzT8lu40v+1JbPiJEGChXgyvqxWr6r63kqOec33TpcCCIlgs=
+	t=1788424499; cv=none; b=axmIvNP0cnnDCC89LS8uIAcWAVnIGPcQ4CRoDl5KX8pw29oIeoFkJ3YcFVpXK69xxKlSRVqChA8ALc9x8xvf+S4J1vntaDINCKJLjdyBZgX0zK47WiQH2bBjVol1Vevk760JiQ4mOcbYZYR/uGGMkSoSBZl7dar13OCT2G3m/zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424482; c=relaxed/simple;
-	bh=ucKEN6+uXGip22JN66gcFyiu0AM76YtKZqbRSJhNY2Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=X32un0Jn6ZEUL5/eNyjTEKoQHPhF/oAalrFwIEhUgukiM2shHEqnugWAUbT3Taocp6N4OSoVq8rON7BbtMixOhTrHZsR0ANj2BG/FBogN7AODsVu1CzWO8NX70NSDOq1WIbEJMzksrI901FGpeARjlBjI19KMSy1EV+KXDtMh3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=BgoM3hq2; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788424499; c=relaxed/simple;
+	bh=IS0qM7SRLYGmpAXx9rsOdk39Qp7s4xjKONJApQFx/iw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IpziRaeyTa55g6x97dJhXiH4Qe3ynP+KgzJdWCOhelWn3cCVnxCZFk54ehcdsKSkuoS3P0UlRAFHO6FjFWJfk8TuShzdZR9XVMVydUMEYrQbafckk/EMRCl1xEg9yBo6E4fQHmEGwcTtTaff2rrBdjTnKmQVVq43uCG23w2gFKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NCZvOKZt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="BgoM3hq2"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 192294E414E3;
-	Thu,  3 Sep 2026 08:34:38 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D530B602B8;
-	Thu,  3 Sep 2026 08:34:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2BB8B11C791C9;
-	Thu,  3 Sep 2026 10:34:26 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788424472; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=xhPvOIjM4meUOojWE0gNF30Vl/5xG2LrjXeemmGp+cQ=;
-	b=BgoM3hq27qChOnoFp6bquvP3ejeOK+suMBAE4qgREVwodpZYX/vb505KLP1KSgKcab5dxf
-	czVxdWPlwQqPb9cqkEKWo0PKCUL6X6uBxc2XNKy3do7SFPWb8Op4Jy6ErpNWGvhGO3hgSQ
-	dyG22a2vkqi7SL60lKQCYp7Gsx2j+CKNsgnxvD92PuXpgU8DFtBZr9K60edsvp5xhAAGav
-	h8N7zGQwG5QqY2EEnULWQ8S9HiHyxWA1OxN/8n2t//rTO1EcqmWUFQ1W5MBQszlrWWbSND
-	QshIyDtba80p9tBhc4hEeQyZQ/EnrerqXzQmsnCSWFx6lLVoYZZSGtf/e5JE8Q==
-Message-ID: <f07c64b4-3018-4e9d-8aea-12454f132419@bootlin.com>
-Date: Thu, 3 Sep 2026 10:34:26 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NCZvOKZt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C74EB1F000E9;
+	Thu,  3 Sep 2026 08:34:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788424498;
+	bh=FduSwPEq84FSvyKlNcI/Nau7FfT3CQG/m1qnHpNK+BQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NCZvOKZtfhWhYkGXSKE/kD78wSsAb+CH9ybxDnoCDmb5RD7FUE+3LSGtVAXeXU1rG
+	 iyZRdwqXck2C6s5G+jWGOo5iaH7eUQmS65Y4K/uR9ktBHTNXZmJ3PAhlrZU46imwW3
+	 O+zPSQNN58hsiTLQfKRv+MvtMhU/L6QgzLpMcV80b8ohznVozfGjvUU2PH7dWQyNad
+	 Wi6A4st4YQCJHGzHi7FFm1F+T8jeuwWy7o1tJYnWDj/npe/QQZGDVkOeKRjZ3wiy7i
+	 /xKKzJYranloZj269oilLcjl1iwtSMG9a+hoA5rwuhBOCWMalKvO1ydtwLgHbItySD
+	 VFbVdJuGWiW3w==
+Date: Thu, 3 Sep 2026 09:34:53 +0100
+From: Lee Jones <lee@kernel.org>
+To: Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Cc: sashiko-reviews@lists.linux.dev, linux-leds@vger.kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH 2/7] dt-bindings: leds: pca995x: describe output-gain
+ property
+Message-ID: <20260903083453.GD2133376@google.com>
+References: <6d3600f99c77c31166f0b6a5ccfb7f518b53c4c9.1788350618.git.nora.schiffer@ew.tq-group.com>
+ <7f61e7e8781292450f920c49ef8853b802d76ecc.1788350618.git.nora.schiffer@ew.tq-group.com>
+ <20260902123105.11B171F000E9@smtp.kernel.org>
+ <630889485b7be21875c858c705e1c9d828973c67.camel@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 08/10] net: stmmac: dwmac-rk: add SGMII
- support for RK3568
-To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-9-coiaprant@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260901150111.141037-9-coiaprant@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <630889485b7be21875c858c705e1c9d828973c67.camel@ew.tq-group.com>
 
-Hi
+DT folks,
 
-On 9/1/26 17:01, Coia Prant wrote:
-> The RK3568 SoC integrates a Synopsys DesignWare XPCS that can be
-> connected to GMAC0 or GMAC1 in SGMII mode.  Add the necessary glue
-> logic to support this configuration.
+> On Wed, 2026-09-02 at 12:31 +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> > - [Low] The custom, device-specific property `output-gain` lacks a mandatory vendor prefix.
 > 
-> The current dwmac-rk driver does not support SGMII mode.  SGMII
-> requires a PCS to handle auto-negotiation and link state reporting,
-> but the existing driver only supports RGMII and RMII.
+> Probably makes sense to add the vendor prefix, will do in v2.
 > 
-> Add a set_to_sgmii() callback to configure the GMAC GRF register for
-> SGMII mode (bit 7 set, interface selection bits 4:6 cleared).  Also
-> add a supports_sgmii flag to indicate SGMII capability.
+> > - [Low] The `output-gain` property incorrectly exposes a raw hardware register value directly to the Device Tree instead of describing physical units.
 > 
-> Provide pcs_init/pcs_exit callbacks to create/destroy the XPCS via
-> xpcs_rk_create() from the Rockchip XPCS platform driver, and a
-> select_pcs callback to return the XPCS to phylink.
+> According to the datasheet, the LED current is calculated as follows:
 > 
-> While at it, fix the clock enable ordering in rk_gmac_powerup():
-> gmac_clk_enable() is now called before any register access, including
-> the SGMII mode setup path.  Previously SGMII mode would bypass the
-> clock enable via a goto, which could cause synchronous external abort
-> when accessing MAC registers with the clock domain disabled.
+>     Iled = output_gain * 900mV / Rext / 4
 > 
-> Also clean up the error handling in rk_gmac_powerup() by using a
-> unified clk_disable label, and add error handling for the default
-> (unhandled interface) case.
-> 
-> SGMII In-band vs Out-of-band
-> ============================
-> On RK3568, the MAC clock is fixed at 125 MHz and cannot be dynamically
-> changed by the stmmac core's set_clk_tx_rate callback.  In-band mode
-> works because the PCS handles rate adaptation internally.  Out-of-band
-> mode does not work because the MAC would need to change the clock rate
-> to 125/12.5/1.25 MHz for 1000/100/10 Mbps respectively, and the clock
-> is fixed.
-> 
-> Enable default_an_inband for SGMII and disable the generic stmmac
-> set_clk_tx_rate callback.  This forces phylink to use in-band mode,
-> where the PCS is responsible for speed/duplex negotiation.  Without
-> this, the stmmac core would attempt to change the clock rate on speed
-> changes, causing TX to work but RX to fail.
-> 
-> Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 386)
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
+> If we want to fully describe the output gain using physical units, something
+> like output-current-microamps and external-resistor-ohms would work. There
+> wouldn't be a meaningful default for these properties to describe in the binding
+> docs however, which is possible for "output-gain" (as the driver just sets that
+> to 127.)
 
-[...]
+This is a question for the Device Tree side.
 
-> +static int rk_pcs_init(struct stmmac_priv *priv)
-> +{
-> +	struct device_node *np = priv->device->of_node;
-> +	struct device_node *pcs_node;
-> +	struct dw_xpcs *xpcs;
-> +
-> +	pcs_node = of_parse_phandle(np, "pcs-handle", 0);
-> +	if (!pcs_node)
-> +		return -ENODEV;
-
-Here aswell you make it mandatory to have a PCS, as the generic pcs logic
-introduced in patch 1 doesn't handle -ENODEV, it treats it as any other
-error.
-
-So, either you return 0 when there's no PCS (so that we don't break platforms
-that don't have one), or you handle -ENODEV gracefully in patch 1.
-
-Maxime
-
+-- 
+Lee Jones
