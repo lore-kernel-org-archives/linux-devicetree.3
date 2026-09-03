@@ -1,451 +1,224 @@
-Received: from hqu.edu.cn (hqu.edu.cn [210.34.240.11])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 00BC1401A0A;
-	Thu,  3 Sep 2026 07:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.34.240.11
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788419425; cv=none; b=PYhD1pTaNk+XNbvA11SkG+PCsxQ+UykdTASQiFvM5QvD6VfVyU3TzFCFQ9Ige4yqkvNkIORfjq/636r07/0whh+iokiIpBBFe9pnWtZJrTnG87IuJsfiGGkalTNHBFJJpREwVrZo2jUInbXYnht1jfoCGHMbSi5HXPOpw2nF8I4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788419425; c=relaxed/simple;
-	bh=UXwxek9vOEREqFF91y9TgablJcud4dvLtHRh17qK3kw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lbpNjuc5E4kNBcAtL69VWS8wJLLJuyiJYyN5fMtlFlSIqHccEuEq8bSD2QnqACl7f6S8HT4G/KVLi3TS6p3u3vvJ9CrfoLK/gD6nVhuw1nbsEl94l6csxQNE91in0hgoL5FbrPfi3PUfENDF1YTYbDc5i4FWdm/FP2bAAEuJbwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn; spf=pass smtp.mailfrom=stu.hqu.edu.cn; arc=none smtp.client-ip=210.34.240.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stu.hqu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.hqu.edu.cn
-Received: from [127.0.1.1] (unknown [27.42.228.181])
-	by cmweb (Coremail) with SMTP id C_Ai0gD3WtpGHZlqUQYHAA--.14782S4;
-	Thu, 03 Sep 2026 15:10:02 +0800 (CST)
-From: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-Date: Thu, 03 Sep 2026 15:09:55 +0800
-Subject: [PATCH 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010022.outbound.protection.outlook.com [40.93.198.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9065D3FE35A;
+	Thu,  3 Sep 2026 07:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788419478; cv=fail; b=vGPOGfr1nLPg9OeQNBigPtkyaeL6snvzG9MaTmF9/4sYoUcB3mU0wPmf3XuQdS8t7WmH65Pl85H8oVPEDfdSBBSaFmhnQ+8idDy3NStU9xFZhmdbS/cbcE+jlDFX/EsyYd5Toke59u9rn1YSSte1/CHOOuSEk/IwlwxgRAwurJM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788419478; c=relaxed/simple;
+	bh=oEiKRIEN4yRg1vZhPUdmSWyKa+o9dGB7E1CeuzoLOTc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=QrDcWzpmTDITejnGzjpkUtZcTPtOjpfeUEP54dlz5Xmew2NYtNrm+dw4QznlsNnpoXfFu+WLF3t0KWt4ykvlW5gcZUoktiZi6EARcgeSmeNj4wTzZ7HHXFt6nT/cnX7J66wSLPOqv7alIg08YIf9xa8kX7jnXizbcyLYBPBeBrI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=BePgXKq7; arc=fail smtp.client-ip=40.93.198.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="BePgXKq7"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=B7TF4kA94aZQrLKY8XgjXevCZmWS0dcPR8sjqZYvHZ0UldEPPocoIq2wLe1VJ+7oVJ1QYDNAQ/Rw8Tl0Ubec2GNKohEAblkwtanEtlrYP/87QqKc7R0YDC8AhTvOxwWV9zFtH61Klin+ILU6GBvbUOu9Y1gFQPDA1FKXldKbU5f6EiX+jYZ7RSUR7LLoppwpZhLRldFM2xiFXF6myxqoxjSRso6S6q/U+uzPtaKANoLifOV604YJbXhcpbeuUHVwm6ynof4ZcRijdFYCET8C1peK4wFvWKyXy4cpIvlN5ODcLQXKNnoDYppH8OxGPeZ1z5QpuUsiArGH56+rUK3gLA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=oEiKRIEN4yRg1vZhPUdmSWyKa+o9dGB7E1CeuzoLOTc=;
+ b=MqfWHKph7tsz/ZmFKXF3jL+lSiybQz8SzrCoOVuLPriZtC+xa/dWeQcXfvRC9Z+yn/7NpeOCqVHk2bNvquK4ThG0FirbPSNLsgQG4kBd4MQbc3KjjGQWCmU2fo7MUe9gPxRXvuwrgtwxLyCNIlUM0l1zTembyOp6DIPlPh+CO3pjL4xCfsxXXwtbs55r0awiw3OzBRaIwBMBSaO5afXp+pkN+SPNplMQfqnLmhbZC6aoYoodrRmRPnTEHEijnQ1TiwuMNFRwtY5HfNa2LkF5H3Bz+XmZ2LXfbXnyt/0wBjVwR0C8ULsyHqX4BsMlkYXqP0tzADiE7j8cX+eMi86JCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=oEiKRIEN4yRg1vZhPUdmSWyKa+o9dGB7E1CeuzoLOTc=;
+ b=BePgXKq7EsEwz8vU9PNDLxZwsLgv+9+QbcCh/hOX5AzG03lvZGxl1H3SBLkX9e/VQyGOsr7XqrU/IxCF67stZEvz9NTXniH5rfHGK38Po+bb4/1voTsjQ1iZuc14YpENqVLBfV5VivL4+29Jd9L8WdPN+M82pifTnTZeL03Yt6aa1QC0x/pBj9hYIgNiD2Fo3rHxHpMXSJ3Lm+wS+JYdIlqhr/tey75f+coHkJHGCpA8qeysSRybhUW9P4yj6XMU/yFEFQ9muPpcl4PGeGPut7H8d18Fa5yNqO0gC5KJSnfEd9m4Vr/WYjZF58vN3cxBuc+oxkOiCvCJL/OoSmZzDA==
+Received: from DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) by
+ CY8PR12MB7492.namprd12.prod.outlook.com (2603:10b6:930:93::9) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.13; Thu, 3 Sep 2026 07:11:05 +0000
+Received: from DS0PR12MB7512.namprd12.prod.outlook.com
+ ([fe80::2b77:2cc3:d751:6b75]) by DS0PR12MB7512.namprd12.prod.outlook.com
+ ([fe80::2b77:2cc3:d751:6b75%5]) with mapi id 15.21.0360.008; Thu, 3 Sep 2026
+ 07:11:05 +0000
+From: Wayne Chang <waynec@nvidia.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: "mathias.nyman@intel.com" <mathias.nyman@intel.com>, "vkoul@kernel.org"
+	<vkoul@kernel.org>, "neil.armstrong@linaro.org" <neil.armstrong@linaro.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"thierry.reding@gmail.com" <thierry.reding@gmail.com>, Jon Hunter
+	<jonathanh@nvidia.com>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "linux-tegra@vger.kernel.org"
+	<linux-tegra@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-phy@lists.infradead.org"
+	<linux-phy@lists.infradead.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+Subject: Re: [PATCH V2 2/8] dt-bindings: usb: Add Tegra264 XUSB host support
+Thread-Topic: [PATCH V2 2/8] dt-bindings: usb: Add Tegra264 XUSB host support
+Thread-Index: AQHdOXrYCVy0Hewxx0ybB+fZ7PfAOLa5gUEAgALyjoA=
+Date: Thu, 3 Sep 2026 07:11:05 +0000
+Message-ID: <babe3a6d-987a-4a27-9270-dac214b7b701@nvidia.com>
+References: <20260831185835.3732707-1-waynec@nvidia.com>
+ <20260831185835.3732707-3-waynec@nvidia.com>
+ <20260901-solid-uber-coati-381d2d@quoll>
+In-Reply-To: <20260901-solid-uber-coati-381d2d@quoll>
+Accept-Language: en-US, zh-TW
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+user-agent: Mozilla Thunderbird
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: DS0PR12MB7512:EE_|CY8PR12MB7492:EE_
+x-ms-office365-filtering-correlation-id: 444017da-7a47-49b6-b87a-08df098a8542
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|23010399003|366016|22082099003|56012099006|10067099003|5023799004|11063799006|4143699003|3023799007|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ sQEcrTaf7/lqCYtrVd0E/TpaocY/68DGlJAVGR4xItSpLz5w1k7mpstGw55HGSLd8DNQ4Lsjji2wScqdrhYFqUwoJStJE3MfdPKy9gaR+cJaRAj9Nc0n5xEecupk4mdFYlCBAa7/uzZUXKyo5xCLIhGFTcJiwgB+L3cLQ6dH/yuOTU7/Vvp7sJIlSh2e3+Oag3XLxDNHiQxUXFZ+cS0oXwzgnPIPay7W/S7wCZhS1oGgYQ4PiopaEpzm8bVZjCzo5vfdejR5r8+bmf4VQAc49q+k1kRGGVoXDWBPMjP3xqTgfzLDoxo2kY2uHAOx+GGECekhxvCb7CDjIibUwq5cqNDMB65g+1WtovMH0+4z+KtkcwaRDQ6h+LICdVeHcxDXWotlpfOtGkchzFTSGni5nLLjVeuOzHTur4ixqrQI8Er16CMFYidrzVsErHf3vhx5lA1e/bMChRJMnKUJqyUP42wRV20ZKQRzX8K6XVOOfA5o3BBz+0/0ntG6Hroo9ZRCvePAoC8eVWopieyZYkZH5CawmZlpQDWXTPBp+XhcdSisbs2LIU45KjOc5KWtAy/h3Hn3zJ8QK+BsyMfR9FPhxN66st0ajinXpDaEBbhmEZ41sWqJiP+nO3aUc6bjxTZB445L2Sh/ADFhSwP9Etpa76BPZv9cXzu9NTphcs94ZlTCN/DNzCUBupYe9ptY7wlDlVMSPZemGgXzjGFlwELzEn10p4A7jhsXNpzv5hZ4n+E=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7512.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(23010399003)(366016)(22082099003)(56012099006)(10067099003)(5023799004)(11063799006)(4143699003)(3023799007)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?SUlzbkVBWEYreUFIUkZDakczeG9uNEwzcklsWHhTcnpEcHBTVGVyR3pXZHJy?=
+ =?utf-8?B?OTZIOEZBVnlCSjgrUi9raFd0bmU1ZWhrMUxhQnVYQ0hOejcyVWZDVTU2REtq?=
+ =?utf-8?B?RWVkazZXY0hlRllYKzBIbU5GemV5RXAvcVZPR254YXFGZlF5UVBETDNYR2tx?=
+ =?utf-8?B?cnMraDRpYnBaS250ME13QUR5cVFyNmlTRjRlZlpGVE1Ndi9pcCtaMjM0Nzky?=
+ =?utf-8?B?eEpBUGJkYW0yWWtQRWdaQTMzSGtxYjhnZnV3L3VkTklHOTB1bEZFaGhwZ1No?=
+ =?utf-8?B?NFRNcW5GbGJGdHFQWVJocjB2SGtJdUxLcis5aktKKzVLUEdzSUdmcFlvMVBx?=
+ =?utf-8?B?TXdkRmxJU2dQZzF3Tk02cnd4NUorcDEvVkNFdUF1WitPeEVoU1NFcXM0ak5a?=
+ =?utf-8?B?b29hVlEzajZURHF2bGlZaWZMQytsVmRzYTkxWGZUU0xGZ0hvdU9zSVFjMTJJ?=
+ =?utf-8?B?b0tRMDZYZ04yc3p6R053QTlld1kwL2M0UlZxVzhUbllCTHE5Y01YKzJXS21t?=
+ =?utf-8?B?Zi9BYzdtdTc5NFFSYzgxTGVUQjg1V3RJam8vNk5jSC9yUlZuZGQ0SzlPZkFL?=
+ =?utf-8?B?OVRQQ2hhck5UTDdFR0lCMWVBdCtNdmM0U0d2STl0K0VZWmV2QWMwaE9pUFYy?=
+ =?utf-8?B?dWR1NEFya1ZuVzVwNUphMWltNC9YRWFIRU5CWERxNTI5QjNvYnZET0NQY0tu?=
+ =?utf-8?B?UUp3Mnl2aUdFN1NIUUQ3c0NJcXhYb2M1M2xkbUJrVVEyeUxpYnNYU0R4TDBi?=
+ =?utf-8?B?c2w2YjlZbDVDWFJzZlNOcTVUajdMa3FOc0lGS1VMbW1QNEY1eVJiQyt4UlF5?=
+ =?utf-8?B?L1VFTmt5VThNek41RjNDT3dGVWk1QWRCUzVkdW9PVVJyZW1oOTJaUHJEZlZC?=
+ =?utf-8?B?RkxtRlNmNUdNWDhsdC9vbCtKTmQ0ajhVWXIzNmZJSHFHK2ZiSkFiZkk5c2dE?=
+ =?utf-8?B?Q1pJRFZ0U3ZwdGR3TjhwajQxckNuTFFRSXUxRXljSDVYVlZIYUNXWnhydXFo?=
+ =?utf-8?B?L056Y0p2dmVnNjBab0ZtWEtxZERRTWUvWW9vdmplNnRIeWxRS2Q1YTljVTU3?=
+ =?utf-8?B?bm9ad3h1YzhsdlVSOVMwbkMxMnUvcGs5c2R4YXpxVGZSYWNYYllQZGE0bW1K?=
+ =?utf-8?B?aVlXVCtEdC92VEdod3ZzZ2t6UE1Lbys1M2xFaDM5QmlKZGtONi9lL0xDdWw2?=
+ =?utf-8?B?V09uUXRHUlppdm5RcTRQQ09GK212VkJTYVh2RW9yeVUzOGpvajBNSmZyTDlJ?=
+ =?utf-8?B?NlNvTnYwdW04RldxenVNd0lSRlNPR1lUVVM5K3FrS0lLdkxGQUFoMmRnVVVn?=
+ =?utf-8?B?eXFGTUl4ZVYzUDNPbmJ1QkxqTk9HcU8xRERtdElFa0dXL0duZVJqZFRDYXlL?=
+ =?utf-8?B?c3RnU0liUGVQS3NtbUxESDIyV1FSNjFPUlh2NTk0R3krNFhlOFU0QUhiN3Iy?=
+ =?utf-8?B?OGtZNHFBUmhPMVo0Mmk5b1E0dCtoRDRpRzBoN3c2dG1seTJuclp4bzJrY2tR?=
+ =?utf-8?B?cTNCUUVyeUJTdkZjM293OGpjK2VxLzNTQmlXTFplT0pTeEJEYms5T3cvN1FR?=
+ =?utf-8?B?RkFaT3k5NnlwT2xxSmU3Tnh4VzF5U1E3UWZvV1pscXYrbUVGM1RITlBLY25u?=
+ =?utf-8?B?K1ZWN21vb1BzQkM2N0dUM3ZpaGRhWlpHMFZ1bVdEMUpjdHJ1OVp4N05OTUxs?=
+ =?utf-8?B?N0J2eVhPTEVnWEhpeVQ0d1F3WDJSTG1XNGRtZG5KdzVXYkpsVlJ4QmdmaGln?=
+ =?utf-8?B?c0owTkcyU3pYMERLcjJVRnY2TkV3RDl2Z2I2aERKeE93SDViZ0xSbVJFalJC?=
+ =?utf-8?B?UVAzOWlyRnhUZmV0dlFnbjEvYXJqSXd4Q3pOdHA1ZmF4N1p1NkZOeDArVW0v?=
+ =?utf-8?B?YnFUQ1owVmZEbnBEK0F4QlA3YUxWSzNDQU5tUFBPb09HQml3MFNKS1ljL0I0?=
+ =?utf-8?B?dDc5MjlBS0E5dk1QaGVUY29hSXlhSGI4VVE5OGx1U0I3OXpOeHFIZURvWDV0?=
+ =?utf-8?B?SHNmaW03SmNlb2d6dHFIVlRsejhDTVBpdk1iNnFKeVB4eDhyZkVPTFRWeEww?=
+ =?utf-8?B?TlpFMTBzT1ZtS2kzWVZ2M2ZZTCtncVZkUEl2aVU0WGN3dmpSZFloZm8wM0R6?=
+ =?utf-8?B?ODEybzRBNnlERExxSFovczYxK05UbFhtbmVDQklmTXBVYnlKN0swcnFKNHRR?=
+ =?utf-8?B?WmNnVVhWYVNzU1NGaVBjRldIanN3VzY4NExwejcxQzdzV3c3Rml4YjVuTXhn?=
+ =?utf-8?B?ZGRwM0pWSWw2TUtsd01KbWxKT2Q1dXBpNmg4RjNtSlJaRHFYZnpGVnVqZlFC?=
+ =?utf-8?B?eHArZ2R3RFdLRHBnUkYzZnhNdTJyMnJLZUpjNEppaU03SDNKOWtZQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <365B6222BABF3E4382C2523700BDE079@namprd12.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-mibox4-dt-v1-2-f29f1e828ca3@stu.hqu.edu.cn>
-References: <20260903-mibox4-dt-v1-0-f29f1e828ca3@stu.hqu.edu.cn>
-In-Reply-To: <20260903-mibox4-dt-v1-0-f29f1e828ca3@stu.hqu.edu.cn>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8885;
- i=raspberrykan@stu.hqu.edu.cn; h=from:subject:message-id;
- bh=UXwxek9vOEREqFF91y9TgablJcud4dvLtHRh17qK3kw=;
- b=owEBbQKS/ZANAwAKAZoNcluxItUHAcsmYgBqmR1HTvcioUX+7nSReVrknMGCBPXz6L6oDu+Cg
- wOKJXBpuHqJAjMEAAEKAB0WIQTDd02egjFwFlgfDD2aDXJbsSLVBwUCapkdRwAKCRCaDXJbsSLV
- B6s0D/4wVgpMMQK3vrnDM0OyYi4VBYpGxVxVjXuj+eKQCbcKpObgH8aORxvASp6oV0RGvkuVgsA
- P5rKOs1cVUclSj7HdWe+IapM9OtnOAcFPGSblILICnrOchPXJS1fspXu+jAoSpS/O8e9CRuRbjx
- g3Ow0I9Rtjr14Zw7YdFQsVw+vNjSfyHjc4p1hWNQojI1srtnTRa1aSwZUaaKIHdDvJdST0Nz01m
- m6Nn9kISthjLKLXv6ZXCsXfKKiX3w7VCSOBjglwj6woQFtkJphGBBi08sTrGIaWBl0cnwFEKy6q
- dLsIN5/fL1coEISjp9uFIiGSx6c6SSKZf2pUXD5TTTCieiQqpf5AImG+/CZlMX4oFpccj+EqmIG
- SZ/VAAMOBdfd5aUpM7d7ydsmlhIg9AoETpYAkjvRnKDvAzfxpLHM0gHngbyl8mepvUTaYTlescR
- Eoe10tDYtomQ94hzUKv37NXSSPFQPoPw3QbakOBHKwAj1Mvrx3SdZMM4CQmkGqped8MYVkdS1i1
- zkZXUMVxSflI8obYO5tKGI0EBq0hIiO2gpKRcPijvJqIZMlEF7RfjIfyCecE9KPbgzSzbsnyM6Z
- mDlGUz4J3UrbNyf5GvOGQ8R3LqwIotqrkUDUCh49XNG95/qk9EmZODVbb0PueTerggFsMjGowrB
- Gm+7WBqutT+9f9g==
-X-Developer-Key: i=raspberrykan@stu.hqu.edu.cn; a=openpgp;
- fpr=C3774D9E82317016581F0C3D9A0D725BB122D507
-X-CM-TRANSID:C_Ai0gD3WtpGHZlqUQYHAA--.14782S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxtw13GFW5ur4kWF1UZryxKrg_yoWfGFy8pF
-	n7Crs8WFZ3Xryjka45ZayIyFs5Jw1kCFZ7Cr1DWFW8GrWvga4q934xtr9avFn3Wrs7X3y3
-	JrWkCry3tF1agw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmj14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jryl82xGYIkIc2
-	x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
-	Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l84
-	ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2AI
-	xVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20x
-	vE14v26r1j6r18McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xv
-	r2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04
-	v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7
-	AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE
-	2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcV
-	C2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2Kfnx
-	nUUI43ZEXa7VUUTGQDUUUUU==
-X-CM-SenderInfo: ysvskiyqsqlko6vw3hxktxhvlgxou0/1tbiAQASBGqYO2MCFAADso
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7512.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 444017da-7a47-49b6-b87a-08df098a8542
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Sep 2026 07:11:05.4669
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: TTO/tI815dPHUWS5B4AMI64UOwB+5pVsndnLGO3GJGrFAGdxprJiZwQ0ZnCPztannXdmf4NJOnsIxz3BLQ+BHg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7492
 
-Add initial device tree support for the Xiaomi Mi Box 4
-(MDZ-21-AA), based on the Amlogic S905L SoC.
-
-Enable the main on-board peripherals including eMMC, Wi-Fi,
-HDMI, CEC, USB, IR, audio, power LED, GPU and video decoder.
-
-Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
----
- arch/arm64/boot/dts/amlogic/Makefile              |   1 +
- arch/arm64/boot/dts/amlogic/meson-gxlx-mibox4.dts | 340 ++++++++++++++++++++++
- 2 files changed, 341 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
-index 57bc440fa55c..9f357df5fc54 100644
---- a/arch/arm64/boot/dts/amlogic/Makefile
-+++ b/arch/arm64/boot/dts/amlogic/Makefile
-@@ -72,6 +72,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-nexbox-a95x.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-p212.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-vero4k.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxlx-s905l-p271.dtb
-+dtb-$(CONFIG_ARCH_MESON) += meson-gxlx-mibox4.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-gt1-ultimate.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-khadas-vim2.dtb
- dtb-$(CONFIG_ARCH_MESON) += meson-gxm-mecool-kiii-pro.dtb
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxlx-mibox4.dts b/arch/arm64/boot/dts/amlogic/meson-gxlx-mibox4.dts
-new file mode 100644
-index 000000000000..db774efb2898
---- /dev/null
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxlx-mibox4.dts
-@@ -0,0 +1,340 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+// Copyright (c) 2026 YuChia-Kan <mail@raspberrykan.dev>
-+
-+/dts-v1/;
-+
-+#include "meson-gxl-s905x.dtsi"
-+
-+#include <dt-bindings/leds/common.h>
-+#include <dt-bindings/sound/meson-aiu.h>
-+
-+/ {
-+	compatible = "xiaomi,mibox4", "amlogic,s905l", "amlogic,meson-gxlx";
-+	model = "Xiaomi Mi Box 4 (MDZ-21-AA)";
-+
-+	aliases {
-+		serial0 = &uart_AO;
-+		mmc0 = &sd_emmc_c;
-+		mmc1 = &sd_emmc_a;
-+		/delete-property/ mmc2;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	av_mute: analog-audio-mute {
-+		compatible = "simple-audio-amplifier";
-+		sound-name-prefix = "AV";
-+		enable-gpios = <&gpio GPIOH_5 GPIO_ACTIVE_HIGH>;
-+	};
-+
-+	memory@0 {
-+		device_type = "memory";
-+		reg = <0x0 0x0 0x0 0x80000000>;
-+	};
-+
-+	hdmi_connector: hdmi-connector {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&hdmi_tx_tmds_out>;
-+			};
-+		};
-+	};
-+
-+	cvbs_connector: cvbs-connector {
-+		compatible = "composite-video-connector";
-+
-+		port {
-+			cvbs_connector_in: endpoint {
-+				remote-endpoint = <&cvbs_vdac_out>;
-+			};
-+		};
-+	};
-+
-+	hdmi_usb_5v: regulator-hdmi-usb-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "HDMI_USB_5V";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpio_ao GPIOAO_4 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	vddio_boot: regulator-vddio-boot {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDDIO_BOOT";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+
-+	vddao_3v3: regulator-vddao-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDDAO_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	vddio_ao18: regulator-vddio-ao18 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VDDIO_AO18";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+
-+	vcc_3v3: regulator-vcc-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "VCC_3V3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	emmc_pwrseq: emmc-pwrseq {
-+		compatible = "mmc-pwrseq-emmc";
-+		reset-gpios = <&gpio BOOT_9 GPIO_ACTIVE_LOW>;
-+	};
-+
-+	wifi32k: wifi32k {
-+		compatible = "pwm-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+		pwms = <&pwm_ef 0 30518 0>;
-+	};
-+
-+	wifi_pwrseq: wifi-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&gpio GPIOX_9 GPIO_ACTIVE_LOW>;
-+		clocks = <&wifi32k>;
-+		clock-names = "ext_clock";
-+		post-power-on-delay-ms = <200>;
-+	};
-+
-+	leds: leds {
-+		compatible = "gpio-leds";
-+
-+		power_led: power-led {
-+			label = "mibox4:power";
-+			function = LED_FUNCTION_POWER;
-+			gpios = <&gpio GPIOX_6 GPIO_ACTIVE_HIGH>;
-+			default-state = "on";
-+		};
-+	};
-+
-+	sound {
-+		compatible = "amlogic,gx-sound-card";
-+		model = "Xiaomi-Mi-Box-4";
-+		audio-aux-devs = <&av_mute>;
-+		audio-widgets = "Line", "Lineout";
-+		audio-routing = "AV INL", "ACODEC LOLN",
-+				"AV INR", "ACODEC LORN",
-+				"Lineout", "AV OUTL",
-+				"Lineout", "AV OUTR";
-+
-+		clocks = <&clkc CLKID_MPLL0>,
-+			 <&clkc CLKID_MPLL1>,
-+			 <&clkc CLKID_MPLL2>;
-+		assigned-clocks = <&clkc CLKID_MPLL0>,
-+				  <&clkc CLKID_MPLL1>,
-+				  <&clkc CLKID_MPLL2>;
-+		assigned-clock-rates = <294912000>, <270950400>, <393216000>;
-+
-+		dai-link-0 {
-+			sound-dai = <&aiu AIU_CPU CPU_I2S_FIFO>;
-+		};
-+
-+		dai-link-1 {
-+			sound-dai = <&aiu AIU_CPU CPU_I2S_ENCODER>;
-+			dai-format = "i2s";
-+			mclk-fs = <256>;
-+
-+			codec-0 {
-+				sound-dai = <&aiu AIU_HDMI CTRL_I2S>;
-+			};
-+
-+			codec-1 {
-+				sound-dai = <&aiu AIU_ACODEC CTRL_I2S>;
-+			};
-+		};
-+
-+		dai-link-2 {
-+			sound-dai = <&aiu AIU_HDMI CTRL_OUT>;
-+
-+			codec-0 {
-+				sound-dai = <&hdmi_tx>;
-+			};
-+		};
-+
-+		dai-link-3 {
-+			sound-dai = <&aiu AIU_ACODEC CTRL_OUT>;
-+
-+			codec-0 {
-+				sound-dai = <&acodec>;
-+			};
-+		};
-+	};
-+};
-+
-+&apb {
-+	mali: gpu@c0000 {
-+		interrupts = <GIC_SPI 160 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 165 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 166 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 167 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 168 IRQ_TYPE_LEVEL_HIGH>,
-+			<GIC_SPI 169 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "gp", "gpmmu", "pp", "pmu",
-+			"pp0", "ppmmu0", "pp1", "ppmmu1",
-+			"pp2", "ppmmu2";
-+	};
-+};
-+
-+&acodec {
-+	AVDD-supply = <&vddio_ao18>;
-+	status = "okay";
-+};
-+
-+&aiu {
-+	status = "okay";
-+};
-+
-+&cec_AO {
-+	status = "okay";
-+	pinctrl-0 = <&ao_cec_pins>;
-+	pinctrl-names = "default";
-+	hdmi-phandle = <&hdmi_tx>;
-+};
-+
-+&cvbs_vdac_port {
-+	cvbs_vdac_out: endpoint {
-+		remote-endpoint = <&cvbs_connector_in>;
-+	};
-+};
-+
-+/delete-node/ &eth_mac;
-+/delete-node/ &sn;
-+/delete-node/ &bid;
-+
-+&efuse {
-+	wifi_mac: mac-address@c {
-+		reg = <0x0c 0x06>;
-+	};
-+};
-+
-+&ethmac {
-+	status = "disabled";
-+};
-+
-+&hdmi_tx {
-+	status = "okay";
-+	pinctrl-0 = <&hdmi_hpd_pins>, <&hdmi_i2c_pins>;
-+	pinctrl-names = "default";
-+	hdmi-supply = <&hdmi_usb_5v>;
-+};
-+
-+&hdmi_tx_tmds_port {
-+	hdmi_tx_tmds_out: endpoint {
-+		remote-endpoint = <&hdmi_connector_in>;
-+	};
-+};
-+
-+&ir {
-+	status = "okay";
-+	pinctrl-0 = <&remote_input_ao_pins>;
-+	pinctrl-names = "default";
-+};
-+
-+&pwm_ef {
-+	status = "okay";
-+	pinctrl-0 = <&pwm_e_pins>;
-+	pinctrl-names = "default";
-+};
-+
-+&saradc {
-+	compatible = "amlogic,meson-gxlx-saradc", "amlogic,meson-saradc";
-+	status = "okay";
-+	vref-supply = <&vddio_ao18>;
-+};
-+
-+&sd_emmc_a {
-+	status = "okay";
-+	pinctrl-0 = <&sdio_pins>;
-+	pinctrl-1 = <&sdio_clk_gate_pins>;
-+	pinctrl-names = "default", "clk-gate";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cap-sdio-irq;
-+	max-frequency = <50000000>;
-+	non-removable;
-+	no-mmc;
-+	no-sd;
-+	disable-wp;
-+	keep-power-in-suspend;
-+	sd-uhs-sdr12;
-+	sd-uhs-sdr25;
-+	sd-uhs-sdr50;
-+	sd-uhs-sdr104;
-+	mmc-pwrseq = <&wifi_pwrseq>;
-+	vmmc-supply = <&vddao_3v3>;
-+	vqmmc-supply = <&vddio_boot>;
-+
-+	rtl8723ds: wifi@1 {
-+		reg = <1>;
-+		nvmem-cells = <&wifi_mac>;
-+		nvmem-cell-names = "mac-address";
-+		interrupt-parent = <&gpio_intc>;
-+		interrupts = <GPIOX_7 IRQ_TYPE_LEVEL_HIGH>;
-+		interrupt-names = "host-wake";
-+	};
-+};
-+
-+&sd_emmc_b {
-+	status = "disabled";
-+};
-+
-+&sd_emmc_c {
-+	status = "okay";
-+	pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
-+	pinctrl-1 = <&emmc_clk_gate_pins>;
-+	pinctrl-names = "default", "clk-gate";
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	max-frequency = <100000000>;
-+	non-removable;
-+	disable-wp;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+	mmc-pwrseq = <&emmc_pwrseq>;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vddio_boot>;
-+};
-+
-+&uart_AO {
-+	status = "okay";
-+	pinctrl-0 = <&uart_ao_a_pins>;
-+	pinctrl-names = "default";
-+};
-+
-+&usb {
-+	status = "okay";
-+	dr_mode = "host";
-+};
-+
-+&usb2_phy0 {
-+	phy-supply = <&hdmi_usb_5v>;
-+};
-+
-+&vdec {
-+	compatible = "amlogic,gxlx-vdec", "amlogic,gx-vdec";
-+};
-
--- 
-2.53.0
-
+SGkgS3J6eXN6dG9mLA0KDQpUaGFua3MgZm9yIHRoZSByZXZpZXcuIEknbGwgc3BsaXQgdGhlIGNo
+YW5nZXMgaW50byB0aHJlZSBwYXJ0cyBhbmQgDQphZGRyZXNzIGFsbCB0aGUgY29tbWVudHMuDQot
+IHBoeTogdGVncmE6IHh1c2I6IGR0LWJpbmRpbmdzL3BoeSArIGRyaXZlcnMvcGh5L3RlZ3JhDQot
+IHVzYjogaG9zdDogeGhjaS10ZWdyYSArIGl0cyBkdC1iaW5kaW5ncy91c2INCi0gYXJtNjQ6IERU
+UyBlbmFibGVtZW50DQoNCnRoYW5rcywNCldheW5lLg0KDQpPbiA5LzEvMjYgMTg6MTAsIEtyenlz
+enRvZiBLb3psb3dza2kgd3JvdGU6DQo+IEV4dGVybmFsIGVtYWlsOiBVc2UgY2F1dGlvbiBvcGVu
+aW5nIGxpbmtzIG9yIGF0dGFjaG1lbnRzDQo+DQo+DQo+IE9uIFR1ZSwgU2VwIDAxLCAyMDI2IGF0
+IDAyOjU4OjI5QU0gKzA4MDAsIFdheW5lIENoYW5nIHdyb3RlOg0KPj4gRXh0ZW5kIHRoZSBUZWdy
+YTIzNCBYVVNCIGhvc3QgYmluZGluZyB0byBjb3ZlciBUZWdyYTI2NDoNCj4+DQo+PiAtIEFkZCBu
+dmlkaWEsdGVncmEyNjQteHVzYiBjb21wYXRpYmxlIHN0cmluZw0KPj4gLSBEb2N1bWVudCBvcHRp
+b25hbCBVU0Igd2FrZSBpbnRlcnJ1cHRzIGZvciBUZWdyYTI2NA0KPj4gLSBEb2N1bWVudCBUZWdy
+YTI2NCBQTUMgd2FrZSBldmVudCB0byBwb3J0IG1hcHBpbmcNCj4+IC0gQWxsb3cgdXAgdG8gZml2
+ZSBJT01NVSBzcGVjaWZpZXJzIGZvciB0aGUgYWRkaXRpb25hbCBYVVNCIGhvc3QNCj4+ICAgIHN0
+cmVhbSBJRHMNCj4+DQo+PiBTaWduZWQtb2ZmLWJ5OiBXYXluZSBDaGFuZyA8d2F5bmVjQG52aWRp
+YS5jb20+DQo+IFdoeSBhcmUgVVNCIHBhdGNoZXMgbWl4ZWQgd2l0aCBEVFMgYW5kIHBoeSBvbmVz
+PyBUaGF0J3MgbGlrZSB0aHJlZQ0KPiBzZXBhcmF0ZSBzdWJzeXN0ZW1zLCBvZiB3aGljaCBHcmVn
+IGV4cGxpY2l0bHkgc2FpZCBtYW55LCBtYW55IHRpbWVzIGhlDQo+IHRha2VzIGV2ZXJ5dGhpbmcg
+b3Igbm90aGluZy4gUGxlYXNlIHJlYWQgc3VibWl0dGluZyBwYXRjaGVzIGluIERULg0KPg0KPg0K
+Pg0KPj4gLS0tDQo+PiBWMSAtPiBWMjogUHJvcGVydHkgZGVmaW5pdGlvbnMgYXJlIGJhY2sgYXQg
+dGhlIHRvcCBsZXZlbCB3aXRoIHRoZSB3aWRlc3QNCj4+IGNvbnN0cmFpbnRzLCBUaGUgYWxsT2Yg
+Y29uZGl0aW9uYWwgb25seSB0aWdodGVucyBUZWdyYTIzNCB0byBpbnRlcnJ1cHRzDQo+PiBtYXhJ
+dGVtcyA5IGFuZCBpb21tdXMgbWF4SXRlbXMgMS4NCj4+DQo+PiAgIC4uLi9iaW5kaW5ncy91c2Iv
+bnZpZGlhLHRlZ3JhMjM0LXh1c2IueWFtbCAgICB8IDM1ICsrKysrKysrKysrKysrKystLS0NCj4+
+ICAgMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pDQo+Pg0K
+Pj4gZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy91c2IvbnZp
+ZGlhLHRlZ3JhMjM0LXh1c2IueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
+cy91c2IvbnZpZGlhLHRlZ3JhMjM0LXh1c2IueWFtbA0KPj4gaW5kZXggZWMwOTkzNDk3ZmJiLi5k
+NjNmMGRiNDIyNGMgMTAwNjQ0DQo+PiAtLS0gYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmlu
+ZGluZ3MvdXNiL252aWRpYSx0ZWdyYTIzNC14dXNiLnlhbWwNCj4+ICsrKyBiL0RvY3VtZW50YXRp
+b24vZGV2aWNldHJlZS9iaW5kaW5ncy91c2IvbnZpZGlhLHRlZ3JhMjM0LXh1c2IueWFtbA0KPj4g
+QEAgLTE3LDcgKzE3LDkgQEAgZGVzY3JpcHRpb246IHwNCj4+DQo+PiAgIHByb3BlcnRpZXM6DQo+
+PiAgICAgY29tcGF0aWJsZToNCj4+IC0gICAgY29uc3Q6IG52aWRpYSx0ZWdyYTIzNC14dXNiDQo+
+PiArICAgIGVudW06DQo+PiArICAgICAgLSBudmlkaWEsdGVncmEyMzQteHVzYg0KPj4gKyAgICAg
+IC0gbnZpZGlhLHRlZ3JhMjY0LXh1c2INCj4+DQo+PiAgICAgcmVnOg0KPj4gICAgICAgaXRlbXM6
+DQo+PiBAQCAtNDMsNiArNDUsNyBAQCBwcm9wZXJ0aWVzOg0KPj4gICAgICAgICAtIGRlc2NyaXB0
+aW9uOiBVU0Igd2FrZSBldmVudCA0DQo+PiAgICAgICAgIC0gZGVzY3JpcHRpb246IFVTQiB3YWtl
+IGV2ZW50IDUNCj4+ICAgICAgICAgLSBkZXNjcmlwdGlvbjogVVNCIHdha2UgZXZlbnQgNg0KPj4g
+KyAgICAgIC0gZGVzY3JpcHRpb246IFVTQiB3YWtlIGV2ZW50IDcNCj4+ICAgICAgIGRlc2NyaXB0
+aW9uOiB8DQo+PiAgICAgICAgIFRoZSBmaXJzdCB0d28gaW50ZXJydXB0cyBhcmUgcmVxdWlyZWQg
+Zm9yIHRoZSBVU0IgaG9zdCBjb250cm9sbGVyLiBUaGUNCj4+ICAgICAgICAgcmVtYWluaW5nIFVT
+QiB3YWtlIGV2ZW50IGludGVycnVwdHMgYXJlIG9wdGlvbmFsLiBFYWNoIFVTQiB3YWtlIGV2ZW50
+IGlzDQo+PiBAQCAtNTAsMTAgKzUzLDkgQEAgcHJvcGVydGllczoNCj4+ICAgICAgICAgcGxhdGZv
+cm0uIFRoZSBVU0IgaG9zdCBjb250cm9sbGVyIGNhbiBmdW5jdGlvbiBldmVuIGlmIG5vIHdha2Ut
+dXAgZXZlbnRzDQo+PiAgICAgICAgIGFyZSBkZWZpbmVkLiBUaGUgVVNCIHdha2UgZXZlbnQgaW50
+ZXJydXB0cyBhcmUgaGFuZGxlZCBieSB0aGUgVGVncmEgUE1DOw0KPj4gICAgICAgICBoZW5jZSwg
+dGhlIGludGVycnVwdCBjb250cm9sbGVyIGZvciB0aGVzZSBpcyB0aGUgUE1DIGFuZCB0aGUgaW50
+ZXJydXB0DQo+PiAtICAgICAgSURzIGNvcnJlc3BvbmQgdG8gdGhlIFBNQyB3YWtlIGV2ZW50IElE
+cy4gQSBjb21wbGV0ZSBsaXN0IG9mIHdha2UgZXZlbnQNCj4+IC0gICAgICBJRHMgaXMgcHJvdmlk
+ZWQgYmVsb3csIGFuZCB0aGlzIGluZm9ybWF0aW9uIGlzIGFsc28gcHJlc2VudCBpbiB0aGUgVGVn
+cmENCj4+IC0gICAgICBUUk0gZG9jdW1lbnQuDQo+PiArICAgICAgSURzIGNvcnJlc3BvbmQgdG8g
+dGhlIFBNQyB3YWtlIGV2ZW50IElEcy4NCj4+DQo+PiArICAgICAgVGVncmEyMzQgUE1DIHdha2Ug
+ZXZlbnRzOg0KPj4gICAgICAgICAgIFBNQyB3YWtlLXVwIDc2IGZvciBVU0IzIHBvcnQgMCB3YWtl
+dXANCj4+ICAgICAgICAgICBQTUMgd2FrZS11cCA3NyBmb3IgVVNCMyBwb3J0IDEgd2FrZXVwDQo+
+PiAgICAgICAgICAgUE1DIHdha2UtdXAgNzggZm9yIFVTQjMgcG9ydCAyIGFuZCBwb3J0IDMgd2Fr
+ZXVwDQo+PiBAQCAtNjIsNiArNjQsMTYgQEAgcHJvcGVydGllczoNCj4+ICAgICAgICAgICBQTUMg
+d2FrZS11cCA4MSBmb3IgVVNCMiBwb3J0IDIgd2FrZXVwDQo+PiAgICAgICAgICAgUE1DIHdha2Ut
+dXAgODIgZm9yIFVTQjIgcG9ydCAzIHdha2V1cA0KPj4NCj4+ICsgICAgICBUZWdyYTI2NCBQTUMg
+d2FrZSBldmVudHM6DQo+PiArICAgICAgICBQTUMgd2FrZS11cCA3OSBmb3IgVVNCMyBwb3J0IDAg
+d2FrZXVwDQo+PiArICAgICAgICBQTUMgd2FrZS11cCA4MCBmb3IgVVNCMyBwb3J0IDEgd2FrZXVw
+DQo+PiArICAgICAgICBQTUMgd2FrZS11cCA4MSBmb3IgVVNCMyBwb3J0IDIgd2FrZXVwDQo+PiAr
+ICAgICAgICBQTUMgd2FrZS11cCA4MiBmb3IgVVNCMyBwb3J0IDMgd2FrZXVwDQo+PiArICAgICAg
+ICBQTUMgd2FrZS11cCA4MyBmb3IgVVNCMiBwb3J0IDAgd2FrZXVwDQo+PiArICAgICAgICBQTUMg
+d2FrZS11cCA4NCBmb3IgVVNCMiBwb3J0IDEgd2FrZXVwDQo+PiArICAgICAgICBQTUMgd2FrZS11
+cCA4NSBmb3IgVVNCMiBwb3J0IDIgd2FrZXVwDQo+PiArICAgICAgICBQTUMgd2FrZS11cCA4NiBm
+b3IgVVNCMiBwb3J0IDMgd2FrZXVwDQo+PiArDQo+PiAgICAgY2xvY2tzOg0KPj4gICAgICAgaXRl
+bXM6DQo+PiAgICAgICAgIC0gZGVzY3JpcHRpb246IFhVU0IgaG9zdCBjbG9jaw0KPj4gQEAgLTk3
+LDcgKzEwOSw4IEBAIHByb3BlcnRpZXM6DQo+PiAgICAgICAgIC0gY29uc3Q6IHdyaXRlDQo+Pg0K
+Pj4gICAgIGlvbW11czoNCj4+IC0gICAgbWF4SXRlbXM6IDENCj4+ICsgICAgbWluSXRlbXM6IDEN
+Cj4+ICsgICAgbWF4SXRlbXM6IDUNCj4gWW91IHNob3VsZCBsaXN0IHRoZSBpdGVtcyBpbnN0ZWFk
+LiBGbGV4aWJsZSBhcnJheSBtZWFucyBub3cgdGhlIG9yZGVyDQo+IGhhdmUgYSBtZWFuaW5nLg0K
+Pg0KPj4gICAgIG52aWRpYSx4dXNiLXBhZGN0bDoNCj4+ICAgICAgICRyZWY6IC9zY2hlbWFzL3R5
+cGVzLnlhbWwjL2RlZmluaXRpb25zL3BoYW5kbGUNCj4+IEBAIC0xMzcsNiArMTUwLDE4IEBAIHBy
+b3BlcnRpZXM6DQo+PiAgIGFsbE9mOg0KPj4gICAgIC0gJHJlZjogdXNiLXhoY2kueWFtbA0KPj4N
+Cj4+ICsgIC0gaWY6DQo+PiArICAgICAgcHJvcGVydGllczoNCj4+ICsgICAgICAgIGNvbXBhdGli
+bGU6DQo+PiArICAgICAgICAgIGNvbnRhaW5zOg0KPj4gKyAgICAgICAgICAgIGNvbnN0OiBudmlk
+aWEsdGVncmEyMzQteHVzYg0KPj4gKyAgICB0aGVuOg0KPj4gKyAgICAgIHByb3BlcnRpZXM6DQo+
+PiArICAgICAgICBpbnRlcnJ1cHRzOg0KPj4gKyAgICAgICAgICBtYXhJdGVtczogOQ0KPj4gKyAg
+ICAgICAgaW9tbXVzOg0KPj4gKyAgICAgICAgICBtYXhJdGVtczogMQ0KPiBBbmQgdGhlIG5ldyBk
+ZXZpY2UgaGFzIGZsZXhpYmxlIGludGVycnB0cyBhbmQgaW9tbXVzPw0KPg0KPiBCZXN0IHJlZ2Fy
+ZHMsDQo+IEtyenlzenRvZg0KPg0KPg0KDQo=
