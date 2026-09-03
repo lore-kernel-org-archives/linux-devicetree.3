@@ -1,245 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F20E4F6462;
-	Thu,  3 Sep 2026 17:53:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E81A4A385A
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 17:53:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788458030; cv=none; b=ShHgcT4xHf837GXZ7hEZgyCI1RpiqUCz5VMUL9eXrBBAjBdCjBwA2FqbGKhIBqnmyFp+TOvH0SAwk2XzUsEgQ+joIJLBd2xjIDMzHbol/UUhWQejfZlzKlzr5dNNvBlZ754dcCmHpsyUgslzxFvbJstkL94jGqApwqlmKWRTPN8=
+	t=1788458038; cv=none; b=WKMQgCO2fPZLWBB2Z/a6axTw62RrHcgIQla/AHowHEIqhmmdxHcLpHvMb3YMhV82zhdRWcnxQbnj3nGWYV8fFGQr3gRyQsFDTBaLUQZXo5WfuRq32IkDrWsOGIGovXqZ4qPMzzWYlJyxFOMBRNCQtA7edNnjeMFb72XsnCOmzy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788458030; c=relaxed/simple;
-	bh=zB0pFvTY+WCoNfOaxHiP41Qs3rsGeCHrAs4pk2z+be8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kNcthkTQ9XAFdg+CGDYfEv3qrnE0odJuDdD9ZjZ/QHxb4D7bcDEcFwXNYNQfiSim6Q4n47G6Az50xsIkhYAET4PXb1sVPSY83XsGTRzDjuZEEIjbm65YTqEEG9vJLqH9vCSEEK7afJjgT9kRj4p7aRn4TAGEJl+To3xCRxTTnY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6nmnA/C; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788458038; c=relaxed/simple;
+	bh=C3u6THSn+oA7S9D/vln7Cs7WRyrwd9MS3OEC+8FS5wM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TRcZTqCU0K6U8KByt801NWb0kiBMCF5E9yxYsTArMGggqECMRZRPHnbfoK9fiQ2BVa+9mMMGkFPvE6qCUbfUIGLOydzhkn3N/JO1ltDiytncZW3N8YXVTFj/WiaJHe7qcILYqRMPr+Fc6TVbMVLiMEkZvGGdIuOGW0xB9JU7ddI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FwxIe5Fa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6nmnA/C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2E51F000E9;
-	Thu,  3 Sep 2026 17:53:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FwxIe5Fa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1461F000E9;
+	Thu,  3 Sep 2026 17:53:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788458029;
-	bh=hj1CNbhYcjUo/8FuuSCUUHXKGVj2eFrh4h2sogN8uSU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a6nmnA/CZdOYKMZUjOl8sHpERWPf0xEfM3FG1M4tzLDhNbFtaX1njiBYzGydZwGzp
-	 9oZp7L716eLVkMijWywXF+1+7mznM6fqyMKrdYJ31QZrehNTX0f9+x9eR94aiOoznI
-	 35YsdLITdYHAVcxjEzli8Mf1y/qnC6Pr1rDRNmCsdy/mgxFL1ZN0tjcsAXEoCidA02
-	 VOCzKAdxKRai8uuTE1gLzcN9HqxaWdlaunppfcGa+JJRELaYPdJT3bm4KHrhNvyuW8
-	 6wk7Zwa0aIWk6hQxhoZ9LOfKPpHHql7cGoidsCeGQ687VTmgQU4mXYcC0PtyaSxXEO
-	 jgEoUJSH4zDkg==
-Date: Thu, 3 Sep 2026 18:53:45 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Sudheendra Sampath <giveback4fun@gmail.com>
-Cc: alexandre.belloni@bootlin.com, devicetree@vger.kernel.org,
-	skhan@linuxfoundation.org, me@brighamcampbell.com,
-	jkoolstra@xs4all.nl, linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: maxim-ds1302: Convert to dt schema
-Message-ID: <20260903-tattoo-unclog-292f54c0454f@spud>
-References: <20260902233550.947218-1-giveback4fun@gmail.com>
+	s=k20260515; t=1788458037;
+	bh=FRwGEmfWAV0QZWn1KCT9Vrav9u4C1zGxJfwvLiKe84I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FwxIe5Fan24a1wBaKb/bqbiOCGNvwkMkZGaJ4fAFaCvGF6iCkM3G1BEscO/xJ6jte
+	 hv1mehvG/d43iKpiJbr85MvbwWAXXluR1skK5mQUYjdQh7FKd7uKNmpwtW4vkgcmOo
+	 DgFEiWJSXj6uZ/mq9FPUlU22UoJA47Sx5XnlB93zsQNx2+/KOV3WStPznkUT43iZiI
+	 s9bg/AC6D0M/MUnoOSItgyWbUSR4PQLZJ7/D0XHqCEAwWBin1Ne7H1FFcWIE00i8JD
+	 NLqfM6cjZbuUZ3ijL6A082nptJKsE91sqm2q2iWUCBGVV0M7M6hFKvYWJsRFDuzg0V
+	 8qo8vJ/qP2+ng==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] arm64: dts: socfpga: agilex5: replace clocks
+ reference with clock-frequency for dw-apb-timer
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <6317aa2675ab36ec1dfd881ae7e95d1f3378aed0.1788457041.git.adrian.ho.yin.ng@altera.com>
+References: <cover.1788457041.git.adrian.ho.yin.ng@altera.com>
+ <6317aa2675ab36ec1dfd881ae7e95d1f3378aed0.1788457041.git.adrian.ho.yin.ng@altera.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 17:53:56 +0000
+Message-Id: <20260903175356.BF1461F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rRBIxW7ri2Vseqbg"
-Content-Disposition: inline
-In-Reply-To: <20260902233550.947218-1-giveback4fun@gmail.com>
 
---rRBIxW7ri2Vseqbg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Replacing 'clocks' with 'clock-frequency' to work around Linux d=
+river initialization ordering is a Devicetree anti-pattern.
+--
 
-On Wed, Sep 02, 2026 at 04:35:49PM -0700, Sudheendra Sampath wrote:
-> Convert Maxim DS1302 real-time clock binding to DT schema.
->=20
-> Signed-off-by: Sudheendra Sampath <giveback4fun@gmail.com>
-> ---
->  .../devicetree/bindings/rtc/maxim-ds1302.txt  | 46 -----------
->  .../devicetree/bindings/rtc/maxim-ds1302.yaml | 81 +++++++++++++++++++
->  2 files changed, 81 insertions(+), 46 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/rtc/maxim-ds1302.txt
->  create mode 100644 Documentation/devicetree/bindings/rtc/maxim-ds1302.ya=
-ml
->=20
-> diff --git a/Documentation/devicetree/bindings/rtc/maxim-ds1302.txt b/Doc=
-umentation/devicetree/bindings/rtc/maxim-ds1302.txt
-> deleted file mode 100644
-> index ba470c56cdec..000000000000
-> --- a/Documentation/devicetree/bindings/rtc/maxim-ds1302.txt
-> +++ /dev/null
-> @@ -1,46 +0,0 @@
-> -* Maxim/Dallas Semiconductor DS-1302 RTC
-> -
-> -Simple device which could be used to store date/time between reboots.
-> -
-> -The device uses the standard MicroWire half-duplex transfer timing.
-> -Master output is set on low clock and sensed by the RTC on the rising
-> -edge. Master input is set by the RTC on the trailing edge and is sensed
-> -by the master on low clock.
-> -
-> -Required properties:
-> -
-> -- compatible : Should be "maxim,ds1302"
-> -
-> -Required SPI properties:
-> -
-> -- reg : Should be address of the device chip select within
-> -  the controller.
-> -
-> -- spi-max-frequency : DS-1302 has 500 kHz if powered at 2.2V,
-> -  and 2MHz if powered at 5V.
-> -
-> -- spi-3wire : The device has a shared signal IN/OUT line.
-> -
-> -- spi-lsb-first : DS-1302 requires least significant bit first
-> -  transfers.
-> -
-> -- spi-cs-high: DS-1302 has active high chip select line. This is
-> -  required unless inverted in hardware.
-> -
-> -Example:
-> -
-> -spi@901c {
-> -	#address-cells =3D <1>;
-> -	#size-cells =3D <0>;
-> -	compatible =3D "icpdas,lp8841-spi-rtc";
-> -	reg =3D <0x901c 0x1>;
-> -
-> -	rtc@0 {
-> -		compatible =3D "maxim,ds1302";
-> -		reg =3D <0>;
-> -		spi-max-frequency =3D <500000>;
-> -		spi-3wire;
-> -		spi-lsb-first;
-> -		spi-cs-high;
-> -	};
-> -};
-> diff --git a/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml b/Do=
-cumentation/devicetree/bindings/rtc/maxim-ds1302.yaml
-> new file mode 100644
-> index 000000000000..3e6264464e10
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml
+commit bdc3d28e7cc7c5d8502d6fe42848d2feefd3bf47
+Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 
-s/-/,/ as the filename should match the compatible.
+arm64: dts: socfpga: agilex5: replace clocks reference with clock-frequency=
+ for dw-apb-timer
 
-> @@ -0,0 +1,81 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/maxim-ds1302.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Maxim/Dallas Semiconductor DS-1302 RTC
-> +
-> +maintainers:
-> +  - Alexandre Belloni <alexandre.belloni@bootlin.com>
+This patch replaces the dynamic clock reference for the Agilex5 timers with=
+ a
+hardcoded clock frequency. This is done to bypass a driver initialization
+ordering issue where the clock manager probes later than the timer.
 
-This should be the original author of the text binding, provided they're
-still responsive.
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/=
+boot/dts/intel/socfpga_agilex5.dtsi
+> index f54767d1526e1..f5bc37fa85832 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -429,32 +429,28 @@ timer0: timer0@10c03000 {
+>  			compatible =3D "snps,dw-apb-timer";
+>  			reg =3D <0x10c03000 0x100>;
+>  			interrupts =3D <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&clkmgr AGILEX5_L4_SP_CLK>;
+> -			clock-names =3D "timer";
+> +			clock-frequency =3D <100000000>;
 
-> +
-> +description: |
-> +  Simple device which could be used to store date/time between reboots.
-> +
-> +  The device uses the standard MicroWire half-duplex transfer timing.
-> +  Master output is set on low clock and sensed by the RTC on the rising
-> +  edge. Master input is set by the RTC on the trailing edge and is sensed
-> +  by the master on low clock.
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      # Maxim DS1302 Real-time Clock
+[Severity: Medium]
+Is it appropriate to encode an OS-specific probe-order workaround directly
+into the hardware description?
 
-This comment is obvious, just drop it.
+Devicetree is designed to describe hardware topology rather than provide
+workarounds for Linux driver initialization sequences. By replacing the clo=
+cks
+reference to the Agilex5 clock manager with a hardcoded clock-frequency, the
+correct physical clock association is lost.
 
-> +      - const: maxim,ds1302
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  spi-max-frequency:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Maximum SPI clocking speed in Hz.
+If the bootloader changes the L4_SP clock rate in the future, wouldn't the
+hardcoded 100 MHz value lead to incorrect kernel timekeeping since it no lo=
+nger
+queries the actual clock manager?
 
-This should retain the comment about the voltages, rather than state the
-obvious.
+[ ... ]
 
-> +    enum:
-> +      - 500000
-> +      - 2000000
-> +
-> +  spi-3wire: true
-> +
-> +  spi-lsb-first: true
-> +
-> +  spi-cs-high: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - spi-max-frequency
-> +  - spi-3wire
-> +  - spi-lsb-first
-> +  - spi-cs-high
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    spi1 {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        rtc@0 {
-> +            compatible =3D "maxim,ds1302";
-> +            reg =3D <0>;
-> +            spi-max-frequency =3D <500000>;
-> +            spi-3wire;
-> +            spi-lsb-first;
-> +            spi-cs-high;
-> +        };
-> +    };
-> +
-
-> +  - |
-> +    spi2 {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        rtc@2000 {
-> +            compatible =3D "maxim,ds1302";
-> +            reg =3D <0x2000>;
-> +            spi-max-frequency =3D <2000000>;
-> +            spi-3wire;
-> +            spi-lsb-first;
-> +            spi-cs-high;
-> +        };
-> +    };
-
-Where did this additional example come from? The chip select looks
-rather unlikely and the example has nothing meaningfully different in
-it.
-I think this should be dropped.
-
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
---rRBIxW7ri2Vseqbg
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapm0KQAKCRB4tDGHoIJi
-0p1yAQCcpdskp4Z8ZCMLdnduJPDs3OWp3olmiGxTSyalK4D3eQD+JUubQ4IZk7uJ
-REzTmr6mfJJVWiXuRNAlwtzx7ot0nQY=
-=VXJU
------END PGP SIGNATURE-----
-
---rRBIxW7ri2Vseqbg--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788457041.gi=
+t.adrian.ho.yin.ng@altera.com?part=3D1
