@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7800D370ACD;
-	Thu,  3 Sep 2026 09:39:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0C4339A070;
+	Thu,  3 Sep 2026 09:40:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788428376; cv=none; b=ZcL/NtFwbzBeJnIanxan53EmO2eHTBuPH+75adScNW05fUACAIjbO5EXGUE0j7Y7OEpL7e7OPIgx8dwRGRiLJc43+6ngVUm31b8TffR3DgNqfrX/p1+uXttGT6CaJ3nuT7Kxe79+Sj9jCC1auR1on0EKImEar31jVyBueBKtO/M=
+	t=1788428444; cv=none; b=kv5XbEw2vO33kpstdZj1uSSHlY4UT0fnngehnG38P2A8ilQpf1L0KaASTrcW7jRDP70ltlZZ5jrL9WWQoF6qFWSUumh5D8AKuj8vPJTUZ6UeDdf7TMn8+E3q/JouDLjxU3LvijM0tz7JVCDq1eQEDIuE+6K+zcCgmL3jOBsIwCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788428376; c=relaxed/simple;
-	bh=AM1pPlGLcoM/Db1vn1qbzwKVmpPNFCyceRP7DcULymw=;
+	s=arc-20240116; t=1788428444; c=relaxed/simple;
+	bh=tmHhKD81GJ5Ayj6i4mrf+MgwpD93bsG6PHd4SfYJx7M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NgfukTw52ncwi1FEF6EWFQ61XkMTcpySm1h7umvs45yZJIXddIYED4VH5TvkLXqR6/KcJaMhG05LcKj8lVF5Oh1IcoR0/7V8HXskZY+iokIOhaEi+F+/SgfUGrTETdMSlk8//VZK03oWvzVMLuqEXr2NTKOP5HfunLloWEDTHH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JQYY8UZi; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=rrz0GMpG6OuWMMRYp8kPFW1Ph4OwuLMyuTSvQp22r6nXdLNtKkuDQvfd6Jfy9WTtRVe1HML6yqFjTBpli1wYqaX0GFdhOxRQZVuZkkmzs3Htvna1hdV5kpr/gtpmq4CPuodIfwhclarLpTn6+LmgZsWZVcIUqOE/O5U7nP7oER0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6pWuoaz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JQYY8UZi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 859051F000E9;
-	Thu,  3 Sep 2026 09:39:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6pWuoaz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 937581F000E9;
+	Thu,  3 Sep 2026 09:40:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788428374;
-	bh=PSOp+zNqPAfOBuV0penVr2YY7MeolLHGeGGgaIWPPCM=;
+	s=k20260515; t=1788428442;
+	bh=pTYfmYEwT0KA9fc4+fPHisf+4KclABADdQHaSCS0zDI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JQYY8UZiUUFBEYvZz1+p9e4c9d6sasNmvBXDB0238IawpJUJjK/9Q2Guor+9Ri2NA
-	 3ZBXaAQk2qr2OmOrY2sZ+pagfCUo0EilpvJ3bW9zTsTZdUMnBcU6YA7+0KC2t3qyOW
-	 xSzdZMLjVCx3NeW/DYqkTWG80wFyx5kQzDszqErwO2oVEGR+w3NYYLAF/0Xl4S8gOg
-	 cUxMlDhBsdTeWIX5egYet0U9ILpVEfiAHnL29WdrvcAfpzIccS8QO5Mn6Iqd99YHAc
-	 ypoUMpPnoe+Ma9NnoctomKtWcR+fkmvHm3QDBq1A9NEoHd6lw4Moduqwr61mANc2RU
-	 ixMfw8x/1x+cA==
-Message-ID: <c97d0871-0c89-4590-9ad3-4d3859d0522a@kernel.org>
-Date: Thu, 3 Sep 2026 11:39:25 +0200
+	b=e6pWuoazL41rcTT1UePOwc1t6Ew83DCs0FoGLb8/a2tIWqc7Pv8frl+f85fNus4BN
+	 cb83dknR+yW5qsaF2UHiMgxJvCeWUd9NJtsi8BAUypZUNex9s2NkNzkIs1kFCczUxk
+	 N16YRWSxl4Pxf1qkITPc991qXX5QC8EXTS7/RWbenYSGKi/sTiXdB90dd30XiR3OOB
+	 9pgu2ydXirfdzOuxNy6MacXacqX7qiBf8bhsUa4GBXhDcH07k+v7nUtBxUq6WdF4aH
+	 /86yrQoNCnka6sSXP1ZV19jz4QsERRMRVJY++1DwFyQSZzd1RoLnAnIIpM+0SNI+5n
+	 K+la+0YO/JXDg==
+Message-ID: <05b84fc9-e71f-412f-bdf2-c0847c2441ff@kernel.org>
+Date: Thu, 3 Sep 2026 11:40:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,19 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: sound: qcom,q6apm-dai: add stage-2
- (SCM/VMID) access model
-To: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>,
- Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260826-a2a-shikra-vmid-v5-v2-0-c3dc62354eee@oss.qualcomm.com>
- <20260826-a2a-shikra-vmid-v5-v2-1-c3dc62354eee@oss.qualcomm.com>
- <006617c6-e3b0-4a3b-85e5-6b5af8f11879@kernel.org>
- <51413da4-eed6-4251-b2eb-5d2ad8cb36ec@oss.qualcomm.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: phy: airoha: Document support for
+ AN7583 Gen3 PCIe PHY
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260827122127.18874-1-ansuelsmth@gmail.com>
+ <20260827122127.18874-2-ansuelsmth@gmail.com>
+ <20260831-elastic-turquoise-puma-f032fc@quoll>
+ <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,97 +93,37 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <51413da4-eed6-4251-b2eb-5d2ad8cb36ec@oss.qualcomm.com>
+In-Reply-To: <6a96cef9.1f1211b9.23c693.9e1e@mx.google.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 02/09/2026 08:07, Ajay Kumar Nandam wrote:
-> 
-> 
-> On 8/27/2026 11:33 AM, Krzysztof Kozlowski wrote:
->> On 25/08/2026 20:40, Ajay Kumar Nandam wrote:
->>> The APM DAIs expose PCM buffers that the backing DSP must be able to
->>> reach. On existing targets the DSP runs in a stage-1 context and the
->>> buffers are described to the SMMU via the iommus property.
->>>
->>> On platforms such as Qualcomm Shikra, where audio is served by the modem
->>> DSP (mDSP) rather than the ADSP, the DSP runs in a stage-2 protected
->>> context and cannot use the SMMU. The buffers are reachable only after
->>> hypervisor (SCM) memory assignment to the fixed set of consumer Virtual
->>> Machine IDs (VMIDs) that own that protected context. Describe those
->>> consumers with a new qcom,vmids property.
->>>
->>> The two access models are mutually exclusive: a node carries either
->>> iommus (stage-1/SMMU) or qcom,vmids (stage-2/SCM), expressed with a
->>> oneOf constraint. iommus is therefore no longer unconditionally required.
->>> SCM assignment replaces the buffer's current owners with the supplied
->>> destination set, so the driver always adds HLOS to that set itself to
->>> retain host access; HLOS must not be listed in qcom,vmids.
->>>
->>> When qcom,vmids is present the PCM buffers must reside in reserved-memory
->>> carveouts that are SCM-assigned to the consumer VMIDs. Add an optional
->>> memory-region property listing those carveouts. The first entry is the
->>> control-path buffer and subsequent entries are data-path buffers.
->>> memory-region is only meaningful alongside qcom,vmids, enforced via
->>> dependentRequired.
->>>
->>> Signed-off-by: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
->>> ---
->>>   .../devicetree/bindings/sound/qcom,q6apm-dai.yaml  | 72 +++++++++++++++++++++-
->>>   1 file changed, 70 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
->>> index 9e5b30d9c6e6..d9a6bc4a14f2 100644
->>> --- a/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
->>> +++ b/Documentation/devicetree/bindings/sound/qcom,q6apm-dai.yaml
->>> @@ -10,7 +10,15 @@ maintainers:
->>>     - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
->>>   
->>>   description: |
->>> -  This binding describes the Qualcomm APM DAIs in DSP
->>> +  This binding describes the Qualcomm APM DAIs in DSP.
+On 01/09/2026 15:11, Christian Marangi wrote:
+> On Mon, Aug 31, 2026 at 08:51:46AM +0200, Krzysztof Kozlowski wrote:
+>> On Thu, Aug 27, 2026 at 02:21:20PM +0200, Christian Marangi wrote:
 >>> +
->>> +  The DSP that runs the APM must be able to reach the PCM buffers. On
->>> +  existing targets the DSP runs in a stage-1 context and the buffers are
->>> +  described to the SMMU via iommus. On targets whose APM DSP runs in a
->>> +  stage-2 protected context that cannot use the SMMU, the buffers are
->>> +  reachable only after hypervisor (SCM) memory assignment to the fixed
->>> +  set of consumer VMIDs that own that protected context, described by
->>> +  qcom,vmids. The two access models are mutually exclusive.
->>>   
->>>   properties:
->>>     compatible:
->>> @@ -20,9 +28,42 @@ properties:
->>>       minItems: 1
->>>       maxItems: 2
+>>> +examples:
+>>> +  - |
+>>> +    #include <dt-bindings/phy/phy.h>
+>>> +
+>>> +    phy@1fc7f000 {
+>>> +        compatible = "airoha,an7583-pcie-gen3-phy";
+>>> +        reg = <0x1fc7f000 0xfff>,
+>>> +              <0x1fc7e000 0xfff>,
 >>
->> As I said last time, different hardware, different programming
->> interface, different features, so a different compatible.
+>> Sashiko has a valid point here.
+>>
+>> This should reflect real hardware, not current driver. It is very, very
+>> unlikely that hardware designers designed a block of 0xfff size or 0x4
+>>
 > 
-> 
-> The APM DAI block is the same packet format.  The driver uses a single 
-> of_device_id entry with no match data; there is no code path dispatched 
-> by the compatible string.
-> 
-> The iommu vs VMID distinction is a property of the memory topology,
-> not the DAI hardware, and is already described by the mutually exclusive
-> iommus / qcom,vmids properties.  The DSP identity (ADSP vs mDSP) is
-> carried by the GPR node's qcom,domain property and read at the send
-> layer — the DAI node itself does not need to know which DSP it talks to.
+> Hi for 0xfff yes the block is 0x1000 but I was reporting how it was defined
+> in the original DTS. For the 0x4 is for real a single register for that
 
-I am still trying to grasp it. You have a device "APM" and it accesses
-PCM buffers or other memory in some way needing IOMMU for that.
+And the original DTS was likely wrong...
 
-Now you add something which you call EXACTLY the same device, no
-difference at all, same "APM", but this time this device operates
-completely different, because it does not use IOMMU, but talks with
-firmware via SCM.
-
-Well, I really do not see how is this still exactly the same or even
-compatible device.
-
-The way device accesses its data is part of the programming model and
-different programming models have different compatibles.
+> usage. Documentation is scarce for that single block but this also reflect
+> the same implementation used on EN7581. I updated the example to address
+> the strange block of 0xfff.
 
 Best regards,
 Krzysztof
