@@ -1,64 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74042495041;
-	Thu,  3 Sep 2026 13:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B54456289
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 13:39:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788442745; cv=none; b=kMacRWtIpQQooEmkdccamxC0tA+/4Mrxt/+2FJHuNhrgT8Dn0SER10Y0LzUv4jo9IB42p9tUJiIMkflvgw+3R49cjsrjXpTMvGT+okAOUJ/Bf4fh4DxlCAEH3stn5mntiSIfvhoDntQNyAFXFd69zmqRy52bxT1v7QpaOuUWy+4=
+	t=1788442796; cv=none; b=W/mD5OjQOLzqUfEUYSt5ubzmsNYakw5DpbsIlUUYxZADynT5ZJuyPYv+3vFvPBoBtJ+fRgy5LkzqA5uIF5/4sfFhtVvkbQC8ZnD3izwx7iVoi3xr3NsDgkIIBBlLAwqJtkWrB5YBV+ZaqioeqP//YPrtuF+E2RyD4KOJgCqczCs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788442745; c=relaxed/simple;
-	bh=t1+ppZMHHFq0RKj+u9/9Je6aZCtCRhx2zUY7tZ7tZ2A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N6MNYJ/AUT/HfDFHiLQj4k7O31v0sE0gqXroCNYjTN5tp+lhp+s6z7aJAol1v/ZCGR4TCLv/xMXIBusiscDZUJVH/ShrFC6h5iCl3icEaTJwYf+zcWD4qYWrsPHYmFW16RY3uAne9HnwHlQ2UliPikRQ51dcgiaZSWRxaHMOtS4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k6QqurAx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788442796; c=relaxed/simple;
+	bh=RIDr/DbzR9usgvLGIyCKKWpUXLSoE5eaAKae66fAoIw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=D57scNC5Op8bOJsNOEwpeCj+ii4VvkDOuv9hkDCNxKceUqCszJZ/jVhlp3Ts4WD5KHJWWylwE3WLf1tUnvegzlCOwcs4MYiGUVqONucW2RG9i1vA5RuaLhyQcGmEaaPAvMPptgCFFfnEvH8AYuwCpF81gRjgblAw1RBPBro3Vxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=MYVdmgak; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k6QqurAx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0F81F000E9;
-	Thu,  3 Sep 2026 13:38:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788442717;
-	bh=x8YMNxhSiovj2JrzXyTsCtTPqqn25O9GASHtEDSwIAM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k6QqurAxV0NGHTQhIMZUrZimnceraf6iADv3dSa0Zk/8wFcjxQEVBsL8BfUD1afu0
-	 bX/+aefbR/8bal3ZMRNLAtzys5jWX5TsT9F4z1o3K72/nHvCrIUIDE8X9yAF8TFD1R
-	 gykdaW9tGrMMdyX3Ks3v1vrpaTlHKQ9KIrFUMW/bz30C349SPzdmCfYSby5LIFU7zb
-	 wsD30yh+iMEibMPPdNP6rrrtzIwPiiZLUTL37VExIxxUjhUE6A8Yo+DfIwsVRvPx9O
-	 1uqNNC+fY+s8Ik+LrR8IKyWE5icna2EMCw0oHc1S1Lj9lhkUGi6UHzw/mcE0/rPSfY
-	 Pe3YxnknzI2RA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: PCI: renesas,r9a08g045s33-pcie:
- Document RZ/G3L SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Biju Das" <biju.das.jz@bp.renesas.com>
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260903133320.144245-2-biju.das.jz@bp.renesas.com>
-References: <20260903133320.144245-1-biju.das.jz@bp.renesas.com>
- <20260903133320.144245-2-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 13:38:37 +0000
-Message-Id: <20260903133837.8E0F81F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="MYVdmgak"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+	MIME-Version:Date:Message-ID:From:Reply-To;
+	bh=Y8j/ITVlOQxPRVqu5jSrEwrkx7x0SuDALimgCrujisk=; b=MYVdmgaktCtsAPnBXcEec/G3MY
+	NxorhytiJ0rz4vfZR8d5ztfXHixOFjQqNFb0FkhZihK9n6T4HtTtotpaDZcuSaPld+ASw8hrT2ITC
+	RCXAcXlnJfhY9/GtktBhfVfL3/AuquN2Ors0H+6+gCLzypjcq1Z0/x8AM3onQkENgRYaxbq2vGzcG
+	voUJNaWFZw4i62eEk2HeZWnXyHC85rrX+BsBdZXW3OW10/ZW//Ypo4Qs8gebFzynXEkmu4okehvTx
+	fQ9SnaMfzhOhy/M3TbMj12OIetYhQnsZVW7frOQvDneKD3kNYZ8qCtHZNgDLXkdn/SKe395/SvGHx
+	H8/tesPg==;
+Received: from [179.105.94.163] (helo=[192.168.0.6])
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+	id 1x27eq-00EO8X-3D; Thu, 03 Sep 2026 15:39:12 +0200
+Message-ID: <a096712c-8bc6-4cb5-94ca-6a82525f1bad@igalia.com>
+Date: Thu, 3 Sep 2026 10:39:05 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/4] drm/vc4: Reset the V3D block through the reset
+ controller
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+From: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+Content-Language: en-US
+Autocrypt: addr=mcanal@igalia.com; keydata=
+ xsBNBGcCwywBCADgTji02Sv9zjHo26LXKdCaumcSWglfnJ93rwOCNkHfPIBll85LL9G0J7H8
+ /PmEL9y0LPo9/B3fhIpbD8VhSy9Sqz8qVl1oeqSe/rh3M+GceZbFUPpMSk5pNY9wr5raZ63d
+ gJc1cs8XBhuj1EzeE8qbP6JAmsL+NMEmtkkNPfjhX14yqzHDVSqmAFEsh4Vmw6oaTMXvwQ40
+ SkFjtl3sr20y07cJMDe++tFet2fsfKqQNxwiGBZJsjEMO2T+mW7DuV2pKHr9aifWjABY5EPw
+ G7qbrh+hXgfT+njAVg5+BcLz7w9Ju/7iwDMiIY1hx64Ogrpwykj9bXav35GKobicCAwHABEB
+ AAHNIE1hw61yYSBDYW5hbCA8bWNhbmFsQGlnYWxpYS5jb20+wsCRBBMBCAA7FiEE+ORdfQEW
+ dwcppnfRP/MOinaI+qoFAmcCwywCGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AACgkQ
+ P/MOinaI+qoUBQgAqz2gzUP7K3EBI24+a5FwFlruQGtim85GAJZXToBtzsfGLLVUSCL3aF/5
+ O335Bh6ViSBgxmowIwVJlS/e+L95CkTGzIIMHgyUZfNefR2L3aZA6cgc9z8cfow62Wu8eXnq
+ GM/+WWvrFQb/dBKKuohfBlpThqDWXxhozazCcJYYHradIuOM8zyMtCLDYwPW7Vqmewa+w994
+ 7Lo4CgOhUXVI2jJSBq3sgHEPxiUBOGxvOt1YBg7H9C37BeZYZxFmU8vh7fbOsvhx7Aqu5xV7
+ FG+1ZMfDkv+PixCuGtR5yPPaqU2XdjDC/9mlRWWQTPzg74RLEw5sz/tIHQPPm6ROCACFls7A
+ TQRnAsMsAQgAxTU8dnqzK6vgODTCW2A6SAzcvKztxae4YjRwN1SuGhJR2isJgQHoOH6oCItW
+ Xc1CGAWnci6doh1DJvbbB7uvkQlbeNxeIz0OzHSiB+pb1ssuT31Hz6QZFbX4q+crregPIhr+
+ 0xeDi6Mtu+paYprI7USGFFjDUvJUf36kK0yuF2XUOBlF0beCQ7Jhc+UoI9Akmvl4sHUrZJzX
+ LMeajARnSBXTcig6h6/NFVkr1mi1uuZfIRNCkxCE8QRYebZLSWxBVr3h7dtOUkq2CzL2kRCK
+ T2rKkmYrvBJTqSvfK3Ba7QrDg3szEe+fENpL3gHtH6h/XQF92EOulm5S5o0I+ceREwARAQAB
+ wsB2BBgBCAAgFiEE+ORdfQEWdwcppnfRP/MOinaI+qoFAmcCwywCGwwACgkQP/MOinaI+qpI
+ zQf+NAcNDBXWHGA3lgvYvOU31+ik9bb30xZ7IqK9MIi6TpZqL7cxNwZ+FAK2GbUWhy+/gPkX
+ it2gCAJsjo/QEKJi7Zh8IgHN+jfim942QZOkU+p/YEcvqBvXa0zqW0sYfyAxkrf/OZfTnNNE
+ Tr+uBKNaQGO2vkn5AX5l8zMl9LCH3/Ieaboni35qEhoD/aM0Kpf93PhCvJGbD4n1DnRhrxm1
+ uEdQ6HUjWghEjC+Jh9xUvJco2tUTepw4OwuPxOvtuPTUa1kgixYyG1Jck/67reJzMigeuYFt
+ raV3P8t/6cmtawVjurhnCDuURyhUrjpRhgFp+lW8OGr6pepHol/WFIOQEg==
+In-Reply-To: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-> Extend the existing device tree bindings for Renesas RZ/G3S PCIe
-> controller to include support for the RZ/G3L (renesas,r9a08g046-pcie)
-> PCIe controller. The RZ/G3L PCIe controller is similar to RZ/G3S but has
-> some key differences:
->      - Has 3 clocks compared to 2 on other SoCs.
->      - Has a different set of reset signals
->=20
-> Add device tree bindings for renesas,r9a08g046-pcie compatible IPs.
->=20
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Hi,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Florian, Stefan and other Broadcom engineers, any thoughts about this
+series?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903133320.1442=
-45-1-biju.das.jz@bp.renesas.com?part=3D1
+Best regards,
+- Maíra
+
+On 16/08/26 11:05, Maíra Canal wrote:
+> vc4_reset() recovers a hung GPU by dropping the runtime PM usage count to
+> zero so that the V3D power domain goes down, and then taking it again.
+> Forcing the count to zero only works if the driver knows exactly how many
+> references it holds, which is why vc4 unconventionaly wraps every
+> pm_runtime_get_sync() call in a private refcount and mutex, making the
+> code cumbersome.
+> 
+> The BCM2835 PM block has exposed a reset line for the V3D block since
+> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power domains
+> under a new binding."), added for exactly this reason, but vc4 never
+> picked it up. This series switches vc4 over to it and drops the private
+> refcount, leaving vc4_v3d_pm_get/put() as plain runtime PM wrappers.
+> 
+> The reset line is optional, so device trees that do not describe one keep
+> working: they get the driver-side recovery in vc4_irq_reset() while the
+> hardware is left untouched. Of the two in-tree platforms,
+> 
+>    1. BCM2835 gains the property in PATCH 4.
+>    2. Cygnus has no V3D power domain to begin with, so the power-cycle
+>       only ever gated its clock there.
+> 
+> PATCH 1 is an independent cleanup. "brcm,vc4-v3d" was never documented
+> and was never used by any in-tree device tree, so it is a candidate for
+> removal on its own. It can be dropped from the series if it turns out
+> to be contentious.
+> 
+> This series was tested on the Raspberry Pi 3B and 3B+.
+> 
+> Best regards,
+> - Maíra
+> 
+> ---
+> Maíra Canal (4):
+>        drm/vc4: Drop the undocumented brcm,vc4-v3d compatible
+>        dt-bindings: display: bcm2835-v3d: Add an optional reset line
+>        drm/vc4: Use the reset controller to recover from a GPU hang
+>        ARM: dts: bcm2835: Add the V3D reset line
+> 
+>   .../bindings/display/brcm,bcm2835-v3d.yaml         |  3 ++
+>   arch/arm/boot/dts/broadcom/bcm2835-common.dtsi     |  1 +
+>   drivers/gpu/drm/vc4/vc4_drv.c                      |  1 -
+>   drivers/gpu/drm/vc4/vc4_drv.h                      | 13 ++++---
+>   drivers/gpu/drm/vc4/vc4_gem.c                      | 40 +++++++++++++---------
+>   drivers/gpu/drm/vc4/vc4_irq.c                      |  7 ++--
+>   drivers/gpu/drm/vc4/vc4_v3d.c                      | 37 +++++++-------------
+>   7 files changed, 51 insertions(+), 51 deletions(-)
+> ---
+> base-commit: 09b47186a4164f3aaa3591313f80794443117342
+> change-id: 20260812-vc4-reset-control-cddf3eb8a9e9
+> 
 
