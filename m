@@ -1,160 +1,142 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F0E4EBAD1
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 16:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06161348C6E;
+	Thu,  3 Sep 2026 16:26:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452564; cv=none; b=kY2gBoY4b+oyCR7xE/KCrjF/EklXiW37ePHTaucPH711jjv4xB1kPN97d/CVaHU2h4ORs6Spx3PCiwfBNiix3II0NndwAIHlt+LtAiC7UamwvSWx/8f239eBbA6aGw8JmS7TitlEuYUsYHbKe14Y8/HyVCeFlySyWO0VQp1G4Q0=
+	t=1788452785; cv=none; b=gGGzKn6P7MClAEcEvBXF+2oyOEgiVqr4V8Hj1hcIm4dGzEdhZXoQHLQPAlU5kr5Wj/mVmyGKB2tbNapyNXLzuUvOnAkXWlHKrPsqquErMhUNmx066StSDzvtbckn9ncD79o1o/tKL9hzoOEEHUYd6UWCmN8eWN52XxCEbdBxdK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452564; c=relaxed/simple;
-	bh=3XggkU1o03ysU4nezevLZDbtm2BbkFAs7cgJg9nFcPI=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X6vTXFE3TM+jynSSsj5pFjs2z2p7lw57FGkU8I3zzW0TlbuC648yDXcDEnu8jt9VTj1ek1tA9QrY1F7XgQKQWDgjYKZqPMljoX/JTXy65FAUJKWbp7iEFRNAlVTp2htOSuMPLiVu4F57KnURvcTG+f0GVXsQxEPHAgh+4zbbtrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=AcfzbWys; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1788452785; c=relaxed/simple;
+	bh=FTN85+wh6Pdn0k0De7Y3v0wgVKMDrH7hi/h5YG7U70A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ltUGxtXgUM1bN13f2ylaO/HwN7ey7kdWQ6EvKaz6d9ZNrtZYCstKxzXVLNVDPCDtwFs3m8PM1xvsDm/JDoE7IrRYxTGpZZMv9HgaJOoV3haAXFbebVMecr9ogj07FW37qkYnPOuVbgW1S0WdIOI4Bn9hEJOy36PN/85XAMFcWXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BesfQ5/m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="AcfzbWys"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so670915e9.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 09:22:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1788452561; x=1789057361; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NbQ9UdREJ/WWisdiQ1Got7ahhLovVEcdSUeHC5P/jK8=;
-        b=AcfzbWyseWTKtzilxUnHmGGh2WdrbK25F6/b9aR6WF39v/5s7j+fkBrG91wSoiQ2vs
-         NUcAosTNkOQKpbMt6+jd8ZUDZKAeco8eyu6wYmVktox1CPtnSMCu8HEF6TZwQL0CWiKn
-         i9z8W5WUXDzoO9e7VU5nEkKljlN4IUK5OFwzXgMEFp74sSzGzqjOdmyVD+/HtfINzz+O
-         gTCfS/QxZgNdnN2+rOXGVxCt1EwZ8p94Pc34VFnIyzvmyL2Jj+AItllwrKVUX/VH58Vd
-         HqwISUxnaGTgSf4rRPZoARL/9DdaQRm/TwCRQnIthrtIqRqwuEL+bWd19agFf/xU/Q3h
-         +7GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788452561; x=1789057361;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NbQ9UdREJ/WWisdiQ1Got7ahhLovVEcdSUeHC5P/jK8=;
-        b=TOmOvqSc/J6ER8pgSghb07i/ygjOEli961ykXsrm8f8izqzmxpQxcSXpMDclH289V7
-         /cSIk4d+uWvx7AaoWNLCao0b0b4jcPixJzJwGktQOD/v4ox83CpWsf384nZXwtcG1siA
-         bNnq/ETroKXhI7rk/S4FFWFShvRpV0XyLSkFS2XI+9njOntaUTYoffKAvbdikspg0vFQ
-         tIdrRjLhSR77vANJeaw4h+xagYPSOU+Vjse5ib8Fyk4xWVt9NyR6Ylwi7kTL31sH27Gb
-         Rx+wxgGaUXTXHiCvFP2uZsx0TbNpXU7+zl24djfUna7Je2r2tMgz/MtrZqfRDNWRpzB/
-         ZBtw==
-X-Forwarded-Encrypted: i=1; AKwUvBxAOJIeWKMfTfjBuNvx7fJTdJ5dvP9duGHd3+bo2hnPSxS+Eho0u5mZ5W2qJUyILBn6aW6pZ0rOJ/jv@vger.kernel.org
-X-Gm-Message-State: AFuF++kyNY6xO6yF7iKKxLZ8kzds9nPgMSfFSNngyVS1ySSuxqj2jlmD
-	zdqp9qf8vT5GdhvrI/2SI1C0u0OqHgVlLwz0lTF9Jma3hH1/kvnObyqBvpl1Cp1oOSc=
-X-Gm-Gg: AYBFou0AHibiVXLT3YqIrK6fAf6hzijuVCaG2J5YVoiaWoNJQp6gw1WnUM7r3g0qJ+X
-	eymTne8gQLFr9n65h5T7IBnHktBIupt9rzKcV6k9WmSGBL+pXhAGFG2B7VnU19y6xheVvxYJGsB
-	LX13IKwE5KqJufuYH/HyfXy09IBpUGiXzJPSTzo9jm9ABoAfySr+/Dnd5Mnuv/VrhIqsjFcJJrc
-	5btJ2Hv6a9NdjgvJxJH6lo9e1ME+eQKp7p3qwqz+ncreUTHII1i0mWCKmcYTBoHRrHmXxxNmbzL
-	PpqtOCmc+vDb7GnDbBZEj9bEYXvuuYXAhT6KK/JFgdx/I/tUdSCHj52sGNM/UoAbGSBqTq9ALHX
-	gq5Jz/Cv4u3A1R6m5bmS8q+VXBIQiKDkLP3OfUL7ep2RTiYT18bEhDvw7tn5hHH4jKOGdj1CTkg
-	Wy2m5QN4dHRGfi6Ty5O1bJg6dwaejS1mLAbypLjbPTovn5wujxeFsBoWP0zHZqH/+eRbWp
-X-Received: by 2002:a05:600c:5309:b0:499:79b9:e220 with SMTP id 5b1f17b1804b1-49cf5bd3418mr25301905e9.10.1788452560717;
-        Thu, 03 Sep 2026 09:22:40 -0700 (PDT)
-Received: from localhost ([194.183.24.73])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5563c6csm110440525e9.4.2026.09.03.09.22.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 09:22:40 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-X-Google-Original-From: Andrea della Porta <aporta@suse.de>
-Date: Thu, 3 Sep 2026 18:26:19 +0200
-To: Gregor Herburger <gregor.herburger@linutronix.de>
-Cc: Andrea della Porta <andrea.porta@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
- interface
-Message-ID: <apmfqyeWahoR0wab@apocalypse>
-References: <20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de>
- <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BesfQ5/m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269911F000E9;
+	Thu,  3 Sep 2026 16:26:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788452783;
+	bh=Yklku70u8AEdfLgrIe06VUjsn48xfAtvDjV3kRMaOPc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BesfQ5/mUpvGx3f+5eEtnewfGkXq60IW2E7K8lGAqDntWpvphQ+1dpFUL1T4N7ZLw
+	 WtmmxSkCKv5vuExm2oFDDjhbgBaBFNGh8Msdb9AwAAl6dz9CNM8wmycJpaCFB2CohK
+	 B9/N5m+Ti5EigTEERBbSnH9jqMuwM82/6d7qcxDuUDX9eYOudRJIPzU2c8SVwel+2D
+	 0phIgmgO88ljgkKMm2xbXd2DkKS2ROPqORhMlx6xfgUn0q4pAIcNQqWpIEi79K4n1R
+	 X/nXhmP9qwHJllhWSBTSTUvREa+Coq8wP6pWSCp8iSybho7RIquD9R2XYNbEJ22Ktm
+	 5zU3fmtRl8eDw==
+Message-ID: <acdf2acc-a1a7-4a02-8924-4605e0d929b0@kernel.org>
+Date: Thu, 3 Sep 2026 18:26:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811-bcm2712-spi-v1-2-4c1708d354bb@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/6] PSCI-via-EFI to support firmware and kernel
+ sharing EL2 for Apple Silicon
+To: Ard Biesheuvel <ardb@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ilias Apalodimas <ilias.apalodimas@linaro.org>,
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
+ Sudeep Holla <sudeep.holla@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-efi@vger.kernel.org,
+ asahi@lists.linux.dev
+References: <20260708-efi-psci-v1-0-9efb3abf0e4c@kernel.org>
+ <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <9c53cfd7-e193-4441-83ca-7710060225b7@app.fastmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Gregor,
+Hi Ard,
 
-On 18:04 Tue 11 Aug     , Gregor Herburger wrote:
-> The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
-> Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
-> the spi interface.
+On 03.09.26 13:34, Ard Biesheuvel wrote:
+> Hi Sven,
 > 
-> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
-> ---
->  arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
+> On Wed, 8 Jul 2026, at 09:15, Sven Peter wrote:
+>> Hi,
+>>
+>> Usually, idle and sleep state are implemented in firmware running in
+>> e.g. EL3 with the kernel trapping into that from EL2. Unfortunately,
+>> there's no EL3 on Apple Silicon machines and we'd rather not run the
+>> kernel in EL1 since this would result in losing KVM support.
+>>
+>> While the shallower states could be implemented inside a custom cpuidle
+>> driver (like we do downstream, see [1]) the deeper states result in a
+>> complete loss of state and require bootstraping the cores again which is
+>> quite involved. So instead we need some way to call back into our
+>> open-source firmware to be able to handle that. This is even more
+>> important for M4+ which don't even support the architectural wfi anymore
+>> and always lose state when that instruction is executed.
+>>
+>> Luckily, EFI runtime services provide much of scaffolding we need,
+>> namely a way to keep some code and data mapped and the ability to jump
+>> into there from inside the kernel.
+>>
+>> This series adds a custom EFI table that points to a PSCI entry point
+>> (plus some other stuff that has to be available before EFI runtime
+>> services are set up) and adds support for this new conduit to the psci
+>> code. We can't directly use the normal EFI runtime path because that one
+>> takes a sleeping lock and we need to be able to call into PSCI from
+>> atomic context during e.g. cpu bringup or during idle.
+>> It also adds support for specifying the specific MAIR attributes for EFI
+>> runtime mappings as defined in the latest UEFI spec since Apple Silicon
+>> is rather allergic to using Device-nGnRnE vs. Device-nGnRE for its MMIO.
+>>
+>> This all results in a surprisingly small diffstat. I believe this
+>> approach was originally suggested in some IRC discussion years ago,
+>> possibly by Ard, but I can't find the old logs anymore.
+>> Happy to add a Suggested-by tag though if anyone remembers.
+>>
+>> The firmware implementation I used for testing can be found at [2] and
+>> the full kernel tree with this series applied at [3].
+>>
+>> Best,
+>>
+>> Sven
+>>
+>> [1]
+>> https://github.com/AsahiLinux/linux/blob/asahi/drivers/cpuidle/cpuidle-apple.c
+>> [2] https://github.com/AsahiLinux/m1n1/tree/psci-via-efi
+>> [3]
+>> https://git.kernel.org/pub/scm/linux/kernel/git/sven/linux.git/log/?h=efi-psci
+>>
+>> Signed-off-by: Sven Peter <sven@kernel.org>
+>> ---
+>> Sven Peter (6):
+>>        dt-bindings: arm: psci: Add EFI conduit
+>>        arm64/efi: Add and parse custom PSCI EFI configuration table
+>>        efi: Add EFI_MEMORY_ISA_{MASK,VALID}
+>>        arm64/efi: Honor EFI_MEMORY_ISA_MASK for Device-nGnRnE vs -nGnRE
+>>        firmware/psci: Add EFI runtime conduit
+>>        arm64: dts: apple: t8103: Add PSCI and CPU idle states
+>>
 > 
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> index 0fc57e72632ed..81aec81c5ce12 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> @@ -69,6 +69,14 @@ usb_vbus_default_state: usb-vbus-default-state {
->  		groups = "vbus1";
->  	};
->  
-> +	rp1_spi0_default_state: rp1-spi0-default-state {
-> +		function = "spi0";
-> +		groups = "spi0";
-> +		bias-disable;
-> +		drive-strength = <12>;
-> +		slew-rate = <1>;
-> +	};
-> +
->  	rp1_i2c4_default_state: rp1-i2c4-default-state {
->  		function = "i2c4";
->  		groups = "i2c4_2";
-> @@ -94,6 +102,14 @@ &rp1_i2c6 {
->  	pinctrl-names = "default";
->  };
->  
-> +&rp1_spi0 {
-> +	pinctrl-0 = <&rp1_spi0_default_state>;
+> I've picked up patches #3 and #4, which are useful in their own right.
 
-Is there any reason to avoid defining the CS pins as pulled-up gpios
-in the rp1_gpio node and then referencing it in pinctrl-0?
-Something like thie following:
+thanks, I think i had a fixup for one of those in my local v2. I'll 
+check and send it as a separate patch if it was important.
 
-rp1_spi0_cs_default_state: rp1-spi0-cs-default-state {
-	function = "gpio";
-	pins = "gpio7", "gpio8";
-	bias-pull-up;
-};
-
-&rp1_spi0 {
-	...
-	pinctrl-0 = <&rp1_spi0_default_state &rp1_spi0_cs_default_state>;
-	...
-};
-
-
-Many thanks,
-Andrea
-
-> +	pinctrl-names = "default";
-> +
-> +	num-cs = <2>;
-> +	cs-gpios = <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
-> +};
-> +
->  &rp1_usb0 {
->  	pinctrl-0 = <&usb_vbus_default_state>;
->  	pinctrl-names = "default";
 > 
-> -- 
-> 2.47.3
+> I'm not sure if the arm64 maintainers will want to consider this, but
+> I think it's a reasonable compromise, as it puts the abstraction in
+> the right place.
 > 
+> I take it this will be contributed to u-boot if it gets accepted here?
+
+Yeah, that was my plan: First agree on something that can be accepted 
+into the kernel and then work on the rest of the boot chain. The current 
+code in m1n1 that sets up bare bones EFI tables is just a hack to proof 
+this all actually works.
+
+
+Sven
+
+
