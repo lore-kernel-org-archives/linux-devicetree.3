@@ -1,140 +1,104 @@
-Received: from mta0.migadu.com (out-27.mta0.migadu.com [91.218.175.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EFB8331A6E
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 02:03:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C7CC175A9D;
+	Thu,  3 Sep 2026 02:11:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788401009; cv=none; b=W7AP8uSNEgXrIQmmIRNshSdZoxFw8vyK15WQJTX3T0lyIzD80RZ+0whqED7xi1YEksm6nouSYOWAJtcdEiQ5WA/1LU4nvkEDDiZ++rVQ1QFUbzGsGlCFDYRd2bh5+kjIDjzDsqDmkrKsumx02AAvoz7dRPOyHI0Tkz69GVvMbbo=
+	t=1788401487; cv=none; b=oFb/1PvRK9ubXhne7dnyJhxBKLn/3a/QBfRSPjnt39SkhRQAlhWXhnOKHKkopviULGGkppkc4kc4/00dRus8OgAuAzQfI5QJMghsklBGTn+43CiVrixxGmoJ1LupeGDW4wrl5ut5HW12saIVy9LFr/8Jcv2qQ2CqATa2c5fHw9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788401009; c=relaxed/simple;
-	bh=fMhzI8X3Hok8lOxj6VX1r6zGfn4fks2SS0FP4mBh2DU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gEpvJ0PyucW6K55EmVmIarY5bCdxkfIjDWJ4bUOJK2PF3k5wDvTwkgTq1jXv1TQuBvcau4V6RxewCnlBr0iB+kcD7A8HJleCVvpq4dNAoVFRR7EZFAmvJmLb4/PTdjTxOaQKqzTfLN6qJSlfqW4rHNtSwHhcNMyXtD2tCMPMesw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=Rm1NSdWW; arc=none smtp.client-ip=91.218.175.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1788401487; c=relaxed/simple;
+	bh=P7qa9QjRVWobqSBV6sSx/3sPUbNV5jmWEl/ZxwfphCc=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=isPylT1f/sqKXiV6K5kqtmJTzZO0f19sXPZKZ23nXPEG2Qd4Y/J4UY7Qe2PEBU07QocAfyfLIIzX7OlSMvwpoNrd4spq/vATAoXPBZzbTcrlqgwNHO4QpWrotosFd3gvefqUG1tXVk3N1SPGEOG1XJysUxKjYSmOWY1bZPSAntk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opiOf8p+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="Rm1NSdWW"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fMhzI8X3Hok8lOxj6VX1r6zGfn4fks2SS0FP4mBh2DU=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788401004; v=1; x=1789005804;
- b=Rm1NSdWWuYi8h02xvSc3+x4Wtl/F7vu1G7YDGirMIwkDIzzwfAaaX35l0XP6/jZTRXeuQpTH
- oNz+gpCxUkNOYoL8gWGxJEAncSjTeNLZDNfbiMLXV7WgOVRTtZZTA0jXbtLV5PLwAwQpBhXEoT3
- 0a3qu/PNy3RET582JxmDLhUifd+beyaCrZ4jqKUCBI6JX/i1aLoTByisS+YExkJA/LnYkReJ0oQ
- lx/+JFDjBoHdJDK1J/QxMcQ0Ktp/5LDMXXqB224+CHazR0HnHaa+6Hocwy85k8mIRdy8YZOQJhA
- n5j1b9HjAJgq/9+sLiqzL3VDgV+a2q3TNygDEeRhUSTsw==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id c2330e0bba2a5027;
-	Thu, 03 Sep 2026 02:03:14 +0000
-X-Mizu-Trace-ID: c2330e0bba2a5027
-X-Migadu-Flow: FLOW_OUT
-From: Paul Sajna <sajattack@postmarketos.org>
-Date: Wed, 02 Sep 2026 19:03:06 -0700
-Subject: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opiOf8p+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B38C91F000E9;
+	Thu,  3 Sep 2026 02:11:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788401485;
+	bh=jsLIZ1+Oo0USNfs6WZ3ohesOY6oLKK9O64JfxHs0IlM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=opiOf8p+fx/Ep8KDbuuYxS9q0qssDWINerrU72TFbtjY9ApgGpA7QTgnjJDQOK04z
+	 F64CUc0sy0ddNee6hWJc98mlgv1OAce++w7qNtV/9BMZC4P3RDkypPH4UAB20mT1J8
+	 s0EvFu+UFSfOV3UY8NQTR3lA4ZD7ELivsugZeGVDgbHCpSaq4UQ32HjyvQq976sype
+	 sT9E0RQjzQhE8D6i9i+im9V75sj0F4O7s0EZNXRfq5G+w1CTMjMhr+qMSyEnqAli+H
+	 5TevuwRZB+ppumpveCLfZpzhKaJ/nBcxchG6pRc5MaWpDYAaFxJZYyo0RQQOeneeXQ
+	 VfCWkHGQ/C0Mg==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 93C5B3927056;
+	Thu,  3 Sep 2026 02:10:28 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQ5AMBBA0avIrE1SpairiIXolBFK2hAi7q6xf
- Iv/HwjkmQI0yQOeTg68uYgsTWCYejcSsokGKWQptJAYzFoXCpcR58Pc6OyAympSVaVynRuI4e7
- J8vVP2+59P5VL3rpkAAAA
-X-Change-ID: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- Paul Sajna <sajattack@postmarketos.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788400991; l=1832;
- i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
- bh=fMhzI8X3Hok8lOxj6VX1r6zGfn4fks2SS0FP4mBh2DU=;
- b=dutbgdT4lcSahJt3rMyBn9aPC1+A80dpRLeYOfrWAPlvWDFQ+Wavm9pHgsSmwkBKReAa7WtAF
- HhJxRkM5c7yCbEOweP8Q6cf//AjBi1CXysJPRWZw/e4YSmTZohuxMZr
-X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
- pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net-next v15 00/13] net: mdio: realtek-rtl9300: Add
+ RTL83xx
+ support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178840142714.3044566.2508555848930726226.git-patchwork-notify@kernel.org>
+Date: Thu, 03 Sep 2026 02:10:27 +0000
+References: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
+In-Reply-To: <20260831143439.2404484-1-markus.stockhausen@gmx.de>
+To: Markus Stockhausen <markus.stockhausen@gmx.de>
+Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz,
+ daniel@makrotopia.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, devicetree@vger.kernel.org
 
-Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+Hello:
 
-Downstream dtsi for reference:
-https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
----
- arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+On Mon, 31 Aug 2026 16:34:26 +0200 you wrote:
+> The Realtek Otto switch platform consists of four different series
+> 
+> - RTL838x aka maple   : 28 port 1G Switches
+> - RTL839x aka cypress : 52 port 1G Switches
+> - RTL930x aka longan  : 28 port 1G/2.5G/10G Switches
+> - RTL931x aka mango   : 56 port 1G/2.5G/10G Switches
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-index b030a10009c5..069d1cf3dead 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-@@ -471,6 +471,25 @@ &gpu {
- 	status = "okay";
- };
- 
-+&i2c3 {
-+	clock-frequency = <1000000>;
-+
-+	status = "okay";
-+
-+	nfc@28 {
-+		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
-+		reg = <0x28>;
-+
-+		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
-+
-+		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-+		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
-+
-+		pinctrl-0 = <&nfc_default>;
-+		pinctrl-names = "default";
-+	};
-+};
-+
- &ipa {
- 	status = "okay";
- };
-@@ -551,6 +570,11 @@ &qupv3_id_1 {
- 	status = "okay";
- };
- 
-+&qup_i2c3_default {
-+	drive-strength = <2>;
-+	bias-disable;
-+};
-+
- &qup_uart9_rx {
- 	drive-strength = <2>;
- 	bias-pull-up;
-@@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
- 		function = "gpio";
- 		bias-pull-up;
- 	};
-+
-+	nfc_default: nfc-default-state {
-+		pins = "gpio12", "gpio62", "gpio63";
-+		function = "gpio";
-+		drive-strength = <6>;
-+		bias-pull-up;
-+	};
- };
- 
- &uart6 {
+Here is the summary with links:
+  - [net-next,v15,01/13] dt-bindings: net: realtek,rtl9301-mdio: Add RTL83xx series
+    https://git.kernel.org/netdev/net-next/c/c3a1b6763f4d
+  - [net-next,v15,02/13] net: mdio: realtek-rtl9300: Add polling documentation
+    https://git.kernel.org/netdev/net-next/c/1c86cd693716
+  - [net-next,v15,03/13] net: mdio: realtek-rtl9300: deny C45 over C22 access
+    https://git.kernel.org/netdev/net-next/c/3383b50c1695
+  - [net-next,v15,04/13] net: phy: add phy_detach_internal() helper
+    https://git.kernel.org/netdev/net-next/c/2df76677c1c0
+  - [net-next,v15,05/13] net: phy: add (*notify_phy_attach/detach)() hooks to struct mii_bus
+    https://git.kernel.org/netdev/net-next/c/4b1d5d51528a
+  - [net-next,v15,06/13] net: mdio: realtek-rtl9300: suppress sysfs bind/unbind attributes
+    https://git.kernel.org/netdev/net-next/c/fe7a07ff5194
+  - [net-next,v15,07/13] net: mdio: realtek-rtl9300: Configure hardware polling during probing
+    https://git.kernel.org/netdev/net-next/c/ee18e22c6342
+  - [net-next,v15,08/13] net: mdio: realtek-rtl9300: Add page tracking
+    https://git.kernel.org/netdev/net-next/c/cc3cb8db1eef
+  - [net-next,v15,09/13] net: mdio: realtek-rtl9300: Increase MDIO timeout
+    https://git.kernel.org/netdev/net-next/c/6be4be074be8
+  - [net-next,v15,10/13] net: mdio: realtek-rtl9300: Open up C22 and C45 space in parallel
+    https://git.kernel.org/netdev/net-next/c/cc7a5bfaea14
+  - [net-next,v15,11/13] net: mdio: realtek-rtl9300: Add support for RTL838x
+    https://git.kernel.org/netdev/net-next/c/6ab6cb66b3b9
+  - [net-next,v15,12/13] net: mdio: realtek-rtl9300: Add support for RTL839x
+    https://git.kernel.org/netdev/net-next/c/11b8be84ccaf
+  - [net-next,v15,13/13] net: mdio: realtek-rtl9300: reword Kconfig and module description
+    https://git.kernel.org/netdev/net-next/c/d4ce2cef189e
 
----
-base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
-change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
-
-Best regards,
+You are awesome, thank you!
 -- 
-Paul Sajna <sajattack@postmarketos.org>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
