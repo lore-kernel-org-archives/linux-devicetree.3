@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8FEF444705;
-	Thu,  3 Sep 2026 08:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF6A42E420;
+	Thu,  3 Sep 2026 08:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788423267; cv=none; b=irXS/d0rJKrYiZULnsDrBrOtaseSWaNFqA83OAmGpllOCvZRYfn/SkKolqTP0EYCddqccAa7t59XpBaDo3GariO4sH21YluzeYYRoGIrYPTaRMI5b0w9OLvUoIGqcibb1lQXgO7sAAoSOlQvv3vEuYdexqrrkhJQto1SqSpTCb4=
+	t=1788423390; cv=none; b=XzkNOGqOFZDZd79Zi9j0S6Mm8ZBfl3o3MPdvSbkkmn7eSg1ENp0Kjf0WXYJL6FdQeE8vvilvYoZAd6AttwoWsK0KVqm2tcyxWT1O015wKfGk3YuSCA1aRMxfVYMEFyrDHJpSrkqgxr4/ECK1vvALmQT5whEJQiWxukCCxG0HTIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788423267; c=relaxed/simple;
-	bh=rWyBiQvB7n5CN5RlRrY4rVWbEHWQvYAoOZe3ttybowE=;
+	s=arc-20240116; t=1788423390; c=relaxed/simple;
+	bh=+o+nyoSdpxikK8CJnBLVivh+R0jr8SwEQzzgfF6g3nU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rnBAS5EGkoBuD75WMRJuyMvuqna1R53Xy10rB4d74AjWoJalBZas4DYriPpWlkIRyxiMPqqSni0d+wdEuXcN7UlycJyDbnU7o0MfEXZfMTE/IAHJ/hawZmunBpMqTaN5A+ZF0ojsyQFWFKw6S8qtoJKfqbOPu5ut/w7lFm6rj1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BQ9AOF+X; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=YIi72Txbxf37hxISUjk3Luh1P5BTyPaLc1X+l0b3j3Fh/Ds9X0UctFJV2skSZrTfRpMsjA+bBZ9vEGbvkhYQuUf1apvJrUbGJ7gC4fSo7VvfLXjWVy1TwH+1KYgwhJheFLob4LbIh+CmNcVB/tWfnI3Q+9kxoZCHc/Xuq0FWSm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoIfMXX5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BQ9AOF+X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0D91F000E9;
-	Thu,  3 Sep 2026 08:14:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoIfMXX5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 857471F000E9;
+	Thu,  3 Sep 2026 08:16:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788423265;
-	bh=lfiktVcA3WoDPS6LtdsBA19LLQB2OOe4eJAn9/Nw4Is=;
+	s=k20260515; t=1788423388;
+	bh=l9GVgLZffkTPbMsDs2bbDfVam0Psx72PkFvt8O0E+VQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=BQ9AOF+XjuYiQrsvSEtmDeAnaeFuhBtsvsjZceFIy8oz2bQ/VW0b8cRggVLeh+SQ8
-	 wzSorWt+s2/9YKNnnTl1n7QaBQWWFH/y2QwL/jnjTaY1RF+xljeL/9dMqi9SuAiuqs
-	 tYAui1wQcS44I1dEmyGRPtj3DZBz9mJWGj8lLxx6rB1+FxuvAWITIecmh4nF9ixlz/
-	 ILBRsdWO9bP55CcFU3YzYq4b3G1ufK8tN/BOY8tYYnOSicE2C6bFBXo2+3dHhtcXWh
-	 YzNsEl/ojAgETq7nlJXlrKpOgVhb6tm5e4QnoyNllJqQFjJl4BTiwZ9b8p6cyTrC0q
-	 gsKCDW7rQMiwg==
-Message-ID: <5a3c4409-9398-4341-a478-96915ca2d65b@kernel.org>
-Date: Thu, 3 Sep 2026 10:14:20 +0200
+	b=XoIfMXX5ocuhbQCMKDwoP3JIopHIJQoNOvejs6fXrWRLslo/NDmEAaC1H2oNWyRw1
+	 hzHCFm6LOuwVKu6t83oW1ehUsyyZ9lNfl1v8fAjODOS9xauDahuuvRM7/lsxI50yTu
+	 T1UmBnLs6NjzO7trJyB/folysjUawhfIFeTowrL5kpmirDCIzZ74TPCShHkraTNKcb
+	 KXIR3uz7iQsksmH4QVKfKbG3jPhPaVeH2pUlEOcl0H60yn25YvhzUOAlHFEBHG5gT4
+	 DBtKo9g56niDE9ksL/zJ+ATLD3GvpM+9UHfgt4eIXcsVbSBSv6LpJXu0ANOwpR3CWW
+	 Vj7PP/c5vYK3A==
+Message-ID: <206b8a0a-0953-402f-b8c5-862da0ff1c5e@kernel.org>
+Date: Thu, 3 Sep 2026 10:16:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,23 +35,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Fix glymur binding
- for non-MP controllers
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Wesley Cheng <wesley.cheng@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260828081542.52796-1-krishna.kurapati@oss.qualcomm.com>
- <20260831-messy-ebony-warthog-cfd727@quoll>
- <ce5bf06b-8284-4355-94bb-416a8e34bd5b@oss.qualcomm.com>
- <cc52ff33-3da4-492e-80cd-ba2b1711bfed@kernel.org>
- <6af2e860-ba7a-4f86-a0e7-872a312b47e4@oss.qualcomm.com>
- <3574212b-1a4b-486a-97df-1d6ae7895097@kernel.org>
- <80f21ab6-3d4e-445a-b156-7326b0e92998@oss.qualcomm.com>
+Subject: Re: [PATCH v1 02/11] soc: qcom: add crypto_virt backend for
+ virtio-blk inline crypto
+To: Linlin Zhang <linlin.zhang@oss.qualcomm.com>, ebiggers@kernel.org,
+ axboe@kernel.dk, mst@redhat.com, jasowangio@gmail.com,
+ James.Bottomley@HansenPartnership.com, martin.petersen@oracle.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-block@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-scsi@vger.kernel.org, virtualization@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Cc: neeraj.soni@oss.qualcomm.com, gaurav.kashyap@oss.qualcomm.com,
+ mani@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+ bvanassche@acm.org, alim.akhtar@samsung.com, avri.altman@sandisk.com,
+ stefanha@redhat.com, pbonzini@redhat.com, eperezma@redhat.com,
+ xuanzhuo@linux.alibaba.com, linux-kernel@vger.kernel.org
+References: <20260827160806.1295313-1-linlin.zhang@oss.qualcomm.com>
+ <20260827160806.1295313-3-linlin.zhang@oss.qualcomm.com>
+ <f5915133-ffac-4777-b7d9-cf38ba163d43@kernel.org>
+ <03097984-fded-477e-82b6-f9b31fd2f1d3@oss.qualcomm.com>
+ <38389106-9609-4ec4-bc83-3d1b7fac3698@kernel.org>
+ <c5aaea57-c9c4-44ca-9bd5-7f09175637b3@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -97,61 +100,37 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <80f21ab6-3d4e-445a-b156-7326b0e92998@oss.qualcomm.com>
+In-Reply-To: <c5aaea57-c9c4-44ca-9bd5-7f09175637b3@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/09/2026 10:11, Krishna Kurapati wrote:
-> 
-> 
-> On 9/3/2026 12:11 PM, Krzysztof Kozlowski wrote:
->> On 02/09/2026 16:10, Konrad Dybcio wrote:
->>> On 8/31/26 2:29 PM, Krzysztof Kozlowski wrote:
->>>> On 31/08/2026 11:03, Krishna Kurapati wrote:
->>>>>
->>>>>
->>>>> On 8/31/2026 2:07 PM, Krzysztof Kozlowski wrote:
->>>>>> On Fri, Aug 28, 2026 at 01:45:42PM +0530, Krishna Kurapati wrote:
->>>>>>> Currently for Glymur non-multiport USB controllers, number of interrupts
->>>>>>> are limited to a maximum of "5". Either hs_phy_irq or ss_phy_irq are to be
->>>>>>> present.
->>>
->>> [...]
->>>
->>>>>>>                  - qcom,eliza-dwc3
->>>>>>> +              - qcom,glymur-dwc3
->>>>>>>                  - qcom,ipq4019-dwc3
->>>>>>>                  - qcom,ipq8064-dwc3
->>>>>>>                  - qcom,kaanapali-dwc3
->>>>>>
->>>>>> This changes the ABI without an explanation.
->>>>>>
->>>>> As per the harware specification, the controllers do have both
->>>>> hs_phy_irq and ss_phy_irq. Hence wanted the binding to capture that
->>>>> info. Will update the commit message accordingly.
->>>>>
+On 02/09/2026 17:01, Linlin Zhang wrote:
+>>>>> +	ret = qcom_scm_derive_sw_secret(eph_key, eph_key_size,
+>>>>> +					sw_secret, BLK_CRYPTO_SW_SECRET_SIZE);
+>>>>> +	if (ret == -EIO || ret == -EINVAL)
+>>>>> +		ret = -EBADMSG; /* probably invalid key */
+>>>>> +
+>>>>> +	if (ret)
+>>>>> +		pr_err("%s: ret=%d\n", __func__, ret);
+>>>>> +
+>>>>> +	return ret;
+>>>>> +}
+>>>>> +
+>>>>> +static struct virtblk_crypto_variant_ops virtblk_crypto_qcom_vops = {
 >>>>
->>>> So the change in 99df63d20dabda8d7ae01bcca7cdb1e92110a555 was
->>>> incomplete? Lack of context here is not helping.
+>>>> Why is a crypto-handling code in drivers/soc/?
 >>>>
->>>> If they have these IRQs but it does not matter, then it is not a good
->>>> reason to change ABI and you should just add the clock as optional to
->>>> the end. Was this binding already released? I think yes.
 >>>
->>> IIUC the intent of the patch is to allow specifying the currently
->>> missing hs_phy_irq on non-multiport controllers (i.e. usb3_[012]).
->>> Bundling the DT change would have made that easier.
+>>> This driver is a Qualcomm vendor-specific driver, plays the similar role in the
 >>
->> This does not answer my concerns. So repeating: patch is changing ABI
->> without an explanation. This means contributor needs to provide
->> explanation for the ABI change in terms of actual impact.
+>> Not really, there is nothing vendor specific here. Look at this code.
 >>
->  From a functional standpoint, there would be no effect. I was trying to 
-> make the bindings reflect that the hardware has hs_phy_irq.
+> 
+> crypto_virt_program_key calls the interface from qcom_scm driver. Similar to
+> crypto_virt_invalidate_key and crypto_virt_derive_sw_secret_key.
 
-If there is no functional impact, so before everything was fine and now
-is fine as well, then usual expectations is to make it
-backwards-compatible way, so grow the list with minItems.
+Indeed I missed that. And it does include scm header and depends on it,
+fine then.
 
 Best regards,
 Krzysztof
