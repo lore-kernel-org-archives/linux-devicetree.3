@@ -1,156 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416114B2CDE
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 14:19:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ADD44B5CAB
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 14:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788445187; cv=none; b=B/z4QwMaepRz0AFoUj6Wx+8dj70c2D1SqWdStW4KacXW6BPGx66CikKWF45VI5ai6pDddll38qwfB2DR5sobrxMC5d4t8GMdMEiklaOVR1bIHWwFF+0SJAG+4HV8hXmOkbhtVbhhtH68Nsi01LvfvnD+DwlgxnhSlBjbIPqK9Yc=
+	t=1788445487; cv=none; b=TS18QhcPKAGb4UhBue+BBRVN7TShJlC0YmXE7Qn9FXCAF+jVfqI+I2HtVOJI2m3jqxTcnxerLa19JW10MUOOZ71y2ixMokEGGb6TSvd+SortVN9jeWtTqcniclBSHfK+AhrCYbwdqW4Tm9caJgyzOIBuqQ9YGPwbcEAixr1mBUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788445187; c=relaxed/simple;
-	bh=m6+ZsbYyXZbH4ryHwx6n33EjJo0AWoi1K1iJYiclqpU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o7H3neM92+DrsJQe3m/pJ6HDiaprXIgEEcDvHYUZXG2bu41oBKvSHs4hpDmbcuRYhhf+qKXupTzAiJeZBHNerRkS1XFFbKMsLjUTe8Aq0pg7S7y4tKRtcrKrccPhpX3SMUXxy3ZhJC/ctkYfbjA4s7hWbTDQdUdGFAWDEH9uHrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fyjGKURY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788445487; c=relaxed/simple;
+	bh=f9MUvFZMACMIOkVZHxSlrtajpzL/cuxELYuqS2JN+pA=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XRvUgTOZNTEJ8U39NdyhaF77z9So8TJwvyu4tBO5wBh1+ahKr1ht/5YPbFCYW2852TMoQqnMAIIs50ZhfXcqprlLm/SIccGnZjdHqO+cahqg2QR1z0P8ZcIS97SM4mhS1Bsoq8/Qn7ExbBcqQdbjjPXrancdNF/mB7xg02ygS4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=P0P6DQvH; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fyjGKURY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2E91F00AC4;
-	Thu,  3 Sep 2026 14:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788445179;
-	bh=g6FydBnAPxw+eu9x2g8kW+H8Ex8xLcVdIPr91z366A4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fyjGKURYfU99/6Eo+9p/p0amsxTjLsM5JYFeGqXGqcuDEZcb/cFc934Npr8wRcjcd
-	 PH/cN6OK5aFe+p5QA9tYF6EWHweLQOh7BWggAoCMIdfZCrMSPjUeUiITikr8aVhzFf
-	 nkimdhBGbCyv3VyEY5q3W1wCR6vsJxy13elAvnf1txRXZzczADS+jcx5CKaRJx3k7L
-	 WEIxIrglZJyLqgijkDht25jZ8DHbvwtBS36SczbKTIHL4aWsLLolkYYuw0onlmWpBI
-	 ShJsl/3tln1iEgIoszuQdrM5JoeDMoYstefPDldY1a5F/jWAfa3Owf34HxPNIW/zS5
-	 INauUq5svthiQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 3/6] arm64: dts: qcom: Add device tree for Nord
- Embedded variant
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260903140617.441111-4-shengchao.guo@oss.qualcomm.com>
-References: <20260903140617.441111-1-shengchao.guo@oss.qualcomm.com>
- <20260903140617.441111-4-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 03 Sep 2026 14:19:38 +0000
-Message-Id: <20260903141938.CD2E91F00AC4@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="P0P6DQvH"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-484374f54d0so1523682f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 07:24:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788445471; x=1789050271; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=94IZdoKFOFB8Yp+Vrvaxxz4fkqe/10RPOdJvdOjnq08=;
+        b=P0P6DQvH0WvU7rbQ8GXnQuzfs/h+qr/4z09DzZg08Sq04SINAAr4m5vS8cW+7wF0WI
+         kF3poomXRbjl5s0QznHzfHL1bqvXcdWUicTPhWt9UpllBfYYapI9IrDFgxmXGU+sAY7p
+         zrAoee6GvPyxWmsQUlT9RcSTzkaeEOnMi0L+N2cG2T320jCroLqH9BMCF9GqonHpYsnH
+         Lra293+GxfP3Szitx1mzu3KEXxAUrd1GX/BumaWei2EWaXc7NV2xTVl9yF8vuUCKB0Yk
+         1JgiuwoxMfkDtwHMjDzg2BPMsHyWmJc9R66j43Sl1CAxC4KXAb0lWxnG+JnhGVhS91Nd
+         xMkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788445471; x=1789050271;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=94IZdoKFOFB8Yp+Vrvaxxz4fkqe/10RPOdJvdOjnq08=;
+        b=fbHp+MKwQjwClszqkkvWLrF30c0hERX3OQfFaNI6VQA92mHJHBEO95BzoekggxdmNV
+         YaqFi14mbXBFDoGf6U1t9PbBav5jeNd86tJ4pBj4JumqpUzhG4Q2KYor1LpmLy/Fstdk
+         /n0pB8sVlZ7T/DTzMmUGYCp+nv6gyvymynnvMgcnrBoMk3PduX6JxznAYSmnGtiqAjha
+         klPF7Tq64TOoC0B3qtdKYYifyIhp3vm8oUSWP/NTd/gIsGomdixtvFMOZ6UyIoCUXUJl
+         /W3B7OarEunFMANhdrqEcSdE6G8kO8xgOPL6Z2yiALCtsznf1VQ0T6ijdDIipk02N969
+         /NpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxs+Gr3Fl5fkh4XzCFb5zS9ZevrNmCWVSck+GzWIVZliTr/nY9wwD9RXmQpSVHftVBHY/YUxjSBtCY6@vger.kernel.org
+X-Gm-Message-State: AFuF++lenQb+ydCIdwxG52pszacwuvcXuA1MFslymBcUfM3VSsCKlzhN
+	PLJGbkQhcRi7i2+NhgRP0kzISbMeJG0QlqFIRN8HmjTp29EejrWCXCFEgn0Efnc6KZQ=
+X-Gm-Gg: AYBFou2D8z+oPfp0Car1k7i0UHw8jtn4iPedCz0K5ghQ7WTPnJWti9BWenH0YQSs/ux
+	c2Dp4yVUVqWulrPlh2eo/JvDM0J0U7NqSmOkni3VN88/A3J/qXlVe0yPp/G/S09SqO1gpZJZUj5
+	xdiMGUq2wU4CRbCz4m7sJsH+1B2LcCWsPFZBPvUJBRRHrZxBqbUp++4hIBz4peCTL0XRuKpBkH4
+	5dByyVXxe1WHipJQH8AfJC7qo0YAe4Y80lTrA0j61OKpKbwspP2WRKXNAfub0Jf2YiXRTxmnFEa
+	N6DCXl18pCYkP3S7CdGzD1uespFDxQizhlxhHtsNclraFL4vEWtSzYGmpURzZU+uJi0zmDbZ/7x
+	QAkv55VrgeFhipHlGyvnxOCPkaLg/51QoAFdwseCWgOMpXLdIBfjTEpdNqwlnRwmgn6y9mXneSF
+	4cUZSqp49UN+8FTNMsAak/StdUPGN+VV7Rg4ZvsCTUMG4pmMULZZe/GTJkpeBxmxroBDg+
+X-Received: by 2002:a5d:5e87:0:b0:485:8101:dc40 with SMTP id ffacd0b85a97d-4858101dd2amr5715406f8f.9.1788445466583;
+        Thu, 03 Sep 2026 07:24:26 -0700 (PDT)
+Received: from localhost ([194.183.24.73])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448ed3706sm14464261f8f.18.2026.09.03.07.24.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:24:26 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Thu, 3 Sep 2026 16:28:04 +0200
+To: Peter Robinson <pbrobinson@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	Phil Elwell <phil@raspberrypi.com>, devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Andrea della Porta <andrea.porta@suse.com>
+Subject: Re: [PATCH 1/3] arm64: dts: broadcom: bcm2712: add arm PMU
+Message-ID: <apmD9OrMiGRiU5Yg@apocalypse>
+References: <20260802145109.728793-1-pbrobinson@gmail.com>
+ <20260802145109.728793-2-pbrobinson@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260802145109.728793-2-pbrobinson@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Mismatch between `power-domains` and `required-opps` in `ufs_mem_h=
-c`.
-- [High] The UFS PHY clocks are not wired to the `negcc` clock controller, =
-breaking the UFS clock hierarchy.
---
+Hi Peter,
 
-commit 7034c99626d2986e3ca10a97a1a9799d821d7a58
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-
-arm64: dts: qcom: Add device tree for Nord Embedded variant
-   =20
-Unlike the GearVM variant, Nord Embedded variant has platform resources
-(clocks, regulators, powerdomains, pins, etc.) directly controlled by
-the operating system. Add a separate dtsi file extending the existing
-top-level nord.dtsi with nodes representing these peripherals as well as
-describing how they are wired up with the already defined components.
-
-> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boo=
-t/dts/qcom/nord-embedded.dtsi
-> new file mode 100644
-> index 0000000000000..1a2f61a2c9522
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> @@ -0,0 +1,1820 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-
-[ ... ]
-
-> +	negcc: clock-controller@8900000 {
-> +		compatible =3D "qcom,nord-negcc";
-> +		reg =3D <0x0 0x08900000 0x0 0xf4200>;
-> +		clocks =3D <&bi_tcxo_div2>,
-> +			 <&sleep_clk>,
-> +			 <0>,
-> +			 <0>,
-> +			 <0>,
-> +			 <0>,
-> +			 <0>;
-
-[Severity: High]
-Does this missing parent clock configuration break the UFS clock hierarchy?
-
-The UFS probe routine acquires its symbol clocks (like NE_GCC_UFS_PHY_TX_SY=
-MBOL_0_CLK)
-from negcc. With these dummy <0> entries, the symbol clocks lack a source f=
-rom the=20
-UFS PHY (ufs_mem_phy), which will cause clk_get_rate() to return 0 and UFS=
-=20
-initialization to fail.
-
-Could these be updated to reference the UFS PHY clocks instead?
-
-[ ... ]
-
-> +&ufs_mem_hc {
-> +	clocks =3D <&negcc NE_GCC_UFS_PHY_AXI_CLK>,
-> +		 <&negcc NE_GCC_AGGRE_NOC_UFS_PHY_AXI_CLK>,
-> +		 <&negcc NE_GCC_UFS_PHY_AHB_CLK>,
-> +		 <&negcc NE_GCC_UFS_PHY_UNIPRO_CORE_CLK>,
-> +		 <&tcsrcc TCSR_UFS_CLKREF_EN>,
-> +		 <&negcc NE_GCC_UFS_PHY_TX_SYMBOL_0_CLK>,
-> +		 <&negcc NE_GCC_UFS_PHY_RX_SYMBOL_0_CLK>,
-> +		 <&negcc NE_GCC_UFS_PHY_RX_SYMBOL_1_CLK>;
-> +	clock-names =3D "core_clk",
-> +		      "bus_aggr_clk",
-> +		      "iface_clk",
-> +		      "core_clk_unipro",
-> +		      "ref_clk",
-> +		      "tx_lane0_sync_clk",
-> +		      "rx_lane0_sync_clk",
-> +		      "rx_lane1_sync_clk";
+On 15:50 Sun 02 Aug     , Peter Robinson wrote:
+> The bcm2712 SoC in the Raspberry Pi 5 has a standard
+> arm performance management unit that aligns with the
+> Cortex-A76 cores that are in the SoC so add the details
+> in so it can be used.
+> 
+> Signed-off-by: Peter Robinson <pbrobinson@gmail.com>
+> Cc: Florian Fainelli <florian.fainelli@broadcom.com>
+> Cc: Dave Stevenson <dave.stevenson@raspberrypi.com
+> ---
+>  arch/arm64/boot/dts/broadcom/bcm2712.dtsi | 9 +++++++++
+>  1 file changed, 9 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
+> index 9b36ecd7bba54..ae1fc9d728c00 100644
+> --- a/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
+> +++ b/arch/arm64/boot/dts/broadcom/bcm2712.dtsi
+> @@ -10,6 +10,15 @@ / {
+>  
+>  	interrupt-parent = <&gicv2>;
+>  
+> +	arm-pmu {
+> +		compatible = "arm,cortex-a76-pmu";
+> +		interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>,
+> +			<GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-affinity = <&cpu0>, <&cpu1>, <&cpu2>, <&cpu3>;
+> +	};
 > +
-> +	resets =3D <&negcc NE_GCC_UFS_PHY_BCR>;
-> +	reset-names =3D "rst";
-> +
-> +	interconnects =3D <&aggre1_noc_tile MASTER_UFS_MEM QCOM_ICC_TAG_ALWAYS
-> +			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
-> +			<&hscnoc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
-> +			 &config_noc SLAVE_UFS_MEM_CFG QCOM_ICC_TAG_ACTIVE_ONLY>;
-> +	interconnect-names =3D "ufs-ddr",
-> +			     "cpu-ufs";
-> +
-> +	phys =3D <&ufs_mem_phy>;
-> +	phy-names =3D "ufsphy";
-> +
-> +	power-domains =3D <&negcc NE_GCC_UFS_PHY_GDSC>;
-> +	operating-points-v2 =3D <&ufs_opp_table>;
-> +	required-opps =3D <&rpmhpd_opp_nom>;
+>  	clocks {
+>  		/* The oscillator is the root of the clock tree. */
+>  		clk_osc: clk-osc {
+> -- 
+> 2.55.0
+>
 
-[Severity: High]
-Does this mix of a GDSC power domain and an RPMh performance state cause
-frequency scaling failures during UFS probe?
-
-The negcc clock controller that provides NE_GCC_UFS_PHY_GDSC does not appea=
-r to
-declare a parent power domain (like rpmhpd). Because of this, when dev_pm_o=
-pp_set_opp()
-is called, the OPP framework won't be able to translate or forward the rpmh=
-pd_opp_nom
-performance state, which will result in an error.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903140617.4411=
-11-1-shengchao.guo@oss.qualcomm.com?part=3D3
+Tested-by: Andrea della Porta <andrea.porta@suse.com> 
+Reviewed-by: Andrea della Porta <andrea.porta@suse.com> 
