@@ -1,34 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DA346C4A3;
-	Thu,  3 Sep 2026 09:06:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C08C371D1F;
+	Thu,  3 Sep 2026 09:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788426403; cv=none; b=JAf3EXED7u8R/jNYgtk4t5VmPnXSaAbfmxRzDyJzKrS76FAAXZbgAitiOA9Ltx0ZseLdV4j6nPembSHiSPs/rHLWj3bjRQ4aWY0YRte0BKJZCOx0wmgTiN1In/frXinQ0JO2RGbJlKBi3AHH5XF/G9k+fcLz0Eqsn7bRaHCnMYQ=
+	t=1788426483; cv=none; b=L/9wVJJOQ5iQVaCGQhEhVeM/JefdSJBNH/u03J1nvoPcASoxTuCvpjgp178M/RpuB0RSpKW/vjafrwqxE8UW83VO3V6AvtvWX7BPqCfekdrmr/X7C5SEFBIJtR68zNZZEruel25XGAClhntqjz0Ft2pb3cnV7eAYfcz4f40QYjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788426403; c=relaxed/simple;
-	bh=Q+55AniAlsI3ipWtLCDY3rhuhBHz7r/Jp7FtBdo39TE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=enBN+EA8kFgXVrOwZVymT6Ik5lKmAKrPJAuIqQX+sOcloCJPe9crK4ubHsOAaFxTj2nmQGmgOKNv5ytI4vrvcSRYLo0XzPbet3J+MYWVbYvqsPeMR2dNiXysdyGukpZ2X4ELF9Hj74XydrRmm/tpuqQIi2JW7nFT3/5ODa/9+6I=
+	s=arc-20240116; t=1788426483; c=relaxed/simple;
+	bh=ij/4VGsI7YZAvl/ArRU+fZ0wLZCSMbIGhdf7Qp2POP4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZUrmqhwkpgzxUtL5PUpUrJ/uE9XjDGIhvdA8c0AD86U/E9ge0Lw71Qe5P6mrFJ4MfIeB7heIUxmc1luHkKt4KNQt25cmYYDRvZn20MlKtquBoikite/kX4jEu7kfwd9PtxEFe+Kdrx3gLfEcgkGCzy4ls9QZkVGorArS+zEaCNY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99A0A1F000E9;
-	Thu,  3 Sep 2026 09:06:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE2741F000E9;
+	Thu,  3 Sep 2026 09:08:00 +0000 (UTC)
 From: Geert Uytterhoeven <geert+renesas@glider.be>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>
 Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Geert Uytterhoeven <geert+renesas@glider.be>
-Subject: [PATCH 2/2] dt-bindings: interrupt-controller: chrp,open-pic: Fix dangling reference
-Date: Thu,  3 Sep 2026 11:06:30 +0200
-Message-ID: <86dd3544f7286fc117dc7ad0f6d799761283ec54.1788426169.git.geert+renesas@glider.be>
+Subject: [PATCH] of: property: Drop superfluous !!
+Date: Thu,  3 Sep 2026 11:07:58 +0200
+Message-ID: <d32521ecddc0df9de1c5f21edb7935f7f543590f.1788426412.git.geert+renesas@glider.be>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1788426169.git.geert+renesas@glider.be>
-References: <cover.1788426169.git.geert+renesas@glider.be>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,31 +31,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The target of "[1]" was lost during the conversion to json-schema.
-Replace it by an inline reference.
+When assigning a pointer or integral value to a boolean, there is no
+need to insert a double logical inversion, as the assignment already
+takes care of the conversion.
 
-Fixes: a241f1a1b338b714 ("dt-bindings: interrupt-controller: Convert chrp,open-pic to DT schema")
 Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
 ---
- .../bindings/interrupt-controller/chrp,open-pic.yaml         | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+No change in generated code.
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml b/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml
-index 5363f4c6ffbcfe4c..294af57a7c372145 100644
---- a/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml
-+++ b/Documentation/devicetree/bindings/interrupt-controller/chrp,open-pic.yaml
-@@ -12,8 +12,9 @@ maintainers:
- description:
-   This binding specifies what properties must be available in the device tree
-   representation of an Open PIC compliant interrupt controller.  This binding is
--  based on the binding defined for Open PIC in [1] and is a superset of that
--  binding.
-+  based on the binding defined for Open PIC in the Devicetree Specification
-+  (available from https://www.devicetree.org/specifications/) and is a superset
-+  of that binding.
+ drivers/of/property.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 7568785391aadb1d..bc7cb4ee1627fb42 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -74,7 +74,7 @@ bool of_graph_is_present(const struct device_node *node)
  
- properties:
-   compatible:
+ 	struct device_node *port __free(device_node) = of_get_child_by_name(node, "port");
+ 
+-	return !!port;
++	return port;
+ }
+ EXPORT_SYMBOL(of_graph_is_present);
+ 
+@@ -1679,12 +1679,12 @@ static bool of_is_fwnode_add_links_supported(void)
+ 		return true;
+ 
+ 	if (is_supported != -1)
+-		return !!is_supported;
++		return is_supported;
+ 
+ 	is_supported = !((match_property_by_path("/soc", "compatible", "intel,ce4100-cp") >= 0) ||
+ 			 (match_property_by_path("/", "architecture", "OLPC") >= 0));
+ 
+-	return !!is_supported;
++	return is_supported;
+ }
+ 
+ static int of_fwnode_add_links(struct fwnode_handle *fwnode)
 -- 
 2.43.0
 
