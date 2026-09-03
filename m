@@ -1,166 +1,164 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951D1443E36;
-	Thu,  3 Sep 2026 08:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2273655EA
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 08:34:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788424376; cv=none; b=mYVXS37bmksGDhGTZePL+yKLCqVnvrZh5nAGqtmlTcMhHH/6hMje6bl642jh8bCyK/ry7Yj6O4H8TQg6HrBZdPYS6i3nsM5ZsCJ5pJcMRPUkAE3XP4EUgil88IGgP4Bo42anESxtFq9kRrqa01hjvOSAiifh5Nds57mJFETsrJI=
+	t=1788424464; cv=none; b=hh6Wp/+Bo4apRmcboBrXoSEZwi3mlaSK4w3Eo5uJSI8y/UwGlmthoSD/9CQh75jNNcgR+F/iuZ6EckrbYcFS29t5ohGtwJuWbTEYs1T4jJba+lYfZfYZUyXvveWi2EI8BPmEl5/gRfKZXypbqQoxjFYFXAyMFWExJR/2eS66Fv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788424376; c=relaxed/simple;
-	bh=706c7XlPLXsRsRqbTT2qHJpv1DQVqFBCKVgS9F9Rtrs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OAOwu0iqJbXVGrI2wBgsKDSPAQ0MdD25Q/Qy9cIJCf+OEEZYYLzncvE91toJ9S5Vd1m4flmki5TeioDq92a/iUpJfWg7St9FsBDSdEu9hN7KqbvdtdgHbirfjz906+PoF0jIbnRu8+wAn8UT72gJSurhIxltXOLCw5prR81vOqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=xmDQLfyS; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788424464; c=relaxed/simple;
+	bh=2wtGcDixD5YVV1h3eEW9F9Cx5WliZAPePh5dF/UV8r4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MMWAonUIblezOTlePLU9nK3kOIAVyH3E5oQXj7EnCGMJEZ+b2VPEwD+YS6ZALtlntQCgNanvbA4208rGhN9vD/QN0djYs/vF/M7HeFxt77dOJSgxKQkfYWrJkCshNh14T668ZV1c5bgZ+aR5pSRgyPkHxz2ftzlqDDYgxizb11c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bLWNM8/y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Im7eP4OK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="xmDQLfyS"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id ED51E4E414E3;
-	Thu,  3 Sep 2026 08:32:46 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id BCFBE602B8;
-	Thu,  3 Sep 2026 08:32:46 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A82EF11C791C9;
-	Thu,  3 Sep 2026 10:32:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788424364; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=IyZA+ecio8dgqAefqnzmsKi9pbcS8BSqqmIH/9UMq/w=;
-	b=xmDQLfySV8a8MBc++crCZBbfP5E4IQF3AUhjAkH7pJHYZhs81ZtmJmArLA4/0O8f+u9NNp
-	FWpMxYVhjvG/sV7K8d8kqYx9eRtJpUzkQjUsZaZDvImEOA8jVPrp3J+09KHvidWEIzThxF
-	o1GzTpj7Pkbqd7EhjL1AlKn7+MAx6xryY0chcP9ouGvAQoS1UINYTI0NHO/ME5ZpDlAYWh
-	NkzB+AEvQrZvH16vItAtNer7BMLl6v5PVRRsoVuS22DK7K+Ldd0GQPFv3uTl3LlJViHMv8
-	FVNgZAI0stK1y6Z4MGFkbsbDiuEJ+BxV2d/vgr1Bg3hCmBF3LstSmarP78PpuQ==
-Message-ID: <0dec5462-f6d5-4ef9-9d02-5fdf7f3090a0@bootlin.com>
-Date: Thu, 3 Sep 2026 10:32:34 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bLWNM8/y";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Im7eP4OK"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6838Ql932954699
+	for <devicetree@vger.kernel.org>; Thu, 3 Sep 2026 08:34:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=nolidgfVOoM/xTB4yJhQPfIO
+	/30el8PQJoP5vakcvB0=; b=bLWNM8/y08vRNOQ5XWWerJo5HBp3jbUvYWJ8+t9A
+	u1yOegjvFZk89YcIIr10e99xsEy+bVubtvet35lRmcUY16CVlG5d9w48qfieIZGn
+	bPR3AVT9wzgfR8ggtNocFdVgrpdCTCO32e4H+PYUnD9c3madT6gq0MC4OykAPDRs
+	Qz3yaG2EhnLVX4v7OErHOVe2uHhN3NcMv9ZQ12GEAibvFmp0bcXelnIowH8MZQh+
+	Vbh/ZJG70OA1mlGFATaEXaVI+hEjDjzEK643zVwON99yB+kqIuiw36cvHg+ubpi4
+	N/KeqTB2t0nWVyg55J6ZDl4t4w0aNtFG1uyH0Vs7qQtDdA==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf5d1011m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 08:34:22 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-8f39a46efd9so11865216d6.1
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 01:34:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788424461; x=1789029261; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nolidgfVOoM/xTB4yJhQPfIO/30el8PQJoP5vakcvB0=;
+        b=Im7eP4OKsNTHYVmSarL659baJgvaZUBnHo8jrRJ4UWq5GXN/6nNWzT68CJKA+AM2FR
+         8HaaZe+knbQHm4t22wdyBtPttQlBuWezt/Oi7ohgGHK8RHHTSIpFlQV+g/kQ7koyM3X6
+         MsLTwA775R2dgWg0CbPWi+urI6a3C+T31XNtXvkR9/vdRZ535HoFqtzr6hmW9Foch5dk
+         uZ2z39lEl5iWEEiwCozC1yJLQcC0PxvrhEl82sAc/bygg8DgZXDSraZ3XRnxBy4hvlrp
+         E3GL6yg5Xr2CckYbg9lXI2+OOHOqq8fq6bkojgXFyFme8fSMr3w/xmF17GwE2N0vaXv5
+         pvaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788424461; x=1789029261;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nolidgfVOoM/xTB4yJhQPfIO/30el8PQJoP5vakcvB0=;
+        b=G5k/u+UsS5Tc/OnvIAOpSRkx9Duwj+w/U5ITvYFQlTifAUoG8JWS7tY36X055+fCCu
+         cQpuuNpo4yLZqjNvDhVYlzDgu4GrGbXny9JtAefYESzRjIucJD23vUBhYyf1923XWQLK
+         HChH3E0ENpKUOXV4l3lX9iUYFMzfqgW4hhfoQCck21lNeVy8F2MOeCIVN4SNJ1Wwtacr
+         3auI9tguG+aSwXrdfXUfaN3QUKgPFMH5IT214ah0FOgpIL8cqVFO2lE+sE4MZCx/MFRz
+         eqRpoJplR5fTpW/YzmQhx6CwhkgXDDx4JZ1rWBs9sFu9QeXoTYd+QosyRvXTzQ93dJ2B
+         Y7xA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbvmE8vTnqfdeyeGYS0lmia9lwfGOW3cxq2b48Tqpt3TRz1P5luS9xtmxa/j1ZX/hFOCrxPhueLY3l@vger.kernel.org
+X-Gm-Message-State: AFuF++kjd/qxWyvldyVetXoFwfUx8hZCVEWw6cWAAkIROKKbhdYQPCX/
+	Ncc/rt+yq7RKzRtpxpS2OOspH3GWATCwOtdTJ/iT9BbLpHh/QmPW7Wti+jlzdaVVzNUIje8DOGi
+	eyUM0yIT2UGGng+yk0sBoGotuUzqFWD0EpbErnNQwo2meTs/aOuazTzzm0Lm6XjGG
+X-Gm-Gg: AYBFou2EMhWPWcc3/ojSM3b0ffiebdh7RfhGyhjbwm/GZpl6xw9dmwScYz7jQwS6Tk5
+	MLT3FwyCoVpwcleGkPqLIuFAews3xWhnCnWRmJkDjMgRVfcFp67tvM16yf4ra/tdM7N5tXlbkUm
+	MSmOMEhwlN/Ck7MHvYbej7tB5VBIVPQ2mGkgyhNrL5GqFt0Mpv+VkNF5xnBoiX+jR8sVRowBWlw
+	+J8z9YvR8YdWBAKgmsGj3dKPKvFbcx26hLItpFVWl00sWh7XtA8C+FNfDR9Wew2/RO1fYo4CoiP
+	wRjszTQGWtzLY4l4UjT1ercVdg00Fy8rmsPli5/wwUrZXUePKWjFJMRJUwpgSqWJu299Bhv/KDx
+	lHyJ9o9+dqFm5qQ==
+X-Received: by 2002:a05:620a:9149:b0:936:78c8:91f3 with SMTP id af79cd13be357-9396e00a9damr362813485a.11.1788424460951;
+        Thu, 03 Sep 2026 01:34:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:9149:b0:936:78c8:91f3 with SMTP id af79cd13be357-9396e00a9damr362809785a.11.1788424460331;
+        Thu, 03 Sep 2026 01:34:20 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d2019sm52402355e9.2.2026.09.03.01.34.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 01:34:19 -0700 (PDT)
+Date: Thu, 3 Sep 2026 11:34:16 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Marc Zyngier <maz@kernel.org>,
+        Aleksandrs Vinarskis <alex.vinarskis@gmail.com>,
+        Konstantin Shabanov <mail@etehtsea.me>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Ettore Chimenti <ettore.chimenti@linaro.org>,
+        Georg Gottleuber <ggo@tuxedocomputers.com>,
+        Xilin Wu <wuxilin123@gmail.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Val Packett <val@packett.cool>,
+        Laurentiu Tudor <laurentiu.tudor1@dell.com>,
+        Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
+        Dale Whinham <daleyo@gmail.com>,
+        =?utf-8?B?SsOpcsO0bWU=?= de Bretagne <jerome.debretagne@gmail.com>,
+        Harrison Vanderbyl <harrison.vanderbyl@gmail.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Konrad Dybcio <quic_kdybcio@quicinc.com>
+Subject: Re: [PATCH v2 01/16] arm64: dts: qcom: x1-crd: Mark the EC reset
+ gpio as reserved
+Message-ID: <ygyu3t7o2p2xvm3j5wrxp4svzo2rzymvzgod2szhz4z57elc7a@hznrw2e35oen>
+References: <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-0-f4ab7e4bb75d@oss.qualcomm.com>
+ <20260901-dts-qcom-hamoa-reserve-ec-reset-gpio-v2-1-f4ab7e4bb75d@oss.qualcomm.com>
+ <3f26bf2d-19de-4cc3-8af2-c26601da2576@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 01/10] net: stmmac: move XPCS lifetime
- management to platform drivers
-To: Coia Prant <coiaprant@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Vinod Koul <vkoul@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Romain Gantois <romain.gantois@bootlin.com>,
- Heiner Kallweit <hkallweit1@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Russell King <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>,
- David Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-renesas-soc@vger.kernel.org
-References: <20260901150111.141037-1-coiaprant@gmail.com>
- <20260901150111.141037-2-coiaprant@gmail.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260901150111.141037-2-coiaprant@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3f26bf2d-19de-4cc3-8af2-c26601da2576@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDA3MyBTYWx0ZWRfX64QZgSgIy6YT
+ 6ax23nTQEsvrlfCJVjeVb/sYBxoBnEO289HckVszr2MEeMbqAwl8PYDyPFQ3DUQi7LgQ/7PMTkP
+ 6jcYP01DTWR2UR8QPQjoTxqIOkdpMvN3Yu48YWh/Jh5wfLZHwpFWKwZKFpczPehnY0Pb6O7Fi76
+ C4ihgcZfYC7JJ6xos2E6blysyeye1hitOqarnGouUBAVFEyrN2zvBRPvoQI3DwrNkMCum3A4Jic
+ w6D7aE4Ifb86G0dWxor3Ip30Ir2orNCbLdU9HcgsdQExzOjEmdN4L7VIZiI7XhP+uNImuipW5m2
+ HYI49v9Ke5YyF9lbaHIdgtvBAsIt7C3pFaz6i7B+SjqlKZw1I0AIQvFzYl1uWF+HJ4q5t3DAfmx
+ mtDOSNJK5uZhj+Ez/MQmYQK4Cf1kY7n1W4xvTH6+fUGm1R/+rHrysZgMpt47dsXI7RXDUXo+yMo
+ zB43gF+T4TBejbv8JGg==
+X-Proofpoint-ORIG-GUID: DP9ldaNz060tyjlDXJJZGDw71q3VxQB8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAzMDA3MyBTYWx0ZWRfXw1YJH0Ksive7
+ bksu7+9Drcys2DUaHbx2fIM7+Z2jJuzubQi/OAlfnBHoun+UQK43Elnl4DCQhWUyoiz+lBeslwo
+ fjWNNj6NAZL8ibOcCUA90zqSOUvmyRw=
+X-Proofpoint-GUID: DP9ldaNz060tyjlDXJJZGDw71q3VxQB8
+X-Authority-Analysis: v=2.4 cv=J4GaKgnS c=1 sm=1 tr=0 ts=6a99310e cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=0yKSSKOl38yrq87U628A:9 a=CjuIK1q_8ugA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_02,2026-09-02_04,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 bulkscore=0 suspectscore=0 phishscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609030073
 
-Hi again,
+On 26-09-02 17:53:23, Konrad Dybcio wrote:
+> On 9/1/26 10:06 AM, Abel Vesa wrote:
+> > GPIO 65 from TLMM is used by the embedded controller as its reset line.
+> > 
+> > On some devices, toggling the embedded controller reset line makes the
+> > device not power up at all, unless the battery is unplugged.
+> 
+> Have you confirmed that behavior on the CRD?
 
-On 9/1/26 17:01, Coia Prant wrote:
-> The current XPCS creation logic in stmmac_pcs_setup() is problematic
-> for several reasons.
-> 
-> First, if a device tree specifies a "pcs-handle" but no select_pcs()
-> callback is provided by the platform driver, the created XPCS is never
-> used. The phylink framework requires select_pcs() to actually return
-> the PCS to the core, so the pcs-handle property becomes effectively
-> useless without the matching callback. This is confusing for developers
-> who expect that specifying a pcs-handle in their device tree should be
-> sufficient to enable the PCS.
-> 
-> Second, and more critically, when stmmac_pcs_setup() fails to create
-> an XPCS (either because no pcs-handle is present and no pcs_mask is
-> configured), it falls through to the else branch and leaves
-> priv->hw->xpcs as NULL. This will silently override any XPCS that a
-> platform driver may have already set up during its own initialization,
-> for example in a pcs_init() callback or during probe. The platform
-> driver has no way to prevent this override because the common code
-> runs unconditionally after the platform-specific initialization.
-> 
-> After commit 93f84152e4ae ("net: stmmac: clean up
-> stmmac_mac_select_pcs()"), the common code no longer falls back to
-> priv->hw->phylink_pcs if select_pcs() is not set. This change
-> reinforces that each platform must manage its own PCS life cycle
-> explicitly, but the XPCS creation code in stmmac_pcs_setup() was not
-> updated to match this new expectation, leaving a gap where platform
-> drivers have no clean way to take control of XPCS creation.
-> 
-> Address all of these issues by introducing pcs_init() and pcs_exit()
-> callbacks in plat_stmmacenet_data. These callbacks give platform
-> drivers full control over when and how the XPCS is created, configured,
-> and destroyed. The common stmmac_pcs_setup() and stmmac_pcs_clean()
-> functions are simplified to just call these callbacks, removing the
-> confusing and error-prone XPCS creation logic from the common code.
-> 
-> Platforms that do not need an XPCS simply leave the callbacks as NULL
-> and no change in behavior occurs. Platforms that do need an XPCS can
-> now create it with the exact configuration they require, including
-> wrapping it with custom phylink_pcs_ops when necessary.
-> 
-> Existing platform drivers (intel, rzn1, socfpga) are updated to use
-> the new callbacks by moving their XPCS creation and cleanup logic into
-> pcs_init() and pcs_exit(). In their pcs_exit() implementations, the
-> pointer to the destroyed PCS is explicitly set to NULL to avoid
-> dangling pointer references.
-> 
-> Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> ---
->  .../net/ethernet/stmicro/stmmac/dwmac-intel.c | 44 +++++++++++++++++--
->  .../stmicro/stmmac/dwmac-renesas-gbeth.c      |  7 ++-
->  .../net/ethernet/stmicro/stmmac/dwmac-rzn1.c  |  7 ++-
->  .../ethernet/stmicro/stmmac/dwmac-socfpga.c   |  7 ++-
->  .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 37 +++-------------
->  5 files changed, 61 insertions(+), 41 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> index f5f9fa67ecd77..fd5f01c8941c1 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-intel.c
-> @@ -603,13 +603,47 @@ static void common_default_data(struct plat_stmmacenet_data *plat)
->  	plat->mdio_bus_data->needs_reset = true;
->  }
->  
-> +static int intel_mgbe_pcs_init(struct stmmac_priv *priv)
-> +{
-> +	struct fwnode_handle *devnode, *pcsnode;
-> +	struct dw_xpcs *xpcs = NULL;
-> +	int addr;
-> +
-> +	devnode = dev_fwnode(priv->device);
-> +
-> +	if (fwnode_property_present(devnode, "pcs-handle")) {
-> +		pcsnode = fwnode_find_reference(devnode, "pcs-handle", 0);
-> +		xpcs = xpcs_create_fwnode(pcsnode);
-> +		fwnode_handle_put(pcsnode);
-> +	} else {
-> +		addr = ffs(priv->plat->mdio_bus_data->pcs_mask) - 1;
-> +		xpcs = xpcs_create_mdiodev(priv->mii, addr);
-> +	}
+Toggling it does nothing observable.
 
-Sorry I had a second look at that after a good night's sleep, and actually here
-we may regress. The original logic checked for "pcs-handle" presence, then
-for the pcs mask, but if no PCS is found we didn't error out, we returned 0.
+However, the documentation says this GPIO is actually tied to EC reset.
 
-This is making it mandatory to have a PCS. Please handle gracefully the "there's no
-PCS" case :(
+I still think we should reserve it, just to be safe.
 
-
-Maxime
-
+What do you think?
