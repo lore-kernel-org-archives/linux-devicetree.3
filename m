@@ -1,223 +1,210 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8F7385516
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 23:11:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 924542BFC7B;
+	Thu,  3 Sep 2026 23:14:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788477099; cv=none; b=j0GP2anAQ9mjqC76I/uurw0c0j2cA+1blUL04Fg4U1MahpL4oDLS/Q+B+1ychbhiuhLmUKvJfRaY2C/DYDGvBrTRgN2AVYMt/bSlm5GpNA2OJgcB30dPHpTNzsLcO5GMS/6yLDOPuYf2wvH3O/1OOwE9a20Tkuq5Sk1AX0qsrkg=
+	t=1788477296; cv=none; b=WjsFiF1S2e+6ELO4+deplUZkjmAx0jVrHFlwiveSsMBwGM43sCGm4W2UVJiamo5O54cAhp0MU74GHcNQsZtsd0JqWixHQ/XrSYYjrHNFilcUMVsarxa0WShdYffFm0LWvoC19XWnMvsJvt5Sr/bhCB8bCcKKlkZeyG1OKid03Xs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788477099; c=relaxed/simple;
-	bh=EuDeJM9Gleqr3obuv78xc9tu4WIz5KvR7h3hBO9Qgl4=;
-	h=Content-Type:Date:Message-Id:Subject:From:To:Cc:Mime-Version:
-	 References:In-Reply-To; b=sMptdDapkU57PBFvVgLsoNX8hcSEluZsAVwiJPCZYu+4QoiKtiK7tHytqIioE+QBvETtHnIIWRDfHgeIOLa+3SIX9/OOOXTIeSGeR+LkluylFyW3azY77t4Fio+r7rMJLp6aFByLQpv1ocz/vinI+/05T0gKHLaXusKQBhjKFd8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai; spf=pass smtp.mailfrom=nexthop.ai; dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b=DgwjODSy; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+	s=arc-20240116; t=1788477296; c=relaxed/simple;
+	bh=CL7iZ/BeTokLaIvZlj0KogQBKIo6IwH0FkJa+50oP3A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ci3JxB4VZUse/u7Y0/xCTBThViI0Ey+IUUjDhBTg0KGqzHnMhAW7Fstd1R4pOZI+vvECZt+VuL6ETA4HnsaouS8GSF4UU89rPX8G1oDJ+Xg+jtiH9IrMbAOjQ5IK6n3+jKpzGXZ4c5Z0+UAKPQ8r31tHNHvTSEBKeL+HEUcAmy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Az3+5AU1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nexthop.ai header.i=@nexthop.ai header.b="DgwjODSy"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38759bcd877so373590a91.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 16:11:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nexthop.ai; s=google; t=1788477097; x=1789081897; darn=vger.kernel.org;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:cc:to
-         :from:subject:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QpcDzHKvUQr8nZ3HzzAN+drcJ/2pYiQIPhzCxczuZ7E=;
-        b=DgwjODSy++6fo8mQhn7ecebGTCczpIT2y/LQCNQupHSAbtEsTZfQS9iZUqFiOSlJ81
-         BH4cxddirfQtLbFGHgFr0K0BEnDETlS9r4oKW5P+bO9rN7z3olANGzZ+C46/ekiYWRUX
-         g6S8h8t10FBkyJEv9l37U8HMpkxsqyCC653lfXmbsPJ+hA7i8QWwca3vjeok/Ffu+KDa
-         2Aj6HjSx0lYH1S6Bkf6c6MvviCDtgz9Z9pzOYRUffvaI4idr5EJlPJeORmtYB5Xa4vuk
-         5ssbf5SOZPptQlRkDukvfKHTNQXdiyJdUuSEnUwQNZhipTpjBauxzk6KyEH1Hv8KhIPB
-         lMgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788477097; x=1789081897;
-        h=in-reply-to:references:content-transfer-encoding:mime-version:cc:to
-         :from:subject:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QpcDzHKvUQr8nZ3HzzAN+drcJ/2pYiQIPhzCxczuZ7E=;
-        b=Xbm9+jEyWGCsw8jCnCHrwVx6IY64RNPFsIDt8K6zuSsyn8ierajcQejsMU9ZxmdVOs
-         i+nfVgoCbBcVkFw6phh7fENEQIdrkBtAegVsi1PNcmDZEg7wwyVEJ1sAp103fcKIns+z
-         1SmKiJhAFrU3n3RtGKncXnlYGz9vzoDY5h9oX2VR24prVRLMKX4nbBJ8gVpvsLcb/iFK
-         q+ExSGb19EyS5nEEWhjIdrypdXvNknlyZ1RrUaVEPEeT27RMWmfvxkUNONfBnKh3yhiA
-         jy3vkd2jnDCAa+kKLTWFdQRQAuItOSBTMZqTeYY//7KjSFOpvuCeOXE/1DYOL6OwMGmN
-         inxA==
-X-Forwarded-Encrypted: i=1; AKwUvByufSWBxhaIz35XUdxSVwg4wsRKC5mIMXc6XlJnrAsGOYqTtTyhVVUuhJmvYqP+tV1cJ406ZdSeC5Wt@vger.kernel.org
-X-Gm-Message-State: AFuF++l5bB8/tkBjNI/BLzjpWwpV9oIl4R+COyGSpqpOlcoTZ6zpJJ6F
-	Q4iHSdHIE3lMwnKJv/48QUkc+9+EQnpEUz5hPrcs7g+4e8nsJlrKvlPYwGy5za/lZULtxEtiRvr
-	Mdv55EyA=
-X-Gm-Gg: AYBFou18QgAqFAeFSDC2cNNNerRn7Tdq6X/oF4AXGMcmHNlqUGkvV+NZUZNWGAKYAoK
-	RhyJRUvLuu5F6nsaIOBvQ0NpNIsHiKJwKxkOvWRxLjXFEky1qvXt++9ahTQkxODmzOLZQU1zdQA
-	sdNaGfowSRs1E6JzToD8Yl/TpM+kXDknrYxJOMsn5nE4Ieyu0mdtAp3Piz5TNrRE99RrHK9M3OE
-	3anr3r/BSDJ6e3D2kDeh4NYh7XFof0vCrWaPH2Lhii75CiXDPecWSr0Kp4zCg9mlEi5kTSlQDn9
-	Cp/7paKJ2swSPpBF0+hzh4OC2yoYMa3szzWTsH9VM+DMcME47C/M7U4O9AtQ4y9ZjfODIzrT4B7
-	n4bnlEr4MAsKoCoBCzTcObPoyF7FUm9g1KDtcJZaA1XWC2MFBqo+0Nx01Cr9QXp5TPSRd3XEHOV
-	D5pLzb24Na0/E7giJyR7mv/xIu4gx7oTDyn1s/3OTNUhUmgcgDMDDP2UX1khwk
-X-Received: by 2002:a17:90b:3d89:b0:396:5fce:8e24 with SMTP id 98e67ed59e1d1-39b260d2ea8mr2655024a91.4.1788477097408;
-        Thu, 03 Sep 2026 16:11:37 -0700 (PDT)
-Received: from localhost ([50.145.100.174])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm1893309eec.22.2026.09.03.16.11.36
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 16:11:36 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 03 Sep 2026 16:11:35 -0700
-Message-Id: <DL627V92FSCZ.2Y9QLHRJJWO2@nexthop.ai>
-Subject: Re: [PATCH v7 05/10] of/overlay: only treat a positive changeset id
- as registered
-From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-To: <sashiko-reviews@lists.linux.dev>, "Abdurrahman Hussain"
- <abdurrahman@nexthop.ai>
-Cc: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Az3+5AU1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA9321F000E9;
+	Thu,  3 Sep 2026 23:14:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788477295;
+	bh=TRghEdnx3gqfkVD9icW/T9NrPQTeDKGKNaNxbM3ms3Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Az3+5AU1F7XcCmlRMAHQb5Xovknp+pMIzADTGe++FapptFEWfUgw3EiqylM8qRRY8
+	 q7AzR1n8UzagXe3c4ddk8otpCIgiAoNlXBmNCpYv6m75t70Zkmy2mD5r1berhaJyoK
+	 vSYl+Ll4IIPs4GUe+CwCXZyANoItH1akYQtFJs2kL6mgX4LcAgbgQbJA9iaUngzuCW
+	 rhJuSfEKRTGmnbFUH4hmSAo6G829Ng9lQyP4Ztsk1iGzQpPgzGdgox1b1SmKu3uSg5
+	 erAqpoyylNeiNQUjpijTXL+oZRz8eVXkCUZyMgJv+H9KYjwk7T+uYALpe1LwDdQSaL
+	 3PhOLVKzFqBug==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 4/4] media: qcom: camss: Add support for PHY API
+ devices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?QnJ5YW4gTydEb25vZ2h1ZQ==?= <bryan.odonoghue@linaro.org>
+Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-4-01ef1eced075@linaro.org>
+References: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
+ <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-4-01ef1eced075@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 03 Sep 2026 23:14:54 +0000
+Message-Id: <20260903231454.CA9321F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Mailer: aerc 0.21.0
-References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
- <20260831-nh-of-alias-overlay-v7-5-02754604805a@nexthop.ai>
- <20260901014554.83A8D1F000E9@smtp.kernel.org>
-In-Reply-To: <20260901014554.83A8D1F000E9@smtp.kernel.org>
 
-On Mon Aug 31, 2026 at 6:45 PM PDT, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] In `of_overlay_remove_all()`, passing `&ovcs->id` to `of_overlay=
-_remove()` causes a deterministic use-after-free and leaves freed memory in=
- the global `ovcs_list` and `ovcs_idr`.
-> - [High] Lockless iteration of `ovcs_list` in `of_overlay_remove_all()` a=
-llows concurrent modifications, leading to a Use-After-Free.
-> --
->
-> commit 5e44e19c9c02429165243b3c23378b30ba40fdd3
-> Author: Abdurrahman Hussain <abdurrahman@nexthop.ai>
->
-> of/overlay: only treat a positive changeset id as registered
->
-> of_overlay_fdt_apply() stores the idr_alloc() return value in
-> ovcs->id before checking it. On failure the stored id is negative,
-> free_overlay_changeset()'s "if (ovcs->id)" check passes, idr_remove()
-> is called with a negative id and list_del() runs on ovcs->ovcs_list,
-> which is not initialized until after the id allocation. An allocation
-> failure at that point dereferences NULL.
->
->> diff --git a/drivers/of/overlay.c b/drivers/of/overlay.c
->> index 08d5351746be6..9b9f198a1d70a 100644
->> --- a/drivers/of/overlay.c
->> +++ b/drivers/of/overlay.c
-> [ ... ]
->> @@ -860,7 +860,8 @@ static void free_overlay_changeset(struct overlay_ch=
-angeset *ovcs)
->>  	if (ovcs->cset.entries.next)
->>  		of_changeset_destroy(&ovcs->cset);
->> =20
->> -	if (ovcs->id) {
->> +	/* a failed idr_alloc() leaves its negative error in ovcs->id */
->> +	if (ovcs->id > 0) {
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but does this check cause a=20
-> use-after-free and list corruption when called from of_overlay_remove_all=
-()?
->
-> In of_overlay_remove_all(), we iterate over the ovcs_list and pass the=20
-> address of the internal id field:
->
-> drivers/of/overlay.c:of_overlay_remove_all() {
->     list_for_each_entry_safe_reverse(ovcs, ovcs_n, &ovcs_list, ovcs_list)=
- {
->         ret =3D of_overlay_remove(&ovcs->id);
-> ...
-> }
->
-> Inside of_overlay_remove(), it zeros out this ID directly through the poi=
-nter=20
-> before freeing the changeset:
->
-> drivers/of/overlay.c:of_overlay_remove() {
-> ...
->     *ovcs_id =3D 0;
-> ...
->     free_overlay_changeset(ovcs);
-> ...
-> }
->
-> When free_overlay_changeset() executes, ovcs->id is already 0, so the=20
-> if (ovcs->id > 0) condition will evaluate to false. This skips both=20
-> idr_remove() and list_del(&ovcs->ovcs_list) before the memory is freed,=
-=20
-> leaving stale pointers in the active global list and IDR.
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Kconfig symbol `VIDEO_QCOM_CAMSS` selects a non-existent configura=
+tion `PHY_QCOM_MIPI_CSI2`.
+- [Medium] Missing `phy_exit()` cleanup on error paths leading to leaked PH=
+Y hardware state.
+- [Medium] Unchecked return value of `phy_mipi_dphy_get_default_config_for_=
+hsclk()` leads to uninitialized PHY configuration.
+--
 
-Confirmed. of_overlay_remove_all() is the one caller that passes
-&ovcs->id, so the "*ovcs_id =3D 0" in of_overlay_remove() zeroes
-ovcs->id itself before free_overlay_changeset() runs. The
-"if (ovcs->id > 0)" guard (previously "if (ovcs->id)") then skips
-idr_remove() and list_del(), and the ovcs is kfree()d while still
-linked in ovcs_list and registered in ovcs_idr. The next ovcs_list or
-ovcs_idr access after that walks freed memory.
+commit 23536801ceab899563c72768f20e4c404c373978
+Author: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-Pre-existing =E2=80=94 the ordering dates to 24789c5ce5a3 ("of: overlay:
-detect cases where device tree may become corrupt") =E2=80=94 and latent, s=
-ince
-of_overlay_remove_all() currently has no in-tree callers. Still worth
-fixing for module users. The minimal fix is to stop aliasing the
-changeset's own field:
+media: qcom: camss: Add support for PHY API devices
 
-      list_for_each_entry_safe_reverse(ovcs, ovcs_n, &ovcs_list, ovcs_list)=
- {
--             ret =3D of_overlay_remove(&ovcs->id);
-+             int id =3D ovcs->id;
-+
-+             ret =3D of_overlay_remove(&id);
+This commit adds the ability to use a PHY pointer which interacts with the
+standard PHY API. In the first instance the code will try to use the new
+PHY interface, falling back to the legacy method if no PHYs are present in
+the DT.
 
-Rob, want this as one more patch in this series (it sits right next to
-patch 5), or as a separate fix?
+> diff --git a/drivers/media/platform/qcom/camss/Kconfig b/drivers/media/pl=
+atform/qcom/camss/Kconfig
+> --- a/drivers/media/platform/qcom/camss/Kconfig
+> +++ b/drivers/media/platform/qcom/camss/Kconfig
+> @@ -7,3 +7,4 @@ config VIDEO_QCOM_CAMSS
+>  	select VIDEO_V4L2_SUBDEV_API
+>  	select VIDEOBUF2_DMA_SG
+>  	select V4L2_FWNODE
+> +	select PHY_QCOM_MIPI_CSI2
 
->
-> [Severity: High]
-> This is also a pre-existing issue, but could the lockless iteration in=20
-> of_overlay_remove_all() lead to a use-after-free?
->
-> The iteration of ovcs_list in of_overlay_remove_all() allows concurrent=
-=20
-> modifications:
->
-> drivers/of/overlay.c:of_overlay_remove_all() {
->     list_for_each_entry_safe_reverse(ovcs, ovcs_n, &ovcs_list, ovcs_list)=
- {
-> ...
-> }
->
-> This iterates the globally shared ovcs_list without holding of_mutex. If=
-=20
-> another thread concurrently calls of_overlay_remove() on a different over=
-lay,=20
-> it will acquire of_mutex and remove or free that overlay.
->
-> If the freed overlay was concurrently cached as ovcs_n (the 'next' elemen=
-t in=20
-> the safe iteration), the loop in of_overlay_remove_all() will dereference=
-=20
-> the freed memory when advancing to the next iteration.
->
->>  		idr_remove(&ovcs_idr, ovcs->id);
->>  		list_del(&ovcs->ovcs_list);
->>  		ovcs->id =3D 0;
->>  	}
+[Severity: High]
+Does the config PHY_QCOM_MIPI_CSI2 actually exist?
 
-Known =E2=80=94 you raised the same walk on v6, and it was deliberately lef=
-t
-out of this series' scope. It also can't be fixed locally: wrapping
-the loop in of_mutex deadlocks against of_overlay_remove() taking
-of_mutex itself, so it needs a __of_overlay_remove() split. That is
-follow-up material, and equally unreachable in-tree today for the same
-no-callers reason.
+Selecting a non-existent symbol can leave the required PHY driver unbuilt,
+leading to silent dependency failures where the hardware driver will lack i=
+ts
+required PHY counterpart at runtime.
 
-Thanks,
-Abdurrahman
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/m=
+edia/platform/qcom/camss/camss-csiphy.c
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+
+[ ... ]
+
+> @@ -306,11 +308,88 @@ static int csiphy_stream_on(struct csiphy_device *c=
+siphy)
+>  {
+>  	u8 bpp =3D csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->f=
+ormats->nformats,
+>  				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
+>  	struct csiphy_lanes_cfg *lncfg =3D &csiphy->cfg.csi2->lane_cfg;
+>  	struct phy_configure_opts_mipi_dphy *dphy_cfg;
+>  	union phy_configure_opts dphy_opts =3D { 0 };
+>  	struct device *dev =3D csiphy->camss->dev;
+>  	u8 num_lanes =3D lncfg->num_data;
+>  	s64 link_freq;
+>  	int ret;
+> =20
+>  	dphy_cfg =3D &dphy_opts.mipi_dphy;
+> =20
+>  	link_freq =3D camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lane=
+s);
+> =20
+>  	if (link_freq < 0) {
+>  		dev_err(dev,
+>  			"Cannot get CSI2 transmitter's link frequency\n");
+>  		return -EINVAL;
+>  	}
+> =20
+>  	phy_mipi_dphy_get_default_config_for_hsclk(link_freq, num_lanes, dphy_c=
+fg);
+> =20
+>  	phy_set_mode(csiphy->phy, PHY_MODE_MIPI_DPHY);
+> =20
+>  	ret =3D phy_configure(csiphy->phy, &dphy_opts);
+
+[Severity: Medium]
+Should we check the return value of
+phy_mipi_dphy_get_default_config_for_hsclk() here in csiphy_stream_on()?
+
+If this calculation helper fails, for example due to an unsupported link
+frequency, it returns a negative error code and leaves dphy_cfg
+zero-initialized. Because the error isn't checked, the zeroed configuration
+would be passed down to phy_configure(), risking an invalid hardware state =
+or
+a failure to start the video stream.
+
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+
+[ ... ]
+
+> @@ -4832,14 +4890,21 @@ static int camss_init_subdevices(struct camss *ca=
+mss)
+>  	unsigned int i;
+>  	int ret;
+> =20
+> +	camss_detect_legacy_phy(camss);
+> +
+>  	for (i =3D 0; i < camss->res->csiphy_num; i++) {
+> -		ret =3D msm_csiphy_subdev_init(camss, &camss->csiphy[i],
+> -					     &res->csiphy_res[i],
+> -					     res->csiphy_res[i].csiphy.id);
+> +		if (!camss->legacy_phy) {
+> +			ret =3D msm_csiphy_subdev_init(camss, i);
+> +		} else {
+> +			ret =3D msm_csiphy_subdev_init_legacy(camss,
+> +							    &camss->csiphy[i],
+> +							    &res->csiphy_res[i],
+> +							    res->csiphy_res[i].csiphy.id);
+> +		}
+> +
+>  		if (ret < 0) {
+> -			dev_err(camss->dev,
+> -				"Failed to init csiphy%d sub-device: %d\n",
+> -				i, ret);
+> +			dev_err(camss->dev, "csiphy %d init fail\n",
+> +				res->csiphy_res[i].csiphy.id);
+>  			return ret;
+>  		}
+>  	}
+
+[Severity: Medium]
+If msm_csiphy_subdev_init() fails on a later iteration, does this loop leak
+the PHY hardware state of the previously initialized PHYs?
+
+The msm_csiphy_subdev_init() function now calls phy_init(). If we return
+early here, we never call phy_exit() for the PHYs that successfully
+initialized in prior loop iterations.
+
+Additionally, this initialization state appears to leak on other error paths
+too. For example, if camss_register_entities() fails:
+
+> @@ -5131,8 +5207,10 @@ static int camss_register_entities(struct camss *c=
+amss)
+> =20
+>  	i =3D camss->res->csiphy_num;
+>  err_reg_csiphy:
+> -	for (i--; i >=3D 0; i--)
+> -		msm_csiphy_unregister_entity(&camss->csiphy[i]);
+> +	for (i--; i >=3D 0; i--) {
+> +		if (csiphy_enabled(camss, &camss->csiphy[i]))
+> +			msm_csiphy_unregister_entity(&camss->csiphy[i]);
+> +	}
+> =20
+>  	return ret;
+>  }
+
+If camss_register_entities() fails on the very first PHY (i=3D0), the clean=
+up
+loop skips msm_csiphy_unregister_entity() for all PHYs because i becomes -1.
+
+Since msm_csiphy_unregister_entity() is what currently calls phy_exit(), th=
+is
+means all PHYs that were phy_init()ed during camss_init_subdevices() are
+never torn down, leaking their initialization state and reference counts.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260903-b4-linux-n=
+ext-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org?part=3D4
