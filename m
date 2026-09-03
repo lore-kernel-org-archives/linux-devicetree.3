@@ -1,81 +1,81 @@
-Received: from mail-pl1-f225.google.com (mail-pl1-f225.google.com [209.85.214.225])
+Received: from mail-pf1-f228.google.com (mail-pf1-f228.google.com [209.85.210.228])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B829E50EBF6
-	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 19:37:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.225
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77876503BDA
+	for <devicetree@vger.kernel.org>; Thu,  3 Sep 2026 19:38:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.228
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788464227; cv=none; b=kc66lXuQsI0jVpWN6lXsaKq5v4SUJaU8tLwwcXUqkGrDa0Y2crGxhS3mj5ZrrLJDOAJQHqnQcBnWj+gwi6UF9cy4+VlsJP839AloRBOa38Ea9fz8o/1iMwTXEm1r71yJHVTWNsMtP0yJW7fYZq781C66PgXD+XtkpxyAfTfEpug=
+	t=1788464348; cv=none; b=p84YMAypKpOhd8LH/LgGYHXnOdgkz/mALwR+0cTxpRXmB9EcBl6Z8gg6PjEQyGC2wREJWdFYFZa/9G2Mzq7B+B7fppEmk6u/lgLJ+WpqHuiij+QCrkCNfKGzDckY8XemEU1n7XNYMUWAEh/TK9lzT5DlgmNSlNhtCjdG3NYMjlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788464227; c=relaxed/simple;
-	bh=3iccK2COCSbdSQ38zR/SrnS6BUQcn6oU2xec4CtQUNM=;
+	s=arc-20240116; t=1788464348; c=relaxed/simple;
+	bh=uMPzQlZoWiQ7BjBIylcjQ7wrcTIdyU5CmvZNTVMatKE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Zgc+544VtJ1FJZEL7IhJvpDxGt1tGxOiCLUBRfXqXDSVpwVDFbuxeR6vBDVGhgfN9m/MxFK6wNW/LiGQanUkVX3oC8DAyP+3UZqbcroBFfO7Iar88KzZMvSERJGIlfHh4MjUxGbxZpgBVcSlzHTq1eU2iIu5RlUsXC0L7Rn5MuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=ChocAzFY; arc=none smtp.client-ip=209.85.214.225
+	 In-Reply-To:Content-Type; b=PTZcPOlC6y336exf9i3xk9T+ynMfK/JHGXWeS9hW9x2ifv72hiRzZoazqsTHK4t/cM3ZMnavI5R1CNdygbWAnF9VA/wn/3obZYGa1RBz4ql/lu8/fHdoQ61lsYscLi3f2OeBl9m41cVDMZ1QCw2UlMk3r9SSvwZ06OWbjbOWM0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=hNLcKXx9; arc=none smtp.client-ip=209.85.210.228
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="ChocAzFY"
-Received: by mail-pl1-f225.google.com with SMTP id d9443c01a7336-2d6d28aa26cso1372655ad.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 12:37:02 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="hNLcKXx9"
+Received: by mail-pf1-f228.google.com with SMTP id d2e1a72fcca58-8541875f596so116898b3a.0
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 12:38:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788464220; x=1789069020;
+        d=1e100.net; s=20251104; t=1788464329; x=1789069129;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to:content-type;
-        bh=wbmjJn4KRbF8oVMPpkd76I/qR3hSpCdh5Z2V63vUrww=;
-        b=bZL8w/bbbtvn33aBZiEs80tiRdayxy0MwZGXdYMLV7cYgspWYY7ndCvXQ6C+b9tKas
-         a1ztnWKYGqjLhcnUqWqD/WArabdsbV5X8dR9WSGynaxk6SVnz0OYGi/71wtIQN8QUKsM
-         bB2Q8vg+1OIyCK9S2U0oR0V2bIUzrPacP14iLm5NZW8rod9S7TQgVnwPfK0GaFg4sWvt
-         TLOIny8DKW+eIIyOF6OeTmFTAHCPkfiAZxemkoiDT/Z5+QpvZP2WAsRwO+7Vn9pq1uVk
-         HNtFR+kppOzCNbsbC0QHcQvRftCHG8TIibxSwkDGyjjnlyGc+CCkfR1y4Ibasa0TRuS+
-         pnxQ==
-X-Forwarded-Encrypted: i=1; AKwUvByrb7Vxv1CDBHrscvkPy1kpXZMafgkPaOQZGCmIJ/3TyGaPOMNyE6jjXMfBs61E8uGD/ZzKPDyhBn/B@vger.kernel.org
-X-Gm-Message-State: AFuF++lwcSwLa7xiYqa9dZn4pZHK0LqG3EbJZE8efZF+Y2AWTyV1kyhI
-	VgYxcO1/ZsvmZS5tk+1SbFP71lufhuapdINgfn8WQ018DL8qu5z+hyPsa7at0fWTOV9+eohw3VJ
-	n02UnVEJYgJZfKzeFS5J4HIcKOoCUCZo+eNBe+MVrVhC73dJ2YQv6FN7snVsI0TZno+GB6Ny2Qv
-	Us3K93bwb2w2K6fXqFNICVSlq9EgfKeJ8XWDmYhE10t8T6zH41hGIuhkEViT5jMeHmD9PKMoyUA
-	Qi3JgkCkNmXzc5ZrbE+Kg==
-X-Gm-Gg: AYBFou01PcIrR7rm2gqmyjiclH/Yc62zur3NEDchgi9pwQQ2t5tHl2zCrQGBM6TKJf4
-	ql0AGd5lHR2RsCO4g5Gsj5hDK6vwGihu4u/7FJsu/45eiUfqiRipmCuL5DxW68MQknvjkDRxZbs
-	oFRytpn4x12dzUKyaYGBrbX4rqGLoWAUkCTJeupKNv/PdIppYsrPrNT8i/rvUFHKs+BV/FFICsk
-	kjnRiQhW9C1ROK8dJ5wg4k0nmXIIlVXYGEk93AhZNiOggqiPFv+w3di2TlN4xFO3BEHLkz5UpeJ
-	BMoAg7rIl9d2m9LBIDhAe4dn4WVHorQ78YP5sQx/whQUZy2m0TMNZ53GpTrC1PJJEI6kZIz7nPv
-	IcSxMBEUPQXnTBSqHTZbwA15IW2qGG96Vfb7jP2SokOxvP8nsIY/SYE8O1PvVB/+9P3U4ZzvwqQ
-	G/zLncQzOGpQYmOyebJ0iF8+6sMGP8ynahC67Bbifo
-X-Received: by 2002:a17:903:3804:b0:2cf:9347:f445 with SMTP id d9443c01a7336-2db126d8a54mr19605005ad.10.1788464219752;
-        Thu, 03 Sep 2026 12:36:59 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-25.dlp.protect.broadcom.com. [144.49.247.25])
-        by smtp-relay.gmail.com with ESMTPS id d9443c01a7336-2db14b28003sm51075ad.49.2026.09.03.12.36.59
+        bh=brNSF6ql5aevmqbGax3CboePf220/VniLivOauNNsPk=;
+        b=GwQUYiInoR8GwyNoRolCanFKMzX0zLrjYKs/7hn3ZpGKMpBkY8QsvNVcWDGfHc5rGD
+         vRP2ZvvlbGt49hIY1CdD165WiO1Drs9tshyyhGxIF3lnOePxrKXSyP94YX1ICnn6y6vz
+         ZKaLPAUcbub+fNLvpOGfjRJcx6LwNTBKUhNqCOTbMLuqkddqU8JDX284XLIKmn/XgVKZ
+         HqKNeCe3jaKSJQ2P+HFVh/eFlU1qAgQiiY5hWCBEsWJFdLy710wkUwmnu6/GH+WLK1jT
+         a1aVbu61ZxMopqZ3jOVF95e3VDrR2aTDkacC+kKK40Lw74d9tc0MvA7nllSNlsOcuhYP
+         /Q4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzw5FG7rS+RL57f/106SDKFkpEMcvW2C8PYbtFexz1xAnQwje4GXZ399oVEoqXzfllS8H4kR1K19u+g@vger.kernel.org
+X-Gm-Message-State: AFuF++mvoE5S4Tv0dSBF92NUFYHjY1W6jOKRqn85ODDn6mU3Vm7xhnJC
+	HHTWUpYnYjWN0+fKxM2dMDC12nqIw3IyepkRiuqmBZr/mFK9MoUYqbJV0yk7yYMqU14d0QJ509z
+	4OP9woqoIgAQOe5Nwonjl6y6ZPFcUY9mcgY2ynAf3SbzDz7CyfIddSwZ3VEWB7vAESXYNsr8oQl
+	fDkTNwLx8309E2NsPK46XyOoP9Ihz/P/VC4kaeakVxzPkOS5iT5HBBafPJvuNAjrs9//Dk3RNOx
+	5tFHe0Vqk0t4XpTsA7uMg==
+X-Gm-Gg: AYBFou17hVHoXsGSsD3xBef3r/5zvfMPamtwhONljAGWGWRw1oGYFgmlr5TTWTnhzbu
+	rjhpP85zGJ7t1A5y2+6sw+NJXLUDt1Fq2PKC2kl8OYU6Fkbmjhlb1weAKzoB0MaAe8jQnJXZE7C
+	w/9eL13U7oTmN+2EQ0BmAVDp41+nuFq9gjlZl30wf9aEv/pkF+hvni62rcc7VaNGGWoTLxRtbb0
+	wm//Nm3JpY837hWPlumM5IAodFh65MwmkTL1Vtdd26u/gKTaBkcHVwxQg4YNiAXd++owRL5awLc
+	Fi14Ph2LaDXutObNdJTwZ+ejX6DFlowiUGAf6+I8vHMTxTfmuenp/bHRKkRy5wmHM5m16y3PJQs
+	lZUnE6+NF6v1TT3TGKlizWWzIWhF9cxxAuuujV6GfG29aI5ojBhMjssdf9M2cEmvvCrhwwUZl+N
+	xzB+wsgkfFfXKhdbsdDC9au+6+3qoLoVBNlcOJHMUq
+X-Received: by 2002:a05:6a00:98b:b0:842:2419:6c0b with SMTP id d2e1a72fcca58-86169c71e5cmr1405640b3a.10.1788464328755;
+        Thu, 03 Sep 2026 12:38:48 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-27.dlp.protect.broadcom.com. [144.49.247.27])
+        by smtp-relay.gmail.com with ESMTPS id d2e1a72fcca58-86150e4613asm204312b3a.6.2026.09.03.12.38.48
         for <devicetree@vger.kernel.org>
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 03 Sep 2026 12:36:59 -0700 (PDT)
+        Thu, 03 Sep 2026 12:38:48 -0700 (PDT)
 X-Relaying-Domain: broadcom.com
 X-CFilter-Loop: Reflected
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-52f52ccd459so4560391cf.1
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 12:36:58 -0700 (PDT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-52ce64c41efso8276481cf.3
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 12:38:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1788464218; x=1789069018; darn=vger.kernel.org;
+        d=broadcom.com; s=google; t=1788464327; x=1789069127; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wbmjJn4KRbF8oVMPpkd76I/qR3hSpCdh5Z2V63vUrww=;
-        b=ChocAzFYJp8LesrDAnk6yJgOCRjwVcAYyV3r1Q1e0DLSOik3GjxnkODmkDsC2A8M6c
-         BuwHjmXiw9vapDkrVkNcCNoDk85zbgVy7RJPf8h9LCloWBvIfKDOmwFAnkIXDLFILh61
-         kBUO9F82MnYv4JsArfIomWYlwzy0tKygrXTl0=
-X-Forwarded-Encrypted: i=1; AKwUvBxSrnsdKZ4pBOnRsQ2LnBaUNeBYPmkbN75UJB6DGNeCARXtWIL4eRYRl7fqtIvNMTA282VVJ2T3pe3Y@vger.kernel.org
-X-Received: by 2002:a05:622a:4d8f:b0:527:7027:cc1b with SMTP id d75a77b69052e-5305499cdddmr13859061cf.32.1788464218331;
-        Thu, 03 Sep 2026 12:36:58 -0700 (PDT)
-X-Received: by 2002:a05:622a:4d8f:b0:527:7027:cc1b with SMTP id d75a77b69052e-5305499cdddmr13858541cf.32.1788464217801;
-        Thu, 03 Sep 2026 12:36:57 -0700 (PDT)
+        bh=brNSF6ql5aevmqbGax3CboePf220/VniLivOauNNsPk=;
+        b=hNLcKXx9T/NDRxHQzcnW2grhPS+RRMsmUUkcRNwdN0IvtgeyL9E1mJCfu0wOzfkN4O
+         vEFk7panFfVa1SylPAX1WOe+eJuyk80DvkkpM3rV8uu8b8E05G0f3Fvqd0eUB0o0GEtJ
+         gH/i4QkfVBBlvrpIsZU9OVqb5Wcq+f/x61phs=
+X-Forwarded-Encrypted: i=1; AKwUvBzBe3ldsajWwQLHXf/OnvdPDcNTLuB6Hqw1HVFjzDCKMo2jsvmP8hteoe5tP2mxyoFUi5OBrv3im8Uz@vger.kernel.org
+X-Received: by 2002:a05:622a:2505:b0:519:f884:b587 with SMTP id d75a77b69052e-53054961822mr14588881cf.27.1788464325204;
+        Thu, 03 Sep 2026 12:38:45 -0700 (PDT)
+X-Received: by 2002:a05:622a:2505:b0:519:f884:b587 with SMTP id d75a77b69052e-53054961822mr14588241cf.27.1788464324657;
+        Thu, 03 Sep 2026 12:38:44 -0700 (PDT)
 Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-910406af144sm1966286d6.40.2026.09.03.12.36.55
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530541eab6csm5221631cf.26.2026.09.03.12.38.41
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 12:36:57 -0700 (PDT)
-Message-ID: <fa26224e-9f93-4a65-a265-2427bef7094c@broadcom.com>
-Date: Thu, 3 Sep 2026 12:36:53 -0700
+        Thu, 03 Sep 2026 12:38:44 -0700 (PDT)
+Message-ID: <1f4a0df1-97e0-48e7-bd08-6b31c8dcd0e9@broadcom.com>
+Date: Thu, 3 Sep 2026 12:38:40 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,22 +83,25 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] drm/vc4: Drop the undocumented brcm,vc4-v3d
- compatible
+Subject: Re: [PATCH 2/4] dt-bindings: display: bcm2835-v3d: Add an optional
+ reset line
 To: =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
- Maxime Ripard <mripard@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>,
  Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
  Stefan Wahren <wahrenst@gmx.net>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Ray Jui <rjui@broadcom.com>,
  Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: kernel-dev@igalia.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, kernel-dev@igalia.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 References: <20260816-vc4-reset-control-v1-0-896444373716@igalia.com>
- <20260816-vc4-reset-control-v1-1-896444373716@igalia.com>
+ <20260816-vc4-reset-control-v1-2-896444373716@igalia.com>
+ <20260818-idealistic-chivalrous-sawfish-08ddae@quoll>
+ <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
 Content-Language: en-US, fr-FR
 From: Florian Fainelli <florian.fainelli@broadcom.com>
 Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
@@ -133,31 +136,44 @@ Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
  MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
  7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
  95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260816-vc4-reset-control-v1-1-896444373716@igalia.com>
+In-Reply-To: <3ab273be-e811-45e4-adf1-75532c840bc8@igalia.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On 8/16/26 07:05, Maíra Canal wrote:
-> "brcm,vc4-v3d" is the compatible string V3D support originally shipped
-> with in commit d3f5168a0810 ("drm/vc4: Bind and initialize the V3D
-> engine."). Commit 90d7116061f8 ("drm/vc4: Recognize a more specific
-> compatible string for V3D.") added "brcm,bcm2835-v3d" in v4.6 and kept
-> the original one around, because the Raspberry Pi firmware was shipping
-> device trees that used it.
+On 8/18/26 03:35, Maíra Canal wrote:
+> Hi Krzysztof,
 > 
-> That string was never part of the binding: the documentation added in
-> commit 4653f22e9ab0 ("dt-bindings: Add binding docs for V3D.") describes
-> only "brcm,bcm2835-v3d", and no upstream device tree has ever used
-> "brcm,vc4-v3d": the first in-tree V3D node, from commit 49ac67e0c39c
-> ("ARM: bcm2835: Add VC4 to the device tree."), already carried the
-> specific name. The firmware device trees the compatible was kept for
-> predate v4.6, released in 2016.
+> On 18/08/26 06:05, Krzysztof Kozlowski wrote:
+>> On Sun, Aug 16, 2026 at 11:05:41AM -0300, Maíra Canal wrote:
+>>> The BCM2835 PM block has exposed a reset line for the V3D block since
+>>> commit 670c672608a1 ("soc: bcm: bcm2835-pm: Add support for power 
+>>> domains
+>>
+>> This is a reset provider driver, so not really relevant here. Driver
+>> commit would be relevant if it was about consumer who implemented
+>> undocumented ABI. I suggest to drop reference to driver and instead
+>> describe the hardware.
 > 
-> Drop it from both match tables.
+> Ack.
 > 
-> Signed-off-by: Maíra Canal <mcanal@igalia.com>
+>>
+>>> under a new binding."), which allows the GPU to be reset without
+>>> power-cycling its domain. Document it so that the vc4 driver can use 
+>>> it to
+>>> recover from a GPU hang.
+>>
+>> Does every device have it? Cygnus as well?
+> 
+> I'm not familiar to the Cygnus hardware, only Raspberry Pi, so I'd
+> appreciate if one of the folks from Broadcom could help us with this
+> information.
+> 
+> However, just like the power domain, I added this property as optional
+> to accommodate the fact that the current Cygnus DT doesn't expose any
+> power domain or reset controller.
 
-Reviewed-by: Florian Fainelli <florian.fainelli@broadcom.com>
+I really don't know and have no visibility into these older chips, let's 
+assume they don't.
 -- 
 Florian
