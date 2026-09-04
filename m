@@ -1,68 +1,69 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403F448F83B
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845D04908BE
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:56:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519410; cv=none; b=H2ywX5G7+qgU3lSukKOtLOSZZ3x30nXD2Fi8UQ7aIFYAwFLY06ubbiGxCxzl8vJ+BUhJ9SkLFls6xvYd3pZC4nNRWVLNPLMf9ClmFR+hTCqrJdSlcbSBwsdURSrBQTMHdaDHuWsfzRmtUs4pvXkXTe1Y8oMAEy65R2i+rdm/i00=
+	t=1788519411; cv=none; b=hE8MqfY3TFHn4dfeyKWD2/FjS/qBW8PLkUlC8s7dCaFJJeH+VRn4VXcFk9jXCNOvT0GQxhFlggRkAZI8+8I7Eu6ADmmw4h2FRfVCINf72CW4WT6Z6VgHIlwZ/+TaRXtawwvLQVIy3e3OVG+lXa5V5f+By98BJUoSC4EkTWWdjVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519410; c=relaxed/simple;
-	bh=YIHQ8bdlgjCWtdVge+nC3WQMRQ7b+PI2QP9xU/aHDok=;
+	s=arc-20240116; t=1788519411; c=relaxed/simple;
+	bh=M9kXVsvI7HG69slRlyhwlWfg6E0tC1kNp8VaQyyX1U0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=QQHlRw9U8m//B5uJNDxmhxEWoqAmAFRuKJS7EoF/FduWrtfKj12hyRWp2e5X/tIVcQ5d8cTs0HjhAj/nY43kqmBRR48k5neThwIb3uPuyEwYl1MzlNuOfQVCgWpfo/+WByJd0XameHNYWk+7EbTCbL/C1cKEmt8DALJR9I4CerI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eir1scMd; arc=none smtp.client-ip=209.85.128.41
+	 In-Reply-To:To:Cc; b=mfbNBTXfTn8RWhNEAcXRTmD9S0hlfJ5q9N2MkGf1yqNgFY62T4RSb0RnzcW/qbNQVClyVkB+u26Wbg7SfXrHZVT4/ioEH5O4tbj8zJk7PImG8+cSxUFQWbaoQPGe1ir5Oplt2HVX/OG0crWPBM3kV67UsAcSozFxI2pJqZjqKNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=kVmOFWJa; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eir1scMd"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b965570d7so9705835e9.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 03:56:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="kVmOFWJa"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-482e4998d28so611113f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 03:56:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788519406; x=1789124206; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788519408; x=1789124208; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ofKngm+I/M34aU+twd5ZTUQtVapU3M8PXngwPLd065A=;
-        b=eir1scMdyfjpdbHEfP+v7x2Si7kGyhbHvRVE/aQTN/JjCGT9A93C63pxduur9YveGQ
-         DUToEOz+5SW16oRqNUaQ3/M11IGnuOeqDMfUW5jt88BalQNCVGWFcIFowt8LEYfVu8Rn
-         aH8oM0fh0XKKtk/y+8jynZ7oBQRMVSvM6ekcZRVGwYmpXrm+AkybRv6hgzEUZ+US1znE
-         W5mpTG3T0267fbbJ2SgaEhMJD5BDBMlEC4Q5kX4KbSIPmiT7tds8kQzNt3zQuDGEVsbd
-         n6V9q/j6ukFmMxL7rvu3/Y/5ftRkyeSW9xiPrkSWnE68+mOi5TYVMm1C2kEIA1ZiYzQf
-         fuMA==
+        bh=5wPHsZMXlrul2kEoI0D9Cua5RpROo0Ph/WeAOvQ4+Z4=;
+        b=kVmOFWJaYwdE1r5bLykHhQU6JYe7+VQd2e0YqJCz846dHMtA+A3QJDqBPgFlaVx+PZ
+         kv0+nii6YeENWHzAMPF1fyK8bu2tJ3hZ0jr1mDiNWeR696qbsl6sqQLct5JIh7afPdYf
+         ljpKXjvPd+nK+pyHRIsGUIidPxAkkFXGsRllnAtOlthWwaZywDBQq4XI9gdls/UTdXx6
+         hyYI8IgMAhLqsOb4A9yJ6rfx109/dMMZL8UcB6BAdezDGQw4msVAkGE0zLbqWgZ6j6iv
+         +25ohqGwXiyRJc+0tHRDMx72v070og9LabO5ohiu6ycGue2qp6QKKNmCyHXqLq2skFHn
+         4svA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519406; x=1789124206;
+        d=1e100.net; s=20251104; t=1788519408; x=1789124208;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ofKngm+I/M34aU+twd5ZTUQtVapU3M8PXngwPLd065A=;
-        b=fn+KCiVRaICB9vB+IIFSikzmThCwOciBsWbOSdHetWmjwJZq3rB3v0aHVUkLjtRwOT
-         X9uF/+2vag95Tvrih46GM07IPhJoW5g/tjVpeIBnbV3HwJlyhK7sUIyvuEHf3KOq4SQD
-         c0XZoSCJkTDBiqMDfA0Ch/nbB6ydPuXYJH1dPOl09Ol0EZ9QhG2dXMGGoqYMgXwZqT4Q
-         eiEM/DVDdn27ScRzfgzrttJT0whgJiLAqjtP22r6+oKZHYbzk3Sr3KU6jqoRoDbV2xHB
-         NygC1zB2d5e/uQbGRPOae5OiaPy1XxJARO+s31RAegSGHyyrFJem+VXhAoj6LkbSnThw
-         6Mpw==
-X-Forwarded-Encrypted: i=1; AKwUvByoeRq5221YyI8szSPSMjNz0F/3UztCsmDvVyryJAkm1WkBz3aq8IwFkwakhXVjO4dyjZV/B6mmO1TF@vger.kernel.org
-X-Gm-Message-State: AFuF++mYOEa4YM+S0EkU4beQz/1TJZiPv94w2BA9rM43V676p2QqvO0l
-	eyirex4G5LXYhTgZCwA+8f1HHeAeS9vzzRe7K2sQMm7Q3FSSW5dvCMzc8TiiB9jH9j8=
-X-Gm-Gg: AYBFou0j7cisYWRQHQsHokW4g/Nae2IUchFfZ9LwJgdK2VbmiG+RbbZuAGxY5Nuxe4X
-	zVvR8lpJr/H3AIEprTxOJNkCO0D6XJaxi/6J/+pfYrj+1He3lrD7iFJc/x0GkAD8DYYTJBDGHWc
-	2kpTLBksqdODV7M0XerFclbo9kXv047jfImbJ0FYSu9qe0sRtkJEhf365lW7WEhVCL8g5xWWTeS
-	uMcAKOlwgw58epew72DPZ0ZmikyNk6uilPx1YUWY0uehzSZo+Zz87hnRuHV3mUIfA4ObHx86wKJ
-	eGSfNoIvifu1CsoOH/9NBLTnVKfx8zfzkQye9NKDY5zxDBWLmYVFkaULrKCbbrEs+tdd+qMZ3e5
-	ad3RPguYfuh9rBoKdlOmLqknRV9lKsr+6cSKqRxjp6Zb3NHUH4RnPs6nPXpa71r5emZq/I+kM8V
-	n771tf3LM33/SCVYKbWVbz9T/jumdMdumBo3zATua8bhlJ1MVxpAxJ9G75aeAv1m3RAt8Jf8Qj
-X-Received: by 2002:a05:600d:864f:20b0:49c:fc6e:8cbd with SMTP id 5b1f17b1804b1-49cfc6e8ed8mr18400195e9.33.1788519406434;
-        Fri, 04 Sep 2026 03:56:46 -0700 (PDT)
+        bh=5wPHsZMXlrul2kEoI0D9Cua5RpROo0Ph/WeAOvQ4+Z4=;
+        b=PYLhaYO5QtzcI3Up5wsDJKcN0Z/E1x1bGVFX283ocOQKL1pQSIyd4BY064xNMx0jDD
+         zv8m7NVYZ9E6+iQpaw1PoFpDSE0MUdNq8NjTP90zS2nM6ehzFZa+vrDuJQWPHGOOduzq
+         OvoHEOpDX5r8uDhZKnLVZ8kUz/HBR6Vtv2+dSizDh65nJjs4/npTN9pTaYq9yeUtsU3M
+         QMz7JFQ6jW8cNLfjlKaxF8Yqfv49STSH9O64jcr7imsZUjhgDzwe05f/fWPR5J05h/zQ
+         6wtmSuAiMuwuJ7YSGPAumgVeWhE3l6v+b+Ilf4e8U8fd2XZXqBxgcmbqZU1SH73V2yjn
+         QhxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxKxoJZ/Jtb+vJIhRJ7S+lVBpNpSjYVtqaOHEC+C1Z4A8+EzRTn6vRVdCYjql2DObzenO53Lp3D6YtS@vger.kernel.org
+X-Gm-Message-State: AFuF++m20qkVOuceL4hCZEQkEkfJDyvU1LAy9XLz98a1SsYqRxZdxpeQ
+	4lU74vExPbeLU+QAirqZWc5XTvBQ93bR1kW7eD09in4imRkzbuH4+Xz359LwT/Nzd/A=
+X-Gm-Gg: AYBFou0dCSnGNwzl4lnpr5yoM7gFCCNjQm1zgZA1RfFUg1Rr/Zh4AWGzd5x9jBM4Ate
+	prSlYlh5RSJJvOF3Ta7X2vd/8BHDouqF/u48w0apF0xvyNPR4oiQ3Wg9nbiuiwCF8Hh6ec6FbL3
+	M/aJfBkb9XazqPM5KMz+m0LggybLPVGPt/68HY1FryvGULU74feRdqXieiIwvVdJH3sYdSyeZEv
+	1eztKfC6HA6mZ5H1cbLe8/Q07Sv0mN/I4IT+cAp7T2qE9Mh1ioyKAXQvxObVvKJ7II0pMpYUf+8
+	rjsU5+HbBKtSlNUGmUadq1xTvx+raVZf/XoSq2waL7HZ31htDtMXKtBSUzzty4gXLNxXoqd2nvM
+	CTKhnt/MVoZEhLhRv/KoRXarJF76Ik7EjeI3unStfm3EIVFytCKY7IH/G38Ds2HSddZ01GAs9Vx
+	rqEQSOGqvKrlv0Y7JFAJBCvAL2CvzK8CN8GN8PrjlMyAzY300RmJC0zCgxh8bTbyx801FwODmsd
+	fDwaW7Pmfl6
+X-Received: by 2002:a05:600c:34d0:b0:49c:fc6e:a3d3 with SMTP id 5b1f17b1804b1-49cfc6ea71amr22354165e9.18.1788519407679;
+        Fri, 04 Sep 2026 03:56:47 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.237.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm132110525e9.0.2026.09.04.03.56.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm132110525e9.0.2026.09.04.03.56.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:56:45 -0700 (PDT)
+        Fri, 04 Sep 2026 03:56:47 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Fri, 04 Sep 2026 11:56:34 +0100
-Subject: [PATCH v5 02/13] dt-bindings: media: qcom,x1e80100-camss: Make
- vdd-csiphy supplies optional
+Date: Fri, 04 Sep 2026 11:56:35 +0100
+Subject: [PATCH v5 03/13] arm64: dts: qcom: x1e80100: Add CAMCC block
+ definition
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
+Message-Id: <20260904-x1e-camss-csi2-phy-dtsi-v5-3-dc81d85b599d@linaro.org>
 References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
 In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -83,49 +84,72 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org
+ linux-media@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=941;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1761;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=YIHQ8bdlgjCWtdVge+nC3WQMRQ7b+PI2QP9xU/aHDok=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmqPlOtXpttnNErtShLSZ5xP+Ea4r+NoviUQf8
- 54zxnoQoMuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqj5QAKCRAicTuzoY3I
- OpAaD/9IXuoeQWQ27TY+20jjKe//oTJboY9pJ1YDiWzZE7fVyiQf4kE8B3jUE3XbhOZdeWCpJd6
- ujq7uLyTMj1P5rQILzAVDaIbb8irEHvZnDhZZanKb8vMCC3q0JBs8Upg6Ny7WBLv0AUGEeCmeJp
- ZuFAqBW/6pTLcTfirlkjNz50n/DHpG6jUgWTO7DNRkhAsMe5Pu0NuRqfVd2KP/FVSE2DO9C/86B
- xH0aPVugONmLfa9XhOqctfFPJ0fPm2mMZMYCOHDtJAWX4BWS2akSCKdIC6jwmNMpkRA2nPgfe8Y
- 0NLW92Cg3xWlBC/FYvb7expYra3zVZkGxhOU59Nn1uFtsa1AkYNaGlgRAwoh9vD7t5wgOLnLYKV
- FA2YE/wcsBNsRj4IuGF0eRqKsAqkFK2CfRqMnXQz+XRAGKCpGyJJSlVwDcqNg4DKKEcMPMC5U5C
- cyQTPtRte/64uoUXFReiOc23+FN3OSybMlL75Zue1iG6kziu9Ag1Rtelyo/0sO0QdEeH7o15RcI
- 6++eJVfSFy2xADjoJS9IX8yRdHMnAUDsAkofOcy+YgBK1JidvjHDeNiKiNiic+1MSZXZ8kU+DQk
- mfFY8JpcyACBWPO3vHX2zeYlf693cfxDUoRhQtAGSrP2jddg3Mw0mUXAxew80axHGRxlORAYZBG
- EqyArHubt1Vge1w==
+ bh=M9kXVsvI7HG69slRlyhwlWfg6E0tC1kNp8VaQyyX1U0=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmqPlbs7W/4Z68URfcSifuw2efIVURUqLN/vhw
+ HCeM+HFIAaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqj5QAKCRAicTuzoY3I
+ OsxmD/4hGqKLp3LorMln4h335RPDzXo/IVveKRIeg87PKW8S9TEUSqh6PWhKC9S/GK5W+jXEYAz
+ /10X7GeDnmvwdRrOq3BMGOUTd0XcOHTeVSDe/HBvl4oVhkVRfpp1zBPb84/NB1AVWIdHIclACxj
+ iIR0S25rFE9feYuyIJbvHEIYfrGjLCzIw1jbjhlp/eOeLaXASH4xEkwzLBjoR0zW2f5wLZoktoO
+ z7IQfx2kMvZchTkgbWteieG3iSeisCXZ2ig6KwC5Gm8lrsGDIe0XmmSHUV5FwIoMPgXKH8o1Ohc
+ UEwaeP2DLmLEqkQ2Q4DygRk3ByZBOKh5eGs5KPvFLnFqwpjgFRyLk3lqw2B3JGoig8oLiGN85to
+ qdoOwO5U25L3aUKVqUqNCL4qU5DENdPkU+5ZuIVFKBlCQ+Iz2pg6uQ22IlC0PNszdGdE2XkXrXj
+ zE4v1PEvGAWE/lRgQnZK3MVs+u0GXzVyEwUHU+H5DfI7xyihm2QkpH2XIbsQORx+kxTrqoZXVcC
+ b4ekjfz/d0Ld5JIoe/LWEDUhk5tAaEjikzHwbhK/JCRLVt1gOHmqeJWgQwxFcblkCvYF+wkyL+j
+ YKdKUps1MqvfGM6gaol6mHji+3H4opP9O8JqhbEFcrzfvWoIuQhXKy0PFwMSLBf+14+rR6lH9dO
+ B/A5BraqDOVZVZw==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-The vdd-csiphy supplies power the CSIPHY blocks. CSIPHYs may be
-described as standalone phy nodes carrying their own supplies, in which
-case the CAMSS node has none. Make the supplies optional; existing DTS
-remain valid.
+Add the CAMCC block for x1e80100. The x1e80100 CAMCC block is an iteration
+of previous CAMCC blocks with the exception of having two required
+power-domains not just one.
 
+Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml | 2 --
- 1 file changed, 2 deletions(-)
+ arch/arm64/boot/dts/qcom/hamoa.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-index 126400772d028..57a838fe2d229 100644
---- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-@@ -186,8 +186,6 @@ required:
-   - iommus
-   - power-domains
-   - power-domain-names
--  - vdd-csiphy-0p8-supply
--  - vdd-csiphy-1p2-supply
-   - ports
+diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+index 4ba751a65142b..9a8d6f020a391 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
++++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+@@ -6,6 +6,7 @@
+ #include <dt-bindings/clock/qcom,rpmh.h>
+ #include <dt-bindings/clock/qcom,sc8280xp-lpasscc.h>
+ #include <dt-bindings/clock/qcom,sm8450-videocc.h>
++#include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+ #include <dt-bindings/clock/qcom,x1e80100-dispcc.h>
+ #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+ #include <dt-bindings/clock/qcom,x1e80100-gpucc.h>
+@@ -5550,6 +5551,22 @@ videocc: clock-controller@aaf0000 {
+ 			#power-domain-cells = <1>;
+ 		};
  
- additionalProperties: false
++		camcc: clock-controller@ade0000 {
++			compatible = "qcom,x1e80100-camcc";
++			reg = <0 0x0ade0000 0 0x20000>;
++			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
++				 <&bi_tcxo_div2>,
++				 <&bi_tcxo_ao_div2>,
++				 <&sleep_clk>;
++			power-domains = <&rpmhpd RPMHPD_MXC>,
++					<&rpmhpd RPMHPD_MMCX>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs>;
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++			#power-domain-cells = <1>;
++		};
++
+ 		mdss: display-subsystem@ae00000 {
+ 			compatible = "qcom,x1e80100-mdss";
+ 			reg = <0 0x0ae00000 0 0x1000>;
 
 -- 
 2.55.0
