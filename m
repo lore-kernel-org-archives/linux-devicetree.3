@@ -1,129 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF75C3CB2E7;
-	Fri,  4 Sep 2026 21:47:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAAB3F7AA8;
+	Fri,  4 Sep 2026 21:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788558424; cv=none; b=kOYz0E1uRdXE/2cYlOUkuhaE/M+bJIPeWhHy9g4qJzMXMizkuYPVCmAvs4DERBu5ehBkPI+xz3Mhyos6oLWZOJflFWRGPkueOBz5ShXYYOxtwVylu2thKXYGvmsTnvFNTZfwObRA+99yEGhqen7s6M2DH8IdES8gY86aULWRiYE=
+	t=1788558757; cv=none; b=gh2QTf/25OOIpvnABOcNBoIJ4YSc3oC0Y81+pT3KjbotPmBrI2U0o6ishbbaVqkU3QK2KF3O0++MNb3q+qoVEYhs9e393Q5GsjrA/90QUV0LKZ361q7YJoT1sdvR8a8CFASjdx6lC4/dWInxYZRgPExEDjZ9jrJOvFT6e1o2PHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788558424; c=relaxed/simple;
-	bh=p3i7vHLZZPpY9HWOCA/0rhR/GFhjttWmdc1ecdrYgU0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Nrxck58eDXvf3m7XjER37KI80k69s5eTV9s0DUaMeWaAfEIEhzaqNRA9r2t6Ex7Lom1GSrNJogl847Il7GdNo/4n9bMzSYo3WB44TnxwdYmU3hnYPM8Z5UsR8nr0QR1WvtMbfDOPS4t70fnC86RTBFaxCC0az7RZXVRumHSpZAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FTyN73fk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788558757; c=relaxed/simple;
+	bh=zjdkNkDUmonpYU0Jbjz+zmmE2qaeROdmXnVtOHiS4H0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=S03c1Hv6B/81zBqi+KdrU+5gWQP0qL6ijysay2OaQmhPP0tDDTMgdM66WleMSIHRrW+zZTipMpiQWXWnUq5Pp41aUK0Uy4aiFals7kmCnBzZ8W1JVB8CAL6CNhQb+7j5JoNsu6pzJv9A7v+k7YBxD0JrNH60dH10CMTjK/ZvP5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPgS7bnz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FTyN73fk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA0A31F00A3D;
-	Fri,  4 Sep 2026 21:47:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPgS7bnz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16FF21F00A3D;
+	Fri,  4 Sep 2026 21:52:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788558422;
-	bh=OpUdLRtoEgNKhcX7+3Zn8UZ78zB2YC1sOvIpfOCSbHQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FTyN73fkxqv00uI9XxCrB8Yt5u7CySvwJN5XdXffEz+r95v7vuVCub4EFQLyJhoVQ
-	 Zl2cv3XrIA2dQA61nfyTwEB9r3UkP7tfQGd2C4Zv5vDVtnt3a6zgyR9nV4RRVKVZM2
-	 AzG9Llt8P902J3+8Ss121n99tGgoYm867N9Zv7YPXzPMidNCiZxZJNm1pqoAZBjglU
-	 0cP90pJ/3pHWN7nOXJjQk8kcv+Yr4/0vw+PjKNGXkVDxbQm79b77smpnAlaildCDiE
-	 ON/XmP5iZJvEbv+yvmuGTUA3Ckp/BWPIN6eKDsvz7Zf6JTlHD0DHdYv/Xg3guvTIVY
-	 EeHyg5w2HVnIw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] mtd: rawnand: sunxi: select the packed H6/H616
- OOB layout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: "Miquel Raynal" <miquel.raynal@bootlin.com>, linux-sunxi@lists.linux.dev, "Michael
- Walle" <mwalle@kernel.org>, "Vignesh Raghavendra" <vigneshr@ti.com>, conor+dt@kernel.org, "Takahiro
- Kuwano" <takahiro.kuwano@infineon.com>, "Pratyush Yadav" <pratyush@kernel.org>, devicetree@vger.kernel.org, "Richard
- Weinberger" <richard@nod.at>, robh@kernel.org
-In-Reply-To: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-3-b12074f4aca7@gmail.com>
-References: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
- <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-3-b12074f4aca7@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 21:47:01 +0000
-Message-Id: <20260904214701.EA0A31F00A3D@smtp.kernel.org>
+	s=k20260515; t=1788558753;
+	bh=UVrkCuu11lO2jLxhwTb0RktChudHatDr/XIWbtQPRJ8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=aPgS7bnzvgxMwfa68V5kdEfcEvrZLGd4hvfezzhdeGq8+bOy1jCL4sPYm9J/EbDYF
+	 gkPn7q0PoBPXjqJV/OLTJLR4CgXgemuy9IKdOTvyPB63n4XSWlTThwOSE5s7+W+AO4
+	 bIv+8zGiCh8U7evnLU/n/w/c65lp2vTXaojCltmSWmb2X9QtXw1fg+VycJm3gKxiUN
+	 X1sa+GFQH2bCctfRLIdBVNAN6FIXAJI5hO12qx4FxiHCF0C26hofTDdKTJvgfNz/KQ
+	 QCsMajHdfNWeYy/jhZFliinQJ9jYGry2L6MBC5fdTpfgZbaN8HCnib59/nm0FHAIRt
+	 Klnr19gs2DHKg==
+From: Mark Brown <broonie@kernel.org>
+To: Sunny Luo <sunny.luo@amlogic.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
+References: <20260731-a9-spisg-v3-0-a15da3f70029@amlogic.com>
+Subject: Re: [PATCH v3 0/4] spi: add support for Amlogic A9
+Message-Id: <178854160331.632048.14728363088107524038.b4-ty@b4>
+Date: Fri, 04 Sep 2026 18:06:43 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1649; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=zjdkNkDUmonpYU0Jbjz+zmmE2qaeROdmXnVtOHiS4H0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqmz2b7imfFO58cCzluHQ/CY6Goj/swmGs9TWX0
+ nLpvYPkRyuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaps9mwAKCRAk1otyXVSH
+ 0NGaB/428q5frnEDu6OiYRheIcp0oUTfMczZRKqjcktVO1KRJV8tnPgfqRdLE+iRgJvus+Kj6KJ
+ tBEAjeE0QCuEwIzvETLElAdP1QQx3LAs/bCH6zqbfpccDlzUaX3t0vwFB4qdK6ilZqA/KgSROaV
+ toJ2SOywUOdqZ9Cq7yCjbIDK+FMafs7siTt24u0z9PMprkkN0EkOJxx0Eu3eGWHGGP+bxfkuwh0
+ DnZ/jE66flHee/aa4OMiG4eA/K4ZkJ/log07zVQ1HHfjXPpfnhOP4F7TjqyXLsGv3XSp/oLkKXe
+ zO7eI9WoP0mk/Ltl3lgZUNE0exWMa18B/RTx/9ciEePfMt3Y
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, 31 Jul 2026 09:08:24 +0000, Xianwei Zhao wrote:
+> spi: add support for Amlogic A9
+> 
+> Add bindings for A9 with some features, and driver for A9 base on A4.
+> 
+> Fix the incorrect keep_ss of the last descriptor.
+> 
+> 
+> [...]
 
-Pre-existing issues:
-- [Critical] The free OOB layout for steps > 0 incorrectly overlaps with ha=
-rdware ECC bytes, leading to uncorrectable data corruption.
-- [High] Division by zero kernel panic when NAND_ECC_MAXIMIZE_STRENGTH is c=
-onfigured on 512-byte NAND pages.
---
+Applied to
 
-commit 250f35cb46a45ae57aae72a174fbcad8b8b7a7e5
-Author: James Hilliard <james.hilliard1@gmail.com>
-Subject: mtd: rawnand: sunxi: select the packed H6/H616 OOB layout
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
-This commit updates the sunxi NAND driver to support the randomized OOB
-layout used by the H6/H616 controllers. It configures a separate protected
-user-data length for each ECC step and allocates up to 16 bytes for step ze=
-ro.
+Thanks!
 
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index c1246a9268ca5..1265d900fc276 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-[ ... ]
-> @@ -2111,6 +2126,10 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand=
-_chip *nand,
->  				bytes -=3D 2;
-> =20
->  			bytes -=3D total_user_data_sz;
-> +		} else if (sunxi_nand->randomized_oob) {
-> +			total_user_data_sz =3D
-> +				sunxi_nfc_h6_user_data_sz(nsectors);
-> +			bytes -=3D total_user_data_sz;
->  		} else {
->  			/*
->  			 * User-data lengths are encoded in four-byte units. Reserve
+[1/4] spi: dt-bindings: amlogic: spisg: Document A9-specific properties
+      https://git.kernel.org/broonie/spi/c/29359ee126bd
+[2/4] spi: amlogic: spisg: Fix transfer size limit and timeout handling
+      https://git.kernel.org/broonie/spi/c/754d2bbd92f5
+[3/4] spi: amlogic: spisg: Fix the incorrect keep_ss of the last descriptor
+      https://git.kernel.org/broonie/spi/c/253dfb1839c6
+[4/4] spi: amlogic: spisg: Add support for A9 controller features
+      https://git.kernel.org/broonie/spi/c/b552119acd63
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential division by zero
-kernel panic in sunxi_nand_hw_ecc_ctrl_init() when NAND_ECC_MAXIMIZE_STRENG=
-TH
-is configured on 512-byte NAND pages.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-If a NAND device with a 512-byte page size is configured with the
-nand-ecc-maximize property in the device tree, mtd->writesize will be 512.
-This function forces ecc->size =3D 1024 and calculates:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-nsectors =3D mtd->writesize / ecc->size;
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-This resolves to 0, and a few lines down the code executes:
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-bytes /=3D nsectors;
+Thanks,
+Mark
 
-Would it be safer to gracefully fail (e.g., returning -EINVAL) instead of
-allowing a fatal division by zero during device probe?
-
-[Severity: Critical]
-This is also a pre-existing issue, but I wanted to ask about the free OOB
-layout defined in sunxi_nand_ooblayout_free(), which isn't modified by
-this patch.
-
-For sections greater than 0, the driver does:
-
-oobregion->offset =3D sunxi_get_ecc_offset(sunxi_nand, ecc, section);
-oobregion->length =3D user_data_sz;
-
-This appears to incorrectly overlap with hardware ECC bytes, defining the M=
-TD
-free region exactly over the hardware ECC bytes instead of the user data
-bytes.
-
-Could this lead to unrecoverable data corruption if standard filesystems
-(like JFFS2 or UBIFS) write metadata to the free OOB area, unknowingly
-overwriting the ECC codes?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-submit-sun=
-xi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com?part=3D3
