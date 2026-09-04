@@ -1,201 +1,179 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4587F3D9023
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:14:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509651; cv=pass; b=LCdHeh8+A+0cQFBndekvHLq7A8H5Xiz4kAiSCjzIfSw6LwYq7+sRs6GFazbM2Al9z0hAPhy8p140zKlNTi8Q0AvEKCEbxI//7XcoBCHP70XY8MKW9YgmjB9G9rycoZfm1Twr3s+v2LBFf9SkJ7PaxuJfYPmXYwHoD5Byze9MINw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509651; c=relaxed/simple;
-	bh=cODYgkqioxaFXfwJn7xnB9uWDLxGNrCsLV4W2VTwJEM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FAQsw7w/ZQPThpFjvjyAzoQMU4KzB0Xby7hW2wxkTvy/Jz1YgrwuFpQ9LbpOpKiwqycGuiCqKogFutIIVm4F7xX4I8wpD5oVFetFioBKazbJS8tnTSJHqdj+rtasRJsc1QXhdPeZclrs6UioWeV2pOpvrra3GwZsVQp8akcIDxo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hp/XmOUL; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159633A1A55
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788509800; cv=none; b=pzXWzF7V+bSYGyvP7xAqsQnQKVKhCZSb3MZfIAwAXuFS4ILWnwzFfMjZdDOFE9scSkJlaqJSUNEk6XbETfaLuP3/NqtxQIsswwXcG0Z3W6am8Z9XqYObDHBRkVPpGyd9EtUP1rDPvU+3/ZFxpEc0ggx9lcU4mRShD1JHgfy/z7k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788509800; c=relaxed/simple;
+	bh=Vj8cNY9hLGLIYW344ii8bg9ebs+OjeRiEG4ftZ+zaho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X2iQSfAZkro/WDGqSultzvbUjKOmhywvyV72QxaxJEtsYvWaLVtZmgjz8Slg0IDby7jMLIj1w9/iDrRsfquZne3uAVi1o2SBi4PePujepeXf6GyPvHIcM3HH0xywPC7fdLosH/RPs9RGB87D+oEmlSww35zo5kCzDEfE20uTQp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d9FVNFE/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SXCgvs9b; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hp/XmOUL"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-66f96a9d30eso171488d50.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:14:10 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788509649; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hTBqjfEeHk1Si9WsOtAWoHa+8YWF1maBRqYBoa3h7dM5VFgy2gLP45PywEoM1lJG27
-         /7njP3bcf27rD0qaE5fwnLXeka/XBtm5wM0r6mLnZJlZMJuxZt8QdQwuIGMKqb/MXsje
-         QBkdSkcd3yJ5wQuBwfCip/sPX7U6QFPg7nC1P5y68SbwpsuLna63yrdNgNcUloZqMeBj
-         IwWfTl8P7Y/wTCcw/yC2NjL8wYCHftDcnGgLtkzHAzXgiNYyz2Lz67e/DZ6VJs/8Q+kv
-         By87Zg7b+AFjHgLU1GHvxHr0WMarKywdQ1BwCWFewaj0TgztoHCZu9saAbvFmS+ytOPx
-         2b0w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tBqFv7ZNVkf8/OWug/8l6emlj27SIx7U4VNemvpWjT4=;
-        fh=4hOOl/29ztMzQI57QbDNeRGlSUpZLV5OkwYWNRLwotE=;
-        b=mn9MkG/hfWwAbEPvk7hi8jKUB0XQPM54kjLoQ+HC16DSLkOJNCCrb3/Xc7045RuNOF
-         6SC0xjiZRh/1JZqGIpucMeHvWQUnATtnqW1Qbk9aVJDH45kq1yi5KVp0MiY0/5e0LmZs
-         nP5vhV5/S+zAQ4v5BiLncjZeTU+oQAiYvkGv6e/lBnY9JPO/LJUoXgqTSG7FEyEHsCwv
-         r6QxyaCYP5dgrYd9jndxRmaLGXbeifaSi1u6fWbzVDCqX2CJiDso51Yt/F/VDoybIIzE
-         +H1sjC18GJdr+Ufm3SwILcIkd69VhphN/3kppmWGOCiCvjcEldWqIRvhW2eTHVTNuM9x
-         Lgxw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d9FVNFE/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SXCgvs9b"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6847mr5b2430331
+	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 08:16:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=KECliQdzWf8wnsMTgExACtctd8PBA/vkv6f
+	+iGR52+g=; b=d9FVNFE/jkjc1BXQdQvXeV0PoHSR9KzcOEUA6P19Rrxblx/1wKL
+	Zx4aVo7Ebiwgn0oqOrdW+XGpID6gseWkXfz8U1fefdOXo0vZoMlT1jxSu2+UZT0l
+	OcRZYvW405WoyyZ9tmvUaEzI5MgdPxMCNc+zFCtOrc35T2Oen0qIqhW1oF4k/TqW
+	D9YN0gpK34weh9gm5l2ofIFJudUFAXjMYFSouDkJEcX2v8fxpdSiXNQhsDhlvD4C
+	QwUa7IWB740WX0+xoTkfXUU3qVdYMxkNzGTOedzz+2kfpO3BC0SS8ig7MksvNG8G
+	eSn8SBDYjmpt6GquUJq89dNWDYRcoSPnbiA==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfk921bj2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 08:16:38 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db050d469fso20175865ad.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:16:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788509649; x=1789114449; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tBqFv7ZNVkf8/OWug/8l6emlj27SIx7U4VNemvpWjT4=;
-        b=hp/XmOULl8hos6ueQMCEt77YRd351d0QwD4CL8Yy2gzsVvec+jhdaCNrh4Yca7MN/k
-         YhB7tlNKiaM7GQ3zRXyHKeyjCaxZJ/cA0ZIRA0nm6AuTFPVL1ldlfas1DpOLHB/0kpd0
-         Ob74Fx912i3fzzb/UVa0abPBSIp99phjuhVgY=
+        d=oss.qualcomm.com; s=google; t=1788509797; x=1789114597; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KECliQdzWf8wnsMTgExACtctd8PBA/vkv6f+iGR52+g=;
+        b=SXCgvs9bBeUqjPVoMEqA/pPPl4IdFkXhoW/+BLJVjInWGH176DeteOpa/x4qafOa9m
+         37PmGJ98vQ8wWMHtSxQzYWNqXi9uqMVICStuoByqmfsZW34eUKTtwHL+vKKyRIHokn+u
+         wikMNoxz3AbGVEUZ1Sc07F2tcTZXaGgD9XAvAp/CtETI7ZC9+zh4vRHATKCl71xOjgNs
+         D7HKHxsVV6ULlDgUuJKUBh1+0tTUg+l82ghj3JP7e8A9mVBuWh9brA13ddikLH1achc0
+         UMGjVwHkJMh9HLr0tAaL0sH/KYYW5PeNzH/hvSUiIzUK80upo8/rUtf2K5F9zOsiVdRH
+         i3rw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788509649; x=1789114449;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tBqFv7ZNVkf8/OWug/8l6emlj27SIx7U4VNemvpWjT4=;
-        b=a2EYd9xvEy1msM+hCbJTkhS9skABfisMOqs7e4FtPCioaVqijxMHr9FHuffZuFOBKG
-         7khQXlpraPZQP9rNEP6+eg52mF1+rbsIuXin0Z8C7yDZdYwni4lvV5OH7Nh8y4VIUNdv
-         h+bdDTQarqxMkdgP38yejphnMSyShNQwlywq/GhTi4w0jgLbwwWSCxIpg12JuWSjazP+
-         GcTSvTX707ttLNyWgxRFQfu+vNhi3YlqbMlUMV2gVHaLaejhYHcftAq8d4q9kcu9wd6x
-         55+z/7Fms6aVF28NgDojdl81MkPLFhkZia1iVB9m6NzvZfTIiuwZELRCUISRdZe2GVLL
-         74PQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxd3CO4Wf5n47jh1CBFjJ0ns2LxXnUnLeeL100MiOdhfw57wNzwC5yy/oLbyKwBFH9nwT/8GmYr8qxy@vger.kernel.org
-X-Gm-Message-State: AFuF++mHd/MCXkB/DWwHXc6dPOBpMNoh3P9831F/SXELkOG8xY1hp+2z
-	cXN3cP4L3MVXVOoBeQEoh3HGI09S5trwxY9Vi4SLR98/0T/RF1NWmMCMTFuDBLGScTV2Hwnqy9b
-	0mE42cCku10KkvLi2lVCRjlOiB+rD6GL09n2ewSh5
-X-Gm-Gg: AYBFou0HyYaElA/PPq634BjNwZpq/OEQJavFZkv2JT+RzRWUoTU6Ienbj0PlEIMB2xe
-	KwTKyXXmBd5aGQ8fzA0phgRIMDAxQxOWg8EtfsUr2QVqxHrVv0FRNzSsGHuxkG36iQxYCTJy1tK
-	rHbRgfMY4DstPsZ3D14r4u094xasQ1kNwSPjjcC2GzC+Z7wvYWGSTLK49vaAJrBPJ85zpIbvWnA
-	4K3CXAz6RPzBdn9TzNuEPUTgfWOlT7B5WcQN8w9H1ECBnCVyWfmch0r8ryxFxlAFZhTkwCXC+xj
-	khxapT1uqt3fzCHVP8D7mCfhPOkRf9NRPEq/+KLuJxzd8c0KsjAGLr3xe+9YUP55jO04VKLzSY5
-	zfNBQzihq
-X-Received: by 2002:a05:690e:168d:b0:667:770c:f88e with SMTP id
- 956f58d0204a3-66fb5aeafe7mr1463610d50.45.1788509649151; Fri, 04 Sep 2026
- 01:14:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788509797; x=1789114597;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KECliQdzWf8wnsMTgExACtctd8PBA/vkv6f+iGR52+g=;
+        b=Ak+Ot8JmF/y4AmnnkO5WTZVi0CATkPBYrmnQ9GtIzrprV18sYvb87LWEVvqz0gRjfH
+         YFMdyhq9EbFfxJbWPQO6n9C8QkDu12HJTC5B8e+AdYFwzx7rNFvcHMScy66BTlQBT98J
+         71R3L9bdQSWdbDxwdnWQ8YK7AjYE8pZYdgaIfkYki7qKPTHnpPVvG/j1VixPrlZ9tobq
+         TlYQzEdD5r0GTGPmTH8A4Q9BdE7DiLDwbYmjj/vkHXN1r/kSrxjeNJPumVY2MVP158q5
+         ajZGjLUdCDECQm1XnI4KcjDefdc4Ni64M4EaAovyvHlFG9wjhkg0tuiniri9mKESJ4Uz
+         MSoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZDlLkcWgDFKnMyZOiHccmfzLrbCVZz5IRBK2OX/hm1MlYYRUq/Y9TX+GArq4zHJ5VCVfB5xA/UAkD@vger.kernel.org
+X-Gm-Message-State: AFuF++mvixXI+wolOfpCVIUNKr98bF0vD7hMbt4cm/qi5WIFy9a8WBgh
+	VBjZmgcl7CNa6UTGUbDV4mNr6znbdVa8hZGoM1pRSVbf5s3FNIFif0w2Gutlt4yauSeot1kdGnz
+	aVlpfNrIUBjF1wTGm0nESoTQhfdVxjy9kOlxesFcLaP2/ZwxouQJu563D43s6U0Ft
+X-Gm-Gg: AYBFou3Lj5OFLrplsHO87Ezp1QgfV75GKcm9lWwIJQ3tIj1lT1BRQRO8OJ0ZWx5G3us
+	QGfp/MHPuvu7+JZCOCbic3WGyPN98ykS1i0GidT2vUGmuImGVwHSdZawVvsHKtNMINMbRJySqpw
+	moolYHn4fmk1obGYxy3iBzsY7Av96l/UeF/vhwpKW9mMp3ziVHhryqWXs/XvzKjWNfdum0L1Bin
+	KttHlWZ5yNHRQbAa5ptkPiFnCQVMgXfYdtIqfSsTvW8qVLYSQzFxd2BiEgg2EwUNm5PiPpktIj5
+	0+rWjYPi0weajZS7OGVtl5VIOYN+2bUNRf4EQ/ye8shqrK7N7nEvqfY9ImnOHVrREnd9R9zq52x
+	tC2Usbb+d/x8+XKrm2r3YIsI5nYmOEz/ZCyRMe6oBpW7yFfEk7q5BkEUfe7Qj
+X-Received: by 2002:a17:90b:1d44:b0:38f:cab0:9aa9 with SMTP id 98e67ed59e1d1-39b0803b0efmr12099902a91.13.1788509797479;
+        Fri, 04 Sep 2026 01:16:37 -0700 (PDT)
+X-Received: by 2002:a17:90b:1d44:b0:38f:cab0:9aa9 with SMTP id 98e67ed59e1d1-39b0803b0efmr12099862a91.13.1788509796963;
+        Fri, 04 Sep 2026 01:16:36 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm5466648eec.7.2026.09.04.01.16.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 01:16:36 -0700 (PDT)
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v2 0/6] arm64: dts: qcom: nord: Add remoteproc and PMIC support
+Date: Fri,  4 Sep 2026 16:16:13 +0800
+Message-ID: <20260904081619.593602-1-shengchao.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728091804.382753-1-wenst@chromium.org> <amiqKRkFItYwD6oL@redhat.com>
- <CAGb2v64zUO-azpTuei6LCypad2noGFbg+EmaBC1iidoZ2stQzw@mail.gmail.com>
- <c1048eae-72c5-4e2e-ac49-25e2c4297018@collabora.com> <CAGXv+5EgGYFVt4TJCysQgRqA1J5=Qz9c0oWY5YTxgc5PnNC_AQ@mail.gmail.com>
- <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
-In-Reply-To: <36f2775a-d332-4913-8e9e-ca0429c3f713@collabora.com>
-From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Fri, 4 Sep 2026 16:13:58 +0800
-X-Gm-Features: AcwNN1XC4LXAm1BwVIM4UDg-tlD1lttg9AE64QKW3tHBF46eVGyIPLVMv5NqRcM
-Message-ID: <CAGXv+5FEx=H9r5MGequDpH3i62FAWbXdwkk66eBj8+ziT1fhMA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/5] powervr: MT8173 GPU support
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Brian Masney <bmasney@redhat.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Alessio Belle <alessio.belle@imgtec.com>, 
-	Luigi Santivetti <luigi.santivetti@imgtec.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
-	YoungJoon Lee <getfeus@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA3NSBTYWx0ZWRfX9GLijo9Hy82P
+ +hEQN2p/eUBg2Efg3X97I3KACkhxhxKwFhpOVejSpI3CWDraeMEx70ysMZj8eJ2Efe6CEI0Nrgi
+ cCwo6auvb5YnkwCVE445AYnTPWF5F/Xe1g0SqrpU4DnYjPUM5KYrEdz0kCTwHvIXCAiUACrfCiW
+ 6geaAbgACJMo5CDT+Z0BiilqV6wHjTJtS3OnhXYW+iKdOeAcLuga1xLWGdAIPbLh9znQzvciUJn
+ 8e75ZINrGntFXD4QP0gaTWTGc+iYE8nTNYj95t2Dxq1BEfJd4NE3kqYBAaAYeDV8kweDDqNmXvt
+ Ixs3gnpLKewvxtQsHlPWEvx6vWdlQ0MrM/Gh1t3JD63J3RIPWI4OApT65bUmI4JQNG6ZJ7Vu4d+
+ zVRbVNsk2SnIxwLZvvj8bOwt5o0F8RxGMplW9QfLRnr61e27D+kXFBAKYZBQB7xoC2glywNmdxu
+ IM3PaOAA/leTJHn256Q==
+X-Authority-Analysis: v=2.4 cv=Oc2oyBTY c=1 sm=1 tr=0 ts=6a9a7e66 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=1H_KamcDzeWEUM87CZ8A:9 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: ZocMc-3fclehPZ40h1Qw9jV4Ri2TJvPV
+X-Proofpoint-GUID: ZocMc-3fclehPZ40h1Qw9jV4Ri2TJvPV
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA3NSBTYWx0ZWRfX13sea/mzP/Sp
+ q96j2XqafB8mHI3tKufxyqHIgK3fN9HuNT83xsTNDk9FWM6Z8YJDL3sR463ErcEqyy/8BEVozIh
+ P2ePWWVASTkWGDBIQWqkoTQ05+ribt8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 bulkscore=0 suspectscore=0
+ priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040075
 
-Hi,
+This series adds ADSP and CDSP remoteproc support, the SPMI PMIC arbiter
+and the PMIC descriptions for the Qualcomm Nord platform, and adds the
+initial device tree for the Nord Ride Embedded board.
 
-On Thu, Jul 30, 2026 at 4:23=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> On 7/30/26 06:51, Chen-Yu Tsai wrote:
-> > On Tue, Jul 28, 2026 at 10:33=E2=80=AFPM AngeloGioacchino Del Regno
-> > <angelogioacchino.delregno@collabora.com> wrote:
-> >>
-> >> On 7/28/26 15:13, Chen-Yu Tsai wrote:
-> >>> On Tue, Jul 28, 2026 at 9:10=E2=80=AFPM Brian Masney <bmasney@redhat.=
-com> wrote:
-> >>>>
-> >>>> Hi Chen-Yu,
-> >>>>
-> >>>> On Tue, Jul 28, 2026 at 05:17:58PM +0800, Chen-Yu Tsai wrote:
-> >>>>> Hi everyone,
-> >>>>>
-> >>>>> This is v4 of my MT8173 PowerVR GPU support series.
-> >>>>>
-> >>>>> This time around Mesa was ready for basic testing, using both vulka=
-nmark
-> >>>>> and glmark2-es2-drm (with Zink). Details below.
-> >>>>>
-> >>>>> Changes since v3 (all in the clk driver patch):
-> >>>>> - Changed pm_runtime_put() to pm_runtime_put_sync()
-> >>>>> - Added missing of_node_put() in remove function
-> >>>>>
-> >>>>> Changes since v2 (all in the clk driver patch):
-> >>>>> - Made COMMON_CLK_MT8173_MFGTOP depend on PM
-> >>>>>     - Needed since the driver implements PM domains using the gener=
-ic PM
-> >>>>>       domain library, which also depends on PM
-> >>>>>     - Fixes build breakage (kernel test robot)
-> >>>>> - Fixed "RST_DELAY_CNT" name (Brian)
-> >>>>> - Dropped unused mfg_desc (Brian)
-> >>>>> - Added check of clk_prepare_enable()'s return value in
-> >>>>>     clk_mt8173_mfgtop_power_on() (Brian)
-> >>>>> - Saved error value for return in IS_ERR(data->clk_26m) branch
-> >>>>>     (Dan Carpenter / kernel test robot w/ smatch)
-> >>>>>
-> >>>>> Changes since v1:
-> >>>>> - Adapted to changed DT bindings
-> >>>>> - Dropped driver change
-> >>>>> - Use same power domain for "a" and "b" GPU power domains
-> >>>>>
-> >>>>>
-> >>>>> This series enables the PowerVR GPU found in the MT8173 SoC, found =
-in
-> >>>>> some Chromebooks.
-> >>>>
-> >>>> I'm making a pull for Stephen for the clk changes. Should patches 1,=
-2,4
-> >>>> go through the clk tree? Patches 3,5 go through the DRM tree?
-> >>>
-> >>> Only patches 1 and 2 should go through the clock tree.
-> >>>
-> >>> Patch 3, 4, 5 can all go through the soc tree if Angelo wants to pick=
- up
-> >>> DT binding patches. Otherwise I can push patch 3 through drm-misc.
-> >>>
-> >>
-> >> Not sure if I can really take the DRM bindings patch through soc.
-> >>
-> >> I will take the devicetree ones exactly right now, even though it's go=
-ing to
-> >> give warnings.
-> >
-> > Apologies for missing this, but the first DT patch depends on the clk D=
-T
-> > bindings patch for the clk ID macros. This is causing build errors in
-> > linux-next right now.
-> >
-> > Not sure how we can fix this right now.
-> >
-> > Brian, would it be possible for you to split out that patch into a
-> > separate immutable branch for Angelo to merge?
-> >
-> > Otherwise Angelo might need to drop the DT patches until the next cycle=
-.
-> >
-> >
-> Yeah, that's so bad.
-> I'd be happy to be able to resolve this, but it's too late on my side.
->
-> I should've checked the DT patches more carefully, my bad: I got a bit to=
-o excited
-> to finally see this PowerVR stuff working on MT8173 and going upstream.
->
-> Sadly, I have to drop the devicetree patches :-(
+Tested on next-20260903
 
-This is a reminder to re-apply the device tree patches from this series.
+Dependencies:
+- NMXC define: commit e484a765f543 ("dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index")
+  from git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/linux-pm.git dt
+- Base DTS: https://lore.kernel.org/all/20260903140617.441111-1-shengchao.guo@oss.qualcomm.com/
+- PMAU0102 MFD: https://lore.kernel.org/all/20260830034719.140213-1-shengchao.guo@oss.qualcomm.com/
+- PMAU0102 thermal: https://lore.kernel.org/all/20260830101025.191697-1-shengchao.guo@oss.qualcomm.com/
+- PMM8654AU RTC: https://lore.kernel.org/all/20260904074541.590485-1-shengchao.guo@oss.qualcomm.com/
 
+Changes for v2:
+- Align PMIC comments in nord-ride-embedded.dts with nord-rrd.dts
+- Drop unneeded regulator-always-on and regulator-boot-on from RPMh
+  regulators
+- Drop SMPS regulators as the resources are already managed by rpmhpd
+- Use pmm8654au compatible with fallback on pmk8350 for pon, pwrkey,
+  resin and rtc
+- Link to v1: https://lore.kernel.org/all/20260831032103.341633-1-shengchao.guo@oss.qualcomm.com/
 
-ChenYu
+Bartosz Golaszewski (3):
+  arm64: dts: qcom: nord: Add the SPMI PMIC arbiter
+  dt-bindings: arm: qcom: Document Nord Ride Embedded board
+  arm64: dts: qcom: Add initial support for Nord Ride Embedded board
+
+Dhruvin Rajpura (1):
+  arm64: dts: qcom: nord: Add PMAU0102 and PMM8650AU PMIC support
+
+Shawn Guo (2):
+  arm64: dts: qcom: nord: Add support for ADSP and CDSPs
+  arm64: dts: qcom: nord-rrd: Enable ADSP and CDSPs
+
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ arch/arm64/boot/dts/qcom/nord-embedded.dtsi   |  63 ++
+ arch/arm64/boot/dts/qcom/nord-ipcc.h          | 144 +++
+ .../boot/dts/qcom/nord-ride-embedded.dts      | 442 +++++++++
+ arch/arm64/boot/dts/qcom/nord-rrd.dts         |  37 +
+ arch/arm64/boot/dts/qcom/nord.dtsi            | 906 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/pmau0102-nord.dtsi   | 543 +++++++++++
+ arch/arm64/boot/dts/qcom/pmm8650au-nord.dtsi  |  54 ++
+ 9 files changed, 2191 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-ipcc.h
+ create mode 100644 arch/arm64/boot/dts/qcom/nord-ride-embedded.dts
+ create mode 100644 arch/arm64/boot/dts/qcom/pmau0102-nord.dtsi
+ create mode 100644 arch/arm64/boot/dts/qcom/pmm8650au-nord.dtsi
+
+-- 
+2.43.0
+
