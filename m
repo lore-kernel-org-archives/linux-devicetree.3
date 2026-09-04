@@ -1,142 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from relay7-d.mail.gandi.net (relay7-d.mail.gandi.net [217.70.183.200])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96CB486BA9
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 12:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6B401FC0EA;
+	Fri,  4 Sep 2026 12:36:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788525040; cv=none; b=V/Y55fA3Xd17zvYdO7gE3B6425ENDg/2xh9JhxJrhTub3pr4stBxLhUJZetFokubOndVAIcXsauImEp5RN9ylFq8pztYOqZ2u+GndWPniTYTDlFM9fbOgOXHiCzNJU8HAIh6WySmMXV2sqGULoC2Dackk05MWxhlTfV3yYxo8Rw=
+	t=1788525384; cv=none; b=XxZMJ1WVb8Ap5/w9MROQFM9zQb8Zmialo3GVSkKgOEDwW7xz/BaSArNzmMooH/PXbGcYubCXgeQnmoSalqR01K48I9OMwY9CoqaAI1RVQzJzWuWN70PGGtkP8WCGSJb26CiNLR06nCuAHSSQoKSDDbAXX3Nb/tvQFaWAfAz3lBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788525040; c=relaxed/simple;
-	bh=tIRQgyR7OY/Rx4lFJ5wmlxCqK7zA/XipJOmqFTm+HwY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fxJT8oiQwk3e67SSKlEwE972jo6WBknFQRgZZbBCiRcVV2K09ygckNLHG5xurDU+5bEzQMaPXXYA3234gmp83Dr8A/hjW/bvTnf72l7inqyFG2sJ34WVXKcl/L1OubAMLoLr3nZea1z2SnHbuqaq9iBZzyF3DJcCmKT4SDOSyEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/jD3ryb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788525384; c=relaxed/simple;
+	bh=ou540b36wgxIFFDshUYa45c0uA1r7r5PaqF8iDjBaEQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YBf9b+ubIEqyaFWcvK7yN8CxqF+bZ51sT9BcWOyaufVxp9/WCALoPycJ63yCMWrkhoMQ2nAGNJS/vyDIZEQm9LKadToAyYMAOFqayda/00CRVDF8WJ5WKnW/2tgTg/8KzG2iqQdy2vbjh7+HdPDXr4Oy6UU5Yi0FhojEa9jWAE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=TNLIOOHt; arc=none smtp.client-ip=217.70.183.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/jD3ryb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00BAC1F00A3D;
-	Fri,  4 Sep 2026 12:30:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788525039;
-	bh=0KLpUt6RBSt6HA1K32+nlER+g0eEEjUJpF5Z7xGqzWw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k/jD3rybtoOvZYhiJOw37mZ56J39YK90LBwaTlc6xkQSk4yaDo9FPO+Hq/bTKF6Zx
-	 5LmVpL50bvPLP0rT2VBc8ijNf+cxqglsiRNk8QBfTd/5QkAjJprEqeVhRcLXYmZGl/
-	 ybADYniR4ac7U4EDiI+yf9UPon5jgS6itE6MuzCw71D6nijswr5PzDzPsOe2zDIdGD
-	 gfduBWk2yfLV170JUFcO7+pkVR5FnUcehHAoICP/mzpephf/ust3qN8Tq+qpM49vkh
-	 eb2Ufh285HgY9Y586RsdXD+F60LEYwpGm/df2wig+0yKewrbep5SYSVKvU5nmrYtEj
-	 uof2iex1VdKRw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260904-msm8952-pinctrl-v3-2-110515fff513@mainlining.org>
-References: <20260904-msm8952-pinctrl-v3-0-110515fff513@mainlining.org>
- <20260904-msm8952-pinctrl-v3-2-110515fff513@mainlining.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 12:30:38 +0000
-Message-Id: <20260904123039.00BAC1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="TNLIOOHt"
+Received: by mail.gandi.net (Postfix) with ESMTPSA id 067693E95D;
+	Fri,  4 Sep 2026 12:36:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
+	s=gm1; t=1788525374;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=K1EjrFVu4O9teuB6km71Nkaxnc0sngk2FX4oBosuhN4=;
+	b=TNLIOOHt5gM9ZmCwCPS9QoNYo8GMZ+NFQwxa+aMOy+3gCeHb6jy9uAusKONsIg6G1r787Z
+	c4nIg8UdvaemCHYn9d2upda1RAe82m13yKHjE2IwYvXT5ycGYHlN1z67FpChBnhmyvTKrO
+	5VbFfP5XHSwR3ohhmaQsE9zdIyoRzR8cEMfQn4n7l2BPXXuyanU53LhX0uxjv8gRV3ZR7C
+	jag47iWhSQF16hM+EOYleA91V84VepTo5+/rhjooRqJg/kq4ZaIVyXlG5ewU0rdOhAKmBN
+	9jY5DqWSlveABQx/qgzvPDNRXjlOaVyp17TIGjkgE6hnMy5DS7GlV2gGpSwLwQ==
+From: Arthur Crepin Leblond <arthur@marmottus.net>
+Subject: [PATCH net-next v7 0/3] w5100: restore GPIO-based link detection
+Date: Fri, 04 Sep 2026 14:35:57 +0200
+Message-Id: <20260904-wiznet-link-gpio-v7-0-69f01b70c96f@marmottus.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAC27mmoC/4XPTW7DIBAF4KtErEvF7xhn1XtUWWAYEtrGjgxx0
+ ka+e7G7sSqqLke8+R7zIAnHiInsdw8y4hRTHPoyNE874k62PyKNvsxEMAHMMEVv8avHTD9i/06
+ PlzjQpoUgwXmuQkvK2mXEEO8r+UqWaI/3TA4/L+navaHLi7hkTzHlYfxc2ye+bvxdNHHKaQcCg
+ lehca57OdvxPOR8Tc8luVZM4j9EUEZlxz1zpmFB6hoitwhUEFkQLYVXlitpWBVRG4TzCqIKorw
+ OjbfGaGtqiN4isoLoglhXToUglOKyhsAGkbWfwIJ0iOC0awHwNzLP8zerI6DRKQIAAA==
+X-Change-ID: 20260804-wiznet-link-gpio-796f36cd14f9
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Arthur Crepin Leblond <arthur@marmottus.net>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-GND-Sasl: arthur@marmottus.net
+X-GND-Score: -100
+X-GND-Cause: dmFkZTE8MBYIzNAxnKVvFgMYG2KBNhoWuvYqKJThqd6hsZY6WnnuLzIjxGcmr5ZvQOh48Nod6E27xEKBpH7J00WVujmZwxs+M444dcG1CDAUvaIfcBitSA/P1aJ/f4kPnoxMH54iektaoErTOyxEAqEquj+IBsjJnbnPZTX1fapSxkPZTVRvflDiZm5gEcWGAuG8ZRHh+JXGrBbojgHAsUC4g10DbjrClqdzarloWIZp6ZXQFpOWxKYbge9MLTiJ3TVUgavAdcUQ0eoHlgVHlhPwVRl7+TXzcomFrC34vo5ELnv7lPZ6qwJg/wdqeWwoeElaLe5RyUZPrLpuAoKUl0UjWDcbtHcHG87YAOuXYFuA86REamu3/qUdRDmN/Row5XvYYJCiG6o0DFA62LZyOwVr0WbXFex0N4B4mCZEeMmu72NPewmQ0EpFq+IXsRaPybsjVJy0DxHYB+n0CLOiFtv1s3yhxtzSZO2mgKAxCcOPPaYSBahwKiDwqGBkqS88F7y4SWJgI3EfXU6r8D7OenewvvocLFN/SsU3SvVPihlmRjTOu9Pj2CrZkvh3j8XNfjbxEYFwex44CuIAR3GsUtPrxQyEtkVBy3mAIPbp9EatvAvoEIYRzQTEATTZwJrP1/IxkzBLYwksmKGN5vygCqTgbIFc7ludrEH3dLpo2+CfjxpA7w
+X-GND-State: clean
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi,
 
-New issues:
-- [Medium] The `_groups` arrays for `qdss_tracedata_b` and `atest_combodac_=
-to_gpio_native` list several GPIO pins that do not actually include these f=
-unctions in their corresponding `PINGROUP` macro definitions.
+In the previous version of the w5100 driver, the LINKLED pin could be
+wired to a GPIO to detect the link status changes via an interrupt.
+This only works on w5500 as it is the only one documenting its LINKLED
+pin to hold the link status (on w5100 the LINKLED pin is changing with
+RX/TX activity).
 
-Pre-existing issues:
-- [High] Use-After-Free on pin function memory during driver unbind due to =
-devres LIFO ordering.
---
+This series of patches is bringing back the link status detection on
+w5500 using the Link Status bit of the PHY Configuration Register.
+Additionally, the LINKLED pin can also be wired to detect link status
+changes and read the register in the interrupt handler.
 
-commit e99bbcf6f4490c02c597eff9b2155619cf4f3564
-Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Arthur Crepin Leblond
 
-pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+Signed-off-by: Arthur Crepin Leblond <arthur@marmottus.net>
+---
+- Link to v6: https://patch.msgid.link/20260831-wiznet-link-gpio-v6-0-abee6c5c966e@marmottus.net
+- Link to v5: https://patch.msgid.link/20260813-wiznet-link-gpio-v5-0-ac8046f24413@marmottus.net
+- Link to v4: https://patch.msgid.link/20260811-wiznet-link-gpio-v4-0-4d5f7da885a8@marmottus.net
+- Link to v3: https://patch.msgid.link/20260806-wiznet-link-gpio-v3-0-532d4a143805@marmottus.net
+- Link to v2: https://patch.msgid.link/20260804-wiznet-link-gpio-v2-0-3b1d0c870f35@marmottus.net
+- Link to v1: https://patch.msgid.link/20260804-wiznet-link-gpio-v1-1-b626fd4f7ccb@marmottus.net
+---
+Arthur Crepin Leblond (3):
+      dt-bindings: net: wiznet,w5100: convert to DT schema
+      dt-bindings: net: wiznet,w5100: add link status interrupt
+      w5100: detect carrier state using link status bit and optional interrupt
 
-This commit adds the pinctrl, pinmux, pinconf, and gpiolib driver for the
-Qualcomm TLMM block found on the MSM8952 platform. It defines the available
-pins, their functions, and the pingroups for the SoC.
+ .../devicetree/bindings/net/wiznet,w5100.yaml      |  71 ++++++++++++
+ .../devicetree/bindings/net/wiznet,w5x00.txt       |  50 ---------
+ drivers/net/ethernet/wiznet/w5100.c                | 123 +++++++++++++++++++--
+ 3 files changed, 183 insertions(+), 61 deletions(-)
 
-> diff --git a/drivers/pinctrl/qcom/pinctrl-msm8952.c b/drivers/pinctrl/qco=
-m/pinctrl-msm8952.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/pinctrl/qcom/pinctrl-msm8952.c
-[ ... ]
-> +static const char *const qdss_tracedata_b_groups[] =3D {
-> +	"gpio8",  "gpio9",  "gpio12", "gpio13", "gpio23", "gpio42",
-> +	"gpio43", "gpio44", "gpio45", "gpio46", "gpio47", "gpio66",
-> +	"gpio86", "gpio87", "gpio88", "gpio92",
-> +};
-[ ... ]
-> +static const char *const atest_combodac_to_gpio_native_groups[] =3D {
-> +	"gpio4",  "gpio12", "gpio13", "gpio20", "gpio21", "gpio28",  "gpio29",
-> +	"gpio30", "gpio39", "gpio40", "gpio41", "gpio42", "gpio43",  "gpio44",
-> +	"gpio45", "gpio46", "gpio47", "gpio48", "gpio67", "gpio115",
-> +};
-[ ... ]
-> +static const struct msm_pingroup msm8952_groups[] =3D {
-[ ... ]
-> +	PINGROUP(8, blsp_spi3, blsp_uart3, sec_mi2s, pbs0, NA, NA, NA, NA, NA,
-> +		 NA, NA, NA),
-
-[Severity: Medium]
-Will attempting to mux qdss_tracedata_b or atest_combodac_to_gpio_native on
-some of these advertised pins fail at runtime?
-
-The qdss_tracedata_b_groups array claims that qdss_tracedata_b can be
-muxed on gpio8, gpio9, gpio12, and gpio13. Similarly,
-atest_combodac_to_gpio_native_groups claims gpio12, gpio13, etc., support
-it. However, looking at the hardware group definitions in msm8952_groups
-(such as for gpio8), these functions appear to be missing.
-
-If a device tree configuration requests these mux mappings, will it cause
-msm_pinmux_set_mux to return -EINVAL because the requested function isn't
-actually in the pin's function list?
-
-[ ... ]
-> +static int msm8952_pinctrl_probe(struct platform_device *pdev)
-> +{
-> +	return msm_pinctrl_probe(pdev, &msm8952_pinctrl);
-> +}
-
-[Severity: High]
-This is a pre-existing issue, but does calling msm_pinctrl_probe expose a
-use-after-free regression during driver unbind?
-
-Looking at msm_pinctrl_probe in drivers/pinctrl/qcom/pinctrl-msm.c:
-
-msm_pinctrl_probe() {
-    ...
-    ret =3D devm_pinctrl_register_and_init(&pdev->dev, &pctrl->desc,
-                                         pctrl, &pctrl->pctrl);
-    ...
-    for (i =3D 0; i < soc_data->nfunctions; i++) {
-        func =3D &soc_data->functions[i];
-        ret =3D pinmux_generic_add_pinfunction(pctrl->pctrl, func, NULL);
-    ...
-}
-
-Because devm_kzalloc is used inside pinmux_generic_add_pinfunction, and
-it is called after the pinctrl device is registered with devm, the devres L=
-IFO
-ordering means this memory will be freed before the pinctrl unregister acti=
-on
-runs.
-
-If the device is unbound, and a user concurrently reads the debugfs
-pinmux-functions file, could pinmux_generic_get_function_name dereference
-the freed memory while the radix tree still holds pointers to it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-msm8952-pi=
-nctrl-v3-0-110515fff513@mainlining.org?part=3D2
