@@ -1,217 +1,111 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAEF4A2041
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DA94A6CE6
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:58:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519428; cv=none; b=ixTtoOnufpfN2rVwz2BP4N18TRt2i7p/E2orR+tSDIStMUamVKlYGMnLup29eJqvkDrhLdifprcZ3NiiPzCQvOvN3t6NBAIs7R60wiUl5IIqSYBxipTEzrRSe9L117hYFDAnDLKCqf3sIyfWL03VfnaUG/rZG/4OpnKkW2BK8xw=
+	t=1788519508; cv=none; b=jkgnyNYywHXNYKP+KOWLBJIM29yH+/RAYMhpCpMPzzS+B0v0miXWokYBiBj6WqQFvedXOhdyKyMLyNX8z7YzJq7CPkSuHNGxRBnEy5kSczs5VJpQgywdShj8UX3gi0+/3dySUBIw6x+CcOw+n0gxXk+q++MlzcTQUyyaOyOTTuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519428; c=relaxed/simple;
-	bh=bZrLMcImBykx3oRRK3HVVood6l6S2lGXu7LQOJWI3H4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HvMHN1aByHsc5QrpzC5qE+OTXq7Jjo4w7VGE2HaD5s0lrVCGgAJ/b8kHHo3tu9hHwAjQsPHJf6C44AZDEZ2XNy3TBqa5KMwoF34QjB6BpmSbXrGQda6PCohYd0K1gOHMTK0fsvUwVIQriTYSnuM//cbqn8gIcf1mCAUixDzPdhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QQX16WaB; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788519508; c=relaxed/simple;
+	bh=3yyrXQXJ8FPOZIhqUXkQlOgIyUCpSfsvANZfcVbnvrM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eW9kJqzDteBWOe527TLyIWjI74FuXL+4cxS3+tEKr2BUONh/8cTJ/jGEyGg4MA1NXCjheY5m7CbjUBLkshMcrS3nX0BBF09wF5tHbZG4EuibpzDFDyJMEguj9HnVhklPaNBl1zUWNu40wtB7LeFV49ruHNYVrCI/taj1SwCZw34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K+c2T8v7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QQX16WaB"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso8430875e9.3
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 03:57:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788519422; x=1789124222; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9q3cb1HRmrEaFH2Sno52PzoSLUWQfgcsQ5S1xcRpY88=;
-        b=QQX16WaBqriZdh16HOIdkxn0IFyirjh/3tPEGTyJu11h0c0gcUnFe5sWw1QCZ/xIUn
-         12E9JJjJeU5bnWxOTrL83USINWZkXM1Dpifx3GGPUX0ERV5kZpf6K74IpMG3mtye6hIg
-         MYMZJSj7vZ8g5zr+nr80xHuCOCXVM1nrXkp+e5y23JWSUtQt5gTDpqbFdX86A8HG6NTH
-         TeffFfUjjcqO1+mG7mQ1c79CJArwO8/PE4ayQs/jm0eYObPti9q+T7TYvudd50YahjO+
-         tdVA9LT9edX247AXQo088TrPfIp3w07avx/yQDNxOYt76ar0fsefshGsptIzJhuWmmnG
-         trcw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519422; x=1789124222;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9q3cb1HRmrEaFH2Sno52PzoSLUWQfgcsQ5S1xcRpY88=;
-        b=KZ+F9j6Dq1I4HBoSog355Q94cduYOwPtJOc4RbTouu2a32WyGTCUVvTHotzmLjUZ5X
-         /d5YEPPfukk6Py2B8L9EFdXt+RxT2EkCr4Gg4eqmy/H/AK5FOUQE+1DRribV4e8KecdV
-         g3YmAkN2Evt3h4P4FF5tssYH2jelvTTzN1K0NzbBEbdVYPc/SUL+68FIT6hPr0bpmM4g
-         LPO403hsfrGUtfkcDQinKIr4trUxpCMerRFz7BuGiswg5bSTUbCwlvrX76rUneJIRvsK
-         CTQtQ8cA7tM7/I2v8ugJP5ERp9hrJJGTmXt1CWuDHHaghbulaugVlNEALKnpmSUAL38E
-         /e7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzYwIjcfbSUhM9tMqht/wz4ABy9SBnmNBhhFMJKJiDwzN3UV//8J9wnB1BboDEyuuoTWAKihZ5+g6Yx@vger.kernel.org
-X-Gm-Message-State: AFuF++mHQ5zZjjgR8woR7kyGzwIiMAsuKZaf+s1utoeWTcqgQl3l4JL+
-	7zoGKR0G6/cbXPC+N1kPJxdov9raPlkmccguxHPk79/jLiiA+kvRKeFs4zzfnPaXblY=
-X-Gm-Gg: AYBFou2tlz9YZdjtJMvE7AJYYYGgU64YpRoRlGO22GzEJoAYY7swT01A7somZa5pLR+
-	LMKHyS6kKpa9O+63pe4tPtUdoIJbC5XP87m7OwV2SPXX4CR95oM3LNhCvqnUQMrRyAxUyX8yavM
-	Gno0HRMVCNrYHrXXbPUV6/HhnoqN1jyeMKCQylvSNx3TsEeUTZX7W0RGPMxlcRkjq/HGPy9pvmU
-	RmZhiiGqKQpQMnQvhi8KKtc0JoQTwWtJhYbqsl2MAgupUpK1Nt9NqF+Al1pfzuSEH4r3rBg2jg4
-	FNiM65yPwl34kzYhqfN7RRWzJnu0Bt1xkvgdMfErg9ksgG9/mW2Ib8/tBlq8IDMysK8zM+xQ+zB
-	xe7buiXOuvRp5xKLo2VL0rrnBB02rPLYlchiSrD2OS2UrZYCLomudrqTTWF+p7VBcD0xK6JIo+U
-	Rik9unHWP2PWDFRw6Gs8rXtOj86lONkdW6iGeNpLrOcIeJ7lhbCLhVznXyzjgjL2C2fXJS2SJ7
-X-Received: by 2002:a05:600c:8b09:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49cf823f57fmr88570735e9.10.1788519421540;
-        Fri, 04 Sep 2026 03:57:01 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.237.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm132110525e9.0.2026.09.04.03.56.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:57:01 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Fri, 04 Sep 2026 11:56:45 +0100
-Subject: [PATCH v5 13/13] arm64: dts: qcom: x1e80100-dell-inspiron14-7441:
- Switch on CAMSS RGB sensor
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K+c2T8v7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 363D81F00A3D;
+	Fri,  4 Sep 2026 10:58:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788519502;
+	bh=mwF1YXqITB+00HAdHQSKBe2UKj9XlbYRX+dTjIFeBdU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K+c2T8v7IPD/AUoR6j6tqfLFEcXOqPCWdNitKwAtZUnsz3hJW/sWJ33xOLnvaLLBM
+	 Tjq5Q8msjgVpl5Za/9C2OuTQxoCvOCIaOlDjdMkGZUFUMMwRd53QOyX7vS2OoAScsF
+	 rwHrQai5vAtozUtl9TArLotLB02R8EenfnrLd1iIwcQhzhe3WnMG0LgoPaUur5yeqk
+	 NWFu5sSDRgDr73oPKjv4WbV0AqaqEN20HmH4VBLQUmDLjMTATghhKaGpSs16A0BKLr
+	 r/Qobqw3GzxHeEWtKDeKVX8PDilEqBkLNKTCR4/pColJDgXCLzgsVied7s1Xe21nfW
+	 1pu1JO8OxwwZw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/6] ASoC: qcom: sc8280xp: Add per-DAI board
+ configuration
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongyang Zhao" <hongyang.zhao@thundersoft.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260904-rubikpi-next-20260605-v3-4-f49146d85af3@thundersoft.com>
+References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
+ <20260904-rubikpi-next-20260605-v3-4-f49146d85af3@thundersoft.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 10:58:21 +0000
+Message-Id: <20260904105822.363D81F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-x1e-camss-csi2-phy-dtsi-v5-13-dc81d85b599d@linaro.org>
-References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
-In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2454;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=bZrLMcImBykx3oRRK3HVVood6l6S2lGXu7LQOJWI3H4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmqPplgz/ddFP9fKrMGKohvRQDmaTVdX2mg+Bf
- g3Hivg2Xs2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqj6QAKCRAicTuzoY3I
- OobQD/4666ZAH+ofmP2fKuH8xGv8qMu/HlOUaedLayTC8HzTkGVwrQ2nk9Xfz2DF/aQueH9Ry4+
- WBf270VS1yqP33BHAj9nd2/7JUXkwJxaNzGmxfnYgkLgojapETtpHcz5t9Eq7fKs/ZIfQTVmWbW
- gkPGaT9aSqQjyuTWZ7vzDvYG0lHtEaLjEYk47jxiR0AjnOajZnG0Ijm1zGLo/M4ysJ2hyAofkqE
- kZiRqOZd4887vucVlPpKlvJ4RztocTf3/k3rW28ecnyZgv6izXM6QDSaQiV8dZPsfIal+fV0tnr
- LgLPiT7508sz6s41G0DBpcgt9N/41eT6DGZ/t7WACT/R3E1n6XIwF7YPd3ogKp/xqeRrZIJ2vf8
- vZWPgctU3KAlf8Hj8U7JYoBAO41eChNnMrgGHdkJtQYekxTxKDKliqYGIwaoWcC06mRYjiNTPee
- /EPN0CqO+tdokiFNKWP3b/c1R4d2felcCwcJgxhpvvGNSwgVJye3brHv0PWiaXztimxrz6in9gZ
- WbxP1xRfIQ1po1XYTOrHyW1S5e/0oR5VUD0/ST5Il5W425MKYJA5hTzf78r/MueztXfZQL0mkSO
- TE30qyp0ra8hsvq7JNrsMRyx8FdgGtE7f6YPehqZhT9PD1S9OYUFwHEDX3nNt9yLB8jxwSKbqJQ
- d/PDTYQj2eqJKaQ==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Inspiron14 has a ov02e10 sensor on CSIPHY4. Enable the list of dependencies
-now.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi | 82 +++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+Pre-existing issues:
+- [High] Missing reset of `data->jack_setup` in `sc8280xp_snd_exit` for WCD=
+ jack configurations leads to a Use-After-Free during deferred probing or c=
+omponent unbind/bind cycles.
+--
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
-index db291730130c7..e92414533d48f 100644
---- a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
-@@ -10,6 +10,7 @@
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "hamoa-pmics.dtsi"
-@@ -792,6 +793,87 @@ vreg_l3j_0p8: ldo3 {
- 	};
- };
- 
-+&camss {
-+	status = "okay";
-+
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			camss_csiphy4_inep: endpoint {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&csiphy4_out_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@10 {
-+		compatible = "ovti,ov02e10";
-+		reg = <0x10>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam_rgb_default>;
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <0>; /* front facing */
-+
-+		avdd-supply = <&vreg_l7b_2p8>;
-+		dvdd-supply = <&vreg_l7b_2p8>;
-+		dovdd-supply = <&vreg_cam_1p8>;
-+
-+		port {
-+			ov02e10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <360000000>;
-+				remote-endpoint = <&csiphy4_in_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p9-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			csiphy4_in_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&ov02e10_ep>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			csiphy4_out_ep: endpoint {
-+				remote-endpoint = <&camss_csiphy4_inep>;
-+			};
-+		};
-+	};
-+};
-+
- &i2c0 {
- 	clock-frequency = <400000>;
- 
+commit 3a7610af2c37c8b0b947c4604289cd1535efab41
+Author: Hongyang Zhao <hongyang.zhao@thundersoft.com>
 
--- 
-2.55.0
+ASoC: qcom: sc8280xp: Add per-DAI board configuration
 
+This commit introduces an optional per-DAI configuration table indexed
+by CPU DAI ID for the SC8280XP sound card. This allows overriding
+card-wide settings for MCLK, BCLK, sysclk, and jack setup on a per-DAI
+basis.
+
+> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+> index 4d48e1012cd4b..368a54c2cdf8d 100644
+> --- a/sound/soc/qcom/sc8280xp.c
+> +++ b/sound/soc/qcom/sc8280xp.c
+[ ... ]
+> @@ -368,6 +443,19 @@ static int sc8280xp_snd_hw_free(struct snd_pcm_subst=
+ream *substream)
+>  	return qcom_snd_sdw_hw_free(substream, &data->stream_prepared[cpu_dai->=
+id]);
+>  }
+> =20
+> +static void sc8280xp_snd_exit(struct snd_soc_pcm_runtime *rtd)
+> +{
+> +	struct sc8280xp_snd_data *data =3D snd_soc_card_get_drvdata(rtd->card);
+> +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
+> +	const struct sc8280xp_dai_data *dai_data;
+> +
+> +	dai_data =3D sc8280xp_get_dai_data(data->priv, cpu_dai->id);
+> +	if (dai_data && dai_data->jack_setup =3D=3D SC8280XP_JACK_SETUP_CODEC) {
+> +		qcom_snd_headset_jack_cleanup(rtd);
+> +		data->jack_setup =3D false;
+> +	}
+> +}
+
+[Severity: High]
+This is a pre-existing issue, but since this new exit callback cleans up=20
+the codec jack state, should it also reset the WCD jack state?
+
+When an ASoC component is unbound, the ASoC core unregisters the sound
+card and frees the ALSA snd_card, which automatically frees the underlying
+snd_jack object. However, the machine driver's sc8280xp_snd_data outlives
+the card unbind because it is tied to the platform device.
+
+Because data->jack_setup is not reset to false for WCD configurations
+here, when the component is rebound, sc8280xp_snd_init() sees the stale
+true value. This skips creating a new jack and passes the dangling
+jack->jack pointer to the codec via snd_soc_component_set_jack(). A
+subsequent jack event from the codec could then dereference this freed
+pointer.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-rubikpi-ne=
+xt-20260605-v3-0-f49146d85af3@thundersoft.com?part=3D4
