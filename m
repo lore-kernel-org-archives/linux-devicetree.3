@@ -1,150 +1,309 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011049.outbound.protection.outlook.com [40.107.74.49])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B432356773;
-	Fri,  4 Sep 2026 02:24:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788488672; cv=fail; b=cSnshmmBxLRkU9fnhzb5nBHLIK7lHPnZfyyAUY+ToJ4TjXgl6V9zcqXYZR1vRTlzPYicQe2B50CNzP3O7bed8b8kW+12IsMFkhZV2pUGTTlm/BSjYqbYEKbU8U9vpDZXNQ9xCYOQObFHZwe0Jq/v3nCvQCxof1nlKdnHYbDN/5o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788488672; c=relaxed/simple;
-	bh=OgS/BDOJHdEk2PSC2htXltlByb+2kFZltXvnpWKipgo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=i1tSmgtygcRUox28P64Oaz+Vy6xIVccK/k9uklf4QQ4IfKOjGgYJynCgUzg1aggRwES0rdtAHwgSZSc5qVeQ6oZTkv53E0hh7d7AUQFtr7TV65GTg4JR5L815CHkJDv4xG+e6HYXztx7vTjm1IR/58la8e9S8VfKsEtMYdfwNmA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Z4xrnyW1; arc=fail smtp.client-ip=40.107.74.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3DB3A5E7D
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 02:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788489762; cv=none; b=jsPjJM9PHcejT9hQCjAAxWlnqmcBMX0UX28meCDZM85kwcfGzbf6VhKnBhBk/6GY6GirTsvrcx0w9x22U8Ex3UGjNPusR0nMS8bhzs05UJmIYcpIrUiDwcqqFjzuGGkv+TpcS8hwvyNTlmeszi+c5Ie2ZeJtSmtccw5WhzUfCFA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788489762; c=relaxed/simple;
+	bh=rxG5qb25UYzVQNxYfuPHH3FGVqj4kKxY8R0d1etCtpQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hLezgnk+Iyiav+1AgkraOzH714Be9/oH9AA1rnC1sHqm2+M4DS+0Cdlt7+oBsh0ZJ+g/qqNgrtUJemXgAXkpeRy28Uw2gYoPwq31ZkWCWuvEWagPmDBrtO26mYgy3OhD855sANRnYgiRMNAI5Y5QFUMv4WCK8nWqYcQkXvqF6RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Eo74QmJ5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LJGUq3lJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Z4xrnyW1"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Vb4civalJPhLP50+0i8z4L0Fcz+i9Sa4kYAqxFDFhNKIp0H4Y68kPJHFN/xaR0DzhoWf6ozKXZsoyPbFtPFqEj/jpfb7WG1Ko1db9EH02RFpkifE8FXNatMW7JEgHyI+HOzQ8dV3Vavqco/3e37PX4bV+mJocU90Tv0MNqpg9oznfMhyPKhJfc0MZJn9wl/hgzPFHRe86B0ZM25+vWpRh3Cf+R1nqdDEmsL7CXNwsDtZoqfWBheR28i5sC0lrIY0vvBNYeHHOKR/DFqSiOIJ4FeCb0SZyMYqSEXNQ7yAMTiW4rRCLSIbEHz6nJE5X4/yYf1T4u6bgA7SQ2Pss1tfrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OgS/BDOJHdEk2PSC2htXltlByb+2kFZltXvnpWKipgo=;
- b=sq7EpNNI90pfcseYvU2ny3cgE6bQBDyJfG3S6x7BQdFU8fTOXwkRxkLVeeE5/vPAanMf7OCEsYX/erSDcMswSOFWVOTxpBEISffApfzzyhn+xOiarpBPn279CgGzOy8aGNa4HrLM05C3FARravBuDrWxMXAX9hkrdpPRcLFmNXbz1TH+H3hr36LPzHfkwSa9LJCxvaFHik9CEGzNEWUK2plt6Hsty2yJALTCXLyzFfis6Qd3Z7KLnmfu6UBCzxvDso9nMXLMbpP5URq9vhdBa3d1hrSA6yGzxKNq13ivectJsSLKbuQJ1E5gm5ITJbRvapSwiDQtHpAbkua5zXGnsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OgS/BDOJHdEk2PSC2htXltlByb+2kFZltXvnpWKipgo=;
- b=Z4xrnyW1lFeC4d4iqk+it97TZNdj+e8irusmF64rimjcS7slbu4dsVjOpkNzQqrG+Z5RysJhsqAbFZ3FBXxcUS+nKIEv+Jppr91edZJRJz+Yskg7uchp8RBM1Z2ckpgUM4h4Qx72M4yfB8+sipGqY6Ik4JsyBPx66KeIfJoAX/w=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYRPR01MB12727.jpnprd01.prod.outlook.com (2603:1096:405:1b3::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 02:24:23 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 02:24:23 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: wsa+renesas <wsa+renesas@sang-engineering.com>, "biju.das.au"
-	<biju.das.au@gmail.com>
-CC: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Philipp Zabel
-	<p.zabel@pengutronix.de>, "magnus.damm" <magnus.damm@gmail.com>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
-Thread-Topic: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
-Thread-Index: AQHdMMe6FCa5O15soU2kHswixJD0Q7a9X1CAgABno7A=
-Date: Fri, 4 Sep 2026 02:24:23 +0000
-Message-ID:
- <TY3PR01MB11346A6003FC02140800246DF86B52@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com>
- <apnUfCIcTG4bmYZF@ninjato>
-In-Reply-To: <apnUfCIcTG4bmYZF@ninjato>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYRPR01MB12727:EE_
-x-ms-office365-filtering-correlation-id: 9645ae47-0ae2-43ba-37ca-08df0a2ba28b
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|11063799006|56012099006|4143699003|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- Jn+uJR0gacgHYxZ1qcJFMJLa+wbURa3pNhi21cTI5XgEIIttt21ZbRuf9ffihJUZ+abSwcKBsrAYnhel7iliXJZRqzwL4+mNsfrleiQ0B9bg/avNpMhncAJQeFwU9vNPJaJHUxpJrGyQMb71/5nCYahC/2j9UvoBdVpt3yO5WpDoqq+mR33dc554JOzZR/GANMK5boGFYKZR48mAhWxz1o2BDlEklg63oxV7DQ7PzRRnvW6IFbO44ObBf91ntPR1B7QB331iHYf4W29DF945KZceCmwCQahiTCSR3RLlwabT38q42odeRvgXZOh6GrYGMX7R/SnFviVnBWtzc9ofMs7PwoFK+VVVtx/7hjTdjtnmxa6nwY8cGvZycIgONzDiwlLaDyAYXttTUqLN1tHCpXY//9bKjtsv0bGdPyw80Ni/QxcCpRShGMbSgMDPjC1cCri5qhpGz4mXiOmvkyGb77wrlJHXwAcwfgLoISMeiw0+HKxAK3hl0K7T4OeaxbcWhcUZlR8H8JIz26xYNZuVR2Sct2Hw+gORShGzYkLCR/02dyKYpfKbBGpRGZ4LuvNSTiFnHs65RjcDkeAK7ASGfeelIA83XKUg84jF3WVBt/hYPMPDON3UUkdWEqW9Tgqvqx4ULYlXumQk6HCZxnOs4yrmnnnWj5bvtTGIgsAfJ804r8t/l3P6AP/wL5TiW5u6Ip5By2eeJumDnY0ddFKq20t9JPT9N9ittqXENnUrigg=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?HI4EzitcbuS9H2vkzaYPpJkDjS6KJPIeUb4BHiZ3uBvfCspq0v8KWuJV9f8Y?=
- =?us-ascii?Q?wPPiySiPO6/nmiopuNOiVShsTV/+0T5WaHrSgY7yXGjU2ClL85Hb60K4DwjE?=
- =?us-ascii?Q?1l29zwy5zBtzmQoWr8D7evXejGP+PMmoAtTpqu5IIfiwFxKDhL6Or2kk9G8O?=
- =?us-ascii?Q?jnCa16qGKTQ8sLJIbDzS1HvR20mRUoEPqkZACYlITK5zBNo9mBmVhlM4lwu4?=
- =?us-ascii?Q?5pM52k5UCNNp3MSqTzmduQEspNY7Skdx/ixNYFArwoqCxcr+NUl7qSHInkVm?=
- =?us-ascii?Q?uGMAMWvlUVHBJLGjJpolSIwFUNC72qC6ZeWtRkhTKMWQJPVFMgZFEGaGjyso?=
- =?us-ascii?Q?Y+JsGl6IAXs/nQzDKNgiMD+6RFyasSIZ03CehWrxcxfHJaa1LST36ERzU+18?=
- =?us-ascii?Q?KUugDie0o89vAoqIEL+F2XcYijSc2rN8Li06RAteNZhZxGCE8yqjbYhiZd3b?=
- =?us-ascii?Q?23/tJmZbUZhxhPQvL6elfxsnHc7Gus2jlBTOCP716DlAOUW8oKZzRhrPSOdE?=
- =?us-ascii?Q?FUfi3nuumm7y6TWMAfEDB+m2KUJJcACxdP1hh8SYoI4fBe2DF1Hck9w1zAoJ?=
- =?us-ascii?Q?FSUEXCkbJPMv/H9HLZ/AvvV/+RYDhVcLJt3MQCYKj4m23quM8fWu1V2pGfXZ?=
- =?us-ascii?Q?kybCVKUipq4IkJlzBh7S7/QGEDF8JQ+PhV6jRRf1ZJpdkArPPcaehnFZ8ZES?=
- =?us-ascii?Q?rp7EYGP7rihVkgiXaAo34VmT9vaWsouQQW61q53LDHyRIpPahU5SKlGCAGYb?=
- =?us-ascii?Q?XezVJ2RG4zu/5fsWeFNro/DRVfdMMjGr7MPKsWJt0kKWcWc+e6TTJrOpTHKF?=
- =?us-ascii?Q?3hTtDO+IQ0bl5yVaAd7OuTNMKeOTmysApZeCpuR2fSrQItT2+KM2fVGEmTvh?=
- =?us-ascii?Q?6PnX1V2Q13SQgTKjHAkWn4rPQIQHi3j9v74ubbUYC+6KVH0j794zBYJzX+SB?=
- =?us-ascii?Q?j3SK9k+A7bq3OLFP3U5+/HxQ7h8oho4LmSwgkta5W5l4FgbhpNH/elCcqegQ?=
- =?us-ascii?Q?prQSgiMhTA13xZXFDF0nFgsmC8/oIPl+KSDFtMu0BmRZESDMgwDaxVn9rZbB?=
- =?us-ascii?Q?NdtRTzRs5vrAxlPRLi3i9Z1uEbbS6anvXpjengzUoNblcmTIkVES5VqX89m3?=
- =?us-ascii?Q?+9hR70VXkfcHCe1cjAbWpCFktWMysH4QwgLTUibIKRhoKnrQ1DFbNbctNKQY?=
- =?us-ascii?Q?lusq48CWHvMYYAHnDyYb73aR1++u7iOHHPxIYyhRPwC99kMJiDtxR5U6Qeco?=
- =?us-ascii?Q?ixLCy+1j1cIUtUMwQEWXKt3/+wlFnz7E6B+A0uzX5WBwJ2ccuinQxWsg7Xxv?=
- =?us-ascii?Q?D/4O1qJwXR3Xdj+PFZp3/h+P+XFLIKBtKiySYEpIr5rRQdQFIBBLMz+MkL3/?=
- =?us-ascii?Q?okHLWbxQhL4xt6Dj0ERXEe4uibctZpWF41dEpfCCYwPa3IiYGz1UtNhlUsqG?=
- =?us-ascii?Q?+/JF+k8DzjUeyD80mOR/hSO8+W+xDQl6MqK9ZA8VfugHtnSO9MBI89/MdhgQ?=
- =?us-ascii?Q?qBl6dP4neBIT7SKtI5UW99Bpi5WZ5zUYqa0fGKBW2SWspuDfOLOGtClOf6hy?=
- =?us-ascii?Q?VAvWqrfmJeEt49HOSZCmE2q3F/vHKB5fZ6hpFIJcRMIz2xEhRLDv5JWIWQZv?=
- =?us-ascii?Q?BGLhV2ws3NZprB24siA7N4zkbsA/Mf8ccS/WE1T6LaDvtkIMW8zEtNyChZis?=
- =?us-ascii?Q?pTWPVyWoo8qrVabPZ730D4BBqRsXESXodiNFvDR1q11otXXTl837GvuWlEZR?=
- =?us-ascii?Q?5veVh25BxQ=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eo74QmJ5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJGUq3lJ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683NbWtZ1260669
+	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 02:42:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0525HgtheBE4qZcaZExgs/VP1xEGbWMqw5TkM1yBa9s=; b=Eo74QmJ5ELtT75BU
+	Q1uLmrkRmvWAxM5L9rH9zzFca8D9RwmjKYzXG4wugbg9br34pZPhrXg0wkKsCg5f
+	7MBvwh22cYuvZ0UE8ninhzVlUu8qYYVQfgmyfNi2IVyZdDmzLkjOjN1JKcE2009v
+	4ZbWMwM/6izpallQrzUkdSbyfFZSDEep0/13UkdxE58OPQqJT1TqynAXjSb5EUE4
+	SfNudi6VfL8zCXWU2uHV/qIecWTrk8AlURHKACtsTEktuGhJ9Mj9wSi/EGkf1J1w
+	7/lETQ6xp+l7bu+rCBK1mkTyZkvaQCi/jOdelW5EJAahJ6lERwTvHy3Uq1FMOpfS
+	UXihuA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfdyp1q2m-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 02:42:38 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d001671a54so9157325ad.2
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 19:42:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788489758; x=1789094558; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0525HgtheBE4qZcaZExgs/VP1xEGbWMqw5TkM1yBa9s=;
+        b=LJGUq3lJUiMkAU3Brcs3DtzdLdlzmdBOaU3HI6JVW8BKsuqosOSoKI+ORlKkkyGxgP
+         /UO13PPPj9V9muU3ZWDGTRRNmR+p5kYthP/4k5EegsBi4a4zI4ROVsl/izIMobICDQlf
+         IuCZOgLAUUhd8EROjFS9vfLloMceS+9g6HhZWKYNtBLzSQnZG8wSPO5ldvFGWqCxl9hk
+         FH9XSzhflpmI9kdO08cKVWcGukiDrtzcUT324a512jTQ0vpahkYfyadY/fSLBouLIfZP
+         T/1oY0kmAj25XuCXct+KuTer0Vk8GdbkLHLIIn83WvGVPIWXZzxVSlPRqWmTN3HrXU5q
+         q3Lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788489758; x=1789094558;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0525HgtheBE4qZcaZExgs/VP1xEGbWMqw5TkM1yBa9s=;
+        b=kszvxymn0Dontg9UigcFbfOK3LL/coUDnuvLcNwDw0y5P0Z308esuCWHj+/Dg+qeEK
+         7BAC0tjQaYh793R6KG/QwkjVJsRhVUVaZm5yjd4MWZHX5cQvplVJZbiiMCN3p+8BdghJ
+         +mWNSQcPqyynjLkyRZf2n7PlwpAMH38vXQrP44pFkEgqwIafTEBFdfDmT58mxnKeZJzk
+         p3idXO4CcVjv+o+CZr93saXzvCxrATdJgFfFNpoMUhsZC90b1bMFR85tGf1ksUa5RAZ/
+         l24fwqqPKZ/yipMgQWV89q/cCTlgfr/KIUrHwGIsipZS7NBV5XFFL0XpJaKQuHvNJjN4
+         UTsg==
+X-Forwarded-Encrypted: i=1; AKwUvBy80XekduxBkRRMoY5WBr2E/ICTRhZ2xSFY6S3bHnbJV1KxyEGb7bHTqAViYaY965Z5fK2vAPpsJZSY@vger.kernel.org
+X-Gm-Message-State: AFuF++k2tiKzBlzHptcSDAoQEeMW+xuac7duUoLwNGDNTnFAyrr5BgWs
+	wzJ2x5nzk8r2Azl7p9RYysPwLaBQOmI2DTMfQKkWs0dks/Rt46jxQqk+gM9KTLmd3HIunreS8PR
+	vH0z3yRPGhXyx83cJkKZqconrdEdwGrkGQQ01bxyKi8uwLPYCLKR+NkkCKyFW2ymR
+X-Gm-Gg: AYBFou1czn7pdHhQbPQYmEpVTqFOkQFMYbnTt5zw2A7MOFkjlEHMrSQA2BwEcGQ8ggR
+	CGQvR9ORsqkon2qOVQyHMgapg42gJWKq8eMPVoXB7vfhCgfazEvN7NDjkq+i/3mTWgsbTBoLtrL
+	HD/M+gJzdMKAsZCIoPqIOWD6ASggKkOjlbEptMybrbPXUQj0ztOcngtl45Aqq4AOrJNhRWvOAi1
+	Xiuh0OkqDeMroLLfEIhmgAuHU9NHYSNiIgwfV/fGmMbijQdXLDvYQ43kWdc3KlDdqIa61TT07g9
+	+t1z3ohlaC3+XPz6bKvIyCUGapGHAk6HsMY2UEqQYGz5QtabPP/7qhqG0DNsZhO5H1rgv+Pr3R3
+	/c2wbvMwswt+tlCvBHYlTUZ8xyud5CCy5uElnJaeU38POzX5jscJob2tABMuiUDIu
+X-Received: by 2002:a17:902:ccca:b0:2c9:aae1:a61a with SMTP id d9443c01a7336-2db127cc2afmr41780845ad.14.1788489757702;
+        Thu, 03 Sep 2026 19:42:37 -0700 (PDT)
+X-Received: by 2002:a17:902:ccca:b0:2c9:aae1:a61a with SMTP id d9443c01a7336-2db127cc2afmr41780565ad.14.1788489757237;
+        Thu, 03 Sep 2026 19:42:37 -0700 (PDT)
+Received: from [10.133.33.207] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497e9e5sm3207345ad.38.2026.09.03.19.42.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 19:42:36 -0700 (PDT)
+Message-ID: <3f67a5dd-e567-409c-ba93-8931ffadf75b@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 10:42:29 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9645ae47-0ae2-43ba-37ca-08df0a2ba28b
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Sep 2026 02:24:23.6617
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iLV/AxSfTDPCba/GgtNXFVWae7ZLzvVxUcaF7EJUJl6DU1g9xZPazYov9ptnrqhFzznsXq+2P/1T5pMx3HImuezxyjcQpQ7SM6Rnl1CAhgo=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRPR01MB12727
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 08/15] arm_mpam: Fix ris_idx type to prevent range
+ check bypass on truncation
+To: Andre Przywara <andre.przywara@arm.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Shanker Donthineni <sdonthineni@nvidia.com>,
+        Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Danilo Krummrich <dakr@kernel.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
+        trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
+        driver-core@lists.linux.dev,
+        Srivathsa L Rao
+ <srivathsa.rao@oss.qualcomm.com>,
+        Huang Yiwei
+ <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
+        linux-kernel@vger.kernel.org
+References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
+ <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
+ <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
+ <b6463a78-9aed-4e17-b044-83b734cc0f9a@oss.qualcomm.com>
+ <bf973056-590b-45d4-a66c-d61b480ce229@arm.com>
+Content-Language: en-US
+From: Yin Li <yin.li@oss.qualcomm.com>
+In-Reply-To: <bf973056-590b-45d4-a66c-d61b480ce229@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: ryMHYLPTnp1ToGmphdvaiUDRFtjRs9Vm
+X-Proofpoint-GUID: ryMHYLPTnp1ToGmphdvaiUDRFtjRs9Vm
+X-Authority-Analysis: v=2.4 cv=Q5XiJY2a c=1 sm=1 tr=0 ts=6a9a301e cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=neYdvBUB4e3bnShflY0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDAyMyBTYWx0ZWRfX0j/Ts8AG9hs9
+ Cn1lgRHE67jJd0YkaGJJOtUUoC8BgfZfQBKwe6Mk0eFV/ClanZLnYZOHpAEWAuJQ/APh7iM8iKV
+ SSeFAXeo1+gyDiyx9Ocjxkea7uE+job3jjkp3y6OKamkPSm06WfmZrt5oTqoK94RFHt+8GfJIX5
+ qjdRcEcK7UlkM3ozkNMYsPWItK3E5mLLGd4co6u6GM9Mk2QHNhP+xQMr6T4qMBJHuDkGXf00oDl
+ o65WmMW/GXPG0Rj7hj5ewGItGvQUwNUCNLLJuufsdZjDHdoOPIQD+43aQGji93c/PvigWBpPTEW
+ t1UpDwu/qJFYJ0xElY+npeFZ55B4nZGNODn63GvT3orW7VLczTia5PmkEX4kh+ps5U5ejGb4BW/
+ e7keBdMwz6Go3f9QG3yU/xTnGfIWL/wAIIQXIr1LZCnM8rfXUSy6tM7c21Fo8CjfQvfppa0N3Fk
+ bw/hIgXXV4/bx83XRgg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDAyMyBTYWx0ZWRfX1r0iSDsCOp/V
+ e5zJTsY2EDt30G+fny/+iPUtqqo+1TZGHE1G4ve1c9M7q+oNkWVy5FI9Szg9PBamQFuwg+xHimv
+ xTRx0eci6zmKF+B237boGSadCZvb6Tk=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-03_07,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040023
 
-Hi Wolfram Sang,
 
-> -----Original Message-----
-> From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Sent: 03 September 2026 21:12
-> Subject: Re: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
->=20
->=20
-> Although there are still issues to be handled, I tested this series on a =
-R-Car S4 (Spider) with HS400
-> eMMC and on a R-Car V4H (SparrowHawk) with a UHS SD card. No regressions.
 
-Thanks for testing. I will start addressing the review comments today.
+On 9/3/2026 9:27 PM, Andre Przywara wrote:
+> Hi,
+> 
+> On 9/3/26 11:42, Yin Li wrote:
+>>
+>>
+>> On 9/3/2026 12:22 AM, Andre Przywara wrote:
+>>> Hi,
+>>>
+>>> On 8/11/26 15:30, Yin Li wrote:
+>>>> The RIS index is read from device tree as u64 via 
+>>>> of_property_read_reg(),
+>>>
+>>> what does it do that using an u64, actually? Do you refer to the reg 
+>>> property of the ris subnode, which has a limit of 0xf in the DT 
+>>> binding? So shouldn't it be an u8 all along, and we fix the types up 
+>>> at the sources, rather than widening everything needlessly to u64?
+>>>
+>>
+>> Hi Andre,
+>>
+>> Thanks for the review.
+>>
+>> Yes, this is the reg property of the ris subnode. The reason it starts
+>> as u64 is that it's read via of_property_read_reg(), whose API takes a
+> 
+> Yes, I figured as much, *after* hitting the Send button ;-)
+> 
 
-Cheers,
-Biju
+😜
+
+>> u64* for the value — so ris_idx has to be u64 at that point, regardless
+>> of the 0xf limit in the binding.
+> 
+> Which actually makes me wonder whether this is the right function to 
+> use, since there would be no translation (as indeed guaranteed by this 
+> function), but also no size, and I guess no cell size requirements 
+> beyond 1. I think it has the added benefit of checking #address-cells 
+> and #size-cells, but technically a standard of_property_read_u32() would 
+> do as well? Though this probably has the same problem, just with u32 ...
+> 
+>> If ris_idx were narrowed to u8 before reaching the range check in
+>> mpam_ris_create_locked() (ris_idx >= MPAM_MSC_MAX_NUM_RIS), an
+>> out-of-range value such as 0x100 would be truncated to 0x00 and silently
+>> bypass that check. Keeping the wider type through the chain lets that
+>> check see the real value and reject invalid indices.
+>>
+>> If you feel an explicit check right after of_property_read_reg() (with
+>> the downstream types kept as u8) is cleaner, I'm glad to go that way —
+>> whichever you prefer.
+> 
+> Yeah, I feel it's sane to already check the limit directly after parsing 
+> from the DT, not only in mpam_ris_create() later. Do you know of any 
+> particular reason this is done so late?
+> If there is none, I think the cleanest is to keep of_property_read_reg() 
+> and check against the limit already in that function. Then we can use a 
+> u8 all along.
+> 
+
+Hi Andre,
+
+No particular reason for the late check — it just followed the existing
+structure, where mpam_ris_create() already does the range check for both
+the ACPI and DT paths. Nothing requires it to happen there.
+
+And agreed on keeping of_property_read_reg(): the #address-cells /
+#size-cells validation is worth having, and of_property_read_u32()
+wouldn't avoid the truncation anyway.
+
+I'll check the limit right after of_property_read_reg() and use u8
+throughout the downstream path. Checking before the narrowing avoids the
+truncation concern at the source, and drops the needless widening. Will
+do this in the next version.
+
+> Cheers,
+> Andre
+> 
+>>>> but was narrowed to u32 when passed to mpam_dt_parse_resource() and
+>>>> further to u8 when passed to mpam_ris_create(). A value exceeding
+>>>> MPAM_MSC_MAX_NUM_RIS could be silently truncated to a small index that
+>>>> passes the range check in mpam_ris_create_locked(), leading to 
+>>>> incorrect
+>>>> RIS creation.
+>>>>
+>>>> Widen the ris_idx parameter through mpam_dt_parse_resource(),
+>>>> mpam_ris_create_locked(), and mpam_ris_create() to u64 so the value
+>>>> is preserved until the range check in mpam_ris_create_locked() rejects
+>>>> out-of-range indices.
+>>>>
+>>>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+>>>> ---
+>>>>   drivers/resctrl/mpam_devices.c | 6 +++---
+>>>>   include/linux/arm_mpam.h       | 4 ++--
+>>>>   2 files changed, 5 insertions(+), 5 deletions(-)
+>>>>
+>>>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/ 
+>>>> mpam_devices.c
+>>>> index cc9fa1d78925..1e082fb60e30 100644
+>>>> --- a/drivers/resctrl/mpam_devices.c
+>>>> +++ b/drivers/resctrl/mpam_devices.c
+>>>> @@ -260,7 +260,7 @@ static int mpam_dt_count_msc(void)
+>>>>   }
+>>>>   static int mpam_dt_parse_resource(struct mpam_msc *msc, struct 
+>>>> device_node *np,
+>>>> -                  u32 ris_idx)
+>>>> +                  u64 ris_idx)
+>>>>   {
+>>>>       int err = 0;
+>>>>       u32 class_id = 0;
+>>>> @@ -712,7 +712,7 @@ static int mpam_ris_get_affinity(struct mpam_msc 
+>>>> *msc, cpumask_t *affinity,
+>>>>       return 0;
+>>>>   }
+>>>> -static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
+>>>> +static int mpam_ris_create_locked(struct mpam_msc *msc, u64 ris_idx,
+>>>>                     enum mpam_class_types type, u8 class_id,
+>>>>                     int component_id)
+>>>>   {
+>>>> @@ -799,7 +799,7 @@ static void mpam_ris_destroy(struct mpam_msc_ris 
+>>>> *ris)
+>>>>           mpam_vmsc_destroy(vmsc);
+>>>>   }
+>>>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>>>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>>>               enum mpam_class_types type, u8 class_id, int 
+>>>> component_id)
+>>>>   {
+>>>>       int err;
+>>>> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
+>>>> index f92a36187a52..30461cd71199 100644
+>>>> --- a/include/linux/arm_mpam.h
+>>>> +++ b/include/linux/arm_mpam.h
+>>>> @@ -39,10 +39,10 @@ static inline int acpi_mpam_count_msc(void) 
+>>>> { return -EINVAL; }
+>>>>   #endif
+>>>>   #ifdef CONFIG_ARM64_MPAM_DRIVER
+>>>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>>>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>>>               enum mpam_class_types type, u8 class_id, int 
+>>>> component_id);
+>>>>   #else
+>>>> -static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
+>>>> +static inline int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
+>>>>                     enum mpam_class_types type, u8 class_id,
+>>>>                     int component_id)
+>>>>   {
+>>>>
+>>>
+>>
+> 
+
+-- 
+Thx and BRs,
+Yin
 
