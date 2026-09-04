@@ -1,81 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5EC142589D;
-	Fri,  4 Sep 2026 15:52:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1383947B420;
+	Fri,  4 Sep 2026 15:53:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537137; cv=none; b=c5+mEV2TtX2yqb1/Dl2TO0UFepCw3lE2qNZtPFJ0IjTxzIgPG6gAKs7fwdEp/+Gg7c0qvPzM0oI8CLQI6zODp620AnTX9zM5KplME7FNo67kLCmU9gi+tE0X5vZ8TVdsQSPBDaFDavzrgUiGE/cRhRqoPUClWizFeCHcQ1uYC0Y=
+	t=1788537192; cv=none; b=OMJCrlKYJfHiDW8zD2NuKSw8w4S5/HgqSOH3pTeqExBcBOYVRwqkcceGt79z6xLReGPtrCC749iyYZH6VQa5w+i4wytGyVrnliLGfJyaA2a/o/1nJsYdiecNS0MKoTCeGBz5/tlyDZljYACq9GaDkmtC9ScNX0vEITQ8RInFcKA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537137; c=relaxed/simple;
-	bh=ABDWIakCveBu1w1ZhxR2jRxjKjH+Z5AuMVBOhnan1FI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Xbspy7BeX7cvQuq2m37aIRFW4Mh0WkjH4frcs2W6PpxyaNDCLak09MzgEzUKdCXSysnrcvtg3NgI/yHSUEUUI8v+h24FYsDT+ZMmvT/kwH9818WkzARFVTvP//3Gc29ndP7JIYmnQVkLIg5Dx5hC4Q1fbaq6WqVH6NfwqRRk3GY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XT3Z8P2a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788537192; c=relaxed/simple;
+	bh=OmQtm8VvchqvHFubYK7BwNHJPTLgALqxfZdL7jjUtDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cKUmvRK/JJ9IBmCoV8G6TYc97wtZ3wv/IXIpbtecy+mHZjfiXSIBbKvfRkyQ6X50OOMXDyKdvd48WqSK5Qy14P93eD1TBbjDhcQmpr2e8s0fgwHxLROEnkQZ+lMJpciWNjBKW+becklXmBjZLHVLRyLf9l5z6wq3fAmhSNcT7iY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hEq38cVV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XT3Z8P2a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83F581F00A3D;
-	Fri,  4 Sep 2026 15:52:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hEq38cVV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 496AD1F00A3D;
+	Fri,  4 Sep 2026 15:53:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788537135;
-	bh=ABDWIakCveBu1w1ZhxR2jRxjKjH+Z5AuMVBOhnan1FI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XT3Z8P2aishMFYqh54vf9NgBEJTara10l20amVbUtYZDKTvAcpIZVw5dpRnwtLeHw
-	 R43jg5G0/5txyVGuVTMOM1/AqMtsrOEP+KL7ZBGQjhBmEk3Pn31c2+HCk+hQofyW50
-	 FR8XWOL+U8I1u/DBZ56S3Ge4SfJ2F2q1u+txOHmkl4MWbQH2LeaT7Nvl3UTksowcDN
-	 jXHeTPm/PdnG+EWkqHkrpgmSbmkGtIFikI2Pn0xvij3D/bHgSOE9Q/8zLTFu0tfJ2x
-	 k28UKDKE8IoZs7GqIv0XIXV0qPAtMqRGFcqjftCRRon4nHsCCLjXMSsqVZvubciB0x
-	 XQFj6bqwTJB7w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/11] power: sequencing: Add
- pwrseq_is_controllable() API
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260904-monza-wireless-v6-3-d8c5042b3efd@oss.qualcomm.com>
-References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com>
- <20260904-monza-wireless-v6-3-d8c5042b3efd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 15:52:15 +0000
-Message-Id: <20260904155215.83F581F00A3D@smtp.kernel.org>
+	s=k20260515; t=1788537190;
+	bh=OmQtm8VvchqvHFubYK7BwNHJPTLgALqxfZdL7jjUtDY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hEq38cVV5U3Vbx1p0f8niCvkCkIXo1ts137dU7k/kWTFIe29+a7yhzHe/izWXFl1a
+	 XaAntOJq8Z5L0pNGtPB/cShjoCJf/fC8SGnyMRQru51XxK7wKCBT3M3uafxPxpTw5j
+	 xNVMc0YPr38PACnDbvKRt3U1QruTIr3X/AvUyZBzc49Y6fhhiS7SZCDV6gk7yrApdc
+	 T7/FgFIFkkFljROmOeWycQaChYhiAJq5a8/tFfsF6kYKGis8RFenKpL5AiYtkHjH1b
+	 Wy2fYsZao2JBkRzqq4QurKx8QWVLPlXieB9Jc6gV72diPhEZnN4PR119zHqW+RoCOE
+	 +ZQPVGxKVQ4Sw==
+Date: Fri, 4 Sep 2026 16:53:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v1 10/13] dt-bindings: iio: adc: adi,ad4134: Document PWM
+ usage
+Message-ID: <20260904-upcoming-brunette-853932533330@spud>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <de2e0a39782b403194b36ff4461e284378a25b71.1788368334.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hZgDJxWkzhW9Tt50"
+Content-Disposition: inline
+In-Reply-To: <de2e0a39782b403194b36ff4461e284378a25b71.1788368334.git.marcelo.schmitt@analog.com>
 
-> On some boards a power sequencing target has no host-controllable enable
-> for its function, for instance when the enable line is not wired up to a
-> GPIO and is hardwired to an always-on level. The pcie-m2 "uart" target is
-> one such example: when the M.2 connector does not route the W_DISABLE2#
-> signal to a host GPIO, its enable/disable are no-ops and the consumer
-> cannot gate the Bluetooth function at all or exclusively.
->=20
-> Add a generic pwrseq_is_controllable() helper. It reports whether the
-> target's final unit provides a host-controllable dedicated power actuator.
-> The target can implement a new optional is_controllable() callback,
-> reporting whether that actuator is effective on this target (for example
-> depending on GPIO presence). If the target does not provide the callback,
-> it is assumed to be controllable.
->=20
-> Note this only describes the target's own enable actuator. It does not
-> imply that a power-off reaches an electrical OFF state, since a target may
-> have multiple consumers. It also does not mean that power is uncontrolled
-> for the target's dependencies: those may still be gated on their own. And
-> it does not restrict consumers from calling pwrseq_power_off() either,
-> which remains valid to drop this consumer's vote on the (possibly shared)
-> resources and dependencies of the target.
->=20
-> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.co=
-m>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+--hZgDJxWkzhW9Tt50
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-monza-wire=
-less-v6-0-d8c5042b3efd@oss.qualcomm.com?part=3D3
+--hZgDJxWkzhW9Tt50
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprpYQAKCRB4tDGHoIJi
+0u39AP4nqnvY3xH7cPSLOlNdoQyvytd58RXCLi06HHL4nXJQ5gEAq6ovU7ptVq5E
+/Tu5ByHhe1VUbPX36z/CGbx5rGdxeQU=
+=1ZrR
+-----END PGP SIGNATURE-----
+
+--hZgDJxWkzhW9Tt50--
