@@ -1,52 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1EE4EA39C;
-	Fri,  4 Sep 2026 15:11:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB704EBAE2;
+	Fri,  4 Sep 2026 15:11:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788534679; cv=none; b=hJWDSJHz2iTWMyzQ+YtfSgn0XWYq4rshpRhkLF8Bw/BrebDHTkyQ5ffl8JUROsPsmnBN39agwk9ZjmJzWOggwqzULPXVttm02ItLFQHyeDUcBhndPlDsyTF7Wa7BwVGpr7WpWLhQUIuPqTLcDxRSBc/wvX0PcSXzMYCrjIls1X8=
+	t=1788534709; cv=none; b=BIrnnFx7IVbMo/8MSRqRHL9Tv8XHPhR+xwxXqdiDkQlBcLR3y4mCCmPXCAjHos8CJao689NF6QeBdyTs4PipoKC4ZB0vD8YOIez03RzJn35h4megk1bdX1P6vabgkMN6n5ZwxBvrrnocbNEwbvOAhs7L0doqHHXAqYJkuBHCbYA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788534679; c=relaxed/simple;
-	bh=1BmHvGQLYZI+8mQ/4U5MBn9Dm6Gp3QoBS0UZAfGx3jk=;
+	s=arc-20240116; t=1788534709; c=relaxed/simple;
+	bh=qPHCUu5a2yf5C1W6Uxw41KWNe1W+GCT2LpAs64i2nNA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MYLDM1+k8A7eWjVHPRXA1HQquITt7D2bAtHjxe6fi5szXP7T/x6O67rr+ivBJpWc4naVvyvFzMfme+dNx9TXsLrTbDAebZgcKhybELy8oMfrgm9cwL79IGJurTTFdi1a9Bpdp/CFDp1cF+NHiYcjA1ERO4H2w016afrrpkx4Q84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=benIKmJI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DatAZyqCLNaRGNMC3GYeNdqqGXpi+7knWmjMAC9sSbnLOMUWxkCW/vmlWo4ho0mmXviuNYzzSbB7Y/ewLs99l34h2cmC+agFEXq2Lk0mrJoD7X+Lq2GXw7upj6blKDxWXUJibpEfHiMaqPrl+Zju+x9xWbuj6XaTVwI0I+/8A3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=irx8WTn+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="benIKmJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA2F1F00A3D;
-	Fri,  4 Sep 2026 15:11:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="irx8WTn+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80ABF1F00A3D;
+	Fri,  4 Sep 2026 15:11:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788534678;
-	bh=1BmHvGQLYZI+8mQ/4U5MBn9Dm6Gp3QoBS0UZAfGx3jk=;
+	s=k20260515; t=1788534707;
+	bh=qPHCUu5a2yf5C1W6Uxw41KWNe1W+GCT2LpAs64i2nNA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=benIKmJIWnDDg6vX7aZDzRoBEOvJt1wnfhWV5a7jv2XxrapXFCIqfd0cSarZ/VMLR
-	 elnKEsDjgdryY8go11rGmHzWV6p5xSjabWHJGkuXHN/Qu9O6HKGIQdKqGDumkInQw+
-	 qoYh/ZYtSk9hT089MzlTtNwSjaWe+5ZpR+ecz/Nstsepe8MGuABRGLEtIecxzJ3GyF
-	 tRB/96Agw8WaEzpqDa71GxxuLhWKKVNmYTLNysrK3Y6+ccX9uZBt7W6QF0s8qB4yjA
-	 EBSR20Zc6bXoob6uuoJ3F/HScYhcEHdtQvwV3z6t3g/F/8FINhR+Qi4Pw5oyWpeTBw
-	 QlNoKZdOhDcVw==
-Date: Fri, 4 Sep 2026 16:11:12 +0100
+	b=irx8WTn+Ue7miHSWHIbCAeyaw/+qn2fhNRrrjCGrDAnYRpp+prJQlQtEeDx2xVKgu
+	 FzoHUnjezBp4YuNO4dDa/ESNYDPF/NyWsp9Dfqz4Y9EbgokqDMLGJ04oclD4vSUDYf
+	 N6SryFQKbVhjWp3Oht9QF5+c+LuxZaBzVvUO1XSQl+qMl2wghpgGh5zYs7hE2udAJx
+	 TVurgm1agAdsX0aFFFW9aD20qWreYybyXguvyLDxqPKoEICN6GOUVBpCrNlAKmDHFw
+	 huJi5AoY7ooD8CfwmKOfFOAsnt2iv/mhlvfG6wl4sLpF0iK3yMTsJcGQtS3zhXMpm4
+	 kebAe5WzCxwnA==
+Date: Fri, 4 Sep 2026 16:11:41 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Igor Paunovic <royalnet026@gmail.com>
-Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>,
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Avi Fishman <avifishman70@gmail.com>,
+	Tomer Maimon <tmaimon77@gmail.com>,
+	Tali Perry <tali.perry1@gmail.com>,
+	Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+	Benjamin Fair <benjaminfair@google.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>,
-	Jonas Karlman <jonas@kwiboo.se>, dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/7] dt-bindings: npu: rockchip: allow DVFS and thermal
- properties
-Message-ID: <20260904-delouse-silicon-e9b6286b7e1f@spud>
-References: <20260904130858.27803-1-royalnet026@gmail.com>
- <20260904130858.27803-3-royalnet026@gmail.com>
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Steam Lin <STLin2@winbond.com>,
+	linux-arm-kernel@lists.infradead.org, openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: nuvoton: Add NuMaker compatible
+Message-ID: <20260904-vastness-reformist-b28a326166ae@spud>
+References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+ <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,26 +54,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bUE3pkSw6P9WMgiV"
+	protocol="application/pgp-signature"; boundary="IflJwt5/OHqS5Pxw"
 Content-Disposition: inline
-In-Reply-To: <20260904130858.27803-3-royalnet026@gmail.com>
+In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-1-30ce255a401f@bootlin.com>
 
---bUE3pkSw6P9WMgiV
+--IflJwt5/OHqS5Pxw
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Acked-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---bUE3pkSw6P9WMgiV
+--IflJwt5/OHqS5Pxw
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprfkAAKCRB4tDGHoIJi
-0mLxAP4/WUj+Dtl3eGbLZM89xW8dZJDvW1nzmTMWTbHfgdnpGQEAy5Ei1DSvANlI
-Gzz2Nn+fBRATNnmyqLIPXMe+R23uxwQ=
-=SdkI
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprfrQAKCRB4tDGHoIJi
+0ohoAQDS5QLC2EVOH033EK0ak0gC8BMQhGIKYpXbYsEl2PqaBgD/cgJ7Zuhrzj8N
+7+dkfbhhNuOQFiBiqtHyG7URJwwKxA0=
+=XDBJ
 -----END PGP SIGNATURE-----
 
---bUE3pkSw6P9WMgiV--
+--IflJwt5/OHqS5Pxw--
