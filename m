@@ -1,138 +1,114 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF644A6CF7
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 14:22:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A55490BE3
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 14:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531764; cv=none; b=IY+srL3KdhHwObJp53cCkqTLQ/LuD+IO8+Xga4YduyNrfehALcHIaLQnWSx/FfuRtxro00mSZ162mccgfzY2Z9VjT8yUp5gruIn96eAzFnDj7sjuMFZa/2HRQOw6RlW6kv4Atl/Yt64MZQ8RLgUVHNHP8im8zVnT6P0+XM4nNio=
+	t=1788531880; cv=none; b=Iobp9dpkqQdGoLjr0CgSUBHdWrZ5ghIvFBGHkkJqBOF9N1STnl3Bd8maulCNVviWZFBd9GKApVz+Jx9mPs99czRXUXOO5txXhWGPT8YzbV69eFPn2o8hDtePceUGl6yc99eppUedqVuPYGT8BqYmgo2diXRbtn05IuU86q88/Fg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531764; c=relaxed/simple;
-	bh=maWBdJuLYCyT6JcoAf1a+wUeBnVCyx7cYqPorvDgB7o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A30YYr4EZ87Byej8a9LJj0ZgMUekCFopbtqnfaZOB9jkEwfIcDnZut4NRqc7uvrpidJjNWom+s4rgxTvba81HuxUAPHbdmjfwuOegvwUaHsWmnXgDuyee20Y5POWG6EB2MAg2q3an39ltLawv6DxQwOHrcZOlg99llguK5WcKCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=k9sOpBn/; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788531880; c=relaxed/simple;
+	bh=3+xz/PZXF8hVZHS0IAmbwnxyqLOqDpmiVSnymmkHOvs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=abhORN2qvzijW/0xXhHlNqb6GkCvPINiAub36j6Dp7WkrDDCr3mCDrHw209wV7gS+z/KbnP2DP/Ewdfur/POo341UpVWZ8wOMrUwH5ypzVKUrw/LlBINtxYUf+aDXxMaUv/PLE176a56XbhFTI0cVOqWZexrOnhq6WwH6WIXSdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmiJrXJO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="k9sOpBn/"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4CE05177;
-	Fri,  4 Sep 2026 16:21:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788531667;
-	bh=maWBdJuLYCyT6JcoAf1a+wUeBnVCyx7cYqPorvDgB7o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=k9sOpBn/IOAIrlAhZ7k6LdxZAA7KM4Sdu0/b3RlbuB1QFrxrOtVjPYP772r/52GrO
-	 w0+BwCGi+S1Z2ti7bAvtb7r/CS43hR+nhoXrUNurzaq2mLn9sPyGqGRphux/K/aRtB
-	 rZoJcA5xD/0zmn/rMokATeOSkh029J2JsegKJRXI=
-Date: Fri, 4 Sep 2026 17:22:38 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, imx@lists.linux.dev
-Subject: Re: [PATCH v3 6/7] ARM: dts: nxp: imx6qdl-pico: Replace
- clock-frequency in camera sensor node
-Message-ID: <20260904142238.GB795906@killaraus.ideasonboard.com>
-References: <20260810180604.3034255-1-laurent.pinchart@ideasonboard.com>
- <20260810180604.3034255-7-laurent.pinchart@ideasonboard.com>
- <anoerXCIlB8tTgiC@SMW015318>
- <20260810190800.GA3046075@killaraus.ideasonboard.com>
- <antS9HruNMrGbZIc@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmiJrXJO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29AE41F00A3D;
+	Fri,  4 Sep 2026 14:24:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788531878;
+	bh=hyeRxZUBraYfVaxOt7l6Vg2b1L2t0j3hfhXppUBES0A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JmiJrXJOGW3ewJKC+BjY/suE+KJmVQO3ZLi1LiQq3/AcRv8uyxyrSY0TbFNPclgNj
+	 JwfpDp92Ny4ixC5nAzs9Z4531Kdc4iWd+c0cy659p6QoHKYj3wLP5ApRvg5YHAdiwW
+	 Zs8sXulVnd5wx6Xn2TVYumAR6bg1unqymqEx2kNk6MZu0355WKmubTva5sG7x7iv86
+	 R973SXmhAjIPgXs4XIASiKuXwCRI/rRP2t1K5MhjcbitNWK5tLAot8lDlGCqZjxrT1
+	 l2k4zGmulBanvpwyiO9wUdZbs272Y4TcAfw1vT5/kzENV5q/RuCZZNobQnedsg3fYY
+	 4MHI8OZdzNDyQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 04/17] iio: adc: adi-axi-adc: Add support for CRC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Janani Sunil" <janani.sunil@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904-ad7768-driver-v6-4-e4378f946bfb@analog.com>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-4-e4378f946bfb@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 14:24:37 +0000
+Message-Id: <20260904142438.29AE41F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <antS9HruNMrGbZIc@SMW015318>
 
-Hi Frank,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] CRC operations are not hooked up for all AXI ADC IP core variants
+--
 
-On Tue, Aug 11, 2026 at 11:51:00AM -0500, Frank Li wrote:
-> On Mon, Aug 10, 2026 at 10:08:00PM +0300, Laurent Pinchart wrote:
-> > On Mon, Aug 10, 2026 at 01:55:41PM -0500, Frank Li wrote:
-> > > On Mon, Aug 10, 2026 at 09:06:03PM +0300, Laurent Pinchart wrote:
-> > > > The clock-frequency for camera sensors has been deprecated in favour of
-> > > > the assigned-clocks and assigned-clock-rates properties. Replace it in
-> > > > the device tree.
-> > >
-> > > Remove "clock-frequency" may break back compatiblity.
-> > >
-> > > A similar case
-> > > https://lore.kernel.org/imx/20d37ab7-308e-4f07-96dc-7ae011af76d0@kernel.org/
-> > > https://lore.kernel.org/imx/20260404-thoughtful-placid-boobook-da26da@quoll/
-> > >
-> > > Need provide judgement in commit message about impact of break ABI.
-> >
-> > What ABI breakage ? The latest kernel supports the updated bindings
-> > (merged in commit aa1826696a55 ("dt-bindings: media: Deprecate
-> > clock-frequency property for camera sensors") in v6.18).
-> 
-> Dts now not only use by kenrel. such as uboot may use the same dts file.
-> 
-> uboot may still use "clock-frequency". but uboot unlikely use camera. for
-> this case, just need mention at commit message
-> 
-> "lock-frequency property for camera sensor have deprecated since
->  ("dt-bindings: media: Deprecate  clock-frequency property for camera
->  sensors") in v6.18, no known other user like (uboot) use it. So drop
-> it safely"
+commit 432feaef6b44e5ab8e03ad8059b2636d78ecf5d5
+Author: Janani Sunil <janani.sunil@analog.com>
 
-How about the following ?
+    iio: adc: adi-axi-adc: Add support for CRC
+   =20
+    Add support for enabling and disabling Cyclic Redundancy Check (CRC)
+    processing in the AXI ADC backend. CRC provides data integrity verifica=
+tion
+    for high-speed ADC data streams, ensuring reliable data transfer between
+    the ADC frontend and backend processing systems.
 
-----
-The clock-frequency for camera sensors has been deprecated in favour of
-the assigned-clocks and assigned-clock-rates properties since commit
-aa1826696a55 ("dt-bindings: media: Deprecate clock-frequency property
-for camera sensors") in v6.18. The Linux kernel ov5645 driver has been
-handling the deprecated property as optional since the same kernel
-version.
+> diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
+> index fc7cc92b35f0a..8b7c45d51dbe8 100644
+> --- a/drivers/iio/adc/adi-axi-adc.c
+> +++ b/drivers/iio/adc/adi-axi-adc.c
+[ ... ]
+> @@ -47,6 +47,9 @@
+>  #define    ADI_AXI_ADC_CTRL_DDR_EDGESEL_MASK	BIT(1)
+> =20
+>  #define ADI_AXI_ADC_REG_CNTRL_3			0x004c
+> +/* Bit 8 is common to all AXI ADC cores; bits 7-0 are per-HDL-project. */
+> +#define    ADI_AXI_ADC_CNTRL_3_CRC_EN_MASK	BIT(8)
+> +
+>  #define   AXI_AD485X_CNTRL_3_OS_EN_MSK		BIT(2)
+>  #define   AXI_AD485X_CNTRL_3_PACKET_FORMAT_MSK	GENMASK(1, 0)
+>  #define   AXI_AD485X_PACKET_FORMAT_20BIT	0x0
+[ ... ]
+> @@ -644,6 +663,8 @@ static const struct iio_backend_ops adi_axi_adc_ops =
+=3D {
+>  	.num_lanes_set =3D axi_adc_num_lanes_set,
+>  	.debugfs_reg_access =3D iio_backend_debugfs_ptr(axi_adc_reg_access),
+>  	.debugfs_print_chan_status =3D iio_backend_debugfs_ptr(axi_adc_debugfs_=
+print_chan_status),
+> +	.crc_enable =3D axi_adc_crc_enable,
+> +	.crc_disable =3D axi_adc_crc_disable,
+>  };
 
-Replace the property in the device tree. There are no known users of the
-property outside of the Linux kernel. In particular, U-Boot doesn't
-operate the camera. Switching to the new bindings will therefore not
-introduce any breakage.
-----
+[Severity: Medium]
+If the CRC enable bit is common to all AXI ADC cores as the comment above
+suggests, should these callbacks also be added to adi_ad485x_ops and
+adi_ad408x_ops in the same file?
 
-If that's fine with you, can you please update the commit message when
-taking the patch ?
+For example:
 
-> > > > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > > > ---
-> > > > Changes since v1:
-> > > >
-> > > > - Drop added blank line
-> > > > ---
-> > > >  arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi | 4 +++-
-> > > >  1 file changed, 3 insertions(+), 1 deletion(-)
-> > > >
-> > > > diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> > > > index ca4cb986efbc..0cc05d084f9b 100644
-> > > > --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> > > > +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-pico.dtsi
-> > > > @@ -233,7 +233,9 @@ camera@3c {
-> > > >  		pinctrl-0 = <&pinctrl_ov5645>;
-> > > >  		reg = <0x3c>;
-> > > >  		clocks = <&clks IMX6QDL_CLK_CKO2>;
-> > > > -		clock-frequency = <24000000>;
-> > > > +		assigned-clocks = <&clks IMX6QDL_CLK_CKO2>;
-> > > > +		assigned-clock-rates = <24000000>;
-> > > > +
-> > > >  		vdddo-supply = <&reg_1p8v>;
-> > > >  		vdda-supply = <&reg_2p8v>;
-> > > >  		vddd-supply = <&reg_1p5v>;
+drivers/iio/adc/adi-axi-adc.c:adi_ad485x_ops {
+	.enable =3D axi_adc_enable,
+	.disable =3D axi_adc_disable,
+	...
+}
 
--- 
-Regards,
+If a frontend driver paired with an axi-ad485x or axi-ad408x backend attemp=
+ts
+to call iio_backend_crc_enable(), the call will fail with -EOPNOTSUPP becau=
+se
+the function pointers in those backend ops structures are NULL.
 
-Laurent Pinchart
+If the feature is intentionally unsupported on those variants, the code com=
+ment
+claiming it is "common to all" seems misleading.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-ad7768-dri=
+ver-v6-0-e4378f946bfb@analog.com?part=3D4
