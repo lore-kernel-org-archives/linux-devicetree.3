@@ -1,100 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC233403F8;
-	Sat,  5 Sep 2026 11:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A35C648F837;
+	Sat,  5 Sep 2026 11:59:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788607931; cv=none; b=bDO6cH80FkxUF+GSOwPv3Up7DdFCSTRKZa7HKnBFQNpitdUVuoYglGkSNSy+ilX6MGiwAeaZotHpH8BdprQ9Mr1HUGfp9ZF/8tPWGPqlWBzyEjuuPKebzAyRqSuVMr3xcZRm/qB4TFS74FoHLcy9jR8nNLsxvrNW4ywJvf4mLwg=
+	t=1788609583; cv=none; b=iftbmIZtaeorhGI2TUPjQQj8dL0rxybvxqw3oQQ4yD3Ovcjf2ZQwyLtkDAVSTlZlMpE+IIsUA9M0eP+boF1SkcPnLL1mPpy9WKOrnLxpSkxTTmmK+Z+lnUxXl6v3IRN86JhBfU+lcfDkXEab9XuC69+M14/FMUZ/9rxQiAUXmXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788607931; c=relaxed/simple;
-	bh=KPgCAQDaCR5IqGlKcjIldAVhoYnTXvtlBae0nNTIR90=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rxtK6ujYqY0+PBxtPKoIwi85eUb0VIwPN4UaNCAlO0ma9WCMDPFpibwSDoGqCAYof/VrL7TfHjlKMEaPXz1uR7oCNuGDjM8YcEDfym8Em39oJsP8rjnQwcMwIVTtaKAckiWcfnivU1UVPAaT6o7yfsemdrHcy4jRgCAzMJTe//c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=EI1FmdZQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788609583; c=relaxed/simple;
+	bh=5FPFKypYJycFQ/ivuMen8M4ZOukO8rl/mxTx9SWUhLw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=hxUVMp5L273MUIJO1a21cJPdvbRp7Uwdxyd1K1EJOO3H3+eVk9crUrnFj+4+7zf/Nq4+h7tmfr5QRM6ENffGKYLFMXt58vO7M6JpeBcsmuqLcEIWoarCgMsC/8Dk3w0PMI6wfcKVuPdnpz6Ky32AjXXG3AoYfMbdM0iFPIfsoRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WrpQuiV8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="EI1FmdZQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 383661F00A3D;
-	Sat,  5 Sep 2026 11:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788607930;
-	bh=u1mCSdap8EpKqZ+b8GT203WeV+0ASGDGtnDxfJT8fAs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EI1FmdZQETscHvLCnLj3TD8ezP5sTSS0FaYeDegsBiKQEd93ERGxLuzIFoAqmkAxT
-	 QVFYqZmzF2NfEN8L+y6m6ckPbreoexmSsO+1HDG8wxwIg/TcuKsYKqP/Sk0Yko1VnO
-	 caGI/HV1rlAf59FK6aT+GM6UYEhyQC82iyil5fTI=
-Date: Sat, 5 Sep 2026 13:30:24 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: Chen-Yu Tsai <wens@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wei Deng <wei.deng@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
- APIs to port.h
-Message-ID: <2026090516-nutshell-handiness-37f9@gregkh>
-References: <20260904084158.1341550-1-wenst@chromium.org>
- <20260904084158.1341550-8-wenst@chromium.org>
- <2026090430-botanist-ungodly-0299@gregkh>
- <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
- <2026090433-chair-tidings-5c99@gregkh>
- <apvQlBEgHOW9MCxN@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WrpQuiV8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69A951F00A3D;
+	Sat,  5 Sep 2026 11:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788609582;
+	bh=KkZ39QsW/0EzCqj9yO6HnwxedHQb5Ao6cxewVUgXA7E=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=WrpQuiV8xBZajSr1bgSCQvB9gcxpfi3Nb1tKF7zJHUbsN1kV391i+T34SV7tWKRED
+	 mOOWLw2ZvLUOFrcn2xAEren/1DAvIJcS7VHSqVLFLkoS5xbKbAQ5aQhENjKo16Tyj4
+	 5eVoclRoUDpgsJjIyiIiIPEX2ivKKgwjSyRxQZGGkkffXCVEHlrICwERoxOjMDWLk+
+	 1ZDaowq2oP2NCBLbu3YN5abYobutKy5UcAWbraSxZ6ukq8ShzTQYdVSE2HV9MxNTyp
+	 qMwAHo2VNUynzFyYNT+3Tqbfy6JoE8x29rl+Rtffi+bWYn6HmMRmk/NIetTZe5OjwR
+	 8wtENKcKLKI+w==
+From: Mark Brown <broonie@kernel.org>
+To: David Rhodes <david.rhodes@cirrus.com>, 
+ Richard Fitzgerald <rf@opensource.cirrus.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
+Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260828-sound-for-next-cs35l45-sync-v4-v5-0-fe3feba709ff@opensource.cirrus.com>
+References: <20260828-sound-for-next-cs35l45-sync-v4-v5-0-fe3feba709ff@opensource.cirrus.com>
+Subject: Re: [PATCH v5 0/2] Introduces MDSYNC support for CS35L45
+Message-Id: <178855981196.692981.7813898466866850313.b4-ty@b4>
+Date: Fri, 04 Sep 2026 23:10:11 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <apvQlBEgHOW9MCxN@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1496; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=5FPFKypYJycFQ/ivuMen8M4ZOukO8rl/mxTx9SWUhLw=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqnAQoVEYqoussgggg71EZhUeeq5boxBcvsXuPE
+ sgmVsqVowuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCapwEKAAKCRAk1otyXVSH
+ 0JaqB/wLGesPwg1VdpcreTqRMCOF5Q1agcfSsrgKaD3gjwbLnBQy5zlx0v1dcDL9i2WOdB19zxf
+ iCYB7WTbXx+zl0k6bmbdQVXVXycBfADCe+eUJcWlmn+KN+fBR0Fnm1kAz3wOm4fdJaAleL1RrdS
+ ucl0ndhKjqYl+TNUDT8T/xBGZ89pDEU3x9hhsSIRj46DGbneM+Z/VUmEmgkXNqjcqw8Q+Cqdxey
+ 0yrPKt47YwA/JDj/YEb8q7eA8WhGMr98pNepEsn4jXMSG0AK3rl+IGJpdHdyNfSvtS6QbZRZgzP
+ EpyLi8H/Hltysdo8FKb4yKLuh+a0TSJJwCLCBK9ESdf6tvAa
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Sat, Sep 05, 2026 at 11:19:32AM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 04, 2026 at 07:52:37PM +0200, Greg Kroah-Hartman wrote:
-> > On Sat, Sep 05, 2026 at 01:24:20AM +0800, Chen-Yu Tsai wrote:
-> > > On Sat, Sep 5, 2026 at 12:47 AM Greg Kroah-Hartman
-> > > <gregkh@linuxfoundation.org> wrote:
-> > > >
-> > > > On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
-> > > > > |struct usb_port| and its matching container_of() macro should live in
-> > > > > its own port.h, matching the split we have for .c files.
-> > > >
-> > > > Why?
-> > > 
-> > > This was requested by Andy. And to me it sort of made sense.
-> > > 
-> > > > > Move them as described. Also move usb_port_is_power_on(), since in the
-> > > > > next change its |struct usb_hub *| parameter will be changed to
-> > > > > |struct usb_port *|, and becomes a non-static function that only
-> > > > > references |struct usb_port|.
-> > > >
-> > > > No, please don't do that unless you have a really good reason.
-> > > 
-> > > Which part? Move the code?
-> > 
-> > Please don't make a new .h file.
-> > 
-> > Moving the function might make sense on its own if you need it in a
-> > different file later on, but do a move only, and then change things if
-> > you really need to do that.
+On Fri, 28 Aug 2026 10:46:25 -0500, Ricardo Rivera-Matos wrote:
+> Introduces MDSYNC support for CS35L45
 > 
-> Isn't this file to break possible circular dependencies?
+> The CS35L45 has SYNC pin that can be used as a multi
+> device synchronization (MDSYNC) bus. This pin can send
+> various message types between Cirrus devices.
+> 
+> This patch series adds support for long and short DSP
+> messages between CS35L45 devices.
+> 
+> [...]
 
-If so, that was not stated here at all...
+Applied to
+
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+
+Thanks!
+
+[1/2] ASoC: dt-bindings: cs35l45: Adds SYNC properties
+      https://git.kernel.org/broonie/sound/c/8351ccada421
+[2/2] ASoC: cs35l45: Adds support for SYNC bus
+      https://git.kernel.org/broonie/sound/c/f3c8f89a1502
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
