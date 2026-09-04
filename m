@@ -1,127 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 734523BBFB4;
-	Fri,  4 Sep 2026 17:23:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31097513570;
+	Fri,  4 Sep 2026 17:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542600; cv=none; b=aRzVLDFjoBFDTMo/LDPymX4mchQHdv/45+K9alWZL9mqSzbcI2tSHe1qI7NjuNWl/XY13S3Bfmp93FNZawMY0Myzmuee52UJ0R1Q7DeWKtqOOc5HybRBRwvVNgOHtxkv+Nh7hB/8MM3FzVx3VCIFdRoPo0S6ZxwRseM3V/Q57VU=
+	t=1788542608; cv=none; b=D0fEbhbNtqJ8ydSfXfOIaZSIpYJLg1sl0ZVCj8je7xZMT7g1ci3hIwml1yOqpXDqBi8ypcwbm7uzvLFDiOY00QTpfimh+7lnsN4GU/PM4XBDA6gFY3QcwQtjvMqyIaOFoPonDMQUvjvuEelVE0E9BPuqsSbvHDH9Y1Dhh+fTX44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542600; c=relaxed/simple;
-	bh=8r5t0udPslDFnu5V4P+us4Bpn4IyIcEMmb6oOqAcZ/Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZrCsbuz8DQnNcMz1Tx9HVxlwewUQqoKi89u2IEzH9sfkPmd0MWvUk8RPuGr891abJzj6chOauZ08QObsoY9/8UktsbAX8qsmLWJBB5Mu3K8yRbf6LjSEb/IKX0Mjm39mDwkvlVwBgpMwezQL/V1bDCupv/bfIxmdx0jR2ImRcm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EJ3qV0/v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788542608; c=relaxed/simple;
+	bh=MNZJfyCO5PIiQ6u+gBcjeY7Md0qQTd/cwTCMPzUwamw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZhwFFBFXoPWv9aFrHETLguvQv4Eph2cyRt+yUIGxHG6P6cwYWpjxUxJc/6XCBymlpN+VHMsl1/Xc/AuWJhsGUCXXRWVYX53/eV3Z1wswx5fJVWPagf93OlpmHiKZcsrltgq+plqKfcarhkA7xKT2GgeJvE+DQmBT3kyOdu1HVYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QENHzmfe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EJ3qV0/v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BA3F1F00A3D;
-	Fri,  4 Sep 2026 17:23:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QENHzmfe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 493911F00A3D;
+	Fri,  4 Sep 2026 17:23:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788542599;
-	bh=Qe/SR/azOYN4FcYL3Zi0mhaXWiftLHOPJv3t4uJcphc=;
-	h=From:To:Cc:Subject:Date;
-	b=EJ3qV0/vmlS5DC4Ju+pgBKtyfO9cpsen5fo6kR4PoUfqdtTer1NSeBOZNUpKnCdYt
-	 Ou0SNCLu0alpia5AHSY9mVSPodQ0mSwNaIKbcYJOpzc15gme3j/dHtyJFcWPHakJNY
-	 M+RgFXVP8l+bvVR2VUur6Xyr8xX6mp3UWIUDG2lhbewtoWP440wZAJGaD30cTiyRu0
-	 y6LXpqXl13Z9B89VIc9paGBLk0PGovB/GB5QNaf7ez8PtpvI51rWgzvociUoU0N0EL
-	 lCvIZNzOCnFop3fQoxzdmnl7BMWzj0IC8DpVtE1k+x1paCv8KQIEOdh062iFm4iWQh
-	 GZ5DPM1J6moRQ==
-From: Conor Dooley <conor@kernel.org>
-To: linux-riscv@lists.infradead.org
-Cc: conor@kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Valentina.FernandezAlanis@microchip.com,
-	stable@vger.kernel.org
-Subject: [PATCH] riscv: dts: microchip: beaglev-fire: remove double definition of gpio interrupts
-Date: Fri,  4 Sep 2026 18:22:55 +0100
-Message-ID: <20260904172253.2274751-3-conor@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	s=k20260515; t=1788542606;
+	bh=MNZJfyCO5PIiQ6u+gBcjeY7Md0qQTd/cwTCMPzUwamw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QENHzmfejRX6WZw0zUukfd7/p1HMLqs4FwvNwxzLcHNdljhqciyuF56zNoCjlXP/+
+	 dflAw1yvrz1DXf/Uk8Oxbz33aowQCpksJAc+Wi3OkJNErFnfUf7lJ0leElzVNFPqtA
+	 YVj0KkoAPJNxLGT3EUddHfIw/YN8mR1TvfVHtstycke+Z0/ePxkG/4nD3JUU0k3h8J
+	 7iNhFlsNFLvCVVERTkdR43RMrqhYairxUpmHSdmmcQAo2r9J59begfTejEA4v3u+2U
+	 3zoUikvisz1tp1KYU5Vg9BZegDbh4t5owWZ+IiU1RKDKAOXO8PsML/Utc5kyqtbFA3
+	 Ebw/yfl/Mdsew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 5/5] arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563
+ embedded GPIO controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904-pci-tc9563-aux-v3-5-5b1449d62ba2@oss.qualcomm.com>
+References: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
+ <20260904-pci-tc9563-aux-v3-5-5b1449d62ba2@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 17:23:25 +0000
+Message-Id: <20260904172326.493911F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2720; i=conor.dooley@microchip.com; h=from:subject; bh=g+2NEGXgnzSlaVh9vBHDs5IpNqnrxlZ37dU6ImCHIP4=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFmz/uVN2VEnyLksbdMylX2/5kis542YuNw4ocR7o/xmS 12xqPT/HaUsDGJcDLJiiiyJt/tapNb/cdnh3PMWZg4rE8gQBi5OAZiIQSbD/5CNiZ5cDdzPfSwj vdcwJDzPdM/b8Sf5xf3go24N62yXGzMyzO2Qurvo+G+VOQFXTnZy/72zguPFGlOFO0bbP9RFf72 4mQUA
-X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
-Content-Transfer-Encoding: 8bit
 
-From: Conor Dooley <conor.dooley@microchip.com>
+> The Toshiba TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
+> lines. The controller is registered as an auxiliary device by the TC9563
+> power controller and accessed through the same i2c device.
+>=20
+> Describe the switch node itself as the embedded GPIO controller and us
+> it to drive the PERST# reset lines of the two external downstream port
+> (pcie@1,0 and pcie@2,0), as expected by the TC9563 power controller after
+> switching to the GPIO descriptor API for per-port resets.
+>=20
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-When the irq-mux and its interrupt-map were added to the mpfs
-devicetree, the gpio interrupts became fixed at the SoC level rather
-than dependant on the design - the interrupt-map is now what varies.
-The beaglev-fire should have had its dts copy of the interrupts removed
-but did not. As a result, the mcp3564 driver does not probe, because
-even though it doesn't use the interrupt at present, the SPI core still
-looks it up. This lookup fails because the second copy of the interrupts
-property doesn't resolve to something valid when passed via the
-interrupt-map. Remove the second/incorrect set of interrupts properties.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Fixes: b0258f69f1e0 ("riscv: dts: microchip: update mpfs gpio interrupts to better match the SoC")
-CC: stable@vger.kernel.org
-Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
----
-
-CC: Conor Dooley <conor.dooley@microchip.com>
-CC: Daire McNamara <daire.mcnamara@microchip.com>
-CC: Rob Herring <robh@kernel.org>
-CC: Krzysztof Kozlowski <krzk+dt@kernel.org>
-CC: linux-riscv@lists.infradead.org
-CC: devicetree@vger.kernel.org
-CC: linux-kernel@vger.kernel.org
-CC: Valentina.FernandezAlanis@microchip.com
-
- .../boot/dts/microchip/mpfs-beaglev-fire.dts   | 18 ------------------
- 1 file changed, 18 deletions(-)
-
-diff --git a/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts b/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
-index 6d7037c9528d..a09371d9d064 100644
---- a/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
-+++ b/arch/riscv/boot/dts/microchip/mpfs-beaglev-fire.dts
-@@ -90,10 +90,6 @@ regulator-1v8-syzygy {
- };
- 
- &gpio0 {
--	interrupts = <13>, <14>, <15>, <16>,
--		     <17>, <18>, <19>, <20>,
--		     <21>, <22>, <23>, <24>,
--		     <25>, <26>;
- 	ngpios = <14>;
- 	gpio-line-names = "", "", "", "", "", "", "",
- 			  "", "", "", "", "", "SD_CARD_CS", "USER_BUTTON";
-@@ -101,12 +97,6 @@ &gpio0 {
- };
- 
- &gpio1 {
--	interrupts = <27>, <28>, <29>, <30>,
--		     <31>, <32>, <33>, <34>,
--		     <35>, <36>, <37>, <38>,
--		     <39>, <40>, <41>, <42>,
--		     <43>, <44>, <45>, <46>,
--		     <47>, <48>, <49>, <50>;
- 	ngpios = <24>;
- 	gpio-line-names = "", "", "", "", "", "", "", "", "", "",
- 			  "", "", "", "", "", "", "", "", "", "",
-@@ -115,14 +105,6 @@ &gpio1 {
- };
- 
- &gpio2 {
--	interrupts = <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>,
--		     <53>, <53>, <53>, <53>;
- 	ngpios = <32>;
- 	gpio-line-names = "P8_PIN3_USER_LED_0", "P8_PIN4_USER_LED_1", "P8_PIN5_USER_LED_2",
- 			  "P8_PIN6_USER_LED_3", "P8_PIN7_USER_LED_4", "P8_PIN8_USER_LED_5",
--- 
-2.53.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-pci-tc9563=
+-aux-v3-0-5b1449d62ba2@oss.qualcomm.com?part=3D5
 
