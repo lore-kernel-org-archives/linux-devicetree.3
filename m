@@ -1,300 +1,537 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7071E4A204D;
-	Fri,  4 Sep 2026 13:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032E14A4403;
+	Fri,  4 Sep 2026 13:27:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788528461; cv=none; b=MM7czypDjDy3lObXot7dv9ou+43nHuZRZm8aTTBtgydvmlA7nPS4ogNFUT4YxDCge7Ph9r2fxt45NlgEJS9c4F3xNrN/X4zxlf+FVD5CqZWJmuecD61iJN1IZ8jQZjWWt/INdgvVtOUQ7eXnqPyuj0I6PhASj7ZmzDQ0hqIr+R8=
+	t=1788528463; cv=none; b=aw9ZswWZIZEJFP6hQo5lR18MrFfj0aOH22SzaS8RUjhLV8E29pL0cs3gZ5Oww7VkLAITyzuGYGmVFP00Sk19F89N1/Ax2lSi4DTTH4kU9lSL4rjG3h6BgxhBzfrntmxnCcfIeisT+XoT0X0DiMhIcXZQmEZGqnv+W8KKbPh7l40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788528461; c=relaxed/simple;
-	bh=d/e+k0ZfjAReIXY9Fq6GG3hPLjfiyV9X3lnovNCVR+c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FthLVU7Zgj3XkyoZIOtiMlRtRG3obOo5UQVs0eMu0i5j8HRPmAb5JpdLjorsjUCqa/or8HKtV9LKkjjBC56VwsehcKWZgfSVio+Oj1Dg0bcH30b3tTqeh+kTi7lHLvzvb+Rm9qg2+3xAEPcjH0ecPxvvu2m+77GLPrpg9/iFwY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=E0TpQ5mj; arc=none smtp.client-ip=212.227.17.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	s=arc-20240116; t=1788528463; c=relaxed/simple;
+	bh=FChTDTrk7MLxyjq4VjGgsjfmSMBKmWgoyLmmASBDYN0=;
+	h=From:Date:Subject:MIME-Version:Message-Id:In-Reply-To:To:Cc:
+	 Content-Type:References; b=XZB1rWM/AJrfhh/1QHtXS7QOVolLWdd8T/fyNsoO15DBvdl1+41cyLTUgvBDsWeRmEd/37wpFEESw1nAnqI5+i2yDSXE9GN3JqGMacF9FMP/Kb9TIyr9HdffiN7xSmg7TqYY6Of6ZCJCc698dLv0xrcxuUGVIbDWLMIHvaR/PMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=BSUHxfQE; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="E0TpQ5mj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1788528441; x=1789133241; i=wahrenst@gmx.net;
-	bh=N86fHZWesvAS13bAxVQ1b+trCgVXKZqB2PoN19VY9f8=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=E0TpQ5mjHG1t4MtVOqyetoyuBqbNv+zSg6Dz44XL2iXLAL8fH0ySVK/OgXjBJ3/P
-	 eU6m5oepCrq/8XTzi9+LegzP8rQcdMZX6Tm4uPZtC7L7/R4DQXp7B0TZnZYwhsK3j
-	 Qjvb0U2x1KSsG+PCAvj6ipGxqTKYcgWvsKYOGfLL//0WGwCJ74OXFPLDbAYsravJj
-	 1AHEs39ATzIvxbrSKvX5j/PHzwFNP50pEAt3eEyTCaIkAMvXgVA8xdFK056ZVJFID
-	 o62lSgYCdkj4N2Hnugc0jiexBgjb9C3qW3PZuRGH0gkkilQw9WbrxMmCRc8htV8Y6
-	 Xr6xDNhOjwK0OVUn0A==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1M8hZJ-1wyND60i9p-0041wc; Fri, 04
- Sep 2026 15:27:21 +0200
-Message-ID: <721b375c-327f-4938-95ad-4d2ba6f0f1b9@gmx.net>
-Date: Fri, 4 Sep 2026 15:27:20 +0200
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="BSUHxfQE"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260904132738euoutp01972a0551f0018bed6c3ca4702c9ea85e~SISgdXIbk0653306533euoutp01U;
+	Fri,  4 Sep 2026 13:27:38 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260904132738euoutp01972a0551f0018bed6c3ca4702c9ea85e~SISgdXIbk0653306533euoutp01U
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788528458;
+	bh=tsdBdubHle1h1ZH5D3ESVy3GDz8+Z6nJIfQAx59aV7o=;
+	h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
+	b=BSUHxfQE34zY6Phiik/Ev/bD5xtTP++GMKlDe415oBSP2gwa0C+b57HAUbzJSdhjx
+	 kQ9T0xB5PgDBsChmdjsFa6FlDancOR0QEJmsBHiNf79hiy+f/K5dgPjMaPOl7isr5Z
+	 WJx3msHVMG0sugaRUrcxg5GmIBrNgjeMh9kcBOuY=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0~SISgINUb_1937919379eucas1p2U;
+	Fri,  4 Sep 2026 13:27:37 +0000 (GMT)
+Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
+	[106.210.136.40]) by eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20260904132735eusmtip1f44a75849a53ff79f0ce9d8c74a7c43a~SISeAHOgV1776517765eusmtip1C;
+	Fri,  4 Sep 2026 13:27:35 +0000 (GMT)
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+Date: Fri, 04 Sep 2026 15:27:16 +0200
+Subject: [PATCH v3 15/19] phy: Add common Innosilicon HDMI PHY helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH V4 4/4] arm64: dts: freescale: Add chargebyte Charge
- Control Y
-To: sashiko-reviews@lists.linux.dev, Frank.Li@kernel.org
-Cc: robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev,
- Oliver Hartkopp <socketcan@hartkopp.net>,
- Vincent Mailhol <mailhol@kernel.org>,
- Oleksij Rempel <o.rempel@pengutronix.de>, neil.armstrong@linaro.org,
- conor+dt@kernel.org, linux-can@vger.kernel.org,
- Marc Kleine-Budde <mkl@pengutronix.de>, olteanv@gmail.com,
- linux-phy@lists.infradead.org, vkoul@kernel.org
-References: <20260903080427.6103-1-wahrenst@gmx.net>
- <20260903080427.6103-5-wahrenst@gmx.net>
- <20260903082122.A777C1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <20260903082122.A777C1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:Vi0kTF3UVe/l2fjq8HcPFBmA0bJtirqxEj+ikGYv+z12uy4+Z+c
- 4OhaHskkGddpkxpLDzF9ROY7eiJkJUKORSOGByMyjj5kFpY6t1cRYQJd5FBlimcnZ3yiuYb
- XlvnBFzYeaLSsP5c0QP4yw2m1vOYKLkSdUd/zvhNOs9Y+5+EFj6yfkfhpCfQzq+NF260Pql
- j/IxRGKhIhb6Ty771desw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:4CcQRe7terQ=;yaBHcvy3syKAxxrkaUD64YuZ2Xc
- 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
- KVCa
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-jh7110-clean-send-v3-15-484f9ae72715@samsung.com>
+In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+To: Vinod Koul <vkoul@kernel.org>,  Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,  Krzysztof
+	Kozlowski <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>, Andrzej
+	Hajda <andrzej.hajda@intel.com>,  Robert Foss <rfoss@kernel.org>,  Laurent
+	Pinchart <Laurent.pinchart@ideasonboard.com>,  Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,  Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,  Simona
+	Vetter <simona@ffwll.ch>,  Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>,  Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,  Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>,  Philipp Zabel <p.zabel@pengutronix.de>, 
+	Emil Renner Berthing <kernel@esmil.dk>,  Hal Feng
+	<hal.feng@starfivetech.com>,  Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,  Heiko
+	Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,  Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,  Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,  Jerome
+	Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>,  Marek
+	Szyprowski <m.szyprowski@samsung.com>,  Maud Spierings
+	<maud_spierings@murena.io>,  Graham Markall <hello@big-grey.co.uk>,  Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>,  Michal Wilczynski
+	<m.wilczynski@samsung.com>
+X-Mailer: b4 0.15-dev
+X-CMS-MailID: 20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0
+X-EPHeader: CA
+X-CMS-RootMailID: 20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+	<CGME20260904132737eucas1p240d02860355b180ff9c5e8e4c6941ec0@eucas1p2.samsung.com>
 
-Hi,
+The Innosilicon HDMI PHY IP is used by several SoCs. They differ in
+where the PHY register block sits in the register space and in which
+pixel clocks they support, but the pre-PLL programming sequence and the
+layout of its registers are the same.
 
-Am 03.09.26 um 10:21 schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 3 potential iss=
-ue(s) to consider:
-> - [Medium] Mismatched drive strengths on USDHC2 data lines within the sa=
-me interface speed mode.
-> - [Medium] The reset GPIO polarity for the Ethernet PHY (DP83825) is con=
-figured as active-high, but the PHY natively requires an active-low reset.
-> - [Low] Incorrect node name used in `/delete-node/` for heartbeat LED pi=
-nctrl.
-> --
->
-> commit 228da9fe4e969182ceef8105169e14b5de5949a5
-> Author: Stefan Wahren <wahrenst@gmx.net>
->
-> arm64: dts: freescale: Add chargebyte Charge Control Y
->
-> This adds device tree support for the chargebyte Charge Control Y, an
-> Electrical Vehicle Supply Equipment (EVSE) based on the phyCORE-i.MX 93
-> SOM.
->
->> diff --git a/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts b=
-/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts
->> new file mode 100644
->> index 0000000000000..ba240f528f9b9
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/freescale/imx93-charge-control-y.dts
-> [ ... ]
->> +/* Ethernet 2 PHY */
->> +&mdio {
->> +	ethphy2: ethernet-phy@2 {
->> +		reg =3D <2>;
->> +		compatible =3D "ethernet-phy-id2000.a140";
->> +		clocks =3D <&clk IMX93_CLK_ENET_REF_PHY>;
->> +		reset-gpios =3D <&gpio4 13 GPIO_ACTIVE_HIGH>;
-> [Severity: Medium]
-> Will this hold the Ethernet PHY in reset? The DP83825 PHY natively expec=
-ts
-> an active-low reset signal. By specifying GPIO_ACTIVE_HIGH here, the ker=
-nel
-> will assert reset by driving the GPIO high, and normal operation will dr=
-ive
-> it low. This could potentially keep the PHY in reset permanently, preven=
-ting
-> Ethernet link establishment, unless there is a physical hardware inverte=
-r
-> between the GPIO and the PHY.
-Ethernet-PHY and reset signal are not wired directly. There is a=20
-transistor, which negative the signal.
->
->> +		reset-assert-us =3D <30>;
->> +		reset-deassert-us =3D <50000>;
->> +	};
->> +};
-> [ ... ]
->> +&iomuxc {
->> +
->> +	// Heartbeat LED of phyCore is not populated
->> +	/delete-node/ pinctrl_leds;
-> [Severity: Low]
-> Will the device tree compiler process this delete-node directive correct=
-ly?
-> In imx93-phycore-som.dtsi, the node is defined with the name ledsgrp and
-> the label pinctrl_leds.
->
-> The delete-node syntax expects the exact node name, like:
-> 	/delete-node/ ledsgrp;
->
-> Or alternatively, using the phandle label at the root level:
-> /delete-node/ &pinctrl_leds;
->
-> Using just the label name inside &iomuxc might result in a "Node not fou=
-nd"
-> compiler error or a silent failure that leaves unused pinmux data in the
-> binary.
-Nice catch. I'm surprised why make dtbs_check doesn't find it. I will=20
-fix it.
->
->> +
->> +	pinctrl_eqos: eqosgrp {
-> [ ... ]
->> +	/* need to config the SION for data and cmd pad, refer to ERR052021 *=
-/
->> +	pinctrl_usdhc2_default: usdhc2grp {
->> +		fsl,pins =3D <
->> +			MX93_PAD_SD2_CLK__USDHC2_CLK		0x119e
->> +			MX93_PAD_SD2_CMD__USDHC2_CMD		0x4000139e
->> +			MX93_PAD_SD2_DATA0__USDHC2_DATA0	0x4000138e
->> +			MX93_PAD_SD2_DATA1__USDHC2_DATA1	0x4000138e
->> +			MX93_PAD_SD2_DATA2__USDHC2_DATA2	0x4000138e
->> +			MX93_PAD_SD2_DATA3__USDHC2_DATA3	0x4000139e
-> [Severity: Medium]
-> Are these drive strength settings intended to be different across the da=
-ta
-> lines?
-Yes, DSE can be optimized for electromagnetic compatibility
+Add a small library holding that shared part: the pre-PLL configuration
+table format, a lookup, clk_ops determine_rate and recalc_rate helpers,
+and the pre-PLL register programming. Callers pass a regmap, a register
+offset for the PHY block, and their own pixel clock table.
 
-Best regards
->
-> In this default mode configuration, DATA0-2 use 0x4000138e (DSE bit 4 =
-=3D 0),
-> while DATA3 uses 0x4000139e (DSE bit 4 =3D 1). Mismatched drive strength=
-s on
-> the same SDIO bus can introduce signal skew and degrade signal integrity=
-.
->
->> +			MX93_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
->> +		>;
->> +	};
->> +
->> +	/* need to config the SION for data and cmd pad, refer to ERR052021 *=
-/
->> +	pinctrl_usdhc2_100mhz: usdhc2-100mhzgrp {
->> +		fsl,pins =3D <
->> +			MX93_PAD_SD2_CLK__USDHC2_CLK		0x119e
->> +			MX93_PAD_SD2_CMD__USDHC2_CMD		0x4000139e
->> +			MX93_PAD_SD2_DATA0__USDHC2_DATA0	0x4000138e
->> +			MX93_PAD_SD2_DATA1__USDHC2_DATA1	0x4000138e
->> +			MX93_PAD_SD2_DATA2__USDHC2_DATA2	0x4000139e
->> +			MX93_PAD_SD2_DATA3__USDHC2_DATA3	0x4000139e
-> [Severity: Medium]
-> Similarly, in the 100mhz configuration, DATA0-1 are set to 0x4000138e an=
-d
-> DATA2-3 are set to 0x4000139e. Could this mismatch cause high-frequency
-> enumeration or data corruption issues on the SD bus?
->
->> +			MX93_PAD_SD2_VSELECT__USDHC2_VSELECT	0x51e
->> +		>;
->> +	};
+No driver uses it yet; the users are converted separately.
+
+Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+---
+ drivers/phy/Kconfig               |   8 +
+ drivers/phy/Makefile              |   1 +
+ drivers/phy/phy-inno-hdmi.c       | 298 ++++++++++++++++++++++++++++++++++++++
+ include/linux/phy/inno-hdmi-phy.h |  85 +++++++++++
+ 4 files changed, 392 insertions(+)
+
+diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
+index 19f3b7d12b7d492d16000fa52483dc5002590d7a..0e973b3b02a30704d339db9f15d4695bcbec1c75 100644
+--- a/drivers/phy/Kconfig
++++ b/drivers/phy/Kconfig
+@@ -168,6 +168,14 @@ config PHY_XGENE
+ 	help
+ 	  This option enables support for APM X-Gene SoC multi-purpose PHY.
+ 
++config PHY_INNO_HDMI
++	tristate
++	depends on GENERIC_PHY
++	select REGMAP
++	help
++	  Common helpers for the Innosilicon HDMI PHY, shared by the SoC
++	  drivers that instantiate it. Selected by those drivers.
++
+ source "drivers/phy/allwinner/Kconfig"
+ source "drivers/phy/amlogic/Kconfig"
+ source "drivers/phy/apple/Kconfig"
+diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
+index d7aa516bcc49e7662c9c9db421833fe591dfbc05..e93c473dfc6d837ed6ba540f0b0204a0d68d25bf 100644
+--- a/drivers/phy/Makefile
++++ b/drivers/phy/Makefile
+@@ -7,6 +7,7 @@ obj-$(CONFIG_PHY_COMMON_PROPS)		+= phy-common-props.o
+ obj-$(CONFIG_PHY_COMMON_PROPS_TEST)	+= phy-common-props-test.o
+ obj-$(CONFIG_GENERIC_PHY)		+= phy-core.o
+ obj-$(CONFIG_GENERIC_PHY_MIPI_DPHY)	+= phy-core-mipi-dphy.o
++obj-$(CONFIG_PHY_INNO_HDMI)		+= phy-inno-hdmi.o
+ obj-$(CONFIG_PHY_AIROHA_PCIE)		+= phy-airoha-pcie.o
+ obj-$(CONFIG_PHY_CAN_TRANSCEIVER)	+= phy-can-transceiver.o
+ obj-$(CONFIG_PHY_ECONET_PCIE)		+= phy-econet-pcie.o
+diff --git a/drivers/phy/phy-inno-hdmi.c b/drivers/phy/phy-inno-hdmi.c
+new file mode 100644
+index 0000000000000000000000000000000000000000..77e745a87d22b5f3776593e642af1f03305bb67e
+--- /dev/null
++++ b/drivers/phy/phy-inno-hdmi.c
+@@ -0,0 +1,298 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Common helpers for the Innosilicon HDMI PHY.
++ *
++ * Copyright (c) 2017 Rockchip Electronics Co. Ltd.
++ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
++ *
++ * Author: Zheng Yang <zhengyang@rock-chips.com>
++ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
++ *
++ * Derived from drivers/phy/rockchip/phy-rockchip-inno-hdmi.c.
++ *
++ * The same PHY IP is used by several SoCs, which differ in where the PHY
++ * register block sits and in the pixel clock table they support, but share
++ * the pre-PLL programming sequence.
++ */
++
++#include <linux/bitfield.h>
++#include <linux/bits.h>
++#include <linux/clk-provider.h>
++#include <linux/device.h>
++#include <linux/errno.h>
++#include <linux/export.h>
++#include <linux/iopoll.h>
++#include <linux/math64.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++
++#include <linux/phy/inno-hdmi-phy.h>
++
++#define INNO_PRE_PLL_CONTROL			0xa0
++#define INNO_PRE_PLL_POWER_DOWN			BIT(0)
++#define INNO_PCLK_VCO_DIV_5_MASK		BIT(1)
++#define INNO_PCLK_VCO_DIV_5(x)			FIELD_PREP(BIT(1), x)
++
++#define INNO_PRE_PLL_DIV_1			0xa1
++#define INNO_PRE_PLL_PRE_DIV_MASK		GENMASK(5, 0)
++#define INNO_PRE_PLL_PRE_DIV(x)			FIELD_PREP(GENMASK(5, 0), x)
++
++#define INNO_PRE_PLL_DIV_2			0xa2
++#define INNO_SPREAD_SPECTRUM_MOD_DISABLE	BIT(6)
++#define INNO_PRE_PLL_FRAC_DIV_DISABLE		FIELD_PREP(GENMASK(5, 4), 3)
++#define INNO_PRE_PLL_FB_DIV_11_8_MASK		GENMASK(3, 0)
++#define INNO_PRE_PLL_FB_DIV_11_8(x)		FIELD_PREP(GENMASK(3, 0), (x) >> 8)
++
++#define INNO_PRE_PLL_DIV_3			0xa3
++#define INNO_PRE_PLL_FB_DIV_7_0(x)		FIELD_PREP(GENMASK(7, 0), x)
++
++#define INNO_PRE_PLL_TMDSCLK_DIV		0xa4
++#define INNO_PRE_PLL_TMDSCLK_DIV_C(x)		FIELD_PREP(GENMASK(1, 0), x)
++#define INNO_PRE_PLL_TMDSCLK_DIV_B(x)		FIELD_PREP(GENMASK(3, 2), x)
++#define INNO_PRE_PLL_TMDSCLK_DIV_A(x)		FIELD_PREP(GENMASK(5, 4), x)
++
++#define INNO_PCLK_DIV_AB			0xa5
++#define INNO_PCLK_DIV_B_MASK			GENMASK(6, 5)
++#define INNO_PCLK_DIV_B(x)			FIELD_PREP(GENMASK(6, 5), x)
++#define INNO_PCLK_DIV_A_MASK			GENMASK(4, 0)
++#define INNO_PCLK_DIV_A(x)			FIELD_PREP(GENMASK(4, 0), x)
++
++#define INNO_PCLK_DIV_CD			0xa6
++#define INNO_PCLK_DIV_C(x)			FIELD_PREP(GENMASK(6, 5), x)
++#define INNO_PCLK_DIV_D_MASK			GENMASK(4, 0)
++#define INNO_PCLK_DIV_D(x)			FIELD_PREP(GENMASK(4, 0), x)
++
++#define INNO_PRE_PLL_LOCK_STATUS		0xa9
++#define INNO_PRE_PLL_LOCK			BIT(0)
++
++#define INNO_PRE_PLL_FRAC_DIV_23_16		0xd1
++#define INNO_PRE_PLL_FRAC_DIV_15_8		0xd2
++#define INNO_PRE_PLL_FRAC_DIV_7_0		0xd3
++#define INNO_PRE_PLL_FRAC_DIV(x)		FIELD_PREP(GENMASK(7, 0), x)
++
++#define INNO_FRAC_DIV_WIDTH			24
++
++static unsigned int inno_reg(const struct inno_hdmi_phy_pre_pll *pll,
++			     unsigned int reg)
++{
++	return (pll->offset + reg) * 4;
++}
++
++static void inno_write(const struct inno_hdmi_phy_pre_pll *pll,
++		       unsigned int reg, u8 val)
++{
++	regmap_write(pll->regmap, inno_reg(pll, reg), val);
++}
++
++static u8 inno_read(const struct inno_hdmi_phy_pre_pll *pll, unsigned int reg)
++{
++	unsigned int val;
++	int ret;
++
++	ret = regmap_read(pll->regmap, inno_reg(pll, reg), &val);
++	if (ret)
++		return 0;
++
++	return val;
++}
++
++static void inno_update_bits(const struct inno_hdmi_phy_pre_pll *pll,
++			     unsigned int reg, u8 mask, u8 val)
++{
++	regmap_update_bits(pll->regmap, inno_reg(pll, reg), mask, val);
++}
++
++/**
++ * inno_hdmi_phy_pre_pll_lookup - find the settings for a pixel clock
++ * @pll: pre-PLL instance
++ * @pixclock: requested pixel clock, in Hz
++ * @tmdsclock: requested TMDS clock, in Hz
++ *
++ * Return: the matching table entry, or an ERR_PTR if the PHY cannot generate
++ * the requested combination.
++ */
++const struct inno_hdmi_phy_pre_pll_config *
++inno_hdmi_phy_pre_pll_lookup(const struct inno_hdmi_phy_pre_pll *pll,
++			     unsigned long pixclock, unsigned long tmdsclock)
++{
++	const struct inno_hdmi_phy_pre_pll_config *cfg;
++
++	for (cfg = pll->table; cfg->pixclock != 0; cfg++)
++		if (cfg->pixclock == pixclock && cfg->tmdsclock == tmdsclock)
++			return cfg;
++
++	return ERR_PTR(-EINVAL);
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_lookup);
++
++/**
++ * inno_hdmi_phy_pre_pll_determine_rate - clk_ops.determine_rate helper
++ * @pll: pre-PLL instance
++ * @req: rate request, updated with the rate the PHY would produce
++ *
++ * The PHY can only generate the pixel clocks described by its table, so a
++ * request that does not appear there is rejected rather than rounded.
++ *
++ * Return: 0 on success, -EINVAL if the rate is not supported.
++ */
++int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
++					 struct clk_rate_request *req)
++{
++	const struct inno_hdmi_phy_pre_pll_config *cfg;
++	unsigned long rate = rounddown(req->rate, 1000);
++
++	for (cfg = pll->table; cfg->pixclock != 0; cfg++) {
++		if (cfg->pixclock == rate) {
++			req->rate = cfg->pixclock;
++			return 0;
++		}
++	}
++
++	return -EINVAL;
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_determine_rate);
++
++/**
++ * inno_hdmi_phy_pre_pll_recalc_rate - clk_ops.recalc_rate helper
++ * @pll: pre-PLL instance
++ * @parent_rate: rate of the reference clock, in Hz
++ *
++ * Return: the pixel clock the pre-PLL is currently programmed for, in Hz.
++ */
++unsigned long
++inno_hdmi_phy_pre_pll_recalc_rate(const struct inno_hdmi_phy_pre_pll *pll,
++				  unsigned long parent_rate)
++{
++	u8 nd, no_a, no_b, no_d;
++	unsigned long frac, rate;
++	u64 vco, vco_rate;
++	u16 nf;
++
++	nd = inno_read(pll, INNO_PRE_PLL_DIV_1) & INNO_PRE_PLL_PRE_DIV_MASK;
++	nf = (inno_read(pll, INNO_PRE_PLL_DIV_2) &
++	      INNO_PRE_PLL_FB_DIV_11_8_MASK) << 8;
++	nf |= inno_read(pll, INNO_PRE_PLL_DIV_3);
++	vco = parent_rate * nf;
++
++	if (!(inno_read(pll, INNO_PRE_PLL_DIV_2) &
++	      INNO_PRE_PLL_FRAC_DIV_DISABLE)) {
++		frac = inno_read(pll, INNO_PRE_PLL_FRAC_DIV_7_0) |
++		       (inno_read(pll, INNO_PRE_PLL_FRAC_DIV_15_8) << 8) |
++		       (inno_read(pll, INNO_PRE_PLL_FRAC_DIV_23_16) << 16);
++		vco += DIV_ROUND_CLOSEST(parent_rate * frac,
++					 BIT(INNO_FRAC_DIV_WIDTH));
++	}
++
++	vco_rate = vco;
++
++	if (inno_read(pll, INNO_PRE_PLL_CONTROL) & INNO_PCLK_VCO_DIV_5_MASK) {
++		do_div(vco, nd * 5);
++	} else {
++		no_a = inno_read(pll, INNO_PCLK_DIV_AB) & INNO_PCLK_DIV_A_MASK;
++		no_b = FIELD_GET(INNO_PCLK_DIV_B_MASK,
++				 inno_read(pll, INNO_PCLK_DIV_AB)) + 2;
++		no_d = inno_read(pll, INNO_PCLK_DIV_CD) & INNO_PCLK_DIV_D_MASK;
++
++		do_div(vco, nd * (no_a == 1 ? no_b : no_a) * no_d * 2);
++	}
++
++	rate = DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
++
++	/* The VCO is only in spec between 1.4 and 3.2 GHz, so log it. */
++	dev_dbg(pll->dev, "%s rate %lu vco %llu\n", __func__, rate, vco_rate);
++
++	return rate;
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_recalc_rate);
++
++/**
++ * inno_hdmi_phy_pre_pll_configure - program the pre-PLL dividers
++ * @pll: pre-PLL instance
++ * @cfg: settings to program
++ *
++ * The caller is responsible for powering the pre-PLL down beforehand and back
++ * up afterwards, and for waiting for it to lock.
++ */
++void inno_hdmi_phy_pre_pll_configure(const struct inno_hdmi_phy_pre_pll *pll,
++				     const struct inno_hdmi_phy_pre_pll_config *cfg)
++{
++	u8 val;
++
++	inno_update_bits(pll, INNO_PRE_PLL_CONTROL, INNO_PCLK_VCO_DIV_5_MASK,
++			 INNO_PCLK_VCO_DIV_5(cfg->vco_div_5_en));
++	inno_write(pll, INNO_PRE_PLL_DIV_1, INNO_PRE_PLL_PRE_DIV(cfg->prediv));
++
++	val = INNO_SPREAD_SPECTRUM_MOD_DISABLE;
++	if (!cfg->fracdiv)
++		val |= INNO_PRE_PLL_FRAC_DIV_DISABLE;
++
++	inno_write(pll, INNO_PRE_PLL_DIV_2,
++		   INNO_PRE_PLL_FB_DIV_11_8(cfg->fbdiv) | val);
++	inno_write(pll, INNO_PRE_PLL_DIV_3,
++		   INNO_PRE_PLL_FB_DIV_7_0(cfg->fbdiv));
++
++	inno_write(pll, INNO_PCLK_DIV_AB,
++		   INNO_PCLK_DIV_A(cfg->pclk_div_a) |
++		   INNO_PCLK_DIV_B(cfg->pclk_div_b));
++	inno_write(pll, INNO_PCLK_DIV_CD,
++		   INNO_PCLK_DIV_C(cfg->pclk_div_c) |
++		   INNO_PCLK_DIV_D(cfg->pclk_div_d));
++
++	inno_write(pll, INNO_PRE_PLL_TMDSCLK_DIV,
++		   INNO_PRE_PLL_TMDSCLK_DIV_A(cfg->tmds_div_a) |
++		   INNO_PRE_PLL_TMDSCLK_DIV_B(cfg->tmds_div_b) |
++		   INNO_PRE_PLL_TMDSCLK_DIV_C(cfg->tmds_div_c));
++
++	inno_write(pll, INNO_PRE_PLL_FRAC_DIV_7_0,
++		   INNO_PRE_PLL_FRAC_DIV(cfg->fracdiv));
++	inno_write(pll, INNO_PRE_PLL_FRAC_DIV_15_8,
++		   INNO_PRE_PLL_FRAC_DIV(cfg->fracdiv >> 8));
++	inno_write(pll, INNO_PRE_PLL_FRAC_DIV_23_16,
++		   INNO_PRE_PLL_FRAC_DIV(cfg->fracdiv >> 16));
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_configure);
++
++/**
++ * inno_hdmi_phy_pre_pll_power_down - power the pre-PLL down or up
++ * @pll: pre-PLL instance
++ * @power_down: true to power down, false to power up
++ */
++void inno_hdmi_phy_pre_pll_power_down(const struct inno_hdmi_phy_pre_pll *pll,
++				      bool power_down)
++{
++	inno_update_bits(pll, INNO_PRE_PLL_CONTROL, INNO_PRE_PLL_POWER_DOWN,
++			 power_down ? INNO_PRE_PLL_POWER_DOWN : 0);
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_power_down);
++
++/**
++ * inno_hdmi_phy_pre_pll_is_locked - report whether the pre-PLL has locked
++ * @pll: pre-PLL instance
++ */
++bool inno_hdmi_phy_pre_pll_is_locked(const struct inno_hdmi_phy_pre_pll *pll)
++{
++	return inno_read(pll, INNO_PRE_PLL_LOCK_STATUS) & INNO_PRE_PLL_LOCK;
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_is_locked);
++
++/**
++ * inno_hdmi_phy_pre_pll_wait_locked - wait for the pre-PLL to lock
++ * @pll: pre-PLL instance
++ * @timeout_us: how long to wait, in microseconds
++ *
++ * Return: 0 once locked, -ETIMEDOUT otherwise.
++ */
++int inno_hdmi_phy_pre_pll_wait_locked(const struct inno_hdmi_phy_pre_pll *pll,
++				      unsigned int timeout_us)
++{
++	unsigned int val;
++
++	return regmap_read_poll_timeout(pll->regmap,
++					inno_reg(pll, INNO_PRE_PLL_LOCK_STATUS),
++					val, val & INNO_PRE_PLL_LOCK,
++					1000, timeout_us);
++}
++EXPORT_SYMBOL_GPL(inno_hdmi_phy_pre_pll_wait_locked);
++
++MODULE_DESCRIPTION("Innosilicon HDMI PHY common helpers");
++MODULE_LICENSE("GPL");
+diff --git a/include/linux/phy/inno-hdmi-phy.h b/include/linux/phy/inno-hdmi-phy.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..4f243d883ea94f385b167fffd602e70d3e1a3759
+--- /dev/null
++++ b/include/linux/phy/inno-hdmi-phy.h
+@@ -0,0 +1,85 @@
++/* SPDX-License-Identifier: GPL-2.0-or-later */
++/*
++ * Common helpers for the Innosilicon HDMI PHY.
++ *
++ * Copyright (c) 2017 Rockchip Electronics Co. Ltd.
++ * Copyright (c) 2025 Samsung Electronics Co., Ltd.
++ *
++ * Author: Zheng Yang <zhengyang@rock-chips.com>
++ * Author: Michal Wilczynski <m.wilczynski@samsung.com>
++ *
++ * Derived from drivers/phy/rockchip/phy-rockchip-inno-hdmi.c.
++ */
++
++#ifndef __PHY_INNO_HDMI_H__
++#define __PHY_INNO_HDMI_H__
++
++#include <linux/types.h>
++
++struct clk_rate_request;
++struct regmap;
++
++/**
++ * struct inno_hdmi_phy_pre_pll_config - pre-PLL settings for one pixel clock
++ * @pixclock: pixel clock this entry describes, in Hz
++ * @tmdsclock: TMDS clock this entry describes, in Hz
++ * @prediv: pre-PLL reference divider
++ * @fbdiv: pre-PLL feedback divider
++ * @tmds_div_a: TMDS clock divider A
++ * @tmds_div_b: TMDS clock divider B
++ * @tmds_div_c: TMDS clock divider C
++ * @pclk_div_a: pixel clock divider A
++ * @pclk_div_b: pixel clock divider B
++ * @pclk_div_c: pixel clock divider C
++ * @pclk_div_d: pixel clock divider D
++ * @vco_div_5_en: divide the VCO output by five
++ * @fracdiv: pre-PLL fractional divider, zero to use integer mode
++ */
++struct inno_hdmi_phy_pre_pll_config {
++	unsigned long pixclock;
++	unsigned long tmdsclock;
++	u8 prediv;
++	u16 fbdiv;
++	u8 tmds_div_a;
++	u8 tmds_div_b;
++	u8 tmds_div_c;
++	u8 pclk_div_a;
++	u8 pclk_div_b;
++	u8 pclk_div_c;
++	u8 pclk_div_d;
++	u8 vco_div_5_en;
++	u32 fracdiv;
++};
++
++/**
++ * struct inno_hdmi_phy_pre_pll - a pre-PLL instance
++ * @regmap: register map covering the PHY registers
++ * @offset: offset of the PHY register block, in units of the register index.
++ *	    Zero where the PHY block starts the register space, 0x100 on the
++ *	    StarFive JH7110 where it is preceded by the HDMI controller.
++ * @table: pixel clock table, terminated by an entry with a zero pixclock
++ */
++struct inno_hdmi_phy_pre_pll {
++	struct device *dev;
++	struct regmap *regmap;
++	unsigned int offset;
++	const struct inno_hdmi_phy_pre_pll_config *table;
++};
++
++const struct inno_hdmi_phy_pre_pll_config *
++inno_hdmi_phy_pre_pll_lookup(const struct inno_hdmi_phy_pre_pll *pll,
++			     unsigned long pixclock, unsigned long tmdsclock);
++int inno_hdmi_phy_pre_pll_determine_rate(const struct inno_hdmi_phy_pre_pll *pll,
++					 struct clk_rate_request *req);
++unsigned long
++inno_hdmi_phy_pre_pll_recalc_rate(const struct inno_hdmi_phy_pre_pll *pll,
++				  unsigned long parent_rate);
++void inno_hdmi_phy_pre_pll_configure(const struct inno_hdmi_phy_pre_pll *pll,
++				     const struct inno_hdmi_phy_pre_pll_config *cfg);
++void inno_hdmi_phy_pre_pll_power_down(const struct inno_hdmi_phy_pre_pll *pll,
++				      bool power_down);
++bool inno_hdmi_phy_pre_pll_is_locked(const struct inno_hdmi_phy_pre_pll *pll);
++int inno_hdmi_phy_pre_pll_wait_locked(const struct inno_hdmi_phy_pre_pll *pll,
++				      unsigned int timeout_us);
++
++#endif /* __PHY_INNO_HDMI_H__ */
+
+-- 
+2.34.1
 
