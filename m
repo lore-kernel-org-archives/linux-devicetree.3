@@ -1,168 +1,94 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D09BF3D9558
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9793F788F
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511392; cv=none; b=kgfQQE4KXPigG7BK60FIYW+XiO69m7EZ9KlDAptvt3WMA2S01o7fFSzxERsRAPje9be6aXbfA3lWSyYOm5GsdIszVjlYNpl/l2wE3c8YHGqErWr5wPmM8FUDBx6BS8xVNb1bAu2Dzc685I74vsd0lTaVYZETv9G5nB4fcdaoBAA=
+	t=1788511395; cv=none; b=ls/JdNTSnPOBJaD5yzclYnbTjjQhbBRQhfJvXb9jJQSTWBQcBl/h+DQau3qqJ+95yR8AHWsK+HsPOddRbaCCuckZ6Pyv0rLPurJgI/Er8Ja38lq9TsFnDPuxXLp73QCucwhaHriKVh/arL9LDIHATZyGjDb0QmaA+R7Btmn9FqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511392; c=relaxed/simple;
-	bh=k4P8O6O1bZN0BviRcm5rHj8gLkm4KLla0pyDEJs44j0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UyFBpE7apewZQl3xk6Q7jvuANlS58j87Mf4sR/heOOVlOuLF11uJgvPL5RtrozEG6MfNL8d8TSmAFpHJUB+32JMx98L5XxfMR+0iOK8SZS9pB9XM8I/qAlzf/jQ5rHrYp0utNqXbVloeE+6IuEvhHPx0+kmVB7TA2+TX92hp/Mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=b9I83p3G; arc=none smtp.client-ip=209.85.214.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788511395; c=relaxed/simple;
+	bh=+yHx2vq/hUeMrbD9re+41ZGr5Gp+ckJjvn9OV8ugWSk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sBatzPl68B0mWa7ZEM/92gAQHoYvqve12DIwvnR/Mj6+4arWUPYYr8x5A7z3wo0vtpYM/Ak7PYcRp6jfV1nbFNp3UxSNMdY6yLXCd5w0ahm8+F+qAS3U5vfcofgbO+baz2fDHfeN84AQiCJ2+0Kc5n8U+Gdj/RaT97goZyt7kpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WsRkY52U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="b9I83p3G"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2db18e5cb56so4078425ad.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:43:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788511387; x=1789116187; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Bo+9+1CvfJ71hhRjJqHX7wWrfIVVnPJvwTAuLV2zMPo=;
-        b=b9I83p3GB2Np56mdhqhsSbTAz+2Z1AvsREg4rzk71ni1TKMmew2j+w4krqcYmavOpW
-         W4B72lpYkAqvp8a72htsbsfGYPqVeWsr8/7WWY6RuN+XD7PXQAPnZE5vCmY9HXs2dYzu
-         LdHIezwu3hboKSvIrwnTyAuCMj1jaoKZN1C4A=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788511387; x=1789116187;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Bo+9+1CvfJ71hhRjJqHX7wWrfIVVnPJvwTAuLV2zMPo=;
-        b=lj/bJ9xmYCWb0kdfTsBImjR10+BLPPcVGBfu+gS01bAFHpxozO02M+EHGHxbCg+YEi
-         eGWHlM4lmEXxRjog+ZjOSiyWGorQPSdEZCJwkyJ4g/1Zgqnmu5tMHqf4AGueIHGDci1O
-         Rp++YUe45WmoAwF3w7y2rgMMEiZ4YTCELlv0PkwFt0oNXtgGKKzA0vcasm9Uie90yTX1
-         p/J8NEgN4X8/zqfoJ7gMq02ztUv9aNnkYE8ypz2Gtbj+/LolhlvVboM2hUQZ0Pgk2HFU
-         XxIVZGj2faq1320oYNPxRV41feCtHox/IHU/u9gIWgGIdQ6DbWBDDKjbeCuuB2eKmLtU
-         EHgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzNJz8ZHHdTCQ5H1P4R/O324eIlsx+jlt7vqDoCChE++xHTLQO3oe9peRp11ZylaE3OMHY9DgQYNcK2@vger.kernel.org
-X-Gm-Message-State: AFuF++nCchzcEGUdLWM57dm6CP5xsqKPHCe70NzLzZ4IDAeFCpQ9gOqI
-	zw7Qdxs1VEtHQ5FxqrxuIzgw3UDXt+COfey1Bfx+wGLRGRj2VhWBBPK8GNs269iZzg==
-X-Gm-Gg: AYBFou2UrwffYIpuPh/cMDwpYdd9cHDh9TCEAjY5VynC0g3QXF+gLzPOEJq0290jaI3
-	Ehdif/pj5cRZzZS9pAqFAO+mJp8UEkpJe1x9n/U6Iz3Ry4Alpuq3P3M+k/I/h+S55pdVxRpwLF2
-	nuTup76m7XIQT1PuK8SdY1Cq/aRC7t0LOQJZKn8I+eV369DbNvjnr3rhxxWhvpgIOsBHrCElGij
-	k4dZc6lQUtJCBz5VTl41WkCBKoOrQ8Ywg5q+2ns0OHr3kPuDzjdlY9GO3x02w+kQ6rLlW1Ein/4
-	GJvxKaJr4hJ3J2FMgLHG0/LPHhWWoPlTa8Uw/AEav1Kq8C+2WyIBXhROycgrYbiNdhsFHplnZCg
-	grZAMZyO+m8VkX/Ew2L+xwpMwRFRKILDxYgYlZ5YpfrFLmSMvotQhiH5DblQOLRacqYUnC+ba3V
-	JoXT46R62FhmgzIqrTr70eiVijtFrIvbes+oDNHuu7hqdMjdsPQ9VG+hLwIr7OeI2olHftBcI3g
-	FTtgZhSJeEaR8H+6F3vXacCjSFTollrUo3BCEZ15Tlk
-X-Received: by 2002:a17:90b:1d52:b0:38f:de97:b06 with SMTP id 98e67ed59e1d1-39b260d338bmr6986016a91.5.1788511386742;
-        Fri, 04 Sep 2026 01:43:06 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:343:bf21:3095:9c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm3343538a91.9.2026.09.04.01.42.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:42:36 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	linux-acpi@vger.kernel.org,
-	driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH v8 05/16] usb: hub: Return actual error from hub_configure() in hub_probe()
-Date: Fri,  4 Sep 2026 16:41:44 +0800
-Message-ID: <20260904084158.1341550-6-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
-In-Reply-To: <20260904084158.1341550-1-wenst@chromium.org>
-References: <20260904084158.1341550-1-wenst@chromium.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WsRkY52U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B1E1F00A3E;
+	Fri,  4 Sep 2026 08:43:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788511389;
+	bh=W41Gchnmbd+oso4r0BSZH2y/GkahKY1NFcw72aKXpUU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WsRkY52UfkbFvkQz36ORxl7VqfeFXOCxAH18gO5/ZYWFLaNpdaEw7w9G/UCwZ8yeR
+	 vRifSHScyaAkSC9ukp2fx3INvtvuj1TPvUu/Z2Ur6vWr6ThvLst/yZaX4Qf0jQfkEE
+	 qkjdRaVJEhj57pqZyHDLJEobI0Z9kdPX2Ys5qG18yk1HzGYhK0g6oeImkyJ07EA3EE
+	 d4f/t2VypxQW2lQkMl383RWXIagNUDQTerF52tcaRTJKo6qh+JKOrQ4jItceUo58gv
+	 yIxPgYeWdEtCG17D5oShTibEUlDEBivivbo4fJ5bz55thN0+oY8oTXmd2oGpCX3sX7
+	 YI0BsDePcuhwg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/4] iio: ABI: Add DAC current powerdown attributes
+ and 15kohm_to_gnd mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kim Seer Paller" <kimseer.paller@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904-iio-ad5710r-upstream-v5-1-76f985b7d0ee@analog.com>
+References: <20260904-iio-ad5710r-upstream-v5-0-76f985b7d0ee@analog.com>
+ <20260904-iio-ad5710r-upstream-v5-1-76f985b7d0ee@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 08:43:08 +0000
+Message-Id: <20260904084309.38B1E1F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The addition of power sequencing descriptor handling in the USB hub code
-requires dealing with deferred probing from pwrseq_get(). The power
-sequencing provider may not yet be available when the USB hub probes.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch documents out_currentY_powerdown_mode but misses the corr=
+esponding _available attributes.
+--
 
-Return the actual error code from hub_configure() when it fails, so that
-the driver core can notice the deferred probe request.
+commit 8792fdce55087374092373b1e07164bea5a13f94
+Author: Kim Seer Paller <kimseer.paller@analog.com>
 
-Also rewrite this section into the standard error handling pattern:
+iio: ABI: Add DAC current powerdown attributes and 15kohm_to_gnd mode
 
-    if (error) {
-        # handle error
-        return error;
-    }
+This commit documents the out_currentY_powerdown and
+out_currentY_powerdown_mode attributes for current-output DAC channels.
+It also adds the 15kohm_to_gnd powerdown mode to the list of available
+modes.
 
-    # do more work
-    return 0;
+> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/=
+testing/sysfs-bus-iio
+> index a4f5595722ade..a0f9aada5c62d 100644
+> --- a/Documentation/ABI/testing/sysfs-bus-iio
+> +++ b/Documentation/ABI/testing/sysfs-bus-iio
+> @@ -762,6 +762,8 @@ What:		/sys/bus/iio/devices/iio:deviceX/out_voltageY_=
+powerdown_mode
+>  What:		/sys/bus/iio/devices/iio:deviceX/out_voltage_powerdown_mode
+>  What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_powerdown_mode
+>  What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltage_powerdown_mode
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_currentY_powerdown_mode
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_current_powerdown_mode
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
----
-Changes since v2:
-- Rewrite into standard error handling pattern
+[Severity: Low]
+Should the corresponding out_currentY_powerdown_mode_available and
+out_current_powerdown_mode_available attributes be documented as well?
 
-Changes since v1:
-- Moved "int ret" declaration in hub_configure() over here from the next
-  patch
----
- drivers/usb/core/hub.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+The existing voltage powerdown modes document their available variants
+further down in Documentation/ABI/testing/sysfs-bus-iio:
 
-diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
-index 16e03ec8d1ab..c19c9912c740 100644
---- a/drivers/usb/core/hub.c
-+++ b/drivers/usb/core/hub.c
-@@ -1870,6 +1870,7 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 	struct usb_host_interface *desc;
- 	struct usb_device *hdev;
- 	struct usb_hub *hub;
-+	int ret;
- 
- 	desc = intf->cur_altsetting;
- 	hdev = interface_to_usbdev(intf);
-@@ -2001,14 +2002,15 @@ static int hub_probe(struct usb_interface *intf, const struct usb_device_id *id)
- 		usb_set_interface(hdev, 0, 0);
- 	}
- 
--	if (hub_configure(hub, &desc->endpoint[0].desc) >= 0) {
--		onboard_dev_create_pdevs(hdev, &hub->onboard_devs);
--
--		return 0;
-+	ret = hub_configure(hub, &desc->endpoint[0].desc);
-+	if (ret < 0) {
-+		hub_disconnect(intf);
-+		return ret;
- 	}
- 
--	hub_disconnect(intf);
--	return -ENODEV;
-+	onboard_dev_create_pdevs(hdev, &hub->onboard_devs);
-+
-+	return 0;
- }
- 
- static int
--- 
-2.55.0.979.g7e5102b832-goog
+What:           /sys/.../iio:deviceX/out_voltageY_powerdown_mode_available
+What:           /sys/.../iio:deviceX/out_voltage_powerdown_mode_available
+What:           /sys/.../iio:deviceX/out_altvoltageY_powerdown_mode_availab=
+le
+What:           /sys/.../iio:deviceX/out_altvoltage_powerdown_mode_available
 
+It seems the current equivalents were omitted from this patch.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-iio-ad5710=
+r-upstream-v5-0-76f985b7d0ee@analog.com?part=3D1
