@@ -1,65 +1,65 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57A5471D0C
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 16:40:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4228E38F25C
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 16:44:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788540026; cv=none; b=XFt3+5nk+DuESdxx6zF3r5M0HkCKFkJH4U0Z4aTIRgZ98BntOo1OV5WNR7HS21VdLpZlUetUqWoY3CUVEBjKK6Z/jxIXua9TpdNstzAs0eJdid965AIoPvGaiaSsuX+BXJ+MBe/L30vgp0g3sOMVRDaP9L6JWKikZo6ZOALkjdU=
+	t=1788540266; cv=none; b=dS45BSrTyMEXb70WAWShX/InWi9Ul6TtIglsieZwkiaRAwSP+DhEhDnle7QJUU5jZ1gr0dv6Fu5GEXKfeekex3SXS5ZiIclxLOIoKIHM7Qtum303LSqEq0d5aUmLS0+ikpogJS3SpnBWlKA5M8Ynf9SOcPzyPcOMxsnKQDLJnXc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788540026; c=relaxed/simple;
-	bh=jqtuzC0nR43l61D6gvcZaII5xgpzEmMh90Esg3ewQrM=;
+	s=arc-20240116; t=1788540266; c=relaxed/simple;
+	bh=zuOhkEhl9/3hyPjwkXOeT9Ut7Y3NkxiWsPCsZKsgbNg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Zxm7KQqEXUpHCrY2jz5QUgpEipcsgzHSbbYGM8DBbw+cC/8puzXRyJz8ZxTcwr4LA6qSPfx7w1K21Q4QgXuxvzFFUBJ3/6PX7qpYwjAcTXBcO0EaGnEcQ/pbtLPwlbGeTwqdCbipi0Lf6GfRxd2DiaActC/ZWItOf8P2EZJisP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=Xw0ztEIJ; arc=none smtp.client-ip=209.85.219.48
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+A0Xf8IgHE5sqkH/uUpOGcGy6Vtkpog2E3Gw6pmRiMXixLVrKKfJ46STdwqzKTnDaynAInhIhNw5vI49paAxVENZHy/V6/EbkDUrANOStEFE54BebfW5n5y+2+BGqk5UYCjFYpf1mjQ7ld02udZUZ07iz3wzLUat599xDcgm6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=lkplYKnu; arc=none smtp.client-ip=209.85.219.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="Xw0ztEIJ"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-90f9f8553e0so14613126d6.1
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 09:40:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="lkplYKnu"
+Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-90cd43bd740so13603646d6.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 09:44:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1788540023; x=1789144823; darn=vger.kernel.org;
+        d=rowland.harvard.edu; s=google; t=1788540263; x=1789145063; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=1nkJa0DEiZl3J7FyRvj4qHDW8diym9PfM40Ci/vpZoM=;
-        b=Xw0ztEIJbMLMQ7ifS+CaUe0m0mhF0bBQNhWTpMXSxN6URC88+zF1+iRdm0TVGoMu7O
-         8Ht2I6GMrv5h04YkIRoGVM1djgDQTgFEH2iUrqmTNkReM6X50Z6wyIfu//uyCp0hwfsn
-         zo909hiDroAZE3Q+zq6drAgFgd7m1ydjsuuJGsKT7RtmqNQAL+LfGBspPW6zGkYI7L+A
-         NKkktzRtsUH15JQmt9ldxAlAe6/1dOcrgrDjCMU14DUOtsZjFG/nQ9HhDkyqZa2OmgQH
-         fxQUXikFGLGuvyBLcCzWykasG2otX6DcJbjEc6MsAOYsAqd4PEX6Bd2P5FkFpSyaDbR+
-         pB4g==
+        bh=w/3GNXQSGCY34ByWxnrlCAFhsDJSzJ5v9o2W5RmLNQI=;
+        b=lkplYKnuLx52STNBRE9/OmlWQ/WfYs+lwfMhZ000DoGGVaVdCgDiuDXUS/1p6Ruc9b
+         2KGIuOHOp9dmFNj5tCeJ3yrQuTGCqe/vUECH0bhV9EDuZt82XUxU51E8QjSNL9E+My+J
+         atNG2VhcgWGy3HUdVYpyePtJbA/G3T4Q93TvB8aC09O3Vj7NODxXvte1l+BOU4sUvEve
+         grRdxqU9xVVfeQ3EcGGQQEx3qX2U9ywwIAHn81+UP46ynR1JPXIwrDnekXGEt4+MDcIR
+         YI6GlKskDu9ShKEpLxWQKK8uJgn9kB32lvhylpkFZkAFM54XF5nUQSnO58yPxGO9Uxah
+         iyAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788540023; x=1789144823;
+        d=1e100.net; s=20251104; t=1788540263; x=1789145063;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=1nkJa0DEiZl3J7FyRvj4qHDW8diym9PfM40Ci/vpZoM=;
-        b=Bivk5dozjwVm0+uDug8WCL+JJim+gOCld+YubG12gxD3PU/2S4fvZagdz4s+VTUY7E
-         Iw8HltapzYOY09pg7sXyNdiQUB2gwjvCgZdqtN5102hj/HbBONoPhGkpRx1GFgWFHZCk
-         t7uW8Ajk8H5zOWlek6R0cRy3SRbjDnW//AJdNsDhwGTDchvMbpUxOx/IY1c2W+NNszQx
-         3/R5WLF+yTymp48RMZxRiRQWdgRmeDN5cEv/QAxV9li3isy9Vov25Dm6AjtONQyruH1p
-         VayqADfDT8drRB6LpqlgfDrB+E0C1gPhYrEjQWhPwti/89NLcep6J2YLY4KH+PeiWtL4
-         hkig==
-X-Forwarded-Encrypted: i=1; AKwUvBzvdn8M+I023QLACN9A0vU1szQm8ldcUbtaZbJA72KWEjzWy0tEV5zJlNZTA0zERihHLnA9JPSr1iqv@vger.kernel.org
-X-Gm-Message-State: AFuF++l/v633fCWPmLDfFP04LxfezA+6q8+0rHpWUhtap2F5XnVy9m+W
-	JLFGE/s+Wv2VufD7IlYwriWhM/lNKchi1j9s/0M7D0T6IFqbg3wu/mrmbiKM+b7EGw==
-X-Gm-Gg: AYBFou3w8wKx4FzVLwb0vUISZRPwjwlWMwBvT13xBFLIyrQlkmZVH3qSOxCBGaE6v6Q
-	F/Aa8rTLLBaw9HWvSq9Jbh4QDlzCdleRuI2n0amloj0pz//US+g3232Okqb7uKBOnl0hU8oIyIB
-	S+ha8yaeCLXqvTI/69QjKnjOWAEzOhYNphYLKTolb6hHz7WhwPH5eb2ymW4LpVAh+VHI4vk6v5z
-	i3IR049RY8iSrI93jBeWDAOsMp8bNJtwy8taZ9xOWVrGbjMS99NhENOFRte49lUh1MDPOqb+8jK
-	MlGrgfGw4BJicLFnN06dYHbwarDOu+GNT/fuvPAGLTJ4DB7G8a7jnRtmZh0VQroOA17Fa2UD2jc
-	7v4syWLXfPmDZiJ6pV/KBm6+8GCHJzqKEUOUy0pedgnnk1riZgJ7NX7ob3gUGpySPILhY83n1N4
-	yEwVc+xZEHskxyf5dbgYQurxejIOJUOzaLP66dbIjXfx0lVHkLLEKrZQWCH+WTYg==
-X-Received: by 2002:a05:620a:8017:b0:939:6ec8:6928 with SMTP id af79cd13be357-9398037ac44mr706361285a.16.1788540023360;
-        Fri, 04 Sep 2026 09:40:23 -0700 (PDT)
+        bh=w/3GNXQSGCY34ByWxnrlCAFhsDJSzJ5v9o2W5RmLNQI=;
+        b=of6GMIfUZkl1uQwP0a0+KTPjk7PqGd/+1e3LQeQSfvylgiF+FTo3y+UUpsbcvfBDdX
+         cwtxTIuQobOwttuMyX3/V/U9QS2ZyeppQo8MOf3TOiZdrWZXWHReAJNTYzFPZ2UKlGwD
+         SHyeOipk3aaY87iDMYtoyNWb1dgODUgHdF8zCPLYaADaF5HXhBzkzuE7NzyS0HgRTqEu
+         PfLo+lWd3voIeRlPh9H9MBvQx4vM8GnWFzGiQJ3SzBMzB16j2fX+DySewcDq1w+jVndL
+         hKOAyv0h4RmbDxONff8YMGfrXrSaM7vol8P2GhgSFZLLzky+ekILoM6juSd/cSY0NqWw
+         G1uw==
+X-Forwarded-Encrypted: i=1; AKwUvBwqBcVAEP0ImaaY6ZL9EQvLyLOZUM6HrlPqIXbwKH6xkaIQ+GWsZHT2NkXVSPdTwfu+m9mWciTcsTCT@vger.kernel.org
+X-Gm-Message-State: AFuF++kLQdgPba3zFoNAnpq64V26JeRcxytHydTr9xPnpkatojeZnR22
+	K2yRLBChGfm36a8V6xhBepKCKclO7Wl+NqInYfouhUhvTbKDKm3ajCRyAawRB3SWBA==
+X-Gm-Gg: AYBFou0Ok7lAG86kwsKdnU/7opAi1LXmDRacNUcR83nR9YVw17EEimGcb/9F1WP/faZ
+	SYRMcRO0zs1nRHojHZptH1vseDQyjzpnPjX1GJvqu4z3adjCr4g26UhFfFXtRODGH0ZYIjfGNOt
+	BJ2q0c5kaXNOCeU92d212gAk+Tos0MS0xt8ENuwYhr7scO/OsNmL9l/89ZMLBGhproA0FjjIcph
+	+yLWuPcwH+9U8izgMUeDjm2WDvJ+AuttdGP8gzRnzeUS8Zsm8GyW4iVydJ3WVSqtu8P9eTxx474
+	wuaW8RFtM9hFLNXmt53eqz4MJvWIVmdgFQ1FX0/9DqW//bWlRvKVnFDm/kJL+npkt7iw7kjemfV
+	8Xlp/ZaQEQGIOShee5iLsVCWosJWNALayKdU7MIhBC3f+Nf9ZJ2ww82EWU6rhVtEVvYsiKEGumi
+	wFSYQx2CEwpAGR7u8axgx2yiaJXZ8Saf2QD8h0FLTmRaLguQ88AgaBl5UyrB9AEw==
+X-Received: by 2002:a05:6214:3003:b0:910:3d6e:ed46 with SMTP id 6a1803df08f44-9103f0db656mr78478096d6.31.1788540263010;
+        Fri, 04 Sep 2026 09:44:23 -0700 (PDT)
 Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fafc3a7sm246420885a.14.2026.09.04.09.40.21
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91040646d64sm24672736d6.14.2026.09.04.09.44.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 09:40:22 -0700 (PDT)
-Date: Fri, 4 Sep 2026 12:40:20 -0400
+        Fri, 04 Sep 2026 09:44:22 -0700 (PDT)
+Date: Fri, 4 Sep 2026 12:44:19 -0400
 From: Alan Stern <stern@rowland.harvard.edu>
 To: Chen-Yu Tsai <wenst@chromium.org>
 Cc: Bartosz Golaszewski <brgl@kernel.org>,
@@ -82,11 +82,11 @@ Cc: Bartosz Golaszewski <brgl@kernel.org>,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
 	Manivannan Sadhasivam <mani@kernel.org>,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
- APIs to port.h
-Message-ID: <6bc3c29d-aa38-4e59-a4f5-2c480ef9c748@rowland.harvard.edu>
+Subject: Re: [PATCH v8 08/16] usb: hub: Pass |struct usb_port*| to
+ usb_port_is_power_on()
+Message-ID: <c3740c4f-6ae8-4c6e-8f80-105f1607ef55@rowland.harvard.edu>
 References: <20260904084158.1341550-1-wenst@chromium.org>
- <20260904084158.1341550-8-wenst@chromium.org>
+ <20260904084158.1341550-9-wenst@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,48 +95,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260904084158.1341550-8-wenst@chromium.org>
+In-Reply-To: <20260904084158.1341550-9-wenst@chromium.org>
 
-On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
-> |struct usb_port| and its matching container_of() macro should live in
-> its own port.h, matching the split we have for .c files.
+On Fri, Sep 04, 2026 at 04:41:47PM +0800, Chen-Yu Tsai wrote:
+> usb_port_is_power_on() currently takes |struct usb_hub*|, but only needs
+> it to tell if the hub/port is SuperSpeed or not.
 > 
-> Move them as described. Also move usb_port_is_power_on(), since in the
-> next change its |struct usb_hub *| parameter will be changed to
-> |struct usb_port *|, and becomes a non-static function that only
-> references |struct usb_port|.
+> In a subsequent change, usb_port_is_power_on() needs access to a pwrseq
+> state tracking field in |struct usb_port|. Either structure can be used
+> to identify whether a port/hub is SuperSpeed or not, as the field in
+> |struct usb_port| is inherited from the hub:
 > 
-> port.h is only included from hub.h, as a subsequent patch will directly
-> use fields from |struct usb_port| in a static inline helper in hub.h.
-> The USB internal headers don't have header guards to help with this.
+>     port->is_superspeed = hub_is_superspeed(hub)
 > 
-> Also drop 'extern' from the header declaration of usb_port_is_power_on().
-> This is not needed in modern C.
-> 
-> Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> ---
+> Replace usb_port_is_power_on()'s |struct usb_hub*| parameter with
+> |struct usb_port*| so a subsequent change can use it.
 
-> diff --git a/drivers/usb/core/port.h b/drivers/usb/core/port.h
-> new file mode 100644
-> index 000000000000..00f7500af336
-> --- /dev/null
-> +++ b/drivers/usb/core/port.h
-> @@ -0,0 +1,68 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * usb hub driver head file
-> + *
-> + * Copyright (C) 1999 Linus Torvalds
-> + * Copyright (C) 1999 Johannes Erdfelt
-> + * Copyright (C) 1999 Gregory P. Smith
-> + * Copyright (C) 2001 Brad Hards (bhards@bigpond.net.au)
-> + * Copyright (C) 2012 Intel Corp (tianyu.lan@intel.com)
+Minor complaint (not referring to anything you're doing here): 
+port->is_superspeed really should have a better name, more like
 
-These copyright notices are entirely inappropriate for this file.  As 
-far as I know, none of these people wrote any of the code you moved 
-here.
+	port->is_superspeed_capable
+
+or
+
+	port->is_usb3.
+
+As it stands, the name is ambiguous.  It might refer to the speed of 
+devices that the port could connect to, or it might refer to the speed 
+of the device the port is currently connected to.
 
 Alan Stern
