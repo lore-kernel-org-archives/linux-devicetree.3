@@ -1,179 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D84873B8BC7;
-	Fri,  4 Sep 2026 11:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCBE433E9D;
+	Fri,  4 Sep 2026 11:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788522873; cv=none; b=AjoEuVpHzYRfNzvU8d75kj2BGhf3imO2l2jAxI7cDCuMP44Loq9wrIw5W/ba9+9O8Iwc6I3qEYxEJc41QusP4EpKS2iViqdkPhZWgR5ULOIT7PRBOuiCMLIhhHPRGreNJZdN4CiSxGU579v28ogUjyqeqw2K6FO0xqu2WYQpKPs=
+	t=1788522955; cv=none; b=Xv8YGefsHcgl5l0Y1/V5bakgDCjMXCTlDWDyN/BlndoUlcGbsehcJKekty9Ymh47TDGt2Lm8a/7KPvRq/F38zkKGdWR7HSLVLQytHxnKd27Kg7KzwJXLmODmBZTJpzjvoTjnJpaRZ6RM91/5mS0Mvl6Gwx/GcJW2hf8NT8nb/EQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788522873; c=relaxed/simple;
-	bh=sfYQe9jygtOij3Kv5lyQjAkX8LBRxogq/agDtAr9hd4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MVUthnXlyST61FHignu5LOakSYkBG24uDD+MRqyX2yco/fIHweQj3euoY64NV3iK33kECUI7nUnTUH8kp3Zm4oHE8l5kkR4gztmzA/8HAr07U1Qvn2XJocg/aQv7ANhiGlrstidtZ9vrHABaH6/b22YIMUDaAQ9kZtPf7QNiQ1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UGvk209N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788522955; c=relaxed/simple;
+	bh=SQpI4I09fd14R+BxKv83yrD2WKM66SRsC9Z6WdfEhNU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=U0q37qyme7AMQdmgvO1wYnV5B2w10ZbJ41H9Yi79CnoCUmqMcHg5raWtjqfMgral9KbtL/1mMNv6n58mf7ZOEg1jQNslSiK9hHFLv5s9e0B5FIPIKr3x47hWzR4ehwKZ3rsyNMNyNNKlEwZFNWwgEwXhY5/AnJGFYTYbsThlz+U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FBD7niyF; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UGvk209N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB4E41F00A3D;
-	Fri,  4 Sep 2026 11:54:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788522871;
-	bh=5FtP551ertCbjVglA9tJ1Khd6CYq2d6Vnx4Z1uC4NgE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UGvk209Nwfgf5Nat92NaedZtdNnq3AnxFCnGGdky4dUMNamu0y0bjwfZJsGbTE6Ux
-	 KJSA8BQn+ooDEZx+IsfGB2L/CfhZHeHxeZQcT9CdvK5kT4pCcDXhjo+AhmaNbI/SkB
-	 G9J1iQ0Yxel31i115cowJq/yvyW9Oo8/BFwwsR/3/Dbfski87OEVGacIqX5wGi77Fg
-	 5Ek2swVSks9lnsKoQ+T08HF4DDmL29HnXvk5qZYlSODHTkPWKF7+aa9EGlvE/53J4u
-	 9NFqOHTJDepX+qsrsuU0yef7nzXi+zAYoGo350/e2TYIP+bnlyR35Z7cOEo+FFuris
-	 VjRIhg8UsqsTw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 10/12] arm64: tegra: Add VPR placeholder node on
- Tegra234
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, "Vasily Gorbik" <gor@linux.ibm.com>, robh@kernel.org, conor+dt@kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, linux-trace-kernel@vger.kernel.org, linux-s390@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>, "Christian Borntraeger" <borntraeger@linux.ibm.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260904-tegra-vpr-v6-10-79042cfa8de5@nvidia.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-10-79042cfa8de5@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 11:54:30 +0000
-Message-Id: <20260904115430.EB4E41F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FBD7niyF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788522954; x=1820058954;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=SQpI4I09fd14R+BxKv83yrD2WKM66SRsC9Z6WdfEhNU=;
+  b=FBD7niyFGUBvRR/kfy0GHYlsX6l5j/utPRm7GtmTSxsLgnDQzURE2w3S
+   l6y0aCsOufuBt4hj0L5pooOi31DTXaAcGurouEN1aiBPf6bNJtDc5c1sF
+   J7EW8mCE3kOBzUHl9ZSy5On4RRGSmxYmGFNL3i5VbteofRdWBJf6Gjqq+
+   FYaiGI3FoZAq5z044fvQKg5PuvwYQNYv2DW5cCsxgeMT7kALPmRXaJUxk
+   9jh6Rww3Wo/a7Ot4XY6gX1CG4x5QtAcunwO+tBTU210E6rHHJp/4WPktT
+   5AUZ6vQ4Qx46+ZWR/48wiU1XQW9RhJCvy/Z3xSwclPtZYgK1b1USaAlwe
+   w==;
+X-CSE-ConnectionGUID: /6djwOFdRaW/uvyEPqR3og==
+X-CSE-MsgGUID: sdUAvO3jTaajzxOLpAj54w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="100381142"
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="100381142"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 04:55:53 -0700
+X-CSE-ConnectionGUID: 0yJ5hwEYTn+ZBPfL4jfyNQ==
+X-CSE-MsgGUID: DK4Sk+7SSmC/yGDtit4SKA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,262,1779174000"; 
+   d="scan'208";a="273548667"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.224])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 04:55:47 -0700
+Date: Fri, 4 Sep 2026 14:55:45 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: longzhao@ambarella.com
+Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
+	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 08/13] gpio: regmap: support write_data_after_dir and
+ girq
+Message-ID: <apqxwRgi-uVKkOpr@ashevche-desk.local>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] The newly introduced `cma_alloc_at()` API does not validate if=
- the requested allocation range exceeds the bounds of the CMA region and mi=
-smatches bit/page units, leading to an out-of-bounds read and write in the =
-CMA bitmap.
-- [High] The `tegra_vpr_set()` function passes 64-bit physical addresses an=
-d sizes to a 32-bit SMC call, which truncates them, misconfiguring hardware=
- protection.
-- [High] Missing mutex lock in `tegra_vpr_debugfs_show_chunks()` when itera=
-ting over the `vpr->buffers` list.
-- [High] A negative left shift occurs in `tegra_vpr_setup_chunks()` if the =
-configured VPR size is small, leading to undefined behavior.
---
+On Fri, Sep 04, 2026 at 02:38:15PM +0800, Long Zhao via B4 Relay wrote:
 
-commit 4d64d0d8b755f60422c65bdb111c671e4013a472
-Author: Thierry Reding <treding@nvidia.com>
+Thanks for this change, my comments below.
 
-arm64: tegra: Add VPR placeholder node on Tegra234
+> Add an optional write-after-direction-output quirk for controllers
+> that ignore data-register writes while a line is still configured as
+> input,
 
-This node contains two sets of properties, one for the case where the
-VPR is resizable (in which case the VPR region will be dynamically
-allocated at boot time) and another case where the VPR is fixed in size
-and initialized by early firmware.
+The chips that require this are buggy. Are you going to fix this HW in the next
+version of the SoC?
 
-> diff --git a/arch/arm64/boot/dts/nvidia/tegra234.dtsi b/arch/arm64/boot/d=
-ts/nvidia/tegra234.dtsi
-> index 5e29316a4d759..6c4739efc8a5d 100644
-> --- a/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> +++ b/arch/arm64/boot/dts/nvidia/tegra234.dtsi
-> @@ -29,6 +29,45 @@ aliases {
->  		i2c8 =3D &dp_aux_ch3_i2c;
->  	};
-> =20
-> +	reserved-memory {
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +		ranges;
+> and allow drivers to pass an existing gpio_irq_chip through
+> gpio_regmap_register() so IRQ setup can stay with the caller.
+
+This needs to be in a separate update. Also we need to understand why
+it is required. The caller should be able to create the respective IRQ
+domain which is important.
+
+...
+
+> struct gpio_regmap {
+>  	unsigned int reg_dir_out_base;
+>  	unsigned long *fixed_direction_mask;
+>  	unsigned long *fixed_direction_output;
+> +	bool write_data_after_dir;
+
+Is `pahole` happy with the layout?
+
+>  #ifdef CONFIG_REGMAP_IRQ
+>  	int regmap_irq_line;
+
+...
+
+> static int gpio_regmap_direction_output(struct gpio_chip *chip,
+
+>  	gpio_regmap_set(chip, offset, value);
+
+^^^ (see below)
+
+>  
+> -	return gpio_regmap_set_direction(chip, offset, true);
+> +	ret = gpio_regmap_set_direction(chip, offset, true);
+> +	if (ret)
+> +		return ret;
 > +
-> +		vpr: protected {
-> +			compatible =3D "nvidia,tegra-video-protection-region";
+> +	/* Some controllers ignore data writes while the line is still an input. */
+> +	if (gpio->write_data_after_dir)
+> +		gpio_regmap_set(chip, offset, value);
 
-[Severity: High]
-Is it possible for the shift operand to become negative when the VPR size is
-small?
+This can lead to two writes to the same register, the above needs to be
+conditional as well.
 
-If the VPR size configured in the device tree is small (e.g., 4KB or 8KB),
-get_order(vpr->size) is 0 or 1. Since vpr->num_chunks is hardcoded to 4,
-ilog2(4) is 2. The shift operand can evaluate without bounds checking:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_setup_chunks() {
-	...
-	max_size =3D PAGE_SIZE << (get_order(vpr->size) - ilog2(vpr->num_chunks));
-	...
-}
 
-Can this evaluate to a negative number (e.g., 0 - 2 or 1 - 2) and cause a
-negative shift during driver initialization based on device tree inputs?
-On arm64, a negative shift count often wraps around, resulting in a very
-large max_size.
-
-[Severity: High]
-Could passing these 64-bit addresses to the SMC32 call cause truncation?
-
-The 64-bit parameters base and size are passed directly into an SMC32 call:
-
-drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_set() {
-	...
-	arm_smccc_smc(ARM_SMCCC_VENDOR_SIP_TE_PROGRAM_VPR_FUNC_ID, base, size,
-		      0, 0, 0, 0, 0, &res);
-	...
-}
-
-The ARM_SMCCC_VENDOR_SIP_TE_PROGRAM_VPR_FUNC_ID uses ARM_SMCCC_SMC_32,
-meaning the SMC instruction adheres to the 32-bit calling convention, nativ=
-ely
-truncating the upper 32 bits of base and size inside the secure monitor. Si=
-nce
-CMA regions on arm64 frequently reside above the 4GB boundary, can this
-misconfigure hardware protection by locking down the wrong physical memory?
-
-[Severity: High]
-Is it safe to iterate the vpr->buffers list here without acquiring a lock?
-
-drivers/dma-buf/heaps/tegra-vpr.c:tegra_vpr_debugfs_show_chunks() {
-	...
-	list_for_each_entry(buffer, &vpr->buffers, list) {
-	...
-}
-
-This iteration accesses a shared, mutable linked list without acquiring
-vpr->lock. If another process performs a DMA-BUF allocation or release
-concurrently, it modifies the vpr->buffers list under vpr->lock. Can this
-result in list corruption or a use-after-free if modified or freed nodes are
-encountered mid-traversal?
-
-[Severity: Critical]
-Are the offset and count units mismatched when calling cma_range_alloc()?
-
-The exported cma_alloc_at API passes page-based offset and count to
-cma_range_alloc():
-
-mm/cma.c:cma_alloc_at() {
-	...
-	page =3D cma_alloc_at_frozen(cma, offset, count, no_warn);
-	...
-}
-
-In cma_range_alloc(), this sets the max limit for the bitmap scan to end
-without bounds checking:
-
-mm/cma.c:cma_range_alloc() {
-	...
-	bitmap_maxno =3D (end > start) ? end : cma_bitmap_maxno(cma, cmr);
-	...
-}
-
-cma_alloc_at_frozen() passes offset and offset + count (which are in pages)
-to cma_range_alloc(), but cma_range_alloc() incorrectly assumes end is alwa=
-ys
-passed in bits instead of pages. Any driver calling cma_alloc_at() with an
-offset + count exceeding the CMA region size could bypass length validation.
-
-Will this scan past the end of the allocated CMA bitmap and allow bitmap_se=
-t()
-to write out-of-bounds?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-tegra-vpr-=
-v6-0-79042cfa8de5@nvidia.com?part=3D10
