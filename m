@@ -1,248 +1,100 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD583D8918
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:56:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A213CCFB8;
+	Fri,  4 Sep 2026 08:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508599; cv=none; b=RMYaMtEZge2BgBgAPbc0sZiNSfQzVfW9qXaN1WyHLzwL9XXobM9ia/1h7QcIToTh5InG2QufgPLc8ve2ecqrLhqre7BVCvSVxNz8nyISBjxaS0b4+Hkx0xNJbM5WVNSxXHAOvfgQ4UqrlhgiNBNoCRaGqldzjEOYdwkvTeYHW/s=
+	t=1788508820; cv=none; b=QrNOrqXSptTV8nEWltjA1249mx08nYIu1vZH7C4BaGU5j2OPtNKv0HwYCtJ9H8aIM2t8Ee8+UGcV6cvg6RzNkziBjgqoHDdQMpGCJ3r2000agK61EJHjwOpn2QG8cpovKx2wBTBwwOqDEF+26qsSqAdx8CkKBJYnlXNdKRW7HH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508599; c=relaxed/simple;
-	bh=zQ8cn2/0tyjAicXEdtJIFavfOEkBK8rsVVbLFP9RnSI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BEDedB5JM6wfPX160P5IJ0zmAGMjryL1QB6+oSgZYI+eceo8qikvJWNEZZjBxJMhMxbhzbVQ3oqmZWslcnXRF4BQ8zenzpBm5wCMHjEsXP41fomiSSsttKXrEfVtLwdyM/zr3Q0rDcXzB4+a69SjNsMJGPRkVLfa6P+JNg42Uus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHVBu64I; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788508820; c=relaxed/simple;
+	bh=lidQSovl5CVR4HYmDhW3eI/lWyxTWMAnZASRsCB7H9s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c9VN7rgaenxRpzMJImNRz2CI5ungSIq8pArdOI4+Hf2o+VD0CF1sLkmtHvhmlbcT0elaZhLFktvIx1Qe6v2V8G6CgD9PpKq1yg1TXAj/8v1VMle5M8u2tRx97bqC7YXne1SqB4PIC7TrojVXgBRnBF6CKeTZhVo5Ngm7KYfNGe0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5b7Kfzw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHVBu64I"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ab16a9adso23956a12.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 00:56:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788508598; x=1789113398; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GLyFekJ0N8Lq/xlKUVCeo3LPrbIlgpH48f7aKuVq5pE=;
-        b=bHVBu64I5JWrHTYDHHDRXkonfnKSA9Z44SDQFQKH7QAC+hG9Nod4Am2URddmv/5O+0
-         7DbUGIS/QmQRLQzcRbejWNaWoj12lpNlboL8kjq08Q+kg5ZEKyqBx/+dT0WRKkRT5/RZ
-         iiPXXj9d5JQlNz1pMZjm25AQQ0S8oGpzwZlEuBB6p2O64574sRFaknGk6lr++YWg+DYT
-         wcc5Wl53yLPzP8cdToq7eR2yjQiGON4YFpXwyN1wsJ//5OuiZJEGX9NaC1LbrX28qquw
-         v5OBm3DTO/iJTAM8lNB9PXebl2QeL0mCHgN+124PxdgXKDSY/wj/UTsCiNf5lDihfq/a
-         ZTvA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788508598; x=1789113398;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GLyFekJ0N8Lq/xlKUVCeo3LPrbIlgpH48f7aKuVq5pE=;
-        b=rbG+hP+kfkEvUe3FKu/stXXTOnXquFuBvz6lrzeKDQpKnHid1Xeqr/Cz/0VTi3WZ+E
-         AnEKrjdNOLCmGVMyI7UHA/+ShxPW67eAvxgUH5TlSHlZD2rx5vfpm8zELCk65It96/yA
-         Rh1Frm8TYFmr5uFA8hQH4XEVk3EuIzcVu4TTOlByqWYG6bRCMgrK0rMc0e8LeFIZ7p8a
-         UnkATwqedVVejqJ2q9I2OJ6f0/7f0sAYPLhbPZWiU1Ps8cfTQGxGUBl5zKpJ4lANYwGX
-         YG9pBmB4lvfybKpfyPD+W3JPT4VW7ODSjn3hW4soLA/+mPpjno4DTiphwxg/y5W3JQ1b
-         cn3w==
-X-Forwarded-Encrypted: i=1; AKwUvBzuf2QrlbupWMshBr5ucveAcCDvhpl+yu3QAx00TyGYU1VF0D1MmVWD5gEbhb397XvIAiHijVNcWnau@vger.kernel.org
-X-Gm-Message-State: AFuF++mq2FKKIEoN02usjPtRq7Gnbxm3HWZzE2PUCGnnwjq9tfPr68KA
-	r6CDkNc1yN9xbKci0LhOcyw8vGR3+Tn0VFpSICkORNcCAVzqOJfRqfjP
-X-Gm-Gg: AYBFou1HWabAfHs553lhyMcXWwhC53Pm/jQgPAnaRu0bs9exlOC1srAR/4Ud3Qxpl0D
-	7fhnDUis0DVgQO5rI1uV+Vh7Z3SC5t3F88kZqJGpWc0EKl9cFcBPK/YHlVaLlK4gqzIoH+PaH2C
-	QYs1eMzhzztQMTiLvkmRi7ChWRrohbYdUz/zVTiX7MSrwuwDumJL/OLnOlah3PeWMQN9ZUhTF84
-	OH0pClVQNUq3sN2xajntfLWWimOIkMcKo19ktNlIJnAMr5cRZgEb0+ZIXffVsoUU2ijUWQ8gwed
-	Pky2fkke/LnA9vDnbNrrpUbObJiFpbutJyZiKJIY6t8I/55OMtabAItpZuiSqC2v+kIKqPrj6Lk
-	rC+Mrb1eYJcAUP6Qhq39C+R4O7bIyKa1fnsS24TPs4C1s2zZznie+366ApJgFBaSJNxiQpoPaQ/
-	zYqlVJUraVIMAg38OJWTZl7LzkSrn14d5L1BIyNLlGml0L6vOC6YVmRieIcFYJV2qg1HFQbUogu
-	EW9Y/ZgmGqh5Q==
-X-Received: by 2002:a17:90b:3882:b0:396:a47f:d38f with SMTP id 98e67ed59e1d1-39b268ce386mr3923722a91.3.1788508597140;
-        Fri, 04 Sep 2026 00:56:37 -0700 (PDT)
-Received: from jason.. (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c397b1sm9356695a91.8.2026.09.04.00.56.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 00:56:36 -0700 (PDT)
-From: Jason Yang <jason98166@gmail.com>
-To: Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Guochun Huang <hero.huang@rock-chips.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Michael Riesch <michael.riesch@collabora.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jason Yang <jason98166@gmail.com>
-Subject: [RFC PATCH] arm64: dts: rockchip: add mipi csi-2 receiver nodes for the dcphys on rk3588
-Date: Fri,  4 Sep 2026 15:55:34 +0800
-Message-ID: <20260904075534.574037-1-jason98166@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <8e10a8c0-3648-47b5-9131-a1abdd7eb8c5@kernel.org>
-References: <8e10a8c0-3648-47b5-9131-a1abdd7eb8c5@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5b7Kfzw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B42201F00A3D;
+	Fri,  4 Sep 2026 08:00:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788508819;
+	bh=gnMRJOPorYuSrO6WlisXJyMFIp5ictKcxkqTaoQmHvA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=k5b7Kfzw8jNhn6NdGlhTX3t27sceDSdeBuftinVJB7pBvj1rZikkWJRjGc5h2jj4D
+	 0CfU95p+R7WsviRwTujmjVqkVYgwpLPeognwmO6+dA5NdoGbWokCgsK0qdVaJpN2iv
+	 ZRXsQvC4UzhUd6r5EBUZSHcJ2XUdFIMts+Yl209WXV4UFtPNRmbw/hLm5y4KY7qrpJ
+	 0w2bNJAjAMg0KRefk0WwNF5/vMYzhsgXWNrMZ+0IjsDHtWzemS3PuD/wAJkyyRJ3Nz
+	 4uPdutufHTNFdaGf4TXJ+ZHVS+dDEFAOyXwNzll5D7zfKA94akGj0u9zaog58eNz+0
+	 /aTb86EFe2gRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 08/13] drm/imx: dc-ed: Support getting source
+ selection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-8-26643e3f6cb7@nxp.com>
+References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-8-26643e3f6cb7@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 08:00:18 +0000
+Message-Id: <20260904080018.B42201F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-This is test patch, contains the following 3 changes:
-  - raise #phy-cells to 2
-  - add PHY_TYPE_DSI to the dsi nodes
-  - add mipi csi0 and csi1
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing error check for regmap_read() leads to potential use of =
+uninitialized variable 'val'.
+--
 
-Signed-off-by: Jason Yang <jason98166@gmail.com>
----
-Hi Michael, Krzysztof,
+commit 9ce4a83e3feed66ffe4fb2913d0e30db41ffaf27
+Author: Liu Ying <victor.liu@nxp.com>
 
-Here is the test patch for
-https://lore.kernel.org/r/20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com
+drm/imx: dc-ed: Support getting source selection
 
-I have tested imx219/ov5640 stream with csi0 and meanwhile stream on
-rpi panel with dsi0, both using mipidcphy0.
+This commit adds a helper to get ExtDst source selection. This functionalit=
+y is
+intended to support disabling CRTC at boot in a subsequent commit.
 
-Related commits:
-  2e177b85541d ("arm64: dts: rockchip: add mipi dcphy nodes to rk3588")
-  0d0947766d87 ("arm64: dts: rockchip: add dsi controller nodes on rk3588")
-  5052c99cf052 ("arm64: dts: rockchip: add mipi csi-2 receiver nodes to rk3588")
+> diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-e=
+d.c
+> index de1b71315eabd..b8ab41271bb40 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-ed.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-ed.c
+> @@ -149,6 +149,32 @@ void dc_ed_pec_src_sel(struct dc_ed *ed, enum dc_lin=
+k_id src)
+>  	}
+>  }
+> =20
+> +int dc_ed_pec_src_sel_get(struct dc_ed *ed, enum dc_link_id *src)
+> +{
+> +	u32 val;
+> +
+> +	regmap_read(ed->reg_pec, PIXENGCFG_DYNAMIC, &val);
 
-Best regards,
-Jason
+[Severity: Medium]
+If regmap_read() fails due to an underlying I/O or bus error, it will return
+a negative error code and leave the stack variable 'val' uninitialized. The
+subsequent switch statement would then evaluate this uninitialized memory.
 
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 76 ++++++++++++++++++-
- 1 file changed, 72 insertions(+), 4 deletions(-)
+If 'val' happens to randomly match one of the LINK_ID_* cases, the function
+could return success (0) and pass back a garbage source selection,
+potentially causing incorrect display configuration or state corruption.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index fc1fdbfd3162..dd2bbc02f8d8 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1516,10 +1516,18 @@ vicap_dvp: port@0 {
- 
- 			vicap_mipi0: port@1 {
- 				reg = <0x1>;
-+
-+				vicap_mipi0_input: endpoint {
-+					remote-endpoint = <&csi0_output>;
-+				};
- 			};
- 
- 			vicap_mipi1: port@2 {
- 				reg = <0x2>;
-+
-+				vicap_mipi1_input: endpoint {
-+					remote-endpoint = <&csi1_output>;
-+				};
- 			};
- 
- 			vicap_mipi2: port@3 {
-@@ -1568,6 +1576,66 @@ vicap_mmu: iommu@fdce0800 {
- 		status = "disabled";
- 	};
- 
-+	csi0: csi@fdd10000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd10000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_0>;
-+		phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_CSI>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_0>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi0_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi0_out: port@1 {
-+				reg = <1>;
-+
-+				csi0_output: endpoint {
-+					remote-endpoint = <&vicap_mipi0_input>;
-+				};
-+			};
-+		};
-+	};
-+
-+	csi1: csi@fdd20000 {
-+		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
-+		reg = <0x0 0xfdd20000 0x0 0x10000>;
-+		interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH 0>,
-+			     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "err1", "err2";
-+		clocks = <&cru PCLK_CSI_HOST_1>;
-+		phys = <&mipidcphy1 PHY_TYPE_DPHY PHY_TYPE_CSI>;
-+		power-domains = <&power RK3588_PD_VI>;
-+		resets = <&cru SRST_P_CSI_HOST_1>;
-+		status = "disabled";
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			csi1_in: port@0 {
-+				reg = <0>;
-+			};
-+
-+			csi1_out: port@1 {
-+				reg = <1>;
-+
-+				csi1_output: endpoint {
-+					remote-endpoint = <&vicap_mipi1_input>;
-+				};
-+			};
-+		};
-+	};
-+
- 	csi2: csi@fdd30000 {
- 		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
- 		reg = <0x0 0xfdd30000 0x0 0x10000>;
-@@ -1788,7 +1856,7 @@ dsi0: dsi@fde20000 {
- 		resets = <&cru SRST_P_DSIHOST0>;
- 		reset-names = "apb";
- 		power-domains = <&power RK3588_PD_VOP>;
--		phys = <&mipidcphy0 PHY_TYPE_DPHY>;
-+		phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_DSI>;
- 		phy-names = "dcphy";
- 		rockchip,grf = <&vop_grf>;
- 		status = "disabled";
-@@ -1816,7 +1884,7 @@ dsi1: dsi@fde30000 {
- 		resets = <&cru SRST_P_DSIHOST1>;
- 		reset-names = "apb";
- 		power-domains = <&power RK3588_PD_VOP>;
--		phys = <&mipidcphy1 PHY_TYPE_DPHY>;
-+		phys = <&mipidcphy1 PHY_TYPE_DPHY PHY_TYPE_DSI>;
- 		phy-names = "dcphy";
- 		rockchip,grf = <&vop_grf>;
- 		status = "disabled";
-@@ -3429,7 +3497,7 @@ mipidcphy0: phy@feda0000 {
- 			 <&cru SRST_P_MIPI_DCPHY0_GRF>,
- 			 <&cru SRST_S_MIPI_DCPHY0>;
- 		reset-names = "m_phy", "apb", "grf", "s_phy";
--		#phy-cells = <1>;
-+		#phy-cells = <2>;
- 		status = "disabled";
- 	};
- 
-@@ -3445,7 +3513,7 @@ mipidcphy1: phy@fedb0000 {
- 			 <&cru SRST_P_MIPI_DCPHY1_GRF>,
- 			 <&cru SRST_S_MIPI_DCPHY1>;
- 		reset-names = "m_phy", "apb", "grf", "s_phy";
--		#phy-cells = <1>;
-+		#phy-cells = <2>;
- 		status = "disabled";
- 	};
- 
--- 
-2.43.0
+Should this code check the return value of regmap_read() to avoid using an
+uninitialized 'val'?
 
+> +
+> +	switch (val) {
+> +	case LINK_ID_NONE:
+> +	case LINK_ID_CONSTFRAME0:
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-imx8-dc-pr=
+efetch-v6-0-26643e3f6cb7@nxp.com?part=3D8
