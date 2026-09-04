@@ -1,288 +1,230 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013043.outbound.protection.outlook.com [40.107.162.43])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72A944CB8BE
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 14:59:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D49E54E80A5;
+	Fri,  4 Sep 2026 15:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533999; cv=fail; b=pNh+Pg8E8WycJPkq9hCwWAcri1DI2VUJXNAUqv57dAHvH75fkAgZvBjQE+Ft7Zt5sKv9MwmHAQn8MqwFKClaCBbhFQQm4OJZqCMqBDIF1OmwaL+TvNL8peder3TxrMHR6qj2iLFf5F7kEltcI6UPfOImb3RXCPZ8H8IhqQA0Ofo=
+	t=1788534024; cv=fail; b=Y0MKmdsdGqiAMVdhByKMqOwaGfJ+u104Hk8HCXOeNUG8C1MZnOoisBT/qq/Bo3/AgV1mFi2Xm21H61lsvFcArjDSMq8GwFMbX+qHM2u0v3S0QBSI9kobqFIFGZB2p8NUH65kx6lQCzOv4wbnXzRs2o6x0BR4FOiE6Bd6aENR11g=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533999; c=relaxed/simple;
-	bh=/PbOM+ik6Q+Idyl2THZkxvydXnkVy1HWg/gGP17HaLU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=KePH2EroYjONs1OKu0kEdxnrR6Da20klCEF7uns2oS+suv2Ge+QeFk/PGWBG4+yby2Klf0wOkIS/u2N7R67jSsgqSZqXA8ESaga9Ii0MT7gwDFhFE9wUN2O9BzVfk3KUXx2ZYhuWN9pqJ2AYL2mI7KlRbLe+7bsWkmUmS7QjaoI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=fail (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=RP+ou995 reason="signature verification failed"; arc=fail smtp.client-ip=40.107.162.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1788534024; c=relaxed/simple;
+	bh=sNh6sE3eiEpNMLUOF1GTCLFO/QfGol9pHOEbBuODmmc=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V4uhrJV1XhONYxSVdBIv91bgVTjDD+y9ancrZARr7C/ZVJpb4dy42md3wmU6oS9tfWv6MjIbmaZLgUsVXDjA+gnfofHLaGhKqFNEVKRMRWhtlHb48T02kKiNZZHLrdjRi7p4TwfAJo2vNUbQAfKDphPWgjhR/iAK9PgBJyWrrd0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=GQGv2fz7; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=s6jDaw8W; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="RP+ou995"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="GQGv2fz7";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="s6jDaw8W"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 684EsWTP4004532;
+	Fri, 4 Sep 2026 10:00:14 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=proofpoint-05-2026; bh=3kt7ogs6ftKoLEz
+	ksAw8YMbsUaFzEc69j4NbJkTyxyU=; b=GQGv2fz7P2r8fXH0vRUmPLelidFEofo
+	D4Xs6hbF9zbovidx1IOXcUB9cKnlD/OOftv7j3hN09lR0ECgTRzBtg8521A9GVPA
+	drYH0n8AMrmMwKf73K2zfKBTL/MVaqQZNohrRjJgpmx9dSNVryLDu5UWF705OGa+
+	P99gjUBVHld/0WuOHuI5h9yJql2DSwTPjAqsfG/SSUIoW8v6RdNZ053fkVwEyjdA
+	Ky+FejadhfuJrX/UgPuG2QTqqHQIr31wR9NlZk3WfPxuJWGizATrTpQJODvfhryE
+	3GzvQjhOvXSQHDcYDD7FuMwZLQTC+DUpjwDi7HeA1dRfkX8+XzrwuYg==
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010059.outbound.protection.outlook.com [52.101.85.59])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4gg02sr3yj-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 04 Sep 2026 10:00:14 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ngcPymXwt1iPmsSBCc+9gORaF+kvX0j7M/SW/Y4mS/ITYa2w6Rulvrh64TYPK6V+JlxsuI8vsDohGwpHzxtiEoEGOho0AfFzb7f0aS+GmSIhi9fBioZh5AGH+wvT6Vlb0RnuJBYM9NFPeOexkWMz9EnKSv0If8z64m2lqDBYMYWi+peG3vnW9MHXs7h+cfisnvS3yEpPrJ3FgR1XEZnrGTmf6qHmPCxIMpmyLZM5cJT5ihlCzRMg/vSdkMT71BRKO/9aariGluLxtNcll9C1yNv7gUA5ZORbUDESW0W73MTZPWDaNMJkX5wrpepIfYMtenBEQwb1oCkXEeqAAzTI5A==
+ b=miV0MvMIrTELe6nIkmCP5WhsPbAI7n8AjNItp0reExoBiqNTi4cl3UpoMyzW90/f5ewzc/0R0fDknGSqo/ywy1zODROtTOi9NqoMm5IxhpskY4EgpdBSoj3y5ZbfAhxbQ7sN2l/cRsqHp+UEpixsy9TPYHE9dzhy62DOaiPewpjKybUWBEQLK/qhPR2irKwLss27fUsTzygMVbAFKiwgILcO5kGXgpePW95uJCfb5qasKbJK817nIe6jLgOjvYx4EcOZLI9xVtgvUS3pH7ekRLyLQm3hGKhjFegq6rZWvY4yPCuujvIv2pq2ylEKR+LIz+0lbkcYig66MwwdDNSBdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VvRfMHG5u0jtOqDR7u0zQuevLu3RooRAhK62uRY7x7c=;
- b=ye2rMBcSMaVf6+Cv5yn9yqnkDcBpxF6xy1inCfP7ZulKQlkcU8mUliH3CzJwQps6r2smyNwla39h8qU62eQ0QT0wPVV1kVi4iO/+BOiOCocFRTUsh+ffaVstoe/y/CFrdZ/PW4fGY7HDHS9vXkZH53b/popD7YfSQ+nev5oSW7+SZ2+FM1TKTZzs9xNrDmLHbEUwkP44L9wI4KfjQbsWTVwRBnHosqK4ZiqBleBnY0yuHpi8v9nGSDLn1FKjxYbfbEjw8L8mTrm/tuGi3K7N3Ry1W2RaQ9lDflHIP8qMfLdcTlhp0wRgiA96GKtBX7A7DJccZn76zMmoKKyWWSAryA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
+ bh=3kt7ogs6ftKoLEzksAw8YMbsUaFzEc69j4NbJkTyxyU=;
+ b=eXqztE9PeSQkeMMpF+V5QSihtPk9ZkYQ5mrwDmZOHfXnmBZuVXT1E068BzBqsoZFx8mDI9BUJ1YwhUDyZatODzFLLCwfBwli6qiBgEMxFKc2DKgHzbie5viwdy8Hb04MT3LvDVlu52tIcNOxT4t+5qx4V+fSkFy19vtzrXdDoDA2LMBUYxlJo7HRzGCn436ndRDGfBvHzUVsEi344AT+zadlKXCus+5YJZBA+ea+R71VA7r5gFEtF9KiX++WdLFNx2inlgUSo7gwdbmC3+u/FIrdB89KueYKrpy7jSARQ82FIe9yc7GOh23uQBKVT9GYVRnj+W/pVr3SqiY1Io1djg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VvRfMHG5u0jtOqDR7u0zQuevLu3RooRAhK62uRY7x7c=;
- b=RP+ou995DWMsuYEcKBebxvindkj+tRnVGqvc2TGzqq6scYfwMtU8YXGWm+uvrQuo6EikUVNTahsftA3qGRKQgkxPAg/HlT6rD/FhjvK1UFcqrwNuZG7pTR2otYnUqroM40i5ZU3mX2cSRPiiAbmmuuP9k4WtpPpPGVZeSO6VHEUMcY6kAGYanbfME6N8I9lmNdnfu9SXxVo4rBfL+zQaBnP50YHzWSy3nl0/1XUFMGEani/Ai7pEYaCVn05ye0f6o/rVlfwl9IM/jgQ3EangplSoKd4DysThUkS7lLNC/2R/TosRLyB3LnV4lAjzjPuf3fKnJzzrQoEGy52oSSaXKg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MIWPR04MB533468.eurprd04.prod.outlook.com (2603:10a6:290:ea::15) with
+ bh=3kt7ogs6ftKoLEzksAw8YMbsUaFzEc69j4NbJkTyxyU=;
+ b=s6jDaw8WWK4AUlx7D1viQMQx5lr0AOlg1P+EXKbah7YQ3+eKjQZXTHNNVRdpxqak+3/38J8g/xUl+Gs9fBTeGG47WD9NsEjq3Fvb3e3Bb08ZTrTk8kfdQJsZOHZDN1wpvyD2+F1HAMhE5WzMmnzYQksp/4YtjWnsZGI9QEZeM/o=
+Received: from BN9P222CA0012.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::17)
+ by DS0PR10MB7149.namprd10.prod.outlook.com (2603:10b6:8:dc::22) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 14:59:53 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
- 14:59:53 +0000
-Date: Fri, 4 Sep 2026 09:59:44 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: pankaj.gupta@oss.nxp.com, devicetree@vger.kernel.org,
-	conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev,
-	Frank.Li@kernel.org
-Subject: Re: [PATCH v48 5/7] firmware: imx: adds miscdev
-Message-ID: <aprc4CCjSfGhP9Z0@SMW015318>
-References: <20260904-imx-se-if-v48-0-dad90eec7eaf@nxp.com>
- <20260904-imx-se-if-v48-5-dad90eec7eaf@nxp.com>
- <20260904093956.1F5401F00A3D@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904093956.1F5401F00A3D@smtp.kernel.org>
-X-ClientProxiedBy: CY5PR15CA0235.namprd15.prod.outlook.com
- (2603:10b6:930:66::7) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Fri, 4 Sep 2026
+ 15:00:10 +0000
+Received: from BL02EPF0001A101.namprd05.prod.outlook.com
+ (2603:10b6:408:10c:cafe::71) by BN9P222CA0012.outlook.office365.com
+ (2603:10b6:408:10c::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 15:00:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL02EPF0001A101.mail.protection.outlook.com (10.167.241.132) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 15:00:09 +0000
+Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 09:59:13 -0500
+Received: from DFLE200.ent.ti.com (10.64.6.58) by DFLE214.ent.ti.com
+ (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 4 Sep
+ 2026 09:59:13 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Fri, 4 Sep 2026 09:59:13 -0500
+Received: from localhost (uda0506412.dhcp.ti.com [128.247.81.196])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 684ExDO03704141;
+	Fri, 4 Sep 2026 09:59:13 -0500
+Date: Fri, 4 Sep 2026 09:59:13 -0500
+From: Kendall Willis <k-willis@ti.com>
+To: "Kumar, Udit" <u-kumar1@ti.com>
+CC: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+        "Tero
+ Kristo" <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, <s-kochidanadu@ti.com>,
+        <a-kaur@ti.com>, <s-tripathi1@ti.com>, <vishalm@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 3/3] arm64: dts: ti: k3-am62p: use ti,am62-m_can
+ compatible for m_can devices
+Message-ID: <20260904145913.a437wnuif4arwb7j@uda0506412>
+References: <20260902-smth-v2-0-b3678ca44c7b@ti.com>
+ <20260902-smth-v2-3-b3678ca44c7b@ti.com>
+ <412fc9b3-cac5-4fff-8071-ca2d4855db30@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <412fc9b3-cac5-4fff-8071-ca2d4855db30@ti.com>
+X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MIWPR04MB533468:EE_
-X-MS-Office365-Filtering-Correlation-Id: 92f950e7-1d03-4ac1-c866-08df0a952cb2
+X-MS-TrafficTypeDiagnostic: BL02EPF0001A101:EE_|DS0PR10MB7149:EE_
+X-MS-Office365-Filtering-Correlation-Id: feb9db98-bd1b-42e5-368b-08df0a9536b8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|19092799006|366016|1800799024|23010399003|10067099003|11063799006|6133799003|18002099003|22082099003|56012099006|4143699003;
+	BCL:0;ARA:13230040|36860700016|376014|1800799024|23010399003|82310400026|10067099003|4143699003|18002099003|56012099006|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	YLbOKFHGvCCc0hmjBK7lcgiH3fEx/wrcx8+M7NUJo4qeqv93glxYcbeaEeF2NTqbgSnGHOhuYyjNz7MvsCaEHKbPplRV+7kza4ptVRvF1spr/7t6oKnUhtCUluptg3L2H0aMuXcjQj3DoWzyG/B1r9B+/HCwyu/Pg8siespq3ckIlX/fQ+eW6UQXODOwRz4VOE58lFA/FRpPTs988/BQVlXKcW9k0OWXWZQPpq3lynd/p7uN0TPX3wvciPdtJ3qeaUCktFDbLPS2shwhhWQmn+mJiR3Lm/V+hFA6fQsdqdUwZ+T93hMuYjrNHEiARsX/2acSUbvcBi+cihMDJwS/0FgcdhP3I3gYPWQexDn8WDUB3aUrVSNwRYXoUGa31KD2VraKTBfyHHDX/Uu6+gLGK7SdnhKRzKZWjJxwz9OhAtt6NV/pn3fvf88RAnj2nlw5i0ITI5qKMmcnuHFiJ6nVLAs0oOQ41Od3H7g7zVcqzgoxqjh6/JBLyjyyvK2UDRIcrB8VD7ljdiUb9B68e3UhX+vNa2F+E9U83kxeTJCGaEOZeMoTRtszTp25TBkMNf1a7XdicCe34/Yj2iCqy17o9UyMupN+P4x71XjDJIu6RPI=
+	CWqhqXbq9Jcd07HuQyIqxg3zXfBAjeaklTRUOd8kgdcoAooGg2flAnRwSl0ygToW48oNv1pIYOSVYWs3SbeIMpIytpAlod1FkTG/Jau64IWteTLYxshQ0Tt1KT6OhoYp0bOsxgw0sDaaG6EUQ2b/dkM9WylpsANoqBkAxqAz82JW1JjdYS6+6B4xgyze4xm1DtbLx6GHAFU1ek+uNQyDS9eXCWpRH/DqUCaeqULo9yp5RGO6oNSuJMOlbtGwS9cgWHHTfAX2JaARvB6V1lnROAhf5mZscqSpWdWC5jKT9/AXlAbqLhnG62sQVkdXOW0rsQ5ScErL3xdz/CytL0MGXbnmLkWgkSSNqPCSsqI9v5vzQSeLoWYphdsk9yV0ys5onoJM01PkEQrB1fKVxR3IovAMD6hCFfxZllMsJACG6Yau+W3a02WrhOe5TnJBbBH3/YRJChc8TbRganV1zgQhEbxO7o6xRjWy84/ctTOfkwi+9o1rKMzb1PI1PXTwXNsnE7+u9/q8zyIUelAiWM60xRQdtGZyeS22FMk3fMbUZs6LlN4pgfCGriJmv3ELhESWuBe4+WNVQSRsfWktaSr0+2Sy0Mw7c3j/T8N+dl08Ytf3+AQnThicqJUrleZ/oj6T0ABQGBMhz+IDqr18WKiU793bZdpmWuGONxoyqUTfhkI+qBj71DFu5zoQhPlYVRDUAZH4VrGVeQyh23IWcFLYbw==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(19092799006)(366016)(1800799024)(23010399003)(10067099003)(11063799006)(6133799003)(18002099003)(22082099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(23010399003)(82310400026)(10067099003)(4143699003)(18002099003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?Nqo7aEn7mrv/fAhHEcdS/lDrcRMs1GXA63PS2jrrD1G4n0oEN41CquIGtm?=
- =?iso-8859-1?Q?7DKDl0IeIIsNr+tiSlw62AlYQ79wxiJRKCj0puaq1q3WDQu2AGIf/s1oTo?=
- =?iso-8859-1?Q?SK9eIXCsl2e7tcfADav7V4I3n+U/b3+tzb3ayzFiTY+isrWT7ayUDnxvkt?=
- =?iso-8859-1?Q?PcwXHSlSMZ7lW+WgthinCZJyjztdXbsXmKtNRvc5DDs8v79Bp1Fjbqf7+F?=
- =?iso-8859-1?Q?s0CqUOG0dcsVcyzvbpmA6873sMSwIK3wNO3aBMuJ2IBeNkoc/FPW31HNt3?=
- =?iso-8859-1?Q?Cq1lqEurHc97hH6/quUYRMxIK/55EqdedpqjsciT+apdtgnBYgrOckU/nW?=
- =?iso-8859-1?Q?OlaY6AIWa3iKTtP0N12HOqGnIr/gFDhxp4lgN4jz25U1UKjHh1NDPS5IBW?=
- =?iso-8859-1?Q?j3JQLMnFV4n/QcLKSx8+g2l2pRzyhVnRiYZzkD5ylWuORRxfcozsgrp5NS?=
- =?iso-8859-1?Q?PhQErWp6NXSG69jQ6LRa+dOHEfjPmI9J334RceUZ4R9oLY5YoUDZRtNXNy?=
- =?iso-8859-1?Q?6Ccms6+6HsN6HRn4muIa/ELBSI9HnZi9IqCMN7sQw77rvR72f9lvuXrfe5?=
- =?iso-8859-1?Q?s8MTO11AQilAFrQcArwc6t1MWzKwvZ+VSxDcQWRnBKOp4uYOrM/jQQ7S0N?=
- =?iso-8859-1?Q?6YvdyB2O8HGhZX+YHRcjbpIoIYL4j7G5397EFlLYe8N6JlNH/3F0QvTR2K?=
- =?iso-8859-1?Q?/IXP3eGrGZiuiL6x5hysESHeK/UBAcpqnXzeYqK9LSU/BMTeOwaGWywfqL?=
- =?iso-8859-1?Q?oARbu9ScxlF5nbXslxU8+rffML/xrDO6exdRJPukcf8dl2oEedZNjDSSge?=
- =?iso-8859-1?Q?X9nirFopOJkrfTg18iKuiNIAgrP72zLSWfwfZExDIU0Th7APinpoXcvnlg?=
- =?iso-8859-1?Q?m4rTvuKddeDO5PGnDpKJmqJJiOvtwd1zokCGu8alR6mE+L5z1xVM34Sdt+?=
- =?iso-8859-1?Q?XVlXU+s2THUb71va0YwfNZyEJFgBDjC+TuHzffbompA1lRhz14gIDlOSD7?=
- =?iso-8859-1?Q?NNXfP6a6PKe3nDep3wLzOTb5shx9hN07IaBAP9VPcK14kI5st6k/AwYvLy?=
- =?iso-8859-1?Q?OXAxPcYceCoEsiXZWOGwgDR3xo1lV1q28Az/ESTgNFFJ0XS7EbkhLAVRXl?=
- =?iso-8859-1?Q?/IYcZHaXBhx6KHnx4g6fG+1nksvevOijV1WPW/uf+CCrBLtjwDPX6Y3hx/?=
- =?iso-8859-1?Q?sSAGFmvISLqnMd8qJE5d53LQFvdHmj0gI9ohOPfjENyJcKI/omkWCvAcpq?=
- =?iso-8859-1?Q?nTS1Fq76pS+YZ47zyLMJjKBHIS3t2TrCtl/VAJV4k5w71aQUoZfeTsa1ra?=
- =?iso-8859-1?Q?yFjjI+l7QLMEyf+cj5jHvEMWSFXWwVPZDPC/qzv5SL1KPUXIjd5g63+yn6?=
- =?iso-8859-1?Q?wLMbBvQNqDcYREej5P0T+Kh9n1SGOtL1ItXBXkDdKIrsM5Fl0HwpI6lL0R?=
- =?iso-8859-1?Q?b3zRknaj3DZrCU1SOeiDtsCYmfi85kR65urVxoqkC+4G1blwi03LrLX4j/?=
- =?iso-8859-1?Q?5xfgsUMXsCoeULiiw4/AAXJeTb/A6CB5no8dW1wb4LLySjDy7mtCQyyb5s?=
- =?iso-8859-1?Q?7MNP1f3CDXqQAeCO0A8R9LicLB4vAxMuG22YQgCdC6VK4RRuuZeue97nMG?=
- =?iso-8859-1?Q?645yP4z8z2kNJGkfTK66hSXILzJiDkyg3zLb5KyWgzXTKUMN5BkZzsrbNR?=
- =?iso-8859-1?Q?FLhOiQRT3QwFaj8JjxQ7TvteglccGPjVQUTp5tu6J8JLpoPTqyAk6OylEd?=
- =?iso-8859-1?Q?95thyUY4EhyI0JAB2X2bvY06ZmWo8rsSjZXFo2GErmjzWuR22md4g384KF?=
- =?iso-8859-1?Q?Fa91AHqdic5y4Sb9Ms149ahLYLb5Abaf2JRS/cBX0Rhtz0PhyZ58?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 92f950e7-1d03-4ac1-c866-08df0a952cb2
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 14:59:52.9338
+	78o1CYH3Iv6gAbD92aIVSDBZBcXOhDd0dIQ8AOipHzhLTaV2yKs/qm5v7ZPXcd4xdtaTbY+v1/H4dI/P5FbOTdB8Pb15j6jk5rDhDnFPhy9M5V0E5O0BNU0to3/MtyPp5tlrFB5RSl5bbICOzdWEL17FBcf+MkHtuaiLFU8YQ6XFOf5d18sIRGfn4CxYDxu9gyZIUn1DmfOZ1Hj6rs1yCQ4RHUnRiUnpoXom3Ip/UX2PR6t28XO5XQkl7YL3Hgn+n1KKIsOuInWncwXgTGhJZCM182uDFEioBtKPL0Dzm90yuKmWWSriKyy8qaktvGvZT4SvI36EhCfJC8MUCI4+0LKLQFPVj/EWslYKFnt29FqjdpG9y7cjy0kEmUWx4rtyu2aEU+FbVrxYWgxgiF3dz0mYSyfDk7lKVnAKrN0nWT6Ld3fKm0Bip0b93it5oP4f
+X-Exchange-RoutingPolicyChecked:
+	1OoM0lcsmra/az3qhVyy7l2Kz2bqfNmC2BK1EupMuXYn/kZKii+DfLr4q4SCSqUjIpl9Zw+e5Siw7nbspNxsflgpGy+LQIjcsxqEzbaNQQ7mnomYfn4l1GdNrZVjqhjuXoPn1Cf2Pqe2ws2+O08FdbGHjWWYYEnquYfaS5xA8vFKmIrxX5vrnyKFJpA5fb9paKvvl00Hqff5OzeGyOxwxhKf7DhxeYqV2n5S47GPlVPB9+bi6NXd9vdV5PVyJf3WYG7dbECFXdOWZPJQdVwoMePpti47l+39fwSwoVoE6X5zp6BxJmhWV1gCKVJRIfHZpTr3KCkZMaqhqmWCRg1EFA==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 15:00:09.3184
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hR22GbP/K8lNtrwAzX1EypzoK/3Q4ZdUvR5YR/eXdlgbiioJOb/SPCmsE7S7Pr9bDvs2NJk8gkRDD2Vlqx9a9+m2DM5Rt9/GwIX2nAzwszQJVo0YHFlDVIHIigJsUUwy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MIWPR04MB533468
+X-MS-Exchange-CrossTenant-Network-Message-Id: feb9db98-bd1b-42e5-368b-08df0a9536b8
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL02EPF0001A101.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7149
+X-Proofpoint-GUID: pqwlJXJmjnvwFcE2rWq04cvn856wH9Fa
+X-Authority-Analysis: v=2.4 cv=GZMnWwXL c=1 sm=1 tr=0 ts=6a9adcfe cx=c_pps
+ a=333l4QiDdYhx7c8CB7C9lg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=y251maI7i6_vEpQUyzoA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDEzNiBTYWx0ZWRfX90PYv3nM/9XK
+ Tt6COzOq/jDdo5ZsG+70yIksVO5JuMcuN3LYNhyd3/F3TSCWQaudyjiLDjcXHV/HK4KCUM3/Is3
+ /Fg5HnWZ93RyDNQOp+wRosUw0frOMKg=
+X-Proofpoint-ORIG-GUID: pqwlJXJmjnvwFcE2rWq04cvn856wH9Fa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDEzNiBTYWx0ZWRfX/cZzr1DiP/U5
+ pPxdDtiK437SABGHKYRNRE5e5P2oKeBMmo+wWm2a7ihwZL/f1VicfD7aRabPdNsEkuc4lAc1pLM
+ pVqhomctBIZc3ZAkRh8l3QM8z+syCxw+k4/oSogQWnrE6KTay/TC1c1ZtP0E2ng4MEIXYIP9aME
+ vWKMNiF/6+Ym5gtRtAt8iZ6cbuOEdCr5m6KmotGOXGCbiQMYvQ3eHTFuEtSll3JOtKLZeX3Y8pz
+ C+a+y2U3Wvc1XZW6BKFmHQDNrkLarDsqb3fIDfwvWdpXQ01rRUWX4QIciVCQMGIVIG3Y/I4LDzq
+ hKWcQGe5Dxv0jd70uUO8kfJGWmfJfbWJu0O2VkJ6JyZ2Ms552sP4BZBT/LCHBThOeraLvtSWtQz
+ YJoyIVZw+bk8Vl6ShYLPZ0D6qXgZeKJw7Txy204lx/+kRGSwrIj+1jIRg5PqVGlimeo7J6xUOiK
+ ZXYhXUWxcvnxr4K8taA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_04,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 impostorscore=0 adultscore=0 priorityscore=1501
+ malwarescore=0 lowpriorityscore=0 spamscore=0 clxscore=1015 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040136
 
-On Fri, Sep 04, 2026 at 09:39:55AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Permanent destruction of priv_dev_ctx's shared DMA buffer on late firmware response.
-> - [High] Leaked firmware session handles due to killable wait in `close()` aborting instantly on fatal signals.
-> - [High] Deadlock risk during PM suspend due to GFP_KERNEL allocation inside a required GFP_NOIO context.
-> --
->
-> commit 8a8db094cff29d90b76f6889f2022ca7253f3ec8
-> Author: Pankaj Gupta <pankaj.gupta@nxp.com>
->
-> firmware: imx: adds miscdev
->
-> Adds the driver for communication interface to NXP secure-enclave hardware
-> via a character driver. Handles ABI, initialization, shared memory, and
-> restricted command forwarding.
->
-> > diff --git a/drivers/firmware/imx/ele_base_msg.c b/drivers/firmware/imx/ele_base_msg.c
-> > --- a/drivers/firmware/imx/ele_base_msg.c
-> > +++ b/drivers/firmware/imx/ele_base_msg.c
-> [ ... ]
-> > @@ -121,9 +121,9 @@ int ele_get_info(struct se_if_priv *priv, struct ele_dev_info *s_info)
-> >  	get_info_len = ELE_GET_INFO_BUFF_SZ;
-> >  	if (priv->mem_pool) {
-> >  		ret = se_get_mem_pool_buf(priv->priv_dev_ctx, &get_info_data,
-> >  					  &get_info_addr, get_info_len);
->
-> [Severity: High]
-> Could this cause a system deadlock during PM suspend?
->
-> The caller ele_get_info allocates its message buffers using GFP_NOIO
-> specifically to prevent direct reclaim from triggering I/O to a suspended
-> storage device. However, it relies on se_get_mem_pool_buf here, which
-> does a standard kernel allocation.
->
-> [ ... ]
-> > diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele_common.c
-> > --- a/drivers/firmware/imx/ele_common.c
-> > +++ b/drivers/firmware/imx/ele_common.c
-> [ ... ]
-> > @@ -342,6 +342,7 @@ int ele_msg_rcv(struct se_if_device_ctx *dev_ctx, struct se_clbk_handle *se_clbk
-> >  				if (se_clbk_hdl->rx_msg) {
-> >  					/*
-> >  					 * The enclave may still DMA into this
-> >  					 * buffer (either a normal timeout or
-> >  					 * a teardown complete_all() wakeup).
-> >  					 * Quarantine the buffer and arm the
-> >  					 * circuit breaker unconditionally.
-> >  					 */
-> >  					se_clbk_hdl->rx_msg = NULL;
-> >  					se_mark_fw_busy(dev_ctx);
-> >  				}
-> >  				spin_unlock_irqrestore(&se_clbk_hdl->clbk_rx_lock, flags);
-> >  			}
-> >  			break;
->
-> [Severity: High]
-> Does this instantly abort the wait and arm the circuit breaker if a fatal
-> signal like SIGKILL is pending?
->
-> By breaking out early, it immediately marks the firmware as busy.
->
-> [ ... ]
-> > diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctrl.c
-> > --- a/drivers/firmware/imx/se_ctrl.c
-> > +++ b/drivers/firmware/imx/se_ctrl.c
-> [ ... ]
-> > @@ -406,6 +406,12 @@ static void cleanup_se_shared_mem(struct se_if_device_ctx *dev_ctx, bool recla
-> >  	if (free_dma_buf) {
-> >  		dma_free_coherent(priv->dev, MAX_DATA_SIZE_PER_USER,
-> >  				  se_shared_mem_mgmt->non_secure_mem.ptr,
-> >  				  se_shared_mem_mgmt->non_secure_mem.dma_addr);
-> >  	}
-> >
-> >  	/*
-> >  	 * Drop the host-side tracking unconditionally. On the reclaim path the
-> >  	 * buffer has been freed. On the deliberate-leak path the buffer is
-> >  	 * abandoned on purpose, so clearing the pointer here guarantees a later
-> >  	 * cleanup pass (e.g. se_if_priv_release()) cannot double-free it.
-> >  	 */
-> >  	se_shared_mem_mgmt->non_secure_mem.ptr = NULL;
-> >  	se_shared_mem_mgmt->non_secure_mem.dma_addr = 0;
-> >  	se_shared_mem_mgmt->non_secure_mem.size = 0;
->
-> [Severity: High]
-> Are we unconditionally destroying the DMA buffer state here?
->
-> Even when reclaim is false, the size and pointers are zeroed out.
-> If this is called for priv_dev_ctx (which has no open/close cycle to
-> reallocate it), the persistent DMA buffer becomes permanently unusable.
->
-> [ ... ]
-> > @@ -1149,6 +1149,7 @@ static void se_clear_fw_busy(struct se_if_priv *priv)
-> >  			/*
-> >  			 * Late response arrived after going_away is clear.
-> >  			 * fw_busy has already been cleared atomically above;
-> >  			 * reclaim the shared-memory slot now. For priv_dev_ctx
-> >  			 * this is the only reclaim site (no close() path). For
-> >  			 * userspace contexts cleanup_se_shared_mem() is a
-> >  			 * safe no-op if the close() path already reset pos.
-> >  			 */
-> >  			cleanup_se_shared_mem(dev_ctx, true);
->
-> [Severity: High]
-> Can this permanently break internal firmware communications for priv_dev_ctx?
->
-> If an internal command times out, priv_dev_ctx is set as the busy context.
-> When a late response arrives, se_clear_fw_busy runs and calls
-> cleanup_se_shared_mem with reclaim=true.
->
-> Because cleanup_se_shared_mem zeros out the DMA pointer and size, the
-> permanent DMA buffer used by priv_dev_ctx is destroyed, breaking subsequent
-> operations like system suspend or firmware loading.
->
-> [ ... ]
-> > @@ -1331,6 +1331,10 @@ static void cleanup_dev_ctx(struct se_if_device_ctx *dev_ctx, bool is_fclose)
-> >  				struct se_if_device_ctx *tx_ctx = is_fclose ? dev_ctx :
-> >  							dev_ctx->priv->priv_dev_ctx;
-> >
-> >  				if (dev_ctx->strg_hdl && se_close_storage(tx_ctx,
-> >  									  dev_ctx->strg_hdl))
-> >  					dev_err(dev_ctx->priv->dev, "failed to close storage.\n");
-> >  				if (dev_ctx->sess_hdl && se_close_session(tx_ctx,
-> >  									  dev_ctx->sess_hdl))
-> >  					dev_err(dev_ctx->priv->dev, "failed to close session.\n");
->
-> [Severity: High]
-> Will this skip sending the session close command and leak the firmware session
-> handle if the killable wait aborted instantly above?
->
-> Because ele_msg_send_rcv returns -EBUSY immediately if the circuit breaker
-> was armed by a SIGKILL interrupt, se_close_storage fails instantly. The
-> subsequent call to se_close_session is then also skipped due to the busy
-> firmware path.
->
-> An unprivileged user could trigger this leak by opening a session and
-> sending SIGKILL to their own process, permanently exhausting hardware enclave
-> resources.
->
-> [ ... ]
-> > @@ -2145,6 +2145,8 @@ int se_get_mem_pool_buf(struct se_if_device_ctx *dev_ctx, void **buf,
-> >  	if (se_is_fw_busy_ctx(dev_ctx))
-> >  		return -EBUSY;
-> >
-> >  	b_desc = kzalloc_obj(*b_desc);
-> >  	if (!b_desc)
-> >  		return -ENOMEM;
->
-> [Severity: High]
-> Does this kzalloc_obj allocation violate the GFP_NOIO context required by
-> ele_get_info during suspend?
->
-> The kzalloc_obj macro implicitly uses GFP_KERNEL, which can trigger direct
-> memory reclaim. Since the storage device may already be suspended, flushing
-> dirty pages to it will lead to an unrecoverable system deadlock.
+Hi Udit,
+On 19:39-20260904, Kumar, Udit wrote:
+> Hello Kendall,
+> 
+> On 9/3/2026 2:34 AM, Kendall Willis wrote:
+> > Prepend "ti,am62-m_can" to the m_can device compatible property since
+> > this compatible adds out-of-band wakeup functionality to the m_can devices.
+> > The m_can pins can be a wakeup source in the deepest low power states,
+> > despite being in the MCU domain which is OFF during deeper low power states
+> > since it has the out-of-band wakeup capability.
+> > 
+> 
+> Instead of adding new compatible,
+> what you think
+> 
+> 1) if pinctrl_state_wakeup is set ("wakeup", prop in pin control)  then
+> treat this as out of band wakeup
 
-In suspend function, call pair.
+Yes, that is essentially what the following patch is doing. But for CAN
+devices, there is a chance that not all pinctrl_state_wakeup have
+out-of-band wakeup functionality which is why the compatible is needed.
+https://lore.kernel.org/all/20260902-temp-v4-2-3896f7d16ce8@ti.com/
 
-memalloc_noio_save() / memalloc_noio_restore() can fix this problem
+> 2) if device itself enabled as wakeup device treat as in band wakeup source
 
-Frank
+MCU CAN wakeup is IO daisy chained so it should be treated as out-of-band
+wakeup. Additionally, the out-of-band wakeup capability needs to be set
+so that TI SCI PM domains does not set the wakeup constraint on CAN so
+that the FW will allow the system to enter DeepSleep.
 
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260904-imx-se-if-v48-0-dad90eec7eaf@nxp.com?part=5
+Best,
+Kendall
+
+> > Signed-off-by: Kendall Willis <k-willis@ti.com>
+> > ---
+> >  arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi | 4 ++--
+> >  1 file changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
+> > index 5288c959f3c1aecfde363f9e2440253545591171..d26d6b6d0cf46a19bde9f58769b3eb8c86c836ab 100644
+> > --- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
+> > +++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-mcu.dtsi
+> > @@ -154,7 +154,7 @@ mcu_rti0: watchdog@4880000 {
+> >  	};
+> >  
+> >  	mcu_mcan0: can@4e08000 {
+> > -		compatible = "bosch,m_can";
+> > +		compatible = "ti,am62-m_can", "bosch,m_can";
+> >  		reg = <0x00 0x4e08000 0x00 0x200>,
+> >  		      <0x00 0x4e00000 0x00 0x8000>;
+> >  		reg-names = "m_can", "message_ram";
+> > @@ -169,7 +169,7 @@ mcu_mcan0: can@4e08000 {
+> >  	};
+> >  
+> >  	mcu_mcan1: can@4e18000 {
+> > -		compatible = "bosch,m_can";
+> > +		compatible = "ti,am62-m_can", "bosch,m_can";
+> >  		reg = <0x00 0x4e18000 0x00 0x200>,
+> >  		      <0x00 0x4e10000 0x00 0x8000>;
+> >  		reg-names = "m_can", "message_ram";
+> > 
+> 
