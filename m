@@ -1,291 +1,375 @@
-Received: from mail-pj2-f7.google.com (mail-pj2-f7.google.com [74.125.227.135])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3959147729B
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 11:09:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03CDA3EB802;
+	Fri,  4 Sep 2026 11:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520155; cv=none; b=WYEJADAWhe68U3oQxBmsXtbGwQJ/YSb5e9nCYb1+q7F4QWakZpbpFXmIOcnFjo2PGhuDS904Gfbvoe0I5wdamLmddk3Ptzm896gzSvTic7lreEs6ZIilIa3zqqQxHpDAca49aSOgNd1UxRZXwoBBQmQM1PhIFssXxyfDIfsh4rQ=
+	t=1788520210; cv=none; b=UjKnWf59qa5aPlJsnoe1FNm+SJc0svR4T7DqqA7vXCyDBWnvfBvaB431x+nq1K1ClIKmxiuzXWXvF0WA8Onaq7Rt/o8v6kUS70iHq0dz690CgmKJl+Y1q3Np1/Afh2m80iNFCZ6T+acU7Owkla/hEgQ3BmX3KL3h4CAyoIVbZy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520155; c=relaxed/simple;
-	bh=mF6WGnPxF9eEaT9L88PSu+8GibEvUMCU40aT6xUNpU4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=taOS/37XPlxEz1A5uvIzM8y7VMCig9/0ZmMA8cJfhMxpuZYWIcFTP9ctDkx3EcjLEHv9kcfabUGFlSdIpllqSYCtIdOEU46a2nIyfFHKyfUs8LtvjBH1x/4Vp6w+AyI7zyM90FCbYNMrVn3s2ippqEOUTyhIRodJ1cjATVu/ic4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhcGhTc5; arc=none smtp.client-ip=74.125.227.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788520210; c=relaxed/simple;
+	bh=+3kqsLOjrOl8dfb6u30uY5BIeEk6KjN2L1HR0KkWZSY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qpFWIb7S+ghe+O3o8h7JwgxAKIjGmjECIg284F7vyUKMxknqCzyKsb5SC11tcg6pD0DZhuGY07r23hsLyqB49okRlhg6YEf455AmV9X0LBg3TZgTxWpwiCCkjkC5JBnkaqSGYAHURotWkh707I79FW/O5ibaWGPs8kcxVMK8jQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fB1kfpxR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhcGhTc5"
-Received: by mail-pj2-f7.google.com with SMTP id d9443c01a7336-2d561173f9fso5047275ad.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 04:09:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788520152; x=1789124952; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=JgjLk2Wj4ezNGWQB3j7DpVIqIrI833hmatUkGCCEbj4=;
-        b=NhcGhTc57rzdyMkwc2J8MYJVz5glFDgzxmKUEwlWxlxywsK5YLKAxTBmshMmRlYrNx
-         yvTefus252zSQ2t2kKIqsdnVbNRxNZjRjNsaZash15WQSNa+ZYuyepjYQEZm5tVQjqsp
-         KDWE/Z0YA/ap00Ei6CRCPdOAyAtseT6zIw2OK6kq8XHf+A2xDvqHlAxKbksDWQ4eNCZt
-         sZ+Qi0eu3YPIg4ou1ZRTKJpDBAkjZjTUariTBlS1d726FuYtUX+1Lgv+0xYAqV+VkRmR
-         r7S7/stAaAfLRUU9/6bkKcRZrpQ8rRrDjzpwCMDbmfakIidrpN3f+g+f6YEO3wD3KurK
-         Jj0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788520152; x=1789124952;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JgjLk2Wj4ezNGWQB3j7DpVIqIrI833hmatUkGCCEbj4=;
-        b=r2LWwjfVCjCODch+jus/gge0JylwwwLnB7nV2gwTDaB8yFqIC9SgJzru9cs0RL5Bds
-         bdGhUiIuF3NQx3Qxe5VgVxhY5/+iuP4V6CKJyUwbxFr2ELz8hnLG0MNW1BHD6D4SN0Mg
-         dF2RKY7uPUhJeYY/mERxyw30+36igYvlU1ika3aXmaeRl5hktRTEGzDXWYRZ5cBFh0Bc
-         2XcCsxvk0eQno05PbKqNXVAQgrjq0hZJ3UKQotDBRWicOkuFAINrLRpymS2BsLqUZUjZ
-         VzCkWs5Sm84USgSfdDeih6OrmrfiWoAMkjFCUQBusjUOaVEb8W2mPVuMwWgE6qBJ3b4u
-         fyDw==
-X-Forwarded-Encrypted: i=1; AKwUvBzQXNoXHHU5gZgYmf/O7Q1Nru9J5EJ7jVwt3yWIm7M5k0H/eQ5YEk8pB80MRXlV6wO3HJBZFKP0q8ai@vger.kernel.org
-X-Gm-Message-State: AFuF++mOgJX1s3B36Zct4Y1jmt22Tn3z0OkHSXFso1Up0/DMROhLBukL
-	q7Ymaimo5dOuA4qwO3NOcxVYTv8xq3fCiZyEoCmd8/GlIbm6WCMhc1q0
-X-Gm-Gg: AYBFou0eQLghYRdJOtJafjdUO0IpR/jpG+QBhhZ8mbINwuf3FEn9R+00NCF3adkE454
-	nl8plMgn/XukOYBgdDqwHN8AJzLGTufXRhgQT8j8iuSsQRkjJPCGXnIRs/ctIwLBwLzSx5vttnJ
-	22lrt06UtFNDmQVD1uPsctpT/uzz5BjW4EGZXc9WGPpPBe2DjQ/G9hFcQtyqqnCQKGukHGrtpS6
-	Tp0hf+/9xfbycsl92ST1StmyfNbbK8fSRnFj8A1M+SIDIGGac1rhNtpRBSAbovKNPShtgi6KtJm
-	mDPUB4vI4QXUGI5iAQNd6rI7nzuGtlN1Sm2MeLtYK83q2ZYr200ouQN1ZPXJwy3+PmK3JQ7z+TU
-	+KrUTHwzL4+j9VA/wiai1007D+iJUFhlyBd3RHgrRAj1rHtyEF5q3GKm2zUfgvi0f0d+SZf4enN
-	NUXzlQi3Uyo+SCawzDryW5ioP84GD0H1HQuXLmL9LHnUwpLAiveebqzN/q9FVTpM4lrAm1fMH5M
-	If24hsSEbAP6pIebA==
-X-Received: by 2002:a17:902:fb48:b0:2d7:203b:9863 with SMTP id d9443c01a7336-2db1232c6a9mr51752645ad.1.1788520152439;
-        Fri, 04 Sep 2026 04:09:12 -0700 (PDT)
-Received: from [10.240.227.78] ([114.111.24.207])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db148404d1sm8326655ad.6.2026.09.04.04.09.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 04:09:11 -0700 (PDT)
-Message-ID: <a859f6dd-cc65-4bce-b4a0-0b757248f6d2@gmail.com>
-Date: Fri, 4 Sep 2026 19:08:57 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fB1kfpxR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6143D1F00A3F;
+	Fri,  4 Sep 2026 11:10:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788520208;
+	bh=k1mz2fa2Xrj+OvtsLvvdX+AJ+RBBNpA52n8W3pdaytI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=fB1kfpxRWCha3EcPbnNGFl6AzCwHv9BGXQsu23YwAQrtTgmaC5ES1IVJfFguVgssr
+	 SugQqCdKG0uTtkEJQTOv5eUvyi3UzYeCbjCg+PsQ30JC/1oZeIjcve1hDepFe6vTVb
+	 yV0jrk9TZ4+udYqFNWd/xk7luDBpdrZMAUnhQal+g2+nX9iYhXPAzM6emjh2Ech5yM
+	 jIfQ93zceT1eaijyGrGd1GbjGePpEBjwUx5jKzH2DpacUfqYm+9YUs2bBp7W0DUOh1
+	 9RmtZ9sFzJazIEKERekqcXBQlMiozX0qVgAyo7IQ3Y1HgGYVaoFT6tugMQkZZcZuOB
+	 Tbndm6ckzxTzA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/2] serial: wk2xxx: Add WK2xxx SPI UART driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: zjzhao <zjzhao@edatec.cn>
+Cc: linux-serial@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904105243.120769-2-zjzhao@edatec.cn>
+References: <20260904093341.100826-1-zjzhao@edatec.cn>
+ <20260904105243.120769-1-zjzhao@edatec.cn>
+ <20260904105243.120769-2-zjzhao@edatec.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 11:10:07 +0000
+Message-Id: <20260904111008.6143D1F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/10] kdump: reduce vmcore size and capture time
-To: Baoquan He <baoquan.he@linux.dev>
-Cc: catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org,
- robh@kernel.org, saravanak@kernel.org, akpm@linux-foundation.org,
- rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
- m.szyprowski@samsung.com, mark.rutland@arm.com, kernel@xen0n.name,
- alex@ghiti.fr, hpa@zytor.com, ruirui.yang@linux.dev, robin.murphy@arm.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, kexec@lists.infradead.org, linux-mm@kvack.org,
- iommu@lists.linux.dev
-References: <20260902073116.802752-1-chenwandun1@gmail.com>
- <apfkDlcMYrgiuGYA@fedora> <6aef2f48-1cc5-408d-a5a2-2b4b4d45ad7b@gmail.com>
- <apkiW8gn9Z5XaVQh@fedora> <edd83cd6-663f-43f5-8058-99e59d941d5b@gmail.com>
- <aplAA9-NX3pw9Wmb@fedora>
-From: Chen Wandun <chenwandun1@gmail.com>
-In-Reply-To: <aplAA9-NX3pw9Wmb@fedora>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [Critical] Missing port lock synchronization for statistics and kfifo acc=
+ess causes data races, ring buffer corruption, and heap buffer overflows.
+- [Critical] The `spi_rx` DMA buffer shares a cacheline with the `p[]` flex=
+ible array, which can lead to memory corruption on non-cache-coherent archi=
+tectures.
+- [High] Ignored SPI read errors corrupt global chip state.
+- [High] Returning IRQ_HANDLED on SPI bus error leads to IRQ storm.
+- [High] UART ports are registered and exposed to userspace before the SPI =
+IRQ is requested, leading to potentially missed edge-triggered interrupts a=
+nd permanent port hangs.
+- [High] Lockless access to `port->rs485.flags` in `wk2xxx_reconf_rs485()` =
+can race with concurrent modifications from the `TIOCSRS485` ioctl.
+- [Medium] Overrun and other error markers are incorrectly amplified and du=
+plicated for every byte in a bulk RX chunk, degrading reliability.
+- [Medium] Lost RX data when wk2xxx_fifo_read fails mid-transfer.
+--
 
+commit c961eb76f21270c39040554c82f8108729896107
+Author: zjzhao <zjzhao@edatec.cn>
+serial: wk2xxx: Add WK2xxx SPI UART driver
 
-On 9/3/26 5:38 PM, Baoquan He wrote:
-> On 09/03/26 at 03:43pm, Wandun wrote:
->>
->>
->> On 9/3/26 15:31, Baoquan He wrote:
->>> On 09/03/26 at 03:05pm, Wandun wrote:
->>>>
->>>>
->>>> On 9/2/26 16:53, Baoquan He wrote:
->>>>> Hi Wandun,
->>>>>
->>>>> On 09/02/26 at 03:31pm, Wandun Chen wrote:
->>>>>> From: Wandun Chen <chenwandun@lixiang.com>
->>>>>>
->>>>>> On SoCs that carve out large firmware-owned reserved memory (GPU,
->>>>>> camera ISP, ...), kdump currently dumps those carveouts as part of
->>>>>> system RAM even though their contents are firmware state that is not
->>>>>> useful for kernel crash analysis.
->>>>>>
->>>>>> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
->>>>>> reserved memory on DT-based architectures (arm64, riscv, loongarch).
->>>>>> Reserved regions default are marked MEMBLOCK_NODUMP so kdump omits them;
->>>>>> reusable CMA regions are different because their pages are handed back
->>>>>> to the buddy allocator and may carry crash-relevant data.
->>>>>>
->>>>>> ACPI systems already filter reserved memory out of the vmcore through
->>>>>> their existing path; only DT-based systems currently fail to filter these
->>>>>> regions, which is what this series addresses. The flag lives in memblock
->>>>>> itself rather than in a DT-only structure, so the mechanism is generic and
->>>>>> both ACPI and DT systems can benefit from it (suggested by Rob, thanks) [1].
->>>>>
->>>>> Thanks for the effort. I am not against this patchset, and I haven't
->>>>> went through it carefully. Just from the cover letter, you mentioned
->>>>> generic, I am wondering if this can be generic for excluding other
->>>>> memory regions. Asking this because I try to find a way to exclude
->>>>> unwanted memory regions too, please check below link where there's
->>>>> the relevant discussion. We definitely don't like inventing wheels
->>>>> time after time. Do you think this memblock region excluding can
->>>>> be used in other places of kernel?
->>>>>
->>>>> https://lore.kernel.org/all/aoLFai0gzzH2bGgy@MiWiFi-R3L-srv/T/#u
->>>>
->>>>
->>>> Thanks for taking a look, and for the pointer to the crash-wipe thread.
->>>>
->>>> To answer your question directly: the exclusion mechanism in this series
->>>> is already generic, memblock_mark_nodump() is the entry point. Any code
->>>> that wants a region out of the vmcore just marks it MEMBLOCK_NODUMP, when
->>>> preparing vmcore elf header by walking memblock, these regionss are skipped;
->>>> This series is simply one caller, marking the DTS /reserved-memory and
->>>> /memreserve/ regions with MEMBLOCK_NODUMP.
->>>
->>> Thanks, for memory not allocated from memblock, e.g buddy, is it still
->>> good?
->>
->> Yes, still good, only need to pass the physical range to memblock_mark_nodump().
-> 
-> That's interesting. If drivers or any component allocate memory from
-> buddy, then you will call memblock_mark_nodump() to mark the region
-> specifically (memblock_setclr_flag will split regions if it's a sub
-> region of existing memblock region), it won't impact anything?
+This commit adds a new driver for the WK2xxx SPI to UART bridge ICs. The
+driver registers up to four full-duplex UART channels and supports hardware
+flow control and RS485.
 
-IIUC, it won't impact anyting; memblock_mark_nodump() only set
-the MEMBLOCK_NODUMP bit on the matching memblock.memory regions,
-and from the buddy allocator's view, there is nothing changed.
+diff --git a/drivers/tty/serial/wk2xxx.c b/drivers/tty/serial/wk2xxx.c
+index 0000000000000..f8005bbec9374
+--- /dev/null
++++ b/drivers/tty/serial/wk2xxx.c
+@@ -0,0 +1,1401 @@
 
-The only effect is the region split you already pointed out: marking
-a sub-range costs up to two extra entries in the memblock.memory
-region array.
+[ ... ]
 
+> +struct wk2xxx_port {
+> +	const struct wk2xxx_devtype	*devtype;
+[ ... ]
+> +	/*
+> +	 * Shared SPI transfer buffers. All SPI accesses are serialized by
+> +	 * s->reg_lock, so these are never used concurrently. Each buffer is
+> +	 * cache-line aligned so that DMA cache maintenance performed on a
+> +	 * buffer never invalidates a line shared with the fields above.
+> +	 */
+> +	u8				spi_tx[WK2XXX_MAX_SPI_LEN + 1] ____cacheline_aligned;
+> +	u8				spi_rx[WK2XXX_MAX_SPI_LEN + 1] ____cacheline_aligned;
+> +	struct wk2xxx_one		p[];
+> +};
 
-Best regards,
-Wandun
+[Severity: Critical]
+Could this struct layout allow the spi_rx DMA buffer to share a cacheline w=
+ith
+the flexible array p[]?
 
+Because WK2XXX_MAX_SPI_LEN + 1 is 31 bytes, which is not a multiple of typi=
+cal
+cacheline sizes, the compiler may place p[0] at the next 8-byte boundary. T=
+his
+would cause spi_rx and p[0] to share a cacheline.
 
-> 
->>
->>>
->>>>
->>>> x86 currently builds the vmcore elf header from iomem_resource, not
->>>> memblock; it could be switched to memblock, but that would bring no
->>>> benefit for the problem this series solves, so this series makes no
->>>> x86 change. I'd personally be in favor of switching to memblock for
->>>> a unified implementation across architectures.
->>>>
->>>> Best regards
->>>> Wandun
->>>>
->>>>
->>>>>
->>>>>>
->>>>>> Since the reserved memory regions are filtered out, the vmcore is
->>>>>> smaller in size and faster to produce.
->>>>>>
->>>>>> The series is based on linux-next and is organized as follows:
->>>>>>
->>>>>> Patches 1-4: Preparation and bugfixes: fix the missing HugeTLB
->>>>>>               flagname, switch riscv crash_mem to memblock, fold the
->>>>>>               duplicated per-arch memblock walks into the weak
->>>>>>               defaults, and serialize crash header preparation against
->>>>>>               memory hotplug.
->>>>>> Patches 5-9: NODUMP infrastructure: switch crash_core to
->>>>>>               for_each_mem_region(), introduce the MEMBLOCK_NODUMP
->>>>>>               flag, add a dumpable flag to struct reserved_mem, and
->>>>>>               mark /reserved-memory and /memreserve/ entries with
->>>>>> 	     MEMBLOCK_NODUMP flag.
->>>>>> Patch 10:    Exclude MEMBLOCK_NODUMP regions from the vmcore ELF
->>>>>>               header.
->>>>>>
->>>>>> In v5, Sashiko found some pre-existing issues related to reserved-memory,
->>>>>> and has no dependency on this series, so these issues have been addressed
->>>>>> in a separate series [2].
->>>>>>
->>>>>> v5 --> v6:
->>>>>> 1. Serialize crash header preparation against memory hotplug to avoid
->>>>>>     out-of-bounds or use-after-free issues.
->>>>>>
->>>>>> 2. MEMBLOCK_NODUMP marking is now done after memblock allows resizing,
->>>>>>     avoiding a panic from too few regions before resize is permitted.
->>>>>>
->>>>>> 3. Reordered the patches, put pre-existing bugfixes earlier in the series.
->>>>>>
->>>>>>
->>>>>> v4 --> v5:
->>>>>> 1. Rework the mechanism around a memblock-level MEMBLOCK_NODUMP flag
->>>>>>     (suggested by Rob) instead of the v4 opt-in 'dumpable' flag on
->>>>>>     DT-only struct reserved_mem.
->>>>>> 2. Switch the riscv vmcore elf header preparation to use memblock
->>>>>>     instead of the resource tree, aligning it with arm64 and loongarch,
->>>>>>     so riscv also can exclude reserved memory from vmcore.
->>>>>> 3. Deduplicate the vmcore elf header preparation: arm64, riscv and
->>>>>>     loongarch open-coded the same logic, so fold it into shared
->>>>>>      __weak defaults in crash_core.
->>>>>> 4.  Drop the v4 patch that saved /memreserve/ entries into the
->>>>>>      reserved_mem array; /memreserve/ is now marked MEMBLOCK_NODUMP
->>>>>>      directly.
->>>>>>
->>>>>> v3 --> v4:
->>>>>> 1. Rebase this series on v7.2-rc1.
->>>>>> 2. Add two cleanup patches (patch 02/03).
->>>>>> 3. Simplify patch 03 to avoid checking whether initial_boot_params is
->>>>>>     NULL multiple times, suggested by Rob.
->>>>>>
->>>>>> v2 --> v3:
->>>>>> 1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.
->>>>>> 2. Fix UAF issue when alloc_reserved_mem_array() fails.
->>>>>> 3. Add some prepare patches.
->>>>>>
->>>>>> v1 --> v2:
->>>>>> 1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
->>>>>>     feedback [3], v2 drop that property and exclude reserve memory
->>>>>>     by default.
->>>>>> 2. Split some prepared patches from the original patches.
->>>>>> 3. Address coding-style comments on patch 5 from Rob.
->>>>>>
->>>>>> [1] https://lore.kernel.org/lkml/20260723234126.GA3253409-robh@kernel.org/
->>>>>> [2] https://lore.kernel.org/lkml/20260818092420.2859026-1-chenwandun1@gmail.com/
->>>>>> [3] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
->>>>>>
->>>>>> Meijing Zhao (1):
->>>>>>    mm: memblock: add missing HugeTLB flag name
->>>>>>
->>>>>> Wandun Chen (9):
->>>>>>    riscv: build crash_mem ranges from memblock instead of resource tree
->>>>>>    crash_core: fold duplicated memblock arch hooks into the weak default
->>>>>>    crash_core: serialize crash header preparation against hotplug
->>>>>>    crash_core: replace for_each_mem_range() with for_each_mem_region()
->>>>>>    memblock: introduce MEMBLOCK_NODUMP flag
->>>>>>    of: reserved_mem: add dumpable flag to opt-in vmcore
->>>>>>    of: reserved_mem: mark /reserved-memory entries with MEMBLOCK_NODUMP
->>>>>>    of: reserved_mem: mark /memreserve/ entries as MEMBLOCK_NODUMP
->>>>>>    crash_core: skip MEMBLOCK_NODUMP regions when building vmcore ELF
->>>>>>      header
->>>>>>
->>>>>>   arch/arm64/kernel/machine_kexec_file.c     | 29 ------------
->>>>>>   arch/loongarch/kernel/machine_kexec_file.c | 27 ------------
->>>>>>   arch/riscv/Kconfig                         |  2 +-
->>>>>>   arch/riscv/kernel/machine_kexec_file.c     | 33 --------------
->>>>>>   arch/x86/kernel/crash.c                    |  2 +-
->>>>>>   drivers/of/fdt.c                           |  2 +
->>>>>>   drivers/of/of_private.h                    |  2 +
->>>>>>   drivers/of/of_reserved_mem.c               | 48 ++++++++++++++++++++
->>>>>>   include/linux/crash_core.h                 |  2 +
->>>>>>   include/linux/memblock.h                   |  9 ++++
->>>>>>   include/linux/of_reserved_mem.h            |  1 +
->>>>>>   kernel/crash_core.c                        | 51 ++++++++++++++++++++--
->>>>>>   kernel/dma/contiguous.c                    |  1 +
->>>>>>   mm/memblock.c                              | 17 ++++++++
->>>>>>   14 files changed, 131 insertions(+), 95 deletions(-)
->>>>>>
->>>>>> -- 
->>>>>> 2.43.0
->>>>>>
->>>>
->>
+On non-cache-coherent architectures, DMA invalidation of spi_rx might disca=
+rd
+concurrent CPU writes to p[0] (such as acquiring its tx_lock), or CPU
+writebacks could clobber the incoming DMA data.
 
+[ ... ]
+
+> +static int wk2xxx_raw_read(struct wk2xxx_port *s, u8 addr, u8 *val)
+> +{
+> +	u8 *tx =3D s->spi_tx;
+> +	u8 *rx =3D s->spi_rx;
+> +	int ret;
+> +
+> +	tx[0] =3D WK2XXX_SPI_READ | addr;
+> +	tx[1] =3D 0;
+> +	ret =3D wk2xxx_spi_transfer(s, tx, rx, 2);
+> +	if (ret) {
+> +		*val =3D 0;
+> +		return ret;
+> +	}
+
+[ ... ]
+
+> +static void wk2xxx_handle_tx(struct uart_port *port)
+> +{
+[ ... ]
+> +	to_send =3D kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
+> +	sent =3D 0;
+> +	while (to_send) {
+> +		unsigned int chunk =3D min_t(unsigned int, to_send,
+> +					   WK2XXX_MAX_SPI_LEN);
+> +
+> +		if (wk2xxx_fifo_write(s, portno, tail, chunk))
+> +			break;
+> +		tail +=3D chunk;
+> +		to_send -=3D chunk;
+> +		sent +=3D chunk;
+> +	}
+> +	uart_xmit_advance(port, sent);
+> +
+> +	scoped_guard(uart_port_lock_irqsave, port) {
+
+[Severity: Critical]
+Is it safe to call uart_xmit_advance() locklessly before entering the
+scoped_guard?
+
+This modifies port->icount.tx and the kfifo out index outside the port lock.
+If a concurrent userspace thread invokes the TCFLSH ioctl, uart_flush_buffe=
+r()
+could set the kfifo's in and out pointers to 0.
+
+If this lockless uart_xmit_advance() subsequently adds to the out pointer, =
+it
+could integer-underflow the kfifo length calculation. This would cause
+kfifo_avail() to return a massive buffer size and lead to an out-of-bounds
+memcpy() on the next write().
+
+[ ... ]
+
+> +static void wk2xxx_handle_rx(struct uart_port *port)
+> +{
+[ ... ]
+> +	/* Read the FIFO contents in chunks. */
+> +	len_p =3D 0;
+> +	while (rxlen) {
+> +		chunk =3D min_t(unsigned int, rxlen, WK2XXX_MAX_SPI_LEN);
+> +		if (wk2xxx_fifo_read(s, portno, one->buf + len_p, chunk))
+> +			return;
+
+[Severity: Medium]
+If wk2xxx_fifo_read() fails mid-transfer, does returning directly here cause
+silent data loss?
+
+By issuing an early return, any bytes successfully read into one->buf during
+previous iterations of the loop are completely discarded. A break statement
+might be needed instead so the already-read characters can be processed and
+pushed to the TTY buffer.
+
+> +		len_p +=3D chunk;
+> +		rxlen -=3D chunk;
+> +	}
+> +	rxlen =3D len_p;
+> +
+> +	/* Map the FIFO status register error flags to line status. */
+> +	if (fsr & WK2XXX_FSR_ERR_MASK) {
+> +		if (fsr & WK2XXX_FSR_RFPE_BIT) {
+> +			port->icount.parity++;
+> +			lsr |=3D WK2XXX_LSR_PE_BIT;
+> +			flag =3D TTY_PARITY;
+> +		}
+
+[Severity: Critical]
+Are there missing locks around the port->icount statistics updates here?
+
+Updating the port statistics without holding the port lock could cause data
+races with concurrent readers.
+
+[ ... ]
+
+> +		if (fsr & WK2XXX_FSR_RFOE_BIT) {
+> +			port->icount.overrun++;
+> +			lsr |=3D WK2XXX_LSR_OE_BIT;
+> +			flag =3D TTY_OVERRUN;
+> +		}
+[ ... ]
+> +	for (i =3D 0; i < rxlen; ++i) {
+> +		u8 ch =3D one->buf[i];
+> +
+> +		if (uart_handle_sysrq_char(port, ch))
+> +			continue;
+> +
+> +		if (lsr & port->ignore_status_mask)
+> +			continue;
+> +
+> +		uart_insert_char(port, lsr, WK2XXX_LSR_OE_BIT, ch, flag);
+> +	}
+
+[Severity: Medium]
+Does passing the global overrun marker to uart_insert_char() for every byte=
+ in
+the burst incorrectly amplify a single error?
+
+Since the hardware FSR register provides a global status rather than a
+per-byte status, mapping it to lsr and passing it to uart_insert_char() for
+every processed byte will insert a TTY_OVERRUN dummy character for every
+single byte in the FIFO burst.
+
+This means one actual FIFO overrun will insert up to 256 dummy overrun
+characters into the TTY buffer and mark all successfully read bytes as
+corrupted.
+
+[ ... ]
+
+> +static irqreturn_t wk2xxx_irq(int irq, void *dev_id)
+> +{
+[ ... ]
+> +	do {
+> +		u8 gifr;
+> +		int i;
+> +
+> +		keep_polling =3D false;
+> +
+> +		if (wk2xxx_reg_read(s, WK2XXX_GIFR_REG, &gifr))
+> +			return IRQ_HANDLED; /* Bus error; give up this pass. */
+
+[Severity: High]
+Can returning IRQ_HANDLED on a bus error prevent the IRQ subsystem from
+masking a stuck interrupt?
+
+If reading the global interrupt flag register fails and the interrupt is
+level-triggered (or stays asserted by hardware), returning IRQ_HANDLED defe=
+ats
+the spurious interrupt detector. The kernel will continuously re-invoke the
+handler in a tight loop, leading to an IRQ storm.
+
+Returning IRQ_NONE would allow the kernel to mask the rogue interrupt when =
+no
+hardware state is successfully cleared.
+
+[ ... ]
+
+> +static void wk2xxx_reconf_rs485(struct uart_port *port)
+> +{
+> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
+> +	u8 rs485 =3D 0;
+> +
+> +	if (port->rs485.flags & SER_RS485_ENABLED) {
+
+[ ... ]
+
+> +static void wk2xxx_reg_proc(struct kthread_work *ws)
+> +{
+[ ... ]
+> +	uart_port_unlock_irqrestore(&one->port, irqflags);
+> +
+> +	if (config.flags & WK2XXX_RECONF_IER)
+> +		wk2xxx_port_reg_update(s, one->port.iobase, WK2XXX_SIER_REG,
+> +				       config.ier_mask, config.ier_val);
+> +
+> +	if (config.flags & WK2XXX_RECONF_RS485)
+> +		wk2xxx_reconf_rs485(&one->port);
+> +}
+
+[Severity: High]
+Might wk2xxx_reconf_rs485() race with concurrent modifications from the
+TIOCSRS485 ioctl?
+
+The kworker deliberately drops port->lock before invoking
+wk2xxx_reconf_rs485(), which then reads port->rs485.flags locklessly.
+
+If userspace sets the RS485 configuration via the ioctl, wk2xxx_config_rs48=
+5()
+defers execution to the kworker. The kworker might execute and read the old
+configuration before the serial core has a chance to update port->rs485,
+causing the hardware configuration to become permanently out of sync.
+
+[ ... ]
+
+> +static int wk2xxx_startup(struct uart_port *port)
+> +{
+> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
+> +	unsigned int portno =3D port->iobase;
+> +	u8 reg;
+> +
+> +	scoped_guard(mutex, &s->reg_lock) {
+> +		/* Enable the sub-UART. */
+> +		wk2xxx_raw_read(s, WK2XXX_GENA_REG, &reg);
+> +		reg |=3D BIT(portno);
+> +		wk2xxx_raw_write(s, WK2XXX_GENA_REG, reg);
+
+[Severity: High]
+If wk2xxx_raw_read() fails due to a transient SPI error, will this silently
+disable all other active sub-UARTs?
+
+When the initial SPI read fails, it forces the output variable reg to 0, but
+the code ignores the error. Setting the bit for this port against a 0 value
+and writing it back inadvertently zeroes out the enable and interrupt bits =
+for
+all other active ports on the chip, breaking them.
+
+[ ... ]
+
+> +static int wk2xxx_probe(struct spi_device *spi)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < devtype->nr_uart; ++i) {
+[ ... ]
+> +		/* Register port. */
+> +		ret =3D uart_add_one_port(&wk2xxx_uart, &s->p[i].port);
+> +		if (ret)
+> +			goto out_ports;
+> +
+> +		port_registered[i] =3D true;
+> +	}
+> +
+> +	/*
+> +	 * Request the IRQ only after every port is registered so that an early
+> +	 * interrupt can never reach a port whose port->state is not ready yet.
+> +	 * We first try to acquire the IRQ line as a level IRQ; if that
+> +	 * succeeds, we can allow sharing the interrupt as well.  In case the
+> +	 * interrupt controller doesn't support that, we fall back to a
+> +	 * non-shared falling-edge trigger.
+> +	 */
+> +	if (!s->polling) {
+> +		ret =3D request_threaded_irq(spi->irq, NULL, wk2xxx_irq,
+> +					   IRQF_TRIGGER_LOW | IRQF_SHARED |
+> +					   IRQF_ONESHOT, dev_name(dev), s);
+
+[Severity: High]
+Is it safe to register the UART ports and expose them to userspace before
+requesting the SPI IRQ?
+
+Because uart_add_one_port() exposes the TTY device, userspace can immediate=
+ly
+open() it. This executes wk2xxx_startup() which enables hardware interrupts=
+ on
+the WK2xxx chip.
+
+If the chip pulls the interrupt line low immediately (such as for a TX empty
+condition) and the system falls back to IRQF_TRIGGER_FALLING, the initial
+falling edge will be missed because the OS has not requested the IRQ yet. T=
+he
+line would remain low, but because it is edge-triggered, the interrupt will
+never fire again, permanently hanging the port.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904105243.1207=
+69-1-zjzhao@edatec.cn?part=3D1
