@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E2EB51D53B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C954249F11A
 	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 18:55:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548119; cv=none; b=c0WzQ3hSGk36wY8RoIdre6nxNQ1nhv5RNjZ8PM/W6eTvmGQA2FBYFexIBMUQCJDqxqv/s/KsaRH7pBI1YLqTbLszkgyCHS3by+Vq8RRYDk7rJ8SZ7fm4XlK+CHQK/bUSIUBbKblsFEsSxT22Dqc8QeT3KfFz/CsgVl62fV9Z1PE=
+	t=1788548120; cv=none; b=GbwOIMiPhhhb5Kpt/N+4+l/eV+KfE6zK0Mm829dAB6q5g5u4X8p5jy24Am7/38MM/jj73uZ9Ick63Y6LKSF8qCtK0PeoomElh1tYnFybzKuU4qOJzH6O+LHxPKKWarKof/Jl2CxpJqIyXo5sWzlRfO6uPn9WAzy0ljJHnKfNZn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548119; c=relaxed/simple;
-	bh=mnR5D9KgQUGe8H1y0h5VkuIGcWMmvFijEkpm2frhA4Q=;
+	s=arc-20240116; t=1788548120; c=relaxed/simple;
+	bh=Dtkkqz02BnoXClFHRCYNCY6KAgjA5wWKLR3/0t2Dm0s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ny35ptct6oCigFyWiBqyv5tyGfNc933rS77knfFn2ybhk6lWMM87eT3Qgnxjl+NCK6/UMHpBCHF55ZI58OeF2EXShiCPnrgmVvCuAG3wMM1V7HdOboo7yA8xncPjklZrfeVuPWCnUJVAIfvJ3+kmOGZiLtDXyB1vDkuEYu/2S5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FlbUz0TD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jStA52JnAfq1AcUWAiGvhLUbfk2LyD/a4b/ll0VpEQvAkHFTG0c8PKwOFHVJl3XL26zfwODU2WMuZibr/i+P5aBUFw0cBigQWXVLKhygXjNT3i1kkU4mVQb/lx51dDG06P/TWnV4OEkv2bahdcIzSdsBoV1tfvUHsC8CuESLyhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khPOENL3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FlbUz0TD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85C181F00A3F;
-	Fri,  4 Sep 2026 18:55:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khPOENL3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B71D1F00A3D;
+	Fri,  4 Sep 2026 18:55:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788548117;
-	bh=NDe6/mvOXWaAbus3ys0B3NopuvfssdG3wSsVva4R5EE=;
+	s=k20260515; t=1788548118;
+	bh=Dx5q9Q0cXb5WpPhb5LCQUnSMXEJXfEh/7S6NWB+ez50=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FlbUz0TDFOJQDz8bDQrlI2WuCPkChs8UISDwWipB/pie7VYs1WGMMI/77eA8b4AdX
-	 NVPJxE+z9VIYrEDk4emgj4xZ+TGUJxXWHkNqUj+bYeLEMxncUWFyR9QH9BXvcndmd9
-	 ET5hcapFXMnjIuA//CoqSH809y1vxXYqVKtpnNSGoGxK3qMIMRfbrOArGEyJcyoJTu
-	 FZ4XnPCpmRRWQpq+2LMsXzfdDZNHd8iBFVem8SwKNE9YIiefU/bvJxQBAp7kZCQuIn
-	 QVj8f/Sb8evSPH3Xc0b9hgtAmsFO165o5nsPSXXI7XwTIPSjKeARhRBlQKssz9HGSW
-	 8JkcLmhG9KX2g==
+	b=khPOENL3OLrUzUTvQznZKhZa4iVNp3DdX62SZK0OY+lfbJQA7/LHij/f6h/Z1LHbA
+	 CdY7tQ/Mww5gmmO8OjMGrm7/uxFmOtpUbb+/Kn4ZBr051v+2OeYQI8DDbX+GyBZ5Rv
+	 o72UWmQJf0j8yqwzvSNvaVim+ZAECi75ZxAb7EXKARftu/BIFEcYPwoaf/TsHE1/Bh
+	 GkFKbzUMNCkvEdMNm5v0dqg/LS0PXf1h8/Ucx1GUHv0TPPtxSBSbTPAqNkyrxDdAjN
+	 Vyg3J875je3TqVL0/mkjKhevAs1IYiucymHERkl3Z5UT26JgJtyTEiD+E0MpjXEBPM
+	 GQS2idp0aZ1NQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 7/9] net: stmmac: qcom-ethqos: set initial
- RGMII link clock to lowest speed
+Subject: Re: [PATCH net-next 6/9] net: stmmac: qcom-ethqos: warn about
+ legacy RGMII PHY modes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260904-shikra_ethernet-v1-7-a50765996035@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260904-shikra_ethernet-v1-6-a50765996035@oss.qualcomm.com>
 References: <20260904-shikra_ethernet-v1-0-a50765996035@oss.qualcomm.com>
- <20260904-shikra_ethernet-v1-7-a50765996035@oss.qualcomm.com>
+ <20260904-shikra_ethernet-v1-6-a50765996035@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Fri, 04 Sep 2026 18:55:17 +0000
-Message-Id: <20260904185517.85C181F00A3F@smtp.kernel.org>
+Message-Id: <20260904185518.5B71D1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,65 +47,48 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Hardware initialization ordering mismatch causes 1-second busy loo=
-p and RGMII DLL lock failure on first Gigabit link-up.
+- [Medium] Deprecation warning causes kernel log spam on every link-up event
 --
 
-commit a0ec14dab79ed801bb626d58b6ec17e6c1024077
+commit e45fa290281055cacebbbfec0d13fc25cf76f918
 Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-net: stmmac: qcom-ethqos: set initial RGMII link clock to lowest speed
+net: stmmac: qcom-ethqos: warn about legacy RGMII PHY modes
 
-This patch changes the initial RGMII link clock to 10 Mbps (2.5 MHz) during
-probe to save power before a PHY link is established.
+The qcom-ethqos driver is moving towards using "rgmii-id" together
+with PHY-provided delays. This commit warns when legacy PHY modes
+are used to encourage users to migrate to updated DTBs.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
 ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 2ca2f03de3017..4f9bef662c579 100644
+> index 67738c1598c50..2ca2f03de3017 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -814,7 +814,7 @@ static int qcom_ethqos_probe(struct platform_device *=
-pdev)
->  				     "Failed to get serdes phy\n");
+> @@ -554,6 +554,8 @@ static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
+>  		return;
+>  	}
 > =20
->  	ethqos_set_clk_tx_rate(ethqos, NULL, plat_dat->phy_interface,
-> -			       SPEED_1000);
-> +			       SPEED_10);
+> +	dev_warn(dev, "legacy RGMII phy-mode detected; consider upgrading to a =
+newer DTB\n");
 
-[Severity: High]
-The commit message states that fix_mac_speed updates the rate once a link is
-established, but does fix_mac_speed actually update the rate?
+[Severity: Medium]
+Is it possible for this warning to cause kernel log spam on every link-up
+event?
 
-Looking at stmmac_mac_link_up() in stmmac_main.c, it calls fix_mac_speed
-before set_clk_tx_rate:
+This statement evaluates every time the link transitions to up, since
+stmmac_mac_link_up() calls the priv->plat->fix_mac_speed() callback. If the
+Ethernet link flaps, auto-negotiates repeatedly, or is reconnected
+frequently, this could flood the kernel log.
 
-	if (priv->plat->fix_mac_speed)
-		priv->plat->fix_mac_speed(priv->plat->bsp_priv, interface,
-					  speed, mode);
-    ...
-	if (priv->plat->set_clk_tx_rate) {
-		ret =3D priv->plat->set_clk_tx_rate(priv->plat->bsp_priv,
-						priv->plat->clk_tx_i,
-						interface, speed);
+Since the phy_mode is evaluated from a static device tree property, would
+it be better to use dev_warn_once() here, or move the warning to the
+probe path entirely?
 
-Because the initial clock is now SPEED_10, when a Gigabit link comes up,
-ethqos_fix_mac_speed_rgmii() will wait for DLL lock while the clock is still
-running at the slower rate:
-
-		/* wait for DLL LOCK */
-		if (read_poll_timeout_atomic(rgmii_readl, val,
-					     val & SDC4_STATUS_DLL_LOCK,
-					     1000, 1000000, true,
-					     ethqos, SDC4_STATUS))
-			dev_err(dev, "Timeout while waiting for DLL lock\n");
-
-Will this cause a 1-second timeout and fail to lock the DLL on the first
-Gigabit link-up?
-
+> +
+>  	/* Initialize the DLL first */
 > =20
->  	qcom_ethqos_set_sgmii_loopback(ethqos, true);
->  	ethqos_set_func_clk_en(ethqos);
+>  	/* Set DLL_RST */
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-shikra_eth=
-ernet-v1-0-a50765996035@oss.qualcomm.com?part=3D7
+ernet-v1-0-a50765996035@oss.qualcomm.com?part=3D6
