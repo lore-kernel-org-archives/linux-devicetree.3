@@ -1,66 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2406747143A;
-	Fri,  4 Sep 2026 10:56:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851EB44D01D
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:56:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519408; cv=none; b=ptimIY+6/hBYbnN3YZOIyOgSaYcZHf+ZXVy2yQrd4k914Dlz0YTFDuOKpxxgybFbhbr6ctlKJLrm5BeLUPpfliclNqEK/mnqwp1bqRAUmQ8CgQRXKesnjanMyPvZA9ViTT2fWBK0mpCJalX6rGzweY3e8b/YfHsWr7uktz0QW3Y=
+	t=1788519409; cv=none; b=Oucba4n5JoSE3SZHdKuxqCRXrTwy0pLoBEUk2TE0HTp1staRD1k+CoESQfY/f1ieSVW4tzPuZKZKqogrW6faDOeojkIDqLYTEj0RCZBVp/KhMrlJrQ9uzNm/euTZ3Mu1T3HByw+ImKxov5evpIU9/z2UU8QlLZOMgZHFISPRSqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519408; c=relaxed/simple;
-	bh=3xtslc2D80gdBYd6ip6x8G/YBhaOiLglQojQPTnbmMA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RyGTwmXEdNxjlmPJ4en2tU/YW6t25557EgpU9jMvyPHBwU+NdrX8lZYbBsU5yiR7rzyPKlmdR4uJVh2grhSlvtX7UzIghQXsk6s+fXdDkSTY5ElO/elQN3gR8the3F3yP+nGg2W2oaBu3IfEQekE3kKDwCcK5ufLBz+gLl/CyBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q3OhGg6K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788519409; c=relaxed/simple;
+	bh=lZbSOiq6PpWvGtztIT8irq1yq+3657nUu17HzUf8NSs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=M4sYZHhnqmXuZ+MRgONQuRpI668V/1gae2U/v05d26UTzJ8cjTrpv42Gs7Kkgq/rOFh/dIggkrcOG0XGP5xCgtvvZ+Y4FHju7/XfwscXiSrldFkmNocxe8Vw12SkpADCM0Huq3I8Chm9PGwqFqAhM+LHr14764nRh5yAHeMgtnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=M9wjuMhw; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q3OhGg6K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 148C21F00ADE;
-	Fri,  4 Sep 2026 10:56:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519406;
-	bh=3xtslc2D80gdBYd6ip6x8G/YBhaOiLglQojQPTnbmMA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q3OhGg6K34/+jhZrqZoAJEn6lx79LB7yIU/lbBPQxhtXT4TAjfeXTCAmdwH31HCB5
-	 OQfuIiICwKunFAe5I+YehQayhJAgv6YJ4ItqKxluA5OMt64wYTAs6Bonx4sgIa1C1L
-	 HwCHS8xHBf6BTxTwf0A80q1qsXzeX+ux3Btcjt1B6bcQkdBvTHwb1cHdoP8qZzZu9T
-	 bCkMvHbXOpYaDA+ZEli59zSNTuQX/MvP2vr+AWWNz5yckoJhqSgLlINDCMs6agmyh2
-	 wDOn6PdVtIAvjPNGBjcVeRe3Vqjfp8WDXwjrPavgduSoXRhpTWu+a7IlJhxlfEQCR8
-	 y0dON4JR0pNdw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 02/12] dt-bindings: display: tegra: Document memory
- regions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: linux-s390@vger.kernel.org, "Heiko Carstens" <hca@linux.ibm.com>, robh@kernel.org, "Christian
- Borntraeger" <borntraeger@linux.ibm.com>, media-ci@linuxtv.org, conor+dt@kernel.org, "Vasily
- Gorbik" <gor@linux.ibm.com>, linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>
-In-Reply-To: <20260904-tegra-vpr-v6-2-79042cfa8de5@nvidia.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-2-79042cfa8de5@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 10:56:45 +0000
-Message-Id: <20260904105646.148C21F00ADE@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="M9wjuMhw"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso5617265e9.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 03:56:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788519406; x=1789124206; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jFACwW3FzP5DW2PPT2LJDEH+gbA8r2g7VY7yrdZmoeQ=;
+        b=M9wjuMhwdg+cx/Chidp63p9aWPxGOLBzIGZo2Q6ZcAVjUwzC0cxSgRWDc2fy6h0e7N
+         D6SRtw1Hi5MvPJspdH4GhSqgRHoqI+NufSRLUQbn3wOo+cNepmgmUtmAqheXYR46Bl+m
+         dE6HBQBuNPAE43wUuozjgOthA/kBEBNDy7BjWwdXx4GZQ1HfuZ8KrtfIrvrJ3Y1KqpIX
+         FeDjeuJdFHvhi7T7a5eKw/NgARp6jpiSz3vyfaPwUTOIP7Uc3oaznRqJFFZ7L/x8XFl7
+         PlHFrg1aAe2WTZWnSirRq5aSe1lr8Zp3Lk1xTavBwLFdpa80j0mE/7EJos+k87dxyAlX
+         robw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788519406; x=1789124206;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jFACwW3FzP5DW2PPT2LJDEH+gbA8r2g7VY7yrdZmoeQ=;
+        b=esFXHgBrQFY3IYIZWtzDqhh9c6WaVsCx1+laLjtpN9QsZ06bXDbJIkMiy6uMN3SxIC
+         pabl3DNPOMylmzPUIGnTBKVlKOE3eXh9Z70nyruGTZHlw3uQnTul6W1C+ypr3qqSSxIw
+         4jJ1CHE3mBFmNWbpisybMZvJHheZDLgEbLMJ1IvKAvMjt6V2OZn8am7Tw+R9EMHD+iES
+         n2P7rrWRyVPPZ2GlZ20rbMU9I1HJFuvT03ZN+Ekhpv7YmRrH/3bgctEgu4Dcm4BHH9DC
+         BP5bMZzoMtkhZ12yOu19COZ1rSGanTtYr3N3fhy3E9LwxXdnDQKmy5Jx5vDtks20y7J7
+         iGrw==
+X-Forwarded-Encrypted: i=1; AKwUvBzWF/i73DXONga6KCgXPg6o6eTAKJJpIOSCNcCZNurWbEP9xMzjC6z5cjPTsTRMHKuEYzeQ9fQkaffI@vger.kernel.org
+X-Gm-Message-State: AFuF++mk8cZ9gyjEqzB8Nl8nXWkl6DAIgxmRXbdZlUBEiYsfLO84awJx
+	pADeo66tiv7UwONkweCWfFNYWCHoXiiz3s5dXeV35xpTB6PzLnpAVwitf/KlJ5Oc79Q=
+X-Gm-Gg: AYBFou2JSb5dpagPg9+CeDJz5PVsshgQUmaZ/m8+YF1MtCFSuJyZSGNrHIqwg3CliTb
+	u4X1wg0p3LqD1fjE1quWXZnopuoVubIopusjZp8BybIW7IyI6v6B61NHvxWPytlkDAN85eRdmq2
+	08k5COSPEi6OMt8q/tgEGvDDIe/wdZTv/mwQ+nczME8Bu+OFSPSkZr9oZa9t7J/jIwoN7Sm44jZ
+	CzFojR51b21/9v2qUtrGmSJOnp4IsSjqWsuX54ox82j5sq3hEfjTzEHJd0/pfO85wBwex6TnRsF
+	vV6o/TNCwlBcisAuEb80UxB0hPjwizk1wEt174ROMMYEr6A+WQbBms3z5KPAKQx2x7Lxh+wUNTF
+	sRDNMFUHKCdqowrCGG5hnT7QOn35xSpoY19Gfvnyz9VPpfHkqGHHl7woXlaKqjpT9Isw70R21C5
+	YQ6icjQxzhimsd9PRRdUf2K775vjujgJB0CTR06T9dqeysrE1TjTDBgoMUIn2rNGRyv8oBW+TB
+X-Received: by 2002:a05:600c:8b71:b0:49c:fa21:1c7f with SMTP id 5b1f17b1804b1-49cfa211d26mr26580915e9.20.1788519405186;
+        Fri, 04 Sep 2026 03:56:45 -0700 (PDT)
+Received: from [192.168.0.35] ([109.76.237.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm132110525e9.0.2026.09.04.03.56.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:56:44 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Date: Fri, 04 Sep 2026 11:56:33 +0100
+Subject: [PATCH v5 01/13] dt-bindings: media: qcom,x1e80100-camss: Describe
+ iommu entries
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-x1e-camss-csi2-phy-dtsi-v5-1-dc81d85b599d@linaro.org>
+References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
+In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ linux-media@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Daniel J Blueman <daniel@quora.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2799;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=lZbSOiq6PpWvGtztIT8irq1yq+3657nUu17HzUf8NSs=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmqPl3ncDEEuPZUSGfq8A0JCZ1ERBMJbnceQtW
+ QTlLHFJYySJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqj5QAKCRAicTuzoY3I
+ Ou+rD/482IP4k0nPJEUoN1ts8JBRMYV81jKA+sBd9AdAFvAKoq/CbF4kI9yfW7JiRNTMOWYBZud
+ YU6CzHFaLVlvHmmy7UsHcfA/hB9X8ytI2chW1d+4SPyUFIVRbqI3GTV3Upy0jo5othQwPGtYBNu
+ M9Tg592TuQ0C9HSuBObMpswLF8S034G8p/LiARAbksmY5tOkT0FUOkz8hbSbncijMvyWSE9I6Ht
+ kPOG+Qm51nm7+U2S6c21/Ru8fmbqVjHK5k+PuQsd3/lRrHhVq21UArFQI7oMaLJTPy2kuPMpeaC
+ TSoz+LbXJ6R6OGWocuxGD2eD++p+MfWU8/MvilT3KW79UsD8vuFdcoV7tRmhqcQU7kUvcLmamnN
+ KhNg2E78vec+k01Q+QQzWs++xvu35HPf1EAind0y8Rptq7TnWWiCC3OJB3G/95s3RlfZ+4MFX0k
+ 5QuQcsOAvUvXUvlYJcj4lod5KRjmH5AC5XMsQQen4i+CvC1xc7VgWh67YFQhOFlYL1t7H+a+4mR
+ QMlzw3ajp7RIJZvTOHz0Pk1Qqcz3FGbC5j6ZXwweExfxTTIM+HTnZRsko3c4R8Npde97x0gX7+n
+ 7q+SAMy/zdLV/9g60v7ZelDdGGxEyqCXOb0AlAzEcqv+SZ9LMHd8wxs19sYkphZv3B9t5DaxVxL
+ d2OueBTLuTXRDVA==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-> From: Thierry Reding <treding@nvidia.com>
->=20
-> Add the memory-region and memory-region-names properties to the bindings
-> for the display controllers and the host1x engine found on various Tegra
-> generations. These memory regions are used to access firmware-provided
-> framebuffer memory as well as the video protection region.
->=20
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
+The original iommus list included entries for ICP and BPS/IPE S1
+contexts. Only the five S1 HLOS stream IDs are required by the CAMSS
+ISP hardware: IFE/IFE_LITE read and write, SFE read and write, and
+CDM IFE. The remaining entries serve other hardware blocks which will
+be described in their own nodes as support is added.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ .../bindings/media/qcom,x1e80100-camss.yaml        | 26 ++++++++++++++++------
+ 1 file changed, 19 insertions(+), 7 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-tegra-vpr-=
-v6-0-79042cfa8de5@nvidia.com?part=3D2
+diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+index 2d1662ef522b7..126400772d028 100644
+--- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
++++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+@@ -104,7 +104,22 @@ properties:
+       - const: sf_icp_mnoc
+ 
+   iommus:
+-    maxItems: 8
++    oneOf:
++      - items:
++          - description: S1 HLOS IFE and IFE_LITE non-protected read
++          - description: S1 HLOS IFE and IFE_LITE non-protected write
++          - description: S1 HLOS SFE non-protected read
++          - description: S1 HLOS SFE non-protected write
++          - description: S1 HLOS CDM IFE non-protected
++          - description: Legacy slot 0 - do not use
++          - description: Legacy slot 1 - do not use
++          - description: Legacy slot 2 - do not use
++      - items:
++          - description: S1 HLOS IFE and IFE_LITE non-protected read
++          - description: S1 HLOS IFE and IFE_LITE non-protected write
++          - description: S1 HLOS SFE non-protected read
++          - description: S1 HLOS SFE non-protected write
++          - description: S1 HLOS CDM IFE non-protected
+ 
+   power-domains:
+     items:
+@@ -332,13 +347,10 @@ examples:
+                                  "sf_icp_mnoc";
+ 
+             iommus = <&apps_smmu 0x800 0x60>,
++                     <&apps_smmu 0x820 0x60>,
++                     <&apps_smmu 0x840 0x60>,
+                      <&apps_smmu 0x860 0x60>,
+-                     <&apps_smmu 0x1800 0x60>,
+-                     <&apps_smmu 0x1860 0x60>,
+-                     <&apps_smmu 0x18e0 0x00>,
+-                     <&apps_smmu 0x1980 0x20>,
+-                     <&apps_smmu 0x1900 0x00>,
+-                     <&apps_smmu 0x19a0 0x20>;
++                     <&apps_smmu 0x18a0 0x0>;
+ 
+             power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
+                             <&camcc CAM_CC_IFE_1_GDSC>,
+
+-- 
+2.55.0
 
