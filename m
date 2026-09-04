@@ -1,151 +1,123 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CE03D6477
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA46421CA13;
+	Fri,  4 Sep 2026 07:47:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788507953; cv=none; b=q77Y4yZQt09vg9c6yBwA+HtpA+YJhfQgxtfaYqY3KXOOcdSSozgH+R3fLQ8GCg8oRt7E8P7694HIy/5s8WklIGmTmHMZVYJk8k84n+EY5WAeHcnXTS6yvuZXx6HD13o57x4t4hbS6m7Z8yyP6/liu7NoTDiGSQbNJAhpY80OnUQ=
+	t=1788508022; cv=none; b=U53KigmOyPjOyi+NZ5pr9UvvgAGQZMXC9QOX6qfxudPEcgKzZ93cVSzFJK6XoDy3PwP2wL2OlxkBtVLoaR4moiChqmANaam8r4y8kKKJ4G5EJ1LJ0JZVCejk/SfWBQjdtczEPrg1nLBmE5m6X0iAUZAqB61Bqj/yeRbCnhrmlR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788507953; c=relaxed/simple;
-	bh=nkM2qt5R1/uUPdCckueCKlJxJ01JG2RhAEHpxcPs2t4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YV56k57rXERmymHEyDK12t8wcufKWepIV+rTl8bI/rFHJ22A8/hXBFWf6ft4hL9aEmrz3hg8HiWWwynUcQRx4NSwhA8bQGkTjQnAo5qgJ1KF+daoWl+PnbUCtF3cn8VpaAzb9mWy1TjjhvPkaZTo84REPqzDgVaI2/Tgk33UrBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QgY9HWDk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KOcBBkW5; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788508022; c=relaxed/simple;
+	bh=injOFXYCg99MpqtN/NqbI9Hc4Oaro/Dhz9C/CiXUlqo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lGjtbzR01ALPnYdQU6wCntc+rpWEWCHqPgLxEPpoZD3lNIw6hYijF5atxS6aNaJPPXxrQMEajeWS9wAuJ2W4QnVIr0Ezufzd5iE9S1zMKSycXGPO5dQ7aB8gu9O1+JXT9x2kY6UuQ2G+dS6EDXEO0jbAjT5Jl32DlIC2wnQg064=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=giVOnXWZ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/nnKPpb8; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QgY9HWDk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KOcBBkW5"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68462muv2886667
-	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 07:45:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=XKTncCRMH/pUckJkjeysZYspaWdgUPV+H+N
-	Y0DIrMe4=; b=QgY9HWDk9emaCdPY8/Bdpc7mHHcRZjYWOuOhaGRv1XPQWHC/pt4
-	br2Q1LEEkBaCYgk/8G6lJvjWRHeJeglJDlAyO78yMKB6b3RmnyIj5Y1hU4YJc4H6
-	UxXFAjCDddpLEsJ8zjVAwhdeiL0YMWyHqj17BgdtK0xGUVp+v5g57UKh6TfJdqz1
-	x3rTXKMpGOCH6A/fp2DQFlL6g9uYY0XGeW/qdIIclet3uqp4163/O6rTBUS7dn8A
-	rgnFEQg47qrgkkfAPXB/VUmxzSwLpx/u79syrN0ecSZmJxhQYZjYBGe6oICPqA3V
-	m5B8kMWwBFuAb2capvHBWS3XFQ04Qv2eH9w==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfp780qpf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 07:45:50 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso10068235ad.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 00:45:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788507950; x=1789112750; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XKTncCRMH/pUckJkjeysZYspaWdgUPV+H+NY0DIrMe4=;
-        b=KOcBBkW5deB9TO6KYO+KUvV76T8YC4RpBgh7PvxgXrFpGb7a5wp19ciNErfuVLweBn
-         vGX0qO+E2vBADDJAkVXUvsdH7BytQnYVMj0cjuf/+mV96fvHwgpCMMfE4lKWl2XohrIP
-         ULcUvNCp4yeZIGEq7XGxFdDYFDOHAKshZW93rdHbMPmM0opZGTZwlLByBocv43P2cnk6
-         /v1s26tEopk8JTGyWmk8Oi5xurN20dT/8BBzgKdN1RNkBrZCD4vzte4MbbDzAQysrHMb
-         LsO30ybIsAwO1VDMplvOLjd6ACjJ860Exw3lE+kb7Vm4XOSYURY8qTqrojZW/ieQ7wzB
-         4kgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788507950; x=1789112750;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XKTncCRMH/pUckJkjeysZYspaWdgUPV+H+NY0DIrMe4=;
-        b=Xm20RCnENUJk6hZK7+VSljyCz3ioXfK8W3E4/q+uMKPvmyAFWLzF3vhKa5RWvO8bfS
-         axqpDoNuYZdxfZb3GTNcO3aks26yB51QlZ3zr1smirZXbTANdYQI2gwMrBIrkUZ9lcFG
-         OdYnEsOXeqVKTZVnKGS36UhUrIzS54WfNPfcKfjQdDnkiQDSlENsski4Yz2U5yONUYfi
-         uFGJS4U+unf4PrzFrWMKOvS/Z32yNzx8flZRcNMsH7G/WE2fdP3AHCCTejiaH9fzR1aJ
-         Oy1MgGGj9IAjZeosrgKmfAxAHWw9mSdSPi4WEWnpCbUj/9LYb8m85Lt9o31pPLQUkfRM
-         DI9A==
-X-Forwarded-Encrypted: i=1; AKwUvBw29har6vZD3d6YOrSk2fRiB1w2ZpgjNCmLDfI+03ROlGyf6da9JLbiTctRakTRBAzvDpA99U3AUJIJ@vger.kernel.org
-X-Gm-Message-State: AFuF++mkrMlnYu2izQnNI9QFcXw3dqgstNwKmkFgmUNumvnJo5v2J5qL
-	qJFDWMat1+03wo0nL3Pd7fxtTd+dBGOb+J62yaJ4WSHEzGGZlPRUOmN4JdSi5T42gW9XfvvqAPp
-	dz4ZL9OgmEUs13Obfht/k20cQLRzlu1aWDoTJIS86tp+bumH16o/dvsjLVZnDQROy
-X-Gm-Gg: AYBFou0rWGJeJV2MmEabZiuuc5XW11Xe1DLFy/d/6V/Uczq71+JcFpD7yITJlxoPH2H
-	F98cVs5ADK/wzCqtBInp89MPkVjGXPGzlUunLIrv82Bh9dRqQpQoNSvnEMV7pKxN8epK1xFOidS
-	aQ2TfddUQqF5jBzlWIPfhmO3IQ1UL5xdiNNz9nZcLX0G3GfrGjeYnMFvLo431Q/34CNDwGMdEMM
-	poppOoGQuh1LwCG0WEHQdhb47ZsyJITdAlnQ9SWvzYrTH7z2E4ofgiqY1GLyyeOJx/0Gyg89A6a
-	mPP1myqnn2HlVGrrc5gnga/GkfWOLfN3usoTOO2lWIwKl+8NG9TBMtcUO8E21aSWKCD7l+OfDDR
-	FrSlScdm5GTeWtwYipIdvYgYfaphs6xku4+9J77f8VbxuCz2ocM/hftI3+3w7
-X-Received: by 2002:a17:903:46c5:b0:2d9:123c:8c49 with SMTP id d9443c01a7336-2db1975804bmr37599835ad.14.1788507949999;
-        Fri, 04 Sep 2026 00:45:49 -0700 (PDT)
-X-Received: by 2002:a17:903:46c5:b0:2d9:123c:8c49 with SMTP id d9443c01a7336-2db1975804bmr37598965ad.14.1788507949336;
-        Fri, 04 Sep 2026 00:45:49 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm5130365eec.1.2026.09.04.00.45.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 00:45:49 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Alexandre Belloni <alexandre.belloni@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Satya Priya <quic_c_skakit@quicinc.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-rtc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: rtc: qcom-pm8xxx: Document PMM8654AU RTC
-Date: Fri,  4 Sep 2026 15:45:41 +0800
-Message-ID: <20260904074541.590485-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="giVOnXWZ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/nnKPpb8"
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788508013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1mnRUam902TG8+jJPr9DI2ATj88hClkYZ0Txk+HpE6U=;
+	b=giVOnXWZxiO5DHF73h4PzYJe538ZCmKe1wB27ixUTbFktMDtJ9VEynjwGyPPP/Cav85Fog
+	B2n13/ISwdc7Vf2YxeWZ4e3Sl5b44yt2W7EZypeX7q02UD2khecS8X1ruqBw0OI1gRlmWF
+	05i8Ykp+2A3b3s6g335Ku9Gi9eaxK8rPyCKOKpFtQieN/B03m/S2RhXL93VfuIQg1jQd6s
+	R9sJViRV1w0NzH58soky3xmeUvlk2U7xsNEV+vChOMlufprSd+7Sb9bctr83A1bE5d44QM
+	HuViap9c2Na4eRimwKEnXZUAxTNcOo1hd+lYHoEh3dkhYN9s9R2l+qo/Lbhixg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788508013;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=1mnRUam902TG8+jJPr9DI2ATj88hClkYZ0Txk+HpE6U=;
+	b=/nnKPpb82xAr3FbYAKDXdDp4UOYKSsXJOV7YpGXXKHYGHx8gEveNNSW5IxytgxmtZj8AR5
+	M7CwtUGwcFcqJ7Cg==
+Subject: [PATCH v4 0/4] firmware: raspberrypi: Add support for the tryboot
+ mode
+Date: Fri, 04 Sep 2026 09:46:48 +0200
+Message-Id: <20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA3MCBTYWx0ZWRfXwmbJ0yaOZWOx
- VoYXpnzRioOKY2yISdD3R4NFE9eRMOe9U2doAvRwvLgWn+FES9lD0YD4kbllehoq1kRQ55Ge3Ec
- rBtb/C90DBy2WZ7vaoydceGUne5vPvc=
-X-Proofpoint-ORIG-GUID: cMYr8a_cYaoO89CF6caL8QV-6bd_ISG6
-X-Authority-Analysis: v=2.4 cv=ab5RWxot c=1 sm=1 tr=0 ts=6a9a772e cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
- a=yylTr5QwT-72qLXmsWIA:9 a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-GUID: cMYr8a_cYaoO89CF6caL8QV-6bd_ISG6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA3MCBTYWx0ZWRfX0ZnQOgFF1AOt
- WBWfWYfGQcznXMB0OcuvEwetxrpFh4TOGuuAmk+t8OBcSjGaxySSC+363NVAPuz6tHQaiUeJiHh
- hLeJuwSMZBnT3al51Uo3BObOU2t6FV1DKB62Ds27jgfm+EBMptbKb1f2u1YJWJkQI98wP+/qgkX
- JneOpyHqlfxSjRjqHCRPLkYl1uE2rWfNypYuctrw4lX1YrGKftgWjC1b5m1nFieaRbuI1E7/yxX
- ZlBgBH8T5IY3a0FiOvkr883SUyNZSSnw0IlRZVkdvtp+K3SBZkifQLQlITKdBbz1b+eDVbilzRb
- xYoDV3mlq45jMyHRo7wpI7DeB6fUMj47DqsnjjsB2ZYQFs3goTI2WEthoxuBgP+UdGHpnzJ53z+
- AQ5Q+iXmB5e4MTN6Q1b9dhcbE73tSS6Gj9QbSTh7+xmNY+kONYnn/mYObq43ZbzLBcZMi0vatfU
- TINWTfgbVuvbMImy1Fg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 clxscore=1015 impostorscore=0 suspectscore=0
- lowpriorityscore=0 adultscore=0 bulkscore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040070
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGh3mmoC/23NQQ6CMBCF4auQrq0pQ9OCK+9hXEA7yBhDSVuJx
+ nB3KcYoxuVL5vvnwQJ6wsB22YN5HCmQ6+chNxkzXd2fkJOdNwMBSigouB+IR39vnItcQgWmgkZ
+ o0GwWg8eWbkvtcHztcG3OaGJKpIuOQnT+vrwb83T3LqtVecy54LISTW6kkZUW+wv11+hdT7etR
+ ZbqI3z5Qqw9zL5VpQVrVF2D/ueLj9dCr32RvK1LaFGj1erXT9P0BP501bE8AQAA
+X-Change-ID: 20260623-rpi-tryboot-4292c92b0727
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>, 
+ Stefan Wahren <wahrenst@gmx.net>
+Cc: linux-rpi-kernel@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, 
+ Gregor Herburger <gregor.herburger@linutronix.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788508013; l=2102;
+ i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
+ bh=injOFXYCg99MpqtN/NqbI9Hc4Oaro/Dhz9C/CiXUlqo=;
+ b=E1Yz8QJbd0SFChekiBWnZdNW4TSfqmfyaIE96cf3vKQiuJeQqIfUXPltTxM9WrpYM17C1t9c/
+ yMRISESo3hRAtt/B++nNss8U+IjZVuuSYg6QEAnKQCbFM+hhSA5/Idr
+X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
+ pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-Document Qualcomm PMM8654AU PMIC RTC which is compatible with PMK8350
-RTC.
+This adds support for the tryboot mode on Raspberry Pis. As there is no
+documentation other than the downstream implementation [0] the
+implementation is based on this.
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+I tested this on Raspberry Pi 5 and therefore I only added the
+properties to this devicetree. But afaik this should work on all
+Raspberry Pis. I will add it to the correspondings dts if I get some
+hardware to test it.
+
+[0] https://github.com/raspberrypi/linux/commit/eb56da0c1925c07e8929ce4c9fe8aeafa7cb8c7b
+
 ---
- Documentation/devicetree/bindings/rtc/qcom-pm8xxx-rtc.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+Changes in v4:
+- fix use-after-free error by moving devm_add_action_or_reset before devm_add_action_or_reset 
+- Rebase onto v7.3-rc1
+- Link to v3: https://patch.msgid.link/20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de
 
-diff --git a/Documentation/devicetree/bindings/rtc/qcom-pm8xxx-rtc.yaml b/Documentation/devicetree/bindings/rtc/qcom-pm8xxx-rtc.yaml
-index 7497dc3ac5b2..78fa1d5ed028 100644
---- a/Documentation/devicetree/bindings/rtc/qcom-pm8xxx-rtc.yaml
-+++ b/Documentation/devicetree/bindings/rtc/qcom-pm8xxx-rtc.yaml
-@@ -17,6 +17,9 @@ properties:
-           - qcom,pm8921-rtc
-           - qcom,pm8941-rtc
-           - qcom,pmk8350-rtc
-+      - items:
-+          - const: qcom,pmm8654au-rtc
-+          - const: qcom,pmk8350-rtc
-       - items:
-           - enum:
-               - qcom,pm8018-rtc
--- 
-2.43.0
+Changes in v3:
+- fix use-after-free error by using devm_add_action_or_reset
+- ensure endianness of magic byte
+- refactor reboot mode registration into separate function
+- Link to v2: https://patch.msgid.link/20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de
+
+Changes in v2:
+- Remove unnecessary reboot_mode_unregister().
+- dt-binding: restrict to mode-{normal,tryboot} and only allow 32bit value.
+- Link to v1: https://patch.msgid.link/20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de
+
+---
+Gregor Herburger (4):
+      firmware: raspberrypi: reorder rpi_firmware_property_tag enum
+      dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
+      firmware: raspberrypi: Add reboot mode support
+      arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
+
+ .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  9 +++++
+ .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  2 ++
+ drivers/firmware/Kconfig                           |  2 ++
+ drivers/firmware/raspberrypi.c                     | 40 +++++++++++++++++++---
+ include/soc/bcm2835/raspberrypi-firmware.h         | 22 ++++++------
+ 5 files changed, 60 insertions(+), 15 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260623-rpi-tryboot-4292c92b0727
+
+Best regards,
+--  
+Gregor Herburger <gregor.herburger@linutronix.de>
 
