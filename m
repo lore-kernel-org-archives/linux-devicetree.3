@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3A55490BE3
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 14:24:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F554A2625
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 14:26:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788531880; cv=none; b=Iobp9dpkqQdGoLjr0CgSUBHdWrZ5ghIvFBGHkkJqBOF9N1STnl3Bd8maulCNVviWZFBd9GKApVz+Jx9mPs99czRXUXOO5txXhWGPT8YzbV69eFPn2o8hDtePceUGl6yc99eppUedqVuPYGT8BqYmgo2diXRbtn05IuU86q88/Fg=
+	t=1788531962; cv=none; b=dc2BTxubBKOJQGw+6x/3vHozWlvwijd+jasAIh9+TfU79KbN+yicfSajjK6W7Hmwlpwtr8X5hyav4HS7W8RiMijMSW1ER2Yq5DKkyfB+AeyYWPW7kDb99BuEPLO2SRBj/Ws71q5RjdFPRnu9j16+FTkpz1SsCliPuqQeaJLBa1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788531880; c=relaxed/simple;
-	bh=3+xz/PZXF8hVZHS0IAmbwnxyqLOqDpmiVSnymmkHOvs=;
+	s=arc-20240116; t=1788531962; c=relaxed/simple;
+	bh=24IjS/VCzz7mKBU4FrywriDyQdjYrMCl9zAtlOWBtwc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=abhORN2qvzijW/0xXhHlNqb6GkCvPINiAub36j6Dp7WkrDDCr3mCDrHw209wV7gS+z/KbnP2DP/Ewdfur/POo341UpVWZ8wOMrUwH5ypzVKUrw/LlBINtxYUf+aDXxMaUv/PLE176a56XbhFTI0cVOqWZexrOnhq6WwH6WIXSdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JmiJrXJO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=r0u8yfh4s1AvgiCl/fK6Kklfh0dVWmD3aOXqoVL8p6/qd5Ue13Bt4OPJ2cMcgvY9epn04dprHyZCtRbMfhbeInzyoMiPR/r/0ShAyHvhMnyOUoPW475cb6oaRxrt1O4EyWZ2UYY0ITA5y0rbOkZ0XyHrsLzh1c5gP0UK0t1+dnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkeEAyRr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JmiJrXJO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29AE41F00A3D;
-	Fri,  4 Sep 2026 14:24:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkeEAyRr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6121F00A3D;
+	Fri,  4 Sep 2026 14:25:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788531878;
-	bh=hyeRxZUBraYfVaxOt7l6Vg2b1L2t0j3hfhXppUBES0A=;
+	s=k20260515; t=1788531960;
+	bh=0aqmNbKR0eqzlOBql0dAAw9V0+zdJ4/Awxub7i6Si+g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JmiJrXJOGW3ewJKC+BjY/suE+KJmVQO3ZLi1LiQq3/AcRv8uyxyrSY0TbFNPclgNj
-	 JwfpDp92Ny4ixC5nAzs9Z4531Kdc4iWd+c0cy659p6QoHKYj3wLP5ApRvg5YHAdiwW
-	 Zs8sXulVnd5wx6Xn2TVYumAR6bg1unqymqEx2kNk6MZu0355WKmubTva5sG7x7iv86
-	 R973SXmhAjIPgXs4XIASiKuXwCRI/rRP2t1K5MhjcbitNWK5tLAot8lDlGCqZjxrT1
-	 l2k4zGmulBanvpwyiO9wUdZbs272Y4TcAfw1vT5/kzENV5q/RuCZZNobQnedsg3fYY
-	 4MHI8OZdzNDyQ==
+	b=ZkeEAyRrV/6AZHsMI1vAPF1K4aKkls8J+O1R2QHBCF7YPNncm3QK0DYv44Q4kjcD7
+	 o9HV8X1nzqVFrLEzq81Oc9nFJuOOZNGhSUWJBYO5OG+OrGlroM7+DabaWEABnewwEZ
+	 tVlPaW4xhVM3otXo+YcqnEER8TDmtetWnzRoosjz0RYeaaF45LJQHB9FQayl7b9ZMt
+	 uOKFCjR/sui7JAXuyj3rIKhWRWPY9a2bLeP3j1dRueoxtNp/T+PxL43o+U2klg66Un
+	 oSuX0/T7dvAV9BPqET6WIr9N9zYS6FNXqLznSGT8IDZ49OO9Xoh2CyhHwe/QC+t0dG
+	 Eqofa69ukb4QA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 04/17] iio: adc: adi-axi-adc: Add support for CRC
+Subject: Re: [PATCH v6 07/17] iio: adc: ad7768: Add power mode helper
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260904-ad7768-driver-v6-4-e4378f946bfb@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260904-ad7768-driver-v6-7-e4378f946bfb@analog.com>
 References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
- <20260904-ad7768-driver-v6-4-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-7-e4378f946bfb@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 14:24:37 +0000
-Message-Id: <20260904142438.29AE41F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 14:25:59 +0000
+Message-Id: <20260904142559.DD6121F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,69 +46,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] CRC operations are not hooked up for all AXI ADC IP core variants
+- [Medium] Splitting the update of AD7768_REG_POWER_MODE into two separate =
+regmap_update_bits calls creates a transient hardware state where the power=
+ mode and clock divider are mismatched, and adds redundant SPI bus overhead.
 --
 
-commit 432feaef6b44e5ab8e03ad8059b2636d78ecf5d5
+commit 9e0a5b0981ecb80ffeddcff0bde57100dda96fba
 Author: Janani Sunil <janani.sunil@analog.com>
 
-    iio: adc: adi-axi-adc: Add support for CRC
-   =20
-    Add support for enabling and disabling Cyclic Redundancy Check (CRC)
-    processing in the AXI ADC backend. CRC provides data integrity verifica=
-tion
-    for high-speed ADC data streams, ensuring reliable data transfer between
-    the ADC frontend and backend processing systems.
+iio: adc: ad7768: Add power mode helper
 
-> diff --git a/drivers/iio/adc/adi-axi-adc.c b/drivers/iio/adc/adi-axi-adc.c
-> index fc7cc92b35f0a..8b7c45d51dbe8 100644
-> --- a/drivers/iio/adc/adi-axi-adc.c
-> +++ b/drivers/iio/adc/adi-axi-adc.c
+Describe each power mode and its internal master-clock divisor in a
+table. Replace the open-coded fast-mode setup with a helper that records
+the active mode, preparing for dynamic mode selection.
+
+> diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
+> index 707f3ae70a95a..71db57a2b9dd6 100644
+> --- a/drivers/iio/adc/ad7768.c
+> +++ b/drivers/iio/adc/ad7768.c
+
 [ ... ]
-> @@ -47,6 +47,9 @@
->  #define    ADI_AXI_ADC_CTRL_DDR_EDGESEL_MASK	BIT(1)
+
+> @@ -335,6 +349,36 @@ static int ad7768_sync(struct ad7768_state *st)
+>  			       AD7768_DATA_CONTROL_SPI_SYNC);
+>  }
 > =20
->  #define ADI_AXI_ADC_REG_CNTRL_3			0x004c
-> +/* Bit 8 is common to all AXI ADC cores; bits 7-0 are per-HDL-project. */
-> +#define    ADI_AXI_ADC_CNTRL_3_CRC_EN_MASK	BIT(8)
+> +static int ad7768_set_power_mode(struct ad7768_state *st,
+> +				 unsigned int mode_idx)
+> +{
+> +	const struct ad7768_power_mode_info *mode_info;
+> +	int ret;
 > +
->  #define   AXI_AD485X_CNTRL_3_OS_EN_MSK		BIT(2)
->  #define   AXI_AD485X_CNTRL_3_PACKET_FORMAT_MSK	GENMASK(1, 0)
->  #define   AXI_AD485X_PACKET_FORMAT_20BIT	0x0
-[ ... ]
-> @@ -644,6 +663,8 @@ static const struct iio_backend_ops adi_axi_adc_ops =
-=3D {
->  	.num_lanes_set =3D axi_adc_num_lanes_set,
->  	.debugfs_reg_access =3D iio_backend_debugfs_ptr(axi_adc_reg_access),
->  	.debugfs_print_chan_status =3D iio_backend_debugfs_ptr(axi_adc_debugfs_=
-print_chan_status),
-> +	.crc_enable =3D axi_adc_crc_enable,
-> +	.crc_disable =3D axi_adc_crc_disable,
->  };
+> +	mode_info =3D &ad7768_power_modes[mode_idx];
+> +	ret =3D regmap_update_bits(st->regmap, AD7768_REG_POWER_MODE,
+> +				 AD7768_POWER_MODE_POWER_MODE_MSK,
+> +				 FIELD_PREP(AD7768_POWER_MODE_POWER_MODE_MSK,
+> +					    mode_info->mode));
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_update_bits(st->regmap, AD7768_REG_POWER_MODE,
+> +				 AD7768_POWER_MODE_MCLK_DIV_MSK,
+> +				 FIELD_PREP(AD7768_POWER_MODE_MCLK_DIV_MSK,
+> +					    mode_info->mode));
 
 [Severity: Medium]
-If the CRC enable bit is common to all AXI ADC cores as the comment above
-suggests, should these callbacks also be added to adi_ad485x_ops and
-adi_ad408x_ops in the same file?
+Does splitting this register update into two consecutive read-modify-write
+operations to AD7768_REG_POWER_MODE create a problematic transient hardware
+state?
 
-For example:
+Updating the analog power mode first and the digital clock divider second m=
+ight
+leave them temporarily mismatched. If the analog power mode is updated to a
+lower state while the clock divider remains fast, could this violate intern=
+al
+timing constraints and risk ADC glitches or unpredictable behavior?
 
-drivers/iio/adc/adi-axi-adc.c:adi_ad485x_ops {
-	.enable =3D axi_adc_enable,
-	.disable =3D axi_adc_disable,
-	...
-}
+Could these two fields be updated in a single regmap_update_bits() call to
+avoid both the transient hardware state and the redundant SPI bus overhead?
 
-If a frontend driver paired with an axi-ad485x or axi-ad408x backend attemp=
-ts
-to call iio_backend_crc_enable(), the call will fail with -EOPNOTSUPP becau=
-se
-the function pointers in those backend ops structures are NULL.
-
-If the feature is intentionally unsupported on those variants, the code com=
-ment
-claiming it is "common to all" seems misleading.
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D ad7768_sync(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->power_mode_idx =3D mode_idx;
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-ad7768-dri=
-ver-v6-0-e4378f946bfb@analog.com?part=3D4
+ver-v6-0-e4378f946bfb@analog.com?part=3D7
