@@ -1,112 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D01134D92C;
-	Fri,  4 Sep 2026 06:39:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F73C41684D;
+	Fri,  4 Sep 2026 06:39:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788503941; cv=none; b=BuMiAe2WJbQoBlcfsSkJcJy21C83Y8dzXC5dsumhAvX9uJL+sBqWAMhNzCP3fZ5oiuDiKk7pE/l8jrQYwQhaiiq96EmbfSsTHQhMjgiOaW2zaasfKcGIFiM5gMdYkzbtQBlQD19RokI2JiypFaGLYBD6Os9Gs/srVhbv5rsVaJM=
+	t=1788503954; cv=none; b=ide/CVUZ9njCrRcJzHEecb6RCGuSQRH4mlRG8COzTxTzNjN7MoO0OZW8qe6ekDedcIeNybiX21r8xNeVoenY8CkOHAbxAy4MsyHfaVuZ213Vr7Ogi8c5FxJM5mpmmu3q+mXYD2D4kfJDDy7lkjSKKAXupASFIcXJxQCk6a57XSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788503941; c=relaxed/simple;
-	bh=PovhJQXFjGm/q6x5cdBsMqhNyqz7eQrv9KmaZQOSkIQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YFsh9AtT5PwnYzwW4mJOOtHX1kNRRKtFSxbnGDRQRWQFVvKstrZ9FJDRLdhd925OMGf1BbQBgXaYkY6EC9GeoZOxK4nBS+BYAechSPAcWiYwZMfUXaDoZzOxZHu/gnaP6+Q5rPWN3rw/CvdZqPOhFWyUiB2mPVxerLvx7OaWupE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5LA9ZnQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788503954; c=relaxed/simple;
+	bh=bBo2EYuFMiPEg5+TDMdIErdYoSUfwyw/F22EJeOZDYA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iJgTfEHQhAbBrbKzz4TR/TzITdA8rm22p0FDrg+/goy6dHhj+D5cQHpXBR/bNRX7C+iDQNYSjV1G669Jw8ENZzFFGU53r5rQwrKXY0q5xfQs1gLNeU1iJSzKVSgViw48xHGNOjVJVmBAhBGLD4ekKUuhuvglDniNy0likNDoO5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VEKBMLjJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5LA9ZnQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A9E1F00A3D;
-	Fri,  4 Sep 2026 06:38:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788503940;
-	bh=+eI3h9RO4YYLEUDuMp4jg+X+28hsuiGbYj8q4F11Uuo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H5LA9ZnQ969ZH8fUnfb5RYHpx7Ny0XmUwD70As6JiA8XLnlQ+RjKHWCBRwYDO0hWJ
-	 AgmYqWRHAX2kwJPU4AQfjXRs8+jKVJ5ZKlEWQGaEV5QAgbqAthLPcWg+9S8xjoMfXZ
-	 ltyTOtfAWSRy4NxEFfiMJ4boi7kr3fmPM5xSjEQ02KHaLAS/jE120C0Ol6cP34JbFd
-	 osE1z1VO/YCFSlI/4qWjdrzUyDVIZd5gC0DBrjvj0RGhoJBExU2wrCC/bKaoRy4C3o
-	 sgMQ8DiOWkkezR6fI/wkRHPU/lhHbf33J56RNaO2+xEhdQg1waZMr/Hx+DvVXG3PGV
-	 ceqG4/rN+kKKQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v47 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, imx@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260904-imx-se-if-v47-3-b474ec6fc52a@nxp.com>
-References: <20260904-imx-se-if-v47-0-b474ec6fc52a@nxp.com>
- <20260904-imx-se-if-v47-3-b474ec6fc52a@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 06:38:59 +0000
-Message-Id: <20260904063859.94A9E1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VEKBMLjJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C6DE8C2BCC7;
+	Fri,  4 Sep 2026 06:39:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788503953;
+	bh=bBo2EYuFMiPEg5+TDMdIErdYoSUfwyw/F22EJeOZDYA=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=VEKBMLjJYE8kNq048VFwm0lGC+ZF8jCNfDvM60GZcKMFe2qbhC+84XpR03lUn/hJ8
+	 /3lUgs8++1AzWMyQhBPTscr4Ke3XJw0AQuu+0IQNXNgu4HMf64233Y1VAbj+9ffBni
+	 WiWcoBcp0I1S84MpB721O0uKW/tQ2AFfcwYE+bibcB0275Bh8cMQ4Meg3ROo4H0KBo
+	 guaV20LZoFDpHuqvco4nor36bgwUr6vYFqrcEoFwoU2szV35+KT+W3Zag6JyCluXT2
+	 NU9NbFWjmQIHWgRkYzETT/y1iH9nUxdBsPdd/AlCtxUO8RyMkF48t4clX2Vtzaqd++
+	 lBrMsWacI6lbw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A253BC79F80;
+	Fri,  4 Sep 2026 06:39:13 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Fri, 04 Sep 2026 14:38:08 +0800
+Subject: [PATCH v6 01/13] dt-bindings: arm: add Ambarella CV75 platforms
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-cv75-v5-v6-1-e918514cb3b1@ambarella.com>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+In-Reply-To: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+To: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org
+Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>, 
+ mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+ linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788503951; l=1828;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=YCSbMKhFe2paSe+SbS/++piT5GFUx/NTLE9tewoMf1g=;
+ b=KuuDEbbSvd+a45QhI6lH1lN5yplbA12BoKFyusqBK7CzPlX3N4jk9HUHNpgG/rMY2AT8DeLcO
+ FI6TJtWFCiUCkyEFvKhdPYaiWsLj+5sOj5yIjUKUwzUlQZFWkViRQKw
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Discarding successful firmware response and breaking idempotency o=
-n deferred signal
---
+From: Long Zhao <longzhao@ambarella.com>
 
-commit c3c233856b9a36edd6fd79385b30e7951622e780
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Add the Ambarella vendor prefix and CV75 EVK board compatible for the
+initial SoC bring-up.
 
-firmware: imx: add driver for NXP EdgeLock Enclave
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
+---
+ .../devicetree/bindings/arm/ambarella.yaml         | 24 ++++++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml       |  2 ++
+ 2 files changed, 26 insertions(+)
 
-This commit adds the MU-based communication interface for the NXP EdgeLock
-Enclave. It enables messaging between the secure enclave firmware and Linux
-for features like HSM, SHE, and V2X on i.MX SoCs.
+diff --git a/Documentation/devicetree/bindings/arm/ambarella.yaml b/Documentation/devicetree/bindings/arm/ambarella.yaml
+new file mode 100644
+index 000000000000..72946e94fa76
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/ambarella.yaml
+@@ -0,0 +1,24 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/ambarella.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Ambarella SoC platforms
++
++maintainers:
++  - Long Zhao <longzhao@ambarella.com>
++
++properties:
++  $nodename:
++    const: "/"
++
++  compatible:
++    oneOf:
++      - description: Ambarella CV75 boards
++        items:
++          - enum:
++              - ambarella,cv75-evk
++          - const: ambarella,cv75
++
++additionalProperties: true
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 85a27937832e..f48aa6dabbe9 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -112,6 +112,8 @@ patternProperties:
+     description: Amarula Solutions
+   "^amazon,.*":
+     description: Amazon.com, Inc.
++  "^ambarella,.*":
++    description: Ambarella, Inc.
+   "^amcc,.*":
+     description: Applied Micro Circuits Corporation (APM, formally AMCC)
+   "^amd,.*":
 
-> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
-_common.c
-> --- /dev/null
-> +++ b/drivers/firmware/imx/ele_common.c
+-- 
+2.34.1
 
-[ ... ]
 
-> +int ele_msg_send_rcv(struct se_if_priv *priv, void *tx_msg, int tx_msg_s=
-z,
-> +		     void *rx_msg, int exp_rx_msg_sz)
-> +{
-
-[ ... ]
-
-> +	err =3D ele_msg_rcv(priv, &priv->waiting_rsp_clbk_hdl);
-> +
-> +	if (priv->waiting_rsp_clbk_hdl.signal_rcvd) {
-> +		/*
-> +		 * Signal was deferred until the FW/kernel protocol resynchronized.
-> +		 * On success report -ERESTARTSYS for the interrupted wait; the
-> +		 * command is not re-sent. Keep real errors like -ETIMEDOUT.
-> +		 */
-> +		if (err > 0)
-> +			err =3D -ERESTARTSYS;
-
-[Severity: High]
-If the firmware successfully completes the transaction and ele_msg_rcv
-returns a positive response size (err > 0), does returning -ERESTARTSYS
-cause the VFS layer to automatically restart the identical syscall?
-
-Since the hardware has already processed the command successfully and mutat=
-ed
-its state, wouldn't restarting the syscall cause the same command to be sent
-a second time? This appears to break idempotency and could potentially leak
-hardware resources (such as unclosed sessions or orphaned keys) because the
-first successful response is discarded and userspace is unaware it succeede=
-d.
-
-> +		priv->waiting_rsp_clbk_hdl.signal_rcvd =3D false;
-> +		dev_dbg(priv->dev, "Err[0x%x]:Interrupted by signal.\n", err);
-> +	}
-> +
-> +	ele_msg_send_rcv_cleanup(priv);
-> +
-> +	return err;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-imx-se-if-=
-v47-0-b474ec6fc52a@nxp.com?part=3D3
