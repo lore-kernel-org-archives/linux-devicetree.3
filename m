@@ -1,94 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9608D52E041;
-	Fri,  4 Sep 2026 20:32:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5778C524B04;
+	Fri,  4 Sep 2026 20:34:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788553948; cv=none; b=OmDQZXAp5l+ZufsxAlxNdASxZb7/rzUdnEWvu63q79UstljKrP0Qt00EujHn2gsbuZZ6bflVsoVSpb2DiC4d7CvTpIzVvlbjFODlQgOZV8v3fqbVLiqel29oIds5CNqysXGq7kx0h2pfSkoLWor90YhD9vCARy/pD84ybiut8xA=
+	t=1788554105; cv=none; b=jVoEn1oC3fPxVH6JBO3eeZvJdrE/Tg58iH+LC13v8GxdZZ2fBXpUDLW3NnF3FdIobj/Cod7z3L/L1voA0/xAN/wc6/R74dBNhspTS+ph3V1HQkqCrrMSLvNNucAEf0OlpwMDBpHH7O0F86u18Zion0Rx6QRsM2SGkg/T3N7YNPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788553948; c=relaxed/simple;
-	bh=BiOxyZNflQ6jKLPZfSmDsv65jE+qkHmXoaUaxz6rFc8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eXk/ifuIpMeQgGmcUVvC49lOlA5744vaHohV8eB3rl9kuBJAJRIrD6TrC6TeISyhSoicjNu/VOsbLTFgjRhrjlcIrdHQ4ftF8ifvb9xO79kOMZEAMiBCpypUE7SaGdYuEhh6c/zqtR5mk9wm4BowopbRqGDp3DLr9tSHq6zq6DA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNXVkHm2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788554105; c=relaxed/simple;
+	bh=NBuhd1JVCV9q8Xrwv8tbxZnXpsQoJj8w3sgvpfAlDuM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eGNAp8nvfVaTVnJmjGQcfh6WfQjoK2JP3Jx8dSOvjyQUr8QjB2D0rkbTUagDe/EuRJwvSE72c0nlrnVoZMePUOlAuIkiKx9e6kcsHxpVNmUeeTj3GKKYpnjQ4vnBrXruRN5hoZJBu8bZtDLmgIVtYBodw04YUcOjTZ21GON0OoU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gGdhCXql; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNXVkHm2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47F421F00ACF;
-	Fri,  4 Sep 2026 20:32:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gGdhCXql"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3B6F1F00A3D;
+	Fri,  4 Sep 2026 20:34:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788553941;
-	bh=faGt6RM9nZNDLVI5nWQekSsP9/y8RIHlIgi2gEzyN+8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BNXVkHm2rG8675ikzmcjNnHgunSqXRbTTuayweLcKMp8l7UE7v92MRw5pWImYbIz5
-	 lGYTGnfotzQUypdlQyN7Yc51U7QJ5LLsGIhcBgkp965Qb2y8OUXTpQpulEcztklLIW
-	 iPRAYMyLchGPR1us8b4z6VcIyOqcyTX1RzEGyPXuRdFVLIbj9IiciQUehrSMirVvWg
-	 ZAOBV2jL5frRz9h01vDYBVEYypKroLjgNUFpuMV5o2Hyt6XBxXeYMqmsPnBelfmqDl
-	 /cltB37YfZEdHn0FG0F6R30iQ3ZjfIG1mmYh9KAAA683HakS8XUxINeWODQGHQlCGx
-	 XYTOO9LiVe8aQ==
-Date: Fri, 4 Sep 2026 20:32:19 +0000
-From: Yixun Lan <dlan@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	Long Wan <long.wan@linux.spacemit.com>, linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/4] dt-bindings: mmc: spacemit,sdhci: Add tx delay
- property
-Message-ID: <20260904203219-GKC1974@kernel.org>
-References: <20260902-07-k3-sdhci-dts-v1-0-4e7909cf4233@kernel.org>
- <20260902-07-k3-sdhci-dts-v1-2-4e7909cf4233@kernel.org>
- <20260903-tactful-scorpion-from-nibiru-a4ebe2@quoll>
+	s=k20260515; t=1788554098;
+	bh=ByVGAz+j9xe5MWNa9XTv6mxh8KuFnEa40VZnZO+yeb0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gGdhCXql4CzLkGf9OGoZbMxcYFfsZbs1FWEpe6J7eEwlo6Jd+U+0Zn7RhNeiGQLIM
+	 kR+fGiBDjUED7n84d69bzyFTkU8roW2La5EMgTaMUY5XxZ7klVql8BPsJlfrwRL45L
+	 er9JvOoWzJOw4hKz8mF+cELxhlwAomMHUAR3MzNz+mo3M93OtHNZz0YHtidNa56wsJ
+	 pnBr0H76J6rDe1pJ2FTrsLzgtcYZhAHCuXwqdrPrDlzOwkZgVES1BHF5fOq7yZ9Alq
+	 LFazWdo5EsMriw9DWZwRYYEpQP6WoTd0IvAEcM1Z7Qz+/nL1IfCjTSHRITXzGvu0eY
+	 9YX0DgpVqi2Pg==
+Message-ID: <027b6019-9a2c-4f3a-8c64-c9836857b471@kernel.org>
+Date: Fri, 4 Sep 2026 22:34:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260903-tactful-scorpion-from-nibiru-a4ebe2@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6/6] arm64: dts: apple: Add minimal MacBook Neo device
+ tree
+To: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org
+References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
+ <20260904-apple-a18-pro-initial-devicetrees-v1-6-0c25401d165d@cyberchaos.dev>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260904-apple-a18-pro-initial-devicetrees-v1-6-0c25401d165d@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Krzysztof,
+Hi,
 
-On 15:00 Thu 03 Sep     , Krzysztof Kozlowski wrote:
-> On Wed, Sep 02, 2026 at 07:03:13AM +0000, Yixun Lan wrote:
-> > From: Long Wan <long.wan@linux.spacemit.com>
-> > 
-> > Introduce a vendor specific property to configure the step count of TX
-> > delay line which should be applied before RX tuning, compensating for
-> > board level trace differences. The TX delay line result comes from test
-> > out of real board which vary from different hardware layout.
-> > 
-> > Signed-off-by: Long Wan <long.wan@linux.spacemit.com>
-> > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> > ---
-> >  Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml | 10 ++++++++++
-> >  1 file changed, 10 insertions(+)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > index f35bf7ce08dd..3399a2d076dc 100644
-> > --- a/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > +++ b/Documentation/devicetree/bindings/mmc/spacemit,sdhci.yaml
-> > @@ -63,6 +63,16 @@ properties:
-> >    pinctrl-1:
-> >      description: Optional pinctrl state for 1.8V UHS operation with "uhs" name
-> >  
-> > +  spacemit,tx-delay:
-> > +    $ref: /schemas/types.yaml#/definitions/uint32
-> > +    minimum: 0
-> > +    maximum: 255
+
+On 04.09.26 21:49, Yureka Lilian wrote:
+> Added a device tree for the MacBook Neo, which uses the t8140 SoC
+> (A18 Pro) also found in the iPhone 16 Pro.
 > 
-> default: 0, I guess?
+> The device tree has a minimal set of devices limited to CPU cores,
+> interrupt controller, watchdog, serial and framebuffer.
 > 
-It's actually 127, I will fix it in next version
+> Using the macOS 26.6.2 iBoot/firmware, the machine reliably boots
+> on a single core using the stock kernel.
+> Booting with smp requires avoiding the wfi and wfit instructions
+> in the idle loop and `delay()` respectively, since those instructions
+> cause a loss of architectural state on the secondary cores.
+> 
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
 
-Also in my second thought, I will change the data type to uint8
-then drop this additional minimum/maximum property, which will
- also simplify the code with device_property_read_u8() a bit
+[...]
 
--- 
-Yixun Lan (dlan)
+> +
+> +	memory@800000000 {
+
+this doesn't fit the reg you use below.
+
+> +		device_type = "memory";
+> +		reg = <0x100 0 0x2 0>; /* To be filled by loader */
+> +	};
+
+[....]
+
+> +
+> +		aic: interrupt-controller@301000000 {
+> +			compatible = "apple,t8140-aic3", "apple,t8122-aic3";
+> +			#interrupt-cells = <3>;
+> +			interrupt-controller;
+> +			reg = <0x00000003 0x01000000 0x00000000 0x1cc000>,
+> +			      <0x00000003 0x01040000 0x00000000 0x4000>;
+
+please be consistent and use 0x3 and 0x0 here like for the rest.
+
+
+
+Sven
+
