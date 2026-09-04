@@ -1,115 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7609C1A6817
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 02:55:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AF73AA4F2;
+	Fri,  4 Sep 2026 03:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788490534; cv=none; b=NhI386AeE9dxcY7zjpeiXFOd46Z3LzAuVOFhde+7u0LzE+bwjFRb219apO50xV753PUM5ffXm6DOx5dLiLM2NOBcj5wHzsGFiYnbKF3tATThfaRj7jusxFd9MeC9k+PjUH8m0EL7JuvSJPoVr7dZmQmJcT2QCMPcUr/8s3L3Ks4=
+	t=1788491504; cv=none; b=Kh6o97GpLPjS6l6PnIIETodL2OZ2zm1bWVrwoNXQSTslrrravqVYxOi18On5KQnb8lR/yk9srVduOHq6wONo/NzjXhX8lliMsqd6LbglKQAFyn70WjvoyRDvjN8l5uJQ1LjOfYme9GTUiQ36b1sebP19flClsleoAv49iDvVXmY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788490534; c=relaxed/simple;
-	bh=B22dCbaOVO6mTjaXVauKxYYxa0knPn9q9WwLuNUbcME=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IMM3lgUuYRHR6A4CY3j6Lc6dG1oRKbv+p5MBgR976KlOXovL5FvRaULu4fp9qfE5mw8/Bq6QjwlPKzxcF6d+mkhgEYbZPRUko8s3X/bnLYGvpIYyai4drSJbQcjifauw7FsU6cFfPT7MXkZK1MKI1Y1JQKTR3p4NAzjTm2XFiyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvQfRfPJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788491504; c=relaxed/simple;
+	bh=uI2HN50P2gwLvtst8jnYDBGu7J6atvzxrce3IcsLdGo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CSYboWiSgozqligIQbr3SfyjAbiKX2qW6GBtdxbPHxAkpRcNlmbcSXMlauOkFNpGHb4q5A2Pe9QHKW+Wuau0Tm/8wivGcXXPoouFHrnB3rpx9Ba1vLh36HINAEFRzENeXXW+ESVXgug9V1vvZ0VF2mf2nFXUYFHSaGybwVQBUx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2IN/k7s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvQfRfPJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF411F000E9;
-	Fri,  4 Sep 2026 02:55:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2IN/k7s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 754B81F00A3D;
+	Fri,  4 Sep 2026 03:11:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788490533;
-	bh=Zouhp+RGPqtqKAjDqPDewpgCd+0ob3k/yUSsB3H5SUY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fvQfRfPJ6INWk9u+6tQHsA6sCflrZbrG3BBon1M8z5KpkQqyiJ3uOIVk32ckX2Mow
-	 Ol1SCrAvAuVp+dJnjRv6mgycvIz2Vo0PhbuQhd0Dq90TpwqqKL0RiJUogNJnwCbrfo
-	 tbkS+3DskCu47OWqcF1cFtabYCH4ibDoDytkA6HjtgAhVSgJrl8AKeWDNRA0qwu620
-	 Jx3kdj1FRElwGEmyKmDjaNZyG6i1RRD9Z9X66GJE7vpG8tSUepbXfx0M8YKGxhIQ1s
-	 ZDB2uhyE8G+6tqfLh5goGIdm8qTUkrqMUoRRSN1JBsScAsXEE1ReIIJsZOIB58bVAf
-	 /7whwjF00BYqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] ASoC: codecs: nau8360: Set DAC path to bypass mode
- when DSP firmware load fails
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neo Chang" <YLCHANG2@nuvoton.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260904024456.193528-2-YLCHANG2@nuvoton.com>
-References: <20260904024456.193528-1-YLCHANG2@nuvoton.com>
- <20260904024456.193528-2-YLCHANG2@nuvoton.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 02:55:32 +0000
-Message-Id: <20260904025533.0CF411F000E9@smtp.kernel.org>
+	s=k20260515; t=1788491502;
+	bh=vXiAqzsuOBHpQpc13OvIWy9Ysj65FxIE++L7D7toTGE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=b2IN/k7sZl6KXEPA8MkUVnfW2ZWo6yZO3SY8GdxXLyz65/OoYPzqFPVffrIqGeev8
+	 2egJNdaBvyqn0JlKG4MQebp7H78Ey7YZlIZOcTuekh3EJIdHOGQpknkIBx4QqikOx0
+	 RBn6QpopZ/oEiN2aBv6vAgVaoEqtk7zF3CINc9wNZ4uPpFCQjR7vJuJmd/fxE/31Gq
+	 yd3HETf4JGt7R6/JIpzwJekfjtHRU5ez+AiaSS3Mk3U0ndkI4Ig6GMtgQzIPWS0z2F
+	 EStBWpvVxlI/CRqSAicd2UOWHhSzvzAS5Bnf1sR92U2Ldr97cKukpoJti5/Vh1ZKo7
+	 ul4wSgmpCCT5A==
+Date: Fri, 4 Sep 2026 04:11:38 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ "magnus.damm" <magnus.damm@gmail.com>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+ <linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 5/9] iio: adc: rzt2h: implement DMA buffer support
+Message-ID: <20260904041138.77b6f76f@jic23-huawei>
+In-Reply-To: <TYRPR01MB15619584AE0D8737B439D317185B62@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+References: <20260828145943.2077589-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	<20260828145943.2077589-6-cosmin-gabriel.tanislav.xa@renesas.com>
+	<178796644341.2599003.10846523729399514118.b4-review@b4>
+	<TYRPR01MB15619584AE0D8737B439D317185B62@TYRPR01MB15619.jpnprd01.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Using `snd_soc_component_write` overwrites the entire `NAU8360_R12=
-_PATH_CTRL` register, unintentionally clearing other critical audio path ro=
-uting configurations.
-- [Medium] Modifying a DAPM-controlled hardware mux register directly bypas=
-ses ASoC DAPM state tracking and locking.
---
+On Thu, 3 Sep 2026 07:49:29 +0000
+Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
 
-commit 6a6b1e851a10df0446b789100342efda63bba458
-Author: Neo Chang <YLCHANG2@nuvoton.com>
-ASoC: codecs: nau8360: Set DAC path to bypass mode when DSP firmware load f=
-ails
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Saturday, August 29, 2026 4:21 AM
+> >   
+> > > Implement buffered capture using a cyclic DMA transfer into a kfifo
+> > > buffer to support continuous high-rate sampling.
+> > >
+> > > On buffer enable, switch the ADC to continuous conversion mode and start
+> > > a cyclic DMA transfer over the active channels.
+> > >
+> > > Because the DMA controller does not support native scatter-gather, and
+> > > because of the cyclic DMA setup, transfers must be done in widths
+> > > covering all the enabled channels.
+> > >
+> > > Since DMA transfer width must be a power of two and aligned to its size,
+> > > cover the smallest power-of-two-aligned group of channel registers
+> > > spanning the enabled channels.
+> > >
+> > > Split the cyclic buffer into fixed-size periods. On each period
+> > > completion, bump a pending counter and wake a consumer kthread from the
+> > > DMA callback.
+> > >
+> > > For every completed period, gather the enabled channels out of the DMA
+> > > layout into the scan layout the IIO core expects and push each scan
+> > > with iio_push_to_buffers().  
+> > 
+> > Could you instead use the available_scan_masks infrastructure.  bit annoying
+> > to specify the full list but isn't that long I think with 16 channels
+> > 
+> > 16 x single
+> > 8 x double,
+> > 4 x quads
+> > 2 x octect
+> > 1 x all of them.
+> > 
+> > The the IIO demux in (sits behind the push_to_buffers path if
+> > we have available_scan_masks set) will then deal with repacking
+> > the data if necessary.
+> >   
+> 
+> Hi Jonathan.
+> 
+> There are a couple reasons why I haven't used available_scan_masks.
+> 
+> Our limitation is on the DMA side. It cannot do scatter-gather in a
+> single descriptor, and we need to copy all the channels for each
+> completion IRQ. This is why we have to copy all the enabled channels
+> in a single block, and the base address needs to have the same
+> alignment as the block size.
+> 
+> My initial naive implementation copied all 16 channels (32 bytes) all
+> the time, but at that size the DMAC quickly hits a wall where it doesn't
+> service the ADC's completion signals anymore, at ~220k requests per
+> second.
+> 
+> Optimizing the DMA window allows us to avoid losing samples when the
+> enabled channels are densely packed. Enabling only channel 0 and 15
+> still hits the DMAC performance wall though, for example.
+> 
+> If we were to use available_scan_masks, the ADC would have to enable the
+> extra channels too, since it would have no knowledge of whether a
+> channel is enabled legitimately or for alignment purposes. The ADC scans
+> each channel iteratively, not in parallel, so sampling rate would be
+> affected because of the extra enabled channels. Besides that, this would
+> be transparent to the user, but it would reuse the last set sampling
+> frequency values, which affect the sampling rate without the user even
+> knowing.
 
-This commit automatically routes the DAC path to bypass mode if the DSP
-firmware fails to load. This is intended to keep basic audio playback
-functional as a fallback mechanism.
+Ok.  So if this was a common thing I'd suggest we might expose an extra
+mask that presents what the various consumers have requested, but I'd
+not go to that effort for the first driver that could use it.
 
-> diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
-> index d7af2dffb749a..b3cf207eea86d 100644
-> --- a/sound/soc/codecs/nau8360.c
-> +++ b/sound/soc/codecs/nau8360.c
-> @@ -1702,6 +1702,7 @@ static void nau8360_load_fw_work(struct work_struct=
- *work)
->  	if (ret) {
->  		dev_err(nau8360->dev, "Failed to initialize DSP: %d\n", ret);
->  		nau8360_dsp_enable(nau8360->regmap, false);
-> +		snd_soc_component_write(cp, NAU8360_R12_PATH_CTRL, NAU8360_DAC_SEL_BYP=
-);
+> 
+> If there are any extra enabled channels, iio_demux() would have to copy
+> all the data again. We need to keep our own copy inside the driver to
+> unswap the ADC's 16-bit data registers out of each 32-bit word.
 
-[Severity: High]
-Does this overwrite the entire NAU8360_R12_PATH_CTRL register?
+Ah. Yes, with a copy already happening might as well make it just one.
 
-Since NAU8360_DAC_SEL_BYP evaluates to 0, using snd_soc_component_write()
-writes 0x0000 to the entire 16-bit register instead of selectively masking
-the target bits. This would unintentionally clear other critical hardware
-audio routing configurations (such as NAU8360_SEL_HW1_OUT,
-NAU8360_AUD_SEL_SINCOUT, etc.) initialized during probe, completely breaking
-audio playback rather than falling back to bypass mode.
+> 
+> The available_scan_masks table would have to be computed at runtime
+> since not all instances of the ADC have 16 channels.
 
-Should this use snd_soc_component_update_bits() instead to safely update
-only the DAC selection bits without clobbering the rest of the register?
+Given these are fairly small, that might just be selection from a set
+of options.
 
-[Severity: Medium]
-Does modifying this hardware mux register directly circumvent ASoC DAPM sta=
-te
-tracking and locking?
+> Also the use of
+> devm_iio_adc_device_alloc_chaninfo_se() means that we allow gaps in the
+> channels themselves. scan_index is set incrementally anyway, so it can
+> get out of sync with the channel index, and that would need extra
+> handling when building the table.
 
-The DAC selection bits in NAU8360_R12_PATH_CTRL are exposed to userspace
-and managed by DAPM as a mux control (nau8360_dac_mux). Writing to this
-register directly from a background worker introduces race conditions again=
-st
-concurrent userspace ALSA control changes. Additionally, the software DAPM
-graph falls out of sync with the physical hardware, which could cause DAPM
-to incorrectly leave DSP widgets powered up and fail to apply power to the
-bypass path widgets.
+Ah. That would make life trickier.
 
-Should this hardware path change be routed through the appropriate kcontrol
-or DAPM interfaces to ensure the graph and power states are correctly
-re-evaluated?
+> 
+> Let me know what you think and what the direction should be.
 
->  		return;
->  	}
->  	nau8360->load_fw_done =3D true;
+This info is more than enough to convince me that it isn't worth
+using the core demux stuff. Thanks for all the details!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904024456.1935=
-28-1-YLCHANG2@nuvoton.com?part=3D1
+Jonathan
