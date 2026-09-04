@@ -1,96 +1,98 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1981D3F413A
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667B8282F10;
+	Fri,  4 Sep 2026 13:03:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526812; cv=none; b=aLN29XNRa/i6zM27Okwu7pQ3QKgZKUjOTNUeHynPG/RMO9ZnC/XcJYUVmRyKdCauhe/RRwpNdhmtXPfUwm1no/BnyosdKe08nQnIPi593b7VL9w9kea5jlhA1As1KrAPSfZX/wmjg96aP4BAjojPtB6b5ZB8Md57ERX2zGNbKG8=
+	t=1788526992; cv=none; b=JyiWR3S2s5hwk+bZIl81EUsDbmtaJcPmgPnrJfSd94glWsq7tk0MC8FdQVmDe32ffLs5YFeXxfY1fRnNWkhPByI7uYOXfV0xBLy3Ys0XTrW9h0/AhQKwM/xw/Jywp8HPY+nEHdGjOwtLCv4Ybh56MtuMsXzAysTMYq7XTkeCpC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526812; c=relaxed/simple;
-	bh=b+jsB/SxR9B4doq4j9X1OsN7P3v9KOS03k/c0WlWdws=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CS5JZb5POcwlNphlhtcPaA/cAmlwHX06mTs4UEyGIFuCAfRAk6HBpNgE/7NQQHQ6c/whBFcNOF3H+HZKmjVg0iPTaoLW1NocX7w5vCzt3B5SamY0rfMGKdnvUQrJUSMgRlA71XIAeO0CtL0fbml1o25CuLY+7SPE0IQd0TA86qA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5c7d65c83feso860009e0c.1
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:00:10 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788526810; x=1789131610;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=d7GgODhxIjczQScbRESMbRZWtgZnkVvNT/nl7txte6o=;
-        b=e2atI+BvPzMtGVmGnzB9rfBGSwy/1tp2TafnH/m6TJmWW7yOfubEG5tTT+cgtQDaZd
-         mZrzA3ItGQyTz46PCSwtQKzY9CzGAFWqEzcIHaWZuRlARdcf03FEcDMADtJ61+pRSbXd
-         fBpR1fAXl3aWoUoUlp7YoVolIIHphuYJzMLAT1NE+yqPNiodgcB8EWy+zdFFNTS1I3/b
-         HOxjvkx8fOH8t7M17lsyLpzIqRhfR8/A/ElrFCdAcwCqEfIP2n5b2UcE3nQZIM6pO/gw
-         P7ezNivS0tsMh4cMuPhZf4gWaH8VI1JAQznrvXqTnMIk2W6QODgi9bs+TC9xW03963P3
-         A+OA==
-X-Forwarded-Encrypted: i=1; AKwUvByMYkIWs6cKLTyZKeJkS1G5cCiITP2TUDkYu7O0+yE4iMkDfhx8nxPTY0MxnTG5uMuExm/g3DIyNkJG@vger.kernel.org
-X-Gm-Message-State: AFuF++lWu5VBBCtThJkhIMmKFgtn2vwLcHCyWSAMNNJ0CzLlCJSq//rv
-	WOD3e+a00Sv9vKsF6m4FCKP6gPUPf02DCZ/5AymTWFlOf+ktgyI5H3mFCjBWzBHgYb8=
-X-Gm-Gg: AYBFou3yyPUi2NL7l0IAptqWkfpP6dCkLmOH1OzHUWOT1Ch1D+V2ZkgSphNK83cCbgQ
-	Pz9D0Q3Id8rjljNea4tR/gOSShzC4lGGDmnFLi7y8AV3YpfnqMkC42KJIcWnmaHltLv8JTIllbg
-	T/XVIOcIuq3Cu7gGnTC0wFZ4Bfd395tTGN+WpT7q5zJimVMM8jo/cagttMjKBSzXRJBuyANHbIJ
-	+U91UB1gXaYZfJg9H3hvPwpIVXE+I1dkJiUXzeO3SSjvknsf6SifT7Tg6tc5lB6/xT6t2y/pxRy
-	RTqnpTApFVTbrOm0zh9335exCYBu8r5ZXhd4CKX+l8zW19s1Bv8WDEaJwrTjeaGBKJHEaRO6IMP
-	v0/7dZcA8mL4LXGfATm9ZqXoHO3K7/WKravBqLJoOqLq8p+nA/bCp4Fgk2vi6WfLP3hiaMMlTTc
-	iqXJZ2CUEmOtetZLGPbJiuDOTsqr3dU0lE05tNjlqydjIkEM4i7OJkAz+IkJnOt1Gu7McShvGVX
-	8cwTioOQAJa8Rwe1qbM4TNzNQ==
-X-Received: by 2002:a05:6122:c8f:b0:5c6:4bab:4cb2 with SMTP id 71dfb90a1353d-5c7ed80403dmr2491346e0c.6.1788526809873;
-        Fri, 04 Sep 2026 06:00:09 -0700 (PDT)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com. [209.85.222.53])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec35d85fsm1994872e0c.12.2026.09.04.06.00.09
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 06:00:09 -0700 (PDT)
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97bf8e907b0so639107241.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:00:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxvDYv8hA/6ePYCYbtVA1HLscUlEKOHI/DnTxcDBm8tUe7n4dqWOWMMfzOawN5M21vXwJ1oYrIBi14F@vger.kernel.org
-X-Received: by 2002:a05:6102:5487:b0:738:1ef6:51b9 with SMTP id
- ada2fe7eead31-78a4a96d8c3mr1844791137.5.1788526809409; Fri, 04 Sep 2026
- 06:00:09 -0700 (PDT)
+	s=arc-20240116; t=1788526992; c=relaxed/simple;
+	bh=Dklj6JDaFdhZK6zw8E5qNZ4lRnEJ1KEPrHi3lBfJN5A=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PVebG8o0bSK+IbjkNG+dvVdkhEHPaWMh8HDHlV5efLl4mjOpXuwnaLh7YWKqjCsRBDjQaGWAD7AXUwjoe/3wWwa7/kIsyimCIhGWthUpc/wlF3n5OyuWk4TssmA0pRHQ9oajj+H+MIyq4tvgb2eWe/HmJe92Cu9mb6SmsvIqwFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hRJt+QRA; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hRJt+QRA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 39B471A19A7;
+	Fri,  4 Sep 2026 13:03:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F3C966057F;
+	Fri,  4 Sep 2026 13:03:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C16F511C7AF01;
+	Fri,  4 Sep 2026 15:02:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788526980; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=9voOvOOTmE0p/jaZPF0zwsc+G6r4jecsh5ZNm8BZdD4=;
+	b=hRJt+QRA+No1CnkIDYoIXKnfSNyd1Mz1wkaLsDdBqyJBHvUjD+bkoe6u/PD64UW9s4/EDM
+	lSz+quQxiye2eZko4D6WuOStXc4WADQswlrpZKvgdEcUyfhqYi/grT9TItgcGyGC16sw3C
+	6Ow8nFWcY7ybb2gmFAj47iPJRuJn/Vowy1UXRrczpw9ex90xdi1yNGiYXsO8GJu3+0hCqx
+	wwq6gFFMowq1BWvm69+lWkkQ59wm4arsOn1bLGaYMrH4e3mJB23a87MjxXuoEFhkKNGoko
+	xViPnCf0gOdrBDUcIs4xonh4x86YzNiYACPGaVqQdUpgP+b2wk3wTpa+Q0uzgw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v2 0/3] arm64: dts: nuvoton: Improve MA35D1 support
+Date: Fri, 04 Sep 2026 15:02:35 +0200
+Message-Id: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825141542.30901-6-wsa+renesas@sang-engineering.com> <20260825141542.30901-9-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260825141542.30901-9-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 14:59:57 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWTw+rJ4fx+vuM_QdgXE4Bxo2LPX9y0NH3kd7sM2oKcug@mail.gmail.com>
-X-Gm-Features: AcwNN1XaEv9Hx-TPYsSjIBjhBVyHhLCKgIrxqOUUTGt6324d-7yS_6EXvarXIyU
-Message-ID: <CAMuHMdWTw+rJ4fx+vuM_QdgXE4Bxo2LPX9y0NH3kd7sM2oKcug@mail.gmail.com>
-Subject: Re: [PATCH 3/4] dt-bindings: renesas,rcar-dmac: Add support for R-Car
- X5H SoC
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, dmaengine@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NTQ6CMBBGr0Jm7Zj+RBBX3MOwgHaQSYSSTiUaw
+ t2tnMDle8n3vg2EIpPArdgg0srCYc5gTgW4sZsfhOwzg1GmVFdtcaEoAafOXrzG1yIpUjehT4J
+ 1PZTak3FKO8j7JdLA76N9bzOPLCnEz3G16p/9p7pqVNj3xlaDr5x1pulDSE+ezy5M0O77/gWho
+ giIxAAAAA==
+X-Change-ID: 20260813-perso-ma35d1-upstream-dts-99f61de2c01c
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Miquel Raynal <miquel.raynal@bootlin.com>
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 25 Aug 2026 at 16:16, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> Also add the familiy compatible because X5H is the first R-Car Gen5 SoC.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but:
+1- it lacks a DT description
+2- it does not work with current clock driver
+3- it can be improved
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+This series is addressing #1.
 
-Gr{oetje,eeting}s,
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+---
+Changes in v2:
+- Edit the binding file to mention the new compatible.
+- Add a model and a compatible for that board.
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-dts-v1-0-bb237fd7c3c2@bootlin.com
 
-                        Geert
+---
+Miquel Raynal (3):
+      dt-bindings: nuvoton: Add NuMaker compatible
+      arm64: dts: nuvoton: Add QSPI0 node
+      arm64: dts: nuvoton: Add NuMaker board
 
+ .../bindings/arm/nuvoton/nuvoton,ma35d1.yaml       |  6 +++-
+ arch/arm64/boot/dts/nuvoton/Makefile               |  1 +
+ arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts     | 42 ++++++++++++++++++++++
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi            | 11 ++++++
+ 4 files changed, 59 insertions(+), 1 deletion(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260813-perso-ma35d1-upstream-dts-99f61de2c01c
+
+Best regards,
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Miquel Raynal <miquel.raynal@bootlin.com>
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
