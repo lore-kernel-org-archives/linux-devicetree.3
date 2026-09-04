@@ -1,194 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m1973198.qiye.163.com (mail-m1973198.qiye.163.com [220.197.31.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F12246A611
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:30:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F021B46C4CD;
+	Fri,  4 Sep 2026 10:38:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517860; cv=none; b=H2r0ajGOl/JmIKFXzS1T2WbVQGKIwkxU8JSix9m+BUrpks4RtHTwOWcosTa9mSe3PuMao1QRIV6FZhoFtT52KxUmv+D+FDKXpkomPMOTNkZN5odSNfrxtSOCgQ1TFL+yPidBDltUO0qGoRKACvdicH2/JzD4PNcL/WFNlp15q7M=
+	t=1788518320; cv=none; b=oD6Fq25CmRNkN3/SiJxTD5R9P1PHT563MMPQ3qfN4vxYEmyY279EqtIK+W9UKk7cjXTZDobEFmAeJYZt+6X6h0xs/eeCnkalIqIkkNlfw8xeOpUolKjEjdZ4OMsdNrzhBBa3Z8HAa7AhxcrfOXVeciBdZ1prsoJAEL2Q+Y0NQgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517860; c=relaxed/simple;
-	bh=HSgeBQ0mHDQt1Sq43MY0o4wxhgcEwOVxtMn54CsehgA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r3OGnPb7Rmu9Da8SI1j8+/ue+ZAWQfscnvk2GbH5PV0Gm31RflaUDNVnRV22//K6KkMVb1NTK8Xi9R6l3gurVSV6RH2MI7hdnwdSgItJvXhaCGIdJoMfAURSyXmQIY5/a4hdJVEM5EIsstfXQsAmiFTt/KFhhsp+V53/tusPzuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mUbo86UX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788518320; c=relaxed/simple;
+	bh=CVUn4oR5TBb1cbVUGQ67fEH7gdrl9s3ZKb0KDuGoxrM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ChCc5n0rbzJzsPsjEnH5x0UH+vb+zvbF74bibEvQyjPoEiidPad4fh6SkA2ecytyJ14g0XNHhstRTVyMDSljHxl0MFV1MqUfhoYpwkTmnukGX3S+tx8P1DMelazxnVo0sEGKjPFrw1RlPPCsvuHlhpunGx9l7aLeZqrPCOWOUlA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=ijMHZwCe; arc=none smtp.client-ip=220.197.31.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mUbo86UX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B3DE1F00ADE
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:30:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788517858;
-	bh=Ak3IEV5EuNPQAh0ybs3J8IV2WjKmGgfXZ4hNk/xxyjM=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=mUbo86UXxBWE6CTcj70Nt+yzfQL8JPBmPwGRVX2JHufpjDw8QX02IMe5OhvQgptjM
-	 SwShFyYg4okprAeRMJouUbFefoRObxsWzgcKk46mZOJNjgBCYSn0Thhoyva09oRCGZ
-	 oJwnkhQ1qzXwGqTSwBzA8Zr1LzAlg3Ybw+HJcn/+FdH8RxXotFSyH3GhWmE7XVhdF3
-	 JgWIV77yI16EZy6cPlqHQauKysmSHQ1IetZ1LGwnDZT6EhBp/NMi9ozCI/ik2cD8eY
-	 o1uJOoRRgYULksn1fhY/vdzg+SEiuLW/Q8EnU9yO3lbMUIeTE9T0rZ6HCMPZFagkxR
-	 4T+Ka5P7ZGClQ==
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a1eb6fa0f4so8591331fa.2
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 03:30:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw1HT0dS5P4175r7DPEfTBC+8FWYx+i5avnAdSLeQ6fBM/5SwaMm+a3Bt++UyDaQl6W4njagnr/bzMh@vger.kernel.org
-X-Gm-Message-State: AFuF++nbGyYR+f8K8ySEjiHF23JOc+LroFqzHR6ZQSj4OLw8R1uZWXDZ
-	ybXP2Qk9vqGnVuVno9j+uc4sKN7SY1DnQ4P/N7SOmObSPpH6ZIw7tpxy7n0jLSa7g2+TUg/H8Ln
-	d2ZDwh2GeeKpIN3hARQRqyyVD6HF5HLo=
-X-Received: by 2002:a2e:a7ca:0:b0:3a3:34:865 with SMTP id 38308e7fff4ca-3a371b6dd76mr9445761fa.5.1788517856421;
- Fri, 04 Sep 2026 03:30:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="ijMHZwCe"
+Received: from [127.0.1.1] (unknown [36.129.139.90])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4c8f646c2;
+	Fri, 4 Sep 2026 18:02:52 +0800 (GMT+08:00)
+From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+Date: Fri, 04 Sep 2026 18:02:25 +0800
+Subject: [PATCH v3 1/6] ASoC: dt-bindings: es8316: Document jack detect
+ inversion
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721065413.2306137-1-wenst@chromium.org> <20260721065413.2306137-7-wenst@chromium.org>
- <c6526ba0-be08-46c6-a501-1b161939657c@oss.qualcomm.com>
-In-Reply-To: <c6526ba0-be08-46c6-a501-1b161939657c@oss.qualcomm.com>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 4 Sep 2026 18:30:43 +0800
-X-Gmail-Original-Message-ID: <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
-X-Gm-Features: AcwNN1Xat96btOTDTzU9PGXAhyQrjVXT5ZP9qiHi9N7dj1ScKDZ_5SK_K-nNAtc
-Message-ID: <CAGb2v66c8L20yNNmvj6TaQbS7LnqAyuv0tMQfj+0PSjMUcSByA@mail.gmail.com>
-Subject: Re: [PATCH v6 06/16] usb: hub: Associate port@ fwnode with USB port device
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-acpi@vger.kernel.org, 
-	driver-core@lists.linux.dev, linux-pm@vger.kernel.org, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
-	Alan Stern <stern@rowland.harvard.edu>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260904-rubikpi-next-20260605-v3-1-f49146d85af3@thundersoft.com>
+References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
+In-Reply-To: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
+ Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
+ Matteo Martelli <matteomartelli3@gmail.com>, 
+ Binbin Zhou <zhoubinbin@loongson.cn>, 
+ Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
+ Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, Hongyang Zhao <hongyang.zhao@thundersoft.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788516170; l=1226;
+ i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
+ bh=CVUn4oR5TBb1cbVUGQ67fEH7gdrl9s3ZKb0KDuGoxrM=;
+ b=mPWmOcmCD4WN4BrNZyhxRj2od3i2SInbiR169g+czYl7fakkXvq86Zf8wf3xDqeDMpkolmnbY
+ 8gjOv/KdvEiBttgFa5RAcMwECh0C3/xZHB8JfshfHuOgfjZlXTYu+wn
+X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
+ pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
+X-HM-Tid: 0aa06bdf048509d5kunm6f63729aafb4c
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShhLVh0eSx9IGExNHhgeSVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
+	lPT09IVUpLS1VKQktLWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=ijMHZwCe9FOsfo++VSZn3ZRjgCFlgN+/c88OE8X8M7xzJn6RWk4cyBPlnDYDS5Mq34+FzE7zNe+Ha91Pv8Sp2xohkuJuKQDScyHVBKGTO0dSP7TBbEU5O5snq6vqQjA+ThsLrcyU80x7pqEPiZiCB1+MtP1IvVQjO+mdW23dxWs=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
+	bh=597yvAmbtpxqKhHT8WHhejI5xPg6hWppCyeJ96YlFRE=;
+	h=date:mime-version:subject:message-id:from;
 
-(dug this out of my kernel.org email)
+The ES8316 driver supports the everest,jack-detect-inverted property to
+account for boards which invert the codec jack-detect signal. However,
+the property is not described by the binding, so a valid user of the
+driver fails schema validation because the binding rejects unknown
+properties.
 
-On Fri, Jul 31, 2026 at 10:44=E2=80=AFPM Konrad Dybcio
-<konrad.dybcio@oss.qualcomm.com> wrote:
->
-> On 7/21/26 8:54 AM, Chen-Yu Tsai wrote:
-> > When a USB hub port is connected to a connector in a firmware node
-> > graph, the port itself has a node in the graph.
-> >
-> > Associate the port's firmware node with the USB port's device,
-> > usb_port::dev. This is used in later changes for the M.2 slot power
-> > sequencing provider to match against the requesting port.
-> >
-> > To avoid potential conflicts with ACPI firmware nodes and then causing
-> > power management issues, only assign the firmware node if the hub's
-> > firmware node is not an ACPI firmware node.
-> >
-> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
-> > ---
->
-> [...]
->
-> > +     /*
-> > +      * ACPI FW nodes are associated later when device_register() happ=
-ens.
-> > +      * Skip assigning one here to avoid potential conflicts.
-> > +      */
-> > +     if (!is_acpi_node(fwnode)) {
-> > +             struct fwnode_handle *port;
-> > +
-> > +             /*
-> > +              * fwnode_graph_get_port_by_id() returns either a valid f=
-wnode handle
-> > +              * or NULL. Passing NULL to device_set_node() clears any =
-associated
-> > +              * fwnode. It is effectively a no-op here, since no fwnod=
-e has been
-> > +              * assigned to the newly created device yet.
-> > +              */
-> > +             port =3D fwnode_graph_get_port_by_id(fwnode, port1, FWNOD=
-E_GRAPH_DEVICE_DISABLED);
->
-> This works if the node at the other end of the graph is a
-> USB hub, e.g. from qcom/lemans-evk.dts:
->
-> usb_hub_3_x: hub@2 {
->         compatible =3D "usb5e3,625";
->         reg =3D <2>;
->
->         peer-hub =3D <&usb_hub_2_x>;
->
->         ports {
->                 #address-cells =3D <1>;
->                 #size-cells =3D <0>;
->
->                 port@1 {
->                         reg =3D <1>;
->
->                         usb_hub_3_1: endpoint {
->                                 remote-endpoint =3D <&hd3ss3220_1_out_ep>=
-;
->                         };
->                 };
->
->                 port@4 {
->                         reg =3D <4>;
->
->                         usb_hub_3_4: endpoint {
->                         };
->                 };
->         };
-> };
->
-> But something I faced when I was poking at USB4 was that dt-bindings
-> currently assume every controller is effectively single-port and the
-> of_graph ports under it represent HS/SS lanes, i.e. the entire
-> "ports" subnode represents a single USB port
+Document the flag so boards can describe the jack-detect polarity used
+by their wiring.
 
-Which controller is this? AFAIK for xHCI hosts there currently is no
-"ports" node specified in the common usb-hcd.yaml binding. I plan to
-add this separately, as it can already be used for USB A connectors.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+---
+ Documentation/devicetree/bindings/sound/everest,es8316.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-The kernel maps every downstream port of the root hub to a separate
-node. On the XHCI it is more complicated because it has two root hubs,
-one for HS and one for SS. I'm not familiar with the hardware specifics
-but they seem to map into one common namespace, so you probably get
-ports 1~8 for HS and then 9~12 for SS. Note the number of ports is
-different. This is just an example from my x86 workstation. And on
-x86 each port is mapped to a different ACPI node.
+diff --git a/Documentation/devicetree/bindings/sound/everest,es8316.yaml b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+index f4ff23120c5b..9060358a9080 100644
+--- a/Documentation/devicetree/bindings/sound/everest,es8316.yaml
++++ b/Documentation/devicetree/bindings/sound/everest,es8316.yaml
+@@ -84,6 +84,11 @@ properties:
+   "#sound-dai-cells":
+     const: 0
+ 
++  everest,jack-detect-inverted:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      Defined to invert the jack detection.
++
+ required:
+   - compatible
+   - reg
 
-> I think the solution here would be to do ports {} under the controller
-> and have every one of them have 2 endpoints (for HS and SS
-> respectively) - then, each DT-port would correspond to a USB port
-> (sorta like in the hub case, minus the hubs are split for HS/SS so
-> they have just a single endpoint under each port)
+-- 
+2.43.0
 
-But the hardware descriptors actually give two ports, one for HS and one
-for SS. And in the case of dwc3, I suspect that they always come with
-one downstream HS port and (optionally) one downstream SS port. So the
-binding is actually correct, except for the numbering.
-
-I'm looking into the dwc3 case. Changing the numbering might actually
-not break anything. Linux seems to just need one *a* graph connection,
-but doesn't care about the number. I looked through some other projects:
-
-- FreeBSD doesn't use the OF graph for anything
-- U-boot doesn't use the OF graph for USB
-- OpenBSD doesn't support dwc3, only the XHCI in dwc3, and doesn't use the
-  OF graph for USB
-- coreboot doesn't use the OF graph for anything
-- Zephyr doesn't support dwc3
-- TF-A doesn't use the OF graph for anything
-- EDK2 doesn't support dwc3 and doesn't support OF graph
-- OP-TEE doesn't support dwc3 and doesn't support OF graph
-
-> But that comes with a big breakage, as always..
-
-As I mentioned, it probably isn't as large of a breakage.
-
-
-ChenYu
