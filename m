@@ -1,153 +1,248 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12BC9274658
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:56:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD583D8918
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508598; cv=none; b=XtVyqt4d1OGJ/7nrCX7Y0AxmZf2YeGt7kZLbbwlklaIkl3/cKyCq2uAlRBFzvlMLZzY4zlkKndvqSeFg0QmnoGezvtC4SOp8fOfuIwz3vmpuJsPjlvrYt0vkwW0u4aoqnn2S23v37IM0XR/EXvoEALgfMESCpq0pgMIji3TrRZM=
+	t=1788508599; cv=none; b=RMYaMtEZge2BgBgAPbc0sZiNSfQzVfW9qXaN1WyHLzwL9XXobM9ia/1h7QcIToTh5InG2QufgPLc8ve2ecqrLhqre7BVCvSVxNz8nyISBjxaS0b4+Hkx0xNJbM5WVNSxXHAOvfgQ4UqrlhgiNBNoCRaGqldzjEOYdwkvTeYHW/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508598; c=relaxed/simple;
-	bh=OCuEAwsPo6LAGIuWYwcbqhhesjnLgIEo8HDpHcn3pe4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=rHcUClBUjyrhkYDay2COt5HtSVGjqFba0eElNdRCAzD3BYl20Fvo8xXH72KXlqLYcyqo9aPCb9wS+m+K8GZP3dEV369wxfxCUMdPGs/JKPwJu/N/fJj3sngXHjQxQgZQXIiIAnRO6aYWp+2dIzByqxtwPceWm13PQ8N85JVc2gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=I46e16s/; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788508599; c=relaxed/simple;
+	bh=zQ8cn2/0tyjAicXEdtJIFavfOEkBK8rsVVbLFP9RnSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BEDedB5JM6wfPX160P5IJ0zmAGMjryL1QB6+oSgZYI+eceo8qikvJWNEZZjBxJMhMxbhzbVQ3oqmZWslcnXRF4BQ8zenzpBm5wCMHjEsXP41fomiSSsttKXrEfVtLwdyM/zr3Q0rDcXzB4+a69SjNsMJGPRkVLfa6P+JNg42Uus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bHVBu64I; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="I46e16s/"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-482f2ee53e7so445066f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 00:56:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bHVBu64I"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ab16a9adso23956a12.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 00:56:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788508593; x=1789113393; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XJ1UH6hAE4wf/eMnhUQvleFgKZgGdJ6vWxvyx+MhAOw=;
-        b=I46e16s/lJPPo/AOimII5N/KE0XA6zmndbyha3mmX3GZhSRffL+Dbb5F+4i6Cp7qNz
-         WE3x4L3zvCvbQK1pYH5OFJSrAVguAcZD5wT6F79+RFUpftFbhV1SxFflBrU+02tpv4Vi
-         rW7XUGltMowYXAbYWn8EXSlp51PfFTrkwXvz7UsdNEgv94TJtTBKi4DjpbgUWTG27tBl
-         4lLagagOBzD/weoh00ggTZ403in733n0WizzCe8vOFtUYGWlpQsdDSXDsoFQO30FHIaY
-         JOEec6ww5767bXf8uyRG0hysUil0Oc/bHDP45qxcj9uEPrdB9TY5hc7vDdNK1HHn/Vc7
-         DxVA==
+        d=gmail.com; s=20251104; t=1788508598; x=1789113398; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GLyFekJ0N8Lq/xlKUVCeo3LPrbIlgpH48f7aKuVq5pE=;
+        b=bHVBu64I5JWrHTYDHHDRXkonfnKSA9Z44SDQFQKH7QAC+hG9Nod4Am2URddmv/5O+0
+         7DbUGIS/QmQRLQzcRbejWNaWoj12lpNlboL8kjq08Q+kg5ZEKyqBx/+dT0WRKkRT5/RZ
+         iiPXXj9d5JQlNz1pMZjm25AQQ0S8oGpzwZlEuBB6p2O64574sRFaknGk6lr++YWg+DYT
+         wcc5Wl53yLPzP8cdToq7eR2yjQiGON4YFpXwyN1wsJ//5OuiZJEGX9NaC1LbrX28qquw
+         v5OBm3DTO/iJTAM8lNB9PXebl2QeL0mCHgN+124PxdgXKDSY/wj/UTsCiNf5lDihfq/a
+         ZTvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788508593; x=1789113393;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XJ1UH6hAE4wf/eMnhUQvleFgKZgGdJ6vWxvyx+MhAOw=;
-        b=erIclTd8Kyo6oU+AUvez4EfQCBTjIjDLKIxXs2bRawgffgEthG22mdQxzgFx+KGwR5
-         9PxNp8eaGTyiRfNpoOIOhtPgqv6CO6Wmq7o61mUm98UOB4Xk+abZD1amsQjQjEFPD1xN
-         Scbu/CsOE0SoXt3tkMv9XcqAmz/YRjC38olDxlCej23+cRBBSk4qpWPtVyp41JpBer2E
-         PbdRX98ZdcwpDR+PEU0a7LEjjSnbBZBpwOFePS708DzD/pYRdbjFElZHRiY4voSWv1TH
-         SVFoP7Da8SIhUVZAEPafHMPg7k29tch/dDryJX16/aa3SXZkOEFe0I61f/qgyAeNeLpz
-         BbNg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2/vZ/zDSjDeFHVOJ8Ml3hF46F5NAQceKxIlLcYpdGIbhjYwmBuKZXU20Vj5cqkN5Hs5OiMRFus+UX@vger.kernel.org
-X-Gm-Message-State: AFuF++l9EU9G1OEIC/wD1flYOYh0fde2BwerK1n7BZKLVv224ghUxOD1
-	KsIVvUokF4e3lGhgS5q/lZYwttLySZU+yF7cx+apKphXjHWrzAZTVE344u3KW/NjfKE=
-X-Gm-Gg: AYBFou2LbPNtL5/Tz4nPrzvWMKTjMfOsBwY/uao/Jcus1VIMpnGfUZbWUeYvu0q1M0h
-	3bVGPmQwheIX4D9zTMocwAhlpBCQVV6n/2lOPC5tzsAWGxXL9vtn4vdL3Chppdh4MjwDifTxDC0
-	7ws6KZV+LuBGxlD5sO0J8hQb2BIJ/QimTpxyf74wdiiZSnvTmMtt4yFqEla7wRjfOccrV1HJx+E
-	BVuezyQhTUDDqXZCWJHl7OwmFCTZrMb4hRqFGyA5lx2ImPSmTrxNQBq3OP/J+DazNqT3JNFJE4g
-	11yFQVr7Qb560NBWNWPzc2bWdQNbloCM8BdNIwKwbAwoi9/EhG4+05Aaqvtr7F1L5AH5L0Ga4IW
-	XTFFkJhMPnhltYZ6k2IArpkLEFpsjV/sMY/S30r13QonI/k8UGMjWobhwWoW+d+lUdp9HC687NX
-	CU8pCjzqu33TfOmHpRc/2rPxpXy6B3RNuk+VDQjagpBZRtlBBuj8A9MztlMVNgVpUSVC9b/6NRh
-	tetox4sb5PdsXXVfg==
-X-Received: by 2002:a05:600c:1c29:b0:49c:fc6c:be03 with SMTP id 5b1f17b1804b1-49cfc6cc06cmr15228165e9.26.1788508593241;
-        Fri, 04 Sep 2026 00:56:33 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f8192sm10480125e9.3.2026.09.04.00.56.32
+        d=1e100.net; s=20251104; t=1788508598; x=1789113398;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GLyFekJ0N8Lq/xlKUVCeo3LPrbIlgpH48f7aKuVq5pE=;
+        b=rbG+hP+kfkEvUe3FKu/stXXTOnXquFuBvz6lrzeKDQpKnHid1Xeqr/Cz/0VTi3WZ+E
+         AnEKrjdNOLCmGVMyI7UHA/+ShxPW67eAvxgUH5TlSHlZD2rx5vfpm8zELCk65It96/yA
+         Rh1Frm8TYFmr5uFA8hQH4XEVk3EuIzcVu4TTOlByqWYG6bRCMgrK0rMc0e8LeFIZ7p8a
+         UnkATwqedVVejqJ2q9I2OJ6f0/7f0sAYPLhbPZWiU1Ps8cfTQGxGUBl5zKpJ4lANYwGX
+         YG9pBmB4lvfybKpfyPD+W3JPT4VW7ODSjn3hW4soLA/+mPpjno4DTiphwxg/y5W3JQ1b
+         cn3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzuf2QrlbupWMshBr5ucveAcCDvhpl+yu3QAx00TyGYU1VF0D1MmVWD5gEbhb397XvIAiHijVNcWnau@vger.kernel.org
+X-Gm-Message-State: AFuF++mq2FKKIEoN02usjPtRq7Gnbxm3HWZzE2PUCGnnwjq9tfPr68KA
+	r6CDkNc1yN9xbKci0LhOcyw8vGR3+Tn0VFpSICkORNcCAVzqOJfRqfjP
+X-Gm-Gg: AYBFou1HWabAfHs553lhyMcXWwhC53Pm/jQgPAnaRu0bs9exlOC1srAR/4Ud3Qxpl0D
+	7fhnDUis0DVgQO5rI1uV+Vh7Z3SC5t3F88kZqJGpWc0EKl9cFcBPK/YHlVaLlK4gqzIoH+PaH2C
+	QYs1eMzhzztQMTiLvkmRi7ChWRrohbYdUz/zVTiX7MSrwuwDumJL/OLnOlah3PeWMQN9ZUhTF84
+	OH0pClVQNUq3sN2xajntfLWWimOIkMcKo19ktNlIJnAMr5cRZgEb0+ZIXffVsoUU2ijUWQ8gwed
+	Pky2fkke/LnA9vDnbNrrpUbObJiFpbutJyZiKJIY6t8I/55OMtabAItpZuiSqC2v+kIKqPrj6Lk
+	rC+Mrb1eYJcAUP6Qhq39C+R4O7bIyKa1fnsS24TPs4C1s2zZznie+366ApJgFBaSJNxiQpoPaQ/
+	zYqlVJUraVIMAg38OJWTZl7LzkSrn14d5L1BIyNLlGml0L6vOC6YVmRieIcFYJV2qg1HFQbUogu
+	EW9Y/ZgmGqh5Q==
+X-Received: by 2002:a17:90b:3882:b0:396:a47f:d38f with SMTP id 98e67ed59e1d1-39b268ce386mr3923722a91.3.1788508597140;
+        Fri, 04 Sep 2026 00:56:37 -0700 (PDT)
+Received: from jason.. (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c397b1sm9356695a91.8.2026.09.04.00.56.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 00:56:32 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: Lucas Tanure <tanure@linux.com>, Ulf Hansson <ulfh@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>, Chuan Liu
- <chuan.liu@amlogic.com>, Jian Hu <jian.hu@amlogic.com>, Ronald Claveau
- <linux-kernel-dev@aliel.fr>, linux-mmc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] clk: meson: t7: don't mark sys_ampipe_nand as critical
-In-Reply-To: <20260903225921.2290441-5-tanure@linux.com>
-References: <20260903225921.2290441-1-tanure@linux.com>
- <20260903225921.2290441-5-tanure@linux.com>
-Date: Fri, 04 Sep 2026 09:56:31 +0200
-Message-ID: <1jpkytlaa8.fsf@starbuckisacylon.baylibre.com>
+        Fri, 04 Sep 2026 00:56:36 -0700 (PDT)
+From: Jason Yang <jason98166@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Guochun Huang <hero.huang@rock-chips.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Michael Riesch <michael.riesch@collabora.com>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jason Yang <jason98166@gmail.com>
+Subject: [RFC PATCH] arm64: dts: rockchip: add mipi csi-2 receiver nodes for the dcphys on rk3588
+Date: Fri,  4 Sep 2026 15:55:34 +0800
+Message-ID: <20260904075534.574037-1-jason98166@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <8e10a8c0-3648-47b5-9131-a1abdd7eb8c5@kernel.org>
+References: <8e10a8c0-3648-47b5-9131-a1abdd7eb8c5@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-On jeu. 03 sept. 2026 at 23:59, Lucas Tanure <tanure@linux.com> wrote:
+This is test patch, contains the following 3 changes:
+  - raise #phy-cells to 2
+  - add PHY_TYPE_DSI to the dsi nodes
+  - add mipi csi0 and csi1
 
-> sys_ampipe_nand clocks the pipeline stage inserted in the bus path
-> between the SD/eMMC controllers and the NIC_MATRIX fabric. It does have
-> identifiable consumers - the three MMC controllers - so marking it
-> critical was the wrong tool: the clock should be referenced from the
-> consumer nodes and claimed by the mmc driver instead.
->
-> Drop the CLK_IS_CRITICAL flag and update the comment accordingly.
-> sys_am2axi0..2 remain critical as they clock the AXI DMA bus itself and
-> have no single identifiable consumer.
->
-> This depends on the MMC controllers actually referencing the clock:
-> the dt-bindings, mmc driver and t7 DTS changes adding the "pipeline"
-> clock must land before this one, otherwise the boot hangs and memory
-> corruption this clock caused are reintroduced.
+Signed-off-by: Jason Yang <jason98166@gmail.com>
+---
+Hi Michael, Krzysztof,
 
-This information typically goes bellow the '---' because we will not
-keep it for posterity. Please resend when your dependencies have been satisfied. 
+Here is the test patch for
+https://lore.kernel.org/r/20260821-dcphy-rx-v1-v4-0-f1797634233d@gmail.com
 
->
-> Fixes: 43e1705ecab9 ("clk: meson: t7: keep the memory fabric clocks running")
+I have tested imx219/ov5640 stream with csi0 and meanwhile stream on
+rpi panel with dsi0, both using mipidcphy0.
 
-Thinking of it, we probably do not want stable to pick this up since
-your other change are improvements that will no be backported. You can
-drop the Fixes
+Related commits:
+  2e177b85541d ("arm64: dts: rockchip: add mipi dcphy nodes to rk3588")
+  0d0947766d87 ("arm64: dts: rockchip: add dsi controller nodes on rk3588")
+  5052c99cf052 ("arm64: dts: rockchip: add mipi csi-2 receiver nodes to rk3588")
 
-> Assisted-by: Claude Fable 5 <noreply@anthropic.com>
+Best regards,
+Jason
 
-The Assisted-by should not have an email, especially a no reply one.
-check https://docs.kernel.org/process/coding-assistants.html
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 76 ++++++++++++++++++-
+ 1 file changed, 72 insertions(+), 4 deletions(-)
 
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> ---
->  drivers/clk/meson/t7-peripherals.c | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
->
-> diff --git a/drivers/clk/meson/t7-peripherals.c b/drivers/clk/meson/t7-peripherals.c
-> index 55d09e78593b..2f429ea86796 100644
-> --- a/drivers/clk/meson/t7-peripherals.c
-> +++ b/drivers/clk/meson/t7-peripherals.c
-> @@ -945,13 +945,13 @@ static T7_SYS_PCLK(sys_aucpu,		SYS_CLK_EN0_REG0, 14,	0);
->  static T7_SYS_PCLK(sys_cec,		SYS_CLK_EN0_REG0, 16,	0);
->  static T7_SYS_PCLK(sys_gdc,		SYS_CLK_EN0_REG0, 17,	0);
->  static T7_SYS_PCLK(sys_deswarp,		SYS_CLK_EN0_REG0, 18,	0);
-> +static T7_SYS_PCLK(sys_ampipe_nand,	SYS_CLK_EN0_REG0, 19,	0);
-> +static T7_SYS_PCLK(sys_ampipe_eth,	SYS_CLK_EN0_REG0, 20,	0);
->  /*
-> - * NOTE: sys_ampipe_nand and sys_am2axi0..2 provide the clock to the AXI bus
-> - * used for DMA between the peripherals and the DRAM. After the clocks are
-> - * disabled, a device that starts a transfer cannot complete it.
-> + * NOTE: sys_am2axi0..2 provide the clock to the AXI bus used for DMA between
-> + * the peripherals and the DRAM. After the clocks are disabled, a device that
-> + * starts a transfer cannot complete it.
->   */
-> -static T7_SYS_PCLK(sys_ampipe_nand,	SYS_CLK_EN0_REG0, 19,	CLK_IS_CRITICAL);
-> -static T7_SYS_PCLK(sys_ampipe_eth,	SYS_CLK_EN0_REG0, 20,	0);
->  static T7_SYS_PCLK(sys_am2axi0,		SYS_CLK_EN0_REG0, 21,	CLK_IS_CRITICAL);
->  static T7_SYS_PCLK(sys_am2axi1,		SYS_CLK_EN0_REG0, 22,	CLK_IS_CRITICAL);
->  static T7_SYS_PCLK(sys_am2axi2,		SYS_CLK_EN0_REG0, 23,	CLK_IS_CRITICAL);
-> -- 
-> 2.55.0
->
-
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index fc1fdbfd3162..dd2bbc02f8d8 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1516,10 +1516,18 @@ vicap_dvp: port@0 {
+ 
+ 			vicap_mipi0: port@1 {
+ 				reg = <0x1>;
++
++				vicap_mipi0_input: endpoint {
++					remote-endpoint = <&csi0_output>;
++				};
+ 			};
+ 
+ 			vicap_mipi1: port@2 {
+ 				reg = <0x2>;
++
++				vicap_mipi1_input: endpoint {
++					remote-endpoint = <&csi1_output>;
++				};
+ 			};
+ 
+ 			vicap_mipi2: port@3 {
+@@ -1568,6 +1576,66 @@ vicap_mmu: iommu@fdce0800 {
+ 		status = "disabled";
+ 	};
+ 
++	csi0: csi@fdd10000 {
++		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
++		reg = <0x0 0xfdd10000 0x0 0x10000>;
++		interrupts = <GIC_SPI 143 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "err1", "err2";
++		clocks = <&cru PCLK_CSI_HOST_0>;
++		phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_CSI>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_P_CSI_HOST_0>;
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			csi0_in: port@0 {
++				reg = <0>;
++			};
++
++			csi0_out: port@1 {
++				reg = <1>;
++
++				csi0_output: endpoint {
++					remote-endpoint = <&vicap_mipi0_input>;
++				};
++			};
++		};
++	};
++
++	csi1: csi@fdd20000 {
++		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
++		reg = <0x0 0xfdd20000 0x0 0x10000>;
++		interrupts = <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH 0>,
++			     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH 0>;
++		interrupt-names = "err1", "err2";
++		clocks = <&cru PCLK_CSI_HOST_1>;
++		phys = <&mipidcphy1 PHY_TYPE_DPHY PHY_TYPE_CSI>;
++		power-domains = <&power RK3588_PD_VI>;
++		resets = <&cru SRST_P_CSI_HOST_1>;
++		status = "disabled";
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			csi1_in: port@0 {
++				reg = <0>;
++			};
++
++			csi1_out: port@1 {
++				reg = <1>;
++
++				csi1_output: endpoint {
++					remote-endpoint = <&vicap_mipi1_input>;
++				};
++			};
++		};
++	};
++
+ 	csi2: csi@fdd30000 {
+ 		compatible = "rockchip,rk3588-mipi-csi2", "rockchip,rk3568-mipi-csi2";
+ 		reg = <0x0 0xfdd30000 0x0 0x10000>;
+@@ -1788,7 +1856,7 @@ dsi0: dsi@fde20000 {
+ 		resets = <&cru SRST_P_DSIHOST0>;
+ 		reset-names = "apb";
+ 		power-domains = <&power RK3588_PD_VOP>;
+-		phys = <&mipidcphy0 PHY_TYPE_DPHY>;
++		phys = <&mipidcphy0 PHY_TYPE_DPHY PHY_TYPE_DSI>;
+ 		phy-names = "dcphy";
+ 		rockchip,grf = <&vop_grf>;
+ 		status = "disabled";
+@@ -1816,7 +1884,7 @@ dsi1: dsi@fde30000 {
+ 		resets = <&cru SRST_P_DSIHOST1>;
+ 		reset-names = "apb";
+ 		power-domains = <&power RK3588_PD_VOP>;
+-		phys = <&mipidcphy1 PHY_TYPE_DPHY>;
++		phys = <&mipidcphy1 PHY_TYPE_DPHY PHY_TYPE_DSI>;
+ 		phy-names = "dcphy";
+ 		rockchip,grf = <&vop_grf>;
+ 		status = "disabled";
+@@ -3429,7 +3497,7 @@ mipidcphy0: phy@feda0000 {
+ 			 <&cru SRST_P_MIPI_DCPHY0_GRF>,
+ 			 <&cru SRST_S_MIPI_DCPHY0>;
+ 		reset-names = "m_phy", "apb", "grf", "s_phy";
+-		#phy-cells = <1>;
++		#phy-cells = <2>;
+ 		status = "disabled";
+ 	};
+ 
+@@ -3445,7 +3513,7 @@ mipidcphy1: phy@fedb0000 {
+ 			 <&cru SRST_P_MIPI_DCPHY1_GRF>,
+ 			 <&cru SRST_S_MIPI_DCPHY1>;
+ 		reset-names = "m_phy", "apb", "grf", "s_phy";
+-		#phy-cells = <1>;
++		#phy-cells = <2>;
+ 		status = "disabled";
+ 	};
+ 
 -- 
-Jerome
+2.43.0
+
