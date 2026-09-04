@@ -1,214 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F5B411A1C;
-	Fri,  4 Sep 2026 18:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B431511235
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 18:55:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548107; cv=none; b=NfPngyZjKp2n9yLQcQWDeqTPWUzrNGtK7elWGb8x3H1WPi+GGcO2haRV2K6DKDG3WJiQw3U0jEhtn8y+tgqQqxgnMhWEbhNRWX/rk+Qu9UyRg0XINAMVozWhe7BtLs1wxdEfPBCVFqaLqsKujPzj79KXdpWRy53oUFlIb4/6bTg=
+	t=1788548118; cv=none; b=Wyu1T3OL6QXklf8qL8n1+mvCna4mQ1tkUaII8dxLJRj+jQm6js4ZiBg43JJrcTAZRGuuaQqCSLF+Cte+9BUAYAa9blNJ3vhczgak86MWzM/3wqht2IgIq+DCmNYmHMrkRt/4KU7VxDzQBAd9qtSVwBlbz8kS+laFjihkxTEJN5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548107; c=relaxed/simple;
-	bh=YjE58b0ZQoCsKs3WbBeJHJ5kI3Nan8my01/Dme4uBIg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r+FCIbAQHkKaZKDYffVtroLuyWQw0JaLzSluH+XwODqWKJhqVgIiPOSVHMuA7rz2ytwkn1OFjF7H0y4BODCydcdTZY0wmHEWpFLJyPU1scuilvx3rB+MJaEglQJ582AiXU74OLr4OuMDvcRe3SJEe/F+hlKWoZXbrrrLgkRCUo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbD6OZg5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788548118; c=relaxed/simple;
+	bh=N5uLxLQSj2CgbzY2/yz3gE7KDOLY+52/NB9mRLkIUY8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nFQiprVdxkyqhKD4nRnbKOkOVma4J5KRMlqAEKfWcxW/64MyX7hMPNBf5dVWFVP3s66h5r3y3+wGmezru5gzKcHywW4ZGp2b43sx4sJKAm+meKjc7Ouc+yYIDAvJ855pVZrlrMRZE81MR5q/p6ngx/IHCtUriTuNot/H/hdsnxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKGfDZJh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbD6OZg5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4271F00A3D;
-	Fri,  4 Sep 2026 18:55:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKGfDZJh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C64161F00A3D;
+	Fri,  4 Sep 2026 18:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788548105;
-	bh=nFbGTsXI67KgKHCEe+rbAoubPtZFCm8gC57qcqknLEU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cbD6OZg5gbHrVfAIRpkYsrXZhEIM7y63VxcBd7JxgiKyoeCoLYRo44W6NhJKQ/3Ai
-	 icAdPmuBVU4h8b7QHe8zJ0UFvN7pxC7MGO5ccG9w8j7yWcuZ8KfVBeH9NopDuZWYQv
-	 UKqniwOMIv+RXdRtaIsHIX1n7faaSOGI5pxmRDDUM5vGP0xFdXQpe21BmpWT8e5h7Y
-	 k6qP5CNiRJl47tXVpO2GNlt+ypPnuCHbTIE1YmqtyyC3ZJaY/4iZMTqEbWy37ISEM7
-	 zbSSg3iJC7c5kUEsvfREmfoWuoednUbtXsrbmwxZscarOhEeD6CWWgtyE/7rf4QeZY
-	 XTMjzJ5ak8uzw==
-Date: Fri, 4 Sep 2026 19:54:59 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>
-Cc: "Schmitt, Marcelo" <Marcelo.Schmitt@analog.com>, "Sa, Nuno"
- <Nuno.Sa@analog.com>, "Hennerich, Michael" <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
- <linux-iio@vger.kernel.org>, linux <linux@analog.com>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2
- interrupt pin
-Message-ID: <20260904195459.536526cf@jic23-huawei>
-In-Reply-To: <CY2PR03MB64993393CCFED1EB17231DC6B69BB52@CY2PR03MB649933.namprd03.prod.outlook.com>
-References: <20260831083122.3486-1-antoniu.miclaus@analog.com>
-	<20260831083122.3486-5-antoniu.miclaus@analog.com>
-	<178828084760.2788519.15283878760227392025.b4-review@b4>
-	<CY2PR03MB64993393CCFED1EB17231DC6B69BB52@CY2PR03MB649933.namprd03.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788548116;
+	bh=Q5PpMcX0zSd5n5dkJzhyBNMqB1L1FL8ov2CQh8zb11k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZKGfDZJh+ZPG8Rp+yhaxl1k4+eejHPwKLqfGihouWU4LlTYRUXPQZbLMUqD7ZsTER
+	 9WdwOsG2Qt8lfdAb7/jvUZ9qK33ot1Q8jZPPA7PYdW6sU6Ea8KhWPDaft8M0tQ07fR
+	 mY9nFUlvQq6cwrKjjragLuklkuKJohCk+FZBpDx5xoBNA/TIIGJQIXN3YvYOWPEzql
+	 aSFLGvD4hx+GViaoe57w+ZhrtelM9X0Pi3HElR9Maa0f2vYuIGG86hRsIkRNIRplxR
+	 +7N3dDof7LWp/owndSzdc/lO9FeQaHuM9KJPJGhqQhvOuea+wKnGTePYhzdz30bgsF
+	 rQ/JHf3jqPyAQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 5/9] net: stmmac: qcom-ethqos: fix RGMII_ID
+ mode to use DLL bypass
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260904-shikra_ethernet-v1-5-a50765996035@oss.qualcomm.com>
+References: <20260904-shikra_ethernet-v1-0-a50765996035@oss.qualcomm.com>
+ <20260904-shikra_ethernet-v1-5-a50765996035@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 18:55:15 +0000
+Message-Id: <20260904185515.C64161F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, 4 Sep 2026 09:14:53 +0000
-"Miclaus, Antoniu" <Antoniu.Miclaus@analog.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ethqos_set_clk_tx_rate() fails to double the TX clock rate for RGM=
+II_RXID and RGMII_TXID at 10M/100M speeds, breaking MAC-side delay hardware.
+--
 
-> --
-> Antoniu Micl=C4=83u=C5=9F
->=20
-> > -----Original Message-----
-> > From: Jonathan Cameron <jic23@kernel.org>
-> > Sent: Tuesday, September 1, 2026 7:41 PM
-> > To: Miclaus, Antoniu <Antoniu.Miclaus@analog.com>
-> > Cc: Schmitt, Marcelo <Marcelo.Schmitt@analog.com>; Sa, Nuno
-> > <Nuno.Sa@analog.com>; Hennerich, Michael
-> > <Michael.Hennerich@analog.com>; Jonathan Cameron <jic23@kernel.org>;
-> > David Lechner <dlechner@baylibre.com>; Rob Herring <robh@kernel.org>;
-> > Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley
-> > <conor+dt@kernel.org>; linux-iio@vger.kernel.org; linux <linux@analog.c=
-om>;
-> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
-> > Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2 i=
-nterrupt
-> > pin
-> >  =20
-> > > The ADXL367 provides two independent interrupt output pins, INT1 and
-> > > INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
-> > > and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
-> > > the driver hardcoded INT1 for all interrupt mappings, so a board that
-> > > routes only INT2 to the host could never receive activity, inactivity
-> > > or FIFO watermark interrupts.
-> > >
-> > > Determine the connected pin from the interrupt-names device tree
-> > > property using fwnode_irq_get_byname(), and route the interrupt
-> > > mappings to the matching register. Use the interrupt number returned =
-by
-> > > the lookup for devm_request_threaded_irq() so the requested line alwa=
-ys
-> > > matches the routed INTMAP register, regardless of the order in which =
-the
-> > > interrupts are listed. When no interrupt-names are present, default to
-> > > INT1 and the bus-provided interrupt to preserve the existing behaviou=
-r.
-> > >
-> > > Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> > > =20
-> >=20
-> > One follow on thing to look at via sashiko.
-> >=20
-> > Otherwise, this looks good to me, but given the active discussion on pr=
-evious
-> > version I'm not going to pick this up until plenty of time has passed
-> > or tags have been given. =20
->=20
-> Ok, I will send a new version addressing also the sashiko issue in a foll=
-ow up patch.
+commit 0e659e67f69f5c33161dd3e01478dcbdaa1c7d6f
+Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-No need for a new version of these - I'll pick them up now.  Just send a new
-patch on top.  That might break sashiko though, so you could send these + t=
-he
-new patch as new version - just stick 'applied' or something like that in t=
-he patch
-titles so no one spends time reviewing them.
+net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
 
-Applied to the testing branch of iio.git
+This commit powers down the DLL and sets DDR bypass mode for RGMII_ID,
+and introduces ethqos_rgmii_id_macro_init() to program the IO_MACRO. It
+also updates ethqos_set_clk_tx_rate() to skip doubling the clock rate for
+100M/10M in bypass mode.
 
-Thanks,
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
+ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+[ ... ]
+> @@ -183,7 +186,15 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, st=
+ruct clk *clk_tx_i,
+>  	if (rate < 0)
+>  		return rate;
+> =20
+> -	return clk_set_rate(ethqos->link_clk, rate * 2);
+> +	/* Clock Rate Requirements:
+> +	 * MAC added delay: 250/50/5 Mhz for 1G/100M/10M
+> +	 * No MAC delay (DLL bypass): 250/25/2.5 Mhz for 1G/100M/10M
+> +	 */
+> +	if (ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII ||
+> +	    speed =3D=3D SPEED_1000)
+> +		rate *=3D 2;
 
-Jonathan
+[Severity: High]
+Does this conditional exclude PHY_INTERFACE_MODE_RGMII_TXID and
+PHY_INTERFACE_MODE_RGMII_RXID from having their TX clock rate doubled at 10M
+and 100M speeds?
 
->=20
-> >  =20
-> > > diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
-> > > index b4e8dc6d6a5c..9b47e66c49ea 100644
-> > > --- a/drivers/iio/accel/adxl367.c
-> > > +++ b/drivers/iio/accel/adxl367.c =20
-> >  =20
-> > > @@ -1430,6 +1434,36 @@ static int adxl367_setup(struct adxl367_state =
-=20
-> > *st) =20
-> > >  	return adxl367_set_measure_en(st, true);
-> > >  }
-> > >
-> > > +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
-> > > +{
-> > > +	int ret;
-> > > +
-> > > +	/*
-> > > +	 * Route the mappings to whichever of INT1/INT2 is named in the
-> > > +	 * interrupt-names property. -EINVAL (property absent) and - =20
-> > ENODATA =20
-> > > +	 * (name not listed) are not errors; anything else is.
-> > > +	 */
-> > > +	ret =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
-> > > +	if (ret > 0) {
-> > > +		st->int_map_reg =3D ADXL367_REG_INT1_MAP;
-> > > +		return ret;
-> > > +	}
-> > > +	if (ret !=3D -ENODATA && ret !=3D -EINVAL)
-> > > +		return ret;
-> > > +
-> > > +	ret =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
-> > > +	if (ret > 0) {
-> > > +		st->int_map_reg =3D ADXL367_REG_INT2_MAP;
-> > > +		return ret;
-> > > +	}
-> > > +	if (ret !=3D -ENODATA && ret !=3D -EINVAL)
-> > > +		return ret;
-> > > +
-> > > +	/* No INT1/INT2 named: default to INT1 and the bus interrupt. */
-> > > +	st->int_map_reg =3D ADXL367_REG_INT1_MAP;
-> > > +	return irq; =20
-> >=20
-> > I'd like to explore the helper idea for this, but it can be a separate
-> > series when someone has the time.
-> >  =20
-> > > +}
-> > > +
-> > >  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
-> > >  		  void *context, struct regmap *regmap, int irq)
-> > >  {
-> > > @@ -1486,6 +1520,11 @@ int adxl367_probe(struct device *dev, const =20
-> > struct adxl367_ops *ops, =20
-> > >  	if (ret)
-> > >  		return ret;
-> > > =20
-> >=20
-> > [Severity: Medium]
-> > Since fwnode_irq_get_byname() inside adxl367_set_int_map_reg() can retu=
-rn
-> > -EPROBE_DEFER if the interrupt controller is not yet ready, will placin=
-g this
-> > lookup after adxl367_setup() cause repeated boot delays and leave the d=
-evice
-> > powered up on deferral?
-> >=20
-> > Looking at adxl367_probe(), it resets the hardware, sleeps for 15ms, an=
-d calls
-> > adxl367_setup() which powers up the device into measurement mode.
-> >=20
-> > If adxl367_set_int_map_reg() then returns -EPROBE_DEFER, the probe abor=
-ts
-> > without an error cleanup path to power down the device.
-> >=20
-> > Could this software resource acquisition be performed before the hardwa=
-re
-> > interaction to avoid unnecessary boot stalls and power leaks during pro=
-be
-> > deferral?
-> >=20
-> > -
-> >=20
-> > This obviously isn't new, but it might make sense to turn the device
-> > off at least.
-> >=20
-> > Can be a follow up patch.
-> >=20
-> > --
-> > Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> =20
+If the device tree configures the PHY mode as rgmii-txid or rgmii-rxid,
+those modes fall through to the non-bypass DLL initialization path in
+ethqos_fix_mac_speed_rgmii().
 
+Since this logic only explicitly checks for PHY_INTERFACE_MODE_RGMII, will
+it result in the MAC DLL receiving half the expected clock frequency? Could
+this break ethernet connectivity or cause data corruption for these
+configurations at 10M and 100M?
+
+> +
+> +	return clk_set_rate(ethqos->link_clk, rate);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-shikra_eth=
+ernet-v1-0-a50765996035@oss.qualcomm.com?part=3D5
