@@ -1,100 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out28-50.mail.aliyun.com (out28-50.mail.aliyun.com [115.124.28.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEFA444238D
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 09:33:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BFD13B47D2;
+	Fri,  4 Sep 2026 09:32:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514382; cv=none; b=GhM3I5uUfqq2LLdZZx9gJWJUZUwFA8rAyOlUglyghl2UwFJYTPGJ5Iw+rOna15oVj1FOPTkmWCqB4RsrUn3sTJSkeqHWic7bwJgvHDM3fdDC3WXmVzgv/rFA3awEk16phGjgg7EN7gFB4aIaUweFBglavG5S5N2ZBFgC+SE4pCQ=
+	t=1788514383; cv=none; b=V5U60EOOvL9ppkCeN/6BPP+RcKCF9P8A0OrGsOodiU5BIsU0gLZZiIPj34CSzc1tp3i1gjFANqgrvk2VNQ8kt+NCZ2dzMzdLAZEsCJKKz7bFgm8j8VcEbSdwUF5Sw0/SYHKP+u189BAsQzACVeDCOcf2bsURDf558PQWHzvnfqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514382; c=relaxed/simple;
-	bh=smLc0c7JoHwKagYClk6DhZOTGhdDi72AUU2vPkowo1o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EHbWyDFPYGjO9ow04vz3SLYp5xinaFBowEV9Zzhquh+a4W0LvNEmdXvYov0K+DyRqNX2MLaewSEKnUtkN5JrdudVaUfZCctYjZTc433NSzNdU6AzScNIm7WO+iteB3ZhYt95wKL4mNtfLk2yk6tdot/gqwcH7WMD/sLsJgEi62w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EsdQt5Ci; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EsdQt5Ci"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D19D31F00A3D;
-	Fri,  4 Sep 2026 09:32:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788514380;
-	bh=YvGDN8DCm5biJgqkhr7ngpZ5VI3zUjcwwY7cJeWLBGQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EsdQt5CiK9Gd6lCLRklXfPob5A8J8Cg1vxSgqeIafXrEjMDx1hh8ei/kWXp/XlngY
-	 6QPzqV2H33gHwLiLf+UQpLqOdOxGGoJMW98tIcGf1pxfkzd1QA+cE+nnwMzskkcHOI
-	 VyCzPQ5X+Xr1lOYSt3AQapVW3g3c1mANYfNjHVtJtAw5RXWFuvj7SpLJmU4GHbM1b8
-	 tYk7f4NN488uwL7++/hxgIcy/1u5K8N34uhHfHA5JKJTXByDnsgYOY9rI/tB6hzl8L
-	 ySxYkYRtoi8s/KU3H8M2nO46O47fifKdyYXa4AmsBVij5nI/xfEl3K2AvxH01MZqdx
-	 HBfETll+AhsKQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
- interface
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Gregor Herburger" <gregor.herburger@linutronix.de>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
-References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 09:32:59 +0000
-Message-Id: <20260904093259.D19D31F00A3D@smtp.kernel.org>
+	s=arc-20240116; t=1788514383; c=relaxed/simple;
+	bh=uDjNDm2BsPA2C7dcfvbpVkSh1CdS1786TX//1NdaM8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bX7GZaYGyv/OrHavAFTX2yhp0mpSRb+pJ5Vd7HrykfGlWvulcPovLveiEtTnyhNjrHRMAR9xAVgbuBlN8WmPdIhh7PEeORpZ3ScDLBr3w86qLpi+VlW8xm6QZOMtdb5utuZRUxGSYY+cxFHQOHPxJ1bdlnbtHNRPD+CwMNdDpDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn; spf=pass smtp.mailfrom=edatec.cn; arc=none smtp.client-ip=115.124.28.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=edatec.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=edatec.cn
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07477111|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.107521-0.000494494-0.891985;FP=14267351601926324789|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032062159;MF=zjzhao@edatec.cn;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.j5TQ-sI_1788514373;
+Received: from LAPTOP-VQRD5F43.hs.edatec.cn(mailfrom:zjzhao@edatec.cn fp:SMTPD_---.j5TQ-sI_1788514373 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 04 Sep 2026 17:32:54 +0800
+From: zjzhao@edatec.cn
+To: Jiri Slaby <jirislaby@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	zjzhao <zjzhao@edatec.cn>
+Subject: Re: [PATCH 1/2] serial: wk2xxx: Add WK2xxx SPI UART driver
+Date: Fri,  4 Sep 2026 17:32:46 +0800
+Message-ID: <20260904093246.100569-1-zjzhao@edatec.cn>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <8f8a4946-e8e2-4683-b837-c783c40b81c1@kernel.org>
+References: <8f8a4946-e8e2-4683-b837-c783c40b81c1@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Device tree compilation fails due to an undefined phandle reference=
- to `rp1_spi0`.
+From: zjzhao <zjzhao@edatec.cn>
+
+Hi Jiri,
+
+thanks for the review. Answers and a [PATCH v2] follow; v2 also carries
+the Sashiko round-2 findings.
+
+> Have you checked that there is no similar driver which could be only
+> extended?
+
+Yes. The only SPI/I2C UART bridge drivers in the tree are max3100.c,
+max310x.c and sc16is7xx.c. The latter two implement the 16550-style
+register set (THR/RHR, IER, IIR/FCR, LCR, MCR/MSR, LSR) over regmap,
+which is exactly what the WK2xxx does *not* provide: its register map
+and SPI protocol are proprietary (the sub-UART number and a page-select
+bit live in the SPI command byte, plus dedicated FIFO burst commands),
+it has no modem-control registers and only supports 8 data bits. Folding
+it into sc16is7xx/max310x would force a more capable shared layer to
+degrade, and it would mix two vendors into one binding. I take the
+kernel's own precedent (sc16is7xx and max310x are separate drivers even
+though sc16is7xx is derived from max310x) as confirmation that a
+dedicated driver is the right model.
+
+> > +	scoped_guard(mutex, &s->reg_lock) { ... }
+> why is this one scoped?
+
+The early return inside made it scoped; that was overkill since the lock
+covers the whole function anyway. v2 uses a plain guard(mutex) for
+wk2xxx_port_reg_update() and wk2xxx_conf_port().
+
+> throttle/unthrottle, set_termios: this can be a guard too, right?
+
+Yes - v2 uses guard(uart_port_lock_irqsave).
+
+> What's the reason not to use any of the uart_port_tx* helpers?
+
+TX needs sleeping SPI transfers, which cannot run while the port
+spinlock is held. The helpers acquire port->lock around the drain, so
+they are not usable here; like sc16is7xx/max310x, TX is run from the
+kthread worker under a per-port mutex.
+
+> Why not guard?  (handle_tx)  /  And kill the goto then.
+
+Done in v2: guard(mutex) + scoped_guard(uart_port_lock_irqsave), the
+goto and the tail unlock are gone.
+
+> Should you perhaps cap the loop count as well?
+
+Done - the drain loop is now bounded by WK2XXX_IRQ_MAX_PASSES.
+
+> return IRQ_HANDLED ... bad for shared irqs
+
+Fixed in v2 (IRQ_NONE when nothing was pending).
+
+> Did you mean to use explicit u64?
+
+Fixed - the divisor computation now uses div_u64()/u64 and builds on
+32-bit.
+
+> req + rel are optional. Drop them.
+
+Done - request_port/release_port and their no-op helpers are dropped.
+
+> membase=(void __iomem *)~0 ... compiler/sparse not complain?
+
+Rather than fixing the cast I switched the ports to UPIO_BUS (as
+sc16is7xx/max310x do) and removed the membase workaround altogether.
+
+The v2 cover letter lists the full change set. Please review; happy to
+iterate.
+
+thanks,
+
 --
-
-commit 330478d6863965c56268ce6533d5e3b957169da2
-Author: Gregor Herburger <gregor.herburger@linutronix.de>
-
-arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0 interface
-
-This commit adds the rp1_spi0 node and its pinctrl node to the bcm2712-rpi-=
-5-b
-devicetree to route spi0 to the pin header.
-
-Link to v1: https://patch.msgid.link/20260811-bcm2712-spi-v1-0-4c1708d354bb=
-@linutronix.de
-
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm6=
-4/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> index 0fc57e72632ed..0de3d78100a5d 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-
-[ ... ]
-
-> @@ -94,6 +108,14 @@ &rp1_i2c6 {
->  	pinctrl-names =3D "default";
->  };
-> =20
-> +&rp1_spi0 {
-
-[Severity: Low]
-Will this cause the device tree compiler (dtc) to fail with a "Reference to
-non-existent node or label" error?
-
-It looks like the rp1_spi0 label is undefined in this revision. The patch
-notes mention dropping the first patch because it was already applied, but =
-it
-seems the prerequisite patch providing the rp1_spi0 base node is missing fr=
-om
-the tree at this revision.
-
-> +	pinctrl-0 =3D <&rp1_spi0_default_state &rp1_spi0_cs_default_state>;
-> +	pinctrl-names =3D "default";
-> +
-> +	num-cs =3D <2>;
-> +	cs-gpios =3D <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-bcm2712-sp=
-i-v2-1-6f8fdfb030bc@linutronix.de?part=3D1
+zjzhao
+EDATEC Technology Co., Ltd.
