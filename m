@@ -1,196 +1,283 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32752388E59
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:02:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50CE0430797
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:03:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505355; cv=none; b=NxscvbSYq7k4N2nA/41I2yCDM1etr3drPPaTMU7vJFYdG2M5YuR78QgBZi8hHpFu692vHhsIQgGQC5djMOY2v+z3D+GBh1ZW1aWMhlqiGdovRjIxwdw7hUdB43x7RE11wozjHl34kSxLIA3CdjjjakeLFvQoJ7S2KHHDKPkwO7c=
+	t=1788505421; cv=none; b=hpaCBgU6kDDKT+h7kQpl56aaVbOn+CCqOEEQEzJojZ84ojilzwQyb2DRoCBo1GXS51vpLraDYPDDKHuezoewAbopOjjJTZklNBPLZ/SsJz0isgJwu86dZue9fVV/iSoDBRSf+aLaO/bTKnXJq9WrdEoj+4m2I7/qKk9jB7BJ3TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505355; c=relaxed/simple;
-	bh=7S6ZOUsgSPQsmOS3mzW8mnXqe8DLwZtgGizwBXWGjBo=;
+	s=arc-20240116; t=1788505421; c=relaxed/simple;
+	bh=JW2IRNAs4Ed7h1FE0yS+nt/uZ06bAiFfuiSyyw+KEg4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZaKxYpZOCvMQIVamEGa8+EM8+oSEyH8BNl0OE8uKUc2F3tZ0kHskeT7pFwCZ7imgpN/FLY7J8pB/wep/mTcdm2jfktpqXHtKkX/DnkjpVZkHoXj2DTA4Mn1V//zuq/LhwA1lWymk7KW05wACJQcTcXkEuSfUF90e47cTXuhu6wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BmClm1gA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Up/5tg7VO8F/0YFH/MaW9gGOP4NAJHqyCja0BdQvSIvw9rfnwOLhr26oa0hUfLqZXje7WfWoWNLnkaC9wgjh/OYZPoETkByKcjp+Ak5k7l5tOQ8fpkTn+piZ376V1m0OG3nYCk61Mnqk0xHUILFkDQzMM2vmQcjGT1mALPaUrUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nJkjdUc9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BmClm1gA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 758741F00A3E;
-	Fri,  4 Sep 2026 07:02:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nJkjdUc9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96FF81F00A3D;
+	Fri,  4 Sep 2026 07:03:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788505353;
-	bh=lxAx98qjph/eoCulJxtWlkv5xuQEKpVDxA1Z4Ay70/E=;
+	s=k20260515; t=1788505419;
+	bh=7Jp1GTbtHARH7NVobZ4o8aMaarg0H9oueTwOd/PPyzY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BmClm1gAUku5aetbUsy9UPsQCihGZQ61s8pF11BGZpqzI2OOtW+E1zWAIxOAif/sG
-	 HzLM0ogLPcjjE05jf35JMbbYhveMpxxup8o0J7XMujE9GRjIe3JSvW99vPtAu/bZ7Y
-	 00NX6jx01COmUowbZ19phrM6vqASYz90q3mcIp4wScv2Wwp/UHYRpU6pyVxMVZxy2S
-	 YrpqW9I6CrabMI8S5wz1JzALqRpjZgf0hbuXjycDN/okm50BRYIlAkkRo/NxNilSgG
-	 fNhw8B2vASWGyYrZACcM29T6gztqu2C3KrUk4jykA5JW7RpLjVAxgX2kScB4ZLTBiB
-	 3S44jbeKLPnKQ==
+	b=nJkjdUc9RgBE+hxNKnY29sJ5zaXyzBUHaYdfdD1JfI4A/fDm1etPhH1hj2oPa/6YV
+	 V+U0Sn5htgIUTEqQWdBTpZVv0jmlYfmfB52wISGfRSzEYsNIyfBWbN/LERVNyw1yT9
+	 04O1sI3jR0py/7P2/B06LBnsKNyWHZMZ992NHGQ5jAZdZEIBF30pa39sx701/JA+iX
+	 PnmpCvXk3HGVu9HfvcMQ73Flm9Tfs3jovIjecGv7DCjuYKpL+5a+4eMr3+A2/aTNbz
+	 cpZjDszyRXMdXou/4m+DKpM14wk238S4nNA6yUJe9CTO6UWQp+VdMEi2uJLIv9Z0b+
+	 R7aI+QcMjO1Fw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/9] media: chips-media: wave6: Improve debugging
- capabilities
+Subject: Re: [PATCH v7 5/9] media: chips-media: wave6: Add Wave6 core driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Nas Chung" <nas.chung@chipsnmedia.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <e7f599a5bd65900eb45daa3b637597fce464c383.1788496816.git.nas.chung@chipsnmedia.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org
+In-Reply-To: <e8323267420b8e8d29e71c7ea018759cb7298c8d.1788496816.git.nas.chung@chipsnmedia.com>
 References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <e7f599a5bd65900eb45daa3b637597fce464c383.1788496816.git.nas.chung@chipsnmedia.com>
+ <e8323267420b8e8d29e71c7ea018759cb7298c8d.1788496816.git.nas.chung@chipsnmedia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 07:02:33 +0000
-Message-Id: <20260904070233.758741F00A3E@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 07:03:39 +0000
+Message-Id: <20260904070339.96FF81F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-
-New issues:
-- [High] Lockless call to `vb2_get_num_buffers()` in debugfs read leads to =
-use-after-free on `q->bufs_bitmap`.
-- [Medium] Multiplication can overflow 32-bit bounds before assignment to a=
- 64-bit variable in the debugfs FPS calculation.
-- [Low] Direct use of 64-bit division and modulo operators (`/` and `%`) wi=
-ll cause build failures on 32-bit architectures.
-
-Pre-existing issues:
-- [High] Unprotected iteration over V4L2 mem2mem ready queues without holdi=
-ng `rdy_spinlock` leads to list corruption.
+Thank you for your contribution! Sashiko AI review found 10 potential issue=
+(s) to consider:
+- [Critical] V4L2 lifecycle mismatch causes Use-After-Free of `core` struct=
+ure when file descriptors are closed after driver unbind or probe error.
+- [High] Polling a reference count with a timeout guarantees a Use-After-Fr=
+ee under scheduling delays.
+- [High] Hardware interrupt events are dropped due to early returns and inc=
+omplete bitmask processing, causing instances to hang.
+- [High] Delayed work `task_timer` is leaked on module remove, leading to a=
+ use-after-free.
+- [High] The IRQ handler and thread can execute after driver teardown destr=
+oys critical resources, leading to Use-After-Free.
+- [High] Hardware registers are accessed in the interrupt handler without v=
+alidating that the device is not in a runtime PM suspended state.
+- [High] Requesting the IRQ before enabling clocks and runtime PM can lead =
+to a bus error if a spurious or pending interrupt fires.
+- [High] DMA memory `core->temp_vbuf` is freed while the hardware may still=
+ be running.
+- [Medium] Storing a debugfs dentry pointer after dropping its reference le=
+ads to a dangling pointer and Use-After-Free.
+- [Medium] Debugfs directory is never removed, causing a memory leak.
 --
 
-commit a789f4b587c983369a5ba74d2b58395c60628047
+commit 7b3f41c4df55c9ee33568cd7f9d838b5f4de81b9
 Author: Nas Chung <nas.chung@chipsnmedia.com>
 
-media: chips-media: wave6: Improve debugging capabilities
+media: chips-media: wave6: Add Wave6 core driver
+   =20
+Add the core driver for the Chips&Media Wave6 video codec IP.
 
-This commit adds debugfs entries and trace events to provide detailed
-debugging information for the Wave6 core driver.
-
-Tested-by: Ming Qian <ming.qian@oss.nxp.com>
-Tested-by: Marek Vasut <marek.vasut@mailbox.org>
-
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c b/d=
-rivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
+> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpu-core.c b/=
+drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
 > new file mode 100644
-> index 0000000000000..ae71edeae0888
+> index 0000000000000..89cce27802cfe
 > --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-dbg.c
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu-core.c
 [ ... ]
-> +	vq =3D v4l2_m2m_get_src_vq(inst->v4l2_fh.m2m_ctx);
-> +	seq_printf(s, "output (%2d, %2d): fmt =3D %c%c%c%c %d x %d, %d;\n",
-> +		   vb2_is_streaming(vq),
-> +		   vb2_get_num_buffers(vq),
+> +static irqreturn_t wave6_vpu_core_irq(int irq, void *dev_id)
+> +{
+> +	struct vpu_core_device *core =3D dev_id;
+> +	struct vpu_irq irq_info;
+> +
+> +	if (!vpu_read_reg(core, W6_VPU_VPU_INT_STS))
+> +		return IRQ_NONE;
 
 [Severity: High]
-Does this locklessly access `q->bufs_bitmap`? Concurrently, an application
-can execute `VIDIOC_REQBUFS` with count=3D0, which acquires the queue lock,
-frees `q->bufs_bitmap`, and sets the pointer to NULL. Because this read
-doesn't hold `m2m_ctx->q_lock` or equivalent synchronization, it could read
-a non-NULL pointer right before it is freed by `REQBUFS`, executing
-`bitmap_weight()` on a freed pointer and causing a use-after-free.
+Does this code risk triggering a system bus error? The interrupt handler
+unconditionally reads W6_VPU_VPU_INT_STS without first checking if the
+device is runtime suspended. Subsystem guidelines recommend using
+pm_runtime_get_if_active() before accessing hardware registers in an IRQ
+handler to ensure clocks are enabled.
 
-> +		   inst->src_fmt.pixelformat,
-[ ... ]
-> +	vq =3D v4l2_m2m_get_dst_vq(inst->v4l2_fh.m2m_ctx);
-> +	seq_printf(s, "capture(%2d, %2d): fmt =3D %c%c%c%c %d x %d, %d;\n",
-> +		   vb2_is_streaming(vq),
-> +		   vb2_get_num_buffers(vq),
+> +
+> +	irq_info.status =3D vpu_read_reg(core, W6_VPU_VINT_REASON);
+> +	irq_info.inst_idc =3D vpu_read_reg(core, W6_RET_INT_INSTANCE_INFO);
+> +
+> +	vpu_write_reg(core, W6_RET_INT_INSTANCE_INFO, INT_INSTANCE_INFO_CLEAR);
+> +	vpu_write_reg(core, W6_VPU_VINT_REASON_CLEAR, irq_info.status);
+> +	vpu_write_reg(core, W6_VPU_VINT_CLEAR, VINT_CLEAR);
+> +
+> +	trace_wave6_vpu_irq(core, irq_info.status, irq_info.inst_idc);
+> +
+> +	if (irq_info.status & BIT(W6_INT_BIT_REQ_WORK_BUF)) {
+> +		if (core->vpu)
+> +			core->vpu->req_work_buffer(core->vpu, core);
+> +
+> +		return IRQ_HANDLED;
+> +	}
 
 [Severity: High]
-This appears to have the same lockless access concern as the source queue
-above. Does this need queue lock protection to prevent a use-after-free
-if `VIDIOC_REQBUFS` is called concurrently?
+If W6_INT_BIT_REQ_WORK_BUF is set, this returns IRQ_HANDLED immediately.
+Doesn't this discard any other pending interrupt events (like INIT_SEQ)
+that might be present in irq_info.status, potentially causing other
+instances to hang?
 
-> +		   inst->dst_fmt.pixelformat,
+> +
+> +	if (kfifo_in(&core->irq_fifo, &irq_info, sizeof(struct vpu_irq)) !=3D
+> +	    sizeof(struct vpu_irq))
+> +		dev_err(core->dev, "IRQ overflow status 0x%x idc 0x%x\n",
+> +			irq_info.status, irq_info.inst_idc);
+> +
+> +	return IRQ_WAKE_THREAD;
+> +}
+> +
+> +static struct vpu_instance *wave6_vpu_core_get_instance(struct vpu_core_=
+device *core,
+> +							u32 inst_idc)
+> +{
+> +	struct vpu_instance *inst;
+> +
+> +	guard(spinlock)(&core->inst_lock);
+> +
+> +	list_for_each_entry(inst, &core->instances, list) {
+> +		if ((BIT(inst->id) & inst_idc) && inst->enable) {
+> +			atomic_inc(&inst->refcount);
+> +			return inst;
+> +		}
+> +	}
+
+[Severity: High]
+This loops through the instances and returns the first one that matches
+a set bit in inst_idc. Since inst_idc is a bitmask, what happens if
+multiple instances complete simultaneously? The IRQ thread will process
+only this first instance and ignore the other set bits, causing them to han=
+g.
+
+> +
+> +	return NULL;
+> +}
 [ ... ]
-> +	seq_puts(s, "fps");
-> +	tmp =3D MSEC_PER_SEC * inst->processed_buf_num;
+> +void wave6_vpu_disable_instance(struct vpu_instance *inst)
+> +{
+> +	int count;
+> +
+> +	scoped_guard(spinlock, &inst->dev->inst_lock)
+> +		inst->enable =3D false;
+> +
+> +	if (read_poll_timeout(atomic_read, count, !count,
+> +			      W6_VPU_POLL_DELAY_US,
+> +			      W6_VPU_POLL_TIMEOUT,
+> +			      true, &inst->refcount))
+> +		dev_dbg(inst->dev->dev, "[%d] disable timeout\n", inst->id);
+> +}
+
+[Severity: High]
+Is it safe to return from here if the polling times out? If the IRQ thread
+is preempted and delayed, this timeout can expire while the IRQ thread still
+holds a reference to the instance. The caller will assume the instance is
+disabled and free it, leading to a use-after-free when the delayed IRQ
+thread resumes and calls inst->ops->finish_process().
+
+[ ... ]
+> +static int wave6_vpu_core_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
+> +					wave6_vpu_core_irq,
+> +					wave6_vpu_core_irq_thread,
+> +					0, "vpu_irq", core);
+
+[Severity: High]
+Can requesting the IRQ here lead to a crash? The IRQ is requested before
+pm_runtime_enable() is called and before the device clocks are powered on.
+If a pending or spurious interrupt fires immediately, the handler will
+read MMIO registers while the hardware clocks are disabled.
+
+> +	if (ret) {
+> +		dev_err(&pdev->dev, "failed to request IRQ: %d\n", ret);
+> +		return ret;
+> +	}
+[ ... ]
+> +	core->debugfs =3D debugfs_lookup(WAVE6_VPU_DEBUGFS_DIR, NULL);
+> +	if (!IS_ERR_OR_NULL(core->debugfs))
+> +		dput(core->debugfs);
+> +	else
+> +		core->debugfs =3D debugfs_create_dir(WAVE6_VPU_DEBUGFS_DIR, NULL);
 
 [Severity: Medium]
-Will this operation overflow on 32-bit architectures? `MSEC_PER_SEC` is
-typically defined as `1000L` (a 32-bit signed integer on 32-bit systems) and
-`inst->processed_buf_num` is a `u32`. If the buffer count exceeds ~4.29
-million, the 32-bit multiplication might overflow before it is assigned and
-sign-extended into the 64-bit `tmp` variable.
+Does this create a dangling pointer? The reference obtained from
+debugfs_lookup() is immediately dropped via dput(), but the raw pointer is
+retained in core->debugfs for later use. If the debugfs directory is removed
+manually, subsequent uses of this pointer will cause a use-after-free.
 
-> +	if (perf->ts_last > perf->ts_first + NSEC_PER_MSEC) {
-> +		fps =3D DIV_ROUND_CLOSEST(tmp, (perf->ts_last - perf->ts_first) / NSEC=
-_PER_MSEC);
+[Severity: Medium]
+Additionally, it appears the debugfs directory created here is never
+tracked for removal. Repeatedly loading and unloading the driver, or failing
+probe after this point, seems to permanently leak the debugfs directory.
 
-[Severity: Low]
-Does this cause a build failure on 32-bit architectures? `DIV_ROUND_CLOSEST`
-internally expands to a division operation (`/`), and the denominator here
-also uses direct division. Using direct 64-bit division on `s64` variables
-emits calls to undefined functions like `__divdi3` on 32-bit systems. Should
-explicit 64-bit math helpers like `div64_s64()` be used here instead?
-
-> +		seq_printf(s, " actual: %lld;", fps);
-> +	}
-> +	duration =3D perf->total_sw_time / NSEC_PER_MSEC;
-
-[Severity: Low]
-Similar to the above, this performs direct 64-bit division on a `u64`
-variable, which can break 32-bit builds due to missing math symbols.
-
-> +	if (duration > 0) {
-> +		fps =3D DIV_ROUND_CLOSEST(tmp, duration);
-> +		seq_printf(s, " sw: %lld;", fps);
-> +	}
-> +	duration =3D perf->total_hw_time / NSEC_PER_MSEC;
-
-[Severity: Low]
-Another instance of direct 64-bit division that might break 32-bit builds.
-
-> +	if (duration > 0) {
-> +		fps =3D DIV_ROUND_CLOSEST(tmp, duration);
-> +		seq_printf(s, " hw: %lld", fps);
-> +	}
-> +	seq_putc(s, '\n');
 > +
-> +	seq_printf(s, "latency(ms) first: %llu.%06llu, max %llu.%06llu, setup %=
-llu.%06llu\n",
-> +		   perf->latency_first / NSEC_PER_MSEC,
-> +		   perf->latency_first % NSEC_PER_MSEC,
+> +	pm_runtime_enable(&pdev->dev);
+> +
+> +	if (core->res->codec_types & WAVE6_IS_DEC) {
+> +		ret =3D wave6_vpu_dec_register_device(core);
+> +		if (ret) {
+> +			dev_err(&pdev->dev,
+> +				"failed to register video_dev_dec: %d\n", ret);
+> +			goto err_temp_vbuf_free;
+> +		}
+> +	}
+> +	if (core->res->codec_types & WAVE6_IS_ENC) {
+> +		ret =3D wave6_vpu_enc_register_device(core);
+> +		if (ret) {
+> +			dev_err(&pdev->dev,
+> +				"failed to register video_dev_enc: %d\n", ret);
+> +			goto err_dec_unreg;
+> +		}
+> +	}
 
-[Severity: Low]
-This performs direct 64-bit division and modulo on an `s64` variable, which
-is known to cause linking errors (like `__moddi3` and `__moddi3`) on 32-bit
-architectures. Should this use explicit math helpers like `div64_s64_rem()`?
+[Severity: Critical]
+Does this create a use-after-free condition via V4L2 lifecycle mismatch?
+The core structure is allocated earlier using devm_kzalloc(), tying its
+lifetime to the device binding. However, wave6_vpu_dec_register_device()
+exposes the decoder to userspace here.
 
+If wave6_vpu_enc_register_device() fails on the next step (or if the driver
+is later unbound via sysfs), devres will free the core structure. If a
+userspace process has already opened the /dev/videoX node and holds a file
+descriptor, closing it later will invoke V4L2 release callbacks that
+dereference the freed core structure.
+
+[ ... ]
+> +static void wave6_vpu_core_remove(struct platform_device *pdev)
+> +{
+> +	struct vpu_core_device *core =3D dev_get_drvdata(&pdev->dev);
+> +
+> +	wave6_vpu_enc_unregister_device(core);
+> +	wave6_vpu_dec_unregister_device(core);
+> +	pm_runtime_disable(&pdev->dev);
+> +	wave6_vdi_free_dma(&core->temp_vbuf);
 
 [Severity: High]
-This is a pre-existing issue, but the series iterates over the V4L2 m2m rea=
-dy
-queues locklessly using `v4l2_m2m_for_each_src_buf` and
-`v4l2_m2m_for_each_dst_buf` without holding `rdy_spinlock`.
+Is it safe to free this shared DMA memory without first instructing the
+hardware to halt or waiting for active jobs to finish? If the VPU is still
+running, it will continue DMA operations into the freed pages.
 
-For example, in drivers/media/platform/chips-media/wave6/wave6-vpu-enc.c:
+[Severity: High]
+Also, does this function leak the delayed work? The driver schedules
+core->task_timer during streaming, but cancel_delayed_work_sync() is never
+called here. If the work is pending when the device unbinds, it will
+execute later and dereference the freed core structure.
 
-wave6_get_valid_src_buf() {
-    ...
-    v4l2_m2m_for_each_src_buf(inst->v4l2_fh.m2m_ctx, v4l2_m2m_buf) {
-    ...
-}
+> +	wave6_vpu_release_m2m_dev(core);
+> +	v4l2_device_unregister(&core->v4l2_dev);
 
-And in drivers/media/platform/chips-media/wave6/wave6-vpu-v4l2.c:
+[Severity: High]
+Can the devres-managed IRQ thread execute concurrently with or after this
+teardown? The IRQ was requested with devm_request_threaded_irq(), meaning
+it remains active until after this remove() function returns. However,
+wave6_vpu_release_m2m_dev() destroys M2M structures here. If an interrupt
+fires during or just after this step, the still-active IRQ thread will
+dereference the destroyed M2M and V4L2 structures.
 
-wave6_get_dst_buf_by_addr() {
-    ...
-    v4l2_m2m_for_each_dst_buf(inst->v4l2_fh.m2m_ctx, v4l2_m2m_buf) {
-    ...
-}
-
-Are these list traversals vulnerable to data races? These macros wrap
-`list_for_each_entry`, and they appear to be called from the m2m framework's
-worker thread without holding `rdy_spinlock`. Concurrently, userspace can
-call `VIDIOC_QBUF`, which dynamically adds elements to the `rdy_queue` while
-holding the lock. Modifying a linked list while a separate thread traverses
-it unprotected can result in structural data races and list pointer
-corruption, potentially leading to a use-after-free or kernel panic.
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788496816.gi=
-t.nas.chung@chipsnmedia.com?part=3D6
+t.nas.chung@chipsnmedia.com?part=3D5
