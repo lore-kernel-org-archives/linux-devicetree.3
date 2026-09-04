@@ -1,65 +1,65 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91917288C2D
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:09:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253712FF675
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527367; cv=none; b=XiCHfzzNTT1aWL7ltRdlJkMcoZpBMKcFo8WGbj5hkeepI2IAw9y8tvkiKafsyos3zJ8ZtOdujkFzaHTClFyOq10Xg4+jvI8cAeVgOSEsNWz1siJZZchtPwAwenc3h+O3q8GRHvP4yL6Id+SxBpJ0NtLzd6mqecJ+YM/SJf4UQWY=
+	t=1788527370; cv=none; b=XO+CWAUo8ftrhrEfsT3Gm+aqEWl6B8xjPXS5/P3FTQ92bwJyUMqGCMKjCMz65WzS6wULWxXmiS0AljoHBXWJWBxSFRPUARqeBmxDHrLYGW9Yys8riDrQ2uevqbH0V+9Phfd5fxWHyS8iRLHq+dp6rfmbcWiIFSJrJGbNuPKJCdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527367; c=relaxed/simple;
-	bh=DXP7b9aeuGMlpb6EbUoiOrTeOWhkU0hKUHsr29rOjmk=;
+	s=arc-20240116; t=1788527370; c=relaxed/simple;
+	bh=xW3BlnlVGWV5PkWwqN6FwojNoL/psHoWMS2ENDfENlM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HZ9R9JAnD2Pz/swit+YZUn33O9KhH5JA444GKZzBkHJtJg+e0lsf/AOuRPcd5flygTHOrUqAtIeDqd5BsfLTFdHOOljytu0i0MeAteubWTVCyNa6MRKRKXpeFlxQKL/cL0igGeNDbNbBIu0vzKT4QMk9LSWh7ggLssnvYQHA3ZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hqXlPFuS; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=ZwH947uICxz5gqDmDVew6k3y0c6ed7v6/oIfefkSt4frg7vR2UvS1UrqGllfVmB0I6e5JWLGAV3lxjnOXgACW6gDGc3vbJe+3EA541zG78zDbm/veFoNgr099ur+QCfejpQbKCwxyJ9t9WrawG2Ci7wSPdAIzUr3wL7NX1UhUg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bewhmzVs; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hqXlPFuS"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4956d1d9fb2so929645e9.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:09:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bewhmzVs"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-499db1740e4so337105e9.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:09:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788527364; x=1789132164; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788527366; x=1789132166; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=t7o7pGTYJ1j9htjyKompyXPu5oGlEszk3L/eQl+FLhg=;
-        b=hqXlPFuS6+NM7baHIqPdcb0pkKcP+P2FnxBeR0g0W6w+WA/iLZLKzDj+azJxR9j8Gs
-         /W/eAjmGoAqL8loW5TAdoaEX2r0cOUHJhqSTAd6Adc1bQY9ymlFUOSg6uQGBJ7UDkWYp
-         Y9B3R82NM9mG+M9OIuYUEmOjrZKcbf5TyvNEcCBm844eiOor0zw7r3SFfXIdSudANmrW
-         j5h0LOrL/YHtWXhUom/MxRPAavMv2DENc295FOXn1aU06C6vkSIY08/jOPDBUZI/iS+p
-         PrhXuoumdmp5aZw2ZC9WF/4wCDXXAO/UPtO7VW9/7rWFxuEa96jkGlr8EzXfqupet/kM
-         YPvA==
+        bh=WkYtc8Zy+X1nQtQQfmPXyE49NKh145BAfNH3nX3cWHM=;
+        b=bewhmzVshE+vs5j7IvSVKFK19ZN/1IuctXlRo2B/+dk2+lg8IKmenp3ym0ngoYeSyY
+         nZCOmU27GuxUXBa/fJsy8KFfPQ2XdqUdjzEnxKV6Lrwq8NlgkPQGjr8TPIQONU+MK3wm
+         WONkQ8QYQLFccwCghMX1kBrlFK3n0jY4DOMu6FR3xj0lW2cuJDO5Y+gsKhn4BaxH79NI
+         7CG2WKH5Y08g9ga+GbA1QpVYZ9A2zHrfWa7Iiz7COf6i7is9OPP9fVuv989Tlb9iRyRu
+         +R0SXQwHhzsKSwjMKrJnMqFXQrxV8uTzzZz//PK0LHs5ke0v7o8LfeC4z0H32JwwCtXM
+         9USQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788527364; x=1789132164;
+        d=1e100.net; s=20251104; t=1788527366; x=1789132166;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=t7o7pGTYJ1j9htjyKompyXPu5oGlEszk3L/eQl+FLhg=;
-        b=iYgehoHW/+n3XwkNH7CSVj0ht/8w97KJr9grgLQ/6CwNotRF7076T4cYJCh9E3TVxP
-         S86tMrGeYDDNRFaUSmRU5oYkw8tnbBKSLi9pyxWDAZILBctAxRJKezwxMJTOS4MGNbtw
-         PAy77VHQ1VGYo/3Z/bAFWHpR4V7az0RxoOmxKj4eI0VUVDLlgQCcA3u8oRhWrisX1+Y4
-         dLH+rw2NLvHwY47kdXgEfUGOcw1IZsb00JSxW0QuQTjHXbu2loxpyaIQWWrD+dkdDOE9
-         mMRmP43oWKnH+TrKs1ImVzmM1C0c4AJ5lE58CxZkMYWsfRkMQ5c6pAD4LvvFBjHMSafl
-         0hXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwYCRlAjUT4ldco0E28P2RMNKe39Pv/TQ1GlR47YZQGK8Ew2NJ9ajM0YlorhNX1m9TAG0aZwFVVAi0r@vger.kernel.org
-X-Gm-Message-State: AFuF++lO+pb0WrrxJL6LPpIQsR7zncwZqhzaB5iPCk9r2AO0g7pjaImU
-	Xs1wow54YCLxdVTPVjoTaKWs4N9EbpXu85OAH7AJv4DWYHTT2E2/x3P5
-X-Gm-Gg: AYBFou3bgTLv8vj09srP9bMugVfG1gNU6FOP6tVLwoOVwOlcJEvP7DzKyTQyW0/nFA3
-	uucums5FnMIsUGfbw4xIIvGYUErUkv/aXlKT8m9KOTp6YeTKqySDTthi/DyMZyH78BTbCoROzTF
-	xqMPBJXncrGvk8txamV1Qn3ZR7uPoIS5PWen9WR6Lp36ufqnSqghua2odvaZ3ZRI/B3xutfA9zE
-	n5c/nFFYNbn4BFO5a9ipTbHIL3IXzsIxSw1rhDjbYwwJa5w7z72YPmiG2reVryK1V6wPpl1IMgc
-	Mx/YAHsRYIgjFbsVLgqh8//mlT2B49cTjZvJiQbZL1/DfQOLvi3ErUp1MqAhxKskRP1mi1J9jkY
-	VThU4zk2EXmgt9NmjzTOoWay71trVRPGO1aoZEpiwTw0p3v5yJ3cO6z6uotIJbBYQSXTtBPuFf0
-	UYVbZhwi/udMEf7sELxk3WJHrE5TWnh8NYpnHiDzDreFysMljNQDaGADMGQrVp+oVLGrN4Bq+qD
-	OngM+x9JM1ZByTlDCItuHkueD8P3wYUE2O23buF1vTcQwHOU4NVnolLz0SRQG2GQpg7jJMgqs1L
-	PCc=
-X-Received: by 2002:a05:600c:8b6d:b0:49c:e363:c66e with SMTP id 5b1f17b1804b1-49cf82420afmr41030795e9.1.1788527363631;
-        Fri, 04 Sep 2026 06:09:23 -0700 (PDT)
+        bh=WkYtc8Zy+X1nQtQQfmPXyE49NKh145BAfNH3nX3cWHM=;
+        b=q4L4LjCxIHh3jkNyhdEQ+F0UvLO2pHEhBQDNoa1bCnhhp9gEOmINRayN+VJXZRCAzq
+         jhz0S8oiWwiJyF3mW0gZDTJSlB6bqqrwgWwacSlmy3FWh7EShd1t22sAj5SzRj1MW5JI
+         zP79SfUuhUVB/clD59fIXlDVGkexIFJVlFu0vSy9Iht4rpCNC2YsxEI8yRvTnsYfcY2v
+         XlG2rYjHxowbjwf0pLX9vmWoZ0WZuyeUDkvcB/9lZ80sWfYLuqA375AMyB1S5dYOy5BI
+         1Wf0mdaHdrJ0EaMd5oGTL4eULFSfUhxEjAkJdi8i+RX/8nxmMZjGOMPWIOkUaGo32uY5
+         Kufg==
+X-Forwarded-Encrypted: i=1; AKwUvBz1O3NujEvn8R1XtZatKujV6zJ7uq6oJxUuWN4coNcWK0al6CmRC86NqMg3o6wsbSGhbDY6zTev8Zgl@vger.kernel.org
+X-Gm-Message-State: AFuF++l1eZCIm0bKbKD2Jag2LrN42K80Kw/eHlNN1hrW4aNDRiIW7lNh
+	zh9NPHkufVOVg76e8XMceDSWl1XI+t1jyFYc1l/TR0HwWT1Gi+Z4jhJ/
+X-Gm-Gg: AYBFou24G8ZNW2NItmu2xDW/nWZ8M1nlZT4X76sYjdFRykrHCDqx66N2KTOEhroZtx1
+	75/4qPOt2sI/8/NMndzIE5zjoN0qFYO51p40ietX3kyAwuX9AL6uQvEYHg5KybwopuyaJnHTyl3
+	pzAIqg3Gp5wMnWnBF3oTsUfHE1SNZSQnBQTynDxohOPljhilUJg5njN1cqz6gX5Dck04WSc1HFF
+	0+8nBBYMe4RUKmgQc10zdjbVFUBx+paSKuN8R/xq8wfeMVy9KJ7Lo0RQw0hByrchGMQZfIKe/MT
+	R9YRZPJkv+D1OsKXYEsXOnrh2+pqqzeEi6cRPVv4vYlZjiYRbS52pExsCFAq4UYEjE431JXQn2A
+	USDT64KIkoFzE48eEEvfPWR3V9CEiuiNRdhtGhR8KT4BprTXP7NA7LmFfXdwJ14B27by0HTeNlT
+	WnOqQv09qYX+5qlNYVqV0xNStb6G8W8p60hIUphXnpI1Ian0wdFO0qCuTLCFx7iZODgTFN7Suxs
+	bFGzRxYhRcn82ya4yRhjvVqWdRQ9nAAmqg9BsMgal08fRQU5XmVamdbur4SlS4DROFky8xGM3yk
+	5pVhjog2RF6173E=
+X-Received: by 2002:a05:600c:34c5:b0:499:cef6:104c with SMTP id 5b1f17b1804b1-49cf823c012mr41127815e9.1.1788527365941;
+        Fri, 04 Sep 2026 06:09:25 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu. [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.22
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:09:23 -0700 (PDT)
+        Fri, 04 Sep 2026 06:09:25 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
 	Oded Gabbay <ogabbay@kernel.org>,
@@ -79,9 +79,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 1/7] accel/rocket: request the core clocks by name
-Date: Fri,  4 Sep 2026 15:08:52 +0200
-Message-ID: <20260904130858.27803-2-royalnet026@gmail.com>
+Subject: [PATCH 2/7] dt-bindings: npu: rockchip: allow DVFS and thermal properties
+Date: Fri,  4 Sep 2026 15:08:53 +0200
+Message-ID: <20260904130858.27803-3-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904130858.27803-1-royalnet026@gmail.com>
 References: <20260904130858.27803-1-royalnet026@gmail.com>
@@ -93,81 +93,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rocket_core_init() hands core->clks to devm_clk_bulk_get() without ever
-setting the .id members. The rocket_core array is allocated with
-devm_kcalloc() in rocket_device_init(), and rocket_probe() only fills in
-.rdev, .dev and .index, so all four clk_bulk_data entries are requested
-with a NULL con_id (unlike core->resets, whose ids are set a few lines
-above).
+The three NPU cores on the RK3588 are fed by a single clock and a single
+supply, and the firmware accepts a fixed set of rates for that clock.
+Describing those rates as an operating-points-v2 table is what lets a
+driver scale the NPU instead of leaving it at whatever rate the bootloader
+set, so allow the property on the core node.
 
-clk_get(dev, NULL) ends up in of_clk_get_hw(np, 0, NULL), and
-of_parse_clkspec() only consults "clock-names" when a name was passed,
-so the index stays 0 for all four entries. Every entry therefore ends up
-holding a handle to the *first* clock of the DT "clocks" property, i.e.
-ACLK_NPUn. Nothing fails: probe succeeds and the driver believes it owns
-four different clocks.
+Throttling the NPU from a thermal zone needs the same node to be usable as
+a cooling device, so allow #cooling-cells too.
 
-The consequence is that rocket_device_runtime_resume() prepares and
-enables the AXI clock four times, while hclk, pclk and - most
-importantly - the NPU compute clock ("npu", SCMI_CLK_NPU on RK3588) are
-never prepared or enabled by this driver at all. The NPU still works
-only because the Rockchip power-domain driver sets GENPD_FLAG_PM_CLK and
-its attach_dev() callback walks the device node with of_clk_get() and
-adds every clock to the pm_clk list, so genpd happens to keep the
-remaining clocks running. The bug is therefore latent today, but it
-means the driver holds no reference to the clock that actually feeds the
-NPU, which stands in the way of any future frequency scaling
-(OPP/devfreq) work.
+Both properties belong on the core that carries the shared clock, not on
+all three: the cores have no clock of their own and cannot be scaled or
+throttled independently. Naming one representative node for a shared
+frequency domain is the established shape, as in "Cpufreq cooling device
+on CPU0" in
+Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml.
 
-Found on an Orange Pi 5 Plus (RK3588) by reading the live clock tree:
-/sys/kernel/debug/clk/clk_summary shows four "fdab0000.npu" consumer
-handles on aclk_npu0 (and likewise on aclk_npu1/aclk_npu2 for the other
-two cores), while hclk_npu0, pclk_npu_root and scmi_clk_npu have no
-"fdab0000.npu" consumer at all - their only consumers are the
-"npu@fdab0000" handles created by the power-domain driver via
-of_clk_get().
+The schema cannot enforce that placement, because all three cores share a
+compatible string and a node name pattern, so which core carries them
+stays a devicetree convention. That is the same situation as for CPU
+cooling, where cpus.yaml does not restrict #cooling-cells to cpu@0 either.
 
-Set the ids explicitly, in the order mandated by the binding
-(Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml):
-aclk, hclk, npu, pclk. After the change the driver holds one handle per
-distinct clock and clk_bulk_prepare_enable() covers all four.
+The example gains #cooling-cells; the operating-points-v2 property is
+exercised by the RK3588 devicetree later in this series.
 
-Note that this is a user-visible tightening for out-of-tree DTs: the
-old NULL-id requests resolved by index and succeeded no matter what
-"clock-names" contained, while the named requests fail probe with
--ENOENT when one of the four names is missing. That is the right
-outcome for in-tree users - the binding requires exactly these four
-clock-names and rk3588-base.dtsi carries them on all three cores - but
-a DT that relied on the permissive lookup goes from silently running on
-the wrong clock handles to not probing at all, so record the change
-here where git log will find it.
-
-Fixes: ed98261b4168 ("accel/rocket: Add a new driver for Rockchip's NPU")
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Tested-by: Sidong Yang <sidong.yang@furiosa.ai>
-Tested-by: Diederik de Haas <diederik@cknow-tech.com>  # NanoPC-T6 LTS, NanoPC-T6 Plus
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-Reviewed-by: Jiaxing Hu <gahing@gahingwoo.com>
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Assisted-by: LLM checkpatch dt_binding_check
 ---
- drivers/accel/rocket/rocket_core.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ .../bindings/npu/rockchip,rk3588-rknn-core.yaml        | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-diff --git a/drivers/accel/rocket/rocket_core.c b/drivers/accel/rocket/rocket_core.c
-index b3b2fa9ba645a..5dd260bacbff6 100644
---- a/drivers/accel/rocket/rocket_core.c
-+++ b/drivers/accel/rocket/rocket_core.c
-@@ -28,6 +28,10 @@ int rocket_core_init(struct rocket_core *core)
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get resets for core %d\n", core->index);
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a4903cd1..595aacfbf8608 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -42,6 +42,13 @@ properties:
+       - const: npu
+       - const: pclk
  
-+	core->clks[0].id = "aclk";
-+	core->clks[1].id = "hclk";
-+	core->clks[2].id = "npu";
-+	core->clks[3].id = "pclk";
- 	err = devm_clk_bulk_get(dev, ARRAY_SIZE(core->clks), core->clks);
- 	if (err)
- 		return dev_err_probe(dev, err, "failed to get clocks for core %d\n", core->index);
++  "#cooling-cells":
++    description:
++      Present on the core that drives the shared NPU clock, which is the one
++      the operating-points-v2 table below is attached to. The other cores
++      cannot be throttled independently of it.
++    const: 2
++
+   interrupts:
+     maxItems: 1
+ 
+@@ -50,6 +57,8 @@ properties:
+ 
+   npu-supply: true
+ 
++  operating-points-v2: true
++
+   power-domains:
+     maxItems: 1
+ 
+@@ -100,6 +109,7 @@ examples:
+         clocks = <&cru ACLK_NPU0>, <&cru HCLK_NPU0>,
+                  <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_ROOT>;
+         clock-names = "aclk", "hclk", "npu", "pclk";
++        #cooling-cells = <2>;
+         interrupts = <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH 0>;
+         iommus = <&rknn_mmu_0>;
+         npu-supply = <&vdd_npu_s0>;
 -- 
 2.43.0
 
