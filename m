@@ -1,168 +1,111 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E853546CD
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F9130E821
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:13:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527379; cv=none; b=qFq8VbED9h4wlv3+BvfyS7NbaJbthkgWFCpzFgn8QRdaS+oXvoA5FzaZ60ij6/0sIIZAHi3HyTlhTQHhIrTW4t1AvOunh6YkS0tr/dW8cDIxbqacUKrdHJp7fjMEksVUveCXXBNwr61mYQrrkVd/qIYZC3fPSuyy5bOnZbpjiDk=
+	t=1788527583; cv=none; b=ScpCD8bMOhDc8LUuLIJpzFPVk0z6rO5UyCbIoaFuxZhWUku2RWfiut/ee4wn+PYmYJUyI+IjmVXT3lzvwWnsnaZMZnprZ+6z4er+lDRYOP3oSPJzonvdr0REGcn1oTkXy9k6aUeiFdRLLB4EBixjBCXMPijnG3Ww3WG2iguNfVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527379; c=relaxed/simple;
-	bh=nZaahBCK6Uh8ja4ZUTeoTBxF+bQS6MmWEyFJ+20Wl+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QravLjZwXHmv/tRb3xKgiAI5Ci0DpO9Z/lEQoz4NjTBpCg4PxuDmjv4PcJ6LF97sOdIUIIID6cTYwopiJpKRuFWH4lQ0PgKaOkRNtZNtmfAqgxc1ZI5+aREBDyOxD4cPbJpA1PC+TZQktByROVDUr1cviFzAkgyUiQS/VBI/rqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B9YpSm2/; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788527583; c=relaxed/simple;
+	bh=Od81Ui+At/4I8Pmzjv7juLWWEVJtL/SNrnk67FIEUWs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iNadDEskDO1/KPBcBz2oqcmtcvyn079IH7rlME0gzp7NLJz22Hg/XRzY3flDMcSrYcAPo7v9gRUJ4nckBd86WP4z7oIE1hH2nTKhwZ6xsChk6QMragc/da3ueQW/Ub2wkZC50RQiXe8lQFdSGJfgWH2y8CAEoeTc/pYJFGwbSeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8X16+T1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B9YpSm2/"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4954c08a7c8so815425e9.3
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:09:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788527375; x=1789132175; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=E/t7wxFBsuNgANZ3txwtSGvXS0Fyj90ixWLfFCZVhFw=;
-        b=B9YpSm2/yqcKk7uaT+ocug2PvgR14o3GROHMX1cOyC9KEJE6UytY3NHeCkhifI2znq
-         4e52yb3DhATzoJCLscjUOvNivfbvFsEEpad04nlAPeTC5/fsL7Cp5PsRDJra8vYs7KWL
-         ha8r2LUzGMNceoFDjWg+3fKvnwuZm1cdXMIveoNJgmX1j2FwLPb26ORbSpOLUsoVjfH3
-         sk5WB33SKAn3NAqeiPozFIgnz7VB+UgPeAPqdoFHEr9f3n3wEPdPC32IZ3A1SHvSVah7
-         XQ1sbkS3TFEA1uTL2ox/vZeWC24t2+AqgDQTQjyxhlgyZCvTFTbTaLjJKRbWmpB+Fh31
-         a09Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788527375; x=1789132175;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=E/t7wxFBsuNgANZ3txwtSGvXS0Fyj90ixWLfFCZVhFw=;
-        b=DAnecBhyj1oI7cA9DdF5Xx/UPxfObvFOWRYVQV3vumria7lnJYJc2mEs1/3knrZb3f
-         jzxRedgD/6pXx9rPRZNH0UxPWtcwiXff7jqSUyiWyLIhieh+hIXagszAEA+Eb2CaBBzY
-         MiI0cofmi5yEwA3kzTrYO5FBVBBXuga8hURSoZQgcNMNn5XX6chtwEgx9sI0/XYea0Di
-         swRRrL+hqAcaP5Y+e9RZRcsrkS/cyp0L2JxmjYvuoQthfpHmqPg4/TD6F7PIkuRaqiGf
-         gJy3BELqAZqKULtZLmUZDWqO51cNZCl+c12nIauA0nJzVwOYifumJYlPtR4eUEh5iF2q
-         tCgA==
-X-Forwarded-Encrypted: i=1; AKwUvBybIQnzNNfsitpsHmp3BJx0QPEiUI8tFMb/Vt08Yg4u9LZ25r36ZQ5MX6ie9X0W/FeoVJvnMV471Y5u@vger.kernel.org
-X-Gm-Message-State: AFuF++kALLBtVQYW+qrUdKybWn27R1WHAwEejLo8yd797iBmFqCMXbJu
-	WpqRmDCS95LhX1knwln/ViPHZnvrcCKBcrHqV/fm4um+VYSoQ5FPNUhU
-X-Gm-Gg: AYBFou1LmxSTJeum2OVmeO8MkkexFobtWdMDScH+/3/4x8xo0zdv2V2JmQvHz4CCgNJ
-	72bzuirXad6KC3gCua7TsjJxceTbJdd9RYZGIw4P5kYjqfJr9UntGLsdmuKm2pu51Q/En6BWucm
-	i8RO3DC2VKQCeA6LVrCzqxUGQmC7O8kjwDmzW0nBnJKIKh0wwWZOVAdBD9xRE5VALq0XfWdpEJ+
-	K4A1O10hLLBcm4+sY+CssP7nbWvPcZcN8QOV8XSr1nqKttHf75+U6+8ewsmcuoxA0vEFKoxvpVE
-	aGxf05ZETR0/H7LtbJ23cFiDGY80Ll1ZEGhcOxFwcfjN2ZPbUhNxRbe3YIYgBXnc9OUSl0ymL9i
-	+1WRL4qN5VwpnLELbJYS7Fa7ZV/imBXz/W75iyC+RK46jy0Bz/9q093KzPsyFME6SKcXLNhKcxQ
-	nvi6XD8VvUNa9+d5tb/R2URHHDJ6WEnJHmdUui21276dB+NCXTQYTBGxaxKwfyLQGEhK3imHwyR
-	1UyCw6HZmenoiG2kZMKRaQdImtkf9+PqqvkbE6muYQdLtsooJFVhkhU09vf6Y6/0bEZ
-X-Received: by 2002:a05:600c:1c24:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49cf7f4d9b7mr51876155e9.0.1788527375338;
-        Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu. [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sidong Yang <sidong.yang@furiosa.ai>,
-	Diederik de Haas <diederik@cknow-tech.com>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Jiaxing Hu <gahing@gahingwoo.com>,
-	Nicolas Dufresne <nicolas@ndufresne.ca>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 7/7] arm64: dts: rockchip: rk3588: add passive cooling to the NPU thermal zone
-Date: Fri,  4 Sep 2026 15:08:58 +0200
-Message-ID: <20260904130858.27803-8-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904130858.27803-1-royalnet026@gmail.com>
-References: <20260904130858.27803-1-royalnet026@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8X16+T1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1FB71F00A3D;
+	Fri,  4 Sep 2026 13:13:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788527582;
+	bh=/yHiBuhwtvQs9PtlgKoPGdZLMLmOKjP1scj7DIwBIyI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=N8X16+T1ojA2mWCyCkdS7Txeq2+lYXkXk40Eulb1wHcbETpHu7cct83vpqlc9jOLs
+	 0U8eIBf9onA5uvZNMHhMKhs2CcWGnat3YRtlURnI0c/z0UFvxbxz+SmnJ+M0csc3hd
+	 3jkSlP1KN/Uv2nrooNeXAQk90F05JL+nYa8wdBUFWhrsO55vZKNNpBr3F+LXAkb1/b
+	 bteBaVVVhexCedIhT4LZStpJT0nPpZimrtqOXn8wabhFQ4inkVExo4J/ZhVf9BagSz
+	 cA62kB+ObTp58q41FgEp9BFwhvXRjxveiiEhj/QH0IvkFtsuh50vV791iDU5Z430p8
+	 aPIlzLDwxXsdg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
+References: <20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org>
+ <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 13:13:01 +0000
+Message-Id: <20260904131301.B1FB71F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The NPU zone has had only a critical trip at 115 degrees, which is a
-shutdown and not a cooling policy. Now that the NPU can be throttled by
-capping its clock, give the zone a passive trip and a cooling map, in the
-same shape and at the same temperatures as the GPU zone right above it:
-85 degrees with 2 degrees of hysteresis, and a 100 ms passive polling
-delay.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Mismatch between function group definitions and hardware PINGROU=
+P mux configurations, causing a WARN_ON and failure in msm_pinmux_set_mux().
+--
 
-The #cooling-cells property goes on rknn_core_0, the core that carries the
-shared clock and the OPP table. The other two cores have no clock of their
-own and cannot be throttled independently of it.
+commit bc142a6010c2c544a89b4c8ddff3446518100a52
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-The cooling map is inert until the driver registers a cooling device:
-thermal_of_should_bind() only resolves a map entry once a matching cdev
-appears, so this patch on its own changes nothing but the trip point.
+pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
 
-The thermal path itself has not been exercised on the board this was
-written on. Reaching 85 degrees on an NPU workload with the fan curve here
-has not been possible, so what is verified is that the zone parses and
-binds, not that throttling engages at temperature.
+This commit introduces the new MSM8952 pinctrl driver to support the
+Qualcomm TLMM block found on the MSM8952 platform.
 
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Assisted-by: LLM checkpatch dtbs_check
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+> diff --git a/drivers/pinctrl/qcom/pinctrl-msm8952.c b/drivers/pinctrl/qco=
+m/pinctrl-msm8952.c
+> new file mode 100644
+> index 0000000000000..c24f75641719d
+> --- /dev/null
+> +++ b/drivers/pinctrl/qcom/pinctrl-msm8952.c
+[ ... ]
+> +static const char *const qdss_tracedata_b_groups[] =3D {
+> +	"gpio8",  "gpio9",  "gpio12", "gpio13", "gpio23", "gpio42",
+> +	"gpio43", "gpio44", "gpio45", "gpio46", "gpio47", "gpio66",
+> +	"gpio86", "gpio87", "gpio88", "gpio92",
+> +};
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e07869..c3d22b08f415b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1162,6 +1162,7 @@ rknn_core_0: npu@fdab0000 {
- 		clock-names = "aclk", "hclk", "npu", "pclk";
- 		assigned-clocks = <&scmi_clk SCMI_CLK_NPU>;
- 		assigned-clock-rates = <200000000>;
-+		#cooling-cells = <2>;
- 		resets = <&cru SRST_A_RKNN0>, <&cru SRST_H_RKNN0>;
- 		reset-names = "srst_a", "srst_h";
- 		power-domains = <&power RK3588_PD_NPUTOP>;
-@@ -3212,17 +3213,31 @@ map0 {
- 		};
- 
- 		npu_thermal: npu-thermal {
--			polling-delay-passive = <0>;
-+			polling-delay-passive = <100>;
- 			polling-delay = <0>;
- 			thermal-sensors = <&tsadc 6>;
- 
- 			trips {
-+				npu_alert: npu-alert {
-+					temperature = <85000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
-+
- 				npu_crit: npu-crit {
- 					temperature = <115000>;
- 					hysteresis = <0>;
- 					type = "critical";
- 				};
- 			};
-+
-+			cooling-maps {
-+				map0 {
-+					trip = <&npu_alert>;
-+					cooling-device =
-+						<&rknn_core_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
- 		};
- 	};
- 
--- 
-2.43.0
+[Severity: Medium]
+Does the hardware configuration actually support qdss_tracedata_b on gpio8,
+gpio9, gpio12, and gpio13? I noticed this array advertises support on these
+pins, but their corresponding PINGROUP definitions below do not appear to
+include this function.
 
+[ ... ]
+> +static const char *const atest_combodac_to_gpio_native_groups[] =3D {
+> +	"gpio4",  "gpio12", "gpio13", "gpio20", "gpio21", "gpio28",  "gpio29",
+> +	"gpio30", "gpio39", "gpio40", "gpio41", "gpio42", "gpio43",  "gpio44",
+> +	"gpio45", "gpio46", "gpio47", "gpio48", "gpio67", "gpio115",
+> +};
+
+[Severity: Medium]
+Similarly, does atest_combodac_to_gpio_native support routing to gpio12,
+gpio13, gpio20, gpio21, gpio29, gpio30, and gpio41? This array lists them as
+valid groups, but their PINGROUP declarations omit the function.
+
+[ ... ]
+> +static const struct msm_pingroup msm8952_groups[] =3D {
+[ ... ]
+> +	PINGROUP(8, blsp_spi3, blsp_uart3, sec_mi2s, pbs0, NA, NA, NA, NA, NA,
+> +		 NA, NA, NA),
+
+[Severity: Medium]
+If the device tree or a built-in driver requests a function like
+qdss_tracedata_b on gpio8 (which is advertised in the groups array but miss=
+ing
+from these PINGROUP macros), will this mismatch cause msm_pinmux_set_mux() =
+to
+exhaust its function list?
+
+It looks like this would unconditionally trigger a WARN_ON during mux setup,
+returning -EINVAL and aborting the device probe for the requesting device.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-msm8952-pi=
+nctrl-v4-0-671475ed1397@mainlining.org?part=3D2
