@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45C751D532
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 18:55:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 417D73E9C18;
+	Fri,  4 Sep 2026 19:02:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788548122; cv=none; b=lipqVSmptmh65WTbVqSyX0uv2DluFRqRl+aCvjAMELRON8sTTzuOsvI30SCmXTNOS7rNJ2yR71OA/Z1L2tBsiylxk9GgNJC4PnV/04MxRJ58tdqvQ8T0yfbdMJ4gntN56qhNRuKIvY5Gj7QR8bRXgQBvoYX/kmkg03THEIw3n7U=
+	t=1788548550; cv=none; b=jd6HYEHTOcJ+8MjJ8w9DQLVsZsSDdqaEEklFNC+GvB3odtOE3TxoL7uZ+gBIwcaLYeZzOvSgGPxZyNC+lyq1YQUZTPiHb9fTvxCoPsezwlgEKAgmeoMKOEZ9AUx1XgrOGRfLorqw+9lXJpR/AfgkNOKPjN8RGHRXP3QhtLNdo8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788548122; c=relaxed/simple;
-	bh=pZn9CcrceKZ5Pm7wVprds0iWMh6aFgtSERFT4cwq460=;
+	s=arc-20240116; t=1788548550; c=relaxed/simple;
+	bh=5pOMefOaJ27NZHdUjC3VGxRaG/Cn2zIPr26m6M6wyKI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tryzIFcwRtz7rcNTiTKrXmEpJkVS9hAa1o8+Wg4jmCIk1nrlkzAUaJJhDQ7q3PKYvObp/fIuFM/7eTPrh116J0R72qWT1IdRMABgyzoU2pMPNvCK5/kcOMnzYTbibbVH63pS0HSMw1M8/LAeOucxsRP5n/fiRgOksTe/YgVqNgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TC7kt+rX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=a+NTogv1Wvfgashl5gN45S26KBvYfpKHClm2Fq7was2iQdKyL80YrwGCF2wJO4+xkgbqJoCFQIgcWWw66aWC2K4xeRiWYk2ZOPWD/ar+mQHGRXPDnKqIHQXDeBzPe7UYibc6QzwpvoI6xmEhSLxXmPsKZ9fp2FMZTktth8kFGJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S/wZB3l0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TC7kt+rX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C68A1F00A3D;
-	Fri,  4 Sep 2026 18:55:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S/wZB3l0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D6681F00A3D;
+	Fri,  4 Sep 2026 19:02:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788548120;
-	bh=EZYplP/kSK8kn6yBNu+B8d4CYCdZLAqauMtQ14BSwvg=;
+	s=k20260515; t=1788548545;
+	bh=KKW7nY0THuoMgtz8NDqIxS4aUZitKsReQbZtIEhPPwA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TC7kt+rXO1mwsPzsqi3Phr4Sy4Dld5cJV3gt85ysDTopvYO/LVuU9jnsokVqxuJq9
-	 0sOKuSqM8tU+nniGxmYNlcYEHY1npxBIbk1TqKnUgMs3wXZQEohyEsDFZDwKp8YO2+
-	 Tn8sGqB8QetjX72KqLQm8sBbNtMBGcFQJoEAyr+zn9Gry3h7qbJsFZncrtGTDigHfe
-	 N6r6xigny+5/ehc9nOLhNSvKiVb6GtnpPxrAnP1gp9wwr1Rpy9FwOjWlG/HGq0MOQH
-	 oMxRr9clfR9I27tmp+DY6s/vNZ38Gk9SONIGQha+nMLxIbDfJDIBs1aXXk6W7/IecA
-	 gxH3PGKtn549A==
+	b=S/wZB3l0FGCNWChwEmICAwNYe2GqGv7Umc8KIK8c/FrZw78VWQU+SVxErSQUkdIy4
+	 jip+lnTtDQ8xlOu3ap8MbykeXUZnsLxorZU0QgWlHdvoHCAurOeIT5UKu9cMM15Kbw
+	 TcaLoBtkZEr9ExcRslgq3a/nlK2+eSJJNduVTFYEoW5SKh1BW5tkr+DsyxPkALWw1p
+	 f5PoJkDPvSZ8eNoh9HMaQdKNX+jjkmagt2/tEjbq+5Wxo5Cy1AkO/IGAHRDgxNC40U
+	 w6rA3uMNjEkMKTqJTIw95lkPbije4/IXBhPRFysjuVW8XRugVIIolSg8F++rySYfXw
+	 ZJswuS5MptPvQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 9/9] net: stmmac: qcom-ethqos: add Shikra EMAC
- support
+Subject: Re: [PATCH 4/4] clk: qcom: gcc-glymur: use shared ops for GCC UFS
+ RCGs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260904-shikra_ethernet-v1-9-a50765996035@oss.qualcomm.com>
-References: <20260904-shikra_ethernet-v1-0-a50765996035@oss.qualcomm.com>
- <20260904-shikra_ethernet-v1-9-a50765996035@oss.qualcomm.com>
+To: "Jagadeesh Kona" <jagadeesh.kona@oss.qualcomm.com>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260905-glymur-ufs-clk-changes-v1-4-cdff2c67a8c2@oss.qualcomm.com>
+References: <20260905-glymur-ufs-clk-changes-v1-0-cdff2c67a8c2@oss.qualcomm.com>
+ <20260905-glymur-ufs-clk-changes-v1-4-cdff2c67a8c2@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 18:55:20 +0000
-Message-Id: <20260904185520.6C68A1F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 19:02:24 +0000
+Message-Id: <20260904190225.1D6681F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,62 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The PTP clock rate (`clk_ptp_rate`) is captured from the `stmmac=
-eth` clock before its rate is updated to 120MHz, leading to incorrect PTP t=
-imestamp calculations if `ptp_ref` is omitted from the device tree.
+
+Pre-existing issues:
+- [High] The patch fixes a UFS GDSC hang for `gcc-glymur.c` by using `clk_r=
+cg2_shared_ops` to park UFS RCGs at XO during init. However, identical UFS =
+RCGs in sibling drivers (`gcc-eliza.c`, `gcc-kaanapali.c`, and others) stil=
+l use `clk_rcg2_shared_no_init_park_ops` and remain vulnerable to the same =
+GDSC wedge issue.
 --
 
-commit 6df66dc49bfcbb8fca628cf4fea13cac0f605200
-Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+commit ea0c46ac321975e91a07a59d21b631f1f46de735
+Author: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
 
-net: stmmac: qcom-ethqos: add Shikra EMAC support
-   =20
-Shikra integrates two Qualcomm ETHQOS controllers based on the Synopsys
-GMAC IP, similar to previous platforms.  Register qcom,shikra-ethqos
-backed by a new shikra_data descriptor that enables the three NOC clocks
-required for DMA memory access (axi-noc, pcie-tile-axi-noc, stmmaceth)
-all at 120 MHz, and the 36-bit DMA address width.
+clk: qcom: gcc-glymur: use shared ops for GCC UFS RCGs
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index a31541506a4c9..f96680456472d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -328,6 +328,36 @@ static const struct ethqos_emac_driver_data emac_v4_=
-0_0_data =3D {
->  	},
->  };
-> =20
-> +static const struct ethqos_noc_clk_cfg shikra_noc_clks[] =3D {
-> +	{ "axi-noc", 120000000 },
-> +	{ "pcie-tile-axi-noc", 120000000 },
-> +	{ "stmmaceth", 120000000 },
-> +};
+This patch switches GCC UFS RCGs in the gcc-glymur driver to use
+clk_rcg2_shared_ops instead of clk_rcg2_shared_no_init_park_ops. This ensur=
+es
+the clocks are parked at XO during registration, which is required for the =
+UFS
+GDSC power-on sequence.
 
-[Severity: Medium]
-Since the stmmaceth clock frequency is being set to 120MHz here, could this
-lead to an incorrect PTP clock rate if the ptp_ref clock is omitted from
-the device tree?
+> diff --git a/drivers/clk/qcom/gcc-glymur.c b/drivers/clk/qcom/gcc-glymur.c
+> index a47a2c6b961ba..1957c847568af 100644
+> --- a/drivers/clk/qcom/gcc-glymur.c
+> +++ b/drivers/clk/qcom/gcc-glymur.c
+> @@ -2327,7 +2327,7 @@ static struct clk_rcg2 gcc_ufs_phy_axi_clk_src =3D {
+>  		.parent_data =3D gcc_parent_data_6,
+>  		.num_parents =3D ARRAY_SIZE(gcc_parent_data_6),
+>  		.flags =3D CLK_SET_RATE_PARENT,
+> -		.ops =3D &clk_rcg2_shared_no_init_park_ops,
+> +		.ops =3D &clk_rcg2_shared_ops,
 
-In qcom_ethqos_probe(), devm_stmmac_probe_config_dt() is called before the
-noc_clks are initialized. If ptp_ref is missing, the driver falls back to
-caching the main clock's initial rate:
+[Severity: High]
+This is a pre-existing issue, but this commit appears to only fix the UFS G=
+DSC
+hang for gcc-glymur.c, leaving identical UFS RCGs in sibling drivers vulner=
+able
+to the same problem.
 
-stmmac_platform.c:stmmac_probe_config_dt() {
+For example, in drivers/clk/qcom/gcc-eliza.c:
+
+static struct clk_rcg2 gcc_ufs_phy_axi_clk_src =3D {
 	...
-	plat->clk_ptp_ref =3D devm_clk_get(&pdev->dev, "ptp_ref");
-	if (IS_ERR(plat->clk_ptp_ref)) {
-		plat->clk_ptp_rate =3D clk_get_rate(plat->stmmac_clk);
-		plat->clk_ptp_ref =3D NULL;
-	...
-}
+		.ops =3D &clk_rcg2_shared_no_init_park_ops,
+};
 
-Later in qcom_ethqos_probe(), the noc_clks configuration updates the stmmac=
-eth
-clock to 120MHz. However, ethqos_ptp_clk_freq_config() returns early when
-clk_ptp_ref is NULL, leaving the cached clk_ptp_rate at its original
-boot-time value rather than 120MHz.
+And similarly in drivers/clk/qcom/gcc-kaanapali.c:
+
+static struct clk_rcg2 gcc_ufs_phy_axi_clk_src =3D {
+	...
+		.ops =3D &clk_rcg2_shared_no_init_park_ops,
+};
+
+Since these drivers share the same hardware IP design and define the exact =
+same
+gcc_ufs_phy_gdsc and RCGs, won't they suffer from the identical wedge failu=
+re
+during UFS controller probe if the bootloader leaves the clocks in an unpar=
+ked,
+off state?
+
+Could this fix be extended to the sibling SoC drivers to prevent UFS
+initialization failures across the subsystem?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-shikra_eth=
-ernet-v1-0-a50765996035@oss.qualcomm.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-glymur-ufs=
+-clk-changes-v1-0-cdff2c67a8c2@oss.qualcomm.com?part=3D4
