@@ -1,250 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11023103.outbound.protection.outlook.com [40.107.159.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C012E4746C1;
-	Fri,  4 Sep 2026 11:22:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788520954; cv=none; b=I1BhoMop6BMW4aDoh2+zCjsFocviQUn5xyC5t6nYayHWAVIRDcQDriF7jiwgkHnddp/vITu255tWPI0DKSGrOBwl4T+hIG94whAHSwmFtAX+o4orbXOG3wgRwWUR3IHGZyAdNoFJYgpXvALn1zZ17A3ue3MDu0l7SBx0PBLZk4Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788520954; c=relaxed/simple;
-	bh=1OJ8OEceBtLoU11yuXztES2ERg0THZboio7cDVZU84c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p2B1pD5FZivKkt6sIQ1RSOpj7HSE9qs/dD7kQe6VSqlY/wXXHG5eiBLP/33pgN7/THYTF1KAL9KyMo0k/GeNrGwDyklzuR2v8rkwK7P+JC7EM/uDPi4IaCSJIH8ZV7IjKQ6ijSsJOl9GUFinOACIqjcfWmx9k8WRlmZgc5GXBEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+H1IUQm; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E1E4772B8;
+	Fri,  4 Sep 2026 11:33:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.103
+ARC-Seal:i=4; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788521617; cv=fail; b=EKK48/pCUFeqFGPkmAHnyjQvClHe8j7I+cmDzadmuTybTESpGwvKnQS2VdU3T0QyIXyd1DTEbF40H/4EtBRscd1UmkuijJmUDqRL/JGXf/ntyLVctZvQlu98oZDvkevq9H0XUivRylfQikSDr1YBdiV0lSk3c6byf0meytb3mQM=
+ARC-Message-Signature:i=4; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788521617; c=relaxed/simple;
+	bh=cAfRcNsoAkObbhf8BSj0EGHicqXSkAjYwXd7MCCkYb0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=icjxSaJ+U236NcTI/Nf3rQQz4O6MQY7yjhKdmHfpjXO4kQDEE9lPgUpSwMM8/dktoligATaudMEwtPFKxTZtlD++YFba2cm5tDLD8sV+ZO5AINV3H/5FdZ6B3WbuuaJ8wRksEQym0/lcNmy1+vrvMVw/LbRSoIhOvbsSxfeZKy0=
+ARC-Authentication-Results:i=4; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com; spf=pass smtp.mailfrom=solid-run.com; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=T6XF8/yP; dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b=T6XF8/yP; arc=fail smtp.client-ip=40.107.159.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=solid-run.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=solid-run.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+H1IUQm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DDAB1F00A3D;
-	Fri,  4 Sep 2026 11:22:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788520952;
-	bh=+O7tQlPvBZA98q2AjoKIyg6tgq/TkM085PHnF+s/fF4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b+H1IUQmAvHiI+tZ5goWmK22+M7MDRjROqWsQ2/TRpSY8vP8YHMsaUbS6Nw3ywoZo
-	 kiA8ZnBygsH53x53uq5AClxeGKkjSUschcUAbVCbAwlFaaFZDQW6RniYJC0w+7RPXK
-	 cdoNp1oSJBTyJR5iJyBn9cVDypKGST92B0xyqsAUtFXck7hWqh5LGd78WpznZ5+0m3
-	 zf3+pqlJ8Xc0IxkgRmwzWnE6eNpEWxYlnxKB4EV22pNK387/nT8WYJFC2c3TbHj8OL
-	 wjT7XkynLjiYT++a5otcv0nrDMjHZiUcbxCfRZktT3A/VNmd6V7tenHREjpl69B5vT
-	 29UGmsB1bDGmw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 07/12] mm/cma: Introduce cma_alloc_at() API
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: "Christian Borntraeger" <borntraeger@linux.ibm.com>, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, linux-trace-kernel@vger.kernel.org, robh@kernel.org, linux-s390@vger.kernel.org, "Heiko
- Carstens" <hca@linux.ibm.com>, media-ci@linuxtv.org, "Vasily Gorbik" <gor@linux.ibm.com>, devicetree@vger.kernel.org, "Alexander
- Gordeev" <agordeev@linux.ibm.com>
-In-Reply-To: <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 11:22:31 +0000
-Message-Id: <20260904112232.0DDAB1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="T6XF8/yP";
+	dkim=pass (2048-bit key) header.d=solid-run.com header.i=@solid-run.com header.b="T6XF8/yP"
+ARC-Seal: i=3; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=pass;
+ b=x+Y3hqzzwOWGaOidwutMAZab7hQgvvcZq6Ke5dzemmUNY8USpTp/VCCvHpWcVfYPR/eI//0mjdzBofxww4EojK+a2omZR1PwIfIX/0eTXcXJhuSGrwiRA8rq72i5PeNSuPk3Rkf6TXOjMBirY0jCDH2iLk0tA7ie2tlI9Vj/d4t2KUu5OKAZ97a+JVf74MbYBWdlGlF3IwNQIVtpAOlaB54qd1plzRv8Oj3oQKvrAGLH3Ir8g9J8p6Z0l3dps5omeU1t9CRmOcnR69MJgO5/Rng1nYo6sjhcBk8xyCpnAaa0Bq0gWe8B2YmYKvnRKsOYUVM4ICk/cUf5gFiBIu8GrQ==
+ARC-Message-Signature: i=3; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cAfRcNsoAkObbhf8BSj0EGHicqXSkAjYwXd7MCCkYb0=;
+ b=uzsuhIJJybjR9SN34EMP338s1H2l94iU+7Wo5ONXae8mOd4oLXAlBlydDBmborW7dpKgC2xgB5mvNn9K+BPXwtjdMMRip8r7iozIiSTp4RKl7Rg0OinACwUMAD4xIjlU8DknC6HhXyt7Sr9V3ulrFoYG0bok+eKhFlbrGqeagen7w8L8IH8WHt1Buf06qoNOywrWIZAHumAnCAfZmpdGa0KtDnDS3BM9uFyFE42gCMGnjgf85sGz4mudapfj6ciL/LhNFce7jJz/6/ndmQbpbxlaE+X6MoSblsfZ3QXZ8pLetxzh2VsIxNd6ajf3CEYSYI623H25PIouVe0KTMHqsw==
+ARC-Authentication-Results: i=3; mx.microsoft.com 1; spf=fail (sender ip is
+ 52.17.62.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=solid-run.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none
+ header.from=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com; arc=pass (0 oda=1 ltdi=1
+ spf=[1,1,smtp.mailfrom=solid-run.com] dkim=[1,1,header.d=solid-run.com]
+ dmarc=[1,1,header.from=solid-run.com])
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cAfRcNsoAkObbhf8BSj0EGHicqXSkAjYwXd7MCCkYb0=;
+ b=T6XF8/yP219NGsUlysk1f2kSLQGoZ7DLIDkfF+TQ51xZ5OSsIqL93sh66coXt/pwsQivZLZ/Dwb8dlvyvExNOJLKtGEj6/iqTGCl0DHhVLJ93gvzo4edsQ16ijKL1gFg/nBb6TdvW8r0rDHBgEH7u3j+H59c38ORekH1sFfm4qvnx8jFLiSVlcOAnnadzj6aIz/CgoQAYwssoSfvqFrHOtEkYYspI4SBah6eTPV2TR9Vvog7sTDX4bbxhLfoANwmH/7k4jUfpKTN9GXF5HftKyH7R701kdnDH6w5L0y+Oo99scApTH10HgvRJT32cj+F4hKnTpKwtNmv4I94n5wqbw==
+Received: from AS9PR05CA0024.eurprd05.prod.outlook.com (2603:10a6:20b:488::23)
+ by MI9PR04MB532906.eurprd04.prod.outlook.com (2603:10a6:290:87::23) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 11:33:29 +0000
+Received: from AM4PEPF00027A67.eurprd04.prod.outlook.com
+ (2603:10a6:20b:488:cafe::5f) by AS9PR05CA0024.outlook.office365.com
+ (2603:10a6:20b:488::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 11:33:29 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 52.17.62.50)
+ smtp.mailfrom=solid-run.com; dkim=pass (signature was verified)
+ header.d=solid-run.com;dmarc=pass action=none header.from=solid-run.com;
+Received-SPF: Fail (protection.outlook.com: domain of solid-run.com does not
+ designate 52.17.62.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=52.17.62.50; helo=eu-dlp.cloud-sec-av.com;
+Received: from eu-dlp.cloud-sec-av.com (52.17.62.50) by
+ AM4PEPF00027A67.mail.protection.outlook.com (10.167.16.84) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.8
+ via Frontend Transport; Fri, 4 Sep 2026 11:33:29 +0000
+Received: from emails-7008659-12-mt-prod-cp-eu-2.checkpointcloudsec.com (ip-10-20-5-203.eu-west-1.compute.internal [10.20.5.203])
+	by mta-outgoing-dlp-765-mt-prod-cp-eu-2.checkpointcloudsec.com (Postfix) with ESMTPS id 2C0C781DD3;
+	Fri,  4 Sep 2026 11:33:29 +0000 (UTC)
+ARC-Seal: i=2; cv=pass; a=rsa-sha256; d=checkpointcloudsec.com;
+ s=arcselector01; t=1788521609;
+ b=AiJlWpsmj2m9Nuj2OWGGVXYh6MQUwsbmE2b8acSlEI0SkXZceAhikpiLKju/Qcpxq3AYY
+ +7Modg3t2pUvIPS9ye/4Mmut9Qxqev4T/uoy7YPQIA3/9cVPK5hkQv6Y1X/gigcvwq3+YOk
+ FQojTTDJ4Fq7uqu2VsXyiGHq5w00CkY=
+ARC-Message-Signature: i=2; a=rsa-sha256; c=relaxed/relaxed;
+ d=checkpointcloudsec.com; s=arcselector01; t=1788521609; h=from : to :
+ subject : date : message-id : content-type : mime-version;
+ bh=cAfRcNsoAkObbhf8BSj0EGHicqXSkAjYwXd7MCCkYb0=;
+ b=Ciy0tnzZbHYoQq1Dy/9WBdRv5Zeg+8R8fT9C/7s7k+SBmgz9B8srRYDszg9uVRQItLjn1
+ 4WUBYUbWhfpNU4JhSaL5Rr7vIARz59ECrz7BE1Cl45Ehjepi6aJEYGqOnjjid3eISRy5AOe
+ kiHZfJPfXa6HZ86ojKLIqh59/vSm7rM=
+ARC-Authentication-Results: i=2; mx.checkpointcloudsec.com;
+ arc=pass;
+ dkim=none header.d=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=solid-run.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cAfRcNsoAkObbhf8BSj0EGHicqXSkAjYwXd7MCCkYb0=;
+ b=T6XF8/yP219NGsUlysk1f2kSLQGoZ7DLIDkfF+TQ51xZ5OSsIqL93sh66coXt/pwsQivZLZ/Dwb8dlvyvExNOJLKtGEj6/iqTGCl0DHhVLJ93gvzo4edsQ16ijKL1gFg/nBb6TdvW8r0rDHBgEH7u3j+H59c38ORekH1sFfm4qvnx8jFLiSVlcOAnnadzj6aIz/CgoQAYwssoSfvqFrHOtEkYYspI4SBah6eTPV2TR9Vvog7sTDX4bbxhLfoANwmH/7k4jUfpKTN9GXF5HftKyH7R701kdnDH6w5L0y+Oo99scApTH10HgvRJT32cj+F4hKnTpKwtNmv4I94n5wqbw==
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com (2603:10a6:190:28::8)
+ by GVXPR04MB10517.eurprd04.prod.outlook.com (2603:10a6:150:1e1::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 11:33:15 +0000
+Received: from MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292]) by MMZPR04MB400504.eurprd04.prod.outlook.com
+ ([fe80::2f52:2d22:c7b3:4292%4]) with mapi id 15.21.0360.008; Fri, 4 Sep 2026
+ 11:33:15 +0000
+From: Josua Mayer <josua@solid-run.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+CC: Linus Walleij <linusw@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, Lad
+ Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, Jon Nettleton
+	<jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, Yazan
+ Shhady <yazan.shhady@solid-run.com>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-usb@vger.kernel.org"
+	<linux-usb@vger.kernel.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>
+Subject: Re: [PATCH v4 2/7] dt-bindings: pinctrl: renesas,rzg2l-pinctrl: Allow
+ input-enable pinconf
+Thread-Topic: [PATCH v4 2/7] dt-bindings: pinctrl: renesas,rzg2l-pinctrl:
+ Allow input-enable pinconf
+Thread-Index:
+ AQHdOtE+gVzmYmXL+Ea9R+ytXkurZ7a7P8yAgAFWXACAAZ/tgIAAEUMAgAAAwQCAAASdgA==
+Date: Fri, 4 Sep 2026 11:33:15 +0000
+Message-ID: <1098d7f9-13bb-49da-9aa7-c42b1a33089e@solid-run.com>
+References: <20260902-rzg2-sr-boards-v4-0-4a456a422fee@solid-run.com>
+ <20260902-rzg2-sr-boards-v4-2-4a456a422fee@solid-run.com>
+ <CAD++jL=fGonMHd0jitwAE8+w=JYPX_6YFW6CzS9kRZLbx3045Q@mail.gmail.com>
+ <0435939c-2836-480d-9ba2-8de4c5e22cc2@solid-run.com>
+ <CAMuHMdUE3+qBdy2CoSQMzJ1iePiv0PSTfOjxHAqgp78i_XpMPQ@mail.gmail.com>
+ <c0a37ff2-b133-4bd9-82c6-732f58e2c5ec@solid-run.com>
+ <CAMuHMdUOqA_mNQ6-+rxcTxiJSWDBQbiaLqYAtVEko6T7DLgOdg@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdUOqA_mNQ6-+rxcTxiJSWDBQbiaLqYAtVEko6T7DLgOdg@mail.gmail.com>
+Accept-Language: de-DE, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Authentication-Results-Original: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=solid-run.com;
+x-ms-traffictypediagnostic:
+	MMZPR04MB400504:EE_|GVXPR04MB10517:EE_|AM4PEPF00027A67:EE_|MI9PR04MB532906:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86c87504-a740-465d-a108-08df0a7857d6
+x-cloud-sec-av-info: solidrun,office365_emails,sent,inline
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam-Untrusted:
+ BCL:0;ARA:13230040|376014|23010399003|1800799024|7416014|10070799003|366016|38070700021|10067099003|4143699003|18002099003|22082099003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info-Original:
+ J4jpTQezmOZ7oRNjzM8poeQbn69r2M0EQiw2zIvj72j7afjnqnKdv6EJ5aiHAkktVI5MFfSQH3ETHReOtXaaZtTBvo8qPHO4Snj1HwUToaii7qF2EKagJ/hd5pUzF16DzAVdFntzVbX+TX/8BjFgW4lrNcKbd7NbgnDH8/EZ5sawXgeasg2NAetTHtLYMRzsta3BavDh9JxB9BQxzsI56WrXYMD3jA2+Joeez+4PslO/Mn63Rgs+7h0BNhpXjrlyYGX3pIuabwYfFkzvEDvpEkwPEYeLUUHSdsVYu+ns/IJspdwAI/HHoIw8HFj5IUeWzCg1G3xxuYiAdehH+fMaBs4Z0UeAVrxUTDAIUS/35Y5kZHjmigpkVpIiC+EyrmeRViesrb/22iAfDtq32kjozu7HcGid/KVHZgzW3NH7t+WgLnQafUCAqS3PEH+RgDwG0PwIgq0axPkaUQkw85cJ0hMNzku9l3El4P/SwrNVHYS/xkfMGzXk3TTUK8PH3vcQ7EmWE/GFGXoVDxlqVnTxOWF9pBv7IJHNaHbdmZrRQkkd7xPd+eWq25ZfJNg0Xptoza0nE4SgqPUDxY6dcl8NuJAw17iTSYLFJGJQo9ejfJkvprOuh97Xbf+7lHUN5Vw3V+MKLBJwoGh459nuK4u9Ybx6ZafgABC8OcuEUDZ+TTd7upVSmk+Mn2BQBRFotS1Wh8g6jzfwShQt1E5J2ojaA6WsitMHuKNIJHCqoOcJlds=
+X-Forefront-Antispam-Report-Untrusted:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MMZPR04MB400504.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(7416014)(10070799003)(366016)(38070700021)(10067099003)(4143699003)(18002099003)(22082099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <3650087BEF4F804EA17024292EFDEFA0@eurprd04.prod.outlook.com>
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked:
+ WWrOgsfu3JRxUycFaR6x9F+Npeu9Fa1oycObBY8JfhW668WdwkTqRddKCy22icoQqhv4HTdB7e1jGanoWVvXR0fX1ti7o88jm7yz85SpwgQfFDCuOO1c9kPH4W5Lx6+x3cd8UdcqJeOSrH2jtFTyZ/vE9LPDvNiQa865gN46mjtSDm86cdEtGlQbV/nVilkKfgnX07o7GubgwHpX3juidc7VX8QCJAjJNACRW+/JaR99GE3fxKe7ru5C/0JUCDKuBvo1j62qQ9RPxzXDQB5baumqhgggvZCQE/1xnP+RxC2LRdf0qvEQx9IcxLCKRnpKyUhz99NBPCkzuEzrFeVQsg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10517
+X-CLOUD-SEC-AV-INT-Relay: sent<mta-outgoing-dlp-mt-prod-cp-eu-2.checkpointcloudsec.com>
+X-CLOUD-SEC-AV-UUID: 079f0d7a5eee4bab99a9a79167ecf7aa:solidrun,office365_emails,sent,inline:c8e7ae9b5f88038d8ddafba974ceae05
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lXPvbvFkHgMQe99eBOe2r8UDoaT/RIkyhXfTeOClocHCrn+ctvVSvDU1mOZF7Ldl95sLRYvFynul7Ld7L8CjzEtFM0rswP4WOIf+ZmF4eLFy14YjmOnCyburkNKaImxLxuMdtOI85Ui0X1a/TdnStjgv1W9AqBn2g9GCsV4Pvec39nzvBCUVZYzukpagx05x6zG0g7vpjC7+cuoAWyMAwojg4aDWOHq70IkL10cT/WNLf5EYl7FnJdO+6fjquhqGm3p6eJ63XcIMJA+/kmCI5uqE7hztqtNUGSZStNUIBTNnOV/DkAzuS5IQy8cvUBsrt3YpLuB0dQVlSjIKowB5Gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cAfRcNsoAkObbhf8BSj0EGHicqXSkAjYwXd7MCCkYb0=;
+ b=d0UJTD8IFLr3AUVnsfTwU3EHOHlAC7xEhTaO5ZbcZerPobn9tekBExVWlHAKCUSCaWYLpCSkn4bUodyk7zTWn3SYWH6Li5ow0UaX+CUv0397ePJhkJz02xvXWs6O/mzCCGLR8wUiBl8+/IOqwfaIFs3ZknQl0Xapp4jiQap5+6ugjTO+lTclHPqM0kjINud0jjbqai2MNuRM8gM7JxOSpW8BahPWq2tUB142mIvmf+eQlPJHsWSnRX33sQUwlY8oo6ITF+W5KAjZJc43DIlHw6Zqd60q1DGpqkqpy3xLmJ18KhOUHnY1+C1tb0V7w2wEIyxIZol+1kVCDjYVzuDtuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=solid-run.com; dmarc=pass action=none
+ header.from=solid-run.com; dkim=pass header.d=solid-run.com; arc=none
+Authentication-Results-Original: mx.checkpointcloudsec.com; arc=pass;
+ dkim=none header.d=none
+X-EOPAttributedMessage: 0
+X-MS-Exchange-Transport-CrossTenantHeadersStripped:
+ AM4PEPF00027A67.eurprd04.prod.outlook.com
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id-Prvs:
+	0c1ecda2-739a-464f-15e3-08df0a784f88
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|35042699022|14060799003|23010399003|36860700016|376014|1800799024|7416014|82310400026|4143699003|10067099003|22082099003|18002099003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	TEFo3uDFNE2x5P1/KzMlP4fln9ABkamJoAQvg5Q+pqUfcxp8yzA+8nVnQqm1WexAu+sR6tAhf4vds/A6i1tP+n+MZhoVGDx8/7DDnJOxzJOeVjJrAOy8k++Te3JqmYbKaiSNpy4QG7MFCqyrm/r93km8qIclj1LivklrnYgGMvMCQIb+EvuGtX64xuKY6F4wt43x+ILXTlR8X5ZGzz3SV6MMcwC0Wbtwllb0ETsr7N8mBCE+eshNNB+x/AJIliUXGl6hwdJwHFOLONXUG8ETJsmC/5bU7rGBI0+xRal5qtxo7zidbtzcBXMwZVihdnDmby5ETsBwJk2ZEwCv2drLGaLQeQE0wAtlb0Dk8EAGM4JmFoP13YkCrFwfcfFe55/azJMg2GN6b/fDOC0EypRE9PPAqa8VBlvzZtm0Xc9GEdi0Jb7upmNNoC9Q+xAYdDUmgKaCiZoJYiqJcZ4Bdo4fO51OcpeHf8MHXMQKRk83VCAunt/2v9KiFYD5lgX8iJXWReyW1vS3L8HdlMhxKsf9Z7sy5sXM5yQT+dncix6SCwPiR9tCHpjLBNbf0XHHqdpkJendDlPaC9K8nueh25z9UswQsH9UofUzomYRCT9BCgNwuEtzuQ4yfAqD9M7M5ZxRIPNKH+iC4/3VDUrcH5QalLOgodytawpHkf1L7m0pUhw=
+X-Forefront-Antispam-Report:
+	CIP:52.17.62.50;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:eu-dlp.cloud-sec-av.com;PTR:eu-dlp.cloud-sec-av.com;CAT:NONE;SFS:(13230040)(35042699022)(14060799003)(23010399003)(36860700016)(376014)(1800799024)(7416014)(82310400026)(4143699003)(10067099003)(22082099003)(18002099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	pFHq0ATwC77FswRmXj4+Hz51MimdPr8dg4vcrpKcVooGa5VYvvOQYu8CTB4ZSlCyl7FMxtxMd8aS7oCjhEuOOCTg2KNM7DF1zSgo+AMmVKl+SsR00XH+4U/K0uy5TdpGbbma8i1qD50VW3Aiy9pTQsp9LsBIFgmebkSG3v5028/BmuqMzq4GlMyCn70nom+79B+g8csyvn33KqQFHinxMv4Bg/tQmYax7p+ese/zHP9dVegeENs0gzRuDd/ays7MJ5xDJWwquQwig844Y2nshY1WbG48nErSbBbJ2CFpbzDOoFe0Pe6qDG4bWtW4GBTd1xL2e0uoPh37AkzswZKpJrb296ZHHVvntr3YwOTxVoqVigS4lySmcnv581eD2QCS4ztVxcTvA95w1w5a0CItk1dWxpjFY1HWdcQCZisP4LGNxYuHx6zUcp6NGPqTrfv3
+X-OriginatorOrg: solid-run.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 11:33:29.4935
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86c87504-a740-465d-a108-08df0a7857d6
+X-MS-Exchange-CrossTenant-Id: a4a8aaf3-fd27-4e27-add2-604707ce5b82
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a4a8aaf3-fd27-4e27-add2-604707ce5b82;Ip=[52.17.62.50];Helo=[eu-dlp.cloud-sec-av.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	AM4PEPF00027A67.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB532906
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [Critical] Infinite loop in `cma_range_alloc()` when the found page range=
- is not contiguous.
-- [High] Unit mismatch in `cma_range_alloc()` causes out-of-bounds bitmap a=
-ccesses when `cma->order_per_bit > 0`.
-- [Medium] `__cma_alloc_frozen()` dereferences the `cma` pointer before ver=
-ifying that it is not NULL.
-- [Medium] `cma_alloc_at()` with offset 0 bypasses multi-range protection, =
-allowing incorrect fallback allocations.
-- [Medium] `cma_alloc_at()` lacks alignment validation for `offset`, leadin=
-g to silent truncation.
-- [Low] The newly defined trace events `cma_alloc_at_start` and `cma_alloc_=
-at_finish` are never emitted.
---
-
-commit 14084cc27d73ffca7f55e0856f2f9a10ae91ca42
-Author: Thierry Reding <treding@nvidia.com>
-Date:   Fri Sep 4 10:44:58 2026 +0000
-
-mm/cma: Introduce cma_alloc_at() API
-
-This commit introduces a new cma_alloc_at() API to allocate contiguous=20
-memory starting at a fixed page offset. The cma_range_alloc() function=20
-is refactored to support range-bounded allocations, enabling the new=20
-API to reuse the existing allocation path.
-
-> diff --git a/include/trace/events/cma.h b/include/trace/events/cma.h
-> index 37195edf24986..4e0ab63e303f0 100644
-> --- a/include/trace/events/cma.h
-> +++ b/include/trace/events/cma.h
-[ ... ]
-> @@ -132,6 +140,69 @@ TRACE_EVENT(cma_alloc_busy_retry,
->  		  __entry->align)
->  );
-> =20
-> +TRACE_EVENT(cma_alloc_at_start,
-> +
-> +	TP_PROTO(const char *name, unsigned long pfn,
-> +		 unsigned long request_count, unsigned long available_count,
-> +		 unsigned long total_count),
-
-[Severity: Low]
-Are these new trace events actually emitted anywhere?
-
-It looks like cma_alloc_at() calls __cma_alloc_frozen(), which continues
-to use the existing trace_cma_alloc_start() and trace_cma_alloc_finish()
-events. Do we need these new definitions if they remain unused?
-
-> diff --git a/mm/cma.c b/mm/cma.c
-> index a10ea37a261da..f92d3a1882098 100644
-> --- a/mm/cma.c
-> +++ b/mm/cma.c
-[ ... ]
->  static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
-> -				unsigned long count, unsigned int align,
-> -				struct page **pagep, gfp_t gfp)
-> +			   unsigned long start, unsigned long end,
-> +			   unsigned long count, unsigned int align,
-> +			   struct page **pagep, gfp_t gfp)
->  {
->  	unsigned long bitmap_maxno, bitmap_no, bitmap_count;
-> -	unsigned long start, pfn, mask, offset;
-> -	int ret =3D -EBUSY;
-> +	unsigned long pfn, mask, offset;
->  	struct page *page =3D NULL;
-> +	int ret =3D -EBUSY;
-> =20
->  	mask =3D cma_bitmap_aligned_mask(cma, align);
->  	offset =3D cma_bitmap_aligned_offset(cma, cmr, align);
-> -	bitmap_maxno =3D cma_bitmap_maxno(cma, cmr);
-> +	bitmap_maxno =3D (end > start) ? end : cma_bitmap_maxno(cma, cmr);
->  	bitmap_count =3D cma_bitmap_pages_to_bits(cma, count);
-> =20
->  	if (bitmap_count > bitmap_maxno)
->  		goto out;
-> =20
-> -	for (start =3D 0; ; start =3D bitmap_no + mask + 1) {
-> +	while (true) {
->  		spin_lock_irq(&cma->lock);
-[ ... ]
-> +		bitmap_no =3D bitmap_find_next_zero_area_off(cmr->bitmap,
-> +				bitmap_maxno, start, bitmap_count, mask,
-> +				offset);
-
-[Severity: High]
-Does this code use page counts where bit indices are expected?
-
-The end and start parameters are passed in as unscaled page counts from
-cma_alloc_at(), and end is assigned directly to bitmap_maxno. If
-cma->order_per_bit > 0, a single bit represents multiple pages.
-
-Passing unscaled page counts directly as bit indices to
-bitmap_find_next_zero_area_off() could cause it to read past the end of the
-bitmap, and subsequently cause bitmap_set() to write out of bounds.
-
->  		if (bitmap_no >=3D bitmap_maxno) {
->  			spin_unlock_irq(&cma->lock);
->  			break;
->  		}
-> =20
->  		pfn =3D cmr->base_pfn + (bitmap_no << cma->order_per_bit);
->  		page =3D pfn_to_page(pfn);
-> =20
->  		/*
->  		 * Do not hand out page ranges that are not contiguous, so
->  		 * callers can just iterate the pages without having to worry
->  		 * about these corner cases.
->  		 */
->  		if (!page_range_contiguous(page, count)) {
->  			spin_unlock_irq(&cma->lock);
->  			pr_warn_ratelimited("%s: %s: skipping incompatible area [0x%lx-0x%lx]=
-",
->  					    __func__, cma->name, pfn, pfn + count - 1);
->  			continue;
->  		}
-
-[Severity: Critical]
-Could this continue statement cause an infinite loop?
-
-Since this was changed from a for loop to a while (true) loop, the
-continue statement jumps directly back to the loop condition. This skips
-the 'start =3D bitmap_no + mask + 1;' update at the end of the loop body.
-
-The loop will retry with the exact same start index and unmodified bitmap
-state, find the exact same incompatible area, and loop without terminating.
-
-[ ... ]
-> -static struct page *__cma_alloc_frozen(struct cma *cma,
-> -		unsigned long count, unsigned int align, gfp_t gfp)
-> +static struct page *__cma_alloc_frozen(struct cma *cma, unsigned long st=
-art,
-> +				       unsigned long end, unsigned long count,
-> +				       unsigned int align, gfp_t gfp)
->  {
->  	struct page *page =3D NULL;
->  	int ret =3D -ENOMEM, r;
->  	unsigned long i;
-> -	const char *name =3D cma ? cma->name : NULL;
-> +
-> +	/* cma_alloc_at() and friends will only work with single-range CMA */
-> +	if (WARN_ON_ONCE(start > 0 && cma->nranges !=3D 1))
-> +		return page;
-
-[Severity: Medium]
-Is there a risk of a NULL pointer dereference here?
-
-If __cma_alloc_frozen() is called with a NULL cma pointer and a non-zero
-start offset via the exported cma_alloc_at() API, cma->nranges is
-evaluated before the '!cma || !cma->count' safety check below it.
-
-[Severity: Medium]
-Does this check properly guard exact-offset allocations if offset is 0?
-
-If a caller requests an allocation exactly at offset 0, start will be 0,
-which evaluates to false for the 'start > 0' condition.
-
-This bypasses the single-range enforcement. If the first range is busy, the
-code could erroneously fall back and iterate over subsequent ranges,
-potentially returning an allocation at an arbitrary physical offset.
-
-> =20
->  	if (!cma || !cma->count)
->  		return page;
-[ ... ]
-> +/**
-> + * cma_alloc_at() - allocate pages from contiguous area at fixed offset
-> + * @cma:     Contiguous memory region for which the allocation is perfor=
-med.
-> + * @offset:  Index of the first page to allocate.
-> + * @count:   Requested number of pages (in PAGE_SIZE order).
-> + * @no_warn: Avoid printing message about failed allocation.
-> + *
-> + * This function allocates a part of the contiguous memory on a specific
-> + * contiguous memory area.
-> + */
-> +struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
-> +			  unsigned long count, bool no_warn)
-> +{
-
-[Severity: Medium]
-Does this API need to validate that the requested offset is aligned with
-the CMA block size?
-
-CMA allocates memory in chunks of (1 << cma->order_per_bit) pages. The
-offset is passed in pages without validation. If properly scaled to bits
-later, an unaligned offset would be silently truncated, allocating a block
-at a rounded-down physical address instead of the exact requested offset.
-
-> +	struct page *page;
-> +
-> +	page =3D cma_alloc_at_frozen(cma, offset, count, no_warn);
-> +	if (page)
-> +		set_pages_refcounted(page, count);
-> +
-> +	return page;
-> +}
-> +EXPORT_SYMBOL_GPL(cma_alloc_at);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-tegra-vpr-=
-v6-0-79042cfa8de5@nvidia.com?part=3D7
+QW0gMDQuMDkuMjYgdW0gMTM6MTYgc2NocmllYiBHZWVydCBVeXR0ZXJob2V2ZW46DQo+IEhpIEpv
+c3VhLA0KPg0KPiBPbiBGcmksIDQgU2VwdCAyMDI2IGF0IDEzOjE0LCBKb3N1YSBNYXllciA8am9z
+dWFAc29saWQtcnVuLmNvbT4gd3JvdGU6DQo+PiBBbSAwNC4wOS4yNiB1bSAxMjoxMiBzY2hyaWVi
+IEdlZXJ0IFV5dHRlcmhvZXZlbjoNCj4+PiBPbiBUaHUsIDMgU2VwdCAyMDI2IGF0IDExOjIzLCBK
+b3N1YSBNYXllciA8am9zdWFAc29saWQtcnVuLmNvbT4gd3JvdGU6DQo+Pj4+IEFtIDAyLjA5LjI2
+IHVtIDE0OjU4IHNjaHJpZWIgTGludXMgV2FsbGVpajoNCj4+Pj4+IE9uIFdlZCwgU2VwIDIsIDIw
+MjYgYXQgMTo1MOKAr1BNIEpvc3VhIE1heWVyIDxqb3N1YUBzb2xpZC1ydW4uY29tPiB3cm90ZToN
+Cj4+Pj4+PiBUaGUgbGlzdCBvZiBhbGxvd2VkIHBpbmNvbmYgcHJvcGVydGllcyBhbHJlYWR5IGlu
+Y2x1ZGVzIGlucHV0LWVuYWJsZSwNCj4+Pj4+PiBidXQgaGFzIG9taXR0ZWQgaW5wdXQtZGlzYWJs
+ZS4NCj4+Pj4+Pg0KPj4+Pj4+IEJvdGggcmVmZXIgdG8gdGhlIHNhbWUgaGFyZHdhcmUgcHJvcGVy
+dHksIHNldHRpbmcgYW5kIGNsZWFyaW5nIGlucHV0LWVuYWJsZS4NCj4+Pj4+Pg0KPj4+Pj4+IEFk
+ZCBpbnB1dC1kaXNhYmxlIHRvIHRoZSBsaXN0Lg0KPj4+Pj4+DQo+Pj4+Pj4gU2lnbmVkLW9mZi1i
+eTogSm9zdWEgTWF5ZXIgPGpvc3VhQHNvbGlkLXJ1bi5jb20+DQo+Pj4+PiAoLi4uKQ0KPj4+Pj4+
+ICsgICAgICAgIGlucHV0LWRpc2FibGU6IHRydWUNCj4+Pj4+IFRoZSBTdWJqZWN0IG9mIHRoaXMg
+cGF0Y2ggaXMgICJBbGxvdyBpbnB1dC1lbmFibGUgcGluY29uZiIuDQo+Pj4+Pg0KPj4+Pj4gQnV0
+IHdoYXQgeW91IGFyZSBkb2luZyBpcyBhbGxvd2luZyBpbnB1dC1kaXNhYmxlLg0KPj4+Pj4NCj4+
+Pj4+IFdpdGggdGhlIHN1YmplY3QgZml4ZWQ6DQo+Pj4+PiBSZXZpZXdlZC1ieTogTGludXMgV2Fs
+bGVpaiA8bGludXN3QGtlcm5lbC5vcmc+DQo+Pj4+IFRoYW5rcyENCj4+Pj4gSSdsbCBmaXggdGhl
+IHN1YmplY3QgLi4uICENCj4+Pj4NCj4+Pj4gKCJkdC1iaW5kaW5nczogcGluY3RybDogcmVuZXNh
+cyxyemcybC1waW5jdHJsOiBBbGxvdyBpbnB1dC1kaXNhYmxlIHBpbmNvbmYiKQ0KPj4+IE5vIG5l
+ZWQgdG8gcmVzZW5kLCBJIHdpbGwgZml4IHRoaXMgd2hpbGUgYXBwbHlpbmcNCj4+PiBSZXZpZXdl
+ZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydCtyZW5lc2FzQGdsaWRlci5iZT4NCj4+PiBp
+LmUuIHdpbGwgcXVldWUgaW4gcmVuZXNhcy1waW5jdHJsIGZvciB2Ny40Lg0KPj4+DQo+Pj4gSSB3
+aWxsIGFsc28gYWRkICJvdXRwdXQtZGlzYWJsZSIsIHdoaWNoIGlzIG1pc3NpbmcsIHRvby4NCj4+
+IFRoYW5rcyENCj4+DQo+PiBIb3dldmVyIEkgYW0gcmVhZHkgdG8gc2VuZCB2OC4gSWYgSSBkcm9w
+IGl0IG15IHNlcmllcyB3aWxsIGZhaWwgZHRic19jaGVjay4NCj4+IElzIGl0IG9rYXkgaWYgSSBk
+byByZXNlbmQgaXQsIGFuZC9vciBzaG91bGQgSSB3YWl0IGFuZCBjaGVycnktcGljayB5b3VyDQo+
+PiB2ZXJzaW9uDQo+PiBzbyB0aGF0IGl0IGlzIGVhc2lseSBkcm9wcGVkIHdoaWxlIGFwcGx5aW5n
+IHdpdGhvdXQgY29uZmxpY3Q/DQo+Pg0KPj4gT3IgZHJvcCBpdCBhbmQgbGl2ZSB3aXRoIGZhaWxp
+bmcgZHRic19jaGVjaz8NCj4gSWYgeW91J3JlIHJlYWR5LCB0aGVuIHBsZWFzZSBzZW5kIHY4IChh
+bmQgYWRkICJvdXRwdXQtZGlzYWJsZSIpLg0KPiBUaGFua3MhDQpBY2suIEkgd2lsbCBzZW5kIGl0
+IHdpdGhpbiB0aGUgaG91ci4NCg==
