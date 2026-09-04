@@ -1,195 +1,303 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B793A872D
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:04:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D7041D108
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:05:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505492; cv=none; b=QUiIDafWvyiPqD83oXFQuWtOiuELoOI8agBs+1XA1KrisXqPRR+lKRuCnghsJ6Z0/8XIQ0T82CXC7TSVGqCfWo6u4qysIy+tTeP/RrnJTFeT7DWeVAEHBo6yzxbwFw0UPZYRvCnS17sUBs8Hzpp2nL+jqk4vlLm7gAh7CgSZ0LA=
+	t=1788505533; cv=none; b=fJXX2Tc45SaxMLso5etqiscRQg3gSGd0+VZmaSNCJCnUh7/mYZEQFcr+FIoHTabn2MjXm9DvlvXP2ATNgOJ7OnxVkMDqi+NU3d8L4RC2tb2eAwWjjpFkF5EM1UTxSWLhPhwumYPV9pDpTw2zPeMlVsHOCAIxQvErKwuXUcihN40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505492; c=relaxed/simple;
-	bh=lE2X9UAZSMQRP+wH/814ZJDgk+DidHYmp4IIQy4wBvw=;
+	s=arc-20240116; t=1788505533; c=relaxed/simple;
+	bh=+zHrpq570MIeJzhAOE1XtbTWn45dFi/Qh3poLeJy/A8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XF8Ek11gX6H9lBGQrYcG49K42vyAiCFzNbj+9N+T5g4N9HpwrW03eYuChsotDGfrqJwiD+eFa8gt+4w3nh2EnEABdoE4n6LF7fRXFlRw6GmIFlJEoAZXWppf4y92Wh+mumB1tjiz+Nz6wxWc347mEj24KlT1MRoxnmZgp7dNIKI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cyxSE15M; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=R92OghsDL90RzNEaolFIjpVf5MnXgZCT+rDphfyZF2B4CzDdCPNi/zEeLMq7AIVkOI6GP6CA1m+XOBbg14xCb3jq8w4ZnpF41NQ7JwiG090/HeKlKY4hkhnRDT025k0HBNRj2cVPeQwnqj+HOJm747lEoNZRs8W923ZNHshfMlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKD3sjlP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cyxSE15M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80A561F00A3D;
-	Fri,  4 Sep 2026 07:04:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKD3sjlP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674551F00A3D;
+	Fri,  4 Sep 2026 07:05:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788505490;
-	bh=pTWmW3FsNMIpCxxNMpEGx6OhSLa+K4aOLoMHaG/Z3Uw=;
+	s=k20260515; t=1788505531;
+	bh=TQaFe8TSQ5Jl/V5sJ3hSGIQVSnhOaSfzsOE4dThfqeo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cyxSE15Mde9zQzKQQRTD51JU+kZc+EBsRiRqoP75dffu0UBTrfLlg2aywHaxMQKT0
-	 fK+VcIvkcxpSlwIQvtTMboJ5VeHVJqgVuEyBxWeLA4OvVlr1suJqlnkswiu01jD9yv
-	 /F69LHnVSX1pg8gHbYDIwIY2nA0hVfK5iI4AuIjp/mh22q6Ksw8rIGmcQHER1QmZQg
-	 CyRmlP4z9wYKHnPsLKZE5jh058MccBy+a115R7SSbh2z+wkzehQHO7AtHU4HrB0n+T
-	 cWvxmhy7C5qBTVCZ1f8MJFXyyQiBdnq1xrCD3O02TOpJwznM8wbD8OGdEuAkMbIYT7
-	 GZmnZbhgcWiiA==
+	b=jKD3sjlP3pJEPtqzrLZv4PPa69lPlWIPOqrPMu+oCX/If84PONhI72dR598hD7l81
+	 p1kqN3g05mZru2/pJD2UFe6uQTg/hBY/YALEngwBD0mT7xSo5goS9oJzkaLZtrY71k
+	 4QhzIl/mw+iu2vccb8/ODhUly+Bvh4QTOqbkFljSdhs+kX51IbYqIZVIywxO+YUJqC
+	 UBWbXrQS7QFgds4F1tmz9ZarahQmFE4gC7LAl1o+hfcKYjyJKyqCViKnrobt094S8N
+	 YgLQbHInEtu0k5P9drERV/ThQYDMfy7rrsr3RCMgIwtKsH1hqtqIvd/JzIL1LFav9O
+	 VQ8S19AzRr4Cw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/9] media: chips-media: wave6: Add Wave6 VPU
- interface
+Subject: Re: [PATCH v7 8/9] media: chips-media: wave6: Add Wave6 control
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Nas Chung" <nas.chung@chipsnmedia.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <39115ce2f3d9cc18350cddc650b7cb40317e5ef3.1788496816.git.nas.chung@chipsnmedia.com>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <9a39dbcd48c8326394992cc048a635fb2472537e.1788496816.git.nas.chung@chipsnmedia.com>
 References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <39115ce2f3d9cc18350cddc650b7cb40317e5ef3.1788496816.git.nas.chung@chipsnmedia.com>
+ <9a39dbcd48c8326394992cc048a635fb2472537e.1788496816.git.nas.chung@chipsnmedia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 07:04:50 +0000
-Message-Id: <20260904070450.80A561F00A3D@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 07:05:31 +0000
+Message-Id: <20260904070531.674551F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
 s) to consider:
-- [High] Integer underflow when calculating end index for frame buffer regi=
-stration causes out-of-bounds hardware configuration.
-- [High] Encoder frame buffer registration fails to group configuration com=
-mands, allowing array index overflow into adjacent MMIO registers.
-- [Medium] Silent truncation of RGB chroma format due to mismatched bitmask.
-- [Medium] Display buffers are silently ignored when the metadata array is =
-full.
-- [Medium] Hardcoded little-endian memory layout breaks compatibility with =
-big-endian host architectures.
+- [High] Data race on shared work_buffers_avail counter leads to DMA memory=
+ corruption.
+- [High] Incompatible pointer type passed to `gen_pool_dma_alloc` causes st=
+ructure memory corruption and invalid DMA mappings.
+- [High] Use-after-free of the driver device structure in the async firmwar=
+e load callback on unbind.
+- [High] System deadlock caused by holding the parent's mutex while synchro=
+nously unregistering child devices.
+- [High] Failure in work buffer initialization leaves the VPU state machine=
+ permanently corrupted.
+- [High] Auxiliary power domains are never powered on because they lack dev=
+ice links.
+- [Medium] Leaked runtime PM usage counter due to an improper conditional c=
+heck on device suspend state.
+- [Medium] Using a value of 0 to validate a DMA mapping leads to an IOMMU r=
+esource leak.
+- [Medium] Mixing scoped guards with goto-based error handling violates ker=
+nel cleanup API rules.
 --
 
-commit 5d00a062981a74f9de3d4d2750b7f43dba64822e
+commit 373df31fcd64a0ed065b0d792d9b1dac72e53fd5
 Author: Nas Chung <nas.chung@chipsnmedia.com>
+Subject: media: chips-media: wave6: Add Wave6 control driver
 
-media: chips-media: wave6: Add Wave6 VPU interface
+This commit adds the control driver for the Chips&Media Wave6 video codec I=
+P.
+It manages shared resources, firmware memory allocation, and power states f=
+or
+the child core devices.
 
-Add an interface layer to manage hardware register configuration and
-communication with the Chips&Media Wave6 video codec IP.
-
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-hw.c b/driver=
-s/media/platform/chips-media/wave6/wave6-hw.c
 > --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-hw.c
-> @@ -0,0 +1,2030 @@
+> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.c
 [ ... ]
-> +static void wave6_dec_set_display_buffer(struct vpu_instance *inst, stru=
-ct frame_buffer fb)
+> +static int wave6_vpu_init_vpu(struct wave6_vpu_device *vpu,
+> +			      struct vpu_core_device *core)
 > +{
-> +	struct dec_info *p_dec_info =3D &inst->codec_info->dec_info;
-> +	int index;
+[ ... ]
+> +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_PREPARE);
+[ ... ]
+> +init_done:
+> +	ret =3D wave6_vpu_init_work_buf(vpu, core);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+If wave6_vpu_init_work_buf() fails here, the function returns immediately
+without resetting vpu->state. Will this leave the driver permanently in
+WAVE6_VPU_STATE_PREPARE, causing subsequent attempts to boot to skip the in=
+it
+sequence?
+
 > +
-> +	for (index =3D 0; index < WAVE6_MAX_FBS; index++) {
-> +		if (!p_dec_info->disp_buf[index].buf_y) {
-> +			p_dec_info->disp_buf[index] =3D fb;
-> +			p_dec_info->disp_buf[index].index =3D index;
-> +			break;
-> +		}
-> +	}
+> +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_ON);
+> +
+> +	return 0;
 > +}
+[ ... ]
+> +static int wave6_vpu_get(struct wave6_vpu_device *vpu,
+> +			 struct vpu_core_device *core)
+> +{
+> +	int ret;
+> +
+> +	if (WARN_ON(!vpu || !core))
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&vpu->lock);
+> +
+> +	if (!vpu->fw_available)
+> +		return -EINVAL;
+[ ... ]
+> +	ret =3D wave6_vpu_try_boot(vpu, core);
+> +	if (ret)
+> +		goto error_boot;
+> +
+> +	return 0;
+> +
+> +error_boot:
+> +	pm_runtime_put_sync(vpu->dev);
+> +error_pm:
 
 [Severity: Medium]
-WAVE6_MAX_FBS is defined as 31. If userspace requests and registers 32
-buffers, what happens when this loop completes without finding an empty
-slot?
+Does this mix goto-based error handling with guard() cleanup in the same
+function? The kernel cleanup API expects that a function either uses scoped
+guards entirely or goto entirely to prevent confusing ownership and cleanup
+ordering.
 
-Does this silently drop the tracking metadata for the buffer, leading to
-failures later in wave6_vpu_dec_get_output_info() when it tries to match
-the display buffer address?
-
-[ ... ]
-> +int wave6_vpu_dec_register_frame_buffer(struct vpu_instance *inst)
+> +	atomic_dec(&vpu->core_count);
+> +
+> +	return ret;
+> +}
+> +
+> +static void wave6_vpu_put(struct wave6_vpu_device *vpu,
+> +			  struct vpu_core_device *core)
 > +{
 [ ... ]
-> +	fbc_remain =3D fbc_count;
-> +	mv_remain =3D mv_count;
-> +	group_num =3D DIV_ROUND_UP(max(fbc_count, mv_count), 16);
-> +	for (i =3D 0; i < group_num; i++) {
-> +		bool first_group =3D i =3D=3D 0;
-> +		bool last_group =3D i =3D=3D group_num - 1;
-> +		u32 set_fbc_num =3D (fbc_remain >=3D 16) ? 16 : fbc_remain;
-> +		u32 set_mv_num =3D (mv_remain >=3D 16) ? 16 : mv_remain;
-> +		u32 fbc_start_no =3D i * 16;
-> +		u32 fbc_end_no =3D fbc_start_no + set_fbc_num - 1;
-> +		u32 mv_start_no =3D i * 16;
-> +		u32 mv_end_no =3D mv_start_no + set_mv_num - 1;
+> +	guard(mutex)(&vpu->lock);
 
 [Severity: High]
-If either fbc_count or mv_count is initially 0, or if they are uneven
-and one depletes before the other in subsequent loop iterations,
-set_fbc_num or set_mv_num becomes 0.
+Will this cause a system deadlock when the parent unregisters child devices?
+During wave6_vpu_release(), the parent takes vpu->lock and triggers core
+destruction. The child's remove callback will then try to put the VPU, lead=
+ing
+back into this function which attempts to acquire the exact same lock.
 
-Does this cause fbc_end_no or mv_end_no to underflow when subtracting 1,
-sending invalid boundaries to the hardware?
-
+> +
+> +	if (!vpu->fw_available)
+> +		return;
 [ ... ]
-> +int wave6_vpu_dec_register_display_buffer(struct vpu_instance *inst, str=
-uct frame_buffer fb)
-> +{
-[ ... ]
-> +	reg_val =3D SET_DISP_COMMON_PIC_INFO_BWB_ON |
-> +		  SET_DISP_COMMON_PIC_INFO_C_FMT_IDC(c_fmt_idc) |
-> +		  SET_DISP_COMMON_PIC_INFO_PIXEL_ORDER(PIXEL_ORDER_INCREASING) |
+> +	wave6_vpu_sleep(vpu, core);
+> +
+> +	if (!pm_runtime_suspended(vpu->dev))
+> +		pm_runtime_put_sync(vpu->dev);
 
 [Severity: Medium]
-When the format is RGB, get_chroma_format_idc() returns C_FMT_IDC_RGB
-which evaluates to 4 (binary 100).
+Does conditionally skipping the put operation cause a usage counter leak?
+If the device was suspended by other system events, skipping this symmetric=
+al
+put prevents the device from ever entering lower power states in the future.
 
-Since SET_DISP_COMMON_PIC_INFO_C_FMT_IDC uses a 2-bit mask, does this
-silently truncate the value to 0 (C_FMT_IDC_YUV400) and misconfigure
-the hardware for RGB displays?
-
-[ ... ]
-> +int wave6_vpu_enc_register_frame_buffer(struct vpu_instance *inst)
+> +}
+> +
+> +static void wave6_vpu_require_work_buffer(struct wave6_vpu_device *vpu,
+> +					  struct vpu_core_device *core)
 > +{
+> +	struct vpu_buf *vb;
+> +	u32 size;
 [ ... ]
-> +	for (idx =3D 0; idx < fbc_count; idx++) {
-> +		vpu_write_reg(inst->dev, W6_CMD_SET_FB_FBC_Y(idx), fb_arr[idx].buf_y);
-> +		vpu_write_reg(inst->dev, W6_CMD_SET_FB_FBC_C(idx), fb_arr[idx].buf_cb);
-> +		vpu_write_reg(inst->dev, W6_CMD_SET_FB_FBC_CR(idx), fb_arr[idx].buf_cr=
-);
+> +	if (WARN_ON(vpu->work_buffers_avail =3D=3D 0))
+> +		goto exit;
+> +
+> +	vpu->work_buffers_avail--;
+> +	vb =3D &vpu->work_buffers[vpu->work_buffers_avail];
 
 [Severity: High]
-Unlike the decoder buffer registration which batches commands into groups
-of 16, this loop writes sequentially up to fbc_count.
+Is there a data race on the work_buffers_avail counter here? If multiple
+VPU cores trigger requests concurrently without holding vpu->lock, could the
+counter underflow and lead to an out-of-bounds array access that corrupts D=
+MA
+memory?
 
-If fbc_count exceeds 16, could this overflow past the 16 available MMIO
-slots for W6_CMD_SET_FB_FBC_Y (and others) and corrupt adjacent hardware
-registers like W6_CMD_SET_FB_DEFAULT_CDF?
-
+> +
+> +	wave6_vdi_writel(core->reg_base, W6_CMD_SET_WORK_BUF_ADDR, vb->daddr);
+> +
+> +exit:
+> +	wave6_vdi_writel(core->reg_base, W6_CMD_SET_WORK_BUF_SIZE, SET_WORK_BUF=
+_SIZE_ACK);
+> +}
 [ ... ]
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-regdefine.h b=
-/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
-> @@ -0,0 +1,649 @@
+> +static void wave6_vpu_release(struct wave6_vpu_device *vpu)
+> +{
+> +	guard(mutex)(&vpu->lock);
+> +
+> +	vpu->fw_available =3D false;
+> +	wave6_vpu_destroy_cores(vpu);
+> +	wave6_vpu_free_work_buffers(vpu);
+> +	if (vpu->sram_pool && vpu->sram_buf.vaddr) {
 [ ... ]
-> +#define		SET_DISP_COMMON_PIC_INFO_C_FMT_IDC(x)	FIELD_PREP(GENMASK(25, 24=
-), (x))
+> +	}
+> +	if (vpu->code_buf.dma_addr)
+> +		dma_unmap_resource(vpu->dev,
 
 [Severity: Medium]
-As noted in wave6_vpu_dec_register_display_buffer(), this mask is only
-2 bits wide. Could this be extended to correctly support C_FMT_IDC_RGB
-(which requires at least 3 bits to store value 4)?
+Could this condition leak valid IOMMU mappings if the DMA allocator returns=
+ 0?
+Since 0 is a valid DMA address on many platforms, skipping the unmap when t=
+he
+address evaluates to false can lead to a resource leak.
 
+> +				   vpu->code_buf.dma_addr,
+> +				   vpu->code_buf.size,
+> +				   DMA_BIDIRECTIONAL,
+> +				   0);
+> +}
+> +
+> +static void wave6_vpu_load_firmware(const struct firmware *fw, void *con=
+text)
+> +{
+> +	struct wave6_vpu_device *vpu =3D context;
+> +
+> +	guard(mutex)(&vpu->lock);
+
+[Severity: High]
+Can this cause a use-after-free if the device unbinds while firmware loading
+is in progress? If the driver is removed and devres frees the vpu memory,
+this async callback might try to acquire a mutex that resides in freed memo=
+ry.
+
+> +
+> +	if (!fw || !fw->data) {
 [ ... ]
-> diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h b=
-/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
-> @@ -0,0 +1,72 @@
-[ ... ]
-> +#define HOST_ENDIAN			VDI_128BIT_LITTLE_ENDIAN
-> +#define VPU_STREAM_ENDIAN		HOST_ENDIAN
-> +#define VPU_USER_DATA_ENDIAN		HOST_ENDIAN
-> +#define VPU_SOURCE_ENDIAN		HOST_ENDIAN
+> +	if (fw->size + W6_EXTRA_CODE_BUF_SIZE > wave6_vpu_get_code_buf_size(vpu=
+)) {
+> +		dev_err(vpu->dev, "firmware size (%zd > %zd) is too big\n",
+> +			fw->size, vpu->code_buf.size);
+> +		vpu->fw_available =3D false;
+> +		goto exit;
 
 [Severity: Medium]
-Does hardcoding the host endianness to VDI_128BIT_LITTLE_ENDIAN break
-stream decoding and encoding on big-endian architectures?
+Is this mixing goto-based error handling and scoped guard cleanup again? Th=
+is
+violates the cleanup API guidelines.
 
-Could this be set conditionally using standard kernel endianness macros
-to support big-endian hosts?
+> +	}
+[ ... ]
+> +static int wave6_vpu_attach_pm_domains(struct wave6_vpu_device *vpu)
+> +{
+> +	int ret;
+[ ... ]
+> +	if (vpu->num_pm_domains =3D=3D 1) {
+> +		/* genpd_dev_pm_attach() attach automatically if count is 1 */
+> +		vpu->num_pm_domains =3D 0;
+> +		return 0;
+> +	}
+> +
+> +	ret =3D dev_pm_domain_attach_list(vpu->dev, NULL, &vpu->pd_list);
+
+[Severity: High]
+By passing NULL for the data parameter, does this skip creating device links
+for the auxiliary domains? Without DL_FLAG_PM_RUNTIME links, the PM core wo=
+n't
+power on these domains during runtime, which might lead to exceptions when
+accessing unpowered hardware registers.
+
+> +	if (ret < 0) {
+[ ... ]
+> +static int wave6_vpu_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	vpu->sram_pool =3D of_gen_pool_get(pdev->dev.of_node, "sram", 0);
+> +	if (vpu->sram_pool) {
+> +		vpu->sram_buf.size =3D vpu->res->sram_size;
+> +		vpu->sram_buf.vaddr =3D gen_pool_dma_alloc(vpu->sram_pool,
+> +							 vpu->sram_buf.size,
+> +							 &vpu->sram_buf.phys_addr);
+> +		if (!vpu->sram_buf.vaddr) {
+> +			vpu->sram_buf.size =3D 0;
+> +		} else {
+> +			vpu->sram_buf.dma_addr =3D dma_map_resource(&pdev->dev,
+> +								  vpu->sram_buf.phys_addr,
+
+[Severity: High]
+gen_pool_dma_alloc() expects a dma_addr_t pointer for its third argument to
+write back the DMA address, but a phys_addr_t pointer is being passed here.
+Could this cause out-of-bounds memory corruption on architectures where the
+sizes differ? Additionally, is the returned DMA address being incorrectly
+passed to dma_map_resource() as if it were a physical address?
+
+> +								  vpu->sram_buf.size,
+> +								  DMA_BIDIRECTIONAL,
+> +								  0);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788496816.gi=
-t.nas.chung@chipsnmedia.com?part=3D3
+t.nas.chung@chipsnmedia.com?part=3D8
