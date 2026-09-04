@@ -1,201 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f49.google.com (mail-ot1-f49.google.com [209.85.210.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B97233A0E8D;
-	Fri,  4 Sep 2026 15:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20244385D7C
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 15:37:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535961; cv=none; b=mUedIV8Ni3BKIMD+nAsp7o4ta7GLkDbFRisFWdt3Up6OoLvtQ04oIn1mQDmX/1laadvyYhTqwEjjT6k81aiqWgvXHLyZqU2YbBUvLVOdlwv1sIPjhElhdQ1QYkpk1JK9Roho5QEj+3VCvXzOHPHstVa9/S1g01MsflxZzSUtKuQ=
+	t=1788536267; cv=none; b=ZEFbm8hwEVP+EAL592tlovdzF5uf4JKBflBUEjYuRfvKtkCGWJdaCcSH/sdzHTTk7XnOhT7TQiCOHbehcmjNQFWIKUZ4MCGZju22NNNCQHZxNQfjSA0lhKHhmkOiNw+80uOIuj6XCarWPsi3RoOowuzbjsUh7naYw6+s7v1WnHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535961; c=relaxed/simple;
-	bh=6BuLmPMVLgT6e1T/96UyVpF5wgE7oRFL9Sv8pBeJvzM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KADfp9LR4F1aVmPzRGz2glsr/LZaMqxmrrRnMKu5MzE5/fVn4kIKKnbzbwLG8OTxCb9hoOyniEmkrRK9iSrLsdKbSHmiD+uGJlHIfOCUS3TiBWyOWjWtgb0Pu/9CxFEqgDq139BOXk7mf0yjvBFi5VrLZLcVaLmgyzPDm5gabGU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kINxNatp; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kINxNatp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EE1F1F00A3D;
-	Fri,  4 Sep 2026 15:32:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788535959;
-	bh=rNSpuSGCHKNrIM1d6NDkX9yuk7wiUm0L/vrIm6qntqY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kINxNatpTECOnR+yU1/x76FDR+rF5EE+bdCUOlFeLyhWnlNoVhetLOzFoKIn9X95/
-	 1Wm34ecnilTaOIT4qUuUhsB5/G2johofGQ+lJKl16ke6CRCriPZg3N7SZQCGaDuU0Q
-	 gUr6qeaVOOYWfrbTUS75W5kk3DZ9Bgqf8npljX76F00PU2brUoojL6VHmpul4tFPPw
-	 +iQQiOQcpLc0Uyz59X54xIrnJ+Ea3Nr0KMjLxiM7TwfklPqFgT93U3kuKOpVXZFhfA
-	 V8JyTvsDu1vx8B6pGCLymtxhTp5+119z1L/XzoSvaz2Z2lLtgBLquVDyjetraix8OI
-	 S17twxG9SogCQ==
-Date: Fri, 4 Sep 2026 16:32:35 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
- Gen5 DWC3 xHCI USB controller
-Message-ID: <20260904-colonial-wimp-b37c27657664@spud>
-References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+	s=arc-20240116; t=1788536267; c=relaxed/simple;
+	bh=xuRqAUdvHsG4BxcDdfuXSf+SI6WrEN2MF8ZgZw7jyWk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=DSRLfQdMADZQaQwz5/vlYLdPjpHwaUJIjMfh9GCPEcpzjPjAXZPvNyyT5vreqR8Bl2JtKEvpYsdHT8nLFnpvgAfr+Sd2AT3Ya91hzXqZiyvxH29ejLgUB7vPJZPD1Nksok9NKH138cih37tJ6eAiH5alDPRrru21FxrNFTUCJsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.210.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ot1-f49.google.com with SMTP id 46e09a7af769-7f4df360cc9so1394855a34.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 08:37:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788536265; x=1789141065;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=qKx60bz5SuKi9YOnfZ7Xh4JH5NN7Tn78TsaIHZikv3k=;
+        b=BlCyIXPB9EgftXYbnPi97aRqBzTDPjt8nGWDZrwDfAl+UPLUERIITNgEpXT9rjxkUX
+         90rNth8uirGJBxpeRLdFb1j9Xle+k82VZAVLDtsutLQa5nD/AEdnqLp7zh1YdmOYzKxv
+         rGFHuqOm+aawF9TCNZpRe8/NNMr7fIW/bUgMcd3YSsaywW/+T4vJ0FWSwmYnv4jj1Dmw
+         EFbmYozQVvILnzJVNLUCXT1FozlOS/f+2uqo3CBEgtN5WmQp4luBTniQoCtG1iUqzekF
+         htglwWYNHe9zXw9u/H0Ty/cjCnSyZmffkDVbu3eKm13ZJaX7eOpdLQDxbUffHxv7HmyA
+         55hQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwnlvtUAQQ6PfmCTiR1r8u8bNvUyTprm0gBHenPTtNfzazAqvGjZ2vJu6M4iNQPpWorN6PetU5GHozq@vger.kernel.org
+X-Gm-Message-State: AFuF++mJ9VwrWX2rReUcboeq634gJfHv95H8+E+zDms4M4w5zgo/s6bw
+	eVK59E4pqwsaGQJlRwuvVbmB+DQ04dtZbOOILJM1A3w9arOVJoo5t27K75OFo0tA
+X-Gm-Gg: AYBFou20GUCqZt96gNK+c4p9JUp50N9LhsFw5HkfMC69PL9r2ItF/2qlwcwj085rRbe
+	f9l2ZlbFPY4txqSfNXzKumdfQLjTfa7dEoPXAXI5OpSVOCXZAO2X9jqbhzIuyjUdm1/zyBJHriw
+	Qw06diTvCUD4lhcsXIC84XF3eg8LRSyfazbzq993vGzdrLryNH35rDiajtF8CH6dQ21shLIixNe
+	mafHNbLV6L0Ofo/SG07wUNmcMv/TnuYfmE1C8xOkL8tt6c8hA7s7rLxhxTIV2VGYU7Hk9Wpm7AA
+	l7iQKDKeTamzZUcEA6CwSJQJJOsERTUK1VSbEJJY4jw9nJhpiUw+a46C0Kg+i/Dw/nZgvUl+JyD
+	KWn3vNGS3+FIVrVL1cJp/+vRPnSOZDT0ELAVuC74aO7EfzqPL8CQp6wxrJclMprovFdZx8RgHLa
+	kJuEmLDlfYP/HIUxRo7nyPqZSWtsd6pAoV1fnCEcNInURBAbJCp6jPeY5+42QNDnUcv7mQnnsO/
+	ZkXXNaPYGUH//U+6M6ONhbi90NUZg==
+X-Received: by 2002:a05:6830:6c13:b0:7f9:555:1df1 with SMTP id 46e09a7af769-7fa39e2bb76mr2404190a34.13.1788536264736;
+        Fri, 04 Sep 2026 08:37:44 -0700 (PDT)
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com. [209.85.167.173])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7f9f7aef680sm3269112a34.26.2026.09.04.08.37.43
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 08:37:43 -0700 (PDT)
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4b1ba286f6bso1701938b6e.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 08:37:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByLmle7oWuG3euLM+NwLjJBL3QWj/iQho6H+YnmH4Co9xv5CcSSTAjqOwL8WsoyUAWwWeybrES73tN3@vger.kernel.org
+X-Received: by 2002:a67:f906:0:b0:744:d517:b0b0 with SMTP id
+ ada2fe7eead31-78a2ef8049fmr2629622137.10.1788535775319; Fri, 04 Sep 2026
+ 08:29:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jhkT80vSSlUwMh4i"
-Content-Disposition: inline
-In-Reply-To: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com> <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
+In-Reply-To: <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 4 Sep 2026 17:29:24 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWn3BaY3EHeThFo34Z=69OaZb0FQ7Z7Ui9MczDGS4nBGg@mail.gmail.com>
+X-Gm-Features: AcwNN1ViLT-nOz1SKiDYeBMSJtbLrC_K6YnJyCHi1MudTORPs1tGe-hfANcJPSI
+Message-ID: <CAMuHMdWn3BaY3EHeThFo34Z=69OaZb0FQ7Z7Ui9MczDGS4nBGg@mail.gmail.com>
+Subject: Re: [PATCH 08/10] arm64: dts: renesas: Add initial SoC DTSI for
+ RZ/G2M v3.0
+To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-pm@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
---jhkT80vSSlUwMh4i
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 21 Aug 2026 at 17:06, Ayman Chaudhry
+<ayman.chaudhry.kc@renesas.com> wrote:
+> Add initial Device Tree Source Include (DTSI) file for the Renesas
+> RZ/G2M v3.0 (a.k.a. R8A774A3) SoC with basic support.
+>
+> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
 
-On Thu, Sep 03, 2026 at 11:30:12PM +0200, Marek Vasut wrote:
-> The Renesas R-Car Gen5 SoC contains multiple instances of DWC3 USB
-> controller with glue logic wrapper around them. Document the glue
-> logic and DWC3 controller.
->=20
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-renesas-soc@vger.kernel.org
-> Cc: linux-usb@vger.kernel.org
-> ---
-> V2: Rework to use flat bindings for generic plat driver
-> V3: - Support one or two PHYs to correctly describe the hardware
->     - Make maximum-speed optional
-> V4: - Use ref: snps,dwc3-common.yaml and drop generic dr_mode/maximum-spe=
-ed/phys/phy-names
->     - Switch to unevaluatedProperties: false
-> V5: - Limit maximum PHY count to 2
-> V6: No change
-> V7: No change
-> ---
->  .../bindings/usb/renesas,rcar-gen5-dwc3.yaml  | 76 +++++++++++++++++++
->  1 file changed, 76 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/renesas,rcar-ge=
-n5-dwc3.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3=
-=2Eyaml b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
-> new file mode 100644
-> index 0000000000000..c8a770d7e0241
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/renesas,rcar-gen5-dwc3.yaml
-> @@ -0,0 +1,76 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/renesas,rcar-gen5-dwc3.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Renesas R-Car Gen5 DWC3 xHCI USB controller
-> +
-> +maintainers:
-> +  - Marek Vasut <marek.vasut+renesas@mailbox.org>
-> +
-> +allOf:
-> +  - $ref: snps,dwc3-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: renesas,r8a78000-dwc3
-> +      - const: renesas,rcar-gen5-dwc3
-> +
-> +  reg:
-> +    maxItems: 2
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dwc3
-> +      - const: glue
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  phys:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  phy-names:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  power-domains:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - clocks
-> +  - interrupts
-> +  - phys
-> +  - phy-names
-> +  - power-domains
-> +  - resets
-> +
-> +unevaluatedProperties: false
+> +++ b/arch/arm64/boot/dts/renesas/r8a774a3.dtsi
+> @@ -0,0 +1,302 @@
+> +// SPDX-License-Identifier: GPL-2.0
 
-I said this elsewhere today, but this binding has lots of "distasteful"
-properties for things that should be determined from the compatible, so I
-would appreciate it if you could use additionalProperties: false here
-cite the ones you need to use explicitly. Sounds like dr_mode: true and
-maximum-speed: true are all you'd need?
+Any change we can get "GPL-2.0-only OR BSD-2-Clause"?
 
-Cheers,
-Conor.
-
+> +       soc {
+> +               compatible = "simple-bus";
+> +               bootph-all;
 > +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +               #address-cells = <2>;
+> +               #size-cells = <2>;
+> +               ranges;
 > +
-> +    usb@c8800000 {
-> +        compatible =3D "renesas,r8a78000-dwc3", "renesas,rcar-gen5-dwc3";
-> +        reg =3D <0xc8800000 0x100000>, <0xc9c54000 0x2000>;
-> +        reg-names =3D "dwc3", "glue";
-> +        clocks =3D <&scmi_clk 336>;
-> +        interrupts =3D <GIC_SPI 795 IRQ_TYPE_LEVEL_HIGH>;
-> +        phys =3D <&usb30_phy>, <&mp_phy 2>;
-> +        phy-names =3D "usb2-phy", "usb3-phy";
-> +        power-domains =3D <&scmi_devpd 16>;
-> +        resets =3D <&scmi_reset 336>;
-> +    };
-> --=20
-> 2.53.0
->=20
+> +               cpg: clock-controller@e6150000 {
+> +                       compatible = "renesas,r8a774a3-cpg-mssr";
+> +                       reg = <0 0xe6150000 0 0x0bb0>;
 
---jhkT80vSSlUwMh4i
-Content-Type: application/pgp-signature; name=signature.asc
+No need for odd sizes: 0x1000.
 
------BEGIN PGP SIGNATURE-----
+> +                       clocks = <&extal_clk>, <&extalr_clk>;
+> +                       clock-names = "extal", "extalr";
+> +                       #clock-cells = <2>;
+> +                       #power-domain-cells = <0>;
+> +                       #reset-cells = <1>;
+> +                       bootph-all;
+> +               };
+> +
+> +               rst: reset-controller@e6160000 {
+> +                       compatible = "renesas,r8a774a3-rst";
+> +                       reg = <0 0xe6160000 0 0x018c>;
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprkkwAKCRB4tDGHoIJi
-0toQAQDSbUS1gdNvnI9Uh80kFpnGGub1TxxO6lk+75U09tz3IwEAsJ06sROOwyvJ
-MBm/IxGrwb1M6XmIkCQ5nH/+OkQuQQc=
-=/BsN
------END PGP SIGNATURE-----
+0x200
 
---jhkT80vSSlUwMh4i--
+> +                       bootph-all;
+> +               };
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
