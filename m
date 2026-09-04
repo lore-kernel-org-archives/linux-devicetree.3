@@ -1,61 +1,61 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914E7425CC0
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C0443C7DE
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:44:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511465; cv=none; b=hUpjto05af4r9u18mzD5F79NaUCeKCal2gXXj1FW2Gy/J/sZWQZZPKF5o2/K+5HMFnOVM5UbmjKdq78u9UPC+9g5Dkw/EW+bTHyPcp9nCjHUSdWI6oV0wqlhuF9tafj+8jydir5lXaDMlOpPvHOXLqwUIR18CR2Slduh35yX8P8=
+	t=1788511470; cv=none; b=Jolw24DC+ks+Opj7aomxskBF5LHCFqLnZzPbVsG8ADIJkh/KbIKo2b8amVp3/bCSHXws3susPVz0rf41nr0bODYwV/j5YEVLx8jMzkL6ff+TkAdDpVWoujXh+xndGHI+e1cnYhs/ffC/wfRIUv9zkrwAQCsWgo2QBSY8PVjq0Zk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511465; c=relaxed/simple;
-	bh=xBV8QPVdEcBZnuBIzyHhldDQGO+nq6BHDmKFvSTohgk=;
+	s=arc-20240116; t=1788511470; c=relaxed/simple;
+	bh=u12auxpxANOpkxu9usV3zVUsre8MM64CpWgx+x9ARHk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hsCl+XposUxI6t/ki/Ool2zDz5NFpD+A/9d/cWfLUMcPAWUEP8xr3E+s8p0wO0SnX1MDW6pvtn4FX98IrNkm2vZOVRlZolE1z9G2dWbJuvCfCA3B8Tmy02hUxfnbbE4OaCTERa7qfqVxKPsn0U0jNHJBdW/aCOAvHfLxbAz6eOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SXKqkSQj; arc=none smtp.client-ip=209.85.216.46
+	 MIME-Version; b=J5unFUCpQFjUsQLOwBj5qZfkoMhXbhEwckqCXL9svkLUpF27glthd4CaqmUSdEu/ccJFfJB6WZemtj1jw13UcEzQ447RJMPM5OjyFUyK3G3gZM2C+4+5Qj4tHB1XGKkGzrFMk+52XvcOgriHnBhGX0Bb9V60GyP5Bns1pAmBEwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=DxydsGSV; arc=none smtp.client-ip=209.85.216.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SXKqkSQj"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-39b2ad862bdso491039a91.2
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:44:23 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="DxydsGSV"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38e58034d05so601488a91.2
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:44:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788511463; x=1789116263; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1788511468; x=1789116268; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1exL3htqf+GpZcCvUWENBQmRfzXhNWdoVzfZaiBanSc=;
-        b=SXKqkSQjIrMNOmALVals/V2vnF2xuhKA9qxk7d7X135SM5V1C+sn+6ykUj5KPRXpXa
-         xWqMm9GdpHwk7C72TvNh2SXFrXgmMHGa3BATreUdsl/YwEA3OdCHRarXYUng1eX126zz
-         YTT81FZTqW5EI1o5OGs88SmZlrVuIg6GskphY=
+        bh=QXiJKGEMuTwqwy42qG7uMnjSfbdcOoA9DAqQks+0PHc=;
+        b=DxydsGSV51i5/UV7fZspU9PTFi1HT8u8l/K2z/jFAIxHGIxbnN+KYRRluHQcGahpn4
+         lzfgcO7KsAvSGx1KuLGnCDv0RKbF5Hdrjxvunbfw47xTxxLOCJO1EqGZZau+vkTsAccX
+         2FA2pZDAlpS0Rbd9j9/CucpcuNOo1+OUUwl88=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788511463; x=1789116263;
+        d=1e100.net; s=20251104; t=1788511468; x=1789116268;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1exL3htqf+GpZcCvUWENBQmRfzXhNWdoVzfZaiBanSc=;
-        b=YUNhXpTazySNyB9T+LpHmCFmyRfMgGEzVZ2Yt/UN0QxBYsa7R1h2lCmnC461nT5hzo
-         HzWnImd6/Vfm0RFRjGReHCd37p8SqGVsvbO4jmMQd3uOdyQqs8BSIE4JhQDZjuaKQoOF
-         Pg1Zbgk0EVwbXuY4PdROs9GoBwSNI9vuA+RKrAc6rMLEkS3LspM9OHzNjlijS9fW2xhK
-         YuCRLFult3AhQUbgLH0BZ2Swfrx/eRKgHfa7LrsfEtYrlCuzKCHB5Pv1k41lcGzbrHq0
-         ybf7B/YG9aTmZHG3DcjLZltX3+hs1tD/wCNSeIkcJz0Y0zDVLgyAsprrOwYluuvZl2Ox
-         59Iw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEfp7jp4Z9yQcOwlwkK5/Y0K1tAe4INzTxxydP3SgyU/WcC8/swnvaF7cWd8O65Gcn1xXkE+ry5cux@vger.kernel.org
-X-Gm-Message-State: AFuF++l7pBsZUnHTElchZ7wjdPiJAYKMOg5Iwa58wWU5Q8ZT4Zh5LLHs
-	qddbG9kRNoOaghTlNT9Xfbe84rpbZ8nrIPXpX72sz4wsNQspi5mqrVy7QGDLVFGIzg==
-X-Gm-Gg: AYBFou1lv05bEECJ9bn/xqu9lA4aKd/wiw1cBAqjN+TDNBj9gPnXMEJ/nGSnYySINJI
-	/LTiVG8uA7lB1PtWTFakMdt8wEu+v6h3MC7NoLR9YRHF1DpRzTaXY8C2ZiCjQT3DB2Lyl+ROPYJ
-	mZNXfIw1k72t56gFeWQ5th8BGp8lYB3fK97LeF8htBfsFNRIMutUsAhPjw8IBVT4UZHGYEAsEMG
-	U5fit/t7Xbrzdb+GCPVSpoyu/ovt9eN5BSRFHoktvoy+5HNp1FKfmnZKW13VCLc6D0ggNCI8jnb
-	9RN3obT9SHNzLZ32AmqI/3IG7fLRA2AcWksRxy1wb5E+oVBW3zq5tHZFO78DJ2UgxNh2jctZeQd
-	6WP6X6uUzql1LVspbq4xqoPEaWdEOUY/JTteX4bD5IFMW1qeQqyHBZvf+8CLqhH1Dhrf2SxPsVt
-	QRkdHofOUvkcKn6yOQA48gqWKRD9igwvVo4kQSwlQNZ6x4mFknd8SXvDVjBLVBALNS/BzM+aGyC
-	YpU5qo+Ul9tXHjw+6gWZmFkog0qKfpI4GgdCGjZw49B
-X-Received: by 2002:a17:90a:d646:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39b26214798mr7405740a91.20.1788511462630;
-        Fri, 04 Sep 2026 01:44:22 -0700 (PDT)
+        bh=QXiJKGEMuTwqwy42qG7uMnjSfbdcOoA9DAqQks+0PHc=;
+        b=r5rAdH80xspCoD6ocfTTIXd0zifQ4rXYUJkXZwZNViRcvZnksLiOUq/o9bmKrUHgpL
+         /ITyC/SLNqdwJJEsvQXOOnQmQazROAKfQnlfN6dPYlJbXZpf4QqLyRxd0Dtf/FS8Vn5U
+         M5d0wgZHIgfZyEqVE+Qruj4hmoWpWCpWRrnyZUEAqSQaxE7pSJZmX5TJCQ1m6gVtF/bU
+         7soItK+FuIJP3BQb83uxUU5Z3GXiBwulq5g/RrFCdVh2B6dVG36L/i5CixrAM7cXxuSs
+         JqEL1HU7N8IXAiEssZccXq5uc8EqVBcF3ZdbVFJN7XSdyWKz9WrOwM+IeBhd8KQSwt6N
+         xznQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHBzeuJvID3hzJaYhz/XRd5YQqNbNiZNnxo1MxS1lAn0TVODGtvZ9oDQaq1tWuJKsXtqe5mr2r8iVP@vger.kernel.org
+X-Gm-Message-State: AFuF++kTpPKeeO7FP9xponSKFqI+LHoRM+dvle1e6vuOxwvM9360Mc9H
+	vQFS03ZO5+79noiVqTtpX8DVOPYd4mx8Q5PAvI/Ed3CCuVIAFuBePWfzh4NVJvEDIQ==
+X-Gm-Gg: AYBFou1zf1K2EAtMprUuBQgJNOFPWQ8FBI2uRymyURtYk1nCgfL8CwAWttHDKZ7YTDo
+	NqGr2WGiVNeonipvZZueIvRRWTAmg+GChFqv8es+CdUojq/7KI4Q+dtByFPlXuxNGZuqATF7yq4
+	gR8n+QFofCxqHuXCs7R+gxAkoP+kTa9zaV7k7aJRjkWQrAwv6V5S6BNTyphseTpL0kPD9fJKSNo
+	WhWVE66EcokjR8ZzTfeckr++lbs75L9wmYKxnHzCpYwlDRQZFyt2dQNHx/LFoQf+IfT/zWqLNTa
+	hIyGkrEryBd8iyqHWWKp6+Ns7nHESg3am0886xfGuq7Dtrl5PBkB9Wb1/aWtD9hJc0EW6lmRGor
+	UxK76ZXuBJ+IImU/m5zJJvSbczTP1DyEmPIhE95LJvYDVjYHyJ4qbQBzVry88EpQ4MO6Tw6dccI
+	+YzBeYKPtw6aKL258R9q8xE7RgmYFPlnL2XsRyo3mh7zXC8q0Gc17g+r3TU6nZ3+gNa2J7BUjpV
+	ynhxebWeCYZbf5PNbrspBlHvAierDEcVRqhtqJHRBNS
+X-Received: by 2002:a17:90b:2b8c:b0:398:9be6:f995 with SMTP id 98e67ed59e1d1-39b262aaf48mr7479557a91.20.1788511467843;
+        Fri, 04 Sep 2026 01:44:27 -0700 (PDT)
 Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:201d:8:343:bf21:3095:9c5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm3343538a91.9.2026.09.04.01.44.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm3343538a91.9.2026.09.04.01.44.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 01:44:22 -0700 (PDT)
+        Fri, 04 Sep 2026 01:44:27 -0700 (PDT)
 From: Chen-Yu Tsai <wenst@chromium.org>
 To: Bartosz Golaszewski <brgl@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -84,9 +84,9 @@ Cc: Wei Deng <wei.deng@oss.qualcomm.com>,
 	Manivannan Sadhasivam <mani@kernel.org>,
 	Alan Stern <stern@rowland.harvard.edu>,
 	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: [PATCH v8 12/16] power: sequencing: pcie-m2: support matching on remote "port" node
-Date: Fri,  4 Sep 2026 16:41:51 +0800
-Message-ID: <20260904084158.1341550-13-wenst@chromium.org>
+Subject: [PATCH v8 13/16] power: sequencing: pcie-m2: Add usb and sdio targets for E-key connector
+Date: Fri,  4 Sep 2026 16:41:52 +0800
+Message-ID: <20260904084158.1341550-14-wenst@chromium.org>
 X-Mailer: git-send-email 2.55.0.979.g7e5102b832-goog
 In-Reply-To: <20260904084158.1341550-1-wenst@chromium.org>
 References: <20260904084158.1341550-1-wenst@chromium.org>
@@ -98,53 +98,131 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A USB hub can have multiple ports, and this driver needs to
-differentiate which port is being matched to. The USB hub driver now
-associates the "port" node with the usb_port device, so here we can
-use the remote "port" node to check for a match. Then fall back to
-the remote device node for the other connection types.
+The M.2 E-key connector allows either PCIe or SDIO for WiFi and USB or
+UART for BT. Currently the driver only supports PCIe and UART.
 
-Also rewrite the existing "remote == dev_of_node(dev)" with
-device_match_of_node() for consistency.
+Add power sequencing targets for SDIO and USB. To avoid adding a
+complicated dependency tree, rename the existing power sequencing units
+"pcie" and "uart" to "wifi" and "bt". The existing target names are left
+untouched. The new "sdio" and "usb" targets just point to the renamed
+"wifi" and "bt" units.
+
+The "unit" names are internal to the power sequencing framework, and
+should be confined to a single provider. The names are only
+informational. Dependencies are tracked with pointers to other units.
+
+The "target" names are the strings that the consumer uses to acquire a
+descriptor with. As these remain the same, existing users will continue
+to work.
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
 ---
-Changes since v4:
-- Dropped blank line between __free() variable declaration and
-  subsequent use of the variable in conditional
-
-Changes since v3:
-- Drop redundant device node validity check; device_match_of_node()
-  does it internally
-
 Changes since v2:
-- Use device_match_of_node()
+- Expand commit message
 ---
- drivers/power/sequencing/pwrseq-pcie-m2.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ drivers/power/sequencing/pwrseq-pcie-m2.c | 41 +++++++++++++++--------
+ 1 file changed, 27 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/power/sequencing/pwrseq-pcie-m2.c b/drivers/power/sequencing/pwrseq-pcie-m2.c
-index de9848a9a9f1..43b2328a6661 100644
+index 43b2328a6661..987faa9f3b3b 100644
 --- a/drivers/power/sequencing/pwrseq-pcie-m2.c
 +++ b/drivers/power/sequencing/pwrseq-pcie-m2.c
-@@ -175,9 +175,16 @@ static int pwrseq_pcie_m2_match(struct pwrseq_device *pwrseq,
- 	 * parent matches the OF node of 'dev'.
- 	 */
- 	for_each_endpoint_of_node(ctx->of_node, endpoint) {
-+		/* USB port devices are tied to the port nodes. */
-+		struct device_node *remote_port __free(device_node) =
-+				of_graph_get_remote_port(endpoint);
-+		if (device_match_of_node(dev, remote_port))
-+			return PWRSEQ_MATCH_OK;
+@@ -69,46 +69,46 @@ static const struct pwrseq_unit_data *pwrseq_pcie_m2_unit_deps[] = {
+ 	NULL
+ };
+ 
+-static int pwrseq_pci_m2_e_uart_enable(struct pwrseq_device *pwrseq)
++static int pwrseq_pci_m2_e_bt_enable(struct pwrseq_device *pwrseq)
+ {
+ 	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
+ 
+ 	return gpiod_set_value_cansleep(ctx->w_disable2_gpio, 0);
+ }
+ 
+-static int pwrseq_pci_m2_e_uart_disable(struct pwrseq_device *pwrseq)
++static int pwrseq_pci_m2_e_bt_disable(struct pwrseq_device *pwrseq)
+ {
+ 	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
+ 
+ 	return gpiod_set_value_cansleep(ctx->w_disable2_gpio, 1);
+ }
+ 
+-static const struct pwrseq_unit_data pwrseq_pcie_m2_e_uart_unit_data = {
+-	.name = "uart-enable",
++static const struct pwrseq_unit_data pwrseq_pcie_m2_e_bt_unit_data = {
++	.name = "bt-enable",
+ 	.deps = pwrseq_pcie_m2_unit_deps,
+-	.enable = pwrseq_pci_m2_e_uart_enable,
+-	.disable = pwrseq_pci_m2_e_uart_disable,
++	.enable = pwrseq_pci_m2_e_bt_enable,
++	.disable = pwrseq_pci_m2_e_bt_disable,
+ };
+ 
+-static int pwrseq_pci_m2_e_pcie_enable(struct pwrseq_device *pwrseq)
++static int pwrseq_pci_m2_e_wifi_enable(struct pwrseq_device *pwrseq)
+ {
+ 	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
+ 
+ 	return gpiod_set_value_cansleep(ctx->w_disable1_gpio, 0);
+ }
+ 
+-static int pwrseq_pci_m2_e_pcie_disable(struct pwrseq_device *pwrseq)
++static int pwrseq_pci_m2_e_wifi_disable(struct pwrseq_device *pwrseq)
+ {
+ 	struct pwrseq_pcie_m2_ctx *ctx = pwrseq_device_get_drvdata(pwrseq);
+ 
+ 	return gpiod_set_value_cansleep(ctx->w_disable1_gpio, 1);
+ }
+ 
+-static const struct pwrseq_unit_data pwrseq_pcie_m2_e_pcie_unit_data = {
+-	.name = "pcie-enable",
++static const struct pwrseq_unit_data pwrseq_pcie_m2_e_wifi_unit_data = {
++	.name = "wifi-enable",
+ 	.deps = pwrseq_pcie_m2_unit_deps,
+-	.enable = pwrseq_pci_m2_e_pcie_enable,
+-	.disable = pwrseq_pci_m2_e_pcie_disable,
++	.enable = pwrseq_pci_m2_e_wifi_enable,
++	.disable = pwrseq_pci_m2_e_wifi_disable,
+ };
+ 
+ static const struct pwrseq_unit_data pwrseq_pcie_m2_m_pcie_unit_data = {
+@@ -130,13 +130,24 @@ static int pwrseq_pcie_m2_e_pwup_delay(struct pwrseq_device *pwrseq)
+ 
+ static const struct pwrseq_target_data pwrseq_pcie_m2_e_uart_target_data = {
+ 	.name = "uart",
+-	.unit = &pwrseq_pcie_m2_e_uart_unit_data,
++	.unit = &pwrseq_pcie_m2_e_bt_unit_data,
+ 	.post_enable = pwrseq_pcie_m2_e_pwup_delay,
+ };
+ 
++static const struct pwrseq_target_data pwrseq_pcie_m2_e_usb_target_data = {
++	.name = "usb",
++	.unit = &pwrseq_pcie_m2_e_bt_unit_data,
++};
 +
-+		/* Try the remote port parent for other types. */
- 		struct device_node *remote __free(device_node) =
- 				of_graph_get_remote_port_parent(endpoint);
--		if (remote && (remote == dev_of_node(dev)))
-+		if (device_match_of_node(dev, remote))
- 			return PWRSEQ_MATCH_OK;
- 	}
+ static const struct pwrseq_target_data pwrseq_pcie_m2_e_pcie_target_data = {
+ 	.name = "pcie",
+-	.unit = &pwrseq_pcie_m2_e_pcie_unit_data,
++	.unit = &pwrseq_pcie_m2_e_wifi_unit_data,
++	.post_enable = pwrseq_pcie_m2_e_pwup_delay,
++};
++
++static const struct pwrseq_target_data pwrseq_pcie_m2_e_sdio_target_data = {
++	.name = "sdio",
++	.unit = &pwrseq_pcie_m2_e_wifi_unit_data,
+ 	.post_enable = pwrseq_pcie_m2_e_pwup_delay,
+ };
+ 
+@@ -147,7 +158,9 @@ static const struct pwrseq_target_data pwrseq_pcie_m2_m_pcie_target_data = {
+ 
+ static const struct pwrseq_target_data *pwrseq_pcie_m2_e_targets[] = {
+ 	&pwrseq_pcie_m2_e_pcie_target_data,
++	&pwrseq_pcie_m2_e_sdio_target_data,
+ 	&pwrseq_pcie_m2_e_uart_target_data,
++	&pwrseq_pcie_m2_e_usb_target_data,
+ 	NULL
+ };
  
 -- 
 2.55.0.979.g7e5102b832-goog
