@@ -1,102 +1,80 @@
-Received: from relay02.th.seeweb.it (relay02.th.seeweb.it [5.144.164.163])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A2C3A0E8D;
-	Fri,  4 Sep 2026 14:52:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.144.164.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B37C243B4BF;
+	Fri,  4 Sep 2026 14:55:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533545; cv=none; b=k/X2lKOTji0VvQqwl21xGWfTrSPzhc0v19mCFKWfYzjItBU7Qd7lNavD3paA26MmdvUdWssbyTBKsVC5vpzrIAaNo46RdsHvM2I+lV+F9i0K6L8tEx68DwUsg+ra+FC92XTSMnSjX5Py83B0JONbT4dvBdmyN0rd0xMXcB368i4=
+	t=1788533728; cv=none; b=e6t+PqleUtSe227gcgh79Zilv19fFUrQd4vWKctgol4+2//U/0aelV3gY/El9HqcOaXPux/Z34tncVY8sLQmB7z0uWd06+++pfAKF/D5DvxyK3miHG7lWvHab34Q+H4fBjEK2NoGiPwRv/1+hH4IS6vG+xYhIz9ghKElh0cq9sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533545; c=relaxed/simple;
-	bh=sJ0E2Ers6nk/UT6ZPempThR91Gkq2iNGULZdT4GDs/A=;
+	s=arc-20240116; t=1788533728; c=relaxed/simple;
+	bh=QAOR3cmdS5TgaMxBtaq0OhAbCht5qAjdtGj5H+hJZx0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rg94PcTNk9jMMTNkI+DXj6Z+v0wtUmH9obaKgxOlLhuH6jrrjx7vrOW3cPZgFXwniB5P0C86sKraRk8IJFgFewiNfaDelODqPF3NqfZhSlaW2AJfQgSFDkYBCGzcTfu4EWftpjn/rpze89jCbz6o6tJHH7EVNsuQqYzVuW7bl7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=somainline.org; spf=pass smtp.mailfrom=somainline.org; arc=none smtp.client-ip=5.144.164.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=somainline.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=somainline.org
-Received: from SoMainline.org (94-211-6-86.cable.dynamic.v4.ziggo.nl [94.211.6.86])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by m-r1.th.seeweb.it (Postfix) with ESMTPSA id 24E12201F5;
-	Fri,  4 Sep 2026 16:33:56 +0200 (CEST)
-Date: Fri, 4 Sep 2026 16:33:54 +0200
-From: Marijn Suijten <marijn.suijten@somainline.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Sam Ravnborg <sam@ravnborg.org>, David Airlie <airlied@gmail.com>, 
-	Rob Herring <robh+dt@kernel.org>, Krzysztof Kozlowski <krzysztof.kozlowski+dt@linaro.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>, 
-	Casey Connolly <casey.connolly@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>, 
-	~postmarketos/upstreaming@lists.sr.ht, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@somainline.org>, Martin Botka <martin.botka@somainline.org>, 
-	Jami Kettunen <jami.kettunen@somainline.org>, dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	Abhinav Kumar <quic_abhinavk@quicinc.com>, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
-	Jessica Zhang <quic_jesszhan@quicinc.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>
-Subject: Re: [PATCH v2 00/11] drm/panel: Add 5 DDIC panel drivers for 14 Sony
- phones
-Message-ID: <aprT7A2w0TWrfcdn@SoMainline.org>
-References: <20251222-drm-panels-sony-v2-0-82a87465d163@somainline.org>
- <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=c2rqzz7oFmkqWqoBRu1VHD71ZF6CKdsPxMBznAQ3NXx2mEVNdQD2Kvq3jQhXScSlEeX8aKkPsyjoM2WfMGvqI0jEEFEbiJwL5a9oTTsXbRBZcAY0BVmtFILQL/G9a8JyaxeqpS19JtDLCWfp/SBCNmjFERGMS75yvwZSk6nSsr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CGz8Yq4n; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CGz8Yq4n"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210241F00A3D;
+	Fri,  4 Sep 2026 14:55:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788533727;
+	bh=os7DMeDkaVjoD4Ppcby21F8Z9PnDCVhxVdzh6uFMSPg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CGz8Yq4nQrS0COL9CRZU3B5sKkRvFwJDTktRS3P+U0XKiJFsTX+UPwUT9fQravI8Q
+	 t7yxKVtwwz8Y5sQ63pZFaUd0+fsEu4JQQ9LWpPFmWDOnhpklck7IvpJdp1oPfNateI
+	 FynIU4Fox4QGOO4EQt9M1Tee3uRdzqOb/gXts7ztl2mC17E7ppYXZNluSVjUJ1AY44
+	 /LhAoaoFgTFAcjIKGDej0EyCwCeCNNe9La2zEbBuoMMmqkXg/Tji9UGUrhTkN8wdUf
+	 WQG3AU/HBlERRqzT1I/VV5zajw23UgGyxQr9Vf8B2iK5XFr5om7DXqbCR4ZeStbHTz
+	 ULqRstRNC1E8w==
+Date: Fri, 4 Sep 2026 09:55:25 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: genevieve.chan@altera.com
+Cc: Stephen Boyd <sboyd@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org, Brian Masney <bmasney@redhat.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Dinh Nguyen <dinguyen@kernel.org>, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org
+Subject: Re: [PATCH RESEND v2] dt-bindings: clock: agilex: mark mpu_l2ram_clk
+ deprecated
+Message-ID: <178853365461.721871.11051925278426014682.robh@kernel.org>
+References: <20260904032849.10554-1-genevieve.chan@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jL=A5QWEfNXnmpKFMju8X1BQ8CsxMuqhia7mfMFbUaFfHg@mail.gmail.com>
+In-Reply-To: <20260904032849.10554-1-genevieve.chan@altera.com>
 
-Hi Linus,
 
-On 2026-09-03 00:22:41, Linus Walleij wrote:
-> Hi Marijn,
+On Fri, 04 Sep 2026 11:28:49 +0800, genevieve.chan@altera.com wrote:
+> From: Genevieve Chan <genevieve.chan@altera.com>
 > 
-> On Mon, Dec 22, 2025 at 12:32 AM Marijn Suijten
-> <marijn.suijten@somainline.org> wrote:
+> Preliminary documentation referred to mpu_l2ram_clk, but that clock is
+> now mpu_ccu_clk and is already represented by AGILEX_MPU_CCU_CLK.
+> Keep AGILEX_MPU_L2RAM_CLK as a legacy ABI-preserved ID (do not use in
+> new DTs).
 > 
-> > This is the second version of a largely reshaped series that brings 5
-> > new DDIC panel drivers (4 Samsung, 1 LGD) that are compatible with 14
-> > Sony phones:
+> Fixes: 6b3c59780ed3 ("dt-bindings: documentation: add clock bindings information for Agilex")
+> Cc: stable@vger.kernel.org # 5.8+
+> Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Remove comment on unused clock ID 42
+> - Reword commit message
+> ---
+>  include/dt-bindings/clock/agilex-clock.h | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> What's up with this series?
 
-This is repeatedly blocked on the request to factor out a generic Samsung panel
-library.  While commands look very similar across drivers, the same commands
-are given (sometimes) different names [1] and without spec I simply don't feel
-comfortable writing such a library as that'd sound like claiming I definitively
-know exactly what each of those commands mean / are named.  I don't.
+Applied, thanks!
 
-[1]: https://lore.kernel.org/linux-arm-msm/aU6XXi2HmgjZY8CY@SoMainline.org/
+I dropped Fixes and stable tag. There's no need for this to go to 
+stable.
 
-And I'd argue that DRM/MSM has seen a lot of breakage especially around the
-DSC and dual-DSI paths that my panels/devices rely on [2], turning a simple
-rebase-and-test in a multi-evening debug session.
+Rob
 
-[2]: https://lore.kernel.org/linux-arm-msm/?q=f%3Amarijn+fixes+dsc
-
-> I am officially a fan of these drivers and I liked the work done so far
-> a lot, is there something in particular stalling these from rebasing
-> and merging?
-
-And there have been many small comments left and right - including my own
-observations and self-review - that all need to get addressed.  Not a lot of
-work, but they add up and it's easy enough to miss something which will make a
-reviewer "unhappy" ;)
-
-Coincidentally I submitted 10 of the 14 Sony devices to postmarketOS just last
-week, specifically as an extra motivator to show the world that we can truly
-run all these devices with completely functional panels straight from mainline.
-I'll definitely be submitting a (rebased) v3 to drive that, but it might take a
-little more time.
-
-- Marijn
