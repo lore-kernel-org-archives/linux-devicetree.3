@@ -1,263 +1,115 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 776164FECD8;
-	Fri,  4 Sep 2026 15:59:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA703B19B7;
+	Fri,  4 Sep 2026 16:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788537566; cv=none; b=TgK79Z0x5kKZvyFtjYinGLDtEIhmuRs4tS3txzN2Vssf6yfgCDqzx83c60lC1O0TY0zpFAir+O50aAz4p/HcYeLCaJQJRxcSSZ75KaI6VlAinENZWj7RkVKwdODENvChIyu1AlCvU2+QKpuPetOSlFOhpqZvd4EwIlLPny6+rW0=
+	t=1788537622; cv=none; b=gNLshhKCHMbH3vj7f1nEv5bXjfq2DluwcgZjWIQ6eywQBDulfV2SrWo9LaA07l1puZfjjQu/M/l3Bg9mj97680NB5Q1iBp0sIn/M//wBq+aVDD8WG8oa1wQDy2TC878T72Tw2vANsva+y4HQNySlAMQJNiYicpK1oi1j8fnS1CU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788537566; c=relaxed/simple;
-	bh=EGj2aW5bcUNOlKPHbeNUQG61OkeUalWoaaxG01CFuNE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ETyGRlhif012ds0g/T9JL0QU5GA70RqrU7WWtR0tsK2klBig4WrKf68mTRU2fLdhuUd02ELkpwfI6mTSNZ1wuNCF/Ft3jE3Hnn6vSuwtxjZKg07XADXYJQP5m24P0TQgHH7xoqwaKGsP0pGKGrNF517bjAzqMNiD5EuaEkSxoP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=XXyWnZSu; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788537622; c=relaxed/simple;
+	bh=C31f+IdKCSe5OiOMovtfMz8L3UhbOp5YgNTCuEbUlYE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gdUuXIoFwJ5qkp15PlTEfdayGVIJums7wbjugeMoh6OthQo4w3EkCIxSjYOqCL6pIxD8/CStNpwBVOU3jl9Yv8iQvm58f+gkwPYwSthOVpEZgXtu89lswmr+3rHCwIZ3SyNPMhAtWaeWXaY7XPMb1JUjG/LZfqFbJqpAG2ltCfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iDxByVp1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="XXyWnZSu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788537562;
-	bh=EGj2aW5bcUNOlKPHbeNUQG61OkeUalWoaaxG01CFuNE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=XXyWnZSuqCdxJWKbQVKLhL41Ns4ZsdFWOoB9gH7UCNT1D+qBMMArQqMdCUd8eDT73
-	 N7Bh8oMRztgLFBDr370LXHtWJlG7N/fy5ml6d2yckLaBoKY6aW5zg+KcVZWop2tZsD
-	 Ep+DVPOEV/NKGnHTMohkjbp7ZbHzQmMdaOkQgnQzQOJBSTyO9ld7dZwyKextfXdo0J
-	 TqQPCw56m2bml1QPf0lhc6cdH14FXNcnLXh5qs3NEBhJtmGNTsov41RFEVC2uF9/kb
-	 o2Ufg0qQc7fDq+RfcZ7ovCCwzzQTAYYqdPik62ym1Og+sB/XzLrLB29gXd6VKj1ccl
-	 s8BANU7BrwgMQ==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0F55717E35C2;
-	Fri, 04 Sep 2026 17:59:20 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Fri, 04 Sep 2026 17:58:38 +0200
-Subject: [PATCH v6 27/27] clk: mediatek: Add MT8189 ufs clock support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iDxByVp1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4D221F00A3E;
+	Fri,  4 Sep 2026 16:00:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788537620;
+	bh=2gEcomDI9zcmWimU/TXsxfeHau2uhxfowYW9nOtMnXs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iDxByVp1VQPnRP02AOEZlDBMSU59Nm4cDzF7MubDBQyIBWKOlEyE8zNuwXvKgCLKI
+	 9C2v+C34a83POys5ZG2ii864Qt41xnUu/VOVB0GoQMePEQpKQFZK4uG3kApH+bWYXS
+	 RlYDUAwAKxa0WSiwDG1xTDz1I1B6qOhpQrCfOdsEcE28K74ygUObXzJK4sXhbt6A4W
+	 r8+Fqj+jLUErolEmveqX9ZAgbM2sPjq+qTzNEQ4bxj/m617stleIGXzLBhq0Xzzk7T
+	 lgRRnHE7usHP8e2Q7AAjuk5Lko21KzQ/WMiLixqP/EjquVhds3HJGJxRDXDVGCvhwQ
+	 X69meAlCHfCRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 08/11] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260904-monza-wireless-v6-8-d8c5042b3efd@oss.qualcomm.com>
+References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com>
+ <20260904-monza-wireless-v6-8-d8c5042b3efd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 16:00:19 +0000
+Message-Id: <20260904160019.C4D221F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-mt8189-clocks-system-base-v6-27-5df247f56938@collabora.com>
-References: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
-In-Reply-To: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
-To: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Chun-Jie Chen <chun-jie.chen@mediatek.com>, 
- Chen-Yu Tsai <wenst@chromium.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Edward-JW Yang <edward-jw.yang@mediatek.com>
-Cc: kernel@collabora.com, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Irving-CH Lin <irving-ch.lin@mediatek.com>, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788537522; l=7212;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=EGj2aW5bcUNOlKPHbeNUQG61OkeUalWoaaxG01CFuNE=;
- b=+GKwMOkeKwczgutIQSXD7JgbCNYLSCVDjCl4OhjCGryvx1aUYUQV6rMaZo1PtkjblIC+ndb1K
- XzvaoXZexZ/DI9CJh9An/kwwhkD48CoIbtFEGsTSXccj0eJcyk+GoYJ
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-Add support for the MT8189 ufs clock controller,
-which provides clock gate control for Universal Flash Storage.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Early return in `qca_power_off()` skips GPIO de-assertion for de=
+fault branch devices with a power sequencer.
+--
 
-Co-developed-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-Signed-off-by: Irving-CH Lin <irving-ch.lin@mediatek.com>
-Co-developed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/clk/mediatek/Kconfig          |  12 ++++
- drivers/clk/mediatek/Makefile         |   1 +
- drivers/clk/mediatek/clk-mt8189-ufs.c | 132 ++++++++++++++++++++++++++++++++++
- 3 files changed, 145 insertions(+)
+commit 6c86f185e6dc88f0462c04e46b64a4f809caeae3
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-diff --git a/drivers/clk/mediatek/Kconfig b/drivers/clk/mediatek/Kconfig
-index 17e0bfa695fe..d26c07afd085 100644
---- a/drivers/clk/mediatek/Kconfig
-+++ b/drivers/clk/mediatek/Kconfig
-@@ -892,6 +892,18 @@ config COMMON_CLK_MT8189_SCP
- 	  management for SCP-related features, ensuring proper clock
- 	  distribution and gating for power efficiency and functionality.
- 
-+config COMMON_CLK_MT8189_UFS
-+	tristate "Clock driver for MediaTek MT8189 ufs"
-+	depends on COMMON_CLK_MT8189
-+	default COMMON_CLK_MT8189
-+	help
-+	  Enable this to support the clock management for the Universal Flash
-+	  Storage (UFS) interface on MediaTek MT8189 SoCs. This includes
-+	  clock sources, dividers, and gates that are specific to the UFS
-+	  feature of the MT8189 platform. It is recommended to enable this
-+	  option if the system includes a UFS device that relies on the MT8189
-+	  SoC for clock management.
-+
- config COMMON_CLK_MT8192
- 	tristate "Clock driver for MediaTek MT8192"
- 	depends on ARM64 || COMPILE_TEST
-diff --git a/drivers/clk/mediatek/Makefile b/drivers/clk/mediatek/Makefile
-index e712815f7572..a0bba466bb93 100644
---- a/drivers/clk/mediatek/Makefile
-+++ b/drivers/clk/mediatek/Makefile
-@@ -131,6 +131,7 @@ obj-$(CONFIG_COMMON_CLK_MT8189_DBGAO) += clk-mt8189-dbgao.o
- obj-$(CONFIG_COMMON_CLK_MT8189_DVFSRC) += clk-mt8189-dvfsrc.o
- obj-$(CONFIG_COMMON_CLK_MT8189_IIC) += clk-mt8189-iic.o
- obj-$(CONFIG_COMMON_CLK_MT8189_SCP) += clk-mt8189-scp.o
-+obj-$(CONFIG_COMMON_CLK_MT8189_UFS) += clk-mt8189-ufs.o
- obj-$(CONFIG_COMMON_CLK_MT8192) += clk-mt8192-apmixedsys.o clk-mt8192.o
- obj-$(CONFIG_COMMON_CLK_MT8192_AUDSYS) += clk-mt8192-aud.o
- obj-$(CONFIG_COMMON_CLK_MT8192_CAMSYS) += clk-mt8192-cam.o
-diff --git a/drivers/clk/mediatek/clk-mt8189-ufs.c b/drivers/clk/mediatek/clk-mt8189-ufs.c
-new file mode 100644
-index 000000000000..ec98fe01a598
---- /dev/null
-+++ b/drivers/clk/mediatek/clk-mt8189-ufs.c
-@@ -0,0 +1,132 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025-2026 MediaTek Inc.
-+ *                    Qiqi Wang <qiqi.wang@mediatek.com>
-+ *                    Irving-CH Lin <irving-ch.lin@mediatek.com>
-+ * Copyright (C) 2026 Collabora Ltd.
-+ *                    AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-+ *                    Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-+ */
-+
-+#include <dt-bindings/clock/mediatek,mt8189-clk.h>
-+#include <dt-bindings/reset/mediatek,mt8189-resets.h>
-+
-+#include <linux/clk-provider.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+
-+#include "clk-mtk.h"
-+#include "clk-gate.h"
-+
-+#define MT8189_UFSCFG_AO_RST0_SET_OFFSET	0x48
-+#define MT8189_UFSCFG_PDN_RST0_SET_OFFSET	0x48
-+
-+static const struct mtk_gate_regs ufscfg_ao_reg_cg_regs = {
-+	.set_ofs = 0x8,
-+	.clr_ofs = 0xc,
-+	.sta_ofs = 0x4,
-+};
-+
-+#define GATE_UFSCFG_AO_REG(_id, _name, _parent, _shift)		\
-+	GATE_MTK(_id, _name, _parent, &ufscfg_ao_reg_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
-+
-+static const struct mtk_gate ufscfg_ao_reg_clks[] = {
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_TX_SYM,
-+			   "ufscfg_ao_unipro_tx_sym", "clk26m", 1),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_RX_SYM0,
-+			   "ufscfg_ao_unipro_rx_sym0", "clk26m", 2),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_RX_SYM1,
-+			   "ufscfg_ao_unipro_rx_sym1", "clk26m", 3),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_UNIPRO_SYS,
-+			   "ufscfg_ao_unipro_sys", "ufs_sel", 4),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_U_SAP_CFG,
-+			   "ufscfg_ao_u_sap_cfg", "clk26m", 5),
-+	GATE_UFSCFG_AO_REG(CLK_UFSCFG_AO_REG_U_PHY_TOP_AHB_S_BUS,
-+			   "ufscfg_ao_u_phy_ahb_s_bus", "axi_u_sel", 6),
-+};
-+
-+static u16 ufscfg_ao_rst_ofs[] = {
-+	MT8189_UFSCFG_AO_RST0_SET_OFFSET,
-+};
-+
-+static u16 ufscfg_ao_rst_idx_map[] = {
-+	[MT8189_UFSAO_RST_UFS_MPHY] = 8,
-+};
-+
-+static const struct mtk_clk_rst_desc ufscfg_ao_rst_desc = {
-+	.version = MTK_RST_SET_CLR,
-+	.rst_bank_ofs = ufscfg_ao_rst_ofs,
-+	.rst_bank_nr = ARRAY_SIZE(ufscfg_ao_rst_ofs),
-+	.rst_idx_map = ufscfg_ao_rst_idx_map,
-+	.rst_idx_map_nr = ARRAY_SIZE(ufscfg_ao_rst_idx_map),
-+};
-+
-+static const struct mtk_clk_desc ufscfg_ao_reg_mcd = {
-+	.clks = ufscfg_ao_reg_clks,
-+	.num_clks = ARRAY_SIZE(ufscfg_ao_reg_clks),
-+	.rst_desc = &ufscfg_ao_rst_desc,
-+};
-+
-+static const struct mtk_gate_regs ufscfg_pdn_reg_cg_regs = {
-+	.set_ofs = 0x8,
-+	.clr_ofs = 0xc,
-+	.sta_ofs = 0x4,
-+};
-+
-+#define GATE_UFSCFG_PDN_REG(_id, _name, _parent, _shift)	\
-+	GATE_MTK(_id, _name, _parent, &ufscfg_pdn_reg_cg_regs, _shift, &mtk_clk_gate_ops_setclr)
-+
-+static const struct mtk_gate ufscfg_pdn_reg_clks[] = {
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_UFS,
-+			    "ufscfg_ufshci_ufs", "ufs_sel", 0),
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_AES,
-+			    "ufscfg_ufshci_aes", "aes_ufsfde_sel", 1),
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_U_AHB,
-+			    "ufscfg_ufshci_u_ahb", "axi_u_sel", 3),
-+	GATE_UFSCFG_PDN_REG(CLK_UFSCFG_REG_UFSHCI_U_AXI,
-+			    "ufscfg_ufshci_u_axi", "mem_sub_u_sel", 5),
-+};
-+
-+static u16 ufscfg_pdn_rst_ofs[] = {
-+	MT8189_UFSCFG_PDN_RST0_SET_OFFSET,
-+};
-+
-+static u16 ufscfg_pdn_rst_idx_map[] = {
-+	[MT8189_UFSPDN_RST_UFS_UNIPRO] = 0,
-+	[MT8189_UFSPDN_RST_UFS_CRYPTO] = 1,
-+	[MT8189_UFSPDN_RST_UFS_HCI] = 2,
-+};
-+
-+static const struct mtk_clk_rst_desc ufscfg_pdn_rst_desc = {
-+	.version = MTK_RST_SET_CLR,
-+	.rst_bank_ofs = ufscfg_pdn_rst_ofs,
-+	.rst_bank_nr = ARRAY_SIZE(ufscfg_pdn_rst_ofs),
-+	.rst_idx_map = ufscfg_pdn_rst_idx_map,
-+	.rst_idx_map_nr = ARRAY_SIZE(ufscfg_pdn_rst_idx_map),
-+};
-+
-+static const struct mtk_clk_desc ufscfg_pdn_reg_mcd = {
-+	.clks = ufscfg_pdn_reg_clks,
-+	.num_clks = ARRAY_SIZE(ufscfg_pdn_reg_clks),
-+	.rst_desc = &ufscfg_pdn_rst_desc,
-+};
-+
-+static const struct of_device_id of_match_clk_mt8189_ufs[] = {
-+	{ .compatible = "mediatek,mt8189-ufscfg-ao", .data = &ufscfg_ao_reg_mcd },
-+	{ .compatible = "mediatek,mt8189-ufscfg-pdn", .data = &ufscfg_pdn_reg_mcd },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, of_match_clk_mt8189_ufs);
-+
-+static struct platform_driver clk_mt8189_ufs_drv = {
-+	.probe = mtk_clk_simple_probe,
-+	.remove = mtk_clk_simple_remove,
-+	.driver = {
-+		.name = "clk-mt8189-ufs",
-+		.of_match_table = of_match_clk_mt8189_ufs,
-+	},
-+};
-+module_platform_driver(clk_mt8189_ufs_drv);
-+
-+MODULE_DESCRIPTION("MediaTek MT8189 ufs clocks driver");
-+MODULE_LICENSE("GPL");
+Bluetooth: hci_qca: Support QCA2066 on M.2 connector via pwrseq
+   =20
+For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
+controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequencer
+rather than a dedicated BT enable GPIO.
+   =20
+When the serdev controller has an OF graph (indicating it is connected to
+an M.2 connector), acquire the uart pwrseq target from the connector's
+power sequencer and use it to control BT power instead of the bt-enable
+GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
 
--- 
-2.55.0
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index 30586120c4a73..db0a968dfb00f 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -1875,6 +1875,9 @@ static int qca_power_on(struct hci_dev *hdev)
+>  			/* Controller needs time to bootup. */
+>  			msleep(150);
+>  		}
+> +
+> +		if (qcadev->bt_power.pwrseq)
+> +			pwrseq_power_on(qcadev->bt_power.pwrseq);
+>  	}
+> =20
+>  	clear_bit(QCA_BT_OFF, &qca->flags);
 
+[Severity: Medium]
+For devices in the default switch case, if the device tree contains both an
+enable GPIO and an M.2 power sequencer, qca_serdev_probe() will acquire bot=
+h.
+This block asserts the enable GPIO and then turns on the power sequencer.
+
+However, in qca_power_off(), the presence of a power sequencer causes an ea=
+rly
+return:
+
+drivers/bluetooth/hci_qca.c:qca_power_off() {
+    ...
+	if (power->pwrseq) {
+		pwrseq_disable(power->pwrseq);
+		set_bit(QCA_BT_OFF, &qca->flags);
+		return;
+	}
+
+	switch (soc_type) {
+    ...
+	default:
+		gpiod_set_value_cansleep(qcadev->bt_en, 0);
+	}
+    ...
+}
+
+Will this early return cause the enable GPIO to be left asserted indefinite=
+ly
+upon power off for these devices?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-monza-wire=
+less-v6-0-d8c5042b3efd@oss.qualcomm.com?part=3D8
