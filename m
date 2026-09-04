@@ -1,106 +1,99 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CE174CB8D8
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 15:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA014DC550;
+	Fri,  4 Sep 2026 15:27:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535421; cv=none; b=qkdO/vgmBQ5QFjVLJSj3JlyTOpiRwy9NV9M6dTC1RhwUq3SYLaBOVYQ39Kbq1IBgGrhvb2uqxsIuR5Kp2bNkgy+GvnjS+Mfmvz38bazvJ6UXWw1/v3rpts4JT56o79N7X/f4pEr7Spn6olRlGm20M9OKqRvttR/OpptCYdLo1Hk=
+	t=1788535641; cv=none; b=SbehP4DhyAjpdYw4FRdMoRRN2jCnmaOwXsb88dEn1HVsS20kMe1vvDLKWHsRfX4ZVXqCMrH+7EVNr/rD6i7A85v52CH1pDYN1yqKKzR11qEGGGGWtQBlB+wVRumfoMKvvdnWpoiQ2jCq7o+9JeXAcz0SFcll8rUO+Ji0Jj3ZDzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535421; c=relaxed/simple;
-	bh=nCrntIDhyuwP8BQpdMv2tSN81fhquB9QOVe0SeizZYU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ScGYfme7ffndhs3+5ZiOyJnrATv4vXuBXXXQMl4tGh2PkGXFw/x6YWaO1s5pJ0tpMxoYO3JKQxvPohd6Pxc8aG2vqd+YUiw9qL10ywzHEvUEW9GEfVQSHnM5N0YU/h2rZhCL8Y/9ubeSKz4vV38AFbNFml2DntK7DW9kMDX5nSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-782e0fc1e55so385434137.3
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 08:23:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788535419; x=1789140219;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Mr7nrVkZKYZ/vaRmGYmX7E824Q9vDG1RqRG5Sn6gSeM=;
-        b=aAyrSHSvKnyK4WNt6G/PQ9XmPv9F/QE9d3SSegBqn4gVuDpxeZ6PU21IYBaqzU/IlI
-         vg3TJdOhIlYC8C93RVWJfx4v4L0G4eKb3gGwXno0jRmId364GrGx84chRv8+PILMtZHj
-         TA3Y6r0ypdFMAMpcYI48uTwCMHPgIIC64j4o/A2Dsl0rMLwjkP7LLSlLDdylzxiqvndX
-         Av/vGhpuz/ex+85zecGc3PGRlrkkrjMTAjqwOPw7mv6SZPO/ssC53O8wOPwb4IT1k01c
-         OeFQAYObJY1DLd8X6eJlyELRw/0VEauCJOHp3ToBR0+BpFOm+022xfaJaHheK4FaTnUC
-         /Fxw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkMRzaR90vUg2VBJ74Y0A+U7K2eOCu1IQ5NwGGuo9jmK5k6msj4o6XrvaV21zbwIsHXL8p6g4pWQgv@vger.kernel.org
-X-Gm-Message-State: AFuF++k0hCyZyBEbRVhzJunv5dNaNzeWXK+K6bIRPRUAZZ2o9x/9qN0L
-	jcbTkLKtKF7BPUgDRdnJfC/MPZXrqwt6HRaPf5coqoLjm6S98SHbDRIf6LXsYhkp
-X-Gm-Gg: AYBFou3sYUS5yLxkbb29ZSHdyLz53sZFOziMQ5wgG7izWCcYKtEYOTK2A7LQIrWO40F
-	zYh0+vGCYr/vmzhA81V89uTxnVo3yPsaekzwvNfkGTdq5d9s/7G0gEDnAmSJxSFb5EkAYYMVra6
-	Vf3/y99e0tRS5eN/oTOX5Ye+lTSHCusnx4mPEj3JBQf2C19/HL6MdLs1Ucx1UXdliIm5vX5yjuN
-	b+81TJTgAzzzedYVk14Jco9WMZrmL6CGC/mCtX3l+C1Xu92WutP/JF3JelVsCrEamAvUTWZ9lMR
-	88rmk5/WoQ0XJCHVzo4/AsDecbeU0d9FRBU46nd/GJxFujMe3esikhGAsJPYaLime30D6Ktmmfs
-	kt3Rtptkvas8Vh92VjErCB7qOcgYVnwNNFQjSSaHgngMI2sx7Ffm3wT16w+7ufc0j434DxWY4o5
-	vuMTPKOUXTmYELqet3MBsykZzC7OpcnJDxOYM3hl2pjTejC9wme8dMnBGBc9kPKyKp6ntiRq9et
-	+6fFbk2bH4K1HvECV5YkJ/uN3XnNw==
-X-Received: by 2002:a05:6102:2907:b0:778:9033:e337 with SMTP id ada2fe7eead31-78a4a7186d7mr2008395137.7.1788535419010;
-        Fri, 04 Sep 2026 08:23:39 -0700 (PDT)
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com. [209.85.221.180])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47a76487sm1990957137.5.2026.09.04.08.23.35
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 08:23:36 -0700 (PDT)
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c7afda4515so704077e0c.1
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 08:23:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz/Gdjzg6TcnTmrsMl7Bz2uOJ63A/Dx9htFcHn7UxDewpUQ1KegJ8a19HgWRBhUFsHwPQgOPp6/2Xm9@vger.kernel.org
-X-Received: by 2002:a05:6122:32d6:b0:5c7:a3a3:a4bd with SMTP id
- 71dfb90a1353d-5c7ed3a528fmr2695851e0c.4.1788535415032; Fri, 04 Sep 2026
- 08:23:35 -0700 (PDT)
+	s=arc-20240116; t=1788535641; c=relaxed/simple;
+	bh=N1nfkxoqHqtsDIrlAOueBGPUz7eK3DRzUma2WlWEGlY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=nka/m8EcqrfINRDmaAcGk0GUDEz4X0D83+gXg+qF/0HxP6XoGDO+SqDnDogwnMD270AusxKmrf7z/Wng26LUd7SWvkPDWpqjspNJvt1ImIJ/oMy1ZIfxGcj0ogHikQZcIdeuf41yCS9zkGiaugKOiUvicbEI3tZaSm+6ZGmpH2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=RzxnD/Ip; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="RzxnD/Ip"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id C0FB44E41511;
+	Fri,  4 Sep 2026 15:27:17 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 93BBE6057F;
+	Fri,  4 Sep 2026 15:27:17 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C349711C79A0A;
+	Fri,  4 Sep 2026 17:27:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788535636; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=N1nfkxoqHqtsDIrlAOueBGPUz7eK3DRzUma2WlWEGlY=;
+	b=RzxnD/IpiHfYHW8Y4IF9QDaStVQ5scVKGIR6fIbFHUu8oMt2/2KyH5RdGRIhq0wR0uhahF
+	Mc15SmDirQDEVKxEk9XdxLyCuxjZW76fH7KryOI04ovbiDdLlW7u1kKU5iVHVbt7Sf9Okp
+	9uEgl4dKhuuEBbvBTvg0ijybhm9odnMK+R74rbdsGjGYVbh6ghWvRTu/JUO4mMdY5Zsplx
+	1pclSnSH5DOhyKqyQXxODoIsu/HqFAJgWzrSMv0INoDFw4Ptcjy6E2L+IgrKvuJ/RKNzi3
+	TKWZhwXr9HChSTW+O97kVgt91eyfh5RfmxFkytingVInkm9XdhhuhI2eHzW07g==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] mtd: rawnand: sunxi: support randomized OOB formats
+In-Reply-To: <CADvTj4oW8Hxv_b5vWM5pbeB3wEO-WoqhLwyinCTFPNR6wTHYmQ@mail.gmail.com>
+	(James Hilliard's message of "Fri, 4 Sep 2026 11:17:46 -0400")
+References: <20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-0-463853a14ad9@gmail.com>
+	<20260810-submit-sunxi-nand-vendor-oob-layout-v1-v1-2-463853a14ad9@gmail.com>
+	<87se3p13jy.fsf@bootlin.com>
+	<CADvTj4oW8Hxv_b5vWM5pbeB3wEO-WoqhLwyinCTFPNR6wTHYmQ@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Fri, 04 Sep 2026 17:27:13 +0200
+Message-ID: <878q5h11gu.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260821150408.73829-1-ayman.chaudhry.kc@renesas.com> <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
-In-Reply-To: <20260821150408.73829-9-ayman.chaudhry.kc@renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 17:23:23 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWyPbUEy1sPZWmosVtL9GQviEB+d8RW8Xus9wpxZREgRA@mail.gmail.com>
-X-Gm-Features: AcwNN1VarzxavclKk9EMuPnWIySi6CxTEUYbBFaUC14MO-nuKk5tEQAZbU7dyfM
-Message-ID: <CAMuHMdWyPbUEy1sPZWmosVtL9GQviEB+d8RW8Xus9wpxZREgRA@mail.gmail.com>
-Subject: Re: [PATCH 08/10] arm64: dts: renesas: Add initial SoC DTSI for
- RZ/G2M v3.0
-To: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Ulf Hansson <ulfh@kernel.org>, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Ayman,
+On 04/09/2026 at 11:17:46 -04, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-On Fri, 21 Aug 2026 at 17:06, Ayman Chaudhry
-<ayman.chaudhry.kc@renesas.com> wrote:
-> Add initial Device Tree Source Include (DTSI) file for the Renesas
-> RZ/G2M v3.0 (a.k.a. R8A774A3) SoC with basic support.
+> On Fri, Sep 4, 2026 at 8:42=E2=80=AFAM Miquel Raynal <miquel.raynal@bootl=
+in.com> wrote:
+>>
+>> On 10/08/2026 at 17:04:50 -06, James Hilliard <james.hilliard1@gmail.com=
+> wrote:
+>>
+>> > The controller randomizer covers the bad block marker along with the
+>> > rest of the OOB data. The driver currently compensates the marker bytes
+>> > before writes and after reads so that they remain plain on flash.
+>> >
+>> > Allwinner NAND firmware instead stores the marker through the
+>> > randomizer. Media using that format appears to contain bad blocks unle=
+ss
+>> > the randomizer is enabled while reading the marker.
+>> >
+>> > Honor the allwinner,randomized-oob property by unconditionally enabling
+>> > page scrambling and leaving the marker in the randomizer data stream.
+>> > Keep the existing plain marker behavior when the property is absent.
+>> > This changes marker handling on all supported controllers; the H6/H616
+>> > protected user-data placement is handled separately.
+>>
+>> But I think the reason why this has never been done is because it just
+>> breaks raw accesses, including the BBT reads. I don't think this is
+>> handled, is it?
 >
-> Signed-off-by: Ayman Chaudhry <ayman.chaudhry.kc@renesas.com>
+> From my understanding raw access bypasses randomization entirely.
 
-Thanks for your patch!
+yes, so the implementation you propose is invalid, raw reads shall
+show the BBM. And also, when accessing a BBT, it is made in raw mode,
+without randomization, and hence totally fail. This cannot fly!
 
-With the cosmetics pointed out by Krzysztof fixed:
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
