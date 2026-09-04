@@ -1,96 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C877A511E76;
-	Fri,  4 Sep 2026 17:47:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B5F490BE0;
+	Fri,  4 Sep 2026 17:58:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788544063; cv=none; b=tj5cxWjc3a2UwFOCn+NtNzYhL539Gu8es+cDVnVMXRe6nhMk9AwNU+hh/ffXPoQUQdO4ayDVhHTZhefKb9JlzOp4kLODjtHMnf3+J0cT1xf2REDnxtiBHgoEngz5O1XlqHujVbGqdCa8kuKANdJvoCxVOk99+WB3GdHWByH21xc=
+	t=1788544707; cv=none; b=sn99m8Tvy46sMW+OdANyzkWI3MiP0ZLB3VDzgRSM2aPEGuZi1C+loMXo0reQqi0FjpFmS+iwI6Y+alhJe4FGEtvpCOFSZH4NwrawnhBR7bTAtgeLlaXGNIa0EjSFBsBd5zymkpLZq6cbhByylG4/mG7qv9x0KGrYBX/l3V8OyGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788544063; c=relaxed/simple;
-	bh=okkv6UDrUqy+DEthbwY9aepwc87vVJuEScNT8yiV0m0=;
+	s=arc-20240116; t=1788544707; c=relaxed/simple;
+	bh=HTjFSxIaUz0HkG0Fqpc3XJlOucy3l+W4m0MAeJmz5BA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tcoY6WRTwhHx8tQTfrCh8zTWDvt5XmcE3o1WgBVQoH8jobG9suVaBpuDVfdvp8Uv3ExBOTbiAJa80FBN7jA6C/qncKMiVm7L5W2D1b/1DXixL2mOmg0KesY6deUSwQyJIk6GMG3oODvcncj+3rCu+x9eUcC4b5a2+/tOwF2ZUPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PgYY4H6S; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mXz7Vxbw1glUvM/1pF08J23nIZSq67n6nSK9sSPv74xtXRFsz2BzAkYZxXLsEbFfd8U1JAUw3WukcOpBNU9jnf987n24lpM+ubxJvZR51iyL/BNInR9+oNA9n981rFnP86Q4BJEKa3vNYFBgDMx5fDrK6IlLorJbtrS0375qLlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vVcWPcqG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PgYY4H6S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB3401F00A3D;
-	Fri,  4 Sep 2026 17:47:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788544062;
-	bh=eCOtz/eK/E9rW0zcIgRUL/87v/TZ7l09UIY9gMQ0ON4=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vVcWPcqG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49421F00A3D;
+	Fri,  4 Sep 2026 17:58:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1788544705;
+	bh=rP0jvIe50D9VMNBI5Koq/QnFNW7rOKsTaV7j4xp9Y8U=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PgYY4H6SLf3R3NvzSgbSF8zwixvalL785pqcXnnjfVilM5MHOLP2q/ffzk06OyAoX
-	 VaUwXmq7mMiCpFOf6nOSVAUBcCkD0FuM9CUdEDEhATyK3yxaU+xCxbZ7v5o4QUk5jO
-	 /gDsiFlp9YnG2027R7tXCvOE3nvKG6X1eSd87GYcMTT/aHkwZvWjlFaOR/fVH7Z9UL
-	 g3V4JiTMTm0S+cChiolaIXHiH5o7dqvBbbKhmdfZCv4cNXRQa3iTnONU69XMCyj+ro
-	 nNrd5JhZn6/Goi9se+ByzUwGPe6RwEfymQNd7kGfu4sUbmlwE+tHUg5K9/4rjOXFpW
-	 2xAh31NDEz3Kw==
-Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
-	id 0FA0B1AC52F1; Fri, 04 Sep 2026 18:47:39 +0100 (BST)
-Date: Fri, 4 Sep 2026 18:47:39 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org,
-	krzk+dt@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
-	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH v2 1/2] ASoC: codecs: nau8360: Set DAC path to bypass
- mode when DSP firmware load fails
-Message-ID: <apsEO6K6Qo1ADH-y@sirena.co.uk>
-References: <20260904060035.196399-1-YLCHANG2@nuvoton.com>
- <20260904060035.196399-2-YLCHANG2@nuvoton.com>
+	b=vVcWPcqG1059ybsmrz21hgN6wQuwVgT6uzFHmLEnROtsmnN/CAYwVKSDtG9lGAiEU
+	 tkd1yZrHUaZHJ3eumLByHfJe9TNCknpujWUJKGpAWuMus+fTvh1G7TZqTS6TzxZoq+
+	 MFxyhH9d1b8/dxyRr8Dhs80vd4pcoiD8qcdKqe90=
+Date: Fri, 4 Sep 2026 19:52:37 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Chen-Yu Tsai <wens@kernel.org>
+Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
+ APIs to port.h
+Message-ID: <2026090433-chair-tidings-5c99@gregkh>
+References: <20260904084158.1341550-1-wenst@chromium.org>
+ <20260904084158.1341550-8-wenst@chromium.org>
+ <2026090430-botanist-ungodly-0299@gregkh>
+ <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RAsO9G6pITb1+7kJ"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260904060035.196399-2-YLCHANG2@nuvoton.com>
-X-Cookie: My vaseline is RUNNING...
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
 
+On Sat, Sep 05, 2026 at 01:24:20AM +0800, Chen-Yu Tsai wrote:
+> On Sat, Sep 5, 2026 at 12:47 AM Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> wrote:
+> >
+> > On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
+> > > |struct usb_port| and its matching container_of() macro should live in
+> > > its own port.h, matching the split we have for .c files.
+> >
+> > Why?
+> 
+> This was requested by Andy. And to me it sort of made sense.
+> 
+> > > Move them as described. Also move usb_port_is_power_on(), since in the
+> > > next change its |struct usb_hub *| parameter will be changed to
+> > > |struct usb_port *|, and becomes a non-static function that only
+> > > references |struct usb_port|.
+> >
+> > No, please don't do that unless you have a really good reason.
+> 
+> Which part? Move the code?
 
---RAsO9G6pITb1+7kJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Please don't make a new .h file.
 
-On Fri, Sep 04, 2026 at 02:00:34PM +0800, Neo Chang wrote:
-> Automatically route the DAC path to bypass mode if DSP firmware fails
-> to load, ensuring basic audio playback remains functional.
+Moving the function might make sense on its own if you need it in a
+different file later on, but do a move only, and then change things if
+you really need to do that.
 
-> @@ -1702,6 +1702,8 @@ static void nau8360_load_fw_work(struct work_struct *work)
->  	if (ret) {
->  		dev_err(nau8360->dev, "Failed to initialize DSP: %d\n", ret);
->  		nau8360_dsp_enable(nau8360->regmap, false);
-> +		snd_soc_component_update_bits(cp, NAU8360_R12_PATH_CTRL,
-> +			NAU8360_DAC_SEL_MASK, NAU8360_DAC_SEL_BYP);
->  		return;
+thanks,
 
-We don't generally do things like this, we rely on the user to fix up
-their configuration, but equally we don't have a good mechanism to flag
-problems with firmware download to the user.  It's not something we
-really expect to go wrong.
-
-Since the register being updated here is a user visible control if this
-does kick in we should also generate an event on the DAC Source control
-so userspace knows something happened.
-
---RAsO9G6pITb1+7kJ
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqbBDoACgkQJNaLcl1U
-h9DbNgf5Ack5EEylaxiBYfX6x0Ca5h2XClwAfPmBuqKkqf3atu8wy5q4fqj8ovn7
-j1pAU2ZEW3NcXbtu8ppR+rOGRwfj2xV7xNkNkvl+g8SSVAMeGxDuHCDIhhSRuTSE
-VeTVDbGYPYzO8yFwAGjycjDN3JMOCJCcVOEZbbesEGW7kQsCnyjvg0DEbUAB8j25
-8234Y+J3EGB2xFhFhg2jR9YFpEhRgRnH6K9ns+or1yC0tBTJCd7/zbCx8dvndpOC
-RkQuR7AWRnI8oqKw+qz6cvDnt6+oNxcR6wZ+xmbDWuUr8ZCS6Gnask3wix7vQ7jh
-Q/dc8QhLV72gdTYFtoVpPAq0Wsk90Q==
-=walo
------END PGP SIGNATURE-----
-
---RAsO9G6pITb1+7kJ--
+greg k-h
