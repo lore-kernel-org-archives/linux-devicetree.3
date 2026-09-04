@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9E93D969D;
-	Fri,  4 Sep 2026 16:08:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A6F3C141F;
+	Fri,  4 Sep 2026 16:11:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788538114; cv=none; b=RrXJMhVYNEXBLRQ21dWlhdj0S+ohJYA/bs8OLmT3RQkxdFfGFgygu8mDkeEz22NYJXfLUiyN8bEIEJD1VP4KOvEpvARCyK4oHJpm1QBNXbCtTVRBHMwXpRMTuLGdI1qOfY6OpPYaIqmWwRvGV8b0E1pY5Jl2AeWDHHxfsz44prk=
+	t=1788538292; cv=none; b=Hazd7K+X2apesPfAUBq7Aae6ABXBXpDKxosgJk+klJn4x8jpcglY0GxZi9G+TQKUb5A1uSbY20K184ARAsDv/qvAQSQWmgMj/P/AVo4Tvvl3K1xj8AjZBVY85ibcTTQQPK2dJB/pq5xBAtlK7RXAOLJQDuXEjcwDaLnGLEzwuMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788538114; c=relaxed/simple;
-	bh=tQYwM88qmegnt6nV1iv9g7c1VlyruLz2UJIsoGKWgLY=;
+	s=arc-20240116; t=1788538292; c=relaxed/simple;
+	bh=qsGq2P+kiJN/b/vD7hZ4BaPg6aQP1KVB3Bg2P7HG2yU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Gxf57b8wQtI/NHExjc5IiBCYbF7f+ezjydtKSMMl3jKHLFtZkO4s9cl3bvQvCM85TZs+cmURKiBuZTxw//rl8q8Bb6L+/8VDh9XxacFzs4VXfZutr1DUoiJobnbc4UYWAHEyROl836VQLL7FO9NyZmoEOQPlUXLIqc9PCnjw9+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NJRKSBjH; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XAyZaqB48i0c5O5SL/6BgdbqhgyQrtxt+xchVcP97Ys+hm/EMblUmJsMAGknfEpk6vt+qSeydxOhHMsfC8UCd4rx4Afcy0JGzIfbuyoBsFR0VdJ6z8LNYY+OwrMqHa/W/euYma1QeWCr66IiGnmw/+fvxrRPaeTP9X80V6pNmj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xa1UqG7f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NJRKSBjH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38B921F00A3E;
-	Fri,  4 Sep 2026 16:08:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xa1UqG7f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 245DE1F00A3D;
+	Fri,  4 Sep 2026 16:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788538110;
-	bh=bR3EsiJTcuG3wyeb0fOsQnAa+YeQ/ZyAmPX0sUBGkaQ=;
+	s=k20260515; t=1788538291;
+	bh=nelZe2JKKD+n4puxlXNb2kakMC39MBlRUNCUFcP/3Rw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NJRKSBjH+RINzRvUmkobmkRKdF1tdwljmc+SrE1L4vGlgvUCbINhNksh5sTYo4Pdy
-	 7qs95sEpuAVH5AtJey95YkPm1ftP/weZucHr/sxgZXlOpzlTXQHXOEGtae6b6ugpBr
-	 PhLEFnX3hjYCYSMR5/PSe49k0FSqhJehXQJ1aDjuVzpNcfTFscQBJW4QjnmseO+lC3
-	 J8m/Eu2OMuNMhBdbyemr5MB9vIaX42cLlObAd+gBbknmbVapkw2jvPWUC1seDHwdP8
-	 6j00umimLBbk58lPxzvDYgLD9BwHmzvfoftbOlEsVX+2qOplKBAZNPQZuAuDIn9Qy+
-	 +MWyWYbKcu7dA==
+	b=Xa1UqG7fbZQpWONbx93PHel/9NjpyWqYgMXT13KTrZ4J6xdrfnul6Q4vuMPuixF9/
+	 +hOebfG1wm4i17l/1yFauffAZNiqmctyIaV9fBeUer9+H5BuyokdnyBDpvNBg659NV
+	 7+9LWz5Eu46BOnklYmqTs+PCUlcoRZxENjVt8pEMqMLACaC0SEz7NkbADrjXWroo0u
+	 1q69LJFtxoqUPnRs+h5M0B7+okHxLppl5ynrugi9pVq+BOnmSfjuOx/Cio1eaWxeJM
+	 Ay3w1ENPytTwxe9MqRu/lbB3nLryLKSAcyx1zDDaZdKSENiJphbdXVGNcU/UebBOO0
+	 NiEzMVM5OzFPw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 11/11] arm64: dts: qcom: monaco-arduino-monza: Add
- QCA2066 M.2 WiFi/BT support
+Subject: Re: [PATCH v6 12/27] clk: mediatek: pll: Add PLL stabilization
+ delay definition
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260904-monza-wireless-v6-11-d8c5042b3efd@oss.qualcomm.com>
-References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com>
- <20260904-monza-wireless-v6-11-d8c5042b3efd@oss.qualcomm.com>
+To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260904-mt8189-clocks-system-base-v6-12-5df247f56938@collabora.com>
+References: <20260904-mt8189-clocks-system-base-v6-0-5df247f56938@collabora.com>
+ <20260904-mt8189-clocks-system-base-v6-12-5df247f56938@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 16:08:29 +0000
-Message-Id: <20260904160830.38B921F00A3E@smtp.kernel.org>
+Date: Fri, 04 Sep 2026 16:11:30 +0000
+Message-Id: <20260904161131.245DE1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Invalid bus-range property for PCI-to-PCI bridge (pcie@1,0).
+- [Low] Comment retains a hardcoded delay value, defeating the purpose of t=
+he macro refactoring.
 --
 
-commit 44e277594358ae378b8bf12010e21f9f5a15795b
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+commit ed78802d4853a74588db6e1da90538ffeb9ae7a6
+Author: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 
-arm64: dts: qcom: monaco-arduino-monza: Add QCA2066 M.2 WiFi/BT support
+clk: mediatek: pll: Add PLL stabilization delay definition
 
-This commit adds support for the QCA2066 WiFi/Bluetooth module on the
-Arduino VENTUNO Q board. It introduces a wireless LGA connector node
-and a downstream PCIe port node so the power sequencer can enable the
-M.2 slot.
+This commit introduces a new macro PLL_STABILIZATION_DELAY to replace
+hardcoded 20us delays used for PLL stabilization.
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm=
-64/boot/dts/qcom/monaco-arduino-monza.dts
-> index 299d0da15a150..afa6f0ecbf602 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
+> diff --git a/drivers/clk/mediatek/clk-pll.c b/drivers/clk/mediatek/clk-pl=
+l.c
+> index 2aaf2871ecf6a..9a197a657dce0 100644
+> --- a/drivers/clk/mediatek/clk-pll.c
+> +++ b/drivers/clk/mediatek/clk-pll.c
 
 [ ... ]
 
-> @@ -429,6 +463,22 @@ pcie@0,0 {
->  		ranges;
->  		reg =3D <0x010000 0x00 0x00 0x00 0x00>;
+> @@ -306,7 +308,7 @@ static int mtk_pll_prepare_fenc_setclr(struct clk_hw =
+*hw)
+>  	writel(BIT(pll->data->pll_en_bit), pll->en_set_addr);
 > =20
-> +		pcie@1,0 {
-> +			#address-cells =3D <3>;
-> +			#size-cells =3D <2>;
-> +			device_type =3D "pci";
-> +			compatible =3D "pciclass,0604";
-> +			bus-range =3D <0x00 0xff>;
+>  	/* Wait 20us after enable for the PLL to stabilize */
 
 [Severity: Low]
-Does this bus-range property create an invalid PCI topology loop?
+This isn't a bug, but the comment still hardcodes the 20us value that the
+patch abstracts.
 
-The pcie@1,0 downstream port is configured as a PCI-to-PCI bridge. Based on
-its reg property (0x020800), it sits on primary bus 2. However, the bus-ran=
-ge
-property here defines a secondary bus of 0.
+Should this comment be updated to remove the hardcoded value so it won't
+become stale if the PLL_STABILIZATION_DELAY macro is updated in the future?
 
-Because a downstream secondary bus must be strictly greater than its upstre=
-am
-primary bus, having a secondary bus of 0 creates an impossible PCI
-topological loop.
-
-While Linux's PCI core currently ignores the bus-range property for downstr=
-eam
-P2P bridges and relies on dynamic enumeration instead (avoiding any runtime
-impact), this still introduces a logically incorrect hardware description i=
-nto
-the device tree.
-
-Should this property be omitted or updated to accurately reflect the
-downstream bus topology?
-
-> +			ranges;
-> +			reg =3D <0x020800 0x00 0x00 0x00 0x00>;
-> +
-> +			port {
-> +				pcie_ep: endpoint {
-> +					remote-endpoint =3D <&lga_pcie_ep>;
-> +				};
-> +			};
-> +		};
+> -	udelay(20);
+> +	udelay(PLL_STABILIZATION_DELAY);
+> =20
+>  	return 0;
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-monza-wire=
-less-v6-0-d8c5042b3efd@oss.qualcomm.com?part=3D11
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-mt8189-clo=
+cks-system-base-v6-0-5df247f56938@collabora.com?part=3D12
