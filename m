@@ -1,309 +1,128 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012008.outbound.protection.outlook.com [52.101.126.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3DB3A5E7D
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 02:42:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788489762; cv=none; b=jsPjJM9PHcejT9hQCjAAxWlnqmcBMX0UX28meCDZM85kwcfGzbf6VhKnBhBk/6GY6GirTsvrcx0w9x22U8Ex3UGjNPusR0nMS8bhzs05UJmIYcpIrUiDwcqqFjzuGGkv+TpcS8hwvyNTlmeszi+c5Ie2ZeJtSmtccw5WhzUfCFA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788489762; c=relaxed/simple;
-	bh=rxG5qb25UYzVQNxYfuPHH3FGVqj4kKxY8R0d1etCtpQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hLezgnk+Iyiav+1AgkraOzH714Be9/oH9AA1rnC1sHqm2+M4DS+0Cdlt7+oBsh0ZJ+g/qqNgrtUJemXgAXkpeRy28Uw2gYoPwq31ZkWCWuvEWagPmDBrtO26mYgy3OhD855sANRnYgiRMNAI5Y5QFUMv4WCK8nWqYcQkXvqF6RA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Eo74QmJ5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LJGUq3lJ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AEDF3A8734;
+	Fri,  4 Sep 2026 02:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788489909; cv=fail; b=VxBU/tKpSoDrgTnvYrovemLXK0S9uUrP0LLpaDwjhmYaSZWvDC+GkEOCMn1YXs+ocMbf0GqG3+XjU3/D3DtHveCwJ/Gz3BziGlVmyf9oDMDGZbazuCUDeGIitlC8LrPNb4spbhVcK8pZN010P+Zu2lfVyJZx4T+oukMDZn0/vPk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788489909; c=relaxed/simple;
+	bh=sRZ/CxG7F5unuvv5j0HIBZUgTNg+05NfH2FYCZNFyYc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hWnhHxG0NOqG4IPL8C7QPpKBJUh9wIzPRRYMf/OleokJTXy+7mtGWAEQFJUfung8EWk6u5vQxP9dLnh31x6+WBmp1I7TtaJkmGASQnbp2qtbpj7IXGsAwQDXEXBxe+todgFTKaxaJ3Ktjivsm3V+7tG84NwRj7YFbKRekXjF3yQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=gEQeoaNb; arc=fail smtp.client-ip=52.101.126.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eo74QmJ5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LJGUq3lJ"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 683NbWtZ1260669
-	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 02:42:38 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0525HgtheBE4qZcaZExgs/VP1xEGbWMqw5TkM1yBa9s=; b=Eo74QmJ5ELtT75BU
-	Q1uLmrkRmvWAxM5L9rH9zzFca8D9RwmjKYzXG4wugbg9br34pZPhrXg0wkKsCg5f
-	7MBvwh22cYuvZ0UE8ninhzVlUu8qYYVQfgmyfNi2IVyZdDmzLkjOjN1JKcE2009v
-	4ZbWMwM/6izpallQrzUkdSbyfFZSDEep0/13UkdxE58OPQqJT1TqynAXjSb5EUE4
-	SfNudi6VfL8zCXWU2uHV/qIecWTrk8AlURHKACtsTEktuGhJ9Mj9wSi/EGkf1J1w
-	7/lETQ6xp+l7bu+rCBK1mkTyZkvaQCi/jOdelW5EJAahJ6lERwTvHy3Uq1FMOpfS
-	UXihuA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfdyp1q2m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 02:42:38 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d001671a54so9157325ad.2
-        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 19:42:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788489758; x=1789094558; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=0525HgtheBE4qZcaZExgs/VP1xEGbWMqw5TkM1yBa9s=;
-        b=LJGUq3lJUiMkAU3Brcs3DtzdLdlzmdBOaU3HI6JVW8BKsuqosOSoKI+ORlKkkyGxgP
-         /UO13PPPj9V9muU3ZWDGTRRNmR+p5kYthP/4k5EegsBi4a4zI4ROVsl/izIMobICDQlf
-         IuCZOgLAUUhd8EROjFS9vfLloMceS+9g6HhZWKYNtBLzSQnZG8wSPO5ldvFGWqCxl9hk
-         FH9XSzhflpmI9kdO08cKVWcGukiDrtzcUT324a512jTQ0vpahkYfyadY/fSLBouLIfZP
-         T/1oY0kmAj25XuCXct+KuTer0Vk8GdbkLHLIIn83WvGVPIWXZzxVSlPRqWmTN3HrXU5q
-         q3Lw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788489758; x=1789094558;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0525HgtheBE4qZcaZExgs/VP1xEGbWMqw5TkM1yBa9s=;
-        b=kszvxymn0Dontg9UigcFbfOK3LL/coUDnuvLcNwDw0y5P0Z308esuCWHj+/Dg+qeEK
-         7BAC0tjQaYh793R6KG/QwkjVJsRhVUVaZm5yjd4MWZHX5cQvplVJZbiiMCN3p+8BdghJ
-         +mWNSQcPqyynjLkyRZf2n7PlwpAMH38vXQrP44pFkEgqwIafTEBFdfDmT58mxnKeZJzk
-         p3idXO4CcVjv+o+CZr93saXzvCxrATdJgFfFNpoMUhsZC90b1bMFR85tGf1ksUa5RAZ/
-         l24fwqqPKZ/yipMgQWV89q/cCTlgfr/KIUrHwGIsipZS7NBV5XFFL0XpJaKQuHvNJjN4
-         UTsg==
-X-Forwarded-Encrypted: i=1; AKwUvBy80XekduxBkRRMoY5WBr2E/ICTRhZ2xSFY6S3bHnbJV1KxyEGb7bHTqAViYaY965Z5fK2vAPpsJZSY@vger.kernel.org
-X-Gm-Message-State: AFuF++k2tiKzBlzHptcSDAoQEeMW+xuac7duUoLwNGDNTnFAyrr5BgWs
-	wzJ2x5nzk8r2Azl7p9RYysPwLaBQOmI2DTMfQKkWs0dks/Rt46jxQqk+gM9KTLmd3HIunreS8PR
-	vH0z3yRPGhXyx83cJkKZqconrdEdwGrkGQQ01bxyKi8uwLPYCLKR+NkkCKyFW2ymR
-X-Gm-Gg: AYBFou1czn7pdHhQbPQYmEpVTqFOkQFMYbnTt5zw2A7MOFkjlEHMrSQA2BwEcGQ8ggR
-	CGQvR9ORsqkon2qOVQyHMgapg42gJWKq8eMPVoXB7vfhCgfazEvN7NDjkq+i/3mTWgsbTBoLtrL
-	HD/M+gJzdMKAsZCIoPqIOWD6ASggKkOjlbEptMybrbPXUQj0ztOcngtl45Aqq4AOrJNhRWvOAi1
-	Xiuh0OkqDeMroLLfEIhmgAuHU9NHYSNiIgwfV/fGmMbijQdXLDvYQ43kWdc3KlDdqIa61TT07g9
-	+t1z3ohlaC3+XPz6bKvIyCUGapGHAk6HsMY2UEqQYGz5QtabPP/7qhqG0DNsZhO5H1rgv+Pr3R3
-	/c2wbvMwswt+tlCvBHYlTUZ8xyud5CCy5uElnJaeU38POzX5jscJob2tABMuiUDIu
-X-Received: by 2002:a17:902:ccca:b0:2c9:aae1:a61a with SMTP id d9443c01a7336-2db127cc2afmr41780845ad.14.1788489757702;
-        Thu, 03 Sep 2026 19:42:37 -0700 (PDT)
-X-Received: by 2002:a17:902:ccca:b0:2c9:aae1:a61a with SMTP id d9443c01a7336-2db127cc2afmr41780565ad.14.1788489757237;
-        Thu, 03 Sep 2026 19:42:37 -0700 (PDT)
-Received: from [10.133.33.207] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497e9e5sm3207345ad.38.2026.09.03.19.42.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 19:42:36 -0700 (PDT)
-Message-ID: <3f67a5dd-e567-409c-ba93-8931ffadf75b@oss.qualcomm.com>
-Date: Fri, 4 Sep 2026 10:42:29 +0800
+	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="gEQeoaNb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jU3oVLPK19iByAqGGOYrfa5ZHlHBSQHgEPfP0POlkz2fTQMF45GjAfl7tdi0b45QHpO2iBOr6vPJ+E2gmebl55ob9FMd5UzRK9C8bBu4m+7dJvvqon5pAh5qgvor+xI8e7FuXMY/8GGCpv/T5UvrgzEcpKwCEkSMNFXnNWhfWaeBqSjbds+KK55mj9nKb7jyBqRE4VkpnpmZ4+3ByELxBpYQS7vrtOsUhU+/xZ1y/phLGbVGCrdKVjgF4Vq7IXXPw7xzAOrdgAdhsL/JD3wM5oTGAILdFeWSCguL6Oh9uUy8KkxUR/DNLgTHo36sfoUKrj8KJklAnOuhBOLKxitvmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=u645JAEptkktINqUTloinGIpfCrfT5WkXzEsBBJ/+r4=;
+ b=JtwY68aaHPVH33GsR1WJrLckMFVAy4TDBkwBV97n00D8VI5rGvjC6WeblVaWgveqiS2Q13eIjDZtAWkyWOu9xhr2CXvZS3D3CJZRwV+RkFvHD3wXcju/tdURSg4zRgMXpNG88CmYgbE/iZe2ad+LxnGNL6LMMZWlWxnGEasJwvYAqCUWfWoa7eF2Y8A7QtEkZ+kwhIGaS9K/idm/8FSa9nmfgwuyfB4jfOPc9sKPMZ4lwU0jJOABP3CJynYAyOL1saxpcHJ/RjlIbS+ZgMZ7b1RyQ4GEcKhfkg3FKa91q9JjJV9FUrwkhyRP19PO0N8oW1260wv17AVTrgLJk05/Ag==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 211.75.126.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=u645JAEptkktINqUTloinGIpfCrfT5WkXzEsBBJ/+r4=;
+ b=gEQeoaNbWfxTs730aoNOhYpJfIVVmaFpLnqEUBX+1boT9kq9c/Tbp8s/cP2DBdwS5FtvU0fLrP4MbnhSD8bx2nlsq9z9Ajfv5CCEeEUUD9QdbgT/9D4SjVtTM0D932/9Zv/HRLOyWUUeqaVyMjK+mT1DusDwJCaSQymfaVC5nwJ12fCh+XrpesVzYHRC7fpXlHWglGGbSx7OwjY8N0v0NKqpDtFQV8FJ2eVpwjrNg9l+omEi2wl+97+qBLPncGnRGu49GnUHpEw8+GGAj9yFJoG2K7jQwiyAiTmpESUELAQPWqnLv1EVZJSaetv3oEKKAg7YAj30PRME+zDPahYNmg==
+Received: from JH0PR01CA0139.apcprd01.prod.exchangelabs.com
+ (2603:1096:990:5b::11) by KL1PR03MB7798.apcprd03.prod.outlook.com
+ (2603:1096:820:f7::10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 02:44:59 +0000
+Received: from SG2PEPF000B66CB.apcprd03.prod.outlook.com
+ (2603:1096:990:5b:cafe::a4) by JH0PR01CA0139.outlook.office365.com
+ (2603:1096:990:5b::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 02:44:59 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 211.75.126.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 211.75.126.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=211.75.126.7; helo=NTHCCAS01.nuvoton.com; pr=C
+Received: from NTHCCAS01.nuvoton.com (211.75.126.7) by
+ SG2PEPF000B66CB.mail.protection.outlook.com (10.167.240.24) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 02:44:59 +0000
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Fri, 4 Sep
+ 2026 10:44:57 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Fri, 4 Sep 2026 10:44:57 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>
+Subject: [PATCH 0/2] ASoC: codecs: nau8360: Add DSP fallback and PEQ band initialization
+Date: Fri, 4 Sep 2026 10:44:54 +0800
+Message-ID: <20260904024456.193528-1-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 08/15] arm_mpam: Fix ris_idx type to prevent range
- check bypass on truncation
-To: Andre Przywara <andre.przywara@arm.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Shanker Donthineni <sdonthineni@nvidia.com>,
-        Conor Dooley <conor+dt@kernel.org>, Fenghua Yu <fenghuay@nvidia.com>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Reinette Chatre <reinette.chatre@intel.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Danilo Krummrich <dakr@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, ganapatrao.kulkarni@oss.qualcomm.com,
-        trilok.soni@oss.qualcomm.com, devicetree@vger.kernel.org,
-        driver-core@lists.linux.dev,
-        Srivathsa L Rao
- <srivathsa.rao@oss.qualcomm.com>,
-        Huang Yiwei
- <huang.yiwei@oss.qualcomm.com>, aiqun.yu@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org
-References: <20260811-mpam-resctrl-dt-knp-support-v1-0-ea6397bead59@oss.qualcomm.com>
- <20260811-mpam-resctrl-dt-knp-support-v1-8-ea6397bead59@oss.qualcomm.com>
- <bca22f76-4fc0-4a99-8648-4f148de7246d@arm.com>
- <b6463a78-9aed-4e17-b044-83b734cc0f9a@oss.qualcomm.com>
- <bf973056-590b-45d4-a66c-d61b480ce229@arm.com>
-Content-Language: en-US
-From: Yin Li <yin.li@oss.qualcomm.com>
-In-Reply-To: <bf973056-590b-45d4-a66c-d61b480ce229@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: ryMHYLPTnp1ToGmphdvaiUDRFtjRs9Vm
-X-Proofpoint-GUID: ryMHYLPTnp1ToGmphdvaiUDRFtjRs9Vm
-X-Authority-Analysis: v=2.4 cv=Q5XiJY2a c=1 sm=1 tr=0 ts=6a9a301e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=neYdvBUB4e3bnShflY0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDAyMyBTYWx0ZWRfX0j/Ts8AG9hs9
- Cn1lgRHE67jJd0YkaGJJOtUUoC8BgfZfQBKwe6Mk0eFV/ClanZLnYZOHpAEWAuJQ/APh7iM8iKV
- SSeFAXeo1+gyDiyx9Ocjxkea7uE+job3jjkp3y6OKamkPSm06WfmZrt5oTqoK94RFHt+8GfJIX5
- qjdRcEcK7UlkM3ozkNMYsPWItK3E5mLLGd4co6u6GM9Mk2QHNhP+xQMr6T4qMBJHuDkGXf00oDl
- o65WmMW/GXPG0Rj7hj5ewGItGvQUwNUCNLLJuufsdZjDHdoOPIQD+43aQGji93c/PvigWBpPTEW
- t1UpDwu/qJFYJ0xElY+npeFZ55B4nZGNODn63GvT3orW7VLczTia5PmkEX4kh+ps5U5ejGb4BW/
- e7keBdMwz6Go3f9QG3yU/xTnGfIWL/wAIIQXIr1LZCnM8rfXUSy6tM7c21Fo8CjfQvfppa0N3Fk
- bw/hIgXXV4/bx83XRgg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDAyMyBTYWx0ZWRfX1r0iSDsCOp/V
- e5zJTsY2EDt30G+fny/+iPUtqqo+1TZGHE1G4ve1c9M7q+oNkWVy5FI9Szg9PBamQFuwg+xHimv
- xTRx0eci6zmKF+B237boGSadCZvb6Tk=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-03_07,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
- clxscore=1015 impostorscore=0 adultscore=0 bulkscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609040023
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CB:EE_|KL1PR03MB7798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0837d16e-95d2-4ff0-2138-08df0a2e834f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|36860700016|23010399003|82310400026|10067099003|56012099006|11063799006|5023799004|6133799003|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	4Bq2tgjsN8dhK3y8mI2s69gQYGwEW1KsSMcgcPRjvyxRNircI1zzC0PZxg1s6c5Z4AFeo63jg3huguLe2XFE6ugPgEhZkOvcVf5HjBZKcDFqF2LDuAxXmUKxRrrox+ZsYv8nPn8c+FNN6YhjvhvnGB99XznjhhRwiPTJtlsJ3QkBVfMsn8k0x2VRvaP5Q0R7lkOVPSTEinKfrbDTs9bieyeqGgVfqj3WV3qm1qWFyM7JlNQZ5TGI7B9C1KZC75smPkBuXQsS58TL1xiDTL4lFWzvu2YQ6yUa45r8HNVxJQI6CBRmvpoaRVCAxruEisCkuhMsuQjhT6yoCdYXASFPmC/q93s4yoS3CnyhjX2bUoDI5Z5kw0xci2JxemSmxzSB8VsuZKQ8Pi/81TqTZgHeWmfbxElMXUHoegxhKou0d7Z8/Iqs4/3zIq/u8VDef4AKkVbmVmJQNGmQQEuGmPpfKZXXjcp798I2nsc9zjzl5OpflkkaaNvDSK2H9ziy17d4zNpXzFr23tFip9LEM+c2N7c6SuAdjGMnq9UQ1TEFBp6aTlt//7+H2Z+ZJm4T0ouvU12PYXxDh4KYSKITKJUeyZw4m7DDTZgU+0cRxAIHUmaFK2xXZNkkP9Y+J49rCwfyfeEluSpZjL2kFoBVrykpCrR1SC1f1/47ZdwHkh7htY/G50VZLOvxRZFI6iB2It3I
+X-Forefront-Antispam-Report:
+	CIP:211.75.126.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS01.nuvoton.com;PTR:211-75-126-7.hinet-ip.hinet.net;CAT:NONE;SFS:(13230040)(1800799024)(376014)(36860700016)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(5023799004)(6133799003)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	59oyeREmj8zNYkyCH4eR3cpg8bbZpZOLdfhwQef5DQLeGWg90sIZX86yOJSulEveF5tlRN7oPFNkyWeLRCkBzrHkQAoZun8SvSWbqUDvzoN2AC+/aXAgytsWQO3LOj9pEcxzPVMsFEbWMzwzKMGlSzxcbqQ1nUDEmKXDGo0qC9wZKC6zWNu7/AcRyP1PcspGCnnYnmA4rSXamfxtq5nuyWsKMdYJ1d/Idl4wg84LDNDcr6QWyrQAuiS7Sf/3OGL2UxWO3Y64JfpyNSi+X9zMs6GW2IAIKVhgDxKZkeqrPkxV//FzLI6OFuq1a0GX1OSu1DzXeq+sbyV+gRmtGHFTCpemLQbam94b7Hf5tBDguIQLWFNbeSHj8Y86unBz1+3Xjbx4yWFs8WIJy3SvmZjktGErodJz8jHUp7RhnbijJlh8fngOOnd8GhbGCLS7TkKp
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 02:44:59.6389
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0837d16e-95d2-4ff0-2138-08df0a2e834f
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[211.75.126.7];Helo=[NTHCCAS01.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG2PEPF000B66CB.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB7798
 
+This patch series adds a fallback mechanism for the NAU8360 DSP during 
+firmware load failure and ensures proper initialization for PEQ bands.
 
+It includes the following changes:
+- Fallback to bypass mode automatically when DSP firmware fails to load,
+  ensuring basic audio playback remains functional.
+- Set a default PEQ band number during DSP initialization to prevent
+  invalid state or uninitialized parameters before user configuration
+  is applied.
 
-On 9/3/2026 9:27 PM, Andre Przywara wrote:
-> Hi,
-> 
-> On 9/3/26 11:42, Yin Li wrote:
->>
->>
->> On 9/3/2026 12:22 AM, Andre Przywara wrote:
->>> Hi,
->>>
->>> On 8/11/26 15:30, Yin Li wrote:
->>>> The RIS index is read from device tree as u64 via 
->>>> of_property_read_reg(),
->>>
->>> what does it do that using an u64, actually? Do you refer to the reg 
->>> property of the ris subnode, which has a limit of 0xf in the DT 
->>> binding? So shouldn't it be an u8 all along, and we fix the types up 
->>> at the sources, rather than widening everything needlessly to u64?
->>>
->>
->> Hi Andre,
->>
->> Thanks for the review.
->>
->> Yes, this is the reg property of the ris subnode. The reason it starts
->> as u64 is that it's read via of_property_read_reg(), whose API takes a
-> 
-> Yes, I figured as much, *after* hitting the Send button ;-)
-> 
+Neo Chang (2):
+  ASoC: codecs: nau8360: Set DAC path to bypass mode when DSP firmware
+    load fails
+  ASoC: codecs: nau8360: Add default PEQ band number for DSP init
 
-😜
-
->> u64* for the value — so ris_idx has to be u64 at that point, regardless
->> of the 0xf limit in the binding.
-> 
-> Which actually makes me wonder whether this is the right function to 
-> use, since there would be no translation (as indeed guaranteed by this 
-> function), but also no size, and I guess no cell size requirements 
-> beyond 1. I think it has the added benefit of checking #address-cells 
-> and #size-cells, but technically a standard of_property_read_u32() would 
-> do as well? Though this probably has the same problem, just with u32 ...
-> 
->> If ris_idx were narrowed to u8 before reaching the range check in
->> mpam_ris_create_locked() (ris_idx >= MPAM_MSC_MAX_NUM_RIS), an
->> out-of-range value such as 0x100 would be truncated to 0x00 and silently
->> bypass that check. Keeping the wider type through the chain lets that
->> check see the real value and reject invalid indices.
->>
->> If you feel an explicit check right after of_property_read_reg() (with
->> the downstream types kept as u8) is cleaner, I'm glad to go that way —
->> whichever you prefer.
-> 
-> Yeah, I feel it's sane to already check the limit directly after parsing 
-> from the DT, not only in mpam_ris_create() later. Do you know of any 
-> particular reason this is done so late?
-> If there is none, I think the cleanest is to keep of_property_read_reg() 
-> and check against the limit already in that function. Then we can use a 
-> u8 all along.
-> 
-
-Hi Andre,
-
-No particular reason for the late check — it just followed the existing
-structure, where mpam_ris_create() already does the range check for both
-the ACPI and DT paths. Nothing requires it to happen there.
-
-And agreed on keeping of_property_read_reg(): the #address-cells /
-#size-cells validation is worth having, and of_property_read_u32()
-wouldn't avoid the truncation anyway.
-
-I'll check the limit right after of_property_read_reg() and use u8
-throughout the downstream path. Checking before the narrowing avoids the
-truncation concern at the source, and drops the needless widening. Will
-do this in the next version.
-
-> Cheers,
-> Andre
-> 
->>>> but was narrowed to u32 when passed to mpam_dt_parse_resource() and
->>>> further to u8 when passed to mpam_ris_create(). A value exceeding
->>>> MPAM_MSC_MAX_NUM_RIS could be silently truncated to a small index that
->>>> passes the range check in mpam_ris_create_locked(), leading to 
->>>> incorrect
->>>> RIS creation.
->>>>
->>>> Widen the ris_idx parameter through mpam_dt_parse_resource(),
->>>> mpam_ris_create_locked(), and mpam_ris_create() to u64 so the value
->>>> is preserved until the range check in mpam_ris_create_locked() rejects
->>>> out-of-range indices.
->>>>
->>>> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
->>>> ---
->>>>   drivers/resctrl/mpam_devices.c | 6 +++---
->>>>   include/linux/arm_mpam.h       | 4 ++--
->>>>   2 files changed, 5 insertions(+), 5 deletions(-)
->>>>
->>>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/ 
->>>> mpam_devices.c
->>>> index cc9fa1d78925..1e082fb60e30 100644
->>>> --- a/drivers/resctrl/mpam_devices.c
->>>> +++ b/drivers/resctrl/mpam_devices.c
->>>> @@ -260,7 +260,7 @@ static int mpam_dt_count_msc(void)
->>>>   }
->>>>   static int mpam_dt_parse_resource(struct mpam_msc *msc, struct 
->>>> device_node *np,
->>>> -                  u32 ris_idx)
->>>> +                  u64 ris_idx)
->>>>   {
->>>>       int err = 0;
->>>>       u32 class_id = 0;
->>>> @@ -712,7 +712,7 @@ static int mpam_ris_get_affinity(struct mpam_msc 
->>>> *msc, cpumask_t *affinity,
->>>>       return 0;
->>>>   }
->>>> -static int mpam_ris_create_locked(struct mpam_msc *msc, u8 ris_idx,
->>>> +static int mpam_ris_create_locked(struct mpam_msc *msc, u64 ris_idx,
->>>>                     enum mpam_class_types type, u8 class_id,
->>>>                     int component_id)
->>>>   {
->>>> @@ -799,7 +799,7 @@ static void mpam_ris_destroy(struct mpam_msc_ris 
->>>> *ris)
->>>>           mpam_vmsc_destroy(vmsc);
->>>>   }
->>>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->>>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->>>>               enum mpam_class_types type, u8 class_id, int 
->>>> component_id)
->>>>   {
->>>>       int err;
->>>> diff --git a/include/linux/arm_mpam.h b/include/linux/arm_mpam.h
->>>> index f92a36187a52..30461cd71199 100644
->>>> --- a/include/linux/arm_mpam.h
->>>> +++ b/include/linux/arm_mpam.h
->>>> @@ -39,10 +39,10 @@ static inline int acpi_mpam_count_msc(void) 
->>>> { return -EINVAL; }
->>>>   #endif
->>>>   #ifdef CONFIG_ARM64_MPAM_DRIVER
->>>> -int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->>>> +int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->>>>               enum mpam_class_types type, u8 class_id, int 
->>>> component_id);
->>>>   #else
->>>> -static inline int mpam_ris_create(struct mpam_msc *msc, u8 ris_idx,
->>>> +static inline int mpam_ris_create(struct mpam_msc *msc, u64 ris_idx,
->>>>                     enum mpam_class_types type, u8 class_id,
->>>>                     int component_id)
->>>>   {
->>>>
->>>
->>
-> 
+ sound/soc/codecs/nau8360.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 -- 
-Thx and BRs,
-Yin
+2.25.1
 
