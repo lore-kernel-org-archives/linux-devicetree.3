@@ -1,100 +1,78 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3582651C336
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 19:37:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E0843E484
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 19:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788550636; cv=none; b=IF7s69mb1I1OMunftT/M+CduV3lujEb8giuIv8mipw20HJvdzW442pu5jqkC7EiX6buUIS4CcWgNyXgr4K43WuEX6TLDUW5yFdPFDzFCnt9inunuZldc1FV0ASvPDuRv/NNhEyrfK2oHzMjkaHZEwB20akwg2c66qCWD0dP5tYg=
+	t=1788550842; cv=none; b=P1frs6IBz8AOY+KuSVC+62FMJiHM0b2WyfaxTbCnd2qboDcS4cxUxAEsELRjRE80oFxDSd53Q6bdMzr4Luz+ygCrmT9i+Cgo03A34KOZbpVp/KoskgkvwNhplajZx6ZCRnivd5yCxN+FlRRLDAaLRXJmm9UBJ3CqgJ7LKNt1HnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788550636; c=relaxed/simple;
-	bh=H4VfZ1oIflEf+NCaohJHEm9e23+ujGN59jKDZ1Kccrg=;
+	s=arc-20240116; t=1788550842; c=relaxed/simple;
+	bh=lxGBmQaRhy9mdZLR1PJiHsdMBGqQHmddcF9WF6eOgAI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Dns2el3opKH0AWXeNo1HV1GHu/n0IQgW7GSpfkNQuoUKFAP6eWYrD2JTpm+pyHMPeFOLO4VTewIzD2co/mT31T/u9ah8FNAG0DBU/6RYgiovAXT+Jjs59Q0B9rWR42PE3/K01VUj8WOcKwyiUPhNlb/URBTS7cJb4vzSx3oxKzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Vxf8LshN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cT/zPVrR; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=DteECcmL3DMPqDkdZfFrgV17zsJTpgZRXdfv1gnTo3JYZ38/2hydTn7CSQsFKqRC/cE0fygdWMsoCM7pPCyMs71qF3YmWmMpZPr0BvdVw2MgjmrF+HaLjUYT6mz+8k8JA3gmHqEMWU+y9SHqGoJqjzLK97np77DmUaxFg7VsNHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kjqBNytT; arc=none smtp.client-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Vxf8LshN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cT/zPVrR"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HHjQ41151795
-	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 19:37:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=QI+uREPlD4rmiPWi7TZUnSdk
-	1H6A3jyNKvxXKDFQ2+Y=; b=Vxf8LshNSH/7v6mkRNFdVN6MGE4b2fkBgEV7gz/t
-	GRP1TSPrzMfOgL4soSgLEMMwpTMhYVorrbpD3J3LmDRaNBjtMKILdINzz0lz1JFb
-	Vam2Aqa3vbX24/5SNKPJsVN1o2BD3KKF/B4J7ujbM323gTe1SR2QkVuWcWfWKPxs
-	hroNdgumU3UUiSy99hD9/gozJDTC3qksmHQnN2A4c5zIbqHzEar+jAx+bqzi8UxS
-	XUaC/ZGUBs3Dm5nxBQooAFt1SPykFZPK3IJbuo3uRecIdFaNGriLkzmy1+DxnVVG
-	/16VZ+/4jymJxP4R51kk5iHO8sj33OmAeqLU81l7QjJRZA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg00yscwv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 19:37:12 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc1c6070e67so87335a12.2
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 12:37:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kjqBNytT"
+Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-855c26cf490so13029177b3.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 12:40:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788550631; x=1789155431; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788550829; x=1789155629; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=QI+uREPlD4rmiPWi7TZUnSdk1H6A3jyNKvxXKDFQ2+Y=;
-        b=cT/zPVrR4+xkZnBAkPeHNrFwnhbcAJMZKtw4WWFM2VOFo1FD1I9sXmcmDBIidAND6h
-         MsdxSQSx8XDhfss45YaHT1mZ7gVPtyCLLGXVHQCATsm5uuXf9G09Ab7JYTSGAIfLY/kM
-         kb8WYyJNhhJK+l0jEPMsGgNgcM5pSWi6UHJ++wtXMM9xdV19L8f6lmCsgLtOq+2/sk64
-         UwXoPy4xDiLtf+rtj4ozF301TLoimPAI24QXeGVdFDL6lhYEt6BWXm49OsCGv33XyBGW
-         yl39VyGFmu+SKjrsj83MmGkrQtW8Bq0qldoKckZhJXO/dtp7lZmDODqN0EoLYc1pNoeA
-         E1QQ==
+        bh=srSTts7XJtXRSQX8o1LNKKWt/r8EHn/nfOIuyJlMJm8=;
+        b=kjqBNytTNoUk5wApc0GnvixkAb90SSRk9iGmFS2Ctt8SITjJXKBwWvCdgdbmESu+h3
+         gCQvIz6eAo6UxcWT9Pt0Y+2Sw2gV97YrgDq0M91tTpmID/NDw1cy/S/l1dTItSmFyHkz
+         9RMSGULocd6aLyS+2gcuoo7vcGK7dslpEnvyLVhwtRx7O8ffKVMNV6ezs3nuKwILe05v
+         5JMHawDd3pct1UMf8JlHs9igcus+v25L9qrUXpO37NSi+UyNgFl1ZV9eAAuIs04+yeRr
+         Yu4H0odn44PpOmK/gsaCHeiiKW2ajuJVuxQdxTtEkuYSy0qjkRgmqGGcZaRFViuQm8Ma
+         agtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788550631; x=1789155431;
+        d=1e100.net; s=20251104; t=1788550829; x=1789155629;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QI+uREPlD4rmiPWi7TZUnSdk1H6A3jyNKvxXKDFQ2+Y=;
-        b=humv1weWtoZq4Gl2KtURdRSBUwIGm8gG6p2a1jQtRtj2AA+hDaElxw9XcLAVITZkwE
-         IOW1Nk03D5nFCLGi16q/0ZCFJ2dwO4ktAMSRfywcPNd12VbCfAjM2V/qUT0deuenczpR
-         MPI1N+6KJEFV/87hK0sDsKTNXJYYk3OxxDbXf/OpyuTb95+rDAJYcNePNEgdQv0eEtnS
-         f8OIrY35UaCv28u+69kMtlRH0gmEofxOLcAoiXn3tTH2vN3KdAIvHOFY1lX0o64FUbER
-         w7RUxBMml9eDjyFU3IqRXkvLwwf4IDGDI6A7qi3t1V1KHXOBUcH2w9mUepupkospRgYT
-         W1Og==
-X-Forwarded-Encrypted: i=1; AKwUvBzP/Jg3wbmAchskON6rSEgAC/D4GsLttdN6TIKIms8PFLhR/F5u7uJs5GRjRA/vMl6+UANmt/tfi6vT@vger.kernel.org
-X-Gm-Message-State: AFuF++lyQXAAa+AY6BxD06auebfoosOb6KCqNoDKjIXgflxDLPkX0ZYu
-	y7BuuS6XeimrtW5FthiOi45GmijCzG0EcN0MoYgaaltOSYxaBm+wM6v1J+Kigc7NX1pUXOwgZ3m
-	L3mDsdfEf/LONjhPSCbRmGGt7cBvOKqFxqv1PUR5+16NAgyYmFMcL8UqEDYyb0IPD
-X-Gm-Gg: AYBFou06CFSrh2Xh+VR/spgyyPZa9yNh0DVQ18rgpvKHTGjQLWs7QMPSCzCYOv1N/qm
-	UcSFkSOh2JNLwV8oxwlqKbU7MTAzjo/5z0rAhAFoPqCuVflE+TRfn14sJKh3NG5R1rHvWdzY5+d
-	mzb8kSJpI9Pl/cXHU9ZQSEmTLIC6EPG5YxPu0xmDD2fnn46nOeyLVUfba3aWWr4pNT1OdRCMHQh
-	846seCV9QuCmn73O20Y9iPbXNksH34KSEq+HpAHiSj2iG4/0bjOYuYxSukq7qmXoe6YJZX4LOiA
-	JUlmIhbJTQCDNibAQPoLFpc9nJeWm9/oP/DTge65rqer89V3/VstycC7ob8rU8zU2BUcao9DRJF
-	TG8XaXJLQnTrTbCoqsOGpr/rY0AhVQgOgOUzL1zKRMHvhZHTwBnCRFJC9czzNOyyU0p3lIwNIYD
-	JHaHzSxh7Fbq0H5zRL31pP
-X-Received: by 2002:a17:90b:1e04:b0:396:463e:2eeb with SMTP id 98e67ed59e1d1-39b264b24e2mr7732992a91.0.1788550631430;
-        Fri, 04 Sep 2026 12:37:11 -0700 (PDT)
-X-Received: by 2002:a17:90b:1e04:b0:396:463e:2eeb with SMTP id 98e67ed59e1d1-39b264b24e2mr7732946a91.0.1788550630938;
-        Fri, 04 Sep 2026 12:37:10 -0700 (PDT)
-Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3351c2bd2b0sm359941eec.8.2026.09.04.12.37.07
+        bh=srSTts7XJtXRSQX8o1LNKKWt/r8EHn/nfOIuyJlMJm8=;
+        b=s+EwqEFRzmMejCa7YvUB7s0xLxpMxCBnuelLuIA1Z0j3spN7Bhuofx1FEwYgiZPT43
+         5SuoVFyQismO0yD1Z2QCO7Y4CX0dnSuws5kbLE/GlC/Ihk7l1P7tscsx8JGqvuSVDb02
+         OuwFsuj8wqDI7sigL50q6QWIMuEo1ghIg5/ELUsS+PrzxtJIyUvFRhWruqFBF44BtVJe
+         ezO1YC+/2qfhmg1ybkUkCAZQ8QuAljlkuDNqXvlN4AXzBtQezX0eRA+rxhPTjdUVyDVM
+         Sk8A2OXKir/Ynjfwp+3FuC7Khwgdyu6B/dDdVXP6lv82o/zFJ9gCCrUJOa/oP/JXEeVd
+         zf6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzlluEKaniKaDL8hTSN0PpjJo5HHW/b62cR46BgnXys+jX4H1B6K/m0MnuZKGmTXMsvKlkXQB1Xn1Dh@vger.kernel.org
+X-Gm-Message-State: AFuF++nBuLtLIQuyNZT4EW38YG15QZ/bRJXUgK+t/kIL4hVtA3sYRI5o
+	xcdW7u+uPmfcdYOkcDKNBJlqyNnMVfy37pHdYg5MZ1v+7+OhvZpR8xDp
+X-Gm-Gg: AYBFou0BELtFBHt3tY7K7vmeVdrg/w+pBnb0TV4dsoP4nYQUMmrgju75nZVcfHb0tGk
+	SCNIBcfgQ6/YLdP+BtbsG3CRmmCgL3t0M3hKjWkWysrMwiRACY66tg7JSwwoW++lcHnDybJ7NqH
+	wb845Uz4NprTCUkUsWU7dsI1zgZefFwHK6sUpUz+6S/vE7X+iYkuISyRNngzIqe37PlcXLqTaE8
+	ux7GW1+R5X4S1HdOl6Auq4124oUgkaUpxgOLDyEPpTw2b2v7Gk//ZI4hMA8idiyCKFgOv808qjP
+	+CLDcBQQkvMSOhLlmsL0QuyNx6JYtVV+0VmLMe7Jo1zxo5LQRnpe+eAAD15ey599wEAzA+dVJ8e
+	sIpTs8cVlK57rXGOkYBWoZvBKV1mrYuEDkdgzVUwvGHgUJGnbwvR2ybuR5RRX/ePoYPY4v/brf6
+	7ZmcD6vhOtrTZRhTrYd6Ob6v9/GMWj5IquzVb5v9ZWs+v5js5cuEhvIFYNEXXxwBGpMZIF
+X-Received: by 2002:a05:690c:e190:10b0:81e:89b2:91ae with SMTP id 00721157ae682-87126aa5d51mr30794567b3.21.1788550829584;
+        Fri, 04 Sep 2026 12:40:29 -0700 (PDT)
+Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-871439c4566sm25792517b3.4.2026.09.04.12.40.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 12:37:10 -0700 (PDT)
-Date: Sat, 5 Sep 2026 01:07:04 +0530
-From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        venkata.valluru@oss.qualcomm.com,
-        Jessica Zhang <jesszhan0024@gmail.com>
-Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: lemans-evk: Add LVDS display
- overlay
-Message-ID: <apsd4L0MNzgAhSHS@hu-vishsain-blr.qualcomm.com>
-References: <20260813-lvds-support-v2-0-6b11035e8ab0@oss.qualcomm.com>
- <20260813-lvds-support-v2-1-6b11035e8ab0@oss.qualcomm.com>
- <049af81c-d05d-4ce4-9627-8b2212979f4c@oss.qualcomm.com>
+        Fri, 04 Sep 2026 12:40:28 -0700 (PDT)
+Date: Fri, 4 Sep 2026 16:41:22 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
+	dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 01/13] iio: Fix typo in vendor name
+Message-ID: <apse4gHE2pblXnN2@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
+ <apkSNlQuQkjdNKvx@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -103,114 +81,52 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <049af81c-d05d-4ce4-9627-8b2212979f4c@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=baFbluPB c=1 sm=1 tr=0 ts=6a9b1de8 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=XpLG6VMlNpcyACpXrrQA:9 a=CjuIK1q_8ugA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-ORIG-GUID: M_6Y35Ndj_sBWIE_cmddToRh1U2axgad
-X-Proofpoint-GUID: M_6Y35Ndj_sBWIE_cmddToRh1U2axgad
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE4MCBTYWx0ZWRfXxhX0KHudylWU
- ACxl0SIghick4UiIFvnUGVEvzMlaD8aVsUc4btD3rgp1Mm449CRD3o/jEoSZEhdxRzcGNHHZun6
- wJl660EQ2xzsJ4FuqM9mRbqq1keS40wxjxVLxRtAD+XSITvc5J5QaTK79ws1RaQeP50KyR4Yq3o
- bLM1rinwy2iCRwmrkASpSUqBBaZ/6+LA7EJ3K1gfOC3XloOSazwFs1VEkBQ0h+RqXCl+heUHee3
- AEEwVNt9moUGvVPrOxLIMfdXZsOlLB6Wdi4XO6BHq7tXCkntHpjhpP6hRBeZ0l/7FMbKOKtnYOX
- deabyse1cMZdNYvjiDoydBjk7U77PjTCc2fvxPJk2K0OVfWMxb/EQP4R8PxefNJfoxlqNl4bE14
- 2UQLIXzR6xKsUQ7P7CoQFd79LbTxC0kQtBuBGPFVAzn+dm+l9wa6AdPnTsMiYoYXUQrUGN3VBlv
- omx8RlpAulklPvrX8Hw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE4MCBTYWx0ZWRfX4DCL/6DbvqWC
- p5hEC8Z9o1icjf2ZL6L9TVNjdx2QcfAiuM9dlZ1wC6J3b/fnPxt8p5vxYpSn85lfy/ArdmmFXdE
- Xw3uopCRo5yqplVYMmdEFbIs1PrWxrw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 bulkscore=0 lowpriorityscore=0
- malwarescore=0 suspectscore=0 impostorscore=0 priorityscore=1501 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040180
+In-Reply-To: <apkSNlQuQkjdNKvx@ashevche-desk.local>
 
-On Thu, Sep 03, 2026 at 03:06:10PM +0200, Konrad Dybcio wrote:
-> On 8/13/26 7:33 PM, Vishnu Saini wrote:
-> > The Lemans EVK IFP mezzanine supports LVDS display output using the
-> > Lontium LT9211C DSI-to-LVDS bridge. The bridge is connected to the
-> > DSI0 output and drives a dual-channel 1920x1080 LVDS panel in
-> > VESA-24 mapping.
-> > 
-> > Add a DTBO overlay, lemans-evk-lvds-boe,dv215fhm-r01.dtso, that wires
-> > up the LT9211C bridge on I2C1 (address 0x2d) with reset on GPIO37,
-> > a panel-lvds node for the boe,dv215fhm-r01 panel (matched against the
-> > panel-simple-lvds-dual-ports binding, which supplies the panel's size
-> > and timing internally), and an LCD display bias regulator supplied
-> > through the GPIO expander. DSI power is provided by vreg_s4a.
-> > 
-> > The overlay is built as a composite DTB combining the base
-> > lemans-evk.dtb, the IFP mezzanine overlay, and this LVDS overlay.
-> > 
-> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+On 09/03, Andy Shevchenko wrote:
+> On Wed, Sep 02, 2026 at 02:21:34PM -0300, Marcelo Schmitt wrote:
+> 
 > > ---
-> 
-> [...]
-> 
-> > +	panel_lvds: panel-lvds {
-> > +		compatible = "boe,dv215fhm-r01";
-> > +		power-supply = <&lcd_disp_bias>;
-> > +
-> > +		status = "okay";
-> 
-> Nodes are enabled by default unless explicitly disabled
-Yes, status = "okay"; will be removed in next revision from all such instances.
-> > +
-> > +		ports {
-> > +			#address-cells = <1>;
-> > +			#size-cells = <0>;
-> > +
-> > +			port@0 {
-> > +				reg = <0>;
-> > +				dual-lvds-odd-pixels;
-> > +				panel_in_lvds_odd: endpoint {
-> 
-> Please keep a \n between the last property and the following subnodes
-Yes, This will be fixed at all the places in next revision.
-> [...]
-> 
-> > +	lt9211c_codec: lvds-bridge@2d {
-> > +		compatible = "lontium,lt9211c";
-> > +		reg = <0x2d>;
-> > +		reset-gpios = <&tlmm 37 GPIO_ACTIVE_HIGH>;
-> > +		vccio-supply = <&vreg_s4a>;
-> > +
-> > +		status = "okay";
-> 
-> ditto
-> 
-> [...]
-> 
-> > +&mdss0 {
-> > +	status = "okay";
-> > +};
-> 
-> The DT which you overlay this atop already enables it
-Yes, will remove this from overlay.
-> Konrad
-> 
-> > +
-> > +&mdss0_dsi0 {
-> > +	vdda-supply = <&vreg_l1c>;
-> > +
-> > +	status = "okay";
-> > +};
-> > +
-> > +&mdss0_dsi0_out {
-> > +	data-lanes = <0 1 2 3>;
-> > +	remote-endpoint = <&lt9211c_in>;
-> > +};
-> > +
-> > +&mdss0_dsi0_phy {
-> > +	vdds-supply = <&vreg_l4a>;
-> > +
-> > +	status = "okay";
-> > +};
+> > Now
+> > find drivers/iio/ -type f | xargs grep -i "Analog Device "
+> > finds no leftover occurrence of such typo.
 > > 
+> > Also,
+> > grep -nrIi drivers/iio/ -e "Analog Device" | wc -l
+> > and
+> > grep -nrIi drivers/iio/ -e "Analog Devices" | wc -l
+> > both count the same number of lines.
+> 
+> Why not `git grep ...`?
+> 
+Could be. I'm just more used to non-git grep.
+
+> ...
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> 
+> But you also want to fix possessive suffix usage
+> 
+> $ git grep -n 'Analog Device[^s]'
+> 
+> Documentation/iio/ade9000.rst:7:This driver supports Analog Device's ADE9000 and ADE9078 energy measurement
+> Documentation/iio/adis16475.rst:7:This driver supports Analog Device's IMUs on SPI bus.
+> Documentation/iio/adis16480.rst:7:This driver supports Analog Device's IMUs on SPI bus.
+> Documentation/iio/adis16550.rst:7:This driver supports Analog Device's IMUs on SPI bus.
+> Documentation/iio/adxl313.rst:7:This driver supports Analog Device's ADXL313 on SPI/I2C bus.
+> Documentation/iio/adxl345.rst:7:This driver supports Analog Device's ADXL345/375 on SPI/I2C bus.
+> Documentation/iio/adxl380.rst:7:This driver supports Analog Device's ADXL380/382 on SPI/I2C bus.
+> drivers/iio/adc/Kconfig:108:    tristate "Analog Device AD4130 ADC Driver"
+> drivers/iio/adc/Kconfig:124:    tristate "Analog Device AD4134 ADC Driver"
+> drivers/iio/adc/Kconfig:136:    tristate "Analog Device AD4170-4 ADC Driver"
+> drivers/iio/adc/Kconfig:167:    tristate "Analog Device AD4695 ADC Driver"
+> drivers/iio/adc/Kconfig:182:    tristate "Analog Device AD4851 DAS Driver"
+> drivers/iio/adc/Kconfig:350:    tristate "Analog Device AD7405 ADC Driver"
+> drivers/iio/dac/ad3552r.c:699:MODULE_DESCRIPTION("Analog Device AD3552R DAC");
+
+Ah, thanks for bringing this suggestion. Will adjust the possessive use as well.
+
+Thanks for suggestions to other patches too. Will apply them for v2.
+
+Thanks,
+Marcelo
