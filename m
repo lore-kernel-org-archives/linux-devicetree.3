@@ -1,127 +1,212 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4064A3F1E;
-	Fri,  4 Sep 2026 13:41:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC3349F117;
+	Fri,  4 Sep 2026 13:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529290; cv=none; b=lWx72XaaXmcOKaNhQQ57fXB00P2eezpzQ0fWDJ/epOKIzcFCtOKnEyRwlHuaZjG0bzDwQOz6+49tRpdsCg6nHsQdlqYDK5wDILRv6iIUJ9nTi4lD2dbfLa4ixw+pLf6oxt78LnGgQe682LvOwDCWig/gQRxEcx0z9jQWfDCkj48=
+	t=1788529374; cv=none; b=J+FtUcIOWC/neH2Yrxv3dZ4S74sAXX+aMzwtTj7o8Kl+4bh5eIVfnmU3hK+tpdbIFDlCFH2U6GUcMGu/io0cah1/mUMPf1UZkByTwQPbTZrxXQsH5hMw0XsBEMEShhcVAqvfRnSqJdf02yFSI76IpZJN7/BOXwUdkKn+m8uApZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529290; c=relaxed/simple;
-	bh=NAwgwZEQe7uemXombFcZYrpYRcJIk8OGmfECTdWhegU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BcQdU4nlBw0uBssp4AMMIKiUi/5eM4ydL6v6xljDBBrMgmLe5OTNc0ppP2g7CXs4GsriIRglXRQu66Yj3ngQcyBY7usmXj4Rb3d7iswUBZZvdjgudCb7nv8rrVqz6Tpvp7tWkncZsGZBAm4PeOtsmT02L9+cGJYUYRb4J9rPtsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIj9veqT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788529374; c=relaxed/simple;
+	bh=xQKdPmM5bn8Oj29fPxT4ju6zr11MoxWpobAaVR0xrVk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=U9jMUr09uDjdrh8g8Q3bZUbLym2iGkaBAhzRx9Ajn/lDmiyoALEOzBMZ5eBcqeR+GWSWCjI5Vmn8MwcwLPVBG/dp/agwluniT/jlfSDv0j+t306e2EP/50z7dpTYw9ViMezk2y0phQzzWUy7qtRWhXSVCE/05sg3B2Fvt4P+PiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZX01FCF+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIj9veqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D9861F00A3D;
-	Fri,  4 Sep 2026 13:41:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZX01FCF+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61DAD1F00A3D;
+	Fri,  4 Sep 2026 13:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788529288;
-	bh=t2bbWH8xySVk1VxubdX/99A/B6IjbdIXEcR0sEBplrY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=YIj9veqTC7vEKwZ+oRg+WJ3iH3PZg2cWvfLYpXH5Ie4OStObZclhao3kD1iJB8qVi
-	 wwQZS2A5ToInBvtFYuF/U6O7J4rWfNYbK2iSWkB3Gj4nTNFkUTkV5bfUUYX/dPo6x3
-	 9YHJREoePUsxq/rGQzCA8SY3Z7x4BFL879qsQlg5gbPDb3yT97EBw2zp+OGLoas+Ff
-	 F1cr+XxB4wAp5N1ZeIXsV775MR1S13MCByAL8qUSggBWOH07at9wny1AYs7TE+BKGK
-	 Vn79Y16ot2sRJY0RlTK/2Gx3SnIr6xBhKTpRwBZKhY+gYfZq4uyLSYpK9Z5h6W/djt
-	 TyEHZ9amRODxw==
-Message-ID: <0306eaba-b59c-4f8b-9151-9f39685398ba@kernel.org>
-Date: Fri, 4 Sep 2026 15:41:21 +0200
+	s=k20260515; t=1788529372;
+	bh=wzU4YjPnSETRdodZme4TDyvK+QC9EtY4n+yRYCubHZg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZX01FCF+BY26ep95y1j0Ggg5eTyVHVdVJNvbhbJ6wkGZ22mcxeEQKocLLLDnWI8uM
+	 Z9B0QGZDOrgeJmcl9JjMvUc3f9cUOAOkbUfaBUd3eFCWMSXk/yCdFKvl5M2fOiJOFq
+	 6mMYqbNj9mYsO1aIvyr8h2Pyd3CjZsGujPjk2Za6NsKsnyXsJRZSHUz/m27Wa8gRfs
+	 rGpDdru+IlzblBtoLG9glzq4Na7zs1FqQpoIiFpwOqP4rDOGeJckwpqoos2Lsdv+l5
+	 Bv4ljVAf9cqJVmJGYMIo7l6Rq4Q02+rkP2PznBwboOk03RIM1pMRgJLWe3pOsgP4Nx
+	 jjCLs4liQ04kA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 07/19] drm/bridge: inno-hdmi: Split probe out of bind
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Wilczynski" <m.wilczynski@samsung.com>
+Cc: lee@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, mfd@lists.linux.dev, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260904-jh7110-clean-send-v3-7-484f9ae72715@samsung.com>
+References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+ <CGME20260904132721eucas1p2e5f5bb9d907e641c4488908403b9d52f@eucas1p2.samsung.com>
+ <20260904-jh7110-clean-send-v3-7-484f9ae72715@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 13:42:50 +0000
+Message-Id: <20260904134251.61DAD1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 07/10] mfd: wm831x: support software nodes for DCDC
- regulators
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lee Jones <lee@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>, Arnd Bergmann
- <arnd@arndb.de>, Sam Protsenko <semen.protsenko@linaro.org>,
- Peter Griffin <peter.griffin@linaro.org>, linux-input@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, patches@opensource.cirrus.com,
- Bartosz Golaszewski <brgl@bgdev.pl>, Russell King <linux@armlinux.org.uk>,
- Conor Dooley <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>
-References: <20260711-samsung-kp-v3-0-b2fcaba77aff@gmail.com>
- <20260711-samsung-kp-v3-7-b2fcaba77aff@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260711-samsung-kp-v3-7-b2fcaba77aff@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 12/07/2026 04:12, Dmitry Torokhov wrote:
-> Allow passing software nodes to wm831x DCDC regulators via PMIC platform
-> data. This is useful for non-DT/non-ACPI platforms that want to
-> associate device properties (like DVS GPIOs) with the regulator devices
-> using software nodes.
-> 
-> We add 'dcdc_swnodes' to the PMIC platform data 'struct wm831x_pdata' and
-> have the MFD core assign these software nodes to the buckv cells.
-> 
-> Assisted-by: Antigravity:gemini-3.5-flash
-> Signed-off-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> ---
->  drivers/mfd/wm831x-core.c        | 47 ++++++++++++++++++++++++++++++----------
->  include/linux/mfd/wm831x/pdata.h |  2 ++
->  2 files changed, 37 insertions(+), 12 deletions(-)
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-I still need Ack for this from Lee... and the problem is that you did
-not Cc him.
+Pre-existing issues:
+- [High] Using `devm_` APIs during the component bind phase causes permanen=
+t resource leaks and breaks EPROBE_DEFER.
+- [High] The hotplug interrupt handler `inno_hdmi_irq` can fire before the =
+bridge is attached, leading to a NULL pointer dereference.
+- [High] The I2C adapter is exposed before its private data is initialized,=
+ leading to a NULL pointer dereference on concurrent access.
+--
 
-Please resend everything or spin v4 with MFD maintainers included for
-acking.
+commit 72f1334365740cfcdf0865d9dfd6562b9c3b40a8
+Author: Michal Wilczynski <m.wilczynski@samsung.com>
+Subject: drm/bridge: inno-hdmi: Split probe out of bind
 
+This commit splits the hardware setup of the inno-hdmi driver into a new
+inno_hdmi_probe() function. This separates the bridge registration from its
+attachment in inno_hdmi_bind(), allowing decoupled MFD/glue drivers to mana=
+ge
+them independently.
 
-Best regards,
-Krzysztof
+> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
+inno-hdmi.c
+> index dd35f5a875d3d..aab474740f7f5 100644
+> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
+> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+> @@ -1061,11 +1061,24 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(=
+struct inno_hdmi *hdmi)
+>  	return adap;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but the I2C adapter is exposed before its pri=
+vate
+data is initialized, which can lead to a NULL pointer dereference on concur=
+rent
+access.
+
+Just above this line, devm_i2c_add_adapter() makes the bus visible to the s=
+ystem
+before hdmi->i2c is assigned:
+
+    ret =3D devm_i2c_add_adapter(hdmi->dev, adap);
+    if (ret) {
+        ...
+    }
+
+    hdmi->i2c =3D i2c;
+
+If a concurrent I2C transfer is initiated (e.g. via udev running i2cdetect),
+inno_hdmi_i2c_xfer() can be invoked. It will read the uninitialized hdmi->i=
+2c
+and attempt to lock its mutex:
+
+drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_i2c_xfer() {
+    struct inno_hdmi_i2c *i2c =3D hdmi->i2c;
+    ...
+    mutex_lock(&i2c->lock);
+    ...
+}
+
+Could hdmi->i2c be assigned before calling devm_i2c_add_adapter() to prevent
+this race?
+
+> -struct inno_hdmi *inno_hdmi_bind(struct device *dev,
+> -				 struct drm_encoder *encoder,
+> -				 const struct inno_hdmi_plat_data *plat_data)
+> +/**
+> + * inno_hdmi_probe - Internal helper to perform common setup
+> + * @pdev: platform device
+> + * @plat_data: SoC-specific platform data
+> + *
+> + * This function handles all the common hardware setup: allocating the m=
+ain
+> + * struct, mapping registers, getting clocks, initializing the hardware,
+> + * setting up the IRQ, and initializing the DDC adapter and bridge struc=
+t.
+> + * It returns a pointer to the inno_hdmi struct on success, or an ERR_PTR
+> + * on failure.
+> + *
+> + * This function is used by modern, decoupled MFD/glue drivers. It regis=
+ters
+> + * the bridge but does not attach it.
+> + */
+> +struct inno_hdmi *inno_hdmi_probe(struct platform_device *pdev,
+> +				  const struct inno_hdmi_plat_data *plat_data)
+>  {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but using devm_ APIs in the
+component bind phase (now moved to inno_hdmi_probe()) causes permanent
+resource leaks and breaks EPROBE_DEFER.
+
+Because inno_hdmi_bind() is called from inno_hdmi_rockchip_bind() (a
+component bind callback), the platform device is not removed when a compone=
+nt
+unbinds. If another component in the DRM pipeline defers, the devm_ resourc=
+es
+are not freed.
+
+Subsequent bind attempts will fail with -EBUSY when re-requesting the IRQ or
+I/O regions:
+
+drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_probe() {
+    ...
+    ret =3D devm_request_threaded_irq(dev, irq, inno_hdmi_hardirq,
+                                    inno_hdmi_irq, IRQF_SHARED,
+                                    dev_name(dev), hdmi);
+    ...
+}
+
+Should this driver be converted to request resources during the actual probe
+phase rather than bind?
+
+[ ... ]
+
+> +struct inno_hdmi *inno_hdmi_bind(struct device *dev,
+> +				 struct drm_encoder *encoder,
+> +				 const struct inno_hdmi_plat_data *plat_data)
+> +{
+> +	struct platform_device *pdev =3D to_platform_device(dev);
+> +	struct inno_hdmi *hdmi;
+> +	int ret;
+> +
+> +	hdmi =3D inno_hdmi_probe(pdev, plat_data);
+> +	if (IS_ERR(hdmi))
+> +		return hdmi;
+> +
+> +	ret =3D drm_bridge_attach(encoder, &hdmi->bridge, NULL,
+> +				DRM_BRIDGE_ATTACH_NO_CONNECTOR);
+
+[Severity: High]
+This is a pre-existing issue, but this refactoring significantly widens the=
+ race
+window for a NULL pointer dereference. The hotplug interrupt handler can fi=
+re
+before the bridge is attached.
+
+inno_hdmi_probe() unmasks the HPD interrupt and registers the IRQ handler w=
+ith
+devm_request_threaded_irq(). If a monitor is physically connected, the
+interrupt can fire immediately.
+
+The IRQ handler then attempts to dereference hdmi->bridge.dev:
+
+drivers/gpu/drm/bridge/inno-hdmi.c:inno_hdmi_irq() {
+    ...
+    drm_helper_hpd_irq_event(hdmi->bridge.dev);
+    ...
+}
+
+However, hdmi->bridge.dev is only assigned when drm_bridge_attach() is call=
+ed.
+Since this patch decouples probe from attach for modern MFD/glue drivers, t=
+he
+attach phase happens much later, leaving a dangerous race window.
+
+Should the IRQ registration be moved to after the bridge is attached, or sh=
+ould
+the IRQ handler check if the bridge is attached before proceeding?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-jh7110-cle=
+an-send-v3-0-484f9ae72715@samsung.com?part=3D7
