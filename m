@@ -1,193 +1,214 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99645221C3
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 18:51:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4F5B411A1C;
+	Fri,  4 Sep 2026 18:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788547880; cv=none; b=berFe4IZfXl7/4FfmqtDHY5uBS0hWgNOsn4LyhtmCOXNTrVQlQyZUuWOgISrUXV41euQ6su2HvhGc4EeXht/X1IkVQL4iVDGoODd4WMc53JMIKm/eRsLXtFLESv64v0tU0uFhkw9IQK0Ihs671Cl60MUEkzhyb61Ssy8itenPHg=
+	t=1788548107; cv=none; b=NfPngyZjKp2n9yLQcQWDeqTPWUzrNGtK7elWGb8x3H1WPi+GGcO2haRV2K6DKDG3WJiQw3U0jEhtn8y+tgqQqxgnMhWEbhNRWX/rk+Qu9UyRg0XINAMVozWhe7BtLs1wxdEfPBCVFqaLqsKujPzj79KXdpWRy53oUFlIb4/6bTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788547880; c=relaxed/simple;
-	bh=ANtqbgCd+Qn4OZkETZWDUVmcawqHc5YlKvgeXREa9l8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j7qeA6ESHMCzBHrU7ql+VIta9XQImtxhYXSt0hcLteEcD/+yniXt+zkJlBCZZkVsvNTavYQxDlQb1F8kAEIU4/hyuLTS+6gMSHCvhepPyZGnDGXngy9Y3DKRPIKmFeusyNkxopj+MoTfoxAzwoijgug5ky58IcjBF3n+kwEpH98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cRL+Q45F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PnnIm/gc; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788548107; c=relaxed/simple;
+	bh=YjE58b0ZQoCsKs3WbBeJHJ5kI3Nan8my01/Dme4uBIg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=r+FCIbAQHkKaZKDYffVtroLuyWQw0JaLzSluH+XwODqWKJhqVgIiPOSVHMuA7rz2ytwkn1OFjF7H0y4BODCydcdTZY0wmHEWpFLJyPU1scuilvx3rB+MJaEglQJ582AiXU74OLr4OuMDvcRe3SJEe/F+hlKWoZXbrrrLgkRCUo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cbD6OZg5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cRL+Q45F";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PnnIm/gc"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HHnXP014291
-	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 18:51:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	pRKYnRDxm0qqvtNyh5/LTfsvz3GZJFe8P+VRq9eSgLc=; b=cRL+Q45FdSXEgPKc
-	Wh1NUXiPTZI7Ik6+OR7rRy+MobUJYgM7+Q/GxuKN9QlclIC6pzph0vEyaJYd2yih
-	oKtbxQ/tDh1moewieoHiBKksVXKF5vbw9b+snTgd9trPRuaBJxdz3RHrocqvejVH
-	mEtKfJSkR1JAjIR/7MwXvnLLugU0o9YA5S/TLJGr260St3dpMlobBofWE8fRKWdI
-	3/bwI0ywwp+2o9XWykssU6RYaheamwEZUfylpxMQR99KOgQ98am/ZJpvk/aPRFV4
-	H6oEI1xgY6dY5Jk3ga/kBe6Y5FmATfg4RUb0uxsCNysoULqhqs5bQeKcExZQbZuA
-	ckywHQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg00yh6yq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 18:51:17 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-398d292eac1so2864529a91.1
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 11:51:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788547877; x=1789152677; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pRKYnRDxm0qqvtNyh5/LTfsvz3GZJFe8P+VRq9eSgLc=;
-        b=PnnIm/gccZreBTFlO/b+HiW2jQ0RKxTJAjwMb5uQvzyEsrzLGHARgA7VlH01rAGmHM
-         wEC60yGQT6qqUWiLl0UBzTsV/33N3DnhKN2VnOXrrxQ6GOibC2Z03Is2nhpcz3XfyY9K
-         e6bufQnh7jw4tHWmh6Kjt68TPavMmQLjvHNRFiIBlnfxLSlt8bIEYTCV819KPpVbMr1B
-         9/A2lFJs2TILjWgWomMZ4Rw5VFa7XUSbQH6/5+lpJIBgne2OqAQnTXiBGX1bgoN/FSdF
-         ExZVBvk5UbJN0zq/+2i0ycYfSjYVoyI5xjNA0IMGZpcMNDfKYM1+/nFb5dZWrxGJOwmc
-         qGxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788547877; x=1789152677;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pRKYnRDxm0qqvtNyh5/LTfsvz3GZJFe8P+VRq9eSgLc=;
-        b=Dhks7fV3rbV1r9lzNomwib7P9Cc0sKQVv3itTzdqkRuLniTLRpYbhMyG4vyIoB6VUg
-         zqJDG0/wjikvwR5S/vduBI9Xw/051wWQqSEmtasb2NkkrUUYNigYMS4V5MMgDg7ld3bR
-         s2Zk5MAF2mlF9vurZZcooXsAByuV+DQy4bObSZA0Ocwvx9s0Bpg0zcHzJlHoGYGLEGo7
-         /zdrg86ynIdbUjRQoZY6pmdnVS9p9PAoLvSSuMNY6BC3aXznIpoTsjePpE0pO3AbS3sN
-         iFLc1M3LELcYSy9TuQw4Qv1rZ1bCYOFwqP1Wh5s+yvD3A+xBqkwIvGdzEjW66O62DZg9
-         VYeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzxywSsrF+NeOo0Qw+GQlaRlk1Vt7Q9j55ApehaXc46LMOgjLh2ufa3zqvCvzEeg8n/nI5edgcfMrx4@vger.kernel.org
-X-Gm-Message-State: AFuF++k8Ri/naO7tSK8M4HyP+i6L2YVs6RT8AGniqaufhSdcsTraezm8
-	XlW3ZGGZLz7qv6uBPjyvcc6NWncrbadj/5xz2yVb/OlU/VgIbr+hDY+UuYheuGt5L/I+Di9Xigc
-	Pk5X8Yhk1YKLeFVR+1Z8Naw34AySAHeMBywc8Srx4k3/QpHwzq6cKpFLXV6PVx1fzvMq8qfup
-X-Gm-Gg: AYBFou1AbQF7159JF7KZ3i5Bu4UIF3SWgfklUGUM4bGq4wJPgYrxe3rRd4LZ4BDD3+q
-	N/ddjfsCb54sxpl+dSKChQbQJyJH0cENcq7hjYi23OmwOaOyu0mTB9UkbkfLUcWXxIYYpby+Odp
-	gsw20BG38E+1QuHoqbWgnuXupetgucpUV9owLoJAgNii0aeBqdw7H4foJT0na7VbsFcj+EJlDqv
-	zmxdNQfE/shMShm4Yhwhj9v2cw/hC8jRuGvsTY4ECMyabaIpHQ3Oe6n8x9gnXEoqcZyociBSDro
-	5aj9W+mrlzlu3kbKyKeVE7vA/jiM06ngRaFd4aVJsiIoJbo88AnheKS+t3o51yOoLO9EgCCrmeG
-	Ugd/W9hWFeuGOEQxtgZ/NXp/8YMi6Sfw=
-X-Received: by 2002:a17:90b:51c7:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39b2609f34bmr13448768a91.1.1788547877003;
-        Fri, 04 Sep 2026 11:51:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:51c7:b0:398:e73e:5a0c with SMTP id 98e67ed59e1d1-39b2609f34bmr13448702a91.1.1788547876563;
-        Fri, 04 Sep 2026 11:51:16 -0700 (PDT)
-Received: from hu-jkona-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b9f68e4sm8682644eec.24.2026.09.04.11.51.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 11:51:16 -0700 (PDT)
-From: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-Date: Sat, 05 Sep 2026 00:20:45 +0530
-Subject: [PATCH 4/4] clk: qcom: gcc-glymur: use shared ops for GCC UFS RCGs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cbD6OZg5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4271F00A3D;
+	Fri,  4 Sep 2026 18:55:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788548105;
+	bh=nFbGTsXI67KgKHCEe+rbAoubPtZFCm8gC57qcqknLEU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=cbD6OZg5gbHrVfAIRpkYsrXZhEIM7y63VxcBd7JxgiKyoeCoLYRo44W6NhJKQ/3Ai
+	 icAdPmuBVU4h8b7QHe8zJ0UFvN7pxC7MGO5ccG9w8j7yWcuZ8KfVBeH9NopDuZWYQv
+	 UKqniwOMIv+RXdRtaIsHIX1n7faaSOGI5pxmRDDUM5vGP0xFdXQpe21BmpWT8e5h7Y
+	 k6qP5CNiRJl47tXVpO2GNlt+ypPnuCHbTIE1YmqtyyC3ZJaY/4iZMTqEbWy37ISEM7
+	 zbSSg3iJC7c5kUEsvfREmfoWuoednUbtXsrbmwxZscarOhEeD6CWWgtyE/7rf4QeZY
+	 XTMjzJ5ak8uzw==
+Date: Fri, 4 Sep 2026 19:54:59 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Miclaus, Antoniu" <Antoniu.Miclaus@analog.com>
+Cc: "Schmitt, Marcelo" <Marcelo.Schmitt@analog.com>, "Sa, Nuno"
+ <Nuno.Sa@analog.com>, "Hennerich, Michael" <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, linux <linux@analog.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2
+ interrupt pin
+Message-ID: <20260904195459.536526cf@jic23-huawei>
+In-Reply-To: <CY2PR03MB64993393CCFED1EB17231DC6B69BB52@CY2PR03MB649933.namprd03.prod.outlook.com>
+References: <20260831083122.3486-1-antoniu.miclaus@analog.com>
+	<20260831083122.3486-5-antoniu.miclaus@analog.com>
+	<178828084760.2788519.15283878760227392025.b4-review@b4>
+	<CY2PR03MB64993393CCFED1EB17231DC6B69BB52@CY2PR03MB649933.namprd03.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-glymur-ufs-clk-changes-v1-4-cdff2c67a8c2@oss.qualcomm.com>
-References: <20260905-glymur-ufs-clk-changes-v1-0-cdff2c67a8c2@oss.qualcomm.com>
-In-Reply-To: <20260905-glymur-ufs-clk-changes-v1-0-cdff2c67a8c2@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-        Brian Masney <bmasney+clk@redhat.com>,
-        Jerome Brunet <jbrunet+clk@baylibre.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: l3B1WofYZL8lPZPpO0WwZr3lgVjl1s5A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE3MiBTYWx0ZWRfX4HD2Adn+C91p
- hX3Zo+S5/zFb2jgQa0KdQV/XZAfBSWxwpJNbbwuBq/YNR7powOweUCfsh/FjCnFLNdKsu2csFHA
- le3+d8n3dLy+Rd0FfvWhMzW7Mr42zfelQY43i6TI/4/7HDrLJ5IsfMwLqcVOdJ1aIRK4z53CCzc
- lAv+9xfc485ibGdbwbB7ANJdjEivbuF7CDsDibeo8DnHrqTgYXXqzWiZjMqvpeIfuBxdqrD9n1M
- 8xcsgMnIy9vp61fAFLAodIYyMtmS/NFQsffah0wXPWqTAWmZvG1aMV9EKCvttzIAn7FwRbcWph2
- EtVMUPdmkJOPgcSoCWPiBxOgVvJUtb6WANQVXBidef+DchxMG0zu3YvhNxmc4/ZNuIIcVM8aV7Y
- 9qZNw2b0JJmFLc94l93eCHsBZM/uVMC9bAY6Xpq/hallriM/sBPJd3Im3K6n8TJJbz37ONiqHXR
- yh5Krk2lm8+pyDV2GTQ==
-X-Proofpoint-ORIG-GUID: l3B1WofYZL8lPZPpO0WwZr3lgVjl1s5A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE3MiBTYWx0ZWRfX+pNY25ZwIfxt
- dGoI9WAEENf8JQltfR5t2GJmuiU7rigGusK9Zfk11i1YvS9obC/8pkht5UzLLJPaLcKnD++igwQ
- WF4+b7KBQpYHC1j/D8zJ/SpbiEMIe1o=
-X-Authority-Analysis: v=2.4 cv=eZcNubEH c=1 sm=1 tr=0 ts=6a9b1325 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=bkzknT1l8MNr9lhMUYwA:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 bulkscore=0 adultscore=0 priorityscore=1501 clxscore=1015
- lowpriorityscore=0 phishscore=0 impostorscore=0 spamscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040172
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-Switch GCC UFS RCGs to shared ops so that they are safely parked at XO
-during clk registration.
+On Fri, 4 Sep 2026 09:14:53 +0000
+"Miclaus, Antoniu" <Antoniu.Miclaus@analog.com> wrote:
 
-This ensures the RCGs are connected to a valid running source clk before
-the UFS GDSC is enabled, which is a requirement for the UFS GDSC power-on
-sequence.
+> --
+> Antoniu Micl=C4=83u=C5=9F
+>=20
+> > -----Original Message-----
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Tuesday, September 1, 2026 7:41 PM
+> > To: Miclaus, Antoniu <Antoniu.Miclaus@analog.com>
+> > Cc: Schmitt, Marcelo <Marcelo.Schmitt@analog.com>; Sa, Nuno
+> > <Nuno.Sa@analog.com>; Hennerich, Michael
+> > <Michael.Hennerich@analog.com>; Jonathan Cameron <jic23@kernel.org>;
+> > David Lechner <dlechner@baylibre.com>; Rob Herring <robh@kernel.org>;
+> > Krzysztof Kozlowski <krzk+dt@kernel.org>; Conor Dooley
+> > <conor+dt@kernel.org>; linux-iio@vger.kernel.org; linux <linux@analog.c=
+om>;
+> > devicetree@vger.kernel.org; linux-kernel@vger.kernel.org
+> > Subject: Re: [PATCH v4 4/4] iio: accel: adxl367: add support for INT2 i=
+nterrupt
+> > pin
+> >  =20
+> > > The ADXL367 provides two independent interrupt output pins, INT1 and
+> > > INT2, each with its own event mapping register (INTMAP1_LOWER at 0x2A
+> > > and INTMAP2_LOWER at 0x2B) sharing an identical bit layout. Until now
+> > > the driver hardcoded INT1 for all interrupt mappings, so a board that
+> > > routes only INT2 to the host could never receive activity, inactivity
+> > > or FIFO watermark interrupts.
+> > >
+> > > Determine the connected pin from the interrupt-names device tree
+> > > property using fwnode_irq_get_byname(), and route the interrupt
+> > > mappings to the matching register. Use the interrupt number returned =
+by
+> > > the lookup for devm_request_threaded_irq() so the requested line alwa=
+ys
+> > > matches the routed INTMAP register, regardless of the order in which =
+the
+> > > interrupts are listed. When no interrupt-names are present, default to
+> > > INT1 and the bus-provided interrupt to preserve the existing behaviou=
+r.
+> > >
+> > > Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
+> > > =20
+> >=20
+> > One follow on thing to look at via sashiko.
+> >=20
+> > Otherwise, this looks good to me, but given the active discussion on pr=
+evious
+> > version I'm not going to pick this up until plenty of time has passed
+> > or tags have been given. =20
+>=20
+> Ok, I will send a new version addressing also the sashiko issue in a foll=
+ow up patch.
 
-Fixes: efe504300a17 ("clk: qcom: gcc: Add support for Global Clock Controller")
-Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
----
- drivers/clk/qcom/gcc-glymur.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+No need for a new version of these - I'll pick them up now.  Just send a new
+patch on top.  That might break sashiko though, so you could send these + t=
+he
+new patch as new version - just stick 'applied' or something like that in t=
+he patch
+titles so no one spends time reviewing them.
 
-diff --git a/drivers/clk/qcom/gcc-glymur.c b/drivers/clk/qcom/gcc-glymur.c
-index a47a2c6b961ba01edc69be91e299a190f4662c3e..1957c847568afe3769ebf00a8cfeecc8b0a88bac 100644
---- a/drivers/clk/qcom/gcc-glymur.c
-+++ b/drivers/clk/qcom/gcc-glymur.c
-@@ -2327,7 +2327,7 @@ static struct clk_rcg2 gcc_ufs_phy_axi_clk_src = {
- 		.parent_data = gcc_parent_data_6,
- 		.num_parents = ARRAY_SIZE(gcc_parent_data_6),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_no_init_park_ops,
-+		.ops = &clk_rcg2_shared_ops,
- 	},
- };
- 
-@@ -2349,7 +2349,7 @@ static struct clk_rcg2 gcc_ufs_phy_ice_core_clk_src = {
- 		.parent_data = gcc_parent_data_6,
- 		.num_parents = ARRAY_SIZE(gcc_parent_data_6),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_no_init_park_ops,
-+		.ops = &clk_rcg2_shared_ops,
- 	},
- };
- 
-@@ -2364,7 +2364,7 @@ static struct clk_rcg2 gcc_ufs_phy_phy_aux_clk_src = {
- 		.parent_data = gcc_parent_data_5,
- 		.num_parents = ARRAY_SIZE(gcc_parent_data_5),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_no_init_park_ops,
-+		.ops = &clk_rcg2_shared_ops,
- 	},
- };
- 
-@@ -2379,7 +2379,7 @@ static struct clk_rcg2 gcc_ufs_phy_unipro_core_clk_src = {
- 		.parent_data = gcc_parent_data_6,
- 		.num_parents = ARRAY_SIZE(gcc_parent_data_6),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_shared_no_init_park_ops,
-+		.ops = &clk_rcg2_shared_ops,
- 	},
- };
- 
+Applied to the testing branch of iio.git
 
--- 
-2.34.1
+Thanks,
+
+Jonathan
+
+>=20
+> >  =20
+> > > diff --git a/drivers/iio/accel/adxl367.c b/drivers/iio/accel/adxl367.c
+> > > index b4e8dc6d6a5c..9b47e66c49ea 100644
+> > > --- a/drivers/iio/accel/adxl367.c
+> > > +++ b/drivers/iio/accel/adxl367.c =20
+> >  =20
+> > > @@ -1430,6 +1434,36 @@ static int adxl367_setup(struct adxl367_state =
+=20
+> > *st) =20
+> > >  	return adxl367_set_measure_en(st, true);
+> > >  }
+> > >
+> > > +static int adxl367_set_int_map_reg(struct adxl367_state *st, int irq)
+> > > +{
+> > > +	int ret;
+> > > +
+> > > +	/*
+> > > +	 * Route the mappings to whichever of INT1/INT2 is named in the
+> > > +	 * interrupt-names property. -EINVAL (property absent) and - =20
+> > ENODATA =20
+> > > +	 * (name not listed) are not errors; anything else is.
+> > > +	 */
+> > > +	ret =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT1");
+> > > +	if (ret > 0) {
+> > > +		st->int_map_reg =3D ADXL367_REG_INT1_MAP;
+> > > +		return ret;
+> > > +	}
+> > > +	if (ret !=3D -ENODATA && ret !=3D -EINVAL)
+> > > +		return ret;
+> > > +
+> > > +	ret =3D fwnode_irq_get_byname(dev_fwnode(st->dev), "INT2");
+> > > +	if (ret > 0) {
+> > > +		st->int_map_reg =3D ADXL367_REG_INT2_MAP;
+> > > +		return ret;
+> > > +	}
+> > > +	if (ret !=3D -ENODATA && ret !=3D -EINVAL)
+> > > +		return ret;
+> > > +
+> > > +	/* No INT1/INT2 named: default to INT1 and the bus interrupt. */
+> > > +	st->int_map_reg =3D ADXL367_REG_INT1_MAP;
+> > > +	return irq; =20
+> >=20
+> > I'd like to explore the helper idea for this, but it can be a separate
+> > series when someone has the time.
+> >  =20
+> > > +}
+> > > +
+> > >  int adxl367_probe(struct device *dev, const struct adxl367_ops *ops,
+> > >  		  void *context, struct regmap *regmap, int irq)
+> > >  {
+> > > @@ -1486,6 +1520,11 @@ int adxl367_probe(struct device *dev, const =20
+> > struct adxl367_ops *ops, =20
+> > >  	if (ret)
+> > >  		return ret;
+> > > =20
+> >=20
+> > [Severity: Medium]
+> > Since fwnode_irq_get_byname() inside adxl367_set_int_map_reg() can retu=
+rn
+> > -EPROBE_DEFER if the interrupt controller is not yet ready, will placin=
+g this
+> > lookup after adxl367_setup() cause repeated boot delays and leave the d=
+evice
+> > powered up on deferral?
+> >=20
+> > Looking at adxl367_probe(), it resets the hardware, sleeps for 15ms, an=
+d calls
+> > adxl367_setup() which powers up the device into measurement mode.
+> >=20
+> > If adxl367_set_int_map_reg() then returns -EPROBE_DEFER, the probe abor=
+ts
+> > without an error cleanup path to power down the device.
+> >=20
+> > Could this software resource acquisition be performed before the hardwa=
+re
+> > interaction to avoid unnecessary boot stalls and power leaks during pro=
+be
+> > deferral?
+> >=20
+> > -
+> >=20
+> > This obviously isn't new, but it might make sense to turn the device
+> > off at least.
+> >=20
+> > Can be a follow up patch.
+> >=20
+> > --
+> > Jonathan Cameron <jonathan.cameron@oss.qualcomm.com> =20
 
