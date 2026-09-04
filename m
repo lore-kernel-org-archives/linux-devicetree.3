@@ -1,179 +1,108 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010038.outbound.protection.outlook.com [52.101.84.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BC847CA79;
-	Fri,  4 Sep 2026 12:06:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0C43DDDDA
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 12:07:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523581; cv=fail; b=bLE4/vG3aLFnAOzxcRkfll3GvbJNiH0FAiGU+MPxhp+OxbyOHfR7vTqthth40LBNXpIFhAC0cuRleFoWpYm/w+dec6OoTF73Bak887U7uMEZIRjZP42xhkw8qgr6Td2/se/HTYwGTi1bGZsg0KfIFkjdECQN/1Ur7Zp0MRMDqSQ=
+	t=1788523664; cv=pass; b=lUBtL1TLk7KkZmvDREvHioyKZQEN3dhgMm2U7za0IvA4McocfBWP//Hmez+pXVcor0bHwkghDwV2yPk9/ujqTqwV04qp5puM2C4d2G+8uKdPcvD8WHssXKCqsSR0chF4eGSnJE9ibGAKEm/+nBQeNAceg3RtJYyx8k5nuckz1GU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523581; c=relaxed/simple;
-	bh=iFsn6XDiHgr097z54ZqpY7hmp43F2R4aKGZh0/gIRhM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BccNdSoWpJstCer1T3xH0cDNO2bNPOW+s8vDMTMnS0iTEdoHMP7F0wT4TxtxUVwghUTfh+GnEpSQgDoORJ63gCt0sMa0vID+ls+skYgCcZloKOpjuIaSCl24EWSIdPe79rQYD5idy08iKffdhS/HRmYeyKWWx0dLLA9wiRwhAyM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=OfgbReBQ; arc=fail smtp.client-ip=52.101.84.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1788523664; c=relaxed/simple;
+	bh=bQ+ngubuSMUna8wGHEH6mnd/d/43/ckY+sPNpIA3LCs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dkd94RMmvzG7rqH880fVHTKjlnd//d9Bqb3nnQcvewUJEcZIf5+K8X4XCB3WcI6o2ytMKYoMR2exC0gWg4LM/Wdi58i5we9QQGPsTUQ0YVk9sQ5P2fGIazLD9SU7tjUU9xxwaL5b9zWpGijs9qgKV4j5X1q1n+roGZYwJ5YJKn8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OatkGXkt; arc=pass smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="OfgbReBQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q7Coggf9wGowJNsSKLR3GN4tB9Tlu7C4Lh9i9I33bx870FoaDtXnFwSowO93/X6vVsixAEV2gjBCy76GEuSne2mmXgD0X94eImLOno159Upt0dkzxyaWVCwKmA5DjkPQKYqsDDBGHduiMGj1UzGAe9mOjRBW8NbYzGLKdooP5WU5wkI7IV5Is1+fuiBDFmsYelGzps0FCqHCsXrAPEDY/7H41i7doCaP9kZIdGfxNM1r0x3tSkh0xTqdyHP0f4HxmLqb0s8BDVtH1m7lwjbedC2Vp1g+dDbgwomXTCmYdWJTtmurCkVKMM4U1BEdlUy7fxltGKAyPYpb1VWXY5KnOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cu63453tnlNgodKSz6fxRHOGKcS1siGmfk1sqPQcOBg=;
- b=JFgC/trTFtVM0XdXxqEPIZzHAMcTWjWmILp2ttQLl5lRltRfjY+etieYXVMqXdkQMfVpouHFSXxAl9iILuVkGgbIDwZfrLVgPf4WSBjbfMke+If8z1jgZW+NjBefrocCVP2SIfWTsfIda0Nos/nX9boztLfnsWYTCVoSZ0pfGUHd9CZLFO1IdY0+KVtJ7/3jkSqoyXHFAkKDVx7xM1V/1vF3gTT/ChP3MAeXFWhwbvkQXcSkE1/ZHsA1eE0lEgoMpk72chVW5WzY5HAg07InuC3wJ0ig0x10xb54hg9bFBPu1BW6G/wMuJjo7TfAtdnYjDCalL+3klchmH9eKAslTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.87) smtp.rcpttodomain=petermarshall.ca smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cu63453tnlNgodKSz6fxRHOGKcS1siGmfk1sqPQcOBg=;
- b=OfgbReBQra6jHg9egvf0Hsez5NFiMk+8B3Ln97ZcmuqJxkkgmYuB/uI3cRkGcvXZQKhYJqXolNPRbdgEAJLRXm3xpS9qDShmfvbw7AW1s/gxcty4rurQkURO46CgYfReiXSDPZEOffPuZSZZRum/Niq47j8YVMPu8lrCw18EVBptcJEs5swSql4dryNDfUDc4Mg9ODKdK0AOkXZLi+11Fj9bguNVtFDg99XqIdh5NCc3NzoUQrE7Zs9eGLF3aYbGL5/RN69oxJd+NU399vbJ1JVhFTVEZowJIeymOZL7MaKGrpIzwGZ0sk7f+nnB6VM2J3Agg3xsE9EgdbZ747wVAA==
-Received: from AS9PR07CA0056.eurprd07.prod.outlook.com (2603:10a6:20b:46b::32)
- by AM7PR10MB3608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:134::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 12:06:14 +0000
-Received: from AMS1EPF00000040.eurprd04.prod.outlook.com
- (2603:10a6:20b:46b:cafe::6b) by AS9PR07CA0056.outlook.office365.com
- (2603:10a6:20b:46b::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.3 via Frontend Transport; Fri, 4
- Sep 2026 12:06:14 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.87)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.87 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.87; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.87) by
- AMS1EPF00000040.mail.protection.outlook.com (10.167.16.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 12:06:14 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
- 2026 14:08:10 +0200
-Received: from [10.130.78.67] (10.130.78.67) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
- 2026 14:06:13 +0200
-Message-ID: <b7e8939f-646a-417b-b4ad-1785359c3343@foss.st.com>
-Date: Fri, 4 Sep 2026 14:06:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OatkGXkt"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso756017e87.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 05:07:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788523660; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Yn21zpxENe4+3oruMPmfAMZf89aHFEyyohd0wIZbEzZgRYMV5Lq7Z2Vk03mtrsYnNN
+         cp9wIqIeqnRqRCKuZp9vjpnLfKVIGZ8c6nbNIFfhWC212fS2hLswV3tvHgcuYpN9sih0
+         iMrccCI+IjaqdZZZlyvX+P8Z+ZQt/J79a6hbfo4460557DfqowJ8CSRHiRAfMUH7nG62
+         pRmd020dPdzq0fgjfFpFttVK+CU3tFCH7BChfDBBYOvD4PhejOXt0xGMhmO8MHB3iV0L
+         16l24Tf9AalqkAaxYCMjUwHK6agsrNLXuNvU0udSogAJdvIuN0bLrIw/2ks27q1vt+Ez
+         u5nw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=bQ+ngubuSMUna8wGHEH6mnd/d/43/ckY+sPNpIA3LCs=;
+        fh=rw077W1yMJqBAupkkD8YJiTxDnfN1xJrb37nDfW/A0M=;
+        b=DK3UxIDJrDzaCAG5QwTpHYKMGFE0hx44qF5H2O6d+9bafEmMLRjytuw3mVY9ExT1/P
+         blIAOURhaJOYp+zbAyHKpHfykPSMlCx9iOw8iGkrDW3ULLx4jENrHEXnokv8tKdvQ3Al
+         o8sdl4H/7X0LhZj7Gy9R8wbQzAsKqQCCrwox6PMaXAgj5hiIeqv5CPghon4cCwCAzTiY
+         pmvTHINGwK3AHrQpp0xqAywrjucpLDrOnsM3uASip9YNsUEx6UGHLA/R39BuuAgBberY
+         ZXDxmKIJvTe1+VW+3+S45uEccWIbTbR0aVQRobh+0G8tl9tzbe1PBu0Yiz9L+2YcAVWF
+         k49w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788523660; x=1789128460; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bQ+ngubuSMUna8wGHEH6mnd/d/43/ckY+sPNpIA3LCs=;
+        b=OatkGXktQqBbMFJyV/yZC7TjKG9N2qYzPa2flDtf+akNPDdyDgYhOyObWHUSPf1ncb
+         DvrStqC96dB4qU3xzGCp1YJ4uuPa/pbMale4mfsWUJixAh/+zZCspug1/dO81N6DyloP
+         kXmq46bmhdKMGS4NY/yN5llZ5y2YyJdr+DI51+fDgvfxwFXrX+MObn3cdg7XrU2Ss4c4
+         KMsidq20yakXMbaZ1PH1RQ8lH8UNSpNeMO4oNzxoF7No1cA8ysXUHi5dasOieVGuQL29
+         kFZw3pOTGJm2EU9R9JMcP9QW/C90E5oGkPsO9T/RpAQmTB7vBZKzENaFuNmsV/uqfF3x
+         bM4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523660; x=1789128460;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bQ+ngubuSMUna8wGHEH6mnd/d/43/ckY+sPNpIA3LCs=;
+        b=KqRATC26dvqZ8WVfbj+G9b1TimeJG635deqrj0R+x1q1odFE3DRWIbowwfpCRKPGRK
+         p2uLVVHp83Z1bI9LmVoAYRwSj6zJOIkeb/L2N8NqwvOO2PSuOy4Ulm8uaT81HDRFEZWV
+         MBq7zIdfiRNbsjk25Q9K2HqT02wuRbrFlOtJX+8pjlbLdrGhr6EVGgU3qeNy0kbmvHrW
+         78FsdbCwa0huXf0OSdVQ7QBe2XZXhCXqBAW/kiYda/9d9gqq17gJgiJtpFUlRP0VAZb5
+         IwBHF5ulEQEYLc6D/qiFoRFlTXR78j03kJF96eu2EtA75bOof+XddbqR+rxLhzUVFK/6
+         IRhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByksjQPKfzegz43PnXwc7PWOg/OC/+2L1GIrVr2dlBQxLJIQBLxVdkXvSvDBcfpRITjVkrkwH2J9sqx@vger.kernel.org
+X-Gm-Message-State: AFuF++nD9UkdAh6wJba32sQVDPXu5GuLyTfP7v7IaWuwJjHPjxMXkD6r
+	kv17Ff26xUQnC7rs7FT77iQ49ZM9yiHWTb+I5u9Gyj0mzed/7rbEpA2/MFIzshW/pniHVCKjAb1
+	4ocnE6RurmXO6eHvV2jn/XZhqwYKkBb4=
+X-Gm-Gg: AYBFou00V9RWryv6lAjHemFvG30qk3beVAVRUgEViECdzXL2hL4uPxRtMPSw+ctGsTF
+	MubfP1ZUzN9xb2d/7qAwyxBoizpvGQZ6q26LAEwMgLeOTkoZyx6rIEKfb+vheVbiFdB43/i9Wn9
+	XvS/8X5VpE3hnhwA/WeyjrC2SutfpvOAHFBidAdP3eNFj7JFAzMIJ0fB5cGJORG8YazZc/rt7nJ
+	coOszFiMF3OGiBECtyH7whDw02iS9lCBtbyiU+8iMbQkpouuE/lYGEO7/KVFI7p5y3xY5pwFWqC
+	gS+1yTNvnkNVLqsUxSdikjmo0IHkm0drkwQtgfnldRDhvW9O2mvBP4V/tWs0JNod2hyL1n6q/0s
+	TnGGEb5nPvMZq114B+otQWCl3HrlBO3EOKmqrhA5TPqNjllsGyBDv/iI7NS4mMNWY
+X-Received: by 2002:a05:6512:3984:b0:5b6:1a7c:aa0a with SMTP id
+ 2adb3069b0e04-5b61a7cac43mr532668e87.34.1788523660278; Fri, 04 Sep 2026
+ 05:07:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add
- VD55G0 support
-To: Peter Marshall <pm@petermarshall.ca>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
-	<ilpo.jarvinen@linux.intel.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-References: <20260902204549.657228-1-pm@petermarshall.ca>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20260902204549.657228-1-pm@petermarshall.ca>
+References: <20260824195418.17707-1-kieweg.leander@gmail.com>
+ <20260824195418.17707-3-kieweg.leander@gmail.com> <79f25a88-e5a1-45c4-8b80-67830d7e63eb@suse.de>
+In-Reply-To: <79f25a88-e5a1-45c4-8b80-67830d7e63eb@suse.de>
+From: Leander Kieweg <kieweg.leander@gmail.com>
+Date: Fri, 4 Sep 2026 14:07:28 +0200
+X-Gm-Features: AcwNN1WZMHDh86DNK0rt2fYj74vso0lva0nGIJKgbC6O2XV9AFAo6Xx2PQUbBo8
+Message-ID: <CAMwcS0hNeHFMcUBMS2PozTqgOr2A1E3BaUW8G=D8g9t9CpCM-A@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	airlied@gmail.com, simona@ffwll.ch, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	u.kleine-koenig@baylibre.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF00000040:EE_|AM7PR10MB3608:EE_
-X-MS-Office365-Filtering-Correlation-Id: 006f9d33-cf00-42c5-4d9d-08df0a7ceaf0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	t22xT+5wVe/JPtLzVIFwUb8ecQtYha24LbTJYFjZyZAqOjIRZYjQrlTdBK9k7oKEUQvgyoCOdPjOyP3U9N/MhxCDV2aXFO4bMzi/clrlR2Om0k9LJuQEK/sscbbU3pjdLBKTcpb39artpU1DJvRprXnnLxgfT2A3LvGH01Dg0HJVbJW1AW2Aw256uPa13XYgrGIMcQp94zind0UXzCzS/kIH1eUZQWHYCT7YFd7hr2KifUn6pZZbzcUTG7UOsPIwB0iJSrT2WsnvaKzzQhEfNB+oJrn5uffqbKIiinqpifY6XcMfNbMKdWo2T1i5T5aLGTGJIymAgWE8tz+Qh/8IP72+Y+KPckNNL2iWUd72+N3dcSArphxcunTJeiU/dv4jRjEoQDEvWcVOZzeeDIXi95QELmKNWOcgJVE71KDahKpNflqCka3mLouebF129QiTI0CeCQjfeZMrR+KN3Tq98yJYpPdf4asiMOwcaXrvp+1Yh8Rkix+MNqcrhtyGaHZ6CI8nGIeKi94gR0+9m62P98uHbNeI5J7+3Hy5PUks0veLWuDrt2oTiZnoT+aPI2duu8snRg5jHM3ueWztYujlO7MtNQNw9zvJ2b8RWFvoj448e2BFjkc5jieMnmAaUSNJ0s9lVUpeNFs12mIX1aOpmbsCBTwkCg10UPSp4qQ0d3U=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.87;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jUOkGh4dXOeUHxu+3iilDn4ukrWqychr/a2KMB02dim5QNK5OpqTfOCVvrlXNC+x5h9SMy6d95zZjCR0bd1FAGkClla6qPkRnWZnckbS2Wz7J8b4769++Yj2UDVuXqOflCfi44Cqmg04l1iKPeUzpGLvPCtq6On/HWVZ8PS3eSnMsxG5FGJRSq1voqM4n8okoWeOAVrPYjRvlc7d8Ey7NqOoZbGWnww6BHPHTV7d8O0vlF4hI/IS2TQQK8NpozgOxgIHElouRBMaUjTyS1AOlT9HuC85Gdc+9YhXkyKxqG9SytcrY3uGrzsB2ntzPeaNYZzB+nISlmAwkLnGB0cmUH4bsZ2eQHSSJGrUpITorFCOdAob4+ul3gRSkXhlFaJ3AFMQaO6FO/Dyo0dBPuL2nP8iAbto8aqYBpXGN69K8Spj9F7TqsrXrabWSukQoJmv
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:06:14.2913
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 006f9d33-cf00-42c5-4d9d-08df0a7ceaf0
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.87];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF00000040.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3608
 
-Hi Peter,
+Am Mi., 2. Sept. 2026 um 12:03 Uhr schrieb Thomas Zimmermann
+<tzimmermann@suse.de>:
 
-Le 02/09/2026 à 22:45, Peter Marshall a écrit :
-> This patch series refactors the STMicroelectronics VD55G1 and VD65G4 image
-> sensor driver (vd55g1) into a generic VD55G family driver (vd55g) and adds
-> support for the VD55G0 monochrome sensor.
-> 
-> The VD55G0 sensor is found in devices such as the Microsoft Surface Pro 9 under
-> ACPI HID `SMO55F0`. It features a native resolution of 644 x 604 pixels and
-> differs from later variants in the family in several ways:
-> 
-> * It uses a different native resolution and register addresses mapping,
->   requiring specification of generational feature differences.
-> * It lacks support for spatial and temporal HDR.
-> * It requires an exposure duty cycle limit to keep the illuminator current safe.
-> 
-> Tested on a Microsoft Surface Pro 9 (an Intel IPU6 platform with ACPI
-> HID "SMO55F0") running libcamera.
+Hi Thomas,
 
-I'm sorry I haven't read through your whole serie yet.
+Thank you for the very detailed review. I'll address every point in v4.
 
-First thing first what is the point in refactoring both drivers into the
-same one ? I guess it should be addressed in your commit messages. To be
-fair it even looks to add complexity because even if the sensors share
-some IPs you might have notice they are in fact very different. I could
-even argue that the vd56g3 is closer to the vd55g1 than the vd55g0 is.
-
-Plus having your commits merged will also require changes in libcamera.
-
-Otherwise I'm interested in your patches 3 and 4. If I read it correctly
-they allow the Microsoft Surface Pro 9 to use the embedded vd55g0 right ?
-
-> 
-> Peter Marshall (7):
->   media: i2c: vd55g: move patch array to a separate firmware header
->   dt-bindings: media: i2c: st,vd55g: rename and add VD55G0 variant
->   media: ipu-bridge: Add VD55G0 to the list of supported sensors
->   platform/x86: int3472: Add VD55G0 supply GPIO mapping
->   media: i2c: st-vd55g: Add generic driver and VD55G0 support
->   media: i2c: st-vd55g: Remove legacy vd55g1 remnants
->   MAINTAINERS: Update ST VD55G camera driver entry
-> 
->  .../i2c/{st,vd55g1.yaml => st,vd55g.yaml}     |   30 +-
->  MAINTAINERS                                   |    7 +-
->  drivers/media/i2c/Kconfig                     |   11 +
->  drivers/media/i2c/Makefile                    |    2 +-
->  drivers/media/i2c/vd55g-fw.h                  |  305 +++
->  drivers/media/i2c/vd55g.c                     | 2166 +++++++++++++++++
->  drivers/media/i2c/vd55g1.c                    | 2061 ----------------
->  drivers/media/pci/intel/ipu-bridge.c          |    2 +
->  drivers/platform/x86/intel/int3472/discrete.c |   18 +
->  9 files changed, 2531 insertions(+), 2071 deletions(-)
->  rename Documentation/devicetree/bindings/media/i2c/{st,vd55g1.yaml => st,vd55g.yaml} (76%)
->  create mode 100644 drivers/media/i2c/vd55g-fw.h
->  create mode 100644 drivers/media/i2c/vd55g.c
->  delete mode 100644 drivers/media/i2c/vd55g1.c
-> 
-
--- 
-Regards,
-Benjamin
-
+Best regards,
+Leander
