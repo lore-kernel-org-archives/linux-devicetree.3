@@ -1,156 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E6646D552
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:54:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519286; cv=none; b=sF9hg7emsh1Tl0WKagkSpjMTQ5MwGzcss8hTdny+4VccmEoLQmhBcSu2AcDMQMoXQxwoH2RMDWRA3d7RwqRcvK5UyincHAG7Ld36wnx73z5kh+DWt+SNBUasm56K7XE8nHxn2udnc+4gYbiCdVwZSLajD0PzUZjVvSj6Nb7mCWs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519286; c=relaxed/simple;
-	bh=KrvJ34lmhsYxv9sSF5LVXAV4Q4FyS6DZmifEWnHfbxA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FcFZ+hqWJ5VIsRwb59IvUjIMvtIoqtFkMFMThxBI4iyekMmLHyh6at1RefdABm621c5UznBrSSay34VTHVW8MfZ7Z4Rm0F7B5eFkkT0Kvmew4dRmtGCiOfHocVL4E0MTwnmMVR1t1sIbv8kK+kow9dJz36xETHLUw3Kc4PJ9vnE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dh4R7qjh; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dh4R7qjh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E9D41F00AC4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB40C481FC9;
 	Fri,  4 Sep 2026 10:54:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788519284;
-	bh=VJq2Q/7faxl5cWntUR75HKuy7GKw3Lju3oqcfj1JJ+I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Dh4R7qjh0bU4aKRmJMUP8Z29PBDBHAF6C+WSIB+M2Q4JL7hQz2ueGQbcr1WLrgHJ1
-	 jv51HCANSEKiVCF0deZe+GmOhIsWWjiYIt3QyiPSl7yHhkm5mCX3PU7jj8EA5P6P8e
-	 zpIy7L0u+XBGhTnCcIpjKebK2tTSl62q7Nu9NmY/cAZfmB2R4Txb8u+BqbF9RIHrGB
-	 67qEjI3ciX3hKakZjY4epTYWBT78JMVsmbVk3CSjsqrWxiyW+82n7+E1UT8zFR8PPk
-	 /ESi2Mt7ztmNdIZtSrY7XW+TKJBFlpH95657gGGsqDYLnac+6uULTzib9Td9HCbHHU
-	 EDT416blq3cRg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/6] ASoC: qcom: common: Add generic headset jack
- helpers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hongyang Zhao" <hongyang.zhao@thundersoft.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260904-rubikpi-next-20260605-v3-3-f49146d85af3@thundersoft.com>
-References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
- <20260904-rubikpi-next-20260605-v3-3-f49146d85af3@thundersoft.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 10:54:43 +0000
-Message-Id: <20260904105444.4E9D41F00AC4@smtp.kernel.org>
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788519287; cv=none; b=DRD12cAEuObnM+GQ/HAwrqpemU4/PnREpjH35rZ7pWVchurF0ZD4wDv+R7tV3NxOGG3UzM9EoL8lt8lbD/ZKp/bwtP/Z+RdgcrgELMRR/TYSDnOCGqJ+Ts0uZIs77SsCDLVOHWQSb6aEqYk5bUU0RF+dZ9YKlQctGNTQfRHk0Ig=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788519287; c=relaxed/simple;
+	bh=0vXi4sTWwwejFmubENVNFUoP5Fs625tkRrB7WOkTw10=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tcXh6zSdzYp8/vfrX5tx4xSwNZY6wefPLEAAub99izdwjJ6xN/01+NG2j0tl2QEMeCiGzXD3QtaFKAisVoqiWhj1jSyp0I2GhMtdb+mwpIPBPB26pv5ul7J+7RTUdIsTkyfqQ0du+QI0QiZ63Y1+beC80gR7MLDXZtuo+xHUhKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=V3+nX3+d; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=q0Qjfy7Z; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="V3+nX3+d";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="q0Qjfy7Z"
+Date: Fri, 4 Sep 2026 12:54:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788519282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5NZkbZfp4QWxq6NIlGw0GUtfJE7/9+ScOiFCYA8JVFU=;
+	b=V3+nX3+dicgX0EdZFKSsoPUtS1mpf6m3jZmiy99PBeEDoL+7yaIxWWlLzWOsSzF3Dm34sm
+	OBQXEXK55pW33YQgXBliVZLSs1UJ7UDgENPmtM30IaX5oAz9zRlTet17nlV2MIJxsSbXaI
+	YAKv94l2EbIQpZ6ZRNIAHBA618vbVMXWLEhxOMfiq2l2pI2tq32X1hU0kqDkBZgKkf+KO+
+	bseqYFHHWZVjJnDTYSS9nEpN8NFDVnHLh1/z3h2KNu0NZXHWBJxINzMQUiDyFterUNT5wR
+	vZfKHz0YW8i8RNECZMOwCgHB39Kzf+Zhii2QcGxlRiR+vp2cK9a61tScgWKVVg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788519282;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5NZkbZfp4QWxq6NIlGw0GUtfJE7/9+ScOiFCYA8JVFU=;
+	b=q0Qjfy7Z4Y/z6m3z8RSkHYN3a7Y18qDnT/VCW+8eyKAEaQ3eS1i86ezFykReHCm4rfq9O5
+	6rXnMrrJzU5/z7CQ==
+From: Gregor Herburger <gregor.herburger@linutronix.de>
+To: Andrea della Porta <andrea.porta@suse.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
+Message-ID: <i6fbcajsiol77m6x3dbcay6bgpxwhy5axayb2633yklxl6rswl@luknor3eryoo>
+References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
+ <apqej5QyjOHu702A@apocalypse>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <apqej5QyjOHu702A@apocalypse>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Andrea,
 
-Pre-existing issues:
-- [High] Missing cleanup in qcom_snd_wcd_jack_setup error path leads to a U=
-se-After-Free of the jack object.
-- [High] Static array `qcom_headset_jack_pins` suffers from list corruption=
- if multiple sound cards are instantiated.
---
+On Fri, Sep 04, 2026 at 12:33:51PM +0200, Andrea della Porta wrote:
+> Hi Gregor,
+> 
+> On 11:24 Fri 04 Sep     , Gregor Herburger wrote:
+> > The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+> > Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+> > the spi interface.
+> 
+> Just a nit-pick: in the comment it's stated that the spi interface is enabled,
+> which is not true since rp1_usb inherit status="disabled" from its node
+> definition. This is fine because the user would probably want to enable the
+> spi interface through some overlay, so no need to resend the patch (at least
+> for me), so:
+Indeed. It could be rephrased to:
 
-commit b92ab42f39f7bdd943113ea9586e913e225e1a7f
-Author: Hongyang Zhao <hongyang.zhao@thundersoft.com>
+	Add the rp1_spi0 node and its pinctrl nodes to the devicetree to make
+	the spi interface available.
 
-ASoC: qcom: common: Add generic headset jack helpers
+@Florian: Should I send another version or do you want to change it yourself?
 
-This commit factors out common jack allocation and DAPM pin registration
-into a private initializer. It adds a generic setup helper to attach jacks
-to codec components and a matching cleanup helper. The WCD setup behavior
-remains unchanged.
+Best regards,
+-- 
+Gregor Herburger
+Linutronix GmbH | Bahnhofstrasse 3 | D-88690 Uhldingen-Mühlhofen
+Phone: +49 7556 25 999 35; Fax.: +49 7556 25 999 99
 
-> diff --git a/sound/soc/qcom/common.c b/sound/soc/qcom/common.c
-> index d9f256d519733..83b745f617a86 100644
-> --- a/sound/soc/qcom/common.c
-> +++ b/sound/soc/qcom/common.c
-> @@ -339,13 +339,11 @@ static struct snd_soc_jack_pin qcom_headset_jack_pi=
-ns[] =3D {
->  	},
->  };
-> =20
-> -int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
-> -			    struct snd_soc_jack *jack, bool *jack_setup)
-> +static int qcom_snd_headset_jack_init(struct snd_soc_card *card,
-> +				      struct snd_soc_jack *jack,
-> +				      bool *jack_setup)
->  {
-> -	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
-> -	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
-> -	struct snd_soc_card *card =3D rtd->card;
-> -	int rval, i;
-> +	int rval;
-> =20
->  	if (!*jack_setup) {
->  		rval =3D snd_soc_card_jack_new_pins(card, "Headset Jack",
+Hinweise zum Datenschutz finden Sie hier (Informations on data privacy 
+can be found here): https://linutronix.de/legal/data-protection.php
 
-[Severity: High]
-This is a pre-existing issue, but can this static array usage cause list
-corruption if multiple sound cards are instantiated concurrently?
-
-qcom_headset_jack_pins is a global static array passed into
-snd_soc_card_jack_new_pins() here. The ALSA core function
-snd_soc_jack_add_pins() directly mutates this array by calling
-INIT_LIST_HEAD and list_add on the embedded list nodes of each element.
-
-If multiple sound cards or multiple instances of a machine driver are
-instantiated, the !*jack_setup check evaluates to true for the new instance
-since the boolean resides in the per-card private data. The second instance
-would overwrite the list_head pointers in the shared static array elements,
-corrupting the linked lists of the first card and causing list traversal
-crashes.
-
-[ ... ]
-
-> +int qcom_snd_wcd_jack_setup(struct snd_soc_pcm_runtime *rtd,
-> +			    struct snd_soc_jack *jack, bool *jack_setup)
-> +{
-> +	struct snd_soc_dai *cpu_dai =3D snd_soc_rtd_to_cpu(rtd, 0);
-> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
-> +	struct snd_soc_card *card =3D rtd->card;
-> +	int rval, i;
-> +
-> +	rval =3D qcom_snd_headset_jack_init(card, jack, jack_setup);
-> +	if (rval)
-> +		return rval;
-> +
->  	switch (cpu_dai->id) {
-
-[Severity: High]
-This is a pre-existing issue, but I noticed the new generic helper
-qcom_snd_headset_jack_setup() includes a cleanup on failure, whereas
-this existing function does not.
-
-In qcom_snd_wcd_jack_setup(), if snd_soc_component_set_jack() fails for a
-codec DAI after successfully configuring earlier DAIs in the loop, the
-function returns immediately without rolling back the configurations:
-
-	for_each_rtd_codec_dais(rtd, i, codec_dai) {
-		rval =3D snd_soc_component_set_jack(codec_dai->component,
-						  jack, NULL);
-		if (rval !=3D 0 && rval !=3D -ENOTSUPP) {
-			dev_warn(card->dev, "Failed to set jack: %d\n", rval);
-			return rval;
-		}
-	}
-
-A probe failure will cause the sound card and its dynamically allocated
-snd_soc_jack structure to be freed.
-
-The successfully configured codec components (which reside in separate
-codec drivers and persist beyond the sound card probe failure) will retain
-dangling pointers to the freed jack. If a hardware jack event triggers an
-interrupt later, the codec driver will attempt to report it using the
-dangling pointer, resulting in a use-after-free kernel panic.
-
-Should this function be updated to use a cleanup mechanism similar to what
-was added for the new generic setup helper?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-rubikpi-ne=
-xt-20260605-v3-0-f49146d85af3@thundersoft.com?part=3D3
+Linutronix GmbH | Firmensitz (Registered Office): Uhldingen-Mühlhofen | 
+Registergericht (Registration Court): Amtsgericht Freiburg i.Br., HRB700 
+806 | Geschäftsführer (Managing Directors): Dr. Wilfried Wessner, 
+Katharina Kopp, Alexander Gieringer
