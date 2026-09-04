@@ -1,132 +1,115 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5E0843E484
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 19:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A17A38886A;
+	Fri,  4 Sep 2026 19:49:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788550842; cv=none; b=P1frs6IBz8AOY+KuSVC+62FMJiHM0b2WyfaxTbCnd2qboDcS4cxUxAEsELRjRE80oFxDSd53Q6bdMzr4Luz+ygCrmT9i+Cgo03A34KOZbpVp/KoskgkvwNhplajZx6ZCRnivd5yCxN+FlRRLDAaLRXJmm9UBJ3CqgJ7LKNt1HnY=
+	t=1788551402; cv=none; b=uJCJI8uf/TVhrCjQ8+weqecSaRsatx5opQhqrXhB11t/mnBEguYIsFW5CJuPqnN2uA3jJuXvMkNZCnzZ0feIKqcYNWkFwW6FY9VqrSwDlo3CCbzjC0rfFy2A/7+gH1bzLHUn3XkgSiJeZw7oFoqQ2dWoIIvVkcg08xxB5lX5fcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788550842; c=relaxed/simple;
-	bh=lxGBmQaRhy9mdZLR1PJiHsdMBGqQHmddcF9WF6eOgAI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DteECcmL3DMPqDkdZfFrgV17zsJTpgZRXdfv1gnTo3JYZ38/2hydTn7CSQsFKqRC/cE0fygdWMsoCM7pPCyMs71qF3YmWmMpZPr0BvdVw2MgjmrF+HaLjUYT6mz+8k8JA3gmHqEMWU+y9SHqGoJqjzLK97np77DmUaxFg7VsNHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kjqBNytT; arc=none smtp.client-ip=209.85.128.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788551402; c=relaxed/simple;
+	bh=vUFojEKSu4nojjRgLmjYvWl3R/nDR5Y5OLHePAnI3/E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tTNH3Yp05VN1FsKu3wEKyOcY85mUPIsirNhkfn1YvKKcmgJf6Mo4xVM57jt1QQhoR2VwDXH46w4PtLKc4Kkqvty2uSRLouZgJ6eV0qRO6yy9QpOopV653NqsGJ2RMAWxdApkZkIfmLns7pOWCBcKI7E8/HUJ+7zUv9VmKHbgv38=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=ns7uE3Cz; arc=none smtp.client-ip=195.39.247.168
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kjqBNytT"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-855c26cf490so13029177b3.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 12:40:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788550829; x=1789155629; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=srSTts7XJtXRSQX8o1LNKKWt/r8EHn/nfOIuyJlMJm8=;
-        b=kjqBNytTNoUk5wApc0GnvixkAb90SSRk9iGmFS2Ctt8SITjJXKBwWvCdgdbmESu+h3
-         gCQvIz6eAo6UxcWT9Pt0Y+2Sw2gV97YrgDq0M91tTpmID/NDw1cy/S/l1dTItSmFyHkz
-         9RMSGULocd6aLyS+2gcuoo7vcGK7dslpEnvyLVhwtRx7O8ffKVMNV6ezs3nuKwILe05v
-         5JMHawDd3pct1UMf8JlHs9igcus+v25L9qrUXpO37NSi+UyNgFl1ZV9eAAuIs04+yeRr
-         Yu4H0odn44PpOmK/gsaCHeiiKW2ajuJVuxQdxTtEkuYSy0qjkRgmqGGcZaRFViuQm8Ma
-         agtg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788550829; x=1789155629;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=srSTts7XJtXRSQX8o1LNKKWt/r8EHn/nfOIuyJlMJm8=;
-        b=s+EwqEFRzmMejCa7YvUB7s0xLxpMxCBnuelLuIA1Z0j3spN7Bhuofx1FEwYgiZPT43
-         5SuoVFyQismO0yD1Z2QCO7Y4CX0dnSuws5kbLE/GlC/Ihk7l1P7tscsx8JGqvuSVDb02
-         OuwFsuj8wqDI7sigL50q6QWIMuEo1ghIg5/ELUsS+PrzxtJIyUvFRhWruqFBF44BtVJe
-         ezO1YC+/2qfhmg1ybkUkCAZQ8QuAljlkuDNqXvlN4AXzBtQezX0eRA+rxhPTjdUVyDVM
-         Sk8A2OXKir/Ynjfwp+3FuC7Khwgdyu6B/dDdVXP6lv82o/zFJ9gCCrUJOa/oP/JXEeVd
-         zf6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzlluEKaniKaDL8hTSN0PpjJo5HHW/b62cR46BgnXys+jX4H1B6K/m0MnuZKGmTXMsvKlkXQB1Xn1Dh@vger.kernel.org
-X-Gm-Message-State: AFuF++nBuLtLIQuyNZT4EW38YG15QZ/bRJXUgK+t/kIL4hVtA3sYRI5o
-	xcdW7u+uPmfcdYOkcDKNBJlqyNnMVfy37pHdYg5MZ1v+7+OhvZpR8xDp
-X-Gm-Gg: AYBFou0BELtFBHt3tY7K7vmeVdrg/w+pBnb0TV4dsoP4nYQUMmrgju75nZVcfHb0tGk
-	SCNIBcfgQ6/YLdP+BtbsG3CRmmCgL3t0M3hKjWkWysrMwiRACY66tg7JSwwoW++lcHnDybJ7NqH
-	wb845Uz4NprTCUkUsWU7dsI1zgZefFwHK6sUpUz+6S/vE7X+iYkuISyRNngzIqe37PlcXLqTaE8
-	ux7GW1+R5X4S1HdOl6Auq4124oUgkaUpxgOLDyEPpTw2b2v7Gk//ZI4hMA8idiyCKFgOv808qjP
-	+CLDcBQQkvMSOhLlmsL0QuyNx6JYtVV+0VmLMe7Jo1zxo5LQRnpe+eAAD15ey599wEAzA+dVJ8e
-	sIpTs8cVlK57rXGOkYBWoZvBKV1mrYuEDkdgzVUwvGHgUJGnbwvR2ybuR5RRX/ePoYPY4v/brf6
-	7ZmcD6vhOtrTZRhTrYd6Ob6v9/GMWj5IquzVb5v9ZWs+v5js5cuEhvIFYNEXXxwBGpMZIF
-X-Received: by 2002:a05:690c:e190:10b0:81e:89b2:91ae with SMTP id 00721157ae682-87126aa5d51mr30794567b3.21.1788550829584;
-        Fri, 04 Sep 2026 12:40:29 -0700 (PDT)
-Received: from localhost ([2804:30c:94d:7300:da0f:c2c1:1aa6:43da])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-871439c4566sm25792517b3.4.2026.09.04.12.40.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 12:40:28 -0700 (PDT)
-Date: Fri, 4 Sep 2026 16:41:22 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 01/13] iio: Fix typo in vendor name
-Message-ID: <apse4gHE2pblXnN2@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
- <apkSNlQuQkjdNKvx@ashevche-desk.local>
+	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="ns7uE3Cz"
+From: Yureka Lilian <yureka@cyberchaos.dev>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
+	s=mail; t=1788551390;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=G6nu6f3eskigT1nHIrz3vKzjlgiwHqGKGUwb4qaTnQM=;
+	b=ns7uE3Czw/EgAaPZFvtJLPWiG+VFAvLxP7ByO9c0YnwiUl9vQXEO6wzKexI24xL5FtFmRh
+	D98+3xxZZRZJsEw15PH6EcwGX1wO4egXQFAlTr1LooqmrGFyOnN6Q4SF/bKn3/1mHMAQs1
+	kV5sIq8M1Y0pg40d/J5+k3c4W697PV4=
+Subject: [PATCH 0/6] Initial Apple Silicon A18 Pro device trees and
+ dt-bindings
+Date: Fri, 04 Sep 2026 21:49:33 +0200
+Message-Id: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apkSNlQuQkjdNKvx@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22Nyw6CMBBFf4V07RjKwyq/Yli0w6BjeNkWYkL4d
+ 8sjcePyJPeeMwtHlsmJIpqFpYkd910AeYoEPnX3IOAqsEji5BLf4gz0MDQEWl5hsD1wx551A1W
+ 4InlL5ACzXFUyUVSjEcEzWKr5szXu5c5uNC9Cv4qPhaX3GOJ+n/3aRbSVVZwf5Tb7G60vZIxEp
+ ROsiildrUY7Auzbln0RTeqcgkUpymX5Apb9/531AAAA
+X-Change-ID: 20260904-apple-a18-pro-initial-devicetrees-c457d127efcb
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>, 
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, 
+ Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>, 
+ Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-watchdog@vger.kernel.org, Yureka Lilian <yureka@cyberchaos.dev>
 
-On 09/03, Andy Shevchenko wrote:
-> On Wed, Sep 02, 2026 at 02:21:34PM -0300, Marcelo Schmitt wrote:
-> 
-> > ---
-> > Now
-> > find drivers/iio/ -type f | xargs grep -i "Analog Device "
-> > finds no leftover occurrence of such typo.
-> > 
-> > Also,
-> > grep -nrIi drivers/iio/ -e "Analog Device" | wc -l
-> > and
-> > grep -nrIi drivers/iio/ -e "Analog Devices" | wc -l
-> > both count the same number of lines.
-> 
-> Why not `git grep ...`?
-> 
-Could be. I'm just more used to non-git grep.
+Hi,
 
-> ...
-> 
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
-> But you also want to fix possessive suffix usage
-> 
-> $ git grep -n 'Analog Device[^s]'
-> 
-> Documentation/iio/ade9000.rst:7:This driver supports Analog Device's ADE9000 and ADE9078 energy measurement
-> Documentation/iio/adis16475.rst:7:This driver supports Analog Device's IMUs on SPI bus.
-> Documentation/iio/adis16480.rst:7:This driver supports Analog Device's IMUs on SPI bus.
-> Documentation/iio/adis16550.rst:7:This driver supports Analog Device's IMUs on SPI bus.
-> Documentation/iio/adxl313.rst:7:This driver supports Analog Device's ADXL313 on SPI/I2C bus.
-> Documentation/iio/adxl345.rst:7:This driver supports Analog Device's ADXL345/375 on SPI/I2C bus.
-> Documentation/iio/adxl380.rst:7:This driver supports Analog Device's ADXL380/382 on SPI/I2C bus.
-> drivers/iio/adc/Kconfig:108:    tristate "Analog Device AD4130 ADC Driver"
-> drivers/iio/adc/Kconfig:124:    tristate "Analog Device AD4134 ADC Driver"
-> drivers/iio/adc/Kconfig:136:    tristate "Analog Device AD4170-4 ADC Driver"
-> drivers/iio/adc/Kconfig:167:    tristate "Analog Device AD4695 ADC Driver"
-> drivers/iio/adc/Kconfig:182:    tristate "Analog Device AD4851 DAS Driver"
-> drivers/iio/adc/Kconfig:350:    tristate "Analog Device AD7405 ADC Driver"
-> drivers/iio/dac/ad3552r.c:699:MODULE_DESCRIPTION("Analog Device AD3552R DAC");
+This series adds initial device trees and dt-bindings for the A18 Pro
+(t8140) SoC and the MacBook Neo (the only Mac using this SoC).
+It only covers a minimal amount of hardware, but is nontheless useful
+for further development work. The hardware added here has remained
+largely unchanged from the earlier generation Apple Silicon Macs.
 
-Ah, thanks for bringing this suggestion. Will adjust the possessive use as well.
+Similar to the M4 devices, changes to the m1n1 bootloader are required
+to boot Linux on the MacBook Neo.
+Also, SMP boot depends on further patches to avoid WFI and WFIT
+instructions [1][2].
 
-Thanks for suggestions to other patches too. Will apply them for v2.
+Merge strategy:
 
-Thanks,
-Marcelo
+Since there are no actual driver changes in this series, we'd prefer to
+merge the dt-bindings changes through the apple-soc tree once Acked by
+the respective maintainers.
+
+Link[1]: https://lore.kernel.org/all/20260804-arm64-idle-param-v3-1-d10f8159062b@cyberchaos.dev/
+Link[2]: https://lore.kernel.org/all/20260811-idreg-override-wfxt-v1-1-1c71228d0719@cyberchaos.dev/
+Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+---
+Yureka Lilian (6):
+      dt-bindings: arm: cpus: Add Apple A18 Pro CPU core compatibles
+      dt-bindings: arm: apple: apple,pmgr: Add t8140 compatible
+      dt-bindings: arm: power: apple,pmgr-pwrstate: Add t8140 compatible
+      dt-bindings: interrupt-controller: apple,aic2: Add apple,t8140 compatible
+      dt-bindings: watchdog: apple,wdt: Add t8140 compatible
+      arm64: dts: apple: Add minimal MacBook Neo device tree
+
+ Documentation/devicetree/bindings/arm/apple.yaml   |  11 +
+ .../devicetree/bindings/arm/apple/apple,pmgr.yaml  |   1 +
+ Documentation/devicetree/bindings/arm/cpus.yaml    |   2 +
+ .../bindings/interrupt-controller/apple,aic2.yaml  |   1 +
+ .../bindings/power/apple,pmgr-pwrstate.yaml        |   1 +
+ .../devicetree/bindings/watchdog/apple,wdt.yaml    |   1 +
+ arch/arm64/boot/dts/apple/Makefile                 |   1 +
+ arch/arm64/boot/dts/apple/t8140-j700.dts           |  52 ++
+ arch/arm64/boot/dts/apple/t8140-pmgr.dtsi          | 771 +++++++++++++++++++++
+ arch/arm64/boot/dts/apple/t8140.dtsi               | 202 ++++++
+ 10 files changed, 1043 insertions(+)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20260904-apple-a18-pro-initial-devicetrees-c457d127efcb
+prerequisite-change-id: 20260705-apple-m4-initial-devicetrees-f6ebb1c7a2cd:v3
+prerequisite-patch-id: 11762ddf0be3ad407ea90e5b01a0856a57ce1242
+prerequisite-patch-id: d303d5493a501b215f43bd1ff9d40a889203f907
+prerequisite-patch-id: 15a6a7981c2a70392f0a4c3d2fe274785c69c045
+prerequisite-patch-id: aa33c268df85bae717859a0e70ac2be14cfc9a14
+prerequisite-patch-id: 2a38f6f2f025888d93b0092f1188541f38e96747
+prerequisite-patch-id: 0ffe9857d951e317ec349ee50a7acf827ed94cc5
+prerequisite-patch-id: 66bfdc68d5b66325495b07f256117afa2b5c99af
+prerequisite-patch-id: 4752b7d602d93b04ed879c6eaf7161b3546ad953
+prerequisite-patch-id: 88d22cb297f45d9044363727d74864ed4ad95eee
+
+Best regards,
+--  
+Yureka Lilian <yureka@cyberchaos.dev>
+
