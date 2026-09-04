@@ -1,303 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D7041D108
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505533; cv=none; b=fJXX2Tc45SaxMLso5etqiscRQg3gSGd0+VZmaSNCJCnUh7/mYZEQFcr+FIoHTabn2MjXm9DvlvXP2ATNgOJ7OnxVkMDqi+NU3d8L4RC2tb2eAwWjjpFkF5EM1UTxSWLhPhwumYPV9pDpTw2zPeMlVsHOCAIxQvErKwuXUcihN40=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505533; c=relaxed/simple;
-	bh=+zHrpq570MIeJzhAOE1XtbTWn45dFi/Qh3poLeJy/A8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R92OghsDL90RzNEaolFIjpVf5MnXgZCT+rDphfyZF2B4CzDdCPNi/zEeLMq7AIVkOI6GP6CA1m+XOBbg14xCb3jq8w4ZnpF41NQ7JwiG090/HeKlKY4hkhnRDT025k0HBNRj2cVPeQwnqj+HOJm747lEoNZRs8W923ZNHshfMlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jKD3sjlP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F3CF3CB91E
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 07:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788506267; cv=pass; b=hRxpyRJzyox7JSNAUuXIa9CEq9/HqJcRLYAKnpuwqgMNtzFzaRkzZziDAHjiXhSnuiGUPqudmaQkq8c6azLAgAC2dwtyBb2HSev+CtLUMCPq7q2kt6q05zOEVOGW+Qg5eJMdhxPeQY79V8j3v6jgUr5KIiAmfPbJHai4h/iIl9E=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788506267; c=relaxed/simple;
+	bh=J8dsPnAWdboF1yFvJDLhBeE5gRfGXjP3682VM1Iqx2M=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Lhp+2ZUUZroxsYm7QiA4iFrbgOSVR3JEMmpWjnz6hVCGoEjNxrUCJlHBjWnpfQEpBx11Qu+JMly0DGz2bbKCZ+alce9hr6l47+sMUh55SD4N3UrZ7/s+AzlHLe/Y0EbZaMYo7ohPi38YaSTlRzzDQ+G5oPWSqiHzGzUB8etBhUk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OI8FT8Wh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RBU6TwfX; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jKD3sjlP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 674551F00A3D;
-	Fri,  4 Sep 2026 07:05:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788505531;
-	bh=TQaFe8TSQ5Jl/V5sJ3hSGIQVSnhOaSfzsOE4dThfqeo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jKD3sjlP3pJEPtqzrLZv4PPa69lPlWIPOqrPMu+oCX/If84PONhI72dR598hD7l81
-	 p1kqN3g05mZru2/pJD2UFe6uQTg/hBY/YALEngwBD0mT7xSo5goS9oJzkaLZtrY71k
-	 4QhzIl/mw+iu2vccb8/ODhUly+Bvh4QTOqbkFljSdhs+kX51IbYqIZVIywxO+YUJqC
-	 UBWbXrQS7QFgds4F1tmz9ZarahQmFE4gC7LAl1o+hfcKYjyJKyqCViKnrobt094S8N
-	 YgLQbHInEtu0k5P9drERV/ThQYDMfy7rrsr3RCMgIwtKsH1hqtqIvd/JzIL1LFav9O
-	 VQ8S19AzRr4Cw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 8/9] media: chips-media: wave6: Add Wave6 control
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nas Chung" <nas.chung@chipsnmedia.com>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <9a39dbcd48c8326394992cc048a635fb2472537e.1788496816.git.nas.chung@chipsnmedia.com>
-References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <9a39dbcd48c8326394992cc048a635fb2472537e.1788496816.git.nas.chung@chipsnmedia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 07:05:31 +0000
-Message-Id: <20260904070531.674551F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OI8FT8Wh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RBU6TwfX"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68462bK52611885
+	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 07:17:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=; b=OI8FT8WhAfwVk+ZZ
+	8T5wxyqpe708tolnXc/VTkesfR67qqX1vGQ9RxJyEyTCl2T5XFfW8RIeogaCL5Zt
+	4E/omkikXWrxxm+RLQRXjGY0OlJQ2lKWJX0g7LtAZgVjohNaB92hYZsfdUHcte/P
+	SBndiqT6076Ry6JMFdRQyA+2Yf7A2Xx9N0ugFAnnXxcUTJ91+wZlVx8as/ZggFZl
+	TmagoMORfsZZj+pAc6bU0p25PSM7HrrM0tq/Hyx/iBXiNcsc5oY0K9+La/nYnu39
+	XHaTGr8kOkiuMF9F3RftxWTB2ENwvtQAqCyEA0/kgNGd5Ouwb+M10AzzU4CyC56j
+	k3HbZQ==
+Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gfqqtrc9u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 07:17:41 +0000 (GMT)
+Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc21bc2923fso1113043a12.2
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 00:17:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788506259; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YD5/wPMwfZndl/QQbsJzclV1quk2zlF0nKAY8GNBN84j2X0Vmkt6Iz6bkiTgSfd3tX
+         SDBdYjijcb8JqfzzLmc7kdddZdUSuOJ/Nho+BaGoO6SpE74bxpmh7KsCsz1jmGLV/TTF
+         DTuz1gxN4Z8/cRUg3qNX2vKNw3zgzWeDYZ0K08AcJIbDD5hEA3kD+ktE3IWHLrc6COjx
+         AmS2Dsk2UuHwF4JBdtLIrL5KPATaYHoo/PmXea8tWILBZDq2jD9+7D7Tdts+YrP6t/kO
+         x+eTG/7FGSVOomu0sxw8yXT9d6H9JouTEejsuuJMa8NCnaDn92qWba8hNWgIPI9NTZmt
+         rvKA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=;
+        fh=x48k4vZKIXiXZHEvUGCBM9n9p+GRJvKZ9bKd5mXYgV0=;
+        b=Yr1xNn88pdELa3mWdg33f2NSc6zpzJAvOveo90AiULOEorJW3MUPz8+mnwHPBDKqpd
+         PW3u7uKb05UjiU6HM/gCyBRFNUsyVjy+6Oy7k+SqyY0l/wM3qeLCAjDkW3VGPkjPSdrF
+         3YHNXVgTjha5Rgo1gsDIlYtuHrWIJLHC1/RTaU7xGz1pMKzAZjF7GaGPJDd7oMu93FqV
+         WjrZs/3xM8gIke1snJ3zTvtVfoWqV5pOhYDNyqfv8So14h/+rA3jebBvZnPuA1rX6fMh
+         qV2eCNG2257m2tUD6UEYlQwunX7EA6DQT5kUebSxkSTY4Mf+f38S/YiTLWE9KkHsM5v1
+         hJyQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788506259; x=1789111059; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=;
+        b=RBU6TwfXHXEf0ViP1/vW8nLVlhvd5ncNWxGvYvaloSHaaUQ86p7AbM/HkFV/cIe/Zp
+         5CdCAc3IfDHvXFvj/T21hFdpkDDCjUIdL7nQXguS19kokTgxZuSdKKvHZTb4fAMPGRab
+         4fRF9COHX8Q0l2UY2N52d4YJGPbJ42csIOFT0mKCFDMGD4pfX6m+3vuQJT2tzZCZiv4j
+         /Av5uJgUmvJ5fppY4W12hTJYkYovF5tmOY6MmG+LWDO320zwJqOOP3vtZVNZ40Eu5S0b
+         NYCiibzxZGT/2l7QxyTus6R//8GqL7/8K/NAEcp9vcNi8bMbdo4gcAs/1XXpdHkKUDEb
+         GcmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788506259; x=1789111059;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LB6s0B651lSSZ12Sdfk1hENNUEaAaUZ9od/XOsIo4uY=;
+        b=nH1yGX079sggB70zmXnwnGhCDQqt9qxkLRUTqhIiPk1WiZ2v4nWmddiYXynIthUKkQ
+         0EPnXQFoT/+EqN7MV9It7Nhur6+0MfrRFtFS2tizNpNbTGqxUcRfsTJRhV/4m58SBcG+
+         l46ylhsD+GllPh6GnIayx1hr5TwPSGBR6Gz6kN2794Hq77sicKxGTozyWtsLYyOnGCre
+         cZ5WdJHCZClSIV+tbHHEPSht/iUeeR11ezpqJvpKZzBwkoI2Z+QPFn1Kg01JbI0Fn4wq
+         hpQRgb2OMskSpz99you3H89sGnaSoAFprnWZWdwbKw8Uu5L3/t5PHoRnzOUlho6/HXkF
+         Gc1Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzVj/pzTknj1CKHcfl0mJ+TSlZb84uJer5NwvbLITtiwvEmkvbXQibbjJS7rh1xPBvLqpjtb8xhzv0Y@vger.kernel.org
+X-Gm-Message-State: AFuF++nTCVKmRSpZcL7aO2EWZMyZEIyjZgseHpxdWYBX5BZAKq1Iy+zD
+	7RHhYq8hBPPBNcvA0FlZwKAZbKepTYZfdYja0QNJiqalZpBDlGKLwBgFZBKT/1UKi8qu0XxUcHs
+	dyVmW90ztc3ej7nanjk4oLwfWrOX149ZC9RrFx9gF8pWKRBc4SAC2U/KMyONNz6yK94M0JuArJ7
+	kAUokJskRtK4SELMifKne6XDFj5iB1hsIImSg361Y=
+X-Gm-Gg: AYBFou0LviXJkx7FbLKdnL+v4QLjI5fz54LshiPRoHzXzgY9lMtFH9P0MgA14rF2wHC
+	JL3F4xGPy9O+TwEyLhomgrNpZ5sbViLrQOuA835D0Afj5s2E0ZYB5LTBAlZDEe8kD2+jrBOQz8v
+	D2F+ajSgCqy6mM5OkKINv0wVyWFBOhlnwFO+SjKUKtorXjKxsBzl3poclB3A==
+X-Received: by 2002:a05:6a20:7290:b0:3cd:9f99:3381 with SMTP id adf61e73a8af0-3da39878551mr5927930637.0.1788506258720;
+        Fri, 04 Sep 2026 00:17:38 -0700 (PDT)
+X-Received: by 2002:a05:6a20:7290:b0:3cd:9f99:3381 with SMTP id
+ adf61e73a8af0-3da39878551mr5927876637.0.1788506258295; Fri, 04 Sep 2026
+ 00:17:38 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260803-arm-psci-system_reset2-vendor-reboots-v24-0-889281373870@oss.qualcomm.com>
+ <20260903160401.GV2133376@google.com>
+In-Reply-To: <20260903160401.GV2133376@google.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 09:17:25 +0200
+X-Gm-Features: AcwNN1XLgC_UnHcC1VgAAx4Zjez2ZZ2qUdiBHVeX_BYEXGU9Ghy4hb4yt4Luazs
+Message-ID: <CAPx+jO9Hi2R_UnCEhsXLwf74c3RTb+RodaJ6SOVXbQX_eHt++A@mail.gmail.com>
+Subject: Re: [PATCH v24 00/12] Implement PSCI reboot mode driver for PSCI resets
+To: Lee Jones <lee@kernel.org>
+Cc: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        Arnd Bergmann <arnd@arndb.de>, Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Andy Yan <andy.yan@rock-chips.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla <sudeep.holla@kernel.org>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, mfd@lists.linux.dev,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Song Xue <quic_songxue@quicinc.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=YtA/gYYX c=1 sm=1 tr=0 ts=6a9a7095 cx=c_pps
+ a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=RfyTg-q-OfOJAL476ygA:9
+ a=QEXdDO2ut3YA:10 a=x9snwWr2DeNwDh03kgHS:22
+X-Proofpoint-ORIG-GUID: O3CiNmYahcVobC_AOD8D0qp_hifLgbOL
+X-Proofpoint-GUID: O3CiNmYahcVobC_AOD8D0qp_hifLgbOL
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA2NiBTYWx0ZWRfXwJVoyBa89dYa
+ L6Eo2Qg2tAwWJ5xb/U2ecumEfx30brLz2TIWj7Yvq3914DqPhKfqRCVAahbRDWFqRRzAZSwVn6y
+ Uypx+7/Yq+dqpHxiGyQS/f+mJ1qt1Rs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA2NiBTYWx0ZWRfXyJgplOvL5VXk
+ Sm5rgBmdGqwU297PsOxLWu64L2biNd7wQu9x2bwbnPPw8EtPaSUeYbyl4GWUMhOin3TeCQQnz57
+ hiW0bIithAlYU4CyHBuzIjraBTJyyz2FmTVOsKtU3PYczVSkLFg6uwRa1GKcMhcL7xcR7xDOsJt
+ 6pZA2Mbh4INaO77duDHGQ5whl5BeRIp1ENJRmTwCdNgYq+zRc3W2bNehsJ7ytsX7cvyPZeM1gdP
+ 7dXjeyUG/E85uIKxm7tCXY7ZzqdQ995IUFrrh/ifL6KhaIuIYPdkkzvKRaiHQ2L932jPE98gYvO
+ j0ImvaLDnpxhXePCy6unPzI5IwXm9/NehAZVsp/O5Y6gJqSKhbi1M5M+eGlW/3FZWJ0S0EZe0zF
+ 4ISoAd8NjyWIXOyhQ3hvibS7JMgVSaZcLVo6MXme//4rNHuNqOWAsfiy0vEcS5CzxjTr5qYs1yS
+ 02RCNvZu5+4UmK6dcwQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
+ suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040066
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Data race on shared work_buffers_avail counter leads to DMA memory=
- corruption.
-- [High] Incompatible pointer type passed to `gen_pool_dma_alloc` causes st=
-ructure memory corruption and invalid DMA mappings.
-- [High] Use-after-free of the driver device structure in the async firmwar=
-e load callback on unbind.
-- [High] System deadlock caused by holding the parent's mutex while synchro=
-nously unregistering child devices.
-- [High] Failure in work buffer initialization leaves the VPU state machine=
- permanently corrupted.
-- [High] Auxiliary power domains are never powered on because they lack dev=
-ice links.
-- [Medium] Leaked runtime PM usage counter due to an improper conditional c=
-heck on device suspend state.
-- [Medium] Using a value of 0 to validate a DMA mapping leads to an IOMMU r=
-esource leak.
-- [Medium] Mixing scoped guards with goto-based error handling violates ker=
-nel cleanup API rules.
---
+On Thu, Sep 3, 2026 at 6:04=E2=80=AFPM Lee Jones <lee@kernel.org> wrote:
+>
+> On Mon, 03 Aug 2026, Shivendra Pratap wrote:
+>
+> > Userspace should be able to initiate device reboots using the various
+> > PSCI SYSTEM_RESET and SYSTEM_RESET2 types defined by PSCI spec. This
+> > patch series introduces psci-reboot-mode driver that will induce
+> > command-based resets to psci driver for executing the device reset.
+>
+> The more I read through this submission, the more convinced I get that
+> it does not belong in MFD.  This is a potentially nice "architectural
+> workaround" if it a) didn't break some of MFD's fundamental "real
+> devices only" rules, of which cpuidle and reboot-mode certainly are not
+> and b) didn't require a massive expansion of what the MFD core is
+> designed to do.  I am more that a little uncomfortable with the 150
+> lines being added to MFD core support this workaround.
+>
+> My best suggestion so far would be to base these changes inside
+> drivers/firmware/psci and use the aux bus to communicate with the
+> various components.
 
-commit 373df31fcd64a0ed065b0d792d9b1dac72e53fd5
-Author: Nas Chung <nas.chung@chipsnmedia.com>
-Subject: media: chips-media: wave6: Add Wave6 control driver
+We had some off list discussions about this as well and it seems like
+we are in agreement. What you are suggesting makes perfect sense to
+me.
 
-This commit adds the control driver for the Chips&Media Wave6 video codec I=
-P.
-It manages shared resources, firmware memory allocation, and power states f=
-or
-the child core devices.
-
-> --- /dev/null
-> +++ b/drivers/media/platform/chips-media/wave6/wave6-vpu.c
-[ ... ]
-> +static int wave6_vpu_init_vpu(struct wave6_vpu_device *vpu,
-> +			      struct vpu_core_device *core)
-> +{
-[ ... ]
-> +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_PREPARE);
-[ ... ]
-> +init_done:
-> +	ret =3D wave6_vpu_init_work_buf(vpu, core);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-If wave6_vpu_init_work_buf() fails here, the function returns immediately
-without resetting vpu->state. Will this leave the driver permanently in
-WAVE6_VPU_STATE_PREPARE, causing subsequent attempts to boot to skip the in=
-it
-sequence?
-
-> +
-> +	wave6_vpu_set_state(vpu, WAVE6_VPU_STATE_ON);
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int wave6_vpu_get(struct wave6_vpu_device *vpu,
-> +			 struct vpu_core_device *core)
-> +{
-> +	int ret;
-> +
-> +	if (WARN_ON(!vpu || !core))
-> +		return -EINVAL;
-> +
-> +	guard(mutex)(&vpu->lock);
-> +
-> +	if (!vpu->fw_available)
-> +		return -EINVAL;
-[ ... ]
-> +	ret =3D wave6_vpu_try_boot(vpu, core);
-> +	if (ret)
-> +		goto error_boot;
-> +
-> +	return 0;
-> +
-> +error_boot:
-> +	pm_runtime_put_sync(vpu->dev);
-> +error_pm:
-
-[Severity: Medium]
-Does this mix goto-based error handling with guard() cleanup in the same
-function? The kernel cleanup API expects that a function either uses scoped
-guards entirely or goto entirely to prevent confusing ownership and cleanup
-ordering.
-
-> +	atomic_dec(&vpu->core_count);
-> +
-> +	return ret;
-> +}
-> +
-> +static void wave6_vpu_put(struct wave6_vpu_device *vpu,
-> +			  struct vpu_core_device *core)
-> +{
-[ ... ]
-> +	guard(mutex)(&vpu->lock);
-
-[Severity: High]
-Will this cause a system deadlock when the parent unregisters child devices?
-During wave6_vpu_release(), the parent takes vpu->lock and triggers core
-destruction. The child's remove callback will then try to put the VPU, lead=
-ing
-back into this function which attempts to acquire the exact same lock.
-
-> +
-> +	if (!vpu->fw_available)
-> +		return;
-[ ... ]
-> +	wave6_vpu_sleep(vpu, core);
-> +
-> +	if (!pm_runtime_suspended(vpu->dev))
-> +		pm_runtime_put_sync(vpu->dev);
-
-[Severity: Medium]
-Does conditionally skipping the put operation cause a usage counter leak?
-If the device was suspended by other system events, skipping this symmetric=
-al
-put prevents the device from ever entering lower power states in the future.
-
-> +}
-> +
-> +static void wave6_vpu_require_work_buffer(struct wave6_vpu_device *vpu,
-> +					  struct vpu_core_device *core)
-> +{
-> +	struct vpu_buf *vb;
-> +	u32 size;
-[ ... ]
-> +	if (WARN_ON(vpu->work_buffers_avail =3D=3D 0))
-> +		goto exit;
-> +
-> +	vpu->work_buffers_avail--;
-> +	vb =3D &vpu->work_buffers[vpu->work_buffers_avail];
-
-[Severity: High]
-Is there a data race on the work_buffers_avail counter here? If multiple
-VPU cores trigger requests concurrently without holding vpu->lock, could the
-counter underflow and lead to an out-of-bounds array access that corrupts D=
-MA
-memory?
-
-> +
-> +	wave6_vdi_writel(core->reg_base, W6_CMD_SET_WORK_BUF_ADDR, vb->daddr);
-> +
-> +exit:
-> +	wave6_vdi_writel(core->reg_base, W6_CMD_SET_WORK_BUF_SIZE, SET_WORK_BUF=
-_SIZE_ACK);
-> +}
-[ ... ]
-> +static void wave6_vpu_release(struct wave6_vpu_device *vpu)
-> +{
-> +	guard(mutex)(&vpu->lock);
-> +
-> +	vpu->fw_available =3D false;
-> +	wave6_vpu_destroy_cores(vpu);
-> +	wave6_vpu_free_work_buffers(vpu);
-> +	if (vpu->sram_pool && vpu->sram_buf.vaddr) {
-[ ... ]
-> +	}
-> +	if (vpu->code_buf.dma_addr)
-> +		dma_unmap_resource(vpu->dev,
-
-[Severity: Medium]
-Could this condition leak valid IOMMU mappings if the DMA allocator returns=
- 0?
-Since 0 is a valid DMA address on many platforms, skipping the unmap when t=
-he
-address evaluates to false can lead to a resource leak.
-
-> +				   vpu->code_buf.dma_addr,
-> +				   vpu->code_buf.size,
-> +				   DMA_BIDIRECTIONAL,
-> +				   0);
-> +}
-> +
-> +static void wave6_vpu_load_firmware(const struct firmware *fw, void *con=
-text)
-> +{
-> +	struct wave6_vpu_device *vpu =3D context;
-> +
-> +	guard(mutex)(&vpu->lock);
-
-[Severity: High]
-Can this cause a use-after-free if the device unbinds while firmware loading
-is in progress? If the driver is removed and devres frees the vpu memory,
-this async callback might try to acquire a mutex that resides in freed memo=
-ry.
-
-> +
-> +	if (!fw || !fw->data) {
-[ ... ]
-> +	if (fw->size + W6_EXTRA_CODE_BUF_SIZE > wave6_vpu_get_code_buf_size(vpu=
-)) {
-> +		dev_err(vpu->dev, "firmware size (%zd > %zd) is too big\n",
-> +			fw->size, vpu->code_buf.size);
-> +		vpu->fw_available =3D false;
-> +		goto exit;
-
-[Severity: Medium]
-Is this mixing goto-based error handling and scoped guard cleanup again? Th=
-is
-violates the cleanup API guidelines.
-
-> +	}
-[ ... ]
-> +static int wave6_vpu_attach_pm_domains(struct wave6_vpu_device *vpu)
-> +{
-> +	int ret;
-[ ... ]
-> +	if (vpu->num_pm_domains =3D=3D 1) {
-> +		/* genpd_dev_pm_attach() attach automatically if count is 1 */
-> +		vpu->num_pm_domains =3D 0;
-> +		return 0;
-> +	}
-> +
-> +	ret =3D dev_pm_domain_attach_list(vpu->dev, NULL, &vpu->pd_list);
-
-[Severity: High]
-By passing NULL for the data parameter, does this skip creating device links
-for the auxiliary domains? Without DL_FLAG_PM_RUNTIME links, the PM core wo=
-n't
-power on these domains during runtime, which might lead to exceptions when
-accessing unpowered hardware registers.
-
-> +	if (ret < 0) {
-[ ... ]
-> +static int wave6_vpu_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	vpu->sram_pool =3D of_gen_pool_get(pdev->dev.of_node, "sram", 0);
-> +	if (vpu->sram_pool) {
-> +		vpu->sram_buf.size =3D vpu->res->sram_size;
-> +		vpu->sram_buf.vaddr =3D gen_pool_dma_alloc(vpu->sram_pool,
-> +							 vpu->sram_buf.size,
-> +							 &vpu->sram_buf.phys_addr);
-> +		if (!vpu->sram_buf.vaddr) {
-> +			vpu->sram_buf.size =3D 0;
-> +		} else {
-> +			vpu->sram_buf.dma_addr =3D dma_map_resource(&pdev->dev,
-> +								  vpu->sram_buf.phys_addr,
-
-[Severity: High]
-gen_pool_dma_alloc() expects a dma_addr_t pointer for its third argument to
-write back the DMA address, but a phys_addr_t pointer is being passed here.
-Could this cause out-of-bounds memory corruption on architectures where the
-sizes differ? Additionally, is the returned DMA address being incorrectly
-passed to dma_map_resource() as if it were a physical address?
-
-> +								  vpu->sram_buf.size,
-> +								  DMA_BIDIRECTIONAL,
-> +								  0);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788496816.gi=
-t.nas.chung@chipsnmedia.com?part=3D8
+Kind regards
+Uffe
