@@ -1,75 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D494513555;
-	Fri,  4 Sep 2026 17:23:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2B1511E9A
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 17:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788542609; cv=none; b=Ehf+jDlldm+LnZQXnx8YWfyBfJKFL75dz5FWsnQ68cIosmUMpqqzz9mldbKYT4ThfPB4D0vLiC+RWWr0cNBqz5qNw/Lbn0MqCgS4R1JWaKtrxQA4z+VrJQTwUdtGpnSSlCpzHQwnFtFAmdW/Xq8XgnlfaZpM/TXGj9uGNRya2O0=
+	t=1788542682; cv=none; b=RfPYa3Zigq6YEv48C7uy2pzReNGJodC0fBblAl0puuSOkBiJI1pWg5Swz/HSP15zZROoQgcoWZHigj5C4dk8hyiD/2jXOSL+tcqApDLaRcaSiAD0+jPsneRYnWnvJDSMtae3uPcUiEz/claOYnaDndJx4FAneKCfDkQwYd1FM4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788542609; c=relaxed/simple;
-	bh=RSdAt5w7fZBMg/JsGFlxf1PvaqoVUHi5WnnKytITUro=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BxrmRMiyn2JINKDFXDsupN2yV767/hIVzv5cTL5oTMboKwcjvpcV7fNf5YcOHdlSsaX2qQxS/W1r/5MWE2Q3yG7slARFhawQRSOVZBnuiCPB5/R81EyJ1yj1ykzi2aVCoTGKJWv3/NlkAf9xEUUHkt/8aNGfOGPo3muNuMzsBGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FCg6QY2m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788542682; c=relaxed/simple;
+	bh=wzb03DLVgIj3vB7hKR26LkDSnhyToSK5dDUTYTCmeno=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SqL+ZoL1dfejt3nUVMh2ZhGBlW9bJ3qlrzZFpo6mXCtEqkrtJdbls9sUIFKSI+0wpngdXQpPtTMQbDBTMNcPzwSjE1ySzL1EIx7KG/V6VFY0/smmMt3Ql1tLZ54DThzGfD2OFkeF5NEZROeied1WYMHxV0qMfMcDp8d0jrWeHWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSbCUAoa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FCg6QY2m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2032D1F00A3E;
-	Fri,  4 Sep 2026 17:23:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSbCUAoa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A70071F01560
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 17:24:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788542607;
-	bh=RSdAt5w7fZBMg/JsGFlxf1PvaqoVUHi5WnnKytITUro=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FCg6QY2mrUv8BRlcchXRNzhaz2SP5xUbUbpWaUNaQO3FRvz3GCYtMS4A7bBwD/sj2
-	 aZkR4lSzdEVdXerH8Er1A1W8orPjBZrCLCmnNCUkNUWN+0+YWr3hwKDfbIEWQP01m4
-	 aweo7CeOLZMTWhalPppDo3WgV1jEIRYlK+yiPZn5KWo+4Mqv36V4ofbbk4l9VWmH36
-	 JB9nIbxaEaG+40jmGYhlJn/Bx2ltb7PstcNGM85jg0EF6vkKugnitNcv4TBSqvJ+3Q
-	 wk4/xjRqkQDXR0n6tgCFW6vthtVpaKAAwQm5dlX6A2QdRvO7Wpw34oAsLvTRSjuYOP
-	 RvZ+Um/PEcKyQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] gpio: tc9563: Add support for the embedded GPIO
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>
-Cc: robh@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260904-pci-tc9563-aux-v3-2-5b1449d62ba2@oss.qualcomm.com>
-References: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
- <20260904-pci-tc9563-aux-v3-2-5b1449d62ba2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 17:23:26 +0000
-Message-Id: <20260904172327.2032D1F00A3E@smtp.kernel.org>
+	s=k20260515; t=1788542675;
+	bh=/CDqLznQvkVu7WQ3vZoYAE6ZEb2I+Dl4DDzf448Rh98=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=DSbCUAoaBf0BDfPe5nbw+AB5KH61cmX95b2H4GrECOmgcWubqAUSF+QTRSuXuKJ7W
+	 So0x0z73IE6ijUa/G9rzZeyi6XXSdOCJpEK1oP0odVfwTNd9h7hU4p7kbn9tbBzUkI
+	 oInQ77/mksSytpVmjMak/Lh1ZpwaM5Z7jIk/Jv59U6t216lhGAQBi4a+g3PJdstRji
+	 qrFVpmYGS3RsbLRcnKlpuulzpxXD2M11HxGYsFBaJtmdQNOmwYOOAU6PeH3T0Tjlz3
+	 dYfLpT7avAUwMSnxOhcRqJ7tStlmGT5PgYp+NABfyd5BpMETqLNwc/PXFTiF24ERqi
+	 9BoXQ1Qr/orZQ==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a2e9851ed7so12108971fa.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 10:24:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzCeh++kFrGw9EGhLmjjogAdbHB2dt3LKLqPgFT9CG8Yy4H5tq+yCCQR56gi7kzQ1HAmemHHm1fdZYB@vger.kernel.org
+X-Gm-Message-State: AFuF++nk+/pDrq1v6tnMHQ4BOZsErqTaQAKoQ/KacP0UXTUbl0tE9fvQ
+	eZH5vtCGYTw3kwf3v4YXvlFSogXJVg5kruxlwliRQ6/CZvyLANfGF20+01xEAvstoMPV8G7Eamv
+	7EjbPstTJAaSPo80F1spJXcx+D3xNczk=
+X-Received: by 2002:a2e:a54f:0:b0:3a3:314d:115e with SMTP id
+ 38308e7fff4ca-3a371bc73e4mr9829551fa.10.1788542673867; Fri, 04 Sep 2026
+ 10:24:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260904084158.1341550-1-wenst@chromium.org> <20260904084158.1341550-8-wenst@chromium.org>
+ <2026090430-botanist-ungodly-0299@gregkh>
+In-Reply-To: <2026090430-botanist-ungodly-0299@gregkh>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sat, 5 Sep 2026 01:24:20 +0800
+X-Gmail-Original-Message-ID: <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
+X-Gm-Features: AcwNN1XsOjcnbmZTa6fnJtFKjvQsiEWmd4_rlrVRXh_dounYDIlqWUAfitdifNU
+Message-ID: <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
+Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related APIs
+ to port.h
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Daniel Scally <djrscally@gmail.com>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Wei Deng <wei.deng@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev, 
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Manivannan Sadhasivam <mani@kernel.org>, Alan Stern <stern@rowland.harvard.edu>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> From: Alex Elder <elder@riscstar.com>
->=20
-> Add a driver for the GPIO controller embedded in the Toshiba TC9563
-> PCIe switch (and the Qualcomm QPS615). The device implements 35
-> GPIOs using two register banks: three registers control the first 32
-> GPIOs (20 and 21 are reserved) and three more control GPIOs 32-36.
-> GPIOs 22-24, 27-28, 31, and 34 are input-only.
->=20
-> The driver is registered as an auxiliary device driver. The TC9563
-> power controller creates the auxiliary device and provides a regmap
-> that gives access to the GPIO registers, so the gpio-regmap helpers
-> are used to implement the GPIO chip.
->=20
-> Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.co=
-m>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Co-developed-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+On Sat, Sep 5, 2026 at 12:47=E2=80=AFAM Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> wrote:
+>
+> On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
+> > |struct usb_port| and its matching container_of() macro should live in
+> > its own port.h, matching the split we have for .c files.
+>
+> Why?
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+This was requested by Andy. And to me it sort of made sense.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-pci-tc9563=
--aux-v3-0-5b1449d62ba2@oss.qualcomm.com?part=3D2
+> > Move them as described. Also move usb_port_is_power_on(), since in the
+> > next change its |struct usb_hub *| parameter will be changed to
+> > |struct usb_port *|, and becomes a non-static function that only
+> > references |struct usb_port|.
+>
+> No, please don't do that unless you have a really good reason.
 
+Which part? Move the code?
+
+> >
+> > port.h is only included from hub.h, as a subsequent patch will directly
+> > use fields from |struct usb_port| in a static inline helper in hub.h.
+> > The USB internal headers don't have header guards to help with this.
+> >
+> > Also drop 'extern' from the header declaration of usb_port_is_power_on(=
+).
+> > This is not needed in modern C.
+> >
+> > Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > ---
+> > Changes since v4:
+> > - Dropped 'extern' (Andy)
+> >
+> > Changes since v3:
+> > - New patch (Andy)
+> > ---
+> >  drivers/usb/core/hub.c  | 16 ----------
+> >  drivers/usb/core/hub.h  | 48 ++---------------------------
+> >  drivers/usb/core/port.c | 16 ++++++++++
+> >  drivers/usb/core/port.h | 68 +++++++++++++++++++++++++++++++++++++++++
+> >  4 files changed, 86 insertions(+), 62 deletions(-)
+> >  create mode 100644 drivers/usb/core/port.h
+>
+> hub.h is small enough, making a single .h file that is 68 lines long
+> for no real good reason isn't a good idea.  Odds are this will make the
+> build take longer as you now need to open/read/close another file.
+
+OK. Andy, can you accept not doing the move?
+
+> And if we really want to do this, it shouldn't be burried in the middle
+> of a long "enable this platform" series where people will miss it.
+
+Well the code is also touched in this series, so it is related. Without
+the change, the code movement makes even less sense, as mentioned in the
+commit message.
+
+As for missing the patch, I can change the series name to something
+like "usb: Hook up pwrseq for USB power control on M.2 E-key slots".
+The series spans multiple subsystems and even the driver core, and the
+goal is to enable M.2 E-key slots, so hopefully that ticks all the boxes.
+Except which platform is affected that is.
+
+
+ChenYu
+
+
+
+
+> Thanks to Alan's review for making me notice it.
+>
+> thanks,
+>
+> greg k-h
+>
