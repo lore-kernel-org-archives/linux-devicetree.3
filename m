@@ -1,115 +1,134 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11013017.outbound.protection.outlook.com [40.107.44.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB863DB310;
-	Fri,  4 Sep 2026 05:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788500701; cv=none; b=EyAQQiz5CdnUbuQ+XB1KrwyVXhe3iE8nqjMdfq9j1HeXvurWurXCNFFeF0poRiQsnhwW22C6+ZwF24V4KSgaD4AgAb7KZfG0/HaC+CRpvBm/be29k3W7BZSuT0KjmFBelfmpBusp2sLY6es7Au6tZyl3I1dWAfEmVFq0JKzlBV4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788500701; c=relaxed/simple;
-	bh=uvbbaRl6WbdSj+UBVIkoYBrEGPtW6lTAqtjw/OpF7bE=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cjErBLZRuNns5gHMEAs04NKHHyC8086W5dOp8L5lxh+ycYATjxmpySIWWODTgS8A+xIGY7tSfcCyOxQp/xOopD03IyBsKLa7uWsMN2u2UJPo6YYD7id1kPuy5K+YOFDBDsHL6FwH5AwO9UlcaU3Rz6Qsx3RU+nP0dy+DwPnyHG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=lZ9DLtWk; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E238D242910;
+	Fri,  4 Sep 2026 06:00:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788501654; cv=fail; b=rAzcL8ReYy37obj8Ol7OkSLdgMMxngadoTD/5V7pLhoccTj+NteQZkMz6G2Hj2g+gYSZeALamYcpk/DinKm/zK9BVyYYmT4pUr+0e/BLwmIXjU65Vv96zcLEoQg2b6cSdqGydZYG6mtz/wnkAd44MSxj4yWzx/++/s1dH2NFLCk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788501654; c=relaxed/simple;
+	bh=Ab9Ybhfd6p5c3pkojHnEjb1vmJdwz8r5ke/5jPZXgGQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YZ1mfmYMIHS3Qhn2cnU0dgeTwYYlU94quTMnhtIEkLpc2jlSwrb3scYIIE/KmhSDybT6L6C7tV483slXM02UQN8U8NUxQEMHm/o0i3rc8G8exLjIUOd8uM03r1kt6OA5hmBOUzACB6TsBOuK8E+VprNSWU/XWBEKRek68gNszgM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=mc3Ec/DD; arc=fail smtp.client-ip=40.107.44.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="lZ9DLtWk"
-X-UUID: bde2f9a6a82311f191248d90cf864ef8-20260904
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:Content-Type:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=BJWK7y7J1Xf4mlM9usDq6JWqSNyQR44PYQ93laQjlm8=;
-	b=lZ9DLtWkqYEGju8ag8q/9u+Okfag4Mh0TouHEMuJuDBAwrFngfwOe5nkG5JkXgpC4slT1zccNG+Sjjj7xnWSH8HJWuMJWz416fgMEe8xjRzmVXzjnmi+E7cYqT2l8CYxW+G81pQ8vNq+FIAjnbNYyuw5tyw6aSxBPZz/FUAog+Q=;
-X-UUID: bde2f9a6a82311f191248d90cf864ef8-20260904
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 1721376416; Fri, 04 Sep 2026 13:44:48 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
-	by spmgt1 (Postfix) with ESMTP id D2FAD1A1E1C;
-	Fri,  4 Sep 2026 13:44:48 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 586F0C600DD; Fri,  4 Sep 2026 13:44:48 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: robh@kernel.org
-Cc: andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v8 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C controller
-Date: Fri,  4 Sep 2026 13:40:25 +0800
-Message-Id: <20260904054024.35245-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260903160434.GA3629759-robh@kernel.org>
-References: <20260903160434.GA3629759-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="mc3Ec/DD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ErH6j3a/uv7Gq2gHag5PUCh9NCTvCeXzjoQd0NesamDsJWd6VkR38kIh0VuWNGFhvX4Amn40MVpTjBgdOmL8W11wzFeTK8xBAC3bQD5bTcEi//MyVR8rOOu+byYs02iVmQHu6H0z1MvaVvP1ML6XwSXv9H0xiZanvnhIfvWmF7KLyyIGdfEXvDi3tjOKxHapXmmABghRQM3IwMXk7VbMB29EtP1UtMZEg+mTAUiwoIzyQWHK9noqojoxxre3/fKSFjuWJ1XT2UiA64j0FykrCB7SJuZEd0JHEJV6B2eenos8LhGdv/IuRZtSk73oBn2Xv1pyf5p9lF8KPP/HXyOQrQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w4zRgj3kYgLUbfnxg+78pE+x5w/ItG1oXXNnJrN/cdI=;
+ b=l52v20bYXBPezKaMDxfsCQzDvtkkhU6Mwi8NDEe2MAxoKJQH6a98AtjE2yG7jvzousL20PGtBmEORqwJvMji+U6O95rDGd7CYtLOSSlvH9yycDrNXTrMz3UPMsmSEKFkzSmh5e35e+CSFVeL4MtaQFQB5hkWeDqXoN+WGx7mfQ8hR3BTy7af0BOWakjPLaghTmCxmSaDLT3KGQY7NG7dwcTVM071ckEecWPFpXB+lhxbi5UJdJIP1x0oS/WyWL/CWwRO9nG82Z0LBdqiK0tDev3mLBowPLKM3oid80mdobjMBsXeWkgMydXQhyA0mfix8XCGpTSwdy1/81P2DKYtOg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w4zRgj3kYgLUbfnxg+78pE+x5w/ItG1oXXNnJrN/cdI=;
+ b=mc3Ec/DD5wx9nXY1hd488W/3kZCYy6RnDs8FQNt5bUVjtr2LMiQMdFXKA76HktRIBIV00Usfa4UoZmiIRyIyaDZQqQ6PYM0+9a5M3MDMmnj88GXoKmUMtfur69LOeravLSLh0pZZn41L1qQRHdZcauSbXq8cxJSvzWkFWfkft3FtGIIMByl/RdYiL2ov48w6QXYN0DVJ4W+XhOxzgTv0kR/U/iZ8NXu4LyMR9DH1GQH99fTF04knVpQ2iZv17CAqu0puLbjflhWM46jfAzN1kje9GyE3fxFirCTnoPBMeuCQj30/LPrRNoD7wmZl+g/vYadGqy2iCPQhm9sTrv6aGA==
+Received: from PN3PR01CA0052.INDPRD01.PROD.OUTLOOK.COM (2603:1096:c01:98::17)
+ by OS8PR03MB8817.apcprd03.prod.outlook.com (2603:1096:604:289::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
+ 2026 06:00:45 +0000
+Received: from OSA0EPF000000CA.apcprd02.prod.outlook.com
+ (2603:1096:c01:98:cafe::9e) by PN3PR01CA0052.outlook.office365.com
+ (2603:1096:c01:98::17) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Fri, 4
+ Sep 2026 06:00:44 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ OSA0EPF000000CA.mail.protection.outlook.com (10.167.240.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 06:00:44 +0000
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Fri, 4 Sep
+ 2026 14:00:36 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Fri, 4 Sep 2026 14:00:36 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>
+Subject: [PATCH v2 1/2] ASoC: codecs: nau8360: Set DAC path to bypass mode when DSP firmware load fails
+Date: Fri, 4 Sep 2026 14:00:34 +0800
+Message-ID: <20260904060035.196399-2-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260904060035.196399-1-YLCHANG2@nuvoton.com>
+References: <20260904060035.196399-1-YLCHANG2@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000CA:EE_|OS8PR03MB8817:EE_
+X-MS-Office365-Filtering-Correlation-Id: 77056172-edc9-4532-95ef-08df0a49db82
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|1800799024|23010399003|10067099003|18002099003|22082099003|11063799006|56012099006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	Ob//G9bDGnQwWVmWetQgKezuTwKJv/lC7wAWuvJmd84ux5BfcPHQevC3+fW4E2HzQ0isMSYXyb4HnfMnFoTYlxWYKmrD7QuovSZDWO2oCkSjZo5tuedQLhNE9NJyhLjn3r5GPeAyLd7Bi5Ehzi1OteK5lvo2mJwjd2DW4/u792+3+mFW5xlMyUMV258sNQInHwnHlQRiXyZ0cPqKYCsl0JkRy/RINkz4uA5e2vz1MHBbR6NlOTi1GZu5gruBLN/pkH+1CZAP/nDgHzl9pd3kKyofhvt71aUBdg2Kz3USSZA3uGNpkveIgEZLd3WzLXbrnssEU68l/F7YD8tD2G3kMNrTapfflEFyDBztntdvwA/IPfFuKl4I9E279RnF8hP00WIXO+91sR8fubhUqbmgaq/Fs3Y0pC/pbyfH5mzFkBG8AenyOF9CW5An6J05pypeWQNAoRIzFQlZmlwxsWX31qeyr7pllQ8XcfJhYfJatl/w2d4/U4TSCrqrmpkfGy5VImeZAIbc1S+aF7GASfN185eM3hDrS2CZUh324XxetnfDQ6iBTv/Lf/G27qzDTyhrLJt9XU9BMidQERfzonehxPkWUoyOtLTcx8RArnBDUku6SN0RXXx1URwvJJ36BSbcPARhX5FhX9FIBQ8x2PQqYEzomIJXZB8g8syfhBaVDRrQ6Ca3tIPfWZQuz1ZVwQYs3Ht0y56f3fKSg8KvIYGFmg==
+X-Forefront-Antispam-Report:
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(1800799024)(23010399003)(10067099003)(18002099003)(22082099003)(11063799006)(56012099006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	LidwTmQ4S6+GtKxHPlf/8WQcsGtr/T4E2Bq8MXik5NW8wKYQS0FIpKEpgkAwlc0mLgsRy7MnCX5DFR2uPbIwe6pMoLEY3WlfVcGkE9g8JSLQ3jEiJX0ivuAFU2FfWUAG+buPUfxKiBro3rVEfJvW8Z0DzTqAhWu9hkLtyW9OVmsUM+kIkG6KRyB4jJ/r+Bo2PxKhTxOQMnrCDpZEucj2mmN5euhy12BreyJwNdlGTUCO4G1q7QF5zKuylC7jAOhBlog0wT4wy5o1fLQlbV305rGZO8OXY6UwVeH/E/fSTcGOdm0clcbwRzTmq/o3U4C2cPut+iiwn2h5GqyVbJMKvx/vnVlm1hWQF1qkp369rI1R+t/eYp7LBgUsk2pkPwdds/SFrlWxEtqDw8iYLEtwE/iU+X96rYn2CNPjuwh8tTi8NuPX/4MNqkKKAzh+9nOg
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 06:00:44.0360
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 77056172-edc9-4532-95ef-08df0a49db82
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000CA.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS8PR03MB8817
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+Automatically route the DAC path to bypass mode if DSP firmware fails
+to load, ensuring basic audio playback remains functional.
 
-Hi,
+Signed-off-by: Neo Chang <YLCHANG2@nuvoton.com>
+---
+ sound/soc/codecs/nau8360.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks for the review.
+diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
+index d7af2dffb749..8b75d3b9ebd6 100644
+--- a/sound/soc/codecs/nau8360.c
++++ b/sound/soc/codecs/nau8360.c
+@@ -1702,6 +1702,8 @@ static void nau8360_load_fw_work(struct work_struct *work)
+ 	if (ret) {
+ 		dev_err(nau8360->dev, "Failed to initialize DSP: %d\n", ret);
+ 		nau8360_dsp_enable(nau8360->regmap, false);
++		snd_soc_component_update_bits(cp, NAU8360_R12_PATH_CTRL,
++			NAU8360_DAC_SEL_MASK, NAU8360_DAC_SEL_BYP);
+ 		return;
+ 	}
+ 	nau8360->load_fw_done = true;
+-- 
+2.25.1
 
-On Friday, September 4, 2026 12:05 AM, Rob Herring <robh@kernel.org> wrote:
->> +description:
->> +  Novatek NT72676 SoC provides two I2C controller variants, generic I2C and
->> +  STBC I2C.
->
-> blank line between paragraphs and you need a '>' modifier on 
-> 'description'.
-
-I will change the top-level description to use the folded block style and
-add blank lines between paragraphs.
-
->> +  The generic I2C controllers are accessible only by the host CPU and driven
->> +  by a 96 MHz AHB clock.
->> +  On the other hand, the STBC I2C controllers can be controlled by either the
->> +  host CPU or STBC (Standby Controller, an 8051-based microcontroller) and
->> +  driven by a 12 MHz STBC clock. Authentication with STBC is required before
->> +  the host CPU can access the STBC I2C controller registers.
->
-> Is the programming model of the I2C controller different? If not, the 
-> compatible should be the same.
-
-The register layout and transfer programming model are the same, but these
-are separate physical IP blocks with different hardware integration. They
-have different interrupt sources and input clocks, and the STBC instance
-requires an authentication and ownership-switch sequence before its
-registers can be accessed by the host CPU. These differences are fixed
-properties of the two IP blocks, so separate compatible strings are used.
-
->> +  novatek,stbc-syscon:
->> +    $ref: /schemas/types.yaml#/definitions/phandle
->> +    description:
->> +      Phandle to the STBC system controller registers used to authenticate
->> +      host access and switch ownership of the STBC I2C controller.
->
-> Sounds like this could be modelled as a hwlock? That's other platforms 
-> mediate access to shared h/w. We really only want to have these syscon 
-> phandles as a last resort.
-
-The ownership mechanism is a one-time switch rather than a hardware lock.
-The presence of the STBC I2C node in the Device Tree means that the
-controller is assigned to the host CPU. The driver authenticates and switches
-ownership during initialization, after which the controller remains under
-host CPU control. The STBC does not access the controller concurrently, and
-there is no runtime acquire/release or lock arbitration. Therefore, the
-generic hwlock binding does not match this hardware mechanism.
- 
-I will update the binding description to make these hardware characteristics
-explicit.
-
-Sincerely,
-Ben Huang
