@@ -1,72 +1,72 @@
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7B32D94B5
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:04:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3ABE2DB78B
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527049; cv=none; b=QQO5gbSc+ZVaMMhY53ub5aGtdZMBDpLJ36UeT57iKmAMVmAqk0fU7MtCNUkMB5tqxetp/9ajrpTCxl/SeWyGqN6xo25SqLwKShXOohmuT1VmP3slMqnca/bG6iCzye1DgDvUb/HswIqJK+Rgziqd4DhLYhK34WBLihxOYHbWXh0=
+	t=1788527073; cv=none; b=FEnAlsW/q8ciTPwzMWjH4InxLuMYo3F/Jo91slJWStnwNe4PSHEZqmSoG2j+RU750XdtIhNuyLq+qo6f5LtNyeM24olrSjZR8ma4bwS+A1rfDRiThPMGjKbBLqHdF/vuS7f/MiwIIzbHi8ZA+NYx7Pz5q90xX75RvWxswX3YCxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527049; c=relaxed/simple;
-	bh=vJr1h7hsBUyy3vHTeoyngtmQwphQ3WIBheDjPnoTJn0=;
+	s=arc-20240116; t=1788527073; c=relaxed/simple;
+	bh=9mJVt4xvBv9yC09DSm77QIgsToCU4Uam8KTiXBNT49E=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=h5c1zOAUCxXHG+N5FJMyowO65jbtVbtHDC5CPMh6v8WjlMR+Brx+elDLn1wmMoZtnwQS3on0mYQJKS3hhLSIrhN6oj1OTGYcofhq02P+2ad1lq8ti/wq2vcGWYuFJA5ivOKw0VsBueByPLMhhU6UuwRCNaw1kidbg14PQRAkE4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.170
+	 To:Cc:Content-Type; b=OdJJwaWx1LR0WK4QLgPrgxBuAyd4d426ruh0hgYq5R+WqyX3a9Dub27hDE6+mpUS+lpTGbddG8D3fJMUNIx8OCZLZaIb2aNCFcbvs3HlsU+csHaSwMdlNJGaW8Lz4WGmvCRzWSK9HFLXstLYJXpCmiKXsBhUiuMRocF0z71kGCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c5f23666d0so924263e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:04:08 -0700 (PDT)
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c7d4c663e9so804732e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:04:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788527047; x=1789131847;
+        d=1e100.net; s=20251104; t=1788527070; x=1789131870;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=n1FFew0xvwxDBPdHzvarflCtGZCHXcWoG7HxiLXHltg=;
-        b=RDbK0+vi2kcMMt4aA7dIE8DWmwy27YsLwRI+yd0bamiaXv0UxnhVSwtBAjtgtJ0PqY
-         uYmrtQLR/cLjtckiUJkca+LFgXdOkIbabJqwHVxOEYCYDmaV12sAYNyaK56/IrfQ57LL
-         cbEUYVZx0gxhhdKuHlCJUO5ovQltP+9N/oe8Nc6aoJ447t8+pANXcaIN7KNf0by5OQgd
-         eOuEUPHufJynHv7HWGrDo742bTtyxNC+uUQt4HH7AVF2U1o6lqvwp1dx1YYQpQ22oiD/
-         PnN9twExTYNXeY3eAmWEoStCPNrnLXFL6baUvji2xln7+nb5j3CT8oESOGIiayC8pMYd
-         D7TA==
-X-Forwarded-Encrypted: i=1; AKwUvBzRQK8UE+DQOJiRp999Z/n2/gl30ER5wDLFoGwmVvNBKax6ubjJAleX7gOB7+Eo/UcFvbQ/Fm5tXfvT@vger.kernel.org
-X-Gm-Message-State: AFuF++l8gmSPmWbnuFg272Vp9WCfk8NoYSXRb88tBGgug5bNsFdoH5Wb
-	Dz2Cav0h3oXTmgi91tsVMX+XrgIz+9fROFHUbp/2sqWLYpuV6K1USCn9pSQzj6pm8tE=
-X-Gm-Gg: AYBFou2yXfbQpfPbN7kc5C7nD8ehn0PP3+uRlepAwB2RwDGeYVce8rrnHjsa/aFGldF
-	JesvutoSzEYJvgk/etfeyZEcXIA6tHnYffv4h18Og74uHN+lRKoHCY2am+M+jYZQnKAlaE5MXag
-	+7Fz+5Wd0VryvPLorhpksVmFLAkp/rrcdqNKrLaFy25E1mI/CvKhGWkuoCETBO51sSkWQa8tqMr
-	vrDNIxkTJUW/k7byn50VzGPkyHTL80+lka1gayiW6vtPZq2q2SZVZQlRoxcBhQ7ODAKCi4pZIrI
-	YZKVU/eza+BJH3iTD/nXUzrDayUiJPWC/o//TrP8z3Wv7g4SAww6QLE8m/RepMJprrMYs1/xMRn
-	u3fGvcar9Bu6vfSMS6U7ipFTOGqcVSml0VOoG6FwoC6+74YYIB02vCP2tctBRXz0duskIvnwJGC
-	YISY6RIMeyvUfwk0SG/XtcEjoJnMiO6voInaGf1tb0lqmocBghrua+pzqpJlvhn6nfPSfMXcxBJ
-	ChgQd10tM6B0zfeQTN0YqliVg==
-X-Received: by 2002:a05:6122:3b85:b0:5c6:731e:3c8a with SMTP id 71dfb90a1353d-5c7ed4a07bbmr2817180e0c.1.1788527046868;
-        Fri, 04 Sep 2026 06:04:06 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec3874acsm1898980e0c.15.2026.09.04.06.04.06
+        bh=xbgZlApvTu/xPQjUHtGMt43abYTF4MBtnYGRCX+MfE0=;
+        b=krnyKgV49Let2vCqSNHhxxVR5BFmwg1FgmPs1fF48q4kLDspyNQB1HO0HaJG/Q+d2u
+         iMAW2k/H9vi/iHPt2I5C6W2mlqajk707gd3CBehs23ke5FWDSNVnFe6lSnu5Tv0A0XL+
+         yQl0zk968/Ve0KgO8SwXolhOlZzmaZNSNv9Rhiswot0tb52rJ2ewFia0CqrmlN2tkK7r
+         iATWZ1RthTUAQIhFfny3JrLuo+s9ZtQ/hfZ1qd0R9CYhiXkLoDVV5aeaqq8WTQLxxMFO
+         C5G7qdzXxmu9Aewb+vOkvJZNIgqXWe4+jpjMCUIiIh4wzsP4wMl2AE2g+JBAKalL4bmI
+         qT5g==
+X-Forwarded-Encrypted: i=1; AKwUvBzMUqmVPWi8izR0GRGaOC4MOGWoGMNfgTik4LM/e3+utpcfTqyzvKF1hLshvdlw0WPqc0IvzmE65LP8@vger.kernel.org
+X-Gm-Message-State: AFuF++mblzrk8vYCNc+jfFwBDkh+UeDcWlHtNAHhwApVKqV5YV4UgiD0
+	wVUmGfjgFlRI9/zdasFQ7RS8lAG6TZDzBZquLSZl66hoQVbaFid2BthiEbBCKm91b48=
+X-Gm-Gg: AYBFou2UtapbD/U8MRWpc/6dHHrG8aCdYql9kPAZhQ4Mks5ZhQUv5VDeHBmuFdCahgi
+	pg2wjatZMRM72at8kTpKAycrEq4RWtXe8suL4umTdU711TZL91hdTqhb9NZ3Bgsr+O+0LKh/tQC
+	nL28AcBtZTqca2Ps8bTf7cggiDJc/D1cQuxCUUJVdz/FictOwj57e7SL+k+kZ6+QQD6+jX8/blV
+	AVn6L/ABdenJ2IKY9yycZnGdLG92Qt4i4MIneK95QDEWj+ObuYYLoKLTrP+S9U6QXtN4dzCUs8Q
+	L4I+gqG7bjFDssoTEdw2vuYu0tTfwJXTF0PoLhY5bHNvtViHCP4f0o7OJev6+aUwFRgSUVkS0ZD
+	1R76qP1tyTiVOAebIMqMy5PaSvGG/5LCuw2GUp0eEDlLpqGUD/+LSosBv5JypEEHKCQMsqxctwI
+	l38+SmU/0N/AYA+fakTUxS3yHqEwfaN8wVaFtgGWr0OnI6Dz0UgOtesCcMaofKaQzFcngHHQsXm
+	EzeumegYb7ZNBbpdLVBdPJehyYwaw==
+X-Received: by 2002:ac5:c7a4:0:b0:5c1:47db:cfcb with SMTP id 71dfb90a1353d-5c7ed7960ffmr1946196e0c.4.1788527070123;
+        Fri, 04 Sep 2026 06:04:30 -0700 (PDT)
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com. [209.85.221.177])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec25b9casm1974659e0c.11.2026.09.04.06.04.28
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 06:04:06 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-7542a2ee156so565452137.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:04:06 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBx0okxCyi6ilnvP1Kim/lBpcome11myMWfRoXWn7L/FpW80U2uzWZhQQBXNZuHhVz0hzb/jasREpVuV@vger.kernel.org
-X-Received: by 2002:a05:6102:644a:b0:785:d308:cc2e with SMTP id
- ada2fe7eead31-78a4a91b269mr2076023137.9.1788527046144; Fri, 04 Sep 2026
- 06:04:06 -0700 (PDT)
+        Fri, 04 Sep 2026 06:04:29 -0700 (PDT)
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5c7d65c83feso864129e0c.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:04:28 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByMS6CwhspgiwY7jsH1Rr2vdtxOOvFu9tIxTez3Wen1fxyz6ZWe+b24DGbsiTVF+Ji5/OTxrq2sXmrM@vger.kernel.org
+X-Received: by 2002:a05:6122:c8f:b0:5c6:4bab:4cb2 with SMTP id
+ 71dfb90a1353d-5c7ed80403dmr2539951e0c.6.1788527068555; Fri, 04 Sep 2026
+ 06:04:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904125425.412632-1-claudiu.beznea+renesas@tuxon.dev> <20260904125425.412632-2-claudiu.beznea+renesas@tuxon.dev>
-In-Reply-To: <20260904125425.412632-2-claudiu.beznea+renesas@tuxon.dev>
+References: <20260904125425.412632-1-claudiu.beznea+renesas@tuxon.dev> <20260904125425.412632-3-claudiu.beznea+renesas@tuxon.dev>
+In-Reply-To: <20260904125425.412632-3-claudiu.beznea+renesas@tuxon.dev>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 15:03:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX83jRBFjArNajU6Mq8NhUV4e0gN3Bn1K7WxHoRQUVb5g@mail.gmail.com>
-X-Gm-Features: AcwNN1WMbKpO1qteekuyL9lk6vgBhGsq_Kk0QAeK938uUXzN8wBaXb1U6d7AMAM
-Message-ID: <CAMuHMdX83jRBFjArNajU6Mq8NhUV4e0gN3Bn1K7WxHoRQUVb5g@mail.gmail.com>
-Subject: Re: [PATCH v7 1/5] pinctrl: renesas: rzg2l: Generalize the power
- source code
+Date: Fri, 4 Sep 2026 15:04:17 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUtXaOxC2Ttw4EBtTY9JqUxjL9X6M4WhCOc8C69qw21aA@mail.gmail.com>
+X-Gm-Features: AcwNN1UNaplc4sWg2bdo_z4KydBn92WTMZ--tFNfKKtuA-7QPoR1X6zMCgLV3PY
+Message-ID: <CAMuHMdUtXaOxC2Ttw4EBtTY9JqUxjL9X6M4WhCOc8C69qw21aA@mail.gmail.com>
+Subject: Re: [PATCH v7 2/5] pinctrl: renesas: rzg2l: Drop defines present in
+ struct rzg2l_hwcfg
 To: Claudiu Beznea <claudiu.beznea+renesas@tuxon.dev>
 Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
 	conor+dt@kernel.org, magnus.damm@gmail.com, 
@@ -81,24 +81,12 @@ On Fri, 4 Sept 2026 at 14:54, Claudiu Beznea
 <claudiu.beznea+renesas@tuxon.dev> wrote:
 > From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >
-> The current functions used to get/set the pin power source check the
-> OTHER_POC register, which is specific to the RZ/G3L SoC only. To allow the
-> code to be extended for other power source functionalities (e.g. I3C on
-> RZ/G3S), generalize the functions used to get/set the pin power source.
+> Drop the QSPI and OTHER_POC register defines, which are SoC specific and
+> accessible through struct rzg2l_hwcfg::{qspi, other_poc}. While at it
+> move the assignement of rzg2l_hwcfg->regs->qspi upper to have the
+> initializations as sorted (by offsets) as possible.
 >
-> For this, introduce the struct rzg2l_register_masks data structure whose
-> purpose is to store SoC specific register bit masks. The members of this
-> structure are then used in rzg2l_caps_to_pwr_reg() to retrieve the bitmask
-> corresponding to a SoC specific power source capability.
->
-> The conversion between HW specific power source values and SW specific
-> power source values is now handled through rzg2l_pwr_reg_val_to_ps() and
-> rzg2l_ps_to_pwr_reg_val().
->
-> Finally, to keep the code generic, the register update in
-> rzg2l_set_power_source() was changed to a read-modify-write approach to
-> cover all cases.
->
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 > Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 > Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
