@@ -1,65 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CDA34A78F
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E853546CD
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527378; cv=none; b=Kn+xIx34jNJZlbBwFqJxnqNjh1+LJCmpkmzyIijhm9FejQxHU/rjT0Jvm+V7lKoX6V/Ov+ca4K1agTsH8VnLYxpby9currEAbYTFzIrztFsfdw2B3W3pTEMb/Qvi313LMYUaYI21NJmtPbTx4/kT4FuN32O9+AKeSa7F38QiH0Q=
+	t=1788527379; cv=none; b=qFq8VbED9h4wlv3+BvfyS7NbaJbthkgWFCpzFgn8QRdaS+oXvoA5FzaZ60ij6/0sIIZAHi3HyTlhTQHhIrTW4t1AvOunh6YkS0tr/dW8cDIxbqacUKrdHJp7fjMEksVUveCXXBNwr61mYQrrkVd/qIYZC3fPSuyy5bOnZbpjiDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527378; c=relaxed/simple;
-	bh=nsUn/gyvK5xq/EZQV3uYgBkYE5FmY2nAUyyxBMr7d1M=;
+	s=arc-20240116; t=1788527379; c=relaxed/simple;
+	bh=nZaahBCK6Uh8ja4ZUTeoTBxF+bQS6MmWEyFJ+20Wl+E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jqS7zf5RKqCls2xKec4jCANyo1FW40kOivAOVmBkhQN0F3DbnHTBnCY5Y4P4L5+K5fYlGHBAjQ2tvpJdKqFLEMNAzLAWwkaZPLOlF8sQWdwBdVSVlKOOqRhha1QIZZC8KHd227nqF9wlRz6pHugSUPuBUJLAUVZ4uZBykQRaLdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KOPc0Yuh; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=QravLjZwXHmv/tRb3xKgiAI5Ci0DpO9Z/lEQoz4NjTBpCg4PxuDmjv4PcJ6LF97sOdIUIIID6cTYwopiJpKRuFWH4lQ0PgKaOkRNtZNtmfAqgxc1ZI5+aREBDyOxD4cPbJpA1PC+TZQktByROVDUr1cviFzAkgyUiQS/VBI/rqU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B9YpSm2/; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KOPc0Yuh"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4994d41ceb9so766365e9.2
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B9YpSm2/"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4954c08a7c8so815425e9.3
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:09:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788527374; x=1789132174; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788527375; x=1789132175; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=G+f52AKxDAlw/HpKk7FcOocDLK6B8oOeUPjxL8dkr0A=;
-        b=KOPc0YuhHXuaxTYSgYikUG3GNSRVZd8xLi+A5PhhQcLWWpbfcRA6A1J8ZD2Kcq+QYc
-         4oNuIg7cPBNHlctDUduQT8hCA0/IKlKqJjtS5/fJzftXRVhJHCnXpUdApzh/QuAqzxpk
-         Pc0osIkXiw1hq6MnkVZ9vaWRpqA7Td9/KLmBxh3nekpjXZfcxi3ohemy7GO2ocSR4Wzy
-         KRVXVWlyvooQrSaFKeaiTh/WlEIhULrlQa11nQfZRdJGcFdWK48eDH/NH1hp4JgnqGfJ
-         AmI1SaKv1/0EozvbN7lBdKTKS/DJqCX67BvojSVu2HAOng9QoEeicVSPtoxCbBmrjkZM
-         wtjw==
+        bh=E/t7wxFBsuNgANZ3txwtSGvXS0Fyj90ixWLfFCZVhFw=;
+        b=B9YpSm2/yqcKk7uaT+ocug2PvgR14o3GROHMX1cOyC9KEJE6UytY3NHeCkhifI2znq
+         4e52yb3DhATzoJCLscjUOvNivfbvFsEEpad04nlAPeTC5/fsL7Cp5PsRDJra8vYs7KWL
+         ha8r2LUzGMNceoFDjWg+3fKvnwuZm1cdXMIveoNJgmX1j2FwLPb26ORbSpOLUsoVjfH3
+         sk5WB33SKAn3NAqeiPozFIgnz7VB+UgPeAPqdoFHEr9f3n3wEPdPC32IZ3A1SHvSVah7
+         XQ1sbkS3TFEA1uTL2ox/vZeWC24t2+AqgDQTQjyxhlgyZCvTFTbTaLjJKRbWmpB+Fh31
+         a09Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788527374; x=1789132174;
+        d=1e100.net; s=20251104; t=1788527375; x=1789132175;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=G+f52AKxDAlw/HpKk7FcOocDLK6B8oOeUPjxL8dkr0A=;
-        b=qFOG6Suo7vydLfdKqlSz1iKr9FsnQJeYcxe1NqwRs1OzwRUFuJOgOWD3XLWr8BSUcc
-         3mMeFbXfkFmm4OnnclYH7RudWWZPnbew954Zhn7Xoc6H2XQ0ftrx3kqILV/9uu6Mi0vC
-         vIBtF59V3oR0GQGO7YTskKj8T1ZuTGSb9y+HACZ5dWSdrM6f1UhMPfdsy/idyPVS+ESF
-         8s3k3pw5p5jc1KFA+4qXVMai48wkjrVi1tLiSYnNR3jPHx2hA5zajCxUyWaQMMYZHdX/
-         XPclD6ILsIbgj/DeF4eywVItzWPWlRXF+LsV49hyv1gwD/CiP/Sq8MeeXoyoG43RKdmV
-         +FGw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFgPn5Ql8fwNXJ2A715bc8YvzMNvgkltZFydjZ0Vg2z4I67/7kq10pXrXcZHoGTShlDbXC6+8C1WPd@vger.kernel.org
-X-Gm-Message-State: AFuF++lPSmWsxqy4Qjsip9R/Ecy2EXZCT7ZOQ3JZXkomdV8+ftfd6/L3
-	sFy90MZzobjAhH8fJHihRq/WFn3gGJvIoDl8Y1jZ6LHLslfZ4aBvBJav
-X-Gm-Gg: AYBFou0OsaeEfpV5P8N7dyutZs/wjB6wqdt9X1UsEvmVDUob29ivRWt1uFTSkPn9pXB
-	+7MguI19SOEL9gqWAYQmFmfEPPM0NPJUc7fU3p9xYiqdyKEJSTXy+rBJxA3GUhvI/10WUXqm9he
-	EC8WFnogdDyQUIGM980mrx0gpJ7rpKrasuPLB6SajMkpLUQKWiOzOuwJoRZUvntK4EmX8JnJfM4
-	j/63LqxvPkWdq0uaC+re9wDwN+0kkfNnZnkp5TRTgCalt6ooCSoHxO0JbMwt81dtzVyIrmYWP5D
-	PzgymdPceVVnu+TJRqQgxr4Kgu2B5VCfyORu+PBPYI3e0/7ZG8rNk4o1pvIsNdFjWbypSgfWIY5
-	1pi3VXY/ocO+7eXDUB796N97CGoRE1IH/JTCzevCUgsn1Whjn0riIF3CEJaVtHRJMnxTNVW/60A
-	jQpkvOgoVfENs0b1NgKV/JYghk9LT/rXyAb12HLbEeuHyzDDS2R/4XJaEHQsR7d1+a5x1LS6HAM
-	OHDdouJUY6fNbIco6E/96omqlP43gCSz7IE5qQRS9VoO7F/BXLRrnR2ZNbow6bp8rEdj/F9SgwL
-	Ksqm
-X-Received: by 2002:a05:600c:a40e:b0:49c:f9b8:bae0 with SMTP id 5b1f17b1804b1-49cf9b8baffmr34000785e9.2.1788527373810;
-        Fri, 04 Sep 2026 06:09:33 -0700 (PDT)
+        bh=E/t7wxFBsuNgANZ3txwtSGvXS0Fyj90ixWLfFCZVhFw=;
+        b=DAnecBhyj1oI7cA9DdF5Xx/UPxfObvFOWRYVQV3vumria7lnJYJc2mEs1/3knrZb3f
+         jzxRedgD/6pXx9rPRZNH0UxPWtcwiXff7jqSUyiWyLIhieh+hIXagszAEA+Eb2CaBBzY
+         MiI0cofmi5yEwA3kzTrYO5FBVBBXuga8hURSoZQgcNMNn5XX6chtwEgx9sI0/XYea0Di
+         swRRrL+hqAcaP5Y+e9RZRcsrkS/cyp0L2JxmjYvuoQthfpHmqPg4/TD6F7PIkuRaqiGf
+         gJy3BELqAZqKULtZLmUZDWqO51cNZCl+c12nIauA0nJzVwOYifumJYlPtR4eUEh5iF2q
+         tCgA==
+X-Forwarded-Encrypted: i=1; AKwUvBybIQnzNNfsitpsHmp3BJx0QPEiUI8tFMb/Vt08Yg4u9LZ25r36ZQ5MX6ie9X0W/FeoVJvnMV471Y5u@vger.kernel.org
+X-Gm-Message-State: AFuF++kALLBtVQYW+qrUdKybWn27R1WHAwEejLo8yd797iBmFqCMXbJu
+	WpqRmDCS95LhX1knwln/ViPHZnvrcCKBcrHqV/fm4um+VYSoQ5FPNUhU
+X-Gm-Gg: AYBFou1LmxSTJeum2OVmeO8MkkexFobtWdMDScH+/3/4x8xo0zdv2V2JmQvHz4CCgNJ
+	72bzuirXad6KC3gCua7TsjJxceTbJdd9RYZGIw4P5kYjqfJr9UntGLsdmuKm2pu51Q/En6BWucm
+	i8RO3DC2VKQCeA6LVrCzqxUGQmC7O8kjwDmzW0nBnJKIKh0wwWZOVAdBD9xRE5VALq0XfWdpEJ+
+	K4A1O10hLLBcm4+sY+CssP7nbWvPcZcN8QOV8XSr1nqKttHf75+U6+8ewsmcuoxA0vEFKoxvpVE
+	aGxf05ZETR0/H7LtbJ23cFiDGY80Ll1ZEGhcOxFwcfjN2ZPbUhNxRbe3YIYgBXnc9OUSl0ymL9i
+	+1WRL4qN5VwpnLELbJYS7Fa7ZV/imBXz/W75iyC+RK46jy0Bz/9q093KzPsyFME6SKcXLNhKcxQ
+	nvi6XD8VvUNa9+d5tb/R2URHHDJ6WEnJHmdUui21276dB+NCXTQYTBGxaxKwfyLQGEhK3imHwyR
+	1UyCw6HZmenoiG2kZMKRaQdImtkf9+PqqvkbE6muYQdLtsooJFVhkhU09vf6Y6/0bEZ
+X-Received: by 2002:a05:600c:1c24:b0:49b:9241:7ff0 with SMTP id 5b1f17b1804b1-49cf7f4d9b7mr51876155e9.0.1788527375338;
+        Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
 Received: from OrangePi5-Plus.BB-HOME (20014C4E1B871500CB6EF488A18F9C42.dsl.pool.telekom.hu. [2001:4c4e:1b87:1500:cb6e:f488:a18f:9c42])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm135575435e9.3.2026.09.04.06.09.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:09:33 -0700 (PDT)
+        Fri, 04 Sep 2026 06:09:35 -0700 (PDT)
 From: Igor Paunovic <royalnet026@gmail.com>
 To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
 	Oded Gabbay <ogabbay@kernel.org>,
@@ -79,9 +78,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH 6/7] accel/rocket: register a devfreq cooling device
-Date: Fri,  4 Sep 2026 15:08:57 +0200
-Message-ID: <20260904130858.27803-7-royalnet026@gmail.com>
+Subject: [PATCH 7/7] arm64: dts: rockchip: rk3588: add passive cooling to the NPU thermal zone
+Date: Fri,  4 Sep 2026 15:08:58 +0200
+Message-ID: <20260904130858.27803-8-royalnet026@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904130858.27803-1-royalnet026@gmail.com>
 References: <20260904130858.27803-1-royalnet026@gmail.com>
@@ -93,97 +92,77 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With devfreq driving the NPU clock, a thermal zone can now throttle the NPU
-by capping that clock. Register the cooling device so a devicetree can bind
-it to a zone.
+The NPU zone has had only a critical trip at 115 degrees, which is a
+shutdown and not a cooling policy. Now that the NPU can be throttled by
+capping its clock, give the zone a passive trip and a cooling map, in the
+same shape and at the same temperatures as the GPU zone right above it:
+85 degrees with 2 degrees of hysteresis, and a 100 ms passive polling
+delay.
 
-The _em variant is used, not because there is an energy model today but so
-that there will be one the day a power coefficient for this NPU is
-measured. There is none now: the NPU node carries no
-dynamic-power-coefficient, Rockchip does not publish one, and a made-up
-number would be worse than no number. devfreq_cooling_em_register() logs
-the missing model at debug level and registers the cooling device anyway,
-so what this gets today is step-wise throttling with no power model for the
-IPA governor to use. Measuring the coefficient is follow-up work.
+The #cooling-cells property goes on rknn_core_0, the core that carries the
+shared clock and the OPP table. The other two cores have no clock of their
+own and cannot be throttled independently of it.
 
-Registration is allowed to fail. A kernel built without DEVFREQ_THERMAL
-gets a stub that returns an error, and losing throttling is not a reason to
-refuse to drive the NPU at all, so the failure is logged and probe carries
-on. The cooling device is unregistered by hand before the devfreq device it
-is attached to goes away.
+The cooling map is inert until the driver registers a cooling device:
+thermal_of_should_bind() only resolves a map entry once a matching cdev
+appears, so this patch on its own changes nothing but the trip point.
+
+The thermal path itself has not been exercised on the board this was
+written on. Reaching 85 degrees on an NPU workload with the fan curve here
+has not been possible, so what is verified is that the zone parses and
+binds, not that throttling engages at temperature.
 
 Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
-Assisted-by: LLM sparse checkpatch
+Assisted-by: LLM checkpatch dtbs_check
 ---
- drivers/accel/rocket/rocket_devfreq.c | 24 ++++++++++++++++++++++++
- drivers/accel/rocket/rocket_devfreq.h |  2 ++
- 2 files changed, 26 insertions(+)
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 17 ++++++++++++++++-
+ 1 file changed, 16 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/rocket/rocket_devfreq.c b/drivers/accel/rocket/rocket_devfreq.c
-index 9d923a0b6ea30..86bc34819a187 100644
---- a/drivers/accel/rocket/rocket_devfreq.c
-+++ b/drivers/accel/rocket/rocket_devfreq.c
-@@ -3,6 +3,7 @@
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e07869..c3d22b08f415b 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -1162,6 +1162,7 @@ rknn_core_0: npu@fdab0000 {
+ 		clock-names = "aclk", "hclk", "npu", "pclk";
+ 		assigned-clocks = <&scmi_clk SCMI_CLK_NPU>;
+ 		assigned-clock-rates = <200000000>;
++		#cooling-cells = <2>;
+ 		resets = <&cru SRST_A_RKNN0>, <&cru SRST_H_RKNN0>;
+ 		reset-names = "srst_a", "srst_h";
+ 		power-domains = <&power RK3588_PD_NPUTOP>;
+@@ -3212,17 +3213,31 @@ map0 {
+ 		};
  
- #include <linux/clk.h>
- #include <linux/devfreq.h>
-+#include <linux/devfreq_cooling.h>
- #include <linux/ktime.h>
- #include <linux/minmax.h>
- #include <linux/of.h>
-@@ -404,6 +405,24 @@ int rocket_devfreq_init(struct rocket_device *rdev)
- 		goto err_remove_table;
- 	}
+ 		npu_thermal: npu-thermal {
+-			polling-delay-passive = <0>;
++			polling-delay-passive = <100>;
+ 			polling-delay = <0>;
+ 			thermal-sensors = <&tsadc 6>;
  
-+	/*
-+	 * Thermal throttling is optional, so a kernel built without
-+	 * DEVFREQ_THERMAL keeps a working NPU rather than a failed probe.
-+	 *
-+	 * The _em variant is used so that the driver is ready for an energy
-+	 * model the day a power coefficient for this NPU is measured. There is
-+	 * none today: the NPU node has no dynamic-power-coefficient, the vendor
-+	 * does not publish one, and inventing a number would be worse than
-+	 * having none. Without it the EM registration inside is skipped and
-+	 * throttling is step-wise, with no power model for IPA to use.
-+	 */
-+	rdevfreq->cooling = devfreq_cooling_em_register(rdevfreq->devfreq, NULL);
-+	if (IS_ERR(rdevfreq->cooling)) {
-+		dev_info(dev, "no devfreq cooling device (%pe), NPU will not be throttled\n",
-+			 rdevfreq->cooling);
-+		rdevfreq->cooling = NULL;
-+	}
+ 			trips {
++				npu_alert: npu-alert {
++					temperature = <85000>;
++					hysteresis = <2000>;
++					type = "passive";
++				};
 +
- 	return 0;
- 
- err_remove_table:
-@@ -426,6 +445,11 @@ void rocket_devfreq_fini(struct rocket_device *rdev)
- 
- 	dev = rdevfreq->owner->dev;
- 
-+	if (rdevfreq->cooling) {
-+		devfreq_cooling_unregister(rdevfreq->cooling);
-+		rdevfreq->cooling = NULL;
-+	}
+ 				npu_crit: npu-crit {
+ 					temperature = <115000>;
+ 					hysteresis = <0>;
+ 					type = "critical";
+ 				};
+ 			};
 +
- 	devfreq_remove_device(rdevfreq->devfreq);
- 	rdevfreq->devfreq = NULL;
++			cooling-maps {
++				map0 {
++					trip = <&npu_alert>;
++					cooling-device =
++						<&rknn_core_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
++				};
++			};
+ 		};
+ 	};
  
-diff --git a/drivers/accel/rocket/rocket_devfreq.h b/drivers/accel/rocket/rocket_devfreq.h
-index bdf8e89ed3761..d5876d62a0b7c 100644
---- a/drivers/accel/rocket/rocket_devfreq.h
-+++ b/drivers/accel/rocket/rocket_devfreq.h
-@@ -10,9 +10,11 @@
- 
- struct rocket_core;
- struct rocket_device;
-+struct thermal_cooling_device;
- 
- struct rocket_devfreq {
- 	struct devfreq *devfreq;
-+	struct thermal_cooling_device *cooling;
- 	struct devfreq_simple_ondemand_data gov_data;
- 
- 	/*
 -- 
 2.43.0
 
