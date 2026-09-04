@@ -1,98 +1,119 @@
-Received: from mail-vk1-f178.google.com (mail-vk1-f178.google.com [209.85.221.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B38D13CAE7F
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:01:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9474231197C;
+	Fri,  4 Sep 2026 08:03:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508864; cv=none; b=pLIwXRUheKcQJDQ1FlTd9A90GIlJu4ghODr/DXt0gvU0Gje2D/0LWPO0KnTkl5URJrbUPkqhu2EheG8LEHaJF3EE21wbTeFIrGpmAL4Xu8VolTNM7o+eLzNOUisQ3txf4Du9RQJRFEohmcNM2uTOo1alwhz5i6kkmQVjOH4eVBE=
+	t=1788509003; cv=none; b=mV/nW3C2g9YMbqlUAqIzIEr1ivPDcKm+nAzLfyqAcjSlI/aTVdEsui9XIKCM7hlMDtgSKeD9zRZRNFMzvO8sAQBhT6JZhCmUQJ9hTGoSc7SwyeNM48950krqYQxJ87fhjTjOnBl+/f6gUiuIop23NbqXakXH5U3mQ+HA29XniWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508864; c=relaxed/simple;
-	bh=5STgmEpuSXLAENtQSqsuFnM5l/nP8haJUcsvw0rzQek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZzDfT69CEPnYhsUTgk3dUPgO5uJ+BYwHnykkTmuEvAxc0ZhNmoRGap8qXIVkpei8CyYlhdbf/HwNH8Nn6uvIKnWaOc68OA/RJ1gX4kMkNGNEdKwp57Fte4zt0jEKGrIjGtY6wHs2nnXZv+vrtmJB0VogTypfBtWP+kKXxiiXkNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f178.google.com with SMTP id 71dfb90a1353d-5c652293bcdso919375e0c.1
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:01:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788508861; x=1789113661;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DHcVzyvg5T1LbBIIYfTsEAB71A8C4BjQEyDgYTrzH78=;
-        b=XYEGdP0yZWkGP64i1aJLO8Y9vOrkPPtpunwHtlVihz3MN4cO/HKWrTW2i82jQShU17
-         V5gjv/EJ09hvAHN9xRFTcyCt5VLVvFKA9Cd2ONs4uRPBwmiaN7RElJh+YDSHzv5QMjCk
-         s9GQpMvP7oKVknAZUkFG/wQ4nfZ8A/mUJ/pJR8IJTgavf0fbit662kllIjvFv1OSH4sd
-         rqlYFyPLFxXfG/QMm1av2YHRfVhwTK9s4avXSsZgK4FJbJR+dAeAtCyuo4eZ7dkB3LpW
-         4QYSkQfqFdpMMFDtyRLBJ5qbYnAelg20puy7k7DnWj2YFCnk0LvmhPlN534YErBQIS4c
-         e0Qw==
-X-Forwarded-Encrypted: i=1; AKwUvByqMXZ70Vn0pzoU8dlJsoM7Y0HdyePTaGm32aFDC6p8iJX9msCtEMMKVIGrhUVZ1HMvoTqBz7OIJz3P@vger.kernel.org
-X-Gm-Message-State: AFuF++mWsaQ5kQS5Gl6+uYuEPWeT7DpchEOxi8U0aL0th3Nh6JWU3GUq
-	c1DF96gqqNVVQtx5YRiFK6JP0ucQby2EeVkB/hijBIozlsSaLRBJWu3r7MDSLUbJroc=
-X-Gm-Gg: AYBFou3S+MoqfTKaXo030Z+17IVWZ6KY49H3U+kCzq0VwP2tGftXCBIY6/YElqlb2iu
-	D5FXJjlMcDkCfIaaVJYWMgqLpPEmcE6wTMymBVvC454pvGurZZ799JAxjoywUMN+W2eScl9Rmtl
-	nqVnvrU584tVi99jFUmBtbaqBOazA2i6GtnzD2PxIggqT8ATTnfSvbxC8G17QBEyZSnsL28mPyf
-	YBoVXGW09U7JpDd9tzf0LtcG2jh8wzbsZKklVJMq1lspuFysqHtEo8oOAf62Yxokuw0dA3Mmwof
-	WK5msgJ4pBsgdIYQowhBit4eSKFl6G0XzBp1I/v+QH8d/ti6y1EApsDcZ29kTo58H6ncC/H9Ab/
-	dIQ0MIQu8aTDKZ2Lhey8khGA1GgkgwU91dELkZoxcvQbCsmPew2owJbBahMKnh5eT1Ixw+GjaA9
-	XUhPGOusZQDXzo1yDNDOooaAVgSqzc+x0OhvTGNfnaGN0zWvvF/yeNqGB20tXOqZy42xUibNYuR
-	kX3My15Stfe9RW9ZMB0nkyIRvGL/SDb0EKN
-X-Received: by 2002:a05:6123:4e:b0:5c6:599d:8730 with SMTP id 71dfb90a1353d-5c7ed723952mr2022613e0c.3.1788508860984;
-        Fri, 04 Sep 2026 01:01:00 -0700 (PDT)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com. [209.85.222.53])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec23d459sm1575405e0c.9.2026.09.04.01.01.00
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 01:01:00 -0700 (PDT)
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-97ca72f2cd9so451188241.2
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:01:00 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxouBDMJjxDZAVMqF+M4XlfW6xelxs4PAbLOtMW9oTmP5a6RuSKZbYtZTqgSgo9nP6G9Ao7leSL/etn@vger.kernel.org
-X-Received: by 2002:a05:6102:e0d:b0:778:5bbb:b2d2 with SMTP id
- ada2fe7eead31-78a4a97bda0mr1434786137.11.1788508859808; Fri, 04 Sep 2026
- 01:00:59 -0700 (PDT)
+	s=arc-20240116; t=1788509003; c=relaxed/simple;
+	bh=UTVbtymEi2WyVxX6kY1xTG9xnWIK5ZAnjkMeeTBTyn4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oRCEb2JLi7tUWOQIsD6EikAyWJS546BgCrJQ1cI1tAebHPkwGR9UMNMWZKwWIK5Kzg+algfORzHSVao2LYbZayXo/90qHepBLbh66GNEGSAECu+catnmOhQzPSXCkEkdRKNnIVtFS2sONr5A3INyRKB9i2Hn2RdgyP1m74aqp5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JX1onWhG; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JX1onWhG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1651F00A3D;
+	Fri,  4 Sep 2026 08:03:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788509002;
+	bh=s/zSK9glIZgaFavTSPNYXa7U6OoG5C31lrRAZTpFKNM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JX1onWhGrn8yxZQlI4CcfGk1Co/Ts8c37PwXDDg2T+jC54nLUaTpp090KAzSaKW3J
+	 tmo/kKR5GYiNERbc5KkAkg9Y95BFv92UmfQjFAmEEEeiopDVd9EPzxw4I1IZmBLShg
+	 unCF4IrawZqXg7CgeorqOZO4K9lg18yIVi5GYwDkaKPe6lJFy3yQjD5vyysnkqYfJ2
+	 4cqJYB0IpWU02C21TF2jttWzRfX8SHt8fZyr3TTB7JbxHOd/xSOCdFSCeRdMDbUDn0
+	 JOnih7BeB3GqnM+WTdXZE1REQgm1058SV44yVg+nnGeqndHduL7M5zQM9e9spAJfp8
+	 4EL54/ab+gkBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/13] drm/imx: dc-ed: Drop initial source selection
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-10-26643e3f6cb7@nxp.com>
+References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-10-26643e3f6cb7@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 08:03:21 +0000
+Message-Id: <20260904080321.BD1651F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260820171657.62815-1-biju.das.jz@bp.renesas.com> <apnUfCIcTG4bmYZF@ninjato>
-In-Reply-To: <apnUfCIcTG4bmYZF@ninjato>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 4 Sep 2026 10:00:48 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVOY2CYKfhmx4qmRPkf3a002NEbWuwafLvrJTXvLb9PLA@mail.gmail.com>
-X-Gm-Features: AcwNN1URdf1eUYUIsC6Dx67B7nRZjxmnJO7wd9vXW0tYWJ8jFblIIeeoKCEUiQM
-Message-ID: <CAMuHMdVOY2CYKfhmx4qmRPkf3a002NEbWuwafLvrJTXvLb9PLA@mail.gmail.com>
-Subject: Re: [PATCH v24 00/15] Add Renesas RZ/G3L SD/eMMC support
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Biju <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
-	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 3 Sept 2026 at 22:11, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> Although there are still issues to be handled, I tested this series on a
-> R-Car S4 (Spider) with HS400 eMMC and on a R-Car V4H (SparrowHawk) with
-> a UHS SD card. No regressions.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-FTR, boot-tested on a wide range of Renesas platforms (RZ/A1H, RZ/A2M,
-R-Mobile A1, SH-Mobile AG5, R-Car Gen1-4, RZ/Five)
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Pre-existing issues:
+- [High] Unconditional dereference of potentially NULL component pointers d=
+uring pixel engine runtime resume.
+--
 
-Gr{oetje,eeting}s,
+commit 0e56cfa8da82fa905cb37a791e64c203dd9bf7e5
+Author: Liu Ying <victor.liu@nxp.com>
 
-                        Geert
+drm/imx: dc-ed: Drop initial source selection
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+It's unnecessary to set initial ExtDst source selection because KMS
+driver would do that when doing atomic commits.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> diff --git a/drivers/gpu/drm/imx/dc/dc-ed.c b/drivers/gpu/drm/imx/dc/dc-e=
+d.c
+> index b8ab41271bb40..803b3e891a1e6 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-ed.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-ed.c
+> @@ -202,7 +202,6 @@ static inline void dc_ed_disable_gamma_apply(struct d=
+c_ed *ed)
+> =20
+>  void dc_ed_init(struct dc_ed *ed)
+>  {
+> -	dc_ed_pec_src_sel(ed, LINK_ID_NONE);
+>  	dc_ed_pec_enable_shden(ed);
+
+[Severity: High]
+This is a pre-existing issue, but does this function dereference the ed poi=
+nter
+without checking if it's NULL?
+
+Looking at dc_pe_runtime_resume() in drivers/gpu/drm/imx/dc/dc-pe.c, it
+unconditionally loops over fixed-size arrays:
+
+    for (i =3D 0; i < ARRAY_SIZE(pe->ed_safe); i++)
+        dc_ed_init(pe->ed_safe[i]);
+
+    for (i =3D 0; i < ARRAY_SIZE(pe->ed_cont); i++)
+        dc_ed_init(pe->ed_cont[i]);
+
+    for (i =3D 0; i < ARRAY_SIZE(pe->fu_disp); i++)
+        pe->fu_disp[i]->ops.init(pe->fu_disp[i]);
+
+If any sub-component of the display pipeline (such as extdst, constframe, o=
+r fu)
+is marked as status =3D "disabled" in the device tree, the component master=
+ in
+dc-drv.c uses for_each_available_child_of_node() and only binds the availab=
+le
+components.
+
+The pointers corresponding to disabled components remain NULL. When
+dc_pe_runtime_resume() executes, it passes these NULL pointers to initializ=
+ation
+functions like dc_ed_init(), which immediately dereferences them when calli=
+ng
+dc_ed_pec_enable_shden(). It also directly dereferences them when calling
+pe->fu_disp[i]->ops.init().
+
+Disabling unused display pipes in the device tree is a standard configurati=
+on
+practice for generic SoCs, but doing so appears to cause a kernel panic here
+during device runtime resume.
+
+>  	dc_ed_pec_poweron(ed);
+>  	dc_ed_pec_sync_mode_single(ed);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-imx8-dc-pr=
+efetch-v6-0-26643e3f6cb7@nxp.com?part=3D10
