@@ -1,103 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419083793DF;
-	Fri,  4 Sep 2026 08:05:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF41380FDF;
+	Fri,  4 Sep 2026 08:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509111; cv=none; b=eEsVCieAChe+rEFBaVQacg3H1cvnG77QLuJ6YXspreM+bg2nInX5MWZWQ/5Un8qGaWkSOZHASDgNXta1GMAhZdnyGK5nN2K+8DnoXX0UCScvwwXYaSdxKZVRusEBvaZqyg6ev4jz4qMB0cP5tFdDB/WQCnnBM48674zC8QAv9fQ=
+	t=1788509146; cv=none; b=Wk1YgkAdrv/ZFJJNI439p0mLlYwpj/toa9KfZuGP4Uq3zRVOGsdyVl0xlQn9lH3vwsc5aQImfsyeDT2EYvskCrGAvtGmu1kxmO00kYeUrrpQR8jlxAaOOU2XgCHLPN0gs1qiu++VTvApQfcARsgfdOkp83UnAe3verl1YwLSYRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509111; c=relaxed/simple;
-	bh=1Kc5Qzb9ZE6Unv1qjDSqEpoERMdsTLHhrTZXiAxSiwE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B3+AhlNNfHl+5+vZd53we4YDshUGRMZ58wV9KHiOPjSJlEvcLDgkUir+tIZMHD6AcqFcdHG5ysqcsq5Jbya7KLDU0CsW2jQMF3Usrf57qFq9ahT2VzsxHLu4KncncghqLVG86oqK1mgXxwJ3jgSJQlvx6Lahw/BvYiMtDwyac6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+wJVPa0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788509146; c=relaxed/simple;
+	bh=538CShpJ8f4UC1xQoTH0YTnlnNg0SRES9UnzLeJ2wWU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=clEmj6TN9cBt2eWC5XQZP5WlO170uKtDAA+c9dPCh2NS1smkfAazSIJ5IYDAFtY4HH9RZiummE+czbRTqAv1dm8lbsojtiltF5GnvTNwlpfm830sHO7TdfdkZ7YskArcr8M1mLnoGa+pylR4tQiAd0PtsxDRhd8xCdpxSPEXqJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kFTnI2fo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+wJVPa0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88C81F00A3D;
-	Fri,  4 Sep 2026 08:05:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kFTnI2fo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 482851F00A3D;
+	Fri,  4 Sep 2026 08:05:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788509109;
-	bh=TqNLCesX2SNrm7Jswp+E1v9760B2VFDRX1NjrjFhDbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L+wJVPa01ltnhm6yS8sGMmIdlggoMUkPoGV2isQtt9tvcl8J6ZiNou1NCbED3W601
-	 /SNBM0RgYXMNQ0BldNLlX1oZb51HBrlFbSyDsQ67bB2xnFysO8saIZ3cGyuVEPPj6X
-	 Jgg/704ElwA675dE66f5Gl7Jhglkk5VA72jhZXjLjsHlzWvzXOfNUTmGlSxX0vGsGa
-	 C/QqIQDWhpp3FzHk7r++EU4BYM4rXIyFL4Kx1DVh4GmBGFuIa1up6fkZs3Yw+S/b4o
-	 6LlG7ST1AnUFhD1YTgZMltJY6g82y+5yqxj22KKe97tTes2MiUwRWEviVk8QI+96ib
-	 Uu39LctKoYFtg==
-Received: from johan by xi.lan with local (Exim 4.99.4)
-	(envelope-from <johan@kernel.org>)
-	id 1x2Ov5-00000006jvW-0Kia;
-	Fri, 04 Sep 2026 10:05:07 +0200
-Date: Fri, 4 Sep 2026 10:05:07 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	usb4-upstream@oss.qualcomm.com,
-	Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
-	Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v4 3/5] phy: qualcomm: qmp-combo: Add preliminary USB4
- support
-Message-ID: <app7s9GZySBj7Mzs@hovoldconsulting.com>
-References: <20260820-topic-usb4phy-v4-0-aec9d2cb31f6@oss.qualcomm.com>
- <20260820-topic-usb4phy-v4-3-aec9d2cb31f6@oss.qualcomm.com>
- <iynrogny3didip7cui3ce3yq3woaqzrr7f4aqdzvls4j4mslfn@aww5qjpy3gdx>
- <b326edbf-fe34-426b-af19-912edc18ba84@oss.qualcomm.com>
+	s=k20260515; t=1788509144;
+	bh=6RpabjVQt9uFzoR0XoNaDXT8Bv+EV2ek9z+0sXs4biE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kFTnI2foS0kcw4hU8mlDNZo6fRs4sSAiAmUKNG5W2hXZwlyGSQFniS4V9kOns5qgP
+	 It4sMVE1nf+dUbCRoi78NpnOhjk4l9cVXQZgxliQhK021GxxpIgwCgAkOWTlcC/Krc
+	 GA/sdLqi6n/aOpBTSkMK2x08XDlorctZ55e7tWwbOTqJa5KJYcLIjwgZYj2C/0hrCs
+	 0P5QcZfq6srFrFvOhQb3qlV7ClvVrTgMaHRXntQaf/AMlCyBYbzuoaU2JsKFR9CRAJ
+	 DT/o/1k+/Q15knoN0R+/VybzHK8SLOicMG49XtcqlUjbilXwiTMK6T5BTeDeV79qzt
+	 M89M5O2ShbBcw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 07/13] drm/imx: dc: Use TCON operation mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liu Ying" <victor.liu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
+References: <20260904-imx8-dc-prefetch-v6-0-26643e3f6cb7@nxp.com>
+ <20260904-imx8-dc-prefetch-v6-7-26643e3f6cb7@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 04 Sep 2026 08:05:43 +0000
+Message-Id: <20260904080544.482851F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b326edbf-fe34-426b-af19-912edc18ba84@oss.qualcomm.com>
 
-On Fri, Sep 04, 2026 at 09:36:04AM +0200, Konrad Dybcio wrote:
-> On 9/1/26 2:44 PM, Manivannan Sadhasivam wrote:
-> > On Thu, Aug 20, 2026 at 04:24:12PM +0200, Konrad Dybcio wrote:
-> >> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>
-> >> Some Combo PHYs (so far only on SC8280XP, X1E80100 and Glymur), come in
-> >> a flavor called USB43DP, which as the name implies, features USB4, USB3
-> >> and DP signal processing capabilities. In that architecture, USB3 and
-> >> USB4 PHYs share the same USB_PLL while featuring separate logic spaces.
-> >> The DP part is roughly the same as on the instances without USB4.
-> 
-> [...]
-> 
-> >> +	case QMPPHY_MODE_USB4:
-> >> +		writel(USB4_MODE, com + QPHY_V3_DP_COM_PHY_MODE_CTRL);
-> >> +
-> >> +		/* bring both QMP USB and QMP DP PHYs PCS block out of reset */
-> >> +		/* TODO: disable DP PLL if there are no active tunnels after router setup */
-> > 
-> > 100 column width generally applies to code, not comments. Comments should still
-> > be wrapped to 80 columns.
-> 
-> I believe this isn't a real concern.. checkpatch certainly doesn't care:
-> 
-> # LONG_LINE_COMMENT     a comment starts before but extends beyond $max_line_length
-> # LONG_LINE_STRING      a string starts before but extends beyond $max_line_length
-> # LONG_LINE             all other lines longer than $max_line_length
-> 
-> (all take the same value, preset to 100 at the top of the file)
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Checkpatch is just a dumb tool. The coding style says the preferred
-limit is 80 chars unless breaking it improves readability. And that
-exception generally does not apply to comments (e.g. unless it contains
-a URL or similar).
+New issues:
+- [High] Regmap accesses inside the IRQ-disabled section use a non-raw spin=
+lock, triggering a sleep-in-atomic bug on PREEMPT_RT.
+- [High] TCON hardware is programmed using logical mode timings instead of =
+the required adjusted CRTC physical timings.
 
-Johan
+Pre-existing issues:
+- [High] Polling jiffies in a busy loop with local interrupts disabled lead=
+s to a hard lockup.
+--
+
+commit 1e5ba5ba9464ec8a1530f337a9b8808253bcb887
+Author: Liu Ying <victor.liu@nxp.com>
+drm/imx: dc: Use TCON operation mode
+
+This commit introduces TCON operation mode to generate customized output
+timings by ignoring FrameGen sync signals. It switches TCON to operation
+mode during CRTC enable to allow the prefetch engine to evade the first
+dumb frame.
+
+> diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc=
+-crtc.c
+> index 71694f1244e17..eae9bd164b230 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
+[ ... ]
+> @@ -273,7 +285,22 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct =
+drm_atomic_commit *state)
+[ ... ]
+> +	/* Don't relinquish CPU until TCON is set to operation mode. */
+> +	local_irq_save(flags);
+> +	preempt_disable();
+> =20
+>  	dc_fg_enable(dc_crtc->fg);
+> +	/*
+> +	 * Turn TCON into operation mode as soon as the first dumb
+> +	 * frame is generated by DC(we don't relinquish CPU to ensure
+> +	 * this).  This makes DPR/PRG be able to evade the frame.
+> +	 */
+> +	DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING(dc_crtc->fg);
+
+[Severity: High]
+This is a pre-existing issue, but duplicating this pattern here might lead
+to a hard lockup.
+
+The DC_CRTC_WAIT_FOR_FRAMEGEN_FRAME_INDEX_MOVING macro eventually calls
+dc_fg_wait_for_frame_index_moving(), which polls the hardware state in a
+do-while loop bounded by time_before(jiffies, timeout).
+
+Because local interrupts are disabled here via local_irq_save(), the timer
+tick cannot run. If this CPU is responsible for updating jiffies (or on a
+UP system), jiffies will never increment. If the hardware frame index
+fails to move, will this loop spin infinitely and trigger a watchdog or
+CPU stall?
+
+(This flawed pattern already existed in dc_crtc_atomic_flush(), but this
+patch duplicates it into dc_crtc_atomic_enable()).
+
+> +	dc_tc_set_operation_mode(dc_crtc->tc);
+
+[Severity: High]
+Does this regmap write trigger a sleep-in-atomic bug on PREEMPT_RT?
+
+Calling dc_tc_set_operation_mode() here triggers a regmap write. Since we
+are inside a local_irq_save() block, and the TCON regmap (configured in
+dc_tc_regmap_config) lacks .use_raw_spinlock =3D true, it will attempt to
+acquire a sleepable rt_mutex on PREEMPT_RT, violating lock nesting rules.
+
+> +
+> +	local_irq_restore(flags);
+> +	preempt_enable();
+[ ... ]
+> diff --git a/drivers/gpu/drm/imx/dc/dc-tc.c b/drivers/gpu/drm/imx/dc/dc-t=
+c.c
+> index d0d4faba790e5..746fcaaf97f56 100644
+> --- a/drivers/gpu/drm/imx/dc/dc-tc.c
+> +++ b/drivers/gpu/drm/imx/dc/dc-tc.c
+[ ... ]
+> @@ -46,7 +77,7 @@ static const struct regmap_config dc_tc_regmap_config =
+=3D {
+>  	.fast_io =3D true,
+>  	.wr_table =3D &dc_tc_regmap_access_table,
+>  	.rd_table =3D &dc_tc_regmap_access_table,
+> -	.max_register =3D MAPBIT31_28,
+> +	.max_register =3D SMXFCTTABLE(3),
+>  };
+
+[Severity: High]
+Does this regmap configuration need .use_raw_spinlock =3D true?
+
+Since .fast_io =3D true is set without .use_raw_spinlock, the regmap protec=
+ts
+fast I/O with a standard spinlock_t. On PREEMPT_RT kernels, spinlock_t
+becomes a preemptible rt_mutex which can sleep, causing crashes if accessed
+while hardware interrupts are disabled.
+
+[ ... ]
+> @@ -59,10 +90,85 @@ static const u32 dc_tc_mapbit[] =3D {
+[ ... ]
+> +void dc_tc_cfg_videomode(struct dc_tc *tc, struct drm_display_mode *m)
+> +{
+> +	int hdisplay, hsync_start, hsync_end;
+> +	int vdisplay, vsync_start, vsync_end;
+> +	int y;
+> +
+> +	hdisplay =3D m->hdisplay;
+> +	vdisplay =3D m->vdisplay;
+> +	hsync_start =3D m->hsync_start;
+> +	vsync_start =3D m->vsync_start;
+> +	hsync_end =3D m->hsync_end;
+> +	vsync_end =3D m->vsync_end;
+
+[Severity: High]
+Are these the correct timings to use for TCON hardware programming?
+
+By extracting the logical mode timings (e.g., m->hdisplay) instead of the
+physical adjusted timings (e.g., m->crtc_hdisplay), we might program the
+TCON and FrameGen with mismatched timings.
+
+FrameGen correctly uses the adjusted crtc_* variants. If a DRM bridge or
+encoder adjusts the physical timings (like scaling or interleaving) while
+leaving logical timings intact, will this mismatch cause sync loss, visual
+corruption, or panel failure?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-imx8-dc-pr=
+efetch-v6-0-26643e3f6cb7@nxp.com?part=3D7
