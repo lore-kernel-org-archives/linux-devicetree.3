@@ -1,133 +1,171 @@
-Received: from mail-m3278.qiye.163.com (mail-m3278.qiye.163.com [220.197.32.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFEB93F8EB3;
-	Fri,  4 Sep 2026 10:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D0CA3A48F6
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 10:30:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517121; cv=none; b=iIz41t8wCTPOSgE1CQ517wWF9TnJTplmdHqe+NvF8kG66O97iWHE+VQtW9CNCjVkJT6FUb9qoQjNkH8w/vSrefcDzvuVqgHwvWYntNzeDfTpItkf9xCR0aW1SSLISLOayFE//3gXHBSZNSm5OGF3gpF1qdXD7LjyYZCkqMW/+44=
+	t=1788517817; cv=none; b=JiYESnrcTJyZSksiLuEAZSoFUxm7lkSUAos/70rpwHA9jylBlBtEOJzTKg/QQy2+w2I8ddWea9CsgpGD10gRsLotgV+Z3/4GUXRtlzNsNxwHUCL7OqDg+/e6CVoY5pUa21EQo0BLpMZoHVJCwCqRRyxiUYsLAW5kiElBwUvzbGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517121; c=relaxed/simple;
-	bh=uU45ngtFZM7M60giThROBp1vWuJIs8ZAf1FGc1ApM0E=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TktqgZRHbYT639pl1luJcJrKzLjA1r7NEhm2mqZHIzNML0XFTK+QEh5frPt7oUF300q3PX4IyVXElHOlzChqgspRD+6bcMPbUcho28DqZadNqh100UY1xg2ZuZBfRL9hwyKtpghmoaWVUZLdV8m/eC0hnVDoe2c0nt8phKzJONM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=k0dbijPg; arc=none smtp.client-ip=220.197.32.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
+	s=arc-20240116; t=1788517817; c=relaxed/simple;
+	bh=uVc0Haysmuy6CvaFK+dk8qOhVOt4yNfT0/lEf2bvims=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k7cFVGizzDSiMG4d6hPmJ8pK7Kv3K9xjikUF81tZihNPoTWugjw0RBtiuLBiJ6PJGjGMY4hLPw8zCowBbHhj2QvPKoa82rK31eOTL4UzVbuUUtmKoGNCXynVNN8J1f0nNM74xjop8IIqd4S+T0EzbxxNaWuRwsT1smo63VrDVEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=b/ki3fYX; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="k0dbijPg"
-Received: from [127.0.1.1] (unknown [36.129.139.90])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4c8f646e4;
-	Fri, 4 Sep 2026 18:03:00 +0800 (GMT+08:00)
-From: Hongyang Zhao <hongyang.zhao@thundersoft.com>
-Date: Fri, 04 Sep 2026 18:02:29 +0800
-Subject: [PATCH v3 5/6] ASoC: qcom: sc8280xp: Add RubikPi 3 sound card
- support
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="b/ki3fYX"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso7816715e9.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 03:30:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1788517813; x=1789122613; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cZQTL/pBpcVt07rJQmd4UdoWGK2B3BL5sj1p+ycgeVo=;
+        b=b/ki3fYX1t4yYV2hW8vSywi+rFbVqvfkl3hGMS7ftZIqHJXy9ZK5aRpwnKVufeNMpK
+         MD/DhW95IebR0eL7lFV3SDPM8/d5jJYcTTGCyJnV/6pH0AaUQnQszjBjIWEtLrlsZacN
+         A5A2reM7wGWkjU9HRfFKkri+P9MZeuOdT1GspZSUmQIJ8juywrjEmS31uIze6HyCi+9Q
+         ng5mQtElxqNxqkjSW8OGBEoBg8WpWFxJSFK8MAnL6oBxzV/Jd1TBIuEy0swwyUYZcB5t
+         TRblCNqaCOaLV1H7TMXi/UVyHm742YZMqPsvkUUiKr8n9e0jrfh0s0RlNn9CMMU3LnbT
+         sfkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788517813; x=1789122613;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cZQTL/pBpcVt07rJQmd4UdoWGK2B3BL5sj1p+ycgeVo=;
+        b=nAcYyWBB/CGSgSyUrSsluXhoQGqBkjjjUpEiwxdigDp0ZCeuCsGQbBlYkqFOebxfU3
+         lfLzPD+b1K2pAs9H5R4KsVckvKLWAHvfRgDiBgvzm1CZQx7dRGn9Ztj/bhgiAgPh71zr
+         BwxPytcVf80M4kS+dbqggq+y69aoKETwGa3P/magrAxhuYXliH1w7IidL40cdEMDnHQ1
+         f7xPJLHdLycSrBFCdwenFRWklW8r+gTcJZIl5HxP9mXGwW1dmh3fZ+96+jJa4o//htAF
+         WC5nusYTe4rbZxYgj/xzkhOawyg/xi//LP7ggXWkWeVCToCU94MWLg3CcImmQ7N7yFxe
+         Of2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxFQaZcfuhsjSBl5VC6/znqoLHrShPWqmAb2OoTIJd77n7tG+rOGwT4cilSYzU1I9sVY99aMGxsA3CU@vger.kernel.org
+X-Gm-Message-State: AFuF++mAmC5GSy2yM8/1jEVBNDUqClyJcvn3D6QoE0X/57okrCCLIroq
+	auCMu8o9stwPhdy/gfbXShpuIbSn6s6f9psgJWzjHLR6vrubxcn/FEqauAZ1EMKvDUQ=
+X-Gm-Gg: AYBFou3scwpQlw5tpivtwL/F1cVbclPndEYceRpkCsA9d5q27u2tYv4ZSfNsrtugiyd
+	Jj4UacNx99cXz+5MxNMI0dvtevYBqhUHLRmIA1UtMEoonUkJJZ2zyj6eUQVKgYbaMjYXURK8Gqj
+	GaZEZ0VjhM9UtVScduip7gxfhr9BBhKHlakccw8hKc0qD4JRxnJgrMkQWbhdx21i5B45gdJegxc
+	mxdm4zg7a4fr1rWLm31EAHFnvrQ9bBPbiPLIztehXPtatWKiat4rAy9tqjR0Z2G9aAoFdh6UqO4
+	x4RoUQVtp1J278rd5XEfngVplgfWszTVksPfgng6BMgM1lpVePdYRFeAtKIJM7fOcZMvBkoR9z0
+	6tNrE9w6hEHTCMq+f4f4/ZroE0wVTqprtQNlPNNl4Gvf9pyGUlxFiEFroMFLkLJGM+JrOJt12LF
+	GbAE1XmTsRIE8epye0YDY29ymMLBk45xSsI8eUUx1+lm5nsd6ewK8I+fKkQw==
+X-Received: by 2002:a05:600c:8708:b0:49c:fa21:1c7c with SMTP id 5b1f17b1804b1-49cfa211d48mr27435135e9.17.1788517813094;
+        Fri, 04 Sep 2026 03:30:13 -0700 (PDT)
+Received: from localhost ([194.183.24.73])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c5bc5sm5567744f8f.24.2026.09.04.03.30.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 03:30:12 -0700 (PDT)
+From: Andrea della Porta <andrea.porta@suse.com>
+X-Google-Original-From: Andrea della Porta <aporta@suse.de>
+Date: Fri, 4 Sep 2026 12:33:51 +0200
+To: Gregor Herburger <gregor.herburger@linutronix.de>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2] arm64: dts: broadcom: bcm2712-rpi-5-b: add spi0
+ interface
+Message-ID: <apqej5QyjOHu702A@apocalypse>
+References: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-rubikpi-next-20260605-v3-5-f49146d85af3@thundersoft.com>
-References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-In-Reply-To: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>, 
- Katsuhiro Suzuki <katsuhiro@katsuster.net>, 
- Matteo Martelli <matteomartelli3@gmail.com>, 
- Binbin Zhou <zhoubinbin@loongson.cn>, 
- Srinivas Kandagatla <srini@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>, 
- Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, Hongyang Zhao <hongyang.zhao@thundersoft.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788516170; l=2525;
- i=hongyang.zhao@thundersoft.com; s=20260127; h=from:subject:message-id;
- bh=uU45ngtFZM7M60giThROBp1vWuJIs8ZAf1FGc1ApM0E=;
- b=VmgUWEvr2lsBrl6YyvzwcFl+ZfZRCIbZxWF0UmLdulwzX3rq5lIceyriQ0RaVchgjdkm92AgJ
- ZjGQbDDF9CACAhBlIPv+A6aHBrxqDsPejoDrNv+SUW+X7RH3lJB00i2
-X-Developer-Key: i=hongyang.zhao@thundersoft.com; a=ed25519;
- pk=D9yL5W9Zj0lPBDAq9gzY++1849VlXuTWAkROzZ88J/4=
-X-HM-Tid: 0aa06bdf235f09d5kunm6f63729aafb94
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSEMdVk9KQ0oeT0oZTEMeTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlITVVKSUJVSkhCVUJLWVdZFhoPEhUdFFlBWU9LSFVKS0
-	lPT09IVUpLS1VKQktLWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=k0dbijPgSWPJI9marrp8uVSZKPy3eq1JS9P9CS/9mtTpvDaECP6Nn3W+qhiYNtnW6BFA8iFWfgDz/jQ1b1byKNKe+LqQuifYH1MmB3FEu0+8wOp6xpTphPLMxksQHihbZgDtoWa4TTy/rMqNDqSFISxL+Dlv+gWc++H51qQ6R00=; s=default; c=relaxed/relaxed; d=thundersoft.com; v=1;
-	bh=HW5Z3J523FbzqVUD8ZxicdUroFUkrS81sJizOzooGNQ=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-bcm2712-spi-v2-1-6f8fdfb030bc@linutronix.de>
 
-RubikPi 3 connects an ES8316 codec to primary MI2S for headset playback
-and capture, and an LT9611 bridge to quaternary MI2S for HDMI audio.
+Hi Gregor,
 
-Add per-DAI data for the primary playback and capture links. Configure
-the codecs for I2S with normal clock polarity and as bit and frame clock
-consumers. Program the primary MI2S BCLK, configure the ES8316 for its
-fixed 19.2 MHz MCLK and enable component jack detection on the playback
-link.
+On 11:24 Fri 04 Sep     , Gregor Herburger wrote:
+> The Raspberry Pi 5 routes the spi0 of the rp1 chip to the pin header.
+> Add the rp1_spi0 node and its pinctrl node to the devicetree to enable
+> the spi interface.
 
-The HDMI link inherits the card-wide I2S format but does not request
-codec sysclk programming because the LT9611 codec DAI does not implement
-set_sysclk().
+Just a nit-pick: in the comment it's stated that the spi interface is enabled,
+which is not true since rp1_usb inherit status="disabled" from its node
+definition. This is fine because the user would probably want to enable the
+spi interface through some overlay, so no need to resend the patch (at least
+for me), so:
 
-Select this configuration through the RubikPi 3 sound-card compatible.
+Reviewed-by: Andrea della Porta <andrea.porta@suse.com>
 
-Signed-off-by: Hongyang Zhao <hongyang.zhao@thundersoft.com>
----
- sound/soc/qcom/sc8280xp.c | 23 +++++++++++++++++++++++
- 1 file changed, 23 insertions(+)
+Thanks!
 
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 368a54c2cdf8..73009f9bb8e4 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -577,6 +577,28 @@ static const struct qcom_snd_soc_common qcs6490_priv_data = {
- 	.wcd_jack = true,
- };
- 
-+static const struct qcom_snd_soc_common rubikpi3_priv_data = {
-+	.driver_name = "qcs6490",
-+	.dapm_widgets = sc8280xp_dapm_widgets,
-+	.num_dapm_widgets = ARRAY_SIZE(sc8280xp_dapm_widgets),
-+	.codec_dai_fmt = SND_SOC_DAIFMT_I2S |
-+			 SND_SOC_DAIFMT_NB_NF |
-+			 SND_SOC_DAIFMT_BC_FC,
-+	SC8280XP_DAI_DATA({
-+			.id = PRIMARY_MI2S_RX,
-+			.mclk_rate = 19200000,
-+			.codec_sysclk_set = true,
-+			.mi2s_bclk_enable = true,
-+			.jack_setup = SC8280XP_JACK_SETUP_CODEC,
-+		}, {
-+			.id = PRIMARY_MI2S_TX,
-+			.mclk_rate = 19200000,
-+			.codec_sysclk_set = true,
-+			.mi2s_bclk_enable = true,
-+		}
-+	),
-+};
-+
- static const struct qcom_snd_soc_common qcs8275_priv_data = {
- 	.driver_name = "qcs8300",
- 	.dapm_widgets = max98090_dapm_widgets,
-@@ -656,6 +678,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
- 	{ .compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data },
- 	{ .compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data },
- 	{ .compatible = "qcom,qcs6490-rb3gen2-sndcard", .data = &qcs6490_priv_data },
-+	{ .compatible = "thundercomm,qcs6490-rubikpi3-sndcard", .data = &rubikpi3_priv_data },
- 	{ .compatible = "qcom,qcs8275-sndcard", .data = &qcs8275_priv_data },
- 	{ .compatible = "qcom,qcs9075-sndcard", .data = &qcs9100_priv_data },
- 	{ .compatible = "qcom,qcs9100-sndcard", .data = &qcs9100_priv_data },
+Andrea
 
--- 
-2.43.0
-
+> 
+> Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
+> ---
+> The RP1 chip, found on the raspberry Pi 5, has nine spi controllers. The
+> spi0 is routed to the pin header. Add the rp1 nodes and enable it for
+> the Raspberry Pi 5.
+> ---
+> Changes in v2:
+> - Drop first patch as it got already applied: https://lore.kernel.org/lkml/20260903194624.2038562-1-florian.fainelli@broadcom.com/
+> - add cs gpios to rp1_gpio for pinctrl
+> - Link to v1: https://patch.msgid.link/20260811-bcm2712-spi-v1-0-4c1708d354bb@linutronix.de
+> ---
+>  arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> index 0fc57e72632ed..0de3d78100a5d 100644
+> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
+> @@ -69,6 +69,20 @@ usb_vbus_default_state: usb-vbus-default-state {
+>  		groups = "vbus1";
+>  	};
+>  
+> +	rp1_spi0_default_state: rp1-spi0-default-state {
+> +		function = "spi0";
+> +		groups = "spi0";
+> +		bias-disable;
+> +		drive-strength = <12>;
+> +		slew-rate = <1>;
+> +	};
+> +
+> +	rp1_spi0_cs_default_state: rp1-spi0-cs-default-state {
+> +		function = "gpio";
+> +		pins = "gpio7", "gpio8";
+> +		bias-pull-up;
+> +	};
+> +
+>  	rp1_i2c4_default_state: rp1-i2c4-default-state {
+>  		function = "i2c4";
+>  		groups = "i2c4_2";
+> @@ -94,6 +108,14 @@ &rp1_i2c6 {
+>  	pinctrl-names = "default";
+>  };
+>  
+> +&rp1_spi0 {
+> +	pinctrl-0 = <&rp1_spi0_default_state &rp1_spi0_cs_default_state>;
+> +	pinctrl-names = "default";
+> +
+> +	num-cs = <2>;
+> +	cs-gpios = <&rp1_gpio 8 GPIO_ACTIVE_LOW &rp1_gpio 7 GPIO_ACTIVE_LOW>;
+> +};
+> +
+>  &rp1_usb0 {
+>  	pinctrl-0 = <&usb_vbus_default_state>;
+>  	pinctrl-names = "default";
+> 
+> ---
+> base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+> change-id: 20260811-bcm2712-spi-644b70fee3bf
+> 
+> Best regards,
+> --  
+> Gregor Herburger <gregor.herburger@linutronix.de>
+> 
