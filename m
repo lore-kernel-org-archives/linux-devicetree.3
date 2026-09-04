@@ -1,124 +1,483 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFB23EE1FC
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 06:28:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C893C41D11C
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 06:37:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788503310; cv=none; b=p4n6KUVQO98pLSQgtWyIBlWydPL1JpZaTVIs0/DodEpmbSffQ4ThFTUz0s7hvlQLkKrlxh8Vug0GbSdym5Wnbt0pJ+bWdKI7U9fTjqaqBmVftMS8MRx7Xa+JMgmUDHbiykV1Gsq99mEe3+Y+4loq1ooTcsDiyu4q6vbvFAe3Gug=
+	t=1788503858; cv=none; b=cy3A/LrmFn3WefKfZP6r3AM5r4xpUdeRmn70iBJlR/bGZg++jNE7GomRduL0t5RRCBCfFBeSLgEmAxZcBdzNCSt1h90E9BtkspxupKfZPMJsXdX6QsOFOzYFlsDRQjmWQYyO0gIsvOemp6wSUhObV/uxJog6KtTusJfKj5KTEW8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788503310; c=relaxed/simple;
-	bh=KbwFDrlmSN27QV9R6WstdjhTl+A4a1WSAvAikQgN1Is=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ckqd0/Fx2kltnuNy+grAvnDB/rM7lXVc7FWpGBZYdlo6aDp0Pe/MGp9Nmx6Kho2hhnAb9QxyfWUs8ZIwu+U2FVPKjUL8ZKq0TikCoVCIMokqo7eqYEGPQMnx6EhFP/4XdQlXiKgNldDANytvo2mYnZQgZQ0IgyV8uIrAcH3Ea0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1FdLYB8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788503858; c=relaxed/simple;
+	bh=fO8HEucFyB6ivqL8cpeSQxOTCLgCzY4ipn4gVgFluD4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=e2fQJ6A5U3lxMezZ1egH55QBBAy5+QKOzCYU63Imyi7QJvsDv8tZiDtH5+e+O2D21MQG3SvSi3ZFeIimdSVY85aLJAr/GZED1kqylzDHCfSbFbitijTIBt0H/6/7S2dLiWVoyICxi2a+NHqXsudYZrtPSJsPe4sfSO1pxP6Lp8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gsC7T5sd; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1FdLYB8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B9CF1F00A3D;
-	Fri,  4 Sep 2026 06:28:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788503308;
-	bh=fLdgweaoK1hPjaQvVxqwaxyRFVaf51hCXNqxqMknSd0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M1FdLYB8mSYNE/6kN/ctABMLz1S4jRFWrrMz26OFAbok1fTfAfmzehaklxK6AZ6y7
-	 1BMHnI6R2ywuQZdvov2Xqh4jPtyl+vPoVr8myET7Ls9/EJQM277CO7a59z9I4Hr1qJ
-	 ETjhCO5WCv3xZa2CPM8ySBV52WvqHDksjEG8rJNySMsHoOlkbB+QSr+qpQQzp1AO8p
-	 yshT71VJMw/wDtB6+v+FUCvqer/J9Rd7qevhf8IN7I6pw6oTiZsbtdPtxVS0kBv1NY
-	 gWyYtWaftri8F43xqi6ca3HvFSdy3CVSIV1Ri6p/ww1nLBzkzAWfiJCZNSA+nZYEZ6
-	 UTcbFGFrU2www==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] mux: gpio: Add optional enable gpio
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260904-add-external-mux-enable-gpio-v3-2-1b868e669e43@vaisala.com>
-References: <20260904-add-external-mux-enable-gpio-v3-0-1b868e669e43@vaisala.com>
- <20260904-add-external-mux-enable-gpio-v3-2-1b868e669e43@vaisala.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 04 Sep 2026 06:28:27 +0000
-Message-Id: <20260904062828.4B9CF1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gsC7T5sd"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482dd6ee390so603784f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 03 Sep 2026 23:37:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788503854; x=1789108654; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gN/tVxMdD62h/mSsC0SLmiOrOP7gax7KrxgcdBdmMRw=;
+        b=gsC7T5sdgsQ6t/vbZbPU2ciGn9q+1azs7vQbReHL1tP0jgFOLIpyJKNtLHYanze77q
+         o24+a6hiONQZ8P95K05lQz2M255nEA0i+nSxHm8dILbd8VDrnq78G0cx+r6y9z/DtQuM
+         iSsKdGzT/SrDJV3M7BIWSzhWUSoXgnImUpyxksnBx1bsPetM/VZOspPac293XmjjBiWR
+         gQjP9/o7pDFvC3GyEGNQYCabeDSIlC89NOWWKVpSILNane+SNsc2XChDFP13t5b/9tPJ
+         +q44aMzyCCmo2jilGms3lxkN0gDQ+saiVINMK2EUM1xJe46Z0WS11l3yohQbq3cS8aY5
+         KRVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788503854; x=1789108654;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gN/tVxMdD62h/mSsC0SLmiOrOP7gax7KrxgcdBdmMRw=;
+        b=kpIj3jjPSDOK/69aIi7veniwYIAUTo0Dw+BH26sqV5E4GCmwV5Jy7RhprtPRtTsbak
+         YSj4oLimfqnY5Vsv/Lc89mUIcC0nYxdZlbwwyzIVi+yv2I5k/KeKgOB1yhUtJa1cHQCS
+         +/jhtTBtccxnGEBbPnMLbVm5n2pFgRN1C8+t2E7VfsIxQ1og/rzJ4srh4aFdzGCf6wBB
+         jCq6xRn6Zio73fvQimd4GfPJCGSwUBSKlnmV+Wqjc275nOVtW+QWgYraccC6zyx0KZFl
+         7e9K3KlHJm/2VGoXKv96Xf+V/YIyv5Du/ScWhdKHNV+9QCQzDGLpTh+MOkmQNp7/0txO
+         27yA==
+X-Gm-Message-State: AFuF++n+NkqXDQZnNnk4DyWUNHO0t5XIMIXwTbNz18WaRmSuzzox4p7S
+	Y3Aom7RC7u/WHOx4dQgn6pWHvYwfD0CncYG3Rk3ivfPBqwQDRMnqERwZBrapY/hA9ko=
+X-Gm-Gg: AYBFou0AUotooCfFFnGwjIW7oO2pV7DS4TRdgwJ3G2FAKB4WmuWm/7iGxdY6DuRaHE7
+	kZPrcWMzmb5eCpV9PpCTlbNlWOlClMJOz8nT7cxafscRilyZWmIHA0CwdT/LZVo6C00lFj854/b
+	31di9ozJRSQL/IH18yhT2rG7knJtgQC9a8ZBotkIUj+YWbHw9iyW7Rdp5QS0DxKKNObh1rR34KM
+	ErGgutKVvO2mo4guUP30qcaM5GoSwkkAPvW0hCAcS93FgPRBesWDUuDXdcXu0LLPE1mW1Hqjuo7
+	EtfF5DuBRhIlqUtTB+iuWxMWupV//mBJplATw7/gTexTQuiGB5iYu3B54GL8GBObiIXxtdL3UsY
+	BlZOruE4swc3ChMxjq0VB3uMUmil9TD/TgfPwJe8Mnrvca3V7lML3y6Igs/h3Bs02umxDlr5OxU
+	zez5/Mwiwx5m5UliinGFSSyJ5CzQG3yBiQ1XT/ZymuaExJHvC4iIUpkFgf9VJgSVt/0mXkFxXlx
+	Fy+L4icerp+TDeMtbixcTX6kY2eWMmFO1GW+1JZJrwW
+X-Received: by 2002:a05:600c:6088:b0:49c:fc6c:be15 with SMTP id 5b1f17b1804b1-49cfc6cc100mr9741345e9.27.1788503853750;
+        Thu, 03 Sep 2026 23:37:33 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:e8f4:b358:2087:5bd3? ([2a01:e0a:106d:1080:e8f4:b358:2087:5bd3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885b405fsm3950836f8f.28.2026.09.03.23.37.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 23:37:33 -0700 (PDT)
+Message-ID: <94fc2be2-01a0-4d3b-8d27-a4c42d8449d4@linaro.org>
+Date: Fri, 4 Sep 2026 08:37:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 2/2] arm64: dts: amlogic: add Xiaomi Mi Box 4 support
+To: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org
+References: <20260903-mibox4-dt-v3-0-1a8e395d923c@stu.hqu.edu.cn>
+ <20260903-mibox4-dt-v3-2-1a8e395d923c@stu.hqu.edu.cn>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260903-mibox4-dt-v3-2-1a8e395d923c@stu.hqu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-
-Pre-existing issues:
-- [High] Out-of-bounds stack read in `mux_gpio_set` when the number of GPIO=
-s specified in the device tree exceeds the bit width of `unsigned long`.
---
-
-commit e5d22f785ccbb077940b83f814cc7d4237449e05
-Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
-
-mux: gpio: Add optional enable gpio
-
-Some analog multiplexers have an enable input that disconnects all
-channels when deasserted, independent of the address inputs. This patch
-adds support for an optional enable gpio to handle this. It also updates
-the mux idle state logic to require this enable gpio when disconnecting.
-
-> diff --git a/drivers/mux/gpio.c b/drivers/mux/gpio.c
-> index f9c7863e51b82..2fd8c83dc22e1 100644
-> --- a/drivers/mux/gpio.c
-> +++ b/drivers/mux/gpio.c
-
-[ ... ]
-
-> @@ -25,12 +26,26 @@ static int mux_gpio_set(struct mux_control *mux, int =
-state)
->  	struct mux_gpio *mux_gpio =3D mux_chip_priv(mux->chip);
->  	DECLARE_BITMAP(values, BITS_PER_TYPE(state));
->  	u32 value =3D state;
-> +	int ret;
+On 9/3/26 12:18, YuChia-Kan wrote:
+> Add initial device tree support for the Xiaomi Mi Box 4
+> (MDZ-21-AA), based on the Amlogic S905L SoC.
+> 
+> Enable the main on-board peripherals including eMMC, Wi-Fi,
+> HDMI, CEC, USB, audio, power LED, GPU and video decoder.
+> 
+> Signed-off-by: YuChia-Kan <raspberrykan@stu.hqu.edu.cn>
+> ---
+>   arch/arm64/boot/dts/amlogic/Makefile               |   1 +
+>   .../dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts | 333 +++++++++++++++++++++
+>   2 files changed, 334 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+> index 57bc440fa55c..ad6ab4216083 100644
+> --- a/arch/arm64/boot/dts/amlogic/Makefile
+> +++ b/arch/arm64/boot/dts/amlogic/Makefile
+> @@ -72,6 +72,7 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-nexbox-a95x.dtb
+>   dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-p212.dtb
+>   dtb-$(CONFIG_ARCH_MESON) += meson-gxl-s905x-vero4k.dtb
+>   dtb-$(CONFIG_ARCH_MESON) += meson-gxlx-s905l-p271.dtb
+> +dtb-$(CONFIG_ARCH_MESON) += meson-gxlx-s905l-xiaomi-mibox4.dtb
+>   dtb-$(CONFIG_ARCH_MESON) += meson-gxm-gt1-ultimate.dtb
+>   dtb-$(CONFIG_ARCH_MESON) += meson-gxm-khadas-vim2.dtb
+>   dtb-$(CONFIG_ARCH_MESON) += meson-gxm-mecool-kiii-pro.dtb
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts b/arch/arm64/boot/dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts
+> new file mode 100644
+> index 000000000000..3b293dc31086
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/amlogic/meson-gxlx-s905l-xiaomi-mibox4.dts
+> @@ -0,0 +1,333 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +// Copyright (c) 2026 YuChia-Kan <mail@raspberrykan.dev>
 > +
-> +	/*
-> +	 * The gpios might not be updated atomically, disable the mux
-> +	 * meanwhile.
-> +	 */
-> +	ret =3D gpiod_set_value_cansleep(mux_gpio->enable, 0);
-> +	if (ret)
-> +		return ret;
+> +/dts-v1/;
 > +
-> +	if (state =3D=3D MUX_IDLE_DISCONNECT)
-> +		return 0;
-> =20
->  	bitmap_from_arr32(values, &value, BITS_PER_TYPE(value));
-> =20
-> -	gpiod_multi_set_value_cansleep(mux_gpio->gpios, values);
-> +	ret =3D gpiod_multi_set_value_cansleep(mux_gpio->gpios, values);
+> +#include "meson-gxl-s905x.dtsi"
+> +
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/sound/meson-aiu.h>
+> +
+> +/ {
+> +	compatible = "xiaomi,mibox4", "amlogic,s905l", "amlogic,meson-gxlx";
+> +	model = "Xiaomi Mi Box 4 (MDZ-21-AA)";
+> +
+> +	aliases {
+> +		serial0 = &uart_AO;
+> +		mmc0 = &sd_emmc_c;
+> +		mmc1 = &sd_emmc_a;
+> +		/delete-property/ mmc2;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	av_mute: analog-audio-mute {
+> +		compatible = "simple-audio-amplifier";
+> +		sound-name-prefix = "AV";
+> +		enable-gpios = <&gpio GPIOH_5 GPIO_ACTIVE_HIGH>;
+> +	};
+> +
+> +	memory@0 {
+> +		device_type = "memory";
+> +		reg = <0x0 0x0 0x0 0x80000000>;
+> +	};
+> +
+> +	hdmi_connector: hdmi-connector {
+> +		compatible = "hdmi-connector";
+> +		type = "a";
+> +
+> +		port {
+> +			hdmi_connector_in: endpoint {
+> +				remote-endpoint = <&hdmi_tx_tmds_out>;
+> +			};
+> +		};
+> +	};
+> +
+> +	cvbs_connector: cvbs-connector {
+> +		compatible = "composite-video-connector";
+> +
+> +		port {
+> +			cvbs_connector_in: endpoint {
+> +				remote-endpoint = <&cvbs_vdac_out>;
+> +			};
+> +		};
+> +	};
+> +
+> +	hdmi_usb_5v: regulator-hdmi-usb-5v {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "HDMI_USB_5V";
+> +		regulator-min-microvolt = <5000000>;
+> +		regulator-max-microvolt = <5000000>;
+> +		gpio = <&gpio_ao GPIOAO_4 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		regulator-boot-on;
+> +		regulator-always-on;
+> +	};
+> +
+> +	vddio_boot: regulator-vddio-boot {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "VDDIO_BOOT";
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <1800000>;
+> +	};
+> +
+> +	vddao_3v3: regulator-vddao-3v3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "VDDAO_3V3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +	};
+> +
+> +	vddio_ao18: regulator-vddio-ao18 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "VDDIO_AO18";
+> +		regulator-min-microvolt = <1800000>;
+> +		regulator-max-microvolt = <1800000>;
+> +	};
+> +
+> +	vcc_3v3: regulator-vcc-3v3 {
+> +		compatible = "regulator-fixed";
+> +		regulator-name = "VCC_3V3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +	};
+> +
+> +	emmc_pwrseq: emmc-pwrseq {
+> +		compatible = "mmc-pwrseq-emmc";
+> +		reset-gpios = <&gpio BOOT_9 GPIO_ACTIVE_LOW>;
+> +	};
+> +
+> +	wifi32k: wifi32k {
+> +		compatible = "pwm-clock";
+> +		#clock-cells = <0>;
+> +		clock-frequency = <32768>;
+> +		pwms = <&pwm_ef 0 30518 0>;
+> +	};
+> +
+> +	wifi_pwrseq: wifi-pwrseq {
+> +		compatible = "mmc-pwrseq-simple";
+> +		reset-gpios = <&gpio GPIOX_9 GPIO_ACTIVE_LOW>;
+> +		clocks = <&wifi32k>;
+> +		clock-names = "ext_clock";
+> +		post-power-on-delay-ms = <200>;
+> +	};
+> +
+> +	leds: leds {
+> +		compatible = "gpio-leds";
+> +
+> +		power_led: power-led {
+> +			color = <LED_COLOR_ID_WHITE>;
+> +			function = LED_FUNCTION_POWER;
+> +			gpios = <&gpio GPIOX_6 GPIO_ACTIVE_HIGH>;
+> +			default-state = "on";
+> +		};
+> +	};
+> +
+> +	sound {
+> +		compatible = "amlogic,gx-sound-card";
+> +		model = "Xiaomi-Mi-Box-4";
+> +		audio-aux-devs = <&av_mute>;
+> +		audio-widgets = "Line", "Lineout";
+> +		audio-routing = "AV INL", "ACODEC LOLN",
+> +				"AV INR", "ACODEC LORN",
+> +				"Lineout", "AV OUTL",
+> +				"Lineout", "AV OUTR";
+> +
+> +		clocks = <&clkc CLKID_MPLL0>,
+> +			 <&clkc CLKID_MPLL1>,
+> +			 <&clkc CLKID_MPLL2>;
+> +		assigned-clocks = <&clkc CLKID_MPLL0>,
+> +				  <&clkc CLKID_MPLL1>,
+> +				  <&clkc CLKID_MPLL2>;
+> +		assigned-clock-rates = <294912000>, <270950400>, <393216000>;
+> +
+> +		dai-link-0 {
+> +			sound-dai = <&aiu AIU_CPU CPU_I2S_FIFO>;
+> +		};
+> +
+> +		dai-link-1 {
+> +			sound-dai = <&aiu AIU_CPU CPU_I2S_ENCODER>;
+> +			dai-format = "i2s";
+> +			mclk-fs = <256>;
+> +
+> +			codec-0 {
+> +				sound-dai = <&aiu AIU_HDMI CTRL_I2S>;
+> +			};
+> +
+> +			codec-1 {
+> +				sound-dai = <&aiu AIU_ACODEC CTRL_I2S>;
+> +			};
+> +		};
+> +
+> +		dai-link-2 {
+> +			sound-dai = <&aiu AIU_HDMI CTRL_OUT>;
+> +
+> +			codec-0 {
+> +				sound-dai = <&hdmi_tx>;
+> +			};
+> +		};
+> +
+> +		dai-link-3 {
+> +			sound-dai = <&aiu AIU_ACODEC CTRL_OUT>;
+> +
+> +			codec-0 {
+> +				sound-dai = <&acodec>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&acodec {
+> +	AVDD-supply = <&vddio_ao18>;
+> +	status = "okay";
+> +};
+> +
+> +&aiu {
+> +	status = "okay";
+> +};
+> +
+> +&cec_AO {
+> +	status = "okay";
+> +	pinctrl-0 = <&ao_cec_pins>;
+> +	pinctrl-names = "default";
+> +	hdmi-phandle = <&hdmi_tx>;
+> +};
+> +
+> +&cvbs_vdac_port {
+> +	cvbs_vdac_out: endpoint {
+> +		remote-endpoint = <&cvbs_connector_in>;
+> +	};
+> +};
+> +
+> +/*
+> + * The Mi Box 4 uses a custom efuse layout extracted from the
+> + * original firmware.
+> + */
+> +
+> +/delete-node/ &eth_mac;
+> +/delete-node/ &sn;
+> +/delete-node/ &bid;
+> +
+> +&efuse {
+> +	eth_mac: mac-address@0 {
+> +		reg = <0x00 0x06>;
+> +	};
+> +
+> +	bt_mac: mac-address@6 {
+> +		reg = <0x06 0x06>;
+> +	};
+> +
+> +	wifi_mac: mac-address@c {
+> +		reg = <0x0c 0x06>;
+> +	};
+> +
+> +	usid: serial-number@12 {
+> +		reg = <0x12 0x10>;
+> +	};
+> +};
+> +
+> +&ethmac {
+> +	status = "disabled";
+> +};
+> +
+> +&hdmi_tx {
+> +	status = "okay";
+> +	pinctrl-0 = <&hdmi_hpd_pins>, <&hdmi_i2c_pins>;
+> +	pinctrl-names = "default";
+> +	hdmi-supply = <&hdmi_usb_5v>;
+> +};
+> +
+> +&hdmi_tx_tmds_port {
+> +	hdmi_tx_tmds_out: endpoint {
+> +		remote-endpoint = <&hdmi_connector_in>;
+> +	};
+> +};
+> +
+> +&pwm_ef {
+> +	status = "okay";
+> +	pinctrl-0 = <&pwm_e_pins>;
+> +	pinctrl-names = "default";
+> +};
+> +
+> +&saradc {
+> +	compatible = "amlogic,meson-gxlx-saradc", "amlogic,meson-saradc";
+> +	status = "okay";
+> +	vref-supply = <&vddio_ao18>;
+> +};
+> +
+> +&sd_emmc_a {
+> +	status = "okay";
+> +	pinctrl-0 = <&sdio_pins>;
+> +	pinctrl-1 = <&sdio_clk_gate_pins>;
+> +	pinctrl-names = "default", "clk-gate";
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +	bus-width = <4>;
+> +	cap-sd-highspeed;
+> +	cap-sdio-irq;
+> +	max-frequency = <50000000>;
+> +	non-removable;
+> +	no-mmc;
+> +	no-sd;
+> +	disable-wp;
+> +	keep-power-in-suspend;
+> +	sd-uhs-sdr12;
+> +	sd-uhs-sdr25;
+> +	sd-uhs-sdr50;
+> +	sd-uhs-sdr104;
+> +	mmc-pwrseq = <&wifi_pwrseq>;
+> +	vmmc-supply = <&vddao_3v3>;
+> +	vqmmc-supply = <&vddio_boot>;
+> +
+> +	rtl8723ds: wifi@1 {
+> +		reg = <1>;
+> +		nvmem-cells = <&wifi_mac>;
+> +		nvmem-cell-names = "mac-address";
+> +		interrupt-parent = <&gpio_intc>;
+> +		interrupts = <GPIOX_7 IRQ_TYPE_LEVEL_HIGH>;
+> +		interrupt-names = "host-wake";
+> +	};
+> +};
+> +
+> +&sd_emmc_b {
+> +	status = "disabled";
+> +};
+> +
+> +&sd_emmc_c {
+> +	status = "okay";
+> +	pinctrl-0 = <&emmc_pins>, <&emmc_ds_pins>;
+> +	pinctrl-1 = <&emmc_clk_gate_pins>;
+> +	pinctrl-names = "default", "clk-gate";
+> +	bus-width = <8>;
+> +	cap-mmc-highspeed;
+> +	max-frequency = <100000000>;
+> +	non-removable;
+> +	disable-wp;
+> +	mmc-ddr-1_8v;
+> +	mmc-hs200-1_8v;
+> +	mmc-hs400-1_8v;
+> +	mmc-pwrseq = <&emmc_pwrseq>;
+> +	vmmc-supply = <&vcc_3v3>;
+> +	vqmmc-supply = <&vddio_boot>;
+> +};
+> +
+> +&uart_AO {
+> +	status = "okay";
+> +	pinctrl-0 = <&uart_ao_a_pins>;
+> +	pinctrl-names = "default";
+> +};
+> +
+> +&usb {
+> +	status = "okay";
+> +	dr_mode = "host";
+> +};
+> +
+> +&usb2_phy0 {
+> +	phy-supply = <&hdmi_usb_5v>;
+> +};
+> +
+> +&vdec {
+> +	compatible = "amlogic,gxlx-vdec", "amlogic,gx-vdec";
+> +};
+> 
 
-[Severity: High]
-This is a pre-existing issue, but is it possible for an out-of-bounds stack
-read to occur here?
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-In mux_gpio_probe(), the number of pins is parsed from the device tree
-using gpiod_count() which sets ndescs. There doesn't appear to be an upper
-limit check on this value.
-
-The values bitmap allocated earlier in mux_gpio_set():
-
-    DECLARE_BITMAP(values, BITS_PER_TYPE(state));
-
-limits the capacity to a single unsigned long. If the number of GPIOs
-specified in the device tree exceeds the bit width of state, it looks like
-gpiod_multi_set_value_cansleep() will iterate past the bounds of the
-allocated stack array when reading from values.
-
-Could this lead to leaking adjacent kernel stack memory or triggering a
-KASAN panic if an oversized number of pins is provided?
-
-> +	if (ret)
-> +		return ret;
-> =20
-> -	return 0;
-> +	return gpiod_set_value_cansleep(mux_gpio->enable, 1);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260904-add-extern=
-al-mux-enable-gpio-v3-0-1b868e669e43@vaisala.com?part=3D2
+Thanks,
+Neil
