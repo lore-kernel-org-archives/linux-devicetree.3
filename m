@@ -1,168 +1,111 @@
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62E503CB2DB
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:57:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79353FBEA5;
+	Fri,  4 Sep 2026 09:06:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788512280; cv=none; b=crsMq2wLOMSEba+6yR/jeiv5TdUrJpW2uooSX2nd/3OM8CCKoDC8fkyILJBptI3oVT864Wb+PuxCKtEhJpfUkkaC2ZurOd4MuzXInFh+DlZ/JZyLfxWTaPo78u1JZ2bZPIxBnufUkY85+mHS0RYYrGVCj4vf1gtJMjfvudGtRIQ=
+	t=1788512780; cv=none; b=TloE9EBhCD8zYMTnzR5wkc/ZwPnz7lnMNEfagMzsE0WLesgbbiD08lpkZKzkuWZ4YhrADteT7Emn1nC0yqRpAouNtg69LtOpiWrzR+Rp+cw7O2UF8iDi1b5Zpj6mwKrYPsEC2iPmBKgO4jY7tBxUgYbY2eowmOYrXfZDFH5o8mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788512280; c=relaxed/simple;
-	bh=ItAgOmWZHah4VZWU9hUE3n8qwEZmfg2QY78XykHTKCk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pIlUSaeNIUQ95Padguoef49A0tZzlUXt13fenQfulCw9nuKkVOUi0FQc5PeV4ojtM1FichIBGkbGG1SmOK5ZGx8JRXIrqn3XlAGdgRM+MFWhBPjEFe7pDZI9XHS5WZYfVFKEvdex9wYTOFtX1QAcq4AafJbiCsjvK8faXqjPDZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=B40G1lPS; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1788512780; c=relaxed/simple;
+	bh=L7bE6wnWi8pCFUPleWbZzg4fJr8ynHLY174Gvd4gJAk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eMDiKoGZt1dtnlS+OdRxS7Ep66O2KqLwZB3cjKIyPHpHh+Ve6AgDc4e8nNkaqIPQOmzdJHdfVX/+JgEkzfAnugYOUPXRmO6RTdx8u7sCBKKFf2trE6F2WpvWAdgjrTuF/r5MAgmlxlraC+E4iviuNkC9OWSUHCMokj7ZLTLzelc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GgbgJooG; arc=none smtp.client-ip=185.246.84.56
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="B40G1lPS"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GgbgJooG"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 005361A199D;
-	Fri,  4 Sep 2026 08:57:50 +0000 (UTC)
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 312E11A199D;
+	Fri,  4 Sep 2026 09:06:16 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C66726057F;
-	Fri,  4 Sep 2026 08:57:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2358511C7A64B;
-	Fri,  4 Sep 2026 10:57:45 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 01E4B6057F;
+	Fri,  4 Sep 2026 09:06:16 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6D92211C79357;
+	Fri,  4 Sep 2026 11:06:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788512269; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=34b7Bgxp3x9PLa1m5wRwWiIKL6BceNCxaxsVLtWyi2c=;
-	b=B40G1lPSnWpdXk/CKxFqyw9eP36g1t3Nw9ZlPzXqHo8TIx8Mp34rN+Oqel70t9Zf8EM3Ps
-	S2v7En6gcV89Qf6wuWaywPCR23vtVKmWDqmUZ8C3n6n11Dlg7bFEFEJwAk9orVAo7DC51T
-	NcjD9A2V2aZwGDHxbO/Wvk/no9/E26MnPe0szKMQ6HDJArnltsTxWQRJuVfkTUlX43ZiZy
-	9IX8AhtAh7uXKer6HfK5+UMaYDx3UbL2Vt5VabTKVKpeTc8iwxxW+7EzPeybNuNA5OrQM4
-	utJqkzvZpw3vFRN7yEyth45ZR/6OTVhaSiaPKhRCp6J+xyCqW7XpP5fj7yFlIA==
-Date: Fri, 4 Sep 2026 10:57:43 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Bjorn Helgaas <helgaas@kernel.org>
-Cc: Angel J <iamanaws@httpd.dev>, Lizhi Hou <lizhi.hou@amd.com>,
- "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
- "regressions@lists.linux.dev" <regressions@lists.linux.dev>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-rpi-kernel@lists.infradead.org"
- <linux-rpi-kernel@lists.infradead.org>, "robh@kernel.org"
- <robh@kernel.org>, Andrea della Porta <andrea.porta@suse.com>,
- "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
-Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
- bridge configuration
-Message-ID: <20260904105743.1c396a8b@bootlin.com>
-In-Reply-To: <20260903231744.GA2281658@bhelgaas>
-References: <GXe6anuewkS4bLNwca3cYOmUxN9csc0TxLYGSBc1qNRmfrmvFlcmD62wEM23TxfzfuXAv4P3yvUv7pyraleARrL1Na-aN8w-t9uc1Igu8DA=@httpd.dev>
-	<20260903231744.GA2281658@bhelgaas>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	t=1788512774; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=xYMtYa6T5sLTiHRUNFasOPpLB6zNpC+7MIJWaSwhPJ8=;
+	b=GgbgJooG+uxN8f8xqzYnwk/brDgXCsQ+QCsOANf816Li9YElu+rkrNoADjZCc4vE5Oc6Ou
+	CLsdadvVsmigfrym2JYPWxqc7zGTKd7PPWv9IkYF/+0JBbN6Nx3dPOeqmudMBE0KAJVTAW
+	ssnQMO1N1rXePCdUX7DmVFbwQjnT8kKZbL4zy1uANK+IwZB127+AC25Iy2rO5QzOblTN73
+	uow2M1VfTe6AKtaVoGIdDqSNt+WsExPf1KrGcm0r4WhHK5F8hUTmjq8s/ruTttux2YjFRD
+	oHYpYJNQn3te2zcqNVaeYdDyLQ1p1/OAtjJoImaeKcKC4hr9eol6W29r/idXsg==
+Message-ID: <a5663071-6239-431c-b346-6a4ec11bbeaf@bootlin.com>
+Date: Fri, 4 Sep 2026 11:06:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] ASoC: dt-bindings: realtek,rt5677: Add clock property
+To: Mark Brown <broonie@kernel.org>, Oder Chiou <oder_chiou@realtek.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Animesh Agarwal <animeshagarwal28@gmail.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, linux-sound@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, Ben Zhang <benzh@chromium.org>
+References: <20260903-rt5677-mclk-v1-0-b71a5a3533f9@bootlin.com>
+ <20260903-rt5677-mclk-v1-1-b71a5a3533f9@bootlin.com>
+ <aplEfd33wSz59iLS@sirena.org.uk>
+ <0746f828-a424-4001-8054-1e52ed07139b@bootlin.com>
+ <12b9d08f-e773-49a9-8b36-2088c8e13cf6@sirena.org.uk>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+In-Reply-To: <12b9d08f-e773-49a9-8b36-2088c8e13cf6@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Angel, Bjorn,
 
-On Thu, 3 Sep 2026 18:17:44 -0500
-Bjorn Helgaas <helgaas@kernel.org> wrote:
 
-> [+to Herve, Lizhi for PCI dynamic OF node stuff]
+On 9/3/26 11:01 PM, Mark Brown wrote:
+> On Thu, Sep 03, 2026 at 03:26:46PM +0200, Diogo Ivo wrote:
+>> On 9/3/26 11:57 AM, Mark Brown wrote:
+>>> On Thu, Sep 03, 2026 at 12:11:00AM +0200, Diogo Ivo wrote:
 > 
-> On Sun, Aug 23, 2026 at 02:14:25AM +0000, Angel J wrote:
-> > Hello,
-> > 
-> > This regression was introduced in v6.17-rc1 and remains in the dynamic
-> > PCI OF node code. Linux 6.18 fails very early during boot on my Dell XPS
-> > 8940 when CONFIG_PCI_DYNAMIC_OF_NODES=y. The display goes black before
-> > any useful console or pstore output appears, and the machine remains
-> > hung.  
+>>>> +  clock-names:
+>>>> +    items:
+>>>> +      - const: mclk
 > 
-> Oof, sorry, that's a terrible failure to debug.  Thanks for your
-> persistence in chasing it.
+>>> The driver code has a reference to MCLK1 which implies multiple MCLKs,
+>>> unfortunately no pinout seems to be available and other references in
+>>> the driver are just to MCLK so it could be cut'n'paste.
 > 
-> I don't think 49d63971f963 ("misc: rp1: RaspberryPi RP1 misc driver")
-> is a likely culprit by itself because there's just nothing there that
-> looks like it would relate to a Dell XPS 8940.
+>> Thanks for raising this point, I had missed it completely. In fact,
+>> looking at rt5677.h there are two places where MCLK2 is mentioned:
 > 
-> > Disabling CONFIG_PCI_DYNAMIC_OF_NODES makes the same kernel boot normally.
-> > Linux v6.19-rc5 also boots because the RP1 driver stopped selecting that
-> > option, not because the dynamic PCI OF node code changed.
-> > 
-> > Hardware:
-> > 
-> >   System: Dell XPS 8940, board 0K3CM7, BIOS 2.27.1 (2025-04-03)
-> >   CPU: Intel Core i7-11700 (Rocket Lake)
-> >   Triggering device: 0000:00:00.0, Intel 8086:4c43
-> >   Firmware boot: UEFI, ACPI-based x86_64
-> > 
-> > Test results:
-> > 
-> >   Linux 6.12.103: good
-> >   Linux v6.17-rc1: bad
-> >   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=y: bad
-> >   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=n: good
-> >   Linux 6.18.44, CONFIG_PCI_DYNAMIC_OF_NODES=y, skip invalid bridge: good
-> >   Linux v6.19-rc4: bad
-> >   Linux v6.19-rc5: good
-> >   Linux 4621c338d33f: bad
-> >   Linux e55feea3a03a: good
-> > 
-> > The first-parent boundary between the last two tests is:
-> > 
-> >   e55feea3a03a ("Merge tag 'soc-fixes-6.19' ...")
-> > 
-> > That merge contains ce26f588c831 ("misc: rp1: drop overlay support"), which
-> > removes:
-> > 
-> >   select PCI_DYNAMIC_OF_NODES
-> > 
-> > from MISC_RP1. The generated configurations differed only by:
-> > 
-> >   -CONFIG_PCI_DYNAMIC_OF_NODES=y
-> >   +# CONFIG_PCI_DYNAMIC_OF_NODES is not set
-> > 
-> > CONFIG_MISC_RP1=m in both. The known-bad 4621c338d33f and Linux 6.18.44
-> > both boot after disabling PCI_DYNAMIC_OF_NODES (and MISC_RP1, whose Kconfig
-> > select otherwise forces it on).
-> > 
-> > There is no RP1 device in this machine, and its driver does not probe.
-> > MISC_RP1 affects this x86 system only because its Kconfig select enables
-> > PCI_DYNAMIC_OF_NODES globally.
-> > 
-> > I narrowed the hang to dynamic OF node creation for 0000:00:00.0
-> > (8086:4c43), the Intel Rocket Lake-S integrated memory controller. On
-> > this machine it reports PCI class 0604 and header type 1, but it is bound
-> > to icl_uncore and is not a usable forwarding bridge:
-> > 
-> >   Bus: primary=ff, secondary=ff, subordinate=ff
-> >   I/O and memory bridge windows: invalid/all ones
-> >   kernel: bridge configuration invalid ([bus ff-ff]), reconfiguring
+>> #define RT5677_MCLK_SRC_SFT                     10
+>> #define RT5677_MCLK1_SRC                        (0x0 << 10)
+>> #define RT5677_MCLK2_SRC                        (0x1 << 10)
+> 
+>> and
+> 
+>> #define RT5677_PLL2_PR_SRC_SFT                  15
+>> #define RT5677_PLL2_PR_SRC_MCLK1                (0x0 << 15)
+>> #define RT5677_PLL2_PR_SRC_MCLK2                (0x1 << 15)
+> 
+>> so to me it _looks_ like there are indeed two MCLK inputs, both of which
+>> can drive the MCLK clock and can also be the input of PLL2. However, as
+>> you mentioned I also wasn't able to find the pinout/datasheet and I have
+>> no way of testing this. I think the safest bet here is that I send a v2
+>> where I rename "mclk" to "mclk1" that we know for a fact exists, and
+>> then later on if someone with access to the actual datasheet comes along
+>> and confirms the existence of "mclk2" we can add it to the binding.
+> 
+>> Let me know what you think!
+> 
+> That would be safe, but let's add the Realtek maintainer (who I'm
+> surprised you didn't CC...).  I've also added Ben Zhang who did a bunch
+> of work on the device for Chrome and might be able to check too.
 
-Is this PCI logs reported with PCI_DYNAMIC_OF_NODES=y or PCI_DYNAMIC_OF_NODES=n
-or always whatever the PCI_DYNAMIC_OF_NODES Kconfig value ?
+Thanks for including them. I simply continued the conversation with the
+initial recipients coming from b4 prep --auto-to-cc.
 
-A PCI class 0604 is a PCI-to-PCI bridge.
-
-Something in kernel code prevent the scan of this PCI-to-PCI bridge even if the
-kernel tries to reconfigure it. Indeed, the device is "Intel Rocket Lake-S
-integrated memory controller" and not a PCI-to-PCI bridge
-
-The of_pci_make_dev_node() is called by the PCI core [1] to create OF node for
-bridges.
-
-of_pci_make_dev_node() will set (device_type = "pci" in the created node).
-
-But if the device it is not a bridge, this is obviously wrong (even if I don't
-understand why it hangs the system).
-
-Maybe the test done at [1] should be improved to detect those wrong bridges.
-and skip the of_pci_make_dev_node() call when a wrong bridge is detected.
-
-[1] https://elixir.bootlin.com/linux/v7.2/source/drivers/pci/bus.c#L355
-
-
-Best regards,
-Hervé
+Diogo
