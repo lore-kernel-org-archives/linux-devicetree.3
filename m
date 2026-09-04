@@ -1,63 +1,63 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com [209.85.160.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F8F4A263C
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71DC4A2A6F
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 13:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788529576; cv=none; b=SmfKqID0szi6ybgQK7rM2aN9KZZMoZIQddz2ZhsJjwC93nJIi2eq/wTvCKLUPtNJDX8bRXbpB2HeMhF9HT7wyE5O+qwuuRO+qJbgIFcB9iXIkBCSv52SmOoCygfmY8NktVcJLXCi8ZTOHPdJTlRc8YYOnx533icglrx2F8wygeA=
+	t=1788529578; cv=none; b=SJ59F6n6e/jIR/UkRw6yIUYDhfyt5gTnksaGKdiEyE/6M32+8rRh4CiUEpKaEtqTyam8udpiXJ5YWiM9IA1A4+xSUxSiFXJ8jCXfqYEaJ3TwM35c8L6Mj6nwMvloQ+5A6t5TZuXMA/tUHFOd2X2ETaWVBTj2KrSIOdZmblZwJwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788529576; c=relaxed/simple;
-	bh=qsvHvr0KAaevLVLkT3vf4bhPnfL4fka0jjcShl0SAUw=;
+	s=arc-20240116; t=1788529578; c=relaxed/simple;
+	bh=qyD4bGNfcFSzPNaLFl2vhb3CFKp/crvP/9Jaao9JAyI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HYefQywe9XS2LzloFW1LHrzYhCOdYvSmZ3uR3tGxfLplxhBZgcbhGYjnidJtapPKjQalegkGJ5/hyDj6rJSsSJ+qCwLTcKG2/lnV1etILsoFBlSpZDR3K9+QCLzyUVguTysWPbM7N5iTrSY3Mg0lk9gs6ppMO6Qm2ROSAoLAO2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=pLbOPtA0; arc=none smtp.client-ip=209.85.222.170
+	 MIME-Version; b=gBZGJLR1yB3u2xxPKMYLpShjOFIEBaS/H175LR8U3cFtFc/1kie1gxIVBfU8PxT6FlfwmgIwUXekntofen4g85nXxnhaJ2sOSpk8GycKex+wUpxcMqCatXof0Mgrjy7rCup12o7TgUeTgAPPRTowAKbTv0gqabm06F/LzyQrdRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=DK0H3ENh; arc=none smtp.client-ip=209.85.160.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="pLbOPtA0"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-9390f8a1c9eso68596585a.3
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:46:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="DK0H3ENh"
+Received: by mail-qt1-f182.google.com with SMTP id d75a77b69052e-5276d598b96so10620481cf.3
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 06:46:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788529573; x=1789134373; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788529575; x=1789134375; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=2LewW6w2wMuYs1hjrl9EfxjaqOnpI7soa/xK2a7NCBI=;
-        b=pLbOPtA0ajCFEw/z2Ei4jIQVPT4cSFcNKQgxGO0SwpY8anKsWCpM9gHISyCH0FxcYM
-         yKUaMyOKTqo67wQdiWcZuABhvys9EXr1b/G+/3mOVFAtC2ItGC0Ds/+s/ev2XrbIdBJf
-         JdxufQfo/bDAUe4BC0m1Lf1/X74MXRbOAqBNnj3y456NTtdaZIZUezZ8Ne+CRX6T8IBr
-         UNi1jyzy8L9uGkvWju+ZA5GC+zQ8Jv+GvfomVNbK1aWg7BdsWMaDCJvvT/AH2Se1+Ulh
-         2q6sWiOZfvaJuTvhRGiQlhcTUvC3atBGsOVAZtYU5RtIA/G+fm85fzWSZDFvRkpNqmLY
-         MLRQ==
+        bh=iAwqufnwuKEV24w71YGykBZDHshBllwrVOx0ky+yHTQ=;
+        b=DK0H3ENh98CWzmnIXzijn6sJ2jQjxAY+E1n+HO+SSMMbr0kgljjb0FRr5UTKghzdCR
+         um6tA0pcevfnV054cMjT9n9B7GsixdFl5gdHHZpUJXEG46XwXj4y40MgwZngrYfSm+6Q
+         eVDT4fxr/ot4bRDwd+ucMXK9Na/zujsUkl4hYIlYiSYF/pW1UfILn9MI4O4cXJMDQJmk
+         W95aptIIPyk2aLfiSf37peeQzF1cm79FwydlcrELrBYpV+locayjGI+MeJuRj/ASVZBu
+         XLt+yY/3Yhxk4e+2DOPvkcos/a2VZXp1G6FYbPglSI5ZZx+P0UF0WmmJ8+VQ5bm9867W
+         u+aw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788529573; x=1789134373;
+        d=1e100.net; s=20251104; t=1788529575; x=1789134375;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2LewW6w2wMuYs1hjrl9EfxjaqOnpI7soa/xK2a7NCBI=;
-        b=foStd/F0QAy2EzhB54E7+t2QcjolAp/P1Dcr4HMESifVcMpKZ+7KV3ChkFEYwNNbFx
-         MiTneZVNs26OxI48h2LvlrPI3t4d7g8ErUTWtrvae3MDmu37mj/lgTqsfEvbVeem4bZ2
-         JrT24P8Wqvc+SIdNyme8X/2hJ7/9DbaCy5P+mtNCpcLYc+WLX7dhTbwLqinbZ2qWut5U
-         ExfugBfHao+JzEeLkuyswUBGaEBan6G4HjYMim+wlmMQcfXq3HvV4EJjeoo5XJBclXdz
-         wX+Fj0eCnfLPFDVGOZpKbkpW3eSJK51N9npvgjdIAdh+qLTQnnAOhGA2Nt/KWtzjCLd8
-         +AZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwhRSTBPNTeyNNenxw8XdCbLaWtijbZCP3TgiRgi9Yn90065PkUoiFP4kyvkaBCYA2pMBPQF9GbPAH@vger.kernel.org
-X-Gm-Message-State: AFuF++n9XmhBPZ2Wp2hyZ4mpUPsAYfu8q6p65uU+iDe9XCAp08QlAUFC
-	DAU37NiJor/ZWbdR4UctQKFkkGZmeaMb0V7m5iuyjFgrjQdyOHKlBM1iPzPyULsmNzw=
-X-Gm-Gg: AYBFou09GtkgnVMVNVcyHYyVxs/LgXdMjIG9lQ5HIC2tSRwIevmKKycNScquY7ARj01
-	noNrkoaYKsk8Dn8TyXMgQrbgZWaRtHg8iwIkF/GPnbU9N9XauSd9b7vwnFlOq1ldRqiBJrQIAF1
-	priBr9jb0Hx5I8W6ZMzmVhpWSMTZ+X7CpJpq+SSYWsGmTV6x4ED4bOOMfjSk7RNI3T+H3hZEtIi
-	k0YpM0dlXyhCinFnEzPK1F55TOyorl67MX6VC3f92UXTGgBiqKeypHuuDFe2tIkVrJmq+EHscus
-	OzIZZoOXB7CaYA3d11PQIB+V1ZMvXHt9bBHkfgIyneH7IMx2pCRSWANo9LeP1X39/Cot17pn6m4
-	ZxYSbd3tXigl8YXNgAYM19k/tCELSbnhU8LuLmTiOO7X73qYLZGNjBq/s4iugBO+Qn+FgyB1BPU
-	EARTMvqgChCBSGT9hhOtEdBn+WyIOVFFQX8xgUEuMyHOZR2cJx0YGweDvH97pa3jgJ
-X-Received: by 2002:ae9:ee06:0:b0:936:e938:b07a with SMTP id af79cd13be357-9398032898bmr454562185a.8.1788529573342;
-        Fri, 04 Sep 2026 06:46:13 -0700 (PDT)
+        bh=iAwqufnwuKEV24w71YGykBZDHshBllwrVOx0ky+yHTQ=;
+        b=SY27evK7Y8W2W+qJuemNoaY9+uUzGPyf0ncmccTqmzbg9QJdZgerJ5jaLaKhj21A4s
+         2IuF/0NNEm1QTVndL0anVHqPDQoPq1QKKP255uXQfs+RDDqDsmTvxj4ZBvfq3v3iEaI6
+         aJRq0vW17zxlp0yXmkAxW/zQAuofs+oTv+8UP+jMHQu5c2zYV4Bt+HqvxvcIafkkuuoL
+         Blm7u77bWkqtqO9sYl2+gBiI5t9qoyRVWo37037NHIc2V23TZWAx3dgqE4cBQgEn6F4j
+         79Gex2RVCgzWI0q6sDm6NaO+TNRfiLoLkOVOaxSyPL32u9EdlauGSNnv2Z/FceyBLIrz
+         6m4A==
+X-Forwarded-Encrypted: i=1; AKwUvBzokaLTl9H2W9MF7QDFWkMa+FipKGeqVg3DzSi8sPCipC5n64q/35DwUawBgpanBXuYWtwttAkmezxo@vger.kernel.org
+X-Gm-Message-State: AFuF++m0gwH53+bRFB6QCU54k6B8I8YHNKuJLPnHFmG58UeGc+p9F6mf
+	IwOIr0addBkb1erFbERSVqQjpmB95+CCrQMGJZHPnivSmKSqbhrhTjSL1rzxyBQpHIg=
+X-Gm-Gg: AYBFou1CZ9EFWZyUGaMyp87GoLgoCk6Xa7SeDuLi1z42aHt1eb5jgafx6rUrCtJv/Cd
+	8Ia6kdOjC/F1ZUpeeGjAW93HU8pXuafxFueHzo635M9W86INfDKk2ntlqCX7mm78lCS9dX6LH5a
+	2bQ9MOSuJI9CJJwMenXQjcDvpbcl2QnqbRz9Y2E1yM5d4aTP/K6Tj1tkmMbivH7mEQ1hLtOD1uA
+	Zy393rI1QjwzlJ1c/aefx9P8+JqvvQRkEMm5BS7xu00sKa8qYQFG5Ch2qHYwS4FSVVkdvvQ166J
+	m7d8Wrq7XRz3NjSmTa7hzIuodBxZHVCQcY8j/ENM3lm1nHRKGtpEIgRqnp1i+ZEe+TQPezxs13s
+	VnV1pY0L0crGWIH1BA6YgGvLFy8LONsdswudSIldwMBifnYgVC9OFRt9kO8elAA3Fyu7SUV+jLL
+	Sa99kwKKrVxMgaxwH30tUSoAWrXsik6hb5Xv1KxE1AJy1Oa+h/+sjJssbtyy5f+ihB
+X-Received: by 2002:a05:620a:a518:b0:92e:7d53:8e8d with SMTP id af79cd13be357-93980434f3fmr510380985a.27.1788529574458;
+        Fri, 04 Sep 2026 06:46:14 -0700 (PDT)
 Received: from zippy.localdomain ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fafc3a7sm211613885a.14.2026.09.04.06.46.12
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397fafc3a7sm211613885a.14.2026.09.04.06.46.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 06:46:13 -0700 (PDT)
+        Fri, 04 Sep 2026 06:46:14 -0700 (PDT)
 From: Alex Elder <elder@riscstar.com>
 To: bhelgaas@google.com,
 	robh@kernel.org,
@@ -69,9 +69,9 @@ Cc: herve.codina@bootlin.com,
 	linux-pci@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 2/4] PCI: of: drop the reg_num argument to of_pci_set_address()
-Date: Fri,  4 Sep 2026 08:46:04 -0500
-Message-ID: <20260904134607.1856121-3-elder@riscstar.com>
+Subject: [PATCH v4 3/4] PCI: of: don't zero flags in of_pci_get_addr_flags()
+Date: Fri,  4 Sep 2026 08:46:05 -0500
+Message-ID: <20260904134607.1856121-4-elder@riscstar.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260904134607.1856121-1-elder@riscstar.com>
 References: <20260904134607.1856121-1-elder@riscstar.com>
@@ -83,64 +83,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The reg_num argument passed to of_pci_set_address() is always zero,
-so get rid of it.
+The flags variable whose address is passed to of_pci_get_addr_flags()
+is zeroed before assigning a value to it.  Skip the zeroing and just
+assign it instead.
 
 Reviewed-by: Herve Codina <herve.codina@bootlin.com>
 Signed-off-by: Alex Elder <elder@riscstar.com>
 ---
- drivers/pci/of_property.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/pci/of_property.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
 diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index a0632f932b5c6..8131aa1b0b3c4 100644
+index 8131aa1b0b3c4..fca522f70187a 100644
 --- a/drivers/pci/of_property.c
 +++ b/drivers/pci/of_property.c
-@@ -52,7 +52,7 @@ enum of_pci_prop_compatible {
- };
+@@ -82,12 +82,10 @@ static int of_pci_get_addr_flags(const struct resource *res, u32 *flags)
+ 	else
+ 		return -EINVAL;
  
- static void of_pci_set_address(struct pci_dev *pdev, u32 *prop, u64 addr,
--			       u32 reg_num, u32 flags, bool reloc)
-+			       u32 flags, bool reloc)
- {
- 	if (pdev) {
- 		prop[0] = FIELD_PREP(OF_PCI_ADDR_FIELD_BUS, pdev->bus->number) |
-@@ -61,7 +61,7 @@ static void of_pci_set_address(struct pci_dev *pdev, u32 *prop, u64 addr,
- 	} else
- 		prop[0] = 0;
+-	*flags = 0;
++	*flags = FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
+ 	if (res->flags & IORESOURCE_PREFETCH)
+ 		*flags |= OF_PCI_ADDR_FIELD_PREFETCH;
  
--	prop[0] |= flags | reg_num;
-+	prop[0] |= flags;
- 	if (!reloc) {
- 		prop[0] |= OF_PCI_ADDR_FIELD_NONRELOC;
- 		prop[1] = upper_32_bits(addr);
-@@ -131,7 +131,7 @@ static int of_pci_prop_ranges(struct pci_dev *pdev, struct of_changeset *ocs,
- 			continue;
+-	*flags |= FIELD_PREP(OF_PCI_ADDR_FIELD_SS, ss);
+-
+ 	return 0;
+ }
  
- 		val64 = pci_bus_address(pdev, &res[j] - pdev->resource);
--		of_pci_set_address(pdev, rp[i].parent_addr, val64, 0, flags,
-+		of_pci_set_address(pdev, rp[i].parent_addr, val64, flags,
- 				   false);
- 		if (pci_is_bridge(pdev)) {
- 			memcpy(rp[i].child_addr, rp[i].parent_addr,
-@@ -164,7 +164,7 @@ static int of_pci_prop_reg(struct pci_dev *pdev, struct of_changeset *ocs,
- 	struct of_pci_addr_pair reg = { 0 };
- 
- 	/* configuration space */
--	of_pci_set_address(pdev, reg.phys_addr, 0, 0, 0, true);
-+	of_pci_set_address(pdev, reg.phys_addr, 0, 0, true);
- 
- 	return of_changeset_add_prop_u32_array(ocs, np, "reg", (u32 *)&reg,
- 					       sizeof(reg) / sizeof(u32));
-@@ -467,7 +467,7 @@ static int of_pci_host_bridge_prop_ranges(struct pci_host_bridge *bridge,
- 		/* PCI bus address */
- 		val64 = res->start;
- 		of_pci_set_address(NULL, &ranges[ranges_sz],
--				   val64 - window->offset, 0, flags, false);
-+				   val64 - window->offset, flags, false);
- 		ranges_sz += OF_PCI_ADDRESS_CELLS;
- 
- 		/* Host bus address */
 -- 
 2.53.0
 
