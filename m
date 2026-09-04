@@ -1,64 +1,64 @@
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C699741D107
-	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 21:33:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B3151FCBE
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 21:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788557617; cv=none; b=V8D6eocLpQHcGdko5CwBmrfjRp9ZKyfdM/u88a9AUsOK4CJEAQToImXVR4SjkfCQ58Hb7uV35DrYifzS0b7tKX1W0b34FK9CWHENBe/IdtHhTNycVCMRW5sXIAr96865/dYJW7Ra69nhBD4CmybXjZPwJVWSS/Jivg+lWS2o9Bo=
+	t=1788557619; cv=none; b=IBz/xvT4X4/oxJJkn3mjAHHM/sW7dVil1mwG4BrkRRa4Be23CjdtNE7eGeA1EZkPVuZEIaOUo8bz1XimvZbq9r+uyAVQ68cjvbAcPNtXMfSdrqk0kQanp8oSvA8M9f8UQtSaCAWa/apX4h7Lig12rKe0QG6NZV+gSRmwaeMUz9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788557617; c=relaxed/simple;
-	bh=GHXhp2MUxIdV2IGw6djrOuEq3lqK+9Rv3RiIzHRNkEo=;
+	s=arc-20240116; t=1788557619; c=relaxed/simple;
+	bh=kyhdItw85ylagfnRcB3Fj6tva+77/cxN1usxvESp3pQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gz6mNTeEuDmFk02B2Bq2xaOVn0buePLRVH4I3d3KZjVK25VVr4Z5LD/YRGmpyfnByWKYCu3ltmyCAGjTTyvSYzD2twUc1sw+v//iCPBZ/rY/V4yZop3d6s4FvEDl7KH8W2jhHj/zgMUQLZoBcXAt6gnCmTobg5zCAGO7fzWrm1Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P7jDbGsT; arc=none smtp.client-ip=209.85.160.174
+	 MIME-Version; b=cumLztBLhoN1LseHrhHSlDAjUty3pjsXVbbdqFLoTVNwLti1Fqdzs+v5dV+/zM4nMTPbWW0ZVeKmZzODulDf/U9ibtpQLK7Vgwvnb3UPjK0COblpCSzgmlwNrGkNvseWhjHZwmO51+KAFy393myoonykvqzUaP6te93JQdbQZ70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e4hjZwjc; arc=none smtp.client-ip=209.85.160.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P7jDbGsT"
-Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-52ff0b7c98aso15990471cf.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 14:33:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e4hjZwjc"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-51c2a449c57so19632361cf.1
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 14:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788557615; x=1789162415; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788557617; x=1789162417; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KWoJYzcW0AWxwtfPly+dHtM2f9cvjv3KZD392LRH0AA=;
-        b=P7jDbGsTKRwxwdqBGKyUajBtLqVaJ3m5eu4vp7EUQRQdpQik3/j1Beq9mDjQ4+6g1v
-         uxPu5UoTX/CiS8PQeT8y24osep+QJ59V/068ZNBA1yE4fn7sN64/TytFzxEcW/l+flAh
-         dsQn346KpQHSkm6oik8uLctS4mD35rzY4qnrWslUprlCKHql1IFQbZmS7OliITPjHs+B
-         pAHs3PA6PxPgh6qbo5hbDcNS5dVbsSnTrTnmFjrydiQzZGz4okg0uy1jJosV60MUfrMW
-         8SyjBAxxq1YWhDJH2eCPt+v+Ixn2n0w8fuOQiIKqH0qLqBtVgQ46Xb49weoFNVLP2uqA
-         YIaA==
+        bh=vu/pZRzi+PHRIHNfr1m3RJJ4wr9M9/chVTLqWsd29z8=;
+        b=e4hjZwjctOj0qw/e2wrZH/GYvxI/4x9ZlJpqZkx6lWbxQ815514IA4OJC/5j4rvPt7
+         JZ/Was+4bZ3lD3p36IBL15dl9e+RIJVfrEdeTqrCKC1AMabS0lJktclFqnCQcXq0grYT
+         NtcrtrJM/kbwaoHax8n1ymCytVcIHV4EJ9LJl8NSrm8rwa2BpC+cJ0Esn57Jt33ByNIk
+         7IJNu+xSjiU2LuXA+pXoVLGqr9EFz5NOGAtaq62sytjoZSFnyjM20noaZcdqGnLlsAiO
+         ImaEDThlpm7n00vVw0oWLX+BswAtatct1s5XPBYsZQtRQOo/w85CjgifXbFS0ZWnBh3B
+         WJFg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788557615; x=1789162415;
+        d=1e100.net; s=20251104; t=1788557617; x=1789162417;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KWoJYzcW0AWxwtfPly+dHtM2f9cvjv3KZD392LRH0AA=;
-        b=IbKb5XtZdjAe1UALtlt2a7k2YGtKCE6jXrx25PmYw7Tbml5O12wDoQOit4xImjKyP2
-         FouHM3mwEzCmOECdoP4JkGd7Tv5XAkGI2WUwec19tJGPkMLlDleQrTAhx9BMntTIJ4sE
-         jHu4JXQpF6d7rFB30dyd3d1zAtHbszYGrnjMKQDkxlL+w7lrHPTvl7/vj9JgiS9XBIMN
-         84NLyoXcwSwH42FirhXTnHGiuCGNxiN9Ou3WYY0ZNXua89bpGkFMIskDc2Vi1ZXDL1Su
-         5HDLf/p9X8hPC3GXf5I0ShMYE1OSOIFG+8vE22cFpnGav+DxVWMCnObe6g+UKxO2IWTq
-         86cA==
-X-Forwarded-Encrypted: i=1; AKwUvBx3Sf4/8ODB2YJb2+bfxmXiS1NGhjNCWCeA2pjSjwVtQW9cD3CwDEe8TyTcQOOZ8cVp7jcfTMZ0q6Vl@vger.kernel.org
-X-Gm-Message-State: AFuF++nh3u7FTpmWmVrgyQjwoY+96SvBp8ur5/3B/Zv6d44gabFeYNRp
-	XJBe7rXiqeihoX9mXvE4T9QbKjbRdW32wbLY4L30GolkItMiuWCugCo=
-X-Gm-Gg: AYBFou2bHzVilCf7Oli/fxI70Ze4PuVPgqRoWh0ASH0O+girYbE8QOo5U7CnMUk9H0q
-	VbUoxhQ4e4g9TOozf3JGlwtXdLN78JsVR3aWMCNQEOHpzDLcRUYvt21AixNF9d2XaqaafZfAP1F
-	p9fGXLL/wGxN4Nq9UsZlzkT93T6VvDFL7KzMHiCRGBv+JVYXerjTZN1vluwyL6Ca1idECLqZh1F
-	rVoGn4kjWlBINAzyuotwiCjxdSpUK8MN0Dxq4qMkzcUC25WznWTErB0qxzhNrk2RdLEz0A+NeO1
-	4ieXoiG5nWbPPHTIqgUrymYrfnZVmWbgV5S3dk3lFxP4cAexJGYSZqTIbeiUHA9qzn7cEWMQmMH
-	7mX8vUhNh8Q34+BOfznM8NhGsA9IjvBbhELXIG5AmTEFLnphKztGijp4zGu9qNSXx2CzAls9rtf
-	3n6iRTsqXXpZpipZEzzoNySdJMNGYT+Yy48U4btcoMsUQiMIZmnnjXbN93MWOGcNZAYZNLMRF9I
-	1COGh9qQyd4qBjUlo/AQaG5bA==
-X-Received: by 2002:a05:622a:11cd:b0:530:27d9:ffc2 with SMTP id d75a77b69052e-530546cf80fmr94981561cf.5.1788557614529;
-        Fri, 04 Sep 2026 14:33:34 -0700 (PDT)
+        bh=vu/pZRzi+PHRIHNfr1m3RJJ4wr9M9/chVTLqWsd29z8=;
+        b=s/tp12tqAUdON5eyVV4Zfv+rGzWvGZmoVJbYIkWkLqSwIMcAu2Wji1AQhv70UU/Eym
+         NO76VFA3F9sHT/0I1Ww5GBzYejTb5q3qscLeT7ewqVDJR4MRrUecJpyfXLeNJW9f5kQh
+         KVNktZl7Y8QZCRnideG1xtv2OUqd2RteWs45IqmHxyBbcs/g181Oz5HH+/LwwlK/q0qX
+         tl8NO5SrDjcxkjyPATnQyWoht06qO+h/CZvy5U8VGDxB+4rpYOIf+2FbKVs2L8KsDS1C
+         IKs6vGBlOBfuIiZmoomMA9fkK6Uh2DwIs990D1SIBmYwM+3vZ8LQ2pjDxU5in2Sr5RgI
+         +ZpA==
+X-Forwarded-Encrypted: i=1; AKwUvBygnFF9q9uqldkxiO2Pauza/oYfsYa8kE3JvTz75CLVZPkuVdGHPLLLhmojYGdKo/6FLqIa+Y2c7z89@vger.kernel.org
+X-Gm-Message-State: AFuF++nwSSjChEbax4AQkLqx5FiPTtOVzaMi32vDyWDdbCzolj9B10Ha
+	dsfWP3M7CcMGz6ugsSgVyRP8iQQs4YsNm+0pQB/ASZwhsTp5jOmcOaE=
+X-Gm-Gg: AYBFou2I/PyMNwNAS/5ZgynVg3I3VnDAmz62qV3K0s+wcRhempXMcNsRsA6MVRcbCgF
+	BCuCT13Wr3F98TpGye81Gl1/EQbLehFH7SMv7lMZohW+uWtEneZj7jxr0IiTx0WNHsroVqGmy0M
+	vGPlRW4IY82z5pKZVO3nKiJH95/mRcOKMemFitBSbVa0cPjirzoBMPfIKfBFoww4vtAGPK7Ya5i
+	zP9HZzNdN67KSd9Ka9zyiWfWRLi5xVIrhedhfUgP3usUEJ91sx4P5mAUekuBGybN2GHR3Qu4tUa
+	1aTnYWy5lhrNO/CtNdwQDguLi2QU6Bt2PfFAR5zbzaTSAFz8aDKAnkVtTnNAktHJkxikXSXi0mH
+	ZOlwJWPyu2buaegvel3Du7cNVmI9SjBuUH/U80tQoGngQWOiRGl65fWAoRd/Zep+eg5wHWneKEi
+	LL1i1ASgMAuhdmaFGxeNNpVf/WpG6kYGhP0zkEkvdwxjtGZiOKE5ghm++VU7Xr7WPyhW844Tme5
+	BopGrJLN5okuCg=
+X-Received: by 2002:a05:622a:4a89:b0:52d:8743:bc83 with SMTP id d75a77b69052e-530549f8265mr111105391cf.34.1788557616511;
+        Fri, 04 Sep 2026 14:33:36 -0700 (PDT)
 Received: from X570.phub.net.cable.rogers.com ([2607:fea8:744f:d200:9441:f2ae:56aa:8a81])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054227a0esm29646561cf.29.2026.09.04.14.33.32
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53054227a0esm29646561cf.29.2026.09.04.14.33.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 14:33:34 -0700 (PDT)
+        Fri, 04 Sep 2026 14:33:36 -0700 (PDT)
 From: Barzin Lotfabadi <barzin221@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
@@ -75,9 +75,9 @@ Cc: Ryan Walklin <ryan@testtoast.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] arm64: dts: allwinner: h616: add display engine and HDMI nodes
-Date: Fri,  4 Sep 2026 17:33:28 -0400
-Message-ID: <20260904213329.3910099-2-barzin221@gmail.com>
+Subject: [PATCH 2/2] arm64: dts: allwinner: orangepi-zero3: enable HDMI output
+Date: Fri,  4 Sep 2026 17:33:29 -0400
+Message-ID: <20260904213329.3910099-3-barzin221@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260904213329.3910099-1-barzin221@gmail.com>
 References: <20260904213329.3910099-1-barzin221@gmail.com>
@@ -89,256 +89,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The H616 and its variants (H618, H700, T507) carry a Display Engine 3.3
-(DE33) block feeding a TCON TOP, a TV TCON and a DesignWare HDMI 2.0
-transmitter with an Allwinner-specific PHY.  None of this is described in
-the SoC .dtsi, so nothing probes and the HDMI port stays dark even though
-the DE33 mixer support is present in the sun4i DRM driver.
+The Orange Pi Zero 3 exposes the H618 HDMI transmitter on a micro-HDMI
+connector.  Add the connector node, wire it to the HDMI transmitter's
+output port, and enable the display pipeline.
 
-Add the display pipeline:
-
-  display-engine        - the DRM pipeline root
-  bus@1000000           - DE33 bus, holding the display clock controller
-                          and the mixer
-  clock@8000            - display clock controller
-  mixer@100000          - DE33 mixer 0
-  tcon-top@6510000      - TCON TOP, muxing the mixer onto the TCONs
-  lcd-controller@6515000 - TCON TV 0
-  hdmi@6000000          - DesignWare HDMI TX controller v2.12a
-  hdmi-phy@6010000      - Allwinner H616 HDMI PHY
-
-All register addresses, clock indices and reset lines were read from the
-vendor device tree shipped with the board and translated to the mainline
-dt-bindings macros; the clock and reset numbering was verified identical
-between the vendor and mainline CCU headers.
-
-The mixer's three register regions are named "layers", "top" and
-"display".  On DE33 the global control registers moved out of the mixer
-block into separate windows, and the driver looks up the latter two by
-name, so these names are load-bearing rather than decorative.
-
-Everything is left disabled; boards opt in.
+Tested on an Orange Pi Zero 3 (H618, 4GB): the sink's EDID is read
+correctly and the board drives a 1920x1080@60Hz desktop.
 
 
 Signed-off-by: Barzin Lotfabadi <barzin221@gmail.com>
 ---
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-index 1598e8625..21aa94482 100644
---- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
-@@ -7,7 +7,10 @@
- #include <dt-bindings/clock/sun50i-h616-ccu.h>
- #include <dt-bindings/clock/sun50i-h6-r-ccu.h>
- #include <dt-bindings/clock/sun6i-rtc.h>
-+#include <dt-bindings/clock/sun8i-de2.h>
-+#include <dt-bindings/clock/sun8i-tcon-top.h>
- #include <dt-bindings/reset/sun50i-h616-ccu.h>
-+#include <dt-bindings/reset/sun8i-de2.h>
- #include <dt-bindings/reset/sun50i-h6-r-ccu.h>
- #include <dt-bindings/thermal/thermal.h>
- 
-@@ -94,6 +97,12 @@ l2_cache: l2-cache {
- 		};
- 	};
- 
-+	de: display-engine {
-+		compatible = "allwinner,sun50i-h6-display-engine";
-+		allwinner,pipelines = <&mixer0>;
-+		status = "disabled";
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts
+index c51d4d912..444773e4a 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h618-orangepi-zero3.dts
+@@ -11,6 +11,17 @@
+ / {
+ 	model = "OrangePi Zero3";
+ 	compatible = "xunlong,orangepi-zero3", "allwinner,sun50i-h618";
++
++	hdmi-connector {
++		compatible = "hdmi-connector";
++		type = "d";
++
++		port {
++			hdmi_con_in: endpoint {
++				remote-endpoint = <&hdmi_out_con>;
++			};
++		};
 +	};
-+
- 	reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -965,6 +974,188 @@ ohci3: usb@5311400 {
- 			status = "disabled";
- 		};
+ };
  
-+		bus: bus@1000000 {
-+			compatible = "allwinner,sun50i-h616-de33",
-+				     "allwinner,sun50i-a64-de2";
-+			reg = <0x1000000 0x400000>;
-+			allwinner,sram = <&sram_c 1>;
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+			ranges = <0 0x1000000 0x400000>;
+ &cpu0 {
+@@ -103,3 +114,17 @@ &pio {
+ 	vcc-ph-supply = <&reg_dldo1>;
+ 	vcc-pi-supply = <&reg_dldo1>;
+ };
 +
-+			display_clocks: clock@8000 {
-+				compatible = "allwinner,sun50i-h616-de33-clk";
-+				reg = <0x8000 0x100>;
-+				clocks = <&ccu CLK_DE>,
-+					 <&ccu CLK_BUS_DE>;
-+				clock-names = "mod", "bus";
-+				resets = <&ccu RST_BUS_DE>;
-+				#clock-cells = <1>;
-+				#reset-cells = <1>;
-+			};
++&de {
++	status = "okay";
++};
 +
-+			mixer0: mixer@100000 {
-+				compatible = "allwinner,sun50i-h616-de33-mixer-0";
-+				reg = <0x100000 0x100000>,
-+				      <0x8100 0x40>,
-+				      <0x280000 0x20000>;
-+				reg-names = "layers", "top", "display";
-+				clocks = <&display_clocks CLK_BUS_MIXER0>,
-+					 <&display_clocks CLK_MIXER0>;
-+				clock-names = "bus", "mod";
-+				resets = <&display_clocks RST_MIXER0>;
++&hdmi {
++	status = "okay";
++};
 +
-+				ports {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					mixer0_out: port@1 {
-+						reg = <1>;
-+
-+						mixer0_out_tcon_top_mixer0: endpoint {
-+							remote-endpoint = <&tcon_top_mixer0_in_mixer0>;
-+						};
-+					};
-+				};
-+			};
-+		};
-+
-+		tcon_top: tcon-top@6510000 {
-+			compatible = "allwinner,sun50i-h6-tcon-top";
-+			reg = <0x6510000 0x1000>;
-+			clocks = <&ccu CLK_BUS_TCON_TOP>,
-+				 <&ccu CLK_TCON_TV0>;
-+			clock-names = "bus", "tcon-tv0";
-+			clock-output-names = "tcon-top-tv0";
-+			resets = <&ccu RST_BUS_TCON_TOP>;
-+			#clock-cells = <1>;
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				tcon_top_mixer0_in: port@0 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <0>;
-+
-+					tcon_top_mixer0_in_mixer0: endpoint@0 {
-+						reg = <0>;
-+						remote-endpoint = <&mixer0_out_tcon_top_mixer0>;
-+					};
-+				};
-+
-+				tcon_top_mixer0_out: port@1 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <1>;
-+
-+					tcon_top_mixer0_out_tcon_tv: endpoint@2 {
-+						reg = <2>;
-+						remote-endpoint = <&tcon_tv_in_tcon_top_mixer0>;
-+					};
-+				};
-+
-+				tcon_top_hdmi_in: port@4 {
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+					reg = <4>;
-+
-+					tcon_top_hdmi_in_tcon_tv: endpoint@0 {
-+						reg = <0>;
-+						remote-endpoint = <&tcon_tv_out_tcon_top_hdmi>;
-+					};
-+				};
-+
-+				tcon_top_hdmi_out: port@5 {
-+					reg = <5>;
-+
-+					tcon_top_hdmi_out_hdmi: endpoint {
-+						remote-endpoint = <&hdmi_in_tcon_top>;
-+					};
-+				};
-+			};
-+		};
-+
-+		tcon_tv: lcd-controller@6515000 {
-+			compatible = "allwinner,sun50i-h6-tcon-tv",
-+				     "allwinner,sun8i-r40-tcon-tv";
-+			reg = <0x6515000 0x1000>;
-+			interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_TCON_TV0>,
-+				 <&tcon_top CLK_TCON_TOP_TV0>;
-+			clock-names = "ahb", "tcon-ch1";
-+			resets = <&ccu RST_BUS_TCON_TV0>;
-+			reset-names = "lcd";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				tcon_tv_in: port@0 {
-+					reg = <0>;
-+
-+					tcon_tv_in_tcon_top_mixer0: endpoint {
-+						remote-endpoint = <&tcon_top_mixer0_out_tcon_tv>;
-+					};
-+				};
-+
-+				tcon_tv_out: port@1 {
-+					reg = <1>;
-+
-+					tcon_tv_out_tcon_top_hdmi: endpoint {
-+						remote-endpoint = <&tcon_top_hdmi_in_tcon_tv>;
-+					};
-+				};
-+			};
-+		};
-+
-+		hdmi: hdmi@6000000 {
-+			compatible = "allwinner,sun50i-h616-dw-hdmi",
-+				     "allwinner,sun50i-h6-dw-hdmi";
-+			reg = <0x6000000 0x10000>;
-+			reg-io-width = <1>;
-+			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&ccu CLK_BUS_HDMI>,
-+				 <&ccu CLK_HDMI_SLOW>,
-+				 <&ccu CLK_HDMI>,
-+				 <&ccu CLK_HDMI_CEC>;
-+			clock-names = "iahb", "isfr", "tmds", "cec";
-+			resets = <&ccu RST_BUS_HDMI_SUB>;
-+			reset-names = "ctrl";
-+			phys = <&hdmi_phy>;
-+			phy-names = "phy";
-+			status = "disabled";
-+
-+			ports {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				hdmi_in: port@0 {
-+					reg = <0>;
-+
-+					hdmi_in_tcon_top: endpoint {
-+						remote-endpoint = <&tcon_top_hdmi_out_hdmi>;
-+					};
-+				};
-+
-+				hdmi_out: port@1 {
-+					reg = <1>;
-+				};
-+			};
-+		};
-+
-+		hdmi_phy: hdmi-phy@6010000 {
-+			compatible = "allwinner,sun50i-h616-hdmi-phy";
-+			reg = <0x6010000 0x10000>;
-+			clocks = <&ccu CLK_BUS_HDMI>,
-+				 <&ccu CLK_HDMI_SLOW>;
-+			clock-names = "bus", "mod";
-+			resets = <&ccu RST_BUS_HDMI>;
-+			reset-names = "phy";
-+			#phy-cells = <0>;
-+		};
-+
- 		rtc: rtc@7000000 {
- 			compatible = "allwinner,sun50i-h616-rtc";
- 			reg = <0x07000000 0x400>;
++&hdmi_out {
++	hdmi_out_con: endpoint {
++		remote-endpoint = <&hdmi_con_in>;
++	};
++};
 
 -- 
 2.51.0
