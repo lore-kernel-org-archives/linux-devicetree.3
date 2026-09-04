@@ -1,33 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE4493D75C7;
-	Fri,  4 Sep 2026 08:17:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7273B2D1D
+	for <devicetree@vger.kernel.org>; Fri,  4 Sep 2026 08:22:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788509828; cv=none; b=lqtneRvIJY4MeH1eWEyUUfIEauPonQh0mqdLnw8eh8CTprDOEACmbtC7yb1XDRKQxW7dGFaIPhWIV0A7Fbt6kskwqVQr2dBzbV9ipKIV3oubFnPnvKG5KcyrvtrkLE76JuCMAXsGwS/lho5qPU0lthQmd9pA6yApZ9IBWSdwZE0=
+	t=1788510144; cv=none; b=YSQzdUPakLyBWiE2WyBN42v8gSJ+AgzurEiQLF1cILL3OGkuo8xodnQOPfnDX2U4JNAcnEZLu80EKJy2FzxfBUnyPUigkSVlQcTK4/4BKiiKBBbwSiflq31YejJiHFdpqzlAhyxYGroFQI3nVpSYGZws8KPgfM5wqjGGfmcJ8k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788509828; c=relaxed/simple;
-	bh=yKaiXiH5NQRoMAzdI/ZniH6m6MCJz7WcuxpsF5mtuKM=;
+	s=arc-20240116; t=1788510144; c=relaxed/simple;
+	bh=uDyzs5s9ApfXMfGC9CNZWjKX2beUmDaLx9equHNxSfk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eK5NfnUSf2JiAhggGnf8qzVjLNErWyK37NcSxNsWn2v4twO8omL0IynCQgSz74aq2VHDZMObm8n2gnIMla5bToCJhNf+QsLyMFGepne7WdPDD3+9UUIHtzg6a9fTOndE7TNWyXTeBUf+yVZtYGXpcet8zoS7rp9gSrN32eJI+yU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8yepe6r; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Gq2BgQpIi1R8W0oPXsbS4N1taDfgTYgo3t/iSdXGtc2BN5m9/Fu3/6kaExfKxjmHErmHu1SldSMKnYVNVJhg526NRFOApCOHixj6yVWfQ5all9nJ5t/wQ0H7Osxmbni4vuTox06xZQkNJLgAMqCNT5FJt4+D46oGPSXWpNU14TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KS7s+FbS; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aSxF8art; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8yepe6r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B01A1F00ADB;
-	Fri,  4 Sep 2026 08:17:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788509826;
-	bh=BhxQGymHFkjsUNUyL4bLHk5LJQ5jGJvm0zL61y6tp6A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Z8yepe6r77Lr6t575kRAfr47dMyaor8mVq4Uwp+QKkTs3VQk5wHjzsoOFxz5F1prp
-	 uElL7g5rH0vm6MHv/xxuo30F45TFUo4X8JGTX+/Xv4V+hK9dwyK5Kx69kB/lFjFdQB
-	 4I4ApVtSOeREkUCEvVUiEyjOA5vC9e4uEZEwWDC0VXJmD72BPZ0HndsnVlmidQj9wh
-	 4fxHh7EPk+WZV3ihJb52YPgpDIW+28aMkkSd5/ziIITid3HUqIYT2SU9M6sleeFBMY
-	 t1tULd1wNmLCV+kJtR9EXKlhVV1gi+vc+94n36kft8TQAorOtgy1D7MZ3MVrzphFlo
-	 xTugvaT7vRJKA==
-Message-ID: <8f8a4946-e8e2-4683-b837-c783c40b81c1@kernel.org>
-Date: Fri, 4 Sep 2026 10:17:02 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KS7s+FbS";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aSxF8art"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6847mpia4111317
+	for <devicetree@vger.kernel.org>; Fri, 4 Sep 2026 08:22:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LCDGNyEsTtuKiGE2l/6lbLYXN71BNNmA6uKcG+M7tSc=; b=KS7s+FbST0JSiKYN
+	yR5X9lEY3ge2qKQ3jOXvGKtxyd7DqwxsLPhxlYiNxStwUZL9t1LMPwX3AUS7LdW0
+	iceqDYqJMQSWZk3QIpMOLt3dhmuJ5arsObfvMdm0/3qCzjxjfSw+Lskd246rcUkK
+	nlULXaYtZtLNKj3KOrmtKFFmqE1VnXlpQdroKwTsEkgyKjqvTzr+DpJhyPNjJG6O
+	BJuzeI3X+aq21eGItNuIy2UcqhQUjf0kitTAUICCWJIiqsrbZkorsrKi7dq/wYak
+	xIAKe/wdf0rNHgzVYrJyG8rUYzeZW8c0LjPJ+4G/yYdHo5vQcvCQF0mHM3Bn4UVI
+	7ODd9w==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gf9b1c9r6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 08:22:22 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e661ce1dcso13442485a.0
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 01:22:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788510142; x=1789114942; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LCDGNyEsTtuKiGE2l/6lbLYXN71BNNmA6uKcG+M7tSc=;
+        b=aSxF8arto4RlbuanxFORUXibj8465teFb3VDZWpnUVxeFn18hPYN/KBXRsNU+Wnp3f
+         cmL2+fcgxzpk9ZcR6hDOnGJKlidnR0FUrDaFz7/mcIcx6yItwPpQWtfCdrpCesMfs3zf
+         B5M0gOL+1wrwSxzSI4MoXDD6/5g9AJUALP7vCHQPLcneh3yUckahfrC8WiMIDXU0p8Cc
+         HTFeBzduEsrYaQ0CSINHDuwoFUDutruJ74rrfETnwx862fKRYNUIh6nmgHELGjY1IWCc
+         f3Xw6qFZBNL1EsA6xfKTY6J4wiT3W32a1MWRUa8BjsL45fKaiwE5OBEVcWVGYwbl2xZa
+         3X8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788510142; x=1789114942;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LCDGNyEsTtuKiGE2l/6lbLYXN71BNNmA6uKcG+M7tSc=;
+        b=bAeDLlVMhTpr5wh/v8zm2tOTqK2t2UlZCFBLuhfAeQNw315lnmzDrxL2Q8xEVtvBYB
+         81teBC7k7M5sA6Grol41a5PxXt605YSXVMam5AvkQV6yd5gvX/kEFfJATO1luTEN9/JY
+         Ooz+NEgBop8JRE/ioKa3j84n2A+lnz4tkdHR2cLeHz1VsqTd0Bzm8q5vTx20sudbkCqN
+         xkkhrQhu7J5YRZBuFLNaKAnv97Ob8Y74oqvZsOmui0VayXpp7fn3UbeAZ9dCLoijchX6
+         Lbe3we0TdnaX53EHdD1BjZiRQrAvhwvceNLEcAoGnhQvIAxbImZWe5PNVDyR36GFTcDo
+         XQVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy+aVs7U7262rlmVAb4/efWhvwMEC5gABE+cYHl8fyaxi86+poJeyCa5X7eCQlfg7ZnczbwRhBOQx1u@vger.kernel.org
+X-Gm-Message-State: AFuF++kdGh7aEr0vVDL6/zDX5aTaYNkbqkBhGeUJL3vag7PN62Jx4khn
+	WVIOXQe6ZGGLwiPzkNXKDbf0ZschNdag3JRQOKmIhoV26e1P5T7SmCK3vQO5VwMns6oSL1F8IUl
+	73Vq28fNI7jrMwSLCB+HJN5YFNDri0nr2LePTiciBrYFqYufy+jAOsSE8GwAxikZ1
+X-Gm-Gg: AYBFou3YdMjP05kLOi4OU3Zb5Bh00LKTxTP5hriqVwbPfn130sICP4N/UfL9o3gefGA
+	yHkyYpv3WAyB5Hhtgqk4nT6sRwr21N+dPW7na47Z8oXOQC9b/2TareEpPCMfMK8MXwKknrO+clJ
+	iY+sSfM4ZvTX54QZcJCpw01MEu9UpcNxS6ltz06ktGsuNlD4/q05z4/8pmmj5c6Ndoz25AYDyzG
+	VrnusAW8Xxc+FFua68be7oApZ8ukwz+fN2jqxBxPkYNdF7/K7gqNuU6FYnAKhSND4epdrXxgLlf
+	fw5EQR1tBtgv50WBMMluqojGxEZ5QWn5uTiVx2K8XeWsNFMZc+3l6VN1yWsnzVfPsFNGba8GkHh
+	LkDhe8xXZaiOSuLUOib2vyA==
+X-Received: by 2002:a05:620a:4390:b0:939:2884:e11 with SMTP id af79cd13be357-9398071af2emr306059285a.5.1788510141854;
+        Fri, 04 Sep 2026 01:22:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:4390:b0:939:2884:e11 with SMTP id af79cd13be357-9398071af2emr306056885a.5.1788510141355;
+        Fri, 04 Sep 2026 01:22:21 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5921e2sm72695866b.46.2026.09.04.01.22.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 01:22:20 -0700 (PDT)
+Message-ID: <cd5899e7-6882-4e32-9071-98fb94b0fa7d@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 10:22:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,509 +89,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] serial: wk2xxx: Add WK2xxx SPI UART driver
-To: zjzhao <zjzhao@edatec.cn>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
- linux-serial@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260904072027.67473-1-zjzhao@edatec.cn>
- <20260904072027.67473-2-zjzhao@edatec.cn>
+Subject: Re: [PATCH RFC v2 5/6] ASoC: cs35l36: Implement set_tdm_slot to
+ program RX and TX slots
+To: david@ixit.cz, Srinivas Kandagatla <srini@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        David Rhodes <drhodes@opensource.cirrus.com>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, patches@opensource.cirrus.com,
+        devicetree@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260903-pixel3-audio-v2-0-7c22ed915291@ixit.cz>
+ <20260903-pixel3-audio-v2-5-7c22ed915291@ixit.cz>
 Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20260904072027.67473-2-zjzhao@edatec.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260903-pixel3-audio-v2-5-7c22ed915291@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: UkAA1fCiRWlGFoq2qW86km3NysKKI2_0
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDA3NiBTYWx0ZWRfX63BTzIofxXu9
+ PnkP2I4bstO/8lQdQUcaTRxdgJsetBE+cH5ICziGQylxRHti5PiqY9HvP4/4s9dBZtstYY19rMb
+ CTvr0g8l/ZWjtLWaIFdQWsMprwUelfQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA3NiBTYWx0ZWRfX2B1QU7S3cHH1
+ hn5Xbuy+sVQVEROwigrjAmm7IJhJYhOoZ6dv/L62XhrtNCget3EaA6sLqCTrSDGrj95zMqc6au/
+ FBRLHEm5umo6RDUg4ZdlXR58KJzmxQyi2qJFGHrXXqPQOj8RusmyCrWZ23rNqnaBz3CNQAl5tsr
+ Od7R89l0fSsH/uQ2r5lH3eMyYrfOx0LKqLvsFCmzuKF8k86/HeblCYSqRvmsQUx29ZL205H/+3l
+ 9I4mankihP75sPrAIjtZlTZQn9qMLzpMq2rKzI8fyGHyIhEpE2tbpnxDsybs6XWCeD6nabsJIAh
+ Iol89D0JxD1LP40ZHo+WdqDLI8LqWzUuNPbKOiVwzN3Z0+d+1MfPY1vvd0gz2Sy5zIOwoOqqSSv
+ xK7FX+zwQUH4OKE2ftRDs8+5EL3C9ixBd31TVTM02xwD1DYURltQiD/IVRyTY+Q9C5kIl27YjNb
+ x4zs0fB2DkQOd44+Hwg==
+X-Authority-Analysis: v=2.4 cv=NNTlPU6g c=1 sm=1 tr=0 ts=6a9a7fbe cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=WIE3HCTimkiIGiWK3dEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: UkAA1fCiRWlGFoq2qW86km3NysKKI2_0
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 clxscore=1015 suspectscore=0 impostorscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609040076
 
-Hi,
-
-On 04. 09. 26, 9:20, zjzhao wrote:
-> Add a driver for the WK2xxx SPI to UART bridge ICs (WK2124, WK2132,
-> WK2168, WK2202 and WK2204) from WKmic (Chengdu Weikai Microelectronics).
-> Each IC exposes two or four full-duplex UART channels with 256-byte
-> RX/TX FIFOs through a single SPI slave interface and one interrupt line.
+On 9/3/26 8:26 PM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> The driver is a rework of the vendor driver (https://github.com/britus/
-> wk2xxx) modeled after the NXP sc16is7xx driver. It registers ttyWK0..N
-> lines (IDA-allocated), uses devm_request_threaded_irq with a kthread
-> worker for register access, falls back to polling when the interrupt
-> line is not described, and supports hardware flow control and RS485
-> where the IC provides them.
-
-Have you checked that there is no similar driver which could be only 
-extended?
-
-> Also allocate PORT_WK2XXX (124) and add the SERIAL_WK2XXX Kconfig
-> option.
+> Program the ASP RX and TX slot registers from the TDM masks passed by
+> the machine driver. Each set bit in a mask names a slot; codec channels
+> are assigned to those slots in order, ASPRX1 taking the first RX slot
+> and ASPTX1..TX8 the first eight TX slots, with a warning if the mask
+> names more slots than the device has channels.
 > 
-> Tested on Raspberry Pi 5 boards (EDATEC IPC1200 with WK2132 on SPI0 and
-> SBC2300 with WK2204 on SPI1); loopback TX/RX tests pass.
+> Passing slots == 0 or an empty mask restores the hardware defaults,
+> ASPRX1 in slot 0 and ASPTX1..TX8 in slots 0..7.
 > 
-> Signed-off-by: zjzhao <zjzhao@edatec.cn>
-...
-> --- /dev/null
-> +++ b/drivers/tty/serial/wk2xxx.c
-> @@ -0,0 +1,1245 @@
-...
-> +static int wk2xxx_port_reg_write(struct wk2xxx_port *s, unsigned int portno,
-> +				 u8 reg, u8 val)
+> This lets a machine driver with several amplifiers on one bus, such as
+> sdm845 with two CS35L36, put each amplifier on its own RX slot and keep
+> their TX slots from colliding.
+> 
+> Assisted-by: Claude:claude-4.6-opus
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+
+[...]
+
+> +static int cs35l36_set_tdm_slot(struct snd_soc_dai *dai,
+> +				unsigned int tx_mask, unsigned int rx_mask,
+> +				int slots, int slot_width)
 > +{
-> +	guard(mutex)(&s->reg_lock);
-> +	return wk2xxx_raw_port_write(s, portno, reg, val);
-> +}
+> +	struct cs35l36_private *cs35l36 =
+> +			snd_soc_component_get_drvdata(dai->component);
 > +
-> +static void wk2xxx_port_reg_update(struct wk2xxx_port *s, unsigned int portno,
-> +				   u8 reg, u8 mask, u8 val)
-> +{
-> +	u8 r = 0;
+> +	/* Note: rx/tx is from point of view of the CPU end */
+> +	if (!slots || !rx_mask)
+> +		rx_mask = BIT(0);		/* ASPRX1 in slot 0 */
 > +
-> +	scoped_guard(mutex, &s->reg_lock) {
+> +	if (!slots || !tx_mask)
+> +		tx_mask = GENMASK(7, 0);	/* ASPTX1..8 in slots 0..7 */
+> +
+> +	cs35l36_mask_to_slots(cs35l36, rx_mask, CS35L36_ASP_RX1_SLOT, 1);
 
-why is this one scoped?
+GPT says:
 
-> +		if (wk2xxx_raw_port_read(s, portno, reg, &r))
-> +			return;
-> +		wk2xxx_raw_port_write(s, portno, reg, (r & ~mask) | val);
-> +	}
-> +}
+Findings
+1. High: patch 5 makes the TDM RX slot compete with the codec’s Input Mux control.  
+cs35l36_set_tdm_slot() programs CS35L36_ASP_RX1_SLOT with a six-bit TDM slot value in patch 5. That register’s bit 0 is already exposed as the Input Mux DAPM control:
+- sound/soc/codecs/cs35l36.c:588 defines the control from CS35L36_ASP_RX1_SLOT, shift 0.
+- sound/soc/codecs/cs35l36.c:583-586 defines its values as RX1 and RX2.
 
-...
-
-> +static void wk2xxx_throttle(struct uart_port *port)
-> +{
-> +	unsigned long flags;
-> +
-> +	/* Stop draining the RX FIFO to apply back-pressure. */
-> +	uart_port_lock_irqsave(port, &flags);
-
-This can be a guard too, right?
-
-> +	wk2xxx_ier_clear(port, WK2XXX_SIER_RFTRIG_IEN_BIT);
-> +	uart_port_unlock_irqrestore(port, flags);
-> +}
-> +
-> +static void wk2xxx_unthrottle(struct uart_port *port)
-> +{
-> +	unsigned long flags;
-> +
-> +	uart_port_lock_irqsave(port, &flags);
-
-Same here.
-
-> +	wk2xxx_ier_set(port, WK2XXX_SIER_RFTRIG_IEN_BIT);
-> +	uart_port_unlock_irqrestore(port, flags);
-> +}
-> +
-> +static void wk2xxx_handle_tx(struct uart_port *port)
-> +{
-> +	struct wk2xxx_one *one = to_wk2xxx_one(port, port);
-> +	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
-> +	struct tty_port *tport = &port->state->port;
-> +	unsigned long flags;
-> +	unsigned int portno = port->iobase;
-> +	unsigned int txlen, to_send, sent;
-> +	const unsigned char *tail;
-> +	u8 fsr, tfcnt;
-
-What's the reason not to use any of the uart_port_tx* helpers?
-
-> +	mutex_lock(&one->tx_lock);
-
-Why not guard?
-
-> +
-> +	if (unlikely(port->x_char)) {
-> +		wk2xxx_port_reg_write(s, portno, WK2XXX_FDAT_REG, port->x_char);
-> +		port->icount.tx++;
-> +		port->x_char = 0;
-> +		goto out;
-
-And kill the goto then.
-
-> +	}
-> +
-> +	if (kfifo_is_empty(&tport->xmit_fifo) || uart_tx_stopped(port)) {
-> +		uart_port_lock_irqsave(port, &flags);
-> +		wk2xxx_stop_tx(port);
-> +		uart_port_unlock_irqrestore(port, flags);
-> +		goto out;
-> +	}
-> +
-> +	/* Limit to the free space available in the TX FIFO. */
-> +	wk2xxx_port_reg_read(s, portno, WK2XXX_TFCNT_REG, &tfcnt);
-> +	if (tfcnt == 0) {
-> +		wk2xxx_port_reg_read(s, portno, WK2XXX_FSR_REG, &fsr);
-> +		txlen = (fsr & WK2XXX_FSR_TFULL_BIT) ? 0 : WK2XXX_FIFO_SIZE;
-> +	} else {
-> +		txlen = WK2XXX_FIFO_SIZE - tfcnt;
-> +	}
-> +	if (txlen > WK2XXX_MAX_TX_CHARS)
-> +		txlen = WK2XXX_MAX_TX_CHARS;
-> +
-> +	to_send = kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-> +	sent = to_send;
-> +	while (to_send) {
-> +		unsigned int chunk = min_t(unsigned int, to_send,
-> +					   WK2XXX_MAX_SPI_LEN);
-> +
-> +		wk2xxx_fifo_write(s, portno, tail, chunk);
-> +		tail += chunk;
-> +		to_send -= chunk;
-> +	}
-> +	uart_xmit_advance(port, sent);
-> +
-> +	uart_port_lock_irqsave(port, &flags);
-> +	if (kfifo_len(&tport->xmit_fifo) < WAKEUP_CHARS)
-> +		uart_write_wakeup(port);
-> +
-> +	if (kfifo_is_empty(&tport->xmit_fifo))
-> +		wk2xxx_stop_tx(port);
-> +	else
-> +		wk2xxx_ier_set(port, WK2XXX_SIER_TFTRIG_IEN_BIT);
-> +	uart_port_unlock_irqrestore(port, flags);
-> +
-> +out:
-> +	mutex_unlock(&one->tx_lock);
-> +}
-
-...
-> +static irqreturn_t wk2xxx_irq(int irq, void *dev_id)
-> +{
-> +	struct wk2xxx_port *s = dev_id;
-> +	bool keep_polling;
-> +
-> +	do {
-> +		u8 gifr;
-> +		int i;
-> +
-> +		keep_polling = false;
-> +
-> +		if (wk2xxx_reg_read(s, WK2XXX_GIFR_REG, &gifr))
-> +			return IRQ_HANDLED; /* Bus error; give up this pass. */
-> +
-> +		for (i = 0; i < s->devtype->nr_uart; ++i)
-> +			if (gifr & BIT(i))
-> +				keep_polling |= wk2xxx_port_irq(s, i);
-> +	} while (keep_polling);
-
-Should you perhaps cap the loop count as well?
-
-> +
-> +	return IRQ_HANDLED;
-
-Pointed out by sashiko, this is indeed bad for shared irqs.
-
-> +}
-
-...
-
-> +static void wk2xxx_conf_port(struct uart_port *port, u8 lcr, u8 fwcr,
-> +			     u8 baud0, u8 baud1, u8 pres)
-> +{
-> +	struct wk2xxx_port *s = dev_get_drvdata(port->dev);
-> +	unsigned int portno = port->iobase;
-> +	u8 sier, scr, fsr;
-> +	int count = 200;
-> +
-> +	scoped_guard(mutex, &s->reg_lock) {
-
-Why is this scoped again?
-
-> +		/* Disable all sub-UART interrupts. */
-> +		wk2xxx_raw_port_read(s, portno, WK2XXX_SIER_REG, &sier);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG, 0);
-> +
-> +		/* Wait for the transmitter to become idle. */
-> +		do {
-> +			wk2xxx_raw_port_read(s, portno, WK2XXX_FSR_REG, &fsr);
-> +		} while ((fsr & WK2XXX_FSR_TBUSY_BIT) && count--);
-> +
-> +		/* Disable the transmitter and receiver. */
-> +		wk2xxx_raw_port_read(s, portno, WK2XXX_SCR_REG, &scr);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SCR_REG,
-> +				      scr & ~(WK2XXX_SCR_TXEN_BIT |
-> +					      WK2XXX_SCR_RXEN_BIT));
-> +
-> +		/* Program the line control register. */
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_LCR_REG, lcr);
-> +
-> +		/* Configure hardware flow control levels. */
-> +		if (fwcr) {
-> +			wk2xxx_raw_port_write(s, portno, WK2XXX_FWCR_REG, fwcr);
-> +			wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 1);
-> +			wk2xxx_raw_port_write(s, portno, WK2XXX_FWTH_REG, 0xf0);
-> +			wk2xxx_raw_port_write(s, portno, WK2XXX_FWTL_REG, 0x80);
-> +			wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 0);
-> +		}
-> +
-> +		/* Program the baud rate generator (page 1 registers). */
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 1);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_BAUD0_REG, baud0);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_BAUD1_REG, baud1);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_PRES_REG, pres);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 0);
-> +
-> +		/* Re-enable the transmitter and receiver. */
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SCR_REG,
-> +				      scr | (WK2XXX_SCR_TXEN_BIT |
-> +					     WK2XXX_SCR_RXEN_BIT));
-> +
-> +		/* Restore the interrupt enable register. */
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG, sier);
-> +	}
-> +}
-> +
-> +static void wk2xxx_calc_divisor(unsigned long clk, unsigned int baud,
-> +				u8 *baud0, u8 *baud1, u8 *pres)
-> +{
-> +	unsigned int div;
-> +
-> +	div = clk / (baud * 16);
-> +	if (div == 0)
-> +		div = 1;
-> +	div--;
-> +	*baud0 = div & 0xff;
-> +	*baud1 = (div >> 8) & 0xff;
-> +	*pres = ((unsigned long long)(clk % (baud * 16)) * 100 / baud + 50) / 100;
-
-Did you mean to use explicit u64?
-
-> +}
-> +
-> +static void wk2xxx_set_termios(struct uart_port *port, struct ktermios *termios,
-> +			       const struct ktermios *old)
-> +{
-> +	unsigned int baud;
-> +	unsigned long flags;
-> +	u8 lcr = 0, fwcr = 0;
-> +	u8 baud0, baud1, pres;
-> +
-> +	/* The WK2xxx supports 8 data bits only. */
-> +	termios->c_cflag &= ~CSIZE;
-> +	termios->c_cflag |= CS8;
-> +
-> +	/* Parity. */
-> +	if (termios->c_cflag & PARENB) {
-> +		lcr |= WK2XXX_LCR_PAEN_BIT;
-> +		switch (termios->c_cflag & (PARODD | CMSPAR)) {
-> +		case 0:
-> +			lcr |= WK2XXX_LCR_PAM1_BIT;	/* even */
-> +			break;
-> +		case PARODD:
-> +			lcr |= WK2XXX_LCR_PAM0_BIT;	/* odd */
-> +			break;
-> +		case CMSPAR:
-> +			break;				/* space */
-> +		case PARODD | CMSPAR:
-> +			lcr |= WK2XXX_LCR_PAM1_BIT |
-> +			       WK2XXX_LCR_PAM0_BIT;	/* mark */
-> +			break;
-> +		}
-> +	}
-> +
-> +	/* Stop bits. */
-> +	if (termios->c_cflag & CSTOPB)
-> +		lcr |= WK2XXX_LCR_STPL_BIT;
-> +
-> +	/* Set read status mask. */
-> +	port->read_status_mask = WK2XXX_LSR_OE_BIT;
-> +	if (termios->c_iflag & INPCK)
-> +		port->read_status_mask |= WK2XXX_LSR_PE_BIT |
-> +					  WK2XXX_LSR_FE_BIT;
-> +	if (termios->c_iflag & (BRKINT | PARMRK))
-> +		port->read_status_mask |= WK2XXX_LSR_BI_BIT;
-> +
-> +	/* Set status ignore mask. */
-> +	port->ignore_status_mask = 0;
-> +	if (termios->c_iflag & IGNBRK)
-> +		port->ignore_status_mask |= WK2XXX_LSR_BI_BIT;
-> +	if (!(termios->c_cflag & CREAD))
-> +		port->ignore_status_mask |= WK2XXX_LSR_BRK_ERROR_MASK;
-> +
-> +	/* Configure flow control. */
-> +	port->status &= ~(UPSTAT_AUTOCTS | UPSTAT_AUTORTS);
-> +	if (termios->c_cflag & CRTSCTS) {
-> +		fwcr = WK2XXX_FWCR_FWM_RTS_CTS;
-> +		port->status |= UPSTAT_AUTOCTS | UPSTAT_AUTORTS;
-> +	}
-> +
-> +	/* Get the baud rate generator configuration. */
-> +	baud = uart_get_baud_rate(port, termios, old,
-> +				  port->uartclk / 16 / 0xffff,
-> +				  port->uartclk / 16);
-> +
-> +	wk2xxx_calc_divisor(port->uartclk, baud, &baud0, &baud1, &pres);
-> +	wk2xxx_conf_port(port, lcr, fwcr, baud0, baud1, pres);
-> +
-> +	uart_port_lock_irqsave(port, &flags);
-
-guard
-
-> +	uart_update_timeout(port, termios->c_cflag, baud);
-> +	uart_port_unlock_irqrestore(port, flags);
-> +}
-
-...
-
-> +static const struct uart_ops wk2xxx_ops = {
-> +	.tx_empty	= wk2xxx_tx_empty,
-> +	.set_mctrl	= wk2xxx_set_mctrl,
-> +	.get_mctrl	= wk2xxx_get_mctrl,
-> +	.stop_tx	= wk2xxx_stop_tx,
-> +	.start_tx	= wk2xxx_start_tx,
-> +	.throttle	= wk2xxx_throttle,
-> +	.unthrottle	= wk2xxx_unthrottle,
-> +	.stop_rx	= wk2xxx_stop_rx,
-> +	.enable_ms	= wk2xxx_enable_ms,
-> +	.break_ctl	= wk2xxx_break_ctl,
-> +	.startup	= wk2xxx_startup,
-> +	.shutdown	= wk2xxx_shutdown,
-> +	.set_termios	= wk2xxx_set_termios,
-> +	.type		= wk2xxx_type,
-
-> +	.request_port	= wk2xxx_request_port,
-> +	.release_port	= wk2xxx_null_void,
-
-req + rel are optional. Drop them.
-
-> +	.config_port	= wk2xxx_config_port,
-> +	.verify_port	= wk2xxx_verify_port,
-> +};
-...
-> +static int wk2xxx_probe(struct spi_device *spi)
-> +{
-> +	const struct wk2xxx_devtype *devtype;
-> +	struct device *dev = &spi->dev;
-> +	struct wk2xxx_port *s;
-> +	unsigned long uartclk;
-> +	u32 clock_freq = 0;
-> +	bool port_registered[WK2XXX_MAX_PORTS];
-> +	u8 val;
-> +	int i, ret;
-> +
-> +	/* Setup SPI bus. The SPI mode follows the device tree (spi-cpha,
-> +	 * spi-cpol); it defaults to SPI mode 0 when unspecified.
-> +	 */
-> +	spi->bits_per_word = 8;
-> +	spi->max_speed_hz = spi->max_speed_hz ? : 10 * HZ_PER_MHZ;
-> +	ret = spi_setup(spi);
-> +	if (ret)
-> +		return ret;
-> +
-> +	devtype = spi_get_device_match_data(spi);
-> +	if (!devtype)
-> +		return dev_err_probe(dev, -ENODEV, "Failed to match device\n");
-> +
-> +	/* Allocate port structure. */
-> +	s = devm_kzalloc(dev, struct_size(s, p, devtype->nr_uart), GFP_KERNEL);
-> +	if (!s)
-> +		return dev_err_probe(dev, -ENOMEM,
-> +				     "Error allocating port structure\n");
-> +
-> +	s->devtype = devtype;
-> +	s->spi = spi;
-> +	mutex_init(&s->reg_lock);
-> +	dev_set_drvdata(dev, s);
-> +
-> +	/*
-> +	 * The WK2xxx has no identification register, so the best we can do
-> +	 * is to check that communication is at all possible.
-> +	 */
-> +	ret = wk2xxx_reg_read(s, WK2XXX_GENA_REG, &val);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read GENA register\n");
-> +
-> +	/* Crystal clock; allow an optional DT override. */
-> +	uartclk = devtype->crystal_freq;
-> +	if (device_property_read_u32(dev, "clock-frequency", &clock_freq) == 0)
-> +		uartclk = clock_freq;
-> +
-> +	/* Mark each port line and status as uninitialized. */
-> +	for (i = 0; i < devtype->nr_uart; ++i) {
-> +		s->p[i].port.line = WK2XXX_MAX_DEVS;
-> +		port_registered[i] = false;
-> +	}
-> +
-> +	kthread_init_worker(&s->kworker);
-> +	s->kworker_task = kthread_run(kthread_worker_fn, &s->kworker,
-> +				      "wk2xxx");
-> +	if (IS_ERR(s->kworker_task)) {
-> +		ret = PTR_ERR(s->kworker_task);
-> +		goto out_ports;
-> +	}
-> +	sched_set_fifo(s->kworker_task);
-> +
-> +	for (i = 0; i < devtype->nr_uart; ++i) {
-> +		ret = ida_alloc_max(&wk2xxx_lines, WK2XXX_MAX_DEVS - 1,
-> +				    GFP_KERNEL);
-> +		if (ret < 0)
-> +			goto out_ports;
-> +
-> +		s->p[i].port.line = ret;
-> +
-> +		/* Initialize port data. */
-> +		s->p[i].port.dev	= dev;
-> +		s->p[i].port.irq	= spi->irq;
-> +		s->p[i].port.type	= PORT_WK2XXX;
-> +		s->p[i].port.fifosize	= WK2XXX_FIFO_SIZE;
-> +		s->p[i].port.flags	= UPF_FIXED_TYPE | UPF_LOW_LATENCY;
-> +		s->p[i].port.iobase	= i;
-> +		/*
-> +		 * Use all ones as membase so that uart_configure_port() in
-> +		 * serial_core.c does not abort for SPI devices.
-> +		 */
-> +		s->p[i].port.membase	= (void __iomem *)~0;
-
-0 is int, does the compiler not complain about cast to pointer? Or 
-sparse? Maybe not, I am not sure anymore...
-
-> +		s->p[i].port.iotype	= UPIO_PORT;
-> +		s->p[i].port.uartclk	= uartclk;
-> +		s->p[i].port.rs485_config = wk2xxx_config_rs485;
-> +		s->p[i].port.rs485_supported = wk2xxx_rs485_supported;
-> +		s->p[i].port.ops	= &wk2xxx_ops;
-thanks,
--- 
-js
-suse labs
+Konrad
