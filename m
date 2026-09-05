@@ -1,281 +1,69 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3342357A25
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:33:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E5930567F;
+	Sat,  5 Sep 2026 21:33:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644015; cv=none; b=SR8EBdQzNwEXqENfD1yB2prg0B/+bstjVxLB8XxMgrkLe8klyadvzkKhfodaYZfPUCKoxsGTepi/eBNRQnnIj3dt07rEOSH3Gtt4qBiF7xWCONbPXtUXE47r4b7SZb3XR2qd4DfhOroxULvrNwQ1jpGE+wame+IW+ulcx/sbs8M=
+	t=1788644033; cv=none; b=KBgQkxxWCVLA77L+4kd0yM1qlbO+CCEy52HPISF9I5rwfAxgfnOcPHiawYK7hlX+KAnNYOm+PrwrYRTF8hxPtEucm1QfGKkOzNZOXZDqRoRneuY46WkoB1sMJHxkSVMiLKgonBuxgxOD0EsW/r9Q5yTkE2JJ/Zeo8Z5KbCgNNOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788644015; c=relaxed/simple;
-	bh=PVilgbHHs7aR8Qkx3HORWWvrIUgpzson356NM/5tNnY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qCPkyMPoZ1lLF9QufOVurti5Jp5xmuvXyykohvHKSPVdPuJugL8luFW9+z1lZKha2gjplm8jretSSgs7sTr0zzHYIFKbai0qXsKxJacWCbsnxuh7wlSc0tOBxmarn7/MYv2kiWX04wc9ucVkBT+IhmUkdtfdkHaGAZ502aqLjYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OhDN8Nl4; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788644033; c=relaxed/simple;
+	bh=bLQyKpVfUwkwmCuMH76hmo8LygiWBuv13+7nPEODNZg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h2zbN7JGyiMxC6ePhRfuUHMFlsoo47W6x19kHJU+rQxWX26QSLRRW6+qzc6S24BRfoaIphM+jqNqBHtfxHVD4N5cBw8s3FJfrPOg8EUWOCIk8H+qkjMSGcIOjsIg8C3Vhxvb1plVV2ru1S+M2bICshF6XJe0oFNQRImMKTTs9ug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RtdueHP7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OhDN8Nl4"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666e7c9eeso119544a91.0
-        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 14:33:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788644013; x=1789248813; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=r+WACWGGRxnr7upWs/bzK9T7rZ+TwizKBmDY48I3U9o=;
-        b=OhDN8Nl4I15AbEH8vfoh9aT8LMRL8GA74qceBHTSYXs0CNB29l3WYtUT9gyMXArLxL
-         gKvF4bLQVOiXKR6dMm4z1tBkVZBWcU4QoQNvlpjGqbFcz6DEe2kCtLKbu/oHOcUASSsR
-         6Yyb/8LzbF6TnbeIw+iOkos5ZBw27qwnqrzlCAY5dfZzK6EQ8IacVttaHDtYvUW83YEG
-         sqQMOM7SOO0skxS0jhCr3bc7y437h+iHbRIh/+vxiL6JGMH+dRIvkQxaVKoD2J/1NvXQ
-         Ogf0P0Arlwgg3hDhykoOqXkjw30XdDSffqSh+txA4oTOCgymDU8l3FERXAbDU33zgXWP
-         P7dw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788644013; x=1789248813;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=r+WACWGGRxnr7upWs/bzK9T7rZ+TwizKBmDY48I3U9o=;
-        b=s8+DIfVXupJQdCsLxl3nf6+fR/RJLMtVYg/BJdiiDSOrkTWJh0j4yEj0D8gHRZY5Ww
-         0Cx7WSRrueRiVcgsPTqS1rfX+nGlxbx7+uS0B/rLSNNRqBV8twzMLm9hvQZUMMGP948X
-         Hdf1DLCUmnj1tqXJVzkhVgp9wDNJdsIiEaV5PDRmUE/2NUtEGSAIC1GfwGifvQrqY7it
-         e+P3wNoDbfTiJTmetNFLucIzBiqAqNEVf8ndoegrDmTDUHkZFrB9Zt0rBjMdINFlm0ZL
-         FE1eJ3ktm13EQHy3HzHL3v/WpjG26PSRlTvWaF/UPCVqubD/WWHlqPVT0qsIjSSEmLbg
-         XFjA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWuX0u3aAQJCtdAyhUUAmsLWi72CyOPFM2AgXjgm4rLFriQDPGvPrImE0Xc5TgV4YFP+YZ+RwbcBex@vger.kernel.org
-X-Gm-Message-State: AFuF++lK+4Q+eEErolAZIUawTLUVM0/ETJ3Y2IqAXJQgdtGHPc2NWSZL
-	41yohg5Q+sCN6qBaCxL1VQkxEE8ZrgtuKBU3sfkdaElQTubGh0GEFsiv
-X-Gm-Gg: AYBFou0vneGQHvpAvu09aXFIPkBhQGzmatZWOZk4PkHYRG9DPRfRHI43gWN+wtKXpsA
-	wEUhXnWpNX6hTgL8jyhaUoq52AYBAWKjrcpzvx84oo2TalihyWYjOLZ0DrF30kErITY4APpvbun
-	enf6WkO/qDtAO37S2n5wAQs+x+BNzCkQjgo4XPVAMUa6M0klIW4g9aOKZicOjt8SX2WMsOIbgxg
-	higqCpICRfYDAaoSzp+8n2v4vMrotM+qroAOjiM2sW0bbGMrr0N5VQXymg0PfMMGGs011UtT71I
-	J4vbjxvHm9He5jFENE3ZISIsL2f+3xO1TuypM+DiqtU7we9eHt5MM46eKOS9OkIKT38qzPhbqdU
-	1O02H8FYuLs/iZJ94avT0dhc4Qai58zj+s9EgOiNUUe+kgla8yOWgkYxAtSv1UrZnkqcmQ+SgDz
-	e0AUg631yUJfxp9q+r2EkOn87XOZwabQ6S8An6VAUFZeh+oSAAL+hj4Rx/CaQS0pb++y02HOoW
-X-Received: by 2002:a17:90b:562b:b0:396:d27b:86a4 with SMTP id 98e67ed59e1d1-39b3d5f2c09mr7341040a91.2.1788644012998;
-        Sat, 05 Sep 2026 14:33:32 -0700 (PDT)
-Received: from [10.63.138.252] ([2409:40c2:5007:4aea:63cc:914c:1243:e03c])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ce4221sm21538010a91.14.2026.09.05.14.33.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 14:33:31 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sun, 06 Sep 2026 03:02:40 +0530
-Subject: [PATCH v3 2/2] dt-bindings: clock: ti,dra7-atl: convert to
- dt-schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RtdueHP7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F37D1F00A3A;
+	Sat,  5 Sep 2026 21:33:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788644032;
+	bh=bLQyKpVfUwkwmCuMH76hmo8LygiWBuv13+7nPEODNZg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RtdueHP7dixPeCZuL5C3Dlfs0JiMWbGgzq+lhCXPO6qXVWYIHJImHkvzho/T+43Gs
+	 nIMY6IpIFmFV0MmC2yqOyb0vS0bWXhK9kLGpyTDEwjQ962o72a6lv7p2PIV/i5Ndg5
+	 xViGDi9rtCQj1ZD7Td4F2vidHfXDgXO20j1j0TapnRCBCPGTSpgEQp4BgDH4FRLQHb
+	 8j3EWbOHbjzdTNyJ6oIiF1x62MWaAzCt4c2VYGVVwm69nT8DCMoAjvSZSrwDtFb62i
+	 2c2MQPJpRq23eJH1IAE3F1+uDPLI8Djc+nIN1+2ADqV1dT+2ui0PuGrNKczd6OFadG
+	 z4Ao8U7r+hxHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/6] PCI: dwc: rcar-gen4: Rework
+ rcar_gen4_pcie_drvdata .additional_common_init into .init
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260905212649.360498-3-marek.vasut+renesas@mailbox.org>
+References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
+ <20260905212649.360498-3-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 05 Sep 2026 21:33:51 +0000
+Message-Id: <20260905213352.2F37D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ti-dra7-atl-v3-2-5962d8f608ed@gmail.com>
-References: <20260906-ti-dra7-atl-v3-0-5962d8f608ed@gmail.com>
-In-Reply-To: <20260906-ti-dra7-atl-v3-0-5962d8f608ed@gmail.com>
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Peter Ujfalusi <peter.ujfalusi@ti.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788643973; l=5776;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=PVilgbHHs7aR8Qkx3HORWWvrIUgpzson356NM/5tNnY=;
- b=DL3YnQqEXykByzKQZKcgiPrSi/EuaWqQmmis6FTbLFpIZkjEwsviCp370Al0771vyuyBdRe/H
- QfDGTSMFJqxDDmSYwkaaBzuj4FGsyipibsEHw7Ij0rECGrKIpMRwvoZ
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert the IP driver portion of the DRA7 ATL (Audio Tracking Logic)
-binding from the freeform text binding to dt-schema. Together with
-ti,dra7-atl-clock.yaml this fully replaces dra7-atl.txt.
+> Rework the current complicated initialization callchain that invokes
+> host_init->common_init->additional_common_init() for host and
+> ep_init->common_init->additional_common_init() for endpoint into
+> simpler host_init->init() and ep_init->init() .
+>=20
+> The init callback is now always implmented for all R-Car Gen4 SoCs,
+> therefore there is no need to check whether the callback is not NULL.
+> For R-Car S4 the .init callback is rcar_gen4_pcie_common_init(),
+> for R-Car V4H and V4M the .init callback is implemented using a
+> new function rcar_gen4_v4h_v4m_pcie_init() which calls the common
+> rcar_gen4_pcie_common_init() followed by R-Car V4H and V4M specific
+> hardware initialization. The hardware initialization sequence remains
+> unchanged.
+>=20
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-ti,hwmods is marked deprecated as modern DTS uses ti,sysc target-module
-wrappers and the property is absent from current dra7-l4.dtsi.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-bws/aws maximum set to 15 per the 16 mux sources in
-dt-bindings/clock/ti-dra7-atl.h.
-
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- .../devicetree/bindings/clock/ti/dra7-atl.txt      |  56 ------------
- .../devicetree/bindings/clock/ti/ti,dra7-atl.yaml  | 100 +++++++++++++++++++++
- 2 files changed, 100 insertions(+), 56 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt b/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-deleted file mode 100644
-index e3c05844ae86..000000000000
---- a/Documentation/devicetree/bindings/clock/ti/dra7-atl.txt
-+++ /dev/null
-@@ -1,56 +0,0 @@
--Device Tree Clock bindings for ATL (Audio Tracking Logic) of DRA7 SoC.
--
--The ATL IP is used to generate clock to be used to synchronize baseband and
--audio codec. A single ATL IP provides four ATL clock instances sharing the same
--functional clock but can be configured to provide different clocks.
--ATL can maintain a clock averages to some desired frequency based on the bws/aws
--signals - can compensate the drift between the two ws signal.
--
--In order to provide the support for ATL and its output clocks (which can be used
--internally within the SoC or external components) two sets of bindings is needed:
--
--
--Binding for the IP driver:
--This binding is used to configure the IP driver which is going to handle the
--configuration of the IP for the ATL clock instances.
--
--Required properties:
--- compatible : shall be "ti,dra7-atl"
--- reg : base address for the ATL IP
--- ti,provided-clocks : List of phandles to the clocks associated with the ATL
--- clocks : link phandles to functional clock of ATL
--- clock-names : Shall be set to "fck"
--- ti,hwmods : Shall be set to "atl"
--
--Optional properties:
--Configuration of ATL instances:
--- atl{0/1/2/3} {
--	- bws : Baseband word select signal selection
--	- aws : Audio word select signal selection
--};
--
--For valid word select signals, see the dt-bindings/clock/ti-dra7-atl.h include
--file.
--
--Examples:
--
--/* binding for the IP */
--atl: atl@4843c000 {
--	compatible = "ti,dra7-atl";
--	reg = <0x4843c000 0x3ff>;
--	ti,hwmods = "atl";
--	ti,provided-clocks = <&atl_clkin0_ck>, <&atl_clkin1_ck>,
--				<&atl_clkin2_ck>, <&atl_clkin3_ck>;
--	clocks = <&atl_gfclk_mux>;
--	clock-names = "fck";
--};
--
--#include <dt-bindings/clock/ti-dra7-atl.h>
--
--&atl {
--
--	atl2 {
--		bws = <DRA7_ATL_WS_MCASP2_FSX>;
--		aws = <DRA7_ATL_WS_MCASP3_FSX>;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml
-new file mode 100644
-index 000000000000..f4bb233be83d
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti/ti,dra7-atl.yaml
-@@ -0,0 +1,100 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti/ti,dra7-atl.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI DRA7 ATL (Audio Tracking Logic) Clock Controller
-+
-+maintainers:
-+  - Peter Ujfalusi <peter.ujfalusi@ti.com>
-+
-+description:
-+  The ATL IP is used to generate clock to be used to synchronize baseband and
-+  audio codec. A single ATL IP provides four ATL clock instances sharing the
-+  same functional clock but can be configured to provide different clocks.
-+  ATL can maintain a clock averages to some desired frequency based on the
-+  bws/aws signals - can compensate the drift between the two ws signal.
-+
-+  See also Documentation/devicetree/bindings/clock/ti/ti,dra7-atl-clock.yaml
-+
-+properties:
-+  compatible:
-+    const: ti,dra7-atl
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  clock-names:
-+    items:
-+      - const: fck
-+
-+  ti,provided-clocks:
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    description:
-+      List of phandles to the clocks associated with the ATL.
-+    minItems: 4
-+    maxItems: 4
-+    items:
-+      maxItems: 1
-+
-+  ti,hwmods:
-+    $ref: /schemas/types.yaml#/definitions/string
-+    description:
-+      Name of the hwmod associated with the ATL.
-+    deprecated: true
-+    const: atl
-+
-+patternProperties:
-+  "^atl[0-3]$":
-+    type: object
-+    additionalProperties: false
-+    description:
-+      Configuration of ATL instances.
-+
-+    properties:
-+      bws:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description:
-+          Baseband word select signal selection.
-+        maximum: 15
-+
-+      aws:
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+        description:
-+          Audio word select signal selection.
-+        maximum: 15
-+
-+    required:
-+      - bws
-+      - aws
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - clock-names
-+  - ti,provided-clocks
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/ti-dra7-atl.h>
-+
-+    atl@4843c000 {
-+        compatible = "ti,dra7-atl";
-+        reg = <0x4843c000 0x3ff>;
-+        clocks = <&atl_gfclk_mux>;
-+        clock-names = "fck";
-+        ti,provided-clocks = <&atl_clkin0_ck>, <&atl_clkin1_ck>,
-+                             <&atl_clkin2_ck>, <&atl_clkin3_ck>;
-+
-+        atl2 {
-+            bws = <DRA7_ATL_WS_MCASP2_FSX>;
-+            aws = <DRA7_ATL_WS_MCASP3_FSX>;
-+        };
-+    };
-
--- 
-2.55.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905212649.3604=
+98-1-marek.vasut+renesas@mailbox.org?part=3D2
 
