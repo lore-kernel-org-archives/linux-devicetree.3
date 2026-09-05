@@ -1,110 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79399344DAD;
-	Sat,  5 Sep 2026 07:41:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2DD27144B;
+	Sat,  5 Sep 2026 08:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788594090; cv=none; b=tqCphtKXAXCM/Tc2H0csMrDB60d8iiSSywR1gO4ruZSfc9zF9gTh6ZxY8XkIJhruo8cevFaDClD7CEMzKP4nDXh61RHuq5puBZYgLCEon1cKS4sdHEhYwdy3zsr6zXuWsTG9FsCP0BaHzpPs3gmVZucNvezf+5liTTRiHMShL4g=
+	t=1788596403; cv=none; b=CDDgnUG8ZgpzonboCDReDATOQv7XnBeRQRlfnDQJvuVQl9DwZCYYgshEDozqYDdtomTCJrlXyTQpf53vEOzK1GDFxK+4+Tdui+IGnefnnYokWOxR6UnBTmEs6jcUeiH6AuldkpVx8K5FlTX72fIznfhiVNONnAFr123E5MxKrjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788594090; c=relaxed/simple;
-	bh=fhMZ8Ksx5t6CnoJvQgXvkp1NCb4RYmtUZbECXQ0gwCo=;
+	s=arc-20240116; t=1788596403; c=relaxed/simple;
+	bh=LCxtwuf2XVjyavMFXpabUkNGnxhVmscqDbsgQpznjPQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PA4d7FkOR7P01VevK5HHzIx2T3dUALz136MdakUvHC0Qzkkt3Rie1Kd02nRquht7J6d1IPyMeWfrroIhD0Wv+ddmD/XaUOWDM9XvYFYLXEplrkfGUXp6YvD3x7ocVJvOzC1pZdjOIimfA7kKZDBWQ13VmobPHJR9dB3TaZrQFK8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZXXriwFF; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=AIo6YlXzthpW6DT64oKfV+fI6hl1lnxmkpibJRBEIosfkl0ixGf/VBkNGcaBzls12QiplSDFeguA3Nb2juf/fHV2m93qF50cqhTw+F64D/RvkdSFo0qxv8zAjik4XNXew58k2efwTE/2rKXRyOA/kl0xlFQFkt8yCuez5vAH+SE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jlB56NRI; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZXXriwFF"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jlB56NRI"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788594089; x=1820130089;
+  t=1788596390; x=1820132390;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=fhMZ8Ksx5t6CnoJvQgXvkp1NCb4RYmtUZbECXQ0gwCo=;
-  b=ZXXriwFFarCXNa8tdV8pba0O/mfI5p6hXYspaBu/XDVORohtJPsNgGjI
-   PmvFwkgz9H+G3V1Exye+K/SWpCYozu3Ol28kMqn23wCX3qFAE8rF/FEMi
-   F4PCgMp7gMjwl7AlThljJJx53mTTxl8JJkTa9bLHjW9ahKBe/hNDp/1bY
-   aK1ynSczMDOD6PKzpvujLX7rK/KowL7vKc2WMewCiyXbx71PnUUkgfWiX
-   H2tjfJhHXFs4hMUBJpZqpKwNv9dmpteXoM3x7bNQiGkc8vQHHyi/eaIhE
-   03otMUoEomuTDQ6DjL4NT2bFf2A0aysnvhWOMeUozc/AwYFS2rcZZL9w/
-   Q==;
-X-CSE-ConnectionGUID: rZtooL1/TAWFQoeXmndnkw==
-X-CSE-MsgGUID: emGGBZ1bRkW5O6rI+L7A2g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="111862286"
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LCxtwuf2XVjyavMFXpabUkNGnxhVmscqDbsgQpznjPQ=;
+  b=jlB56NRIRvLP8ah9NlV8erjIBL/vx1IWXT0I++edNlZLvcncbUevTPdl
+   hIKCEK832w2II122FQ3hBtqhOcRR1dhY9kDCo8USso5IeW7KDRe8y9Nwy
+   vWPP5FG5rmdPnxz0WlNdBGhmfPUruej1Hsts31HqF0TQsCnRMoAp7HJuY
+   gqPdlKyX7L78AAiOPYTQCnNsSr3BCM7nt0GbTTBjCTNdQ0yqdRja38Sap
+   YdBdJU2I9CGWorMva8amghsXxfaIW+aKpe4Dt5xJgrutphXBGvaldkABM
+   jeRYm6zxK+e4ThOXhbAXyFeF9MNrrhB8ueCdcYIvW2ArCcnpo/7Hs8wVU
+   g==;
+X-CSE-ConnectionGUID: cNzkR1HoS7CoM2uRwaUB8Q==
+X-CSE-MsgGUID: T1Y8W0iEQt+7SmQZ05FxHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="99682601"
 X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="111862286"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:41:28 -0700
-X-CSE-ConnectionGUID: kW8K0IEZRDOw8nT6ZZREgQ==
-X-CSE-MsgGUID: S4YYYeLxSfSe8nUWM+E1lA==
+   d="scan'208";a="99682601"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 01:19:39 -0700
+X-CSE-ConnectionGUID: RZJD/lMbRdmRSuPG8lpbEA==
+X-CSE-MsgGUID: cq+DJsyETMOKDJXUoiwqxA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="273782066"
+   d="scan'208";a="295128198"
 Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 00:41:25 -0700
-Date: Sat, 5 Sep 2026 10:41:21 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux@analog.com, jic23@kernel.org, nuno.sa@analog.com,
-	dlechner@baylibre.com, andy@kernel.org,
-	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 01/13] iio: Fix typo in vendor name
-Message-ID: <apvHoaG3wzm06XOp@ashevche-desk.local>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
- <e508718734a06f005704051b8bc3d3d7a1a3b48d.1788368334.git.marcelo.schmitt@analog.com>
- <apkSNlQuQkjdNKvx@ashevche-desk.local>
- <apse4gHE2pblXnN2@debian-BULLSEYE-live-builder-AMD64>
- <apvHWCXRp-s7rcut@ashevche-desk.local>
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 01:19:34 -0700
+Date: Sat, 5 Sep 2026 11:19:32 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Daniel Scally <djrscally@gmail.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Wei Deng <wei.deng@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
+ APIs to port.h
+Message-ID: <apvQlBEgHOW9MCxN@ashevche-desk.local>
+References: <20260904084158.1341550-1-wenst@chromium.org>
+ <20260904084158.1341550-8-wenst@chromium.org>
+ <2026090430-botanist-ungodly-0299@gregkh>
+ <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
+ <2026090433-chair-tidings-5c99@gregkh>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <apvHWCXRp-s7rcut@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2026090433-chair-tidings-5c99@gregkh>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Sep 05, 2026 at 10:40:13AM +0300, Andy Shevchenko wrote:
-> On Fri, Sep 04, 2026 at 04:41:22PM -0300, Marcelo Schmitt wrote:
-> > On 09/03, Andy Shevchenko wrote:
-> > > On Wed, Sep 02, 2026 at 02:21:34PM -0300, Marcelo Schmitt wrote:
-
-...
-
-> > > > Now
-> > > > find drivers/iio/ -type f | xargs grep -i "Analog Device "
-> > > > finds no leftover occurrence of such typo.
-> > > > 
-> > > > Also,
-> > > > grep -nrIi drivers/iio/ -e "Analog Device" | wc -l
-> > > > and
-> > > > grep -nrIi drivers/iio/ -e "Analog Devices" | wc -l
-> > > > both count the same number of lines.
-> > > 
-> > > Why not `git grep ...`?
-> > > 
-> > Could be. I'm just more used to non-git grep.
+On Fri, Sep 04, 2026 at 07:52:37PM +0200, Greg Kroah-Hartman wrote:
+> On Sat, Sep 05, 2026 at 01:24:20AM +0800, Chen-Yu Tsai wrote:
+> > On Sat, Sep 5, 2026 at 12:47 AM Greg Kroah-Hartman
+> > <gregkh@linuxfoundation.org> wrote:
+> > >
+> > > On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
+> > > > |struct usb_port| and its matching container_of() macro should live in
+> > > > its own port.h, matching the split we have for .c files.
+> > >
+> > > Why?
+> > 
+> > This was requested by Andy. And to me it sort of made sense.
+> > 
+> > > > Move them as described. Also move usb_port_is_power_on(), since in the
+> > > > next change its |struct usb_hub *| parameter will be changed to
+> > > > |struct usb_port *|, and becomes a non-static function that only
+> > > > references |struct usb_port|.
+> > >
+> > > No, please don't do that unless you have a really good reason.
+> > 
+> > Which part? Move the code?
 > 
-> The rationale here is that `grep` goes over filesystem (and files) while
-> `git grep` goes over index which requires much less resources to waste and
-> hence 10x faster or so). That said, I highly recommend using `git grep`
-> when it's applicable.
-
-One more important thing, it skips ignored or temporary files, while `grep`
-goes over all of them.
-
-...
-
-> > Thanks for suggestions to other patches too. Will apply them for v2.
+> Please don't make a new .h file.
 > 
-> You're welcome!
+> Moving the function might make sense on its own if you need it in a
+> different file later on, but do a move only, and then change things if
+> you really need to do that.
+
+Isn't this file to break possible circular dependencies?
 
 -- 
 With Best Regards,
