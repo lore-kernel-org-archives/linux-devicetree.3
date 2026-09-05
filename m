@@ -1,168 +1,399 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48BFB165F1A;
-	Sat,  5 Sep 2026 21:40:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AB03911C0
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:40:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644418; cv=none; b=a7ok6rFPSrp3Yh0I3Vx/an17cU4cGpC8pU7STgXGnH0JLOo9yAn9VFu6/1wa4EI4yT8oX+djuadvDe2xpiB++Vha19Z9uGluicJi5eFYBiGA9FrwQfOkxExyw7uCNt6y7GH4VDk2EblSPzHtfP4sb1gAjA1D5rYn+6FYnOV+D7E=
+	t=1788644458; cv=none; b=lbf6PDmJnGKH8TVNLyDMQzR6SLGmnbkq5dbpWTTIGMdt4S6ZWIBMbBkG/ZE+wwm1uz8LCbRo1YgK17WKmvZnYLpLozMWf9hch0cWcvm8am2FVmBQWezFtHhIDwOABo0NBBkbJZS65w2upzCp5IXDtVVq5J+s6vh0oBYqhlpNOdo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788644418; c=relaxed/simple;
-	bh=PQ8XCw+nMn6cgBaYM6+ME7fEQrdlwLcb3v+QU1aeOOg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EBDHU2gD1X0YLzySF5S8oXx7xpDDQ9x8c1xAAm0KEy4x1iYpG2BfAQx2P+TT5/rmPT7Wv5fkQ4Rb/idG7TSJmm9lOK6ENE4LpzBQZEOT3LeZJC6lPSNO5lrSTFKidaec7JzAen0wCmobiSC+zO3kjQDQwJ/7T/qrxw8J5xX5MXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BIoM+ueC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788644458; c=relaxed/simple;
+	bh=e23BakfpYJhjyP2ucXP6cacP2+FKBtaeDCbJOqNaJ7A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=BOCvwwAauT1F5oqeGjuYRejkIFshqrCD2wCyNkzJ3Fr2O6s7oqeWdUyST/TQQPQmWDzR5XNOLlzoNG8917WEJAJ8lIPerhmAobKYd4cfECBRXEJ90CQeffX8dCHRDA3X2bqk3GgOSJQfcD6Zbwllyg+rwYKmL/qK51zlGuqIKWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D4dBCCxy; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BIoM+ueC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86BFB1F00A3A;
-	Sat,  5 Sep 2026 21:40:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788644416;
-	bh=NRNcumgUH1q6xDkKLI0xZmCci3vzXOnqUAzWemKFqWY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BIoM+ueCgBv7F3wUefXUQKRBFQyHCqmdHkidwQzZe3RkVRBe+PFUCC/QbTFl6joRd
-	 WO0hdH/ABFZOYDGJU66RV5+jrMRfUm6UkJePMOmPcUy53mWiPnh1h5Qvmhbr8uB1uK
-	 bRl7tbJ/j1xza0/Lq5hrWfxNEnOeUVqmFONTJmk+HYCEahlY9EQhByiFZrom455r11
-	 76hu0vu9xuQZ74LzsOEIZjK7AhOd9gMcCtvbUcqJ6WqDAhEakZ7xAadCLIbT/SDcPk
-	 AdymThw5sxoiOmJtJHyhCQGcT1ijDU/TAdKdaeKnoE2ZocDiM5FWtIomvYgEiupYF0
-	 owAzhAZ59027Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 6/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H
- PCIe4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, linux-pci@vger.kernel.org
-In-Reply-To: <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
-References: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
- <20260905212649.360498-7-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 21:40:16 +0000
-Message-Id: <20260905214016.86BFB1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D4dBCCxy"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff2f2c50so1840425ad.2
+        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 14:40:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788644452; x=1789249252; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Xr9RpJGtTR8iOeBIr69Q6X2tM34/vFLnHddN/zE6R7Q=;
+        b=D4dBCCxyb/DUKFbo8rwg+kNrXpQifUFMSu9pAV140xQk/2gtx2JjAg7B5BZ3YEt5GM
+         /wE8pJINSWeZ2tsE2IJoUz8o/bfGy4nrGS0Ut1Yqkw8dLgbK1K3/kIhD0HbZ8jczMDDS
+         sAiZaG/K+hwkPUWU9jQ8qBkA3Mm8WqKhADyi1kx0+rJvbdnkrln2guQs204ErLemGjNW
+         TjIhZBIWhcRR1+XT6adQs/3TLItTvBadWlrXw2HN9enn1sPUiF+PprZOPwnJN43+0LUU
+         uKcUrWvfCTB4W7mrrbtkS7GYvrJeTkt8/zkSADWu6VlIINEzMX6Gw2oQ/w1ESq0NnUf/
+         WG0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788644452; x=1789249252;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Xr9RpJGtTR8iOeBIr69Q6X2tM34/vFLnHddN/zE6R7Q=;
+        b=YCvWoVa5kx88yF13O4vyYbt9DEQdBHrwavjNDC7BZLtUBizRUMGUVgMmw26PBIFTcO
+         HZzf260w57CsuuvWmitBYLP5bD0OPSI5I93Ip6pbBfsgDJXpeTefN99YeIoFTXJH4gCb
+         WaYNczg/23ygzCFWbbX5Y3BHgBuH/VpzmeRi2qs0YK9wlZh0O9BZCoR471Xx4Mr+tghz
+         +hL7T1xD3eRtDYw3rqhxVkaPgyN6i0zMfiP2T7NdidBUTNnJs6vcQX2tbI3/i86fcYYK
+         lLPAsFcC+LXUvE+AxtrCbBlL56DDf66+vnA7+gfSYVdu5aTETT2r3fYPk9fhtvov2Gbs
+         aLiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlMEQ5GwXUqZpLu1tkMAFtfY4Wj4TdIz7vhXdgjUhflof1xaYN80GGDuBDQqBQB17aYiDj2Emn391t@vger.kernel.org
+X-Gm-Message-State: AFuF++k6Z83RmJAW9a66p8xq6Gu9VGv7UEoJfX7VrUtsvz/P6K+YXXKO
+	RUujaFJIQz8jK/XTEsI6Mr2zBu8J1SCBi/FHuabqBxNqeDWUyRiOLV/z
+X-Gm-Gg: AYBFou0dAspe3fHOXeBIQdpxA4Z5LGsLj9+oS3vxBOQh7ctwCJIXC5yNf88dhbddOkk
+	SCfvW8BFzoe3HOtOiQATFrqavUvog0GW1StkFIXnZmVluYSjfLvn/q4McdFTLQ9utLgBbmhjB5T
+	dpReHB9BSTOJOSHh3DLLpNKl1ezwQDVEMtb/pOOuE+gHav/Lh+UfScdKzj8pWfjeHvAVUTNKfVW
+	wmPmZ7kOzXzL7M/KLJLBloUTgCtvplEn6msAu2hx1JvG56NYmolNFGPk1G7pC+MXJsKAxwTWP6F
+	IC6w5cgeKdzZvhUulPHacDyw+hKYS51JDZd1WA9kzW51jXfc0ROaUJtprBlwV9r5uuqn4nBdIM+
+	rmpQJy/VLPmn/2qWMVKTtJDqyuXqIW5k4nW7ZMqEXeJ2Q246Ot9RmXHTGHD0ChkcokuebD+I+ex
+	ub5MV+lF3dV0hgnfxdnruphhtvroNHKV2TlA4KFYCJirL5VGKqP+vMmhNx1glLr2ZJLeFM5lKS
+X-Received: by 2002:a17:90b:578b:b0:39b:3510:4af7 with SMTP id 98e67ed59e1d1-39b3d5ccb8fmr7822983a91.1.1788644451722;
+        Sat, 05 Sep 2026 14:40:51 -0700 (PDT)
+Received: from [10.63.138.252] ([2409:40c2:5007:4aea:63cc:914c:1243:e03c])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39ae8f1448esm7585629a91.4.2026.09.05.14.40.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 14:40:51 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Sun, 06 Sep 2026 03:10:31 +0530
+Subject: [PATCH v3] dt-bindings: clock: ti,da850-pll: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260906-ti-pll-v3-1-d1751f4648f0@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/02NTQ6DIBgFr2JYl0awCHTVezRdIH4ojX8BS9oY7
+ 17QtHE5yZt5C/LgLHh0zRbkIFhvxyFCccqQbtXQALZ1ZERzWuZlkePZ4qnrsLwYAZWURGiB4nh
+ yYOx7C90fO/tX9QQ9JzstWuvn0X22p0DSbo9ywn/RQDDBpjSyUkLLisGt6ZXtznrsUYoGetBo8
+ ddo1HStGTAmFef1UVvX9QsHVs7b5QAAAA==
+X-Change-ID: 20260630-ti-pll-94f8eb9918c8
+To: David Lechner <david@lechnology.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788644439; l=7892;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=e23BakfpYJhjyP2ucXP6cacP2+FKBtaeDCbJOqNaJ7A=;
+ b=jQB7NQIGTZkgGY+jZr0o6McuwYWNAH1wjd+9tmauTJ34+Z5k3GV/7LJUEei9VMKJZiUy+F69+
+ KTkwnzPwMilATNspe6RlcumVc69WIyq8clO6imDVk5arYObeulsVqoy
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Incorrect PHY power-on sequencing and unchecked return value in rc=
-ar_gen5_pcie_ltssm_control().
-- [High] The driver fails to configure the dw-edma core for HDMA on Gen5, b=
-reaking the commit's claim of HDMA support.
-- [Medium] Missing assertion of DW_PCIE_PWR_RST on the error path of rcar_g=
-en5_pcie_init() leaks hardware reset state.
---
+Convert TI da850-pll binding from legacy text to dt schema.
+No functional change is introduced during conversion.
 
-commit 33f1bd3dbda597464a41cce7e19a3d761ff8b7c8
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: David Lechner <david@lechnology.com>
+Link: https://lore.kernel.org/r/20260717-ti-pll-v1-1-f6f9ba8c9b5e@gmail.com
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Changes in v3:
+- Collected tags.
+- Rebased to latest mainline rc.
+- Link to v2: https://lore.kernel.org/r/20260723-ti-pll-v2-1-cdc5e559a77d@gmail.com
 
-PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
+Changes in v2:
+- Moved 'items' list for clocks and clock-names to the top-level
+  properties block.
+- Dropped redundant maxItems: 2 to fix dt_binding_check warnings.
+- Simplified allOf block to only restrict maxItems for pll1.
+- updated maintainers list
+- Link to v1: https://lore.kernel.org/r/20260717-ti-pll-v1-1-f6f9ba8c9b5e@gmail.com
+---
+ .../devicetree/bindings/clock/ti/davinci/pll.txt   |  96 ------------
+ .../bindings/clock/ti/davinci/ti,da850-pll.yaml    | 164 +++++++++++++++++++++
+ 2 files changed, 164 insertions(+), 96 deletions(-)
 
-This patch adds support for the R8A78000 (R-Car X5H) PCIe4 controller,
-differentiating it with the "renesas,rcar-gen5-pcie4" compatible string.
-It implements Gen5-specific initialization, deinitialization, link speed,
-and LTSSM control callbacks, and handles a separate PHY driver instance.
+diff --git a/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt b/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt
+deleted file mode 100644
+index c9894538315b..000000000000
+--- a/Documentation/devicetree/bindings/clock/ti/davinci/pll.txt
++++ /dev/null
+@@ -1,96 +0,0 @@
+-Binding for TI DaVinci PLL Controllers
+-
+-The PLL provides clocks to most of the components on the SoC. In addition
+-to the PLL itself, this controller also contains bypasses, gates, dividers,
+-an multiplexers for various clock signals.
+-
+-Required properties:
+-- compatible: shall be one of:
+-	- "ti,da850-pll0" for PLL0 on DA850/OMAP-L138/AM18XX
+-	- "ti,da850-pll1" for PLL1 on DA850/OMAP-L138/AM18XX
+-- reg: physical base address and size of the controller's register area.
+-- clocks: phandles corresponding to the clock names
+-- clock-names: names of the clock sources - depends on compatible string
+-	- for "ti,da850-pll0", shall be "clksrc", "extclksrc"
+-	- for "ti,da850-pll1", shall be "clksrc"
+-
+-Optional properties:
+-- ti,clkmode-square-wave: Indicates that the board is supplying a square
+-	wave input on the OSCIN pin instead of using a crystal oscillator.
+-	This property is only valid when compatible = "ti,da850-pll0".
+-
+-
+-Optional child nodes:
+-
+-pllout
+-	Describes the main PLL clock output (before POSTDIV). The node name must
+-	be "pllout".
+-
+-	Required properties:
+-	- #clock-cells: shall be 0
+-
+-sysclk
+-	Describes the PLLDIVn divider clocks that provide the SYSCLKn clock
+-	domains. The node name must be "sysclk". Consumers of this node should
+-	use "n" in "SYSCLKn" as the index parameter for the clock cell.
+-
+-	Required properties:
+-	- #clock-cells: shall be 1
+-
+-auxclk
+-	Describes the AUXCLK output of the PLL. The node name must be "auxclk".
+-	This child node is only valid when compatible = "ti,da850-pll0".
+-
+-	Required properties:
+-	- #clock-cells: shall be 0
+-
+-obsclk
+-	Describes the OBSCLK output of the PLL. The node name must be "obsclk".
+-
+-	Required properties:
+-	- #clock-cells: shall be 0
+-
+-
+-Examples:
+-
+-	pll0: clock-controller@11000 {
+-		compatible = "ti,da850-pll0";
+-		reg = <0x11000 0x1000>;
+-		clocks = <&ref_clk>, <&pll1_sysclk 3>;
+-		clock-names = "clksrc", "extclksrc";
+-		ti,clkmode-square-wave;
+-
+-		pll0_pllout: pllout {
+-			#clock-cells = <0>;
+-		};
+-
+-		pll0_sysclk: sysclk {
+-			#clock-cells = <1>;
+-		};
+-
+-		pll0_auxclk: auxclk {
+-			#clock-cells = <0>;
+-		};
+-
+-		pll0_obsclk: obsclk {
+-			#clock-cells = <0>;
+-		};
+-	};
+-
+-	pll1: clock-controller@21a000 {
+-		compatible = "ti,da850-pll1";
+-		reg = <0x21a000 0x1000>;
+-		clocks = <&ref_clk>;
+-		clock-names = "clksrc";
+-
+-		pll0_sysclk: sysclk {
+-			#clock-cells = <1>;
+-		};
+-
+-		pll0_obsclk: obsclk {
+-			#clock-cells = <0>;
+-		};
+-	};
+-
+-Also see:
+-- Documentation/devicetree/bindings/clock/clock-bindings.txt
+diff --git a/Documentation/devicetree/bindings/clock/ti/davinci/ti,da850-pll.yaml b/Documentation/devicetree/bindings/clock/ti/davinci/ti,da850-pll.yaml
+new file mode 100644
+index 000000000000..c6563290a702
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti/davinci/ti,da850-pll.yaml
+@@ -0,0 +1,164 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti/davinci/ti,da850-pll.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI DaVinci PLL Controllers
++
++maintainers:
++  - David Lechner <david@lechnology.com>
++
++description:
++  The PLL provides clocks to most of the components on the SoC. In addition to
++  the PLL itself, this controller also contains bypasses, gates, dividers, an
++  multiplexers for various clock signals.
++
++properties:
++  compatible:
++    enum:
++      - ti,da850-pll0
++      - ti,da850-pll1
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    minItems: 1
++    items:
++      - description: Primary reference clock input
++      - description: External clock source
++
++  clock-names:
++    minItems: 1
++    items:
++      - const: clksrc
++      - const: extclksrc
++
++  ti,clkmode-square-wave:
++    type: boolean
++    description:
++      Indicates that the board is supplying a square wave input on the OSCIN
++      pin instead of using a crystal oscillator.
++
++  pllout:
++    type: object
++    description:
++      Main PLL clock output before POSTDIV.
++
++    properties:
++      '#clock-cells':
++        const: 0
++
++    required:
++      - '#clock-cells'
++
++    additionalProperties: false
++
++  sysclk:
++    type: object
++    description:
++      PLLDIVn divider clocks that provide the SYSCLKn clock domains. Consumers
++      of this node should use "n" in "SYSCLKn" as the index parameter for the
++      clock cell.
++
++    properties:
++      '#clock-cells':
++        const: 1
++
++    required:
++      - '#clock-cells'
++
++    additionalProperties: false
++
++  auxclk:
++    type: object
++    description:
++      AUXCLK output of the PLL
++
++    properties:
++      '#clock-cells':
++        const: 0
++
++    required:
++      - '#clock-cells'
++
++    additionalProperties: false
++
++  obsclk:
++    type: object
++    description:
++      the OBSCLK output of the PLL.
++
++    properties:
++      '#clock-cells':
++        const: 0
++
++    required:
++      - '#clock-cells'
++
++    additionalProperties: false
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++
++additionalProperties: false
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          const: ti,da850-pll1
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        clock-names:
++          maxItems: 1
++        ti,clkmode-square-wave: false
++        auxclk: false
++
++examples:
++  - |
++    clock-controller@11000 {
++        compatible = "ti,da850-pll0";
++        reg = <0x11000 0x1000>;
++        clocks = <&ref_clk>, <&pll1_sysclk 3>;
++        clock-names = "clksrc", "extclksrc";
++        ti,clkmode-square-wave;
++
++        pllout {
++            #clock-cells = <0>;
++        };
++
++        sysclk {
++            #clock-cells = <1>;
++        };
++
++        auxclk {
++            #clock-cells = <0>;
++        };
++
++        obsclk {
++            #clock-cells = <0>;
++        };
++    };
++
++  - |
++    clock-controller@21a000 {
++        compatible = "ti,da850-pll1";
++        reg = <0x21a000 0x1000>;
++        clocks = <&ref_clk>;
++        clock-names = "clksrc";
++
++        sysclk {
++            #clock-cells = <1>;
++        };
++
++        obsclk {
++            #clock-cells = <0>;
++        };
++    };
 
-> The R-Car X5H PCIe4 controller embeds HDMA instead of EDMA embedded
-> in the R-Car Gen4 PCIe controller, "dw-edma" driver supports both
-> DMA variants.
+---
+base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
+change-id: 20260630-ti-pll-94f8eb9918c8
 
-[Severity: High]
-Does the driver actually configure the dw-edma core for HDMA on Gen5 hardwa=
-re?
+Best regards,
+--  
+Bhargav
 
-Looking at rcar_gen4_pcie_alloc() elsewhere in the same file, the DMA mode
-appears to be unconditionally hardcoded:
-
-rcar_gen4_pcie_alloc() {
-    ...
-    rcar->dw.edma.mf =3D EDMA_MF_EDMA_UNROLL;
-    ...
-}
-
-Since this mapping format is never updated for Gen5 controllers (e.g., to
-EDMA_MF_HDMA_NATIVE or EDMA_MF_HDMA_COMPAT), will the dw-edma driver attempt
-to program EDMA registers and descriptors instead of HDMA, causing DMA
-operations to fail on Gen5?
-
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
-ntroller/dwc/pcie-rcar-gen4.c
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-[ ... ]
-> @@ -285,6 +322,49 @@ static int rcar_gen4_v4h_v4m_pcie_init(struct rcar_g=
-en4_pcie *rcar)
-[ ... ]
-> +static int rcar_gen5_pcie_init(struct rcar_gen4_pcie *rcar)
-> +{
-[ ... ]
-> +	/* R-Car Gen4 and Gen5 common initialization. */
-> +	ret =3D rcar_gen4_pcie_common_init(rcar);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* R-Car Gen5 specific additional initialization. */
-> +	ret =3D phy_init(rcar->phy);
-> +	if (ret)
-> +		goto err_unprepare;
-[ ... ]
-> +err_unprepare:
-> +	clk_bulk_disable_unprepare(DW_PCIE_NUM_CORE_CLKS, dw->core_clks);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Does this error path leak the hardware reset state?
-
-rcar_gen4_pcie_common_init() successfully deasserts the DW_PCIE_PWR_RST
-reset control before returning. If phy_init() subsequently fails, the
-code jumps to err_unprepare, which disables the core clocks but leaves
-the reset deasserted.
-
-Should this error path also include a call to reset_control_assert() to
-balance the state?
-
-[ ... ]
-> @@ -807,6 +897,28 @@ static int r8a779f0_pcie_ltssm_control(struct rcar_g=
-en4_pcie *rcar, bool enable)
-[ ... ]
-> +static int rcar_gen5_pcie_ltssm_control(struct rcar_gen4_pcie *rcar, boo=
-l enable)
-> +{
-> +	u32 val;
-> +
-> +	val =3D readl(rcar->base + PCIERSTCTRL1);
-> +	if (enable) {
-> +		val |=3D APP_LTSSM_ENABLE;
-> +		val &=3D ~APP_HOLD_PHY_RST;
-> +	} else {
-> +		val &=3D ~APP_LTSSM_ENABLE;
-> +		val |=3D APP_HOLD_PHY_RST;
-> +	}
-> +	writel(val, rcar->base + PCIERSTCTRL1);
-> +
-> +	if (enable)
-> +		phy_power_on(rcar->phy);
-> +	else
-> +		phy_power_off(rcar->phy);
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Does this sequence start link training before the PHY is properly powered
-on and stabilized?
-
-By writing APP_LTSSM_ENABLE to PCIERSTCTRL1 before calling phy_power_on(),
-the controller might attempt training with an unpowered PHY.
-
-Also, is it safe to ignore the return value of phy_power_on() here? If the
-PHY fails to power on, the function still returns 0, leaving the controller
-in a broken state with an unpowered PHY.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905212649.3604=
-98-1-marek.vasut+renesas@mailbox.org?part=3D6
