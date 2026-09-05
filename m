@@ -1,160 +1,374 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 747AE37CD2F
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 12:27:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9EB49EC4C
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 12:30:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788611278; cv=none; b=VgRo6jzV4XdXYIjJk+rgYzLitSVdE+HdwSyODzAs/512KeqeezIvvCR3ICEZJK1w1p4O8nM0I8VqZirySLeQGBzCiLj2zdQgScqB9xXdCazA8G2rV8OYvdKfbfYv0c0bZk1L17JVW5f2V2z+T1dY8O9hWPJ+Fm3XQR5lmGxXaa4=
+	t=1788611461; cv=none; b=bj3wsbwXyqXQsgAoaFJhdaBVrAMxn2fgSYi1URZDzKjwZMsnB5hOeCEDEfWrtP2Gx75rCPbDpqpodN++BGDuK6BGVQH5EQwdrZWkje+STbr1CQKiDDR9HadlyUusGaplAo7sBv9meamWKsMugRGYGE+73LtKHSVLht3xOk1uXrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788611278; c=relaxed/simple;
-	bh=YS2PFBtPYDs63eo930+d89nki8D8vcJ6NjzJW80Rf6o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EbNxTeF+5lTbnJh4VZ0DrQieBqAAqQlnss4wG3+SFi8Q1c4J2nslDfrpudz5bymTKQKkFR6mhdn/d4FXABeNqGHaUR2HDmyzweFKPtpDOwg6rKOJmLB1PElykYsM/Cmf/WVFoUp8n04o/64vzPCWVCrPECum0xvLa/LNJXxV6kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GgV/L0oc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kCxcMCOF; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788611461; c=relaxed/simple;
+	bh=rA6wc+qPLzb7owMI5RwYkotdeWFBpZWgHvWsnw7zvxY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aJ1mxQ284S8/e6VmKC3j6FQ6/XFNvpcvJ1UwSjb9Ok66uUTOEIWrAjpxInUj54d5Vkos/VpB0v0niGdlgNWOi8E2d2u4/kJS6gXdtPy9pv5i9QYaMuHfGnnzcHbp68WJs91WbMfdegYGKKjfbQ9in039ThUXhEnBTI0sBWJF9jY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihlzsDgJ; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GgV/L0oc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kCxcMCOF"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 685BVQN73378170
-	for <devicetree@vger.kernel.org>; Sat, 5 Sep 2026 12:27:55 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=64Dm8Bs0yNx20mXVjg9RzuzASblCKGVYMw5
-	l2uvS4q4=; b=GgV/L0ocVxL6qJqSA/3LD13V7j9Fy0OHydNntpaw02/LE1+jK9a
-	PzccGEskt8dAbAxmhelaKfF4BYu65iTCmRtyt8uaal6MAYagKkAXF7BkjFJx2nKv
-	jIJbnZLD6K3lztzpS8SwIvg/d0XfPVEazwJz50/9eeSol/nuS8G60rs5rLnwShv8
-	bHhh++6VjWMKQuE7f5k6nDoPDJGPfWyVy6WjvHCkeYL9U5FrXRkjv7Q/jEyMkLG6
-	p6VN0IUYKMwMJVmsOe09yY5cgq8K6Q22JCUXHVcSB/RZ7mP5wHSNoi6e3/WKrGYi
-	kDFO0YnEMWjkGiQYCtpzuvqx4BkgpvKardg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8sd1cv8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 12:27:55 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93903622880so522195385a.0
-        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 05:27:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihlzsDgJ"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso1284657f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 05:30:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788611275; x=1789216075; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=64Dm8Bs0yNx20mXVjg9RzuzASblCKGVYMw5l2uvS4q4=;
-        b=kCxcMCOFWIImvRhmGG0yTqmpRtd17D4msDb647PYjax9uyHY3FHVr08N2xI5rsLdFV
-         EsiSyQFCEFQJjGqeJRYyb65tJU08gZj+SN3104302IyN7XYLMcHgghU5SAh1ixdxbLXx
-         d6sCWhpObcSIuuYdM1WV5yWytF8iuo+a/1TTijcLYqGM7UCjeVJq27Dhk9pZnf0GmVF6
-         vTiCvrtCGFpMhh5rh8q9HuHuuNhDw951T9ecaw/OE0FShFpCKMFb1g4hNMhrN1mRhhlv
-         LDNomwRYV7R9yoPeQ92g677KRGluTJNrVv5ZoHbENymZPtW8CiG3gTBALwCcPJtNb6c9
-         Prmw==
+        d=gmail.com; s=20251104; t=1788611455; x=1789216255; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nF28nbshD2BPWEClB77TT3QHqkwal9Tdd0g3hy+SqKw=;
+        b=ihlzsDgJ2kyj6zRF3yq43aIsojEhv/cPPQxsXbFb9kP+XMb/KFT5xlitgQqOkym/ck
+         B4fHDO2m/Qw2XLYqABMXr+kVSEPm+wE2mLuunWEzFqEPWeAKTx2yC0qVGUXK71SQJ6Wj
+         jq4IqOOhe4ExQJF8kf59FDKd3elxPObjBbBSOYQReYXeHxyhGkJYlgu8f7MFUTiH6IYV
+         Lx4AgSmjpyxKI3uzuxWxWc1XwQ5fdJEOqIjDXNEQMw/kN3QdR+YTCI0VPlAQl4wOE9lE
+         OwIITY8FYHiZ6OgN90UASGt/VU7kYTMb4YdS+E4K4SD28jWwsdx8VfUSa1avQ8/qpdZV
+         K7Tg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788611275; x=1789216075;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=64Dm8Bs0yNx20mXVjg9RzuzASblCKGVYMw5l2uvS4q4=;
-        b=EranaHhHLo5n7ojyaVIzb+Jv0Wm6Ik6Frah8ska7cGaoL9imrXgZJFoKccBpSWBF+D
-         QoQIbCdnB+b0BriEjURAJdCs7iwmUgO/at2vbwwma8ilqcFemDLxLAhRneCTx0B062wR
-         W2HUvsVS8jhkhaBWPvSToXR4+nBa88cM8tlCiF8bWJ4Vw7uTdKElo+0zH+xLFTQS/9Tm
-         46sw/qDN4A+0z6+yqfftAgJ0O84iAfJNHzTCtFh0exumaLdkCFj5cd1ur0jWx1B3fH4U
-         io6TcSIZRr9x8JKSJoJpENiut5v8TqgmJ9yFEQWYRAlA7j4EFXwNtdrBTlmvmi6P5t5r
-         /Nnw==
-X-Forwarded-Encrypted: i=1; AKwUvBzY2/RE/rIb0w0zdqU5BWM9Lj7uQ3fFxn0CT2DuWGPVssr4t/MZTnmfPTlg0zeF8RwxHzeBFkvKsX4Y@vger.kernel.org
-X-Gm-Message-State: AFuF++n9Z/qMfh7JscFgHF9SM4O8k3n2hXaitZStNgw3WOQEaUQVc08Y
-	p1XQlCOeSOrMQi3+q1z7gGUWUl1yE5gFliVa8YFnvhA2DwByqSsbSRbVODG8WdJANdSVpjFKV/e
-	qM12RIxDJPP1bIjrNg4BGMxwq0ffMDEsmPTHz/R95IBI5SsY5JvH8fVI8dq1VDR4P
-X-Gm-Gg: AYBFou1+lpMhgr4CxXZaNp+TFMwv9uP2oqGNPBc9OUw+p29/U1A1DBotBBCtXwpVW/x
-	AkRQnqkhcHhN8wQYipF7HcJVnenxnefozggQPU3LlYhaF2ffleGJh8cOMSoI/JLXZXgActNAfoV
-	FZOGF32O+XoNGLScMIQFFkHuIOw9OiDTphVH6+ZDGvLfoih1VL4CQK5dR/IORY6ekS5ZsJsJ+Hd
-	lGi01KCt1U9KJ+Pi8meP8z4T9ol4KW3oCbqW4YxpwM5igeFRILIc0MZH71buUoaf2zW/vu/NWVd
-	9svTVU//YGxa7YYNCDl55jsJvQQLOyWwJ/4kVTM3WF6NMmMGt7AEFMFo4628J8bG2fqdya1Ds6q
-	0Y4wapoiR+imXBzE=
-X-Received: by 2002:a05:620a:4857:b0:939:5d22:d1f0 with SMTP id af79cd13be357-9396dead4a3mr1206549085a.2.1788611274570;
-        Sat, 05 Sep 2026 05:27:54 -0700 (PDT)
-X-Received: by 2002:a05:620a:4857:b0:939:5d22:d1f0 with SMTP id af79cd13be357-9396dead4a3mr1206547685a.2.1788611274089;
-        Sat, 05 Sep 2026 05:27:54 -0700 (PDT)
-Received: from quoll ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm238334095e9.3.2026.09.05.05.27.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 05:27:52 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH] arm64: dts: qcom: monaco-ac-evk: Drop redundant whitespace
-Date: Sat,  5 Sep 2026 14:27:47 +0200
-Message-ID: <20260905122746.72952-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1788611455; x=1789216255;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=nF28nbshD2BPWEClB77TT3QHqkwal9Tdd0g3hy+SqKw=;
+        b=cDuh3D0azsHgV4IWotGxIRVWQFRlYUINZdub/rRFiFMP59L/2fCxwl4Vkbe6vVcR5C
+         g9Py9J5vTTe/OS1Wsq+gcblpd2yZiF8yCZt5nBj34CyC11yLaUvFDibOoQn8CGfu1lqo
+         wxmB56+LHJWtNJSk+/XEjaqL9tqeqkaruHeo2bYAYaRK6t+kFHBElZQ6LgAz+nuhm73X
+         Ia9CdrAuvxCrpUzDHCeWYa8Bk9AfeSZ8z3mO3khQq288DpiEIjGU9+9jbNbBoJ8IV3bi
+         gRDZ18jzpJdyOhZ8I5Cs9CAsDGx3+gXFfkvMv/T0na3sJJPHrOsEu0BXk+lsF2od0CY+
+         3KNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDSjzYiX6clt23hdpI8WYm5PeK+V1mFead5VRrpQUwfSibjK5kpsIhGZdxJocRM8Rq07ee/X3+cKwc@vger.kernel.org
+X-Gm-Message-State: AFuF++nOqsAr0vcPm5yOgaSAzvzO+/bCsYIGw0t535Wv+VCXmxd1dB83
+	a08/7KLzV+VM9pb7nBdsxMP5+smJwQTbvESFuinIg+9X5KTdYq8kgN1Y
+X-Gm-Gg: AYBFou29LUvyAl5D7pb3J+38F/93jHW9Lbf7CY4Lv087IyrA+P4scD2/3KmQ6K2xpfy
+	mgKpOHjIOrMm0NzV9GrQ3LFtyfPsig1WkoRIHWWbg9sbW1u0CK9I3DcLzSBIydvRBtbaNVJjcgW
+	HnqX43q7avFk9UfjDeu2K+qVX5TCIdtL0TY4VZINjirVK/aJ/+BN5ngxSdbUvy9i7hjvF86TL2r
+	LXcxLfR3WguWIYdLIxbroDCcVXMtOVgr7ioF53XM25W0xqESKd3rKBsxGnwPmlPcfxK9jYuizqi
+	tPA0xBfQSiouN0qF1GhBiYjmGDrR/L9GARNA8GGNxlaOFtDyRSqjnUWwVCLd3+uSm/p1+hqZyNR
+	iEus35lB4B2sdpSYUxktOSbwpbzCXXvSFNUUNKo2xDSWrtVmQNDbjaSc44NgORjPK6mTYDsTJgM
+	E764ZhRW+CaIWIoIC0FKL8sPACdXvZa/VpeaMWmAYmdNZmi01rF4EmRt7ewrVH4zP07vbnu6T+6
+	IpnATXsKpBdGDowcZQvpGY5N2BWnxLdakCKwasIyL9keGfMCynCjk2b
+X-Received: by 2002:a05:600c:1d08:b0:49b:96a0:5c00 with SMTP id 5b1f17b1804b1-49cf825168cmr134783585e9.13.1788611455009;
+        Sat, 05 Sep 2026 05:30:55 -0700 (PDT)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be01bsm12862413f8f.31.2026.09.05.05.30.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2026 05:30:54 -0700 (PDT)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <1a21d17b-686a-4efe-9d47-fb8a9e826b39@gmail.com>
+Date: Sat, 5 Sep 2026 13:30:50 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=815; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=YS2PFBtPYDs63eo930+d89nki8D8vcJ6NjzJW80Rf6o=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqnArCJQEz25Tbvuxh3RdG3ykTADbGRSspiPX33
- wbHJ3MJlvGJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCapwKwgAKCRDBN2bmhouD
- 1yJtD/0aSZniX4+o1wi+yeun/hPE5ciMO2Iekx0JWN+4ROYuL6K1yESzjC/JyCVg2uWbPBvisKM
- NJAzWmlv91FlHQxWOLnqSEUrMvu0pjFppjr+omE1mGC6bIsg7S26fHxaj015tYkk6fdftkmNjq9
- WvDz0RnOzz1jiqacLCdYLlf3IZmCRb+b+6lIGF0+ek3EWDZJrQCmT6hENPwE0HeWDK4WligL92A
- pHh5gh9e+aR8rTT2DMP8P2RL7swnlD4oVFrA6xZeZ8fFAEcaiowq5OQVMZE+bol0yaPySPvctaF
- cCuG0MTnMb1JTLgPG4N/x26PbM/Pw0SvvIPuK9A6LOxLz32cWArIq7PUfkIaBAyFu1HejnLJXbo
- mvV50XJ+DP2C7dhE1ElpBLrfbY5RVEvM1XW0QLOVh1DGdNpUXtVzWIXRtaB2iCJrKB3ny6TlnMC
- rLfkBMHCHkJIE8rgLasJQqGCNbYseycQ9kNvKMxDsosKJIwD3f7ELaTkz50qmvmmwEE62dxpbQD
- 6v80TwbdEE1DY2P6bklMEl8CIaaWcNwInGqUwEdLh02I8JAxgC15wzuKsTVKPuzB0rLAE1DmwOk
- nbAbQs7dVyOKmriDmWyISHswpJVgFrP+wgpbZOihaV2F3dvRU7j1Cc+MUGWrzfrSNRXRZcWWetH Z7W8Lz/P60vlZrA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 20_9PNwoNHLXG7x_ImRgfEDakhrrw35B
-X-Proofpoint-ORIG-GUID: 20_9PNwoNHLXG7x_ImRgfEDakhrrw35B
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDEzNiBTYWx0ZWRfX9ZK5m5LQ7fKW
- 2dEhjbm7x5WVvTDfXqqE6CnTparoWYRg1ut4uylDkNAyQ/mTnCEpTigzGSrVkb24g6gsY5ZilTa
- whLAu4nnVh2bPq8zFHPDyePwm90by/o=
-X-Authority-Analysis: v=2.4 cv=dfmwG3Xe c=1 sm=1 tr=0 ts=6a9c0acb cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8
- a=iQ17RmGla2tzZZFXTgAA:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDEzNiBTYWx0ZWRfX5VJy3XeL9eQe
- MO86zpI9JeqOYpg6T/W6BjHava8lf+V7PrUjtsqnHm6SXXFRpJ+PnLPKuwZJT2+fk/R4ghW+VYP
- 7oALse8KMPj3u/mctKy68S0Pu/loo8Br6klv09aQwLzWwwHl1zJkMF9ngAP1hHibxH2hQbrqSKp
- wbg7S4icAkFX3YDbnF//zCLsE1o9wVXZ3PL+tu5d8oCUt6gZI4X1lZb9gAescMGOe3uNWkOHcVq
- 5YEKHg3w9af1hQZoNH5RvbD31Kya0SVo3H5HEdmD+b4DxsFmZeQ+YSzsmt46avnyfzkZ64UACc6
- c200H3KKDSFZYuV6i2Fe2IHLclQqkLeHyBEHZ6uFNt7naGRhmDg8HGIgN3ZZr61kUdndXDPkF2D
- l4cDCEnBnq068XDeCWy46YhSWa8NAh2zvEozdC9bQUX8zfcAiO4shWgZC5CZqWglieUdLSBbmk3
- QUQrEottWldmo2VWNDg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_04,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
- lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609050136
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] uart-routing: Add common UART routing framework
+To: Changhuang Liang <changhuang.liang@starfivetech.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Chia-Wei Wang <chiawei_wang@aspeedtech.com>, Oskar Senft <osk@google.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Shuah Khan <skhan@linuxfoundation.org>,
+ Jani Nikula <jani.nikula@intel.com>, Vitaly Lubart <lubvital@gmail.com>,
+ Hanjun Guo <guohanjun@huawei.com>, Andrew Morton
+ <akpm@linux-foundation.org>, Alexander Usyskin
+ <alexander.usyskin@intel.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+ Breno Leitao <leitao@debian.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ James Morse <james.morse@arm.com>, Paolo Abeni <pabeni@redhat.com>,
+ Stephen Hemminger <stephen@networkplumber.org>,
+ Dave Penkler <dpenkler@gmail.com>, Jakub Kicinski <kuba@kernel.org>,
+ Jonathan Cameron <jic23@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Mukesh Rathor <mrathor@linux.microsoft.com>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Alexandra Winter <wintera@linux.ibm.com>,
+ Karthikeyan KS <karthiproffesional@gmail.com>,
+ Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org
+References: <20260905102901.126035-1-changhuang.liang@starfivetech.com>
+ <20260905102901.126035-2-changhuang.liang@starfivetech.com>
+Content-Language: en-US
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <20260905102901.126035-2-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Drop duplicated whitespace after ':', as pointed out by dt-style-check:
-  monaco-ac-evk.dts:825: [redundant-whitespace] extra whitespace after :
+On 9/5/26 11:28, Changhuang Liang wrote:
+> Several SoCs contain a serial crossbar, usually called UART routing,
+> that lets the RX line of any on-chip UART controller or physical serial
+> port be fed from any other endpoint. The Aspeed AST2400/2500/2600 and
+> the StarFive JHB100 both have one, and both expose it through the same
+> user space interface: one sysfs file per endpoint, listing the routing
+> targets with the current one in square brackets.
+> 
+> The two drivers implementing that interface duplicate the whole sysfs
+> plumbing and only really differ in the description of their register
+> layout, so factor the common part out into a framework.
+> 
+> An SoC driver now only describes each mux with a
+> struct uart_routing_selector - register offset, bit position, field mask
+> and the array of routing target names indexed by the raw field value -
+> gathers them in an attribute group and hands the group and a regmap to
+> devm_uart_routing_register(). The framework validates the description,
+> creates the files and implements the show()/store() handlers.
+> 
+> The framework keeps its state in a devres node rather than in the device
+> drvdata, so drivers stay free to use dev_set_drvdata() for their own
+> purposes, and the sysfs files are removed by devres, so drivers do not
+> need a remove() callback for them.
+> 
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  Documentation/driver-api/index.rst        |   1 +
+>  Documentation/driver-api/uart-routing.rst | 145 ++++++++++++++++
+>  MAINTAINERS                               |   7 +
+>  drivers/Kconfig                           |   2 +
+>  drivers/Makefile                          |   1 +
+>  drivers/uart-routing/Kconfig              |  16 ++
+>  drivers/uart-routing/Makefile             |   2 +
+>  drivers/uart-routing/uart-routing.c       | 200 ++++++++++++++++++++++
+>  drivers/uart-routing/uart-routing.h       |  84 +++++++++
+>  9 files changed, 458 insertions(+)
+>  create mode 100644 Documentation/driver-api/uart-routing.rst
+>  create mode 100644 drivers/uart-routing/Kconfig
+>  create mode 100644 drivers/uart-routing/Makefile
+>  create mode 100644 drivers/uart-routing/uart-routing.c
+>  create mode 100644 drivers/uart-routing/uart-routing.h
+> 
+> diff --git a/Documentation/driver-api/index.rst b/Documentation/driver-api/index.rst
+> index 6601a258690f..2a0f375cd206 100644
+> --- a/Documentation/driver-api/index.rst
+> +++ b/Documentation/driver-api/index.rst
+> @@ -146,6 +146,7 @@ Subsystem-specific APIs
+>     tee
+>     thermal/index
+>     tty/index
+> +   uart-routing
+>     wbrf
+>     wmi
+>     xilinx/index
+> diff --git a/Documentation/driver-api/uart-routing.rst b/Documentation/driver-api/uart-routing.rst
+> new file mode 100644
+> index 000000000000..67bb84958977
+> --- /dev/null
+> +++ b/Documentation/driver-api/uart-routing.rst
+> @@ -0,0 +1,145 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +======================
+> +UART routing framework
+> +======================
+> +
+> +:Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> +
+> +Overview
+> +========
+> +
+> +Several SoCs contain a serial crossbar, usually called *UART routing*, that
+> +sits between the on-chip UART controllers and the physical serial ports
+> +exposed on the package pins. The crossbar lets the RX line of any endpoint be
+> +fed from any other endpoint, which makes it possible to, for example, snoop
+> +the traffic of a host serial console, or to loop two on-chip UARTs back into
+> +each other without any external wiring.
+> +
+> +Two endpoint families are involved:
+> +
+> +``uartN``
+> +	the RX line of the on-chip UART controller number N.
+> +
+> +``ioN``
+> +	the RX line of the physical serial port number N.
+> +
+> +The crossbar is programmed through bit fields, one per endpoint, spread over
+> +one or more registers. The value written into a field picks the endpoint the
+> +RX line is connected to; the meaning of a given value differs from field to
+> +field and from SoC to SoC.
+> +
+> +The framework in ``drivers/uart-routing/`` takes a static description of those
+> +fields and turns it into a set of sysfs files, one per endpoint, so that SoC
+> +drivers only have to describe their hardware.
+> +
+> +User space interface
+> +====================
+> +
+> +Every endpoint gets one read/write file in the device directory of the
+> +platform driver, named after the endpoint. Reading the file lists all the
+> +routing targets the endpoint can be connected to, with the current one
+> +enclosed in square brackets::
+> +
+> +	# cat /sys/bus/platform/drivers/aspeed-uart-routing/*.uart_routing/uart1
+> +	[io1] io2 io3 io4 uart2 uart3 uart4 io6
+> +
+> +Writing one of the listed names to the file changes the routing::
+> +
+> +	# echo uart2 > /sys/bus/platform/drivers/aspeed-uart-routing/*.uart_routing/uart1
+> +
+> +Writing a name that is not part of the list fails with ``-EINVAL``.
+> +
+> +The list is not necessarily the same for every file: it is ordered by the raw
+> +value programmed into the hardware, so the first entry is the target selected
+> +when the field reads back as 0. Some SoCs define fields that are wider than
+> +the number of documented targets. When such a field holds a value with no
+> +name attached, the read appends ``[unknown(N)]`` to the list instead of
+> +bracketing one of the names.
+> +
+> +Fields whose name is ``reserved`` are placeholders for values the hardware
+> +does not implement. They are listed so that the position of the following
+> +names stays correct, and writing ``reserved`` programs a value that has no
+> +defined behaviour, so do not do that.
+> +
+> +The exact set of files of a given SoC, together with the routing targets each
+> +of them accepts, is described in the corresponding
+> +``Documentation/ABI/testing/sysfs-driver-*-uart-routing`` file.
+> +
+> +Writing a driver
+> +================
+> +
+> +An SoC driver describes each mux with a ``struct uart_routing_selector``,
+> +defined with the ``UART_ROUTING_SELECTOR()`` helper::
+> +
+> +	static const char *const foo_uart1_options[] = {
+> +		"io1", "io2", "io3", "io4", "uart2", "uart3", NULL,
+> +	};
+> +	UART_ROUTING_SELECTOR(foo_uart1_sel, uart1, FOO_MUX_REG, 16, 0x7,
+> +			      foo_uart1_options);
+> +
+> +The arguments are, in order, the name of the variable to define, the name of
+> +the sysfs file, the offset of the register holding the field, the position of
+> +the least significant bit of the field, the field mask and the array of
+> +routing targets.
+> +
+> +The mask is given in field coordinates, that is, it is *not* shifted by the
+> +bit position: a three bit field is always described as ``0x7``, whatever its
+> +position in the register is.
+> +
+> +The array of routing targets is indexed by the raw field value, so
+> +``options[n]`` is the name of the target selected when the field holds n. It
+> +has to be NULL terminated, and it may be shared between several selectors
+> +that happen to have the same target order.
+> +
+> +The selectors are then gathered in an attribute group::
+> +
+> +	static struct attribute *foo_uart_routing_attrs[] = {
+> +		UART_ROUTING_SELECTOR_ATTR(foo_uart1_sel),
+> +		/* ... */
+> +		NULL,
+> +	};
+> +
+> +	static const struct attribute_group foo_uart_routing_attr_group = {
+> +		.attrs = foo_uart_routing_attrs,
+> +	};
+> +
+> +and handed over, along with a regmap covering the selector registers, in
+> +probe()::
+> +
+> +	static int foo_uart_routing_probe(struct platform_device *pdev)
+> +	{
+> +		struct device *dev = &pdev->dev;
+> +		struct regmap *regmap;
+> +
+> +		regmap = /* ... */;
+> +
+> +		return devm_uart_routing_register(dev, regmap,
+> +						  &foo_uart_routing_attr_group);
+> +	}
+> +
+> +The framework validates the description at registration time and rejects
+> +selectors whose target list cannot fit in the field, or whose field does not
+> +fit in a 32 bit register.
+> +
+> +The sysfs files are created and removed by devres, so a driver does not need
+> +a remove() callback for them. The framework keeps its own state in a devres
+> +node rather than in the device drvdata, so drivers are free to use
+> +``dev_set_drvdata()`` for their own purposes.
+> +
+> +Locking
+> +=======
+> +
+> +The framework does not serialise accesses itself. The read-modify-write of a
+> +selector field is done with ``regmap_update_bits()``, so concurrent writes to
+> +two endpoints sharing a register are made safe by the regmap lock. Reading a
+> +file always reports the current hardware state, which may have been changed
+> +by another writer in between.
+> +
+> +API reference
+> +=============
+> +
+> +.. kernel-doc:: drivers/uart-routing/uart-routing.h
+> +
+> +.. kernel-doc:: drivers/uart-routing/uart-routing.c
+> +   :export:
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 90919c672d4d..b7fa722755c6 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27818,6 +27818,13 @@ F:	drivers/misc/uacce/
+>  F:	include/linux/uacce.h
+>  F:	include/uapi/misc/uacce/
+>  
+> +UART ROUTING FRAMEWORK
+> +M:	Changhuang Liang <changhuang.liang@starfivetech.com>
+> +L:	openbmc@lists.ozlabs.org (moderated for non-subscribers)
+> +S:	Maintained
+> +F:	Documentation/driver-api/uart-routing.rst
+> +F:	drivers/uart-routing/
+> +
+>  UBI FILE SYSTEM (UBIFS)
+>  M:	Richard Weinberger <richard@nod.at>
+>  R:	Zhihao Cheng <chengzhihao1@huawei.com>
+> diff --git a/drivers/Kconfig b/drivers/Kconfig
+> index f2bed2ddeb66..cb2b5c3b22b0 100644
+> --- a/drivers/Kconfig
+> +++ b/drivers/Kconfig
+> @@ -251,6 +251,8 @@ source "drivers/hte/Kconfig"
+>  
+>  source "drivers/cdx/Kconfig"
+>  
+> +source "drivers/uart-routing/Kconfig"
+> +
+>  source "drivers/resctrl/Kconfig"
+>  
+>  endmenu
+> diff --git a/drivers/Makefile b/drivers/Makefile
+> index 0841ea851847..fe4b11419496 100644
+> --- a/drivers/Makefile
+> +++ b/drivers/Makefile
+> @@ -195,6 +195,7 @@ obj-$(CONFIG_DRM_ACCEL)		+= accel/
+>  obj-$(CONFIG_CDX_BUS)		+= cdx/
+>  obj-$(CONFIG_DPLL)		+= dpll/
+>  obj-y				+= resctrl/
+> +obj-$(CONFIG_UART_ROUTING)	+= uart-routing/
+>  
+>  obj-$(CONFIG_DIBS)		+= dibs/
+>  obj-$(CONFIG_S390)		+= s390/
+> diff --git a/drivers/uart-routing/Kconfig b/drivers/uart-routing/Kconfig
+> new file mode 100644
+> index 000000000000..a0c45a7bba47
+> --- /dev/null
+> +++ b/drivers/uart-routing/Kconfig
+> @@ -0,0 +1,16 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +
+> +menu "UART routing drivers"
+> +
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/monaco-ac-evk.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Configuring the kernel can be an annoying process, and on platforms that
+can't use these options, this menu just appears empty, further
+complicating menuconfig...
 
-diff --git a/arch/arm64/boot/dts/qcom/monaco-ac-evk.dts b/arch/arm64/boot/dts/qcom/monaco-ac-evk.dts
-index 6f3c3ffefe34..f3d41f738440 100644
---- a/arch/arm64/boot/dts/qcom/monaco-ac-evk.dts
-+++ b/arch/arm64/boot/dts/qcom/monaco-ac-evk.dts
-@@ -822,7 +822,7 @@ expander3_int: expander3-int-state {
- 		bias-pull-up;
- 	};
- 
--	expander6_int:  expander6-int-state {
-+	expander6_int: expander6-int-state {
- 		pins = "gpio52";
- 		function = "gpio";
- 		bias-pull-up;
--- 
-2.53.0
+Maybe it makes sense to add a dependency to the menu like this?
+'depends on ARCH_ASPEED || ARCH_STARFIVE || COMPILE_TEST'
+
+- Julian Braha
 
