@@ -1,124 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2DD27144B;
-	Sat,  5 Sep 2026 08:19:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BBCB453A3B
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 08:25:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788596403; cv=none; b=CDDgnUG8ZgpzonboCDReDATOQv7XnBeRQRlfnDQJvuVQl9DwZCYYgshEDozqYDdtomTCJrlXyTQpf53vEOzK1GDFxK+4+Tdui+IGnefnnYokWOxR6UnBTmEs6jcUeiH6AuldkpVx8K5FlTX72fIznfhiVNONnAFr123E5MxKrjE=
+	t=1788596749; cv=none; b=WKmaBJIiwFBX5Lb85HtXJplYDOzJr0kGh1pqZhp0dUsRWbkcib75sHtYr1png01eCwxBbwoBlZDl9UzwK+jh6WioQN5tR5DBzEEaRon5GZYCj7Z7VNsUvMhRjB7LiHqerp4Lth2GasoWIslvJFVtXsl0wWY+YNNYbujrmB20xMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788596403; c=relaxed/simple;
-	bh=LCxtwuf2XVjyavMFXpabUkNGnxhVmscqDbsgQpznjPQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AIo6YlXzthpW6DT64oKfV+fI6hl1lnxmkpibJRBEIosfkl0ixGf/VBkNGcaBzls12QiplSDFeguA3Nb2juf/fHV2m93qF50cqhTw+F64D/RvkdSFo0qxv8zAjik4XNXew58k2efwTE/2rKXRyOA/kl0xlFQFkt8yCuez5vAH+SE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jlB56NRI; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788596749; c=relaxed/simple;
+	bh=OviR5kaHs976PRzULV1vC0IpWTkvgJa0y9VkRRzLNZ0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W9p++GA32jCmzP1Ka5ldSK2rdQCMIa0VLQX60hiL6/6WPM49kG+A8vFEz4Vgad06uA+KlD9QF9hramGYUppWyt2mPVEcvFvZDaXcN+/UFqv5BFNeDL7eciCw9tvvcM1oGdE0LffXJ2BiKqYKdWe37Z2mY/nlH0Yejk82kn78R6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cUzs1Vjh; arc=none smtp.client-ip=209.85.216.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jlB56NRI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788596390; x=1820132390;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=LCxtwuf2XVjyavMFXpabUkNGnxhVmscqDbsgQpznjPQ=;
-  b=jlB56NRIRvLP8ah9NlV8erjIBL/vx1IWXT0I++edNlZLvcncbUevTPdl
-   hIKCEK832w2II122FQ3hBtqhOcRR1dhY9kDCo8USso5IeW7KDRe8y9Nwy
-   vWPP5FG5rmdPnxz0WlNdBGhmfPUruej1Hsts31HqF0TQsCnRMoAp7HJuY
-   gqPdlKyX7L78AAiOPYTQCnNsSr3BCM7nt0GbTTBjCTNdQ0yqdRja38Sap
-   YdBdJU2I9CGWorMva8amghsXxfaIW+aKpe4Dt5xJgrutphXBGvaldkABM
-   jeRYm6zxK+e4ThOXhbAXyFeF9MNrrhB8ueCdcYIvW2ArCcnpo/7Hs8wVU
-   g==;
-X-CSE-ConnectionGUID: cNzkR1HoS7CoM2uRwaUB8Q==
-X-CSE-MsgGUID: T1Y8W0iEQt+7SmQZ05FxHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11896"; a="99682601"
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="99682601"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 01:19:39 -0700
-X-CSE-ConnectionGUID: RZJD/lMbRdmRSuPG8lpbEA==
-X-CSE-MsgGUID: cq+DJsyETMOKDJXUoiwqxA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,263,1779174000"; 
-   d="scan'208";a="295128198"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.245.105])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Sep 2026 01:19:34 -0700
-Date: Sat, 5 Sep 2026 11:19:32 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Chen-Yu Tsai <wens@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Wei Deng <wei.deng@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	linux-acpi@vger.kernel.org, driver-core@lists.linux.dev,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH v8 07/16] usb: core: Move struct usb_port and related
- APIs to port.h
-Message-ID: <apvQlBEgHOW9MCxN@ashevche-desk.local>
-References: <20260904084158.1341550-1-wenst@chromium.org>
- <20260904084158.1341550-8-wenst@chromium.org>
- <2026090430-botanist-ungodly-0299@gregkh>
- <CAGb2v65MSxL+r+wqMjPKVSh9aS1gkn8og6oBinSXDdipnoOyCQ@mail.gmail.com>
- <2026090433-chair-tidings-5c99@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cUzs1Vjh"
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-3966791a6eeso2102588a91.3
+        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 01:25:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788596743; x=1789201543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w4JWIpadkBBtpyHMGkKKLMv6w38PE5gnqdnr/RtDlQw=;
+        b=cUzs1VjhW0s0igUPqsohFtn2jCWJ+jc187XwO03Ztix4UldNcRd5jQ10HbIHlsVe1I
+         XrvkpTD2nBZ8UTwKwBYjEU73PCZD4LesdY/nFcdW2SsW09m7l7M3gzneZs8YiSI7VvfN
+         RCM2CV5Tl0cQlU8GV0/2Vl9nszyE9BPFaad4zF5Qkg9Z+Ysqfhv81hqFHJ9TeATzLbUO
+         Wq1f7V0i1VD9pZFOvn0Az2M45PAXfDrb45pnMVx5e/fv3RiN/JR9yQLhG6qC8vtRXwvk
+         +abBPoEjSDz6dCGi5BJCwLje1twBF5epG6T6W43tmP4IRWC0bIjlEg982rRiUxjMrNrm
+         yRvA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788596743; x=1789201543;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w4JWIpadkBBtpyHMGkKKLMv6w38PE5gnqdnr/RtDlQw=;
+        b=j3Ig3GQsw2J6jLSoPYifwDX72UYcVyIt9MjOQCD0g1aj7fReSWU+Zh5cCxlmlQvcVo
+         Qb3iaRVoOMwh1JDDsSA7dbPPSVAHhsDcOAbr+R/4RMQXxKIpcNu+XqRCMVEj2NaDPgE1
+         qGRNmrqVTfiCvp1ZmYxF2dLNgUmDc3lAg1HCWjkEPpfHb9NkzTbq3qc1eqf1uDPeY2wh
+         Y5do2qOC+UPtzRCT6AUWMqrzPdrGLbka+2fnOsBWYDKEsPF67PVzUaPhmGoBYTqUrUvp
+         QBdFK1Xdbs+dfUdOFcxNG1HLdnITmvaeDIEn2nILDRDE1mbWYV3o3I7uQGnGP7XOo9dL
+         fWxw==
+X-Gm-Message-State: AFuF++lWQCVMV62I+3r5YTDKLoVVaseKXqCw6rW2Is7ltW+ZFb0jj1dS
+	r1ukD9Tn+gV4vRXVhwjYx/R6/0JNVcykmdnBaktLYYAczn6ZhN+OB3nQ
+X-Gm-Gg: AYBFou1gvvCJR58QAMZZ+rCEPaublkhOm4xgCiyijMi1jPGoLnNHT+prVbU6PRH/VYQ
+	FKoAV3acELGGLf2ASSNjpVEgjUlT8ZGOnN6DbdJTf3rVQIP8l5Pq5vq76ZBv4uONH9oXAnMUBU1
+	EFHxj+zxQWAYAY+LOteSwLa6wiZ1IsmW6Qp805PJvWHBGK6Yi58IrW3ziBMHmqUJAOZgnS2ZyhV
+	xaOT7gloDX7zWaedliD8/Vc8j4NZpF9UR5OK6xh2qbB2Ds87rY5ETM4y/BifBFw8H0+VMbLH2nE
+	yrr8TDT4XX4dp4I8IXJKKd8SUs927QFrCVWWtzlle70hitvIi3/5JnnZgMOKy+ANKr6fL124CVF
+	l3hSLh4351QPkTwUVs1TiADjURY+J38Jx2lEqoxCQRQ9TIDdZtpsfdzag3U7DQI3C4RWb2TmL0j
+	QN8zFNaxASpt5VfeNGp2Ra+EMWx9HriqK1dEOSoLuYwOrlbtomNghZ9DSTQzlKH8Sam+6c227pn
+	0DUxA==
+X-Received: by 2002:a17:90b:17d0:b0:398:9bd4:d18 with SMTP id 98e67ed59e1d1-39b26298ba1mr15383737a91.23.1788596743161;
+        Sat, 05 Sep 2026 01:25:43 -0700 (PDT)
+Received: from [192.168.1.107] ([223.122.38.120])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885ca07sm14262328eec.1.2026.09.05.01.25.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 05 Sep 2026 01:25:42 -0700 (PDT)
+Message-ID: <4e65ef39-cf1b-49d4-a899-da36acb442c2@gmail.com>
+Date: Sat, 5 Sep 2026 16:25:36 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/6] dt-bindings: interrupt-controller: apple,aic2: Add
+ apple,t8140 compatible
+To: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, Hector Martin <marcan@marcan.st>,
+ Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org
+References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
+ <20260904-apple-a18-pro-initial-devicetrees-v1-4-0c25401d165d@cyberchaos.dev>
+Content-Language: en-US
+From: Nick Chan <towinchenmi@gmail.com>
+In-Reply-To: <20260904-apple-a18-pro-initial-devicetrees-v1-4-0c25401d165d@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <2026090433-chair-tidings-5c99@gregkh>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Fri, Sep 04, 2026 at 07:52:37PM +0200, Greg Kroah-Hartman wrote:
-> On Sat, Sep 05, 2026 at 01:24:20AM +0800, Chen-Yu Tsai wrote:
-> > On Sat, Sep 5, 2026 at 12:47 AM Greg Kroah-Hartman
-> > <gregkh@linuxfoundation.org> wrote:
-> > >
-> > > On Fri, Sep 04, 2026 at 04:41:46PM +0800, Chen-Yu Tsai wrote:
-> > > > |struct usb_port| and its matching container_of() macro should live in
-> > > > its own port.h, matching the split we have for .c files.
-> > >
-> > > Why?
-> > 
-> > This was requested by Andy. And to me it sort of made sense.
-> > 
-> > > > Move them as described. Also move usb_port_is_power_on(), since in the
-> > > > next change its |struct usb_hub *| parameter will be changed to
-> > > > |struct usb_port *|, and becomes a non-static function that only
-> > > > references |struct usb_port|.
-> > >
-> > > No, please don't do that unless you have a really good reason.
-> > 
-> > Which part? Move the code?
-> 
-> Please don't make a new .h file.
-> 
-> Moving the function might make sense on its own if you need it in a
-> different file later on, but do a move only, and then change things if
-> you really need to do that.
-
-Isn't this file to break possible circular dependencies?
-
--- 
-With Best Regards,
-Andy Shevchenko
 
 
+Yureka Lilian 於 2026/9/5 凌晨3:49 寫道:
+> The Apple t8140 (A18 Pro) SoC uses an AIC3 as interrupt controller, same as
+> the M1-M4 SoCs.
+>
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+>  Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+> index 1cb886785173..e3cadc5ad39d 100644
+> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
+> @@ -46,6 +46,7 @@ properties:
+>                - apple,t6030-aic3
+>                - apple,t6031-aic3
+>                - apple,t8132-aic3
+> +              - apple,t8140-aic3
+
+the title should be "... Add t8140 compatible" describing the hardware corresponding
+to the added compatible since the compatible being added is not "apple,t8140".
+
+(Alternatively, if you mention the compatible in title, say "...Add apple,t8140-aic3" as
+"compatible" is already implied)
+
+
+>            - const: apple,t8122-aic3
+>        - const: apple,t8122-aic3
+>  
+>
