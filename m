@@ -1,104 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5484B0CA2
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 15:40:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D614E1F63D9;
+	Sat,  5 Sep 2026 16:48:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622831; cv=none; b=hR58RxH9XIcWdYTyvBwSgHyWRoJJZs4seogpjTt7wJU+HJT49GSBsSPg75ogaAmzBc8iDjT/EEI3KOK7ebW0csV9fwdHkLVQEQDYX9MGPNFKgeeiYqLgeEad7AkzVCV+8cWmx+LwyYS8gxyghmQidngvZpVGL1RbbtlPun2dH3E=
+	t=1788626936; cv=none; b=Z5JkrnUqg20oMJGjwfITxO6sV1WTgM4/HS9ESfLwEpdCgsT41md+Z7JGYAtjRA2Zqw4ayNrKpeMNMqA2tZd27hTLSADm1pimSbs0BBJB6J/hh505WR/V78GAGg7tld2Z5UOEy+UHMsw9/njak195Fmwi/Wa68QWjhmKEMmDMFgc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622831; c=relaxed/simple;
-	bh=gnUOi0/rmffEEmvVGp9MjfjmSFmNqJYat7+ohLqpSLQ=;
+	s=arc-20240116; t=1788626936; c=relaxed/simple;
+	bh=7zE4DLk+owEJCvsL7gJJRrEj5LNInTPF/kxV5jFwUuw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BuG+9Sc/8UKgLbbBlbLt1vm2PbacTJhJtZ1RrePe7q+SmXQ4qpRvU4q6aF3sG0BGfrt07ezZ+sS5oDM6tSZMRmPlGHcDXY4YbwyqWMrs/HKnJ++zGul17pBjWRTjqZihCBUQJDu450yNS50hipfYciXTo9xM823fIQPILv00qPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHi6Jv6l; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=r6mibfMuQavUyf+eiqYJ29Nlh4xFc+nxi5hKGEJMMpcs65ucP7e9nvbV4yBZG4JHn8tx2jZ4FIwnKq1AVurAhqJcFgi1CvCFyqIiid/3cnADajh8+I1/ZpNzJbxrqp/R58dvQ3I8Er7ss65+LoJS/8MSR0NftR+/EA7coG4o/CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFqVxMyG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHi6Jv6l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6D91F00A3A;
-	Sat,  5 Sep 2026 15:40:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFqVxMyG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57BEF1F00A3A;
+	Sat,  5 Sep 2026 16:48:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788622826;
-	bh=EPOGoZys2/8mCkrtmEOMC9IINUrL5IIWHmfw5JEF/Sc=;
+	s=k20260515; t=1788626934;
+	bh=O7IuTC+pRWMMIEwCHz18OFRXiFgpidnQyUKUZOMTCWQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VHi6Jv6lFSkjjemBXlmjKZ6MG1YQMxrY20X9ZsSBMMambi9dpkvpCIzuqjaEtSh6w
-	 yCz+uKaWDfILStcBGtzUg542MTVrxLmxS6Z3ajTf37p64YAd+aVCHqOTLTMzBbssPP
-	 BeQW2jpxdZcqqvqAuhqCSIChJdTc8M5vdBOrExIplLmWfcMq6e4k2w5lKgryfRpRhD
-	 FTY9bGkQASN2d+4F527CXcvkz6Bf9I0Q6oJ7iOr1f0F9Rwod8kx7PlYjfiTURfYxGE
-	 KkGHCCb0cNxH0oncW3ZMA74L9faQYgmSqZV17dJyq0UvlwM9E4S57pZSIwMkZg4Oud
-	 kjnphwpZimkRw==
+	b=lFqVxMyG4httbfeKeVRMfhzUuuBkORYG2TP4lQObvcq6ASoy3tYEH55e+8ase1vsV
+	 JrAMlzSJBtnglcn/fqB0DBIq5U4Dnt74RnZR3exg/WJdVuPEA1FKwpJqKNaI7N+iTn
+	 zmJXBmdma/us6ZFeF8J0AqTe3AJB5hFpGx83tT8dlxzn41fUP/cZrJ1sNjb3DawRi6
+	 woNhHDHuS0jy2Ku+DCfZ8mCxvgPIK8T46gSr4nGIlh2ZIuPSbPR7NEVeLJOa2+6LJf
+	 47a4ylq7yXvlax4PXu2iY5ePL11pgzMo4o2QugE3W/uIfjeUHgyJLpuBJpCQPSmG50
+	 ARM1mGUYOlHqw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 5/5] usb: dwc3: qcom: Modify interrupt handling for
- eUSB2 Phy targets
+Subject: Re: [PATCH v3 5/8] clk: sunxi-ng: a733: Add bus clocks support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Kurapati" <krishna.kurapati@oss.qualcomm.com>
-Cc: robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
-In-Reply-To: <20260905-eusb2-interrupt-v7-v7-5-820cf5377a70@oss.qualcomm.com>
-References: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
- <20260905-eusb2-interrupt-v7-v7-5-820cf5377a70@oss.qualcomm.com>
+To: "Junhui Liu" <junhui.liu@pigmoral.tech>
+Cc: linux-sunxi@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260905-a733-clk-v3-5-50f238f39c78@pigmoral.tech>
+References: <20260905-a733-clk-v3-0-50f238f39c78@pigmoral.tech>
+ <20260905-a733-clk-v3-5-50f238f39c78@pigmoral.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 15:40:25 +0000
-Message-Id: <20260905154025.ED6D91F00A3A@smtp.kernel.org>
+Date: Sat, 05 Sep 2026 16:48:53 +0000
+Message-Id: <20260905164854.57BEF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The driver will fail to probe if CONFIG_GENERIC_PHY is disabled be=
-cause devm_of_phy_get_by_index() returns -ENOSYS.
+- [High] Zero-width P-divider in mbus_clk triggers GENMASK underflow, wipin=
+g the entire clock register on rate changes.
+- [High] MBUS clock rate changes will not take effect because ccu_mp_set_ra=
+te() ignores CCU_FEATURE_UPDATE_BIT.
 --
 
-commit 7538db3f4327a94f92b49936063fdf191b900637
-Author: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+commit b18b5b20ec18f362fb14429382135c39ebff8a35
+Author: Junhui Liu <junhui.liu@pigmoral.tech>
 
-usb: dwc3: qcom: Modify interrupt handling for eUSB2 Phy targets
+    clk: sunxi-ng: a733: Add bus clocks support
+   =20
+    Add the essential bus clocks in the Allwinner A733 CCU, including AHB,
+    APB0, APB1, APB_UART, and MBUS. These buses are necessary for many other
+    functional modules. An additional trace clock is also added as it falls
+    within the register address range of the bus clocks, even though it is
+    not strictly a bus clock.
+   =20
+    The MBUS clock is marked as critical to ensure the memory bus remains
+    operational at all times. And the hardware requires an update bit
+    (bit 27) to be set so that the configuration takes effect and the
+    updated parameters can be correctly read back for the MBUS clock.
 
-This commit updates the dwc3-qcom driver to dynamically query the attached
-PHY type and adjust the eD+/eD- line wakeup interrupts accordingly for
-eUSB2 targets in host mode.
-
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index ba26e61df915a..2d1e66ff72ed5 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
+diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-ng/=
+ccu-sun60i-a733.c
+--- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
++++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
 
 [ ... ]
 
-> @@ -698,6 +720,17 @@ static int dwc3_qcom_probe(struct platform_device *p=
-dev)
->  	if (ret)
->  		goto clk_disable;
-> =20
-> +	phy =3D devm_of_phy_get_by_index(dev, dev->of_node, 0);
-> +	if (IS_ERR(phy)) {
-> +		if (PTR_ERR(phy) !=3D -ENODEV) {
+> +static SUNXI_CCU_MP_DATA_WITH_MUX_GATE_FEAT(mbus_clk, "mbus", mbus_paren=
+ts, 0x588,
+> +					    0, 5,	/* M */
+> +					    0, 0,	/* no P */
+> +					    24, 3,	/* mux */
+> +					    BIT(31),	/* gate */
+> +					    CLK_IS_CRITICAL,
+> +					    CCU_FEATURE_UPDATE_BIT);
 
 [Severity: High]
-Will this cause a regression in dwc3_qcom_probe() when CONFIG_GENERIC_PHY is
-disabled?
+Does a zero-width P-divider here inadvertently wipe the register during
+rate changes?
 
-When CONFIG_GENERIC_PHY is not set, devm_of_phy_get_by_index() returns
-ERR_PTR(-ENOSYS). Since -ENOSYS does not equal -ENODEV, this check will
-evaluate to true and cause the probe to unconditionally abort.
+Looking at ccu_mp_set_rate(), it evaluates the mask using GENMASK based
+on the width and shift:
 
-Prior to this patch, the driver did not fetch the PHY directly, and the
-DWC3 core gracefully handles -ENOSYS by treating it identically to -ENODEV.
-Could this error handling be updated to also ignore -ENOSYS so that existing
-configurations without CONFIG_GENERIC_PHY continue to work?
+reg &=3D ~GENMASK(cmp->p.width + cmp->p.shift - 1, cmp->p.shift);
 
-> +			ret =3D dev_err_probe(dev, PTR_ERR(phy),
-> +					    "failed to get usb2 phy\n");
-> +			goto clk_disable;
-> +		}
-> +		phy =3D NULL;
-> +	}
-> +	qcom->has_eusb2_phy =3D (phy_get_type(phy) =3D=3D PHY_TYPE_EUSB2);
-> +
->  	qcom->mode =3D usb_get_dr_mode(dev);
+With width 0 and shift 0, this yields GENMASK(-1, 0). On 64-bit
+architectures like ARM64, the internal shift by BITS_PER_LONG is
+modulo-truncated to 0, resulting in ~0UL. Applying ~GENMASK (which is 0)
+then zeroes out the entire register. This would clear the critical enable
+gate (BIT(31)) and mux settings.
+
+[Severity: High]
+Does ccu_mp_set_rate() actually support the update bit feature?
+
+The commit message notes that the hardware requires bit 27 to be set
+for the MBUS clock configuration to take effect. However, mbus_clk is
+declared using a ccu_mp type macro.
+
+Looking at ccu_mp_set_rate(), it doesn't appear to check for or apply
+CCU_FEATURE_UPDATE_BIT like the div and mux callbacks do. Because the MP
+framework ignores this flag, could this result in rate changes silently
+being ignored by the hardware?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-eusb2-inte=
-rrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-a733-clk-v=
+3-0-50f238f39c78@pigmoral.tech?part=3D5
