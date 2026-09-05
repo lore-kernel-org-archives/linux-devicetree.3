@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F653D5236;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04EE73C1093;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788600558; cv=none; b=deAKdBRGjknsTNUiawKOp9BDoE/QnJcb+ZClyBJMKFisec1YAa/j2oNLfgEwjHfNPXFi7a7Zpr4uw26SzjNZDX4D5froWSo1ZsHV9YqEU9eyaiU6FyJolE6KZ35BhiJttzoHSdkbBZqIDl/S/XJxC3DBkQ/lW5NQ4BQ9Sz53IYI=
+	t=1788600558; cv=none; b=gWqR9HCok/j7B6pCxkq3SDLZm1nbgpPxEmcLydSUtZd7XebLgFuzMVryfB+ufcYSLc4Bf7zRfnP3RqN8O9+3RaZBgbOTKMMN7ZIbo91nry8dUtAvce41MbV8npHzk6DPEF1iupsvkF7n/XowFst2DQnXNqud0nyjrtzzdZqRy8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788600558; c=relaxed/simple;
-	bh=002QRWWTWJ51HFztLj3s0HXrMVYjCFS25RWD/f77lTI=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=F0GkK7tl3nRgtKIjo+HWiKUKkpmCnqPEcag1D0OhLabX4Ls0Upq7tA4qCI+MlkAw4rw3Q9DXByKO6X0Shsxh9WJpjL07cJTEe7mvvYBc/HkL0funlTSxwChVfIFjjbZqVD+9KQMLo4ej1+u5DlOYEmR/PevXxrROoXETVntgeP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QMX2lQcn; arc=none smtp.client-ip=10.30.226.201
+	bh=H13mnQq8LBw5Nosc4pSrt2FY8mjKlW6cedUpwut48+A=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Bg380+NlB+Lcfa7I34Xc+md1eQhmqGv0WH5qvC1U0NwVjta5H5xATZDmrt1KKajZ8Uab6JTJ+oByLClf9VWIzh8p601n9b26+V9fomA7T8EQWGAZqRAPZsxhyIO/88fYipU7YA5G0boc3ZoMccGI8723V0P1+bjdP2u1dkUEtp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VmI9OOhr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QMX2lQcn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 8BD77C2BCB3;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VmI9OOhr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A99B0C2BCFB;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788600557;
-	bh=002QRWWTWJ51HFztLj3s0HXrMVYjCFS25RWD/f77lTI=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=QMX2lQcnvIWuTBpRFXvPwCZ8HqjamFrluK3YiDQR8sj2BpRNlLBTsLPGZpLHvfAeQ
-	 aNLDB+mJck3pijzsmi+r8BIgk4spkYNQmhd6BIHm0p1rLU1dJMK4ZPDu9EPrEFycNS
-	 Km/4XMaxJrJazn6858E/IEU8d4ZXT8yIfYcW9GpWulwr4zwfl+DBIUUpV1PeFDi9mP
-	 KUTuwqMyCW8prq4HXwcQUQ98IxG9btyhRP/37DuzcmhEkFdtY++x0cia5+4CaDx/Bi
-	 pFItMwvWSlrq3B5zJ5yvh1iMv46rRto2DafJqAleaf2Mf70YeCKTZEmvhcvFo1OS21
-	 b84UGTmSikn9g==
+	bh=H13mnQq8LBw5Nosc4pSrt2FY8mjKlW6cedUpwut48+A=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=VmI9OOhrv8W+I7A54dhdgwQZyfYzu4MOgfw+hgZJNNetSKifypetc5bgTSThAz/WH
+	 S33+3/4abSGwrSlEqzWOrDTMDbebu1IUVHyKjvZ7wAY+shE6yLArw+G9zzea9hw97j
+	 KFYRX6s303LunPrz9BYqBml9KAKndMu/U51j51ckxHxhhnSiGoXZ/lBgiQtuGdW50u
+	 kSpdaEGGaem5VdKtz8aXXbjP4fdw4xpT5rIwzZ5KSjT447etZ5oWcHdGRPFAvGngg8
+	 qqj8/qZy0VuGZFTYMB38fcszdu2mGXd24BsENQd9oUTyFAI/kmUGIJy5X5Ckckb1k+
+	 yOHeiQpCH6RDA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5F990C624D3;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 85ED6C79F8B;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Subject: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-Date: Sat, 05 Sep 2026 11:28:55 +0200
-Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+Date: Sat, 05 Sep 2026 11:28:57 +0200
+Subject: [PATCH 2/7] arm64: dts: qcom: Split IdeaCentre Mini into a common
+ DTSI
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x2MywqAIBAAfyX23II9jOxXooPkWnvIQiWK6N9bO
- s4MzAOJIlOCoXgg0smJ9yBQlQXMqw0LITthqFXdKaM0XpUYsjOFHAk3DoxHpJzZ32i1a1rjeqN
- bD3KQ4Pn67+P0vh/JascCbQAAAA==
-X-Change-ID: 20260905-x1-ideacentre-mini-prettify-a5d349d8954f
+Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-2-9a87882973bb@oldschoolsolutions.biz>
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -53,12 +52,12 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=2740;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=29275;
  i=jens.glathe@oldschoolsolutions.biz; s=20240919;
  h=from:subject:message-id;
- bh=002QRWWTWJ51HFztLj3s0HXrMVYjCFS25RWD/f77lTI=;
- b=6E4nAPWSta2QpvQ90KLyGjveyG1YSHrs4M96Z4uUf/2yXPTL4Xm5hi0ANfax+NNFuDw3iB+6T
- VZqDZPi1BE7DG9jsyyWYYcH056Gri39Ir6MT1n6Hhc3/3KkI7/YOytV
+ bh=jBsW9gU6X4RJCHtg7DQNYNRqenBB29+nL+VN92xM3fY=;
+ b=k513Tp7iXozgH9UGIFMFmRZHGrAZgYgANPPemjPucaUUiBipd9T2EZuZIALfVE14i8+qwfpNN
+ QqXHSREwf1qAy2VXzweg4sGKD7wOOke+xLirt+XOaNK+Ee7M6e3MRuB
 X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
  pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
 X-Endpoint-Received: by B4 Relay for
@@ -66,69 +65,1356 @@ X-Endpoint-Received: by B4 Relay for
 X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 Reply-To: jens.glathe@oldschoolsolutions.biz
 
-The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
-(X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
-chassis, different silicon. Stubble and the DTB loader need distinct
-compatibles.
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-This series splits the board description into
-x1-lenovo-ideacentre-mini-01q8x10.dtsi and adds thin leaves. Each SKU
-keeps lenovo,ideacentre-mini-01q8x10 as fallback:
-
-  lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
-  qcom,x1e80100
-
-  lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
-  qcom,x1p42100
-
-No qcom_scm change; the fallback is already on the allowlist.
-
-The remaining patches fix the common DTSI for both boxes:
-
-- Build the Hamoa EL2 DTB like the other Hamoa boards.
-- Second M.2 3V3 is PMC8380_3 GPIO5, not TLMM18. A 2 s startup delay
-  is required or pcie3 fails to probe. always-on is a hack until there
-  is a real M.2 power sequencer.
-- sound-name-prefix on the three DP ports. Enable lpass_vamacro: no
-  onboard mics, but it provides fsgen for tx_macro and rx_macro.
-- usb_mp port 1 is not populated (no PTN3222 @ 0x4f). USB-C is
-  usb_1_ss0; rear Type-A is usb_mp port 0 behind a Genesys hub.
-
-The Genesys hub is left undescribed.
-
-UCM [1] and AudioReach [2] topology for these devices are online, too.
-
-Tested on:
-- IdeaCentre Mini 01Q8X10, Purwa (X1-26-100), 91B6
-- Hamoa: compile-tested only
-
-[1]: https://github.com/alsa-project/alsa-ucm-conf/pull/843
-[2]: https://github.com/linux-msm/audioreach-topology/pull/74
+The IdeaCentre Mini 01Q8X10 chassis is shared by Hamoa (X1E80100) and
+Purwa (X1P42100) SKUs. Move the board description into
+x1-lenovo-ideacentre-mini-01q8x10.dtsi and leave
+hamoa-lenovo-ideacentre-mini-01q8x10.dts as a thin wrapper that includes
+the SoC DTSI and the common board file.
 
 Assisted-by: Grok 4.5 (xAI)
 Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
-Jens Glathe (7):
-      dt-bindings: arm: qcom: Distinguish IdeaCentre Mini 01Q8X10 SKUs
-      arm64: dts: qcom: Split IdeaCentre Mini into a common DTSI
-      arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
-      arm64: dts: qcom: ideacentre-mini: Build the Hamoa EL2 DTB
-      arm64: dts: qcom: ideacentre-mini: Fix the second M.2 3V3 rail
-      arm64: dts: qcom: ideacentre-mini: Wire up DP sound names and VA macro
-      arm64: dts: qcom: ideacentre-mini: Drop the unused USB MP port
+ .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1260 +-------------------
+ ....dts => x1-lenovo-ideacentre-mini-01q8x10.dtsi} |   29 -
+ 2 files changed, 39 insertions(+), 1250 deletions(-)
 
- Documentation/devicetree/bindings/arm/qcom.yaml    |   11 +-
- arch/arm64/boot/dts/qcom/Makefile                  |    8 +-
- .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1188 +-------------------
- .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  |   42 +
- .../qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi    | 1185 +++++++++++++++++++
- 5 files changed, 1246 insertions(+), 1188 deletions(-)
----
-base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-change-id: 20260905-x1-ideacentre-mini-prettify-a5d349d8954f
+diff --git a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+dissimilarity index 97%
+index 75ce8b0c94d2a..2c030c2d99685 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
++++ b/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+@@ -1,1221 +1,39 @@
+-// SPDX-License-Identifier: BSD-3-Clause
+-/*
+- * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+- */
+-
+-/dts-v1/;
+-
+-#include <dt-bindings/gpio/gpio.h>
+-#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+-
+-#include "hamoa.dtsi"
+-#include "hamoa-pmics.dtsi"
+-
+-/ {
+-	model = "Lenovo IdeaCentre Mini 01Q8X10";
+-	compatible = "lenovo,ideacentre-mini-01q8x10", "qcom,x1e80100";
+-	chassis-type = "desktop";
+-
+-	aliases {
+-		serial0 = &uart14;
+-	};
+-
+-	wcd938x: audio-codec {
+-		compatible = "qcom,wcd9385-codec";
+-
+-		pinctrl-0 = <&wcd_default>;
+-		pinctrl-names = "default";
+-
+-		qcom,micbias1-microvolt = <1800000>;
+-		qcom,micbias2-microvolt = <1800000>;
+-		qcom,micbias3-microvolt = <1800000>;
+-		qcom,micbias4-microvolt = <1800000>;
+-		qcom,mbhc-buttons-vthreshold-microvolt = <75000 150000 237000 500000 500000 500000 500000 500000>;
+-		qcom,mbhc-headset-vthreshold-microvolt = <1700000>;
+-		qcom,mbhc-headphone-vthreshold-microvolt = <50000>;
+-		qcom,rx-device = <&wcd_rx>;
+-		qcom,tx-device = <&wcd_tx>;
+-
+-		reset-gpios = <&tlmm 191 GPIO_ACTIVE_LOW>;
+-		mux-controls = <&us_euro_mux_ctrl>;
+-
+-		vdd-buck-supply = <&vreg_l15b>;
+-		vdd-rxtx-supply = <&vreg_l15b>;
+-		vdd-io-supply = <&vreg_l15b>;
+-		vdd-mic-bias-supply = <&vreg_bob1>;
+-
+-		#sound-dai-cells = <1>;
+-	};
+-
+-	dp-connector {
+-		compatible = "dp-connector";
+-		type = "full-size";
+-
+-		pinctrl-0 = <&usb1_dp_hot_plug_detect>;
+-		pinctrl-names = "default";
+-
+-		port {
+-			dp_port_in: endpoint {
+-				remote-endpoint = <&usb_1_ss1_qmpphy_out_dp>;
+-			};
+-		};
+-	};
+-
+-	hdmi-bridge {
+-		compatible = "parade,ps185hdm";
+-
+-		pinctrl-0 = <&usb2_dp_hot_plug_detect>;
+-		pinctrl-names = "default";
+-
+-		ports {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			port@0 {
+-				reg = <0>;
+-
+-				hdmi_bridge_in: endpoint {
+-					remote-endpoint = <&usb_1_ss2_qmpphy_out_dp>;
+-				};
+-			};
+-
+-			port@1 {
+-				reg = <1>;
+-
+-				hdmi_bridge_out: endpoint {
+-					remote-endpoint = <&hdmi_con>;
+-				};
+-			};
+-		};
+-	};
+-
+-	hdmi-connector {
+-		compatible = "hdmi-connector";
+-		type = "a";
+-
+-		port {
+-			hdmi_con: endpoint {
+-				remote-endpoint = <&hdmi_bridge_out>;
+-			};
+-		};
+-	};
+-
+-	us_euro_mux_ctrl: mux-controller {
+-		compatible = "gpio-mux";
+-		pinctrl-0 = <&us_euro_hs_sel>;
+-		pinctrl-names = "default";
+-		mux-supply = <&vreg_l16b>;
+-		#mux-control-cells = <0>;
+-		mux-gpios = <&tlmm 68 GPIO_ACTIVE_HIGH>;
+-	};
+-
+-	pmic-glink {
+-		compatible = "qcom,x1e80100-pmic-glink",
+-			     "qcom,sm8550-pmic-glink",
+-			     "qcom,pmic-glink";
+-		orientation-gpios = <&tlmm 121 GPIO_ACTIVE_HIGH>;
+-
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		connector@0 {
+-			compatible = "usb-c-connector";
+-			reg = <0>;
+-			power-role = "dual";
+-			data-role = "dual";
+-
+-			ports {
+-				#address-cells = <1>;
+-				#size-cells = <0>;
+-
+-				port@0 {
+-					reg = <0>;
+-
+-					pmic_glink_port0_hs_in: endpoint {
+-						remote-endpoint = <&usb_1_ss0_dwc3_hs>;
+-					};
+-				};
+-
+-				port@1 {
+-					reg = <1>;
+-
+-					pmic_glink_port0_ss_in: endpoint {
+-						remote-endpoint = <&usb0_retimer_out>;
+-					};
+-				};
+-
+-				port@2 {
+-					reg = <2>;
+-
+-					pmic_glink_port0_sbu_in: endpoint {
+-						remote-endpoint = <&usb0_retimer_sbu_out>;
+-					};
+-				};
+-			};
+-		};
+-	};
+-
+-	vreg_nvme1_3p3: regulator-nvme1-3p3 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VREG_NVME1_3P3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpio = <&tlmm 18 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&nvme_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-
+-	vreg_nvme2_3p3: regulator-nvme2-3p3 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VREG_NVME2_3P3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpio = <&tlmm 18 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&nvme_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-
+-	vreg_v0p9: regulator-v0p9 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "V0P9";
+-		regulator-min-microvolt = <906000>;
+-		regulator-max-microvolt = <906000>;
+-
+-		gpio = <&pmc8380_5_gpios 8 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&usb0_pwr_1p15_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-
+-	vreg_vdd1v8: regulator-vdd1v8 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VDD1V8";
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-
+-		vin-supply = <&vreg_l15b>;
+-
+-		gpio = <&pm8550ve_9_gpios 8 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&usb0_1p8_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-
+-	vreg_vdd33_rtmr: regulator-vdd33-rtmr {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VDD33_RTMR";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpio = <&pm8550_gpios 11 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&usb0_3p3_reg_en>;
+-		pinctrl-names = "default";
+-
+-		regulator-boot-on;
+-	};
+-
+-	vreg_wcn_0p95: regulator-wcn-0p95 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "VREG_WCN_0P95";
+-		regulator-min-microvolt = <950000>;
+-		regulator-max-microvolt = <950000>;
+-
+-		vin-supply = <&vreg_wifi_3v3>;
+-	};
+-
+-	vreg_wifi_3v3: regulator-wcn-3p3 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "WIFI_3V3";
+-		regulator-min-microvolt = <3300000>;
+-		regulator-max-microvolt = <3300000>;
+-
+-		gpio = <&tlmm 214 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+-
+-		pinctrl-0 = <&wcn_sw_en>;
+-		pinctrl-names = "default";
+-	};
+-
+-	vreg_wifi_1v8: regulator-wifi-1v8 {
+-		compatible = "regulator-fixed";
+-
+-		regulator-name = "WIFI_1V8";
+-		regulator-min-microvolt = <1800000>;
+-		regulator-max-microvolt = <1800000>;
+-
+-		vin-supply = <&vreg_l15b>;
+-	};
+-
+-	reserved-memory {
+-		linux,cma {
+-			compatible = "shared-dma-pool";
+-			size = <0x0 0x8000000>;
+-			reusable;
+-			linux,cma-default;
+-		};
+-	};
+-
+-	sound {
+-		compatible = "qcom,x1e80100-sndcard";
+-		model = "X1E80100-LENOVO-IdeaCentre-Mini";
+-		audio-routing = "IN1_HPHL", "HPHL_OUT",
+-				"IN2_HPHR", "HPHR_OUT",
+-				"AMIC2", "MIC BIAS2",
+-				"TX SWR_INPUT1", "ADC2_OUTPUT";
+-
+-		wcd-playback-dai-link {
+-			link-name = "WCD Playback";
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai RX_CODEC_DMA_RX_0>;
+-			};
+-
+-			codec {
+-				sound-dai = <&wcd938x 0>, <&swr1 0>, <&lpass_rxmacro 0>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-
+-		wcd-capture-dai-link {
+-			link-name = "WCD Capture";
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai TX_CODEC_DMA_TX_3>;
+-			};
+-
+-			codec {
+-				sound-dai = <&wcd938x 1>, <&swr2 1>, <&lpass_txmacro 0>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-
+-		displayport-0-dai-link {
+-			link-name = "DisplayPort0 Playback";
+-
+-			codec {
+-				sound-dai = <&mdss_dp0>;
+-			};
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-
+-		displayport-1-dai-link {
+-			link-name = "DisplayPort1 Playback";
+-
+-			codec {
+-				sound-dai = <&mdss_dp1>;
+-			};
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-
+-		displayport-2-dai-link {
+-			link-name = "DisplayPort2 Playback";
+-
+-			codec {
+-				sound-dai = <&mdss_dp2>;
+-			};
+-
+-			cpu {
+-				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_2>;
+-			};
+-
+-			platform {
+-				sound-dai = <&q6apm>;
+-			};
+-		};
+-	};
+-
+-	wcn7850-pmu {
+-		compatible = "qcom,wcn7850-pmu";
+-
+-		vdd-supply = <&vreg_wcn_0p95>;
+-		vddio-supply = <&vreg_l15b>;
+-		vddaon-supply = <&vreg_wcn_0p95>;
+-		vdddig-supply = <&vreg_wcn_0p95>;
+-		vddrfa1p2-supply = <&vreg_wifi_1v8>;
+-		vddrfa1p8-supply = <&vreg_wifi_1v8>;
+-
+-		wlan-enable-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+-		bt-enable-gpios = <&tlmm 116 GPIO_ACTIVE_HIGH>;
+-
+-		pinctrl-0 = <&wcn_wlan_bt_en>;
+-		pinctrl-names = "default";
+-
+-		regulators {
+-			vreg_pmu_rfa_cmn: ldo0 {
+-				regulator-name = "vreg_pmu_rfa_cmn";
+-			};
+-
+-			vreg_pmu_aon_0p59: ldo1 {
+-				regulator-name = "vreg_pmu_aon_0p59";
+-			};
+-
+-			vreg_pmu_wlcx_0p8: ldo2 {
+-				regulator-name = "vreg_pmu_wlcx_0p8";
+-			};
+-
+-			vreg_pmu_wlmx_0p85: ldo3 {
+-				regulator-name = "vreg_pmu_wlmx_0p85";
+-			};
+-
+-			vreg_pmu_btcmx_0p85: ldo4 {
+-				regulator-name = "vreg_pmu_btcmx_0p85";
+-			};
+-
+-			vreg_pmu_rfa_0p8: ldo5 {
+-				regulator-name = "vreg_pmu_rfa_0p8";
+-			};
+-
+-			vreg_pmu_rfa_1p2: ldo6 {
+-				regulator-name = "vreg_pmu_rfa_1p2";
+-			};
+-
+-			vreg_pmu_rfa_1p8: ldo7 {
+-				regulator-name = "vreg_pmu_rfa_1p8";
+-			};
+-
+-			vreg_pmu_pcie_0p9: ldo8 {
+-				regulator-name = "vreg_pmu_pcie_0p9";
+-			};
+-
+-			vreg_pmu_pcie_1p8: ldo9 {
+-				regulator-name = "vreg_pmu_pcie_1p8";
+-			};
+-		};
+-	};
+-};
+-
+-&apps_rsc {
+-	regulators-0 {
+-		compatible = "qcom,pm8550-rpmh-regulators";
+-		qcom,pmic-id = "b";
+-
+-		vreg_bob1: bob1 {
+-			regulator-name = "vreg_bob1";
+-			regulator-min-microvolt = <3008000>;
+-			regulator-max-microvolt = <3960000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l2b: ldo2 {
+-			regulator-name = "VREG_L2B";
+-			regulator-min-microvolt = <3072000>;
+-			regulator-max-microvolt = <3072000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l4b: ldo4 {
+-			regulator-name = "VREG_L4B";
+-			regulator-min-microvolt = <1800000>;
+-			regulator-max-microvolt = <1800000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l13b: ldo13 {
+-			regulator-name = "VREG_L13B";
+-			regulator-min-microvolt = <3072000>;
+-			regulator-max-microvolt = <3072000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l15b: ldo15 {
+-			regulator-name = "VREG_L15B";
+-			regulator-min-microvolt = <1800000>;
+-			regulator-max-microvolt = <1800000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-			regulator-always-on;
+-		};
+-
+-		vreg_l16b: ldo16 {
+-			regulator-name = "VREG_L16B";
+-			regulator-min-microvolt = <2504000>;
+-			regulator-max-microvolt = <2504000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-	};
+-
+-	regulators-1 {
+-		compatible = "qcom,pm8550ve-rpmh-regulators";
+-		qcom,pmic-id = "c";
+-
+-		vreg_l3c: ldo3 {
+-			regulator-name = "VREG_L3C";
+-			regulator-min-microvolt = <912000>;
+-			regulator-max-microvolt = <912000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-	};
+-
+-	regulators-2 {
+-		compatible = "qcom,pmc8380-rpmh-regulators";
+-		qcom,pmic-id = "d";
+-
+-		vreg_l1d: ldo1 {
+-			regulator-name = "VREG_L1D";
+-			regulator-min-microvolt = <880000>;
+-			regulator-max-microvolt = <920000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l2d: ldo2 {
+-			regulator-name = "VREG_L2D";
+-			regulator-min-microvolt = <912000>;
+-			regulator-max-microvolt = <912000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l3d: ldo3 {
+-			regulator-name = "VREG_L3D";
+-			regulator-min-microvolt = <1800000>;
+-			regulator-max-microvolt = <1800000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-	};
+-
+-	regulators-3 {
+-		compatible = "qcom,pmc8380-rpmh-regulators";
+-		qcom,pmic-id = "e";
+-
+-		vreg_l2e: ldo2 {
+-			regulator-name = "VREG_L2E";
+-			regulator-min-microvolt = <880000>;
+-			regulator-max-microvolt = <880000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l3e: ldo3 {
+-			regulator-name = "VREG_L3E";
+-			regulator-min-microvolt = <1200000>;
+-			regulator-max-microvolt = <1200000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-	};
+-
+-	regulators-4 {
+-		compatible = "qcom,pm8550ve-rpmh-regulators";
+-		qcom,pmic-id = "i";
+-
+-		vreg_l3i: ldo3 {
+-			regulator-name = "VREG_L3I";
+-			regulator-min-microvolt = <880000>;
+-			regulator-max-microvolt = <920000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-	};
+-
+-	regulators-5 {
+-		compatible = "qcom,pm8550ve-rpmh-regulators";
+-		qcom,pmic-id = "j";
+-
+-		vreg_l1j: ldo1 {
+-			regulator-name = "VREG_L1J";
+-			regulator-min-microvolt = <912000>;
+-			regulator-max-microvolt = <912000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l2j: ldo2 {
+-			regulator-name = "VREG_L2J";
+-			regulator-min-microvolt = <1256000>;
+-			regulator-max-microvolt = <1256000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-
+-		vreg_l3j: ldo3 {
+-			regulator-name = "VREG_L3J";
+-			regulator-min-microvolt = <880000>;
+-			regulator-max-microvolt = <880000>;
+-			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+-		};
+-	};
+-};
+-
+-&i2c3 {
+-	clock-frequency = <400000>;
+-
+-	status = "okay";
+-
+-	typec-mux@8 {
+-		compatible = "parade,ps8833", "parade,ps8830";
+-		reg = <0x08>;
+-
+-		clocks = <&rpmhcc RPMH_RF_CLK3>;
+-
+-		vdd-supply = <&vreg_v0p9>;
+-		vdd33-supply = <&vreg_vdd33_rtmr>;
+-		vdd33-cap-supply = <&vreg_vdd33_rtmr>;
+-		vddar-supply = <&vreg_v0p9>;
+-		vddat-supply = <&vreg_v0p9>;
+-		vddio-supply = <&vreg_vdd1v8>;
+-
+-		reset-gpios = <&pm8550_gpios 10 GPIO_ACTIVE_LOW>;
+-
+-		pinctrl-0 = <&usb0_reset_n>;
+-		pinctrl-names = "default";
+-
+-		retimer-switch;
+-		orientation-switch;
+-
+-		ports {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			port@0 {
+-				reg = <0>;
+-
+-				usb0_retimer_out: endpoint {
+-					remote-endpoint = <&pmic_glink_port0_ss_in>;
+-				};
+-			};
+-
+-			port@1 {
+-				reg = <1>;
+-
+-				usb0_retimer_in: endpoint {
+-					remote-endpoint = <&usb_1_ss0_qmpphy_out>;
+-				};
+-			};
+-
+-			port@2 {
+-				reg = <2>;
+-
+-				usb0_retimer_sbu_out: endpoint {
+-					remote-endpoint = <&pmic_glink_port0_sbu_in>;
+-				};
+-			};
+-		};
+-	};
+-};
+-
+-&i2c5 {
+-	clock-frequency = <400000>;
+-
+-	status = "okay";
+-
+-	eusb3_repeater: redriver@47 {
+-		compatible = "nxp,ptn3222";
+-		reg = <0x47>;
+-		#phy-cells = <0>;
+-
+-		vdd3v3-supply = <&vreg_l13b>;
+-		vdd1v8-supply = <&vreg_l4b>;
+-
+-		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
+-
+-		pinctrl-0 = <&eusb3_reset_n>;
+-		pinctrl-names = "default";
+-	};
+-
+-	eusb6_repeater: redriver@4f {
+-		compatible = "nxp,ptn3222";
+-		reg = <0x4f>;
+-		#phy-cells = <0>;
+-
+-		vdd3v3-supply = <&vreg_l13b>;
+-		vdd1v8-supply = <&vreg_l4b>;
+-
+-		reset-gpios = <&tlmm 184 GPIO_ACTIVE_LOW>;
+-
+-		pinctrl-0 = <&eusb6_reset_n>;
+-		pinctrl-names = "default";
+-	};
+-};
+-
+-&iris {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcvss8380.mbn";
+-
+-	status = "okay";
+-};
+-
+-&gpu {
+-	status = "okay";
+-};
+-
+-&gpu_zap_shader {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcdxkmsuc8380.mbn";
+-};
+-
+-&mdss {
+-	status = "okay";
+-};
+-
+-&mdss_dp0 {
+-	status = "okay";
+-};
+-
+-&mdss_dp0_out {
+-	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+-};
+-
+-&mdss_dp1 {
+-	status = "okay";
+-};
+-
+-&mdss_dp1_out {
+-	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+-};
+-
+-&mdss_dp2 {
+-	status = "okay";
+-};
+-
+-&mdss_dp2_out {
+-	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+-};
+-
+-&pcie3 {
+-	pinctrl-0 = <&pcie3_default>;
+-	pinctrl-names = "default";
+-
+-	vddpe-3v3-supply = <&vreg_nvme2_3p3>;
+-
+-	status = "okay";
+-};
+-
+-&pcie3_phy {
+-	vdda-phy-supply = <&vreg_l3c>;
+-	vdda-pll-supply = <&vreg_l3e>;
+-
+-	status = "okay";
+-};
+-
+-&pcie3_port0 {
+-	reset-gpios = <&tlmm 143 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 145 GPIO_ACTIVE_LOW>;
+-};
+-
+-&pcie4 {
+-	pinctrl-0 = <&pcie4_default>;
+-	pinctrl-names = "default";
+-
+-	status = "okay";
+-};
+-
+-&pcie4_phy {
+-	vdda-phy-supply = <&vreg_l3i>;
+-	vdda-pll-supply = <&vreg_l3e>;
+-
+-	status = "okay";
+-};
+-
+-&pcie4_port0 {
+-	reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
+-
+-	wifi@0 {
+-		compatible = "pci17cb,1107";
+-		reg = <0x10000 0x0 0x0 0x0 0x0>;
+-
+-		vddaon-supply = <&vreg_pmu_aon_0p59>;
+-		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+-		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+-		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+-		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+-		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+-		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+-		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
+-		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
+-	};
+-};
+-
+-&pcie5 {
+-	pinctrl-0 = <&pcie5_default>;
+-	pinctrl-names = "default";
+-
+-	status = "okay";
+-};
+-
+-&pcie5_phy {
+-	vdda-phy-supply = <&vreg_l3i>;
+-	vdda-pll-supply = <&vreg_l3e>;
+-
+-	status = "okay";
+-};
+-
+-&pcie5_port0 {
+-	reset-gpios = <&tlmm 149 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
+-};
+-
+-&pcie6a {
+-	vddpe-3v3-supply = <&vreg_nvme1_3p3>;
+-
+-	pinctrl-0 = <&pcie6a_default>;
+-	pinctrl-names = "default";
+-
+-	status = "okay";
+-};
+-
+-&pcie6a_phy {
+-	vdda-phy-supply = <&vreg_l1d>;
+-	vdda-pll-supply = <&vreg_l2j>;
+-
+-	status = "okay";
+-};
+-
+-&pcie6a_port0 {
+-	reset-gpios = <&tlmm 152 GPIO_ACTIVE_LOW>;
+-	wake-gpios = <&tlmm 154 GPIO_ACTIVE_LOW>;
+-};
+-
+-&pmc8380_5_gpios {
+-	usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
+-		pins = "gpio8";
+-		function = "normal";
+-		power-source = <1>;
+-		bias-disable;
+-		input-disable;
+-		output-enable;
+-	};
+-};
+-
+-&pm8550_gpios {
+-	usb0_reset_n: usb0-reset-n-state {
+-		pins = "gpio10";
+-		function = "normal";
+-		power-source = <1>;
+-		bias-disable;
+-		input-disable;
+-		output-enable;
+-	};
+-
+-	usb0_3p3_reg_en: usb0-3p3-reg-en-state {
+-		pins = "gpio11";
+-		function = "normal";
+-		power-source = <1>;
+-		bias-disable;
+-		input-disable;
+-		output-enable;
+-	};
+-};
+-
+-&pm8550ve_9_gpios {
+-	usb0_1p8_reg_en: usb0-1p8-reg-en-state {
+-		pins = "gpio8";
+-		function = "normal";
+-		power-source = <1>;
+-		bias-disable;
+-		input-disable;
+-		output-enable;
+-	};
+-};
+-
+-&qupv3_0 {
+-	status = "okay";
+-};
+-
+-&qupv3_1 {
+-	status = "okay";
+-};
+-
+-&qupv3_2 {
+-	status = "okay";
+-};
+-
+-&remoteproc_adsp {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcadsp8380.mbn",
+-			"qcom/x1e80100/LENOVO/91B6/adsp_dtbs.elf";
+-
+-	status = "okay";
+-};
+-
+-&remoteproc_cdsp {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qccdsp8380.mbn",
+-			"qcom/x1e80100/LENOVO/91B6/cdsp_dtbs.elf";
+-
+-	status = "okay";
+-};
+-
+-&smb2360_0 {
+-	status = "okay";
+-};
+-
+-&smb2360_0_eusb2_repeater {
+-	vdd18-supply = <&vreg_l3d>;
+-	vdd3-supply = <&vreg_l2b>;
+-};
+-
+-&swr1 {
+-	status = "okay";
+-
+-	/* WCD9385 RX */
+-	wcd_rx: codec@0,4 {
+-		compatible = "sdw20217010d00";
+-		reg = <0 4>;
+-		qcom,rx-port-mapping = <1 2 3 4 5>;
+-	};
+-};
+-
+-&swr2 {
+-	status = "okay";
+-
+-	/* WCD9385 TX */
+-	wcd_tx: codec@0,3 {
+-		compatible = "sdw20217010d00";
+-		reg = <0 3>;
+-		qcom,tx-port-mapping = <2 2 3 4>;
+-	};
+-};
+-
+-&tcsr {
+-	vdda-qrefrpt0-0p9-supply = <&vreg_l3c>;
+-	vdda-qrefrpt1-0p9-supply = <&vreg_l3i>;
+-	vdda-qrefrpt2-0p9-supply = <&vreg_l3i>;
+-	vdda-qrefrpt3-0p9-supply = <&vreg_l3j>;
+-	vdda-qrefrpt4-0p9-supply = <&vreg_l1d>;
+-	vdda-qrefrx0-0p9-supply = <&vreg_l3c>;
+-	vdda-qrefrx1-0p9-supply = <&vreg_l3i>;
+-	vdda-qrefrx2-0p9-supply = <&vreg_l3i>;
+-	vdda-qrefrx3-0p9-supply = <&vreg_l3j>;
+-	vdda-qrefrx4-0p9-supply = <&vreg_l1d>;
+-	vdda-qreftx0-0p9-supply = <&vreg_l3j>;
+-	vdda-qreftx0-1p2-supply = <&vreg_l2j>;
+-	vdda-qreftx1-0p9-supply = <&vreg_l3j>;
+-	vdda-qreftx1-1p2-supply = <&vreg_l3e>;
+-	vdda-refgen0-0p9-supply = <&vreg_l3i>;
+-	vdda-refgen0-1p2-supply = <&vreg_l3e>;
+-	vdda-refgen2-0p9-supply = <&vreg_l3j>;
+-	vdda-refgen2-1p2-supply = <&vreg_l2j>;
+-};
+-
+-&tlmm {
+-	gpio-reserved-ranges = <44 4>,  /* SPI11 (TPM) */
+-			       <76 4>,  /* SPI19 (TZ Protected) */
+-			       <238 1>; /* UFS Reset */
+-
+-	eusb3_reset_n: eusb3-reset-n-state {
+-		pins = "gpio6";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-		output-low;
+-	};
+-
+-	nvme_reg_en: nvme-reg-en-state {
+-		pins = "gpio18";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+-
+-	us_euro_hs_sel: us-euro-hs-sel-state {
+-		pins = "gpio68";
+-		function = "gpio";
+-		bias-pull-down;
+-		drive-strength = <2>;
+-	};
+-
+-	wcn_wlan_bt_en: wcn-wlan-bt-en-state {
+-		pins = "gpio116", "gpio117";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+-
+-	usb1_dp_hot_plug_detect: ub1-dp-hot-plug-detect-state {
+-		pins = "gpio124";
+-		function = "usb1_dp";
+-		bias-disable;
+-	};
+-
+-	usb2_dp_hot_plug_detect: usb2-dp-hot-plug-detect-state {
+-		pins = "gpio126";
+-		function = "usb2_dp";
+-		bias-disable;
+-	};
+-
+-	pcie3_default: pcie3-default-state {
+-		clkreq-n-pins {
+-			pins = "gpio144";
+-			function = "pcie3_clk";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-
+-		perst-n-pins {
+-			pins = "gpio143";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-pull-down;
+-		};
+-
+-		wake-n-pins {
+-			pins = "gpio145";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-	};
+-
+-	pcie4_default: pcie4-default-state {
+-		clkreq-n-pins {
+-			pins = "gpio147";
+-			function = "pcie4_clk";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-
+-		perst-n-pins {
+-			pins = "gpio146";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-disable;
+-		};
+-
+-		wake-n-pins {
+-			pins = "gpio148";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-	};
+-
+-	pcie5_default: pcie5-default-state {
+-		clkreq-n-pins {
+-			pins = "gpio150";
+-			function = "pcie5_clk";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-
+-		perst-n-pins {
+-			pins = "gpio149";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-disable;
+-		};
+-
+-		wake-n-pins {
+-			pins = "gpio151";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-	};
+-
+-	pcie6a_default: pcie6a-default-state {
+-		clkreq-n-pins {
+-			pins = "gpio153";
+-			function = "pcie6a_clk";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-
+-		perst-n-pins {
+-			pins = "gpio152";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-disable;
+-		};
+-
+-		wake-n-pins {
+-			pins = "gpio154";
+-			function = "gpio";
+-			drive-strength = <2>;
+-			bias-pull-up;
+-		};
+-	};
+-
+-	eusb6_reset_n: eusb6-reset-n-state {
+-		pins = "gpio184";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-		output-low;
+-	};
+-
+-	wcd_default: wcd-reset-n-active-state {
+-		pins = "gpio191";
+-		function = "gpio";
+-		drive-strength = <16>;
+-		bias-disable;
+-		output-low;
+-	};
+-
+-	wcn_sw_en: wcn-sw-en-state {
+-		pins = "gpio214";
+-		function = "gpio";
+-		drive-strength = <2>;
+-		bias-disable;
+-	};
+-};
+-
+-&uart14 {
+-	status = "okay";
+-
+-	bluetooth {
+-		compatible = "qcom,wcn7850-bt";
+-		max-speed = <3200000>;
+-
+-		vddaon-supply = <&vreg_pmu_aon_0p59>;
+-		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+-		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+-		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+-		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+-		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+-		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+-	};
+-};
+-
+-&usb_1_ss0 {
+-	dr_mode = "host";
+-
+-	status = "okay";
+-};
+-
+-&usb_1_ss0_dwc3_hs {
+-	remote-endpoint = <&pmic_glink_port0_hs_in>;
+-};
+-
+-&usb_1_ss0_hsphy {
+-	vdd-supply = <&vreg_l3j>;
+-	vdda12-supply = <&vreg_l2j>;
+-
+-	phys = <&smb2360_0_eusb2_repeater>;
+-
+-	status = "okay";
+-};
+-
+-&usb_1_ss0_qmpphy {
+-	vdda-phy-supply = <&vreg_l1j>;
+-	vdda-pll-supply = <&vreg_l2j>;
+-
+-	status = "okay";
+-};
+-
+-&usb_1_ss0_qmpphy_out {
+-	remote-endpoint = <&usb0_retimer_in>;
+-};
+-
+-&usb_1_ss1_qmpphy {
+-	vdda-phy-supply = <&vreg_l2d>;
+-	vdda-pll-supply = <&vreg_l2j>;
+-
+-	/delete-property/ mode-switch;
+-	/delete-property/ orientation-switch;
+-
+-	status = "okay";
+-
+-	ports {
+-		port@0 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			/delete-node/ endpoint;
+-
+-			usb_1_ss1_qmpphy_out_dp: endpoint@0 {
+-				reg = <0>;
+-
+-				data-lanes = <3 2 1 0>;
+-				remote-endpoint = <&dp_port_in>;
+-			};
+-		};
+-	};
+-};
+-
+-&usb_1_ss2_qmpphy {
+-	vdda-phy-supply = <&vreg_l2d>;
+-	vdda-pll-supply = <&vreg_l2j>;
+-
+-	/delete-property/ mode-switch;
+-	/delete-property/ orientation-switch;
+-
+-	status = "okay";
+-
+-	ports {
+-		port@0 {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			/delete-node/ endpoint;
+-
+-			usb_1_ss2_qmpphy_out_dp: endpoint@0 {
+-				reg = <0>;
+-
+-				data-lanes = <3 2 1 0>;
+-				remote-endpoint = <&hdmi_bridge_in>;
+-			};
+-		};
+-	};
+-};
+-
+-&usb_mp {
+-	status = "okay";
+-};
+-
+-&usb_mp_hsphy0 {
+-	vdd-supply = <&vreg_l2e>;
+-	vdda12-supply = <&vreg_l3e>;
+-
+-	phys = <&eusb3_repeater>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp_hsphy1 {
+-	vdd-supply = <&vreg_l2e>;
+-	vdda12-supply = <&vreg_l3e>;
+-
+-	phys = <&eusb6_repeater>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp_qmpphy0 {
+-	vdda-phy-supply = <&vreg_l3c>;
+-	vdda-pll-supply = <&vreg_l3e>;
+-
+-	status = "okay";
+-};
+-
+-&usb_mp_qmpphy1 {
+-	vdda-phy-supply = <&vreg_l3c>;
+-	vdda-pll-supply = <&vreg_l3e>;
+-
+-	status = "okay";
+-};
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++/dts-v1/;
++
++#include "hamoa.dtsi"
++#include "x1-lenovo-ideacentre-mini-01q8x10.dtsi"
++
++/ {
++	model = "Lenovo IdeaCentre Mini 01Q8X10 (Hamoa)";
++	compatible = "lenovo,hamoa-ideacentre-mini-01q8x10", "lenovo,ideacentre-mini-01q8x10", "qcom,x1e80100";
++};
++
++&iris {
++	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcvss8380.mbn";
++
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcdxkmsuc8380.mbn";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcadsp8380.mbn",
++			"qcom/x1e80100/LENOVO/91B6/adsp_dtbs.elf";
++
++	status = "okay";
++};
++
++&remoteproc_cdsp {
++	firmware-name = "qcom/x1e80100/LENOVO/91B6/qccdsp8380.mbn",
++			"qcom/x1e80100/LENOVO/91B6/cdsp_dtbs.elf";
++
++	status = "okay";
++};
++
+diff --git a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
+similarity index 97%
+copy from arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
+copy to arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
+index 75ce8b0c94d2a..1af97c5f86fd3 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts
++++ b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
+@@ -3,17 +3,12 @@
+  * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+  */
+ 
+-/dts-v1/;
+-
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
+-#include "hamoa.dtsi"
+ #include "hamoa-pmics.dtsi"
+ 
+ / {
+-	model = "Lenovo IdeaCentre Mini 01Q8X10";
+-	compatible = "lenovo,ideacentre-mini-01q8x10", "qcom,x1e80100";
+ 	chassis-type = "desktop";
+ 
+ 	aliases {
+@@ -666,20 +661,10 @@ eusb6_repeater: redriver@4f {
+ 	};
+ };
+ 
+-&iris {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcvss8380.mbn";
+-
+-	status = "okay";
+-};
+-
+ &gpu {
+ 	status = "okay";
+ };
+ 
+-&gpu_zap_shader {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcdxkmsuc8380.mbn";
+-};
+-
+ &mdss {
+ 	status = "okay";
+ };
+@@ -857,20 +842,6 @@ &qupv3_2 {
+ 	status = "okay";
+ };
+ 
+-&remoteproc_adsp {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qcadsp8380.mbn",
+-			"qcom/x1e80100/LENOVO/91B6/adsp_dtbs.elf";
+-
+-	status = "okay";
+-};
+-
+-&remoteproc_cdsp {
+-	firmware-name = "qcom/x1e80100/LENOVO/91B6/qccdsp8380.mbn",
+-			"qcom/x1e80100/LENOVO/91B6/cdsp_dtbs.elf";
+-
+-	status = "okay";
+-};
+-
+ &smb2360_0 {
+ 	status = "okay";
+ };
 
-Best regards,
 -- 
-Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+2.53.0
 
 
