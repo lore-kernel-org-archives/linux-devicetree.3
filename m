@@ -1,247 +1,127 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 045DC377A87
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5E61ADC97
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788643350; cv=none; b=PWuS6xetuK2yZiyLMOm8cLIheXDAN7aA4waOc9Bdaukz+/PV+4Xw2Kqp1WjU7WpqoGfnCTQ7LVNk33QUzRFoyY4KtUNtr7gJ3nuDCisivMGT/w/x3ZaC4SZmGs/YBD+a0Za2biYZpn6PMGLoRibUg6vtoxD4SWpYAaQ1batozY4=
+	t=1788643392; cv=none; b=puSY64Q7KhSEj/Q6NK7QFO96SZbYP5GlH0lWQvWuqyRc2xGGLYOnFG7xmW6vN0upI64t+2Kb+pd7hSakxnMOHmkZM5qxZ1jvW0wnzojFnmN70uPxbQFoA6zQHDHTvFIZcN/JksZ8zQ+uJyXmOQclkDNj5oGasCQ9nlqIbWy6p2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788643350; c=relaxed/simple;
-	bh=auCB5rNo6b+/K6OB2qyoTXEsixd2XWS1Ty0U4GrdKWk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DbkV+gr+u/LryPSQhOvHojxAPXMf6Y7u5T+wrU7fp6vJI2HwbDZjDYscjVwpxluDzDbyj9Jhaf58P7QCcZaz8MWs+HEtRzxzMiKhaM0aSxyN6MZR9t0qzspH73H0iJLcdDQjME5aUi+/kXZyZpRv1pJp6BKnaGG4poa+fXK5hoM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A4FubtNC; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788643392; c=relaxed/simple;
+	bh=UgURUyZ4hP5XeBNPrEfdc2vZ5bBQKxZC6d+qdQE/6ks=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=GotthdJSUh6ZlUXrFAtU+IPfFTWMsJDyRCeLHKxaK5AWifOEn7KuWd6Prw7AlMVtG1S3lnCVIQziiSmQ7YQSBM5WsIK/DjG4lbg1UFYx2k49++059SgBmCpyuNtct4t1riTYdgcHcmdkYQHfzpxYLEZLRCtv56i3oGCiqyWPMKs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmRBMG9D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A4FubtNC"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39666bed444so237720a91.1
-        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 14:22:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788643348; x=1789248148; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=9WYq0M3dpGnTj4OQeONNxRvWLYluAMfzIb1PckYIv+s=;
-        b=A4FubtNC66zRyl5fLicU7lRMlkwx8nZ/+hCq5oRr+pMrk8z/lGFMIFZeM0PQwR4v2r
-         VE6Ego9UVp6rDXIASiRljZHPOxDdTVfhmscjUumHKZCZXdbTrwCuLezXK4jU3p44M7Vj
-         js9Q11WYEN9TISpxw4d03oSE/86g5GdufhQ76DxhtLipR9E8lgfYjdBG3RKZkJrRPuRw
-         LMk5K/2BiFKJlc5MlHgWQq41oCzZZhd/ZxaH6TRYOIUudqVfGMqJxdNQ8JUmKgIyO2vm
-         tV4P+GKheUzVHZ00WiqKI/GbG1InvrsDp4r4yTpwlSbnX0kmk+0pZrUS83R7+IGlZIWP
-         fbwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788643348; x=1789248148;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=9WYq0M3dpGnTj4OQeONNxRvWLYluAMfzIb1PckYIv+s=;
-        b=AR33DUgDgTFVX+lYS0HcFnjSxq2k6eko+VK4UGKveU+NDTHjK4mkMPeUhU6Kjk7tGO
-         WTNlJyE1bPEv6kNUELGFfqBw9M07klLu06MkGr8+mxU6Q45vcz83cdVLRkAwQNC7qqy8
-         7QgJAdoAj6pK0nkhQt8AlnlsxQcqy6/CFREB/+Z6GqiPvXnVeuN0hnangv7bcNk3FScv
-         46VE16+sXX6N0awLn6eajr9++qZLBfNifiiUMaAX6W6JlJFbCWXr0TWT319s1nfUF/ro
-         N400ly9NwaWonX+xoZACHUyVyw4TLATu+B4eXnxpXOmMnyDI0AcSeXKe4b1DBXtx7HUd
-         mlFA==
-X-Forwarded-Encrypted: i=1; AKwUvBzIbtqtY+Zwsw5k9jjiZz9hdoBoC5g9TV7It37sV6mU/l89/TUhG0vvVYRWQBGfK+akju9rcHaeKfGq@vger.kernel.org
-X-Gm-Message-State: AFuF++nmhmYHVIREEgeVFjfC2zNikJJZ7ZJe2JZ2lOAFzX2yCx/jdAAB
-	TxUN9o/MiNWzgs1UDKyYej4OLqBqXYzcWfBtqb9ku7V8P2RMbqmkTYEu
-X-Gm-Gg: AYBFou3VgT534HR3gIkVl7r+WUjtqv5nr8VPoD4j/fiV0ID9D3sMIJIsl+lp/wKQtjd
-	a44b5jy1wNs+zyHlUN+IfeXsmGohu5599bCjvuTzX2+QaZ2nnh7tgC+SB/BCM0I06O1Z49NTPZj
-	hHpr2F/CxMAxYlTNKZIgYKUH7OvB1rgt4AKskNlgP4OaB/NuuFKYQzSnSmiG8CFM0qnDXRqYj4h
-	c7mu/lvYtMTxOQn0VRvVVJ7JMpu9gbbownXAXHhDrFCMgkusjRYXptDYU1RqrJN556cuT73lCkG
-	uHCxoYX9AS1h5EFtKLPT7nq+ibkZ0aqbBNlJsV6x4yHRyKkJKX8RM4JyJj9ktpHRuce2S6kaS3O
-	E+CUkAJyWMz4j7hw0Tj3UB7cXBBafENaE/wfdXOM+h7b53hS3e7sdHnXuTV4Ytneqp2VH497nPr
-	FYJF2O34cTVuYSQIYCN2exlZvQDr1NjJrm6fOSEy9sdJQwN0YH8XPfQ5vjOYkH2LNlTtOnJ3eR
-X-Received: by 2002:a17:90a:d64f:b0:390:af7c:fe5e with SMTP id 98e67ed59e1d1-39b26741434mr14295061a91.2.1788643348186;
-        Sat, 05 Sep 2026 14:22:28 -0700 (PDT)
-Received: from [10.63.138.252] ([2409:40c2:5007:4aea:63cc:914c:1243:e03c])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14332405e92sm7783072c88.8.2026.09.05.14.22.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 14:22:27 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Sun, 06 Sep 2026 02:52:04 +0530
-Subject: [PATCH v3] dt-bindings: clock: ti,dm816-fapll-clock: Convert to DT
- schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmRBMG9D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D081F00A3A;
+	Sat,  5 Sep 2026 21:23:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788643391;
+	bh=GaYaCLQWkUPN1UE3GQCYoH5gflndJfXs8R2bwH6Dzak=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nmRBMG9DnEBTf9Z0geNU2/+AH/EHD8TRqZ75+Eeg6+DodSoPbBfr+dZ0eLL1u3UkZ
+	 UXe8kOHyk5emKCN04jVknkvtLmvpN2gz5Ibooh4O3Tg1Dt27szbC5R+Y1Gab50WKvz
+	 nkfKI7ADrzsn3IusQNqNXMJrpZlEOdCcK+EgsKaVajEh4kgXGLSbU69f2EYCzEFinB
+	 HJ6EDAr7glj7cR0KbHQgwZyW0q10Ump9HrTwFUweLakdx8Jcb//05K4pth7Iab8/UY
+	 wCHH/Lr+1nWHXvfrKt/MOVLHtRPd//7Y5wKnnbM6tN5lgg57DAnwRT4qN5SYzT4uHS
+	 SoLrQtNP8UBXg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] phy: ti: ti-pipe3: allow configuring ACSPCIe
+ TX/RX mode
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "David Oberhollenzer" <david.oberhollenzer@sigma-star.at>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260905211555.15944-3-david.oberhollenzer@sigma-star.at>
+References: <20260905211555.15944-1-david.oberhollenzer@sigma-star.at>
+ <20260905211555.15944-3-david.oberhollenzer@sigma-star.at>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 05 Sep 2026 21:23:10 +0000
+Message-Id: <20260905212310.B4D081F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ti-fapll-clock-v3-1-b0ded340c62b@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WMQQ6DIBQFr2JYlwa/gLar3qPpAhH1pygGDGljv
- HvRbkybt5qXzCwkGI8mkGu2EG8iBnRjguKUEd2rsTMUm8QEGEgm4UJnpK2arKXaOv2kolQMNEh
- uJCNJmrxp8bUH74/EPYbZ+ffej/n2flNlXv6mYk7TallxXYPgRX3rBoX2rN1AtlSEgw7wp0PSW
- SWY4Eq30Oijvq7rB31Gj1frAAAA
-X-Change-ID: 20260629-ti-fapll-clock-57a02c264e60
-To: Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Tero Kristo <kristo@kernel.org>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788643335; l=4915;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=auCB5rNo6b+/K6OB2qyoTXEsixd2XWS1Ty0U4GrdKWk=;
- b=uPVaYuFUkJGRyxOIdkbk5virGh8cp5eAvYi8Rc4w94CpIt/rh/IN7T6qUYJUT/kg6llPEW7xX
- JcXVRg8k8AYAS4Ruoe7jNOiFEP7jaR7Nvb/qg+Con6D1b6wnp5qajyE
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Convert the Texas Instruments DM816 FAPLL clock binding from plain text
-to YAML DT schema.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver improperly handles errors from `syscon_regmap_lookup_by=
+_phandle_args()`, breaking probe deferral and masking failure states.
+--
 
-The text documented #clock-cells to be set as 0, while the example and
-existing dt and driver require it to be 1. The schema now strictly
-enforces #clock-cells = <1>.
+commit 222aba3021868be395b0b2808f4e70dc057987a7
+Author: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
 
-Properties clock-indices and clock-output-names are documented in the
-binding and added as required as driver strictly requires it and existing
-dt already use this property.
+phy: ti: ti-pipe3: allow configuring ACSPCIe TX/RX mode
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Link: https://lore.kernel.org/r/20260717-ti-fapll-clock-v1-1-1b684cb2543b@gmail.com
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
-Changes in v3:
-- Rebase to latest mainline rc.
-- Collected tag.
-- Link to v2: https://lore.kernel.org/r/20260722-ti-fapll-clock-v2-1-085054acf2dc@gmail.com
+For the PCIe PHYs, read the property from the device tree and
+update the RX/TX mode selection bits in the specified syscon
+register.
 
-Changes in v2:
-- Cleaned up binding descriptions by dropping the redundant common clock
-  sentence and removing "phandle for" from the clock items
-- Link to v1: https://lore.kernel.org/r/20260717-ti-fapll-clock-v1-1-1b684cb2543b@gmail.com
----
- .../devicetree/bindings/clock/ti/fapll.txt         | 31 ----------
- .../bindings/clock/ti/ti,dm816-fapll-clock.yaml    | 71 ++++++++++++++++++++++
- 2 files changed, 71 insertions(+), 31 deletions(-)
+> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
+> index b5543b5c674c8..bc02010dadb74 100644
+> --- a/drivers/phy/ti/phy-ti-pipe3.c
+> +++ b/drivers/phy/ti/phy-ti-pipe3.c
 
-diff --git a/Documentation/devicetree/bindings/clock/ti/fapll.txt b/Documentation/devicetree/bindings/clock/ti/fapll.txt
-deleted file mode 100644
-index 88986ef39ddd..000000000000
---- a/Documentation/devicetree/bindings/clock/ti/fapll.txt
-+++ /dev/null
-@@ -1,31 +0,0 @@
--Binding for Texas Instruments FAPLL clock.
--
--This binding uses the common clock binding[1]. It assumes a
--register-mapped FAPLL with usually two selectable input clocks
--(reference clock and bypass clock), and one or more child
--syntesizers.
--
--[1] Documentation/devicetree/bindings/clock/clock-bindings.txt
--
--Required properties:
--- compatible : shall be "ti,dm816-fapll-clock"
--- #clock-cells : from common clock binding; shall be set to 0.
--- clocks : link phandles of parent clocks (clk-ref and clk-bypass)
--- reg : address and length of the register set for controlling the FAPLL.
--
--Examples:
--	main_fapll: main_fapll {
--		#clock-cells = <1>;
--		compatible = "ti,dm816-fapll-clock";
--		reg = <0x400 0x40>;
--		clocks = <&sys_clkin_ck &sys_clkin_ck>;
--		clock-indices = <1>, <2>, <3>, <4>, <5>,
--				<6>, <7>;
--		clock-output-names = "main_pll_clk1",
--				     "main_pll_clk2",
--				     "main_pll_clk3",
--				     "main_pll_clk4",
--				     "main_pll_clk5",
--				     "main_pll_clk6",
--				     "main_pll_clk7";
--	};
-diff --git a/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
-new file mode 100644
-index 000000000000..423b7405e398
---- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/ti/ti,dm816-fapll-clock.yaml
-@@ -0,0 +1,71 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/ti/ti,dm816-fapll-clock.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments FAPLL clock
-+
-+maintainers:
-+  - Tony Lindgren <tony@atomide.com>
-+  - Tero Kristo <kristo@kernel.org>
-+
-+description:
-+  FAPLL is register-mapped with usually two selectable input clocks
-+  (reference clock and bypass clock), and one or more child synthesizers.
-+
-+properties:
-+  compatible:
-+    const: ti,dm816-fapll-clock
-+
-+  "#clock-cells":
-+    const: 1
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: parent clock clk-ref
-+      - description: parent clock clk-bypass
-+
-+  clock-indices:
-+    description:
-+      Maps child synthesizers to physical indices 1-7. Index 0 is physically
-+      reserved for the Master PLL.
-+    minItems: 1
-+    maxItems: 7
-+    items:
-+      minimum: 1
-+      maximum: 7
-+
-+  clock-output-names:
-+    description:
-+      Names of the child synthesizer outputs. The length of this array must
-+      match clock-indices.
-+    minItems: 1
-+    maxItems: 7
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - "#clock-cells"
-+  - clock-indices
-+  - clock-output-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    clock-controller@400 {
-+        #clock-cells = <1>;
-+        compatible = "ti,dm816-fapll-clock";
-+        reg = <0x400 0x40>;
-+        clocks = <&sys_clkin_ck &sys_clkin_ck>;
-+        clock-indices = <1>, <2>, <3>, <4>, <5>, <6>, <7>;
-+        clock-output-names = "main_pll_clk1", "main_pll_clk2", "main_pll_clk3",
-+                             "main_pll_clk4", "main_pll_clk5", "main_pll_clk6",
-+                             "main_pll_clk7";
-+
-+    };
+[ ... ]
 
----
-base-commit: 9f0346dcbea363787186c94ef94dd01aaa215afa
-change-id: 20260629-ti-fapll-clock-57a02c264e60
+> @@ -785,6 +788,24 @@ static int ti_pipe3_get_pll_base(struct ti_pipe3 *ph=
+y)
+>  	return PTR_ERR_OR_ZERO(phy->pll_ctrl_base);
+>  }
+> =20
+> +static int ti_pipe3_acspcie_tx_rx_mode(struct ti_pipe3 *phy)
+> +{
+> +	struct device_node *np =3D phy->dev->of_node;
+> +	struct regmap *regmap;
+> +	unsigned int args[2];
+> +
+> +	regmap =3D syscon_regmap_lookup_by_phandle_args(np,
+> +						      "ti,syscon-acspcie-tx-rx",
+> +						      2, args);
+> +	if (IS_ERR(regmap)) {
+> +		dev_warn(phy->dev, "can't get ti,syscon-acspcie-tx-rx\n");
+> +		return -EINVAL;
 
-Best regards,
---  
-Bhargav
+[Severity: High]
+Does this mask the original error code (such as -EPROBE_DEFER or -ENOENT)
+from syscon_regmap_lookup_by_phandle_args() by returning a hardcoded
+-EINVAL? Unconditionally logging a warning and returning -EINVAL could
+break probe deferral if the syscon device probes later.
 
+> +	}
+> +
+> +	return regmap_update_bits(regmap, args[0], PCIE_TX_RX_CTRL_MASK,
+> +				  args[1] << PCIE_TX_RX_CTRL_SHIFT);
+> +}
+> +
+>  static int ti_pipe3_probe(struct platform_device *pdev)
+>  {
+>  	struct ti_pipe3 *phy;
+> @@ -807,6 +828,12 @@ static int ti_pipe3_probe(struct platform_device *pd=
+ev)
+>  	phy->dpll_map =3D data->dpll_map;
+>  	phy->settings =3D data->settings;
+> =20
+> +	if (phy->mode =3D=3D PIPE3_MODE_PCIE) {
+> +		ret =3D ti_pipe3_acspcie_tx_rx_mode(phy);
+> +		if (ret)
+> +			dev_warn(dev, "failed to set ACSPCIe TX/RX mode\n");
+> +	}
+> +
+>  	ret =3D ti_pipe3_get_pll_base(phy);
+
+[Severity: High]
+Does this overwrite the returned error code in ret with the result of
+ti_pipe3_get_pll_base()? If ti_pipe3_acspcie_tx_rx_mode() failed or
+should have been deferred, ignoring the error here causes the probe
+function to falsely succeed without configuring the PHY.
+
+>  	if (ret)
+>  		return ret;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905211555.1594=
+4-1-david.oberhollenzer@sigma-star.at?part=3D2
