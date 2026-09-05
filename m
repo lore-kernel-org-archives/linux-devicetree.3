@@ -1,134 +1,138 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out16-54.antispamcloud.com (out16-54.antispamcloud.com [185.201.18.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D02AE4CB8D2
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 17:09:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEF40503BF2;
+	Sat,  5 Sep 2026 19:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.201.18.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788628176; cv=none; b=QOaAhGsWoYz9dZE8XXiiYtsvsGBqgzl4GBDF/kXG0LJMWghNrrU7nvSqKa/XHdexvkmGNOFPjrBmQ+FmQTPr2aV/iBNSe9QEi7p0mgZYb5/lDkdksXVXZnAJfHJLO1AECxn1kVX09GTgMzkqaW8j9wtQN7jYhneHNnIdeWWgVhY=
+	t=1788635594; cv=none; b=YSz+X0YJIIR2juwXLu26hdXHYo59ixzbRRgD3S7ZgPrhCAvxk/Z/wcV4pJWp+dftDK9A45N7syaOoz4Lq9dBEM8NaAFs4P2metFETSR1/qJ80DdvyxiEFpxNW8SHwqSV5TdWmdcZTTJdKydRbsJqctxMGrIWuUDvoVY8O3HHxDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788628176; c=relaxed/simple;
-	bh=XEoAw4DKPa6yIybongMIDg5i7fjs0rZTNiUMQ13Vtc8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DruqFK3WZswZmmHHsA675XKrRQudskRdp3LaN9RT9X8EqFgICCjXxzo+3tj5Ni4gZmy9VOvb+Yj+uba+uLD0NyTzx3IYqvlL2IlQ86eI/ck+AtJSj5RsR1FC/N4EnWJ7iznVA/cY9XH9U5MGhEn7E4+CuhUOEKa0hJziI5O2wp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=Dcs1aoHQ; arc=none smtp.client-ip=121.127.44.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
+	s=arc-20240116; t=1788635594; c=relaxed/simple;
+	bh=c0JbcJlaQkLipwnt3/DkOfWpW9dmip0vnBaWJmFIvVI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GOSptgGuYTRHVwKQtZDE1DrR4Y1q2jzZodWYAjr3StS0U6nh2iekqMkB7nxjA09CLoNICWFCsuBAyDmxmTuLadU46SvCZV3TRbyoy+Hu1drdDENrhbfxAslHyF8wGuVMrrv69pVkpMFvR7wkkiQpI6QrUuFr9KPK4dEVn6vMguk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net; spf=pass smtp.mailfrom=reactivated.net; dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b=OUWnS9Cl; arc=none smtp.client-ip=185.201.18.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=reactivated.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=reactivated.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="Dcs1aoHQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
- h=Content-Transfer-Encoding: MIME-Version: References: In-Reply-To:
- Message-ID: Date: Subject: Cc: To: From; q=dns/txt; s=fe-2eefaa527c;
- t=1788628168; bh=y4eky23W4x6qwsT9spIefqH8w29vOa9FRVJKGih9qEU=;
- b=Dcs1aoHQ+5lh3fL88jNGuOHWqD9/cT8sowEHOm3DF4rnb078HNPWJhLtXkOMSZM/ZJsxhrnX3
- NG6+qeEmG+6PPYXDulEFIeavjAyIel2wGckLa2oB8x6XxRAoeVIS04PsjAo/c8d3VsEwijA/knI
- IoJUUtAt4xXVGTNbYIoAgjA=
-X-Forward-Email-ID: 6a9c4cc4a8f35195ccacae5d
-X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
- smtp.forwardemail.net, 121.127.44.73
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-From: Thomas Turner <tturner@lineageos.org>
-To: semen.protsenko@linaro.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	peter.griffin@linaro.org
-Cc: alim.akhtar@samsung.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	thomas_turner@talktalk.net
-Subject: [PATCH v3 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to Exynos850
-Date: Sat,  5 Sep 2026 18:09:14 +0100
-Message-ID: <20260905170914.1640-3-tturner@lineageos.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260905170914.1640-1-tturner@lineageos.org>
-References: <20260905170914.1640-1-tturner@lineageos.org>
+	dkim=pass (2048-bit key) header.d=reactivated.net header.i=@reactivated.net header.b="OUWnS9Cl"
+Received: from s1041.use1.mysecurecloudhost.com ([192.250.231.249])
+	by mx323.antispamcloud.com with esmtps  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.94.2)
+	(envelope-from <dan@reactivated.net>)
+	id 1x2vov-00DMF7-LB; Sat, 05 Sep 2026 21:13:00 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=reactivated.net; s=default; h=Content-Transfer-Encoding:Content-Type:
+	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
+	List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=IDAdXdmYQiGftn1IVgZRxHeMgqio9VkUoC0IFVH1RRA=; b=OUWnS9ClHf0H/CmASbIt/lqFPP
+	IeouFZ7ZpMOp7GqEHiLDricPCROGULEFG26AryKFvQvFCc3FczOZl6mE0QhyzEIHKxPtc6JtF3hpA
+	ZlLKr6JxqeSdMOo6UnobPETqjK9ZCdEMCebS+0kSshbphA/T6y8jVyDyBHkd2tTGP5y6dgi69SvQK
+	1JarMQsE+PgN1/i5PdwS8QpM9lYS+K2OjXcBocW9Pqi1gOmnQdtNt2uNqbuKsjY3SEa8fnPqeqvVZ
+	pirmOnY62g/WJ+ti8y6MLj5fMM8+HCntaesxGpWprqjPOKrZu4lvK9gyZUYsTKTC46tDcmhL91E1I
+	Sansa4XQ==;
+Received: from [188.251.249.2] (port=48122 helo=[192.168.1.123])
+	by s1041.use1.mysecurecloudhost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.99.5)
+	(envelope-from <dan@reactivated.net>)
+	id 1x2voo-000000074uS-2DE0;
+	Sat, 05 Sep 2026 19:12:51 +0000
+Message-ID: <54e99476-1824-4dc8-b0e3-8d95cfb0ca82@reactivated.net>
+Date: Sat, 5 Sep 2026 20:12:45 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/5] dt-bindings: iommu: Add Broadcom BCM2712 IOMMU
+To: Jim Quinlan <james.quinlan@broadcom.com>
+Cc: "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ nick.hollinghurst@raspberrypi.com, Jason Gunthorpe <jgg@ziepe.ca>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260902-bcm2712-iommu-submit-v4-0-9dbb657578c1@reactivated.net>
+ <20260902-bcm2712-iommu-submit-v4-2-9dbb657578c1@reactivated.net>
+ <CA+-6iNyAU9uw1QyA8TaBWOvhWuxe=DdbeEzoHgM9Gk3TSsSccA@mail.gmail.com>
+Content-Language: en-US
+From: Daniel Drake <dan@reactivated.net>
+In-Reply-To: <CA+-6iNyAU9uw1QyA8TaBWOvhWuxe=DdbeEzoHgM9Gk3TSsSccA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Get-Message-Sender-Via: s1041.use1.mysecurecloudhost.com: authenticated_id: dan@reactivated.net
+X-Authenticated-Sender: s1041.use1.mysecurecloudhost.com: dan@reactivated.net
+X-Spampanel-Domain: s1041.use1.mysecurecloudhost.com
+X-Spampanel-Username: 192.250.231.249
+Authentication-Results: antispamcloud.com; auth=pass smtp.auth=192.250.231.249@s1041.use1.mysecurecloudhost.com
+X-Spampanel-Outgoing-Class: unsure
+X-Spampanel-Outgoing-Evidence: Combined (0.13)
+X-Recommended-Action: accept
+X-Filter-ID: 9kzQTOBWQUFZTohSKvQbgI7ZDo5ubYELi59AwcWUnuVNdYZM0yLKecDbLpFxMoMA7so6Wt9YoFQ0
+ ccjaCh6XZyu2SmbhJN1U9FKs8X3+Nt06bFpPrNOlRAlE9AVLwR4uGVjKNnzF3nQoDoQtBifM84JL
+ M0i5ZAms0EHrvcCaVIOK9Jzy6E0Hj75Vv8qhxyDUGnT3EFAinyrilm9zau/FuzkQt9Nb4Ml7QXdk
+ EetczWBpY9ovdkP9RmEvieRDWoEFGZ7f+7oeClYYrL6OxfWC1kiZ5sDJvU3vQetKu48NmiFWBb39
+ uS1TjWG2Inx+Ts2QrtVmombMJ4e2pn5C0yBMHXeC6Fp2UeS7H+y7loLTGzjk6Pnrj57pHasIWjxl
+ 5VQaCkQZW81tMEBQ4bAn0uDrJ9uGRuKPr0Bb/YuPEx8xCp8sVji4cAyRuviG9RNPI/hhtGILrmkE
+ lozHQFHLOT6ky701An1vNgfn8qLx5ufPTavvHrDFUeJkFlrxAO7a4MyxvV6eez/2pXtRk67lE1pK
+ ip0NQbcmUOf5g+Cu/8v2RgiMtHyOAopYGto1ZND1xOhKQ/xOsDxA6gxAbLULxQQNoGJT8d9Ba5wO
+ 9ZizJ7G1fW//V9KstGWt+qElQbzPhH3+DAhJrbM68g8iJLXx/5kDQNyLBKa52mO4ut4dtZCHnpZk
+ unegD6yDtdNYigyY4x8WCqllmv57Tj6tiQZFHltAdzPaTC70bTG5XdYT+TrxfHim0b8ZLR/tc14S
+ MwnwErmAd1N05ar9GFRLmgMiU/Irb3ws3TRjaC42FtNJuTWwh7zOAIws9QcDfaxJBDYI7rc6t8C9
+ mOBdONdnsxgsk1D2p8400dnId1/Bnfq55U0ALjQbONHJki/bT3w/adEN9DqaO7ZGoOoYIKBVJEt+
+ vlxtdD4KDYIhXXGWpMdQulPUSP3/u+rFPMBpjpy3GniDZYeA/nyWTY2V77n1/ThmdEcBVb2zTZYK
+ e+y4VTLHb4QDZyifdXZ1LDHmhCkCHFdzUwaYnIl+pXXQe0+n5X3Sj3Z9zZ0bAsC9nfCIZz3Wd8D7
+ ouPHQoHZm8Gp6aP0g/fJgXX36hVPCCjCaMNz1R77bD91Di9Is0KRF1AETmGxSMUY3jcjCX07Ixtg
+ ncOn+BG3oz5i2+nyE0o1dKxKwo8tSXoc0N9h9klG894O4vkdFH4CpOwgr/U0flMcy2Vi/IcBgY4a
+ vWgQKhj3Fcsd2rNfFFLypQlVWw0YdWfl1Ha0fbK2G35c78ohQjHlOaO6zAzIopnUm4Htr2UEhVEK
+ whm6ser0T44JvUV2HwwnUT2pMXKdjPGEYPejAacuzuzUkO9n7Ku11YfzA0qETuZkqmB/pTfshouq
+ rdtYXg/+3CpdEb6Y59cS5Tfqo1bt/OdiqUKUH++/+IDul3UHH62q70QJKnyATr3RQrMbS5NztA69
+ WlVxa2oRS2om1AXjIKyh9pGiu58U7RSTTTCtUfm9KZcUI1l5gogDCjHQP3iMwHBrpEjajuxRXxKF
+ 5tPxTxfD0dMN+t5Z2cqRsd3Vtwdcj0q/nQ5H3VMXSjyLr4N9+BUoBAGCvz4YOooXGM1M7qYfB6kv
+ 9uuFsEVjgQXYooY6HFYx801qhKuPoDClMk376TihCdFdWNHrR4SFPNSzcO1VukZGZNCq/2rAztFe
+ klLxGNN3KHaPkPnTQmYnS7QiVQ4H59IGm5iLm7yEMgceH7ChscXf30fVsEVjgQXYooY6HFYx801q
+ hAGsnbPK4M36tRlD+OTrkVw=
+X-Report-Abuse-To: spam@quarantine16.antispamcloud.com
+X-Complaints-To: abuse@master.antispamcloud.com
 
-Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
-for temperature throttling, DVFS, power domains, governor support,
-boosting and voltage control. Once PMIC is properly implemented, support
-will hopefully increase. However, the panfrost driver probes, the
-Mali-G52 GPU initializes and the core clock is set-up.
+Hi!,
 
-Testing for this patch was done on a device not currently supported by
-linux, the Galaxy A21s. After enabling this node for that device
-locally, I was able to test and confirm basic GPU functionality. As of
-now, this patch has no users which have tested GPU capabilities and so
-the node has been set to "disabled".
+On 03/09/2026 18:36, Jim Quinlan wrote:
+> What are your thoughts on allowing the iommu work without the cache
+> property, ie having its presence be optional?  I work on the Broadcom
+> version of the Rpi4/5 SoCs,  and  (a) on certain workloads the cache
+> slightly degrades performance or (b) on some chips there is no cache
+> associated with a specific iommu.  This is probably on me to implement
+> these possibilities, but I just wanted to give you a heads-up.
 
-Here are some logs I pulled:
 
-panfrost 11500000.gpu: clock rate = 377000000
-panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
-panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,00000400
-panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
-panfrost 11500000.gpu: shader_present=0x1 l2_present=0x1
-panfrost 11500000.gpu: [drm] Using Transparent Hugepage
-[drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+For (a) I think the DT must encode the relationship between iommu & 
+iommuc in any case, because the DT's job is to describe the hardware.
 
-OpenGL core profile vendor: Mesa
-OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL core profile shading language version: 1.40
-OpenGL compatibility profile vendor: Mesa
-OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
-OpenGL compatibility profile shading language version: 1.40
-OpenGL ES profile vendor: Mesa
-OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
-OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
-OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+If the user wishes to disable use of the iommu cache then that would be 
+a software configuration choice. This control could perhaps be exposed 
+via a module parameter, or by iommu_device_sysfs_add() to expose a 
+writable attribute. Ultimately which approach is suitable would be a 
+decision of the iommu subsystem maintainers.
 
-Signed-off-by: Thomas Turner <tturner@lineageos.org>
----
-Changes in v3:
-  - Re-word commit message to be less ambiguous
-  - Provide some logs in the commit message
-  - Add a blank line before status property
+For (b) we could just make the property optional when support for such a 
+chip arrives, or alternatively we could use a different compatible 
+string for the cache-less iommus and have the cache property only 
+required for certain specific compatible strings (see 
+mediatek,iommu.yaml for an example where some properties are only 
+required for certain compatible values).
 
-Changes in v2:
-  - Add a patch addressing the samsung,exynos850-mali compatible string
+I'd be happy to review patches for these cases once the driver support 
+is added.
 
- arch/arm64/boot/dts/exynos/exynos850.dtsi | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-index 911643008b9f..721b2b2c4ffb 100644
---- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
-+++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
-@@ -310,6 +310,19 @@ cmu_g3d: clock-controller@11400000 {
- 			clock-names = "oscclk", "dout_g3d_switch";
- 		};
- 
-+		gpu: gpu@11500000 {
-+			compatible = "samsung,exynos850-mali", "arm,mali-bifrost";
-+			reg = <0x11500000 0x5000>;
-+			interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "job", "mmu", "gpu";
-+			clocks = <&cmu_g3d CLK_GOUT_G3D_GPU_CLK>;
-+			clock-names = "core";
-+
-+			status = "disabled";
-+		};
-+
- 		cmu_apm: clock-controller@11800000 {
- 			compatible = "samsung,exynos850-cmu-apm";
- 			reg = <0x11800000 0x8000>;
--- 
-2.47.3
+Thanks!
+Daniel
 
