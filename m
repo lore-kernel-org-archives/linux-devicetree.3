@@ -1,75 +1,84 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216DB394780
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 20:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585142F7F01
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:16:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788639092; cv=none; b=lxb/St12PcmHUttpD0PcWPnMdUhSDiTXRAsPa2lEEcTcxG5JfVXmCtvbVNIzD14UYE/COg0V+RAO1+Z/4Z00CxzxWD8PZ8f1X8E7/4hTXZXqSJtW7w/tWd4UWM4Fpd5xw0VJu8zgf7ILHzAqGt2H669umdu3fh5sQ9XI7bEAwrI=
+	t=1788642970; cv=none; b=D0bgNrUIbHO60OpZTakofIFL1/NAt+BEBh771ug1Y8VWNdh54xaPMmSjyW7lJ26eLcbzgmXNhiJ71yxa1Eg7NHSf8P0J2WyTolUjcdGZIzuQjEPuex0ENboyoS6+WABEUmq3rTgb9Hdj8UCipWAvp670uHzdzVVEszGcCtr3wKM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788639092; c=relaxed/simple;
-	bh=qhttRoS/05uXW+khvr91X2irPodqrAuuPZhTGsFnsP8=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=U+hbvEP7f5iJvRQ1MKNRi/g3OBEa5GZ7cSudCX1nYPjzqbvc6pe8D0v0m/7xZo51GxVCmP1W32o/k1yDwOVbYLNWOQBYSjcG/AwBf78N3ozHIKwBBdVp9K742qyx7ckfLqXM+N0JMqxhDpAH3pU2yt+Ork5lCjVxaapsR4cJi9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q9jEEmJ+; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788642970; c=relaxed/simple;
+	bh=RHhhZSLObOBY9zTYvLvn08xR+LXD/6DbHCpYXvjntk0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=J7d204ddH0wrWjHBBUpKRAU2J4iRjkjCHjMlvp2Gfvv2jdlNwgos6sMdI5LcyFu8aoGLINaUQbTdRBNsA9qi+yCHqNofdf9k9iwzklIHyDnF/UyDhlJF1f7pXsjrjwtvC7AOvjlK/HIhEg0TeJwBUAkOWfkqvN6le+990b0AmRY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at; spf=pass smtp.mailfrom=sigma-star.at; dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b=hyqjWVyu; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sigma-star.at
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sigma-star.at
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q9jEEmJ+"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-495590dde14so30674945e9.0
-        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 13:11:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=sigma-star.at header.i=@sigma-star.at header.b="hyqjWVyu"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso27767905e9.0
+        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 14:16:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788639089; x=1789243889; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DyusgtkJrwmIrV7BTtWKlsjRW22JZpFJGCsu6sZUiKQ=;
-        b=Q9jEEmJ++ze6nFm3m4Xl3FiWODG1VRyZ3Y7IkKz4S7o5VpfhaDO3ihp+xkn2Kqi+W1
-         jAk+XX2kfWyz7HIqAs6dmOSJbWGppgEVl8mk0VSM8Jqk+FhUXSkSBsf/Qpe/DszpuoW6
-         KzE5V0Sdc8HXBRdYVm8lKfuSiV8ZcoxS9cmTPODrTG7sknuIfNqIzF9By+YHYf0zjYKH
-         PZCElGwhHc3yIhs/gTf1WFaFsjXrAqADGJqZruL2t0UxAqVtayvp9ATkYKirlBgoGzbn
-         NRGyZC1WUum1N31GeTWJ2pf7Do+LyaiSt4Ek0a3Mj1lwkDM7Y0hqqQtgaU8ZC24UOP+0
-         mh/A==
+        d=sigma-star.at; s=google; t=1788642966; x=1789247766; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DcPh6S6yPO5PSnIUjNx8RtmS3hZ6VbQMqkL2Bvi+uPc=;
+        b=hyqjWVyuAMy1cggWI7s01UHv6ALZzhmXBx8T7G5zYIXoG9xVrmzj9AjNemKAYBh/Bc
+         GLHrMPP6CsVHoZm6YXG+luSPfsYFUS4bfgixuCvj26ggqCulOiW7URjqh1+Fl9sOW3F4
+         OtiAWkxSuXYUEFezYMlal5l8A53kKuMok1AVUHtYvw6WMqeU5JA8+y+SDQJaSYx8ZJQV
+         CrolLjq2wuoj0Y9GIjP8ihRzjm/1WB5y2C9VBammqJ6WR6qauAPck/NBMhuj6b+qG0T0
+         a23VRlQ09ahD2J/Cpt3pa/uMYCkQBpFY6XkrpdURUM7Lx0pu/eBFuydrPviOqeyAmIl0
+         OBnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788639089; x=1789243889;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:to
-         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DyusgtkJrwmIrV7BTtWKlsjRW22JZpFJGCsu6sZUiKQ=;
-        b=RaKrVaGImc40+sJVlizL+zgvCjacNu0jjd3OAmytSRVPdk0f8TRMIylaqO+vJLhgRw
-         IBAaHlOIj0nNE6mUFej2tmMqlo3GWhAZGOdjGt7BN4St7142QpMYaExH+wxKQUKWj/rP
-         mOn5kSa+6XRULPFAHTEFaBzLoiExjJm38MVZqoci1BKAvYwl7IJpHUI/QlWbDyTjudMx
-         WJcevflY31HGkm5D1OqdmpCIxL5e7Vu9ZdEGfhTaweRYgYrD+R7WEH9viflAHVBt+b4/
-         VzFiSKCdwd5M7ZK1wPYGbbjpXFdDOQpl21blYXRkt+woP9kxSk9dDMRGv5KnmMMHID2Z
-         OyGg==
-X-Forwarded-Encrypted: i=1; AKwUvByEgkZzEY7fPBngEbctm/IJN3MxwgvRtnWJsOzqT6L83FEKaAgg1ZaNE+gMZcC8SfVTTdFNSOQiQd7z@vger.kernel.org
-X-Gm-Message-State: AFuF++nxJrjW0UHgo209Xd2Ymykv+esje/COrp2kwb5onI2RDYpQp1JO
-	5uYFK+9wFR028zGvVZ5Yzps61/oJ21mDdZLLyT7CuKZ2UMF4FCkICDgS
-X-Gm-Gg: AYBFou37yfjaz7WELJhbiSlsZvsMDUyHq1hON7anu1QI4jVrJUkCnIU2zO1LPkDEZps
-	hnGL+q4Xqc/FUo1Vysn2WlzVERAa9RVZy/9CIGi3Y6KxtVDqHtZBZqajMLpcF8PlBMJtAueZAAP
-	1YVSGxQJzOS7Uy8mndbzmF/e+OzzFKR2VMunrx56AcLGzn7XVEw4iSS/159BbMARWTDaTP3JVt0
-	UhNMLJfV7SQTK45tB/rb0ItpzJnjMmpxpqNvpZwzG+13/L/luwNciYbWTRQktQdvDffJAMWJzxn
-	nN+k9vlcZiCusfeDQp4COM2QJG4HNH9Yr4shQ5AcWbRk6wC3OwXCvlbCbASBPhBv39oOKBBKBzz
-	3snPC4GvsLMJk4OFvUgbbPHgkoo4mHKlP79/j1t1TwXQBqA5EjY5/RLt2w3GNoHvPX+pZDD1HFa
-	zi0LOZ9O8anyqru77yBXg5mj4sIfvuuAx4F+aWKTr1D56lJfZNhVCH6oDkA2PdUxiAhQflH15k7
-	s9Q+j7t+SudgvtUJcMVKXl0vE12Hw==
-X-Received: by 2002:a05:6000:220a:b0:485:943c:886d with SMTP id ffacd0b85a97d-485943c8a37mr8746674f8f.7.1788639089126;
-        Sat, 05 Sep 2026 13:11:29 -0700 (PDT)
-Received: from localhost.localdomain ([82.137.32.184])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm14421414f8f.4.2026.09.05.13.11.27
+        d=1e100.net; s=20251104; t=1788642966; x=1789247766;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DcPh6S6yPO5PSnIUjNx8RtmS3hZ6VbQMqkL2Bvi+uPc=;
+        b=efdzrWWRr2ygCuTd3ee60XEIREWk27D5v6o6zSgosxiLy8WzlZlpY3zf71O73pDZTY
+         V/p5UTVk++cCyfCaXRjOR6R9rtrmMUiylQ9iszXOc8W+shpNNdRcNyEvMN5oYlk1OzNr
+         q3wtbyevavkPT/ftL6ruc2bh14WCNzxKw2fcfh21alpKqFepQ1Uci5vkH3Y3/QEDNn0K
+         ev5aufLDPam1fHf9WE13jUa1zOnFyzNjX1zyb1NAH4PNAofJN+0EvclooHGO1gNK2egL
+         I8y4rmrSe5+NfBiU2Kf0UZmkeJWczSMCBjq2U2vJyHk/+r8uKLxSlQWvMi36TD35r/9a
+         vzoA==
+X-Forwarded-Encrypted: i=1; AKwUvBxero5ABoDeIw+eCcXYhzDAOVMNq1dJQEwhRCEr7aSRVkmGp1wayL+CZQqySM6l/TgbV0qBfPE1izMq@vger.kernel.org
+X-Gm-Message-State: AFuF++noGL0mGXolZzf9pCceWQPZIxq948+NtsostdStsp2H1Ko2ueZl
+	1cB0mZTuFbLIdxt1yawBqSiIGmoZZWZmC4Ek92fORtX6slZ43m4N+xoXWyOlbdh1n68=
+X-Gm-Gg: AYBFou3NjYGOR4EOGwnUbAnSmtWQLzD8ueWZS+4ZvlPnAvBancPxrbpe556mS/QYvzS
+	WyLce0fz7f8fshKn3oV9i/qY20CDhaB5IeUeRdqSKOkR8T7Ajw7biLzPOuScKfwQ+QLVLStYPQG
+	pRQTbD8+dV5zdPEPpvf5u+bcxswFjyY+a1FipBTO6p2fokjEQWhqjvh84GP4jpp/r/jK8PQrKOA
+	qkgOBWki0fitvtmPiOySmkb/NEu5nfb4dGWy7Nsy9l1DHMKt0EL/KgufVdaN/fqQAgjZdlWRgny
+	ELShNpeEzIt6bYS9QyMSRlY4LbMdvNmll8E+Pcf1EZNGOoDWvjOTEp7+aztcv+Bxf6vupg0t7ob
+	ofRZkj1B0W211IXMqtJ3cwGmauKjKLPNNzZiloM9FVa9frdbv0Q89fwG7m1SsGlDhxuOk9gYRHX
+	I8JVUeiFefLmEFqY55w0VRUEVsz/qZiXZRoHPBM4sqTBqDjpflDRIRxjr1p8flM1rAFTQ2qNTPH
+	lXVDcuKqnOQxsBsXUZ9xgGDgCnrJROqACnwjBjQA5Kn0EGUhQgB0g==
+X-Received: by 2002:a05:600c:4e8e:b0:49c:dada:f57f with SMTP id 5b1f17b1804b1-49cf823cd42mr129389095e9.7.1788642966595;
+        Sat, 05 Sep 2026 14:16:06 -0700 (PDT)
+Received: from localtoast.fritz.box (clnet-p04-043.ikbnet.co.at. [83.175.81.43])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5952560sm261416695e9.3.2026.09.05.14.16.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 13:11:28 -0700 (PDT)
-From: Eduard Bostina <egbostina@gmail.com>
-To: Conor Dooley <conor+dt@kernel.org>,
+        Sat, 05 Sep 2026 14:16:06 -0700 (PDT)
+From: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+To: linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	Eduard Bostina <egbostina@gmail.com>,
-	Johannes Berg <johannes@sipsolutions.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH v2] dt-bindings: net: wireless: Convert WL1251 to DT schema
-Date: Sat,  5 Sep 2026 20:11:08 +0000
-Message-ID: <20260905201108.415713-1-egbostina@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	vkoul@kernel.org,
+	neil.armstrong@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	johan@kernel.org,
+	rogerq@ti.com
+Cc: Julian.FRIEDRICH@frequentis.com,
+	upstream+omap@sigma-star.at,
+	David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+Subject: [PATCH v3 1/2] dt-bindings: phy: ti,phy-usb3: Add aspcie reference clock setting
+Date: Sat,  5 Sep 2026 23:15:54 +0200
+Message-ID: <20260905211555.15944-2-david.oberhollenzer@sigma-star.at>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905211555.15944-1-david.oberhollenzer@sigma-star.at>
+References: <20260905211555.15944-1-david.oberhollenzer@sigma-star.at>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,193 +87,82 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Convert the Texas Instruments WL1251 Wireless LAN Controller bindings to DT
-schema.
+The PHY control logic in the OMAP PCIe PHY subsystem has a
+configurable reference clock selection. It can either use
+the ljcb_clkp/ljcb_clkn pin as inputs, recovering the clock
+from the bus (RX mode), or generate the reference clock
+internally, driving the bus pins as outputs (TX mode).
 
-During the conversion, the following updates were made:
-- Added the 'clocks' property. It was missing from the txt binding but
-  is used in device trees (omap3-n900.dts).
-- Added 'spi-cpol' and 'spi-cpha'. These were present in the original
-  txt binding's example but missing from its property list.
-- 'vio-supply' and 'spi-max-frequency' are no longer required. The txt
-  binding listed them as required, but they are only applicable when
-  the chip is connected via SPI.
+The setting is exposed through a register in a system controller.
+A device tree property is added to specify the syscon node,
+register offset and mode value.
 
-Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+Signed-off-by: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
 ---
-Changes in v2:
-- Rename the example bus nodes to the generic "spi" and "mmc".
-- Drop the MMC controller's board-specific properties (vmmc-supply,
-  bus-width, non-removable, ti,non-removable, cap-power-off-card,
-  pinctrl-*) from the second example; they are not part of this binding.
+ .../devicetree/bindings/phy/ti,phy-usb3.yaml  | 38 +++++++++++++++++++
+ 1 file changed, 38 insertions(+)
 
- .../bindings/net/wireless/ti,wl1251.txt       | 64 --------------
- .../bindings/net/wireless/ti,wl1251.yaml      | 85 +++++++++++++++++++
- 2 files changed, 85 insertions(+), 64 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
- create mode 100644 Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-
-diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
-deleted file mode 100644
-index 88fd28d15eac..000000000000
---- a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.txt
-+++ /dev/null
-@@ -1,64 +0,0 @@
--* Texas Instruments wl1251 wireless lan controller
--
--The wl1251 chip can be connected via SPI or via SDIO. This
--document describes the binding for the SPI connected chip.
--
--Required properties:
--- compatible :        Should be "ti,wl1251"
--- reg :               Chip select address of device
--- spi-max-frequency : Maximum SPI clocking speed of device in Hz
--- interrupts :        Should contain interrupt line
--- vio-supply :        phandle to regulator providing VIO
--
--Optional properties:
--- ti,wl1251-has-eeprom : boolean, the wl1251 has an eeprom connected, which
--                         provides configuration data (calibration, MAC, ...)
--- ti,power-gpio :	 GPIO connected to chip's PMEN pin if operated in
--			 SPI mode
--- Please consult Documentation/devicetree/bindings/spi/spi-bus.txt
--  for optional SPI connection related properties,
--
--Examples:
--
--&spi1 {
--	wl1251@0 {
--		compatible = "ti,wl1251";
--
--		reg = <0>;
--		spi-max-frequency = <48000000>;
--		spi-cpol;
--		spi-cpha;
--
--		interrupt-parent = <&gpio2>;
--		interrupts = <10 IRQ_TYPE_NONE>; /* gpio line 42 */
--
--		vio-supply = <&vio>;
--		ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>; /* 87 */
--	};
--};
--
--&mmc3 {
--	vmmc-supply = <&wlan_en>;
--
--	bus-width = <4>;
--	non-removable;
--	ti,non-removable;
--	cap-power-off-card;
--
--	pinctrl-names = "default";
--	pinctrl-0 = <&mmc3_pins>;
--
--	#address-cells = <1>;
--	#size-cells = <0>;
--
--	wlan: wifi@1 {
--		compatible = "ti,wl1251";
--
--		reg = <1>;
--
--		interrupt-parent = <&gpio1>;
--		interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;	/* GPIO_21 */
--
--		ti,wl1251-has-eeprom;
--	};
--};
-diff --git a/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-new file mode 100644
-index 000000000000..10873bf401b0
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/wireless/ti,wl1251.yaml
-@@ -0,0 +1,85 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/wireless/ti,wl1251.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments WL1251 Wireless LAN Controller
-+
-+maintainers:
-+  - Eduard Bostina <egbostina@gmail.com>
-+
-+properties:
-+  compatible:
-+    const: ti,wl1251
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  vio-supply:
+diff --git a/Documentation/devicetree/bindings/phy/ti,phy-usb3.yaml b/Documentation/devicetree/bindings/phy/ti,phy-usb3.yaml
+index 84f538aa587c..41e7bb42cbbe 100644
+--- a/Documentation/devicetree/bindings/phy/ti,phy-usb3.yaml
++++ b/Documentation/devicetree/bindings/phy/ti,phy-usb3.yaml
+@@ -52,6 +52,20 @@ properties:
+       enum: [wkupclk, sysclk, refclk, dpll_ref,
+              dpll_ref_m2, phy-div, div-clk]
+ 
++  ti,syscon-acspcie-tx-rx:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
 +    description:
-+      Phandle to the regulator providing VIO. Required when connected via SPI.
-+
-+  ti,power-gpio:
++      Syscon register and setting to configure the clock buffer to run
++      in RX mode (clock pins are inputs, the clock is recovered from
++      the bus), or in TX mode (pins are outputs, internal reference
++      clock drives the bus).
 +    maxItems: 1
-+    description:
-+      GPIO connected to chip's PMEN pin if operated in SPI mode.
++    items:
++      items:
++        - description: Phandle to the system control module
++        - description: Register offset of CTRL_CORE_SMA_SW_6
++        - description: Setting for PCIE_TX_RX_CONTROL
 +
-+  ti,wl1251-has-eeprom:
-+    type: boolean
-+    description:
-+      The wl1251 has an EEPROM connected, which provides configuration
-+      data (calibration, MAC, ...).
+   syscon-phy-power:
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     maxItems: 1
+@@ -94,6 +108,15 @@ allOf:
+     else:
+       properties:
+         syscon-pllreset: false
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              const: ti,phy-pipe3-pcie
++    then:
++      properties:
++        ti,syscon-acspcie-tx-rx: false
+ 
+ required:
+   - reg
+@@ -135,4 +158,19 @@ examples:
+         syscon-pllreset = <&scm_conf 0x3fc>;
+         #phy-cells = <0>;
+     };
 +
-+  clocks:
-+    maxItems: 1
-+
-+  spi-max-frequency: true
-+  spi-cpol: true
-+  spi-cpha: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
 +  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/gpio/gpio.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        wl1251@0 {
-+            compatible = "ti,wl1251";
-+            reg = <0>;
-+            spi-max-frequency = <48000000>;
-+            spi-cpol;
-+            spi-cpha;
-+            interrupt-parent = <&gpio2>;
-+            interrupts = <10 IRQ_TYPE_NONE>;
-+            vio-supply = <&vio>;
-+            ti,power-gpio = <&gpio3 23 GPIO_ACTIVE_HIGH>;
-+        };
++    /* TI PIPE3 PCIE PHY */
++    pcie-phy@4a0a4000 {
++        compatible = "ti,phy-pipe3-pcie";
++        reg = <0x4a0a4000 0x80>,  /* phy_rx */
++              <0x4a0a4400 0x64>;  /* phy_tx */
++        reg-names = "phy_rx", "phy_tx";
++        clocks = <&dpll_pcie_ref_ck>, <&dpll_pcie_ref_m2ldo_ck>;
++        clock-names = "dpll_ref", "dpll_ref_m2";
++        #phy-cells = <0>;
++        syscon-phy-power = <&scm_conf_pcie 0x1c>;
++        syscon-pcs = <&scm_conf_pcie 0x10>;
++        ti,syscon-acspcie-tx-rx = <&scm_conf1 0x10 0x2>;
 +    };
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    mmc {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        wifi@1 {
-+            compatible = "ti,wl1251";
-+            reg = <1>;
-+            interrupt-parent = <&gpio1>;
-+            interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
-+            ti,wl1251-has-eeprom;
-+        };
-+    };
+ ...
 -- 
-2.43.0
+2.55.0
 
