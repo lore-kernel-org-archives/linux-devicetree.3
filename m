@@ -1,142 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E99C3E3178;
-	Sat,  5 Sep 2026 09:29:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47E0233924
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 09:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788600558; cv=none; b=cHa27PBnJsyDSab4ChnZk66u6QOCMto8W0MaGLgO/Qvn5sAkCbjRUuBFMtbOaPXmMWqN+Dr/9fcq6sBuYAEyGLQKZ2W1iTFNGW7ojHUG+fEZLEXf1MOzJkqP/6czS72Bb/oidB2BHHqWArL4Knaxj+he8+TTNf06xsoxiiiP2kg=
+	t=1788600970; cv=none; b=uFhd6udD4WqGaYpkbtUrlFVNVOptBoUC34yhXh+bxgFeP4oKXFiUYu5lVplfs+Om1bWcfwbx9QhxoKbB5FrMYeinO+v2wvgMwWCC1J6j7wxkV6LKhIJU6/HubFHKWooo/DVtB923pjTnQAFOjY5PxqSKycnyhI0y9XsD85v5dJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788600558; c=relaxed/simple;
-	bh=0Q3NMx4h8ekFF0U5EJMaT2ZMWe2pcv1R7lB2wLbM5d0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=subNOZO/Fbkr26na9+zNGS77D7nIQmnYOKj/AMbwGDmXCGDoaWV4XRy0u99O6LhCXSZIZ6pFh7EELmli8nGhQOXSSvOw985pE50woNOP+0ZAlEQtOHCmi708lM91RW3DKYLfFXSQmDV85Kpgmy/QgXKLMV2tyQyDWyP+/bz+8CQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USqDLKsh; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788600970; c=relaxed/simple;
+	bh=NXhel2UqH3FfM6IWtuPkKIxSixjXpHt63O3FvqS3onM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZCBRruyo7abK7QW5jpNWv3j7qMy24uWZM11mNnzZT/qRh4bxsgppeqPqhTiAMYtfIK8cPi1LrZ63nRLvXhVfjYz57mDj0uJWbSjvldBeJ7fdm0aG9BVcyFC+aJwE0FB9pruGkfyfmF9atVhLevUK4v5fwnCjLbVYvukTFGrpbt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RCmJPA3S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USqDLKsh"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D64DAC4AF10;
-	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788600557;
-	bh=0Q3NMx4h8ekFF0U5EJMaT2ZMWe2pcv1R7lB2wLbM5d0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=USqDLKshZR+crxRQklNYmEZPNFFjJQgjMx/WLbnebP9EjZ6W640gKNkutltsuZpQ5
-	 WLaPdGTw3J6l7m7CmbkQ2IS2+ECLh9vjYBoirJrV6cseRnjdRurBnRaxG0Jdl4OYLC
-	 ezhaL2lfvmujWuD5LITFCmR2mSmF98X5ZW2KH89D3Fe7ODnq+RWY7yMOqnYj2MtXJu
-	 ieZckmde+enJ55n85UJTcfqNsYvKwBmlgdH9RjoFWjNpo9oGzSlJhaXoaI79d8H47e
-	 gERh7ibH61yDIRdH4iE9YnhYCPlSwiIr7HJgWYeReQkMHCpc2DYyl8EmBnl6SUIyd7
-	 jpN+ZdnOI5Gdg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BAA83C79F91;
-	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
-From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Sat, 05 Sep 2026 11:29:00 +0200
-Subject: [PATCH 5/7] arm64: dts: qcom: ideacentre-mini: Fix the second M.2
- 3V3 rail
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RCmJPA3S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DBF51F00A3D;
+	Sat,  5 Sep 2026 09:36:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788600968;
+	bh=xsTO61X40BL6yaPUoDN2Cc2gMpcQ3PceDeAcLojP8ss=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RCmJPA3S3+yTYrWTbFrYqgYxk6GbaAI3W6phoMqSO/t4vE7Tv/Bl3gAx8f6aJeMpL
+	 8g2T2BGlcYVB9DbXV/Y3uR7/qdpWoDCIX3QIxhZD0aXtZJPetzhetBHpJq0lCam3fy
+	 yprufWTneG4XYFnc6dbzkQF0kQvlCaIqFev0M+39jwj6vQwmYYKE/TI45AG1JQdujz
+	 011nTZgToV5htiVt3zYRHr1YtORntGz6OSDK1TpEy5BQfZrFXCHlOEEn+wfSELJA9R
+	 oRS8Fqt1bGpcUnxazous3WbwHjVEn3eH6GDn6MefmUd3lXo8RvhXXlcCWr60LvxuHX
+	 uL4P58URyfkag==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/7] arm64: dts: qcom: ideacentre-mini: Fix the second
+ M.2 3V3 rail
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jens Glathe" <jens.glathe@oldschoolsolutions.biz>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-5-9a87882973bb@oldschoolsolutions.biz>
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+ <20260905-x1-ideacentre-mini-prettify-v1-5-9a87882973bb@oldschoolsolutions.biz>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 05 Sep 2026 09:36:07 +0000
+Message-Id: <20260905093608.2DBF51F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-5-9a87882973bb@oldschoolsolutions.biz>
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
-In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=2236;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=Mbc9hxbkPkS0pdjVkRDoJOizEKE/npezL/nBqRXTsNU=;
- b=+BL58zAwMzRiORd2z1LMluqU0QVNK0eSQQJ2sTt8ZyMBllVj1jm5Uios4gLhDLfVoWhbTAjde
- +DrIZIA6PvTA912pSPmYeZxl8pBJ8hoyL6GaQh3NelGBIw9KwJAAb8w
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Reply-To: jens.glathe@oldschoolsolutions.biz
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Encoding a consumer (M.2 NVMe) power-up delay into the provider =
+(regulator) DT node as 'startup-delay-us' violates Device Tree design princ=
+iples.
+--
 
-TLMM18 only enables M.2-1 on pcie6a. The second slot (pcie3) is gated
-by PMC8380_3 GPIO5; both regulators previously pointed at the same
-TLMM pin, so the DT had no effect on that rail.
+commit 74fe38037d977753f0083d520b231c28126f164d
+Author: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-Switch vreg_nvme2_3p3 to the PMIC GPIO, add its pinctrl state, and
-keep a 2 s startup delay plus always-on. Without the delay the pcie3
-slot fails to probe; always-on is a stand-in until an M.2 power
-sequencer exists. Both slots work on Purwa with NVMe SSDs.
+arm64: dts: qcom: ideacentre-mini: Fix the second M.2 3V3 rail
 
-Tested-on: IdeaCentre Mini 01Q8X10, Purwa (X1-26-100)
+This commit switches the vreg_nvme2_3p3 regulator to the PMIC GPIO and adds=
+ a
+2-second startup delay along with an always-on property to work around M.2
+probing failures.
 
-Assisted-by: Grok 4.5 (xAI)
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
----
- .../dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi | 21 +++++++++++++++++++--
- 1 file changed, 19 insertions(+), 2 deletions(-)
+> diff --git a/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.d=
+tsi b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
+> --- a/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
+[ ... ]
+> @@ -173,13 +174,16 @@ vreg_nvme2_3p3: regulator-nvme2-3p3 {
+>  		regulator-min-microvolt =3D <3300000>;
+>  		regulator-max-microvolt =3D <3300000>;
+> =20
+> -		gpio =3D <&tlmm 18 GPIO_ACTIVE_HIGH>;
+> +		gpio =3D <&pmc8380_3_gpios 5 GPIO_ACTIVE_HIGH>;
+>  		enable-active-high;
+> =20
+> -		pinctrl-0 =3D <&nvme_reg_en>;
+> +		pinctrl-0 =3D <&nvme2_reg_en>;
+>  		pinctrl-names =3D "default";
+> =20
+> +		startup-delay-us =3D <2000000>;
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
-index 1af97c5f86fd3..76a9f745b279d 100644
---- a/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi
-@@ -4,6 +4,7 @@
-  */
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "hamoa-pmics.dtsi"
-@@ -173,13 +174,16 @@ vreg_nvme2_3p3: regulator-nvme2-3p3 {
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
- 
--		gpio = <&tlmm 18 GPIO_ACTIVE_HIGH>;
-+		gpio = <&pmc8380_3_gpios 5 GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
- 
--		pinctrl-0 = <&nvme_reg_en>;
-+		pinctrl-0 = <&nvme2_reg_en>;
- 		pinctrl-names = "default";
- 
-+		startup-delay-us = <2000000>;
-+
- 		regulator-boot-on;
-+		regulator-always-on;
- 	};
- 
- 	vreg_v0p9: regulator-v0p9 {
-@@ -788,6 +792,19 @@ &pcie6a_port0 {
- 	wake-gpios = <&tlmm 154 GPIO_ACTIVE_LOW>;
- };
- 
-+&pmc8380_3_gpios {
-+	nvme2_reg_en: nvme2-reg-en-state {
-+		pins = "gpio5";
-+		function = "normal";
-+		power-source = <0>;
-+		input-disable;
-+		output-enable;
-+		drive-push-pull;
-+		bias-disable;
-+		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
-+	};
-+};
-+
- &pmc8380_5_gpios {
- 	usb0_pwr_1p15_reg_en: usb0-pwr-1p15-reg-en-state {
- 		pins = "gpio8";
+[Severity: Medium]
+Does adding startup-delay-us to the regulator node violate Device Tree desi=
+gn
+principles by encoding a software workaround for the consumer's (M.2 NVMe)
+initialization time?
 
--- 
-2.53.0
+Device Tree serves as a hardware description and stable ABI. Encoding a
+2,000,000 us (2 seconds) delay here describes the consumer's initialization
+time, rather than the physical stabilization time of the regulator hardware.
 
+Once a proper M.2 PCIe power sequencer driver is introduced, will this node
+continue to force the regulator framework to needlessly block for 2 seconds
+whenever the regulator is enabled?
 
+> +
+>  		regulator-boot-on;
+> +		regulator-always-on;
+>  	};
+> =20
+>  	vreg_v0p9: regulator-v0p9 {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-x1-ideacen=
+tre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz?part=3D5
