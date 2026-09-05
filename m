@@ -1,128 +1,104 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78954B1B21
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 15:32:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F5484B0CA2
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 15:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788622364; cv=none; b=R7GrqCTX7D77iTk3EN9NqW4msFvqQAeCqPG772ajp95OfEqMrDrN6wm3yygoGk/0mJrczkX+ndtBM5Aak0uotT/B0UJbuhwgje9Ctacx3Da0SqtyCHWm5x7z4LxyEbRY5it2zVmwJDvf0qU4EmHwCyDfHs6u/or8I5KluwK/um8=
+	t=1788622831; cv=none; b=hR58RxH9XIcWdYTyvBwSgHyWRoJJZs4seogpjTt7wJU+HJT49GSBsSPg75ogaAmzBc8iDjT/EEI3KOK7ebW0csV9fwdHkLVQEQDYX9MGPNFKgeeiYqLgeEad7AkzVCV+8cWmx+LwyYS8gxyghmQidngvZpVGL1RbbtlPun2dH3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788622364; c=relaxed/simple;
-	bh=HlStx7vx3piFzayiVi0TqGQGaEyIJNcVSIFbgAKrR84=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qCkE5+Rgf4rZw9GDzXjSB30cwbR25fqzmP9O8HIDeS8o7aoTWOqAsOAZrCG0pgbDQW5mOTCnBowyYmORrfFEvFVkahNIg4bgVXMlu9p302q11ykfaX/AwgkuKrarTnT83vUQMfWOokWZsuWByojDk/An4G74OJTv79pLW++LRIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so2173447f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 08:32:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788622360; x=1789227160;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rBqYYCS5py1zvvdbPLcK4Z1TQdgdHGp93LoH6od28Gw=;
-        b=qp0dgKiwyKdjI/x7dkthsTB8IVBbD13VOpCPE0nBZhSkLsG4MZsld1/GGWWgwMhMd0
-         Z9P8aXofAR5d0Xp9Un16vcbsUuMh2nDmvUdEd9jxJybBUA7jgDZ59cGwkuyJS21DMaX2
-         Xdlq2mV7O/ZUDxfpr/TjE8wNSE0En5bD6OOFOCUYWxrZA7t3C2o0KNn3yPw+rqvyB8Dh
-         /3qhBLqiOWfqE9mH8XkGuRIS69saTvoRVLaZv5cam/7LkARGOvibUpXqKm2Z2xp7Vnrs
-         xcfPL2zzJlSwxI2P+fUUruggIyrxXbKGVqE6Hs+lauZ3BaXzVkrESAfDuk5b4NsURV3s
-         q3Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBzs3oJAqU9jcyq6fA+3ewvVpvTMlw22Qd+hcBPrPQaIVX7Re83X1qGk8hWcaG1LOflx4Kq7uXa0wO2t@vger.kernel.org
-X-Gm-Message-State: AFuF++ngyjp1DyIQmn3D3H8KAZDZd1lq01YUxCJn+5joeEFoMoeietu/
-	p5s1OM+d6yTBfahP9xKrxkSh8aTQ/ZPpV/mrpZuQ5C4e9o3eLZMTj+G8
-X-Gm-Gg: AYBFou2VK+7o9DsOdCjSWiol9LPWzI1hQVkGYvl50ZhxpMIghKdrm3d6mSTZjL7v2oB
-	cuezW8fux9m3MxIpT3NYfcb5QYaXF5SR32XBHn/UPYZPcvw9QJwJVSCeYwDJlWfPi1jdutQmZ55
-	YxaMUv+Kv+s1BrrBN6+ZCykxddcpobK5wDGHgDzckpL0D2Jp6AxWOlUss7T3nzRhh9P7pQZkOG1
-	FSxUP5gMBLHoOrxgsRcdoQjI4WAeSgJZstHZZimE7j+gTHKf88sAWpfx2t98UeAkxEf7UDSf3hl
-	z9J/ASif14OD7FhW/7RAd9yJc8dgg2Wox6cutBBULJGZtGFhpQiPezDH+gDlumNkz5ZpjLvVJoS
-	5Pxke/i0gsJ49eFxfS9RQGNPcfEPVplVZSzWMf6JeZQ/oV9ggXRQ9eqlgUa5apWJOCTDrb0HvSf
-	ogt8Nl/BuVUqkYY5eBXxy2dcKcGTrW628Ipi629WA1O1y0iXh/1Bu3NOC6GscMj1eBpRV3aRCcK
-	10erJAR9+4gExkE3L9r6jWpgg==
-X-Received: by 2002:a5d:5f09:0:b0:484:3332:d1ce with SMTP id ffacd0b85a97d-48586bf9cfdmr14652908f8f.0.1788622359412;
-        Sat, 05 Sep 2026 08:32:39 -0700 (PDT)
-Received: from threads.localdomain ([84.68.179.181])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm16691913f8f.25.2026.09.05.08.32.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 08:32:39 -0700 (PDT)
-From: Lucas Tanure <tanure@linux.com>
-To: Ulf Hansson <ulfh@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Stephen Boyd <sboyd@kernel.org>
-Cc: Brian Masney <bmasney+clk@redhat.com>,
-	Chuan Liu <chuan.liu@amlogic.com>,
-	Jian Hu <jian.hu@amlogic.com>,
-	Ronald Claveau <linux-kernel-dev@aliel.fr>,
-	linux-mmc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 4/4] clk: meson: t7: don't mark sys_ampipe_nand as critical
-Date: Sat,  5 Sep 2026 16:32:34 +0100
-Message-ID: <20260905153234.133217-5-tanure@linux.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905153234.133217-1-tanure@linux.com>
-References: <20260905153234.133217-1-tanure@linux.com>
+	s=arc-20240116; t=1788622831; c=relaxed/simple;
+	bh=gnUOi0/rmffEEmvVGp9MjfjmSFmNqJYat7+ohLqpSLQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BuG+9Sc/8UKgLbbBlbLt1vm2PbacTJhJtZ1RrePe7q+SmXQ4qpRvU4q6aF3sG0BGfrt07ezZ+sS5oDM6tSZMRmPlGHcDXY4YbwyqWMrs/HKnJ++zGul17pBjWRTjqZihCBUQJDu450yNS50hipfYciXTo9xM823fIQPILv00qPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VHi6Jv6l; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VHi6Jv6l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED6D91F00A3A;
+	Sat,  5 Sep 2026 15:40:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788622826;
+	bh=EPOGoZys2/8mCkrtmEOMC9IINUrL5IIWHmfw5JEF/Sc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VHi6Jv6lFSkjjemBXlmjKZ6MG1YQMxrY20X9ZsSBMMambi9dpkvpCIzuqjaEtSh6w
+	 yCz+uKaWDfILStcBGtzUg542MTVrxLmxS6Z3ajTf37p64YAd+aVCHqOTLTMzBbssPP
+	 BeQW2jpxdZcqqvqAuhqCSIChJdTc8M5vdBOrExIplLmWfcMq6e4k2w5lKgryfRpRhD
+	 FTY9bGkQASN2d+4F527CXcvkz6Bf9I0Q6oJ7iOr1f0F9Rwod8kx7PlYjfiTURfYxGE
+	 KkGHCCb0cNxH0oncW3ZMA74L9faQYgmSqZV17dJyq0UvlwM9E4S57pZSIwMkZg4Oud
+	 kjnphwpZimkRw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 5/5] usb: dwc3: qcom: Modify interrupt handling for
+ eUSB2 Phy targets
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Kurapati" <krishna.kurapati@oss.qualcomm.com>
+Cc: robh@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260905-eusb2-interrupt-v7-v7-5-820cf5377a70@oss.qualcomm.com>
+References: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
+ <20260905-eusb2-interrupt-v7-v7-5-820cf5377a70@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 05 Sep 2026 15:40:25 +0000
+Message-Id: <20260905154025.ED6D91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-sys_ampipe_nand clocks the pipeline stage inserted in the bus path
-between the SD/eMMC controllers and the NIC_MATRIX fabric. It does have
-identifiable consumers - the three MMC controllers - so marking it
-critical was the wrong tool: the clock should be referenced from the
-consumer nodes and claimed by the mmc driver instead.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver will fail to probe if CONFIG_GENERIC_PHY is disabled be=
+cause devm_of_phy_get_by_index() returns -ENOSYS.
+--
 
-Drop the CLK_IS_CRITICAL flag and update the comment accordingly.
-sys_am2axi0..2 remain critical as they clock the AXI DMA bus itself and
-have no single identifiable consumer.
+commit 7538db3f4327a94f92b49936063fdf191b900637
+Author: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Lucas Tanure <tanure@linux.com>
----
-This patch depends on the MMC controllers actually referencing the clock:
-the dt-bindings, mmc driver and t7 DTS changes adding the "pipeline"
-clock must land before this patch, otherwise the boot hangs and memory
-corruption this clock caused are reintroduced.
+usb: dwc3: qcom: Modify interrupt handling for eUSB2 Phy targets
 
- drivers/clk/meson/t7-peripherals.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+This commit updates the dwc3-qcom driver to dynamically query the attached
+PHY type and adjust the eD+/eD- line wakeup interrupts accordingly for
+eUSB2 targets in host mode.
 
-diff --git a/drivers/clk/meson/t7-peripherals.c b/drivers/clk/meson/t7-peripherals.c
-index 55d09e78593b..2f429ea86796 100644
---- a/drivers/clk/meson/t7-peripherals.c
-+++ b/drivers/clk/meson/t7-peripherals.c
-@@ -945,13 +945,13 @@ static T7_SYS_PCLK(sys_aucpu,		SYS_CLK_EN0_REG0, 14,	0);
- static T7_SYS_PCLK(sys_cec,		SYS_CLK_EN0_REG0, 16,	0);
- static T7_SYS_PCLK(sys_gdc,		SYS_CLK_EN0_REG0, 17,	0);
- static T7_SYS_PCLK(sys_deswarp,		SYS_CLK_EN0_REG0, 18,	0);
-+static T7_SYS_PCLK(sys_ampipe_nand,	SYS_CLK_EN0_REG0, 19,	0);
-+static T7_SYS_PCLK(sys_ampipe_eth,	SYS_CLK_EN0_REG0, 20,	0);
- /*
-- * NOTE: sys_ampipe_nand and sys_am2axi0..2 provide the clock to the AXI bus
-- * used for DMA between the peripherals and the DRAM. After the clocks are
-- * disabled, a device that starts a transfer cannot complete it.
-+ * NOTE: sys_am2axi0..2 provide the clock to the AXI bus used for DMA between
-+ * the peripherals and the DRAM. After the clocks are disabled, a device that
-+ * starts a transfer cannot complete it.
-  */
--static T7_SYS_PCLK(sys_ampipe_nand,	SYS_CLK_EN0_REG0, 19,	CLK_IS_CRITICAL);
--static T7_SYS_PCLK(sys_ampipe_eth,	SYS_CLK_EN0_REG0, 20,	0);
- static T7_SYS_PCLK(sys_am2axi0,		SYS_CLK_EN0_REG0, 21,	CLK_IS_CRITICAL);
- static T7_SYS_PCLK(sys_am2axi1,		SYS_CLK_EN0_REG0, 22,	CLK_IS_CRITICAL);
- static T7_SYS_PCLK(sys_am2axi2,		SYS_CLK_EN0_REG0, 23,	CLK_IS_CRITICAL);
--- 
-2.55.0
+> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
+> index ba26e61df915a..2d1e66ff72ed5 100644
+> --- a/drivers/usb/dwc3/dwc3-qcom.c
+> +++ b/drivers/usb/dwc3/dwc3-qcom.c
 
+[ ... ]
+
+> @@ -698,6 +720,17 @@ static int dwc3_qcom_probe(struct platform_device *p=
+dev)
+>  	if (ret)
+>  		goto clk_disable;
+> =20
+> +	phy =3D devm_of_phy_get_by_index(dev, dev->of_node, 0);
+> +	if (IS_ERR(phy)) {
+> +		if (PTR_ERR(phy) !=3D -ENODEV) {
+
+[Severity: High]
+Will this cause a regression in dwc3_qcom_probe() when CONFIG_GENERIC_PHY is
+disabled?
+
+When CONFIG_GENERIC_PHY is not set, devm_of_phy_get_by_index() returns
+ERR_PTR(-ENOSYS). Since -ENOSYS does not equal -ENODEV, this check will
+evaluate to true and cause the probe to unconditionally abort.
+
+Prior to this patch, the driver did not fetch the PHY directly, and the
+DWC3 core gracefully handles -ENOSYS by treating it identically to -ENODEV.
+Could this error handling be updated to also ignore -ENOSYS so that existing
+configurations without CONFIG_GENERIC_PHY continue to work?
+
+> +			ret =3D dev_err_probe(dev, PTR_ERR(phy),
+> +					    "failed to get usb2 phy\n");
+> +			goto clk_disable;
+> +		}
+> +		phy =3D NULL;
+> +	}
+> +	qcom->has_eusb2_phy =3D (phy_get_type(phy) =3D=3D PHY_TYPE_EUSB2);
+> +
+>  	qcom->mode =3D usb_get_dr_mode(dev);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905-eusb2-inte=
+rrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com?part=3D5
