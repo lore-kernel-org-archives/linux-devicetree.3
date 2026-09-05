@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF265381EA0;
-	Sat,  5 Sep 2026 07:22:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46D1533D6;
+	Sat,  5 Sep 2026 07:31:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788592970; cv=none; b=m9hr1q+HXrAHA24qEb8xnkVhExddjxg08Isbtw74Ipr9uZ+ApDy43aOTnW1Q3xexNG6O3t7eeyucKr7dXjpm1udNJGM3CoU3ElNX5q9Fasp0bgCC8M/h923AWOXVn6vx28sCV5hnv3p4gtxmQ2C8XRG6By6d5WOyL+uXPjeZfvQ=
+	t=1788593517; cv=none; b=ewDiT5vQAR1Ma27EnjjNhP321ISR1h+lwjvGCD+36/hvb5JMcBMYoE5rDuFn29W50FCNxt+Zgc30sQT1TxQ7F8geLEOB+7aoXECoT/ekzweDmrLVXrR4N+WdnO5PygNOFmEbjaPJMPGxy+0/SMbIJrNsyLwyWRvsBmZI9LR7S7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788592970; c=relaxed/simple;
-	bh=oMPBl1GCTzB2Z9MPETN7QzFHchvqoUwHWSJ4r/MxgNo=;
+	s=arc-20240116; t=1788593517; c=relaxed/simple;
+	bh=HzsF5LIPdAlI0Q7emey2p4/Jjga+gEVKbQp8VM0ufeI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MhAnd9suaOactCq40YH1321R8/MmaTzGQfTotFe01ywx3YxAyc9h1IJTfvoEpdXnmP8frJiIU8SeUgxx2ZGSS+5BCB+8t9q9ezHvwSyoXVVszaSXCN//R/58IhF4orC+KUpHZOI780ueklNPmKX5ePq+dR/7Ew1bScj2iH1VHlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eg8eb9u3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=MffEy2zqI91rX+VM7hyjGJR7j4KpOT163AdUbjqNmIAvWntrh5tgGy2Z9+k/0UO3Zlr9z3IWN6ljR/qYW4cz9uaZK/5aapBxOleaGpJkhr8ZE2ClyPAprOoMGygTJ6hW+gfVAR3RfYZqnsX9+mGf4+SotGAjr+dc1SkoCTg6T0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUKtADE7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eg8eb9u3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 756C71F00A3D;
-	Sat,  5 Sep 2026 07:22:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUKtADE7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0601F00A3D;
+	Sat,  5 Sep 2026 07:31:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788592968;
-	bh=N/3KUGxz1n+uOa/s4zSKV68Bk8DVLbxLMdLtSTIxu98=;
+	s=k20260515; t=1788593516;
+	bh=5mHo8SjrBEf9u+knYT70i14y1p1YkauoIqOw8dwSdZ0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Eg8eb9u3BV5uARQjwqOXeGICiPLIL2419FWMsvhYnDz7K/GmSmyxbVq8iRAKJC19X
-	 f5SboAK+rADMHoU7kgi8o81Jy4pUyNrqxd7/Xol3kkH3g1RQJIaHnrkS7vh9N91xPU
-	 2vOIArzb9jreh7UEn5bBqfPvPOBxrwpw4a3CgSek+3BKHr/3wlT8XrzFytnq/TY4sZ
-	 2lhCaaRDJNq70ypM4VD5fuKLhi6Hsovkn0hNMPrtqt/sTKG48e6s3JLTEtVFDczYZY
-	 y6APP2O39ZkEWzLJG66v0iMktVu78i0H2SlsuZ7hzSpUCeTn6b5L6BO+RQPvzpxr7V
-	 jp56I2mYQ25KA==
-Message-ID: <ad1d8c01-a810-443a-9ad5-721d6d0b68b1@kernel.org>
-Date: Sat, 5 Sep 2026 09:22:39 +0200
+	b=ZUKtADE7/q5bihIeyJGKaiN34x/tEPPmlwf94FRG5ksxOJFpc2EWDERzvKm3E7EPh
+	 nY5SduUjFRf+GuNLwsM0Yy1dfCLLVE42Qz1+905hykdZOWaD7XorET+X4jDcHXx9A5
+	 kxb4CA0MkX0WYA04HgNOfjhba89aP7HOLBCFtP4FfC2AFqgjYJr4MJyLU+L79CbqLh
+	 3bsNRAw/cklQF5/i70AGI5caHLN64yM0GJpClVnH5cRWb8NV312lX4B3DY2rwLYgKD
+	 XzPUC22QYcYCsW6BRkkyz2JbQaKpGmqLowrOq2/juYMEhwMEEY6g8YrAAwJuZ8IOtM
+	 yEhebg7uf3kqw==
+Message-ID: <d96e02ee-86cd-4c55-8ff1-cc247aa22ae5@kernel.org>
+Date: Sat, 5 Sep 2026 09:31:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,19 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>, peter.griffin@linaro.org,
- alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
- conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
- hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
- muhammed.ali@samsung.com, thiagu.r@samsung.com
-References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
- <CGME20260903071318epcas5p4b804edb84554847c576d1d034b814d7a@epcas5p4.samsung.com>
- <20260903071250.3421499-3-selvarasu.g@samsung.com>
+Subject: Re: [PATCH v2 2/2] dt-bindings: serial: Document WK2xxx SPI UART
+ bindings
+To: zjzhao@edatec.cn, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Jiri Slaby <jirislaby@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-serial@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260904072027.67473-1-zjzhao@edatec.cn>
+ <20260904093341.100826-1-zjzhao@edatec.cn>
+ <20260904093341.100826-3-zjzhao@edatec.cn>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -93,146 +90,185 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260903071250.3421499-3-selvarasu.g@samsung.com>
+In-Reply-To: <20260904093341.100826-3-zjzhao@edatec.cn>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/09/2026 09:12, Selvarasu Ganesan wrote:
-> The Samsung Exynos8855 USB glue is not separate from the Synopsys DWC3
-> core, using a flattened model where the DWC3 controller is directly
-> addressable rather than nested as a child node of a glue layer.
+On 04/09/2026 11:33, zjzhao@edatec.cn wrote:
+> From: zjzhao <zjzhao@edatec.cn>
 > 
-> Describe the Exynos USB block as a single node, referencing the split
-> out Synopsys DWC3 core properties via snps,dwc3-common.yaml. The new
-> binding follows the same approach as qcom,snps-dwc3.
+> Add a DT binding for the WK2xxx SPI to UART bridge ICs (WK2124, WK2132,
+> WK2168, WK2202 and WK2204) from WKmic (Chengdu Weikai Microelectronics).
+> Each UART channel is described by a serial@N child node that carries its
+> own serial and RS-485 properties. Also register the wkmic vendor prefix.
 > 
-> A generic fallback compatible "samsung,snps-dwc3" is introduced to
-> describe this binding, selected by the validator based on the presence
-> of the fallback string in the compatible list. Future Exynos SoCs
+> Signed-off-by: zjzhao <zjzhao@edatec.cn>
 
-This is AI slop text. Over longish useless sentence describing diff
-without actual information WHY.
+Same problems as v1...
 
-Don't send AI generated slop messages.
+1. Name is a copied login.
 
-> utilizing the same flattened model can be added by extending the
-> compatible enum with per SoC clock and property constraints.
-> 
-> Co-developed-by: Muhammed Ali <muhammed.ali@samsung.com>
-> Signed-off-by: Muhammed Ali <muhammed.ali@samsung.com>
-> Signed-off-by: Selvarasu Ganesan <selvarasu.g@samsung.com>
+2. drop second/last, redundant "bindings". The "dt-bindings" prefix is
+already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+
+3. Please organize the patch documenting the compatible (DT bindings)
+before the patch using that compatible.
+See also:
+https://elixir.bootlin.com/linux/v6.14-rc6/source/Documentation/devicetree/bindings/submitting-patches.rst#L46
+
 > ---
+>  .../bindings/serial/wkmic,wk2xxx.yaml         | 115 ++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+>  2 files changed, 117 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml
+
+Filename: wkmic,wk2124.yaml as explained in writing bindings.
+
 > 
-> Krzysztof Kozlowski is added as a maintainer of this YAML binding, as
-> he is the ARM/Samsung SoC architecture maintainer (ARM/SAMSUNG S3C,
-> S5P AND EXYNOS ARM ARCHITECTURES) who already maintains Samsung Exynos
-> DT bindings (e.g. samsung,exynos-dwc3.yaml) and reviews all
-> Samsung related binding changes. This follows the same convention used
-> by existing Samsung Exynos DT binding schemas.
-> ---
->  .../bindings/usb/samsung,snps-dwc3.yaml       | 98 +++++++++++++++++++
->  1 file changed, 98 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml b/Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml
+> diff --git a/Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml b/Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml
 > new file mode 100644
-> index 000000000000..480308c16f37
+> index 000000000000..c781482c0f2d
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/samsung,snps-dwc3.yaml
-> @@ -0,0 +1,98 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +++ b/Documentation/devicetree/bindings/serial/wkmic,wk2xxx.yaml
+> @@ -0,0 +1,115 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/usb/samsung,snps-dwc3.yaml#
+> +$id: http://devicetree.org/schemas/serial/wkmic,wk2xxx.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Samsung Exynos SoC DWC3 USB Controller
+> +title: WKmic WK2xxx SPI to UART bridge
 > +
 > +maintainers:
-> +  - Krzysztof Kozlowski <krzk@kernel.org>
-> +  - Selvarasu Ganesan <selvarasu.g@samsung.com>
+> +  - EDATEC Technology Co., Ltd. <zjzhao@edatec.cn>
 > +
 > +description:
-> +  Describes the DWC3 USB controller block implemented on Samsung Exynos SoCs.
-
-Huh? Did you even look at existing bindings?
-
-> +
-> +select:
-> +  properties:
-> +    compatible:
-> +      contains:
-> +        const: samsung,snps-dwc3
-> +  required:
-> +    - compatible
+> +  The WK2xxx family (WK2124, WK2132, WK2168, WK2202 and WK2204) are SPI to
+> +  UART bridge ICs from WKmic (Chengdu Weikai Microelectronics). Each IC
+> +  exposes two or four full-duplex UART channels with 256-byte RX/TX FIFOs
+> +  through a single SPI slave interface and one interrupt line. Each channel
+> +  is described by a "serial@N" child node that carries its own serial and
+> +  RS-485 properties.
 > +
 > +properties:
 > +  compatible:
-> +    items:
-> +      - enum:
-> +          - samsung,exynos8855-dwc3
-> +      - const: samsung,snps-dwc3
-
-There is no snps device from Samsung, neither DWC3. The name of device
-is completely wrong. snps is a vendor, not a device.
-
-Anyway, don't use generic fallbacks.
-
-
-
+> +    enum:
+> +      - wkmic,wk2124
+> +      - wkmic,wk2132
+> +      - wkmic,wk2168
+> +      - wkmic,wk2202
+> +      - wkmic,wk2204
 > +
 > +  reg:
 > +    maxItems: 1
 > +
-> +  power-domains:
-> +    maxItems: 1
-> +
 > +  interrupts:
+> +    description:
+> +      When missing, the device driver uses polling instead.
 > +    maxItems: 1
 > +
-> +  clocks:
-> +    description: |
-> +      Several clocks are used, depending on the variant. Typical ones are:
-> +       - ref: Reference clock for SOF/ITP generation.
-> +       - bus: Bus (APB) clock for register access.
-> +    minItems: 1
-> +    maxItems: 4
+> +  clock-frequency:
+> +    description:
+> +      Crystal or external clock frequency for the IC in Hz. The WK2xxx has
+> +      no internal clock, so this must match the connected crystal.
+
+Then this is a clock input, no? Use proper clocks in such case. Property
+is discouraged.
+
+> +    default: 11059200
+> +    minimum: 1
+> +    maximum: 30000000
 > +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 4
-
-You have only one device, why is this flexible?
-
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^serial@[0-3]$":
+> +    type: object
+> +    description: A single UART channel of the chip.
+> +    allOf:
+> +      - $ref: /schemas/serial/serial.yaml#
+> +      - $ref: /schemas/serial/rs485.yaml#
+> +    properties:
+> +      reg:
+> +        description: UART channel number on the chip.
+> +        maximum: 3
+> +    required:
+> +      - reg
+> +    unevaluatedProperties: false
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
+> +  - "#address-cells"
+> +  - "#size-cells"
 > +
 > +allOf:
-> +  - $ref: snps,dwc3-common.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
 > +
 > +  - if:
 > +      properties:
 > +        compatible:
 > +          contains:
-> +            const: samsung,exynos8855-dwc3
+> +            enum:
+> +              - wkmic,wk2132
+> +              - wkmic,wk2202
 > +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 2
-> +          maxItems: 2
-> +        clock-names:
-> +          items:
-> +            - const: ref
-> +            - const: bus
+> +      patternProperties:
+> +        "^serial@[23]$": false
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    spi {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        serial@0 {
+> +            compatible = "wkmic,wk2132";
+> +            reg = <0>;
+> +            spi-max-frequency = <10000000>;
+> +            clock-frequency = <11059200>;
+> +            interrupt-parent = <&gpio>;
+> +            interrupts = <24 IRQ_TYPE_LEVEL_LOW>;
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            serial@0 {
+> +                reg = <0>;
+> +            };
+> +
+> +            serial@1 {
+> +                reg = <1>;
+> +                rs485-rts-active-low;
+> +                linux,rs485-enabled-at-boot-time;
+> +            };
+> +        };
+> +    };
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> index ba2002969373..654fc8525559 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1907,6 +1907,8 @@ patternProperties:
+>      description: Wireless Tag (qiming yunduan)
+>    "^wits,.*":
+>      description: Shenzhen Merrii Technology Co., Ltd. (WITS)
+> +  "^wkmic,.*":
+> +    description: Chengdu Weikai Microelectronics Co., Ltd.
 
-Why do you need all this? Look at existing code, don't duplicate. And
-for sure do not introduce one more DWC3 binding claiming to be for
-Samsung devices and completely ignoring existing ones.
+What is the website URL?
+
+>    "^wlf,.*":
+>      description: Wolfson Microelectronics
+>    "^wm,.*":
+
 
 Best regards,
 Krzysztof
