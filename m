@@ -1,189 +1,211 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2.ecloud.global (mail2.ecloud.global [135.181.6.248])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFC2346AFB
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 03:17:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788578222; cv=none; b=kKwvsop20gallE8MfbBMTsJxwEA4y85xlw2NszKpW3EYNLyj5k8zA8zOdOvQm1O3dVW2oe1cgi9Pv+eJRQk1VKqeH1rRqie5vPUPq78OtoCjcUODmR/1gSIL99RZdmPQfGFdsWU+DIHLigqLtlYVftJswX3Cc9SCM0YxR962MFU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788578222; c=relaxed/simple;
-	bh=nisr5ziN83/vvuUa7fT3PuLqT+p6PzbxVPM+MpNzzyY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cNeLQTQwp778qgJVXDJOr1YTpeAqtmAkEchvu8W8X/YDADS99juLD75qM18/8mLmHWN6AREOo3zfTRf4jdblkQZCCId9ajUYCJp05Iv2cBy9xFUb6hWUzcBImLHM1zCDZaZBgOjA6P4mLgeket2Rdhttdl+I0O2GiCIfzr7OTcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=emcElXoP; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7732314B63;
+	Sat,  5 Sep 2026 05:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=135.181.6.248
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788585709; cv=pass; b=V9gLu/QHogxbIMsD63E1XmYqHV6perCJOUD+pgCOgSxkSRcPgJXMZiWPiEOYQh0Hdk/X1Dh0e7nOY8Ul4+ExsnLhGiJauvbJupj+t1jwJbexHqP841I9tgemTJ2Yb98MpVO6z2JdLg+pYSrWPHPp83CyDNc1p74sYZeBqHK5yr8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788585709; c=relaxed/simple;
+	bh=PG0Nvk57+SdvlADJPXiKahtxKVSStSRUEYmsxuh/emo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F6zFvsC2YItsPjzEv9FGZwHJDHyFm/reMtWOqLGXbNraGW0CFvovH5lrhQloNkH1ZBRukYMkH1KD50PPOOFMDuPZ4geB3u9NL0qmYo5LDHCSOYo4sVKFw4OOvU3ifIh98y1OhNrZ8mLpG/E9iENS+amGgrN/A2HJ/kG2nKDoUoU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io; spf=pass smtp.mailfrom=murena.io; dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b=e09BHDAH; arc=pass smtp.client-ip=135.181.6.248
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=murena.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=murena.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="emcElXoP"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0dbfbf7bso13282235e9.2
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 20:17:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788578219; x=1789183019; darn=vger.kernel.org;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8CCZA4VoDQ6PBSjxOO7MB9iXLnCy8XMS9eXQBMC5ARg=;
-        b=emcElXoPd/CpicMigbR4GkjKbrYQqlM0ZiDTIA0ANk+1UIx4DZMwCvmaD2BhVVwdBT
-         WANjQpLgcW9cQvDBap32/OtBEchdR6eyqPin1L8Y7HJgUtl6sq7vCxJjTJGp4EBgU+AD
-         HXebsTKpdR3GW2XVvn9lX/evdwmDGjPOFU5yotWWARO7z7Wv41s7uDJ47fCLiHfVp/wU
-         +NsMn/88ux5gUTECavihyiJTc/04/uN0eh4KV1vYeNebYcyh6OlA4Qk2bXnAH9uBWZqk
-         YtExYwac8f6wab/wyv+C0eB8h2euyGqzA4qjDYMQhqnlE8SdeUjYB+7Fqzn1x+cRVxvV
-         nOgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788578219; x=1789183019;
-        h=content-type:content-transfer-encoding:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8CCZA4VoDQ6PBSjxOO7MB9iXLnCy8XMS9eXQBMC5ARg=;
-        b=Y1yJl2nKnkpeEJZ5PFyi4mLshZt2+dhZvERGBf5LbGZAh2ITbhCP4ClrzIglYu/W+g
-         +4vK9Y2pNRNdbQxHUeGsPgCE27xjEdRHIuet5AqKRms+DKXS1xnTgZ+3U0ZXTQXw/AZC
-         1wLg1TVqxrqKlZ7nN7PfCpkv+UTv0fFLmsVEDzrpQvJxe1H0nGDm/lnVAOF6RrY6q1Rr
-         gLMtD3/mZyV0sPNbpbheU3r0Oks+eeJX98mgclIBv8zeMrYgecsCxObly6A5HmQ6QgQt
-         2+VHlY8Gauq9bLhkx0a+TCJGK35jv32J+k2/vW08ejvPJYvWUAAbDZO9JE80Fmx44xuu
-         3LVw==
-X-Forwarded-Encrypted: i=1; AKwUvBzd59PFgq8e0tQ87tt9f4q/oSfDF8czEdw/WVeMW201bcYbojGmIlFNmPJ3yTL2LZcGdspY7fNzPKVJ@vger.kernel.org
-X-Gm-Message-State: AFuF++nLU/NyCCaHEoVqpQOaDVGVPGAc7XsiVoIuBhlW3SMFk4lmjJyK
-	aqz1oRk6wSoZdtmVDIV1dvbIs8AROAbC2dn0eY3wlo4vHygBo9+Y7ctF
-X-Gm-Gg: AYBFou2cMZ9ZATP1SYW3NbvstPHFHfDVvqiSfddzlrTrBxZkeNI3+sBeI7wLDL60MXE
-	0AlWCH4Qw4i4JVo8jtTrOcMwQX8/NB2cscbGXLRp+9Oj9XZIcqbtysYgh8PJgkhm6s6Ps1PRR6S
-	NIYFOCvMBgMMEvJ34NTxWbvrSqtpf4Je8ddqelIs9ueexv751U8/Xo+Y9F1Y22o8NL/AXJGTaIb
-	qD7ErltBgd207MtvXLBP6WDBsGi5p+cn6VMXGjmT6gflXUzR4oMijpNKWVkfhMKhmcVVSbS+Ihy
-	+wJzLfAOf37gHsBYpYbfuJ0iezpgwQlGvn/7bE+jjTNa/lCxJRGe3fsdQevE3/GeIYXVJ9McjhO
-	59Bd/DT/WA0srC3/R6hSOZRokUXoznNCnsjNC5NYmPj2YuBYvlWbC74UQFCAAW/tUJv0PaCi/nH
-	OtMbXnlyzP8XfuvESADfkpKuQAMU7aUiCl6VJA8tehMOsgc80yx5eP2faskM4eRM776U6FA6f66
-	H/SYENj8LdSBOyj5EHAS5LZz/kuPakSTf0qmsofybv0xaU+vtUnb7FHLO32+dlwlZ5oiSDvcPW9
-	HTmlDhP6lSUjH5ggeLWCpIynqtwov8+SdCbOz45d9zPZS2RXKuOUXOZ7ppQq9pR85aMkWluSOzJ
-	7lKAN+KyhSPziWB6GLxuKJYDdO9ZtKSNRmU5XdRNZ8XdYUwMKBrezEw==
-X-Received: by 2002:a05:600c:1d01:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-49cf81e6f87mr157093075e9.5.1788578218915;
-        Fri, 04 Sep 2026 20:16:58 -0700 (PDT)
-Received: from jernej-laptop.localnet ([188.159.248.16])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm25312595e9.13.2026.09.04.20.16.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 20:16:58 -0700 (PDT)
-From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
- Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Barzin Lotfabadi <barzin221@gmail.com>
-Cc: Ryan Walklin <ryan@testtoast.com>, dri-devel@lists.freedesktop.org,
- linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH 0/2] arm64: dts: allwinner: h616: add HDMI device tree nodes
-Date: Sat, 05 Sep 2026 05:16:55 +0200
-Message-ID: <uGlvDrXdQ7mTWJ790WN0hw@gmail.com>
-In-Reply-To: <20260904213329.3910099-1-barzin221@gmail.com>
-References: <20260904213329.3910099-1-barzin221@gmail.com>
+	dkim=pass (1024-bit key) header.d=murena.io header.i=@murena.io header.b="e09BHDAH"
+Received: from authenticated-user (mail2.ecloud.global [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail2.ecloud.global (Postfix) with ESMTPSA id B8626721285;
+	Sat,  5 Sep 2026 05:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io; s=mail2;
+	t=1788585699;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KCOIseHcTnUxxa8UzPwtOfVQnt/pNmZAJdUPIg+XLqo=;
+	b=e09BHDAHB8rW8CJ877ybXQO9BIhYTyEJyZ1UfCDGFBXGQp83jw90VJvx43GTmCwSaQjzmZ
+	vZpB35WoTlow0wOgePmLAALvOVX4UDG1WLETkdYfE0Yms42sgAvS1PemSzA2A12krn4rTT
+	1cf3fVX7lS+xZMHPIc92+QnIa3PDUgs=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=murena.io;
+	s=mail2; t=1788585699;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=KCOIseHcTnUxxa8UzPwtOfVQnt/pNmZAJdUPIg+XLqo=;
+	b=jP8u0+6IUTg6AgiXIbTGUEcfBSMqo7Nmd7Jr3DYd3CWjZY43q91uDjoMKSmOPb7C2g5uaR
+	iIEJS2tWhm2RJi0GFGMGg4N9fF1QxzfQ74UijbJC18veoZSi49xvXSRP1T4Cl2WVqw+irA
+	xNMCko+5QoxwijbilgirxAp71w2JUOQ=
+ARC-Authentication-Results: i=1;
+	mail2.ecloud.global;
+	auth=pass smtp.mailfrom=maud_spierings@murena.io
+ARC-Seal: i=1; s=mail2; d=murena.io; t=1788585699; a=rsa-sha256; cv=none;
+	b=Ky3gcQbu+iQn3gGJSjO38x37++V52aS5N/nQCOx3J6XxPIqfFy1ZbkijYRzWOWiFT+pVmT
+	7YFhfuIVisKc3ETR/8jHzo+pemFPQ34KVfBmoujMt5BFDBSdKw+v6R/9q4pnc6yOtpxUSR
+	njWiXCniQ4hrwKE4/mkGqbMrN0fifdM=
+Message-ID: <ea529e06-2eab-4e3b-92af-ba17de44091c@murena.io>
+Date: Sat, 5 Sep 2026 07:21:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Subject: Re: [PATCH v3 00/19] drm: starfive: jh7110: Enable display subsystem
+To: Michal Wilczynski <m.wilczynski@samsung.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+ Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ mfd@lists.linux.dev, linux-clk@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>
+References: <CGME20260904132708eucas1p1adfa26ef0fe5109eca63a3aeadf74915@eucas1p1.samsung.com>
+ <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+Content-Language: en-US
+From: Maud Spierings <maud_spierings@murena.io>
+In-Reply-To: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Dne petek, 4. september 2026 ob 23:33:27 Srednjeevropski poletni =C4=8Das j=
-e Barzin Lotfabadi napisal(a):
-> Hi all,
->=20
-> These two patches add the device tree nodes needed for HDMI output on the
-> Allwinner H616 family.  Tested on an Orange Pi Zero 3 (H618, 4GB), which
-> drives a 1920x1080@60Hz desktop with these applied.
->=20
-> Mainline already has DE33 mixer support in the sun4i driver, but there are
-> no display nodes at all in sun50i-h616.dtsi, so nothing probes.  Ryan
-> Walklin's "arm64: dts: allwinner: h616: add LCD timing controller and
-> display engine support" series adds the display engine, bus, mixer and TC=
-ON
-> nodes, but states that HDMI output is not provided.  These patches are the
-> missing HDMI half.
->=20
-> Every register address, clock index and reset line was read out of the
-> vendor device tree shipped with the board and translated to the mainline
-> dt-bindings macros; the clock and reset numbering was verified identical
-> between the vendor and mainline CCU headers before substitution.
->=20
-> Two things I would appreciate guidance on:
->=20
-> 1. Patch 1 currently also adds the display engine, bus, mixer and TCON
->    nodes, because Ryan's series has not landed and the HDMI nodes need
->    something to attach to.  If his series is merged first, I am happy to
->    respin this as an HDMI-only delta on top of it.  That is probably the
->    right shape; I did not want to post a series that applies to nothing in
->    the meantime.
->=20
-> 2. These nodes alone are not sufficient for a picture.  Two driver changes
->    are also needed: an H616 variant in sun8i_hdmi_phy.c (only
->    a83t/h3/r40/a64/h6 exist today), and setting the TCON pad select bit in
->    sun4i_tcon.c.  Both exist in the Armbian sunxi-6.12 tree, authored by
->    The-going.  I have deliberately not included them here, because I cann=
-ot
->    provide a Signed-off-by on another developer's work.  If someone in a
->    position to carry those forward would like to, I am happy to help test.
->    Without them these nodes probe but produce no output.
->=20
-> checkpatch is clean apart from one 103-column warning on a remote-endpoint
-> line in patch 1; the identical construct at the same width already exists=
- in
-> sun50i-h6.dtsi:183, so I left it matching the surrounding convention.
->=20
-> One implementation note worth recording, since it cost a boot cycle: the
-> DE33 mixer's three register regions must be named "layers", "top" and
-> "display".  The driver fetches the latter two by name, so a wrong name he=
-re
-> surfaces as "invalid resource (null)" and a -EINVAL bind failure several
-> layers away from the cause.
->=20
-> Result on the board, with the two driver patches also applied:
->=20
->   sun4i-drm display-engine: bound 1100000.mixer (ops sun8i_mixer_ops)
->   sun4i-drm display-engine: bound 6510000.tcon-top (ops sun8i_tcon_top_op=
-s)
->   sun4i-drm display-engine: bound 6515000.lcd-controller (ops sun4i_tcon_=
-ops)
->   sun8i-dw-hdmi 6000000.hdmi: Detected HDMI TX controller v2.12a with HDCP
->   sun4i-drm display-engine: bound 6000000.hdmi (ops sun8i_dw_hdmi_ops)
->   [drm] Initialized sun4i-drm 1.0.0 for display-engine on minor 0
->=20
-> with the connector reading "connected", EDID read correctly from the sink,
-> and 1920x1080 among the reported modes.
->=20
-> Full boot logs, the decompiled vendor device tree the nodes were derived
-> from, and a photo of the running desktop are at:
->=20
->   https://github.com/BarzinL/h616-hdmi-mainline
->=20
-> Based on mainline a500db7819c5.
+Hello Michal,
 
-NACK.
+This new version added some more issues on my fml13v01 board, this time 
+2 registers in the VOUT_CRG are misconfigured that were correct in v2, 
+namely:
 
-This uses old, improper description of HW. That's why it was never
-merged. Two mixers would never work with it. Also, TCON_TOP
-isn't directly compatible with H6.
+0x295c0004 was 0x00000004 on the previous version but is now 0x00000006
+0x295c001c was 0x81000000 on the previous version but is now 0x80000000
 
-Here is newer work:
-https://lore.kernel.org/linux-sunxi/20260509190015.79086-1-jernej.skrabec@s=
-iol.net/
+xx04 sets a slightly different clock divider, but it doesn't seem to 
+matter, display also works with this changed value.
 
-Best regards,
-Jernej
+xx1c seems to select the wrong clock mux?
 
->=20
-> Barzin Lotfabadi (2):
->   arm64: dts: allwinner: h616: add display engine and HDMI nodes
->   arm64: dts: allwinner: orangepi-zero3: enable HDMI output
->=20
->  arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 191 +++++++++++++++=
-++++++
->  .../dts/allwinner/sun50i-h618-orangepi-zero3.dts   |  25 +++
->  2 files changed, 216 insertions(+)
->=20
->=20
+After correcting 0x295c001c (and the ones that I mentioned before in the 
+hdmitx block), the display comes to life again.
 
+Not sure why these are changed.
 
+Besides that it works great!
 
+Kind regards,
+Maud
 
+On 9/4/26 15:27, Michal Wilczynski wrote:
+> This series enables the display subsystem on the StarFive JH7110.
+> 
+> The dom_vout block holds the display controller (dc8200), the clock
+> generator (voutcrg) and the HDMI IP, all inside PD_VOUT. The HDMI IP is
+> a single register block containing both the controller and the PHY, and
+> it has a circular clock dependency with voutcrg:
+> 
+>    - the HDMI controller needs pclk/mclk/bclk from voutcrg
+>    - voutcrg needs the pixel clock for its dc8200 pixel MUXes, and that
+>      clock is generated by the HDMI PHY
+> 
+> The loop only exists if the HDMI block is treated as one device. The
+> PHY's reference clock is xin24m, not a voutcrg output, so splitting the
+> node into a parent plus phy and controller children gives deferred probe
+> a linear order: hdmi-phy, then voutcrg, then hdmi-controller.
+> 
+> The parent maps the register block and owns the regmap its two children
+> share. Everything in the region sits behind one NoC port whose clock and
+> reset gate access to it, inside PD_VOUT, so the vout subsystem node from
+> the RFC is back and owns those for as long as any child exists.
+> 
+> Patch 10 adds a .mode_valid platform op to inno-hdmi.
+> inno_hdmi_bridge_mode_valid() checks the pixel clock against
+> hdmi->refclk, but that clock only exists where a "ref" clock is
+> described. The JH7110 gets its pixel clock from the PHY, so refclk is
+> NULL and the check was skipped: unsupported modes were advertised, the
+> modeset then "succeeded" because the atomic enable path cannot fail, and
+> the display stayed blank.
+> 
+> Patches 15-17 drop the PHY duplication from the RFC. The JH7110 has the
+> same Innosilicon PHY as the RK3328, offset by 0x100 because it sits
+> behind the controller in the shared register block. Patch 15 factors out
+> the pre-PLL config format, table lookup, determine_rate, recalc_rate and
+> the pre-PLL programming; patch 16 moves Rockchip onto it; patch 17 adds
+> the JH7110 driver. Pixel clock tables, post-PLL and analog config stay
+> SoC specific.
+> 
+> Patch 16 should be a no-op for Rockchip - same writes, same order, same
+> values - and RK3228, whose pre-PLL is at different addresses, keeps its
+> own register code and shares only the lookup. I have no Rockchip
+> hardware, so it is build tested only (arm and riscv). A Tested-by would
+> help.
+> 
+> The dc8200 driver, th1520 reset controller and inno-hdmi bridge that the
+> RFC listed as prerequisites are all upstream now, so there are no
+> out-of-tree dependencies.
+> 
+> Testing
+> =======
+> 
+> Tested on a VisionFive 2 v1.3B using modetest.
+> 
+> All 42 modes the sink advertises work, with nothing in dmesg. Pixel
+> clocks run from 25.175 MHz (640x480@59.94) up to 297 MHz
+> (4096x2160@30), including 3840x2160 and the full 1920x1080 and 1280x720
+> rate families.
+> 
+> The four modes the RFC reported as broken work now too: 2560x1440@59.95,
+> 2048x1080@60.00, 2048x1080@24.00 and 720x400@70.08.
+> 
+> Before patch 10, four of the advertised modes failed: 1680x1050@59.95
+> (146.250 MHz), 1400x1050@59.98 (121.750), 1152x864@59.97 (81.768) and
+> 1280x768@60.35 (80.140). Those pixel clocks are not in the PHY pre-PLL
+> table, so clk_set_rate() returned -EINVAL and the screen stayed black
+> while userspace saw a successful modeset. They are rejected in
+> .mode_valid now; the other refresh rates of those resolutions still work.
+> 
+> Every commit builds for riscv, and the Rockchip PHY also for arm.
+> 
+> Notes
+> =====
+> 
+> The JH7110 has no central MAINTAINERS entry and maintainership is
+> fragmented, so patch 19 adds one for the display subsystem and I am
+> happy to help maintain it. The new PHY library lives under drivers/phy/,
+> already covered by the generic PHY framework entry.
+> 
+> checkpatch warns "does MAINTAINERS need updating?" on the patches adding
+> files, because that entry comes in patch 19.
+> 
+> Thanks to Icenowy Zheng for the dc8200 driver and for explaining how the
+> SoC and the display pipeline fit together.
+> 
+> Thanks also to Dominique Belhachemi, who got rid of the vout-subsystem
+> wrapper and helped with the testing, to Maud Spierings for testing on a
+> Framework 13 panel, and to Graham Markall for testing
+> the JH7110 display patches independently and writing up the results:
+> https://big-grey.co.uk/2026/01/26/testing-starfive-jh7110-display-controller-patches/
+> 
