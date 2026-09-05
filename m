@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D0F1A6817;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04DA12D9797;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788600558; cv=none; b=QofLpDDjAW+U2DKIsWDgdNV85QTpxtQ+MHpANmIenY1sLR5aYK2gwCD7xOy4rAzifTyPuTV6UpaFtZjytjHsw/xxkUt+abKcTVrLRfi+9rrNS5iS0F5PG8RmIKQvwDAI5ZbHPvZE6Zfih3GtKL5chruM3nDIrTfz8EEFBmp2v4E=
+	t=1788600558; cv=none; b=cVogJ9n+hPcEnBYXRJ218IOuVEm6wGbb/5RZi61WiNyejjdL5xvJjNMZ/p0a1kY9Fpm4J2TmSIyiWtfQ2M1sPRaKkPsXCsCqkfcwhMxanW+jurteBT3j+HUveeKhNDruXBC2iPlEegUj+izU3UamAN2c9uFuBUM/QBiEyvaFDEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788600558; c=relaxed/simple;
-	bh=C8pKWGOvvx4BxPBWZFyF0NHJeTobpB5pEqmBWcv7yd8=;
+	bh=0mBiiHnZxdafP968u2EZeYqOw9HJexG73qrieg9fcLs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Ahy+c6mpkMwYrVET9oW05/fEzbU0Oo8Ud6qACERlzwwPy8JuEXLoYCaugapTevfZueJUs4ryfdA1hDOAQrfd5OgqG/gtMgLlUoWnnKGjnMeN81uHy5bYj0RD7KmIoxflhge0mZCmy7gYtQB7RYNGp/8iaNg04Rn1w95/E5J4OQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qo5FrhNX; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=XiS1C7fcJptUuGPgCq+IQ51TAw+muROtw9uJy72xYeObZH3i/GJwZM0wrQowTLyTpbhbHlCs4fQ+oEcrGdloniJYYS7ZE/9Hp5qaFS19mla1pY8y6hGwB6hwj/EmNsYaUlhNFGDA0a9qwDxQL76NgHw2vAPAV+XRK3dp5C5NjQY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eyhvhk+e; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qo5FrhNX"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C5210C2BD04;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eyhvhk+e"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B7E65C2BCFD;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788600557;
-	bh=C8pKWGOvvx4BxPBWZFyF0NHJeTobpB5pEqmBWcv7yd8=;
+	bh=0mBiiHnZxdafP968u2EZeYqOw9HJexG73qrieg9fcLs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Qo5FrhNXBDjtfM2XMId5Z1SXLoesGHEZbN41OF3a9rvEuzmRwadwpks8NNtGN6Skr
-	 Tw8L6u05anNMsIYJAsuwg8cbUz2buPv2P+JH4/VKdM8tIscUhgzYptK/UWU7Tn3lk1
-	 HOuUVITW3rKJBmcxlB2+34uhzD1MoFy20rTrBWohLqgyEjnSxsoGKV5Q9tmpncCnRO
-	 cHhfiUHubiik49F6ZG22whGIr4Uk37CB9X6vpuA3wjLpQN/TKzjmtvWZ6VUc0j+Chd
-	 PNaVjjyobYJLIaBf1yHUSASBdEOoH/HtYZDk8VJfskhXXSInKPhQ79TdDPOo5C79Aw
-	 Otkpg3UgBM58g==
+	b=Eyhvhk+et8CdGncQD1DOZkWXdHcEauzuPjA96seQXtq+RJN3FMyQrpx2P5kh2n6Bw
+	 Ta2rRrhJS/5Grc3adpMb4iSsB8Y4LvK54XsLRv+EB++XbzXLqd8jojmYjc+mew8aB4
+	 cl587JmJ1JwyhV4eK+GhVA7SLue0CjFj42HQGgNeA+CySRdmxxS4QsU/mZlIx1o///
+	 qXaZkUCpc67gaqekGFhOdsvy+zthsF7YDSklRyLjtAQTaUeIR9cxQBzqACa5DbL0ty
+	 XJ/jXAoqNCfWYIlpmH1OfOhbhYaeGY3Eg/mXq/qTrUYJ44ropkIS4Qz3qtn9zlgF6C
+	 hTlfPi4prwVaA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AAA4FC79F90;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 98E81C624DB;
 	Sat,  5 Sep 2026 09:29:17 +0000 (UTC)
 From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Sat, 05 Sep 2026 11:28:59 +0200
-Subject: [PATCH 4/7] arm64: dts: qcom: ideacentre-mini: Build the Hamoa EL2
- DTB
+Date: Sat, 05 Sep 2026 11:28:58 +0200
+Subject: [PATCH 3/7] arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-4-9a87882973bb@oldschoolsolutions.biz>
+Message-Id: <20260905-x1-ideacentre-mini-prettify-v1-3-9a87882973bb@oldschoolsolutions.biz>
 References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 In-Reply-To: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -52,12 +51,12 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=1213;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788600555; l=2667;
  i=jens.glathe@oldschoolsolutions.biz; s=20240919;
  h=from:subject:message-id;
- bh=tNnFe+85llnft8rgSu+IZo3lIc8akq9ek2EYr0QF1pk=;
- b=3XODYihKzUjZdZ1FLd6wg6bzzmAqABNNt9UCALkf8pWcXz2ZKfUWGEiy0OnuV5XsTcmWJn7qZ
- 7+tGnsrmERCAJHsW+Syo+uUq5ipVnA2TCVi1gAY/rp/D8rKL1w/wJ05
+ bh=xRPp6vTMGEB2dFChuAvE6BAHSXu1b2qzIsMaG+/+CO8=;
+ b=ehnQzhlDgvcTv3e5Y8hpS3o1+1K4nncUc0cu4+OKCbAgcMwN8aadSyeLRPCpuD4CW0bm+uA7K
+ 8SqERos7WoECAWYBFKIYEmasN1ZwCpOiswFuUe+ZuZCKwdI4sIypY2d
 X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
  pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
 X-Endpoint-Received: by B4 Relay for
@@ -67,32 +66,80 @@ Reply-To: jens.glathe@oldschoolsolutions.biz
 
 From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 
-Other Hamoa boards combine the board DTB with x1-el2.dtbo. Do the same
-for the IdeaCentre Mini so the EL2 overlay is produced alongside the
-normal image.
+Add the Purwa SKU of the Lenovo IdeaCentre Mini 01Q8X10. The chassis is
+the common x1-lenovo-ideacentre-mini-01q8x10DTSI; this file supplies the
+Purwa SoC include, firmware paths, and the PMC8380_6 nodes that are
+absent on this board.
 
 Assisted-by: Grok 4.5 (xAI)
 Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
 ---
- arch/arm64/boot/dts/qcom/Makefile | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/Makefile                  |  3 +-
+ .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  | 42 ++++++++++++++++++++++
+ 2 files changed, 44 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index e6105e5790954..0cfbf3018a7be 100644
+index 6c2ac11133ca7..e6105e5790954 100644
 --- a/arch/arm64/boot/dts/qcom/Makefile
 +++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -24,7 +24,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk.dtb
- hamoa-iot-evk-el2-dtbs	:= hamoa-iot-evk.dtb x1-el2.dtbo
+@@ -167,7 +167,8 @@ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-sony-xperia-yoshino-poplar.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= msm8998-xiaomi-sagit.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk.dtb
  
- dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-iot-evk-el2.dtb
--dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb
+-purwa-iot-evk-el2-dtbs	:= purwa-iot-evk.dtb x1-el2.dtbo
++purwa-lenovo-ideacentre-mini-01q8x10-el2-dtbs := purwa-lenovo-ideacentre-mini-01q8x10.dtb x1-el2.dtbo
++dtb-$(CONFIG_ARCH_QCOM)	+= purwa-lenovo-ideacentre-mini-01q8x10.dtb purwa-lenovo-ideacentre-mini-01q8x10-el2.dtb
+ 
+ dtb-$(CONFIG_ARCH_QCOM)	+= purwa-iot-evk-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= qcm6490-fairphone-fp5.dtb
+diff --git a/arch/arm64/boot/dts/qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts b/arch/arm64/boot/dts/qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts
+new file mode 100644
+index 0000000000000..9813a570cf690
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ * Copyright (c) Jens Glathe
++ */
 +
-+hamoa-lenovo-ideacentre-mini-01q8x10-el2-dtbs := hamoa-lenovo-ideacentre-mini-01q8x10.dtb x1-el2.dtbo
-+dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb hamoa-lenovo-ideacentre-mini-01q8x10-el2.dtb
++/dts-v1/;
 +
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-rdp432-c2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-tplink-archer-ax55-v1.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5210-rdp504.dtb
++#include "purwa.dtsi"
++#include "x1-lenovo-ideacentre-mini-01q8x10.dtsi"
++
++/delete-node/ &pmc8380_6;
++/delete-node/ &pmc8380_6_thermal;
++
++/ {
++	model = "Lenovo IdeaCentre Mini 01Q8X10 (Purwa)";
++	compatible = "lenovo,purwa-ideacentre-mini-01q8x10", "lenovo,ideacentre-mini-01q8x10", "qcom,x1p42100";
++};
++
++&iris {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qcvss8380_pa.mbn";
++
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qcdxkmsucpurwa.mbn";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qcadsp8380.mbn",
++			"qcom/x1p42100/LENOVO/91B6/adsp_dtbs.elf";
++
++	status = "okay";
++};
++
++&remoteproc_cdsp {
++	firmware-name = "qcom/x1p42100/LENOVO/91B6/qccdsp8380.mbn",
++			"qcom/x1p42100/LENOVO/91B6/cdsp_dtbs.elf";
++
++	status = "okay";
++};
 
 -- 
 2.53.0
