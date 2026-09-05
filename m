@@ -1,267 +1,1293 @@
-Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D758E1E2834;
-	Sat,  5 Sep 2026 00:16:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.158.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788567365; cv=fail; b=d31LDrCxUhXsFyatA25W18CIkof3DWNfEEIPXOovJzmoJeKELa1c8ISn6cL7DYnwzQS8m81xAHX/330o1klmXaXQQ/TqE5Ufc0Pu5vfJ5BWO7DYjL6dJKfPTLl76uBu4TBzDtgLj/77Z/frMpTi58iNCzpmUVdL+NRK8XJT5c1o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788567365; c=relaxed/simple;
-	bh=PxL5AMrov6StKgbnj0UCBUKPKAwjPlp+QwkG/ohaTLQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=fSGgDSk88DGILPX1/znhJDN3SHUI9mUjXBXzv+X30W4TU7uJnUtkQ8g7Y34VyxJp/ha6BIFxq9JwqFuCwfYn4oMUR9sJywPY57PVOgyHJQOEvVC2MzHV+/LabeIx4n4FFNXwC6MBsU5LekuJQPUst1FMejPdsf156lRxlenSC7I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com; spf=pass smtp.mailfrom=synopsys.com; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=HPrxjf5c; dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=LYmJVv4e; dkim=fail (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b=nbY6ZpQh reason="signature verification failed"; arc=fail smtp.client-ip=148.163.158.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6ADD1E2834;
+	Sat,  5 Sep 2026 00:17:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788567438; cv=none; b=g5REatYR5EKiS4gMfyVwKZaJdpHlYbDpf8f3arQ+rJET62PLylhvT2IfxH5RK19jRJF6FZUBA47eMLZ3yMV6eguVg7K6YgEJpEOyd7tYLxfxLrsHTZqyyIBCJJXCe9C1dLynigU+wUIGoSG5IZR3VtGri9GSMQf1ETD/UfnTfmI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788567438; c=relaxed/simple;
+	bh=jFvkUUX30J+ebE7sT1/tPR2ZVsCbx1X0OYJB0sWaXoM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cLjH6OlrLCsxegF7jOMVK2NPV9pdr/PvtelIxZ6MrVuwOyrOElMXGuY0oqaWD9AIzrKGBYA7aI6P8wUngWPmYRRBw5mPRUHI4G3fKNUFjrf1FNscoWWA6TNFfZCMom8H81fSowRLaUQAd9UEJeJFaSRaa7mpQ4wyIVFFH7rWk9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=wA2KLXH8; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="HPrxjf5c";
-	dkim=pass (2048-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="LYmJVv4e";
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=synopsys.com header.i=@synopsys.com header.b="nbY6ZpQh"
-Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
-	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684KcuaY1143350;
-	Fri, 4 Sep 2026 17:15:50 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
-	cc:content-id:content-transfer-encoding:content-type:date:from
-	:in-reply-to:message-id:mime-version:references:subject:to; s=
-	pfptdkimsnps; bh=PxL5AMrov6StKgbnj0UCBUKPKAwjPlp+QwkG/ohaTLQ=; b=
-	HPrxjf5cnR2daQgM67MoUzUY5MK/k+Es6MNS6StgRNlv3otfLpXv8lLz6NiJCL4a
-	I81NfwPxFhJVxsZX08+KxjoGU1oj64c7L7zuY4wxzbIwDKI+UKKi/ZvR+C+8mdTr
-	c+1kmAWow2/riFpYXTbFTxAryPXMOQT+QnokzE79zVn1hFiHjkIIt4cRww1NqN9T
-	Bfc0oFvBLxblpm2RRlJM6MtamgmO2Cq6yU3DOVFoElUkO7ZUsXAPukAP2We1y5Jm
-	BoMyrLgbcsRofiiq0eq3J78FPnp4RqaLPztKuzgx/AnlFr4Hy4OkNQwgd0L8fkUU
-	6MVLLS/42lgsXSnUpIyneQ==
-Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.73.133])
-	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4gfrm1b15f-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 04 Sep 2026 17:15:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
-	t=1788567349; bh=PxL5AMrov6StKgbnj0UCBUKPKAwjPlp+QwkG/ohaTLQ=;
-	h=From:To:CC:Subject:Date:References:In-Reply-To:From;
-	b=LYmJVv4eWCDUasbszCYXeZrx7APIBE7lf3RJgc8E0HRBJhoSWD+IXcGeRbBcCdny/
-	 7bpTrnir410A4vZqGM+t6WR9Nm1XiQvx61uLeR0LpUXHPB2I0Y24vxPVPug3j3zC+D
-	 Y+G1n3QBBcB9bdW+u6AccStEXU9SendX9ECy0WrMl6tJEsyfOZDWR4TWkSHhvRy5Gf
-	 YGNZHn5Wod/97g+MmVVglRZDKcVINrRvT5+FbQXYPUCFEzWz1/m2G2mHALk1JJdbtR
-	 083eBuN5F6NTgx6FywTIXYCgGxVY/se2jIWWD7Om81BP9mdMen6aEHVyMtYGVcZNII
-	 2hseuiJvLBJbA==
-Received: from mailhost.synopsys.com (sv1-mailhost2.synopsys.com [10.205.2.132])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
-	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id 1419C4014A;
-	Sat,  5 Sep 2026 00:15:47 +0000 (UTC)
-Received: from o365relay-in.synopsys.com (us03-o365relay3.synopsys.com [10.4.161.139])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
-	 client-signature RSA-PSS (2048 bits))
-	(Client CN "o365relay-in.synopsys.com", Issuer "Sectigo Public Server Authentication CA OV R36" (not verified))
-	by mailhost.synopsys.com (Postfix) with ESMTPS id C5771A033D;
-	Sat,  5 Sep 2026 00:15:47 +0000 (UTC)
-Authentication-Results: o365relay-in.synopsys.com; dmarc=pass (p=reject dis=none) header.from=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com; spf=pass smtp.mailfrom=synopsys.com
-Authentication-Results: o365relay-in.synopsys.com;
-	dkim=pass (1024-bit key; unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=selector1 header.b=nbY6ZpQh;
-	dkim-atps=neutral
-Received: from BYAPR08CU003.outbound.protection.outlook.com (mail-byapr08cu00300.outbound.protection.outlook.com [40.93.1.104])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-384) server-signature RSA-PSS (2048 bits) server-digest SHA256
-	 client-signature RSA-PSS (2048 bits) client-digest SHA256)
-	(Client CN "mail.protection.outlook.com", Issuer "DigiCert SHA2 Secure Server CA" (not verified))
-	by o365relay-in.synopsys.com (Postfix) with ESMTPS id A0CD14048F;
-	Sat,  5 Sep 2026 00:15:46 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aT/oZGrDx8IKmmNVV4Ev0KhMAA01QYg565DFlW1Sv5rJibOBm6JfBDFKmkentGqi3XJK/j7gUCiWyDpuMExOvQnmO+Btj1CYWjB+pGW0bS9gvDz3IHRalSjCrRr38qa+vW/5/UCYYvqfjHCwMmDfcMel1MI0lW7sw8PoDbM7tHOQP3P6x+4LcYQbHpbpqg6OMt9qWI1kT1i25qVnnnb/yICB50AE07/T329bwkGqpdmbDmQn1p0XJrkX68RVLoYWKof+Mvej7+su6bTDhkvwwMnl/0HDQH87m3MdgrB5OyYppnu5wH/Lfvqhkf+VnF4YdMV2AoTr4yloKUpExXJ3gQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=PxL5AMrov6StKgbnj0UCBUKPKAwjPlp+QwkG/ohaTLQ=;
- b=DZ/+mO5rHWAcooSCPgPSXKH0nxy6pbCMSYdE9G1XffkHoc6APEX+ZJa6Dva6Q4+CDlHMBra5p9TYcjsuRWi+fTtyjNJ1IcQlhOQFWvw3+lzX048rsigxkwZhO654jL8nRmiV7y4oKuSoFuiZrVgkhf6QQC8fKiSzJsmpQ7uk7peiUmHnz7KdQiYrJ9x60H6aRagBaf9eSA7l3e0tjvnDK2iw5E2uZ0a85hBhpWqSDxM7CO/tTwVmYm0AgrecMizf/J4ReMXK+Sp4W2bYCGsQn1Tf/+UJqi0IS7HN7tsEJyBZnIGJ+MMF1UvSNGSjyV0le5AMDe/WTgQca7yxnV7zwQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=synopsys.com; dmarc=pass action=none header.from=synopsys.com;
- dkim=pass header.d=synopsys.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=PxL5AMrov6StKgbnj0UCBUKPKAwjPlp+QwkG/ohaTLQ=;
- b=nbY6ZpQhXo0/Fm2nVaAIrCSEZD+bm3sx862uat1q8I+HVV7+ybGcDQHF+Y9pL88eOv0YTZ2Yg1+l9R3SIZ6aOHZ8D1imwyZ2Mw763+iGIlurFCad7K+ayGUKnoar/6PAmyma5VPcGVy6wPSDXFu++C4sbIY/2oayEtCuUgIE4BU=
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com (2603:10b6:510:1e9::6)
- by DS0PR12MB7632.namprd12.prod.outlook.com (2603:10b6:8:11f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Sat, 5 Sep
- 2026 00:15:43 +0000
-Received: from PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109]) by PH0PR12MB7486.namprd12.prod.outlook.com
- ([fe80::7df9:b25e:9216:f109%6]) with mapi id 15.21.0360.008; Sat, 5 Sep 2026
- 00:15:43 +0000
-X-SNPS-Relay: synopsys.com
-From: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-To: Selvarasu Ganesan <selvarasu.g@samsung.com>
-CC: "krzk@kernel.org" <krzk@kernel.org>,
-        "peter.griffin@linaro.org" <peter.griffin@linaro.org>,
-        "alim.akhtar@samsung.com" <alim.akhtar@samsung.com>,
-        "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-        "robh@kernel.org" <robh@kernel.org>,
-        "conor+dt@kernel.org" <conor+dt@kernel.org>,
-        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-        "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
-        "linux-samsung-soc@vger.kernel.org" <linux-samsung-soc@vger.kernel.org>,
-        "linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "jh0801.jung@samsung.com" <jh0801.jung@samsung.com>,
-        "dh10.jung@samsung.com" <dh10.jung@samsung.com>,
-        "akash.m5@samsung.com" <akash.m5@samsung.com>,
-        "hongpooh.kim@samsung.com" <hongpooh.kim@samsung.com>,
-        "eomji.oh@samsung.com" <eomji.oh@samsung.com>,
-        "shijie.cai@samsung.com" <shijie.cai@samsung.com>,
-        "muhammed.ali@samsung.com" <muhammed.ali@samsung.com>,
-        "thiagu.r@samsung.com" <thiagu.r@samsung.com>
-Subject: Re: [PATCH 3/3] usb: dwc3: Add Exynos8855 to the generic platform
- driver
-Thread-Topic: [PATCH 3/3] usb: dwc3: Add Exynos8855 to the generic platform
- driver
-Thread-Index: AQHdO3O/WmNIU1Ki0kiJex8cHd72zba/IHgA
-Date: Sat, 5 Sep 2026 00:15:42 +0000
-Message-ID: <aptfI4WN3PTPk_IO@vbox>
-References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
- <CGME20260903071322epcas5p2a40e3299b0954dd880c9b3651555760c@epcas5p2.samsung.com>
- <20260903071250.3421499-4-selvarasu.g@samsung.com>
-In-Reply-To: <20260903071250.3421499-4-selvarasu.g@samsung.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PH0PR12MB7486:EE_|DS0PR12MB7632:EE_
-x-ms-office365-filtering-correlation-id: 2a184e6d-99c6-4d58-ba0c-08df0ae2d317
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|7416014|376014|366016|1800799024|38070700021|4143699003|11063799006|10067099003|18002099003|22082099003|56012099006;
-x-microsoft-antispam-message-info:
- gbMz8XEQsMp1JB/ctkpbyWbSF0eH3Vse0odJK2t7tjfrL229wz9P+X3XQOYlq8OIohViq3e54fkX1O+u0xqTaC2DIOkWOnzzjA/HQtDBbGhJvj7HMPnWhOB9uJxMQQNFq6wslo5ijhNW9t6tPnul0+WJl3amNgEodtNEPX/A4PgE6Dn19KZ6OYnBC9tByPi8XifnLvifdePMHqMK1Mbj6pF1sYy91PNRQfpuxza1ao8js+ZXIOknV05VEWZXCPtzOLlbNaZL2gLm+b6WQ6ORzrTo/wCQifVoNqo7gwDk8C/XlQLKHNWflz9UenLYwZX0m4qByFl+cWyuHfz+ApZMymYEZKW4nRLgX/4x0C555s9E6sUazNOyDmcjIf0PsAd8dEErwZpGNbuLG/TC2VQZ4t2M1/tyiT8vyMLjQcYl5iZ3gjxX8pKeUDd4ZIK2KiBEEqh+qXCQvqlSfsXMmRZIqiBn38LBtrDTWNytFrui220RB6g0bgQlJYePeoCN+RyLYP5y30fra6PSmvVF51nBEc6nbt0pF5KldMfLh82f1Aws1mABDHEXeouhJ75XaTHH/38kmJQthxfMsQ6qi4+j6uBHQ5MsKkzSVbFeV/Re7La3uryOVY8iMziiOZowPxCHbWlpxhaznL6rrvd2LLiIdntKz6wLO8Xh/esTm8c3FYJfpI4iF2Ogoyk6M/RXYARTCx3dYio8TdzPVV7QFhGmYkv+nbr9yRjD/xudJIKCrkY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7486.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(366016)(1800799024)(38070700021)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?RkpteWZZbG54Y0c3T3Q0MkdaalpsZkVoOHZneWQxNkRXeHhvTi9lMHMrYlBm?=
- =?utf-8?B?aUFpYTAyb0JEZW1iSW9hV3VuWkNmUmFYeklFWi9LNVlIQ2wvNWVicGlyT1pN?=
- =?utf-8?B?ZTFReDNTNlNqWjhEVGRMdWhZcEhmeE5nNGhmcitna0FXb1R4N0NkUmpZTnli?=
- =?utf-8?B?Wi92QWM2Y2hJTXMrNGZHaUtWYmRKQXZtaGloVjRsUFhDRzZpajdiV0VXK21x?=
- =?utf-8?B?V1ZWMjdiRUhxTGNVeUwvTm1SQjVCaUJON1hWV09qMEpGeFJQVGlmcDQ0ZlpS?=
- =?utf-8?B?aTNkNXpTK0RneXVLbmtNUUlvYVBPcjBwWXlqY2svVm9lTmRnb0dic0tkcHUv?=
- =?utf-8?B?SjU0UFVQUUVwMWxNWWloeUwxNGJQejdSNzRaUUJLMTZ3K2d2UUkvYnA0T1dj?=
- =?utf-8?B?MW1US25lL0dZRFpvaVNKMEs0UUFqSUxFcGwzbVY0QWxwU0xzVElXcFRLcE1U?=
- =?utf-8?B?NGgwSkhNYmdKdVR2VkZ6QU9nYnFlL2lUc3J1Q3ZneDV4UXY0TVBVdGMxdits?=
- =?utf-8?B?ZmgzSDRsRnFoUHNTcGlUWHlhZ3J5NnpkYjBNODV1OUxQeHJzbXdhTGNkR09L?=
- =?utf-8?B?NTRxTzdsT3pDNDd1QlgrYUlGY0pKY1FJbFZXM3pYSmFOekNmNXNsUk9HODhJ?=
- =?utf-8?B?eDI4eTkvN3AxZnZaWDBORjJwS0t2Tkc5Q2RqQld5VEJmanRiNVVKRTNiWlFE?=
- =?utf-8?B?STgyejg4SUZ2bE5yYWpoSGt2dGFrVU1aSys3NythbFpMVmM4YlpKeUFOUG9R?=
- =?utf-8?B?MTdyZDFrUGx6ZE42WnAyOTZ6N0RBZktjT1poNTZhWnpzVERnUHZibWtOZi8z?=
- =?utf-8?B?bldmdkNkQjZXalNYRWRrcGdvTDYrT3JnRXYwYi9tcmdiSmVJT25HMUtVZk43?=
- =?utf-8?B?UUw0UU5TNVdkc3N6empQVDVWUVRmNlVuWmFBUHZXK3pZS3NtNS85OHhKSEJP?=
- =?utf-8?B?MFYvZHYraHJYSzVtUW9xRzQwYit0YWJ0eUNaNS84SFZ4WnRRL1pFdnVzVFZP?=
- =?utf-8?B?emFyRDZBUFZURndRVklXS3JMb1BCZ0JnbGpNZ1NQQUNuRzE5MzgvOTArNWZB?=
- =?utf-8?B?S09hengyOUJJb1B6RkNiTGxqWnJLYlpzcmNIdXBTbjNUWEZXUFgxYjNBNU9H?=
- =?utf-8?B?WmY1b3BJSFR2bm92Sk53ZzJSVmZxOXdoNVJRYzYwcEFNZzlrcjVGRUx5cWw4?=
- =?utf-8?B?OStLVG9wQlJqN01xQUloNTZURVhVMnYvbkRKMHcvYS9nOVQ0OHdxaktjQ0U5?=
- =?utf-8?B?RW5SckNZK3QzZ3ZwdVJKSGZ3SVh3MFR4dWZFVElWc1dSdkxGRDY4RlFjTmQx?=
- =?utf-8?B?OEc3NGRqZkZJZDhJdS9jWUNiLzJnNFdjdXJIYWsxRDVTditnRVdNSGhhclhi?=
- =?utf-8?B?QkhNQ0dLa3NCTExqOEg4L2huS3VpSUFsWWZuV3hvRFpPY2tRQUZCbVRxMERr?=
- =?utf-8?B?bWdpVDVRMU14TmN2QWxiN1d1QTNpaFVrbVFpN0dOQk5vZGVIUkM2d3hGZE9j?=
- =?utf-8?B?dkNRc2JOMVRjTEdVWlN5YzNDOHo1NkFCNU0zTUgrcGJoV0VlWUNTb2R5Vmov?=
- =?utf-8?B?WUFYcUUwN3M4UGlSdEdSVUNvUklyNnRDQ09CdElUWFl3bGtsWlBhN1R0U1lG?=
- =?utf-8?B?bGc2VE5GZ0VCazBvSGhuL0dHbFFUUVgzTWNObnEzVjVRNk15c0ZuN0dTTDQx?=
- =?utf-8?B?ZGZXb3ZYUEdUTE9MbHNqTGthWnRVRFZXRjVkeHFJRFVKTmZxUXFVSmVtNFI3?=
- =?utf-8?B?OHZpRlhBdUh3NTFIVWFrYWZJdFNMZ1N4S0lpYkFCMmlBVTVBWENkMDA0YVdz?=
- =?utf-8?B?SmUyQ1loRmRGejU1KytrWW5ISmp0cFBsY3ExdVljRU5NREh5ZEVqVFFiQ20x?=
- =?utf-8?B?RUdXRmQ4ZThXUEM0aUVYc3ZTQWpHVjdUVnJhU0Z2M3c2MVc0T0FLWGZSNFRS?=
- =?utf-8?B?U2tiamN3NVRaOXVPeDlRcWx4cUlWMGVSdFFvT0tYVS9DNFpYR0lMa0d0N2dY?=
- =?utf-8?B?dEx5Wk54RlUrL1V2U1NsQVpHd3JBbjV6SlQ5UnVyWVlwV0lXaFNPLzVvQ2NF?=
- =?utf-8?B?RW5icEhmWUIyZmhhMDU5Q0NmN0NER1hZM3VPVDNDcHh2MEVHVXgyVFpaamNG?=
- =?utf-8?B?NDlCQUVIZUQrT1pQRWI3MnJ0UDIvWUo1d3FLdG5lVGQxSTRtU0g2UFNoQjc0?=
- =?utf-8?B?eUF1dXd0SVhROXlUU1NqSHROUW5qb2RHVkxGMlhZSXFGa0lLT29qQ0I2ejNm?=
- =?utf-8?B?QS9RWVhZQnl6YytkRWlLRHhTM1Q1WDdzdTBYS1lzbTc0dmM1NWFBYzk0Q3JC?=
- =?utf-8?B?RjhhU2RLVzh4eU1WK2QrTlh4QlVFQlcySXJoM3hXNmJQZUh2YzlyUT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-ID: <D780D0310A23FE41B436549CEC68A89B@namprd12.prod.outlook.com>
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="wA2KLXH8"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 22AAB5340322;
+	Sat, 05 Sep 2026 02:17:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788567432;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=F5sAMo4wcoc/0hjKfY6BUpCrCsOmx60Bz8VB3HvNL1w=;
+	b=wA2KLXH8BmCqWWafGfuOiRYylzYtic+OWNH9Iqto/xv4lIlpNCv/R8cQ5hkGsO4gVNQ/zs
+	9dGEIg0aq8wyZk/a4lNd5AFDm4PUAKAhtmRGyFI/sWSZf3AZxTV1P0VIumDohXjRJuwEan
+	MylKvUkB3EZtZ8QlJ6exQDzqKh0ZJEM=
+Message-ID: <b5f87468-20f1-437f-8610-518df679ee99@ixit.cz>
+Date: Sat, 5 Sep 2026 02:17:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked:
-	LKgs0fwkvduUCqV0q3wRhFiBtyBeQb47D77vnC12rwiNda3iM+24qi58oWSSrVVQJOdzGFsEgHiaBm9bTnLSj1QdbcBMgq1z9QBLJULoeBTOvevnXOdGl29Noh1l97nr/ud7RgkeiY1j/LtnQgFEdfy7ivhZUY5VPQ5WqbyeeWqBvE26F39pLBxHHJdzR5x56dI2ASef+xaOHeNAnlOB9EWq+HaCrAA7mj9L2xyVQL06jDD1p/9xz4Ya026QrVYqjD+AaxY/dn5VzfONvyL+h3oUPhEFIs7sQxEnlp6v6hLpzF2aY+1c4VSx5VKl8ABjf0eAkQeRBjTnsvi9mWUahg==
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
-	xZlbmen5Vk4UHwyWEYS1Sru8fcnteEKuteyL+McehqN81rPIzoJYKNPUNoqtHJbxaRmsCyt0gvL320+Q+iiEJn9FW+a9k7xPOOijTZ+XlwozMe7fRPDn7AvOHTiLToEIW8EyfObvbaSk4EP903VUKHF1d0i0NVA3E+f2owr0LEWhO9+TMdR7Szzs7DIrwescUecuiuYOOcoc4bpHA3TfkKtWKmBxjtEmpHkrYHaCYUlJfdXV22I/+rIorXRkT1jSRr9LX7yQjs+boOHLpJpjcRZ3IsAXQek/lkAGpGKCNHY9EKF7Yo/qnxud7CYXFJ3zsVOl6vGCY1ZIb3wMOBQW7MKMlSNDASKBWXc3PVy1dvtcnXjJuwUcsAnX++up2/UV+WO+Ip82u7ytmtfJKdXe2DYQ2rWx79fNEvJ+QWQ54o7TN1uHITGECBQfNYVTkiFNUskrZCwZhqIYG/LTew9nt+wdxU7VD/cevZbYONVWPOOZiP+cUY2xcplCufdvL+9DZ5O7zvd/QD6W+k3s5Nm8O7Y+cwLdGYtF+fhq8ZRWXB2JZu9XAHObEZJFd8dT+dOIL87pIvaV+m8r1c/UVcor+Zi9MgegMq9YTQh0wE2gJ945sdevzUWXIh17xksMeClPjrEhutKUnShxYeT2zRraTQ==
-X-OriginatorOrg: synopsys.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7486.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a184e6d-99c6-4d58-ba0c-08df0ae2d317
-X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Sep 2026 00:15:42.9654
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: c33c9f88-1eb7-4099-9700-16013fd9e8aa
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: wkKotaza60SyXMYf07R4m9PZ3YKJ11EP8RaKVXI62oO2/gl03P8eE8ehYzzzrYm3TzY9qvgNsg1YcLR+zCXkBQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7632
-X-Proofpoint-ORIG-GUID: jIEf1K9ddAqXQ0ePLJXBDJ-ir3xpcgWr
-X-Authority-Analysis: v=2.4 cv=L88theT8 c=1 sm=1 tr=0 ts=6a9b5f36 cx=c_pps
- a=8EbXvwLXkpGsT4ql/pYRAw==:117 a=8EbXvwLXkpGsT4ql/pYRAw==:17
- a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
- a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=qPHU084jO2kA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=tU_645BZ7FZt8VqRJtHG:22 a=-4-sGo8i1FcW4KD7_GeR:22
- a=hD80L64hAAAA:8 a=jIQo8A4GAAAA:8 a=IzsotTFDeBTq9V9Kb6kA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: jIEf1K9ddAqXQ0ePLJXBDJ-ir3xpcgWr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDAwMCBTYWx0ZWRfX38hDlm4DMdHp
- 8cQLBMNEuLO5J7g78Zt00bpohFwB+F4pabLB7zK7xpG21y4r1E1Tk6P1imYKMeEkBcPXKseISQt
- cVGUrmj9QM15zL3kt20DeFIzhVoZOF4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDAwMCBTYWx0ZWRfXwQ+tu+RbPE4k
- OMJS9w2ONgOkXb3ka9nPIjdrpXjPRVnRuyyym2zm2z2+2ZBVzrN7pItxDWaPW190rNB2fZ7DZAV
- RUwqv4YaluBcD5vWOWDKb5jHWH7YYX8ctS5FfLhJsln/OMnncBD7m11j/5FicxhuNWroeBmRf0o
- qhayE7upA9UpxxfZTRt56PG6hR9gJIGg9Ny0kK0kyt8FSUCxO128oqCxIMRnJRaimoaVXItaYkU
- bP9DKrCmz2B0Lq6kffBI+zzE8JKj8WMZukLy8k3qB4tpR/rktWjKhMW7nCxGRPVcd3NfvGA6y7G
- DfUPS5ic93QbNukAw9gng4f3ZxwaBUysQnn4DbVhqjAm3+oOgiDDpP3cFZc4zQzTP1uLx0JCWh3
- GhnV+Cg/E06pOhRT+OR3kCCjrWzY4nlVTmI/ynaKMoiEufkWpIR0Nu0U3v5+dHJLycZUG+nOOun
- Z0nw9Lhfe0ADeCs8E8w==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_06,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
- policy=outbound_active_cloned score=0 lowpriorityscore=0 adultscore=0
- clxscore=1011 malwarescore=0 spamscore=0 impostorscore=0 suspectscore=0
- phishscore=0 bulkscore=0 priorityscore=1501 classifier=typeunknown
- authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
- engine=8.22.0-2606150000 definitions=main-2609050000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] power: supply: qcom_smbx: add SMB5 support
+To: robin@snyders.xyz, Casey Connolly <casey.connolly@linaro.org>,
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Joel Selvaraj <foss@joelselvaraj.com>
+References: <20260820-submit-qcom-smbx-send-v1-v4-0-818dabb2771e@snyders.xyz>
+ <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <20260820-submit-qcom-smbx-send-v1-v4-2-818dabb2771e@snyders.xyz>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-T24gVGh1LCBTZXAgMDMsIDIwMjYsIFNlbHZhcmFzdSBHYW5lc2FuIHdyb3RlOg0KPiBBZGQgdGhl
-ICJzYW1zdW5nLHNucHMtZHdjMyIgY29tcGF0aWJsZSBzdHJpbmcgdG8gZHdjMy1nZW5lcmljLXBs
-YXQgc28NCj4gdGhlIEV4eW5vczg4NTUgVVNCMyBEV0MzIGNvbnRyb2xsZXIgY2FuIHByb2JlIHRo
-cm91Z2ggdGhlIGdlbmVyaWMgRFdDMw0KPiBwbGF0Zm9ybSBnbHVlLg0KPiANCj4gVGhlICJzYW1z
-dW5nLHNucHMtZHdjMyIgc3RyaW5nIGlzIHVzZWQgYXMgYSBnZW5lcmljIGZhbGxiYWNrIHRvIHN1
-cHBvcnQNCj4gYW55IEV4eW5vcyBTb0MgdGhhdCB1dGlsaXplcyBhIGZsYXR0ZW5lZCBtb2RlbCBp
-bnN0YW50aWF0aW9uLiBUaGlzDQo+IGZhbGxiYWNrIGFsbG93cyBtdWx0aXBsZSBFeHlub3MgU29D
-cyB0byBiZSBzdXBwb3J0ZWQgYnkgdGhlIGdlbmVyaWMNCj4gcGxhdGZvcm0gZHJpdmVyIHNpbXBs
-eSBieSBhZGRpbmcgdGhlIGZhbGxiYWNrIGNvbXBhdGlibGUgdG8gdGhlaXINCj4gcmVzcGVjdGl2
-ZSBkZXZpY2UgdHJlZSBub2Rlcy4NCj4gDQo+IENvLWRldmVsb3BlZC1ieTogTXVoYW1tZWQgQWxp
-IDxtdWhhbW1lZC5hbGlAc2Ftc3VuZy5jb20+DQo+IFNpZ25lZC1vZmYtYnk6IE11aGFtbWVkIEFs
-aSA8bXVoYW1tZWQuYWxpQHNhbXN1bmcuY29tPg0KPiBTaWduZWQtb2ZmLWJ5OiBTZWx2YXJhc3Ug
-R2FuZXNhbiA8c2VsdmFyYXN1LmdAc2Ftc3VuZy5jb20+DQo+IC0tLQ0KPiAgZHJpdmVycy91c2Iv
-ZHdjMy9kd2MzLWdlbmVyaWMtcGxhdC5jIHwgMSArDQo+ICAxIGZpbGUgY2hhbmdlZCwgMSBpbnNl
-cnRpb24oKykNCj4gDQo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3VzYi9kd2MzL2R3YzMtZ2VuZXJp
-Yy1wbGF0LmMgYi9kcml2ZXJzL3VzYi9kd2MzL2R3YzMtZ2VuZXJpYy1wbGF0LmMNCj4gaW5kZXgg
-Y2E2OWFjMGViMDdjLi4zM2E3NmMzN2QxNWQgMTAwNjQ0DQo+IC0tLSBhL2RyaXZlcnMvdXNiL2R3
-YzMvZHdjMy1nZW5lcmljLXBsYXQuYw0KPiArKysgYi9kcml2ZXJzL3VzYi9kd2MzL2R3YzMtZ2Vu
-ZXJpYy1wbGF0LmMNCj4gQEAgLTIzNyw2ICsyMzcsNyBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IG9m
-X2RldmljZV9pZCBkd2MzX2dlbmVyaWNfb2ZfbWF0Y2hbXSA9IHsNCj4gIAl7IC5jb21wYXRpYmxl
-ID0gImZzbCxsczEwMjhhLWR3YzMiLCAmZnNsX2xzMTAyOF9kd2MzfSwNCj4gIAl7IC5jb21wYXRp
-YmxlID0gImVzd2luLGVpYzc3MDAtZHdjMyIsICZlaWM3NzAwX2R3YzN9LA0KPiAgCXsgLmNvbXBh
-dGlibGUgPSAic3RhcmZpdmUsamhiMTAwLWR3YzMiLCB9LA0KPiArCXsgLmNvbXBhdGlibGUgPSAi
-c2Ftc3VuZyxzbnBzLWR3YzMiLCB9LA0KPiAgCXsgLyogc2VudGluZWwgKi8gfQ0KPiAgfTsNCj4g
-IE1PRFVMRV9ERVZJQ0VfVEFCTEUob2YsIGR3YzNfZ2VuZXJpY19vZl9tYXRjaCk7DQo+IC0tIA0K
-PiAyLjE3LjENCj4gDQoNCkFja2VkLWJ5OiBUaGluaCBOZ3V5ZW4gPFRoaW5oLk5ndXllbkBzeW5v
-cHN5cy5jb20+DQoNClRoaW5o
+On 20/08/2026 12:03, Robin Snyders via B4 Relay wrote:
+> From: Casey Connolly <casey.connolly@linaro.org>
+> 
+> Introduce support for the SMB5 charger found on PM7250B, PM8150B and
+> related Qualcomm PMICs.
+> 
+> SMB5 uses different DCDC status offsets, charger-state encodings and
+> electrical ranges. Select these from per-PMIC match data, with PM7250B
+> using the PM8150B compatible fallback and parameter block. Read
+> overvoltage from the SMB5 status bit, use the already-prescaled IIO
+> voltage reading, and convert the SMB5 current-sense voltage to microamps.
+> Use battery-info property presence when selecting voltage and current
+> targets.
+> 
+> Keep Type-C power-role and VBUS control with the dedicated TCPM and
+> regulator drivers. Clear the unsupported HVDCP negotiation modes so stale
+> firmware settings cannot raise VBUS. Leave the firmware recharge policy
+> unchanged and match the downstream default of ADC-based AICL disabled,
+> while enabling periodic hardware AICL with its twelve-second SMB5 rerun
+> interval. Preserve the existing three-second SMB2 interval.
+> 
+> PM8150B places the charger and VBUS regulator in the same DCDC peripheral,
+> but the SMB5 path does not write the regulator registers. qcom_smbx reads
+> 0x1108 and 0x110b, while qcom_usb_vbus-regulator writes 0x1140, 0x1152
+> and 0x1153. The SMB2-only OTG configuration write to 0x1153 is not part
+> of the SMB5 initialization sequence. The TCPM port and PD PHY use the
+> separate 0x15xx and 0x17xx peripherals. Name the USBIN BC1.2 integration
+> register and SMB2-only OTG definitions accordingly to make this ownership
+> boundary explicit.
+> 
+> Program the battery limits and complete SMB5 input and charging setup
+> from the power-supply registration init callback before device_add
+> publishes the properties. This makes all public callbacks safe without
+> driver-specific probe synchronization.
+> 
+> Suspend USB input and charging before SMB5 initialization. On a later
+> failure, restore the original charging-enable state before the
+> input-suspend state; leave the input suspended if charging cannot be
+> restored. Cancel status work before unregistering the power supply during
+> managed teardown. Update the Kconfig description to cover both charger
+> generations.
+> 
+> On a OnePlus 7T Pro, register reads from the initial implementation
+> confirmed the programmed 4.40 V, 1.50 A and 500 mA limits. A 180-second
+> guarded charging trace and a subsequent 600-second runtime trace
+> completed without crossing the voltage guard.
+> 
+> Signed-off-by: Casey Connolly <casey.connolly@linaro.org>
+> Co-developed-by: Joel Selvaraj <foss@joelselvaraj.com>
+> Signed-off-by: Joel Selvaraj <foss@joelselvaraj.com>
+> Co-developed-by: Robin Snyders <robin@snyders.xyz>
+> Signed-off-by: Robin Snyders <robin@snyders.xyz>
+> ---
+>   drivers/power/supply/Kconfig     |   8 +-
+>   drivers/power/supply/qcom_smbx.c | 757 ++++++++++++++++++++++++++++++---------
+>   2 files changed, 598 insertions(+), 167 deletions(-)
+> 
+> diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
+> index b89ef40df7f8..1159a7711919 100644
+> --- a/drivers/power/supply/Kconfig
+> +++ b/drivers/power/supply/Kconfig
+> @@ -1173,13 +1173,13 @@ config BATTERY_CHARGER_SURFACE_RT
+>   	  will be called surface-rt-ec.
+>   
+>   config CHARGER_QCOM_SMB2
+> -	tristate "Qualcomm PMI8998 PMIC charger driver"
+> +	tristate "Qualcomm SMB2 and SMB5 charger driver"
+>   	depends on MFD_SPMI_PMIC
+>   	depends on IIO
+>   	help
+> -	  Say Y here to enable the Qualcomm PMIC Charger driver. This
+> -	  adds support for the SMB2 switch mode battery charger found
+> -	  in PMI8998 and related PMICs.
+> +	  Say Y here to enable the Qualcomm PMIC charger driver. This adds
+> +	  support for the SMB2 and SMB5 switch-mode battery chargers found
+> +	  in PMI8998, PM660, PM7250B and PM8150B PMICs.
+>   
+>   config FUEL_GAUGE_MM8013
+>   	tristate "Mitsumi MM8013 fuel gauge driver"
+> diff --git a/drivers/power/supply/qcom_smbx.c b/drivers/power/supply/qcom_smbx.c
+> index 71f5a4859412..bc2b1cd3ed68 100644
+> --- a/drivers/power/supply/qcom_smbx.c
+> +++ b/drivers/power/supply/qcom_smbx.c
+> @@ -23,6 +23,13 @@
+>   #include <linux/types.h>
+>   #include <linux/workqueue.h>
+>   
+> +enum smb_generation {
+> +	SMB2,
+> +	SMB5,
+> +};
+> +
+> +#define SMB_REG_OFFSET(smb) ((smb)->gen == SMB2 ? 0x600 : 0x100)
+> +
+>   /* clang-format off */
+>   #define BATTERY_CHARGER_STATUS_1			0x06
+>   #define BVR_INITIAL_RAMP_BIT				BIT(7)
+> @@ -34,14 +41,20 @@
+>   #define BATTERY_CHARGER_STATUS_2			0x07
+>   #define INPUT_CURRENT_LIMITED_BIT			BIT(7)
+>   #define CHARGER_ERROR_STATUS_SFT_EXPIRE_BIT		BIT(6)
+> -#define CHARGER_ERROR_STATUS_BAT_OV_BIT			BIT(5)
+> +#define SMB2_CHARGER_ERROR_STATUS_BAT_OV_BIT		BIT(5)
+>   #define CHARGER_ERROR_STATUS_BAT_TERM_MISSING_BIT	BIT(4)
+>   #define BAT_TEMP_STATUS_MASK				GENMASK(3, 0)
+>   #define BAT_TEMP_STATUS_SOFT_LIMIT_MASK			GENMASK(3, 2)
+> -#define BAT_TEMP_STATUS_HOT_SOFT_LIMIT_BIT		BIT(3)
+> -#define BAT_TEMP_STATUS_COLD_SOFT_LIMIT_BIT		BIT(2)
+> -#define BAT_TEMP_STATUS_TOO_HOT_BIT			BIT(1)
+> -#define BAT_TEMP_STATUS_TOO_COLD_BIT			BIT(0)
+> +#define SMB2_BAT_TEMP_STATUS_HOT_SOFT_LIMIT_BIT		BIT(3)
+> +#define SMB2_BAT_TEMP_STATUS_COLD_SOFT_LIMIT_BIT	BIT(2)
+> +#define SMB2_BAT_TEMP_STATUS_TOO_HOT_BIT			BIT(1)
+> +#define SMB2_BAT_TEMP_STATUS_TOO_COLD_BIT		BIT(0)
+> +
+> +#define SMB5_CHARGER_ERROR_STATUS_BAT_OV_BIT		BIT(1)
+> +#define SMB5_BAT_TEMP_STATUS_HOT_SOFT_BIT		BIT(5)
+> +#define SMB5_BAT_TEMP_STATUS_COLD_SOFT_BIT		BIT(4)
+> +#define SMB5_BAT_TEMP_STATUS_TOO_HOT_BIT			BIT(3)
+> +#define SMB5_BAT_TEMP_STATUS_TOO_COLD_BIT		BIT(2)
+>   
+>   #define BATTERY_CHARGER_STATUS_4			0x0A
+>   #define CHARGE_CURRENT_POST_JEITA_MASK			GENMASK(7, 0)
+> @@ -78,10 +91,10 @@
+>   #define FLOAT_VOLTAGE_CFG				0x70
+>   #define FLOAT_VOLTAGE_SETTING_MASK			GENMASK(7, 0)
+>   
+> -#define FG_UPDATE_CFG_2_SEL				0x7D
+> +#define SMB2_FG_UPDATE_CFG_2_SEL			0x7D
+>   #define SOC_LT_OTG_THRESH_SEL_BIT			BIT(3)
+> -#define SOC_LT_CHG_RECHARGE_THRESH_SEL_BIT		BIT(2)
+> -#define VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT		BIT(1)
+> +#define SMB2_SOC_LT_CHG_RECHARGE_THRESH_SEL_BIT		BIT(2)
+> +#define SMB2_VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT		BIT(1)
+>   #define IBT_LT_CHG_TERM_THRESH_SEL_BIT			BIT(0)
+>   
+>   #define JEITA_EN_CFG					0x90
+> @@ -101,13 +114,13 @@
+>   #define USBIN_LT_3P6V_RT_STS_BIT			BIT(1)
+>   #define USBIN_COLLAPSE_RT_STS_BIT			BIT(0)
+>   
+> -#define OTG_CFG						0x153
+> +#define SMB2_OTG_CFG					0x153
+>   #define OTG_RESERVED_MASK				GENMASK(7, 6)
+>   #define DIS_OTG_ON_TLIM_BIT				BIT(5)
+>   #define QUICKSTART_OTG_FASTROLESWAP_BIT			BIT(4)
+>   #define INCREASE_DFP_TIME_BIT				BIT(3)
+>   #define ENABLE_OTG_IN_DEBUG_MODE_BIT			BIT(2)
+> -#define OTG_EN_SRC_CFG_BIT				BIT(1)
+> +#define SMB2_OTG_EN_SRC_CFG_BIT				BIT(1)
+>   #define CONCURRENT_MODE_CFG_BIT				BIT(0)
+>   
+>   #define OTG_ENG_OTG_CFG					0x1C0
+> @@ -189,10 +202,12 @@
+>   #define TYPEC_TRYSINK_DETECT_STATUS_BIT			BIT(0)
+>   
+>   #define CMD_APSD					0x341
+> -#define ICL_OVERRIDE_BIT				BIT(1)
+>   #define APSD_RERUN_BIT					BIT(0)
+>   
+> -#define TYPE_C_CFG					0x358
+> +#define CMD_ICL_OVERRIDE				0x342
+> +#define ICL_OVERRIDE_BIT				BIT(0)
+> +
+> +#define USBIN_TYPE_C_CFG				0x358
+>   #define APSD_START_ON_CC_BIT				BIT(7)
+>   #define WAIT_FOR_APSD_BIT				BIT(6)
+>   #define FACTORY_MODE_DETECTION_EN_BIT			BIT(5)
+> @@ -260,7 +275,7 @@
+>   #define EXIT_SNK_BASED_ON_CC_BIT			BIT(7)
+>   #define VCONN_EN_ORIENTATION_BIT			BIT(6)
+>   #define TYPEC_VCONN_OVERCURR_INT_EN_BIT			BIT(5)
+> -#define VCONN_EN_SRC_BIT				BIT(4)
+> +#define SMB2_VCONN_EN_SRC_BIT				BIT(4)
+>   #define VCONN_EN_VALUE_BIT				BIT(3)
+>   #define TYPEC_POWER_ROLE_CMD_MASK			GENMASK(2, 0)
+>   #define UFP_EN_CMD_BIT					BIT(2)
+> @@ -274,7 +289,7 @@
+>   #define SUSPEND_ON_COLLAPSE_USBIN_BIT			BIT(7)
+>   #define USBIN_AICL_HDC_EN_BIT				BIT(6)
+>   #define USBIN_AICL_START_AT_MAX_BIT			BIT(5)
+> -#define USBIN_AICL_RERUN_EN_BIT				BIT(4)
+> +#define USBIN_AICL_PERIODIC_RERUN_EN_BIT		BIT(4)
+>   #define USBIN_AICL_ADC_EN_BIT				BIT(3)
+>   #define USBIN_AICL_EN_BIT				BIT(2)
+>   #define USBIN_HV_COLLAPSE_RESPONSE_BIT			BIT(1)
+> @@ -303,10 +318,12 @@
+>   #define AICL_SWITCH_ENABLE_BIT				BIT(1)
+>   #define ZIN_ICL_ENABLE_BIT				BIT(0)
+>   
+> -#define ICL_STATUS					0x607
+>   #define INPUT_CURRENT_LIMIT_MASK			GENMASK(7, 0)
+>   
+> -#define POWER_PATH_STATUS				0x60B
+> +#define SMB2_ICL_STATUS					0x607
+> +#define SMB5_AICL_ICL_STATUS				0x108
+> +
+> +#define POWER_PATH_STATUS(smb)				(SMB_REG_OFFSET(smb) + 0x0B)
+>   #define P_PATH_INPUT_SS_DONE_BIT			BIT(7)
+>   #define P_PATH_USBIN_SUSPEND_STS_BIT			BIT(6)
+>   #define P_PATH_DCIN_SUSPEND_STS_BIT			BIT(5)
+> @@ -335,6 +352,8 @@
+>   
+>   #define AICL_RERUN_TIME_CFG				0x661
+>   #define AICL_RERUN_TIME_MASK				GENMASK(1, 0)
+> +#define AICL_RERUN_TIME_3_SECS				0
+> +#define AICL_RERUN_TIME_12_SECS				1
+>   
+>   #define STAT_CFG					0x690
+>   #define STAT_SW_OVERRIDE_VALUE_BIT			BIT(7)
+> @@ -350,22 +369,30 @@
+>   #define DCP_CURRENT_UA					1500000
+>   #define CURRENT_MAX_UA					DCP_CURRENT_UA
+>   
+> -/* pmi8998 registers represent current in increments of 1/40th of an amp */
+> -#define CURRENT_SCALE_FACTOR				25000
+> -#define SMB2_FLOAT_VOLTAGE_MIN_UV			3487500
+> -#define SMB2_FLOAT_VOLTAGE_MAX_UV			4920000
+> -#define SMB2_FLOAT_VOLTAGE_STEP_UV			7500
+> +/* PMI8998 registers represent current in increments of 1/40th of an amp. */
+> +#define SMB2_CURRENT_STEP_UA				25000
+>   /* clang-format on */
+>   
+> -enum charger_status {
+> -	TRICKLE_CHARGE = 0,
+> -	PRE_CHARGE,
+> -	FAST_CHARGE,
+> -	FULLON_CHARGE,
+> -	TAPER_CHARGE,
+> -	TERMINATE_CHARGE,
+> -	INHIBIT_CHARGE,
+> -	DISABLE_CHARGE,
+> +enum smb2_charger_status {
+> +	SMB2_TRICKLE_CHARGE = 0,
+> +	SMB2_PRE_CHARGE,
+> +	SMB2_FAST_CHARGE,
+> +	SMB2_FULLON_CHARGE,
+> +	SMB2_TAPER_CHARGE,
+> +	SMB2_TERMINATE_CHARGE,
+> +	SMB2_INHIBIT_CHARGE,
+> +	SMB2_DISABLE_CHARGE,
+> +};
+> +
+> +enum smb5_charger_status {
+> +	SMB5_INHIBIT_CHARGE = 0,
+> +	SMB5_TRICKLE_CHARGE,
+> +	SMB5_PRE_CHARGE,
+> +	SMB5_FULLON_CHARGE,
+> +	SMB5_TAPER_CHARGE,
+> +	SMB5_TERMINATE_CHARGE,
+> +	SMB5_PAUSE_CHARGE,
+> +	SMB5_DISABLE_CHARGE,
+>   };
+>   
+>   struct smb_init_register {
+> @@ -374,13 +401,21 @@ struct smb_init_register {
+>   	u8 val;
+>   };
+>   
+> +struct smb_match_data;
+> +
+>   /**
+>    * struct smb_chip - smb chip structure
+>    * @dev:		Device reference for power_supply
+>    * @name:		The platform device name
+>    * @base:		Base address for smb registers
+>    * @regmap:		Register map
+> - * @batt_info:		Battery data from DT
+> + * @match_data:		Per-PMIC hardware parameters
+> + * @gen:		Charger hardware generation
+> + * @icl_max_ua:		Maximum programmable USB input current
+> + * @icl_step_ua:	USB input current register step
+> + * @icl_status:		Effective input current status register offset
+> + * @usbin_current_scale: USB input current-sense scale
+> + * @initial_usb_suspend:	USB input suspend state before SMB5 setup
+>    * @initial_charge_enable: Charging enable state before hardware setup
+>    * @status_change_work: Worker to handle plug/unplug events
+>    * @cable_irq:		USB plugin IRQ
+> @@ -394,7 +429,13 @@ struct smb_chip {
+>   	const char *name;
+>   	unsigned int base;
+>   	struct regmap *regmap;
+> -	struct power_supply_battery_info *batt_info;
+> +	const struct smb_match_data *match_data;
+> +	enum smb_generation gen;
+> +	unsigned int icl_max_ua;
+> +	unsigned int icl_step_ua;
+> +	u16 icl_status;
+> +	unsigned int usbin_current_scale;
+> +	u8 initial_usb_suspend;
+>   	u8 initial_charge_enable;
+>   
+>   	struct delayed_work status_change_work;
+> @@ -407,6 +448,22 @@ struct smb_chip {
+>   	struct power_supply *chg_psy;
+>   };
+>   
+> +struct smb_match_data {
+> +	const char *name;
+> +	enum smb_generation gen;
+> +	size_t init_seq_len;
+> +	unsigned int fv_min_uv;
+> +	unsigned int fv_max_uv;
+> +	unsigned int fv_step_uv;
+> +	unsigned int fcc_max_ua;
+> +	unsigned int fcc_step_ua;
+> +	unsigned int icl_max_ua;
+> +	unsigned int icl_step_ua;
+> +	u16 icl_status;
+> +	unsigned int usbin_current_scale;
+> +	const struct smb_init_register *init_seq;
+> +};
+> +
+>   static enum power_supply_property smb_properties[] = {
+>   	POWER_SUPPLY_PROP_MANUFACTURER,
+>   	POWER_SUPPLY_PROP_MODEL_NAME,
+> @@ -424,7 +481,7 @@ static int smb_get_prop_usb_online(struct smb_chip *chip, int *val)
+>   	unsigned int stat;
+>   	int rc;
+>   
+> -	rc = regmap_read(chip->regmap, chip->base + POWER_PATH_STATUS, &stat);
+> +	rc = regmap_read(chip->regmap, chip->base + POWER_PATH_STATUS(chip), &stat);
+>   	if (rc < 0) {
+>   		dev_err(chip->dev, "Couldn't read power path status: %d\n", rc);
+>   		return rc;
+> @@ -479,9 +536,80 @@ static int smb_apsd_get_charger_type(struct smb_chip *chip, int *val)
+>   	return 0;
+>   }
+>   
+> +/* Return 1 when in overvoltage state, else 0 or -errno */
+> +static int smbx_ov_status(struct smb_chip *chip)
+> +{
+> +	u8 mask;
+> +	int rc;
+> +	u32 val;
+> +
+> +	switch (chip->gen) {
+> +	case SMB2:
+> +		mask = SMB2_CHARGER_ERROR_STATUS_BAT_OV_BIT;
+> +		break;
+> +	case SMB5:
+> +		mask = SMB5_CHARGER_ERROR_STATUS_BAT_OV_BIT;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	rc = regmap_read(chip->regmap,
+> +			 chip->base + BATTERY_CHARGER_STATUS_2, &val);
+> +	if (rc)
+> +		return rc;
+> +
+> +	return !!(val & mask);
+> +}
+> +
+> +static int smb_map_charge_status(struct smb_chip *chip, u32 stat, int *val)
+> +{
+> +	switch (chip->gen) {
+> +	case SMB2:
+> +		switch (stat) {
+> +		case SMB2_TRICKLE_CHARGE:
+> +		case SMB2_PRE_CHARGE:
+> +		case SMB2_FAST_CHARGE:
+> +		case SMB2_FULLON_CHARGE:
+> +		case SMB2_TAPER_CHARGE:
+> +			*val = POWER_SUPPLY_STATUS_CHARGING;
+> +			return 0;
+> +		case SMB2_TERMINATE_CHARGE:
+> +		case SMB2_INHIBIT_CHARGE:
+> +			*val = POWER_SUPPLY_STATUS_FULL;
+> +			return 0;
+> +		case SMB2_DISABLE_CHARGE:
+> +			*val = POWER_SUPPLY_STATUS_NOT_CHARGING;
+> +			return 0;
+> +		}
+> +		break;
+> +	case SMB5:
+> +		switch (stat) {
+> +		case SMB5_TRICKLE_CHARGE:
+> +		case SMB5_PRE_CHARGE:
+> +		case SMB5_FULLON_CHARGE:
+> +		case SMB5_TAPER_CHARGE:
+> +			*val = POWER_SUPPLY_STATUS_CHARGING;
+> +			return 0;
+> +		case SMB5_TERMINATE_CHARGE:
+> +		case SMB5_INHIBIT_CHARGE:
+> +			*val = POWER_SUPPLY_STATUS_FULL;
+> +			return 0;
+> +		case SMB5_PAUSE_CHARGE:
+> +		case SMB5_DISABLE_CHARGE:
+> +			*val = POWER_SUPPLY_STATUS_NOT_CHARGING;
+> +			return 0;
+> +		}
+> +		break;
+> +	}
+> +
+> +	*val = POWER_SUPPLY_STATUS_UNKNOWN;
+> +	return 0;
+> +}
+> +
+>   static int smb_get_prop_status(struct smb_chip *chip, int *val)
+>   {
+> -	unsigned char stat[2];
+> +	u32 stat;
+>   	int usb_online = 0;
+>   	int rc;
+>   
+> @@ -491,49 +619,36 @@ static int smb_get_prop_status(struct smb_chip *chip, int *val)
+>   		return rc;
+>   	}
+>   
+> -	rc = regmap_bulk_read(chip->regmap,
+> -			      chip->base + BATTERY_CHARGER_STATUS_1, &stat, 2);
+> +	rc = regmap_read(chip->regmap,
+> +			 chip->base + BATTERY_CHARGER_STATUS_1, &stat);
+>   	if (rc < 0) {
+>   		dev_err(chip->dev, "Failed to read charging status ret=%d\n",
+>   			rc);
+>   		return rc;
+>   	}
+>   
+> -	if (stat[1] & CHARGER_ERROR_STATUS_BAT_OV_BIT) {
+> +	rc = smbx_ov_status(chip);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	/* In overvoltage state */
+> +	if (rc == 1) {
+>   		*val = POWER_SUPPLY_STATUS_NOT_CHARGING;
+>   		return 0;
+>   	}
+>   
+> -	stat[0] = stat[0] & BATTERY_CHARGER_STATUS_MASK;
+> +	stat &= BATTERY_CHARGER_STATUS_MASK;
+>   
+> -	switch (stat[0]) {
+> -	case TRICKLE_CHARGE:
+> -	case PRE_CHARGE:
+> -	case FAST_CHARGE:
+> -	case FULLON_CHARGE:
+> -	case TAPER_CHARGE:
+> -		*val = POWER_SUPPLY_STATUS_CHARGING;
+> -		return rc;
+> -	case DISABLE_CHARGE:
+> -		*val = POWER_SUPPLY_STATUS_NOT_CHARGING;
+> -		return rc;
+> -	case TERMINATE_CHARGE:
+> -	case INHIBIT_CHARGE:
+> -		*val = POWER_SUPPLY_STATUS_FULL;
+> -		return rc;
+> -	default:
+> -		*val = POWER_SUPPLY_STATUS_UNKNOWN;
+> -		return rc;
+> -	}
+> +	return smb_map_charge_status(chip, stat, val);
+>   }
+>   
+>   static inline int smb_get_current_limit(struct smb_chip *chip,
+>   					 unsigned int *val)
+>   {
+> -	int rc = regmap_read(chip->regmap, chip->base + ICL_STATUS, val);
+> +	int rc = regmap_read(chip->regmap, chip->base + chip->icl_status, val);
+>   
+>   	if (rc >= 0)
+> -		*val *= CURRENT_SCALE_FACTOR;
+> +		*val *= chip->icl_step_ua;
+>   	return rc;
+>   }
+>   
+> @@ -541,12 +656,13 @@ static int smb_set_current_limit(struct smb_chip *chip, unsigned int val)
+>   {
+>   	unsigned char val_raw;
+>   
+> -	if (val > 4800000) {
+> +	if (val > chip->icl_max_ua) {
+>   		dev_err(chip->dev,
+> -			"Can't set current limit higher than 4800000uA");
+> +			"Can't set current limit higher than %uuA",
+> +			chip->icl_max_ua);
+>   		return -EINVAL;
+>   	}
+> -	val_raw = val / CURRENT_SCALE_FACTOR;
+> +	val_raw = val / chip->icl_step_ua;
+>   
+>   	return regmap_write(chip->regmap, chip->base + USBIN_CURRENT_LIMIT_CFG,
+>   			    val_raw);
+> @@ -607,12 +723,10 @@ static void smb_status_change_work(struct work_struct *work)
+>   static int smb_get_iio_chan(struct smb_chip *chip, struct iio_channel *chan,
+>   			     int *val)
+>   {
+> -	int rc;
+> -	union power_supply_propval status;
+> +	int rc, status;
+>   
+> -	rc = power_supply_get_property(chip->chg_psy, POWER_SUPPLY_PROP_STATUS,
+> -				       &status);
+> -	if (rc < 0 || status.intval != POWER_SUPPLY_STATUS_CHARGING) {
+> +	rc = smb_get_prop_status(chip, &status);
+> +	if (rc < 0 || status != POWER_SUPPLY_STATUS_CHARGING) {
+>   		*val = 0;
+>   		return 0;
+>   	}
+> @@ -625,7 +739,61 @@ static int smb_get_iio_chan(struct smb_chip *chip, struct iio_channel *chan,
+>   	return iio_read_channel_processed(chan, val);
+>   }
+>   
+> -static int smb_get_prop_health(struct smb_chip *chip, int *val)
+> +static int smb_get_prop_current_now(struct smb_chip *chip, int *val)
+> +{
+> +	s64 current_ua;
+> +	int rc;
+> +
+> +	rc = smb_get_iio_chan(chip, chip->usb_in_i_chan, val);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	current_ua = (s64)*val * chip->usbin_current_scale;
+> +	if (current_ua < INT_MIN || current_ua > INT_MAX)
+> +		return -ERANGE;
+> +
+> +	*val = (int)current_ua;
+> +	return 0;
+> +}
+> +
+> +static int smb5_get_prop_health(struct smb_chip *chip, int *val)
+> +{
+> +	int rc;
+> +	unsigned int stat;
+> +
+> +	rc = smbx_ov_status(chip);
+> +	if (rc < 0) {
+> +		dev_err(chip->dev,
+> +			"Couldn't determine overvoltage status: %d\n", rc);
+> +		return rc;
+> +	}
+> +	if (rc) {
+> +		*val = POWER_SUPPLY_HEALTH_OVERVOLTAGE;
+> +		return 0;
+> +	}
+> +
+> +	rc = regmap_read(chip->regmap, chip->base + BATTERY_CHARGER_STATUS_7,
+> +			 &stat);
+> +	if (rc < 0) {
+> +		dev_err(chip->dev, "Couldn't read charger status 7 rc=%d\n", rc);
+> +		return rc;
+> +	}
+> +
+> +	if (stat & SMB5_BAT_TEMP_STATUS_TOO_COLD_BIT)
+> +		*val = POWER_SUPPLY_HEALTH_COLD;
+> +	else if (stat & SMB5_BAT_TEMP_STATUS_TOO_HOT_BIT)
+> +		*val = POWER_SUPPLY_HEALTH_OVERHEAT;
+> +	else if (stat & SMB5_BAT_TEMP_STATUS_COLD_SOFT_BIT)
+> +		*val = POWER_SUPPLY_HEALTH_COOL;
+> +	else if (stat & SMB5_BAT_TEMP_STATUS_HOT_SOFT_BIT)
+> +		*val = POWER_SUPPLY_HEALTH_WARM;
+> +	else
+> +		*val = POWER_SUPPLY_HEALTH_GOOD;
+> +
+> +	return 0;
+> +}
+> +
+> +static int smb2_get_prop_health(struct smb_chip *chip, int *val)
+>   {
+>   	int rc;
+>   	unsigned int stat;
+> @@ -637,15 +805,15 @@ static int smb_get_prop_health(struct smb_chip *chip, int *val)
+>   		return rc;
+>   	}
+>   
+> -	if (stat & CHARGER_ERROR_STATUS_BAT_OV_BIT)
+> +	if (stat & SMB2_CHARGER_ERROR_STATUS_BAT_OV_BIT)
+>   		*val = POWER_SUPPLY_HEALTH_OVERVOLTAGE;
+> -	else if (stat & BAT_TEMP_STATUS_TOO_COLD_BIT)
+> +	else if (stat & SMB2_BAT_TEMP_STATUS_TOO_COLD_BIT)
+>   		*val = POWER_SUPPLY_HEALTH_COLD;
+> -	else if (stat & BAT_TEMP_STATUS_TOO_HOT_BIT)
+> +	else if (stat & SMB2_BAT_TEMP_STATUS_TOO_HOT_BIT)
+>   		*val = POWER_SUPPLY_HEALTH_OVERHEAT;
+> -	else if (stat & BAT_TEMP_STATUS_COLD_SOFT_LIMIT_BIT)
+> +	else if (stat & SMB2_BAT_TEMP_STATUS_COLD_SOFT_LIMIT_BIT)
+>   		*val = POWER_SUPPLY_HEALTH_COOL;
+> -	else if (stat & BAT_TEMP_STATUS_HOT_SOFT_LIMIT_BIT)
+> +	else if (stat & SMB2_BAT_TEMP_STATUS_HOT_SOFT_LIMIT_BIT)
+>   		*val = POWER_SUPPLY_HEALTH_WARM;
+>   	else
+>   		*val = POWER_SUPPLY_HEALTH_GOOD;
+> @@ -653,6 +821,19 @@ static int smb_get_prop_health(struct smb_chip *chip, int *val)
+>   	return 0;
+>   }
+>   
+> +static int smb_get_prop_health(struct smb_chip *chip, int *val)
+> +{
+> +	switch (chip->gen) {
+> +	case SMB2:
+> +		return smb2_get_prop_health(chip, val);
+> +	case SMB5:
+> +		return smb5_get_prop_health(chip, val);
+> +	default:
+> +		dev_err(chip->dev, "unsupported SMB chip generation\n");
+> +		return -EINVAL;
+> +	}
+> +}
+> +
+>   static int smb_get_property(struct power_supply *psy,
+>   			     enum power_supply_property psp,
+>   			     union power_supply_propval *val)
+> @@ -669,8 +850,7 @@ static int smb_get_property(struct power_supply *psy,
+>   	case POWER_SUPPLY_PROP_CURRENT_MAX:
+>   		return smb_get_current_limit(chip, &val->intval);
+>   	case POWER_SUPPLY_PROP_CURRENT_NOW:
+> -		return smb_get_iio_chan(chip, chip->usb_in_i_chan,
+> -					 &val->intval);
+> +		return smb_get_prop_current_now(chip, &val->intval);
+>   	case POWER_SUPPLY_PROP_VOLTAGE_NOW:
+>   		return smb_get_iio_chan(chip, chip->usb_in_v_chan,
+>   					 &val->intval);
+> @@ -721,17 +901,15 @@ static int smb_property_is_writable(struct power_supply *psy,
+>   static irqreturn_t smb_handle_batt_overvoltage(int irq, void *data)
+>   {
+>   	struct smb_chip *chip = data;
+> -	unsigned int status;
+>   	int rc;
+>   
+> -	rc = regmap_read(chip->regmap,
+> -			 chip->base + BATTERY_CHARGER_STATUS_2, &status);
+> +	rc = smbx_ov_status(chip);
+>   	if (rc < 0) {
+> -		dev_err(chip->dev, "Couldn't read charger status: %d\n", rc);
+> +		dev_err(chip->dev, "could not read overvoltage status: %d\n", rc);
+>   		return IRQ_HANDLED;
+>   	}
+>   
+> -	if (status & CHARGER_ERROR_STATUS_BAT_OV_BIT) {
+> +	if (rc) {
+>   		/* The hardware stops charging automatically */
+>   		dev_err(chip->dev, "battery overvoltage detected\n");
+>   	}
+> @@ -777,6 +955,144 @@ static irqreturn_t smb_handle_wdog_bark(int irq, void *data)
+>   	return IRQ_HANDLED;
+>   }
+>   
+> +static bool smb_batt_info_has_prop(struct power_supply_battery_info *batt_info,
+> +				   enum power_supply_property prop)
+> +{
+> +	return power_supply_battery_info_has_prop(batt_info, prop);
+> +}
+> +
+> +static int smb_power_supply_init(struct power_supply *psy)
+> +{
+> +	struct smb_chip *chip = power_supply_get_drvdata(psy);
+> +	const struct smb_match_data *match_data = chip->match_data;
+> +	struct power_supply_battery_info *batt_info;
+> +	unsigned int fast_charge_current_sel;
+> +	unsigned int float_voltage_sel;
+> +	bool program_float_voltage = true;
+> +	int fast_charge_current_ua;
+> +	int float_voltage_uv;
+> +	int rc;
+> +
+> +	rc = power_supply_get_battery_info(psy, &batt_info);
+> +	if (rc)
+> +		return dev_err_probe(chip->dev, rc,
+> +				     "Failed to get battery info\n");
+> +
+> +	if (smb_batt_info_has_prop(batt_info,
+> +				   POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX)) {
+> +		float_voltage_uv = batt_info->constant_charge_voltage_max_uv;
+> +	} else if (smb_batt_info_has_prop(batt_info,
+> +					  POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN)) {
+> +		float_voltage_uv = batt_info->voltage_max_design_uv;
+> +	} else {
+> +		dev_warn(chip->dev,
+> +			 "No battery float voltage; preserving hardware setting\n");
+> +		program_float_voltage = false;
+> +	}
+> +
+> +	if (program_float_voltage) {
+> +		if (float_voltage_uv < match_data->fv_min_uv ||
+> +		    float_voltage_uv > match_data->fv_max_uv) {
+> +			rc = dev_err_probe(chip->dev, -EINVAL,
+> +					   "float voltage %d uV outside %u-%u uV\n",
+> +					   float_voltage_uv,
+> +					   match_data->fv_min_uv,
+> +					   match_data->fv_max_uv);
+> +			goto out_put_batt_info;
+> +		}
+> +
+> +		float_voltage_sel =
+> +			(float_voltage_uv - match_data->fv_min_uv) /
+> +			match_data->fv_step_uv;
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + FLOAT_VOLTAGE_CFG,
+> +					FLOAT_VOLTAGE_SETTING_MASK,
+> +					float_voltage_sel);
+> +		if (rc < 0) {
+> +			rc = dev_err_probe(chip->dev, rc,
+> +					   "could not set float voltage\n");
+> +			goto out_put_batt_info;
+> +		}
+> +	}
+> +
+> +	if (chip->gen == SMB5) {
+> +		if (smb_batt_info_has_prop(batt_info,
+> +					   POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX))
+> +			fast_charge_current_ua =
+> +				batt_info->constant_charge_current_max_ua;
+> +		else
+> +			fast_charge_current_ua = DCP_CURRENT_UA;
+> +
+> +		if (fast_charge_current_ua > match_data->fcc_max_ua) {
+> +			rc = dev_err_probe(chip->dev, -EINVAL,
+> +					   "fast charge current %d uA exceeds %u uA\n",
+> +					   fast_charge_current_ua,
+> +					   match_data->fcc_max_ua);
+> +			goto out_put_batt_info;
+> +		}
+> +
+> +		fast_charge_current_sel = fast_charge_current_ua /
+> +			match_data->fcc_step_ua;
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + FAST_CHARGE_CURRENT_CFG,
+> +					FAST_CHARGE_CURRENT_SETTING_MASK,
+> +					fast_charge_current_sel);
+> +		if (rc < 0) {
+> +			rc = dev_err_probe(chip->dev, rc,
+> +					   "could not set fast charge current\n");
+> +			goto out_put_batt_info;
+> +		}
+> +
+> +		rc = smb_set_current_limit(chip, SDP_CURRENT_UA);
+> +		if (rc < 0) {
+> +			rc = dev_err_probe(chip->dev, rc,
+> +					   "could not set USB input current\n");
+> +			goto out_put_batt_info;
+> +		}
+> +
+> +		if (program_float_voltage)
+> +			dev_info(chip->dev,
+> +				 "charge limits: float=%u uV fast=%u uA input=%u uA\n",
+> +				 match_data->fv_min_uv +
+> +				 float_voltage_sel * match_data->fv_step_uv,
+> +				 fast_charge_current_sel * match_data->fcc_step_ua,
+> +				 SDP_CURRENT_UA);
+> +		else
+> +			dev_info(chip->dev,
+> +				 "charge limits: float=firmware fast=%u uA input=%u uA\n",
+> +				 fast_charge_current_sel * match_data->fcc_step_ua,
+> +				 SDP_CURRENT_UA);
+> +	}
+> +
+> +	rc = 0;
+> +
+> +out_put_batt_info:
+> +	power_supply_put_battery_info(psy, batt_info);
+> +
+> +	if (rc)
+> +		return rc;
+> +
+> +	if (chip->gen != SMB5)
+> +		return 0;
+> +
+> +	rc = regmap_update_bits(chip->regmap,
+> +				chip->base + CHARGING_ENABLE_CMD,
+> +				CHARGING_ENABLE_CMD_BIT,
+> +				CHARGING_ENABLE_CMD_BIT);
+> +	if (rc < 0)
+> +		return dev_err_probe(chip->dev, rc,
+> +				     "could not enable charging\n");
+> +
+> +	rc = regmap_update_bits(chip->regmap,
+> +				chip->base + USBIN_CMD_IL,
+> +				USBIN_SUSPEND_BIT, 0);
+> +	if (rc < 0)
+> +		return dev_err_probe(chip->dev, rc,
+> +				     "could not enable USB input\n");
+> +
+> +	return 0;
+> +}
+> +
+>   static const struct power_supply_desc smb_psy_desc = {
+>   	.name = "pmi8998_charger",
+>   	.type = POWER_SUPPLY_TYPE_USB,
+> @@ -789,36 +1105,85 @@ static const struct power_supply_desc smb_psy_desc = {
+>   	.get_property = smb_get_property,
+>   	.set_property = smb_set_property,
+>   	.property_is_writeable = smb_property_is_writable,
+> +	.init = smb_power_supply_init,
+> +};
+> +
+> +/* Init sequence derived from vendor downstream driver */
+> +static const struct smb_init_register smb5_init_seq[] = {
+> +	/*
+> +	 * TCPM owns the separate Type-C peripheral. This register only
+> +	 * controls how the charger's USBIN peripheral starts BC1.2 detection.
+> +	 */
+> +	{ .addr = USBIN_TYPE_C_CFG,
+> +	  .mask = APSD_START_ON_CC_BIT,
+> +	  .val = 0 },
+> +	/* Enable BC1.2 source detection without unsupported HVDCP negotiation. */
+> +	{ .addr = USBIN_OPTIONS_1_CFG,
+> +	  .mask = HVDCP_AUTH_ALG_EN_CFG_BIT |
+> +		  HVDCP_AUTONOMOUS_MODE_EN_CFG_BIT | AUTO_SRC_DETECT_BIT |
+> +		  HVDCP_EN_BIT,
+> +	  .val = AUTO_SRC_DETECT_BIT },
+> +	/* Set the default SDP charger type to a 500ma USB 2.0 port */
+> +	{ .addr = USBIN_ICL_OPTIONS,
+> +	  .mask = USBIN_MODE_CHG_BIT,
+> +	  .val = USBIN_MODE_CHG_BIT },
+> +	{ .addr = CMD_ICL_OVERRIDE,
+> +	  .mask = ICL_OVERRIDE_BIT,
+> +	  .val = 0 },
+> +	{ .addr = USBIN_LOAD_CFG,
+> +	  .mask = ICL_OVERRIDE_AFTER_APSD_BIT,
+> +	  .val = 0 },
+> +	/* Disable watchdog */
+> +	{ .addr = SNARL_BARK_BITE_WD_CFG, .mask = 0xff, .val = 0 },
+> +	{ .addr = WD_CFG,
+> +	  .mask = WATCHDOG_TRIGGER_AFP_EN_BIT | WDOG_TIMER_EN_ON_PLUGIN_BIT |
+> +		  BARK_WDOG_INT_EN_BIT,
+> +	  .val = 0 },
+> +	/*
+> +	 * Enable Automatic Input Current Limit, this will slowly ramp up the current
+> +	 * When connected to a wall charger, and automatically stop when it detects
+> +	 * the charger current limit (voltage drop?) or it reaches the programmed limit.
+> +	 */
+> +	{ .addr = USBIN_AICL_OPTIONS_CFG,
+> +	  .mask = USBIN_AICL_PERIODIC_RERUN_EN_BIT | USBIN_AICL_ADC_EN_BIT
+> +			| USBIN_AICL_EN_BIT | SUSPEND_ON_COLLAPSE_USBIN_BIT,
+> +	  .val = USBIN_AICL_PERIODIC_RERUN_EN_BIT | USBIN_AICL_EN_BIT |
+> +		 SUSPEND_ON_COLLAPSE_USBIN_BIT },
+> +	{ .addr = AICL_RERUN_TIME_CFG,
+> +	  .mask = AICL_RERUN_TIME_MASK,
+> +	  .val = AICL_RERUN_TIME_12_SECS },
+>   };
+>   
+>   /* Init sequence derived from vendor downstream driver */
+> -static const struct smb_init_register smb_init_seq[] = {
+> -	{ .addr = AICL_RERUN_TIME_CFG, .mask = AICL_RERUN_TIME_MASK, .val = 0 },
+> +static const struct smb_init_register smb2_init_seq[] = {
+> +	{ .addr = AICL_RERUN_TIME_CFG,
+> +	  .mask = AICL_RERUN_TIME_MASK,
+> +	  .val = AICL_RERUN_TIME_3_SECS },
+>   	/*
+>   	 * By default configure us as an upstream facing port
+>   	 * FIXME: This will be handled by the type-c driver
+>   	 */
+>   	{ .addr = TYPE_C_INTRPT_ENB_SOFTWARE_CTRL,
+> -	  .mask = TYPEC_POWER_ROLE_CMD_MASK | VCONN_EN_SRC_BIT |
+> +	  .mask = TYPEC_POWER_ROLE_CMD_MASK | SMB2_VCONN_EN_SRC_BIT |
+>   		  VCONN_EN_VALUE_BIT,
+> -	  .val = VCONN_EN_SRC_BIT },
+> +	  .val = SMB2_VCONN_EN_SRC_BIT },
+>   	/*
+>   	 * Disable Type-C factory mode and stay in Attached.SRC state when VCONN
+>   	 * over-current happens
+>   	 */
+> -	{ .addr = TYPE_C_CFG,
+> +	{ .addr = USBIN_TYPE_C_CFG,
+>   	  .mask = FACTORY_MODE_DETECTION_EN_BIT | VCONN_OC_CFG_BIT,
+>   	  .val = 0 },
+>   	/* Configure VBUS for software control */
+> -	{ .addr = OTG_CFG, .mask = OTG_EN_SRC_CFG_BIT, .val = 0 },
+> +	{ .addr = SMB2_OTG_CFG, .mask = SMB2_OTG_EN_SRC_CFG_BIT, .val = 0 },
+>   	/*
+>   	 * Use VBAT to determine the recharge threshold when battery is full
+>   	 * rather than the state of charge.
+>   	 */
+> -	{ .addr = FG_UPDATE_CFG_2_SEL,
+> -	  .mask = SOC_LT_CHG_RECHARGE_THRESH_SEL_BIT |
+> -		  VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT,
+> -	  .val = VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT },
+> +	{ .addr = SMB2_FG_UPDATE_CFG_2_SEL,
+> +	  .mask = SMB2_SOC_LT_CHG_RECHARGE_THRESH_SEL_BIT |
+> +		  SMB2_VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT,
+> +	  .val = SMB2_VBT_LT_CHG_RECHARGE_THRESH_SEL_BIT },
+>   	/* Enable charging */
+>   	{ .addr = USBIN_OPTIONS_1_CFG, .mask = HVDCP_EN_BIT, .val = 0 },
+>   	{ .addr = CHARGING_ENABLE_CMD,
+> @@ -883,7 +1248,7 @@ static const struct smb_init_register smb_init_seq[] = {
+>   	 */
+>   	{ .addr = PRE_CHARGE_CURRENT_CFG,
+>   	  .mask = PRE_CHARGE_CURRENT_SETTING_MASK,
+> -	  .val = 500000 / CURRENT_SCALE_FACTOR },
+> +	  .val = 500000 / SMB2_CURRENT_STEP_UA },
+>   	/*
+>   	 * This overrides all of the current limit options exposed to userspace
+>   	 * and prevents the device from pulling more than ~1A. This is done
+> @@ -891,20 +1256,69 @@ static const struct smb_init_register smb_init_seq[] = {
+>   	 */
+>   	{ .addr = FAST_CHARGE_CURRENT_CFG,
+>   	  .mask = FAST_CHARGE_CURRENT_SETTING_MASK,
+> -	  .val = 1000000 / CURRENT_SCALE_FACTOR },
+> +	  .val = 1000000 / SMB2_CURRENT_STEP_UA },
+> +};
+> +
+> +static const struct smb_match_data pmi8998_match_data = {
+> +	.init_seq = smb2_init_seq,
+> +	.init_seq_len = ARRAY_SIZE(smb2_init_seq),
+> +	.name = "pmi8998",
+> +	.gen = SMB2,
+> +	.fv_min_uv = 3487500,
+> +	.fv_max_uv = 4920000,
+> +	.fv_step_uv = 7500,
+> +	.fcc_max_ua = 4500000,
+> +	.fcc_step_ua = 25000,
+> +	.icl_max_ua = 4800000,
+> +	.icl_step_ua = 25000,
+> +	.icl_status = SMB2_ICL_STATUS,
+> +	.usbin_current_scale = 1,
+> +};
+> +
+> +static const struct smb_match_data pm660_match_data = {
+> +	.init_seq = smb2_init_seq,
+> +	.init_seq_len = ARRAY_SIZE(smb2_init_seq),
+> +	.name = "pm660",
+> +	.gen = SMB2,
+> +	.fv_min_uv = 3487500,
+> +	.fv_max_uv = 4920000,
+> +	.fv_step_uv = 7500,
+> +	.fcc_max_ua = 4500000,
+> +	.fcc_step_ua = 25000,
+> +	.icl_max_ua = 4800000,
+> +	.icl_step_ua = 25000,
+> +	.icl_status = SMB2_ICL_STATUS,
+> +	.usbin_current_scale = 1,
+>   };
+>   
+> -static int smb_init_hw(struct smb_chip *chip)
+> +static const struct smb_match_data pm8150b_match_data = {
+> +	.init_seq = smb5_init_seq,
+> +	.init_seq_len = ARRAY_SIZE(smb5_init_seq),
+> +	.name = "pm8150b",
+> +	.gen = SMB5,
+> +	.fv_min_uv = 3600000,
+> +	.fv_max_uv = 4790000,
+> +	.fv_step_uv = 10000,
+> +	.fcc_max_ua = 8000000,
+> +	.fcc_step_ua = 50000,
+> +	.icl_max_ua = 5000000,
+> +	.icl_step_ua = 50000,
+> +	.icl_status = SMB5_AICL_ICL_STATUS,
+> +	.usbin_current_scale = 5,
+> +};
+> +
+> +static int smb_init_hw(struct smb_chip *chip,
+> +		       const struct smb_init_register *init_seq, size_t len)
+>   {
+>   	int rc, i;
+>   
+> -	for (i = 0; i < ARRAY_SIZE(smb_init_seq); i++) {
+> +	for (i = 0; i < len; i++) {
+>   		dev_dbg(chip->dev, "%d: Writing 0x%02x to 0x%02x\n", i,
+> -			smb_init_seq[i].val, smb_init_seq[i].addr);
+> +			init_seq[i].val, init_seq[i].addr);
+>   		rc = regmap_update_bits(chip->regmap,
+> -					chip->base + smb_init_seq[i].addr,
+> -					smb_init_seq[i].mask,
+> -					smb_init_seq[i].val);
+> +					chip->base + init_seq[i].addr,
+> +					init_seq[i].mask,
+> +					init_seq[i].val);
+>   		if (rc < 0)
+>   			return dev_err_probe(chip->dev, rc,
+>   					     "%s: init command %d failed\n",
+> @@ -914,19 +1328,6 @@ static int smb_init_hw(struct smb_chip *chip)
+>   	return 0;
+>   }
+>   
+> -static void smb_restore_charge_enable(void *data)
+> -{
+> -	struct smb_chip *chip = data;
+> -	int rc;
+> -
+> -	rc = regmap_update_bits(chip->regmap,
+> -				chip->base + CHARGING_ENABLE_CMD,
+> -				CHARGING_ENABLE_CMD_BIT,
+> -				chip->initial_charge_enable);
+> -	if (rc < 0)
+> -		dev_err(chip->dev, "Couldn't restore charging state: %d\n", rc);
+> -}
+> -
+>   static int smb_init_irq(struct smb_chip *chip, int *irq, const char *name,
+>   			 irqreturn_t (*handler)(int irq, void *data))
+>   {
+> @@ -948,14 +1349,38 @@ static int smb_init_irq(struct smb_chip *chip, int *irq, const char *name,
+>   	return 0;
+>   }
+>   
+> +static void smb_restore_charge_state(void *data)
+> +{
+> +	struct smb_chip *chip = data;
+> +	int rc;
+> +
+> +	rc = regmap_update_bits(chip->regmap,
+> +				chip->base + CHARGING_ENABLE_CMD,
+> +				CHARGING_ENABLE_CMD_BIT,
+> +				chip->initial_charge_enable);
+> +	if (rc < 0) {
+> +		dev_err(chip->dev, "could not restore charging state: %d\n", rc);
+> +		return;
+> +	}
+> +
+> +	if (chip->gen == SMB5) {
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + USBIN_CMD_IL,
+> +					USBIN_SUSPEND_BIT,
+> +					chip->initial_usb_suspend);
+> +		if (rc < 0)
+> +			dev_err(chip->dev,
+> +				"could not restore USB input state: %d\n", rc);
+> +	}
+> +}
+> +
+>   static int smb_probe(struct platform_device *pdev)
+>   {
+>   	struct power_supply_config supply_config = {};
+>   	struct power_supply_desc *desc;
+>   	struct smb_chip *chip;
+> -	unsigned int charge_enable;
+> -	unsigned int float_voltage_sel;
+> -	int float_voltage_uv;
+> +	const struct smb_match_data *match_data;
+> +	unsigned int reg;
+>   	int rc, irq;
+>   
+>   	chip = devm_kzalloc(&pdev->dev, sizeof(*chip), GFP_KERNEL);
+> @@ -986,19 +1411,57 @@ static int smb_probe(struct platform_device *pdev)
+>   				     "Couldn't get usbin_i IIO channel\n");
+>   	}
+>   
+> -	rc = regmap_read(chip->regmap, chip->base + CHARGING_ENABLE_CMD,
+> -			 &charge_enable);
+> +	match_data = device_get_match_data(chip->dev);
+> +	if (!match_data)
+> +		return dev_err_probe(chip->dev, -ENODEV,
+> +				     "missing match data\n");
+> +
+> +	chip->gen = match_data->gen;
+> +	chip->match_data = match_data;
+> +	chip->icl_max_ua = match_data->icl_max_ua;
+> +	chip->icl_step_ua = match_data->icl_step_ua;
+> +	chip->icl_status = match_data->icl_status;
+
+except mapping the match_data to the chip->match_data, this seems to be a bit 
+duplication of existing structure.
+
+I would just do chip->data->gen (I would likely call `match_data` just `data`) 
+to access the values.
+
+David
+
+> +	chip->usbin_current_scale = match_data->usbin_current_scale;
+> +
+> +	dev_info(chip->dev, "Generation %s\n", chip->gen == SMB2 ? "SMB2" : "SMB5");
+> +	if (chip->gen == SMB5) {
+> +		rc = regmap_read(chip->regmap, chip->base + USBIN_CMD_IL, &reg);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "could not read USB input state\n");
+> +		chip->initial_usb_suspend = reg & USBIN_SUSPEND_BIT;
+> +	}
+> +
+> +	rc = regmap_read(chip->regmap,
+> +			 chip->base + CHARGING_ENABLE_CMD, &reg);
+>   	if (rc < 0)
+>   		return dev_err_probe(chip->dev, rc,
+> -				     "Couldn't read charging state\n");
+> +				     "could not read charging state\n");
+> +	chip->initial_charge_enable = reg & CHARGING_ENABLE_CMD_BIT;
+>   
+> -	chip->initial_charge_enable = charge_enable & CHARGING_ENABLE_CMD_BIT;
+> -	rc = devm_add_action_or_reset(chip->dev, smb_restore_charge_enable, chip);
+> -	if (rc)
+> -		return dev_err_probe(chip->dev, rc,
+> -				     "Couldn't register charging state rollback\n");
+> +	rc = devm_add_action_or_reset(chip->dev,
+> +				      smb_restore_charge_state, chip);
+> +	if (rc < 0)
+> +		return rc;
+> +
+> +	if (chip->gen == SMB5) {
+> +		/* Do not use bootloader charge limits while configuring SMB5. */
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + USBIN_CMD_IL,
+> +					USBIN_SUSPEND_BIT, USBIN_SUSPEND_BIT);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "could not suspend USB input\n");
+>   
+> -	rc = smb_init_hw(chip);
+> +		rc = regmap_update_bits(chip->regmap,
+> +					chip->base + CHARGING_ENABLE_CMD,
+> +					CHARGING_ENABLE_CMD_BIT, 0);
+> +		if (rc < 0)
+> +			return dev_err_probe(chip->dev, rc,
+> +					     "could not disable charging\n");
+> +	}
+> +
+> +	rc = smb_init_hw(chip, match_data->init_seq, match_data->init_seq_len);
+>   	if (rc < 0)
+>   		return rc;
+>   
+> @@ -1011,7 +1474,7 @@ static int smb_probe(struct platform_device *pdev)
+>   	memcpy(desc, &smb_psy_desc, sizeof(smb_psy_desc));
+>   	desc->name =
+>   		devm_kasprintf(chip->dev, GFP_KERNEL, "%s-charger",
+> -			       (const char *)device_get_match_data(chip->dev));
+> +			       match_data->name);
+>   	if (!desc->name)
+>   		return -ENOMEM;
+>   
+> @@ -1021,46 +1484,13 @@ static int smb_probe(struct platform_device *pdev)
+>   		return dev_err_probe(chip->dev, PTR_ERR(chip->chg_psy),
+>   				     "failed to register power supply\n");
+>   
+> -	rc = power_supply_get_battery_info(chip->chg_psy, &chip->batt_info);
+> -	if (rc)
+> -		return dev_err_probe(chip->dev, rc,
+> -				     "Failed to get battery info\n");
+> -
+> -	rc = devm_delayed_work_autocancel(chip->dev, &chip->status_change_work,
+> +	rc = devm_delayed_work_autocancel(chip->dev,
+> +					  &chip->status_change_work,
+>   					  smb_status_change_work);
+>   	if (rc)
+>   		return dev_err_probe(chip->dev, rc,
+>   				     "Failed to init status change work\n");
+>   
+> -	if (power_supply_battery_info_has_prop(chip->batt_info,
+> -					       POWER_SUPPLY_PROP_CONSTANT_CHARGE_VOLTAGE_MAX)) {
+> -		float_voltage_uv =
+> -			chip->batt_info->constant_charge_voltage_max_uv;
+> -	} else if (power_supply_battery_info_has_prop(chip->batt_info,
+> -					      POWER_SUPPLY_PROP_VOLTAGE_MAX_DESIGN)) {
+> -		float_voltage_uv = chip->batt_info->voltage_max_design_uv;
+> -	} else {
+> -		dev_warn(chip->dev, "No battery float voltage; preserving hardware setting\n");
+> -		goto skip_float_voltage;
+> -	}
+> -
+> -	if (float_voltage_uv < SMB2_FLOAT_VOLTAGE_MIN_UV ||
+> -	    float_voltage_uv > SMB2_FLOAT_VOLTAGE_MAX_UV)
+> -		return dev_err_probe(chip->dev, -EINVAL,
+> -				     "float voltage %d uV outside %d-%d uV\n",
+> -				     float_voltage_uv,
+> -				     SMB2_FLOAT_VOLTAGE_MIN_UV,
+> -				     SMB2_FLOAT_VOLTAGE_MAX_UV);
+> -
+> -	float_voltage_sel =
+> -		(float_voltage_uv - SMB2_FLOAT_VOLTAGE_MIN_UV) /
+> -		SMB2_FLOAT_VOLTAGE_STEP_UV;
+> -	rc = regmap_update_bits(chip->regmap, chip->base + FLOAT_VOLTAGE_CFG,
+> -				FLOAT_VOLTAGE_SETTING_MASK, float_voltage_sel);
+> -	if (rc < 0)
+> -		return dev_err_probe(chip->dev, rc, "Couldn't set vbat max\n");
+> -
+> -skip_float_voltage:
+>   	rc = smb_init_irq(chip, &irq, "bat-ov", smb_handle_batt_overvoltage);
+>   	if (rc < 0)
+>   		return rc;
+> @@ -1084,7 +1514,7 @@ static int smb_probe(struct platform_device *pdev)
+>   	if (rc < 0)
+>   		return dev_err_probe(chip->dev, rc, "Couldn't set wake irq\n");
+>   
+> -	devm_remove_action(chip->dev, smb_restore_charge_enable, chip);
+> +	devm_remove_action(chip->dev, smb_restore_charge_state, chip);
+>   
+>   	platform_set_drvdata(pdev, chip);
+>   
+> @@ -1095,8 +1525,9 @@ static int smb_probe(struct platform_device *pdev)
+>   }
+>   
+>   static const struct of_device_id smb_match_id_table[] = {
+> -	{ .compatible = "qcom,pmi8998-charger", .data = "pmi8998" },
+> -	{ .compatible = "qcom,pm660-charger", .data = "pm660" },
+> +	{ .compatible = "qcom,pmi8998-charger", .data = &pmi8998_match_data },
+> +	{ .compatible = "qcom,pm660-charger", .data = &pm660_match_data },
+> +	{ .compatible = "qcom,pm8150b-charger", .data = &pm8150b_match_data },
+>   	{ /* sentinal */ }
+>   };
+>   MODULE_DEVICE_TABLE(of, smb_match_id_table);
+> @@ -1112,5 +1543,5 @@ static struct platform_driver qcom_spmi_smb = {
+>   module_platform_driver(qcom_spmi_smb);
+>   
+>   MODULE_AUTHOR("Casey Connolly <casey.connolly@linaro.org>");
+> -MODULE_DESCRIPTION("Qualcomm SMB2 Charger Driver");
+> +MODULE_DESCRIPTION("Qualcomm SMB2 and SMB5 Charger Driver");
+>   MODULE_LICENSE("GPL");
+> 
+
