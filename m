@@ -1,127 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC5E61ADC97
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:23:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B192C36606B;
+	Sat,  5 Sep 2026 21:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788643392; cv=none; b=puSY64Q7KhSEj/Q6NK7QFO96SZbYP5GlH0lWQvWuqyRc2xGGLYOnFG7xmW6vN0upI64t+2Kb+pd7hSakxnMOHmkZM5qxZ1jvW0wnzojFnmN70uPxbQFoA6zQHDHTvFIZcN/JksZ8zQ+uJyXmOQclkDNj5oGasCQ9nlqIbWy6p2I=
+	t=1788643630; cv=none; b=RRQLn1xFaKz59MQOFEGsNKg5DTwLAFuYLnIsSbsqGIVIzNwby1VuwV5+oenbci9sdnJsYcSDURAdd47sM799wyeK8xjc4ZSzmrbpLmWn2f3LV6njQNZspxOgeMFPgb0djwqQtn6k0OorkXieZAv1Lq9sHRiQA5ig90ACK2geZ8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788643392; c=relaxed/simple;
-	bh=UgURUyZ4hP5XeBNPrEfdc2vZ5bBQKxZC6d+qdQE/6ks=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GotthdJSUh6ZlUXrFAtU+IPfFTWMsJDyRCeLHKxaK5AWifOEn7KuWd6Prw7AlMVtG1S3lnCVIQziiSmQ7YQSBM5WsIK/DjG4lbg1UFYx2k49++059SgBmCpyuNtct4t1riTYdgcHcmdkYQHfzpxYLEZLRCtv56i3oGCiqyWPMKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nmRBMG9D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788643630; c=relaxed/simple;
+	bh=1h1ZC7y0yj98CAZSWDGceajgc4khdjsqJZrksGZMV9c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=hYMPHAmy2sBvlXuwgtUlCAd8OHBmaZiHDtwHXjBpYTQuD2SBpdB7lENNwRnK5ZcG09d0pGfwTdnfPcRPBM783B6sdYtZJQkUJ8WwLbPYBrVquCbKbhQneX4hjzqOHYxW3Gtif1H98lwgwC9qXG7w3XDtVvxcWBV565Ye2g4ZKiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=USRxiGVq; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=mUxDMEGj; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nmRBMG9D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4D081F00A3A;
-	Sat,  5 Sep 2026 21:23:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788643391;
-	bh=GaYaCLQWkUPN1UE3GQCYoH5gflndJfXs8R2bwH6Dzak=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nmRBMG9DnEBTf9Z0geNU2/+AH/EHD8TRqZ75+Eeg6+DodSoPbBfr+dZ0eLL1u3UkZ
-	 UXe8kOHyk5emKCN04jVknkvtLmvpN2gz5Ibooh4O3Tg1Dt27szbC5R+Y1Gab50WKvz
-	 nkfKI7ADrzsn3IusQNqNXMJrpZlEOdCcK+EgsKaVajEh4kgXGLSbU69f2EYCzEFinB
-	 HJ6EDAr7glj7cR0KbHQgwZyW0q10Ump9HrTwFUweLakdx8Jcb//05K4pth7Iab8/UY
-	 wCHH/Lr+1nWHXvfrKt/MOVLHtRPd//7Y5wKnnbM6tN5lgg57DAnwRT4qN5SYzT4uHS
-	 SoLrQtNP8UBXg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] phy: ti: ti-pipe3: allow configuring ACSPCIe
- TX/RX mode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Oberhollenzer" <david.oberhollenzer@sigma-star.at>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, vkoul@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260905211555.15944-3-david.oberhollenzer@sigma-star.at>
-References: <20260905211555.15944-1-david.oberhollenzer@sigma-star.at>
- <20260905211555.15944-3-david.oberhollenzer@sigma-star.at>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 21:23:10 +0000
-Message-Id: <20260905212310.B4D081F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="USRxiGVq";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="mUxDMEGj"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hcmcj0HfNz8vB8;
+	Sat, 05 Sep 2026 23:27:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788643621;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=byhUwPGDHTqPvdp0b0HFuOv9xgDF4NgJ1ULDOsBqB2Q=;
+	b=USRxiGVqZLV0GrotiY4BSnk5gap7zRuPAK+jYIRpahLUvsDIzq+rnlg/aQuRm/ylP3LS9V
+	HOJklucPrNt4NJEZHJvxvkiRePdCl4vl8W0/pM9nmCnoi1RfXR84/3nu36xEq9TDYkCDqj
+	F2lkdgNOV6M+l6NFSznq7pybJYFb8FneWgCHYCyRYWeAsz+kCri4NkQZu5wlZtN6Y2A/Yr
+	D+7G1ohHzsUl7bA77thHWTrbbBPYIs5VvI/h7IseAZI/mdQltCZSU3l7TzM95gceguyYxj
+	VWPohzegDFAnUe/3cgFHf060xXqbF1PGZl76X7DDIYtiTyg+lLdwChmHsO9NYQ==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788643619;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=byhUwPGDHTqPvdp0b0HFuOv9xgDF4NgJ1ULDOsBqB2Q=;
+	b=mUxDMEGjQ+1N76oGczIiVS1gyo4kZAHamA07bYYMipMe9EftBTpEvwjwSbY6gYzyoWLsWV
+	1aaNdMxW9vPxigp7LFoqkvzcFzRhvDfLjWfSXtitzBZmcsz8HZwsExRfgG54IY6rbK6d36
+	u32NxLES+rDOaLnfFNaN5vTdHN52zbXAPoEcAVkBNMTheEwtjNyjgvND8khKYo09sPBkRz
+	hIyBPIWNm1Gch/eCJJmRNjlWvtJtaicMWFHdOOzS+c6rYJtnCm2sebL1IPL3zun38x9v7e
+	77jPOfgi96uzKy1dSpIukWl/fFnXkI7sDPs357/scJJIrCvXluMcIV9Yh8wS9Q==
+To: linux-pci@vger.kernel.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v4 0/6] PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
+Date: Sat,  5 Sep 2026 23:26:21 +0200
+Message-ID: <20260905212649.360498-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 6oq5y3ems7bejjyqx45jua56exwoy133
+X-MBO-RS-ID: ee287531a7baea1c1ea
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The driver improperly handles errors from `syscon_regmap_lookup_by=
-_phandle_args()`, breaking probe deferral and masking failure states.
---
+Add support for R8A78000 (R-Car X5H) PCIe4.
 
-commit 222aba3021868be395b0b2808f4e70dc057987a7
-Author: David Oberhollenzer <david.oberhollenzer@sigma-star.at>
+This driver previously supported R-Car Gen4 S4/V4H/V4M. PCIe features
+of R-Car X5H PCIe4 are almost all the same, except for different PHY
+which has its own driver, slightly different initialization code and
+the DMA is no longer eDMA but HDMA.
 
-phy: ti: ti-pipe3: allow configuring ACSPCIe TX/RX mode
+Endpoint mode is currently not implemented for R-Car Gen5 PCIe4.
 
-For the PCIe PHYs, read the property from the device tree and
-update the RX/TX mode selection bits in the specified syscon
-register.
+Marek Vasut (6):
+  dt-bindings: PCI: rcar-gen4-pci-host: Add R-Car X5H PCIe4 compatible
+  PCI: dwc: rcar-gen4: Rework rcar_gen4_pcie_drvdata
+    .additional_common_init into .init
+  PCI: dwc: rcar-gen4: Add .deinit callback
+  PCI: dwc: rcar-gen4: Split .start_link into ltssm_control and
+    speed_control
+  PCI: dwc: rcar-gen4: Handle PERST via reset subsystem
+  PCI: dwc: rcar-gen4: Add support for R-Car X5H PCIe4
 
-> diff --git a/drivers/phy/ti/phy-ti-pipe3.c b/drivers/phy/ti/phy-ti-pipe3.c
-> index b5543b5c674c8..bc02010dadb74 100644
-> --- a/drivers/phy/ti/phy-ti-pipe3.c
-> +++ b/drivers/phy/ti/phy-ti-pipe3.c
+ .../bindings/pci/rcar-gen4-pci-host.yaml      |  74 +++--
+ drivers/pci/controller/dwc/pcie-rcar-gen4.c   | 264 +++++++++++++++---
+ 2 files changed, 277 insertions(+), 61 deletions(-)
 
-[ ... ]
+---
+Cc: "Krzysztof Wilczyński" <kwilczynski@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>
+Cc: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
 
-> @@ -785,6 +788,24 @@ static int ti_pipe3_get_pll_base(struct ti_pipe3 *ph=
-y)
->  	return PTR_ERR_OR_ZERO(phy->pll_ctrl_base);
->  }
-> =20
-> +static int ti_pipe3_acspcie_tx_rx_mode(struct ti_pipe3 *phy)
-> +{
-> +	struct device_node *np =3D phy->dev->of_node;
-> +	struct regmap *regmap;
-> +	unsigned int args[2];
-> +
-> +	regmap =3D syscon_regmap_lookup_by_phandle_args(np,
-> +						      "ti,syscon-acspcie-tx-rx",
-> +						      2, args);
-> +	if (IS_ERR(regmap)) {
-> +		dev_warn(phy->dev, "can't get ti,syscon-acspcie-tx-rx\n");
-> +		return -EINVAL;
+-- 
+2.53.0
 
-[Severity: High]
-Does this mask the original error code (such as -EPROBE_DEFER or -ENOENT)
-from syscon_regmap_lookup_by_phandle_args() by returning a hardcoded
--EINVAL? Unconditionally logging a warning and returning -EINVAL could
-break probe deferral if the syscon device probes later.
-
-> +	}
-> +
-> +	return regmap_update_bits(regmap, args[0], PCIE_TX_RX_CTRL_MASK,
-> +				  args[1] << PCIE_TX_RX_CTRL_SHIFT);
-> +}
-> +
->  static int ti_pipe3_probe(struct platform_device *pdev)
->  {
->  	struct ti_pipe3 *phy;
-> @@ -807,6 +828,12 @@ static int ti_pipe3_probe(struct platform_device *pd=
-ev)
->  	phy->dpll_map =3D data->dpll_map;
->  	phy->settings =3D data->settings;
-> =20
-> +	if (phy->mode =3D=3D PIPE3_MODE_PCIE) {
-> +		ret =3D ti_pipe3_acspcie_tx_rx_mode(phy);
-> +		if (ret)
-> +			dev_warn(dev, "failed to set ACSPCIe TX/RX mode\n");
-> +	}
-> +
->  	ret =3D ti_pipe3_get_pll_base(phy);
-
-[Severity: High]
-Does this overwrite the returned error code in ret with the result of
-ti_pipe3_get_pll_base()? If ti_pipe3_acspcie_tx_rx_mode() failed or
-should have been deferred, ignoring the error here causes the probe
-function to falsely succeed without configuring the PHY.
-
->  	if (ret)
->  		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260905211555.1594=
-4-1-david.oberhollenzer@sigma-star.at?part=3D2
