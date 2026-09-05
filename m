@@ -1,121 +1,350 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4204227CCE0;
-	Sat,  5 Sep 2026 21:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB3E372B27
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 21:52:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788644943; cv=none; b=WPJZeF1oV6WwyJ1bpa4Pa+GQRP1ID5cSOVre36SYoHxXZdbnFWI+UMdGlYIOYY3CLvC4jc2kEEVengKx3y+wNZ8XPSVGwh51KWLcekJ8lXXqCeux/wdCkPxJhYQWh8Riwwmwc+4k6h9QFrIFrE0YvlmTNc1wtfSq6OPLPCzgncI=
+	t=1788645168; cv=none; b=N++MnTiC3R9QnPLK0qflnd23it/FkjblL6iia/WaD1DcYC2V6O2XjR+kj9H4fta2WmHYnpKs/lvnO8xq/mMixrrDebDLb7+UtBdf8LaF1EsmIVfdnYaH4hp3pa+1mjSN9LN1b/VD7Rt9rfbHxaltjosuwql3GLtdo64y+i1M6iY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788644943; c=relaxed/simple;
-	bh=nK4VDzo2w+Yz90V1Vl2xVdyqfqMFI8yazCCJBQVYDqY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uFmkYCFx+c7IHx7ptnX0ifjcOZzzN0lWs0HNoL/jd++gJF7S5Pc6pQRYNpOP/2TehJoZAQmj2ZaAKIzquKdMLnkhs72HujF4gqI1KKhRyYGsqY3we0JOTi9ZDNNJ5W4mLiWiyeVC5grsCF7M6987LbavQSyY2DYYp73n0y47tus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZYjGGaW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788645168; c=relaxed/simple;
+	bh=+8fq0VGHmZ+jIIifRhTsmw5nC8PD26zUCtpHZTRIBBE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=JPJr2GH5QRqfISLkftXNMG6NBtsFsMdILpUEgIykLwRfw7Y03OcNmL5/QaiT68rtEBwDt+B7/PJ1aL8QE2gy5SNCXSdFFiufMBEaNoumz/ypu3C55Q1UXGjLwGEpV1qktiUnDb7nrNLDhK3idhPAfMG+nd9wx3/v44hbtnmvBdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HAmXChYh; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZYjGGaW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AD71F00A3A;
-	Sat,  5 Sep 2026 21:49:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788644942;
-	bh=M8vYBLo3iZtM7UqAc+TKk4TOI5xjkKlIlDJFeLhnAzU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mZYjGGaWkFR1ZhZ8Vz15K1+3qiWtpXbWRwT6RzCA2lPFlJZJveg6iah3vf1mgpiof
-	 7eHQ5PVZ/wlymbmWP2nwh3R5cgGm6HRN5Mig4P0yRjvoPoDFeFdCTZaqEvIBOzjaqa
-	 RBW6R93T2+znXkHqm6GWDYn02WBhXfYodLARyuNYozN2+4zaoHgrvAtw9dWJVYQdKM
-	 iiXdrLCV8AXi45LWT8Ydt6piAeOYlHgqPgqyxv3yDohiObKKv1Fhiljpsd21cP5RrS
-	 qLF42wcqLf0naQ7XSa4rrZ4kVbDbAqYY7x47DzxrVQlXHFLZMxvOnpibcIxbetlQdz
-	 kMd59zav9QQBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] dt-bindings: clock: ti,da850-pll: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Bhargav Joshi" <j.bhargav.u@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260906-ti-pll-v3-1-d1751f4648f0@gmail.com>
-References: <20260906-ti-pll-v3-1-d1751f4648f0@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 05 Sep 2026 21:49:01 +0000
-Message-Id: <20260905214901.D1AD71F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HAmXChYh"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-484362f5c4aso2747449f8f.3
+        for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 14:52:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788645165; x=1789249965; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N6JGOcfYrEaC/Ge4obmi2SIi++QOKaMHavxPseBP1/Y=;
+        b=HAmXChYhMioYg/CV1qbejZJ8lWV7tfSUDyCfyrxNPQR6h9rRPQUbmUJ2sJE5MCHw4R
+         t5DyALwuhH5uO/c7vGURVbKExlKduK9LebdgunzRr95x9AZLtvpRMx6zNczny2Z+lpkX
+         8Et5uDV+KR7O769GFAVdfh66GSjHtPgcnMx6qxo8Kf2Z7zkwDkF74VBN7DvQBkS///zh
+         YLH9FlJfJspQactO3Fo/z98Y/kLXit+Ilq4XvQjCvCjBA8c4mRs2QFpDlCGnWBFwsGxN
+         8+vKB811PeJuxJokjNARsGu87kEHh/LT6diuhjKcbyMZ93QerXnfFNA24aZAXr5vIex+
+         KioQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788645165; x=1789249965;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=N6JGOcfYrEaC/Ge4obmi2SIi++QOKaMHavxPseBP1/Y=;
+        b=WB/kMLy4Ij7IocBjzSmCPIYKulMpS9Z5lKpCRSxwICuwSlNBxDOzL1lIJwUJpupahR
+         AbKZpkf+wZT+BFDXPuFUzAhE2riFzixj+fF6pBVSdAu2Lf9UrpNGbt0k9FKD6nDQZmBz
+         lGKuR8i8JR9j094c1a0w3ImD/nNGLwF75uD7H7VZR0M0am0LVfiMXObzXGyxSvGqt3Ig
+         Phi7IN4V1V4OsSoO5FAOaiac1519N2tS8i5HQD2IFkuh9YGlgoLFeV2BLif7sKNni4w3
+         0HHjQfkjdVHhhx0bTYryo8SiSOU3sYnhl6ejRkzISRNe+42lLg8DVFL83R7KrUK4tzs7
+         tI1g==
+X-Forwarded-Encrypted: i=1; AKwUvByMSTZ6lvJ+uzBBBP3py5fL1zrajsMTyMOy7JzNrVQKawLSElayfjD2hBV+7RyuM92qZQGSE0mS0z1N@vger.kernel.org
+X-Gm-Message-State: AFuF++n8E6JaQlPnJjMW8ppyRu3w6o2MVVSuT+ydwld8FTy4PAisTr2m
+	jwEcHopBSwPN0fUNCvGLWqohEThgb9z9H6EhJqFL41NHYglSKp483cdc
+X-Gm-Gg: AYBFou0Ohwfz6aJF6HmZnM/Nw0ObFYn6w6Co0lJfqGaaC89Fua8vOJcpKM510CGpb4s
+	HWQuEH3yTozz+SciiDHG/cDe/BBWrQrSSJ6D7vEqCOAiLItazMd4A5fgXqC34rtpAKaqs6G0Jq/
+	srECYU2+OQgmmUpxnc9upYV5tesUBZjU/0MQIHPXMH/zWffghozmD+g824d9esN0/Ny3zxA52G7
+	U3UeNYHDBJ0KguKRxrXttgLSCHe39IVkDC/BVHKIKG0CUPaw7XD1AIX8XmYX7aDRvP/2HsnL1Vr
+	6N12VOxywxQdZNXpRbjSfNxTy4d+LcLWg2sBhNJrRCtPJ0EWRqZAp00lSiOn5qAGWtM1DRWLEqy
+	K5v4i/KGIAiCmonU+ykxGhyEPZRCqE4rgJiZSaorM0/Xz1Xa21S+NS2AvDhhMZCuuUnpEVd5hzJ
+	tiQMK47eHh/S1paFHBG8pFQOgJIJMfhD2fVsE0vAFV4E57LHY3TDVQZbli16HRfaNL4saFRHUGU
+	hgoQf3aJEFQPPZ//tyMkyuAo+MyEZ+Xk7ddFMWbUA==
+X-Received: by 2002:a05:6000:4b11:b0:484:3310:c4fe with SMTP id ffacd0b85a97d-4858709b13amr30736305f8f.25.1788645164635;
+        Sat, 05 Sep 2026 14:52:44 -0700 (PDT)
+Received: from localhost.localdomain ([82.137.32.184])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485883acd33sm15700165f8f.18.2026.09.05.14.52.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 14:52:43 -0700 (PDT)
+From: Eduard Bostina <egbostina@gmail.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Eduard Bostina <egbostina@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v4] dt-bindings: mfd: Convert TI TWL6040 to DT schema
+Date: Sat,  5 Sep 2026 21:52:34 +0000
+Message-ID: <20260905215234.454266-1-egbostina@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The schema fails to enforce that `ti,da850-pll0` requires exactl=
-y two clocks, making the second clock optional and violating the original t=
-ext binding constraints.
---
+Convert the Texas Instruments TWL6040 audio codecs family bindings to DT
+schema.
 
-commit 1e378ce145d7c772d10cbc597290a47125cd1157
-Author: Bhargav Joshi <j.bhargav.u@gmail.com>
+During the conversion, the following updates were made:
+- Changed 'twl6040,audpwron-gpio' to 'ti,audpwron-gpio', which was
+  misnamed in the old txt binding.
+- Made 'gpio-controller', '#gpio-cells', and 'ti,audpwron-gpio' optional
+  because modern platforms do not require them.
+- Renamed the vibra 'vddvibl_uV'/'vddvibr_uV' properties to
+  'ti,vddvibl-uV'/'ti,vddvibr-uV', the names actually read by the
+  twl6040-vibra driver.
+- Required 'vddvibl-supply' and 'vddvibr-supply' when the 'vibra' child
+  node is present, since the twl6040-vibra driver unconditionally
+  requests both.
 
-dt-bindings: clock: ti,da850-pll: Convert to DT schema
-   =20
-Convert TI da850-pll binding from legacy text to dt schema.
-No functional change is introduced during conversion.
+Signed-off-by: Eduard Bostina <egbostina@gmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+Changes in v4:
+- Add blank lines between the vibra child node's properties for
+  readability, as requested in review. No functional change.
 
-Link: https://lore.kernel.org/r/20260717-ti-pll-v1-1-f6f9ba8c9b5e@gmail.com
+Link to v3: https://lore.kernel.org/all/20260817100207.2970303-1-egbostina@gmail.com/
+Link to v2: https://lore.kernel.org/all/20260816092847.2522994-1-egbostina@gmail.com/
+Link to v1: https://lore.kernel.org/all/20260815083451.2147129-1-egbostina@gmail.com/
 
-> diff --git a/Documentation/devicetree/bindings/clock/ti/davinci/ti,da850-=
-pll.yaml b/Documentation/devicetree/bindings/clock/ti/davinci/ti,da850-pll.=
-yaml
-> new file mode 100644
-> index 0000000000000..c6563290a702b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/ti/davinci/ti,da850-pll.yaml
-> @@ -0,0 +1,164 @@
-[ ... ]
-> +  clocks:
-> +    minItems: 1
-> +    items:
-> +      - description: Primary reference clock input
-> +      - description: External clock source
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    items:
-> +      - const: clksrc
-> +      - const: extclksrc
+ .../devicetree/bindings/mfd/ti,twl6040.yaml   | 156 ++++++++++++++++++
+ .../devicetree/bindings/mfd/twl6040.txt       |  67 --------
+ 2 files changed, 156 insertions(+), 67 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+ delete mode 100644 Documentation/devicetree/bindings/mfd/twl6040.txt
 
-[Severity: Medium]
-Does this schema unintentionally allow ti,da850-pll0 configurations with mi=
-ssing
-external clocks to pass validation?
+diff --git a/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+new file mode 100644
+index 000000000000..5efcd79b527c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/mfd/ti,twl6040.yaml
+@@ -0,0 +1,156 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/mfd/ti,twl6040.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TWL6040 family audio codec
++
++maintainers:
++  - Eduard Bostina <egbostina@gmail.com>
++
++description:
++  The TWL6040s are 8-channel high quality low-power audio codecs providing
++  audio, vibra and GPO functionality on OMAP4+ platforms. They are connected
++  to the host processor via i2c for commands, McPDM for audio data and
++  commands.
++
++properties:
++  compatible:
++    enum:
++      - ti,twl6040
++      - ti,twl6041
++
++  reg:
++    const: 0x4b
++
++  interrupts:
++    maxItems: 1
++
++  gpio-controller: true
++
++  "#gpio-cells":
++    const: 1
++
++  "#clock-cells":
++    const: 0
++
++  ti,audpwron-gpio:
++    maxItems: 1
++    description: Power on GPIO line for the twl6040
++
++  vio-supply:
++    description: Regulator for the twl6040 VIO supply
++
++  v2v1-supply:
++    description: Regulator for the twl6040 V2V1 supply
++
++  enable-active-high:
++    type: boolean
++    description: To power on the twl6040 during boot.
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++
++  clock-names:
++    minItems: 1
++    maxItems: 2
++    items:
++      enum:
++        - clk32k
++        - mclk
++
++  vddvibl-supply:
++    description: Regulator for the left vibra motor
++
++  vddvibr-supply:
++    description: Regulator for the right vibra motor
++
++  vibra:
++    type: object
++    additionalProperties: false
++    properties:
++      ti,vibldrv-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for left driver
++
++      ti,vibrdrv-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for right driver
++
++      ti,viblmotor-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for left motor
++
++      ti,vibrmotor-res:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: Resistance parameter for right motor
++
++      ti,vddvibl-uV:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: vddvibl default voltage if it needs to be changed
++
++      ti,vddvibr-uV:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description: vddvibr default voltage if it needs to be changed
++
++    required:
++      - ti,vibldrv-res
++      - ti,vibrdrv-res
++      - ti,viblmotor-res
++      - ti,vibrmotor-res
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - "#clock-cells"
++  - vio-supply
++  - v2v1-supply
++
++allOf:
++  - if:
++      required:
++        - vibra
++    then:
++      required:
++        - vddvibl-supply
++        - vddvibr-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        audio-codec@4b {
++            compatible = "ti,twl6040";
++            reg = <0x4b>;
++            interrupts = <0 119 IRQ_TYPE_LEVEL_HIGH>;
++            interrupt-parent = <&gic>;
++            gpio-controller;
++            #gpio-cells = <1>;
++            #clock-cells = <0>;
++            ti,audpwron-gpio = <&gpio4 31 0>;
++
++            vio-supply = <&v1v8>;
++            v2v1-supply = <&v2v1>;
++            enable-active-high;
++
++            /* regulators for vibra motor */
++            vddvibl-supply = <&vbat>;
++            vddvibr-supply = <&vbat>;
++
++            vibra {
++                ti,vibldrv-res = <8>;
++                ti,vibrdrv-res = <3>;
++                ti,viblmotor-res = <10>;
++                ti,vibrmotor-res = <10>;
++            };
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/mfd/twl6040.txt b/Documentation/devicetree/bindings/mfd/twl6040.txt
+deleted file mode 100644
+index dfd8683ede0c..000000000000
+--- a/Documentation/devicetree/bindings/mfd/twl6040.txt
++++ /dev/null
+@@ -1,67 +0,0 @@
+-Texas Instruments TWL6040 family
+-
+-The TWL6040s are 8-channel high quality low-power audio codecs providing audio,
+-vibra and GPO functionality on OMAP4+ platforms.
+-They are connected to the host processor via i2c for commands, McPDM for audio
+-data and commands.
+-
+-Required properties:
+-- compatible : "ti,twl6040" for twl6040, "ti,twl6041" for twl6041
+-- reg: must be 0x4b for i2c address
+-- interrupts: twl6040 has one interrupt line connecteded to the main SoC
+-- gpio-controller:
+-- #gpio-cells = <1>: twl6040 provides GPO lines.
+-- #clock-cells = <0>; twl6040 is a provider of pdmclk which is used by McPDM
+-- twl6040,audpwron-gpio: Power on GPIO line for the twl6040
+-
+-- vio-supply: Regulator for the twl6040 VIO supply
+-- v2v1-supply: Regulator for the twl6040 V2V1 supply
+-
+-Optional properties, nodes:
+-- enable-active-high: To power on the twl6040 during boot.
+-- clocks: phandle to the clk32k and/or to mclk clock provider
+-- clock-names: Must be "clk32k" for the 32K clock and "mclk" for the MCLK.
+-
+-Vibra functionality
+-Required properties:
+-- vddvibl-supply: Regulator for the left vibra motor
+-- vddvibr-supply: Regulator for the right vibra motor
+-- vibra { }: Configuration section for vibra parameters containing the following
+-	     properties:
+-- ti,vibldrv-res: Resistance parameter for left driver
+-- ti,vibrdrv-res: Resistance parameter for right driver
+-- ti,viblmotor-res: Resistance parameter for left motor
+-- ti,viblmotor-res: Resistance parameter for right motor
+-
+-Optional properties within vibra { } section:
+-- vddvibl_uV: If the vddvibl default voltage need to be changed
+-- vddvibr_uV: If the vddvibr default voltage need to be changed
+-
+-Example:
+-&i2c1 {
+-	twl6040: twl@4b {
+-		compatible = "ti,twl6040";
+-
+-		interrupts = <0 119 4>;
+-		interrupt-parent = <&gic>;
+-		twl6040,audpwron-gpio = <&gpio4 31 0>;
+-
+-		vio-supply = <&v1v8>;
+-		v2v1-supply = <&v2v1>;
+-		enable-active-high;
+-
+-		/* regulators for vibra motor */
+-		vddvibl-supply = <&vbat>;
+-		vddvibr-supply = <&vbat>;
+-
+-		vibra {
+-			/* Vibra driver, motor resistance parameters */
+-			ti,vibldrv-res = <8>;
+-			ti,vibrdrv-res = <3>;
+-			ti,viblmotor-res = <10>;
+-			ti,vibrmotor-res = <10>;
+-		};
+-	};
+-};
+-
+-/include/ "twl6040.dtsi"
+-- 
+2.43.0
 
-The global properties.clocks and properties.clock-names definitions both set
-minItems: 1, which effectively makes the second clock (extclksrc) optional =
-for
-all compatible strings.
-
-[ ... ]
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: ti,da850-pll1
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        clock-names:
-> +          maxItems: 1
-> +        ti,clkmode-square-wave: false
-> +        auxclk: false
-
-[Severity: Medium]
-While the allOf block correctly restricts ti,da850-pll1 to a single clock,
-it appears to miss a matching conditional block (or else-clause) to enforce
-the minItems: 2 requirement for ti,da850-pll0.
-
-Since the original text binding mandated two clocks for ti,da850-pll0, shou=
-ld
-there be a corresponding if-then block ensuring minItems: 2 for pll0?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-ti-pll-v3-=
-1-d1751f4648f0@gmail.com?part=3D1
