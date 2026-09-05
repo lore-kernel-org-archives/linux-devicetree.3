@@ -1,180 +1,189 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7467437C0FD
-	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 03:05:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFFC2346AFB
+	for <devicetree@vger.kernel.org>; Sat,  5 Sep 2026 03:17:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577520; cv=none; b=TiXlFBkniQ6CGt+c6ZrkK6fOqVuSh4wH627HgYZ3kcXyOowLrahcpUJ//G8oEcEljZQasdZMqo5k9/ScMKOJt/yjPPHiSi3gz8005CjjWxdvpJ6wUbiwSZ2OmAWkSehLT+FsGH7czCPYSL5Rzn4alcKEK29QsbHXM+F5FSg8SIQ=
+	t=1788578222; cv=none; b=kKwvsop20gallE8MfbBMTsJxwEA4y85xlw2NszKpW3EYNLyj5k8zA8zOdOvQm1O3dVW2oe1cgi9Pv+eJRQk1VKqeH1rRqie5vPUPq78OtoCjcUODmR/1gSIL99RZdmPQfGFdsWU+DIHLigqLtlYVftJswX3Cc9SCM0YxR962MFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577520; c=relaxed/simple;
-	bh=rxreaSuQlW6s6Kj0djllXV7THEUegGiCKPjGOUpJHrQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hasfaBe/fuGumOiT3fqtd9Ml8//0pnuixenU20DcNrZnyLbE7XEurxMzWXlV4yl6QOvDeUnskYIXymD0coLL/r7vuTSwULB4ZS3duOT9h9fwA4IndOaQRJJYFdvsLoE9C28PVuTRVIGXKU2UoIWZuRNz7GLteOW/PAiJtT/LcZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ss93fWjm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PuvjzhDA; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788578222; c=relaxed/simple;
+	bh=nisr5ziN83/vvuUa7fT3PuLqT+p6PzbxVPM+MpNzzyY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cNeLQTQwp778qgJVXDJOr1YTpeAqtmAkEchvu8W8X/YDADS99juLD75qM18/8mLmHWN6AREOo3zfTRf4jdblkQZCCId9ajUYCJp05Iv2cBy9xFUb6hWUzcBImLHM1zCDZaZBgOjA6P4mLgeket2Rdhttdl+I0O2GiCIfzr7OTcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=emcElXoP; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ss93fWjm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PuvjzhDA"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6852Br6D1414782
-	for <devicetree@vger.kernel.org>; Sat, 5 Sep 2026 03:05:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QVA9Ee4d2h5FVxtmuChNaYXSYJO45ZWL92iBFqLOn1M=; b=Ss93fWjmY5uogyHA
-	K+bddQUymiuexwiyW7xRT6MSjvTw+XC+qIDB3E5lmvpUgRsyGCS6onf6VVp6UmjI
-	oXzN0otV9ZXIILZ8mW+Kw0Eb2ogLelGXaRPp8tp60dpcGRhG8i6dZ/tlbMwLt7WR
-	HKABDdf7eHIwJfYyCysazqTr/zetuE4c2g4NLzSW9uRVDDyZo624BfPlPFJxsk8k
-	oIG972IZT7qKBQFPPG7yvJZrat77q4+h6zBf8BuSdg35y3zaGq0DjqT4//ARfU0A
-	2Qu2Y7BCWYdxhuiV2aG/C6YVflZVZ1Ov6v3ZvVoTaGqySxP/WevmtQvFqO8aZEUs
-	lVGPtg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gga3703cv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 05 Sep 2026 03:05:17 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-381250979d5so1984197a91.0
-        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 20:05:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="emcElXoP"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b0dbfbf7bso13282235e9.2
+        for <devicetree@vger.kernel.org>; Fri, 04 Sep 2026 20:17:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788577516; x=1789182316; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QVA9Ee4d2h5FVxtmuChNaYXSYJO45ZWL92iBFqLOn1M=;
-        b=PuvjzhDAQO6CDx8ewbrW77Xust0Lg7QocJKLQzstCSRDVCPOqQut3IcGbgwPHh3306
-         7eRPBy2153lVnRk/hGNZelE9j4VqdS3ECPynQQqiThBQq1p2kCmcZ1HNQr5wNn61KYHZ
-         eDVvDCbIHhflPQuhZ8vVSi+2IkNH22QaFVUzwjcth0WYy5I9aDIFc9HSGpIE+wMf6NET
-         Clk+TOYaF/a9KSXgYmVsz59xaxg/0SL7QczyAB1GyiLT44LYQC++A9k8hqpu2srpiY6A
-         MeDgKUplGzBsfa2cqR5Cza+Zpm99qcnnmyYqHNyvLPPAwyxPa4qJCPRejspeF4Crrr2/
-         /CyA==
+        d=gmail.com; s=20251104; t=1788578219; x=1789183019; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8CCZA4VoDQ6PBSjxOO7MB9iXLnCy8XMS9eXQBMC5ARg=;
+        b=emcElXoPd/CpicMigbR4GkjKbrYQqlM0ZiDTIA0ANk+1UIx4DZMwCvmaD2BhVVwdBT
+         WANjQpLgcW9cQvDBap32/OtBEchdR6eyqPin1L8Y7HJgUtl6sq7vCxJjTJGp4EBgU+AD
+         HXebsTKpdR3GW2XVvn9lX/evdwmDGjPOFU5yotWWARO7z7Wv41s7uDJ47fCLiHfVp/wU
+         +NsMn/88ux5gUTECavihyiJTc/04/uN0eh4KV1vYeNebYcyh6OlA4Qk2bXnAH9uBWZqk
+         YtExYwac8f6wab/wyv+C0eB8h2euyGqzA4qjDYMQhqnlE8SdeUjYB+7Fqzn1x+cRVxvV
+         nOgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788577516; x=1789182316;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1788578219; x=1789183019;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=QVA9Ee4d2h5FVxtmuChNaYXSYJO45ZWL92iBFqLOn1M=;
-        b=nO6o+MOtUgLVTEPC5N1oZt8UTD6AspVxWGgQg8wWx3ZUNasBOO/Qyj64qihPl9uKrS
-         WkE7q4wnoBixkF3HgQiGMlfgGiMt8y48DBJDQtGFt6B5PPDFyBlJKqvV7YLYIjE4uhUf
-         oklxWnr+nKIQ/JqbonBqNxJ3W16goEEUpg4XE9FXwEVuYb7gUGyzfZZKTiKkVsajCj48
-         ALmbHaBMsZLVr2CJl/D96FH6P+zHKtszIwQZyp5kxnr0ah7w425bvttpsKWkbPx/Bdst
-         Nith9NgpEScBYSDJLI+1LrdIIHjOLvXHyBDgZjqL0YhHWCRbdCiBfeoTy5/wLpfPqvOv
-         5ATw==
-X-Forwarded-Encrypted: i=1; AKwUvByuWKNvV2vmWMJB+VTAiuZUe0kLhpbFICG/2Yj5Ta5EozGsMWHl5Yy92ArpMug/8GRK08ULA/uasJz9@vger.kernel.org
-X-Gm-Message-State: AFuF++muoxVhzeltWsWxPKSHxQS2MHK9DLv9brS1NhH6Z1i1Zdt+GvdS
-	XRHWtxsfzb1C0wrAW6jOW0TDTwdqrzrbfXI2FUvR38i1vAriE20L35+Mye5JTmxCOboD6RWpiP5
-	b6g8n90g/kvubkWrtjBrAtpRZKF0ueo4JEJSK7++VXCFXDtOtcOSxu9HUyCtd7Ktf
-X-Gm-Gg: AYBFou3gY3eTn6fjV9/tY33gxWshGvaKsmoNguK+bR6fQe+9FoIfFhh86QHV/EIDwVO
-	UQkLqsuqQ4H1JzS2CMwyI6jllncDDmbo6rwdIet6kgBhJ/OSG8Fi8YjfljzmwmI3PHCaSjbqb/r
-	H0memkMcPhd5/hncKQg+sOvUt13K8WfAmfZjOxCMGEa2yLdNGdxOo/aHbfrE8ZIOLmaF4bR5AJp
-	ZGG/7Kf/ed8t+1XChFAmqSzKgSWsLhtjH7ljKD+YOrvizavU1PNlkrMYhDbZW8hvRnQkHAXw26y
-	RVtoe2rQGRM8Tkghbshb8DtdMzYVkieObMlPVM6skQAw75yLWe6erujeBIERxxzmozIlEflDaGi
-	RCKNQnRpyOOEy/dbrUBUY+pPEtjj2ikx9fYcs6uW91A==
-X-Received: by 2002:a17:90b:4e8f:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39b261ba63bmr14724493a91.11.1788577516458;
-        Fri, 04 Sep 2026 20:05:16 -0700 (PDT)
-X-Received: by 2002:a17:90b:4e8f:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-39b261ba63bmr14724420a91.11.1788577516042;
-        Fri, 04 Sep 2026 20:05:16 -0700 (PDT)
-Received: from [169.254.0.13] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa36b37sm10066268eec.14.2026.09.04.20.05.15
+        bh=8CCZA4VoDQ6PBSjxOO7MB9iXLnCy8XMS9eXQBMC5ARg=;
+        b=Y1yJl2nKnkpeEJZ5PFyi4mLshZt2+dhZvERGBf5LbGZAh2ITbhCP4ClrzIglYu/W+g
+         +4vK9Y2pNRNdbQxHUeGsPgCE27xjEdRHIuet5AqKRms+DKXS1xnTgZ+3U0ZXTQXw/AZC
+         1wLg1TVqxrqKlZ7nN7PfCpkv+UTv0fFLmsVEDzrpQvJxe1H0nGDm/lnVAOF6RrY6q1Rr
+         gLMtD3/mZyV0sPNbpbheU3r0Oks+eeJX98mgclIBv8zeMrYgecsCxObly6A5HmQ6QgQt
+         2+VHlY8Gauq9bLhkx0a+TCJGK35jv32J+k2/vW08ejvPJYvWUAAbDZO9JE80Fmx44xuu
+         3LVw==
+X-Forwarded-Encrypted: i=1; AKwUvBzd59PFgq8e0tQ87tt9f4q/oSfDF8czEdw/WVeMW201bcYbojGmIlFNmPJ3yTL2LZcGdspY7fNzPKVJ@vger.kernel.org
+X-Gm-Message-State: AFuF++nLU/NyCCaHEoVqpQOaDVGVPGAc7XsiVoIuBhlW3SMFk4lmjJyK
+	aqz1oRk6wSoZdtmVDIV1dvbIs8AROAbC2dn0eY3wlo4vHygBo9+Y7ctF
+X-Gm-Gg: AYBFou2cMZ9ZATP1SYW3NbvstPHFHfDVvqiSfddzlrTrBxZkeNI3+sBeI7wLDL60MXE
+	0AlWCH4Qw4i4JVo8jtTrOcMwQX8/NB2cscbGXLRp+9Oj9XZIcqbtysYgh8PJgkhm6s6Ps1PRR6S
+	NIYFOCvMBgMMEvJ34NTxWbvrSqtpf4Je8ddqelIs9ueexv751U8/Xo+Y9F1Y22o8NL/AXJGTaIb
+	qD7ErltBgd207MtvXLBP6WDBsGi5p+cn6VMXGjmT6gflXUzR4oMijpNKWVkfhMKhmcVVSbS+Ihy
+	+wJzLfAOf37gHsBYpYbfuJ0iezpgwQlGvn/7bE+jjTNa/lCxJRGe3fsdQevE3/GeIYXVJ9McjhO
+	59Bd/DT/WA0srC3/R6hSOZRokUXoznNCnsjNC5NYmPj2YuBYvlWbC74UQFCAAW/tUJv0PaCi/nH
+	OtMbXnlyzP8XfuvESADfkpKuQAMU7aUiCl6VJA8tehMOsgc80yx5eP2faskM4eRM776U6FA6f66
+	H/SYENj8LdSBOyj5EHAS5LZz/kuPakSTf0qmsofybv0xaU+vtUnb7FHLO32+dlwlZ5oiSDvcPW9
+	HTmlDhP6lSUjH5ggeLWCpIynqtwov8+SdCbOz45d9zPZS2RXKuOUXOZ7ppQq9pR85aMkWluSOzJ
+	7lKAN+KyhSPziWB6GLxuKJYDdO9ZtKSNRmU5XdRNZ8XdYUwMKBrezEw==
+X-Received: by 2002:a05:600c:1d01:b0:499:cd34:f7c with SMTP id 5b1f17b1804b1-49cf81e6f87mr157093075e9.5.1788578218915;
+        Fri, 04 Sep 2026 20:16:58 -0700 (PDT)
+Received: from jernej-laptop.localnet ([188.159.248.16])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d03543064sm25312595e9.13.2026.09.04.20.16.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 20:05:15 -0700 (PDT)
-From: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
-Date: Sat, 05 Sep 2026 03:05:05 +0000
-Subject: [PATCH v2 3/3] arm64: defconfig: Enable PMIC5 Gen3 ADC thermal
- monitor
+        Fri, 04 Sep 2026 20:16:58 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ Maxime Ripard <mripard@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Barzin Lotfabadi <barzin221@gmail.com>
+Cc: Ryan Walklin <ryan@testtoast.com>, dri-devel@lists.freedesktop.org,
+ linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH 0/2] arm64: dts: allwinner: h616: add HDMI device tree nodes
+Date: Sat, 05 Sep 2026 05:16:55 +0200
+Message-ID: <uGlvDrXdQ7mTWJ790WN0hw@gmail.com>
+In-Reply-To: <20260904213329.3910099-1-barzin221@gmail.com>
+References: <20260904213329.3910099-1-barzin221@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-hamoa-sys-therm-v2-3-1cb8c958c981@oss.qualcomm.com>
-References: <20260905-hamoa-sys-therm-v2-0-1cb8c958c981@oss.qualcomm.com>
-In-Reply-To: <20260905-hamoa-sys-therm-v2-0-1cb8c958c981@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788577511; l=1251;
- i=bjorn.andersson@oss.qualcomm.com; s=20230915; h=from:subject:message-id;
- bh=rxreaSuQlW6s6Kj0djllXV7THEUegGiCKPjGOUpJHrQ=;
- b=iDk678TU7TFAt5gHT58aww9SHykDV+ublp7Jsgl5+M9+wQhRx0q8UIcLPxpzj6tTQl3YiGhjV
- +XFHt6RWwH8B2wp4BMHNhOSvLk6/qom5HfhqcK8rHapLy/8GOKmPrVb
-X-Developer-Key: i=bjorn.andersson@oss.qualcomm.com; a=ed25519;
- pk=VkhObtljigy9k0ZUIE1Mvr0Y+E1dgBEH9WoLQnUtbIM=
-X-Proofpoint-GUID: xZTpC7pEyo2_4SUmgAhKQ9ckCqNLMx2Q
-X-Proofpoint-ORIG-GUID: xZTpC7pEyo2_4SUmgAhKQ9ckCqNLMx2Q
-X-Authority-Analysis: v=2.4 cv=CbQ4Irrl c=1 sm=1 tr=0 ts=6a9b86ed cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=TDjc9THpsqGe-NSjT6UA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA1MDAyOCBTYWx0ZWRfX2O/xMGl0a/ke
- WLUv+Y/3CYxGTnFr0ZNFobhi8bjK5SvAQygIxmU+ybIwe7ueUyUrYX2FN35vN0mKaAnmJaxg060
- uagV2Hv1vQawkIaRWFRvgMc94YUHxfs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA1MDAyOCBTYWx0ZWRfX3vq6aGNuFYR3
- oAYBbZAjuebpWIIVHo42emitkuoZTf7C4Q5NrUQa/tWVoFz7a6JTFqc3oYlECh52iQRaxA4A2C5
- Jjy4oHBv3LfyAfNwu7Nq2Y7bEpgvOVqHxLUlEPh7buOouTyPgmHo5jvo8PNamMnai3f9SHZRL0t
- XoAMSTmNfQ6odAi5v/PfXs/xl1JUnVY/m5ouJj3r2jwnO6UydQVvUedlQUZtwSE86qM89P5Hygx
- 2ZG2zeAm6W6oZw7luG654Wy/d3wd5Ui5Y6O3kDQxXd1w1GkVSuLUiCBbSHP+uILvfC54tUwQKWH
- JifKVvQIH9r48KkH/IgWF+Y6WGfNr8r71vxnZdG/DwkvwLNI4J1I32/yG+hGOFMWnDzvYBYfFg+
- Jq2RX2MlBfapsosA04eLJNwuNK254v2IUHSncrXkzf/7QDG89UvxqeZAv362rMkEAEHevQ+deu3
- +zyznoFBQWvZqtJFFHw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-05_01,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- phishscore=0 bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609050028
 
-All Qualcomm Hamoa-based devices uses PMIC5 Gen3 ADC connected to
-thermistors for measuring temperature across the system.
+Dne petek, 4. september 2026 ob 23:33:27 Srednjeevropski poletni =C4=8Das j=
+e Barzin Lotfabadi napisal(a):
+> Hi all,
+>=20
+> These two patches add the device tree nodes needed for HDMI output on the
+> Allwinner H616 family.  Tested on an Orange Pi Zero 3 (H618, 4GB), which
+> drives a 1920x1080@60Hz desktop with these applied.
+>=20
+> Mainline already has DE33 mixer support in the sun4i driver, but there are
+> no display nodes at all in sun50i-h616.dtsi, so nothing probes.  Ryan
+> Walklin's "arm64: dts: allwinner: h616: add LCD timing controller and
+> display engine support" series adds the display engine, bus, mixer and TC=
+ON
+> nodes, but states that HDMI output is not provided.  These patches are the
+> missing HDMI half.
+>=20
+> Every register address, clock index and reset line was read out of the
+> vendor device tree shipped with the board and translated to the mainline
+> dt-bindings macros; the clock and reset numbering was verified identical
+> between the vendor and mainline CCU headers before substitution.
+>=20
+> Two things I would appreciate guidance on:
+>=20
+> 1. Patch 1 currently also adds the display engine, bus, mixer and TCON
+>    nodes, because Ryan's series has not landed and the HDMI nodes need
+>    something to attach to.  If his series is merged first, I am happy to
+>    respin this as an HDMI-only delta on top of it.  That is probably the
+>    right shape; I did not want to post a series that applies to nothing in
+>    the meantime.
+>=20
+> 2. These nodes alone are not sufficient for a picture.  Two driver changes
+>    are also needed: an H616 variant in sun8i_hdmi_phy.c (only
+>    a83t/h3/r40/a64/h6 exist today), and setting the TCON pad select bit in
+>    sun4i_tcon.c.  Both exist in the Armbian sunxi-6.12 tree, authored by
+>    The-going.  I have deliberately not included them here, because I cann=
+ot
+>    provide a Signed-off-by on another developer's work.  If someone in a
+>    position to carry those forward would like to, I am happy to help test.
+>    Without them these nodes probe but produce no output.
+>=20
+> checkpatch is clean apart from one 103-column warning on a remote-endpoint
+> line in patch 1; the identical construct at the same width already exists=
+ in
+> sun50i-h6.dtsi:183, so I left it matching the surrounding convention.
+>=20
+> One implementation note worth recording, since it cost a boot cycle: the
+> DE33 mixer's three register regions must be named "layers", "top" and
+> "display".  The driver fetches the latter two by name, so a wrong name he=
+re
+> surfaces as "invalid resource (null)" and a -EINVAL bind failure several
+> layers away from the cause.
+>=20
+> Result on the board, with the two driver patches also applied:
+>=20
+>   sun4i-drm display-engine: bound 1100000.mixer (ops sun8i_mixer_ops)
+>   sun4i-drm display-engine: bound 6510000.tcon-top (ops sun8i_tcon_top_op=
+s)
+>   sun4i-drm display-engine: bound 6515000.lcd-controller (ops sun4i_tcon_=
+ops)
+>   sun8i-dw-hdmi 6000000.hdmi: Detected HDMI TX controller v2.12a with HDCP
+>   sun4i-drm display-engine: bound 6000000.hdmi (ops sun8i_dw_hdmi_ops)
+>   [drm] Initialized sun4i-drm 1.0.0 for display-engine on minor 0
+>=20
+> with the connector reading "connected", EDID read correctly from the sink,
+> and 1920x1080 among the reported modes.
+>=20
+> Full boot logs, the decompiled vendor device tree the nodes were derived
+> from, and a photo of the running desktop are at:
+>=20
+>   https://github.com/BarzinL/h616-hdmi-mainline
+>=20
+> Based on mainline a500db7819c5.
 
-Enable the Qualcomm PMIC Gen3 ADC, and it's associated ADC_TM auxiliary,
-drivers to enable these use cases.
+NACK.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Tested-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Signed-off-by: Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>
----
- arch/arm64/configs/defconfig | 2 ++
- 1 file changed, 2 insertions(+)
+This uses old, improper description of HW. That's why it was never
+merged. Two mixers would never work with it. Also, TCON_TOP
+isn't directly compatible with H6.
 
-diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 6ec8d3a69c98..08ff68643e21 100644
---- a/arch/arm64/configs/defconfig
-+++ b/arch/arm64/configs/defconfig
-@@ -800,6 +800,7 @@ CONFIG_TEGRA_BPMP_THERMAL=m
- CONFIG_GENERIC_ADC_THERMAL=m
- CONFIG_QCOM_TSENS=y
- CONFIG_QCOM_SPMI_ADC_TM5=m
-+CONFIG_QCOM_SPMI_ADC_TM5_GEN3=m
- CONFIG_QCOM_SPMI_TEMP_ALARM=m
- CONFIG_QCOM_LMH=m
- CONFIG_UNIPHIER_THERMAL=y
-@@ -1699,6 +1700,7 @@ CONFIG_MEDIATEK_MT6359_AUXADC=m
- CONFIG_MEDIATEK_MT6577_AUXADC=m
- CONFIG_QCOM_SPMI_VADC=m
- CONFIG_QCOM_SPMI_ADC5=m
-+CONFIG_QCOM_SPMI_ADC5_GEN3=m
- CONFIG_ROCKCHIP_SARADC=m
- CONFIG_RZG2L_ADC=m
- CONFIG_RZT2H_ADC=m
+Here is newer work:
+https://lore.kernel.org/linux-sunxi/20260509190015.79086-1-jernej.skrabec@s=
+iol.net/
 
--- 
-2.55.0
+Best regards,
+Jernej
+
+>=20
+> Barzin Lotfabadi (2):
+>   arm64: dts: allwinner: h616: add display engine and HDMI nodes
+>   arm64: dts: allwinner: orangepi-zero3: enable HDMI output
+>=20
+>  arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi     | 191 +++++++++++++++=
+++++++
+>  .../dts/allwinner/sun50i-h618-orangepi-zero3.dts   |  25 +++
+>  2 files changed, 216 insertions(+)
+>=20
+>=20
+
+
+
 
