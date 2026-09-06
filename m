@@ -1,226 +1,201 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8D5C126C02;
-	Sun,  6 Sep 2026 19:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37004964F;
+	Sun,  6 Sep 2026 19:33:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788722798; cv=none; b=cjsotwcZBbZzfsHr4HO07FVaG9d66LFrXfJ85I+L1ry9KJot0Eh0MXGbGwMigm/ZtzqXbTP3TbwyFcfwU47xgcZDoDb+10+TWojGiidjLoVm75hr2JEfF+/ffFxxK9BrX9DlLUL7C5qJYcc3Lj1Il7zZy1/0DeporOOVvAifobg=
+	t=1788723202; cv=none; b=TFmsKUVbJG02VO09W4K+RCqKKe5Y32GKMgDUeLSOwNM6aHMvP+CyEsbK7A5jDPbnJUlEc6JdbPz86cUKIfGyHo3j9i+fPomQaehzeyH7fQwyUptNaYKDW0Bu0eVJbUCP8wx0JnxNUjr7mgbpqiawb+5LM3XmuHpN0g6UoBcCkMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788722798; c=relaxed/simple;
-	bh=US1G9RjDnKOUlxnrr3RUS8dXtFGEo68OYqCU4wRpnsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=qV9cmteLx3KlLHJ+5k+n7YutEK5WoLwRO7UDws27nbFnDKgJ/dhfEgJl5qFYEplosaNgu+QnPG9zBkxnvgdlp9y5n5YQvGM2VbP6YmMrzT3HtNaCfUOp2cF7O05X7eW4gzFz5WyvOa0HVv+/cSfkXb7r6MIR7HV5vreKsVHFlrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hdqR4pK/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788723202; c=relaxed/simple;
+	bh=Do2CEdD6a5aUwLTxegZNZ7rZH9H8xfi1JGY3Uv4qcvI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJ4jj+ZLw9E5BP8B+bqf4SxBxJJ5P4s6AZGN3g6jmn2aDw8GjQaIW2EvCMbaeZuiGABE8lX4ql9uG3avd8rHsFtJTBvxUl1Sy1pcfKBzTdF92F/bn0osUYjaYIGiXJwRwDpRTrjQoiaZ9fp5K8aCv2lmEEYhZkPKYU2YiWycm9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UOQ+l3C3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hdqR4pK/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9991F00A3A;
-	Sun,  6 Sep 2026 19:26:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UOQ+l3C3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB2B71F00A3A;
+	Sun,  6 Sep 2026 19:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788722796;
-	bh=9ixawut2S9r983EsH04soarW6ihd+uZaRCYhJJQkJtI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hdqR4pK/pr1n9cCn/iWlGWeG6wPSfoMIJE0Q8KzbLUTvVjKYBx0p/z8ExWHTTGexp
-	 b6GZccbAjMK21wcCjH/KgJk+DaqJpAot4x/0kpSsG1p9g22XBFIK28H+JiU5Ke6A7n
-	 OojvHo/H447ttUEyu9qcpQZTI+J+hyPvQJqzUweL/ARRkb+d2Zr9d/JFiet3M58Te9
-	 /LFGtzZn0CaRl0AAyuUoEEmpwW/DbMiWm27eNhOCyP6ZpZLJeyrCAWNEFQu0TZqH9A
-	 Q9prOzFweR1uzVQYmHg+/nmXcJc4Mrm8s3bBLJWU3VE3uAqxoxzDObSRLnXvm1olHx
-	 tby5Re9iTI9wg==
-Date: Sun, 6 Sep 2026 20:26:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-Cc: Conor Dooley <conor@kernel.org>, Marcelo Schmitt
- <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
- nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
- Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
-Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document
- SPI connection mode
-Message-ID: <20260906202630.64d8fa75@jic23-huawei>
-In-Reply-To: <aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1788368334.git.marcelo.schmitt@analog.com>
-	<d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
-	<20260903-liquefy-prologue-9ec914cccf04@spud>
-	<apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
-	<aptA9HP82-ss45JF@debian-BULLSEYE-live-builder-AMD64>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1788723200;
+	bh=0kNqOTPkZp3J7RemsYmMnYNi7t0didLL0edZoqZbuyw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UOQ+l3C3lLujBRXFNmIZbndVsdbScZNJL6O1tqSdqMjmQrjL6ZYziJuWgml1fG0Sf
+	 YZjhOpebC9esQLeWBd/jXa9dy1aBOGM9VUfFMdkM1pq8Z2PBJM6ySVz5xzTC6IWHcr
+	 hUPG4TiNf0iGjXu2vtdIdxNSmSj85hQyuGO+G/8KJIYORUlSuKuQuG/X9RChqR/x9Y
+	 DsHFniEg6Ij/QnQKTcdYooZxqdcI9V1/aRc3LxVfuVuJOyhGvQIWOkfgrAxuFPAZe2
+	 vs5e1PdKfZ70Pm/jfgXnCkSDYJMr9D6/FyFbnT3DbR7iuUbU7GjmYCz5kkL2F0VMoz
+	 puMLclabJJmcQ==
+Date: Sun, 6 Sep 2026 22:33:11 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Vincent Donnefort <vdonnefort@google.com>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 01/10] memblock: Introduce MEMBLOCK_LLMAP
+Message-ID: <ap2_926WXr7uAYVX@kernel.org>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-2-vdonnefort@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260902104712.2399797-2-vdonnefort@google.com>
 
-On Fri, 4 Sep 2026 19:06:44 -0300
-Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
+On Wed, Sep 02, 2026 at 11:47:03AM +0100, Vincent Donnefort wrote:
+> Keeping last-level mappings is interesting on some architectures as it
+> allows mapping/unmapping pages from the kernel direct map without the
+> risk of splitting blocks which, under the break-before-make rule, may
+> trigger page-faults the kernel can't handle.
+> 
+> However, mapping the entire direct map at PTE-level is costly. So
+> instead, create a new memblock flag MEMBLOCK_LLMAP to enable the system
 
-> On 09/04, Marcelo Schmitt wrote:
-> > On 09/03, Conor Dooley wrote: =20
-> > > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote: =20
-> > > > Document how AD4134 chips are connected to the host SPI controller
-> > > > according to different wiring configurations.
-> > > >=20
-> > > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > > > ---
-> > > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++=
-++++
-> > > >  1 file changed, 22 insertions(+)
-> > > >=20
-> > > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.y=
-aml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > index ea6d7e026419..d843c02a394a 100644
-> > > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> > > > @@ -131,6 +131,28 @@ properties:
-> > > >      enum: [ free-running, gated ]
-> > > >      default: gated
-> > > > =20
-> > > > +  adi,spi-mode:
-> > > > +    $ref: /schemas/types.yaml#/definitions/string
-> > > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
-> > > > +    description: |
-> > > > +      This property indicates the SPI wiring configuration.
-> > > > +
-> > > > +      When this property is omitted, it is assumed that the device=
- is using
-> > > > +      'no-cs' wiring. When this property is present, it indicates =
-that the
-> > > > +      device is using one of the following wiring configurations: =
-=20
-> > ... =20
-> > > I'd also really appreciate a dts example for a system
-> > > with one-channel-chain or two-channel-chain looks, given the second
-> > > device may require different supplies etc. I have no impression in my
-> > > head of how the dt would be constructed, so I'd like to see wht you h=
-ave
-> > > in mind. =20
-> >  =20
-> ...
->=20
-> Realized what I said doesn't make much sense. The peripherals can all have
-> the same configuration and thus share CS, SCLK, and controller SDO. The w=
-iring
-> would be like the following
+I believe MEMBLOCK_PTE_MAP sounds more descriptive.
 
-That mux in the middle is controlled how?
-I'd assume we still have separate chip selects and SDO/SDI shared. So I'd e=
-xpect
-those to be on one SPI bus and the data to be going into separate buses
-(maybe all that can be hidden in the backend, not sure).
+> to decide which region must be covered by mappings up to the last-level.
+> 
+> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> 
+> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+> index d62db9e776cf..d40a5ded188d 100644
+> --- a/include/linux/memblock.h
+> +++ b/include/linux/memblock.h
+> @@ -52,6 +52,7 @@ extern unsigned long long max_possible_pfn;
+>   * kernel that we know is good to use. It is the only memory that
+>   * allocations may happen from in this phase.
+>   * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
+> + * @MEMBLOCK_LLMAP: memory region to be mapped using last-level mapping
+>   */
+>  enum memblock_flags {
+>  	MEMBLOCK_NONE		= 0x0,	/* No special request */
+> @@ -63,6 +64,7 @@ enum memblock_flags {
+>  	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
+>  	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
+>  	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
+> +	MEMBLOCK_LLMAP		= 0x100,/* last-level mapping */
+>  };
+>  
+>  /**
+> @@ -160,6 +162,8 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
+>  int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
+>  int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
+>  int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
+> +int memblock_mark_llmap(phys_addr_t base, phys_addr_t size);
+> +int memblock_clear_llmap(phys_addr_t base, phys_addr_t size);
+>  
+>  void memblock_free(void *ptr, size_t size);
+>  void reset_all_zones_managed_pages(void);
+> @@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
+>  	return m->flags & MEMBLOCK_KHO_SCRATCH;
+>  }
+>  
+> +static inline bool memblock_is_llmap(struct memblock_region *m)
+> +{
+> +	return m->flags & MEMBLOCK_LLMAP;
+> +}
+> +
+>  int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
+>  			    unsigned long  *end_pfn);
+>  void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
+> diff --git a/mm/memblock.c b/mm/memblock.c
+> index 9ce86349a29f..1591b50503ed 100644
+> --- a/mm/memblock.c
+> +++ b/mm/memblock.c
+> @@ -1119,6 +1119,16 @@ int __init_memblock memblock_mark_mirror(phys_addr_t base, phys_addr_t size)
+>   */
+>  int __init_memblock memblock_mark_nomap(phys_addr_t base, phys_addr_t size)
+>  {
+> +	struct memblock_region *r;
+> +
+> +	memblock_cap_size(base, &size);
+> +
+> +	for_each_mem_region(r) {
+> +		if (memblock_is_llmap(r) &&
+> +		    memblock_addrs_overlap(base, size, r->base, r->size))
+> +			return -EINVAL;
+> +	}
 
-Or are you suggesting we are just letting all the chained devices see the
-same register writes?  That might work I guess with no ability to read any =
-register
-state back other than for first device.  If you want to do the
-mux magic below you are going to need to treat it as an SPI mux - just with
-some lines shared. That means this device ends up split into multiple device
-(even if only one ad4134 which is messy).
+I'm not very fond of implicit skips here. memblock has no idea what's the
+caller intention, maybe it actually wants to change the memory from nomap
+to pte-mapped.
 
-So to me this has a simple SPI bus, potentially connected to multiple devic=
-es
-and an IIO backend that deals with DOUT0 etc and the chaining.
+I'd rather warn in memblock_is_nomap() and memblock_is_llmap() if they both
+are set and let the caller deal with making sure they are not.
 
-Jonathan
+> +
+>  	return memblock_setclr_flag(&memblock.memory, base, size, 1, MEMBLOCK_NOMAP);
+>  }
+>  
+> @@ -1204,6 +1214,45 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
+>  				    MEMBLOCK_KHO_SCRATCH);
+>  }
+>  
+> +/**
+> + * memblock_mark_llmap - Mark a memory region with flag MEMBLOCK_LLMAP.
+> + * @base: the base phys addr of the region
+> + * @size: the size of the region
+> + *
+> + * If supported by the architecture, such region is mapped at the last-level in
+> + * the kernel direct map.
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +int __init_memblock memblock_mark_llmap(phys_addr_t base, phys_addr_t size)
+> +{
+> +	struct memblock_region *r;
+> +
+> +	memblock_cap_size(base, &size);
+> +
+> +	for_each_mem_region(r) {
+> +		if (memblock_is_nomap(r) &&
+> +		    memblock_addrs_overlap(base, size, r->base, r->size))
+> +			return -EINVAL;
+> +	}
 
->=20
-> ::
->=20
->   +-----------------------+                               +--------------=
----+
->   |         AD4134        |                               | SPI Controlle=
-r  |
->   |                       |                               |              =
-   |
->   |                       |                               |              =
-   |
->   | SPI interface    SCLK |<--------------------+---------| SCLK         =
-   |
->   | for register       CS |<--------------------|-+-------| CS           =
-   |
->   | access            SDI |<--------------------|-|-+-----| SDO          =
-   |
->   |                   SDO |------->|=C2=AF=C2=AF=C2=AF=C2=AF\       | | |=
-     |                 |
->   |                       |        |MUX  >------|-|-|---->| SDI0         =
-   |
->   | Data interface  DOUT0 |------->|____/<------|-|-|---- | GPIO         =
-   |
->   | for ADC sample  DOUT1 |---------------------|-|-|---->| SDI1         =
-   |
->   | data read        DCLK |<-------------+------|-|-|-----| DCLK         =
-   |
->   |                 DOUT2 |<-+           |      | | |     |              =
-   |
->   |                 DOUT3 |<-|-+         |      | | |     |              =
-   |
->   |                   ODR |<-|-|---------|--+   | | |  +->| Offload Trigg=
-er |
->   +-----------------------+  | |         |  |   | | |  |  +--------------=
----+
->                              | |         |  |   | | |  +--| PWM1         =
-   |
->                              | |         |  +---| | | ----| PWM0         =
-   |
->                              | |         |  |   | | |    +---------------=
---+
->                              | |         |  |   | | |
->   +-----------------------+  | |         |  |   | | |
->   |         AD4134        |  | |         |  |   | | |
->   |                       |  | |         |  |   | | |
->   | SPI interface         |  | |         |  |   | | |
->   | for register     SCLK |<-|-|---------|--|---+ | |
->   | access             CS |<-|-|---------|--|---|-+ |
->   |                   SDI |<-|-|---------|--|---|-|-+
->   |                   SDO |  | |         |  |   | | |
->   | Data interface        |  | |         |  |   | | |
->   | for ADC sample  DOUT0 |--+ |         |  |   | | |
->   | data read       DOUT1 |----+         |  |   | | |
->   |                 DOUT2 |<-+           |  |   | | |
->   |                 DOUT3 |<-|-+         |  |   | | |
->   |                  DCLK |<-|-|---------+  |   | | |
->   |                   ODR |<-|-|---------|--+   | | |
->   +-----------------------+  | |         |  |   | | |
->                              | |         |  |   | | |
->                              | |         |  |   | | |
->                              | |         |  |   | | |
->   +-----------------------+  | |         |  |   | | |
->   |         AD4134        |  | |         |  |   | | |
->   |                       |  | |         |  |   | | |
->   |                       |  | |         |  |   | | |
->   | SPI interface    SCLK |<-|-|---------|--|---+ | |
->   | for register       CS |<-|-|---------|--|-----+ |
->   | access            SDI |<-|-|---------|--|-------+
->   |                       |  | |         |  |
->   | Data interface        |  | |         |  |
->   | for ADC sample  DOUT0 |--+ |         |  |
->   | data read       DOUT1 |----+         |  |
->   |                 DOUT2 |              |  |
->   |                 DOUT3 |              |  |
->   |                  DCLK |<-------------+  |
->   |                   ODR |<----------------+
->   +-----------------------+
->=20
->=20
-> So we would set them as only one daisy-chained device.
->=20
->     spi {
->         ...
->         adc@0 {
->             compatible =3D "adi,ad4134";
->             reg =3D <0>;
->             spi-rx-bus-width =3D <1>, <1>; /* 2 lanes of 1 bit each */
->=20
->             <supplies, clock, and other properties ...>=20
->=20
->             #daisy-chained-devices =3D <2>;
->=20
->             adi,spi-mode =3D "two-channel-chain";
->         };
->     };
->=20
-> Thanks,
-> Marcelo
+same here
 
+> +
+> +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
+> +				    MEMBLOCK_LLMAP);
+> +}
+> +
+> +/**
+> + * memblock_clear_llmap - Clear flag MEMBLOCK_LLMAP for a specified region.
+> + * @base: the base phys addr of the region
+> + * @size: the size of the region
+> + *
+> + * Return: 0 on success, -errno on failure.
+> + */
+> +int __init_memblock memblock_clear_llmap(phys_addr_t base, phys_addr_t size)
+> +{
+> +	return memblock_setclr_flag(&memblock.memory, base, size, 0,
+> +				    MEMBLOCK_LLMAP);
+> +}
+> +
+>  static bool should_skip_region(struct memblock_type *type,
+>  			       struct memblock_region *m,
+>  			       int nid, int flags)
+> @@ -2886,6 +2935,7 @@ static const char * const flagname[] = {
+>  	[ilog2(MEMBLOCK_RSRV_NOINIT)] = "RSV_NIT",
+>  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+>  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+> +	[ilog2(MEMBLOCK_LLMAP)] = "LLMAP",
+>  };
+>  
+>  static int memblock_debug_show(struct seq_file *m, void *private)
+> -- 
+> 2.55.0.970.g62bdec98f9-goog
+> 
+
+-- 
+Sincerely yours,
+Mike.
