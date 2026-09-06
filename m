@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6CD282F01
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 00:50:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6C6175A8A
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 00:50:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788655812; cv=none; b=or3Q+XbQns/18bQvB0ZsFs+E2UMUMzhmaNU8WwCeiDKmiuwa2U9H6U+vNxbsfe8MXg2sPJptc3RpXw+UB092awuxy8ZGP7LCQuGmj6E5FPsYxSsRrxBRx6lS6kjlezVNkvgaHH0WhxChqvAtpZfC1qE3MLMJiWBRcaYdy8XcEwA=
+	t=1788655828; cv=none; b=YxEvyfY/IfVIq0Oyfb3ZAjgudmwculHkJ6Fauu646Vz2KE5A3h6hmLSplJzZkFPmJDosq9D13vRvVdv7HcLEYq82+t7fcaI4nVpWOYMlVroHvtmMzIZiUwLGMIhqndxfMScBelSAuoTUiCmhKenrhe8od1FY8F2FRWVGaO+vOBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788655812; c=relaxed/simple;
-	bh=78evJSf0QcNXtfk43vPm2VDOpG24tY1IZGzpQsMylZs=;
+	s=arc-20240116; t=1788655828; c=relaxed/simple;
+	bh=jGY7uZyiyDXQZq3EZZ11FVZe8FmiPWKefXm+0wDcXiE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j7Hh5sQ22COp9XDV+xJkN7L9jXRLTTuAsBf8VFwG3SLwHN/pFUQ/c/InGFvTrNCRAdUJu1lI7RFJodoGY+KrNt8GrjdkPk+9gSkbIXESxv62vFFWnU0AtjHROgDWscZwopRXeVFz4UwpmnXidJHt8tEKMhmvEWjzgqhJgTDceJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4R4VW3g; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UiKGWFqg8VG77sO0+/LJZ7VKXPuYXyN/iCj3oUqKbeAY0uHnZVNCcBXy0FhhbFfRL2jnZvEeBpKv3adkTS6qZDnO5bpO91/TiyVZvIgDzsLInSi/NvsLH+hY2fnMM1vddb33hXwIiWAdnUsAMVnEJAZ2SuEddk00+R9nsr+sAjY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsE5GP0Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4R4VW3g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7C81F00A3A;
-	Sun,  6 Sep 2026 00:50:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsE5GP0Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB99B1F00A3A;
+	Sun,  6 Sep 2026 00:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788655811;
-	bh=pAh216dnaykPaKDz3okYsKFtpzP790fFPY0oJIwaQe8=;
+	s=k20260515; t=1788655827;
+	bh=bmGsVxnWwwguz3Zj+alqj6MlZkbTrzywerBUvx/r5Xc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D4R4VW3g2mamsmyAWuj7cq1WG3YodtH8uIgigOM37uk7PIYSlDrDOb8Yhy3uKFSm3
-	 37o+BE5HYufqJRGHbyAprQYhHbu+ugDI/AW/HanP7gb861xdKaoio0nky/ZHkXd2+s
-	 xgc52ZS2EyLr/r9noWrKy1jf32KpQlcDu0lNhNdhfqV/KGNbM7WI6h5FLghYYOai2i
-	 nPbon+RpfLw/C+gsvnBTerTfq4BKer7oShe4UaKtH/Q0gV2NP7iLgDEl/Tm1iOwzia
-	 PE4HJeptbN0t2EEqY6YrRIkPqgmRyr2qH/pCBwkz1avBHrFWN7tnDc3BMYx081m9aW
-	 lgol8Nh27wdhw==
+	b=HsE5GP0YbMhaZmpTtYKy/vtVwbbQBSnn9Y+n1/zMLR2qZ39bIN1yWMrpeEAw3NubZ
+	 jR11ZChmljx9f7YKoUv5sj2lAUU0rB0OdBNxg2ATfqpaDeGtgPClIEQlME1EFnjVtO
+	 BUtwx6/JqQbM368gXJf5nmsnj6LkfMl7qcpHc51gXLQWuwXvtdM7da88KxHscAROmU
+	 G1zHybb9NdOfXgie4jl4pIfZcg4XdxkFodaXi+WGKDoqqJEr5aBfWoaZeUHLTviSrl
+	 GW3noznYhXw2muKTU/7/STh4q8+sHR27iNoMv3Nn72R8Dgux/Gdz1QJE7pUAwRNzsW
+	 3jEoMvndTGBPQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 4/4] arm64: dts: qcom: sdm670-google: Add modemsmem
+Subject: Re: [PATCH RFC 3/4] arm64: dts: qcom: sdm845-google: Add modemsmem
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "David Heidelberg" <david@ixit.cz>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260906-modemsmem-v1-4-a3634b553841@ixit.cz>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260906-modemsmem-v1-3-a3634b553841@ixit.cz>
 References: <20260906-modemsmem-v1-0-a3634b553841@ixit.cz>
- <20260906-modemsmem-v1-4-a3634b553841@ixit.cz>
+ <20260906-modemsmem-v1-3-a3634b553841@ixit.cz>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 00:50:10 +0000
-Message-Id: <20260906005010.DE7C81F00A3A@smtp.kernel.org>
+Date: Sun, 06 Sep 2026 00:50:26 +0000
+Message-Id: <20260906005026.BB99B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,28 +46,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Missing probe dependency between the `modemsmem` platform device a=
-nd the modem remoteproc driver.
-- [High] Probe fails if the SMEM item is already allocated by the bootloade=
-r (-EEXIST).
-- [High] Uninitialized SMEM memory is exposed to the modem because several =
-fields are not initialized.
+- [High] Unhandled -EEXIST error causes module reload / probe failure if th=
+e SMEM item is already allocated.
+- [High] Out-of-bounds read of SMEM memory due to missing item size verific=
+ation.
+- [High] Uninitialized SMEM memory leak to modem firmware.
 --
 
-commit f684325f1bc358462d3e26fd3838d75a70d04ce2
-Author: Richard Acayan <mailingradian@gmail.com>
+commit 61111124cf2e78b88f10eebd1940456309ceceee
+Author: David Heidelberg <david@ixit.cz>
+arm64: dts: qcom: sdm845-google: Add modemsmem
 
-arm64: dts: qcom: sdm670-google: Add modemsmem
+This commit adds the modemsmem client to the device tree for the Pixel 3
+and 3 XL devices. This enables the modem to boot properly.
 
-The Pixel 3a modem needs the modemsmem client. Add it in the device
-tree so the modem can properly boot.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm670-google-common.dtsi
-> index b4854801a5f5e..4604c4eb2192a 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-> @@ -66,6 +66,11 @@ key-vol-up {
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
+m64/boot/dts/qcom/sdm845-google-common.dtsi
+> index 9e952f9862f24..7e8f1a34a79f8 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+[ ... ]
+> @@ -50,6 +50,11 @@ framebuffer0: framebuffer-0 {
 >  		};
 >  	};
 > =20
@@ -76,59 +75,66 @@ m64/boot/dts/qcom/sdm670-google-common.dtsi
 > +		qcom,smem-id =3D <134>;
 > +	};
 > +
+>  	reserved-memory {
+>  		cont_splash_mem: splash@9d400000 {
+>  			reg =3D <0 0x9d400000 0 0x02400000>;
 
-[Severity: High]
-Is there a missing probe dependency between the modemsmem platform device
-and the modem remoteproc driver?
+While reviewing this enablement patch, I noticed a few issues in the
+modemsmem driver introduced earlier in this series:
 
-Because this node is defined as a standalone platform device with no
-parent-child relationship or fw_devlink dependency (like a phandle) to the
-modem node, the kernel driver core will probe them in an unconstrained orde=
-r.
-
-If remoteproc probes first and starts the modem firmware, will the modem
-driver crash or fail to boot if it attempts to read SMEM item 134 before it
-is allocated and populated?
-
-[Severity: High]
-Does this node addition trigger a probe failure on warm reboots?
-
-Looking at modemsmem_probe() in drivers/soc/qcom/modemsmem.c:
-
+drivers/soc/qcom/modemsmem.c:modemsmem_probe() {
+    ...
 	ret =3D qcom_smem_alloc(QCOM_SMEM_HOST_ANY, smem_id, sizeof(*info));
 	if (ret)
 		return dev_err_probe(dev, ret, "Could not allocate modem smem\n");
-
-If the requested SMEM item was already allocated (e.g., by the bootloader
-or persisting across a warm reboot), qcom_smem_alloc() returns -EEXIST.
-
-Because modemsmem_probe() treats any non-zero return value as a fatal error
-instead of tolerating -EEXIST, will this prevent the modem from receiving
-updated SoC information?
+    ...
+}
 
 [Severity: High]
-Does allocating this SMEM item expose uninitialized memory to the modem?
+This problem wasn't introduced by this patch, but by an earlier patch in th=
+is
+series. What happens if the SMEM item is already allocated by the bootloader
+or due to a driver module reload? Does this cause modemsmem_probe() to fail
+permanently because qcom_smem_alloc() returns -EEXIST? Other drivers seem to
+handle this correctly by checking if (ret < 0 && ret !=3D -EEXIST).
 
-Looking at write_socinfo() in drivers/soc/qcom/modemsmem.c:
+drivers/soc/qcom/modemsmem.c:write_socinfo() {
+    ...
+	socinfo =3D qcom_smem_get(QCOM_SMEM_HOST_ANY, SMEM_HW_SW_BUILD_ID, NULL);
+    ...
+}
 
+[Severity: High]
+This problem wasn't introduced by this patch, but by an earlier patch in th=
+is
+series. Does passing NULL for the size argument discard the validation
+information needed for safe parsing? If a bootloader creates the
+SMEM_HW_SW_BUILD_ID item with an allocated size smaller than
+offsetofend(struct socinfo, hw_plat_subtype), could this cause an
+out-of-bounds read that leaks data from adjacent SMEM items to the modem
+firmware?
+
+drivers/soc/qcom/modemsmem.c:write_socinfo() {
+    ...
 	target->version =3D cpu_to_le32(MODEM_SMEM_VERSION);
 	target->major_id =3D cpu_to_le32(PLAT_VER_TO_MAJOR_ID(plat_ver));
 	target->minor_id =3D cpu_to_le32(PLAT_VER_TO_MINOR_ID(plat_ver));
 	target->platform =3D socinfo->hw_plat;
 	target->subtype =3D socinfo->hw_plat_subtype;
+    ...
+}
 
-qcom_smem_alloc() allocates memory from the SMEM region but does not
-zero-initialize it. Since only 5 of the 8 fields in struct modem_smem_info
-are assigned, the remaining fields (modem_flag, efs_magic, ftm_magic) are
-left untouched.
-
-Could this lead to unpredictable behavior if the modem firmware reads and
-processes these uninitialized garbage values?
-
->  	reserved-memory {
->  		#address-cells =3D <2>;
->  		#size-cells =3D <2>;
+[Severity: High]
+This problem wasn't introduced by this patch, but by an earlier patch in th=
+is
+series. Since qcom_smem_alloc() does not zero out memory, are the remaining
+fields of struct modem_smem_info (such as modem_flag, efs_magic, and
+ftm_magic) left containing uninitialized SMEM memory? Could this expose
+uninitialized junk data to the modem firmware and trigger unintended hardwa=
+re
+states or data leaks? Should this memory be zeroed explicitly, for instance
+via memset(info, 0, sizeof(*info)), before passing it to hardware?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-modemsmem-=
-v1-0-a3634b553841@ixit.cz?part=3D4
+v1-0-a3634b553841@ixit.cz?part=3D3
