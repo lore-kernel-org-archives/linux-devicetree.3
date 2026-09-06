@@ -1,110 +1,230 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06B73BB48
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 15:40:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6567A364058
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 15:47:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788709246; cv=none; b=PJ2+cROY5HBh7huIhpHBJ4WmTv4/i+aNmQXCk55HkxejjSLgCN36m4JXC05zpqaje3Xrc0WprJAQuf7YJRKBxVPv2zbuVntISUagnx5nItWAQS5dgyBFRIJdp/D8+PywjgXF6NTgg+d8AiPmfu9PtDYQ7gbRErXOv8xIY6y8evE=
+	t=1788709677; cv=none; b=Y+2IzbPc/xrT7SkIMXAup36RHV4uiWsmqt2yaG6T0mKPYNyhlz44aHRujn7+bk6miUjXha1vrvt+hu3RXmfjb7GUJzKJnQlRwnd2mGvllngFWDnjvquHlGIEZkleBA0buKKXkATw2lt+9+FYduDt8S9slwPgHTjGZlNo1Vt8G+M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788709246; c=relaxed/simple;
-	bh=EvrbSw6riBn3WFQnWMdTkjWQdPI6Io5eRWlEYnSUdh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=QEeRpiZZTl1dsraIdh6bj4hRzUF3bOOJq61X19Xg7ZnT7jv7S48XFWF7MAtisCCLOqyTAfzrJj3BLLQLBjqRNNUz8R8jrtFMMbeBDnw8Aib5LgtPnRcm2RftkJ02RSJAEdgYeWLJ+TybEAsfV0Ww6Mt5PwTMB7hjjZZ9Orczngo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhcHMYSC; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788709677; c=relaxed/simple;
+	bh=Qq5Z9pdI3WCpDQKVL6vyoFgxWJ8z9w4v5ed7QbTfgYE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nSEX/cyOy+BEJuzsWteiF8vLtTsopNqzFhBz/FiaF6e053oNGZTaRiOsn7sLG6Ktl+7rIm6+lWLaZR7LJUE1rvZwH25UEK3cdfDw9nXCharZ3siN07e4+g20XFQiAMqB5VRKNff+p8Lp7dAIf4w5GdZczPEZ7z+z1KMEf9ujT3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RiUod8Q+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZBiPUDzW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhcHMYSC"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1727971f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 08:40:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RiUod8Q+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZBiPUDzW"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 686EX3232431303
+	for <devicetree@vger.kernel.org>; Sun, 6 Sep 2026 15:47:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	iJuqbRAfLeuaHG3fQFZPvjkD3eLgn2ZlqMYozAYdRbo=; b=RiUod8Q+hPKtNg6q
+	lOXnR+TICE5yki5olBYNDrHWNCOtU3q/IZRU3XGjns/3X9fkyzBofWf31R74XR6U
+	7QMBQQwzUHhPY7MHjhAz3qaN+xo/T8A2zKHop0jI2DZNmu/shOcxnZfWWqwOUM9i
+	d/kc8sJ4vnTNrnOzjAZEEY1mfgKIztlmGi5jc4jjYyLFrL0NhHbieSDUKVe7eUor
+	qLjEKRl7OJ1B4+nur1BLBCarGbTTb0qKFUde1V6T6F1RDkDFQA8K3agv6v1uS4jb
+	dx2DKBHCStVhzqRtK0s2Lgly1iVNlOBKRE/vbXNjL12mVJAPt2dtHxzgzocQpRWo
+	BguGGw==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8sd45wg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 15:47:55 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1cade6b71so2520526a12.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 08:47:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788709241; x=1789314041; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zb+fQYyrJ/70MX/Kj2ZYXqK6NS7Fru2LZRqOKcxD/0g=;
-        b=NhcHMYSCIaFbAk2O8fs7NZp1OOu8RY1/jIzrmLmc2EolExnGgY0/SZxD6w/SyNBmAn
-         XTalGJ9OsMh4cjVfNIVrE2cCigbG5mqnlGa7lt7z/LWysor+ppEU40AeL0eON+xATdAh
-         ew4bK6vx2RgGMB1/v4Xtksdw+vuNBel/45OexV3v6kU+90nDQ0byYp0e8OjHbtqhYQR1
-         N1jM+XQUIGkXBAHhEBl+7hfQWLzdefnelVlH6JW+XgjJi1wTOz1OVRBnu+XB9IUC4d/B
-         7eEfDxEt07mTSrTJe6HPdxYDGQHtiIj8cYCHJ0qNKKqktLf34lm4KXVKNJb5S9AW6bK9
-         WgaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788709241; x=1789314041;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788709675; x=1789314475; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=zb+fQYyrJ/70MX/Kj2ZYXqK6NS7Fru2LZRqOKcxD/0g=;
-        b=KejJ+Kkx0nVJt88qWwi8mD+MsgIosqfArRsIHHUhfBS54zUGRMWfLSKp2k1OQ5sbaX
-         ePwvio+nc3ouFZfuhDnfB0PaZsnCWqBjgr8ZragbaZYo4LDC0AjzdfNbYA96SbgYkxvi
-         QfFbqSgCwhvTH42453dRQ5PzSEqDxqSLrxnBOe4lmpjaBf3/UBmV1nVY40P74Cv2Imhv
-         T9qaT6gaSIGJn5RR/+WqhEl/yiPzbLAOE1TTut1DDeyV50vsKu20lc/VJzxf1lBtQQbI
-         Qi9qpnVZ4wS18Moj3D8b8qf9vqy8tomp0+tonSVb0zCcc6jvymkJUCs9VWDuh+WHxm06
-         gb/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzJE7i+V5qwESlk8VF4NBXS4LbNzhTSZCcMa8CBWSqtANq20RnJAZ2OXIXCVx2gjcMdbvDJXRUu3Dbl@vger.kernel.org
-X-Gm-Message-State: AFuF++mDGCnDzDTkZ5NB6GKLNNrE+Cjyb5bohqZ1tw0Uj4gp97M7CHUB
-	2O78QeEKOfJmvP5NzY9lXDOBwNV5WlKc0Cnl9cLLQF6rwzjtWAvkAO9O
-X-Gm-Gg: AYBFou0Z6Lc4pV0an/3gauWknxXEnQiTyMjhv9FuFIiMpM9spS7S4JxZA2iUhNhxlXP
-	m959EAY0AuEBoP8svI0ixB400VlOcfEPZcNIdoy4D/TCOAwoQji0ExHmmkqt2pNSPg39+X3f6Vo
-	6E9RhOe01RO/8HIHpG1uKEDCV6PtECehIl4fvk9Utsjpjih2A/aOO+/t9RQJrZjnGhoYdxV1ikZ
-	WfNt9YgcpNegz4iDdJ6vim6+PiTgempvRU3k4jscbKqat0GtyCDMmBvOcqAvsYgrOITJI1qrZ1x
-	v+5na70pA0WrOMwKVKbBrVKe25xLsrNaTMsuUItK2rEeT0wZSXCMN+n7WeZaPSVvUEL7+kMquVO
-	4pdm8MYMZ/GuHWVXexNKly/XSnjlurV2YKgbW5Q4VkuY6U26TVDB6EpQ6wUi8UpimWLV/aSECc8
-	cdCReSLrjg9s7w+mc31B5UUF4sF4Zv+8MBZ+xIUzAVbrWl7C3BuwZrauRsooUhMTSWD8D8h4QLs
-	6wRvip6lpme/cQDxaInE55YDuQ7
-X-Received: by 2002:a5d:5f51:0:b0:485:8a47:5b9c with SMTP id ffacd0b85a97d-4858a475d7dmr15641422f8f.57.1788709240790;
-        Sun, 06 Sep 2026 08:40:40 -0700 (PDT)
-Received: from localhost.localdomain (mob-5-93-26-136.net.vodafone.it. [5.93.26.136])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm23825319f8f.10.2026.09.06.08.40.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 08:40:40 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: Konrad Dybcio <konradybcio@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] X2 Elite Lenovo Yoga Slim 7x Gen11 support
-Date: Sun,  6 Sep 2026 17:40:21 +0200
-Message-ID: <178870922140.5716.3695070640167210897@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
-References: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
+        bh=iJuqbRAfLeuaHG3fQFZPvjkD3eLgn2ZlqMYozAYdRbo=;
+        b=ZBiPUDzWPvgLmOy95uMW+MXyndKbNU7sdT5xJhzMUGut4qabfOQ/1nfsez1uDVVLQm
+         UzI6UyAeWl1ryLGN9uFoxItoRPLf+TbE9WfpQS8lshacUoazi9A8WDh94gjw94AYYJub
+         faiPwP9IIQ+ZjM4AcuCSdpMd9wKIw1mvNflCyCA9GMHuZNG+PVRi7osGUSDB2csp3zDG
+         KmUVpcj2qm42FxegZl3uhkj5lljGJH0nFDKK4ePpvTaJW4dD/vBlROCvqhDJDYmB7tHv
+         NsEgGAihRZVp0+bxS0Cxfnjpp2cyhM64hkXM9nS2nBsoCsYEkqEsC9CCcf4u7JCGxAX/
+         QD4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788709675; x=1789314475;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iJuqbRAfLeuaHG3fQFZPvjkD3eLgn2ZlqMYozAYdRbo=;
+        b=T+if5e2hbTSY61X9B6C0vpv2oD9M4VmpUeTA2g1t2SZ0FkHXEhktWWQDMcyBbu1Fy7
+         KUOusph+zlhaXvMxN0ZdQLAGuY4tw/wAmfBaZSaGzd+/SOx6z6EJrkJWpmiEYiuF46Af
+         cAQAT1/Fx0GXWOtH7i9/wswtSsHYKpGjJKPM2OJkRBbwz2Pt0teR4LuLMbsAVzGg2v7d
+         GoQxPlDNymYan83y/y2lV69EjROqD9B6K2qScj+exGjSaIFAjNP77fURBwnJGgLGRH42
+         iPIQuQgfKIzD8fx39vN3PwDTle5uc81tvE7d9kKf/2qv4A4zgAAXoDyPna63yuSbz0CX
+         sEfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxG8U92mOhslfRhfUGheskejKnUnfovcBXZdrnnvSixj8hlN/+3HC/tL+G1kwOg/vdh/VzjFOR2STDl@vger.kernel.org
+X-Gm-Message-State: AFuF++kinvyEPd6X9HjiW/Ys4HvUhZJMRx7B1bSv1yGe0dWe74kUhXv2
+	+DsC+0FI+q9RdjTDDQlgBW7nVfBcOO5aPIhKBqoqeHiAd7tnIEBUTXEb/Pn+s8EWK5ibhju67Tf
+	R5ffKOFhNfmXu7tgi7dm7er9xGsYew60A+OSdb0jTAZm51cOykenzmQFpopSP8KM6
+X-Gm-Gg: AYBFou2Rf4mtO5SwaiXQySzeE9Hypr/ApchE8tm2n2alNcpbDmj+xr0stj13gbgDPwh
+	/+fN6m6qVcVFjZe6EBTs9/dBxXA4BGV6YM9xuJlFt27kgaJsk2Dh0+t8wKYT5x1oftEaocRkNaF
+	6E2aUlnjWyItHdaBrKMrfgtwZ0KpkDjt2U18zBf4HAz/ZoAbHPiRs6ZREgL67MklHO4lon+gSTR
+	9NWd1zGIGPdEa7D98+9XaiZB9TjzgeO5+NRz0aU4JXJGy49pZCMEber6Y3OMh3aofHiI1DP7As6
+	erbRApQ9boGx7jdD8SpLfEKz5sDkHxuywUl4/BMs4zjzFCJjEsi4XlNcJ3coW13Zw2ljh9owEAg
+	ZEharwVeeluSCG/ecR1EUEWiQL0BW
+X-Received: by 2002:a05:6a21:8887:b0:3d3:3dca:f0a3 with SMTP id adf61e73a8af0-3da21418721mr21362735637.8.1788709674499;
+        Sun, 06 Sep 2026 08:47:54 -0700 (PDT)
+X-Received: by 2002:a05:6a21:8887:b0:3d3:3dca:f0a3 with SMTP id adf61e73a8af0-3da21418721mr21362685637.8.1788709674052;
+        Sun, 06 Sep 2026 08:47:54 -0700 (PDT)
+Received: from [192.168.1.11] ([103.211.19.41])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm20951125eec.12.2026.09.06.08.47.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 08:47:53 -0700 (PDT)
+Message-ID: <b0089142-45eb-4cf7-be6f-45c9889b3756@oss.qualcomm.com>
+Date: Sun, 6 Sep 2026 21:17:43 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v17 5/5] media: qcom: camss: Use data-lanes starting at 1
+ for new CSIPHY mode
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>,
+        Felipe Balbi <balbi@ti.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Suresh Vankadara <svankada@qti.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+        Krzysztof Kozlowski <krzk@kernel.org>
+References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
+ <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-5-e2197a3e2551@linaro.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: YDiUHSoa8vPpTfGLWNqz_CzYuS90DcNT
+X-Proofpoint-ORIG-GUID: YDiUHSoa8vPpTfGLWNqz_CzYuS90DcNT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA2MDE3NiBTYWx0ZWRfX/RTTAnE9QNDW
+ c0niiCy6WD+pjs+cf7TizNU0YR906RKAtRYmWXc1Mlm2arFEegQOV00tb7esJsqE3EpOQ3WMj3s
+ rh0u3CPMrKlnczPhXWD0jmTQSIa66gw=
+X-Authority-Analysis: v=2.4 cv=dfmwG3Xe c=1 sm=1 tr=0 ts=6a9d8b2b cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=HcLy/BXbbKFjgnJyaMb84Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=zWu_p7zOJ7ruh_JjBGAA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA2MDE3NiBTYWx0ZWRfX+3MCJCpQBTb9
+ 0BMC3yzaW4U8dko76Ue90RN26dBc0rxvW1fm8et60ttKM/RsuBgpD8HIllpaB28UFkymkexqEFN
+ wlnwya7v9P5uwk9m5+ThCp5Sj4WcJD1KpuJVDcLz1JwVLIhWkPRKDNSzu/tYOPSpWeTjP5ItGGZ
+ +X6Z/9k0Jgfc2NvpTCNY6qcO8+o/QFVoTYrK6VtsWERJHmY/Ohv4+QfrzmO+xyxyRmO8hWWB+6M
+ 33Jk5QlhCgO+nPf4NuShx+wDFy3EMWQs505mTL1faTjja3ksrJIg0hWKD5HOgx8KPGD1z4XFsAw
+ xtl/xQVjF0I9QvsgwWNnnly7eXY1X19o/ZnOHht/tlPKs7hJ5TcI5obzlbukRKu0YefcB1ntSFS
+ x7e4tbopzpiJuP851FNEfKMo59MHjfNVZZvXftNMhEjuc/jJqiXE5WNso5Q87IAUGcTCn11zujZ
+ rLQM9k9NdlzCQVtQhvA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-06_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 priorityscore=1501 spamscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609060176
 
-On Fri, Jul 31, 2026 at 07:59:43PM +0200, Konrad Dybcio wrote:
-> This series brings the bits necessary to support the Lenovo Yoga Slim 7x
-> Gen11 laptop, based on the Qualcomm Snapdragon X2 Elite (Glymur) SoC.
 
-Tested-by: Oleg Keri <okerixx@gmail.com>
 
-I have been running this DT on a Lenovo Yoga Slim 7x Gen 11 as my daily
-driver for several weeks now, on top of linux-next, and everything the
-cover letter lists works here. 
+On 06-09-2026 19:47, Bryan O'Donoghue wrote:
+> Introducing a dedicated CSIPHY driver community feedback was both to move
+> to data-lanes starting at index 1 on the PHY side and also to match that
+> indexing scheme in the CSI decoder - CSID.
+> 
+> CSID consumes the data-lanes property to determine which CSID lanes to
+> switch on. For indexes starting at 1 we need to amend the logic somewhere.
+> The PHY side code normalises the input data to register level meanings so,
+> replicate that logic on the CSID side.
+> 
+> Introduce a simple flag to differentiate between legacy indexing @ 0 and
+> new indexing @ 1.
+> 
+> Existing bindings are not affected.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  drivers/media/platform/qcom/camss/camss.c | 15 ++++++++++++---
+>  1 file changed, 12 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+> index 84097d82d99c9..07b3cddca5840 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4742,7 +4742,8 @@ static const struct parent_dev_ops vfe_parent_dev_ops = {
+>   */
+>  static int camss_parse_endpoint_node(struct device *dev,
+>  				     struct fwnode_handle *ep,
+> -				     struct camss_async_subdev *csd)
+> +				     struct camss_async_subdev *csd,
+> +				     u8 lane_base)
+>  {
+>  	struct csiphy_lanes_cfg *lncfg = &csd->interface.csi2.lane_cfg;
+>  	struct v4l2_mbus_config_mipi_csi2 *mipi_csi2;
+> @@ -4777,7 +4778,14 @@ static int camss_parse_endpoint_node(struct device *dev,
+>  		return -ENOMEM;
+>  
+>  	for (i = 0; i < lncfg->num_data; i++) {
+> -		lncfg->data[i].pos = mipi_csi2->data_lanes[i];
+> +		u8 lane = mipi_csi2->data_lanes[i];
+> +
+> +		if (lane < lane_base || lane - lane_base >= lncfg->num_data) {
+> +			dev_err(dev, "invalid data-lane %u\n", lane);
+> +			return -EINVAL;
+> +		}
+> +
+> +		lncfg->data[i].pos = mipi_csi2->data_lanes[i] - lane_base;
+>  		lncfg->data[i].pol = mipi_csi2->lane_polarities[i + 1];
+>  	}
+>  
+> @@ -4794,6 +4802,7 @@ static int camss_parse_ports(struct camss *camss)
+>  {
+>  	struct device *dev = camss->dev;
+>  	struct fwnode_handle *fwnode = dev_fwnode(dev), *ep;
+> +	u8 lane_base = camss->legacy_phy ? 0 : 1;
+>  	int ret;
+>  
+>  	fwnode_graph_for_each_endpoint(fwnode, ep) {
+> @@ -4841,7 +4850,7 @@ static int camss_parse_ports(struct camss *camss)
+>  			goto err_cleanup;
+>  		}
+>  
+> -		ret = camss_parse_endpoint_node(dev, ep, csd);
+> +		ret = camss_parse_endpoint_node(dev, ep, csd, lane_base);
+>  		if (ret < 0)
+>  			goto err_cleanup;
+>  	}
+> 
+Reviewed-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Tested-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com> # Glymur CRD
 
-Is anything blocking the series?  It has had no replies since it was
-posted five weeks ago, and both review points from v1 -- the duplicated
-&pmh0101_gpios node and documenting the single-compatible reasoning --
-look addressed in v2.  It still applies to next-20260904; glymur.dtsi
-only took three commits in the meantime.
-
-Happy to test a v3 rebase.
-
-Thanks,
-Oleg
+---
+Regards,
+Nihal Kumar Gupta
