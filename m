@@ -1,67 +1,69 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 348FB433BD9
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 11:52:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC29F420E7C
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 11:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788695536; cv=none; b=sAnAzKAfS9SchbyaerV4eQv8h6dgvZxAdck47FXNafivRc0/lRiS8FWNNSqnx1JBlg/i0edXV856JBHeLcuuIaVnJcgTxj3v6B2nFB5JEcd0YnzTVBBb2ANeu+S0fhzK3KltV7Ex78W6LqU4stk6z5g+OKNO0vsMcWJGgPTrGsw=
+	t=1788695537; cv=none; b=QVDdrfvQnGQxycdU+caV0u/pygP/uOZ5NpWn9nrWXH5/0Fot3Vu4xY64Fk0lAumsZCE0DAI8YKRVNmCzoQbiHCpcxzPPRYWedmToMIr3njA7oKHpJeBnoCFceqfhPIxDTx1Z2Rs4oegfCMab8msVMngrkfxpTknM+mkrpmeCI4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788695536; c=relaxed/simple;
-	bh=ov6l6XYXYWQFGwdR6skU1nY1vxsBWDotX7Kg0ih6rxA=;
+	s=arc-20240116; t=1788695537; c=relaxed/simple;
+	bh=jvWI5bCo2G0nPMiyIWWUCCvc8PV85ddqSgmXfNNkRqI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j9TdZXoZjroftd5l8YwrWJ2Txgi35olUs3bQ6hS3e0M1xcov7j1puSzLF/M+R2JzvycFV45GdDQPa4gqcNYJoMoOrnZnAAx6icbhTjow4jOwR2nqHu0V0qc19KbFL7Sa6qb6V202pqj+v4Bcezqn7AMop6+b6Ut60zFArThUMpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ycBRtPO8; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:To:Cc; b=seUV4JFXAC75Q3gABh9miqmJf2DRjrQX/mnp2mqVxVroipM2cWQGiWb+VZGJ+ivFlQTVNAX02dzacS5pw2kuI6W9nMeLthSMyHesV2wBPLrZmqUxRZja35TLwk4LVpgCXnP2x86fNfuNHzMw2mjx5yDvqiONH+DfDUV5yNYYOgA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=SemddJEn; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ycBRtPO8"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49b8eeb3ff2so21979175e9.2
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 04:52:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="SemddJEn"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso22216905e9.3
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 04:52:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788695532; x=1789300332; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788695531; x=1789300331; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+LoCl+EbBl/1yupzEbeoWPgLAsEGydOXRIOMMFAJTXk=;
-        b=ycBRtPO8p3If/uOWT7R1MqAjU/ZTez2bvHfLXuOUybnvLflAHhteW1Dbj+tFjdhOg4
-         Zy2HLsIEcwKZp43mKWgUYx5A4bg+m7T62UGUEoBeJUgUJjAqUBrgU25JV2kQURpTlQQ6
-         Czan0YzKgteyJFz+lRY6W4/U8XlJiSYnE30NeOUQfoKfz6OUjIRR4O0mh269iY3PgjI3
-         gi9XgZdE07daqfRIR9d6Bya1nR7Q0Oz03AF/gmGJ+Zn/Sk/rYT2IuXyQjxd79ktBVMhj
-         MP776THpWvPaUm+7UmQG3QRRb/4X9FOjfhsGXSFuJKhCYf5TrF9BhbAPvOeseUFQOA7s
-         E9Cg==
+        bh=P6nCQrtjn5sjZ36INdWU9AmImwt4exmEpBcYwRBKS5A=;
+        b=SemddJEnqylYjNeUkzPkpYmIvbMYWjGdDWNGvIcrvtPWlIgPVIWJq1vez5kmK/TaSo
+         NEIgACU/bSXVlZpLlXxRHfxZCQSIt6llnj5N7YTw6deSoLtktSw1BLJR6tEDXlkbmKTY
+         jiXiuisGfNXrQ9DetQUm15Q1l6SPHtEHSXB1MKMrg5Zmax3qK8qK36EhkGGPvetQmi+E
+         sYUFPVFBnS0Cotq+qXTqAHIDaWl9LTIwFvwTs9BY6pGCS2MVnDjF2GLlc4nEpOCkOH2L
+         xCBp8vF4nrxCLMdHol+4mQ0oBUIRkuSQCOpR8QDZsJgSAEu8WqgSIgof1JovL3pt+OBY
+         zN9A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788695532; x=1789300332;
+        d=1e100.net; s=20251104; t=1788695531; x=1789300331;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+LoCl+EbBl/1yupzEbeoWPgLAsEGydOXRIOMMFAJTXk=;
-        b=DluwRDGRNbQsWKaAHnv03EIkEgJT+GtXCpv62UafsWlxVVBq8UFMFgkPjL1bGL2nCr
-         MBIZZxXhGeOfLVtaUxDiTa7SeobIj7h9lEnLA/nCe/ERqNBKXSOGufG5X3ijLe9/C8Zm
-         +gl5laiF4qRuL3+Fi3ak0m6nl/XTWyX+0pAP3fzV83unWiEKdtccV3ZNA59/T4o88irJ
-         bEKA63+zSRLjnavS5w6fw2IqWTcbOlSsZitMRuO0bGEgXjy4A/n8YmnY5x1ef8q9CR+G
-         G0ROuxF8d+USJm9pcjhqAW+CmJibjp++IN0XCW758COhE6qS2Lpeu9MisQahe7E1GtFB
-         VQBA==
-X-Forwarded-Encrypted: i=1; AKwUvBx5M+5cfMhN7R2rpQCYuMwB0pvHIn7X8PFwfqoCifKYxCyjMVklfXkzZDAsuberoEiIqPhVv4dSMlqi@vger.kernel.org
-X-Gm-Message-State: AFuF++k9BQUzCsgErVK7PH0xv3vHIvGznyUH3H0+jBoxUGm8N2nhVDXX
-	9E/xO4czqhyqi0F4JIgCI22mriSRFmssCMyxDyzl1feHzO9Grc2xh/9lSOxvkeIR8kg=
-X-Gm-Gg: AYBFou2aXsS2aWR3ipwPtenJKuhNMzsJaxAhrBF6XP5I60Rw2pHQYGpOVB4LdTQWzod
-	jP/8I9fBtfiJVqdtv8H5f9c710i1zEt0I3sowwWeXQbYC5IM0A2lXJhjH2vohxpzP21mBon5+pb
-	tuJMfOTA2qdFW+qnaV83u9oiiekJ37jXBt5iiyHgZVhme+RBxFJlsKpRnuZsm7/FJKkYAZRvQrc
-	YgvEiTosa6k3lXlqGiQD26GQptVlrWpyWHPsmjHcs48FpcjW6UC1yGI2OPK2c/caDrPoCbGWUK0
-	VdSbVngPfHMkbXsOYxOqzZEjMPy/fqGPsHQmV0VXsBBkW21/dQBQx3UhY6LPnxyltpZW+zFHPMj
-	AEqSdxYyB2cnw84/T8Ls5KQqb29+/Lo1XbCodFboKGll5XyvvIdDDD0KayI+Tar6JpVIwYnYICr
-	kJ6Y7i1a5YyVsl9iRiXtSV4U7q6t0sWAsWOsXekjAACMbuutqNoohubUIooNSgiFQ/ylhBrB2/
-X-Received: by 2002:a05:600c:3b1f:b0:49c:ee06:9c58 with SMTP id 5b1f17b1804b1-49cf821eff7mr167414805e9.4.1788695532336;
-        Sun, 06 Sep 2026 04:52:12 -0700 (PDT)
+        bh=P6nCQrtjn5sjZ36INdWU9AmImwt4exmEpBcYwRBKS5A=;
+        b=MWFY7yHLxQiTTuj0RgO4LlBts1G7JPzgolj5cMLYAheX+LISikP5MIhOn1LIl/qKO2
+         mkBQ/v+m4TovuWv+Fn0TTS+c6BMRWA+rXwMM91lMu2KmFw2jn+JdmzCulU3NimxqZi4T
+         aghHSDs86nwodtJa+20nMAOEgyD+G5Ue7wC/NmhpxP3zVb2RskVnKO1ncNrbs4KTPqjM
+         zO7xhULmGRdRMcFL/S85MMMgMS8hMUuu7d8Jj9boChz/oNNlczEUgt/mzjH3HgzCohm/
+         QrkNuMxQklvizVl+gW8ovGPHFHzpLlmVvMdICSt2eVGRnmnB/rX3DnXT+e94TJ7TeO7/
+         tZ4A==
+X-Forwarded-Encrypted: i=1; AKwUvBwz9pn3qqbsElSBbtduPIjc0raSuh8JfIOQ85C+/CXK0sMErVwwcX8QdZ/slpRNsTlafDFHwuWsvwDp@vger.kernel.org
+X-Gm-Message-State: AFuF++khyB2+jiPn3HNP6TW60CBZkebsBj7aJEQbrHrEZAUUrlrIl3Y9
+	gSFdNuRGzeBe7lTAEkjhQ9Mof2ShX4DidiNO2uN4ujBTfMBVUrFg2n3iAY1OKchNEBeNP8c6vJL
+	kWkDSU6w=
+X-Gm-Gg: AYBFou1gReHIoOD6RF6L7fY4PXrzH+5+DdEc6Qa70f402vUZY3dEznJfRfj6WMIi3S/
+	KD9RjDsTf/J+YDvFIzlzl+GDmgM8xBCAvO4KVBPJR6ZIMSDEOMC5DrDz6s+bAfpiDg9vY/l5enT
+	q6ffPA0WupaNOOQXJ/mP3f4TiqJaPqXXCUkYgjxHTYQocSVCw0kpzSTFJKMreABU8o8L2gqD2YS
+	w5qgaXwJGUBc+qWSprsHFm70xOjld0vAPY96K0AH5+gU3T274DphX/1X5xDLcwTGnkd6tLzY6Fx
+	2EN8SRIypYb3R7ESdR82YHYce4iW/P1A95xXIrquvcIxd4JhHwRtv0pXNLt289eN9x1oISxrMxq
+	w3pGkYVJhabV+WDqUeuUzrzkiGwD+VhXBzkCFoAxMtEaHdLCjFL/8Bx50jiNmwDi5TFMXPRFjwj
+	NfI+aQB8+uAo7+RYj666qOsNrLJpLhzQ5EmAdm1wWox+erRveunKSd0wgm5iF0bLb+9stWdzYu5
+	A==
+X-Received: by 2002:a05:600c:3495:b0:49c:dadb:18a7 with SMTP id 5b1f17b1804b1-49cf8244260mr167551925e9.10.1788695530692;
+        Sun, 06 Sep 2026 04:52:10 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.250.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm19337821f8f.3.2026.09.06.04.52.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm19337821f8f.3.2026.09.06.04.52.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:52:11 -0700 (PDT)
+        Sun, 06 Sep 2026 04:52:10 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Sun, 06 Sep 2026 12:52:04 +0100
-Subject: [PATCH v16 3/5] phy: core: Add devm_phy_get_by_of_node()
+Date: Sun, 06 Sep 2026 12:52:03 +0100
+Subject: [PATCH v16 2/5] phy: core: Add phy_get_by_of_node()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-3-f7bd68b5369f@linaro.org>
+Message-Id: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-2-f7bd68b5369f@linaro.org>
 References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
 In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -93,97 +95,180 @@ Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  Krzysztof Kozlowski <krzk@kernel.org>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2684;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5277;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=ov6l6XYXYWQFGwdR6skU1nY1vxsBWDotX7Kg0ih6rxA=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnVPkhgJEj+MuSgyHrBaFkz9XqtYCTR6R+pqF1
- i/H/gSspV2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap1T5AAKCRAicTuzoY3I
- OtBAEACdIbMNteN9fIlQi8sud4+XXBijDxHoP6CT55S3kiK9pcb6if0/ESIPuE9WB8O5czjY4Em
- Z8xSqrCOb/OcUxbq33GVbInFzieoTTTN3cv+GJCWQk4eiJJLIk6RuEirjhksxUIp7dBBg5cKr7T
- hI2BSMsHBAs/Gpmh7Lyb8wa9Ik7La+p9unXLCXkkmzpkrVsqO54dLs8UQlM+HF0wZISWB8RzIiA
- /L2yFa14iwie0y+wYuEE3HzOIltEK7tGrwHwsAEOvhgb2aucn2iOBrJbPTrHOoSOFREwG1CsxzQ
- 6+WD0Paz6Y9PJ8D/ZiB4UM/JoffzHDycdokAsWkF8smWh12HSqUO93+WoDX5nkqFuMAp0jwjw8A
- gtrLFNIlu4hfDprwN92bO3XtPlYWopNHS7BkspS/n2uc75t97/V2qx01UO/cpLR84eeWL8PBR+d
- tMHtZ7x7ZqngZUJJ0cRCpEvhtvNwR92W0z9Ngkc3+K2ia0VJAwbYwJHqjvJSDKbon7DnwYSdOjI
- xrY3WmbrtWp9SXzRuATt3/ctLEQcnTMXtDGx/TRAU0TWjZUl+GxkimvkTGGX406gn6JYRQfswZ/
- H9bBrjUAaF2qOVG+VF2Wg16PBCI9OV988T7IUHQiEG3WzNNMdSTzeAYEg6A9dwMk/ZCTkLSCfLM
- 1qlOVKIl5v4hgoA==
+ bh=jvWI5bCo2G0nPMiyIWWUCCvc8PV85ddqSgmXfNNkRqI=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnVPk6Z4QLozQ0/xd0w0EjWqBUNZ8L2r/JFgTh
+ /1GqiOxcO6JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap1T5AAKCRAicTuzoY3I
+ OnKFD/0V42uUIs8WXy0vyaESKTs53Yy+MFBwAjiwXBm8hulnaRoK657x/bgARJNZ7RQDpMrgO7X
+ JmipAQVSr8XVfcwCTLzZfPvoE6SBWxZkdgNP2TME6qUhK9YsuhQysEjUCavha4SaCdseYM1dpKE
+ P2mbKNbq9r+I6uLajGNnVk9h07c6JJ5A0/CJJ3rtJTsm4/hSxGsGqUY7gwXGHDKqyQm8LGtjn64
+ g9xud4ulCGHhpytkNUjKaHJQ9WsU6pf7XPkP7OiHrvx6iMv53A3jJwNCdukeZFhV3uBEq6kWFmR
+ jhxXe0Z4CJ8GXdewjX3e+eCQUK8ActlBeBUf+FeKFUYoBwk9sW/TEswV+9KxjHhBJ5hV7Vbx96D
+ p0BOF/MUqUTZUz1s5ESC7/+QaqV0eVNHUhwwQOvj3Ddc29laWdgzD+kliHsFpz2vMzHxaseR5Wx
+ Bx5Cj90iMjuLYmsoS/SCQtsd6UepCeodVn68UCEUApITKPAbv1A9QQnaE2SCd+A1gUlH1U2VwDY
+ Zg9LUiUTYUTRalJiZNyaD6dvMQuF2G+Iyc8qz6Nkf/OmyCQz6rvZ3pW9qaSD0DGN9xB2745hnwJ
+ Y5xLYlWTlRzJjmJSGFSEzg2hnzCASsZ/UZ+QISTxgfg8WjXeMPcc129BPyCbnPDk/lU6ri1Nc3q
+ LzWDbMy+je+BPXA==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Add a devm variant of phy_get_by_of_node() to allow for the familiar
-pattern of having devres automatically release resources on the driver's
-exit path.
+Add new function phy_get_by_of_node() allowing lookup of a phy by
+device_node. Separates existing logic in _of_phy_get() into an internal
+helper method _of_phy_get_with_args() to allow for reuse in new method.
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
- include/linux/phy/phy.h |  7 +++++++
- 2 files changed, 41 insertions(+)
+ drivers/phy/phy-core.c  | 95 +++++++++++++++++++++++++++++++++++++------------
+ include/linux/phy/phy.h |  6 ++++
+ 2 files changed, 78 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-index 490a7cde6d40a..2e3581ecb42ee 100644
+index 89addd732bff3..490a7cde6d40a 100644
 --- a/drivers/phy/phy-core.c
 +++ b/drivers/phy/phy-core.c
-@@ -1050,6 +1050,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
+@@ -606,22 +606,51 @@ int phy_validate(struct phy *phy, enum phy_mode mode, int submode,
  }
- EXPORT_SYMBOL_GPL(phy_get_by_of_node);
+ EXPORT_SYMBOL_GPL(phy_validate);
  
 +/**
-+ * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
-+ * @dev: device requesting the PHY
-+ * @np: device_node of the PHY provider
++ * _of_phy_get_with_args() - lookup and obtain a reference to a phy by of_phandle_args
++ * @args: of_phandle_args to the phy
 + *
-+ * Returns phy associated with the device_node or ERR_PTR. devres manages
-+ * releasing resources.
++ * Returns the phy from the provider's of_xlate, -ENODEV if disabled,
++ * -EPROBE_DEFER if the provider is not yet registered.
 + */
-+struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
++static struct phy *_of_phy_get_with_args(struct of_phandle_args *args)
 +{
-+	struct phy **ptr, *phy;
-+	struct device_link *link;
++	struct phy *phy;
++	struct phy_provider *phy_provider;
 +
-+	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
-+	if (!ptr)
-+		return ERR_PTR(-ENOMEM);
++	lockdep_assert_held(&phy_provider_mutex);
 +
-+	phy = phy_get_by_of_node(np);
-+	if (IS_ERR(phy)) {
-+		devres_free(ptr);
-+		return phy;
++	phy_provider = of_phy_provider_lookup(args->np);
++	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner))
++		return ERR_PTR(-EPROBE_DEFER);
++
++	if (!of_device_is_available(args->np)) {
++		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
++		phy = ERR_PTR(-ENODEV);
++		goto out_put_module;
 +	}
 +
-+	*ptr = phy;
-+	devres_add(dev, ptr);
-+	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
-+	if (!link)
-+		dev_dbg(dev, "failed to create device link to %s\n",
-+			dev_name(phy->dev.parent));
++	phy = phy_provider->of_xlate(phy_provider->dev, args);
++
++out_put_module:
++	module_put(phy_provider->owner);
 +
 +	return phy;
 +}
-+EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
++
+ /**
+  * _of_phy_get() - lookup and obtain a reference to a phy by phandle
+  * @np: device_node for which to get the phy
+  * @index: the index of the phy
+  *
+- * Returns the phy associated with the given phandle value,
+- * after getting a refcount to it or -ENODEV if there is no such phy or
+- * -EPROBE_DEFER if there is a phandle to the phy, but the device is
+- * not yet loaded. This function uses of_xlate call back function provided
+- * while registering the phy_provider to find the phy instance.
++ * Returns the phy associated with the given phandle value after getting
++ * a refcount to it; -ENODEV if there is no such phy or the phy is
++ * disabled; -EPROBE_DEFER if the phy provider is not yet available.
+  */
+ static struct phy *_of_phy_get(struct device_node *np, int index)
+ {
+ 	int ret;
+-	struct phy_provider *phy_provider;
+-	struct phy *phy = NULL;
++	struct phy *phy;
+ 	struct of_phandle_args args;
+ 
+ 	lockdep_assert_held(&phy_provider_mutex);
+@@ -637,22 +666,7 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
+ 		goto out_put_node;
+ 	}
+ 
+-	phy_provider = of_phy_provider_lookup(args.np);
+-	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
+-		phy = ERR_PTR(-EPROBE_DEFER);
+-		goto out_put_node;
+-	}
+-
+-	if (!of_device_is_available(args.np)) {
+-		dev_warn(phy_provider->dev, "Requested PHY is disabled\n");
+-		phy = ERR_PTR(-ENODEV);
+-		goto out_put_module;
+-	}
+-
+-	phy = phy_provider->of_xlate(phy_provider->dev, &args);
+-
+-out_put_module:
+-	module_put(phy_provider->owner);
++	phy = _of_phy_get_with_args(&args);
+ 
+ out_put_node:
+ 	of_node_put(args.np);
+@@ -1001,6 +1015,41 @@ struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+ }
+ EXPORT_SYMBOL_GPL(devm_of_phy_get_by_index);
+ 
++/**
++ * phy_get_by_of_node() - lookup and obtain a reference to a phy by device_node
++ * @np: node containing the phy
++ *
++ * Returns the phy associated with the device node or ERR_PTR.
++ */
++struct phy *phy_get_by_of_node(struct device_node *np)
++{
++	struct of_phandle_args args = { .np = np, .args_count = 0 };
++	struct phy *phy;
++
++	if (!np)
++		return ERR_PTR(-EINVAL);
++
++	mutex_lock(&phy_provider_mutex);
++
++	phy = _of_phy_get_with_args(&args);
++
++	if (IS_ERR(phy))
++		goto out_unlock;
++
++	if (!try_module_get(phy->ops->owner)) {
++		phy = ERR_PTR(-EPROBE_DEFER);
++		goto out_unlock;
++	}
++
++	get_device(&phy->dev);
++
++out_unlock:
++	mutex_unlock(&phy_provider_mutex);
++
++	return phy;
++}
++EXPORT_SYMBOL_GPL(phy_get_by_of_node);
 +
  /**
   * phy_create() - create a new phy
   * @dev: device that is creating the new phy
 diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-index 71c2e16397130..14b924a88411f 100644
+index ea47975e288ae..71c2e16397130 100644
 --- a/include/linux/phy/phy.h
 +++ b/include/linux/phy/phy.h
-@@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
+@@ -284,6 +284,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
+ 				     const char *con_id);
  struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
  				     int index);
- struct phy *phy_get_by_of_node(struct device_node *np);
-+struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
++struct phy *phy_get_by_of_node(struct device_node *np);
  void of_phy_put(struct phy *phy);
  void phy_put(struct device *dev, struct phy *phy);
  void devm_phy_put(struct device *dev, struct phy *phy);
-@@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
+@@ -493,6 +494,11 @@ static inline struct phy *devm_of_phy_get_by_index(struct device *dev,
  	return ERR_PTR(-ENOSYS);
  }
  
-+static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
-+						  struct device_node *np)
++static inline struct phy *phy_get_by_of_node(struct device_node *np)
 +{
 +	return ERR_PTR(-ENOSYS);
 +}
