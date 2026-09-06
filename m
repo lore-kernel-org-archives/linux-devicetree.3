@@ -1,72 +1,76 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B16363C63
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 20:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6C73630AD
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 20:17:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788725820; cv=none; b=NAh+70v0pfVFFLKC12scekZykWXOdfD7X+YVbwd9AIQlvxXhg1VeD3Nh0L2gQ+BmTtUvsAEOAG+A1ndfu4THsEJtFtfj4r8bho/qoFhk76/Jj26ptwYvGBkUlUN9wH00qipks97Gv9V1A6lg6MUW7pfvswNkJALcLmWW54QmkM4=
+	t=1788725829; cv=none; b=mJPC0ARhcqdQi3BMTJFI0/sYOUfysJdby6dFGaAQrPjZEw827OyP4U6g3y5EtgpjaLLbsa/0pOTpye501EYi5MYta+y+hexFiYuViatqeCB0zO346GFZailRkspoOGCkKfg2LLcJ3vKJb7n+HE6mhGJ4BBelq+Rr41A91ahAEgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788725820; c=relaxed/simple;
-	bh=EgiEc88wDMuwQI8RaErS8IZLrV1n34S1ystE/a9qaK0=;
+	s=arc-20240116; t=1788725829; c=relaxed/simple;
+	bh=ykDPNgeE6ALCDtG9dIbJeisPavXCkocBpXkJWK5BPFc=;
 	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:Mime-Version:
-	 References:In-Reply-To; b=Rz+U7ZcRY23GcM4gJMRki066i1wxucVute3bXVyZ+bUIbbYoQzpnoFqCS35QwAJFWnX2LMxbyuNgzmyFxTTJ4ySxHpxw9zjn+hZcLSZ6Gk1b2s1QqeosJCUWXLTKnZTIzueq+M6K9QnFtLQFYhpcOm8E1AY7r8bOGGfs7JRJREo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dvHcKiAS; arc=none smtp.client-ip=209.85.221.172
+	 References:In-Reply-To; b=YWVRYH/VjzygGykSJEIstPhGvRkV7c1MJvgJw+JrEWbk4cutHFnQAwKBI45dM9DVH2lFrE7SOY5wJIYUwAgrx8Qxq1/2nFLuyIu1fd44THbFF8O/Ce9l3JKjMsnVftYgmIJuao9KAZlCluJ3LhwG7RNIqXvSPNdoN1EiBHJKo8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d0lW3qV8; arc=none smtp.client-ip=209.85.222.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dvHcKiAS"
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5c79c9f7b54so1456389e0c.3
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 13:16:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d0lW3qV8"
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-977258a75d9so2179912241.3
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 13:17:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788725817; x=1789330617; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788725827; x=1789330627; darn=vger.kernel.org;
         h=in-reply-to:references:content-transfer-encoding:mime-version:to
          :from:subject:cc:message-id:date:content-type:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=peVlo5midIsHLppkaegcNy/jZCMNrNbiCq0SLwEov68=;
-        b=dvHcKiASRysz0+LRrkUqwExzst2OcZWgLT8Mv/aX2tuAsy+P6nLPGM4qiA7nYzYgK3
-         PoCHqJqY7wTxeirGgWlt7e6t785lzS1Thru0n0/Zh/BFFfEAmlB5TWXlHxuCF7GeJ6dv
-         A12o71A1pzsgeENIU+KK0058vfi+H7rE8c6r9xRyMdiKlHPeInVtIUQHz2bgtMpSr5TM
-         qmhIWFzkHpeICFtpgE8flsr8vHHVpcUhGOxD+al9OAK174aYkFbY8bY0he234bevSpV+
-         D+7BaYfk1tX/MPvKgSOTn0l0c8qJH5pVRbiNmz7rv2JnkeD1NEiHs54CcDxkZvO4UmDI
-         ZFXA==
+        bh=G71y+UDrFIT1z0z2AwWCoqvpruo2h+SQeZ7yG6rfDDQ=;
+        b=d0lW3qV8vMIQtpRJeOctIwZxiPL2OxRw1xN07JnLut9Vo2HpQXUX55E8Fjjg9QZo2g
+         tyWZ1ELwuiSNuFlQiF2Zv7MjYBkTrQMEcXv3UdHrfz2z7MfkcvMcfZG7LVAsafZFrIGx
+         icKTK9qz31pjtB4M09VVN1le5eGejZ/umhDVAtQiEKSdYjDzHgPLmv4yOuDTjF7oqD9u
+         m2UwNuGhKwSA+8oS7YtLnKY0Nh7L8J/v0SRihhZ2wdTkRX1meKX3LowDkjGlF07udSaw
+         K9eDe6yFpFuuI8x3yJlwy2mb1VO1D8HJO4koVHnSicGP4RX1xr7tRBHsZ/R4aQWbF7GE
+         qlMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788725817; x=1789330617;
+        d=1e100.net; s=20251104; t=1788725827; x=1789330627;
         h=in-reply-to:references:content-transfer-encoding:mime-version:to
          :from:subject:cc:message-id:date:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=peVlo5midIsHLppkaegcNy/jZCMNrNbiCq0SLwEov68=;
-        b=pmcynLvpVDo5Y3uSk0qWmfCmsF1tzZp7wlipcLTj9dLc52R7iFpM9thCbLGRieJR4d
-         LkTwDNAxKT5V8tPY/5yd7a0EG4GJ82IfkiDCHsoKYAkLsbBz+32TOTSPQ9TUNFu11u6H
-         BNksGsA+um16jHARuE1B27zIyPaJ2aBjBAYZ/+KrW5EpzrkO+k/Fi+9gcnxCzgPN7J/V
-         +3mREHE7sfzjNRVJskMJfYHHQaHBFUi5zfBujEJ/2yT/YwzZxirKeCVTj9o45D1fOwuB
-         NX1wp+gnrzlwmTpvn5piC8rIoSBhXDZBUHPf1bX7KMZ54tCIsL7wROFtWgiXU2EAoLQx
-         LYWg==
-X-Forwarded-Encrypted: i=1; AKwUvBzzdFJPa0EyIQVh0c6PGsQK0of/1ddpv1QlAXCcyNqKXCuv7ptaQXmMCLYT8z98y9j5hPkW6lNihlTZ@vger.kernel.org
-X-Gm-Message-State: AFuF++lTHuHFv5w1jpI6FIgDwQ1db+WShn9VS35is8CW5ATKp6HwOcc3
-	iXTVxzNSzt/FYXP9aIc/4T48VDi2/HJWA9l4kYzqfMVh5YRyUkWdHRur
-X-Gm-Gg: AYBFou1C8CRJSTDCrfsPjAOKt5xr49pa3nXgvyTadsvTMpLobKZE/AoIdGP7i69W+jf
-	2bUmjtOLt/6UCz6LKAqTsmyvce6qG5/vLGwvMUWjG6V6UfXvu+h4FllCqKZmegAhHvmGOdXNoGF
-	XZLuEHCj1QcIOce1Ou7jYi17Z53sFye4Kf4eQn94vblCBzkN9txpJq/igMYiLrHSgS4BxiLZfTy
-	BBFMTJfGnpxoXLvQGRf8O+qehlukkCoBhwUhzVdz233lk0c1c2JM98cmFboC94WoIeACK0L2bsZ
-	Q3eS3XOsuyosKCAk6egDHmq14O9K+mAwWhanj19Eh93SYbBdlja2YT6PURcsf1mWtY+OW+TBp1N
-	GK3jbkU251toVRRiVCQoWHokcA3dRc3y8xzObGVHCD8QgZMLKJKSk57VLMDDbVc2EbiUenQEICd
-	ELk8GAGkEAUuxs+3Twxqq+6VuJ6GJooy3s1Ab9HpaJ3garf6Mm7Q==
-X-Received: by 2002:a05:6122:1785:b0:5bd:c27a:dafd with SMTP id 71dfb90a1353d-5c7ed3b1b2cmr7897263e0c.3.1788725817587;
-        Sun, 06 Sep 2026 13:16:57 -0700 (PDT)
+        bh=G71y+UDrFIT1z0z2AwWCoqvpruo2h+SQeZ7yG6rfDDQ=;
+        b=XAix4AWNgefaXVYAJJcwNfHOf/w86+wIIMGs+2GmQ3Hy5f3AINyFgX1WAQX4cXFchJ
+         lBQ1beCBk0bYjrPv5udGSiIA+bb/W77wlQLB5k9NnVCu3GWKqSiDlNLvwt+o4e8VfOt0
+         HiILodvE3g7lwLkyDI1aNLb2vod74NwVCf0M8mob+z8s6thc4vkSfREgv1EPynP4rNmS
+         /o40fLLydLQeLZhKWh4TbbepA3ZhwKekM8iaw0J0Jr8H1NLqlj4n9c6rCPMytYzdZu9V
+         py7S667LdrRTytQyPmujXakdUc2dx8bmvbkn8Dgf3kJKq4Oce6/tfi+4/8gFPpMfd7iL
+         SGAg==
+X-Forwarded-Encrypted: i=1; AKwUvBzFDuQVezrOSBfkn4xi6h2UpMIv198e5mD0JQvHfWap8WQNgMB7GJL6QNF9kNqbk/sXxTrmsZnZkQ19@vger.kernel.org
+X-Gm-Message-State: AFuF++nQSYoNkTnnG7mUFjWuU+pAOPflLMHLgXb+Vb16AUVHY5KYJ2Lk
+	dGkoBsMDioaEvCVMFN1AGLuwm1fC/tWUXmN+Npf0pkBqRmvitF6iX/iq
+X-Gm-Gg: AYBFou2vBfUdu6eCvEUjXkflNvcg4SoRnssfPpLZMx4isCV4b/QtFV4p01TRQKx6vzt
+	moW7Me4FVKFQO40vmvfS8rjCEJv/BEKJ/gZ0uao+eG/mtq/tvkL5tjKbCSbHMIMxQSGS023z+JM
+	g96VG7LO3QCwanpWSY3rdQoR/zDNFHfZQ/NB9B+IsapkT6Qlvc/NOdEi0PkyDAOddAKHD++3dwy
+	Fefj5B6kjJY2IBUNj0k5U9xaMyFbIGJgOI/VNTh4vz6o2tq/sw0lhfgxKnb8Ttz1ksokqIaPc8/
+	JfYKmmrLVfPK5xPron6L5PlmCmkKT4E94ov2Vj/dxSbbeIvMkhtlOnrMy1Y94dOCBx7+1PwSfVQ
+	YLU1IUo9wSzUYaawxQqt3J4oSrzGMRNuuAqDJMcaEpAzaWJ7OgGvwDnOut3rZBO88oDicevWEcg
+	AKhAOKgcYBlR8Ev+s+PP7myxM8ZTSgKvw74GOoXS9IGvTeK7pGrQ==
+X-Received: by 2002:a05:6102:5e91:b0:784:b882:9567 with SMTP id ada2fe7eead31-78a4a9d9306mr7941864137.6.1788725826886;
+        Sun, 06 Sep 2026 13:17:06 -0700 (PDT)
 Received: from localhost ([2800:40:44:f1f5:f400:4c49:91c1:9905])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1097f4sm6699138e0c.1.2026.09.06.13.16.55
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a478bb21esm5787085137.1.2026.09.06.13.17.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 06 Sep 2026 13:16:57 -0700 (PDT)
+        Sun, 06 Sep 2026 13:17:06 -0700 (PDT)
 Content-Type: text/plain; charset=UTF-8
-Date: Sun, 06 Sep 2026 17:16:54 -0300
-Message-Id: <DL8IDQUWAFJL.5RNMP0YKWW9@gmail.com>
-Cc: "Kurt Borja" <kuurtb@gmail.com>, <conor+dt@kernel.org>,
- <robh@kernel.org>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
+Date: Sun, 06 Sep 2026 17:17:02 -0300
+Message-Id: <DL8IDULL3UOW.1ASCQ859X5KV9@gmail.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 04/10] iio: adc: ti-ads1262: support per-channel
+ sampling frequency
 From: "Kurt Borja" <kuurtb@gmail.com>
-To: "Jonathan Cameron" <jic23@kernel.org>, <sashiko-reviews@lists.linux.dev>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Kurt Borja" <kuurtb@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,117 +80,38 @@ Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: aerc 0.21.0-0-g5549850facc2
 References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
- <20260828065211.C05B11F00A3F@smtp.kernel.org>
- <178805537532.2788519.12150005140246669583.b4-reply@b4>
-In-Reply-To: <178805537532.2788519.12150005140246669583.b4-reply@b4>
+ <20260828-ads126x-v4-4-1dc27e9c0260@gmail.com>
+ <20260830032237.6c143d59@jic23-huawei>
+In-Reply-To: <20260830032237.6c143d59@jic23-huawei>
 
-On Sat Aug 29, 2026 at 11:02 PM -03, Jonathan Cameron wrote:
->> commit 6093db1ff45e9e897720bc6b278550ffbef67e85
->> Author: Kurt Borja <kuurtb@gmail.com>
->>=20
->> iio: adc: add the ti-ads1262 driver
->>=20
->> Add the ti-ads1262 driver with initial support for the primary ADC (ADC1=
-).
->> Various features such as accurate timeout delays, per-channel reference
->> sources, scale, offset, and diagnostics are intentionally left out for
->> future support.
+On Sat Aug 29, 2026 at 11:22 PM -03, Jonathan Cameron wrote:
+> On Fri, 28 Aug 2026 01:38:19 -0500
+> Kurt Borja <kuurtb@gmail.com> wrote:
 >
-> One particularly interesting point from sashiko about regmap debugfs.
+>> Add per-channel sampling frequency support. The "available" attribute is
+>> assigned per-channel too, in order to eventually support per-filter
+>> availability.
+>>=20
+>> Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 >
->>=20
->> > diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262=
-.c
->> > new file mode 100644
->> > --- /dev/null
->> > +++ b/drivers/iio/adc/ti-ads1262.c
->>=20
+>>  struct ads1262 {
+>>  	struct spi_device *spi;
+>>  	struct regmap *regmap;
+>>  	struct gpio_desc *start_gpiod;
+>> +	size_t num_channels;
+>> +	struct ads1262_channel *channels;
 >
->> > +static int ads1262_channel_read(struct iio_dev *indio_dev,
->> > +				const struct iio_chan_spec *spec, __be32 *val)
->> > +{
->> > +	struct ads1262 *st =3D iio_priv(indio_dev);
->> > +	int ret;
->> > +
->> > +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
->> > +	if (IIO_DEV_ACQUIRE_FAILED(claim))
->> > +		return -EBUSY;
->> > +
->> > +	ret =3D ads1262_set_runmode(st, ADS1262_RUNMODE_PULSE);
->> > +	if (ret)
->> > +		return ret;
->> > +
->> > +	ret =3D ads1262_channel_enable(st, spec);
->> > +	if (ret)
->> > +		return ret;
->> > +
->> > +	reinit_completion(&st->drdy);
->> > +
->> > +	ret =3D ads1262_dev_start_one(st);
->> > +	if (ret)
->> > +		return ret;
->> > +
->> > +	ret =3D ads1262_wait_for_conversion(st);
->> > +	if (ret)
->> > +		return ret;
->>=20
->> [Severity: Medium]
->> Does this error path leave the hardware running if the wait is interrupt=
-ed?
->>=20
->> If ads1262_wait_for_conversion() returns an error (like -ERESTARTSYS fro=
-m
->> a signal), the driver exits immediately without stopping the hardware. I=
-f a
->> subsequent read calls reinit_completion(&st->drdy), but the abandoned
->> hardware conversion finishes and asserts the DRDY interrupt right after,
->> could the new read prematurely fetch stale data from the old conversion?
->>=20
->> Should this path ensure the hardware is stopped and synchronized with th=
-e
->> interrupt handler on timeout or interrupt?
->
-> For me this is obscure enough I'm not sure we care about stale data.
+> __counted_by_ptr() usable here?
 
-Interesting issue... Hmmm, yeah I say we leave it like that too. Stale
-data would not be the end of the world here.
+I didn't know about that tag :o I'll use it.
 
->> > +static int ads1262_regmap_read(void *context, const void *reg_buf,
->> > +			       size_t reg_size, void *val_buf, size_t val_size)
->> > +{
->> > +	struct ads1262 *st =3D context;
->> > +	u8 tx[2];
->> > +
->> > +	lockdep_assert_held(&st->xfer_lock);
->>=20
->> [Severity: Medium]
->> Will this lockdep assertion fail if the register is read via debugfs?
->>=20
->> Because ads1262_regmap_config does not set disable_locking =3D true and =
-does
->> not provide custom lock/unlock callbacks, regmap uses its own internal
->> mutex. When regmap's debugfs interface is read, the regmap core acquires
->> its internal mutex and calls the driver's ads1262_regmap_read() callback
->> without holding st->xfer_lock.
->>=20
->> Could this bypass the xfer_lock, triggering the lockdep splat and allowi=
-ng
->> debugfs SPI operations to interleave with driver-initiated SPI transacti=
-ons?
 >
-> This is a corner I'd not thought about in adding lockdep markings to thes=
-e
-> functions.  Up to you how you want to fix it.
-
-The way to fix this would be to either bring the xfer_lock back into the
-regmap callbacks or allocate the regmap_config dynamically and give it
-the xfer_lock so the core can deal with it.
-
-For me I'd prefer to do the first but David raised a concern about the
-xfer_lock being in the callback. Maybe David can give us his opinion
-here?
+>>  	/* protects concurrent SPI transfers */
+>>  	struct mutex xfer_lock;
+>>  	/* protects channel state */
+>> @@ -185,6 +195,8 @@ struct ads1262 {
 
 --=20
 Thanks,
  ~ Kurt
+
