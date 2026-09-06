@@ -1,977 +1,401 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C8A434750F;
-	Sun,  6 Sep 2026 07:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60FF5361DA9;
+	Sun,  6 Sep 2026 08:20:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788680920; cv=none; b=GBMp+OuHT+HYcUJ4BmROUDqJVosm1xacrA9MsNaVSA46M3/4zuMld4zbGMPRL+1f2UrVWjBDqJsTDr6pJZ2XFNJpohX5yhHVtSGhcjL+iws2275a1XXpH+MruMJ3Q8ejWHwi9sMjMkyfaSf52AtZFTE8hje6+DA8M3Jz2NfdYOo=
+	t=1788682806; cv=none; b=ElJ0TVfOi9akOcFBuLWRmZkoMuP4haGwLBZms08mMyAOnatJVyBHdNhozOhRiy42XC82zyblCjp6bPOBXFcQT3H2XmiI10ffLX2g8oByLckEkeWoZvT2UeFIL9AcaqXHIqFoSV5RwiK0zBWc30HP+6LbtSq8cVuAsnvVnI4P/d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788680920; c=relaxed/simple;
-	bh=sT4laFNBpN3V77blKD1qO8KECzLhS9E6vFcRDEEVCBc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=sThaKwycB00uP2oPGi+UPBXSof7f6zx0kmnqRg4Sug2mnBE9WGccN/9xy701TZIPX8gp280S1XEIaPr0rQ6OzWiYesaFdc57XfZBL6e//Bx4z7ZW48xusmASzykoR0LL9iWaPYyuXYPWhtJkYd8wbb42VgSzLhAfXxZOwMpAUOg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PbpHoR+w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788682806; c=relaxed/simple;
+	bh=YNRQ38qxKsLhpvFpOoYGigeR6OjYvbHWo9/gIA91Q3o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=D7P7a1vBEESnvhxP1eMSKNahGshnuLvUN9agWho4i+Vx+6sTAuj28EwbGBrj3Fl753pqwI58O/UaQuGQ9zu92GqvT41mPbvxu1ZdKwyAg/oJkFi+rMm0+cnNWdZ3T5DzRBAOuPHQ+E2kGoUU5/kg3bnJSEff1DZLwJWzEHMpccQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=SbfRWH6t; arc=none smtp.client-ip=212.227.15.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PbpHoR+w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1507F1F00A3E;
-	Sun,  6 Sep 2026 07:48:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788680918;
-	bh=I9hSt/5s7KIUKrvKYSrVal5sCCHf0rP/z4k1Y/pT08c=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=PbpHoR+wximWIc/vct/JzfQDzoGhif8Be9bZTbZAFi/ziK7EhW63MCAxTjITRJStS
-	 FXFu5Ng7GtbXoI2Xr4YjslxnUdRb8JxQcqBhEAHzx2Rd4aUR3aS7g0f+Mkp/dFdKGb
-	 EyfSPejIDj2bJ4gCGQZwV3PhgHDwh3m200brp0jHJdcVwt5OWZ0m/MHn4PTp/o7W3y
-	 NWOUeTjTWwRGeFhVraUxg5acLl0UHEMMgqs/0hbaUbst3EtBBv1xHykuMxU8hylZND
-	 BxePl5ktRRDAafmCS+tkZXqSR4oT6DKg/MI4nvSb4lNX2p79exhyHFZdylsfv5UgRk
-	 NoafGXBxdMzjA==
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 06 Sep 2026 09:48:14 +0200
-Subject: [PATCH net-next v9 4/4] net: dsa: ks8995: Delete surplus driver
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="SbfRWH6t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1788682802; x=1789287602;
+	i=markus.stockhausen@gmx.de;
+	bh=eNOQIWFK7o9YXs3xwahYSLNbECysU9jdBhlCBoWfx+E=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=SbfRWH6tfRFEVyTpeMDLcvww1aWXAIA20Y8LxVtVCPX463e4MiHT4xUfi5pWNfeT
+	 qQxiIQQqd8WbgufT5Rp9cwBoVJJKMhVsgi/QhAzxC8M6IQDqWrgyiQ/rQbRBfXMjO
+	 GXJXb+ncCgjydSqLg2zl5iwc07wFHKHTgT01AUYtevE5duh4IY+mnrvanOJ50M0YJ
+	 6YTAb1dZaJ4WWs393+qyDp/rlYyQdyZj8GoOCg7hlBB4Mlg2VC6A9KQZWmRmvZoi0
+	 9A+QQVKFTdURD2kMC1B+Dq7muwOFnYp0uTAfeRumBD5xhTjx4q58TjKRd3DUZ6OTU
+	 hr54kJ8M2dmsNWtxBA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
+ [212.227.17.190]) with ESMTPSA (Nemesis) id 1M2O6e-1x0OHk15GY-001kct; Sun, 06
+ Sep 2026 10:20:02 +0200
+From: Markus Stockhausen <markus.stockhausen@gmx.de>
+To: andrew@lunn.ch,
+	hkallweit1@gmail.com,
+	linux@armlinux.org.uk,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	netdev@vger.kernel.org,
+	chris.packham@alliedtelesis.co.nz,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org
+Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
+Subject: [PATCH net-next v2 3/3] net: mdio: realtek-rtl9300: Support non-default clock frequency
+Date: Sun,  6 Sep 2026 10:19:46 +0200
+Message-ID: <20260906081946.3499898-4-markus.stockhausen@gmx.de>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260906081946.3499898-1-markus.stockhausen@gmx.de>
+References: <20260906081946.3499898-1-markus.stockhausen@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ks8995-to-ksz8-v9-4-8d8815a91bd8@kernel.org>
-References: <20260906-ks8995-to-ksz8-v9-0-8d8815a91bd8@kernel.org>
-In-Reply-To: <20260906-ks8995-to-ksz8-v9-0-8d8815a91bd8@kernel.org>
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
- Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>, 
- Nicolai Buchwitz <nb@tipi-net.de>
-Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
- devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>
-X-Mailer: b4 0.16.0
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:dXmb6h2koc+srYixdAHN2hUKjRrfamjuKL6M4nH4AvY/19a52px
+ DgKBG+pCW5QLIzrmjNWmZBaOOncRoof6Pu3X0vZdi3+V5Penmt/sQo9oCLOjEhfSfTse83G
+ M9v0wAXC1It7+NjkMjgGA/3C+UctQEDiFV4I/2uOBRccH46+wiCzNLkskMYe88uxSDVJnxN
+ ta7lEwyiRMuo+EjrCAmvA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:nGh0YnEJGFU=;1Su2sW0VlVllbwRNNYiPNYVhvFP
+ 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
+ I1QYxldyFCYP1Ob+AYyEzqvpLEUTTDr09vtcFk=
 
-The Microchip KSZ driver now handles the KS(Z)8995XA. The old
-driver identified the shared 0x95/0x0 ID as KS8995MA, but this ID
-cannot distinguish MA from XA. No KS8995MA users are known, and
-KS8995E has no documented SPI management interface. Neither variant
-has been verified with the replacement driver.
+The ethernet MDIO controller of the Realtek Otto switches has a default
+MDC clock frequency of 2.5MHz. Via configuration bits one can adapt this.
+Depending on the series the following can be set
 
-Delete the old driver, but leave a stub behind in Kconfig so new
-users will be automatically phased over to the new symbol when
-migrating their configs.
+- RTL838x: 2.5 Mhz, 10 MHz
+- RTL839x, RTL930x, RTL931x: 1.25 MHz, 2.5 MHz, 5 Mhz
 
-The old driver supports platform data (board file) instantiation,
-but nothing in the kernel tree makes use of this legacy mechanism so
-it is fine to delete.
+Enhance the driver so it allows to set the clock frequency via device
+tree. This helps to
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Linus Walleij <linusw@kernel.org>
----
- drivers/net/dsa/Kconfig  |  10 +-
- drivers/net/dsa/Makefile |   1 -
- drivers/net/dsa/ks8995.c | 857 -----------------------------------------------
- 3 files changed, 6 insertions(+), 862 deletions(-)
+- simplify protocol analysis with a logic analyzer (lower speeds)
+- reduce MDIO access times during normal operation (higher speeds)
 
-diff --git a/drivers/net/dsa/Kconfig b/drivers/net/dsa/Kconfig
-index e309e4c1ee3a..55a9714033a6 100644
---- a/drivers/net/dsa/Kconfig
-+++ b/drivers/net/dsa/Kconfig
-@@ -110,11 +110,13 @@ config NET_DSA_RZN1_A5PSW
- config NET_DSA_KS8995
- 	tristate "Micrel KS8995 family 5-ports 10/100 Ethernet switches"
- 	depends on SPI
--	depends on NET_DSA_MICROCHIP_KSZ_SPI = n
--	select NET_DSA_TAG_NONE
-+	select NET_DSA_MICROCHIP_KSZ_COMMON
-+	select NET_DSA_MICROCHIP_KSZ_SPI
- 	help
--	  This driver supports the Micrel KS8995 family of 10/100 Mbit ethernet
--	  switches, managed over SPI.
-+	  This is a transitional option for users who had NET_DSA_KS8995
-+	  enabled. It automatically enables the new NET_DSA_MICROCHIP_KSZ_SPI
-+	  driver which supersedes it. This option will be removed in a future
-+	  kernel release.
- 
- config NET_DSA_SMSC_LAN9303
- 	tristate
-diff --git a/drivers/net/dsa/Makefile b/drivers/net/dsa/Makefile
-index 6ceb78a755d7..9923137429f8 100644
---- a/drivers/net/dsa/Makefile
-+++ b/drivers/net/dsa/Makefile
-@@ -2,7 +2,6 @@
- obj-$(CONFIG_NET_DSA_BCM_SF2)	+= bcm-sf2.o
- bcm-sf2-objs			:= bcm_sf2.o bcm_sf2_cfp.o
- obj-$(CONFIG_NET_DSA_LOOP)	+= dsa_loop.o
--obj-$(CONFIG_NET_DSA_KS8995) 	+= ks8995.o
- obj-$(CONFIG_NET_DSA_MT7530)	+= mt7530.o
- obj-$(CONFIG_NET_DSA_MT7530_MDIO) += mt7530-mdio.o
- obj-$(CONFIG_NET_DSA_MT7530_MMIO) += mt7530-mmio.o
-diff --git a/drivers/net/dsa/ks8995.c b/drivers/net/dsa/ks8995.c
-deleted file mode 100644
-index 77d8b842693c..000000000000
---- a/drivers/net/dsa/ks8995.c
-+++ /dev/null
-@@ -1,857 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0
--/*
-- * SPI driver for Micrel/Kendin KS8995M and KSZ8864RMN ethernet switches
-- *
-- * Copyright (C) 2008 Gabor Juhos <juhosg at openwrt.org>
-- * Copyright (C) 2025 Linus Walleij <linus.walleij@linaro.org>
-- *
-- * This file was based on: drivers/spi/at25.c
-- *     Copyright (C) 2006 David Brownell
-- */
--
--#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
--
--#include <linux/bits.h>
--#include <linux/if_bridge.h>
--#include <linux/if_vlan.h>
--#include <linux/types.h>
--#include <linux/kernel.h>
--#include <linux/module.h>
--#include <linux/delay.h>
--#include <linux/device.h>
--#include <linux/gpio/consumer.h>
--#include <linux/of.h>
--#include <linux/spi/spi.h>
--#include <net/dsa.h>
--
--#define DRV_VERSION		"0.1.1"
--#define DRV_DESC		"Micrel KS8995 Ethernet switch SPI driver"
--
--/* ------------------------------------------------------------------------ */
--
--#define KS8995_REG_ID0		0x00    /* Chip ID0 */
--#define KS8995_REG_ID1		0x01    /* Chip ID1 */
--
--#define KS8995_REG_GC0		0x02    /* Global Control 0 */
--
--#define KS8995_GC0_P5_PHY	BIT(3)	/* Port 5 PHY enabled */
--
--#define KS8995_REG_GC1		0x03    /* Global Control 1 */
--#define KS8995_REG_GC2		0x04    /* Global Control 2 */
--
--#define KS8995_GC2_HUGE		BIT(2)	/* Huge packet support */
--#define KS8995_GC2_LEGAL	BIT(1)	/* Legal size override */
--
--#define KS8995_REG_GC3		0x05    /* Global Control 3 */
--#define KS8995_REG_GC4		0x06    /* Global Control 4 */
--
--#define KS8995_GC4_10BT		BIT(4)	/* Force switch to 10Mbit */
--#define KS8995_GC4_MII_FLOW	BIT(5)	/* MII full-duplex flow control enable */
--#define KS8995_GC4_MII_HD	BIT(6)	/* MII half-duplex mode enable */
--
--#define KS8995_REG_GC5		0x07    /* Global Control 5 */
--#define KS8995_REG_GC6		0x08    /* Global Control 6 */
--#define KS8995_REG_GC7		0x09    /* Global Control 7 */
--#define KS8995_REG_GC8		0x0a    /* Global Control 8 */
--#define KS8995_REG_GC9		0x0b    /* Global Control 9 */
--
--#define KS8995_GC9_SPECIAL	BIT(0)	/* Special tagging mode (DSA) */
--
--/* In DSA the ports 1-4 are numbered 0-3 and the CPU port is port 4 */
--#define KS8995_REG_PC(p, r)	(0x10 + (0x10 * (p)) + (r)) /* Port Control */
--#define KS8995_REG_PS(p, r)	(0x1e + (0x10 * (p)) + (r)) /* Port Status */
--
--#define KS8995_REG_PC0		0x00    /* Port Control 0 */
--#define KS8995_REG_PC1		0x01    /* Port Control 1 */
--#define KS8995_REG_PC2		0x02    /* Port Control 2 */
--#define KS8995_REG_PC3		0x03    /* Port Control 3 */
--#define KS8995_REG_PC4		0x04    /* Port Control 4 */
--#define KS8995_REG_PC5		0x05    /* Port Control 5 */
--#define KS8995_REG_PC6		0x06    /* Port Control 6 */
--#define KS8995_REG_PC7		0x07    /* Port Control 7 */
--#define KS8995_REG_PC8		0x08    /* Port Control 8 */
--#define KS8995_REG_PC9		0x09    /* Port Control 9 */
--#define KS8995_REG_PC10		0x0a    /* Port Control 10 */
--#define KS8995_REG_PC11		0x0b    /* Port Control 11 */
--#define KS8995_REG_PC12		0x0c    /* Port Control 12 */
--#define KS8995_REG_PC13		0x0d    /* Port Control 13 */
--
--#define KS8995_PC0_TAG_INS	BIT(2)	/* Enable tag insertion on port */
--#define KS8995_PC0_TAG_REM	BIT(1)	/* Enable tag removal on port */
--#define KS8995_PC0_PRIO_EN	BIT(0)	/* Enable priority handling */
--
--#define KS8995_PC2_TXEN		BIT(2)	/* Enable TX on port */
--#define KS8995_PC2_RXEN		BIT(1)	/* Enable RX on port */
--#define KS8995_PC2_LEARN_DIS	BIT(0)	/* Disable learning on port */
--
--#define KS8995_PC13_TXDIS	BIT(6)	/* Disable transmitter */
--#define KS8995_PC13_PWDN	BIT(3)	/* Power down */
--
--#define KS8995_REG_TPC0		0x60    /* TOS Priority Control 0 */
--#define KS8995_REG_TPC1		0x61    /* TOS Priority Control 1 */
--#define KS8995_REG_TPC2		0x62    /* TOS Priority Control 2 */
--#define KS8995_REG_TPC3		0x63    /* TOS Priority Control 3 */
--#define KS8995_REG_TPC4		0x64    /* TOS Priority Control 4 */
--#define KS8995_REG_TPC5		0x65    /* TOS Priority Control 5 */
--#define KS8995_REG_TPC6		0x66    /* TOS Priority Control 6 */
--#define KS8995_REG_TPC7		0x67    /* TOS Priority Control 7 */
--
--#define KS8995_REG_MAC0		0x68    /* MAC address 0 */
--#define KS8995_REG_MAC1		0x69    /* MAC address 1 */
--#define KS8995_REG_MAC2		0x6a    /* MAC address 2 */
--#define KS8995_REG_MAC3		0x6b    /* MAC address 3 */
--#define KS8995_REG_MAC4		0x6c    /* MAC address 4 */
--#define KS8995_REG_MAC5		0x6d    /* MAC address 5 */
--
--#define KS8995_REG_IAC0		0x6e    /* Indirect Access Control 0 */
--#define KS8995_REG_IAC1		0x6f    /* Indirect Access Control 0 */
--#define KS8995_REG_IAD7		0x70    /* Indirect Access Data 7 */
--#define KS8995_REG_IAD6		0x71    /* Indirect Access Data 6 */
--#define KS8995_REG_IAD5		0x72    /* Indirect Access Data 5 */
--#define KS8995_REG_IAD4		0x73    /* Indirect Access Data 4 */
--#define KS8995_REG_IAD3		0x74    /* Indirect Access Data 3 */
--#define KS8995_REG_IAD2		0x75    /* Indirect Access Data 2 */
--#define KS8995_REG_IAD1		0x76    /* Indirect Access Data 1 */
--#define KS8995_REG_IAD0		0x77    /* Indirect Access Data 0 */
--
--#define KSZ8864_REG_ID1		0xfe	/* Chip ID in bit 7 */
--
--#define KS8995_REGS_SIZE	0x80
--#define KSZ8864_REGS_SIZE	0x100
--#define KSZ8795_REGS_SIZE	0x100
--
--#define ID1_CHIPID_M		0xf
--#define ID1_CHIPID_S		4
--#define ID1_REVISION_M		0x7
--#define ID1_REVISION_S		1
--#define ID1_START_SW		1	/* start the switch */
--
--#define FAMILY_KS8995		0x95
--#define FAMILY_KSZ8795		0x87
--#define CHIPID_M		0
--#define KS8995_CHIP_ID		0x00
--#define KSZ8864_CHIP_ID		0x01
--#define KSZ8795_CHIP_ID		0x09
--
--#define KS8995_CMD_WRITE	0x02U
--#define KS8995_CMD_READ		0x03U
--
--#define KS8995_CPU_PORT		4
--#define KS8995_NUM_PORTS	5 /* 5 ports including the CPU port */
--#define KS8995_RESET_DELAY	10 /* usec */
--
--enum ks8995_chip_variant {
--	ks8995,
--	ksz8864,
--	ksz8795,
--	max_variant
--};
--
--struct ks8995_chip_params {
--	char *name;
--	int family_id;
--	int chip_id;
--	int regs_size;
--	int addr_width;
--	int addr_shift;
--};
--
--static const struct ks8995_chip_params ks8995_chip[] = {
--	[ks8995] = {
--		.name = "KS8995MA",
--		.family_id = FAMILY_KS8995,
--		.chip_id = KS8995_CHIP_ID,
--		.regs_size = KS8995_REGS_SIZE,
--		.addr_width = 8,
--		.addr_shift = 0,
--	},
--	[ksz8864] = {
--		.name = "KSZ8864RMN",
--		.family_id = FAMILY_KS8995,
--		.chip_id = KSZ8864_CHIP_ID,
--		.regs_size = KSZ8864_REGS_SIZE,
--		.addr_width = 8,
--		.addr_shift = 0,
--	},
--	[ksz8795] = {
--		.name = "KSZ8795CLX",
--		.family_id = FAMILY_KSZ8795,
--		.chip_id = KSZ8795_CHIP_ID,
--		.regs_size = KSZ8795_REGS_SIZE,
--		.addr_width = 12,
--		.addr_shift = 1,
--	},
--};
--
--struct ks8995_switch {
--	struct spi_device	*spi;
--	struct device		*dev;
--	struct dsa_switch	*ds;
--	struct mutex		lock;
--	struct gpio_desc	*reset_gpio;
--	struct bin_attribute	regs_attr;
--	const struct ks8995_chip_params	*chip;
--	int			revision_id;
--	unsigned int max_mtu[KS8995_NUM_PORTS];
--};
--
--static const struct spi_device_id ks8995_id[] = {
--	{"ks8995", ks8995},
--	{"ksz8864", ksz8864},
--	{"ksz8795", ksz8795},
--	{ }
--};
--MODULE_DEVICE_TABLE(spi, ks8995_id);
--
--static const struct of_device_id ks8995_spi_of_match[] = {
--	{ .compatible = "micrel,ks8995" },
--	{ .compatible = "micrel,ksz8864" },
--	{ .compatible = "micrel,ksz8795" },
--	{ },
--};
--MODULE_DEVICE_TABLE(of, ks8995_spi_of_match);
--
--static inline u8 get_chip_id(u8 val)
--{
--	return (val >> ID1_CHIPID_S) & ID1_CHIPID_M;
--}
--
--static inline u8 get_chip_rev(u8 val)
--{
--	return (val >> ID1_REVISION_S) & ID1_REVISION_M;
--}
--
--/* create_spi_cmd - create a chip specific SPI command header
-- * @ks: pointer to switch instance
-- * @cmd: SPI command for switch
-- * @address: register address for command
-- *
-- * Different chip families use different bit pattern to address the switches
-- * registers:
-- *
-- * KS8995: 8bit command + 8bit address
-- * KSZ8795: 3bit command + 12bit address + 1bit TR (?)
-- */
--static inline __be16 create_spi_cmd(struct ks8995_switch *ks, int cmd,
--				    unsigned address)
--{
--	u16 result = cmd;
--
--	/* make room for address (incl. address shift) */
--	result <<= ks->chip->addr_width + ks->chip->addr_shift;
--	/* add address */
--	result |= address << ks->chip->addr_shift;
--	/* SPI protocol needs big endian */
--	return cpu_to_be16(result);
--}
--/* ------------------------------------------------------------------------ */
--static int ks8995_read(struct ks8995_switch *ks, char *buf,
--		 unsigned offset, size_t count)
--{
--	__be16 cmd;
--	struct spi_transfer t[2];
--	struct spi_message m;
--	int err;
--
--	cmd = create_spi_cmd(ks, KS8995_CMD_READ, offset);
--	spi_message_init(&m);
--
--	memset(&t, 0, sizeof(t));
--
--	t[0].tx_buf = &cmd;
--	t[0].len = sizeof(cmd);
--	spi_message_add_tail(&t[0], &m);
--
--	t[1].rx_buf = buf;
--	t[1].len = count;
--	spi_message_add_tail(&t[1], &m);
--
--	mutex_lock(&ks->lock);
--	err = spi_sync(ks->spi, &m);
--	mutex_unlock(&ks->lock);
--
--	return err ? err : count;
--}
--
--static int ks8995_write(struct ks8995_switch *ks, char *buf,
--		 unsigned offset, size_t count)
--{
--	__be16 cmd;
--	struct spi_transfer t[2];
--	struct spi_message m;
--	int err;
--
--	cmd = create_spi_cmd(ks, KS8995_CMD_WRITE, offset);
--	spi_message_init(&m);
--
--	memset(&t, 0, sizeof(t));
--
--	t[0].tx_buf = &cmd;
--	t[0].len = sizeof(cmd);
--	spi_message_add_tail(&t[0], &m);
--
--	t[1].tx_buf = buf;
--	t[1].len = count;
--	spi_message_add_tail(&t[1], &m);
--
--	mutex_lock(&ks->lock);
--	err = spi_sync(ks->spi, &m);
--	mutex_unlock(&ks->lock);
--
--	return err ? err : count;
--}
--
--static inline int ks8995_read_reg(struct ks8995_switch *ks, u8 addr, u8 *buf)
--{
--	return ks8995_read(ks, buf, addr, 1) != 1;
--}
--
--static inline int ks8995_write_reg(struct ks8995_switch *ks, u8 addr, u8 val)
--{
--	char buf = val;
--
--	return ks8995_write(ks, &buf, addr, 1) != 1;
--}
--
--/* ------------------------------------------------------------------------ */
--
--static int ks8995_stop(struct ks8995_switch *ks)
--{
--	return ks8995_write_reg(ks, KS8995_REG_ID1, 0);
--}
--
--static int ks8995_start(struct ks8995_switch *ks)
--{
--	return ks8995_write_reg(ks, KS8995_REG_ID1, 1);
--}
--
--static int ks8995_reset(struct ks8995_switch *ks)
--{
--	int err;
--
--	err = ks8995_stop(ks);
--	if (err)
--		return err;
--
--	udelay(KS8995_RESET_DELAY);
--
--	return ks8995_start(ks);
--}
--
--/* ks8995_get_revision - get chip revision
-- * @ks: pointer to switch instance
-- *
-- * Verify chip family and id and get chip revision.
-- */
--static int ks8995_get_revision(struct ks8995_switch *ks)
--{
--	int err;
--	u8 id0, id1, ksz8864_id;
--
--	/* read family id */
--	err = ks8995_read_reg(ks, KS8995_REG_ID0, &id0);
--	if (err) {
--		err = -EIO;
--		goto err_out;
--	}
--
--	/* verify family id */
--	if (id0 != ks->chip->family_id) {
--		dev_err(&ks->spi->dev, "chip family id mismatch: expected 0x%02x but 0x%02x read\n",
--			ks->chip->family_id, id0);
--		err = -ENODEV;
--		goto err_out;
--	}
--
--	switch (ks->chip->family_id) {
--	case FAMILY_KS8995:
--		/* try reading chip id at CHIP ID1 */
--		err = ks8995_read_reg(ks, KS8995_REG_ID1, &id1);
--		if (err) {
--			err = -EIO;
--			goto err_out;
--		}
--
--		/* verify chip id */
--		if ((get_chip_id(id1) == CHIPID_M) &&
--		    (get_chip_id(id1) == ks->chip->chip_id)) {
--			/* KS8995MA */
--			ks->revision_id = get_chip_rev(id1);
--		} else if (get_chip_id(id1) != CHIPID_M) {
--			/* KSZ8864RMN */
--			err = ks8995_read_reg(ks, KS8995_REG_ID1, &ksz8864_id);
--			if (err) {
--				err = -EIO;
--				goto err_out;
--			}
--
--			if ((ksz8864_id & 0x80) &&
--			    (ks->chip->chip_id == KSZ8864_CHIP_ID)) {
--				ks->revision_id = get_chip_rev(id1);
--			}
--
--		} else {
--			dev_err(&ks->spi->dev, "unsupported chip id for KS8995 family: 0x%02x\n",
--				id1);
--			err = -ENODEV;
--		}
--		break;
--	case FAMILY_KSZ8795:
--		/* try reading chip id at CHIP ID1 */
--		err = ks8995_read_reg(ks, KS8995_REG_ID1, &id1);
--		if (err) {
--			err = -EIO;
--			goto err_out;
--		}
--
--		if (get_chip_id(id1) == ks->chip->chip_id) {
--			ks->revision_id = get_chip_rev(id1);
--		} else {
--			dev_err(&ks->spi->dev, "unsupported chip id for KSZ8795 family: 0x%02x\n",
--				id1);
--			err = -ENODEV;
--		}
--		break;
--	default:
--		dev_err(&ks->spi->dev, "unsupported family id: 0x%02x\n", id0);
--		err = -ENODEV;
--		break;
--	}
--err_out:
--	return err;
--}
--
--static int ks8995_check_config(struct ks8995_switch *ks)
--{
--	int ret;
--	u8 val;
--
--	ret = ks8995_read_reg(ks, KS8995_REG_GC0, &val);
--	if (ret) {
--		dev_err(ks->dev, "failed to read KS8995_REG_GC0\n");
--		return ret;
--	}
--
--	dev_dbg(ks->dev, "port 5 PHY %senabled\n",
--		(val & KS8995_GC0_P5_PHY) ? "" : "not ");
--
--	val |= KS8995_GC0_P5_PHY;
--	ret = ks8995_write_reg(ks, KS8995_REG_GC0, val);
--	if (ret)
--		dev_err(ks->dev, "failed to set KS8995_REG_GC0\n");
--
--	dev_dbg(ks->dev, "set KS8995_REG_GC0 to 0x%02x\n", val);
--
--	return 0;
--}
--
--static void
--ks8995_mac_config(struct phylink_config *config, unsigned int mode,
--		  const struct phylink_link_state *state)
--{
--}
--
--static void
--ks8995_mac_link_up(struct phylink_config *config, struct phy_device *phydev,
--		   unsigned int mode, phy_interface_t interface,
--		   int speed, int duplex, bool tx_pause, bool rx_pause)
--{
--	struct dsa_port *dp = dsa_phylink_to_port(config);
--	struct ks8995_switch *ks = dp->ds->priv;
--	int port = dp->index;
--	int ret;
--	u8 val;
--
--	/* Allow forcing the mode on the fixed CPU port, no autonegotiation.
--	 * We assume autonegotiation works on the PHY-facing ports.
--	 */
--	if (port != KS8995_CPU_PORT)
--		return;
--
--	dev_dbg(ks->dev, "MAC link up on CPU port (%d)\n", port);
--
--	ret = ks8995_read_reg(ks, KS8995_REG_GC4, &val);
--	if (ret) {
--		dev_err(ks->dev, "failed to read KS8995_REG_GC4\n");
--		return;
--	}
--
--	/* Conjure port config */
--	switch (speed) {
--	case SPEED_10:
--		dev_dbg(ks->dev, "set switch MII to 100Mbit mode\n");
--		val |= KS8995_GC4_10BT;
--		break;
--	case SPEED_100:
--	default:
--		dev_dbg(ks->dev, "set switch MII to 100Mbit mode\n");
--		val &= ~KS8995_GC4_10BT;
--		break;
--	}
--
--	if (duplex == DUPLEX_HALF) {
--		dev_dbg(ks->dev, "set switch MII to half duplex\n");
--		val |= KS8995_GC4_MII_HD;
--	} else {
--		dev_dbg(ks->dev, "set switch MII to full duplex\n");
--		val &= ~KS8995_GC4_MII_HD;
--	}
--
--	dev_dbg(ks->dev, "set KS8995_REG_GC4 to %02x\n", val);
--
--	/* Enable the CPU port */
--	ret = ks8995_write_reg(ks, KS8995_REG_GC4, val);
--	if (ret)
--		dev_err(ks->dev, "failed to set KS8995_REG_GC4\n");
--}
--
--static void
--ks8995_mac_link_down(struct phylink_config *config, unsigned int mode,
--		     phy_interface_t interface)
--{
--	struct dsa_port *dp = dsa_phylink_to_port(config);
--	struct ks8995_switch *ks = dp->ds->priv;
--	int port = dp->index;
--
--	if (port != KS8995_CPU_PORT)
--		return;
--
--	dev_dbg(ks->dev, "MAC link down on CPU port (%d)\n", port);
--
--	/* Disable the CPU port */
--}
--
--static const struct phylink_mac_ops ks8995_phylink_mac_ops = {
--	.mac_config = ks8995_mac_config,
--	.mac_link_up = ks8995_mac_link_up,
--	.mac_link_down = ks8995_mac_link_down,
--};
--
--static enum
--dsa_tag_protocol ks8995_get_tag_protocol(struct dsa_switch *ds,
--					 int port,
--					 enum dsa_tag_protocol mp)
--{
--	/* This switch actually uses the 6 byte KS8995 protocol */
--	return DSA_TAG_PROTO_NONE;
--}
--
--static int ks8995_setup(struct dsa_switch *ds)
--{
--	return 0;
--}
--
--static int ks8995_port_enable(struct dsa_switch *ds, int port,
--			      struct phy_device *phy)
--{
--	struct ks8995_switch *ks = ds->priv;
--
--	dev_dbg(ks->dev, "enable port %d\n", port);
--
--	return 0;
--}
--
--static void ks8995_port_disable(struct dsa_switch *ds, int port)
--{
--	struct ks8995_switch *ks = ds->priv;
--
--	dev_dbg(ks->dev, "disable port %d\n", port);
--}
--
--static int ks8995_port_pre_bridge_flags(struct dsa_switch *ds, int port,
--					struct switchdev_brport_flags flags,
--					struct netlink_ext_ack *extack)
--{
--	/* We support enabling/disabling learning */
--	if (flags.mask & ~(BR_LEARNING))
--		return -EINVAL;
--
--	return 0;
--}
--
--static int ks8995_port_bridge_flags(struct dsa_switch *ds, int port,
--				    struct switchdev_brport_flags flags,
--				    struct netlink_ext_ack *extack)
--{
--	struct ks8995_switch *ks = ds->priv;
--	int ret;
--	u8 val;
--
--	if (flags.mask & BR_LEARNING) {
--		ret = ks8995_read_reg(ks, KS8995_REG_PC(port, KS8995_REG_PC2), &val);
--		if (ret) {
--			dev_err(ks->dev, "failed to read KS8995_REG_PC2 on port %d\n", port);
--			return ret;
--		}
--
--		if (flags.val & BR_LEARNING)
--			val &= ~KS8995_PC2_LEARN_DIS;
--		else
--			val |= KS8995_PC2_LEARN_DIS;
--
--		ret = ks8995_write_reg(ks, KS8995_REG_PC(port, KS8995_REG_PC2), val);
--		if (ret) {
--			dev_err(ks->dev, "failed to write KS8995_REG_PC2 on port %d\n", port);
--			return ret;
--		}
--	}
--
--	return 0;
--}
--
--static void ks8995_port_stp_state_set(struct dsa_switch *ds, int port, u8 state)
--{
--	struct ks8995_switch *ks = ds->priv;
--	int ret;
--	u8 val;
--
--	ret = ks8995_read_reg(ks, KS8995_REG_PC(port, KS8995_REG_PC2), &val);
--	if (ret) {
--		dev_err(ks->dev, "failed to read KS8995_REG_PC2 on port %d\n", port);
--		return;
--	}
--
--	/* Set the bits for the different STP states in accordance with
--	 * the datasheet, pages 36-37 "Spanning tree support".
--	 */
--	switch (state) {
--	case BR_STATE_DISABLED:
--	case BR_STATE_BLOCKING:
--	case BR_STATE_LISTENING:
--		val &= ~KS8995_PC2_TXEN;
--		val &= ~KS8995_PC2_RXEN;
--		val |= KS8995_PC2_LEARN_DIS;
--		break;
--	case BR_STATE_LEARNING:
--		val &= ~KS8995_PC2_TXEN;
--		val &= ~KS8995_PC2_RXEN;
--		val &= ~KS8995_PC2_LEARN_DIS;
--		break;
--	case BR_STATE_FORWARDING:
--		val |= KS8995_PC2_TXEN;
--		val |= KS8995_PC2_RXEN;
--		val &= ~KS8995_PC2_LEARN_DIS;
--		break;
--	default:
--		dev_err(ks->dev, "unknown bridge state requested\n");
--		return;
--	}
--
--	ret = ks8995_write_reg(ks, KS8995_REG_PC(port, KS8995_REG_PC2), val);
--	if (ret) {
--		dev_err(ks->dev, "failed to write KS8995_REG_PC2 on port %d\n", port);
--		return;
--	}
--
--	dev_dbg(ks->dev, "set KS8995_REG_PC2 for port %d to %02x\n", port, val);
--}
--
--static void ks8995_phylink_get_caps(struct dsa_switch *dsa, int port,
--				    struct phylink_config *config)
--{
--	unsigned long *interfaces = config->supported_interfaces;
--
--	if (port == KS8995_CPU_PORT)
--		__set_bit(PHY_INTERFACE_MODE_MII, interfaces);
--
--	if (port <= 3) {
--		/* Internal PHYs */
--		__set_bit(PHY_INTERFACE_MODE_INTERNAL, interfaces);
--		/* phylib default */
--		__set_bit(PHY_INTERFACE_MODE_MII, interfaces);
--	}
--
--	config->mac_capabilities = MAC_SYM_PAUSE | MAC_10 | MAC_100;
--}
--
--/* Huge packet support up to 1916 byte packages "inclusive"
-- * which means that tags are included. If the bit is not set
-- * it is 1536 bytes "inclusive". We present the length without
-- * tags or ethernet headers. The setting affects all ports.
-- */
--static int ks8995_change_mtu(struct dsa_switch *ds, int port, int new_mtu)
--{
--	struct ks8995_switch *ks = ds->priv;
--	unsigned int max_mtu;
--	int ret;
--	u8 val;
--	int i;
--
--	ks->max_mtu[port] = new_mtu;
--
--	/* Roof out the MTU for the entire switch to the greatest
--	 * common denominator: the biggest set for any one port will
--	 * be the biggest MTU for the switch.
--	 */
--	max_mtu = ETH_DATA_LEN;
--	for (i = 0; i < KS8995_NUM_PORTS; i++) {
--		if (ks->max_mtu[i] > max_mtu)
--			max_mtu = ks->max_mtu[i];
--	}
--
--	/* Translate to layer 2 size.
--	 * Add ethernet and (possible) VLAN headers, and checksum to the size.
--	 * For ETH_DATA_LEN (1500 bytes) this will add up to 1522 bytes.
--	 */
--	max_mtu += VLAN_ETH_HLEN;
--	max_mtu += ETH_FCS_LEN;
--
--	ret = ks8995_read_reg(ks, KS8995_REG_GC2, &val);
--	if (ret) {
--		dev_err(ks->dev, "failed to read KS8995_REG_GC2\n");
--		return ret;
--	}
--
--	if (max_mtu <= 1522) {
--		val &= ~KS8995_GC2_HUGE;
--		val &= ~KS8995_GC2_LEGAL;
--	} else if (max_mtu > 1522 && max_mtu <= 1536) {
--		/* This accepts packets up to 1536 bytes */
--		val &= ~KS8995_GC2_HUGE;
--		val |= KS8995_GC2_LEGAL;
--	} else {
--		/* This accepts packets up to 1916 bytes */
--		val |= KS8995_GC2_HUGE;
--		val |= KS8995_GC2_LEGAL;
--	}
--
--	dev_dbg(ks->dev, "new max MTU %d bytes (inclusive)\n", max_mtu);
--
--	ret = ks8995_write_reg(ks, KS8995_REG_GC2, val);
--	if (ret)
--		dev_err(ks->dev, "failed to set KS8995_REG_GC2\n");
--
--	return ret;
--}
--
--static int ks8995_get_max_mtu(struct dsa_switch *ds, int port)
--{
--	return 1916 - ETH_HLEN - ETH_FCS_LEN;
--}
--
--static const struct dsa_switch_ops ks8995_ds_ops = {
--	.get_tag_protocol = ks8995_get_tag_protocol,
--	.setup = ks8995_setup,
--	.port_pre_bridge_flags = ks8995_port_pre_bridge_flags,
--	.port_bridge_flags = ks8995_port_bridge_flags,
--	.port_enable = ks8995_port_enable,
--	.port_disable = ks8995_port_disable,
--	.port_stp_state_set = ks8995_port_stp_state_set,
--	.port_change_mtu = ks8995_change_mtu,
--	.port_max_mtu = ks8995_get_max_mtu,
--	.phylink_get_caps = ks8995_phylink_get_caps,
--};
--
--/* ------------------------------------------------------------------------ */
--static int ks8995_probe(struct spi_device *spi)
--{
--	struct ks8995_switch *ks;
--	int err;
--	int variant = spi_get_device_id(spi)->driver_data;
--
--	if (variant >= max_variant) {
--		dev_err(&spi->dev, "bad chip variant %d\n", variant);
--		return -ENODEV;
--	}
--
--	ks = devm_kzalloc(&spi->dev, sizeof(*ks), GFP_KERNEL);
--	if (!ks)
--		return -ENOMEM;
--
--	mutex_init(&ks->lock);
--	ks->spi = spi;
--	ks->dev = &spi->dev;
--	ks->chip = &ks8995_chip[variant];
--
--	ks->reset_gpio = devm_gpiod_get_optional(&spi->dev, "reset",
--						 GPIOD_OUT_HIGH);
--	err = PTR_ERR_OR_ZERO(ks->reset_gpio);
--	if (err) {
--		dev_err(&spi->dev,
--			"failed to get reset gpio: %d\n", err);
--		return err;
--	}
--
--	err = gpiod_set_consumer_name(ks->reset_gpio, "switch-reset");
--	if (err)
--		return err;
--
--	if (ks->reset_gpio) {
--		/*
--		 * If a reset line was obtained, wait for 100us after
--		 * de-asserting RESET before accessing any registers, see
--		 * the KS8995MA datasheet, page 44.
--		 */
--		gpiod_set_value_cansleep(ks->reset_gpio, 0);
--		udelay(100);
--	}
--
--	spi_set_drvdata(spi, ks);
--
--	spi->mode = SPI_MODE_0;
--	spi->bits_per_word = 8;
--	err = spi_setup(spi);
--	if (err) {
--		dev_err(&spi->dev, "spi_setup failed, err=%d\n", err);
--		return err;
--	}
--
--	err = ks8995_get_revision(ks);
--	if (err)
--		return err;
--
--	err = ks8995_reset(ks);
--	if (err)
--		return err;
--
--	dev_info(&spi->dev, "%s device found, Chip ID:%x, Revision:%x\n",
--		 ks->chip->name, ks->chip->chip_id, ks->revision_id);
--
--	err = ks8995_check_config(ks);
--	if (err)
--		return err;
--
--	ks->ds = devm_kzalloc(&spi->dev, sizeof(*ks->ds), GFP_KERNEL);
--	if (!ks->ds)
--		return -ENOMEM;
--
--	ks->ds->dev = &spi->dev;
--	ks->ds->num_ports = KS8995_NUM_PORTS;
--	ks->ds->ops = &ks8995_ds_ops;
--	ks->ds->phylink_mac_ops = &ks8995_phylink_mac_ops;
--	ks->ds->priv = ks;
--
--	err = dsa_register_switch(ks->ds);
--	if (err)
--		return dev_err_probe(&spi->dev, err,
--				     "unable to register DSA switch\n");
--
--	return 0;
--}
--
--static void ks8995_remove(struct spi_device *spi)
--{
--	struct ks8995_switch *ks = spi_get_drvdata(spi);
--
--	dsa_unregister_switch(ks->ds);
--	/* assert reset */
--	gpiod_set_value_cansleep(ks->reset_gpio, 1);
--}
--
--/* ------------------------------------------------------------------------ */
--static struct spi_driver ks8995_driver = {
--	.driver = {
--		.name	    = "spi-ks8995",
--		.of_match_table = ks8995_spi_of_match,
--	},
--	.probe	  = ks8995_probe,
--	.remove	  = ks8995_remove,
--	.id_table = ks8995_id,
--};
--
--module_spi_driver(ks8995_driver);
--
--MODULE_DESCRIPTION(DRV_DESC);
--MODULE_VERSION(DRV_VERSION);
--MODULE_AUTHOR("Gabor Juhos <juhosg at openwrt.org>");
--MODULE_LICENSE("GPL v2");
+Note: While the devices normally support a per-bus frequency selection,
+the RTL839x is an exception from that. It can only select the speed for
+both buses globally. To avoid device tree special treatment for this,
+use the per-bus speeds for this series too. Return an error if the
+RTL839x Devicetree specifies different frequencies for the first and
+second bus.
 
--- 
+Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
+=2D--
+ drivers/net/mdio/mdio-realtek-rtl9300.c | 81 ++++++++++++++++++++++++-
+ 1 file changed, 80 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/mdio/mdio-realtek-rtl9300.c b/drivers/net/mdio/md=
+io-realtek-rtl9300.c
+index 429321e9114f..8edb0ba0bcdd 100644
+=2D-- a/drivers/net/mdio/mdio-realtek-rtl9300.c
++++ b/drivers/net/mdio/mdio-realtek-rtl9300.c
+@@ -130,6 +130,7 @@
+ #define RTL8380_NUM_PAGES			4096
+ #define RTL8380_NUM_PORTS			28
+ #define RTL8380_SMI_GLB_CTRL			0xa100
++#define   RTL8380_SMI_FREQ_SEL			BIT(1)
+ #define   RTL8380_SMI_PHY_PATCH_DONE		BIT(15)
+ #define RTL8380_SMI_ACCESS_PHY_CTRL_0		0xa1b8
+ #define RTL8380_SMI_ACCESS_PHY_CTRL_1		0xa1bc
+@@ -169,12 +170,15 @@
+ #define RTL8390_PHYREG_PORT_CTRL_LOW		0x03e4
+ #define RTL8390_PHYREG_PORT_CTRL_HIGH		0x03e8
+ #define RTL8390_SMI_PORT_POLLING_CTRL		0x03fc
++#define RTL8390_SMI_GLB_CTRL			0x03f8
++#define   RTL8390_SMI_FREQ_SEL			GENMASK(6, 5)
+=20
+ #define RTL9300_NUM_BUSES			4
+ #define RTL9300_NUM_PAGES			4096
+ #define RTL9300_NUM_PORTS			28
+ #define RTL9300_SMI_GLB_CTRL			0xca00
+ #define   RTL9300_GLB_CTRL_INTF_SEL(intf)	BIT(16 + (intf))
++#define   RTL9300_SMI_FREQ_SEL(intf)		GENMASK((intf) * 2 + 9, (intf) * 2 =
++ 8)
+ #define RTL9300_SMI_PORT0_15_POLLING_SEL	0xca08
+ #define RTL9300_SMI_ACCESS_PHY_CTRL_0		0xcb70
+ #define RTL9300_SMI_ACCESS_PHY_CTRL_1		0xcb74
+@@ -196,6 +200,8 @@
+ #define RTL9310_NUM_BUSES			4
+ #define RTL9310_NUM_PAGES			8192
+ #define RTL9310_NUM_PORTS			56
++#define RTL9310_SMI_GLB_CTRL0			0x0cc0
++#define   RTL9310_SMI_FREQ_SEL(intf)		GENMASK((intf) * 2 + 5, (intf) * 2 =
++ 4)
+ #define RTL9310_SMI_GLB_CTRL1			0x0cbc
+ #define   RTL9310_SMI_GLB_FMT_SEL_C45(intf)	BIT((intf) * 2 + 1)
+ #define RTL9310_SMI_INDRT_ACCESS_CTRL_0		0x0c00
+@@ -251,6 +257,7 @@ struct otto_emdio_priv {
+ 	struct regmap *regmap;
+ 	struct mutex lock; /* protect HW access */
+ 	DECLARE_BITMAP(valid_ports, MAX_PORTS);
++	u32 global_freq;
+ 	u16 page[MAX_PORTS];
+ 	u8 smi_bus[MAX_PORTS];
+ 	u8 smi_addr[MAX_PORTS];
+@@ -269,6 +276,7 @@ struct otto_emdio_info {
+ 	u8 num_ports;
+ 	u16 num_pages;
+ 	u32 poll_ctrl;
++	int (*set_bus_frequency)(struct mii_bus *bus, u32 freq);
+ 	int (*setup_controller)(struct otto_emdio_priv *priv);
+ 	int (*read_c22)(struct mii_bus *bus, int port, int regnum, u32 *value);
+ 	int (*read_c45)(struct mii_bus *bus, int port, int dev_addr, int regnum,=
+ u32 *value);
+@@ -740,6 +748,17 @@ static int otto_emdio_setup_topology(struct otto_emdi=
+o_priv *priv)
+ 	return 0;
+ }
+=20
++static int otto_emdio_8380_set_bus_frequency(struct mii_bus *bus, u32 fre=
+q)
++{
++	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
++
++	if (freq !=3D 2500000 && freq !=3D 10000000)
++		return -EINVAL;
++
++	return regmap_assign_bits(priv->regmap, RTL8380_SMI_GLB_CTRL,
++				  RTL8380_SMI_FREQ_SEL, freq =3D=3D 10000000);
++}
++
+ static int otto_emdio_8380_setup_controller(struct otto_emdio_priv *priv)
+ {
+ 	/*
+@@ -749,6 +768,40 @@ static int otto_emdio_8380_setup_controller(struct ot=
+to_emdio_priv *priv)
+ 	return regmap_set_bits(priv->regmap, RTL8380_SMI_GLB_CTRL, RTL8380_SMI_P=
+HY_PATCH_DONE);
+ }
+=20
++static int otto_emdio_8390_set_bus_frequency(struct mii_bus *bus, u32 fre=
+q)
++{
++	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
++	u32 val;
++	int err;
++
++	if (freq !=3D 1250000 && freq !=3D 2500000 && freq !=3D 5000000)
++		return -EINVAL;
++	if (priv->global_freq)
++		return freq =3D=3D priv->global_freq ? 0 : -EINVAL;
++
++	val =3D FIELD_PREP(RTL8390_SMI_FREQ_SEL, freq / 2500000);
++	err =3D regmap_update_bits(priv->regmap, RTL8390_SMI_GLB_CTRL, RTL8390_S=
+MI_FREQ_SEL, val);
++	if (!err)
++		priv->global_freq =3D freq;
++
++	return err;
++}
++
++static int otto_emdio_9300_set_bus_frequency(struct mii_bus *bus, u32 fre=
+q)
++{
++	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
++	struct otto_emdio_chan *chan =3D bus->priv;
++	u32 mask, val;
++
++	if (freq !=3D 1250000 && freq !=3D 2500000 && freq !=3D 5000000)
++		return -EINVAL;
++
++	mask =3D RTL9300_SMI_FREQ_SEL(chan->mdio_bus);
++	val =3D field_prep(mask, freq / 2500000);
++
++	return regmap_update_bits(priv->regmap, RTL9300_SMI_GLB_CTRL, mask, val)=
+;
++}
++
+ static int otto_emdio_9300_setup_controller(struct otto_emdio_priv *priv)
+ {
+ 	u32 glb_ctrl_mask =3D 0, glb_ctrl_val =3D 0;
+@@ -769,6 +822,21 @@ static int otto_emdio_9300_setup_controller(struct ot=
+to_emdio_priv *priv)
+ 	return 0;
+ }
+=20
++static int otto_emdio_9310_set_bus_frequency(struct mii_bus *bus, u32 fre=
+q)
++{
++	struct otto_emdio_priv *priv =3D otto_emdio_bus_to_priv(bus);
++	struct otto_emdio_chan *chan =3D bus->priv;
++	u32 mask, val;
++
++	if (freq !=3D 1250000 && freq !=3D 2500000 && freq !=3D 5000000)
++		return -EINVAL;
++
++	mask =3D RTL9310_SMI_FREQ_SEL(chan->mdio_bus);
++	val =3D field_prep(mask, freq / 2500000);
++
++	return regmap_update_bits(priv->regmap, RTL9310_SMI_GLB_CTRL0, mask, val=
+);
++}
++
+ static int otto_emdio_9310_setup_controller(struct otto_emdio_priv *priv)
+ {
+ 	int i, err;
+@@ -835,7 +903,7 @@ static int otto_emdio_probe_one(struct device *dev, st=
+ruct otto_emdio_priv *priv
+ {
+ 	struct otto_emdio_chan *chan;
+ 	struct mii_bus *bus;
+-	u32 mdio_bus;
++	u32 mdio_bus, freq;
+ 	int err;
+=20
+ 	err =3D of_property_read_u32(node, "reg", &mdio_bus);
+@@ -865,6 +933,13 @@ static int otto_emdio_probe_one(struct device *dev, s=
+truct otto_emdio_priv *priv
+=20
+ 	snprintf(bus->id, MII_BUS_ID_SIZE, "%s-%d", dev_name(dev), mdio_bus);
+=20
++	if (of_property_read_u32(node, "clock-frequency", &freq))
++		freq =3D 2500000;
++	err =3D priv->info->set_bus_frequency(bus, freq);
++	if (err)
++		return dev_err_probe(dev, err, "cannot set frequency %u for MDIO bus %d=
+\n",
++				     freq, mdio_bus);
++
+ 	err =3D devm_of_mdiobus_register(dev, bus, node);
+ 	if (err)
+ 		return dev_err_probe(dev, err, "cannot register MDIO bus\n");
+@@ -1051,6 +1126,7 @@ static const struct otto_emdio_info otto_emdio_8380_=
+info =3D {
+ 	.num_pages =3D RTL8380_NUM_PAGES,
+ 	.num_ports =3D RTL8380_NUM_PORTS,
+ 	.poll_ctrl =3D RTL8380_SMI_POLL_CTRL,
++	.set_bus_frequency =3D otto_emdio_8380_set_bus_frequency,
+ 	.setup_controller =3D otto_emdio_8380_setup_controller,
+ 	.read_c22 =3D otto_emdio_8380_read_c22,
+ 	.read_c45 =3D otto_emdio_8380_read_c45,
+@@ -1075,6 +1151,7 @@ static const struct otto_emdio_info otto_emdio_8390_=
+info =3D {
+ 	.num_pages =3D RTL8390_NUM_PAGES,
+ 	.num_ports =3D RTL8390_NUM_PORTS,
+ 	.poll_ctrl =3D RTL8390_SMI_PORT_POLLING_CTRL,
++	.set_bus_frequency =3D otto_emdio_8390_set_bus_frequency,
+ 	.read_c22 =3D otto_emdio_8390_read_c22,
+ 	.read_c45 =3D otto_emdio_8390_read_c45,
+ 	.write_c22 =3D otto_emdio_8390_write_c22,
+@@ -1097,6 +1174,7 @@ static const struct otto_emdio_info otto_emdio_9300_=
+info =3D {
+ 	.num_ports =3D RTL9300_NUM_PORTS,
+ 	.num_pages =3D RTL9300_NUM_PAGES,
+ 	.poll_ctrl =3D RTL9300_SMI_POLL_CTRL,
++	.set_bus_frequency =3D otto_emdio_9300_set_bus_frequency,
+ 	.setup_controller =3D otto_emdio_9300_setup_controller,
+ 	.read_c22 =3D otto_emdio_9300_read_c22,
+ 	.read_c45 =3D otto_emdio_9300_read_c45,
+@@ -1123,6 +1201,7 @@ static const struct otto_emdio_info otto_emdio_9310_=
+info =3D {
+ 	.num_pages =3D RTL9310_NUM_PAGES,
+ 	.num_ports =3D RTL9310_NUM_PORTS,
+ 	.poll_ctrl =3D RTL9310_SMI_PORT_POLLING_CTRL,
++	.set_bus_frequency =3D otto_emdio_9310_set_bus_frequency,
+ 	.setup_controller =3D otto_emdio_9310_setup_controller,
+ 	.read_c22 =3D otto_emdio_9310_read_c22,
+ 	.read_c45 =3D otto_emdio_9310_read_c45,
+=2D-=20
 2.55.0
 
