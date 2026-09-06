@@ -1,151 +1,183 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mta0.migadu.com (out-247.mta0.migadu.com [91.218.175.247])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 847783C09EE
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:17:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 895D536A01A
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.247
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718629; cv=none; b=uuazzchYhXNtBqG471JdeOPRxQHeQY6+9E/MzoasD0cbzwKYfeFantm4+nZS+w6d37+Ll5zl48VfMjt5OQ33zP78oNK8Ex5QrOvM933uveBnWrWGF57xwp1B4UnwfZNUmvZWPwOenNEq8IRP4im1Aarjz5fr/Z1VOJf8GNJSnpc=
+	t=1788719176; cv=none; b=RhAN9hfVRXD1Vd2Riqgqw/d+tFTEsfQKQpHkNh9sGnDf620rX6RgErNM1kzvGL9/j8ZpGj3FuTTrkJqQDxmhnfik7dFP0eNSPeOmj+f3OzICu8Fei9lxNI5AX7cRY6JiO2uj0jnrvLfXPQ9NdBYWxXkX19+VpsCiYHhkQXRwbU8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718629; c=relaxed/simple;
-	bh=zE/2hqn4I9P57cCKdIKN6nY4HEnzOsNL+Lxb4BdK5Vk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Zr1Wbk1B+nQWCT1CXnR2ECZeoUKSNiv7jmqDlm1PEyDrAhLhWI48EsuVaNbjYZ9f2gLV3E2VLBy5pR2EicvT8tRqLJRjTVIWle+yGfN+7LEDbIMo5a7rg05sJYeszgb4LYX+8V+tzRv36brE2cxns2uCDRXQyamYQc8pIiNaQJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K+o5tDm+; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788719176; c=relaxed/simple;
+	bh=XuYHU17ULoOaOYbWvGM1WLt9cJp1C8HzBbYak20mO/k=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=VM1NBCUDYGdMP7OwefQYer1VCP10voqv5kinXi73oMC42+QfQtxtYRdfjKL1nZDQYPs/Yi/IXmCO3f9g8oUoXL50tpkboJZndPH7aNOtgqNEufI2RdS7S0GTR5r48KMVCPsR6Zpc+lhcHGgpbciiwlAcRY6GBPJ9ta7E5BGj2Ro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=Sl55k/Z9; arc=none smtp.client-ip=91.218.175.247
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K+o5tDm+"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-484399babcaso165921f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 11:17:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788718625; x=1789323425; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
-        b=K+o5tDm+s9drKsg+ic/JvPkVIPEltlhZlGhLNY3dXQumcoqVAeOn6hL4zwTjQivGro
-         Dcdk9YEf6K2yA2iF1kb615YITnEuzz43ghFR/x+dKWPRcaoGAhka+nE1M6ynpaCR1Tyg
-         E0O25V7Iklcg03P+D2VjvO0tHN9CBZSdVr8dVR+JwCCq/+b6szLM4FqizQkm2hhKZRxW
-         8SW3eh8Tvdo6xA72XqGhDzZfshvENnuUuJLncC+0MECM2fF5d+PL1JZA9Aly5WlN8QJ8
-         NcCZu/UEMET+PHJKtAgyMX3OPtKf96LvCJ2aiYCgFzMFZVWQDKtjQ9vlo/3/t1bujd/A
-         Oi4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788718625; x=1789323425;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R/mSQMe/ffg+AP+VO4769NtESa1TU8r20BVXKonSb5k=;
-        b=Nz8ah9HdHNEa918SqlgfVVd/3z09Ela1ddaWDOWeqhn/jU8a0PXepgB7dNYgi+O4qP
-         hLjnXtNmKUOBOuScSUXI+MnO1519xTySzEJcXzSiTQHYe/AbbZk/UlTfcHcUy+S1nNSq
-         um46tjHVaFiKZgPo0GCjStf39JbNVKi331Z7VQuAkzXGHUuhBikPQYiyH7LGpNz9btmu
-         +sd96ruPM7Vr9aLkVa1pL72ne+hi/MZ6c3eA10yHza5i/5u6wkUAG+PLiiWCB3x9cH49
-         kgXb0FsEEbdVzA1+2+COsho6+WEzWHtWFFXGDatwkbYbtW/mR2XTJ5WYnXI1dgirprYa
-         J2+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzy7qfTcHl9E0IydsrRPQAkH1mhGCXrB9bFPJ1F5D9ysC1kWjlOYjcbul+rnime5L1KT1r8pBG57DdH@vger.kernel.org
-X-Gm-Message-State: AFuF++ko0z2qUsv0dkelPgXf4Q6vt19/O9Z/inyNWATax6nbeqGVl1J8
-	KCb/4khb1GKsNH47AY/hvRtzZYn/FJ7qxDLHRO+VuSIZ5tkaUWWx0joP
-X-Gm-Gg: AYBFou0KHMLC6a/upYLY0xiZymeqnTSYDp3lSJbrjyhBaV6+fBQXdmFNAEkKOKPrzn3
-	v2OP9XK0rc0yCBBCuAKd/A/Txs1QTYDkendjWKlYiboE0shi9K0k0xa9kfnobSvfuf9QzyaJm8z
-	eT7qCRxt/pQfHXT3jneLP8iCibBfRm6aYfS7Cjr8MCaXrcRwcIfyEk+c7IEmhQGRBVCrdUib8q2
-	VesYo3F54GY2wE8sBmpJ2Tf/nzR43yCC5WZGTJ3MLzIoL2tBLyPzVlVs8J2aP7PKilEjP9SjHTY
-	pM8zMkQZqCGxiBk/ilF+dn53/RqZ1INvPegMM3ce8HVFNGUYBaK9DVN22O5Wr3fp0ZW8lRy8B2n
-	KpAN1VMMaN0odbu9whAJPepOz965KRUU3r0XpN5+vAGTG0hCEC27tiByGNgRzVSdukmOTNNBLmo
-	n9SjNo/qeBob2KNbZxdpfoA/+cEDDoBR9ffVxPgXFrmN1nbxPKHvE56euxsnmV4hgjtBlqZkewe
-	XQVjSrzI2e3FAhF+UHTKQL8DVONaSjBukMY9v3d+eAh7zogRhVhHku+fPOXT/LXqBiU9rHLTgXm
-	Jig=
-X-Received: by 2002:a05:600c:c494:b0:49b:916a:e553 with SMTP id 5b1f17b1804b1-49d010c2a57mr100932445e9.0.1788718625331;
-        Sun, 06 Sep 2026 11:17:05 -0700 (PDT)
-Received: from OrangePi5-Plus.BB-HOME (20014C4E1B886400ACFAF9D8E9019935.dsl.pool.telekom.hu. [2001:4c4e:1b88:6400:acfa:f9d8:e901:9935])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm433916725e9.1.2026.09.06.11.17.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 11:17:04 -0700 (PDT)
-From: Igor Paunovic <royalnet026@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Ondrej Jirman <megi@xff.cz>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Igor Paunovic <royalnet026@gmail.com>
-Subject: [PATCH] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
-Date: Sun,  6 Sep 2026 20:16:22 +0200
-Message-ID: <20260906181622.11991-1-royalnet026@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="Sl55k/Z9"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XuYHU17ULoOaOYbWvGM1WLt9cJp1C8HzBbYak20mO/k=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788719171; v=1; x=1789323971;
+ b=Sl55k/Z9dYr6pJqe63vWaBBkKd3D0oVb9V6jI7bfGoRY9kTWVWmr2wzRO3zqiQQ0/Xi5D4Jq
+ nYJEeiqpdpEnzraIsq89sclgDm/FADpLSrl61C0YbDQZmwpapO9W6ur8cY3Ggn5luKJygA1d/L6
+ aQxXzjBuAY2ULR8gg+bdABZ8J/7mlMePHcKVHsPbPZ/GiYMcK6RR8MQV3elPXks2GuUPnQG4AEa
+ 1XW+PYEaaPXU2GzD/bvkgNHCwDSKdDKzRpB3akjJvdKZCbumhgfxk/BTT2onoNVc9ggnCdoOeZR
+ d8tp7zMA9Haao0ltZF+wLkdq85S1v2bDXpF+a0Jaux0Rg==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ca19c528633357f5;
+	Sun, 06 Sep 2026 18:26:01 +0000
+X-Mizu-Trace-ID: ca19c528633357f5
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <e2323841-5672-4b8d-94fb-602776379918@postmarketos.org>
+Date: Sun, 6 Sep 2026 11:25:55 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
+From: Paul Sajna <sajattack@postmarketos.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+References: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
+ <0e5368aa-0b75-40a6-a023-af2eb4589249@oss.qualcomm.com>
+ <91e06588-94ab-49c4-a131-347caecba3b0@postmarketos.org>
+Content-Language: en-US
+Autocrypt: addr=sajattack@postmarketos.org; keydata=
+ xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
+ J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
+ AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
+ HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
+ /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
+ QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
+ 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
+ H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
+In-Reply-To: <91e06588-94ab-49c4-a131-347caecba3b0@postmarketos.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
-to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 with a
-pull-up for this pin; the mainline board file uses RK_PB0, which is not
-connected to the RTC.
+On 2026-09-06 11:13 a.m., Paul Sajna wrote:
+> On 2026-09-03 1:10 a.m., Konrad Dybcio wrote:
+>> On 9/3/26 4:03 AM, Paul Sajna wrote:
+>>> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+>>>
+>>> Downstream dtsi for reference:
+>>> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/ 
+>>> lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845- 
+>>> judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+>>>
+>>> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+>>> ---
+>>
+>> [...]
+>>
+>>> +    nfc_default: nfc-default-state {
+>>> +        pins = "gpio12", "gpio62", "gpio63";
+>>> +        function = "gpio";
+>>> +        drive-strength = <6>;
+>>> +        bias-pull-up;
+>>
+>> active-high pins and pull-ups don't really go well together, please
+>> verify that
+>>
+>> Konrad
+> 
+> Downstream decompile sez
+> 
+> nfc {
+> 
+>                  nfc_int_active {
+>                      phandle = <0x46a>;
+> 
+>                      config {
+>                          pins = "gpio63";
+>                          drive-strength = <0x02>;
+>                          bias-pull-up;
+>                      };
+> 
+>                      mux {
+>                          pins = "gpio63";
+>                          function = "gpio";
+>                      };
+>                  };
+> 
+>                  nfc_enable_suspend {
+>                      phandle = <0x46d>;
+> 
+>                      config {
+>                          pins = "gpio12", "gpio62", "gpio116";
+>                          bias-disable;
+>                          drive-strength = <0x02>;
+>                      };
+> 
+>                      mux {
+>                          pins = "gpio12", "gpio62", "gpio116";
+>                          function = "gpio";
+>                      };
+>                  };
+> 
+>                  nfc_enable_active {
+>                      phandle = <0x46c>;
+> 
+>                      config {
+>                          pins = "gpio12", "gpio62", "gpio116";
+>                          drive-strength = <0x02>;
+>                          bias-pull-up;
+>                      };
+> 
+>                      mux {
+>                          pins = "gpio12", "gpio62", "gpio116";
+>                          function = "gpio";
+>                      };
+>                  };
+> 
+>                  nfc_int_suspend {
+>                      phandle = <0x46b>;
+> 
+>                      config {
+>                          pins = "gpio63";
+>                          drive-strength = <0x02>;
+>                          bias-pull-up;
+>                      };
+> 
+>                      mux {
+>                          pins = "gpio63";
+>                          function = "gpio";
+>                      };
+>                  };
+>              };
+> 
+> 
+> 
 
-As a result the alarm interrupt never reaches the SoC, so the RTC alarm
-cannot wake the board: rtcwake enters s2idle and the board never
-returns, which looks like a hang.
+Also active high (0x00)
 
-This was verified on the board by enabling the alarm interrupt (AIE with
-AF already set, so INT# is asserted) and sampling the EXT_PORT register
-of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
-(high with AIE=0, low with AIE=1, across repeated cycles), while GPIO0_B0
-stays high and its interrupt counter stays at zero.
+pn547@28 {
+	compatible = "nxp,pn547";
+	nxp,i2c-pull-up = <0x01>;
+	nxp,gpio_irq = <0x34 0x3f 0x00>;
+	nxp,gpio_ven = <0x34 0x0c 0x00>;
+	nxp,gpio_mode = <0x34 0x3e 0x00>;
+	nxp,gpio_scl = <0x34 0x2a 0x00>;
+	nxp,gpio_sda = <0x34 0x29 0x00>;
+	status = "ok";
+	interrupt-parent = <0x34>;
+	interrupts = <0x3f 0x00>;
+	reg = <0x28>;
+	qcom,clk-src = "BBCLK2";
+	interrupt-names = "nfc_irq";
+};
 
-Switch the interrupt and its pinctrl entry to GPIO0_C6 and use a pull-up,
-as the vendor tree does for this open-drain line.
-
-With this change the alarm interrupt fires while the system is running
-and the RTC wakes the board from s2idle ('PM: Triggering wakeup from
-IRQ 52'); before it, rtcwake never returned.
-
-Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM checkpatch dtbs_check
-Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
----
-Notes for reviewers (not part of the commit message):
-
-Measured on an Orange Pi 5 Plus with the vendor-style method described above
-(GPIO0 EXT_PORT sampled while toggling the alarm interrupt enable); the vendor
-device tree for this board uses RK_PC6 with a pull-up. With the fix the alarm
-IRQ fires at runtime and the RTC wakes the SoC from s2idle. Note that on this
-board the resume itself can still stall later in the USB 2.0 host controllers
-(a separate, unrelated issue being looked at); it does not affect this fix.
-
- arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-index 145986695720..572b892e4066 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
-@@ -189,7 +189,7 @@ &hdptxphy1 {
- 
- &hym8563 {
- 	interrupt-parent = <&gpio0>;
--	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
-+	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&hym8563_int>;
- };
-@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
- 
- 	hym8563 {
- 		hym8563_int: hym8563-int {
--			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_up>;
- 		};
- 	};
- 
-
-base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
 -- 
-2.43.0
-
+Hal: They're going for the kernel!
+Margo: Colonel Who?
