@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E17F2E2EEE
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:55:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D633815E2
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:57:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720935; cv=none; b=U57k1G7sSiwTatmubrRdgEvruhI/WRHgS7oeEh9y7M/YjUg6wQ3MxonM1Z71t198tnjfJww41m/vp+fxgTMLXppdcw8by89RkKhZNA14H6QNBkxL4dgvROlBBGlok33oNcVBLUTgEZAbUcVsXXL05pHvhhewJGPiDzyf59+c8dM=
+	t=1788721077; cv=none; b=DpAOLN/VgRaN8nZJI0CvTxef0cuOURBVm0omfiS/wl2FCN4tqnJIzwFRVqG0oqNn3+cAsR+c/J++gyKeqGU6Q/cwD80N762/wp5wgA3O43mBntGXjeOwxp1+tpk8Gjd5b4zYdxk3urJ1eVHINIJj6BRNj74L27WWmWQvTqBJULY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720935; c=relaxed/simple;
-	bh=Gx7UzAJDd0kvBCsWh7TYbacJUHuCLBI9YhUtvkyeHlY=;
+	s=arc-20240116; t=1788721077; c=relaxed/simple;
+	bh=9cKT19MfoCSsWFyNznRnG8SrdSjbGc87NpnIoQ9zFkQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XPKIza0n1eA/M7R8rEJV/yd8/MSOSyjQH/NsYeiT2yQ+GJXdtoNaGgrF0A4sLevdKIAPVPHzkENEdz5ovAXen86qxumT9EhMQ2xr2k9cWoP6v1xuWknrqxrl+shAhu4neWfVILIOKSMBMjruq+f94SiMu8HfR1yqkQ562hlJ808=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3EWsQDc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=X0HpQc+EKFsMPhoNWZpxZehXU7FpiNOh5KSJAdTbiE6eW6SR6s4Uev4jLeYJO6QXVjIg0aY5fWP+IPnvMuHbjGcHIbVqr1b8oazkuoxX/0XpIxSJtf/HFGyDT7dPd7FR0YRzOiauT7ZiDEi8XTosTJ7O0RzhOxJ/h23LlMS0Q1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LmqCEyEf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3EWsQDc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A93741F00A3D;
-	Sun,  6 Sep 2026 18:55:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LmqCEyEf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78BB91F00A3A;
+	Sun,  6 Sep 2026 18:57:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720933;
-	bh=SHoYU6plx+azmfe4yg2b9DVbc0maS2QrKGHHE4Ooc74=;
+	s=k20260515; t=1788721075;
+	bh=tZdzVN0C9bbClzpYvYeJAG1ARXDNUoxLL31yMm0dQHY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a3EWsQDcW3Cjh1K9WaNb0kuquXXNYvs//UQStipca3Qm6tlySNy3nQDjavSisQkHj
-	 aWL+8RTEDFYwAXOfLBox45dmzv6FSgU9AWVPnx6gAAMz1jrVXwWGxIG9j1DW0CoyuJ
-	 7O2rq4TSW+qJp+g32lca7lChttgFhXsKwFwQRSNX7QxOIOxc7IyDcuu70Z/8Yu+0rD
-	 1VjawLwrZviPf7ObtrOlsvtXEJrB8zCcWlKEePtuafALjnnGWwA/HO4pEFYt7V2o4J
-	 cdqlGbx52UwKLFZPiCD1+rvLdXskveZugXN+WS2x4PgDgPO8bLLVDijauHAVd0ha4u
-	 Ay76qn3sBkQjg==
+	b=LmqCEyEfoTcWiuCOiX1s73oE+gF4lBjCbwXbwxuho2+7AGxFdadFzGhN6jlALqMt2
+	 C/GnBrX5FqpJSYqYS4Y+At+JUCk0Ftvb76PL2TF3k5t0hvNwwFsKQxPdwzfrXeFPhc
+	 2wtb1nUncmaGbsGtfzrK1ZVdn/aFgxqin9T13PJgReZVEZb2bzU55SqMueaEEWw2oI
+	 CW2agahkFfixzHwAKomaDsb5Jo4pQlLAW53nq0/qWbD1e1pwiSY+n7T38kRnm2vFI8
+	 Ca95i053pwUvhAYH8lFUUwXzmWELNG+DNZkWOWtW/ht/7xbbG83yue/EzQqezxs2sG
+	 Ex07qelZdjlfg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 16/22] thunderbolt: Add add_links to tb_nhi_ops
+Subject: Re: [PATCH v2 22/22] arm64: dts: apple: t60xx: Add USB4 ACIO and
+ NHI
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sven Peter" <sven@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-16-1f80085f93fb@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-22-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-16-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-22-1f80085f93fb@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 18:55:33 +0000
-Message-Id: <20260906185533.A93741F00A3D@smtp.kernel.org>
+Date: Sun, 06 Sep 2026 18:57:54 +0000
+Message-Id: <20260906185755.78BB91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,59 +47,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Fallback path in tb_probe() blindly casts a generic platform dev=
-ice to a PCI device, leading to a struct mismatch out-of-bounds read.
+- [High] The apple,dart nodes for USB4 in t602x-dieX.dtsi incorrectly speci=
+fy `#iommu-cells =3D <5>`, which causes the apple-dart driver to reject the=
+ IOMMU configuration and breaks USB4 support on t602x hardware.
 --
 
-commit c3cbdbc00334a1dc32e8f14d7f05432dee177b2c
+commit 4665bd18e7a65a6f449efb387c1fa31def24848a
 Author: Sven Peter <sven@kernel.org>
 
-thunderbolt: Add add_links to tb_nhi_ops
+arm64: dts: apple: t60xx: Add USB4 ACIO and NHI
 
-This commit introduces an add_links callback to tb_nhi_ops for platform
-drivers to discover and add device links. This enables drivers like the App=
-le
-Silicon one to use device tree connections instead of ACPI or PCI topology.
+This commit adds the ACIO host router, NHI, DART, and mailbox nodes for the
+ATC instances on t600x and t602x dies. It connects the host routers to the
+Type-C connectors on several Apple Silicon boards and describes the USB3
+paths.
 
-> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-> index d2832323cc360..72418a07166e3 100644
-> --- a/drivers/thunderbolt/tb.c
-> +++ b/drivers/thunderbolt/tb.c
-> @@ -3434,7 +3434,8 @@ struct tb *tb_probe(struct tb_nhi *nhi)
->  	 * before the PCIe/USB stack is resumed so complain here if we
->  	 * found them missing.
->  	 */
-> -	if (!tb_apple_add_links(nhi) && !tb_acpi_add_links(nhi))
-> +	if (!(nhi->ops->add_links && nhi->ops->add_links(nhi)) &&
-> +	    !tb_apple_add_links(nhi) && !tb_acpi_add_links(nhi))
->  		tb_warn(tb, "device links to tunneled native ports are missing!\n");
+> diff --git a/arch/arm64/boot/dts/apple/t602x-dieX.dtsi b/arch/arm64/boot/=
+dts/apple/t602x-dieX.dtsi
+> --- a/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
+> +++ b/arch/arm64/boot/dts/apple/t602x-dieX.dtsi
+[ ... ]
+> @@ -133,6 +149,96 @@ DIE_NODE(pmgr_gfx): power-management@404e80000 {
+[ ... ]
+> +		DIE_NODE(usb4_0_dart): iommu@a80000 {
+> +			compatible =3D "apple,t6020-dart", "apple,t8110-dart";
+> +			reg =3D <0xa80000 0x4000>;
+> +			interrupt-parent =3D <&aic>;
+> +			interrupts =3D <AIC_IRQ DIE_NO 1387 IRQ_TYPE_LEVEL_HIGH>;
+> +			#iommu-cells =3D <5>;
+> +		};
+> +
+> +		DIE_NODE(usb4_0_nhi): nhi@f00000 {
+[ ... ]
+> +			iommus =3D <&DIE_NODE(usb4_0_dart) 1 0x100 0x0 0x10 0x0>,
+> +				 <&DIE_NODE(usb4_0_dart) 2 0x100 0x0 0x10 0x0>;
 
-[Severity: Medium]
-If a platform driver does not provide add_links or it returns false on an x=
-86
-Apple machine, could this fallback logic cause an out-of-bounds read?
+[Severity: High]
+Does this correctly configure the IOMMU for the USB4 controller?
 
-Looking at tb_apple_add_links() called here:
+The apple_dart_of_xlate() function in drivers/iommu/apple-dart.c explicitly
+enforces args->args_count =3D=3D 1 and returns -EINVAL otherwise. Specifying
+#iommu-cells =3D <5> for the usb4_0_dart node and passing 5 arguments in the
+iommus property for usb4_0_nhi will cause an unconditional failure to set
+up the IOMMU for the USB4 controller.
 
-static bool tb_apple_add_links(struct tb_nhi *nhi)
-{
-	struct pci_dev *nhi_pdev =3D to_pci_dev(nhi->dev);
-	...
-	if (!x86_apple_machine)
-		return false;
+Will this cause the IOMMU subsystem to reject the configuration during probe
+and leave the USB4 controller unusable on t602x hardware?
 
-	switch (nhi_pdev->device) {
-	...
-
-Because this patch opens up tb_probe() to non-PCI platform drivers, passing=
- a
-generic platform device to tb_apple_add_links() will result in an invalid
-cast via to_pci_dev(). If evaluated on an x86 Apple machine, the subsequent
-access to nhi_pdev->device will read out of bounds.=20
-
-Is there a way to verify the device is actually a PCI device before calling
-tb_apple_add_links()?
+> +			/* To be filled by the loader */
+> +			apple,thunderbolt-drom =3D [00];
+> +		};
+> +	};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-b4-apple-s=
-oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D16
+oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D22
