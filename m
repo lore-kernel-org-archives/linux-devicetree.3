@@ -1,124 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBBCB2C0F8C
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 19:07:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B526F382F0F;
+	Sun,  6 Sep 2026 19:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788721661; cv=none; b=Nw6wlauMY13Wp9vg5/rV6RQIL0CHUKSu6IY9r/tj5Etr1ixzzBV7Dq9QtXHF43UjCfI109V0RN9z7oiI9tU8R/1LAT/Oun8RdPTZRaQEeEUPLPUXgBohgPrZ736G9W0xiGJwH8SlxEb3++FaH5VsmfKZ1Hi44n72nlMrdchJ2I4=
+	t=1788722119; cv=none; b=G80tY3elR7HUMDbvB7J+DBHgJJKE25OBLYwKFcFs/hZOQc7mj2vtx44pOJ+W9mbX+t38SnMg4SEO2QkpQnaf/0X+yGrjJgSi0lopjilVVucT1ZEYsPk/6Kesbm3jijT0kme//YXg7nTWzY4+SUwYyrXLkSL5q+el4E5GWqFGfZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788721661; c=relaxed/simple;
-	bh=l1aLINKAuNjZG+2K5Tqx8PTruopXFj4PDM77RD/of8g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Sc2dAwzewrZ1D5WIKQBEBp1cjLRR/1QdTKKFM9+VHrz7XKvUSOoPM3PeTpJ1T7NTTFSpZjkOxw5Ry6AqBfpAi/etfvvsnQnVOFfp0d3Lm6ZQ001Iv5D5xbbd1wXpzjXbmIo6fkAns5Fdgb73DPNWctMjWQ78lSdfxXOnxENnmWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PFq1jbKt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788722119; c=relaxed/simple;
+	bh=kxQZ3Rthv1ensPTutVlNIwSBwZoEjRotnJDyRh91HaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=j5Yej4u7B1EsKhdMlWqbzpuNMwGxRMby3RHwEd9eMAKhbfxRbJEuvb4Jykb2dWZMr0wie1jQWcVN970dHz7gFJ6E1OpgdzugPDPsAF7RUIEsm+JAYvp9XZYkj5cFYk32ax1aOJGoxE8hBa+D0TTvFpnwAkA5jKXssoQO9ubeUjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LojaOUVo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PFq1jbKt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 178BA1F00A3A;
-	Sun,  6 Sep 2026 19:07:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LojaOUVo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 881B01F00A3A;
+	Sun,  6 Sep 2026 19:15:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788721660;
-	bh=i5Yl7RvuXP4Za+HEv69AnGMt3D+aoQCdK+ekYjErPog=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PFq1jbKtKXxcTzZH18ptkh5aE2rwv/7qSVGo4g4Duh1TtVnSgfI+jbjzR+rsqYtkq
-	 1o9w9oNPEHn8Na/T9ne9HTDK5Fe7+8LBgt56Telfl2/EqyWsqB4jkX2u1n4lbA/EId
-	 4yWnDj1a+c+3w4ex72ZHOly+7892wJT1ZHvVnjsN+Oovnu35Z0lyuEwf3VfouQifQa
-	 OixqNbLTyIRBogtqWTCwb/oaTuDghJ9haZuqd9iI3EDmGob5BpgBOHABbYjIE/tNb/
-	 yeTnQT6ZTH9AaBj5LgeY08BAJLKXedsWiandrCpeSi3fA6HhH7x+2J4RpqIZWxLTW7
-	 CxGL2eqPgh5cg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 08/22] thunderbolt: Don't read the UID if we already
- know it
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sven Peter" <sven@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-8-1f80085f93fb@kernel.org>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-8-1f80085f93fb@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 19:07:39 +0000
-Message-Id: <20260906190740.178BA1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788722118;
+	bh=TU0T/yFo/yE1g8awt3EdtgGPNQ2JS65tA/n50gc+o2I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=LojaOUVozJ3bNO9JFrScRwnnV5zQGZVtsudtm/wgxv6iI0TvPwixwYjSt19qtBbJn
+	 LI7sSSUDldqQ8Hv9PJ2tqX5alV/J1/hfczV3/tagkaHco+mHdgM7Xue3BjXhLWU6CK
+	 TNxZ7qyYP7VlkieXIGENziD8/sVPIE5L5wVHtbtZP2iccsZeHL2SdA7ameRKwij+uo
+	 SQgpQYur9xktM8bZLRWoD2I4JJ72HraN6A+4KUxwZu5XSB+d7XVZlqU38mkzFCVLns
+	 /3KFgmeW4juFSX0Zz2N83Q1AK22J2Q8uP/uwPQreo2y2y+UaU7UvffFko6nyTH6wQT
+	 SnIRKOZcImV0A==
+Date: Sun, 6 Sep 2026 20:15:11 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Conor Dooley <conor@kernel.org>, Marcelo Schmitt
+ <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com,
+ nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+ Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org
+Subject: Re: [PATCH v1 08/13] dt-bindings: iio: adc: adi,ad4134: Document
+ SPI connection mode
+Message-ID: <20260906201511.7ddbd0fc@jic23-huawei>
+In-Reply-To: <apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+	<d9b759d29fa8ca12b6cf083e180b2556ca4533f0.1788368334.git.marcelo.schmitt@analog.com>
+	<20260903-liquefy-prologue-9ec914cccf04@spud>
+	<apsufKf-EOvTfpwf@debian-BULLSEYE-live-builder-AMD64>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The patch fails to skip the config space UID read on Apple Silicon=
- host routers due to an incorrect assumption about the execution order of `=
-tb_switch_set_uuid()`.
---
+On Fri, 4 Sep 2026 17:47:56 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-commit 79dbfccf7bd2744a7a8dfb582a24daa82d8e7d2c
-Author: Sven Peter <sven@kernel.org>
-Subject: thunderbolt: Don't read the UID if we already know it
+> On 09/03, Conor Dooley wrote:
+> > On Wed, Sep 02, 2026 at 02:24:02PM -0300, Marcelo Schmitt wrote:  
+> > > Document how AD4134 chips are connected to the host SPI controller
+> > > according to different wiring configurations.
+> > > 
+> > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> > > ---
+> > >  .../bindings/iio/adc/adi,ad4134.yaml          | 22 +++++++++++++++++++
+> > >  1 file changed, 22 insertions(+)
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > index ea6d7e026419..d843c02a394a 100644
+> > > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> > > @@ -131,6 +131,28 @@ properties:
+> > >      enum: [ free-running, gated ]
+> > >      default: gated
+> > >  
+> > > +  adi,spi-mode:
+> > > +    $ref: /schemas/types.yaml#/definitions/string
+> > > +    enum: [ no-cs, 4-wire, one-channel-chain, two-channel-chain ]
+> > > +    description: |
+> > > +      This property indicates the SPI wiring configuration.
+> > > +
+> > > +      When this property is omitted, it is assumed that the device is using
+> > > +      'no-cs' wiring. When this property is present, it indicates that the
+> > > +      device is using one of the following wiring configurations:  
+> >   
+> ...
+> > I'd also really appreciate a dts example for a system
+> > with one-channel-chain or two-channel-chain looks, given the second
+> > device may require different supplies etc. I have no impression in my
+> > head of how the dt would be constructed, so I'd like to see wht you have
+> > in mind.  
+> 
+> I've added the daisy-chain modes for completeness. It has the same semantics of
+> ad7944 (daisy-)chain, despite the wiring being different. It looks like the
+> supplies for the chained devices are simply assumed to be there (unless I'm
+> missing something?).
 
-This commit attempts to skip reading the UID from the config space on Apple
-Silicon host routers by checking if sw->uid is already populated. It also
-claims to drop a duplicate read for other USB4 hosts.
+I think the only cases we ever had of this in the past either used always
+on supplies or shared them.  That is a bit of an annoying limitation so if
+we can work around that it would be good.
 
-> On Apple Silicon the host router's UID comes from the DROM provided by
-> the device tree and is already known by the time tb_switch_set_uuid()
-> runs. Skip reading it from the config space again in that case.
->=20
-> For other USB4 hosts this only drops a duplicate read because
-> tb_drom_host_read() has already filled in the UID from ROUTER_CS_7
-> before tb_switch_set_uuid() runs. Device routers keep reading it
-> unconditionally.
+> Though, now that I'm checking how to configure AD4134
+> for daisy-chain, I'm not sure how we could set them in dt. For 3 devices,
+> we would have
+> 
+>     spi {
+>         ...
+>         adc@0 {
+>             compatible = "adi,ad4134";
+>             reg = <0>;
+>             spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
+> 
+>             <supplies, clock, and other properties ...> 
+> 
+>             #daisy-chained-devices = <2>;
+> 
+>             adi,spi-mode = "4-wire";
+>         };
+>     };
+> 
+> But, the peripheral needs a register write to set the DOUT lines to 2-line
+> daisy-chain and it doesn't seem to have register access propagation. So, we
+> would need
 
-Is this execution order correct?
+That lack of register access propagation I think is the difference here from
+devices we have supported chaining on in the past.  To me it sounds fairly
+fundamental to any generic solution.
 
-Looking at tb_switch_add(), tb_switch_add_dma_port() unconditionally calls
-tb_switch_set_uuid() before tb_drom_read() executes:
+> 
+>     spi {
+>         ...
+>         adc@0 {
+>             compatible = "adi,ad4134";
+>             spi-rx-bus-width = <1>, <1>; /* 2 lanes of 1 bit each */
+> 
+>             <supplies, clock, and other properties ...> 
+> 
+>             #daisy-chained-devices = <2>;
+> 
+>             adi,spi-mode = "4-wire";
+>         };
+>         adc@1 {
+>             compatible = "adi,ad4134";
+>             <supplies, clock, and other properties ...> 
+> 
+>             adi,spi-mode = "4-wire";
+>         };
+>         adc@2 {
+>             compatible = "adi,ad4134";
+>             <supplies, clock, and other properties ...> 
+> 
+>             adi,spi-mode = "4-wire";
+>         };
+>     };
+> with adc@1 and adc@2 only set for register access. Even if not a dt-doc issue,
+> that might (probably) lead to interface issues. The top of the daisy-chain may
+> want to read from the other ADCs, but those could also be requested by IIO sysfs
+> operations.
 
-drivers/thunderbolt/switch.c:tb_switch_add() {
-	...
-	ret =3D tb_switch_add_dma_port(sw);
-	...
-		/* read drom */
-		ret =3D tb_drom_read(sw);
-	...
-}
+I think this bit you rewrite in next mail so I'll ignore.
 
-During tb_switch_add_dma_port(), tb_switch_set_uuid() is called directly.
+> 
+> >   
+> > > +
+> > > +      * no-cs: The datasheet calls this "minimum I/O mode". In this mode, the CS
+> > > +        line is not used (tied to GND).
+> > > +      * 4-wire: Specifies a conventional SPI wiring configuration.
+> > > +      * one-channel-chain: In this mode, the DOUT0 line of one chip is connected
+> > > +        to DOUT2 of the next chip upstream in the chain. Only the data interface
+> > > +        of the upmost device in the stream is in direct connection with the
+> > > +        digital host.
+> > > +      * two-channel-chain: In this mode, the DOUT0 and DOUT1 lines of one chip
+> > > +        are respectively connected to DOUT2 and DOUT3 of the next chip upstream
+> > > +        in the chain. Only the data interface of the upmost device in the stream
+> > > +        is in direct connection with the digital host.
+> > > +  
+> 
+> With best regards,
+> Marcelo
 
-Because of this order, doesn't tb_switch_set_uuid() run before the UID
-is populated from either the device tree or ROUTER_CS_7?
-
-> diff --git a/drivers/thunderbolt/switch.c b/drivers/thunderbolt/switch.c
-> index 404c0693df50e..3f54a5ae56b07 100644
-> --- a/drivers/thunderbolt/switch.c
-> +++ b/drivers/thunderbolt/switch.c
-> @@ -2692,9 +2692,11 @@ static int tb_switch_set_uuid(struct tb_switch *sw)
->  		return 0;
-> =20
->  	if (tb_switch_is_usb4(sw)) {
-> -		ret =3D usb4_switch_read_uid(sw, &sw->uid);
-> -		if (ret)
-> -			return ret;
-> +		if (tb_route(sw) || !sw->uid) {
-> +			ret =3D usb4_switch_read_uid(sw, &sw->uid);
-
-[Severity: High]
-Since sw->uid is still 0 during the initial call from tb_switch_add_dma_por=
-t(),
-doesn't this condition evaluate to true and force the usb4_switch_read_uid()
-read anyway?
-
-If reading ROUTER_CS_7 returns garbage on Apple Silicon hardware, will the
-host router be assigned an incorrect UUID since sw->uuid is set during this
-first call and won't be updated later?
-
-> +			if (ret)
-> +				return ret;
-> +		}
->  		uid =3D true;
->  	} else {
->  		/*
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-b4-apple-s=
-oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D8
