@@ -1,69 +1,68 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0664D3DAAC4
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 14:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E13742587F
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 14:21:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788704472; cv=none; b=uKRK1tMYwzATef+nfn7Sk41TBkAkC4GGMqyYPVoxYGW9hoyhxQn8akEtK576/rFP2Y1bLJbuWMrPM/4x5Gk7fGbYY1uUhxLOg9fUkA3W2cHuSpPRfN3Hnc/bTmnULVaaOwg8cWdYHCXgzkaw3OUpDsGfLuvgLBP0E0REFKX/Wk0=
+	t=1788704474; cv=none; b=mnjrQhnBn+SMjmMIN1egh3jyxySmjLdbmq/ULzE6CC/LIMcvrluU6vXsZDsvKWdKgXNrpCXMVXH+JHJxOLz6II+bwFtT5rwX741t4fXK32hQXn2f9ZQP/Pd9I7wUvCTJkBQOySr4RI605DuHzOUxM2ZkaIvT4kS0fEz84hr6vy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788704472; c=relaxed/simple;
-	bh=/+p4YZEzTBI6n8V4vDPrNWKQ8/kvRqGwhIyUobmyEd4=;
+	s=arc-20240116; t=1788704474; c=relaxed/simple;
+	bh=VivrnJyzw1k63XI99dhr+NAEdj70ZVGL24MrcYusUqQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=C7vfxHYVtU9s7rI4M4EuNgv8k3oCr8BpBJH1XdRu6JJFJMOrArbJ5FWaVCRObVbYZL7Wt6Vb0IuwgnDj2y2MI3pb7LmhR1gQcsE44SmLQ4mQQBiQPNHKzElsQmS+D4UTjLhcXliULYl+6QmXQrs9SrdWGwKqK9Jxu1oz5W0IdQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lpa85+3T; arc=none smtp.client-ip=209.85.221.49
+	 In-Reply-To:To:Cc; b=lFOU5nwkD90U1ajHvmNoojpagPJg2vxiYoQdp8AABjEROsDmSvopZv+ofzbYoLO455Aav+CBMltyh8zkiUyFtYZmSfAEFvlemD9q2YS+mvwk9y6LiL6S330ffoEMBckqxMLjh2xtSWTaK8SuRsCqWONgscpP++0XDHxUQnhfaNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=paaU7NI+; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lpa85+3T"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so2849232f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 07:21:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="paaU7NI+"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4843f205a5bso1449228f8f.1
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 07:21:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788704462; x=1789309262; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1788704460; x=1789309260; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GF05WClfR41ZYThh4riDA1S/tuEibqTHMrrvSxjho/k=;
-        b=lpa85+3TBlW32yFJZ/8kjAiXfS2d3tCzREZfIw5GK/QOO0qLjkH9nUjzJrNjNGRmzT
-         f8CUPPa/Cd8Bl/e0ZLqOeTn1G3xRQPPleaG1aFIILrIvyGj5W1gby7brPNNFDTxMOsrR
-         iUqufdRl0l1U+Cml5rBsCFPBEvElmDVWiYj9dfpxXgds7Gm+SlDT50cQdlRCMw368dIt
-         rXbZjEUJdeHFFFQDCQ7U+piMxcKV9yqSXWJsUySRpiIig8pMyphR6uII9CxKiulKiM/2
-         e5Wl4ZAIIKTk1NQN0STkE+7gA+8M1M2PrjqwjLlgXWsJ0EJEcC10/V7Ml159tWd9HH9Y
-         hV2g==
+        bh=EWrOYU4JuQ6nJFq/9JxURKyDFma0yVnSENsR6aucZhQ=;
+        b=paaU7NI+pM2BZJEzjz6NCHeaXc9M1JTcZeMlBSFjzA5QiEcCpqf31+jzWk3iGMZ7eZ
+         1/9PcyNPmG8eDGp4iaUaGV3KWRPObWkh9atpF3If1V3BwhqibDfnogjaOxX+/Du/VZaf
+         Rljc/kf7UILmpEFfYcjlmNImD6nH5LWIvj+utsvrlDm9tLl69P0BwBGftTDGJ21o1WDO
+         IPb19oFflxshx/mAbYKgUShSocA8PF8HZI3mYpvGu+tBDcbWLK7Xo+4iJyQNFJWyy2GW
+         XPPm90q2SQqdWCG/fch8l/PWgMHWE3Qd+BBFlBr2pzKs1Q4H9zXHgJdeLjsgFic8h/Aw
+         YbVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788704462; x=1789309262;
+        d=1e100.net; s=20251104; t=1788704460; x=1789309260;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GF05WClfR41ZYThh4riDA1S/tuEibqTHMrrvSxjho/k=;
-        b=bzedXQK4HMmyLBSK/Hjkx2Lf0EP0NrQETbb5s+2XXAa2GHs3J7iNK2hrHr8WP0F5S8
-         UN0v7aQK++INgOMjK2fZtznf6fhDC1uAxtoxLZGQOT+oyRPy6E0hONa3SexlrSqGPbGM
-         nrljq7vMOQen6b+1LF2DnNO5o529Vi25MlRjMrc9E8hWrEGbFc+DEfu5V3oy8UbN2KvA
-         Xtsw3sH2Gj18jO3dO6rLt9eJf5bd7VqV9cwbT7MW9S010yOlcutg68KaL1ibkAT3lpK5
-         n7fJw1Y6ldo2aV+z4OqbXzRcWyQz6HyKxAkM3L1niWScNFCe7V1AXLgXjXz13+Vz+Zdt
-         ythQ==
-X-Forwarded-Encrypted: i=1; AKwUvByGHv45d3i9mp0teLiz/5v1c4l3A6ZE18wBLuIiet42I/Bsn8jdNd4val28fbwzQsEKFf/vEjmkcRuH@vger.kernel.org
-X-Gm-Message-State: AFuF++nTLGAzpNjRsTGAD7wVwTRfyLMr0YtF0RirMfDUwgldOXjXHr1H
-	FZqmmhWqmC6LF0xJyBGVsDr+Rfcpplu4U9f9AFkEbPqJEuFoq3K4z0heSPdDdvz2i8Q=
-X-Gm-Gg: AYBFou3ToZxNsQUdzXhwitDULiB12pezqCz5bMz0LoSznaQgpaSHZ6nrG9ssTwFJMAw
-	0KUv1N3t3AX7/fSWxcHAypkF9YdPurHIGfA1gZL94mhLh4FB1hy97HMnAPzaJnT1Ilja9nYiVUg
-	DeMEdxDSYLbWShof2BV4VuVS0J7zBtyBnAd0+wE3TfNyP4OrKdYeRG1BMFx+Oqdvd9i/dvYwea6
-	9SVe6o5Rte/QoViO0nxyf2r6RRVcjlJdqUb3t9/AZCUrpT//gklQHYnOKywRepK56Bhs6+qdqb1
-	tAKdDcYYkdmF0k0cMug/2DwXvVrnFYL27i5f1Z7yOnoUoypMNjBjBtwWDtI7695yZaK2Po44oN8
-	c4oK19RWO6loY6XPaEh27QgPCbCclaKqTMVK0T9Nt5CX83m8bi0Q3VDC6ImOJ+NuwqKhAcnrN28
-	YbwKvRqQ/jSUnRpqdyI+8mW8ZveqdN+tOtHk53oxfY9RobumjXCF2Em/quK9s+lyPd2iD7skLtW
-	9PXVPaX8zU=
-X-Received: by 2002:a05:6000:4029:b0:485:8bad:fb4a with SMTP id ffacd0b85a97d-4858badfe5bmr17688490f8f.7.1788704462612;
-        Sun, 06 Sep 2026 07:21:02 -0700 (PDT)
+        bh=EWrOYU4JuQ6nJFq/9JxURKyDFma0yVnSENsR6aucZhQ=;
+        b=M7FLOZwIEK3UxUw0jsfHmrHjMlVS763wdNLV9xPOBtEzR874JQ+8C1e62JJCq8kjAr
+         LwfrRaf7pdOGx1VmL3BYbuRxmUIqGUsMKOSK0tuy0Cvgg96X8ccI83AyZIiXugl5Gvcq
+         uI5SACKSHy8d2v8CfTo7hB3NlQfXFI3LCioVggO7zxtfHWluE8zE9Ka7g+0OxcBWDEMu
+         mnb0H4QnhVpAE8xrb9kFkGDvppq0dRdpVNcZqCjq+hDv+uyFXGKPY5f3oaaVgnWdtwhG
+         4dS6WL+jGxQ3f+evW9a0EEuJuV2jKnzIbcTcUffN43CFVqSFdE1g7qdp0V8n52tALrUJ
+         zqSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxogj+Ya6dgoHOFhYKe9ADJd1RBrBEXPM9m+BRyEwisrjmi8fa8f/42m4sizPZIQAX6ATh9NEVWc5Ik@vger.kernel.org
+X-Gm-Message-State: AFuF++l+R1upfnqxVg1l11umawE3yLnH/1T8m973yrgZxyN9ytKuQ2Oj
+	cISKXQypaikw60jO60wEOInkMCwTItz5z5//2gHWUPum7stZx532NFDt7ATx/Xr+G58=
+X-Gm-Gg: AYBFou2O1Ku0DTGX+nrK/vgQ09ezqp+n7I+uNpY/IFCP9dDsfNYOfg9KeXsYtFmcKvr
+	3tnwt/uXnt+uuW459AguKSdaoFk9Q405bgCUmF/zKCCJdzKYX7/QQWx+2f2dkmvFoeiOyKrlByu
+	iAtCy1vdDXbXjPR2tOOWfahvlagiu7ZqDuXVzI4k0sfsvaCsOlDGqbEzrR7g5tPLszosM6LqssO
+	ih8mCaTg8cUd5h6G3a3zEXQevvDi1f0Trv0Rwgz93+80y4UJbnrPHQoQwtCSGtqMopMADxmCPKt
+	+aq5xH6Q1AwbAQQ4iqqkCSvtcrIiWC4Hcb2j3OnxgaPK0tMJwO+2Be/Evl/fjYjRKcOm1DdvT7/
+	Kx5N+UEOhHutHJPKXizQCWbEGnkgY8Kvk9yHvht5ZPbuuWnn4a0B6r5ustnBYaWH15kR26e3B4y
+	jOt/dxMsKhqcYb56wUyQfjditkV/f4h4zT2I0gQLODUsyMdfOh3eM+/bzQiDm2MTIHji+meqTC
+X-Received: by 2002:a05:6000:2387:b0:485:8a46:b3c4 with SMTP id ffacd0b85a97d-4858a46b50amr15281005f8f.44.1788704460366;
+        Sun, 06 Sep 2026 07:21:00 -0700 (PDT)
 Received: from [192.168.0.35] ([109.76.250.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm18065125f8f.13.2026.09.06.07.21.01
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883953cfsm18065125f8f.13.2026.09.06.07.20.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 07:21:02 -0700 (PDT)
+        Sun, 06 Sep 2026 07:21:00 -0700 (PDT)
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Sun, 06 Sep 2026 15:20:52 +0100
-Subject: [PATCH v6 07/13] arm64: dts: qcom: x1e80100-crd: Add ov08x40 RGB
- sensor on CSIPHY4
+Date: Sun, 06 Sep 2026 15:20:50 +0100
+Subject: [PATCH v6 05/13] arm64: dts: qcom: x1e80100: Add CAMSS block
+ definition
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-x1e-camss-csi2-phy-dtsi-v6-7-067f2ecc4630@linaro.org>
+Message-Id: <20260906-x1e-camss-csi2-phy-dtsi-v6-5-067f2ecc4630@linaro.org>
 References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
 In-Reply-To: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -86,154 +85,385 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
  linux-media@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2939;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9905;
  i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=/+p4YZEzTBI6n8V4vDPrNWKQ8/kvRqGwhIyUobmyEd4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXbBd+XGfOdErJSAyjynq8/2wRuvHTSmUOuFm
- Fw99d/ZPOaJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap12wQAKCRAicTuzoY3I
- OkVuEACQdGWeP/oIljm6MBSx7g/+2bMSsFsO50J2+9NNVNI+oqCBi3ie7f4zeK0C+BMS6JA61Fp
- Sw1UY769yGAlPkEdqIHISH/wEgYfcEHxQLC6J+qG4SC8EiIc0Yoi3YStGmdS45oaxUIofsAnXa7
- 4GNe0N+AYroQqXLgBUzPaWJRv+z4VitlAaNdozSkXT9iTWWTxEkGqtSje93hCLucecdPCg0ufas
- dF7CytDF03C6KQHUA9p9xmuQHkQxKze1Uo1i4WM2q0qFJYuZ8LX2v/FcRAW5JIfXYiD5E1ub3zn
- CzMRmXg+CT36sJQF05mmsehwSyQ58IM+45dmMBm5LqmxCufqgMZD4xv1H+TEp3rewBXFvll8yXp
- htCn591uDVtfvqOQC17eA6yYFXpr0RegaJwSfzJnE3+uhpNRnlhDUgi/C3eeml+KhXijl8Rgqke
- nXzGwyJh7OMHFQ1KLSOf+8/jnx1Ws8w/gEnuGprtFzQamVIG1yhOIEFCxHatHmweLqVtoofdPDL
- CKWWnLk+zzQon15dgmfNwb+WCodZG2qp9xCX2yRD4IeCFmLfzmAPp7kQWKfOkbCsmU53ObS1VJm
- WtuKIPlrM0QL4QJP+OzxBeQ7XVcf/kKnlEd47oY1n7J7DjuJ4WdH4GAmDCTDMwP33QKBK6OFtw3
- UV3ycDWXLq9GeKQ==
+ bh=VivrnJyzw1k63XI99dhr+NAEdj70ZVGL24MrcYusUqQ=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnXbBFCh96Z83QzOscpCmHcdZAU6odQ+uIOa83
+ aWqTq5XyHCJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap12wQAKCRAicTuzoY3I
+ Og4oD/9G6trj6Ipnh5/n0E9Jup85jB8kvFXZW+hEsbZeQ6X6R0xMG/MuHxmm/F7NMQ32WVDH9wH
+ CcH6HCFQc37IH78h9fBTSOZVpr+mLaECVKyR0iplxuwegLEtW8sO7qgrn9Dq06qH4CLagDkpRAN
+ 8EMt/V4AQkqkUvFdXlrOZTDestaVg+tOES3luCznesEazlD1uiPhGPF4EESHXtajxsziwKiCvae
+ q52NJll8bvUMWwZcwv7oIC9yjEesfNXFJjxfcV8LXCQka/rNLSykd42frBTcCC52Xzrv11eXrNe
+ 1rjUT3jEyHzjaihLQ6hBP0DOTMhB/SrYwWjrxMS7HHNxcoYX4qTJlvYyvTN1aJSeaYeYFqBzm2g
+ Y+hpHs+w3T/VkwOj8qt3nhyoxBfTOw5g9FCux0OJxPGgOy1vgTSJQlhWuvMvESkUvhNdQa650f0
+ 2tOfTMEsRX/E8h1OyJv9vZCNHOsQvygwJcXx8nh7Lfo6FeLD7941uaasuwEQczLRKuMOsQGtSj4
+ CjSquLM3CNgrtuJrULFMIsFKE9dEvLk9AfNRLCwa85byEZLTeT+qoGz1O6BYz8f8sH+Fs25j0SW
+ dguXaIkbKoWeMlzP2OSDKcu5X3ezyAlQLERhzFEozVnTCcca9Kn0T/pK2V5hA2E+WES6U1b+E0o
+ geHlscfID+ghkTA==
 X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
  fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Define ov08x40 on cci1_i2c1. The RGB sensor appears on the AON CCI pins
-connected to CSIPHY4 in four lane mode.
+Add dtsi to describe the xe180100 CAMSS block
+
+4 x CSIPHY
+3 x TPG
+2 x CSID
+2 x CSID Lite
+2 x IFE
+2 x IFE Lite
 
 Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 ---
- arch/arm64/boot/dts/qcom/x1-crd.dtsi | 97 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 97 insertions(+)
+ arch/arm64/boot/dts/qcom/hamoa.dtsi | 322 ++++++++++++++++++++++++++++++++++++
+ 1 file changed, 322 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-crd.dtsi b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-index 7b9a40a7b9a95..96324f6ff6a0b 100644
---- a/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-crd.dtsi
-@@ -6,6 +6,7 @@
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+index 9a854da9550c3..75366afd1b5b2 100644
+--- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
++++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+@@ -16,6 +16,7 @@
+ #include <dt-bindings/interconnect/qcom,x1e80100-rpmh.h>
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
+ #include <dt-bindings/mailbox/qcom-ipcc.h>
++#include <dt-bindings/phy/phy.h>
+ #include <dt-bindings/phy/phy-qcom-qmp.h>
+ #include <dt-bindings/power/qcom,rpmhpd.h>
+ #include <dt-bindings/power/qcom-rpmpd.h>
+@@ -719,6 +720,50 @@ smem_mem: smem@ffe00000 {
+ 		};
+ 	};
  
-@@ -933,6 +934,86 @@ &gpu {
- 	status = "okay";
- };
- 
-+&camss {
-+	status = "okay";
++	csiphy_mxc_opp_table: opp-table-mxc {
++		compatible = "operating-points-v2";
 +
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			camss_csiphy4_inep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&csiphy4_out_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov08x40";
-+		reg = <0x36>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_rgb_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <0>; /* front facing */
-+
-+		avdd-supply = <&vreg_l7b_2p8>;
-+		dovdd-supply = <&vreg_l3m_1p8>;
-+
-+		port {
-+			ov08x40_out_ep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csiphy4_in_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p9-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			csiphy4_in_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2 3 4>;
-+				remote-endpoint = <&ov08x40_out_ep>;
-+			};
++		opp-300000000 {
++			opp-hz = /bits/ 64 <300000000>;
++			required-opps = <&rpmhpd_opp_low_svs_d1>,
++					<&rpmhpd_opp_low_svs_d1>;
 +		};
 +
-+		port@1 {
-+			reg = <1>;
-+			csiphy4_out_ep: endpoint {
-+				remote-endpoint = <&camss_csiphy4_inep>;
-+			};
-+		};
-+	};
-+};
-+
- &i2c0 {
- 	clock-frequency = <400000>;
- 
-@@ -1553,6 +1634,22 @@ &tlmm {
- 			       <44 4>, /* SPI (TPM) */
- 			       <238 1>; /* UFS Reset */
- 
-+	cam_rgb_default: cam-rgb-default-state {
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <16>;
-+			bias-disable;
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs>;
 +		};
 +
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
++		opp-480000000 {
++			opp-hz = /bits/ 64 <480000000>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs>;
 +		};
 +	};
 +
- 	edp_reg_en: edp-reg-en-state {
- 		pins = "gpio70";
- 		function = "gpio";
++	csiphy_mxa_opp_table: opp-table-mxa {
++		compatible = "operating-points-v2";
++
++		opp-300000000 {
++			opp-hz = /bits/ 64 <300000000>;
++			required-opps = <&rpmhpd_opp_low_svs_d1>,
++					<&rpmhpd_opp_low_svs_d1>;
++		};
++
++		opp-400000000 {
++			opp-hz = /bits/ 64 <400000000>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs_d1>;
++		};
++
++		opp-480000000 {
++			opp-hz = /bits/ 64 <480000000>;
++			required-opps = <&rpmhpd_opp_low_svs>,
++					<&rpmhpd_opp_low_svs_d1>;
++		};
++	};
++
+ 	qup_opp_table_100mhz: opp-table-qup100mhz {
+ 		compatible = "operating-points-v2";
+ 
+@@ -5629,6 +5674,283 @@ cci1_i2c1: i2c-bus@1 {
+ 			};
+ 		};
+ 
++		camss: isp@acb7000 {
++			compatible = "qcom,x1e80100-camss";
++
++			reg = <0 0x0acb7000 0 0x2000>,
++			      <0 0x0acb9000 0 0x2000>,
++			      <0 0x0acbb000 0 0x2000>,
++			      <0 0x0acc6000 0 0x1000>,
++			      <0 0x0acca000 0 0x1000>,
++			      <0 0x0acb6000 0 0x1000>,
++			      <0 0x0ace4000 0 0x1000>,
++			      <0 0x0ace6000 0 0x1000>,
++			      <0 0x0ace8000 0 0x1000>,
++			      <0 0x0acec000 0 0x4000>,
++			      <0 0x0acf6000 0 0x1000>,
++			      <0 0x0acf7000 0 0x1000>,
++			      <0 0x0acf8000 0 0x1000>,
++			      <0 0x0ac62000 0 0xf000>,
++			      <0 0x0ac71000 0 0xf000>,
++			      <0 0x0acc7000 0 0x2000>,
++			      <0 0x0accb000 0 0x2000>;
++
++			reg-names = "csid0",
++				    "csid1",
++				    "csid2",
++				    "csid_lite0",
++				    "csid_lite1",
++				    "csid_wrapper",
++				    "csiphy0",
++				    "csiphy1",
++				    "csiphy2",
++				    "csiphy4",
++				    "csitpg0",
++				    "csitpg1",
++				    "csitpg2",
++				    "vfe0",
++				    "vfe1",
++				    "vfe_lite0",
++				    "vfe_lite1";
++
++			clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
++				 <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>,
++				 <&camcc CAM_CC_CPAS_AHB_CLK>,
++				 <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_CPAS_IFE_0_CLK>,
++				 <&camcc CAM_CC_CPAS_IFE_1_CLK>,
++				 <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
++				 <&camcc CAM_CC_CPHY_RX_CLK_SRC>,
++				 <&camcc CAM_CC_CSID_CLK>,
++				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
++				 <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY2_CLK>,
++				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CSIPHY4_CLK>,
++				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
++				 <&gcc GCC_CAMERA_HF_AXI_CLK>,
++				 <&gcc GCC_CAMERA_SF_AXI_CLK>,
++				 <&camcc CAM_CC_IFE_0_CLK>,
++				 <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_IFE_1_CLK>,
++				 <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
++				 <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
++
++			clock-names = "camnoc_nrt_axi",
++				      "camnoc_rt_axi",
++				      "core_ahb",
++				      "cpas_ahb",
++				      "cpas_fast_ahb",
++				      "cpas_vfe0",
++				      "cpas_vfe1",
++				      "cpas_vfe_lite",
++				      "cphy_rx_clk_src",
++				      "csid",
++				      "csid_csiphy_rx",
++				      "csiphy0",
++				      "csiphy0_timer",
++				      "csiphy1",
++				      "csiphy1_timer",
++				      "csiphy2",
++				      "csiphy2_timer",
++				      "csiphy4",
++				      "csiphy4_timer",
++				      "gcc_axi_hf",
++				      "gcc_axi_sf",
++				      "vfe0",
++				      "vfe0_fast_ahb",
++				      "vfe1",
++				      "vfe1_fast_ahb",
++				      "vfe_lite",
++				      "vfe_lite_ahb",
++				      "vfe_lite_cphy_rx",
++				      "vfe_lite_csid";
++
++			interrupts = <GIC_SPI 464 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 466 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 468 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 359 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 465 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 467 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 469 IRQ_TYPE_EDGE_RISING>,
++				     <GIC_SPI 360 IRQ_TYPE_EDGE_RISING>;
++
++			interrupt-names = "csid0",
++					  "csid1",
++					  "csid2",
++					  "csid_lite0",
++					  "csid_lite1",
++					  "csiphy0",
++					  "csiphy1",
++					  "csiphy2",
++					  "csiphy4",
++					  "vfe0",
++					  "vfe1",
++					  "vfe_lite0",
++					  "vfe_lite1";
++
++			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
++					 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
++					<&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
++					<&mmss_noc MASTER_CAMNOC_ICP QCOM_ICC_TAG_ALWAYS
++					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
++			interconnect-names = "ahb",
++					     "hf_mnoc",
++					     "sf_mnoc",
++					     "sf_icp_mnoc";
++
++			iommus = <&apps_smmu 0x800 0x60>,
++				 <&apps_smmu 0x820 0x60>,
++				 <&apps_smmu 0x840 0x60>,
++				 <&apps_smmu 0x860 0x60>,
++				 <&apps_smmu 0x18a0 0x0>;
++
++			power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
++					<&camcc CAM_CC_IFE_1_GDSC>,
++					<&camcc CAM_CC_TITAN_TOP_GDSC>;
++			power-domain-names = "ife0",
++					     "ife1",
++					     "top";
++
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++				};
++
++				port@1 {
++					reg = <1>;
++				};
++
++				port@2 {
++					reg = <2>;
++				};
++
++				port@3 {
++					reg = <3>;
++				};
++			};
++		};
++
++		csiphy0: phy@ace4000 {
++			compatible = "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0ace4000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
++				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			operating-points-v2 = <&csiphy_mxc_opp_table>;
++
++			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			status = "disabled";
++		};
++
++		csiphy1: phy@ace6000 {
++			compatible = "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0ace6000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
++				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			operating-points-v2 = <&csiphy_mxc_opp_table>;
++
++			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			status = "disabled";
++		};
++
++		csiphy2: phy@ace8000 {
++			compatible = "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0ace8000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
++				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			operating-points-v2 = <&csiphy_mxc_opp_table>;
++
++			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			status = "disabled";
++		};
++
++		csiphy4: phy@acec000 {
++			compatible = "qcom,x1e80100-csi2-phy";
++			reg = <0 0x0acec000 0 0x2000>;
++
++			clocks = <&camcc CAM_CC_CSIPHY4_CLK>,
++				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
++				 <&camcc CAM_CC_CORE_AHB_CLK>;
++			clock-names = "core",
++				      "timer",
++				      "ahb";
++
++			operating-points-v2 = <&csiphy_mxa_opp_table>;
++
++			interrupts = <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>;
++
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
++					<&rpmhpd RPMHPD_MMCX>,
++					<&rpmhpd RPMHPD_MXC>;
++			power-domain-names = "top",
++					     "mmcx",
++					     "mx";
++
++			status = "disabled";
++		};
++
+ 		camcc: clock-controller@ade0000 {
+ 			compatible = "qcom,x1e80100-camcc";
+ 			reg = <0 0x0ade0000 0 0x20000>;
 
 -- 
 2.55.0
