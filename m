@@ -1,137 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F703859EE
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:53:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAAD3644C4
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720839; cv=none; b=tuxuH3B54AtvLlUbUt1gvBLznTUnlqKzPg3SmdCFSflCQm/foPVrv+XOX0rfxTOJErpGWEdCcWYXFT1MR67JX9FgKoLsMyMhlrOydTguukftFDzjaTJFXltLhzwDvjI+haZD1s7IoDBOZKOijJNnDcusSLRvF+t6Kjmgen5Jr9M=
+	t=1788720902; cv=none; b=cUNONi9lK0W8SZRsQkTmxxfuD1ZOgW8QLuFXtsz9zxxwqmBtmiu1Nkj1XqskpqvebH7ZbsCeWpI2/S4lh2TfLciHvoW40CQupfLesOOoyW5kW4GMyzBqpg9PYQtShxjKPPA28FC4XxA8rCNu2dzTMnJPbv7ZLtFC0kSZaywiMcU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720839; c=relaxed/simple;
-	bh=s5wo7ef78OoecXmRcVrHKxExgSIu8oMm6vDpw/5wOmA=;
+	s=arc-20240116; t=1788720902; c=relaxed/simple;
+	bh=GR1LanTkiHrVAKhf9x3/DeSKyj6Z4QCaB7l7j1st1w0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b8FxTeEaKLINiPe2GZCJWpkmEg73fwCqSE3ToyPw1cek8VhF0usCWLvEVvZmBpeE8S8xAJDHl54Y6d7GuGn588MSbNsb23U8AyjgE6f2DVx9YvqPaPJA6CrHg6Y6ebdyPw/smcPQV1A6ftVyigD+L2jVzTJDSL+31f0w/LZgqew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBaRUP+a; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OgXwEdyCuKbn0lc5ulOZ+0Fr4brdMd6tE5D5+j4LpSLGNfirB5YxtDXtUXa7XjAqhynPElhmXMnafZ+weUXFOBsB6AJzUO8mCbfVsZ3pOJR8SFC+E6If5TqGaAhcDPJ5MCWKeEgPPzR2rDD89m+PgAxlj4MbC4jS4gZiZ8b+3/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=diCDlryn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBaRUP+a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 321D91F00A3A;
-	Sun,  6 Sep 2026 18:53:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="diCDlryn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 199951F00A3A;
+	Sun,  6 Sep 2026 18:54:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720836;
-	bh=k6342S0LzAVFPi2E38q3eRa213DATTULgYIeBStzGeY=;
+	s=k20260515; t=1788720892;
+	bh=mntpMrPft9O86w/A6pOuxRq49NTPoB4NUN9KIJhj3xE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LBaRUP+aiMrep9GbRypfCYPYAKMINklh+/gza9MhyM5nogUezbMLmvvEk5ZU5tsDR
-	 RcSsz78EK8rxCz95JOJKUvYsfJfRSmzS/riJshHubky/KvhXaOo+BwB3fVKb1jYPz/
-	 wMpzjFGgFmEqobLRzWjjeUXyPYzdfjSyYhNXnJ0DSgZmAyRYTA2NAEOOS96EeBbaun
-	 61WNnztKOpKyObuKsoCKKIigun4VQu8HgKEJKZi1SBz7AJr22D4PwZ4E0MC0dakpMz
-	 rMB/trrRic7RsrELnxN8t2bDULAgrdgxxcmxmjoPsnxulC9AFgrjtO6TbxvzC/kstd
-	 mIkpYCcWfhS8Q==
+	b=diCDlrynjUCwfSUCNdYJBCV2dYC7bOyVGmOChVtKbzeiDKIYmPKfJmtPN1l7Ncnh7
+	 6VVpr37c2PkIZEwk2gms7b3lhMeSiBQuVMRLFgBVyt3wl9vL0G7ADUcCv/HuIz50qj
+	 RnniPTrC0OVt5aOatsWmVLBHsu//Wrm5ZMA2rA1+uDPllIATiMlvQBE67UdO/Z1Scu
+	 Ku4p5iwJjsaNkzNe/+noTfeibgNl9ur7QhGtimyEdLkiCrTBL+EOn4WqCRGWBQZ941
+	 896Ut9+sXx1PFwiC3fWS/VyWGkJ8EME1ns5hkTT/rghUHlJPYof5fxKnORKU2ZhLiW
+	 wmctghBvP3l/g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 15/22] thunderbolt: Add ring_configure to tb_nhi_ops
+Subject: Re: [PATCH v2 04/22] usb: typec: tipd: Publish CD321x partner
+ alternate modes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sven Peter" <sven@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-15-1f80085f93fb@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-4-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-15-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-4-1f80085f93fb@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 18:53:55 +0000
-Message-Id: <20260906185356.321D91F00A3A@smtp.kernel.org>
+Date: Sun, 06 Sep 2026 18:54:51 +0000
+Message-Id: <20260906185452.199951F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] Combining the ring enable and E2E flow control writes into a sin=
-gle register write overrides a documented 2-step hardware initialization se=
-quence, risking breakage on standard Intel Thunderbolt controllers.
+
+New issues:
+- [High] Probe error path causes Use-After-Free and data races when unregis=
+tering partner altmodes.
+
+Pre-existing issues:
+- [High] Uncancelled delayed works (`update_work` and `wq_poll`) in the `tp=
+s6598x_probe` error paths lead to use-after-free of the `tps` structure.
 --
 
-commit 418152855ed5299104cb0cb1980002eff8f62254
+commit 32fed0e1c2a7fe442601560146889c74a0d8a3f2
 Author: Sven Peter <sven@kernel.org>
 
-    thunderbolt: Add ring_configure to tb_nhi_ops
+    usb: typec: tipd: Publish CD321x partner alternate modes
    =20
-    The Apple NHI also uses a separate register range for the receive ring
-    PDF masks. Add an optional tb_nhi_ops hook for it which falls back to
-    the standard USB4 NHI method when it is not set.
+    Register Thunderbolt partner and cable modes once their VDOs are
+    available and USB4 as a partner mode once firmware has negotiated it,
+    with the EUDO stored in its eudo field. The CD321X firmware still contr=
+ols
+    mode selection and entry itself. This just makes the negotiated modes
+    available to consumers on the Type-C bus.
    =20
-    For the standard method also just write E2E flow control at the same
-    time the rest of the configuration is written.
+    Mark them active after the Type-C mux has been configured and deactivate
+    them before the mux is switched back to its safe state to make sure any
+    consuming driver is initialized and shut down in the correct order.
+   =20
+    Signed-off-by: Sven Peter <sven@kernel.org>
 
-> diff --git a/drivers/thunderbolt/nhi.c b/drivers/thunderbolt/nhi.c
-> index 4ef86e7c02851..2d622b365c4f9 100644
-> --- a/drivers/thunderbolt/nhi.c
-> +++ b/drivers/thunderbolt/nhi.c
-> @@ -244,6 +244,24 @@ static void ring_iowrite32options(struct tb_ring *ri=
-ng, u32 value, u32 offset)
->  	iowrite32(value, nhi_ring_options_base(ring) + offset);
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> index 8c7f93d4270e2..218b52b07b5a7 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+[ ... ]
+> @@ -1380,6 +1565,7 @@ cd321x_unregister_port(struct tps6598x *tps)
+>  {
+>  	struct cd321x *cd321x =3D container_of(tps, struct cd321x, tps);
+> =20
+> +	cd321x_unregister_partner_altmodes(cd321x);
+
+[Severity: High]
+Does this code introduce a use-after-free on the probe error path?
+
+If tps6598x_probe() fails after a successful connect, it jumps to err_disco=
+nnect:
+
+tps6598x_probe()
+    ...
+err_disconnect:
+    tps6598x_disconnect(tps, 0);
+err_unregister_port:
+    tps->data->unregister_port(tps);
+
+tps6598x_disconnect() unregisters the partner, which cascades and frees its=
+=20
+children (the altmodes).
+
+Next, tps->data->unregister_port() calls cd321x_unregister_port(), which
+now calls cd321x_unregister_partner_altmodes().=20
+
+Since the altmode pointers were never cleared to NULL on the error path,=20
+cd321x_unregister_partner_altmodes() will dereference the freed memory=20
+(e.g., cd321x->partner_altmode_tbt->active).
+
+Could we clear the altmode pointers in tps6598x_disconnect() or check for t=
+heir
+validity before dereferencing?
+
+>  	typec_mux_put(cd321x->mux);
+>  	cd321x->mux =3D NULL;
+>  	typec_unregister_altmode(cd321x->port_altmode_dp);
+[ ... ]
+> @@ -1802,6 +1988,14 @@ static void cd321x_remove(struct tps6598x *tps)
+>  	struct cd321x *cd321x =3D container_of(tps, struct cd321x, tps);
+> =20
+>  	cancel_delayed_work_sync(&cd321x->update_work);
+> +
+> +	guard(mutex)(&tps->lock);
+> +	cd321x_deactivate_altmodes(cd321x);
+> +	cd321x->state.alt =3D NULL;
+> +	cd321x->state.mode =3D TYPEC_STATE_SAFE;
+> +	cd321x->state.data =3D NULL;
+> +	typec_set_mode(tps->port, TYPEC_STATE_SAFE);
+> +	cd321x_unregister_partner_altmodes(cd321x);
 >  }
 > =20
-> +static void ring_configure(struct tb_ring *ring, u32 flags, u32 e2e_flag=
-s)
-> +{
-> +	if (ring->is_tx)
-> +		ring_iowrite32options(ring, 0, 4);
-> +	else
-> +		ring_iowrite32options(ring, ring->sof_mask << 16 | ring->eof_mask, 4);
-> +
-> +	ring_iowrite32options(ring, flags | e2e_flags, 0);
-> +}
+>  static int tps6598x_probe(struct i2c_client *client)
 
-[Severity: Medium]
-Does combining the ring valid bit and E2E configuration into this single
-write in ring_configure() cause a regression by overriding the required
-hardware initialization sequence?
+[Severity: High]
+This is a pre-existing issue, but does the probe error path leak delayed wo=
+rks?
 
-By writing flags and e2e_flags at the same time, this could cause standard
-Intel controllers to silently ignore the E2E configuration if they expect
-the valid bit to be set first. Any time an RX ring with RING_FLAG_E2E is
-started via tb_ring_start() on a standard Intel controller, this path is
-triggered.
+When tps6598x_probe() allocates `tps` via devm_kzalloc(), it queues delayed=
+=20
+works. For example, cd321x_connect() schedules `update_work`, and if=20
+polling mode is chosen, `wq_poll` is scheduled.=20
 
-[ ... ]
+If probe fails after these works are queued (e.g., devm_request_threaded_ir=
+q=20
+fails), the function jumps to err_disconnect and returns an error without=20
+cancelling the delayed works:
 
-> @@ -722,30 +741,13 @@ void tb_ring_start(struct tb_ring *ring)
->  		flags =3D RING_FLAG_ENABLE | RING_FLAG_RAW;
->  	}
-> =20
-> -	ring_iowrite64desc(ring, ring->descriptors_dma, 0);
-> -	if (ring->is_tx) {
-> -		ring_iowrite32desc(ring, ring->size, 12);
-> -		ring_iowrite32options(ring, 0, 4);
-> -		ring_iowrite32options(ring, flags, 0);
-> -	} else {
-> -		u32 sof_eof_mask =3D ring->sof_mask << 16 | ring->eof_mask;
-> -
-> -		ring_iowrite32desc(ring, (frame_size << 16) | ring->size, 12);
-> -		ring_iowrite32options(ring, sof_eof_mask, 4);
-> -		ring_iowrite32options(ring, flags, 0);
-> -	}
-> -
-> -	/*
-> -	 * Now that the ring valid bit is set we can configure E2E if
-> -	 * enabled for the ring.
-> -	 */
+tps6598x_probe() {
+    ...
+err_disconnect:
+	tps6598x_disconnect(tps, 0);
+err_unregister_port:
+	tps->data->unregister_port(tps);
+err_role_put:
+    ...
+    return ret;
+}
 
-[Severity: Medium]
-Could replacing this explicit two-stage initialization sequence in
-tb_ring_start() break E2E flow control on existing hardware?
+Devres will then free the `tps` memory. When the delayed works execute=20
+later, they will dereference the freed `tps` structure, causing a panic.
 
-The removed comment implies the hardware specifically requires the valid bit
-to be set before it will accept E2E flow control configuration. If this is
-done in a single step via nhi_ring_configure(), it might lead to RX ring
-overflows and packet loss in subsystems that rely on it, such as Thunderbolt
-networking.
-
->  	if (ring->flags & RING_FLAG_E2E) {
->  		if (!ring->is_tx) {
->  			u32 hop;
+Could we add cancel_delayed_work_sync() for the scheduled works in the prob=
+e=20
+error paths?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-b4-apple-s=
-oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D15
+oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D4
