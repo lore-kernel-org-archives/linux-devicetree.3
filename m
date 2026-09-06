@@ -1,94 +1,110 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BF030DECB;
-	Sun,  6 Sep 2026 15:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06B73BB48
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 15:40:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788708708; cv=none; b=rZdEevjWy5+wNML3gxV4Z6Dl7ZsI6FiDx9FEUrNhCrRGN8/zlA8FX8Mpls+ZGQcD9kDrXRo+6WySIlfl/VPIIea8FhYwfeA/EnqmUnThBtWK/yViizKQPji5Z3xveRhYXlG5FgIZ5BEB2gt9FSLNUnGMyfkHkQWNW5CQYdvWtGQ=
+	t=1788709246; cv=none; b=PJ2+cROY5HBh7huIhpHBJ4WmTv4/i+aNmQXCk55HkxejjSLgCN36m4JXC05zpqaje3Xrc0WprJAQuf7YJRKBxVPv2zbuVntISUagnx5nItWAQS5dgyBFRIJdp/D8+PywjgXF6NTgg+d8AiPmfu9PtDYQ7gbRErXOv8xIY6y8evE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788708708; c=relaxed/simple;
-	bh=oqU7/OzFE3Z6RheIye6ryFom0Ri6IZ97p2OpEMhqx8E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ChuizBfYgie0svK3a1BCH+SJIbEyFNNoaQ1mZm8FTD+5ZUv5zUq6KQ2WumHGPTPwhaWBS+1bUhU/LFWKvmU0rk4pDxAANE6BK6Z11FLK18lxw5IB4PZXe2yVUCBUoPobaz1dGMFbG5TAw7UOPAvZX77siww5HGuXVCxvyp0j2To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=BAkmLRab; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1788709246; c=relaxed/simple;
+	bh=EvrbSw6riBn3WFQnWMdTkjWQdPI6Io5eRWlEYnSUdh4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=QEeRpiZZTl1dsraIdh6bj4hRzUF3bOOJq61X19Xg7ZnT7jv7S48XFWF7MAtisCCLOqyTAfzrJj3BLLQLBjqRNNUz8R8jrtFMMbeBDnw8Aib5LgtPnRcm2RftkJ02RSJAEdgYeWLJ+TybEAsfV0Ww6Mt5PwTMB7hjjZZ9Orczngo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NhcHMYSC; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="BAkmLRab"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 34F58222CE;
-	Sun,  6 Sep 2026 17:31:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788708695;
-	bh=ZzRnZqGCK4vQaDQlzB7tpWSJvujbPPPlfGioawuGr2U=; h=From:To:Subject;
-	b=BAkmLRabM3PlM/H+7r0rbSqmgR3bhd/Nl1XNS86hjPd/WINU6tbl3ftmlZyJaj0DE
-	 fUMM+6DitlVyws1ZEVVTshV7gKtfwPuRGbmTt9pCzWLKn/XciQbSp4uEu06ny2UxRP
-	 ld7sOxSppSyXvqe3O9fN95B8kFK0iGwSxXrvTTzhv/WUOt9YKZcO+KXkPziCwA2m9y
-	 c7ASe5BsT7iTp5pES4U1z8B/JdjrbXeI6+oHvrTigVocyepvtjybaGqBa1XX2BwX8N
-	 cRvxQwUuBSR89R8Of7REd9qLz9QmMGxbHNwpyWTPzf/Kp4jQOEuNrezA++SzbFijQH
-	 O4LTyQvLX5ROw==
-Date: Sun, 6 Sep 2026 17:31:30 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: "Kumar, Udit" <u-kumar1@ti.com>
-Cc: Siddharth Vadapalli <s-vadapalli@ti.com>, nm@ti.com, vigneshr@ti.com,
-	kristo@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	srk@ti.com
-Subject: Re: [PATCH 2/4] arm64: dts: ti: k3-j7200-common-proc-board: Add
- ethernet alias
-Message-ID: <20260906153114.GA3576@francesco-nb>
-References: <20260811061351.2538688-1-s-vadapalli@ti.com>
- <20260811061351.2538688-3-s-vadapalli@ti.com>
- <b7147489-00bc-4f55-bfe5-2c9cb675c7ec@ti.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NhcHMYSC"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1727971f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 08:40:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788709241; x=1789314041; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zb+fQYyrJ/70MX/Kj2ZYXqK6NS7Fru2LZRqOKcxD/0g=;
+        b=NhcHMYSCIaFbAk2O8fs7NZp1OOu8RY1/jIzrmLmc2EolExnGgY0/SZxD6w/SyNBmAn
+         XTalGJ9OsMh4cjVfNIVrE2cCigbG5mqnlGa7lt7z/LWysor+ppEU40AeL0eON+xATdAh
+         ew4bK6vx2RgGMB1/v4Xtksdw+vuNBel/45OexV3v6kU+90nDQ0byYp0e8OjHbtqhYQR1
+         N1jM+XQUIGkXBAHhEBl+7hfQWLzdefnelVlH6JW+XgjJi1wTOz1OVRBnu+XB9IUC4d/B
+         7eEfDxEt07mTSrTJe6HPdxYDGQHtiIj8cYCHJ0qNKKqktLf34lm4KXVKNJb5S9AW6bK9
+         WgaQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788709241; x=1789314041;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zb+fQYyrJ/70MX/Kj2ZYXqK6NS7Fru2LZRqOKcxD/0g=;
+        b=KejJ+Kkx0nVJt88qWwi8mD+MsgIosqfArRsIHHUhfBS54zUGRMWfLSKp2k1OQ5sbaX
+         ePwvio+nc3ouFZfuhDnfB0PaZsnCWqBjgr8ZragbaZYo4LDC0AjzdfNbYA96SbgYkxvi
+         QfFbqSgCwhvTH42453dRQ5PzSEqDxqSLrxnBOe4lmpjaBf3/UBmV1nVY40P74Cv2Imhv
+         T9qaT6gaSIGJn5RR/+WqhEl/yiPzbLAOE1TTut1DDeyV50vsKu20lc/VJzxf1lBtQQbI
+         Qi9qpnVZ4wS18Moj3D8b8qf9vqy8tomp0+tonSVb0zCcc6jvymkJUCs9VWDuh+WHxm06
+         gb/g==
+X-Forwarded-Encrypted: i=1; AKwUvBzJE7i+V5qwESlk8VF4NBXS4LbNzhTSZCcMa8CBWSqtANq20RnJAZ2OXIXCVx2gjcMdbvDJXRUu3Dbl@vger.kernel.org
+X-Gm-Message-State: AFuF++mDGCnDzDTkZ5NB6GKLNNrE+Cjyb5bohqZ1tw0Uj4gp97M7CHUB
+	2O78QeEKOfJmvP5NzY9lXDOBwNV5WlKc0Cnl9cLLQF6rwzjtWAvkAO9O
+X-Gm-Gg: AYBFou0Z6Lc4pV0an/3gauWknxXEnQiTyMjhv9FuFIiMpM9spS7S4JxZA2iUhNhxlXP
+	m959EAY0AuEBoP8svI0ixB400VlOcfEPZcNIdoy4D/TCOAwoQji0ExHmmkqt2pNSPg39+X3f6Vo
+	6E9RhOe01RO/8HIHpG1uKEDCV6PtECehIl4fvk9Utsjpjih2A/aOO+/t9RQJrZjnGhoYdxV1ikZ
+	WfNt9YgcpNegz4iDdJ6vim6+PiTgempvRU3k4jscbKqat0GtyCDMmBvOcqAvsYgrOITJI1qrZ1x
+	v+5na70pA0WrOMwKVKbBrVKe25xLsrNaTMsuUItK2rEeT0wZSXCMN+n7WeZaPSVvUEL7+kMquVO
+	4pdm8MYMZ/GuHWVXexNKly/XSnjlurV2YKgbW5Q4VkuY6U26TVDB6EpQ6wUi8UpimWLV/aSECc8
+	cdCReSLrjg9s7w+mc31B5UUF4sF4Zv+8MBZ+xIUzAVbrWl7C3BuwZrauRsooUhMTSWD8D8h4QLs
+	6wRvip6lpme/cQDxaInE55YDuQ7
+X-Received: by 2002:a5d:5f51:0:b0:485:8a47:5b9c with SMTP id ffacd0b85a97d-4858a475d7dmr15641422f8f.57.1788709240790;
+        Sun, 06 Sep 2026 08:40:40 -0700 (PDT)
+Received: from localhost.localdomain (mob-5-93-26-136.net.vodafone.it. [5.93.26.136])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm23825319f8f.10.2026.09.06.08.40.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:40:40 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Konrad Dybcio <konradybcio@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/3] X2 Elite Lenovo Yoga Slim 7x Gen11 support
+Date: Sun,  6 Sep 2026 17:40:21 +0200
+Message-ID: <178870922140.5716.3695070640167210897@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
+References: <20260731-topic-yoga_submission-v2-0-f1887031da4f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b7147489-00bc-4f55-bfe5-2c9cb675c7ec@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 06, 2026 at 11:13:27AM +0530, Kumar, Udit wrote:
-> 
-> 
-> On 8/11/2026 11:43 AM, Siddharth Vadapalli wrote:
-> > Add the 'ethernet0' alias for the Ethernet interface corresponding to the
-> > MCU CPSW2G instance of the CPSW Ethernet Switch on the J7200 Common
-> > Processor Board.
-> > 
-> > Signed-off-by: Siddharth Vadapalli <s-vadapalli@ti.com>
-> > ---
-> >  arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts b/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts
-> > index 54dea36b153b..ac1c1ffe40b7 100644
-> > --- a/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts
-> > +++ b/arch/arm64/boot/dts/ti/k3-j7200-common-proc-board.dts
-> > @@ -24,6 +24,7 @@ aliases {
-> >  		serial5 = &main_uart3;
-> >  		mmc0 = &main_sdhci0;
-> >  		mmc1 = &main_sdhci1;
-> > +		ethernet0 = &cpsw_port1;
-> 
-> Hello Siddharth,
-> As default only 1 cpsw port is enabled for all boards in this series.
-> So ethernet0 will be cpsw_port1 always, In case you want to enable more
-> port in default config then having aliasing will help.
+On Fri, Jul 31, 2026 at 07:59:43PM +0200, Konrad Dybcio wrote:
+> This series brings the bits necessary to support the Lenovo Yoga Slim 7x
+> Gen11 laptop, based on the Qualcomm Snapdragon X2 Elite (Glymur) SoC.
 
-I do not know for this specific board, but in general having the alias
-when only one ethernet interface is present in the DT can still be
-useful.
+Tested-by: Oleg Keri <okerixx@gmail.com>
 
-We might want it to ensure that the interface name is stable (`end0`
-with systemd), or maybe you can have additional interfaces that are on
-some discoverable bus (PCIe ?) or you need it for the bootloader to set
-correctly the MAC address or ...
+I have been running this DT on a Lenovo Yoga Slim 7x Gen 11 as my daily
+driver for several weeks now, on top of linux-next, and everything the
+cover letter lists works here. 
 
-Francesco
+Is anything blocking the series?  It has had no replies since it was
+posted five weeks ago, and both review points from v1 -- the duplicated
+&pmh0101_gpios node and documenting the single-compatible reasoning --
+look addressed in v2.  It still applies to next-20260904; glymur.dtsi
+only took three commits in the meantime.
 
+Happy to test a v3 rebase.
 
+Thanks,
+Oleg
