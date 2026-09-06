@@ -1,408 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBBAC2AD37
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 15:10:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880ED353A98
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 15:18:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788707405; cv=none; b=Py6YBs+7QCBkqpl2RlzJeZ1k5UfiKi1sLEAVio1TspPWWsPRFPTGVZlZoBjO9gdq5wJRCZ1D6ce5B4kkAqfAGH/bYMf0tLBZo1hDSCa7IaziS59VfTEk++42IwJilDP6R4AcEbzhmhvuXTelXXRfvsb/hr6UuIW15KgOo97UiSY=
+	t=1788707927; cv=none; b=Cyyabfd2qdkR8ptDmQGeSHsTZCRo4rWTxJHQ+T+go7Tu8dV58jnK8mtupRK9RrZLzdBOl5bNOB2PVK2DadLB1CC4EBhY/ciKpEdewSsKfb9raIWmZVTNPO522J2Jmoo+YwHRT7E3O8j0b5GefQ5Q26+6TcX5bJ2oXlVfgUl7Zbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788707405; c=relaxed/simple;
-	bh=t2rRtRuLjNuhQFmZy3rmgR1MIu6KMX2t59NF43wzr0w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=b42/w9SGPL3z7Nxee0ZpQhsiO2bXBQad6K9VYE/oqG3op+OTle2WMEtKVLzicRi4N3drU/adjhtq5dLNGJPKuaRwGPETE3cMoTIn+jGkEtGb3qUdXyZl38+qKO/AzARPDL/CbzcKhN/bev979Ei4C9eD61xd0x5L+c7ckROf0yM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiJXVu6r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788707927; c=relaxed/simple;
+	bh=Bkr7xLk9duK2EuNzLt8zWRidF2VU/Uy1f49CSml6hdM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bdBIgr4fBcrXw887dnhuNZbP+DT2jZRdhGGV4FbGXF6+6lnm1+qhBrT9B9tT+vsdXdbMSUIi9NhPIfUWgME3Kx9NiGfwuWo4hCjXkJb0vLwcyaHgoTVzbr6nrlx0Alv03ocYYyKCmdq7j1htss6vOendbhocGZbEim2mI6p40u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YgfuHUqw; arc=none smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiJXVu6r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EE1D1F00A3A;
-	Sun,  6 Sep 2026 15:09:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788707396;
-	bh=kAKpnUbKQ3ehEoVaz1U7+eJuNVB3vq6jmOoNBsfw2OY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OiJXVu6rLV3Dg+Yev1fcC+6n1And5D537TBzPs1+HDic7dmQyJ7oLndiEl7wXFy6q
-	 Q5EA2hV70JIHXhcEwoUsCmvfwf1I+8aq77rRKq8lzzplmYlpNnDxrlZ1744uGmEbis
-	 tyeEXQmOLj1UKqrvk1oqdlFAMJ0Kn8d7QdIKZfzf9Ovo+6eHNkxdVXC9sYuNqybGzF
-	 kpOrRCEag1CwQxg+fdfWBvawHemOMlRqthnnC+K2IfNWQ+3EaTNxYh8S03mWhMIVpd
-	 QrSUIJAxv3X2QUfd72Ojr8UgWzhzo3RTxzbqv40x1FysZSeiseICUlbe5pjMYR+4Xt
-	 4W6TK9zYljnbw==
-From: sashiko-bot@kernel.org
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YgfuHUqw"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2d032846c95so28637655ad.1
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 08:18:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788707923; x=1789312723; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MUf+LnPB4ldS07EaJo+nWjVn77vQrtaiy+2Ht3sIcPI=;
+        b=YgfuHUqw7MyD/dRuvIgSG4OCegGJDuFIb9bmkDGH4ZkKlYPKWm9TdtYWeuEo5viyca
+         cDCLbLttulKzCG3EaYEzHfszN2SwQSSNc+4fpyWBf5WMh4ik6vJLOfY6TF9/WiHU2Tx/
+         kQ154qReQC7u1TGhm08q6xmixtSCzvsyKTXBpn2pkY9KG1Kz7tyj7o04K6DqQ94Cibh1
+         R+NMJf6rgOuuFeAPuXvOx316ztoPzgPVaPrC5bWm8SC04X8hFrJ6ftjYULuwHnbkiCr1
+         z1m2JqkNES9glY/fna2ZRzX4N+k/YzdTTrnwjFNeZqoDXE9sdGMa5HTIy+JCv3dj6Tjk
+         CEhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788707923; x=1789312723;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MUf+LnPB4ldS07EaJo+nWjVn77vQrtaiy+2Ht3sIcPI=;
+        b=lvCw73tfVTSPZtuqXnKi9kqv8O/hH1c4HX8LEOY8OVQU8GbTK1rueZH6mt+fn18AJT
+         97ggyaQxHUNwsVIQBpl5ubxGc3DaNzSHoIZG52tZHtSFfLsCQYTCYjY7znig/jY5nPXb
+         /OLQQoLHVrOzm9Ww8zT7t+OtL+vUTkQCKvKM7lmhEmHClBgVQmCPwamhVUDYqT1KAAZf
+         bBsQHbPMOxeCaR/nccrYSsGgq+JEGjTSc3xmVP1HENrbHFEquo5rO+7bQ68dC1ErYS+Z
+         wnfJYEgxnQ4Aj7vEjt6X+7jYjSLM/GF+48c5SqnVWLEziosQPqt7MxoZJK7oncz35KsV
+         6rsA==
+X-Forwarded-Encrypted: i=1; AKwUvBxLnyoImhurlYY39w+UWLIQztUaOfEMRpfwCl7V18ROrX31QhqCysanby+yppneh3jgGM2MaUtVTgd7@vger.kernel.org
+X-Gm-Message-State: AFuF++kkQG8cheKi93ddk8sAZV+SDPDON7K6U7s0TcNJGZD1ws2Nkvzg
+	OlCNpj6JPFJ06coXTQ0pG7YSek7wZkkjfvBptqCMBuf6Vg/SErzu2CUi
+X-Gm-Gg: AYBFou3pAitUvztGsDUV3GZA+zfJiMyBmR0MatoBis7/ANqU8EJBKVbUGcQ+rBnl9UJ
+	fal2Nx2XC2vme6ktCOI6zBmDYK+KK/EyDTaYq1JKaHcQjYcurbCj1yee+Bv6DyuOdNFaYL7+Xau
+	X3OAW1kIvYtScabMSmiZIe+sxLOflvqjxn3NVrwz2bsf7s6G2axoRcdyJ+8OTcLTiAWR8W3ia92
+	si14h+eYGvAwAC97OvxPKW2FLyRFSvCRU+Ly/P1G7PdoUCh6De1iVRyH8JFFNe4g3wuWVMig8jS
+	aMBqqapHjq6AML0Vb5yLJEOqHtvsEcUR7CH676llWsiF72cISuNrCfZ/XVO5qYnGGdn7T79sdbG
+	ThzN/9dWNG5asDh15aoWDoQ2O0wz6pXT2/fc7iT4Ae20rbeJpGji0mUtRS87S44cGwDXgkiDs1A
+	qysQOMm4egjPVHQ01c7f34UYudCPEfwkPUTtG3HPAMVJO5+qwG0sfTRgzSbDmD3ptt6wzXhqOt
+X-Received: by 2002:a17:90a:e703:b0:398:e969:87ef with SMTP id 98e67ed59e1d1-39b2629926dmr28351823a91.24.1788707923183;
+        Sun, 06 Sep 2026 08:18:43 -0700 (PDT)
+Received: from google.com ([2402:7500:498:f6ba:e6d7:1963:b14a:e4e9])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm15800999a91.9.2026.09.06.08.18.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 08:18:42 -0700 (PDT)
+Date: Sun, 6 Sep 2026 23:18:35 +0800
+From: Kuan-Wei Chiu <visitorckw@gmail.com>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, jyanchou@realtek.com, p.zabel@pengutronix.de,
+	afaerber@suse.com, devicetree@vger.kernel.org,
+	linux-spi@vger.kernel.org, linux-kernel@vger.kernel.org,
+	james.tai@realtek.com, cy.huang@realtek.com,
+	stanley_chang@realtek.com
 Subject: Re: [PATCH v2 2/2] spi: spi-mem: Add Realtek SPI flash controller
  driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260906145755.1230079-3-eleanor.lin@realtek.com>
+Message-ID: <ap2ECOI5ZafqaD9N@google.com>
 References: <20260906145755.1230079-1-eleanor.lin@realtek.com>
  <20260906145755.1230079-3-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 15:09:55 +0000
-Message-Id: <20260906150956.1EE1D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906145755.1230079-3-eleanor.lin@realtek.com>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] The driver fails to configure the hardware's address length dy=
-namically based on the requested `op->addr.nbytes`, relying instead on snoo=
-ping `EN4B` opcodes, which breaks stateless 4-byte addressing.
-- [Critical] The controller's 4-byte addressing mode configuration (SFC_ADR=
-_FOUR_BYTE_EN) is lost across runtime suspends, leading to address truncati=
-on and data corruption.
-- [High] Multi-byte writes and reads via `exec_op` are fragmented into inde=
-pendent 1-byte SPI transactions due to a byte-wise I/O loop, breaking regis=
-ter accesses and fallback operations.
-- [High] The driver intercepts SPI commands and enforces a fixed ~4-second =
-timeout by internally polling the flash WIP bit using a hardcoded RDSR comm=
-and, breaking long-running operations.
-- [High] The driver advertises support for Dual I/O operations for all comm=
-ands but fails to configure the Dual mode hardware bit for writes and `exec=
-_op` reads.
-- [High] The driver lacks bounds checking against the `dirmap` memory resou=
-rce size, allowing out-of-bounds physical memory accesses.
-- [Medium] Unbalanced clk_disable_unprepare() if pm_runtime_get_sync() fail=
-s during device removal.
---
+Hi Yu-Chun,
 
-commit 76380ef4b88916eb9469e84777c4aa38898c403e
-Author: Jyan Chou <jyanchou@realtek.com>
+On Sun, Sep 06, 2026 at 10:57:55PM +0800, Yu-Chun Lin wrote:
+> From: Jyan Chou <jyanchou@realtek.com>
+> 
+> Add a spi-mem driver for the SPI Flash Controller (SFC) found on Realtek
+> DHC SoC. SFC supports Dual I/O.
+> 
+> Implement the exec_op API for regular control commands and the dirmap API
+> for hardware-accelerated read/write operations.
+> 
+> The controller is described by three register ranges. The first one (ctrl)
+> holds the control registers. The second one (dma) holds the DMA engine
+> registers, used to transfer the payload between the flash and main memory.
+> The third range is the memory aperture (dirmap) that maps the flash
+> contents.
+> 
+> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes in v2:
+> - None.
+> ---
+>  MAINTAINERS               |   6 +
+>  drivers/spi/Kconfig       |  10 +
+>  drivers/spi/Makefile      |   1 +
+>  drivers/spi/spi-rtk-nor.c | 637 ++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 654 insertions(+)
+>  create mode 100644 drivers/spi/spi-rtk-nor.c
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..705f7ddf792f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23011,6 +23011,12 @@ S:	Maintained
+>  F:	Documentation/devicetree/bindings/spi/realtek,rtl9301-snand.yaml
+>  F:	drivers/spi/spi-realtek-rtl-snand.c
+>  
+> +REALTEK SPI-NOR
+> +M:	Jyan Chou <jyanchou@realtek.com>
+> +M:	Yu-Chun <eleanor.lin@realtek.com>
 
-spi: spi-mem: Add Realtek SPI flash controller driver
+nit: Yu-Chun -> Yu-Chun Lin ?
 
-This commit adds a spi-mem driver for the Realtek SPI Flash Controller
-found on DHC SoCs. It implements single and dual I/O transfers with support
-for hardware-accelerated dirmap reads and writes.
+Regards,
+Kuan-Wei
 
-> diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
-> new file mode 100644
-> index 0000000000000..0206ea99f3c95
-> --- /dev/null
-> +++ b/drivers/spi/spi-rtk-nor.c
-[ ... ]
-> +static int rtk_spi_read_status(struct rtk_spi_host *host)
-> +{
-> +	int timeout =3D SFC_DMA_TIMEOUT;
-> +	u8 status;
+> +S:	Supported
+> +F:	drivers/spi/spi-rtk-nor.c
 > +
-> +	while (timeout--) {
-> +		writel(RTK_SPI_OP_RDSR, host->regbase + SFC_OPCODE);
-> +		writel(RW_DATAEN, host->regbase + SFC_CTL);
-> +
-> +		status =3D readb(host->iobase);
-> +		if (!(status & SFC_SR_WIP))
-> +			return 0;
-> +
-> +		usleep_range(100, 200);
-> +	}
-
-[Severity: High]
-Does this hardcoded loop enforce a fixed timeout of around 4 seconds=20
-(20,000 iterations of ~200us) for all polled operations?=20
-
-Long-running flash operations like Chip Erase might prematurely abort from=
-=20
-the kernel's perspective even if the hardware continues working. Furthermor=
-e,
-if a command like Deep Power Down is issued, the flash might stop responding
-to RDSR, causing this loop to constantly see 0xFF and eventually time out.
-
-> +
-> +	dev_err(host->dev, "Timeout waiting for Flash ready\n");
-> +
-> +	return -ETIMEDOUT;
-> +}
-[ ... ]
-> +static void rtk_spi_read_mode(struct rtk_spi_host *host, const struct sp=
-i_mem_op *op)
-> +{
-> +	u32 opcode =3D op->cmd.opcode;
-> +	u32 dummy_cycles, val;
-> +
-> +	if (op->data.buswidth =3D=3D 2)
-> +		opcode |=3D DUAL_MODE_EN;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-> +
-> +	val =3D readl(host->regbase + SFC_CTL);
-> +	val |=3D RW_DATAEN | ADDR_EN;
-
-[Severity: Critical]
-Will this instruct the hardware to send an address without ever specifying
-its length based on op->addr.nbytes?=20
-
-If the spi-nor core issues stateless 4-byte opcodes (where
-op->addr.nbytes =3D=3D 4) without a dedicated EN4B command, the hardware mi=
-ght
-only send 3 address bytes, causing data corruption for reading and writing
-on flashes larger than 16MB.
-
-> +
-> +	dummy_cycles =3D rtk_spi_calc_dummy_cycles(op);
-[ ... ]
-> +static void rtk_spi_write_mode(struct rtk_spi_host *host,
-> +			       const struct spi_mem_op *op)
-> +{
-> +	u32 opcode =3D op->cmd.opcode;
-> +	u32 val;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-> +
-> +	val =3D readl(host->regbase + SFC_CTL);
-> +	val |=3D RW_DATAEN | ADDR_EN;
-> +	writel(val, host->regbase + SFC_CTL);
-
-[Severity: High]
-Is the DUAL_MODE_EN bit missing for write operations?=20
-
-If the SPI subsystem determines dual mode is supported and issues a
-dual-lane write, the flash will expect two lanes of data but the controller
-will operate in single-lane mode, which could scramble the bits.
-
-> +}
-[ ... ]
-> +static int rtk_spi_command_read(struct rtk_spi_host *host, const struct =
-spi_mem_op *op)
-> +{
-> +	size_t len =3D op->data.nbytes;
-> +	loff_t offset =3D op->addr.val;
-> +	u8 opcode =3D op->cmd.opcode;
-> +	u32 dummy_cycles, val;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-
-[Severity: High]
-Similarly to the write mode setup, is the DUAL_MODE_EN bit also omitted here
-when exec_op is used for fallback dual reads?
-
-> +
-> +	val =3D readl(host->regbase + SFC_CTL);
-> +	val &=3D ~(SFC_CTL_DMYCNT_MASK | ADDR_EN);
-> +	val |=3D RW_DATAEN;
-> +
-> +	if (op->addr.nbytes > 0)
-> +		val |=3D ADDR_EN;
-> +
-> +	dummy_cycles =3D rtk_spi_calc_dummy_cycles(op);
-> +	val |=3D (dummy_cycles << SFC_CTL_DMYCNT_SHIFT) & SFC_CTL_DMYCNT_MASK;
-> +	writel(val, host->regbase + SFC_CTL);
-> +
-> +	memcpy_fromio(op->data.buf.in, host->iobase + offset, len);
-
-[Severity: High]
-Could this memory I/O read split restart address-less commands like RDID
-multiple times since it triggers discrete read transactions?
-
-Also, is there any bounds checking against the mapped dirmap resource size?
-If offset (derived from op->addr.val) or len exceeds the physical memory
-window mapped by devm_ioremap_resource(), it could lead to out-of-bounds
-physical memory accesses, kernel panics, or Data Aborts.
-
-> +
-> +	return 0;
-> +}
-> +
-> +static int rtk_spi_do_write_and_cmds(struct rtk_spi_host *host, const st=
-ruct spi_mem_op *op)
-> +{
-> +	u8 opcode =3D op->cmd.opcode;
-> +	u32 ctl_val =3D 0;
-> +	int ret =3D 0;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-> +
-> +	if (op->data.nbytes > 0)
-> +		ctl_val |=3D RW_DATAEN;
-> +	if (op->addr.nbytes > 0)
-> +		ctl_val |=3D ADDR_EN;
-> +
-> +	writel(ctl_val, host->regbase + SFC_CTL);
-> +
-> +	if (op->data.nbytes > 0) {
-> +		const u8 *buf =3D op->data.buf.out;
-> +		size_t i;
-> +
-> +		for (i =3D 0; i < op->data.nbytes; i++)
-> +			writeb(buf[i], host->iobase + op->addr.val + i);
-
-[Severity: High]
-Does this byte-wise loop fragment a contiguous write transfer into
-independent 1-byte SPI transactions?=20
-
-Each writeb to the mapped memory generates a discrete bus sequence (CS
-assert -> command -> data -> CS deassert). Commands requiring multiple
-contiguous data bytes, like WRSR or fallback Page Programs, could fail
-or corrupt state.
-
-Also, similar to rtk_spi_command_read(), this seems to write directly to
-physical memory using an unbounded op->addr.val, which could exceed the
-size of the mapped dirmap resource.
-
-> +	} else if (op->addr.nbytes > 0) {
-> +		readb(host->iobase + op->addr.val);
-> +
-> +		/* Wait for internal flash erase/programming to complete */
-> +		ret =3D rtk_spi_read_status(host);
-> +	} else {
-> +		readb(host->iobase);
-> +
-> +		/*
-> +		 * For pure commands that require internal state synchronization
-> +		 * (such as Chip Erase), poll the flash status.
-> +		 */
-> +		ret =3D rtk_spi_read_status(host);
-
-[Severity: High]
-Does this intercept the spi-mem command completion and force the hardware
-driver to synchronously poll the flash status internally?=20
-
-This polling is usually intended for the spi-nor core, and combined with
-the ~4-second timeout, could cause longer operations like Chip Erase to
-abort prematurely.
-
-> +	}
-> +
-> +	if (ret) {
-> +		dev_err(host->dev, "opcode 0x%02x failed: %d\n", opcode, ret);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Hardware Workaround:
-> +	 * The controller's auto-mode engine requires SFC_ADR_FOUR_BYTE_EN to be
-> +	 * explicitly updated when the flash enters or exits 4-byte mode via co=
-ntrol
-> +	 * commands.
-> +	 */
-> +	if (opcode =3D=3D RTK_SPI_OP_EN4B)
-> +		writel(0x1, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-> +	else if (opcode =3D=3D RTK_SPI_OP_EX4B)
-> +		writel(0x0, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-
-[Severity: Critical]
-Is it possible for the hardware to get permanently stuck in 3-byte address
-mode if the spi-nor core uses stateless 4-byte opcodes instead of explicitly
-issuing EN4B?=20
-
-Additionally, this dynamic SFC_ADR_FOUR_BYTE_EN state appears to be lost
-across runtime suspends because rtk_spi_runtime_resume() resets the hardware
-and does not restore this setting. If the controller resumes and defaults
-back to 3-byte mode while the flash chip is in 4-byte mode, subsequent
-reads and writes could be globally corrupted.
-
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static bool rtk_spi_supports_op(struct spi_mem *mem,
-> +				const struct spi_mem_op *op)
-> +{
-> +	if (op->cmd.buswidth !=3D 1)
-> +		return false;
-> +
-> +	if (op->cmd.dtr || op->addr.dtr || op->data.dtr)
-> +		return false;
-> +
-> +	if (op->addr.nbytes !=3D 0) {
-> +		if (op->addr.buswidth > 1)
-> +			return false;
-> +		if (op->addr.nbytes < 3 || op->addr.nbytes > 4)
-> +			return false;
-> +	}
-> +
-> +	if (op->dummy.nbytes !=3D 0) {
-> +		if (op->dummy.buswidth > 1 || op->dummy.nbytes > 7)
-> +			return false;
-> +	}
-> +
-> +	if (op->data.nbytes !=3D 0 && op->data.buswidth > 2)
-> +		return false;
-
-[Severity: High]
-Does this check allow 2-lane wide writes to proceed?=20
-
-As noted in rtk_spi_write_mode(), the hardware is not configured with
-DUAL_MODE_EN for writes, leading to a mismatch between what is advertised
-here and what the controller actually does.
-
-> +
-> +	return spi_mem_default_supports_op(mem, op);
-> +}
-> +
-> +static int rtk_spi_dirmap_create(struct spi_mem_dirmap_desc *desc)
-> +{
-
-[Severity: High]
-Does this function fail to check if desc->info.length exceeds the hardware's
-mapped memory window size?=20
-
-Failing to reject oversized dirmap descriptions could result in out-of-boun=
-ds
-physical memory accesses later during transfers.
-
-> +	const struct spi_mem_op *op =3D desc->info.op_tmpl;
-> +
-> +	if (op->data.dir =3D=3D SPI_MEM_DATA_IN && op->addr.nbytes !=3D 3 && op=
-->addr.nbytes !=3D 4)
-> +		return -EOPNOTSUPP;
-[ ... ]
-> +static void rtk_spi_remove(struct platform_device *pdev)
-> +{
-> +	struct spi_controller *ctrl =3D platform_get_drvdata(pdev);
-> +	struct rtk_spi_host *host =3D spi_controller_get_devdata(ctrl);
-> +	struct device *dev =3D &pdev->dev;
-> +
-> +	spi_unregister_controller(ctrl);
-> +
-> +	pm_runtime_get_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	clk_disable_unprepare(host->clk);
-
-[Severity: Medium]
-If pm_runtime_get_sync(dev) fails during module removal (for instance, when
-the device is suspended and runtime resume encounters an error), the device
-clock is not enabled.=20
-
-Will this lead to an unbalanced clk_disable_unprepare() call and a clock
-enable count underflow?
-
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(dev);
-> +}
-[ ... ]
-> +static int rtk_spi_runtime_resume(struct device *dev)
-> +{
-> +	struct spi_controller *ctlr =3D dev_get_drvdata(dev);
-> +	struct rtk_spi_host *host =3D spi_controller_get_devdata(ctlr);
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(host->clk);
-> +	if (ret < 0) {
-> +		dev_err(dev, "clk_prepare_enable failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	reset_control_assert(host->rstc);
-> +	usleep_range(10, 20);
-> +	reset_control_deassert(host->rstc);
-> +
-> +	rtk_spi_init(host);
-
-[Severity: Critical]
-When the hardware is reset and initialized upon resume, the dynamic=20
-SFC_ADR_FOUR_BYTE_EN state is wiped.=20
-
-Since rtk_spi_init() doesn't restore this state, could the controller revert
-to 3-byte address mode while the flash chip remains in 4-byte mode, leading
-to address truncation and data corruption?
-
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906145755.1230=
-079-1-eleanor.lin@realtek.com?part=3D2
+>  REALTEK SYSTIMER DRIVER
+>  M:	Hao-Wen Ting <haowen.ting@realtek.com>
+>  S:	Maintained
+> diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
+> index 357cebef9917..4b758ca31490 100644
