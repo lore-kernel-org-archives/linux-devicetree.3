@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF94D3E00B4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFB63E008A;
 	Sun,  6 Sep 2026 04:47:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788670022; cv=none; b=mYl02Iar0If/VhuV7u0Vc9LaI1eLKrca1mW+4yaj4mXz3O3CWj+XXirMNAzTdHkwpxZDrjwIg/BN9TqrjNnlop89qwsfE3cLP5Wv/okKN02bpPKmx7yrCn4i/4wQbwI8ZZzY1se669WZse1fIwPF3SgAixZuIAFy6mcDxmKA56I=
+	t=1788670021; cv=none; b=u7a2SODy51CK1ehnRD+uNWrCTm/jHGUzZoG0sk+mltKaO1DZfbTTkmnlWo3e1l4xElg8HV3iOyslzqsfwZep72XIbY5D6lcGQygZ1SStEsQCagdpHJlckKpVem+TSchptRTx8mwihVe6W477vz/gWjry185bu6IWNyV5QbG0svI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788670022; c=relaxed/simple;
-	bh=yePW7swJKp/CoAXYJIlRrxTJvJHLYrZ5g7dI2UeDTAs=;
+	s=arc-20240116; t=1788670021; c=relaxed/simple;
+	bh=Bbwqxn/dYETE0fH+5VZOc5Z5ZrxCBQN1qc3+VDfAIDc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jNWKFlOcH4zovH8Joum1wSK4xxKT+sy4g963CGUIzW7N/zpNJIdJRKTy2E+7pEkH6w8DqyHIG22d0AYTvk6x8iZiK8tmp8lIKTFIrQjOf3RK1lTp60xDxAUv62t3pj/Dohnv8mXzsJiLPGSH5ul/6vpxMllLQFFtVAhbK6ySnbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=soi5SNDF; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=YXa88qjPa5Znw98ir1HazzpGn8Zc6L2tbbprlA3FGnHaXzwDj1Os/TVITIvAjqKql30CtlLR0KVzYQsQKNptKJjEvx5I/Of9/5SDnS4HexwiqlZ/k/gKdEQk8bY1rcRsy8tS//IuYBG0+pIc+jwGllViPYeS3R5IFtTC4FwMG2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I8vbaJUi; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="soi5SNDF"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 57C65C4AF0F;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I8vbaJUi"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2390AC4AF13;
 	Sun,  6 Sep 2026 04:47:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788670021;
-	bh=yePW7swJKp/CoAXYJIlRrxTJvJHLYrZ5g7dI2UeDTAs=;
+	bh=Bbwqxn/dYETE0fH+5VZOc5Z5ZrxCBQN1qc3+VDfAIDc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=soi5SNDFh/trvsmHLVZ76ty370tAJh8AzmfD39kbQyaqKZ0ca5kEuXTmDwXfN8W3T
-	 mPzQYgYReIdgnN56dCGg5OaM2a6mwQe4jCq31KMbOmxGrmBbzc5Kjq3fyuuiKFe6u3
-	 7QYGX5ncvQnVHTxOYpq/nmwpTI7axMkmwRdP35P4MoDSwf/EZDmuYK0aqeHATOTbwr
-	 Y1AJXn4TgplBIE8wgWTsGxv1WNlbskH8sd4GzZiATRRbbbwNqMebSPA4DGbAthNidF
-	 Z0ynexfVhW8Oa8GRvN8Awm9+gFIPK7tsT4+E5aLxs0sqd1ewYnmHXe/mdEANC431Xg
-	 Re0LV1ALJx3oA==
+	b=I8vbaJUirvqI0QJNYWrXYqskrPkNOfXQCLXfhN0CB19Hn2ylwsQr82fQ57Tm9yaKY
+	 9MnoSfipM+CaDDDUfBBKlLDIw2BO7VoB/ImT/SmuE8SVPjkjyAIPLBD6cFmDlah3QL
+	 8ZcX8URMtbrCmq4xm/oC1TjTMvHl3lHNcdNlix7QxsJD/SNBFZLuc8K39Hydn/Q1Gp
+	 U8xAZ+UHXwk+mleZYA4ex9Gzru1UYGVOyZ+lGfMJ4kYmUMDRfb2PPIKEJ0pdlj33uw
+	 yLRxsUIgkgClfDyhD4nvBlOGm5h+AtDA0jMm1/uoGA2oha3s6G1rlqBQXbbAiCFJOA
+	 j6lP8R8yMTHwg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43FADC79F9F;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B996C79F8C;
 	Sun,  6 Sep 2026 04:47:01 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Sun, 06 Sep 2026 08:46:47 +0400
-Subject: [PATCH v3 08/10] arm64: dts: qcom: ipq8074: move DR mode to board
- DTS
+Date: Sun, 06 Sep 2026 08:46:44 +0400
+Subject: [PATCH v3 05/10] arm64: dts: qcom: ipq5424: Flatten usb controller
+ nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-ipq-flatten-usb-v3-8-13e4e0f63123@outlook.com>
+Message-Id: <20260906-ipq-flatten-usb-v3-5-13e4e0f63123@outlook.com>
 References: <20260906-ipq-flatten-usb-v3-0-13e4e0f63123@outlook.com>
 In-Reply-To: <20260906-ipq-flatten-usb-v3-0-13e4e0f63123@outlook.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
@@ -55,11 +55,11 @@ Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
  Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788670018; l=1442;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788670018; l=5216;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=e2bv63iiEX2vz7ZO+5BDlb9OpNBUY7Sx/1y6B5CVxhA=;
- b=tdvDgmtfQNfTNjTOU8XvzRd+3v/W49bvVzIlI1XsYR/iaw9NxHZFMcU+cU5m1y27CHi0F12XS
- erP6HDk2bIkBsF+fEWtJY0jXnskvcCDAtaQgAXNVWr6pwyoSWd48wX2
+ bh=y0UKZW8UPAFUmI+uUPmVraXJ0oMSSqbxgtDqSe4LuFQ=;
+ b=HKVT4e4w510vQuOeA+tQkz2VKdhxTBmaBnbPDA/lxEE+q/kJ/ql5/M3Pdvp3OaRG5TgIKSqW1
+ 1cTVrBcMD8kBNKX9cITR97NwA6GUO/tyxRWR1IbWllj7ltGNvBUAKsD
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -69,55 +69,186 @@ Reply-To: george.moussalem@outlook.com
 
 From: George Moussalem <george.moussalem@outlook.com>
 
-Both controllers are DRD capable, but DR mode currently set to host mode
-in the SoC dtsi. Unset it in the SoC dtsi and set it as host mode in the
-hk01 board DTS file.
+Flatten usb controller nodes and update to using latest bindings and
+flattened driver approach.
 
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
- arch/arm64/boot/dts/qcom/ipq8074-hk01.dts | 8 ++++++++
- arch/arm64/boot/dts/qcom/ipq8074.dtsi     | 2 --
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts | 12 ++--
+ arch/arm64/boot/dts/qcom/ipq5424.dtsi       | 86 +++++++++++++----------------
+ 2 files changed, 41 insertions(+), 57 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq8074-hk01.dts b/arch/arm64/boot/dts/qcom/ipq8074-hk01.dts
-index dea5ece600d4..75827676bde9 100644
---- a/arch/arm64/boot/dts/qcom/ipq8074-hk01.dts
-+++ b/arch/arm64/boot/dts/qcom/ipq8074-hk01.dts
-@@ -52,6 +52,14 @@ &blsp1_uart5 {
+diff --git a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts b/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
+index be8657239c46..dfd6a124686a 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
++++ b/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
+@@ -74,14 +74,6 @@ vreg_misc_0p925: regulator-usb-0p925 {
+ 	};
+ };
+ 
+-&dwc_0 {
+-	dr_mode = "host";
+-};
+-
+-&dwc_1 {
+-	dr_mode = "host";
+-};
+-
+ &pcie2 {
+ 	pinctrl-0 = <&pcie2_default_state>;
+ 	pinctrl-names = "default";
+@@ -282,10 +274,14 @@ &uart1 {
+ };
+ 
+ &usb2 {
++	dr_mode = "host";
++
  	status = "okay";
  };
  
-+&dwc_0 {
+ &usb3 {
 +	dr_mode = "host";
-+};
 +
-+&dwc_1 {
-+	dr_mode = "host";
-+};
-+
- &pcie0 {
  	status = "okay";
  };
-diff --git a/arch/arm64/boot/dts/qcom/ipq8074.dtsi b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
-index 75a5ae30d966..5c57d9cd72fc 100644
---- a/arch/arm64/boot/dts/qcom/ipq8074.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq8074.dtsi
-@@ -671,7 +671,6 @@ dwc_0: usb@8a00000 {
- 				snps,hird-threshold = /bits/ 8 <0x0>;
- 				snps,dis_u2_susphy_quirk;
- 				snps,dis_u3_susphy_quirk;
--				dr_mode = "host";
- 			};
+ 
+diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+index 702061e16a58..de795ca2a905 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
+@@ -639,12 +639,9 @@ qusb_phy_1: phy@71000 {
+ 			status = "disabled";
  		};
  
-@@ -721,7 +720,6 @@ dwc_1: usb@8c00000 {
- 				snps,hird-threshold = /bits/ 8 <0x0>;
- 				snps,dis_u2_susphy_quirk;
- 				snps,dis_u3_susphy_quirk;
--				dr_mode = "host";
- 			};
+-		usb2: usb2@1ef8800 {
+-			compatible = "qcom,ipq5424-dwc3", "qcom,dwc3";
+-			reg = <0 0x01ef8800 0 0x400>;
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
++		usb2: usb2@1e00000 {
++			compatible = "qcom,ipq5424-dwc3", "qcom,snps-dwc3";
++			reg = <0 0x01e00000 0 0xfc100>;
+ 
+ 			clocks = <&gcc GCC_USB1_MASTER_CLK>,
+ 				 <&gcc GCC_USB1_SLEEP_CLK>,
+@@ -663,33 +660,31 @@ usb2: usb2@1ef8800 {
+ 			assigned-clock-rates = <200000000>,
+ 					       <24000000>;
+ 
+-			interrupts-extended = <&intc GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts-extended = <&intc GIC_SPI 396 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 397 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 387 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 388 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
+ 					  "qusb2_phy",
+ 					  "dm_hs_phy_irq",
+ 					  "dp_hs_phy_irq";
+ 
+ 			resets = <&gcc GCC_USB1_BCR>;
++
++			phys = <&qusb_phy_1>;
++			phy-names = "usb2-phy";
++
+ 			qcom,select-utmi-as-pipe-clk;
+-			status = "disabled";
+ 
+-			dwc_1: usb@1e00000 {
+-				compatible = "snps,dwc3";
+-				reg = <0 0x01e00000 0 0xe000>;
+-				clocks = <&gcc GCC_USB1_MOCK_UTMI_CLK>;
+-				clock-names = "ref";
+-				interrupts = <GIC_SPI 396 IRQ_TYPE_LEVEL_HIGH>;
+-				phys = <&qusb_phy_1>;
+-				phy-names = "usb2-phy";
+-				tx-fifo-resize;
+-				snps,is-utmi-l1-suspend;
+-				snps,hird-threshold = /bits/ 8 <0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-			};
++			tx-fifo-resize;
++			snps,is-utmi-l1-suspend;
++			snps,hird-threshold = /bits/ 8 <0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++
++			status = "disabled";
  		};
  
+ 		qusb_phy_0: phy@7b000 {
+@@ -730,13 +725,9 @@ ssphy_0: phy@7d000 {
+ 			status = "disabled";
+ 		};
+ 
+-		usb3: usb3@8af8800 {
+-			compatible = "qcom,ipq5424-dwc3", "qcom,dwc3";
+-			reg = <0 0x08af8800 0 0x400>;
+-
+-			#address-cells = <2>;
+-			#size-cells = <2>;
+-			ranges;
++		usb3: usb3@8a00000 {
++			compatible = "qcom,ipq5424-dwc3", "qcom,snps-dwc3";
++			reg = <0 0x08a00000 0 0xfc100>;
+ 
+ 			clocks = <&gcc GCC_USB0_MASTER_CLK>,
+ 				 <&gcc GCC_USB0_SLEEP_CLK>,
+@@ -755,34 +746,31 @@ usb3: usb3@8af8800 {
+ 			assigned-clock-rates = <200000000>,
+ 					       <24000000>;
+ 
+-			interrupts-extended = <&intc GIC_SPI 412 IRQ_TYPE_LEVEL_HIGH>,
++			interrupts-extended = <&intc GIC_SPI 409 IRQ_TYPE_LEVEL_HIGH>,
++					      <&intc GIC_SPI 412 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 414 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
+ 					      <&intc GIC_SPI 424 IRQ_TYPE_LEVEL_HIGH>;
+-			interrupt-names = "pwr_event",
++			interrupt-names = "dwc_usb3",
++					  "pwr_event",
+ 					  "qusb2_phy",
+ 					  "dm_hs_phy_irq",
+ 					  "dp_hs_phy_irq";
+ 
+ 			resets = <&gcc GCC_USB_BCR>;
+-			status = "disabled";
+ 
+-			dwc_0: usb@8a00000 {
+-				compatible = "snps,dwc3";
+-				reg = <0 0x08a00000 0 0xcd00>;
+-				clocks = <&gcc GCC_USB0_MOCK_UTMI_CLK>;
+-				clock-names = "ref";
+-				interrupts = <GIC_SPI 409 IRQ_TYPE_LEVEL_HIGH>;
+-				phys = <&qusb_phy_0>, <&ssphy_0>;
+-				phy-names = "usb2-phy", "usb3-phy";
+-				tx-fifo-resize;
+-				snps,is-utmi-l1-suspend;
+-				snps,hird-threshold = /bits/ 8 <0x0>;
+-				snps,dis_u2_susphy_quirk;
+-				snps,dis_u3_susphy_quirk;
+-				snps,dis-u1-entry-quirk;
+-				snps,dis-u2-entry-quirk;
+-			};
++			phys = <&qusb_phy_0>, <&ssphy_0>;
++			phy-names = "usb2-phy", "usb3-phy";
++
++			tx-fifo-resize;
++			snps,is-utmi-l1-suspend;
++			snps,hird-threshold = /bits/ 8 <0x0>;
++			snps,dis_u2_susphy_quirk;
++			snps,dis_u3_susphy_quirk;
++			snps,dis-u1-entry-quirk;
++			snps,dis-u2-entry-quirk;
++
++			status = "disabled";
+ 		};
+ 
+ 		timer@f420000 {
 
 -- 
 2.53.0
