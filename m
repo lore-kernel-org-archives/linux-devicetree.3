@@ -1,190 +1,269 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD59346E43;
-	Sun,  6 Sep 2026 21:32:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B765538237B
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 22:30:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788730334; cv=none; b=CYUKJOS00/OQk9CtVjUagGYqIT1eQRFyXTVn/wVvYKfyGX1PicaPkoQ9GsYCnU4IBGnYkudL+rIlVyNEGIQ7XkxoY+RCSBMmb+G7ZUDEG1acKUiIbt3LCVzrropxP4t7BKQw+yAhFid0b4cMMVtXDtbNdULjF7xo+YcVj4JdT3Y=
+	t=1788733861; cv=none; b=E9z/tgD/gBjLD3UTCko1XzEYh0IDj+nDvi8Gz1MqpMLdhk55ynNrocjJjPtWH5QCj8fKcoDz6j8CLpUZRMdmk/JqrH82nCC0YefPAqEplSw//x5a36uewkJ4QyLFwGHkoSvHhG7Tdw+sU4Wt4e/CYYI2pI0kEc89+beJYtPlWvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788730334; c=relaxed/simple;
-	bh=9xBCvEOIZEHDfq7VP9jQvArZps1bDFIyNj4XdifO+EU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SXv5bMXjTJdKVepw7shW2GO7TQiaLJJ7oIUsk9NRY1ryWfQQqgwj1y76z9IS/pqDo9OCDAipbBfrlPm/jfQ9g5Pgn8chpiljlLghzihi1U9fDyiRNW8KX0T52BVsyUV3aeI9Ly1L2ZNrgxjoc86TSnK1cjOM8ctQ/n4HVhiaq+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=pX1TsPMS; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788733861; c=relaxed/simple;
+	bh=9Do43tfnOOMH9vnpFRKJQymMYEW5k1BPXVMpqO6ODHw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W+K8snNSLPmZHjYcxU3sMLOMyH/rvDaV99lo9Bycrh3DubkMiTaZ4Q6314YDnx8StNFagUvvxSe8rcRWdR245tsBSdJWG30by6tZIvMtViJBUZpVYjM4/OMpwewuBPSEOSZ0Lu9/TrCdkGE+ib2aJLIeMEwrH9ZuTypQOHnweNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bbxjoS4I; arc=none smtp.client-ip=209.85.167.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="pX1TsPMS"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 3344B5340736;
-	Sun, 06 Sep 2026 23:32:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788730330;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=ywu0HVMs2UTCAROTw3iWE+Ohkzj8oh/ZNprFOl07sZA=;
-	b=pX1TsPMSDXYaoQLBzSABrO0AnROnaXad4UszKoP7dgLOpo4Za2GyzFlzWo+byU0AZA7vRs
-	XPUTXY6B2vOE8zpqEuyzvsrQt0aY0VgEQm+cZhSsKaSjCYYtuuqMBD52lbXyCF6ogTsGg4
-	6UYThD/mJirEIyOn1HfAjJQx9b8ZafE=
-Message-ID: <28fb606b-8631-483a-a02e-ecd16e9cc238@ixit.cz>
-Date: Sun, 6 Sep 2026 23:32:09 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bbxjoS4I"
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-497e6956acfso2778883b6e.1
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 15:30:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788733857; x=1789338657; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R7ofSnDmL0DwZUtbw6mO19Jd2QrlddgbYKJFA0cGE/w=;
+        b=bbxjoS4Ig0HI9Cyn37ehdwrVjScEJLjUmxJY3rr/aZ89tiETtyBiae8NSdbjIPbDFw
+         3bwXUaEHMCnr8rUj/Wr0OKdAoimhi6mwRqVMu5Pe7pOAIKXQlHAFp8B2Q5Wgo8WmY+qU
+         b99ZIj0a+MjppLEtPensqteMEY4t4/1LHssZt5zFLpNy0XdfNmCxk3fluotVQUqp0Bir
+         w5bKQnGky59kARroWGuZCv6eJbu9Xluh+OnjloLceSdoc2YwCnBZVdvdJom9Yg1MpYjA
+         hrosM4ih4TLTBs8j51wZJL5voEa94zib9sbDVWb5va0Hn1ECs/fxIKZAbdD0OI79L60P
+         IPpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788733857; x=1789338657;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R7ofSnDmL0DwZUtbw6mO19Jd2QrlddgbYKJFA0cGE/w=;
+        b=Mv0hRSaIogFFaJUtZfem/m6koZXuE+f47EOesxlla2HKvwXN8JIXGC75sr0d8ah5ts
+         lQroUq3W0Pk0w6GH5qK/yDPRvKPW4rxkzezKzr9G8KaaOcgik6PRIxZsoOm0PCciK28J
+         DFlY3sDzAeWONnX+bMJXRx8aLZpTvMUfpb5/jS3vJsY4IeRjcJF2o9B0t8qQkM5lBZ1k
+         Fjm4Oja8YWylTF6nB7kR4uDRw/gmLShlnMIVA8gvLYgskEonmBC8pbldCJieWYYlv8tA
+         /5BGTldPgbfhwGQDwPDbR2WGrm5uUu89fkkWWlw0MEiG97wD9d0v1TAsRqVMex8yG7lD
+         YHLg==
+X-Forwarded-Encrypted: i=1; AKwUvBxJn0GByvYdqFd1f8ku+2yJ5bnZzEDUv8XTLwUSZjp4785LWQtQW8hNyGTXNDkDdWtDfLyr2MY1ocJj@vger.kernel.org
+X-Gm-Message-State: AFuF++lknQrfhqCilI+0BvujekfOFRf5ho72fogCWjcVP5fRilMnUnLo
+	xTDI8j9acjUfBYdJBAERehy92jNNLkmegmUkFk+yWLJT58xZac1g/ALi
+X-Gm-Gg: AYBFou0MlJYPMyJLIwWjymPNDZUzMQfjQocBWiCvAJpqsqFGKHWThVsQltAfe/HBMJ0
+	Iu1nCJd4rShFYj3WzOehVO2WGUxlZyIyTEUNt0Uvnls88nTHWU+qBMWd8LhiBVmOSKPsGzsr8Hq
+	fLlPd+cRsEZKZPzW35AeQPEb+Ke4EolzvdkrbnGdMRM92KiiNrt5RMHV+R8Qjf++NnoSS5LBiev
+	z2ME972zr4wwjbp86Mr5OGEkwC5r06TnaYcl5zgO0jdmn7IKDn6rZIFr+pp+1IJShTbhkTujD1Q
+	mL46wHN8NKooP7oM1svxpke/XhFa2qpJ0b1Liy0GT3C2aHK8Yc+KCXT919j9UdNSf7+az4mLZoG
+	YIygdDG+Y0yBXFJ132nnbiPmgilFjcEKku6mP+m1TH3/6YQSvdPv8iJYlNDVLhwclXYbRvcwqN2
+	e4clHElLQNdDFwSJfWF8TPKG6H2d62OQCtKiJ5Xs4p9Vhs4xPu3uS4zxQnf0viLcYEf6fnWe7+I
+	LSmxqIqHR1khVviY4a31P77Xq3J0t0RQfpwOBLwMHzMy5j/m7CHMrCb4qPJOGVUSstjvcBnNzJN
+	zkq5K1Xhvfgq2n81WrEQv72KICz+/7UhYpLg/EsKMkqmV9KMTR51qTFQhckJCe5YKk6XMTkQACP
+	1lIxl9orUXO4OER6gkiw=
+X-Received: by 2002:a05:6808:30aa:b0:4b8:46e3:e21f with SMTP id 5614622812f47-4b97b4878demr9083760b6e.11.1788733857471;
+        Sun, 06 Sep 2026 15:30:57 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b970d200fesm8701910b6e.3.2026.09.06.15.30.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 15:30:56 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v10 0/2] mfd: add X-Powers AC200 support
+Date: Sun, 06 Sep 2026 16:30:45 -0600
+Message-Id: <20260906-submit-ac200-mfd-v10-0-f522e8dc2bd4@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
-To: Paul Sajna <sajattack@postmarketos.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOTU7DMBAF4KtUXmM0Hmp73BX3QCz82xqRBMXBa
+ lXl7jgFqaVEYvlGM9+bMytxzLGw3ebMxlhzyUPfgoCHDfMH2+8jz6ENGAIqICF4+XRdnrj1CMC
+ 7FDg5G1QAE5Eka2cfY0z5eDFfXr9zu3mLflqcZeOQyzSMp0tplcveDw/myh8bPyQeTr3tsudV8
+ Co5cJesSCQFOaTnfWfz+6MfOrYUVXVDrX1aVQO8dAINetqaP4D+D9ANIAcqSYl2G/Q9QFfAAK4
+ A1AC0FpRGcGT9PWBugacVwDRAOR0DajJkfgHzPH8BShmUpNEBAAA=
+X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
+To: Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ James Hilliard <james.hilliard1@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ linux-sunxi@lists.linux.dev, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-On 06/09/2026 23:11, Paul Sajna wrote:
-> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
-> 
-> Downstream dtsi for reference:
-> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
-> 
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
-> Changes in v2:
-> - correct drive-strength
-> - add gpio116
-> - Link to v1: https://lore.kernel.org/r/20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi | 31 ++++++++++++++++++++++++++
->   1 file changed, 31 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-> index b030a10009c5..c77da1b0d57d 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-lg-common.dtsi
-> @@ -471,6 +471,25 @@ &gpu {
->   	status = "okay";
->   };
->   
-> +&i2c3 {
-> +	clock-frequency = <1000000>;
-> +
-> +	status = "okay";
-> +
-> +	nfc@28 {
-> +		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
-> +		reg = <0x28>;
-> +
-> +		interrupts-extended = <&tlmm 63 IRQ_TYPE_EDGE_RISING>;
-> +
-> +		enable-gpios = <&tlmm 12 GPIO_ACTIVE_HIGH>;
-> +		firmware-gpios = <&tlmm 62 GPIO_ACTIVE_HIGH>;
-> +
-> +		pinctrl-0 = <&nfc_default>;
-> +		pinctrl-names = "default";
-> +	};
-> +};
-> +
->   &ipa {
->   	status = "okay";
->   };
-> @@ -551,6 +570,11 @@ &qupv3_id_1 {
->   	status = "okay";
->   };
->   
-> +&qup_i2c3_default {
-> +	drive-strength = <2>;
-> +	bias-disable;
-> +};
-> +
->   &qup_uart9_rx {
->   	drive-strength = <2>;
->   	bias-pull-up;
-> @@ -609,6 +633,13 @@ sd_card_det_n: sd-card-det-n-state {
->   		function = "gpio";
->   		bias-pull-up;
->   	};
-> +
-> +	nfc_default: nfc-default-state {
-> +		pins = "gpio12", "gpio62", "gpio63", "gpio116";
+The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with
+a paged register map shared by its audio, video, RTC and Fast Ethernet
+PHY functions.
 
-here the verbosity may not be bad (device-tree functions as documentation too)
-gpio116 is associated with eSE NFC part (just guessing, but... it worked before, 
-so), and generally the pn547 doesn't need it at all to work.
+Add the parent binding and an I2C provider which enables and rate-locks
+the shared input clock and initializes the paged regmap. Before creating
+the regmap, retain the 40 ms wait used by the BSP resume path after
+enabling the input clock. No minimum delay is documented.
 
-TBH not sure if there or what consensus is here about this. The eSE needs it, 
-but we don't have the driver thus also no integration with NFC part.
+Deassert the common reset without first asserting it, and leave it
+deasserted during removal and shutdown. This avoids a provider-initiated
+chip-wide reset of unrelated function registers. Supplier unbind still
+tears down linked consumers and releases the provider's clock references;
+it does not guarantee uninterrupted operation or wake-state retention.
 
-David
+Describe and instantiate the audio codec and TV encoder as MFD children,
+and provide a shared regmap interrupt controller for boards with INTB
+connected. Only enabled, DT-described function devices are instantiated;
+PHY-only systems therefore acquire no unused platform devices.
 
-> +		function = "gpio";
-> +		drive-strength = <2>;
-> +		bias-pull-up;
-> +	};
->   };
->   
->   &uart6 {
-> 
-> ---
-> base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
-> change-id: 20260902-sdm845-lg-judy-nfc-5f9e5775393d
-> 
-> Best regards,
+The INTB connection and TV encoder cable-detection interrupt are optional.
+Enabled codec and TV encoder nodes are valid without INTB connected, and
+cable detection status remains readable over I2C. A declared TV encoder
+interrupt requires a complete parent interrupt domain and upstream path.
+The ASoC codec and DRM bridge drivers are separate subsystem work and are
+not part of this MFD-only series.
+
+The current regmap consumer is the separately submitted AC200/AC300
+Ethernet PHY series:
+
+  https://patch.msgid.link/20260818-submit-acx00-of-dynamic-v1-v9-0-b8c8d9ad0d83@gmail.com
+
+The PHY remains enumerated on MDIO, its primary management bus. Its AC200
+package node follows the x-powers,ac200 phandle for ancillary I2C register
+access, adds a managed device link and obtains the regmap with
+dev_get_regmap(). This series and the PHY series can be merged in either
+order; AC200 Ethernet support requires both.
+
+The child descriptions and MFD implementation are adapted from earlier
+work by Jernej Skrabec and Andre Przywara, retaining their sign-off chain:
+
+  https://github.com/jernejsk/linux-1/commits/opi3-eth/
+
+Public AC200 documentation is linked from:
+
+  https://linux-sunxi.org/AC200
+
+Validation included dt_binding_check with dtschema 2026.6, W=1 x86_64
+object builds, strict checkpatch checks and a clean diff check. A 38-case
+host-side harness checked the actual IRQ initialization and cleanup
+functions with stubbed regmap and IRQ APIs, covering trigger selection,
+firmware register states and failure unwinding under ASan and UBSan.
+A 30-case DT validation matrix covered wired and unwired configurations,
+enabled and disabled functions, both interrupt-specifier forms and
+incomplete IRQ paths.
+
+In earlier AC200 hardware checks, a writable common-register marker
+survived supplier unbind and rebind. The provider and PHY completed 100
+deliberately overlapping bind cycles while both device links remained
+valid and the 100 Mbps full-duplex link recovered.
+
+With temporary codec and TV encoder DT child nodes, a second 100-cycle
+run verified that both automatically numbered platform devices were
+removed and recreated on every supplier rebind while the PHY continued
+to recover. After restoring the production DT, no child devices were
+instantiated. One hundred pings in each direction completed without loss
+and 8 MiB transfers in both directions compared correctly.
+
+The latest revision was also booted with both MFD children enabled and no
+IRQ connection. Twenty supplier rebinds completed without DMA-mask warnings.
+All 42 child probes verified DMA-mask inheritance, read the parent common
+control register as 0x1 and obtained the expected absent optional IRQ.
+The PHY recovered at 100 Mbps full duplex; 20 pings in each direction had
+no loss and an 8 MiB upload/download round trip compared correctly. These
+child runtime checks cover enumeration, removal/recreation and shared
+resource access.
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes v9 -> v10:
+- combine the parent and function bindings into one complete binding patch
+  (requested by Conor Dooley)
+- introduce the complete MFD provider, IRQ controller and function cells in
+  one driver patch, reducing the series from four patches to two
+- retain the existing sign-off chains for the adapted binding and MFD work
+- allow enabled codec and TV encoder nodes when INTB is not connected;
+  require the parent IRQ path only when a TV encoder interrupt is declared
+  or the parent advertises an interrupt controller
+- add an unwired TV encoder example
+- move the existing 40 ms wait before constructing and publishing the
+  regmap, and clarify its origin in the BSP resume path
+- use automatic platform-device IDs so MFD children from multiple AC200
+  instances cannot collide
+- initialize the parent's DMA mask for its non-DMA children, avoiding
+  "DMA mask not set" warnings during child enumeration
+- explicitly request level-low when no upstream IRQ trigger is configured
+- keep INTB disabled until source masking and handler setup are complete,
+  and disable it before releasing the IRQ chip on failure or removal
+- narrow reset-preservation claims to avoiding a provider-initiated global
+  reset; supplier unbind still tears down consumers and releases clocks
+- Link to v9: https://patch.msgid.link/20260903-submit-ac200-mfd-v9-0-6b7ed278989c@gmail.com
+
+Changes v8 -> v9:
+- deassert common reset without first resetting the entire chip
+- leave common reset deasserted during removal and shutdown, avoiding a
+  provider-initiated chip-wide reset
+  (reported by Sashiko and queried by Lee Jones)
+- stop storing the regmap as unused driver data after dropping teardown
+  callbacks
+- describe the audio codec and TV encoder MFD children
+- add the AC200 interrupt definitions and shared regmap IRQ controller
+- register only enabled, DT-described codec and TV encoder function devices
+- retain Jernej Skrabec and Andre Przywara's authorship and sign-off chain
+  for the adapted child and MFD work
+- make the base provider depend on COMMON_CLK before child support is added
+- require an upstream interrupt when the parent is an interrupt controller
+- credit Jernej Skrabec in the module metadata
+- exercise child enumeration and parent-regmap access with temporary probes
+- rebase on the current MFD for-mfd-next branch
+- verify register-state preservation across supplier unbind and rebind
+- Link to v8: https://patch.msgid.link/20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com
+
+Changes v7 -> v8:
+- identify the PHY series as the current regmap consumer
+- describe future MFD children and the MDIO/I2C split
+- store the regmap directly as driver data  (suggested by Lee Jones)
+- reset the chip from the remove callback  (suggested by Lee Jones)
+- drop the revision log and inherited-driver attribution  (suggested by Lee Jones)
+- add Krzysztof's Reviewed-by tag to the binding
+- rebase on the current MFD for-mfd-next branch
+- Link to v7: https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
+
+Changes v6 -> v7:
+- drop the managed external-syscon helper and AC200 syscon registration
+- leave the regmap attached to the I2C provider for direct device lookup
+- reduce the MFD series from three patches to two
+- Link to v6: https://patch.msgid.link/20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com
+
+Changes v5 -> v6:
+- split the MFD work from the independently mergeable networking series
+- put the merge routing and shared DT design at the start of the cover letter
+- rebase on the MFD for-mfd-next branch
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
+
+To: Jernej Skrabec <jernej.skrabec@gmail.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+To: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-sunxi@lists.linux.dev
+Cc: mfd@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (2):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: ac200: Add X-Powers AC200 support
+
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 231 +++++++++++++++++++
+ MAINTAINERS                                        |   9 +
+ drivers/mfd/Kconfig                                |  15 ++
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ac200.c                                | 255 +++++++++++++++++++++
+ include/dt-bindings/mfd/x-powers,ac200.h           |  13 ++
+ 6 files changed, 524 insertions(+)
+---
+base-commit: b07adc1a304c7ca9ac25a01051561538757363c9
+change-id: 20260811-submit-ac200-mfd-8bad6d09e285
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
