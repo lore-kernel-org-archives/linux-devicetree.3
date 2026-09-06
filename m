@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6190137F723
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:47:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC3A2BEC2B
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:48:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720431; cv=none; b=qcB/0TQRk3AL7VtSJXl786tAE2WzX8pKJhaaWL4WTB4QK1RhjIrFK15LDQU0yOyxkz3aWbbR8UIVGhlaUsnPpYIV2bwwy9x+USu/X7uruanY6W94KQxTNVeIBTdT7AVXFdmmI4a/gVHHqvDlQ1b1fKOQHC7FNeXJeDqFkNBJB9w=
+	t=1788720526; cv=none; b=X41hW3THSXJrbpNhaHl/6Vb/Utpak4Vr3evOhSOiv6g0E8J4DuvQMg49gAowP+9McOjriXQ4cgum406Fwb8rcq7DyD15c/SKaj+zZ1k2TXv5KGDlhQADJ/ch22XEpmD6T+dRIDRIQQTfrVL3OnRML5oPz/apdW4FPCAZ5k+TwWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720431; c=relaxed/simple;
-	bh=VbBrH4vXfvwBqefzdUXCh/tC2hHq4ts+R6eDdQatm3M=;
+	s=arc-20240116; t=1788720526; c=relaxed/simple;
+	bh=j9oaO6rLbKmWf66tVv2piH43uVTLPg4k7VAtKP42Dr0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hOu40g3uEVpLP2z9Kt44zSaILcwq0RMdoktPI4TVj3HK/b18rlD0oGuneZV15uR2+mjPCIThL/u3BDV7CuMWrJi5t9cGAU/L8/OTaMQtxpRfacMduNNnlMxV7dddCw1ETiuHeMDyRUPXZ1FoMg99K5xlrLkeNnGTAfMfgZDTQlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KYR8OwvK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=dX9i/juiA8u2ePh1HDuShIj5BkDpJTbbRa9TR9jGAwr+q3KMQgEyNQux8ckfemMi0ZiTw5WDO/ygF6Ti5x51rljyzmQ85kviNl8tN+wzwuY4Ej+73o45syvgqiOJpJvB1BXBJISM4q82T3aO0TSL6xN5Qc366dqEne78W05drUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGDVaRu+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KYR8OwvK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20081F00A3A;
-	Sun,  6 Sep 2026 18:47:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGDVaRu+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E631F00A3A;
+	Sun,  6 Sep 2026 18:48:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720429;
-	bh=UiKBICWZIhlK33+q+QoPfvmRV6b/jPwaoC4VuuiflDw=;
+	s=k20260515; t=1788720525;
+	bh=LUDNUjOdJGvrXXXqQZHSzsXfzvtFGlBFzgPnTrqojLI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KYR8OwvKl6UAbbUb5tYwXjPQj/IgIGWXyyjQeVOdZPRAB3B24Db55G/OpJ6ry8p2R
-	 2UZArKfl7h4uCziIg5tfJbacnBUBGpOgox1vGtvoyVuZIWrdUhEfWLIQFg/2rmoTHz
-	 Cc/HIsi/zvNORxYjM0nMA1dIFo7PnDsI/o4MIcDVT3dWbScjArD43VHkXBypnLaGqW
-	 mno0Y90fxoOQA7cNrDPrkVcbEdJOtTRYVX0MgZMryyygMXgY8SSLaugktPVr+qlIQH
-	 uowmxRjno2iCyHlmgeFyUa68/mmbIR4o/apYxErMxjcBHpjIklji4X6Xf0m1EGImMq
-	 M8L3RQWiC6Ijg==
+	b=bGDVaRu+lAW/krG41ppwTjVIW6OySkV/J6ic0b34e9RmXUR042+UZfPb6RzSMG6qz
+	 w/quR5iB9b+JNAsfh594ntbYQn5KqYBj8PmMWhVvLvlhdg9Znsg7Y/PFINDYXhMjEj
+	 woaUENtqIobrjwL27rfjKP26sh4ozfusiCtl2Y8woZLzVlQNjaR9ijp/fwjGEPMZkv
+	 KWx608PyzXOjZeVRhwWE+GIIhZRiQH6eyQe0pI3uMFtoO8HRNZ0uCl2ZVN5P5cO5wI
+	 jkt3Q//A7AbhrAx/Gw2cwX4s6RgNr3PWbvCb9vVvqP5qlF9Mxk0LxmW/lt92ZD5SC1
+	 lH//l8TJopUxQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/22] usb: typec: tipd: Register a USB4 port mode
- for CD321x
+Subject: Re: [PATCH v2 01/22] usb: typec: Add alternate mode state notifiers
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sven Peter" <sven@kernel.org>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-3-1f80085f93fb@kernel.org>
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-3-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 18:47:08 +0000
-Message-Id: <20260906184708.B20081F00A3A@smtp.kernel.org>
+Date: Sun, 06 Sep 2026 18:48:44 +0000
+Message-Id: <20260906184844.A5E631F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,59 +46,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Probe error path fails to cancel the delayed work `update_work`, l=
-eading to a Use-After-Free.
+- [High] Synchronous notifier execution inside deeply nested TCPM locks cau=
+ses recursive and AB-BA deadlocks.
 --
 
-commit 09cc2bd0cfd69f839367811f9385e5cf074438a8
+commit 24aff87629a22c99f4d8e24783e51c35bd321aa1
 Author: Sven Peter <sven@kernel.org>
 
-usb: typec: tipd: Register a USB4 port mode for CD321x
-   =20
-Register a USB4 mode next to the DP and Thunderbolt alternate modes so
-that negotiated USB4 partner modes can be linked to the port. Identify
-it using TYPEC_MODE_KIND_USB4 without an SVID or mode index.
+usb: typec: Add alternate mode state notifiers
 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index f76f563dc42b8..8c7f93d4270e2 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
+This commit adds a blocking notifier chain to USB Type-C alternate modes,
+triggering synchronously when an alternate mode is activated or deactivated.
+It allows drivers (like Apple Silicon USB4/Thunderbolt) to react to cable
+details and state changes.
+
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 54c7810b563be..5808a3ef0d6cd 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
 
 [ ... ]
 
-> @@ -1371,6 +1386,8 @@ cd321x_unregister_port(struct tps6598x *tps)
->  	cd321x->port_altmode_dp =3D NULL;
->  	typec_unregister_altmode(cd321x->port_altmode_tbt);
->  	cd321x->port_altmode_tbt =3D NULL;
-> +	typec_unregister_altmode(cd321x->port_altmode_usb4);
-> +	cd321x->port_altmode_usb4 =3D NULL;
->  	typec_unregister_port(tps->port);
->  }
+> @@ -312,6 +315,10 @@ void typec_altmode_update_active(struct typec_altmod=
+e *adev, bool active)
+>  	}
+> =20
+>  	adev->active =3D active;
+> +	blocking_notifier_call_chain(&alt->state_notifier,
+> +				     active ? TYPEC_ALTMODE_ENTERED :
+> +					      TYPEC_ALTMODE_EXITED,
+> +				     adev);
 
 [Severity: High]
-This is a pre-existing issue, but does cd321x_unregister_port() need to
-cancel the update_work delayed work?
+Does this synchronous notifier chain execution risk recursive deadlocks or
+AB-BA lock inversions with the TCPM driver?
 
-When probe fails (for example, if devm_request_threaded_irq() fails after
-connect queues the work), the error handling path in tps6598x_probe() drops
-into this sequence:
+Looking at drivers/usb/typec/tcpm/tcpm.c, tcpm_pd_svdm() calls
+typec_altmode_update_active() while already holding port->lock:
 
-drivers/usb/typec/tipd/core.c:tps6598x_probe() {
+tcpm_pd_svdm() {
+    mutex_lock(&port->lock);
     ...
-err_disconnect:
-	tps6598x_disconnect(tps, 0);
-err_unregister_port:
-	tps->data->unregister_port(tps);
-    ...
+    typec_altmode_update_active(pdev, true);
 }
 
-Since this doesn't call cancel_delayed_work_sync(&cd321x->update_work),=20
-could it leave the asynchronous work scheduled? As devres frees the tps
-structure upon probe failure, will cd321x_update_work() dereference freed
-memory when the timer expires?
+Because blocking_notifier_call_chain() executes synchronously, any subscrib=
+er
+callback will run with TCPM's port->lock held.
+
+If a subscriber callback attempts to interact with the alternate mode
+(for example, by calling typec_altmode_enter()), the TCPM altmode operations
+such as tcpm_altmode_enter() will attempt to acquire port->lock again,
+leading to a direct recursive deadlock.=20
+
+Additionally, if subscribers acquire their own hardware locks in the callba=
+ck,
+it could create an AB-BA inversion against port->lock.
+
+Could this notification be deferred (similar to the adev_action deferral
+mechanism TCPM uses elsewhere) or executed outside of the port->lock context
+to prevent these locking inversions?
+
+>  	snprintf(dir, sizeof(dir), "mode%d", adev->mode);
+>  	sysfs_notify(&adev->dev.kobj, dir, "active");
+>  	sysfs_notify(&adev->dev.kobj, NULL, "active");
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-b4-apple-s=
-oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D3
+oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D1
