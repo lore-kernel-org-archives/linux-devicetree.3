@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 814B134F24C
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:45:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6190137F723
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720350; cv=none; b=h6hoJ+Ykj2HngqhjP7j/FOcIssva9SHuI1BEQjlAmZ5bf7sNEzH17ypsR2yr80CYW6nT7kqnSWJZW6mL1//I7m/m25el80/NGLvL6QaJ67PNHxbEwmBhjkax9kgLXqUc3r2x1cT7+O+77+JvIAm9IJNp7Hzq57AcGlevbPwqL5Y=
+	t=1788720431; cv=none; b=qcB/0TQRk3AL7VtSJXl786tAE2WzX8pKJhaaWL4WTB4QK1RhjIrFK15LDQU0yOyxkz3aWbbR8UIVGhlaUsnPpYIV2bwwy9x+USu/X7uruanY6W94KQxTNVeIBTdT7AVXFdmmI4a/gVHHqvDlQ1b1fKOQHC7FNeXJeDqFkNBJB9w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720350; c=relaxed/simple;
-	bh=xy99FnelZPIq11pUH97Ifyg2Tolqmjoor2xc/NPbisM=;
+	s=arc-20240116; t=1788720431; c=relaxed/simple;
+	bh=VbBrH4vXfvwBqefzdUXCh/tC2hHq4ts+R6eDdQatm3M=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lxT0I3E19pmN1gyRJ+howZOzKk5PbIy9mZub6KzqeemIRexTQtrAwYWgaE3rCnvPsU/2qpbFqvmLWV4TcUPo6ebZ5a5KypWWOKQUziMuMXlM2f658pJFZeGmgesX/Ch+e+39V7/QQVRmp7m7+6AW3hrlsf0Xm3HVj63iR/RKKyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gGd91YjY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hOu40g3uEVpLP2z9Kt44zSaILcwq0RMdoktPI4TVj3HK/b18rlD0oGuneZV15uR2+mjPCIThL/u3BDV7CuMWrJi5t9cGAU/L8/OTaMQtxpRfacMduNNnlMxV7dddCw1ETiuHeMDyRUPXZ1FoMg99K5xlrLkeNnGTAfMfgZDTQlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KYR8OwvK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gGd91YjY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88121F00A3A;
-	Sun,  6 Sep 2026 18:45:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KYR8OwvK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B20081F00A3A;
+	Sun,  6 Sep 2026 18:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720348;
-	bh=ipucYeNOaDaLmtcVxU4yprllEpns2x+cpfydEn8IxMM=;
+	s=k20260515; t=1788720429;
+	bh=UiKBICWZIhlK33+q+QoPfvmRV6b/jPwaoC4VuuiflDw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gGd91YjYwtuibkuLF+vWMje2X2VlKAuLhDDKWWWJo/g+Qrzr1COBaXmTL/GA+mz/0
-	 wArMMmUE/2KRZWeFHRb2vYFV8h79oGeSofjhZrYHjeN+nBrZt+YPzBjUO0oC5ymxdO
-	 s+hGkP2D0knmjZjyG7dCosIikMqlhZBmRpFQjxUFuUCozrl/y6kytheAgxdL85vpng
-	 j0YxwZwg8ru4K6yv7urVUzgIJBpyi4yHrKANW65Gt/NCclAVovZNUdIH9HWzB13zdN
-	 XpbAlSbMNoZomoqtBvk2MHTpGBmHQ7G6PbcDHBF5105I7E0eBOwqjOBwsfiPzQaTlC
-	 OQTBZ+GdYOx+w==
+	b=KYR8OwvKl6UAbbUb5tYwXjPQj/IgIGWXyyjQeVOdZPRAB3B24Db55G/OpJ6ry8p2R
+	 2UZArKfl7h4uCziIg5tfJbacnBUBGpOgox1vGtvoyVuZIWrdUhEfWLIQFg/2rmoTHz
+	 Cc/HIsi/zvNORxYjM0nMA1dIFo7PnDsI/o4MIcDVT3dWbScjArD43VHkXBypnLaGqW
+	 mno0Y90fxoOQA7cNrDPrkVcbEdJOtTRYVX0MgZMryyygMXgY8SSLaugktPVr+qlIQH
+	 uowmxRjno2iCyHlmgeFyUa68/mmbIR4o/apYxErMxjcBHpjIklji4X6Xf0m1EGImMq
+	 M8L3RQWiC6Ijg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/22] thunderbolt: Find Apple VSE capability during
- startup
+Subject: Re: [PATCH v2 03/22] usb: typec: tipd: Register a USB4 port mode
+ for CD321x
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Sven Peter" <sven@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-11-1f80085f93fb@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260906-b4-apple-soc-tbt-v2-3-1f80085f93fb@kernel.org>
 References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-11-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-3-1f80085f93fb@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 18:45:47 +0000
-Message-Id: <20260906184547.C88121F00A3A@smtp.kernel.org>
+Date: Sun, 06 Sep 2026 18:47:08 +0000
+Message-Id: <20260906184708.B20081F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,65 +49,57 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Infinite loop in capability parsing when a malicious Thunderbolt d=
-evice presents a config space with a cyclic capability linked list.
+- [High] Probe error path fails to cancel the delayed work `update_work`, l=
+eading to a Use-After-Free.
 --
 
-commit e6dace564d4bffbe73d0c61815b1d55831634e86
+commit 09cc2bd0cfd69f839367811f9385e5cf074438a8
 Author: Sven Peter <sven@kernel.org>
-Date:   Sun Sep 6 18:36:34 2026 +0000
 
-thunderbolt: Find Apple VSE capability during startup
+usb: typec: tipd: Register a USB4 port mode for CD321x
+   =20
+Register a USB4 mode next to the DP and Thunderbolt alternate modes so
+that negotiated USB4 partner modes can be linked to the port. Identify
+it using TYPEC_MODE_KIND_USB4 without an SVID or mode index.
 
-This commit looks up the Apple vendor-specific extended capability during
-startup and stores its offset in the root switch. This enables the Apple
-NHI driver to program cable information without needing to search the
-router capabilities itself.
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> index f76f563dc42b8..8c7f93d4270e2 100644
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
 
-> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
-> index bf1c192ec10a5..d2832323cc360 100644
-> --- a/drivers/thunderbolt/tb.c
-> +++ b/drivers/thunderbolt/tb.c
-> @@ -3025,6 +3025,10 @@ static int tb_start(struct tb *tb, bool reset)
->  		return dev_err_probe(tb->nhi->dev, PTR_ERR(tb->root_switch),
->  				     "failed to allocate host router\n");
-> =20
-> +	ret =3D tb_switch_find_vse_cap(tb->root_switch, TB_VSE_CAP_APPLE);
+[ ... ]
+
+> @@ -1371,6 +1386,8 @@ cd321x_unregister_port(struct tps6598x *tps)
+>  	cd321x->port_altmode_dp =3D NULL;
+>  	typec_unregister_altmode(cd321x->port_altmode_tbt);
+>  	cd321x->port_altmode_tbt =3D NULL;
+> +	typec_unregister_altmode(cd321x->port_altmode_usb4);
+> +	cd321x->port_altmode_usb4 =3D NULL;
+>  	typec_unregister_port(tps->port);
+>  }
 
 [Severity: High]
-This is a pre-existing issue, but does calling tb_switch_find_vse_cap expose
-the kernel to an infinite loop if a malicious device is connected?
+This is a pre-existing issue, but does cd321x_unregister_port() need to
+cancel the update_work delayed work?
 
-Looking at tb_switch_find_vse_cap in drivers/thunderbolt/cap.c, the capabil=
-ity
-parsing loops indefinitely while following the next capability offset retur=
-ned
-by the hardware:
+When probe fails (for example, if devm_request_threaded_irq() fails after
+connect queues the work), the error handling path in tps6598x_probe() drops
+into this sequence:
 
-        do {
-                struct tb_cap_any header;
-                int ret;
+drivers/usb/typec/tipd/core.c:tps6598x_probe() {
+    ...
+err_disconnect:
+	tps6598x_disconnect(tps, 0);
+err_unregister_port:
+	tps->data->unregister_port(tps);
+    ...
+}
 
-                offset =3D tb_switch_next_cap(sw, offset);
-                if (offset < 0)
-                        return offset;
-                ...
-        } while (offset);
-
-If an untrusted external device presents a configuration space with a cyclic
-capability linked list (for example, where capability A points to capabilit=
-y B,
-which points back to A), this loop will never terminate. This could cause a
-localized denial of service by hanging the Thunderbolt hotplug workqueue
-and pegging a CPU core at 100% indefinitely.
-
-Should there be a cycle detection mechanism or an iteration limit added to
-the capability traversal logic to prevent this?
-
-> +	if (ret > 0)
-> +		tb->root_switch->cap_vsec_apple =3D ret;
-> +
+Since this doesn't call cancel_delayed_work_sync(&cd321x->update_work),=20
+could it leave the asynchronous work scheduled? As devres frees the tps
+structure upon probe failure, will cd321x_update_work() dereference freed
+memory when the timer expires?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-b4-apple-s=
-oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D11
+oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D3
