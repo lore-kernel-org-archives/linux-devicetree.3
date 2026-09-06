@@ -1,141 +1,207 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B7B345CAE
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 17:22:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1C733C1AD
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 17:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788715357; cv=pass; b=FFF+g69YfzOvNFvoOPNpT/4sOrgdy7UZrTILZgq6bVDhS3PEumxkPJpvr3t0yOVFIqw80feIaXHd751fziArZNEkcvvDMWp4HgpXmPH5bBn9K/iAvxL/hKwth3fP/eXZugUVWfnJrXtdQs3HZaIC5fOliycKgMame15AA0/d8XU=
+	t=1788715654; cv=pass; b=JYP5Z1fbmwVMGAVj2fR5d68tnEszISYlQ953+cOPTCSFi8Fh3Dgknfp+2rCsudK8gk4bcuTwd311y5k5UlInTymZ8jMeJidAf+YOZl7jlNeg+yCTNqz9W0pdXcH6Qq4A4ZD4kXFVHfTiIeq/Jie9XLeggW533mQVqfPaVu4XABg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788715357; c=relaxed/simple;
-	bh=xlfHTmswkSpLXO/4f4jYBhuVejOLiGyJyM/ej83cLuk=;
+	s=arc-20240116; t=1788715654; c=relaxed/simple;
+	bh=MraagOlUbpoH3oPLClVqeUHGrTt1DDjhELOYW/M7Pj8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VYHk0WogGvf32QVUyGP/FHdzhh9NiuZCXc/TP7SjsyTSUm2GepXqb9+4NwS+SN745GiGRnXr89FN8KRPWiyXuDLkZj2NJnJmFsGuey7DvLwm3vaBoJJGZfqHvnq9wNBtTjdA8CBOj6T8aq7r8E1aABgT18dyFJS7wrziWTxmwtI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DTvN/LN1; arc=pass smtp.client-ip=209.85.215.181
+	 To:Cc:Content-Type; b=XAe/I0dpk6q0EIK78/vwDcTz3tfwAYnziyu/PidVMvBgz3/vkP1WuR9yO65tVGokNglVCKdx60SCZhmSCzRNc5m/NNpFdKB3nWFWVemV5T2w6OwcxgFR63w1vdnadiPP40nlG7Opd9iZ/vlMXXAikj7ipsbCYxhkvYEZTIiv0lo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tBRGmHtY; arc=pass smtp.client-ip=209.85.215.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DTvN/LN1"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbee846deecso3473802a12.1
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 10:22:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788715355; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tBRGmHtY"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-ca12086c06eso2203365a12.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 10:27:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788715653; cv=none;
         d=google.com; s=arc-20260327;
-        b=Y0HAc5bjZH9cjb/2Rm4ZQjMPk/Kg0MDEHCmykvdwzc8s86BwWw8fAsBjpIrpCme/O4
-         AnBBUeYBKKDNgNHkLILnx2OdUX+JBR31qEmpQWn6Ph3XzMuiypndB/uRQuc4kng5GYTp
-         sMhtZkLdIqHm595dLDiexBcuqbY9kUwgWvXic2T1taX8NWRMYEqEmaJcB8DBLgn3cEXq
-         EiMG/nU90aMZAKfEqe9JmANs9L9mcGvoXrti1biuCGFHdij4S8mbpBa+4jmp9nDL9hI5
-         KjRAGvO2ennaqFGQrai9mkbqfBJaUfg6bDdGqjMcpNbKjR8xOp1YVjYTzUciFgetWiip
-         EOYQ==
+        b=s3fI7YNjZFGFx9PXkY1PACcj30nwr3PiIbI1DRf7TbdGa8r/7+Ktc1k8osEE2oX7z2
+         Gj0P5+ll85qsPU0U+/kGl0gojTfYaeTptpHlxNgmf1d7qQ3PNlHbdMOQ04E1ZyOBiX9N
+         xWJdsveYF1wWmGStBdPbt8PZXCwg/ZBUZ/5JGuQ3005Un400rYFVowIpbSe+9TNjN1/j
+         uwlDegtt1cW3NhpT72uK/E+kKi9GfP1/GucV6wGsxwZI5jR26yZqI3JHs71cAy0FKM8Y
+         8tkF7j3fM9/apxpkK2LpOkjpE9XeeyUhc5vogZ7Yfpemz8vxlCOptEytoz8LX4kafyaL
+         Wi2A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=F+vIa+Qy5L/8ukG4yH01NZv4BrUlQHr2FP5xxn3kwXw=;
-        fh=b36f5qdsCKKypqTpjdowbJ4fuDqDYF2FgvJsGODRa7Q=;
-        b=krJmO5geWyyu0W/O/ghp8pp6EQwAqRiWb9fbhNSJbZS8kVnQYfzDCFlpyIx5PxXI4J
-         m4u+ynCNktTI4Fii3Nj+NWGeUpo0vZHrY5ayhqspBhf1qdtEhdyH0sK3ve5iV03eoxDn
-         f8QWoCSdtMs+bj2ZO4y8ASiVT7mXECAs+TLZtm49MCtIeUPcHMQV9ewMRD/i9WIdBpUc
-         UnTI4C0qgBY/V3DgSt09Zw0oQQm42QFaofqbbD6D0j7cmDBk6Qd3qDMqnnrZRuHZGMI+
-         A0uLSrSBU7QMRgLNyTTFZN53/p3ewWHKdjfIo1eOymaGRxbu/Yy8K2IihB48shu2jLmC
-         EbXg==;
+        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
+        fh=Uf+0XhFkacH6tqXowJV3bMheSLenLkWtAtgqXitQlNs=;
+        b=IbBFt2Ct4bsGkjU1vHpcGNztxi5YHz30N9DtSxSAu9nCkSGgxp5Eqoy6Kp0n1dB/dW
+         qv6WucwJ2RAEdWDUhl6HtrvEjO74U/QJ3qavns/CuJkTPLlPhXjKaGGKqoXOWHclPDxT
+         0NBponCkE2I3CJRDBtd6Km8RMOLesOdnVp+z+Qklnggm3Y3ooaAK3MQiEF0pFnPMXngY
+         aw2Hb0W//Y/angJk09UxCcY37Imr1EybExjtcZZdDa58iRGKIzOMaz986aiXfy8CKijV
+         3XiKhkvsnSEw5xrIYvflc92lV16zyOeZTDTRT1feVd9ZI3tykuDIC4Ryva5YuTmz2AiO
+         6eDw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788715355; x=1789320155; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788715653; x=1789320453; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=F+vIa+Qy5L/8ukG4yH01NZv4BrUlQHr2FP5xxn3kwXw=;
-        b=DTvN/LN1EdaERFqCd/Pf18xk3C2W9zOejXGnr4Zon7F3zor5rZQ344+GQ1BawH8Yia
-         oxrLD6jEEaJ3VX4H9A0LkI7AjDZUBT/QzS5oBGB1SLqzR9dFcpoQQwfqMFrTwPEZaB1P
-         0m3rvOHTFdLh9lLU4yfbJxyweFX42h5JIcRnl9ozmPY9sAFcxuGYjAFBsARs2CATPDls
-         EhZJEkWhdvjriIJ3fwyBDu21MkwGTZDYmGjDktjCV4tKkevbckt6Pii2RruUjekLWGsV
-         lYM1DxyvWC7EKZK+Cm7hvHm3hx8cVCRAWMfHElaWUrYSGogaVhj9sxCmEemyKJdrhxYS
-         hjwQ==
+        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
+        b=tBRGmHtYOWv+ER41CDeEHk2vkJodO9MamNNG3ITftTNWohvwTqpT8hLHt6hnq2aN3W
+         /6jxpnx2bPtTiAQRhnrbeyCsqJjrHN9m6161Vq+0+jfNejLl1y3XIHDFwg+uZSev/7iz
+         Z9UtyeQah2Pvm9MxCIu9s0ZN7FAMH2GtRdhqzl5Wp4fYhhvD9k4MaBxAlHReovTS0yat
+         XudzQ77nwXHYDqaUtGMWirPVRPuTm4o+NMgBBo2m267H14dqYkXmLdJ0TtJfsOyZAaYr
+         ErAZLiCIaWiWC0dbZVopnN7y9z1bhJat2xLtxZyHuoWTl+rvC7hYDYsLYPb3XvsscaOl
+         jhZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788715355; x=1789320155;
+        d=1e100.net; s=20251104; t=1788715653; x=1789320453;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=F+vIa+Qy5L/8ukG4yH01NZv4BrUlQHr2FP5xxn3kwXw=;
-        b=cC9praCgJuhTy6TYv0/ibgkaIK/nF1LIs4cRgGSOPZQHslHvrRYbXDLuyYYXfpos5P
-         wJdBEmBYj0j7BP4KKTZRAsKd+ZvCPRV06aK4T9UlCafuzffEsYhjQEZc6rJBJthoocV5
-         tHVxXxDFw7aHMWBnIxJ2lNRDHeh4cFrtKODWMbHThi+H+oYFG24iYJ9ojR5EPWsI9P/Y
-         nZ0VI7oeKiJHmBzqbqyxXE1mGjBqFE83WsnvMcqcfGKJkxqgMtlijJPcyeQqaOWxRTJb
-         HVzAQz8r6INXMBsKsPxvw1+smR+B0aTq9PLCsgT4J0amM7c45VrP9xdWgZAv7LW5rare
-         YViA==
-X-Gm-Message-State: AFuF++kFdovfS3+pEKyZ/5lK8keqvogYdvR+AfVKBVwkNP2KMymeVBg4
-	9wWm7cv/EbtZDqyrEgFHVstJKiUwEBEEpTqPXnNvng4AgH68xyygDG4hhElfO8EACm5so2oHm1U
-	K0+/tlTcti3pmFTAe0RUyR+lX1TG8W8o=
-X-Gm-Gg: AYBFou0c8aFLkrg+5YrgVVactQgozmr52zhIgizZNcjxASEypSJbu/SmlJ+WS/6/AEK
-	T+0Z/lzyyA0TYAD6vaStK4E4vnocsF4gLQSLwadPwsX5reKeuswW8PKzpdMCy06+gQIVABQylTW
-	7Jbf2KP2XzvoKyaVeDPr6yTAZdqZ94BYNzBpHX8hB1C14seIFFzVXBo6t3WEomPZc2J8Z9fJz2n
-	SschzKWfluYsoQ/GCLKzRHQl47QeMBoaLCxVAalD/0lyRfy+dWgR6zEmd3dpb+KeaiXFAFfDnBI
-	dbUWBtrbA0eWb8zRvzhBGcqEejrei/Pg7k0bPbsjqTO7zCKyJmnDiNL3PcHtxlwTNEgLwTSaK8t
-	XIg==
-X-Received: by 2002:a05:6a20:e607:b0:3d3:ae50:97c6 with SMTP id
- adf61e73a8af0-3da3a154de6mr29258954637.19.1788715355297; Sun, 06 Sep 2026
- 10:22:35 -0700 (PDT)
+        bh=HTHe80Xg7+ZeuYbrgbgsluol6fsDFnRR/at+m3TB9OE=;
+        b=l5Es1KWhhGEGpYfdkXToYtdpQKbGjzf6MP0ChRnqMi59Np+WJDhJ/0xXN/cg2p0751
+         rTP/rEn2eTXiknTKhOgoTbNNQl6VlI5HUPhtikNtXQ3roJTxsRWG7iGW/bTEkDyxK5gH
+         HzODlYb+lk9fvM61hY9AfV/AjzkYHIXMhkX93eZd8vjL9EzA6q/0oT+nxujomeQ/nNMX
+         OqcuqV2DJFMTNMxkQXYw0lfJvscrWmeOo67TaUWJHMwt8X8ulIXARHoxBoA4KU51kjyR
+         XTIjSHSU1RJQykjJunmlWQ1X5BuOhS9RiJZX1VDGCnh3HtqmRozdIdsXfMWyIo5ED/Vp
+         KPLA==
+X-Forwarded-Encrypted: i=1; AKwUvBy4+Kjmq445FGneFXeU7SVYHMIBthOtB3CP//B3s8HcTVtiq0TMDDT1lgPL+o904AS5a4ZMgXl5KRhJ@vger.kernel.org
+X-Gm-Message-State: AFuF++l3IRdYr3vujtzA+2zW7FQ6cstmyg2KaE3Q+noSroVoEgY5uoqx
+	jZHgI3oSRmrO+2Zsb7En9zoPSfk01+hCxFnMLPy75xzWuLaCXzAGP4aclyxQom1nvlyuLKFUQdJ
+	RP7t7D+RqYAYbW6DbfhlVcuQCbGw/GcU=
+X-Gm-Gg: AYBFou1fAqGM6ea58KTITA+w0T/7ErPwCO3UwRmTv08mJar17+gozBjl//6NfO2jQ5M
+	qzajwh60+yqlnX0cAVidKJGQhXRs1EbqiHdCXxUgAjBSbLXUX5DMYBLnRicEyU7FH3+zBk1CzNQ
+	fgrI8dn5So8fhCbgrHNjGycIZTEujhZU88RpShLB8TTo7zQxEpoIHG3LNxWqWfzfMEenSE80+iI
+	9bXXcQWC0B/fouTEA5mA2qFakSU//he3m6hA7Mlrr/KF+bsMZDjEkdkfAzx/l0JjXu2UThSByrf
+	6EzXVLq/zEZ4Yyo327CTajaVqIPfXXtV6hxnm1Mw2Nmhzb4o9fgc58GcVnQtHcPA/d/Ul/WK/Wm
+	kIA==
+X-Received: by 2002:a05:6a20:9397:b0:3c3:a3f4:5485 with SMTP id
+ adf61e73a8af0-3da39cff434mr30724224637.6.1788715652668; Sun, 06 Sep 2026
+ 10:27:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260721095233.420823-1-clamor95@gmail.com> <20260721095233.420823-5-clamor95@gmail.com>
- <CAPVz0n2rhZk0fjM06u=C5H4LgVOsN6ACriO1o+byx0dyqTwGzQ@mail.gmail.com>
-In-Reply-To: <CAPVz0n2rhZk0fjM06u=C5H4LgVOsN6ACriO1o+byx0dyqTwGzQ@mail.gmail.com>
+References: <20260721095654.429346-1-clamor95@gmail.com> <CAPVz0n3u0D=0swsO4n6LROFurO=as1w-ZRwaje08BN9dY=JhXQ@mail.gmail.com>
+ <20260827141457.GA2943942@google.com>
+In-Reply-To: <20260827141457.GA2943942@google.com>
 From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sun, 6 Sep 2026 20:22:23 +0300
-X-Gm-Features: AcwNN1XDTtBNxGlzLOpLQ3w1y2Et6HgHVsvlBacLuEsWHZNblAyHEWGt7R_cBqA
-Message-ID: <CAPVz0n2mzwp-ffUu7tw5ojXgM=+G-PT3V9pHN--dT=dnYw5hHw@mail.gmail.com>
-Subject: Re: [PATCH v10 4/7] input: keyboard: Add driver for ASUS Transformer
- dock multimedia keys
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>, Lee Jones <lee@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>
+Date: Sun, 6 Sep 2026 20:27:20 +0300
+X-Gm-Features: AcwNN1US6VGLlyitJNPleGZ36XvgnLU1yQ7kLv1UGW2us5RAJXeSTeJhWP7qGxo
+Message-ID: <CAPVz0n1bTHph3nquDNzrp+kpRcbzHsBBddHGxY3qt9qiHf7zWw@mail.gmail.com>
+Subject: Re: [PATCH v7 0/6] mfd: cpcap: convert documentation to schema and
+ add Mot board support
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, 
+	Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D1=80, 19 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:2=
-0 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+=D1=87=D1=82, 27 =D1=81=D0=B5=D1=80=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 17:1=
+5 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:53 Sv=
-yatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > From: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> >
-> > Add support for multimedia top button row of ASUS Transformer's Mobile
-> > Dock keyboard. Driver is made that function keys (F1-F12) are used by
-> > default which suits average Linux use better and with pressing
-> > ScreenLock + AltGr function keys layout is switched to multimedia keys.
-> > Only Dock keyboard input events are tracked for AltGr pressing.
-> >
-> > Co-developed-by: Ion Agorria <ion@agorria.com>
-> > Signed-off-by: Ion Agorria <ion@agorria.com>
-> > Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >  drivers/input/keyboard/Kconfig                |  10 +
-> >  drivers/input/keyboard/Makefile               |   1 +
-> >  .../input/keyboard/asus-transformer-ec-keys.c | 310 ++++++++++++++++++
-> >  3 files changed, 321 insertions(+)
-> >  create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
-> >
+> On Wed, 19 Aug 2026, Svyatoslav Ryhel wrote:
 >
-> Hello Dmitry!
+> > =D0=B2=D1=82, 21 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 12:57 =
+Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > The initial goal was only to add support for the CPCAP used in the Mo=
+t
+> > > Tegra20 board; however, since the documentation was already partially
+> > > converted, I decided to complete the conversion to schema too.
+> > >
+> > > The CPCAP regulator, leds, rtc, pwrbutton and core files were convert=
+ed
+> > > from TXT to YAML while preserving the original structure. Mot board
+> > > compatibility was added to the regulator and core schema. Since these
+> > > were one-line patches, they were not separated into dedicated commits=
+;
+> > > however, the commit message notes this for both cases.
+> > >
+> > > Finally, the CPCAP MFD was slightly refactored to improve support for
+> > > multiple subcell compositions.
+> > >
+> > > ---
+> > > Changes in v2:
+> > > - fixed code style
+> > > - rtc conversion was picked, so patch dropped
+> > > - added audio ports description into mfd schema
+> > > - splitted schema conversion and compatible addition
+> > > - minor style improvements and typo fixes
+> > >
+> > > Changes in v3:
+> > > - added regulator node names list into pattern
+> > > - filled spi_device_id with driver data
+> > > - ADC patches were picked, so changes dropped
+> > >
+> > > Changes in v4:
+> > > - dropped regulator patches (applied)
+> > >
+> > > Changes in v5:
+> > > - switched to MFD_CELL_* macros
+> > > - switched to use determinator of model
+> > > - switched to spi_get_device_match_data
+> > >
+> > > Changes in v6:
+> > > - removed address-cells and size-cells from main node
+> > > - changed macros formatting and OF matches
+> > > - factored out common devices and made device addition staged
+> > > - dropped cpcap->variant check for 0
+> > > - EINVAL > ENODEV in variant checking switch
+> > >
+> > > Changes in v7:
+> > > - adjusted spi_device_id entries (name/driver_data)
+> > > ---
+> > >
+> > > Svyatoslav Ryhel (6):
+> > >   dt-bindings: leds: leds-cpcap: convert to DT schema
+> > >   dt-bindings: input: cpcap-pwrbutton: convert to DT schema
+> > >   dt-bindings: mfd: motorola-cpcap: convert to DT schema
+> > >   dt-bindings: mfd: motorola-cpcap: document Mapphone and Mot CPCAP
+> > >   mfd: motorola-cpcap: diverge configuration per-board
+> > >   mfd: motorola-cpcap: add support for Mot CPCAP composition
+> > >
+> > >  .../bindings/input/cpcap-pwrbutton.txt        |  20 -
+> > >  .../input/motorola,cpcap-pwrbutton.yaml       |  32 ++
+> > >  .../devicetree/bindings/leds/leds-cpcap.txt   |  29 --
+> > >  .../bindings/leds/motorola,cpcap-leds.yaml    |  42 ++
+> > >  .../bindings/mfd/motorola,cpcap.yaml          | 408 ++++++++++++++++=
+++
+> > >  .../bindings/mfd/motorola-cpcap.txt           |  78 ----
+> > >  drivers/mfd/motorola-cpcap.c                  | 143 +++---
+> > >  include/linux/mfd/motorola-cpcap.h            |   7 +
+> > >  8 files changed, 571 insertions(+), 188 deletions(-)
+> > >  delete mode 100644 Documentation/devicetree/bindings/input/cpcap-pwr=
+button.txt
+> > >  create mode 100644 Documentation/devicetree/bindings/input/motorola,=
+cpcap-pwrbutton.yaml
+> > >  delete mode 100644 Documentation/devicetree/bindings/leds/leds-cpcap=
+.txt
+> > >  create mode 100644 Documentation/devicetree/bindings/leds/motorola,c=
+pcap-leds.yaml
+> > >  create mode 100644 Documentation/devicetree/bindings/mfd/motorola,cp=
+cap.yaml
+> > >  delete mode 100644 Documentation/devicetree/bindings/mfd/motorola-cp=
+cap.txt
+> > >
+> > > --
+> > > 2.53.0
+> > >
+> >
+> > Hello Lee! May you please pick this patch set? I have included changes
+> > asked by Rob and Uwe. Thank you!
 >
-> May you please take a look? ATM only ACK on input patches left.
+> Nope! =3D:-)
 >
-> Thank you!
+> There are still a bunch of unanswered Sashiko reviews and one from Rob's =
+bot.
+>
 
-Hello Dmitry!
+It seems that Rob may be quite busy. Which Sashiko Rob's bot reviews
+concern you? Maybe I can clarify those?
 
-May you please take a look? ATM only ACK on input patches left. I
-would like this patch set to move forward.
-
-Thank you!
+> --
+> Lee Jones
