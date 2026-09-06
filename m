@@ -1,116 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC3A2BEC2B
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:48:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1710F1DB356;
+	Sun,  6 Sep 2026 18:50:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788720526; cv=none; b=X41hW3THSXJrbpNhaHl/6Vb/Utpak4Vr3evOhSOiv6g0E8J4DuvQMg49gAowP+9McOjriXQ4cgum406Fwb8rcq7DyD15c/SKaj+zZ1k2TXv5KGDlhQADJ/ch22XEpmD6T+dRIDRIQQTfrVL3OnRML5oPz/apdW4FPCAZ5k+TwWU=
+	t=1788720652; cv=none; b=ACJbjR4pvy20ogy42RlDfUj4v8mjo2eVQeAtAXIuV1jf2FGTdEoR1GOJoSOlBeOvN0jnuHo0AtAo2aNiED+/RvzU1VrIR23gfGB3yLm3i6ShQSDdmhBot046IjxEINz4e7QppZIzZVPtL+v42lQoJ005GayN8NNrrDNeCisdPew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788720526; c=relaxed/simple;
-	bh=j9oaO6rLbKmWf66tVv2piH43uVTLPg4k7VAtKP42Dr0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dX9i/juiA8u2ePh1HDuShIj5BkDpJTbbRa9TR9jGAwr+q3KMQgEyNQux8ckfemMi0ZiTw5WDO/ygF6Ti5x51rljyzmQ85kviNl8tN+wzwuY4Ej+73o45syvgqiOJpJvB1BXBJISM4q82T3aO0TSL6xN5Qc366dqEne78W05drUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bGDVaRu+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788720652; c=relaxed/simple;
+	bh=fkuL9lk57Fu4jgGFnpUqsspdUnoVuz7bcyAX/OlGo4Y=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=WvBMy0tgkYM6aGDJ2ZkJNZ+u0vAG4nDe5ADnw5daZw1Sjctw5v6mgmj0DNjrqSOUSSpapWFeLJfj8QtjpZLZdOJQCa2CdcB8c/f5zChMlP72faSy3+tj7X/oP1oqWEEA079xX2zsDb/Xb2cEyC7ZNSuuNS4Mfi6qFZwvlahGc2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKAh8Tqk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bGDVaRu+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5E631F00A3A;
-	Sun,  6 Sep 2026 18:48:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKAh8Tqk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246541F00A3A;
+	Sun,  6 Sep 2026 18:50:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788720525;
-	bh=LUDNUjOdJGvrXXXqQZHSzsXfzvtFGlBFzgPnTrqojLI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bGDVaRu+lAW/krG41ppwTjVIW6OySkV/J6ic0b34e9RmXUR042+UZfPb6RzSMG6qz
-	 w/quR5iB9b+JNAsfh594ntbYQn5KqYBj8PmMWhVvLvlhdg9Znsg7Y/PFINDYXhMjEj
-	 woaUENtqIobrjwL27rfjKP26sh4ozfusiCtl2Y8woZLzVlQNjaR9ijp/fwjGEPMZkv
-	 KWx608PyzXOjZeVRhwWE+GIIhZRiQH6eyQe0pI3uMFtoO8HRNZ0uCl2ZVN5P5cO5wI
-	 jkt3Q//A7AbhrAx/Gw2cwX4s6RgNr3PWbvCb9vVvqP5qlF9Mxk0LxmW/lt92ZD5SC1
-	 lH//l8TJopUxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/22] usb: typec: Add alternate mode state notifiers
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sven Peter" <sven@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-1-1f80085f93fb@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 06 Sep 2026 18:48:44 +0000
-Message-Id: <20260906184844.A5E631F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788720650;
+	bh=7HHAXfwc9wO/Zue/pcde5vt97DrbGS+ON9z+VUxfPtc=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=kKAh8TqkgTri8jBuGG+KdbvGncxJeyRRiS33InVOwFNoIslt2UGzFS+W2RjrZOjql
+	 jxN6TsrE/qs67KBF2ASCLmzTYh7N1luN58eQq5CmkU/V0RoGLS4JN85p0ILX4G8QZ9
+	 23lJHARcgxs9ND28iX0cmcgBjuhaYWYnPMeEth7qzcg5i0HEKwygSdrjYDc/TOk2xB
+	 f23ryVyxKYoKmqeAE0W/QvIB1Fv7TLR6CKYFIVu5wXODyFult5riy21Q2QIzWSiBJk
+	 bbJ3uepvc7BqkY7wrt8vYdj63hkzukap5DG3jvK514QXXAWtAcXSraIQqFP771pCjJ
+	 HoDYrH4dQvB6w==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v1 04/13] iio: adc: ad4134: Serialize single-read
+ operations
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux@analog.com, 
+ jic23@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com, 
+ andy@kernel.org, Michael.Hennerich@analog.com, robh@kernel.org, 
+ krzk+dt@kernel.org, conor+dt@kernel.org, corbet@lwn.net, 
+ skhan@linuxfoundation.org, marcelo.schmitt1@gmail.com
+In-Reply-To: <apkTRwJp50WCaipq@ashevche-desk.local>
+References: <cover.1788368334.git.marcelo.schmitt@analog.com>
+ <4e136d116b2eda46fc36f3a3ded3990972c012c4.1788368334.git.marcelo.schmitt@analog.com>
+ <apkTRwJp50WCaipq@ashevche-desk.local>
+Date: Sun, 06 Sep 2026 19:50:47 +0100
+Message-Id: <178872064714.3402141.14394353863875745387.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=817;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=fkuL9lk57Fu4jgGFnpUqsspdUnoVuz7bcyAX/OlGo4Y=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnbYHtNgi3u3s4ACskKtGF+oYrh6PMkz2vF/gs
+ f922DTVSrSJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCap22BxEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiEYVD/0Ulh/zCzlioqsoQHp+RLoFbF6YNKDA2m9SybKgfFxQb4o
+ UeiRhkDf6T8vz3lc29t0MLW7uT0JBrZloRtoVOqxnYQcPBpMAnAGHy9UWKobEjcFBMMzJWD7pjY
+ 0oZ1YKL5oRqThpTJW8P5QV373s9Ppq5/ughguoqhAi2bDlnh4/LyFQGMu3NVcpMDHvRx39zmKHw
+ ufHMYU+X4lqyAZte622PWT5oSpNTk/soTf+f6EZDzC7WkB4tR++H4Ju1DsI5S/wgxfLO1xuT4JT
+ gEOms4hfLRCoMUemupJgv2bFADXM70y9B64L6H/eoKrPOrBYeRxrqTqhc5Qn9W1ulHqFtuAmRkN
+ 8Z3v8hwQFXvZmlTA1tFiIuhdIlW/dWJTStKeqKSGPIEdm0qhNjSrqSCovQqW3bnsLqNMaHcRZYn
+ 5QXjKKV1ORGDnTkxC45XNKTdUuAp7NnvIq6Xa5G5ljzwXPDttt10+D/AQi1mUUTdHwNH+6ZTXM2
+ eBuEEA5La1fCXPwMw1JlNiIvpFTbihvFixD8p8GNtbI9TdDQsbDEbttP9fuZ8sOvVPKHSEw70Js
+ KiYhcAgAzJmXd8wG/blS6T7qh6Pt8wkUbmViJqxhiDjaOX71b3TRirLqbj+iP5VF0ADsPK3Zv3J
+ S42DKvuz8sEfVVB7fUPzOPyS5UMs1zFauObZ5/Q==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Synchronous notifier execution inside deeply nested TCPM locks cau=
-ses recursive and AB-BA deadlocks.
---
+On 2026-09-03 09:27:19+03:00, Andy Shevchenko wrote:
+> On Wed, Sep 02, 2026 at 02:22:41PM -0300, Marcelo Schmitt wrote:
+> 
+> > Protect single-sample read operations from going wrong if two or more of
+> > them run concurrently. Serialize the data read operation so to avoid
+> > single-sample read requests disrupting each other.
+> 
+> ...
+> 
+> >  	case IIO_CHAN_INFO_RAW:
 
-commit 24aff87629a22c99f4d8e24783e51c35bd321aa1
-Author: Sven Peter <sven@kernel.org>
+Define the scope.
+	case IIO_CHAN_INFO_RAW: {
+Scope has a funny definition in switch statements and that can lead
+to 'entertaining' results.   Some compilers will also moan about this.
 
-usb: typec: Add alternate mode state notifiers
+> > +		guard(mutex)(&st->lock);
+> 
+> Always delimit guard()() with a blank line.
+> 
+> >  		gpiod_set_value_cansleep(st->odr_gpio, 1);
+> 
+> ...
+> 
+> With blank line added
+> 
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-This commit adds a blocking notifier chain to USB Type-C alternate modes,
-triggering synchronously when an alternate mode is activated or deactivated.
-It allows drivers (like Apple Silicon USB4/Thunderbolt) to react to cable
-details and state changes.
 
-> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
-> index 54c7810b563be..5808a3ef0d6cd 100644
-> --- a/drivers/usb/typec/class.c
-> +++ b/drivers/usb/typec/class.c
-
-[ ... ]
-
-> @@ -312,6 +315,10 @@ void typec_altmode_update_active(struct typec_altmod=
-e *adev, bool active)
->  	}
-> =20
->  	adev->active =3D active;
-> +	blocking_notifier_call_chain(&alt->state_notifier,
-> +				     active ? TYPEC_ALTMODE_ENTERED :
-> +					      TYPEC_ALTMODE_EXITED,
-> +				     adev);
-
-[Severity: High]
-Does this synchronous notifier chain execution risk recursive deadlocks or
-AB-BA lock inversions with the TCPM driver?
-
-Looking at drivers/usb/typec/tcpm/tcpm.c, tcpm_pd_svdm() calls
-typec_altmode_update_active() while already holding port->lock:
-
-tcpm_pd_svdm() {
-    mutex_lock(&port->lock);
-    ...
-    typec_altmode_update_active(pdev, true);
-}
-
-Because blocking_notifier_call_chain() executes synchronously, any subscrib=
-er
-callback will run with TCPM's port->lock held.
-
-If a subscriber callback attempts to interact with the alternate mode
-(for example, by calling typec_altmode_enter()), the TCPM altmode operations
-such as tcpm_altmode_enter() will attempt to acquire port->lock again,
-leading to a direct recursive deadlock.=20
-
-Additionally, if subscribers acquire their own hardware locks in the callba=
-ck,
-it could create an AB-BA inversion against port->lock.
-
-Could this notification be deferred (similar to the adev_action deferral
-mechanism TCPM uses elsewhere) or executed outside of the port->lock context
-to prevent these locking inversions?
-
->  	snprintf(dir, sizeof(dir), "mode%d", adev->mode);
->  	sysfs_notify(&adev->dev.kobj, dir, "active");
->  	sysfs_notify(&adev->dev.kobj, NULL, "active");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-b4-apple-s=
-oc-tbt-v2-0-1f80085f93fb@kernel.org?part=3D1
