@@ -1,160 +1,97 @@
-Received: from mta1.migadu.com (out-47.mta1.migadu.com [95.215.58.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B517637FF75
-	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:13:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B0D737FF75
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 18:13:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788718405; cv=none; b=IMBH4VRE0tMFSI5tFmmSE25Uhg9BYbHcxPrEUzvRzQPl0Hx4bAZb4fpQj8zSQhVR4+XGiLzHg1iNhffeSdfEFRioWeOrYVjcS8OAJwyeKy96FrPlFIzlEuGL+7TsLrNZuA9ogRsIY/fHAZX/UPzmg/q8aUYHqQVnH8bI27NEY24=
+	t=1788718413; cv=none; b=PQiiqpXj1/J2AkmYMDLSVvA6ISiZdSVdtsuF0j+J44r3VA20nVovBvg+YMtnXqwOckb6bRRXaTRm7XjqeOHwvlAHWJkXXEefhQ58f/si6UUswpDYG+K2QdeQonbCWQTiqZ+Xn3ZwggLFpyEyFv/K2p0YppGpmmDtGmdOUnqdZ/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788718405; c=relaxed/simple;
-	bh=jkWKcMGX9RoIQ4Xk96n1ewh+X7AwVxVhAZWhTZhY0EM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UA5TIEQt3Le6HdnpW0q9u9E8qHF4oMNUWGfYdbjK9ig2m/u/KGvsSoTYUP+uSCsdRy4eM9gfLMjCz0lFwGaYYe82bbSsZ226CQK+RztN1FoZrBSBLPghty540L9+ZeA+MkTJfs7ueSJPEE04CuoJKAQOju+usUJAR7sHOtlSgd0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=IwzAafjH; arc=none smtp.client-ip=95.215.58.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
+	s=arc-20240116; t=1788718413; c=relaxed/simple;
+	bh=2t93jrQRjSbagp2IfjrDxn6k9tNmFJ/yHdtbIpcRHas=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=N56jvvoFuYR+ccBmBSLtoAhibY6eIVaD15hcBdqmg9TTTvTIbEaM7i8QTgkwPYBaQ+Mab7A93Dfvi5S3CkvNYv+rnX9VYhEOEA+OXDT5gMPF6FhBMZA+nu34rDtxTBolBKIN8DYn7Dxn80/QUbEV6kZByxHqLYxjdTrjyeG4Guk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zg92u5Qt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="IwzAafjH"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=jkWKcMGX9RoIQ4Xk96n1ewh+X7AwVxVhAZWhTZhY0EM=;
- c=simple/simple; d=postmarketos.org;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788718400; v=1; x=1789323200;
- b=IwzAafjHTz6YxSdaeHHTCwMQCzAp6LVpoc/eQsWNKPK4dUjaZOcebEmv34Tt8D1zm/DQcs/1
- rR4dY425E+5vA3p4PZe+B+6xTrYpikePIc0M8plX3o3J8RjL8gdlOvrq2k+5qGe7vkF38oJY3le
- 9U6BRFMM1ACbD+duulSK9RUInD4lIL7VWOMtqfdpgKn3Zh3gSykQWVzTXAxfhhKhx2sEcllWUU6
- ecMh4Ai1gGe+GX0+lZNpyEJX3W0NPbzV3Bna5brRUpcURd6PGvItUHMAVNVK8G9tJVgor4dgDFv
- Q7rEmhn1pth3JevMom0iaUPowiQRV20viLDCoGgfwi18g==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e62d033d317547c0;
-	Sun, 06 Sep 2026 18:13:13 +0000
-X-Mizu-Trace-ID: e62d033d317547c0
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <91e06588-94ab-49c4-a131-347caecba3b0@postmarketos.org>
-Date: Sun, 6 Sep 2026 11:13:06 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zg92u5Qt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280591F00A3A;
+	Sun,  6 Sep 2026 18:13:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788718412;
+	bh=YfzZFUio7UqBRXzDNBUmEGkmqaBDY9lPCuVCrUekORg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Zg92u5Qtv+9bBmcEYpKQAV5rVAbysi9n3Bj+rDNbueX+R/LRvL7FMYG10Pmp10hSH
+	 FB0O3cme4Sc9dSocj9ap2CgKWLoOH82trOmK1ZWMIME2jBRvTkyD8RC6qDL2Iv0GGJ
+	 9ICiECoNK1NNCzjWhv5/FdO0wuKRorXn/7q5ZjHCBTAuyid+m8U11AlV/TcIe96iHJ
+	 sGTy6azSMVy526dFJmB39NCJlMDzq87TFREKYz0pEMsURxbPEgkiv9ulk84s8p5jKH
+	 qJLw2CCjpatZwR9rAUjvTju2L1oVj0E5L3Ym9LiuE5dNbgh1nuJ29BUF4V87H+tnsc
+	 AJKwWAAdNtEWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] dtc: dt-check-style: Consistently pass same content
+ as stripped line
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260906180437.166760-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20260906180437.166760-6-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 06 Sep 2026 18:13:31 +0000
+Message-Id: <20260906181332.280591F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-lg: Enable NFC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-References: <20260902-sdm845-lg-judy-nfc-v1-1-282173900569@postmarketos.org>
- <0e5368aa-0b75-40a6-a023-af2eb4589249@oss.qualcomm.com>
-Content-Language: en-US
-From: Paul Sajna <sajattack@postmarketos.org>
-Autocrypt: addr=sajattack@postmarketos.org; keydata=
- xjMEaVNevhYJKwYBBAHaRw8BAQdAjvGGprvrSn/CmlA1Bpjc4S5zJBNSz/6q0AESlS2JbdjN
- J1BhdWwgU2FqbmEgPHNhamF0dGFja0Bwb3N0bWFya2V0b3Mub3JnPsKZBBMWCgBBFiEEv1E8
- AP7J5F2dJQd4hycszAKyDbsFAmmt6twCGwMFCQlmAYAFCwkIBwICIgIGFQoJCAsCBBYCAwEC
- HgcCF4AACgkQhycszAKyDbv25QD9EdvXYqdH6vGQvB5HrUnMOsd37AZkKKgK87kMOXL/5tcA
- /jM3VLcq9mol+GstmBm1itIVAblXcm+H8g/wKoPXq/4LzjgEaVNevhIKKwYBBAGXVQEFAQEH
- QEgCn8S+S7t/3QvXt4dK4572qd+iTl7h4JX1FEV5XUs6AwEIB8J+BBgWCgAmFiEEv1E8AP7J
- 5F2dJQd4hycszAKyDbsFAmlTXr4CGwwFCQlmAYAACgkQhycszAKyDbueJAD+IMjk8ztbONXz
- H7fieZc5LoR+6mHnddccacmQyPcGAvsA/0+5SkHEgIBuKwkzwrmKgDqcLhVuEs2f1H2GxKUX jqQI
-In-Reply-To: <0e5368aa-0b75-40a6-a023-af2eb4589249@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 2026-09-03 1:10 a.m., Konrad Dybcio wrote:
-> On 9/3/26 4:03 AM, Paul Sajna wrote:
->> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
->>
->> Downstream dtsi for reference:
->> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
->>
->> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
->> ---
-> 
-> [...]
-> 
->> +	nfc_default: nfc-default-state {
->> +		pins = "gpio12", "gpio62", "gpio63";
->> +		function = "gpio";
->> +		drive-strength = <6>;
->> +		bias-pull-up;
-> 
-> active-high pins and pull-ups don't really go well together, please
-> verify that
-> 
-> Konrad
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Passing `stripped` instead of `code` to `DtsLine` for continuati=
+on lines breaks code parsing when comments contain quotes, causing false po=
+sitive style warnings.
+--
 
-Downstream decompile sez
+commit b0e5f002675043b5c126935e8c52f79036f0359b
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-nfc {
+dtc: dt-check-style: Consistently pass same content as stripped line
 
-				nfc_int_active {
-					phandle = <0x46a>;
+This commit updates the dt-check-style script to pass the stripped string
+instead of code to the DtsLine constructor for continuation lines. This is
+intended to make the arguments consistent with other DtsLine constructor ca=
+lls.
 
-					config {
-						pins = "gpio63";
-						drive-strength = <0x02>;
-						bias-pull-up;
-					};
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 36e5b5db5e14c..49ced18895583 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
+> @@ -203,7 +203,7 @@ def classify_lines(text):
+>              in_block_comment =3D True
+> =20
+>          if not prev_complete:
+> -            dl =3D DtsLine(i, raw, LineType.CONTINUATION, depth, indent_=
+str, code)
+> +            dl =3D DtsLine(i, raw, LineType.CONTINUATION, depth, indent_=
+str, stripped)
 
-					mux {
-						pins = "gpio63";
-						function = "gpio";
-					};
-				};
+[Severity: Medium]
+Does passing stripped instead of code break parsing when comments contain
+quotes?
 
-				nfc_enable_suspend {
-					phandle = <0x46d>;
+By passing stripped (which still contains comments) instead of the properly
+pre-parsed code, DtsLine.__init__ falls back to its regex-based
+_strip_strings_and_comments() method which incorrectly consumes valid code
+if a quote appears within a comment.
 
-					config {
-						pins = "gpio12", "gpio62", "gpio116";
-						bias-disable;
-						drive-strength = <0x02>;
-					};
+This can cause the dt-check-style script to generate false positive style
+warnings on valid DTS files when a continuation line contains a comment with
+an unescaped double quote (e.g., some_prop =3D "a", /* comment " */ "b";).
 
-					mux {
-						pins = "gpio12", "gpio62", "gpio116";
-						function = "gpio";
-					};
-				};
+>              out.append(dl)
+>              prev_complete =3D (code.endswith(';') or
+>                               code.endswith('{') or
 
-				nfc_enable_active {
-					phandle = <0x46c>;
-
-					config {
-						pins = "gpio12", "gpio62", "gpio116";
-						drive-strength = <0x02>;
-						bias-pull-up;
-					};
-
-					mux {
-						pins = "gpio12", "gpio62", "gpio116";
-						function = "gpio";
-					};
-				};
-
-				nfc_int_suspend {
-					phandle = <0x46b>;
-
-					config {
-						pins = "gpio63";
-						drive-strength = <0x02>;
-						bias-pull-up;
-					};
-
-					mux {
-						pins = "gpio63";
-						function = "gpio";
-					};
-				};
-			};
-
-
-
--- 
-Hal: They're going for the kernel!
-Margo: Colonel Who?
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906180437.1667=
+60-4-krzysztof.kozlowski@oss.qualcomm.com?part=3D3
