@@ -1,220 +1,354 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219A82E7375;
-	Sun,  6 Sep 2026 08:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D27374185
+	for <devicetree@vger.kernel.org>; Sun,  6 Sep 2026 08:57:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788683698; cv=none; b=nvHdSyKMUoBcwfdADEe6tBwEnNgJrtNSsiNznWqgX/4AMuj2thhdSHa2EJ12FalhtKPQXBEVt7yq71Doa/ZAdc8KvltKLha6Sy4PiZmlPoWQvueN7DRQRANhihs0eaEFKmnKJb4iNVr882PClBv2rXGlEANxXwdIxU835eqz2Os=
+	t=1788685064; cv=none; b=p9HP+m4JW9FIpTfcenZEE1EhOAgyLS/ve48hL9U72K23G4jAvxmU9JN0pZgKjOuBx1BuL2kKklliMXJ9ZviR4wMa0m7Rt9TBUl13TS8EG+qTHigl9IKnHO/U5NgNWn+efwbJKEwZjtywbhYas6L/q9xcGqrncVClT0Pzig3jZSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788683698; c=relaxed/simple;
-	bh=x6dz9PU/6swl7WNblCof3wH0ID9O2ca6k6Gplp3y81k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JDn9JPrUnALeyPt85Yk3F3ouo1X5NHVENSWUQUi4FyBBEF1njoe+4ziuiU7Mbqj8l2tzBzaXPitEyDRCtnEfVeESzlSzi74Vvm3TWOQ+JLUHdDRZNJ1SRLt2aX87xVI7KuRmv2giSlLYF+PXhSZN3xyNHK7cPDwCe7vemnTRYBI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nqMMOAlT; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788685064; c=relaxed/simple;
+	bh=69nh8IaOIKzC26cw1mZ4EAY2yfa9A/nvDeJqDe2J3iM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PpctbUul3uSL0sIFY+5wR2GFJqmPrejcSqoghxEbev93owgi2eSVIegYfBDm6j1IZ96+SZUlAJAnLnykTFSjrJ/eed8NCEJj6QbOzHefoxJl3NDWzLJtLMCHJPmom+YsC+Tai6hRNfr9QVnb2c/Tl5odQ7Xa76g7QAVuzO8KZIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KXgzcXNT; arc=none smtp.client-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nqMMOAlT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788683696; x=1820219696;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=x6dz9PU/6swl7WNblCof3wH0ID9O2ca6k6Gplp3y81k=;
-  b=nqMMOAlTTORBBi4uHhRbvXnrC6KxSzzC9P2pFUHzejMLO8Kf/0h8Jw+Y
-   XOB7FgDv5RWMbu2FEfndImh9Hp9BBh47XW/Y+LUX0Clm2nlqToTGwCAmi
-   M+dyrqOu3VpONLWgT/ZtdhfhwxGbQhRfPzNi/9fQmq6iGB1jj8RgnMEXy
-   mLE60qgY1Bc+Gm6mBUCvwwnwqC94NBUszNv9hGzuaZ+mTTRPOY9EKlmt5
-   /QBj2f2yhKAgOdPGG4Qj1v5HmbkxK9IyypZWs0gNoAn9Q/wnGivrWxmMb
-   FCTmi9LsiwG6kfFxF6yLz5IANS3JvDVDO5j3x3u3zkwgMSyZOTOIHDX4s
-   A==;
-X-CSE-ConnectionGUID: iLPbVnNqQz60GXPVlXVj5A==
-X-CSE-MsgGUID: mEWUKPK/R+SsqOzQBz4SsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11897"; a="91632887"
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="91632887"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 01:34:55 -0700
-X-CSE-ConnectionGUID: AMqm6FQbTZyNgWN+sCjm8A==
-X-CSE-MsgGUID: 8Du60nT3Sqyvdh7ARG3Bag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
-   d="scan'208";a="272381931"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 01:34:50 -0700
-Date: Sun, 6 Sep 2026 11:34:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core support
-Message-ID: <ap0lp5THO64olugK@ashevche-desk.local>
-References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
- <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KXgzcXNT"
+Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc1b838f9b6so2803205a12.3
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 01:57:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788685062; x=1789289862; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eINHlrHkYMRasqID9eglHfotXq/uGSEFKbI4CEPXV5Y=;
+        b=KXgzcXNTH6M0tMf7qXuf1uyRr+TRmYbk2W0Z7g6u/jM/QcDKqwpAubwKJBsWGL1Wtc
+         Hmd8uNFUeS0WO/kDfdwYEGq/Hs4IdzssWygW5hkudyHbSaLGUXALcOjOSJJtjbe7NKH/
+         KH7Fdq54zzL+19SSXfHji5V4dpk3VTseG0bfe3cCeQVhU5VLiJfevqd4DQT1Zmp7eGUc
+         ml0n42pbYWgLJnBjHSQSbbNvMzzFxfUPEiuoKekKZpsyt33d1ijL0ZQqVfs8Y74jKIl6
+         yH/r/KJ4+J6zAvWOgy39SnfNsvE1a7946Z5uFbZqP93I6vGSBNsOawKGYo0ObNHN8THo
+         Lrng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788685062; x=1789289862;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eINHlrHkYMRasqID9eglHfotXq/uGSEFKbI4CEPXV5Y=;
+        b=tIkoW2xVcCV65hQvCLoKk4hLCQymP5riavuHsBEQajcWj7qbRrS7h8JAQhEapVNy8x
+         AJMpq2tQ/o3qhZ7kfV048v9ZTF/mEzZAs5OsrDkazTNvdY6Gmshuva9aFV0efNn5gwfM
+         Nco1YTrwGmVkLsOek28W/44FR6nnAmgbvsICnINdIGnObh/GU7XNmFT8ILYuv+uFpb32
+         UhLWpta/A7GKXNp2/68vHJctUtpydEoDxuSJ0eI5LVbXtYVeKApOROqGWa0FLpnK1qvy
+         PHW3NM9brchpbKpIG8YPBI05HviYFN8hxdiTTbE+6c11GWW4ToefeZn1gbXtMGVJbKk/
+         a1uA==
+X-Forwarded-Encrypted: i=1; AKwUvBwdTCtQJ0yIIoPIPVyXO+OiglZ7TJvkt6Z5C9BUW/zORsjOlTUyQ5gW2mIlDvE4Bm+ipmn8fonSTqi6@vger.kernel.org
+X-Gm-Message-State: AFuF++n9tmGoCKhA0RWZ8OoxzAIuAcbwOFporOj+5IkzvcpNKGKuM7oA
+	Qw6GHNYTCjx8m8x+rnQIWLPbZgzKrtDpB2hET6BDfwUCIUDxy+13yibS
+X-Gm-Gg: AYBFou1yIHCrOZiGI8YSKOy0BKiO1krhjnz2NhPlk4eLXHO4h6DnWYZSWqO7aydzO0S
+	I903485OxYI6V3873+Fd+kb5kyeko+fc51aGiEZvsSLYHOJ/mjPZMYzSmC7X8FLReIaIz/ZL57C
+	8Sr70XC0Uf5EfPYV6Mjg2wkuAMW/GFaGIpLHiqLiMWODlctRe7whjfnrTM+9e2Ph2XX4Sn0Wh/2
+	ZyOpaNOK4Z0OpWdFZmyTCOLTRc2BUReIEZRV2Awdu6lKSkFxeRWbi9gYpcp9ewrUnhSz5wKnq4p
+	94Mh35Fec9X/ND88Xua0xvUmdgSkmmWM1IeA2Eohu3Q0pxwiYDH0jRWFG16rC7X/C6R8B9ZpZEY
+	lC/GtRqybLc9k7u+YqNkrfuGOuLeHhqwds7/eIg+kFTjeEnWMv2as+O4uJGUi8mNPlSERALc5Eh
+	gH3n3cKZBhIH6kkmZ3Jmd5queBvNMmyV2X6onWGCFGew+nrurYOsfyU2q72O5GSY04
+X-Received: by 2002:a05:6a20:1609:b0:3c3:b57b:6291 with SMTP id adf61e73a8af0-3da39fef371mr30083031637.18.1788685061709;
+        Sun, 06 Sep 2026 01:57:41 -0700 (PDT)
+Received: from [192.168.101.188] ([207.90.239.231])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33450e140d3sm14968056eec.4.2026.09.06.01.57.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 06 Sep 2026 01:57:41 -0700 (PDT)
+Message-ID: <f3b6c6f4-2be9-4eab-b4ba-970cae865753@gmail.com>
+Date: Sun, 6 Sep 2026 16:57:28 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 4/5] thermal/drivers/sun8i: Add support for A523 THS0/1
+ controllers
+To: wens@kernel.org
+Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li
+ <tiny.windzz@gmail.com>, "Rafael J . Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260704171411.1413349-1-iuncuim@gmail.com>
+ <20260704171411.1413349-5-iuncuim@gmail.com>
+ <CAGb2v67Z0g37Wyvd=xaMGkLHt09qqqJnufsxKdG0nO_C2QmOGA@mail.gmail.com>
+Content-Language: en-US
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
+In-Reply-To: <CAGb2v67Z0g37Wyvd=xaMGkLHt09qqqJnufsxKdG0nO_C2QmOGA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 04, 2026 at 04:14:57PM +0200, Janani Sunil wrote:
-> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
-> Configure supplies, clock and reset, use a custom regmap bus for the SPI
-> protocol, and parse the enabled channels and input buffer settings from
-> devicetree.
+On 7/21/26 23:23, Chen-Yu Tsai wrote:
+> On Sun, Jul 5, 2026 at 1:15 AM Mikhail Kalashnikov <iuncuim@gmail.com> wrote:
+>>
+>> The A523 processor has two temperature controllers, THS0 and THS1.
+>> THS0 has only one temperature sensor, which is located in the DRAM
+>> controller. THS1 does have 3 sensors:
+>> ths1_0 - "big" cores
+>> ths1_1 - "little" cores
+>> ths1_2 - gpu
+>>
+>> The datasheet mentions a fourth sensor in the NPU, but lacks any registers
+>> for operation other than calibration registers. The vendor code reads the
+>> value from ths1_2, but uses separate calibration data, so we get two
+>> different values from real one.
 > 
-> Connect the converter to an IIO backend for buffered capture with CRC,
-> provide a fixed safe wideband sampling configuration and add runtime
-> power management.
+> Are you sure? The calibration data is written to the sensor register.
+> 
+> The BSP simply reads the sensor data from the GPU sensor, and passes it
+> off as the value for the NPU sensor. No extra calculation involving the
+> calibration data is done.
+> 
+Yes, I think you're right. And as Juan pointed out, my current
+implementation doesn't match the BSP, since:
 
+#define SUN55IW3_GPU_SENSOR_ID (2)
+#define SUN55IW3_NPU_SENSOR_ID (3)
 ...
+/* use NPU sensor data instead of GPU */
+if (id == SUN55IW3_GPU_SENSOR_ID) {
+     id = SUN55IW3_NPU_SENSOR_ID;
+     ...
+}
 
-> +#define   AD7768_INTERFACE_CFG_DCLK_DIV_MSK		GENMASK(1, 0)
-> +#define     AD7768_INTERFACE_CFG_DCLK_DIV(x)		(4 - ffs(x))
+In other words, in the BSP driver, the NPU sensor is used for the GPU. 
+However, based on the A523 user manual—which describes registers for
+only three sensors, I had argued the opposite. The user manual for the
+T527 includes a description of a fourth sensor.
 
-This looks suspicious, do you mean fls() / ilog2()? because ffs() while it may
-work, it gets the first set LSB. Also what if 'x' is too high? I guess you can
-rework the only user of that to avoid even ffs()/fls()/ilog2().
+Thus, it seems that all four sensors are working, but the purpose of
+this workaround in the BSP remains unclear to me.
 
-...
+>>
+>> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
+>> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+>> ---
+>>   drivers/thermal/sun8i_thermal.c | 133 ++++++++++++++++++++++++++++++++
+>>   1 file changed, 133 insertions(+)
+>>
+>> diff --git a/drivers/thermal/sun8i_thermal.c b/drivers/thermal/sun8i_thermal.c
+>> index 3bdd62aa8..f48ed9eae 100644
+>> --- a/drivers/thermal/sun8i_thermal.c
+>> +++ b/drivers/thermal/sun8i_thermal.c
+>> @@ -59,6 +59,12 @@
+>>   #define SUN50I_H6_THS_PC_TEMP_PERIOD(x)                ((GENMASK(19, 0) & (x)) << 12)
+>>   #define SUN50I_H6_THS_DATA_IRQ_STS(x)          BIT(x)
+>>
+>> +#define SUN55I_A523_DELIMITER                  0x7c8
+>> +#define SUN55I_A523_OFFSET_ABOVE               2736
+>> +#define SUN55I_A523_OFFSET_BELOW               2825
+>> +#define SUN55I_A523_SCALE_ABOVE                        74
+>> +#define SUN55I_A523_SCALE_BELOW                        65
+>> +
+>>   struct tsensor {
+>>          struct ths_device               *tmdev;
+>>          struct thermal_zone_device      *tzd;
+>> @@ -114,6 +120,15 @@ static int sun50i_h5_calc_temp(struct ths_device *tmdev,
+>>                  return -1590 * reg / 10 + 276000;
+>>   }
+>>
+>> +static int sun55i_a523_calc_temp(struct ths_device *tmdev,
+>> +                                int id, int reg)
+>> +{
+>> +       if (reg >= SUN55I_A523_DELIMITER)
+>> +               return SUN55I_A523_SCALE_ABOVE * (SUN55I_A523_OFFSET_ABOVE - reg);
+>> +       else
+>> +               return SUN55I_A523_SCALE_BELOW * (SUN55I_A523_OFFSET_BELOW - reg);
+>> +}
+>> +
+>>   static int sun8i_ths_get_temp(struct thermal_zone_device *tz, int *temp)
+>>   {
+>>          struct tsensor *s = thermal_zone_device_priv(tz);
+>> @@ -299,6 +314,97 @@ static int sun50i_h6_ths_calibrate(struct ths_device *tmdev,
+>>          return 0;
+>>   }
+>>
+>> +/*
+>> + * The A523 nvmem calibration values. The ths1_3 is not used as it
+>> + * doesn't have its own sensor and doesn't have any internal switch.
+>> + * Instead, the value from the ths1_2 sensor is used, which gives the
+>> + * illusion of an independent sensor for NPU and GPU when using
+>> + * different calibration values.
+>> + *
+>> + * efuse layout 0x38-0x3F (caldata[0..3]):
+>> + *     caldata[0]      caldata[1]      caldata[2]      caldata[3]
+>> + * 0               16      24      32  36          48          60 64
+>> + * +---------------+---------------+---------------+---------------+
+>> + * |               |       |   temp    |  ths1_0   |  ths1_1   |   +
+>> + * +---------------+---------------+---------------+---------------+
+>> + *
+>> + * efuse layout 0x44-0x4B (caldata[4..7]):
+>> + *     caldata[4]      caldata[5]      caldata[6]      caldata[7]
+>> + * 0           12  16      24      32  36          48             64
+>> + * +---------------+---------------+---------------+---------------+
+>> + * |  ths1_2   |  ths1_3   |    ths0   |           |               +
+>> + * +---------------+---------------+---------------+---------------+
+>> + */
+>> +static int sun55i_a523_ths_calibrate(struct ths_device *tmdev,
+>> +                                    u16 *caldata, int callen)
+>> +{
+>> +       struct device *dev = tmdev->dev;
+>> +       int i, ft_temp;
+>> +
+>> +       if (!caldata[0])
+>> +               return -EINVAL;
+>> +
+>> +       ft_temp = (((caldata[2] << 8) | (caldata[1] >> 8)) & FT_TEMP_MASK) * 100;
+>> +
+>> +       for (i = 0; i < tmdev->chip->sensor_num; i++) {
+>> +               int sensor_reg, sensor_temp, cdata, offset;
+>> +               /*
+>> +                * Chips ths0 and ths1 have common parameters for value
+>> +                * calibration. To separate them we can use the number of
+>> +                * temperature sensors on each chip.
+>> +                * For ths0 this value is 1.
+>> +                */
+>> +               if (tmdev->chip->sensor_num == 1) {
+>> +                       sensor_reg = ((caldata[5] >> 8) | (caldata[6] << 8)) & TEMP_CALIB_MASK;
+>> +               } else {
+>> +                       switch (i) {
+>> +                       case 0:
+>> +                               sensor_reg = (caldata[2] >> 4) & TEMP_CALIB_MASK;
+>> +                               break;
+>> +                       case 1:
+>> +                               sensor_reg = caldata[3] & TEMP_CALIB_MASK;
+>> +                               break;
+>> +                       case 2:
+>> +                               sensor_reg = caldata[4] & TEMP_CALIB_MASK;
+>> +                               break;
+>> +                       default:
+>> +                               sensor_reg = 0;
+>> +                               break;
+>> +                       }
+>> +               }
+>> +
+>> +               sensor_temp = tmdev->chip->calc_temp(tmdev, i, sensor_reg);
+>> +
+>> +               /*
+>> +                * Calibration data is CALIBRATE_DEFAULT - (calculated
+>> +                * temperature from sensor reading at factory temperature
+>> +                * minus actual factory temperature) * X (scale from
+>> +                * temperature to register values)
+>> +                */
+>> +               cdata = CALIBRATE_DEFAULT -
+>> +                       ((sensor_temp - ft_temp) / SUN55I_A523_SCALE_ABOVE);
+> 
+> The BSP version works out to:
+> 
+>      cdata = CALIBRATE_DEFAULT -
+>              (sensor_temp - ft_temp - 5000) / SU55I_A523_SCALE_BELOW
+> 
+> Any particular reason why it's different?
 
-> +#define   AD7768_PREBUF_POS_EN(ch)			BIT((ch) * 2)
+In the early versions, I didn't use 'define' for constants, but later
+added them based on the logic of the value read from the register: a
+value below the threshold is 'BELOW', and a value above is 'ABOVE'. The
+BSP driver uses a name for the temperature, but the temperature
+decreases as the value read from the register increases; therefore, the
+formula uses SCALE constants with different names but identical values.
 
-Perhaps + 0?
+In the next version, I’ll align them with the BSP values and add a 
+comment explaining that the constants refer to the final temperature 
+value, not the value read from the register.
 
-#define   AD7768_PREBUF_POS_EN(ch)			BIT((ch) * 2 + 0)
+Regarding SUN55IW3_CAL_COM 5000 — when I first looked at the driver
+code, it seemed to me that this was the value intended for ft_deviation,
+but now that I’ve double-checked, the version of the calibration formula
+with SUN55IW3_CAL_COM and without ft_deviation gives the same result as
+the version without SUN55IW3_CAL_COM but with ft_deviation=5000.
 
-This will be consistent with the below.
+But if you'd rather I match BSP literally (5000 in the calibration
+numerator, ft_deviation = 0), I can do that instead.
+> 
+>> +               if (cdata & ~TEMP_CALIB_MASK) {
+>> +                       /*
+>> +                        * Calibration value more than 12-bit, but calibration
+>> +                        * register is 12-bit. In this case, ths hardware can
+>> +                        * still work without calibration, although the data
+>> +                        * won't be so accurate.
+>> +                        */
+>> +                       dev_warn(dev, "sensor%d is not calibrated.\n", i);
+>> +                       continue;
+>> +               }
+>> +
+>> +               offset = (i % 2) * 16;
+>> +               regmap_update_bits(tmdev->regmap,
+>> +                                  SUN50I_H6_THS_TEMP_CALIB + (i / 2 * 4),
+>> +                                  TEMP_CALIB_MASK << offset,
+>> +                                  cdata << offset);
+>> +       }
+>> +
+>> +       return 0;
+>> +}
+>> +
+>>   static int sun8i_ths_calibrate(struct ths_device *tmdev)
+>>   {
+>>          struct nvmem_cell *calcell = NULL;
+>> @@ -717,6 +823,31 @@ static const struct ths_thermal_chip sun50i_h616_ths = {
+>>          .calc_temp = sun8i_ths_calc_temp,
+>>   };
+>>
+>> +/* The A523 has a shared reset line for both chips */
+>> +static const struct ths_thermal_chip sun55i_a523_ths0 = {
+>> +       .sensor_num = 1,
+>> +       .has_bus_clk_reset = true,
+>> +       .has_mod_clk = true,
+>> +       .ft_deviation = 5000,
+> 
+> In the BSP this is 0.
 
-> +#define   AD7768_PREBUF_NEG_EN(ch)			BIT(((ch) * 2) + 1)
-
-Too many parentheses.
-
-...
-
-> +#define AD7768_REG_OFFSET(ch)	(AD7768_REG_OFFSET_BASE + (3 * (ch)))
-> +#define AD7768_REG_GAIN(ch)	(AD7768_REG_GAIN_BASE + (3 * (ch)))
-> +#define AD7768_REG_PHASE(ch)	(AD7768_REG_PHASE_BASE + (ch))
-> +#define __AD7768_4_REG_MAP(ch)	((ch) < 2 ? (ch) : ((ch) + 2))
-
-(ch) in parentheses make no sense here as it will be evaluated twice. If there
-is an expression it might lead to a wrong numbers. Either you need more complex
-macro to make evaluation happen once, or just be sure no caller uses an
-expression in the parameter in which case the parentheses are not required.
-With that being said, the other macros against (ch) also can be reconsidered.
-
-...
-
-> +struct ad7768_chip_info {
-
-> +	const char *name;
-> +	unsigned int num_channels;
-> +	const struct regmap_config *regmap_config;
-> +	const unsigned int *available_datalines;
-> +	unsigned int num_datalines;
-> +	const u8 *chan_map;
-> +	u8 prebuf_split;
-
-Even if `pahole` is okay with the layout, I would suggest this one instead
-
-	const char *name;
-	const struct regmap_config *regmap_config;
-	const unsigned int *available_datalines;
-	unsigned int num_datalines;
-	unsigned int num_channels;
-	const u8 *chan_map;
-	u8 prebuf_split;
-
-> +};
-
-...
-
-> +	return (val >> st->chip_info->prebuf_split) &
-> +	       GENMASK(st->chip_info->prebuf_split - 1, 0);
-
-Can it use field_get()?
-
-...
-
-> +static int ad7768_update_scan_mode(struct iio_dev *indio_dev,
-> +				   const unsigned long *scan_mask)
-> +{
-> +	struct ad7768_state *st = iio_priv(indio_dev);
-> +	unsigned long channel_mask;
-> +	unsigned long standby_mask;
-> +	int ret;
-> +
-> +	channel_mask = ad7768_all_standby_mask(st);
-> +	standby_mask = channel_mask & ~*scan_mask;
-> +
-> +	/*
-> +	 * Crystal excitation requires channel 4 on AD7768 or channel 2 on
-> +	 * AD7768-4 to remain active.
-> +	 */
-> +	if (st->clock_source == AD7768_CLOCK_SOURCE_XTAL)
-> +		__clear_bit(st->chip_info->num_channels / 2, &standby_mask);
-> +
-> +	ret = regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
-> +				 channel_mask, standby_mask);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (unsigned int c = 0; c < st->chip_info->num_channels; c++) {
-
-c --> ch?
-
-> +		if (test_bit(c, scan_mask))
-> +			ret = iio_backend_chan_enable(st->back, c);
-> +		else
-> +			ret = iio_backend_chan_disable(st->back, c);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-...
-
-> +	/*
-> +	 * DCLK(min) is ODR * channels per DOUTx * 32. With fast mode
-> +	 * (fMOD = MCLK / 4) and x64 decimation, this gives:
-> +	 * MCLK / DCLK = 8 * data lines / channels.
-> +	 */
-> +	dclk_div = 8 * st->datalines / st->chip_info->num_channels;
-> +	dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV(dclk_div);
-
-So, this one is (4 - ffs(dclk_div)). If num_channels == 1, this will always give 0.
-If num_channels == 2, this might give 0, 8, ... Since ffs(0) implementation is defined
-to return 0, this will return... 0! So, tell me how this code may return
-anything than 0?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> 
+>> +       .temp_data_base = SUN50I_H6_THS_TEMP_DATA,
+>> +       .calibrate = sun55i_a523_ths_calibrate,
+>> +       .init = sun50i_h6_thermal_init,
+>> +       .irq_ack = sun50i_h6_irq_ack,
+>> +       .calc_temp = sun55i_a523_calc_temp,
+>> +};
+>> +
+>> +static const struct ths_thermal_chip sun55i_a523_ths1 = {
+>> +       .sensor_num = 3,
+>> +       .has_bus_clk_reset = true,
+>> +       .has_mod_clk = true,
+>> +       .ft_deviation = 5000,
+> 
+> In the BSP this is 0.
+> 
+> 
+> ChenYu
+> 
+>> +       .temp_data_base = SUN50I_H6_THS_TEMP_DATA,
+>> +       .calibrate = sun55i_a523_ths_calibrate,
+>> +       .init = sun50i_h6_thermal_init,
+>> +       .irq_ack = sun50i_h6_irq_ack,
+>> +       .calc_temp = sun55i_a523_calc_temp,
+>> +};
+>> +
+>>   static const struct of_device_id of_ths_match[] = {
+>>          { .compatible = "allwinner,sun8i-a83t-ths", .data = &sun8i_a83t_ths },
+>>          { .compatible = "allwinner,sun8i-h3-ths", .data = &sun8i_h3_ths },
+>> @@ -727,6 +858,8 @@ static const struct of_device_id of_ths_match[] = {
+>>          { .compatible = "allwinner,sun50i-h6-ths", .data = &sun50i_h6_ths },
+>>          { .compatible = "allwinner,sun20i-d1-ths", .data = &sun20i_d1_ths },
+>>          { .compatible = "allwinner,sun50i-h616-ths", .data = &sun50i_h616_ths },
+>> +       { .compatible = "allwinner,sun55i-a523-ths0", .data = &sun55i_a523_ths0 },
+>> +       { .compatible = "allwinner,sun55i-a523-ths1", .data = &sun55i_a523_ths1 },
+>>          { /* sentinel */ },
+>>   };
+>>   MODULE_DEVICE_TABLE(of, of_ths_match);
+>> --
+>> 2.55.0
+>>
 
