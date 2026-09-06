@@ -1,38 +1,31 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76288306746;
-	Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAFE274670;
+	Sun,  6 Sep 2026 02:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788658476; cv=none; b=dSzcOOvPNQD8+CvLAtuvOMAxyIsl7Nf7p4n7lJCrz7LmTB3ZBxHC4qF1uj/13fWfzR9rr+6WX5p7wSJp+FWrcfqOjrt6ab88q3Xw7b0XAEN8mW1Yrjym7+oLqAqpOVdcVGoc6XYlxXteDWdA79tBycYeUZ3CXrWHn/iKvqdwnDc=
+	t=1788661514; cv=none; b=r19GWSI1ffuGfPzFaEuls9OsJ3KAHKsBKvRWKL9rLM2T6dg0g5NLCC3L2CDUMWjdTJY98irW/w727wlyJr5G7Tc06zMHKAT5LeETLAyv+F6ZzaIdIFYAHcDVRjnV+Cl5shuAhTvMlwLSN4J6yoZH1SgTUcUFVaG2uL0OlI0fh1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788658476; c=relaxed/simple;
-	bh=X/cAD1JaxVmULRWi7OAU303q7QUjTZ0yqVCXrZ7JU0k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u7ZrLdw9R+UYI5HCi1/8jgbIonG/ZSD2/iQ6qli4I461NE+dpGLIW5GGUVzzxxeHsNATGrfd5tWHKioa4g8gcr2zbXlD2HDLQV8irz1hGhzuvhk+L8Ofm3Kuse9yzQ9VvIbx5Yh0419bXbOmxNN9JMmHaNvNSkjSqCV+Q4AuOFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yf6h7CgM; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788661514; c=relaxed/simple;
+	bh=XNFUTg+F6BlOgy01nFlTdDiQ8Svks7lggXl/P8UNOQU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=l0Bt6mK0fEUz/BQhCnjfZA58S8CYZ75XtDjnl9fPPPKAyyAgWmJ14WQtq0AOBRB8l0VZPsSOm8uxofKeYiuHf5kNm0k32VePLOJvc6oBptOekceOFik79hKQlVK8IQ8pHl2Kbloo6gILNDl/Jxzjl84+CmhY8GwDIb5VlMeX2kc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P6xNwBA/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yf6h7CgM"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 154D0C2BCF7;
-	Sun,  6 Sep 2026 01:34:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788658476;
-	bh=X/cAD1JaxVmULRWi7OAU303q7QUjTZ0yqVCXrZ7JU0k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Yf6h7CgMOuu4wEzue8CgkmSyH25Ehm9bPQgHxb0Az4kA2fSjLKoyNnVcOUrBzk77t
-	 H/+/Rn9p5dhWyOZNJOQFhFdNUqiWq8ks1vPihpog6a7nA0HqQ4144qv60wxwOU3WnK
-	 HKg3z+52k7cL8Ked5ejqmRA8SEZxeNCSebVvntlRx12XKb3dzb8G779dkeEAYGhFSx
-	 QtfGMpIhy5BVrTz6Wpis2ikpZh7sKmrU2gU7DcXcBSoQIycaxhhcRw1GeS1BiZIiw9
-	 Yu/J78jK1nwuDKvhOw5FdfcQV1aaabQbMN2++WEhGI3FwM2zebj1fx9ht/7h/A0ajV
-	 G4sStluIzE5/A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id EBA17C79F82;
-	Sun,  6 Sep 2026 01:34:35 +0000 (UTC)
-From: Ryan Brue via B4 Relay <devnull+ryanbrue.dev.gmail.com@kernel.org>
-Date: Sat, 05 Sep 2026 20:34:35 -0500
-Subject: [PATCH 2/2] drm/panel: add Novatek NT51021 1200x1920 DSI panel
- driver
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P6xNwBA/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 742921F00A3A;
+	Sun,  6 Sep 2026 02:25:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788661512;
+	bh=8rw9FA+u/7iuctnN0TV1UFU1IECUzyEEaBgVbPgV7TE=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=P6xNwBA/5MzpXYEm8cbywGMKDhVByCFzGwmx9IkLjeaVSGeU/fxtXvsXkI+EFHGlh
+	 mGlNbeNpLG57kInd/NISCWakCMlVpNoi+MAgy7zuxkqwR2eGSv+pwLNv4VBEG5oz2n
+	 lRE0arFwyQzhEE3lmoqWsY16QsBm/XvVeKUcPigSLQBQrsmDYP8zVQQqrpAvG9cVKW
+	 1hN9de8pVtjlGshh+sYDQKFRQu4CIhEyBFwNalmZQe4+9SMhXylDi1G3lVL35hYqYU
+	 l5PhKpHqmvCTSsQIq/IryTyUN5Z3Z/v+DvOp4PU1BzKjp6sdV/rrPn8bJVXsiXuVda
+	 Q3OWJkRcx1YVQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,466 +34,311 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-2-939f59e89fc9@gmail.com>
-References: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
-In-Reply-To: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ryan Brue <ryanbrue.dev@gmail.com>
+Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core
+ support
+From: Jonathan Cameron <jic23@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Janani Sunil <janani.sunil@analog.com>, conor+dt@kernel.org, 
+ robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260904143153.9AF1A1F00A3E@smtp.kernel.org>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
+ <20260904143153.9AF1A1F00A3E@smtp.kernel.org>
+Date: Sun, 06 Sep 2026 03:24:54 +0100
+Message-Id: <178866149408.3402141.12120124355772738970.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788658475; l=15078;
- i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=ReaDW0zn/YsThF3WOuoKFxMcsrbwQZd0qFM9fFL2zpA=;
- b=HUaT9GUvCQWmFA2DoE9UZ9+rcuz094rdNoEgvK4H3uF5QNZB0iB8xngvc/tL9MgRAjJNWX0W2
- jjR9rI/dx72AfPtOiKtRvplJLfaCzb5Ah5+ujNU6tscfiSGNF70bgxM
-X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
- pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
-X-Endpoint-Received: by B4 Relay for ryanbrue.dev@gmail.com/20260906 with
- auth_id=1007
-X-Original-From: Ryan Brue <ryanbrue.dev@gmail.com>
-Reply-To: ryanbrue.dev@gmail.com
+X-Developer-Signature: v=1; a=openpgp-sha256; l=9689;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=XNFUTg+F6BlOgy01nFlTdDiQ8Svks7lggXl/P8UNOQU=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnM73ZJx87z1GrIZ8tZQ0x58u7rOdyz5erdcIP
+ MvkG1UdE4GJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCapzO9xEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiGCRD/41v2nDbncpKcMmsGB7orqKAugrDe28tJmBB1EamA7eQsT
+ 8sSGpMXR4W7FuqY7dkmd5pbjBAxFnNLTt2GQx2n6OXp5KA93iv+NdTke/woPlAthuEtsPVTxe0t
+ W2YgF7ekymU0XAWb1lEy1uyCsIov0/P2t3IU0N0HtrGGQ7LYBUjsQGl2xket0owcnnQgHYi5WWK
+ XwlMwL4gJtywhVP01q/A7wxGDS0OLVbq+4Z9PJYBFS34brUwAuWQjuDmfBYv9exmm8uQZDFVNST
+ vVBiGlShwjK6NUUDdURPJ/Cq4d/36nWLCi7IJQDYdiTAuKk7vuR0ljUQj3j/TzNstpuhIEn3SHE
+ 4/jsEY4MNV6PfHt3yV65Nf8DZZtO5cfBwtIlUk7hVB7+Ni8tPy5gvTtPqJWFwZhk5obBJ/XsObg
+ jFp2Htx+QPD/FBmmUxbh6luVKoNWvlaU+gHK0UtuWKEz4h4skenGK/W8h7bz9K/+UYtZ9ydfRlS
+ y7r1/H6+z3Aw8Neb3Q9LMyYMxKOotlKxDOJb4T/e0rDDI95Ilc60XvBxRTuG+MMVVN5dPPT5Ia2
+ YTGdsanhrjJj7MBO8YfpPh/ktnJeVjRsfNwcKonTWrtOnGZidPi7QJc8Q0j+IBSkwclcNsyWbEC
+ hYjpSs0sbp8x90zG0lkEJ6f4+VmPDWfVdXURiKQ==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-From: Ryan Brue <ryanbrue.dev@gmail.com>
+> 
+> commit cad3d6d13491f167da3c31d541a31ac850d8d3b5
+> Author: Janani Sunil <janani.sunil@analog.com>
+> 
+> iio: adc: Add AD7768 and AD7768-4 core support
+>     
+> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
+> Configure supplies, clock and reset, use a custom regmap bus for the SPI
+> protocol, and parse the enabled channels and input buffer settings from
+> devicetree.
 
-Add a driver for the BOE module built around the Novatek NT51021, as
-fitted to the Amazon Fire HD 10 (2017). The panel is 1200x1920, four
-lanes, RGB888, sync-event video mode with a continuous HS clock,
-136x221 mm. The timings are those of the vendor's LCM driver
-(drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/ in the Fire OS 3.18
-tree): hsync 1, hbp 32, hfp 110, vsync 1, vbp 14, vfp 11, so htotal
-1343 and vtotal 1946. They are used verbatim.
+There was quite a bit of sashiko feedback on this one. I took a look
+as getting close to merging the series. Please check my logic.
 
-The pixel clock is the vendor's PLL_CLOCK = 490, which after DDR is 980
-Mbps per lane and over four lanes at 24bpp is 163.33 MHz, so 62.5 Hz.
-That is also what the bootloader leaves running: read back before the
-kernel touches it, this board's MIPI TX PLL decodes to exactly 980 Mbps
-per lane, so the panel is already at this rate when the kernel takes
-over.
+> 
+> > diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
+> > new file mode 100644
+> > index 0000000000000..c80056a9edd8c
+> > --- /dev/null
+> > +++ b/drivers/iio/adc/ad7768.c
+> > @@ -0,0 +1,1000 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> 
+> [ ... ]
+> 
+> > +#define AD7768_REG_PRECHARGE_BUF1			0x11
+> > +#define AD7768_REG_PRECHARGE_BUF2			0x12
+> > +#define   AD7768_PREBUF_POS_EN(ch)			BIT((ch) * 2)
+> > +#define   AD7768_PREBUF_NEG_EN(ch)			BIT(((ch) * 2) + 1)
+> 
+> [Severity: Medium]
+> Are these bit assignments for the precharge buffers swapped? According to the
+> AD7768 datasheet, the positive (POS) precharge buffers are assigned to odd bits,
+> and the negative (NEG) precharge buffers are assigned to even bits.
 
-This controller accepts commands either over I2C or in-band over DSI, and
-on the shipping boards it does not default to DSI. Writing 0xa5 to
-register 0x8f opens a window in which DSI commands are accepted and
-writing 0x00 closes it, so every command the driver sends, including
-sleep in/out and display on/off, has to sit inside such a window. That is
-why those are not simply issued from enable()/disable() as most panel
-drivers do.
+No they aren't. I think sashiko didn't realize table starts at bit 7
+and works down to bit 0.
 
-The vendor's bootloader and kernel both carry a second register sequence
-for Innolux glass, chosen from two board ID straps. No Innolux unit was
-available, so that sequence is left out rather than carried untested;
-adding it later is one compatible, one table and one desc.
+> 
+> > +
+> > +#define AD7768_REG_REFP_BUF				0x13
+> > +#define AD7768_REG_REFN_BUF				0x14
+> 
+> [ ... ]
+> 
+> > +static u8 ad7768_all_standby_mask(const struct ad7768_state *st)
+> > +{
+> > +	return GENMASK(st->chip_info->num_channels - 1, 0);
+> > +}
+> 
+> [Severity: High]
+> Does this generate the correct physical mask for the AD7768-4? The AD7768-4
+> maps its 4 logical channels to physical channels 0, 1, 4, and 5. This returns
+> GENMASK(3, 0) which is 0x0F, writing 0 to physical bits 4, 5, 6, and 7,
+> leaving them fully active.
+> 
+> [ ... ]
 
-Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
-at 62.5 Hz across a cold boot, three display off and on cycles and a
-suspend/resume, with the MIPI TX PLL reading back at the intended rate.
+This one looks plausible.  There is handling of the bits written to
+deal with the mapping but not the mask I think. Please take a look.
 
-Assisted-by: LLM
-Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
----
- MAINTAINERS                                   |   7 +
- drivers/gpu/drm/panel/Kconfig                 |  11 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt51021.c | 329 ++++++++++++++++++++++++++
- 4 files changed, 348 insertions(+)
+> 
+> > +static int ad7768_regmap_read(void *context, const void *reg_buf,
+> > +			      size_t reg_size, void *val_buf, size_t val_size)
+> > +{
+> > +	struct ad7768_state *st = spi_get_drvdata(context);
+> > +	struct spi_device *spi = context;
+> > +	struct spi_transfer t[] = {
+> > +		{
+> > +			.tx_buf = &st->d16,
+> > +			.len = sizeof(st->d16),
+> > +			.cs_change = 1,
+> > +		}, {
+> > +			/*
+> > +			 * Register responses are delayed by one CS frame. While
+> > +			 * receiving the response to this read, the device also
+> > +			 * decodes another command on SDI. Repeat the read
+> > +			 * command to avoid sending an unspecified dummy
+> > +			 * command.
+> > +			 */
+> > +			.tx_buf = &st->d16,
+> > +			.rx_buf = &st->d16,
+> > +			.len = sizeof(st->d16),
+> > +		},
+> > +	};
+> 
+> [Severity: High]
+> Can this violate the DMA API? Both transfers use the same memory address
+> (&st->d16) for their buffers. When the SPI subsystem maps all transfers for
+> DMA concurrently, attempting to map the same memory region twice concurrently
+> (DMA_TO_DEVICE and DMA_BIDIRECTIONAL) can cause cache coherency issues on
+> non-coherent architectures.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3a19da74d00c..1cef4dd31d03 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8353,6 +8353,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
- F:	drivers/gpu/drm/panel/panel-novatek-nt37801.c
- 
-+DRM DRIVER FOR NOVATEK NT51021 PANELS
-+M:	Ryan Brue <ryanbrue.dev@gmail.com>
-+S:	Maintained
-+T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
-+F:	Documentation/devicetree/bindings/display/panel/novatek,nt51021.yaml
-+F:	drivers/gpu/drm/panel/panel-novatek-nt51021.c
-+
- DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS
- M:	Lyude Paul <lyude@redhat.com>
- M:	Danilo Krummrich <dakr@kernel.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index cbdf7b8f7f7a..50a5dc473138 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -727,6 +727,17 @@ config DRM_PANEL_NOVATEK_NT39016
- 	  Say Y here if you want to enable support for the panels built
- 	  around the Novatek NT39016 display controller.
- 
-+config DRM_PANEL_NOVATEK_NT51021
-+	tristate "Novatek NT51021 1200x1920 DSI video mode panel"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y here if you want to enable support for the Novatek NT51021
-+	  1200x1920 DSI video mode panel, as found in the Amazon Fire HD 10
-+	  (2017). The controller carries no readable panel identity, so the
-+	  module fitted to a board is named by its compatible string.
-+
- config DRM_PANEL_OLIMEX_LCD_OLINUXINO
- 	tristate "Olimex LCD-OLinuXino panel"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index 3b523cf37833..3fe7c2e579d3 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -70,6 +70,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
- obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
-+obj-$(CONFIG_DRM_PANEL_NOVATEK_NT51021) += panel-novatek-nt51021.o
- obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
- obj-$(CONFIG_DRM_PANEL_OLIMEX_LCD_OLINUXINO) += panel-olimex-lcd-olinuxino.o
- obj-$(CONFIG_DRM_PANEL_ORISETECH_OTA5601A) += panel-orisetech-ota5601a.o
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-new file mode 100644
-index 000000000000..d92f3e18f716
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
-@@ -0,0 +1,329 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Novatek NT51021 1200x1920 DSI video-mode panel
-+ *
-+ * Derived from the vendor LCM driver in the Amazon 3.18 tree,
-+ * drivers/misc/mediatek/lcm/nt51021_wuxga_dsi_vdo/.
-+ *
-+ * Note on the command interface: this panel can take its control commands
-+ * either over I2C or in-band over MIPI, and on the shipping ("dvt") boards it
-+ * does NOT default to MIPI. Writing 0xa5 to register 0x8f forces commands to
-+ * be accepted over DSI, and writing 0x00 hands the interface back. Every
-+ * command this driver sends therefore has to sit inside such a window --
-+ * including sleep in/out and display on/off, which is why they are not simply
-+ * issued from enable()/disable() the way most panel drivers do it.
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+/* Register 0x8f selects where the panel listens for commands. */
-+#define NT51021_CMD_IF			0x8f
-+#define NT51021_CMD_IF_FORCE_MIPI	0xa5
-+#define NT51021_CMD_IF_RELEASE		0x00
-+
-+struct nt51021_cmd {
-+	u8 reg;
-+	u8 val;
-+	u16 delay_ms;
-+};
-+
-+/*
-+ * Taken verbatim from the vendor's init_lcm_registers() BOE branch, minus the
-+ * command-window writes, which this driver manages itself.
-+ */
-+static const struct nt51021_cmd nt51021_init_suez_boe[] = {
-+	{ 0x01, 0x00, 20 },	/* software reset */
-+	{ 0x83, 0x00, 0 },	/* page select */
-+	{ 0x84, 0x00, 0 },
-+	{ 0x8c, 0x80, 0 },	/* GOP setting */
-+	{ 0xcd, 0x6c, 0 },	/* 3 dummy */
-+	{ 0xc0, 0x8b, 0 },	/* GCH */
-+	{ 0xc8, 0xf0, 0 },	/* GCH */
-+	{ 0x97, 0x00, 0 },	/* resistor setting, 100 ohm */
-+	{ 0x8b, 0x10, 0 },
-+	{ 0xa9, 0x20, 0 },	/* enable TP_SYNC */
-+	{ 0x83, 0xaa, 0 },	/* page select */
-+	{ 0x84, 0x11, 0 },
-+	{ 0xa9, 0x4b, 0 },	/* MIPI Rx drive strength, 85% */
-+	{ 0x85, 0x04, 0 },	/* test mode 1 */
-+	{ 0x86, 0x08, 0 },	/* test mode 2 */
-+	{ 0x9c, 0x10, 0 },	/* test mode 3 */
-+};
-+
-+struct nt51021_desc {
-+	const struct nt51021_cmd *cmds;
-+	unsigned int num_cmds;
-+};
-+
-+static const struct nt51021_desc suez_boe_desc = {
-+	.cmds = nt51021_init_suez_boe,
-+	.num_cmds = ARRAY_SIZE(nt51021_init_suez_boe),
-+};
-+
-+struct nt51021 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct regulator *supply;
-+	struct gpio_desc *reset_gpio;
-+	const struct nt51021_desc *desc;
-+};
-+
-+static inline struct nt51021 *to_nt51021(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct nt51021, panel);
-+}
-+
-+/*
-+ * A plain "write this value to that register" DCS write. The
-+ * mipi_dsi_dcs_write_seq_multi() macro cannot be used for these: it stashes its
-+ * payload in a static const array, so every byte has to be a compile-time
-+ * constant, and both the register and the value here come from a table.
-+ */
-+static void nt51021_write(struct mipi_dsi_multi_context *ctx, u8 reg, u8 val)
-+{
-+	const u8 d[] = { reg, val };
-+
-+	mipi_dsi_dcs_write_buffer_multi(ctx, d, sizeof(d));
-+}
-+
-+/*
-+ * Open or close the in-band command window. Outside it the panel ignores DSI
-+ * commands entirely, so every caller that wants to be heard must wrap its
-+ * writes in a pair of these.
-+ */
-+static void nt51021_cmd_window(struct mipi_dsi_multi_context *ctx, bool open)
-+{
-+	nt51021_write(ctx, NT51021_CMD_IF,
-+		      open ? NT51021_CMD_IF_FORCE_MIPI : NT51021_CMD_IF_RELEASE);
-+	if (open)
-+		mipi_dsi_msleep(ctx, 1);
-+}
-+
-+static int nt51021_prepare(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+	unsigned int i;
-+	int ret;
-+
-+	ret = regulator_enable(ctx->supply);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Vendor timing: reset held low for 20 ms, then 5 ms of settling before
-+	 * the first command. The GPIO is active low in the device tree, so
-+	 * "1" here means asserted.
-+	 */
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	msleep(20);
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+	usleep_range(5000, 6000);
-+
-+	nt51021_cmd_window(&dsi_ctx, true);
-+
-+	for (i = 0; i < ctx->desc->num_cmds; i++) {
-+		const struct nt51021_cmd *cmd = &ctx->desc->cmds[i];
-+
-+		nt51021_write(&dsi_ctx, cmd->reg, cmd->val);
-+		if (cmd->delay_ms)
-+			mipi_dsi_msleep(&dsi_ctx, cmd->delay_ms);
-+	}
-+
-+	/* Vendor init_lcm_registers(): Sleep Out, then 120 ms. */
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 120);
-+
-+	nt51021_cmd_window(&dsi_ctx, false);
-+	mipi_dsi_msleep(&dsi_ctx, 5);
-+
-+	if (dsi_ctx.accum_err) {
-+		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+		regulator_disable(ctx->supply);
-+	}
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt51021_enable(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	nt51021_cmd_window(&dsi_ctx, true);
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	nt51021_cmd_window(&dsi_ctx, false);
-+	mipi_dsi_msleep(&dsi_ctx, 20);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt51021_disable(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	nt51021_cmd_window(&dsi_ctx, true);
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+	nt51021_cmd_window(&dsi_ctx, false);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt51021_unprepare(struct drm_panel *panel)
-+{
-+	struct nt51021 *ctx = to_nt51021(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
-+
-+	/* Vendor lcm_suspend(): force MIPI, Sleep In, 50 ms. */
-+	nt51021_cmd_window(&dsi_ctx, true);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+	mipi_dsi_msleep(&dsi_ctx, 50);
-+
-+	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+	regulator_disable(ctx->supply);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+/*
-+ * Timings from the vendor's lcm_get_params(): 1200x1920, hsync 1 / hbp 32 /
-+ * hfp 110, vsync 1 / vbp 14 / vfp 11. That gives htotal 1343 and vtotal 1946.
-+ *
-+ * The pixel clock follows the vendor's PLL_CLOCK = 490, which after DDR is
-+ * 980 Mbps per lane, and over four lanes at 24bpp is 163.33 MHz, giving
-+ * 62.5 Hz. That is also what the bootloader leaves behind: read back before
-+ * the kernel touches it, the MIPI TX PLL on this board decodes to exactly
-+ * 980 Mbps per lane, so the panel is already running at this rate when the
-+ * kernel takes over.
-+ *
-+ * Note for anyone tempted by the "fps=6025" the bootloader puts on the kernel
-+ * command line: it is not the DSI rate and does not describe this PLL. It also
-+ * is not stable across boots.
-+ */
-+static const struct drm_display_mode nt51021_mode = {
-+	.clock = 163333,
-+	.hdisplay = 1200,
-+	.hsync_start = 1200 + 110,
-+	.hsync_end = 1200 + 110 + 1,
-+	.htotal = 1200 + 110 + 1 + 32,
-+	.vdisplay = 1920,
-+	.vsync_start = 1920 + 11,
-+	.vsync_end = 1920 + 11 + 1,
-+	.vtotal = 1920 + 11 + 1 + 14,
-+	.width_mm = 136,
-+	.height_mm = 221,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static int nt51021_get_modes(struct drm_panel *panel,
-+			     struct drm_connector *connector)
-+{
-+	return drm_connector_helper_get_modes_fixed(connector, &nt51021_mode);
-+}
-+
-+static const struct drm_panel_funcs nt51021_panel_funcs = {
-+	.prepare = nt51021_prepare,
-+	.enable = nt51021_enable,
-+	.disable = nt51021_disable,
-+	.unprepare = nt51021_unprepare,
-+	.get_modes = nt51021_get_modes,
-+};
-+
-+static int nt51021_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct nt51021 *ctx;
-+	int ret;
-+
-+	ctx = devm_drm_panel_alloc(dev, struct nt51021, panel,
-+				   &nt51021_panel_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ctx))
-+		return PTR_ERR(ctx);
-+
-+	ctx->supply = devm_regulator_get(dev, "power");
-+	if (IS_ERR(ctx->supply))
-+		return dev_err_probe(dev, PTR_ERR(ctx->supply),
-+				     "failed to get power supply\n");
-+
-+	/* Active low in the device tree, so OUT_HIGH leaves reset asserted. */
-+	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ctx->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+				     "failed to get reset GPIO\n");
-+
-+	ctx->desc = of_device_get_match_data(dev);
-+	if (!ctx->desc)
-+		return -ENODEV;
-+
-+	ctx->dsi = dsi;
-+	mipi_dsi_set_drvdata(dsi, ctx);
-+
-+	dsi->lanes = 4;
-+	dsi->format = MIPI_DSI_FMT_RGB888;
-+	/*
-+	 * Video mode with sync events rather than sync pulses
-+	 * (vendor SYNC_EVENT_VDO_MODE), and a continuously running HS clock
-+	 * (vendor cont_clock = 1), so MIPI_DSI_CLOCK_NON_CONTINUOUS is
-+	 * deliberately absent. Commands go out in LP.
-+	 */
-+	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM;
-+
-+	ret = drm_panel_of_backlight(&ctx->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get backlight\n");
-+
-+	/* The DSI host must be running before we can send the init sequence. */
-+	ctx->panel.prepare_prev_first = true;
-+
-+	drm_panel_add(&ctx->panel);
-+
-+	ret = mipi_dsi_attach(dsi);
-+	if (ret < 0) {
-+		drm_panel_remove(&ctx->panel);
-+		return dev_err_probe(dev, ret, "failed to attach to DSI host\n");
-+	}
-+
-+	return 0;
-+}
-+
-+static void nt51021_remove(struct mipi_dsi_device *dsi)
-+{
-+	struct nt51021 *ctx = mipi_dsi_get_drvdata(dsi);
-+	int ret;
-+
-+	ret = mipi_dsi_detach(dsi);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-+
-+	drm_panel_remove(&ctx->panel);
-+}
-+
-+static const struct of_device_id nt51021_of_match[] = {
-+	{ .compatible = "amazon,suez-boe-nt51021", .data = &suez_boe_desc },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, nt51021_of_match);
-+
-+static struct mipi_dsi_driver nt51021_driver = {
-+	.probe = nt51021_probe,
-+	.remove = nt51021_remove,
-+	.driver = {
-+		.name = "panel-novatek-nt51021",
-+		.of_match_table = nt51021_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(nt51021_driver);
-+
-+MODULE_DESCRIPTION("Novatek NT51021 1200x1920 DSI panel driver");
-+MODULE_LICENSE("GPL");
+So this one I'm fairly sure on, but feel free to check.
 
--- 
-2.55.0
+There is nothing stopping SPI using one buffer for both directions. If it's a
+problem for a particular setup I think they have to bounce it.
+
+> 
+> [ ... ]
+> 
+> > +static int ad7768_update_scan_mode(struct iio_dev *indio_dev,
+> > +				   const unsigned long *scan_mask)
+> > +{
+> > +	struct ad7768_state *st = iio_priv(indio_dev);
+> > +	unsigned long channel_mask;
+> > +	unsigned long standby_mask;
+> > +	int ret;
+> > +
+> > +	channel_mask = ad7768_all_standby_mask(st);
+> > +	standby_mask = channel_mask & ~*scan_mask;
+> > +
+> > +	/*
+> > +	 * Crystal excitation requires channel 4 on AD7768 or channel 2 on
+> > +	 * AD7768-4 to remain active.
+> > +	 */
+> > +	if (st->clock_source == AD7768_CLOCK_SOURCE_XTAL)
+> > +		__clear_bit(st->chip_info->num_channels / 2, &standby_mask);
+> > +
+> > +	ret = regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> > +				 channel_mask, standby_mask);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	for (unsigned int c = 0; c < st->chip_info->num_channels; c++) {
+> > +		if (test_bit(c, scan_mask))
+> > +			ret = iio_backend_chan_enable(st->back, c);
+> > +		else
+> > +			ret = iio_backend_chan_disable(st->back, c);
+> > +		if (ret)
+> > +			return ret;
+> > +	}
+> 
+> [Severity: Medium]
+> Will this leave the backend hardware out of sync if an error occurs? If one
+> operation fails, it returns the error immediately without unwinding the
+> previously modified channels.
+
+This is one of those error cases where unwinding may just be impractical.
+Real question is whether there is anything that means trying again won't
+end up in a sane state or that anything particularly bad will happen
+as a result of the bad state in the meantime. I think this is fine
+but please check.
+
+> 
+> > +
+> > +	return 0;
+> > +}
+> 
+> [ ... ]
+> 
+> > +static int ad7768_buffer_postdisable(struct iio_dev *indio_dev)
+> > +{
+> > +	struct ad7768_state *st = iio_priv(indio_dev);
+> > +
+> > +	pm_runtime_put_autosuspend(regmap_get_device(st->regmap));
+> > +	return 0;
+> > +}
+> 
+> [Severity: Medium]
+> Could this leave the hardware powered on after device removal?
+> 
+> If the driver is unbound while the IIO buffer is active,
+> devm_iio_device_register unwinds first, calling iio_device_unregister(),
+> which disables the buffer and triggers ad7768_buffer_postdisable().
+> 
+> Immediately after, devm_pm_runtime_set_active_enabled unwinds, calling
+> pm_runtime_disable() which cancels the pending autosuspend work. The
+> driver should ensure synchronous suspend if the buffer is active during
+> removal.
+
+Ah.  Interesting corner case.  There are probably lots of other
+paths to the power happening to be on at shut down but I can see
+maybe we ultimately want a flag to say we are going down in that
+buffer disable path.  Anyhow, you should be careful to ensure it
+doesn't matter what state we are in wrt to runtime pm, after we've
+turned that off we should make sure we turn off the device by hand.
+Afterall maybe runtime pm was never enabled in the first place
+(or even built!)
+
+> 
+> [ ... ]
+> 
+> > +static int ad7768_configure_precharge_buffers(struct iio_dev *indio_dev,
+> > +					      struct ad7768_precharge_config *precharge_cfg)
+> > +{
+> > +	struct ad7768_state *st = iio_priv(indio_dev);
+> > +	u8 prebuf1_val, prebuf2_val;
+> > +	u16 prebuf_mask = 0;
+> > +	u8 refbufp_val = 0;
+> > +	u8 refbufn_val = 0;
+> > +	int ret;
+> > +
+> > +	for (unsigned int ch = 0; ch < indio_dev->num_channels; ch++) {
+> > +		u8 channel = indio_dev->channels[ch].channel;
+> > +
+> > +		if (precharge_cfg[channel].prebufp_en)
+> > +			prebuf_mask |= AD7768_PREBUF_POS_EN(channel);
+> > +
+> > +		if (precharge_cfg[channel].prebufn_en)
+> > +			prebuf_mask |= AD7768_PREBUF_NEG_EN(channel);
+> > +
+> > +		if (precharge_cfg[channel].refbufp)
+> > +			refbufp_val |= ad7768_channel_mask(st, channel);
+> > +
+> > +		if (precharge_cfg[channel].refbufn)
+> > +			refbufn_val |= ad7768_channel_mask(st, channel);
+> > +	}
+> 
+> [Severity: Medium]
+> Does this apply the incorrect polarity for the reference buffer configuration?
+> When adi,refbuf-pos-enable or adi,refbuf-neg-enable are provided in the device
+> tree, the driver sets the corresponding bit to 1. According to the AD7768
+> datasheet, setting a bit to 1 in the REFP_BUF and REFN_BUF registers powers down
+> the buffer.
+
+I'm not sure what datasheet sashiko has.  Mine says 1 is power up.
+I'm going to guess it's assuming layout of values that aren't true.
+
+> 
+> [ ... ]
+> 
+> > +	device_for_each_named_child_node_scoped(dev, child, "channel") {
+> > +		u32 channel;
+> > +
+> > +		ret = fwnode_property_read_u32(child, "reg", &channel);
+> > +		if (ret)
+> > +			return dev_err_probe(dev, ret,
+> > +					     "Failed to parse reg of %pfwP\n",
+> > +					     child);
+> > +
+> > +		if (channel >= st->chip_info->num_channels)
+> > +			return dev_err_probe(dev, -ECHRNG,
+> > +					     "Invalid channel %u in firmware\n",
+> > +					     channel);
+> > +
+> > +		ret = regmap_clear_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> > +					BIT(channel));
+> 
+> [Severity: High]
+> Does this use logical indices instead of physical bits for the AD7768-4? The
+> AD7768-4 uses physical channels 0, 1, 4, and 5. Using BIT(channel) will update
+> physical bits 0-3 instead of the mapped hardware bits.
+
+This seems plausible. Please check.
+
+> 
+> > +		if (ret)
+> > +			return ret;
+> > +
+> 
+> [ ... ]
+> 
+> > +	pm_runtime_set_autosuspend_delay(dev, 2000);
+> > +	pm_runtime_use_autosuspend(dev);
+> > +	ret = devm_pm_runtime_set_active_enabled(dev);
+> > +	if (ret)
+> > +		return ret;
+> > +
+> > +	return devm_iio_device_register(dev, indio_dev);
+> > +}
+> 
+> [Severity: Medium]
+> Does this leave the device permanently active? This configures autosuspend and
+> enables runtime PM, which transitions the device to RPM_ACTIVE with a usage
+> count of 0, but fails to call pm_request_idle(dev). As a result, the autosuspend
+> timer is never triggered, leaving the device fully powered indefinitely until
+> a user explicitly accesses it.
+Nope.  This is usual thing of sashiko failing to notice the stuff
+in base/dd.c that always checks if the reference count is 0 and hence
+it can put it to sleep. This happens just after probe.
+
+So a definite mixed bag for sashiko on this one.
+
+Jonathan
 
 
