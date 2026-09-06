@@ -1,237 +1,220 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 464F7422556;
-	Sun,  6 Sep 2026 08:20:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219A82E7375;
+	Sun,  6 Sep 2026 08:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788682827; cv=none; b=oB2/3NaSoU9EyHHXIeqOsYYQDr5PCY0I6LRL6tgqH2tRJXmZD4IBMasOdLJMMMjBQbiB6CGhnTO6Xngl41bzlWiQhQajJYw1ZuEYmJVjpFuXWcowy4P+fvTKbc7kvcM6QCDpVBpYpYaRijtjMPBvu3MmTzg96qaDsA6X2j3lR5I=
+	t=1788683698; cv=none; b=nvHdSyKMUoBcwfdADEe6tBwEnNgJrtNSsiNznWqgX/4AMuj2thhdSHa2EJ12FalhtKPQXBEVt7yq71Doa/ZAdc8KvltKLha6Sy4PiZmlPoWQvueN7DRQRANhihs0eaEFKmnKJb4iNVr882PClBv2rXGlEANxXwdIxU835eqz2Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788682827; c=relaxed/simple;
-	bh=5wMLiO/m6DP23c5WzhgmTRjNAdIHtwOTtbPd0Usu2Bk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KBs9B9H9zhMAYExaP0CuOD/fqoB9fvCMdX3S8WCVbwS2OHjnqGO1YLwWfjLdSFi5smnZ9u1hGzHKq/IHusOeIaCjMS4dNO+6+ajgkU32TPynh09+gIA0Lpr6pkHGgfzAAcWUqH2hi4mQFvoPE0zPmdlsnVYRz5nLT5VkMWL+MRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b=CjywL2Y2; arc=none smtp.client-ip=212.227.15.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
+	s=arc-20240116; t=1788683698; c=relaxed/simple;
+	bh=x6dz9PU/6swl7WNblCof3wH0ID9O2ca6k6Gplp3y81k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JDn9JPrUnALeyPt85Yk3F3ouo1X5NHVENSWUQUi4FyBBEF1njoe+4ziuiU7Mbqj8l2tzBzaXPitEyDRCtnEfVeESzlSzi74Vvm3TWOQ+JLUHdDRZNJ1SRLt2aX87xVI7KuRmv2giSlLYF+PXhSZN3xyNHK7cPDwCe7vemnTRYBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nqMMOAlT; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.de header.i=markus.stockhausen@gmx.de header.b="CjywL2Y2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
-	s=s31663417; t=1788682801; x=1789287601;
-	i=markus.stockhausen@gmx.de;
-	bh=BYl5CqLRjFyOOeXcAdy/BFzSvd4ma8dmSeMvRtlfRAs=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=CjywL2Y2ERbEDnH7Bd9ss0PHwEMS2na4rny+32xFUj7EICsrREf8M6HMe/eY12ym
-	 w5s9jBkzkUbH6fq6n8GgTmZW72kEiF1ac3P+brgdVlg5da73nm2SaqYverB7/f98F
-	 oytN0w4fuYSSBpVUv9b5J2RQXs/337Vq84jBcHCBsLkz3dslHt5pa1jXKoe6NWruC
-	 Pd6yHT/QZMr+PbMBBeKTe2K3o5ucMnidubWbQeerNt1VzukCyPsxZpfW9rLb5QORt
-	 JS135cl91WwcMhZxoHRhLkwhfc6lmqWjfC9dIu3OSc+JL3K2PWZqmaG5uUZ9GPSty
-	 ilVVhreNa3qRGedhDQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx005
- [212.227.17.190]) with ESMTPSA (Nemesis) id 1MI5Q5-1x6gre1zPz-00HQsk; Sun, 06
- Sep 2026 10:20:01 +0200
-From: Markus Stockhausen <markus.stockhausen@gmx.de>
-To: andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	chris.packham@alliedtelesis.co.nz,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: Markus Stockhausen <markus.stockhausen@gmx.de>
-Subject: [PATCH net-next v2 1/3] dt-bindings: net: realtek,rtl9301-mdio: Add clock-frequency
-Date: Sun,  6 Sep 2026 10:19:44 +0200
-Message-ID: <20260906081946.3499898-2-markus.stockhausen@gmx.de>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260906081946.3499898-1-markus.stockhausen@gmx.de>
-References: <20260906081946.3499898-1-markus.stockhausen@gmx.de>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nqMMOAlT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788683696; x=1820219696;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=x6dz9PU/6swl7WNblCof3wH0ID9O2ca6k6Gplp3y81k=;
+  b=nqMMOAlTTORBBi4uHhRbvXnrC6KxSzzC9P2pFUHzejMLO8Kf/0h8Jw+Y
+   XOB7FgDv5RWMbu2FEfndImh9Hp9BBh47XW/Y+LUX0Clm2nlqToTGwCAmi
+   M+dyrqOu3VpONLWgT/ZtdhfhwxGbQhRfPzNi/9fQmq6iGB1jj8RgnMEXy
+   mLE60qgY1Bc+Gm6mBUCvwwnwqC94NBUszNv9hGzuaZ+mTTRPOY9EKlmt5
+   /QBj2f2yhKAgOdPGG4Qj1v5HmbkxK9IyypZWs0gNoAn9Q/wnGivrWxmMb
+   FCTmi9LsiwG6kfFxF6yLz5IANS3JvDVDO5j3x3u3zkwgMSyZOTOIHDX4s
+   A==;
+X-CSE-ConnectionGUID: iLPbVnNqQz60GXPVlXVj5A==
+X-CSE-MsgGUID: mEWUKPK/R+SsqOzQBz4SsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11897"; a="91632887"
+X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
+   d="scan'208";a="91632887"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 01:34:55 -0700
+X-CSE-ConnectionGUID: AMqm6FQbTZyNgWN+sCjm8A==
+X-CSE-MsgGUID: 8Du60nT3Sqyvdh7ARG3Bag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,265,1779174000"; 
+   d="scan'208";a="272381931"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.140])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 01:34:50 -0700
+Date: Sun, 6 Sep 2026 11:34:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Michael Walle <mwalle@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
+Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core support
+Message-ID: <ap0lp5THO64olugK@ashevche-desk.local>
+References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
+ <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:rfUqm8lirOudiT1VD0whI84KaPQzCAoJ0toZuMThUkEZPoIbzNo
- 2SVfOSobN6gW6KBnCUFCs8d2HlA9yHziKylf/OpypUT3z5f8kM9xizCB/5DwJytQgZqpnnI
- rssAyulsv67s5+gajhrR1XOrLJEM94pZs3Jk8Bu+FQgjlhBbt5nY99binEerysK1zABlkw4
- nFA37Pbpgn27ixqV42byw==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:LrVe2TiRqqc=;2vrGadCYdCGfOHqiLExGMoX/bbs
- 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
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The Realtek Otto Switch ethernet MDIO controller supports different MDC
-speeds ranging from 1.25MHz to 10MHz. Document the clock-frequency
-attribute for the device tree.
+On Fri, Sep 04, 2026 at 04:14:57PM +0200, Janani Sunil wrote:
+> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
+> Configure supplies, clock and reset, use a custom regmap bus for the SPI
+> protocol, and parse the enabled channels and input buffer settings from
+> devicetree.
+> 
+> Connect the converter to an IIO backend for buffered capture with CRC,
+> provide a fixed safe wideband sampling configuration and add runtime
+> power management.
 
-There is neither an official documentation nor any obvious registers that
-indicate a dependency to one of the hardware clocks. The usable setup bits
-are more like hardcoded values than dividers. Without further details do
-not add a clock reference.
+...
 
-Signed-off-by: Markus Stockhausen <markus.stockhausen@gmx.de>
-=2D--
- .../bindings/net/realtek,rtl9301-mdio.yaml    | 40 +++++++++++++++++++
- 1 file changed, 40 insertions(+)
+> +#define   AD7768_INTERFACE_CFG_DCLK_DIV_MSK		GENMASK(1, 0)
+> +#define     AD7768_INTERFACE_CFG_DCLK_DIV(x)		(4 - ffs(x))
 
-diff --git a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.ya=
-ml b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-index 67e0b23a8470..88502d017eed 100644
-=2D-- a/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-+++ b/Documentation/devicetree/bindings/net/realtek,rtl9301-mdio.yaml
-@@ -56,6 +56,9 @@ patternProperties:
-       reg:
-         maxItems: 1
-=20
-+      clock-frequency:
-+        default: 2500000
-+
-     required:
-       - reg
-=20
-@@ -71,6 +74,43 @@ required:
-   - compatible
-   - reg
-=20
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - realtek,rtl8380-mdio
-+              - realtek,rtl8381-mdio
-+              - realtek,rtl8382-mdio
-+    then:
-+      patternProperties:
-+        '^mdio-bus@[0-3]$':
-+          properties:
-+            clock-frequency:
-+              enum: [2500000, 10000000]
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - realtek,rtl8391-mdio
-+              - realtek,rtl8392-mdio
-+              - realtek,rtl8393-mdio
-+              - realtek,rtl9301-mdio
-+              - realtek,rtl9302b-mdio
-+              - realtek,rtl9302c-mdio
-+              - realtek,rtl9303-mdio
-+              - realtek,rtl9311-mdio
-+              - realtek,rtl9312-mdio
-+              - realtek,rtl9313-mdio
-+    then:
-+      patternProperties:
-+        '^mdio-bus@[0-3]$':
-+          properties:
-+            clock-frequency:
-+              enum: [1250000, 2500000, 5000000]
-+
- unevaluatedProperties: false
-=20
- examples:
-=2D-=20
-2.55.0
+This looks suspicious, do you mean fls() / ilog2()? because ffs() while it may
+work, it gets the first set LSB. Also what if 'x' is too high? I guess you can
+rework the only user of that to avoid even ffs()/fls()/ilog2().
+
+...
+
+> +#define   AD7768_PREBUF_POS_EN(ch)			BIT((ch) * 2)
+
+Perhaps + 0?
+
+#define   AD7768_PREBUF_POS_EN(ch)			BIT((ch) * 2 + 0)
+
+This will be consistent with the below.
+
+> +#define   AD7768_PREBUF_NEG_EN(ch)			BIT(((ch) * 2) + 1)
+
+Too many parentheses.
+
+...
+
+> +#define AD7768_REG_OFFSET(ch)	(AD7768_REG_OFFSET_BASE + (3 * (ch)))
+> +#define AD7768_REG_GAIN(ch)	(AD7768_REG_GAIN_BASE + (3 * (ch)))
+> +#define AD7768_REG_PHASE(ch)	(AD7768_REG_PHASE_BASE + (ch))
+> +#define __AD7768_4_REG_MAP(ch)	((ch) < 2 ? (ch) : ((ch) + 2))
+
+(ch) in parentheses make no sense here as it will be evaluated twice. If there
+is an expression it might lead to a wrong numbers. Either you need more complex
+macro to make evaluation happen once, or just be sure no caller uses an
+expression in the parameter in which case the parentheses are not required.
+With that being said, the other macros against (ch) also can be reconsidered.
+
+...
+
+> +struct ad7768_chip_info {
+
+> +	const char *name;
+> +	unsigned int num_channels;
+> +	const struct regmap_config *regmap_config;
+> +	const unsigned int *available_datalines;
+> +	unsigned int num_datalines;
+> +	const u8 *chan_map;
+> +	u8 prebuf_split;
+
+Even if `pahole` is okay with the layout, I would suggest this one instead
+
+	const char *name;
+	const struct regmap_config *regmap_config;
+	const unsigned int *available_datalines;
+	unsigned int num_datalines;
+	unsigned int num_channels;
+	const u8 *chan_map;
+	u8 prebuf_split;
+
+> +};
+
+...
+
+> +	return (val >> st->chip_info->prebuf_split) &
+> +	       GENMASK(st->chip_info->prebuf_split - 1, 0);
+
+Can it use field_get()?
+
+...
+
+> +static int ad7768_update_scan_mode(struct iio_dev *indio_dev,
+> +				   const unsigned long *scan_mask)
+> +{
+> +	struct ad7768_state *st = iio_priv(indio_dev);
+> +	unsigned long channel_mask;
+> +	unsigned long standby_mask;
+> +	int ret;
+> +
+> +	channel_mask = ad7768_all_standby_mask(st);
+> +	standby_mask = channel_mask & ~*scan_mask;
+> +
+> +	/*
+> +	 * Crystal excitation requires channel 4 on AD7768 or channel 2 on
+> +	 * AD7768-4 to remain active.
+> +	 */
+> +	if (st->clock_source == AD7768_CLOCK_SOURCE_XTAL)
+> +		__clear_bit(st->chip_info->num_channels / 2, &standby_mask);
+> +
+> +	ret = regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> +				 channel_mask, standby_mask);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (unsigned int c = 0; c < st->chip_info->num_channels; c++) {
+
+c --> ch?
+
+> +		if (test_bit(c, scan_mask))
+> +			ret = iio_backend_chan_enable(st->back, c);
+> +		else
+> +			ret = iio_backend_chan_disable(st->back, c);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+
+...
+
+> +	/*
+> +	 * DCLK(min) is ODR * channels per DOUTx * 32. With fast mode
+> +	 * (fMOD = MCLK / 4) and x64 decimation, this gives:
+> +	 * MCLK / DCLK = 8 * data lines / channels.
+> +	 */
+> +	dclk_div = 8 * st->datalines / st->chip_info->num_channels;
+> +	dclk_div_reg = AD7768_INTERFACE_CFG_DCLK_DIV(dclk_div);
+
+So, this one is (4 - ffs(dclk_div)). If num_channels == 1, this will always give 0.
+If num_channels == 2, this might give 0, 8, ... Since ffs(0) implementation is defined
+to return 0, this will return... 0! So, tell me how this code may return
+anything than 0?
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
