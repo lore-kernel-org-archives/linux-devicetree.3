@@ -1,121 +1,133 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7415A479872;
-	Mon,  7 Sep 2026 11:44:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7362D662F
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 11:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788781502; cv=none; b=ZH67cdt4DukhdA4LiE2varH+vQT4WKoa0jMfIWuAi8spPrtjnjEEJFK86DyY5+I8QUIFfmOxTlDyWzVKqM9crsBi+bpyIoyGq87I7WczBxvdXUTWteiamuMlz8nRROdBEh46zVb9dqCdR578oqy3No5zjBf//VBL6Bi66/0aC3w=
+	t=1788781516; cv=none; b=Wh/9Omlc2T37bLCclPIowyNeRrFsl+oxl77i3nG9Y9iBtkmpEFkTfwN0BbjPCDh8x4oTnb3Ny8WZ3BeGeqh9sUfZ4PI5KUU8sbcKz/qvBO9KKqF9xXpCA6L8X0zC0OOTob8rpyjGKH6+hG9452aAxtk4XFJjWUCFn9uddqoJlJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788781502; c=relaxed/simple;
-	bh=gHf/JWbywMGHSP7KYgxxxlxij+cmqOc3AHmFechyKSI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XARmlsXJiGH2wMF5sq7FurFw1Iakfh9JuKAJVxMcv9v7crZJ3lExNmVj09zBRMt5uYQ/FDe10XqqLsHOTDkOjUMBnvUHf54A/c0sh/Su3DE4FCKT4qgkaRF5YfDX6FhjgLCX71ZjpOZ7jCeYrJ3lYjWfgmgWPQhvhlgFcOVMg0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jwwvMAHM; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788781516; c=relaxed/simple;
+	bh=C5SjIv33NEQnil/4xcE8qRCPzBQBO3VWXv0T95AMGtI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IciroLLmM4dCHcDXBPus16xna6bfoaYRHUWXVxOFY1XzrmVxM0lwOtL04s/1ekglYZQbRW6a2QT/NWXuQi82ZOgupAwFdHvYQQ0Uu8Rd0AqJD0hW0QT9HwvYGXdbDays4w/c9iz8QiwUXRQcWl42RwHX0Zk57OIn/Yjkak3TX0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=moJ/z+qm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jwwvMAHM"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 7B20E4E41565;
-	Mon,  7 Sep 2026 11:44:57 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 45E7960383;
-	Mon,  7 Sep 2026 11:44:57 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33BE511C7A21B;
-	Mon,  7 Sep 2026 13:44:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788781495; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=YCLIOUymlLprrYxagyBjJIlkYmWYFOeOtwfW4d/Bvuc=;
-	b=jwwvMAHMbW0KwTwMLkiwiHquYsfmGZlErwev0Y67QZ8/BUfWsSENihLREiXf5OyVCTP295
-	W9Ed0zUoeciAAtkIH9APZwEcXnQYve3PpY/4M6wQ6cuCjSmGJ0npSXGM2hRltwzLArf+nK
-	7feLSgSPgDasIP99OszE4rI43+fwgTPQWpn/O+ZOORFGdm49mv4FpKzJQwgTNnB5yDpRdA
-	Y3QB1v+KRM2W63BAU7XO2UiQIhI08sppZqbPg049VU5IHdO1wtV0UIw6uqqZjxccpx0NzW
-	CA6W+ZFQgHm0/B8RadyQEzdWZ53ADr53zRTFryyPGljPJG8hDSd3BAyeF4iYXQ==
-Message-ID: <1a8b585f-495b-435b-bd36-72c68bbc3600@bootlin.com>
-Date: Mon, 7 Sep 2026 13:44:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="moJ/z+qm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44DB81F00A3A;
+	Mon,  7 Sep 2026 11:45:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788781514;
+	bh=MNlNc7r/7gTlRBFOrhHw9U4pcWEJEtv6+KDiUKQwnEk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=moJ/z+qm1IIHaZn2AbW3OhOgqZ9xhRk0drSjm2q/k2Jc3HDQzxbRj2FC0Xwbsr598
+	 4m/J27hXNrLn4sb5txyWhFFI+bhlzyDKJs+QwnSQO++mxBMWIshpIOrlpczDHymfV2
+	 1ttAEfMvzGsw/32qChpx9ZEWjxGtsmqCMaKsdHfax4Wy2oGgmkUSQcdFIfsSCxTytz
+	 MKHZ1DqDZpcd0k1yNkZtkq/8G82Psspp1HPs7BXjqRJ/VLDee0hzAZMZgrUskXi1yD
+	 ymzSQflsNCC5n28VeaGR5MUSPLcl0VR4d8arDEjX5W1BAY42p8HPEgHAw1a7EgX6By
+	 nioGY0AY9EzGA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] of/irq: Fix device node refcount leak in
+ of_check_msi_parent()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fuad Tabba" <fuad.tabba@linux.dev>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260907112944.313618-2-fuad.tabba@linux.dev>
+References: <20260907112944.313618-1-fuad.tabba@linux.dev>
+ <20260907112944.313618-2-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 11:45:13 +0000
+Message-Id: <20260907114514.44DB81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v2 1/5] net: stmmac: Add common internal RGMII
- delay handling
-To: Jia Wang <wangjia@ultrarisc.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>, Chen Wang <chen.wang@linux.dev>,
- Inochi Amaoto <inochiama@gmail.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, sophgo@lists.linux.dev
-References: <20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com>
- <20260907-dwmac-ultrarisc-v2-1-9a39bf8db313@ultrarisc.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20260907-dwmac-ultrarisc-v2-1-9a39bf8db313@ultrarisc.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 9/7/26 09:46, Jia Wang wrote:
-> Some DWMAC integrations add fixed RGMII clock delays internally.
-> Glue drivers need to account for these delays before passing the
-> interface mode to the PHY.
-> 
-> Add TX and RX delay capability flags to the common platform data.
-> Apply phy_fix_phy_mode_for_mac_delays() in stmmac_pltfr_probe() when
-> either capability is present.
-> 
-> This lets glue drivers describe the MAC capabilities without
-> duplicating the interface-mode validation and conversion.
-> 
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 11 +++++++++++
->  include/linux/stmmac.h                                |  2 ++
->  2 files changed, 13 insertions(+)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> index 6128ed1bd521..93b9af203a18 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-> @@ -16,6 +16,7 @@
->  #include <linux/of.h>
->  #include <linux/of_net.h>
->  #include <linux/of_mdio.h>
-> +#include <linux/phy.h>
->  
->  #include "stmmac.h"
->  #include "stmmac_platform.h"
-> @@ -847,6 +848,16 @@ int stmmac_pltfr_probe(struct platform_device *pdev,
->  		       struct plat_stmmacenet_data *plat,
->  		       struct stmmac_resources *res)
->  {
-> +	if (plat->has_internal_tx_delay || plat->has_internal_rx_delay) {
-> +		plat->phy_interface =
-> +			phy_fix_phy_mode_for_mac_delays(plat->phy_interface,
-> +							plat->has_internal_tx_delay,
-> +							plat->has_internal_rx_delay);
-> +		if (plat->phy_interface == PHY_INTERFACE_MODE_NA)
-> +			return dev_err_probe(&pdev->dev, -EINVAL,
-> +					     "unsupported phy interface mode\n");
-> +	}
-> +
+Pre-existing issues:
+- [High] of_msi_xlate() prematurely aborts device tree hierarchy traversal =
+when msi_np is NULL.
+--
 
-Seems good, the default values should be false hence this condition won't be taken,
+commit d227a3bc08eef0cbb22a6f227edca082ac29a9b8
+Author: Fuad Tabba <fuad.tabba@linux.dev>
+of/irq: Fix device node refcount leak in of_check_msi_parent()
 
-Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+This patch prevents a device node reference count leak in
+of_check_msi_parent(). It ensures that the msi_node reference is
+only kept when the incoming node pointer is NULL.
 
-Maxime
+Link: https://lore.kernel.org/all/20260826113604.010C01F000E9@smtp.kernel.o=
+rg/
 
+> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
+> index ec035367c9500..109c54f346479 100644
+> --- a/drivers/of/irq.c
+> +++ b/drivers/of/irq.c
+> @@ -785,7 +785,7 @@ static int of_check_msi_parent(struct device_node *de=
+v_node, struct device_node
+>  	if ((*msi_node && *msi_node !=3D msi_spec.np) || msi_spec.args_count !=
+=3D 0)
+>  		ret =3D -EINVAL;
+> =20
+> -	if (!ret) {
+> +	if (!ret && !*msi_node) {
+>  		/* Return with a node reference held */
+>  		*msi_node =3D msi_spec.np;
+>  		return 0;
+
+[Severity: High]
+This isn't a regression introduced by this patch, but could the traversal
+loop in of_msi_xlate() prematurely abort when msi_np is NULL?
+
+If a driver calls of_msi_xlate(dev, NULL, id) and the direct parent lacks an
+msi-map property, of_map_msi_id() passes the NULL msi_np to of_map_id()
+as filter_np:
+
+drivers/of/base.c:of_map_id() {
+	...
+	map =3D of_get_property(np, map_name, &map_bytes);
+	if (!map) {
+		if (filter_np)
+			return -ENODEV;
+		/* Otherwise, no map implies no translation */
+		arg->args[0] =3D id;
+		arg->args_count =3D 1;
+		return 0;
+	}
+	...
+}
+
+Because filter_np is NULL, it returns 0 instead of -ENODEV.
+
+This translates to !of_map_msi_id(...) evaluating to true in the loop in
+of_msi_xlate(), hitting the break statement:
+
+drivers/of/irq.c:of_msi_xlate() {
+	...
+	for (parent_dev =3D dev; parent_dev; parent_dev =3D parent_dev->parent) {
+		struct of_phandle_args msi_spec =3D {};
+
+		if (!of_map_msi_id(parent_dev->of_node, id_in, msi_np, &msi_spec)) {
+			if (msi_spec.np) {
+				...
+			}
+			/* msi-map present but no match =E2=86=92 stop walking */
+			break;
+		}
+		...
+	}
+	...
+}
+
+Will this cause the function to incorrectly terminate the loop on the very
+first node, conflating an absent msi-map with a present but unmatched
+msi-map, and failing to find the MSI mapping in ancestor nodes?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907112944.3136=
+18-1-fuad.tabba@linux.dev?part=3D1
