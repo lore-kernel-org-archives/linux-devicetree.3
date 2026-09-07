@@ -1,165 +1,109 @@
-Received: from mail-m19731120.qiye.163.com (mail-m19731120.qiye.163.com [220.197.31.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739721DDA18;
-	Mon,  7 Sep 2026 03:36:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D12A34B669;
+	Mon,  7 Sep 2026 03:41:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788752182; cv=none; b=DNa4A5LVXaJdS2271Tbsjn+R3UtpYVGkg2LlVbCMvualycE5DOMBl+5tR1pwHQ0HY9IQ1ox+1LRY6KTL94408Yfw7rrwG6MSSd1AI70TDmwyF1ZbE12n+lSZD5HZhnLdY4HK1D89biBJo+uZnMq9MK93TSsjc+LNtkq9g8uVa6g=
+	t=1788752515; cv=none; b=ECBHZQFrLlAilkKP7qVoOCXAFKl9sC/iUjlHyKyhRs0U+58qXY8hgjw746WLrEhe4cCJE9bKZQrbtfesUEvVucwiy/BpbHNvKxG21ZM+C2m2Jzq8cszD+KuIe+DAWcY0hs52Ey0pM5kUd/+gCFz4VqfvYzwgPnSUxVOjxOs9A1E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788752182; c=relaxed/simple;
-	bh=rNr4D9deSQmTUVh6kFxsRlk5qaYnAx7VmBsAwEZaP8U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ufvwF+ieHHNZLvBwLxIryHN+shhe7mG5kdM8oqEcsijsluIh7hytbVeDB2Ru6o6hyzaofot0ogV+q/jOnGCYbA5pRUzAn9mTDqB+9/VD1p34AtPyV1Y23Lxdnfe2DVS1gKFYUfjvUl9QRJFZfdZJ3wQlEHlbZZkwBd67ebnwmug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=J+pH9aqj; arc=none smtp.client-ip=220.197.31.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1788752515; c=relaxed/simple;
+	bh=biYRPLu73uTwPMN+5Z+1q7VJHLamcrJrBUACS/Onm28=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=kXB59luf38XMxS/m1FgRwnoVy9zFnmC1toVnAmQIlBywqNgKBQTuU2OhokSXQjaGyPhH64J3ubmTlIzxnMcFRWPkcOOHG7jf+/eggYjGQ2yDUQVPkx48rDJl7YV+spK8xyvq0SRF8KXnHcsT0h77KEXEIzE1MmmqIoCfC2FNDlc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HdIsnWE+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="J+pH9aqj"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4cbfd4e16;
-	Mon, 7 Sep 2026 11:20:53 +0800 (GMT+08:00)
-Message-ID: <6e96691c-5d52-4e00-a15b-2a2b21f65fe3@rock-chips.com>
-Date: Mon, 7 Sep 2026 11:20:51 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HdIsnWE+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EFA1F00A3A;
+	Mon,  7 Sep 2026 03:41:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788752514;
+	bh=PPUN7af+VqE8OBwOrB5lewxAsz6OcVFxBqD/H24uDUI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HdIsnWE+s+FdHHl4GIpZ9vO52FMElJG8jw3MwSmQnntWBbGi3SvWoU7cRMkFu1cjl
+	 9LebI3Nhu7umvhkw6h7bplJybOxDhLb4xDInOpRHT1budCb4qQcNWHdVkQp3EV7OG1
+	 3T//iH1WlkYQNmvEUz4pfBEjM6TQ9cDmYIj9ItNAufBSs6Gv3c3qiNhr+PynN8T5zr
+	 jBMGxCr2h4SyEDy5Enkg9ATef0TWPSB1EvBsLCUxRCeKCnEIXskZGcyFQRCZFHx6YE
+	 jhZB+m7MEhPD+4de9phYCMK8cfnaVlZwEGsoAsVZ6JufZQXc/8JttcW9hfhtYw7DP/
+	 PDwZ7V/GkKU4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 1/5] dmaengine: arm-dma350: Fix source trigger bit
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jelly Jia" <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260907033404.596839-2-Jelly.Jia@cixtech.com>
+References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
+ <20260907033404.596839-2-Jelly.Jia@cixtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 03:41:53 +0000
+Message-Id: <20260907034153.A8EFA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 16/19] phy: rockchip: inno-hdmi: Use the common
- Innosilicon PHY helpers
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
- Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Andy Yan <andyshrk@163.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132739eucas1p223161c8aa461d6ad18786635ab3c9de4@eucas1p2.samsung.com>
- <20260904-jh7110-clean-send-v3-16-484f9ae72715@samsung.com>
-Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20260904-jh7110-clean-send-v3-16-484f9ae72715@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa079e20e8103a7kunmae2afc193611e7
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTEsZVh4aS0xLGBgaGkgdTlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=J+pH9aqjliwdMdP6kenDUDgsFo2GFjCulzu+UU8+Z1ovBsC62FGnk1cwrTWEL9+KGDNq4sdEgsK8gJdOHqlSNOH6d50lhGEQHf8B2L81S4cAX6catva+VVg4ikamy9CzRb2ncewysvwvV2ttkQX5ECW8n63q1jQhUmujT/P3DbQ=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=TOMJc+Y8LFdspZYjJ1TLplIIrOzasQxKAI43UPHgqhM=;
-	h=date:mime-version:subject:message-id:from;
 
-Hello Michal,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 9/4/2026 9:27 PM, Michal Wilczynski wrote:
-> The RK3328 pre-PLL programming, its table lookup and its recalc_rate and
-> determine_rate implementations are the generic Innosilicon ones, so drop
-> the local copies and use the shared helpers instead.
-> 
-> The RK3228 pre-PLL sits at different register addresses, so it keeps its
-> own register level code and only shares the table lookup.
-> 
-> The now unused RK3328 pre-PLL register macros go with it, as does the
-> local pre-PLL config lookup wrapper; both call sites already have the
-> TMDS clock to hand and call inno_hdmi_phy_pre_pll_lookup() directly.
-> 
-> The RK3328 recalc_rate used to log the pre-PLL output as "vco". The
-> shared helper logs it too, and reports the actual VCO frequency
-> alongside the rate, which is the value with the 1.4-3.2 GHz constraint.
-> 
-> The register writes, their order and the values written are unchanged.
-> No functional change intended.
-> 
-> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
-> ---
->  drivers/phy/rockchip/Kconfig                  |   1 +
->  drivers/phy/rockchip/phy-rockchip-inno-hdmi.c | 165 ++++----------------------
->  2 files changed, 26 insertions(+), 140 deletions(-)
->
+Pre-existing issues:
+- [High] The driver ignores the return value of `dma_set_mask_and_coherent(=
+)`, which can lead to silent memory corruption if the requested DMA mask is=
+ unsupported.
+--
 
-[...]
+commit c925d144b95da8512ff2006d79c7add5a368be10
+Author: Jelly Jia <Jelly.Jia@cixtech.com>
+Subject: dmaengine: arm-dma350: Fix source trigger bit
 
->  
-> @@ -915,39 +858,11 @@ unsigned long inno_hdmi_phy_rk3328_clk_recalc_rate(struct clk_hw *hw,
->  						   unsigned long parent_rate)
->  {
->  	struct inno_hdmi_phy *inno = to_inno_hdmi_phy(hw);
-> -	unsigned long frac;
-> -	u8 nd, no_a, no_b, no_d;
-> -	u64 vco;
-> -	u16 nf;
-> -
-> -	nd = inno_read(inno, 0xa1) & RK3328_PRE_PLL_PRE_DIV_MASK;
-> -	nf = ((inno_read(inno, 0xa2) & RK3328_PRE_PLL_FB_DIV_11_8_MASK) << 8);
-> -	nf |= inno_read(inno, 0xa3);
-> -	vco = parent_rate * nf;
-> -
-> -	if (!(inno_read(inno, 0xa2) & RK3328_PRE_PLL_FRAC_DIV_DISABLE)) {
-> -		frac = inno_read(inno, 0xd3) |
-> -		       (inno_read(inno, 0xd2) << 8) |
-> -		       (inno_read(inno, 0xd1) << 16);
-> -		vco += DIV_ROUND_CLOSEST(parent_rate * frac, (1 << 24));
-> -	}
-> -
-> -	if (inno_read(inno, 0xa0) & RK3328_PCLK_VCO_DIV_5_MASK) {
-> -		do_div(vco, nd * 5);
-> -	} else {
-> -		no_a = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_A_MASK;
-> -		no_b = inno_read(inno, 0xa5) & RK3328_PRE_PLL_PCLK_DIV_B_MASK;
-> -		no_b >>= RK3328_PRE_PLL_PCLK_DIV_B_SHIFT;
-> -		no_b += 2;
-> -		no_d = inno_read(inno, 0xa6) & RK3328_PRE_PLL_PCLK_DIV_D_MASK;
-> -
-> -		do_div(vco, (nd * (no_a == 1 ? no_b : no_a) * no_d * 2));
-> -	}
->  
-> -	inno->pixclock = DIV_ROUND_CLOSEST((unsigned long)vco, 1000) * 1000;
-> +	inno->pixclock = inno_hdmi_phy_pre_pll_recalc_rate(&inno->pre_pll,
-> +							   parent_rate);
->  
-> -	dev_dbg(inno->dev, "%s rate %lu vco %llu\n",
-> -		__func__, inno->pixclock, vco);
-> +	dev_dbg(inno->dev, "%s rate %lu\n", __func__, inno->pixclock);
->
+This commit corrects the bit used for the source trigger enable in the
+CH_CTRL register. It changes the value from bit 26 to the proper bit 25 to
+avoid inadvertently enabling the destination trigger input. This prevents
+silent failures in transfers that wait for a peripheral request.
 
-The printing here is redundant, because it has already been handled in 
-inno_hdmi_phy_pre_pll_recalc_rate().
+> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+> index 09403aca8bb06..4e17130de6c87 100644
+> --- a/drivers/dma/arm-dma350.c
+> +++ b/drivers/dma/arm-dma350.c
+> @@ -63,7 +63,7 @@
+> =20
+>  #define CH_CTRL			0x0c
+>  #define CH_CTRL_USEDESTRIGIN	BIT(26)
+> -#define CH_CTRL_USESRCTRIGIN	BIT(26)
+> +#define CH_CTRL_USESRCTRIGIN	BIT(25)
+>  #define CH_CTRL_DONETYPE	GENMASK(23, 21)
+>  #define CH_CTRL_REGRELOADTYPE	GENMASK(20, 18)
+>  #define CH_CTRL_XTYPE		GENMASK(11, 9)
 
-Reviewed-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+While reviewing this, I noticed a pre-existing issue in the device probe
+path:
 
->  	return inno->pixclock;
->  }
+drivers/dma/arm-dma350.c:d350_probe() {
+    ...
+	reg =3D readl_relaxed(base + DMAINFO + DMA_BUILDCFG0);
+	nchan =3D FIELD_GET(DMA_CFG_NUM_CHANNELS, reg) + 1;
+	dw =3D 1 << FIELD_GET(DMA_CFG_DATA_WIDTH, reg);
+	aw =3D FIELD_GET(DMA_CFG_ADDR_WIDTH, reg) + 1;
 
--- 
-Best, 
-Chaoyi
+	dma_set_mask_and_coherent(dev, DMA_BIT_MASK(aw));
+	coherent =3D device_get_dma_attr(dev) =3D=3D DEV_DMA_COHERENT;
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but should the return value of
+dma_set_mask_and_coherent() be checked and handled here?
+
+If the requested mask is rejected by the architecture or IOMMU during
+device probe, couldn't the system fall back to a default mask (typically
+32-bit)?
+
+If the dynamically read hardware address width (aw) is less than 32, the
+kernel might map memory addresses that the hardware cannot reach. Could
+this lead to address truncation by the hardware and silent memory
+corruption during DMA transfers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907033404.5968=
+39-1-Jelly.Jia@cixtech.com?part=3D1
