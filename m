@@ -1,225 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355D745D188
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:04:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB82A48A2C6
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:05:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782697; cv=none; b=GGfQ0QrcduSSPLXouqiMyRyY+mKNWcqvPErEr4Ma+8E96KwVOXPWldgrirvyUY9DwHR+BasmHAq/AcsLPLannJM75rrnUd3W2T4gi8tt3GwbcPTsUYbFfDnq+gcefaXD+dDrKyfVPn/NJcZOFGe5FTVlNiToqjOz7I876bGYw9M=
+	t=1788782706; cv=none; b=ciw607J6vYnaq47JxURsVqbvvshvi7R1Sb2rPCqKjKUnjbikaNi8Mk5f+cgDJ1M/+dwIcmBotwflvnNlJak66W8GMy84iguOZfzalnFUCV92s7VvgLiwE3U2OSlFIDa1eg0Yy3xNBy6OBpPXEV2W1aYI5APdR2KsWyQ9HUoyG6Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782697; c=relaxed/simple;
-	bh=ad08DuDaSO1yVoT98fF9udpchlg5EnxBlUn+Ke17SOs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bQUFEWA7IsAkNTLi26vjMBDJRC/X14w2exiWvQdS/K4+Hae+CdC6xEd4HeZgSz04n4gKS1o+Tl8oc8IJgGGLeqWG58FfTzgLzXw2ft+X5mStQrObSIhs6qA+Ll9uRXZEYFZIPgQklHZYuqhmI38i9nnreFdCVo3Fap6Q2nu6raA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jD36vBjJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788782706; c=relaxed/simple;
+	bh=gMWErXSYRc5v7JBT6ywk6kOtY9nHKNpPH1IBdR78J4Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F5LWA7k0lchTMGGcFiMJ3ym+L0ghmwlD3Bed5wQJi0jngqRkPQONXfKuCcRKPXQMSfZLOLFlURtm2GRWvytgBXLL0Vf7TeGdOruU/Ppnw41scPjpjG/HqRXD16jbpCJTNkST2y41cD8KSN9L8TGicEZDA603dd5P+8tgmkQpnp4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=op7VPV6N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QYIHepnp; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jD36vBjJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4801F00A3A;
-	Mon,  7 Sep 2026 12:04:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788782695;
-	bh=9FNgktMsI7L54qOw0ELGSGQm8VP08SAZw59F1jT7zTM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jD36vBjJtmNPjfDyLvSN7s1xK1Das79V6E/4HpBq8tOgeY0Hi7UFjWWTvXqgjlz3J
-	 X3ijd3/OyEpdekweLP+EEMzpBxZGpKuLbeWJx/x6j4AXbSm4P3JZVzh5Uu63iStvPx
-	 bWpXmtttV5mHkIzURbhEIqeiZe4gb05X2wqicRCjOs2X+3vT28doGZLt0KHPriC06k
-	 EQdRNyWYG9q4Gc4Z65q5roGtHNoU7GGTfcNgB2cUkxy2KufNi7amIrZb7yBkcASB07
-	 uuUrnveGeanKQLoy1VSOe+MbbKt34CB6mwmyOsLHd/g0Zv+ORjQJqYgNXaO0HJERO9
-	 66AmEnW0Rcfvw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 4/4] iio: light: veml6031x00: add support for events
- and trigger
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907-veml6031x00-v9-4-8c93a6c66a4d@gmail.com>
-References: <20260907-veml6031x00-v9-0-8c93a6c66a4d@gmail.com>
- <20260907-veml6031x00-v9-4-8c93a6c66a4d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 12:04:54 +0000
-Message-Id: <20260907120455.7D4801F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="op7VPV6N";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QYIHepnp"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687Ammjb2651981
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 12:05:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	bVgKgqOoFXytrZYRxPyu4M0vvgU1+iefS8c1X4FLYD0=; b=op7VPV6NmM8jKMcZ
+	wMx7pL7Q+WP58EWAJ3qDyW5Feedf4y9JHQJjKBu/oeHqpggNUWwOBaBeSPnU9wR3
+	fv0vg0FxhsJ2MOH4cAAayVvl62c/w00YLsQG01m55J2fGKIz0r/7A7SG9OdGVI8h
+	5IslqqkrXnAP+ntKPoJxl4UG8RmBLnxS4EPrGlWAtZFFc0XZ5a7naGBzCurBhW3T
+	LJQHe/SA9VaPFWtyA3zgSArjJd2eb3E01UJvOrf7aWGo0U7lUBdjlfWzsNeM2znu
+	9yr//FvaKM4yjKhfCYp1zBQqr0yJMKGivF7uajcqkYPWFdeleBNWPCTj+Aosvnj2
+	njGDIA==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtty0hj9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 12:05:04 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52ffd22d2b1so7801481cf.2
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 05:05:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788782703; x=1789387503; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bVgKgqOoFXytrZYRxPyu4M0vvgU1+iefS8c1X4FLYD0=;
+        b=QYIHepnpsqujDRnsb2puiA+MvM812tzmVuTI0ztuSL/ocmELtKsrMt+tlAESBgOgVQ
+         RLgykWXqD1mtWIeZkpq2nDOKwEjZf4oqxnzGV9SEAOIMIsavp91M0FnuzSPDniDC3BXX
+         oqnKaaxGOHGiSZLNYbcRvYlGWLYvUs6PFgPzbVedkd8cmgnBwCu2YGfg/o6NLRpJl4hD
+         XKRq9b0mVjPwP7IR4XTaTaLFo/6rNAZ3wxQ1RwCe8yHTHp9SUBnI9g8LHE+f/fhrGFdG
+         anU/DAXO4dYFRG2d2gc4xJv0u3EFsdqpY6GIc2boFYGSDZsiDRIftKXFd7qUx3BG+aVm
+         E/1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788782703; x=1789387503;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bVgKgqOoFXytrZYRxPyu4M0vvgU1+iefS8c1X4FLYD0=;
+        b=bEAG64rTH27YzjzUBUwpB965ETVnyDjea83cO0C+69DBoXrNmvHIzP9z94q/NhbctF
+         DOC1b/0R/Kv/8NKhJ8UZ6qHyfCcFH9TIs50phE7p+QvXWYz5+M6YLt+nE4i5t7oOjktr
+         /JB9xiUoFzTg0SzgkuHzanzKu+Bgu9HAz3AQIdJsaSQksUujYUgvR2rcSBBpCZqMCrpa
+         OkCq7Ns9DndfclEjdzyIesBlEYsdLQ8HahIcOplgI1BEoIgPK/XjsqRiAzbD6TnSzvyj
+         QApl4ox+WNsVPpTCqbO+lvZZeuk2gbwDesrugbN3tSR4I7veykC1t6/vnTS8thUn1wcA
+         co9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBweT4TdI4nDNuR4NUDBciRw0CpgqGklB/QwyJ+9Ilus1pROJqHFhD1PwRRx3bmNNr57mXlTo7z20wn/@vger.kernel.org
+X-Gm-Message-State: AFuF++mzDB7uhGvAEt1jBWtaxxQlAzXbBALtmecmW+iNdr4I/4JBZck+
+	Du/uJn9HFRc7NRbQQQ+Y+Gu3pGdlEWI/r2v3Tnkr16FX93YGzpTwyFgTFB2iRSNn2mEo3gx/Vq8
+	waYvr8OWgeXKUsKkRHR+U+5ZLKqusGpkiy3o9gaNVCCtgeOZAoxCJV/95yDb/kpII
+X-Gm-Gg: AYBFou0cdHaqeKSyLMkJzizY5eebKjjJl0SnnkfFqIfanFtOTEm+gX7hIbO9SeIrN4J
+	bkGGyG3clLWgHwBLoZ+WZs+LyEAHPG4hXaTzIHfIqjJuo9AWP+AuXvxdumg2OqEer8QjdY5McxE
+	HGRhO93uUCCCVflUih8J6k8SqD5H7jUhw/xNed+28CKV+bCYHcKcmNqi2/c/2uUO0osE2imtE1O
+	Vw2qeSKd0tKQBmWwAT2dq8kLFqfpqrvWdMnq/Fx6Q2d/OIhTK24mKwW9LqSZL9gpOeXGPt3ot+n
+	3tq2M8txS0gA0i70BHZNxW+nkpH0C1KQXVrPAOooOVx239Q5szenD2VQ2Y13T5pbyTgVxxdqyyR
+	5ywbzNU2b8PH6zoFC1SPQX2LOcfkM797IVQ==
+X-Received: by 2002:a05:622a:148c:b0:50f:a53b:9d5 with SMTP id d75a77b69052e-53064575926mr130309971cf.2.1788782702927;
+        Mon, 07 Sep 2026 05:05:02 -0700 (PDT)
+X-Received: by 2002:a05:622a:148c:b0:50f:a53b:9d5 with SMTP id d75a77b69052e-53064575926mr130309241cf.2.1788782702399;
+        Mon, 07 Sep 2026 05:05:02 -0700 (PDT)
+Received: from [192.168.0.242] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm205136585e9.0.2026.09.07.05.05.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 05:05:01 -0700 (PDT)
+Message-ID: <ef41a092-cd83-4e65-a16a-7a8b838bcb63@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 14:04:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+To: muzafferkadir@mainlining.org, Bartosz Golaszewski <brgl@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org>
+ <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=QNBYgALL c=1 sm=1 tr=0 ts=6a9ea870 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=OuZLqq7tAAAA:8 a=7cKmDxSfVGQto59j-ZYA:9 a=QEXdDO2ut3YA:10
+ a=uxP6HrT_eTzRwkO_Te1X:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-ORIG-GUID: SNuB4t8aT2FdZ-T91_UtzrnfN9rqLRIS
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzMyBTYWx0ZWRfX70eHqs0HhQgj
+ umakbRdnJknhZyQ7hqhQZovUoPMAdK2xFqecB4li3e2eUa3EQfJ/+LPDgZu3VsJ6jc6WouFpuHq
+ o2wXPgPO9f/WSvVN5e0s8RQ0JAbNW7U=
+X-Proofpoint-GUID: SNuB4t8aT2FdZ-T91_UtzrnfN9rqLRIS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzMyBTYWx0ZWRfX8ldNMHIqofeW
+ ccQsNmsRvFhF28drhQADGvjLmAtBEp5IK/OM8KwOUg2tt4uSbe8ZGnYtPdB71awrwDYRoaKNSyb
+ lwIm6m3ixEy35rMDK7Gd+nugMN2ZRoIAfbuNfk/h2KuSzpl3ot0JNt8zkl33DQ1LOJzIpDfDeth
+ +Gj+pfeGnXrN9iKh2rR9MT0CmAe5fkowlTr5DRQbnstIvDII5sujKB3oQz8+TW0j2WtcBk4hW+v
+ 02gnVjWwQsfNypoFuawtLQvy9lj+kmPs8kbwCUyBbaMrEPjIROrjzaqUlLsVoP2Q1HNQ91Yh5Pd
+ lyqfd+Nsi9fLSlrAO9lZXExSteplhMVsgOiNyE/PEGr5Nf/zMGFUyFvQPxO9iE5pAtxjwHX333t
+ EkY6DQR4Z991CxVSPkJn7Zd9XoMdo/52JIuCWB8rHKNxE+bI/rA9lrbfAuWttBHiRNc3SNAI4Qu
+ XLaNTrgYw9/HW7rXw4w==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070133
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Device left in Active Force (AF) mode causes stale data in single_=
-read
-- [Medium] Spurious I2C read from device configuration register caused by i=
-terating over the timestamp channel
-- [Medium] Software state machine desynchronization leaks interrupt user re=
-ference on rollback failure
---
 
-commit 20d504b87ca25179c583e1df1a78eee06d4b1837
-Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
-iio: light: veml6031x00: add support for events and trigger
+On 04-Sep-26 14:55, Muzaffer Kadir via B4 Relay wrote:
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> 
+> MSM8952 has same pin count and similar pinctrl
+> functions mostly with msm8917, but some functions use different pins.
+> 
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> ---
 
-The device provides a shared interrupt line to notify events and
-data ready.
+I told the robot to take a look again (and again and again
+a couple more times until it stopped complaining)..
 
-> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031=
-x00.c
-> index 3d5a27a0baaed..110f59625a5b1 100644
-> --- a/drivers/iio/light/veml6031x00.c
-> +++ b/drivers/iio/light/veml6031x00.c
-[ ... ]
-> @@ -551,11 +976,83 @@ static int veml6031x00_buffer_postdisable(struct ii=
-o_dev *iio)
->  	return 0;
->  }
-> =20
-> +static int __veml6031x00_set_trigger_state(struct veml6031x00_data *data=
-, bool state)
-> +	__must_hold(&data->irq_lock)
-> +{
-> +	int ret;
-> +
-> +	lockdep_assert_held(&data->irq_lock);
-> +
-> +	ret =3D veml6031x00_set_interrupt(data, state);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* The AF bit must be updated before updating AF_TRIG */
-> +	ret =3D regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +				 VEML6031X00_CONF0_AF, state);
-> +	if (ret)
-> +		goto clear_interrupt;
-> +
-> +	ret =3D regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +				 VEML6031X00_CONF0_AF_TRIG, state);
-> +	if (ret) {
-> +		regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +				   VEML6031X00_CONF0_AF, !state);
-> +		goto clear_interrupt;
-> +	}
-> +
-> +	data->trig_en =3D state;
-> +
-> +	return 0;
-> +
-> +clear_interrupt:
-> +	veml6031x00_set_interrupt(data, !state);
+The following feedback is meaningful:
 
-[Severity: Medium]
-Does this rollback path cause a state desynchronization if the I2C write in
-veml6031x00_set_interrupt() fails?
+Hi Muzaffer,
 
-If the rollback fails, interrupt_users is incremented back to match the
-hardware state, but trig_en remains false. This leaves the software counter
-orphaned relative to trig_en, which can permanently prevent the driver from
-disabling the hardware interrupt in the future.
+  `qdss_tracedata_b_groups` advertises GPIOs that cannot actually select
+  the function. Please populate the corresponding PINGROUP slots:
 
-Can we handle this failure so the interrupt_users count stays synchronized?
+    GPIO8:  mux 11
+    GPIO9:  mux 12
+    GPIO12: mux 12
+    GPIO13: mux 12
 
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *iio =3D pf->indio_dev;
-> +	struct veml6031x00_data *data =3D iio_priv(iio);
-> +	struct regmap *map =3D data->regmap;
-> +	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2) =3D { };
-> +	unsigned int i;
-> +	int ch, ret;
-> +
-> +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
-> +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
-> +		ret =3D regmap_bulk_read(map, VEML6031X00_REG_ALS_L,
-> +				       scan, 2 * sizeof(*scan));
-> +		if (ret)
-> +			goto done;
-> +	} else {
-> +		i =3D 0;
-> +		iio_for_each_active_channel(iio, ch) {
-> +			ret =3D regmap_bulk_read(map, iio->channels[ch].address,
-> +					       &scan[i++], sizeof(*scan));
+  Minor nit: use MODULE_LICENSE("GPL") to match the nearby Qualcomm
+  pinctrl drivers. // and checkpatch will ask you to do the same
 
-[Severity: Medium]
-Does this loop read from the configuration register by mistake if the
-timestamp channel is enabled alongside a single data channel?
-
-The iio_for_each_active_channel() loop processes the timestamp channel, but
-its .address is uninitialized (0). This causes a spurious I2C read from
-address 0x00 (CONF0), writing the config register contents into the timesta=
-mp
-padding of the scan buffer.
-
-Could we skip the timestamp channel or check the address before reading?
-
-> +			if (ret)
-> +				goto done;
-> +		}
-> +	}
-> +
-> +	iio_push_to_buffers_with_ts(iio, scan, sizeof(scan), pf->timestamp);
-> +
-> +done:
-> +	iio_trigger_notify_done(iio->trig);
-> +
-> +	return IRQ_HANDLED;
-> +}
-[ ... ]
-> +static int veml6031x00_hw_init(struct veml6031x00_data *data)
-> +{
-> +	struct regmap *map =3D data->regmap;
-> +	struct device *dev =3D regmap_get_device(map);
-> +	unsigned int val;
-> +	__le16 regval;
-> +	int ret;
-> +
-> +	regval =3D 0;
-> +	ret =3D regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(re=
-gval));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
-> +
-> +	regval =3D cpu_to_le16(U16_MAX);
-> +	ret =3D regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(re=
-gval));
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
-> +
-> +	ret =3D regmap_field_write(data->rf.int_en, 0);
-
-[Severity: High]
-Does this initialization sequence leave the device stuck in Active Force (A=
-F)
-mode?
-
-If the driver is unloaded after using triggered buffers (which sets the AF =
-bit
-to 1) and then reloaded, or if a warm reboot occurs with an always-on
-regulator, the hardware retains AF=3D1. Because veml6031x00_hw_init() does =
-not
-explicitly reset the VEML6031X00_CONF0_AF bit to 0, the device remains in
-Active Force mode.
-
-Subsequent calls to veml6031x00_single_read() do not assert the AF_TRIG bit,
-causing the sensor to never execute a new conversion and indefinitely return
-stale data.
-
-Should we explicitly reset the AF bit during hardware initialization?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D regmap_read(map, VEML6031X00_REG_INT, &val);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-veml6031x0=
-0-v9-0-8c93a6c66a4d@gmail.com?part=3D4
+Konrad
