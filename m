@@ -1,126 +1,154 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8D54EA38E
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 035FA501F30
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:21:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794367; cv=none; b=ZSmppJVATdfKLBphbRBntSnrWjP0YMJ02JN0T5YHO13bAKPYoNw3JBRgPDb8V39gbqjdkka6Iw8nwnGZq0Ert/CugIXyHPfLVEHpN7uaMbjNbeIzbd8urCclkC+wMFXMzEJNfbObiBETkjC5UTdKLkq+L/pmBckPx+zGG3egdDA=
+	t=1788794478; cv=none; b=e2QJjsUPRRCOWaUX2b8fMdbcmOu/Vrl8KVsvQoMBjnhBOSAMDPJbigUswox07ePPHBJPJbtvie/eqwR84buqt8j48dC7XngdXnztMkx1xDpL+6Lh5JHdry6Uteqn9JlYiXWQEvbQoaR9SxSGR+1AAsmUpS4Tjfz//if4xzeR/VI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794367; c=relaxed/simple;
-	bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=VOOatLvC2O4y2ABAlH0dNOir8HkergmeWHFNLCHsxpn7g/gMfYJ0CQbFW9KnD8xAsvyyiepoHVMK2gFOb17epmNINeRJ572if1pKVE8IfObAIWIxrgLpYgFh/QnlntFnIchS7maJ30PILyW3xtzT50JWhmfSNq2+Yc4mNe9M+lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WcjO6Pjr; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788794478; c=relaxed/simple;
+	bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qt2KLvOBKv9FMCB7naTRYl2RU3jyDikhlkRLA1t/T2SwIWbB4zGWVy/x4IwEEVNnkVQKE4j4WNAwazQaNjPt4b6cDLjpS/uWkO8eBtYXCky4zThEZog4mGVHrDMegtFNcPzcZX1KUjfedCNNdyKOApgNSPMW7FIbY//oUUz93r8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TW5UwvgY; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WcjO6Pjr"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso39288465e9.3
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:19:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TW5UwvgY"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso35373205e9.0
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:21:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788794362; x=1789399162; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
-        b=WcjO6Pjr/Xe21JivKqhd7zW2Wev1CqRRTyYrs3KMr7rXsPgN/kyBafvkLkss6A/Tra
-         w3VSjhT3hIvPqhRPyH+52jDaCaIwmiUDn27ZfG1lPutE4HZcoBujAQVigRyDwpULWzs0
-         DBpTVYJEDRlosx7OBBWTuNxLqbssSjsYdCeMiuPK9imGgy1/jqJgPzX4CV8bOgye5QHK
-         VTLFqrL+bUaNXZDaQlOCPLcQ2lhkrHYialup0OuiGeb9m8dbVrQyYtH208OgQHhsSchI
-         fNAeXt59o43+/XyJPFfqmO2hDYKaBtAwMUWLzjQmSexMS90yKGAw/v9szxH1MaDN2Sfx
-         LuRA==
+        d=gmail.com; s=20251104; t=1788794475; x=1789399275; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
+        b=TW5UwvgYd+Z348/MHCluzx9vWPmvDNgx4x6AbxBsWhekm1fWz+2pAJi3B5LfRIX9t+
+         9WwnWxIJpefDD8b3o+1R53IMplrjBCjlr2g3R7A79yHUbMnPusTe9z2VSfvHctolgAJK
+         JcC0G4SEskUIBG/HRBwXnjpssbMtKxmXM94vT/Lg9cDLglCP4ItN5KE6GMsRMzm8pJ95
+         2grcrZVMKTS0ck6kI8XaI5fHAQILxZlwbAfR/FEhzlkCCHEVT9kFB88zL0Aab2RQZS0M
+         +R43XbWo15LUv8/EeQdtg013BBYKPNGv4ecYMy4kR7knTXqDOboWG4DQJy7kqAX+Ymbe
+         x8Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794362; x=1789399162;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
-        b=GL09iUwoq6QViI4ftcMmiEUx47Yy4TJFm8RstsDXWl9qMwqjJ5FBJ5Z02q8+fzmlc9
-         5Gfqcf4/TYF1gN0C7h5ZlMjskwbw/QHlgvaXBlcCHfSnRBeAc0etMwnho/iLuaTl9AKc
-         4dDgR5rPbv35MYdZ316fUDB39cpGaVauqOI75kXbpjXnjBjtw11dIHK85WhtA8kghDoV
-         sgrSiGBQOughzHWE6e+fOFHhvzQY0g5N0zvzomL/Ca2P0OnDFwoT3D4I8EMsInQmGYNr
-         J0MYFWHswsMzpqHFYJTz2f17/o5ycKnSwzRP/P2C1/6XZ45J8jcUrz1/FGRy3NYzJsYx
-         bMAA==
-X-Forwarded-Encrypted: i=1; AKwUvBw3GvpXSh+0vIy2TMXwBMnojuMuf70G/ctPvEU/CC45zM25L5JuYMOSE1isz+5Ov806zOSpKZUurtVr@vger.kernel.org
-X-Gm-Message-State: AFuF++mK7OWTGy3wFepysl83RHm1vrVWnMK09vOuVuPpyhoAA2mYluJz
-	3TKPJeq8sB+Gx7FO2xYppH39SDGJMokq89vh5yhSY91DgsT8mUIZZgpVliZQJUGgEEU=
-X-Gm-Gg: AYBFou2kbkTo0RXigYQqMiYt1/WPPUxf4s2rKtefhSTqUn8pS1IuH4vkLphMGClnLqD
-	O+dhkkpLYFf8qAFO22EAq9g1D5DRSbe+wQKp0agQJizJx9oFaR/ZcVd5ITtjYMqYNzkfS5V2wY7
-	qOARxXY7OSPpoJSznSxdeUSYXE7PNHpOKTkEVNn7zjJKQmP4WjFZoH6H3MXzVcX1FQHeramxetB
-	xc8b0BZVCWuZsD6lDF3bzsJv+DrDz21mKCtRhk8zR8b1a+OHNvFOfGaFrDVE+fa+e3CVTcJiQGR
-	dV/rcVpbyx7zzrw4saHFGG8I23oWuOn0pP7pM8okLEp951G2LI0Oi7QqLUFkZY35Nga4KGLZAq7
-	IQYhhAqGGaVf2hv8S3KlCkTduiv9oVds/gYNcXt/eNAXnCO+hGGozOLwsjxZaRY/uPmHHPPd4BY
-	/R+Rg0GX+v4p45si8JNlo4+StaPHyvEnecIpV2iiVtWgFD47GqFb9EyU7P6y6iD+gSYR7b8Ly4c
-	4ZZ8B2jJPxp2F0C0d6hnw==
-X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr393160235e9.6.1788794362159;
-        Mon, 07 Sep 2026 08:19:22 -0700 (PDT)
-Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm288040175e9.0.2026.09.07.08.19.20
+        d=1e100.net; s=20251104; t=1788794475; x=1789399275;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Je540+x0RLBrjADL4XgLC8DmzHI3N9G0dzH+bqi3T4k=;
+        b=D++Z3Wv6V4D2aMMrFMuKWJfbfHFTAkoxrywE/Gu2E/51waBrgVZhKo9e/9BQqhIDp1
+         8wW8r6KRRc9Ni0GU/xAqSJNrifLVXs9TwsLZQHCSguKkqfLIAa/nH6Ft4q0jTcOyXD/x
+         o77bO6DG3wb7dQXb/ZN0aCCzM3xfAdlaWFvRDHp9QZ46Xee84PtIWo0XxbExnpHYwM5s
+         yEBLFpXJzJK0mJF3vXkpx9tS8yoW4NR36pK+6wBqgJ52IbPCRrHn3lS7M59VQJ3+nna7
+         WBCB4g9lQd6kueYTebhLl4VB8KAfgvxoUxFVbUHXkQKPh2ik9zHZaOHYGbrV7F+fXgoN
+         mdgA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXK+gZJtDT7VSVPVOOiLBVP2CXZdC3GBWlKivKMGlWuj5rDrpeiDBPJOE0hgZE2eATVIKvbEytvsMa@vger.kernel.org
+X-Gm-Message-State: AFuF++mmXq21CCLk3NkjTWzISp97FqcIhGSjajSWxIp86m286ELbcKIg
+	s7rp3cu6x1b7LFXz9HJrfyOppX3fEVnrN5sxNfkz8ucu/qVED0Ft7wam
+X-Gm-Gg: AYBFou15aM5c2wLSomPvnyi7WPhNe6UalAsXGmwcEWbdFPF8XS2rS2IPLusC3tdaZyB
+	NJqqCfQwiPpkks1PIndJ7iHTxCgy7vRe00ZZ5NV98CRJAsbGRMVJ/wJ/JtCiaNn93Md8s3Z2imi
+	5bKe1OTHIjWp0ezrIc4r1LZ9VsEQEHWgN0Ekn5VkyLqfx8VL7BddImTnOpOoQ4AsR5n7nxDK7d6
+	JaDdVKWxmbXJCdWtRIO8Qnk+txsfoV8597uwJCZIWmTgtzGZEZo1XAEK7QkpwcPZPQfwiFsnLvN
+	bAsy1Y5sLFsixkFu3kowBU8ZTb25DuWdwYigZoOOP5hlC+TxjhZap+sNcipgkItc2JMgkEz7OkW
+	weZLZSpixZhiiG2Cg47IsPvFyg2udGBqFe7+Ra4xzkQvwJQLtoSzpHGS2C1BCMZu0HVnEZk8b/P
+	a1CB91L0DWjNHOzLcrsTwFXxnieDMg9qdqCZgo1qs9E3op70LjLRX4XvpDEbJj5Q9pDOWc8Z6Me
+	2/IpogEM5lpGoAA6CTn/Pjz6sRlVH7sQLo3Hdxqzg==
+X-Received: by 2002:a05:600c:3f08:b0:49c:fa20:cc04 with SMTP id 5b1f17b1804b1-49cfa20cd10mr195270575e9.27.1788794474776;
+        Mon, 07 Sep 2026 08:21:14 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7740d44sm695732295e9.15.2026.09.07.08.21.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:19:21 -0700 (PDT)
+        Mon, 07 Sep 2026 08:21:14 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>,
+	Flaviu Nistor <flaviu.nistor@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: ti-ads1015: Add support for label
+Date: Mon,  7 Sep 2026 18:21:10 +0300
+Message-ID: <20260907152110.4934-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260905030114.21de1faf@jic23-huawei>
+References: <20260905030114.21de1faf@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 2/4] pwm: meson: add the PWM count driver data
-From: Alexandre Mergnat <amergnat@baylibre.com>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
-References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
- <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
-Date: Mon, 07 Sep 2026 17:19:15 +0200
-Message-Id: <178879435514.2256446.12623877061277695056.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=748; i=amergnat@baylibre.com;
- h=from:subject:message-id; bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
- b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntX6M1dVwwpG2kkr876Epbt5jZrSl70Nlw4AG
- HstsY/+0kyJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7V+gAKCRArRkmdfjHU
- RbpRD/0ehx78POhhYnSt521wnujPrwLy1gEErNRrExkWhZysX4QDuXyJy2R8JOv9iSpxCyY6sHp
- OStxUC59Z7yn8cTVgbQufMKwTpINIBqq5eXL8bQhdsmJEy+Pk1/3ww0GAVwSq5ZXHtMjsE0/7eV
- AkW7ix5czGVHop96QPnKwjREam7sb0FcFaRGjR0hs1AAnQEl9DTq2+UFZCj1ikMy4Tz43KRS9qX
- 1h+GdCJIlctY0Ge/7SF9+07et3J/2sH3lE8vQRMoPP7wQLB6dXuGbrbv3LYHmXIW55nZY4c/viA
- e5eM4ibjmSZMZCeRZH7T8mDxi5aZTDC5KggxpX120TSlF/RpdsC0MXhtgxg5jA8HLusYvIWV/rm
- BVTWqgIAxnOD2oZSKgE1THvUmZQ+tZ28aeVKEo+Ppv08GZva7gqjPTPTUeIzenyqwqaShfSAQSt
- gsvvXrPntt6cLxx9mVFNvNrcEK7z0FVkpP6Eb6sJW3if8dSnHywjT0ORFxjzt2ppnmSPMM5oMKk
- Su0Z/+5Gnc5ZeZY3CMt/hHdXJdRL4csf3nqLomgLjoJfIPBQLmB/xj8JEaO/So0odhbKv8K0x2n
- 0u5N4D7tb2oUl/tf0At1LWLYbd6JgnKZ7nlfiL3OzD3xfYXgt7x8rmtMFDTO9rVbDdJuPI1Bsr4
- /p2Q9nrsCVSI+sQ==
-X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
- fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
+Content-Transfer-Encoding: quoted-printable
 
-> Add .npwm fill the  existing entries, use it in probe, and switch the loop
-> in meson_pwm_init_clocks_meson8b() and meson_pwm_init_channels_s4() to
-> chip->npwm. No functional change.
-> 
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->
-> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
-> index 8c6bf3d49753..22cefc6d5dd0 100644
-> --- a/drivers/pwm/pwm-meson.c
-> +++ b/drivers/pwm/pwm-meson.c
-> @@ -113,6 +113,7 @@ struct meson_pwm_data {
->  	int (*channels_init)(struct pwm_chip *chip);
-
-The commit message has a small typo ("Add .npwm fill the  existing entries" has
-a double space.
-
-beside that:
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
-
--- 
-Alexandre Mergnat <amergnat@baylibre.com>
+On Sat, Sep 5, 2026 at 5:01 AM, Jonathan Cameron wrote:=0D
+>On Thu, 3 Sep 2026 22:03:55 +0300=0D
+>Andy Shevchenko <andriy.shevchenko@intel.com> wrote:=0D
+>=0D
+>> On Thu, Sep 03, 2026 at 06:16:27PM +0300, Flaviu Nistor wrote:=0D
+>> > On Thu, Sep 3, 2026 at 9:18 AM, Andy Shevchenko wrote: =3D20=0D
+>>=3D20=0D
+>> ...=0D
+>>=3D20=0D
+>> > Since the iio core exposes in sysfs the in_volatagex_label=0D
+>> > for all channels, there are 3 situations: =3D20=0D
+>>=3D20=0D
+>> > 3. The channel is not defined in the dts (in_voltagex_label is still v=
+i=3D=0D
+sible=0D
+>> > in the sysfs), and reading the label will cause "(null)\n" to be print=
+e=3D=0D
+>d in=0D
+>> > the console (as indicated also by Sashiko boot), since the default "" =
+v=3D=0D
+>alue=0D
+>> > is not assigned during device_for_each_child_node_scoped(). I think th=
+i=3D=0D
+>s is=0D
+>> > not an issue since is just the way sysfs_emit() handles an NULL string=
+.=3D=0D
+> =3D20=0D
+>>=3D20=0D
+>> Is this current state of affairs?=0D
+>>=3D20=0D
+>> If so, the patch must not change that =3DE2=3D80=3D94 it's an ABI now an=
+d (null=3D=0D
+>) is valid=0D
+>> response from the user space point of view.=0D
+>>=3D20=0D
+>> > What would you prefer? Any further suggestions? =3D20=0D
+>>=3D20=0D
+>Unfortunately we never defined what should happen this way explicitly.=0D
+>In practice assumption is that this is a corner case we probably won't=0D
+>see. People don't tend to want to label just one random pin, they tend=0D
+>to label the lot. =3D20=0D
+>=0D
+>So go with whatever is most common in other drivers,=0D
+>=0D
+=0D
+Hello, I took some time and went through all of the drivers that use read_l=
+abel()=0D
+to get the most common solution. Most of the drivers only use datasheet_nam=
+e and only=0D
+a few actually get the label (if present) from the device tree during probe=
+.=0D
+I now have the best solution (from my point of view), which covers all (3) =
+cases. If=0D
+the label string is present in the device tree it will be use and printed i=
+n the console=0D
+in user space. If label not present or channel is not defined at all in the=
+ dts, the=0D
+datasheet_name will be used similar to most drivers. I will send a v3.=0D
+=0D
+PS: many thanks for everybody for pushing for a better solution.=0D
+=0D
+Best regards,=0D
+Flaviu=0D
+=0D
+>Jonathan=
