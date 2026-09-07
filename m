@@ -1,162 +1,139 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4774E8DF7
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787472; cv=pass; b=WEBrAlv41tTVhbLdgvWMLghCa0HqPVoempy6Wb3EFJjtim0DkUSD02TXEU89SgQRGOREvMaOt09ZzPUjATarAwViIIkI++s0oc1vnuGolB9KkbzlAmbiTdXsguBex8XYvHEBtlY7/CbXRy+wUsIsP7ji5hf8T8zvK9u0oWyFlIQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787472; c=relaxed/simple;
-	bh=p60aRWtIYjOoFTL6Ml6pk7tZl8zZ1c8Bsqt9/cNXsHY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n9PSdb8mSJwWnPS+1LOByrf+fSWB+ls8/e0QpaixzERUd9G4ULr16/OtaxG4syJAphhHBwSa88x3Hkh5rFAxJEmkkGZ05cAi/t7Wl/u7m1fSR1N5qrY31izjAZqKbEDNyaT//puo3BjVykZEiUDd9xgIJYUTY0e1v3UovWgI50M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Cqgewg8/; arc=pass smtp.client-ip=209.85.160.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2496F4E56FA
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:26:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788787596; cv=none; b=LkKrIXhUCP/wp7Z4wIYZFC4EHwoI1ZsgJmMhts6pDLHsHzeNkRnG85RicEfM1URVWzmtgVXWUIUAWRBcqCsC+Sxckzpw2NWV1nFTcoRSI2iCBF+UosojQP93Ti9PT4Czk/DvD1oThDsVH0y3LYP/2IucfvbwISjEVMNp4ch9Ngw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788787596; c=relaxed/simple;
+	bh=dHwT++cYO2vjpch/eavOet3q9OwenZlSdGnjWkH32QU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ciBrpv8eV2fr+BfmsuZJFhUzeX1/btbKlfJKtQGD6xE3ZN1aqN2g5Szdy5mIiHEeZd+S5RHtAzNdCauuv/0j41prlxY+fgy104JOtfYImXOdiDsATeSwPAviqhuXBKIxEJkWyftquPuKsGMCp7mbEOBppRjW+lyee412Dh3nORU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=BOy3HlKC; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Cqgewg8/"
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-46f53c8a5fbso1034058fac.2
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 06:24:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788787463; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KdX8MeGOIIogBvNKOekZi5KRc9xP+I7AgKKGdjvL1lWzYpC9YC4QYYI1nbTsOwmqBB
-         1WOwXAV+Gj+rEc3qELhSIC0vtZM4/yrino/qMhPpsRZ7d46pwgiIvdW9oki9CzPHBqV9
-         olu+CMnx/HhZ/i94xV1iDZ6buw3Vu7hgeWebkmU9RKPqpnhs7BPGimPfKG7P1HatAeTj
-         dSTFWEi2xv6CKPnMfPgaLAET5f+ylnVYl7Vrh9DJeM0YWzxmFc4yOod7D+XDzbbBBx21
-         569hBP+zmaOCMjQpzZ0Ov6viXT45SuXpo5TNl5HQcROxzHxhmu5FMmPYLF+/zssnp4wr
-         oyVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=kScf4waPHG6h2otR6IMWANzB8JEMbk0QA2ux6ikTJ0Y=;
-        fh=zVVjWTrtDmbPa7SXjjMCx9nEKxLl7TLRGoqKM7Xqwi4=;
-        b=UhrGavCw4KVbBJ/uGNsZpBcY85PRtYg4HUkRgiwhh6bgJrqZmmdc38n/O0MsmpKUHP
-         /sp940nDwoBn5RpGEALmB5LXwaS13RYsbs1l/9jztRG26hK60gH6y7ZNviB0LzYhXYp+
-         Gpu4/ucIixEHB1vWGjn8gHXFVzOl1XeHHuci7nqJjR/tZmUt+DjkpueXuO5YaFBgILxC
-         f1ZZhfz6v7GjZzFaR1o8/S/aychdYs0InpL/8tj09lFIgwcgfPDX7RJwVGmmBxxUM8QF
-         Atgwix1k/3wSBbHyJv8EAAAuwgV1hKtqYViYKj8BNJDIh/XwDJqCpLquC7Fsimauv3Tu
-         t6OQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="BOy3HlKC"
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c250f28f1cdso555583666b.0
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 06:26:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1788787463; x=1789392263; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kScf4waPHG6h2otR6IMWANzB8JEMbk0QA2ux6ikTJ0Y=;
-        b=Cqgewg8/EvAXPUwM/MBqOK9csMLhIUTIbuxFUIFXSPIPHAStma7LUzCa+EL1hpq13w
-         C74q007AC0wceHPkSoOksM6YtJrXqcGk4nEFi1kJgXcHq7tEXmbylQFS5oqJXpod28/u
-         CnHWZyUZfoGzlFZLnXGb6qqREAsnLHJEkCvF9EDpPTfrfvYt/vTwmn5oRZ4I0/GlGPbJ
-         8AMm+P3o5mGeicKcMqQOxQ4JSaRM6jiWs+VInUMa/F8R3yG6ioxtgycouWvjn2XR8ta/
-         jUnwbdimb7eZgm7BHo+eWyKLiG2OWO3Z3YOvw+Blhgo0jmDcfnKJX2Am7gc+7EVVK1Nn
-         P74A==
+        d=sartura.hr; s=sartura; t=1788787589; x=1789392389; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=flXIHxP55T3td3EAF+4UDOtvTJ+j4gzcSAMkRD2rGz8=;
+        b=BOy3HlKCC/hVeNbesC3MhHYY77h/pe0TfAJekPkzccE4imx01JrueVKf18syXuEKXO
+         d7soXQl9WTlXt3aYZDnlCkDK0pbfC+rZ8sCN2aMtwdtq6ZCOThe4RkEB94beN6XLEvZ6
+         2g26FoN7Pb4Ih1cuUqXI9u619fA+s+OCtW6KOLu0uPf2oSAqRFBkhsWXyCwat/WIUF+e
+         04BnzYbYZNNqrXblbh0qaAHCOb23n4babZ3yp2Z9RCV4cMWG0o/TXmay2t5bG5NJiwyW
+         gNSTIPfVzhKcSdZML35FFPMEqHOBdxvq4lvNgp2zN67mUf7IKXtQX7sKqT06RWQ0uQY+
+         i4Dw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787463; x=1789392263;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=kScf4waPHG6h2otR6IMWANzB8JEMbk0QA2ux6ikTJ0Y=;
-        b=N9CEwo9lYH+Fisy1afNwug3ZR28TyzCVXp4+tPL0joM5YWfxM9AhscLu/MbX6XvTWk
-         NtY6hPyeMFaWWI5WL35qaMR3NU3OZVd/v8u2QTMb/w9WJ9WSim+wcd4BPsHVdMhm0632
-         jyVNzEJTdUADu/IZ2shsY2YSKqmeNEy/9xrzaEqTng4D/FuyhMd7Zy5454fGQVFSR3kj
-         dvAERG4uRm9RpXzQ8ehN/ko3Ignvodb6Ir3VQr27aKWycpoi185zZIhIJzugxRaisrJu
-         yyGEN9OP/Vr38Tfyl12EfdGLWyGD6YLGCUrN0gigSBgbKAVxxL9GbfO6zXK6BdTtmvIA
-         9BUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxi7W/mE1h9vQkgaegTAlCqxKEi32ZQk7opCgenq4Yofr/BEO2lZn1lnAe5jXn7wWoOyjFHuibDZyJs@vger.kernel.org
-X-Gm-Message-State: AFuF++nVk9voIADGMjC+x4rarJ4DH+6+oqOgLLUdIC+XlWMQCUO73tMB
-	VrYbPFfUoS38YFLRvPRILFt3zv4SIAHYk6yrkxJiwYoYbHozLHhELNQ1rNRxadoiHtuxHpkPcve
-	XURbA1FLN0DcJThoR5+2uTRd3mWliSOMv+xbeAHCHUQ==
-X-Gm-Gg: AYBFou2RjpQIEbXePEYQf5xDEODpz70TZl+HwryMg3O8PFBF35QuvA1aUkH2apw9JtF
-	D5qqHDUjsCUdR78G/QfAKKv3g1YlN+vi9ROL/kHtuIWkIJuvVeKArltpUiwmi+7CEdSmurWP61l
-	ImRfZOr4c9zA9dhuZiyF4LYpKImFJBfD8wWszGcMbZL2Jl5dyQY5SlKUJDgvBujOx+a9XHPuRKb
-	286HssuOIBgulp1lQsNT56qFje4UVr+aUS6N9laZrXZlS+vecqBk2TKYGF90DTJJnOhrOy8dfVg
-	ff75ZiFggL8BUSh1pt2EEBgssuGOxTOuR9hx6hpKr/Ri36cdp5mdFyn4xjaEp/46sqJu0M4fBwQ
-	kRPyx2q6g+x3Y9z283hVLucfYQ1CvUQxR7Sb0nVy/xf8cs+opGhdBGd3jwMv2
-X-Received: by 2002:a05:6870:b01d:b0:46a:deaf:5915 with SMTP id
- 586e51a60fabf-47551591688mr14531947fac.9.1788787463608; Mon, 07 Sep 2026
- 06:24:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788787589; x=1789392389;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=flXIHxP55T3td3EAF+4UDOtvTJ+j4gzcSAMkRD2rGz8=;
+        b=Ja4+2qTaSReRD7bZcs+SrAan0NjJ5UDpv7Sy+F36VdKrbEeckhycrxHn9sRjpeGfBX
+         HkC2Vl/hx7TvtEvm9gb2zliybLVFLNTdwiwYbJdByz3YlEqoJKvibJdS2cwGLaPbRG99
+         C6jiWudSuMBZx+8Acw2Uqzdz35/+HmyRtMcZyV9UPY2q6nvmmXSkSpSjLB9HVACq1vkE
+         h0U5LgSk/n4i1rcRZb3BxuDtW6QrhQ5W7fJkelkwoz+mTDkrlpHrR2Euee3MyO1yQPvO
+         c+aI5eCtTf53mlVG2p7ZL1cfa1J3NMf5NStvZf5n8CLmlonxaOrRRLiaHFuCjP0Dy08a
+         bb+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzWjpePcwcGpBQlvf7+IRgFqZ/ZoI+SQSsNPYcvU9jDIp5ybPTWIN01ET+mt4dHYkucDxoKRLt71tcB@vger.kernel.org
+X-Gm-Message-State: AFuF++n+qHJdZYopsQrBBXLsIpqbZcVD2JVrxW9sB2P8Nsv5qiCej/Yg
+	py8rJWn0MwOJoXkZ/RRTF23JwrMEmO5bsAWHjGsNExzZEXi736W345dUDjD2qQhgGaI=
+X-Gm-Gg: AYBFou03WSWREcu2eBznfWKvKwVfliELy9BBcEtRFTDIOO1O2C3z7XrlnAqwar71XtU
+	QYARQl+iSM3H896rjOzxhVEwQOVIUDj+utAZEsRE5T19EVeXU2A5i7ih2XKeFFDqomjxXRI6KFY
+	9Fs5EVC8mh6SdvQ6mlbEakukBHEjXTzgU2tIOVqvRJYixq6phJTJnUBXDsmNwv0dsVwzXaMnei2
+	cndE9u2ywKrsqHFexyKo59zQ5fo1bRST+6NIxE2edYgCS+w9GvUj+Tg2KOX71B6PGjkP8Ax0xQk
+	dfT0yI0bXIAuBJzQMAy61oOLw+Nx+QSYjanbkJvbaqLCxWth/GeAh8625cdlZrreVoNHSQ+ly9z
+	1WB7vyH6GjJ+heAHYw0+5IdA0waRgbftiXbHAncAQy/2hQ6i8Ea9F77eSYqBm472f1ktsNVPIzU
+	UxHY4dyJt2lMyqNPsMZ6F6ozjBIuvTMVr+lVnf3cL1ikVBx8HETCQmm1LUVMf3S8s1R0PMWBMJs
+	86gcV+ECKe6t6t8XjJjmiGW/AtpQ6srsgbjCFh2FsVDv1rzVHzZxa6zZT3uN3AGYhY7Ha34cRKF
+	wZZwNq/M2BatblrMLv1pg49AY7eVG38jKLdfpw==
+X-Received: by 2002:a17:907:198d:b0:c29:5b1:d530 with SMTP id a640c23a62f3a-c2905b24a92mr30863966b.15.1788787589057;
+        Mon, 07 Sep 2026 06:26:29 -0700 (PDT)
+Received: from threadripper-fedora-workstation (cpe-94-253-164-142.zg.cable.xnet.hr. [94.253.164.142])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2622a7c677sm366362766b.9.2026.09.07.06.26.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 06:26:28 -0700 (PDT)
+From: Robert Marko <robert.marko@sartura.hr>
+To: ulfh@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	nicolas.ferre@microchip.com,
+	alexandre.belloni@bootlin.com,
+	claudiu.beznea@tuxon.dev,
+	adrian.hunter@intel.com,
+	aubin.constans@microchip.com,
+	ehristev@kernel.org,
+	linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: luka.perkov@sartura.hr,
+	Robert Marko <robert.marko@sartura.hr>
+Subject: [PATCH v2 0/6] mmc: sdhci-of-at91: add LAN969x support
+Date: Mon,  7 Sep 2026 15:25:28 +0200
+Message-ID: <20260907132617.1198548-1-robert.marko@sartura.hr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com> <20260907-rpi_reg-v2-1-0c59aa60d31f@oss.qualcomm.com>
-In-Reply-To: <20260907-rpi_reg-v2-1-0c59aa60d31f@oss.qualcomm.com>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Mon, 7 Sep 2026 14:24:09 +0100
-X-Gm-Features: AcwNN1VtJNaQAhgZmbN25VVX96rEB3Wn69gfnD4KGJJXrfRYQ9eR2sFIrX6o3IU
-Message-ID: <CAPY8ntCF6e3FZPx0BwZKJimACwdUKwNSP+SPjNUE+1DgQC1=Qg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: regulator: rpi-panel-v2: Add required
- vcc-supply property
-To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-	Marek Vasut <marek.vasut+renesas@mailbox.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com, 
-	Jessica Zhang <jesszhan0024@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Shashank
+This series adds support for the two SDMMC controllers in the Microchip
+LAN969x family. It also enables the onboard QSPI NOR and eMMC storage on
+the EV23X71A evaluation board.
 
-(Apologies for the earlier HTML version of this - I thought I had my
-mail client under control)
+The LAN969x SDMMC controller uses the same internally generated base clock
+layout as SAM9X60. However, gating its clocks during runtime suspend leaves
+the controller unable to complete software resets or stabilise its internal
+clock. Add a generic SoC data option for keeping clocks enabled, while
+keeping capability and preset restoration independent from clock
+enablement. LAN969x then selects this option through its match data.
 
-On Mon, 7 Sept 2026 at 06:48, Shashank Maurya
-<shashank.maurya@oss.qualcomm.com> wrote:
->
-> Add a vcc-supply property to the Raspberry Pi 7" touchscreen panel V2
-> regulator binding and mark it as required. The panel controller MCU
-> needs an external power rail to be supplied before any I2C communication
-> can take place.
->
-> Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-> ---
->  .../regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml  | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml b/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-> index 37b9ed371b67..a6195e53be16 100644
-> --- a/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-> @@ -35,6 +35,9 @@ properties:
->      const: 3
->      description: See ../../pwm/pwm.yaml for description of the cell formats.
->
-> +  vcc-supply:
-> +    description: Regulator supplying power to the panel controller.
-> +
->  additionalProperties: false
->
->  required:
-> @@ -43,6 +46,7 @@ required:
->    - gpio-controller
->    - "#gpio-cells"
->    - "#pwm-cells"
-> +  - vcc-supply
+Describe both controllers using the fabric clock for the bus interface and
+their respective generated clocks for the controller core. Use clock rates
+suitable for the supported SD and eMMC modes, including 8-bit eMMC DDR on
+the EV23X71A.
 
-Adding a new property as "required" breaks all existing users. Adding
-it as optional would be reasonable.
+The QSPI enablement is retained from v1 so both onboard non-volatile
+storage devices are described by this series.
 
-  Dave
+Tested on LAN969x hardware with an 8-bit eMMC operating in DDR mode.
 
->
->  examples:
->    - |
-> @@ -55,6 +59,7 @@ examples:
->          gpio-controller;
->          #gpio-cells = <2>;
->          #pwm-cells = <3>;
-> +        vcc-supply = <&vcc_reg>;
->        };
->      };
->
->
-> --
-> 2.34.1
->
->
+Signed-off-by: Robert Marko <robert.marko@sartura.hr>
+
+Changes in v2:
+* Add driver support for the LAN969x SDMMC controller.
+* Add a preparatory option for controllers that must keep clocks enabled.
+* Restore capabilities and presets without unbalancing clock enable counts.
+* Use the fabric clock for the SDMMC bus interface clock.
+* Configure SDMMC1 with an exact 50 MHz generated clock.
+* Keep the SDMMC nodes ordered by unit address.
+* Remove the unnecessary maximum-frequency property.
+* Retain Conor Dooley's Acked-by on the binding patch.
+* Rebase onto next-20260904.
+
+Robert Marko (6):
+  dt-bindings: mmc: atmel,sama5d2-sdhci: add LAN969x compatible
+  mmc: sdhci-of-at91: add option to keep clocks enabled
+  mmc: sdhci-of-at91: add LAN969x support
+  arm64: dts: microchip: lan969x: add SDMMC nodes
+  arm64: dts: microchip: ev23x71a: enable QSPI
+  arm64: dts: microchip: ev23x71a: enable eMMC
+
+ .../bindings/mmc/atmel,sama5d2-sdhci.yaml     |  1 +
+ arch/arm64/boot/dts/microchip/lan9691.dtsi    | 24 ++++++++++
+ .../boot/dts/microchip/lan9696-ev23x71a.dts   | 25 ++++++++++
+ drivers/mmc/host/sdhci-of-at91.c              | 47 ++++++++++++-------
+ 4 files changed, 81 insertions(+), 16 deletions(-)
+
+-- 
+2.55.0
