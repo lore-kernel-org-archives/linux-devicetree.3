@@ -1,144 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010004.outbound.protection.outlook.com [52.101.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B018F3B27DC
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 06:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763667; cv=none; b=qp8QK919Nsu5uTtmI/zNTvGLG3YCtz4FFIplfOSJqhQTtdiI17am9WJyxKYtCQM0E/FZGXzUCMoo0oM3Yc/mAJX02NzRPCDheAdSf8gWyspJhrg1BatiYwsls2QC9BZ6ZSsv66eTxnP6CEIn2rJclpOAn819+qXZZlFV8xamVC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763667; c=relaxed/simple;
-	bh=A2cpBHV091vvtq0pOAT4AoqCDS9Qt/BAItbrxBDJkps=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oTmV+Q1tK+0/1H+dJiGYVXb4Dx3HGjCNdCnoROI2Pb2ovGDlATSX0FcKtg+tmC9igqAh1ynvw4l/mJTmH9bq2DKBBuXeerbvHuFw49iAST/PxkfTMGjSRvzl72DvIB5O8c3qgjRmA64kTlSaT38ychoM7XV54SS2W23JX5kgTDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flPmMltc; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0E44052C7;
+	Mon,  7 Sep 2026 06:52:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788763965; cv=fail; b=ZeoZgkvbbJ6RfeeTQht3ZN8ZtzL4Agh96g0aWz/bQ5jTfE/RO7m0Ppxj5UZhzUmgPCngkxZJ5WxR2lYiplXN47UC3xyGwSHhBXiUSvWgSE1Se6r6ku/seTZ0L4Mu42tJ7jT2wAp3+aN7ZX/o30Yii7UBIRO8mdThQwOHGaBqGmE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788763965; c=relaxed/simple;
+	bh=xR56O0zXFnmW34yayrLlp2ZiSqMMS9x09rhl3EfXjzg=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=q4vf2zisKAdZlTd/gf1GXhJZf/VKjRq6FC9Yi80MYhooxyy2jW94sljZD4khbMuXd3ELYMpylK2a5U+TMnWZ1ITnTlNem3vwwPe/+pPDN1peyye5OlF0gPbea7sHQWRtQ01q4uqNC/jRo0r3WR9KbOWqofXgnyYx3/3+pnB19cg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4OWQ2cyh; arc=fail smtp.client-ip=52.101.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flPmMltc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45B381F00A3D;
-	Mon,  7 Sep 2026 06:47:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788763665;
-	bh=I2ieof2cdY/Ph3GnPUbJ9gr8fxbW7rPTMbD7H/Ynwmw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=flPmMltcmkdLBYWx+9b0hLBIdUI167paqZq5uOzqom1/lgyUGuseoJWehtxw8/+V6
-	 cTMxrkW415QPYMtzhLwLwnyE0Dq1QTwVwjG43Dqtx36CQUN3SnMKqcjsVXDgZwdjP8
-	 BQU8HkRcX6BnsiXdW+aX9pUMeeWcqDeYz+GPWkEj3Fs9zY+db5rXXyrK6Q3fZ0BkoV
-	 S15SphXNkm7SScKfxN0C5tn1o9k9K3wuQoUxbxAZEMx52w+ysPmwMX4nw+b7IVZTBu
-	 uVD+QlLDAv1keBJZRTbpAXsYtB24rULigwUPguCx1bSGiqWXkU5Mx3GxNY3hwCyavj
-	 fWR/qH4SIWP4Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: monaco-evk: Add Raspberry Pi
- 7-inch DSI panel overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shashank Maurya" <shashank.maurya@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907-rpi_dts_overlay-v2-1-a4989322ce00@oss.qualcomm.com>
-References: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
- <20260907-rpi_dts_overlay-v2-1-a4989322ce00@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 06:47:44 +0000
-Message-Id: <20260907064745.45B381F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4OWQ2cyh"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=HRW586aomQBWV8JuvzzeE6f5sr+/Ll0ZYpYRrrOChL5e5eB/6XgY1AHEda4x/+xRN6hktktPXso6Q09d9nQWypqY4s1D1Cl2GHjpRUAZWYP4H87QKwlk6RdceUCaSyzQnxoWIVvIsf92bkWkoFgVJhhhEOvZ/KQKhuYwRnGyHGnmSixpviZmFMtKUQqGp67GMK7424Q+ZPhNNgFM7DRT4SIwsVvlugrcqZy3xIDkXpe/ZD4M1z/Y9z/hk7m55e+VAO3T+LhHGhrssCovYeh7LDfzmfVrViSqEhWr08gU9EgkZnT72vFFdjKQ551C1PJkOOAaMI33qqRlb9QyET6ZlA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lIhnX8RFnvmgJ/eBkJCHs1NogL1JGvjv7kgKqkdU3UM=;
+ b=jxCZW/uDsowZ1LuOETs+8b7YSV26Tbrz60QHQjGovEvk9G3uCc9b76FvCMt2TJJufDH7JJ8HXWgzPUMTgHqv6KZVE2oeJ2P+371GMUcHhc5zIM3k3OSo8M5aupqs4E9Cr63gOsIt6GvDpCtd3QeVUHsO+2v+ofYY+ZqowBLOjwIXGZugWAqUmAn3uIkVu+KNJzn4nXK77rQlo24diwZHzUKCk/lsKvAaSYrbCi0beCTmZkJAYeVUUmc2+EoPA8zCHRQej9ph9tEsIuYUctzUOpsqV4+ZFpycaHNTzDkslBgC4N3Tksl78CUkkfWGS2whke4th0cj2NsXYjNchFl/Iw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lIhnX8RFnvmgJ/eBkJCHs1NogL1JGvjv7kgKqkdU3UM=;
+ b=4OWQ2cyhvwlTuKGvwYpYIlOiLs6IAQoW6/uyFMb9/KdIGzvYr/LhrP8JhqnMhb3uPMO0E6NH0hsRXUkVxugs091C0+4B5ToMfqvASmZLVCZZs8THjh+XeF3U3XvqINN6XENQK6Pz/93XtVFkwoMromH7VXqZaAcIOb4VTiKX7s4=
+Received: from CH2PR12CA0011.namprd12.prod.outlook.com (2603:10b6:610:57::21)
+ by IA1PR12MB6017.namprd12.prod.outlook.com (2603:10b6:208:3d7::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 06:52:40 +0000
+Received: from CH1PEPF0000AD79.namprd04.prod.outlook.com
+ (2603:10b6:610:57:cafe::80) by CH2PR12CA0011.outlook.office365.com
+ (2603:10b6:610:57::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Mon, 7
+ Sep 2026 06:52:40 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH1PEPF0000AD79.mail.protection.outlook.com (10.167.244.57) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 06:52:40 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Mon, 7 Sep
+ 2026 01:52:39 -0500
+Received: from [127.0.1.1] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Mon, 7 Sep 2026 01:52:38 -0500
+From: Colin Huang <colin.huang2@amd.com>
+Subject: [PATCH v2 0/2] Add driver for Infineon TDA38740/TDA38725
+Date: Mon, 7 Sep 2026 14:52:28 +0800
+Message-ID: <20260907-add-tda38740-and-tda38725-v2-0-1d051d63aa01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACxfnmoC/33NTQ6CMBCG4auQWTumHf7ElfcwLFo6wiRCTUuIh
+ nB3Kwlbl8+XzDsrRA7CEa7ZCoEXieKnBDpl0A1m6hnFJQMpqlSjcjTO4exMfqkLhWY6QCXmZK1
+ VTe0KzZDuX4Ef8t7b9zZ5kDj78NlfLfq3HtX6T3XRqJDJWW2prCqrb/1o5Hnu/Ajttm1fFlX6o
+ sIAAAA=
+X-Change-ID: 20260903-add-tda38740-and-tda38725-32bbb097d41e
+To: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-hwmon@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <colin.huang2@amd.com>, Colin Huang
+	<u8813345@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788763951; l=943;
+ i=u8813345@gmail.com; s=20260202; h=from:subject:message-id;
+ bh=xR56O0zXFnmW34yayrLlp2ZiSqMMS9x09rhl3EfXjzg=;
+ b=S1pQdpPUR5fCNIQ6I1KCyHpfph5UzUB+Uh++1geT1IAqRI7xUQo1/rbElx7xVur11We03QBBp
+ +0IYRwvJlTSA8xg1APF9RJlnEQnzopeevVsL6QQFp/1XLAd2hnNmIV2
+X-Developer-Key: i=u8813345@gmail.com; a=ed25519;
+ pk=Zlg0WqpCw4qbswOqamTBTXIchwR/3SnYZpy7rjaGMdQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000AD79:EE_|IA1PR12MB6017:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1b2c4096-e974-482b-5665-08df0cac9c32
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|3023799007|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	f2hueU/Mz+X7w90iuj7mZIvBY1O3WxiBn9Z2Zk2ZSoPbdTJeD5g4We5uXDPGuG2csMec0OZNwg3M7czQeCXekjEy4692OY5cG55porxO6QgIdHxfmBW/Aa0U/7nyQhRyVf37DB7qVV/I3q4f6A+y62HLIr8nazOlc8WhQs35S0llq1oNz4uEezTtSMfdNaZNhyixM+i5ilnvYch3inQSxRgMoouRH2JcFV5xn72lHsJheRDkiZgPGrsMZtMi4GNE3tlOvDDOuxnuq2jEKZPIGXKu8VL4hW4ep6Yup4+NodqD91aqhlD50QgJC2MMhX7QAVonB1J+8fNoYL0qT8pvDg1NIzWOBZjHQyaFo79cDuCY1V/AWNfo1roTZHf9oZWtoWq9r2N3741jch4hoBUOZcj9dDqJPQRjo5s0eEkbYZGrzgXNmMRwzOr/85oSc+lJ0TbXpOz/GtZviyqGMrZp8iM17BHw+ZzzAA4grkWRGi1IuTJN8rYgM35ImwELZSppWZiDflgtIS9VAXKIYkuJAKQLY8F/+DNLNAPdyX3JQCyOnM79guGGsPNmH52jx3lU6+/+GJgLTET1CpyYcPsUe6uUASiL0b+z9idch61ENFrcdix/5Tt5NTuIvVLNRwfQTxrbgo/nJi3Q8nT+F1QFengdhGtlgzlsWeuyl4wJzaVz/m03YuVCHqrvoOKu03Ok24w6VXbEAMoTfsyufm30yg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(3023799007)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ovn/g3u8kzpSjXGT67Y0AvlpKCMUg7hAd79kW+/qQAQ5h8XUHgiduXcfMXpM6Qy8zjNJPrdAvqu73LaBO6Ptna1mOXWbgPqa9hLfwWyOFflw8HX8ItY2jbc2g5twIQB84QGhq0J8Rl+OktZ5psGVqADjcjkhvVPfVghSLfHeJbsdcMZOzuavxtsmyRC+qT5lv0gGACkcT0ZJzRbSfCNFuHVkZLSUDEQOBQnzdhlIR4/Dm5c+ANPypLKnDoC0C4Ec9Vnqwpw/wHImtiefsZRyxZirahDNJaAQQpr22GnFSjR2Hf2E9sX4MXbDLOcwkWwrbMggvfX4RxVZ74BaDWa5S07KZLlHiFot2kUmDYruX9Z3wfjHyvk1WCpKwFuAweccwAgrDgft7ncznLuF1TcUCnmVOfdE1MZbnZv9A80kYIZchQJLEF51/XrLw7QHgvUl
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 06:52:40.3788
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1b2c4096-e974-482b-5665-08df0cac9c32
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000AD79.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6017
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The overlay uses 'regulator-always-on' for 'reg_dsi_touch' to wo=
-rk around missing regulator support in the 'rpi-touchscreen-v2' driver, bre=
-aking power management.
-- [Low] The &i2c8 node contains undocumented downstream properties 'qcom,lo=
-ad-firmware' and 'qcom,xfer-mode'.
-- [Low] The panel node is missing the required fallback compatible string '=
-ilitek,ili9881c'.
---
+Signed-off-by: Colin Huang <u8813345@gmail.com>
+---
+Changes in v2:
+- Use standard http:// URIs for $id and $schema
+- Add maintainers section.
+- Use C99 named initializers.
+- Link to v1: https://lore.kernel.org/r/20260907-add-tda38740-and-tda38725-v1-0-e2db1b2566b1@gmail.com
 
-commit ea08b302349d4826d0dcf202cbbe6bec559335f7
-Author: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+---
+Colin Huang (2):
+      dt-bindings: hwmon: pmbus: Add Infineon tda38740 and tda38725
+      hwmon: (pmbus/tda38740) Add driver for Infineon TDA38740/TDA38725
 
-arm64: dts: qcom: monaco-evk: Add Raspberry Pi 7-inch DSI panel overlay
+ .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 82 ++++++++++++++++++
+ drivers/hwmon/pmbus/Kconfig                        |  9 ++
+ drivers/hwmon/pmbus/Makefile                       |  1 +
+ drivers/hwmon/pmbus/tda38740.c                     | 98 ++++++++++++++++++++++
+ 4 files changed, 190 insertions(+)
+---
+base-commit: ba08432bda66a7889d8f3d1581dabf10f59b25eb
+change-id: 20260903-add-tda38740-and-tda38725-32bbb097d41e
 
-This commit adds a device tree overlay for the Raspberry Pi 7-inch DSI
-touchscreen panel on the Monaco EVK platform. It enables mdss_dsi0 with 2 d=
-ata
-lanes and configures the panel MCU on I2C8.
+Best regards,
+-- 
+Colin Huang <u8813345@gmail.com>
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk-raspberrypi-dsi-7inch.dt=
-so b/arch/arm64/boot/dts/qcom/monaco-evk-raspberrypi-dsi-7inch.dtso
-> new file mode 100644
-> index 0000000000000..f27b5a4a60934
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk-raspberrypi-dsi-7inch.dtso
-
-[ ... ]
-
-> +	reg_dsi_touch: regulator-touch {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "rpi-touch";
-> +		regulator-min-microvolt =3D <5500000>;
-> +		regulator-max-microvolt =3D <5500000>;
-> +		gpio =3D <&expander3 5 GPIO_ACTIVE_HIGH>;
-> +		enable-active-high;
-> +		regulator-always-on;
-
-[Severity: Medium]
-Does this regulator-always-on property prevent the display from being power=
-ed
-down?
-
-It appears this forces the regulator to remain active because the I2C MCU
-driver (rpi-panel-v2-regulator) does not acquire or enable vcc-supply.
-
-While this ensures the MCU has power during I2C probe, it structurally
-prevents the display driver from legitimately disabling power during system
-suspend or display blanking, leading to increased power consumption.
-
-> +	};
-> +};
-> +
-> +&i2c8 {
-> +	qcom,load-firmware;
-> +	qcom,xfer-mode =3D <1>;
-
-[Severity: Low]
-Are these downstream properties supported by the upstream device tree schem=
-as?
-
-Adding qcom,load-firmware and qcom,xfer-mode directly to the I2C bus node
-will lead to dtbs_check validation failures during compilation since they a=
-re
-undocumented.
-
-> +
-> +	status =3D "okay";
-
-[ ... ]
-
-> +&mdss_dsi0 {
-> +	vdda-supply =3D <&vreg_l1c>;
-> +
-> +	status =3D "okay";
-> +
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +
-> +	panel@0 {
-> +		compatible =3D "raspberrypi,dsi-7inch";
-
-[Severity: Low]
-Is this missing the required ilitek,ili9881c fallback compatible string?
-
-The DT schema for the Ilitek ILI9881c explicitly requires the compatible st=
-ring
-to be an array that includes the device-specific compatible and the
-ilitek,ili9881c fallback. Omitting it will cause dtbs_check validation
-failures.
-
-> +		reg =3D <0>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-rpi_dts_ov=
-erlay-v2-0-a4989322ce00@oss.qualcomm.com?part=3D1
