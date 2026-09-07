@@ -1,317 +1,162 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03C44968E6;
-	Mon,  7 Sep 2026 12:27:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 881D549EC6E
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788784053; cv=none; b=dFLWRDqYI8yXMLp+Be3Mn8fukS25MnFkupU4B4VWVKt0ej09T1tgy7RXyps5goGqY9q/Ses3MyBuR4sD304nt5mdJTdDa0fpQZscOEgxSRzPHGpk7SDwpM8gqwd+wWogvXzP26zukNEckXtfYH1Y0si3zRiAKWtlSV+od2Kx+bw=
+	t=1788784072; cv=none; b=cx2rQiaaARfS4GVOEjGJ6SJEyxNcEqyDOix2UYk3Nra0Q7KETGMk/2NhCnbs4IxYA8EE0zB5s+2nhn3wLQN5tGMRsE7nfI/mizlc2hbBNTtZOaQCfeB6fZX+3x0vDHm/dJHXa4+VA2OKEsCKpdFjQneHCia8N7yHMzJGazcC7fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788784053; c=relaxed/simple;
-	bh=lrEL2MWAhBxstb6h1EmpWfNdeY8n/avtFIE5v2WfpNY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ex7E+UcaWDUYYRDs4rFlMNM8dum+Z3FR3OQQsGg5+fJ7s/J8mq85UM4iIQMObxcVNVrVyywwVufn18STNv0yWGUP0LECLyT0ZKbb81OHo4lDi09q+G/ZorZpvGxKCP/dPdUrBNlneEvNHg+Ee8BzDl4JSEfoAhYUcmc6tNXvMv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHBllGto; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788784072; c=relaxed/simple;
+	bh=+J91eDr7kWpWxL2VErpxQSnatb/cbGe70zHEmvdVQEQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tLpyT8F8rANUlFIXONYH4picnLRvA/Kd1iwYXXz8cdKPorcZ3zMScBkfJ9lahHM8CQVf9Z/0Njm+kaA2EytwkA/CJYRkvkY8txACyjgIiIHu8bwhdJil10tINNa132Z94llFoCB61OqC+XTxKB1LAE1+JaP2R4iS9vRFGOFPHEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DKOYizD4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RAqJiVca; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHBllGto"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D406D1F00A3A;
-	Mon,  7 Sep 2026 12:27:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788784051;
-	bh=0dDEGqqB8BQNZY2VGBmByIl1LFAv/Oh+0/1XojNck6A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EHBllGtoy2fF7lha1PnKfsopCtVfw156cxfRYGjg3/wBWij4nCCSlBk4oI/3UDhrB
-	 xGEopVhmNyBvz7KpiIfbnSBivUAxJPmY6wVv1bXdBWjR6wEKQqGOyTBEke/Hz8dzKg
-	 Jrw+nBqW24ivDN5s4zXCT2GYS/sUYh6Gqd8xVfqNMZh0NuRLxnYFtnVjuLSzcUC3Xl
-	 9TP8TWjuRG6WFQUrS0Ymv3IE7Qm/4e1xUAioiufWurCSQc3Y0bLaHViX6R2kUjyR5M
-	 08mF6L0/7/ApuPqGPiJzMq0V92dSO0SYrQzcLKW8xsWC/nESIyZhxqjfKXlygLoaj1
-	 6mkOxo3fs4ZSw==
-Date: Mon, 7 Sep 2026 14:27:20 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: george.moussalem@outlook.com
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v3 07/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
- support for USB3 PHY on IPQ5018
-Message-ID: <laqb2hqww6wivwxzficfvgi3nwair45a63ds7bzqoz6cby3jpu@n3bgkdrcpdvl>
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DKOYizD4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RAqJiVca"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AnKGw3873703
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 12:27:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YGw+UONwD/1MsqquhuuqfV+vYDTZQZWhfcVMBBeRj7s=; b=DKOYizD4bBHncWGl
+	CTB5/7gu5v6R12yd2UovTGFWcxBmw9uHBv4l8uH9gMjKWYlO2OlItU9DBI2kU3xg
+	8WanJcPp/ikThYtLa82oP+h9bCpbq6UqdE1h0GVXbIg8bzqjVb7asvBEmlhSn1/S
+	Vbtec5ggzkFjJk1qpN/rxiXYVcQge/eVGg7k9sFJMLMoQYaiK5zHOn8y/iH49ueg
+	L2vy79wXrkfhePL4VJ6yduAVD7BHIBLbHw4wQMRlaRoTXUEChJ8ajwlIG+5NVv49
+	3SxZeMoPaBL3jOsR5wTNyM4GfkSz8jqJ8AMIsx3gQuYQyr+XeZ2Nn2d4xD4wap9k
+	/WyeOg==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghnmj1yt4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 12:27:50 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-90cd9fe6336so10249046d6.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 05:27:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788784070; x=1789388870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YGw+UONwD/1MsqquhuuqfV+vYDTZQZWhfcVMBBeRj7s=;
+        b=RAqJiVcaaeZLy17GIU/DH668v8F1QTDyjolb9htz98b9vjISR234mobIN/pPuZBT3N
+         gYn2lnGwD/0LELSE4vUWSaNxGbLuWsSuL8Mk5+vYlUsq33Jvv8G6iOqgxMQ2pY+uWwiQ
+         Ti/CSorYtCqNLGyIWG1+x/z12yzCT2U9eayj5JbprH8/V9AXEmbhHIZfzA6H1xKwrjoL
+         8B0giV4cTMhoQNEg8SEfhkYHHIIUyP0B6XQVvegSUGeXvd7lVOlDpt5ls9rO0T7VHD2M
+         rMXIHiTsZ8xzkdfs6qS7+Dm29a1Myit7akfMbNC0KgaB5JeCXOD16OnBgT76feY/2gwk
+         j9kA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788784070; x=1789388870;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YGw+UONwD/1MsqquhuuqfV+vYDTZQZWhfcVMBBeRj7s=;
+        b=q/g29F6cJBmwC6TtIBPIrRfxLgfFQbWxDrFWODG+TyCCpNq+Hl+Emr/pzuT9FjCwOG
+         wfa2xx3no9zrsv3lfWjRtf1h440ovCAjbLTFTpptAUJh7wwYnhmBrcS5QMHFNS2QgIwa
+         PQwqDexB1qgIsgC3EKXi1lzGb68VyJwLOXvH2hMOUlBoIgkodpGRU93OZK7JkvHzRWZf
+         /lr2/90hYM990eXkY5EjBylRNXyO4Itd1/7ug7/wgjXw4Hu/JcuANSk87gGUGgsbfdjI
+         c+Rv8LwFkW12D3yHTV9JRwnqdT8QIFGktP5jty1cHVyyhNq78hUCnKFW3F6pq+yIa7wE
+         rdNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZICVCbJCkneRDf3+X6y7kuTNC4e8yaHrjRxO6j9C4TSL0fhWKo22PI/hUiB+gZbZkVQobPTbj4q3d@vger.kernel.org
+X-Gm-Message-State: AFuF++nwjUn/Hasyg4gTCt/8d0CCHKJoPmdE9H504crV6uw3yorYFnos
+	6BlNDW947HaI9C9qq12KQ4GGqfdNBLTzi2eeUe4fm513hD8HPylKkDyP1qoDBfvb2WPNpmm37H+
+	QLj+/RowIEpiORSu8BddKZZBlfYrGCc8VG3ivNAkrRX39xzeA99WzDsYOz8kT3MiT
+X-Gm-Gg: AYBFou1eut6mjy6e0le+4qrp1qmpL+LVCdcO/Iup5x+QbLHD8gY80vlWVBoMJe4/Csj
+	splZ8shjxOO/qjhnsqtvHrs36oA/AW8Cdpd3MWTAxrjRXdUpwBflHO3303KxhqOfLluUT8A2nG3
+	Xc7PvU8aDT0Zp9ON0asnCTpLCEhRRNb9z5/HXusvJA2qkQimWVm0F8iZi2itAhACh8RPWaoVOOF
+	YacPnxx9YAwHjxtWGNJQAEKp5OL/Vt45Y36vVghHs9vY2c+fmFTqXCZtAF546Jxb1H8TkUxOo7K
+	57slCZHa+x2bmNETUrD88j5xzI3FoLN3Yd0hP49arNn8P79jpZGCeQTYa0sIK5tJI659KoPje56
+	maL9mFRbAQx8MosVbUb9csg==
+X-Received: by 2002:a05:620a:7103:b0:939:9ef4:79eb with SMTP id af79cd13be357-9399ef47a04mr794478885a.6.1788784069817;
+        Mon, 07 Sep 2026 05:27:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:7103:b0:939:9ef4:79eb with SMTP id af79cd13be357-9399ef47a04mr794473485a.6.1788784069191;
+        Mon, 07 Sep 2026 05:27:49 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d4aa01dsm467446066b.15.2026.09.07.05.27.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 05:27:48 -0700 (PDT)
+Message-ID: <b4e0dbd4-f50b-4366-add5-e99cd4432aa8@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 14:27:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 6/6] arm64: dts: qcom: qcs6490-rubikpi3: Add audio
+ support
+To: Hongyang Zhao <hongyang.zhao@thundersoft.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Daniel Drake <drake@endlessm.com>,
+        Katsuhiro Suzuki <katsuhiro@katsuster.net>,
+        Matteo Martelli <matteomartelli3@gmail.com>,
+        Binbin Zhou <zhoubinbin@loongson.cn>,
+        Srinivas Kandagatla
+ <srini@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        Roger Shimizu <rosh@debian.org>, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+References: <20260904-rubikpi-next-20260605-v3-0-f49146d85af3@thundersoft.com>
+ <20260904-rubikpi-next-20260605-v3-6-f49146d85af3@thundersoft.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260904-rubikpi-next-20260605-v3-6-f49146d85af3@thundersoft.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzOCBTYWx0ZWRfX6ILQsGi78A0i
+ /mWUJKcQqbAqtkNeffBuha0riu6KvSGLXOjRyjCeH/unAWaBDr9GaXk65DmjwzxTUYIVr5B0neP
+ hmkGIQ5d/u/cRl1SsPNuz7zN8oPEWXCMYVdvvMuiQxpGS5X/wAGpOWbI3NPWCLIdaZJMimlbOMy
+ bY1wq3zvL7lcwudCXshz6tHNnpgyaFfz7M5j5+xAr0N8hGnwPDp/j7HtmuqrTtdntnCBn5zAnCy
+ JaMwPWYEIdPlrLRwUOvoV1wLOamJmZCQHLOZxqrXanMu2QpaqXmAxtbWVu0kLOAAk6fWtMbwrvO
+ pTn28XzESPDAselwFTwv5+Qf/scskdiwI7uulp+6x/LORPwM6xGABd2J5y0tOSQRAMvfKb03Kok
+ pgeNRGgYfmVnvWH12IV4SiH5AgvXW3/79a359nurGMTfl29e00rJmuDcQt0VKAOKHY+P0A9fzTm
+ weSRNHaYR91WQM6ccaA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzOCBTYWx0ZWRfX2ikNYReG7HN9
+ S8aM2A8+wwCNc5sEHihqNS8VC60PzW/S3F9H6AhSaBe3Ss2a8O5UHvl+17pymwmv58oPGPiznzm
+ YlU92dDobc9ZHfHeZaF1GcrKztgqGnQ=
+X-Proofpoint-ORIG-GUID: v5Q0JK2ePjuq6oelzatprYVrg-OWVjd6
+X-Proofpoint-GUID: v5Q0JK2ePjuq6oelzatprYVrg-OWVjd6
+X-Authority-Analysis: v=2.4 cv=LZYMLDfi c=1 sm=1 tr=0 ts=6a9eadc6 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=qEK3ycSJ6RxWlfFwZCkA:9 a=QEXdDO2ut3YA:10
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070138
 
-On Tue, Aug 25, 2026 at 04:37:24PM +0400, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Add support for the USB3 PHY on IPQ5018 chipsets.
-> 
-> The PHY outputs a 250MHz PIPE clock routed to and gated by the GCC, so
-> register a fixed rate clock. In addition, add the register/value pairs
-> for the PHY initialization sequence.
-> 
-> The PHY requires a 5V supply, so acquire the regulator from the
-> devicetree and enable it on power on and disable it on power off.
-> 
-> The code to acquire clocks and resets is the same as for PCIe so no
-> changes are needed.
-> 
-> Power on/off sequences for PCIE and USB3 are similar except for the
+On 9/4/26 12:02 PM, Hongyang Zhao wrote:
+> RubikPi 3 uses the AudioReach firmware path for its external audio
+> interfaces. Primary MI2S connects to an ES8316 codec for headset playback
+> and capture, while quaternary MI2S feeds the LT9611 HDMI bridge.
 
-PCIe
+[...]
 
-> delay timings and USB3 requirement for the PHY supply.
-> 
-> Lastly, the PCIe and USB3 pads are muxed so select USB3 mode in TCSR
-> which needs to occur before the DWC3 USB3 controller resets.
-> Otherwise, the SS link doesn't train and remains stuck in RX.Detect.
-> 
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> ---
->  .../phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c  | 154 +++++++++++++++++----
->  1 file changed, 127 insertions(+), 27 deletions(-)
-> 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-> index d25ae9d8b9e7..84df331fce74 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
-> @@ -14,15 +14,21 @@
->  #include <linux/phy/phy.h>
->  #include <linux/platform_device.h>
->  #include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
->  #include <linux/reset.h>
->  #include <linux/units.h>
->  
-> -#define RST_ASSERT_DELAY_MIN_US		100
-> -#define RST_ASSERT_DELAY_MAX_US		150
-> -#define PIPE_CLK_DELAY_MIN_US		5000
-> -#define PIPE_CLK_DELAY_MAX_US		5100
-> -#define CLK_EN_DELAY_MIN_US		30
-> -#define CLK_EN_DELAY_MAX_US		50
-> +#define PCIE_RST_ASSERT_DELAY_MIN_US	100
-> +#define PCIE_RST_ASSERT_DELAY_MAX_US	150
-> +#define PCIE_PIPE_CLK_DELAY_MIN_US	5000
-> +#define PCIE_PIPE_CLK_DELAY_MAX_US	5100
-> +#define PCIE_CLK_EN_DELAY_MIN_US	30
-> +#define PCIE_CLK_EN_DELAY_MAX_US	50
-> +
-> +#define USB3_RST_ASSERT_DELAY_MIN_US	1
-> +#define USB3_RST_ASSERT_DELAY_MAX_US	5
-> +#define USB3_CLK_EN_DELAY_MIN_US	35
-> +#define USB3_CLK_EN_DELAY_MAX_US	40
->  
->  #define CDR_CTRL_REG_1			0x80
->  #define CDR_CTRL_REG_2			0x84
-> @@ -39,10 +45,13 @@
->  #define PCIE_USB_COMBO_PHY_CFG_EIOS_DTCT_REG		0x3e4
->  #define PCIE_USB_COMBO_PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME	0x3e8
->  
-> +#define TCSR_USB_MUX_SEL		BIT(0)
-> +
-> +#define PHY_IS_USB3(phy)	((phy)->data->phy_type == PHY_TYPE_USB3)
-> +
->  enum qcom_uniphy_type {
->  	PHY_TYPE_PCIE = 1,
-> -	PHY_TYPE_PCIE_GEN2,
-> -	PHY_TYPE_PCIE_GEN3,
-> +	PHY_TYPE_USB3,
->  };
->  
->  struct qcom_uniphy_regs {
-> @@ -68,6 +77,9 @@ struct qcom_uniphy {
->  	int num_resets;
->  	void __iomem *base;
->  	int lanes;
-> +	struct regulator *vreg;
-> +	struct regmap *tcsr;
-> +	unsigned int mux_offset;
->  };
->  
->  #define PHY_INIT_CFG(o, v)		\
-> @@ -89,23 +101,39 @@ static const struct qcom_uniphy_regs ipq5018_pcie_regs[] = {
->  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_PCS_INTERNAL_CONTROL_2, 0xf101),
->  };
->  
-> +static const struct qcom_uniphy_regs ipq5018_usb_regs[] = {
-> +	PHY_INIT_CFG(SSCG_CTRL_REG_4, 0x1cb9),
-> +	PHY_INIT_CFG(SSCG_CTRL_REG_5, 0x023a),
-> +	PHY_INIT_CFG(SSCG_CTRL_REG_3, 0xd360),
-> +	PHY_INIT_CFG(SSCG_CTRL_REG_1, 0x1),
-> +	PHY_INIT_CFG(SSCG_CTRL_REG_2, 0xeb),
-> +};
-> +
->  static const struct qcom_uniphy_regs ipq5332_pcie_regs[] = {
->  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_PLLCFG, 0x30),
->  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_EIOS_DTCT_REG, 0x53ef),
->  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME, 0xcf),
->  };
->  
-> -static const struct qcom_uniphy_data ipq5018_data = {
-> +static const struct qcom_uniphy_data ipq5018_pcie_data = {
->  	.lane_offset	= 0x800,
-> -	.phy_type	= PHY_TYPE_PCIE_GEN2,
-> +	.phy_type	= PHY_TYPE_PCIE,
->  	.init_seq	= ipq5018_pcie_regs,
->  	.init_seq_num	= ARRAY_SIZE(ipq5018_pcie_regs),
->  	.pipe_clk_rate	= 125 * MEGA,
->  };
->  
-> -static const struct qcom_uniphy_data ipq5332_data = {
-> +static const struct qcom_uniphy_data ipq5018_usb_data = {
->  	.lane_offset	= 0x800,
-> -	.phy_type	= PHY_TYPE_PCIE_GEN3,
-> +	.phy_type	= PHY_TYPE_USB3,
-> +	.init_seq	= ipq5018_usb_regs,
-> +	.init_seq_num	= ARRAY_SIZE(ipq5018_usb_regs),
-> +	.pipe_clk_rate	= 250 * MEGA,
-> +};
-> +
-> +static const struct qcom_uniphy_data ipq5332_pcie_data = {
-> +	.lane_offset	= 0x800,
-> +	.phy_type	= PHY_TYPE_PCIE,
->  	.init_seq	= ipq5332_pcie_regs,
->  	.init_seq_num	= ARRAY_SIZE(ipq5332_pcie_regs),
->  	.pipe_clk_rate	= 250 * MEGA,
-> @@ -134,29 +162,49 @@ static int qcom_uniphy_pcie_usb3_power_off(struct phy *x)
->  
->  	clk_bulk_disable_unprepare(phy->num_clks, phy->clks);
->  
-> -	return reset_control_bulk_assert(phy->num_resets, phy->resets);
-> +	reset_control_bulk_assert(phy->num_resets, phy->resets);
-> +
-> +	if (PHY_IS_USB3(phy))
-> +		regulator_disable(phy->vreg);
-> +
-> +	return 0;
->  }
->  
->  static int qcom_uniphy_pcie_usb3_power_on(struct phy *x)
->  {
->  	struct qcom_uniphy *phy = phy_get_drvdata(x);
-> +	bool is_usb3 = PHY_IS_USB3(phy);
->  	int ret;
->  
-> +	if (is_usb3) {
-> +		ret = regulator_enable(phy->vreg);
-> +		if (ret) {
-> +			dev_err(phy->dev, "failed to enable regulator: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
->  	ret = reset_control_bulk_assert(phy->num_resets, phy->resets);
->  	if (ret) {
->  		dev_err(phy->dev, "failed to assert reset: %d\n", ret);
-> -		return ret;
-> +		goto err_disable_regulator;
->  	}
->  
-> -	usleep_range(RST_ASSERT_DELAY_MIN_US, RST_ASSERT_DELAY_MAX_US);
-> +	if (is_usb3)
-> +		usleep_range(USB3_RST_ASSERT_DELAY_MIN_US,
-> +			     USB3_RST_ASSERT_DELAY_MAX_US);
-> +	else
-> +		usleep_range(PCIE_RST_ASSERT_DELAY_MIN_US,
-> +			     PCIE_RST_ASSERT_DELAY_MAX_US);
->  
->  	ret = reset_control_bulk_deassert(phy->num_resets, phy->resets);
->  	if (ret) {
->  		dev_err(phy->dev, "failed to deassert reset: %d\n", ret);
-> -		return ret;
-> +		goto err_disable_regulator;
->  	}
->  
-> -	usleep_range(PIPE_CLK_DELAY_MIN_US, PIPE_CLK_DELAY_MAX_US);
-> +	if (!is_usb3)
-> +		usleep_range(PCIE_PIPE_CLK_DELAY_MIN_US, PCIE_PIPE_CLK_DELAY_MAX_US);
->  
->  	ret = clk_bulk_prepare_enable(phy->num_clks, phy->clks);
->  	if (ret) {
-> @@ -164,7 +212,10 @@ static int qcom_uniphy_pcie_usb3_power_on(struct phy *x)
->  		goto err_assert_resets;
->  	}
->  
-> -	usleep_range(CLK_EN_DELAY_MIN_US, CLK_EN_DELAY_MAX_US);
-> +	if (is_usb3)
-> +		usleep_range(USB3_CLK_EN_DELAY_MIN_US, USB3_CLK_EN_DELAY_MAX_US);
-> +	else
-> +		usleep_range(PCIE_CLK_EN_DELAY_MIN_US, PCIE_CLK_EN_DELAY_MAX_US);
->  
->  	qcom_uniphy_pcie_usb3_init(phy);
->  
-> @@ -172,6 +223,9 @@ static int qcom_uniphy_pcie_usb3_power_on(struct phy *x)
->  
->  err_assert_resets:
->  	reset_control_bulk_assert(phy->num_resets, phy->resets);
-> +err_disable_regulator:
-> +	if (is_usb3)
-> +		regulator_disable(phy->vreg);
+> +&i2c0 {
+> +	status = "okay";
 
-Instead of sprinkling 'is_usb3' check, you can just create separate functions
-for PCIe and USB3. Even though there will be duplications (try to have helpers
-whereever you can), it will look neat and less confusing.
+This should have an explicitly set `clock-frequency`
 
->  
->  	return ret;
->  }
-> @@ -181,7 +235,7 @@ static inline int qcom_uniphy_pcie_usb3_get_resources(struct platform_device *pd
->  {
->  	struct device *dev = phy->dev;
->  	struct resource *res;
-> -	int i, count;
-> +	int i, count, ret;
->  
->  	phy->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
->  	if (IS_ERR(phy->base))
-> @@ -207,6 +261,33 @@ static inline int qcom_uniphy_pcie_usb3_get_resources(struct platform_device *pd
->  
->  	phy->num_resets = count;
->  
-> +	if (PHY_IS_USB3(phy)) {
-> +		phy->vreg = devm_regulator_get(dev, "vdd");
-> +		if (IS_ERR(phy->vreg)) {
-> +			dev_err(dev, "failed to get regulator: %ld\n",
-> +				PTR_ERR(phy->vreg));
-> +			return PTR_ERR(phy->vreg);
-> +		}
-> +
-> +		phy->tcsr = syscon_regmap_lookup_by_phandle_args(dev->of_node,
-> +								 "qcom,phy-usb-mux-sel",
-> +								 1, &phy->mux_offset);
-> +		if (IS_ERR(phy->tcsr)) {
-> +			ret = PTR_ERR(phy->tcsr);
-> +			dev_err(dev, "failed to get regmap: %d\n", ret);
-> +			return ret;
-> +		}
-> +
-> +		phy->lanes = 1;
-> +	} else {
-> +		ret = of_property_read_u32(dev_of_node(dev), "num-lanes",
-> +					   &phy->lanes);
-> +		if (ret) {
-> +			dev_err(dev, "Couldn't read num-lanes: %d\n", ret);
-> +			return ret;
-> +		}
-> +	}
-> +
+with that fixed:
 
-Same here.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+Konrad
