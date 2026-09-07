@@ -1,102 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD2E42122A
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 07:48:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 660F8415B6C
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 07:53:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767328; cv=none; b=LD9lG2KT0tj1EVdFiAiiWvSt6vlMY5YNJXb7tf3BMo6dNR9THxH+ZoHIKzeFLlnM6r0BDXtxUJkuuRqVzIG5ZXHar5H3bkLFBwlvbHjrbUmAi+ehkytjFqapa+E3u4IRJov8YbNZJvHqaJFKIEAUH/Q9lzumUTCcY2s9VPC3r4M=
+	t=1788767598; cv=none; b=ipLDvsLZkCqH/A/ohrJszGGscO0F2AaYKsLmN5kCPt3SrFHgaNXfWqlohv/gahg3v75kEoCq2rhKAce3mCUyXbB4taNaSMNeKUuQGqdL/KLD69ae6x/YNm2Vfn3sTmXYEiGO6qIK+lvc1/DjqZWCwTmde2vFq454ZDTt0GuISSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767328; c=relaxed/simple;
-	bh=x6VinubALni2/H0XUATewlI2SVMSUJR7XGjw4RM8hU8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iW7cgKQPfmkATOxqGu33t4IY06Afi2Gb/6GPAV328cfxcveoL03BMbGdAS4gL98dfeIzZ8Hpdyk1/rBzbvyiANDpiM8VVnxC/wDtTwGwP5QtNxYmChxW8W5AmHpAuHBe43muEsvJaIN+NGZyFbUTEnW6Ydqjy7RvEqpHYHpF16U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JqMapWPK; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JqMapWPK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37C861F00A3A;
-	Mon,  7 Sep 2026 07:48:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788767326;
-	bh=O9s4PKuomIOMFGiCsoOTFasq4oQIWSKpRSPdib8CxZs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JqMapWPKqV0SVrAC3uMEjzOvVu1m3MhdcMTSgNQAMpXIqZQA9RnHZmFxrvQkcE4Vr
-	 keb6P6bOHrv7f8eV6ec/QnaaM7CW81ClWkDyz915qOtvLZUeD11U5O5Rrh/JO8Jrkm
-	 p0sob9NqNBJm1WEGe0hM0N5OVkZ9Y2x/b8SzAWTwM+u2ksoSkYYX5SX5UUSYkTz2ho
-	 HVYh936GD1hSfQLn0u8e0UuWLOswomK5t2EMiwV9M9VUiguYE/KnFLAQHLdl2X4vyP
-	 Ab7euqVGDfgmNlVTwc/+iiGoT8vLeoshD8BvpCx5ujTD9uEdAz1K+k5jRm1v/8e/eu
-	 p0O2xYotRKObg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 3/4] net: dsa: microchip: Support Microchip
- KSZ8995XA / KS8995XA
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260906-ks8995-to-ksz8-v9-3-8d8815a91bd8@kernel.org>
-References: <20260906-ks8995-to-ksz8-v9-0-8d8815a91bd8@kernel.org>
- <20260906-ks8995-to-ksz8-v9-3-8d8815a91bd8@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 07:48:45 +0000
-Message-Id: <20260907074846.37C861F00A3A@smtp.kernel.org>
+	s=arc-20240116; t=1788767598; c=relaxed/simple;
+	bh=smhBSOCgTJhbT/0tl4vdE8GcuFKDdQa/HesmddcZaEI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=S/HLZbBfwY5GKnKNXyOI3sID04FzrcpX1szC6j/474zKNLl5f4eMmfd60P/EaWMUyvjJ9bcsmwgB8mNqha/C8G3vHbJPiVAjq0NBDZLwrPzP4zGO1aBZZx9jEogfNz3qMbFdh/jjT5NurkehhoWL0X5U5mdf9opn1ZiyleP/nFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5bf9506704fso1455769e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 00:53:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788767595; x=1789372395;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=xuQ9W/PlY4yeKBUrhKIeC1+yJYAlbcdcEFZm5XOVUho=;
+        b=CZ9eNT9AXZtDmEFFy+H4LUJzK38+IzW2BXPL8dDYhvFWPvcsvjPMCP5yVyQx6LyvDy
+         Txs/I1lXWEzBgwFOofWYoZ9+GbeO1mtbAyRtOELZNroJ5yNBQYL5SaDXidHGYJee5VlU
+         umaMmg9Ie8PNsGFlQdQHdZy0T7cW0fkzeAYnNaXfqsJXIXpDVxekBRlb4cb0icARYdNK
+         Hf/hrrJftVLSkJkpDbMUh8kPd59Apx2qdn77AxOBauD0rEPSmz02JKtGi1orW6/mi7rc
+         z6CtVK3GPOYPr5Nk1uOp7QwedxDs051pXuw0p3vXCsLlK31q7dHb0SmY+Y2B6XXKbhcD
+         LG6w==
+X-Forwarded-Encrypted: i=1; AKwUvBxy2b9tlmzlilrrB4jJXOu399CL2jPwVatuz6ZNbK8eDnP9xTJQ5s/3GXLohVl6YsQ0gCjA03i8FEDu@vger.kernel.org
+X-Gm-Message-State: AFuF++mPqPzIv2ejO6pKHRuy+Afz2Y4RY2SerE4oFvILPlJ9RjP0eCIH
+	Mx5Zmy4WHLtiRkErnW4aZ8Xij67lEBdqHpyRujLiDI1VpgmndTPc719wawp2d96i
+X-Gm-Gg: AYBFou29ehvm8+SSSED4o8fjnlw8X33fGc2bCqYj0WwHKV1Cr9MIvLOPk6+/96V8zj9
+	L3vedgtA6XYuT9xc2U4NwGv4O/zJiVuNJ1MtyE+ILdpsA9n4hKH6/BO10wfXJ3Pqle//R7e9Q/c
+	Wlu4m5Sz9hD8Msc/PPvdLyMm7+z+VBK50DFjvbe+EeyQxjwjV3OD3p5mHfYAy5kwfnp342FHEBt
+	TBFlLFPPLRMUR0IjTU7YELDRhAIujZicxP7yX/ISyGtN/0sSiLMbwEMV+V/C0cUNS9e3GXJ26Dp
+	iLBKjqhlDFvbSNi0THPHsGTujHBDpylCJxcNVqPfRRvw6sy8La9/C8BswF6/KD+iCtV/C7w4oRa
+	er4GDv3Y+bQF4Oh0Zhf3eF7hpzKtMAQEdOkqVhFPZpPaY5oy2PEnDjnNAbRNuttNWmOwbpghTNQ
+	1F20GfXU/2mA5hMFeYZPbC3qRW95CwN7uTZtdLzf2wtnwuBE4QPgpsB7AvJ5G8F3tWl1PkOJmkP
+	cHJUJXAnXKzutoQjlWfBesJN3zxkt7VW8f9IQ==
+X-Received: by 2002:a05:6122:f18:b0:5c7:a814:b987 with SMTP id 71dfb90a1353d-5c7ed298f6bmr9710740e0c.2.1788767595403;
+        Mon, 07 Sep 2026 00:53:15 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec24254fsm7194194e0c.10.2026.09.07.00.53.14
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 00:53:14 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7855bfd6ab6so841938137.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 00:53:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx4h5vN1NbiNGLO3UNuH73X3WlaCkLKBoHY4dhOexU6CIyyzRi8llXauDq0D9/q2qqoA1lc/SiTZv/l@vger.kernel.org
+X-Received: by 2002:a05:6102:160f:b0:781:210d:28aa with SMTP id
+ ada2fe7eead31-78a4a8be7c5mr7302331137.2.1788767593777; Mon, 07 Sep 2026
+ 00:53:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
+ <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMuHMdUapaP-8kkWT5cXtEO1h58aAzzm34XqO_mcrgbVSyXEwg@mail.gmail.com>
+ <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org>
+In-Reply-To: <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Mon, 7 Sep 2026 09:53:02 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
+X-Gm-Features: AcwNN1WhmE54lrhOaJPOpMY7QFz8OZQIiZjO28-2Vei5FzrroiSGFpU4hWAgaFM
+Message-ID: <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
+Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing polling loop or delay after triggering self-clearing PHY=
- soft reset.
---
+Hi Marek,
 
-commit 702792aed3ea3d1bc269d8039fc614882297cc87
-Author: Linus Walleij <linusw@kernel.org>
+On Sat, 5 Sept 2026 at 23:57, Marek Vasut <marek.vasut@mailbox.org> wrote:
+> On 9/4/26 1:15 PM, Geert Uytterhoeven wrote:
+> >> +++ b/drivers/gpio/gpio-rcar.c
+> >
+> >> @@ -65,14 +66,59 @@ struct gpio_rcar_priv {
+> >>
+> >>   #define RCAR_MAX_GPIO_PER_BANK         32
+> >>
+> >> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
+> >
+> > IMO passing a pointer to offs complicates the code.  Perhaps pass offs
+> > by value, and return the adjusted offset or a negative error code?
+>
+> I want to avoid that, since if I only return error value, I can then do
+> simple:
+>
+> ret = gpio_rcar_remap_offset(...);
+> if (ret)
+>    return ret;
+>
+> in gpio_rcar_read() and gpio_rcar_write(), which are the only two call
+> sites of this function.
 
-net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+gpio_rcar_read() and gpio_rcar_write() do not return error codes.
+I was thinking of
 
-This patch adds support for the Microchip KSZ8995XA switch to the KSZ
-driver, handling its specific port configurations, priority levels, and
-packet-size semantics.
+    offs = gpio_rcar_remap_offset(p, offs);
+    if (offs < 0)
+            return 0;
 
-> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip=
-/ksz8.c
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
+which is almost the same, but avoids passing offs by address.
 
-[ ... ]
+> >> +{
+> >> +       /* R-Car Gen4 and older do not need any offset remap. */
+> >> +       if (!p->info.has_layout_gen5)
+> >> +               return 0;
+> >> +
+> >> +       /*
+> >> +        * R-Car Gen5 register layout is slightly different and the offsets
+> >> +        * that have to be added to or subtracted from each register offset
+> >> +        * can be divided into five groups, listed below.
+> >> +        */
+> >> +       switch (*offs) {
+> >> +       case IOINTSEL...OUTDT:
+> >> +               return 0;
+> >> +       case INDT:
+> >> +               *offs += 0x10;
+> >> +               return 0;
+> >> +       case INTDT...EDGLEVEL:
+> >> +               fallthrough;
+> >> +       case BOTHEDGE:
+> >> +               *offs += 0x70;
+> >> +               return 0;
+> >> +       case OUTDTSEL:
+> >> +               *offs -= 0x34;
+> >> +               return 0;
+> >> +       case INEN:
+> >> +               *offs -= 0x38;
+> >> +               return 0;
+> >> +       default:
+> >> +               /*
+> >> +                * This here must never be reached, if this is reached, that
+> >> +                * means there is a catastrophic failure in the driver. Skip
+> >> +                * any IO read/write to prevent further damage.
+> >> +                */
+> >> +               WARN_ON(1);
+> >
+> > A build-time failure would be better.  I tried BUILD_BUG() instead,
+> > but unfortunately gcc is not smart enough to notice this case is
+> > never reached.  __always_inline doesn't seem to help either.
+> I had one more idea -- how about we convert the driver to mmio regmap,
+> use opaque register numbers throughout the driver to identify registers
+> to the regmap (maybe not a great idea), and then implement .read/.write
+> callbacks in the regmap_config which instead of doing plain
+> readl()/writel() for register IO would instead do this remapping ?
+> Regmap could validate that the opaque register numbers are only the
+> expected register numbers and reject all the others. Maybe the opaque
+> register numbers could instead of Gen4 register offsets. What do you think ?
 
-> @@ -253,7 +254,17 @@ static int ksz8463_reset_switch(struct ksz_device *d=
-ev)
-> =20
->  static int ksz8_reset_switch(struct ksz_device *dev)
->  {
-> -	if (ksz_is_ksz88x3(dev)) {
-> +	if (ksz_is_ksz8995xa(dev)) {
-> +		unsigned int port;
-> +
-> +		/* The KSZ8995XA switch itself cannot be reset by software, but
-> +		 * often boot loaders have fun with ports, so reset them. This
-> +		 * reset bit is self-clearing.
-> +		 */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++)
-> +			ksz_port_cfg(dev, port, REG_PORT_STATUS_3,
-> +				     PORT_PHY_SOFT_RESET, true);
+That's similar (but more complex?) than the array look-up
+in drivers/tty/serial/sh-sci.c I pointed to before.
+drivers/i2c/busses/i2c-riic.c uses the same method.
 
-[Severity: Medium]
-Is a delay or polling loop needed here after asserting the self-clearing
-reset bit?
+I.e. just convert the existing register defines into an enum, and use
+that to index a table with the family-specific offsets?
 
-If the PHY requires time to complete its soft reset, subsequent register
-configurations performed by ksz8_setup() immediately after returning from
-ksz8_reset_switch() might be ignored or cause hardware state issues.
+Gr{oetje,eeting}s,
 
-> +	} else if (ksz_is_ksz88x3(dev)) {
->  		/* reset switch */
+                        Geert
 
-[ ... ]
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260906-ks8995-to-=
-ksz8-v9-0-8d8815a91bd8@kernel.org?part=3D3
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
