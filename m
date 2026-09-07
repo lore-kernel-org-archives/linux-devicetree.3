@@ -1,488 +1,172 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EFD4398EE;
-	Mon,  7 Sep 2026 16:46:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC1C3B47CD;
+	Mon,  7 Sep 2026 16:49:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799622; cv=none; b=Z/oDpyawiQh79Cum7BVD7oMCvWc7K7OqrRpN+uX3nnzmeySchu1QNGVrWRvqqUp8lQgjuw2DGvrEf2wmDxbmlyFMMjbkzkDpnOpFMSM/yXgn0rR9SOG8ZeTVb0XhFfWbfNhiuiaTbUCw/v+WL/IIc+02JvTeM17perWyYP9NWmA=
+	t=1788799755; cv=none; b=KMrJJCaWIwOzrzx3QL3z4LD2zaiYH9qLL/Dyh7nyYZd8QvmAjpJ1YjyHaccPB/BylBjsSdMCnys2b1fYu1tYKUrFT0RHQyw4rBNlSDAj2dRi6OYtcX25ivQg90zFQcxMxxTS44TS0IYV+ChN21L1gD3kwM6o+TLyTr9yTI+LswQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799622; c=relaxed/simple;
-	bh=laiY3MUZf2Fgq7uv3ytYdGEDmmk4kA6q/OME2RaWWkw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=My7yApgxYgSitfFvqhhe0GhPKwWWk4Gn+JI58AetTI1KL6sDJJ9fInyPirkcUMm9jWx+ja1jt0+NNF1hbAL7vS84vwsfJrLEdxL/66v85ws2+S14HCzuUoSgWUpMUCaxXAnswp7W2UuunF+p9om1HEViKedo8rJ1UNJiP+daqDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A+FnWWb1; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788799755; c=relaxed/simple;
+	bh=8b0U8riFiqjIrUW8eHOKd5uJ86QSqUkGLZ3ZC49qL+Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MPEeR8uu2DvfjO/tV/ryxVVLGuovCYbQctfgBjMUF6oacHF8POE2gkRL9PWJdb3W8NmjS+khI3pnQPk8/W+JwHIvPuIDoxMOGZblMeNLbISgE09ezGD9PCB654hp697wn021grO5fNOMI5cmb/Dw7OHZwAhd7M5WNA/8vQBexXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6/PKp0V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A+FnWWb1"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id EF3C21A1A3E;
-	Mon,  7 Sep 2026 16:46:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id B849D60383;
-	Mon,  7 Sep 2026 16:46:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1A2B811C7A34F;
-	Mon,  7 Sep 2026 18:46:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788799614; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=fRu8vKfzjKGHTcF+bVdkoG7ov8tIq8OyWWakTQVTm5U=;
-	b=A+FnWWb1q8yn3km02892/s215SFrDpGXUfKl55TlNXamoMwfUHEdX3IpkPJmSa7egArM1n
-	0GSd3CLa+HIkRE8vksQuGGmwmvttf1gKjo3f3bqXKMBOcKt1xqs2hfZ5H/+Mgbj+6+sLJg
-	M+8KGmyGmBzzA+W+wjGJdJBwyKSek8TV5pNBh6psNmuo0a/SF2+Xhv3KZZtkM/uNncx1kM
-	0+b44PqB4z6RuRKiE20kWZh38dJUExSOYg/Wk7jhyb751Q+5kV+kuWubAn2ce4TfbgjZqB
-	Da/4c/vaz8BbnEPfKX5qNNM/cldWHWAZpdsfKLpapejrCHzrsr4LaeB9iSx6CA==
-Date: Mon, 7 Sep 2026 18:46:41 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is
- available at offset 0
-Message-ID: <20260907184641.537cfa49@bootlin.com>
-In-Reply-To: <apfKx_u3v3GBfzOz@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-3-herve.codina@bootlin.com>
- <apOhk-NQusFgV5Sx@gractus.seuss>
- <20260831140119.1f14b420@bootlin.com>
- <apaBuQ8kn2bOzYcI@gractus.seuss>
- <20260901141826.49b1a1b7@bootlin.com>
- <apfKx_u3v3GBfzOz@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6/PKp0V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87261F00A3A;
+	Mon,  7 Sep 2026 16:49:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788799754;
+	bh=uXbCdN9NfPjDHE4wgSr++t3jsmjnpHZ5zf/l89RQZUQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i6/PKp0VZnYLtwAl4DlWeHENBK3drUC2hR2EXSkhyyCpFHFpaa2YNsale3k4jIhU0
+	 wqsIJlzPtjKLRbIqdT8y302XfiPrAKaiPebC48JT+u6NVx1UkYhxwmFF6bjX57d7jn
+	 3hzePhvXSmQaMpSEqZi05Uo7eJLih7LXUnoCsGbAwXMTe8F7nJ4tNijm+7yCtXGZaN
+	 tgY7kaGL8knCZ0CO4ejiPtEprJxqAi4x3Jfi5HPBx/5Z6GGCOZRX/IRC11ubkKR6E2
+	 OsGUGP29GcNRol3oaBAB4g3MBNKgmAotMgC6JR9B0hJdRjQQmlvitAo9VfebZFjqkT
+	 FrCSm+gvZGuKg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Add missing PM ops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
+References: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 16:49:13 +0000
+Message-Id: <20260907164913.A87261F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hi David,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On Wed, 2 Sep 2026 17:06:03 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
+New issues:
+- [High] PCIe host controller fails to re-initialize on R-Car V4M after res=
+ume if any endpoint does not support D3cold.
+- [High] Endpoint mode (EP) does not recover from suspend on R-Car V4M due =
+to explicitly skipping PM state restoration.
 
-...
-> > 
-> > Ok, I will update fdt_check_node_offset_() to have it updating its offset
-> > parameter to the real offset of the root node when its value is 0.
-> > 
-> > Based on this update, will see where it goes. I mean, impacts on callers, if
-> > it simplifies things or not, if the offset update needs also to be propagate
-> > to caller's parameter or any other similar point that we can see during the
-> > implementation.
-> > 
-> > Having something implemented and available in a patch will be the best to
-> > compare changes and impacts related to fdt_check_node_offset_() update.
-> > 
-> > Here we have a version of handling offset 0 vs real root node without any
-> > offset update done in fdt_check_node_offset_(). In the next iteration we will
-> > have the version with update done in fdt_check_node_offset_().
-> > 
-> > I think the golden rules to follow on this point is "keep it as simple as
-> > possible".  
-> 
-> Agreed.  Feel free to repost just the NOP before root patches on their
-> own.  At this time, frequent small series is easier for me to tackle
-> than occasional large series.
-> 
+Pre-existing issues:
+- [High] The `msi_node` device node obtained from `of_msi_xlate()` is leake=
+d because its refcount is never decremented.
+--
 
-I've moved forward on the fdt_check_node_offset_() update.
+commit 924c8a29b2859d29f5190b0088001c235ae190fa
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-The new fdt_check_node_offset_() looks like this:
---- 8< ---
-int fdt_check_node_offset_(const void *fdt, int *offset)
-{
-	int nextoffset;
+PCI: rcar-gen4: Add missing PM ops
 
-	if (!can_assume(VALID_INPUT)
-	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-		return -FDT_ERR_BADOFFSET;
+Adds generic suspend/resume noirq ops to tear down and restart the PCIe link
+during suspend/resume for R-Car Gen4. This supports power domains that shut
+down in suspend, such as on R-Car V4M.
 
-	if (*offset == 0) {
-		*offset = fdt_root_offset(fdt);
-		if (*offset < 0)
-			return *offset;
-	}
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
+ntroller/dwc/pcie-rcar-gen4.c
+> index fbe465a29068f..2926660f1b537 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -849,6 +849,26 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_=
+gen4_pcie *rcar, bool enable
+>  	return 0;
+>  }
+> =20
+> +static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
+> +{
+> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(dev);
+> +
+> +	if (rcar->drvdata->mode !=3D DW_PCIE_RC_TYPE)
+> +		return 0;
 
-	if (fdt_next_tag(fdt, *offset, &nextoffset) != FDT_BEGIN_NODE)
-		return -FDT_ERR_BADOFFSET;
+[Severity: High]
+Does returning 0 here cause the endpoint (EP) mode to not recover from
+suspend on R-Car V4M?
 
-	return nextoffset;
+If the V4M A2PCIPHY power domain shuts down, removing power from the EP
+controller, explicitly skipping PM state restoration will leave the EP
+hardware dead after system resume.
+
+> +
+> +	return dw_pcie_suspend_noirq(&rcar->dw);
+
+[Severity: High]
+Can the host controller fail to re-initialize on system resume if an attach=
+ed
+endpoint does not support D3cold?
+
+If an attached endpoint does not support D3cold, the generic helper
+dw_pcie_suspend_noirq() returns 0 early:
+
+drivers/pci/controller/dwc/pcie-designware-host.c:dw_pcie_suspend_noirq() {
+    ...
+    if (!pci_host_common_d3cold_possible(pci->pp.bridge, &pme_capable))
+        return 0;
+    ...
 }
---- 8< ---
 
-If the given offset is 0, fdt_check_node_offset_() considers we want to check
-the root node and so update offset to the real root node offset.
+Because it returns 0 without setting pci->suspended =3D true, the subsequent
+resume will skip initialization:
 
-Ok, I still need some fdt_root_offset() calls from some other parts but that's
-not my main issue.
-
-My main issue comes with orphan nodes in addons. fdt_check_node_offset_() is
-called with offset pointing to an orphan node and this offset can be 0.
-
-The offset 0 seen by fdt_check_node_offset_() can be the "fake" offset of a root
-node and in that case fdt_check_node_offset_() should update offset to the real
-root node offset but it can also be the offset of the orphan node we want to check
-and in that case the offset should not be updated.
-
-fdt_check_node_offset_() cannot determine whether or not the offset should be
-updated.
-
-With orphan nodes in the loop, fdt_check_node_offset_() becomes:
---- 8< ---
-int fdt_check_node_offset_(const void *fdt, int *offset)
-{
-        int nextoffset;
-        uint32_t tag;
-
-        if (!can_assume(VALID_INPUT)
-            && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-                return -FDT_ERR_BADOFFSET;
-
-        if (*offset == 0) {
-#pragma message "We have a problem!"
-                /*
-                 * An orphan node can be present at offset 0.
-                 * In that case, looking for the root node may or may not be
-                 * correct.
-                 * Indeed is offset = 0 requested because we want the root
-                 * node and sadly an orphan node is available at offset 0 or
-                 * is it requested because we want to really check the orphan
-                 * node available at offset 0. How to determine the correct
-                 * case?
-                 */
-                tag = fdt_next_tag(fdt, *offset, &nextoffset);
-                if (tag == FDT_BEGIN_NODE || tag == FDT_BEGIN_NODE_REF)
-                        return nextoffset;
-
-                *offset = fdt_root_offset(fdt);
-                if (*offset < 0)
-                        return *offset;
-        }
-
-        tag = fdt_next_tag(fdt, *offset, &nextoffset);
-        if (tag != FDT_BEGIN_NODE && tag != FDT_BEGIN_NODE_REF)
-                return -FDT_ERR_BADOFFSET;
-
-        return nextoffset;
+drivers/pci/controller/dwc/pcie-designware-host.c:dw_pcie_resume_noirq() {
+    ...
+    if (!pci->suspended)
+        return 0;
+    ...
 }
---- 8< ---
 
-Of course, extra complexity could be added such as an additional parameter but
-I don't think it would make sense.
+Since the A2PCIPHY power domain is unconditionally shut down by the generic
+PM core, the hardware loses state. Does skipping re-initialization here lea=
+ve
+the PCIe bus permanently unusable?
 
-The simplest way to handle the case is to not update the offset in
-fdt_check_node_offset_() and let callers to pass the offset pointing to the
-real node offset expected to be checked. This is my initial proposal.
+> +}
+> +
+> +static int rcar_gen4_pcie_resume_noirq(struct device *dev)
+> +{
+> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(dev);
+> +
+> +	if (rcar->drvdata->mode !=3D DW_PCIE_RC_TYPE)
+> +		return 0;
 
-Of course, I am still open to other ideas.
+[Severity: High]
+Does this explicit bypass also prevent the EP controller from being
+reconfigured after power loss, as mentioned above?
 
-For information, without addons and orphan nodes, just to compare against my
-original proposal, the full patch ("libfdt: Don't assume the root node is
-available at offset 0") with the offset update done in fdt_check_node_offset_()
-becomes:
---- 8< ---
-diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-index 56d4dcb2..d4d4b64b 100644
---- a/libfdt/fdt.c
-+++ b/libfdt/fdt.c
-@@ -228,16 +228,24 @@ uint32_t fdt_next_tag(const void *fdt, int startoffset, int *nextoffset)
- 	return tag;
- }
- 
--int fdt_check_node_offset_(const void *fdt, int offset)
-+int fdt_check_node_offset_(const void *fdt, int *offset)
- {
-+	int nextoffset;
-+
- 	if (!can_assume(VALID_INPUT)
--	    && ((offset < 0) || (offset % FDT_TAGSIZE)))
-+	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
- 		return -FDT_ERR_BADOFFSET;
- 
--	if (fdt_next_tag(fdt, offset, &offset) != FDT_BEGIN_NODE)
-+	if (*offset == 0) {
-+		*offset = fdt_root_offset(fdt);
-+		if (*offset < 0)
-+			return *offset;
-+	}
-+
-+	if (fdt_next_tag(fdt, *offset, &nextoffset) != FDT_BEGIN_NODE)
- 		return -FDT_ERR_BADOFFSET;
- 
--	return offset;
-+	return nextoffset;
- }
- 
- int fdt_check_prop_offset_(const void *fdt, int offset)
-@@ -252,13 +260,38 @@ int fdt_check_prop_offset_(const void *fdt, int offset)
- 	return offset;
- }
- 
-+int fdt_root_offset(const void *fdt)
-+{
-+	int nextoffset = 0;
-+	int offset;
-+	uint32_t tag;
-+
-+	do {
-+		offset = nextoffset;
-+		tag = fdt_next_tag(fdt, offset, &nextoffset);
-+		switch (tag) {
-+		case FDT_END_NODE:
-+		case FDT_PROP:
-+			return -FDT_ERR_BADSTRUCTURE;
-+
-+		case FDT_BEGIN_NODE:
-+			return offset;
-+
-+		default:
-+			break;
-+		}
-+	} while (tag != FDT_END);
-+
-+	return (nextoffset < 0) ? nextoffset : -FDT_ERR_NOTFOUND;
-+}
-+
- int fdt_next_node(const void *fdt, int offset, int *depth)
- {
- 	int nextoffset = 0;
- 	uint32_t tag;
- 
- 	if (offset >= 0)
--		if ((nextoffset = fdt_check_node_offset_(fdt, offset)) < 0)
-+		if ((nextoffset = fdt_check_node_offset_(fdt, &offset)) < 0)
- 			return nextoffset;
- 
- 	do {
-diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
-index 11f2e2ee..ec8af835 100644
---- a/libfdt/fdt_ro.c
-+++ b/libfdt/fdt_ro.c
-@@ -281,7 +281,7 @@ int fdt_path_offset_namelen(const void *fdt, const char *path, int namelen)
- 		while (*p == '/') {
- 			p++;
- 			if (p == end)
--				return offset;
-+				goto terminate;
- 		}
- 		q = memchr(p, '/', end - p);
- 		if (! q)
-@@ -294,7 +294,13 @@ int fdt_path_offset_namelen(const void *fdt, const char *path, int namelen)
- 		p = q;
- 	}
- 
--	return offset;
-+terminate:
-+        /*
-+         * Avoid returning offset 0 or the real root offset.
-+         * Be sure to return one and only one offset for the root node, its
-+         * real offset.
-+         */
-+	return offset ? offset : fdt_root_offset(fdt);
- }
- 
- int fdt_path_offset(const void *fdt, const char *path)
-@@ -304,14 +310,17 @@ int fdt_path_offset(const void *fdt, const char *path)
- 
- const char *fdt_get_name(const void *fdt, int nodeoffset, int *len)
- {
--	const struct fdt_node_header *nh = fdt_offset_ptr_(fdt, nodeoffset);
-+	const struct fdt_node_header *nh;
- 	const char *nameptr;
- 	int err;
- 
--	if (!can_assume(VALID_DTB) && (((err = fdt_ro_probe_(fdt)) < 0)
--	    || ((err = fdt_check_node_offset_(fdt, nodeoffset)) < 0)))
--			goto fail;
-+	if (!can_assume(VALID_DTB) && (err = fdt_ro_probe_(fdt)) < 0)
-+		goto fail;
-+
-+	if ((err = fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
-+		goto fail;
- 
-+	nh = fdt_offset_ptr_(fdt, nodeoffset);
- 	nameptr = nh->name;
- 
- 	if (!can_assume(LATEST) && fdt_version(fdt) < 0x10) {
-@@ -344,7 +353,7 @@ int fdt_first_property_offset(const void *fdt, int nodeoffset)
- {
- 	int offset;
- 
--	if ((offset = fdt_check_node_offset_(fdt, nodeoffset)) < 0)
-+	if ((offset = fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
- 		return offset;
- 
- 	return nextprop_(fdt, offset);
-@@ -574,6 +583,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen)
- {
- 	int pdepth = 0, p = 0;
- 	int offset, depth, namelen;
-+	int root_offset;
- 	const char *name;
- 
- 	FDT_RO_PROBE(fdt);
-@@ -581,7 +591,14 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen)
- 	if (buflen < 2)
- 		return -FDT_ERR_NOSPACE;
- 
--	for (offset = 0, depth = 0;
-+	root_offset = fdt_root_offset(fdt);
-+	if (root_offset < 0)
-+		return root_offset;
-+
-+	if (!nodeoffset)
-+		nodeoffset = root_offset;
-+
-+	for (offset = root_offset, depth = 0;
- 	     (offset >= 0) && (offset <= nodeoffset);
- 	     offset = fdt_next_node(fdt, offset, &depth)) {
- 		while (pdepth > depth) {
-@@ -627,13 +644,21 @@ int fdt_supernode_atdepth_offset(const void *fdt, int nodeoffset,
- {
- 	int offset, depth;
- 	int supernodeoffset = -FDT_ERR_INTERNAL;
-+	int root_offset;
- 
- 	FDT_RO_PROBE(fdt);
- 
- 	if (supernodedepth < 0)
- 		return -FDT_ERR_NOTFOUND;
- 
--	for (offset = 0, depth = 0;
-+	root_offset = fdt_root_offset(fdt);
-+	if (root_offset < 0)
-+		return root_offset;
-+
-+	if (!nodeoffset)
-+		nodeoffset = root_offset;
-+
-+	for (offset = root_offset, depth = 0;
- 	     (offset >= 0) && (offset <= nodeoffset);
- 	     offset = fdt_next_node(fdt, offset, &depth)) {
- 		if (depth == supernodedepth)
-@@ -663,12 +688,15 @@ int fdt_supernode_atdepth_offset(const void *fdt, int nodeoffset,
- int fdt_node_depth(const void *fdt, int nodeoffset)
- {
- 	int nodedepth;
--	int err;
-+	int offset;
-+
-+	offset = fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, &nodedepth);
-+	if (offset < 0)
-+		return offset;
-+
-+	if (!can_assume(LIBFDT_FLAWLESS) && offset != fdt_root_offset(fdt))
-+		return -FDT_ERR_INTERNAL;
- 
--	err = fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, &nodedepth);
--	if (err)
--		return (can_assume(LIBFDT_FLAWLESS) || err < 0) ? err :
--			-FDT_ERR_INTERNAL;
- 	return nodedepth;
- }
- 
-diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
-index 850aafe4..a1a07f01 100644
---- a/libfdt/fdt_rw.c
-+++ b/libfdt/fdt_rw.c
-@@ -226,7 +226,7 @@ static int fdt_add_property_(void *fdt, int nodeoffset, const char *name,
- 	int err;
- 	int allocated;
- 
--	if ((nextoffset = fdt_check_node_offset_(fdt, nodeoffset)) < 0)
-+	if ((nextoffset = fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
- 		return nextoffset;
- 
- 	namestroff = fdt_find_add_string_(fdt, name, namelen, &allocated);
-@@ -377,6 +377,12 @@ int fdt_add_subnode_namelen(void *fdt, int parentoffset,
- 
- 	FDT_RW_PROBE(fdt);
- 
-+	if (!parentoffset) {
-+		parentoffset = fdt_root_offset(fdt);
-+		if (parentoffset < 0)
-+			return parentoffset;
-+	}
-+
- 	offset = fdt_subnode_offset_namelen(fdt, parentoffset, name, namelen);
- 	if (offset >= 0)
- 		return -FDT_ERR_EXISTS;
-diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-index c69a18ed..7a1915a5 100644
---- a/libfdt/libfdt.h
-+++ b/libfdt/libfdt.h
-@@ -503,6 +503,19 @@ int fdt_num_mem_rsv(const void *fdt);
-  */
- int fdt_get_mem_rsv(const void *fdt, int n, uint64_t *address, uint64_t *size);
- 
-+/**
-+ * fdt_root_offset - Get the offset of the root node
-+ * @fdt: pointer to the device tree blob
-+ *
-+ * The root node can be located after the offset 0. Indeed FDT_NOP tags can be
-+ * present at offset 0. fdt_root_offset() takes care of those possible FDT_NOP
-+ * tags.
-+ *
-+ * returns: offset of the root node or negative libfdt error value otherwise
-+ */
-+int fdt_root_offset(const void *fdt);
-+
-+
- /**
-  * fdt_subnode_offset_namelen - find a subnode based on substring
-  * @fdt: pointer to the device tree blob
-@@ -1025,7 +1038,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, char *buf, int buflen);
-  * at a specific depth from the root (where the root itself has depth
-  * 0, its immediate subnodes depth 1 and so forth).  So
-  *	fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, NULL);
-- * will always return 0, the offset of the root node.  If the node at
-+ * will always return the offset of the root node.  If the node at
-  * nodeoffset has depth D, then:
-  *	fdt_supernode_atdepth_offset(fdt, nodeoffset, D, NULL);
-  * will return nodeoffset itself.
-diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
-index 0e103caf..d5072279 100644
---- a/libfdt/libfdt_internal.h
-+++ b/libfdt/libfdt_internal.h
-@@ -20,7 +20,7 @@ int32_t fdt_ro_probe_(const void *fdt);
- 		}							\
- 	}
- 
--int fdt_check_node_offset_(const void *fdt, int offset);
-+int fdt_check_node_offset_(const void *fdt, int *offset);
- int fdt_check_prop_offset_(const void *fdt, int offset);
- 
- const char *fdt_find_string_len_(const char *strtab, int tabsize, const char *s,
-diff --git a/libfdt/version.lds b/libfdt/version.lds
-index cbfef546..d0b71669 100644
---- a/libfdt/version.lds
-+++ b/libfdt/version.lds
-@@ -7,6 +7,7 @@ LIBFDT_1.2 {
- 		fdt_string;
- 		fdt_num_mem_rsv;
- 		fdt_get_mem_rsv;
-+		fdt_root_offset;
- 		fdt_subnode_offset_namelen;
- 		fdt_subnode_offset;
- 		fdt_path_offset_namelen;
---- 8< ---
+> +
+> +	return dw_pcie_resume_noirq(&rcar->dw);
 
+[Severity: High]
+This isn't a bug introduced by this patch, but does calling the generic res=
+ume
+helper introduce a recurring device_node leak?
 
-I hope all of those details will help to move forward.
+On every resume, dw_pcie_resume_noirq() will call pci->pp.ops->init(), which
+invokes rcar_gen4_pcie_host_msi_addr(). Inside that function, of_msi_xlate()
+acquires a reference to the msi_node:
 
-Best regards,
-Hervé
+drivers/pci/controller/dwc/pcie-rcar-gen4.c:rcar_gen4_pcie_host_msi_addr() {
+    ...
+    of_msi_xlate(dev, &msi_node, 0);
+    if (!msi_node)
+        return -ENODEV;
+    ...
+}
+
+The function returns without ever calling of_node_put(msi_node). Because th=
+is
+patch now causes init to run on every suspend/resume cycle instead of just =
+at
+probe time, does this leak the msi_node reference on every system resume?
+
+> +}
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907163554.7251=
+27-1-marek.vasut+renesas@mailbox.org?part=3D1
