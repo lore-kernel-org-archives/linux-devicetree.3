@@ -1,206 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4373AFAE6;
-	Mon,  7 Sep 2026 06:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73D738B7D9;
+	Mon,  7 Sep 2026 06:30:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762528; cv=none; b=DCxEH89xNogZ/EFXCsuz6qRdxY28c53hhelMBLMWbYS9jAB6mA6+uLkvx3CYmFCml1sW0ffkDgoMzS5J9otUq7ldIhirRMbVOLdv6RuykCN+5sy5+nkOKHz8anYuC8hZUEVwERfkw5t33x+8WtuVFLMUWnEpg9Nzge/3N+PXEL8=
+	t=1788762634; cv=none; b=aDdyBGPL/W/WKYjmGW2zbw4HS/W2H7CqAKNwt5uu5ELfBkUOOplY/P9qlsNRrb1rXAskn+uyXpIpeNiWju9zWSMmJuZhjfRtUSJS2ezlt4Sw+rxo32N7BiEVElt7XLIIAABe7CdUfQWnlurs+xaCj2A8fFF2f4JohZI5hAWsoJU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762528; c=relaxed/simple;
-	bh=cBR1hHuCqUjgoqqFIrj/hbrTP743hZq4ny33mc0KjKk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uX3rdRHGdN5z20U8uaZU4XpkhJoTFFm0rLVdJ8Zw8NyNYBoR7uVsyp2LEFDqsKkOeBlEMgBATvbptmKGOhxdpW4JBXlMYgE8qLNi2czCZCAdBgzeTQiJ9eSMD1Gz3rsaNE0Vw7/qhZd1Q2SrVobaSdzRL5pgOy7493mxC+Vwimw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUwKfgSX; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUwKfgSX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875B91F00A3E;
-	Mon,  7 Sep 2026 06:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788762522;
-	bh=Uhqq4SjaBmSEA8DrRzienxD9wkDqWA+Zx6N8pGJJeww=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IUwKfgSXh8wAdVB1uda8oKDagMq50nSkJhaFjwhDyuGAD3ciKsn5vjkrHlMvx/Obk
-	 JdYVD7Uam5OKyLbP7PFdopgxr+qqh/u+JqI0da9ll9OsitD7c0pnDc4XadVLHt1gIY
-	 oR9e+eMtkdoo6XVhED+5xhSTCB2IXUytDO0oFrVeQ06lXPfC+ryATeaf5ddDz3jQ6H
-	 OtaDsKNJIZxMgY2hiXHdid70AoC2fp4ka7dzh1NrgA+sNT80wVyk0cMTgAgoVuox85
-	 KPfmTPxlePELs0TMtduVJBl7T/OlMpDvdtadNObM97Ef7wulPvuJsw+YuxPTTwAMlc
-	 Ar3KFzJXHquRw==
-Date: Mon, 7 Sep 2026 08:28:38 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Billy Tsai <billy_tsai@aspeedtech.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/8] dt-bindings: i3c: Document the AST2700 I3C controller
-Message-ID: <20260907-imaginary-economic-oyster-57cdd6@quoll>
-References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
- <20260901-b4-i3c-hci-ast2700-v1-1-19909e7cbd7e@aspeedtech.com>
+	s=arc-20240116; t=1788762634; c=relaxed/simple;
+	bh=rs27ygsYJCGDtfxVVxP/oIq8K0T2ks5aIvLOIkjg8RU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=aVb35zTx0RVwrFh/8WLu0tltFXXWwWulrnA9EXxSAyfpBbPX/n8L9i4wFleKRg1ML7AvxmFxA6FSDS2WnOq4QvHZSYWmiOP+U3jJYbHoWntKhO2l0R1f1Zs7DxZyL5cG5Y47REyF36SqtLeDZSehZ61LC9oBBh8u6ZeVfTcfu6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.127])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4cc5f275b;
+	Mon, 7 Sep 2026 14:30:20 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: gsh517025@gmail.com
+Cc: alex@ghiti.fr,
+	amadeus@jmu.edu.cn,
+	aou@eecs.berkeley.edu,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dlan@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	pjw@kernel.org,
+	robh@kernel.org,
+	spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: enable onboard eeprom for OrangePi
+Date: Mon,  7 Sep 2026 14:30:10 +0800
+Message-Id: <20260907063010.1882362-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <4e8e6f90-9731-4416-8b1a-be1cef12bb72@gmail.com>
+References: <4e8e6f90-9731-4416-8b1a-be1cef12bb72@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-1-19909e7cbd7e@aspeedtech.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa07a8f81c903a2kunmf8319171daf5f
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQ01OVkhOTkgZSx8dTEIYSVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVQkJJTk
+	tVSktLVUpCS0JZBg++
 
-On Tue, Sep 01, 2026 at 07:35:28PM +0800, Billy Tsai wrote:
-> The AST2700 I3C controller implements the MIPI I3C HCI programming
-> model, extended with an ASPEED in-house control block and a PHY
-> programming window advertised through an HCI vendor extended
-> capability. Follow the existing aspeed,ast2600-i3c precedent of
-> describing SoC integrations of a common I3C IP in their own schema.
+Hi,
 
-What precedent exactly?
+> -         mac-address {
+> +         mac_address: mac-address {
 
-Are you now bringing some LLM slop arguments here?
+This requires removing the aliases for Ethernet.
 
-> 
-> The controller takes a core clock for PHY timing and two reset-names
-> lines: its own reset and a DMA engine reset shared by all I3C
-> controllers on the SoC.
-> 
-> The PHY timings derived from the core clock and bus rate assume
-> nominal bus loading. Boards with long traces, weak pull-ups, or
-> capacitive loading need different ratios and setup periods, so
-> document properties to override the push-pull and open-drain SCL
-> periods, the SDA TX hold time, the tCAS/tCBP periods, and the SCL low
-> period used for a repeated START or STOP.
-> 
-> Boards without external I3C pull-up resistors can use the PHY's
-> built-in pull-ups instead. The achievable resistance depends on the
-> voltage domain of the pins (high-voltage vs low-voltage), which can be
-> determined from the pin group assigned to the bus. Reuse bias-pull-up
-> (pincfg-node.yaml) for the strength in Ohms; it is declared on this
-> node rather than a pin-config node since the pull-up switch is part of
-> the I3C PHY, not the broader SoC pin control IPs.
-> 
-> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
-> Assisted-by: Claude:claude-fable-5
-> 
-> ---
-> We considered formally expressing bias-pull-up's dependency on a
-> pinctrl state in the schema, but couldn't find a clean way to say
-> "depends on whichever pinctrl-N is active" without hard-coding
-> pinctrl-0 specifically, which would be wrong in general (a node's
-> active pin state doesn't have to sit at index 0). We've added
-> pinctrl-0 to the example to illustrate the typical usage instead,
-> without a formal schema-level dependency.
-> ---
->  .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 133 +++++++++++++++++++++
->  1 file changed, 133 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
-> new file mode 100644
-> index 000000000000..19ecb5b15038
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
-> @@ -0,0 +1,133 @@
-> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i3c/aspeed,ast2700-i3c-hci.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ASPEED AST2700 I3C controller
-> +
-> +maintainers:
-> +  - Billy Tsai <billy_tsai@aspeedtech.com>
-> +
-> +description:
-> +  The AST2700 I3C controller implements the MIPI I3C HCI programming model,
-> +  extended with an ASPEED in-house control block and a PHY programming window
-> +  that are advertised through an HCI vendor extended capability.
-> +
-> +properties:
-> +  compatible:
-> +    const: aspeed,ast2700-i3c-hci
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    items:
-> +      - description: Core controller reset.
-> +      - description: DMA engine reset shared by all I3C controllers.
-> +
-> +  reset-names:
-> +    items:
-> +      - const: core
-> +      - const: dma
-> +
-> +  bias-pull-up:
-> +    $ref: /schemas/pinctrl/pincfg-node.yaml#/properties/bias-pull-up
-> +    enum: [177, 231, 261, 317, 400, 470, 550, 600, 750]
-> +    description:
-> +      Enable the PHY-internal pull-ups on SCL and SDA and select their
-> +      strength, in Ohms. High-voltage pins support 400, 470 or 600 Ohms,
-> +      and low-voltage pins support 177, 231, 261, 317, 400, 550 or 750
-> +      Ohms. When absent the internal pull-ups stay disabled and the bus
-> +      relies on external pull-ups.
-> +
-> +  aspeed,pp-scl-high-ns:
-> +    description:
-> +      Push-pull SCL high period. Overrides the value derived from the
-> +      i3c-scl-hz bus rate.
-> +
-> +  aspeed,pp-scl-low-ns:
-> +    description:
-> +      Push-pull SCL low period. Overrides the value derived from the
-> +      i3c-scl-hz bus rate.
-> +
-> +  aspeed,od-scl-high-ns:
-> +    default: 380
-> +    description:
-> +      Open-drain SCL high period.
-> +
-> +  aspeed,od-scl-low-ns:
-> +    default: 620
-> +    description:
-> +      Open-drain SCL low period.
-> +
-> +  aspeed,sda-tx-hold-ns:
-> +    default: 10
-> +    description:
-> +      SDA output hold time relative to the SCL edge.
-> +
-> +  aspeed,cas-ns:
-> +    minimum: 39
-> +    description:
-> +      Clock-after-start (tCAS) period driven after a START condition.
-> +      When absent it is derived from the SCL low period of the
-> +      applicable bus context, clamped to the protocol minimum.
-> +
-> +  aspeed,cbp-ns:
-> +    minimum: 20
-> +    description:
-> +      Clock-before-stop (tCBP) period driven before a STOP condition.
-> +      When absent it is derived from the SCL low period of the
-> +      applicable bus context, clamped to the protocol minimum.
-> +
-> +  aspeed,sr-p-scl-low-ns:
-> +    default: 40
-> +    description:
-> +      SCL low period used while preparing a repeated START or STOP
-> +      condition, kept separate from the push-pull SCL low period to
-> +      satisfy the MIPI I3C clock stalling requirements.
+> But I am not sure whether this wiring should be part of this patch.
+> Without such wiring, the kernel falls back to random MAC addresses
+> on this board.
 
-Probably I3C maintainers should weight in here and help - should these
-be made generic for all I3C controllers? I am surprised some "standard"
-I3C controller needs to configure this as the single one. No other ever
-needed...
+Currently, U-Boot patches the MAC address using the Ethernet alias
+from the Device Tree. The vendor U-Boot reads the MAC address from
+the eeprom. I think the mainline U-Boot will add this feature, so
+we don't need to add this one?
 
-Best regards,
-Krzysztof
-
+Thanks,
+Chukun
