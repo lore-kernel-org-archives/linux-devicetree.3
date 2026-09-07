@@ -1,153 +1,92 @@
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624C8440641;
-	Mon,  7 Sep 2026 09:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30F28448391;
+	Mon,  7 Sep 2026 09:10:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772176; cv=none; b=pSmJoJs6Flbr29D4RqdIgtoVaODlYo0L7TOIOozcp5yk+imCgIj1Bt4e3U8f/+MqKDq60kwjBJknDUxoqW0I8wzmGuqBHxI5chuLuNoNUXICgau7Cz6zj8hUP2q8Tg+F7GlLGRZ1GuDsVETQukGkSf49ULbrIV1xUF9BwzpcFYo=
+	t=1788772258; cv=none; b=EBXXo27uDrdIYkj8efWBqMtJlRwz9A0lb9wYieF/FYW6svGFobZRZQHZcZdDrfJUSSHjOOAVPNRBfDh7JTOCfr2bcJVqhZRMNmmyxcOhlWNGy4uOoxeexc2q2KtijYyUQyYcFZHQWn4dZdAtcl3jFdn9/wppKep5t483GK58PC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772176; c=relaxed/simple;
-	bh=a5yTJl1mTRNz/JnJGETtgRbZibZXhJy1nbc0Lpub2jM=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ww4K9c6DAL9VNAY1GDrNTGB4YIKQQxrBp663qNCocyr6TrxxpnCntcdBRYMjfLkXnIC7OxDGPaZdhR9+ckpw/L/50fFNLmkOXEFx/29WJWjrFZuYsnlDJDhx+WDDg6cb1ikXPEPNPuEr3y88kEhWvRLm8LPIeRAjzHUUZun79B8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=RxmycdbA; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MLkoViF3; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EYS0JhIM; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=ZFqKzuHP; arc=none smtp.client-ip=195.135.223.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	s=arc-20240116; t=1788772258; c=relaxed/simple;
+	bh=kD88WPjO2q8Z0rvP+M+ld9b/ip/Dnp/7Qdyt/uY1O+M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HKWYtno2KRTaMLvIVWU1kaXmIUlRyXLLRUB+e3sXbDNWvJgNPUWXdbNM8hi0E2aAw2lV3oPstkZPNgSt1S3jduLgHvuW+9d7kjjH1lcbZr7cAzTd66/avlKTMNV3Y4KqojDu2u+bTqEb5qpf5smMWGHvdIqDof2yUz3O3XbgBo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mixHjN6T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="RxmycdbA";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MLkoViF3";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EYS0JhIM";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="ZFqKzuHP"
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1D93E1F453;
-	Mon,  7 Sep 2026 09:09:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788772169; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=RxmycdbAIO4OVyCEIL9O0pfCvwDurOi1D6P2DoJBgwPq3Tut6eHaRtriZJHJUkZgMw8WrQ
-	SExGba1NQAHUqo4JSr5yal2OTJ1zPC8gOAMEJihO3p/wVdQKm+DpZ2sINpDaDyuWP1jRup
-	t8vuwpKxPg5IFTdg2cM6ceed+h4nhu8=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788772169;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=MLkoViF3YX+tUsoMfLapzh0/Nmt1Om7/HXDHRhI8X0xzs8FgIpbdyhE/KWysQU8AIG0Jw0
-	Tl6qVYDRt08leKDQ==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1788772165; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=EYS0JhIM7+I5nJqqJSCPUZul5E5jtOxOY8dxW/DR7vV8qItmL99TfLU7v86sySDTr6xAfB
-	zRSfmXm87SL1Rzx/HJSA1F4GU72HX/0L0tuXGCIqEPDbHbDHb7w7TFKkkcXeBf9ORbs+AM
-	Me0eVmCeCe43pwyam5CQAsvfQjpT2zY=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1788772165;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+ayhPQCbhnor1lPCivHrHnj/zJ7ZNSLcLh+xD4A7yX4=;
-	b=ZFqKzuHPDLBuoB4hA18WebMRzpdcA+vsdAajgcFWSY3+a2sVA8Bh6Mz69QhV6gfnW3K2E5
-	wXzgGhD6uc1mcHAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 79FA613432;
-	Mon,  7 Sep 2026 09:09:24 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id a6NmHER/nmoyaQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Mon, 07 Sep 2026 09:09:24 +0000
-Date: Mon, 07 Sep 2026 11:09:23 +0200
-Message-ID: <8733vltol8.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Richard Fitzgerald <rf@opensource.cirrus.com>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Charles Keepax <ckeepax@opensource.cirrus.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Jaroslav Kysela
- <perex@perex.cz>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Maciej Strozek <mstrozek@opensource.cirrus.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Takashi Iwai <tiwai@suse.com>,
-	Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
-	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-	patches@opensource.cirrus.com,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 01/11] ASoC: SDCA: allow building without ACPI
-In-Reply-To: <b1eb306a-ca6b-4fb5-93c6-7890a88e2689@opensource.cirrus.com>
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
-	<20260907083727.733705-2-srinivas.kandagatla@oss.qualcomm.com>
-	<b1eb306a-ca6b-4fb5-93c6-7890a88e2689@opensource.cirrus.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mixHjN6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB0E1F00A3A;
+	Mon,  7 Sep 2026 09:10:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788772256;
+	bh=QunEK4bJDjHKRItDHtFYdP6VKrb5WXoolVwD0wMuE5Q=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mixHjN6Ti1Yew2y+wZItCTtCjGFWJmoBTa4FMfaQV68ilRglzrAcZfwXLwQsyH5nV
+	 PAMyGsKZFeBTbcxcNgs4Q2iI0u+YoNa41pyHywl/yAZ+7wY7lIKgfLIIxXPsj+vo+G
+	 d3CstSY+v7qb5s7mV5bit/lAsBqsBN1HmlTofTR1c00VsJ+9OSDUmHEf7wOn4h9xN0
+	 8fAl1SkmdfdICwMeDIqEiiQ0eGyCQSmJukwWEibL2dIvMImzNFyjK0W/83Chl1ky38
+	 Ao30mguWPye4Gz5ZuJRDcTC9m9zYZvtiwsQ10hIiOLUuzVoIzV3WQ/ICYXwTvHXMU3
+	 nBOV59oflQFbg==
+Date: Mon, 7 Sep 2026 11:10:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
+	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
+	Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>, 
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 0/4] net: dsa: Add SoC-e DSA driver
+Message-ID: <20260907-resourceful-hissing-hummingbird-70cf8c@quoll>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Level: 
-X-Spam-Score: -1.80
-X-Spam-Flag: NO
-X-Spamd-Result: default: False [-1.80 / 50.00];
-	BAYES_HAM(-3.00)[99.99%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-0.999];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TAGGED_RCPT(0.00)[dt];
-	MIME_TRACE(0.00)[0:+];
-	RCPT_COUNT_TWELVE(0.00)[20];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[oss.qualcomm.com,kernel.org,opensource.cirrus.com,linux.intel.com,perex.cz,gmail.com,linux.dev,suse.com,catcrafts.net,vger.kernel.org];
-	TO_DN_SOME(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
 
-On Mon, 07 Sep 2026 10:54:08 +0200,
-Richard Fitzgerald wrote:
+On Thu, Sep 03, 2026 at 08:10:57PM +0200, Vasilij Strassheim wrote:
+> Add support for SoC-e Ethernet switch IP cores synthesized for and
+> implemented in FPGAs.
 > 
-> On 07/09/2026 9:37 am, Srinivas Kandagatla wrote:
-> > The SDCA class driver is useful on non-ACPI platforms where the
-> > topology is supplied statically via sdca_class_hw_ops.get_function_data.
-> > 
-> > Drop 'depends on ACPI' from SND_SOC_SDCA and guard the
-> > ACPI-parsing implementations in sdca_device.c and sdca_functions.c
-> > with IS_ENABLED(CONFIG_ACPI), providing empty stubs when ACPI is off.
+> The series introduces the SoC-e vendor prefix and device tree binding,
+> an EtherType-based SDSA tagger, and an initial DSA switch driver.
 > 
-> Would it be better to use IS_REACHABLE(CONFIG_ACPI)?
+> The driver uses a memory-mapped control interface. During probe, it
+> detects the core version and the licensed and implemented port counts,
+> and verifies that the synthesized core provides DSA support. Port
+> counts from 1 through 31 are supported.
+> 
+> The initial implementation supports Ethernet switching using MII, GMII,
+> RMII, and RGMII port interfaces. Offloading features are not
+> implemented.
+> 
+> External MDIO outputs are exposed as separate logical MDIO buses sharing
+> the integrated MDIO controller.
+> 
+> The driver was tested with a SoC-e MRS 25.01 IP core on a Xilinx ZynqMP
+> platform.
+> 
+> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> ---
+> Changes in v2:
+> - Correctly use net-next prefix
+> - Rework the binding into a single MMIO-based switch node
+> - Model hardware MDIO outputs as separate logical MDIO buses
+> - Detect the switch version, features, and port count from hardware
+> - Drop incomplete STP, bridge, and FDB offloading
+> - Derive phylink capabilities from each port's phy-mode
+> - Harden MDIO access and SDSA receive validation
+> - Address binding, naming, and coding style review comments
 
-CONFIG_ACPI is a bool, so it's equivalent.
+This is not specific enough. Every contributor can say that for every
+patch...
 
+Best regards,
+Krzysztof
 
-thanks,
-
-Takashi
