@@ -1,111 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp6-g21.free.fr (smtp6-g21.free.fr [212.27.42.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0832D4F30EB
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 18:17:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F695237AA
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 18:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.27.42.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788805036; cv=none; b=IXNUxD8bcIpFqpTfXtfXUGEQzwNTOeYBJ/cpqij3f7EnzUozyYOa4Ccalj2OFjt+wcq4o2VvI9JUzmwlzYmx7NV07mIwzk+i4tviVp/kXuEpzRxPRzth6L0IaCHEbKCqdHXNrGek10KHa9NdDwUfH/3xobfbohktd+Ow0ZkCaA8=
+	t=1788805212; cv=none; b=BBwwQeccz1cOXiOy3J21cC0soF19Z04fZdWmx9PD/Y/g75Y2EfSgn7uKM2DTdeOn8i/jrlnUaVlo8x66F/dH14kNqY3Ly7WjnHQpTzUroQLW+BTqdheKflbfLZlHh2Yf/a5l/p/K6cK6vjhkxGn6vUm2XSMzwf0GVHzo/ilk9io=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788805036; c=relaxed/simple;
-	bh=fSopx/2HF4CHIvvPMEBwLaS94CxSGVqZlUZcwemU8k8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UJ6aY0Jm5RCMpTZZiy5NNf8AEQ5G7mpiR1uu6x3ss/e6acL8gWd0wi1IqnAsQSFsuyJl56K/tGf+LSk9YtHMAt8hMLD32I3ciapVRuQf8odnItjbXqAcD+bCfft4AZkki2KgYWzjcmG4guOfYczyJGemk4YYkbCXz0vDiXrZ820=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PeAD+NZ1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788805212; c=relaxed/simple;
+	bh=lWWVxHlMVQqMvYK/lm+Q29GhKlehfh7yw4SSYMvALm4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=p5he5ghG3IkAIAuuzirzxGcIlHjhNC6XXArutHVpw8QKlwalGAPmGi2ZI5xxboGNAb3qq1LNxJYzh9J4zc+u0ULtYMFAU8/+OSOPWMS5fOulrl2UKUeNx1F1ADVhwtqsOET7TtjDRCqO18Qqk766X/orqZ5nlA4/z7ETz5uNGOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr; spf=pass smtp.mailfrom=free.fr; dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b=KPRVAslj; arc=none smtp.client-ip=212.27.42.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=free.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=free.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PeAD+NZ1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3B441F00A3A;
-	Mon,  7 Sep 2026 18:17:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788805032;
-	bh=GxEBDzNiddhZFILFkKuD/56bqlhlEXtqucUubvpU66M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PeAD+NZ1cKs6Qf9nbTsfgWtzeHpzr1byIbl7HHWxsiZnUrZzbV1Pqvc01McU/UG3A
-	 2HSVZAJeeQN4Qs+kWpdrkvwlYYb1cnWAt591gtDxnke20sWqU6moInxZogNNv17npb
-	 n8tQAyC/iFoozNNayA0FBKSFs/SHsPTQHK9aarr+5L3dTKZyLwUMvTMrnZw4eBFqT5
-	 kan/Uq7LlFgzpRm5Dc5rhk+869Pt+E7YRdlnSeJsh4YO0w5LBa5HMAW7JwWZanotYP
-	 vSFly2iRUvA07jJe4vuLn+8aectBRvBAdBNnrHlM5RBjaj6oWZE2d9sFV9e79EC25Q
-	 Lye9xBT5y1eNA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] mailbox: mtk-cmdq: add mt6572 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Roman Vivchar" <rva333@protonmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907-6572-gce-v2-3-412a5b037290@protonmail.com>
-References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
- <20260907-6572-gce-v2-3-412a5b037290@protonmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 18:17:11 +0000
-Message-Id: <20260907181711.C3B441F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=free.fr header.i=@free.fr header.b="KPRVAslj"
+Received: from L30177.local (unknown [213.36.7.12])
+	(Authenticated sender: vjardin@free.fr)
+	by smtp6-g21.free.fr (Postfix) with ESMTPSA id BF28778035B;
+	Mon,  7 Sep 2026 20:19:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=free.fr;
+	s=smtp-20201208; t=1788805204;
+	bh=lWWVxHlMVQqMvYK/lm+Q29GhKlehfh7yw4SSYMvALm4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=KPRVAsljlmmqzX+kezsgDnonBWoCg+n1WTi39dvd83Dowgus1dpSF06iAt5NGXHaY
+	 LuA0wBkd3hhjiCkODihzFTX6Xeio9bfuLd9KMhEe6NYTm0lHlXA6mkYdmLsUm1ImqZ
+	 s7F1vJt2l1q2rZNoTr0BNLVTZkdL4bh1P9DRbDmBqG1vqtKePp64X59+v1u4mX6YwB
+	 ODvCRcr8ZvmXbBbVNyWfyXLQejKkadrf2vIyC85WthK0CRo925Vru81HZyw+Cz+ga7
+	 dMpDzgegYXZI1W31vBG343eQKKXLOdk3IKn01eO0Q+BmImQI0vtgjSBms9R5gQp3af
+	 7Nl0GlL7q/tSQ==
+Date: Mon, 7 Sep 2026 20:19:57 +0200
+From: Vincent Jardin <vjardin@free.fr>
+To: sashiko-reviews@lists.linux.dev
+Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
+Message-ID: <ap8ATXP7euKUDkPM@L30177.local>
+References: <20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr>
+ <20260907-for-upstream-nbxv3-dts-v2-3-6b4afd36180b@free.fr>
+ <20260907172657.D72AE1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907172657.D72AE1F00A3A@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Functions generating SPR/GPR-based instructions lack safety checks=
- for legacy_isa, potentially causing GCE hardware lockups on MT6572.
---
+Hi M. Bot,
 
-commit 4694eedf10a37d189a86ca417a39efa7d5e2b2dd
-Author: Roman Vivchar <rva333@protonmail.com>
+I'll submit a v3 update tomorrow.
 
-mailbox: mtk-cmdq: add mt6572 support
+See below for the few other topics,
 
-Add legacy_isa field forwarding to the cmdq helper and a platform data
-for the mt6572 GCE.
+> > +&fspi {
+> > +	pinctrl-names = "default";
+> > +	pinctrl-0 = <&fspi_dqs_sck_cs10_pins>, <&fspi_data30_pins>;
+> > +};
+> 
+> [Severity: High]
+> Does this pinmux configuration conflict with the thermtrip-hog defined on gpio1
+> pin 23?
+> 
+> During boot, the pin controller configures the RCWPMUXCR0 register (via
+> fspi_dqs_sck_cs10_pins) to route pins 20-23 to the FSPI (XSPI1) controller en
+> masse. Concurrently, the GPIO driver applies the thermtrip-hog to pin 23 in
+> fsl-lx2160a-nbxv3.dtsi, attempting to drive it low as a GPIO.
 
-> diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmd=
-q-mailbox.c
-> index e523c84b48088..5e7bc52baaa13 100644
-> --- a/drivers/mailbox/mtk-cmdq-mailbox.c
-> +++ b/drivers/mailbox/mtk-cmdq-mailbox.c
-[ ... ]
-> @@ -787,6 +789,14 @@ static const struct dev_pm_ops cmdq_pm_ops =3D {
->  			   cmdq_runtime_resume, NULL)
->  };
-> =20
-> +static const struct gce_plat gce_plat_mt6572 =3D {
-> +	.thread_nr =3D 14,
-> +	.shift =3D 0,
-> +	.control_by_sw =3D false,
-> +	.legacy_isa =3D true,
-> +	.gce_num =3D 1
-> +};
-> +
+Correct, it is something I should have cleaned sooner. I'll be removed into the
+next update.
 
-[Severity: High]
-Does enabling legacy ISA expose missing safety checks in the cmdq helper?
+> > +&emdio1 {
+> > +	status = "okay";
+> > +
+> > +	/* Microchip LAN8023 dual 10G PCS/retimer, Clause 45 only, one address per slice */
+> > +	lan8023_phy_s0: ethernet-phy@2 {
+> > +		compatible = "ethernet-phy-ieee802.3-c45";
+> > +		reg = <2>;
+> > +	};
+> 
+> [Severity: Medium]
+> Will this force the kernel into an inefficient polling mode for the Ethernet
+> PHYs?
+> 
+> The hardware possesses dedicated interrupt lines for the PHYs, as the gpio2
+> node explicitly defines the line names 'lan8023-mdint' and
+> 'u1300-rtl8211fd-int#'. Without interrupts and interrupt-parent properties in
+> the PHY nodes (lan8023_phy_s0, lan8023_phy_s1, and rtl8211fd), the PHY driver
+> will fall back to periodically polling the MDIO bus to check for link state
+> changes.
 
-Looking at drivers/soc/mediatek/mtk-cmdq-helper.c, functions like
-cmdq_pkt_write_pa() and cmdq_pkt_poll_addr() appear to generate SPR and
-GPR-based instructions without checking for legacy hardware capabilities:
+The lines do exist and gpio2 is an interrupt-controller, so this can be
+added. I'd prefer to keep it for a future update.
 
-drivers/soc/mediatek/mtk-cmdq-helper.c:cmdq_pkt_write_pa() {
-    ...
-    err =3D cmdq_pkt_assign(pkt, CMDQ_THR_SPR_IDX0, CMDQ_ADDR_HIGH(pa_base)=
-);
-    ...
-}
+> [Severity: Medium]
+> Should this node also include a reset-gpios property to ensure the PHY is
+> properly initialized?
+> 
+> The u800 I2C GPIO expander explicitly defines line 15 as 'lan8023-rst'.
+> Without claiming this GPIO (e.g., reset-gpios = <&u800 15 GPIO_ACTIVE_LOW>),
+> the Ethernet driver will not execute a hardware reset sequence during probing,
+> leaving the hardware dependent on the state the bootloader left it in and
+> potentially failing to recover from a suspended state.
 
-drivers/soc/mediatek/mtk-cmdq-helper.c:cmdq_pkt_poll_addr() {
-    ...
-    inst.sop =3D CMDQ_POLL_ADDR_GPR;
-    ...
-}
+It is a single reset shared by both slices of the one LAN8023, so it cannot be
+claimed by both.
+The reset is owned by the bring-up userland application of the lan8023.
 
-If a client driver on MT6572 calls these functions, would it silently emit
-structurally invalid instructions to the command buffer?
+> > +&fspi {
+> > +	status = "okay";
+> > +
+> > +	/* GigaDevice GD55LB02GF, 256 MiB boot NOR */
+> > +	flash@0 {
+> > +		compatible = "jedec,spi-nor";
+> > +		reg = <0>;
+> > +		#address-cells = <1>;
+> > +		#size-cells = <1>;
+> > +		spi-max-frequency = <150000000>;
+> > +		spi-rx-bus-width = <1>;
+> > +		spi-tx-bus-width = <1>;
+> > +	};
+> > +};
+> 
+> [Severity: Medium]
+> Does this artificially restrict the FSPI flash to a 1-bit bus width despite the
+> hardware being wired for 4-bit Quad SPI?
+> 
+> The pinctrl-0 property in the .dts file includes <&fspi_data30_pins>, which
+> configures four data lines (DATA[3:0]) for the FSPI controller. However, this
+> flash@0 node sets the spi-rx-bus-width and spi-tx-bus-width to 1. This mismatch
+> forces the SPI NOR flash driver to operate in single-bit mode rather than
+> quad mode, needlessly degrading I/O performance.
 
-Since the legacy ISA on MT6572 does not support SPR or GPR instructions,
-could this result in an unrecoverable GCE hardware lockup when flushed?
+Deliberately on purpose for this board ! for the time being.
 
-Would it make sense to check pkt->priv.legacy_isa in these functions and
-return -EOPNOTSUPP to prevent hardware lockups?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-6572-gce-v=
-2-0-412a5b037290@protonmail.com?part=3D3
+Thanks,
+  Vincent
+ 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr?part=3
