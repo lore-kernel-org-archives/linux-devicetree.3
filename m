@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183CE2576E;
-	Mon,  7 Sep 2026 06:22:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F4373AFAE6;
+	Mon,  7 Sep 2026 06:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762129; cv=none; b=omuG12EL0Cdzjw/oYBzMV/oAXXgwtZToIz9PWsZYgUE1wL8FICbGXwhq8qxgZgD2aDfZX+MCzt+oQAb8pTOwsqLsrMoocQPuawXRafc0RdX5p3yQ+LqfMJX6i0fVyLt9hh3IDa5XFfG9AVzGxV1viOVfZOOOy8Q8pLUHE2WqDeI=
+	t=1788762528; cv=none; b=DCxEH89xNogZ/EFXCsuz6qRdxY28c53hhelMBLMWbYS9jAB6mA6+uLkvx3CYmFCml1sW0ffkDgoMzS5J9otUq7ldIhirRMbVOLdv6RuykCN+5sy5+nkOKHz8anYuC8hZUEVwERfkw5t33x+8WtuVFLMUWnEpg9Nzge/3N+PXEL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762129; c=relaxed/simple;
-	bh=wWahGpfz8cqoCrsIiVlK5sBg91JCdGv6kzl8Gbxwp74=;
+	s=arc-20240116; t=1788762528; c=relaxed/simple;
+	bh=cBR1hHuCqUjgoqqFIrj/hbrTP743hZq4ny33mc0KjKk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sGHtnaFsz3HF6DRo7PoPUepuCPwe4dmndbWAxHHiK/7s1NUw5Id449CVlk39mlW4myJCW/MxIeT9igDxt4c5Cec1CupDTsYxVcaB6KGvwgiSfms6nqD7ajGRFGvmeXbYx5UHvzMPRkVVOb0NhebDwq8UusOSboOAsulIO1vja98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZiaZkOU+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uX3rdRHGdN5z20U8uaZU4XpkhJoTFFm0rLVdJ8Zw8NyNYBoR7uVsyp2LEFDqsKkOeBlEMgBATvbptmKGOhxdpW4JBXlMYgE8qLNi2czCZCAdBgzeTQiJ9eSMD1Gz3rsaNE0Vw7/qhZd1Q2SrVobaSdzRL5pgOy7493mxC+Vwimw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IUwKfgSX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZiaZkOU+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A67C61F00A3A;
-	Mon,  7 Sep 2026 06:22:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IUwKfgSX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875B91F00A3E;
+	Mon,  7 Sep 2026 06:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788762127;
-	bh=hOR1wgZMWegMI44NaSdYvTT3p5cO7has09pGbSG16cg=;
+	s=k20260515; t=1788762522;
+	bh=Uhqq4SjaBmSEA8DrRzienxD9wkDqWA+Zx6N8pGJJeww=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZiaZkOU+zbPN2E/soShDbHJzmp/Hhf78XkCckfp1K/8WmHD/ovuOStMl/35niayi1
-	 z57OY+IsTOKodK3OGs0PyS8GDfQYTR47x246Yrk+eUuW5ZKG9fMbP3cXCxRTBUY5Yt
-	 vhHactmxQNrjkY8gQOdF9DpZgr3UmooYR+aWpcpdjYqx5HLKQm7gxeOS851eqru8ik
-	 3Q0sgrUFK62NObpJTa593at+OK+1IuoVH4OWXMrfZOtSPumV86LTL2AilKLnSt8qc/
-	 MAX4no5lAG/fOxufsphz5IZ/dzm2T2FnPnGp5woXjz0FOM5mWKcqzVXQOJg5mnrhyn
-	 nt6R86PluVPMg==
-Date: Mon, 7 Sep 2026 08:22:03 +0200
+	b=IUwKfgSXh8wAdVB1uda8oKDagMq50nSkJhaFjwhDyuGAD3ciKsn5vjkrHlMvx/Obk
+	 JdYVD7Uam5OKyLbP7PFdopgxr+qqh/u+JqI0da9ll9OsitD7c0pnDc4XadVLHt1gIY
+	 oR9e+eMtkdoo6XVhED+5xhSTCB2IXUytDO0oFrVeQ06lXPfC+ryATeaf5ddDz3jQ6H
+	 OtaDsKNJIZxMgY2hiXHdid70AoC2fp4ka7dzh1NrgA+sNT80wVyk0cMTgAgoVuox85
+	 KPfmTPxlePELs0TMtduVJBl7T/OlMpDvdtadNObM97Ef7wulPvuJsw+YuxPTTwAMlc
+	 Ar3KFzJXHquRw==
+Date: Mon, 7 Sep 2026 08:28:38 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: Re: [PATCH] dt-bindings: usb: qcom,snps-dwc3: Document the Nord DWC3
- controller
-Message-ID: <20260907-athletic-thick-cockle-b21fda@quoll>
-References: <20260901103300.60803-1-shengchao.guo@oss.qualcomm.com>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] dt-bindings: i3c: Document the AST2700 I3C controller
+Message-ID: <20260907-imaginary-economic-oyster-57cdd6@quoll>
+References: <20260901-b4-i3c-hci-ast2700-v1-0-19909e7cbd7e@aspeedtech.com>
+ <20260901-b4-i3c-hci-ast2700-v1-1-19909e7cbd7e@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,21 +47,159 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901103300.60803-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260901-b4-i3c-hci-ast2700-v1-1-19909e7cbd7e@aspeedtech.com>
 
-On Tue, Sep 01, 2026 at 06:33:00PM +0800, Shawn Guo wrote:
-> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Tue, Sep 01, 2026 at 07:35:28PM +0800, Billy Tsai wrote:
+> The AST2700 I3C controller implements the MIPI I3C HCI programming
+> model, extended with an ASPEED in-house control block and a PHY
+> programming window advertised through an HCI vendor extended
+> capability. Follow the existing aspeed,ast2600-i3c precedent of
+> describing SoC integrations of a common I3C IP in their own schema.
+
+What precedent exactly?
+
+Are you now bringing some LLM slop arguments here?
+
 > 
-> Add a compatible for the DWC3 USB controller found on the Qualcomm Nord
-> SoC.
+> The controller takes a core clock for PHY timing and two reset-names
+> lines: its own reset and a DMA engine reset shared by all I3C
+> controllers on the SoC.
 > 
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> The PHY timings derived from the core clock and bus rate assume
+> nominal bus loading. Boards with long traces, weak pull-ups, or
+> capacitive loading need different ratios and setup periods, so
+> document properties to override the push-pull and open-drain SCL
+> periods, the SDA TX hold time, the tCAS/tCBP periods, and the SCL low
+> period used for a repeated START or STOP.
+> 
+> Boards without external I3C pull-up resistors can use the PHY's
+> built-in pull-ups instead. The achievable resistance depends on the
+> voltage domain of the pins (high-voltage vs low-voltage), which can be
+> determined from the pin group assigned to the bus. Reuse bias-pull-up
+> (pincfg-node.yaml) for the strength in Ohms; it is declared on this
+> node rather than a pin-config node since the pull-up switch is part of
+> the I3C PHY, not the broader SoC pin control IPs.
+> 
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> Assisted-by: Claude:claude-fable-5
+> 
 > ---
->  Documentation/devicetree/bindings/usb/qcom,snps-dwc3.yaml | 3 +++
->  1 file changed, 3 insertions(+)
+> We considered formally expressing bias-pull-up's dependency on a
+> pinctrl state in the schema, but couldn't find a clean way to say
+> "depends on whichever pinctrl-N is active" without hard-coding
+> pinctrl-0 specifically, which would be wrong in general (a node's
+> active pin state doesn't have to sit at index 0). We've added
+> pinctrl-0 to the example to illustrate the typical usage instead,
+> without a formal schema-level dependency.
+> ---
+>  .../bindings/i3c/aspeed,ast2700-i3c-hci.yaml       | 133 +++++++++++++++++++++
+>  1 file changed, 133 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
+> new file mode 100644
+> index 000000000000..19ecb5b15038
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i3c/aspeed,ast2700-i3c-hci.yaml
+> @@ -0,0 +1,133 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/i3c/aspeed,ast2700-i3c-hci.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: ASPEED AST2700 I3C controller
+> +
+> +maintainers:
+> +  - Billy Tsai <billy_tsai@aspeedtech.com>
+> +
+> +description:
+> +  The AST2700 I3C controller implements the MIPI I3C HCI programming model,
+> +  extended with an ASPEED in-house control block and a PHY programming window
+> +  that are advertised through an HCI vendor extended capability.
+> +
+> +properties:
+> +  compatible:
+> +    const: aspeed,ast2700-i3c-hci
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  resets:
+> +    items:
+> +      - description: Core controller reset.
+> +      - description: DMA engine reset shared by all I3C controllers.
+> +
+> +  reset-names:
+> +    items:
+> +      - const: core
+> +      - const: dma
+> +
+> +  bias-pull-up:
+> +    $ref: /schemas/pinctrl/pincfg-node.yaml#/properties/bias-pull-up
+> +    enum: [177, 231, 261, 317, 400, 470, 550, 600, 750]
+> +    description:
+> +      Enable the PHY-internal pull-ups on SCL and SDA and select their
+> +      strength, in Ohms. High-voltage pins support 400, 470 or 600 Ohms,
+> +      and low-voltage pins support 177, 231, 261, 317, 400, 550 or 750
+> +      Ohms. When absent the internal pull-ups stay disabled and the bus
+> +      relies on external pull-ups.
+> +
+> +  aspeed,pp-scl-high-ns:
+> +    description:
+> +      Push-pull SCL high period. Overrides the value derived from the
+> +      i3c-scl-hz bus rate.
+> +
+> +  aspeed,pp-scl-low-ns:
+> +    description:
+> +      Push-pull SCL low period. Overrides the value derived from the
+> +      i3c-scl-hz bus rate.
+> +
+> +  aspeed,od-scl-high-ns:
+> +    default: 380
+> +    description:
+> +      Open-drain SCL high period.
+> +
+> +  aspeed,od-scl-low-ns:
+> +    default: 620
+> +    description:
+> +      Open-drain SCL low period.
+> +
+> +  aspeed,sda-tx-hold-ns:
+> +    default: 10
+> +    description:
+> +      SDA output hold time relative to the SCL edge.
+> +
+> +  aspeed,cas-ns:
+> +    minimum: 39
+> +    description:
+> +      Clock-after-start (tCAS) period driven after a START condition.
+> +      When absent it is derived from the SCL low period of the
+> +      applicable bus context, clamped to the protocol minimum.
+> +
+> +  aspeed,cbp-ns:
+> +    minimum: 20
+> +    description:
+> +      Clock-before-stop (tCBP) period driven before a STOP condition.
+> +      When absent it is derived from the SCL low period of the
+> +      applicable bus context, clamped to the protocol minimum.
+> +
+> +  aspeed,sr-p-scl-low-ns:
+> +    default: 40
+> +    description:
+> +      SCL low period used while preparing a repeated START or STOP
+> +      condition, kept separate from the push-pull SCL low period to
+> +      satisfy the MIPI I3C clock stalling requirements.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Probably I3C maintainers should weight in here and help - should these
+be made generic for all I3C controllers? I am surprised some "standard"
+I3C controller needs to configure this as the single one. No other ever
+needed...
 
 Best regards,
 Krzysztof
