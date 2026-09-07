@@ -1,118 +1,284 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4A5472536
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:26:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3C44F6466
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:30:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794819; cv=none; b=KikOlQbasyfPFF0A8H8hN9PkWy1yQ2Z2QZkZEot5mgCWJj1gNcgOrr9ky9tV1z8YSAShxkuB0c1LM5LUrDHkOqXns9xn61AfSXEXXaZ/ZRR9JGXmA8JMyliYBabY9zD/oAr101IAy3/AMwr/TkcvlyKAzrOwY5tej7YHeZEfEHY=
+	t=1788795003; cv=none; b=DwMwd6DSaEXtSQbsvXB9I524icg+TAiQQGOvEfepH5OIW0Pk2DfFP7yRZzgHPUTf8xu6loC7I0DteBy+EyXHEwWDVTbRhumhzqCSK0GTjMAJv18t51aRnomLo39tF3meE+aDNiJkGshtBk000irOVmNAOMkc8KnAFd+Ot6JQMbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794819; c=relaxed/simple;
-	bh=sfJG45jw5W76tQOcRH7iTvkAsGP4FG7d8I2A4Io0f90=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=DKR40T2QthL87/58lBwRnTAQaZhV17tuB+QMljNauJ8BxsPKaVrPwExUPfqb9wK9FEWKdYze0UbBcTlN8stIhqMB+zSNrhGMcBdvQpeOCq+SWBM91o8N6xjYQ5TGVcqLr2PBx2lG0K9hh57UECr4wda9OBsi1XS/2a+nO8ZX638=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AGplbQ3H; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788795003; c=relaxed/simple;
+	bh=S70lRGwL7IJR7LYJ6faHRYveVr1c9Y1/m0rz30L8M/0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ipbwNA/kct8Y9KxxKUEAr9go4+8UcwICfDcFqaQESB2MmDJ7FM+SWqsdpEUkEKJgShbdxJr+P/fOOrNqHwvrmwcQHSrLsqfx0XKQEGoYked20SisNddFSOsISm3iW4Nhj47B8Xi2g1Dz4nOpydCmMYOmp9Uvr5e88HOeL2qiL/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fpN6ag9/; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AGplbQ3H"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso46586415e9.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:26:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fpN6ag9/"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d9520b9155so30716255ad.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:30:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788794816; x=1789399616; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+9qbfEVLVVFm/uwZkCVkuCqYtCbBr9OTbyNaynVe7qY=;
-        b=AGplbQ3HR7lfQzFZVvkLntLjNTCQ5JdPIeboHWW/XDJ0GlZQVmEgILFpeCqjyHy65k
-         guq9Dbobe7BtFAcQt99eZIHgKAWec1RrekK4Gq5xKJx+tHGWxgVQvXL2ft+pm1b4M93x
-         kuNdTQm0cC0bqsgNkKyi77b/LdeEwSh7I6fQzZkDeiYBCX+AHOR/05Bx5rXMkBo3oxe5
-         Zvyy3Qbjc0YuuEQN5I8saU8ZxpF1BKsoyd2VAnjfMDkpSFdQ+kQWI7yO4fIEtlvhSai9
-         Z5pHlCGDgGsnvPD7FV3Te/4KGSBqRXHl2jMCzJB+I3O/g/UgXumppc755af2AymFPOrN
-         yOGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794816; x=1789399616;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1788795000; x=1789399800; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+9qbfEVLVVFm/uwZkCVkuCqYtCbBr9OTbyNaynVe7qY=;
-        b=EtNBxzsm/j3B5st9Ozz8aCrDAVNkV03Wl3o1YzJ5a7Q0TOulst6otClAqYKdV67W8t
-         OiboS+HpdwIpskq+S/LelDpXC69q82D3r4i0i+6JbNw/v/Jn0XPwwx/cvkVxIegul1oI
-         qFRGjKgDcBKAX+b46CkzfMCWjL372UXTXmdTMWgPDxnBW4ohzQlzSnE0MfbjrQjL4CT9
-         3sMoZ9zB6hYVfq2DdEI2+GBWEntPT8fQldc33oRuTPlJJZ1HhYzQMLx4TCh0iINdT44Y
-         ATm5Qm0M7pAgmMhlyqo7W/+O+Tpr9QyCiZEmnyOZ7j+6X9KrbdZOhesrCHStlbduS5jZ
-         pFSA==
-X-Forwarded-Encrypted: i=1; AKwUvByAppn4RWtD8W7rtUgVAxVYUZ9B3zx8Cmb4xDW6/U7nSXZESFPmEqpRByptuOQhUO9YCl8vmAytOWFG@vger.kernel.org
-X-Gm-Message-State: AFuF++nhfkV0kthF7bU60TwBb63MRNmRbSWifcSur5xmkpgb+h+3Mbaa
-	VeEkxy2nvNomqEgbeW+lx5BMhjOnQlyDoOYxZBwLBH1NyJm7LY38sgN7D7sAKHailWkvP+6O8ke
-	TlU39IBg=
-X-Gm-Gg: AYBFou1GtB1SHvrbz520FH4uCMjGO7UbMHgcc6UsMlSWVm12wzMVONGKBHFGxtclESk
-	YqijbtaJLgPeUCBzhM6SBbUo4/+YrkSIaG/o3B4WPX3zVj5jjeH2mkhaIwyRG22tE/Fa+aIfRRG
-	cX1YXDNBDapde0b9c5ga0krRYkcPpA+Bfg+K/c44IooOz6lvIwgYTISFwMePd84YR6C6jCB+qZ7
-	vhLQFYtw7WruChja1mlwb3qTGUwSbORC4hoPaZqeVi+ok98uO1cVrMdi+1Lw6kZo8GHZBbjeWZ4
-	K7ZNYsShDlqWzCMjMR7CsStM9dsLzSkwchn6X7RHaXByHk/Rb6Gvq7/fbx/svB8Tv1YPuoK8on6
-	jeUWMCgvVVYZlnimbKWWNvbvw9EFO2ARWD4gmapM627mV1q4pmBo469NIxoyUNjQkFq32YCe8Ck
-	cyyQZf1R6ySVZM2i4KWJyeQDVoEUYV5xcqbz2+LKGXaByGoYtN9tcmVz02t+zhvjAHF6OuTuK8c
-	dbLXNjXqiksjZWXgI2rBUc=
-X-Received: by 2002:a05:600c:35c3:b0:49c:fc6c:be10 with SMTP id 5b1f17b1804b1-49cfc6cc055mr202666425e9.22.1788794815803;
-        Mon, 07 Sep 2026 08:26:55 -0700 (PDT)
-Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cee6024a8sm418419925e9.6.2026.09.07.08.26.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:26:55 -0700 (PDT)
+        bh=a7aV+7HzRQUKnINoH9ptDij7dLbWnd0yAUJ70qIKlwg=;
+        b=fpN6ag9/r4D/PojmZlNuRMxKJJc7BwlG7ihR6TFAJxEhl1TvzznB9tgF7K1/BfVrb6
+         gd7Bxd2k/GnpvaOUw66O/3hp9Sf2qw2ee9sJW348MnjSIJIHzi5ZhMZzKROpgtEyHDo7
+         vPwfc4zetxh5AXIIBKs3ovkdhoEHB2CCC67My9qnIDUkgHmLpWMRf/5kjXQSFcHKJFM4
+         ANAjFjayVYSL2n2ovkZs7/lzJH2E4VgaKmrvJBo/FunrYuC2b5OuJqjyV+gk2+f0fAs3
+         1KD+t8PcormbrEjgJCLK/fSjh0Lt8VP4EYkeESiOlbX83b6O8fUFR89w4it/n5MkScWh
+         TwEQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788795000; x=1789399800;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a7aV+7HzRQUKnINoH9ptDij7dLbWnd0yAUJ70qIKlwg=;
+        b=JC5vOWM2uvP+65CHy7c9O+4dNjQoYEnLaRiJtZOV+inXQupA5tYhrsCPCR4jPyU324
+         tZbURRlYwuSeeXEbQ1J4STg7/pAtqXbMrFtdfcPQU1+U5O3gaQOp8i5HGaYKiUvIqy6j
+         0pxU88tX9WdaLyDqZIkIKJfdaFwhzdPu7jGlGDxJtrYcBAOuT7BwBTwtssMRcnFYyWyc
+         JuMAAMWstlDLZpOzUVwH3EGoc5oXRwyYYlmuajtPO+/vextK0nvDnRZ3VS8sH4pL0mNX
+         QKAq/c9yRquwCBYIWClnQekdCYuy5SvTOYM2RBvJSYyUgP7jtBTni4lD2ACOgDZvnI1c
+         ZHwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwlDfMB1DaI5lmhO6i3ADn3qeicLxkCuqyh83ZRc2WY+5h4W/u265osLH2C8i7x8wZ3fYBcmRT71Tah@vger.kernel.org
+X-Gm-Message-State: AFuF++lkjq3F0XG9fZLr6wXAsWCmWfnA60A7zGP5ovRrFuzeGZOmApES
+	H3k0WG2vrgnkIjBtl4tnAw+FSA5B9EqLNR/47nerC5xlrFKvulCEtn47
+X-Gm-Gg: AYBFou1MTpu3jrliJlNRp/CF8MGVeToZic+yqp2WQwisFrA2WZl9CLZogIqFF2Fm0oj
+	2TQK9xV8YoGT3PMZBSyBDgvnMHOUY0GciLrAoJJLNfsVAjdWiiEe+zyA/D6iZIatp+4yyzwJHrQ
+	SnrjnscXI3YCl5KJD8vyHTF3kLSZLHCr+T0S6D1cvz7FtIIVZJnJ8w/PgZJwG1P5Rd4q0wCwRdM
+	FJI9rTxdvdXfHRXRsZ1loAW84xD5Jx7w+zaSzXa86MDT9hRMotC2ZEFF8BACOsipNf26xE/3FUp
+	uE8ymtKai8CmXRJi7Zz/eOrB44TImCeet/YGxFJtTCPCnXPtiYCrbq4XyZTO0uodWYse6MVvWFD
+	4Agp6hY0F5/7+hf+MdD//AynjABG/8aBu5oF3tvkScXe//4MOmFKslK1cw2fUD0aW3wjhBWTLvc
+	EmgzfoTDJkUmIvZII48D+Lx3LPUHyKISrQX7O0F96za2Tkd8zXur/20zG0+tdwzAnJiAYHORgud
+	cSgoBRL4wgHK6vN88XHMC0aOSVGCIV3vVRKhg==
+X-Received: by 2002:a17:90b:544b:b0:38a:c3f:3b87 with SMTP id 98e67ed59e1d1-39b261e3b72mr35111626a91.12.1788795000428;
+        Mon, 07 Sep 2026 08:30:00 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a62be87sm25099360eec.6.2026.09.07.08.29.58
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 08:29:59 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <c1f812d6-9938-494f-ae37-e250434a25f7@roeck-us.net>
+Date: Mon, 7 Sep 2026 08:29:57 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1] hwmon: (lm75) Add support for Nuvoton NCT7715
+To: hsyemail2@gmail.com, linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Jean Delvare <jdelvare@suse.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org
+References: <20260907080831.11281-1-syhuang3@nuvoton.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
+ RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
+ nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
+ 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
+ gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
+ IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
+ kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
+ VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
+ jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
+ BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
+ ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
+ CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
+ oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
+ VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
+ 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
+ onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
+ DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
+ rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
+ WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
+ qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
+ 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
+ qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
+ 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
+ pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
+ J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
+ pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
+ 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
+ ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
+ I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
+ nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
+ HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
+ JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
+ H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
+ njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
+ dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
+ j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
+ scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
+ zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
+ RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
+ F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
+ FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260907080831.11281-1-syhuang3@nuvoton.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 4/4] pwm: meson: Add support for Amlogic S7
-From: Alexandre Mergnat <amergnat@baylibre.com>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20260827-s6-s7-pwm-v4-4-d28a2015177d@amlogic.com>
-References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
- <20260827-s6-s7-pwm-v4-4-d28a2015177d@amlogic.com>
-Date: Mon, 07 Sep 2026 17:26:52 +0200
-Message-Id: <178879481206.2256446.5480566312277687897.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=431; i=amergnat@baylibre.com;
- h=from:subject:message-id; bh=sfJG45jw5W76tQOcRH7iTvkAsGP4FG7d8I2A4Io0f90=;
- b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntfBlpqBiszNMgSn7O9l3ii5fmAZzp08XPZnG
- +I6/0zcor+JAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7XwQAKCRArRkmdfjHU
- RSSGEACrwfFz6yD1l3vhy6F9taMF3kWSM1xVK9C38V8OvRfuo795o5cb/IMYwvp0C6+MKwhPvG1
- EcrITVzONq66Ie2ZqiLhCqu5O9TrtHq7ajhU1sXK2ScEoT9XTURLcMi3qNi7TYKZvpUI68W8gsT
- bDkbraol8AGgOaCX//qsj8b+KdhbkQJnw0xyAsDPFhL0WaJXcaecJQRd4qwAFgqHdZQFf8tP4a3
- 3NirS/fUbuxQizhb7mvswX2eL7jAWNzgh0MHiZoMjuF6pEKmV/DxhkKnAIQn76bZnLDd8s8pSzL
- pCJYhXO8AV97EG1G5oPvR2Bbi0fotGzWRNbEKBoBwxh/zLDVERZ/IkVCBklhGKKMod/CWtXjcDK
- 9aOLNbSCrFlYbwY4uMNUddBNkAXoxb7po4O+ObGXszxbKC9ELtigt/7m52hJmqt94O6w/l48DFz
- s6OEU/1rKjzR16dL4S75Bj8QScxgAZizzNsIfihQG+P6q/CTr0THQ+oR9ZOyc7CthJO6wJUDaf6
- I6SeJkINTRwYCA9uUXoRrzRva08+URnqMttKryLsiQAxehiCYuuJNPUfWdQvP9q4KWVb/lAuITZ
- zvENNu+aiL96ohbGYXbzmMeRWnwvrjI8VWtte+G7a1qKOfvdcRIwk9JWlPvf7nepYQLdmpIKmE+
- XP9d4aPYx4YCpNQ==
-X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
- fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-> Add support for Amlogic S7 PWM. Amlogic S7 different from the previous
-> SoCs, a controller includes one pwm, at the same time,the controller has
-> only one input clock source.
+On 9/7/26 01:08, hsyemail2@gmail.com wrote:
+> From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 > 
-> Also use the kernel coding style for the empty of_device_id terminator.
+> The Nuvoton NCT7715 is compatible with the LM75 temperature and
+> limit register layout, but its 16-bit configuration register is
+> transmitted most-significant byte first. Add support for the NCT7715,
+> including byte-swapped SMBus accesses for its configuration register.
 > 
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+> Handle its conversion-rate field and shutdown bit separately, since
+> their bit positions differ from the standard LM75 layout.
+> 
+I don't think so. See below.
 
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
+> Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+> ---
+>   .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
+>   Documentation/hwmon/lm75.rst                  |  6 ++
+>   drivers/hwmon/lm75.c                          | 57 ++++++++++++++++++-
+>   3 files changed, 62 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+> index b48bf3fd721f..832a8c5d83e9 100644
+> --- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+> @@ -31,6 +31,7 @@ properties:
+>         - nxp,p3t1750
+>         - nxp,p3t1755
+>         - nxp,pct2075
+> +      - nuvoton,nct7715
+>         - st,stds75
+>         - st,stlm75
+>         - microchip,tcn75
+> diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
+> index ca46754e028b..fac0b8f29ddc 100644
+> --- a/Documentation/hwmon/lm75.rst
+> +++ b/Documentation/hwmon/lm75.rst
+> @@ -150,6 +150,12 @@ Supported chips:
+>   
+>                  https://ams.com/documents/20143/36005/AS6200_DS000449_4-00.pdf
+>   
+> +  * Nuvoton NCT7715
+> +
+> +    Prefix: 'nct7715'
+> +
+> +    Addresses scanned: none
+> +
+>   Author: Frodo Looijaard <frodol@dds.nl>
+>   
+>   Description
+> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> index 2d2d752aeac9..0b55f6b7c68d 100644
+> --- a/drivers/hwmon/lm75.c
+> +++ b/drivers/hwmon/lm75.c
+> @@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
+>   	max6626,
+>   	max31725,
+>   	mcp980x,
+> +	nct7715,
+>   	p3t1750,
+>   	p3t1755,
+>   	pct2075,
+> @@ -107,6 +108,15 @@ static const unsigned short normal_i2c[] = { 0x48, 0x49, 0x4a, 0x4b, 0x4c,
+>   #define LM75_REG_MAX		0x03
+>   #define PCT2075_REG_IDLE	0x04
+>   
+> +#define NCT7715_CONFIG_RESOLUTION_12_BIT	GENMASK(14, 13)
+> +#define NCT7715_CONFIG_SHUTDOWN			BIT(8)
+> +#define NCT7715_CONFIG_CONVERSION_RATE_MASK	GENMASK(7, 6)
+> +#define NCT7715_CONFIG_EXTENDED_MODE		BIT(4)
+> +#define NCT7715_CONFIG_RATE_0_25HZ		0
+> +#define NCT7715_CONFIG_RATE_1HZ			BIT(6)
+> +#define NCT7715_CONFIG_RATE_4HZ			BIT(7)
+> +#define NCT7715_CONFIG_RATE_8HZ			GENMASK(7, 6)
+> +
+>   struct lm75_data {
+>   	const char *label;
+>   	struct regmap			*regmap;
+> @@ -122,6 +132,10 @@ struct lm75_data {
+>   /*-----------------------------------------------------------------------*/
+>   
+>   static const u8 lm75_sample_set_masks[] = { 0 << 5, 1 << 5, 2 << 5, 3 << 5 };
+> +static const u16 nct7715_sample_set_masks[] = {
+> +	NCT7715_CONFIG_RATE_8HZ, NCT7715_CONFIG_RATE_4HZ,
+> +	NCT7715_CONFIG_RATE_1HZ, NCT7715_CONFIG_RATE_0_25HZ
+> +};
+>   
+>   #define LM75_ALERT_POLARITY_HIGH_8_BIT	(BIT(2))
+>   #define LM75_ALERT_POLARITY_HIGH_16_BIT	(BIT(2) << 8)
+> @@ -259,6 +273,15 @@ static const struct lm75_params device_params[] = {
+>   		.sample_times = (unsigned int []){ 30, 60, 120, 240 },
+>   		.resolutions = (u8 []) {9, 10, 11, 12 },
+>   	},
+> +	[nct7715] = {
+> +		.config_reg_16bits = true,
+> +		.set_mask = NCT7715_CONFIG_RESOLUTION_12_BIT,
+> +		.clr_mask = NCT7715_CONFIG_EXTENDED_MODE,
+> +		.default_resolution = 12,
+> +		.default_sample_time = 250,
+> +		.num_sample_times = 4,
+> +		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
+> +	},
+>   	[tmp100] = {
+>   		.set_mask = 3 << 5,	/* 12-bit mode */
+>   		.clr_mask = 1 << 7,	/* not one-shot mode */
+> @@ -354,6 +377,11 @@ static inline long lm75_reg_to_mc(s16 temp, u8 resolution)
+>   static inline int lm75_write_config(struct lm75_data *data, u16 set_mask,
+>   				    u16 clr_mask)
+>   {
+> +	if (data->kind == nct7715)
+> +		return regmap_update_bits(data->regmap, LM75_REG_CONF,
+> +					  clr_mask | set_mask | NCT7715_CONFIG_SHUTDOWN,
+> +					  set_mask);
+> +
+>   	return regmap_update_bits(data->regmap, LM75_REG_CONF,
+>   				  clr_mask | set_mask | LM75_SHUTDOWN, set_mask);
+>   }
+> @@ -486,6 +514,13 @@ static int lm75_update_interval(struct device *dev, long val)
+>   		if (data->params->resolutions)
+>   			data->resolution = data->params->resolutions[index];
+>   		break;
+> +	case nct7715:
+> +		err = lm75_write_config(data, nct7715_sample_set_masks[index],
+> +					NCT7715_CONFIG_CONVERSION_RATE_MASK);
+> +		if (err)
+> +			return err;
+> +		data->sample_time = data->params->sample_times[index];
+> +		break;
+>   	case tmp112:
+>   	case as6200:
+>   		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
+> @@ -609,6 +644,8 @@ static int lm75_i2c_reg_read(void *context, unsigned int reg, unsigned int *val)
+>   	if (reg == LM75_REG_CONF) {
+>   		if (!data->params->config_reg_16bits)
+>   			ret = i2c_smbus_read_byte_data(client, LM75_REG_CONF);
+> +		else if (data->kind == nct7715)
+> +			ret = i2c_smbus_read_word_swapped(client, LM75_REG_CONF);
+>   		else
+>   			ret = i2c_smbus_read_word_data(client, LM75_REG_CONF);
+>   	} else {
+> @@ -628,8 +665,11 @@ static int lm75_i2c_reg_write(void *context, unsigned int reg, unsigned int val)
+>   	if (reg == PCT2075_REG_IDLE ||
+>   	    (reg == LM75_REG_CONF && !data->params->config_reg_16bits))
+>   		return i2c_smbus_write_byte_data(client, reg, val);
+> -	else if (reg == LM75_REG_CONF)
+> +	else if (reg == LM75_REG_CONF) {
+> +		if (data->kind == nct7715)
+> +			return i2c_smbus_write_word_swapped(client, reg, val);
 
--- 
-Alexandre Mergnat <amergnat@baylibre.com>
+This code is double swapping. The calling code swaps (bit settings),
+regmap calls this function, where the word is swapped again.
+
+Guenter
+
