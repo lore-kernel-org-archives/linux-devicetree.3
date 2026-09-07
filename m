@@ -1,194 +1,317 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B19B548665D
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03C44968E6;
+	Mon,  7 Sep 2026 12:27:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783928; cv=none; b=hNF0QEDPOUvbPDRgcWqGBY41ggImFDkkqY1Oroju/kCK6ZyA0Bb9zr9idBXDNxT0R2SCiYBrx77XQumMNBXsC0JEX9Nf99AzLMvZlxqXCnHSCIrrteK72VdD8ZWQ5PiI2ij+/rQ7rqLjuYIj3YX1Rt7c7O+3Qmij2/cIAv4eGJ8=
+	t=1788784053; cv=none; b=dFLWRDqYI8yXMLp+Be3Mn8fukS25MnFkupU4B4VWVKt0ej09T1tgy7RXyps5goGqY9q/Ses3MyBuR4sD304nt5mdJTdDa0fpQZscOEgxSRzPHGpk7SDwpM8gqwd+wWogvXzP26zukNEckXtfYH1Y0si3zRiAKWtlSV+od2Kx+bw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783928; c=relaxed/simple;
-	bh=CSzLJl24emIaT/ZmshhuzUjOpkvraz1Tk96OGrzyh0I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TlnpuH/lJGc/NqCCHHRzXNmHKomarmkITRa8vuPxlj/fvXqtBVwRQB0LjScp7Mw+/cg350J364varxZKiEB2pq+JQaJP5LgOnAb/i0Juu3KKp6Si4lVYxpcT5YoOXVN+OVBhx0KUC2wYexBAv8tlGv7tsF6pWbQ2i6sh1Njw7aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gQymRxqw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788784053; c=relaxed/simple;
+	bh=lrEL2MWAhBxstb6h1EmpWfNdeY8n/avtFIE5v2WfpNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ex7E+UcaWDUYYRDs4rFlMNM8dum+Z3FR3OQQsGg5+fJ7s/J8mq85UM4iIQMObxcVNVrVyywwVufn18STNv0yWGUP0LECLyT0ZKbb81OHo4lDi09q+G/ZorZpvGxKCP/dPdUrBNlneEvNHg+Ee8BzDl4JSEfoAhYUcmc6tNXvMv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHBllGto; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gQymRxqw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 468371F00A3D;
-	Mon,  7 Sep 2026 12:25:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHBllGto"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D406D1F00A3A;
+	Mon,  7 Sep 2026 12:27:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783926;
-	bh=PF4D2jiYBsWOih0IhfGJS3vbJPKMz8tqUb/z3QUtFL4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gQymRxqwuknqFS3NvRfHzZ8jIzu/vrEg88iX0MZ88ju8xoVFeALOc5TCPvnZSEs3A
-	 Aej8RKomQ7dXysSn7XcWLrsqOC2ZkF7V7EVWHLEf/zxanMxk50+0xEAW5w7eezMQn1
-	 TuBln9UkO3BLWthuaA7C+qKUtrIVppI7zsLlJoE77rhHr+nVxnZ9KAdOQsGTsoE1Du
-	 B4MHKr+vLPI3ZVpx/oztte0idDrvmlfhyOobSwbTB0KTRDbnEzi47wIa4yqJhNAao2
-	 yO5s5QTnUC861zz0UcV89wr6gyg29OGIGVdtxjcVQVOzo1F51zsyP9L3oLkOMpp9pe
-	 nhIQGFCZ4FZ0A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 04/10] ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT
- parsing and platform init
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260907-b4-qaif-shikra-audio-v5-4-6d8ad9ba5c9f@oss.qualcomm.com>
-References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
- <20260907-b4-qaif-shikra-audio-v5-4-6d8ad9ba5c9f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 12:25:25 +0000
-Message-Id: <20260907122526.468371F00A3D@smtp.kernel.org>
+	s=k20260515; t=1788784051;
+	bh=0dDEGqqB8BQNZY2VGBmByIl1LFAv/Oh+0/1XojNck6A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EHBllGtoy2fF7lha1PnKfsopCtVfw156cxfRYGjg3/wBWij4nCCSlBk4oI/3UDhrB
+	 xGEopVhmNyBvz7KpiIfbnSBivUAxJPmY6wVv1bXdBWjR6wEKQqGOyTBEke/Hz8dzKg
+	 Jrw+nBqW24ivDN5s4zXCT2GYS/sUYh6Gqd8xVfqNMZh0NuRLxnYFtnVjuLSzcUC3Xl
+	 9TP8TWjuRG6WFQUrS0Ymv3IE7Qm/4e1xUAioiufWurCSQc3Y0bLaHViX6R2kUjyR5M
+	 08mF6L0/7/ApuPqGPiJzMq0V92dSO0SYrQzcLKW8xsWC/nESIyZhxqjfKXlygLoaj1
+	 6mkOxo3fs4ZSw==
+Date: Mon, 7 Sep 2026 14:27:20 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: george.moussalem@outlook.com
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 07/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
+ support for USB3 PHY on IPQ5018
+Message-ID: <laqb2hqww6wivwxzficfvgi3nwair45a63ds7bzqoz6cby3jpu@n3bgkdrcpdvl>
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260825-ipq5018-usb3-v3-7-39be0955a6aa@outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Hardware configuration registers and shared MI2S bit clock rates a=
-re reprogrammed on an active interface without concurrency protection acros=
-s separate DAIs.
-- [Medium] Stopping one substream clears the shared loopback enable bit, ha=
-lting the entire QAIF AIF interface and breaking concurrent active streams.
-- [Medium] Device tree parsing of audio format drops crucial inversion prop=
-erties and enforces hardcoded settings.
---
+On Tue, Aug 25, 2026 at 04:37:24PM +0400, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+> 
+> Add support for the USB3 PHY on IPQ5018 chipsets.
+> 
+> The PHY outputs a 250MHz PIPE clock routed to and gated by the GCC, so
+> register a fixed rate clock. In addition, add the register/value pairs
+> for the PHY initialization sequence.
+> 
+> The PHY requires a 5V supply, so acquire the regulator from the
+> devicetree and enable it on power on and disable it on power off.
+> 
+> The code to acquire clocks and resets is the same as for PCIe so no
+> changes are needed.
+> 
+> Power on/off sequences for PCIE and USB3 are similar except for the
 
-commit f1f12015dacd26e0ef5a35ee04272fd9e0c2d320
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+PCIe
 
-ASoC: qcom: Add QAIF CPU DAI ops, regmap, DT parsing and platform init
-
-This commit adds the QAIF CPU DAI driver to support Qualcomm audio interfac=
-e=20
-paths used for CDC DMA and serial AIF audio links. It implements DAI operat=
-ions,
-configures the MMIO regmap, and parses per-interface configuration from the=
-=20
-devicetree.
-
-> diff --git a/sound/soc/qcom/qaif-cpu.c b/sound/soc/qcom/qaif-cpu.c
-> new file mode 100644
-> index 0000000000000..c75b139ecb2ae
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-cpu.c
-[ ... ]
-> +static int qaif_aif_cpu_daiops_hw_params(struct snd_pcm_substream *subst=
-ream,
-> +					 struct snd_pcm_hw_params *params,
-> +					 struct snd_soc_dai *dai)
-> +{
-[ ... ]
-> +	/*
-> +	 * The sync, lane and frame configuration and the MI2S bit clock are
-> +	 * shared by both directions of an AIF. Concurrent playback and
-> +	 * capture on the same interface are therefore expected to use a
-> +	 * compatible format, rate and slot configuration.
-> +	 */
-> +	ret =3D regmap_update_bits(map, QAIF_AUD_INTF_SYNC_CFG_REG(idx),
-> +				 QAIF_AIF_SYNC_SRC_BIT |
-> +				 QAIF_AIF_SYNC_MODE_MASK |
-> +				 QAIF_AIF_SYNC_DELAY_MASK |
-> +				 QAIF_AIF_SYNC_INV_BIT,
-> +				 (cfg->sync_src ? QAIF_AIF_SYNC_SRC_BIT : 0) |
-> +				 (cfg->sync_mode << QAIF_AIF_SYNC_MODE_SHIFT) |
-> +				 (cfg->sync_delay << QAIF_AIF_SYNC_DELAY_SHIFT) |
-> +				 (cfg->invert_sync ? QAIF_AIF_SYNC_INV_BIT : 0));
-
-[Severity: High]
-Since playback and capture paths are separate DAIs that share this physical=
-=20
-interface, what prevents a concurrent stream startup from unconditionally=20
-overwriting these shared configuration bits while the other stream is alrea=
-dy=20
-active? Could this cause hardware lockups or audio corruption for the active
-stream?
-
-[ ... ]
-> +static int qaif_aif_cpu_daiops_trigger(struct snd_pcm_substream *substre=
-am,
-> +				       int cmd, struct snd_soc_dai *dai)
-> +{
-[ ... ]
-> +	cfg =3D &drvdata->aif_intf_cfg[idx];
-> +	if (cfg->loopback_en)
-> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_BIT;
-> +	else if (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK)
-> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_TX_BIT;
-> +	else
-> +		enable_bit =3D QAIF_AIF_CTL_ENABLE_RX_BIT;
+> delay timings and USB3 requirement for the PHY supply.
+> 
+> Lastly, the PCIe and USB3 pads are muxed so select USB3 mode in TCSR
+> which needs to occur before the DWC3 USB3 controller resets.
+> Otherwise, the SS link doesn't train and remains stuck in RX.Detect.
+> 
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>  .../phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c  | 154 +++++++++++++++++----
+>  1 file changed, 127 insertions(+), 27 deletions(-)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
+> index d25ae9d8b9e7..84df331fce74 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c
+> @@ -14,15 +14,21 @@
+>  #include <linux/phy/phy.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+>  #include <linux/reset.h>
+>  #include <linux/units.h>
+>  
+> -#define RST_ASSERT_DELAY_MIN_US		100
+> -#define RST_ASSERT_DELAY_MAX_US		150
+> -#define PIPE_CLK_DELAY_MIN_US		5000
+> -#define PIPE_CLK_DELAY_MAX_US		5100
+> -#define CLK_EN_DELAY_MIN_US		30
+> -#define CLK_EN_DELAY_MAX_US		50
+> +#define PCIE_RST_ASSERT_DELAY_MIN_US	100
+> +#define PCIE_RST_ASSERT_DELAY_MAX_US	150
+> +#define PCIE_PIPE_CLK_DELAY_MIN_US	5000
+> +#define PCIE_PIPE_CLK_DELAY_MAX_US	5100
+> +#define PCIE_CLK_EN_DELAY_MIN_US	30
+> +#define PCIE_CLK_EN_DELAY_MAX_US	50
 > +
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +		ret =3D regmap_update_bits(drvdata->audio_qaif_map,
-> +					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, enable_bit);
-> +		if (ret)
-> +			dev_err(dai->dev, "error setting AIF enable bit: %d\n", ret);
-> +		return ret;
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		ret =3D regmap_update_bits(drvdata->audio_qaif_map,
-> +					 QAIF_AUD_INTF_CTL_REG(idx), enable_bit, 0);
+> +#define USB3_RST_ASSERT_DELAY_MIN_US	1
+> +#define USB3_RST_ASSERT_DELAY_MAX_US	5
+> +#define USB3_CLK_EN_DELAY_MIN_US	35
+> +#define USB3_CLK_EN_DELAY_MAX_US	40
+>  
+>  #define CDR_CTRL_REG_1			0x80
+>  #define CDR_CTRL_REG_2			0x84
+> @@ -39,10 +45,13 @@
+>  #define PCIE_USB_COMBO_PHY_CFG_EIOS_DTCT_REG		0x3e4
+>  #define PCIE_USB_COMBO_PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME	0x3e8
+>  
+> +#define TCSR_USB_MUX_SEL		BIT(0)
+> +
+> +#define PHY_IS_USB3(phy)	((phy)->data->phy_type == PHY_TYPE_USB3)
+> +
+>  enum qcom_uniphy_type {
+>  	PHY_TYPE_PCIE = 1,
+> -	PHY_TYPE_PCIE_GEN2,
+> -	PHY_TYPE_PCIE_GEN3,
+> +	PHY_TYPE_USB3,
+>  };
+>  
+>  struct qcom_uniphy_regs {
+> @@ -68,6 +77,9 @@ struct qcom_uniphy {
+>  	int num_resets;
+>  	void __iomem *base;
+>  	int lanes;
+> +	struct regulator *vreg;
+> +	struct regmap *tcsr;
+> +	unsigned int mux_offset;
+>  };
+>  
+>  #define PHY_INIT_CFG(o, v)		\
+> @@ -89,23 +101,39 @@ static const struct qcom_uniphy_regs ipq5018_pcie_regs[] = {
+>  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_PCS_INTERNAL_CONTROL_2, 0xf101),
+>  };
+>  
+> +static const struct qcom_uniphy_regs ipq5018_usb_regs[] = {
+> +	PHY_INIT_CFG(SSCG_CTRL_REG_4, 0x1cb9),
+> +	PHY_INIT_CFG(SSCG_CTRL_REG_5, 0x023a),
+> +	PHY_INIT_CFG(SSCG_CTRL_REG_3, 0xd360),
+> +	PHY_INIT_CFG(SSCG_CTRL_REG_1, 0x1),
+> +	PHY_INIT_CFG(SSCG_CTRL_REG_2, 0xeb),
+> +};
+> +
+>  static const struct qcom_uniphy_regs ipq5332_pcie_regs[] = {
+>  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_PLLCFG, 0x30),
+>  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_EIOS_DTCT_REG, 0x53ef),
+>  	PHY_INIT_CFG(PCIE_USB_COMBO_PHY_CFG_GEN3_ALIGN_HOLDOFF_TIME, 0xcf),
+>  };
+>  
+> -static const struct qcom_uniphy_data ipq5018_data = {
+> +static const struct qcom_uniphy_data ipq5018_pcie_data = {
+>  	.lane_offset	= 0x800,
+> -	.phy_type	= PHY_TYPE_PCIE_GEN2,
+> +	.phy_type	= PHY_TYPE_PCIE,
+>  	.init_seq	= ipq5018_pcie_regs,
+>  	.init_seq_num	= ARRAY_SIZE(ipq5018_pcie_regs),
+>  	.pipe_clk_rate	= 125 * MEGA,
+>  };
+>  
+> -static const struct qcom_uniphy_data ipq5332_data = {
+> +static const struct qcom_uniphy_data ipq5018_usb_data = {
+>  	.lane_offset	= 0x800,
+> -	.phy_type	= PHY_TYPE_PCIE_GEN3,
+> +	.phy_type	= PHY_TYPE_USB3,
+> +	.init_seq	= ipq5018_usb_regs,
+> +	.init_seq_num	= ARRAY_SIZE(ipq5018_usb_regs),
+> +	.pipe_clk_rate	= 250 * MEGA,
+> +};
+> +
+> +static const struct qcom_uniphy_data ipq5332_pcie_data = {
+> +	.lane_offset	= 0x800,
+> +	.phy_type	= PHY_TYPE_PCIE,
+>  	.init_seq	= ipq5332_pcie_regs,
+>  	.init_seq_num	= ARRAY_SIZE(ipq5332_pcie_regs),
+>  	.pipe_clk_rate	= 250 * MEGA,
+> @@ -134,29 +162,49 @@ static int qcom_uniphy_pcie_usb3_power_off(struct phy *x)
+>  
+>  	clk_bulk_disable_unprepare(phy->num_clks, phy->clks);
+>  
+> -	return reset_control_bulk_assert(phy->num_resets, phy->resets);
+> +	reset_control_bulk_assert(phy->num_resets, phy->resets);
+> +
+> +	if (PHY_IS_USB3(phy))
+> +		regulator_disable(phy->vreg);
+> +
+> +	return 0;
+>  }
+>  
+>  static int qcom_uniphy_pcie_usb3_power_on(struct phy *x)
+>  {
+>  	struct qcom_uniphy *phy = phy_get_drvdata(x);
+> +	bool is_usb3 = PHY_IS_USB3(phy);
+>  	int ret;
+>  
+> +	if (is_usb3) {
+> +		ret = regulator_enable(phy->vreg);
+> +		if (ret) {
+> +			dev_err(phy->dev, "failed to enable regulator: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+> +
+>  	ret = reset_control_bulk_assert(phy->num_resets, phy->resets);
+>  	if (ret) {
+>  		dev_err(phy->dev, "failed to assert reset: %d\n", ret);
+> -		return ret;
+> +		goto err_disable_regulator;
+>  	}
+>  
+> -	usleep_range(RST_ASSERT_DELAY_MIN_US, RST_ASSERT_DELAY_MAX_US);
+> +	if (is_usb3)
+> +		usleep_range(USB3_RST_ASSERT_DELAY_MIN_US,
+> +			     USB3_RST_ASSERT_DELAY_MAX_US);
+> +	else
+> +		usleep_range(PCIE_RST_ASSERT_DELAY_MIN_US,
+> +			     PCIE_RST_ASSERT_DELAY_MAX_US);
+>  
+>  	ret = reset_control_bulk_deassert(phy->num_resets, phy->resets);
+>  	if (ret) {
+>  		dev_err(phy->dev, "failed to deassert reset: %d\n", ret);
+> -		return ret;
+> +		goto err_disable_regulator;
+>  	}
+>  
+> -	usleep_range(PIPE_CLK_DELAY_MIN_US, PIPE_CLK_DELAY_MAX_US);
+> +	if (!is_usb3)
+> +		usleep_range(PCIE_PIPE_CLK_DELAY_MIN_US, PCIE_PIPE_CLK_DELAY_MAX_US);
+>  
+>  	ret = clk_bulk_prepare_enable(phy->num_clks, phy->clks);
+>  	if (ret) {
+> @@ -164,7 +212,10 @@ static int qcom_uniphy_pcie_usb3_power_on(struct phy *x)
+>  		goto err_assert_resets;
+>  	}
+>  
+> -	usleep_range(CLK_EN_DELAY_MIN_US, CLK_EN_DELAY_MAX_US);
+> +	if (is_usb3)
+> +		usleep_range(USB3_CLK_EN_DELAY_MIN_US, USB3_CLK_EN_DELAY_MAX_US);
+> +	else
+> +		usleep_range(PCIE_CLK_EN_DELAY_MIN_US, PCIE_CLK_EN_DELAY_MAX_US);
+>  
+>  	qcom_uniphy_pcie_usb3_init(phy);
+>  
+> @@ -172,6 +223,9 @@ static int qcom_uniphy_pcie_usb3_power_on(struct phy *x)
+>  
+>  err_assert_resets:
+>  	reset_control_bulk_assert(phy->num_resets, phy->resets);
+> +err_disable_regulator:
+> +	if (is_usb3)
+> +		regulator_disable(phy->vreg);
 
-[Severity: Medium]
-If both playback and capture streams are active on a loopback-enabled=20
-interface, wouldn't stopping just one of the streams blindly clear the shar=
-ed=20
-QAIF_AIF_CTL_ENABLE_BIT here? It seems this might abruptly halt the entire=
-=20
-interface and break the remaining concurrent active stream.
+Instead of sprinkling 'is_usb3' check, you can just create separate functions
+for PCIe and USB3. Even though there will be duplications (try to have helpers
+whereever you can), it will look neat and less confusing.
 
-[ ... ]
-> +static int qaif_aif_cpu_daiops_set_sysclk(struct snd_soc_dai *dai,
-> +					  int clk_id, unsigned int freq,
-> +					  int dir)
-> +{
-[ ... ]
-> +	/*
-> +	 * The bit clock is prepared and enabled for the lifetime of the
-> +	 * stream by startup()/shutdown(); only the rate is set here.
-> +	 */
-> +	return clk_set_rate(drvdata->mi2s_bit_clk[idx], freq);
+>  
+>  	return ret;
+>  }
+> @@ -181,7 +235,7 @@ static inline int qcom_uniphy_pcie_usb3_get_resources(struct platform_device *pd
+>  {
+>  	struct device *dev = phy->dev;
+>  	struct resource *res;
+> -	int i, count;
+> +	int i, count, ret;
+>  
+>  	phy->base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+>  	if (IS_ERR(phy->base))
+> @@ -207,6 +261,33 @@ static inline int qcom_uniphy_pcie_usb3_get_resources(struct platform_device *pd
+>  
+>  	phy->num_resets = count;
+>  
+> +	if (PHY_IS_USB3(phy)) {
+> +		phy->vreg = devm_regulator_get(dev, "vdd");
+> +		if (IS_ERR(phy->vreg)) {
+> +			dev_err(dev, "failed to get regulator: %ld\n",
+> +				PTR_ERR(phy->vreg));
+> +			return PTR_ERR(phy->vreg);
+> +		}
+> +
+> +		phy->tcsr = syscon_regmap_lookup_by_phandle_args(dev->of_node,
+> +								 "qcom,phy-usb-mux-sel",
+> +								 1, &phy->mux_offset);
+> +		if (IS_ERR(phy->tcsr)) {
+> +			ret = PTR_ERR(phy->tcsr);
+> +			dev_err(dev, "failed to get regmap: %d\n", ret);
+> +			return ret;
+> +		}
+> +
+> +		phy->lanes = 1;
+> +	} else {
+> +		ret = of_property_read_u32(dev_of_node(dev), "num-lanes",
+> +					   &phy->lanes);
+> +		if (ret) {
+> +			dev_err(dev, "Couldn't read num-lanes: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+> +
 
-[Severity: High]
-Does this unconditionally set the rate on a shared bit clock that might alr=
-eady=20
-be actively running for the other stream direction? This appears to be anot=
-her=20
-place where concurrent streams across separate DAIs could race and overwrit=
-e=20
-shared hardware state mid-stream.
+Same here.
 
-[ ... ]
-> +static int of_qaif_parse_aif_intf_cfg(struct device *dev,
-> +				      struct qaif_drv_data *data)
-> +{
-[ ... ]
-> +		switch (snd_soc_daifmt_parse_format(intf_np, NULL) &
-> +			SND_SOC_DAIFMT_FORMAT_MASK) {
+- Mani
 
-[Severity: Medium]
-Does masking the return value with SND_SOC_DAIFMT_FORMAT_MASK here discard=
-=20
-crucial inversion properties (like bitclock-inversion or frame-inversion) t=
-hat=20
-snd_soc_daifmt_parse_format() normally returns?
-
-> +		case SND_SOC_DAIFMT_I2S:
-> +			cfg->sync_mode =3D QAIF_AIF_SYNC_MODE_LONG;
-> +			cfg->sync_delay =3D QAIF_AIF_SYNC_DELAY_ONE;
-> +			cfg->invert_sync =3D true;
-> +			break;
-
-Because of the mask above, it looks like users cannot override this hardcod=
-ed=20
-invert_sync =3D true behavior for I2S via standard devicetree properties.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-b4-qaif-sh=
-ikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com?part=3D4
+-- 
+மணிவண்ணன் சதாசிவம்
