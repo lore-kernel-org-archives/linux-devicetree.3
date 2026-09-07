@@ -1,233 +1,131 @@
-Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0690B47CA99
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 14:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985C34F4741;
+	Mon,  7 Sep 2026 14:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788790358; cv=none; b=mKSMF/OAFf7wZF/B+AXt0Ug+oBJyZs/9RY38zQr0sXN8KNlMHY5nHroUTiVjl9AByrp0QspAalQBF9vmfVopO91DMhUeYT5REpaIIIHD7WCt4f9BVVDMPhhjHVFCVi6W9jsiXauZXZrntYyjFj2Vs1n9bYVM++n13yADlzAOlcg=
+	t=1788790456; cv=none; b=MT3Yd0HHvGepu6MdhlZBljVrlE8Tjua0s3Lda9qfmsMM+6ahg1E2u4bI0zu5It1Ylza1hReX7WqaqYPg6ABLV8s3d1UJL2nt+4FVC+GnIucDYtdXUf0h5JU3qIXbypQSlnVqRFo9OBfSQ6UWvC+B9DpxC5xRdXLIdZc/8a9zh0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788790358; c=relaxed/simple;
-	bh=OQek3WVIqeFJXfSOZ70xWwuJ2WhXSEZoNQigwwI7A/o=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=uoeGw0lTLvCGOrMoHApvUfhyGtRwRY8xX0MfIo9u6CTHEq5hQrhu0alLPTfoAOS+j9R9BhhbqdyKJHB89SEGa6VUesHodFoTyhoNl5qRPky/g6FZdhOxKAwyn3athAtjmR97tzSQJkkg+cSVG5WRPHrfi1EaicYN4afIXBPtKZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=N8z5QNqz; arc=none smtp.client-ip=95.215.58.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1788790456; c=relaxed/simple;
+	bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BWsvYCpEpfmUxDHUOsbCXZnIYh3EenjaD/x9g/KO6rr3XtKFX9Tv/BRq4cwPIMYrnQJ+MAqzOlcqsijaLcVawDkFLSywImG016DVxUfJWuYfr95DslwcMD05IqbJp6Wd6LSkrhCn5PQ+IGIRkgQMS/4O8+c6k/4gw7xZc0zquvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rr58TWjM; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="N8z5QNqz"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=OQek3WVIqeFJXfSOZ70xWwuJ2WhXSEZoNQigwwI7A/o=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788790353; v=1; x=1789395153;
- b=N8z5QNqzhgHnaJ8THZZz6UFCthQFYUU3frR1MJ230AVH779mTy7CSiO0IiJKSPhPTM9lTHDe
- jfNgVIkVTgI8wW77hkc7zKFVydcuBc0kPIPTTfvb3O0fFFraLIlpf67nKYOLYXggHYI0Xlvhr0n
- G+cZ+SeVkQGx6F2kMF+nSgSKK9cs0cbGrWTYLf9RRzzrxvxW7dhwDlM98SMirerMc9dFBP76VrE
- f5GZ8Xilc3tY4kgUleMvRI1/3pf7By3deZrVTn7f51c9KfKtb9MUk1lEvWzsygOJzmD2CLyOnAj
- P1hFJU1dP9B02Ejvrh2hZoiTDla7qEoi6K6IKHOI86r3Q==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e05ef1087ebab64e;
-	Mon, 07 Sep 2026 14:12:32 +0000
-X-Mizu-Trace-ID: e05ef1087ebab64e
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rr58TWjM"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EA673C2BCFA;
+	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788790456;
+	bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Rr58TWjMVe+P2pY9jidCowTTYxQBFO8VSsJky9yv/Tl5UuulSgYESfY7QiulrJ3j/
+	 gOxxKtfFlYzTBRMFMtn6FOJShlvrTIGUXrwvbT3KjZX876AgjMmQNvGIIVPWzox/zd
+	 TTctrpMobaTc7rVTfohhgtEeDDToDC1e7xd4e49eNv69zCsO52Rq9sasVm2LBBjC62
+	 WckQlbp+Ot1mjfm5IoXtciokIQawc/PirjEUKFvoWMMRbj/LEzJ9YrnMmEZ1BmZkyL
+	 eeJSlaJjJBK0NCO8cbjobDkcy02f69otykUvSSyxMLyYorRkkJK03Ql+pRb4qigIWl
+	 mJUifSibh/b0g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C204CC79F99;
+	Mon,  7 Sep 2026 14:14:15 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Subject: [PATCH v2 0/3] arm64: dts: rockchip: Add FriendlyElec NanoPi R28S
+Date: Mon, 07 Sep 2026 22:13:54 +0800
+Message-Id: <20260907-r28s-upstream-v2-0-21ab570fc91c@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 07 Sep 2026 16:12:32 +0200
-Message-Id: <DL959BBXDOAZ.2RNX9SJVZIKPK@cknow-tech.com>
-Cc: <robh@kernel.org>, <conor+dt@kernel.org>, "Heiko Stuebner"
- <heiko@sntech.de>, <devicetree@vger.kernel.org>
-Subject: Re: [PATCH 3/3] arm64: dts: rockchip: Add support for FriendlyElec
- NanoPC-T6 Plus
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: <sashiko-reviews@lists.linux.dev>, "Diederik de Haas"
- <diederik@cknow-tech.com>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260907122406.1862398-1-diederik@cknow-tech.com>
- <20260907122406.1862398-4-diederik@cknow-tech.com>
- <20260907123459.B96191F00A3A@smtp.kernel.org>
-In-Reply-To: <20260907123459.B96191F00A3A@smtp.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU07hgquuIdhgTBITaBkphAN6
+ d2luHb5kvff30CIHQncsg2YVifOTzvgKYN2aKYnKdftDKjR6lLnirEQtcwSmJpRERokvHbW2Bz
+ 2zczUu/fRu9c/luXxojakSDIGJ8Hz5zhcTfL+tVejtOpt0eWXokRbNtXMPvjpPBLUMcYv9b06Y
+ rwAAAA=
+X-Change-ID: 20260905-r28s-upstream-e212e27d6165
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2794;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=upxHPP9ArbDCrRBkmQM8oFLShkIqVXPIci/IXpan42U=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqx5x7bFa+woUbApXbLNuU94kVaD381VvSaSt7dlMakVs
+ /7N/J7VUcrCIMbFICumyCK7qTpSaFX0zCIWqeMwc1iZQIYwcHEKwETKvzD8z+ngy/h3aQK3qujx
+ umh1VcNjc3crHphRbbmzYRbDJ02mDEaGH145tVeF41u+ry5YVfmy4ec6hhWr591KDQv6IyGZeug
+ OLwA=
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-On Mon Sep 7, 2026 at 2:34 PM CEST, sashiko-bot wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] Missing 3.3V regulator for the 4G LTE M.2 B-key connector and =
-incorrect assignment of a 5V regulator.
-> --
->
-> commit 5412bbe217132fabf745d86e1c28d6b071b41043
-> Author: Diederik de Haas <diederik@cknow-tech.com>
->
-> arm64: dts: rockchip: Add support for FriendlyElec NanoPC-T6 Plus
->
-> This commit introduces basic support for the FriendlyElec NanoPC-T6 Plus.
-> It highlights the hardware differences from the NanoPC-T6 LTS, such as th=
-e
-> addition of an M.2 B-key connector for a 4G LTE module.
->
-> Link: https://wiki.friendlyelec.com/wiki/index.php/NanoPC-T6_Plus
-> Link: https://wiki.friendlyelec.com/wiki/images/a/ad/NanoPC-T6_Plus_2511_=
-SCH.pdf
-> Link: http://everest-semi.com/pdf/ES8389%20PB.pdf
->
->> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts b/ar=
-ch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts
->> new file mode 100644
->> index 0000000000000..f23ac4bd9f167
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts
->> @@ -0,0 +1,91 @@
->> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
->> +/*
->> + * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
->> + * Copyright (c) 2023 Thomas McKahan
->> + * Copyright (c) 2024 Linaro Ltd.
->> + */
->> +
->> +/dts-v1/;
->> +
->> +#include "rk3588-nanopc-t6.dtsi"
->> +
->> +/ {
->> +	model =3D "FriendlyElec NanoPC-T6 Plus";
->> +	compatible =3D "friendlyarm,nanopc-t6-plus", "rockchip,rk3588";
->> +
->> +	codec_es_3v3: regulator-codec-es-3v3 {
->> +		compatible =3D "regulator-fixed";
->> +		regulator-min-microvolt =3D <3300000>;
->> +		regulator-max-microvolt =3D <3300000>;
->> +		regulator-name =3D "codec_es_3v3";
->> +		vin-supply =3D <&vcc4v0_sys>;
->> +	};
->> +
->> +	usb2_port_5v: regulator-usb2-port-5v {
->> +		compatible =3D "regulator-fixed";
->> +		enable-active-high;
->> +		gpio =3D <&gpio1 RK_PA4 GPIO_ACTIVE_HIGH>;
->> +		pinctrl-0 =3D <&usb20_host_pwren_h_pin>;
->> +		pinctrl-names =3D "default";
->> +		regulator-min-microvolt =3D <5000000>;
->> +		regulator-max-microvolt =3D <5000000>;
->
-> [Severity: Medium]
-> Is it correct to define this regulator with a 5V constraint?
->
-> This uses the exact GPIO (gpio1 RK_PA4) previously used for the removed U=
-SB hub
-> on the LTS board and retains the 5V constraint, whereas the new M.2 B-key=
- slot
-> would typically need a 3.3V regulator instead.
+The NanoPi R28S is a dual gigabit Ethernet router board based on the
+Rockchip RK3528 SoC:
 
-The problem is that the comment on the LTS board is wrong and so is the=20
-regulator name fwiw. At least according to the schematics page 32,
-the LTS has 2 5V regulators:
-1) USB2_PORT_5V (Plus has this too and is described above)
-2) USB2_10PIN_5V
+  https://wiki.friendlyelec.com/wiki/index.php/NanoPi_R28S
 
-There is no regulator named 'vcc5v0-usb20-host' in the schematics. The
-downstream commit that added support for the Plus does though.
-But there it's actually attached to u2phy3_host, not u2phy2_host.
+It is closely related to the already supported NanoPi Zero2, sharing
+most of its power tree and peripheral routing. Patch 2 therefore moves
+the common parts into rk3528-nanopi.dtsi, and patch 3 adds the board on
+top of it. The split leaves the NanoPi Zero2 dtb unchanged; I verified
+this by decompiling the dtb before and after the split and comparing
+them with the phandle numbering normalised.
 
-ad 1) This is what powers the 2 USB 2.0 ports at the back, connected to
-      u2phy2_host port. The host-port -> phy-supply is "Phandle to a=20
-      regulator that provides power to VBUS".
-      On page 32 on the 'lower' left side of the page you can see it
-      does exactly that.
-      The MTT USB 2.0 HUB is only connected to the lower USB 2.0 port
-      for its DM and DP lines, not VBUS.
-ad 2) Pin 1 & 2 of the 10-pin header are connected to USB2_10PIN_5V and
-      that isn't described at all in the LTS DTS file.
+The devicetree was derived from the vendor tree:
 
-The USB Hub is identified as=20
-0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
+  https://github.com/friendlyarm/kernel-rockchip/commit/ee640c5344b13a0a317436e2357df01af8268ce7
 
-and in a WIP commit I have this:
-```
-+&usb_host1_ehci {
-+	#address-cells =3D <1>;
-+	#size-cells =3D <0>;
-+
-+	usb-hub@1 {
-+		compatible =3D "usb424,2514";
-+		reg =3D <1>;
-+		reset-gpios =3D <&gpio1 RK_PA4 GPIO_ACTIVE_LOW>;
-+		vdd-supply =3D <&vcc_3v3_s3>;
-+		vdda-supply =3D <&vcc_3v3_s3>;
-+	};
-+};
-```
-But even without using that compatible, it loads the correct module.
-But in all my testing thus far adding that to the DT did not bring any
-benefits, it may even be worse ...
+but with many changes to make it suitable for mainline.
 
-I have a MT7925 M.2 Wi-Fi+BT card in my NanoPC-T6 Plus and while
-Wi-Fi looks great (1.4/1.9 Gbps connection), BT has been horrible.
-Similar story for my BE200 M.2 Wi-Fi+BT card I have in my LTS board.
-And the most annoying thing: it's behavior is very inconsistent.
+Tested on a metal-case unit without the optional onboard eMMC: boots
+from microSD, both Ethernet ports link up at 1000 Mbps, the HYM8563 RTC
+registers, and all three LEDs are functional. The USB Type-C connector
+registers as a DWC3 UDC in peripheral mode; gadget enumeration against
+a USB host was not completed, because that connector is also the 5V
+input and a PC port cannot power the board.
 
-My cheapo (cherry) BT keyboard works fine/decent and connecting to my FNB58=
- USB
-meter over BT is great. Haven't tried anything useful with that latter one,=
- but
-it consistently finds it and when I connect to it, it succeeds. It even sta=
-ys
-connected \o/ :-O
-All the rest? It either doesn't see it, it can't connect to it, or it
-connects to it to drop the connection after a few seconds.
-And after a reboot? No one knows what will happen.
-I've had ONE time a stable connection between the MT7925 and my BT speakers=
-.
-Only it didn't show as a sink in pipewire/wireplumber so I couldn't actuall=
-y
-use it. I haven't been able to make a connection since.
+Two things I did not do, because my hardware cannot verify them:
 
-My current theory is that the drivers are buggy, see f.e. here:
-https://lore.kernel.org/linux-wireless/DL5P72WYQVOQ.23G9D01OY3BAA@cknow-tec=
-h.com/
-and that's for the Wi-Fi part which actually work fine (AFAICT).
+- The AICSemi AIC8800D80 WiFi chip on sdio0 has no upstream driver, so
+  only the SDIO controller is described.
+- The eMMC is described as HS200 rather than the vendor's HS400 with
+  enhanced strobe, since the board at hand has an unpopulated eMMC
+  footprint and the faster modes could not be verified.
 
-The problems may also be caused by an incomplete description of the USB 2.0=
- Hub.
-Dunno if a full description is within my capabilities though.
+---
+Changes in v2:
+- Split the parts shared with the NanoPi Zero2 into a new
+  rk3528-nanopi.dtsi (new patch 2). The NanoPi Zero2 dtb is unchanged.
+- Name the pinctrl labels after the nets in the schematic: usr_btn,
+  led1, led2, led_sys, pwr_wf and pcie_eth_perstb.
+- Rename the button node to button-user and its label to "USER".
+- Link to v1: https://patch.msgid.link/20260905-r28s-upstream-v1-0-f68d5389269a@proton.me
 
-But there are also other issues with both the LTS and Plus board, like the
-RTC being recognized ... but only sometimes. I have a battery for it, but
-that doesn't seem to matter much/at all. (I may know why though)
+---
+安容 (3):
+      dt-bindings: arm: rockchip: Add FriendlyElec NanoPi R28S
+      arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
+      arm64: dts: rockchip: Add devicetree for the FriendlyElec NanoPi R28S
 
-That's why I mentioned *basic* support for it.
-AFAICT it's functionally equivalent to the NanoPC-T6 LTS.
+ .../devicetree/bindings/arm/rockchip.yaml          |   5 +
+ arch/arm64/boot/dts/rockchip/Makefile              |   1 +
+ .../arm64/boot/dts/rockchip/rk3528-nanopi-r28s.dts | 142 +++++++++++
+ .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 271 +-------------------
+ arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 279 +++++++++++++++++++++
+ 5 files changed, 428 insertions(+), 270 deletions(-)
+---
+base-commit: 32e0f64640d558a0f5410ac5cdd8ebf371c5e6a6
+change-id: 20260905-r28s-upstream-e212e27d6165
 
->> +		regulator-name =3D "usb2_port_5v";
->> +		vin-supply =3D <&vcc5v0_sys>;
->> +	};
->> +};
->
-> [ ... ]
->
->> +&u2phy2_host {
->> +	phy-supply =3D <&usb2_port_5v>;
->
-> [Severity: Medium]
-> Could this assignment provide the wrong voltage to the 4G LTE module?
->
-> Assigning the 5V regulator to the USB PHY port that typically connects to=
- the
-> 4G LTE module's M.2 B-key slot incorrectly requests a 5V supply instead o=
-f the
-> required 3.3V. This could result in the module failing to receive power o=
-r
-> operating with incorrect regulator parameters.
->
->> +};
+Best regards,
+--  
+安容 <HystericalDragons@proton.me>
 
-I don't have a 4G LTE module, so can't test/try that. But as the phy-supply
-is connected to u2phy2_host, not u2phy3_host, I don't see how the phy-suppl=
-y
-for the 2 USB 2.0 ports at the back of the device could harm an 4G/LTE modu=
-le.
+
