@@ -1,142 +1,192 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E3344749D6
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 11:25:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 740524749CD
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 11:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780362; cv=none; b=tOKl3/xiN19T8i6Q1SVC3o297Y9WYrkyT+bRdB9GuskFtM8JgQs2g4BkYAvzik8A3TE4A38lQWsd32l/NLFRdZDO57cDAvpwN5uym1g92cPzzds9CLg5jUryhTwxZV9sFK9343LQkLvnvBWs5wTvE3DJ0vMZ8yv7tsUxEkzWno0=
+	t=1788780399; cv=none; b=h8H9lHZgENP7Yi3vEnN/hNnY/TKYsh0fJAi8f6y/CDMS4NEoV8debbeTJm4ixbCIti3xZTvSnwiCZIcueT1L0CiaBcX/WFo90wMdMy7UrlkInPb+6+h8KOiTWPi/nTHZZ7Ewcsf1GhAZsO+3Z4ETgZMxZz+Jk7LFOWybxauCH+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780362; c=relaxed/simple;
-	bh=r5w4vZHxYOow+S9w69v8p+rm/PS+NwfbtQJFBtx0rXU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eduUqHt8fwBJIYWX9vffnUfZJP4fY5B+IsPqIp4kCY+Vmrvcvpic+jZaQh+YNCktl+bqWlZ23WPqFxGJI/OWJhouiHsrq96Im0T1LM0V5FBCkFYkwNOl1KMekQk8QsLu8pq8hz21B5QgXv1HxE72VvL64A+ZMoUrnPtjNIrpL88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dGXRbyn6; arc=none smtp.client-ip=209.85.218.45
+	s=arc-20240116; t=1788780399; c=relaxed/simple;
+	bh=5FeeOADUNbByjyhwFpHXMXOzMsToXCwZgtfQIgCGMQ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rf0k6yTXSOQ81Oc06O/G5iacNnOzyNpWrmUQ5loDB9Z/NDmOi0TyYJlS75/JbT6yyWgK9r5I0VINfkZjYYkWMrwgkZesmn6sTXoT2rSlNg72LFDk6GztukzfmO1nMHJ/KVQE7Y/WKjsWw0UOZPd+TgRiO9v4s/msY7Kn2yVWfyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NjV9n3gS; arc=none smtp.client-ip=209.85.216.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dGXRbyn6"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c252e703fa3so517828166b.3
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 04:25:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NjV9n3gS"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3964e480f76so4067948a91.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 04:26:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788780357; x=1789385157; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Rw9wEnmmRS9YsDudq+DNMbA6mN+2z8x1quln5q6huH8=;
-        b=dGXRbyn6bnkA35cdpQzhxPErEc3K4NGPNckPg7j2FBrvwy6fFBJ4tGfINGBW/DQk+y
-         m+mpZcUcjmljLaE5bE7Uocnedi5OAH3lFTLVNR9cMh6+YPxbzgY3enEf8exdmgph2x6P
-         S+Oqkakqu68hqPvr54vifo0fXXK8mU3V/lfo34me9DWhDhyc83LRyzJSYI6vf2oEmDlj
-         YR3USw0lYPv/4YprQkyCA9ulGEUzD650UO23aKhrQsM4ZJ/qLme8QdjyU7mzgNooFWDG
-         FeqIxUF7xrmlLDSZ+7eqK6M06m+RVmPYUTuz1DuWQuWLKv2gZuF8U2+C7sDUdtybH1iH
-         lM+w==
+        d=gmail.com; s=20251104; t=1788780397; x=1789385197; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oCIRpQj2OSAEKhN68oM/fFJ8TP8Qm5gHiN+49vtxncM=;
+        b=NjV9n3gSk/Shikew5KEzgivBXHIKN0n6IhfFESHAmPUVgJk7J2IgWt9T3CChL+fm0d
+         XDYmGUmRBoiMOOs2nMfTF1JLT0rTFXNAGUbsQZ/VRul+yMQlWiSDqJxlYvFIYw/fg02/
+         sgoGQeQrrwDzMwik4jjeGu9MLZembRhnvX1suSr6FPNhgMzPFdFJWWdAicZT6uAJh5QV
+         LmK8BXO0O5YI0gcLHBRSpxXuI0nwsx7b3UdRka+PLN1kYpuqWVtiFQ9KXf8beiDMBPWv
+         RhR+pHlasmJ+p6Z7k8VewAvt/8OCIEKpMTySd7mnzk7ed8BCLhfPmm1S+BDEz72fJPuY
+         zIaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788780357; x=1789385157;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1788780397; x=1789385197;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Rw9wEnmmRS9YsDudq+DNMbA6mN+2z8x1quln5q6huH8=;
-        b=U9v0zSIlVQ3vwu0blWyW2f2YfFl+bF+91gIaQc3cGyhjfbs07RDz04DU0qptMs5+uj
-         CSctQV3TO/w2CcKKIcxoEVtj/ABymIDVh7kBWaN10Us/QZ4yxdcrwpgeeLKUCW1KRICe
-         tEGBCQXUQJ1hcxQSCXBX0nWrvPNCaxRHHQRQujPlfA5J4bFIzxMTKFVECWYtSjKWLHPm
-         Akwc5S0N5po8LF4bu0sRxHFNdcpCKsiy8qRt5ng1rElPlsdJqoTJ6OmgqMwwORZ5t7Mc
-         XLCXj2IvH8O1fbMdrbxpqaZbpmtiaJAU4aDlSan1yQoJqSaZzW+RmPU/Vl6PzUd9FtYz
-         XO1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzCjG4ZI4LM+tsP5MIfFc+WdtsEI1VUxucdG1b3R/QyUQbhNcQZS0SubcAls8Ih2U4FEpeb+L470QE4@vger.kernel.org
-X-Gm-Message-State: AFuF++khGdWGTKiEZLDGLcbw3gzh57YArroLSerCjXqO2fMV9vTZvL6x
-	out9pKidYNg6juzdw0mubHhh1xWAbZ2oimp54ixjd75DVnyQOWRQuFT5
-X-Gm-Gg: AYBFou08V3X87MoQ6CSwIRteEU+W1DaQHTwec8POuXCScBH/vxRNsmWEGtYGVYcn+HT
-	pP37l6ppFZfunmlClkKyBE4We5dbIjgv+8dJJ2zi97F1LNFHO2LxJ4lWvF86cfc4hPDFO7yopFQ
-	F6HSkacYEDYMmbn84l9AG037OG57r+rpbPdY8I1OOqh+Iga2NU8tVZ2UCJiuoxSQYY11cEAB1HX
-	GDROuy6jIj6i1n3nESc98z2xSCib0LeDb2bL4UTov4FPboVTTl0YIWuR3ioHfy8Vno6nl7OhTBc
-	yx7DRzG1t0EFXoyNy2o7oVVa9jBFY0V1HkK+VXorZcJJ71tqlVq7+kCw4Lf/sIKpBWmMK9D3UDv
-	mG5CI3GvtRhGWwh/YXmPQYzfUWAvdbpfK6mZ4w5khALJJARzrAnVCdkiVekSvmuxjat4ypUQU+b
-	ibXr+lFObTy0RzWbynGJnlTFS3IYi6Hfs1jUHUtvn+tAoNUtjtgATgq6YS1caPbLVqP/qilL/8
-X-Received: by 2002:a17:907:9622:b0:c21:34a3:4df9 with SMTP id a640c23a62f3a-c260c69a59cmr891010466b.3.1788780357031;
-        Mon, 07 Sep 2026 04:25:57 -0700 (PDT)
-Received: from [172.24.138.145] ([137.71.226.102])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c262f97f1a3sm285317866b.19.2026.09.07.04.25.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 04:25:56 -0700 (PDT)
-Message-ID: <21704002-3bc7-474a-9e27-dd9b7f01a4bb@gmail.com>
-Date: Mon, 7 Sep 2026 13:25:53 +0200
+        bh=oCIRpQj2OSAEKhN68oM/fFJ8TP8Qm5gHiN+49vtxncM=;
+        b=fPQ/5h4mffBz/mVuJ5Neh9CXyM33MrbLLvHEeeTR94vnmsZOxMa5JFip6F4h8nG0VL
+         qiQWJQtdjgDwPR/GD/lYxRKiSCZ6JMfOdtbVyl4WGBUeue6o8LyyBxK27CkNQ3WJwoP6
+         LkGNuNNf/l0nhKvKvFVWBZdgxyPpxuc6VmYNw+IbIXisGV3MTGqVhyfWgIMsgtOiMW00
+         Ji5f+OzzCJRGAi2rrgkKmTj8ZvUr3h0xcp0GaoRERE4FTgJKPForIi8juwoLUzHibVf/
+         EGgxxDxeMmX9IwDId6jp5dUYCGoqi6eMcUZSgDa+pybG8v6rqB+VBK9MH4sINBXwxayj
+         NZgQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwhIdCt0Viw0Q2W6sSoewCF1BLq8+TUdflmfISBx2obJ0lNI6HEGP16COOkiyiDSIPVEOift1zvGybd@vger.kernel.org
+X-Gm-Message-State: AFuF++mVk/siDfWeQAVp6HHrewwzr70x+2Tff6E+8eA3pnYoutXqOqK/
+	RMZs2y+DiBaMY0LgCcILQGfixYSXT9qszTqCT/JWLlDkIrJMX3KVxpMT
+X-Gm-Gg: AYBFou2QZDou8k5Ire9IsLmFslMqp47E3s/bD/eGFAaE3GztDZuqq6QrxFnmtN6/K9F
+	TMvnd1bOBB+OJT5/8DJUML/4Gtw7F/It1Iv5LUzaiUOWClulAEFAkgToKeFl5+Ev0Adl6sr7AEe
+	hECLNqlFrdV5GJP2r60216lQ6I7iVr7lQNfDUchTOYS6KwSd3OKrYDi0VAUjWYW9Iaiv+hlPSdI
+	RTJjWJwXs6weRRQWNhuTIsps95RiMKOnZ5aoFxgenjjHcVmvM+AYROEomO3mIL5+e0ftAjn+AWc
+	6bCFPSdQGZdlfTNDhfz+J0UXqfpgbOPFdXfzs+mZHuW420RxlKGLvFyHQyh/cekJqZIH6l9wh7y
+	jcYtRSqCm3kOPtoZfCRwJNiExp/+KcYlHQeidK/oViC+lWtz9VvfAGwdo5YDDpSIFp9/UDXxhhV
+	4X4PrhtYUKACdCv/LKXHu4jL7aRow5qh9OUvJv
+X-Received: by 2002:a17:90b:544b:b0:38a:c3f:3b87 with SMTP id 98e67ed59e1d1-39b261e3b72mr33475243a91.12.1788780396594;
+        Mon, 07 Sep 2026 04:26:36 -0700 (PDT)
+Received: from localhost ([2001:da8:7001:11::cb])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08ce4221sm31225121a91.14.2026.09.07.04.26.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 04:26:36 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Inochi Amaoto <inochiama@gmail.com>,
+	Alex Elder <elder@riscstar.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Randolph Lin <randolph@andestech.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+Cc: linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: [PATCH v5 0/6] riscv: spacemit: Add PCIe RC controller support for K3
+Date: Mon,  7 Sep 2026 19:25:59 +0800
+Message-ID: <20260907112606.465778-1-inochiama@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 05/17] iio: adc: Add AD7768 and AD7768-4 core support
-To: Jonathan Cameron <jic23@kernel.org>,
- Janani Sunil <janani.sunil@analog.com>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Olivier Moysan <olivier.moysan@foss.st.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>
-References: <20260904-ad7768-driver-v6-0-e4378f946bfb@analog.com>
- <20260904-ad7768-driver-v6-5-e4378f946bfb@analog.com>
- <178866660277.3402141.13365217395986099796.b4-review@b4>
-Content-Language: en-US
-From: Janani Sunil <jananisunil.dev@gmail.com>
-In-Reply-To: <178866660277.3402141.13365217395986099796.b4-review@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+The PCIe controller on Spacemit K3 is almost a standard Synopsys
+Designware PCIe IP with extra control and external MSI controller
+(IMSIC).
 
-On 9/6/26 05:50, Jonathan Cameron wrote:
->> Add core support for the AD7768 and AD7768-4 simultaneous sampling ADCs.
->> Configure supplies, clock and reset, use a custom regmap bus for the SPI
->> protocol, and parse the enabled channels and input buffer settings from
->> devicetree.
->>
->> Connect the converter to an IIO backend for buffered capture with CRC,
->> provide a fixed safe wideband sampling configuration and add runtime
->> power management.
->>
->> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ...
->
->> +
->> +static int ad7768_get_enable_vref(struct device *dev, unsigned int index)
->> +{
->> +	const char * const *supply = ad7768_vref_supply_names[index];
->> +	int refp_uV;
->> +	int refn_uV;
->> +
->> +	refp_uV = devm_regulator_get_enable_read_voltage(dev, supply[0]);
->> +	if (refp_uV < 0)
->> +		return dev_err_probe(dev, refp_uV,
->> +				     "Failed to get %s supply voltage\n", supply[0]);
->> +
->> +	refn_uV = devm_regulator_get_enable_read_voltage(dev, supply[1]);
->> +	if (refn_uV == -ENODEV)
->> +		refn_uV = 0;
->> +	else if (refn_uV < 0)
->> +		return dev_err_probe(dev, refn_uV,
->> +				     "Failed to get %s supply voltage\n", supply[1]);
->> +
->> +	if (refp_uV <= refn_uV)
->> +		return dev_err_probe(dev, -EINVAL,
->> +				     "Invalid reference %u voltage\n", index + 1);
->> +
->> +	return refp_uV - refn_uV;
-> Do we never care about the offset inherent in where the negative sits?
+Add binding and driver support for PCIe RC controller support on K3.
 
-The absolute REFx- voltage does not introduce an offset into the ADC transfer function. The datasheet defines VREF as REFx+ - REFx- and the LSB size as (2 * VREF)/2^24. Zero code remains at AINx+ - AINx- = 0.
+Since v5, multiple vendor fix are included in this series, you can find
+in [1]. And this version required [2] for phy bulk data support.
 
-Regards,
-Jan
+[1] https://github.com/spacemit-com/linux-6.18/commits/k3-br-v1.0.y/drivers/pci/controller/dwc/pcie-spacemit-k1.c
+[2] https://lore.kernel.org/linux-phy/20260904083709.425893-1-inochiama@gmail.com/
+
+Changed from v4:
+- https://lore.kernel.org/linux-pci/20260709040027.958400-1-inochiama@gmail.com/
+patch 1:
+1. fix comments
+patch 2:
+1. Use phy bulk data to simplify the code
+patch 3:
+1. Rebased to latest master
+patch 6:
+1. Apply several fix from the vendor code
+2. Use separated init/deinit function for K3.
+3. Add some error handle for K3 init function
+
+Changed from v3:
+- https://lore.kernel.org/linux-pci/20260703020003.485436-1-inochiama@gmail.com/
+patch 5:
+1. Add missing interrupt/interrupt-names check for K1
+
+Changed from v2:
+- https://lore.kernel.org/linux-pci/20260517014841.254085-1-inochiama@gmail.com/
+patch 2:
+1. Use unify PCIe phy get/enable/exit function for both K1 and K3.
+patch 3:
+1. New patch for updating device id for both K1/K3
+patch 5:
+1. Reuse binding for spacemit,k1-pcie-host
+patch 6:
+1. Multiple cleanup for the logic already generalized in the previous
+   patches.
+2. Use generic description for the Kconfig entry.
+
+Changed from v1:
+patch 1:
+1. Remove post_init callback.
+patch 2:
+1. Fix devm_kmalloc_array arguments order and error check.
+patch 3:
+1. Apply Rob's tag.
+2. Change check from oneOf to anyOf.
+3. Fix spelling mistakes in commit message.
+patch 4:
+1. Add comment about PHY handle.
+2. Remove interrupt "app".
+3. Fix spelling mistakes in commit message.
+patch 5:
+1. Remove all logic related to link up interrupt.
+2. Clean up all unused macros.
+3. Fix devm_kmalloc_array arguments order and error check.
+4. Remove unnecessary start_link logic.
+5. Make all magic number as a macro.
+6. Fix spelling mistakes in code and commit message.
+
+Inochi Amaoto (6):
+  PCI: spacemit-k1: Add device data support
+  PCI: spacemit-k1: Add multiple PHY handles support
+  PCI: spacemit-k1: Add device id update helper
+  dt-bindings: PCI: snps,dw-pcie: Add msi-parent for MSI handle check
+  dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
+  PCI: spacemit-k1: Add Spacemit K3 PCIe host controller support
+
+ .../devicetree/bindings/pci/snps,dw-pcie.yaml |   7 +-
+ .../bindings/pci/spacemit,k1-pcie-host.yaml   |  50 ++++-
+ drivers/pci/controller/dwc/Kconfig            |   4 +-
+ drivers/pci/controller/dwc/pcie-spacemit-k1.c | 210 ++++++++++++++++--
+ 4 files changed, 244 insertions(+), 27 deletions(-)
+
+--
+2.55.0
 
