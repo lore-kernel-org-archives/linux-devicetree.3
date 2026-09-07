@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC838E5D7;
-	Mon,  7 Sep 2026 06:09:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8736A218EBA;
+	Mon,  7 Sep 2026 06:11:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761371; cv=none; b=JydJD3cgvYeULQjYSgrbtI4a4b+hvF9vHz6oqG0PbgHDljrey7aTUK29O0hVWNo6zFmxO5DWdhXurbgP1uTX9pLLePjpjl/veN9mSnsQOeT8o3qmsK6KuedRYjMAFQlwRg28bO1x1gtYZiDsoqgw86JJDo9XSrOxp5pH0VfdUcE=
+	t=1788761496; cv=none; b=f5rBBOC0s9uCIPpZYre1/89C6DS0rC226CZd2mFjaByuedl3jLn6H6MyEOaGXQaLLhnG+gBjbTBYykqp66tMCzGMB2pQagaav/1Al6YwtD6jaH7fi6IgD1Dpn3k4YCWQgyIv+kdXsxmm1HOOPN1DmfJzWBSbe5BfScZ9GTXcXXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761371; c=relaxed/simple;
-	bh=9nO4WS3fEiBgG1Qiw8gJT7pcYglX1bWzAHr7cEKeHVA=;
+	s=arc-20240116; t=1788761496; c=relaxed/simple;
+	bh=61hB9cxxq3mtrL3ltd54ynmLiMeeE/6do4NOd49hSDs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=liyfOl80aSz6mt52wn263sn0dOIAwfsUBU3/HtxXsmCqQris1fEDmU3HPmdkdSMUX2gGd2SrCxUZFL2Y0UDzn+Yg5Vpgptr5XxxTFvBthqwfnjDmbd/fZVamBfSeiThmwpQ5opa9/WdmHPwYPQs512h7gcGoH5n60sAedyJP8Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxJVmaxX; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=dcjnVnKKG5v06lFxD07wyB8atvXYGRHf9oOhy12GHftYfrc1Db54Op477pxuIUrWzjaU/jx1i7Kh3+SSMB+gGRkswE4eLi0SYP3+u5yo7zaeRWt0+OE4qQyyh/VuJvZV///t57iUKfihuLHbsnXG0vkT17FfQgO6/XuymNZ2eBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmUpl+lN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxJVmaxX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7EE1F00A3E;
-	Mon,  7 Sep 2026 06:09:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmUpl+lN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDB0E1F00A3A;
+	Mon,  7 Sep 2026 06:11:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788761369;
-	bh=MU8vTnQ4SCG40k3kEVDcMjU9vE6Mm32ui6oD0ivsqAE=;
+	s=k20260515; t=1788761494;
+	bh=Wsa0JvYiMJouozjokH7geLU1KfAK+7PDaBgcVar9DPc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TxJVmaxXf2/z7qqsQQ66XgHCtelNQqPDkAdBTJK1oBJM6KcFZfUqh8XvDytAy6GDh
-	 4t5KvbQnQ/1vz/nTLJRVdBpMtcH6lGLx+hXmjaAMJ/KyB6ABqapuVYEX1GPfMPA+Av
-	 OE3DJBwaT1WeG8gWjmnt7LQFsW3T1d0PFnCZYN8Ti+n6RS4/GtHB0N73Wh26H3a9by
-	 ZSXY6OjlwfXvS35EVkX8IU5qqd+dw4VADEYbD2yQHUEIYddnFJq+yoa89kyjg93MUB
-	 N8QwKL2DoT+sCpR8Z4LZg8L/YryBSWthu/pfd+dd4py+tPujqSicVAyfTLlFGc4u5e
-	 kfUSnR3JMkh7A==
-Date: Mon, 7 Sep 2026 08:09:24 +0200
+	b=HmUpl+lNjFYTm+p0EQ0CEekie38a2gVfgDe/BSEQF3Frn1Nu9NjheKIUfTrf5kb8n
+	 ivCeG/KbcxDFiRIGBwKKGSDDIyotNUCgVuXKReLP/nzEoNtaZvmoYoq9AHOuJjosXg
+	 EDXYxk3lkSbZpOjfYFGeub5X4K+Dk1EZMg5I3GFQ2Au+ZkC+yC7D6JX94E+UcnH5qU
+	 t7GJJoJyLkAlyjmAllFlDITC8kv3Udt6M+txPWKH754MX+2kT2gE6Jr8U7Fi98e9/q
+	 bA8FNDKeYQf2ONshunRlj0RrIcxHfq+iUiK8bHa+FxMu1RWFsqEGaBfH4oli3ocPNf
+	 nbmEvqHFKiJKQ==
+Date: Mon, 7 Sep 2026 08:11:30 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Leng Honglin <lenghonglin@axera-tech.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Shi Zhicheng <shizhicheng@axera-tech.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
-	Drew Fustini <fustini@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, hlleng233@gmail.com
-Subject: Re: [PATCH v2 2/6] dt-bindings: arm: add Axera AX650 SoC and AX650
- Demo board
-Message-ID: <20260907-portable-moth-of-passion-ecb1bf@quoll>
-References: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
- <20260901-ax650-v1-v2-2-993bea305476@axera-tech.com>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Abel Vesa <abelvesa@kernel.org>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] dt-bindings: phy: qcom,snps-eusb2-phy: Make resets
+ optional
+Message-ID: <20260907-busy-sensible-mink-c6b35e@quoll>
+References: <20260901095055.42229-1-shengchao.guo@oss.qualcomm.com>
+ <20260901095055.42229-2-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,18 +50,26 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901-ax650-v1-v2-2-993bea305476@axera-tech.com>
+In-Reply-To: <20260901095055.42229-2-shengchao.guo@oss.qualcomm.com>
 
-On Tue, Sep 01, 2026 at 05:19:29PM +0800, Leng Honglin wrote:
-> Add devicetree bindings for the Axera AX650 SoC and AX650 Demo board.
+On Tue, Sep 01, 2026 at 05:50:52PM +0800, Shawn Guo wrote:
+> From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 > 
-> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
-> ---
->  Documentation/devicetree/bindings/arm/axera.yaml | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
+> Not every instance of this PHY has a block reset of its own. On Nord
+> SoC there are three eUSB2 PHYs but only two QUSB2PHY block resets:
+> the HS-only USB20 tile has no dedicated PHY reset and is instead reset as
+> a whole through the controller's own USB20_PRIM_BCR. Requiring 'resets'
+> makes that instance impossible to describe, since the controller and the
+> PHY cannot both claim the single block reset exclusively.
 
-No replies to my comment on patch #1, so dropping this from DT Patchwork.
+Reset framework supports non-exclusive claims, so that is your fix.
+Sorrry, but driver reasons are not proper for DT.
+
+IOW, what you are saying here - device has a shared reset, but because I
+wrote drivers like that, I don't care and expect other driver to handle
+the reset.
+
+Well, no.
 
 Best regards,
 Krzysztof
