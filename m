@@ -1,128 +1,90 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07EF23A564
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:35:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9121372B5A;
+	Mon,  7 Sep 2026 08:35:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770119; cv=none; b=VbxNCy29SW3qpCnY5iFBI0PydC/H4VL53WxPnLuBOt7Wgv5g7WkJ3zu7MyUUbfhJ0bi0ulvwncAulm/8liAkvr3mlBa9eAIazzqqCXBr8TLMqfPehbV9uF03lglUnkkKbieXSjHYif1+pmYrJNJWnU8UcwHjvwEOlwU8BKos0rs=
+	t=1788770128; cv=none; b=qNXpX/iKSPMVpOkphZ0gY1ts8U6TEpb8ToT6XEK4lnxele28MJdxSwf8byemhSDWo3n6ORGRdcqDDO27Q0WNikujwvo8w22DI9ZXmhlMi8OxaZJxZL03o2Ch1jMxpDv2kRSRBN1epBGM+V+XEwA/i4hZHdlUiMy9P1uRea0KyPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770119; c=relaxed/simple;
-	bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h6Ii4U8BTSZmMd0yK+e9HoRbycD03tiiqSYP33+z0JmlWNWNDhvh1WPVuwtC6dxd22DhADYlNq4rocSI34D2zIikKnZwSyQlKEOwQlBYKX8qAwp4r45/sNeNcchEfAEu4K2H/Qllk+JK7KZphVZmLTrc45ziZlBduke7uU+9p1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JRRCTVK7; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788770128; c=relaxed/simple;
+	bh=7z7vylSyfWqE3EDq/ZZoS1b3CumUAB6aQkwOD+wEqlE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LGyJItI6gAuJinPF35xWfytGwqBfcDnbirkMThINjQ+ulBY0Qrc45ok5+jUN44TMhx4A01snkzcr1WJnAv0ot6tNDf45kbZIL9InTmgGK8H1FJHktabxDcaaYcl8AaoQ2UbqiRiKNTl414+lPkilQxdz3R53EzocRBMTSRMek4o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUfyDU5Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JRRCTVK7"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4995b0343c1so46326315e9.3
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:35:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788770116; x=1789374916; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
-        b=JRRCTVK7h1DC57qMTcJxIx7iViDaB3G32uM+/ix4lR/+eIXKwhwbdGhQTIOXqN2mx5
-         7gMRI+TnBWP3aTGrmCZunL6S191T1M71nnp6YPFi5+OH1BBko0cILTPgMv37KxrJ6bgX
-         5PFgvm2qymbNMIGLsk+MiR0sCGkZUw5t6VsSKAVVYwqSXW6/gfSzMeRQXE/EjPeio6tw
-         ZWdG/GBUB0sFG246bxhLeQ+CWl3mwn2HrUjNVnto/F5DcIJwgrXPq2AbPUByzO0NvNuk
-         kqZ+UHfJ5pikHSvhZKgIAeQAJysgN+JN3KX6b0LwtkB1A33Ywpu19uVKU/eWCTOvXBXV
-         Xxjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770116; x=1789374916;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zNMtCRsUQspr7I5Yp/4mxHgCjGnZu22lUWt/I66qtMo=;
-        b=G5euQIbJzRVrHqeHwsRdZ6S4THYg2F7YODJstEsS8hTHDWrJwytiHA1xr6IHUo23u8
-         Vtzce4mPg9Z8q+nxbCVSsDr6OjGGUf3+Xd0FQTtJLkCjmKW/+KkMTQxPLKsgvOBU5waJ
-         FIet4pmrkYudC52QouW0Qthb+/DPOhYgJ4SnQgLn6hR9UPOqkrkSsn7zKXfq9XO4cRiM
-         NzjkUa53K8cHVl9z22rG3ZEDycbkSBagdUZuEWWzKHW+ZLxe+H0KC9+UJd+Mpktic73+
-         vW6c2xSJAsBs+VrMIinF6ZeSdFAlRCZAUoIFVrvWbeTGretJ1+BpP/WJrhg/wmhUDB0Q
-         Hd5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwo4J6JnX5kQN64yG23rwemGJrS6+WklbLm7PC9WfJk0VvA9xdJgyyUn56JFIdvW/y7RxlSvs4TH+Eb@vger.kernel.org
-X-Gm-Message-State: AFuF++mlT7KzMfv/MWPFNbKC18nHv/KtPjkx+fZu1eKF7igKQqvLqrG0
-	gdMzvuyLOxJEcGzgBADTmOQ2jbypobGPnFjI0wNYaiE+F0Wyi8ZDT+QkvlLJHJ1bzzM=
-X-Gm-Gg: AYBFou0NguGpvRz2jdy+Iz9aji9Pcc0EI2Zrv3ydGkoBpszODvCay9WlktgK68uxpnB
-	naXM9tZEUCX/5EqKzIwQu6LhEe/sXUJKOPBG62wzrBfngrGbFAWIObQ7yCCbpWe8zn4H18DS4yB
-	G9ZSkRStPL8/V7uz6xIpP/QQ03pWB+2M6X8/05aiydf75TsVe40GU2lqxZBIDgRNUf8MNf/qi1M
-	hy8KLwV55KYBoJHWUFSgHl64cBb8GWfeYmVbYL4xi/F2aEyUP5w3hsfXGczuZ46jHTmVMDVnrGC
-	RcWgLh795qbLJ5RK/lbbsJpOnZY5VyCp7GaszxHME8f+zE1rvdbG4v3x0GiQ2uWyI+/tPdD4OhU
-	Rx6Gar9ymXftMme1JqwP8010U7oUi8jkrKt0nMxhq38iKF9nwxDRslLhf0irYNqw0hESE4ur0WI
-	LRR/nY3KxqycrV5usE35Dv9ldPWQ97LiZth2ZNKiva6paSLLFi4J2nqR24hih3/+C8YFfdB6Hdo
-	vHX5wzNH6Nwy4kPrpuO6nYLyT7tvUDDNQ9jJUA9KWF9b8E3PGc=
-X-Received: by 2002:a05:600c:3b9b:b0:49a:77c1:d246 with SMTP id 5b1f17b1804b1-49cf8286e30mr197654635e9.15.1788770115721;
-        Mon, 07 Sep 2026 01:35:15 -0700 (PDT)
-Received: from localhost (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49ce4761dd1sm274503085e9.0.2026.09.07.01.35.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:35:13 -0700 (PDT)
-Date: Mon, 7 Sep 2026 10:35:13 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Nickolay Goppen <setotau@mainlining.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Alexey Minnekhanov <alexeymin@minlexx.ru>
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-Message-ID: <ap52w_LsxykYh6T1@monoceros>
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUfyDU5Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379551F00A3A;
+	Mon,  7 Sep 2026 08:35:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788770127;
+	bh=7lliu8lrqW/CHgr7r/FFZBYLtK9krTWCdW6rmzceK3U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JUfyDU5QbxBYRiUjGDpscKWyaipP8tm3zXn6RKIrtl4eWdFMyQPVhx+YqHg3I8+hm
+	 APPQQtCCcfiOWDc84nwAZpu5r79EQ79RTm5RsvBepqTse6WvnMxDAsS7QhGs5otQqV
+	 I8jENMPCfoI9aW8NJJgVc4jCOWhbZCSpGNXJdsUrbinMFoTeDlwHXqFml7GCtygQVg
+	 Msv4Cx9sDl+N55vhrNgNIWiM8J39GLDTmv4GtQCqvn07pX1JiyQQbXAECAlXYVruII
+	 kbc9+yKDFnGKJ+lmhdTGuTSMvuqSc3byPynOpupY+NgLf69qSRmqL6sB2xfvSFY4ay
+	 n97vIMVW7pBdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: clock: qcom: document the Nord DPRX
+ Clock Controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
+References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
+ <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 08:35:26 +0000
+Message-Id: <20260907083527.379551F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="f7m35ekvx6ajsize"
-Content-Disposition: inline
-In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-2-cc1ca61bd261@mainlining.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The binding description incorrectly claims the module provides powe=
+r domains.
+--
 
---f7m35ekvx6ajsize
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH RFC 2/2] drivers: gpu: drm: panel: Add BOE NT51021 driver
-MIME-Version: 1.0
+commit baf2c48f03a1fa1acdae6f01871eb176b4af7ed4
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-Hello,
+dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
 
-On Sat, Aug 29, 2026 at 11:09:14PM +0300, Nickolay Goppen wrote:
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/regulator/consumer.h>
+This commit adds device tree bindings documentation for the Qualcomm Nord=20
+DisplayPort Receiver (DPRX) Clock Controller.
 
-Please rely on <linux/of.h> to provide of_device_id and don't include
-<linux/mod_devicetable.h>. If you want to stick to IWYU, include
-<linux/device-id/of.h> instead.
+> diff --git a/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yam=
+l b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+> new file mode 100644
+> index 0000000000000..fbaaad1f3db3f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+[ ... ]
+> +maintainers:
+> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +
+> +description: |
+> +  Qualcomm dprx clock control module provides the clocks, resets and pow=
+er
+> +  domains on Nord.
+> +
 
-Liebe Gr=FC=DFe
-Uwe
+[Severity: Low]
+Is it accurate that this module provides power domains?
 
---f7m35ekvx6ajsize
-Content-Type: application/pgp-signature; name="signature.asc"
+The documentation text claims the hardware provides power domains, which
+contradicts the binding schema below that only consumes a power domain via
+power-domains: maxItems: 1 and does not define #power-domain-cells. Could
+this be a copy-paste error from another binding?
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedz4ACgkQj4D7WH0S
-/k6mCwf8DB+wWG1X5R1Barm6eVJNkn6T9iEtu6q952Rb44GVXBmsgNzH/8kPoPvx
-MgqVTBvCjN5jnomwxeU4EPk1eRtFXqf4jwGytePENeFWAqwNGvBZHuYaowSbPCzb
-r6NXPx7I9i9qrBNTAufIz8/sLutrkzoc5so8Z33c3eovQgHbRZXbNpsBSW7Et7d3
-DEBJbSFNF4lYRM6ozD7Xk2CHDgfhaf1sznfIlFIXe1jA1/tAIyI21LSclKz58Dkt
-JuDlvdCCSC+hoWswZFYnITu60LPBwbgo8JeIVPx07ZuHJr2v6yknqw1yefvB1TKC
-r+3sOCPIgjR9hMDIjXlfEVZwDo/T+A==
-=6K8E
------END PGP SIGNATURE-----
-
---f7m35ekvx6ajsize--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-nords_dprx=
+-v1-0-d472af3f01b1@oss.qualcomm.com?part=3D2
