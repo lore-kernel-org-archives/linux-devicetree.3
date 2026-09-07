@@ -1,104 +1,113 @@
-Received: from e234-51.smtp-out.ap-northeast-1.amazonses.com (e234-51.smtp-out.ap-northeast-1.amazonses.com [23.251.234.51])
-	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
+Received: from mail-oa2-f9.google.com (mail-oa2-f9.google.com [74.125.231.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D1A3859C3;
-	Mon,  7 Sep 2026 05:44:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ED9233ADB3
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:45:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788759846; cv=none; b=U/ny2N9XVfVjvfT2LGCCh+sTM6iKqIIuYNKurZfCR+StRskGrEGnWsrx4zFVNkjmXYB2iVR/YkLF60zfVbow7z4OmUPYOTnPnQ5NX994auOfO3MZmf3yPsHzifAQfEpvF2iWcnplAMasBfTjObT3qQE97DqzPYXPe9Rw1AlDIeY=
+	t=1788759935; cv=none; b=IhAwCrjV4v4KZ8a2zySn/VB6ifs0AmjH3au8/Gz0j1CocDPNoGuFfrSmTRiyLMPe2/1rTTt+kMfe9eaof9xPn3ycDaMunHBrNGgZkF1T6kedaqs6vw5eZ4FXMxfc7jca6hJpJ2rK047JOrQ4usBp4BcG+yCgWzqi8bEbV1vV/HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788759846; c=relaxed/simple;
-	bh=YFLTYkpMiuMdIxB0n7Vn5+y+Fe4rF3hmPAxf5YUS2/o=;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
-	 MIME-Version:Content-Type; b=K5pXlbVHGWUtsdg9fQy7toC1qcxEzA6rpGd3TpcwjHAMmk7mtVJ++yyDizNFOEK0TN6dpgqEeXurkO8Q76R34ImgOFyR2wE1/C3SVq/09gRUDlEvFI756nCHBpL6v6E29+2CoMbb3aaRQIs5KW8iRmyphpvKbFpsO750K8cL+OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=Kn1eaz8Q; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=gPlvdSVr; arc=none smtp.client-ip=23.251.234.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
+	s=arc-20240116; t=1788759935; c=relaxed/simple;
+	bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=r7N7TL/OJ7ra+XtBedL4MTeU9SljIs+o94V6H7O5UKhQdxaQJDBSkfWeruykQux1MEpA1FCD34hcu8WvETJDqpaG/pd//PYqAY16fQE/hiVASwgTTVoAqdF8TFGeTcbi48Lg+6rPotQT62R2gnv3OPCpFq26b8xPo7GWOAIVx7I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OzoHsfgK; arc=none smtp.client-ip=74.125.231.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="Kn1eaz8Q";
-	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="gPlvdSVr"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=fqwqf.xyz; t=1788759844;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=YFLTYkpMiuMdIxB0n7Vn5+y+Fe4rF3hmPAxf5YUS2/o=;
-	b=Kn1eaz8QVaIvotpu5FYm4ZDskPlZL1Qj1pfTBGh56GNqXUQbd5a2ZTBO0xlP/PEm
-	9yXm0CilFJ0/c09AfqnQUuLVIwKlMMqhIj4I5ACHwRq8tsuOnx/U5UXcRhPwvk6uGQC
-	F81U+brIQsiXj9y+io1Fi7uTrLitO7aFQCmMOAig=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1788759844;
-	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=YFLTYkpMiuMdIxB0n7Vn5+y+Fe4rF3hmPAxf5YUS2/o=;
-	b=gPlvdSVrNtcB7IDovzAJao8VeXerF8IiNfdzyCSYvq08X/0Ka3g+Ti012iCsYz0C
-	HUcA5P0FYhRWPLQcQPt/52tavJq8ewodPrVBHGwTVe3Ha7EIuF/cnEjxkz6yMPrPd17
-	ZIYypiQPUU88HVVAK8bpn56+HqNEY3gbvcYtxnsk=
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
-References: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
-From: fQwQf <fqwqf@fqwqf.xyz>
-To: devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org, 
-	bentiss@kernel.org, jikos@kernel.org
-Subject: [PATCH 2/2] arm64: dts: qcom: microsoft-romulus13: enable
- touchscreen
-Message-ID: <010601a07a6524b4-0bac871e-cea3-4cbe-9a33-111003dd4808-000000@ap-northeast-1.amazonses.com>
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 7 Sep 2026 05:44:04 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OzoHsfgK"
+Received: by mail-oa2-f9.google.com with SMTP id 586e51a60fabf-4667f43a4ccso1411894fac.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 22:45:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788759933; x=1789364733; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
+        b=OzoHsfgKSxlFS/vp8mQ2DIFeyaZaI/JWkEtasr3Yn2mTIqwE73jWgKbUpwUVdcarEe
+         6M+J+pOeoMbpNo0MYKzAuk3lhYUnZ+Qy6KEeVOMtuzVqS2Qat5xOBZTtVmcBWMdd2BRw
+         rF7G2Ax+iUzNfu9H+yWMImppDHtvtoyptHDEtQCtjEomlzeJS6jZVMvziFjQ5bNJavcg
+         4ojDBQhXohwo2fjOqAiTx+nOrxuC+ga+pkbO+vOZ7WGFeNbYmp95jIQIsYk69JddDs63
+         SAYWt1X1KHT9Hc+4xao5kLaB9Rs8mw1EzczV8TQB/zWfFr7qGnuE+IIup6xrMYEJ8Kgp
+         JbiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788759933; x=1789364733;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=o5qbbR1yQ4iI2orK8p1mAk+KPmFDgRJcpOZbeD4+1ts=;
+        b=a1wsv1T5hm9Syrmnt4vTPVH2vxspGV+8D9WpNzNNH59NVMcAxEA2Hx0u8rXmLBUA8S
+         IUIWD6DgCdAFGV/Wy26+/mwE2fd93AlH6l8h/DZHO1KYP/HnSFcBWf1JyJBcNcE5WBoF
+         YCuFsxLWUq6nPskcFTGkIqRnWCkSDjynGbggKVAAFxFUwLvdJdjVh8uOnqLM1pdIIQ9E
+         mYM0117CLhNvCgVE9MKin4v+1X2KFQ74RtpNDU1hDbM1Q7bUxdBFNUlhl8BJas0XCP/O
+         ePGWPtLPFRXRF5KjMrlnFPfwDN3YVoK5qAXxdny+9LlzXQQQhtn6CUM5bsV86x3OdRmV
+         IUEg==
+X-Forwarded-Encrypted: i=1; AKwUvBwcYJObnNAdykE6dwNmmpXU4LefC66ve7HT+p4GOPsSSfnbVO+dXR3bTJjfjLUwLV8CP5OqMh+aeJW+@vger.kernel.org
+X-Gm-Message-State: AFuF++lxJzHjqmrEByowUujBzQHh14RBRCWjVMTWuTelpgz5AT+Zo6FU
+	cLyRbqABlwBWakHHPf6mEqjyoucV9AuYdzSOmpFYJyDk0UO0UFp9j8xk
+X-Gm-Gg: AYBFou3ygBVMcajV9JhEAh8BBGQheSZKn+p4EEbtYRXCK60LPvh8FENhdeeizY733cp
+	CmupSEroyCsHUpit+DNjmw1bWULfMqDo76fLavlAq+mJfB68cP1DLkOfKur0IfkIjU2wrZA/CB5
+	7X92W3PM+08dS2blTlzWo0mO30b7wFnRymWX6HucC6NJUjh565D7H0W7YHDz0b6+DtNHLcsZgdn
+	0Mpqtoq1GmHoEfkwp2Nk6gUN3JngbIE5mZt632dBGfBH3ak7BOnNNorlJSHvEhxXr9wSANp7nL0
+	DqbFFqTMWs2pp3nnxD0KJETTVBBxt45eQoolC6TL42eoCvnn/4T5jB+XzcWgzuOhb5APeUkEXDs
+	npk66ErscaahxEAFgrRyZgSOWT6cDqqx9AfXZkg18VE3kUVomSUnqSa0y3MItSYkMnkQsnmxt5L
+	evdi9PN45jCOkSFPYd14a8xroyzk8aLOHpfC/gStP8TTvNJOhx0ol2FAnLnI3Smg==
+X-Received: by 2002:a05:6870:96a3:b0:440:67b1:b59b with SMTP id 586e51a60fabf-4754d5745e0mr13037030fac.0.1788759932942;
+        Sun, 06 Sep 2026 22:45:32 -0700 (PDT)
+Received: from ryan-dell ([2600:100b:b039:79f4:f7f:ccf7:cd6f:384])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-47989a71ebbsm204482fac.17.2026.09.06.22.45.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 22:45:31 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Nickolay Goppen <setotau@mainlining.org>
+Subject: Re: [PATCH 0/2] drm/panel: add Novatek NT51021 1200x1920 DSI panel driver
+Date: Mon,  7 Sep 2026 00:45:06 -0500
+Message-ID: <20260907054509.118237-1-ryanbrue.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
+References: <20260905-rbrue-drm-panel-add-novatek-nt51021-v1-0-939f59e89fc9@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
-X-SES-Outgoing: 2026.09.07-23.251.234.51
+Content-Transfer-Encoding: 8bit
 
-The 13.8-inch Surface Laptop 7 has an ITCH MSHW0468 touchscreen
-connected to QUP1 SE0 at I2C address 0x34. Describe the controller,
-interrupt, reset GPIO, and HID descriptor register so i2c-hid can
-enumerate the touchscreen.
+Please disregard this series.
 
-The HID descriptor is located at register =
-0x0000 rather than the default
-0x0020.
+Nickolay Goppen posted an NT51021 driver a week before my patch, and I
+didn't catch it.
 
-Tested-by: fQwQf <fqwqf@fqwqf.xyz>
-Signed-off-by: fQwQf <fqwqf@fqwqf.xyz>
----
- .../dts/qcom/x1e80100-microsoft=
--romulus13.dts     | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+https://lore.kernel.org/all/20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org/
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus13.dts =
-b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus13.dts
-index eb7580dd9..76d143943 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-m=
-icrosoft-romulus13.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-ro=
-mulus13.dts
-@@ -11,3 +11,18 @@ / {
- 	model =3D "Microsoft Surface Laptop 7 =
-(13.8 inch)";
- 	compatible =3D "microsoft,romulus13", "qcom,x1e80100";
- };
-+
-+&i2c8 {
-+	clock-frequency =3D <400000>;
-+
-+	status =3D "okay";
-+
-+	touchscreen@34 {
-+		compatible =3D "hid-over-i2c";
-+		reg =3D <0x34>;
-+		hid-descr-addr =3D <0x0000>;
-+
-+		interrupts-extended =3D <&tlmm 38 =
-IRQ_TYPE_LEVEL_LOW>;
-+		reset-gpios =3D <&tlmm 31 GPIO_ACTIVE_LOW>;
-+	};
-+};
---=20
-2.53.0
+I checked that there were no patches on the mailing list prior to
+working on it, and then forgot to check prior to sending mine. What are
+the odds, for an 8+ year old panel? :D
 
+His covers more panels, but my panel seems to be slightly different
+from his, based on the vendor kernel I referenced for my bringup. I
+tested his driver on my hardware and it works; I'm going to make a
+reply on that thread, and I will set up the Amazon Fire HD 10 panel as
+a variant on top of his series instead.
+
+Sorry for the noise, I'm new to this and I hope to learn quickly.
+
+Ryan
