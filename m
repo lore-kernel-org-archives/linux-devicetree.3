@@ -1,115 +1,155 @@
-Received: from mail-4322.protonmail.ch (mail-4322.protonmail.ch [185.70.43.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f5.google.com (mail-oi2-f5.google.com [74.125.231.197])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0356B67E;
-	Mon,  7 Sep 2026 22:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90AE73E8356
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 23:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788821780; cv=none; b=tsJ4t4sNKpKSvoZaoOfVwBV4aQ3pr0kfAfSRTsX3mbE6chnOO8xYttfmNxvjdbxbeXsDBo78W3qBU7TBc8/dPpBPCCW9xnz29QEgSsWoHrHxUWvEyg5WZZ+kfGKPoo9s+ntp1ArUuGJPtMxrnVDzUucVCWc6LdbE1A+8mZJ79CE=
+	t=1788823649; cv=none; b=e4NrkmXapMH9i2e5ps15QlMLGtvd8GrcN2iGaH4ZG8m8GiBfWWoCs/1hYZn/xZuoxmN1RdtT5/dZ/n87uon55bRuyNhxUxy4DlBK/nZQOhR8yD8Lz5L142YF8OSuHzacAq8VS6iWuGZhP9gOPbihBx8ZeHu07w3o55HXOiUVjno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788821780; c=relaxed/simple;
-	bh=1myYtBfmVzzBpAFZon9YktDL5AucBVrY+1WL33A88Vc=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=QupsoM5VhEsa3KebNItLvHpN7vMJr3ChdtKQhRFqVvjtQpTYxXa8Y2pw1HBX7wSwq59ciSrsZYBKuySg5X0oPmvrsqi/6XlB4ua3wGjmJGyayzgZ+v61JX6mJvshMIhmvg/UKqFuAKHOMwpz+kM/Txscl2H8VvvMGYcvupna43M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=OJc1S2+Z; arc=none smtp.client-ip=185.70.43.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788823649; c=relaxed/simple;
+	bh=/zq62zwl2SYqbX3nWntxxVcw7qJL9ZY4f2IiFrSdXUo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dDqcqKVWUq/Hc7NFbHatyU3Wt/pHnRcJgXLt3ceWhzOVpC5KQRFyPpIxgWKgYcmv5PMLu/Px/whrAGK7K/ZvgnXUKlwM2jileewCq2NN+dXxvnUFK+bUzywpYpLi7bJ15RZ6y+ob7x0pcEkXRNf+pBQAQ/lLHBtG4W2bl4YP7Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IYFn/DU7; arc=none smtp.client-ip=74.125.231.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="OJc1S2+Z"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788821768; x=1789080968;
-	bh=iz4TxbUbopqKEFs2Vy9SbpTywO++j/Oe8Yg4YbGjIj8=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=OJc1S2+ZWxefbaqPyecNjp6sAaBs2nsflec916xofaIbv07onN2YxEVNnt418Rp71
-	 PNi7sd+pWDhfiqrK9nkCu5aGbJ37tVkEEJ5iei148t9Lfwb/FrWqOTS5XscCjG6/l8
-	 wSBUYqxDiNesTa57wtj91HN1M5SXb8aKNxE3cg0QslYP+CuM1mWlHXlASEmQUELnBS
-	 j8EFVa4oEC9AQCnPC9GpjEs9mGYc5nKxa7fgKeWvlKHXAxjqUagS21pbXzRAy2sR9Z
-	 0DKCgIiO772pY67i7j/y1vcVRvNHgEfO3RVrJKy7yFgfNBLN8TPHhyExTGwQ33QLRB
-	 xQnv0vM2A2BUA==
-Date: Mon, 07 Sep 2026 22:56:05 +0000
-To: Daniel J Blueman <daniel@quora.org>
-From: Birk Skyum <birk.skyum@pm.me>
-Cc: Birk Skyum <birk.skyum@pm.me>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Anvesh Jain P <anvesh.p@oss.qualcomm.com>, Maya Matuszczyk <maccraft123mc@gmail.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add Embedded Controller node
-Message-ID: <20260907225557.73539-1-birk.skyum@pm.me>
-Feedback-ID: 21326998:user:proton
-X-Pm-Message-ID: e4b872f423469bb3162ea6725c9e1e885a352226
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IYFn/DU7"
+Received: by mail-oi2-f5.google.com with SMTP id 5614622812f47-4b3759b7ff0so1488762b6e.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 16:27:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788823646; x=1789428446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S2mXpnCZ25GxwnmGohlXqYGxtFFG4TCx9pnjWCRTcOc=;
+        b=IYFn/DU7zmkUxhRouGb8RcpsQGZynVRMaqeV+ux64GLJpSCQtvSaVIKqdcb/07ZYH0
+         lKnu9ikN4grTsKzIU/E+HoNtYHYR3Z8eIkBSlrB02rmE7ekmgT3kr9UHiXfE+LiVfrIi
+         heGTNsRK3z+T7cDzBUEDZf2lMwB1Srhp+4YSd4odyzNKtT8/6qJ2fjs6IYjc9AHXS8fQ
+         UhEvGjZWMThVbAoSmVdaE7zMzkk28TyPFYYiobkQxxamWc5JcJ9ycirucD7E7PUxWPhU
+         QHxglUqGawnJk+Sk0TG9kcE16NnaPZJThakVhnwZ+6sj70QI6hBP5GhQ8gA0MHFhZ8b5
+         LmFQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788823646; x=1789428446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S2mXpnCZ25GxwnmGohlXqYGxtFFG4TCx9pnjWCRTcOc=;
+        b=o8emCS2pGafgOVx+3f/qYYJngWU1UamkhhLLGt6jfRR8GLN841n568v/ZkuScDmceV
+         usQvuZwOInrSuBY0h1sKJOTvHEdHeagiV1qdot37OKS52T9qjCFw4Ol2+c5eVMPSpstC
+         9/+vPYiXUn3Y7dJZ7Rrt7aAStIagzt1Mb0qZRgdZqv+RgBg2K1fmq1qVitq0V9lgaICo
+         VIXt1lxXtAMdCX1c3EbR/UiffraKL7/nEP5YB7s4zbEAGc1JkTsXx1ZkbD2TlwyeCati
+         HBanZsftDKj7DDO2RBir3PqKnBBOpnZSg5hWtbFfnhgbmqUKDF6v+9UMqyamyHnQdFaB
+         pIcg==
+X-Forwarded-Encrypted: i=1; AKwUvBysMwABOPLyRUjWKStJMPy/u8/gTm1u+WClViMRJcSXexwkYmNWNHmSHr9f1Swc7fB/5YAdSZTqFqZF@vger.kernel.org
+X-Gm-Message-State: AFuF++mY5MfLHjiz+f2ryeMNiql1m/6yYWtuOKz5mYAZnzJekUYw4zUJ
+	yJJO82YYvXRXAtczGxIddbU1r59jyMUWnLV1jdZs+2qkIQnsr2mRHMrN
+X-Gm-Gg: AYBFou0SlyW0kHEMjqAhBR5NpzPIBZX/FMd9VGAnBh2futIFfIPoPPNncqA24tssm45
+	IU9iZ9dgde/4HHFeVokEtvki8y+VAikyAR9ggrJ8Fam5evBjaXw5cBH+iEb+4uJhVALk/s74dF+
+	0EvC1Z8P5KmKKoqBuMikqhEg/IfOxfT0DtJFrlXuRaV5uyxbcZv6QPDBZWMwN7rLe/TSE9LS/lH
+	hwgxx6nPE7nwXWQz/e0Q3mUPywFynx180Me7hbUHPxMiSW/Yjh7yk/Z83agl1my8qY3rl0MtXbr
+	ZlvZnG1kIXTz7G2Eu/4L5oPAw3xj4vAdkFuVz08zv1s1vuX9q3xv6HZQ9rJy1tXSDivszu1xCSN
+	VyhO2684goOvEj5ZBIy2HQswVoZzosgnNpU9YAFAmIJD5pCAkvnlAtKMBPanRWOvvQf5DfESY4j
+	Y4BGEicBAIHYR0iNjtAvycWUEsEuQz2AQE90KuSqBJiq51bSUmVNwiAmqCOO1JRqzwZjyp3bdZG
+	OmYtf4=
+X-Received: by 2002:a05:6808:e8b:b0:4b9:a829:f00a with SMTP id 5614622812f47-4b9a829f91dmr13256254b6e.22.1788823646304;
+        Mon, 07 Sep 2026 16:27:26 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b96babc2c3sm13310503b6e.0.2026.09.07.16.27.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 16:27:24 -0700 (PDT)
+Message-ID: <668b6dce-32f1-478b-b78b-06f8b5d7e5e8@gmail.com>
+Date: Mon, 7 Sep 2026 18:27:22 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+ <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
+Content-Language: en-US
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Daniel,
 
-Thanks for working on this. I tested the board wiring on a Yoga Slim 7x
-14Q8X9 (83ED), BIOS NHCN62WW, dated 12/02/2025. The EC is reachable, but
-the thermal-capability query prevents the driver from binding.
+On 9/7/26 1:42 AM, Nickolay Goppen wrote:
+>
+> 07.09.2026 09:01, Ryan Brue wrote:
+>> One question on the binding, which is as much about my patch as yours.
+>> Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+>> (dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
+>>
+>>      qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
+>>
+>> with no part number, and the register sequence in your driver matches
+>> that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+>> datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+>> 135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+>> is inferred rather than read off the panel or a BOM, it may be worth
+>> saying so in the commit message, or naming the compatible after the
+>> board the way panel-novatek-nt36523.c does for
+>> xiaomi,elish-boe-nt36523.
+>>
+>> I ask because my module has no identity I can establish at all. It
+>> answers no DSI read, DCS or generic, before or after sleep-out; the
+>> vendor kernel and bootloader name it only "BOE", chosen from two board
+>> ID straps; and its vendor-declared physical height is arithmetically
+>> impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+>> naming mine after the board, and would rather not accidentally imply it
+>> is or is not your part.
+>
+> I've found these part numbers on the photos of a replacement panels 
+> from the AliExpress.
+>
+> Also, for TV101WUM-NX0, I have a confirmation from Alexey Min, who 
+> disassembled
+> Xiaomi Mi Pad 4 Plus and took a photo of the panel's part number.
+>
+I searched around on AliExpress for my panel, and could not find 
+anything about the BOE
 
-I built qcom-hamoa-ec at upstream commit
-1b04f556e8428a3865a95627ab7a0acb5d9b93a5 as an external module against
-7.2.0-1.1-aarch64-ARCH-camera1, with your board wiring adapted to an
-isolated DT overlay. This is not a stock-kernel test. The driver source
-is still identical at current master, 28924df2a08f.
+part number for mine. Oh well, since there's some precedent for naming 
+unknown BOE
 
-At I2C address 0x76:
+glass after the device that has it, I am hoping that will be OK for my case.
 
-  Firmware query 0x0e:      03 00 63 00  (driver reports 0.99.0)
-  Thermal query 0x42:       00 00 00     (repeated reads)
-  Probe result:            -EINVAL: Failed to read thermal capabilities
+>> If it is useful, I have the Fire HD 10 panel ready as a variant on top
+>> of your series: two patches, binding and driver, adding
+>> amazon,suez-boe-nt51021. The only change it needs in your code is
+>> making mode_flags per variant. My vendor asks for sync-event video mode
+>> with a continuously running HS clock rather than burst, and your two
+>> panels keep exactly the flags they have now. Burst worked on my panel
+>> too, so this is about matching what the module is characterised for,
+>> not a fix.
+> I will try to do that. Can I add you to the maintainers of this panel 
+> driver?
 
-Instrumentation confirms a three-byte transfer, but the leading payload
-length is zero, not two. This is not a valid report of zero fans.
+Yes, you may. Once you get the v2 out, I'll get a patch ready on top of that
+for the Fire Tablet's BOE panel!
 
-The legacy interface described by the public Yoga DSDT and Maya's
-protocol notes does work here:
-
-* Writing 22 01 and reading three bytes gives a count-2, little-endian
-  RPM reply, consistent with Anvesh's pending RPM-query patch. During a
-  bounded 44-second CPU load, RPM rose from zero to about 2,800 and later
-  returned to zero after cooling. Maximum sampled SoC temperature was
-  56 C. No manual fan command or temperature-reporting loop was used.
-* Thermistor 1 at byte register 0x29 rose from 37 to 44 C.
-* Smart Fan register 0x82 read 0x15. A six-second idle switch to 0x11 and
-  back read back correctly, with 0x15 restored. I have not measured the
-  profiles' effects or reproduced the ACPI setter's thermal-threshold
-  update.
-* The second RPM query returned 01 00 00, not a valid count-2 reply. Only
-  one exported RPM channel is validated, not a physical fan count.
-
-I published the exact read-only hwmon test source, focused logs and
-protocol references here:
-
-  https://gist.github.com/birkskyum/59318b36f45664eff3a6f9be620c8afa
-
-It exposes fan1_input and temp1_input without changing EC behavior, and
-passed three unload/reload cycles and repeated reads. It is only a
-protocol-validation experiment, not a competing production EC driver.
-
-Would Lenovo-specific match data be the right way to support this
-interface while retaining strict capability validation on the reference
-boards? I can test a proposed change on this machine.
-
-Separately, this failure exercises the SCI cleanup Anvesh agreed to split
-out of his July series [1]. Testing just that conversion, with logging,
-showed:
-
-  EC probe SCI enable=3D1 ret=3D0
-  EC probe read cmd=3D0x42 ret=3D3
-  EC probe reply cmd=3D0x42 data=3D00 00 00
-  error -EINVAL: Failed to read thermal capabilities
-  EC probe SCI enable=3D0 ret=3D0
-
-That confirms the disable transaction succeeds after the failed probe,
-not an independent readback of firmware state. Both Qualcomm test modules
-were unloaded before the read-only monitor test. Suspend/resume and full
-thermal behavior remain untested, so I am not adding a blanket Tested-by.
-
-[1] https://lkml.iu.edu/hypermail/linux/kernel/2607.3/10628.html
-
-Thanks,
-Birk
-
+>> I will hold that until your v2, since Neil's renaming will touch every
+>> identifier it adds. Happy to test v2 on this hardware when you post it.
+>>
+>> Thanks for doing this first.
+>>
+>> Ryan
+>
