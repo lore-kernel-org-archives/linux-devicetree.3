@@ -1,167 +1,207 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023084.outbound.protection.outlook.com [40.107.44.84])
+Received: from mail-m15588.qiye.163.com (mail-m15588.qiye.163.com [101.71.155.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9EC1440A35;
-	Mon,  7 Sep 2026 08:15:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.84
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768927; cv=fail; b=ZFHk4kg5+InRQKO1Pc0gvjNHpvOBaQjlmPVRgjyt9FBMa2y7NK/hwmIMKXvjcquLk2lV8WBkT6ebrdIVtz/bLNbiHTYqL9t+QCqHOZKMx0kfNbbIYOnqYIaBxhVapXImasIOWh2ZWdaDg+JZcEjyF1zMD8zqfxEtJbVbO4CY0Po=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768927; c=relaxed/simple;
-	bh=F1uwANrtOI2IRCWqmz5iH8pf+CSvUIC/EsJwKFZkVWc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l5+bu6gmNNyEWmjW6oH/kL7BSMGCGGnEli06ESN3O1mCIsADcOlJKUrL6y7vpSUNqKXH+20TzaBJCc2ZTbowkJ8vfLwGT4kn/ZuIA6S2/NqcQ20wKK30yyNpPDtNQbilXOChoQKIyHi/JI97kH04nbHJ7AlAGGHUZN9v2L2Xzxg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZM0XhT+o6BJLVW84G4kxhOmChLKtmCwc6c6bw8HEn6E0Vjsho1NG3qHgscEENdGri7mfht6iSO+5J79622X60X4GlZ7CigKH4r3p4Phzi5WGPHl5WLUVed+CLLfkduqrKWX4jtKnXJPZqlvxvLmfi7BG/9fiyT5YBnLLhLGwv4XJWUJfUS7YbK+56RKG0UkOnFzqAVSYbCsPUBwnywxqTYab6y4OC9cxuyQzRJLtlrG2jyWYeQ/fF6AUFhxGwBsyzY9XoX8QN9gY4mGfuD+x9oqMHXDSd+6Zs42jntHt59CJ6eVp+pJdW2P52F/Fl8ZyyLMAHD/5Lb/yFFDm99t8jg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=229EHJuVgm9ehAt2tv+LuPOSjagAOPOX3SkSWtWPm+k=;
- b=jZNO7xqwIy6zg9mDk/lo1RT9kkvZhUOGhsKkPFem/AQluEG+powIWR71Jd/Uld0Ll8i0ZudOpCuDuTzOsxCbP24AkqorsLueeRX5zPLIg1QRVM48fWCwH/YKLTgNoMfgmWwJ+7Rpmb+foroLMv/k4lByXlfA3Sbg6cl/tWqdgmtmN7vDQZHkimzln7kh6wvAaeQsWwp8E8FQvx63oeuOYTowzVky+POkLr6zCTp4ogSoQPWUQWOvJKWUXqaSMx8O4bHCcvN/1HNbzw9d0XNni781SFrqtIevKqncw1vKFOCrggsaC6EEGsEOjQbZYgts6XhRK8mXcthn1/lwmRxVOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cadence.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from PUZP153CA0005.APCP153.PROD.OUTLOOK.COM (2603:1096:301:c2::22)
- by TY1PPFFE5B965AC.apcprd06.prod.outlook.com (2603:1096:408::933) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 08:15:19 +0000
-Received: from TY2PEPF0000AB89.apcprd03.prod.outlook.com
- (2603:1096:301:c2:cafe::a8) by PUZP153CA0005.outlook.office365.com
- (2603:1096:301:c2::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.1 via Frontend Transport; Mon, 7
- Sep 2026 08:15:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 222.71.101.198)
- smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- TY2PEPF0000AB89.mail.protection.outlook.com (10.167.253.7) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Mon, 7 Sep 2026 08:15:18 +0000
-Received: from hongliang-System-Product-Name (unknown [172.20.64.180])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id E36CF4092117;
-	Mon,  7 Sep 2026 16:15:15 +0800 (CST)
-From: Hongliang Yang <hongliang.yang@cixtech.com>
-To: krzk@kernel.org
-Cc: peter.chen@nxp.com,
-	pawell@cadence.com,
-	rogerq@kernel.org,
-	gregkh@linuxfoundation.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	cix-kernel-upstream@cixtech.com
-Subject: Re: [PATCH v4 1/4] dt-bindings: usb: Add CIX Sky1 USBSSP RCSU system controller
-Date: Mon,  7 Sep 2026 16:15:15 +0800
-Message-ID: <20260907083000.reply-merge.hongliang.yang@cixtech.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <f76cef66-1283-440e-9530-6eb7168c6e58@kernel.org>
-References: <f76cef66-1283-440e-9530-6eb7168c6e58@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21400448D01;
+	Mon,  7 Sep 2026 08:15:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.88
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788768955; cv=none; b=gAPHc/erem1g+5EMEXlSLDPCG585tSCizBnnBn4PZDJDiImZ+084OD3SP5AplCeaGaxDobWAyRf0SdVfl5YcJDU5aXjL8QOUjb/iF92tFQ4+Ii5MP8K3d0DnU5gtRtk+QksepPAvFjDSFyfht9L8z67wzOhp+UB8jS5DJvciUHc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788768955; c=relaxed/simple;
+	bh=XopvcVj4xqwi7IBJjsec+aRvrgJcTz1ao3mcsm3l+Bg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Tj8B8ft3pTDJ0mI/JuIBypLo7AD2adZyPBGXvyDAFeZjjQU5ff7+ARisA4i05Ha2RYkZpRW6xOMuBqcmhwEG+HsneM3oERMFSjdWXof+1xgiMXMQyL3Gi/3VSMZv8FRLfz/e2EzjWlV+iIdDHgmagiN619n9B9959esrAXWGYto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=R9o5yi+G; arc=none smtp.client-ip=101.71.155.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="R9o5yi+G"
+Received: from [172.16.12.90] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4ccabc703;
+	Mon, 7 Sep 2026 16:10:29 +0800 (GMT+08:00)
+Message-ID: <745c232e-d2ff-4d32-b997-55d4d37a39fa@rock-chips.com>
+Date: Mon, 7 Sep 2026 16:10:28 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Precedence: bulk
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
+To: Icenowy Zheng <uwu@icenowy.me>, Maud Spierings
+ <maud_spierings@murena.io>, Dominique Belhachemi <domibel@debian.org>
+Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com,
+ airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com,
+ andy.yan@rock-chips.com, andyshrk@163.com, aou@eecs.berkeley.edu,
+ bmasney@redhat.com, conor+dt@kernel.org, conor@kernel.org,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk,
+ jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk,
+ krzk+dt@kernel.org, lee@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
+ m.szyprowski@samsung.com, maarten.lankhorst@linux.intel.com,
+ maudspierings@gocontroll.com, mfd@lists.linux.dev, mripard@kernel.org,
+ mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
+ palmer@dabbelt.com, pjw@kernel.org, rfoss@kernel.org, robh@kernel.org,
+ sboyd@kernel.org, simona@ffwll.ch, tzimmermann@suse.de, vkoul@kernel.org
+References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
+ <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
+ <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
+ <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
+ <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
+ <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
+ <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
+ <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
+ <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
+ <72f82ae67eca7b5a594d86852c8b0dafb7d02c4c.camel@icenowy.me>
+Content-Language: en-US
+From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
+In-Reply-To: <72f82ae67eca7b5a594d86852c8b0dafb7d02c4c.camel@icenowy.me>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB89:EE_|TY1PPFFE5B965AC:EE_
-X-MS-Office365-Filtering-Correlation-Id: bbe6d9d6-22a9-4a18-b62b-08df0cb82772
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|7416014|1800799024|82310400026|376014|10067099003|6133799003|5113699003|3113699003|18092099006|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	yCEUKDmroIpKKURwj8HOuYbhkhoTBZawzxmUL7crf82FBBZ5V/Mwf/5hyC2EbeUhWSgXK2MXcinOvCa7Khnglr8RFqszags9Na6PL9I1KM+OhMa+JE2wb8qEh9LyFmwZ6Whb2L+Z0QvxezshIso+MO7ig25ydpnQHAEIGx1zVtbfR540neSNaqHw1lm3ZZp7hqDe3ESW8KzVnAbYpGENacT8fLSfmHLX77wAP3PNPYbALRc6xmc+JvsHep005unsVPo7FySdBvCJhIeP2xfkmhkuRS4iiXroqW++jwj5AlRjodSqKn5AvgOI46NkL/tnPDQUpKASkqWTb9kJ6jOmgI44bMcFU2KfglTfimDhFOT+fAJO3UFj6kUmYob5F0rkmFdPirhOu0E7Q9MKFFBTbf1fc1jLu7vNiA2ewBy4mdHE0owtXfjahX12ux//5HOwdppf/qJVbDihECdeQOyPIh8bb5bY2TJAbER8OTt4PFN4PTnBY2u4pjrYNQJrPTgg/UgYJimGQfg7ZLJUctZLzZoCQCRRJ6wVjh1Nh3Z3SfqWxHRb9Q8vsJYQCgFzJ8KxKFUSSorzn97alreNEKrib4asnGtz/rTmKS3TcKs7ud7NZ0ruAhX5ibniJFxs+Q5Px0MMAosNPUzTDn7bPjsuc9xdqCFOSirfrT7lXr6qgqrIZw79uPvjddxSJ39nEsURzPCe9vmh5uRb0ELoAuuhdA==
-X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(7416014)(1800799024)(82310400026)(376014)(10067099003)(6133799003)(5113699003)(3113699003)(18092099006)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	w5TPz3+gvw8178kkPu9GqqWMNwh1VG244d8kroQv7XNoJQ3CQ1ifZ9XLJF8B+sFawFYVqvyPYLwUxYIQohRu7igZFg7LArorPZXtw4KNT5p+IyqtLIlCG/qoE2RTOUEk/awROKPb8UmcRxNC2Acmu5cpoJVMAaWTR1gWi15236RttBGYg6l1Ocdn66N/zcyZ5cwr6cQCdWsOXH4siyo+Ec+nYzJbHJyKEMY8u9S0dawqqH2TB1kpIlJb0s8Lgj2q5upGry4vOgXIc2NKZByCHmDNWkpDecaZM+RlY8raGHPxH6evFx5/7/kqyGr5kEphGlBURb10dmeh2Zj6yx7JJaS3u96h+HTojk9Zae3Fimfty0YJ52SZdR9AXqBl/vNwB80XHy7LpJiadOa3C4zRzvsBvY082gJk9479+4IHtmu5FkTiAnARsulqKWM96TOI
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 08:15:18.2941
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bbe6d9d6-22a9-4a18-b62b-08df0cb82772
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	TY2PEPF0000AB89.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PPFFE5B965AC
+X-HM-Tid: 0aa07aeb328603a7kunma6aa1bc239fa0d
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkIdVk9ITEtLGh4eHU5PHlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQkxVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=R9o5yi+G+F8zZyawx3whCVV/olFPrerxkAmSHzyaoP+qbbbFH+YbmhSzuasWco4g2ROixc1HaVg3Nk57qQfVWoyw147x+rkDDlxVI/S0hnMtjX9juxpUqfyv6S//I3qqIuaSa56RUA+YvW7x4fEuPAtkPm8AgKLXPFAQYdGtlmY=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=PAs6cpRutX6Xy3xUaS1PXdj4b2ODwk4xwVldcIzzW7w=;
+	h=date:mime-version:subject:message-id:from;
 
-On 06/09/2026 06:45, Krzysztof Kozlowski wrote:
-> In the description you describe hardware, not binding.
->
->> +  glue nodes can reference their register offsets through the
->> +  cix,usb-rcsu phandle (see cix,sky1-usbssp.yaml).
->
-> Syscon is not a USB device. This is not supposed to be in USB.
+Hello Icenowy, Maud, Dominique,
 
-Understood. We will drop the syscon node and this binding entirely.
+On 9/7/2026 2:55 PM, Icenowy Zheng wrote:
+> 在 2026-09-07一的 08:02 +0200，Maud Spierings写道：
+>> Hi Dominique and Icenowy,
+>>
+>> On 9/7/26 06:01, Icenowy Zheng wrote:
+>>> 在 2026-09-06日的 17:16 -0400，Dominique Belhachemi写道：
+>>>> On Sun, Sep 6, 2026 at 11:19 AM Icenowy Zheng <uwu@icenowy.me>
+>>>> wrote:
+>>>>>
+>>>>> 在 2026-09-06日的 16:59 +0200，Maud Spierings写道：
+>>>>>> On 9/6/26 07:39, Dominique Belhachemi wrote:
+>>>>>>> On Sun, Aug 30, 2026 at 10:17 AM Maud Spierings
+>>>>>>> <
+>>>>>>> maud_spierings@murena.io <mailto:maud_spierings@murena.io>>
+>>>>>>> wrote:
+>>>>>>>
+>>>>>>>      I was still having some glitching happening on the
+>>>>>>> display,
+>>>>>>> but
+>>>>>>> I've
+>>>>>>>      found the way to fix that, the question is what is
+>>>>>>> actually
+>>>>>>>      happening here.
+>>>>>>>
+>>>>>>>          0x29590020 <- 0x00000005
+>>>>>>>      This one I have no idea, it is 0x00000009 with this
+>>>>>>> patch
+>>>>>>> series but
+>>>>>>>      with the vendor kernel I get the value above. When I
+>>>>>>> hook
+>>>>>>> up my
+>>>>>>>      external
+>>>>>>>      display (regular 1440p) this becomes 0x0000000D on the
+>>>>>>> vendor
+>>>>>>> kernel.
+>>>>>>>
+>>>>>>>      But I can't find this register being written to
+>>>>>>> anywhere
+>>>>>>> there?
+>>>>>>>
+>>>>>>>
+>>>>>>> Maybe this needs to be swapped?
+>>>>>>>
+>>>>>>> drivers/gpu/drm/bridge/inno-hdmi.c
+>>>>>>>     -#define v_HSYNC_POLARITY(n)          ((n) << 3)
+>>>>>>>     -#define v_VSYNC_POLARITY(n)          ((n) << 2)
+>>>>>>>     +#define v_HSYNC_POLARITY(n)          ((n) << 2)
+>>>>>>>     +#define v_VSYNC_POLARITY(n)          ((n) << 3)
+>>>>>
+>>>>> Very weirdly, the original definition here matches current
+>>>>> mainline
+>>>>> inno-hdmi.c, but the changed definition matches JH7110 vendor
+>>>>> inno_hdmi.h [1].
+>>>>>
+>>>>
+>>>> The vendor code is correct and matches the RK3128 TRM.
+>>>
+>>> Thanks for the tips on documentation, and I verified this.
+>>>
+>>> It seems that Rockchip people made this always wrong, even with
+>>> their
+>>> pre-DRM display driver... [1]
+>>>
+>>> BTW I checked the Innosilicon dGPU driver code, and its
+>>> g3_ne_hdmi.h
+>>> source file also contains the definition of BIT(3) as VSYNC. (It's
+>>> quite weird that most logic of that driver is in some .o_shipped
+>>> blob,
+>>> but fortunately the g3 logic might be too new to be closed down)
+>>>
+>>> Thanks,
+>>> Icenowy
+>>>
+>>> [1]
+>>> https://github.com/rockchip-linux/kernel/blob/release-4.4/drivers/video/rockchip/hdmi/rockchip-hdmiv1/rockchip_hdmiv1_hw.h#L161
+>>>
+>>>>
+>>>> HDMI_reg08
+>>>>      Bit  Attr  Reset  Description
+>>>>      3    RW    0x0    vs_polarity   VSYNC polarity   1'b0:
+>>>> Negative
+>>>> 1'b1: Positive
+>>>>      2    RW    0x0    hs_polarity   HSYNC polarity   1'b0:
+>>>> Negative
+>>>> 1'b1: Positive
+>>>>
+>>>> Nobody noticed this so far because in 720p/1080p both polarities
+>>>> are
+>>>> positive, but Maud's 3:2 panel has differing H/V polarity.
+>>>>
+>>>> Best
+>>>> -Dominique
+>>
+>> This also solves the devmem behaviour I saw, or well, doesn't realy 
+>> explain it but does show what is actually happening. As Icenowy noted
+>> (maybe that was on telegram only?) the inno-hdmi regs are 8bit
+>> instead 
+>> of 32 bit.
+>>
+>> What is actually happening is:
+>>
+>> devmem 0x29590000 b reads 0x29590000 as expected
+>> but
+>> devmem 0x29590004 b reads 0x29590001
+>> devmem 0x29590008 b reads 0x29590002
+>> ....
+>> devmem 0x29590020 b reads 0x29590008
+>>
+>> For some reason the addressing is weird?
+>>
+>> With this change, the assigned clock change and removing the 
+>> v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS write to HDMI_SYS_CTRL, the
+>> display 
+>> comes up from the start as it should!
+> 
+> Well I checked the RK3128 TRM for these two bits, and their field
+> descriptions are -- "reserved".
+> 
+> What can I react...
+> 
 
-To explain the hardware first, so that we agree on the target shape:
+You can take a look at the TRM of the RK61X[0]. 
+I think it contains the register descriptions you're looking for :)
 
-USB4 (controller 0) and USB5 (controller 1) do not have their own glue
-register bank inside the controller address space. Their glue registers
-live in a shared RCSU register region in the SoC system control
-aperture (0x091c0000 ~ 0x091c0440). Within that region each controller
-owns its own registers and the two sets do not overlap:
+[0]: https://dl.radxa.com/rock/docs/hw/ds/Rockchip%20RK61X%20TRM%20V1.3.1.pdf
 
-  - USB4: AXI bus attribute configuration register at 0x091c0314 and
-    controller status registers (clock enable/valid/req flags) at
-    0x091c0400 ~ 0x091c040c
-  - USB5: AXI bus attribute configuration register at 0x091c0324 and
-    controller status registers at 0x091c0410 ~ 0x091c041c
+-- 
+Best, 
+Chaoyi
 
-Only the USB controllers use these registers. The remaining USB
-controllers (USB0 ~ USB3) each have their own private RCSU slice
-elsewhere in the same aperture, one slice per controller.
-
-Following your feedback on the wrapper node ("If you do not have here
-MMIO, then this glue layer is not a separate device node and you should
-have one node only, just like we did for DWC"), our plan for v5 is to
-drop the separate glue node and merge everything into a single node,
-in the same shape as socionext,uniphier-dwc3:
-
-    usb@91d0000 {
-        compatible = "cix,sky1-usbssp", "cdns,usb3";
-        reg = <0x00 0x91d0000 0x00 0x4000>,   /* otg */
-              <0x00 0x91d8000 0x00 0x8000>,   /* xhci */
-              <0x00 0x91d4000 0x00 0x4000>,   /* dev */
-              <0x00 0x091c0314 0x00 0x10>,    /* axi attribute cfg */
-              <0x00 0x091c0400 0x00 0x10>;    /* controller status */
-        reg-names = "otg", "xhci", "dev", "axi", "status";
-        /* clocks, resets, interrupts, phys, dr_mode, cix,usb-syscon */
-    };
-
-The cix,sky1-usbssp binding would then $ref cdns,usb3.yaml and add the
-two extra reg entries plus the Sky1 glue properties (clocks, resets and
-the cix,usb-syscon phandle to the S5 system controller for mode
-straps, which also provides the resets). No syscon node, no wrapper
-node, no child node.
-
-On the driver side the Sky1 glue driver would follow the same approach
-as the DWC3 glue drivers (e.g. dwc3-generic-plat / dwc3-imx8mp): the
-glue driver binds the single node and initializes the Cadence core
-in-process instead of populating a child device, with the core probe
-split into an exported helper as done for DWC3.
-
-Does this match what you had in mind, or would you prefer a different
-split of the reg entries / naming?
-
-Best regards,
-Hongliang Yang
