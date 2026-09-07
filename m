@@ -1,102 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD944432F6;
-	Mon,  7 Sep 2026 09:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6632E43E488
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 09:01:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771686; cv=none; b=evT1+QmEIicYjZxcw2YOCREBkLf1gM2FJky2FD77gDJ6X8bhLgwoCcgy+a8G4knrkcBuRKibtCRk6JqeKZZovJMqsIPx5F9gGtYty8LH6sn31knqcdcW/Lkbgu6kX0wxw0HCIGJG0zQpsfx3vq7vCaVZXuJJqfpotEnkAGmoZDU=
+	t=1788771711; cv=none; b=siqTL6RFQ5Rr5sxzxh21LBwGuxMBL0C4jUfm5fJ8zBzn0O5+KbgWnVuMS6sKXRczPWIFcToTLfb7w0+43zk1gzk1OHWggzHOPyCb4W4Jj95vVtP47O28MCZwOGozvDmdg/8uNsDHWqzLvIGP+rDsCGAZCsgWAecBrhkm81QBIrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771686; c=relaxed/simple;
-	bh=U83q0vy/ImUKk/Xt2yP295Vp7svH+tR4dOggNfpUJZI=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EAYK9VIhRlc1vAEJbyn10wvKcYGBI6WRgn69bAkosuADFL47GwAKMbcHn3Urx8MUhM2fpbvSupAGK5cH/FkeNfxesd5ardxYm008i2HZku1wDyREujUfiVm8gIZJ4MfcKN+SmvH/Gyca3VO8gD6S2Bfym1GpnohJ8aAfD24Cln4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UbNymfkX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788771711; c=relaxed/simple;
+	bh=5fPl2HSDi6PbOf+LVR/iccpaLi4BOUwniqo2FnDa98s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ndo/rnmY20aTppN44hEY+DwhyTidVC+jZgdt2jBDt3enwfDAAnt35CsrL7b1dmY4kFpVrkqGZB0QJGEgyxkM4e728akd1kWAjLqi1M1bUWdOYJnm5H+8GW3t3sGXe9DeSgQcTzky7KE84CwsvvxyreRLsCat4J2mEmisVDkVTv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYZvg2N5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UbNymfkX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA1F1F00A3A;
-	Mon,  7 Sep 2026 09:01:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYZvg2N5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70171F00A3A;
+	Mon,  7 Sep 2026 09:01:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788771685;
-	bh=Lt4nlIuGr2FxfQolPX7cG+GfQkb7F+DkFeC+F7DrmTM=;
-	h=From:Date:Subject:To:Cc;
-	b=UbNymfkX8KDdY2a/fdnHNfgpBDjfT5z08fBgA+8uh6huc5QN6g0iwlFoenuQRv7R3
-	 0cqDvSa6h/BNQP7usnOvSIyH/5pvCsF2yItuHIyzHAG+L9c/hINQkWcwyLihIKPC8M
-	 bMH3KrTzShxvN+pP26bT52GysCyfPUIp+AMS+mFTKQjPySa2CUBHapG9jiINaeoDgB
-	 WzYOzNKTbsZXRUvEzg8QuTaqc6ZZYIyYLAWpge6BoDEyZ1tS2sfIqbUUPXReQdhecI
-	 JD68/vsbX0RdqN54+cvSUgsVGEeDt+DiuSNH1vApzxuzjayilrWUbT3rf0RctnhLEA
-	 TxettPXpHXzrQ==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 07 Sep 2026 11:01:17 +0200
-Subject: [PATCH] arm64: dts: qcom: x1e80100-medion-sprchrgd-14-s1: Drop NOP
- override
+	s=k20260515; t=1788771710;
+	bh=ByQfHcoETYzrSWwzlhYHcDBmJG5s/c7Y9ld0sfIckic=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YYZvg2N5QJigogN5SkcqaE5yshhtiAxRj6SyBO4RmRQsoFb3DboSpjLR9f20/oWLX
+	 PZlb4BRBeCl2pqnfB0qry69j9d+7Xq0GWrrYnysCjSEazEeCI5RAHDagNktY9v4UiW
+	 ys8lbeFtNJH8r6aX8VCpY2eu2u7eLcSmc5TAVp89cIK1L5p1PKn3DORJuXKL/7oHJz
+	 2ytDN0JBafGgJAUo4WdhmfyKiz3QhtVFLD0obt8Xfl5GretqYUo4o7hsPlzO+0IxaO
+	 9Uj0PYnynGyYZ4sDIwstIxs4UaqZl7euQfOo4dkdJLjoJaP6YQisMxFSRxYZRIBD8n
+	 sV2tUkSM/KKQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 09:01:49 +0000
+Message-Id: <20260907090149.B70171F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-topic-medion_touchup-v1-1-10267ae55aae@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMWwqDMBCF4a3IPDcQI9jGrUgRHSd1CpqQiwjBv
- Zvaxw/O+TME8kwBuiqDp50D262gflSAy7h9SPBcDEqqVmr5FNE6RrHSXIZDtAmX5ISh2uhGqxe
- ihHJ1ngwfd7Z//x3S9CWMvxac5wXY584FeAAAAA==
-X-Change-ID: 20260907-topic-medion_touchup-fe1f93928cc0
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788771681; l=1094;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=y3SDQsBfIkMjXsi51hGJUf8ud6ryoajNjkqk14IKJus=;
- b=OPY+QnyE7UnR9hg6QFI6eL0Y41jBElJ5w72NJat0IRmFBO8XkEIH9qfa/xVeCAQWs7a2IVa2Y
- Whr94efsXRrB2Fq4p5iDw9fLr+WBUjdRcn7hpO2PpC6Mmb7MiiApPIO
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Missing DT patching for IT 33 MIC_BIAS and unsafe mutation of glob=
+al static topology structures.
+- [High] Disconnected playback topology graph (OT 43/45 bypass processing u=
+nits).
+--
 
-Commit d12cd85a4ff4 ("arm64: dts: qcom: hamoa: Add sound DAI prefixes
-for DP") took care of adding the prefixes for all Hamoa devices, drop
-the unnecessary override.
+commit 87e473cde38b9ce58f289bd43fe4fcd2cf63830e
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts | 4 ----
- 1 file changed, 4 deletions(-)
+ASoC: codecs: add Qualcomm Tambora (WCD9378) SDCA codec
 
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts b/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
-index 039f68807376..6d26d73c18fc 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-medion-sprchrgd-14-s1.dts
-@@ -971,8 +971,6 @@ &mdss {
- };
- 
- &mdss_dp0 {
--	sound-name-prefix = "DisplayPort0";
--
- 	status = "okay";
- };
- 
-@@ -981,8 +979,6 @@ &mdss_dp0_out {
- };
- 
- &mdss_dp2 {
--	sound-name-prefix = "DisplayPort2";
--
- 	status = "okay";
- };
- 
+This commit adds support for the Qualcomm Tambora (WCD9378) headset codec
+in SDCA mode over SoundWire. It supplies static SDCA topology and SoundWire
+port properties for ARM/DT platforms without ACPI/DisCo firmware.
 
----
-base-commit: 9d80aa4617b32f5054c5aa471d06b66704854935
-change-id: 20260907-topic-medion_touchup-fe1f93928cc0
+> diff --git a/sound/soc/codecs/wcd9378-sdca.c b/sound/soc/codecs/wcd9378-s=
+dca.c
+> index 0000000000000..6a77fac017005
+> --- /dev/null
+> +++ b/sound/soc/codecs/wcd9378-sdca.c
+[ ... ]
+> +/* OT 43 (Headphone), OT 45 (Headset): no controls. */
+> +static struct sdca_entity *entity_ot43_sources[] =3D { &wcd9378_sdca_ent=
+ities[QSJ_IT41] };
+> +static struct sdca_entity *entity_ot45_sources[] =3D { &wcd9378_sdca_ent=
+ities[QSJ_IT41] };
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+[Severity: High]
+Does this bypass the processing chain for headphone and headset playback?
 
+The output terminals are hardcoded to source directly from the input termin=
+al
+QSJ_IT41. Because the SDCA/DAPM graph traverses backward from sinks to sour=
+ces,
+this appears to orphan the intermediate units (MFPU 21, XU 42, SU 43, SU 45)
+and the volume control unit (FU 6).
+
+The commit message mentions that playback uses FU 6 for mute and volume, but
+the volume controls won't be functional if the unit is bypassed in the grap=
+h.
+
+[ ... ]
+> +	/* E006: FU 6 (FU42) - vendor Feature Unit; HPH mute + Q7.8 volume. */
+> +	{ .id =3D 0x6, .label =3D "FU 6", .type =3D SDCA_ENTITY_TYPE_FU,
+> +	  .num_controls =3D ARRAY_SIZE(entity_fu6_controls), .controls =3D enti=
+ty_fu6_controls },
+
+[Severity: High]
+Is it intentional that FU 6 is defined without any sources here?
+
+Combined with the OT 43 and OT 45 source assignments above, FU 6 currently
+operates as a disconnected dead end in the topology graph.
+
+[ ... ]
+> +static int wcd9378_sdca_populate_function(struct sdw_slave *slave,
+> +					  struct sdca_function_data *function)
+> +{
+> +	/* @function->desc is already set by the framework; fill payload only. =
+*/
+> +	if (function->desc->type !=3D wcd9378_sdca_desc.type)
+> +		return -EINVAL;
+> +
+> +	function->num_entities    =3D wcd9378_sdca_data.num_entities;
+> +	function->entities        =3D wcd9378_sdca_data.entities;
+
+[ ... ]
+
+> +	/* Elevate is_volatile / has_reset to match the DisCo/ACPI path. */
+> +	sdca_apply_default_control_classifiers(function);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Can modifying these entities cause a data race if multiple device instances=
+ are
+probed?
+
+Here, function->entities is assigned directly to the globally shared static
+array wcd9378_sdca_data.entities. Calling sdca_apply_default_control_classi=
+fiers()
+subsequently writes to the structure's fields. This mutates global state wi=
+thout
+making a deep copy for the specific device instance.
+
+Additionally, the commit message mentions that wcd9378_sdca_populate_functi=
+on()
+"patches the IT 33 MIC_BIAS default with the DT-derived per-slave value" via
+the qcom,micbias2-microvolt property. The logic to parse and apply this DT
+property appears to be missing from this function, which leaves the mic bias
+voltage stuck at the 2.75V default.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907083727.7337=
+05-1-srinivas.kandagatla@oss.qualcomm.com?part=3D11
