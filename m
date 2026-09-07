@@ -1,205 +1,140 @@
-Received: from mx0b-001ae601.pphosted.com (mx0a-001ae601.pphosted.com [67.231.149.25])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 219BD4D8D9B;
-	Mon,  7 Sep 2026 13:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.149.25
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787047; cv=fail; b=kg1T+ELeeQ7OiR21GyGFkU2c9Iv2rWv0ZTFhe9uiYiiP9GkCVv0ziA4MRrInoAcrfRH3V5C/XeTXgKAOHUEmTBgIe9R3r4EQSt4EgOO7gWZ37DYSCHu7IjuI8tYcnMkNnYz4Inl7hJ5F2nWPaZsNsBbC8u44An6EecPRuhnop+s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787047; c=relaxed/simple;
-	bh=dNmLH8DeZVJ+iCsH+2IagOnd/OnyjVEoCG7moFE0VAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CfGwt2KiEanzGPwhqSkyQmh0f5rUk6OzM1pybw5aCDQ9g2W1bHUn8eijJiD2qGklmoCgFuGFN8IcQScbWSCl7FV8PiikXNgjXcmDQtUoO//QJImQfjPYDelWxD6tqjmKC2uiyuJSE8TlvwcQRVhaI05INzFs7/aiBGhYSErtLf4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=BXXcQoav; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=YjMJ9VuE; arc=fail smtp.client-ip=67.231.149.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D3F47CA99
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:17:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788787078; cv=none; b=dAlsw/2+769PJI3akIHK1igQyJt/wOSuPXRB6/e8YHw4iulqxSvVnZdQDY1Q/fyjv0DMjq+LJ8c8PoJudOSU2sACfYoUcO+sbhiRE49vvYlnMUaI5UxtQ/zNHMwJWbBgR38IxitCFnqKpU/jnaoaAtwJH29dNI3x3mTncwIrDpE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788787078; c=relaxed/simple;
+	bh=LsKPSrSI05tc4shyDaPm9jPnbdrxcAeeHs5aSIQxobQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=U0WyDtbFJ2p+ktmwbm+aWkd4y7D1wR6T2xamB60n4FnnmZWG8uGUedFmXl/rGdAQldK2k2se8AeMlSVxsGVXfYxzqyu3Te6cP6709ZggOrJJhYTHZ2j6r6OtdbPMw7WvA+eirAPCigygf5oFFGaAghoYAdAT3X3vhVaNA0ZzVDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nba1SI4O; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dzFtLknQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="BXXcQoav";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="YjMJ9VuE"
-Received: from pps.filterd (m0077473.ppops.net [127.0.0.1])
-	by mx0a-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873fvZ51040447;
-	Mon, 7 Sep 2026 08:17:02 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=PODMain02222019; bh=rfUlNwA4jWtDMjmX7r
-	8vsKvqTFu1pyBErKKzjKh+y6E=; b=BXXcQoavAV/a4h/L/D7piu2LNN52CEpBUy
-	nr+JgASM39otQ1J03gJ9vFHtxAna8dSTNLsSsjUmE+YhrENCrNq2fdoKBFbvpYky
-	pS4PoPohdmixygc11nP3LLuITCd9XNqckEdR2mTMC53pmj5ABNe4xVhQgtnWJRoX
-	nR6lDBaFC4hyi5hy75v18pYwTKYSVy4zDXvbtV+A0fUeyMa7fLTST9RMguXeJHP2
-	16DHkqxKocVybbrm/E3NJt7VW3BFEsc3uIl9TMAkX6XUIZP0MHrLBL+MeGqTBUB9
-	gQeeO40vi32PZEMhSUvRHBaNm29UKhPBYw8kO1/H+g5Bx8WCqMng==
-Received: from ph0pr06cu001.outbound.protection.outlook.com (mail-westus3azhn15011001.outbound.protection.outlook.com [52.102.149.1])
-	by mx0a-001ae601.pphosted.com (PPS) with ESMTPS id 4gggfwj32u-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 08:17:02 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JmedZuB9rAccm/J3H6vKeMV5/OLf0sk1bak49jQdqR8UhraDNn79cnyPR7vD4J2A63Y6eSNe3d4KXe79VNJnTM+Pwt0KvD0smWYiPbQmjqmveGgODvs+EH4OieFz6p53oNLf0JYx5vcsxYyNTuPm2NN1et7muDCcvJTs9komhtG81afSVIHjDH5MFzOcaJBQfTm/p1YjTThgrDcl2lJ68O7vFTLJMiEpefnU0G6D+EZ8+hoBjw0Mb8EZ7jYXa54khMLPF54GJwc0sC5A/PvgVH0tp04gy5bxFo63DE7ARWv/vtnJQymYBz/2eVQY2YbcbHq+CsY6Qbzblc5GjQL6/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rfUlNwA4jWtDMjmX7r8vsKvqTFu1pyBErKKzjKh+y6E=;
- b=cgDf89szN+Gh+6mxoCZEJoMe2O8k94OgfbOuElIkl6a5Wht4jgxUEA+THBMVeHfsSCy2zPuG2eYNIpGQqTttVExEmw3jVjNO65qho+O6r83WZlZM2ItnW/EnDRWtBivCWj37k+uE7UONe1PEHK9bsBlssGF+ne0GZmtJEmibOXnvcWt4W4+FH/f/YiX0lkIP5MPhBuRXjG9pWL/NET0rDBb92BjD34mHq1zScVMGKUFgmMiLltN3e9SCin/a4Dkkr4flBi7IOhrC0EvV+aq48k7yijuncm3o+5gr954/BAsAUcQPyIAAkOQHwDnhcumDGXY6orBJCFIG2QqR642uhA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=catcrafts.net
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nba1SI4O";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dzFtLknQ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687Amq6h2652031
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 13:17:51 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	cv8iJBY4yRE1MEIJdzu8sg2CJmzOwiug90y4Wu/gBog=; b=nba1SI4Of8u2HXcj
+	42GXLsEiahTBXSStCf/xp7kjPpEexL541KdjMrtG6IOPX/eqBsjTsgwU2gyxypKq
+	UL+foWmbM1m8MBAJ/8RwkMud9gwIWXeQ+gSYb50GuQbhmCuI1NJXt6uc1dqJlK21
+	ekjBBqo5vu6ELKq2TzR623ynEzIli0WzsvX126mo7NQc1S/ZAYH0s5UL4kggaN6Z
+	S5DAZKM2o6TOlxvHVUzbYF02lXsi97y5AfWZ3uCW6+84sZAuxV9HNRBNuC7uzWBc
+	nlFS1wLZex8W7QITEXNNXtDdHBzuovFaXZcfD2k2GToa55PoeBa3pi8z7WcbJS31
+	Lg/D9w==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtty0suk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 13:17:51 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-785827e6073so401682137.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 06:17:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rfUlNwA4jWtDMjmX7r8vsKvqTFu1pyBErKKzjKh+y6E=;
- b=YjMJ9VuEUgVBtNjSBQMwUVAqyfRsQ9F6IJBD+qLf8sFvMdsSFnqOKdhWIsltXKrkx4kixudGOx996cTVeafywZ/hAE3+l/oR3scSdnbnCO8kWKCQwL3XDvPmCqHOGsDORKpNJJOyp8F+DUnbAWDAXlFT5VKqs+JwkF2F1qL6IQE=
-Received: from MW4PR03CA0011.namprd03.prod.outlook.com (2603:10b6:303:8f::16)
- by CC6PR19MB668824.namprd19.prod.outlook.com (2603:10b6:170:207::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
- 2026 13:16:57 +0000
-Received: from BY1PEPF0002696B.namprd05.prod.outlook.com
- (2603:10b6:303:8f:cafe::85) by MW4PR03CA0011.outlook.office365.com
- (2603:10b6:303:8f::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.12 via Frontend Transport; Mon, 7
- Sep 2026 13:16:56 +0000
-X-MS-Exchange-Authentication-Results: spf=softfail (sender IP is 84.19.233.75)
- smtp.mailfrom=opensource.cirrus.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=oreject header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BY1PEPF0002696B.mail.protection.outlook.com (10.167.244.155) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.5
- via Frontend Transport; Mon, 7 Sep 2026 13:16:56 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 9A440406545;
-	Mon,  7 Sep 2026 13:16:54 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 877E5820247;
-	Mon,  7 Sep 2026 13:16:54 +0000 (UTC)
-Date: Mon, 7 Sep 2026 14:16:53 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
-Cc: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
-        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bard Liao <yung-chuan.liao@linux.intel.com>,
-        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
-        Maciej Strozek <mstrozek@opensource.cirrus.com>,
-        Takashi Iwai <tiwai@suse.com>,
-        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
-        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
-        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 05/11] ASoC: SDCA: add populate_function hw_op for DT
- function data
-Message-ID: <ap65RazbqWZfjRpd@opensource.cirrus.com>
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-6-srinivas.kandagatla@oss.qualcomm.com>
- <8403dfc5-858f-4212-ad13-7c00b3f7ee63@linux.dev>
+        d=oss.qualcomm.com; s=google; t=1788787070; x=1789391870; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cv8iJBY4yRE1MEIJdzu8sg2CJmzOwiug90y4Wu/gBog=;
+        b=dzFtLknQsccb6xshoOPwnZ6lzxchCeg8gL67DJoQ+hnmI6tGUSpCHLAGn06xUchbxl
+         BINQJ8OZeNm4J5XYlle7zSW27Nu2XazcU9A91+vE1ve7+NqFl2bMrXN6LSfzEA8aKW7+
+         oUWJwHiXqhd6cyNrOtnsaVtzFm/fuMC25g2zquzEgle1f44fQNR4Gf1HODDVhmhGHhUg
+         shArmMmi4JkvrPYzcJNTK6lZIlpyMzJpYUuvFnKej353Ed82vBwfLKMq/w6uVhq2hBDi
+         uBuzKgtr5QVDpXCD4ulbYCB9FzeTul8FeqjCaYr4UNYuoZJUMjs/QzZCfbGOcqFwkih3
+         /A4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788787070; x=1789391870;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cv8iJBY4yRE1MEIJdzu8sg2CJmzOwiug90y4Wu/gBog=;
+        b=A87sBLdqb5O5yGZm7wijzMVFEKq/LXl9U8bETfZ+RCow76C7/8bkXyusCXrgQ0hRZT
+         rws3yZq/ek74UhH7MHkYJzDJKBfx6iBn+Dsx6OKGpEVNaPWCrxT8rr3yTErOoEwJIk8a
+         0G/hNAG9laQdTedMPnMoJu7vILOHvvR6Z6kQdBd4+rDR8hTZQmf+9EZEqyJtJGPP3K0m
+         y2EuhITeoMl0zjhLuzMG9EPHp5xjx8oqIqLgyQJBXRRs66zxXcge8mPAD+Xkx8w0Bl7t
+         XMoSnAuSo7sCJoIsCAmXZ2itgPyzgThLfcDDIZvZtqtWMTdeLI1EKok/IEPghhjqzrDO
+         Dkkw==
+X-Gm-Message-State: AFuF++lVVxG+yUFQH7lF5jNEGlIJHM8Xk2bNRNc+mf2mPddi5o0Q8Nb1
+	sLVS2ud822Q17LFEtkc74mNU9bzP/wgfTj5gcNWqvIQ9cNZbGBAldywiPcet6U+r+3piZIpUJmA
+	+8E5MDcuEhrJLgvuO/jXZdqKs51fbZUb6+jN+3cHt7/yXg8ILIMvKg63UM9uXf1VX
+X-Gm-Gg: AYBFou3eB/SNF3/Mu9MJqlhlSYh2yGQQlMhq9QbAChGyyQsHqksc5yHxyC6JebXSsf3
+	CVh6TAJ2lrNQN2eAhZc/OI27mAv7CQ8SOgVN/nLuXoGoB8nfKO795U8ifRbjXivX+SUuhrjx2X9
+	V7hrSoe815wV7uqQle/mj9nBZAPJhPkVjcIJiuDWRDxhmR/UReYldHkCe7uHqMoAXchTRBAYvyu
+	3SE08FD+VotWqEeQAxBYhSjEvUqTfWaUaxMxxEzrlSLbhZoi2EO8golWggGQ39VLS8/ANOCg8+m
+	BqoHdyeMBM7xXWZ5ejfReCXtOY80fJPEeeBVEJl//AG6UqdaNdpq0rjWlVUsH5XGbxyZasf3ybX
+	CEIfyiznwJal2Kq+KOQFW8iSfGKUr
+X-Received: by 2002:a05:6102:292b:b0:782:e19d:6f39 with SMTP id ada2fe7eead31-78a4a483c93mr6716236137.0.1788787070401;
+        Mon, 07 Sep 2026 06:17:50 -0700 (PDT)
+X-Received: by 2002:a05:6102:292b:b0:782:e19d:6f39 with SMTP id ada2fe7eead31-78a4a483c93mr6716221137.0.1788787069974;
+        Mon, 07 Sep 2026 06:17:49 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee7febb4sm428999765e9.14.2026.09.07.06.17.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 06:17:49 -0700 (PDT)
+Message-ID: <907b3c02-5487-4abe-9e4c-3053ab92cb7c@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 15:17:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8403dfc5-858f-4212-ad13-7c00b3f7ee63@linux.dev>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0002696B:EE_|CC6PR19MB668824:EE_
-X-MS-Office365-Filtering-Correlation-Id: d006e2ae-6790-4393-5d66-08df0ce24a9b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|34020700016|23010399003|7416014|376014|61400799027|36860700016|10067099003|6133799003|18002099003|22082099003|56012099006|11063799006|4143699003|16102099003|12100799066;
-X-Microsoft-Antispam-Message-Info:
-	9J7xBGpLewbpZSqPCgX+mJfxS95MesK8FCWacsUCTt8g3Z74dR3lw9lZlRKGHzbYMSz5fXMhhTS6HBz43/cqrv2THL9+piKq3AKieorMCMEWwrHLsfL+0ebASO9I2ldbJVOGoDobZmIMTikImx53WjZVhVd+TVrs/Vc77nrplsT+RCHruvtUfHaZewdW+fyaV4heufZL6UtQ4ZyqjumNDLdI0FuxN7CmiLZqOkAhYNP+afJa6zvWPgNBoFIIkqMCMzRjGI1AN+r/iCugmjAKx0g7R/jBJg3zOa446b5jhQ1UPKtt8qYEr+sQQP3e3L73rXiG+Rt0XWihm482fzvuHfDuZ0tJ9n1Jqkt3yOFf3J9rnI0seozXY/ecy9UbvtsmuYhkx0QrDSUivi15bIZEkHQmRl9QLsVQ7Xsf4YD9ePThSESNTQyYEn3vJrkyHQEAFwQ/s1CFM6Sp8wjf6glVatgv+ujbAxwS/FXWFqvHreMKTO+SPYUcio26pfvj/gPKXwg3fQbTNCOyyG58G92reJTt+DXContSdi148g+Gq9VaRzs5FcXh8zr5BHiC1093SSzcJVT+ZO+yqngnYCbqy2B4XqKZK6f73SsQEZTquGCFLECfEaxs32U1Die+i996R53ozR9/Tkq2LKVm890OgBrAqFCxMDIVw35lzCXdcg4XDvHSoGwrU2OXh1HHd4Z0wapaLRctcrc8x5sAi/RqIA==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(34020700016)(23010399003)(7416014)(376014)(61400799027)(36860700016)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003)(16102099003)(12100799066);DIR:OUT;SFP:1501;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	SeCQwYv08pBpzCd5a82x3wZTfjtGhFKxUDKxvGX8VBiRhoRK8bXDaTh/lh1++Lkm16fy5INIvGe0TttLCA7FDbkFyv38lEGM27Cbe20XLm/TFEyJc5OYg2a/bbScJwqyXdPFg4Ba044IEvL0kH48acECumHylOCM+cSycBvWaKCXptHiPDYLiW0aMSWENStw4xkV83Y3mS3EmnRxQ8VOf1ql/v9k7bQwVRvB1rejhXFvqGTUkR8UPcrhIkCPU+CGdPWpQYrYW45zfvlKHXSgL6HHVb4mzWpIq6MzxN795HQtLecvwjo0quAJOnwgkGbuZaGaW4hp6hGTgl/T/fEas+J+khhVDkV+IemIJQvDIWUs0N+5PBFX5XhiX6IAxH4sJrBRw5+xOdNJ5h4zqX8y+06ZuCMx7no1pjZmqKPTbsBPBYu7EdbsN+yJgISUaeep
-X-Exchange-RoutingPolicyChecked:
-	JfR0wqEI0AZXSqm6QCm3Kj2RnDCasBbpcsP2KlMQ5bUWKcQojNGYVBHtkNPZFh1lYLd1SBSqaDnO8b4+6vKXeSycT/l5kciPF8JylKlhD2a/1OCOBcmS+2Euv+qB1hr3EuFQYUU1ngbmvF+0/5MfI0srZdV+177hEvVY5CscYyQkyXoGwrpevRpnPiryn17Z/5u3fI8aw2j+GMAKp/OQtZ3ylLbEFif7revR9MQ42Xget+GnOngjS3EcoU1DCX5tPCB0x/c1/S4wKultlxgscRaLkLdDE2xcBnTlydQenaSh58Xp7lecbNASqIUc1tOIlhU2eFSHrO5x7RNHlrGXVg==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 13:16:56.0512
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d006e2ae-6790-4393-5d66-08df0ce24a9b
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BY1PEPF0002696B.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CC6PR19MB668824
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NSBTYWx0ZWRfX9SlaEXdAI84Z
- ViWMTT2qk9HnYIRdrQ7zn8sbTIKwIC70tUxYboHSibYg4Ycv7Whc60Vg0edlipjp170W7xwQac/
- DcvadHjR9aj0OJRvRvcVKgwxiRE97ZA=
-X-Proofpoint-ORIG-GUID: Ws2sMbhCtDtbP1q3jwNnmBcwmP9aSDBx
-X-Proofpoint-GUID: Ws2sMbhCtDtbP1q3jwNnmBcwmP9aSDBx
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NSBTYWx0ZWRfX3s4bBppNQT5K
- QfIngTpFynF7ncqb08NfbkNABvQsgBqOQbrBIbc9daeDVRAWV/pctjRGevVwqa6JN+tzEULnUu+
- GxO44D2dyZuMg2F8PK/juy5EuBYA9610sy9vYLF9y1Wc1yMfuj5LAm/3ilRHQG5dgtWTb9jTO66
- yESPKzTxeTA0ielVWP+N0DodO/S1fTBeEMWCnlvJ5sUFQmTAvfyobVQj1D2D4V/Qy6BQ+eM9AD2
- f8/NDMAF6aa/xvTJx3U4YeYOwCR68xklG7RWHze/bbtUCModB67ejimkIh/+E559emt16NrT9Ce
- jKh9hHWgBDmMYxLnBU/gxC2mYtutlDqKTHpX7kgcC0Udggh4WpIWGPWM/Wn31HVKMyNH8A/wFjj
- q/xP83XYaCoOzNstNKKKcAjvv3jCyj5izFFYyR5zZdTH9NJKMsFqUQmR68EWYyOMmwUQRdP1tQf
- 9yfXZw0tMLyG6b5yyGA==
-X-Authority-Analysis: v=2.4 cv=fK4JG5ae c=1 sm=1 tr=0 ts=6a9eb94e cx=c_pps
- a=N2BrI/clB5LUZLLH+1P39A==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=Dj2-6B8FqX4mGL0U3gbX:22
- a=38RZNepb8yr8UG9RvGYA:9 a=CjuIK1q_8ugA:10 a=O8hF6Hzn-FEA:10
- a=jZz-an6Pvt0H8_Yc_ROU:22 a=VlVynqX4KLlZR1Cn4-IV:22
-X-Proofpoint-Spam-Reason: safe
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/7] drm/msm/hdmi_phy: Cleanup after
+ msm_hdmi_phy_resource_enable() failure
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        conor+dt@kernel.org, robh@kernel.org
+References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
+ <20260907-drm-msm-hdmi-fixes-before-eliza-v2-1-b097cf1eac77@oss.qualcomm.com>
+ <20260907130633.E673D1F00A3A@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260907130633.E673D1F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=QNBYgALL c=1 sm=1 tr=0 ts=6a9eb97f cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=9ZkQsALANqwWZhioCQMA:9 a=QEXdDO2ut3YA:10 a=arBHhYMabMMA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-ORIG-GUID: aaxEIUOmxdekJyrlKcW7bjrMW_M6uPq5
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NyBTYWx0ZWRfX/J5BgvQb338l
+ xYsWMkEgoP/qq4b2FBsyS+zCVs3b6ErpPb74x9PUWGJ0lfF0a1HFgjLKVHHpIQT3oWiv/U1JeTH
+ gKqP8cNGC5P/qaV/i3Cs9lJDoPF3w/M=
+X-Proofpoint-GUID: aaxEIUOmxdekJyrlKcW7bjrMW_M6uPq5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NyBTYWx0ZWRfX9ISfwBebnHft
+ BU01olZTnr1QJ2gNIvDmuuwTshYxECq62/+2CsxxDYckIiwo1yL8i2X+xNImqhODLslGPXnwjsX
+ IhRfFFbdbLuzhIPvdv2bMzF+8R/xFtdSid3k6ySvrYuEc0Vut7NinmzOAUn+w/28RH7IsNv8vT7
+ W15E+lt1I6GmASqRpyqEfKVUkbXrzC+X5GREAxlrj5Jcm2eO+pSZPSiJXMJDNoQjsbKROiY43TK
+ LFvdNOm6nwgMYELQWdUj17zDVKuIi6ZzDc0RDLjPOGx+ZbFqvyd/+UrMW7VLMd2Y96mvslKGhF5
+ X04Ekx/EUzQmm2AG2kYmuA22/q+5Itn/fh8nVWnvz015OPIzZrb5L23xo82wxOvDhTwsnG5IqvO
+ uUeHuxFlppohIbFmBUpTIK0fflTH6nkGvLoBf3S/EDMMnr5zXgs8XLZkH3snVCbjH6uLKjSSNmU
+ OY1u+KIsXw+ON5/UUHA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070147
 
-On Mon, Sep 07, 2026 at 01:28:42PM +0200, Pierre-Louis Bossart wrote:
-> On 9/7/26 10:37, Srinivas Kandagatla wrote:
-> > sdca_parse_function() walks a firmware node, but on DT there is no
-> > DisCo node -- sdca_lookup_functions() is a no-op and the SDCA
-> > function descriptors come with a NULL fwnode.
+On 07/09/2026 15:06, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Missing regulator disable on the newly added clock enablement error path.
+> --
 > 
-> It'd be good to have a link to an example set of DT properties for SDCA.
-> The way the functions were organized in ACPI is based on a DT-inspired
-> _DSD mechanism to have nested blocks.
 
-There was one in the last chain discussing this, let me know if
-you can't find it and I will try to dig it out my inbox.
+ack
 
-> edit: After reaching the last patch I realized there are no such
-> properties. The main problem is how to deal with board-specific
-> initialization data, the suggestion to encode all the tables in C seems
-> limited to me.
-
-Yeah unfortunately the DT maintainers seem to have put a hard
-NAK on putting SDCA properties in DT (again see previous chain
-for the discussion), so we are basically left with the choices
-of C tables as in the patch chain or using software nodes. Both
-will end up with the same issue of drivers eventually being
-fully of little quirks to tweak the tables to match the current
-hardware.
-
-Using software nodes is possibly more "correct" and would
-let us re-use the parsing, but will end up significantly more
-verbose. I am not sure I have a strong opinion one way or the
-other, apart from putting things actually in the DT would be
-the clearly best option.
-
-> > Add a populate_function hw_op that the class function driver falls
-> > back to when @function->desc->node is NULL: it fills the caller-owned
-> > sdca_function_data (entities, clusters, init_table, delays) from the
-> > codec's static tables, matching by function type.  Leave
-> > @function->desc alone -- the framework owns the per-instance
-> > descriptor, so devices with more than one function of the same type
-> > keep their per-instance SoundWire address.
-> 
-> I wasn't able to understand that last sentence - and I don't remember
-> seeing a case with different functions of the same type. It's permitted
-> by the spec but it'd be fun to manage...
-
-We have some systems that are starting to do that :-)
-
-Thanks,
-Charles
+Best regards,
+Krzysztof
