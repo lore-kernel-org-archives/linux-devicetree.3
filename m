@@ -1,172 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BC1C3B47CD;
-	Mon,  7 Sep 2026 16:49:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD98D38228A;
+	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799755; cv=none; b=KMrJJCaWIwOzrzx3QL3z4LD2zaiYH9qLL/Dyh7nyYZd8QvmAjpJ1YjyHaccPB/BylBjsSdMCnys2b1fYu1tYKUrFT0RHQyw4rBNlSDAj2dRi6OYtcX25ivQg90zFQcxMxxTS44TS0IYV+ChN21L1gD3kwM6o+TLyTr9yTI+LswQ=
+	t=1788799818; cv=none; b=I8zBmP6B/401/BS1ZvS6cQwd+RBj7KdvPMt0rmaS7NQo/0BZbad0u68XoqO7IpYEcyEqF7NaKj+f3j3VUgRB9tTxNiRJed1ZSa6Arbch0nJ32pNGTZ1Wg/78SQTaDgeYkghx/2Wgd+jE8aEK23cmXgw/61NByCRtdqVXuTcOqlA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799755; c=relaxed/simple;
-	bh=8b0U8riFiqjIrUW8eHOKd5uJ86QSqUkGLZ3ZC49qL+Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MPEeR8uu2DvfjO/tV/ryxVVLGuovCYbQctfgBjMUF6oacHF8POE2gkRL9PWJdb3W8NmjS+khI3pnQPk8/W+JwHIvPuIDoxMOGZblMeNLbISgE09ezGD9PCB654hp697wn021grO5fNOMI5cmb/Dw7OHZwAhd7M5WNA/8vQBexXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6/PKp0V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788799818; c=relaxed/simple;
+	bh=pus3OIMvtAdqCN5lzcybKiNDZT2pHkfTRO5wGwjEElE=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=KiOfQcFOREPILec14BmPpTeajzd0Q07kX44SBf6fPSh1gJgf090oySRHaJ6OK2QS0DaTMV4jRxb+tdTt05/w8Ia6Lq7ECtJCNkJEuhe8I7LaYMNi2Vt2LeCyNPhvbpTQPLbYCPNSpiWO399la08hhlxLwDhVI2nL0SXpuwBpmPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLRazJML; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6/PKp0V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87261F00A3A;
-	Mon,  7 Sep 2026 16:49:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLRazJML"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC31F00A3D;
+	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799754;
-	bh=uXbCdN9NfPjDHE4wgSr++t3jsmjnpHZ5zf/l89RQZUQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i6/PKp0VZnYLtwAl4DlWeHENBK3drUC2hR2EXSkhyyCpFHFpaa2YNsale3k4jIhU0
-	 wqsIJlzPtjKLRbIqdT8y302XfiPrAKaiPebC48JT+u6NVx1UkYhxwmFF6bjX57d7jn
-	 3hzePhvXSmQaMpSEqZi05Uo7eJLih7LXUnoCsGbAwXMTe8F7nJ4tNijm+7yCtXGZaN
-	 tgY7kaGL8knCZ0CO4ejiPtEprJxqAi4x3Jfi5HPBx/5Z6GGCOZRX/IRC11ubkKR6E2
-	 OsGUGP29GcNRol3oaBAB4g3MBNKgmAotMgC6JR9B0hJdRjQQmlvitAo9VfebZFjqkT
-	 FrCSm+gvZGuKg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] PCI: rcar-gen4: Add missing PM ops
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
-Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
-References: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 16:49:13 +0000
-Message-Id: <20260907164913.A87261F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788799817;
+	bh=QTFb/7AYKIYAJJpoTYlFHRzy0v+TkzM5XPwWHm7OcRE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XLRazJML7yVxacnO8lm1nOLPHjZv0NzBkvPqtmJ1Y/Q+4X/8vj37vxTjKeAanUhz6
+	 EPbeM2qkidzho26HsF/jPGwkzGKkN7ieKunIc8UZthcMgsKVfz3mSdiNDLjq0Bglb5
+	 su1cZzxyXM9iepayC8dD6d4U0bwjPtIpJDgxi6EzMvTx/2UNzMhCUXjBXMQVZX0YMo
+	 RU+49T+a4+2AowZJDQrk0Hjj8mKeIZ+fOX81erLawEMwIAkFG6JtnQHh5VwPDamb+U
+	 iaYz94lrWtDIx6/0/ItrbZfLo5jT7Gbgzg+t5p/vtovWCQp0Oyu1u10rNtnfpd7YLJ
+	 uPILftTgUhQhA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1x3cXv-00000005sFE-1cop;
+	Mon, 07 Sep 2026 16:50:15 +0000
+Date: Mon, 07 Sep 2026 17:50:14 +0100
+Message-ID: <86a4pt3t15.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Georgi Djakov <djakov@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rajendra Nayak
+ <quic_rjendra@quicinc.com>,
+	Abel Vesa <abelvesa@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
+In-Reply-To: <0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
+References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
+	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
+	<apgeBNSiP01YfNcs@google.com>
+	<86ld9d4h4n.wl-maz@kernel.org>
+	<f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
+	<86jyox4fas.wl-maz@kernel.org>
+	<ca962589-3b6c-4e5d-a11e-b49cf20dc262@oss.qualcomm.com>
+	<86bja94234.wl-maz@kernel.org>
+	<0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: konrad.dybcio@oss.qualcomm.com, raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, odelu.kukatla@oss.qualcomm.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Mon, 07 Sep 2026 15:34:35 +0100,
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
+> 
+> On 9/7/26 3:34 PM, Marc Zyngier wrote:
+> > On Mon, 07 Sep 2026 14:20:26 +0100,
+> > Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
+> >>
+> >> On 9/7/26 10:49 AM, Marc Zyngier wrote:
+> >>> On Mon, 07 Sep 2026 09:18:38 +0100,
+> >>> Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com> wrote:
+> 
+> [...]
+> 
+> >>>> The current patch enable QoS for Hamoa SoC, which get programmed only during
+> >>>> driver probe. This shouldn't impact or cause any spurious resets once the 
+> >>>> device is booted up and probe is successful.
+> >>>
+> >>> And yet it absolutely does break things.
+> >>>
+> >>> With this patch applied, the box resets within 5GB of heavy network
+> >>> traffic, probably because some transaction get delayed, and a watchdog
+> >>> fires. With the patch reverted, the box keeps receiving packets, and
+> >>> everything is hunky dory (100GB+ so far).
+> >>>
+> >>> Which makes me think that the set of hardcoded parameters in this
+> >>> patch is not universal at all.
+> >>
+> >> They are, provided the configuration is for the right SoC..
+> > 
+> > Is x1e001de different from x1e80100? AFAIK, it is only a binned
+> > version of the same SoC. How do you explain the above regression?
+> 
+> I somehow skimmed over the fact you said it's on the devkit and not
+> on the mini-x mentioned before.
+> 
+> I pulled the Hamoa settings I could find, there are some updates but
+> none seem particularly related (maybe the PCIe one? I don't know how
+> the network card is connected), please give the attached patch a try.
 
-New issues:
-- [High] PCIe host controller fails to re-initialize on R-Car V4M after res=
-ume if any endpoint does not support D3cold.
-- [High] Endpoint mode (EP) does not recover from suspend on R-Car V4M due =
-to explicitly skipping PM state restoration.
+I cherry-picked the Hamoa-specific patch, and gave it a go. Same
+result (hard reset while synchronising a bunch of files), but this
+time with a nice little message:
 
-Pre-existing issues:
-- [High] The `msi_node` device node obtained from `of_msi_xlate()` is leake=
-d because its refcount is never decremented.
---
+[  272.468031] nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
+[  272.468039] nvme nvme0: Does your device have a faulty power saving mode enabled?
+[  272.468039] nvme nvme0: Try "nvme_core.default_ps_max_latency_us=0 pcie_aspm=off pcie_port_pm=off" and report a bug
 
-commit 924c8a29b2859d29f5190b0088001c235ae190fa
-Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
+indicating that PCIe has died.
 
-PCI: rcar-gen4: Add missing PM ops
+None of that happens without the QoS stuff.
 
-Adds generic suspend/resume noirq ops to tear down and restart the PCIe link
-during suspend/resume for R-Car Gen4. This supports power domains that shut
-down in suspend, such as on R-Car V4M.
+> If nothing else, please "bisect" the QoS additions until it stops
+> crashing. Although perhaps applying only some of the settings may
+> have its own set of dragons..
 
-> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
-ntroller/dwc/pcie-rcar-gen4.c
-> index fbe465a29068f..2926660f1b537 100644
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> @@ -849,6 +849,26 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_=
-gen4_pcie *rcar, bool enable
->  	return 0;
->  }
-> =20
-> +static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
-> +{
-> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(dev);
-> +
-> +	if (rcar->drvdata->mode !=3D DW_PCIE_RC_TYPE)
-> +		return 0;
+That's not exactly encouraging, is it? And if the "recommended" set of
+tunables is not up to scratch, surely there should be a way to opt-out
+until someone figures out what's wrong. Something like this:
 
-[Severity: High]
-Does returning 0 here cause the endpoint (EP) mode to not recover from
-suspend on R-Car V4M?
+diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
+index 3b445acefece7..3a4743c364dac 100644
+--- a/drivers/interconnect/qcom/icc-rpmh.c
++++ b/drivers/interconnect/qcom/icc-rpmh.c
+@@ -224,6 +224,9 @@ static int qcom_icc_rpmh_configure_qos(struct qcom_icc_provider *qp)
+ 	return ret;
+ }
+ 
++static bool enable_qos = true;
++module_param(enable_qos, bool, 0660);
++
+ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ {
+ 	const struct qcom_icc_desc *desc;
+@@ -308,6 +311,11 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
+ 		struct resource *res;
+ 		void __iomem *base;
+ 
++		if (!enable_qos) {
++			dev_info(dev, "Skipping QoS (command line)\n");
++			goto skip_qos_config;
++		}
++
+ 		/* Try parent's regmap first */
+ 		qp->regmap = dev_get_regmap(dev->parent, NULL);
+ 		if (!qp->regmap) {
 
-If the V4M A2PCIPHY power domain shuts down, removing power from the EP
-controller, explicitly skipping PM state restoration will leave the EP
-hardware dead after system resume.
+At least people stuck with Purwa or other abandonware (such as the
+devkit) would still have a usable machine.
 
-> +
-> +	return dw_pcie_suspend_noirq(&rcar->dw);
+	M.
 
-[Severity: High]
-Can the host controller fail to re-initialize on system resume if an attach=
-ed
-endpoint does not support D3cold?
 
-If an attached endpoint does not support D3cold, the generic helper
-dw_pcie_suspend_noirq() returns 0 early:
-
-drivers/pci/controller/dwc/pcie-designware-host.c:dw_pcie_suspend_noirq() {
-    ...
-    if (!pci_host_common_d3cold_possible(pci->pp.bridge, &pme_capable))
-        return 0;
-    ...
-}
-
-Because it returns 0 without setting pci->suspended =3D true, the subsequent
-resume will skip initialization:
-
-drivers/pci/controller/dwc/pcie-designware-host.c:dw_pcie_resume_noirq() {
-    ...
-    if (!pci->suspended)
-        return 0;
-    ...
-}
-
-Since the A2PCIPHY power domain is unconditionally shut down by the generic
-PM core, the hardware loses state. Does skipping re-initialization here lea=
-ve
-the PCIe bus permanently unusable?
-
-> +}
-> +
-> +static int rcar_gen4_pcie_resume_noirq(struct device *dev)
-> +{
-> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(dev);
-> +
-> +	if (rcar->drvdata->mode !=3D DW_PCIE_RC_TYPE)
-> +		return 0;
-
-[Severity: High]
-Does this explicit bypass also prevent the EP controller from being
-reconfigured after power loss, as mentioned above?
-
-> +
-> +	return dw_pcie_resume_noirq(&rcar->dw);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does calling the generic res=
-ume
-helper introduce a recurring device_node leak?
-
-On every resume, dw_pcie_resume_noirq() will call pci->pp.ops->init(), which
-invokes rcar_gen4_pcie_host_msi_addr(). Inside that function, of_msi_xlate()
-acquires a reference to the msi_node:
-
-drivers/pci/controller/dwc/pcie-rcar-gen4.c:rcar_gen4_pcie_host_msi_addr() {
-    ...
-    of_msi_xlate(dev, &msi_node, 0);
-    if (!msi_node)
-        return -ENODEV;
-    ...
-}
-
-The function returns without ever calling of_node_put(msi_node). Because th=
-is
-patch now causes init to run on every suspend/resume cycle instead of just =
-at
-probe time, does this leak the msi_node reference on every system resume?
-
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907163554.7251=
-27-1-marek.vasut+renesas@mailbox.org?part=3D1
+-- 
+Without deviation from the norm, progress is not possible.
