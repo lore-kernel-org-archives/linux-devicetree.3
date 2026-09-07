@@ -1,142 +1,206 @@
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 951DA2222D0
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 00:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B40E1714AA;
+	Mon,  7 Sep 2026 01:09:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788742777; cv=none; b=gHsFMWkUI+GwScyNKMYsBt5+v/+hKU2rt1Pz/+tXSRYaf+V1Vtd1lLwD2SoMhIXEkJgpCsLClRdobbNHuBkUFWuSNfWX5Ld1jJh9BZ969ZeH8q4A80S8s2N2SdxIPnxox5eixCfzT+b1FtLtJhsQQGsI/Oo1IHc8Y7B/Eb0KUdE=
+	t=1788743381; cv=none; b=abqrvLA68uzXbkU2zbus/iJc82+3DXzwX8xuovexmZbYme7mTg/HnTvkeEcmHQmGSb77INPfDdJoGibSM6OGe0G3azvxe1kPUtsT5LQGsb/mRhD7Z1M23O1PgCt0TIypx0hAT8NNJ9FaKNIsenHdqUMRcNB4vnoSEUkwWW4Ty9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788742777; c=relaxed/simple;
-	bh=0PXGBHSc1a175hQ+EqQtqP6z5/0CGy6l4ZJGVwUeaZE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OA1hZdBhJDtoId2/JJaFgYVFsmV5ZBbDZV76DDZcIcPHQTz5kYbPZqWdffmE6ywrr9bwf8EsLF2sEAJoU/e2US8ouqIaXXOStvX5wIGlRABxAsHXGs8Hm35j1IjOR5sVtHWsWGahOTCUh7PCFpZTuKElm2KBh9ry5yaIA8Coe9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdU0MZ0Z; arc=none smtp.client-ip=209.85.210.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788743381; c=relaxed/simple;
+	bh=iIpTN5b2N0XssK38X2TJy0NEhqrp8MgahtzizDZap20=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HaazzqjgtL+Yvmn4weT8E/rZAaEvBwuxMVRGR+uZWZcd/WTGO3UlbAnVisu1Fme6YJRswPMPtVNc5DCA6O0AswHe8u0eKIjlEbVgNsPprrRNOGlcWopnnR2tF+mlCYkPEEdbHkGYVaRtRbZ6yGgud7mH7o+2vaZWqkKyr1a0I2o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ck/apwF6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdU0MZ0Z"
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8535a9be75eso2212136b3a.2
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 17:59:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788742776; x=1789347576; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3G2fpMnHxfT6KHZD6xOx0AGQFY9wvoJVYEba4PDrt34=;
-        b=MdU0MZ0ZwjxcloSfaZU+9WUBTowoqV7wHbCFInlm6PnZHhAvpI/8mOxrJjgCGqlllL
-         DDchiExwS7NIPwNL/fRkvwrUFklMgA/7+5Dll6n5Hws6wpaGdtoRfsLubl5J/h/xh1ln
-         12lLvQMjJewI772dJ1kqm0X32pR0i3Mx46lPrCGvWxzyBQZuHQYhPOg8NC+TN4qr5hNQ
-         CAeAmgpVoP4MkVGA8TTOUr5z/rlRgYyIEvu4U9mGoCMm/FlvTcQ2oLOc5gZ7nnFRvkLQ
-         N/cZ8KwdogOtwFtBMVEHqdD+v/tfG54alMiOtVsWBfixwvkJQCZEyYqgHyolROsMFC/L
-         Ggag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788742776; x=1789347576;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3G2fpMnHxfT6KHZD6xOx0AGQFY9wvoJVYEba4PDrt34=;
-        b=M5r8epYHU4PwbhArflHdYkJBIYDDZc3SRA6AiLIyRx9jPHwpiN1BasN1Sai1W6Igof
-         bcRU06OceLkEhvg2cn4f7AP0moFjP4Oh2LbONgp/Hyh6ePMUuOnEpUcKfxfyyg7T40v3
-         +Yhhym+Co/I+WU0yyXNcCvvB8aL216Mqchjg+QRFsEj9sY6St8jUPwYCTa1IhguhanDp
-         NB5QFYCYrwuChpl1+yAdMOh1I7ceB5rVNpMs1mwzFXoIHlTpoSLAWmieAPXSeF18BhN1
-         cJVOllQwOJ2rAnuu/QrTo21Q9ab23YgS2RXS9gfvoIbq/tDTt9G9noZ1ZNOmt65Kwytu
-         VQrQ==
-X-Gm-Message-State: AFuF++noEiSFamH6KIyTl9iI4Q+pFt1bCRttuFFZL47Q5dmQ1V+sTaQ6
-	DT7/OL/jFIspFKLp2mcUxzWDm/CBU8Zv5bqs9DLuudwurrhDHQMP/8oN+q1Srw==
-X-Gm-Gg: AYBFou1iQDDWmfYebkp+qyaF1MkKv7OZ5HewKjV7F/LOz2sDIiRv3JHL2oBd1/OrpuQ
-	IMKdMmJfEe8ZgDrEP5eId+uvRilmRN85tLmGh67/CC7W+2rWmxZqMIgl++Mc4u9MZ/QPIsIkdAz
-	NWHncNH5ib0DCEnfKHkvmPXxQPvtS3fSp3GxyGs0Zhxpn8AukMdR0kQg2cA3A+TK5HywjAu+BJ4
-	bUITmaU/pwxvafs65nBqv3ejX2iU7Gf1W9u7nkIk4tgJiUbdWNTBZGCX4X3QI5QPOl1jNeKT/tO
-	u1ZtybmMcNZQA51s7EVz0DurEMZ/ODdw7U8LAZl3NkkrZ04n/Cbv1ADj2AL3IKOkdneUpjEhmj3
-	P8kcKs85034o44LZo2+7ChLdq7VbRuPuK9wJviCFWLn9MgBsooPggv/qOOEAWgnszlxf6m6YQHK
-	uTzjPaK9MqLFLbGc9J0Gge8FeXNsOmFQl+59Q5KRF1ZsxkqrfyAbaf3Q8nVtQW1mWXxMazUGbnw
-	cffg4FmndbXo+/z3LUnxz+KnwToeNqq6qYuMiRbR+MFGNqyccHQDWp0ya+0e2Gx14o6jtf8zUZo
-	CHNfG8fJt3nROIV2FiG1XVqgma5fVrm+/BT7Fw==
-X-Received: by 2002:a05:6a00:440f:b0:84e:b7ed:7d50 with SMTP id d2e1a72fcca58-861684928fcmr27242447b3a.16.1788742775744;
-        Sun, 06 Sep 2026 17:59:35 -0700 (PDT)
-Received: from ryzen.lan ([2601:644:8000:7a86::e35])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-861527382f0sm3628242b3a.24.2026.09.06.17.59.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 17:59:35 -0700 (PDT)
-From: Rosen Penev <rosenp@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org (moderated list:ARM/Marvell Kirkwood and Armada 370, 375, 38x,...),
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCHv2] ARM: dts: marvell: armada-388: use onnn,pca9655 compatible
-Date: Sun,  6 Sep 2026 17:59:33 -0700
-Message-ID: <20260907005933.230766-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ck/apwF6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A34921F00A3A;
+	Mon,  7 Sep 2026 01:09:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788743379;
+	bh=IPdLxEuyKna0csuR7jWKlIWbFwDNpYGlS2AZgesPbUU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=ck/apwF6iq+LeVuhRZUdWUwxg96pITSAoHjnbwpTAtgxJi7hMCletZjOnNNTYHpp8
+	 ui9UFF2JRj9zlcHl12ZUEhcb4kGdKLu5s3kStS4IfRn9zg5kXKnuEMbmfSE7T5EW3+
+	 kK5HZUCFvcS1mEptj2wgbgTr33zD8J8e18EpTwn1SkZJWE5lgRmXjhjPKFnGxGxdSz
+	 lf8WS1yyQuWopbDPLAoWKxeOsVTtX/YhtoVVBIAZObWeV6oFSIagExg5yvw5Bcy7En
+	 hRWeSfLlC29rg1cuVyb1TScvzODzbpZ3on5B/064FnxSTSyseo8k9a2yrfN6zejDUF
+	 jgUJvSHz2pIWg==
+Date: Mon, 7 Sep 2026 02:09:32 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andrei Stancovici <andrei.stancovici@analog.com>
+Cc: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liam
+ Beguin <liambeguin@gmail.com>, <linux@analog.com>,
+ <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] iio: adc: ltc2497: add LTC2499 internal
+ temperature channel
+Message-ID: <20260907020810.3ff1713c@jic23-huawei>
+In-Reply-To: <20260902064415.132588-3-andrei.stancovici@analog.com>
+References: <20260902064415.132588-1-andrei.stancovici@analog.com>
+	<20260902064415.132588-3-andrei.stancovici@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-The PCA9655s on the ClearFog and Helios4 boards are
-register-compatible with the pca9555, and the gpio-pca953x driver has
-matched "onnn,pca9655" in its OF match table since
-commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
-pca9655").  OF matching is tried before the legacy I2C ID-table
-matching that the old comment alluded to, so the restriction no longer
-applies.  List the real part and drop the stale comment.
+On Wed, 2 Sep 2026 09:44:11 +0300
+Andrei Stancovici <andrei.stancovici@analog.com> wrote:
 
-The I2C client is now named "pca9655" instead of "pca9555", but the
-expander is otherwise identical.
+> The LTC2499 has an internal PTAT (proportional to absolute temperature)
+> sensor that is activated by a second I2C configuration byte (EN2 | IM).
+> Expose it as an IIO_TEMP channel providing raw, scale and offset so the
+> standard IIO formula
+>=20
+> 	T[m=C2=B0C] =3D (raw + offset) * scale
+>=20
+> reconstructs the temperature.
 
-Assisted-by: opencode:big-pickle
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- v2: rebase so it applies
- arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi | 7 +------
- arch/arm/boot/dts/marvell/armada-388-helios4.dts   | 9 +--------
- 2 files changed, 2 insertions(+), 14 deletions(-)
+Andy raised the point about too much description on the next patch and
+it definitely applies here as well. Think about what matters to those
+reading the patch. E.g. something like.
 
-diff --git a/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi b/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-index f8a06ae4a3c9..4a61e9d1a2c0 100644
---- a/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-+++ b/arch/arm/boot/dts/marvell/armada-388-clearfog.dtsi
-@@ -131,12 +131,7 @@ &i2c0 {
- 	 * 15-SFP_MOD_DEF0
- 	 */
- 	expander0: gpio-expander@20 {
--		/*
--		 * This is how it should be:
--		 * compatible = "onnn,pca9655", "nxp,pca9555";
--		 * but you can't do this because of the way I2C works.
--		 */
--		compatible = "nxp,pca9555";
-+		compatible = "onnn,pca9655";
- 		gpio-controller;
- 		#gpio-cells = <2>;
- 		reg = <0x20>;
-diff --git a/arch/arm/boot/dts/marvell/armada-388-helios4.dts b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-index 39b2d4fa742c..bf6d70e2078b 100644
---- a/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-+++ b/arch/arm/boot/dts/marvell/armada-388-helios4.dts
-@@ -160,14 +160,7 @@ i2c@11000 {
- 				 *  6-USB3 power
- 				 */
- 				expander0: gpio-expander@20 {
--					/*
--					 * This is how it should be:
--					 * compatible = "onnn,pca9655",
--					 *	 "nxp,pca9555";
--					 * but you can't do this because of
--					 * the way I2C works.
--					 */
--					compatible = "nxp,pca9555";
-+					compatible = "onnn,pca9655";
- 					gpio-controller;
- 					#gpio-cells = <2>;
- 					reg = <0x20>;
--- 
-2.55.0
+"The LTC2499 includes a temperatures sensor. Expose the raw reading and
+appropriate scale and offset."
+
+
+>=20
+> The PTAT sensor yields the absolute temperature as
+>=20
+> 	T(K) =3D DATAOUT24 * Vref / 1570		(Vref in volts)
+>=20
+> The raw value exported here is sign-extended and normalised to
+> 2^(resolution + 1) =3D=3D 2^25, i.e. raw =3D 2 * DATAOUT24, so on the IIO
+> milli-degree-Celsius convention
+>=20
+> 	scale[m=C2=B0C/LSB] =3D Vref_uV / 3140000
+> 	offset         =3D -273150 * 3140000 / Vref_uV
+
+If this stuff belongs anywhere it is as comments where the maths is
+in the code. You have it it there, no point in repeating here.
+
+>=20
+> The scale and offset are derived from the reference voltage returned by
+> regulator_get_voltage(); its error is propagated as before, so a board
+> that fails to describe vref-supply gets a clear read error instead of a
+> silently wrong temperature. No board-specific reference value is assumed
+> in the driver.
+This bit is useful but focus on what matters a little more. Something like
+"As scale and offset depend on the reference voltage, if no regulator
+ is specified by firmware, reading them will return an error."
+I'd talk about why as well. e.g. "As this is a new feature simply failing
+probe is not a option."
+>=20
+> The single temperature channel is appended as the last entry of the
+> shared channel array and excluded via num_channels for parts without an
+> internal sensor, so the existing LTC2497 channel layout and device name
+> are unchanged.
+
+Implementation detail this description shouldn't mention.
+
+>=20
+> The LTC2499 latches its converter configuration from the second command
+> byte and only re-evaluates it when that byte has EN2 set. EN2 | IM
+> selects the internal temperature sensor. Because a single-byte command,
+> or a second byte with EN2 =3D 0, means "keep previous", a one-byte channel
+> select cannot pull the device back out of temperature mode: after a
+> temperature read every subsequent voltage read would keep returning the
+> PTAT result instead of the selected input. Temperature support is
+> therefore only correct if the voltage path also emits a second command
+> byte that re-selects an external input.
+
+What does this mean to the user? =20
+
+>=20
+> Send two-byte commands for all conversions on parts that have the sensor
+> (has_temp):
+>=20
+> 	temperature:	EN2 | IM
+> 	voltage:	EN2			(IM =3D 0 -> external input)
+>=20
+> The LTC2497 and LTC2496, which lack the second-byte mechanism, keep using
+> the original single-byte channel select and are unchanged.
+
+I'd not bother talking about what happens for those that are unaffected
+(given it is the obvious answer of nothing!)
+
+>=20
+> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+> ---
+>  drivers/iio/adc/ltc2497-core.c | 58 +++++++++++++++++++++++++++++++---
+>  drivers/iio/adc/ltc2497.c      | 33 +++++++++++++++++++
+>  drivers/iio/adc/ltc2497.h      | 12 +++++++
+>  3 files changed, 99 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/iio/adc/ltc2497-core.c b/drivers/iio/adc/ltc2497-cor=
+e.c
+> index 2dc5c7044269..6df9c72bd8cf 100644
+> --- a/drivers/iio/adc/ltc2497-core.c
+> +++ b/drivers/iio/adc/ltc2497-core.c
+> @@ -9,9 +9,11 @@
+
+...
+
+> diff --git a/drivers/iio/adc/ltc2497.c b/drivers/iio/adc/ltc2497.c
+> index c1668b5a351e..79c87bac05e1 100644
+> --- a/drivers/iio/adc/ltc2497.c
+> +++ b/drivers/iio/adc/ltc2497.c
+> @@ -84,6 +84,38 @@ static int ltc2497_result_and_measure(struct ltc2497co=
+re_driverdata *ddata,
+>  			return 0;
+>  	}
+> =20
+> +	/*
+> +	 * Parts with the internal PTAT sensor (LTC2499) latch their converter
+> +	 * configuration via a second command byte and only re-evaluate it when
+> +	 * that byte has EN2 set; a single byte, or a second byte with EN2 =3D =
+0,
+> +	 * means "keep previous".  A one-byte channel select therefore cannot p=
+ull
+> +	 * the device back out of temperature mode, so a voltage read after a
+> +	 * temperature read would keep returning the PTAT result.  Always drive=
+ the
+> +	 * second byte with EN2 set on these parts: IM =3D 1 for a temperature =
+read,
+> +	 * EN2 alone (IM =3D 0) to (re)select an external input.  FA =3D FB =3D=
+ 0 keeps
+> +	 * the power-on simultaneous 50/60Hz rejection, whose worst-case
+> +	 * conversion time the driver's wait already covers.
+
+Say why it is 'always' done.  Seems you could do it only when the configura=
+tion
+needs to change.  Thus if someone keeps reading a particular channel don't =
+send
+the second byte?  Fine to just say it is for simplicity.
+
+> +	 */
+> +	if (ddata->chip_info->has_temp) {
+> +		u8 cmd[2];
+> +
+> +		if (address =3D=3D LTC2497_TEMP_ADDR) {
+> +			cmd[0] =3D LTC2497_ENABLE | LTC2497_CONFIG_DEFAULT;
+> +			cmd[1] =3D LTC2499_EN2 | LTC2499_IM;
+> +		} else {
+> +			cmd[0] =3D LTC2497_ENABLE | address;
+> +			cmd[1] =3D LTC2499_EN2;
+> +		}
+> +
+> +		ret =3D i2c_master_send(st->client, cmd, sizeof(cmd));
+> +		if (ret < 0) {
+> +			dev_err(&st->client->dev, "i2c transfer failed: %pe\n",
+> +				ERR_PTR(ret));
+> +			return ret;
+> +		}
+> +		return 0;
+> +	}
+> +
+
 
