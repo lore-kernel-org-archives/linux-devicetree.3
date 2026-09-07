@@ -1,154 +1,73 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EB23CA48E
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 07:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395A84028E2;
+	Mon,  7 Sep 2026 07:31:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788766150; cv=none; b=kKW0vEcPe7ndsN8KHZ9k3cShafjQu2gKXtK0hfaNwNUQ5NMN5n13Ua910HvMOlhhDcNfwyFk3JK5RMFTVnr2E3JsN4Ch7Tvki8pYrP6Z6lAAtQBJ/Ywk8pRfrn97wzExk7yBzETwTyL1HqgkLzF2N++QezTBg280xuCP/NFum2U=
+	t=1788766267; cv=none; b=XXZVa322W16BpH2XmRlth9+h0sBVj2Gh5spIYDCJFoxUiZQlXvfuRU8Wx5+VFFDYZAdAxxvkGrG46vVcanXrFY/OaUOGG3+Hyv2S7xrTbZ2biNnqgmOdQGe0+ccchlniyWp3/4PM8nTgEDb06FhzR/dqg+4DtcX7n+Fu5MwdmIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788766150; c=relaxed/simple;
-	bh=uDa6rYQmXTGgcYIJLVFNrSmufukAoyTcQnshhgvR3Po=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TZn5DMvIKXk6vJXxi7tQWoixmM0vCxOECDRpEcnN51IjC6EdfUvK5AdOG99wT3VIKlv43EFIJaNAHFfaqf4Q2n65/Sc1jilLV3IT7EEVla/Ec5e+Rnuh1J/DdpafftHNK1mLTBW05vOJRQGd09JJegcx5EyiHrW02+WSdrD7r6k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QZ9Cn0PW; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788766267; c=relaxed/simple;
+	bh=75gJo4soMDWgvVFd907DxIUGAHUUJsAttBWjfH8/iug=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y/KUus6z+H8WyO4pqQ8Ikx1YAlvY5xPwd23UG/m8rDVr3KkoMeefV1W56tl0O1Xp3NlpwA/yfHStNraQndTRc+aZbW5dfnMetLKuUrFOIQTHF+KJKWHrJbn3EtQgnSjW2ulQGTmUQzg3mnR0iDgnBaP3HC95RycKwnvhPCmBrZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0z2f1hG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QZ9Cn0PW"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 11C084E41555;
-	Mon,  7 Sep 2026 07:29:06 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D2B4660383;
-	Mon,  7 Sep 2026 07:29:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8286A11C7A131;
-	Mon,  7 Sep 2026 09:28:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788766140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=aLz+YXhDXlEGNDvoI1Sa9xZvW1NLNKMWivo0ZPJIY08=;
-	b=QZ9Cn0PWrljorCBOhiK1CJ1CZTrACqwecmjkSZL6aH++MTyIZx/YDEF5Vv9n6WLwIYfPQe
-	7CBGnXgwfPsGyOCRBkxTvexerYSf7S41IzTaHKSeK5sdhB8p7J06iZXIelfhN6SvrJ6lV9
-	sVEL7gy5QBOXFswDyJqBGrOsu8Ea9G6+nyIEaUtcgkOw8w2QEplRixDEYSuoCSHomNKP+h
-	e8iIkLHNiwpi65LEYWLOvTowa3Fu7Taomx7mR0e9I/FtfT7w5FRoT+ZLHtg67qozO8l5cd
-	H3LDIKWwkfOuhN9kQ/ULuqi6mX0pWa/nl+4NytM9Xsr95U0djysT9yOrU5spYQ==
-Message-ID: <248c1a07-7a5c-44dc-a73e-f95a69bb4161@bootlin.com>
-Date: Mon, 7 Sep 2026 09:28:51 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0z2f1hG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC7411F00A3A;
+	Mon,  7 Sep 2026 07:31:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788766265;
+	bh=tMdyHZ9kayoSShJk3iyTTO+vjov94Kd7L0/5q/U75GM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H0z2f1hGIErfStKXpyMG9QhyCc1VB4LVG100lVEc1k+pXRiJufmNFUcDv6EsMO3mR
+	 hCKGVPgjjc0gBThKZZA0RYGTgYdnNQxfmLCAJSdFNv16rV8YgwflBo8B91HxRPu6/f
+	 EpSZ7MCZfMwUrBXKWi24RVU9l0Xwpsv1DCBz3H6EGKyfHAqSq/vn8yd0bhgXZepfPl
+	 1ugZ4emWXDrXaoYDRgeExTHVJ4xsk6mID1PYTNBSswYq6ZlD16mdbMVHysQ1gFzHW7
+	 FiUCaYwNpSdVSHFNGqJhjQOS2JPI2wzivCZ2RabQByFwZQrSt5R/YDd1hb0br5n/yN
+	 PhEpC94rSM9Qw==
+Date: Mon, 7 Sep 2026 09:31:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Frank.Li@oss.nxp.com
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"open list:HARDWARE MONITORING" <linux-hwmon@vger.kernel.org>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, imx@lists.linux.dev, 
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH 1/1] dt-bindings: hwmon: tmp102: move ti,tmp103 to enum
+ from items
+Message-ID: <20260907-relaxed-giga-pegasus-5c6a00@quoll>
+References: <20260901222249.1194299-1-Frank.Li@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
- support
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Giuseppe Cavallaro <peppe.cavallaro@st.com>,
- Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
- <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
- <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
- <178842162417.2701756.3296149694160507506.b4-reply@b4>
- <1622b0a7-5516-4e72-b5e1-60c12b65b52e@lunn.ch>
- <8611dff3-56ea-4798-8303-b0a8af84580e@bootlin.com>
- <178850166577.1486454.10728134844652956076.b4-reply@b4>
- <178876008871.2542659.8460758662538260209.b4-reply@b4>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <178876008871.2542659.8460758662538260209.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901222249.1194299-1-Frank.Li@oss.nxp.com>
 
-Hi,
-
-On 9/7/26 07:48, Jia Wang wrote:
-> On 2026-09-04 14:01 +0800, Jia Wang wrote:
->> On 2026-09-03 14:30 +0200, Maxime Chevallier wrote:
->>>
->>>
->>> On 9/3/26 14:10, Andrew Lunn wrote:
->>>>>> This looks to be 90% identical to dwmac-sophgo.c.
->>>>>>
->>>>>> Do you expect any further changes to this driver? Is everything
->>>>>> supported? Are there more clocks? A GPIO for WoL?
->>>>>>
->>>>>> I'm just wondering if the common code should be pulled out, or even
->>>>>> dwmac-sophgo.c made generic so it can handle all plain boring devices
->>>>>> which have RGMII delays and not a lot else.
->>>>>>
->>>>>
->>>>> The probe boilerplate is indeed largely similar because both drivers
->>>>> use the common stmmac platform helpers. However, their platform-specific
->>>>> requirements differ: Sophgo requires additional TX clock handling and
->>>>> other configuration, while DP1000 requires fixed TX and RX delay
->>>>> handling. ACPI support under development is also intended to use the
->>>>> UltraRISC glue driver.
->>>>
->>>> ACPI is going to be fun, since nobody does ACPI networking.
->>>>
->>>> But how big is the change to the glue driver? I expect the change will
->>>> be minor, a call to devm_stmmac_probe_config_acpi(), in addition to
->>>> devm_stmmac_probe_config_dt(). Anything else?
->>>
->>> I agree that if ACPI support is added, let's try to make it part of the
->>> core.
->>>
->>
->> The ACPI support is still under development, but the current prototype
->> adds ACPI device matching and ACPI-specific platform-data setup. Some
->> common stmmac changes are also needed for ACPI-described platform
->> resources and MDIO.
->>
->>>>
->>>> One problem the stmmac driver has is cut/paste glue driver
->>>> development. The same code is repeated again and again. Russell King
->>>> spent a lot of time and effort trying to reduce the duplication. So we
->>>> should not be adding more duplicated code unless it is actually
->>>> required.
->>>
->>> It seems to me that all the RGMII handling could be made much more generic,
->>> as this is commong pattern in glue drivers :
->>>
->>> dwmac-sophgo has the "has_internal_rx_delay" field, and dwmac-eic7700 has
->>> both has_internal_[r|t]x_delay.
->>>
->>> With this third one, it makes sense to start sharing that logic across
->>> glues.
->>>
->>
->> I agree. DP1000 is another user of this pattern, with fixed internal
->> delays on both the TX and RX paths. I will look at moving this handling
->> into the common stmmac platform code, leaving each glue driver to
->> describe its internal delay capabilities.
->>
+On Tue, Sep 01, 2026 at 06:22:48PM -0400, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
 > 
-> After looking further into the implementation, I see two possible
-> approaches:
-> 
-> 1. Keep a minimal UltraRISC glue driver that only describes the fixed TX
-> and RX delay capabilities, while the common stmmac code handles the PHY
-> mode adjustment.
-> 
-> 2. Store these capabilities as compatible-specific match data in
-> dwmac-generic and remove the UltraRISC glue driver entirely.
-Let's go with 1 for now I'd say. UtraRISC will be the only one that's basically
-an empty glue calling core code (maybe you have some plat->flags to passs ?).
+> Fix patch merge error. ti,tmp103 should be after ti,tmp102 in enum, instead
+> of in items.
 
-If we manage to simplify even further (e.g. tx clock handling for exmaple), we could
-also deal with dwmac-sophgo the same way. We could then consider something like
-dwmac-simple.c , keeping dwmac-generic.c for the raw dwmac IPs.
+Fixes?
 
-Maxime
+Commit 94056769c49 is also looking differently than link below:
+
+> 
+> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+> ---
+> original patch is correct
+> https://lore.kernel.org/imx/20260826211422.3299728-1-Frank.Li@oss.nxp.com/
+
+but not in the way of where the compatible is added. What's more, I
+cannot find such context in linux-next, so maybe that's some recent
+commit in hwmon tree.
+
+Best regards,
+Krzysztof
+
