@@ -1,150 +1,431 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E903340E8C1
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:50:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF51440641;
+	Mon,  7 Sep 2026 08:50:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771033; cv=none; b=XIitISXRNT4XDSAUs7REgezgqSxdWIGWw5K51WS7dyIIRcBlFtzIHZcllQAd57HdXnPlE9SlrDp7hHEOWrKLq+SyUTuv0WcqL+IIaSObQNIHqPlxaK2gL8Pudr7O0VTb3mDo/uGWgguIb3fiYSpcg+ELgHrTNyjHzDv1EnBsw+k=
+	t=1788771036; cv=none; b=nGIcjxVFTFyuq25Z6GnWZoUs8l+kRVcLjHx+yqXMMyNks0ECtbaKedMJqxWkppJ/jEW4TliIrflEEZD98tE1bJVTU74jWXkfMCzT31zuzcigUOekN8k+fJFuczeIQw8QIr0YxQz2z/agSjqOw+xqTC7XZvVHH2eAHJ/0yqUDMT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771033; c=relaxed/simple;
-	bh=cdHTsjxvF+RpCrduWi3Wm+JkA3TNC8Is4ztYrOPJx3M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NxDNO/VyAjSbSXfLqZWzNlB2iP7tx6CGZsbixZ5jTE4hnJ7MuVrhoXtuQEhKFR47/bLUFWx20wMlWslUMge1YiIt/Vi1/GaodVt15OsHn43VaqTHEdvcbAUluLqZgQToTe9rq4FZJVJCI02LZieEGLFwpBAKOwHHXIQrSwIibE4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hKeafGOb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788771036; c=relaxed/simple;
+	bh=oiKVredM/mUJR4TT9EGCdrNiLjxkvltsS02K1QUYJ1w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jjj/umi1IZveA8MtUGaeBxkQi/OfDQERVCknzf/3xaTY+EiyDK4JgDwbhBxeyuy2afmTT2tN8HumRJCvfJEPdPFFvCWBFufgqyyOrRdy8D3Mhgz8etJ/yJRj8XradkfEPH4A7B8Mj5TnIc2ZrHjussDGk+uGf6OJ6oSNgovemqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSd2i6z6; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hKeafGOb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110551F00A3A;
-	Mon,  7 Sep 2026 08:50:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788771028;
-	bh=Wtm9q+HtDVXNX4K/75DD/pn5uKvmkS2TkHCrNX0wYnw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hKeafGObBq7pWHAMTmuEUvbygETixRBqEPhLQMF1S8Lsqj/VLj4JoDbSdhs2GRYnW
-	 sw2Uw5YBnQnrAVcB4ET7IKTlVhpCdH8tepxR+PaPSBs1Mv7OzkTVFOrihtZ4gA/LHc
-	 wuLhp9r1yuCnMcrdNgJ+a5cjB6Su0+ruvAUEhhyIPtCNqKkB/lJHLHCtSEaQttRBXL
-	 WCxnOG2kIu/+UEyLjwkb3I1n+XkL3/KzYSRrPf/gycZn55FdTkfG59cJ9yEnjETXG+
-	 GpWgSPOAv0WG3FGEtGBueyJZyO6Xj2EAoZxRnI9mbODqxnZsIZbFmW73inTitigBah
-	 qqwkmF5oo7IQA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 02/11] ASoC: SDCA: export PM helpers keyed on
- sdca_class_drv
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907083727.733705-3-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-3-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 08:50:27 +0000
-Message-Id: <20260907085028.110551F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSd2i6z6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788771033; x=1820307033;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=oiKVredM/mUJR4TT9EGCdrNiLjxkvltsS02K1QUYJ1w=;
+  b=VSd2i6z68KRju+EFSXFIxU967BKZsOQR7ZfFeIOmrgBr8OmUMZAH8Bwr
+   sGBHgkn9VwCDF4YCCNVT2wvRrZ3H9vhi5tj+4zKN3IpQhVyXA6dsYyACN
+   +D5WV8+Ij9e1kZGAEPptvBB13yDPrFxDbyf9EZU6Uvk+I3Q8iFQmPEyEu
+   auHoz+OdntpOkiAKS32quzCO6cNHW7anIGZF9XcOUy6mvGufuPRe0wQu1
+   curmBfsL63oENUjz+bTLbTpkruL1s96ngRBJtjfVpLLbfUinyE5Ljvi1Q
+   Rf4XjU8sAAh+kKnw6z1+5RatuaRVaP0Dw7jcqapssvJ3ng+2EwPir1uHF
+   A==;
+X-CSE-ConnectionGUID: eVbW/coBQ8+t/ophymC/5g==
+X-CSE-MsgGUID: BZjyFVJST1iOaj4fHFOB0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="106687439"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="106687439"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 01:50:29 -0700
+X-CSE-ConnectionGUID: afj1dpsUS5yI6e6y65DQrQ==
+X-CSE-MsgGUID: qYsDKwwWREC7OOrmas5P2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="266303711"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 01:50:27 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0A08611F944;
+	Mon, 07 Sep 2026 11:50:29 +0300 (EEST)
+Date: Mon, 7 Sep 2026 11:50:28 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ap561H8xYJvjZsRa@kekkonen.localdomain>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ap5n7OyZrI0KzzN-@zed>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Hi Jacopo,
 
-New issues:
-- [Low] Exporting `sdca_class_pm_ops` unconditionally with `RUNTIME_PM_OPS`=
- causes dead code retention when CONFIG_PM is disabled.
+On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
+> > > +}
+> > > +
+> > > +static inline u32 mira016_nsec_to_lines(struct mira016 *mira016, u32 nsec)
+> > > +{
+> > > +	return nsec / (mira016_trow_psec(mira016) / HZ_PER_KHZ);
+> > > +}
+> > > +
+> > > +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
+> > > +{
+> > > +	/*
+> > > +	 * Pixel rate is calculate as the row duration divided by the total line
+> > > +	 * length.
+> > > +	 *
+> > > +	 * pixel time (psec) = t_row(psec) / h_tot
+> > > +	 * pixel rate (mbps) = 10^12 / pixel_time
+> > > +	 *		     = 10^12 * h_tot / t_row
+> > > +	 *		     = h_tot * 10^6 / t_row * 10^6 to avoid overflows
+> > > +	 */
+> > > +	u32 trow_psec = mira016_trow_psec(mira016);
+> > > +
+> > > +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
+> >
+> > Can this overflow?
+> >
+> 
+> I don't think so. I chose to multiply by 10^6 two times before and after
+> the division to avoid overflows.
+> 
+> Should I re-consider something ?
 
-Pre-existing issues:
-- [High] Data race and invalid hardware access between `boot_work` and syst=
-em suspend.
---
+It was a question. :-) If it can't then it's fine as-is.
 
-commit 0f2e2cef51e8b87316164c383139022824389918
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> 
+> 
+> > > +}
+> > > +
+> > > +static inline u32 mira016_calc_min_vblank(struct mira016 *mira016, u32 y_tot)
+> > > +{
+> > > +	/*
+> > > +	 * See 3.15.2 Frame Rate, equation 4.
+> > > +	 *
+> > > +	 * TODO: The minimum frame duration has to be expanded if embedded data
+> > > +	 * are used.
+> > > +	 */
+> > > +	u32 trow_nsec = mira016_trow_psec(mira016) / HZ_PER_KHZ;
+> > > +	u32 min_duration_nsec =  trow_nsec * (y_tot + 35) + 50 * HZ_PER_KHZ;
+> >
+> > What are 35 and 50 here?
+> >
+> 
+> No idea, the sensor datasheet doesn't describe those values
 
-ASoC: SDCA: export PM helpers keyed on sdca_class_drv
+Ok.
 
-The class PM callbacks pull sdca_class_drv out of drvdata, so the
-built-in class_sdw_driver owns the drvdata slot. That works for the
-generic case but blocks codec drivers that want to embed sdca_class_drv
-in their own private struct. Split the four callbacks into exported
-helpers that take a struct sdca_class_drv * directly.
+There's also an extra whitespace there.
 
-> diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
-> index d7444f442c71c..88a29116a334e 100644
-> --- a/sound/soc/sdca/sdca_class.c
-> +++ b/sound/soc/sdca/sdca_class.c
-[ ... ]
-> -static int class_suspend(struct device *dev)
-> +/**
-> + * sdca_class_system_suspend - SDCA class system suspend helper
-> + * @drv: caller-owned sdca_class_drv.
-> + *
-> + * Codec drivers compose this into their own dev_pm_ops.  Disables the
-> + * SoundWire interrupt and forces runtime suspend of the underlying
-> + * class regmap.
-> + */
-> +int sdca_class_system_suspend(struct sdca_class_drv *drv)
->  {
-> -	struct sdca_class_drv *drv =3D dev_get_drvdata(dev);
->  	int ret;
-> =20
->  	disable_irq(drv->sdw->irq);
-> =20
-> -	ret =3D pm_runtime_force_suspend(dev);
-> +	ret =3D pm_runtime_force_suspend(drv->dev);
->  	if (ret) {
-> -		dev_err(dev, "failed to force suspend: %d\n", ret);
-> +		dev_err(drv->dev, "failed to force suspend: %d\n", ret);
->  		return ret;
->  	}
-> =20
->  	return 0;
->  }
-> +EXPORT_SYMBOL_NS_GPL(sdca_class_system_suspend, "SND_SOC_SDCA_CLASS");
+...
 
-[Severity: High]
-This is a pre-existing issue, but does sdca_class_system_suspend() fail to
-serialize against boot_work?
+> > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > +{
+> > > +	struct mira016 *mira016 =
+> > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > +	struct v4l2_subdev_state *state;
+> > > +	struct v4l2_rect *crop;
+> > > +	int ret = 0;
+> > > +
+> > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > > +	crop = v4l2_subdev_state_get_crop(state, 0);
+> > > +
+> > > +	if (ctrl->id == V4L2_CID_VBLANK) {
+> > > +		s32 exposure_max = crop->height + ctrl->val
+> > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
+> > > +		s32 exposure_def = min(exposure_max,
+> > > +				       mira016->exposure->val);
+> > > +
+> > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > > +					       mira016->exposure->minimum,
+> > > +					       exposure_max,
+> > > +					       mira016->exposure->step,
+> > > +					       exposure_def);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +	}
+> > > +
+> > > +	if (!pm_runtime_get_if_in_use(&client->dev))
+> > > +		return 0;
+> > > +
+> > > +	switch (ctrl->id) {
+> > > +	case V4L2_CID_EXPOSURE:
+> > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
+> > > +		break;
+> > > +	case V4L2_CID_VBLANK:
+> > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
+> > > +		break;
+> >
+> > Is hblank part of the register lists?
+> >
+> 
+> These sensors (there will hopefully be more supported by this driver)
+> do not have a real horizontal blanking.
+> 
+> Their line length is expressed by a time base multipled by a line
+> length which doesn't directly depend on the pixel width but rather on
+> the ADC and PHY timings.
+> 
+> You could expand the line duration by increasing the time base, but I
+> wouldn't go there and use VBLANK only to control the frame duration.
+> 
+> As you can see the HBLANK control is registered with  fixed value of
+> 0.
 
-Because boot_work is queued on system_long_wq (an unbounded, non-freezable
-workqueue), it can race with system suspend. If the system initiates suspend
-while boot_work is waiting in sdw_slave_wait_for_init(),
-sdca_class_system_suspend() will force the device into a suspended state by
-disabling interrupts and setting regcache_cache_only(true).
+How does control frame rate then? If HBLANK is zero, the frame rate is
+undefined, isn't it?
 
-Since sdca_class_system_suspend() does not flush or cancel the pending
-initialization work, boot_work will eventually resume, blindly set
-regcache_cache_only(false), and attempt hardware access on a physically
-suspended bus, which could lead to bus timeouts or crashes.
+> > > +static int mira016_init_controls(struct mira016 *mira016)
+> > > +{
+> > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > +	struct v4l2_fwnode_device_properties props;
+> > > +	struct v4l2_ctrl_handler *ctrl_hdlr;
+> > > +	struct v4l2_ctrl *link_freq;
+> > > +	struct v4l2_ctrl *hblank;
+> > > +	u32 min_exposure_lines;
+> > > +	u32 def_exposure;
+> > > +	u32 min_vblank;
+> > > +	u32 def_vblank;
+> > > +	u32 pixel_rate;
+> > > +	int ret;
+> > > +
+> > > +	ctrl_hdlr = &mira016->ctrl_handler;
+> > > +	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+> > > +
+> > > +	/* By default, PIXEL_RATE is read only */
+> > > +	pixel_rate = mira016_calc_prate(mira016, MIRA016_PIXEL_ARRAY_WIDTH);
+> > > +	mira016->prate = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
+> > > +					   pixel_rate, pixel_rate, 1,
+> > > +					   pixel_rate);
+> > > +
+> > > +	def_vblank = mira016_nsec_to_lines(mira016,
+> > > +					   MIRA016_DEFAULT_DURATION_NSEC);
+> > > +	def_vblank -= MIRA016_PIXEL_ARRAY_HEIGHT;
+> > > +
+> > > +	min_vblank = mira016_calc_min_vblank(mira016,
+> > > +					     MIRA016_PIXEL_ARRAY_HEIGHT);
+> > > +	mira016->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > +					    V4L2_CID_VBLANK, min_vblank,
+> > > +					    MIRA016_MAX_VBLANK, 1,
+> > > +					    def_vblank);
+> > > +
+> > > +	/* Fixed 0 horizontal blanking. */
+> > > +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, 0,
+> > > +				   0, 1, 0);
+> > > +
+> > > +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
+> > > +					   0, 0, &mira016_link_freqs[0]);
+> > > +
+> > > +	min_exposure_lines = mira016_nsec_to_lines(mira016,
+> > > +						   mira016->timings.min_exposure_time);
+> > > +	def_exposure = mira016_nsec_to_lines(mira016,
+> > > +					     MIRA016_EXPOSURE_DEF_NSEC);
+> > > +	mira016->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > +					      V4L2_CID_EXPOSURE,
+> > > +					      min_exposure_lines,
+> > > +					      MIRA016_MAX_EXPOSURE, 1,
+> > > +					      def_exposure);
+> > > +
+> > > +	mira016->gain = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > +					  V4L2_CID_ANALOGUE_GAIN,
+> > > +					  1, 1, 1, 1);
+> > > +
+> > > +	/*
+> > > +	 * Changing VFLIP requires re-programming the top point, hence we
+> > > +	 * program flips along with the ROI windows at enable_streams time. As
+> > > +	 * we grab the flip controls there, there's no need to handle the two
+> > > +	 * controls while streaming.
+> > > +	 */
+> > > +	mira016->hflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+> > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
+> > > +
+> > > +	mira016->vflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+> > > +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
+> > > +
+> > > +	v4l2_fwnode_device_parse(&client->dev, &props);
+> >
+> > v4l2_fwnode_device_parse() can return an error and I'd check for it. I'd
+> > however do that before initialising the control handler as it simplifies
+> > error handling.
+> 
+> Interesting idea. I still see most drivers calling
+> v4l2_fwnode_device_parse() and v4l2_ctrl_new_fwnode_properties() in
+> sequence at the end of the controls initialization, but doing the
+> parsing at the beginning of the function is certainly a good idea.
 
-[ ... ]
-> +static int class_pm_runtime_resume(struct device *dev)
-> +{
-> +	return sdca_class_runtime_resume(dev_get_drvdata(dev));
-> +}
-> =20
-> -static const struct dev_pm_ops class_pm_ops =3D {
-> -	SYSTEM_SLEEP_PM_OPS(class_suspend, class_resume)
-> -	RUNTIME_PM_OPS(class_runtime_suspend, class_runtime_resume, NULL)
-> +const struct dev_pm_ops sdca_class_pm_ops =3D {
-> +	SYSTEM_SLEEP_PM_OPS(class_pm_system_suspend, class_pm_system_resume)
-> +	RUNTIME_PM_OPS(class_pm_runtime_suspend, class_pm_runtime_resume, NULL)
->  };
-> +EXPORT_SYMBOL_NS_GPL(sdca_class_pm_ops, "SND_SOC_SDCA_CLASS");
+Yes, the ones you've been looking at are old drivers. :-)
 
-[Severity: Low]
-Does exporting sdca_class_pm_ops unconditionally with RUNTIME_PM_OPS cause
-dead code retention when CONFIG_PM is disabled?
+> > > +		{ 16, 21 }, { 17, 26 }, { 18, 29 }, { 19, 30 }, { 20, 15 },
+> > > +		{ 21, 23 }, { 22, 27 }, { 23, 13 }, { 24, 22 }, { 25, 11 },
+> > > +		{ 26, 5 }, { 27, 18 }, { 28, 25 }, { 29, 12 },
+> > > +		{ 30, 6 }, { 31, 3 }, { 32, 1 }
+> > > +	};
+> > > +
+> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_n_lut); ++i) {
+> > > +		if (pll_n_lut[i].n != pll_n)
+> > > +			continue;
+> > > +
+> > > +		return pll_n_lut[i].pll_n;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static u8 mira016_m_to_pll_m(u32 pll_m)
+> > > +{
+> > > +	/* Table 12: Lookup table for “M to PLL_DIV_M” mapping */
+> > > +	static const struct pll_m_div {
+> > > +		u8 m_min;
+> > > +		u8 m_max;
+> > > +		u8 pll_m_min;
+> > > +		u8 pll_m_max;
+> > > +	} pll_m_lut[] = {
+> > > +		{ 16, 31, 224, 239 }, { 32, 63, 192, 233 },
+> > > +		{ 64, 127, 128, 191 }, { 128, 255, 0, 127 },
+> > > +	};
+> > > +
+> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_m_lut); ++i) {
+> > > +		const struct pll_m_div *p = &pll_m_lut[i];
+> > > +
+> > > +		if (pll_m > p->m_max)
+> > > +			continue;
+> > > +
+> > > +		return p->pll_m_min + pll_m - p->m_min;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static void mira016_pll_calc(struct mira016 *mira016)
+> >
+> > It's nice to have a PLL calculator for this. Thank you! :-)
+> >
+> 
+> I also considered using the CCS PLL calculator, but this PLL is so
+> simple it felt like an overkill
 
-When CONFIG_PM is disabled, runtime PM callbacks are never used and should =
-be
-eliminated by the compiler. Because sdca_class_pm_ops is globally exported =
-in
-this patch and populated using the unconditional RUNTIME_PM_OPS macro inste=
-ad
-of conditionally-compiled macros, the compiler will retain the structure and
-its referenced static functions (class_pm_runtime_suspend and
-class_pm_runtime_resume) as dead code in the final binary.
+If the CCS PLL calculator fits for the job, I'd just use it. If it does a
+little more, it's possible to use the same value for minimum and maximum
+for the relevant parameters.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907083727.7337=
-05-1-srinivas.kandagatla@oss.qualcomm.com?part=3D2
+> > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > +{
+> > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > +	};
+> > > +
+> > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
+> > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
+> >
+> > Don't mask error codes! Just return the error code returned by
+> > v4l2_fwnode_endpoint_alloc_parse().
+> >
+> 
+> With PTR_ERR() I presume
+
+v4l2_fwnode_endpoint_alloc_parse() returns an integer.
+
+> > > +static int mira016_probe(struct i2c_client *client)
+> > > +{
+> > > +	struct device *dev = &client->dev;
+> > > +	struct mira016 *mira016;
+> > > +	int ret;
+> > > +
+> > > +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
+> > > +	if (!mira016)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	mira016->dev = &client->dev;
+> > > +
+> > > +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
+> > > +
+> > > +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
+> > > +	if (IS_ERR(mira016->regmap))
+> > > +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
+> > > +				     "failed to initialize CCI\n");
+> > > +
+> > > +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
+> > > +	if (IS_ERR(mira016->xclk))
+> > > +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
+> > > +				     "failed to get xclk\n");
+> > > +
+> > > +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
+> > > +	if (mira016_validate_xclk_freq(mira016)) {
+> > > +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
+> > > +			mira016->xclk_freq);
+> > > +		return -EINVAL;
+> > > +	}
+> > > +
+> > > +	ret = mira016_get_regulators(mira016);
+> > > +	if (ret)
+> > > +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> > > +
+> > > +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+> > > +						      GPIOD_OUT_HIGH);
+> > > +	if (IS_ERR(mira016->reset_gpio))
+> > > +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
+> > > +				     "failed to get reset gpio\n");
+> > > +
+> > > +	ret = mira016_parse_endpoint(dev, mira016);
+> > > +	if (ret)
+> > > +		return ret;
+> >
+> > Parsing the endpoint should be done as soon as you can before acquiring
+> > resources related to power management, for instance. -EPROBE_DEFER may well
+> > be returned in some cases.
+> >
+> 
+> I can probably do that even before calling v4l2_i2c_subdev_init()
+
+Sounds good.
+
+> > > +static void mira016_remove(struct i2c_client *client)
+> > > +{
+> > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> > > +	struct mira016 *mira016 = to_mira016(sd);
+> > > +
+> > > +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> > > +
+> > > +	v4l2_async_unregister_subdev(sd);
+> > > +	v4l2_subdev_cleanup(&mira016->sd);
+> > > +	media_entity_cleanup(&sd->entity);
+> > > +
+> > > +	pm_runtime_disable(&client->dev);
+> > > +	if (!pm_runtime_status_suspended(&client->dev))
+> > > +		mira016_power_off(&client->dev);
+> > > +	pm_runtime_set_suspended(&client->dev);
+> >
+> > pm_runtime_dont_use_autosuspend()?
+> >
+> 
+> Ack
+> 
+> Thanks for the review!
+
+You're welcome! :-)
+
+-- 
+Regards,
+
+Sakari Ailus
