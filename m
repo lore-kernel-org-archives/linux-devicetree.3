@@ -1,133 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6698E41D65E
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:23:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CA485474E
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:24:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783840; cv=none; b=h0J1cPAnIcOWR/DiuuFMDcUwfaGtsj1Gyzrqwt813tyZe0SKu2soti3E/Vzej+t4ARBHOTaYjj4iHrbODNciPbrmKFN3clXbMXxgRyDrX5kIvTqtmKwAHv1HVLsVBzVvGQ2WOZmyvn7Gea6pThWNeXHRxAfguNkh15Ee6RXzeDU=
+	t=1788783858; cv=none; b=a66qb/qGmz3vr2w1jR9ynN7DLYhKycz8TpRyej81goBVB4jRIKJOyG3HhNqyUDIo3TniqyAH0ShfyodI+Axoop+HS/N1xUv6uBx2HPEIniorJKvRgHICNymtG1a4RgwgJVx3k72UZ4p1M9XSQAB5wm+ebLUCe0ZneqqZIOqie6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783840; c=relaxed/simple;
-	bh=mPSc1Vd/Mjj2mHocKe2XHbgAlipjnDgVkAmW3xQaTvU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AJf+RMpjQKKaEtf64VLN/77h9OTqPZ9bFJftIfsVKkluAyt1VzOAzam6vWyRJ63gWNl87PTjyKpMPmGesK6uKvda+Glb6DADbW0E/ITuPMwOW7EiUGHtq1QDhjcnzzoBt5H8UMp6Y85yNdhVuMqOC9tlrz1hPurEvugsnu1p6RU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yf7Svchx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788783858; c=relaxed/simple;
+	bh=waGL5biJ+0DdJSi3zAqUa3WT8EXSFWxNSrzn0Sze2VM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R97f4X4UK7+O4M1uz6eSNYkpIvQ/oTXPh9LyhXJF1njb7mbpeZZA1OxhVBvyMbDddpRt1Un42rVAtzJpnQ7uxqndMIn+GHSwq3VjtTRsvH5qHs7ePslRj9CG0Sgb7uqoRju0zX8vbKT4ZigeO98ZjQRP/p9rMjJK1aL1RV+yXIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=KsG1M0nT; arc=none smtp.client-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yf7Svchx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1161F00A3A;
-	Mon,  7 Sep 2026 12:23:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783839;
-	bh=dVW539Um+lYGYsuWWy765I1no8NfdR+lfq5r+98zJQs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yf7SvchxEoYUkKrkOVf/F6jYDzGSfgnMqFCxs3I8HOSKqLdzacDNXrEt+kz9C2Q7Z
-	 wbgQ9oPIc3KFXnfbBqtn1gxCedtQbIZKKxKR4RKGUdzhj0A1lE92GhRRzF/DdQPI7H
-	 7jFe4LFkHj/r/dYPOz77F1TO4B9rNv4u3zosl6ZveDJgnWaqCKim0A3MuS0RkRNkBy
-	 63Y8OXEDHJrxcA+7YmJWGf15DRJL7+wjaMSqvlriMzuMagoff1fBTgOSOjHckH3MGT
-	 OBgBns1Rl7a7o2pFyHxZrja82iO7kJTihb0ZyWPDWejoMxogAvAxtlGv4riPfK6/gv
-	 Q3dSGLGhxfv0A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/10] ASoC: qcom: Add QAIF hardware register map
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907-b4-qaif-shikra-audio-v5-3-6d8ad9ba5c9f@oss.qualcomm.com>
-References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
- <20260907-b4-qaif-shikra-audio-v5-3-6d8ad9ba5c9f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 12:23:58 +0000
-Message-Id: <20260907122358.BD1161F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="KsG1M0nT"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=waGL5biJ+0DdJSi3zAqUa3WT8EXSFWxNSrzn0Sze2VM=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788783852; v=1; x=1789388652;
+ b=KsG1M0nTa8nOlT0hFw3iLevFTgamhJpKvMtLzroCUWEGTY1a9YwYPrm+5BvYrSoV4Qi5MNJI
+ cpSFDeZLsUMC+XC2qo937gTYBS+oYsujW7eY4u1hfqmq+o6b+C3NJIrWIzaMu9Yyvla0O0V0PaM
+ vWN2Gha32h6s7ck2Gosm3LA3N5PcO9n6r9G6nIDJEXSItnckceq808cJCvm8TQ5jIEkEznPp4I2
+ t5naHdaOeq2hTmyVX82UUAJWd8g0sgOyGIS5NF6iBE709WoK5IjLnh2sXzD2LNq069B5grzkg2u
+ GO/M7Q8zPzOiLUjA/WOA6hm5tzbe7O6zDfRB/lJOZU5Zg==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id ceebd85e94b4903c;
+	Mon, 07 Sep 2026 12:24:12 +0000
+X-Mizu-Trace-ID: ceebd85e94b4903c
+X-Migadu-Flow: FLOW_OUT
+From: Diederik de Haas <diederik@cknow-tech.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>
+Cc: Joachim Eastwood <joachim.eastwood@gmail.com>,
+	Marcin Juszkiewicz <marcin@juszkiewicz.com.pl>,
+	Daniele Briguglio <hello@superkali.me>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Diederik de Haas <diederik@cknow-tech.com>
+Subject: [PATCH 1/3] dt-bindings: arm: rockchip: Add FriendlyElec NanoPC-T6 Plus
+Date: Mon,  7 Sep 2026 14:22:43 +0200
+Message-ID: <20260907122406.1862398-2-diederik@cknow-tech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260907122406.1862398-1-diederik@cknow-tech.com>
+References: <20260907122406.1862398-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] The QAIF_EE_*_MAP_REG macros have incorrect base addresses due=
- to an arithmetic typo (using truncated base values like `0x1920` instead o=
-f values in the `0x19000` EE block), resulting in accesses to unmapped memo=
-ry regions.
-- [Low] Missing `_REG` suffix on RAW_STAT macros for WRDMA and RDDMA Error =
-Responses.
---
+The NanoPC-T6 Plus is the latest addition to the NanoPC-T6 series.
+Add it to the NanoPC-T6 list.
 
-commit 7629bdb576e93d9171f876d77ffa9606caac557c
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-ASoC: qcom: Add QAIF hardware register map
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index 81744fbee98a..aa828ee60d21 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -398,6 +398,7 @@ properties:
+           - enum:
+               - friendlyarm,nanopc-t6
+               - friendlyarm,nanopc-t6-lts
++              - friendlyarm,nanopc-t6-plus
+           - const: rockchip,rk3588
+ 
+       - description: FriendlyElec CM3588-based boards
+-- 
+2.55.0
 
-This commit adds the QAIF hardware block MMIO register offsets in a new
-header file. It defines accessor macros to select the appropriate DMA
-register sets based on the DAI ID for the core registers, interfaces,
-and execution engine (EE) contexts.
-
-> diff --git a/sound/soc/qcom/qaif-reg.h b/sound/soc/qcom/qaif-reg.h
-> new file mode 100644
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-reg.h
-
-[ ... ]
-
-> +#define QAIF_EE_RDDMA_ASSIGNMENT_REG(v)			(0x19148 + (0x1000 * ((v)->ee)=
-))
-> +#define QAIF_EE_WRDMA_ASSIGNMENT_REG(v)			(0x19150 + (0x1000 * ((v)->ee)=
-))
-> +#define QAIF_EE_INTF_ASSIGNMENT_REG(v)			(0x19158 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_RDDMA_ASSIGN_REG(v)		(0x19308 + (0x1000 * ((v)->ee=
-)))
-> +#define QAIF_EE_CODEC_WRDMA_ASSIGN_REG(v)		(0x19318 + (0x1000 * ((v)->ee=
-)))
-> +#define QAIF_EE_RDDMA_MAP_REG(v)			(0x1920 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_WRDMA_MAP_REG(v)			(0x1940 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_INTF_MAP_REG(v)				(0x1960 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_RDDMA_MAP_REG(v)			(0x1980 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_WRDMA_MAP_REG(v)			(0x1A00 + (0x1000 * ((v)->ee)))
-
-[Severity: Critical]
-Does this arithmetic calculation result in out-of-bounds memory accesses?
-
-If v->ee > 0 (for example, v->ee =3D=3D 1), QAIF_EE_RDDMA_MAP_REG calculate=
-s to
-0x1920 + 0x1000 =3D 0x2920. Since the stride is 0x1000 and the other EE
-registers start in the 0x19000 block (e.g. 0x19148), does this mean 0x1920
-is a typo for a value in the 0x19000 range?
-
-Adding 0x1000 to the truncated base 0x1920 lands in an unmapped hole
-(0x2920) completely outside the intended EE block, which could cause a
-system bus fault (SError) and a kernel panic when written to during driver
-initialization. This same pattern seems to affect all five MAP_REG macros
-defined here.
-
-[ ... ]
-
-> +/* RDDMA Error Response Interrupts */
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_rddma_irq_reg_addr(=
-v, i, 0x50)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_rddma_irq_reg_addr=
-(v, i, 0x58)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_rddma_irq_reg_addr=
-(v, i, 0x60)
-
-[Severity: Low]
-This isn't a bug, but should this macro have a _REG suffix to match the
-naming convention of all the other raw stat macros in this file?
-
-[ ... ]
-
-> +/* WRDMA Error Response Interrupts */
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_wrdma_irq_reg_addr(=
-v, i, 0x00)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_wrdma_irq_reg_addr=
-(v, i, 0x08)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_wrdma_irq_reg_addr=
-(v, i, 0x60)
-
-[Severity: Low]
-Similarly, should this macro also include the _REG suffix?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-b4-qaif-sh=
-ikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com?part=3D3
