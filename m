@@ -1,149 +1,126 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7C6501F4A
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:14:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8D54EA38E
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:19:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794101; cv=none; b=AcGovg+pTgXjmllzNA5/lci3WubfWRqzkkcDbPCb99p3xOrDyl6/J/BkSxYLmFcBErEIT0mej5WcSSe/smnAZRyMo6Ic87w9MIl3T9M9sMXwLuUpry0LTTZSAoV1GcoaU/kPjHraqFIBGjgfAWv9RD7FxKiDsf9wGhzazlGfvRg=
+	t=1788794367; cv=none; b=ZSmppJVATdfKLBphbRBntSnrWjP0YMJ02JN0T5YHO13bAKPYoNw3JBRgPDb8V39gbqjdkka6Iw8nwnGZq0Ert/CugIXyHPfLVEHpN7uaMbjNbeIzbd8urCclkC+wMFXMzEJNfbObiBETkjC5UTdKLkq+L/pmBckPx+zGG3egdDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794101; c=relaxed/simple;
-	bh=Hj5U5tuhaGLPE9duWI7mE72tBgu7I2rb+4tWpfLknSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WUaDIRQYfYJEm71A5PYtfEE3w6IfKRUAiyfTdMX39VDvLrTTKCF4Qr+1uFAkcuupYxg3WZSXT7ulKDz5lN82+TR39Wy2pJCwXwGqhfL869yxtUldZQHFW+IuY0BAl91KpaYFbX2KtdzQk26mVUQKrEAzRH5RFSam0dsb6URVlaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FLzModcE; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788794367; c=relaxed/simple;
+	bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=VOOatLvC2O4y2ABAlH0dNOir8HkergmeWHFNLCHsxpn7g/gMfYJ0CQbFW9KnD8xAsvyyiepoHVMK2gFOb17epmNINeRJ572if1pKVE8IfObAIWIxrgLpYgFh/QnlntFnIchS7maJ30PILyW3xtzT50JWhmfSNq2+Yc4mNe9M+lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=WcjO6Pjr; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FLzModcE"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso35306095e9.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:14:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="WcjO6Pjr"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso39288465e9.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:19:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788794096; x=1789398896; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2IS/rYcwgewFHdcgCRoRR2IlNUPHyURUtKmUR1+9WG8=;
-        b=FLzModcEYThgaeFWNo/5GicWtGtmSfC5OZw0zbi2rtUUdeG8tM+XolK7ngoXxyPLdq
-         uvnrCIrYdDebQoXaWDmmZNbjxedLO8lmfEfHVhGil+nKCbObNaAwjZjKyAdHzPsmdgZL
-         sS6ugpMZr3hIEax5R8q+EaEQ7OBZ1IPrgXLAlEZRiIS+5hPlzWfP2KuGcUpbC2CvWqbQ
-         b4NFsFsVakNLy1M+w2eksSPz2fJvPXfzk6hYX/hx8RIASmrYB4LQaJDq/rH0toOpD5OY
-         BjMuzFQ3LaVYc/TadQQyQgEdC2LEU9zfwV3NPr7+K95F3rtq3qL4Yk/zcl7g6Y9uLz4v
-         kQCA==
+        d=baylibre.com; s=google; t=1788794362; x=1789399162; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
+        b=WcjO6Pjr/Xe21JivKqhd7zW2Wev1CqRRTyYrs3KMr7rXsPgN/kyBafvkLkss6A/Tra
+         w3VSjhT3hIvPqhRPyH+52jDaCaIwmiUDn27ZfG1lPutE4HZcoBujAQVigRyDwpULWzs0
+         DBpTVYJEDRlosx7OBBWTuNxLqbssSjsYdCeMiuPK9imGgy1/jqJgPzX4CV8bOgye5QHK
+         VTLFqrL+bUaNXZDaQlOCPLcQ2lhkrHYialup0OuiGeb9m8dbVrQyYtH208OgQHhsSchI
+         fNAeXt59o43+/XyJPFfqmO2hDYKaBtAwMUWLzjQmSexMS90yKGAw/v9szxH1MaDN2Sfx
+         LuRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794096; x=1789398896;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1788794362; x=1789399162;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=2IS/rYcwgewFHdcgCRoRR2IlNUPHyURUtKmUR1+9WG8=;
-        b=NMMK0dvykcvZlJhPReuyGLO9z7GwFazaVzsmY4E6FKpSEyOUni36QUUAHPBp0/Oo0o
-         EVedmZ9SNZOlMs2flKTat7MOtRjsKHmc4Kos/u0aGQkao8n1ZVpm9RFznc89Cdw6VI2e
-         o2s2TmeluEznxzrADM6oOtL8YZ3n95L8nLue/L+LGqq7+CKSaPQseBSp2+DCviHZrsSd
-         nf4tFylvh45hNq0MnO5YOlOmZzhUVxDBqnK0rALVGm2PiceTyvIdfbIv21QBhZNfAUc6
-         a2dfjJtEHVdgBfjqryp/607JJF+7GDzGH1qN45sAEHKhgjiWL/X8B5v+gvzWY+R9thMB
-         k1TA==
-X-Forwarded-Encrypted: i=1; AKwUvBwDk+Nq07FBUIlcKTo1pXWjvYl0heQ5R4IAMt/GeVHGzccwjQLZAKzLM5in1sRUCwkA3bfes4Ob9vmI@vger.kernel.org
-X-Gm-Message-State: AFuF++k6hLXgILl1lTB1W09aSLHZXqk+IHG2rAOSrj0iiHYLwOciw8mN
-	wCWEJcFEntjemytSKvi1Scyk7ePj/Rv2WdjzNzMfVTAVa4tLWRu8/Kd4
-X-Gm-Gg: AYBFou3yg6asLjeZyr+iPbM3vGxbrpZZzO+cDJ07Ygq1+e9PZp1Mpt6u0LopENzBbIw
-	tmTGDZoyHb86N6FBqtIuNZQT+/Do0Dh+PBqgYcVhRiXBl6jiKpmPd/RjIZE7izghoQg5V5ORJmi
-	57LIFSba2pPcWRhbVxgZWdrpvx+wPUWNKNnV+2d9TQ7GDBuymyFgkqJyvEWmyU8sVb+Jvbt3DfK
-	yL0igrJM1jUoV2864ynXoMm8wLe2TNxQyr1dAZPk55YtrtgxRYYgmT2h+beDzZxy6zdMvD8lXUK
-	FIhLlRxwtHD8fdzcPylATZe+TuJFVRJFQjmC29ryXQY8ALuv0pmS9Rf7LreAX3byAsw5+Z2n/3j
-	P/IwlRWOoippRzyORO9tW8h6hWZrqhFIQxK7rIWhobeNFVHM45lulYr7PTQpjOZriWSGUiH+u79
-	mRbGa8JoYKNLsaN9FzrCENmBPOKcdgJYqCvROtKBj4DGC2EK+rqQZ5q3JvDmDgUL3ip3oKvccVM
-	qQoMSY9U8l0yynD3Hny6zaU+dDvD3WB/hiX3atM0AZikcgsfNWP2dxV86yn/X7E3N1OdICd/Ixk
-	SDgbJkeVqm9Pt8j7tTx63Y/PwewWuzTKep6a2PGLapDFIywsE//9/ayILMjELfnF8DpE301bk8a
-	mGd4enXjMxQISSKZUG5A6Q6KOvQ+aDaq4Ccq4oc+DDTDuJXCGYaBRpzNTmwhlmvzJTEal4F7yeI
-	uvIoLO
-X-Received: by 2002:a05:600c:3f08:b0:49c:fa20:cc04 with SMTP id 5b1f17b1804b1-49cfa20cd10mr194873055e9.27.1788794095682;
-        Mon, 07 Sep 2026 08:14:55 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm550897855e9.1.2026.09.07.08.14.54
+        bh=wfsM5V0FaQQokzmgJre3daRZfS2iieNpUVCSCH5e4Uo=;
+        b=GL09iUwoq6QViI4ftcMmiEUx47Yy4TJFm8RstsDXWl9qMwqjJ5FBJ5Z02q8+fzmlc9
+         5Gfqcf4/TYF1gN0C7h5ZlMjskwbw/QHlgvaXBlcCHfSnRBeAc0etMwnho/iLuaTl9AKc
+         4dDgR5rPbv35MYdZ316fUDB39cpGaVauqOI75kXbpjXnjBjtw11dIHK85WhtA8kghDoV
+         sgrSiGBQOughzHWE6e+fOFHhvzQY0g5N0zvzomL/Ca2P0OnDFwoT3D4I8EMsInQmGYNr
+         J0MYFWHswsMzpqHFYJTz2f17/o5ycKnSwzRP/P2C1/6XZ45J8jcUrz1/FGRy3NYzJsYx
+         bMAA==
+X-Forwarded-Encrypted: i=1; AKwUvBw3GvpXSh+0vIy2TMXwBMnojuMuf70G/ctPvEU/CC45zM25L5JuYMOSE1isz+5Ov806zOSpKZUurtVr@vger.kernel.org
+X-Gm-Message-State: AFuF++mK7OWTGy3wFepysl83RHm1vrVWnMK09vOuVuPpyhoAA2mYluJz
+	3TKPJeq8sB+Gx7FO2xYppH39SDGJMokq89vh5yhSY91DgsT8mUIZZgpVliZQJUGgEEU=
+X-Gm-Gg: AYBFou2kbkTo0RXigYQqMiYt1/WPPUxf4s2rKtefhSTqUn8pS1IuH4vkLphMGClnLqD
+	O+dhkkpLYFf8qAFO22EAq9g1D5DRSbe+wQKp0agQJizJx9oFaR/ZcVd5ITtjYMqYNzkfS5V2wY7
+	qOARxXY7OSPpoJSznSxdeUSYXE7PNHpOKTkEVNn7zjJKQmP4WjFZoH6H3MXzVcX1FQHeramxetB
+	xc8b0BZVCWuZsD6lDF3bzsJv+DrDz21mKCtRhk8zR8b1a+OHNvFOfGaFrDVE+fa+e3CVTcJiQGR
+	dV/rcVpbyx7zzrw4saHFGG8I23oWuOn0pP7pM8okLEp951G2LI0Oi7QqLUFkZY35Nga4KGLZAq7
+	IQYhhAqGGaVf2hv8S3KlCkTduiv9oVds/gYNcXt/eNAXnCO+hGGozOLwsjxZaRY/uPmHHPPd4BY
+	/R+Rg0GX+v4p45si8JNlo4+StaPHyvEnecIpV2iiVtWgFD47GqFb9EyU7P6y6iD+gSYR7b8Ly4c
+	4ZZ8B2jJPxp2F0C0d6hnw==
+X-Received: by 2002:a05:600c:4e94:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49cf81e368emr393160235e9.6.1788794362159;
+        Mon, 07 Sep 2026 08:19:22 -0700 (PDT)
+Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm288040175e9.0.2026.09.07.08.19.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:14:55 -0700 (PDT)
-Date: Mon, 7 Sep 2026 17:14:52 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Lars-Peter Clausen
- <lars@metafoo.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger
- <martink@posteo.de>, Sean Nyekjaer <sean@geanix.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Martin Kepplinger
- <martin.kepplinger@theobroma-systems.com>, Christoph Muellner
- <christoph.muellner@theobroma-systems.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v8 6/9] iio: accel: mma8452: Add comment block for
- struct mma8452_data
-Message-ID: <20260907171452.00004fc8@gmail.com>
-In-Reply-To: <20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        Mon, 07 Sep 2026 08:19:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/4] pwm: meson: add the PWM count driver data
+From: Alexandre Mergnat <amergnat@baylibre.com>
+To: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org
+In-Reply-To: <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
+References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
+ <20260827-s6-s7-pwm-v4-2-d28a2015177d@amlogic.com>
+Date: Mon, 07 Sep 2026 17:19:15 +0200
+Message-Id: <178879435514.2256446.12623877061277695056.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=748; i=amergnat@baylibre.com;
+ h=from:subject:message-id; bh=rcVRS04U4Y1NhrUxKFWvxVXiVm9RAyYBSNeIX0vtRAg=;
+ b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntX6M1dVwwpG2kkr876Epbt5jZrSl70Nlw4AG
+ HstsY/+0kyJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7V+gAKCRArRkmdfjHU
+ RbpRD/0ehx78POhhYnSt521wnujPrwLy1gEErNRrExkWhZysX4QDuXyJy2R8JOv9iSpxCyY6sHp
+ OStxUC59Z7yn8cTVgbQufMKwTpINIBqq5eXL8bQhdsmJEy+Pk1/3ww0GAVwSq5ZXHtMjsE0/7eV
+ AkW7ix5czGVHop96QPnKwjREam7sb0FcFaRGjR0hs1AAnQEl9DTq2+UFZCj1ikMy4Tz43KRS9qX
+ 1h+GdCJIlctY0Ge/7SF9+07et3J/2sH3lE8vQRMoPP7wQLB6dXuGbrbv3LYHmXIW55nZY4c/viA
+ e5eM4ibjmSZMZCeRZH7T8mDxi5aZTDC5KggxpX120TSlF/RpdsC0MXhtgxg5jA8HLusYvIWV/rm
+ BVTWqgIAxnOD2oZSKgE1THvUmZQ+tZ28aeVKEo+Ppv08GZva7gqjPTPTUeIzenyqwqaShfSAQSt
+ gsvvXrPntt6cLxx9mVFNvNrcEK7z0FVkpP6Eb6sJW3if8dSnHywjT0ORFxjzt2ppnmSPMM5oMKk
+ Su0Z/+5Gnc5ZeZY3CMt/hHdXJdRL4csf3nqLomgLjoJfIPBQLmB/xj8JEaO/So0odhbKv8K0x2n
+ 0u5N4D7tb2oUl/tf0At1LWLYbd6JgnKZ7nlfiL3OzD3xfYXgt7x8rmtMFDTO9rVbDdJuPI1Bsr4
+ /p2Q9nrsCVSI+sQ==
+X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
+ fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
 
-On Mon, 07 Sep 2026 16:51:01 +0200
-Esben Haabendal <esben@geanix.com> wrote:
-
-> The struct mma8452_data is central for this driver, and it makes sense to
-> have a description of the fields in it to make it easier to work with the
-> driver.
+> Add .npwm fill the  existing entries, use it in probe, and switch the loop
+> in meson_pwm_init_clocks_meson8b() and meson_pwm_init_channels_s4() to
+> chip->npwm. No functional change.
 > 
-> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> ---
->  drivers/iio/accel/mma8452.c | 16 ++++++++++++++++
->  1 file changed, 16 insertions(+)
-> 
-> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-> index c6af68d2a297..2c1b97b77bc1 100644
-> --- a/drivers/iio/accel/mma8452.c
-> +++ b/drivers/iio/accel/mma8452.c
-> @@ -104,6 +104,22 @@
->  
->  #define MMA8452_AUTO_SUSPEND_DELAY_MS		2000
->  
-> +/**
-> + * struct mma8452_data - IIO device private data structure
-> + * @client:			the I2C client object
-> + * @lock:			mutex for synchronziation of register
-> + *				read-modify-write and holding chip in STANDBY
-> + *				mode while writing to registers
+> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
+>
+> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
+> index 8c6bf3d49753..22cefc6d5dd0 100644
+> --- a/drivers/pwm/pwm-meson.c
+> +++ b/drivers/pwm/pwm-meson.c
+> @@ -113,6 +113,7 @@ struct meson_pwm_data {
+>  	int (*channels_init)(struct pwm_chip *chip);
 
-Perhaps add the word sequences after read-modify-write (that
-could be a personal preference though)?
+The commit message has a small typo ("Add .npwm fill the  existing entries" has
+a double space.
 
-> + * @orientation:		mounting matrix, flipped axis etc
-
-Missing period in etc., but that's a small enough nit :)
-
-> + * @chip_info:			chip specific data
-> + * @vdd_reg:			reference to VDD regulator
-> + * @vddio_reg:			reference to VDDIO regulator
-> + * @buffer:			triggered buffer
-> + * @sleep_val:			time in ms to sleep while waiting for drdy
-> + * @ctrl_reg1:			CTRL_REG1 register shadow value
-> + * @data_cfg:			DATA_CFG register shadow value
-> + * @open_drain:			true for irq pin in open-drain mode
-> + */
->  struct mma8452_data {
->  	struct i2c_client *client;
->  	struct mutex lock;
-> 
-
-Either way, with those added in a new version or fixed up
-by Jonathan,
-
-Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
+beside that:
+Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
 
 -- 
-Kind regards,
-Joshua Crofts
+Alexandre Mergnat <amergnat@baylibre.com>
