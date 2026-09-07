@@ -1,108 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAE143DA2C
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:29:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D62844AB8A
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776998; cv=none; b=ELFR0Bq2yoLJS6lGWpiCDWGOcQJcwLy/GmvEeXh8cE/o/PKDOuMQs94hV0EqR2aQv4yRDV7FHnGIhbdEaKHd6OA2WtrQdwb7EdQ1mvVQsjHNPkLrBla6Ahx5WUqwvEbyeZwyExFxNWs+LHx2QbPz+5lB5qqMdD6D6p2gPJTRpdg=
+	t=1788777062; cv=none; b=fHLQJr8qce3pnsgksOVPJtUUydkIWIJiQDTKQ5YPNnolw2Zpiva4A7Oi8XqctofhzriIPO85xKULNcL+Pg9cOZXnRyKfpo5FmUL7wvSl9KQCKsUrhRcoXtaL+k2T0dzUwFrz5kIxb6ML8ZvK1GALZFlEmFhJ0cJ0ULW3CdtdKNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776998; c=relaxed/simple;
-	bh=YDCqjQk9qB9v81bFPApczlddbInFKKXvmcZ6WWRzTcg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tCG1I/BLEgku9S0nL/BovljKC++DWVmB8wIXMLx8rT6EUTq/uq5d8hcSiF6OkhEY0oZRwF24zfEVgKwbjdlmuyvbY/0FMfiDF8KYn2fdcnmvwOyCWXHph2myV+v/wUCpomwHyo/9bX1O8h9i7Ijcf/oPQkiB49LbdwS1GGmj0aQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWRlkvrC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788777062; c=relaxed/simple;
+	bh=TmrWz6bOPjP96DJHHe05YDQ1Unf2iuG6IEzup5sn/bY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nCjJPUeNDrImCVdjAqHYlbOBWlcPDLHytTp1DDNffIQPIAw9XHJSVbHMbsWqOTVOmVfHjbHRPI1TwAsH04Xxoo6pYnQOfNI2oWgKjHU9sDsFBl1SJDoIAWD6HR8caT7oV9k/k93ul4jZ2VizTGdsSgoQbzVvmfVo2pt0SszlXTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MkpvtxPk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cGQmOK6u; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWRlkvrC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142B01F00A3A;
-	Mon,  7 Sep 2026 10:29:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788776995;
-	bh=ze1uk8PX0PcuF9tYa7BjGhbGCemPSb1N2EOynQinSxM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JWRlkvrCjBhV4fR5dZXVgPW+JTfwLcpHyRBrBX5QV9mY6Z2oGORCWFYq9zcGBwiwa
-	 /NDu/AJZI5H3yZTLJPRx9jbFkIjW6CkcCMdCQRMUX7VEh87iANN82FiFggwWpfDrhm
-	 Eu8zxbcGOxrF1Yg7O1B/FxW9sak8ivoo1tRDcVviyKvwIOzP0StkUAYGAraM4OtVWi
-	 Awj1SuRwSnuIve08UrGmQj8JPd8I8Tla+L2UzbHxQHTuwndmKX6sUcMtYIldJjSjFE
-	 t30VTmpkbs+UgQvHfl/ky66Z3J3HfOCDdeja5PWZzMoM64/Mc2lREj8m9BIXjay0mo
-	 iryV8MtOtQ01A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] iio: adc: ade9000: fix ADE9000 full-scale RMS and
- PCF codes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260907101623.8730-2-antoniu.miclaus@analog.com>
-References: <20260907101623.8730-1-antoniu.miclaus@analog.com>
- <20260907101623.8730-2-antoniu.miclaus@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 10:29:54 +0000
-Message-Id: <20260907102955.142B01F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MkpvtxPk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cGQmOK6u"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6879fvrk2502832
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 10:30:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=8MKYzD38ejq+QfCLrmAsGoMh
+	9k2OMHUy0zDkIWzsaUI=; b=MkpvtxPkSNLm0L6xLv7oq8exFlMxuY55+z81JB4F
+	YUNTYHSYkLaOENAyDw2RdHmKCGldRwY2efXjXPAEZk7aZ8myLk4bAOfw5X2lBtC8
+	s5Bl6HJH6nuG/YA5RLdJ5lHz7UCMCZaTneXLTzPTgDv7wkzRsdtzj5uRXVXgWag7
+	SL+NJMTPKrWJ/K/QcGhUDrVbaGsKVHEw50bh/2HQAHg3mWr6V8699HoaVymUDZRB
+	6g2wlAh6CbVCDJC5t87swBIdkXUj3jWN8lKHFfCDErUz/KkH6u9ZEWzj9GYAxIMT
+	W4oZ5XLk2r9SJ2bkPYmRgRBzlOg5WMFpD/CFkY4ED/5Zzw==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghtty073e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 10:30:58 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93494cce712so612342985a.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 03:30:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788777058; x=1789381858; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8MKYzD38ejq+QfCLrmAsGoMh9k2OMHUy0zDkIWzsaUI=;
+        b=cGQmOK6uKD+ecuq9btDIqTX8gQ+3Pdo7u2YKjiqSrFflYbkOclep4JVfn6a+W8sNJR
+         nzyekZuAMGLz79ZGfUatolrBoajEbDst2ohDN97HssqvY/AzhbmVJIKi3GO5wOALZuNR
+         tX/yULnMJ7XTK9eAuj0AGYcELRRX4T0c0a67/FKH9d4p7Wl8l9EznoXCBVptD2pgPnm0
+         V8mCNMB6y3lQ1gVQYbqMom79T7WPP+PW3ms0c8JRAaQrnGkVkYvLFZRDG0fFMGppbxmt
+         NxaYcyegTf8UG4iL8OMAe4egs6MOfa7kbmPZpNwJ4O7IXiZGP+BphgeDUa+kYzwOCA2p
+         A04w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788777058; x=1789381858;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8MKYzD38ejq+QfCLrmAsGoMh9k2OMHUy0zDkIWzsaUI=;
+        b=gC4qg3Zk9f16CgfFL68T/+lC9eDUQY8ABTw3gjV04FwqOkKup7Wsj7kWGl7KHjEnJy
+         JWuceRSVv8yWvN+0e172TBIUlzSt6YFWP/vmtNjXpIW7LTRkjCVZLsjVTlehq8yGy24I
+         By9ImKocKYhLckyQC6Nf6T21FAkqiHNqNNvmEw2/f07WP0pL+UFDkj7AhEPhIdBLP0nJ
+         jFQIXabRrEA8tUiCbMigpI9rki6ZtMuDv1F9ZFrDGFLTF2g2wp4MN3whgcnJCkW9WRC/
+         HPwVUJnVjxQH1tdxWqxgRFMGy6fuH0abFedd+QQ73ISDDyxFUTANLxqWyEW5+m8glK70
+         lcuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzszwNpDmdzdNDIyQAt/b/CcUsM19GJCCEiBIiTqS9cUIQq2byOLzKdKwyXZbJnFcZkKaIcKooZTMi4@vger.kernel.org
+X-Gm-Message-State: AFuF++mwcDIFp/plvsk4qY4YmdWAS4/yc658gAgr4eVtd0hurrMWOz2a
+	aM7qx52RV9/B/AYyaHQl6flaMKXAXT76fFbNFI7ymb5JbDUWCJ8YLHfTAedLITC8RnBDEzZ0IVZ
+	9qxJe06iNcqCtH757GyJYPAsCsU07ssGTgGFyCVKM+Uvf+MUPbNa/l4LBBco+RhF4
+X-Gm-Gg: AYBFou2ofrUvo0nDmBFdQy8ycyTDaYKNi7ClX7a+EXpsh+QhxIXeMKhPKEZSbD1lAcM
+	KfZZa3lWF4qyskkOpyi3hjDaVSnsNQqnr1pdW6IgmTF++qPHutGPz/TSIkvHOKvGnhI4zhRu3vu
+	VQOvjLA9L5UefRi2o/AjbJgYR7BSXNBDPfkbwD33g4K8K1NCQ6PzDefLAqR3sM9wC6cAUpYOxfN
+	YON7HqytmCzDsrcqhpCVTvIIJWxs0FVtUo3IserAxKOiDQ+vA0zaa1pOT+ErWLy+VobAmNzthNH
+	zXrC6s8rDYTpjK5naLwn/jthCop7wfvSDVZJ4m5yh0LT7bL3Y2iyHl05+CgLWTWTQhxTFbOxTdk
+	xKR6tVfvIyPPP
+X-Received: by 2002:a05:620a:1b8a:b0:939:ac74:1bbf with SMTP id af79cd13be357-939ac741dfdmr430147385a.4.1788777057585;
+        Mon, 07 Sep 2026 03:30:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:1b8a:b0:939:ac74:1bbf with SMTP id af79cd13be357-939ac741dfdmr430141385a.4.1788777057034;
+        Mon, 07 Sep 2026 03:30:57 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75cd8d0sm278699115e9.2.2026.09.07.03.30.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 03:30:55 -0700 (PDT)
+Date: Mon, 7 Sep 2026 13:30:53 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+        Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/3] clk: qcom: clk-alpha-pll: support a 28-bit ALPHA_VAL
+ width
+Message-ID: <r6qvtedkounw2yvbzopjeoqqvz3shlffzmrmizobokfgpkkblj@p5fpetc65kv6>
+References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
+ <20260907-nords_dprx-v1-1-d472af3f01b1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-nords_dprx-v1-1-d472af3f01b1@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=QNBYgALL c=1 sm=1 tr=0 ts=6a9e9262 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=q7XEBjOi5DRkXzmV0jSBjQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=q38Eq4LkVyZCF8x0k14A:9 a=CjuIK1q_8ugA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: ZrD87xD3_pgjqrq_Sx7b3c8fN3CSibyv
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDExNCBTYWx0ZWRfX3xy73rgslJSK
+ W79oRndqt1/dZXLW74aSkiOo9vE8u30CTcBZu9Xw4LfJSQXMqmrUZBI+6aWaMx22CEAENevD2v6
+ 8E3Xc00UexChti7TX9ep08wFiMkPRME=
+X-Proofpoint-GUID: ZrD87xD3_pgjqrq_Sx7b3c8fN3CSibyv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDExNCBTYWx0ZWRfX8uXdNhnWIpt/
+ Z7UytdeLk27z3UaNZoPNhi/xby95s3OTCmKKHYsHobkRclJnELE0PEPzmLQuEi90YroTi/LN67F
+ zIwKhZbbDfS9pYKuZAKDGr/MCjydZlMiFLiGlmcsCPW81B0j1EMeJSpGBuhRHwlCuIfTQ77PV3I
+ frEqS58gxRxa++TNY/y73n+QTc5qJths4sd+zW17IFKNE5RBVUsc9mzRdelcyjEKsEFIfOv0ojP
+ bgttdRKDELd/0r8tPoxuTdJYOvxj8MoCwFVab3pJhtIH4QT9mQ1Md17CC9G675CAOI1P3xrMNQw
+ h6LNPr8bXOS4i825dlFeSb8u0cum+2wpEGRO2e8BOMMIZwv2nDkovz0UZUh1P4UMYEOwCgwqlE0
+ MhOW0p28rh106F7zNG3MugdqFiLNd7TGNTrFrPRIUWjAUy8Wk++i2L6ggof6Q7OBKljAT/9LZ5a
+ xLhWRlIhesq8tTH+gnA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 suspectscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 clxscore=1015 bulkscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070114
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 26-09-07 13:56:13, Taniya Das wrote:
+> On some PLLs the PLL_ALPHA_VAL register has been increased to 28 bits to
+> carry the fractional word at a finer resolution, for example the
+> ZONDA_OLE instances on the Qualcomm Nord DPRX. The alpha-PLL core,
+> however, derives the ALPHA_VAL width solely from the register-map layout
+> and can only express 16 or 40 bits, so it programs and reads back the
+> 28-bit configuration at the wrong scale on both the set_rate/slew and
+> recalc_rate paths, making the PLL lock to and report the wrong rate.
+> 
+> Add a way to identify the wider register: an optional alpha_width field
+> in struct clk_alpha_pll that, when non-zero, supersedes the
+> register-derived width. This feeds pll_alpha_width(), so the recalc_rate
+> and round_rate math scale the fractional word correctly, and the Zonda
+> set_rate L-adjust MSB check is derived from the active width instead of
+> a hardcoded BIT(15). PLLs that leave the field zero retain the previous
+> behaviour.
+> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 
-Pre-existing issues:
-- [High] The driver defines `ADE9000_ST1_CROSSING_DEPTH` as 25, which limit=
-s the bitmap iteration in the IRQ handler, causing `ADE9000_ST1_DIPC_BIT` (=
-bit index 25) to be silently ignored and never cleared.
---
-
-commit 656c536a824cd57c69e995fb40cb1db36bf309ee
-Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
-
-iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
-
-The ADE9000 chip_info uses full-scale codes that do not match the datasheet.
-This commit corrects the RMS and PCF full-scale codes to the values from the
-ADE9000 datasheet, fixing a 0.3% reading error on the affected channels.
-
-> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
-> index fd1362a980523..0f64bfb221da0 100644
-> --- a/drivers/iio/adc/ade9000.c
-> +++ b/drivers/iio/adc/ade9000.c
-> @@ -677,9 +677,9 @@ static const struct ade9000_chip_info ade9000_chip_in=
-fo =3D {
->  	.name =3D "ade9000",
->  	.channels =3D ade9000_channels,
->  	.num_channels =3D ARRAY_SIZE(ade9000_channels),
-> -	.rms_full_scale_codes =3D 52866837,
-> +	.rms_full_scale_codes =3D 52702092,
->  	.watt_full_scale_codes =3D 20694066,
-> -	.pcf_full_scale_codes =3D 74770000,
-> +	.pcf_full_scale_codes =3D 74532013,
->  };
-
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential problem in
-ade9000_irq1_thread() with how it handles the interrupts bitmap:
-
-drivers/iio/adc/ade9000.c:ade9000_irq1_thread() {
-...
-	bitmap_from_arr32(interrupt_bits, &interrupts, ADE9000_ST1_CROSSING_DEPTH);
-	for_each_set_bit_from(bit, interrupt_bits,
-			      ADE9000_ST1_CROSSING_DEPTH) {
-...
-}
-
-Since ADE9000_ST1_CROSSING_DEPTH is defined as 25, will this restrict the l=
-oop
-bounds to bits 0-24, causing bit 25 (ADE9000_ST1_DIPC_BIT) to be completely
-ignored?
-
-If userspace enables the DIPC event and the threshold condition is met, bit=
- 25
-would be set in ADE9000_REG_STATUS1 asserting the IRQ. Because the handler
-skips bit 25, the interrupt status bit is never cleared. Would this result =
-in
-an interrupt storm since the hardware register uses write-1-to-clear logic?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907101623.8730=
--1-antoniu.miclaus@analog.com?part=3D1
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
