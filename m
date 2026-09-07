@@ -1,181 +1,225 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49074493622
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:04:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 355D745D188
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:04:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788782653; cv=none; b=nRMV97EVnO5hVTrYomeuVe9v2bTs4v0Cz0JUsOqKMiaXmdmzXT6q7nZzAA72QK7DJECS0PVwIHbeQLIK+bOZ8oD4DNgkrldO35pEVNy0O/cgLlkllfNsCrSZD4f2SyqJhMNG9GL+UE1DFSooocvUq/j/ULkxLy1RTpKERcUh4Hg=
+	t=1788782697; cv=none; b=GGfQ0QrcduSSPLXouqiMyRyY+mKNWcqvPErEr4Ma+8E96KwVOXPWldgrirvyUY9DwHR+BasmHAq/AcsLPLannJM75rrnUd3W2T4gi8tt3GwbcPTsUYbFfDnq+gcefaXD+dDrKyfVPn/NJcZOFGe5FTVlNiToqjOz7I876bGYw9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788782653; c=relaxed/simple;
-	bh=LryhUbfCI6kkeuVSJtTA8hln198JB6Pb8SSyu1QSOWQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uMagO4abV6jDEhPCGMKQ+7HsXPRxsUS7waRWarMj+Y0EC9o9XMwLCQJRap59oh9f2ZHYlWxuI82QN6tw9AeHhZ7aZlXsLGJXUoONlhYUlSv4ACvkbXkUiMK/yAwhCO1gycRJejVa+aFbB9TAg+idBp6h4pvugq9LcQc37ynoYm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=beKKEdg6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KDr7qVap; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788782697; c=relaxed/simple;
+	bh=ad08DuDaSO1yVoT98fF9udpchlg5EnxBlUn+Ke17SOs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bQUFEWA7IsAkNTLi26vjMBDJRC/X14w2exiWvQdS/K4+Hae+CdC6xEd4HeZgSz04n4gKS1o+Tl8oc8IJgGGLeqWG58FfTzgLzXw2ft+X5mStQrObSIhs6qA+Ll9uRXZEYFZIPgQklHZYuqhmI38i9nnreFdCVo3Fap6Q2nu6raA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jD36vBjJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="beKKEdg6";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KDr7qVap"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687Amx3i3873266
-	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 12:04:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	82ofEcO83bQPd7jzXkJADlMmqIZYW+XTMWLKfngPHuU=; b=beKKEdg6vwhQqE3T
-	7+WIzyyD4sT1MZMEitYBIcphABb0e5kf0yMdCxKwwXkyZUuQ3UAc9hXL03B59XgP
-	rirRAMSIjdR4w/SOcYqYgP77tMkQBJQ0G7SkX/8aVSJ9mHk8p91xd4uyVYu+gLyS
-	5wZv8SHqm2EsjZvH/iMVZGl/lPeWRSjDGQ6owi4TdVXg0l4ov/3CtMAGpYle6vdx
-	EN3YQpzTkAfX5XJZHs0Y1WYZQzNOVvzQ1d2s4wyifx+qWq1CHEuvVKbjo8szUoT5
-	6hMhLM7UibE0w02lP0HPLtAUniqsQIATjiJCHjNikG3PwlyzoPj1WZqilG9xnHY3
-	jEzIjg==
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com [209.85.161.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghnmj1wd9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 12:04:09 +0000 (GMT)
-Received: by mail-oo1-f72.google.com with SMTP id 006d021491bc7-6bc3374cb0cso26907eaf.1
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 05:04:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788782649; x=1789387449; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=82ofEcO83bQPd7jzXkJADlMmqIZYW+XTMWLKfngPHuU=;
-        b=KDr7qVapS07j5kzz6lGsexYxf09zbAF2itfYFJVCWMH7gzfJswG4wgOkWJvOigTUjU
-         OtAoWUqy/6C/pKFkc2WWvi9BB5xdif8ceVQ9iqRUkxOJ4oKrnryCdImQMPwfzEQE8Zl/
-         /zf+y0hDv5Ym81k1FRvbMyWlLl6Py9zlHHBKmLJC/AGPHdpZohF7/NIti7WPTcdnXYev
-         osfDOt/5yWoZKGoO7/TJP3kQmHhhHxSRjs2+TvDWpgroMCc0CsdH8KhzggiPebIn6m3Z
-         t3E3zvlwy7UF5cOV/Je/0xR1eDxcwaCM8rbKTOlXpocXwV827v4KzzHNO/C9Er+A2K8q
-         3RnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788782649; x=1789387449;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=82ofEcO83bQPd7jzXkJADlMmqIZYW+XTMWLKfngPHuU=;
-        b=DhapcXCtupqC8ufrqENUZEQzQBi1JkGBzy/SjDuI5Qs/IYNHmVQ4/zC70/omX6iE/n
-         QNzHiXj+j+J2qbpeFft2+89FpAO5rIsCRa+WSsncNckbj7QdRUV7ZSJOWMuI7NZwwiOX
-         KA/R92fAjwLPQbbfd1iZjTNjdWejqk3gTOpFvPKe+9vWJAlIxtVqWhEYtx3GvLIMLAGs
-         Jmn3Z6/nXcn4fdEZal+bccnafnG/mghotfe3TqCY/+JhOTFDJp0G7N8wCqUXMKpFITv1
-         FjZyu4ZfPUQN1lev03AmxaYhjSfCffH7MpqOC5TdcTCh4k9usZ0guyCMO4+tt1A/CWZ6
-         VCYA==
-X-Forwarded-Encrypted: i=1; AKwUvBypAXIhYT6nlPIy8K+zfRfR1QHrIWmJ6gDYCTaNb7zFCuXNGzY6T2841R/0WfgW8xSAC/hghQH+HC3L@vger.kernel.org
-X-Gm-Message-State: AFuF++k195WIc/a2M4V8o7RNFNn1+UP/bRT1bJ0qwBCmTdKbv8i8B+SF
-	dgzsiTnwrshXEjzFUCIenu+As9o8CgvnhwDWpKY6JX51rEeWm/BCyTz44viSDZoOutgnB3DaBbm
-	GXBSJNgJPMLsHSHmvoz1yMQWe286um/tU1xKgehialhk3VplwMhSSzp4+zhP1PXtF1HbAAQt2
-X-Gm-Gg: AYBFou0r1zsFAY50055YEF1kNHWZoiyAvcbU4eh5EYj7WoT+jl/u/IqXP+BpxqhafCD
-	HuKtfjXhleNwbg2l9N4aMj88Zyqyn19y2VFoj0kcnD6IXE4V3N9mM1fbtRhWXZ1C63apTRwymZI
-	/cBobTzZ2U/cq/Pl59P7DWwQWdbAyofIhpFmI3ss30SNFOM2G2VX9/zSOR1eS83usG8AHhLXTfu
-	SI4KCQ0V+9MbCl/0907et6F9qOAh2wfNIPDww6qDFBZlU/Oc0RxRrlwv9g6bbz+oOFKLN9PMTNi
-	/2QfTY1yDGyQryBTJcJ/qrBuXhHtn8t77JNUPtiqS+TF7+DihepKomPadAJ+H1pqbtA7ZqMqgJq
-	WOyNTuLl3sAt8hhQYHxf9mTR6NxOboJRHWg==
-X-Received: by 2002:a05:6820:217:b0:6b7:8396:f3d2 with SMTP id 006d021491bc7-6b78396f8a2mr10733575eaf.52.1788782648582;
-        Mon, 07 Sep 2026 05:04:08 -0700 (PDT)
-X-Received: by 2002:a05:6820:217:b0:6b7:8396:f3d2 with SMTP id 006d021491bc7-6b78396f8a2mr10733525eaf.52.1788782648095;
-        Mon, 07 Sep 2026 05:04:08 -0700 (PDT)
-Received: from hu-kuldsing-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333959d5f69sm26345960eec.0.2026.09.07.05.04.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 05:04:07 -0700 (PDT)
-From: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 17:33:37 +0530
-Subject: [PATCH v6 2/2] arm64: dts: qcom: shikra: Correct QCE node
- configuration
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jD36vBjJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D4801F00A3A;
+	Mon,  7 Sep 2026 12:04:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788782695;
+	bh=9FNgktMsI7L54qOw0ELGSGQm8VP08SAZw59F1jT7zTM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jD36vBjJtmNPjfDyLvSN7s1xK1Das79V6E/4HpBq8tOgeY0Hi7UFjWWTvXqgjlz3J
+	 X3ijd3/OyEpdekweLP+EEMzpBxZGpKuLbeWJx/x6j4AXbSm4P3JZVzh5Uu63iStvPx
+	 bWpXmtttV5mHkIzURbhEIqeiZe4gb05X2wqicRCjOs2X+3vT28doGZLt0KHPriC06k
+	 EQdRNyWYG9q4Gc4Z65q5roGtHNoU7GGTfcNgB2cUkxy2KufNi7amIrZb7yBkcASB07
+	 uuUrnveGeanKQLoy1VSOe+MbbKt34CB6mwmyOsLHd/g0Zv+ORjQJqYgNXaO0HJERO9
+	 66AmEnW0Rcfvw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 4/4] iio: light: veml6031x00: add support for events
+ and trigger
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907-veml6031x00-v9-4-8c93a6c66a4d@gmail.com>
+References: <20260907-veml6031x00-v9-0-8c93a6c66a4d@gmail.com>
+ <20260907-veml6031x00-v9-4-8c93a6c66a4d@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 12:04:54 +0000
+Message-Id: <20260907120455.7D4801F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-b4-shikra_crypto_changse-v6-2-0676f61894b3@oss.qualcomm.com>
-References: <20260907-b4-shikra_crypto_changse-v6-0-0676f61894b3@oss.qualcomm.com>
-In-Reply-To: <20260907-b4-shikra_crypto_changse-v6-0-0676f61894b3@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEzMyBTYWx0ZWRfX+xyRB0h5IZtY
- h+GYbhBeGtxlyIMRchMKxwC+229MV9YVaU0hMHZhqSDcq7SageN/G1W53Gqq7zBjNHBag8TUmxz
- FguvlS8qw9oyvlipt0wMJ6b8excPT0WF5tUf+Mn/YWG9+yfdxp4MM008Jz2kKctmz6ObsMeWIIv
- hseYydC6yNVNVcpanvpx3dcpS6Uv7xgoZkrwfPUSxX6X1oaBQKSbQCsu2mJSiXemVCst7HRs+qd
- QJ1PllXsMAZdoktPh3YLiAyW/Wgr8B15JCB+gY0ZS9QY1YkHvaf0jg5z0PUe/yHZLjrGkXBqOK4
- IJ0PpBEuyO5TgdVWWb1KrNELGdMMe798crQRslgCMDnKSeZx3BJvJGOoyEKsWPJ31RL2ARsAob6
- MKldJLdRT0ISZCCqPIEzPOUIkAihY0rQfORo8h/zeKnSevNpkAZUHUtoFOq3fL/lqqWOUfS4FIG
- K2B5f4niy6ED4hXWuTA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEzMyBTYWx0ZWRfX7HGOTibyyIl+
- VvRkC7ZPBUAXlZXYARfhYqg1DMZU6y2uFZDZZwSWYMvof5pTbe3oo/nl0jOekxUeyyT7Vr9FDQs
- r4V+8YVXKUqBF8SL/b2QgR9sMF6b/SE=
-X-Proofpoint-ORIG-GUID: frr4tXJvn6rz21hDUL_qN_WgJDwfaWd-
-X-Proofpoint-GUID: frr4tXJvn6rz21hDUL_qN_WgJDwfaWd-
-X-Authority-Analysis: v=2.4 cv=LZYMLDfi c=1 sm=1 tr=0 ts=6a9ea839 cx=c_pps
- a=wURt19dY5n+H4uQbQt9s7g==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=Oj_9Y9B9b6gWBUhzqToA:9 a=QEXdDO2ut3YA:10
- a=-UhsvdU3ccFDOXFxFb4l:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070133
 
-Shikra is derived from Agatti and uses the same QCE integration.
-Update the QCE node to match the underlying hardware implementation by
-adjusting the fallback compatible and related properties, including
-clocks and clock-names.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Device left in Active Force (AF) mode causes stale data in single_=
+read
+- [Medium] Spurious I2C read from device configuration register caused by i=
+terating over the timestamp channel
+- [Medium] Software state machine desynchronization leaks interrupt user re=
+ference on rollback failure
+--
 
-Signed-off-by: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/shikra.dtsi | 9 +++++----
- 1 file changed, 5 insertions(+), 4 deletions(-)
+commit 20d504b87ca25179c583e1df1a78eee06d4b1837
+Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-index c1f06f692f66..30c7cabc058a 100644
---- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-+++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-@@ -1075,10 +1075,12 @@ cryptobam: dma-controller@1b04000 {
- 			qcom,controlled-remotely;
- 			num-channels = <16>;
- 			qcom,num-ees = <4>;
-+			clocks = <&rpmcc RPM_SMD_CE1_CLK>;
-+			clock-names = "bam_clk";
- 		};
- 
- 		crypto: crypto@1b3a000 {
--			compatible = "qcom,shikra-qce", "qcom,sm8150-qce", "qcom,qce";
-+			compatible = "qcom,shikra-qce", "qcom,ipq4019-qce", "qcom,qce";
- 			reg = <0x0 0x01b3a000 0x0 0x6000>;
- 			dmas = <&cryptobam 4>, <&cryptobam 5>;
- 			dma-names = "rx", "tx";
-@@ -1089,9 +1091,8 @@ crypto: crypto@1b3a000 {
- 				 <&apps_smmu 0x96 0x0011>,
- 				 <&apps_smmu 0x98 0x0001>,
- 				 <&apps_smmu 0x9f 0x0>;
--			interconnects = <&system_noc MASTER_CRYPTO_CORE0 0
--					 &mc_virt SLAVE_EBI_CH0 0>;
--			interconnect-names = "memory";
-+			clocks = <&rpmcc RPM_SMD_CE1_CLK>;
-+			clock-names = "core";
- 		};
- 
- 		qfprom: efuse@1b44000 {
+iio: light: veml6031x00: add support for events and trigger
 
--- 
-2.34.1
+The device provides a shared interrupt line to notify events and
+data ready.
 
+> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031=
+x00.c
+> index 3d5a27a0baaed..110f59625a5b1 100644
+> --- a/drivers/iio/light/veml6031x00.c
+> +++ b/drivers/iio/light/veml6031x00.c
+[ ... ]
+> @@ -551,11 +976,83 @@ static int veml6031x00_buffer_postdisable(struct ii=
+o_dev *iio)
+>  	return 0;
+>  }
+> =20
+> +static int __veml6031x00_set_trigger_state(struct veml6031x00_data *data=
+, bool state)
+> +	__must_hold(&data->irq_lock)
+> +{
+> +	int ret;
+> +
+> +	lockdep_assert_held(&data->irq_lock);
+> +
+> +	ret =3D veml6031x00_set_interrupt(data, state);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* The AF bit must be updated before updating AF_TRIG */
+> +	ret =3D regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				 VEML6031X00_CONF0_AF, state);
+> +	if (ret)
+> +		goto clear_interrupt;
+> +
+> +	ret =3D regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				 VEML6031X00_CONF0_AF_TRIG, state);
+> +	if (ret) {
+> +		regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				   VEML6031X00_CONF0_AF, !state);
+> +		goto clear_interrupt;
+> +	}
+> +
+> +	data->trig_en =3D state;
+> +
+> +	return 0;
+> +
+> +clear_interrupt:
+> +	veml6031x00_set_interrupt(data, !state);
+
+[Severity: Medium]
+Does this rollback path cause a state desynchronization if the I2C write in
+veml6031x00_set_interrupt() fails?
+
+If the rollback fails, interrupt_users is incremented back to match the
+hardware state, but trig_en remains false. This leaves the software counter
+orphaned relative to trig_en, which can permanently prevent the driver from
+disabling the hardware interrupt in the future.
+
+Can we handle this failure so the interrupt_users count stays synchronized?
+
+> +
+> +	return ret;
+> +}
+[ ... ]
+> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf =3D p;
+> +	struct iio_dev *iio =3D pf->indio_dev;
+> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	struct regmap *map =3D data->regmap;
+> +	IIO_DECLARE_BUFFER_WITH_TS(__le16, scan, 2) =3D { };
+> +	unsigned int i;
+> +	int ch, ret;
+> +
+> +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
+> +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
+> +		ret =3D regmap_bulk_read(map, VEML6031X00_REG_ALS_L,
+> +				       scan, 2 * sizeof(*scan));
+> +		if (ret)
+> +			goto done;
+> +	} else {
+> +		i =3D 0;
+> +		iio_for_each_active_channel(iio, ch) {
+> +			ret =3D regmap_bulk_read(map, iio->channels[ch].address,
+> +					       &scan[i++], sizeof(*scan));
+
+[Severity: Medium]
+Does this loop read from the configuration register by mistake if the
+timestamp channel is enabled alongside a single data channel?
+
+The iio_for_each_active_channel() loop processes the timestamp channel, but
+its .address is uninitialized (0). This causes a spurious I2C read from
+address 0x00 (CONF0), writing the config register contents into the timesta=
+mp
+padding of the scan buffer.
+
+Could we skip the timestamp channel or check the address before reading?
+
+> +			if (ret)
+> +				goto done;
+> +		}
+> +	}
+> +
+> +	iio_push_to_buffers_with_ts(iio, scan, sizeof(scan), pf->timestamp);
+> +
+> +done:
+> +	iio_trigger_notify_done(iio->trig);
+> +
+> +	return IRQ_HANDLED;
+> +}
+[ ... ]
+> +static int veml6031x00_hw_init(struct veml6031x00_data *data)
+> +{
+> +	struct regmap *map =3D data->regmap;
+> +	struct device *dev =3D regmap_get_device(map);
+> +	unsigned int val;
+> +	__le16 regval;
+> +	int ret;
+> +
+> +	regval =3D 0;
+> +	ret =3D regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(re=
+gval));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
+> +
+> +	regval =3D cpu_to_le16(U16_MAX);
+> +	ret =3D regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(re=
+gval));
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
+> +
+> +	ret =3D regmap_field_write(data->rf.int_en, 0);
+
+[Severity: High]
+Does this initialization sequence leave the device stuck in Active Force (A=
+F)
+mode?
+
+If the driver is unloaded after using triggered buffers (which sets the AF =
+bit
+to 1) and then reloaded, or if a warm reboot occurs with an always-on
+regulator, the hardware retains AF=3D1. Because veml6031x00_hw_init() does =
+not
+explicitly reset the VEML6031X00_CONF0_AF bit to 0, the device remains in
+Active Force mode.
+
+Subsequent calls to veml6031x00_single_read() do not assert the AF_TRIG bit,
+causing the sensor to never execute a new conversion and indefinitely return
+stale data.
+
+Should we explicitly reset the AF bit during hardware initialization?
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D regmap_read(map, VEML6031X00_REG_INT, &val);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
+> +
+> +	return 0;
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-veml6031x0=
+0-v9-0-8c93a6c66a4d@gmail.com?part=3D4
