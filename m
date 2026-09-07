@@ -1,102 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f0.google.com (mail-oa2-f0.google.com [74.125.231.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 056F9372058
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:55:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0910125B082
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 06:01:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788760514; cv=none; b=fUpd3pRW5mxAj0259fSO1gFVtUOsKsnsZ7pgemxrSWJsdhwm10HgVxwaT27DITlaJev+bZYixUHeO5OaI/eod5YgxI2Fdltn8MBx2Jpemg42F0Mxm2OTDgZmVuMPtwRzHR8RIevBJgDgOc2t4BGOKhqo/dkI6wcSJma2+CFYtzw=
+	t=1788760904; cv=none; b=gIkdfEMKcrks4nt+cM/bNoNryV9FIG5AffFu4dZf1bJ3Wk4ebRorvFKhW3Tm2NIzEyZH3PpclDb2rEJUIOPDunsyqcc92Yp+qfJfk6xcMSLRq19E46eMJgJFYeAMZ140NIZiAsppPzALlOno4CXTVEDvO4qTM3KCRaMemuafAvI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788760514; c=relaxed/simple;
-	bh=G5LOsLzU8NwZodD8f69eI7AYqWWm3Lko0Mvs5n201BQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZgGVwSYXdvw5KDvvXy7W/4J9N7asrRWZO/lcOeLV2kM5LzYM/IKDDNRmCnL8oMmRr8impSigoSNIntuq7bbcxY/kNbAG0+qUcNOYuIY5fkyrOiWJblgaamkDf03f8h1Y031GjlRG6dZ9AAfDLp+4PK7O2+D6wuy0cF5T21OckKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzEixJz8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788760904; c=relaxed/simple;
+	bh=nb7e40O2vHkCkRzIEYHaNAAJYNdeSoerKZswLkgEi18=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VC4o7nrvddbKK206wBiWqWNvfgEFqFXbiVC6wGfZMWzImR72P+zmX3NkZ52b3ySmZJUnM7qL0EFF4EkprPNRSHz0KyjlQsx+AiyWKaKbSYIfXNXAT3R6NWnJuzeeWaLEfKNZy4Krv96nrUtC1gH1iZFl4oG9siMxM5W55XDmRXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1sSX41r; arc=none smtp.client-ip=74.125.231.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzEixJz8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 443A81F00A3A;
-	Mon,  7 Sep 2026 05:55:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788760512;
-	bh=VoD+zTSjj+5lgsAaj7x7riGjPxMWGRVdGYln20YUs5Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gzEixJz8mZdzZdN+YA5G+WSa56aGyLDYMkqz3oY3cNjEiH8d3bau++LDfXg0MMIJb
-	 xAp8YSFZjvMTwdzRCZaBNuFq1++zYA8jTBwUMYGYxNlkyoE+OkVa+ru91I3N+YgPRk
-	 MEsBhaBMfP362Z4g9Hk5GGg4jE9BpLjMClqj1KrumEiuXlHErP5FFq1ivKpB43ZIxT
-	 mrea27Apg4WrIdtbp5yPsU0StLxkRzvD+ivpvqLVxovicXbeWWodcUhSn9TijrsPEc
-	 4pzM7TJsiojTtUIlBmRhUzG5f4e9/9z8+s4XZmwf8SSIl6aMkhBFoWpZ1uybzzaqq6
-	 a5Z2fq1VdUzWg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: regulator: rpi-panel-v2: Add
- required vcc-supply property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shashank Maurya" <shashank.maurya@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907-rpi_reg-v2-1-0c59aa60d31f@oss.qualcomm.com>
-References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
- <20260907-rpi_reg-v2-1-0c59aa60d31f@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 05:55:11 +0000
-Message-Id: <20260907055512.443A81F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1sSX41r"
+Received: by mail-oa2-f0.google.com with SMTP id 586e51a60fabf-44cdbcd53b8so458452fac.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 23:01:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788760902; x=1789365702; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
+        b=h1sSX41rKMV9vKkIZ1d/y31k6vLrwySgR2ZHIyyMPh+jyeRR2jaUA4Dw0S1YE8huDW
+         DGPdVm39mnxNfD31ZSwQu8foI3L3zobMsLx6WP8EQA3++lYe6UNqZplFPkYbYQ3hC75l
+         W9AmCnvtsq7qFxbO2lwZJjCFg2JjKByRx/L+iY2SfMmmRTONbWB9sC5mOKxvYGQnkfTy
+         0CKpebQNiCj9+9RdY6quqiin9YS4z0vpYNAtJGfU2btLDX8OjY1gE1Iqu8PMROB4aYWD
+         pb3INR/RlRLMRrIjWomGGjBYFQtb6xKVZuJBdA6ik3WKjUjaRmHLZDQuL8nnKPnp+NQq
+         YReQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788760902; x=1789365702;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oXRC1vJzIXUhQWExc4MItt9EZDnsCd9kQ4t3XgfcoB0=;
+        b=Tf5VObbYItpfLoAn2e860MpvtTdX6b+fAlYow056i0sGPmccSpr55vytCq/Ab1viqG
+         Gr3pYRQMPz9zETOUm0gx6Na70nuPP5fjijitlfyUtt3MBYFqBO1TBvcWIjG0CbZRNr5A
+         2GidEjGtbTdPQWIUbUkucNt7oXjyyQuEQ0vCbpvJKxTqdMQgnfKIKx/P3LejF2zCoYCv
+         18inwmF0JcXBoISZ/7sNe8rkIX+JFW0xHU/QKEKBUsUcS1k+xe3rpQHv7SlmKBqIJBBP
+         k8BoN3RvmQvpgc7aCs4CnJhB8S7wvW5A2g7ht9vYiOtKTvDq9AQKgIncLycsgnFrlq21
+         Nd+A==
+X-Forwarded-Encrypted: i=1; AKwUvBz0g7dNzVdph17oxg0b+c0YR3sUXOzzMRarzCbeN5QFUkS5Qy7bCDpCeyXbnV0Roc5a5/KXUKfHOTJr@vger.kernel.org
+X-Gm-Message-State: AFuF++ks0uPOSUyHGzgtLYTpxyeFNaImMfuBgnLOow87zyKcvnseWAec
+	DjtI9fjNxIsWUcwx2GiNF9E9vJK5lk/oHoGAczLQnEY1SYcnhTrKtqq0
+X-Gm-Gg: AYBFou1hvnu6ZEoEFsVpOFZvA8rRYTt4BZynTRyiSSX7GKHY5Vz3gEebCzEYyVbF2K9
+	rovcEz2QX/bCWqyuxkh8S7IQ7QYobl1NxMJ3tid/uTOJvtZLr+qQlOwapJ/y9twhaA+QrMb4Xgc
+	1kRJOkEqi53L8Sc4A6UJg0WwUJn0pR/XoWdxVviSM+dycoaCuKgT7j0YA+nTZwBdpHsgUC9jDGu
+	Z3kAuFhlPD4+TFuB8Fz2+hPBnHixXFozYc9Sm6yvq7tc0TFRC31zOnTljnU1HOfxOdzg8+s0JdR
+	XWmdD2uVyuJ86KvDd3EipzX9q/9ulzbzPrQkUbGz5WrtVuP7TDH81PTvxFrh8eDrjHwmE7WaeNN
+	bHqu5NbUdE62WBDgdlMqedruSTU8ZuTMjX2mIl8wNoKR6vkb9U9WeimDe7vmmsTgc7s1pe+r0kJ
+	o1GSBLGQdYCvrzLiRs02h0d50rzNlsX7YYxiITPWVmAele2fROck5L2+DBEfjrxA==
+X-Received: by 2002:a05:6870:8127:b0:465:27b7:4009 with SMTP id 586e51a60fabf-47550f20db6mr13400608fac.4.1788760901877;
+        Sun, 06 Sep 2026 23:01:41 -0700 (PDT)
+Received: from ryan-dell ([2600:100b:b039:79f4:f7f:ccf7:cd6f:384])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4755493580fsm9761726fac.13.2026.09.06.23.01.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 23:01:40 -0700 (PDT)
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+To: Nickolay Goppen <setotau@mainlining.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alexey Minnekhanov <alexeymin@minlexx.ru>
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+Date: Mon,  7 Sep 2026 01:01:28 -0500
+Message-ID: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] Making `vcc-supply` a strictly required property breaks existi=
-ng in-tree device trees and ABI compatibility.
---
+Hi Nickolay,
 
-commit 1cfb28295a002af7450cc6c89daa817a9abfb4b0
-Author: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-dt-bindings: regulator: rpi-panel-v2: Add required vcc-supply property
+I sent a duplicate NT51021 driver on September 5th without finding
+yours from the 29th first. That was my mistake, and I have withdrawn
+mine. That's my bad, I'm new to kernel development :)
 
-This commit introduces a vcc-supply property to the Raspberry Pi 7"
-touchscreen panel V2 regulator binding. It specifies the regulator supplying
-power to the panel controller and marks it as a required property.
+Since I had the hardware set up, I tested your series on the device I
+am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
+1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
+works.
 
-> diff --git a/Documentation/devicetree/bindings/regulator/raspberrypi,7inc=
-h-touchscreen-panel-regulator-v2.yaml b/Documentation/devicetree/bindings/r=
-egulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-> index 37b9ed371b67d..a6195e53be16b 100644
-> --- a/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touch=
-screen-panel-regulator-v2.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touch=
-screen-panel-regulator-v2.yaml
-[ ... ]
-> @@ -43,6 +46,7 @@ required:
->    - gpio-controller
->    - "#gpio-cells"
->    - "#pwm-cells"
-> +  - vcc-supply
+Concretely, on that panel:
 
-[Severity: Critical]
-Does making this property strictly required introduce regressions for
-existing in-tree device trees?
+  - your 10.1" register sequence, timings and mode_flags, unmodified,
+    bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
+  - it also works with my vendor's own sequence and timings under your
+    driver, at 62.5 Hz / 980 Mbps
+  - verified across a cold boot, display off and on cycles and a
+    suspend/resume, with the MIPI TX PLL reading back at the intended
+    rate each time
 
-Looking at the current tree,
-arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2.dtsi
-uses this binding but does not define vcc-supply:
+So, for what it is worth on hardware you cannot test:
 
-arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-rpi-display-2.dtsi:
-	mcu: gpio@45 {
-		compatible =3D "raspberrypi,touchscreen-panel-regulator-v2";
-		reg =3D <0x45>;
-		gpio-controller;
-        ...
-	};
+Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
 
-Since vcc-supply is now unconditionally required, wouldn't builds
-incorporating this device tree now fail dtbs_check validation?=20
+Two things I checked that might save you answering them later:
 
-Could this be made optional to preserve ABI compatibility, or should the
-existing device tree nodes be updated in the same patch series to prevent
-breakages?
+  - The generic writes are right. Xiaomi's own panel dtsi uses dtype
+    0x29, and this panel accepts both generic and DCS short writes, so
+    nothing depends on the choice.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-rpi_reg-v2=
--0-0c59aa60d31f@oss.qualcomm.com?part=3D1
+  - prepare() never sending a set_display_on looked like an omission to
+    me at first, but the 0x01 software reset at the head of the init
+    restores it, and repeated off and on cycles pass. It may be worth a
+    comment, since unprepare() does send set_display_off and the
+    asymmetry invites the question.
+
+One question on the binding, which is as much about my patch as yours.
+Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+(dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
+
+    qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
+
+with no part number, and the register sequence in your driver matches
+that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+is inferred rather than read off the panel or a BOM, it may be worth
+saying so in the commit message, or naming the compatible after the
+board the way panel-novatek-nt36523.c does for
+xiaomi,elish-boe-nt36523.
+
+I ask because my module has no identity I can establish at all. It
+answers no DSI read, DCS or generic, before or after sleep-out; the
+vendor kernel and bootloader name it only "BOE", chosen from two board
+ID straps; and its vendor-declared physical height is arithmetically
+impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+naming mine after the board, and would rather not accidentally imply it
+is or is not your part.
+
+If it is useful, I have the Fire HD 10 panel ready as a variant on top
+of your series: two patches, binding and driver, adding
+amazon,suez-boe-nt51021. The only change it needs in your code is
+making mode_flags per variant. My vendor asks for sync-event video mode
+with a continuously running HS clock rather than burst, and your two
+panels keep exactly the flags they have now. Burst worked on my panel
+too, so this is about matching what the module is characterised for,
+not a fix.
+
+I will hold that until your v2, since Neil's renaming will touch every
+identifier it adds. Happy to test v2 on this hardware when you post it.
+
+Thanks for doing this first.
+
+Ryan
