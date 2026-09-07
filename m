@@ -1,224 +1,334 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95684D8D97;
-	Mon,  7 Sep 2026 13:01:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137444CC262
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:03:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786080; cv=none; b=RvcP5L6HD/5sAw+aJH41peoAoNpbvN+8JFGYE6jrR9jKPYu0SF5ckkOWe0p8NlX5AeSyIc+6F9Sv9KSWWUS52RhJ4bZMKUiHySlvx8QIymCi47NG6mq9vwzDbCl6o3H7XhY0AgPzf59toVFqqLvnHENlZRVT4ue8DfAn9gI8UDs=
+	t=1788786197; cv=none; b=ZmhkrHDYY8tPcIyZBaUKnPJH8+JaW72NdHUlkETLks/DHrQqH4Q3+JhHLNfq/02/vDfsrM6mk7tvylaxjAAB9uiHDH1WvCiA35Kg6i0lD0B/SQZg93m+HHcHKD/cmFpDx+gZCZ58QXlCP76z7YeRE6WzLp3PHvaIPzonLnFj7nI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786080; c=relaxed/simple;
-	bh=jG+DF0nd0wBkw7A7vMoguUP47Uwu6YTCNYtM17t+gIE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
-	 References:In-Reply-To; b=l79sZrzS5j2NiuQEO31QdoipxUZCInXg/t3zr6M0EA71KAPpfEkafkcAchTCs95LB3rWidgn10zFE0/ZEQ7N/RaSeVfolCmt+Vfz1cf4npwRAsOPg8WQ0Eu0pOlO6LJrRNILjQBf1Fb+cLKH0RgsxlVdNBRxWy8ljw+NBlG0Ti4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXXFAFrM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788786197; c=relaxed/simple;
+	bh=73jAnViu/1SeioaAgHXKmEaKDNd7BfCn+yxrO00hjUI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BXWyw9jNKD22fEYQgzKNZVT+GmcsH35TRwTryqx4K59QV2PSTbKJtkCy65BS+REhaMPOxwrrZhd5Pv4M7nfPdOgaVm939JIoHQ/sNukOesvYanVcz8dOzqZoTo9d8bD9tTkJhve0m27oJbAwX1L23fQBe1mTbs4/XtsDTi3l2d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l9XELI78; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HqhYZ5cd; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXXFAFrM"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 48E861F00A3E;
-	Mon,  7 Sep 2026 13:01:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788786060;
-	bh=F4VPyTZ54caW5/2FxinE0de1h566CHchl8PU7RTCzwc=;
-	h=Date:Subject:From:To:References:In-Reply-To;
-	b=lXXFAFrMyZ9iKDuZFZc+3TX/Lq9T58AIoBg9QtiliUStbSJuHnH3Yra7cawchxONc
-	 O4kY5HVIfpMwr47rs4xxpDXqtpktWvgbvzG4EIsoU/GCNyr7J73CNyhrDtAV65us3e
-	 6vnJLJoU64Q4Ig23QTnsF6BAXMStV4cs9FmR3Il80hrD0E5D6plOYUWP4HD3J3eW2V
-	 6fl7sYBKhBdbOOavIU70LSIsaH1ublZBgOzdQ4JXqcVhooea+IZpPurqWGh/7o/xk6
-	 lEeOONnJcPoDBjBzw8ZJJQN8Q3jHPuEhOyes4E8fnutATQMJIaQdC3MzBx56TKDb1Z
-	 i3IYSINXbNXRw==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l9XELI78";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HqhYZ5cd"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687AnOJN3777603
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 13:03:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	zVF75xZvVYhZe9KWDOZ1dIGPa2bo7QkSIlRemr9XaoM=; b=l9XELI78Lu7Ml3M6
+	aLbEdmBGjIGb3yrty8qO6inHnl1f4WLwg3gnI+TE7VG8By4uED5ObHVPh4jbUv7d
+	axex2xPpr2U2j30fPBmtLVyaFwP160bVD3tqEbH8kjQDGfSK/4EfaaWjXEQXpsEu
+	nwGecrR58j3KkMRcWAaBfnYA045sciTQ/ZYUmtRDm5lU58xyF4aojnOz1jJ3kkj+
+	/o/pEqHrQvpLNfS17YvoTdRQFxn650ClHI/G//UlFTa3H29L0rcxUoLIveCfU0Ek
+	0uM74qwSItmJhkSNimAf7GB7m6T3GmeEUN/apOmW3Xhw+/2jiRAF0In5u7p16wEx
+	XMyfgg==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsfyh621-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 13:03:03 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c66c4fd901so4247836e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 06:03:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788786183; x=1789390983; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zVF75xZvVYhZe9KWDOZ1dIGPa2bo7QkSIlRemr9XaoM=;
+        b=HqhYZ5cdVhZckbUiMEs2+zJ5+D7gSuSZqgXlfr1RSXnnBg/lZdk6A3sKdSI8AqwIK+
+         /LXtBCYKMJ7jgi5tYSvhcl5Upk6sf0pMt2cpYn/7B24bDbRW28PMb3VRGx2kjcOzwCiO
+         HgUz4JNwccxRsrs+nx/SjRBejYO/hmLjr2bVvBC7uPX+4NRy3EX9oAPQkm4fxjZ/mD/E
+         9tWXs1Oj0ovu+ievYlzVl/DFJVeUYrwzla7hOxh0lcIMzpwqxXCwntyQwTISKgHIz7RI
+         4J2jE1U4IoSfYs4Jp5F5jbONb7WKc9dnBvouY+2JUA75tG+wOG9bk26sim5ZXhQOQvEb
+         tZng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788786183; x=1789390983;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zVF75xZvVYhZe9KWDOZ1dIGPa2bo7QkSIlRemr9XaoM=;
+        b=SLGrem5aQeaKzY/uit2i3Km5/n4GzbcAVl3a0YKEUICsEPZdldMusE2seeHSUpJrHB
+         4xfDZsuZF3QtZEeIcR4QzKHMGzit7M6NRszbYm211XylCJBH7ycZZ9x7J7kzw4XgpYen
+         gv/z916FymQxNcp1gGq0aNk61Ck1G3aHRNT2Nm1sp84UA59+gJS9fkdESoqTzQV+WhAD
+         PbksuXHK5UjPbpIbWIwDPbqzYH/we90K5aZm2UGh/E/49rYAaYX/DHiZjtZQq8scG43Z
+         6jDlwVHRkfo90fHC0bJgnEyoq/qmHbpPcolnQOrJT+JZdS8nYZ9UAZxPWc4E5T80K9Ze
+         fbDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8NWqsaaF1andvUKz7T21Biw/AzY0Be3SgvkO7w6kkEotDDxnp2pkbgprTgB6NZ9dMnFldREFwdSIJ@vger.kernel.org
+X-Gm-Message-State: AFuF++nN4MD42p87LP6C+MyHoF2bS4HpGQQNy88VX8VtsmiW61LpSZmd
+	la/xX5i2I6fzqbecUvpr0eQbyXH2S0IFLyykQxqw3RDVmutVcx6so2YG2i7i2mRoun1S8vnl0ae
+	PGIt6r498qPr5LZt7hbzsWythbQ9bptAlTUGKWHtFdOp1QySHJrnMvaIoxT2ft/s2
+X-Gm-Gg: AYBFou2Xecednaq70Piwm4BtSPETlLf3zjZGHl11jHzScQ3gcIYiMp8BeUiAQkK9W5R
+	Zwzhw6uLabMC5lW/arNY+VaDdneE7QtcTQ9XeBq/zXOZlkmbEaWRKbzrXd8eLrHJaghAVWhxhcY
+	bFvoEypOy0QzRojydbUKnjm2l64p4nffOlYNXgc2LHdOCGd8WFUPGFnBzN3KU9Dd4rboziif9zD
+	cD5u300jPWQBBep+X7+37hP1Ggvq4x1rd907eR/GJVAl4FpfjCnE+IZY1RJYAElri5m44pfcnsQ
+	DKm3NSDHL/NvtY59vCOJQ7+S2snlMQGDjNO9vJ0gtfoRuqr/4wEs9ljrLqilRdDB3sDiAcbKDKc
+	IBiPlt6ebvZ80wqSMZiGfMTz5r+k=
+X-Received: by 2002:a05:6122:c11c:b0:5c6:64ac:d6f3 with SMTP id 71dfb90a1353d-5c7ed612e57mr10021538e0c.3.1788786182527;
+        Mon, 07 Sep 2026 06:03:02 -0700 (PDT)
+X-Received: by 2002:a05:6122:c11c:b0:5c6:64ac:d6f3 with SMTP id 71dfb90a1353d-5c7ed612e57mr10021449e0c.3.1788786182032;
+        Mon, 07 Sep 2026 06:03:02 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm27254607f8f.3.2026.09.07.06.03.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 06:03:01 -0700 (PDT)
+Message-ID: <7006ad74-334c-41cb-bcc8-9ef5e75dde7e@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 14:03:00 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 07 Sep 2026 15:00:56 +0200
-Message-Id: <DL93QHVC01B9.3U3K1G8NC0MZA@kernel.org>
-Subject: Re: [PATCH v7 3/7] mtd: spi-nor: sfdp: expose the SFDP as a
- read-only NVMEM device
-From: "Michael Walle" <mwalle@kernel.org>
-To: "Manikandan Muralidharan" <manikandan.m@microchip.com>,
- <pratyush@kernel.org>, <mwalle@kernel.org>, <takahiro.kuwano@infineon.com>,
- <miquel.raynal@bootlin.com>, <richard@nod.at>, <vigneshr@ti.com>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <srini@kernel.org>, <nicolas.ferre@microchip.com>,
- <alexandre.belloni@bootlin.com>, <claudiu.beznea@tuxon.dev>,
- <linux@armlinux.org.uk>, <richardcochran@gmail.com>, <arnd@arndb.de>,
- <linusw@kernel.org>, <gregkh@linuxfoundation.org>,
- <mathieu.dubois-briand@bootlin.com>, <linux-mtd@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, <netdev@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20260812104955.485667-1-manikandan.m@microchip.com>
- <20260812104955.485667-4-manikandan.m@microchip.com>
-In-Reply-To: <20260812104955.485667-4-manikandan.m@microchip.com>
-
---cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2
-Content-Transfer-Encoding: quoted-printable
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela
+ <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Takashi Iwai <tiwai@suse.com>,
+        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
+        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
+ <525f887e-cb3b-4e74-8b93-30c3baeb8018@linux.dev>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <525f887e-cb3b-4e74-8b93-30c3baeb8018@linux.dev>
 Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: yx8q0N1ahoFsziNbwRU6OWSzLwVxXjI8
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE0NCBTYWx0ZWRfX3Kf+I41fdUzk
+ WRzBaKnkFhQF5kW0HhjUWUTVZWX0RVig1S7A43tv5dZ5ALSTOYg5VNf31m3ruvD6BysSX8Jn606
+ ReSOQo3uBuoXPMHrES3GwujKUTuT4o2KG6JH83MpYUEvZK72Yc6IgAF3c6Urel+jecT9Ipq52y6
+ 2QNy16RWZ51Pid3QZP9c5ts5kSlb7XrbuyCziqRsWFI1/gRX6bchS54WroEIwIFECl+IpQZn7oD
+ nYOfIzmGHCmt0dQQOoL1p7neIZAb+M9LiiO9fvH96QyiVwuuAfm5XWJuCng6CQvyla7LjREY9hB
+ xe6S/SpJ7BKUFUSRJjNFtO9E385g7mJ+9riWhubcctZDvn5BNV6Gf+jk0DcICf4+QsAg3B9SZA0
+ fqW9SSYjpGJUaACCV1RcuKNacpFKw4qHo/YZl5TAnuSeTb3KoHlXiK8KgBmN75jb0P9PmMIXNRr
+ TB2YeFB14509d2gbKDg==
+X-Proofpoint-GUID: yx8q0N1ahoFsziNbwRU6OWSzLwVxXjI8
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE0NCBTYWx0ZWRfX/UKcA5QoQ02O
+ ydM1mL/js44kKPmOylqwHOC6Ug+qyQw0q03X2g0E7Kp4mS4UFYYJGHVmTm/sJrjJgKVSpgUwGI3
+ 3OIxSGhBoN4qL2VVMCq4O7UgEQYFO5I=
+X-Authority-Analysis: v=2.4 cv=AduB2XXG c=1 sm=1 tr=0 ts=6a9eb607 cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=OGjWj8McAAAA:8 a=D19gQVrFAAAA:8 a=VwQbUJbxAAAA:8 a=32YqD_e_CNEs7w_r1eYA:9
+ a=QEXdDO2ut3YA:10 a=O8hF6Hzn-FEA:10 a=XD7yVLdPMpWraOa8Un9W:22
+ a=UYjydHh6ynBBc6_pBLvz:22 a=W4TVW4IDbPiebHqcZpNg:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070144
 
-Hi,
+Thanks Pierre for review,
 
-On Wed Aug 12, 2026 at 12:49 PM CEST, Manikandan Muralidharan wrote:
-> The SPI NOR core already reads the SFDP tables during enumeration and
-> caches them in nor->sfdp->dwords (see spi_nor_parse_sfdp()). Re-expose
-> that cached data as a read-only NVMEM device, in on-flash byte order,
-> rooted at the flash's SFDP child node (compatible "jedec,sfdp").
->
-> This lets NVMEM cells reference any SFDP data: a fixed-layout for
-> parameters at a known offset, or an nvmem-layout parser for vendor data
-> whose location must be discovered at runtime. The device is only register=
-ed
-> when an "sfdp" node is present in the device tree.
->
-> Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-> ---
->  drivers/mtd/spi-nor/core.c | 78 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 78 insertions(+)
->
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index ccf4396cdcd0..0425af6e898f 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -17,6 +17,7 @@
->  #include <linux/mtd/mtd.h>
->  #include <linux/mtd/spi-nor.h>
->  #include <linux/mutex.h>
-> +#include <linux/nvmem-provider.h>
->  #include <linux/of.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/sched/task_stack.h>
-> @@ -3001,6 +3002,75 @@ static void spi_nor_init_fixup_flags(struct spi_no=
-r *nor)
->  		nor->flags |=3D SNOR_F_IO_MODE_EN_VOLATILE;
->  }
-> =20
-> +static int spi_nor_sfdp_reg_read(void *priv, unsigned int offset,
-> +				 void *val, size_t bytes)
-> +{
-> +	struct spi_nor *nor =3D priv;
-> +	struct sfdp *sfdp =3D nor->sfdp;
-> +	size_t sfdp_size =3D sfdp->num_dwords * sizeof(*sfdp->dwords);
-> +
-> +	if (offset >=3D sfdp_size || bytes > sfdp_size - offset)
-> +		return -EINVAL;
-> +
-> +	/* The cached SFDP is kept in on-flash (little-endian) byte order. */
-> +	memcpy(val, (u8 *)sfdp->dwords + offset, bytes);
-> +
-> +	return 0;
-> +}
-> +
-> +/**
-> + * spi_nor_register_sfdp_nvmem() - expose the SFDP as a read-only NVMEM =
-device
-> + * @nor:	pointer to a 'struct spi_nor'
-> + *
-> + * Expose the whole SFDP, in on-flash byte order, as a read-only NVMEM d=
-evice
-> + * rooted at the flash's SFDP child node (compatible "jedec,sfdp"). This=
- lets
-> + * generic (fixed-layout) or vendor (nvmem-layout) cells reference any S=
-FDP
-> + * data. The device is only registered when a child node with the "jedec=
-,sfdp"
-> + * compatible is described in the device tree.
-> + *
-> + * Return: 0 on success or if there is nothing to do, -errno otherwise.
-> + */
-> +static int spi_nor_register_sfdp_nvmem(struct spi_nor *nor)
-> +{
-> +	struct device *dev =3D nor->dev;
-> +	struct nvmem_config config =3D { };
-> +	struct nvmem_device *nvmem;
-> +	struct device_node *np;
-> +
-> +	if (!nor->sfdp)
-> +		return 0;
-> +
-> +	np =3D of_get_compatible_child(dev_of_node(dev), "jedec,sfdp");
-> +	if (!np)
-> +		return 0;
+On 9/7/26 12:32 PM, Pierre-Louis Bossart wrote:
+> On 9/7/26 10:37, Srinivas Kandagatla wrote:
+>> Add support for the Qualcomm Tambora (WCD9378) headset codec in SDCA
+>> mode over SoundWire.  On ARM/DT platforms without ACPI/DisCo firmware
+>> the SDCA topology and SoundWire port properties are supplied as static
+>> data through the codec driver.
+> 
+> wow, I realize now I completely misunderstood what this whole endeavor
+> was about. I *thought* the point was to read the information about all
+> the functions from Device Tree tables. I now understand there are no
+> such tables, all the information is encoded in C as part of the
+> higher-level codec driver.
+> 
+> Is this really intended?
+Unfortunately Yes.
 
-What if there is no jedec,sfdp node? Should this be added anyways?
+> I mean, the whole ACPI set of definitions relied on the _DSD mechanism
+> that mimics what DT provides. Do we really want all this information in
+> C? Why not have a set of DT properties for each function?
+> 
 
-> +
-> +	config.dev =3D dev;
-> +	config.of_node =3D np;
+We discussed this topic at LPC 2025, Devicetree MC:
+    "DeviceTrees - MIPI SoundWire Device Class for Audio (SDCA) and
+     classic ACPI-DT problem"
+    https://lpc.events/event/19/contributions/2024/
 
-What about just:
-	config.of_node =3D of_get_compatible_child(dev_of_node(dev), "jedec,sfdp")=
-;
+Among other options presented, representing them in a intermediate
+format was something which was doable.
 
-> +	config.name =3D "sfdp";
-> +	config.id =3D NVMEM_DEVID_AUTO;
-> +	config.owner =3D THIS_MODULE;
-> +	config.read_only =3D true;
-> +	config.word_size =3D 1;
-> +	config.stride =3D 1;
-> +	config.size =3D (int)(nor->sfdp->num_dwords * sizeof(*nor->sfdp->dwords=
-));
-> +	config.reg_read =3D spi_nor_sfdp_reg_read;
-> +	config.priv =3D nor;
-> +
-> +	nvmem =3D devm_nvmem_register(dev, &config);
-> +	of_node_put(np);
+I have also proposed another follow up of this topic in this years LPC
+Devicetree MC too
 
-This now leaves the nvmem device with a dangling pointer. What I
-meant in my previous reply, was that you'll add an of_node_get() to
-the nvmem_register(), so the nvmem subsystem will have its own
-tracking.
+RFC of this patchset got some comments from DT maitainers.
 
--michael
+DT maintainers are not happy with the idea of keeping this info in DT
+while it can be derived from compatible string.
 
-> +	if (IS_ERR(nvmem)) {
-> +		/* NVMEM support is optional. */
-> +		if (PTR_ERR(nvmem) =3D=3D -EOPNOTSUPP)
-> +			return 0;
-> +		return dev_err_probe(dev, PTR_ERR(nvmem),
-> +				     "failed to register SFDP NVMEM device\n");
-> +	}
-> +
-> +	dev_dbg(dev, "exposed %d-byte SFDP as an NVMEM device\n", config.size);
-> +
-> +	return 0;
-> +}
-> +
->  /**
->   * spi_nor_late_init_params() - Late initialization of default flash par=
-ameters.
->   * @nor:	pointer to a 'struct spi_nor'
-> @@ -3204,6 +3274,14 @@ static int spi_nor_init_params(struct spi_nor *nor=
-)
->  		spi_nor_init_params_deprecated(nor);
->  	}
-> =20
-> +	/*
-> +	 * Expose the SFDP table as an NVMEM device only when
-> +	 * the flash actually provides one
-> +	 */
-> +	ret =3D spi_nor_register_sfdp_nvmem(nor);
-> +	if (ret)
-> +		return ret;
-> +
->  	ret =3D spi_nor_late_init_params(nor);
->  	if (ret)
->  		return ret;
+https://lkml.org/lkml/2026/7/29/1166
+
+> I guess my main objection is for opaque initialization data aka blind
+> writes or SWF table, this should really come from platform firmware, no?
+This table is directly generated from ACPI tables both from Lenovo T14
+and Reference platform.
+
+on ARM platforms DT is is the only firmware entry for such things and
+its not 1:1 with ACPI example, Somethings that can be derived can not be
+in Device tree description so its bit of mix.
+
+> With this approach you'd have an endless set of kernel quirks for each
+> board variant using the same codec.
+
+@Krzysztof Kozlowski <krzk+dt@kernel.org> that is a valid point.
+
+Idea is to gate them using platform specific compatibles, so far we have
+few laptops that are pretty much identical w.r.t the description, may be
+we got lucky in this early stages.
+
+In future if it turns out to need a quirks per platform or changes
+needed in this table then we should be able to handle it with platform
+specific device compatibles.
 
 
---cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+>> +static int wcd9378_sdca_hw_init(struct sdw_slave *slave)
+>> +{
+>> +	struct device *dev = &slave->dev;
+>> +	struct gpio_desc *reset;
+>> +	int ret;
+>> +
+>> +	/* No SPMI parent: supplies and reset live on the SoundWire DT node. */
+>> +	ret = devm_regulator_bulk_get_enable(dev,
+>> +					     ARRAY_SIZE(wcd9378_sdca_supplies),
+>> +					     wcd9378_sdca_supplies);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to enable supplies\n");
+>> +
+>> +	reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
+>> +	if (IS_ERR(reset))
+>> +		return dev_err_probe(dev, PTR_ERR(reset),
+>> +				     "failed to get reset GPIO\n");
+>> +
+>> +	if (reset) {
+>> +		gpiod_set_value(reset, 1);
+>> +		usleep_range(20, 30);
+>> +		gpiod_set_value(reset, 0);
+>> +		usleep_range(20, 30);
+>> +	}
+> 
+> Could this be part of wcd9378_sdca_probe()
 
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCap61iBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/icDAF/VWHm4cvVi6eH69TujKUb5gNmCdX4yjPu
-yiP2Tou8p7PZd9X/jzhrqIfV0NcAs73vAX4yR4pFZ09gnQn+PF04tW9ejbu3Ytxe
-rKK0mE3hj2BhqFjwL4hmXUDfY7oWmgCUgvc=
-=u9Aa
------END PGP SIGNATURE-----
+Good point, I have now moved this to probe and eliminates need of
+hw_init callback all together, I can fold that in next version.
 
---cfe8a98efb2086f550102e1210fdc67d01fd1cb7f4b563889cc6dc1396e2--
+
+--srini
+>> +
+>> +	/* SCP writes below need the slave attached. */
+>> +	ret = sdw_slave_wait_for_init(slave, 5000);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret,
+>> +				     "slave attach timeout: %d\n", ret);
+> 
+> That wait doesn't seem required, if you are using the existing class
+> probe there's already a wait?
+>> +
+>> +	/*
+>> +	 * TX PDM clock: bank-1 shadow + SCP_COMMIT. SCP survives PDE
+>> +	 * cycles; one-shot at hw_init before any port is enabled.
+>> +	 */
+>> +	ret = sdw_write_no_pm(slave, WCD9378_SCP_HOST_CLK_DIV2_CTL_B1, 0x01);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret,
+>> +				     "HOST_CLK_DIV2_CTL_B1: %d\n", ret);
+>> +
+>> +	ret = sdw_write_no_pm(slave, SDW_SCP_COMMIT, 0x02);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret,
+>> +				     "SCP_COMMIT: %d\n", ret);
+>> +
+>> +	return 0;
+> 
+> and this could also be done in the existing .status callback upon
+> enumeration.
+> 
+> In other words the need for this hw_init() isn't very clear to me...
+> 
+>> +}
+>> +
+>> +static int wcd9378_sdca_populate_function(struct sdw_slave *slave,
+>> +					  struct sdca_function_data *function)
+>> +{
+>> +	/* @function->desc is already set by the framework; fill payload only. */
+>> +	if (function->desc->type != wcd9378_sdca_desc.type)
+>> +		return -EINVAL;
+>> +
+>> +	function->num_entities    = wcd9378_sdca_data.num_entities;
+>> +	function->entities        = wcd9378_sdca_data.entities;
+>> +	function->num_clusters    = wcd9378_sdca_data.num_clusters;
+>> +	function->clusters        = wcd9378_sdca_data.clusters;
+>> +	function->num_init_table  = wcd9378_sdca_data.num_init_table;
+>> +	function->init_table      = wcd9378_sdca_data.init_table;
+>> +	function->reset_max_delay = wcd9378_sdca_data.reset_max_delay;
+>> +
+>> +	/* Elevate is_volatile / has_reset to match the DisCo/ACPI path. */
+>> +	sdca_apply_default_control_classifiers(function);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static const struct sdca_class_hw_ops wcd9378_sdca_hw_ops = {
+>> +	.hw_init           = wcd9378_sdca_hw_init,
+>> +	.populate_function = wcd9378_sdca_populate_function,
+>> +};
+>> +
+>> +int wcd9378_sdca_probe(struct sdw_slave *slave,
+>> +		       const struct sdw_device_id *id)
+>> +{
+>> +	struct device *dev = &slave->dev;
+>> +	struct sdca_device_data *data = &slave->sdca_data;
+>> +	struct wcd9378_priv *priv;
+>> +
+>> +	/*
+>> +	 * 0x0217:0x0110 covers both mobile and compute modes; the
+>> +	 * qcom,wcd9378c variant compatible identifies compute-mode
+>> +	 * nodes only.  Mobile-mode nodes carry the plain class-ID
+>> +	 * compatible and are picked up by the mobile driver.
+>> +	 */
+>> +	if (!device_is_compatible(dev, "qcom,wcd9378c"))
+>> +		return -ENODEV;
+>> +
+>> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>> +	if (!priv)
+>> +		return -ENOMEM;
+>> +
+>> +	dev_set_drvdata(dev, priv);
+>> +
+>> +	/* DT has no DisCo enumeration; seed the descriptor here. */
+>> +	if (!data->num_functions) {
+>> +		data->function[0].type = wcd9378_sdca_desc.type;
+>> +		data->function[0].adr  = wcd9378_sdca_desc.adr;
+>> +		data->function[0].name = wcd9378_sdca_desc.name;
+>> +		data->num_functions    = 1;
+>> +	}
+>> +
+>> +	return sdca_class_probe(slave, &priv->class, &wcd9378_sdca_hw_ops);
+>> +}
+
