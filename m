@@ -1,380 +1,355 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6F9C442135
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:35:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E84E34F49F;
+	Mon,  7 Sep 2026 10:35:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788777353; cv=none; b=bKEJbvs1ZUOb8iFSvICFZXjxgKWsLC1YRQuQLLDDyzmkd7TFPHOYKTJk2NDxVCBMPYbJkFiBRLnpAq+4fz34H0HT8ePtHB0yv0AvNQlfahytAK+A04Zc+0+BArriEFR+YAWKNyS7dxZlV02LVT3XppIgsLU8uRsuEroCKfeMXyA=
+	t=1788777359; cv=none; b=k4Y3MSsFXF3THBqoCqbrLVEY4HVygovj6rNGAH7lTnhC9lukrMP0RwbuzQP5bYpf6xe8IYYZMbM/0l+BiKGf4jXgbq2sd1/HCrgyzh/eT62X78mJGR5apTajB3gP0AxuFQLM0wzYRZNFkScgDsqIhNI6MRrCvVzLfvbAWDAuptc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788777353; c=relaxed/simple;
-	bh=uSGqTy2MPgqSL2vsenvOmTcsfgqVZDF8W6riKuvynXM=;
+	s=arc-20240116; t=1788777359; c=relaxed/simple;
+	bh=xMlub5BOQ25WNX7iAERpk+2bEZVIiDNos+jgmXK0FV4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=midy3NPd3uxNkhRWSyiwbAWgeU/bic9xeB06k9ZTeXWPvw+WyByAJgf5zvSRB7sgfozy9wx4xx/5nzFAoU14fe0VLj1mnpbuD4oxaGwbreRh//E+svHsL0PTGkDzi7S3+7NxGCNW4GcZgLEYcBjjvxiGvF/exNyntupF7KcsbFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G3n0NAkh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OYVXVWUz7o/c66/2wX63JI/n1oKeSOrSIjk2v6kP+8JJmHfLydkv24BQZY/svSYpyJi4XE0ErmNoem5N+1RZn55nFCWs3gOC7XtWb+wBM2sSzvwxkVkt/prTlODkqqGfHN6uw1gIINmCLkYE5xV5O4AFH6iq2xtZSBU9Cs7maKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMHiXVVS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G3n0NAkh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9A7D1F00A3A;
-	Mon,  7 Sep 2026 10:35:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMHiXVVS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E8B1F00A3A;
+	Mon,  7 Sep 2026 10:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788777351;
-	bh=+WA+KE+/MtkhEF0f/C3I56LhndDg1ATZ5rtpZaJsblY=;
+	s=k20260515; t=1788777357;
+	bh=d7riazMQRpOtzjRkp35RRo2GrQE6IJIiQstt4o8gFq0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G3n0NAkhaRuFXMpTS8D/sq1EmctOCm8VAsDVEH1RV+vFPe/UCaU94T1p1I6F6USd1
-	 xksK1IitcESDO1ZETDaJdHjvgTb7CnctK2bbkMhhAlMbDuP7y5D+upOhOa+7Avcs5R
-	 VbVN6/pU1YaZ3ePI1R8X9UNI2w/A3o92Rv11UoCcOOyo6pJlD2mQRX9sAmHh8QDv0i
-	 y/0GTjuwnb7nEI07Gq5oxGhrgrfCm8fIAoZa75fbMw087rkvd2dUzjWLkLzWN1370T
-	 jeSXwjy1iDTJolQxaQLQQQyoiUVMrAtZBo9rjnriRyqA+U0XpqL3WLgZ145Hdpp/1c
-	 P0OfocZ8RE3rw==
+	b=kMHiXVVSi33A+xaHU3M2c8N/BCOOYeuIDP4W7PkLAkSzITZoJos6ZK74h/f7PbX4F
+	 jJcXMW6VY/Vqq2M6a56MAIPXzQizV/jGZyA+Yp7HM9TPs5V/i6dJwkng0m2zM929tW
+	 0R8OJ3bIQMn65pdUox42KCKGWolzBf8tEtoYjbUwnFv9tgAokyudw2f2GN7Cw9a6TH
+	 R3v9gEazH3FZ9SeuGFCMV6jwrJGS4+pBGJbd1ProakwaGnpci1GNT0sbDUYTXvD2Xu
+	 LiOfQlXCz/OdLI3UhuXL1l0FbLQNPqYlepISuZDwmDDT/GeXd60GjX16f2EO7yAjri
+	 Q2qyNW95aqZOg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] media: i2c: mira016: Add driver for Mira016
+Subject: Re: [PATCH v8 2/2] rtc: Add NXP PCF85053 driver support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
-Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907-mira016-v3-2-b078a6793d65@ideasonboard.com>
-References: <20260907-mira016-v3-0-b078a6793d65@ideasonboard.com>
- <20260907-mira016-v3-2-b078a6793d65@ideasonboard.com>
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260907102134.394717-2-lakshay.piplani@nxp.com>
+References: <20260907102134.394717-1-lakshay.piplani@nxp.com>
+ <20260907102134.394717-2-lakshay.piplani@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 10:35:50 +0000
-Message-Id: <20260907103550.E9A7D1F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 10:35:56 +0000
+Message-Id: <20260907103557.16E8B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [Critical] Unconditional dereference of v4l2_subdev_state_get_format() re=
-sult causes NULL pointer dereference when CONFIG_MEDIA_CONTROLLER is disabl=
-ed.
-- [High] Incorrect handling of pm_runtime_get_if_in_use() return value trea=
-ts negative error codes as success, causing usage counter underflow.
-- [High] Use-After-Free due to V4L2 control handler being freed before unre=
-gistering the subdevice.
-- [High] The read_poll_timeout macro swallows the error code from cci_read =
-and fails silently.
-- [High] Horizontal ROI registers are improperly defined as 8-bit, truncati=
-ng their 16-bit values.
-- [High] Active state format is overwritten before checking if the subdevic=
-e is currently streaming, corrupting the software state.
-- [High] Missing delays after enabling regulators, clock, and deasserting r=
-eset.
-- [Medium] Severe precision loss in pixel rate calculation due to premature=
- integer division.
-- [Medium] Mixing goto-based error handling with __free() scope-based clean=
-up in the same function.
-- [Medium] Inconsistent initialization of row_length creates a mismatch bet=
-ween default control limits and explicit format control limits.
-- [Low] Integer division always evaluates to 0 in unused esc_period calcula=
-tion.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Inconsistent secondary interface checks cause hardware access viol=
+ations and potential IRQ storms.
+- [Medium] The driver ignores requested alarm dates and fails to bound alar=
+m offsets, causing alarms far in the future to trigger within 24 hours.
+- [Medium] Clearing the Alarm Flag (AF) after enabling the Alarm Interrupt =
+Enable (AIE) bit causes a race that drops valid alarm interrupts.
+- [Medium] Read-modify-write on the write-0-to-clear status register accide=
+ntally drops concurrent hardware flags.
+- [Low] The Kconfig entry for RTC_DRV_PCF85053 fails to `select REGMAP_I2C`=
+, which will cause a build failure.
 --
 
-commit 9c6378991c811d36f2a5849235c3c88b6af0b9b5
-Author: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+commit c573ac7ea41cfa02a273751465e9782324597723
+Author: Lakshay Piplani <lakshay.piplani@nxp.com>
 
-media: i2c: mira016: Add driver for Mira016
-   =20
-Add driver for the ams OSRAM Mira016 sensor.
+rtc: Add NXP PCF85053 driver support
 
-> diff --git a/drivers/media/i2c/mira016.c b/drivers/media/i2c/mira016.c
-> new file mode 100644
-> index 0000000000000..8286b7e2c0a42
-> --- /dev/null
-> +++ b/drivers/media/i2c/mira016.c
-@@ -0,0 +1,2300 @@
-[ ... ]
-> +/* X ROI */
-> +#define MIRA016_XWIN_LEFT_REG		CCI_REG8(0xe02c)
-> +#define MIRA016_XWIN_RIGHT_REG		CCI_REG8(0xe02e)
+This commit adds a new I2C-based RTC driver for the NXP PCF85053, supporting
+time, alarms, wakeup, and clock output features on both primary and seconda=
+ry
+buses.
 
-[Severity: High]
-Does this code improperly truncate 16-bit register values?
-
-The horizontal window boundaries can exceed 255 (up to 400), but using
-CCI_REG8 limits them to 8 bits. When writing these values later via
-cci_write(), they will be masked to 8 bits, completely breaking the
-horizontal window boundaries. Should these be defined as 16-bit registers?
-
-[ ... ]
-> +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
-> +{
-> +	/*
-> +	 * Pixel rate is calculate as the row duration divided by the total line
-> +	 * length.
-> +	 *
-> +	 * pixel time (psec) =3D t_row(psec) / h_tot
-> +	 * pixel rate (mbps) =3D 10^12 / pixel_time
-> +	 *		     =3D 10^12 * h_tot / t_row
-> +	 *		     =3D h_tot * 10^6 / t_row * 10^6 to avoid overflows
-> +	 */
-> +	u32 trow_psec =3D mira016_trow_psec(mira016);
-> +
-> +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
-
-[Severity: Medium]
-Will this evaluate left-to-right and cause severe precision loss?
-
-The integer division by trow_psec happens before the final multiplication
-by HZ_PER_MHZ, acting as a floor function and truncating all sub-MHz
-precision. Could this be reworked to retain precision?
-
-[ ... ]
-> +static int mira016_set_pad_format(struct v4l2_subdev *sd,
-> +				  struct v4l2_subdev_state *state,
-> +				  struct v4l2_subdev_format *fmt)
-> +{
-> +	struct mira016 *mira016 =3D to_mira016(sd);
-> +	struct v4l2_rect *crop;
-> +	u32 pixel_rate;
-> +	u32 min_vblank;
-> +	u32 gain_max;
-> +	int ret;
-> +
-> +	mira016_update_pad_format(mira016, &fmt->format, fmt->format.code);
-> +	*v4l2_subdev_state_get_format(state, 0) =3D fmt->format;
-
-[Severity: Critical]
-Is it possible for v4l2_subdev_state_get_format() to return a NULL pointer?
-
-When CONFIG_MEDIA_CONTROLLER is disabled, the state parameter can be NULL,
-which causes v4l2_subdev_state_get_format() to safely return NULL.
-Dereferencing it directly here would cause a kernel panic. Should this
-result be checked?
-
-> +
-> +	crop =3D v4l2_subdev_state_get_crop(state, 0);
-
-[Severity: Critical]
-Similar to the format pointer above, could v4l2_subdev_state_get_crop()
-return NULL here and cause a kernel panic if CONFIG_MEDIA_CONTROLLER is
-disabled?
-
-> +	crop->width =3D fmt->format.width;
-> +	crop->height =3D fmt->format.height;
-> +	crop->left =3D MIRA016_PIXEL_ARRAY_LEFT;
-> +	crop->top =3D MIRA016_PIXEL_ARRAY_TOP;
-> +
-> +	if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
-> +		return 0;
-> +
-> +	/*
-> +	 * Update the row length: changing the image format implies changing the
-> +	 * row_length parameter, which changes the line duration and the pixel
-> +	 * rate consequentially. Also, changing the image format changes the
-> +	 * analogue gain limits.
-> +	 *
-> +	 * Do not allow to change image format while the subdevice is streaming.
-> +	 *
-> +	 * TODO: row length depends on binning, update it also in the
-> +	 * implementation of set_selection.
-> +	 */
-> +	if (v4l2_subdev_is_streaming(sd))
-> +		return -EBUSY;
-
-[Severity: High]
-Does this code corrupt the active state if streaming is already active?
-
-The active software state is overwritten before checking if the subdevice
-is streaming. If this check returns -EBUSY, the rejected format remains
-in the software state rather than what's actually active on hardware.
-
-[ ... ]
-> +static int mira016_get_selection(struct v4l2_subdev *sd,
-> +				 struct v4l2_subdev_state *state,
-> +				 struct v4l2_subdev_selection *sel)
-> +{
-> +	switch (sel->target) {
-> +	case V4L2_SEL_TGT_CROP:
-> +		sel->r =3D *v4l2_subdev_state_get_crop(state, 0);
-
-[Severity: Critical]
-Can this dereference a NULL pointer if CONFIG_MEDIA_CONTROLLER is disabled?
-
-The v4l2_subdev_state_get_crop() helper may return NULL, which would cause
-a kernel panic when dereferenced here.
-
-[ ... ]
-> +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-[ ... ]
-> +
-> +	if (!pm_runtime_get_if_in_use(&client->dev))
-> +		return 0;
-
-[Severity: High]
-Does this treat negative error codes as success?
-
-If runtime PM is disabled, pm_runtime_get_if_in_use() returns -EINVAL.
-In C, !(-EINVAL) is false, which bypasses the early return. This allows the
-driver to proceed accessing hardware that may be unpowered, and later call
-pm_runtime_put_autosuspend(), causing an unbalanced usage counter underflow.
-
-[ ... ]
-> +static int mira016_power_on(struct device *dev)
-> +{
-[ ... ]
-> +	ret =3D clk_prepare_enable(mira016->xclk);
-> +	if (ret) {
-> +		dev_err(&client->dev, "%s: failed to enable clock\n", __func__);
-> +		regulator_bulk_disable(ARRAY_SIZE(mira016_supplies),
-> +				       mira016->supplies);
-> +		return ret;
-> +	}
-> +
-> +	gpiod_set_value_cansleep(mira016->reset_gpio, 0);
-> +
-> +	return 0;
-
-[Severity: High]
-Are stabilization delays missing after enabling regulators, clock, and
-deasserting reset?
-
-Hardware sensors typically require stabilization time before their I2C
-interface becomes responsive. Returning immediately here could cause the
-first I2C read in mira016_identify_module() to fail with a NACK.
-
-[ ... ]
-> +static int mira016_configure_timings(struct mira016 *mira016)
-> +{
-[ ... ]
-> +	cci_write(mira016->regmap, MIRA016_PLL_PD_REG, 0, &ret);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D read_poll_timeout(cci_read, ret,
-> +				((ret < 0 || (val & MIRA016_PLL_LOCKED))),
-> +				1000, 1000, false, mira016->regmap,
-> +				MIRA016_PLL_LOCK_REG, &val, NULL);
-> +	if (ret < 0)
-> +		return ret;
-
-[Severity: High]
-Does this condition swallow the error code from cci_read?
-
-If cci_read fails and returns a negative error (e.g., -EIO), the condition
-(ret < 0 || (val & MIRA016_PLL_LOCKED)) evaluates to true. The macro will
-successfully exit the loop and return 0, masking the critical hardware read
-failure and bypassing the subsequent error check.
-
-[ ... ]
-> +static int mira016_configure_horizontal_roi(struct mira016 *mira016,
-> +					    struct v4l2_subdev_state *state)
-> +{
-[ ... ]
-> +	u16 xwin_right =3D crop->left + crop->width - 1;
-> +	u16 fifo_threshold;
-> +	u16 hsync_length;
-> +	int ret =3D 0;
-> +
-> +	cci_write(mira016->regmap, MIRA016_XWIN_LEFT_REG, crop->left, &ret);
-> +	cci_write(mira016->regmap, MIRA016_XWIN_RIGHT_REG, xwin_right, &ret);
-
-[Severity: High]
-Can xwin_right be truncated here?
-
-Since MIRA016_XWIN_RIGHT_REG is defined as CCI_REG8, the 16-bit xwin_right
-value will be masked to 8 bits by cci_write(), corrupting the horizontal
-window boundaries.
-
-[ ... ]
-> +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mi=
-ra016)
-> +{
-> +	struct fwnode_handle *endpoint __free(fwnode_handle) =3D NULL;
-> +	struct v4l2_fwnode_endpoint ep_cfg =3D {
-> +		.bus_type =3D V4L2_MBUS_CSI2_DPHY
-> +	};
-> +	int ret;
-[ ... ]
-> +	ret =3D v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
-> +				       ep_cfg.nr_of_link_frequencies,
-> +				       mira016_link_freqs,
-> +				       ARRAY_SIZE(mira016_link_freqs),
-> +				       &mira016->link_freq_bitmap);
-> +	if (ret)
-> +		goto err_free_ep;
-> +
-> +	/* TODO: Implement D-PHY configuration to support continuous clock. */
-> +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK))=
- {
-> +		dev_err(dev, "Continuous clock is not supported\n");
-> +		ret =3D -EINVAL;
-> +		goto err_free_ep;
-> +	}
-> +
-> +	mira016->bus_config =3D ep_cfg.bus.mipi_csi2.flags;
-> +
-> +err_free_ep:
-> +	v4l2_fwnode_endpoint_free(&ep_cfg);
-> +
-> +	return ret;
-
-[Severity: Medium]
-Is it safe to mix goto-based error handling with scope-based cleanup here?
-
-The core kernel cleanup subsystem rules forbid mixing goto-based error
-handling with __free() scope-based cleanup helpers in the same function,
-as it creates confusing ownership semantics.
-
-[ ... ]
-> +static int mira016_validate_xclk_freq(struct mira016 *mira016)
-> +{
-[ ... ]
-> +	mira016->pll.esc_l =3D mira016->xclk_freq < MHZ(20) ? 0 :
-> +			     mira016->xclk_freq < MHZ(60) ? 1 : 2;
-> +	mira016->pll.esc_period =3D mira016->xclk_freq < MHZ(20) ?
-> +				  DIV_ROUND_CLOSEST(1000, mira016->xclk_freq)
+> diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
+> index 05b9233b94189..ecd4832301867 100644
+> --- a/drivers/rtc/Kconfig
+> +++ b/drivers/rtc/Kconfig
+> @@ -1005,6 +1005,16 @@ config RTC_DRV_PCF85063
+>  	  This driver can also be built as a module. If so, the module
+>  	  will be called rtc-pcf85063.
+> =20
+> +config RTC_DRV_PCF85053
+> +	tristate "NXP PCF85053"
+> +	depends on OF && I2C
 
 [Severity: Low]
-Does this calculation always evaluate to 0?
+Is it intentional to not select REGMAP_I2C here? The driver code relies on
+devm_regmap_init_i2c(), which requires REGMAP_I2C. If a kernel is built whe=
+re
+CONFIG_RTC_DRV_PCF85053=3Dy is selected but no other driver selects
+CONFIG_REGMAP_I2C, it will cause a build failure.
 
-Since xclk_freq is constrained to be greater than 12MHz, dividing 1000 by
-xclk_freq will always yield 0. Also, this variable appears to be unused
-after being assigned.
+> +	help
+> +	  If you say yes here you get support for the NXP PCF85053 I2C Bootable=
+ CPU RTC
+> +	  chip.
+> +
+> +	  This driver can also be built as a module. If so, the module
+> +	  will be called rtc-pcf85053.
+> +
 
 [ ... ]
-> +static int mira016_probe(struct i2c_client *client)
+
+> diff --git a/drivers/rtc/rtc-pcf85053.c b/drivers/rtc/rtc-pcf85053.c
+> new file mode 100644
+> index 0000000000000..811731bc6596a
+> --- /dev/null
+> +++ b/drivers/rtc/rtc-pcf85053.c
+
+[ ... ]
+
+> +static int pcf85053_set_alarm_mode(struct regmap *regmap, bool on)
 > +{
-[ ... ]
-> +	/*
-> +	 * Calculate the PLL configuration based on the link frequency
-> +	 * selected by .dts and compute the sensor timing bases.
-> +	 *
-> +	 * Initialize row_length to a value matching the default format for
-> +	 * exposure and frame time limits calculations.
-> +	 */
-> +	mira016_pll_calc(mira016);
-> +	mira016_timings_calc(mira016);
-> +	mira016->timings.row_length =3D 1262;
+> +	unsigned int val;
+> +	int err;
+> +
+> +	val =3D on ? PCF85053_BIT_AIE : 0;
+> +
+> +	err =3D regmap_update_bits(regmap, PCF85053_REG_CTRL,
+> +				 PCF85053_BIT_AIE,
+> +				 val);
+> +	if (err)
+> +		return err;
+> +
+> +	return regmap_update_bits(regmap, PCF85053_REG_ST,
+> +				  PCF85053_BIT_AF, 0);
 
 [Severity: Medium]
-Does this hardcoded row_length create a mismatch with dynamic calculations?
+Could this sequence drop valid alarm interrupts?
 
-This establishes initial frame rate limits. However, if userspace applies
-the exact same default format later, mira016_calc_row_length() might
-calculate a different value (e.g., 1062), unexpectedly altering the limits
-even though the format didn't logically change.
+By clearing the Alarm Flag (AF) after enabling the Alarm Interrupt Enable
+(AIE) bit, if the RTC time matches the alarm concurrently (or it was already
+pending), the hardware asserts AF and triggers the IRQ. The subsequent write
+clears AF and deasserts the IRQ before the threaded handler executes. The
+handler will then read AF=3D0 and return IRQ_NONE, causing the alarm event =
+to
+be permanently lost.
+
+> +}
 
 [ ... ]
-> +static void mira016_remove(struct i2c_client *client)
+
+> +static irqreturn_t pcf85053_irq(int irq, void *dev_id)
 > +{
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct mira016 *mira016 =3D to_mira016(sd);
+> +	struct device *dev =3D dev_id;
+> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
+> +	bool changed;
+> +	int err;
 > +
-> +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> +	err =3D regmap_update_bits_check(pcf85053->regmap,
+> +				       PCF85053_REG_ST,
+> +				       PCF85053_BIT_AF, 0,
+> +				       &changed);
+
+[Severity: Medium]
+Can this read-modify-write on the status register accidentally drop concurr=
+ent
+hardware flags like OF or RTCF?
+
+The status register (PCF85053_REG_ST) uses write-0-to-clear semantics. Using
+regmap_update_bits_check() performs a read-modify-write, writing 0 to the
+targeted bits but writing back the read values (which could be 0) for the
+other bits. If a non-targeted flag is read as 0 but asserted by the hardware
+before the write, the write of 0 will unintentionally clear it.
+
 > +
-> +	v4l2_async_unregister_subdev(sd);
+> +	if (err || !changed)
+> +		return IRQ_NONE;
+> +
+> +	rtc_update_irq(pcf85053->rtc, 1, RTC_IRQF | RTC_AF);
+> +	return IRQ_HANDLED;
+> +}
+
+[ ... ]
+
+> +static int pcf85053_rtc_set_alarm(struct device *dev, struct rtc_wkalrm =
+*tm)
+> +{
+> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
+> +	bool is_24h, is_bin;
+> +	unsigned int ctrl;
+> +	u8 sec, min, hr;
+> +	int err;
+> +
+> +	/*
+> +	 * Only primary can set alarm, as secondary have read only access
+> +	 * to alarm, control and status registers
+> +	 */
+> +	if (!pcf85053->is_primary)
+> +		return -EACCES;
+> +
+> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_CTRL, &ctrl);
+> +	if (err)
+> +		return err;
+> +
+> +	/*
+> +	 * Do not force the hour format (HF) or data mode (DM). Rewriting these
+> +	 * bits without converting the stored time would corrupt the running
+> +	 * clock. Format the alarm values to match the mode the device is
+> +	 * currently configured for instead.
+> +	 */
+> +	is_24h =3D !!(ctrl & PCF85053_BIT_HF);
+> +	is_bin =3D !!(ctrl & PCF85053_BIT_DM);
+> +
+> +	err =3D regmap_update_bits(pcf85053->regmap, PCF85053_REG_ST,
+> +				 PCF85053_BIT_AF, 0);
+> +	if (err)
+> +		return err;
+> +
+> +	sec =3D pcf85053_encode_val(tm->time.tm_sec, is_bin) & 0x7F;
+> +	min =3D pcf85053_encode_val(tm->time.tm_min, is_bin) & 0x7F;
+> +	hr  =3D pcf85053_encode_hour(tm->time.tm_hour, is_24h, is_bin);
+
+[Severity: Medium]
+Does this ignore requested alarm dates?
+
+Since the date constraints are ignored entirely during encoding and only
+HH:MM:SS are programmed, an alarm requested more than 24 hours in the future
+(via /dev/rtc0 or alarmtimer) will be silently truncated and arm a <24h ala=
+rm.
+This can cause the system to wake up prematurely.
+
+> +
+> +	err =3D regmap_write(pcf85053->regmap, PCF85053_REG_SCA, sec);
+> +	if (err)
+> +		return err;
+
+[ ... ]
+
+> +static int pcf85053_ioctl(struct device *dev, unsigned int cmd, unsigned=
+ long arg)
+> +{
+> +	struct pcf85053 *pcf85053 =3D dev_get_drvdata(dev);
+> +	unsigned int val =3D 0, vl_status =3D 0;
+> +	unsigned int bvl;
+> +	int status;
+> +
+> +	switch (cmd) {
+> +	case RTC_VL_READ:
+> +		status =3D regmap_read(pcf85053->regmap, PCF85053_REG_ST, &val);
+> +		if (status)
+> +			return status;
+> +
+> +		if (val & (PCF85053_BIT_OF | PCF85053_BIT_RTCF))
+> +			vl_status |=3D RTC_VL_DATA_INVALID;
+> +
+> +		bvl =3D val & PCF85053A_BVL_MASK;
+> +
+> +		if (bvl =3D=3D 0x00)
+> +			vl_status |=3D RTC_VL_BACKUP_EMPTY;
+> +		else if (bvl <=3D PCF85053A_BVL_LOW_THRESHOLD)
+> +			vl_status |=3D RTC_VL_BACKUP_LOW;
+> +
+> +		return put_user(vl_status, (unsigned int __user *)arg);
+> +
+> +	case RTC_VL_CLR:
+> +		/* Only the primary interface may write the status register. */
+> +		if (!pcf85053->is_primary)
+> +			return -EACCES;
+> +
+> +		return regmap_update_bits(pcf85053->regmap, PCF85053_REG_ST,
+> +					  PCF85053_BIT_OF |
+> +					  PCF85053_BIT_RTCF, 0);
+
+[Severity: Medium]
+Similar to the IRQ handler, can this read-modify-write clear an incoming al=
+arm?
+
+Clearing OF and RTCF using regmap_update_bits() writes 0 to AF if it was re=
+ad
+as 0, which can accidentally drop a concurrent alarm flag.
+
+> +
+> +	default:
+> +		return -ENOIOCTLCMD;
+> +	}
+> +}
+
+[ ... ]
+
+> +static int pcf85053_clkout_set_rate(struct clk_hw *hw, unsigned long rat=
+e,
+> +				    unsigned long parent_rate)
+> +{
+> +	struct pcf85053 *pcf85053 =3D clkout_hw_to_pcf85053(hw);
+> +	unsigned int val =3D 0;
+> +	int err, i;
 
 [Severity: High]
-Does this teardown order create a use-after-free window?
+Is it safe to omit the is_primary validation here?
 
-By freeing the control handler before unregistering the subdevice, the V4L2
-device node remains accessible to userspace. If a control ioctl is issued
-during this race window, the kernel will attempt to dereference the freed
-control handler or lock the destroyed mutex. Should these calls be swapped?
+The secondary interface lacks write access to the control registers. Without
+this check, writes on the secondary interface could silently fail.
+
+> +
+> +	err =3D regmap_read(pcf85053->regmap, PCF85053_REG_CLKO, &val);
+> +	if (err)
+> +		return err;
+
+[ ... ]
+
+> +static int pcf85053_probe(struct i2c_client *client)
+> +{
+> +	const struct pcf85053_config *config;
+> +	struct device *dev =3D &client->dev;
+> +	const char *iface =3D NULL;
+> +	struct pcf85053 *pcf85053;
+> +	int err;
+
+[ ... ]
+
+> +	/*
+> +	 * The year register stores 00-99 and the RTC treats any value where
+> +	 * (year % 4) =3D=3D 0 as a leap year, with no special handling for the
+> +	 * centuries. Mapping 00-99 to 2000-2099 keeps the leap-year logic
+> +	 * correct over the whole usable range.
+> +	 */
+> +	pcf85053->rtc->ops =3D &pcf85053_rtc_ops;
+> +	pcf85053->rtc->range_min =3D RTC_TIMESTAMP_BEGIN_2000;
+> +	pcf85053->rtc->range_max =3D RTC_TIMESTAMP_END_2099;
+> +	clear_bit(RTC_FEATURE_UPDATE_INTERRUPT, pcf85053->rtc->features);
+
+[Severity: Medium]
+Should pcf85053->rtc->alarm_offset_max be initialized here to enforce the
+24-hour hardware limitation?
+
+Bounding the alarm offset to 24 * 60 * 60 ensures that alarmtimer requests =
+are
+properly bounded, preventing the truncation issue during set_alarm.
+
+> +	clear_bit(RTC_FEATURE_ALARM, pcf85053->rtc->features);
+> +
+> +	if (config->has_alarms && client->irq > 0) {
+> +		err =3D devm_request_threaded_irq(dev, client->irq,
+
+[Severity: High]
+Should this probe unconditionally configure alarm IRQs regardless of
+primary/secondary ownership?
+
+If the driver is bound as secondary but the device tree has an irq specifie=
+d,
+it will unconditionally register the alarm IRQ. Since the secondary interfa=
+ce
+lacks write access to control registers, when an alarm fires, the IRQ handl=
+er's
+attempt to clear AF by writing 0 will be silently ignored. This leaves the
+level-triggered IRQ asserted, potentially causing an infinite interrupt sto=
+rm
+that hangs the CPU.
+
+> +						NULL, pcf85053_irq,
+> +						IRQF_ONESHOT | IRQF_TRIGGER_FALLING,
+> +						"pcf85053", dev);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-mira016-v3=
--0-b078a6793d65@ideasonboard.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907102134.3947=
+17-1-lakshay.piplani@nxp.com?part=3D2
