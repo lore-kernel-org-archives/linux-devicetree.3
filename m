@@ -1,63 +1,63 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898EC4BD0FB
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:38:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BFC63D6CA6
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:38:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795532; cv=none; b=PrBDRtswluSXef4r82rByt5aHkXR4GbXmY0zU66pHWW3GF5odc0ykvwwB7k88ephGI/akA2GW9sq3hi2xtBk7MadY05EDD+GOSL7HB7xaXE4yoCdtfmZeZUHH96WE3bFaI4aXg0ZFmHf618PmDAVSRvkYjvPYplqBytyK982W3o=
+	t=1788795540; cv=none; b=Vind2wpySmvn5sJKKT1Fbuix16xv+e1EoZoA9S90iDtWm9g8ND9g/Whtxirf8afTrQGqWaVKcYdZCWtmfZnvFtNBgmW0K40GkHkRT+KxIoIWYGaFSv7XuT7aGYmOZaOOtyna5j/HAI2iqa5lbNuf7KoPD1fNu+m3k2eqqdWSVFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795532; c=relaxed/simple;
-	bh=RQ8/bIf5S9U/FiX3uQoU1u6/FV6K7LLD2uqZys3J7EY=;
+	s=arc-20240116; t=1788795540; c=relaxed/simple;
+	bh=puR3hcsKpnP6vV5Zl58WDpiYi4UfmWoBZ4wnS5ijiiI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VPDiFWCpVnIHcN10i94wzbRCa/TXpGIS75DDBrVPBLe3/ust4eIwFHvVOayXWqCbX1xa6/JYMw2JeF2bv3oQa8GaipANW7HoeZp8K2n0h52koSr8pWsDsUDekAhMFA4gVnMhAGRrZlGeibwC7khaZ8yuUT7fPlywYG6Ne1ITDrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dv/vx9+F; arc=none smtp.client-ip=74.125.227.139
+	 MIME-Version; b=D5fWVUCedXg8RJACTsk8w3WhnPw307P4ihPZs/9XMWj62NeaU7reserbmN8F20TWLOyS1Z2mDKhCvTEXEXYK6h5VcGQKWwwAdgFxVhm2S6EcRg6zMEf70FQZVshSt0DB2arua00J7wDjOi7ISbx6MVt+SS+zvCzAwK7fY5i4yZE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UI3O3T4i; arc=none smtp.client-ip=74.125.227.138
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dv/vx9+F"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-396a51b2605so1467243a91.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:38:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UI3O3T4i"
+Received: by mail-pj2-f10.google.com with SMTP id 98e67ed59e1d1-39641d0dba5so2300776a91.0
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:38:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788795531; x=1789400331; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788795538; x=1789400338; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=v2tJApUzC1LEzp8M/eTL2SHChylQhCDDbwAQQxkGsv0=;
-        b=Dv/vx9+FdyaJ5K0zDCPhMClqwDcb5KVaepp/oSxDG/LtCaX3Kyis/ZX1PEFp+KT/54
-         l0Z3+0WN/9GdcyDAt0RWEcbLCFWEIffYYOqg2yQb3UHoscL+Vz2blenkFln/TENttXUG
-         hKfSYPHjqqs9tzfIcCYvhun/I+F6lsz6+1sKLdRc0RJvLenqdb0NdOmNagNT7Sk+p+g0
-         ij5aMKhzl+0TrmHWORIrgyfsbujZpATAxePIwq3071xmuin5vgvQcthSvcQVQ4lYwCap
-         1ijxd9HAXK73LO4qohu5D4M8dzIuZO0kdlcZVvfdqv1TUz/O3PImNnhg4OJ2Fm1GI3O8
-         Jhbw==
+        bh=F3aEYb5uf8Ywd6IPUhePKv9EQrcFVFS6EHQyfufoEjE=;
+        b=UI3O3T4iGzvEB0cILW/TGWfjP1gZkN+8K9avsCp2k3PxlaL87Z0sXRCcyjATTVGV2M
+         D25350fBCJ0qbmnqsn9ioibB0qbFi61Ly6ahxG+2m3Iw2stOhk5ptmJBqykA495Rt4TS
+         M2shMkaDqhbGsqBi8hKQZo9TQ3x/FOt7eQ/rIvKy2yUGUYvc8gxzBDThx9avhpaj2jpb
+         dArJVJfwa0jmjjxoeLyCzm/fK0Ovv4f58kseyr432H12HAXVooZY7/TzN912ws5nS3Hc
+         MQjk5Grp5T1b67B23yxKqUI7IYuMj2/Azjj1fZVFTpDWraEvVti+EYuIqD45tpaiGRvB
+         qVVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788795531; x=1789400331;
+        d=1e100.net; s=20251104; t=1788795538; x=1789400338;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=v2tJApUzC1LEzp8M/eTL2SHChylQhCDDbwAQQxkGsv0=;
-        b=Pt56IASSosyVPRXexa1YpdZC8CTO/N5JxU021uybo3icHCcNrfqVDlvmDvjb8WtUrH
-         icy6+GBSIpWAorz8RIL/bcKdFnNagTTWOamaQC0RAHrC1rzNgPxFuLzAKPCgihQsRk9q
-         sk+2FVJpJGV8d9s+CnSuwe+5SscjK+QRKvCyGIlwAdxnsH+Ytx5yaIjs2cd6Bhj7ocuB
-         y5QmYyPlwwvtuGobpzYTtcFTeBsapIQyhj9x4hg07bMLnCP/q+4d7/vjH7RBhn4OFneE
-         Vg0tFJFd+LxWLLGJWygZ/msSeix/Rp4XK1z0N7UgAy5hEbJFfRb8/r9HH7YZDxjRqXrF
-         YxPg==
-X-Forwarded-Encrypted: i=1; AKwUvBx0vkXn2m44M06aYE+x6CkuNHqRqIpOhxq+DEyXR64f179LM0LbHpzHdGqoNHkj8DRxiM4AQ+dTHLe7@vger.kernel.org
-X-Gm-Message-State: AFuF++nrtDW0lDTSfrJPWV5vSbLSSCcfyzsjzoGSy1WceHPBZm3P9+N5
-	S8HNt+Wb3+Nm2RnYXficrQSRQOgCTy89j6miLgvc6BnkIzD8CVDOLqYZ
-X-Gm-Gg: AYBFou1Er61yuNnNW1NVsiivByyURrtot7nmzZg1tgjuwPhQHvLIYtOgH1+KJIcUUz/
-	H/BfMu7UFZOM9QH88as9aG0EteYqxfdQVk3Gh5dG/OV/k+qW9Vpb70Oh6nYeX6NbFm6sgyMBOl2
-	57iMCaYd2BMwe92xSKLkDOrFShUiDrYM+7kjaXP286WEEgiV+h4TJk2eGitDjIBuYnm7FmJbPnh
-	vpfoTmvFzq1YPXII7/T0GtAm8nBlwVbEBFLdxmmmWkTGQASSRluc22dYVhUjmPq2YdxSCHcQ4AF
-	99K8r1TWhcNFcJJyXht7PdqFuPhmb2W0YiNG/lovUBYZ3o5JQ0Qkek0YQZcFni3GRQ+8EK6m/dM
-	85u7nueJP0kPcmhQpIXgKbBSv6SsuqyQtzMvoxYzis/Cco+siHXISj7DPWAmVEXk55Ss6vDFIZC
-	RHgkM0RXcHap9UJ+87T82Gu3FpqKj3vKeEFY+/uy47b5+SKJ+22dTPiadRGes=
-X-Received: by 2002:a17:90b:2ccf:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b262aaf3dmr37885553a91.19.1788795530498;
-        Mon, 07 Sep 2026 08:38:50 -0700 (PDT)
+        bh=F3aEYb5uf8Ywd6IPUhePKv9EQrcFVFS6EHQyfufoEjE=;
+        b=TVGzwpOvJHfJQhJZS56TFJUSa9YbhvwVDMyOTSAflmgDnP5vC0I6kj3YAvKyLms6yb
+         cPxhX9FwWAVtHXUualdj7ysXtrRqpawmfe/f45Ao9rpYZf2ulExaR0rdHxsgZrpe4V6V
+         3octZOyDhCYJbh8TpBWHmyBknfLu3saE/497vOflWLgvnil6mG0r4AewMMtamg79yq/i
+         7tvFH1xgz3KcKWMNuLUmWCHJ3WRCISo4jlFIAx8cxKnkerxGLjS5PQbe/vHn6QUdl9h0
+         Ci512U5IXmIdX0yI3QHaKfiDSskA00kGVLtRY0dGDIWz9BNv/+N8i5q7SrrAstm/qBi3
+         nnbA==
+X-Forwarded-Encrypted: i=1; AKwUvBwPzhiMUQMOBy8Vprgoc1G+xDRbH+o9fWHXiWN1uRjqNhd3EUMm+ABdAFmzMIOuWHldmHd6dkkidqIy@vger.kernel.org
+X-Gm-Message-State: AFuF++kuTqYvSa74GKXr9sz8S/5n8yI6/psSC5bX+jYMfFSg/orLYEQ7
+	UNu1CN932JvpEHat8xjsh3b2gjp01J51NRZYdM+DcjKNW0KHSkvZ7Cfk
+X-Gm-Gg: AYBFou2rohL0XBF2mvcGhqVr/OU58S4zkGqrkMzauEwXg1S2yozP5Ug8Bxn8tz/6mJd
+	1sMZ7uUgCHqwsvub+r6WrPwqttYnE+1NLduo8vhb+x2TPWG4G+Cqht45cHLaVxIySom21coLTfX
+	8Bv+pRLVwkeW8U16TGKWzIABS7922H4G7g3xMrBhX4M4DaJN2lCXhGnQvqX+gzIA9X9eMtDNm4G
+	fAY9vCxofrusoQSqqgWB7H8c1lGyNUWD3k1R5yJnqKcuEyjnTDlwhuzjEwOVJNoknwEmKeSOZdH
+	nKD93qRjRzo9J8vii55HNru5gFT0vMQSe2BXSDKncH+ntQ71SEvqmzv7p7/PFLYUOB2G+CwoSPy
+	S/VbvcdNNmp31Ru54ZplhtoDAldJ6wzUROPnEV+DUaMkxjCBYGx4FgjaWH14BFy7sK9PCLmCYxu
+	WAa6wqpj76tH4ExafYTxPzaiRHyRUyUn1v5vFL+ABfZzezhnnuB0COl1g/sG7a
+X-Received: by 2002:a17:90b:5106:b0:37f:c22a:c188 with SMTP id 98e67ed59e1d1-39b260feb03mr34662494a91.4.1788795538351;
+        Mon, 07 Sep 2026 08:38:58 -0700 (PDT)
 Received: from server.lan ([150.230.217.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm21690121a91.9.2026.09.07.08.38.43
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b260fdf9asm21690121a91.9.2026.09.07.08.38.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:38:50 -0700 (PDT)
+        Mon, 07 Sep 2026 08:38:57 -0700 (PDT)
 From: Coia Prant <coiaprant@gmail.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S . Miller" <davem@davemloft.net>,
@@ -88,9 +88,9 @@ Cc: Neil Armstrong <neil.armstrong@linaro.org>,
 	linux-phy@lists.infradead.org,
 	linux-stm32@st-md-mailman.stormreply.com,
 	linux-renesas-soc@vger.kernel.org
-Subject: [PATCH net-next v4 02/10] dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel property
-Date: Mon,  7 Sep 2026 23:37:05 +0800
-Message-ID: <20260907153713.2572547-4-coiaprant@gmail.com>
+Subject: [PATCH net-next v4 03/10] phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+Date: Mon,  7 Sep 2026 23:37:06 +0800
+Message-ID: <20260907153713.2572547-5-coiaprant@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907153713.2572547-2-coiaprant@gmail.com>
 References: <20260907153713.2572547-2-coiaprant@gmail.com>
@@ -103,55 +103,71 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
 On RK3568, the SGMII interface can be routed to either GMAC0 or
-GMAC1 via the pipe_sgmii_mac_sel bit in the pipe GRF registers.
+GMAC1 via the GRF register pipe_sgmii_mac_sel.
 
-Add the optional "rockchip,sgmii-mac-sel" property to allow the
-device tree to select which GMAC controller is used for SGMII.
+Add support for this selection by introducing
+the "rockchip,sgmii-mac-sel" DT property.
 
-The property takes a value of 0 (GMAC0) or 1 (GMAC1). The hardware
-reset value is 1 (GMAC1), but this can be overridden by setting the
-property to 0 for boards where SGMII is connected to GMAC0.
+The hardware reset value is GMAC1 (1). If the property is set to 0,
+the driver routes SGMII to GMAC0; if set to 1 (or omitted), it
+remains at GMAC1.
 
-This is necessary for boards such as the Ariaboard Photonicat, where
-the SGMII interface is connected to GMAC0 and needs to be explicitly
-configured.
+This is necessary for boards such as the Ariaboard Photonicat, which
+uses the SGMII interface connected to GMAC0.
 
+Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%20Part1%20V1.1-20210301.pdf (Page 229)
 Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
- .../bindings/phy/phy-rockchip-naneng-combphy.yaml   | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+ drivers/phy/rockchip/phy-rockchip-naneng-combphy.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
-index 379b08bd9e97a..8e898bce9af73 100644
---- a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
-+++ b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.yaml
-@@ -80,6 +80,15 @@ properties:
-     description:
-       Some additional pipe settings are accessed through GRF regs.
+diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+index 7843356a4dd47..919bb97a4b182 100644
+--- a/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
++++ b/drivers/phy/rockchip/phy-rockchip-naneng-combphy.c
+@@ -186,6 +186,7 @@ struct rockchip_combphy_grfcfg {
+ 	struct combphy_reg pipe_xpcs_phy_ready;
+ 	struct combphy_reg pipe_pcie1l0_sel;
+ 	struct combphy_reg pipe_pcie1l1_sel;
++	struct combphy_reg pipe_sgmii_mac_sel;
+ 	struct combphy_reg u3otg0_port_en;
+ 	struct combphy_reg u3otg1_port_en;
+ };
+@@ -212,6 +213,7 @@ struct rockchip_combphy_priv {
+ 	bool enable_ssc;
+ 	bool ext_refclk;
+ 	struct clk *refclk;
++	u32 sgmii_mac_sel;
+ };
  
-+  rockchip,sgmii-mac-sel:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1]
-+    default: 1
-+    description:
-+      Select gmac0 or gmac1 to be used as SGMII controller.
-+      The hardware reset value is GMAC1 (1). Set this to 0 to route
-+      SGMII to GMAC0.
+ static void rockchip_combphy_updatel(struct rockchip_combphy_priv *priv,
+@@ -375,6 +377,9 @@ static int rockchip_combphy_parse_dt(struct device *dev, struct rockchip_combphy
+ 
+ 	priv->ext_refclk = device_property_present(dev, "rockchip,ext-refclk");
+ 
++	priv->sgmii_mac_sel = 1;
++	device_property_read_u32(dev, "rockchip,sgmii-mac-sel", &priv->sgmii_mac_sel);
 +
-   "#phy-cells":
-     const: 1
+ 	priv->phy_rst = devm_reset_control_get_exclusive(dev, "phy");
+ 	/* fallback to old behaviour */
+ 	if (PTR_ERR(priv->phy_rst) == -ENOENT)
+@@ -873,6 +878,8 @@ static int rk3568_combphy_cfg(struct rockchip_combphy_priv *priv)
+ 		break;
  
-@@ -105,6 +114,10 @@ allOf:
-           maxItems: 1
-         reset-names:
-           maxItems: 1
-+        rockchip,sgmii-mac-sel: true
-+    else:
-+      properties:
-+        rockchip,sgmii-mac-sel: false
-   - if:
-       properties:
-         compatible:
+ 	case PHY_TYPE_SGMII:
++		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_sgmii_mac_sel,
++					priv->sgmii_mac_sel > 0);
+ 		rockchip_combphy_param_write(priv->pipe_grf, &cfg->pipe_xpcs_phy_ready, true);
+ 		rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_phymode_sel, true);
+ 		rockchip_combphy_param_write(priv->phy_grf, &cfg->pipe_sel_qsgmii, true);
+@@ -984,6 +991,7 @@ static const struct rockchip_combphy_grfcfg rk3568_combphy_grfcfgs = {
+ 	.con3_for_sata		= { 0x000c, 15, 0, 0x00, 0x4407 },
+ 	/* pipe-grf */
+ 	.pipe_con0_for_sata	= { 0x0000, 15, 0, 0x00, 0x2220 },
++	.pipe_sgmii_mac_sel	= { 0x0040, 1, 1, 0x00, 0x01 },
+ 	.pipe_xpcs_phy_ready	= { 0x0040, 2, 2, 0x00, 0x01 },
+ 	.u3otg0_port_en		= { 0x0104, 15, 0, 0x0181, 0x1100 },
+ 	.u3otg1_port_en		= { 0x0144, 15, 0, 0x0181, 0x1100 },
 -- 
 2.47.3
 
