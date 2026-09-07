@@ -1,92 +1,92 @@
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D274EE867
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:31:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB574CA797;
+	Mon,  7 Sep 2026 13:32:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787912; cv=none; b=UXhnwgk4iHdN4V9XbiQ7mM0T5/JWdQScCup2S3AIo2UlLcLOKKW+FXHqMt6XIIsuYJG9fnpUgXOVEXPPdlw4IG/rN7uCPwn4Wkak4Eozt8iqwQzw5yQVvJ2z3TZZb4Fz1hyx9qkk9+W5myNaNPfnOds243M+9UpJ2PcAAuZfe+0=
+	t=1788787953; cv=none; b=cNOCtSY67jXtJWBk1GbiccCobfevN+E8eYwqgUCJZ1cVgFrQdTEQLoLgvMWxH1DHglOwy/PsE2zAAPxf+R2sKdfwFiDJM62wG7WT2ZZBc7O899lcHEHdqB9sqhLhmac6iynqpABG6HdcleLbuqGQN9nljonKd7CRneWj8V3HEtk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787912; c=relaxed/simple;
-	bh=vSD2AYUqreAplwWCoXjMl8VsUBh+Ur5feTbvL7P08Rk=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=LZ/RqZudzWoBl+h/0C+hhmmDuhWqQYe3PQoTtlZs0wKNxvCZhofW6M+ece/ueYed3307gOJRWn/SbEzDiwdzF4KJwzn+qqLoJom9PMRVmudt2YlQmS/Q4cQ0GfBaVZkj9K3S1iGID9cEDuAlLvw8RHw8KwKjH8UBIv23C2PAosw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com; dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b=lz/lQ9ZY; arc=none smtp.client-ip=149.28.215.223
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ubuntu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ubuntu.com
+	s=arc-20240116; t=1788787953; c=relaxed/simple;
+	bh=VVw4k2oa1IX13m5I8l1jeY9GfX+eJrls5NCdzQjJZt4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aXFsRGbjBlGDlunT4Lch5fk1+zDidA/ST9s8Mlp5/X97bpUOUxQ4q5d5LWmLDp0iFFnHeop4mG9lliDJ9OefR5HL010VqDvmmbc6SgNtnmUwClW8pxR6qWiLeQu+699BL0bKXIGNNFuFJzZg22IQku4fujueRmUupCBF0Zjdt/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=I6ZIRVuW; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=wN0QeEMw; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ubuntu.com header.i=@ubuntu.com header.b="lz/lQ9ZY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ubuntu.com;
- h=In-Reply-To: References: To: From: Subject: Cc: Message-Id: Date:
- Content-Type: Content-Transfer-Encoding: Mime-Version; q=dns/txt;
- s=fe-953a8a3ca9; t=1788787903;
- bh=VxFACcZSg9jdFJMF6rmUZ+dSf6/n4Bae3xVZCZ/pLgY=;
- b=lz/lQ9ZYHURLT+S17IgykjQ9OxbvUyPdaFREosu40s7sgXCi7xSDgf7dmsZ+ShinpAIQZZ1w2
- 6CFKsZxBZYZLr1ibu8DlxCPhaPxyiOo89ZnERYYdbNnEP2JDkacxjtJGZJe5w1E9MT7eLk69gsy
- 5M8yBpXMeP6mXGYC6tHbKbKmP52Gd+rZ4n94DHmiDlBUM7ImFZwYWiY+weCVERJhM6448m5hdjy
- U36RWDlYQgjI7i/Zih7cjvbnJuSq36WWlNIJVf+vCVzmkKY1oDMMQTSCjwftdw3wNv08CU/r/fM
- U/rR0w3Pbe8o4Ql9dOpgLzBlQdQa3R3T1HmxFWhEPRaw==
-X-Forward-Email-ID: 6a9ebcb816171017b32bae93
-X-Forward-Email-Sender: rfc822; jpeisach@ubuntu.com, smtp.forwardemail.net,
- 149.28.215.223
-X-Forward-Email-Version: 2.14.2
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="I6ZIRVuW";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="wN0QeEMw"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1788787939; bh=mWb+v9ELHieEJdI9V8la+OB
+	UPpFF5NV2q9OjdTiSJRg=; b=I6ZIRVuWQTrHnmLYkzd0a2rXsx57mBERzFqNVyIR8/qE9hbIIu
+	/wUXBGFjz62Ychb83zt7mLt0fGHgjSCCCj5VY6WK6dMaxYwZ1DJS3uV2/GpFZvzbH4RFlShSvsR
+	T2QYFCVJk6aXnO65rLz8CKy3ONovyxOEk0zk56xwox9JmLQI1hIUJrbnwR3TSK23Ls5CVX1Kz0G
+	CfD7zvNZz5ysB8vBpiSg4/S8ql7F3du4znpqH/gjHQV7Q7NfUfMXDdBsCpyQ4W+yEWMX4N632+5
+	8q+A/R3vXTSEP4mGbgfQ2gyEoG5gK5kWqCa1gnK0jGuzqYrpS7FofToqpfwL4byhGsw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1788787939; bh=mWb+v9ELHieEJdI9V8la+OB
+	UPpFF5NV2q9OjdTiSJRg=; b=wN0QeEMwNYOv0lBrLNHEI+Z8DyN58jT5ql8slkTjedrB4jQgUt
+	vSodLOREhskQ+Jbwy0BxVrg7BnCMPLozraCw==;
+Message-ID: <f27df150-f21f-4721-9fbc-1bea7dd0f05e@mainlining.org>
+Date: Mon, 7 Sep 2026 16:32:17 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8; format=Flowed
-Date: Mon, 07 Sep 2026 09:31:34 -0400
-Message-Id: <DL94DYGNRZC8.18LI4590FX0S3@ubuntu.com>
-Cc: "Konrad Dybcio" <konradybcio@kernel.org>, <linux-usb@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
- <asahi@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>
-Subject: Re: [PATCH v2 02/22] usb: typec: Represent USB4 on the Type-C bus
-From: "Joshua Peisach" <jpeisach@ubuntu.com>
-To: "Sven Peter" <sven@kernel.org>, "Heikki Krogerus"
- <heikki.krogerus@linux.intel.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
- "Janne Grunau" <j@jannau.net>, "Neal Gompa" <neal@gompa.dev>, "Andreas
- Noever" <andreas.noever@gmail.com>, "Mika Westerberg" <westeri@kernel.org>,
- "Yehezkel Bernat" <YehezkelShB@gmail.com>, "Philipp Zabel"
- <p.zabel@pengutronix.de>
-X-Mailer: aerc 0.21.0
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
-In-Reply-To: <20260906-b4-apple-soc-tbt-v2-2-1f80085f93fb@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] pinctrl: qcom: Add MSM8952 tlmm pinctrl driver
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Rob Herring <robh@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260904-msm8952-pinctrl-v4-0-671475ed1397@mainlining.org>
+ <20260904-msm8952-pinctrl-v4-2-671475ed1397@mainlining.org>
+ <ef41a092-cd83-4e65-a16a-7a8b838bcb63@oss.qualcomm.com>
+Content-Language: en-US
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+In-Reply-To: <ef41a092-cd83-4e65-a16a-7a8b838bcb63@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun Sep 6, 2026 at 2:36 PM EDT, Sven Peter wrote:
-> USB4 technically isn't alternate mode and entered using the EUDO and has
-> no SVID or Discover Modes Response. We can still represent it like an
-> altmode on the Type-C bus though by adding a mode kind. Exclude the USB4
-> modes from any SVID-specific operations and driver binding, but allow
-> consumers to observe their state through notifications.
->
-> Like for other altmodes, expose the USB4 mode to sysfs: Add a mode_kind
-> to be able to differentiate and then expose the EUDO, make the USB4
-> active state read-only since we only represent firmware-negotiated USB4
-> modes and omit anything that only applies to SVID-specific altmodes.
->
-> Signed-off-by: Sven Peter <sven@kernel.org>
-> ---
-> Hope it's fine to add you as the contact for the sysfs documentation,
-> happy to add myself otherwise though.
-> ---
->  Documentation/ABI/testing/sysfs-bus-typec | 36 ++++++++++++++
->  drivers/usb/typec/bus.c                   | 67 ++++++++++++++++++++-----
->  drivers/usb/typec/class.c                 | 83 +++++++++++++++++++++++++=
-++----
->  drivers/usb/typec/mode_selection.c        |  6 ++-
->  include/linux/usb/typec.h                 | 20 +++++++-
->  include/linux/usb/typec_altmode.h         | 10 +++-
->  6 files changed, 193 insertions(+), 29 deletions(-)
->
+Hi Konrad,
 
-Reviewed-by: Joshua Peisach <jpeisach@ubuntu.com>
+On Mon, 7 Sep 2026 14:04:59 +0200, Konrad Dybcio wrote:
+> On 04-Sep-26 14:55, Muzaffer Kadir via B4 Relay wrote:
+> I told the robot to take a look again (and again and again
+> a couple more times until it stopped complaining)..
+> 
+> The following feedback is meaningful:
+> 
+> Hi Muzaffer,
+> 
+>   `qdss_tracedata_b_groups` advertises GPIOs that cannot actually select
+>   the function. Please populate the corresponding PINGROUP slots:
+> 
+>     GPIO8:  mux 11
+>     GPIO9:  mux 12
+>     GPIO12: mux 12
+>     GPIO13: mux 12
+
+I will add these to their pins by sending v5.
+
+But also I want to ask,
+does atest_combodac_to_gpio_native
+have any mux on gpio12/13/20/21/29/30 ?Or are they wrongly set ?
+
+> 
+>   Minor nit: use MODULE_LICENSE("GPL") to match the nearby Qualcomm
+>   pinctrl drivers. // and checkpatch will ask you to do the same
+
+Some of the upstream pinctrl drivers were
+using "GPL v2", so I wasn't sure about that.
+I will change this to GPL in v5.
+Thanks a lot for review.
+
+Best regards,
+Muzaffer Kadir
