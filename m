@@ -1,144 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6632E43E488
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 09:01:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4756B37475D;
+	Mon,  7 Sep 2026 09:03:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771711; cv=none; b=siqTL6RFQ5Rr5sxzxh21LBwGuxMBL0C4jUfm5fJ8zBzn0O5+KbgWnVuMS6sKXRczPWIFcToTLfb7w0+43zk1gzk1OHWggzHOPyCb4W4Jj95vVtP47O28MCZwOGozvDmdg/8uNsDHWqzLvIGP+rDsCGAZCsgWAecBrhkm81QBIrU=
+	t=1788771784; cv=none; b=IfZK/djC6yyPntFP1MTQTnLUAmALCva6URWdHYuU0e3ofTLbs+IBUMuz0iiiMri/zXAFgu+h9MfXVwT5RfmmfdES+i91gpalUL1huyBdpfY+B4K2rEoyqc1PfxcJXwcjvRsHtHv7mp4afIQxnIx0uR4BspVh50FhQIJEEIlsWeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771711; c=relaxed/simple;
-	bh=5fPl2HSDi6PbOf+LVR/iccpaLi4BOUwniqo2FnDa98s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ndo/rnmY20aTppN44hEY+DwhyTidVC+jZgdt2jBDt3enwfDAAnt35CsrL7b1dmY4kFpVrkqGZB0QJGEgyxkM4e728akd1kWAjLqi1M1bUWdOYJnm5H+8GW3t3sGXe9DeSgQcTzky7KE84CwsvvxyreRLsCat4J2mEmisVDkVTv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YYZvg2N5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788771784; c=relaxed/simple;
+	bh=Go+bBQ61UsY2NImsKzf3YoYh/SoBrl4RgefHRiYG8RA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iDUcvJbzQV2cwTsu3gfLSMYcrQcZz+tXzTB7/f8rHAc980TBSYIDTAJbxPd69gDjniuK5+QwHK82ibsnr67g7/aQmo2pOyyR23PEiEo+EB9u9SQNfKHZiv3STKZhfQPfEzalMxjFIN2tGL1EeeG5fneVWU2xFbZ4Tkg91vRhUG0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=igNYO8RH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YYZvg2N5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70171F00A3A;
-	Mon,  7 Sep 2026 09:01:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="igNYO8RH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C4A11F00A3A;
+	Mon,  7 Sep 2026 09:03:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788771710;
-	bh=ByQfHcoETYzrSWwzlhYHcDBmJG5s/c7Y9ld0sfIckic=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YYZvg2N5QJigogN5SkcqaE5yshhtiAxRj6SyBO4RmRQsoFb3DboSpjLR9f20/oWLX
-	 PZlb4BRBeCl2pqnfB0qry69j9d+7Xq0GWrrYnysCjSEazEeCI5RAHDagNktY9v4UiW
-	 ys8lbeFtNJH8r6aX8VCpY2eu2u7eLcSmc5TAVp89cIK1L5p1PKn3DORJuXKL/7oHJz
-	 2ytDN0JBafGgJAUo4WdhmfyKiz3QhtVFLD0obt8Xfl5GretqYUo4o7hsPlzO+0IxaO
-	 9Uj0PYnynGyYZ4sDIwstIxs4UaqZl7euQfOo4dkdJLjoJaP6YQisMxFSRxYZRIBD8n
-	 sV2tUkSM/KKQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
- SDCA codec
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
-References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
- <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 09:01:49 +0000
-Message-Id: <20260907090149.B70171F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788771782;
+	bh=qPcPiAWfjggqcajS5JwGn0UOdsMyEDVI6NoXDi4xWv8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=igNYO8RH580c16Q0eiHMhb5A2oQYox4ljVElJLUkXFyZeLlOtnyqWagqlBbp2lieK
+	 4f2k0rZvzwmVqkMSn3Tr0TCDLzmVc3SeoS1s3DuZeQlEOk95WvGfiDuDjZKc7KaZhp
+	 8/zCYylYcVtWQLFWrX/HwJ8eibQDU/SgXrpUbRk8AIedg1ORoK34F/CTR+318f/WUi
+	 6SK1AhVP7F4AuveMJStqwkuNkalqVMV5rfImcydsYZcu1mhtJP8Fn7xuCZZ3dIKaPx
+	 gXUBmTXdUbwT6II4Sq18IGHEZ74D0UgS/c9KqMRotGk826OVcWpGcr8VtF656FkrMf
+	 y5D3sqMTqZbpw==
+Date: Mon, 7 Sep 2026 11:02:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Amber Kao <ite_pd@ite.com.tw>
+Cc: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>, 
+	Yaode Fang <Yaode.Fang@ite.com.tw>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: usb: Add ITE IT5271/IT5272/IT5273/IT5274
+ support
+Message-ID: <20260907-bulky-adorable-agama-40ece9@quoll>
+References: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903-it5271-binding-v1-1-1abd2c8cea85@ite.com.tw>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Missing DT patching for IT 33 MIC_BIAS and unsafe mutation of glob=
-al static topology structures.
-- [High] Disconnected playback topology graph (OT 43/45 bypass processing u=
-nits).
---
+On Thu, Sep 03, 2026 at 06:15:43PM +0800, Amber Kao wrote:
+> Add device tree binding documentation for the ITE IT527x series
+> (IT5271, IT5272, IT5273, and IT5274) I2C-based USB Type-C Power
+> Delivery (PD) controllers.
+> 
+> The series comprises four variants differing by port count and
+> Power Range support:
+> - IT5271: single-port, SPR (Standard Power Range)
+> - IT5272: two-port, SPR
+> - IT5273: single-port, EPR (Extended Power Range)
+> - IT5274: two-port, EPR
+> 
+> Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
+> ---
+> The driver for this device family is shared with ITE IT8851/IT8853,
+> currently under review as a separate series:
+> https://patchwork.kernel.org/project/linux-usb/patch/20260807-ucsi-itepd-v7-2-998ac11ed0ef@ite.com.tw/
+> 
+> This binding is submitted independently so it can be reviewed on
 
-commit 87e473cde38b9ce58f289bd43fe4fcd2cf63830e
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+No, it cannot be reviewed on its own, because splitting it means you
+have undocumented compatibles in the other patchset.
 
-ASoC: codecs: add Qualcomm Tambora (WCD9378) SDCA codec
+And if you do not, then there is no user for this binding.
 
-This commit adds support for the Qualcomm Tambora (WCD9378) headset codec
-in SDCA mode over SoundWire. It supplies static SDCA topology and SoundWire
-port properties for ARM/DT platforms without ACPI/DisCo firmware.
 
-> diff --git a/sound/soc/codecs/wcd9378-sdca.c b/sound/soc/codecs/wcd9378-s=
-dca.c
-> index 0000000000000..6a77fac017005
+> its own; once the driver series lands, IT527x support will be
+> wired into it there.
+
+Then what is the point of this binding now?
+
+> ---
+>  .../devicetree/bindings/usb/ite,it5271.yaml        | 176 +++++++++++++++++++++
+>  MAINTAINERS                                        |   8 +
+>  2 files changed, 184 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/ite,it5271.yaml b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
+> new file mode 100644
+> index 000000000000..29cd7add9bde
 > --- /dev/null
-> +++ b/sound/soc/codecs/wcd9378-sdca.c
-[ ... ]
-> +/* OT 43 (Headphone), OT 45 (Headset): no controls. */
-> +static struct sdca_entity *entity_ot43_sources[] =3D { &wcd9378_sdca_ent=
-ities[QSJ_IT41] };
-> +static struct sdca_entity *entity_ot45_sources[] =3D { &wcd9378_sdca_ent=
-ities[QSJ_IT41] };
-
-[Severity: High]
-Does this bypass the processing chain for headphone and headset playback?
-
-The output terminals are hardcoded to source directly from the input termin=
-al
-QSJ_IT41. Because the SDCA/DAPM graph traverses backward from sinks to sour=
-ces,
-this appears to orphan the intermediate units (MFPU 21, XU 42, SU 43, SU 45)
-and the volume control unit (FU 6).
-
-The commit message mentions that playback uses FU 6 for mute and volume, but
-the volume controls won't be functional if the unit is bypassed in the grap=
-h.
-
-[ ... ]
-> +	/* E006: FU 6 (FU42) - vendor Feature Unit; HPH mute + Q7.8 volume. */
-> +	{ .id =3D 0x6, .label =3D "FU 6", .type =3D SDCA_ENTITY_TYPE_FU,
-> +	  .num_controls =3D ARRAY_SIZE(entity_fu6_controls), .controls =3D enti=
-ty_fu6_controls },
-
-[Severity: High]
-Is it intentional that FU 6 is defined without any sources here?
-
-Combined with the OT 43 and OT 45 source assignments above, FU 6 currently
-operates as a disconnected dead end in the topology graph.
-
-[ ... ]
-> +static int wcd9378_sdca_populate_function(struct sdw_slave *slave,
-> +					  struct sdca_function_data *function)
-> +{
-> +	/* @function->desc is already set by the framework; fill payload only. =
-*/
-> +	if (function->desc->type !=3D wcd9378_sdca_desc.type)
-> +		return -EINVAL;
+> +++ b/Documentation/devicetree/bindings/usb/ite,it5271.yaml
+> @@ -0,0 +1,176 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/ite,it5271.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	function->num_entities    =3D wcd9378_sdca_data.num_entities;
-> +	function->entities        =3D wcd9378_sdca_data.entities;
-
-[ ... ]
-
-> +	/* Elevate is_volatile / has_reset to match the DisCo/ACPI path. */
-> +	sdca_apply_default_control_classifiers(function);
+> +title: ITE IT5271/IT5272/IT5273/IT5274 USB Type-C Power Delivery Controller
 > +
-> +	return 0;
-> +}
+> +maintainers:
+> +  - Amber Kao <amber.kao@ite.com.tw>
+> +
+> +description: |
+> +  The ITE IT527x series are I2C-based USB Type-C Power Delivery (PD)
+> +  controllers.
+> +  All variants support DFP/UFP/DRP roles, USB PD 3.1, Fast Role Swap,
+> +  USB4, and TBT3/TBT4 alternate modes.
+> +
+> +  The series comprises four ordering part numbers built on identical
+> +  silicon; port count and PD power range support are configured via
+> +  firmware/OTP rather than differing in the register interface itself:
+> +    - IT5271: single-port variant, SPR
+> +    - IT5272: two-port variant, SPR
+> +    - IT5273: single-port variant, EPR
+> +    - IT5274: two-port variant, EPR
+> +
 
-[Severity: High]
-Can modifying these entities cause a data race if multiple device instances=
- are
-probed?
+Why isn't this entire binding part of the other file?
 
-Here, function->entities is assigned directly to the globally shared static
-array wcd9378_sdca_data.entities. Calling sdca_apply_default_control_classi=
-fiers()
-subsequently writes to the structure's fields. This mutates global state wi=
-thout
-making a deep copy for the specific device instance.
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: ite,it5271
+> +      - items:
+> +          - const: ite,it5272
 
-Additionally, the commit message mentions that wcd9378_sdca_populate_functi=
-on()
-"patches the IT 33 MIC_BIAS default with the DT-derived per-slave value" via
-the qcom,micbias2-microvolt property. The logic to parse and apply this DT
-property appears to be missing from this function, which leaves the mic bias
-voltage stuck at the 2.75V default.
+enum
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907083727.7337=
-05-1-srinivas.kandagatla@oss.qualcomm.com?part=3D11
+I finished actually here, becausr I still find reviewing outside of
+driver a waste of our time.
+
+Best regards,
+Krzysztof
+
