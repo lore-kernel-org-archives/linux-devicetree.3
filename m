@@ -1,141 +1,127 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE49B3C109E
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:32:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 245F6372B5A;
+	Mon,  7 Sep 2026 08:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788769980; cv=none; b=UAF6wOBjJQdxJSvxlckPU43ZTd3YIA8DzQEuw2AlK0u8ZDTgrHHF3kbOxwnsFYuRo3YxrK4yAYYPm3D0Mj8O/PkqrTqAgQRsKgmeLA/0MXxCVGNQ44kAeSOBRJNsnQTiglcDaXun203kr0SSStTXyVX1u5Pc2C8+S33FTpInTGM=
+	t=1788770046; cv=none; b=QZmOzdDFNpdfYBPIy6EXALQkhouC7YXtREqgHaxfbdtxYj5grZDm5dGco1KuswfC6v/lBJ0NR60scItbSNfZHuEK8xDk3ttojdCW0MMYGVZapmAVK2zl9p3JKAhTw3l6j4FJxkgV/hy5mqsXJZh+Gxr2kpoiqx2QUfKCrTZtoLA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788769980; c=relaxed/simple;
-	bh=3vtIMbYe0dxXQg4HGTmjD4UpnxkAM1+Q1cUtKCU5Vq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H4EWYMBSWpVdDAenaFb1HE8F5KIR1QtALY4KxAOryUOw5krdRhLGJAcQK7g4N8ePrdIM+OjyBVv6FbCwsVK2AovVOUPaahnSdu5CxO8cWIMlmSXt5n/0XQuJBaL4/bKDTrEY9390agpaUyIsyHBf6KfiEWCNkWgEus+6QTB5pwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NOmTpjhe; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788770046; c=relaxed/simple;
+	bh=f4Eh8j+aicc36sTqrruJPfxf8U+uVXTYH753QNh5Jk8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mwMNwSVn21mFoGxTocQC2EUI5VKQB2AJNneozQU0WUYnNax97/Un6c4c2e3z0tRSZSrVBFZihKnSQFowpBvwpjwSGRutIu4gcFIYtiRzggJ8BeEBJrsXgyRqBtwZZk+99U65CEbulf0fiH3pBKKdrjTQFRGJP+Eehzb9Od1K+Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HqRtpCWz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NOmTpjhe"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so3681962f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:32:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788769977; x=1789374777; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q1zKmOTGIIL+pRRxcESuIVFMk8iKWFzVbSRpyStN3ws=;
-        b=NOmTpjheI2TZwvavLhjXmCysXfikFgDFGVah7+rRsb2Mx8/zPGZiQnb38FAImNWhfM
-         ULqvYlfvnKwGAK2IPAIL1eu7dky7lLEZRLsLFHmStAkNNSjaOXReQwWyOnH7PuRfPQ0N
-         BVcUmFcY9n68CVei/cOhyraEjUCNbb4iuxi6ZCcvyVz5LKrwPB1HNIs4o/jYGB9H16aJ
-         1FtTDskJZDfGXMg/J8IZa7H9VmRy2fbX3BllMNFTkMT9ICx1sWspM2mlE3OeTfqC3AJ/
-         10J2BcYnqoaaSLjUwHlzMvdpHHQpZsBa2O4dRQ7s7gH88aSD9feApwtpPmDPxMdMEVBz
-         CooQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788769977; x=1789374777;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q1zKmOTGIIL+pRRxcESuIVFMk8iKWFzVbSRpyStN3ws=;
-        b=Y4ouWWRXZR4LfglV+zzI61tOQ+cu4h6Im2T04qoxRTpNQT/EA2dQXFmUQSWkPLeXDa
-         y9X3cuVGTFpsTmzFH+B5E5sFeQ0eaKTUmd67GFR0JTBZ96555xvyLI+6utXbm4NRoi55
-         ZbhHyGCPcS/UAczzmcLKRgR2Ja/H09s1p3aB0YNA3OHFphVy0et1adN+1Aa5vciZ3LsQ
-         wuyKWwxBDGGveoqYsNhhJbs1Imw1yTa/6GaNDOPPPCPqE7p2ZsbLSgxyB48mBOLDiKLF
-         3QJutwVKyWXQyirDb8XmRSwiMmUvigUxRiDiWxogXZQKU+pNNis4DKskK6bDzW57tYS3
-         XUaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKEu2JQlUEzAqnrf+1AoVE+TLoFP0tvInAAE1UG/siq1CwIXAB1wpL0OZcnTQcSx+DoxueKWEZDXci@vger.kernel.org
-X-Gm-Message-State: AFuF++lYQ3eqzKheYpOqgugipgdeen4ZNDmlch0KtMQhbvUD9LDxP4kn
-	pgN7qXdzl3egmy/iHl1Q/e5zXbOAijLH755dTW+3Ky5DiWqHfER/yDkR/0WTJGKwbwE=
-X-Gm-Gg: AYBFou3e8wGmDp0+GGaojIGZp+ZSAras4zBTlG6tU9OZx2MwJUr8bnswo6OgM3Ct9ky
-	oj5IztM7SQMSrDsNohaMtMAfnDF3Nimxw24mgFr1PFsx7lRppyejlFSpUNxhMCtfs04QKhegi5k
-	uOBixAg7E4JJ3lhKv312e5oe7D8ZTypz1AlHDeYA6vBs9iZdHMqtd8DP0BK8gbzrFFxevh6LYie
-	p76XfNI0AFgKGESHbqPWWYNi+RpGjUeUVlrPwrYrVIcxhzHVWGuYS3Wn4njsfaxE/132JNgHDae
-	nGS/GvfH45OXaCafSbaSZscXa/eajwza6cQdxY7AWvJzEkIS7qVzt3dckurRztzUuBrsWZc+ycr
-	xfDwInOmmMjzT4v3qnN1BIvQXA7+KS8/DYHppa9zAO1XZsHU/Hw8RPRd8Ps7Bj024kBCTJ7sGER
-	QlY8QnfEU6mYzjY0VlcjRYZKoKpvM9MQUq5Bzu4dH7PzohqK667JoktKBFTjABz+IencqHCD+hM
-	6e8exGU5mUEgNxWuJ9wjTXBF17lf5cA1OK3WM8bVK4F+m6I/vs=
-X-Received: by 2002:a05:6000:644:b0:485:847f:fd89 with SMTP id ffacd0b85a97d-485870506d0mr24554219f8f.9.1788769976952;
-        Mon, 07 Sep 2026 01:32:56 -0700 (PDT)
-Received: from localhost (p200300f65f19a9047ae53bb37ada872a.dip0.t-ipconnect.de. [2003:f6:5f19:a904:7ae5:3bb3:7ada:872a])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-485883c6ba4sm30820390f8f.25.2026.09.07.01.32.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:32:56 -0700 (PDT)
-Date: Mon, 7 Sep 2026 10:32:55 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>, 
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] usb: typec: Add onsemi FUSB15201 driver
-Message-ID: <ap51p16bSY1Ru9C1@monoceros>
-References: <20260902045938.184221-1-shengchao.guo@oss.qualcomm.com>
- <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HqRtpCWz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56BF71F00A3A;
+	Mon,  7 Sep 2026 08:33:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788770044;
+	bh=aj2fTBPRMRI4QvNUMLLitE9EHTQ3lV6EX+JE4r0Xs6A=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=HqRtpCWzln4WPkzy2XN5DPCjzjvAqsPkIcNJ1X7TWR/IThha8hhQRqIKWw39Ueu/z
+	 ugE0UZ9vy+74H9gEM5/5YVIKRQtHrzNq5J6pRrx7/41aTf30deM/jphmGIYbzHRv0K
+	 bkV3TfAlO6Ox8rFQ7odI90OltuSEz83HWVMqleNdKmmraxAvbUFOQVHOlaeSc6UDrh
+	 gBlOOBygexmrOvYQ4tWC1892OJBea+b3AQ4VmaLGknMIhlxlCMshT6GiwIfRHiqM0G
+	 UN2y9pgw1/1zh6AAPF/2O1GZjEeKglK6g0GSQBGGLKB6n+fmJ7SwBuRJ0bTbJy+cPU
+	 ZKhxhSTyOx6vg==
+Message-ID: <58e186c1-d199-40ec-a165-2d3e4f36c623@kernel.org>
+Date: Mon, 7 Sep 2026 10:33:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ho4liu3hrz2gwc46"
-Content-Disposition: inline
-In-Reply-To: <20260902045938.184221-3-shengchao.guo@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+ linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+ Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+ <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
+ <20260907-arcane-sassy-fennec-afc02a@quoll>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260907-arcane-sassy-fennec-afc02a@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
+On 07/09/2026 10:30, Krzysztof Kozlowski wrote:
+> On Thu, Sep 03, 2026 at 12:58:52PM +0530, Harendra Gautam wrote:
+>>
+>> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
+> 
+> Why do your commits have leading blank line? I mean, really, how is it
+> possible to create such commit?
+> 
+> Additionally, way you send your work is making this unnecessarily
+> difficult for us. Look, does this work?
+> 
+> 	b4 diff '20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com'
+> 
+> ? No, it does not:
+> 
 
---ho4liu3hrz2gwc46
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] usb: typec: Add onsemi FUSB15201 driver
-MIME-Version: 1.0
+And now I checked... and you did not even use b4 to send v3 and v4. I
+mean, really... why? All internal guides, all external presentations
+EVERYWHERE we say this is expected and even almost a must for bigger work.
 
-Hello Shawn,
-
-On Wed, Sep 02, 2026 at 12:59:38PM +0800, Shawn Guo wrote:
-> +#include <linux/i2c.h>
-> [...]
-> +#include <linux/mod_devicetable.h>
-
-Please rely on <linux/i2c.h> to provide of_device_id and (see below)
-i2c_device_id. Alternatively include the needed files below
-include/linux/device-id/ to not introduce unneeded dependencies.
-
-> +static const struct of_device_id fusb15201_of_match[] = {
-> +	{ .compatible = "onnn,fusb15201" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, fusb15201_of_match);
-> +
-> +static struct i2c_driver fusb15201_driver = {
-> +	.driver = {
-> +		.name = "fusb15201",
-> +		.of_match_table = fusb15201_of_match,
-> +	},
-> +	.probe = fusb15201_probe,
-
-Don't you need an i2c_device_id table, too?
-
-> +};
-> +module_i2c_driver(fusb15201_driver);
-
-Best regards
-Uwe
-
---ho4liu3hrz2gwc46
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqedrMACgkQj4D7WH0S
-/k7YgAgAs4m8lyJ4DHebmlSmZntV4mxfgROfhi7Uwq7HpI6Zvchr6fGHr2xXOV9F
-nWYl8ZJ+ADjYZ7LaAHy3nSz8i8IeAQst2+FhnNS+USYuNKfo2uB7I6/I5eTWbwkq
-4hYvG80vost649UpY9qeQ+V+Ya/rh7q4ipYctOqYGh/lsN3KxiWpQdX74vBbdWLF
-pRygWfOFX/jY3/x1WbPTU3MaXqexQvnkTJbIH6iJI+oBMyQ/N4emnBf/RlTpB6Xr
-EXY4Ctpi1sy7GcD3/MoYNESHR9+fR1GLsGNuNq4b+vS2zIY9KLAqrAIdjOZ/EqlQ
-3aWssAJJQhcD2K7qbTLjoe/4CPX8QQ==
-=hzRz
------END PGP SIGNATURE-----
-
---ho4liu3hrz2gwc46--
+Best regards,
+Krzysztof
