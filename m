@@ -1,175 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD98D38228A;
-	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1313BC68E;
+	Mon,  7 Sep 2026 16:54:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788799818; cv=none; b=I8zBmP6B/401/BS1ZvS6cQwd+RBj7KdvPMt0rmaS7NQo/0BZbad0u68XoqO7IpYEcyEqF7NaKj+f3j3VUgRB9tTxNiRJed1ZSa6Arbch0nJ32pNGTZ1Wg/78SQTaDgeYkghx/2Wgd+jE8aEK23cmXgw/61NByCRtdqVXuTcOqlA=
+	t=1788800059; cv=none; b=HiGAr8AHJIk7DmtxBc6m9LpjcGTjmjITvK7vQOgOP3ZS0QZFhjNgb08Eb+43PDE3w5y5/Nthn1g5S1UIa6DR/evX0rCJJfMJ1MJ2qgANnvZ52ePVSiZ172xx+KgORNkISSy81Twwyt1M0K99UjGehH+r0UX41ZDP9WQbWNBUiyw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788799818; c=relaxed/simple;
-	bh=pus3OIMvtAdqCN5lzcybKiNDZT2pHkfTRO5wGwjEElE=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KiOfQcFOREPILec14BmPpTeajzd0Q07kX44SBf6fPSh1gJgf090oySRHaJ6OK2QS0DaTMV4jRxb+tdTt05/w8Ia6Lq7ECtJCNkJEuhe8I7LaYMNi2Vt2LeCyNPhvbpTQPLbYCPNSpiWO399la08hhlxLwDhVI2nL0SXpuwBpmPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLRazJML; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788800059; c=relaxed/simple;
+	bh=GKZZny7aMhl5k5Xl79fHaZbfQVI9aamNlsGt2oxXCWo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e8gGjP7vm/3SbHsk34c6wv3oEig+/UWaJK7yZfRPTZtW8SRrX3A83KkVZID8Zb6iiFlngwdksATPvWVp3Q2pnixlk246TsG0yCmbTi8nD4m0i9Axzb1we/atH7JJZhadDbO+sbsxfNAVULaM6GQncJjO69GiByev+a+MvKJJ858=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fS8qt/Vd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLRazJML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EBC31F00A3D;
-	Mon,  7 Sep 2026 16:50:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fS8qt/Vd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4132A1F00A3A;
+	Mon,  7 Sep 2026 16:54:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788799817;
-	bh=QTFb/7AYKIYAJJpoTYlFHRzy0v+TkzM5XPwWHm7OcRE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XLRazJML7yVxacnO8lm1nOLPHjZv0NzBkvPqtmJ1Y/Q+4X/8vj37vxTjKeAanUhz6
-	 EPbeM2qkidzho26HsF/jPGwkzGKkN7ieKunIc8UZthcMgsKVfz3mSdiNDLjq0Bglb5
-	 su1cZzxyXM9iepayC8dD6d4U0bwjPtIpJDgxi6EzMvTx/2UNzMhCUXjBXMQVZX0YMo
-	 RU+49T+a4+2AowZJDQrk0Hjj8mKeIZ+fOX81erLawEMwIAkFG6JtnQHh5VwPDamb+U
-	 iaYz94lrWtDIx6/0/ItrbZfLo5jT7Gbgzg+t5p/vtovWCQp0Oyu1u10rNtnfpd7YLJ
-	 uPILftTgUhQhA==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3cXv-00000005sFE-1cop;
-	Mon, 07 Sep 2026 16:50:15 +0000
-Date: Mon, 07 Sep 2026 17:50:14 +0100
-Message-ID: <86a4pt3t15.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Georgi Djakov <djakov@kernel.org>,
+	s=k20260515; t=1788800057;
+	bh=fTcG0zRnjibBnzdTxOkRK4sFEF9Nj5QobdtE77g2EMM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fS8qt/VdHzbFsvSLja2PNSSv8mROw+FqMJ4CbOSKdR2qdE+tCB4iXFTP3url8UfpP
+	 ovBwVyqGGgFHkUKBPgLrciZtHKCr0gZ1mJlrC4cRHFmP6hazY0g+xou+Oh3wiSIR5n
+	 WQt5MpjqyDaNlGDsMQPrNBw1Qi75Myxji8Tb8RxKkKvIwY7GKH9GzxObHSoj+OL/eN
+	 yAxqMY4SvzvjywMpGP/eQ9p9m5qAOUJ5LoMgAAFYThqeVRCW3VajKjCSgWLtdFRNFT
+	 FhfT1HNGdutuwQn+qeTHx49TDZR7OCIZQjbtV7g1ob/DZbTZOqyxM5PNi77x0EbNfn
+	 Ihr2wZ31HRFVA==
+Date: Mon, 7 Sep 2026 17:54:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Rosen Penev <rosenp@gmail.com>
+Cc: devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Rajendra Nayak
- <quic_rjendra@quicinc.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
-In-Reply-To: <0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
-References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
-	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
-	<apgeBNSiP01YfNcs@google.com>
-	<86ld9d4h4n.wl-maz@kernel.org>
-	<f58bd978-ca45-48b9-a928-45a2878fb54a@oss.qualcomm.com>
-	<86jyox4fas.wl-maz@kernel.org>
-	<ca962589-3b6c-4e5d-a11e-b49cf20dc262@oss.qualcomm.com>
-	<86bja94234.wl-maz@kernel.org>
-	<0916741e-442e-431a-9831-9457e3af1cf0@oss.qualcomm.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	Peter Robinson <pbrobinson@gmail.com>,
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH] dt-bindings: gpio: pca95xx: add onnn,pca9655 compatible
+Message-ID: <20260907-unnamable-geography-d04f61df0fe5@spud>
+References: <20260905000919.155694-1-rosenp@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: konrad.dybcio@oss.qualcomm.com, raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com, odelu.kukatla@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i6boig1kl3i2UcBi"
+Content-Disposition: inline
+In-Reply-To: <20260905000919.155694-1-rosenp@gmail.com>
 
-On Mon, 07 Sep 2026 15:34:35 +0100,
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
-> 
-> On 9/7/26 3:34 PM, Marc Zyngier wrote:
-> > On Mon, 07 Sep 2026 14:20:26 +0100,
-> > Konrad Dybcio <konrad.dybcio@oss.qualcomm.com> wrote:
-> >>
-> >> On 9/7/26 10:49 AM, Marc Zyngier wrote:
-> >>> On Mon, 07 Sep 2026 09:18:38 +0100,
-> >>> Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com> wrote:
-> 
-> [...]
-> 
-> >>>> The current patch enable QoS for Hamoa SoC, which get programmed only during
-> >>>> driver probe. This shouldn't impact or cause any spurious resets once the 
-> >>>> device is booted up and probe is successful.
-> >>>
-> >>> And yet it absolutely does break things.
-> >>>
-> >>> With this patch applied, the box resets within 5GB of heavy network
-> >>> traffic, probably because some transaction get delayed, and a watchdog
-> >>> fires. With the patch reverted, the box keeps receiving packets, and
-> >>> everything is hunky dory (100GB+ so far).
-> >>>
-> >>> Which makes me think that the set of hardcoded parameters in this
-> >>> patch is not universal at all.
-> >>
-> >> They are, provided the configuration is for the right SoC..
-> > 
-> > Is x1e001de different from x1e80100? AFAIK, it is only a binned
-> > version of the same SoC. How do you explain the above regression?
-> 
-> I somehow skimmed over the fact you said it's on the devkit and not
-> on the mini-x mentioned before.
-> 
-> I pulled the Hamoa settings I could find, there are some updates but
-> none seem particularly related (maybe the PCIe one? I don't know how
-> the network card is connected), please give the attached patch a try.
+--i6boig1kl3i2UcBi
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I cherry-picked the Hamoa-specific patch, and gave it a go. Same
-result (hard reset while synchronising a bunch of files), but this
-time with a nice little message:
+On Fri, Sep 04, 2026 at 05:09:19PM -0700, Rosen Penev wrote:
+> The pca9655 is the On Semi variant of the pca9555 16-bit I2C GPIO
+> expander and is register-compatible with it. The addition of the
+> compatible in the driver missed the documentation update.
 
-[  272.468031] nvme nvme0: controller is down; will reset: CSTS=0xffffffff, PCI_STATUS=0xffff
-[  272.468039] nvme nvme0: Does your device have a faulty power saving mode enabled?
-[  272.468039] nvme nvme0: Try "nvme_core.default_ps_max_latency_us=0 pcie_aspm=off pcie_port_pm=off" and report a bug
+The commit message makes it sound like this device should use a
+fallback. Why doesn't it? Either it should, or the commit message needs
+an update.
+pw-bot: changes-requested
 
-indicating that PCIe has died.
+Thanks,
+Conor.
 
-None of that happens without the QoS stuff.
+>=20
+> Fixes: 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi pca9655")
+> Assisted-by: opencode:big-pickle
+> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/D=
+ocumentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+> index 4631388a7d91..563f61e6e543 100644
+> --- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+> +++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+> @@ -67,6 +67,7 @@ properties:
+>                - nxp,pcal9555a
+>                - onnn,cat9554
+>                - onnn,pca9654
+> +              - onnn,pca9655
+>                - ti,pca6107
+>                - ti,pca9536
+>                - ti,tca6408
+> --=20
+> 2.55.0
+>=20
 
-> If nothing else, please "bisect" the QoS additions until it stops
-> crashing. Although perhaps applying only some of the settings may
-> have its own set of dragons..
+--i6boig1kl3i2UcBi
+Content-Type: application/pgp-signature; name=signature.asc
 
-That's not exactly encouraging, is it? And if the "recommended" set of
-tunables is not up to scratch, surely there should be a way to opt-out
-until someone figures out what's wrong. Something like this:
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/drivers/interconnect/qcom/icc-rpmh.c b/drivers/interconnect/qcom/icc-rpmh.c
-index 3b445acefece7..3a4743c364dac 100644
---- a/drivers/interconnect/qcom/icc-rpmh.c
-+++ b/drivers/interconnect/qcom/icc-rpmh.c
-@@ -224,6 +224,9 @@ static int qcom_icc_rpmh_configure_qos(struct qcom_icc_provider *qp)
- 	return ret;
- }
- 
-+static bool enable_qos = true;
-+module_param(enable_qos, bool, 0660);
-+
- int qcom_icc_rpmh_probe(struct platform_device *pdev)
- {
- 	const struct qcom_icc_desc *desc;
-@@ -308,6 +311,11 @@ int qcom_icc_rpmh_probe(struct platform_device *pdev)
- 		struct resource *res;
- 		void __iomem *base;
- 
-+		if (!enable_qos) {
-+			dev_info(dev, "Skipping QoS (command line)\n");
-+			goto skip_qos_config;
-+		}
-+
- 		/* Try parent's regmap first */
- 		qp->regmap = dev_get_regmap(dev->parent, NULL);
- 		if (!qp->regmap) {
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap7sNAAKCRB4tDGHoIJi
+0pSyAP443T6Ba/r415iW3TBm/unJOBPexuejUCYEdLgutVbPUQD9H4/fGYPb6TUU
+QjTnNSm7vcITIQ3TbIXNdsG5lzEk1gc=
+=DJha
+-----END PGP SIGNATURE-----
 
-At least people stuck with Purwa or other abandonware (such as the
-devkit) would still have a usable machine.
-
-	M.
-
-
--- 
-Without deviation from the norm, progress is not possible.
+--i6boig1kl3i2UcBi--
