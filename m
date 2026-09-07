@@ -1,33 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA5A415F3C;
-	Mon,  7 Sep 2026 07:25:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23EB23CA48E
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 07:29:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765953; cv=none; b=OPDe3ip5/3y7LCpVADeliV7838NuYxBulcw94IC32LW7w8MXXhHRTyN+nddROxHibbtcqyra4p9u50FOwdvv79mBmmrpETiAcV7mIYderR1SgGV8VbMeNHcRbx53C5tTEi3ugL/fUQjWBfgdpoRXHvruldXrqLp1M74KGP0nIZY=
+	t=1788766150; cv=none; b=kKW0vEcPe7ndsN8KHZ9k3cShafjQu2gKXtK0hfaNwNUQ5NMN5n13Ua910HvMOlhhDcNfwyFk3JK5RMFTVnr2E3JsN4Ch7Tvki8pYrP6Z6lAAtQBJ/Ywk8pRfrn97wzExk7yBzETwTyL1HqgkLzF2N++QezTBg280xuCP/NFum2U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765953; c=relaxed/simple;
-	bh=Jy9Iw90kh+au488Ng6jqbL88lnq6u7beofZcis2Qm8g=;
+	s=arc-20240116; t=1788766150; c=relaxed/simple;
+	bh=uDa6rYQmXTGgcYIJLVFNrSmufukAoyTcQnshhgvR3Po=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pAYuxbu6WoEh2NUz+oykbfUuaoZ5FKFUwQNoc0MElVCbP3up85QYd69+pYuTMZX/2Ms0GZ/3AobzDACApLPQkF2xe+4jGT0OhXEY/9hjtrPrLBgLif8Cn+FjWgAVUaRfV5GDWutfH7I5t0TRD2q5UqOUJmFsHqemaGj8Yvg9Ul0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEoSQcwf; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=TZn5DMvIKXk6vJXxi7tQWoixmM0vCxOECDRpEcnN51IjC6EdfUvK5AdOG99wT3VIKlv43EFIJaNAHFfaqf4Q2n65/Sc1jilLV3IT7EEVla/Ec5e+Rnuh1J/DdpafftHNK1mLTBW05vOJRQGd09JJegcx5EyiHrW02+WSdrD7r6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QZ9Cn0PW; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEoSQcwf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1DC1F00A3A;
-	Mon,  7 Sep 2026 07:25:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788765951;
-	bh=XysbZdZdrKGKW3RKspZ9TPmk0cHmu+YozeDs0r6a+84=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AEoSQcwfvWAOgdnAVhrgItjVrOklvMfCAI7uFfux2CTIpOaSbDGP3ap+LpOmufSlz
-	 IRDjRGDeTYmvphl27PDlMG3y77cG5ztdZHhQzfPJx98NHZJ4ODapOPjdPdIXQX5pDJ
-	 7aAaRiCBN8vO0sMWKkML9IAlOx94JcbklDmAUjjIUG06jpdRFKGjknccOCHJrn37J9
-	 xd1RnUC4j/CDy/zP88CdswNKraJWkc+vvPcYlcpI3Ln2YgJES1XE9pAffAfm5bdnLE
-	 8htghaa5Jy6qtqIoGFNzwLmXZ180QB7p+Z8zJtJnhLOW6O9JS0t63lgcw8PWj4fV18
-	 ku9r3ecV/liBw==
-Message-ID: <6ba5218f-9646-421b-9bf9-efe28f1a5880@kernel.org>
-Date: Mon, 7 Sep 2026 09:25:44 +0200
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QZ9Cn0PW"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 11C084E41555;
+	Mon,  7 Sep 2026 07:29:06 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D2B4660383;
+	Mon,  7 Sep 2026 07:29:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8286A11C7A131;
+	Mon,  7 Sep 2026 09:28:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788766140; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=aLz+YXhDXlEGNDvoI1Sa9xZvW1NLNKMWivo0ZPJIY08=;
+	b=QZ9Cn0PWrljorCBOhiK1CJ1CZTrACqwecmjkSZL6aH++MTyIZx/YDEF5Vv9n6WLwIYfPQe
+	7CBGnXgwfPsGyOCRBkxTvexerYSf7S41IzTaHKSeK5sdhB8p7J06iZXIelfhN6SvrJ6lV9
+	sVEL7gy5QBOXFswDyJqBGrOsu8Ea9G6+nyIEaUtcgkOw8w2QEplRixDEYSuoCSHomNKP+h
+	e8iIkLHNiwpi65LEYWLOvTowa3Fu7Taomx7mR0e9I/FtfT7w5FRoT+ZLHtg67qozO8l5cd
+	H3LDIKWwkfOuhN9kQ/ULuqi6mX0pWa/nl+4NytM9Xsr95U0djysT9yOrU5spYQ==
+Message-ID: <248c1a07-7a5c-44dc-a73e-f95a69bb4161@bootlin.com>
+Date: Mon, 7 Sep 2026 09:28:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,152 +42,113 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
-To: =?UTF-8?B?5Ya357qi5p6X?= <lenghonglin@axera-tech.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?5pe25b+X5oiQ?=
- <shizhicheng@axera-tech.com>, Catalin Marinas <catalin.marinas@arm.com>,
- Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "soc@lists.linux.dev" <soc@lists.linux.dev>,
- "hlleng233@gmail.com" <hlleng233@gmail.com>
-References: <2113d03615a9265b42a4d69a5a9020ef3-9-26kernel.org@sslemail.net>
- <20260903-impossible-normal-termite-b7f9b8@quoll>
- <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH net-next 3/3] net: stmmac: Add UltraRISC DP1000 GMAC
+ support
+To: Jia Wang <wangjia@ultrarisc.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Giuseppe Cavallaro <peppe.cavallaro@st.com>,
+ Jose Abreu <joabreu@synopsys.com>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+References: <20260901-dwmac-ultrarisc-v1-0-f19454814bcf@ultrarisc.com>
+ <20260901-dwmac-ultrarisc-v1-3-f19454814bcf@ultrarisc.com>
+ <910be156-b631-4b62-972a-79d9a9e38697@lunn.ch>
+ <178842162417.2701756.3296149694160507506.b4-reply@b4>
+ <1622b0a7-5516-4e72-b5e1-60c12b65b52e@lunn.ch>
+ <8611dff3-56ea-4798-8303-b0a8af84580e@bootlin.com>
+ <178850166577.1486454.10728134844652956076.b4-reply@b4>
+ <178876008871.2542659.8460758662538260209.b4-reply@b4>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <178876008871.2542659.8460758662538260209.b4-reply@b4>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 07/09/2026 09:12, 冷红林 wrote:
-> On 9/3/2026 8:39 PM, Krzysztof Kozlowski wrote:
->> On Tue, Sep 01, 2026 at 05:19:28PM +0800, Leng Honglin wrote:
->>> Add the Axera Semiconductor vendor prefix for devicetree bindings.
+Hi,
+
+On 9/7/26 07:48, Jia Wang wrote:
+> On 2026-09-04 14:01 +0800, Jia Wang wrote:
+>> On 2026-09-03 14:30 +0200, Maxime Chevallier wrote:
 >>>
->>> For more information, visit the official Axera Semiconductor website:
->>> Chinese site: https://www.axera-tech.com/
->>> English site: https://www.axera-tech.com/en
 >>>
->>> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
->>> ---
->>>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->>>  1 file changed, 2 insertions(+)
+>>> On 9/3/26 14:10, Andrew Lunn wrote:
+>>>>>> This looks to be 90% identical to dwmac-sophgo.c.
+>>>>>>
+>>>>>> Do you expect any further changes to this driver? Is everything
+>>>>>> supported? Are there more clocks? A GPIO for WoL?
+>>>>>>
+>>>>>> I'm just wondering if the common code should be pulled out, or even
+>>>>>> dwmac-sophgo.c made generic so it can handle all plain boring devices
+>>>>>> which have RGMII delays and not a lot else.
+>>>>>>
+>>>>>
+>>>>> The probe boilerplate is indeed largely similar because both drivers
+>>>>> use the common stmmac platform helpers. However, their platform-specific
+>>>>> requirements differ: Sophgo requires additional TX clock handling and
+>>>>> other configuration, while DP1000 requires fixed TX and RX delay
+>>>>> handling. ACPI support under development is also intended to use the
+>>>>> UltraRISC glue driver.
+>>>>
+>>>> ACPI is going to be fun, since nobody does ACPI networking.
+>>>>
+>>>> But how big is the change to the glue driver? I expect the change will
+>>>> be minor, a call to devm_stmmac_probe_config_acpi(), in addition to
+>>>> devm_stmmac_probe_config_dt(). Anything else?
 >>>
->>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->>> index 396044f368e7..1dbafe682724 100644
->>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
->>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->>> @@ -219,6 +219,8 @@ patternProperties:
->>>      description: Shanghai Awinic Technology Co., Ltd.
->>>    "^axentia,.*":
->>>      description: Axentia Technologies AB
->>> +  "^axera,.*":
+>>> I agree that if ACPI support is added, let's try to make it part of the
+>>> core.
+>>>
 >>
->> So how did you implement own comment?
+>> The ACPI support is still under development, but the current prototype
+>> adds ACPI device matching and ACPI-specific platform-data setup. Some
+>> common stmmac changes are also needed for ACPI-described platform
+>> resources and MDIO.
 >>
->> Best regards,
->> Krzysztof
+>>>>
+>>>> One problem the stmmac driver has is cut/paste glue driver
+>>>> development. The same code is repeated again and again. Russell King
+>>>> spent a lot of time and effort trying to reduce the duplication. So we
+>>>> should not be adding more duplicated code unless it is actually
+>>>> required.
+>>>
+>>> It seems to me that all the RGMII handling could be made much more generic,
+>>> as this is commong pattern in glue drivers :
+>>>
+>>> dwmac-sophgo has the "has_internal_rx_delay" field, and dwmac-eic7700 has
+>>> both has_internal_[r|t]x_delay.
+>>>
+>>> With this third one, it makes sense to start sharing that logic across
+>>> glues.
+>>>
+>>
+>> I agree. DP1000 is another user of this pattern, with fixed internal
+>> delays on both the TX and RX paths. I will look at moving this handling
+>> into the common stmmac platform code, leaving each glue driver to
+>> describe its internal delay capabilities.
+>>
 > 
-> Hi Krzysztof,
+> After looking further into the implementation, I see two possible
+> approaches:
 > 
-> I sincerely apologize for the confusion. In my previous reply, I did
-> promise to change the prefix to "axera-tech" to align with our domain
-> name. I should have explained my change of mind in the v2 patch notes.
+> 1. Keep a minimal UltraRISC glue driver that only describes the fixed TX
+> and RX delay capabilities, while the common stmmac code handles the PHY
+> mode adjustment.
 > 
-> When I started making the changes internally for v2, I realized that
-> our existing BSPs, bootloaders, and a large amount of downstream
-> codebase already heavily rely on the "axera,*" prefix for compatible
-> strings. Changing it to "axera-tech" now would cause massive breakage
-> and compatibility issues across our existing ecosystem.
+> 2. Store these capabilities as compatible-specific match data in
+> dwmac-generic and remove the UltraRISC glue driver entirely.
+Let's go with 1 for now I'd say. UtraRISC will be the only one that's basically
+an empty glue calling core code (maybe you have some plat->flags to passs ?).
 
-Did this existing downstream codebase receive DT maintainers ack or review?
+If we manage to simplify even further (e.g. tx clock handling for exmaple), we could
+also deal with dwmac-sophgo the same way. We could then consider something like
+dwmac-simple.c , keeping dwmac-generic.c for the raw dwmac IPs.
 
-I checked and it seems it is first time you ask:
-https://lore.kernel.org/all/?q=dfn%3Avendor-prefixes.yaml+axera
-
-Whatever you have downstream is Axera's fault. You should have come
-earlier. Otherwise everyone will produce whatever stuff (including total
-junk) in downstream and then say that it is an effort to align to
-upstream. And I saw this argument more than once.
-
-
-> 
-> Because of this historical legacy, I looked for similar cases in the
-> upstream bindings and noticed that there are accepted precedents where
-> the prefix reflects the core brand rather than the full domain (for
-> example, "^cix,.*" for cixtech.com).
-
-Indeed cix should use cixtech.
-
-
-> 
-> Would it be acceptable to keep "axera" as the prefix to preserve
-> compatibility with our existing deployed systems, even though our
-> domain is axera-tech.com?
-> 
-> If this is strictly not allowed, we will have to figure out a
-> migration path internally, but preserving "axera" would be highly
-> preferable for our ecosystem. I am very sorry again for not clarifying
-> this earlier.
-
-Axera is fine, I don't see conflicts with other possible vendors, but
-the problem is that if I agree now, next months someone will use this as
-an argument for their patchset that "cix" and "axera" were allowed, so
-they also deserve exception because they never cared to ask upstream
-before. So obviously based on your earlier reason, of using past mistake
-or exception, I should not really agree on that one. Therefore fine by
-me, but please get an Ack from different DT maintainer.
-
-
-
-Best regards,
-Krzysztof
+Maxime
