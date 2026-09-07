@@ -1,243 +1,200 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazolkn19013086.outbound.protection.outlook.com [52.103.43.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4098850C29D
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788796703; cv=none; b=X3ojclkHimdRf0ovB5QnWwFM7ARN4awVOlBPogLZo/gdUjRl4fmMqIsZO8zwVxGrMQoQ0MOb7gMDJtVQTAVtCGV/I9oaZ/xh+/wt5DO8IaFIibZT0f9ABCkdqi2JimrTbgmKm+Hx/9wELxvZvjyn/Q/QdHB1bgscy5fHEo057OE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788796703; c=relaxed/simple;
-	bh=Fce+3jUwgsWvi5koq8PRKbZIYAtq/+j6ybY0Te+yHWY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=a2kgbFK7a9Q2O2uhdWo0ykfdtXxJ78aStmz1bLkKaw3X5QR+wAC1Piq9DKy87DpiHOJdFzE32LECI6rjnk1/JMlhsLI5+O5ORVJV9M8cKT2kTLB989h42LLbPydzCLOXnZxsYXh8GbUciR6Bend4aBWYDOjIr5cLCrgHzm6Zg54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=BL51uCcI; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB3F4F30CB;
+	Mon,  7 Sep 2026 15:58:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788796739; cv=fail; b=C0Vg57dNvCoa1HR1XyBAOZNpDufMYEOr7/TvU744zsYnxIp1qaHmwksDhqs8M+3CDAEx2NLOQ/qJ/X1cv4AQOkoqvEtj8BA7XmYPRDpYzJhMNPx8ir/xIeD56IMixSjl6Is6Hs79GdCcMS+EMd4n0Bzf3fmULx+mdvvN6vWktwY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788796739; c=relaxed/simple;
+	bh=beeZkLJZw/CxucsS90FDoZhR57j/3nogZWkX3QpTezY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=gJWUYgeurIRyu8bfHa9ZcjgzuNApn6MBhDAga9vjEkEXcIeXG28vkfzMCyXjpnyO+PD6nQEmZgqFwJiYjodOSxtD6JJN3hOlTmiMHRej/kljKQ1Kh0QV8h3MgNkSCDX+olNutyDEo7d7aWLGuumjwKrzcJmTJifh/E5+9IhOwU8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in; spf=pass smtp.mailfrom=outlook.in; dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b=Qsr/NYkS; arc=fail smtp.client-ip=52.103.43.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.in
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="BL51uCcI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1788796695; x=1789055895;
-	bh=D2+5AFS3jqYsqprxeNeNiyO+DoPvgRblbpH4ixduHyI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=BL51uCcIjLA3DidCZ4iDlUUHjAz2JEMRmpVnRA8Ay+dlfXLnSKkxTTUcQdSirwL4l
-	 DRtwTfiSkymcTJBLUsMYXa2BPESjN6VybQdJwt0qXzStj4q7rqKL+P0VgCaG6cXFXh
-	 n1urOk/iEObHVUYHBaN6O4QVv+FuP5863XDey2ElSSSDTXETnSrtmNMC+HMKEvboGt
-	 yxQfci9Tw8UL16evHB7k8lgn4nEJ8nXfxVwq/X8ndxmsJwuoepgYz3RGPZLsFhTITI
-	 nwRxch7Rpbtnl03ZJ9ETXuol5naAhdC7dYexrI4XoFqCFRI6uosP4a7BYtBlJ5qdWM
-	 eoFhNc8e0oaqw==
-X-Pm-Submission-Id: 4hdsDP4C0gz2Scsk
-From: Esben Haabendal <esben@geanix.com>
-To: <sashiko-reviews@lists.linux.dev>
-Cc: <devicetree@vger.kernel.org>,  <robh@kernel.org>,  <conor+dt@kernel.org>
-Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
-In-Reply-To: <20260907150846.8BC741F00A3A@smtp.kernel.org>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
-	<lgSgGIif93eJ1usOlpNZhgkh3YsQ-210nNAm7LCuSB_7RdMgA45onz0txTfZJrprGgkQjQDLLq8kAlNsIPMv6A==@protonmail.internalid>
-	<20260907150846.8BC741F00A3A@smtp.kernel.org>
-Date: Mon, 07 Sep 2026 17:58:12 +0200
-Message-ID: <87mrtt8357.fsf@geanix.com>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b="Qsr/NYkS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=IqmEjBiVTbPMGKBuryrpJ+lkV8CQvEj9EGLFFJ6ByYT4McsxQWyeD/xq+XEpymPZBJ68dVykiZ3NkWbuCe5g+jMOW5qA0/V7CTh0F5dsaXn6+xvI9yWJ6IgviC5ecAETC6GdWUuowmMfES+B1hEZS5DdUhuyI5DOgHKnutStY5AduNE83mHPGUMwjiZSEj5smEIIbVuecmdtMnxb+w6aQ2w8Z9Yq2ylBckBEhzgEZJmXW+tzeZr0VcjD4fFFMHocvTdwb8mDzY/sbyQARqcWlmUSVHBmU2yoQuxJyohSFgZ0CUi9pOeQCfKFq4sB9Mif2NpqbBL7OBZUQfiFSfxQOA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=y6kU+behcf2JhXFnb7MttdG0dnQY9czam3qqNvfqaIQ=;
+ b=IC9VssXRk1a0aVUEN0G6PXSMkOLqLY6Ilr9qtLDwBvFFbWOIsVQzfuJghxzRhOjVfWj9GVstLPfCdjSvrxBEzlzhxmUD6ukYZPG2NLArqynGpfS/iBcxGbATg3uvZSGtHGSev98Kn0MLaF+H+tTvucvnAlCP3VbR3Gfgh6IBp7ax17Xge4343cqZbDqiAKcn+VmrxajZKfQhiADUxdpd4lRZNe1MjnTgKL+xWu5pGBjpiqmr0AcQGcESvChCyImQ4OsjwO50mC6O9HUQVOrLPEnXLbZYjwzqJgeaQAkX47G+TcIucU+LNiY2Ricq9hyx7l/26ObVIIjsySJRJTFEXg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IN;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=y6kU+behcf2JhXFnb7MttdG0dnQY9czam3qqNvfqaIQ=;
+ b=Qsr/NYkSs0AuclWVYXmvhp4lo0seLhZGzoVZqb0+EqPzxIGE4tOGOyjyimMtCaIroiJJGhBalmyZ0Ukvi1Wx9AfkEKV+rE8Lq4GHsGSauL4VqhQeA7ZBc91g+g5yGoTKueX8+KAgDNxya9/EzHLnFPB1FPKCyuk9rucxkcsQUcql+Y72Li5ljqdthedfeL5IfwtKYfWDM13UGmvW+haIqKiN9GPjqteGgwvFNM1IH76krVIhfB2bj3ol3k+QiIMEU0bnGOmgbwI4R9/ihq/NMJ2neFRVHkwHYboyLylJ38etyjlgp4BIMHit7tKA+/tFp09C4XFsxaaLBMuqOQmPew==
+Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:118::8) by TY1PPF5D35AEFB7.apcprd01.prod.exchangelabs.com
+ (2603:1096:408::328) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Mon, 7 Sep
+ 2026 15:58:52 +0000
+Received: from PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ ([fe80::3e9c:908e:6430:83]) by PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ ([fe80::3e9c:908e:6430:83%4]) with mapi id 15.21.0382.014; Mon, 7 Sep 2026
+ 15:58:52 +0000
+From: Shujath Mohd <shujath@outlook.in>
+To: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Shujath Mohd <shujath@outlook.in>
+Subject: [PATCH] arm64: dts: qcom: sdm845-sony: Add battery properties
+Date: Mon,  7 Sep 2026 21:28:35 +0530
+Message-ID:
+ <PUZPR01MB51411878AC2B70673F77ED38C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+X-Mailer: git-send-email 2.55.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN4PR01CA0039.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:277::6) To PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+ (2603:1096:301:118::8)
+X-Microsoft-Original-Message-ID: <20260907155835.513587-1-shujath@outlook.in>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PUZPR01MB5141:EE_|TY1PPF5D35AEFB7:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3238d460-a436-4f58-65bf-08df0cf8e966
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|23021999003|24021099003|10092599007|51005399006|8060799015|15080799012|19110799012|5072599009|5062599005|25010399006|4140399003|40105399003|2607281247196008|440099028|26104999009|3412199025|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?jswuTvcGvVgwI6M9YFV6Guu5cak6b82Xi6DPEZGxc7hF09UMeBxjtY9dQQ04?=
+ =?us-ascii?Q?JqlwlIU/sYs4SWaMIF3tcUMtqchDf/odz8f0CsZksWpJ1d1Wm1yj9oMnthnA?=
+ =?us-ascii?Q?AwofHd6uIkxGAydZHzpRIpaV7AlyNJ/mrn1O4XH/iklTHUE9w5pjKzWk5Bg4?=
+ =?us-ascii?Q?ZnS89SSMvMUV5iRGydsLyKuRLi3J2UJWrDo0s0sBh9Sbj2q6udUYVkgV3zoE?=
+ =?us-ascii?Q?mTafS7TbSFDE1wUSS1mG0kDqQAZQi7PRQ/3OYP546sXuyti+otXbDjBmaZA7?=
+ =?us-ascii?Q?j139dIf/RyJ/AzMxTcchZeKaZtea+BG18KNScQ1HrL/IJZBZe/LksOjIHaQk?=
+ =?us-ascii?Q?qu6m4RMtsJ8QYZkzJ5VwJt4T2SXl9etIsSvRZLjfyfjc7GuzReX114tCI8KR?=
+ =?us-ascii?Q?zrm9yKwphXNLeGjh9BWMNJFkhJq+KKZfDvdi2FZBJu3+JW+NgCqlaDvWQ1a8?=
+ =?us-ascii?Q?6amZrbbwpm5VuGzTGw0z6TCxm/Wk3vyHI5OocW9Z54Wnll3xLUV5sFeAoH5d?=
+ =?us-ascii?Q?HPCL1USY2UKl+fTlO5Cz54dexboxkeGMBnnVmZAgdnx7sLKwDx7x0Fs/e/kP?=
+ =?us-ascii?Q?ppcR6Qa/YdcG7FHXFdyCoTI5tsKff1J/+jrVwkr0TYAM0gcRKI0iHoAsbv2O?=
+ =?us-ascii?Q?xEintbMgV3XJXFHYPzvlQfW3JcFyhK9QWYyOtkT9yqfX95cxGhScoduQUbCb?=
+ =?us-ascii?Q?+q/fhxbZAmxpB50ZN7ze1JrtOFefolzfdU+HHOBBHUx+d55xWLINusY/SWvs?=
+ =?us-ascii?Q?ikbwNVcgmFDX8+D+ASwwnPrsImRj4ap2wLma5H3l5jdXztL0kNso4JJMQy4O?=
+ =?us-ascii?Q?WrBHYpzjPySD5leWZuyFiYIkVfHpyKXe2ldcV+1rhc0hnVllQkZ+PUyrv+PR?=
+ =?us-ascii?Q?98QipnureKxo6rg0NeC4yEy2PggAF5NZRPM9+vTn1Sa6fdEFUo8mL45DtqeE?=
+ =?us-ascii?Q?EusfY99gXU4wMD98bp44SGobfwy22kMNAPg4nddgdZFIkvkBvQGIMekJMqm5?=
+ =?us-ascii?Q?+tE3lqw557v0vQofS5OruB1M7A=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?GHZKHk6s+1LLA/oelhp5NGVsHhW25zA283Dt1VyOXwCvcYvLoEQ+JEUVnRrW?=
+ =?us-ascii?Q?sa12RDanqNSkCve2PyQmVD7VaN9oxvNQWJN51TDF58oGlzCBOtXlh21Tm7LZ?=
+ =?us-ascii?Q?yqUlIRY7W8ZdkS8TPfdTyS0iJH1m7waoAt2KlYZa+ZOb+Yf5uyfaVRfLn+e1?=
+ =?us-ascii?Q?i8tT1Hz2YoHneX5etu7FogDXbCqBaMcF+/g462d8+xprs0HCy8nyhgP4XwQQ?=
+ =?us-ascii?Q?c37fzMvyNMUjaBNoNJynQRPJhdLRa0EJXXhkhcYeR201Glj7Ex8qwdn8P+4U?=
+ =?us-ascii?Q?Ff3FtZ9WqtI0d8vjErdhlMmPyfCtfj9ICFIt/gpZ0NtP6JG1XIux17+6q9O4?=
+ =?us-ascii?Q?ISNpzgAmA7S1etOXhUzOth0/BiEBOqwJuPkH+n4yFMNhJOULx0BJ0WR9e3j7?=
+ =?us-ascii?Q?H9Btb8ccUkTn5NmtIBoM2xMjGYsuuiD+F9DmHnoL/8F/zIxfNZKf+xEfbHA5?=
+ =?us-ascii?Q?LLrqAwbjn4a7DYbOWdJ3MPiG2dG1wyFrs1nV8G/BH6KjsxzYQxBP+tPXF9LZ?=
+ =?us-ascii?Q?BV56UNp6/gP02djT5Yu8Mrw7xTMUAKjRoKPFNJmn/XYMAjTWXFrrWCHLwPQN?=
+ =?us-ascii?Q?aqvMJ+sTkDqyxnG+YgXOKXKWg7Fr3DmOcyiRceGpSrLBaFZ8pVM+q2c4Hzh1?=
+ =?us-ascii?Q?GyOoA0j4wCmW0MxUePLneNrhGBdzIEQD8Ju1X/p40P5jzNpCrsIuBJ2+Sxcu?=
+ =?us-ascii?Q?hHNkgISd/py1s75zJlV+pqmwYNDVVP/l8C268fC3H46Jrfmrl0EU/uAog7RJ?=
+ =?us-ascii?Q?JVnZLLKfXQ4alG91B2JD7HMGEHqwcEuVizxhz6qBn77+c110/WoUN7pl08Um?=
+ =?us-ascii?Q?ZqNtR/xmobTWkiy17lI3hfgKXUpPLUjn5oUyP/WQxGSBDUrKfEd2QFgcmHxL?=
+ =?us-ascii?Q?vu/As7f8wlAG3t0kqDlMguJsDj7CPpYNxhysvVdfMtKqZ7bRWVLQGMZYEoaC?=
+ =?us-ascii?Q?VBxOWwW6tU50Ybd6wV972B7QshsE0EkY7u1yweNeMi+LI3q7iBfvxeAcelHD?=
+ =?us-ascii?Q?TtsaG33tklxCWmd61+JD49iHpWTs+DveqAnhxTDG59BZYPX7rwapOoJQpz4Y?=
+ =?us-ascii?Q?kWxMTSoRPThyOalSLufEpB2b0engejj0MKfO7USpW9N/p5IUdnH8y8kodWx0?=
+ =?us-ascii?Q?Z4Q4mP7sHxhBdTDVajtOtWmx9MjU/Pe/lEQBFLJpivBEC1mA81x0rC0ykNdO?=
+ =?us-ascii?Q?5UOY1EsqDJ/fDWNaHntmwm0lLwngKXG6c0vC4fXcv3U04zLqEOaJ1Hs0GDqB?=
+ =?us-ascii?Q?+RtApffK7A4IGOcdJirB6yzL4x0V1aJmmx2ikTMv4g8iBqXwx12muxI4kt/U?=
+ =?us-ascii?Q?usgLSH/ieQ5oRUn3u5aORMr1zN+a+HiYCEaW4pfuja+5Ay0vco8rLyX1MImJ?=
+ =?us-ascii?Q?z4JTKqLUUzXjV1Mdy48vglBkeAUH?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-3e488.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3238d460-a436-4f58-65bf-08df0cf8e966
+X-MS-Exchange-CrossTenant-AuthSource: PUZPR01MB5141.apcprd01.prod.exchangelabs.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 15:58:52.5156
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY1PPF5D35AEFB7
 
-<sashiko-bot@kernel.org> writes:
+Add simple-battery nodes describing the design capacity and voltage
+limits of the Xperia TAMA batteries.
 
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
->
-> New issues:
-> - [Critical] Writing to MMA8452_CTRL_REG4 to disable interrupt sources fails because the device is still in ACTIVE mode.
-> - [High] The IRQ handler incorrectly checks `pm_status == 0` instead of `pm_status <= 0`, allowing invalid hardware access when PM is disabled.
-> - [Low] Mixing goto-based error handling with guard() cleanup in the same function.
->
-> Pre-existing issues:
-> - [High] Hardware access occurs after dropping the runtime PM reference in mma8452_write_event_config.
-> - [High] AB-BA deadlock between the driver's data->lock and the PM core's runtime suspend wait.
-> --
->
-> commit 3d8bf763b3ae36284346684babbd11058f68e68a
-> Author: Esben Haabendal <esben@geanix.com>
-> Date:   Mon Sep 7 14:51:04 2026 +0000
->
->     iio: accel: mma8452: Support interrupt sharing
->
->     Adding support for sharing interrupt line with other device requires the
->     interrupt handler to handle runtime PM suspension properly, ignoring the
->     irq if the device is suspended (maybe even off). And while at it, we use
->     the PM reference to ensure we do not get suspended while processing an irq.
->
->> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
->> index fda29df5d1097..e521dca37f768 100644
->> --- a/drivers/iio/accel/mma8452.c
->> +++ b/drivers/iio/accel/mma8452.c
-> [ ... ]
->> @@ -1083,15 +1085,21 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
->>  {
->>  	struct iio_dev *indio_dev = p;
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->> +	struct device *dev = &data->client->dev;
->>  	irqreturn_t ret = IRQ_NONE;
->> +	int pm_status;
->>  	int src;
->>
->> +	pm_status = pm_runtime_get_if_active(dev);
->> +	if (pm_status == 0)
->> +		return IRQ_NONE; /* device is powered down */
->> +
->
-> [Severity: High]
-> Does this check fail to catch negative error codes, allowing the handler to
-> proceed and access unpowered hardware?
->
-> When runtime PM is disabled, pm_runtime_get_if_active() returns -EINVAL. This
-> can happen during driver unbind or removal, as pm_runtime_disable() is called
-> before free_irq():
->
-> drivers/iio/accel/mma8452.c:mma8452_remove() {
-> 	...
-> 	pm_runtime_disable(dev);
-> 	pm_runtime_set_suspended(dev);
->
-> free_irq:
-> 	if (client->irq)
-> 		free_irq(client->irq, indio_dev);
-> 	...
-> }
->
-> If a shared IRQ fires concurrently after PM is disabled, this check allows
-> the handler to proceed, leading to I2C bus timeouts or system hangs.
+The Xperia XZ2, XZ2 Compact, and XZ3 use 3.4 V as the drained
+battery voltage and 4.245 V as the fully charged voltage.
 
-This is on purpose. If runtime PM is disabled, the assumption is that
-the device is active. Otherwise, the driver would be useless when
-CONFIG_PM was not enabled.
+Signed-off-by: Shujath Mohd <shujath@outlook.in>
+---
+ arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts | 7 +++++++
+ .../boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts     | 7 +++++++
+ .../arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts | 7 +++++++
+ 3 files changed, 21 insertions(+)
 
->>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
-> [ ... ]
->> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
->>  #ifdef CONFIG_PM
->>  static int mma8452_runtime_suspend(struct device *dev)
->>  {
->> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
->> +	struct i2c_client *client = to_i2c_client(dev);
->> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
->>  	struct mma8452_data *data = iio_priv(indio_dev);
->>  	int ret;
->>
->> -	scoped_guard(mutex, &data->lock)
->> -		ret = mma8452_standby(data);
->> +	guard(mutex)(&data->lock);
->> +
->> +	ret = i2c_smbus_read_byte_data(client, MMA8452_CTRL_REG4);
->>  	if (ret < 0) {
->> -		dev_err(dev, "powering off device failed\n");
->> +		dev_warn(dev, "backing up CTRL_REG4 failed\n");
->>  		return -EAGAIN;
->> +	} else
->> +		data->ctrl_reg4 = ret;
->> +
->> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, 0);
->> +	if (ret) {
->> +		dev_warn(dev, "disabling interrupt sources (CTRL_REG4) failed\n");
->> +		return -EAGAIN;
->> +	}
->
-> [Severity: Critical]
-> Does writing to MMA8452_CTRL_REG4 fail here because the device is still in
-> ACTIVE mode?
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
+index 6e65909ab582..16e676ac9630 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
+@@ -10,6 +10,13 @@
+ / {
+ 	model = "Sony Xperia XZ2";
+ 	compatible = "sony,akari-row", "qcom,sdm845";
++
++	battery: battery {
++		compatible = "simple-battery";
++		charge-full-design-microamp-hours = <3180000>;
++		voltage-min-design-microvolt = <3400000>;
++		voltage-max-design-microvolt = <4245000>;
++	};
+ };
+ 
+ &panel {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
+index 82e59e453354..3bf9db963299 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
+@@ -26,6 +26,13 @@ ts_vddio_supply: ts-vddio-regulator {
+ 		enable-active-high;
+ 		regulator-boot-on;
+ 	};
++
++	battery: battery {
++		compatible = "simple-battery";
++		charge-full-design-microamp-hours = <3330000>;
++		voltage-min-design-microvolt = <3400000>;
++		voltage-max-design-microvolt = <4245000>;
++	};
+ };
+ 
+ &ibb {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
+index dc15ab1a2716..013987184b39 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
+@@ -10,6 +10,13 @@
+ / {
+ 	model = "Sony Xperia XZ2 Compact";
+ 	compatible = "sony,apollo-row", "qcom,sdm845";
++
++	battery: battery {
++		compatible = "simple-battery";
++		charge-full-design-microamp-hours = <2870000>;
++		voltage-min-design-microvolt = <3400000>;
++		voltage-max-design-microvolt = <4245000>;
++	};
+ };
+ 
+ &panel {
+-- 
+2.55.0
 
-Ouch, Yes. That is actually true according to the datasheet.
-
-I will swap the order so that we switch to standby before modifying CTR_REG4.
-
-> Since the write happens before mma8452_standby(), the hardware ignores it
-> (as modifying configs requires STANDBY mode). This leaves interrupt sources
-> enabled. If a shared IRQ fires, the handler will return IRQ_NONE due to the
-> pm_status check, leaving the interrupt asserted and causing a level-triggered
-> interrupt storm.
->
->> +
->> +	ret = mma8452_standby(data);
->> +	if (ret < 0) {
->> +		dev_err(dev, "transition to STANDBY mode failed\n");
->> +		ret = -EAGAIN;
->> +		goto out_restore_ctrl_reg4;
->>  	}
->
-> [Severity: Low]
-> Does this mix goto-based error handling with guard() cleanup in the same
-> function?
->
-> The cleanup subsystem guidelines state that mixing goto and scope-based cleanup
-> creates confusing ownership semantics.
->
-> [ ... ]
-
-I will try to convert to scope-based cleanup to avoid this, and see if I
-can create something nice with that approach.
-
-> As a side note, there are a couple of pre-existing issues in this file that
-> are not introduced by this patch, but are worth mentioning:
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but is there a use-after-put in
-> mma8452_write_event_config() when disabling an event?
->
-> drivers/iio/accel/mma8452.c:mma8452_write_event_config() {
-> 	...
-> 	ret = mma8452_set_runtime_pm_state(data->client, state);
-> 	if (ret)
-> 		return ret;
->
-> 	switch (dir) {
-> 	case IIO_EV_DIR_FALLING:
-> 		return mma8452_set_freefall_mode(data, state);
-> 	case IIO_EV_DIR_RISING:
-> 		val = i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
-> 	...
-> }
->
-> When state is false, mma8452_set_runtime_pm_state() calls
-> pm_runtime_put_autosuspend(), dropping the PM reference early. The subsequent
-> i2c_smbus_read_byte_data() accesses hardware while the device could be
-> concurrently suspended, potentially causing I2C transaction failures.
-
-I will address this in another series.
-
-> [Severity: High]
-> This is a pre-existing issue, but does mma8452_read_raw() create an AB-BA
-> deadlock with PM suspend?
->
-> drivers/iio/accel/mma8452.c:mma8452_read_raw() {
-> 	...
-> 		guard(mutex)(&data->lock);
->
-> 		ret = mma8452_read(data, buffer);
-> 	...
-> }
->
-> mma8452_read() calls mma8452_set_runtime_pm_state(..., true), triggering a
-> synchronous PM resume. If a concurrent PM suspend is initiated by the PM
-> core, it sets the status to RPM_SUSPENDING and calls
-> mma8452_runtime_suspend():
->
-> drivers/iio/accel/mma8452.c:mma8452_runtime_suspend() {
-> 	...
-> 	guard(mutex)(&data->lock);
-> 	...
-> }
->
-> The suspend callback will block waiting for data->lock, while
-> mma8452_read_raw() blocks waiting for the RPM_SUSPENDING state to clear,
-> resulting in a deadlock.
-
-I will try to look out for this in the next series, where I am trying to
-improve all the runtime PM handling in this driver.
-
-/Esben
