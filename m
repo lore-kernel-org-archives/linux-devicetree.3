@@ -1,166 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B41D3AE199;
-	Mon,  7 Sep 2026 06:36:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D543845B0;
+	Mon,  7 Sep 2026 06:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762962; cv=none; b=fB/gk8A+OA6TP63olzh3XFxs8r01GDBNP6EvWLc23BVNk6OpnfiaWMkr+dwDJdIBaWGoUA8zrHTiDIZyBBCx8sQuAWNLpBuXtK86UqJx5ro9w+sLOg/SC/HNee+KQc8ihhjPfJAtiKEDWwew3RbcydYFRFrjpi6pk0Z1BkIXdpU=
+	t=1788763347; cv=none; b=l+kY6SWKVOoL0OUMNdJ7Mzt6R3DQ9rF+r+O8w+5PA21F6xViqG0di2cLDp7Cx6nOKBdqj4ckQ4tGOq+MOboXd0l0GoIvfMam/Hci53tSoNi3SDJaSgBdufUpEXvGdzKKbk69jWEPUrdmzsyDGniRi6Tpkjzs9M49aBAdY5gWGZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762962; c=relaxed/simple;
-	bh=mpk5OUehbNbX13Xb5bamR/Zu6Vh1HfAfNWLYjNiSiRU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u7EGafEtyMVxjYF9L2+10Yv/7jYh63oci5++H1jluLuEDHRshIzCLjscNMlmunT66dQcdOR/9KYpbLYWJVgYL8XL1nKN8OQEicca/6lub7yzINe8OjpKNp67VrATpoSZlbQ2tyzzgy070oaR01tIxk26sRco30tvqiEcGu4cqCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSHN7SMH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788763347; c=relaxed/simple;
+	bh=BOt0JM0ykbgk6R0bIWLPdl/vbv2tYWoVuu2Rm7dfXng=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s84sFCr7C+pBk5auCSISfi70F0tieM3VFipyvpDnpR4rwODb0z2y8qI3s96puehmTtLKjUdmVm6Un2msYT02QLX90M7iOb4mvu1kd0FEJjIIrKcXScGiDQGp993VR3xA0wFM57cY/XhhPCr+ZabW3gj+Cr8GhFNRQZa23F3Q1RM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TZTTF+4U; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TVsmZmXr; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSHN7SMH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 079421F00A3A;
-	Mon,  7 Sep 2026 06:35:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788762961;
-	bh=fvYKRdXxIGC3gy/lhw4VnS34/hd+ivtyb/2EWm1V8Cs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kSHN7SMHPq7Wpbhq6EU5r5WynaR3/sBBwSlL6DZ9U85zSoDb3zIwiO0Mmsa888Z4N
-	 fZQF1IUdtIHE7YKI7CpTSwOR5Q8R3/TmZOiOFo9ZOGzJul74TkqVla8sD0ws6E0xCE
-	 Re94OsrUP7YeD0qCb0Owo6DyQw7SAaq64K7gQ4ZY2cGu7QkBoDo0ct+uOIJeu/ACBk
-	 uBepBNND6vZlTtGxYDqQEajdcXx/U3D0wWUgw/e3lZ+QAe9i4jA21ohLc+NrUTnBgE
-	 o2v71tkKF4Frvekl/0A8eeUof//byOUIjIRQCP89w45Zhzuui2VmsaoYk4eUGGjiiz
-	 bPh/vkPH37g7g==
-Date: Mon, 7 Sep 2026 08:35:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: phy: airoha: Document support for
- AN7583 USB PHY
-Message-ID: <20260907-auspicious-liberal-raccoon-bd7a81@quoll>
-References: <20260901123933.15388-1-ansuelsmth@gmail.com>
- <20260901123933.15388-2-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TZTTF+4U";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TVsmZmXr"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1788763321; bh=KtCwpxgTdgANQPuSDK+5DfN
+	OWiP7yAIRc/nEIcBZHLg=; b=TZTTF+4Uk9Y/sJ3vdSisQUNfb27IZfQpAJU9NWdNlqa3LJ6pji
+	Vt3aUtJIutlOLEaC3bIbvXTDUTcvx6krQ7fcmI5ViwrR7DIC3laA1TmzkT3luqgr3DrhKIATnFg
+	8sOAy+afDxAzVVMQRaqsVHwsM2xH3ShX63L4stvNDWsjoa/MkML0naZGvEv4qMZQsu4EnS+vXs0
+	nN5NSdTtMt9V4CKSVOnVdI7ijzPjv2v8ZltbRSLpmUoN6ZOkzX4FeRuMFvG9NXtN0L9hcHYXktH
+	LX35Mg5rifs6Ti5WU9xDNXrzJTFIg0IOQaqyuzVne0Wgco20yl71pKmtNci8Y+DgvNg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1788763321; bh=KtCwpxgTdgANQPuSDK+5DfN
+	OWiP7yAIRc/nEIcBZHLg=; b=TVsmZmXrhFTjLfjFGybvwCYmglUBGxcNVWMTCLsRVSWXxcbk/3
+	yNl/U/jMmZ6pSiF0LkswmQQ8YzwZVblq3RCw==;
+Message-ID: <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
+Date: Mon, 7 Sep 2026 09:42:00 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260901123933.15388-2-ansuelsmth@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
+To: Ryan Brue <ryanbrue.dev@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
+ <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 01, 2026 at 02:39:31PM +0200, Christian Marangi wrote:
-> Add documentation for Airoha AN7583 USB PHY that describe the USB PHY
-> for the USB controller.
-> 
-> Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
-> always supported. The USB 3.0 mode is optional and depends on the Serdes
-> mode currently configured on the system for the relevant USB port.
-> 
-> To correctly calibrate, the USB 2.0 port require correct value in
-> "airoha,usb2-monitor-clk-sel" property. Both the 2 USB 2.0 port permit
-> selecting one of the 4 monitor clock for calibration (internal clock not
-> exposed to the system) but each port have only one of the 4 actually
-> connected in HW hence the correct value needs to be specified in DT
-> based on board and the physical port. Normally it's monitor clock 1 for
-> USB1 and monitor clock 2 for USB2.
-> 
-> To correctly setup the Serdes mode attached to the USB 3.0 mode, a phys
-> property is required with the phandle pointing to the correct Serdes port
-> provided by the SCU node. Providing the phys property is optional if USB
-> 3.0 is not used.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/phy/airoha,an7583-usb-phy.yaml   | 133 ++++++++++++++++++
->  1 file changed, 133 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> new file mode 100644
-> index 000000000000..f1a5d83e8968
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/airoha,an7583-usb-phy.yaml
-> @@ -0,0 +1,133 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/airoha,an7583-usb-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Airoha AN7583 SoC USB PHY
-> +
-> +maintainers:
-> +  - Christian Marangi <ansuelsmth@gmail.com>
-> +
-> +description: >
-> +  The Airoha AN7583 SoC USB PHY describes the USB PHY for the USB controller..
-> +
-> +  Airoha AN7583 SoC support a maximum of 2 USB port. The USB 2.0 mode is
-> +  always supported. The USB 3.0 mode is optional and depends on the Serdes
-> +  mode currently configured on the system for the relevant USB port.
-> +
-> +  On Airoha AN7583 there is an unified PHY implementation where a single
-> +  PHY provide support for both the 2 USB 2.0 port and
-> +  optionally one 3.0 USB.
-> +
-> +properties:
-> +  compatible:
-> +    const: airoha,an7583-usb-phy
-> +
-> +  reg:
-> +    items:
-> +      - description: phy register
-> +      - description: ana register
-> +      - description: pma register
-> +      - description: dig register
 
-"registers"
+07.09.2026 09:01, Ryan Brue wrote:
+> Hi Nickolay,
+>
+> I sent a duplicate NT51021 driver on September 5th without finding
+> yours from the 29th first. That was my mistake, and I have withdrawn
+> mine. That's my bad, I'm new to kernel development :)
+>
+> Since I had the hardware set up, I tested your series on the device I
+> am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
+> 1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
+> works.
+>
+> Concretely, on that panel:
+>
+>    - your 10.1" register sequence, timings and mode_flags, unmodified,
+>      bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
+>    - it also works with my vendor's own sequence and timings under your
+>      driver, at 62.5 Hz / 980 Mbps
+>    - verified across a cold boot, display off and on cycles and a
+>      suspend/resume, with the MIPI TX PLL reading back at the intended
+>      rate each time
+>
+> So, for what it is worth on hardware you cannot test:
+>
+> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
+>
+> Two things I checked that might save you answering them later:
+>
+>    - The generic writes are right. Xiaomi's own panel dtsi uses dtype
+>      0x29, and this panel accepts both generic and DCS short writes, so
+>      nothing depends on the choice.
+>
+>    - prepare() never sending a set_display_on looked like an omission to
+>      me at first, but the 0x01 software reset at the head of the init
+>      restores it, and repeated off and on cycles pass. It may be worth a
+>      comment, since unprepare() does send set_display_off and the
+>      asymmetry invites the question.
+>
+> One question on the binding, which is as much about my patch as yours.
+> Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
+> (dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
+>
+>      qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
+>
+> with no part number, and the register sequence in your driver matches
+> that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
+> datasheet active area of 216.576 x 135.36 mm agrees nicely with the
+> 135 x 216 in that dtsi, so the attribution looks reasonable. But if it
+> is inferred rather than read off the panel or a BOM, it may be worth
+> saying so in the commit message, or naming the compatible after the
+> board the way panel-novatek-nt36523.c does for
+> xiaomi,elish-boe-nt36523.
+>
+> I ask because my module has no identity I can establish at all. It
+> answers no DSI read, DCS or generic, before or after sleep-out; the
+> vendor kernel and bootloader name it only "BOE", chosen from two board
+> ID straps; and its vendor-declared physical height is arithmetically
+> impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
+> naming mine after the board, and would rather not accidentally imply it
+> is or is not your part.
 
-> +
-> +  reg-names:
-> +    items:
-> +      - const: phy
-> +      - const: ana
-> +      - const: pma
-> +      - const: dig
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 0
-> +
-> +  usb3-phy:
-> +    type: object
-> +
-> +    properties:
-> +      phys:
-> +        items:
-> +          - description: phandle to Serdes PHY
-> +
-> +      '#phy-cells':
-> +        description: The cell contains the mode, PHY_TYPE_USB2 or PHY_TYPE_USB3,
-> +          as defined in dt-bindings/phy/phy.h.
-> +        const: 1
-> +
-> +    required:
-> +      - phys
-> +      - '#phy-cells'
-> +
-> +    additionalProperties: false
-> +
-> +patternProperties:
-> +  '^usb2-phy@[0-9a-f]+$':
+I've found these part numbers on the photos of a replacement panels from 
+the AliExpress.
 
-You should not mix MMIO and non-MMIO children. Either children have
-distinctive addressing, or not. Not both.
+Also, for TV101WUM-NX0, I have a confirmation from Alexey Min, who 
+disassembled
+Xiaomi Mi Pad 4 Plus and took a photo of the panel's part number.
 
-The other problem is that your children have no resources, so are not
-really distinctive children and should be folded in to the parent.
+> If it is useful, I have the Fire HD 10 panel ready as a variant on top
+> of your series: two patches, binding and driver, adding
+> amazon,suez-boe-nt51021. The only change it needs in your code is
+> making mode_flags per variant. My vendor asks for sync-event video mode
+> with a continuously running HS clock rather than burst, and your two
+> panels keep exactly the flags they have now. Burst worked on my panel
+> too, so this is about matching what the module is characterised for,
+> not a fix.
+I will try to do that. Can I add you to the maintainers of this panel 
+driver?
+> I will hold that until your v2, since Neil's renaming will touch every
+> identifier it adds. Happy to test v2 on this hardware when you post it.
+>
+> Thanks for doing this first.
+>
+> Ryan
 
-I already asked that at v2, so let's finish with asking: drop the
-children.
-
+-- 
 Best regards,
-Krzysztof
+Nickolay
 
