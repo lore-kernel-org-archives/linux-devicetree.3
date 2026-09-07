@@ -1,133 +1,202 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 716973EEAC1;
-	Mon,  7 Sep 2026 17:26:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9881451FCBA;
+	Mon,  7 Sep 2026 17:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788801997; cv=none; b=Age4/QKtXTfGvIKUEKO7Vc7qKyIXdqIvNHHEPgR6sfybvqO6xu8Ir9dAENEZZeZ2ZasgTaa+iuEndjkJ4K4j3STlzWPVUQYOx/uj+dBm2Rod9jWyFfUXj0f2JvyLoZxGti5IBuLW1nA1eMmsryyGJ4d8fPMt75qGva2gka/mHGg=
+	t=1788802019; cv=none; b=gVxLAH/Ou99XEaeySJpwgQI4FL6bXK5WedyCsgMkaUnz/1zbTarX9sSKGPlsf8m2tFSc9j6o709sCNbaFwswTDqm3X7KPujlxXbWZj/Yi7mT5VwoYnAcHoxiQawsmGXjQDJeUN4uU8CaqWvG1jp3s6epJ0DYuoKjo0tKljgaiWc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788801997; c=relaxed/simple;
-	bh=eqskA1VjthOmHKa0hZ6Zmh2m5htnj0F978lZrJxeTx4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OM9Zc5CgUQi3ZghL7XT4Ozyl2OyvrMMCWTkaetV87SuNUZOim/2LQYDQNEcw4Ab5Zum4TXlxhotIdKW9UT/K19dhS6Pnc1BKzegMdHYBDmRPbjtT0LjLz8gtKvq+btDTKPQoqR0qLYq+Do/kWl9reu5yB/bIwNm4QhMblZaqDh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENU9nkXt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788802019; c=relaxed/simple;
+	bh=z704cOnJfD8PujNywLO/RxGNAuF96RmWdB9T+yFHSJw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rC7U4N/4jeGwXWUvgxBqsyLH4ZOxYEpmWt1MRTg2QQvXiy7y5qoK5HVdYHZtG3dOlsw9Torxe8QQsl3FqrkNKSnx1wZN+rfFSd6xiOEB9DtmRwkX+EF6TLJYyhrPYg/sNV20EAeg7zYXPxL5pTxEZ/BKPLZu/7I84PJlcQ68pzY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNXwnQe7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENU9nkXt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23A8B1F00A3A;
-	Mon,  7 Sep 2026 17:26:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNXwnQe7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D72AE1F00A3A;
+	Mon,  7 Sep 2026 17:26:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788801996;
-	bh=91SRoZDdLD+HhVe8dFmoX9MKbAE8G0CUPo4lkv6+zTs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ENU9nkXtX1rg/XAELd15uYMWC9pZLh/+Wzjk3JTk9w4Lq+hfeGuGkTINVPsPXcENa
-	 mesgXj7LZuw/o8E49l5s0IXNEwacqEgf5JdwO7SOJdxX7TzqtqxpGEQe2U7uYChRmu
-	 eaUsTabeDrFlUYgdShrKyxmBIUSz7sLiVBHt4CqIMgrzEZNZFB5yywIFznIDrNx1IZ
-	 QY8ZwwAFLUIYAhkspCEGvsMOxdmcU7y9nodTXXCGtP7MAMm64ANJBNH1tdfTrkuo1b
-	 DwSJqbPaF57zBoyi+zAJ3TJECmertmVKH2fPaumz3eDYrtIn2FGvB28Q3vzQuo2BJz
-	 RAIufsyM5OkCw==
-Date: Mon, 7 Sep 2026 18:26:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: linux@armlinux.org.uk, andrew@lunn.ch, andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH net-next 1/2] dt-bindings: net: ethernet-controller:
- add phy-needs-host-firmware
-Message-ID: <20260907-shallow-universal-b614da6fe0c4@spud>
-References: <cover.1788711837.git.f@lex.la>
- <20260906174621.4107320-1-f@lex.la>
+	s=k20260515; t=1788802018;
+	bh=I/O1xcjB+YXcnQx+3gmXIMjWBkL0R87rv+FKat5OeBE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZNXwnQe7zg3BgLtmNmhPsSZYDUUUJViMSijcBOL1s6/PfEcgJWgZvgTlSoIwI5/xA
+	 9hGnbNZU4wmOxFmzQ1R9ZX83GuVPRfafOp7NmMUpJJeHvIIWGJHqq5+kQMMD2iMPZm
+	 UXEOTzjtXc/y5fARqq8pmlV/e3rhQKo5BdJo0A02a+hdKYS+8bX12xglCmJ+qhKZtr
+	 xwLjw9OhV2ou5IG4peLuyUE1/7lcHkBEpLsRb+1CsgJU01TWKvjfrcD4JQRZtSsihv
+	 MhoaZBwcyvmpBNX4LhvLahk4f2CcfVHukFpRb7tjc1pX9v6WPdhvB3G9DXt8GKE8Vh
+	 mv3EWlY0GshQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260907-for-upstream-nbxv3-dts-v2-3-6b4afd36180b@free.fr>
+References: <20260907-for-upstream-nbxv3-dts-v2-0-6b4afd36180b@free.fr>
+ <20260907-for-upstream-nbxv3-dts-v2-3-6b4afd36180b@free.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 17:26:57 +0000
+Message-Id: <20260907172657.D72AE1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="jqVFKD0jBpgf4Aly"
-Content-Disposition: inline
-In-Reply-To: <20260906174621.4107320-1-f@lex.la>
 
---jqVFKD0jBpgf4Aly
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] GPIO hog 'thermtrip-hog' on gpio1 pin 23 structurally conflicts wi=
+th the FSPI pin multiplexer configuration.
+- [Medium] The FSPI flash is artificially restricted to 1-bit bus width des=
+pite the hardware being wired for 4-bit Quad SPI.
+- [Medium] Ethernet PHYs are missing their hardware interrupt assignments, =
+forcing the kernel into inefficient polling mode.
+- [Medium] The LAN8023 PHY nodes are missing the `reset-gpios` property, le=
+aving the PHY unreset during initialization.
+--
 
-On Sun, Sep 06, 2026 at 05:46:18PM +0000, Aleksei Sviridkin wrote:
-> A port can reference a PHY that cannot be identified or driven when
-> the controller connects to it, because the firmware the chip needs is
-> not in hand yet. Such a port is dropped at setup and stays unusable for
-> the whole uptime, even though the PHY works seconds later.
->=20
-> The flag declares that the PHY behind phy-handle is expected to become
-> usable only after this controller has probed. A consumer that sees it
-> keeps the port and connects the PHY once its driver binds, instead of
-> failing the connect. The prefix names the entity, like the other
-> properties here that name what they describe rather than the
-> controller; a PCS needing firmware would get pcs-needs-host-firmware
-> by the same rule.
->=20
-> It sits on the controller here because that is where the waiting
-> happens. The flag says nothing without a phy-handle to qualify, so it
-> depends on one; the deprecated phy and phy-device spellings are left
-> out, since no tree combines them with a property this new.
+commit 7aa7c67b7fab76be5b6b8b173d9fb60dc30944d9
+Author: Vincent Jardin <vjardin@free.fr>
+Subject: arm64: dts: freescale: add Nodebox v3 CPU Module
 
-That doesn't seem right, sounds like it should be on the phy if the
-behaviour is caused by the phy.
-In fact, it seems like something that should be determined when the phy
-is identified, not really sure why it needs a property at all? Or based
-on the fact that the phy has firmware-name.
+This commit introduces the device tree files for the Free Mobile Nodebox v3=
+ CPU
+Module based on the NXP LX2160A SoC. It configures the SPI, MDIO, Ethernet,=
+ and
+GPIO controllers for the board.
 
->=20
-> Assisted-by: LLM
-> Signed-off-by: Aleksei Sviridkin <f@lex.la>
-> ---
->  .../devicetree/bindings/net/ethernet-controller.yaml      | 8 ++++++++
->  1 file changed, 8 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.ya=
-ml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-> index 1bafd687dcb1..074c54fa6d78 100644
-> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-> @@ -108,6 +108,13 @@ properties:
->      $ref: "#/properties/phy-handle"
->      deprecated: true
-> =20
-> +  phy-needs-host-firmware:
-> +    $ref: /schemas/types.yaml#/definitions/flag
-> +    description:
-> +      The PHY referenced by phy-handle runs firmware that the host must
-> +      load before the PHY can be driven, and so is not usable for as
-> +      long as that has not happened.
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts b/arch/a=
+rm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts
+
+[ ... ]
+
+> +&fspi {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&fspi_dqs_sck_cs10_pins>, <&fspi_data30_pins>;
+> +};
+
+[Severity: High]
+Does this pinmux configuration conflict with the thermtrip-hog defined on g=
+pio1
+pin 23?
+
+During boot, the pin controller configures the RCWPMUXCR0 register (via
+fspi_dqs_sck_cs10_pins) to route pins 20-23 to the FSPI (XSPI1) controller =
+en
+masse. Concurrently, the GPIO driver applies the thermtrip-hog to pin 23 in
+fsl-lx2160a-nbxv3.dtsi, attempting to drive it low as a GPIO.
+
+Because the pin multiplexer strictly routes pin 23 to FSPI instead of the G=
+PIO
+controller, the GPIO hog will fail to control the physical pad. Furthermore,
+the FSPI controller will actively drive pin 23 during SPI accesses, which c=
+an
+inadvertently toggle the thermal trip line and cause unexpected hardware
+shutdowns.
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/=
+arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+
+[ ... ]
+
+> +&emdio1 {
+> +	status =3D "okay";
 > +
->    ptp-timer:
->      $ref: /schemas/types.yaml#/definitions/phandle
->      description:
-> @@ -240,6 +247,7 @@ properties:
-> =20
->  dependencies:
->    pcs-handle-names: [pcs-handle]
-> +  phy-needs-host-firmware: [phy-handle]
-> =20
->  allOf:
->    - $ref: /schemas/net/network-class.yaml#
-> --=20
-> 2.53.0
->=20
+> +	/* Microchip LAN8023 dual 10G PCS/retimer, Clause 45 only, one address =
+per slice */
+> +	lan8023_phy_s0: ethernet-phy@2 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c45";
+> +		reg =3D <2>;
+> +	};
 
---jqVFKD0jBpgf4Aly
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Medium]
+Will this force the kernel into an inefficient polling mode for the Ethernet
+PHYs?
 
------BEGIN PGP SIGNATURE-----
+The hardware possesses dedicated interrupt lines for the PHYs, as the gpio2
+node explicitly defines the line names 'lan8023-mdint' and
+'u1300-rtl8211fd-int#'. Without interrupts and interrupt-parent properties =
+in
+the PHY nodes (lan8023_phy_s0, lan8023_phy_s1, and rtl8211fd), the PHY driv=
+er
+will fall back to periodically polling the MDIO bus to check for link state
+changes.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap7zxwAKCRB4tDGHoIJi
-0pNiAQCPmq9WGlOMGaIUC4rvMdLDP9jYBzLwQnKtTcsk/5RolQD9HEgJmCDW2Q8y
-TgkdOWSWcTYwlHPZKBT9auPJTJfwAws=
-=XDrU
------END PGP SIGNATURE-----
+[Severity: Medium]
+Should this node also include a reset-gpios property to ensure the PHY is
+properly initialized?
 
---jqVFKD0jBpgf4Aly--
+The u800 I2C GPIO expander explicitly defines line 15 as 'lan8023-rst'.
+Without claiming this GPIO (e.g., reset-gpios =3D <&u800 15 GPIO_ACTIVE_LOW=
+>),
+the Ethernet driver will not execute a hardware reset sequence during probi=
+ng,
+leaving the hardware dependent on the state the bootloader left it in and
+potentially failing to recover from a suspended state.
+
+[ ... ]
+
+> +&fspi {
+> +	status =3D "okay";
+> +
+> +	/* GigaDevice GD55LB02GF, 256 MiB boot NOR */
+> +	flash@0 {
+> +		compatible =3D "jedec,spi-nor";
+> +		reg =3D <0>;
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <1>;
+> +		spi-max-frequency =3D <150000000>;
+> +		spi-rx-bus-width =3D <1>;
+> +		spi-tx-bus-width =3D <1>;
+> +	};
+> +};
+
+[Severity: Medium]
+Does this artificially restrict the FSPI flash to a 1-bit bus width despite=
+ the
+hardware being wired for 4-bit Quad SPI?
+
+The pinctrl-0 property in the .dts file includes <&fspi_data30_pins>, which
+configures four data lines (DATA[3:0]) for the FSPI controller. However, th=
+is
+flash@0 node sets the spi-rx-bus-width and spi-tx-bus-width to 1. This mism=
+atch
+forces the SPI NOR flash driver to operate in single-bit mode rather than
+quad mode, needlessly degrading I/O performance.
+
+[ ... ]
+
+> +&gpio1 {
+> +	status =3D "okay";
+
+[ ... ]
+
+> +	thermtrip-hog {
+> +		gpio-hog;
+> +		gpios =3D <23 GPIO_ACTIVE_HIGH>;
+> +		output-low;
+> +		line-name =3D "thermtrip";
+> +	};
+
+[Severity: High]
+Does this GPIO hog structurally conflict with the FSPI pin multiplexer
+configuration in the .dts file?
+
+As mentioned earlier, the fspi node routes pin 23 to the FSPI controller,
+meaning the GPIO controller is disconnected from the physical pad. Attempti=
+ng
+to hog it here will fail and may allow the SPI controller to inadvertently
+trigger the thermal trip line during accesses.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-for-upstre=
+am-nbxv3-dts-v2-0-6b4afd36180b@free.fr?part=3D3
