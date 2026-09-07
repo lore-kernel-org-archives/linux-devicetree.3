@@ -1,166 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E1830F80C;
-	Mon,  7 Sep 2026 14:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788792060; cv=none; b=KjuWdlSDAR3hXfP7HsiTkIuXgDr3xkeCF3MRRnp+hQL+WMBG2c707AetlR0RRZGqApuZfxFTvayCr6O56SI52QrdEcXoQlQV4k6n5f2cR9rO6xwze+yNSyNNam1bl1tF8R6lZbS6S5lKREiGDhcswxiNSDxydtac1OK0KCITslo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788792060; c=relaxed/simple;
-	bh=YJbsmxHIE9ctMRtCEgo/5nPyzDJiA4ry2ZQjawhCxMU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dfKBan4wGPP1N5BIvf6KfYyukaTR+x+2f53JWufRLnsQHVstTpD9zeKWTTZULjRqoeizbkUPRScsAbPfiOKqlH8YqsJHpphm4VUp95jN/JmDfRz24YQg7cTYqa6H7tg3zjdNuucrSeDvO8WATL7QKJBWf986cTI1kUHc4EggeHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YspaNAIR; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AE43B841D
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 14:45:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788792351; cv=pass; b=i8d5Rkwza56HxMMIwAZk/pGnHrT8wg/PFA/NV5faH4BGsW2/ojqVzb1LLVKG18idtKYMIvCYPPIJudloiCpQfLdZjt/JJmyiS4IaMiAwjnmH7H7u0yFeO7DWjE7u1r+JsPe5olsTfSnfShlkEBx8gWJ5TOldKG5X3rQ86jZk6sQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788792351; c=relaxed/simple;
+	bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iNPuJ7WQ+bsNonQsepAjkzad/CnFw68JDHPHD0qCVO/egA//GAxiTRWCExvv63uPPsn9dGqPlDQo/SiGQz+agAP6BQ6w33l4d356Eu71K7IHTymB1+PAnzjcpkWaOLsNKOCrNQDCplR48hnP9XytvekzuAvPLveV06AYCsbxOv8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HsCmWEf4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GSh0rt5V; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YspaNAIR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C20251F00A3A;
-	Mon,  7 Sep 2026 14:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788792051;
-	bh=XrnpVceRk1kf7n4qGzTpd16+vxYsutZuhYzZR3ZM/B4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YspaNAIRatACNEWG09hsXTSHIXqDQYkxpDhiExji4DdW9Bprh6ROtVda23gEDq3Th
-	 P8f5vFvcPjXksYisj9ileXMh17wnuOnhhaY/qaCtfk+5iA5IkgJF8qcyfqz8Hy0LyA
-	 nFqdeRxWEwFdjm8OFK5uef3L52X1Dvyyzyi7c8fcRx/DFNGVGqQaUPRne/HBCNZ5ak
-	 Xo2TOg6ZFLPBK6mdIbO+hMhqjF1lw/JnCeLBdRK0gEKz40bWaqANFbjwHNRhhDRT+0
-	 sXdl/3l9CjDvb/rX/D4kE2VvMegHR2mccqFsz01tPGTmQjgseF6HLPIhlC/mUCC0Gm
-	 TYGfo19ErFcSA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260907-for-upstream-nbxv3-dts-v1-3-f43fd0028b78@free.fr>
-References: <20260907-for-upstream-nbxv3-dts-v1-0-f43fd0028b78@free.fr>
- <20260907-for-upstream-nbxv3-dts-v1-3-f43fd0028b78@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 14:40:50 +0000
-Message-Id: <20260907144050.C20251F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HsCmWEf4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GSh0rt5V"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687DdS4t041300
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 14:45:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=4KaEx79l/Qo9EXLcB4JmwpQu
+	z9/m4i42cFxTh0FVROg=; b=HsCmWEf4i7abXHZFCxX36UJ/9JBW+WwyXSLb/io4
+	h6c3l0meFY4K2wrqAPYwPDPhN0liIYKcNmOIacP64rf0ANUhS8t/RGECdChJkO/f
+	E1lR9F5KZ3anF9NnpI1PbFk00h25NRbBu3KZTXIKZviecOxgLcFrNryH7X/QY3X4
+	QN15qgqVLNttQIjclPIyjVyA2hXMv882k4GG9Tb2kr4VaTdk0K3zQvE4yj2cLKCX
+	hkqFT6NfIbbDP/8Dq1V7DI5lVb/kOVLU69oTr5RRxzqpOUd7CXfpPR9HeYGcUhcD
+	J03VdSEIX3y+UdzFXHcSlzwGdq575M4hfwBJ4LPdu05Q8g==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghq66j93c-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 14:45:48 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-81eddfe28b4so67615177b3.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 07:45:48 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788792348; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nuzX6DGOgY0nux5o1vHsnzCqCaHJQg2LFGlqhtSaOzjxToJfUcoca8I3E57XaZC3MO
+         g8e88MXwa8GkCwsFcVv/1NRstQdfxvy6C8kIwIt4mp9PJyGv+nf+IUWOAftRGuKKNo5O
+         uZEBPLmMb13Y5epek9mCTGA8qmD1hC2HRrQjC2Pg7WFTMbJjQVMrMonkr7ZNJ1mYNg1v
+         qy3jtfr5T7OVvmdjldS+9ahoYppJHZRMtAqgIzO/rFMTQKwsVo7G1s6nVoWg9e6cB2ds
+         WZutaSg6H7kSMe/V71XD7LphL5r6lR1pU8wld23i+IdZqM5CEZ5RwcgnKYA3gXIP2AH3
+         xoUg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+        fh=zXR9TufemlIB7R5p2rL14CMBypAjwvXLM5lNgUshFYA=;
+        b=ZaCVme/EMdfWV6lxyCWsa+1cTzYY9dkEXxbquD05dbcphJM+eRUuM2Mash1omqRtJy
+         3PMCPkHXKc1wTtA4ug9raeZrP9aCH9kzSC3aR+U63Y1lnDzz+hIXCCOTob0GQ/cqsRn/
+         RWEDY9FFRuULkhGhFhwM6oYHfwj19g7vOvtY9dcVuj0ur8Ykm20RuPrJ0T96Pb0xhy+8
+         vVgx507Wt8mNSGgor23clxQM1fR8MjxjxhQeUDtcFe6IPb6EaGvO0918fHjO7e6hx+LB
+         8R4ATkQkgi0qXodbsNyYqCzjh9FvXEWlxdB+uDBnugOwi7RP6yIH2MVQ42x99isLz+g2
+         5SRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788792348; x=1789397148; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+        b=GSh0rt5VSadtGpqLmWn9waEjl3l+Moq2hiUmtJ2fMRaEDk4HTb5vG7gn9L0MBfR1Jy
+         P2NdTlSDbuHnkxz7aKPhdWrMEC5JQm2QlKgvAb0+Uhl8iLLL5Av2saTe/Z8Z0+0+ggKt
+         GJEMIMHKOUUisvIHhvtN0F3F6vTMoYO27MpLFF8oBPDIorHqAaqVZXsdwYAU3QYL91q2
+         fqro1rTpujo9JXvSedM5Hzs17/x/f3vuRCpBsbAnSA3u3u/1h5b3ICICNFEws5aH3TkU
+         MxVIfPjgXEVeypkmKJ5IY+1k+WdSxY8DIp00nKC3RJVdYJaaHWw6Uf4KdwqiU/M79G6B
+         LGQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788792348; x=1789397148;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4KaEx79l/Qo9EXLcB4JmwpQuz9/m4i42cFxTh0FVROg=;
+        b=Qy+RrJ9/sW2njpDATQt8yBNGndRlHKH0yeJaNp76gOY0exXfRf0QLxQgRybH6zcfix
+         RCI3Rogfnrq4aHCk8qaZ7Fg+UnFhin88wLIsEoX8dM/7xBUo8JV7aeD1nvX/c4ifAMEF
+         QzjYdGWrKDGD3Vwl1fbiVLL/qra+WHbOhvKbIxbmW18CKy/0URK2CWWeFlRgj3kiMEl9
+         gB9nQK7XLmJZfqwZNOj/nvd+pcCSMZk2PKXT5JvTWTlId1we6IpryUh/b0M0tMnCPlcw
+         bPd30Bq62Tv+gYzC2SYXTsyWRRjw90bh9uzaNNjCVnBdG/qlLXymjFEzdX9XmT+Hq0yc
+         M2PA==
+X-Forwarded-Encrypted: i=1; AKwUvBzR5nRDBQyhhAMTypv6CtCNluuuTy4ILgXM0kfZ9SowxOHVgrZlTzIoKcyXmimd/+IyCf1VVBnc5Fve@vger.kernel.org
+X-Gm-Message-State: AFuF++kHNsbVrfVKkzltAv9ZfmGj92gJz2MX7N75ma+X0TzQgnSG70lM
+	qnSB6rzzwNSZ2mWJ+vsCoP/mkQdjS5Yr6xzMM1sbULMh/2yt20FfyreyPfLeMPSVrRTAltMvw1C
+	cMiNo3siMBZUym/6mMuvYrT+j652tDhV8nYfjDDDn9FucgyWMpW8WMVcJyWZmrXh1gZXo8cLoFc
+	YxNdHCJaoJEPxAoOa4ArrICXrE32DDrkem+Qb/Wf/dzXbabV8=
+X-Gm-Gg: AYBFou3Qy5AU8pEHNRRArSvCKESMAOXtIVRYoomsaCDoHWdP8K5KlQXXrpdzkIVy39j
+	ZfcJlLJ5IaTAPbNtXddC8or80jgvGu6UgQcpkCbRmA9cl8ybeu4b30GxPIOw6MD5ikbwqfbAXds
+	xkbjeC/84kYU/+QdCY/O/WWQ3z77cC7MwOCSyH9wdibBygxt9WtEH8AW7ugw==
+X-Received: by 2002:a05:690e:450c:20b0:66f:bc17:4f18 with SMTP id 956f58d0204a3-66fbc1754c3mr3690258d50.30.1788792348504;
+        Mon, 07 Sep 2026 07:45:48 -0700 (PDT)
+X-Received: by 2002:a05:690e:450c:20b0:66f:bc17:4f18 with SMTP id
+ 956f58d0204a3-66fbc1754c3mr3690226d50.30.1788792348076; Mon, 07 Sep 2026
+ 07:45:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+ <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
+ <20260907-arcane-sassy-fennec-afc02a@quoll> <CAC-tS8BVw6hbgA82V1mYL_3CG4Jdodr-DQbGfM4FzMMdCLbc0g@mail.gmail.com>
+ <934b1e87-3ebe-4a6c-a925-6b3993cdcec7@kernel.org>
+In-Reply-To: <934b1e87-3ebe-4a6c-a925-6b3993cdcec7@kernel.org>
+From: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 20:15:36 +0530
+X-Gm-Features: AcwNN1X7F4Saf6Z-HB7nxKe8O53d3EFKPM70E0Ja_RmgPGm_qltV-8Gse5aESAI
+Message-ID: <CAC-tS8BY_th+qa2DogXSZofkX8KaPJfL6iphX5_TX37NXMA5AA@mail.gmail.com>
+Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+        Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+X-Authority-Analysis: v=2.4 cv=QPhYgALL c=1 sm=1 tr=0 ts=6a9ece1c cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=emP4cCs2JGfxw6IAegoA:9 a=QEXdDO2ut3YA:10
+ a=WgItmB6HBUc_1uVUp3mg:22
+X-Proofpoint-GUID: tjhmnVBnZM3Qr3eXLqOMKNViX8FxDSRa
+X-Proofpoint-ORIG-GUID: tjhmnVBnZM3Qr3eXLqOMKNViX8FxDSRa
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDE2MyBTYWx0ZWRfX8jj9i99W8yJC
+ 4woHtmro6DzjnzeTn6xbQ21vRvQExyP/2K2QvHlJqHicsEyBW5BSkRCUMVd6kSW9g4LiddyXtSd
+ 4rFop+3joAbTZVzQY8SQUvjEJBA34dI=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDE2MyBTYWx0ZWRfX6ScB/k8X8zyp
+ XFUYPJjTvwwijxfDJDZ1cGmRix3tgRpUKeWu9X/mAMmSRxccSiFzzHXALSqJKSdpXuiB87haCYI
+ IbK3ylUs8tqBveja2tszBICH+7m9UIJI47/1uERXlj1gPyqAxjjtQI3gyocWo2McsdRvh1Gqq2P
+ ZPqalot4mlQpYJTS3L0RBP8JQI/QQ5qI1AjAkqnG6OyNbuq8LDKy8iZFQiwB16d/ukXJ/cq+CdO
+ VmYITa3AAyZSdFKOG2413pMYxDQMmVt4Egn8v8QP1nWCtRPR1bR5Ya3J0Ag6v7RYVQLqEZTtcwX
+ UywLFyPYO1BoUjWuvC0wQm2RCjcw5mFLKCKvEyTzEr+o863HSqja6xP9yKtgOpQBmQAIFGcE51G
+ 5Cb4eC4hd4k2w5r4Mnok9s1uT15rqtEGFOkYgAwVlwSc0hTQbCqNk88Marldc/IJmhAPfqH1/7a
+ +HwIcHJE7p5EGBxwnUw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_04,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070163
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] System-critical reset GPIOs (such as the ethernet switch reset) =
-are incorrectly tied to the `fspi` peripheral's pinctrl lifecycle.
-- [Low] Active-low GPIO signals are semantically defined with incorrect pol=
-arity (GPIO_ACTIVE_HIGH).
-- [Low] The new board compatible string 'freemobile,nbxv3' is missing from =
-the dt-bindings documentation.
-- [Low] The .dtb entry in the Makefile is inserted out of alphabetical orde=
-r.
---
-
-commit 8ec6719880bbc095a9e9249535f912cf432fd8e8
-Author: Vincent Jardin <vjardin@free.fr>
-
-arm64: dts: freescale: add Nodebox v3 CPU Module
-
-This commit introduces the device tree and include files for the Nodebox v3,
-a Free Mobile CPU module built around the NXP LX2160A. The same device
-tree is intended to be shared between the Linux kernel and U-Boot.
-
-> diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts=
-/freescale/Makefile
-> index 95ae85ab4adf5..f67d0a53cdc34 100644
-> --- a/arch/arm64/boot/dts/freescale/Makefile
-> +++ b/arch/arm64/boot/dts/freescale/Makefile
-> @@ -59,6 +59,8 @@ DTC_FLAGS_fsl-lx2160a-qds :=3D -Wno-interrupt_map
->  dtb-$(CONFIG_ARCH_LAYERSCAPE) +=3D fsl-lx2160a-qds.dtb
->  DTC_FLAGS_fsl-lx2160a-rdb :=3D -Wno-interrupt_map
->  dtb-$(CONFIG_ARCH_LAYERSCAPE) +=3D fsl-lx2160a-rdb.dtb
-> +DTC_FLAGS_fsl-lx2160a-nbxv3 :=3D -Wno-interrupt_map
-> +dtb-$(CONFIG_ARCH_LAYERSCAPE) +=3D fsl-lx2160a-nbxv3.dtb
->  DTC_FLAGS_fsl-lx2162a-clearfog :=3D -Wno-interrupt_map
-
-[Severity: Low]
-Does this break the alphabetical ordering of the dtbs? It looks like
-fsl-lx2160a-nbxv3.dtb is being inserted after fsl-lx2160a-rdb.dtb instead of
-before fsl-lx2160a-qds.dtb.
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts b/arch/a=
-rm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts
-> new file mode 100644
-> index 0000000000000..ccc5855208a63
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dts
-[ ... ]
-> +/ {
-> +	model =3D "Free Mobile Nodebox v3 CPU Module (LX2160A)";
-> +	compatible =3D "freemobile,nbxv3", "fsl,lx2160a";
-> +};
-
-[Severity: Low]
-Is the "freemobile,nbxv3" compatible string documented in the device tree
-bindings? Missing documentation here might trigger warnings during a
-make dtbs_check run.
-
-> +
-> +&fspi {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&fspi_dqs_sck_cs10_pins>, <&fspi_data30_pins>,
-> +		    <&gpio1_31_28_pins>;
-> +};
-
-[Severity: Medium]
-Does assigning the pinctrl group for GPIOs 28-31 to the fspi device create
-a conflict with the gpio-hogs defined in the gpio1 controller?
-
-If the pinmux controller enforces strict muxing, the gpio-hog nodes for
-the ethernet switch and flash resets will fail to claim the pins because
-they have already been claimed by fspi's pinctrl here. Furthermore, tying
-unrelated system resets to the fspi peripheral's pinctrl lifecycle means
-that if the fspi driver fails to probe, or is unbound, these components
-will lose their configuration.
-
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/=
-arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-> new file mode 100644
-> index 0000000000000..bd10eccac4fb4
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-[ ... ]
-> +&gpio1 {
-> +	status =3D "okay";
-[ ... ]
-> +	/* Ethernet switch reset, released: electrical high */
-> +	ethsw-reset-hog {
-> +		gpio-hog;
-> +		gpios =3D <31 GPIO_ACTIVE_HIGH>;
-> +		output-high;
-> +		line-name =3D "ethsw-reset#";
-> +	};
-> +};
-
-[Severity: Low]
-Is this active-low hardware reset signal defined with the correct semantic
-polarity? Defining an active-low reset as GPIO_ACTIVE_HIGH and manually
-forcing the electrical state with output-high bypasses the device tree
-coding standards, which expect the hardware's active state to be accurately
-reflected in the bindings.
-
-> +&gpio3 {
-> +	status =3D "okay";
-[ ... ]
-> +	/* Low enables the carrier-side EMDIO2 level translator */
-> +	ethsw-mdio-en-hog {
-> +		gpio-hog;
-> +		gpios =3D <25 GPIO_ACTIVE_HIGH>;
-> +		output-low;
-> +		line-name =3D "ethsw-mdio-en";
-> +	};
-> +};
-
-[Severity: Low]
-Similarly, this active-low enable signal is defined as GPIO_ACTIVE_HIGH
-while using output-low to force the electrical low. Should this be defined
-as GPIO_ACTIVE_LOW instead to reflect its true semantic polarity?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-for-upstre=
-am-nbxv3-dts-v1-0-f43fd0028b78@free.fr?part=3D3
+> > the binding intentionally allows subsets for future SoCs or board
+> > configurations where not all interfaces are wired up.
+>
+> If the board does not need to enable them, then driver should simply not
+> do that. The clocks are still there, so the clocks are required.
+>
+Understood. I have already raised version 5 using b4, Kindly review
+version 5. I will address this comment in the next version along with
+other comments.
+-Harendra
