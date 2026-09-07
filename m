@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9121372B5A;
-	Mon,  7 Sep 2026 08:35:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7937143D503
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:35:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770128; cv=none; b=qNXpX/iKSPMVpOkphZ0gY1ts8U6TEpb8ToT6XEK4lnxele28MJdxSwf8byemhSDWo3n6ORGRdcqDDO27Q0WNikujwvo8w22DI9ZXmhlMi8OxaZJxZL03o2Ch1jMxpDv2kRSRBN1epBGM+V+XEwA/i4hZHdlUiMy9P1uRea0KyPI=
+	t=1788770160; cv=none; b=F3lQFIW439oRRe2J95/CK82xFLgGgAQIJT6jPn5gQ/XsURIlg9WcidfAo+n9AHYF78gFZfRbqcyQj3+UFNj2zBM6oqsSDQLP3CjcKUPHWhgy4yHrwwBA7tbinG0+Bl5vDb3K1bfD2pFk10p/gp8zr7F63W8Fnx9TH+lQye2UhAg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770128; c=relaxed/simple;
-	bh=7z7vylSyfWqE3EDq/ZZoS1b3CumUAB6aQkwOD+wEqlE=;
+	s=arc-20240116; t=1788770160; c=relaxed/simple;
+	bh=TFdmya8hBWBrchTy4xaUWisoPLj7FICCuleNudVlL3s=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LGyJItI6gAuJinPF35xWfytGwqBfcDnbirkMThINjQ+ulBY0Qrc45ok5+jUN44TMhx4A01snkzcr1WJnAv0ot6tNDf45kbZIL9InTmgGK8H1FJHktabxDcaaYcl8AaoQ2UbqiRiKNTl414+lPkilQxdz3R53EzocRBMTSRMek4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JUfyDU5Q; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=jWWkz2Ay/jhvISII89Kt/XWSQrqHn/0LO6LbHJaT6GjIDFXNC3byVl5IDl01mfi2S9UXqryenbemGi0MpuAdppBqcdzIV4BWcFztpQxTsrljqUAUrnOPuvsm0XhusGHcKdyghj31x8cxNUo4HH6N2SKTjz2Da40DHnPwY8HF9Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XU55JZL3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JUfyDU5Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379551F00A3A;
-	Mon,  7 Sep 2026 08:35:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XU55JZL3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04EB51F00A3A;
+	Mon,  7 Sep 2026 08:35:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788770127;
-	bh=7lliu8lrqW/CHgr7r/FFZBYLtK9krTWCdW6rmzceK3U=;
+	s=k20260515; t=1788770158;
+	bh=i2ckFEPg3qST1oQDtDm/IvLUzLRx751Dc4qMJokHa3k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JUfyDU5QbxBYRiUjGDpscKWyaipP8tm3zXn6RKIrtl4eWdFMyQPVhx+YqHg3I8+hm
-	 APPQQtCCcfiOWDc84nwAZpu5r79EQ79RTm5RsvBepqTse6WvnMxDAsS7QhGs5otQqV
-	 I8jENMPCfoI9aW8NJJgVc4jCOWhbZCSpGNXJdsUrbinMFoTeDlwHXqFml7GCtygQVg
-	 Msv4Cx9sDl+N55vhrNgNIWiM8J39GLDTmv4GtQCqvn07pX1JiyQQbXAECAlXYVruII
-	 kbc9+yKDFnGKJ+lmhdTGuTSMvuqSc3byPynOpupY+NgLf69qSRmqL6sB2xfvSFY4ay
-	 n97vIMVW7pBdQ==
+	b=XU55JZL3D5ezNmBhoQlSXHRo/HaZwdFHzOhZ/JoMyFm3SReKedPGsZR8PAj5ZmmrD
+	 q9sdIfc9qV2facj3CuPb3WKGqTXjnIim61YZp6bRM5e8Q4XNfloFSEJmZ+J+hqARfT
+	 F5d9iP7ik79viOyuIL1sNAe3YguPyv51qFOJ961MSIlJymcdNbvAVKx2QKdsGBrBcp
+	 LuWnqoENSWFsACDG3Kg08NwRJkZfk24aQUpOuQf0OKwmzgD7XPT76GDH50ULvc0Ygj
+	 9y6/SdRFIiAHj22+Ck17BU0pv1m9bGjy14ps8P2xefhzcUx+CC7mPWQy4H9DvrEntm
+	 i/4SGCvvfJepA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: clock: qcom: document the Nord DPRX
- Clock Controller
+Subject: Re: [PATCH v5 1/4] dt-bindings: usb: add Altera Agilex5 DWC3
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
-References: <20260907-nords_dprx-v1-0-d472af3f01b1@oss.qualcomm.com>
- <20260907-nords_dprx-v1-2-d472af3f01b1@oss.qualcomm.com>
+To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <19d22389b795bd0883dc481f045a293b400f1ea3.1788757821.git.adrian.ho.yin.ng@altera.com>
+References: <cover.1788757821.git.adrian.ho.yin.ng@altera.com>
+ <19d22389b795bd0883dc481f045a293b400f1ea3.1788757821.git.adrian.ho.yin.ng@altera.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 08:35:26 +0000
-Message-Id: <20260907083527.379551F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 08:35:57 +0000
+Message-Id: <20260907083558.04EB51F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,44 +47,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The binding description incorrectly claims the module provides powe=
-r domains.
+- [Medium] The schema incorrectly uses `additionalProperties: false` instea=
+d of `unevaluatedProperties: false`, which negates inherited schemas and fo=
+rces redundant property declarations.
 --
 
-commit baf2c48f03a1fa1acdae6f01871eb176b4af7ed4
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+commit 9d62a972209f1de97f540bff2202c5f7fd9c1a48
+Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 
-dt-bindings: clock: qcom: document the Nord DPRX Clock Controller
+dt-bindings: usb: add Altera Agilex5 DWC3 controller
 
-This commit adds device tree bindings documentation for the Qualcomm Nord=20
-DisplayPort Receiver (DPRX) Clock Controller.
+Add a binding for the Altera Agilex5 SoC integration of the Synopsys DWC3
+USB controller, covering clocks, resets, PHYs, and optional IOMMU support.
 
-> diff --git a/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yam=
-l b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+> diff --git a/Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml=
+ b/Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
 > new file mode 100644
-> index 0000000000000..fbaaad1f3db3f
+> index 0000000000000..9970d7c9d6fae
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/qcom,nord-dprxcc.yaml
+> +++ b/Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
 [ ... ]
-> +maintainers:
-> +  - Taniya Das <taniya.das@oss.qualcomm.com>
+> +  reset-names:
+> +    items:
+> +      - const: core
+> +      - const: ecc
 > +
-> +description: |
-> +  Qualcomm dprx clock control module provides the clocks, resets and pow=
-er
-> +  domains on Nord.
+> +  dr_mode: true
 > +
+> +  maximum-speed: true
+> +
+> +  snps,dis_u2_susphy_quirk: true
+> +
+> +  snps,dis_u3_susphy_quirk: true
 
-[Severity: Low]
-Is it accurate that this module provides power domains?
+[Severity: Medium]
+Are these property declarations necessary?
 
-The documentation text claims the hardware provides power domains, which
-contradicts the binding schema below that only consumes a power domain via
-power-domains: maxItems: 1 and does not define #power-domain-cells. Could
-this be a copy-paste error from another binding?
+These dummy redeclarations appear to be a workaround for the
+additionalProperties restriction below. Once unevaluatedProperties: false is
+used instead, these can be safely removed as they will be properly inherited
+from the common schema.
 
-[ ... ]
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - phys
+> +  - phy-names
+> +  - resets
+> +  - reset-names
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Does this incorrectly reject standard properties inherited from
+snps,dwc3-common.yaml?
+
+Using additionalProperties: false instead of unevaluatedProperties: false
+strictly restricts properties to only those defined in this file. This brea=
+ks
+schema inheritance, meaning any standard DWC3 properties not explicitly
+redefined here will cause dt_binding_check to fail.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-nords_dprx=
--v1-0-d472af3f01b1@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788757821.gi=
+t.adrian.ho.yin.ng@altera.com?part=3D1
