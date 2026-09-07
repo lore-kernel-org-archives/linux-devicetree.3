@@ -1,181 +1,167 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980324248BB
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:47:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770867; cv=pass; b=kJc/1djgOcMXlSn3WaXw8O6I2+oo2MR8nYJNw1Vxz33uxTCNI7u3AHnIhTcfclHPLxhy6O488PfU0So2Rk7OW22UUjuEh9kr2NUdN+gJna0Z/xf7CVeuJ6/utFyKivDVGywS5X2Cp8ozN5lhCK+9oEjkW8etlKV21aUfE6wvWu4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770867; c=relaxed/simple;
-	bh=KCb+AEWT222QOqqi/nfb/AJwudII8A22iwSuXfgeJ0A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JuInL9bTXOfRWJxs6dDxC8ro9BvtyHRO5xgFQDPLQZOieFRZxhqoTjo1D+I9gd2CTd6eM+LgEvsjY7Ne1IX5tY7X0GEYA3fWY1c4LXvrybacqwlPgk3CdFlX+N/Duoq9Mog0gnGrYDP4kCPhqXTRmU8dGTqOwt8qQcJ9BNAn8O0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=MaM3+GZ8; arc=pass smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300A23FCB2F
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:49:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788770945; cv=none; b=uxpCl3NFzCgbm2IPdSCHOI+xY8QNpBSXbhx2MACRbowmGTA0XE2bjWs2rLjCnaqrFEhiO/yX7ngrs3AsPSDoDL+e+7Q3+NWQ43xhDdCa2v+ix+iE3q1h/fNdyqa81nFNK3Yljqp18Px8y353fkkunwgI3iigTljVN7y9yV/lp14=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788770945; c=relaxed/simple;
+	bh=KNbGQKtxz8KcCXd2VzZErD0YC+USpVaTQvnS4gqOR5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XaSXxyMthlz/5OPTg/f5A4ixUg5nRS6wdgl0fd4yOr1S+7FVqsmwJnN7b8kJOBDuOV9si0neat9/pgJZm0Mk0dRLd03irAR60vgHgouMYQPQes+8ZgvUWgZuDJr1FYKaxBzhHSvBOzhszktWFqi8mxVnSDays9Imu7GYwmYTehI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZL3zZ0a/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SYBjyyd6; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="MaM3+GZ8"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d9004f39d3so40793465ad.2
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:47:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788770864; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V9GQ3aDzO22wna8jH3HocABj375rYW/MoiGUpy7uWxo+UXsaE3WBAn2OQZzPN4qTnj
-         XP7xnP6QLbRNdgr0VHS7nhk8diOuvJSlGhxq7uF0DK7ba2X3KTR7Vc/EWYSmF3xf8O7H
-         S16aveWaeNig9hqtJal2tjiqOBvUSTAvQL3mj3KGDnYs+d5af3eQLPcAiSGngpTLfdYL
-         6YrKbqY089mPXWorqV++L/LDAwa0BfT265uS+owKWA2UL7Ik6e6Z1omRt5IKC2OKNfO1
-         NUdnTfeB8GYJ89YNViRKQP+Gngwd64X62jTyBqGFcmxVEP/edQz4qBmdOn/Uu7xHsx0p
-         GgYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vD4jMxO/NmU/pHfxFJ8NQMuBlPLvKvFHeSpZFwyymkM=;
-        fh=+aJZbBhkTFLa4qslDzzefjso+jq2O80wNmq5vFQcdgs=;
-        b=m5klv4V9nZsrSP7NA5hzDkHMJk829fLnJt+rG1PwUxlx8R6KHAPEm+SJ6l7PxBku9n
-         g6noVsClnioyqcRKIyW/m0Xvr/Cl3Rf5X2g3whIESVqfIkamM0YibhVW9eYufmGOVGm5
-         CbKVrlzbyN2FQmxbOWtXNEpN/gkqZpu354Ln6t87PkgTLzvZ7uYe9QgJtCANSNn5SZmp
-         G94pIExTbeQCnUtVyBo2i4vatQEe4T6TKT1up9oWDzI8i6BnqmtA8digK7/ZTVWwb5I9
-         X0gdfgl2P5pX0l0nCx1qH2AxESWXSXOSydcmAK4K4CJXt6MhXFZAaK3GaXYE6R7odfFU
-         I2bA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZL3zZ0a/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SYBjyyd6"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777Xxi2724154
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 08:49:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d/0hMYtV0AUTvKgdIzntIko+FkAJyCqkPlgmbhqUNjk=; b=ZL3zZ0a//OqFRTiZ
+	BVksRn9MpDegor2kl8y1SmU9no2vhNptk8la6MFQedNLeBqIYkyG1uCzcXQviN22
+	gsEJbb+gBeD9MmHMDC2yAjsCc+GhbGGSfm8AeFNpp8+XUvDfZsi7OvRjOnUvNvef
+	srOyl0NrPrPIXm9p+zwuuXR4kaQU9SUm4ksGe3VSmAJXee3dl9JqxCIH/LX6/UOW
+	ZuLIV9Vyqdl0M9vMDfpGaWcnvCjfRgN3jB4/lEq9O2rlZDEkO6iQ/LlTAnSipfjW
+	P2WEXTl/W4/gmz1gE5xf0Zu27H85vKRj6oPXRkawQlMXXK82+agOwQYVnK1zppws
+	Vr59Aw==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghfxkssxt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:49:02 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9390a2c895bso713832385a.0
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:49:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1788770864; x=1789375664; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=oss.qualcomm.com; s=google; t=1788770942; x=1789375742; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=vD4jMxO/NmU/pHfxFJ8NQMuBlPLvKvFHeSpZFwyymkM=;
-        b=MaM3+GZ8CgUjDMCr9OVjhS62XoBR2OhkcGnUyOFxHL/yysmPcnJr88vUUdsA6fk3qg
-         sDj0ihjZqfYbfEiOD17ky21fh4irAn67OgELzwnJyT7Bg1M3KCUd29T7R6QWvebfw5AZ
-         ZiuCwC28nb6glW1Gh+RU3U26ITznkrlcXDQ7iEOhejEu2HaoBFvOw41UqG7uR81v8fae
-         yYFkcoc76cF+70EvjsQNTvhIuHwOfFrf6LTi/zVfR+s9s9mi6U5LrZWGX9eTc8RWDc6I
-         dymI4+kM/T1PEr1x+wXDI/sBiKhsn7shAgo0sxCgX3G1wSzyNonEbwG3eBWP+ZCZaSTD
-         S1vQ==
+        bh=d/0hMYtV0AUTvKgdIzntIko+FkAJyCqkPlgmbhqUNjk=;
+        b=SYBjyyd6uDxJSnAhqs6V/mnMR0shsF7OTXxRZ+v/3H5R35zxjd8ItEjfCqz4bby5aA
+         CgBzcymTxbJK34zLTh0JIYWSvIwGO/d/JxLClq4+S9BvmvUq47Qji23kUjumUO5+ioMZ
+         ZuMBo51D+GMGl8kZFGG7+HcR2GaYAbEmwjSnt6IdOIftHog1KoHsOtTaRhWVVK4CL9VM
+         +mFjaEbNKcHEfMxTvi05+sLL700XBS/BVQY0iR5S2k+ruUQbWi7fLJThXkb9SZLvVOkg
+         0iuBraGKDhsqqLDjO4R0ZanG2YtelyfrH6RyOXGr1wsB2Qxg9KhiSMfFhJpulBverKjY
+         DWCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770864; x=1789375664;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788770942; x=1789375742;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vD4jMxO/NmU/pHfxFJ8NQMuBlPLvKvFHeSpZFwyymkM=;
-        b=M4eZAM95qPhbCbymXKCO8h7Q0sJ7t1dI6cZqLxw/9qDkU/4Pm6TclaYE/ohiFFKGIh
-         UPM1jsYOQ6Wnm9Wye1awVkUza9sspho/TVJHqj7EUMCTnpgvYhDm4h1GAikGPBtuX6Tl
-         R2tbZeXU2IEp30qqIh7z/qLcxaGChO/ctglr5xsq8/zFQ+pnk30plhGAmkemmiGNtymI
-         pnKAMVQAETCEJ6egT0wA+vtRt8duuxIUIiyST8fe7ajHvPnvgFzhC+zrzj3m10Gno9nd
-         UaPivC9jLZLW5NRtuaM4e+/t+DDc+GtCsNlgt3dgULI0WFbExCOtZbM5SE335p5kd9NO
-         pYtg==
-X-Forwarded-Encrypted: i=1; AKwUvBzAhGIXmW6tcg+/Z/3CObF4V0ksyxdsiTq8WiQRfd/ofqAYBdwIfGsSwl7LRT8+4spofrGJHhBlRZQ8@vger.kernel.org
-X-Gm-Message-State: AFuF++nBVFw2Gh7bOC0k/zkhgDaSwyzCK4xVG7j9ykQFeI4yeIH9dsDx
-	1uQsft5NzoNpBuN8qVJj05WRNJ5kr+/R1b7CAGm2Z/zXevim6q/g9S57hKB2/QQh+HbMBQiMLRH
-	PIOBMeMG3K4hfnIC03EWiiOPZVzbqmjA4UgPKHDso1g==
-X-Gm-Gg: AYBFou1BZ1Q0395WmxhyUhxuBuVpeboFNjv4U9pHmtLNPKdV5lAtL6/HKSHBqFMk4bs
-	FzhIuLjFQRlLLfuLgj35oHaiMVqSLkPSUxMbrFlQMHxVvUVDAbSyyXF/1ERrYvcpvfkadUD2gqz
-	LOf22wBAW+JehSsFq4o+XaK8raBU52VG/4gFmyfNalRDfLxmA55tc6UqrcUyok6m1LtA0xzqSyD
-	e7TgSuYuzp8zfv2ZWjI1/CnkozunGmt0vMmZz/hlartqX1Nv9qzp6Yn+gS3MKwwWD4tO1o2QqEM
-	vWJO7HD+PCQGHgPVSEtWPNOL6PLwbpwPPbSQrborFXR/5DXhChaqg8wg4kmCkW/3tyLbDcA4OW2
-	0aF6C0YkSDymn3xuC1VIA1nqf/Q==
-X-Received: by 2002:a17:902:ba98:b0:2d6:fee6:65ae with SMTP id
- d9443c01a7336-2db1232e1c3mr208841035ad.4.1788770863774; Mon, 07 Sep 2026
- 01:47:43 -0700 (PDT)
+        bh=d/0hMYtV0AUTvKgdIzntIko+FkAJyCqkPlgmbhqUNjk=;
+        b=XApAjZMMel+nqr8OhXhhmLQUpH6g27lM55cHf3nEeUCYJYn9YpTcE4DODwxGTe5iug
+         d5BpuijcakBuIcxPtZ08YXFBxQkwERQFNN0FhqagHiMbvOWO/UhjRKA2d3ErlkTrVjqx
+         NQKGSx1l2tyujB7Vg0N3QX8ko6Sh6DOcyCyzEFvE49LboN6GIFCNHH/HNyUwStLg5nSC
+         cMkIvzFHbvvDDzfA9/T4hCpvz8kfhqaffMESKtbP7ZTUbBk149qJ5LQqIenz37KoKaYC
+         ilktL9RPnQXfzlm6vKfZ37hUJwrysu9oPru828rREWLeD/jYub3+g2C8Y5Cn8+5j4VMK
+         9PQg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiHyxeWNgS/VLo1Nl5RtVsF3VdAkSS5BdwGvYrvBZadRqJ5L/Rw2PtR1wMX1+KEHAGiUeHH9L6LG+B@vger.kernel.org
+X-Gm-Message-State: AFuF++kVr43OnfUO5N9yvBoPX8sfdMaMrHwqC/TjcpfcyPKixNhoikx3
+	EqjgvXC1tzMaHOGOQ3CQO+GywIzh6giY3AstKDFxeuxwMakP0oV8+RMX4DOL2GKBkbrjTGNC5SB
+	yAFc+7o2mVLpOEaNsiDPZ90UQTLylJrIVxIPb8GJyrXAU2pNZty2DWXOEFiBvLgir
+X-Gm-Gg: AYBFou1aaeVzGXWd7AnEoPTyVek6gJR0m2gX32pTblTEa7ZAwdgtGJVVyPCyk1zuGCv
+	waEr0PZp2/FmwOC+XxnDBprx9l0u7QWX+OUB/oqYjRrv6S78yuh9X23X7DLS3C5VfCPcTSb2BFb
+	YlEiaCepLVukEpdnF6zjYauQu9KA7mUdTIyZOoU6xDg00FKtuJ+mlc/5Oic9HhgotDvNt2LlYA3
+	QZv0EqU8ocYBnp6DKgAn+1ogVizhAkBaQGBap4iLXEmxFhk3YjkhGmLFEJzPZLZpwXlfitzf7Re
+	0esrzZYnzCnslo3cZFHayj+Ca/KFIpWq7+9ZCxVZ3HkKvxDzyYmwa/KpobaPlWyGQzhpu1AvOuL
+	qF8FXod+5MmrzMkAvTsM/jY1OXg==
+X-Received: by 2002:a05:620a:43a4:b0:939:6de9:4cf9 with SMTP id af79cd13be357-9398072e3ecmr38294585a.44.1788770942146;
+        Mon, 07 Sep 2026 01:49:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:43a4:b0:939:6de9:4cf9 with SMTP id af79cd13be357-9398072e3ecmr38291785a.44.1788770941737;
+        Mon, 07 Sep 2026 01:49:01 -0700 (PDT)
+Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:48dd:b57:9236:95f2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d07b371afsm191513345e9.9.2026.09.07.01.48.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:49:00 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+To: Bjorn Helgaas <bhelgaas@google.com>,
+        Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Linus Walleij <linusw@kernel.org>, Xilin Wu <sophon@radxa.com>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+        Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>
+Subject: Re: (subset) [PATCH 0/6] arm64: dts: qcom: Add support for Radxa Dragon Q8B
+Date: Mon,  7 Sep 2026 10:48:58 +0200
+Message-ID: <178877092324.9461.18090953151782895380.b4-ty@oss.qualcomm.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
+References: <20260901-q8b-dts-v1-0-7de0b6a73d08@radxa.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824110432.1074136-1-robert.marko@sartura.hr>
- <20260824110432.1074136-2-robert.marko@sartura.hr> <0cc2d875-7aab-4091-816c-031f21f3cbac@microchip.com>
-In-Reply-To: <0cc2d875-7aab-4091-816c-031f21f3cbac@microchip.com>
-From: Robert Marko <robert.marko@sartura.hr>
-Date: Mon, 7 Sep 2026 10:47:32 +0200
-X-Gm-Features: AcwNN1UN3QTAaO3T5aX08ZJGRbzWUSCSQzk2RVV1wbUqXENm6k12pDenn8TnFIY
-Message-ID: <CA+HBbNFdqjAJYduFukaZL4+EN12OrsT4qsso95tds828m_z0ag@mail.gmail.com>
-Subject: Re: [PATCH 2/4] arm64: dts: microchip: lan969x: add SDMMC nodes
-To: Aubin Constans <aubin.constans@microchip.com>
-Cc: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, 
-	claudiu.beznea@tuxon.dev, linux-mmc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, Aug 25, 2026 at 7:14=E2=80=AFPM Aubin Constans
-<aubin.constans@microchip.com> wrote:
->
-> On 24/08/2026 12:56, Robert Marko wrote:
-> > Add nodes for both SDMMC controllers.
-> >
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> > ---
-> >   arch/arm64/boot/dts/microchip/lan9691.dtsi | 24 +++++++++++++++++++++=
-+
-> >   1 file changed, 24 insertions(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/bo=
-ot/dts/microchip/lan9691.dtsi
-> > index a8541c6a098d..2d943ea75768 100644
-> > --- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
-> > +++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
-> > @@ -414,6 +414,30 @@ qspi0: spi@e0804000 {
-> >                          status =3D "disabled";
-> >                  };
-> >
-> > +               sdmmc0: mmc@e0830000 {
-> > +                       compatible =3D "microchip,lan9691-sdhci",
-> > +                                    "microchip,sam9x60-sdhci";
-> > +                       reg =3D <0xe0830000 0x00000300>;
-> > +                       interrupts =3D <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>=
-;
-> > +                       clocks =3D <&clks GCK_ID_SDMMC0>, <&clks GCK_ID=
-_SDMMC0>;
-> > +                       clock-names =3D "hclock", "multclk";
-> > +                       assigned-clocks =3D <&clks GCK_ID_SDMMC0>;
-> > +                       assigned-clock-rates =3D <100000000>;
->
-> If always targeting an e.MMC, capped at the High Speed DDR mode, one migh=
-t consider
-> a multiple of 52 MHz here.
-
-Hi Aubin,
-The issue is that LAN969x cannot derive a 52MHz nor 104Mhz clock.
-Requsting 104MHz would be around 111MHz, while with 100MHz the end
-clock is 50MHz.
-
-Regards,
-Robert
->
-> > +                       status =3D "disabled";
-> > +               };
-> > +
-> > +               sdmmc1: mmc@e0838000 {
-> > +                       compatible =3D "microchip,lan9691-sdhci",
-> > +                                    "microchip,sam9x60-sdhci";
-> > +                       reg =3D <0xe0838000 0x00000300>;
-> > +                       interrupts =3D <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>=
-;
-> > +                       clocks =3D <&clks GCK_ID_SDMMC1>, <&clks GCK_ID=
-_SDMMC1>;
-> > +                       clock-names =3D "hclock", "multclk";
-> > +                       assigned-clocks =3D <&clks GCK_ID_SDMMC1>;
-> > +                       assigned-clock-rates =3D <45000000>;
-> > +                       status =3D "disabled";
-> > +               };
-> > +
-> >                  qspi2: spi@e0834000 {
-> >                          compatible =3D "microchip,lan9691-qspi";
-> >                          reg =3D <0xe0834000 0x00000100>,
-> > --
-> > 2.55.0
-> >
->
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5NSBTYWx0ZWRfX4esrtdqK9EAI
+ EVN9V/KdOtjGRh8P1Dq2ezgpUqgZ+xetLzUS7pYvRoJ9NcGhUJPlRAsC4y7UW3vNnGblJZmDFt0
+ ahsg70f590fhKM6lhAa16RKnSbv2r4JBDXjjcgr5kVMmh7PuzLJ4PfzBLpQ/X/DifGEzyQFp4dn
+ WIlsGaWzgUneW+RwdtKGAckiSLflMhn4dDkGY59s+i/eN7QyWjcxh7Xq/C8Mu7eDeD+HaIBd6QJ
+ G9UiXFCQH5fo8Ifp6TECSJG3H1kxHYnKd8+hzK+EuY0zSoTjbTYt5k7PRnCBsf129+6o+OTkhus
+ fFSd+XnjhyM6f6H95h4eTb/w8j7Uz0CbkYa8NZu6y3ftjZSKr10LzGJhHESmh2fF7neLo1r/5fn
+ yYgBblcx0fkKu0sTzQ2mvrkvvr0FHfVqhbtddnhTST9fRzbFHaQq7Z48VnW7KMfC6pbC0XHKi8p
+ OjxkskbQlxeQPeRetzw==
+X-Proofpoint-GUID: nX5CuNfdCns3C6OGe8Kh8Aln0dPkJyJx
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5NSBTYWx0ZWRfXw8sUrHEWh+6W
+ AWi0SOLy00EJoCNOdFcQ4+wqaYDD7pkeNXfa054IZwKpseq8IxvAQU1hoXKmNXIPibrPnvJET6c
+ e2HceAMmLmbD1R6D51mmuevlasxPiJ0=
+X-Authority-Analysis: v=2.4 cv=daOwG3Xe c=1 sm=1 tr=0 ts=6a9e7a7e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=RT5i7AouTkpRziyCYWYA:9 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: nX5CuNfdCns3C6OGe8Kh8Aln0dPkJyJx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 bulkscore=0 spamscore=0 phishscore=0
+ lowpriorityscore=0 adultscore=0 malwarescore=0 impostorscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070095
 
 
---=20
-Robert Marko
-Staff Embedded Linux Engineer
-Sartura d.d.
-Lendavska ulica 16a
-10000 Zagreb, Croatia
-Email: robert.marko@sartura.hr
-Web: www.sartura.hr
+On Tue, 01 Sep 2026 16:47:53 +0800, Xilin Wu wrote:
+> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+> Snapdragon 8cx Gen 3 (SC8280XP) platform.
+> 
+> The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
+> E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
+> alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
+> a 40-pin expansion header.
+> 
+> [...]
+
+Applied, thanks!
+
+[5/6] dt-bindings: pinctrl: qcom,sc8280xp-tlmm: allow gpio-line-names
+      https://git.kernel.org/brgl/c/d4f74023be11eb9aea9a8c0b0582f20aa2c2640b
+
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
