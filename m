@@ -1,100 +1,227 @@
-Received: from ms2.novatek.com.tw (ms2.novatek.com.tw [210.202.87.108])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015A61DB92C;
-	Mon,  7 Sep 2026 05:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.202.87.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C147352C3C
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788757387; cv=none; b=D2qM3xMtKemuv+ncUOSSdAVVgwDCoeEWwSetOa6aq+tl/E5so9E3NJVAni8e3Q2z3NyxErVxkS6ZJ8XXqSovJz5kk/NewFkEBsWzlcCvlgELriBY7KN5STPEELwInK7q5+CByoDdl/zn9AH7PRugLVha7p1n9cJOwdNN6QanMY8=
+	t=1788757462; cv=none; b=FN8DZf2MGx2rdquSUO2JAHZDHX1tEpaZpw6uPovnk82F4yMRNs2cE7u7dGSsqDzQi/tuufiVhIFol887a/E3kGX0sZ/1GUbG6dDloYDbabgEUYHF2k2DnGq9GP7CIEQCoRT/YD3jUxmVc/eH6yCOoApRgnil7sfNW86knki/qUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788757387; c=relaxed/simple;
-	bh=e2bL8wrKF0ciA3PdpUk7ZZ5XQEea/xPl7BZgsahz/P8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ZQg8lj2T4x+cOQmdtDlvlo8itYUnf38R8HxtxUiKIDvztas4Jqk7HsHoqTq1Aoscx6K78veeB+Lz9f1CawTrwrMJPavbbC1KcfQ5kBc1APstG5U0Pl1ZUfkifE1KXe5WR68IiZaO1D2hCugoB9kpVGZa6y+e9JnqsJn4OymsMdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw; spf=pass smtp.mailfrom=novatek.com.tw; dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b=GJxfaddS; arc=none smtp.client-ip=210.202.87.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=novatek.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=novatek.com.tw
+	s=arc-20240116; t=1788757462; c=relaxed/simple;
+	bh=MEKc8crTW/gxty5j9A9/i0xz+CKL7fBSSTeBpuFuUHg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=l2JM8NdYcgTeispe8dI/GB/YS8o7fAieFZs6HPdslZjm/oaFBsWUQe5EJ62vRoAbv1Ch08Jf2Gpvr/jUL6Vj3V6s4UECnXPgbSD27mLLcWvM6QQY2tz1yo4mTLN57GSuoqeIobWQKZm3c0C9m44D32ISd2cfjDQPrhxyG20N+hI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XAkKRawh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=novatek.com.tw header.i=@novatek.com.tw header.b="GJxfaddS"
-X-UUID: 6323b21eaa7911f191248d90cf864ef8-20260907
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=novatek.com.tw; s=dk;
-	h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-Id:Date:Subject:Cc:To:From; bh=Iir+n2D6ZMzGxf47xJFqT4i3L3klFpl0eKQcraJvp4o=;
-	b=GJxfaddSwvgXFhbKgh0iMS8MqWFNEd5pBV0kJZnEGdxu9yLmkN1TTqqKsCG7wZTdSiVrvCSsTGItYveiR5GX7ei4nCV/8/zv/1CVGA5WS90qG40cmCt4kE0c6hpReitGwvimCNKbCOcYM/3hkXVnVsDYSF/jI3J2u3CCDaYxAFg=;
-X-UUID: 6323b21eaa7911f191248d90cf864ef8-20260907
-Received: from spmgt1 [(172.20.13.10)] by ms2.novatek.com.tw
-	(envelope-from <sp_isw1_at@novatek.com.tw>)
-	(Generic MTA)
-	with ESMTP id 400059417; Mon, 07 Sep 2026 13:02:55 +0800
-Received: from oabuild50.novatek.com.tw (oabuild50.novatek.com.tw [172.20.20.160])
-	by spmgt1 (Postfix) with ESMTP id 944821A1E1C;
-	Mon,  7 Sep 2026 13:02:55 +0800 (CST)
-Received: by oabuild50.novatek.com.tw (Postfix, from userid 1005)
-	id 46FE7C600DD; Mon,  7 Sep 2026 13:02:55 +0800 (CST)
-From: nina_kuo@novatek.com.tw
-To: robh@kernel.org
-Cc: andi.shyti@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	shihpei_hsu@novatek.com.tw,
-	toby_chui@novatek.com.tw,
-	Ben Huang <Ben_Huang@novatek.com.tw>
-Subject: Re: [PATCH v8 1/3] dt-bindings: i2c: Add Novatek NT72676 I2C controller
-Date: Mon,  7 Sep 2026 13:02:38 +0800
-Message-Id: <20260907050237.103430-1-nina_kuo@novatek.com.tw>
-X-Mailer: git-send-email 2.26.1
-In-Reply-To: <20260904134834.GA3514178-robh@kernel.org>
-References: <20260904134834.GA3514178-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XAkKRawh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82DA1F00A3A;
+	Mon,  7 Sep 2026 05:04:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788757461;
+	bh=AfkouRwLwqHJsuSY001L06C5UF+XT0zJ7vI2gyGBP5U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XAkKRawhETY+C2n+lt304tZ1813jftHK33vJPahktqfP3M3RZYpodfggRLk4CYPNB
+	 +bc3ZeOgH/T2tktueAdwQ0RwjC4B65ej9SIAbPiIMs2NHZRtd43W+nbmOTJY8NouRQ
+	 QgMW9OyiFaiUutfTLH0v/VTD2TaAG/wsYAXgVZTnmsO5Jp5mWkKpifQjSxZjIOjh4v
+	 lhIqYtktwwCs7+WkqReVbcBbK5DHtLjE0QdG62qfnG/nRK6BppuBS/RuNdNgS9aHQC
+	 9xO2aaqoE6nx2zDd910gJQcusy1kXjSl/Om9B+0IgXpcjggnrwsOvw+tWAPhyXHo3i
+	 R+6oY6edl59yQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order
+ for JHB100
+Reply-To: sashiko-reviews@lists.linux.dev
+To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
+References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
+ <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 05:04:20 +0000
+Message-Id: <20260907050420.B82DA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Ben Huang <Ben_Huang@novatek.com.tw>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] PM runtime reference leak in starfive_trng_read() on lock contenti=
+on.
+- [High] TOCTOU race in starfive_trng_release leading to double clock disab=
+le or bus error.
+- [High] Prematurely dropping PM runtime reference during asynchronous hard=
+ware reseed.
+- [High] Pending workqueue task is not cancelled on module teardown or prob=
+e error path, leading to Use-After-Free.
+- [High] Shared reset control is left permanently deasserted if unbound whi=
+le runtime-suspended and uninitialized.
+- [High] Missing interrupt mask in starfive_trng_suspend causes an interrup=
+t storm.
+--
 
-Hi,
+commit 7c6643a978a103f1c37f18a5471c5dac7b74eeb6
+Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: hwrng: starfive: rework clk/reset teardown order for JHB100
 
-On Friday, September 4, 2026 12:05 AM, Rob Herring <robh@kernel.org> wrote:
->> >> +  The generic I2C controllers are accessible only by the host CPU and driven
->> >> +  by a 96 MHz AHB clock.
->> >> +  On the other hand, the STBC I2C controllers can be controlled by either the
->> >> +  host CPU or STBC (Standby Controller, an 8051-based microcontroller) and
->> >> +  driven by a 12 MHz STBC clock. Authentication with STBC is required before
->> >> +  the host CPU can access the STBC I2C controller registers.
->> >
->> > Is the programming model of the I2C controller different? If not, the 
->> > compatible should be the same.
->> 
->> The register layout and transfer programming model are the same, but these
->> are separate physical IP blocks with different hardware integration. They
->> have different interrupt sources and input clocks, and the STBC instance
->> requires an authentication and ownership-switch sequence before its
->> registers can be accessed by the host CPU. These differences are fixed
->> properties of the two IP blocks, so separate compatible strings are used.
->
-> Different interrupts and clocks is every IP block. That's why we have 
-> 'interrupts' and 'clocks' properties.
->
-> For ownership switch, that can be based on having the 
-> novatek,stbc-syscon property or not.
+This commit reworks the clock and reset teardown sequence to address
+hardware-specific requirements for the JHB100 SoC. It introduces a per-comp=
+atible
+match data structure to dictate reset ordering and migrates the SEU-trigger=
+ed
+hardware reseed path to a workqueue. The driver also switches to devm actio=
+ns
+for teardown management.
 
-Understood.
+> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_rando=
+m/jh7110-trng.c
+> index aee12caab5780..ecc7d5bd7bf51 100644
+> --- a/drivers/char/hw_random/jh7110-trng.c
+> +++ b/drivers/char/hw_random/jh7110-trng.c
+[ ... ]
+> @@ -138,6 +160,28 @@ static inline void starfive_trng_irq_mask_clear(stru=
+ct starfive_trng *trng)
+>  	writel(data, trng->base + STARFIVE_ISTAT);
+>  }
+> =20
+> +static void starfive_trng_release(void *data)
+> +{
+> +	struct starfive_trng *trng =3D data;
+> +
 
-I will use the same compatible string "novatek,nt72676-i2c" for both
-instances and identify the STBC instance by the presence of
-novatek,stbc-syscon.
+[Severity: High]
+Could this lead to a use-after-free if probe fails?=20
 
-There is currently no NT72676-specific clock-controller driver in the
-kernel. Since the input clocks are fixed-rate hardware inputs, I will
-describe them using generic fixed-clock providers in the Device Tree. The
-I2C driver will obtain the input clock through the common clock framework
-and use clk_get_rate() when calculating the I2C clock divider, rather than
-selecting a compatible-specific fixed rate.
+The trng->work is not cancelled in this release action. If=20
+starfive_trng_probe() fails after registering the IRQ, an SEU interrupt cou=
+ld
+schedule trng->work right before the trng structure is freed, leaving a
+pending workqueue item pointing to freed memory.
 
-Sincerely,
-Ben Huang
+> +	if (!pm_runtime_status_suspended(trng->dev)) {
+
+[Severity: High]
+Is there a race condition here with asynchronous autosuspend?=20
+
+The PM status is checked without ensuring PM transitions are halted. If the
+device is active, this proceeds to manually disable clocks.=20
+
+If a pending autosuspend timer fires concurrently, starfive_trng_suspend()
+might execute on another CPU and also attempt to disable clocks, potentially
+leading to clock reference underflows or bus errors.
+
+[Severity: High]
+Does skipping this block when suspended cause the shared reset control to
+remain permanently deasserted?=20
+
+If probe fails after deasserting the reset, and the device autosuspends bef=
+ore
+starfive_trng_release() executes, the reset won't be re-asserted here.
+starfive_trng_suspend() also skips asserting the reset if trng->cleanup is =
+0.
+
+> +		writel(0, trng->base + STARFIVE_IE);
+> +		starfive_trng_irq_clear(trng);
+> +
+> +		if (trng->irq >=3D 0)
+> +			synchronize_irq(trng->irq);
+> +
+[ ... ]
+> +static void starfive_trng_randreseed_work(struct work_struct *work)
+> +{
+> +	struct starfive_trng *trng =3D work_to_trng(work);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_resume_and_get(trng->dev);
+> +	if (ret < 0) {
+> +		dev_warn(trng->dev, "Failed to wake device for reseed: %d\n", ret);
+> +		return;
+> +	}
+> +
+> +	mutex_lock(&trng->lock);
+> +
+> +	if (READ_ONCE(trng->cleanup))
+> +		goto unlock;
+> +
+> +	reinit_completion(&trng->reseed_done);
+> +	writel(STARFIVE_CTRL_EXEC_RANDRESEED, trng->base + STARFIVE_CTRL);
+> +
+> +unlock:
+> +	mutex_unlock(&trng->lock);
+> +
+> +	pm_runtime_put_autosuspend(trng->dev);
+> +}
+
+[Severity: High]
+Does this prematurely drop the PM runtime reference while the hardware is
+still operating?=20
+
+Writing STARFIVE_CTRL_EXEC_RANDRESEED initiates a hardware reseed. Unlike
+starfive_trng_cmd() which waits for completion, this workqueue function does
+not wait for the reseed_done completion.=20
+
+Dropping the reference immediately could allow the device to suspend and
+clocks to gate while the TRNG is actively reseeding, potentially corrupting
+the IP state.
+
+[ ... ]
+> @@ -247,7 +358,18 @@ static int starfive_trng_read(struct hwrng *rng, voi=
+d *buf, size_t max, bool wai
+>  	struct starfive_trng *trng =3D to_trng(rng);
+>  	int ret;
+> =20
+> -	pm_runtime_get_sync(trng->dev);
+> +	ret =3D pm_runtime_resume_and_get(trng->dev);
+> +	if (ret < 0) {
+> +		dev_warn(trng->dev, "Failed to wake device for read: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	if (wait) {
+> +		mutex_lock(&trng->lock);
+> +	} else {
+> +		if (!mutex_trylock(&trng->lock))
+> +			return -EAGAIN;
+> +	}
+
+[Severity: High]
+Does this early return leak the PM usage counter?=20
+
+The counter is incremented via pm_runtime_resume_and_get() at the top of
+starfive_trng_read().=20
+
+Returning -EAGAIN here completely bypasses the pm_runtime_put_autosuspend()
+cleanup call at the bottom of the function. If called repeatedly by the hwr=
+ng
+core, could this overflow the usage counter?
+
+[ ... ]
+>  static int __maybe_unused starfive_trng_suspend(struct device *dev)
+>  {
+>  	struct starfive_trng *trng =3D dev_get_drvdata(dev);
+> +	bool cleanup =3D READ_ONCE(trng->cleanup);
+> +
+> +	if (cleanup && trng->data->seq_rst_clk =3D=3D SEQ_RST_FIRST)
+> +		reset_control_assert(trng->rst);
+> =20
+> -	clk_disable_unprepare(trng->hclk);
+>  	clk_disable_unprepare(trng->ahb);
+> +	clk_disable_unprepare(trng->hclk);
+
+[Severity: High]
+Could this cause an interrupt storm when background auto-reseeding is activ=
+e?
+
+The clocks are disabled here without writing 0 to STARFIVE_IE to mask the
+interrupt source. If an interrupt like SEED_DONE fires right as the clocks =
+are
+gated, the IRQ line might remain latched high.=20
+
+When starfive_trng_irq() runs, it checks pm_runtime_get_if_active() and
+returns IRQ_NONE without clearing the hardware interrupt, causing the IRQ to
+fire repeatedly and hang the CPU.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907031603.1884=
+83-1-lianfeng.ouyang@starfivetech.com?part=3D2
