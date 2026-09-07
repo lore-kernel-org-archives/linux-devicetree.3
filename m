@@ -1,105 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262CF2D0C82;
-	Mon,  7 Sep 2026 20:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84ED3F44C5
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 21:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814365; cv=none; b=g/1wGynpNyVE99h1JKNbYuCCTZVGP7rvhJtSZdjk/fyF/CAXkDYEicILiKUnHwoKXKovLYzOHtMFdhPL3Jkl3tZ4Q8qjxozJi1kZ9HtJI5nqSs6jtYDneRaqqkyc5jhN5uw1aQmzTCICYZw0FDwJiWkaeGBZbGC0pna9Hmve47Y=
+	t=1788814852; cv=none; b=oraaxYd8e/NZNwIUta+liZIUMAjZTOF/+PUrWp1cvs7ks1IJ+YjqVo1jgfp/LiKdC85i8i3p1I0O6OzsT07SC0+6IJVoicj+HtwR0Ij8CpaXJfnjBrD0mbgu7BfeMhd7doSB95U3QPTPYDKAo24Ic6+rtXxBr48FVKPOWDgoLmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814365; c=relaxed/simple;
-	bh=OS5yHKjCG0V0UqBMJ63C4+kg84/5UefDRLfHjPEirdg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=J4SUbnyWaEEVEA7JS7/ukUNUpv9yWtXfA1HqRWHovsfs48GIYVe4X29pd5ATyB4ADYIaKJSYi/OVg/DZS9Eaq01wSwkv3EgmCW/t92zIFOoTpn7XeKcb2ps19UVULcodbo2lNbwMujXJ/sHVwplNpOp9T2XV1MnVyLuuLyMR3Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2x8Miqj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788814852; c=relaxed/simple;
+	bh=R3zDQ8xU2MgwP232Uwo0QTMTrPn5Pt9Q7i4NRM7VQOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MuVOZwNTFzbDWzKtSH/W63n5//83ITjWhaMEKyMmv19L5z2I+updwtVFvafqRrj/Ia+UTlujaZbvqg8dWCKTfFbJjYvFDo73y8t4SEU7RsiZeou8L34qQEE4qWKYabGJBlSxcOsXTRE3GXXL/trvvvCUHL7pAPeEkSJsvtQxh0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pBGcwyHA; arc=none smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2x8Miqj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FC71F00A3A;
-	Mon,  7 Sep 2026 20:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788814363;
-	bh=jIbMDVOqLnfDMhWufnBKCnSwtt3dR6rdkehGnnxqf0U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a2x8MiqjpRsEp6FomBvcaGKm6yajPRBjeuajO0xRVScP/hoKIp7NYVKYiO3HsHeNw
-	 9qE33PyCXLxwvumgrCQt1qxCH5ogZGOOM4b92AWlkOS20/rJXEGN0v5OTlxrpNem9J
-	 jNduK5jgzsvGRHHuCxG2ts2GLwfaQBucjDvZyJO5dj1Lv56Vp3KNm8eJilflznPcjE
-	 I+BGg/Vqozq5xo6lSXPuKtTSx2UvnO4oCR14xSfxhFZkGNUxpOxUuKDRS/xfkiAyij
-	 OyLSHRcgxbRu9fhYSUYzybkjn6Rfc0vun7E83tywMgZuuss0xcN2Uxqr0BB4xkQYDj
-	 F8mx8u8/RZCeA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 9/9] rtc: abx80x: add support for ABX81X
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Antoni Pokusinski" <apokusinski01@gmail.com>
-Cc: linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org
-In-Reply-To: <20260907203216.53192-10-apokusinski01@gmail.com>
-References: <20260907203216.53192-1-apokusinski01@gmail.com>
- <20260907203216.53192-10-apokusinski01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 20:52:42 +0000
-Message-Id: <20260907205243.58FC71F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pBGcwyHA"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-861f30636f9so55225857b3.0
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 14:00:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788814850; x=1789419650; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gojEDyDfYLvhRqOvL4tTAlYlPBK48sUhaWTtz7U0ImA=;
+        b=pBGcwyHAElwUxdB0iRO9SdrGc43rjWWzkAwp6COw1rSbh8yOMphL9Fz6CHqfW+tk5G
+         fXnUmqiQUjHqlqiZ7OoslBkCxEVQrQ65zCNV1PebGTZvya3uC3kvJFLjo+g+3badfj/Y
+         6ozzfIFAN1qlqaDeX9TBVH+QuRAf5NpuIx/lnBzKrvKiJuKxOWlsvm1ekLtPiQ7brRRW
+         FlPt/gSK6KeAUQSOhmxHLooNlAYQbS3U6+Ew5kHJdbLuNiL3jgcb0SbPEt/7KNUnRdUS
+         54bhety5s+1wF2wQ5mHqJ5i34Qzytg7UuOWWGqBJwq0IQeS8B3HQq6h0WjrNI1uJiVLI
+         zgbQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788814850; x=1789419650;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gojEDyDfYLvhRqOvL4tTAlYlPBK48sUhaWTtz7U0ImA=;
+        b=pK4GQ4CjFnwmDSj00HgGcdlu6SRI5vpJ0YktUgGOK6kQfX3Ke/s7ixWBNw8Zb49Jbp
+         eXab7x7pq6csoKn8hvQaWD1Ss0PtQgWUBfVMeyJ2KfWnQBdi2i1456cXdPr4d8ni0S+2
+         DKp9mQmKQITDrOrrvL16wRTK3lZ3/AU7rtB62j75gUPyoLtN79CNHbKBYeIzraK629qM
+         0+3G6ZArniCAmv/sc1lEKitQ8ZPAp8u78nnd58n5Tbd+rnQJ6IqOt2JJk74ohR2p1P5y
+         LMtk3KSlvBjyRuLaZXSPsPbcap60zc3xzOD01dTuI3tBWAWRFdqw8QmiSSYx9yM9XaFV
+         6FSg==
+X-Forwarded-Encrypted: i=1; AKwUvByYd4KTNU8rvac3rA4ZUJssqHy521q3hXoGMShcTOiXgSTwUGfP8qe0zhnH0nK4SUS515nu96eHNH+P@vger.kernel.org
+X-Gm-Message-State: AFuF++nVVMWASgI4U2qEp4dIqBtafMG1SG4x3p8zpCc0fLmrG1VJ2Af6
+	goW1pkn/TSSOUP1+fQaKk6ZoCNtZtnVTxd1wJgjeDjmTdMDeNxMgmFZZ
+X-Gm-Gg: AYBFou1KJ1+NRfl0W4HYMCLGBwFz2sr2NCmM5XLPEXy3sKMGIROwPlJq++OZFdHszjv
+	KeR6+4oGdYhNw2w3s26K5CLf5skZXnpB61CLTghoU9FAKDmhnYG4aGN7Zgesv9jcFFS4izQup4S
+	DCmYMrDOz/xgcxMDuyeyupohDNN6w+WSVZy1KDJ/jstwK5vpIBEeHIqqpKba+RI2FNH5372Qshd
+	3bsHCodDvrIA3c5spq8utmVvXoDVVg7SWWnu4P3YZkZTMUg8NpBUmktTCh2NqasQzI9g3voxFCT
+	46P0r6M8H1rtYuOs6G3mm0QMQYNUNsh1HQTa6M+wmh5YJFCbM79/j+p4POhYc4k9sT4JFbd/LL6
+	iFcovdclY1MlMsLJMgnRSVA60RvXjrYZxEE6Csg8+FfU35L59JI/VlfpngDiORWzzs/kOFycP03
+	lnAamQpmahLVzIC1/29F5RzgXr0e+97NFDc2QM6tLS724=
+X-Received: by 2002:a05:690e:b42:b0:66f:c1bc:4022 with SMTP id 956f58d0204a3-66fc1bc4989mr4613793d50.79.1788814849738;
+        Mon, 07 Sep 2026 14:00:49 -0700 (PDT)
+Received: from localhost ([2600:1700:5431:250::1e])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb47a8894sm8855998d50.1.2026.09.07.14.00.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 14:00:49 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v2 0/2] Add support for AS7343 multi-spectral sensor
+Date: Mon,  7 Sep 2026 14:00:40 -0700
+Message-ID: <20260907210042.32552-1-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `regmap_bulk_read` return value check in `abx80x_read_alarm` c=
-auses the function to unconditionally fail with `-EIO` on success.
---
+This series adds initial support for the AMS AS7343 14-channel
+multi-spectral sensor.
 
-commit 7f9a5b9080b676338469e285a0ce05b36660c82c
-Author: Antoni Pokusinski <apokusinski01@gmail.com>
+The sensor has 14 optical channels (11 visible + NIR + clear +
+flicker) in total. This initial driver supports reading raw counts
+from all 12 spectral channels (11 visible + NIR) via sysfs and basic
+power management.
 
-rtc: abx80x: add support for ABX81X
+Not yet supported:
+- Configurable integration time and gain
+- Interrupt support
+- Clear (VIS) channel and flicker detection
 
-This patch adds support for the Abracon ABX81X family of RTCs, which feature
-a SPI interface. It updates the Kconfig to support both I2C and SPI, and ad=
-ds
-the necessary SPI device IDs, device tree bindings, and probe functions.
+Patch 1 adds device tree bindings.
+Patch 2 adds the driver.
 
-> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> index c90407a023fe8..c3bf6f0ae48b9 100644
-> --- a/drivers/rtc/rtc-abx80x.c
-> +++ b/drivers/rtc/rtc-abx80x.c
-> @@ -1,7 +1,7 @@
->  // SPDX-License-Identifier: GPL-2.0
->  /*
-> - * A driver for the I2C members of the Abracon AB x8xx RTC family,
-> - * and compatible: AB 1805 and AB 0805
-> + * A driver for the I2C and SPI members of the Abracon AB x8xx RTC famil=
-y,
-> + * and compatible: AB 1805, AB 0805, AB 1815 and AB 0815
->   *
->   * Copyright 2014-2015 Macq S.A.
->   *
+Testing was performed on a Raspberry Pi 4.
 
-[Severity: High]
-Will the regmap_bulk_read return value check in abx80x_read_alarm() cause t=
-he
-function to unconditionally fail?
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
 
-drivers/rtc/rtc-abx80x.c:abx80x_read_alarm() {
-...
-	err =3D regmap_bulk_read(priv->regmap, ABX8XX_REG_ASC, buf, sizeof(buf));
-	if (err)
-		return err;
-	if (err < ARRAY_SIZE(buf))
-		return -EIO;
-...
-}
+Changes in v2:
+  - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
+  - Adjust the default gain to x256 and integration time to 50.1ms as
+  recommended by the datasheet.
+  - Use read_label instead of .extend
+  - Remove all unused scan_index related constants.
 
-When the RTC core calls abx80x_read_alarm(), regmap_bulk_read() will return=
- 0
-on a successful read. The subsequent check evaluates
-if (err < ARRAY_SIZE(buf)), which is 0 < 7. This evaluates to true, resulti=
-ng
-in an unconditional return of -EIO and breaking the alarm read functionality
-for any unprivileged userspace application reading the RTC alarm.
+Chang Yu (2):
+  dt-bindings: iio: light: add as7343
+  iio: light: add AS7343 multi-spectral sensor driver
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907203216.5319=
-2-1-apokusinski01@gmail.com?part=3D9
+ .../bindings/iio/light/ams,as7343.yaml        |  69 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/light/Kconfig                     |  11 +
+ drivers/iio/light/Makefile                    |   1 +
+ drivers/iio/light/as7343.c                    | 372 ++++++++++++++++++
+ 5 files changed, 460 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+ create mode 100644 drivers/iio/light/as7343.c
+
+-- 
+2.55.0
+
