@@ -1,96 +1,139 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4A5514762;
-	Mon,  7 Sep 2026 16:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0768F503BEB
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 16:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797540; cv=none; b=NKXJCJVUgQxf5kb1A9xsoHGIcuBkCe4smvYgLSlhg2QqQf2Qb1W7T5LL50R2SbFmNN/peVXtwYzwn3nymjrxxCTsi69ljUT8hemytkQ9jOkCCbfKRVyHeiLJGVG1dDqK1kx/cPcaKAyNsGxSeb2rk2yeDf3/dw3BQEw0T1gMa5M=
+	t=1788797818; cv=none; b=YUaaBVTY1/wtUm08Y0+W3LnSdqbygtFfj2b3icAVj8KCVKu0kHSb0ta98isnaIGdOkQJugBnbI64BDaY8timVK4G2oMUfJRuA1VVH7c5PkJldxhUy0s9eqP9a4S1oYggT1WVjjuqeIn44fbMDPXwVWSRSbWSFaEIKCCWrDx+AJc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797540; c=relaxed/simple;
-	bh=G2F6FbAD9vn4IvzWBWh0aSIh+oUNh09NSYrfW9dBMQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c6WhJmQRZL4DqCvFgBN1LaGyCA92aO0NPW3Ejr21YZUIl20NmITM7VaVrNHxKsCw3gRzlKSX2JSCr9weRoq7/Fq+PolG+SM68GSlphanP+ObyKLHFd48lpZmMzxeZXEMW+A1etnOQPrgik/MQIf8gE06ESgaT37oOn5nRepTze4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=Mzg53cAY; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788797818; c=relaxed/simple;
+	bh=pLaZ8byfigkB6/B+ANnSDOgPqlLSHcnrylq6xDeR6KM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JX3iWTbNAfni9JSdbRzBXhdHgMg0GaF4IjU+SHlbuk8sFlkf7dwzZ3NxHbcCE7zjUcrDPG+DthAWdsZBXtL0KuIoW67H2U+0ppW5DV8SUnx4Y4fcfadQ0GZh4OCV1k0ctbfDuAvqvRpAgLJaN3JJEp2bOgg7MAV4TAPE0MFAA/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CKlwGZHm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="Mzg53cAY"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 653A011DAAD;
-	Mon, 07 Sep 2026 18:12:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788797533; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=JeA7gvxgHLA2RU/64BLRdxjcMQo+Aba/0ZU2WSO8u6I=;
-	b=Mzg53cAYWnDW5vkPfY1LIWITg7Xt3OFcNqfmz/cqhaULfVFwR0l7Nu2EHLrhobc9hCfohu
-	AXqIlCcPuGFR0DxUri3L+9SpMCrBx0sqJB+zQvziy0nITF05ZepBTGt4ETyccfPbX4kpag
-	4dXZ55UvSBjFSIZDp3tapKmmCBIv60z6Bpv/R4iUNOWq134q7MTXZYZQ6LivgD+kNesW1D
-	nP4bgly4H8GNTgGTlaEjxjo39VFaofHVSsso8+mlhSoOi1n1Odo71HWdgoMNOmnAkTBaL/
-	54Ai4M98Dxc+Jao4kemumMz0hqDipoOU9vHtV4Ypmo3LtnFZSi8qd6Uo5xJi2Q==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-usb@vger.kernel.org
-Subject: [PATCH 2/2] dt-bindings: usb: generic-ehci: Restrict access-controllers to ST STM32MP2 SoC
-Date: Mon,  7 Sep 2026 18:11:54 +0200
-Message-ID: <20260907161203.713424-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260907161203.713424-1-marex@nabladev.com>
-References: <20260907161203.713424-1-marex@nabladev.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CKlwGZHm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11ACE1F00A3A;
+	Mon,  7 Sep 2026 16:16:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788797812;
+	bh=HH6TFs9bUMRb7k4C888bpXDswz7sXep1XjFK6hUhdvQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CKlwGZHmWr3yfRikxzTO0UG+c+oNtr2cN3EfOQ8DpSwR8hDJ2rp4PRes1pFiQZFXC
+	 HoFdkLRviLE8Jb7HqJXV6kvxnR9H7JoCbFyKwO936hhLsFcq+vA3h+L8+AgSdw30wD
+	 8Lk3lAIeF8AknWj6gyVcHC5y/+XXAR2TKn/McIEDlkyK+ZSCKBu6ieUf+Io2LvMhC2
+	 PVYYcAZZvPG7XZY1ECHKllnzanwzqWsBA1T/sMABIKyxwHPfnZRuREyhJFOpXj1eSJ
+	 UDVzG3XoCTHRe8Jq2bwPm9+jeW84JLKym0h8WVpoHl1m+Kjw9G6S+LO0+OHWmIFBQD
+	 hnCtm00JDqwdg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v25 3/4] crypto: spacc - add spacc autodetect support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pavitrakumar Managutte" <pavitrakumarm@vayavyalabs.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907155916.999153-4-pavitrakumarm@vayavyalabs.com>
+References: <20260907155916.999153-1-pavitrakumarm@vayavyalabs.com>
+ <20260907155916.999153-4-pavitrakumarm@vayavyalabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 16:16:51 +0000
+Message-Id: <20260907161652.11ACE1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-Tighten the access-controllers DT property availability, restrict it
-only to ST STM32MP2 SoC, which is currently the only known user of it.
-Once more users start using access-controllers, the restriction can be
-losened here.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Enabling CONFIG_CRYPTO_DEV_SPACC_AUTODETECT silently disables all =
+cryptographic modes on SPAcc hardware versions older than 0x65.
+- [Medium] Missing test data for 128-byte keys (index 6) in HMAC algorithms=
+ causes AUTODETECT to silently disable support for these key sizes.
+--
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-usb@vger.kernel.org
----
- Documentation/devicetree/bindings/usb/generic-ehci.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+commit 2c35c365b958705d275e5d39cafb845426670a0c
+Author: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
+Date:   Mon Sep 7 15:59:15 2026 +0000
 
-diff --git a/Documentation/devicetree/bindings/usb/generic-ehci.yaml b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-index 908b02d9175e0..9f5130a0e784c 100644
---- a/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-+++ b/Documentation/devicetree/bindings/usb/generic-ehci.yaml
-@@ -217,6 +217,9 @@ allOf:
-       required:
-         - access-controllers
-         - clocks
-+    else:
-+      properties:
-+        access-controllers: false
- 
- unevaluatedProperties: false
- 
--- 
-2.53.0
+    crypto: spacc - add spacc autodetect support
+   =20
+    SPAcc is configurable and it supports the below modes:
+    1. AUTODETECT configuration - Autodetects the supported algos.
+    2. Static configuration - The algo support is defined statically.
 
+> diff --git a/drivers/crypto/dwc-spacc/spacc_core.c b/drivers/crypto/dwc-s=
+pacc/spacc_core.c
+> index 910916a1fe000..e0935d04b6964 100644
+> --- a/drivers/crypto/dwc-spacc/spacc_core.c
+> +++ b/drivers/crypto/dwc-spacc/spacc_core.c
+> @@ -201,6 +201,907 @@ static const unsigned char template[] =3D {
+>  	[CRYPTO_MODE_MAC_SM4_CMAC]      =3D 130,
+>  };
+> =20
+> +#if IS_ENABLED(CONFIG_CRYPTO_DEV_SPACC_AUTODETECT)
+> +static const struct {
+> +	unsigned int min_version;
+> +	struct {
+> +		int outlen;
+> +		unsigned char data[64];
+> +	} test[7];
+> +} testdata[CRYPTO_MODE_LAST] =3D {
+[ ... ]
+> +	[CRYPTO_MODE_HMAC_MD5] =3D {
+> +		.min_version =3D 0x65,
+> +		.test[1].outlen =3D 16, .test[1].data =3D { 0xb6, 0x39, 0xc8, 0x73,
+> +			0x16, 0x38, 0x61, 0x8b, 0x70, 0x79, 0x72, 0xaa, 0x6e,
+> +			0x96, 0xcf, 0x90,  },
+> +		.test[4].outlen =3D 16, .test[4].data =3D { 0xb7, 0x79, 0x68, 0xea,
+> +			0x17, 0x32, 0x1e, 0x32, 0x13, 0x90, 0x6c, 0x2e, 0x9f,
+> +			0xd5, 0xc8, 0xb3,  },
+> +		.test[5].outlen =3D 16, .test[5].data =3D { 0x80, 0x3e, 0x0a, 0x2f,
+> +			0x8a, 0xd8, 0x31, 0x8f, 0x8e, 0x12, 0x28, 0x86, 0x22,
+> +			0x59, 0x6b, 0x05,  },
+> +	},
+
+[Severity: Medium]
+Since .test[6] is missing in testdata for these HMAC algorithms (MD5, SHA1,
+SHA224, SHA256), outlen evaluates to 0. Does this cause AUTODETECT to
+silently disable support for 128-byte keys?
+
+[ ... ]
+> +static int spacc_check_modes(struct spacc_device *spacc, int algo_mode,
+> +			      int keysz_idx, void *virt, char *key,
+> +			      struct pdu_ddt *ddt)
+> +{
+[ ... ]
+> +	if (!testdata[algo_mode].test[keysz_idx].outlen) {
+> +		spacc->config.modes[algo_mode] &=3D ~(1 << keysz_idx);
+> +		return 0;
+> +	}
+
+This is where the outlen check evaluates to 0 and clears the capability bit
+in spacc->config.modes, causing a feature regression compared to the static
+configuration.
+
+[ ... ]
+> +int spacc_autodetect(struct spacc_device *spacc)
+> +{
+[ ... ]
+> +	for (x =3D 0; x < ARRAY_SIZE(template); x++) {
+> +		if (!template[x] ||
+> +		    spacc->config.version < testdata[x].min_version) {
+> +			spacc->config.modes[x] =3D 0;
+> +			continue;
+> +		}
+
+[Severity: High]
+If CONFIG_CRYPTO_DEV_SPACC_AUTODETECT is enabled, this loop clears
+spacc->config.modes[x] to 0 for all algorithms on older hardware versions,
+because min_version is hardcoded to 0x65 in testdata.
+
+Since spacc_autodetect() returns success (0) instead of an error on older
+hardware, spacc_probe() will not fall back to the static configuration.
+Does this render the hardware accelerator completely unusable on these older
+platforms by silently exposing zero cryptographic algorithms?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907155916.9991=
+53-1-pavitrakumarm@vayavyalabs.com?part=3D3
