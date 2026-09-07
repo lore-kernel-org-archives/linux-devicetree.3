@@ -1,41 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEE4B356766;
-	Mon,  7 Sep 2026 07:43:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99C8D416878;
+	Mon,  7 Sep 2026 07:44:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788767016; cv=none; b=UOpvDgXUlv9riorlbhcsWH+91zGtFpBSr3+vXNLRRksKJRFqm/wghnmbOXTQQ96zWWhOLp3IYz5aNuqpNQUqRfGp0NETj0UNB6aSH7TtsEvgETlh0RElpV8utNmiDAe25I9+j1MBAjOqgdJaoKxDBmjYhjmWjZf6X8617v2qKug=
+	t=1788767066; cv=none; b=BrEdYVR3VB1zkB24GwbWSMAa8SQDBn2JenmchXIxHS+xodh53HPGBsN9/dI87/MiZwj6BrfXWVm3k6vwWXtiXFMXhTgRqjz4uyuEGSyg0bv9hxvuxB1BCpEkYO+pD7aC8wMjMmV0GAZVEq6Rz3oRLJ82FRV1Mbj0fKUV92pqF1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788767016; c=relaxed/simple;
-	bh=73N7HaWOUvi6JeCbvZyrIKBy85Hn4IFBjMhnzDo2vMY=;
+	s=arc-20240116; t=1788767066; c=relaxed/simple;
+	bh=Ek3ocIy7wpS/IDiiwHj1J4m0liDxgBs9O9i0RBBDWWI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rvxujp/bCi4eR0d0uNUKdfc9zfogguIjFLmA5euJnTHyqS7CBpHbl8aYbo5S71CkrldbjheWb3z4y/aaw8Jr2w1JUIsD0Xr6GazsEszrVY6UB5iywG6Yj3a3bqRNT4m6E6CIDtmRp7rvgPdYfSt0fc0jDdnTfj2C5erv+UUG2lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b+SF3Vf8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QdnmB3i09nkv2RzDFfYiKe5TE5myv039Nb4HxWZnLcu/cssMYQRnfPsotST8RtU5RBmn70W/stkmoxFGhr/9RNw14zecu8e/O2MRwnwhnZ/2ff2WrWL3xHO3oQmTqsHwaA2VFKGgRK4TvF44PiWBwxNx9eP/epLqB3/cVuTYFfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NcLnmAz0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b+SF3Vf8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736B71F00A3A;
-	Mon,  7 Sep 2026 07:43:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NcLnmAz0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962F71F00A3A;
+	Mon,  7 Sep 2026 07:44:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788767014;
-	bh=2U0LJa2+6NGYuS6YPV73PvwnOOrnGHIqZijxTc6txuI=;
+	s=k20260515; t=1788767064;
+	bh=6iv+CaoP1NDRXPBD5zrkJNqyxtCMxrNtTEasdO12PNA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b+SF3Vf86nNpzU2W5TO6XWzNuHH58klFKzIhjAWiy83h3bcOJRNJM6EtszA1GfHal
-	 3kJTEEz4CxizL98R8RK5nLLfiaZnAs2o0mlwGlB9KIgpzUT1qFYYY62DUHxDdfxack
-	 uI985PKfaByayo7fKTBOtyPf7U88ssTb+CXWggvPQQu+wWL4SxB5dOAoA1miWi2JZJ
-	 o2kx28+TbgTinqnOYrp1D5bV+jnDJAKZQMWSY7/eMTnDP0TFXwKEi+wdql0EqptzNQ
-	 mmiIHbIa/tTr4uGrzf6jXUt0eEffXi2XFMf6RacdH892NbSWMvOTEk4pUr3U/f+m9m
-	 3YYeeAuT68yrg==
-Date: Mon, 7 Sep 2026 09:43:30 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vincent Jardin <vjardin@free.fr>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] dt-bindings: hwmon: ti,tmp401: add
- #thermal-sensor-cells
-Message-ID: <20260907-subtle-able-cicada-67535a@quoll>
-References: <20260902-for-upstream-dt-tmp401-vcc-tsc-v3-1-49c484d2f08b@free.fr>
+	b=NcLnmAz0hi7VC85mVR4FNbQyG73njKOVusDoroz9b6n4K+7kCSwM6cxPSrtzHQzE/
+	 KIA51TUQO6cSfMqJMQoQORZgiCiSAJXyEUinrbQbLrB1MOI7Lkoebzn5QBkWoj8HOx
+	 5oKyy6O92mpR0Wy/2liCTApG/WCC/zPVSY7GNGmhTp4YWxyIlHlXsEQ43uziZ1XZ6x
+	 LqA8HsXVGXAzDHoTqJ8NzCNg0pbY+aOBoUz44f6fYiRFJjoEGdjWapREEXwQiGjVI9
+	 MAxxSFOfoYEaWQLgXswGvJrNv0zQmjxnQvD5h96IHWnl++RsfLJEyQCbOfk+T9USHR
+	 xUXpekM2dQK6g==
+Date: Mon, 7 Sep 2026 07:44:21 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Guodong Xu <guodong@riscstar.com>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: Drop guest properties from
+ M-level IMSIC
+Message-ID: <20260907074421-GKD2330@kernel.org>
+References: <20260729-k3-mimsic-fix-v1-1-368c0aec04b9@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,22 +48,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260902-for-upstream-dt-tmp401-vcc-tsc-v3-1-49c484d2f08b@free.fr>
+In-Reply-To: <20260729-k3-mimsic-fix-v1-1-368c0aec04b9@pigmoral.tech>
 
-On Wed, Sep 02, 2026 at 03:54:00AM +0200, Vincent Jardin wrote:
-> Since commit
+Hi Junhui,
 
-Stray blank line. It's one sentence "commit foo....".
-
->   a3b61ba2558e ("hwmon: (tmp401) register with thermal subsystem")
-> the driver sets HWMON_C_REGISTER_TZ, so the hwmon core calls
-> devm_thermal_of_zone_register() for every temperature channel and the
-> device can be referenced as a thermal sensor.
+On 00:40 Wed 29 Jul     , Junhui Liu wrote:
+> The mimsic node describes the machine-level IMSIC, whose MMIO region is
+> 0x10000 (64 KiB) for all 8 harts. However, the node also specifies
+> riscv,guest-index-bits = <6>, and per the AIA specification the
+> per-hart stride is 2^(guest-index-bits + 12) bytes when guest interrupt
+> files exist, i.e. 2^(6 + 12) = 256 KiB per hart and 2 MiB for all 8
+> harts. The described region cannot hold even a single hart's files, so
+> the node contradicts itself. OpenSBI enforces exactly this constraint in
+> imsic_data_check() and rejects the node with -EINVAL, preventing the
+> M-level IMSIC from initializing:
 > 
-> Signed-off-by: Vincent Jardin <vjardin@free.fr>
+>   fdt_driver_init_by_offset: interrupt-controller@f1000000 (riscv,imsics) init failed: -3
+>   init_coldboot: irqchip init failed (error -3)
+> 
+> Moreover, guest interrupt files exist to act as the supervisor-level
+> interrupt files of virtual harts; there is no machine-level counterpart.
+> riscv,num-guest-ids is equally meaningless for the machine-level IMSIC.
+> 
+> Drop both "riscv,guest-index-bits" and "riscv,num-guest-ids" properties
+> from the mimsic node so the node matches the actual hardware layout.
+> 
+> Fixes: 56f37e391a62 ("riscv: dts: spacemit: add initial support for K3 SoC")
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Yixun Lan <dlan@kernel.org>
 
-Best regards,
-Krzysztof
-
+-- 
+Yixun Lan (dlan)
