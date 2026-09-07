@@ -1,149 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D15ED2222D9
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 16:12:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55823A9DAE;
+	Mon,  7 Sep 2026 16:12:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797522; cv=none; b=BPn2ZG50m56YWu4nPhkwV5srUT1WMjr3/d9GZc9W2b7oD9myby4gz7gjXI//k1NABVJYHfM7Lj1ZLNu9gxnwyL9FflaKoVAwcrr+0TF7tjwIwCJuTY5R7x9yglOLjLf14VEDeLqqmmCbZhlV9G8PRPybgy72MBh/Ht/0HUXq7ys=
+	t=1788797536; cv=none; b=Tyl2O+LNyjqWL6xwPajLZ+OGKiZzst3L+0L8NmXLePK4lUMy+bf4v0IlC3O9Cu7PfjipF9Fe01QetDm3/f0LDz0MHi1Pr72Ck3nr/R7C5O7HqYV49X17PEu0HWVdzGhY3aWrBMgQqNlejnV0FlzBAjVCtv7e8AAuKeXeV8Kur04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797522; c=relaxed/simple;
-	bh=pzQscGUAbRqiasCZM/EfR7Q9AOGP3r5Avec8CMCgGgY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GaoXGN2so60Ztyd4lU3bYAqsIpyLykIKBw1FUuNnloX1nvGZgbSh3QfH5zs4F3FDTL+qH0P/zyAbrZpLelCWjryP2Q4+W7shAN54HWC10HCH+I+ZilaTsJVYYXfWY11iwanZjt9D84qQXYwZguHV99DhIg/JvfiT53C/UN4/6bY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+FAA74I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788797536; c=relaxed/simple;
+	bh=3u6bCRB3JwqsXbGlIyMoRInAHLy5juD2oOrDDFF/lAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cntrbC69uxg0/d+0D8EuV2KGZg9lqpf/EVKRZwfsQrfe/PDiTDS5XuToIwXMvD9urKtnHTsEmLfXKh9oU4c6swzbLxpvYhqpurxEyWcfcfc002xOXqNmtvBkIBX97bHLUE+nmc9uuxIlnLGpZojMGxxPPcOXSgZunhewMGv/mt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=HRe2Spde; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+FAA74I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1861F00A3A;
-	Mon,  7 Sep 2026 16:12:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788797520;
-	bh=T8Ap462CsEqbkZmrB0AhwgIlwRGKsyyLJ4QMWOStsaw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L+FAA74IJudeyQejZ2STtvrFOqvMhs1rfvV1tqnEDOKjpAs5WUb3nHfZ7xEPJkMcI
-	 zzy/cQeXTXoU2Yq7VCmpFeDkx1M3/4HfMnBJaStda4esLuU3Uoxccqq4LMAbjrdxfg
-	 FYHX3UeWReUdldST5+tepru590hwnqFfIHsm057vqjQdNgiRtYZvP+1gQyUnXqBhku
-	 UBjkgW8G5Ws3NfvOThcSvtaPeD7JMLxq7XKCJG8e7ItvKlHNrf/EdjpbB1rxue92mv
-	 QS2aXh9iCy17NzkCZVXfblg/1q1hNuz88Lb3oYxHHw5AuPwIChy9Tp2W6MIZWR5Wdm
-	 7PuOYC9PN2FTQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/2] arm64: dts: qcom: sdm845-google: Add dual front
- IMX355 cameras
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907-pixel3-camera-v9-1-b1981f2d3291@ixit.cz>
-References: <20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz>
- <20260907-pixel3-camera-v9-1-b1981f2d3291@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 16:11:59 +0000
-Message-Id: <20260907161200.0F1861F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="HRe2Spde"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5DEB111D0D1;
+	Mon, 07 Sep 2026 18:12:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788797528; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=nmrLDUpli0xczKPjyc2UOxB5amey9DMtoKl7SwhodJ0=;
+	b=HRe2SpdeIkiqzutGSpDg/sMU7VSzFY79LU851PioylIIf4wkfK35btGVTXoCFe3gY6iLnd
+	jnjg23KH4rxLoCBdWNnfJfH2nAiT/gZoFo4NF3MpVgpvoI7SlVJza3t9VMueZvfKOD3zVT
+	Vz583TwOVHNKpPfng4RGXg5w4AqbH4Pv4g3jmvrX1BYAHw/xNAQT8qQiATZyq0t2L4hSbh
+	VJSq3hobVML7/1W/6x6UkiZYgVZUFNi7LD0mBCkEnZlIJuQsNTYDUYwzpCZnUk0RnMBLQw
+	lhBIhnF34jnnH5sCOq7NxMQXfiDdgKGy+FtWDfmmnjr082A6jqTH4UM95oD05w==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-usb@vger.kernel.org
+Subject: [PATCH 1/2] dt-bindings: usb: generic-ohci: Restrict access-controllers to ST STM32MP2 SoC
+Date: Mon,  7 Sep 2026 18:11:53 +0200
+Message-ID: <20260907161203.713424-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `cam_mclk2_default` pinctrl is assigned to the `camss` node, c=
-reating a probe deadlock that prevents the IMX355 sensors from initializing.
-- [Medium] The patch incorrectly modifies the sleep state of `cci0_sleep` i=
-nstead of `cci1_sleep` to disable internal pull-downs, leaving the newly ad=
-ded `cci_i2c1` bus with a pull-down conflict.
---
+Tighten the access-controllers DT property availability, restrict it
+only to ST STM32MP2 SoC, which is currently the only known user of it.
+Once more users start using access-controllers, the restriction can be
+losened here.
 
-commit 5866dcb6e26829a5869d717eae07ad902b36446e
-Author: David Heidelberg <david@ixit.cz>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-stm32@st-md-mailman.stormreply.com
+Cc: linux-usb@vger.kernel.org
+---
+ Documentation/devicetree/bindings/usb/generic-ohci.yaml | 3 +++
+ 1 file changed, 3 insertions(+)
 
-arm64: dts: qcom: sdm845-google: Add dual front IMX355 cameras
+diff --git a/Documentation/devicetree/bindings/usb/generic-ohci.yaml b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
+index 7a8c3c2318153..cd9f51bbb445f 100644
+--- a/Documentation/devicetree/bindings/usb/generic-ohci.yaml
++++ b/Documentation/devicetree/bindings/usb/generic-ohci.yaml
+@@ -237,6 +237,9 @@ allOf:
+       required:
+         - access-controllers
+         - clocks
++    else:
++      properties:
++        access-controllers: false
+ 
+ unevaluatedProperties: false
+ 
+-- 
+2.53.0
 
-The Pixel 3 features two front-facing Sony IMX355 sensors with different
-focal lengths. This commit enables the dual front camera configuration
-by adding them to CSIPHY ports 1 and 2, controlled over CCI I2C1, using
-MCLK2 as the clock source.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/ar=
-m64/boot/dts/qcom/sdm845-google-common.dtsi
-> index f1379857e2742..02a392fea7212 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-
-[ ... ]
-
-> @@ -351,6 +390,53 @@ vreg_s3c_0p6: smps3 {
->  	};
->  };
-> =20
-> +&camss {
-> +	vdda-phy-supply =3D <&vreg_l1a_0p875>;
-> +	vdda-pll-supply =3D <&vreg_l26a_1p2>;
-> +
-> +	/*
-> +	 * MCLK2 (GPIO15) is shared between both front camera sensors.
-> +	 * The clock is generated by CAMCC, therefore the pin is
-> +	 * configured here rather than in individual sensor nodes.
-> +	 */
-> +	pinctrl-0 =3D <&cam_mclk2_default>;
-> +	pinctrl-1 =3D <&cam_mclk2_sleep>;
-> +	pinctrl-names =3D "default", "sleep";
-
-[Severity: High]
-Does assigning the MCLK pinctrl to the consumer node (&camss) break the
-initialization sequence?
-
-Because &camss has remote-endpoint links pointing to the front sensors,
-fw_devlink treats the sensors as suppliers and &camss as the consumer,
-forcing &camss to probe after the sensors. When the sensors probe, they
-attempt to read their chip ID over I2C, which requires the MCLK clock.
-
-Since &camss has not yet probed at that time, the GPIO15 pin remains
-unconfigured, the MCLK signal never reaches the sensors, and their I2C reads
-fail with a timeout. This creates a probe deadlock preventing the sensors
-from initializing.
-
-> +
-> +	status =3D "okay";
-
-[ ... ]
-
-> +		port@2 {
-> +			reg =3D <2>;
-> +
-> +			camss_endpoint2: endpoint {
-> +				bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +				data-lanes =3D <0 1 2 3>;
-> +				remote-endpoint =3D <&cam_front_endpoint>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&cci0_sleep {
-> +	/* bus has external pull-up */
-> +	/delete-property/ bias-pull-down;
-> +	bias-disable;
-> +};
-
-[Severity: Medium]
-Is this modifying the sleep state of the wrong I2C bus?
-
-The newly added front IMX355 cameras are connected to the cci_i2c1 bus,
-whose sleep pin state is defined by &cci1_sleep. By applying this
-configuration to &cci0_sleep instead, &cci1_sleep is left unmodified.
-
-This leaves the cci_i2c1 pins with internal pull-downs enabled during system
-sleep, which conflicts with the external pull-ups on the bus and causes a
-continuous power leak.
-
-> +
-> +&cci {
-> +	status =3D "okay";
-> +};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-pixel3-cam=
-era-v9-0-b1981f2d3291@ixit.cz?part=3D1
