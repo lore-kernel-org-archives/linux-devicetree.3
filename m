@@ -1,188 +1,185 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43547447817;
-	Mon,  7 Sep 2026 08:38:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810B4448B84
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:38:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770322; cv=none; b=Cn2Sg/SAi1GbmniOoi/3QfteO7yy9kpKc3rndwPpvWn0ESVU2RO1SkWCy+xWrHh6OL1T2wLZIBYA8iSswADTyakYcyjQyVDSb0xvj4C3ej2DBr/tEJZ4fE3J21oW6u3UPnczJMtZTTwmj9vTIuwlndLK72sfNYeGR0ghbPRIoe4=
+	t=1788770323; cv=none; b=jiETcArIHslcOChA6pR7Q89gVDSR/kcBOqhPlvWe3UYuoTmD1LhBU0f49GCaIvuytpYY+fQGrYe4dGXE518gHpHv1gM9VRtmXo+t+tKwwxYede6ksnA9l9de6Wmg2vPHPpQ7pOTqt6SiutGrG1zOpc+fKkxY+cUO5Q3yZvYLACg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770322; c=relaxed/simple;
-	bh=gWgkdboDQ/IzDV7lsyjWofp8E47IAGaOvHJuQF8TrLA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DewVmGiII3UXXeIdlweSawbHPYPhIYOXtOA02pTWqdclSz94jjVm7iVWBZ9q9tzALfFh/LgwbUHWFqXKx9KjAAzchJGUSH69tpBGGN1L45d6/YY0K6isznUlpNfd+1mUIdVYmeB/wvanX78ZShvqhl4SDEAI92k92VRm2EIGLVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=IbdWFyvJ; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1788770323; c=relaxed/simple;
+	bh=nGv5PetXuMnjGRkeIe8kY1eFNyjb5QBvGtSYOUuF9OQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AKiO8FK3zNJ3fmA6UHURieGqQrKQ+gqgn8gXa/wbvmD+WFou2fzAhGcUT4+3H59wr4G1k9HXcMDCBjGgdk9ucs7QzvMue8/EheQMp4MQOF3W1Ym5XSnb6SSLhKf0w2JL9klQC8jVj/ZOcwd5GNgvMVP4izWSIKC90gTPZK/BSNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fm3ix7CK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YKnK4BJE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="IbdWFyvJ"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 41B2F534054E;
-	Mon, 07 Sep 2026 10:38:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1788770315;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=rm23DHnP6XKYCBBlmUZyx5e9Qqle+n+KwyQsuDqjd7I=;
-	b=IbdWFyvJGXg8e4d6mpAlaGWRdvwu7F+jLc/E03b5pWCA/HXOpL3kuK7Gd3ETD46GasJZxl
-	RYZlz1I9dKF30Br1WLcJRyXxKPKRds5y+OHxIJi7og3m8+Ves67NMrzK9IGa+bi5M7n2vA
-	YOALy17t8HI75/dge39BsaVGqzXjokc=
-Message-ID: <06aa2b47-c5d0-4ef4-8d3b-9780dcc4bcf3@ixit.cz>
-Date: Mon, 7 Sep 2026 10:38:34 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fm3ix7CK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YKnK4BJE"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6877p0Q73657529
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 08:38:39 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=uo7ZUub3lrZ
+	EEc8DFMNE8az0niDw3dx2TBatUAmNhAA=; b=Fm3ix7CKWGUCowiXlEr+Uue7Hnz
+	3gZYvz4/FECE38qiTik1WO1XqhLpLh/tXjDOMSzVb7gh78zy406jE4pi9R17GJLH
+	UidSOTET8i3AaPVVo+nrCNNrKZv1dnPUoDhu5/LUdElUHWucW09C+s6Wdju0oH09
+	j8XC56KYJwf/VgX+RgK1tsXpEOMiSO4/HVFzmUYcihiXkVjDUk6NellH8RAQPv9F
+	WozCSvnD1WMwEV9wB98ZPjg2WJbi6dMwzWk9mpchUF3AjKvhbCEA8lIOg7/dmyQZ
+	kdzvmmxeSTi64DP3ccaVdoTvAb5ktBYX9Syt3lfykjVaW0uysSazeeuxLHg==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghs86r6qd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:38:38 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939a6937513so116732685a.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:38:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788770318; x=1789375118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uo7ZUub3lrZEEc8DFMNE8az0niDw3dx2TBatUAmNhAA=;
+        b=YKnK4BJEUcJga8PapVQCfwFPvuE67segraz7Z8xE9zBF66w5IAP51EPRNKyG7i5vLA
+         Nmm6jDmOxq2s53LGjLsoV5XrHsU5gWu7s24Rojf60P/O5Sfg2UK+NHlbIMI69664EpMa
+         IJer1kQtfwIUoibaVaKMrErudHUrNxIWYD3lNmSkOfP+TTQ6UGR7zur/0ILEuY0DWIbl
+         6fyRjwjp59fh/y9R8k9LWKy53qTMlyjfAF2TLgo05kSRvsR1ORHbjYc/5uETFxDSb780
+         o9ua+hqxo+oJDoRJ3ehOiWb3+AHZvtgMc/w8OtGbIF99Y+RsrAu9E1zQgl3yRtNXU0jm
+         lfXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788770318; x=1789375118;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uo7ZUub3lrZEEc8DFMNE8az0niDw3dx2TBatUAmNhAA=;
+        b=Z+HKc8YZKj+p0gzyoqsEVMQ5/43XOC5KkmXoqc/5c3TSWoGwhnf7X4bo0ZhAN1AQyA
+         Tj2jd+ngO++q87V+E3OqqUw9CoMnpilx/GjOSQP9V9FEbkBiH84/lJGsZTfkXXeYnXfJ
+         7H0T2Bcnt6z2RoNQ3+qc3J3OTJcyssG2zvLcjLg+IZ47LJvv+DpX37USW3B+NTEAuuMu
+         U6X2Bm352XS1akrDfP01nkEqT4bw/wbh57swh37Bl0Ao4u3/lQFXfS4O0niwpaGFEvou
+         MZnuAscwg9TyO6wLlgCvTS5ruwwANlt35noi1/7+VSl7G7Lu0RNe+lYs3kjSgJDi+gR+
+         S2FQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5GVhXXQ7qdu6kN4+/hztmI/L24ydYINbQ0vvdiYPkpeBbdyPgWF7nV+WP3Qtv0kkdUJXmBkxrgxwm@vger.kernel.org
+X-Gm-Message-State: AFuF++n/PKIQkxLEjrNIjt9GH9Mf2awk3T43S+ZkBIZIpx5PVd61z1Sa
+	BGdgQdOZEs3SKCatuyG6pWgrFGRCF3aehGaDlJafKI0b9rY/lWOS6f+SHCdHoAEsOJKPZrpa6bZ
+	Rx/PvEwV8WvLmx/vTaV9darwR8S/XyWRO4+ph1ujKy8/oS2DcSV4E+986zDB2YV/Z
+X-Gm-Gg: AYBFou0khxBVYgJDxo0B51sRiznIyOZ7AeOGP4angF0q/iHABRF6edZKMfAWVr6T4Dx
+	WSrfOsl1Kob2X3EeLFtO255icl2rNMCXqb+ixCd9GvI7UQnyvlTF6lHzCvWYSlmnVIVPWZN9Jp/
+	v/jWxmfvbaJVeOmc8Artv7a+vtSZzGux+M8PHxYh6jofFrziqGo7dG2yMV/q56iYLsPD74Rzq19
+	o0V3NLrfqdU7EUQ5mXaYnJNNHRyL53PyojL5R6y/G9bQDE9ueDfeieL63unNK0k9D156sVvBTAB
+	IOUjCVkEDt2c063qnlLwbY91w0hr0XGvpMN+k2ZeaY/hLgZB6r0GM2LqvRa4bW8McdEJn5NTM+x
+	SnRuDuC3UmlaDCw==
+X-Received: by 2002:a05:620a:1a03:b0:934:ab73:ac53 with SMTP id af79cd13be357-9398013bb1emr2209542785a.0.1788770318362;
+        Mon, 07 Sep 2026 01:38:38 -0700 (PDT)
+X-Received: by 2002:a05:620a:1a03:b0:934:ab73:ac53 with SMTP id af79cd13be357-9398013bb1emr2209538885a.0.1788770317851;
+        Mon, 07 Sep 2026 01:38:37 -0700 (PDT)
+Received: from debian ([5.133.47.210])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm30852179f8f.25.2026.09.07.01.38.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:38:37 -0700 (PDT)
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Takashi Iwai <tiwai@suse.com>,
+        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
+        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v2 08/11] ASoC: SDCA: make find_sdca_control_reset() return void
+Date: Mon,  7 Sep 2026 09:37:22 +0100
+Message-ID: <20260907083727.733705-9-srinivas.kandagatla@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: sdm845-oneplus: fix fuel gauge
- compatible
-To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Caleb Connolly <caleb@connolly.tech>, Frederic Laing <dev@fredfunk.tech>
-References: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20260826233818.124278-1-rinat.muhamedgaliev@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-GUID: NtkwNNXUAAim0m28NLR8a0yyn-Ems9hU
+X-Proofpoint-ORIG-GUID: NtkwNNXUAAim0m28NLR8a0yyn-Ems9hU
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MyBTYWx0ZWRfXyBsFRS3xOOO/
+ GBMUUrMGY/FpGkd+yxhV6U6GEkzQBlPBfiMyhNt9fYlTlF3H4D19TetcvzO39Zndsd/np+pCcd6
+ f9CUYP9ndcGhSKfp7HbywZynxY34guc=
+X-Authority-Analysis: v=2.4 cv=LseiDHdc c=1 sm=1 tr=0 ts=6a9e780e cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=-Ca9_MJ7E5AnbNBKvfgA:9 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MyBTYWx0ZWRfX3ehgAp6ZQ/gn
+ NdJJXsfc0W/trqQZEBvacX+7aANMHBfDs76VirtgPHrl9MVZOJg+QDjJEEHtu4J48RHQXMzFCGF
+ WILr/zn2FLHMN/LVF0KF+Bls2x9lpfmej8ivM7MZl0F9b+HVXtL4IyUUfTk2ptihW6zsqHZs2et
+ nX7Lu8EQZo481LFGDcDMJASeovbOOMwQLTot+xsgj7q2W+OxLTySg1KQrIj7m8AjNpTxSdVb9/o
+ E5TcYNfhsZ/pSkpJc7drUf78vInLtKl4Teu1YvoRZQwNbtdBz25Z8hdTknmN53Ktf6gSOG5vcZR
+ m5Ooonf4EirzoCXtQH3KYIv9ynHUf4l6wsCAFmY1UhAX9QquqVT8FTm/n/JyqI3gMIEY9N2Nvt5
+ p3oQV+qZCti0d51z6tf0QoH73hI2I12f9niiocmEcl5FSUwSgik0d7L2n3ixkXIsx9pJxq5gYpt
+ JRNK1Sw4xQbU9rZ7yow==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ adultscore=0 bulkscore=0 malwarescore=0 priorityscore=1501 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070093
 
-On 27/08/2026 01:38, Rinat Muhamedgaliev wrote:
-> The fuel gauge at I2C address 0x55 on OnePlus 6T (fajita) reports
-> DeviceType 0x0541, identifying it as a TI bq27541 rather than bq27411.
-> 
-> Binding it as bq27411 selects the wrong register map and produces
-> invalid voltage, state-of-charge, and temperature readings. Use the
-> bq27541 compatible and rename the shared label along with its fajita
-> and enchilada consumers.
-> 
-> Tested on OnePlus 6T (fajita): queried DeviceType directly over I2C,
-> built the DTB, booted it once with fastboot boot, then installed a
-> locally built postmarketOS kernel package. Before the change, readings
-> included about 65 V, over 10000% SOC, and -273.1 C. Afterward, the
-> bq27xxx driver bound as ti,bq27541 and reported 3.835 V, 42% SOC, and
-> 33.3 C.
-> 
-> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
-> Closes: https://gitlab.com/sdm845-mainline/linux/-/issues/36
-> Link: https://gitlab.com/sdm845-mainline/linux/-/merge_requests/148
-> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
-> ---
->   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
->   arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
->   arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
->   3 files changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> index 948a0dd18..0c6203fa8 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
-> @@ -790,8 +790,8 @@ &i2c10 {
->   	status = "okay";
->   	clock-frequency = <100000>;
->   
-> -	bq27441_fg: bq27441-battery@55 {
-> -		compatible = "ti,bq27411";
-> +	bq27541_fg: bq27541-battery@55 {
-> +		compatible = "ti,bq27541";
+find_sdca_control_reset() only ever returns 0 -- it just sets
+control->has_reset / control->reset for the framework-known
+(entity type, control selector) mappings.  The int return + caller
+error check in find_sdca_entity_control() are dead code.
 
-Original OP6/6T has bq27411, replacements (or later series) bq27541.
+Convert to void and drop the check.  No functional change.
 
-This change is no-go as is, would be great thou to have auto-detection and use 
-something such as:
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ sound/soc/sdca/sdca_functions.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-compatible = "ti,bq27xxx";
-
-and adding logic to detect chip id (and maybe also non-sense values)?
-
-We could also multiply device-trees (fajita + enchilada) x2 (bq27411 + bq27541) 
-and let u-boot decide, but it seems a bit overkill for a battery chip from the 
-same generation and vendor.
-
-Thanks
-David
-
-
->   		status = "okay";
->   		reg = <0x55>;
->   	};
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-> index 5f01115e2..21ebd3f67 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
-> @@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
->   	};
->   };
->   
-> -&bq27441_fg {
-> +&bq27541_fg {
->   	monitored-battery = <&battery>;
->   };
->   
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-> index 7ffcad24d..d640b38b5 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts
-> @@ -67,7 +67,7 @@ tfa9894_codec: tfa9894@34 {
->   
->   };
->   
-> -&bq27441_fg {
-> +&bq27541_fg {
->   	monitored-battery = <&battery>;
->   };
->   
+diff --git a/sound/soc/sdca/sdca_functions.c b/sound/soc/sdca/sdca_functions.c
+index 25f95575c731..68a50552f4e4 100644
+--- a/sound/soc/sdca/sdca_functions.c
++++ b/sound/soc/sdca/sdca_functions.c
+@@ -922,8 +922,8 @@ static int find_sdca_control_value(struct device *dev, struct sdca_entity *entit
+ 	return 0;
+ }
+ 
+-static int find_sdca_control_reset(const struct sdca_entity *entity,
+-				   struct sdca_control *control)
++static void find_sdca_control_reset(const struct sdca_entity *entity,
++				    struct sdca_control *control)
+ {
+ 	switch (SDCA_CTL_TYPE(entity->type, control->sel)) {
+ 	case SDCA_CTL_TYPE_S(FU, AGC):
+@@ -950,8 +950,6 @@ static int find_sdca_control_reset(const struct sdca_entity *entity,
+ 	default:
+ 		break;
+ 	}
+-
+-	return 0;
+ }
+ 
+ static int find_sdca_entity_control(struct device *dev, struct sdca_entity *entity,
+@@ -1032,9 +1030,7 @@ static int find_sdca_entity_control(struct device *dev, struct sdca_entity *enti
+ 
+ 	control->is_volatile = find_sdca_control_volatile(entity, control);
+ 
+-	ret = find_sdca_control_reset(entity, control);
+-	if (ret)
+-		return ret;
++	find_sdca_control_reset(entity, control);
+ 
+ 	ret = find_sdca_control_range(dev, control_node, &control->range);
+ 	if (ret) {
+-- 
+2.53.0
 
