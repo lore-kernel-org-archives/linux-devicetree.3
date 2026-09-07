@@ -1,227 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C147352C3C
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1FB2371D01
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:05:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788757462; cv=none; b=FN8DZf2MGx2rdquSUO2JAHZDHX1tEpaZpw6uPovnk82F4yMRNs2cE7u7dGSsqDzQi/tuufiVhIFol887a/E3kGX0sZ/1GUbG6dDloYDbabgEUYHF2k2DnGq9GP7CIEQCoRT/YD3jUxmVc/eH6yCOoApRgnil7sfNW86knki/qUo=
+	t=1788757546; cv=none; b=jfATwZml+emeRZXheosRfZKjyIaj2MiQZ+ToX3qyyTfd0jS1SxwtWINTZG7MMYwDVpm5q0os260T1ziYK1BKNZKv2Zgo7oshpoHKAosWegrc+Jywro/d1Id7HzH9tTELy9J+FqLX95wa3zj69w7q/SEcrcNCHKqcS/dpwemZsGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788757462; c=relaxed/simple;
-	bh=MEKc8crTW/gxty5j9A9/i0xz+CKL7fBSSTeBpuFuUHg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l2JM8NdYcgTeispe8dI/GB/YS8o7fAieFZs6HPdslZjm/oaFBsWUQe5EJ62vRoAbv1Ch08Jf2Gpvr/jUL6Vj3V6s4UECnXPgbSD27mLLcWvM6QQY2tz1yo4mTLN57GSuoqeIobWQKZm3c0C9m44D32ISd2cfjDQPrhxyG20N+hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XAkKRawh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788757546; c=relaxed/simple;
+	bh=WabYORvD+LOGTdj3VELPHQl++OeHox5ejDwdc2FqqqQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hekR4+CHs++QL7aDJ1gwAUqIoV/PXD0l3wKnglXxqyLL+2WkCx2SUR5BLSzi1mMna9ySY7oX1jOiF9SP94inG9TCzy77/kT+jW2cKsSmxXL8IXtG1+sNZlRD737fax4E0nArux0jEuXttWcA8VhGnpyj9hCppOhwC3Nnsq+6l/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=dfxDBEEM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bG+q/3rR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XAkKRawh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82DA1F00A3A;
-	Mon,  7 Sep 2026 05:04:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788757461;
-	bh=AfkouRwLwqHJsuSY001L06C5UF+XT0zJ7vI2gyGBP5U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XAkKRawhETY+C2n+lt304tZ1813jftHK33vJPahktqfP3M3RZYpodfggRLk4CYPNB
-	 +bc3ZeOgH/T2tktueAdwQ0RwjC4B65ej9SIAbPiIMs2NHZRtd43W+nbmOTJY8NouRQ
-	 QgMW9OyiFaiUutfTLH0v/VTD2TaAG/wsYAXgVZTnmsO5Jp5mWkKpifQjSxZjIOjh4v
-	 lhIqYtktwwCs7+WkqReVbcBbK5DHtLjE0QdG62qfnG/nRK6BppuBS/RuNdNgS9aHQC
-	 9xO2aaqoE6nx2zDd910gJQcusy1kXjSl/Om9B+0IgXpcjggnrwsOvw+tWAPhyXHo3i
-	 R+6oY6edl59yQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order
- for JHB100
-Reply-To: sashiko-reviews@lists.linux.dev
-To: lianfeng.ouyang <lianfeng.ouyang@starfivetech.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
-References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
- <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 05:04:20 +0000
-Message-Id: <20260907050420.B82DA1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="dfxDBEEM";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bG+q/3rR"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873l3sV2902925
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 05:05:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=WabYORvD+LOGTdj3VELPHQl+
+	+OeHox5ejDwdc2FqqqQ=; b=dfxDBEEM/cGpHFRB6YoMX3CRESHLQ3IIwxBq/Ca/
+	8uijCny08UR4Xgpb/+Z52fGPJSbk7d1bnFXXqmV30LaBXBvF0MAHp9q781n5mOZw
+	la+FlGG3gTYovKfS16CVRJ1NnnoT4HxdZwKNCi90wTiq21ShQR1lCmMAy6yXw5X9
+	JEUiTWBNXfbNMzg/iqptgT8AaptoB2HMlv3lbZCUABo74bSszMlFZ/zlpBMKJdk6
+	kNEpx6cTKlkxF8rRbRv1EonDOCr9a2dy4ZYN+7kzE09Wl6dFHlW8qSPJ+dDkF+bt
+	yt1AKjiSIKCtypAU+RKcUz3JqZjaM/E3/44AhxQmjtXeBw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg8eq5jv0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 05:05:42 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-381250979d5so3900576a91.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 22:05:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788757542; x=1789362342; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WabYORvD+LOGTdj3VELPHQl++OeHox5ejDwdc2FqqqQ=;
+        b=bG+q/3rRoS9omuekn7rGA9hRizuwjFKQkc0p8HJWwGTC+lRPSKb+GeCZvsSSYNbTY4
+         q6/07H/wmGa6vpVTE4RpjQjjnSNKISvW4DcjnyCpkx+pjQLNAxrKHUg1liUpLtQEqyHI
+         Ayaza6XdCv4zAsE4JTcJBfADFPhcJ7Ubco3xNUcscIYiy14Jy6V7j4DK9v3urafmXirr
+         fbymYvHJeXiRQ7H8j29x17mnZEZckWjihx2O4Yy7FwUdDO7MzmC4w4RhYe99eT90pgSG
+         nSOhm0CJx5Ttgd4sFUAwPN0wD6o2ku1wim+Qd6yLLd+12xvixYYLVGn2W2gAtWOk/7gl
+         +F1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788757542; x=1789362342;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WabYORvD+LOGTdj3VELPHQl++OeHox5ejDwdc2FqqqQ=;
+        b=icRQGXHAuAGGs7FluCZoFKMG3wlNLWSYRD6ZjCwSSeqKle4Pk1QWBdriGBEHfws8xy
+         mEYCTae/nk9aiqJ174eGbp54StPAPg/QHow79F2zVwLG0/wFZq180KxYGIr93r70ao1z
+         M4qMtEp8bA1w134aVQDO5oS2ydzmmmEkgvCf47Rx0Lk562wXhL223QOtVsakjQVL/cNi
+         KPaVJVUuSvw4yIcK9fwXJFdvT3oX8LtcpbSR4NLdg9y2UAaJHt8Xh1Nfzs3aFPrZmaxE
+         vtcS0knaB+s18pYIUbEF47MapYMl2XXJNx40sE0nJCDIolU4tk/TEUKNMjmPm+F96H74
+         sCvg==
+X-Forwarded-Encrypted: i=1; AKwUvBxLhB1v5M7U+ogNj6AhDXhIlIAmlED3fh7iqBnWTCcNF8/rDaVL8Jfd9Pnc483NYwyPrnNeyV/p2JDp@vger.kernel.org
+X-Gm-Message-State: AFuF++msaYj7hhlAWNpN2zvH8FLHRHbWOCfI5+VBpOWOY1dJR9zbCYr8
+	vtOGEZxB2SpKILzAvDDXSPT2osyUT2Lkteyd9s23zJgFkS7WQG05XG2vQYGwJGK7xu9J9RsRS5q
+	q5+oX5fiSHinEkFUNYuXg5zPctubx1rLIAEMleZxfnfKSHr5jdq6TMUsG5vFYAtP4
+X-Gm-Gg: AYBFou2s2fOFU1fc4ut+a9FgdPlkWZRTG7SKyVJnFzppEuOzIL3FS+hCpThMho7n/Pu
+	0NagQ7BgxYSPfcXB/q4IoLyoVIvbreVaQx8ZeVFuHYphFLPzJmH6e7hHO0AWHLk8c7YxymomQqQ
+	+2IVDQZp6iOH6JM9x9hZZsaOSOuPrsdvRrBMSFFWU30scu57IRQdq0ivLmZ8Ap5roko74m6Hqyq
+	QvjWL8mQQBAR2oYZUUzmkmPQAZAfO2EJfYyCFr5VeN07CmPWXe5jH5ZPIg8UF8MLeqNdWuUXp7x
+	CZ/CHlhgdtRCcSXvAtfOnI8XJfY/cHPICwYFAsiyLFq+toBnE251FSOjKtPb2dwOXPoRMLaaebI
+	ImsHAWJEcG6JeMMjM5T+R2MkS2ae2iNaxzOGHwyHPhhu9X1+R6cJ1rLdZj4TwczLCAKUT55J91c
+	5feO47n23o0uqvsDmesmcgYXE9bxo7Zw==
+X-Received: by 2002:a17:90b:2ccf:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b262aaf3dmr33412168a91.19.1788757541740;
+        Sun, 06 Sep 2026 22:05:41 -0700 (PDT)
+X-Received: by 2002:a17:90b:2ccf:b0:398:a2a3:b631 with SMTP id 98e67ed59e1d1-39b262aaf3dmr33412085a91.19.1788757541240;
+        Sun, 06 Sep 2026 22:05:41 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243f780csm22004832c88.13.2026.09.06.22.05.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 22:05:40 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:35:33 +0530
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+To: george.moussalem@outlook.com
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 01/10] usb: dwc3: core: Allow glue layer to pass
+ reference clock rate
+Message-ID: <ap5GHUJAW/8uGHUA@hu-varada-blr.qualcomm.com>
+References: <20260906-ipq-flatten-usb-v3-0-13e4e0f63123@outlook.com>
+ <20260906-ipq-flatten-usb-v3-1-13e4e0f63123@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260906-ipq-flatten-usb-v3-1-13e4e0f63123@outlook.com>
+X-Authority-Analysis: v=2.4 cv=F61nsKhN c=1 sm=1 tr=0 ts=6a9e4626 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=UqCG9HQmAAAA:8 a=EUspDBNiAAAA:8 a=59Yo_YLqCPc3mkuWIEsA:9 a=CjuIK1q_8ugA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA1MSBTYWx0ZWRfX8uuiRf43ANC1
+ 4S3fqMpj4k2UCcisZgqF0t84ljpR9vnKvyuLDu4MT/swJo6OIlP1R2YaNLNiwczAqcK3dII1/Re
+ 4biiQWD2wynyB3uHY1tQVcNWop8K94s=
+X-Proofpoint-ORIG-GUID: QYsHrGVt6x0Vfab2uMdoUFOB4WuaA1w4
+X-Proofpoint-GUID: QYsHrGVt6x0Vfab2uMdoUFOB4WuaA1w4
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA1MSBTYWx0ZWRfX7qzKVuXGj74I
+ vgp6gZipT9Ilt7AM40kM48V/JsxuohJXeFamaMAnh7K5ZCpHjD6ywxluMQJnUSfSfLqHu4baKjy
+ IzPggdrLkS6jne9KfTLOY5aLCo2MN+1c1WuKVza3urdjq0ApgyA9Sd+FryxIOF9Li6YNkXA1Pk/
+ ToEa0wP1ggumcFdPsDVNuJid65NkUws4ISGZXj5wBBRPBCM/6MzlUB4HmHsfmR4Ws6XQUweD0Zs
+ bTI4RXIHmp8jnr5V9U/QTNqGiWzJKg0xzzHssYtC8c/cfyko0qkxQjEmCc31Ta81g4HpOjTFW/4
+ J1TJ/Wjq6f4qUzGN2L9ixNQdOuO4nRYc4riWJEqiJ0+KGrjsOlRKgjx7fk0sZ2TyThMqu3LrY0B
+ 3nuK2Z3NtLvHlBdqAXhEQbZdgKeVtL5oFHx1cgAs2lrrcddVzU3fbwghoAYAEALd8AyBvrY+sY9
+ hGC2oXMbvi8o9IHzzmA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 priorityscore=1501 phishscore=0
+ impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609070051
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] PM runtime reference leak in starfive_trng_read() on lock contenti=
-on.
-- [High] TOCTOU race in starfive_trng_release leading to double clock disab=
-le or bus error.
-- [High] Prematurely dropping PM runtime reference during asynchronous hard=
-ware reseed.
-- [High] Pending workqueue task is not cancelled on module teardown or prob=
-e error path, leading to Use-After-Free.
-- [High] Shared reset control is left permanently deasserted if unbound whi=
-le runtime-suspended and uninitialized.
-- [High] Missing interrupt mask in starfive_trng_suspend causes an interrup=
-t storm.
---
+On Sun, Sep 06, 2026 at 08:46:40AM +0400, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+>
+> Add ability to pass the reference clock rate from the glue layer to the
+> DWC3 core driver. The core calculates the reference clock period and
+> frame length adjustment based on the reference clock rate.
+>
+> In the flattened snsp-dwc3 model, it is currently not possible to pass a
+> reference clock that differs from the default since:
+> commit 613a2e655d4d ("usb: dwc3: core: Expose core driver as library")
+>
+> The new glue layers (incl. Qualcomm's) set the ignore_clocks_and_resets
+> flag in dwc3_probe_data to true, which disables the core driver's clock
+> management, thus it also doesn't acquire the reference clock from the
+> devicetree needed in dwc3_ref_clk_period.
+>
+> There's an existing DT property 'snps,ref-clock-period-ns', but that's
+> been deprecated. In addition, basing the rate from the period is often
+> not accurate enough to derive the frame length adjustment value.
+>
+> This prevents moving chipsets such as IPQ5018, IPQ6018, IPQ5332, IPQ5424
+> and IPQ9574 with a reference clock rate that computes values for the
+> period and frame length adjustment different from the hardware default
+> from moving to the flattened model.
+>
+> So, add ability to set the reference clock rate in dwc3_probe_data, then
+> have the core obtain the clock rate and use that to calculate the
+> required period and frame length adjustment.
+>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 
-commit 7c6643a978a103f1c37f18a5471c5dac7b74eeb6
-Author: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: hwrng: starfive: rework clk/reset teardown order for JHB100
-
-This commit reworks the clock and reset teardown sequence to address
-hardware-specific requirements for the JHB100 SoC. It introduces a per-comp=
-atible
-match data structure to dictate reset ordering and migrates the SEU-trigger=
-ed
-hardware reseed path to a workqueue. The driver also switches to devm actio=
-ns
-for teardown management.
-
-> diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_rando=
-m/jh7110-trng.c
-> index aee12caab5780..ecc7d5bd7bf51 100644
-> --- a/drivers/char/hw_random/jh7110-trng.c
-> +++ b/drivers/char/hw_random/jh7110-trng.c
-[ ... ]
-> @@ -138,6 +160,28 @@ static inline void starfive_trng_irq_mask_clear(stru=
-ct starfive_trng *trng)
->  	writel(data, trng->base + STARFIVE_ISTAT);
->  }
-> =20
-> +static void starfive_trng_release(void *data)
-> +{
-> +	struct starfive_trng *trng =3D data;
-> +
-
-[Severity: High]
-Could this lead to a use-after-free if probe fails?=20
-
-The trng->work is not cancelled in this release action. If=20
-starfive_trng_probe() fails after registering the IRQ, an SEU interrupt cou=
-ld
-schedule trng->work right before the trng structure is freed, leaving a
-pending workqueue item pointing to freed memory.
-
-> +	if (!pm_runtime_status_suspended(trng->dev)) {
-
-[Severity: High]
-Is there a race condition here with asynchronous autosuspend?=20
-
-The PM status is checked without ensuring PM transitions are halted. If the
-device is active, this proceeds to manually disable clocks.=20
-
-If a pending autosuspend timer fires concurrently, starfive_trng_suspend()
-might execute on another CPU and also attempt to disable clocks, potentially
-leading to clock reference underflows or bus errors.
-
-[Severity: High]
-Does skipping this block when suspended cause the shared reset control to
-remain permanently deasserted?=20
-
-If probe fails after deasserting the reset, and the device autosuspends bef=
-ore
-starfive_trng_release() executes, the reset won't be re-asserted here.
-starfive_trng_suspend() also skips asserting the reset if trng->cleanup is =
-0.
-
-> +		writel(0, trng->base + STARFIVE_IE);
-> +		starfive_trng_irq_clear(trng);
-> +
-> +		if (trng->irq >=3D 0)
-> +			synchronize_irq(trng->irq);
-> +
-[ ... ]
-> +static void starfive_trng_randreseed_work(struct work_struct *work)
-> +{
-> +	struct starfive_trng *trng =3D work_to_trng(work);
-> +	int ret;
-> +
-> +	ret =3D pm_runtime_resume_and_get(trng->dev);
-> +	if (ret < 0) {
-> +		dev_warn(trng->dev, "Failed to wake device for reseed: %d\n", ret);
-> +		return;
-> +	}
-> +
-> +	mutex_lock(&trng->lock);
-> +
-> +	if (READ_ONCE(trng->cleanup))
-> +		goto unlock;
-> +
-> +	reinit_completion(&trng->reseed_done);
-> +	writel(STARFIVE_CTRL_EXEC_RANDRESEED, trng->base + STARFIVE_CTRL);
-> +
-> +unlock:
-> +	mutex_unlock(&trng->lock);
-> +
-> +	pm_runtime_put_autosuspend(trng->dev);
-> +}
-
-[Severity: High]
-Does this prematurely drop the PM runtime reference while the hardware is
-still operating?=20
-
-Writing STARFIVE_CTRL_EXEC_RANDRESEED initiates a hardware reseed. Unlike
-starfive_trng_cmd() which waits for completion, this workqueue function does
-not wait for the reseed_done completion.=20
-
-Dropping the reference immediately could allow the device to suspend and
-clocks to gate while the TRNG is actively reseeding, potentially corrupting
-the IP state.
-
-[ ... ]
-> @@ -247,7 +358,18 @@ static int starfive_trng_read(struct hwrng *rng, voi=
-d *buf, size_t max, bool wai
->  	struct starfive_trng *trng =3D to_trng(rng);
->  	int ret;
-> =20
-> -	pm_runtime_get_sync(trng->dev);
-> +	ret =3D pm_runtime_resume_and_get(trng->dev);
-> +	if (ret < 0) {
-> +		dev_warn(trng->dev, "Failed to wake device for read: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	if (wait) {
-> +		mutex_lock(&trng->lock);
-> +	} else {
-> +		if (!mutex_trylock(&trng->lock))
-> +			return -EAGAIN;
-> +	}
-
-[Severity: High]
-Does this early return leak the PM usage counter?=20
-
-The counter is incremented via pm_runtime_resume_and_get() at the top of
-starfive_trng_read().=20
-
-Returning -EAGAIN here completely bypasses the pm_runtime_put_autosuspend()
-cleanup call at the bottom of the function. If called repeatedly by the hwr=
-ng
-core, could this overflow the usage counter?
-
-[ ... ]
->  static int __maybe_unused starfive_trng_suspend(struct device *dev)
->  {
->  	struct starfive_trng *trng =3D dev_get_drvdata(dev);
-> +	bool cleanup =3D READ_ONCE(trng->cleanup);
-> +
-> +	if (cleanup && trng->data->seq_rst_clk =3D=3D SEQ_RST_FIRST)
-> +		reset_control_assert(trng->rst);
-> =20
-> -	clk_disable_unprepare(trng->hclk);
->  	clk_disable_unprepare(trng->ahb);
-> +	clk_disable_unprepare(trng->hclk);
-
-[Severity: High]
-Could this cause an interrupt storm when background auto-reseeding is activ=
-e?
-
-The clocks are disabled here without writing 0 to STARFIVE_IE to mask the
-interrupt source. If an interrupt like SEED_DONE fires right as the clocks =
-are
-gated, the IRQ line might remain latched high.=20
-
-When starfive_trng_irq() runs, it checks pm_runtime_get_if_active() and
-returns IRQ_NONE without clearing the hardware interrupt, causing the IRQ to
-fire repeatedly and hang the CPU.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907031603.1884=
-83-1-lianfeng.ouyang@starfivetech.com?part=3D2
+Reviewed-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
