@@ -1,49 +1,80 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F7C94483A9;
-	Mon,  7 Sep 2026 09:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867333BFAD9
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 09:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788774384; cv=none; b=M6XszpAq+Q4/2Mbsutx4pWzx01QqL3F3xGG3SvDTO9gUfmipRQug2D9TqhRg3pOZ18FYqo7rz+TC+Sx5+Ya6eQ5mIwVKFjS3dH24bUipLOX+MH0PvaV3drKW68m6oRRtrEaEsbAq+ZKXPiAhpH5dARGczqUzNIPlxwcThuPy7mg=
+	t=1788774621; cv=none; b=Oj6pI62ned8OcQUpGNsf0c50QF45sJALB0dKbu80QRQ8hDV08pXAiU5dykHk3X14jnHQh745DN9urx69JDZVZGZuay1ZmE0M8inb7ZoAXmghJZl0AjI7YkhO12net5XTDZ3rz4kjwMp0k0fwY//8jyCv/4wWHOkFn90YsuGaZ0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788774384; c=relaxed/simple;
-	bh=nGTvvrUiHp0b1HJJHXA9pXkPc/mOBhA29s3WwxJqep4=;
+	s=arc-20240116; t=1788774621; c=relaxed/simple;
+	bh=jcSHuYkkSx/TOO3ELmd5fYDSVWMlRxHO2m5zczAIUrk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oXRYNN6LS5mrIfd+Tm5ydKLErWjTjpFJr+w97WHbxVDlyJtWJXWvZRuX7HapG+IocuMLaVJx9usM79/mTSdbgoFcsdTXfHV24ndNjDhH7O4V2qx/bIPzxXQhBdJjc3SKUu7JfNNeAIoxPVMLbhrkL0aCu0TKrUb2c/AAliYRVjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=jqBAko16; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=iP5fyInjnGqs2QvgZaNrBwMKGWWyVAdAXFGdG1dK+QnHLNICYujjuDL7TWN5naIN23sEN5fdsRsU6uHWDFfaezq+zHXHdsMQsbnaXcmamWKjqRlP+B7vy9Qj90R6ZvP+WaqiJiBA5tiWSau0jVAeWCvpOBUmhReKteXgCCbgI6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PpT4wpT4; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="jqBAko16"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id A0BBF1FDC8;
-	Mon,  7 Sep 2026 11:46:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788774380;
-	bh=2A/Nbd/sgxzMN3+ZeCUQZmfzW3dZ/qRtwKK82swN7eU=; h=From:To:Subject;
-	b=jqBAko162TWMJDxFqoY9VWo16uH8wShA8f4jgt5mJsuqzneYMm3R4YrZfC4hUCtgY
-	 SRldY8Gfcq/P0tCxwMxvw1lZCT8eV7NqThugNKHoiVrDtenovKJrMIs48PxdRMHHoh
-	 1IQo3jz4fzRUqtyj0Pmb3Z705ZAcXvTtJ2FcXibo4g6xaQMl1gj5vpYAo1zg8lkmTl
-	 gJXBCbwlenwJgkt5FKPGe3UI4huPN77l9awcwdjpWddUDOYX1WBVc7SO5m9ubQriWV
-	 Fy0kHJKHHg2nyhqbQJmpzSV7AYuJSEf7RNnRi2IRDkSL/ABd5SG1FxJ38JuJv73QkB
-	 eNrZpnzPOfNHQ==
-Date: Mon, 7 Sep 2026 11:46:16 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Franz Schnyder <fra.schnyder@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Franz Schnyder <franz.schnyder@toradex.com>
-Subject: Re: [PATCH v2 0/2] arm64: dts: freescale: imx95: Add ENETC port 2 in
- SGMII mode on Toradex boards
-Message-ID: <20260907094616.GA53628@francesco-nb>
-References: <20260907-add-enetc-port2-v2-0-e8f1f8b000c0@toradex.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PpT4wpT4"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48589798dbbso2717857f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 02:50:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788774616; x=1789379416; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Vkgu8toociZzIJhvAE7ca3qg7cytH4ujCtgPL1CR/5A=;
+        b=PpT4wpT4mFd2d38jNAW+wF0GW4DVAucy05Chn1/0p9K9I+LC9JC22yUCwnRi33T6Ic
+         H9BqKJWlpDHo6hkaI4F9xt0BpE4cJVDb4nhVXPEGvUjeaS3tU04ySYAu2FhH8om9ASLS
+         Pp8msgElpO3fDGnG6C1EH7KfTehjs1uUAaQAvloNAHD1uGb0lLrcWwrAHS5UPWfEJFbx
+         QpKRzUpkhFG+aTE4Ny/i3YvJNmLakG4X9Ul2bmsCbQTzUu891dkY5nSuji0WZgm42DWY
+         YNAnxcZBVbXe//jq363qVvrOrq7cEzQg7E4zjcmWtKqVOfPgDUphMpdHB06q6Z/h8jpy
+         qJSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788774616; x=1789379416;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Vkgu8toociZzIJhvAE7ca3qg7cytH4ujCtgPL1CR/5A=;
+        b=JnIN3Q1sHCl4BCt0Z0xxmknWBcr6L+lFhKt2NNexK6a8oAtXzx+ZB5ifbQ6eGo/2T4
+         nuQvlqjm+B3WQYDsDkFBfT+0Zt8bw6SA5NImdJCnuu3qfA4Zk9wmfPoCuIxO5crVr7Yh
+         AA20xPONJ6wnNO/s47ubSx/FPkv5uhIxOfTCBDKTVj6kWtDuFuSrs2Q0bkyygpR+LqV/
+         C3AK9J62ia1i5HX4HOiMMbbDY645gJJBNkURlCZiAe0pRXdtWUSblaufuMkETNXmcbxr
+         fdZMIvdkaT9oL/Ev3j9CUlBIIiRxvX9SUTIEE/KZaYv/1UHxmFPJLgq2e2q3/qKapkrK
+         qGCw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkD5dCNhPloHB42RIHbIVe5Iy3CvJmqQld2Q9UrzopHlSuycIFNHczj+V0B1RkviTr14Nf3V0PglAL@vger.kernel.org
+X-Gm-Message-State: AFuF++nvoOqHjQ6W1AUPaZmnU0tVvmxBMtc/cBQJPSTuQ2PkGqgAWMcN
+	F0HaHopAgzJcqWvxsXN8B7wPF5zhKK0DHubytkBDwiWvyP7caMPE5lDdNRGjmp2B0w==
+X-Gm-Gg: AYBFou0vAXmxjBd/wt5Dyc3ZOe3cI5+BrQWL21dxPgDqK7Ba+VPD/ABnfVEd9v1md0y
+	L5xWrTUsRcEPaQinK9FSzLwwwp8+ZbRWPD3wzOquncqSTJcTybSALbnKPTI356nifeJ03p6zpGe
+	xNypYnd6tguESeiFwh3Ok8XVZrIPe4KmxSHdGh6CAouIFryymmsN34bCQC0XXi/VnwRkBFbuETj
+	z4OhIA+XrugfJRw4gwRMZN0f4eWQu4JOE8hhaI/f4mMylg6hWSHDRkA/JSlnHe2BIl2frKXfpa1
+	RkgV5RnYIQhEUGjDsDj2jh1Dpeo5AgO7Ytw4rjP2tDplZcPH5AK5tQcWT+NYeWULs+k0BVy5uKf
+	5zac1ArGeFwELkkMo2N5yHbYPVGLprE6IpkrKOmE555ZbqZ0ttxOJHgYIzs20mRhKfzWEzVEJuv
+	izKu9KyCbrXGaO7GTTIdYYWvo4+Z/oDJyC6ClifmTXZ1SQnWAGQ7sMsoL/rHeh1G/6l7Mg5cPLx
+	u4SnClbQhrhQtNWrBg8jQEjHI8G1BqT
+X-Received: by 2002:adf:e18d:0:b0:485:8a46:7060 with SMTP id ffacd0b85a97d-4858a46720amr19581670f8f.50.1788774615795;
+        Mon, 07 Sep 2026 02:50:15 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d312ca0sm27142034f8f.4.2026.09.07.02.50.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 02:50:15 -0700 (PDT)
+Date: Mon, 7 Sep 2026 10:50:12 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: catalin.marinas@arm.com, will@kernel.org, akpm@linux-foundation.org,
+	sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org,
+	mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org,
+	thierry.reding@kernel.org, david@kernel.org, danielmentz@google.com,
+	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org,
+	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 01/10] memblock: Introduce MEMBLOCK_LLMAP
+Message-ID: <ap6I1FN_2ylRzFXH@google.com>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-2-vdonnefort@google.com>
+ <ap2_926WXr7uAYVX@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,16 +83,168 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260907-add-enetc-port2-v2-0-e8f1f8b000c0@toradex.com>
+In-Reply-To: <ap2_926WXr7uAYVX@kernel.org>
 
-On Mon, Sep 07, 2026 at 08:47:19AM +0200, Franz Schnyder wrote:
-> Add the ENETC port 2 on Toradex SMARC and Aquila iMX95. The port
-> is connected as an SGMII Ethernet interface.
+On Sun, Sep 06, 2026 at 10:33:11PM +0300, Mike Rapoport wrote:
+> On Wed, Sep 02, 2026 at 11:47:03AM +0100, Vincent Donnefort wrote:
+> > Keeping last-level mappings is interesting on some architectures as it
+> > allows mapping/unmapping pages from the kernel direct map without the
+> > risk of splitting blocks which, under the break-before-make rule, may
+> > trigger page-faults the kernel can't handle.
+> > 
+> > However, mapping the entire direct map at PTE-level is costly. So
+> > instead, create a new memblock flag MEMBLOCK_LLMAP to enable the system
 > 
-> Enable the reference clock on the modules and enable the PHY connections
-> on the supported carrier boards.
+> I believe MEMBLOCK_PTE_MAP sounds more descriptive.
+
+The idea was to have something close from NOMAP, to emphasis it is one or the
+other. But PTE_MAP sounds good too.
+
 > 
-> Signed-off-by: Franz Schnyder <franz.schnyder@toradex.com>
+> > to decide which region must be covered by mappings up to the last-level.
+> > 
+> > Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+> > 
+> > diff --git a/include/linux/memblock.h b/include/linux/memblock.h
+> > index d62db9e776cf..d40a5ded188d 100644
+> > --- a/include/linux/memblock.h
+> > +++ b/include/linux/memblock.h
+> > @@ -52,6 +52,7 @@ extern unsigned long long max_possible_pfn;
+> >   * kernel that we know is good to use. It is the only memory that
+> >   * allocations may happen from in this phase.
+> >   * @MEMBLOCK_RSRV_HUGETLB: memory is reserved for hugetlb pages
+> > + * @MEMBLOCK_LLMAP: memory region to be mapped using last-level mapping
+> >   */
+> >  enum memblock_flags {
+> >  	MEMBLOCK_NONE		= 0x0,	/* No special request */
+> > @@ -63,6 +64,7 @@ enum memblock_flags {
+> >  	MEMBLOCK_RSRV_KERN	= 0x20,	/* memory reserved for kernel use */
+> >  	MEMBLOCK_KHO_SCRATCH	= 0x40,	/* scratch memory for kexec handover */
+> >  	MEMBLOCK_RSRV_HUGETLB	= 0x80, /* memory reserved for hugetlb pages */
+> > +	MEMBLOCK_LLMAP		= 0x100,/* last-level mapping */
+> >  };
+> >  
+> >  /**
+> > @@ -160,6 +162,8 @@ int memblock_reserved_mark_noinit(phys_addr_t base, phys_addr_t size);
+> >  int memblock_reserved_mark_kern(phys_addr_t base, phys_addr_t size);
+> >  int memblock_mark_kho_scratch(phys_addr_t base, phys_addr_t size);
+> >  int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size);
+> > +int memblock_mark_llmap(phys_addr_t base, phys_addr_t size);
+> > +int memblock_clear_llmap(phys_addr_t base, phys_addr_t size);
+> >  
+> >  void memblock_free(void *ptr, size_t size);
+> >  void reset_all_zones_managed_pages(void);
+> > @@ -306,6 +310,11 @@ static inline bool memblock_is_kho_scratch(struct memblock_region *m)
+> >  	return m->flags & MEMBLOCK_KHO_SCRATCH;
+> >  }
+> >  
+> > +static inline bool memblock_is_llmap(struct memblock_region *m)
+> > +{
+> > +	return m->flags & MEMBLOCK_LLMAP;
+> > +}
+> > +
+> >  int memblock_search_pfn_nid(unsigned long pfn, unsigned long *start_pfn,
+> >  			    unsigned long  *end_pfn);
+> >  void __next_mem_pfn_range(int *idx, int nid, unsigned long *out_start_pfn,
+> > diff --git a/mm/memblock.c b/mm/memblock.c
+> > index 9ce86349a29f..1591b50503ed 100644
+> > --- a/mm/memblock.c
+> > +++ b/mm/memblock.c
+> > @@ -1119,6 +1119,16 @@ int __init_memblock memblock_mark_mirror(phys_addr_t base, phys_addr_t size)
+> >   */
+> >  int __init_memblock memblock_mark_nomap(phys_addr_t base, phys_addr_t size)
+> >  {
+> > +	struct memblock_region *r;
+> > +
+> > +	memblock_cap_size(base, &size);
+> > +
+> > +	for_each_mem_region(r) {
+> > +		if (memblock_is_llmap(r) &&
+> > +		    memblock_addrs_overlap(base, size, r->base, r->size))
+> > +			return -EINVAL;
+> > +	}
+> 
+> I'm not very fond of implicit skips here. memblock has no idea what's the
+> caller intention, maybe it actually wants to change the memory from nomap
+> to pte-mapped.
+> 
+> I'd rather warn in memblock_is_nomap() and memblock_is_llmap() if they both
+> are set and let the caller deal with making sure they are not.
 
-Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+ack.
 
+> 
+> > +
+> >  	return memblock_setclr_flag(&memblock.memory, base, size, 1, MEMBLOCK_NOMAP);
+> >  }
+> >  
+> > @@ -1204,6 +1214,45 @@ __init int memblock_clear_kho_scratch(phys_addr_t base, phys_addr_t size)
+> >  				    MEMBLOCK_KHO_SCRATCH);
+> >  }
+> >  
+> > +/**
+> > + * memblock_mark_llmap - Mark a memory region with flag MEMBLOCK_LLMAP.
+> > + * @base: the base phys addr of the region
+> > + * @size: the size of the region
+> > + *
+> > + * If supported by the architecture, such region is mapped at the last-level in
+> > + * the kernel direct map.
+> > + *
+> > + * Return: 0 on success, -errno on failure.
+> > + */
+> > +int __init_memblock memblock_mark_llmap(phys_addr_t base, phys_addr_t size)
+> > +{
+> > +	struct memblock_region *r;
+> > +
+> > +	memblock_cap_size(base, &size);
+> > +
+> > +	for_each_mem_region(r) {
+> > +		if (memblock_is_nomap(r) &&
+> > +		    memblock_addrs_overlap(base, size, r->base, r->size))
+> > +			return -EINVAL;
+> > +	}
+> 
+> same here
+
+ack
+
+> 
+> > +
+> > +	return memblock_setclr_flag(&memblock.memory, base, size, 1,
+> > +				    MEMBLOCK_LLMAP);
+> > +}
+> > +
+> > +/**
+> > + * memblock_clear_llmap - Clear flag MEMBLOCK_LLMAP for a specified region.
+> > + * @base: the base phys addr of the region
+> > + * @size: the size of the region
+> > + *
+> > + * Return: 0 on success, -errno on failure.
+> > + */
+> > +int __init_memblock memblock_clear_llmap(phys_addr_t base, phys_addr_t size)
+> > +{
+> > +	return memblock_setclr_flag(&memblock.memory, base, size, 0,
+> > +				    MEMBLOCK_LLMAP);
+> > +}
+> > +
+> >  static bool should_skip_region(struct memblock_type *type,
+> >  			       struct memblock_region *m,
+> >  			       int nid, int flags)
+> > @@ -2886,6 +2935,7 @@ static const char * const flagname[] = {
+> >  	[ilog2(MEMBLOCK_RSRV_NOINIT)] = "RSV_NIT",
+> >  	[ilog2(MEMBLOCK_RSRV_KERN)] = "RSV_KERN",
+> >  	[ilog2(MEMBLOCK_KHO_SCRATCH)] = "KHO_SCRATCH",
+> > +	[ilog2(MEMBLOCK_LLMAP)] = "LLMAP",
+> >  };
+> >  
+> >  static int memblock_debug_show(struct seq_file *m, void *private)
+> > -- 
+> > 2.55.0.970.g62bdec98f9-goog
+> > 
+> 
+> -- 
+> Sincerely yours,
+> Mike.
+
+-- 
+Vincent
