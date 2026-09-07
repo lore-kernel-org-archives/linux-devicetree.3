@@ -1,139 +1,228 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE31044161B
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C07A63AD51C
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771046; cv=none; b=B6/bODXoX752YxN72dAoj+qwP9EUsfxaztTcFBvXh+muQMNKYFKeH/MXjIsXV+/Uoba33rIMALSSv6TTdmpTJ3Lf9gUdklGTvSJAzMmrWydclNhiqNzJ1Ae3rVcwmydqQyACRlmzqLhp8EreRrTThfCNv6GPqUu4qMDnHZaH0yc=
+	t=1788771106; cv=none; b=OTk1kDdUsl/LdcyIQIn3jbuLwnd9ASi1u6ER8rwpTOqpxXmMFaYIPRgEoRS5BylG76slXEW7QB+fvLs7CD20m/kgOxITzixh88TJFmkjMrsfTqrUOsZzS/uhO1d1Oq69c0EoUfNZW6FzrfxIwbItHCnxYwjMzKQZwDaphqqeT7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771046; c=relaxed/simple;
-	bh=xmCTnONORML0xzQsXGPQJSnXopDASGXDpFKTtpfRy+I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=ZwYNRZ4Y6zP1V7zbPZ+476AXLOt53+zQdfgfxb4M48QryDo4WbMRJx33b1kGpmFVtKTrwFaN/ETQvyWsoJBm+fpmHNpy2hJp+nzR68GPQF3bvEwgV1dWvaDz8NiR2Kl1Txwq4LPVwmINwoECVSm3qKwWtmlcHU1s7RtCSptWiZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=qnDUqXXA; arc=none smtp.client-ip=203.254.224.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1788771106; c=relaxed/simple;
+	bh=zdIKMR0pzvgR2hPuSQc4Onv5LlxaOdBtuLlrLzv7btM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rHZsrhQJtqae3unluCzG61R/RBu67KCt9sSIna18+c0cS9F6QmtcY5U4UPWocbcdkSDdwiGrBSaETFwPhDY0pBSwFNdyx5IJ+SwlkZ8HNvcsSLb0WMoVJwdpH54pe9VvaQsDhlw/Ukog95iZGY9jBpwSQSk/BUCxT0iKh8pRkuU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I0Bpp7+E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="qnDUqXXA"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20260907085041epoutp030b70b165d0b53ddb0187fda59c4b20e4~S-cjhVZaW1086110861epoutp03K
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:50:41 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20260907085041epoutp030b70b165d0b53ddb0187fda59c4b20e4~S-cjhVZaW1086110861epoutp03K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1788771041;
-	bh=RFjqqtuQMHlIRw585Wn4nrpGsc9yhalulq9+ydGLu7Y=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=qnDUqXXADXQcaLnqfevPguIb1R/9rdh7a226I89ZUI3hHpgxUCG2wo9o+lGSmbG2l
-	 /pDaDBj/tFVhMDTP6x+tWpLO4iP3FFw6Xc5Jm2Xe7paNwEE75MKVhkmtkf5IKFNrtd
-	 D0lKe9QAmIu1SoPrA4oj3bjby4xpLTv5GvM7cu7k=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260907085040epcas5p11e00318dbcf56c67ee11afd79369faa9~S-ci_hk3f3212532125epcas5p1g;
-	Mon,  7 Sep 2026 08:50:40 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.90]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4hdgl346Sgz6B9mH; Mon,  7 Sep
-	2026 08:50:39 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260907085039epcas5p24c419437ae9644adc78521646b2f1728~S-chhk3rU1189311893epcas5p2O;
-	Mon,  7 Sep 2026 08:50:39 +0000 (GMT)
-Received: from [107.122.5.126] (unknown [107.122.5.126]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260907085036epsmtip189981f862ba2d77168178876da8696a5~S-ce6VyDH2067720677epsmtip1s;
-	Mon,  7 Sep 2026 08:50:36 +0000 (GMT)
-Message-ID: <792517c1-9970-44f2-8eff-2a87895cc37c@samsung.com>
-Date: Mon, 7 Sep 2026 14:20:35 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I0Bpp7+E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F49D1F00A3A;
+	Mon,  7 Sep 2026 08:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788771104;
+	bh=6GIJVoxKNNPpyAjjpYzGyqWLmc9nEdZDEOEO5olLE40=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=I0Bpp7+EPpmtvZivKbqjnEBtNlvjE5GLq0VxKoXyWsnfevmCwZSmh4KjNTnTOvkUi
+	 uD797L5iWsybUMZuU2tH65ScBmyLHZdrnZVLjhR1qjV0kmMqKYdESZz09oc4Ei+FER
+	 cNqHqBRwPKAFr83vvv4z3jx++mvBCO9JVutnGB5cf5+2Njt4pxJ+5EWAWHJ/pBz+Ca
+	 /4j0H2qkzelnQSKJWXbvSZ42JU7V2bmmxMDLCHgUarjhqPv9cW0PdqgjspyQmoNK+v
+	 1q8syMB7W7JXUEFtxkERHLbJv/IPIsXzL8bhwLtO0THuKjS989fwDhk/4dFiJT9zZd
+	 RLNs337biJQCg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 03/11] ASoC: SDCA: expose class SoundWire
+ probe/remove/read_prop as library
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907083727.733705-4-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-4-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 08:51:43 +0000
+Message-Id: <20260907085144.0F49D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] dt-bindings: usb: Introduce samsung,snps-dwc3
-To: Krzysztof Kozlowski <krzk@kernel.org>, peter.griffin@linaro.org,
-	alim.akhtar@samsung.com, gregkh@linuxfoundation.org, robh@kernel.org,
-	conor+dt@kernel.org, Thinh.Nguyen@synopsys.com,
-	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jh0801.jung@samsung.com, dh10.jung@samsung.com, akash.m5@samsung.com,
-	hongpooh.kim@samsung.com, eomji.oh@samsung.com, shijie.cai@samsung.com,
-	muhammed.ali@samsung.com, thiagu.r@samsung.com
-Content-Language: en-US
-From: Selvarasu Ganesan <selvarasu.g@samsung.com>
-In-Reply-To: <5629de34-1a63-40bf-8375-64be9a69eea2@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260907085039epcas5p24c419437ae9644adc78521646b2f1728
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260903071318epcas5p4b804edb84554847c576d1d034b814d7a
-References: <20260903071250.3421499-1-selvarasu.g@samsung.com>
-	<CGME20260903071318epcas5p4b804edb84554847c576d1d034b814d7a@epcas5p4.samsung.com>
-	<20260903071250.3421499-3-selvarasu.g@samsung.com>
-	<ad1d8c01-a810-443a-9ad5-721d6d0b68b1@kernel.org>
-	<e4bafeea-4548-41ef-b5e2-98ade2864e74@samsung.com>
-	<5629de34-1a63-40bf-8375-64be9a69eea2@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-On 9/7/2026 12:37 PM, Krzysztof Kozlowski wrote:
-> On 07/09/2026 08:04, Selvarasu Ganesan wrote:
->> On 9/5/2026 12:52 PM, Krzysztof Kozlowski wrote:
->>> On 03/09/2026 09:12, Selvarasu Ganesan wrote:
->>>> The Samsung Exynos8855 USB glue is not separate from the Synopsys DWC3
->>>> core, using a flattened model where the DWC3 controller is directly
->>>> addressable rather than nested as a child node of a glue layer.
->>>>
->>>> Describe the Exynos USB block as a single node, referencing the split
->>>> out Synopsys DWC3 core properties via snps,dwc3-common.yaml. The new
->>>> binding follows the same approach as qcom,snps-dwc3.
->>>>
->>>> A generic fallback compatible "samsung,snps-dwc3" is introduced to
->>>> describe this binding, selected by the validator based on the presence
->>>> of the fallback string in the compatible list. Future Exynos SoCs
->>> This is AI slop text. Over longish useless sentence describing diff
->>> without actual information WHY.
->>>
->>> Don't send AI generated slop messages.
->> Sorry for the misleading info on this commit message. We were trying to
->> explain why a separate flattened representation is being introduced with
->> using generic fallback string, and follow the style of some other DWC3
->> flattened refactors (like the Qualcomm :
->> https://lore.kernel.org/all/20250414-dwc3-refactor-v7-2-f015b358722d@oss.qualcomm.com)
->> to justify the separate binding, but it became too long. We'll simplify
->> it and keep only the technical reasoning.
-> Flattened node is the right approach, so just say this is the first
-> Samsung Exynos binding using flattened node.
+New issues:
+- [Medium] sdca_class_probe() queues an async work item but does not tie it=
+s cancellation to devres, creating a potential use-after-free hazard for ca=
+ller drivers on probe failure.
 
+Pre-existing issues:
+- [High] The PM runtime usage counter is permanently leaked if devm_pm_runt=
+ime_enable() fails during probe.
+- [High] The PM runtime usage counter is permanently leaked if the deferred=
+ boot work is cancelled before execution.
+- [High] The return value of sdw_slave_read_prop() is ignored, masking pote=
+ntial memory allocation failures and leaving properties uninitialized.
+- [High] If the runtime force suspend fails during a system suspend transit=
+ion, the device's interrupt is left permanently disabled.
+--
 
-Thanks for your update.
-We will update the commit message as follows and post a new patch set.
-And We are assuming that all other points including the clock count and 
-the generic fallback compatible (samsung,snps-dwc3) are fine.
+commit 1cb538c9d508b4520bb99ff1157d3ff8f38843e9
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
+ASoC: SDCA: expose class SoundWire probe/remove/read_prop as library
 
-dt-bindings: usb: Introduce samsung,snps-dwc3
+Split the internal class_sdw_probe/class_sdw_remove/class_read_prop
+functions into caller-friendly library helpers. The class_sdw_probe and
+class_sdw_remove callbacks of the built-in class_sdw_driver are now thin
+wrappers that defer to the exported helpers.
 
-Add the Samsung Exynos8855 DWC3 binding using a flattened node
-representation, where the DWC3 controller is directly
-addressable rather than nested as a child node of a glue layer.
+> diff --git a/sound/soc/sdca/sdca_class.c b/sound/soc/sdca/sdca_class.c
+> index 88a29116a334e..b952fa6eb802f 100644
+> --- a/sound/soc/sdca/sdca_class.c
+> +++ b/sound/soc/sdca/sdca_class.c
+[ ... ]
+> @@ -24,7 +24,15 @@
+> =20
+>  #define CLASS_SDW_ATTACH_TIMEOUT_MS	5000
+> =20
+> -static int class_read_prop(struct sdw_slave *sdw)
+> +/**
+> + * sdca_class_read_prop - fill SDCA-common SoundWire slave properties
+> + * @sdw: SoundWire slave
+> + *
+> + * Exported so codec-specific SoundWire drivers can invoke the SDCA
+> + * common property setup from their own sdw_slave_ops.read_prop, and
+> + * then apply codec-specific overrides inline.
+> + */
+> +int sdca_class_read_prop(struct sdw_slave *sdw)
+>  {
+>  	struct sdw_slave_prop *prop =3D &sdw->prop;
+> =20
+> @@ -36,9 +44,10 @@ static int class_read_prop(struct sdw_slave *sdw)
+> =20
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_NS_GPL(sdca_class_read_prop, "SND_SOC_SDCA_CLASS");
 
-This is the first Samsung Exynos binding using the flattened
-representation. The existing samsung,exynos-dwc3 binding describes the
-parent and child representation used by existing Exynos SoCs, which can
-be migrated to the flattened model.
+[Severity: High]
+This is a pre-existing issue, but is it safe to ignore the return value of
+sdw_slave_read_prop() here?
 
-Use the samsung,snps-dwc3 fallback compatible for Samsung Exynos SoCs
-sharing the same flattened model can be added by extending the
-compatible enum with per SoC clock and property constraints.
+If sdw_slave_read_prop() returns -ENOMEM upon memory exhaustion, ignoring it
+might cause the SoundWire core to unknowingly operate on uninitialized
+properties (e.g., null pointers for src_dpn_prop), leading to null pointer
+dereferences during enumeration.
 
-Thanks,
-Selva
->
->
-> Best regards,
-> Krzysztof
+[ ... ]
+> @@ -185,14 +205,47 @@ static int class_sdw_probe(struct sdw_slave *sdw, c=
+onst struct sdw_device_id *id
+> =20
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_NS_GPL(sdca_class_probe, "SND_SOC_SDCA_CLASS");
+
+[Severity: Medium]
+Does sdca_class_probe() create a use-after-free hazard for caller drivers on
+probe failure?
+
+If a caller allocates sdca_class_drv via devm, calls sdca_class_probe(), and
+encounters an error before its own probe finishes, the async boot_work is l=
+eft
+queued:
+
+    queue_work(system_long_wq, &drv->boot_work);
+    return 0;
+
+If the caller unwinds its devres allocations without manually cancelling the
+work, the background class_boot_work() could dereference the freed drv poin=
+ter.
+Should a devm action be added to guarantee the cancellation of boot_work?
+
+[Severity: High]
+This is a pre-existing issue, but does sdca_class_probe() leak the PM runti=
+me
+usage counter if devm_pm_runtime_enable() fails?
+
+In sdca_class_probe(), pm_runtime_get_noresume(dev) increments the usage
+counter. If devm_pm_runtime_enable(dev) fails immediately after, the functi=
+on
+returns directly without calling pm_runtime_put_noidle() to decrement the
+usage counter:
+
+    pm_runtime_get_noresume(dev);
+
+    ret =3D devm_pm_runtime_enable(dev);
+    if (ret)
+        return ret;
+
+Could this permanently prevent the device from entering runtime suspend?
+
+> =20
+> -static void class_sdw_remove(struct sdw_slave *sdw)
+> +static int class_sdw_probe(struct sdw_slave *sdw, const struct sdw_devic=
+e_id *id)
+> +{
+[ ... ]
++
++/**
++ * sdca_class_remove - SDCA class SoundWire slave remove helper
++ * @drv: caller-owned sdca_class_drv (the one handed to sdca_class_probe()=
+).
++ *
++ * Cancels the deferred boot work so devres can safely free @drv and the
++ * embedding codec priv without racing class_boot_work.  Codec-specific
++ * SoundWire drivers that call sdca_class_probe() must call this from
++ * their .remove with the same drv pointer they passed to probe.
++ */
++void sdca_class_remove(struct sdca_class_drv *drv)
++{
+>  	cancel_work_sync(&drv->boot_work);
+>  }
+> +EXPORT_SYMBOL_NS_GPL(sdca_class_remove, "SND_SOC_SDCA_CLASS");
+
+[Severity: High]
+This is a pre-existing issue, but does this leak the PM runtime usage count=
+er
+if the deferred boot work is cancelled before execution?
+
+sdca_class_probe() increments the PM usage count via pm_runtime_get_noresum=
+e().
+The decrement exclusively occurs inside the deferred class_boot_work(). If =
+the
+device is removed and cancel_work_sync() successfully prevents the work from
+running, the return value of cancel_work_sync() is ignored and the decrement
+never occurs.
+
+> +
+> +static void class_sdw_remove(struct sdw_slave *sdw)
+> +{
+> +	struct sdca_class_drv *drv =3D dev_get_drvdata(&sdw->dev);
+> +
+> +	sdca_class_remove(drv);
+> +}
+> =20
+>  /**
+>   * sdca_class_system_suspend - SDCA class system suspend helper
+
+[Severity: High]
+This is a pre-existing issue, but does sdca_class_system_suspend() leave the
+device's interrupt permanently disabled if runtime force suspend fails?
+
+In sdca_class_system_suspend():
+
+    disable_irq(drv->sdw->irq);
+
+    ret =3D pm_runtime_force_suspend(drv->dev);
+    if (ret) {
+        dev_err(drv->dev, "failed to force suspend: %d\n", ret);
+        return ret;
+    }
+
+If pm_runtime_force_suspend() fails, the error is returned immediately and =
+the
+system suspend transition is aborted. However, enable_irq(drv->sdw->irq) is=
+ not
+called in this error path, which might render the device unresponsive to
+interrupts.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907083727.7337=
+05-1-srinivas.kandagatla@oss.qualcomm.com?part=3D3
