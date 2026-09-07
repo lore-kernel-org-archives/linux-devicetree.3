@@ -1,123 +1,95 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCA9340401;
-	Mon,  7 Sep 2026 08:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDB3441630
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788771371; cv=none; b=m1+O9igUlCLIttphFUGu3jDV8t0fKjfy/EIBvyfCSv/KG7bVsJWArjpT9Vw8MgP9Lt68gIqrjaZersfcSqEUTzhy3kCXdLyOMVZHm+qxIlPeAiXx3o7TcwuPh8sd+VBV1lvtYYDT3794Rl/eX5J4lOfY3ID93FeW9eJJ/gOr/k4=
+	t=1788771390; cv=none; b=s+yrWCy9Z6FAmmBs6T7D+svE2fXBVOoXPAzoZ7sJpLs2zAGQhYazaiUrpDJRGfkVuE1Evj4pKpopvcs+7oNxrBneYLTDDTMa585zPcpwJKYgrTxPLLVGM4UNrR2D5q1J0LOl4KxWHpsRYElLXX9T3TH1M5s/Wee6g1g2rvR5ynk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788771371; c=relaxed/simple;
-	bh=LPy1QYj8h9WRnPhuSyM1KA02fpP7BZQ1RBj0j9dXDU4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Jzb+uazZkcJUULwJpfYADIpkAvoNLLWAE+aca+31ZMzBIGAcPBdQEUpSPSDeISZ3KIOCq7/VdeRp8rbHyogUELmi0a+7fSrPrptGz3y6aB3Leb0dC5IqMtnVONXMpaWuKAezVCjdfH/4fsZ8i8TxUFPVvXYrKWXVvP7Im6bijGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ao+klHHt; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788771390; c=relaxed/simple;
+	bh=NcdhYVJ1sqD6GxHNNwAR3QRx5R4g4B6CwdOSnnBEoVo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t2vajdpzSSSb6RIhxY2oThNqe107BFlGZN7lFPW/Gli0e3/JNLM8deHwjq1wSt+aBXX/U28XvunV4IbAtzDvA9dHa234r9S19rMgLVucBB4ditvXPjigSnqg8+J/QCPIkLpN3cpwOBvm9vH161v8wuMslFTiM2N2WuzUtaDqGkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DGZWsrjw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ao+klHHt"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C1D2B981;
-	Mon,  7 Sep 2026 10:54:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788771271;
-	bh=LPy1QYj8h9WRnPhuSyM1KA02fpP7BZQ1RBj0j9dXDU4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=ao+klHHtf0/LfqLHlZZsRvu5FjcZ5G4MGfV3Mu8A+jh2dmln7YeResjoTX3Ejhqij
-	 gTbpyBHSlMWDjb3PInlaB9+mD8Mi215zof4DLpy6pk7jkoSOK/byrzormqveKyX14C
-	 2MPo75RzokQo8TM/uTDob0+4zHEy4nw9GIowQxJU=
-Message-ID: <7be9a590-2c27-4725-89eb-dad9dc3632b9@ideasonboard.com>
-Date: Mon, 7 Sep 2026 11:56:01 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DGZWsrjw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB49B1F00A3A;
+	Mon,  7 Sep 2026 08:56:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788771388;
+	bh=+kCET2imxK2yZdAtfBULqHqcD+wl7rtzT8UIyH6zyQg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=DGZWsrjwLF/nDN3doeIs1WZTEPr9v/l9rAY7KqBnUsLBRKg9X34D2l2kFrJTPibDR
+	 hqsXi4UHyU/Zoc+PIj2ZNwxPhpJRki9YCQ4wJdaQybYjzId+9ThGqkn93nPEZg6Mfd
+	 Murz6L/V19JHdO1x61ovPfhTTSkQvLE9a9EV7hsZDp+GZ8b4plbE9AKUQR0Bgx5PWQ
+	 NgjP2skTW6P1FOsvOBwS4WKsAjORdsbyrlq5Q5bETDxSSdRzP9y73zlXQGUVooMk+p
+	 mQobL+1/HGW9pLpk7FUHgwpTHiWDgeAv/k5f0Qx59gS2imm33ZXx4xCyy6RQREOsI+
+	 XMHUGTDyclCFw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 10/11] dt-bindings: sound: qcom: add Tambora WCD9378
+ SDCA codec
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907083727.733705-11-srinivas.kandagatla@oss.qualcomm.com>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-11-srinivas.kandagatla@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 08:56:27 +0000
+Message-Id: <20260907085627.BB49B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 4/7] drm/rcar-du: dsi: Support DSC in the pipeline
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
- Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-References: <20260615-rcar-du-dsc-v5-0-aed1a28610e4@ideasonboard.com>
- <20260615-rcar-du-dsc-v5-4-aed1a28610e4@ideasonboard.com>
- <20260702212423.GA3662157@killaraus.ideasonboard.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260702212423.GA3662157@killaraus.ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The vendor-specific compatible string violates the strict SoundWire=
+ bus schema pattern constraint.
+--
 
-On 03/07/2026 00:24, Laurent Pinchart wrote:
-> Hi Tomi,
-> 
-> Thank you for the patch.
-> 
-> On Mon, Jun 15, 2026 at 04:11:57PM +0300, Tomi Valkeinen wrote:
->> Enabling DSI clocks on rcar-du needs some tricks as the DU dot clock is
->> provided by the DSI. Thus, we call rcar_mipi_dsi_pclk_enable() from the
->> crtc, when enabling the crtc.
->>
->> With DSC (added in upcoming patch) in the pipeline, between the DU and
->> the DSI, the above call path is broken as the crtc tries to call
->> rcar_mipi_dsi_pclk_enable() on the DSC.
->>
->> To solve this problem, make sure we store the DSI bridge to the
->> rcdu->dsi[] array, instead of the first bridge in the DSI pipeline
->> (which can be DCS), by checking the bridge's bridge->type.
->>
->> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
->> ---
->>   drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c | 18 ++++++++++++++++--
->>   drivers/gpu/drm/renesas/rcar-du/rcar_mipi_dsi.c   |  1 +
->>   2 files changed, 17 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
->> index db2088529b48..ac85838ab3b8 100644
->> --- a/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
->> +++ b/drivers/gpu/drm/renesas/rcar-du/rcar_du_encoder.c
->> @@ -89,9 +89,23 @@ int rcar_du_encoder_init(struct rcar_du_device *rcdu,
->>   				drm_bridge_get(bridge);
->>   
->>   		if (output == RCAR_DU_OUTPUT_DSI0 ||
->> -		    output == RCAR_DU_OUTPUT_DSI1)
->> +		    output == RCAR_DU_OUTPUT_DSI1) {
->> +			struct drm_bridge *dsi_bridge;
->> +
->> +			/*
->> +			 * When we have a DSC block between the DU and the DSI,
->> +			 * the "bridge" points to the DSC. Detect the DSC by looking
->> +			 * at the bridge type, and skip the DSC if the bridge is not
->> +			 * the DSI bridge.
->> +			 */
->> +
->> +			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
->> +						     bridge :
->> +						     bridge->next_bridge;
-> 
-> The indentation looks weird.
-> 
-> 			dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI
-> 				   ? bridge : bridge->next_bridge;
-That looks even weirder, you are associating = and ? there. What about:
+commit 21a3dc5b2580f691e90cc1ec8c4f97f3b064cd1b
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-dsi_bridge = bridge->type == DRM_MODE_CONNECTOR_DSI ?
-	     bridge : bridge->next_bridge;
+dt-bindings: sound: qcom: add Tambora WCD9378 SDCA codec
 
-  Tomi
+This commit introduces the device tree binding schema for the Qualcomm WCD9=
+378
+(Tambora) SoundWire codec in SDCA compute mode.
 
+> diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yam=
+l b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+> new file mode 100644
+> index 0000000000000..9a6c309018edd
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+[ ... ]
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: qcom,wcd9378c
+> +      - const: sdw20217011000
+
+[Severity: Low]
+Does this vendor-specific compatible string pass validation against the
+SoundWire bus schema?
+
+When dt-schema processes a device tree using this binding, the parent node
+matches soundwire-controller.yaml. That schema dictates that child nodes
+matching ^.*@[0-9a-f],[0-9a-f]$ must have a compatible property matching the
+regex ^sdw[0-9a-f]{1}[0-9a-f]{4}[0-9a-f]{4}[0-9a-f]{2}$.
+
+Because dt-schema enforces string constraints on all items within a
+compatible string array, the presence of the qcom,wcd9378c string appears
+to trigger a validation failure during make dt_binding_check.
+
+Should soundwire-controller.yaml be updated to explicitly allow standard
+vendor,device strings alongside MIPI SoundWire IDs, or does this vendor
+string need to be removed?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907083727.7337=
+05-1-srinivas.kandagatla@oss.qualcomm.com?part=3D10
