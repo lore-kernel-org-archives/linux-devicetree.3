@@ -1,174 +1,123 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53587501F30
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:22:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71C344FDE7F
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:23:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788794567; cv=none; b=kHxdAwI/NA5agScYSEx0dKzHUNehkWaj0WX7STSehSjPad17LgYC7AktAXfCIODG/4W6Wu3W6KPTka5kDeMpiL6qzOcjcsng+EQ56X9PNu3YmzaOxG70QIYnr/E8tGyD7rATUrpn8FzcKYvWadkt1DD9WZTZKzS9+BbZsRFofN0=
+	t=1788794593; cv=none; b=jzinaX/+ZLKhYPElh9gC5H06LEpPeV4VKRQ+STLTVXKWgDnE1BKHUO+Ho9190KGrCmv9NuZ7JLxu8HYPxHx3Au/4BGZuDCzxLojk0f/UXOTv7FjxTivDnML0SFixrn1oIfhjAZPcjCRDR+DRSHVmbfjb3WqSMk2oJ1CYM60eE5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788794567; c=relaxed/simple;
-	bh=jmfCKOrsEAkeGu4GxNdLlIPtSWNSStX+SxoQ8W3mBP0=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=HKhg43pdxN4yDpCyOIPJOx1EUp/eP3sS/L79spQ39kqUp8ZZgzp2aKTxGzQlcnpzhUipZKfe/ZmJ+fi5CWFpnc+yr1S0YZivKAqcAWFflq2RDUY4osXpZX1lrF8B69fyef74UZblhh70A7E7lxXHESjMBQQ8gPVs0zCyCQVuGBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Zyr6KoKX; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1788794593; c=relaxed/simple;
+	bh=rRqt2DkRwkgR8tWQwQ/ymaqvmLFKJ2cuYcMhprDy/xg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RDFUP66nCi+AehrXxysUdPTNFgcz8YweAfhIb/Mr54Em3uCEre/kbWBSvGeeG2bEyBof9ocMGjZ5nzlFjpKBOejtdgKhbFrM7vdf5B2HnEJDjnDTkXLK7JhzsiqJz78/ERn25XzJIEyGTIxQDyel1jPG76tl0esgR5kIG0hQGjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D6QjMjbR; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Zyr6KoKX"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49d0d2d37ceso8897085e9.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:22:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D6QjMjbR"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso55571735e9.2
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:23:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1788794564; x=1789399364; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=X5xsM2PpkE3MzX+tsKcHsoYtIZRtT3xChs4/YMhT9N0=;
-        b=Zyr6KoKX5ns6XsCuWwRXFOJKSZPUFP6fwJXE+ITi7WYbpdwS3OyZb69/QQDCJCv45y
-         HE0VinUJs/LVdoloKO/xinKV0fVZrXAKeGKw/DNEUzvrmQgqETkg+BjEC5dWyLPC/LrL
-         YJO82YnwdUMpfvmLW27beD/qceIQ3hVXZUD7QxEIcB+C9Dz615RbpUzjbKydkyaxmbZd
-         5NF+ooQNYF+3y+UTuiGP0HDhcktm0qQpBLY8//QqJgz/5gte3NLrncqGKTdQp2kou4fC
-         LkO3KuXeNxjYjxu4WD1G/O3LHpA0wIWSUEhQkyLIaCogfVyawL5ToZpd0o4OrFqdeBur
-         oh4w==
+        d=gmail.com; s=20251104; t=1788794590; x=1789399390; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LGXRLOWBLjDeRkzuVxlsTvsrgZVPRLz7bQm8bEcHaDA=;
+        b=D6QjMjbRdcBVAavHOtnn8BrmBzuj7cJXHuTatURtV7qyXHGgecRMEUELQnaJR5SE+3
+         ckmQUo+otiY6YfzQjb56m/tc3Ysi6WFVII8eedNuibGMrf+0If+AwJPhoOKaJjCG0vMF
+         mRDFkQ2llRF7e2JJ/r53ZqpmnW/ABsU8TFhPYgu/8kGt/yj0vCIT69mPDrYgAPIN3d3l
+         UL0CgmTgZSxQzpnJwYldm+dxa/rptcncuqPn8zkUa5QxbSBLTeZLACugsndGwehUgIuc
+         olwzvnwJfpJ18Q34Grf42Q/bOvLttQwKeLfvRZI3te8L3Q/ugpgDHyQErE58bAmPlrMH
+         D8Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788794564; x=1789399364;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=X5xsM2PpkE3MzX+tsKcHsoYtIZRtT3xChs4/YMhT9N0=;
-        b=drI2Z0RJ9qu9L/Oca9mXCfrrJRon6Z0EPHVlC1yYWOXnhjqfyN4t1hdt74ZXFBeONZ
-         0mFywayI6zCmTMxD1DTcLLvsvcctr3WYnutoBI5+mapF8cgSRmO5SJn0dOnzG8nqr/Je
-         iyq/jxJMfNqrLMcoWZ1GNDnv9YdRenZiPv/UaBqB0O5vF+KxVqNieqciEzTxfcKbzjGc
-         tIGUSfSsRI4KrggZxPOUD8i93U+oT4NM7sirBGfts7y64N2CabudSkfvRWAdzzKdtDFm
-         b9U5d5U1ydsytu9iUgR/YpqL3FqVb+m1QnHeHBK3IBGVe7yx8/AuqonnFBU5AoaPQrY/
-         zsow==
-X-Forwarded-Encrypted: i=1; AKwUvBzV2GUN6cH9pMCjx4ZnwTrWl7ss+knUYh4YOz96MizTUlusuztG1XAqwT/Nr593mkm1znb2Fv4xWNKK@vger.kernel.org
-X-Gm-Message-State: AFuF++nYrWx7nZkDmptvjcf7DNyWHUb6s87/ZHcZCw8fjaszwV2r8k/T
-	McVCNnyIbLzkRZ0yS4mQ+NHdbCI9j4H/K1mxDqbL3cS9RwbhJEpzoO1DAwYx6ZCicbR+H/k8ZoX
-	jivZ1euU=
-X-Gm-Gg: AYBFou2nE/ekAa0DXZmazM8c8Py/rlEeAqaaiwWH7qEM8SBEKpbRCTCe2F7GZxqTQ1y
-	T8XgZfHh2xV2UCBlrjDWQLbmEdq1+Th9aFehIwGQLYLzePvviUWTGphdjuqSmenUuB1QYiYmTlV
-	AfqlpEMSI6pdAAVHJSKR7B3S/+Jw/k2edjMVTZUP8jdzSzOBpdJCLitfd+jEfqNiqf4u2x4jj4o
-	NDokgwUIqa0wE8Rv9n9U8wC97SgfVeZD0/sL4MpT2zIwvoiZdsbrsV1cbJVBvnyWiTo/nASYwlg
-	MGexZJPAuFp+m91Is3PRdqT3Mvbt6xWeg5XkziowUZrXyqF4h0OYtwozgS4pGNnLdtt0uV3Li2T
-	+FC0uIJdsKEbsniGtaDsQU0BWF8ve37JtOtXpQkzs2iUWasSlk+Fs8Hz4eat7A8dkh+lC03UrLx
-	B0EIflHuoooZOEh7CWqBTGbkyVFNjoOHBhGXK6objWruhC/ylEyczB3ya9vf0NtdokIOyU6rTbB
-	uzIZVhsE7hwMM7K9BwCtkN6nNCT/KLH
-X-Received: by 2002:a05:600c:3b99:b0:499:bf0e:95c8 with SMTP id 5b1f17b1804b1-49cf81fb72amr250088355e9.1.1788794564491;
-        Mon, 07 Sep 2026 08:22:44 -0700 (PDT)
-Received: from [192.168.7.218] (82-230-44-19.subs.proxad.net. [82.230.44.19])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49cfbdacc45sm288319375e9.11.2026.09.07.08.22.43
+        d=1e100.net; s=20251104; t=1788794590; x=1789399390;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LGXRLOWBLjDeRkzuVxlsTvsrgZVPRLz7bQm8bEcHaDA=;
+        b=QA9H2kVq573j+wO0UuqNt6jD7qeEWlevXdQqGZO1raQ+C0gdW8I6APYYaX3PVCjtGb
+         FMAm9IevaMfX8OpotlI9jH0wHo16FmaW3KatuHyG536j7lDgl2OMPeX641ADn7YEZozC
+         xmfD0wpgSV8GENVtO/7Qz699QW2BNzI6w1WTtU0ElV6UfXV7ZKOBJIgkyhxOUUcP1k86
+         DubDlONMztH0Df7RvThdKEqhHojmm9TrHrjjvsit9WltrmC29SJmqqY+ZPYDddBdWu6H
+         YF6HTUu0a6oIVt5+J+576up4yukAxaMMqDRn0ZRQ6wgwtSSMQdPF/bH0srhz17ocW9uP
+         1pBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbV/Zk73SvkDiKvfN8Inb6FmG5X+mK/lxHMNOoQi6konHuwh83Znr9fvwUkvkeM6i1g3k8J6B2aoli@vger.kernel.org
+X-Gm-Message-State: AFuF++naWth0h7ynKaydBCkexgfm4NR/FwIIrPpcnJnqAzT+km0wvSrF
+	7Ks1GEv6bHmEP5Vz0OCAMLt5g4e2v2sJH2s1fxGQ68tPJ/Lze2RoQZ+u
+X-Gm-Gg: AYBFou0elj/4Gn0KVr4dku7oXH1g5j/R9nYoxHjPEuM6eLW1Xq4xT4yDOVUjvfIu7qI
+	RyO8k5KJJR0rLajcAx+hWOSIZQXsxDNK+n7mjnu0BWwvJOjvWdX+Z/MEkchlJONcCjzYqkv1qxc
+	x5ppKj5wQFiJnW3+vRqYeoWorXK4kX7Oa/u+PIQkT1jT3t128hgyKFGuZmplV7+Tb4GaS4Bxk0P
+	u2hcdDxeQQb1evMBj/X67DTCAh33J8hz6omUJS3x5Y9lv5MUBwbUKTAw5gEjSzXYzQ4hc6MdkCL
+	oB75CKFCgpMk+MjWaZ2rXrnEUr4VxQSGSHXpU1t2Q0zdSm7FaTPsF8S4FhnRmxtaLEccGnGwpp8
+	pXFwUovFrkqrVSurqOK/KInBy5JudQjiJX0b2MPncpLHX4CICNRhX+buv/1v1o1viLG0FfPWrRG
+	rpKnILc4VqMWa5dkovP7W4rwqjcAhmA28aY+cW03JRZAaF9+QUIywyYNnjURTNk9waDPqb2iHsU
+	wJecBYhwMnkj749+EQy4xYQ4G1zpsG19PEwkqWoTQ==
+X-Received: by 2002:a05:600c:4e89:b0:49c:fa21:1c81 with SMTP id 5b1f17b1804b1-49cfa211d6bmr203694125e9.22.1788794589574;
+        Mon, 07 Sep 2026 08:23:09 -0700 (PDT)
+Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm413785375e9.4.2026.09.07.08.23.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 08:22:44 -0700 (PDT)
+        Mon, 07 Sep 2026 08:23:08 -0700 (PDT)
+From: Flaviu Nistor <flaviu.nistor@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Antoniu Miclaus <antoniu.miclaus@analog.com>
+Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v3 1/2] dt-bindings: iio: adc: ti,ads1015: Add label property
+Date: Mon,  7 Sep 2026 18:23:03 +0300
+Message-ID: <20260907152304.4992-1-flaviu.nistor@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v4 3/4] pwm: meson: use bulk API for per-channel clocks
-From: Alexandre Mergnat <amergnat@baylibre.com>
-To: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org
-In-Reply-To: <20260827-s6-s7-pwm-v4-3-d28a2015177d@amlogic.com>
-References: <20260827-s6-s7-pwm-v4-0-d28a2015177d@amlogic.com>
- <20260827-s6-s7-pwm-v4-3-d28a2015177d@amlogic.com>
-Date: Mon, 07 Sep 2026 17:22:44 +0200
-Message-Id: <178879456435.2256446.2005394820666057840.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2432; i=amergnat@baylibre.com;
- h=from:subject:message-id; bh=jmfCKOrsEAkeGu4GxNdLlIPtSWNSStX+SxoQ8W3mBP0=;
- b=owEBbQKS/ZANAwAKAStGSZ1+MdRFAcsmYgBqntbFBsgbKyAhkkOJh84p2SvPyoyzSRQxstw9D
- 3A9Z/x836eJAjMEAAEKAB0WIQQjG17X8+qqcA5g/osrRkmdfjHURQUCap7WxQAKCRArRkmdfjHU
- RemCD/9wGgVpKIFJRn8V0zICx86yvsAf6Pfmw2+t+HFAw/vPmcYJU+bEl+gXhNs+6LadQTaWZgP
- Vf5un+G+NE2CloSjsUmEkSlIUP2vxAhKXYup9NC3Lq399aqtzRnP5BqTrJp2rQQ/JeX5s0fDCna
- 4EdhFl0ZMgzvr32vurCm44ZywSUGEWiKuGh6t5/0ApKOt0hubBGyc5h8jB5cxAumR9ovgGQ8xUy
- a0dKoglN5NWtk5FQNyrkDOKGIGoPTv7FBx7/ejivTWfRVvmA3EszeGZZ0SGykbdPVj0a9B5vnQE
- agxxO7E1xb7Uxlc9y7Dfgspf3eNU+8j8vIitR0BGPubc+0g1M/X1nwiBLcGCdnqcG83PZgnTuhg
- lxf9rLZcSQTDlxb7016YbagASF6TYHqdoRpHvg5olFqs+3+Xi4Qzd6Y768geLSEsb0J15Xg6+9o
- ytO7ADXO155fq9rdpIZBvIDekDlvfTGW91Naur8Qb3jAAq7NHTVvAkRkUeMRPgz7R6egwCGaGoS
- NX0uBEDW1vmlya4cdM5iMGhR1Jq5javGzdX5N1mF5gxmCiFjpkCMYLG6h6KedB0wg9SRRtm+p03
- VKjXhlKgR9SKCbnjfFZFUUOlugy5dbqSGld55eFhblnv4GNTPndXjvQ49fK9A64ZuhFLSAsdBVt
- 9XRe2nETnLlSo1Q==
-X-Developer-Key: i=amergnat@baylibre.com; a=openpgp;
- fpr=231B5ED7F3EAAA700E60FE8B2B46499D7E31D445
+Content-Transfer-Encoding: 8bit
 
-> The S4 PWM driver currently gets each channel clock individually with
-> of_clk_get() and uses a custom cleanup action to release the clocks.
-> 
-> Use devm_clk_bulk_get_all() instead to retrieve all per-channel clocks
-> at once. Verify that the number of clocks matches the number of PWM
-> channels and assign each clock to its corresponding channel.
-> 
-> This also allows the per-channel clock initialization code to be shared
-> by Meson PWM variants using one clock per channel.
-> 
-> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->
-> diff --git a/drivers/pwm/pwm-meson.c b/drivers/pwm/pwm-meson.c
-> index 22cefc6d5dd0..6f151464d7cc 100644
-> --- a/drivers/pwm/pwm-meson.c
-> +++ b/drivers/pwm/pwm-meson.c
-> @@ -497,33 +497,25 @@ static int meson_pwm_init_channels_meson8b_v2(struct pwm_chip *chip)
->  	return meson_pwm_init_clocks_meson8b(chip, mux_parent_data);
->  }
->  
-> -static void meson_pwm_s4_put_clk(void *data)
-> -{
-> -	struct clk *clk = data;
-> -
-> -	clk_put(clk);
-> -}
-> -
-> -static int meson_pwm_init_channels_s4(struct pwm_chip *chip)
-> +static int meson_pwm_init_channels_per_channel_clk(struct pwm_chip *chip)
->  {
->  	struct device *dev = pwmchip_parent(chip);
-> -	struct device_node *np = dev->of_node;
->  	struct meson_pwm *meson = to_meson_pwm(chip);
-> -	int i, ret;
-> +	struct clk_bulk_data *clks;
-> +	unsigned int i;
-> +	int num;
->  
-> -	for (i = 0; i < chip->npwm; i++) {
-> -		meson->channels[i].clk = of_clk_get(np, i);
-> -		if (IS_ERR(meson->channels[i].clk))
-> -			return dev_err_probe(dev,
-> -					     PTR_ERR(meson->channels[i].clk),
-> -					     "Failed to get clk\n");
-> -
-> -		ret = devm_add_action_or_reset(dev, meson_pwm_s4_put_clk,
-> -					       meson->channels[i].clk);
-> -		if (ret)
-> -			return dev_err_probe(dev, ret,
-> -					     "Failed to add clk_put action\n");
-> -	}
-> +	num = devm_clk_bulk_get_all(dev, &clks);
-> +	if (num < 0)
-> +		return dev_err_probe(dev, num, "Failed to get clocks\n");
-> +
-> +	if (num != chip->npwm)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				"expected %u clocks, got %d\n",
+Add support for an optional label property per channel similar to other adc
+chips. This allows assigning distinct names for each channel which can
+match the schematic signal name.
 
-Small style nit: the continuation arguments are not aligned with the open
-parenthesis, whereas the dev_err_probe() just above and the rest of the driver
-do align them. Can you fix it please ?
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+---
+ Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-After that,
-Reviewed-by: Alexandre Mergnat <amergnat@baylibre.com>
-
+diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+index 718f633c6e04..777a75c21d7f 100644
+--- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
++++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
+@@ -66,6 +66,11 @@ patternProperties:
+           - minimum: 0
+             maximum: 7
+ 
++      label:
++        $ref: /schemas/types.yaml#/definitions/string
++        description:
++          A descriptive name for this channel, like "vcc_ram" or "CH3".
++
+       ti,gain:
+         $ref: /schemas/types.yaml#/definitions/uint32
+         minimum: 0
+@@ -125,6 +130,7 @@ examples:
+                 reg = <4>;
+                 ti,gain = <3>;
+                 ti,datarate = <5>;
++                label = "CH3";
+             };
+         };
+     };
 -- 
-Alexandre Mergnat <amergnat@baylibre.com>
+2.34.1
+
