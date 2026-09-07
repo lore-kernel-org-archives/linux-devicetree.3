@@ -1,1572 +1,646 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2098.outbound.protection.partner.outlook.cn [139.219.17.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61C5434A791
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 04:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756490; cv=none; b=lV7+q2ERmLcd0gXP5XOeg/lEPHkM6Ex8nCOjuKfXObIWtvVWuPCzUZXohH8GWGbNUF793cJGAaXYzJONPexJ0ETGL+XxfcYaSXfJ6Wcim3amIQJE2K0XhX4DFkFB1BVOFmOsibyJ1PH6NfQxCFkO0bWRyb40+WjyK9bNrCWUmg0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756490; c=relaxed/simple;
-	bh=E/kK3ouXTF1PgJn7+fZ+ewf2SKMpMiVOwLIkui4Kcjc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LWSHQdQgc4mKVCtCXRijPYi+UNWKo3IJTTLCpxPYVGEYFnugpaHZ9wsVkJlaD9LnMwk9ZojBNNNWkU/FbUaxbIh/6xUWRU5Q7kXU+QcIZrPZGG89gqIbvTs/y9xeUmdsZl51Lv95xK/7lx9qh/p9xtkJYz6PPk/t8l8DCnxjero=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N4Px90If; arc=none smtp.client-ip=209.85.160.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N4Px90If"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-43bf9548df4so2979168fac.0
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 21:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788756486; x=1789361286; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8uEtI0V91UJMhNGfdTep+fwtZoYSLs/7MR8CPzmmz0s=;
-        b=N4Px90IfJ5wf5SeNXuWtoRSEFyijLyfSuPSzFD3rlTDzaiVryBXXCD+JbYAke/Dxjc
-         5D3sPlK8JGp4VmX0piR5gAug1hflR+h3N4P+rpnr3BW/8SsD8qwSiAXTJvXfdEUGCeFH
-         r4u+iyd9n5W/OzlZ/q9zr6deNSq3E8wciKOZq5PX5pi5fppYqYKXmaeL16MIF+1dhhyM
-         T+Tlngse5vX2Hde7yjheZmy1yY7VjCjbfr7C9TKvhsgvCe/zK8uLADipEGoTn0nQaPZm
-         k9A96wAcjgLdf7J69nicieQ9zzYmwd2CcpyhLe7RlTbBhIrKTzQQWgmO5t4e82MsXbzI
-         rvQw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788756486; x=1789361286;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8uEtI0V91UJMhNGfdTep+fwtZoYSLs/7MR8CPzmmz0s=;
-        b=OrbaJRAYWQBEJ+vJ0sXQR5oQj1ntPGmx7j+VIyK5spJuMLJR6b/Mr6II1Jn7EcKWHJ
-         t+nlOJPVoBG9mU8AXbpnBlwplYlIzQJnhWNu7TGUoPaqh67pfxyvz4J7Ab0QrhxVMdqU
-         RaQidVsivUeLt0PusiXEj6HviWpMLbbIAvwTT9eU7lHnXEXOO1V8uNcfGjTkopbPz6FY
-         zIRcUPQnAxpm/PAX57DqYL02blbJd1Q2prZCJyHUiFtM+ZTqRQIeSFwF8yA9vDqUYO3S
-         Q0w6k4HzvziZJH4FrMAKp0alYZDsr6EPErnpPAt0wf3adnSdErugozNphD8DMfYOWQJc
-         Z0oQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzWoA3L3DYyflT+pi4pC6oW18hCCxNTuvPZD59Efr0cyns1qiXrP6OD+x288ejklqG4y/4/5jiRUZrw@vger.kernel.org
-X-Gm-Message-State: AFuF++mDPP6ZWnYGi0RGJeAFQ6ccrB06Fwx+1L3L/jW06p46y+mK6umm
-	biCM/JGNMM1w7bdQqh6OFeciVUx9gOjlsCuAWhU7L9Ri2BYSzi360Fdb
-X-Gm-Gg: AYBFou3E7U9l7o6i4KczWySCZAoG4b7WNBySivV2qR/8XLSKqr6Y3DRIecPtjFNEaid
-	xA9v0LJ0enMG4zPY9LlMEdELxeoD6UbanKPx+OZrH7e3c1He1BgBdxPANmiQfeQwErQObs1P7gN
-	LvU8LUb6Koj1nShJo36FTKaH1dTIkskutmjjXGRMFBqWonqaV93kIfrTYxCFc14D+zIY8oXBqke
-	QoCkW+w5cSFkKY5QPV3M+bpykb0yGvrZlI7k91v7W+ZeqqlHEmM8Q5q1zsxDIJ2zx+Gf+Q/ga+3
-	LaHyzt1J+eLQjMxgJJ4Brn3xd8QMdEFmGufi+UJ9Mvs4ntgrhf+fB3yZLSwoLsqjGvEp7xn9MD6
-	X8SReH2unCLlSu4Lkb712aUTo8XJJvVVb0ABwF4mvwxQ2o4vyz5Ia1xyAk+fznz0YEfqxFE/Vl0
-	WtAj0XLIHPEqRl8oRuYejayqOKdNbiKdg+MaTgGeotilPpOMhTGNqLZpsuoUuRSkcD6QgqkvK/r
-	FsJSeJ48Ju2l3x5JPvU8wR+vvFl7AI96/D0Rh1JCGYxMekIL5xiY/DumPS5xL6HPROIgO6KJ4Sf
-	7k8VVFztiQlLttOQooWaHwbNhtPkcW34gOmrz/8b3kZNJcKm1/82s9G2qekDpks/zHQz4EMMNLr
-	EgtJ/Ozn4CVHBt5cYeQ==
-X-Received: by 2002:a05:6870:3b88:b0:475:a153:2dc1 with SMTP id 586e51a60fabf-475a1537b5emr12336980fac.23.1788756485961;
-        Sun, 06 Sep 2026 21:48:05 -0700 (PDT)
-Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-475501412f2sm9013503fac.0.2026.09.06.21.48.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 21:48:05 -0700 (PDT)
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Sun, 06 Sep 2026 22:47:47 -0600
-Subject: [PATCH net-next v10 2/2] net: phy: add X-Powers AC200/AC300 EPHY
- driver
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF07E377A8E;
+	Mon,  7 Sep 2026 04:50:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.98
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788756658; cv=fail; b=VPqmRFapbaJ6xXCqHpB91IxR2oii11e/udMfGBofdddhUGgjIJG7Yp804IFdb36A6puLN5BBFnUh8p9ln4pG8yu9fjmKOK1q02w67+gqxkCmxBlrYZzx1e1v05sMtq7juiIafrJhos0/NhgKMYgWChuZHkLb4DxJOcyN37B+DkU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788756658; c=relaxed/simple;
+	bh=269JVTYurMzcVlxQ6ir4eL0tDY1mZ9uL3MOeRPc9Ww0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Ckf9JZB1sEWBcR6G1Jzuiqy52yFy890UsFSbhOioGGZ90l+bUvq5OTW+Sm0KKNSQq5p6kVzbn9JtA6xiqSdYbqvv9O6b39259160Hf91SHT6vh9i9xTPdzJ8tVGu4IEhJ85Od8C/4654MTvM7jfz2jPmby2idVyG+7Tz3yiqAWI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=Wt0hi9U9aizUT9riJNRYUcZw7DY4kNQfgtoxQPxHOUTb9nim8/1MRVuLmJkuj+Hku5n1N74Zl1MtWmqLuU6H/Hs37q2e1oz3JCAhsIREB5sPNFW+b7zukJudhNUE+OMhHH/NUeDBwW2K5hzr8WZC5u+yGK8k1Y79qymieQQUVdd0sOsOYRR7y7apRG8iyKSTa5IDwH9k8v1o0L8bqbDBtEmfQ682k+Jz3JD7VM5NY4IlvGM7EmmQrNE4prT3Uoz60Qqw+ixWszdBpYXabuWX3wgtvA01HCEb6FNDCnIgR1lkP8aZgymIxIQYi8R9xi6kIl5qkkQcgI3pRJRg3mw55g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=i1MNcZm62LUm+9TBBCHtVsaDxbbWAlDv4K3HB/rJAx8=;
+ b=jSxwGGb1c/Qzr4C71rWB1kcnG13kK6jABxYe2DNOWk5NQiOPlggAM1P9CLSK/+6aWJexAQvqkIyAC7aVkSetl7wAYPMcrywzIxcVudh6NI1PQVzA+3jkcfWpTx9B0UiJz1mXmS1rZHL0wlEpjQIAGI4eqrwcmWr73H7uw/PNXnjwjDJ/d5TfHqXFDG6GCokOewHnWwGQFVn5vkNQGy0nqqhlLtn9VYPS0o8kaKW+MMbNBpaB5/UnGuQTS35Qdd4f7kdnQngo5Z0yoDdKL8YzlTfaOCeVYUdPDYETn8I0TS4yNjgjjwZ//NTrAOBUPKIHWVJkHtTD/OMW4i/b9ziT7w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6) by ZQ0PR01MB1320.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:19::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Mon, 7 Sep
+ 2026 03:16:13 +0000
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570%4]) with mapi id 15.21.0339.017; Mon, 7 Sep 2026
+ 03:16:13 +0000
+From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+To: Olivia Mackall <olivia@selenic.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-crypto@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: [PATCH v8 2/2] hwrng: starfive: rework clk/reset teardown order for JHB100
+Date: Mon,  7 Sep 2026 11:16:03 +0800
+Message-Id: <20260907031603.188483-3-lianfeng.ouyang@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
+References: <20260907031603.188483-1-lianfeng.ouyang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0033.CHNPR01.prod.partner.outlook.cn (10.2.8.10)
+ To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn (10.2.3.134)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-submit-acx00-of-dynamic-v1-v10-2-dd272e03b547@gmail.com>
-References: <20260906-submit-acx00-of-dynamic-v1-v10-0-dd272e03b547@gmail.com>
-In-Reply-To: <20260906-submit-acx00-of-dynamic-v1-v10-0-dd272e03b547@gmail.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- James Hilliard <james.hilliard1@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
- "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
- Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
- =?utf-8?q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- linux-sunxi@lists.linux.dev, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1320:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1de7c392-b88d-4f8a-ed53-08df0c8e5f73
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|52116014|10067099003|6133799003|22082099003|18002099003|56012099006|38350700014;
+X-Microsoft-Antispam-Message-Info:
+	DCnjtSRfFXsLM5okghf7BMfrqHvLYD0nmE0Ia9JfgDh0C3Tl8mdIEfzPJaSzbeDvVO3NxF6+8UzjunuAQP3WjyMwqIdmiykUele3PSO0GQ8n2eC6Cg2v0KZOQE1f4OV1FmMM9JMsVNvB6del+qmNCIZyfdqWczIfarlRbOpXzMsQM0zEZK16FN4x64e22jMJa9KuhFnkk6bjltZFy0eC8hT2NaeD/p2tQ9CtVC929lRoeWAsWqNV5QmawD5W+5WWsQpsE3CAF+Z7bczUBs2QZ9UHB4VoaqHA8WR7u8UEql+9rffumDpUOFmO9iylV+m4fRZdEPZHLIS6AjFNoPtap/rJ2onasLCah574bWPkkAv8Jf1WOEoZYSI4qGm+/6mrujdz8lKfoNMALtyYB1vlKfejzzLV322ABpZ4uxwfgP8zlRh8zyquV30u2zDhrmc+u1iEoDwlMO8kPVRXmKJEPcwWGE1lxXyOk7FDtXGDnrAGQISv87K1VIjKc+w+13NpVGh3DEjhowIn0f6p+UMmRXJGs5H56yFrLqmNlgLqUydGNHz4oH1HZTnPi+b2+ctc
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(52116014)(10067099003)(6133799003)(22082099003)(18002099003)(56012099006)(38350700014);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?h82T3dTNRo9yrS5ZUpWhHp5qw0zNx4XUKYkuJ2zZfFl2LEmiYy/sgRXEsMtf?=
+ =?us-ascii?Q?7ka9JDgtWriyG6+jNqmdFrukeCD5lBHUtPZbI+FHHX6o7xNzpQxQ8TO38y9y?=
+ =?us-ascii?Q?Kx7zO5/lFPsSD5lQj6qxUoGJWkh5MXsFAZP8n1PS4RBYqrCvWKx9qLYc3U6G?=
+ =?us-ascii?Q?+InPRAw4MHZf+JGFZADQVSxo/6vfKbRlHbQ9SEGedmoRdfViAXrP3k0GDIEg?=
+ =?us-ascii?Q?32J1I8zUEF4wfVaL++3IwlkowoRjXEYJ1Fkljvwc3LdP8r7t+nIWOKlwCUt/?=
+ =?us-ascii?Q?0RN64pEEfOI2dWJyVwCi29v5CUBnXnweVl5a28StnDWUnS7KSaiOg4Rg8Ntq?=
+ =?us-ascii?Q?xzgCEZ2/yQnH1i9q9x+GU/xfZnJ8mRmbdoPAymBBBLhBW1ZzCqlBoTRqXqSr?=
+ =?us-ascii?Q?feOqIHPnKTFwJZQv5C/lSlOcGHNGL/m9jrhK8QpZ94JbRijN+NwYrFkKvqff?=
+ =?us-ascii?Q?p7c15m4pEcCwgFsFhnpJu1faA5gut1r4xSP5GIoZwMSy/dzsvySsNEFPWAiq?=
+ =?us-ascii?Q?mt9/Ad1Vi7Y8As8Y3cDAfQmXoqU0BE3rsTE1uw2ZzX5LZcc5nZvee1J7mMFX?=
+ =?us-ascii?Q?u15hUT1dbSiTEbsSzfyDAI02xMHyoD2FLwB2k8aI9lj7OBOipEBAmi0+SmZP?=
+ =?us-ascii?Q?fJ9TmxGE9AN2MBtHe7pgSRzwOnV0+/8Eg6wEnAdrO8+vVmbm6SNm3pzPhaEX?=
+ =?us-ascii?Q?z6lPFdaxBhQCDhl5TyZgosvKvL9Ihx1H5ZXuDkg2VAuv3ccHxgfnEiUWQS1l?=
+ =?us-ascii?Q?MSgbVr5dW1vN1oWSgufg1u5KDZzCYFMMYZHrU4OOXJpyfIpbWeAI6g+91EQp?=
+ =?us-ascii?Q?Li30IhNifGq9cJyFWJYRi5YCIddKRucnYaknRz2mO4LDoUoFBf9t/bEvRlUB?=
+ =?us-ascii?Q?HTXxZ4h4ld1I9t2wWGnyBtKpccVIOul+e/+CRMkPk4eRTz198UV+y7SIp2Pe?=
+ =?us-ascii?Q?TobWXqvSA2r3gvXFe8KRzU3UrPfv8ND6IE4Rlat49opTq+jwfRJY9FrKKfxj?=
+ =?us-ascii?Q?9IDngbD4b0bkUJc3BzuP3FRiDG/BTmy9qby8mYRB3WrXrrwkcqyTT9hY+BgJ?=
+ =?us-ascii?Q?D6oz8UUZEnPvNBqA3nsKD/BHatihiJ+ccersQWkzNbNPvldvTieX5X4XE1bZ?=
+ =?us-ascii?Q?RGLtPx9MCr/F1ovik7IRakATxDjee496+WoMJR1A0robT9RjaZMDDsJ5Z0Lj?=
+ =?us-ascii?Q?GadWiuUcAUlVd3hD/Uh3TzadxQIZykC+vsOMz5jiYStpFNeuUPd9sjd6Tcbu?=
+ =?us-ascii?Q?ombnlYKUnVNd3DfBFZpFf4OiE1mdTZ3tDUT4BOnTEGyOnYnUwRUQcDMixiHD?=
+ =?us-ascii?Q?/nCU/bkNEO1kAU07bELUtQOCxVg2ZUivan8M/uHurQX19c8NqWtBvQqv54YU?=
+ =?us-ascii?Q?c9QYVc7aWOsWs7APEV10PgeQGZKdphszgBR0HiuJNUSftsCxpYebpF+F0NNL?=
+ =?us-ascii?Q?GpXGKykFkhkZNTUrZe+LdmYjuF+r3PJr7H5kMCk6drzBBphxoRDlIFLKL4yU?=
+ =?us-ascii?Q?JiuXhkmPSCkXbPaedeHQuzDIIlH6NkNcLK1wVvAvv7ttTmNqUaEHz2T9zGvc?=
+ =?us-ascii?Q?Y4n5SSmJpPOCLUPllV1f8Q6Tt02Ept8Wh/D3DYMmzmQxcYdlHGhRm/lc6HSQ?=
+ =?us-ascii?Q?f6klZMtIwGb76/1BlUFTHwh1giFoWwUHULSPl9S+9t7VLixFOw6HnLwzieim?=
+ =?us-ascii?Q?9jvmM6aBA21720UjDlJsmxOfW0wZqM+Cz7Y1EULIdbVvhz2atDkZNZru2tEo?=
+ =?us-ascii?Q?lpXYSEC4n2VXRdb+BPK8bNzvEidfKhj07Y4Twy6e9dg2WBNntsSn?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1de7c392-b88d-4f8a-ed53-08df0c8e5f73
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Sep 2026 03:16:13.7579
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nz/PX58C+KTJUR6nd+q7EJuz8TShGatGzxYeuoUZ1EeppRG8mVnkCzpLJcT/4aHR8pyStU30UJpJEjf8s/kj2YIV296MSFHSQxn+4/Ba3WM4eJF1VKBlTzQz/1PDwedX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1320
 
-The AC200 and AC300 contain compatible Fast Ethernet link PHYs, but the
-link endpoint is inaccessible until package-specific control registers
-have powered and configured it.
+From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-Add one PHY driver which binds the link child and joins its parent
-Ethernet PHY package. Fixed package compatibles select the corresponding
-backend. The generic ACx00 compatible reads one packed configuration field
-and selects the backend before touching backend-specific resources. The
-AC300 path therefore does not resolve or access the candidate AC200 I2C
-device.
+Rework the StarFive TRNG driver to address hardware-specific requirements
+  for JHB100 SoC. To avoid reset-domain crossing glitches, the driver now
+  ensures clocks are gated before asserting reset during teardown for
+  JHB100, while JH7110 retains the original reset-first sequence.
 
-AC200 locates the I2C device referenced by the package and establishes a
-managed device link. It verifies that the provider is fully bound under
-the supplier device lock before retrieving the regmap attached to the I2C
-device. The companion MFD provider enables and exclusively pins the input
-clock rate while it is bound. The link keeps the supplier bound until the
-PHY consumer has unbound. Firmware must make the selected AC200 provider
-path available before the PHY probes.
+Add per-compatible match data (struct starfive_trng_data) describing the
+  clock/reset teardown order, a new "starfive,jhb100-trng" compatible, and
+  select the ordering from it.
 
-AC300 uses the PHY package helpers to access the control range at base
-address plus 16. Keeping both backends in the same module lets the common
-link implementation own the complete PHY without registering artificial
-control devices.
+Fix the runtime-PM get/put balancing across the init/read/reseed/cleanup
+  paths, manage PM and the clk/reset teardown via devm so all error paths
+  unwind correctly, run the SEU-triggered reseed from a workqueue instead
+  of hard IRQ, and serialise the command sequences with a mutex.
 
-Obtain and manage the selected package supply and calibration, manage the
-AC300 input clock, validate or program the link address, and apply the
-required reset, clock, I/O and shutdown sequences. Start in the
-hardware-default MII mode so the forced PHY device can probe before a MAC
-attaches, then apply the MAC-provided MII or RMII mode before the normal
-PHY soft reset. AC200 specifies no additional delay between its EPHY
-controls; the provider's input-clock startup delay is already complete
-before its regmap becomes available.
-
-Apply the common vendor analog initialization, optional AC300
-low-calibration tuning and board-selected receive-clock inversion. Keep
-MDI/MDI-X in automatic mode. Preserve standard MAC-managed EEE support
-while disabling the vendor PHY-autonomous Intelligent EEE mode. Restart
-autonegotiation when restoring the standard EEE advertisement changes it.
-
-Serialize package state and the multi-register power sequences across the
-different phylib callback lock contexts. Power down the package control
-block and its supply during PHY suspend, then restore them and the vendor
-configuration during resume. If shutdown fails, recover the running PHY
-under the phylib lock before returning the original error. Unwind package
-power if reset, resume or configuration fails after power-on.
-
-Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 ---
- drivers/net/phy/Kconfig          |  11 +
- drivers/net/phy/Makefile         |   1 +
- drivers/net/phy/xpowers/Makefile |   3 +
- drivers/net/phy/xpowers/ac200.c  | 314 ++++++++++++++++++++
- drivers/net/phy/xpowers/ac300.c  | 387 ++++++++++++++++++++++++
- drivers/net/phy/xpowers/acx00.c  | 621 +++++++++++++++++++++++++++++++++++++++
- drivers/net/phy/xpowers/acx00.h  |  28 ++
- 7 files changed, 1365 insertions(+)
+ MAINTAINERS                          |   2 +-
+ drivers/char/hw_random/jh7110-trng.c | 297 +++++++++++++++++++++------
+ 2 files changed, 239 insertions(+), 60 deletions(-)
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index b4ef927fd4a6..d3835597e379 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -484,6 +484,17 @@ config VITESSE_PHY
- 	help
- 	  Currently supports the vsc8244
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6d998ed051a8..5211aa88048f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26239,7 +26239,7 @@ F:	Documentation/devicetree/bindings/perf/starfive,jh8100-starlink-pmu.yaml
+ F:	drivers/perf/starfive_starlink_pmu.c
  
-+config XPOWERS_ACX00_PHY
-+	tristate "X-Powers AC200/AC300 Ethernet PHY"
-+	depends on COMMON_CLK && NVMEM && OF_MDIO && REGULATOR
-+	depends on I2C || !I2C
-+	select PHY_PACKAGE
-+	help
-+	  Enable the Fast Ethernet PHY driver shared by the X-Powers AC200
-+	  and AC300 companion ICs. The driver configures their common MDIO PHY
-+	  registers and the package-specific AC200 I2C or AC300 MDIO control
-+	  registers.
-+
- config XILINX_GMII2RGMII
- 	tristate "Xilinx GMII2RGMII converter driver"
- 	help
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index 25c4a3c2429f..49575fa18522 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -101,4 +101,5 @@ obj-$(CONFIG_SMSC_PHY)		+= smsc.o
- obj-$(CONFIG_STE10XP)		+= ste10Xp.o
- obj-$(CONFIG_TERANETICS_PHY)	+= teranetics.o
- obj-$(CONFIG_VITESSE_PHY)	+= vitesse.o
-+obj-$(CONFIG_XPOWERS_ACX00_PHY)	+= xpowers/
- obj-$(CONFIG_XILINX_GMII2RGMII) += xilinx_gmii2rgmii.o
-diff --git a/drivers/net/phy/xpowers/Makefile b/drivers/net/phy/xpowers/Makefile
-new file mode 100644
-index 000000000000..ae977a795832
---- /dev/null
-+++ b/drivers/net/phy/xpowers/Makefile
-@@ -0,0 +1,3 @@
-+# SPDX-License-Identifier: GPL-2.0
-+xpowers-acx00-y := acx00.o ac200.o ac300.o
-+obj-$(CONFIG_XPOWERS_ACX00_PHY) += xpowers-acx00.o
-diff --git a/drivers/net/phy/xpowers/ac200.c b/drivers/net/phy/xpowers/ac200.c
-new file mode 100644
-index 000000000000..afdd2a3dfbe4
---- /dev/null
-+++ b/drivers/net/phy/xpowers/ac200.c
-@@ -0,0 +1,314 @@
-+// SPDX-License-Identifier: GPL-2.0-only
+ STARFIVE TRNG DRIVER
+-M:	Jia Jie Ho <jiajie.ho@starfivetech.com>
++M:	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+ S:	Supported
+ F:	Documentation/devicetree/bindings/rng/starfive*
+ F:	drivers/char/hw_random/jh7110-trng.c
+diff --git a/drivers/char/hw_random/jh7110-trng.c b/drivers/char/hw_random/jh7110-trng.c
+index aee12caab578..ecc7d5bd7bf5 100644
+--- a/drivers/char/hw_random/jh7110-trng.c
++++ b/drivers/char/hw_random/jh7110-trng.c
+@@ -92,22 +92,44 @@ enum mode {
+ 	PRNG_256BIT,
+ };
+ 
 +/*
-+ * X-Powers AC200 Ethernet PHY package backend
-+ *
-+ * Copyright (c) 2022 Arm Ltd. (Andre Przywara <andre.przywara@arm.com>)
-+ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
++ * For JHB100, assert reset after disabling clocks to avoid
++ * reset-domain crossing (RDC) induced glitches that can affect
++ * downstream IPs.
 + */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/i2c.h>
-+#include <linux/of.h>
-+#include <linux/phy.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+
-+#include "acx00.h"
-+
-+#define AC200_EPHY_BPS_EFFUSE_OFFSET	3
-+#define AC200_EPHY_CLK_RATE_24_MHZ	24000000
-+#define AC200_EPHY_CLK_RATE_27_MHZ	27000000
-+
-+#define AC200_SYS_EPHY_CTL0_REG			0x0014
-+#define AC200_EPHY_RESET_DEASSERT		BIT(0)
-+#define AC200_EPHY_SYSCLK_ENABLE			BIT(1)
-+
-+#define AC200_SYS_EPHY_CTL1_REG			0x0016
-+#define AC200_EPHY_MII_IO_ENABLE			BIT(0)
-+
-+/* AC200-internal copy of the Ethernet PHY calibration eFuse. */
-+#define AC200_EFUSE_EPHY_REG			0x8004
-+
-+#define AC200_EPHY_CTL_REG			0x6000
-+#define AC200_EPHY_SHUTDOWN			BIT(0)
-+#define AC200_EPHY_CLK_SEL_24_MHZ		BIT(2)
-+#define AC200_EPHY_PHY_ADDR_MASK			GENMASK(8, 4)
-+#define AC200_EPHY_RMII_SEL			BIT(11)
-+#define AC200_EPHY_BPS_EFFUSE_MASK		GENMASK(15, 12)
-+
-+struct ac200_ephy_ctl {
-+	struct acx00_ephy_control control;
-+	struct regmap *regmap;
-+	struct regulator *vcc;
-+	struct device *dev;
-+	u16 ephy_ctl;
-+	unsigned int phy_addr;
-+	phy_interface_t interface;
-+	bool supply_enabled;
-+	bool powered;
++enum seq_rst_clk {
++	SEQ_RST_FIRST,
++	SEQ_CLK_FIRST,
 +};
 +
-+static u16 ac200_ephy_ctl_config(const struct ac200_ephy_ctl *priv)
-+{
-+	return priv->ephy_ctl |
-+		(priv->interface == PHY_INTERFACE_MODE_RMII ?
-+		 AC200_EPHY_RMII_SEL : 0) |
-+		FIELD_PREP(AC200_EPHY_PHY_ADDR_MASK, priv->phy_addr);
-+}
-+
-+static int ac200_ephy_ctl_write(struct ac200_ephy_ctl *priv,
-+				unsigned int reg, u16 value)
-+{
-+	int ret;
-+
-+	ret = regmap_write(priv->regmap, reg, value);
-+	if (ret)
-+		dev_err(priv->dev, "failed to write register %#x: %pe\n",
-+			reg, ERR_PTR(ret));
-+
-+	return ret;
-+}
-+
-+static int ac200_ephy_ctl_disable(struct ac200_ephy_ctl *priv)
-+{
-+	int err;
-+	int ret = 0;
-+
-+	if (priv->powered) {
-+		ret = ac200_ephy_ctl_write(priv, AC200_EPHY_CTL_REG,
-+					   ac200_ephy_ctl_config(priv) |
-+					   AC200_EPHY_SHUTDOWN);
-+		err = ac200_ephy_ctl_write(priv, AC200_SYS_EPHY_CTL1_REG, 0);
-+		if (!ret)
-+			ret = err;
-+		err = ac200_ephy_ctl_write(priv, AC200_SYS_EPHY_CTL0_REG, 0);
-+		if (!ret)
-+			ret = err;
-+
-+		priv->powered = false;
-+	}
-+
-+	if (priv->supply_enabled) {
-+		err = regulator_disable(priv->vcc);
-+		if (!err)
-+			priv->supply_enabled = false;
-+		else if (!ret)
-+			ret = err;
-+	}
-+
-+	return ret;
-+}
-+
-+static int ac200_ephy_ctl_power_off(struct acx00_ephy_control *control)
-+{
-+	struct ac200_ephy_ctl *priv =
-+		container_of(control, struct ac200_ephy_ctl, control);
-+
-+	return ac200_ephy_ctl_disable(priv);
-+}
-+
-+static int
-+ac200_ephy_ctl_set_interface(struct acx00_ephy_control *control,
-+			     phy_interface_t interface)
-+{
-+	struct ac200_ephy_ctl *priv =
-+		container_of(control, struct ac200_ephy_ctl, control);
-+	int ret = 0;
-+
-+	if (interface != PHY_INTERFACE_MODE_MII &&
-+	    interface != PHY_INTERFACE_MODE_RMII)
-+		return -EINVAL;
-+
-+	if (priv->interface == interface)
-+		return 0;
-+
-+	if (priv->powered)
-+		ret = regmap_update_bits(priv->regmap, AC200_EPHY_CTL_REG,
-+					 AC200_EPHY_RMII_SEL,
-+					 interface == PHY_INTERFACE_MODE_RMII ?
-+					 AC200_EPHY_RMII_SEL : 0);
-+	if (!ret)
-+		priv->interface = interface;
-+
-+	return ret;
-+}
-+
-+static int ac200_ephy_ctl_power_on(struct acx00_ephy_control *control,
-+				   unsigned int phy_addr)
-+{
-+	struct ac200_ephy_ctl *priv =
-+		container_of(control, struct ac200_ephy_ctl, control);
-+	u16 ephy_ctl;
-+	int ret;
-+
-+	if (phy_addr > FIELD_MAX(AC200_EPHY_PHY_ADDR_MASK))
-+		return -EINVAL;
-+
-+	if (priv->powered && priv->phy_addr == phy_addr)
-+		return 0;
-+
-+	if (priv->powered) {
-+		ret = ac200_ephy_ctl_disable(priv);
-+		if (ret)
-+			return ret;
-+	}
-+	priv->phy_addr = phy_addr;
-+
-+	if (!priv->supply_enabled) {
-+		ret = regulator_enable(priv->vcc);
-+		if (ret)
-+			return ret;
-+		priv->supply_enabled = true;
-+	}
-+
-+	ephy_ctl = ac200_ephy_ctl_config(priv);
-+
-+	/*
-+	 * Start from a disabled state before applying the configuration. AC200
-+	 * specifies no additional delay between these controls. The companion
-+	 * MFD provider has completed its input-clock startup delay before
-+	 * publishing the regmap.
-+	 */
-+	ret = ac200_ephy_ctl_write(priv, AC200_SYS_EPHY_CTL0_REG, 0);
-+	if (ret)
-+		goto err_disable;
-+
-+	ret = ac200_ephy_ctl_write(priv, AC200_SYS_EPHY_CTL1_REG,
-+				   AC200_EPHY_MII_IO_ENABLE);
-+	if (ret)
-+		goto err_disable;
-+
-+	ret = ac200_ephy_ctl_write(priv, AC200_EPHY_CTL_REG,
-+				   ephy_ctl | AC200_EPHY_SHUTDOWN);
-+	if (ret)
-+		goto err_disable;
-+
-+	ret = ac200_ephy_ctl_write(priv, AC200_SYS_EPHY_CTL0_REG,
-+				   AC200_EPHY_RESET_DEASSERT |
-+				   AC200_EPHY_SYSCLK_ENABLE);
-+	if (ret)
-+		goto err_disable;
-+
-+	ret = ac200_ephy_ctl_write(priv, AC200_EPHY_CTL_REG, ephy_ctl);
-+	if (ret)
-+		goto err_disable;
-+
-+	priv->powered = true;
-+	return 0;
-+
-+err_disable:
-+	/* Attempt every step of the shutdown sequence after a partial start. */
-+	priv->powered = true;
-+	ac200_ephy_ctl_disable(priv);
-+
-+	return ret;
-+}
-+
-+struct acx00_ephy_control *
-+ac200_ephy_ctl_create(struct phy_device *phydev,
-+		      struct device_node *package_node,
-+		      bool has_calibration, u8 calibration)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	unsigned int internal_calibration;
-+	struct device_node *ac200_node;
-+	struct ac200_ephy_ctl *priv;
-+	struct i2c_client *client;
-+	unsigned long clk_rate;
-+	u8 bps_effuse_code;
-+	struct clk *clk;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return ERR_PTR(-ENOMEM);
-+	priv->dev = dev;
-+	priv->vcc = devm_of_regulator_get(dev, package_node, "vcc");
-+	if (IS_ERR(priv->vcc))
-+		return ERR_PTR(dev_err_probe(dev, PTR_ERR(priv->vcc),
-+					     "failed to get package supply\n"));
-+
-+	ac200_node = of_parse_phandle(package_node, "x-powers,ac200", 0);
-+	if (!ac200_node)
-+		return ERR_PTR(dev_err_probe(dev, -EINVAL,
-+					     "missing x-powers,ac200 reference\n"));
-+	client = of_find_i2c_device_by_node(ac200_node);
-+	of_node_put(ac200_node);
-+	if (!client) {
-+		ret = IS_ENABLED(CONFIG_I2C) ? -EPROBE_DEFER : -ENODEV;
-+		return ERR_PTR(dev_err_probe(dev, ret,
-+					     "AC200 device is not registered\n"));
-+	}
-+
-+	if (!device_link_add(dev, &client->dev,
-+			     DL_FLAG_AUTOREMOVE_CONSUMER)) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "failed to link AC200 device\n");
-+		goto out_put_client;
-+	}
-+
-+	device_lock(&client->dev);
-+	if (device_is_bound(&client->dev))
-+		priv->regmap = dev_get_regmap(&client->dev, NULL);
-+	device_unlock(&client->dev);
-+	if (!priv->regmap) {
-+		ret = dev_err_probe(dev, -EPROBE_DEFER,
-+				    "AC200 driver is not ready\n");
-+		goto out_put_client;
-+	}
-+
-+	if (!has_calibration) {
-+		ret = regmap_read(priv->regmap, AC200_EFUSE_EPHY_REG,
-+				  &internal_calibration);
-+		if (ret)
-+			goto out_error;
-+		calibration = internal_calibration;
-+	}
-+
-+	/* The vendor driver supplies no transfer function beyond this offset. */
-+	bps_effuse_code = (calibration + AC200_EPHY_BPS_EFFUSE_OFFSET) &
-+			   FIELD_MAX(AC200_EPHY_BPS_EFFUSE_MASK);
-+	priv->ephy_ctl =
-+		FIELD_PREP(AC200_EPHY_BPS_EFFUSE_MASK, bps_effuse_code);
-+	/* EPHY_MODE and BIST_CLK_EN stay clear for normal operation. */
-+
-+	clk = clk_get(&client->dev, NULL);
-+	if (IS_ERR(clk)) {
-+		ret = PTR_ERR(clk);
-+		goto out_error;
-+	}
-+
-+	/* The bound AC200 provider enables and exclusively pins this rate. */
-+	clk_rate = clk_get_rate(clk);
-+	clk_put(clk);
-+
-+	switch (clk_rate) {
-+	case AC200_EPHY_CLK_RATE_24_MHZ:
-+		priv->ephy_ctl |= AC200_EPHY_CLK_SEL_24_MHZ;
-+		break;
-+	case AC200_EPHY_CLK_RATE_27_MHZ:
-+		break;
-+	default:
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "unsupported AC200 clock rate %lu Hz\n",
-+				    clk_rate);
-+		goto out_put_client;
-+	}
-+
-+	priv->control.power_on = ac200_ephy_ctl_power_on;
-+	priv->control.power_off = ac200_ephy_ctl_power_off;
-+	priv->control.set_interface = ac200_ephy_ctl_set_interface;
-+	/* MII is the reset default used until the MAC supplies its interface. */
-+	priv->interface = PHY_INTERFACE_MODE_MII;
-+	put_device(&client->dev);
-+
-+	return &priv->control;
-+
-+out_error:
-+	ret = dev_err_probe(dev, ret, "failed to initialize AC200 control\n");
-+out_put_client:
-+	put_device(&client->dev);
-+	return ERR_PTR(ret);
-+}
-diff --git a/drivers/net/phy/xpowers/ac300.c b/drivers/net/phy/xpowers/ac300.c
-new file mode 100644
-index 000000000000..aa560432a14c
---- /dev/null
-+++ b/drivers/net/phy/xpowers/ac300.c
-@@ -0,0 +1,387 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * X-Powers AC300 Ethernet PHY package backend
-+ *
-+ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/of.h>
-+#include <linux/phy.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include "../phylib.h"
-+#include "acx00.h"
-+
-+#define AC300_EPHY_BGS_EFFUSE_OFFSET	3
-+#define AC300_EPHY_CLK_RATE_24_MHZ	24000000
-+#define AC300_EPHY_CLK_RATE_25_MHZ	25000000
-+#define AC300_EPHY_CLK_RATE_27_MHZ	27000000
-+#define AC300_SYS_CONTROL_REG			0x00
-+#define AC300_PACKAGE_STATUS_MASK		GENMASK(11, 8)
-+#define AC300_EPHY_CLK_SEL_MASK			GENMASK(7, 6)
-+#define AC300_EPHY_CLK_SEL_25_MHZ		FIELD_PREP(AC300_EPHY_CLK_SEL_MASK, 0)
-+#define AC300_EPHY_CLK_SEL_27_MHZ		FIELD_PREP(AC300_EPHY_CLK_SEL_MASK, 1)
-+#define AC300_EPHY_CLK_SEL_24_MHZ		FIELD_PREP(AC300_EPHY_CLK_SEL_MASK, 2)
-+#define AC300_EFUSE_CLK_ENABLE			BIT(5)
-+#define AC300_EPHY_REG_CLK_ENABLE		BIT(4)
-+#define AC300_CLKIN_GATING_ENABLE		BIT(2)
-+#define AC300_EPHY_RESET_DEASSERT		BIT(1)
-+#define AC300_CHIP_RESET_DEASSERT		BIT(0)
-+
-+#define AC300_PACKAGE_POR_INTERNAL_DLDO		BIT(3)
-+#define AC300_PACKAGE_PHY_ADDR_MASK		GENMASK(2, 0)
-+
-+#define AC300_SYS_BIAS1_REG			0x02
-+#define AC300_INTERNAL_DLDO_ENABLE		BIT(15)
-+
-+#define AC300_SYS_IO_REG			0x05
-+#define AC300_MDIO_DRV_MASK			GENMASK(15, 14)
-+#define AC300_MII_DRV_MASK			GENMASK(11, 10)
-+#define AC300_IO_DRV_LEVEL_2			2
-+#define AC300_CLKIN_PAD_ENABLE			BIT(4)
-+#define AC300_EPHY_MII_IO_ENABLE			BIT(0)
-+
-+#define AC300_EPHY_CONFIG_REG			0x06
-+#define AC300_EPHY_BGS_EFFUSE_MASK		GENMASK(15, 12)
-+#define AC300_EPHY_RMII_SEL			BIT(11)
-+#define AC300_EPHY_SHUTDOWN			BIT(0)
-+
-+#define AC300_SYS_CONTROL_ENABLE_BITS \
-+	(AC300_EFUSE_CLK_ENABLE | AC300_EPHY_REG_CLK_ENABLE | \
-+	 AC300_CLKIN_GATING_ENABLE | AC300_EPHY_RESET_DEASSERT | \
-+	 AC300_CHIP_RESET_DEASSERT)
-+
-+#define AC300_SYS_IO_VALUE \
-+	(FIELD_PREP(AC300_MDIO_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
-+	 FIELD_PREP(AC300_MII_DRV_MASK, AC300_IO_DRV_LEVEL_2) | \
-+	 AC300_CLKIN_PAD_ENABLE | AC300_EPHY_MII_IO_ENABLE)
-+
-+struct ac300_ephy_ctl {
-+	struct acx00_ephy_control control;
-+	struct phy_device *phydev;
-+	struct regulator *vcc;
-+	struct clk *clk;
-+	u16 sys_control;
-+	u16 ephy_config;
-+	phy_interface_t interface;
-+	bool package_known;
-+	bool internal_dldo;
-+	bool supply_enabled;
-+	bool powered;
++struct starfive_trng_data {
++	enum seq_rst_clk	seq_rst_clk;
 +};
 +
-+static unsigned int
-+ac300_ephy_ctl_link_addr(const struct ac300_ephy_ctl *priv)
+ struct starfive_trng {
+ 	struct device		*dev;
+ 	void __iomem		*base;
++	int			irq;
+ 	struct clk		*hclk;
+ 	struct clk		*ahb;
+ 	struct reset_control	*rst;
+ 	struct hwrng		rng;
+ 	struct completion	random_done;
+ 	struct completion	reseed_done;
++	struct work_struct	work;
++	const struct starfive_trng_data *data;
+ 	u32			mode;
++	u32			cleanup;
+ 	u32			mission;
+ 	u32			reseed;
+-	/* protects against concurrent write to ctrl register */
+-	spinlock_t		write_lock;
++	struct mutex		lock; /* protect trng cmd seq */
+ };
+ 
++static inline struct starfive_trng *work_to_trng(struct work_struct *work)
 +{
-+	return priv->phydev->mdio.addr;
++	return container_of(work, struct starfive_trng, work);
 +}
 +
-+static int ac300_ephy_ctl_read(struct ac300_ephy_ctl *priv, u32 regnum)
+ static u16 autoreq;
+ module_param(autoreq, ushort, 0);
+ MODULE_PARM_DESC(autoreq, "Auto-reseeding after random number requests by host reaches specified counter:\n"
+@@ -130,7 +152,7 @@ static inline int starfive_trng_wait_idle(struct starfive_trng *trng)
+ 					  10, 100000);
+ }
+ 
+-static inline void starfive_trng_irq_mask_clear(struct starfive_trng *trng)
++static inline void starfive_trng_irq_clear(struct starfive_trng *trng)
+ {
+ 	/* clear register: ISTAT */
+ 	u32 data = readl(trng->base + STARFIVE_ISTAT);
+@@ -138,6 +160,28 @@ static inline void starfive_trng_irq_mask_clear(struct starfive_trng *trng)
+ 	writel(data, trng->base + STARFIVE_ISTAT);
+ }
+ 
++static void starfive_trng_release(void *data)
 +{
++	struct starfive_trng *trng = data;
++
++	if (!pm_runtime_status_suspended(trng->dev)) {
++		writel(0, trng->base + STARFIVE_IE);
++		starfive_trng_irq_clear(trng);
++
++		if (trng->irq >= 0)
++			synchronize_irq(trng->irq);
++
++		if (trng->data->seq_rst_clk == SEQ_RST_FIRST)
++			reset_control_assert(trng->rst);
++
++		clk_disable_unprepare(trng->ahb);
++		clk_disable_unprepare(trng->hclk);
++
++		if (trng->data->seq_rst_clk == SEQ_CLK_FIRST)
++			reset_control_assert(trng->rst);
++	}
++}
++
+ static int starfive_trng_cmd(struct starfive_trng *trng, u32 cmd, bool wait)
+ {
+ 	int wait_time = 1000;
+@@ -149,17 +193,13 @@ static int starfive_trng_cmd(struct starfive_trng *trng, u32 cmd, bool wait)
+ 	switch (cmd) {
+ 	case STARFIVE_CTRL_GENE_RANDNUM:
+ 		reinit_completion(&trng->random_done);
+-		spin_lock_irq(&trng->write_lock);
+ 		writel(cmd, trng->base + STARFIVE_CTRL);
+-		spin_unlock_irq(&trng->write_lock);
+ 		if (!wait_for_completion_timeout(&trng->random_done, usecs_to_jiffies(wait_time)))
+ 			return -ETIMEDOUT;
+ 		break;
+ 	case STARFIVE_CTRL_EXEC_RANDRESEED:
+ 		reinit_completion(&trng->reseed_done);
+-		spin_lock_irq(&trng->write_lock);
+ 		writel(cmd, trng->base + STARFIVE_CTRL);
+-		spin_unlock_irq(&trng->write_lock);
+ 		if (!wait_for_completion_timeout(&trng->reseed_done, usecs_to_jiffies(wait_time)))
+ 			return -ETIMEDOUT;
+ 		break;
+@@ -174,13 +214,24 @@ static int starfive_trng_init(struct hwrng *rng)
+ {
+ 	struct starfive_trng *trng = to_trng(rng);
+ 	u32 mode, intr = 0;
 +	int ret;
 +
-+	phy_lock_mdio_bus(priv->phydev);
-+	ret = __phy_package_read(priv->phydev,
-+				 AC300_EPHY_CONTROL_ADDR_OFFSET, regnum);
-+	phy_unlock_mdio_bus(priv->phydev);
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_write(struct ac300_ephy_ctl *priv, u32 regnum,
-+				u16 val)
-+{
-+	int ret;
-+
-+	phy_lock_mdio_bus(priv->phydev);
-+	ret = __phy_package_write(priv->phydev,
-+				  AC300_EPHY_CONTROL_ADDR_OFFSET, regnum, val);
-+	phy_unlock_mdio_bus(priv->phydev);
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_modify(struct ac300_ephy_ctl *priv, u32 regnum,
-+				 u16 mask, u16 set)
-+{
-+	int ret;
-+
-+	phy_lock_mdio_bus(priv->phydev);
-+	ret = __phy_package_read(priv->phydev,
-+				 AC300_EPHY_CONTROL_ADDR_OFFSET, regnum);
-+	if (ret >= 0) {
-+		u16 val = (ret & ~mask) | (set & mask);
-+
-+		ret = val == ret ? 0 :
-+			__phy_package_write(priv->phydev,
-+					    AC300_EPHY_CONTROL_ADDR_OFFSET,
-+					    regnum, val);
-+	}
-+	phy_unlock_mdio_bus(priv->phydev);
-+
-+	return ret;
-+}
-+
-+static u16 ac300_ephy_ctl_config(const struct ac300_ephy_ctl *priv)
-+{
-+	return priv->ephy_config |
-+		(priv->interface == PHY_INTERFACE_MODE_RMII ?
-+		 AC300_EPHY_RMII_SEL : 0);
-+}
-+
-+static u16 ac300_ephy_ctl_reset_value(const struct ac300_ephy_ctl *priv)
-+{
-+	/*
-+	 * A chip reset restores DLDOEN to one. Until PKG_STATUS has identified
-+	 * the supply arrangement, preserve any external-VDD setup left by the
-+	 * bootloader by asserting only the EPHY reset.
-+	 */
-+	return !priv->package_known || !priv->internal_dldo ?
-+		AC300_CHIP_RESET_DEASSERT : 0;
-+}
-+
-+static int ac300_ephy_ctl_disable(struct ac300_ephy_ctl *priv)
-+{
-+	int err;
-+	int ret = 0;
-+
-+	if (priv->powered) {
-+		ret = ac300_ephy_ctl_write(priv, AC300_EPHY_CONFIG_REG,
-+					   ac300_ephy_ctl_config(priv) |
-+					   AC300_EPHY_SHUTDOWN);
-+		err = ac300_ephy_ctl_write(priv, AC300_SYS_IO_REG, 0);
-+		if (!ret)
-+			ret = err;
-+		err = ac300_ephy_ctl_write(priv, AC300_SYS_CONTROL_REG,
-+					   ac300_ephy_ctl_reset_value(priv));
-+		if (!ret)
-+			ret = err;
-+
-+		clk_disable_unprepare(priv->clk);
-+		priv->powered = false;
-+	}
-+
-+	if (priv->supply_enabled) {
-+		err = regulator_disable(priv->vcc);
-+		if (!err)
-+			priv->supply_enabled = false;
-+		else if (!ret)
-+			ret = err;
-+	}
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_power_off(struct acx00_ephy_control *control)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+
-+	return ac300_ephy_ctl_disable(priv);
-+}
-+
-+static int
-+ac300_ephy_ctl_set_interface(struct acx00_ephy_control *control,
-+			     phy_interface_t interface)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+	int ret = 0;
-+
-+	if (interface != PHY_INTERFACE_MODE_MII &&
-+	    interface != PHY_INTERFACE_MODE_RMII)
-+		return -EINVAL;
-+
-+	if (priv->interface == interface)
-+		return 0;
-+
-+	if (priv->powered)
-+		ret = ac300_ephy_ctl_modify(priv, AC300_EPHY_CONFIG_REG,
-+					    AC300_EPHY_RMII_SEL,
-+					    interface == PHY_INTERFACE_MODE_RMII ?
-+					    AC300_EPHY_RMII_SEL : 0);
-+	if (!ret)
-+		priv->interface = interface;
-+
-+	return ret;
-+}
-+
-+static int ac300_ephy_ctl_power_on(struct acx00_ephy_control *control,
-+				   unsigned int phy_addr)
-+{
-+	struct ac300_ephy_ctl *priv =
-+		container_of(control, struct ac300_ephy_ctl, control);
-+	u8 package_status;
-+	u16 reset_value;
-+	int sys_control;
-+	int ret;
-+
-+	if (phy_addr != ac300_ephy_ctl_link_addr(priv))
-+		return -EINVAL;
-+
-+	if (priv->powered)
-+		return 0;
-+
-+	if (!priv->supply_enabled) {
-+		ret = regulator_enable(priv->vcc);
-+		if (ret)
-+			return ret;
-+		priv->supply_enabled = true;
-+
-+		/* Wait for the power-on reset interval specified by the manual. */
-+		fsleep(10000);
-+	}
-+
-+	ret = clk_prepare_enable(priv->clk);
-+	if (ret)
-+		goto err_power_off;
-+	priv->powered = true;
-+
-+	/* Keep the external-supply configuration across chip resets. */
-+	reset_value = ac300_ephy_ctl_reset_value(priv);
-+	ret = ac300_ephy_ctl_write(priv, AC300_SYS_CONTROL_REG, reset_value);
-+	if (ret)
-+		goto err_power_off;
-+
-+	/* The manual requires both resets to be released before the clocks. */
-+	ret = ac300_ephy_ctl_write(priv, AC300_SYS_CONTROL_REG,
-+				   AC300_EPHY_RESET_DEASSERT |
-+				  AC300_CHIP_RESET_DEASSERT);
-+	if (ret)
-+		goto err_power_off;
-+
-+	/* Retain the vendor clock-enable defaults, including the eFuse clock. */
-+	ret = ac300_ephy_ctl_write(priv, AC300_SYS_CONTROL_REG,
-+				   priv->sys_control);
-+	if (ret)
-+		goto err_power_off;
-+
-+	sys_control = ac300_ephy_ctl_read(priv, AC300_SYS_CONTROL_REG);
-+	if (sys_control < 0) {
-+		ret = sys_control;
-+		goto err_power_off;
-+	}
-+
-+	package_status = FIELD_GET(AC300_PACKAGE_STATUS_MASK, sys_control);
-+	if ((~package_status & AC300_PACKAGE_PHY_ADDR_MASK) !=
-+	    ac300_ephy_ctl_link_addr(priv)) {
-+		ret = -EINVAL;
-+		goto err_power_off;
-+	}
-+
-+	priv->internal_dldo = package_status & AC300_PACKAGE_POR_INTERNAL_DLDO;
-+	priv->package_known = true;
-+	ret = ac300_ephy_ctl_modify(priv, AC300_SYS_BIAS1_REG,
-+				    AC300_INTERNAL_DLDO_ENABLE,
-+				   priv->internal_dldo ?
-+				   AC300_INTERNAL_DLDO_ENABLE : 0);
-+	if (ret)
-+		goto err_power_off;
-+
-+	/* Keep the documented default drive level and leave the IRQ disabled. */
-+	ret = ac300_ephy_ctl_write(priv, AC300_SYS_IO_REG,
-+				   AC300_SYS_IO_VALUE);
-+	if (ret)
-+		goto err_power_off;
-+
-+	fsleep(10000);
-+
-+	ret = ac300_ephy_ctl_write(priv, AC300_EPHY_CONFIG_REG,
-+				   ac300_ephy_ctl_config(priv) |
-+				  AC300_EPHY_SHUTDOWN);
-+	if (ret)
-+		goto err_power_off;
-+
-+	fsleep(10000);
-+
-+	ret = ac300_ephy_ctl_write(priv, AC300_EPHY_CONFIG_REG,
-+				   ac300_ephy_ctl_config(priv));
-+	if (ret)
-+		goto err_power_off;
-+
-+	return 0;
-+
-+err_power_off:
-+	ac300_ephy_ctl_disable(priv);
-+
-+	return ret;
-+}
-+
-+static void ac300_ephy_clk_put(void *data)
-+{
-+	clk_put(data);
-+}
-+
-+struct acx00_ephy_control *
-+ac300_ephy_ctl_create(struct phy_device *phydev,
-+		      struct device_node *package_node, u8 calibration)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct ac300_ephy_ctl *priv;
-+	unsigned long clk_rate;
-+	u8 bgs_effuse_code;
-+	int ret;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return ERR_PTR(-ENOMEM);
-+	if (phydev->mdio.addr > FIELD_MAX(AC300_PACKAGE_PHY_ADDR_MASK))
-+		return ERR_PTR(dev_err_probe(dev, -EINVAL,
-+					     "link address is outside the package range\n"));
-+	priv->phydev = phydev;
-+
-+	priv->vcc = devm_of_regulator_get(dev, package_node, "vcc");
-+	if (IS_ERR(priv->vcc))
-+		return ERR_PTR(dev_err_probe(dev, PTR_ERR(priv->vcc),
-+					     "failed to get package supply\n"));
-+
-+	priv->clk = of_clk_get(package_node, 0);
-+	if (IS_ERR(priv->clk))
-+		return ERR_PTR(dev_err_probe(dev, PTR_ERR(priv->clk),
-+					     "failed to get input clock\n"));
-+
-+	ret = devm_add_action_or_reset(dev, ac300_ephy_clk_put, priv->clk);
-+	if (ret)
-+		return ERR_PTR(ret);
-+
-+	ret = devm_clk_rate_exclusive_get(dev, priv->clk);
-+	if (ret)
-+		return ERR_PTR(dev_err_probe(dev, ret,
-+					     "failed to lock clock rate\n"));
-+
-+	clk_rate = clk_get_rate(priv->clk);
-+	switch (clk_rate) {
-+	case AC300_EPHY_CLK_RATE_24_MHZ:
-+		priv->sys_control = AC300_EPHY_CLK_SEL_24_MHZ;
-+		break;
-+	case AC300_EPHY_CLK_RATE_25_MHZ:
-+		priv->sys_control = AC300_EPHY_CLK_SEL_25_MHZ;
-+		break;
-+	case AC300_EPHY_CLK_RATE_27_MHZ:
-+		priv->sys_control = AC300_EPHY_CLK_SEL_27_MHZ;
-+		break;
-+	default:
-+		return ERR_PTR(dev_err_probe(dev, -EINVAL,
-+					     "unsupported input clock rate %lu Hz\n",
-+					     clk_rate));
-+	}
-+	priv->sys_control |= AC300_SYS_CONTROL_ENABLE_BITS;
-+
-+	/* The vendor driver supplies no transfer function beyond this offset. */
-+	bgs_effuse_code = (calibration + AC300_EPHY_BGS_EFFUSE_OFFSET) &
-+			   FIELD_MAX(AC300_EPHY_BGS_EFFUSE_MASK);
-+	priv->ephy_config =
-+		FIELD_PREP(AC300_EPHY_BGS_EFFUSE_MASK, bgs_effuse_code);
-+	/* EPHY_MODE and BIST_CLK_EN stay clear for normal operation. */
-+
-+	priv->control.power_on = ac300_ephy_ctl_power_on;
-+	priv->control.power_off = ac300_ephy_ctl_power_off;
-+	priv->control.set_interface = ac300_ephy_ctl_set_interface;
-+	/* MII is the reset default used until the MAC supplies its interface. */
-+	priv->interface = PHY_INTERFACE_MODE_MII;
-+
-+	return &priv->control;
-+}
-diff --git a/drivers/net/phy/xpowers/acx00.c b/drivers/net/phy/xpowers/acx00.c
-new file mode 100644
-index 000000000000..932ed4335d84
---- /dev/null
-+++ b/drivers/net/phy/xpowers/acx00.c
-@@ -0,0 +1,621 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * X-Powers AC200/AC300 Ethernet PHY driver
-+ *
-+ * Copyright (C) 2019 Jernej Skrabec <jernej.skrabec@gmail.com>
-+ * Copyright (C) 2026 James Hilliard <james.hilliard1@gmail.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/device.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/nvmem-consumer.h>
-+#include <linux/of.h>
-+#include <linux/phy.h>
-+#include <linux/slab.h>
-+
-+#include "../phylib.h"
-+#include "acx00.h"
-+
-+#define ACX00_EPHY_ID				0x00441400
-+
-+#define ACX00_EPHY_CONFIG_CALIBRATION_MASK	GENMASK(3, 0)
-+#define ACX00_EPHY_CONFIG_VARIANT_AC300		BIT(8)
-+#define ACX00_EPHY_CONFIG_CALIBRATION_LOW	BIT(9)
-+
-+#define ACX00_PAGE_SELECT_REG			0x1f
-+#define ACX00_PAGE_SELECT_MASK			GENMASK(12, 8)
-+#define ACX00_PAGE_0				0
-+#define ACX00_PAGE_1				1
-+#define ACX00_PAGE_2				2
-+#define ACX00_PAGE_6				6
-+#define ACX00_PAGE_8				8
-+
-+#define ACX00_PAGE0_GLOBAL_CONFIG_REG		0x13
-+#define ACX00_PAGE0_XMII_RX_CLOCK_INVERT	BIT(12)
-+#define ACX00_PAGE0_MDI_MODE_MASK		GENMASK(1, 0)
-+#define ACX00_PAGE0_MDI_MODE_AUTO		2
-+
-+#define ACX00_PAGE1_APS_CONTROL_REG		0x12
-+#define ACX00_PAGE1_APS_DISABLED_4S_VALUE	0x4824
-+#define ACX00_PAGE1_UAPS_CONTROL_REG		0x13
-+#define ACX00_PAGE1_UAPS_ENABLE			BIT(15)
-+#define ACX00_PAGE1_INTELLIGENT_EEE_CONTROL_REG	0x17
-+#define ACX00_PAGE1_INTELLIGENT_EEE_ENABLE	BIT(3)
-+
-+#define ACX00_PAGE2_TX_DATA_CONTROL_REG		0x18
-+#define ACX00_PAGE2_10BT_FIR_SELECT_MASK		GENMASK(14, 12)
-+#define ACX00_PAGE2_10BT_FIR_SELECT_DEFAULT	0
-+
-+#define ACX00_PAGE6_ADC_CONTROL_REG		0x10
-+#define ACX00_PAGE6_ADC_CONTROL_LOW_CAL_VALUE	0x5523
-+#define ACX00_PAGE6_AFE_RX_CONTROL_REG		0x13
-+#define ACX00_PAGE6_AFE_RX_CONTROL_VALUE		0xf000
-+#define ACX00_PAGE6_AFE_EQ_RX_DETECT_CONTROL_REG	0x14
-+#define AC200_PAGE6_AFE_EQ_RX_DETECT_VALUE	0x708f
-+#define AC300_PAGE6_AFE_EQ_RX_DETECT_VALUE	0x708b
-+#define ACX00_PAGE6_AFE_EQ_RX_DETECT_LOW_CAL_VALUE 0x7809
-+#define ACX00_PAGE6_TX_LEVEL_REG			0x15
-+#define ACX00_PAGE6_TX_LEVEL_100M_MASK		GENMASK(15, 8)
-+#define ACX00_PAGE6_TX_LEVEL_10M_MASK		GENMASK(7, 0)
-+#define ACX00_PAGE6_TX_LEVEL_VALUE(_100m, _10m) \
-+	(FIELD_PREP(ACX00_PAGE6_TX_LEVEL_100M_MASK, (_100m)) | \
-+	 FIELD_PREP(ACX00_PAGE6_TX_LEVEL_10M_MASK, (_10m)))
-+#define ACX00_PAGE6_TX_LEVEL_DEFAULT_VALUE \
-+	ACX00_PAGE6_TX_LEVEL_VALUE(0x15, 0x30)
-+#define ACX00_PAGE6_TX_LEVEL_LOW_CAL_VALUE \
-+	ACX00_PAGE6_TX_LEVEL_VALUE(0x35, 0x33)
-+
-+#define ACX00_PAGE8_AFE_CONTROL_REG		0x18
-+#define ACX00_PAGE8_AFE_CONTROL_VALUE		0x00bc
-+#define ACX00_PAGE8_AUTO_CAL_CONTROL_REG		0x1d
-+#define ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS BIT(11)
-+#define ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS	0x0044
-+#define ACX00_PAGE8_AUTO_CAL_LOW_VALUE \
-+	(ACX00_PAGE8_AUTO_CAL_TX_LEVEL_ADJUST_BYPASS | \
-+	 ACX00_PAGE8_AUTO_CAL_LOW_CAL_OPAQUE_BITS)
-+
-+/*
-+ * Another integration of this exact-ID PHY documents its digital vendor
-+ * register map, which also matches the observed ACx00 reset values. The ACx00
-+ * analog-page field encodings remain unpublished, so keep those as opaque
-+ * vendor initialization values instead of inventing bit definitions.
-+ */
-+
-+struct acx00_ephy_priv {
-+	struct phy_device *phydev;
-+	struct acx00_ephy_control *control;
-+	/* Serializes package state and multi-register power sequences. */
-+	struct mutex state_lock;
-+	bool is_ac300;
-+	bool use_low_calibration_tuning;
-+	bool xmii_rx_clock_inverted;
-+};
-+
-+static int acx00_ephy_read_page(struct phy_device *phydev)
-+{
-+	int ret;
-+
-+	ret = __phy_read(phydev, ACX00_PAGE_SELECT_REG);
-+	if (ret < 0)
++	ret = pm_runtime_resume_and_get(trng->dev);
++	if (ret < 0) {
++		dev_warn(trng->dev, "Failed to wake device for init: %d\n", ret);
 +		return ret;
++	}
 +
-+	return FIELD_GET(ACX00_PAGE_SELECT_MASK, ret);
++	mutex_lock(&trng->lock);
++
++	WRITE_ONCE(trng->cleanup, 0);
+ 
+ 	/* setup Auto Request/Age register */
+ 	writel(autoage, trng->base + STARFIVE_AUTO_AGE);
+ 	writel(autoreq, trng->base + STARFIVE_AUTO_RQSTS);
+ 
+ 	/* clear register: ISTAT */
+-	starfive_trng_irq_mask_clear(trng);
++	starfive_trng_irq_clear(trng);
+ 
+ 	intr |= STARFIVE_IE_ALL;
+ 	writel(intr, trng->base + STARFIVE_IE);
+@@ -201,45 +252,105 @@ static int starfive_trng_init(struct hwrng *rng)
+ 
+ 	writel(mode, trng->base + STARFIVE_MODE);
+ 
+-	return starfive_trng_cmd(trng, STARFIVE_CTRL_EXEC_RANDRESEED, 1);
++	ret = starfive_trng_cmd(trng, STARFIVE_CTRL_EXEC_RANDRESEED, 1);
++
++	mutex_unlock(&trng->lock);
++
++	pm_runtime_put_autosuspend(trng->dev);
++
++	return ret;
 +}
 +
-+static int acx00_ephy_write_page(struct phy_device *phydev, int page)
++static void starfive_trng_randreseed_work(struct work_struct *work)
 +{
-+	return __phy_write(phydev, ACX00_PAGE_SELECT_REG,
-+			   FIELD_PREP(ACX00_PAGE_SELECT_MASK, page));
-+}
-+
-+static int acx00_ephy_control_power_on(struct acx00_ephy_priv *priv)
-+{
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	return priv->control->power_on(priv->control,
-+				       priv->phydev->mdio.addr);
-+}
-+
-+static int acx00_ephy_control_power_off(struct acx00_ephy_priv *priv)
-+{
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	return priv->control->power_off(priv->control);
-+}
-+
-+static int acx00_ephy_set_interface(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	if (phydev->interface == PHY_INTERFACE_MODE_NA)
-+		return 0;
-+	if (phydev->interface != PHY_INTERFACE_MODE_MII &&
-+	    phydev->interface != PHY_INTERFACE_MODE_RMII)
-+		return -EINVAL;
-+
-+	return priv->control->set_interface(priv->control,
-+					    phydev->interface);
-+}
-+
-+static void acx00_ephy_control_power_off_warn(struct acx00_ephy_priv *priv)
-+{
++	struct starfive_trng *trng = work_to_trng(work);
 +	int ret;
 +
-+	ret = acx00_ephy_control_power_off(priv);
-+	if (ret)
-+		phydev_warn(priv->phydev,
-+			    "failed to power off control block: %pe\n",
-+			    ERR_PTR(ret));
-+}
-+
-+static void acx00_ephy_control_release(void *data)
-+{
-+	struct acx00_ephy_priv *priv = data;
-+
-+	mutex_lock(&priv->state_lock);
-+	acx00_ephy_control_power_off_warn(priv);
-+	mutex_unlock(&priv->state_lock);
-+}
-+
-+static int acx00_ephy_read_nvmem_u16(struct device_node *node,
-+				     const char *name, u16 *value)
-+{
-+	struct nvmem_cell *cell;
-+	size_t i;
-+	size_t len;
-+	u8 *buf;
-+	u16 val = 0;
-+
-+	cell = of_nvmem_cell_get(node, name);
-+	if (IS_ERR(cell))
-+		return PTR_ERR(cell);
-+
-+	buf = nvmem_cell_read(cell, &len);
-+	nvmem_cell_put(cell);
-+	if (IS_ERR(buf))
-+		return PTR_ERR(buf);
-+	if (!len || len > sizeof(*value)) {
-+		kfree(buf);
-+		return len ? -ERANGE : -EINVAL;
++	ret = pm_runtime_resume_and_get(trng->dev);
++	if (ret < 0) {
++		dev_warn(trng->dev, "Failed to wake device for reseed: %d\n", ret);
++		return;
 +	}
 +
-+	for (i = 0; i < len; i++)
-+		val |= (u16)buf[i] << (8 * i);
-+	kfree(buf);
-+	*value = val;
++	mutex_lock(&trng->lock);
 +
-+	return 0;
-+}
++	if (READ_ONCE(trng->cleanup))
++		goto unlock;
 +
-+static int acx00_ephy_init_package(struct phy_device *phydev,
-+				   struct acx00_ephy_priv *priv)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct device_node *package_node;
-+	bool selectable;
-+	bool fixed_ac300;
-+	bool has_configuration;
-+	u8 calibration;
-+	u32 base_addr;
-+	u16 configuration = 0;
++	reinit_completion(&trng->reseed_done);
++	writel(STARFIVE_CTRL_EXEC_RANDRESEED, trng->base + STARFIVE_CTRL);
++
++unlock:
++	mutex_unlock(&trng->lock);
++
++	pm_runtime_put_autosuspend(trng->dev);
+ }
+ 
+ static irqreturn_t starfive_trng_irq(int irq, void *priv)
+ {
++	int ret;
+ 	u32 status;
+ 	struct starfive_trng *trng = (struct starfive_trng *)priv;
+ 
++	ret = pm_runtime_get_if_active(trng->dev);
++	if (ret <= 0) {
++		dev_err_ratelimited(trng->dev, "pm is inactive in irq\n");
++		return IRQ_NONE;
++	}
++
+ 	status = readl(trng->base + STARFIVE_ISTAT);
+-	if (status & STARFIVE_ISTAT_RAND_RDY) {
++	if (status & STARFIVE_ISTAT_RAND_RDY)
+ 		writel(STARFIVE_ISTAT_RAND_RDY, trng->base + STARFIVE_ISTAT);
+-		complete(&trng->random_done);
+-	}
+ 
+-	if (status & STARFIVE_ISTAT_SEED_DONE) {
++	if (status & STARFIVE_ISTAT_SEED_DONE)
+ 		writel(STARFIVE_ISTAT_SEED_DONE, trng->base + STARFIVE_ISTAT);
+-		complete(&trng->reseed_done);
+-	}
+ 
+ 	if (status & STARFIVE_ISTAT_LFSR_LOCKUP) {
+ 		writel(STARFIVE_ISTAT_LFSR_LOCKUP, trng->base + STARFIVE_ISTAT);
+ 		/* SEU occurred, reseeding required*/
+-		spin_lock(&trng->write_lock);
+-		writel(STARFIVE_CTRL_EXEC_RANDRESEED, trng->base + STARFIVE_CTRL);
+-		spin_unlock(&trng->write_lock);
++		schedule_work(&trng->work);
+ 	}
+ 
++	if (status & STARFIVE_ISTAT_RAND_RDY)
++		complete(&trng->random_done);
++
++	if (status & STARFIVE_ISTAT_SEED_DONE)
++		complete(&trng->reseed_done);
++
++	pm_runtime_put_noidle(trng->dev);
++
+ 	return IRQ_HANDLED;
+ }
+ 
+ static void starfive_trng_cleanup(struct hwrng *rng)
+ {
+ 	struct starfive_trng *trng = to_trng(rng);
 +	int ret;
 +
-+	package_node = of_get_parent(dev->of_node);
-+	if (!package_node)
-+		return -EINVAL;
-+	if (!of_node_name_eq(package_node, "ethernet-phy-package")) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "PHY is not in an Ethernet PHY package\n");
-+		goto out_put_node;
++	ret = pm_runtime_resume_and_get(trng->dev);
++	if (ret < 0) {
++		dev_warn(trng->dev, "Failed to wake device for cleanup: %d\n", ret);
++		goto end;
 +	}
 +
-+	ret = of_property_read_u32(package_node, "reg", &base_addr);
-+	if (ret || base_addr != phydev->mdio.addr) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "package and link PHY addresses differ\n");
-+		goto out_put_node;
++	mutex_lock(&trng->lock);
++
++	writel(0, trng->base + STARFIVE_IE);
++	starfive_trng_irq_clear(trng);
++
++	if (trng->irq >= 0)
++		synchronize_irq(trng->irq);
+ 
+ 	writel(0, trng->base + STARFIVE_CTRL);
+ 
+-	reset_control_assert(trng->rst);
+-	clk_disable_unprepare(trng->hclk);
+-	clk_disable_unprepare(trng->ahb);
++	WRITE_ONCE(trng->cleanup, 1);
++
++	mutex_unlock(&trng->lock);
++
++	pm_runtime_put_sync(trng->dev);
++
++end:
++	cancel_work_sync(&trng->work);
+ }
+ 
+ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wait)
+@@ -247,7 +358,18 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
+ 	struct starfive_trng *trng = to_trng(rng);
+ 	int ret;
+ 
+-	pm_runtime_get_sync(trng->dev);
++	ret = pm_runtime_resume_and_get(trng->dev);
++	if (ret < 0) {
++		dev_warn(trng->dev, "Failed to wake device for read: %d\n", ret);
++		return ret;
 +	}
 +
-+	selectable = of_device_is_compatible(package_node,
-+					     "x-powers,acx00-ephy-package");
-+	fixed_ac300 = of_device_is_compatible(package_node,
-+					      "x-powers,ac300-ephy-package");
-+	if (!selectable && !fixed_ac300 &&
-+	    !of_device_is_compatible(package_node,
-+				     "x-powers,ac200-ephy-package")) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "unsupported Ethernet PHY package\n");
-+		goto out_put_node;
-+	}
-+
-+	ret = devm_of_phy_package_join(dev, phydev, 0);
-+	if (ret)
-+		goto out_put_node;
-+
-+	has_configuration =
-+		of_property_match_string(package_node, "nvmem-cell-names",
-+					 "configuration") >= 0;
-+	if (has_configuration) {
-+		ret = acx00_ephy_read_nvmem_u16(package_node, "configuration",
-+						&configuration);
-+		if (ret) {
-+			ret = dev_err_probe(dev, ret,
-+					    "failed to read package configuration\n");
-+			goto out_put_node;
-+		}
-+	} else if (selectable || fixed_ac300) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "package configuration is required\n");
-+		goto out_put_node;
-+	}
-+
-+	if (selectable) {
-+		priv->is_ac300 =
-+			configuration & ACX00_EPHY_CONFIG_VARIANT_AC300;
++	if (wait) {
++		mutex_lock(&trng->lock);
 +	} else {
-+		priv->is_ac300 = fixed_ac300;
-+		if (has_configuration &&
-+		    !!(configuration & ACX00_EPHY_CONFIG_VARIANT_AC300) !=
-+		    priv->is_ac300) {
-+			ret = dev_err_probe(dev, -EINVAL,
-+					    "configuration does not match package\n");
-+			goto out_put_node;
-+		}
++		if (!mutex_trylock(&trng->lock))
++			return -EAGAIN;
 +	}
-+
-+	calibration = FIELD_GET(ACX00_EPHY_CONFIG_CALIBRATION_MASK,
-+				configuration);
-+
-+	priv->use_low_calibration_tuning =
-+		priv->is_ac300 &&
-+		!!(configuration & ACX00_EPHY_CONFIG_CALIBRATION_LOW);
-+	priv->xmii_rx_clock_inverted =
-+		of_property_read_bool(package_node,
-+				      "x-powers,xmii-rx-clock-inverted");
-+
-+	if (priv->is_ac300)
-+		priv->control =
-+			ac300_ephy_ctl_create(phydev, package_node,
-+					      calibration);
-+	else
-+		priv->control =
-+			ac200_ephy_ctl_create(phydev, package_node,
-+					      has_configuration,
-+					      calibration);
-+	ret = PTR_ERR_OR_ZERO(priv->control);
-+
-+out_put_node:
-+	of_node_put(package_node);
-+	return ret;
-+}
-+
-+static int acx00_ephy_disable_autonomous_eee(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->state_lock);
-+	ret = phy_modify_paged(phydev, ACX00_PAGE_1,
-+			       ACX00_PAGE1_INTELLIGENT_EEE_CONTROL_REG,
-+			       ACX00_PAGE1_INTELLIGENT_EEE_ENABLE, 0);
-+	mutex_unlock(&priv->state_lock);
-+
-+	return ret;
-+}
-+
-+static int acx00_ephy_probe(struct phy_device *phydev)
-+{
-+	struct device *dev = &phydev->mdio.dev;
-+	struct acx00_ephy_priv *priv;
-+	int ret;
-+
-+	if (!dev->of_node)
-+		return -ENODEV;
-+
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	priv->phydev = phydev;
-+	mutex_init(&priv->state_lock);
-+	ret = acx00_ephy_init_package(phydev, priv);
-+	if (ret)
-+		return ret;
-+
-+	phydev->priv = priv;
-+	ret = devm_add_action_or_reset(dev, acx00_ephy_control_release, priv);
-+	if (ret)
-+		return ret;
-+
-+	mutex_lock(&priv->state_lock);
-+	ret = acx00_ephy_control_power_on(priv);
-+	mutex_unlock(&priv->state_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to power on control block\n");
-+
-+	return 0;
-+}
-+
-+static int acx00_ephy_soft_reset(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->state_lock);
-+
-+	ret = acx00_ephy_set_interface(phydev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	ret = acx00_ephy_control_power_on(priv);
-+	if (ret)
-+		goto out_power_off;
-+
-+	/* ACx00 can acknowledge reset in power-down without restarting. */
-+	ret = genphy_resume(phydev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	ret = genphy_soft_reset(phydev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	goto out_unlock;
-+
-+out_power_off:
-+	acx00_ephy_control_power_off_warn(priv);
-+out_unlock:
-+	mutex_unlock(&priv->state_lock);
-+
-+	return ret;
-+}
-+
-+static int __acx00_ephy_config_init(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	u16 afe_eq_rx_detect = priv->is_ac300 ?
-+		AC300_PAGE6_AFE_EQ_RX_DETECT_VALUE :
-+		AC200_PAGE6_AFE_EQ_RX_DETECT_VALUE;
-+	u16 tx_level_value = ACX00_PAGE6_TX_LEVEL_DEFAULT_VALUE;
-+	u16 global_config;
-+	int oldpage;
-+	int ret;
-+
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	global_config = FIELD_PREP(ACX00_PAGE0_MDI_MODE_MASK,
-+				   ACX00_PAGE0_MDI_MODE_AUTO);
-+	if (priv->xmii_rx_clock_inverted)
-+		global_config |= ACX00_PAGE0_XMII_RX_CLOCK_INVERT;
-+
-+	ret = phy_modify_paged(phydev, ACX00_PAGE_0,
-+			       ACX00_PAGE0_GLOBAL_CONFIG_REG,
-+			       ACX00_PAGE0_XMII_RX_CLOCK_INVERT |
-+			       ACX00_PAGE0_MDI_MODE_MASK, global_config);
-+	if (ret)
-+		return ret;
-+
-+	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-+		afe_eq_rx_detect =
-+			ACX00_PAGE6_AFE_EQ_RX_DETECT_LOW_CAL_VALUE;
-+		tx_level_value = ACX00_PAGE6_TX_LEVEL_LOW_CAL_VALUE;
-+	}
-+
-+	oldpage = phy_select_page(phydev, ACX00_PAGE_1);
-+	if (oldpage < 0)
-+		return phy_restore_page(phydev, oldpage, oldpage);
-+
-+	ret = __phy_write(phydev, ACX00_PAGE1_APS_CONTROL_REG,
-+			  ACX00_PAGE1_APS_DISABLED_4S_VALUE);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_modify(phydev, ACX00_PAGE1_UAPS_CONTROL_REG,
-+			   ACX00_PAGE1_UAPS_ENABLE, 0);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_modify(phydev, ACX00_PAGE1_INTELLIGENT_EEE_CONTROL_REG,
-+			   ACX00_PAGE1_INTELLIGENT_EEE_ENABLE, 0);
-+	if (ret)
-+		goto out_restore_page;
-+
-+	ret = acx00_ephy_write_page(phydev, ACX00_PAGE_2);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_modify(phydev, ACX00_PAGE2_TX_DATA_CONTROL_REG,
-+			   ACX00_PAGE2_10BT_FIR_SELECT_MASK,
-+			   FIELD_PREP(ACX00_PAGE2_10BT_FIR_SELECT_MASK,
-+				      ACX00_PAGE2_10BT_FIR_SELECT_DEFAULT));
-+	if (ret)
-+		goto out_restore_page;
-+
-+	ret = acx00_ephy_write_page(phydev, ACX00_PAGE_6);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_write(phydev, ACX00_PAGE6_AFE_EQ_RX_DETECT_CONTROL_REG,
-+			  afe_eq_rx_detect);
-+	if (ret)
-+		goto out_restore_page;
-+	ret = __phy_write(phydev, ACX00_PAGE6_AFE_RX_CONTROL_REG,
-+			  ACX00_PAGE6_AFE_RX_CONTROL_VALUE);
-+	if (ret)
-+		goto out_restore_page;
-+	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-+		ret = __phy_write(phydev, ACX00_PAGE6_ADC_CONTROL_REG,
-+				  ACX00_PAGE6_ADC_CONTROL_LOW_CAL_VALUE);
+ 
+ 	if (trng->mode == PRNG_256BIT)
+ 		max = min_t(size_t, max, (STARFIVE_RAND_LEN * 8));
+@@ -256,28 +378,29 @@ static int starfive_trng_read(struct hwrng *rng, void *buf, size_t max, bool wai
+ 
+ 	if (wait) {
+ 		ret = starfive_trng_wait_idle(trng);
+-		if (ret) {
+-			ret = -ETIMEDOUT;
+-			goto out_put;
+-		}
 +		if (ret)
-+			goto out_restore_page;
++			goto end;
+ 	}
+ 
+ 	ret = starfive_trng_cmd(trng, STARFIVE_CTRL_GENE_RANDNUM, wait);
+ 	if (ret)
+-		goto out_put;
++		goto end;
+ 
+ 	memcpy_fromio(buf, trng->base + STARFIVE_RAND0, max);
++
+ 	ret = max;
+ 
+-out_put:
+-	pm_runtime_put_sync_autosuspend(trng->dev);
++end:
++	mutex_unlock(&trng->lock);
++
++	pm_runtime_put_autosuspend(trng->dev);
++
+ 	return ret;
+ }
+ 
+ static int starfive_trng_probe(struct platform_device *pdev)
+ {
+ 	int ret;
+-	int irq;
+ 	struct starfive_trng *trng;
+ 
+ 	trng = devm_kzalloc(&pdev->dev, sizeof(*trng), GFP_KERNEL);
+@@ -285,26 +408,22 @@ static int starfive_trng_probe(struct platform_device *pdev)
+ 		return -ENOMEM;
+ 
+ 	platform_set_drvdata(pdev, trng);
++
+ 	trng->dev = &pdev->dev;
++	trng->data = of_device_get_match_data(&pdev->dev);
++	if (!trng->data)
++		return -EINVAL;
++
++	if (trng->data->seq_rst_clk != SEQ_RST_FIRST && trng->data->seq_rst_clk != SEQ_CLK_FIRST) {
++		dev_err(&pdev->dev, "Unknown seq_rst_clk value\n");
++		return -EINVAL;
 +	}
-+	ret = __phy_write(phydev, ACX00_PAGE6_TX_LEVEL_REG, tx_level_value);
-+	if (ret)
-+		goto out_restore_page;
+ 
+ 	trng->base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(trng->base))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(trng->base),
+ 				     "Error remapping memory for platform device.\n");
+ 
+-	irq = platform_get_irq(pdev, 0);
+-	if (irq < 0)
+-		return irq;
+-
+-	init_completion(&trng->random_done);
+-	init_completion(&trng->reseed_done);
+-	spin_lock_init(&trng->write_lock);
+-
+-	ret = devm_request_irq(&pdev->dev, irq, starfive_trng_irq, 0, pdev->name,
+-			       (void *)trng);
+-	if (ret)
+-		return ret;
+-
+ 	trng->hclk = devm_clk_get(&pdev->dev, "hclk");
+ 	if (IS_ERR(trng->hclk))
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(trng->hclk),
+@@ -320,9 +439,14 @@ static int starfive_trng_probe(struct platform_device *pdev)
+ 		return dev_err_probe(&pdev->dev, PTR_ERR(trng->rst),
+ 				     "Error getting hardware reset line\n");
+ 
+-	clk_prepare_enable(trng->hclk);
+-	clk_prepare_enable(trng->ahb);
+-	reset_control_deassert(trng->rst);
++	init_completion(&trng->random_done);
++	init_completion(&trng->reseed_done);
++	mutex_init(&trng->lock);
++	INIT_WORK(&trng->work, starfive_trng_randreseed_work);
 +
-+	ret = acx00_ephy_write_page(phydev, ACX00_PAGE_8);
-+	if (ret)
-+		goto out_restore_page;
-+	if (priv->is_ac300 && priv->use_low_calibration_tuning) {
-+		ret = __phy_write(phydev, ACX00_PAGE8_AUTO_CAL_CONTROL_REG,
-+				  ACX00_PAGE8_AUTO_CAL_LOW_VALUE);
-+		if (ret)
-+			goto out_restore_page;
-+	}
-+	ret = __phy_write(phydev, ACX00_PAGE8_AFE_CONTROL_REG,
-+			  ACX00_PAGE8_AFE_CONTROL_VALUE);
-+
-+out_restore_page:
-+	ret = phy_restore_page(phydev, oldpage, ret);
-+	if (ret)
-+		return ret;
-+
-+	/* Restore the standard EEE policy retained by phylib across resets. */
-+	ret = genphy_c45_an_config_eee_aneg(phydev);
-+	if (ret <= 0)
-+		return ret;
-+
-+	return genphy_restart_aneg(phydev);
-+}
-+
-+static int acx00_ephy_config_init(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->state_lock);
-+	ret = __acx00_ephy_config_init(phydev);
-+	if (ret)
-+		acx00_ephy_control_power_off_warn(priv);
-+	mutex_unlock(&priv->state_lock);
-+
-+	return ret;
-+}
-+
-+static int __acx00_ephy_power_on_and_resume(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	lockdep_assert_held(&phydev->lock);
-+	lockdep_assert_held(&priv->state_lock);
-+
-+	ret = acx00_ephy_set_interface(phydev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	ret = acx00_ephy_control_power_on(priv);
-+	if (ret)
-+		goto out_power_off;
-+
-+	ret = genphy_resume(phydev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	/* Powering off the control block loses the vendor-page state. */
-+	ret = __acx00_ephy_config_init(phydev);
-+	if (ret)
-+		goto out_power_off;
-+
-+	return 0;
-+
-+out_power_off:
-+	acx00_ephy_control_power_off_warn(priv);
-+
-+	return ret;
-+}
-+
-+static int acx00_ephy_resume(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int ret;
-+
-+	mutex_lock(&priv->state_lock);
-+	ret = __acx00_ephy_power_on_and_resume(phydev);
-+	mutex_unlock(&priv->state_lock);
-+
-+	return ret;
-+}
-+
-+static int acx00_ephy_suspend(struct phy_device *phydev)
-+{
-+	struct acx00_ephy_priv *priv = phydev->priv;
-+	int resume_ret;
-+	int ret;
-+
-+	/* The suspend callback is invoked without the phylib lock held. */
-+	mutex_lock(&phydev->lock);
-+	mutex_lock(&priv->state_lock);
-+
-+	ret = genphy_suspend(phydev);
-+	if (ret)
-+		goto out_unlock;
-+
-+	ret = acx00_ephy_control_power_off(priv);
++	trng->irq = platform_get_irq(pdev, 0);
++	if (trng->irq < 0)
++		return trng->irq;
+ 
+ 	trng->rng.name = dev_driver_string(&pdev->dev);
+ 	trng->rng.init = starfive_trng_init;
+@@ -333,40 +457,86 @@ static int starfive_trng_probe(struct platform_device *pdev)
+ 	trng->mission = 1;
+ 	trng->reseed = RANDOM_RESEED;
+ 
+-	pm_runtime_use_autosuspend(&pdev->dev);
+-	pm_runtime_set_autosuspend_delay(&pdev->dev, 100);
+-	pm_runtime_enable(&pdev->dev);
++	ret = clk_prepare_enable(trng->hclk);
 +	if (ret) {
-+		resume_ret = __acx00_ephy_power_on_and_resume(phydev);
-+		if (resume_ret)
-+			phydev_warn(phydev,
-+				    "failed to recover from suspend error: %pe\n",
-+				    ERR_PTR(resume_ret));
++		dev_err(&pdev->dev, "hclk clk_enable failed: %d\n", ret);
++		return ret;
++	}
+ 
+-	ret = devm_hwrng_register(&pdev->dev, &trng->rng);
++	ret = clk_prepare_enable(trng->ahb);
+ 	if (ret) {
+-		pm_runtime_disable(&pdev->dev);
++		clk_disable_unprepare(trng->hclk);
++		dev_err(&pdev->dev, "ahb clk_enable failed: %d\n", ret);
++		return ret;
++	}
+ 
+-		reset_control_assert(trng->rst);
++	ret = reset_control_deassert(trng->rst);
++	if (ret) {
+ 		clk_disable_unprepare(trng->ahb);
+ 		clk_disable_unprepare(trng->hclk);
++		dev_err(&pdev->dev, "failed to deassert trng\n");
++		return ret;
++	}
+ 
+-		return dev_err_probe(&pdev->dev, ret, "Failed to register hwrng\n");
++	pm_runtime_use_autosuspend(&pdev->dev);
++	pm_runtime_set_autosuspend_delay(&pdev->dev, 100);
++	devm_pm_runtime_set_active_enabled(&pdev->dev);
++
++	ret = devm_request_irq(&pdev->dev, trng->irq, starfive_trng_irq, 0, pdev->name,
++			       (void *)trng);
++	if (ret) {
++		starfive_trng_release(trng);
++		return dev_err_probe(&pdev->dev, ret, "Failed to register interrupt handler\n");
+ 	}
+ 
++	ret = devm_add_action_or_reset(&pdev->dev, starfive_trng_release, trng);
++	if (ret)
++		return ret;
++
++	ret = devm_hwrng_register(&pdev->dev, &trng->rng);
++	if (ret)
++		return dev_err_probe(&pdev->dev, ret, "Failed to register hwrng\n");
++
+ 	return 0;
+ }
+ 
+ static int __maybe_unused starfive_trng_suspend(struct device *dev)
+ {
+ 	struct starfive_trng *trng = dev_get_drvdata(dev);
++	bool cleanup = READ_ONCE(trng->cleanup);
++
++	if (cleanup && trng->data->seq_rst_clk == SEQ_RST_FIRST)
++		reset_control_assert(trng->rst);
+ 
+-	clk_disable_unprepare(trng->hclk);
+ 	clk_disable_unprepare(trng->ahb);
++	clk_disable_unprepare(trng->hclk);
++
++	if (cleanup && trng->data->seq_rst_clk == SEQ_CLK_FIRST)
++		reset_control_assert(trng->rst);
+ 
+ 	return 0;
+ }
+ 
+ static int __maybe_unused starfive_trng_resume(struct device *dev)
+ {
++	int ret;
+ 	struct starfive_trng *trng = dev_get_drvdata(dev);
+ 
+-	clk_prepare_enable(trng->hclk);
+-	clk_prepare_enable(trng->ahb);
++	ret = clk_prepare_enable(trng->hclk);
++	if (ret) {
++		dev_err(trng->dev, "hclk clk_enable failed: %d\n", ret);
++		return ret;
 +	}
 +
-+out_unlock:
-+	mutex_unlock(&priv->state_lock);
-+	mutex_unlock(&phydev->lock);
++	ret = clk_prepare_enable(trng->ahb);
++	if (ret) {
++		clk_disable_unprepare(trng->hclk);
++		dev_err(trng->dev, "ahb clk_enable failed: %d\n", ret);
++		return ret;
++	}
 +
-+	return ret;
-+}
-+
-+static int acx00_ephy_match_phy_device(struct phy_device *phydev,
-+				       const struct phy_driver *phydrv)
-+{
-+	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device_node *package_node;
-+	bool match;
-+
-+	if (!genphy_match_phy_device(phydev, phydrv) || !node)
-+		return 0;
-+
-+	/* RK630 reports the same PHY ID, so also match the package identity. */
-+	package_node = of_get_parent(node);
-+	if (!package_node)
-+		return 0;
-+	match = of_device_is_compatible(package_node,
-+					"x-powers,ac200-ephy-package") ||
-+		of_device_is_compatible(package_node,
-+					"x-powers,ac300-ephy-package") ||
-+		of_device_is_compatible(package_node,
-+					"x-powers,acx00-ephy-package");
-+	of_node_put(package_node);
-+
-+	return match;
-+}
-+
-+static struct phy_driver acx00_ephy_driver[] = {
-+	{
-+		PHY_ID_MATCH_MODEL(ACX00_EPHY_ID),
-+		.name = "X-Powers AC200/AC300 EPHY",
-+		.match_phy_device = acx00_ephy_match_phy_device,
-+		.probe = acx00_ephy_probe,
-+		.read_page = acx00_ephy_read_page,
-+		.write_page = acx00_ephy_write_page,
-+		.soft_reset = acx00_ephy_soft_reset,
-+		.config_init = acx00_ephy_config_init,
-+		.disable_autonomous_eee = acx00_ephy_disable_autonomous_eee,
-+		.suspend = acx00_ephy_suspend,
-+		.resume = acx00_ephy_resume,
-+	},
-+};
-+module_phy_driver(acx00_ephy_driver);
-+
-+static const struct mdio_device_id __maybe_unused acx00_ephy_tbl[] = {
-+	{ PHY_ID_MATCH_MODEL(ACX00_EPHY_ID) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(mdio, acx00_ephy_tbl);
-+
-+MODULE_AUTHOR("James Hilliard <james.hilliard1@gmail.com>");
-+MODULE_DESCRIPTION("X-Powers AC200/AC300 Ethernet PHY driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/net/phy/xpowers/acx00.h b/drivers/net/phy/xpowers/acx00.h
-new file mode 100644
-index 000000000000..7df6084c7a77
---- /dev/null
-+++ b/drivers/net/phy/xpowers/acx00.h
-@@ -0,0 +1,28 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+#ifndef __DRIVERS_NET_PHY_XPOWERS_ACX00_H
-+#define __DRIVERS_NET_PHY_XPOWERS_ACX00_H
-+
-+#include <linux/err.h>
-+#include <linux/phy.h>
-+
-+#define AC300_EPHY_CONTROL_ADDR_OFFSET	16
-+
-+struct device_node;
-+
-+struct acx00_ephy_control {
-+	int (*power_on)(struct acx00_ephy_control *control,
-+			unsigned int phy_addr);
-+	int (*power_off)(struct acx00_ephy_control *control);
-+	int (*set_interface)(struct acx00_ephy_control *control,
-+			     phy_interface_t interface);
++	if (READ_ONCE(trng->cleanup))
++		reset_control_deassert(trng->rst);
+ 
+ 	return 0;
+ }
+@@ -378,8 +548,17 @@ static const struct dev_pm_ops starfive_trng_pm_ops = {
+ 			   starfive_trng_resume, NULL)
+ };
+ 
+-static const struct of_device_id trng_dt_ids[] __maybe_unused = {
+-	{ .compatible = "starfive,jh7110-trng" },
++static const struct starfive_trng_data jh7110_data = {
++	.seq_rst_clk = SEQ_RST_FIRST,
 +};
 +
-+struct acx00_ephy_control *
-+ac200_ephy_ctl_create(struct phy_device *phydev,
-+		      struct device_node *package_node,
-+		      bool has_calibration, u8 calibration);
-+struct acx00_ephy_control *
-+ac300_ephy_ctl_create(struct phy_device *phydev,
-+		      struct device_node *package_node, u8 calibration);
++static const struct starfive_trng_data jhb100_data = {
++	.seq_rst_clk = SEQ_CLK_FIRST,
++};
 +
-+#endif
-
++static const struct of_device_id trng_dt_ids[] = {
++	{ .compatible = "starfive,jh7110-trng", .data = &jh7110_data },
++	{ .compatible = "starfive,jhb100-trng", .data = &jhb100_data },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, trng_dt_ids);
+@@ -389,7 +568,7 @@ static struct platform_driver starfive_trng_driver = {
+ 	.driver	= {
+ 		.name		= "jh7110-trng",
+ 		.pm		= &starfive_trng_pm_ops,
+-		.of_match_table	= of_match_ptr(trng_dt_ids),
++		.of_match_table	= trng_dt_ids,
+ 	},
+ };
+ 
 -- 
-2.53.0
+2.43.0
 
