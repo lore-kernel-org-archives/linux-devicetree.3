@@ -1,153 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EC5439F83;
-	Mon,  7 Sep 2026 08:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B701431A50
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:13:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768589; cv=none; b=UT3S9nmKSu6X3eiFr1+7Rh7WCbNswnOHXRsvwfx9pNYu4UhUf1HCtXLLQ/NwxkTeDVTxTAxnTSJG6MyvD4U+k5jtxsU3YkfQhKHspuyZg2oqMKSj4fN0PbC1OAHNszNKb0GgA/IaMkhCy5HY7pLk7/gR26/oGjHnr54njB3pCgU=
+	t=1788768840; cv=none; b=oZuqVOg+eEIFpu68eIwh0UpfRaZx/VuksEERSF/cDquzWUv6XQlKRFPO5344nMhD5lE77CLak4W65Obm3Qy0jSeI6VYuPsRB349VtVx8/F0iagUjNZ/+SX8nGYhawTIFqytkWDwgePfllYci3vTfhHpHlH6JEFDr9R4/8TAUMsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768589; c=relaxed/simple;
-	bh=wF6+qymTwJPnewxUAEEFkDt478Use89DXuefrbu8SL8=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e8mP/X4faOY3EGN7X6WtFzXia05WFxWtAxeZkyvenflLY+Tze2bNzRjtjTjNVS4fXj08tAUv64LlTqX7wMFva2ug8XHw4QKeyGn+U/CXkS9D6ZTt34pKNn37XcKG1NIFBVY1AYEF1XhMd6MUOPLL0KjAM3o2kWjQC/+aGje/+lk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mo/LQXNz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788768840; c=relaxed/simple;
+	bh=2PkCrrkmsu4vMoHSdZZ8ByoR89oUBJOzMlHa3i0gMqs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=AsRguFuP0m/OYiJ0y/Fm9ZiZMIq4PETna5MSkG7RGzlWFKGBbJWjN41A1gaFGeYWyxdsAqklvHTy2suYl4ZhTxVp3OWhfLxGsqB26LsIxopn0WVVUMvNXkSU56eKXYmA43HjsnWvLcwwCofqSZAqj++E3Gq/2ajVLrXvENeSzqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kio9fiZP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RNxc4etV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mo/LQXNz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88DFE1F00A3A;
-	Mon,  7 Sep 2026 08:09:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788768587;
-	bh=NnpuXAf41UshN+6j3AcVOLHgH7t17OZW010hfqbrXvg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mo/LQXNz89AwDUSTQ5BIC55Kat5eZVjHsvlWNvaFiZQ0ALYRa2KVGCiJoNlFR+ZEy
-	 1oZzAAkQ4W7j2+V3ExTroqzQUM2w5RC/UEdYUO7ROozhAPw/ZXstatZI125U0KeqKw
-	 OMJT+hiwfBcOyNuYlwgBGZFxd28KYBC1og9xJiuBsvdXs7yjXuOle8PyRoSV2LI57F
-	 nyKJTpGSct2pBIcOlzM66cLdrin1I1g03NWZELNm5cpuUu6uamCLGpa3x6RHbHoHXv
-	 XD2aK1NloOD7OH9gryp3sraU9Qb76INI0qJqLOaewHMtgmRfNK1AjD+bxfodnZ25IH
-	 oVI++h9i2J0VQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1x3UQD-00000005dyn-1Jw7;
-	Mon, 07 Sep 2026 08:09:45 +0000
-Date: Mon, 07 Sep 2026 09:09:44 +0100
-Message-ID: <86ld9d4h4n.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>, Mostafa Saleh <smostafa@google.com>
-Cc: 	Georgi Djakov <djakov@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rajendra Nayak <quic_rjendra@quicinc.com>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/3] interconnect: qcom: x1e80100: enable QoS configuration
-In-Reply-To: <apgeBNSiP01YfNcs@google.com>
-References: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
-	<20260527-x1e80100_qos-v2-2-305c6539e6d2@oss.qualcomm.com>
-	<apgeBNSiP01YfNcs@google.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kio9fiZP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RNxc4etV"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777ecN3903337
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 08:13:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=iKZhBtC4xoReMl+ODu3+f4
+	AYAN3pz02drrC1yYmG534=; b=kio9fiZPu65AWftNbSVpceSef6yf29QCmGAPGX
+	wufKP6iDNfcecZe5LeRBsgRVNtC46T7qsb2cyfmc2PRJrFYL6S1Fo9kbeOG0MHU+
+	VzfmNRiqW0ybbcPjVrPN0N4F/LpLhvXa92d//6NrAElUrmjo79vLn+nPsecIzrj3
+	MaNzJDfy4buguaMJlGyfKd1Zg9U/C0agwJewIW0HtBX74IUVKc2v/XxlRGkSC4fK
+	+o2VX1qGk3KMalDOmjPJsmKI5trgJkuvhHeKNSNhEIUFfe20RPQKBg7R4cv8cvdP
+	X3DkyEHRs9CdL58rEYFwiDk969uRonT6NeYetNq56MRdRZFg==
+Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggany5u90-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:13:58 +0000 (GMT)
+Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7e9e0e71e05so5804791a34.2
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:13:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788768838; x=1789373638; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=iKZhBtC4xoReMl+ODu3+f4AYAN3pz02drrC1yYmG534=;
+        b=RNxc4etVamwQvST3qtnuIUl4dwAQOnD3yBm9iWCweHfhCnCBvs2XZHPOMybqWG4gr/
+         P8Ts8ofEkNyrAjVxOCH3AlRM5mK63cip2L8mDxmklFLgZcHtHuEkEhxuRDOmL4ovCeTm
+         V3cxuG6LtgL4bk0ROOtjOJfU0y3tlelsqs5isbfvWRjDe+32PwPCUrv8dOjrs/m7WRFt
+         7/MkE0zGc4WCL8Sg5XsT55HIA/Qlk6kV8ycvG3XTynaKNu9ERziezzQOZ47FevCadqsX
+         MD2mFR0N06ibYqoJ40CmHc6as87gx237w01rkeRb6jUqbHiEp79fzPeDViLVTUWcO+Wt
+         Gbag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788768838; x=1789373638;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iKZhBtC4xoReMl+ODu3+f4AYAN3pz02drrC1yYmG534=;
+        b=sDubLYLg4ANb5OlM+qsHa/4BZ8WoE0qv+aYWhxo6nAkarYdZGmyoRwEtRNscwRdeR6
+         LQE7RI8Rt//jTgz71N/blVkO/v9/kM2maLdE9cnwm2S00CoAm9WM57LKOWCiw2Odv+4F
+         JFkswLFybYeO+dqQUcdvaftW4/UQXeLJR8b++41YW/GHHQIh6nruv081ibMJHEzbUTN1
+         +xCMSpLTYjFH0pRN9Gs39ZnscVlZ5KCEcyGsetIfK0A/nLZe3hl9ErA/YxoCHluVpJVO
+         rfcgFFCAv/sIxhf7kwhIFErREpyjdEvqWvj8QlPvjiIT0Sgk79uiXIcuNWJqRDoadCMF
+         TpVg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBKgoDyRQCfo+TT1yQyTaedNvfN497YxL27LUwwylMKtDzVqH0W9SL+IHr1kAAj87yWUN5kSu3kar7@vger.kernel.org
+X-Gm-Message-State: AFuF++mIiuV0wnFc7yhhLTsBdAaDmoh5euCA+X0Ue+ZRUHba43JlQkK7
+	JLCFiAxP5K/05nzbuUrnewkaPQ6y4Q1zTDmLiIXGFzlUWYznkezd3mU0/B+okB31NCUTwu5S8rY
+	Jp5yG69KFLwBMtDzUjErg95CmY7RknWp1QskwPj6kRrD+vKFlyt+T8vmDS8/MDV+U
+X-Gm-Gg: AYBFou1/i1jQuar/0VQM74uYVhT3+EnQRjQNYKQ0ovpC2qDyrsF278rBFrJPRnx0WnE
+	fwMZr3/586LHML01CPMDjVruqffNokWdbBt4dzAwp9x9KCUTDMME85frf+AEvm7+Cfio99vyhyC
+	0Rz5fQgOJo9uW7m7tDMSgqOJPrm2rJNwwVFzpzF09Xl1xOqgjAx9ceOqmr9J43lZrKPTCEpszTF
+	qFewYTtXw13C5Z+mkTH9aWZcbG2SpeeOjy+R62cXYbp4u4xlcw13foyV4KdgZmbKuxASU+VTQAm
+	zGZ0SW/nlQBjGmNyhGfyhRSEcGpVRpx+u0DuSo9O4W3o+lyZt4NGWcYOa5x03/UaAi2+/JAGrUE
+	yQMQ5XBABqMO0DKhryGsPUVXLh1ADlpo=
+X-Received: by 2002:a4a:ec49:0:b0:6b8:d957:2803 with SMTP id 006d021491bc7-6b8d9572e0bmr6704780eaf.20.1788768837592;
+        Mon, 07 Sep 2026 01:13:57 -0700 (PDT)
+X-Received: by 2002:a4a:ec49:0:b0:6b8:d957:2803 with SMTP id 006d021491bc7-6b8d9572e0bmr6704610eaf.20.1788768834288;
+        Mon, 07 Sep 2026 01:13:54 -0700 (PDT)
+Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm21724220c88.6.2026.09.07.01.13.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 01:13:53 -0700 (PDT)
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Subject: [PATCH v2 0/6] Add CAMSS support for Qualcomm Glymur
+Date: Mon, 07 Sep 2026 13:43:36 +0530
+Message-Id: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: raviteja.laggyshetty@oss.qualcomm.com, smostafa@google.com, djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, quic_rjendra@quicinc.com, abelvesa@kernel.org, andersson@kernel.org, konradybcio@kernel.org, linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADBynmoC/22P3YqDMBBGX0VyvZEkajRSlr7HUpb8jDagpk1UK
+ sV33xivFnoz8A18Z868UQBvIaA2eyMPqw3WTTGwrwzpu5x6wNbEjBhhnFRM4H7YxsX/ajmGgFk
+ tu5oqagpToFh5eOjsK+F+bmf28FwidT6XSMkAWLtxtHObCVlqo0XVGFOLTnNdKEZURSUlBhTEh
+ SSiA32gRwhBJp02uyQbQQr8opEWLMOP+4ZXWmOCGeeEd1JIUojrYCfpXe58/40OobsNs/Nbend
+ lySixGsL/f7ayiIqnGWjQJXB6dSHkz0UOh3wexyF1dtmnbtlo1XBaNsJ86N72ff8De8lzDnwBA
+ AA=
+X-Change-ID: 20260529-glymur_camss-27af71b1d3d3
+To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788768826; l=3428;
+ i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
+ bh=2PkCrrkmsu4vMoHSdZZ8ByoR89oUBJOzMlHa3i0gMqs=;
+ b=9rJF2OhCoF4yzMGqRFpBhRxrc+m1Cgcpt1ZSFaxPjzplyHFawOMqlIngtIB3UeUTJ+XPQqVai
+ BBLhERQOSfiCXHWG4EgyyEzTUQSfdQP6zW6VYNIIFDE0QeoM7B1Uxlr
+X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
+ pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
+X-Authority-Analysis: v=2.4 cv=X45i7mTe c=1 sm=1 tr=0 ts=6a9e7246 cx=c_pps
+ a=+3WqYijBVYhDct2f5Fivkw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=0ARVRLQPdUDne_cnrioA:9
+ a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-ORIG-GUID: 00BCo3ZjkIr7IyCA8qmSwd5uxroNJMG_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4OCBTYWx0ZWRfX2dxmQU/qbzjY
+ oM4L3Tb9W8j9hfRj0EXV8opgOVfwWEUIr9zj99H2XKr8IF8d9hbDIgMG9W0zK/fUChNhlpk0bB6
+ BkFjdBhE+8vOC3Nhu4FUMXtfPyBDpvAel3Wwh/uDORnbcTdzYq2x5QNVrw/bMBNuWH12HnkMDul
+ uRfz9sYsApnKcqh5IZn6Gop7nK5+4p4BBLmDyGA7vnGNfPPo85nWKQbbEtzQVafW7nfc6EjP8y8
+ /0Q0YIA8PcQl3yfcCoPUqnemAkXc9N1mh/WZdzrUIjI0H+1StFGSsQ/T9/pXzZQRyUZQZ3Dlwca
+ KXtMoAa+Wqyp9U2dd/I+F6xEWxT4siaZPGKJJUqSYlSY9bZmR+At2czGf0FxPpXIwveTV2Wim3f
+ KoYl/1NC6tTvuqcbLJNqkW0fnSVbJXxJDPb95p8+ciVrh/yak8tbX7ngrjtflY+IvraUu29+ewg
+ Oo2CSQGGOZzMsXRd6ZA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4OCBTYWx0ZWRfXz15gw5luTqLb
+ 7TSFmVOfr+eE17cCf6vYbJN0QE+9imc+ZAVakNECgmV/am/UX4VEgtaX50DEhIqI/a7QOuZhMEc
+ IqDjr7oKi6198Vk4SDyM5klTpSthKD0=
+X-Proofpoint-GUID: 00BCo3ZjkIr7IyCA8qmSwd5uxroNJMG_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070088
 
-On Wed, 02 Sep 2026 14:00:52 +0100,
-Mostafa Saleh <smostafa@google.com> wrote:
-> 
-> On Wed, May 27, 2026 at 05:37:10AM +0000, Raviteja Laggyshetty wrote:
-> > Enable QoS configuration for master ports with predefined priority
-> > and urgency forwarding.
-> > 
-> > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> > Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-> 
-> Testing with Linus's tree, this patch broke my Lenovo IdeaCenter Mini X
-> booting, the board resets very early during boot.
-> I see that the last patch (device tree) is missing from the tree, I
-> included it, but that doesn't fix it, disabling the driver also
-> doesn't help. I can boot again by reverting this patch.
-> 
-> I have my own device tree as my device is Purwa based [1]
-> 
-> [1] https://lore.kernel.org/all/20260429141815.827157-1-smostafa@google.com/
+This series adds Camera Subsystem (CAMSS) support for the Qualcomm
+Glymur SoC.
 
-Same here. My Mini-X hard reboots after 2.45s in the kernel. Example
-from the serial console:
+Glymur's camera hardware topology:
+- 3x CSIPHY (CSI Physical Layer)
+- 3x CSID + 2x CSID Lite (CSI Decoder)
+- 3x TPG (Test Pattern Generator)
+- 2x VFE + 2x VFE Lite (Video Front End)
 
-<quote>
-[    2.280289] VFIO - User Level meta-driver version: 0.3
-[    2.286872] usbcore: registered new interface driver usb-storage
-[    2.307218] i2c_dev: i2c /dev entries driver
-[    2.316386] efifb: probing for efifb
-[    2.320065] efifb: framebuffer at 0xe4800000, using 8100k, total 8100k
-[    2.326768] efifb: mode is 1920x1080x32, linelength=7680, pages=1
-[    2.333026] efifb: scrolling: redraw
-[    2.336704] efifb: Truecolor: size=8:8:8:8, shift=24:16:8:0
-[    2.346518] Console: switching to colour frame buffer device 240x67
-[    2.356787] fb0: EFI VGA frame buffer device
-[    2.361793] clocksource: arch_mmio_counter: mask: 0xffffffffffffff max_cycles: 0x46d987e47, max_idle_ns: 440795202767 ns
-[    2.372947] arch-timer-mmio 17800000.timer: mmio timer running at 19.20MHz (virt)
-[    2.380860] usbcore: registered new interface driver usbhid
-[    2.386577] usbhid: USB HID core driver
-[    2.391899] hw perfevents: enabled with armv8_pmuv3 PMU driver, 13 (0,80000fff) counters available
-[    2.403182] NET: Registered PF_INET6 protocol family
-[    2.408516] Segment Routing with IPv6
-[    2.412289] In-situ OAM (IOAM) with IPv6
-[    2.416326] NET: Registered PF_PACKET protocol family
-[    2.421533] 9pnet: Installing 9P2000 support
-[    2.425923] Key type dns_resolver registered
-[    2.430357] NET: Registered PF_VSOCK protocol family
-[    2.440369] registered taskstats version 1
-[    2.444633] Loading compiled-in X.509 certificates
-[    2.451480] Demotion targets for Node 0: null
-Format: Log Type - Time(microsec) - Message - Optional Info
-Log Type: B - Since Boot(Power On Reset),  D - Delta,  S - Statistic
-S - QC_IMAGE_VERSION_STRING=BOOT.MXF.2.4-00541-HAMOA-1
-S - IMAGE_VARIANT_STRING=SocHamoaWP
-S - OEM_IMAGE_VERSION_STRING=ip-10-195-202-30
-S - Boot Interface: SPI
-S - Secure Boot: On
-S - Boot Config @ 0x221c8600 = 0x00000001
-S - JTAG ID @ 0x221c8744 = 0x002ad0e1
-S - OEM ID @ 0x221c8700 = 0x00000040
-S - Serial Number @ 0x221c8610 = 0x00000460d5171bbb
-S - Feature Config Row 0 @ 0x221c21e0 = 0x0000000000000000
-S - Feature Config Row 1 @ 0x221c21e8 = 0x0000000000000000
-S - Core 0 Frequency, 1363 MHz
-S - PBL Patch Ver: 0
-S - PBL freq: 600 MHZ
-S - Cluster: 0, Core: 0
-</quote>
+The CSIPHY block is the same hardware version as x1e80100 (3ph-1-0),
+differing only in instance count (3 vs 4). TPG, CSID, VFE, CSID wrapper,
+and ICC resources are fully shared with x1e80100.
 
-I'm also seeing spurious resets on my "X1E001DE Snapdragon Devkit for
-Windows" when doing large file transfers over the network (30GB+).
-With this patch reverted on top of 7.3-rc1, both machines are as solid
-as they were before it.
+Used following tools for the sanity check of these changes.
+- make -j32 W=1
+- checkpatch.pl
+- make DT_CHECKER_FLAGS=-m W=1 DT_SCHEMA_FILES=i2c/qcom,i2c-cci.yaml dt_binding_check
+- make DT_CHECKER_FLAGS=-m DT_SCHEMA_FILES=media/qcom,glymur-camss.yaml dt_binding_check W=1
 
-It appears that the Surface Pro 12" is equally affected (IRC reports),
-so something is amiss with this particular patch.
+Patch 1 depends on the following dt-bindings series:
+[1] https://lore.kernel.org/all/20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org
 
-	M.
+Functional dependency:
+[2] https://lore.kernel.org/all/20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org
 
+Changes in v2:
+- Glymur is now defined exclusively with the new PHY API architecture.
+  CSIPHYs are standalone qcom,glymur-csi2-phy nodes falling back to
+  qcom,x1e80100-csi2-phy. The CSIPHY supplies and register regions are
+  removed from the CAMSS binding; they live in the PHY nodes.
+- CAMSS_GLYMUR enum is dropped. Glymur wires directly to
+  x1e80100_resources in the OF match table. The CSIPHY instance
+  difference (3 vs 4) is expressed entirely in DT - Bryan
+- The incomplete compatible + resource enumeration from v1 are collapsed
+  into a single self-contained patch. The pointless VFE enum patch is
+  dropped - Krzysztof, Bryan
+- Add dt-bindings, MFD and regulator support for PM8010 I2C PMIC with
+  qcom,pm8010-i2c compatible; qcom,pm8008 is not equivalent - Konrad
+- Drop dt-bindings: i2c: qcom-cci: Document Glymur compatible; already picked
+  by Andi Shyti into her i2c tree (now in linux-next as 7c9474bd4a8d)
+- Link to v1: https://lore.kernel.org/all/20260529-glymur_camss-v1-0-bee535396d22@oss.qualcomm.com/
+
+Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+---
+Dhruvin Rajpura (1):
+      dt-bindings: mfd: pm8008: Add PM8010 I2C support
+
+Jishnu Prakash (2):
+      mfd: qcom-pm8008: Add support for PM8010 PMIC
+      regulator: qcom-pm8008-regulator: Add support for PM8010 PMIC
+
+Nihal Kumar Gupta (3):
+      dt-bindings: phy: qcom,x1e80100-csi2-phy: Add Glymur compatible
+      dt-bindings: media: qcom,glymur-camss: Add Glymur CAMSS
+      media: qcom: camss: Add Glymur compatible
+
+ .../bindings/media/qcom,glymur-camss.yaml          | 300 +++++++++++++++++++++
+ .../devicetree/bindings/mfd/qcom,pm8008.yaml       |  14 +-
+ .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       |   6 +-
+ drivers/media/platform/qcom/camss/camss.c          |   1 +
+ drivers/mfd/qcom-pm8008.c                          | 140 ++++++++--
+ drivers/regulator/qcom-pm8008-regulator.c          | 184 +++++++++++--
+ 6 files changed, 583 insertions(+), 62 deletions(-)
+---
+base-commit: 9a4cdc958dd79fc6c3b20b51a10debec6ca09fec
+change-id: 20260529-glymur_camss-27af71b1d3d3
+prerequisite-message-id: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org>
+prerequisite-patch-id: 4a27a90c3a55c1f9ef46e9b941576309242f75f8
+prerequisite-patch-id: ec5e059c23defd7db6c47bb17d70d01c9c6cc31b
+
+Best regards,
 -- 
-Without deviation from the norm, progress is not possible.
+Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+
