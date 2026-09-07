@@ -1,44 +1,51 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CCD0233941;
-	Mon,  7 Sep 2026 17:03:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B166F5013CC;
+	Mon,  7 Sep 2026 17:06:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788800635; cv=none; b=JYDYJgNUpWHEB8SgKYq30paNTKM0A83vaUt7MMve+OHvGaIYQ5se+ChbmBU6Fsi54/g96gcsgEo+oDML2fnJ13hgDjO5/q4x3a5Ke5ajB7xE6HFNNrIorIFwZBMybQZp05BkvR3L334EpXC+8PrHfRACO/zmor9zCwQq+2Qq/Es=
+	t=1788800791; cv=none; b=b/sJadhNh0o7vGSLiUAnIBnFpOYQ/IjalQCMB+g4Myt1clNL5vC5p/bOy7WKiwKqd/uuwK6NtiUhFBH5BhwETG0FobxcMpfYjo75itR6Lcx3QgHOM/HTl4XcIPr5bKaeI4XeD6wKFlfqsWKDA6GZ5DkWthvFJpG1inWA69JnNtI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788800635; c=relaxed/simple;
-	bh=Xc49cuTW0kvx0+30mXiT7jEV6fIhnzvvb1e2UKa9cY0=;
+	s=arc-20240116; t=1788800791; c=relaxed/simple;
+	bh=4SblcpUt4qLw3fJRzH1zNGiyhQQlwe5uMxga9VaWMtU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jimmc00bigwai2sBmbQcafDhTPVF8cC12c2UDxJO/+ughui/J6SPKMYBh5NqJdn4dEqwQK4Sar7StfaIGI2Z6AESG1nLx7RDaF5zI6x695gywL2HInT1ab7gH3wFYp7bextqymbq8CKRTSzI7IhoX+iZav7lnJ2RdY3cQqbox5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHjSuIKd; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=HF+K8/vTbCj4ExNQIxcskqVGnU1NcbCVVIIfzlQR/7hcU4+fvOwIqqxFRrfkLxVt6+uuwPXb1yYTpJjWTOnEw/EzUSV2Qg039qOpcHXbcXwbW3MESEL97WnlHI9HPq2vsNf57sQRkyYZus2OOodnmKOGbIwJjhrijMW8iKVisRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z4VNrE9J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHjSuIKd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17951F00A3A;
-	Mon,  7 Sep 2026 17:03:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z4VNrE9J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51B961F00A3A;
+	Mon,  7 Sep 2026 17:06:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788800633;
-	bh=Z2Pc137GIbdjSz4LrRiSmmEBkN9icDlM2chpH0bvPA8=;
+	s=k20260515; t=1788800789;
+	bh=x5Wo6+nafu2gFwEiQ2wRMEtUES99VjBaBkvIlgaAU+A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KHjSuIKdhJAIVr697AS09BJMkH4ztz2qXkyhdoCY8M79P4jcKM7P/C74nUgJTT11D
-	 pZCfn0AEsvGxVoW4MCwJ/ATJ9Ob63qXGKrDEQMDEfSD+PcAi74GBmVZ0rOzvMVY7Lh
-	 SWkUm3x1zhnVgQFzxF5PATQuFJkZ+nd/bN2iY+xcAjXs55Rsgp4w7rSUZMKCLnMEgr
-	 e43aoSf0aIeVl9gnV1C2YPchuXkRSqug/PrFHRlDW9pDhFTtifgWshUqHbzouBBcEp
-	 VqZpYGfGeP8NXZFFc01503maFS1y4JH3PXwLtOUJzOL0B6VEJDaXNfbMfo+HTW3HoM
-	 u50AoJOxgtROg==
-Date: Mon, 7 Sep 2026 18:03:49 +0100
+	b=Z4VNrE9Jn+0IP9Kp6Kr1RWQOJbohWASG7T4SalvXtYLGZz/ThMsuSmZDkxCeCTDns
+	 MqqSQLVXN2aaBlBxTokuOVzZ95vlTl0UdBi9C0mE6NsEjC92TrjUICzedcHapHi9Q0
+	 IXcDDtUn75CKKLdkSVK9UhZ4ea0BTjtPbqfRxqJiQ9KAulFM6qk5g05niEHdeLdv2a
+	 Iom9BgtF6cQ1FRis1qgAVTJFHCeUm2yxTyWyikSqSZbNUxYDpvK58E3WVZleTi2CFT
+	 Up6CVbbPnAB+I1EQms62BFG5xDVmriE7011YdoFQc8sVV9G3qQXzWi7DvrV8UETvM4
+	 YZY7s13yaDyeA==
+Date: Mon, 7 Sep 2026 18:06:24 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Colin Huang <colin.huang2@amd.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Colin Huang <u8813345@gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
-Message-ID: <20260907-kangaroo-ascend-d0541fbdc975@spud>
-References: <20260907-add-tda38740-and-tda38725-v2-0-1d051d63aa01@gmail.com>
- <20260907-add-tda38740-and-tda38725-v2-1-1d051d63aa01@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	venkata.valluru@oss.qualcomm.com,
+	Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply
+ support
+Message-ID: <20260907-ensnare-wanted-e86eeaf770b0@spud>
+References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
+ <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,148 +53,83 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pHo79YEtLLqeokGw"
+	protocol="application/pgp-signature"; boundary="+YZIrFJKHMKrE7Bh"
 Content-Disposition: inline
-In-Reply-To: <20260907-add-tda38740-and-tda38725-v2-1-1d051d63aa01@gmail.com>
+In-Reply-To: <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
 
---pHo79YEtLLqeokGw
+--+YZIrFJKHMKrE7Bh
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 07, 2026 at 02:52:29PM +0800, Colin Huang wrote:
-> From: Colin Huang <u8813345@gmail.com>
+On Mon, Sep 07, 2026 at 11:16:08AM +0530, Shashank Maurya wrote:
+> The Raspberry Pi 7" touchscreen panel V2 MCU requires an external power
+> rail to be enabled before any I2C register access is attempted. Use
+> devm_regulator_get() to obtain the vcc supply and enable it at the
+> start of probe.
 >=20
-> Add devicetree bindings for the Infineon TDA38740 and TDA38725
-> single-voltage synchronous buck regulators with PMBus interface.
->=20
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 > ---
->  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 82 ++++++++++++++++=
-++++++
->  1 file changed, 82 insertions(+)
+>  drivers/regulator/rpi-panel-v2-regulator.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38=
-740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.=
-yaml
-> new file mode 100644
-> index 000000000000..c9bf19902d3c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
-> @@ -0,0 +1,82 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
+> diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulat=
+or/rpi-panel-v2-regulator.c
+> index 30b78aa75ee3..e54d675962e7 100644
+> --- a/drivers/regulator/rpi-panel-v2-regulator.c
+> +++ b/drivers/regulator/rpi-panel-v2-regulator.c
+> @@ -11,6 +11,7 @@
+>  #include <linux/module.h>
+>  #include <linux/pwm.h>
+>  #include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> =20
+>  /* I2C registers of the microcontroller. */
+>  #define REG_ID		0x01
+> @@ -66,10 +67,21 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *=
+i2c)
+>  		.parent		=3D &i2c->dev,
+>  		.reg_set_base	=3D REG_POWERON,
+>  	};
+> +	struct regulator *vcc;
+>  	struct regmap *regmap;
+>  	struct pwm_chip *pc;
+>  	int ret;
+> =20
+> +	vcc =3D devm_regulator_get(&i2c->dev, "vcc");
+> +	if (IS_ERR(vcc))
+> +		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
+> +				     "Failed to get vcc supply\n");
 > +
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
-> +
-> +maintainers:
-> +  - Colin Huang <u8813345@gmail.com>
-> +
-> +description: |
-> +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
-> +  buck regulator with a PMBus interface designed for industrial use.
-> +
-> +  Datasheet:
-> +  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-=
-tda38725-datasheet-en.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - infineon,tda38725
-> +      - infineon,tda38740
+> +	ret =3D regulator_enable(vcc);
+> +	if (ret)
+> +		return dev_err_probe(&i2c->dev, ret,
+> +				     "Failed to enable vcc supply\n");
 
-If the programming model for these devices doesn't differ, one should
-fall back to the other.
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  infineon,vout-scale-micro:
-> +    description: |
-> +      Scaling factor applied to READ_VOUT telemetry.
-> +
-> +      TDA38740/25 pin strap parts are available in two flavors of
-> +      VOUT_SCALE_LOOP: 1:1 and 1:2.
-> +
-> +      For the 1:1 VOUT_SCALE_LOOP version, output voltage sense pins are
-> +      directly connected to the output, and no resistor divider is used.
-> +
-> +      For the 1:2 version, a resistor divider is typically used (for exa=
-mple,
-> +      499 ohms for both top and bottom resistors).
-> +
-> +      In some designs, users intentionally modify the feedback divider r=
-atio
-> +      to obtain an output voltage different from the internally configur=
-ed
-> +      VBOOT or VOUT value.
-> +
-> +      In such cases, the device telemetry (READ_VOUT) continues to report
-> +      the internally programmed voltage and does not reflect the actual
-> +      externally adjusted output voltage.
-> +
-> +      This property provides a multiplier to scale the reported telemetry
-> +      value so that the monitoring system reflects the actual output vol=
-tage.
-> +
-> +      The value shall be expressed in micro units where 1,000,000 repres=
-ents
-> +      a scaling factor of 1.0.
-> +
-> +      Example:
-> +        If actual Vout =3D 0.75V and READ_VOUT reports 0.7V:
-> +        scaling factor =3D 0.75 / 0.7 =3D 1.071
-> +        value =3D 1071000
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    minimum: 100000
-> +    maximum: 2000000
-
-This is not a required property, so you need a default.
-pw-bot: changes-requested
-
-Thanks,
-Conor.
+This needs to be optional, because without it you'll break existing
+devicetrees. Unless you can explain how all existing users are
+nonfunctional (e.g. nothing ever enabled the supply, which seems
+doubtful given this surely worked when it was added) this must remain
+optional.
 
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        sensor@40 {
-> +            compatible =3D "infineon,tda38740";
-> +            reg =3D <0x40>;
-> +            infineon,vout-scale-micro =3D <1071000>;
-> +        };
-> +    };
-> +
+>  	pc =3D devm_pwmchip_alloc(&i2c->dev, 1, 0);
+>  	if (IS_ERR(pc))
+>  		return PTR_ERR(pc);
 >=20
 > --=20
 > 2.34.1
 >=20
 
---pHo79YEtLLqeokGw
+--+YZIrFJKHMKrE7Bh
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap7udQAKCRB4tDGHoIJi
-0j/AAP0bbuUB0ZgTwUhc/dD9fsx8sIsLzIXbpyJAC9WPbtuvJAEAoc5yZCYOELB8
-vCrVohmD7mc1sclfRm8Y5+X9AdTkuww=
-=kvlv
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCap7vEAAKCRB4tDGHoIJi
+0kslAQCRSNBPfFTOdOPa6RoPXdEO5NK95OlBE6pLnHapjVTsVQD+K6YXHc+BsFa0
+BcF0yXOQpfUgKdiblUf12moIT4kd4g8=
+=h7KC
 -----END PGP SIGNATURE-----
 
---pHo79YEtLLqeokGw--
+--+YZIrFJKHMKrE7Bh--
