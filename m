@@ -1,141 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767994399CC
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:11:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FF470111
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786718; cv=none; b=Piei97KVED/dLK2hj+6IGEQ4IHzoRzcwq1/qQBFBbWWSiWX4rDy4qzF/yJqXyxEY2izFbFrt5NQ1G8wG6X0bl/ltdW1rBRHhirIX3EBGeNwJhpVf6gqKHnb5037en9hL6ls3OqeeIB1StCXfdpdANo62auA0viWeD1ZknxWPVhM=
+	t=1788786866; cv=none; b=hv3H9BGDUb5RBSXmJczZLGOx2r57vR/mAUDipgJW/bewzeb8eJ9xJRA0wzvKseUuOmXQYShWxSSUqewWJO+8g5uVv97Eyne6e0vIvED2vVs4r4NQIx2hp01JyPJTi2koEdPLRQZ6E9huopS2rnunZR8R5dfsz/8Rnz4yVZYG8do=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786718; c=relaxed/simple;
-	bh=tzwMGkq/hkbs4l4drFuOheu7x/nYQtMQ5XkDogaUfEQ=;
+	s=arc-20240116; t=1788786866; c=relaxed/simple;
+	bh=cwH9/QrWUeUF41S8peWyRtzN+lAQuqGkGed9AtCwLqQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bRyMu4nIivl/Rww0AoZD/YQODt/scJ5+synA/QsdvHi4k2MQT3YiVd3jgqpiyxkXaz/UsBAaakGCbhzoh5IcGbSxdcNdQ3CJWKZwMO24sYSzV40YUNEm7OE8CF4PFw5AgKiVOYE5FONlR7doCbHA65bi1KQbaVtRkWRzFiwzIuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jCadTu4e; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nazI/rxdGtlUSH8qP+BOJGOM4m/zK87uGYgJ4MWcAwU7qR6WecDNHaTN1nSV6xlMQQE7laOVSaohm1KQBbPeWuCk+93B7oVuO1Wffi53/xEp59IO1j2InAKRMsHT0oHHQBxxhyRqzk+szdXOhKzoQZzENnsKg9cuz1KGZU/AeOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LEhVFVMr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jCadTu4e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34AD21F00A3A;
-	Mon,  7 Sep 2026 13:11:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LEhVFVMr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9BEF1F00A3A;
+	Mon,  7 Sep 2026 13:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788786713;
-	bh=sOUEM8R63wJvnIvFrvAyTl2doOcjJ9JD/iyOu6HDJU0=;
+	s=k20260515; t=1788786860;
+	bh=2216s4LpMjIDaFkGg/AlViLLu3u0ALlmyLC/moqAUnE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jCadTu4e6EhjcXW93RyoRJO22K/Ssa03RyhqRtGg1K6AjrlKTN2ontvMealDpkd+f
-	 F+DzMg1I8JjeUMdK9IBf+crfHCZncs9xPLxDRejn1ePWnGMC5yXt5eJAdN0Vxo731h
-	 S7WpWHFPqjpE1RIbVsn6vpVpRG0QDJ1CM+EmgjD669oWIwlYl3n6tO5TsOBMmdWgDt
-	 tfvEkA45+lXBKJQEPKhNJvR+kc/uiQpxrLM68ll6hvqFqUzaVzo7i+pSZAe/6tQYNy
-	 B/NsMD9PuvWwOhsCnIY+WyWyiZhgrySE9u6JPicT2dhjXXWyFiU8TfHuw3auwMVGyd
-	 0jEgg1BlN5BIw==
+	b=LEhVFVMrgR2haoazxJQbmb3eVyDsyqB5odcShdB7g5XenvoZmkmvYkdMNXFpcsXD2
+	 Po/QhbFRNXq4BAV42uufuBZ5oyWkOIREwll7wQS6K9RwQ16auEHDm1/QmcaJ/yDdsL
+	 v7dYcwmZh4PsOhVYcNz6sjAo6TWADbitoN1cMzF1FWl7wIljNihqtlOrACEW+WmtMv
+	 yS8O4I5KItrEYGt0VReKNPfvu5G0AJafUGj6Kge8QWlRZz+3YS6JqITYaklEDdH/ah
+	 EA0lKNe6m+UwEBtYwSc7mtGQTPwJYzCOKdDvfAjP7tRsFQdojZ/+eB09Cgz3bDWw7t
+	 xEZKkMRlF99vg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/7] drm/msm/hdmi_bridge: Correct poweroff/audio
- cleanup order in post_disable
+Subject: Re: [PATCH v2 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
+ during .atomic_pre_enable()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-3-b097cf1eac77@oss.qualcomm.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-2-b097cf1eac77@oss.qualcomm.com>
 References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
- <20260907-drm-msm-hdmi-fixes-before-eliza-v2-3-b097cf1eac77@oss.qualcomm.com>
+ <20260907-drm-msm-hdmi-fixes-before-eliza-v2-2-b097cf1eac77@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 13:11:52 +0000
-Message-Id: <20260907131153.34AD21F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 13:14:19 +0000
+Message-Id: <20260907131419.D9BEF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] Moving `hdmi->power_on =3D false` to after `msm_hdmi_audio_updat=
-e()` breaks the audio hardware disablement logic, leaving the audio engine =
-active before its power is cut.
-
-Pre-existing issues:
-- [High] Unclocked MMIO accesses in ALSA audio callbacks can cause a kernel=
- panic if the DRM bridge is powered off.
+- [High] Imprecise abort (kernel panic) in .atomic_post_disable() due to un=
+clocked MMIO access after a failure in .atomic_pre_enable().
 --
 
-commit b86cb24a12ce06704d3597339883527b57932c00
+commit 4f4c185244ef7ea6a900e7c373d8e29c18ab92a6
 Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-drm/msm/hdmi_bridge: Correct poweroff/audio cleanup order in post_disable
-
-Turning off the power in msm_hdmi_bridge_atomic_post_disable() should
-follow reverse order of powering up, not only because it is logical, but
-also because msm_hdmi_audio_update() accesses registers thus block
-should still be powered on.
-
-Depending on specific timing, existing code could have accesses to MMIO
-of powered off block.
-
-Cc: <stable@vger.kernel.org>
+    drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enab=
+le()
+   =20
+    Properly handle power up failures during .atomic_pre_enable() by
+    aborting the .atomic_pre_enable() to avoid accessing registers why
+    blocks did not bring up.  Otherwise this could lead to imprecise aborts
+    when accessing MMIO while entire power domain is off.
 
 > diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
 /hdmi/hdmi_bridge.c
-> index db85400e574e4..04c893062dbd4 100644
+> index 157f19bd90b4e..db85400e574e4 100644
 > --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
 > +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> @@ -339,10 +339,10 @@ static void msm_hdmi_bridge_atomic_post_disable(str=
-uct drm_bridge *bridge,
->  	msm_hdmi_phy_powerdown(phy);
+[ ... ]
+> @@ -287,13 +294,18 @@ static void msm_hdmi_bridge_atomic_pre_enable(struc=
+t drm_bridge *bridge,
 > =20
->  	if (hdmi->power_on) {
-> -		power_off(bridge);
-> -		hdmi->power_on =3D false;
->  		if (hdmi->connector->display_info.is_hdmi)
->  			msm_hdmi_audio_update(hdmi);
+>  	msm_hdmi_set_timings(hdmi, &crtc_state->adjusted_mode);
+> =20
+> -	mutex_lock(&hdmi->state_mutex);
+> -	if (!hdmi->power_on) {
+> -		msm_hdmi_phy_resource_enable(phy);
+> -		msm_hdmi_power_on(bridge);
+> -		hdmi->power_on =3D true;
+> +	scoped_guard(mutex, &hdmi->state_mutex) {
+> +		if (!hdmi->power_on) {
+> +			if (msm_hdmi_phy_resource_enable(phy))
+> +				return;
+> +
+> +			if (msm_hdmi_power_on(bridge)) {
+> +				msm_hdmi_phy_resource_disable(phy);
+> +				return;
+> +			}
+> +			hdmi->power_on =3D true;
+> +		}
+>  	}
 
 [Severity: High]
-This isn't a bug introduced by this patch, but can unclocked MMIO accesses =
-in
-ALSA audio callbacks cause a kernel panic if the DRM bridge is powered off?
+Does this early return cause an imprecise abort during atomic_post_disable(=
+)?
 
-If a user-space ALSA application starts or stops audio playback while the
-display is powered off (e.g., via DPMS blanking), the ALSA callbacks
-msm_hdmi_bridge_audio_prepare() and msm_hdmi_bridge_audio_shutdown() in
-drivers/gpu/drm/msm/hdmi/hdmi_audio.c call msm_hdmi_audio_update().
+Since atomic_pre_enable() returns void, the DRM core will consider the state
+committed even if it returns early here. This leaves hdmi->power_on =3D fal=
+se
+and the PHY clocks and PM domain powered off.
 
-This function reads from MMIO registers unconditionally, without verifying =
-if
-the HDMI block is powered on or holding a PM runtime reference. Could this =
-lead
-to a synchronous external abort (kernel panic) due to unclocked MMIO access?
+When the pipeline is later disabled, msm_hdmi_bridge_atomic_post_disable()
+will execute:
 
-> +		power_off(bridge);
-> +		hdmi->power_on =3D false;
+drivers/gpu/drm/msm/hdmi/hdmi_bridge.c:msm_hdmi_bridge_atomic_post_disable(=
+) {
+    ...
+    /* Keep the HDMI enabled if the HPD is enabled */
+    mutex_lock(&hdmi->state_mutex);
+    msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
 
-[Severity: Medium]
-Does moving hdmi->power_on =3D false to after msm_hdmi_audio_update() break=
- the
-audio hardware disablement logic?
+    msm_hdmi_phy_powerdown(phy);
 
-The audio shutdown logic in msm_hdmi_audio_update() relies on hdmi->power_on
-being false during teardown to correctly disable audio:
-
-drivers/gpu/drm/msm/hdmi/hdmi_audio.c:msm_hdmi_audio_update() {
-	...
-	if (enabled && !(hdmi->power_on && hdmi->pixclock)) {
-		DBG("disabling audio: no video");
-		enabled =3D false;
-	}
-	...
+    if (hdmi->power_on) {
+    ...
 }
 
-By setting hdmi->power_on =3D false after the call, msm_hdmi_audio_update()=
- still
-evaluates hdmi->power_on as true. Will this leave the audio engine active a=
-nd
-programmed to remain enabled right before its power and clocks are cut,
-potentially leading to transient audio glitches or incomplete hardware state
-reset?
-
->  		msm_hdmi_phy_resource_disable(phy);
->  	}
->  	mutex_unlock(&hdmi->state_mutex);
+Because msm_hdmi_set_mode() and msm_hdmi_phy_powerdown() are called
+unconditionally outside the if (hdmi->power_on) block, won't they write to
+MMIO registers while the power domain is off, causing an access fault?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-drm-msm-hd=
-mi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com?part=3D3
+mi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com?part=3D2
