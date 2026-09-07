@@ -1,110 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D5825B082;
-	Mon,  7 Sep 2026 06:07:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC838E5D7;
+	Mon,  7 Sep 2026 06:09:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788761252; cv=none; b=N0FTpaxj/QjEhzjj1HefiN6SGg9/zXyCgfCi9LsNEKeyAR4JVVJdS2v+aZa4ntU4UBT06eoI7/FDOlbIDhWakKBpnlLhv0Sbes7CuO/LHqkXPmX1VZnAchC9d77ML746ZFUSZue1BvaePxs68g4Rf6WMjvfax5CqyaMXlcatzcI=
+	t=1788761371; cv=none; b=JydJD3cgvYeULQjYSgrbtI4a4b+hvF9vHz6oqG0PbgHDljrey7aTUK29O0hVWNo6zFmxO5DWdhXurbgP1uTX9pLLePjpjl/veN9mSnsQOeT8o3qmsK6KuedRYjMAFQlwRg28bO1x1gtYZiDsoqgw86JJDo9XSrOxp5pH0VfdUcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788761252; c=relaxed/simple;
-	bh=VggLjcaH+IJ8mW2kJenmQn641aU6Q9MydbcLkKaQ5oI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ME6bXP2iUfgBNZbc5oJns1wi6qMMd+Rz8GvF6hgor1wPJcSk/pxNzmtpvb/uHdk/ayeOo11Wa9xS20YxHA7ibWAKMshn9r6nWQ6wq1coyEtcIOmc2/Z6JG496Z45wViWtjqvb4d89t6EU+k6/YpKe34Vzb314r9MmvfUa9pnGEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cnh3kFjK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788761371; c=relaxed/simple;
+	bh=9nO4WS3fEiBgG1Qiw8gJT7pcYglX1bWzAHr7cEKeHVA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=liyfOl80aSz6mt52wn263sn0dOIAwfsUBU3/HtxXsmCqQris1fEDmU3HPmdkdSMUX2gGd2SrCxUZFL2Y0UDzn+Yg5Vpgptr5XxxTFvBthqwfnjDmbd/fZVamBfSeiThmwpQ5opa9/WdmHPwYPQs512h7gcGoH5n60sAedyJP8Bc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TxJVmaxX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cnh3kFjK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1188D1F00A3A;
-	Mon,  7 Sep 2026 06:07:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TxJVmaxX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B7EE1F00A3E;
+	Mon,  7 Sep 2026 06:09:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788761251;
-	bh=ryjhib6RuFmlHrMiGgymNVQOes/BcGtkk293O7vRIRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Cnh3kFjKIbTyzvF9YKbxPHuK8mCjVtzp4wXPY/VzObWa+Jrm/GOGs95jeXR1GUDPi
-	 OnGcHwGp5fmAzHOD0XSgSACaz8fF6smnNrEJfwOwiBkMgHu0oKsd00Oj+cuypRyrSu
-	 L1N7CHGVYGh3sbCbxtLbvwkdX6Gl3X5vv0xshwpcZb0oVjYzeGqG6CJdvZf19C8g13
-	 1JJkZ56UuX1VclQ/kfXah1KpgSz4Ig6YrnDwnuHjFf76pPJIouemEUTxWC5BkLOdB8
-	 pHeA9roY4eTR/aJCQPAwc7xhBjdXh4XqqGz4/kTaMXR3zGv8Yt98jwEZWMZI9uOYGa
-	 fvhZICQZmqs0g==
-Message-ID: <4184a903-c19d-4821-bfee-a01dac16e9f5@kernel.org>
-Date: Mon, 7 Sep 2026 08:07:25 +0200
+	s=k20260515; t=1788761369;
+	bh=MU8vTnQ4SCG40k3kEVDcMjU9vE6Mm32ui6oD0ivsqAE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TxJVmaxXf2/z7qqsQQ66XgHCtelNQqPDkAdBTJK1oBJM6KcFZfUqh8XvDytAy6GDh
+	 4t5KvbQnQ/1vz/nTLJRVdBpMtcH6lGLx+hXmjaAMJ/KyB6ABqapuVYEX1GPfMPA+Av
+	 OE3DJBwaT1WeG8gWjmnt7LQFsW3T1d0PFnCZYN8Ti+n6RS4/GtHB0N73Wh26H3a9by
+	 ZSXY6OjlwfXvS35EVkX8IU5qqd+dw4VADEYbD2yQHUEIYddnFJq+yoa89kyjg93MUB
+	 N8QwKL2DoT+sCpR8Z4LZg8L/YryBSWthu/pfd+dd4py+tPujqSicVAyfTLlFGc4u5e
+	 kfUSnR3JMkh7A==
+Date: Mon, 7 Sep 2026 08:09:24 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Leng Honglin <lenghonglin@axera-tech.com>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shi Zhicheng <shizhicheng@axera-tech.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Drew Fustini <fustini@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, soc@lists.linux.dev, hlleng233@gmail.com
+Subject: Re: [PATCH v2 2/6] dt-bindings: arm: add Axera AX650 SoC and AX650
+ Demo board
+Message-ID: <20260907-portable-moth-of-passion-ecb1bf@quoll>
+References: <20260901-ax650-v1-v2-0-993bea305476@axera-tech.com>
+ <20260901-ax650-v1-v2-2-993bea305476@axera-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: input: hid-over-i2c: allow reset GPIO
-To: fQwQf <fqwqf@fqwqf.xyz>, devicetree@vger.kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
- bentiss@kernel.org, jikos@kernel.org
-References: <20260907054339.12409-1-fqwqf@fqwqf.xyz>
- <010601a07a651064-bff1bd5c-5d9a-40b8-b504-a0ce7b41669d-000000@ap-northeast-1.amazonses.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <010601a07a651064-bff1bd5c-5d9a-40b8-b504-a0ce7b41669d-000000@ap-northeast-1.amazonses.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260901-ax650-v1-v2-2-993bea305476@axera-tech.com>
 
-On 07/09/2026 07:43, fQwQf wrote:
-> The OF implementation of the HID-over-I2C driver already obtains an
-> optional reset GPIO and asserts it around power sequencing. Document the
-> property so device trees can describe that existing capability.
-
-Read original commit at least. It explained that property is NOT for DT
-and IS NOT accepted. You just ignored that outcome completely.
-
+On Tue, Sep 01, 2026 at 05:19:29PM +0800, Leng Honglin wrote:
+> Add devicetree bindings for the Axera AX650 SoC and AX650 Demo board.
 > 
-> Signed-off-by: fQwQf <fqwqf@fqwqf.xyz>
+> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
+> ---
+>  Documentation/devicetree/bindings/arm/axera.yaml | 24 ++++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
 
-We do not take anonymous patches.
-
+No replies to my comment on patch #1, so dropping this from DT Patchwork.
 
 Best regards,
 Krzysztof
+
