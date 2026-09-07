@@ -1,152 +1,149 @@
-Received: from mail-vk1-f170.google.com (mail-vk1-f170.google.com [209.85.221.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0822245BE3
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE20C45D1BD
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:27:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776816; cv=none; b=NwLRTcZVECdT09q0PReJD3zfvitsF16bgRTYkif/cbo1izy6/fsGaM/9qxoaB4iO/jXFYyGWBik43JZC+gtKb+MM03wDn/shiCYavsdoATgVhCn4ObyD4eEiDBrC95Gex8lTPYuRm0PgJ599O9SKONycvuwnhRAs49ct9mvplEU=
+	t=1788776822; cv=none; b=oZwKRgR5dFG3TpVKi1kicwSvT6/MWjelIlTwNswKj4ikjJTZOoum49Zk0ecDswzE2nWy4NBhYLMbAMgKVdkLxTqBmSMS2HPZdnIa2Lxc8v+/cBwQWWwwkvKXcmgfW4mKGf33Hbdi7f/L/Z/IUQYgUZJ1PtW54+pY1o3xOPPbBoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776816; c=relaxed/simple;
-	bh=WXRZsD3v33qBAuPkHtARz2nCLJEB+edBNngFTzuWl5M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=aYYAxgzEBaCUriY/kXSHwNT0q1LT2jaU1Qdc9Y9d/hkDK7xDQaVt6YSOyrgIwtlz6bfYx6yAMBqWoCFjwF2oweoNIURs3a6L0iAg8Ai4uzd9GnfDdy/tuGT1VAbq5wb48c2VO58cgaCNbOekuyfGapDtbHMp2P4QDGcazluJukM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f170.google.com with SMTP id 71dfb90a1353d-5c7d1512dbfso2804681e0c.1
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 03:26:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788776814; x=1789381614;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hSWXrsN8UfIXC+P+F15lvL0/C8YBIn2HdB2Vgr/1RcY=;
-        b=NrU+XOEzRNXMJILqglamXKTVSkNpaCpa1NbQnPdpKMmS16vKnNJ6Ht+sERNBeTmHuI
-         k13YP6L7FY7hD3Bhf/pDGUf88BAZPbtIUJs0nPspHWSuwpz8zJfMb117O7YlaQp11XcF
-         cVqvR6xFIi7l2/U0MY7/yLp8WgH6IGTPPjTVtHrikZkgoKbLJYaIcaN91YOmxXQMdhya
-         XPH7THNQY2skc0LsxmfnS8+g6saQirVjYMgopz+xvV7QWcw89+/ODDMkDB+L6jy/v9B8
-         u9/AK/rXV2t4r+Kd+S1lKHepH+LzUFv2doeDaFL6hpaoGJweBIlW83/odPm3CWmLgGY8
-         ExIA==
-X-Forwarded-Encrypted: i=1; AKwUvBz8niYfLFaeImIYwkMaDIjE1hXRMf0AkYxq8Gx1Y+1NcgdPdbDe7Ay/2ntSLmNkMeATtc6LbppMeWv9@vger.kernel.org
-X-Gm-Message-State: AFuF++lJ00Fa3jEuVXydNjq0SGRclYIwN0VGEju+/3Agiy6ISgnT99Zl
-	mAl/PtRRIbLWhG9tFEz533NTrop/uRg5w38Pf9T8T/6kqVQRAHvZQcm1iDm+lOT9
-X-Gm-Gg: AYBFou2XBr0riRtpgc8VxTx5C22A2z1hX4aJDjlrM7M4V9VVFMGpKP3RqUF3JTgET+q
-	Ud1FIj5OC/i0mS9i+HfD5HY+T8/V/6GLL9mdSUTHFMkV24XdiRW9/+Byvbi5fPe5MWHuVJ1JuZi
-	nUNCx1TyTKM3vhBUGMJcn5gO6bqW14/lA0Y8cagJbYZ90T431zspt/DCGMvos005Z6bAamXeJh6
-	bXGnHu2HTw9wACvlMdy06Yw1ctEAYAi71b+KUWC9Qkyq5klNu/8nCeJjkQAKGpeyM4syvp2HxFf
-	JHFsbAaAjadsk+rpFiem1oT3M7sVIxnGUk2JEBn6i9Q4oxTVV9xNoG+8G01Vz5Nr0BS97XVnK4Q
-	h9sy6Px3V9FTxaKAlsTqYBOxNgKHI99oQqq8IrPHwinzyyzDyqNQTZlkwuQBzTEn7M9TiW4geE7
-	CyR89ZlFoooekCO9Bp5GzeDaA/7RHESLHY9MR2yNB1CK8Uyr42TZnobz2upUVPHLI0pHo91wk+M
-	SQblEPPWxnG1M1zi75w7m2/jw==
-X-Received: by 2002:a05:6122:881:b0:5c5:db2b:5baa with SMTP id 71dfb90a1353d-5c7ed7cba16mr10293889e0c.6.1788776813836;
-        Mon, 07 Sep 2026 03:26:53 -0700 (PDT)
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com. [209.85.222.52])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec3874acsm7250119e0c.15.2026.09.07.03.26.53
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 03:26:53 -0700 (PDT)
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-966e7380109so2636016241.3
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 03:26:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwBXct+yT7MMUTV8ZMiSUz0phvBStAr7MgCWJyZyUDg4R5F1qdQ7rQIAKW1uB/w30ALKwFH8nXaxHBd@vger.kernel.org
-X-Received: by 2002:a05:6102:578e:b0:778:4fe0:8297 with SMTP id
- ada2fe7eead31-78a4aa70e09mr10103340137.11.1788776813353; Mon, 07 Sep 2026
- 03:26:53 -0700 (PDT)
+	s=arc-20240116; t=1788776822; c=relaxed/simple;
+	bh=HpF9CH1NwLmGnpIoyUgaGLtiKsOCgIYMWb9JqYzl9gQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ICRw3/r/cbu80FG3QyFn594aR1v9YsPwdAwloHF+HXqRlTgHAye7LazzhrQXx0L0CxgYAeXr5mjxwrKLXlE4ZPPkMCebJ3tpRD6SkFfoWjNCYhzJW9C0qYaDsSbxoagLiW453+nTeYL3GhLIQdMNse5h4YJsmvq7HI/ZOIq1CDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KxwHo9tX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KxwHo9tX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD0761F00A3A;
+	Mon,  7 Sep 2026 10:26:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788776820;
+	bh=oxlvNium/SbefiPLerDvdzaFa0+I7FgjOMV5LX1sjDo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KxwHo9tXpGzFFxOT+ramDeTR4nWm6dMROvs2LHeC15v3LU15m3sk2IJgPjFT+PRyT
+	 wztdoqxgsranEn/PQNUwAIvCyJc1SrliHjjL2vzv6Ja26SnlAbvuNgzS8c1VCuCLme
+	 wttDijNtAElS0qwS/QsEYPU0k4ZEJ5tCyToCr2wT5ICrI1duSTIRU6KFbrAS0zkm8V
+	 XgKtiscVVokBdph6KC0HTF8BQp0JVoa9/iiW3QR3J3VXjRVmTQuCQ6sEDuzkAsQPlg
+	 QPoKgNbAurgu5+TmxZjmgOzJJghtZhai0XdPVrmqws82ErzgcTEVeAv2VjIUcdE4wY
+	 Bf6kv8yVeW2Vw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] iio: adc: ade9000: add support for ADE9430
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260907101623.8730-4-antoniu.miclaus@analog.com>
+References: <20260907101623.8730-1-antoniu.miclaus@analog.com>
+ <20260907101623.8730-4-antoniu.miclaus@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 10:26:59 +0000
+Message-Id: <20260907102659.DD0761F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260906173234.522400-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260906173234.522400-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 7 Sep 2026 12:26:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWLxG8xSHwTneu=xT8bxs4io7QSw7ziyPUDo6nc-zx6Qw@mail.gmail.com>
-X-Gm-Features: AcwNN1XXd7v4I08TWK48osXGJh7gXuS6LbVWPy2G64ghI87CCZ4swuROz-rYLO8
-Message-ID: <CAMuHMdWLxG8xSHwTneu=xT8bxs4io7QSw7ziyPUDo6nc-zx6Qw@mail.gmail.com>
-Subject: Re: [RFC][PATCH] PCI: rcar-gen4: Add missing PM ops
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Marek,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The ADE9000_REG_DICOEFF configuration register is written after th=
+e DSP has been started, violating initialization requirements for existing =
+devices.
+- [Medium] The ADE9430 full-scale ADC codes are identical to the ADE9000 co=
+des, contradicting the commit message claim that they are different.
+--
 
-On Sun, 6 Sept 2026 at 19:32, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
-> and V4H, this is an always-on power domain which is not shut down in
-> suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
-> which is shut down during suspend, and the controller loses state,
-> which prevents the PCIe from working after resume.
->
-> Fix this by adding generic suspend/resume noirq ops for the controller,
-> which tear the link down on suspend, and restart it on resume. Use the
-> same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
-> PCIe link on V4H and S4 too.
->
-> Test case which demonstrates the problem on R-Car V4M:
-> "
-> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
-> $ echo s2idle > /sys/power/mem_sleep
-> $ echo platform > /sys/power/pm_test
-> $ echo mem > /sys/power/state
-> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
-> $ diff -Naru /tmp/pre /tmp/post
-> ...
-> -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
-> +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
->                                           ^^^^^
->                                     Class 0604->00ff
-> "
->
-> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+commit 95855f12cd746ba14c4e360029b507dc042d8327
+Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
 
-Thanks, the output of "lspci -v" is now the same before and after
-s2idle.
-Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+iio: adc: ade9000: add support for ADE9430
 
-I don't have a setup for endpoint mode, so I could not verify or refute
-Sashiko's claim that suspend will crash in endpoint mode.
+This commit adds support for the ADE9430, noting it is register compatible
+with the ADE9000 but lacks the on-chip digital integrator and has slightly
+different full-scale ADC codes.
 
-> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
-> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> The ADE9430 is a polyphase energy metering device that is register
+> compatible with the ADE9000. The differences relevant to the driver are
+> the absence of the on-chip dip/swell detection, the absence of an on-chip
+> digital integrator (the ADE9430 uses an external analog integrator for
+> Rogowski coils, so the DICOEFF register does not exist) and slightly
+> different full-scale ADC codes.
 
-> @@ -952,10 +968,14 @@ static const struct of_device_id rcar_gen4_pcie_of_match[] = {
->  };
->  MODULE_DEVICE_TABLE(of, rcar_gen4_pcie_of_match);
->
-> +DEFINE_NOIRQ_DEV_PM_OPS(rcar_gen4_pcie_pm_ops,
-> +                       rcar_gen4_pcie_suspend_noirq, rcar_gen4_pcie_resume_noirq);
+[Severity: Medium]
+The commit message mentions that the ADE9430 has "slightly different
+full-scale ADC codes", but looking at the newly added ade9430_chip_info
+struct below, the rms_full_scale_codes, watt_full_scale_codes, and
+pcf_full_scale_codes are identical to the ADE9000 codes.
+
+> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+> index 0f64bfb221da0..2f5fe016a82f3 100644
+> --- a/drivers/iio/adc/ade9000.c
+> +++ b/drivers/iio/adc/ade9000.c
+[ ... ]
+> @@ -689,6 +693,16 @@ static const struct ade9000_chip_info ade9078_chip_i=
+nfo =3D {
+>  	.rms_full_scale_codes =3D 52866837,
+>  	.watt_full_scale_codes =3D 20823646,
+>  	.pcf_full_scale_codes =3D 74680000,
+> +	.has_digital_integrator =3D true,
+> +};
 > +
->  static struct platform_driver rcar_gen4_pcie_driver = {
->         .driver = {
->                 .name = "pcie-rcar-gen4",
->                 .of_match_table = rcar_gen4_pcie_of_match,
-> +               .pm = &rcar_gen4_pcie_pm_ops,
+> +static const struct ade9000_chip_info ade9430_chip_info =3D {
+> +	.name =3D "ade9430",
+> +	.channels =3D ade9430_channels,
+> +	.num_channels =3D ARRAY_SIZE(ade9430_channels),
+> +	.rms_full_scale_codes =3D 52702092,
+> +	.watt_full_scale_codes =3D 20694066,
+> +	.pcf_full_scale_codes =3D 74532013,
+>  };
+> =20
 
-pm_sleep_ptr(&rcar_gen4_pcie_pm_ops)
+Are these the correct values for the ADE9430, or were they inadvertently
+copied from the ADE9000 without being updated from the datasheet?
 
->                 .probe_type = PROBE_PREFER_ASYNCHRONOUS,
->         },
->         .probe = rcar_gen4_pcie_probe,
+> @@ -704,7 +718,6 @@ static const struct reg_sequence ade9000_initializati=
+on_sequence[] =3D {
+>  	{ ADE9000_REG_EVENT_MASK, ADE9000_EVENT_DISABLE },
+>  	{ ADE9000_REG_WFB_CFG, ADE9000_WFB_CFG },
+>  	{ ADE9000_REG_VLEVEL, ADE9000_VLEVEL },
+> -	{ ADE9000_REG_DICOEFF, ADE9000_DICOEFF },
+>  	{ ADE9000_REG_EGY_TIME, ADE9000_EGY_TIME },
+>  	{ ADE9000_REG_EP_CFG, ADE9000_EP_CFG },
+>  	/* Clear all pending status bits by writing 1s */
+>  	{ ADE9000_REG_STATUS0, GENMASK(31, 0) },
+>  	{ ADE9000_REG_STATUS1, GENMASK(31, 0) },
+>  	{ ADE9000_REG_RUN, ADE9000_RUN_ON }
+>  };
+[ ... ]
+> @@ -1672,6 +1685,14 @@ static int ade9000_setup(struct ade9000_state *st)
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "Failed to write register sequence");
+> =20
+> +	/* The ADE9430 has no on-chip digital integrator and lacks DICOEFF. */
+> +	if (st->info->has_digital_integrator) {
+> +		ret =3D regmap_write(st->regmap, ADE9000_REG_DICOEFF,
+> +				   ADE9000_DICOEFF);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret, "Failed to set DICOEFF\n");
+> +	}
+> +
+>  	fsleep(2000);
+> =20
+>  	return 0;
 
-Gr{oetje,eeting}s,
+[Severity: High]
+Does this change cause a regression for existing devices by writing the
+DICOEFF register after the DSP has already been started?
 
-                        Geert
+Because ADE9000_REG_DICOEFF is removed from ade9000_initialization_sequence,
+the multi-register sequence now concludes with setting ADE9000_REG_RUN to
+ADE9000_RUN_ON without writing DICOEFF first.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+Then, ade9000_setup() conditionally writes ADE9000_REG_DICOEFF after the
+initialization sequence has already started the DSP. Could this lead to the
+configuration being ignored or cause unpredictable calculations since it is
+written while the DSP is running?
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907101623.8730=
+-1-antoniu.miclaus@analog.com?part=3D3
