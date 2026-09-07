@@ -1,119 +1,221 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6694C77D9;
-	Mon,  7 Sep 2026 14:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E28C4EE84E;
+	Mon,  7 Sep 2026 14:01:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789623; cv=none; b=NmYXEcAlLzCHIrG+YZzyIKx8ltrBh+MBWX3XPXVqCMPn37aBmvjgNt5yvG2UMEgdY8JP5hFJI77zb5Tz1d/uwW36a44vv1RN9gaXDahJaWpr335MeyYRrRFyABs9K/lQCGPRQlm6LHi8K8znrHIGeWC9h3+be9V6IaZpuBJxlwA=
+	t=1788789692; cv=none; b=mkvY8cFERXOv7uaa6iunBlxKZBsJvCHsXUTRvz7+9GvEsH3V0pXyoF68nKRLstExCvPFAxZcyEMsk/T6wAFJtmJPhXAp3DEzXd0oRiGItOr4fZJ7SxbYCGV+8Ze9ttrSZErah3WWVt6pOfqu1SbjhhgucM5vSJfwlvYKlXyT36c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789623; c=relaxed/simple;
-	bh=EgLK3o+julTVE6C/8v3utQVcxVTdU7XWXdzws8YaC20=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rjS4YP3RasGJMMLDsHY7a/meNZrP4rH32NkA7BsxfE/NvafzDD7R3w9vBJ2TCL3htGXOY36S+fj9AQOnPUblyDWza9psWtHsc7n7zfAIIZ85yCDv85Jctlj41SC/ZPA3ppI9gZgC7hPWotTpzlmJS4lwontzWCbR7zS6oLeKbx4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtOe0lI4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788789692; c=relaxed/simple;
+	bh=/vECnPjWxz4Am2FXUZH/BO5GH/fidy0eNYtHKdj0ayo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LJ0FwNE3OdEL+qx99OQayxOkA88bpQ3pNtPX7UFuB7kErBB+OXg+wL4ffDujJnKXcdU+q1R+gtVQqjaO9LqgxUqahDRvAy0hatE5x9kycXzVkWVYTZw7VO0IJoAlqugd0p9zdPz+r2L8MOxJcHIpln3Y9lrgVT7XcBa/9TKvsVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sm1WYfMQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DRSIr7eo; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtOe0lI4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985261F00A3D;
-	Mon,  7 Sep 2026 14:00:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788789622;
-	bh=EgLK3o+julTVE6C/8v3utQVcxVTdU7XWXdzws8YaC20=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=gtOe0lI4tICmFeXO0VXaSZWun1zD97NtGKzB00Fxz4Ka/Zpm56GHzGCFmpkzXvwya
-	 IjgdW5ASTJB+qKa5sg3xhHy+2z3Tif4EUzgG6v2G0AqXAMe/0BNO4ao6/A+PGKiEDt
-	 LiunuR042Q+3iJ1jf+LikMpBoAosls+iqBo1ld1uAEuNgD3FyixqBGd1NK8XwlELz8
-	 0aXr47TpsMtDRS4WsQVvIrdjIekWTZVzwY14LA7ppw9cLIVA/gJznyINUg586mqoJr
-	 i4bMWj2QqqCUzgdxYWZPl2+vXlMSa8ApBf/xkklnj7o+nTfBb5pP16MUu53RogA7JW
-	 PhrukphYxcyLg==
-Date: Mon, 7 Sep 2026 16:00:19 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: Rob Herring <robh@kernel.org>, catalin.marinas@arm.com, 
-	will@kernel.org, rppt@kernel.org, akpm@linux-foundation.org, 
-	sudeep.holla@kernel.org, jenswi@kernel.org, mark.rutland@arm.com, sumit.garg@kernel.org, 
-	ardb@kernel.org, david@kernel.org, danielmentz@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, op-tee@lists.trustedfirmware.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 02/10] of: reserved_mem: Introduce "ll-map" property
-Message-ID: <ap7CAowlFTFhSFP9@orome>
-References: <20260902104712.2399797-1-vdonnefort@google.com>
- <20260902104712.2399797-3-vdonnefort@google.com>
- <20260902172436.GB1440252-robh@kernel.org>
- <aplF4NaoFk73d-c5@google.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sm1WYfMQ";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DRSIr7eo"
+Message-ID: <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788789687;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0Bb91qdtQU0N5E11l6jfWxHxhaB6paVoj8BCJfLQFEs=;
+	b=sm1WYfMQ0uhWCREdKJ5XwD8aTS9mdvGiLwqgIoAcLvskYFxSSkxcNcmvS5nE/Xh4L+Hvht
+	8BdB7Rzk83ai3lL8tuUvP03kCB1cP4k7a5Fu/NKX1vIbNJvsNEkJfawRnAGs8w5vJeRriI
+	02Z6bgEHBLYy1I2hQfHq53y0Ymkvkc2CZo7927thHHiBp+CCoCXzWPITSbAfafVM28KK8w
+	zY0Dx/iltpww836xvZBBMTiddbhZAXkUyONhOj0Df0nJizlBEe2koOkRljDHh/yQtt/ZJ+
+	lmBc20h9uBPXYBZZ7mldQ2c8+gHcXaPrvpmFqrXW8WQ7NG/RgWnNSgusWSSykA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788789687;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=0Bb91qdtQU0N5E11l6jfWxHxhaB6paVoj8BCJfLQFEs=;
+	b=DRSIr7eoYFpI3/aOat3YDAKGZFyJHVh0FLfkxh3bj56gm3nMcswcW1t6pWeX1ccYDUdbvu
+	fkGfrEVZ4iR6foAA==
+Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
+ Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Mon, 07 Sep 2026 16:01:26 +0200
+In-Reply-To: <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
+References: 
+	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
+	 <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3ihzba4bzldpza5m"
-Content-Disposition: inline
-In-Reply-To: <aplF4NaoFk73d-c5@google.com>
 
-
---3ihzba4bzldpza5m
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 02/10] of: reserved_mem: Introduce "ll-map" property
-MIME-Version: 1.0
-
-On Thu, Sep 03, 2026 at 11:03:12AM +0100, Vincent Donnefort wrote:
-> On Wed, Sep 02, 2026 at 12:24:36PM -0500, Rob Herring wrote:
-> > On Wed, Sep 02, 2026 at 11:47:04AM +0100, Vincent Donnefort wrote:
-> > > Keeping last-level mappings is interesting on some architectures as it
-> > > allows mapping/unmapping pages from the kernel direct map without the
-> > > risk of splitting blocks which, under the break-before-make rule, may
-> > > trigger page-faults the kernel can't handle.
-> > >=20
-> > > Add an "ll-map" property for reserved-memory regions. When set, it
-> > > splits the underlying memblock and sets the MEMBLOCK_LLMAP flag.
+On Mon, 2026-09-07 at 11:21 +0200, Krzysztof Kozlowski wrote:
+> On Thu, Sep 03, 2026 at 08:10:59PM +0200, Vasilij Strassheim wrote:
+> > Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
 > >=20
-> > Where is this documented? Any DT property must have a schema.
->=20
-> Ack.
->=20
+> > The compatible identifies a register layout characterized by the core
+> > and feature identification registers at the encoded offsets. The
+> > concrete synthesis-time configuration is then autodetected from these
+> > registers.
 > >=20
-> > Though I'm not thrilled about more flag properties. Handling all the=20
-> > combinations of properties has proven to be painful. Can this be implie=
-d=20
-> > from the compatible string instead?
+> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> > ---
+> >  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 161 +++++++++++++=
+++++++++
+> >  1 file changed, 161 insertions(+)
 > >=20
-> > Rob
+> > diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b=
+/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
+> > new file mode 100644
+> > index 000000000000..508e444e10da
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
+> > @@ -0,0 +1,161 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: SoC-e ethernet switch IP core for FPGAs
+> > +
+> > +maintainers:
+> > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
+> > +
+> > +description:
+> > +  SoC-e Ethernet switch IP cores are FPGA-based switches whose feature=
+s
+> > +  and number of ports are selected at synthesis time. Ports can connec=
+t
+> > +  to CPUs, external PHYs, FPGA logic, or other switch cores. The
+> > +  integrated MDIO controller provides multiple independently selectabl=
+e
+> > +  external outputs.
+> > +
+> > +$ref: dsa.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: soce,swip-00-04-0c-10
+> > +    description:
+> > +      Register layout with the core version register at offset 0x00 an=
+d
+> > +      feature identification registers at offsets 0x04, 0x0c, and 0x10=
+.
+> > +      Switch instances using this register layout are autodetected fro=
+m
+> > +      these registers and use this compatible regardless of their
+> > +      synthesis-time feature and port configuration.
 >=20
-> We need this before the kernel direct map has been created (paging_init()=
-).
+> There is no traceable and documented version or model name?
 >=20
-> I would have moved that directly into the driver lend_pool.c, but then it=
- is
-> probed too late (unflatten_device_tree()).
 
-Any of the node_*() callbacks from struct reserved_mem_ops get called
-prior to paging_init(), so these could be used to manually set the
-memblock flags in the corresponding drivers.
+tl;dr
+There are too many, but they are not specific enough. I think it is not
+useful to use this information to define a specific compatible. Using a
+set of known registers, the driver can check the active features and
+capabilities and adapt accordingly, regardless of marketing names.
 
-Thierry
+SoC-e shows different variants of their IP cores on their website:
+https://soc-e.com/soctek-ip-cores/
+SocTek is product line that covers different types of IP cores. Ethernet
+switches, Timing controllers, and SpaceWire.
+For Ethernet switches, there are different variants listed like Managed
+Ethernet Switch (MES), Managed Redundant Switch (MRS) and some others.
+Most of the variants are build of other variants e.g. MRS =3D MES+HPS
+Think of it as name of a base collection of IP functionality. On top of
+it you can license additional features. This do not result in a
+different name. If you start with MES and buy HPS later on, you may or
+may not end up with MRS.
+Additionally, the actual switch is synthesized in FPGA, so the final
+implementation can vary even if the same IP core is used e.g. port
+number, deactivated features, etc.
+This is used to bring down product costs: You can buy the same hardware,
+really the same hardware - here a PLC - with a different bitstream.
+Depending on the enabled features you have to pay more money for it.
 
---3ihzba4bzldpza5m
-Content-Type: application/pgp-signature; name="signature.asc"
 
------BEGIN PGP SIGNATURE-----
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  mdios:
+> > +    type: object
+> > +    additionalProperties: false
+> > +    description:
+> > +      External MDIO buses provided by the integrated MDIO controller.
+> > +      Each child bus selects one controller output.
+> > +
+> > +    properties:
+> > +      '#address-cells':
+> > +        const: 1
+> > +      '#size-cells':
+> > +        const: 0
+> > +
+> > +    patternProperties:
+> > +      '^mdio@[0-9a-f]+$':
+> > +        $ref: /schemas/net/mdio.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        properties:
+> > +          reg:
+> > +            maximum: 30
+> > +            description:
+> > +              MDIO controller output index, which must be lower than t=
+he
+> > +              number of implemented switch ports.
+> > +
+> > +        required:
+> > +          - reg
+> > +
+> > +    required:
+> > +      - '#address-cells'
+> > +      - '#size-cells'
+> > +
+> > +patternProperties:
+> > +  '^(ethernet-)?ports$':
+>=20
+> ethernet-ports
+>=20
+> > +    patternProperties:
+> > +      '^(ethernet-)?port@[0-9a-f]+$':
+>=20
+> ethernet-port
+>=20
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqew3AACgkQ3SOs138+
-s6EXOg/9GV2dPaIR220HG9xlVLIy2HRX3X54lD7NjYUcMI5dH74ozC8XZ0/nWFsD
-64xYzCwkpDDlOUBftQPPgM44IfYfqHh4kLJjur9/fq03owom1beg4m9zIVIw4dBw
-ejIByjlSLI0Jy0xt5eQhc9VfpkfrO5/Oq44bkGKeBtuPRefpomIIcSV5C/aU8QDa
-cQv6aVjg6ZR2XncJrS3BA53s5Zc9Khwv7/O/Lb85rppj7aEHj7newBIEakVNB4pU
-lmOAY1Q3ckSBZ4xZkjGPGOc9eSMxdpXx7JLHPERWIXTz9qdumMHpXKT+WXUpRtgv
-cYT/O3KlrdSOC8K8t/2/lXVQ3J4HKSxP3T+cxvoWmkPHSeE4w17I9+62IhX0V0n2
-E3mxg820SetJTFz5VJAXV8QeheO/ZGqieBraWwvQcyDmQnqKddmQdFd8EuqKusC6
-M4vCBNFLt2/XEDoir9Q+3zqiDVJW32wMboSGe4P6VPhW8ojvOs43jE1owQRXCuOS
-Z3gqcw1c0fcxuvHYTEV77UI0la6H5DeWQJWJiolfJs74swqdx9Rp9sMNlqvGcHdS
-dRb5ltaA1WoYYMBhatF1gLHeFoZDvcOfmzF0dSNNEUXgR6g26s3Y5bbTVkB6+7cx
-hSybBcQOnVt7rYODTdksd+66a8PcOeXTzpy33pFoG9LaH9wWFbs=
-=iMEe
------END PGP SIGNATURE-----
+Is there a reason for such a restriction?
+The pattern intentionally follows the generic DSA binding in dsa.yaml,
+which permits both ports/port@N and ethernet-ports/ethernet-port@N. The
+device-specific pattern is needed here to apply the SoC-e port
+constraints to both accepted node naming variants.
 
---3ihzba4bzldpza5m--
+> > +        $ref: dsa-port.yaml#
+> > +        unevaluatedProperties: false
+> > +
+> > +        properties:
+> > +          reg:
+> > +            maximum: 30
+> > +            description:
+> > +              Switch port index. Supported switch configurations have
+> > +              up to 31 ports, numbered from 0 through 30.
+
+Thanks,
+Vasilij
