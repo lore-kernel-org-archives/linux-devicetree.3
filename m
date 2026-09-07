@@ -1,163 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2099550AC3D;
-	Mon,  7 Sep 2026 15:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4098850C29D
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 15:58:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788796694; cv=none; b=gvHW8KexwIxAlglQxf0Oj+5JTBJb32F8A5YPC4DSitw0jEMuoLcZYwaGCJZd+90yRf7SiiSXv4+3cp5yNTSLsqkQuv/XPxnVxPP30ou629mjE8wm64UJvoUOSN51FwSbgT4QQKJlW8ekInJxnpyQWqeHsNRmtLu1xX9k3VLKmlI=
+	t=1788796703; cv=none; b=X3ojclkHimdRf0ovB5QnWwFM7ARN4awVOlBPogLZo/gdUjRl4fmMqIsZO8zwVxGrMQoQ0MOb7gMDJtVQTAVtCGV/I9oaZ/xh+/wt5DO8IaFIibZT0f9ABCkdqi2JimrTbgmKm+Hx/9wELxvZvjyn/Q/QdHB1bgscy5fHEo057OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788796694; c=relaxed/simple;
-	bh=AOc2K4VwamUM94TEfa+oKoL6HykhmDF3Izsz8mfle/0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tYko93YR/roK0m40jxl3G7ece5b2bRX0mYvauaDVbN/HgK7HEA7qkNUqFSmXq19xz05fXCRiRxSH0VZ9+4zkwzws9OQNynRfybVQzOA61DbZVizMXIQ0FdhIpxbNyYoUV3WnQqh2+veeZsG4xolJI5NuAk+O44DSAFFXA1zV1Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEvCESTy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788796703; c=relaxed/simple;
+	bh=Fce+3jUwgsWvi5koq8PRKbZIYAtq/+j6ybY0Te+yHWY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=a2kgbFK7a9Q2O2uhdWo0ykfdtXxJ78aStmz1bLkKaw3X5QR+wAC1Piq9DKy87DpiHOJdFzE32LECI6rjnk1/JMlhsLI5+O5ORVJV9M8cKT2kTLB989h42LLbPydzCLOXnZxsYXh8GbUciR6Bend4aBWYDOjIr5cLCrgHzm6Zg54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=BL51uCcI; arc=none smtp.client-ip=79.135.106.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEvCESTy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C8116C2BD01;
-	Mon,  7 Sep 2026 15:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788796693;
-	bh=AOc2K4VwamUM94TEfa+oKoL6HykhmDF3Izsz8mfle/0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=mEvCESTyzwq5Kfn9PYSA5Dl2jxsOQX/XaHCJFajOn7+RhVpJhZYLBYTCggr+36+DE
-	 T0p/8SHs6+ESdRCfeAJfYsLZkmsozaDXoprn1FOCTm65Z7c73b8LR7zLee90SeNTvL
-	 ONSsEXypUdO1JFd+uWg1rUhlKzLNcByCIN3YzxI4fc/cMIaJGPumeem+C9lWI2b/HL
-	 ainwevRclvV0hHap1M2j+50qA+FyRHYRHYkyMmAc7AgQZb1kp+ifR2jLaPLY4vwX/h
-	 pTAzbe8uk7BSSrnhXYFF4k+6PfISuKbhvneavDWIiDGV5J2PYrXBMqRVyLeLwU3Xlv
-	 eluVMgn7YCzFg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AA761C79FA7;
-	Mon,  7 Sep 2026 15:58:13 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Mon, 07 Sep 2026 17:58:10 +0200
-Subject: [PATCH v9 2/2] arm64: dts: qcom: sdm845-google: Enable PMI8998
- camera flash LEDs
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="BL51uCcI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788796695; x=1789055895;
+	bh=D2+5AFS3jqYsqprxeNeNiyO+DoPvgRblbpH4ixduHyI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=BL51uCcIjLA3DidCZ4iDlUUHjAz2JEMRmpVnRA8Ay+dlfXLnSKkxTTUcQdSirwL4l
+	 DRtwTfiSkymcTJBLUsMYXa2BPESjN6VybQdJwt0qXzStj4q7rqKL+P0VgCaG6cXFXh
+	 n1urOk/iEObHVUYHBaN6O4QVv+FuP5863XDey2ElSSSDTXETnSrtmNMC+HMKEvboGt
+	 yxQfci9Tw8UL16evHB7k8lgn4nEJ8nXfxVwq/X8ndxmsJwuoepgYz3RGPZLsFhTITI
+	 nwRxch7Rpbtnl03ZJ9ETXuol5naAhdC7dYexrI4XoFqCFRI6uosP4a7BYtBlJ5qdWM
+	 eoFhNc8e0oaqw==
+X-Pm-Submission-Id: 4hdsDP4C0gz2Scsk
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-reviews@lists.linux.dev>
+Cc: <devicetree@vger.kernel.org>,  <robh@kernel.org>,  <conor+dt@kernel.org>
+Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
+In-Reply-To: <20260907150846.8BC741F00A3A@smtp.kernel.org>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
+	<lgSgGIif93eJ1usOlpNZhgkh3YsQ-210nNAm7LCuSB_7RdMgA45onz0txTfZJrprGgkQjQDLLq8kAlNsIPMv6A==@protonmail.internalid>
+	<20260907150846.8BC741F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 17:58:12 +0200
+Message-ID: <87mrtt8357.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-pixel3-camera-v9-2-b1981f2d3291@ixit.cz>
-References: <20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz>
-In-Reply-To: <20260907-pixel3-camera-v9-0-b1981f2d3291@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Petr Hodina <petr.hodina@protonmail.com>, 
- Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2228; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Yx/SybZaq/fFXNwrVltyex4wK0gEJtcA1qqJKNjxEuE=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqnt8TfyuFCcP5aYbqSPgzQYfQBPR9FkuRQn/ok
- SnWVS7LSw6JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCap7fEwAKCRBgAj/E00kg
- cvJHD/0ccnYqH7Nbti6rT8NRGsL4HHduXgoHKQUE79irUKznasnXnxaGvAaePpuUKYEaz3OsRcd
- RXF/TGKkrSjOC4E5VewEgrb2NEhsYisSDSMdXAtZWW6O10wGaqd6D7S+WXbzHeNqbD7Tx6+QodM
- /uO+B7Saz8AF+mT22nLt4hxmPB5+0IMLn6NRvWc+dFcZUj1h1BLzVv4T54aGBNfPqEulCOrZ7Vm
- JqSWs6NkcpKq8br24exrveqCFIem8KXEF7p9MseCA8PRGzwF9XP4wtY1rIc5J2faj3Dln83VJ8j
- ZnDbYR6ALXw9mO+kyBUMfOw9rkaysL4bDqmYNIck9L57b4lSWrZSTquXhpn2PzVv2oRwPz3wD+C
- 2h+cRZ48bhbjbuRK0w674/gEW9Rbz6gaLDG+mMvr+ZS1NxIGja+8+SzYBiMf8BMwYocKgK0XBZ7
- MDrBDgk/jkee8oR9aNS38r84w9WoiTdpASkCJ0PoxJ8PZqbG4iBJlOzPspE6mqTEbEmIqFSzKdY
- 3j726Gqh+SzkoAMC0sXU33Ju8ookzxOSJBoExrRD/1QI5wcaNv8oLYdsO7QeMBsoN0UojVYjWze
- iajPLVQH/wHzSHGLa3Wtng9EeIOKoKe5XS07aOJfHwsgnH4OYE/zN40PyVJzZhDyivlIbjswtaQ
- sGvzEB31uNQDOTw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Type: text/plain
 
-From: David Heidelberg <david@ixit.cz>
+<sashiko-bot@kernel.org> writes:
 
-Enable the PMI8998 flash LED block and describe two white flash LEDs
-used for the rear camera.
+> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
+>
+> New issues:
+> - [Critical] Writing to MMA8452_CTRL_REG4 to disable interrupt sources fails because the device is still in ACTIVE mode.
+> - [High] The IRQ handler incorrectly checks `pm_status == 0` instead of `pm_status <= 0`, allowing invalid hardware access when PM is disabled.
+> - [Low] Mixing goto-based error handling with guard() cleanup in the same function.
+>
+> Pre-existing issues:
+> - [High] Hardware access occurs after dropping the runtime PM reference in mma8452_write_event_config.
+> - [High] AB-BA deadlock between the driver's data->lock and the PM core's runtime suspend wait.
+> --
+>
+> commit 3d8bf763b3ae36284346684babbd11058f68e68a
+> Author: Esben Haabendal <esben@geanix.com>
+> Date:   Mon Sep 7 14:51:04 2026 +0000
+>
+>     iio: accel: mma8452: Support interrupt sharing
+>
+>     Adding support for sharing interrupt line with other device requires the
+>     interrupt handler to handle runtime PM suspension properly, ignoring the
+>     irq if the device is suspended (maybe even off). And while at it, we use
+>     the PM reference to ensure we do not get suspended while processing an irq.
+>
+>> diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
+>> index fda29df5d1097..e521dca37f768 100644
+>> --- a/drivers/iio/accel/mma8452.c
+>> +++ b/drivers/iio/accel/mma8452.c
+> [ ... ]
+>> @@ -1083,15 +1085,21 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
+>>  {
+>>  	struct iio_dev *indio_dev = p;
+>>  	struct mma8452_data *data = iio_priv(indio_dev);
+>> +	struct device *dev = &data->client->dev;
+>>  	irqreturn_t ret = IRQ_NONE;
+>> +	int pm_status;
+>>  	int src;
+>>
+>> +	pm_status = pm_runtime_get_if_active(dev);
+>> +	if (pm_status == 0)
+>> +		return IRQ_NONE; /* device is powered down */
+>> +
+>
+> [Severity: High]
+> Does this check fail to catch negative error codes, allowing the handler to
+> proceed and access unpowered hardware?
+>
+> When runtime PM is disabled, pm_runtime_get_if_active() returns -EINVAL. This
+> can happen during driver unbind or removal, as pm_runtime_disable() is called
+> before free_irq():
+>
+> drivers/iio/accel/mma8452.c:mma8452_remove() {
+> 	...
+> 	pm_runtime_disable(dev);
+> 	pm_runtime_set_suspended(dev);
+>
+> free_irq:
+> 	if (client->irq)
+> 		free_irq(client->irq, indio_dev);
+> 	...
+> }
+>
+> If a shared IRQ fires concurrently after PM is disabled, this check allows
+> the handler to proceed, leading to I2C bus timeouts or system hangs.
 
-Configure the LED in flash mode with hardware limits matching the
-original device configuration, including maximum current and timeout.
+This is on purpose. If runtime PM is disabled, the assumption is that
+the device is active. Otherwise, the driver would be useless when
+CONFIG_PM was not enabled.
 
-In contrary to downstream, we can control both LEDs separately.
+>>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
+> [ ... ]
+>> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
+>>  #ifdef CONFIG_PM
+>>  static int mma8452_runtime_suspend(struct device *dev)
+>>  {
+>> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
+>> +	struct i2c_client *client = to_i2c_client(dev);
+>> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
+>>  	struct mma8452_data *data = iio_priv(indio_dev);
+>>  	int ret;
+>>
+>> -	scoped_guard(mutex, &data->lock)
+>> -		ret = mma8452_standby(data);
+>> +	guard(mutex)(&data->lock);
+>> +
+>> +	ret = i2c_smbus_read_byte_data(client, MMA8452_CTRL_REG4);
+>>  	if (ret < 0) {
+>> -		dev_err(dev, "powering off device failed\n");
+>> +		dev_warn(dev, "backing up CTRL_REG4 failed\n");
+>>  		return -EAGAIN;
+>> +	} else
+>> +		data->ctrl_reg4 = ret;
+>> +
+>> +	ret = i2c_smbus_write_byte_data(client, MMA8452_CTRL_REG4, 0);
+>> +	if (ret) {
+>> +		dev_warn(dev, "disabling interrupt sources (CTRL_REG4) failed\n");
+>> +		return -EAGAIN;
+>> +	}
+>
+> [Severity: Critical]
+> Does writing to MMA8452_CTRL_REG4 fail here because the device is still in
+> ACTIVE mode?
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi | 27 ++++++++++++++++++++++
- 1 file changed, 27 insertions(+)
+Ouch, Yes. That is actually true according to the datasheet.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-index 02a392fea7212..1926bbab9395f 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
-@@ -1,16 +1,17 @@
- // SPDX-License-Identifier: GPL-2.0-only
- 
- /dts-v1/;
- 
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/dma/qcom-gpi.h>
- #include <dt-bindings/input/linux-event-codes.h>
- #include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "sdm845.dtsi"
- #include "pm8998.dtsi"
- #include "pmi8998.dtsi"
- 
-@@ -593,16 +594,42 @@ &pm8998_resin {
- };
- 
- &pmi8998_charger {
- 	monitored-battery = <&battery>;
- 
- 	status = "okay";
- };
- 
-+&pmi8998_flash {
-+	status = "okay";
-+
-+	/* upper part of the flash module */
-+	led-0 {
-+		function = LED_FUNCTION_FLASH;
-+		color = <LED_COLOR_ID_WHITE>;
-+		led-sources = <1>;
-+		led-max-microamp = <500000>;
-+		flash-max-microamp = <1500000>;
-+		flash-max-timeout-us = <1280000>;
-+		function-enumerator = <0>;
-+	};
-+
-+	/* lower part of the flash module */
-+	led-1 {
-+		function = LED_FUNCTION_FLASH;
-+		color = <LED_COLOR_ID_WHITE>;
-+		led-sources = <2>;
-+		led-max-microamp = <500000>;
-+		flash-max-microamp = <1500000>;
-+		flash-max-timeout-us = <1280000>;
-+		function-enumerator = <1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
- 
- &qupv3_id_1 {
- 	status = "okay";
- };
- 
+I will swap the order so that we switch to standby before modifying CTR_REG4.
 
--- 
-2.55.0
+> Since the write happens before mma8452_standby(), the hardware ignores it
+> (as modifying configs requires STANDBY mode). This leaves interrupt sources
+> enabled. If a shared IRQ fires, the handler will return IRQ_NONE due to the
+> pm_status check, leaving the interrupt asserted and causing a level-triggered
+> interrupt storm.
+>
+>> +
+>> +	ret = mma8452_standby(data);
+>> +	if (ret < 0) {
+>> +		dev_err(dev, "transition to STANDBY mode failed\n");
+>> +		ret = -EAGAIN;
+>> +		goto out_restore_ctrl_reg4;
+>>  	}
+>
+> [Severity: Low]
+> Does this mix goto-based error handling with guard() cleanup in the same
+> function?
+>
+> The cleanup subsystem guidelines state that mixing goto and scope-based cleanup
+> creates confusing ownership semantics.
+>
+> [ ... ]
 
+I will try to convert to scope-based cleanup to avoid this, and see if I
+can create something nice with that approach.
 
+> As a side note, there are a couple of pre-existing issues in this file that
+> are not introduced by this patch, but are worth mentioning:
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but is there a use-after-put in
+> mma8452_write_event_config() when disabling an event?
+>
+> drivers/iio/accel/mma8452.c:mma8452_write_event_config() {
+> 	...
+> 	ret = mma8452_set_runtime_pm_state(data->client, state);
+> 	if (ret)
+> 		return ret;
+>
+> 	switch (dir) {
+> 	case IIO_EV_DIR_FALLING:
+> 		return mma8452_set_freefall_mode(data, state);
+> 	case IIO_EV_DIR_RISING:
+> 		val = i2c_smbus_read_byte_data(data->client, ev_regs->ev_cfg);
+> 	...
+> }
+>
+> When state is false, mma8452_set_runtime_pm_state() calls
+> pm_runtime_put_autosuspend(), dropping the PM reference early. The subsequent
+> i2c_smbus_read_byte_data() accesses hardware while the device could be
+> concurrently suspended, potentially causing I2C transaction failures.
+
+I will address this in another series.
+
+> [Severity: High]
+> This is a pre-existing issue, but does mma8452_read_raw() create an AB-BA
+> deadlock with PM suspend?
+>
+> drivers/iio/accel/mma8452.c:mma8452_read_raw() {
+> 	...
+> 		guard(mutex)(&data->lock);
+>
+> 		ret = mma8452_read(data, buffer);
+> 	...
+> }
+>
+> mma8452_read() calls mma8452_set_runtime_pm_state(..., true), triggering a
+> synchronous PM resume. If a concurrent PM suspend is initiated by the PM
+> core, it sets the status to RPM_SUSPENDING and calls
+> mma8452_runtime_suspend():
+>
+> drivers/iio/accel/mma8452.c:mma8452_runtime_suspend() {
+> 	...
+> 	guard(mutex)(&data->lock);
+> 	...
+> }
+>
+> The suspend callback will block waiting for data->lock, while
+> mma8452_read_raw() blocks waiting for the RPM_SUSPENDING state to clear,
+> resulting in a deadlock.
+
+I will try to look out for this in the next series, where I am trying to
+improve all the runtime PM handling in this driver.
+
+/Esben
