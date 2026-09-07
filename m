@@ -1,109 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A15439332
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:44:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E420238F658;
+	Mon,  7 Sep 2026 08:45:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770701; cv=none; b=NlvVDd/mnbD8+sP57jMwF5VZvGOlavryBF02jyBKg/diyoX9vXCWDQmrbypTj/tibhVaz3zwc//ddj0usx3kUU+AmTRrIs8YU114h+FbebkC0lnx1Cop0FrrTcpKS8s7NB2NQYQIqLuWnJHASvePFLRp2T4KASW4OllnBz0JpIg=
+	t=1788770732; cv=none; b=X+4j11a3fVNxCIbRkfBNZgT5M7cTrTQIhD9UQPHBPan5Q9NUJSpVRSHYLrTR/rBBP1lFb1JzJro6ifJxCRM1DS1x+ScuE5SSonjH2oIZDGkh+0qWdcnyN1mHqj9vI0UsWh5R+f0eyFatWvAPAsI1lKn4egLe+ad/F3SZv0Z16lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770701; c=relaxed/simple;
-	bh=UM19w6r7vKQccmVZVDy0FcJKVjuoATG+2N9OB3oEFD8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=P9qyra/gA4XGcjOYzkr8RlyiPT1Wnap3zLFoGYkL34UoHEi+JKqYa4qgHJdmpYts5DAWoNngWGLMnh54KHdC90hg31E4aruojHtbth1+Xvk85oAtOPP8RFhMBoVmr3U35M1kMcMvItwuMz2rxJdzQ7L4slGShzgonG0qsuuvXpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y+GCKMtK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788770732; c=relaxed/simple;
+	bh=FaAXurq/IRPqM0O19vHRQM1h7v5KPl9QTFVZmdPBcQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kgv8fLzT7oEnCTGdIbEj1uXQH8AlYydlQw7A0TisH0g+CX9kg+exF9RFITl9A7cGq/TJX9ELwzyMcaY0hF8Vm7OmOK8hkEkw4yTSEeWHmVFxfJMD5EemrbqMDQpq0H1APBs7W3L4enwa7IKVZBgrYQpkMbIomp1trcZvlVvwn8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWB61ri4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y+GCKMtK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7F81F00A3A;
-	Mon,  7 Sep 2026 08:44:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWB61ri4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9101A1F00A3A;
+	Mon,  7 Sep 2026 08:45:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788770699;
-	bh=PesGwfdwerpqmnQVud8dQIh+7X8PMtFgs5Hr8U8c8NI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y+GCKMtKs7T15IDZjCvmO6WFOllHxw8AYvA0Um/foeRGtL6K5PdKAvQMpKQ01QDa0
-	 LaJ1kZf77tYQ8BIHG4Da5JDmF4PaqrvgYRwby6v8kvJn9wiUBKei1Pn+HLecezU/9w
-	 rWbf7luuEGEm+QgFOtUwpnC67ff2VUsyyEQcKTokW1nNkXewcQViE0aOFtMl727X56
-	 d0yCBKsRgji409m/MB999FZLasBhLH5NnpSrWXKJrQ9aCn2FtJfSe6J55iswug5QsO
-	 lOTaU0fxNmOlXm0gK0szlxVYYaonlWHJacf12Yi/o0BTeSkTNGGaEKoqC7CMckRhZQ
-	 FD6o7KDFRkrhA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/4] arm64: dts: intel: agilex5: add USB3.1
- controller node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <5c33bd732d48b280d6a45783c7c84d57ea778b4a.1788757821.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1788757821.git.adrian.ho.yin.ng@altera.com>
- <5c33bd732d48b280d6a45783c7c84d57ea778b4a.1788757821.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 08:44:58 +0000
-Message-Id: <20260907084458.DE7F81F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788770730;
+	bh=9CfMRY6C+btqHlTiWd8OIUdZwnsYHsyWiOk41SLPto4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aWB61ri4ehlda/B8fFIjk1Hhvy6YOBKytcCVKJtzdcYF9KZU4wgPy0FohmFQhXbB9
+	 AF7/YNHVNx9cJ2R4EutlG1zfQ0rg7OfCP1X4AxDpKDiGrjTtqB1COXbbZLG65dAc1D
+	 tKFf2QisYr4UEpp0n7n+HFb3PVTepaBorQG/duRx25C+9hySII7MpiIHtwdlX9Fa03
+	 d9Km+UGTfesTFLTRefDFUkAZaokSTVlRPrEsRFff1ry8RkfVgjnP3W2eiSnhxu4r7G
+	 /dsZ/FZH9lkmC2+OQ/NDsGhz0BF+5Yvk4lI6E9v+NGG1N7Mqlz1d5NjexbZ+b20K0t
+	 ZI7X635dRgYgg==
+Date: Mon, 7 Sep 2026 10:45:26 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Stefan Wahren <wahrenst@gmx.net>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marc Kleine-Budde <mkl@pengutronix.de>, Vincent Mailhol <mailhol@kernel.org>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Frank Li <Frank.Li@nxp.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Aswath Govindraju <a-govindraju@ti.com>, 
+	Christoph Stoidner <c.stoidner@phytec.de>, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-can@vger.kernel.org, linux-phy@lists.infradead.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, sashiko-bot@kernel.org
+Subject: Re: [PATCH V4 1/4] dt-bindings: phy: ti,tcan104x-can: Fix property
+ constrains
+Message-ID: <20260907-debonair-whispering-mule-8eee51@quoll>
+References: <20260903080427.6103-1-wahrenst@gmx.net>
+ <20260903080427.6103-2-wahrenst@gmx.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260903080427.6103-2-wahrenst@gmx.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `dma-ranges` property attempts to map a 40-bit (1 TiB) address=
- window into a strictly 32-bit parent bus, which will break DMA addressing =
-above 4 GiB.
---
+On Thu, Sep 03, 2026 at 10:04:24AM +0200, Stefan Wahren wrote:
+> Microchip ATA6561 is compatible to TI TCAN1042, so the same property
+> constrains should apply. But they use a strict scalar enum match, which
+> makes Microchip ATA6561 fallthrough. So add a "contains" to cover also all
+> compatibles ones.
+> 
+> Reported-by: sashiko-bot@kernel.org
+> Closes: https://lore.kernel.org/linux-devicetree/20260902133525.E22DE1F000E9@smtp.kernel.org/
+> Fixes: 05ace63d0bcf ("dt-bindings: phy: ti,tcan104x-can: Document NXP TJA105X/1048")
+> Signed-off-by: Stefan Wahren <wahrenst@gmx.net>
+> ---
+>  .../devicetree/bindings/phy/ti,tcan104x-can.yaml         | 9 +++++----
+>  1 file changed, 5 insertions(+), 4 deletions(-)
 
-commit 37652f3fe88e1fdb5283901dda73de167a957be5
-Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-arm64: dts: intel: agilex5: add USB3.1 controller node
+Best regards,
+Krzysztof
 
-This commit adds a DTS node for the Synopsys DWC3 USB3.1 controller on the=
-=20
-Agilex5 SoC. It places the node under a simple-bus with a 40-bit dma-ranges=
-=20
-window to match the interconnect's USB DMA address width.
-
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/=
-boot/dts/intel/socfpga_agilex5.dtsi
-> index f54767d1526e1..523f722a2a642 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-[ ... ]
-> @@ -493,6 +493,41 @@ usb0: usb@10b00000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		usb31_bus: usb-bus@11000000 {
-> +			compatible =3D "simple-bus";
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-> +			ranges =3D <0x0 0x0 0x11000000 0x0 0x100000>;
-> +			/*
-> +			 * USB interconnect DMA is limited to 40-bit addresses
-> +			 * (1 TiB window from 0).
-> +			 */
-> +			dma-ranges =3D <0x0 0x0 0x0 0x100 0x0>;
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Does this 1 TiB DMA mapping conflict with the 32-bit parent bus?
-
-The usb31_bus node defines a 1 TiB DMA window (0x100 0x0 size) mapped into
-its parent node starting at address 0x0. However, the parent node appears
-to define #address-cells =3D <1>, representing a strictly 32-bit (4 GiB)
-address space.
-
-Since a 1 TiB mapping cannot logically fit within a 32-bit parent address
-space, will this truncate addresses above 4 GiB during DMA translation in
-of_translate_dma_address(), leading to DMA mapping errors or IOMMU faults
-when the USB 3.1 controller performs a DMA transaction to memory above the
-4 GiB physical address boundary?
-
-> +
-> +			usb31: usb@0 {
-> +				compatible =3D "altr,agilex5-dwc3";
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788757821.gi=
-t.adrian.ho.yin.ng@altera.com?part=3D2
