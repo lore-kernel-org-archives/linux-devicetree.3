@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DB3517BC6
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 18:10:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FE452120F
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 18:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788804637; cv=none; b=u+wpWGYT7Aw596+ft4YQa6Y7xUNmIkVqdm4r0QfTZInLDce1/4dsCjsQMbmc4OLr7u46sBM5yjRBCoO+Vdh66hoWANzTdx4gNiAc3d7o40qZ+0714RYq0J3dkeHEdViImk19mEX4wdAx3DrkDCNBvHdNbhFGo8rIM4qxC9653S0=
+	t=1788804644; cv=none; b=ZB/AXut1DOfoM8R6x9Hba0npm3Dpr69ebZahegqGbvjlyqAKVxDhAaSq1pYF+a0um8vN9lRpO39aV2BtAmxfJQGP/uW+KiCQH/frhKGYavIgC6ZnRgwx8fSRajuNQUK9d/PivQ5VjJudY9ZriapUD/Fc1RDJBXhIm8ultRtXLWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788804637; c=relaxed/simple;
-	bh=dS0jDXHlVW4llf9vuhR2+deqH3p/w1Xv3ipBNHhZA78=;
+	s=arc-20240116; t=1788804644; c=relaxed/simple;
+	bh=73h+DbbxpUAv6EeNMsT8xfj0daKPyOQsqro/0eGtGvI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SvSUzaqlR6wLfRDX5PM/7kykcqdF0bKTCg08BciNxzWVqFqN3FJIM7WsuooSB7vyplkidTOeyH3lEz+6nBSBnJIfnC0x1nPfAFmYillPA3abbQt/QLoBvw7OwSu9roCsVylcZJgqExW/u66sQLymqpF8KGrTMP/p/onvQjH3qIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L47wz2Zy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GQrtRaTM; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=XEFV5N3hQR5hHY5akqEfphyS8ivYHXaR+QmWLvJxtFqmIIzHUDU+7gqyd4H0i9hjD7NLfRRrZw+7IpyXOs+VfmMpBqBRjkDPwJ9ssejEG205Q18JxAft346fPc/PKu7tAKIrIKgb0xTwEyNtKqpf3YvPrLw3O2mDG2AwBMnpxTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DMAeuwml; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CywrfhGR; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L47wz2Zy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GQrtRaTM"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687HWKHV564865
-	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 18:10:35 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DMAeuwml";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CywrfhGR"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687HXDew552593
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 18:10:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VO0PQiHDx30LGg+w33cmq8DXc7nasM3WGJcKJJwoAGA=; b=L47wz2ZyTd6YmryH
-	TG1s5xAgB4Fb1dilaDQqIsFq4S5A0Q8FgXU/fSXRu2pv9oknmW3Nocxxj8FudemY
-	o6VvbLm4jThfJjCLhB80en7CQYNqRDtVMAHiF0LcuASBwEgnmo8wO1A/IrfHtb6i
-	kLVsexJdkEHhTDEOrJrG68gnBSbnuyaRf/kOmlTgFYeDVVHY14rFCfjwL8RKwXfB
-	57X5b8GVhHur7PoJKufX3qAe5ownkGmweTDILfCPqVCA8MtUUVanvxj4z/WE7QqS
-	Eod9S9EeY5krKlCmnd9Yo/jdFXjKAm45S4ssLyTVIx42KrVXsC/3qxFWnbdLJbAv
-	NthG6g==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rrg44j-1
+	jvYb56N6DVFPH6GxDVV+eaPUGauCJx3U85RjHAJTnuk=; b=DMAeuwmlzahyKate
+	EfWFj0OR9V69Zl13+N0+zFz0Onl823aT8itQprALRf5JKLRYWDHBCtlI/5FcEW7O
+	TN/uH7eqGQuaMtmDHqZoGkDtneFXXiaN0ILWz4uoRMtHd3T0VcCHdse/SERM2tPw
+	LhnZK8YYyk0wRaDfxVNllo/Wfnv1BfvriXHfx1+RtHS1MEl5mNPPAhppanJwVhm+
+	g58bO9Wx7C9GZ2w+cbPPVVYoFjP+9Gm6BYZLWrJDvcxG633qGDO3we1dwI6uiYMl
+	Nj4UzCerrBzvjJoHO0pGCobqlrnKtenfXh/dn/eX2LT4zdFHXTialwHkMCcu0on9
+	DkLrBw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gj1rwg43w-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 18:10:35 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-381250979d5so4618819a91.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 11:10:35 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 18:10:42 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cfca8558d2so47056405ad.2
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 11:10:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788804635; x=1789409435; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788804641; x=1789409441; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VO0PQiHDx30LGg+w33cmq8DXc7nasM3WGJcKJJwoAGA=;
-        b=GQrtRaTM8WOIVOSacgS593Iv5cRMiD+7tGl6DnpTsx/9QKXPI0gI1IpVnQPKubbSWt
-         KRPL1dBWiFGca+byMPhqAw0BmNBhuOX9INLPz090U3zrjbLs6/4iPayrGgUkk/BYTWur
-         74WZXkz//7/HavfO9ncVVMkrdg9z9QoDxnVlXIxEl6UFRatYvppmnJPlXz8h8434W2/v
-         FvJyQSxEdso/RgfVDeVTywo23By2Ld4JL26lJVaehjOtPimH+h04BS1bLJtun3z7CKzP
-         oao88rFzycxM1lzko2dS/8rOGuPZE2Ow/uZviUyo248taVF8B/JUJ7FgHA0wUjjNrzR+
-         6C8g==
+        bh=jvYb56N6DVFPH6GxDVV+eaPUGauCJx3U85RjHAJTnuk=;
+        b=CywrfhGRjJv/mZ/Nora7TR84c0PfvXTl4J44sasRSAjUDQ5kyO9K15YOGdX7fU/5ah
+         dHwuzs4r14hx77GjYmK3Up6ljoa8vGMEpEQtW6kcsU3cWQKCFWfMdYFMw9ouEcBClY9B
+         Pw1ySFPk5MGLBTsCJSVInqNabQdrkoxzsaoZq5LY0AeuIgpEi5Sq2nGodTZcnVaxw2wG
+         AspkYiEKylvHw23AOQtaNYbuRvbzdQwuvtdBCXAR3auTYgiFxmFL/E5z8xgUi+SNHrui
+         /CQko1ZDytrQz//nBJkOrOFshj7+tNsqfGtZMAi+1Hb269joz1PCvedJgsHVF9UNdm6P
+         6vDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788804635; x=1789409435;
+        d=1e100.net; s=20251104; t=1788804641; x=1789409441;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VO0PQiHDx30LGg+w33cmq8DXc7nasM3WGJcKJJwoAGA=;
-        b=E+EFe2zxk0qEyNMjxskyZEPbijfTytfa3fmQP8qAJUb8DYRXFxMc7reZC2DR/bwmS9
-         dbz5Z++50qGmmHRwQQo5SK2gjnf7aAHo5lL5BuIkkyAkI1D7yZRZv1dunTnIqnP073si
-         4404w5KU0zg5HIydam2RTAapQ/mUL5Ipaq9KPWB7knXUR3qvfOe/RPStpM+MvxYHALJ7
-         3oTQ62a96Xzdof7cTmO+Qbn8gHXIv7mglXkL1WY16TPCii1lBRoinWUI6IFTUKzhO+rE
-         M+3rQPMgfeWOdA/079v62hSYu4AorUhUF68Hi6a9+XYuQa2NTD9YWFNHT4LVAT1ZPzY7
-         DWsA==
-X-Forwarded-Encrypted: i=1; AKwUvBw5VZfIkzdU0Bg5vXEyqN/ECRy3qhBtDGBB2PMUrGDf4OQGnDfrq/RdhGdtfCmT+IPkaBJY1yAjMysX@vger.kernel.org
-X-Gm-Message-State: AFuF++mYTDkKcmc2j7CPO5yixPe6POYa4LHPdN4J4aXSYedyQ7RJQ4FI
-	bESIjwHuvTmZunLQaTD8IuE0XOCXM8HZE8Wu3CvS91/aygid0R8yqoEKaEA11Q0a/PHuQFQrVhV
-	166/XI1Kt9ZVBRNE6CZs0wZbJ60ZmioZ4nVaWhHEf1PQMeyPM2TeA3C/mmQb35OGO
-X-Gm-Gg: AYBFou0OvC1I7GncDxxmq56QSTWoOpHsCJ7jy/fUu5rfmKerCY0uT7qx5Jzp89BAZgP
-	Dic6YlUzaSEiEby4DKoD0JeFtKUSvllt9kv89rvpgOP58Js4wbnF/l1P+9nSXhMtaqdh3+B7I11
-	3cQa8ENNkaqO4f0f7RDQBRMia6i09Czpn4zwNjFD9d6pVWYCtQLba4KE0plIqUXz90LOsDio7Hi
-	On6XQJkzjcfRpsL0WTEu7rMbs9ERGRgRV0LoPYFc3M/N1V3tLicJklxvb4BdUT+eQdOQs6Z0ofK
-	0ZqG6PNxoMna2Cdr7I/5Cuw4KwEkhST+ksupXAno2tsCs9wW18K+IoRtQRoa/L1lPgcLQWa68aB
-	4G/dBzGbNmDziZ56MONokLhc44prlGC2yqXlU
-X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr36796090a91.16.1788804634648;
-        Mon, 07 Sep 2026 11:10:34 -0700 (PDT)
-X-Received: by 2002:a17:90b:3852:b0:38e:9ef9:eb97 with SMTP id 98e67ed59e1d1-39b26272d69mr36796023a91.16.1788804634200;
-        Mon, 07 Sep 2026 11:10:34 -0700 (PDT)
+        bh=jvYb56N6DVFPH6GxDVV+eaPUGauCJx3U85RjHAJTnuk=;
+        b=nvJztdF0/cdo2KVFPmEs9yJoIEg983F08wx6EMf5CpVB3ARKXBamGuW0qt7bcFxawN
+         omJyEnXyJN9CMLuQi3CBwDy4UbhMzu9YUg2+65S7YZMkK8elh84T/N/l7H3CiOTKFh+c
+         G4tuB1K67YkqbYrUmzUOHeQWbFj7WlP48ZaH1dkInfZfK8tpMm0EewU47D5F0BSmIMfU
+         p/x6jwdWE7+grEEBf/Rze2A+drsLfrH+CezfGblotMDhLvwKGHWuJ8SwJhbRuRI+8zf+
+         lZDb/OakTbdvApQ7FLDt5NwLMVUORAHJcDc9sGMQbyk0HkmYlnMKSzmLtdu2PYdbxNba
+         ebDQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhatkJWj9J1G73SOktmAb5orCxbUmVEGR5Qp37rqXSDNCX6AhRsxLCgVvj+P0JQDage2TgfvlSWxr/@vger.kernel.org
+X-Gm-Message-State: AFuF++nb3m274UnSwiwSMKcFjBhFHKZ2ez/mPoMPSSxCbGrookF9Nc0z
+	PKHvEJ5DrAYUq+OmJG04mObsbm8fAqaZ5yllCTyq3uq2HXnjT1VyQjDNJtqYnp4Jq+lPT2rKiWj
+	h1lXbnqFJWVNd2XsSxQEnjuIUJYW3JImMuclOGsqWi1ZDGgdcKxzuLS1xXHm0e4kK
+X-Gm-Gg: AYBFou0ym9KU2HG0e2Ueq5+ab+Mvo1wol21fqidsxlVOIHcpsRpmUNCoDT6vmctu27C
+	uXjpFTsFfZOaaawIj10u75EUfBbd6XqB1TqwAH4Mr0pJb3KsVzWGlAW/tQ7oZ37XZdFYQxTv1D0
+	FjEgRl5+k5DA10nXGFJQR0Rcqvj+9VansXzNxupi8i+LDDTCIv8k6Zika25PtdtpSSOIC627UrL
+	CvVJwNfLYvHtgaaOLovbQ7EzLcDPsn49q0cf88QhHoDMn6Uy6EK55VrPNm/KEGojOTGDH31gOSh
+	Jn1BbZJIbWN4lD10XE0nHh+yU7k42uIYf7o9rSRcoiCxZAy7/Dt1aAIG2bhfM1SRbULL6Ramh8a
+	SQHuRGyX/wteD9npBXxL1NOp5VljACXRonGOM
+X-Received: by 2002:a05:6a21:2291:b0:3d0:88f5:f812 with SMTP id adf61e73a8af0-3da39d147e0mr35987979637.10.1788804641065;
+        Mon, 07 Sep 2026 11:10:41 -0700 (PDT)
+X-Received: by 2002:a05:6a21:2291:b0:3d0:88f5:f812 with SMTP id adf61e73a8af0-3da39d147e0mr35987915637.10.1788804640630;
+        Mon, 07 Sep 2026 11:10:40 -0700 (PDT)
 Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm33961954eec.21.2026.09.07.11.10.28
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b608409sm33961954eec.21.2026.09.07.11.10.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 11:10:33 -0700 (PDT)
+        Mon, 07 Sep 2026 11:10:40 -0700 (PDT)
 From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 23:39:45 +0530
-Subject: [PATCH v1 4/5] ASoC: dt-bindings: qcom,sm8250: Add Nord Ride sound
- card
+Date: Mon, 07 Sep 2026 23:39:46 +0530
+Subject: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Add Nord Ride sound card
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-nord-asoc-driver-support-v1-4-997d3b20cf43@oss.qualcomm.com>
+Message-Id: <20260907-nord-asoc-driver-support-v1-5-997d3b20cf43@oss.qualcomm.com>
 References: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
 In-Reply-To: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -108,64 +108,163 @@ Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804602; l=989;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788804602; l=4265;
  i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=dS0jDXHlVW4llf9vuhR2+deqH3p/w1Xv3ipBNHhZA78=;
- b=7UuavNITpn+sMxMYWQTId+dxqjXUOxi8+6Uzm0d7zkuTzy0sD2r8oO2IfkhwJ6XTESYDZYfUU
- j4hMMr31DgtBlUEqgLlBoiBTJfxyiginDjfjO2vsqd5quWUIz9XVNQZ
+ h=from:subject:message-id; bh=73h+DbbxpUAv6EeNMsT8xfj0daKPyOQsqro/0eGtGvI=;
+ b=rb5X3u3ND4ZxYurEafoxHNvbfthl3o/dmRs+8RwKevnVxtDudd1Jh7aWi/FmfDMcK6iTTkQ/R
+ ifEQfNPipG3DGx/DRSDxvnA1POnh+slxySasIJoyhdDHJ34f2cOdmt3
 X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
  pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIwMSBTYWx0ZWRfX6OpJ9Y8hbXHq
- ksWbGCcVRbblbIEaRpNJtB7TBVoEpLOttjJcqGIJoZ9BuyVOBnBOS+VFUkevy6KcQBPxQWS/wRN
- wofzx1jnYDIk0VcVoILUQgPoo8tbYLc=
-X-Proofpoint-GUID: or-s4wJS9V4sBa6_UzaCAJAz1e2HPHbB
-X-Authority-Analysis: v=2.4 cv=NsjhtcdJ c=1 sm=1 tr=0 ts=6a9efe1b cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Authority-Analysis: v=2.4 cv=Ga8nWwXL c=1 sm=1 tr=0 ts=6a9efe22 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=7YRCYCP2VF9Zukq8dE4A:9 a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIwMSBTYWx0ZWRfX8mgwrppThvX2
- h77cwJtw2KfaumhlF3jUKqU9uvzC4GVyqVnJac/5ELtpzcAFZ8WSyaCO46B2wjQmh9H17XxDCp5
- RshH9MLyc4/17pm++o0b391oGCkaCUPhdGqM2Q6OKNb4vmuFERhLMr03K6b7P72BE8zAWIr3XRL
- UT2o0NIty6IU1aD8e8QjEhygtrIkF2PKICVBdcQRrC6LcYxhrr5Q3assahXNi0B2dFjLTuCu+vw
- aLiEvx0BMEG2eRsE/pVZhO/j8JALHILfdZdY2IrZ0lIlCLTvJ/Tv/1TawxX7xOBlxXnd8KzDo22
- l2HwyIRhmpiDQaaWrTnqkIj1D7LOC3UFuIFzEaxghV3eQvsCinw6I9bPhiwExyt71XKHFKxdbZp
- xJimjjp+PA2JbUiKX9FzNxcQinGZG14IYV8m4tHnjEH1BddDhAuQGu2ruzwHTvPpnVO0Pfl25vj
- QuBiIpdhYs+6HtIddmg==
-X-Proofpoint-ORIG-GUID: or-s4wJS9V4sBa6_UzaCAJAz1e2HPHbB
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=FUwYNvyfLjuJzzMI3m8A:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDIwMSBTYWx0ZWRfXx+2yq32FN9oi
+ mrxvNBLSGjWmMoLwbwG64uEodH5Ew07T70qiyJbX8ojieE2ECd+PAvsZCcLgkgbr6RmiKmbf8rn
+ yh9i2Uof/kHxWndxzJeufEhc4kFuJi9PfUfMjTSczPXZzW6ToAR1cY4TXHZpGm9w+1TTIh2oTGY
+ nxwK/oaTewguIRroP/duCz+V6ypnH0vLCeAMjZuKk2Kq5qZPHJFCbJoQ6DN5/dVm312YTN9mCor
+ 4ntCOKkBFKxF3NrByD5KS9h+Byle/Ew3PxrPbXB8wul5sO8qA8/q33WMHYBXTym8VC2PGjSX9Pv
+ 9g4d7zhBXwOR2yOzuyGBxjiWeqwD3eJm5zJxW4Lxv7zYclYuDiucZiO6bdqTRm1uFUTkKefmRlM
+ n7GMeYU/Y3lsvY3YIBUAEYOHRToBNHG0tqt5fbAdngzKVFBTRcD57JncxCX3gJFoa3f8Ix6K9hh
+ Sau4uO+XRJVaabyuLzA==
+X-Proofpoint-ORIG-GUID: fa6R5d_ZaAFt5McYXZFlskzh_VuoXH69
+X-Proofpoint-GUID: fa6R5d_ZaAFt5McYXZFlskzh_VuoXH69
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDIwMSBTYWx0ZWRfXyyPbi9D8y9B8
+ h9FuX82VifKHoySbXh20J7sAIOdnXG1h4N0WNYpv27mGU52L/mvoFv64vVeGhfREJrz0QYP9ZsA
+ WqL+o+iLVVSLzwyutcUBlZKuP6UWZiw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_05,2026-09-07_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
+ malwarescore=0 phishscore=0 suspectscore=0 clxscore=1015 impostorscore=0
+ bulkscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070201
 
-Document the bindings for the Qualcomm Nord Ride board
-specific sound card.
+Add support for the Nord Ride sound card by introducing a new
+compatible string and associated platform private data.
 
-The bindings are the same as for other newer Qualcomm ADSP
-sound cards, thus keep them in existing qcom,sm8250.yaml file.
+Nord uses external audio codecs with interface requirements that
+differ from the generic SC8280XP platforms. Add a dedicated
+hw_params callback to configure the appropriate DAI format for
+playback and capture streams and to program the codec system clock
+configuration required by the board.
+
+The callback configures the PCM1681 playback path to operate in I2S
+mode and the ADAU1979 capture path to operate in DSP_A mode. For
+capture, the ADAU1979 system clock is sourced from LRCLK as
+required by the hardware design.
 
 Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/qcom/sc8280xp.c | 57 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 57 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-index 1536fcd96d68..bdbaa8c822fc 100644
---- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-+++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
-@@ -38,6 +38,7 @@ properties:
-           - fairphone,fp5-sndcard
-           - qcom,apq8096-sndcard
-           - qcom,glymur-sndcard
-+          - qcom,nord-ride-sndcard
-           - qcom,qcm6490-idp-sndcard
-           - qcom,qcs615-sndcard
-           - qcom,qcs6490-rb3gen2-sndcard
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 4d48e1012cd4..4d8eafca4b7f 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -18,6 +18,7 @@
+ #include "common.h"
+ #include "sdw.h"
+ 
++#define LRCLK_SYSCLK 1
+ #define I2S_MCLKFS 256
+ 
+ #define I2S_MCLK_RATE(rate) \
+@@ -72,6 +73,8 @@ struct qcom_snd_soc_common {
+ 	bool mi2s_bclk_enable;
+ 	bool wcd_jack;
+ 	int (*snd_prepare)(struct snd_pcm_substream *substream);
++	int (*snd_hw_params)(struct snd_pcm_substream *substream,
++			     struct snd_pcm_hw_params *params);
+ };
+ 
+ struct sc8280xp_snd_data {
+@@ -244,6 +247,47 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
+ 	return 0;
+ }
+ 
++static int nord_snd_hw_params(struct snd_pcm_substream *substream,
++			      struct snd_pcm_hw_params *params)
++{
++	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
++	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
++	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
++	int rate = params_rate(params);
++	int ret;
++
++	switch (cpu_dai->id) {
++	case TERTIARY_MI2S_RX:
++		ret = snd_soc_dai_set_fmt(codec_dai,
++					  SND_SOC_DAIFMT_CBC_CFC |
++					  SND_SOC_DAIFMT_NB_NF |
++					  SND_SOC_DAIFMT_I2S);
++		if (ret && ret != -ENOTSUPP)
++			return ret;
++
++		break;
++	case TERTIARY_TDM_TX_7:
++		ret = snd_soc_dai_set_fmt(codec_dai,
++					  SND_SOC_DAIFMT_CBC_CFC |
++					  SND_SOC_DAIFMT_NB_NF |
++					  SND_SOC_DAIFMT_DSP_A);
++		if (ret && ret != -ENOTSUPP)
++			return ret;
++
++		/* adau1979 MCLK sourced from LRCLK */
++		ret = snd_soc_component_set_sysclk(codec_dai->component,
++						   0, LRCLK_SYSCLK,
++						   rate, SND_SOC_CLOCK_IN);
++		if (ret && ret != -ENOTSUPP)
++			return ret;
++		break;
++	default:
++		break;
++	};
++
++	return 0;
++}
++
+ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
+ 				  struct snd_pcm_hw_params *params)
+ {
+@@ -255,6 +299,12 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
+ 	int bclk_freq = sc8280xp_get_bclk_freq(params);
+ 	int ret;
+ 
++	if (data->priv->snd_hw_params) {
++		ret = data->priv->snd_hw_params(substream, params);
++		if (ret)
++			return ret;
++	}
++
+ 	switch (cpu_dai->id) {
+ 	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
+ 	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
+@@ -461,6 +511,12 @@ static const struct qcom_snd_soc_common kaanapali_priv_data = {
+ 	.wcd_jack = true,
+ };
+ 
++static const struct qcom_snd_soc_common nord_ride_priv_data = {
++	.driver_name = "nord",
++	.mi2s_bclk_enable = true,
++	.snd_hw_params = nord_snd_hw_params,
++};
++
+ static const struct qcom_snd_soc_common qcs9100_priv_data = {
+ 	.driver_name = "sa8775p",
+ 	.dapm_widgets = sc8280xp_dapm_widgets,
+@@ -564,6 +620,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
+ 	{ .compatible = "qcom,hawi-sndcard", .data = &hawi_priv_data },
+ 	{ .compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_priv_data },
+ 	{ .compatible = "qcom,maili-sndcard", .data = &hawi_priv_data },
++	{ .compatible = "qcom,nord-ride-sndcard", .data = &nord_ride_priv_data },
+ 	{ .compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data },
+ 	{ .compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data },
+ 	{ .compatible = "qcom,qcs6490-rb3gen2-sndcard", .data = &qcs6490_priv_data },
 
 -- 
 2.34.1
