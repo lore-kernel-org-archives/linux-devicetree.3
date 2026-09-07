@@ -1,35 +1,34 @@
-Received: from mta1.migadu.com (out-130.mta1.migadu.com [95.215.58.130])
+Received: from mta1.migadu.com (out-143.mta1.migadu.com [95.215.58.143])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE2941D65E
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:24:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3D248CD71
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:24:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.143
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783859; cv=none; b=JQHPjDUnc+/J3tYx3c+HzDnUKTkIFH2ZsXlHthGH4IORW/CoWVc3JVaJtx/QCLo2cbk//pjvxIu1cEsxO7SG+bKqGLRJ4U1veKM7DP/EBVaQw8PDMoqgfwtLPqSW2yvQI64Kxk8WgBXGthQWMDwKZwCfZHYfrYvzxroUZu1wSA8=
+	t=1788783867; cv=none; b=gctAM1fpqZZhDbmihECSr3BAyK0/OEflS7bc6uOzZywVfhJYBudFqpnwXbLAGR5NkXdcET6m5jb0huYEYJ1t6bq9ZdR7ZVb8zfEqV7XF0uDXlah42SfqSONeY3OaJa9PPBMi06E4UL2F8vuVcv/qnGYMLyDzTRFoxy7mSM/R4Yc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783859; c=relaxed/simple;
-	bh=SF/BkZtpH0zsCxHBAMSG1N4uiarb4RpMqqndpLESzpM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dgiyU47hJXPu2bFOcDtima3j45r9D8yU8v1zpx3B5dTYdSXtoQRHceG73UqfHjf45yj4YWkEG0llRbue+sFq7i9/D5q4DY4jcWa55CnObUrcFaFE/tmdRXTc6oN7GfeFKAUkoJIMUFMCchFgI0dfj6SmL5ATJCp6euJ8Tv7ti3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=FRYZQmoe; arc=none smtp.client-ip=95.215.58.130
+	s=arc-20240116; t=1788783867; c=relaxed/simple;
+	bh=90W3Vbe+A7EuTwCgPA1AIqMGxOjdh2ciRdVhxid1Mc0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=taKYNfJ+kzlQpxUF40If4j0X82oHzHi/OyaEbYh6ynLFRz9veSNOQ5kqLzPlmacOoi1NJmVf7oDC/efUwzqKczQh2lyFxfU8uazP73O/ZC76YIgAr60GEU7fNYrdpdsBpa5CSI13jxH9MkD+k2jLdkmvnye6Ix3C1hPY7Msph18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=AAZ6fEko; arc=none smtp.client-ip=95.215.58.143
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="FRYZQmoe"
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="AAZ6fEko"
 X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=SF/BkZtpH0zsCxHBAMSG1N4uiarb4RpMqqndpLESzpM=;
+DKIM-Signature: a=rsa-sha256; bh=90W3Vbe+A7EuTwCgPA1AIqMGxOjdh2ciRdVhxid1Mc0=;
  c=simple/simple; d=cknow-tech.com;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788783853; v=1; x=1789388653;
- b=FRYZQmoecxHbJ5NnFqczQslCfYBKKNccGYKs4/YKldQ7GMd7/Gy2VpeF5yWEbB2geI9V1WLr
- oagbSGaJXhVXKI37RrdqbTHGjG2FAbXCwAaQUTTEhyWV/+3tq1HcNxjZLM4sQPPlSC6d7s27+Bv
- 2U27SicqEujYgtNdFDVERBMGludnpOJm1XI3aasEBsiSqaaE4BCm/t/Aq2X8Lp84PeQuWqW5gHa
- ODbxg9DKNCTey2alyI4z3ieV8JVIDWdz3ifT2BHlx382TMdr8zSXWF63R3fs+po/UI5QTtBUdcL
- 5Fsh9pv7KJnE3BmbZBUxCkLzcDkH7ZGlAyoak1b0rhPaQ==
+ t=1788783861; v=1; x=1789388661;
+ b=AAZ6fEkoimQZ49kwgCPgGsy/DKH1kyQ7ppAqmysUpWTiFdLQfOAGm5EpjBkrBfnsCaMqhcRA
+ 5567/83zScWinTC2HbOHmU2nGKPPMXlVoXEGZPIJXDy8E9XzSiBlhOZ0AJlBy3evz605Bs4NpeT
+ q02igNHIBZfDIDCIB6o5tnt4KSa6VJhSSkrwbV7asgopLpkVhzCGe1avrOmeftsusJ6WsKS1uMa
+ LQ66uiweNWDha2m2V6H5J0zq1An9dEOqPGVDyi46daHpt2yXUuYoVn351S+gzqquZE4090ziMnd
+ fJH3mbyjv3/+6mCD8RMTpvwuYRA1EMQkoaIAH1PORXflg==
 X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id b80fe7de94c76630;
-	Mon, 07 Sep 2026 12:24:12 +0000
-X-Mizu-Trace-ID: b80fe7de94c76630
+Received: by smtp.migadu.com with ESMTPS id 253942340c5df991;
+	Mon, 07 Sep 2026 12:24:11 +0000
+X-Mizu-Trace-ID: 253942340c5df991
 X-Migadu-Flow: FLOW_OUT
 From: Diederik de Haas <diederik@cknow-tech.com>
 To: Rob Herring <robh@kernel.org>,
@@ -44,12 +43,10 @@ Cc: Joachim Eastwood <joachim.eastwood@gmail.com>,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Diederik de Haas <diederik@cknow-tech.com>
-Subject: [PATCH 2/3] arm64: dts: rockchip: Move sound cards to board files for NanoPC-T6
-Date: Mon,  7 Sep 2026 14:22:44 +0200
-Message-ID: <20260907122406.1862398-3-diederik@cknow-tech.com>
+Subject: [PATCH 0/3] Add support for FriendlyElec NanoPC-T6 Plus
+Date: Mon,  7 Sep 2026 14:22:42 +0200
+Message-ID: <20260907122406.1862398-1-diederik@cknow-tech.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907122406.1862398-1-diederik@cknow-tech.com>
-References: <20260907122406.1862398-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -58,173 +55,36 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The NanoPC-T6 and the NanoPC-T6-LTS both have a Realtek ALC5616 audio codec.
-But the NanoPC-T6 Plus has an Everest ES8389 audio codec. So move the audio
-definition which is not shared among all boards to the individual board files.
+This serie adds support for the newest member in the NanoPC-T6 series,
+the NanoPC-T6 Plus:
+https://wiki.friendlyelec.com/wiki/index.php/NanoPC-T6_Plus
 
-Signed-off-by: Diederik de Haas <diederik@cknow-tech.com>
----
- .../dts/rockchip/rk3588-nanopc-t6-lts.dts     | 39 +++++++++++++++++++
- .../boot/dts/rockchip/rk3588-nanopc-t6.dts    | 39 +++++++++++++++++++
- .../boot/dts/rockchip/rk3588-nanopc-t6.dtsi   | 36 +----------------
- 3 files changed, 79 insertions(+), 35 deletions(-)
+The main differences between the NanoPC-T6 Plus and the NanoPC-T6 LTS are:
+- use of LPDDR5 RAM
+- addition of an M.2 B-key connector for a 4G LTE module and a companion
+  NanoSIM card slot.
+- different audio codec (Everest ES8389)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
-index 0ee67ee24f3c..32f9b313b5d6 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-lts.dts
-@@ -30,6 +30,45 @@ vcc5v0_usb20_host: regulator-vcc5v0-usb20-host {
- 	};
- };
- 
-+&analog_sound {
-+	compatible = "simple-audio-card";
-+	label = "Onboard Analog Realtek ALC5616";
-+
-+	simple-audio-card,format = "i2s";
-+	simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
-+	simple-audio-card,mclk-fs = <256>;
-+	simple-audio-card,name = "realtek,rt5616-codec";
-+
-+	simple-audio-card,widgets =
-+		"Headphone", "Headphones",
-+		"Microphone", "Microphone Jack";
-+	simple-audio-card,routing =
-+		"Headphones", "HPOL",
-+		"Headphones", "HPOR",
-+		"MIC1", "Microphone Jack",
-+		"Microphone Jack", "micbias1";
-+
-+	simple-audio-card,cpu {
-+		sound-dai = <&i2s0_8ch>;
-+	};
-+
-+	simple-audio-card,codec {
-+		sound-dai = <&rt5616>;
-+	};
-+};
-+
-+&i2c7 {
-+	rt5616: codec@1b {
-+		compatible = "realtek,rt5616";
-+		reg = <0x1b>;
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		assigned-clock-rates = <12288000>;
-+		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		clock-names = "mclk";
-+		#sound-dai-cells = <0>;
-+	};
-+};
-+
- &pinctrl {
- 	usb {
- 		usb20_host_pwren: usb20-host-pwren {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dts b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dts
-index 40290a81bb9d..40ea1079a928 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dts
-@@ -27,6 +27,45 @@ vdd_4g_3v3: regulator-vdd-4g-3v3 {
- 	};
- };
- 
-+&analog_sound {
-+	compatible = "simple-audio-card";
-+	label = "Onboard Analog Realtek ALC5616";
-+
-+	simple-audio-card,format = "i2s";
-+	simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
-+	simple-audio-card,mclk-fs = <256>;
-+	simple-audio-card,name = "realtek,rt5616-codec";
-+
-+	simple-audio-card,widgets =
-+		"Headphone", "Headphones",
-+		"Microphone", "Microphone Jack";
-+	simple-audio-card,routing =
-+		"Headphones", "HPOL",
-+		"Headphones", "HPOR",
-+		"MIC1", "Microphone Jack",
-+		"Microphone Jack", "micbias1";
-+
-+	simple-audio-card,cpu {
-+		sound-dai = <&i2s0_8ch>;
-+	};
-+
-+	simple-audio-card,codec {
-+		sound-dai = <&rt5616>;
-+	};
-+};
-+
-+&i2c7 {
-+	rt5616: codec@1b {
-+		compatible = "realtek,rt5616";
-+		reg = <0x1b>;
-+		assigned-clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		assigned-clock-rates = <12288000>;
-+		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
-+		clock-names = "mclk";
-+		#sound-dai-cells = <0>;
-+	};
-+};
-+
- &pinctrl {
- 	usb {
- 		pin_4g_lte_pwren: 4g-lte-pwren {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-index eb0eb124c4cd..4d97afbc33bf 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
-@@ -98,33 +98,9 @@ fan: pwm-fan {
- 		#cooling-cells = <2>;
- 	};
- 
--	sound {
--		compatible = "simple-audio-card";
--		label = "Onboard Analog Realtek ALC5616";
-+	analog_sound: sound {
- 		pinctrl-0 = <&hp_det>;
- 		pinctrl-names = "default";
--
--		simple-audio-card,format = "i2s";
--		simple-audio-card,hp-det-gpios = <&gpio1 RK_PC4 GPIO_ACTIVE_LOW>;
--		simple-audio-card,mclk-fs = <256>;
--		simple-audio-card,name = "realtek,rt5616-codec";
--
--		simple-audio-card,widgets =
--			"Headphone", "Headphones",
--			"Microphone", "Microphone Jack";
--		simple-audio-card,routing =
--			"Headphones", "HPOL",
--			"Headphones", "HPOR",
--			"MIC1", "Microphone Jack",
--			"Microphone Jack", "micbias1";
--
--		simple-audio-card,cpu {
--			sound-dai = <&i2s0_8ch>;
--		};
--
--		simple-audio-card,codec {
--			sound-dai = <&rt5616>;
--		};
- 	};
- 
- 	vcc12v_dcin: regulator-vcc12v-dcin {
-@@ -549,16 +525,6 @@ &i2c7 {
- 	clock-frequency = <200000>;
- 	status = "okay";
- 
--	rt5616: codec@1b {
--		compatible = "realtek,rt5616";
--		reg = <0x1b>;
--		assigned-clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
--		assigned-clock-rates = <12288000>;
--		clocks = <&cru I2S0_8CH_MCLKOUT_TO_IO>;
--		clock-names = "mclk";
--		#sound-dai-cells = <0>;
--	};
--
- 	/* connected with MIPI-CSI1 */
- };
- 
+Support for it is added as follows:
+1. Add the NanoPC-T6 Plus variant to the DT binding
+2. Move sound card definitions to board DTS files as the Plus has a
+   different audio codec
+3. Add basic support for the NanoPC-T6 Plus
+
+Diederik de Haas (3):
+  dt-bindings: arm: rockchip: Add FriendlyElec NanoPC-T6 Plus
+  arm64: dts: rockchip: Move sound cards to board files for NanoPC-T6
+  arm64: dts: rockchip: Add support for FriendlyElec NanoPC-T6 Plus
+
+ .../devicetree/bindings/arm/rockchip.yaml     |  1 +
+ arch/arm64/boot/dts/rockchip/Makefile         |  1 +
+ .../dts/rockchip/rk3588-nanopc-t6-lts.dts     | 39 ++++++++
+ .../dts/rockchip/rk3588-nanopc-t6-plus.dts    | 91 +++++++++++++++++++
+ .../boot/dts/rockchip/rk3588-nanopc-t6.dts    | 39 ++++++++
+ .../boot/dts/rockchip/rk3588-nanopc-t6.dtsi   | 36 +-------
+ 6 files changed, 172 insertions(+), 35 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts
+
 -- 
 2.55.0
 
