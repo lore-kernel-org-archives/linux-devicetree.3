@@ -1,211 +1,186 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4F73914F0
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 07:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EA5A415F3C;
+	Mon,  7 Sep 2026 07:25:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788765919; cv=none; b=CuD62w+SNlLY/px4+c/hxTZa8dtkABZqj+AuNkBhG/voiD/mH2StRdvQoxImeHL2B9qbjqlOtAErU9Wq+aKbimGrI67i9WVcT0fnTdlIpMMbtrZ4ThV+H5Qr/soq4YT4lxW7Q51Egk6WCqST7xv5XwcgiMpMokPzMPFKj7txmjk=
+	t=1788765953; cv=none; b=OPDe3ip5/3y7LCpVADeliV7838NuYxBulcw94IC32LW7w8MXXhHRTyN+nddROxHibbtcqyra4p9u50FOwdvv79mBmmrpETiAcV7mIYderR1SgGV8VbMeNHcRbx53C5tTEi3ugL/fUQjWBfgdpoRXHvruldXrqLp1M74KGP0nIZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788765919; c=relaxed/simple;
-	bh=FY37/8KA47VN8fP/68+GJgKFpqamyHZPGDD4qbtA9ZE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=LdlAV2gy3N59d1emE4fAq3PzjPHTS90FMRLUVwACHMmfvvdbZUi+ZxrXZABzS2VGBZCE1puFsySLchIuWiN2U2rFSZTdrnS15S5Rdb7e01k7/CBw7dSm1F0ujhySCUokkm4Tg4zhypzmyJn8fVmsh1CVZ9wMyTP3dvCagdK/wuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RjYzJpZw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gJx28miU; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788765953; c=relaxed/simple;
+	bh=Jy9Iw90kh+au488Ng6jqbL88lnq6u7beofZcis2Qm8g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=pAYuxbu6WoEh2NUz+oykbfUuaoZ5FKFUwQNoc0MElVCbP3up85QYd69+pYuTMZX/2Ms0GZ/3AobzDACApLPQkF2xe+4jGT0OhXEY/9hjtrPrLBgLif8Cn+FjWgAVUaRfV5GDWutfH7I5t0TRD2q5UqOUJmFsHqemaGj8Yvg9Ul0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AEoSQcwf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RjYzJpZw";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gJx28miU"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777eRn3903337
-	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 07:25:14 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=xf+Mr8tzeyzCB/+bA9XBCA
-	ccLWFvBcPX4vmeg7fcP0g=; b=RjYzJpZwSykdUuVQQ6VUfmdU9d/VsQkeWWqznJ
-	McpH+TDf7PqRmY5fiIfF/vZLlSLXrrkPXzZg8FEfzwQR2DcC2tX4G1onibjvuzXD
-	dvHUrqeOdz5RzLQfdTbyaS+uQaDHYWM8V86LYEal/yLnck6EzSbbTa+OOQjcfT7V
-	b1HuF1+j9ecK1F9/CYJlduAbJRod+cM0CX1fLOimXXusbhl69TYdrpZ8Mf94wwhT
-	Z5k68dHR02d1VOqTWfCusTlNwVTFllDE9DRdNxyEyxJMX7rlkp65dbBUqPMFhC5D
-	viAfYFY56/KvqAVmTdBKlYmRo1QjNyWnkFzg7TCyWWWpAtzQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggany5m85-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 07:25:13 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d6f73d0f89so42426055ad.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 00:25:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788765891; x=1789370691; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=xf+Mr8tzeyzCB/+bA9XBCAccLWFvBcPX4vmeg7fcP0g=;
-        b=gJx28miU7KGXVY0FZQPvJXwaUBYNnoQiMPGkjt9MEkd0mdJ/2MYXYj3bFiM+3vuRo3
-         Iq1cY5IGVRPUmkcADRORnoCBgbyP3W39VxBP3KGLOK7QhaztF9I5f1P+dT/YFxRXpal3
-         6bTEmxKkzlP53dlWFALVw1z7SEZS+MNTlTkZd5YBu4N2Wu0G7Upvo+LfjNtTe42NHaIt
-         39BM4YXnYPqS67AJYG/fJRBXh6k5bXXOt7fhaCZr2EkHvxukbYKLNu1arIYtgzMxTNdH
-         Dm0XxbBoq5EmRuUHegOeeBFHGr6K9zEYXMiTMkzhiYPIkQ1/54XG61qP6E1rK7XxzCxm
-         cf4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788765891; x=1789370691;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xf+Mr8tzeyzCB/+bA9XBCAccLWFvBcPX4vmeg7fcP0g=;
-        b=lkrhPe+JKF9lvATBky6i8N1rnzTUNw4XdyrpHlx+HfgCAyQB1qHwRIbjBray9ybjuH
-         pw5mrQrg2OwWBRSeeekc/tDg/ng9h+7RKVlybnlqZ0txt+cNFy5yLcdO+n8lXj9FYQ95
-         5xfmbXJQRIepX+j33FpSJjMHsT/CxzbDnrCUG1uxcj9QErC5138shiX2W28f7zgmFYyx
-         5WFdse2IyuosjhoJbFhgsT01Q5Kh2bYa94++FT11FaHPfAPRSMb0XIjU/amC0EHWa31f
-         NenWEa+hshlikEa9YgY/Nkb+AUP4kWIR/by6ZJiYivthzoonuPSvxAqMKWHybejwlx5P
-         rPuA==
-X-Forwarded-Encrypted: i=1; AKwUvBy+RGTfUUGdoRoNk63Q2xljwrTS8VTX4ScbrUN9908afSsOqIobUtIHRvrWEv/dgcA+WRswKebSIrAd@vger.kernel.org
-X-Gm-Message-State: AFuF++kg62VQNpxcsJ3NsY6rcJjCDrj0xj3tg971ohsDhFuqzdTq7JdJ
-	a61ImyDzQLe8txbhzUh+gkQUh8uxMZRYw9++lVIKIjVLIjRb6Snhkk+mHVMPhEO7cia5p3/DaBH
-	74Vbw2xEoUrrtQpAMYvlGuNUNCf6YbDDT+x5SfYCZxj1tNiC4FEY1Ey9P4zh8NJ7s
-X-Gm-Gg: AYBFou1I0gBiedIslLdffjH8F3ug4Y8f565frrAi+8e3TlZ9KMQWyJa/GqJtstYke5u
-	CDJVTyYTq3ovbbKXHNLm0DjYzoL5O8SPUAJ19Vxqxrlq+GRapWjaEFyFYMYIsYjaPUIDW/VLD/P
-	ZAnA7arlkDtMhZPanOrm2GCFy/qYM6uXkp6hz/zYe2rSwXRuOrQz/6KoouqC8kSaciVlzTcPy2x
-	eAVZIhQDhp0Sn2pEFsUXpUmQeIo/bV8OJ5+Vf69ebvynyfYO0ZtGu/zQp1hMK161cPri6yg8Izt
-	qSz1ocUblstguffAuJ2NRDKXTmgqd7Up6p4VxYbEoQlsePQmZ525SNy2+rVWBUitcuJs64BFWpU
-	YEVykytjzCcEcN08aOloNoOiqYd1qdHUIXo2UgWG07te5Cwl6TX8iMzv6qxIW3BZ71CiGzvFsmu
-	rtWXBeI5h1V4KWtYA9sRYgqQpxcXPYpA==
-X-Received: by 2002:a17:902:e952:b0:2d8:d4ce:9f32 with SMTP id d9443c01a7336-2db12754d9emr320828925ad.16.1788765891219;
-        Mon, 07 Sep 2026 00:24:51 -0700 (PDT)
-X-Received: by 2002:a17:902:e952:b0:2d8:d4ce:9f32 with SMTP id d9443c01a7336-2db12754d9emr320828445ad.16.1788765890781;
-        Mon, 07 Sep 2026 00:24:50 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339bdf26c5sm26161861eec.27.2026.09.07.00.24.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 00:24:50 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Subject: [PATCH v5 0/3] Enable mutliple peripherals in IPQ5210
-Date: Mon, 07 Sep 2026 12:54:36 +0530
-Message-Id: <20260907-08-dts-v5-0-584e5ab50b40@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AEoSQcwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1DC1F00A3A;
+	Mon,  7 Sep 2026 07:25:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788765951;
+	bh=XysbZdZdrKGKW3RKspZ9TPmk0cHmu+YozeDs0r6a+84=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AEoSQcwfvWAOgdnAVhrgItjVrOklvMfCAI7uFfux2CTIpOaSbDGP3ap+LpOmufSlz
+	 IRDjRGDeTYmvphl27PDlMG3y77cG5ztdZHhQzfPJx98NHZJ4ODapOPjdPdIXQX5pDJ
+	 7aAaRiCBN8vO0sMWKkML9IAlOx94JcbklDmAUjjIUG06jpdRFKGjknccOCHJrn37J9
+	 xd1RnUC4j/CDy/zP88CdswNKraJWkc+vvPcYlcpI3Ln2YgJES1XE9pAffAfm5bdnLE
+	 8htghaa5Jy6qtqIoGFNzwLmXZ180QB7p+Z8zJtJnhLOW6O9JS0t63lgcw8PWj4fV18
+	 ku9r3ecV/liBw==
+Message-ID: <6ba5218f-9646-421b-9bf9-efe28f1a5880@kernel.org>
+Date: Mon, 7 Sep 2026 09:25:44 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALRmnmoC/3WQS27DIBRFt2IxLhaPf6Oq6j6qDvg8N1SNnRjHS
- hRl78WkjSI1GfB5wDnAPZGMY8JMVs2JjDinnIa+FOqpIWHt+k+kKZaacMY1M0xTZmmcMkUrmPf
- cBMM9KYe3I3bpUEXvH5d6xN2++KbLIvEuIw3DZpOmVdPjYaLV+czkwm8wZ1dvWzUvdUOBpCkEm
- rY7xYHRGSijXpVHxM6j1OxtyLnd7d33Im1L93pfpEExWxS2BclBSEOBzm50sbQv17d9GY+ud/1
- 94dZNYV11QiGzwnurpJBOyGi11AaV8M/oEGRnbHTAFVkCWKc8DeOxBjtDTeA3Q/OXYf1RF9DyA
- ocI8d8DqmnmNzSoK82XPJhmXltkXOkHtLihubjSZUaZkehBQCcsf0DLW1pe6TKjWqEGByXfjt2
- hz+fzD5kIDVleAgAA
-X-Change-ID: 20260706-08-dts-e830bb27c72b
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Authority-Analysis: v=2.4 cv=X45i7mTe c=1 sm=1 tr=0 ts=6a9e66d9 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ASWaWnsz8j2Ky6kNu3AA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: nCcTOP3DnAzNf9Dv45gMar4oZsjy1gEG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA3OCBTYWx0ZWRfXwhgEIDKuhRoO
- 7bNrMjQduywlihbi9b46bcLdDv3MShNrUftr0EcXUbDTDmBMx6CBAoWV3oSOYj3NCvp8a2TSby4
- Lp+213HOW1zWSZg29nSShDV/xJkeorZxpUX28/gGuwuBRKCGDkwCmYSN+lStRTIykLL+Jlpqf1+
- bp/o/npbAWLNao3ZvFZhrAqklZJ3ubP3yXPBENQBNuMa/RKnzqNruI2C4tlKzp7mrrMdX48J3Qi
- IjOGQddfSjqCtAXaWKwNTl6/QoFVoOvDCTz2hsob3yb0XpAjVC6z3+NYM0vrIt+RuKydiVkvt45
- o3OQnu9PmAmAPlMcC1AbQQF8vZ/rK0BlQn15qOWVFQ+17/qcxpXnmYGaZ83FBnDX8TU8Z1uswCZ
- ow8NL3gBDR4WsF3VTKmhBji4EFQx22DifKgQ6JE79JNG0qPPCBJysbHhd6HRTlYrJyOqnH8NOmp
- rOV1Zp755rgAsGJEAyg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA3OCBTYWx0ZWRfX3bvSpAeRFtvF
- Ya5BRTpfUHigwPbJ+6OHrs30/7Mg+OI4MqULeGmCjh5DDtuG1g3pVKTzDk/0XuoFQz8sn0yx+tv
- bixYRfIbTEOYD9XqyOaxGdqenEDoRUM=
-X-Proofpoint-GUID: nCcTOP3DnAzNf9Dv45gMar4oZsjy1gEG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 clxscore=1015 adultscore=0
- impostorscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070078
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: vendor-prefixes: add Axera
+To: =?UTF-8?B?5Ya357qi5p6X?= <lenghonglin@axera-tech.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?5pe25b+X5oiQ?=
+ <shizhicheng@axera-tech.com>, Catalin Marinas <catalin.marinas@arm.com>,
+ Will Deacon <will@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Drew Fustini <fustini@kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "soc@lists.linux.dev" <soc@lists.linux.dev>,
+ "hlleng233@gmail.com" <hlleng233@gmail.com>
+References: <2113d03615a9265b42a4d69a5a9020ef3-9-26kernel.org@sslemail.net>
+ <20260903-impossible-normal-termite-b7f9b8@quoll>
+ <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <c5bc6bb0-0a0b-49bf-afd0-f39696d84b90@axera-tech.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-This couple of patches enable mutliple peripherals like USB, PCIe etc.
-Additionally, it enables CPUfreq and thermal tripping points.
+On 07/09/2026 09:12, 冷红林 wrote:
+> On 9/3/2026 8:39 PM, Krzysztof Kozlowski wrote:
+>> On Tue, Sep 01, 2026 at 05:19:28PM +0800, Leng Honglin wrote:
+>>> Add the Axera Semiconductor vendor prefix for devicetree bindings.
+>>>
+>>> For more information, visit the official Axera Semiconductor website:
+>>> Chinese site: https://www.axera-tech.com/
+>>> English site: https://www.axera-tech.com/en
+>>>
+>>> Signed-off-by: Leng Honglin <lenghonglin@axera-tech.com>
+>>> ---
+>>>  Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+>>>  1 file changed, 2 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> index 396044f368e7..1dbafe682724 100644
+>>> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+>>> @@ -219,6 +219,8 @@ patternProperties:
+>>>      description: Shanghai Awinic Technology Co., Ltd.
+>>>    "^axentia,.*":
+>>>      description: Axentia Technologies AB
+>>> +  "^axera,.*":
+>>
+>> So how did you implement own comment?
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Hi Krzysztof,
+> 
+> I sincerely apologize for the confusion. In my previous reply, I did
+> promise to change the prefix to "axera-tech" to align with our domain
+> name. I should have explained my change of mind in the v2 patch notes.
+> 
+> When I started making the changes internally for v2, I realized that
+> our existing BSPs, bootloaders, and a large amount of downstream
+> codebase already heavily rely on the "axera,*" prefix for compatible
+> strings. Changing it to "axera-tech" now would cause massive breakage
+> and compatibility issues across our existing ecosystem.
 
-Please refer to [1] for initial review comments on the PCIe related DT
-changes.
+Did this existing downstream codebase receive DT maintainers ack or review?
 
-1 - https://lore.kernel.org/linux-arm-msm/20260514-pci-ipq5210-v1-0-a09436200b35@oss.qualcomm.com/
+I checked and it seems it is first time you ask:
+https://lore.kernel.org/all/?q=dfn%3Avendor-prefixes.yaml+axera
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
-Changes in v5:
-- Pick one R-b Konrad
-- Do not remove ipq5210-rdp504.dtb from arch/arm64/boot/dts/qcom/Makefile
-  and add it in a subsequent patch. Instead, move the ipq5210-rdp504.dts
-  nodes to ipq5210-rdp504.dtb-common.dtsi and include common dtsi in rdp504
-  dts file and introduce rdp504-nand dts in the 3rd patch
-- No code changes
-- Link to v4: https://lore.kernel.org/r/20260724-08-dts-v4-0-65e61a1061f0@oss.qualcomm.com
+Whatever you have downstream is Axera's fault. You should have come
+earlier. Otherwise everyone will produce whatever stuff (including total
+junk) in downstream and then say that it is an effort to align to
+upstream. And I saw this argument more than once.
 
-Changes in v4:
-- Fix following sashiko comments
-	- Add #include <dt-bindings/thermal/thermal.h> to dtsi file for
-	  THERMAL_NO_LIMIT definition
-	- Change tsens interrupt from edge to level
-	- Remove ipq5210-rdp504.dtb from Makefile in the second patch to
-	  avoid build break and add it back in the 3rd patch
-- Dependency related sashiko comments ignored as they are addressed in the
-  prerequisite patch information
-- Link to v3: https://lore.kernel.org/r/20260723-08-dts-v3-0-074eb131f382@oss.qualcomm.com
 
-Changes in v3:
-- Address v2 comments
-	- Introduce RDP504 common dtsi and two board specific dts files one
-	  for NAND and one for eMMC
-	- Move 'dr_mode' to board file instead of SoC file
-	- Dropped 'polling-delay-passive = 0' and 'polling-delay = 0'
-	- Use THERMAL_NO_LIMIT in 'cooling-device'
-	- '\n' before status = okay
-- Removed 'num-lanes' from pcie0 & pcie1 nodes
-- Link to v2: https://lore.kernel.org/r/20260715-08-dts-v2-0-b060b68e0256@oss.qualcomm.com
+> 
+> Because of this historical legacy, I looked for similar cases in the
+> upstream bindings and noticed that there are accepted precedents where
+> the prefix reflects the core brand rather than the full domain (for
+> example, "^cix,.*" for cixtech.com).
 
-Changes in v2:
-- Change usb3@8a00000 -> usb@8a00000
-- Ignore other comments as they are covered in the following prerequisite
-  prerequisite-message-id: <20260514-icc-ipq5210-v1-0-b5070dfbe460@oss.qualcomm.com>
-- Link to v1: https://lore.kernel.org/r/20260707-08-dts-v1-0-fce82e14cd1d@oss.qualcomm.com
+Indeed cix should use cixtech.
 
----
-Varadarajan Narayanan (3):
-      arm64: dts: qcom: ipq5210: Add nodes for multiple peripherals
-      arm64: dts: qcom: ipq5210: Introduce RDP504 common DT file
-      arm64: dts: qcom: ipq5210: Introduce RDP504 NAND variant DT file
 
- arch/arm64/boot/dts/qcom/Makefile                  |   2 +-
- .../arm64/boot/dts/qcom/ipq5210-rdp504-common.dtsi | 209 +++++++
- arch/arm64/boot/dts/qcom/ipq5210-rdp504-nand.dts   |  17 +
- arch/arm64/boot/dts/qcom/ipq5210-rdp504.dts        |  66 +--
- arch/arm64/boot/dts/qcom/ipq5210.dtsi              | 605 ++++++++++++++++++++-
- 5 files changed, 828 insertions(+), 71 deletions(-)
----
-base-commit: 2b74cbd61ba866a42f7274bbaca27d59998bdd2b
-change-id: 20260706-08-dts-e830bb27c72b
-prerequisite-message-id: <20260514-icc-ipq5210-v1-0-b5070dfbe460@oss.qualcomm.com>
-prerequisite-patch-id: 0b6145b6635b18fe79fbbff5815041b43778c5ed
-prerequisite-patch-id: 924c6ff7baf4283ac7991ee94c803a00fc5cece4
-prerequisite-patch-id: c2fe1800fe769dccd37f94c19860a07f979e3c4c
-prerequisite-message-id: <20260615085218.1421347-1-varadarajan.narayanan@oss.qualcomm.com>
-prerequisite-patch-id: 66aa95814074faffb61393faa30396c42af41126
-prerequisite-patch-id: 0a03dc1c91a2f0c03af823aa43f59a9005eb8607
-prerequisite-patch-id: 35e083bb85434a34d86467e53b9eae14f78da125
+> 
+> Would it be acceptable to keep "axera" as the prefix to preserve
+> compatibility with our existing deployed systems, even though our
+> domain is axera-tech.com?
+> 
+> If this is strictly not allowed, we will have to figure out a
+> migration path internally, but preserving "axera" would be highly
+> preferable for our ecosystem. I am very sorry again for not clarifying
+> this earlier.
+
+Axera is fine, I don't see conflicts with other possible vendors, but
+the problem is that if I agree now, next months someone will use this as
+an argument for their patchset that "cix" and "axera" were allowed, so
+they also deserve exception because they never cared to ask upstream
+before. So obviously based on your earlier reason, of using past mistake
+or exception, I should not really agree on that one. Therefore fine by
+me, but please get an Ack from different DT maintainer.
+
+
 
 Best regards,
--- 
-Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-
+Krzysztof
