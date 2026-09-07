@@ -1,128 +1,150 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3295511E9B
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 16:05:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFDC451121A
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 16:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788797160; cv=none; b=dgHV6no4OdAAQ9UA+vaVASkok70uqALhY8p0tHEPENecbPp9fpw+UfPrJmm/mCyVfjcdcJxvl90493NtUtnhwgMWnwC9Eyw+j5NUBoD88STiAAE+/lXprZk1784ncQcUP9dWW+giz4bI2z/748KUkaG8xfPkCX/FmE5W/dsMOnU=
+	t=1788797207; cv=none; b=uf7GqHdmZ3/Kgzqi3Q3D7ccA3uFDDUAwSVNaFfGLP5nTJg5nq6bpPsr+mRO5Ih0F+RxYNIB3k8RWXPx/aEgLGOwIM3px8GFvgJ0pJKywr1ZyxUvxt4od+tg4upA5KR0Bg2kq5/2/OIMkSHuRLMRsj9FsAAfuA9kDGOfNqnTG9ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788797160; c=relaxed/simple;
-	bh=hU7eRYQ2L+6W3KSv4c0PzkTILRIgPmu556oNrVZACTE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vn7v/a3hUacbqFhjDZ0tqsU5CkKBMOZePBDlSHd/bkeIOc1B3JMI22kVj8tEYqe4pkcXcymPMRTFRP64cK+BRQaGBpnouH66zpuBdivZ2QRvjjXv6z5HhIBQoGs09SfAjy+oBVM4IE0HQfwvXfOcLlDo0hsteAnS7HYnbg9By3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-5c67175d176so1644589e0c.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 09:05:57 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788797156; x=1789401956;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9kwN9YV2UIWR9vTDW/+7DxPdDKrz03iqFaixNrlJ+1U=;
-        b=aVE8Po+0vTY1dM9vGocynfAZkX09P32tf5PBqrw8R+xxZm8SC30d3hSQ4vIHZ0nLwd
-         1Zx1unCuphbHj7Q6jecPDFNgQMAKNarqGbyQtWdL4HnnvMu0w4b/jYpzQ0DCs6xTqRWk
-         ZsvJ7Tie4y2/w+N2X7DojmavBWbFIQMIjHaYR2nUjz1h84PLkAASgFAQVh095a+EdFI3
-         u57k0Zz1c+PVhaK+ibFeUCvAhQ7WgVnr5AbNIHkskqNDWoZC9rL+PTOV5Nay22N7dhKA
-         G2efmaPdfvHMB4WZi+ICkZQqZl0gR61+Mb3BnXWSmjPJMlDvmeL8A5JuclwJvHHvBK16
-         PuFg==
-X-Forwarded-Encrypted: i=1; AKwUvBzTd13t1+NaVoPbPM7jaBeqkZrp724+K3yP9bSnbbPYiWVPI0YaNnRhMofIfHvsHgxrUlnRaKAxysHq@vger.kernel.org
-X-Gm-Message-State: AFuF++lE8+Rj80G+vpibPDa0yw00TMllTa25MszRQPDi572OQ6y0VN1B
-	LIpoQ6/fsRh2SfJNiikJVX/PmXP9aYW2xFNDqZy57EeLI5NIV8ZRvXMQR9buVv+L
-X-Gm-Gg: AYBFou3K7yLcpwJn6LuLt+NrM63pcFHGR71y1eErS369k8t4g1IszYx90QGQPQ8+1Q6
-	ynqo377HuOr6w7ckk0Je99M9a6caFUcv4EQB038PTjW698aY7NmO+91Tn2mk0aKA7fVz453PAxd
-	S7SwHw0g5RLaPzht5CRgD0kfbdx9StDZfIOzr7fqr3dM1P7lDdL/Y7EQx1s5h9aeipSiz1OG0kt
-	q0nyu4H8Sb4We6x4UCv9elzUMvcYZuthiMdAsXsDpbtWkw4KdDCpRGu/+bAhlW/xYHtZw0pZfu/
-	bEC1d86vfrGX+t/uzsTXqVy3CjCDuD5HKrAs23CbIWlsYAZrDdIs38WfOQ5ZDWjhjC3RnrGLJtW
-	B4ds+Y90M27MX5tPgFkCb4F73TEGGKHDLv+9+rHmsPWAkmUmS6aTmCumNMea5i6I5rgOob3VuVs
-	NV76Tqz1SNhv6Ft5rhWm6S5yAkyGROVrl8XfCLdg00ygEwPTUEdcr2ICvwN4sbOc+Y5QbrDL1mb
-	zrd1A1Oxz5bRlL1byr079UTV4cKtg==
-X-Received: by 2002:a05:6122:4689:b0:5bd:81fc:ebe9 with SMTP id 71dfb90a1353d-5c7ed087c0cmr10548795e0c.0.1788797155740;
-        Mon, 07 Sep 2026 09:05:55 -0700 (PDT)
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com. [209.85.221.176])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9808eec7c37sm7552099241.13.2026.09.07.09.05.52
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 09:05:52 -0700 (PDT)
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5c67175d176so1644541e0c.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 09:05:52 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByuUBwWMJYZbXmiEF1AzZt4jrnqYfYMoCykdNCq4I+F4Qbql4iQSBGeAGd/jhmDPjlZXT5JQcdLnj8O@vger.kernel.org
-X-Received: by 2002:a05:6123:67:b0:5bf:b500:c4f4 with SMTP id
- 71dfb90a1353d-5c7ed285aefmr10980239e0c.2.1788797151556; Mon, 07 Sep 2026
- 09:05:51 -0700 (PDT)
+	s=arc-20240116; t=1788797207; c=relaxed/simple;
+	bh=GePYJxQwiRpIcy5KxoxnPSVS6H/58cjIgEtw0aL9Nmk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NCiuPokSqcq3fYSpK25BDHUzE8i4d3e+o7HBObPLSCJAHHEOoAMFevnf9f6agafn3gTY+6Exhln/N5E43//zX7YBWfkZ2iO362yuuq+e6Ayf3Z/76OH8JHXJjo0PmjCH48PEunNhEI/l1yoZ9H+4fa+pN+DoXn8dzI3GkupRg+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eGUvjC9F; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eGUvjC9F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 655A61F00A3A;
+	Mon,  7 Sep 2026 16:06:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788797204;
+	bh=5pkln3P5sqcYExyNruecsxtL7LPYV7F1m2j20O1+tME=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eGUvjC9FQtVqyue5QBAd3+qDdgNj8tRHcT3Uqzl01QYzvIkzMu70kRwhgp2j+t6z+
+	 KW4ejeW0Sp9so4t7QplS9Bao0uyyAy5GSYAGHjge9/f9iIj+15tg8ZOmjTZIIyM+Ko
+	 wO4DGuHr7enISX/YGIwhevDI3bHnehCC8y7wSwDnPrIwBVQJJGjfxEPwnLMjKFEswt
+	 LoiPhWYTzfzR3NCvu2Rhwjjgnwb4nPMrLlCwp80QOhU4emaVTymAnyb2zf+D0/6Vw+
+	 JE6inCxdYlEavub8OgGLVEE0QXivftq8PR1dfw+M9h+KZ8g7+4GMLdNop0Jiqzqz5y
+	 4KEPcPR9RPB8Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: sdm845-sony: Add battery properties
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shujath Mohd" <shujath@outlook.in>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <PUZPR01MB51411878AC2B70673F77ED38C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+References: <PUZPR01MB51411878AC2B70673F77ED38C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 16:06:43 +0000
+Message-Id: <20260907160644.655A61F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 7 Sep 2026 18:05:39 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUxPf41iwq15WSMqWiTgi9XM3CXJeH_-e+FS0T3kDMz3Q@mail.gmail.com>
-X-Gm-Features: AcwNN1Wm8DHsL2a0zy-uAEM1hkCTVJZKfNb68aES8fX2T4VBPEpycd5vofPPqGA
-Message-ID: <CAMuHMdUxPf41iwq15WSMqWiTgi9XM3CXJeH_-e+FS0T3kDMz3Q@mail.gmail.com>
-Subject: Re: [PATCH v2] PCI: rcar-gen4: Add missing PM ops
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-pci@vger.kernel.org, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Koichiro Den <den@valinux.co.jp>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 7 Sept 2026 at 17:37, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
-> and V4H, this is an always-on power domain which is not shut down in
-> suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
-> which is shut down during suspend, and the controller loses state,
-> which prevents the PCIe from working after resume.
->
-> Fix this by adding generic suspend/resume noirq ops for the controller,
-> which tear the link down on suspend, and restart it on resume. Use the
-> same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
-> PCIe link on V4H and S4 too.
->
-> Test case which demonstrates the problem on R-Car V4M:
-> "
-> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
-> $ echo s2idle > /sys/power/mem_sleep
-> $ echo platform > /sys/power/pm_test
-> $ echo mem > /sys/power/state
-> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
-> $ diff -Naru /tmp/pre /tmp/post
-> ...
-> -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
-> +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
->                                           ^^^^^
->                                     Class 0604->00ff
-> "
->
-> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
-> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> ---
-> V2: - Add TB from Geert for RC mode
->     - Use pm_sleep_ptr()
->     - Call HOST suspend/resume ops only in case the controller is in RC mode
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The newly added `simple-battery` nodes are orphaned and will be =
+ignored by the power supply framework because no charger or fuel gauge refe=
+rences them.
+--
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+commit b9560b36965d2ab30a517952de24fe50774a59c5
+Author: Shujath Mohd <shujath@outlook.in>
 
-Gr{oetje,eeting}s,
+arm64: dts: qcom: sdm845-sony: Add battery properties
 
-                        Geert
+This commit adds simple-battery nodes for the Xperia XZ2, XZ2 Compact,
+and XZ3 device trees to specify design capacity and voltage limits.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts b=
+/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
+> index 6e65909ab582e..16e676ac96304 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akari.dts
+> @@ -10,6 +10,13 @@
+>  / {
+>  	model =3D "Sony Xperia XZ2";
+>  	compatible =3D "sony,akari-row", "qcom,sdm845";
+> +
+> +	battery: battery {
+> +		compatible =3D "simple-battery";
+> +		charge-full-design-microamp-hours =3D <3180000>;
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[Severity: Medium]
+Are these newly added battery nodes orphaned?
+
+During initialization, the power_supply subsystem relies on
+power_supply_get_battery_info() to parse battery information. This function
+explicitly searches for a monitored-battery =3D <&battery>; phandle in the
+consumer node (such as a PMIC charger or fuel gauge).
+
+Since there is no device tree node referencing this battery label, the
+parsing is skipped entirely and the power supply drivers will fall back to
+hardware defaults.
+
+> +		voltage-min-design-microvolt =3D <3400000>;
+> +		voltage-max-design-microvolt =3D <4245000>;
+> +	};
+>  };
+> =20
+>  &panel {
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dt=
+s b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
+> index 82e59e4533549..3bf9db9632991 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-akatsuki.dts
+> @@ -26,6 +26,13 @@ ts_vddio_supply: ts-vddio-regulator {
+>  		enable-active-high;
+>  		regulator-boot-on;
+>  	};
+> +
+> +	battery: battery {
+> +		compatible =3D "simple-battery";
+> +		charge-full-design-microamp-hours =3D <3330000>;
+
+[Severity: Medium]
+As with the akari device tree, does this node also lack the required
+monitored-battery phandle linkage from a charger or fuel gauge node?
+
+> +		voltage-min-design-microvolt =3D <3400000>;
+> +		voltage-max-design-microvolt =3D <4245000>;
+> +	};
+>  };
+> =20
+>  &ibb {
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts =
+b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
+> index dc15ab1a27165..013987184b398 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama-apollo.dts
+> @@ -10,6 +10,13 @@
+>  / {
+>  	model =3D "Sony Xperia XZ2 Compact";
+>  	compatible =3D "sony,apollo-row", "qcom,sdm845";
+> +
+> +	battery: battery {
+> +		compatible =3D "simple-battery";
+> +		charge-full-design-microamp-hours =3D <2870000>;
+
+[Severity: Medium]
+Will this battery node also be ignored by the power supply framework due
+to the missing consumer phandle?
+
+> +		voltage-min-design-microvolt =3D <3400000>;
+> +		voltage-max-design-microvolt =3D <4245000>;
+> +	};
+>  };
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/PUZPR01MB51411878AC=
+2B70673F77ED38C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com?part=3D1
