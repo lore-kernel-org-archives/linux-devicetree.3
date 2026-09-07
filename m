@@ -1,129 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F06F477E4B
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 11:02:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEA40478859
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 11:04:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778961; cv=none; b=CL4/v0KYsYOAB0X2Aeubmm0jE/pT+HD4qmX/HXlcD/IxNJQ41blHQHygtCqLprb6ZRPkRB9Blm2Wrp0+TbQwNInV+SpUGpruSyoaiqQ2xf8TvH/CrVJQHgBc7n/mXUf6mKZl87+wmTmncUzVKHofH68+12epk5+/uByN3hqahRI=
+	t=1788779069; cv=none; b=bNXKZz5YlxCW2Dz6xRISFWXVV2fi/zYoL1ZivbpXraln1UGdjWlV9ZVHe+ufzOyw/BGrPdnoq1R/cq4E7vxi193EgR9Yo8c5mFsT0MBVAtEB3ver23YzkSHysoMVJKoinAEAkRJQZCZfmLLJ30g3wGqzb/xIf4EZtBMX41avpkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778961; c=relaxed/simple;
-	bh=jvpEXc1X5zJe14oIs2WdfZBF/aGQ9MUxceU+a88+zQ0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nkvsuY82UaX7/1ZQOgpmlPw62gLND6Zev0JdNcOhuRKeB1GhFurdN51YM/aq18eXI0a6ivDcQO5uuKcqU56H9yM7lfcOws3TweJIZMNZAp5vNxBIxanZqY9YGGDVV5/0ffZtCddbkw9wturWN0ZqgxqTTt2v9WfwkhCNBRuaV4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FD3HdRbP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788779069; c=relaxed/simple;
+	bh=38bxwPm2GMzpyUAZBJqwwwnfLv7xHTw3haohKL/4joE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d7FBF18HacKGAEehn1Z7NGTkEGwfcFH4AQyyxnG/bNTTkTgyLpsLf8H5EMlaucYaMkb2bNydDyn3T7LScWLC/1TBiXqyH2peiL9fvKzGkQaLBkE6GbF601jiNnSkjxA5ouByDfRnjOaYJ3GGObcWwduIkcaSIrWXgZhq1EVwu0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=K3fbSxfo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i2wz/6Fn; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FD3HdRbP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2451F00A3E;
-	Mon,  7 Sep 2026 11:02:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788778959;
-	bh=w3Y9ezperWRyiNOYv+8nWYRZgl1bR/cgUpwdeno5i1k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FD3HdRbPlQyzwCQXYC7nlQ+n6xSvfYL/Sp/4CsomDS+mlTmF+1ZMixpuqdSVzI42c
-	 KU2RFQmk5I8nDdPE3F7TSiZeCOSucUso7bm7GKuJT75I66Nk2Nj45E8jmHi+EGSn/M
-	 e8TupI70CGRNll++WQr7C0P5AOJVHEqtLvhSjVWWSdPQec4/BCnV/dzP8gz1Hk/1m7
-	 zB25G9UoCx1lNYeX0uo/5n0rsDHAgppLQ9EnoTJrdA8qGq0joor2Imc4eMq1bf7kZo
-	 p0WDhyHmE8tPGCotKaDH4De5/hvrRMXYpsn13+9QRWv85/+sIUJDX8toNnuz3PrRZW
-	 /T0ena9TS47Ag==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/8] media: Documentation: uapi: Add qcom-camss ISP
- params documentation
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907-camss-isp-ope-v6-5-6b915b9c5131@oss.qualcomm.com>
-References: <20260907-camss-isp-ope-v6-0-6b915b9c5131@oss.qualcomm.com>
- <20260907-camss-isp-ope-v6-5-6b915b9c5131@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 11:02:38 +0000
-Message-Id: <20260907110239.6C2451F00A3E@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="K3fbSxfo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i2wz/6Fn"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687An51N3862564
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 11:04:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	38bxwPm2GMzpyUAZBJqwwwnfLv7xHTw3haohKL/4joE=; b=K3fbSxfohhJlMHpo
+	k8uur8kfctYRGgwA02lzfNY+DAmcF8npQlO6uHHixLToICkzhA6F0t1qgMrb9BPW
+	hAGm2Lq/lzwV0kre+/gTsj0PIx+LXosFAllpr8ddJ9CeN9VZt20hGeiVjGqTwGYj
+	02voqwAg7M9R2NY/j/DLkRQW+kU9tIdM53I7nNaJ+rwmy8DiujBhuS0ilhIqnFlA
+	lVFnC+CC4RG6CZLP6G/n18ROv++80pxZUTTJXFJnuG3HlBYHG27NP0QS5U3MuPPB
+	//odSVU9DSva0EirkQKHD9mbFg2GcR29Fnhy9SCgz5YAztUk0RcMSy55YZcxbVPe
+	Dj+1sg==
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghq66hgaa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 11:04:26 +0000 (GMT)
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-7e7624e584dso4411724a34.2
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 04:04:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788779066; x=1789383866; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=38bxwPm2GMzpyUAZBJqwwwnfLv7xHTw3haohKL/4joE=;
+        b=i2wz/6FneVDmjMwv51VcR6qnX+i8agf45thUP7MGGV+MwP1Kk/48CrGcAdPcuN68GR
+         RD191x8Uj6yviib6RWBokuz6H8v7A8ySkyRKZkHWJEBfCae8t66ItCd3fCUtMXH1SAdN
+         eZJqCzGN8I9mN2Ev+LFcgQfNuXvfzKcOy+QHMnsXK0hBUjPignAQIU+8DuCLCY0vONRO
+         UOelWkrd5Ew3zu4jeqeoXvihO3dWRyfXTzCFZ15XFKVtGEzCfef0kzVvxoIaEPBYNGmU
+         wGCGl+03msfQEM669SU65KbYoC94xbYQKKT+DECjLPzCzHimouC+6iYUbKPx3OW17h8w
+         xqCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788779066; x=1789383866;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=38bxwPm2GMzpyUAZBJqwwwnfLv7xHTw3haohKL/4joE=;
+        b=IjK7aJXmAo6OLwMWFBGVG8i32kO2iqiMMnJpdvYZXPgdOPC7zmgf5Ph4jOWgg6vapV
+         wFtu5wHdJLK45juImUJvg0pvNfcy++cQUzlyZDThUrNbOAn1zc2yJjRJV60WMBvC+Y9u
+         nXV20Omi7UAEssbKDTvc+RJdCX7AbGTTxVMslO6QcmfD7J6HzUwRjINj7X8lZuymBV3p
+         WghZXU/l/1+IOy5yvfOqsxEYzuYPAQwBa6VvkHLVPmqfFy4LxautNSIV0mV+lbtjf1Qh
+         5zg7YZ3tVHr0NXF44LVKCpd0JE8XAd98nJxhcmhVhHBRBujGVW+5tzEVnRbGYuHo+NHK
+         HS8g==
+X-Forwarded-Encrypted: i=1; AKwUvBxCsb3Ih1S1gr1bqN5mg1xG+TKJk8c0a4R8lZBGCsiYDbzuTtIWBFPJ6D/12FUCBJEU+uH89gpoNh9J@vger.kernel.org
+X-Gm-Message-State: AFuF++kDdFbxnN/Wz8cEl/pesMVy42HO+VE6a/tAKYNJ03uzaWr5NjkV
+	7p3bQ6Bd6RWS7fkua1I+Qd4IvVrO3vN75pBTePEglpcodmwL2LSshKhLM4INpFA0HLkFsT/7wpi
+	4TOMZm2wXD0WDWfJBkQ7bMZx0kZefMG9rrm5y/YeDzmoAKb0APp2htK1KM9D4Z2ye
+X-Gm-Gg: AYBFou2/1djIYlsI9h8hL4/i7C4tXnRCuzxoHeYR4sCM9IbZzCFif6q5y/1s3PWWKlH
+	xCKgFDs7BC0i537tIkAD6RPopPKj+kxkTJy1+gv+7Xa/0HwKz6oNSdLkDoQkcLQ3l8XOD+oPlOG
+	aSTIJHwXRIpd1sn+udrlmDcMU18hR+6wtHNo9LfvMLzh510FraiBeCLxWf1tU0anGipdI2EtqPV
+	gNjx5FJGllPbg4GlbMA4a2Tv20510fk0X/txrKaLUugKxuF1FVC7Ia+ddjPR8ElnYzRh1G4oJma
+	LWF0QhTa3GvN7Q7SRNxW7p66DPxrqAmno53EW3R78hFl+zdL2pvWHmVRC3tHnIXeWrHmsRh7kdb
+	7O+FoJ3VeHbj+I504RMthJYQo7JO5
+X-Received: by 2002:a05:6820:2017:b0:6b7:83d6:2929 with SMTP id 006d021491bc7-6b783d62f60mr11389794eaf.44.1788779066119;
+        Mon, 07 Sep 2026 04:04:26 -0700 (PDT)
+X-Received: by 2002:a05:6820:2017:b0:6b7:83d6:2929 with SMTP id 006d021491bc7-6b783d62f60mr11389746eaf.44.1788779065713;
+        Mon, 07 Sep 2026 04:04:25 -0700 (PDT)
+Received: from [192.168.1.11] ([103.211.19.41])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339ac24d7esm43139397eec.15.2026.09.07.04.04.18
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 04:04:25 -0700 (PDT)
+Message-ID: <dcb2f3a1-5fd5-4ffe-974f-4b3801ae3bbd@oss.qualcomm.com>
+Date: Mon, 7 Sep 2026 16:34:16 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
+ Glymur compatible
+To: Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
+        Guru Das Srinagesh <linux@gurudas.dev>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+        Suresh Vankadara <svankada@qti.qualcomm.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
+ <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
+ <97360c1c-f573-48c5-9917-4bbc34ad394d@oss.qualcomm.com>
+Content-Language: en-US
+From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+In-Reply-To: <97360c1c-f573-48c5-9917-4bbc34ad394d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=QPhYgALL c=1 sm=1 tr=0 ts=6a9e9a3a cx=c_pps
+ a=7uPEO8VhqeOX8vTJ3z8K6Q==:117 a=HcLy/BXbbKFjgnJyaMb84Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=KKAkSRfTAAAA:8 a=Tf9iwjJDQdcXpSb9m0EA:9 a=QEXdDO2ut3YA:10
+ a=EXS-LbY8YePsIyqnH6vw:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: 4MhM_tBaV3DYg8DOku1fQqMN3rgQgmwm
+X-Proofpoint-ORIG-GUID: 4MhM_tBaV3DYg8DOku1fQqMN3rgQgmwm
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEyMSBTYWx0ZWRfX0Ki2hIGOGaad
+ nmSBJrxDDVDaEUcUyLhkj+WfXzA7UIfVxaUJg0ZHj1wj+UibkzW/PxZPnHo/v/dvrKGwQ5to4hz
+ f1xqgYiyV1mSSGeYPfuJncxf+aefXqE=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEyMSBTYWx0ZWRfXwQBfONLKvMYc
+ O2jHwVZ/dn3eIGMwRuNkQAo4zbtx0KkbEuFIBB/rpt9AwyQ27GHQJAbtMDlGU5/e9ehsRuBF39+
+ sJR5sQQyFTzEin0Yx4L3qhjbAZ7Jev7KoUZq04mO9iWO3yd1piiHSAi674mKeoKofpylimiwfWz
+ 1jMtaEne+Prvt8tQElPekhV2e3IfrWy92bZUB2X9W7MEJBExsTWuuwooVyw+Y6/uFBmgbDk9YTT
+ jSiMTztNoJgX5FBPRwjFhMVRDajiJv5w85zVlZZ/EZzr2j/m02vRn5OucF46AVfhcqB6FQ8zTB3
+ 5OukONvGAJ1C8gC98NJSjrx47Q2Pjdj0TKP97vyjHRSrUFA//JWSesta38SmTzY2C928apWKEv6
+ gtYmVSF7R4QRQoYdEaq//y6peyd80GAF/a28h6Z2kMU5o5qFrbHDm2o0ZBT61KlGvjTpR3CXav+
+ w9ztlMgkrPXl0p792tg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070121
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The C example code in the documentation uses a bitwise OR operation=
- on an uninitialized structure field and fails to initialize padding and of=
-fset fields.
-- [Low] The gamma LUT initialization in the documentation example directly =
-contradicts the formula defined in the uAPI header.
---
 
-commit 3ecf0034d91da8edcad212fbbdb3de261d905083
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-media: Documentation: uapi: Add qcom-camss ISP params documentation
+On 07-09-2026 16:26, Pankaj Patil wrote:
+>> 993271c42fa063a82cb0f6edd41e87b30bc8e109..7ac944974849b99abd982b1544ef39fc32e1f21b 100644
+>> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> There is no such file as qcom,x1e80100-csi2-phy.yaml,
+> Same was pointed out earlier on another patch,
+> https://lore.kernel.org/all/20260722-literate-nondescript-seagull-cbdfaa@quoll/
 
-Add documentation for the Qualcomm CAMSS ISP parameters metadata format.
-The format is built on the V4L2 extensible ISP parameters system and is
-designed to be shared by any CAMSS ISP engine exposing a parameters
-metadata output video node.
+This patch depends on the CSI2 PHY binding series noted in the cover
+letter [1]. The prerequisite is also tracked in the b4 metadata.
+The file lands with that series before this one is applied.
 
-> diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b=
-/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-> new file mode 100644
-> index 0000000000000..da3dd5f3a5899
-> --- /dev/null
-> +++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-[ ... ]
-> +	struct camss_params_ope_wb_gain *wb =3D
-> +		(struct camss_params_ope_wb_gain *)data;
-> +
-> +	wb->header.type =3D CAMSS_PARAMS_OPE_WB_GAIN;
-> +	wb->header.flags |=3D V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
+[1] https://lore.kernel.org/all/20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org
 
-[Severity: Low]
-Is this bitwise OR operation safe in this example?
-
-Since the struct is cast directly from the buffer, the flags field is
-uninitialized memory. Using a read-modify-write operation here leads to
-undefined behavior for userspace applications copying this example. Could
-this be changed to a direct assignment?
-
-> +	wb->header.size =3D sizeof(struct camss_params_ope_wb_gain);
-> +
-> +	/* Unity gain on all three channels (15uQ10, 1024 =3D 1.0) */
-> +	wb->g_gain =3D 1024;
-> +	wb->b_gain =3D 1024;
-> +	wb->r_gain =3D 1024;
-
-[Severity: Low]
-Does this initialization cover all required fields?
-
-This code sets the gain fields but leaves mandatory zero padding and offset
-fields like g_sub and g_add uninitialized. Applications copying this example
-might unintentionally pass garbage offsets to the kernel ISP driver.
-
-[ ... ]
-> +	struct camss_params_ope_gamma *gamma =3D
-> +		(struct camss_params_ope_gamma *)data;
-> +
-> +	gamma->header.type =3D CAMSS_PARAMS_OPE_GAMMA;
-> +	gamma->header.flags |=3D V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
-> +	gamma->header.size =3D sizeof(struct camss_params_ope_gamma);
-> +
-> +	/* Identity curve (pass-through, gamma 1.0) */
-> +	for (unsigned int i =3D 0; i < CAMSS_OPE_GAMMA_LUT_SIZE; i++)
-> +		gamma->glut[i] =3D gamma->blut[i] =3D gamma->rlut[i] =3D 257 * i;
-
-[Severity: Low]
-Is this gamma LUT initialization formula accurate?
-
-This calculation uses 257 * i, which contradicts the official uAPI header in
-include/uapi/linux/qcom-camss-config.h where the identity curve formula is
-explicitly defined as lut[i] =3D i.
-
-Could this contradiction cause confusion for developers implementing V4L2
-userspace applications?
-
-> +
-> +	data +=3D sizeof(struct camss_params_ope_gamma);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-camss-isp-=
-ope-v6-0-6b915b9c5131@oss.qualcomm.com?part=3D5
+---
+Regards,
+Nihal Kumar Gupta
