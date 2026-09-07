@@ -1,63 +1,63 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF293F44FB
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 20:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB6EA52B1E4
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 20:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788813247; cv=none; b=Em5J/vRfW9yCJwaHjUOYY4j1su+jjCz6euepwf/U9gmpFEDJgVcFBQFjtDk428s0oux1nx3nUoAF0RpgOabRZufH2S39fsWSbtl4dQfbRLlUjU1BFK25kLC6sILqih4kBFj1BJ+VL/WIE4tgdEiAAg6sjHolNAc1eSBzUxMu3TM=
+	t=1788813248; cv=none; b=KDWrKHbRSQggxo3ZHrNgw256Qd7XNewGRnxUybXujSFiNbzXa21/XJcE72klQogTNDIWOnzKg/x9Fze8bedUL9J5OQ/wjzpqU5THfb34tMlM4NAePo5Q0Er1iNugRzN3o+Uf7hUqYIqLhcx++ugWRTYlHQQZ94LMZqv9cpuXTQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788813247; c=relaxed/simple;
-	bh=JzPmVao8FK9SYW6EqLoAZ+WBysafs2v13tUyYWLjmGk=;
+	s=arc-20240116; t=1788813248; c=relaxed/simple;
+	bh=wLiYwM+a21eAKdI02nzoDqFbngX9L4TUdt0arxClA84=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SmKTbkPbep7u3P9q8bPxizSVWQnT6oH7mEo4QH21b88tZxXf8qwVKza2Nxp0q/ht5+5C8EWZ552yKEaf4iHAY2ulArI5mIxxpg4najWK4nZuL3LpR75aUrK1asLWBOprrcqfvFue3h0G20BD0KY2QH1JjATQLk2j4D9FPtFmzAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oH1tnbS0; arc=none smtp.client-ip=209.85.221.41
+	 MIME-Version; b=KNyzkC84ryNm+YXCwrKJxgeGvgR1aUmyuTY7nG9/DlSgj3epLeMp16W45J4JTaLZQQViV155vCF+171SdIkg5NEv+dzIpgDN44qIzIa5z7TtN3Wt5BQ52NBKc4lbnMydXct7qHuNTVsopU0AQz4HD/43NBvP7eJexGMdFZMOnME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZYJljz9; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oH1tnbS0"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-482e067e908so3209054f8f.2
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 13:34:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZYJljz9"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-47ddf7b09e5so4447257f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 13:34:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788813243; x=1789418043; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788813245; x=1789418045; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=uWcBC68WNKLZwVwv+eWu33G6o/TkwBMc1Uo2TtiwMQM=;
-        b=oH1tnbS0pmS7TygoqeIXnZgTb7nDPjYUTq7b0zBF7vKcgwlJVh/Sgq2SuFp3hBMleb
-         wqEm5jAiwqr0vwoCNBy7bgDZYt+GhCMakf+2BCwY37Y2XBxrA28339RYnFqkO8rU70+j
-         odYakp8JvFE8/azT5VYvlghlXF5n5++1ZBKvnI0bN3axtzYf8XuXWfvHyDgAaYwGVeH/
-         38sR24sdrkCIdji3VZkvCpSK4f1gFyD4SVoGZuf/HEUJOYN9wDWc6HbjeGy7R2Ma3aJi
-         hUfFU6at1r+eUWoROa6LwPqsqb99BD/QWYQqrK6JRbi2JHM/NNo9gCXUIT6EKI9me2tq
-         pc4w==
+        bh=P8/pS3dA9RAh1ZIge2uQ9oYLHFPgMwkJbXpjt7KmlD8=;
+        b=GZYJljz9Lalr9kwp4tkAOT0PWopOXh0Gci2bmvOskIloC4X01qBhW3/Z2dX+HMSqgB
+         GU/1bnTk8I0ifa6YZS2LDky/XRcmNHdhiedIWzEQgn4jlkVSNcoGkI4I0JKkCmoJGKCQ
+         3mAlU/kEp8NOc/0xMb5c6dS00jtKWtTRKkL7ANpjxaR/mepj/QMQSdE2Sx7//Q01hD57
+         H+5Udsb65nH9W+E5+95LuO+jeG4+HWU6mqOnNOrPx9A5JMapu2FTZUGWzcwajvnDQOOr
+         fReG8g8nxHuNLSowyGG/jdz9AKhRJMk/86ENxk+nOvNbp1jRwt25RjsrnwMeDgCu+vGK
+         uDvg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788813243; x=1789418043;
+        d=1e100.net; s=20251104; t=1788813245; x=1789418045;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uWcBC68WNKLZwVwv+eWu33G6o/TkwBMc1Uo2TtiwMQM=;
-        b=se0m0U8sOui3y0qPRPlmi+6IRo72m7JJGHpX6qHBKgAeULt9ty11pWo82rwSawipRW
-         IIPqViqqwvnkYGtpYtlA/MouBcdfeCjghCihTDBFZsr576NpczYBv5jmHcJVhcNpewZu
-         OgqpQMUj+V0BiRAod6JWciuvyL3srg5E1BRQ1TEBtUSZtsfWcNdFv7CdPRB9LiBTb92L
-         eXpFb1HYVDh6e8iuRn9sIMhVbCRVDlo31wlz5GdUFjhYcPyxKP9axyqXsz8u3XkwZyw6
-         qREicK+Nu00waptrY24v6ka0RmMVEIlZHxZJrVFX+eUSM8czYUN2P222E9mU1YQoMM88
-         9alg==
-X-Forwarded-Encrypted: i=1; AKwUvBw+WyP5XYlvDA2OrXlGWh6EdolZwZItCnaQ/vX3mZD1zorfhNsryL691EI3se0ywhOhGdC+/y9SX5Bc@vger.kernel.org
-X-Gm-Message-State: AFuF++nOUzmsv6OPx6A9abtw9v35ed8ujKvA2kuqU5rKsUZ6JhMMDOxw
-	UY9rHrEuax4yXbWpFiYKDwIKRk+5d+y0HWZeIGeylDRuCcfJAzuxQoKesRZagw==
-X-Gm-Gg: AYBFou17VEVr7mcuZuGkN4zqJHot17qkAA6A4c9hcZFglnwPFChlodz9B84zOaemXNP
-	2jisd1VLTwQPt6XA+iLEoIyTnSJOavKfmlNeWH5mtLC4GvG8i+VsOuooxiQEdr9Ao2Pr4coFkCS
-	HI4Ia9DzXETHenfqGBq+mCy0jlsMu0H85Q4FnypH7KK/c1p05EjWMJPqEhnLdGT7/y049rpbgyi
-	xvDzaYpKqkihhaYotfORwJqlNqcf1FWSmUEqfRO8Y+ph1WRXsdJ9VSlrGYtqtGwtbiMPgrA/5re
-	bfAZFMDTJ6L7atiQNHcZpI3ooC/qERi54M9yvvt0N84Lc4p99ZpSL+qi8+JSCzhhs4Adi9dBBAw
-	cbTb0vfWMaKRAIXpyprO6a+1l3+IXTK+LPqo0ZK0wL+d5meF1spUm2RDhqAR9YV0hIE2Fcrxx4b
-	23PypyB+vLS4BwMLlTzDvkdoommBPttL1Eg1mjff3Ka6xHaQx7u/ijTEXv67MNgA==
-X-Received: by 2002:a05:6000:18a9:b0:485:9249:6a10 with SMTP id ffacd0b85a97d-48592496b7cmr18450345f8f.7.1788813243394;
-        Mon, 07 Sep 2026 13:34:03 -0700 (PDT)
+        bh=P8/pS3dA9RAh1ZIge2uQ9oYLHFPgMwkJbXpjt7KmlD8=;
+        b=AUw1riRJgzWtNBKaS9U36ktICq81VXY5OlAIIDUBFJkfrLKqPhJ1FZ1/aVkSoSzbV3
+         QGQxQumjnVJtRqBnuVFZnOYZVB9v4N5ykai5+KA8OTIWNi+XTCv/0b3bcB6qGohlelzZ
+         R14Vj2+B94oYh7hAdyuOCj0XojLERJ83ib5mowZePob9TprxFiH2tR13cnKUeGt+4P63
+         zbsNRwwPJhSWNEvQqxDGJM0pHqitIiQYulNbVTRUxpCiuVWSImILOiTI1NXFhkNXFj+K
+         JiEinblxtfUS9K7Tz/I7ykzwHOeE6ylyjZtAuE/KxMifsM1wkSoFl/Dd90XX/CRrL5SM
+         THyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxM/L456n67CKhU2uaEzKU/M3HTVQzxBuMX8oC2jbjU/8BGsoTe2aw/0c8MlXGPEPOkrv92d2WKSlWe@vger.kernel.org
+X-Gm-Message-State: AFuF++mWXK76NvYc1JiVZIUyeY2D/l7kYRJ86B2QVIhq0X+jm0Y0A1u8
+	8jn/NiCDomFdGb6GN9gDvxD9/bnsOPjtIiixWvLY9LXT0N8klzP2+rFA
+X-Gm-Gg: AYBFou07qCMmEDw0C2ByV7s6DuCb3Jyo2kp0v1hxgpknHxVkXgCQeabxcuVeceEX4bl
+	spY+MEIdx6G4MPezrOKHMMcXhCsGyiXDOFLwDoqted+A/vtGJFkZUr3KBzDp2t4KMefZp3RMKK3
+	woESYbL/Ddd3EFuTDi46zDPR5pC+wVpCRDD3FC1utLFn2xzJI8gn0H4PuEOEtbPrqiRGbwNXWQV
+	vJ/dUAU7G4SlbtMtQLnqlg6ve2lEvpsuRMRGL7XRVKl8rDO8TicHHM1zn+wFPDNn6JfQbupb0zH
+	S1jUZhD4YBVvEnpK2DnbZqDlnhYSd+elOit7z0EMdykTKvYf0CYNKvupOn09TsYMUU974zB8sTp
+	N+miPsoDo2k6elZVSj6eP6aCRvXYY+E8O6s6g693v6R383961+m8gXButuE66+xI7x7N8cH0M1M
+	tu9s+mLgN8y8zHvBL2TBYkfeOH4CHUVkNfKDr8Id4ySYPIIxLGwI16xpSqpNT7xA==
+X-Received: by 2002:a05:6000:2c11:b0:485:8c16:a33a with SMTP id ffacd0b85a97d-4858c16a608mr23291913f8f.47.1788813244843;
+        Mon, 07 Sep 2026 13:34:04 -0700 (PDT)
 Received: from antoniarch ([78.212.37.227])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm25959116f8f.9.2026.09.07.13.34.02
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858e239862sm25959116f8f.9.2026.09.07.13.34.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 13:34:02 -0700 (PDT)
+        Mon, 07 Sep 2026 13:34:04 -0700 (PDT)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: alexandre.belloni@bootlin.com,
 	robh@kernel.org,
@@ -66,11 +66,10 @@ To: alexandre.belloni@bootlin.com,
 Cc: linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Antoni Pokusinski <apokusinski01@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v6 1/9] dt-bindings: rtc: abx80x: document ABX81X RTCs
-Date: Mon,  7 Sep 2026 22:32:08 +0200
-Message-ID: <20260907203216.53192-2-apokusinski01@gmail.com>
+	Antoni Pokusinski <apokusinski01@gmail.com>
+Subject: [PATCH v6 2/9] rtc: abx80x: fix error check after i2c_smbus_read in read_alarm()
+Date: Mon,  7 Sep 2026 22:32:09 +0200
+Message-ID: <20260907203216.53192-3-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260907203216.53192-1-apokusinski01@gmail.com>
 References: <20260907203216.53192-1-apokusinski01@gmail.com>
@@ -82,72 +81,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Abracon AB0815 and AB1815 are RTC modules with SPI interface.
+i2c_smbus_read_i2c_block_data() returns the number of bytes read on
+success and a negative error code on failure. The existing code treated
+any non-zero return value as an error.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Fix the error handling by checking only for negative return values.
+
+Fixes: 718a820a303c ("rtc: abx80x: add alarm support")
 Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
- .../bindings/rtc/abracon,abx80x.yaml           | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/rtc/rtc-abx80x.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml b/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
-index 355b0598411a..d105570bcd5a 100644
---- a/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
-+++ b/Documentation/devicetree/bindings/rtc/abracon,abx80x.yaml
-@@ -4,7 +4,7 @@
- $id: http://devicetree.org/schemas/rtc/abracon,abx80x.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+index 5486d9d0b1e5..e4fd7b5d4b11 100644
+--- a/drivers/rtc/rtc-abx80x.c
++++ b/drivers/rtc/rtc-abx80x.c
+@@ -294,8 +294,10 @@ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
  
--title: Abracon ABX80X I2C ultra low power RTC/Alarm chip
-+title: Abracon ABX80X (I2C) and ABX81X (SPI) ultra low power RTC/Alarm chips
+ 	err = i2c_smbus_read_i2c_block_data(client, ABX8XX_REG_ASC,
+ 					    sizeof(buf), buf);
+-	if (err)
++	if (err < 0)
+ 		return err;
++	if (err < ARRAY_SIZE(buf))
++		return -EIO;
  
- maintainers:
-   - linux-rtc@vger.kernel.org
-@@ -21,10 +21,12 @@ properties:
-       - abracon,ab0803
-       - abracon,ab0804
-       - abracon,ab0805
-+      - abracon,ab0815
-       - abracon,ab1801
-       - abracon,ab1803
-       - abracon,ab1804
-       - abracon,ab1805
-+      - abracon,ab1815
-       - microcrystal,rv1805
+ 	irq_mask = i2c_smbus_read_byte_data(client, ABX8XX_REG_IRQ);
+ 	if (irq_mask < 0)
+@@ -311,7 +313,7 @@ static int abx80x_read_alarm(struct device *dev, struct rtc_wkalrm *t)
+ 	t->enabled = !!(irq_mask & ABX8XX_IRQ_AIE);
+ 	t->pending = (buf[6] & ABX8XX_STATUS_AF) && t->enabled;
  
-   reg:
-@@ -61,6 +63,7 @@ required:
-   - reg
+-	return err;
++	return 0;
+ }
  
- allOf:
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-   - $ref: rtc.yaml#
-   - if:
-       properties:
-@@ -73,6 +76,8 @@ allOf:
-                 - abracon,ab1804
-                 - abracon,ab0805
-                 - abracon,ab1805
-+                - abracon,ab0815
-+                - abracon,ab1815
-     then:
-       properties:
-         abracon,tc-diode: false
-@@ -96,3 +101,14 @@ examples:
-             interrupts = <44 IRQ_TYPE_EDGE_FALLING>;
-         };
-     };
-+
-+  - |
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        rtc@0 {
-+            compatible = "abracon,ab1815";
-+            reg = <0>;
-+        };
-+    };
+ static int abx80x_set_alarm(struct device *dev, struct rtc_wkalrm *t)
 -- 
 2.55.0
 
