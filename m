@@ -1,107 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D49B4AEBD6
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826FC31197C;
+	Mon,  7 Sep 2026 13:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788786404; cv=none; b=i7a8pVTlWEcv53Y1qPRYnIvr9Luj6539uTjXarotJMWLbdsBc/gKu3vX38oRPHw4aGgIeQL7mknzJY4mR8ocn1PvS965DesDZcvUdsisyzTxQPpfcrOSQyW2wK/xn8phyTNhaSgivZMMGUrG4NV8aSWvYeWyROxzsmx8A2Izd1Y=
+	t=1788786558; cv=none; b=tqabGZEhuq13xg7KutehgK2X2zlzGAGWn6Jc2dqoa403o5730TUJ04r8fXwBmtJMx1hUgOCzxbJeHWjYdKy5z4Q7lxcQGF9+V7mgceEJE+JnsYKEnS4OObRK7yqqAt55OEiluvBRK+hZbdFXYXWlrSZeKDHI5m+nZuQAKhT8zog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788786404; c=relaxed/simple;
-	bh=qJBiejHnMUpTGrf/KQ3Ox/US0+1XD0x4xw8c+EO5pkY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=n8wY7Q7UYBJ1xL5nN5RLq5VpA9X3jyoMA1BcyxYJqyt1Lhwrm4Wv1eduOKqyuuK7Tt3LzpfexN324XjxwWaUxStXNc07akrMOMqF9+3iaKpcsI32zuBwlzbO6V0EKRyc+aZfJhUnU0BNUP67hpY0TCgROuXgaTyYQXcG9g5PTCY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDf94LKL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788786558; c=relaxed/simple;
+	bh=/o9/t0rmsd+fDXAPn0EGWSuuwiBMQU0cSgC7TC+ItGs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 In-Reply-To:References; b=JrClLGDB543KlDCTIph7GQO8ZVVlSLF2u1njwFcG+DaFRgpFPHIOBC5xyuUuzAUNG6/IAs2/EpjKPyrYBMKIdkKaA3ZTVC6oXZuyL6hiTcNjSvlUale4oo8D4wakUFrOYD50KPzIATKumGCbKQ8Qqbk34/kyuhWPppcfAlkgOsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=l3mgh9Fw; arc=none smtp.client-ip=54.206.16.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDf94LKL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E673D1F00A3A;
-	Mon,  7 Sep 2026 13:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788786394;
-	bh=AxbGZPmHx0BObJ0+cww/U0bN0G/xmViudIJnn9VJkF4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BDf94LKLvo18RQ+yVjzLjp6aN4RmP2cNNnUzZpdXPwuoh3a/qF8IR/JFC55L+f24H
-	 H3ZfkHMy8oiayp4INPIaxlDu1p5f8NOL/jlNFtKygd3z10Cfe7+yYkvOPtMJ8Xdqm3
-	 5GEvQrLYj+8cHOltth0qSplmF0DowS3h5P1PU942+01FXJcJZlU1BszrUfGD9sLMug
-	 aSf0wHailcRHC90z1ztEk8M7yeCjoUHqN8UjIZKmssk1mP0hq6OvLZJnR0jvRbMK1Z
-	 jig9kJHGupYrhQhu97BnMlAsj7E6UQfnweKTASCYjvCfs3ApyJylHpu8tfK6HiKY9W
-	 z9tci5rdDx6PA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/7] drm/msm/hdmi_phy: Cleanup after
- msm_hdmi_phy_resource_enable() failure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-1-b097cf1eac77@oss.qualcomm.com>
-References: <20260907-drm-msm-hdmi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com>
- <20260907-drm-msm-hdmi-fixes-before-eliza-v2-1-b097cf1eac77@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 13:06:33 +0000
-Message-Id: <20260907130633.E673D1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="l3mgh9Fw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788786517;
+	bh=pfKIQsbo9vF3XKUv7eH674e4/SPUP9mmFk38JxN5/+E=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=l3mgh9FwALlTah5zOJpypOJ3uMMBBc8FN0PS6a/mERDu8FSLvDif7/c+QSWEuwEq7
+	 +c9gRjyECkiHC/wdfTOUHUQnIVWUE75zZYR8iREMZIkNbEa8VzBixx7tIRJvgpa2R0
+	 p0F5ty2IDMyzVMyJIEhso6rIxvhj5ud7qExirEKs=
+X-QQ-mid: zesmtpgz9t1788786514t356b3c3e
+X-QQ-Originating-IP: 4bNg8jVrPAYnd+pOgZsuQP2LrmvmE3yfNAvXm2ENHLQ=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 07 Sep 2026 21:08:30 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 11280198482771072461
+EX-QQ-RecipientCnt: 41
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Mon, 07 Sep 2026 21:08:28 +0800
+Message-Id: <DL93W9G65JL4.SW643T11BP8O@linux.spacemit.com>
+Cc: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, "Yixun Lan" <dlan@gentoo.org>, "Longbin Li"
+ <looong.bin@gmail.com>, "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+Subject: Re: [PATCH v5 5/6] dt-bindings: PCI: spacemit: Introduce Spacemit
+ K3 PCIe host controller
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Inochi Amaoto" <inochiama@gmail.com>, "Jingoo Han"
+ <jingoohan1@gmail.com>, "Manivannan Sadhasivam" <mani@kernel.org>, "Lorenzo
+ Pieralisi" <lpieralisi@kernel.org>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Frank Li"
+ <Frank.Li@nxp.com>, "Niklas Cassel" <cassel@kernel.org>, "Sherry Sun"
+ <sherry.sun@nxp.com>, "Arnd Bergmann" <arnd@arndb.de>, "Christian Bruel"
+ <christian.bruel@foss.st.com>, "Krishna Chaitanya Chundru"
+ <krishna.chundru@oss.qualcomm.com>, "Senchuan Zhang"
+ <zhangsenchuan@eswincomputing.com>, "Alex Elder" <elder@riscstar.com>,
+ "Xincheng Zhang" <zhangxincheng@ultrarisc.com>, "Randolph Lin"
+ <randolph@andestech.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vidya Sagar"
+ <vidyas@nvidia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Danilo
+ Krummrich" <dakr@kernel.org>,
+ =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
+ <u.kleine-koenig@baylibre.com>, "Pengpeng Hou" <pengpeng@iscas.ac.cn>,
+ "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Gustavo Pimentel"
+ <gustavo.pimentel@synopsys.com>
+In-Reply-To: <20260907112606.465778-6-inochiama@gmail.com>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-6-inochiama@gmail.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NZcrde3zhHkVEfBIs3uijfG3JeRbhBq3UmJylEptFf0SpLLWdZHy7Ot0
+	ZdrWOeHEzdThDcXv5zV3qL8m9nubSaA4PMjERuDye9Pwl18vZKWliluD3v4PoyFXUNpB1cG
+	wCobNOSmmwGrVFIGEoOVWYIlCSNboCG01PEpsJlxkI6wSRESTwfgVCfxd91wIWa9waZiI1v
+	iQ7iIp+YaOllGQIhwbJEVIvWUUX3Li82zr1xG9UCEC6LV9jN3h6ypdtx1Rl0Qyw4NOhFIwz
+	EUy1lKyNza2sTL1PjXch136CShXCFXRW6z+ELzeem5rTa0hmmtccxotvCPqFLPfM+SCZNRI
+	YAKUrqJKIL0r7M/E2AgtOVl2wy3/h9gAzadmb6S8BLKgvC0EYEopoqPCxeKQsqgmWNeW8u3
+	Pbvrwm/jVjBgRgolhzzTj5ZDj/dwcyj6Hg/7O0QGEFfDUjuiWz2t8LgnLMPI6QKyYHf6swz
+	DrPuEIPxmZVA4g1RBnQ5iw5sqjwWUx7kSBzO+DsyL7Mpk3jO67pxVkc7NozN4cZY0fQV4nk
+	VhKzHSwgkpUNeJZ7tZTtGWj5qppTgHJvt4Zmqc0rNa0DxAp0ik0Haa187asxSpPDMJiOJyn
+	2m2+iEHaxCtx81hmh5f7nJN1T0brRHjhNfW8gvzMkGBSDyE08zqIWtTEDs5lBNwu9pHo8PX
+	Ta8fm6vm4snKTFwz5TscETaFsm5H8SVKErqHAkXbKKPerNHVb0C1tU1Qbpg6LZ/UG28EPzF
+	8doJbQMfQ4IdH/CSI6Sxw4OAfWRk0Wq5FZ2rx6awC1YMOq7rrtq4bA2lZN7jdAwCZzskuqK
+	S8ePmsFLMzXr44f6jV9K78r2EFJv31tMATbM40Vaf9oK7M6anrvUrtGU0GEebC5LJjFN+OG
+	xEgec1pPYyBpjFXMOkKimV50IKBB/wEASWZRHE2SK1WJDS8B5ACVjn/ybSWV6LZJ2QxE6zV
+	RwZr0Xihs60COUgOz2W2Nz0eFkFWXPtUfHx6QcpIjYP/dGGVfKddmSrwQkcePrs0UmBTFdB
+	wAmMdpnaHktt/1rQO+nYRVN2xBzmoXy4+eyxQuKgtZi7hEF7Fs8VQ5HolxQfBV4jFitqdYk
+	lMVIxWCW4PMQwcy3UFxIYg=
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing regulator disable on the newly added clock enablement er=
-ror path.
---
+--650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-commit 89a12851603b82367d9387f6f70068a1f77f92b9
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-drm/msm/hdmi_phy: Cleanup after msm_hdmi_phy_resource_enable() failure
-
-This commit adds an error cleanup path to msm_hdmi_phy_resource_enable()
-to ensure resources are properly unwound if regulators or clocks fail to
-enable.
-
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hd=
-mi/hdmi_phy.c
-> index eb1088755cb3a..fd675f537f2b8 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
-> @@ -67,16 +67,26 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
->  	ret =3D regulator_bulk_enable(cfg->num_regs, phy->regs);
->  	if (ret) {
->  		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
-> -		return ret;
-> +		goto err_pm_put;
->  	}
+On Mon, Sep 7, 2026 at 07:26:04PM +0800, Inochi Amaoto wrote:
+> @@ -14,26 +14,29 @@ description: >
+>    PCIe IP.  The controller uses the DesignWare built-in MSI interrupt
+>    controller, and supports 256 MSIs.
 > =20
->  	for (i =3D 0; i < cfg->num_clks; i++) {
->  		ret =3D clk_prepare_enable(phy->clks[i]);
-> -		if (ret)
-> +		if (ret) {
->  			DRM_DEV_ERROR(dev, "failed to enable clock: %s (%d)\n",
->  				cfg->clk_names[i], ret);
-> +			goto err_clk_unprepare;
-> +		}
->  	}
+> -allOf:
+> -  - $ref: /schemas/pci/snps,dw-pcie.yaml#
+> -
+>  properties:
+>    compatible:
+> -    const: spacemit,k1-pcie
+> +    enum:
+> +      - spacemit,k1-pcie
+> +      - spacemit,k3-pcie
 > =20
-> +	return 0;
-> +
-> +err_clk_unprepare:
-> +	for (; i > 0; i--)
-> +		clk_disable_unprepare(phy->clks[i - 1]);
-> +err_pm_put:
-> +	pm_runtime_put_sync(dev);
 
-[Severity: Medium]
-Does this new error path leak the regulator enable count?
+Please update the title and description to cover K3 as well. They still des=
+cribe
+only K1.
 
-If clk_prepare_enable() fails, the code jumps to err_clk_unprepare,
-unwinds the clocks, and drops the PM runtime reference at err_pm_put.
-However, it appears to skip calling regulator_bulk_disable() for the
-regulators that were successfully enabled earlier in the function.
+                                            - Troy
 
->  	return ret;
->  }
+--650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180
+Content-Type: application/pgp-signature; name="signature.asc"
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-drm-msm-hd=
-mi-fixes-before-eliza-v2-0-b097cf1eac77@oss.qualcomm.com?part=3D1
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCap63TA0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvrqIBAPoJ1V5DULfRR0iJ/PbsZQSGaU27Bg5bTx8RdSGL
+sdFIAQCo20UN07hYGkyKe/hWeA2JzbRW4qEfBzGFoFaMdr/IAw==
+=WCkQ
+-----END PGP SIGNATURE-----
+
+--650bf3549e64181e01b13e7f3b0c8c6526d5423fd2d0620ee7d870eb7180--
