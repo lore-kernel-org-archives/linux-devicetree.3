@@ -1,82 +1,82 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B101448D1D
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444CB44A41D
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:38:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788770324; cv=none; b=UkZCANPWE8sgzbLhmGCao305fLMRqOcL2umeTmRG0jK7xxnt+TyLLPJKA7tThWup+dMFDWnxF1yvU4GjaW3a13x4/FOv9EKBRfNxaqlBfJjB9eYkwlgGknyVk4Pi9/bSYxrVbrxMtsJnoodGduE057q0nmcZyGbpCq6fM6bBZL0=
+	t=1788770326; cv=none; b=cR7O2JWvJcK53YdLf+dcEjNTORGol/c8qTX9gZalIyZp35LmLf5A23lnsVFQcvU3O9ImC2QSqmQguOkFefDvVF/LBqLfilm7t6s55eqlVDVJ7PwVM38kWC7Ke3+hTgh3QMsEpvER8NGL5KBpfgC6wkjSnlIF/ctLZJ2Fhi4ufSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788770324; c=relaxed/simple;
-	bh=iW28TnsYJ0VMS/rwDLxo2MLYsPIWZDhDjeusU3juDdo=;
+	s=arc-20240116; t=1788770326; c=relaxed/simple;
+	bh=5BRFpMT2458/X4jlA/c8yR3sX4VMh8e71LTTWl+feMc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g4W8qNEBj7eToHUjX3vfa312lrNq0QGHT8mKF7vTzqm7Xe7PaPmYGbmQ8mDkIrhyyEHMDXpOetAIRxz8eIyl20KWkn9oH+sGaiKxDS0VKnaLM7gpF4s+h0BrB6EziepkXK1ux/tj+i0PPEFoHothd0OuJGBuEbxpUWrX3VZwjvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Aia4/VqN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NTWIltLH; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=Vjo//bm8v9ihsGcugL9/hdqJ3ZBFdSgeSsgwMKEVZOOhF7zvjS/NedYSsKVAj49eQKJRsAht6JxufdwSHgPaKhWkW6J7p30mydI7yeQGQOxojVzx3Y7gVejgAsSVcggk3Oc3YWpO43HS3UCQyXvMF74pW8D+L/+LWcUKHzKSADo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S+ZVwGFX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ezz8Edl8; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Aia4/VqN";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NTWIltLH"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6878ZYOG2878104
-	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 08:38:41 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S+ZVwGFX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ezz8Edl8"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777N2A3352439
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 08:38:42 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=NZJ7nSDv9GL
-	/FplrIRnBTH7KK1iSSswSLlWYBNxdg58=; b=Aia4/VqNgfaAFLH8Fc401vv3Ocx
-	gjJUCCh3hgLDHq8fZR5/Lr949yRtMXhQJ0wXNgL+mG8pUgAxmVkOygG9wjCh5j8M
-	xXITpR1o+ArulQ1SmaH89MkJx2yUMUMyM38TQdHeutrt9/WA57HXJpjxGGl+AT+4
-	H0F/LlrMuYDjfhDSAXO5+MKUk4q6q0OmMFi1+pI3EKtkpFJ1l5SMv0n+GPXGBI22
-	ZstC+2mmh4fexTcz/1slAjvUQRe6VKx/Bzc7+aWhc4Bfe6uMLXHS+35BnBYAT8qB
-	KefzXzZPRDrhrOlhVSXe7gWjQeU3NL0MP16ai6fENDxtZVNZnpR9hPr60Ug==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghsw200ee-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=YDLD18vZOwo
+	NWTUh9k9LmtYOiV35zaZzn+mU3vs14sA=; b=S+ZVwGFX9MAu9gFBtvFndu3TRM4
+	IU6/knzwcEG56mpDCbEzlFgBJT6X5ALKdPqzwWvlYwXTrRjZ9kztxdKlKNnp3e5H
+	gEz9FvOVbVs4POPWBHUYslA1WibdPhgNSbETKNmSZj0535JinTEo8B2JUnmWBgub
+	WKbDsr7dEOMC9E1NrZYaEp4Gd0a7NrvG0/y3bv6p9XaBfUZyTckrxtS0ZSzLPK8x
+	8w1vuaSQfbpB/hbTW3G7JnpUq+pJ8p97RZr47obGShqMdWLwmBD6b/DAYFEoDs36
+	1aZ/czedRfMb7DISmFJercsPcA8sEcEVZOj3BYDkP9qMY2o6i1CZVUVmjiQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghq66gv11-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
 	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 08:38:41 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e62e3459fso512305885a.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:38:40 -0700 (PDT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93975d63ffcso378566485a.3
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 01:38:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788770320; x=1789375120; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788770321; x=1789375121; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=NZJ7nSDv9GL/FplrIRnBTH7KK1iSSswSLlWYBNxdg58=;
-        b=NTWIltLHAxoQUWLV6qKjWYthEkibG0mbKamHyTRuDmsR3W6pQIFTCjsom6tmTLb4Qw
-         Q2t2P6eOUndYxqMtVeISgu8fOJVA6tYEC/vArPsplXRQ+Vdwm+54Ph6RCs4oKOaNnc4F
-         2ycLHooJnwXB8LVKgdienLM4cfPCh6/NJVturHLEjHzjC0rqmqZVIfgt2qzhCtF2Xmic
-         8nS08KCOyH1aa7loFyGMyb9JRLb+49UIB5ltBN464X3MjuHtKLgxRDh8y7kKw6WycikT
-         DseKlCuHZDNhEm8TXmqlrp/PJZ8XBgpNc0sIKlMzX6mkAPq8rt8CbLk/H+StnF3EklXK
-         DjWA==
+        bh=YDLD18vZOwoNWTUh9k9LmtYOiV35zaZzn+mU3vs14sA=;
+        b=ezz8Edl8uk2ijm8lLfpqNo9+nMJ01YWPGj6rOFB6zLQJRuVneXfXRG8fdkfYwQMvC3
+         9CTwM7/xyLSjojc2SakwAwV4vHplUCp3rKGcnE07WtcJjB+GzMMU2v1vgt3OXQBHn+vt
+         3VCty6cycuslvQULkRjxBgEN8xEKT7XVL/h2mp5AZx31Aa1PKEsTYpYi4oCe/nBb1ItF
+         uB1RAvNGTV7nVm2f+TFSiRetoi1jqqLbIo2RUOOdTYArDihjScxREDa+gx7jQSeEUsBO
+         zyiZSB4ezRjRY0ybF5Iw35GQrd+JldyasKL4bKj62neu4aBIg0Cg7X9p5Sq8OHFgWy/Q
+         ViRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788770320; x=1789375120;
+        d=1e100.net; s=20251104; t=1788770321; x=1789375121;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NZJ7nSDv9GL/FplrIRnBTH7KK1iSSswSLlWYBNxdg58=;
-        b=oeDmCMA78KxPCwkCopo5j4VtTtzpjwalENd9tLwVkXvw59MiueygvpQLS6BBqcXFAS
-         rtO8hpVOZNBtRUcqufiBzOSFo73Ie7Ae+urb7kIs7DqlskQ7lEBCg5OFox2BjY4mwfAz
-         Z53bDJoxPqTb2NLPoSIoeQVRboqkbtH7UEwJNjRv78qcH311/zGq8lYu0q2uWWwTwU/1
-         wsYnEBhr9m9jbHe48rYlKUS3k7BcJT/V4h0oucRv84bdl91zSE3qJ+N1GSDId4KiKjb6
-         f8AbEcX7P0qpw4d1Pli7ApPHW/yXfScpox6RBqZTYrCep/uiNhAcRK+llDe3qswEN+9J
-         0ebw==
-X-Forwarded-Encrypted: i=1; AKwUvBxguZS3uFDOtE672aO+zQCBHWSDqNVdlMivgjmI0MxMInF7R+rQORhU4F1yLtX3AoZkmy3gqEALMTJ9@vger.kernel.org
-X-Gm-Message-State: AFuF++mhD58u65gsBo5/pdnsho8ZmdGFSN2NgC5+gi0YDHaIWI8yeO08
-	Ci2SthM22EI4u+doUTd3LokPAOlN9gNO8b6OeBqB4G6oY08sCD1t7tyiBWoWBNglf2Y6Lf16K0s
-	yL5J513/bkoenkA/MCLTjt6xo36RZNs6Uj6EMnjJ7e1K0QZo1GjgSeAMbKZmkOa6+
-X-Gm-Gg: AYBFou2ZH2XszuMy6CC9q6O6z1aVRQqhAF8BmWI/5/IZvLPoBShQTjQd1mEm/m3ydLR
-	cwvLG0NePNsE1XCRT5YrDaYALGFPY7OCG5AZaqR+yBrW5XwSehtYRio0p+xZaYq7lrn+DFWN7zX
-	hrJG/O33e07Zu6ncaVOrsapzWRquycGfOtRiVWQ+l++Wx52sydPP3NSitAj57jdNUQWaZu9TMpO
-	cj15PhUg+XvJWShVN8uGWSYzvHcd5yoo4IX1JOAzxIc4q+y5nBP2bi7KCxrVuuO/r8P2Wb+C7UO
-	opOK0BXzdK96KGF+p7HaIFpBMyhmRgrkWXS6XzXfUnwwYZGRMe20hGviU5d19HuY4IgwuMqgp1q
-	J1BCMRh2utGqM2Q==
-X-Received: by 2002:a05:620a:2720:b0:939:6dea:374a with SMTP id af79cd13be357-939804f807fmr2245693385a.46.1788770319996;
-        Mon, 07 Sep 2026 01:38:39 -0700 (PDT)
-X-Received: by 2002:a05:620a:2720:b0:939:6dea:374a with SMTP id af79cd13be357-939804f807fmr2245686585a.46.1788770319319;
-        Mon, 07 Sep 2026 01:38:39 -0700 (PDT)
+        bh=YDLD18vZOwoNWTUh9k9LmtYOiV35zaZzn+mU3vs14sA=;
+        b=V76xuMtoT2jjYDMRrH/o8hdUAx6stcJyyOwvJLP7oJtVPY9+rq2Lr5Te178jYk3O1v
+         khlpG/ju6QIABFcNmG+0qtvz8g4DuRdjAw+a4/113Cthpc4RVOF2iv1glh+BwHOfzL9s
+         uJyNEpo+QUifNGMxVaPRoAkbR87mlL68is2G552mRn1rTrNBdOTZocbmxd2AHXFqm8ef
+         XfeydyDDeFvHAE+j0ICVGX6mhSN7k9ME1PQVMGyyia1/BtuQx4O+a4ft8l2tCh/MntMg
+         wRjTx6wFvhDw8AvT73zWijjJDCyIusIIK58XMnQB7SYCmKV3nuXzaDthHnxBbwKF0qzx
+         SoyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwLu1NXJVJwS5Hc6kj9G9AUSnVSLKtgYQxaH8L+iBcKzS19WgtFCu6qeEUeu0bPxndmjG4VJ12uwoC@vger.kernel.org
+X-Gm-Message-State: AFuF++nPuTK0ZEiZW4jNcsvjar+f+h7THrgBNrUiZL2bf4l8XGz/SOHb
+	ikQ20p8dTDV4L0fOqWfb7WwhnGBZ5Ck+Rm22XyPWrXJ0oUm5rsdrboy+Fyg47RjJzz2zcpVRqcM
+	5aegpyYV/kwugLEK5EXpLULo8T3ersv5hGn0omvq2H/1XB+8HqXh3vEAqUMvgDOhr
+X-Gm-Gg: AYBFou3it8xqkLhQ8g6S0l8KxoO/308vXxasEncE4tF/CO0cqyUWieQpZr/qF//+cyD
+	y1QJDvLVCErS9/SLgoHjTs70Nq6w8gfKS4JWQcef7rWYGM0HvSxkYZMf3YY+5WQqT2o0LVCrhDQ
+	JoNC9+Hbo9bapeK0r5A8QVXFJXo813VeIi6D3zMdiXxhCSmKc6ULb/sTg6Qqsa2ddciijykOXdQ
+	hrmjRngLbDwQ5h/SS/s/FliTVvqZDE5BelFvLe0m8MMWuRkVXuenmm5UAvb4LCpCr7vLCPEPMwk
+	G7CJ4tfYTebHlk5+YTZQiIXipfZwlFgWYICAZ3GZ7Ntn5OjYqQkV22lY8tdo+7Wt8cQ4oIUmtPG
+	bah8NMsogIPNNqQ==
+X-Received: by 2002:a05:620a:460c:b0:930:a26a:fb2a with SMTP id af79cd13be357-9398031b58fmr2040000485a.2.1788770321110;
+        Mon, 07 Sep 2026 01:38:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:460c:b0:930:a26a:fb2a with SMTP id af79cd13be357-9398031b58fmr2039997385a.2.1788770320710;
+        Mon, 07 Sep 2026 01:38:40 -0700 (PDT)
 Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm30852179f8f.25.2026.09.07.01.38.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm30852179f8f.25.2026.09.07.01.38.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:38:38 -0700 (PDT)
+        Mon, 07 Sep 2026 01:38:40 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
         Charles Keepax <ckeepax@opensource.cirrus.com>
@@ -93,9 +93,9 @@ Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
         devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v2 09/11] ASoC: SDCA: add sdca_apply_default_control_classifiers() helper
-Date: Mon,  7 Sep 2026 09:37:23 +0100
-Message-ID: <20260907083727.733705-10-srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v2 10/11] dt-bindings: sound: qcom: add Tambora WCD9378 SDCA codec
+Date: Mon,  7 Sep 2026 09:37:24 +0100
+Message-ID: <20260907083727.733705-11-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
 References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
@@ -106,103 +106,154 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: tN2wyh4bezi9a4CSBqYTbNBae5fc0nWT
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfXwtslYW+Txpoy
- beujHZ3nBo8vwJ2hR7fMHTdpGgqOr+xvwNSdGD5ieZ3f76whCadNMBm9sVSUhIG5sQ1Fcx5E5Ch
- +3+DOjkepK7YtR5ZQ+DxCyo5MSCEHPk=
-X-Authority-Analysis: v=2.4 cv=eKwjSnp1 c=1 sm=1 tr=0 ts=6a9e7811 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+X-Authority-Analysis: v=2.4 cv=QPhYgALL c=1 sm=1 tr=0 ts=6a9e7811 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=KCW3dyBotJ-MOgbrRv8A:9 a=O8hF6Hzn-FEA:10 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MiBTYWx0ZWRfX9ZSd5P0hcR4p
- NbwnJYebTMRcNkBXiBC8EkXWOQe7HhITcRRwHAkvCTuKIy9tGVffOuhqBJXnjIqfbsMvsOovf8h
- 5uK77HvOF0xy9WUzXq28k7YmTlIz8jbuvXf7QWWoCeIF8J5FpH89x0rF9Dj1/N3+r4Vamg/o0BR
- 3HlXi1XWa52bL1PsyT+4LlRlas64Oos402vdvCuCGnS0fLy/TPDDUVZFG6KXfR5vnnDNWpxSh1T
- j7LANHEZcG4ERdUYjVdRZ3cl0sQOg/ep9TBS4yYP5pL7JE/hCvxADes0pSaN0PIdS6vm7qvK1JM
- v/EYTGnpAy0Xfc+ieh5n/J7bEZjavE7XXfD10ppZ25t0X1UyFCNQ7CkgU8hL4uyoqp3DBmM7UTr
- WuSmmHyrktoN/Dto5qYgkAqTa3tpnEfcRCrNhkfu9Auszmj5Lo+Vf1VCm+B+4Fka9MaK+s0jNEE
- h+Wk8QqJ2NdB2sYKQvg==
-X-Proofpoint-GUID: tN2wyh4bezi9a4CSBqYTbNBae5fc0nWT
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=fAJwNmJgYEpPzymNVfgA:9 a=IoWCM6iH3mJn3m4BftBB:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: -mXMtg1xGsEOSa9T3Mr7nFeX7ATeh6np
+X-Proofpoint-ORIG-GUID: -mXMtg1xGsEOSa9T3Mr7nFeX7ATeh6np
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA5MyBTYWx0ZWRfX44iCd0UhK2Bk
+ 5ZEmJlmpjKHk/2aUeoYxMmhth3jDdZdzicRBmoMlSN60eRzTfYO+PynyrvDZjXn2l+ufqk88F8u
+ HeusJfqhUTqWRH877qZ6KplM/NSJRqA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA5MyBTYWx0ZWRfX7LB2yu6kX40l
+ bILvih7i6W282RFvIue1bTgKoghifqCXQUk5Mn1aTH3l5UTBZoPwllJgeOnZDHDAesB9Uk+1KfB
+ bbhrB/IF1Fw9o6wIvYFkrVZIY5ITVjDH3xBZ65udAhdTyOSpBxD6BtFLR7rYqdeO30X3Y8+eMB/
+ C6dFOO0nCY68jRG0gg5DzVIzngQ+OGP8hT8elDHvRGDp3agyvc6LPlp3bSU2yRsPfONLj5/mDTY
+ 7JBUTE4fIUazxgLM9N1dw1LuBfnGDmnNZREqZw54wxboF5+q4nI6fQ6Xry31jPR9zst0qW5eNx6
+ IQRYRg6705E22wXFemvpjvhaTV1gNWWr8c62M0tdrZZjPXL7wDQ5BLCaqgKDCNTYxPUNfqU9o2/
+ yJyZeDwZcXua7Kw5DDgd7BplzZ1ui/54Qb4+9hgW5cEbbHm5irYx92fQW++5HWz1gLpYvhzEAVt
+ xXxCnqYChLj15v9OIaw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 lowpriorityscore=0 malwarescore=0 priorityscore=1501
- suspectscore=0 clxscore=1015 adultscore=0 spamscore=0 phishscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070092
+ phishscore=0 suspectscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070093
 
-sdca_parse_function() derives is_volatile (see c7b6c6b60594) and the
-spec-defined reset value (see 02d851b46b36) from each Control's
-(entity type, selector, access mode).  Codecs that ship static SDCA
-tables via populate_function skip that path, so RW1S action Controls
-end up with is_volatile=0 and get replayed on every regcache_sync.
+Describe the WCD9378 SoundWire peripheral which is SDCA compatible
+soundwire device. It provides SDCA SimpleJack for headphone playback
+headset mic capture and MBHC jack detection.
 
-Add sdca_apply_default_control_classifiers() to re-run those two
-classifiers over a Function.  Elevate-only, so codec-set flags win.
-Call from the tail of populate_function.
+The same silicon is integrated in two ways and enumerates with the
+same SoundWire class ID:
+
+  mobile mode: two slaves (tx, rx) on separate SoundWire masters.
+
+  SDCA / compute mode: one aggregated slave on a multi-lane
+  master.
+
+Note: both of them have different bus toplogies 1 device vs 2 devices.
+
+Currently only compute mode is supported by this bindings, mobile mode
+will extend this binding as required.
 
 Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 ---
- include/sound/sdca_function.h   |  2 ++
- sound/soc/sdca/sdca_functions.c | 29 +++++++++++++++++++++++++++++
- 2 files changed, 31 insertions(+)
+ .../bindings/sound/qcom,wcd9378-sdw.yaml      | 91 +++++++++++++++++++
+ 1 file changed, 91 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
 
-diff --git a/include/sound/sdca_function.h b/include/sound/sdca_function.h
-index e580201d69d5..d3d77d8bb7cd 100644
---- a/include/sound/sdca_function.h
-+++ b/include/sound/sdca_function.h
-@@ -1464,6 +1464,8 @@ static inline u32 sdca_range_search(struct sdca_control_range *range,
- 
- int sdca_parse_function(struct device *dev, struct sdca_function_data *function);
- 
-+void sdca_apply_default_control_classifiers(struct sdca_function_data *function);
+diff --git a/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+new file mode 100644
+index 000000000000..9a6c309018ed
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/qcom,wcd9378-sdw.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/sound/qcom,wcd9378-sdw.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
- const char *sdca_find_terminal_name(enum sdca_terminal_type type);
- 
- struct sdca_control *sdca_selector_find_control(struct device *dev,
-diff --git a/sound/soc/sdca/sdca_functions.c b/sound/soc/sdca/sdca_functions.c
-index 68a50552f4e4..8f4d04e09032 100644
---- a/sound/soc/sdca/sdca_functions.c
-+++ b/sound/soc/sdca/sdca_functions.c
-@@ -2268,6 +2268,35 @@ int sdca_parse_function(struct device *dev, struct sdca_function_data *function)
- }
- EXPORT_SYMBOL_NS(sdca_parse_function, "SND_SOC_SDCA");
- 
-+/**
-+ * sdca_apply_default_control_classifiers - apply framework-known Control fields
-+ * @function: Function populated via static tables (populate_function path).
-+ *
-+ * Runs the same per-Control classifiers as sdca_parse_function() so both
-+ * entry paths land on identical @is_volatile and @has_reset/@reset fields.
-+ * Elevate-only: codec-set flags/values are preserved.
-+ */
-+void sdca_apply_default_control_classifiers(struct sdca_function_data *function)
-+{
-+	int i, j;
++title: Qualcomm WCD9378 (Tambora) SoundWire codec
 +
-+	for (i = 0; i < function->num_entities; i++) {
-+		struct sdca_entity *entity = &function->entities[i];
++maintainers:
++  - Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 +
-+		for (j = 0; j < entity->num_controls; j++) {
-+			struct sdca_control *control = &entity->controls[j];
++description:
++  Qualcomm WCD9378 (Tambora) SoundWire codec in SDCA compute mode.
 +
-+			if (!control->is_volatile)
-+				control->is_volatile =
-+					find_sdca_control_volatile(entity, control);
++properties:
++  compatible:
++    items:
++      - const: qcom,wcd9378c
++      - const: sdw20217011000
 +
-+			if (!control->has_reset)
-+				find_sdca_control_reset(entity, control);
-+		}
-+	}
-+}
-+EXPORT_SYMBOL_NS(sdca_apply_default_control_classifiers, "SND_SOC_SDCA");
++  reg:
++    maxItems: 1
 +
- const char *sdca_find_terminal_name(enum sdca_terminal_type type)
- {
- 	switch (type) {
++  qcom,port-mapping:
++    description: |
++      Each entry maps a slave data port to a master data port.
++      Entries are in order starting from slave port 1; slave port 0
++      is reserved and not represented.  Compute mode uses 8 entries
++      covering DP1..DP8.
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 8
++    maxItems: 8
++
++  reset-gpios:
++    description: GPIO used to release the codec from reset.
++    maxItems: 1
++
++  vdd-buck-supply:
++    description: 1.8 V analog buck supply.
++
++  vdd-rxtx-supply:
++    description: 1.8 V RX/TX supply.
++
++  vdd-io-supply:
++    description: Digital I/O supply.
++
++  vdd-mic-bias-supply:
++    description: Mic bias supply.
++
++  '#sound-dai-cells':
++    const: 1
++
++required:
++  - compatible
++  - reg
++  - qcom,port-mapping
++  - reset-gpios
++  - vdd-buck-supply
++  - vdd-rxtx-supply
++  - vdd-io-supply
++  - vdd-mic-bias-supply
++  - '#sound-dai-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    soundwire@7630000 {
++        reg = <0x07630000 0x10000>;
++        #address-cells = <2>;
++        #size-cells = <0>;
++
++        wcd9378c_sdw: audio-codec@0,3 {
++            compatible = "qcom,wcd9378c", "sdw20217011000";
++            reg = <0 3>;
++
++            qcom,port-mapping = <2 2 3 4 5 6 7 8>;
++
++            reset-gpios = <&tlmm 191 GPIO_ACTIVE_LOW>;
++
++            vdd-buck-supply = <&vreg_l15b_1p8>;
++            vdd-rxtx-supply = <&vreg_l15b_1p8>;
++            vdd-io-supply = <&vreg_l18b_1p2>;
++            vdd-mic-bias-supply = <&vreg_bob1>;
++
++            #sound-dai-cells = <1>;
++        };
++    };
++...
 -- 
 2.53.0
 
