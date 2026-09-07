@@ -1,176 +1,117 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DD5456DF0;
-	Mon,  7 Sep 2026 10:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7CAA453A22
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776407; cv=none; b=OOcp0t388opRXhMVpoiLYRYlOKMlB2gpJb0SvD8AjKH1NJybqdsbC/MDqW6fwDc44Mpw2VOH9SzMD5jwybcgrRmxn05omnqmDbanY69Pdmai3KRQbNIml/MlGfzG3krvWBBZYdJsNHrRO9OylCsoEDubswgfaOv2dd0rPiht/9M=
+	t=1788776452; cv=none; b=emkpSodwUdJCBjoZjDhtUqJerN5iZMj6TIUjuS8bMxDYawTjspqQZkymS19ooHWba51FIrbNcq2k0mRQpt5Q9bqQYy8EmIxW+SP9AlRlvYPml9214MOAz7tJ/qdj6wpqAnkdTWwLVoV6d/feT71mK94Obw7GhyXxIrEYkwU1SzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776407; c=relaxed/simple;
-	bh=7Hgd3VP7kY49kebIF+WkeD3M5EYG3nTnyBDX3s8uC6U=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mK9JVnYe5HrsRybaJ3u5wDxniIRsGkpyW+o5y8WZm70fECXMUvbw8F2u+pXDW2xqyRQGHkxaGyZW66NjCCVgXOm04LkI+jPAb+B4xUkLkXtQMvhJ8YTUJ/N+aGq87JzcTuR4PlsUR8SEMCFfp3PAFNrE0eoun6/q2GBq3OlJcw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=Y8lyjQnX; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1788776452; c=relaxed/simple;
+	bh=k34b4U2Vj9TGpPXYb0yCtXRPBf+iUQa8BIOWSVdXKDY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RU+QBKb8dNZIu12boRzFPAgZqNplQzvf0cvOBphI2JEwCpj4NaYKJk3BWMmcb8jvOgQ8ltDnT3JCPLewHtF9gEoOsXSaOIuAxjoC160VOTOGpZjzlctTCpYnHpcOyp3TeY0jv3ru0fnY1cwQbUy1rTirQZhr5neA2+Bo00BZKXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HYZeidnB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="Y8lyjQnX"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6879YNiS2726333;
-	Mon, 7 Sep 2026 06:20:02 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
-	content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=fHAlV
-	rBiBjQlszKA7SNe3dH+0BhJxq6ijvam1i5M4zc=; b=Y8lyjQnXcEi8kGsDuseTv
-	9wEadxfxYWT6TwNzRAXUtd1B9ZjbweUnYW9xknrgJGoa0h6gr7wNnmQtfXVfFXnE
-	YRi2GfGjCgGftWS8I0EndMmHQ2EBr27Y+bFBSED+29/X5X+fyKOiPoTkX6V8IK7d
-	obSyYae7kIiRo3HpCADymrY2LrDsbKbl8c6RI7TTdF9JnOaHrFl04sBcifFsPU++
-	cPHEPrICmUgnpEeFX87beWbr9j3qcoUSleJWSJ0WTsVoA6LpjAqRTptp3Kw4SQus
-	qxNJT5GhYTuhUd/i1iik+ouO0gz0kxNL/0kbRFdexc+AF8AWE7lPfNUDmxJmAj9W
-	w==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gh1dbvurh-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 07 Sep 2026 06:20:02 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 687AK1xF010667
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 7 Sep 2026 06:20:01 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Mon, 7 Sep
- 2026 06:20:01 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Mon, 7 Sep 2026 06:20:01 -0400
-Received: from HYB-b1tGeUj4GP1.ad.analog.com (HYB-b1tGeUj4GP1.ad.analog.com [10.48.65.185])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 687AJkx6007440;
-	Mon, 7 Sep 2026 06:19:54 -0400
-From: Antoniu Miclaus <antoniu.miclaus@analog.com>
-To: Antoniu Miclaus <antoniu.miclaus@analog.com>,
-        =?UTF-8?q?Nuno=20S=C3=A1?=
-	<nuno.sa@analog.com>,
-        Michael Hennerich <Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, <linux-iio@vger.kernel.org>,
-        <linux@analog.com>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH 2/2] iio: adc: ad4080: add support for AD4885
-Date: Mon, 7 Sep 2026 13:19:44 +0300
-Message-ID: <20260907101944.9748-3-antoniu.miclaus@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260907101944.9748-1-antoniu.miclaus@analog.com>
-References: <20260907101944.9748-1-antoniu.miclaus@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HYZeidnB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F2201F00A3A;
+	Mon,  7 Sep 2026 10:20:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788776450;
+	bh=Lwlq4FYIKyFZkwDaXqzD9KZldw37C6ZZYz+F6AwSeL4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HYZeidnBWf05TV9qhSe70RsuCpqrncuZ1IKdfE0p6+/DtSvgz0VmBCu9ItDLKQcY3
+	 vFVaxf9bMLdL32ajwVAm+uT5k460zPMCVUZYjC63KnmWfAC7B6dNtT2eWA3C/xEc1Z
+	 OyP1tJrRVQaUFm/G2wql1yodRg7/MNTA/EjhtKIlobOvn1XZvNceaq9VVwzIggxWYA
+	 +OzoMaZmUJ6WHm1x6HwH3T7sQnFwTc+bTLwyBjfzsomV660Zn/jrc5jdujh5nx0U3g
+	 s/hwZq7Gn78w26txhUHKZr5pCRm5EHQKcjaQCUJSLgEI9bItx0mk883pT+vOsqOv5f
+	 /fLNKv0GWEAIg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/6] arm64: dts: qcom: glymur-crd: Add PM8010 camera
+ PMIC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907-glymur_camss_dts-v1-4-6c2ced5ea5f9@oss.qualcomm.com>
+References: <20260907-glymur_camss_dts-v1-0-6c2ced5ea5f9@oss.qualcomm.com>
+ <20260907-glymur_camss_dts-v1-4-6c2ced5ea5f9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 10:20:49 +0000
+Message-Id: <20260907102050.3F2201F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=XOsAjwhE c=1 sm=1 tr=0 ts=6a9e8fd2 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8 a=YKDl7HIqRfTMcHCtdIoA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDExMyBTYWx0ZWRfXy6RR7zIIefoN
- NwqDJjyfo5VMY9RiqI6RGHbqALE4B1c3vygYxn+NDpdEaTS0HRyJ2lase8yEh/BSOgH11TeAqB6
- OYO09DsKgxzdFSjwInbpQCw7QdMGq7xJHWO416HahUG5lHXQS/9A
-X-Proofpoint-ORIG-GUID: 5lY_VMpcbLZpylTFCcpHmzlgnb1K5OaH
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDExMyBTYWx0ZWRfX0DCq9bgcDN1N
- 2YGRxibD6AuccxVS2/OiHR6D0edBn/vrlZQ1dRCqmgD00OZigIzUhisptrk+5jfpMhuKHii+PFP
- 4yeXvSZ0WQXAoxxbI2SC2kIoCOy9SdM8icatKkpIzKqfGpLHgP3B5smg/IIZI7jsLixyInHjxkD
- XYYjsNSRAL9yskboqGSxtp4CKIU7Cz1rIs0BZHyHloiaxFOct69FjUFIyNipSTeAwfTN2urSjfM
- ey0JSkpY9aWALhbP0Tvi9RtyNGPHNw8W8fxoUq/aPgftlzIfeYDu0GTvwGmDQ/aSi2+g3W0gC5l
- pyFxsgje/UpreyGR4yt8uiLo8pgnds0LH09KMJwHvVnXi2wajKu7rmeUmnQE4Jc+TG5yem06gt3
- CnglLNfuQr64VJIU+g3vOEg7OTov4HTf9QJKaVBD+fuvuGwYGaoGdK0LejcuwSCoWTPpY+NzWhB
- QKNKUE7AwaYZHFW2veg==
-X-Proofpoint-GUID: 5lY_VMpcbLZpylTFCcpHmzlgnb1K5OaH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- malwarescore=0 bulkscore=0 phishscore=0 impostorscore=0 adultscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070113
 
-Add support for the AD4885, a dual-channel, 16-bit, 10 MSPS SAR ADC.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The device tree node uses an undocumented and unsupported compat=
+ible string 'qcom,pm8010-i2c' with no corresponding dt-bindings or driver i=
+mplementations in the kernel tree.
+- [Medium] The PM8010 PMIC node is missing an `interrupts` property, which =
+is architecturally necessary for I2C PMICs to signal thermal alarms and fau=
+lts.
+--
 
-The AD4885 is the dual-channel variant of the AD4085, sharing the same
-register map and SPI interface as the rest of the AD4080 family. Like
-the AD4884, it uses two independent ADC channels, each with its own SPI
-configuration interface, but it runs at a lower maximum throughput and
-therefore uses the same maximum LVDS conversion clock count as the
-AD4085.
+commit c57ad5fec12bca214fc8171c9ab4ce19cbc0631e
+Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-Signed-off-by: Antoniu Miclaus <antoniu.miclaus@analog.com>
----
- drivers/iio/adc/ad4080.c | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+arm64: dts: qcom: glymur-crd: Add PM8010 camera PMIC
 
-diff --git a/drivers/iio/adc/ad4080.c b/drivers/iio/adc/ad4080.c
-index 994625a7cf8b..4843ecdd91a8 100644
---- a/drivers/iio/adc/ad4080.c
-+++ b/drivers/iio/adc/ad4080.c
-@@ -137,6 +137,7 @@
- #define AD4880_CHIP_ID						0x0059
- #define AD4883_CHIP_ID						0x005B
- #define AD4884_CHIP_ID						0x005C
-+#define AD4885_CHIP_ID						0x005D
- 
- #define AD4080_MAX_CHANNELS					2
- 
-@@ -561,6 +562,11 @@ static const struct iio_chan_spec ad4884_channels[] = {
- 	AD4880_CHANNEL_DEFINE(16, 16, 1),
- };
- 
-+static const struct iio_chan_spec ad4885_channels[] = {
-+	AD4880_CHANNEL_DEFINE(16, 16, 0),
-+	AD4880_CHANNEL_DEFINE(16, 16, 1),
-+};
-+
- static const struct ad4080_chip_info ad4080_chip_info = {
- 	.name = "ad4080",
- 	.product_id = AD4080_CHIP_ID,
-@@ -681,6 +687,16 @@ static const struct ad4080_chip_info ad4884_chip_info = {
- 	.lvds_cnv_clk_cnt_max = 2,
- };
- 
-+static const struct ad4080_chip_info ad4885_chip_info = {
-+	.name = "ad4885",
-+	.product_id = AD4885_CHIP_ID,
-+	.scale_table = ad4080_scale_table,
-+	.num_scales = ARRAY_SIZE(ad4080_scale_table),
-+	.num_channels = 2,
-+	.channels = ad4885_channels,
-+	.lvds_cnv_clk_cnt_max = 8,
-+};
-+
- static int ad4080_setup_channel(struct ad4080_state *st, unsigned int ch)
- {
- 	struct device *dev = regmap_get_device(st->regmap[ch]);
-@@ -890,6 +906,7 @@ static const struct spi_device_id ad4080_id[] = {
- 	{ .name = "ad4880", .driver_data = (kernel_ulong_t)&ad4880_chip_info },
- 	{ .name = "ad4883", .driver_data = (kernel_ulong_t)&ad4883_chip_info },
- 	{ .name = "ad4884", .driver_data = (kernel_ulong_t)&ad4884_chip_info },
-+	{ .name = "ad4885", .driver_data = (kernel_ulong_t)&ad4885_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(spi, ad4080_id);
-@@ -907,6 +924,7 @@ static const struct of_device_id ad4080_of_match[] = {
- 	{ .compatible = "adi,ad4880", &ad4880_chip_info },
- 	{ .compatible = "adi,ad4883", &ad4883_chip_info },
- 	{ .compatible = "adi,ad4884", &ad4884_chip_info },
-+	{ .compatible = "adi,ad4885", &ad4885_chip_info },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, ad4080_of_match);
--- 
-2.43.0
+This commit adds a new device tree node for the PM8010 PMIC over I2C to the=
+=20
+Glymur CRD. It configures the PMIC's seven LDO regulators, reset GPIO, and=
+=20
+associated pinctrl states.
 
+> diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/d=
+ts/qcom/glymur-crd.dtsi
+> index 4df3ccfee106a..68a191890b7d8 100644
+> --- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
+> @@ -671,6 +671,66 @@ ptn3222_1: redriver@47 {
+> =20
+>  		#phy-cells =3D <0>;
+>  	};
+> +
+> +	pm8010: pmic@8 {
+> +		compatible =3D "qcom,pm8010-i2c";
+
+[Severity: Medium]
+Will this compatible string match an existing driver? The "qcom,pm8010-i2c"=
+=20
+compatible string appears to be undocumented and unsupported in the kernel
+tree.
+
+When building device trees with make dtbs_check, this will result in=20
+validation failures since there are no corresponding dt-bindings. The pm8010
+device node will also remain inactive because no driver core can match it,=
+=20
+leaving the PMIC and its regulators uninitialized.
+
+> +		reg =3D <0x8>;
+> +
+> +		reset-gpios =3D <&tlmm 106 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd-l1-l2-supply =3D <&vreg_l6p>;
+
+[Severity: Medium]
+Should this PM8010 PMIC node include an interrupts property?
+
+The pm8010 node in arch/arm64/boot/dts/qcom/glymur-crd.dtsi defines a reset
+line but is missing an interrupt line, which is architecturally necessary
+for I2C PMICs to signal thermal alarms and faults.
+
+Without an interrupt line, the SoC cannot respond to critical PMIC hardware
+events like over-temperature or over-current faults. Additionally, if a=20
+future driver follows standard Qualcomm I2C PMIC patterns, passing a missing
+IRQ to devm_regmap_add_irq_chip_fwnode() will cause the driver probe to fail
+entirely with -EINVAL.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-glymur_cam=
+ss_dts-v1-0-6c2ced5ea5f9@oss.qualcomm.com?part=3D4
