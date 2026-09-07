@@ -1,545 +1,227 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-ot1-f48.google.com (mail-ot1-f48.google.com [209.85.210.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BBE3F660F
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 21:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F073B3AAF71
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 21:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814858; cv=none; b=rwcMc2zDJR2XmTUkN+WGN+DPU3VAgMIHxrk8MzF4Sep/CTb9oN16d0g3Gh1mgXRrO9+lizNhzO+CEOaXwAQ5vSTzBuBNalmkhZsT9ztBfA/E5OUDhGGI7Bo5Mu/06S9qTHE8pWXw7TZHNhFL9fCXN0+GQnQrFTvPYa66mOr3Ju8=
+	t=1788815000; cv=none; b=NzABNmzHtG+UfevAxNaRpIHmm+qcWJaa8xxWAhIlvYPWb/Yty2G3CI0PFKXMk6RJ1L+NNQJbQk/qcjl2N9nEc80xHoOa4/nd5BiLk/1+pWc/R3v0mROqqpNfEtXJ4Qz9wyGwgpJB27bUsoPCR5otlVWGpmZT7BBMC75zQDAsVfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814858; c=relaxed/simple;
-	bh=ccze0jL5wUSyawpDA++nf/vL2kTqZ68wKlR79o1mNbE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FOBde/oVZw/t3AOwePmLjmWCDoiSvspU7ohuJE6xI3WBZZjUETwLvdOtrVyHBb0EN932q//MCczEdOZrSt9tHAOvS/834bOZCAwRg2WEinaKtUAD/s8LEHnyVkVqy60YLySO9DOEEtIg3aQB9PUQIjn2KE2x6ApMqz6H7AoJD3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BelQZOFy; arc=none smtp.client-ip=209.85.128.170
+	s=arc-20240116; t=1788815000; c=relaxed/simple;
+	bh=/1RHVGzVNTgjUr8PjNpOmFphkAaZ4GaE7T5O9Vq2giI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZBIhJ5pS5DoLN/J6VBg38BtRyg6tUi0441BerYvqqERbY5ZKOVI+wb7i6xtLqXwUshfZgLaRnB07bpKmUHwte9wXQdEoLqDU2sbzXygRmSN35CmghxYFJfrRFA8A6J7uEGOPn3qNizTXLo2KZm7MmnQghnQ8smw6Lwc9pwKSpH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kh487zOV; arc=none smtp.client-ip=209.85.210.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BelQZOFy"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-857ff9fef54so34605327b3.1
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 14:00:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kh487zOV"
+Received: by mail-ot1-f48.google.com with SMTP id 46e09a7af769-7f4ea388ba6so3711339a34.0
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 14:03:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788814855; x=1789419655; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7rH8a/3SZZAFRvaRNDsd7d/w4Gg4tRvrphTeTE7xNaI=;
-        b=BelQZOFyhy/SE5M1BNMR8p8ILbJV23Xyr79I4JF86Ipfem9HHNAMOoeWrXE0vsjX35
-         LEIcfOda3ryReuTOs1LVrg2nHbEpI80B9Ig2WLJltZAmBSPCFjRPQToqNlvOmdRkCG1t
-         g6LsR6MPGh3Q2rnd2PveH2NZYuDS1n+nnoYPXPKaCM4nwt/mbEGW7ouaGD98+mCEbuba
-         ZEXYfZF9Ix291uqWhUPcNIxJwNrmjV7XVKyJ+WtB6fM7344MDalu5WunINQTPxtLzmAZ
-         YSJv7qNWCtfzQDw3+WK0TvZ/iCzaOzx8GOlm7IVfCqLrYVTYJu6h52R4Djp8qK/hO++M
-         alVw==
+        d=gmail.com; s=20251104; t=1788814998; x=1789419798; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=tpw9Qu/qg2Vc6uWyZCIa2wBsFTsdsQiRWzmo291uKVI=;
+        b=Kh487zOVdJ8ZgypwqakXzsj7vC4FC6YY+hbJKK59r3bPWoMU5njv5b6VuSb8DXNvgA
+         S/aNUFY1wmlgSwOOlI9x9pledh0wy6rRkKD6lWEs4ZRGA3Oc0ALOmWSzuCbJHM+OScbV
+         gueAYMBpw+SkggPu+OKk4srOdF/dX4JoELXt9X41TSbjc6VwEG2wVkHuNTOxDKv0vUS9
+         lTbA4Vzvx3OlNjdBf7UyAQdir9VNCk3nCWwU1h0AZw4UDqbeR0A+fqNnAFGg6yUsYlSb
+         Uyy6Idu7luR3bCiDx17j/mlLTlJIpprZoXeHjy4gDMvgpHjQYs2JhaDQXZL560or8796
+         y4Cw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788814855; x=1789419655;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7rH8a/3SZZAFRvaRNDsd7d/w4Gg4tRvrphTeTE7xNaI=;
-        b=nXjredCF8vZBTby8SYXxuGtRmDM5b5VTWlvAHJ7qdUf54OqHRdgYZRew55x3AVoFeU
-         kWaizF0vuBl2LW7jtuIh03YtpSlV4J30EmJCUwMpzfCXP+4ghfpXX7qh0RzWKdH7lUxW
-         C+b3ujhoPWXHNpL5PMjhPsCdLnj9xxVcUBYpaUJbQjhdhJQvxGCJlBjKSt00Lco2g5Ek
-         HIZILU3PUVUH+sUR/Q5JEqXP44ER7e2lphagGgxGgmaJX6rQFpCCxHWmQtDUa1+4AmZf
-         jHrrcvMabXspo2ZB4PNOFKexxLbjzqDYDvanyrL73lgQrwwIYsIo8LI2DxAbGokvDvJN
-         VVXg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIXQDk/UYQ47Z38ve2PYfaO/d0gkOgJ5qZD3emaHswknRMnuZHCW5fuaIdR9idjIj0+MTVOWyqQ35r@vger.kernel.org
-X-Gm-Message-State: AFuF++nm1z79sc7CSDyzcQy1wSJ+58ipGrvle6LswbWoYsxCrrZn4F4L
-	v34yIN2mPgQuHBXPava7z0jzho6XcMzQlxQkvVGiW2Yaj8/SSYPwuBSH
-X-Gm-Gg: AYBFou2JfpywjHmk1pTvKwYUt8r13vrjpg/z1ebnITrGgFHlPH9y7npHUlqDfS44EZ6
-	K4aVr5m45JTklp7PVRGItG7um9IJ/4iO7dOnjILNxK48kMV7sZB238T3BLfTJWj4Cq0Ty56SECj
-	94OqCCt5sV8YRMtxZcBXTiEvAMc2hBthNp4iiXWuwbTm7fV5t+qq8Mj8QkUNU/fWK9f6wOUm4tR
-	gZvL+AKMhK2Q1Hv46xxVLwZyT5R1pEI8QKmvQuWoO4owkAG0IqG3BbdLAZwF4r6UDJ9ejrYIXHR
-	oUFyYpeO+VwDed7yCcWASFalOqrFyE4/yP4RuX+7vU29odd1Sj2kAcVjlcnEC98nJD2kNVurNG9
-	zxLIIDqnNO85tqxnWspkzppvlp3JzvR8eJ1NPT3yHYo941dso5rCeHgthGkpYQl5jr/fYh2RPsD
-	t3sXh3So65Jk/IIDJVulGXOwEkl1zGdB68UT3yQIouiyA=
-X-Received: by 2002:a05:690c:9:b0:87c:9141:749e with SMTP id 00721157ae682-87c914177fcmr8760837b3.3.1788814854933;
-        Mon, 07 Sep 2026 14:00:54 -0700 (PDT)
-Received: from localhost ([2600:1700:5431:250::1e])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8714b720e57sm77609007b3.40.2026.09.07.14.00.54
+        d=1e100.net; s=20251104; t=1788814998; x=1789419798;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=tpw9Qu/qg2Vc6uWyZCIa2wBsFTsdsQiRWzmo291uKVI=;
+        b=eYkw4OeqwIVKJPA6U8Vb1DHiArW86cx5TJ8lGWdg5jNo7Mx1GBGkzR63F+cpBlYzdO
+         88IsDDMaVKMTerGYQhrZrXSDK9/LTXMHQtZB9jLLG+sQDqpBRZb6DVw55OsTOmQAQgCv
+         wpnOJv8Nh2GQBdBWmwdf0yiqnMWXvt50sBr2SX8s5PU0rAUHShxNNm+V8XmrF8J00x3I
+         +6CkiM3Ka3EoW14n/6B30P3AMIjOdwKQ6XJWg3UplFzF7YjZAnJBMg/QCCttuaMlzw/t
+         oF75IamnBUE8RiN+nVOlvfV32rw9XS/m71+chRhYnaIB62AJtBxOHk8rEV/vU4LDDGMg
+         Pbpw==
+X-Forwarded-Encrypted: i=1; AKwUvBwsqz+98cm12buGvR7QfyYd7IMy2J1kZQH+/uSbb7QvMjzKLmCJlLsW10lFzqxCsnfP9Q44t4O1qX6g@vger.kernel.org
+X-Gm-Message-State: AFuF++k9TWcJZt1wtmR4tJThEej0VNzeU9VZWnnrAv1h4zsV6B/+z+GX
+	PEGlkYnQw2RpgPOS8xuUNye6lCz/PHoP5yAwAYtxTkgGwORSg/++w/sA
+X-Gm-Gg: AYBFou0iIyEU6z//DPC/8uj/addm920PxNZiRgk8nVpYsHsn0zeLkrmjCe2OUQCE90S
+	op94fA+CI9r73/+DJZcR0UvNc6PTsijjuH+UzlFqdWz6gnbMTPeMu55/fAMEYipKClqkikq84/F
+	fHtL5Me9zqoRMoHUwZ56dAF/KErr0fIdgJDuutvfXe1SdRSLIRs+s3Q+Uv381thUHEaKa6gfAZn
+	Nil7Pe6oh15iriStBZcD9TifoWrprCLqYIr/RBJF5FnrplGDBdbpxHCcJjop+kofsa+I7VHbteD
+	dcBWb3UulvCBFqfPk4cnrjadLWq4joRRSEjoyxcWh4rw8l3aY5/OkQilH3maIjKJM1pBjaYCX7u
+	gPxymzddGO2qWp5T7Fm3Sii1ELCJzTXXqEX0Srr633bS3u0Bz8ZsEwAyFud3A/mDlEN87Qkm/4E
+	uBl1hO5mlAtxR8D3CSu23IfBeHDTUAUla4yzUxxbSW8KB1gY6o/I4spfW+jdcPzTCQyrhK/PBKv
+	qu1F4YVuykeABQPEE41uj4bYLRpg5C8x/uZgKJIrsmBCFa/DYFV1Ups9LkBu1oUIGhsYLkBW9bu
+	azxbx9nqthbL/rmgw+2Ph4xFHeVzeI+dI+HbuD0hSObkYISHspkhLl8LDpuvsu5gh1uf2Ah5uaC
+	DpEUHkye7tlIeCc3HLqwPvPC7dfMYWw==
+X-Received: by 2002:a05:6830:6736:b0:7fa:5c49:5237 with SMTP id 46e09a7af769-7fa5c49544cmr14692047a34.16.1788814997753;
+        Mon, 07 Sep 2026 14:03:17 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fc68d5ae2bsm6640077a34.3.2026.09.07.14.03.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 14:00:54 -0700 (PDT)
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Yu <marcus.yu.56@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH v2 2/2] iio: light: add AS7343 multi-spectral sensor driver
-Date: Mon,  7 Sep 2026 14:00:42 -0700
-Message-ID: <20260907210042.32552-3-marcus.yu.56@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260907210042.32552-1-marcus.yu.56@gmail.com>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
+        Mon, 07 Sep 2026 14:03:17 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v11 0/2] mfd: add X-Powers AC200 support
+Date: Mon, 07 Sep 2026 15:03:13 -0600
+Message-Id: <20260907-submit-ac200-mfd-v11-0-58dd9dc7f69a@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOTU7DMBAF4KtUXmM0HmJ73BX3QCz82xqRBCXBa
+ lXl7jgFqVEbieUbzXxvLmyMQ44j2+8ubIglj7nvahDiacf80XaHyHOoA4aACkgIPn67Nk/cegT
+ gbQqcnA0qgIlIktWzryGmfLqab++/ud58RD8tzrJxzOPUD+draZHL3h8P5safKt8nHs6dbbPnR
+ fAiOXCXrEgkBTmk10Nr8+ez71u2FBW1orY+LaoCXjqBBj015gHQ/wG6AuRAJSnRNkHfA3QDDOA
+ GQBVAa0FpBEfW3wNmDbxsAKYCyukYUJMh8wAIWAtqQxBQiSQRIwWPLjRrYp7nHzpQVWAUAgAA
+X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
+To: Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ James Hilliard <james.hilliard1@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ linux-sunxi@lists.linux.dev, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
 
-This patch adds a driver for the AMS AS7343 14-channel multi-spectral
-sensor with I2C interface.
+The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with a
+paged register map shared by its audio, video, RTC and Fast Ethernet PHY
+functions.
 
-The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
-via the IIO sysfs interface. Each channel's raw data is provided as a
-16-bit little-endian unsigned integer.
+Add a complete binding and an MFD provider with audio codec and TV encoder
+cells. Describe the audio DAI, analog supply inputs, TV encoder display
+graph and optional bandgap calibration in the parent node, without
+separate function nodes.
 
-Basic power management (suspend/resume) is supported. More complex
-features such as auto-suspend, interrupts, and configurable
-gain/integration time will be added in future patches.
+INTB is optional. When connected, pass the physical IRQ to the TV encoder
+cell for shared, threaded interrupt handling. There is no DT interrupt
+controller or private IRQ domain. The ASoC codec and DRM bridge drivers
+remain separate subsystem work.
 
-Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+The PHY remains enumerated on MDIO. Its separately submitted driver uses
+the x-powers,ac200 phandle, a managed device link and dev_get_regmap() for
+ancillary I2C register access:
+
+  https://patch.msgid.link/20260906-submit-acx00-of-dynamic-v1-v10-0-dd272e03b547@gmail.com
+
+The two series can be merged independently; AC200 Ethernet requires both.
+This series is based on the MFD for-mfd-next branch.
+
+The binding and MFD implementation adapt earlier work by Jernej Skrabec
+and Andre Przywara, retaining their sign-off chain:
+
+  https://github.com/jernejsk/linux-1/commits/opi3-eth/
+
+Public documentation is linked from https://linux-sunxi.org/AC200.
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
-Changes in v2:
-  - Adjust the default gain to x256 and integration time to 50.1ms as
-  recommended by the datasheet.
-  - Use read_label instead of .extend
-  - Remove all unused scan_index related constants.
-  - Add missing calls to pm_runtime_* methods in probe.
-  - Fix various code style issues
+Changes in v11:
+- fold the codec and TV encoder properties into the AC200 parent node
+  while retaining separate Linux MFD cells (requested by Conor Dooley)
+- describe only the optional physical INTB connection; remove the DT
+  interrupt-controller properties and internal interrupt-number header
+- replace the regmap IRQ controller with a shared physical IRQ resource
+  for the TV encoder, omitted when INTB is not connected
+- mask all sources before enabling INTB and leave per-source interrupt
+  handling to the function drivers
+- pass static const MFD cell arrays directly to the core, without copying
+  or filtering them by DT child nodes; share the cell initializers between
+  the IRQ and no-IRQ arrays
+- map the function supplies to the parent using MFD supply aliases and
+  clarify that the distinct AC_LDOIN and TV_VCC inputs may share a regulator
+- remove the DMA-mask workaround now that the cells have no OF nodes
+- drop the binding Reviewed-by tag, which covered the earlier parent-only
+  binding (requested by Conor Dooley)
+- Link to v10: https://patch.msgid.link/20260906-submit-ac200-mfd-v10-0-f522e8dc2bd4@gmail.com
 
- MAINTAINERS                |   1 +
- drivers/iio/light/Kconfig  |  11 ++
- drivers/iio/light/Makefile |   1 +
- drivers/iio/light/as7343.c | 372 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 385 insertions(+)
- create mode 100644 drivers/iio/light/as7343.c
+Changes v9 -> v10:
+- combine the parent and function bindings into one complete binding patch
+  (requested by Conor Dooley)
+- introduce the complete MFD provider, IRQ controller and function cells in
+  one driver patch, reducing the series from four patches to two
+- retain the existing sign-off chains for the adapted binding and MFD work
+- allow enabled codec and TV encoder nodes when INTB is not connected;
+  require the parent IRQ path only when a TV encoder interrupt is declared
+  or the parent advertises an interrupt controller
+- add an unwired TV encoder example
+- move the existing 40 ms wait before constructing and publishing the
+  regmap, and clarify its origin in the vendor resume path
+- use automatic platform-device IDs so MFD children from multiple AC200
+  instances cannot collide
+- initialize the parent's DMA mask for its non-DMA children, avoiding
+  "DMA mask not set" warnings during child enumeration
+- explicitly request level-low when no upstream IRQ trigger is configured
+- keep INTB disabled until source masking and handler setup are complete,
+  and disable it before releasing the IRQ chip on failure or removal
+- narrow reset-preservation claims to avoiding a provider-initiated global
+  reset; supplier unbind still tears down consumers and releases clocks
+- Link to v9: https://patch.msgid.link/20260903-submit-ac200-mfd-v9-0-6b7ed278989c@gmail.com
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8cf4e1635053..236102b3c28e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1435,6 +1435,7 @@ M:	Chang Yu <marcus.yu.56@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-+F:	drivers/iio/light/as7343.c
- 
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index ef36824f312f..edbeeba9d873 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -149,6 +149,17 @@ config AS73211
- 	 This driver can also be built as a module.  If so, the module
- 	 will be called as73211.
- 
-+config AS7343
-+	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	 Say Y here to build support for the AMS AS7343 14-channel
-+	 multi-spectral sensor.
-+
-+	 To compile this driver as a module, choose M here: the module will
-+	 be called as7343.
-+
- config BH1745
- 	tristate "ROHM BH1745 colour sensor"
- 	depends on I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index 64e354c49ed8..5d0d33802519 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_APDS9306)		+= apds9306.o
- obj-$(CONFIG_APDS9960)		+= apds9960.o
- obj-$(CONFIG_APDS9999)		+= apds9999.o
- obj-$(CONFIG_AS73211)		+= as73211.o
-+obj-$(CONFIG_AS7343)		+= as7343.o
- obj-$(CONFIG_BH1745)		+= bh1745.o
- obj-$(CONFIG_BH1750)		+= bh1750.o
- obj-$(CONFIG_BH1780)		+= bh1780.o
-diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-new file mode 100644
-index 000000000000..f8ee0f2e7392
---- /dev/null
-+++ b/drivers/iio/light/as7343.c
-@@ -0,0 +1,372 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Support for AMS AS7343 14-channel multi-spectral sensor.
-+ * (7-bit I2C slave address 0x39)
-+ *
-+ * Based on the work of:
-+ *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
-+ *
-+ * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
-+ *
-+ * Datasheets:
-+ *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-+ *
-+ * TODO:
-+ *   - Autosuspend
-+ *   - Support for configurable gain and integration time
-+ *   - Interrupt support
-+ *   - Add support for reading the VIS channel
-+ *   - Flicker detection
-+ */
-+
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/sysfs.h>
-+
-+#include <linux/iio/iio.h>
-+
-+/* AS7343 registers */
-+#define AS7343_ID	    0x5a
-+
-+#define AS7343_ENABLE	    0x80
-+#define AS7343_ENABLE_PON   BIT(0)
-+#define AS7343_ENABLE_SP_EN BIT(1)
-+
-+/*
-+ * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-+ * Setting a 30 * 1.67ms = 50.1ms integration test as the default for now.
-+ */
-+#define AS7343_ATIME			   0x81
-+#define AS7343_ATIME_VAL		   29 /* (29 + 1) = 30 steps */
-+#define AS7343_ASTEP			   0xd4
-+#define AS7343_ASTEP_VAL		   599 /* 1.67ms step size */
-+
-+#define AS7343_CFG0			   0xbf
-+#define AS7343_CFG0_REG_BANK		   BIT(4)
-+
-+#define AS7343_CFG1			   0xc6
-+#define AS7343_CFG1_AGAIN		   GENMASK(4, 0)
-+#define AS7343_CFG1_AGAIN_X0_5		   0
-+#define AS7343_CFG1_AGAIN_X1		   1
-+#define AS7343_CFG1_AGAIN_X2		   2
-+#define AS7343_CFG1_AGAIN_X4		   3
-+#define AS7343_CFG1_AGAIN_X8		   4
-+#define AS7343_CFG1_AGAIN_X16		   5
-+#define AS7343_CFG1_AGAIN_X32		   6
-+#define AS7343_CFG1_AGAIN_X64		   7
-+#define AS7343_CFG1_AGAIN_X128		   8
-+#define AS7343_CFG1_AGAIN_X256		   9
-+#define AS7343_CFG1_AGAIN_X512		   10
-+#define AS7343_CFG1_AGAIN_X1024		   11
-+#define AS7343_CFG1_AGAIN_X2048		   12
-+
-+#define AS7343_CFG20			   0xd6
-+#define AS7343_CFG20_AUTO_SMUX		   GENMASK(6, 5)
-+#define AS7343_CFG20_AUTO_SMUX_READOUT_ALL 3 /* all-channel readout */
-+
-+#define AS7343_ASTATUS			   0x94
-+
-+/* AS7343 data registers */
-+#define AS7343_DATA_FZ	0x95
-+#define AS7343_DATA_FY	0x97
-+#define AS7343_DATA_FXL 0x99
-+#define AS7343_DATA_NIR 0x9b
-+#define AS7343_DATA_F2	0xa1
-+#define AS7343_DATA_F3	0xa3
-+#define AS7343_DATA_F4	0xa5
-+#define AS7343_DATA_F6	0xa7
-+#define AS7343_DATA_F1	0xad
-+#define AS7343_DATA_F7	0xaf
-+#define AS7343_DATA_F8	0xb1
-+#define AS7343_DATA_F5	0xb3
-+#define AS7343_MAX	0xff
-+
-+/* AS7343 channel indices. MUST match data register order above. */
-+#define AS7343_CHAN_IDX_FZ  0
-+#define AS7343_CHAN_IDX_FY  1
-+#define AS7343_CHAN_IDX_FXL 2
-+#define AS7343_CHAN_IDX_NIR 3
-+#define AS7343_CHAN_IDX_F2  4
-+#define AS7343_CHAN_IDX_F3  5
-+#define AS7343_CHAN_IDX_F4  6
-+#define AS7343_CHAN_IDX_F6  7
-+#define AS7343_CHAN_IDX_F1  8
-+#define AS7343_CHAN_IDX_F7  9
-+#define AS7343_CHAN_IDX_F8  10
-+#define AS7343_CHAN_IDX_F5  11
-+
-+#define AS7343_CHAN(_chan)                                    \
-+	{                                                     \
-+		.type = IIO_INTENSITY,                        \
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-+		.address = AS7343_DATA_##_chan,               \
-+		.indexed = 1,                                 \
-+		.channel = AS7343_CHAN_IDX_##_chan,           \
-+	}
-+
-+static const struct iio_chan_spec as7343_channels[] = {
-+	AS7343_CHAN(FZ), AS7343_CHAN(FY), AS7343_CHAN(FXL), AS7343_CHAN(NIR),
-+	AS7343_CHAN(F2), AS7343_CHAN(F3), AS7343_CHAN(F4),  AS7343_CHAN(F6),
-+	AS7343_CHAN(F1), AS7343_CHAN(F7), AS7343_CHAN(F8),  AS7343_CHAN(F5),
-+};
-+
-+struct as7343_data {
-+	struct regmap *regmap;
-+};
-+
-+static int as7343_read_raw(struct iio_dev *indio_dev,
-+			   struct iio_chan_spec const *chan, int *val,
-+			   int *val2, long mask)
-+{
-+	struct as7343_data *data = iio_priv(indio_dev);
-+	int ret;
-+	unsigned int unused;
-+	u16 result;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		/*
-+		 * Reading ASTATUS latches all data registers to this read.
-+		 * We don't care about the returned saturation/gain status for
-+		 * now.
-+		 */
-+		ret = regmap_read(data->regmap, AS7343_ASTATUS, &unused);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_bulk_read(data->regmap, chan->address, &result, 2);
-+		if (ret)
-+			return ret;
-+
-+		*val = le16_to_cpu(result);
-+		return IIO_VAL_INT;
-+	}
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static const char *as7343_channel_label(struct iio_chan_spec const *chan)
-+{
-+	switch (chan->channel) {
-+	case AS7343_CHAN_IDX_FZ:
-+		return "FZ";
-+	case AS7343_CHAN_IDX_FY:
-+		return "FY";
-+	case AS7343_CHAN_IDX_FXL:
-+		return "FXL";
-+	case AS7343_CHAN_IDX_NIR:
-+		return "NIR";
-+	case AS7343_CHAN_IDX_F2:
-+		return "F2";
-+	case AS7343_CHAN_IDX_F3:
-+		return "F3";
-+	case AS7343_CHAN_IDX_F4:
-+		return "F4";
-+	case AS7343_CHAN_IDX_F6:
-+		return "F6";
-+	case AS7343_CHAN_IDX_F1:
-+		return "F1";
-+	case AS7343_CHAN_IDX_F7:
-+		return "F7";
-+	case AS7343_CHAN_IDX_F8:
-+		return "F8";
-+	case AS7343_CHAN_IDX_F5:
-+		return "F5";
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static int as7343_read_label(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan, char *label)
-+{
-+	const char *name;
-+
-+	name = as7343_channel_label(chan);
-+	if (!name)
-+		return -EINVAL;
-+	return sysfs_emit(label, "%s\n", name);
-+}
-+
-+static const struct iio_info as7343_info = {
-+	.read_raw = as7343_read_raw,
-+	.read_label = as7343_read_label,
-+};
-+
-+static const struct regmap_config as7343_regmap_config = {
-+	.name = "as7343",
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = AS7343_MAX,
-+	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-+{
-+	unsigned int val;
-+	u16 step;
-+	int ret;
-+
-+	/* Power on */
-+	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_PON);
-+	if (ret)
-+		return ret;
-+
-+	/* Need to set REG_BANK to 1 before we can access ID */
-+	ret = regmap_set_bits(data->regmap, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(data->regmap, AS7343_ID, &val);
-+	if (val != 0x81)
-+		dev_info(dev, "Unknown device ID: %x\n", val);
-+
-+	ret = regmap_clear_bits(data->regmap, AS7343_CFG0,
-+				AS7343_CFG0_REG_BANK);
-+	if (ret)
-+		return ret;
-+
-+	/* Configure the SMUX to readout all channels */
-+	ret = regmap_update_bits(
-+		data->regmap, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
-+		FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-+			   AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-+	if (ret)
-+		return ret;
-+
-+	/* Set 50.1ms integration time and x256 gain for now */
-+	step = cpu_to_le16(AS7343_ASTEP_VAL);
-+	ret = regmap_bulk_write(data->regmap, AS7343_ASTEP, &step, 2);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(data->regmap, AS7343_ATIME, AS7343_ATIME_VAL);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_update_bits(data->regmap, AS7343_CFG1, AS7343_CFG1_AGAIN,
-+				 FIELD_PREP(AS7343_CFG1_AGAIN,
-+					    AS7343_CFG1_AGAIN_X256));
-+	if (ret)
-+		return ret;
-+
-+	/* Start measurements */
-+	return regmap_set_bits(data->regmap, AS7343_ENABLE,
-+			       AS7343_ENABLE_SP_EN);
-+}
-+
-+static int as7343_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+
-+	return regmap_clear_bits(data->regmap, AS7343_ENABLE,
-+				 AS7343_ENABLE_SP_EN);
-+}
-+
-+static int as7343_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+
-+	return regmap_set_bits(data->regmap, AS7343_ENABLE,
-+			       AS7343_ENABLE_SP_EN);
-+}
-+
-+static void as7343_suspend_action(void *data)
-+{
-+	as7343_suspend(data);
-+}
-+
-+static int as7343_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct as7343_data *data;
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	data = iio_priv(indio_dev);
-+	i2c_set_clientdata(client, indio_dev);
-+	data->regmap = regmap;
-+
-+	indio_dev->name = "as7343";
-+	indio_dev->info = &as7343_info;
-+	indio_dev->channels = as7343_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = devm_regulator_get_enable(&client->dev, "vdd");
-+	if (ret)
-+		return ret;
-+
-+	ret = as7343_setup_device(dev, data);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to add suspend action\n");
-+
-+	ret = pm_runtime_set_active(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to activate PM runtime\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable PM runtime\n");
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops, as7343_suspend, as7343_resume,
-+				 NULL);
-+
-+static const struct of_device_id as7343_of_match[] = {
-+	{ .compatible = "ams,as7343" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, as7343_of_match);
-+
-+static const struct i2c_device_id as7343_id[] = {
-+	{ .name = "as7343" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(i2c, as7343_id);
-+
-+static struct i2c_driver as7343_driver = {
-+	.driver = {
-+		.name           = "as7343",
-+		.of_match_table = as7343_of_match,
-+		.pm             = pm_sleep_ptr(&as7343_pm_ops),
-+	},
-+	.probe      = as7343_probe,
-+	.id_table   = as7343_id,
-+};
-+module_i2c_driver(as7343_driver);
-+
-+MODULE_AUTHOR("Chang Yu <marcus.yu.56@gmail.com>");
-+MODULE_DESCRIPTION("AS7343 14 Channel Multi-Spectral Sensor driver");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0
+Changes v8 -> v9:
+- deassert common reset without first resetting the entire chip
+- leave common reset deasserted during removal and shutdown, avoiding a
+  provider-initiated chip-wide reset
+  (reported by Sashiko and queried by Lee Jones)
+- stop storing the regmap as unused driver data after dropping teardown
+  callbacks
+- describe the audio codec and TV encoder MFD children
+- add the AC200 interrupt definitions and shared regmap IRQ controller
+- register only enabled, DT-described codec and TV encoder function devices
+- retain Jernej Skrabec and Andre Przywara's authorship and sign-off chain
+  for the adapted child and MFD work
+- make the base provider depend on COMMON_CLK before child support is added
+- require an upstream interrupt when the parent is an interrupt controller
+- credit Jernej Skrabec in the module metadata
+- exercise child enumeration and parent-regmap access with temporary probes
+- rebase on the current MFD for-mfd-next branch
+- verify register-state preservation across supplier unbind and rebind
+- Link to v8: https://patch.msgid.link/20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com
+
+Changes v7 -> v8:
+- identify the PHY series as the current regmap consumer
+- describe future MFD children and the MDIO/I2C split
+- store the regmap directly as driver data  (suggested by Lee Jones)
+- reset the chip from the remove callback  (suggested by Lee Jones)
+- drop the revision log and inherited-driver attribution  (suggested by Lee Jones)
+- add Krzysztof's Reviewed-by tag to the binding
+- rebase on the current MFD for-mfd-next branch
+- Link to v7: https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
+
+Changes v6 -> v7:
+- drop the managed external-syscon helper and AC200 syscon registration
+- leave the regmap attached to the I2C provider for direct device lookup
+- reduce the MFD series from three patches to two
+- Link to v6: https://patch.msgid.link/20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com
+
+Changes v5 -> v6:
+- split the MFD work from the independently mergeable networking series
+- rebase on the MFD for-mfd-next branch
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
+
+---
+James Hilliard (2):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: ac200: Add X-Powers AC200 support
+
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 168 +++++++++++++++
+ MAINTAINERS                                        |   8 +
+ drivers/mfd/Kconfig                                |  14 ++
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ac200.c                                | 231 +++++++++++++++++++++
+ 5 files changed, 422 insertions(+)
+---
+base-commit: b07adc1a304c7ca9ac25a01051561538757363c9
+change-id: 20260811-submit-ac200-mfd-8bad6d09e285
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
