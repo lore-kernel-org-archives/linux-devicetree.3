@@ -1,78 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAAD0440A0F;
-	Mon,  7 Sep 2026 12:22:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6698E41D65E
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783726; cv=none; b=ZG5I17EBSOA5FqoNafOdt75LvbS1XuxnKtgZ7lEz54PXgEDINfETIu5axjoODfB2NYap5qHx4zZI22mrVzR139m0rw70W4Rcy4Vq+TLifrGKDnZCmBymu6k+2wcghDMsPftH9HnLe1vG6ADrQ4r5l4OZbB0smGxOaOwacr1yFto=
+	t=1788783840; cv=none; b=h0J1cPAnIcOWR/DiuuFMDcUwfaGtsj1Gyzrqwt813tyZe0SKu2soti3E/Vzej+t4ARBHOTaYjj4iHrbODNciPbrmKFN3clXbMXxgRyDrX5kIvTqtmKwAHv1HVLsVBzVvGQ2WOZmyvn7Gea6pThWNeXHRxAfguNkh15Ee6RXzeDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783726; c=relaxed/simple;
-	bh=qDnMEAWOKW9jufidJgQLa/RqSOYYfw1M7rAq1pL6kc4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TI6qkLs2ZrfmoPnN85RBaOnJbapGyAo+BA7xYguwIC2hy8+miT01/siD7ADni7a/bnYLZ2pe43DEBdxhzQ7/QCXte1Pr9/gtevAOLPRwmtYB/2KcLP25zJUm4DaN7IfStWs8FJ2o396+8+c1zSuvLVOm9JOu1XJA0HrkLtmcWq4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6AvZgN3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788783840; c=relaxed/simple;
+	bh=mPSc1Vd/Mjj2mHocKe2XHbgAlipjnDgVkAmW3xQaTvU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AJf+RMpjQKKaEtf64VLN/77h9OTqPZ9bFJftIfsVKkluAyt1VzOAzam6vWyRJ63gWNl87PTjyKpMPmGesK6uKvda+Glb6DADbW0E/ITuPMwOW7EiUGHtq1QDhjcnzzoBt5H8UMp6Y85yNdhVuMqOC9tlrz1hPurEvugsnu1p6RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yf7Svchx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6AvZgN3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A621F00A3A;
-	Mon,  7 Sep 2026 12:21:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yf7Svchx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1161F00A3A;
+	Mon,  7 Sep 2026 12:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783724;
-	bh=Z5dMsJgOkpAowt+uKcJuy46JvhgdZiO/LaIkQAC/NDM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a6AvZgN3ZlIdJ+lAGWpZ241rFPEhbbMAseDVBKov1HaC9IJUo8xpJtOwtwBpPYUB5
-	 BWnORYSW+go5KZGDzwDlfnt80FQo2dGOcUjkbpnlMgFB7Fk5y4KCDDBCDGLdY0Avfv
-	 z1w3dB80h6lNYelEEqQ7jVw0iWusZfn9leLFBEGjkvGQofWtJu+qx4Edv8MxWZu1B8
-	 0S0ygfedvP7zX6h7EqOuCU0lgKLMTWI0l4xfHjfYHJmN3m78iKWOKPhuw/Ja96Vuka
-	 ABmVflTy6nuxBgyMMoQQy5qdVhkYMUII1LrmEsn7Isz+r9j715rR/R/DBb2+d5w9Sr
-	 639H3L7g3lTaQ==
-Date: Mon, 7 Sep 2026 14:21:54 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: george.moussalem@outlook.com
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v3 06/12] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp:
- Improve error handling in power_on
-Message-ID: <wb2tff2ljszeqld5yvxmurggp5fdh7vdmvij4vi5f7a7qld4jy@chyv3hpxj5h2>
-References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
- <20260825-ipq5018-usb3-v3-6-39be0955a6aa@outlook.com>
+	s=k20260515; t=1788783839;
+	bh=dVW539Um+lYGYsuWWy765I1no8NfdR+lfq5r+98zJQs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Yf7SvchxEoYUkKrkOVf/F6jYDzGSfgnMqFCxs3I8HOSKqLdzacDNXrEt+kz9C2Q7Z
+	 wbgQ9oPIc3KFXnfbBqtn1gxCedtQbIZKKxKR4RKGUdzhj0A1lE92GhRRzF/DdQPI7H
+	 7jFe4LFkHj/r/dYPOz77F1TO4B9rNv4u3zosl6ZveDJgnWaqCKim0A3MuS0RkRNkBy
+	 63Y8OXEDHJrxcA+7YmJWGf15DRJL7+wjaMSqvlriMzuMagoff1fBTgOSOjHckH3MGT
+	 OBgBns1Rl7a7o2pFyHxZrja82iO7kJTihb0ZyWPDWejoMxogAvAxtlGv4riPfK6/gv
+	 Q3dSGLGhxfv0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 03/10] ASoC: qcom: Add QAIF hardware register map
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260907-b4-qaif-shikra-audio-v5-3-6d8ad9ba5c9f@oss.qualcomm.com>
+References: <20260907-b4-qaif-shikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com>
+ <20260907-b4-qaif-shikra-audio-v5-3-6d8ad9ba5c9f@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 12:23:58 +0000
+Message-Id: <20260907122358.BD1161F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260825-ipq5018-usb3-v3-6-39be0955a6aa@outlook.com>
 
-On Tue, Aug 25, 2026 at 04:37:23PM +0400, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Critical] The QAIF_EE_*_MAP_REG macros have incorrect base addresses due=
+ to an arithmetic typo (using truncated base values like `0x1920` instead o=
+f values in the `0x19000` EE block), resulting in accesses to unmapped memo=
+ry regions.
+- [Low] Missing `_REG` suffix on RAW_STAT macros for WRDMA and RDDMA Error =
+Responses.
+--
 
-Subject should clearly mention that this patch is adding the missing PHY assert
-in err paths.
+commit 7629bdb576e93d9171f876d77ffa9606caac557c
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-> When the PHY fails the enable clocks, it leaves the PHY out of reset.
+ASoC: qcom: Add QAIF hardware register map
 
-s/the/to
+This commit adds the QAIF hardware block MMIO register offsets in a new
+header file. It defines accessor macros to select the appropriate DMA
+register sets based on the DAI ID for the core registers, interfaces,
+and execution engine (EE) contexts.
 
-> Fix this by asserting the reset before returning the error.
-> 
-> In addition, language correct the error messages.
-> 
+> diff --git a/sound/soc/qcom/qaif-reg.h b/sound/soc/qcom/qaif-reg.h
+> new file mode 100644
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-reg.h
 
-Again, don't sneak changes in.
+[ ... ]
 
-- Mani
+> +#define QAIF_EE_RDDMA_ASSIGNMENT_REG(v)			(0x19148 + (0x1000 * ((v)->ee)=
+))
+> +#define QAIF_EE_WRDMA_ASSIGNMENT_REG(v)			(0x19150 + (0x1000 * ((v)->ee)=
+))
+> +#define QAIF_EE_INTF_ASSIGNMENT_REG(v)			(0x19158 + (0x1000 * ((v)->ee)))
+> +#define QAIF_EE_CODEC_RDDMA_ASSIGN_REG(v)		(0x19308 + (0x1000 * ((v)->ee=
+)))
+> +#define QAIF_EE_CODEC_WRDMA_ASSIGN_REG(v)		(0x19318 + (0x1000 * ((v)->ee=
+)))
+> +#define QAIF_EE_RDDMA_MAP_REG(v)			(0x1920 + (0x1000 * ((v)->ee)))
+> +#define QAIF_EE_WRDMA_MAP_REG(v)			(0x1940 + (0x1000 * ((v)->ee)))
+> +#define QAIF_EE_INTF_MAP_REG(v)				(0x1960 + (0x1000 * ((v)->ee)))
+> +#define QAIF_EE_CODEC_RDDMA_MAP_REG(v)			(0x1980 + (0x1000 * ((v)->ee)))
+> +#define QAIF_EE_CODEC_WRDMA_MAP_REG(v)			(0x1A00 + (0x1000 * ((v)->ee)))
 
--- 
-மணிவண்ணன் சதாசிவம்
+[Severity: Critical]
+Does this arithmetic calculation result in out-of-bounds memory accesses?
+
+If v->ee > 0 (for example, v->ee =3D=3D 1), QAIF_EE_RDDMA_MAP_REG calculate=
+s to
+0x1920 + 0x1000 =3D 0x2920. Since the stride is 0x1000 and the other EE
+registers start in the 0x19000 block (e.g. 0x19148), does this mean 0x1920
+is a typo for a value in the 0x19000 range?
+
+Adding 0x1000 to the truncated base 0x1920 lands in an unmapped hole
+(0x2920) completely outside the intended EE block, which could cause a
+system bus fault (SError) and a kernel panic when written to during driver
+initialization. This same pattern seems to affect all five MAP_REG macros
+defined here.
+
+[ ... ]
+
+> +/* RDDMA Error Response Interrupts */
+> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_rddma_irq_reg_addr(=
+v, i, 0x50)
+> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_rddma_irq_reg_addr=
+(v, i, 0x58)
+> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_rddma_irq_reg_addr=
+(v, i, 0x60)
+
+[Severity: Low]
+This isn't a bug, but should this macro have a _REG suffix to match the
+naming convention of all the other raw stat macros in this file?
+
+[ ... ]
+
+> +/* WRDMA Error Response Interrupts */
+> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_wrdma_irq_reg_addr(=
+v, i, 0x00)
+> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_wrdma_irq_reg_addr=
+(v, i, 0x08)
+> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_wrdma_irq_reg_addr=
+(v, i, 0x60)
+
+[Severity: Low]
+Similarly, should this macro also include the _REG suffix?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-b4-qaif-sh=
+ikra-audio-v5-0-6d8ad9ba5c9f@oss.qualcomm.com?part=3D3
