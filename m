@@ -1,439 +1,105 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08E543B47CD
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 20:50:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814220; cv=pass; b=M6T3djmXsn3F9IuJDeP2ip0t8Ml3gXXI1Ax9hU+YfywFRY7xOR98x24bPYiu5vbhK+i5GfHYhM+kDQMvNc95Nv38Oge8IOSX2oRocyoCEHGVn9T01njbxbW6WpCn6kKydZT0QeSNoIlBVmqx1623sVWEog0gct1YECpteh/brAM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814220; c=relaxed/simple;
-	bh=t5lkYks03f0lapLNTPD7Yf2VD9f3/ex/p6KhGLTnYWY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TG2E7hNdBjajiZ4yFUNvV1P7NeZQYtYOUzNSrQxsp3o4PTVQ+EFCxfySOU2K9kKpnloPHVnowaLzzPiEzvQxWEeQRg/ki9OIrB3hIXN2WdPH35M7yia7aXBmmTAcr2hnD8UUO0KYwRzw/SbF3PB9S6Uu/5j2htsBdJYxusTyTHo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sxZZV71k; arc=pass smtp.client-ip=209.85.217.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262CF2D0C82;
+	Mon,  7 Sep 2026 20:52:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788814365; cv=none; b=g/1wGynpNyVE99h1JKNbYuCCTZVGP7rvhJtSZdjk/fyF/CAXkDYEicILiKUnHwoKXKovLYzOHtMFdhPL3Jkl3tZ4Q8qjxozJi1kZ9HtJI5nqSs6jtYDneRaqqkyc5jhN5uw1aQmzTCICYZw0FDwJiWkaeGBZbGC0pna9Hmve47Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788814365; c=relaxed/simple;
+	bh=OS5yHKjCG0V0UqBMJ63C4+kg84/5UefDRLfHjPEirdg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=J4SUbnyWaEEVEA7JS7/ukUNUpv9yWtXfA1HqRWHovsfs48GIYVe4X29pd5ATyB4ADYIaKJSYi/OVg/DZS9Eaq01wSwkv3EgmCW/t92zIFOoTpn7XeKcb2ps19UVULcodbo2lNbwMujXJ/sHVwplNpOp9T2XV1MnVyLuuLyMR3Gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2x8Miqj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sxZZV71k"
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-784a1696a21so2568288137.2
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 13:50:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788814217; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Lss9U0oFK/iZBp3oP4YZplae8g3aBl2epf1zpMXowAivgSZOTRB2V8jmqH6zSixYbV
-         9fVxAxP4xea+yYDJjtCO/ASdiTKebnWkag+1r5Bw07d0XXCk2CR1K+ku3PWnWAY6Hvz3
-         FdsppFzIfuEVwMtonHTOznWymTbKhhPeVZjbFGLO8DAnMRbIckPDTR0VvkB+inlyAdCk
-         0dkfbOSZiSMaThOvm0ALPYkxZUl+/llZ1GHXx7M5Qg634OcgoFrpXuG7HmFxjk1/Pz6k
-         RfqcmuOkENeJGiXYaeBcR6j4vCrB47xLVtFxJmftJOxPXh9MicVskrLE+Vng/x7v5Bmn
-         MFOw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mjfnZqizjVN7NjFTQ1u5HltmdduRJe/9atcwnkcBqCg=;
-        fh=qXKeTlb97nvWM9OrupczR/RtCG45UUkEMGWLIEeMk1w=;
-        b=labAcmLbelq2bqRxl3FHUN/KQ8TgticvMpMO/lbdSvUO+uxYhl03LtEh3pKwZKZGNw
-         BTEWMq0eIMK+2Fko6B8E/jlIID1sK4XKkUBqptJjfWmABMA6grS0EcJl9IlWzBAP5Toj
-         vQgnUxWm9ubP3PAmkj+EVenqEsKH1wrNfo3cpQXYZm9EzyKb49hRfciuYBWy7eO/dfn9
-         mslnCoCNf9egoAvlr2TuFhtpiNN/wabxjJ6jb7On356g2jEYbJxXL82D+WhtTVOqnhY9
-         UJLoQXnOOmqueNv7+pEIDnmIiy11o7DlKyNcZtaxC8ssVlUFqBum+trj/ktWTDfyiywf
-         YVgw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788814217; x=1789419017; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mjfnZqizjVN7NjFTQ1u5HltmdduRJe/9atcwnkcBqCg=;
-        b=sxZZV71kN545bZ4TLBNFukN5HQl1zOm3RweTbEmJnfWd1FwiYWxaQ8Kti7neUI6BKM
-         CYgVjsgRdrRfPKQU45JhASXTEQFpdTnk5aoAm3G+XZ2hvBrvNF6Tj3qxGE+2fH9TRnLp
-         3PMtnP/NT36KQWEYipv/M5Ysc79EgjK/+JVslWRY2Z8VUllLZWLe+7YEDWYTxxfi5Mym
-         DAlKaC75bXiUPCGMh0jHXvh53yD054872sTAEKL1Z4l5o7vQz9ZeMLIkydW0aQAP80XS
-         Ulou72OflodUTp3KhU+/H+1jE8AqZ8CyKgUL9fzfyTHrlSISoBMeeeHWrG+ax45gpELB
-         uowA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788814217; x=1789419017;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mjfnZqizjVN7NjFTQ1u5HltmdduRJe/9atcwnkcBqCg=;
-        b=I/qGIkg4am3Mm+ecXLVS+6YT6a1Nmkh2Y0A7bCF5u7un5L4lVXX1NmE3HmRYElizWp
-         q6fg8cV4YxrHdBU6wOxiZ2XSCaj3A6w5oftmSWFR1QKwFiW8ziX/DdUTndcXQOaey4dl
-         XxVufLp8HAMWkN3xogAmqrko7cIvSpD5EqeAXs4MQaBB0MEdArdmYw4Emz76hHEMY5aW
-         nucf6RdbM6tmXRfEbrAeoN+bN7ABETtUElDAFXQpHUgCxuDcrDsYifW6ZwI5L/X4/xN3
-         xCC/RqDJG0rt2lnjZ7qkBod7PP56IFdoHPaowsmEqJj69eb6PbXPNN0PFH/A5ofjRdO2
-         IKFA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0+L/ly4RWOdOAc29Q62+Oi8R75Gj0TqxZc1BGenFhZfxc8yet/8Iq4hsdkauIIstN4fNlFoWFPLwj@vger.kernel.org
-X-Gm-Message-State: AFuF++kWloLrwPF7kFP3AXVkLJPmXrkKguHb+DLQY0BUe5RS2bgxefh5
-	IEhjbljGm+jmo0T2GXjrLkRX+YOQEkQ8AvZvtkKkdnaSpgSIxV0ctI5Kl/HVroSwru6yqGeY7S5
-	+NQK8aZMDUSLtyGIuZQdhsxN5ZF3WDwk=
-X-Gm-Gg: AYBFou0ihT4nUfnNwYtuLyNV2y2EpeEd9odwLKMmXQeFkkyu8p18NZIk/yuXZbawVrX
-	HySImkqEl8OBdwAvQg3oLUGqeJg9ukATPJdWmdAN4h0ggK71OT6qlLekGheIv9AI+xdccRulsHn
-	akPVrvgjuro+Y+a4DcXPv1zVdEYRHwJoovscrtlN9S+av1SBOguDlJlIZfJMD+1OMDAr5ulJ9CT
-	CFrvHES/H4ImBPv4yxJ0xi98pzDMxSyhnPWUGjr4tva9ks3/uEAP2g5UmAZZFJKKRnn/PDO0wSX
-	RoGVQzOH4RTvvW9hA0PSK8KLvDox00em6L6MpHpOoFiPf3jEm9l1uUpZNmHqsPeNo/DpazPPZsH
-	nqh/Q3DUzZimKVfdZrpe/pk8QbBHn8AC95Y07Dy7dWr1eqg24bZJ+80U+kKubkkMaLC4bERheqD
-	3zE8UyrPDgGH7b9phz1EC5sBuC4gU5iJ4Xb4GZBJQ/nWIzdxoe
-X-Received: by 2002:a05:6102:570f:b0:785:e444:15de with SMTP id
- ada2fe7eead31-78a4a8b86c6mr10812036137.6.1788814215815; Mon, 07 Sep 2026
- 13:50:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2x8Miqj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58FC71F00A3A;
+	Mon,  7 Sep 2026 20:52:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788814363;
+	bh=jIbMDVOqLnfDMhWufnBKCnSwtt3dR6rdkehGnnxqf0U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a2x8MiqjpRsEp6FomBvcaGKm6yajPRBjeuajO0xRVScP/hoKIp7NYVKYiO3HsHeNw
+	 9qE33PyCXLxwvumgrCQt1qxCH5ogZGOOM4b92AWlkOS20/rJXEGN0v5OTlxrpNem9J
+	 jNduK5jgzsvGRHHuCxG2ts2GLwfaQBucjDvZyJO5dj1Lv56Vp3KNm8eJilflznPcjE
+	 I+BGg/Vqozq5xo6lSXPuKtTSx2UvnO4oCR14xSfxhFZkGNUxpOxUuKDRS/xfkiAyij
+	 OyLSHRcgxbRu9fhYSUYzybkjn6Rfc0vun7E83tywMgZuuss0xcN2Uxqr0BB4xkQYDj
+	 F8mx8u8/RZCeA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 9/9] rtc: abx80x: add support for ABX81X
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antoni Pokusinski" <apokusinski01@gmail.com>
+Cc: linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org
+In-Reply-To: <20260907203216.53192-10-apokusinski01@gmail.com>
+References: <20260907203216.53192-1-apokusinski01@gmail.com>
+ <20260907203216.53192-10-apokusinski01@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 20:52:42 +0000
+Message-Id: <20260907205243.58FC71F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260903-submit-ac200-mfd-v9-0-6b7ed278989c@gmail.com>
- <20260903-submit-ac200-mfd-v9-3-6b7ed278989c@gmail.com> <20260904-overpass-clumsy-8ccdd5d4ca0e@spud>
- <CADvTj4qKxyPZMLBZgpNMMxkFn09MUCNEc9nLva-j=24C_Zg-nw@mail.gmail.com> <20260907-tipping-clique-47e2a3385336@spud>
-In-Reply-To: <20260907-tipping-clique-47e2a3385336@spud>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 7 Sep 2026 14:50:04 -0600
-X-Gm-Features: AcwNN1VORbNFDqsrr8Pk6MK9PbURMNQUa7VsBhGkuPMzBQJH4dNmUMVklO_r7rU
-Message-ID: <CADvTj4qLQ+3ckFK=HEsCEM=4R_Dej-1e3Z1UTFMbH3YTz=GfWw@mail.gmail.com>
-Subject: Re: [PATCH v9 3/4] dt-bindings: mfd: x-powers: Describe AC200 functions
-To: Conor Dooley <conor@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, 
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, Andre Przywara <andre.przywara@arm.com>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, linux-sunxi@lists.linux.dev, 
-	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Sep 7, 2026 at 12:28=E2=80=AFPM Conor Dooley <conor@kernel.org> wro=
-te:
->
-> On Fri, Sep 04, 2026 at 01:06:08PM -0400, James Hilliard wrote:
-> > On Fri, Sep 4, 2026 at 9:50=E2=80=AFAM Conor Dooley <conor@kernel.org> =
-wrote:
-> > >
-> > > On Thu, Sep 03, 2026 at 02:09:42PM -0600, James Hilliard wrote:
-> > > > From: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > >
-> > > > Describe the AC200 audio codec and TV encoder as child nodes of the
-> > > > shared I2C register provider. Keep their analog supplies on the fun=
-ction
-> > > > consumers and describe the TV encoder display graph and optional ba=
-ndgap
-> > > > calibration cell.
-> > > >
-> > > > Add the shared interrupt-controller properties and interrupt number=
-s needed
-> > > > by the TV encoder. The Ethernet PHY remains represented on its prim=
-ary MDIO
-> > > > bus and is therefore not an MFD child.
-> > > >
-> > > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> > > > ---
-> > > >  .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 136 +++++++++=
-++++++++++++
-> > > >  MAINTAINERS                                        |   1 +
-> > > >  include/dt-bindings/mfd/x-powers,ac200.h           |  13 ++
-> > > >  3 files changed, 150 insertions(+)
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/mfd/x-powers,ac200.y=
-aml b/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> > > > index ca7a910b2c73..935dc07138cb 100644
-> > > > --- a/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> > > > +++ b/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> > > > @@ -28,15 +28,114 @@ properties:
-> > > >        be 24 or 27 MHz, matching the rates encoded by the documente=
-d EPHY clock
-> > > >        selector.
-> > > >
-> > > > +  interrupts:
-> > > > +    maxItems: 1
-> > > > +    description:
-> > > > +      The shared open-drain INTB output for the TV encoder, Ethern=
-et PHY and
-> > > > +      RTC interrupts.
-> > > > +
-> > > > +  interrupt-controller: true
-> > > > +
-> > > > +  '#interrupt-cells':
-> > > > +    const: 1
-> > > > +    description:
-> > > > +      The interrupt number, as defined in
-> > > > +      include/dt-bindings/mfd/x-powers,ac200.h.
-> > > > +
-> > > > +  codec:
-> > > > +    type: object
-> > > > +    $ref: /schemas/sound/dai-common.yaml#
-> > > > +    unevaluatedProperties: false
-> > > > +
-> > > > +    properties:
-> > > > +      compatible:
-> > > > +        const: x-powers,ac200-codec
-> > > > +
-> > > > +      '#sound-dai-cells':
-> > > > +        const: 0
-> > > > +
-> > > > +      ac-ldoin-supply:
-> > > > +        description: The 3.3 V supply for the audio codec LDO inpu=
-t.
-> > > > +
-> > > > +    required:
-> > > > +      - compatible
-> > > > +      - '#sound-dai-cells'
-> > > > +      - ac-ldoin-supply
-> > > > +
-> > > > +  tv-encoder:
-> > > > +    type: object
-> > > > +    additionalProperties: false
-> > > > +
-> > > > +    properties:
-> > > > +      compatible:
-> > > > +        const: x-powers,ac200-tve
-> > > > +
-> > > > +      interrupts:
-> > > > +        maxItems: 1
-> > > > +        description: Cable detection interrupt.
-> > >
-> > > Given the example, this looks like a hack.
-> > > Is this mfd actually an interrupt controller, or is that just part of
-> > > this hack too?
-> >
-> > The AC200 has separate TV encoder, Ethernet PHY and RTC status and
-> > enable bits which are multiplexed onto its shared INTB output, so the
-> > intent was to represent that demultiplexer as an interrupt controller.
-> >
-> > I notice that the example's tv-encoder interrupts property inherits
-> > interrupt-parent =3D <&pio> rather than explicitly referencing the AC20=
-0
-> > interrupt domain. Is that incorrect interrupt relationship what looks
-> > like a hack here, or do you also object to representing the AC200
->
-> No, I noticed the lack of an explicit parent but attributed it to a
-> mistake. The define used in the child node, and the interrupt properties
-> in the parent are why I considered it a hack - the device looked like it
-> was pointing to itself as it's own interrupt parent. How would this work
-> for the rtc, since that is implemented without a child node?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The `regmap_bulk_read` return value check in `abx80x_read_alarm` c=
+auses the function to unconditionally fail with `-EIO` on success.
+--
 
-There isn't an RTC driver in this series; only its interrupt source was
-described. A future RTC MFD cell could receive the shared parent IRQ
-without requiring a separate DT node.
+commit 7f9a5b9080b676338469e285a0ce05b36660c82c
+Author: Antoni Pokusinski <apokusinski01@gmail.com>
 
-> Personally I would just implement these devices using IRQF_SHARED.
+rtc: abx80x: add support for ABX81X
 
-I've implemented that approach in my local v11 tree. The binding now
-describes the optional INTB connection without interrupt-controller
-properties or internal interrupt numbers.
+This patch adds support for the Abracon ABX81X family of RTCs, which feature
+a SPI interface. It updates the Kconfig to support both I2C and SPI, and ad=
+ds
+the necessary SPI device IDs, device tree bindings, and probe functions.
 
-The MFD driver passes the physical IRQ to the TV encoder cell when
-connected. Without INTB connected, the cell has no IRQ resource.
+> diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> index c90407a023fe8..c3bf6f0ae48b9 100644
+> --- a/drivers/rtc/rtc-abx80x.c
+> +++ b/drivers/rtc/rtc-abx80x.c
+> @@ -1,7 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  /*
+> - * A driver for the I2C members of the Abracon AB x8xx RTC family,
+> - * and compatible: AB 1805 and AB 0805
+> + * A driver for the I2C and SPI members of the Abracon AB x8xx RTC famil=
+y,
+> + * and compatible: AB 1805, AB 0805, AB 1815 and AB 0815
+>   *
+>   * Copyright 2014-2015 Macq S.A.
+>   *
 
-Function drivers remain separate work. They will need to request
-IRQF_SHARED | IRQF_ONESHOT handlers before enabling their own source,
-check and clear their own status in the threaded handler, and mask their
-source before freeing the IRQ. The parent initially masks all sources
-before enabling INTB.
+[Severity: High]
+Will the regmap_bulk_read return value check in abx80x_read_alarm() cause t=
+he
+function to unconditionally fail?
 
-> > interrupt demultiplexer as an interrupt controller?
-> >
-> > > Quite frankly, I am not really sure why either the tv-encoder or code=
-c
-> > > have dedicated child nodes, they don't appear to have conflicting
-> > > properties.
-> >
-> > Do you mean that the DT properties for both functions should be folded
-> > into the AC200 parent node, while the MFD driver still creates separate
-> > codec and TV encoder platform devices?
-> >
-> > Lee requested at least two MFD children in this series, so I want to
-> > distinguish the Linux MFD cells from whether those cells need dedicated
-> > firmware child nodes.
->
-> I don't see Lee requesting that they be in the devicetree though, just
-> that there are two mfd children. mfd_cell would (IMO) qualify for that.
->
-> I don't see anything here that'd be problematic in terms of folding the
-> codec and encodering into the parent mfd device and using mfd_cell, given
-> the phy is not represented here.
+drivers/rtc/rtc-abx80x.c:abx80x_read_alarm() {
+...
+	err =3D regmap_bulk_read(priv->regmap, ABX8XX_REG_ASC, buf, sizeof(buf));
+	if (err)
+		return err;
+	if (err < ARRAY_SIZE(buf))
+		return -EIO;
+...
+}
 
-I've moved the audio DAI properties, supplies, bandgap calibration cell
-and display ports into the AC200 parent node. The codec and TV encoder
-remain separate Linux devices described by static MFD cells, without
-separate DT nodes. Their supply lookups use MFD parent-supply aliases.
-The PHY remains on MDIO.
+When the RTC core calls abx80x_read_alarm(), regmap_bulk_read() will return=
+ 0
+on a successful read. The subsequent check evaluates
+if (err < ARRAY_SIZE(buf)), which is 0 < 7. This evaluates to true, resulti=
+ng
+in an unconditional return of -EIO and breaking the alarm read functionality
+for any unprivileged userspace application reading the RTC alarm.
 
-> >
-> > > Additionally, why is this not part of patch 1? Add the binding in a
-> > > complete state from the get-go. On that basis, at least,
-> > > pw-bot: changes-requested
-> >
-> > Do you want patches 1 and 3 combined into one complete binding patch,
-> > while retaining separate implementation commits for the base provider
-> > and the MFD cells?
->
-> Correct.
->
-> > > > +
-> > > > +      tv-vcc-supply:
-> > > > +        description: The 3.3 V supply for the composite-video DAC.
->
-> Are these genuinely different 3.3 V supplies btw? Or are you just
-> representing them as two different ones because of different device
-> nodes using them?
-
-They correspond to distinct physical supply inputs: TV_VCC is pin 1 and
-AC_LDOIN is pin 2, both nominally 3.3 V. The AC200 datasheet lists these
-separately:
-
-https://linux-sunxi.org/images/0/0f/AC200_Datasheet_V1.1.pdf
-
-They do not require separate external regulators; the example connects
-both to reg_aldo2. The revised parent-node descriptions now explicitly
-state that these inputs may share a regulator.
-
-
-
-> Cheers,
-> Conor.
->
-> > > > +
-> > > > +      nvmem-cells:
-> > > > +        maxItems: 1
-> > > > +
-> > > > +      nvmem-cell-names:
-> > > > +        items:
-> > > > +          - const: bandgap
-> > > > +
-> > > > +      ports:
-> > > > +        $ref: /schemas/graph.yaml#/properties/ports
-> > > > +
-> > > > +        properties:
-> > > > +          port@0:
-> > > > +            $ref: /schemas/graph.yaml#/properties/port
-> > > > +            description: Input from the display pipeline, carrying=
- CCIR656.
-> > > > +
-> > > > +          port@1:
-> > > > +            $ref: /schemas/graph.yaml#/properties/port
-> > > > +            description: Output to the composite-video connector.
-> > > > +
-> > > > +        required:
-> > > > +          - port@0
-> > > > +          - port@1
-> > > > +
-> > > > +    required:
-> > > > +      - compatible
-> > > > +      - interrupts
-> > > > +      - tv-vcc-supply
-> > > > +      - ports
-> > > > +
-> > > > +    dependencies:
-> > > > +      nvmem-cells: [ nvmem-cell-names ]
-> > > > +      nvmem-cell-names: [ nvmem-cells ]
-> > > > +
-> > > >  required:
-> > > >    - compatible
-> > > >    - reg
-> > > >    - clocks
-> > > >
-> > > > +allOf:
-> > > > +  - if:
-> > > > +      required:
-> > > > +        - tv-encoder
-> > > > +    then:
-> > > > +      required:
-> > > > +        - interrupts
-> > > > +        - interrupt-controller
-> > > > +        - '#interrupt-cells'
-> > > > +
-> > > > +dependencies:
-> > > > +  interrupt-controller: [ '#interrupt-cells', interrupts ]
-> > > > +  '#interrupt-cells': [ interrupt-controller ]
-> > > > +
-> > > >  additionalProperties: false
-> > > >
-> > > >  examples:
-> > > >    - |
-> > > > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > > > +    #include <dt-bindings/mfd/x-powers,ac200.h>
-> > > > +
-> > > >      i2c {
-> > > >          #address-cells =3D <1>;
-> > > >          #size-cells =3D <0>;
-> > > > @@ -45,6 +144,43 @@ examples:
-> > > >              compatible =3D "x-powers,ac200";
-> > > >              reg =3D <0x10>;
-> > > >              clocks =3D <&pwm 5>;
-> > > > +            interrupt-parent =3D <&pio>;
-> > > > +            interrupts =3D <1 20 IRQ_TYPE_LEVEL_LOW>;
-> > > > +            interrupt-controller;
-> > > > +            #interrupt-cells =3D <1>;
-> > > > +
-> > > > +            codec {
-> > > > +                compatible =3D "x-powers,ac200-codec";
-> > > > +                #sound-dai-cells =3D <0>;
-> > > > +                ac-ldoin-supply =3D <&reg_aldo2>;
-> > > > +            };
-> > > > +
-> > > > +            tv-encoder {
-> > > > +                compatible =3D "x-powers,ac200-tve";
-> > > > +                interrupts =3D <AC200_IRQ_TVE>;
-> > > > +                tv-vcc-supply =3D <&reg_aldo2>;
-> > > > +
-> > > > +                ports {
-> > > > +                    #address-cells =3D <1>;
-> > > > +                    #size-cells =3D <0>;
-> > > > +
-> > > > +                    port@0 {
-> > > > +                        reg =3D <0>;
-> > > > +
-> > > > +                        tve_in: endpoint {
-> > > > +                            remote-endpoint =3D <&tcon_out_tve>;
-> > > > +                        };
-> > > > +                    };
-> > > > +
-> > > > +                    port@1 {
-> > > > +                        reg =3D <1>;
-> > > > +
-> > > > +                        tve_out: endpoint {
-> > > > +                            remote-endpoint =3D <&composite_in>;
-> > > > +                        };
-> > > > +                    };
-> > > > +                };
-> > > > +            };
-> > > >          };
-> > > >      };
-> > > >  ...
-> > > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > > index 1d03b0060bda..8a48f6a1e593 100644
-> > > > --- a/MAINTAINERS
-> > > > +++ b/MAINTAINERS
-> > > > @@ -29511,6 +29511,7 @@ L:    linux-sunxi@lists.linux.dev
-> > > >  S:   Maintained
-> > > >  F:   Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> > > >  F:   drivers/mfd/ac200.c
-> > > > +F:   include/dt-bindings/mfd/x-powers,ac200.h
-> > > >
-> > > >  X-POWERS AXP288 PMIC DRIVERS
-> > > >  M:   Hans de Goede <hansg@kernel.org>
-> > > > diff --git a/include/dt-bindings/mfd/x-powers,ac200.h b/include/dt-=
-bindings/mfd/x-powers,ac200.h
-> > > > new file mode 100644
-> > > > index 000000000000..cc59e2ab4912
-> > > > --- /dev/null
-> > > > +++ b/include/dt-bindings/mfd/x-powers,ac200.h
-> > > > @@ -0,0 +1,13 @@
-> > > > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > > > +/*
-> > > > + * Interrupt numbers of the X-Powers AC200 interrupt controller.
-> > > > + */
-> > > > +
-> > > > +#ifndef _DT_BINDINGS_MFD_X_POWERS_AC200_H
-> > > > +#define _DT_BINDINGS_MFD_X_POWERS_AC200_H
-> > > > +
-> > > > +#define AC200_IRQ_TVE                        0
-> > > > +#define AC200_IRQ_EPHY                       1
-> > > > +#define AC200_IRQ_RTC                        2
-> > > > +
-> > > > +#endif /* _DT_BINDINGS_MFD_X_POWERS_AC200_H */
-> > > >
-> > > > --
-> > > > 2.53.0
-> > > >
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907203216.5319=
+2-1-apokusinski01@gmail.com?part=3D9
