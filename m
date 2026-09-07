@@ -1,164 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FAC445038
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 12:12:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B05F621254B;
+	Mon,  7 Sep 2026 12:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788783132; cv=none; b=mHPETiDKWqPQiK/HhCIulTbOIgYLSTmn/y4GYa3l79PGEwqOhJpS5HLF5fzbWMeF0Ev95STjmL27SL1iEdQNjHcr8SQorUSHienFigKKevBVqXsWQEeRFCLYMwhm4Vrw74+GNPfSO7gYcmybniBEQXY056AwpKTR4VoT6lJZ5Ps=
+	t=1788783392; cv=none; b=QgNhZq69u8aIF1ayFkCLVze+lgZZvb2sXX1u4Vjebgwzptbl1l2WfvcsYglfeDiOht7jQ/QEJvoLu624WnHcWkX7ksOhidMr4bA+XX8OJIa4TRuq9/2aIMWYYj7XiW2mVOnltEJYRKN+WfmvMyxiS1Q4VovtBntQNdbazpPaU5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788783132; c=relaxed/simple;
-	bh=co3RCCO7eFK2KIjsb4EKERjk7hdcs063bil3XVPRW8I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sqgbq1iZsxvFiRyoayplHeOFQ3DWZnF4gtY7OpQK7RBWxghlyPe7A6P42dzJ0PGdJGiObWxvmHb6R29r1F9MlO09olyGtcaY/R3X55PUxvtVlt2O1PKYKoZ0ZVqe/Zp6JHaQtphc25pKTQfZidXFZvg2B+EFjU+Oo+hv5UCIXEE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KuEPpTpo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788783392; c=relaxed/simple;
+	bh=Ol5joPhV5t0sUqWABA8R4lINTJxPplGa32CwRPrg3G0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VbIK4JlMOvmd6T8BwLgErxWi3xJhk8d2EeeBIdJbpV/74HECVxpbeEhUYM2IVC4ExlQHnXV916ux4wcY+eWro38+MQTMh3td9s2q+i2ZLh1U+IoJ0/i1b5oTvr0oZX0+y7aqhAhOXY4WB9/54iMvsbg2gFqCVC2hxe3JY70wtV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+RVAP90; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KuEPpTpo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4C741F00A3A;
-	Mon,  7 Sep 2026 12:12:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+RVAP90"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799911F00A3A;
+	Mon,  7 Sep 2026 12:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788783131;
-	bh=CMmFb/XRENoFIfvBuML1/OcZrfsbwii74w0nV3zYYwM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KuEPpTpobgToFIQCc9fqGca9OyJRGHVOK3JhNssIV/y3rO3HhTkoLUqPoVt6HcrmS
-	 gHswSdZWqqtgYbDk0CSVR56BGrOOTFoRZkfu4+MbPT/t+yEd/XgsgOVUifhUZ5DnKg
-	 KNMU3A+Rcw0KTFcitda0X+IKn3+mWW3F3WnaMWH4zeIAXdsQ+Lyj7I8k9efA0Snqak
-	 TVkfHjF/FdRUt6SmSa+9B4HJK11hBFXnYE+rAKf0DY/ZsEqA19/v+3UqSsUdmkZ8RV
-	 D5RTX0P19v3AkRFinkT8pb++Z6WHbwwvYRc31xhDX1Fl7tc5I9Ph+x5yxg5B4YQt9O
-	 Zo2TAk585kQ2A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: Add Samsung AMS662ZS01 panel driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vsevolod Nevorotov" <sevanevorotov29@gmail.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260907115130.95394-3-sevanevorotov29@gmail.com>
-References: <20260907115130.95394-1-sevanevorotov29@gmail.com>
- <20260907115130.95394-3-sevanevorotov29@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 12:12:10 +0000
-Message-Id: <20260907121210.A4C741F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788783391;
+	bh=u19xstXPTruD6D89wrkvMFVSAXRrUNsDkBJko6FhzaY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k+RVAP909v68f97bjGggfKFgBe4mZF1aKCAsoxgGxDLTIT0Er2a2aYhPlumnymRey
+	 BpHp4mrgFD7LaUi4aPQo3ECybxKI+i5wXtIUygdDtBusCfkHH8niXiJBp4b/B8Brvi
+	 3PAusTzZ2aRjNodyGiLjsoX5AOt01Lfg1QKYdbM80rLxfIvLA02kFymdR28M4lL5j5
+	 9U3gPpQZ4qBM5o5qy99vrX9kgxI6qA7e3e6fxcVWy8xA4LiEHJ4nmBz+5uJ9uSwT5+
+	 o9hoCGni28psdn1pr+DR56bLmB90tqzpecrxPUW81SPu1w/OgkeQqwRFP5OUtUTijJ
+	 NVXa1Rm1tKFMA==
+Date: Mon, 7 Sep 2026 13:16:24 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
+	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: Re: [PATCH v4 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
+ binding
+Message-ID: <cf99b19a-7293-45b2-8425-17ae7b252f08@sirena.org.uk>
+References: <20260903072902.3870009-1-harendra.gautam@oss.qualcomm.com>
+ <20260903072902.3870009-2-harendra.gautam@oss.qualcomm.com>
+ <20260907-arcane-sassy-fennec-afc02a@quoll>
+ <CAC-tS8BVw6hbgA82V1mYL_3CG4Jdodr-DQbGfM4FzMMdCLbc0g@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2NerzLZu6RuYkGeO"
+Content-Disposition: inline
+In-Reply-To: <CAC-tS8BVw6hbgA82V1mYL_3CG4Jdodr-DQbGfM4FzMMdCLbc0g@mail.gmail.com>
+X-Cookie: Who's on first?
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Panel reset GPIO is initialized to physical HIGH while regulators =
-are off, causing hardware back-powering.
-- [Medium] Data race on shared `dsi->mode_flags` due to non-atomic modifica=
-tion in sysfs backlight update callback.
-- [Medium] The backlight sysfs interface issues DSI transfers to an unpower=
-ed panel.
---
 
-commit df8bf199977cc597d9cc38caadd2457c9f44d341
-Author: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+--2NerzLZu6RuYkGeO
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-    drm/panel: Add Samsung AMS662ZS01 panel driver
-   =20
-    Add support for the Samsung AMS662ZS01 AMOLED display panel used in the
-    OnePlus 9RT (martini) smartphone.
-   =20
-    The panel operates in Command Mode with DSC (Display Stream Compression)
-    enabled at 1080x2400 resolution at 60Hz.
+On Mon, Sep 07, 2026 at 05:13:13PM +0530, Harendra Gautam wrote:
+> On Mon, Sep 7, 2026 at 2:00=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+> >
+> > On Thu, Sep 03, 2026 at 12:58:52PM +0530, Harendra Gautam wrote:
+> > >
+> > > Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CP=
+U DAI
 
-> diff --git a/drivers/gpu/drm/panel/panel-samsung-ams662zs01.c b/drivers/g=
-pu/drm/panel/panel-samsung-ams662zs01.c
-> new file mode 100644
-> index 0000000000000..52e7e75c08b13
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-samsung-ams662zs01.c
-> [ ... ]
-> @@ -267,11 +267,10 @@ static int ams662zs01_bl_update_status(struct backl=
-ight_device *bl)
->  {
->  	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
->  	u16 brightness =3D backlight_get_brightness(bl);
->  	int ret;
-> =20
->  	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
->  	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
->  	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+Please delete unneeded context from mails when replying.  Doing this
+makes it much easier to find your reply in the message, helping ensure
+it won't be missed by people scrolling through the irrelevant quoted
+material.
 
-[Severity: Medium]
-Could this create a data race on dsi->mode_flags?
+--2NerzLZu6RuYkGeO
+Content-Type: application/pgp-signature; name="signature.asc"
 
-The backlight subsystem uses bl->update_lock while DRM uses
-drm_modeset_lock, providing no mutual exclusion between these paths. A
-concurrent sysfs write to the backlight brightness node during
-ams662zs01_prepare() could race on dsi->mode_flags. This might cause
-display initialization commands to be sent in the wrong power mode.
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Medium]
-Does this function lack a check to ensure the panel is prepared and powered
-on before attempting DSI communication?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqeqxgACgkQJNaLcl1U
+h9CsYwf9EqVnum8Us6ECwQgyy1wRJu6t4pKzOp7Q+q8uCA8pg2vMLCfoVpM3jqg+
+ntvjWJcL3VbRxt6sadd1KHz1/R/Axnv8TKcLeKOPaIYZwxantx7fmcEBvfupPwmw
+uEz7nP/hOUZDL56+0LGMJdpMX2ij0uJOmqLkcm4nU0dQ7h5p/q/IMJTYRNSpjU23
+wpHV9UGOb3ultsp75k5vp/xDaEPSAFcUcTHT+5QorqRaDATI27Lg3LKjiXH4OW42
+1mz5fkw6WQ1mgqYE6KfBu40ATbOo1VUmDID3qJPxTpCzJ6z9NK6XA3zSuvxbgYC6
+mZ4NegBJFy83F+iHa5DumXOZI3mqFQ==
+=yk8W
+-----END PGP SIGNATURE-----
 
-If userspace writes to the backlight sysfs node while the panel is
-unprepared (screen off or system suspended), this unconditionally sends DCS
-commands. Attempting a DSI transfer while the panel's regulators are
-disabled could cause hardware timeouts, bus errors, or host driver failures.
-
-> =20
->  	return ret;
->  }
-> [ ... ]
-> @@ -311,9 +310,10 @@ static int ams662zs01_probe(struct mipi_dsi_device *=
-dsi)
->  	if (IS_ERR(ctx))
->  		return PTR_ERR(ctx);
-> =20
->  	ret =3D devm_regulator_bulk_get_const(dev, ARRAY_SIZE(ams662zs01_suppli=
-es),
->  					    ams662zs01_supplies, &ctx->supplies);
->  	if (ret < 0)
->  		return ret;
-> =20
->  	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-
-[Severity: High]
-Does this initialize the active-low reset GPIO to physical HIGH before the
-panel's regulators are turned on?
-
-Calling devm_gpiod_get() with GPIOD_OUT_LOW on an active-low GPIO
-immediately drives the pin physically HIGH. Driving the reset GPIO high
-while the panel's main power rails (VDDIO/VDD) are off could forward-bias
-the ESD protection diodes inside the panel driver IC. This back-powers the
-IC logic domain, which might cause permanent hardware damage or latch-up
-preventing panel initialization.
-
->  	if (IS_ERR(ctx->reset_gpio))
->  		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
->  				     "Failed to get reset-gpios\n");
-> [ ... ]
-> @@ -330,9 +330,10 @@ static int ams662zs01_probe(struct mipi_dsi_device *=
-dsi)
->  	dsi->format =3D MIPI_DSI_FMT_RGB888;
->  	dsi->mode_flags =3D MIPI_DSI_MODE_NO_EOT_PACKET |
->  			  MIPI_DSI_CLOCK_NON_CONTINUOUS |
->  			  MIPI_DSI_MODE_LPM;
-> =20
->  	ctx->panel.prepare_prev_first =3D true;
-> =20
->  	ctx->panel.backlight =3D ams662zs01_create_backlight(dsi);
->  	if (IS_ERR(ctx->panel.backlight))
->  		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
->  				     "Failed to create backlight\n");
-
-[Severity: Medium]
-Is it safe to expose the backlight sysfs interface here before the DSI
-device is attached to the host?
-
-Because the backlight device is registered here, it is exposed to userspace
-while the panel is unprepared and before mipi_dsi_attach() is called. This
-makes the unprotected DSI transfers in ams662zs01_bl_update_status()
-reachable immediately, even while the panel is suspended.
-
-> =20
->  	drm_panel_add(&ctx->panel);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907115130.9539=
-4-1-sevanevorotov29@gmail.com?part=3D2
+--2NerzLZu6RuYkGeO--
