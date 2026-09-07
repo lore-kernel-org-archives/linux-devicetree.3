@@ -1,88 +1,88 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3215837FF67
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 143A337DEAB
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 05:46:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788759994; cv=none; b=m1jJXWjgUME2LxYsOWYHUQpMlQ3qkmMzqEj+W6dCASvQ1hXv6M7cWOmhT2pVHHyiyR50amYjZzy0N+kthpv6Btm4n9i6aE4luWBamcAAnizEaDys0CIxscoQ1CM67zo1oN6s8kqWnPGzERX0YGdNjeCR4KdZXz19JVQKaZ88Mbo=
+	t=1788759999; cv=none; b=sYJh+EwGm47pCbFM/Ep8lQuSd4is11oJGxRb9qbEllJo1plQGLtnF1DaFpHrqb92+rpJO2r84RFgPNU2R4JX7S5QE5IZtOrQCZHDZtCejz1L0xDpJVJIAyN2pcli1zpwm5rUvF2X0b1/5lcaiSe6fLYUQnx1f7UnpQkbizpZNIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788759994; c=relaxed/simple;
-	bh=TGGp65HQw/cMtOZ6c34YE/ci3z+cTavJC4fOlegELGU=;
+	s=arc-20240116; t=1788759999; c=relaxed/simple;
+	bh=rL0frKHxgnmCItVj9IJ67HgoHPnZ3HbF9GZQ+/YiYjw=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=i2abHe9IGFPrp8iGgTns32zT4/aUNSYywhjPy6zQPhRs/8guuTxrL+H3prH5hzju47Drt/FmdNO++LN90ucDbJwo8zgYuQ5eorev/A0hvOAy5Fk8kFajj8Y3WfLmZh28aVq1OukM98TCvYDXIxDZPa4IgnUoVC1mXF78OTr8fXo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=EL4s0+TV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=auY3pszw; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=qXmsRa+f8WHOdxV++ElnGCaubGnPkiNLdgiTNg5JuGk9t/bqj7ZmdCBjyminiEX11ihmhKy8gn0sC3rHX0otmNI/lyYExToTTssYnvpIxndYQKhExu425iDN8GsYQSdO6vNFrQnsCwRllqC0t9Dng+HH4o8L8ABlfx2PrxlZZ2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NPlBoK8h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OvR/xSXQ; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="EL4s0+TV";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="auY3pszw"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873lNud3102941
-	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 05:46:32 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NPlBoK8h";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OvR/xSXQ"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6873lBSV2821008
+	for <devicetree@vger.kernel.org>; Mon, 7 Sep 2026 05:46:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	x7xPpPd/gMAwc7gipdn+TzoHtpnTabWshZ97q2TAFrM=; b=EL4s0+TVhvnidJAO
-	BJ+aBA+5w4xsi51FaUaHt+rkM7rWDQc5cdEsO3HaRzChyPu0jMpb+dr/0W4VLWZY
-	3023ABlY/aU5uBmHREt7O7qI2oLj/zWymAfluSkJfNkq0SfOqJgv0HNBdPWKqPsB
-	q5veqk8BCYxpUjK4HVBI2uWmVXoKIqLGxZnBiii0xFagI8haVyWXdzzuGYzaysWZ
-	b+HMiq6z6N48yz01WzW3OcqlQyKfc5mKGsh43l0ErtlgQNhXWj8kXlhkSyiAsF1Y
-	G+crE98cbBe4PGp6yxJCQllc0Yf0LVwPP3SYEPpJapjsoMGYcyYegTh9XZsQXDRP
-	RiFJDA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggb5vd2hk-1
+	9Ml4Zr8T8w/TDmVLa78Ik/qhJKpgMAmTtlHs201KjIE=; b=NPlBoK8h0mynd9mq
+	4YJSOleCwCJWEr5/+aLxhPSrsmSVoJQarbKlm9mzaeDTHLcW9AjehO/v05J+KNiJ
+	cpV8zc1WcR7FIOmw4SqRZpLURWvYDhoBeL6ftfyL20P3UhQP56u0MnnfHgjjyluG
+	lpsMkgVUOd4Iw6XPuwRYDLpS/k6F3payT9bAq+JylmIvU4wCEBsS2hiGmvtiZEvk
+	NF0eBoTm25YibJeN4kjITrO39+81p4HTuZItooxfW2LbI3iNgwdVLctMho0NsGte
+	/B9fvxf8O64eiKMZiDm0r5GaBwjOtu5hvMpQtvMio+NPT2XapdZWTKy9uRkwEcOF
+	Ckzd8g==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ggadhn7h3-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 05:46:32 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso6164786a12.3
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 22:46:31 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 05:46:36 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398e1f7d1a5so4707812a91.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 22:46:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788759991; x=1789364791; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788759996; x=1789364796; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=x7xPpPd/gMAwc7gipdn+TzoHtpnTabWshZ97q2TAFrM=;
-        b=auY3pszwZcUdT7GqU7XlliHLS9VcRgJdIQTL9kQQ21sSNu/i4PB8XWqBc1VRltPHVl
-         p3tdPwUNxNzd5+ZhdTbLnlGPE/fwZNDiu4rMmfLvuhg25I0RrdbMlhpz0Z0BfUaNPLlL
-         1zNUVCyrJllX/Uh2cqGLn1osspiabKM38TZhbWBv+QWE52ImdzsYMKD5MrPbHI262bpL
-         Ko/H8gt2cj/Ux+BaZF9oKT3v3UFgsWXyE+i2nBr/aF7ih+eWqEbf9cZZgZl/qV245uie
-         9lTKz/luVbvw7etKRRhJ6JVyq0f23CciyrrhoQmEG+aV1uWMb0YP2AR5HRAQ2ZNS2BlC
-         Ct3w==
+        bh=9Ml4Zr8T8w/TDmVLa78Ik/qhJKpgMAmTtlHs201KjIE=;
+        b=OvR/xSXQ88MpcrSGgqykTQ4TqH9fNf6f/eKza8EZmFNwOazCZ5/V791YEyf3aZw9dD
+         Nm9SOKFC90wGR2j5fgQsPULGGdsCbDUHsTbTk8b3jzjWxjRyfwMUR8oA3cglU0r2/PI6
+         2ugpgSkCWbTM+dv58USyWkQzjdqiJS2YCvS4nr+TVakiyq6+Dv1idI6t4zP7xVhJDrGO
+         RVeMLTSXynfP8MEhbm4S0H0Ox3Gwdo4eGTkdF4h8CAad0OnzrEzTK7ttoSt+/CesgQHN
+         iCeD4BcTtOJEDLtUOzUQZ4KmV+3GtHvsiiG9XORH4UvV2ayPS9nUjikdsStiLo1MbPM2
+         Ovig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788759991; x=1789364791;
+        d=1e100.net; s=20251104; t=1788759996; x=1789364796;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=x7xPpPd/gMAwc7gipdn+TzoHtpnTabWshZ97q2TAFrM=;
-        b=jtQVg8uaku5oGAM/6zR/0Kbn8E31Gc9yYqQE0gOv/l/FL3uXArmk9aO4eYWF9+9RtU
-         JM7BpniTHw4+0sjbnQzKT756cjEAqLo9zcMPHH4GFtTt2z4k9IZ6gK3HEUp2kNyq+uu3
-         w/QW8p2N1Z2G7sqSSAV3tX+MJCspAnWa92ETUs5EWO/UbiYzvZAfXZXHNJYTilIZp2YF
-         8laKs00i2OLN01CMLspbqtNNb/qFO70W7OEH7NlRRxMn24mFCiIiY6gD2xJhUe7exM9w
-         PmkujldCAjfxbwe8B+luWHj2iFlqsFTf9s/FZUdbMMGCFc2c2692BAapVZeXtjSPWAZo
-         wDUA==
-X-Forwarded-Encrypted: i=1; AKwUvBw1wSw3UgL6jYqzm/ohcwnYAsr2ruW/BUIdV2pbYzrKgALWCuoePTIODrF/sWfnXe6MLBPBPF8BRFoh@vger.kernel.org
-X-Gm-Message-State: AFuF++k+fsIDZKcFcAXZfc542GgwRpm2nPIDFVuq/gCyFJaiI+vUqOIG
-	JFTsfvVntYjvPNXGfg5iyslQOjqevLWPHEzAUwwHmbhOUszlTUGcZ/Z3jjLkmqqnYRFcVbwW7ag
-	LCVyponWC2uMj8D3EBWvzbinhyN6QQenzgyLEXR9Uxz1ObAxSZeUx4lEdbIJVxN00
-X-Gm-Gg: AYBFou3lP5ZMDrtWggx6MHynVxVWG6S4/gFPf/WmZxS90PMzTr8xjC2itWv7ZD2od4V
-	jMrzqvwfYgN5sedJdUO2H/zNvjdlTMmA/giVIOISf8guSqP6JHW/Ioj3qZpdRkKgpB5C8Uy7Hlr
-	6HViiQlyGqEWV/2Wgs5OLygQTfbQFo83bTUAiLyB73cOLKMia8JquaNjhisKMx7D+bkyTkq+TJr
-	H7WegMPANiF/MW7tYX3yYjCloEgPq09+o2iA5EHQ9ES2l2tCk8IQi9KsA4mkHLi261LZfv6xy+x
-	1DxVrHnxGqGjhka5xPTchWuTDuztbUNXibbALXg6q2BG0OHDci/VcGxcYCg2TJP06QePLF2Q8/f
-	3wa7tb1WA2AqzgnJZTqAN1uRPqsQ3jEuuLAAM
-X-Received: by 2002:a05:6a21:4e01:b0:3d3:ae50:97cb with SMTP id adf61e73a8af0-3da3a178a99mr32448184637.24.1788759990954;
-        Sun, 06 Sep 2026 22:46:30 -0700 (PDT)
-X-Received: by 2002:a05:6a21:4e01:b0:3d3:ae50:97cb with SMTP id adf61e73a8af0-3da3a178a99mr32448137637.24.1788759990513;
-        Sun, 06 Sep 2026 22:46:30 -0700 (PDT)
+        bh=9Ml4Zr8T8w/TDmVLa78Ik/qhJKpgMAmTtlHs201KjIE=;
+        b=ZXGsBqhxYAAe4KioYfLLpKUysV/3k5yzyPNeDkn88ANKeD0IKkxFBls9oWaIpECvWl
+         UsokFEHI4ikQMnP0XFWisz2DrD2SlCF+Nyf9mlFqqS7QxNSwFG80zegYRsxKlTIItkn7
+         D6DucvYt9FcjEpa54vHTu8H7E5WLImtFx6XYQFXXZp73f+IrQjU7GBFKVvVSWbEsSV6b
+         VPgBi/dEcKLoTD0z5GD3h4MaRQqtd+hPPi4Ymj5GgPLAftKdYEUn4uqlj5vj2/W3shmd
+         l3WFnZciw1o2N90bGUpOb/LNFervlrMak/r25rtT/n1wKr7e39ksWWidtcVwKuaTqcgK
+         TMOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx8E4sc9w/Rh3JmIhX/LaMOY29BpOJhpBK8K3bQFIZPMPPMvO/1aoiAHlp53XPrTZCi8Yk32MyqPPVo@vger.kernel.org
+X-Gm-Message-State: AFuF++ndsDE5cXoutQiJho+4Yn/PuYvaNMkCpwmya60Vo3faYnVDM7oC
+	MM+2D2jDLVuSHWxHNHBt5YTUk5v3nMLpxxWqWejmIEov1kbBYfGR3IB9dEMa5/UzS2BimOSIJPy
+	VVEAy+T2xRO586VUQVBlmTftW/kacRRObmtbKFQ6kd3oDRb1GE+BTg8u1u8R03j3x
+X-Gm-Gg: AYBFou30ukgC5stUfv3FugMGuiqDuWdgU2MB6YZyXCCFcmaJhq0UBIem30ZEhYD6Fo2
+	ZedKHFRCgvgkGElB5ua1AVf86xmF44eFNljtUy1VUgSERPhNmwHtc/G9vAIaGW64Pjz25D6IthA
+	nYK432/nzhZyrEZj/TdGQLJ65FndEQ9UYZYXIpEHVChbI6HvckmxTwYCVHdbtm9oyXN7+yK3B3o
+	Tz1rVFz6s3iXZKMtQSKTvFqudBQHV1HIT6YhkvoaUnRZbu9YL9Kc040aNHoXtqSAbOnjZk12cX7
+	i6RJOldiIkeoROYqgnGBLtSnjRRcp2Ens+CdcpndReA1yXNWPZnykYPgqmwGbFFYvDKoe2WFoLo
+	7+1su4wYo17EC43uL8ma84HTjnFA+3y0Gd9ns
+X-Received: by 2002:a17:90b:3b8d:b0:398:b426:ca4b with SMTP id 98e67ed59e1d1-39b2624f10amr30855617a91.22.1788759995951;
+        Sun, 06 Sep 2026 22:46:35 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b8d:b0:398:b426:ca4b with SMTP id 98e67ed59e1d1-39b2624f10amr30855586a91.22.1788759995515;
+        Sun, 06 Sep 2026 22:46:35 -0700 (PDT)
 Received: from hu-ssmaurya-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm24022589eec.22.2026.09.06.22.46.25
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm24022589eec.22.2026.09.06.22.46.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 22:46:29 -0700 (PDT)
+        Sun, 06 Sep 2026 22:46:35 -0700 (PDT)
 From: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 11:16:07 +0530
-Subject: [PATCH v2 1/2] dt-bindings: regulator: rpi-panel-v2: Add required
- vcc-supply property
+Date: Mon, 07 Sep 2026 11:16:08 +0530
+Subject: [PATCH v2 2/2] regulator: rpi-panel-v2: Add required vcc-supply
+ support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-rpi_reg-v2-1-0c59aa60d31f@oss.qualcomm.com>
+Message-Id: <20260907-rpi_reg-v2-2-0c59aa60d31f@oss.qualcomm.com>
 References: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
 In-Reply-To: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -107,82 +107,85 @@ Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
         Jessica Zhang <jesszhan0024@gmail.com>,
         Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788759980; l=1463;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788759980; l=1489;
  i=shashank.maurya@oss.qualcomm.com; s=20260828; h=from:subject:message-id;
- bh=TGGp65HQw/cMtOZ6c34YE/ci3z+cTavJC4fOlegELGU=;
- b=HGqHYzefSsJiIaceJpBRFr7bUOzhMrcj8IGMVMJXpA5rttKU+yhWh2DxTHVq4N1MHRPikfKsu
- ubODr/32dUADgvFEFgN+dVi94V8ak6A+snFiqQVu9PCSDNRZSmLLi8C
+ bh=rL0frKHxgnmCItVj9IJ67HgoHPnZ3HbF9GZQ+/YiYjw=;
+ b=VQFs6XoU58lnpmyWscfaTZVmMbtHPpwPPRNycQpO7D3W2XAg8qJ6UqWM1apJfX7GzZjDZSxjW
+ XaHkw5kMk5sBNt22mxtR3UZnIOUM09SuTnpjRYEjsegYfJn6NF1NxMm
 X-Developer-Key: i=shashank.maurya@oss.qualcomm.com; a=ed25519;
  pk=xld72d+QYBwDMDcn3+QLCb5AUsj/D0j8klGIuxWd860=
-X-Proofpoint-ORIG-GUID: IC9TMJkaxMEa5fGN74K2xVltAlU4K-5y
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA2MCBTYWx0ZWRfX5W6/+LyRacx9
- P3Xm2u/zL845qiDOv/YgyzsT2J5sqW4HE77DQcp6g+8wPNsSJ3OToU/vi35AT7UoaPgRuM9BpPN
- MGayi59nc4Z78Pvfk4I8+6ANew0J5fM8RIjS6btLvdqtZJOa4ee2uuph9ubAxWfohFeJYvVdt1W
- mH4Fic3GtWLG0Uq3K8UyjNMCdm6kcqds7kXs1m2K0ZtXy2fYslESlcqUGUSZER59qMLemG7bE5V
- dCnqKTqfMl4Vex0Qo6TRJj2Oza0+1B0NU6jWpopucjGKB6kgA+vCrSXNC7W9+dNedg3aXKzM+Xb
- AWNA5V8Ezlllypo90ECxuQYDFSgN670BnJ0ySnRBvlmbIMETgdbySBcNusB0+QdsK3xyI8We6nM
- PgDh0sR4j/aZhoJ6N05mKeKbG0a8ZgzwrROeww7FBiODYjrVuOZRzXx2kABG9wjH36tnxW2C+BF
- S/b7caxcAjNIUQzXUHg==
-X-Authority-Analysis: v=2.4 cv=UO3t2ify c=1 sm=1 tr=0 ts=6a9e4fb8 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: pNmC9ecRaQ83W7Rwc05oXPkzH6mXyfND
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA2MCBTYWx0ZWRfX6yue8e4ggMiv
+ qIopGTHXm3cIikC5bHzhcu39w1V94+OpGwcZjz7xqcEk9NAgQuVWgaVlZhHEg7X6jpb48mZwAgQ
+ lMVCeIRuOMQ5qPgWTghBtCUvHfXXB73TETmBi9TZ278p2j7dj0+A0tzPRoa8VbtTdJAJNk02iYi
+ DO6nfLLzOj80ia2FFrb8jaGHuJ9T5LjJcQiycL/ll2qVHSMhg7QivBLcF+95UuUDdEABF8oazv5
+ ElfsO1ZpByez9jc62CQw1MVNFVN/oaKyFf0bY2HKqWk0IX6sbsjF/BRZ4om5LZASuBJhAcC/i/Y
+ Fyy01IXj61+8DXLpZaRsIkHCeejXaQzKhHFR2JY3SfmC7Nza12xyfwVZ48fVbb3RsWsp8v77jfb
+ pmpnRzAokHDU20xAfqU+mOhHTGsEwaYih8QRW7r1OjShgwIJIouN1yKyImtHvF7NylqckIeUhe4
+ ACzoWw4C2zgdBpGJdxw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA2MCBTYWx0ZWRfX73Ed02NavJXg
+ bAU13+Fd5Pq6ppkCwJq2K/SSvE0CNmLeZzNpNXwCx7oYAok0qBa+rBwHcsc38zWlrbGPEsdUKY6
+ WcU1ZLZ8IPoiqJLXgmZesDDZQnDndfQ=
+X-Authority-Analysis: v=2.4 cv=OceoyBTY c=1 sm=1 tr=0 ts=6a9e4fbc cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=H1PRAqIjwE-dPk8C70UA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: IC9TMJkaxMEa5fGN74K2xVltAlU4K-5y
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA2MCBTYWx0ZWRfX7rInvjSrc70Z
- nh+/fTfKjNnFFNiXpGRX7VSViJ8bu1AcRnhGwaIsxM/XVx99dbRWCnajjaWcOxOTKyVwidkeeJg
- oEy7xAOVJMgGHIcVlc8UFW6unXTdDRQ=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=fDsZdG4RzIHTu_4XfosA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: pNmC9ecRaQ83W7Rwc05oXPkzH6mXyfND
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-07_01,2026-09-03_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- impostorscore=0 bulkscore=0 spamscore=0 priorityscore=1501 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609070060
+ lowpriorityscore=0 bulkscore=0 priorityscore=1501 suspectscore=0 phishscore=0
+ malwarescore=0 impostorscore=0 adultscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070060
 
-Add a vcc-supply property to the Raspberry Pi 7" touchscreen panel V2
-regulator binding and mark it as required. The panel controller MCU
-needs an external power rail to be supplied before any I2C communication
-can take place.
+The Raspberry Pi 7" touchscreen panel V2 MCU requires an external power
+rail to be enabled before any I2C register access is attempted. Use
+devm_regulator_get() to obtain the vcc supply and enable it at the
+start of probe.
 
 Signed-off-by: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 ---
- .../regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml  | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/regulator/rpi-panel-v2-regulator.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml b/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-index 37b9ed371b67..a6195e53be16 100644
---- a/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-+++ b/Documentation/devicetree/bindings/regulator/raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml
-@@ -35,6 +35,9 @@ properties:
-     const: 3
-     description: See ../../pwm/pwm.yaml for description of the cell formats.
+diff --git a/drivers/regulator/rpi-panel-v2-regulator.c b/drivers/regulator/rpi-panel-v2-regulator.c
+index 30b78aa75ee3..e54d675962e7 100644
+--- a/drivers/regulator/rpi-panel-v2-regulator.c
++++ b/drivers/regulator/rpi-panel-v2-regulator.c
+@@ -11,6 +11,7 @@
+ #include <linux/module.h>
+ #include <linux/pwm.h>
+ #include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
  
-+  vcc-supply:
-+    description: Regulator supplying power to the panel controller.
+ /* I2C registers of the microcontroller. */
+ #define REG_ID		0x01
+@@ -66,10 +67,21 @@ static int rpi_panel_v2_i2c_probe(struct i2c_client *i2c)
+ 		.parent		= &i2c->dev,
+ 		.reg_set_base	= REG_POWERON,
+ 	};
++	struct regulator *vcc;
+ 	struct regmap *regmap;
+ 	struct pwm_chip *pc;
+ 	int ret;
+ 
++	vcc = devm_regulator_get(&i2c->dev, "vcc");
++	if (IS_ERR(vcc))
++		return dev_err_probe(&i2c->dev, PTR_ERR(vcc),
++				     "Failed to get vcc supply\n");
 +
- additionalProperties: false
- 
- required:
-@@ -43,6 +46,7 @@ required:
-   - gpio-controller
-   - "#gpio-cells"
-   - "#pwm-cells"
-+  - vcc-supply
- 
- examples:
-   - |
-@@ -55,6 +59,7 @@ examples:
-         gpio-controller;
-         #gpio-cells = <2>;
-         #pwm-cells = <3>;
-+        vcc-supply = <&vcc_reg>;
-       };
-     };
- 
++	ret = regulator_enable(vcc);
++	if (ret)
++		return dev_err_probe(&i2c->dev, ret,
++				     "Failed to enable vcc supply\n");
++
+ 	pc = devm_pwmchip_alloc(&i2c->dev, 1, 0);
+ 	if (IS_ERR(pc))
+ 		return PTR_ERR(pc);
 
 -- 
 2.34.1
