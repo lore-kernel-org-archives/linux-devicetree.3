@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5F243E083
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:28:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAE143DA2C
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 10:29:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776908; cv=none; b=fYTnMAPdB9OfwDDap2Dl12uQcdzOW7T6BviVrjS9lds9xbrO2JtLOn8akok7SNAayLGxGUSSptr4XYdZGHa53I/6jOXcmcajkIqmFM7ZQFl/ENUf79TZooWFiQSsDruZaFjBIQAEVfkJV4GYxWBMhnCAB9rBkqnZVm84SAmdEvI=
+	t=1788776998; cv=none; b=ELFR0Bq2yoLJS6lGWpiCDWGOcQJcwLy/GmvEeXh8cE/o/PKDOuMQs94hV0EqR2aQv4yRDV7FHnGIhbdEaKHd6OA2WtrQdwb7EdQ1mvVQsjHNPkLrBla6Ahx5WUqwvEbyeZwyExFxNWs+LHx2QbPz+5lB5qqMdD6D6p2gPJTRpdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776908; c=relaxed/simple;
-	bh=6u6WapY8DYVMCBr/OO5EMOEpTbfW8LuCUoE5thaWqpg=;
+	s=arc-20240116; t=1788776998; c=relaxed/simple;
+	bh=YDCqjQk9qB9v81bFPApczlddbInFKKXvmcZ6WWRzTcg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fJWzPPsHtuiXJI5x8dfhrTc3dG615nuqVLNzgdh8mFUFLXKvwdlTtEk5HxzH7lJ832bYVO3mhF58LYWWtgUeKIo/ilq3lyZhTV2L9YZUoLloMJQC1KFj0nAfRJIuybzq/Ei6PQ25CfgGQg68LqiEUjYOvC1yEeLWWCrxbIHCuwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mj2OtAxN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tCG1I/BLEgku9S0nL/BovljKC++DWVmB8wIXMLx8rT6EUTq/uq5d8hcSiF6OkhEY0oZRwF24zfEVgKwbjdlmuyvbY/0FMfiDF8KYn2fdcnmvwOyCWXHph2myV+v/wUCpomwHyo/9bX1O8h9i7Ijcf/oPQkiB49LbdwS1GGmj0aQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JWRlkvrC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mj2OtAxN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02AA31F00A3A;
-	Mon,  7 Sep 2026 10:28:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JWRlkvrC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 142B01F00A3A;
+	Mon,  7 Sep 2026 10:29:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788776907;
-	bh=GfU7PJYa+Y3hprFWuPqBEpmdEYZpJve1cP3249FH70w=;
+	s=k20260515; t=1788776995;
+	bh=ze1uk8PX0PcuF9tYa7BjGhbGCemPSb1N2EOynQinSxM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mj2OtAxN49tYxtVzXt40S1sZck1WFGf/0W+4YXXkWHY2xfG4J+89x0Duj/B1tXRVT
-	 OuvjxNbSCRXyUHjnTMLvP0CPcPxzLE/mv1xPWuORp9EEvr1/R2OBHU9PGOptxOOQml
-	 2oQaasuWnbVi4g7Me0ez+TAlp1WPPVx3hmFVkiLgjEOqCxBd7Y3QbsrZkRtgPvn7FE
-	 Uwh3IMBCAIdqaVXD3oCf6FCbKIV9j9WJlr2V58gpvf2/kJDMI3AVd0vY+FlvTpvNxE
-	 phSZ18gWRzto9Ldfto8nxsTSu8QjOiJAT+A23scEz2/A7U4A+uqdeRM2o62FkzYOzs
-	 Pz6fqV2pTy0SQ==
+	b=JWRlkvrCjBhV4fR5dZXVgPW+JTfwLcpHyRBrBX5QV9mY6Z2oGORCWFYq9zcGBwiwa
+	 /NDu/AJZI5H3yZTLJPRx9jbFkIjW6CkcCMdCQRMUX7VEh87iANN82FiFggwWpfDrhm
+	 Eu8zxbcGOxrF1Yg7O1B/FxW9sak8ivoo1tRDcVviyKvwIOzP0StkUAYGAraM4OtVWi
+	 Awj1SuRwSnuIve08UrGmQj8JPd8I8Tla+L2UzbHxQHTuwndmKX6sUcMtYIldJjSjFE
+	 t30VTmpkbs+UgQvHfl/ky66Z3J3HfOCDdeja5PWZzMoM64/Mc2lREj8m9BIXjay0mo
+	 iryV8MtOtQ01A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: adc: ad4080: add AD4885 support
+Subject: Re: [PATCH 1/4] iio: adc: ade9000: fix ADE9000 full-scale RMS and
+ PCF codes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Antoniu Miclaus" <antoniu.miclaus@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260907101944.9748-2-antoniu.miclaus@analog.com>
-References: <20260907101944.9748-1-antoniu.miclaus@analog.com>
- <20260907101944.9748-2-antoniu.miclaus@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260907101623.8730-2-antoniu.miclaus@analog.com>
+References: <20260907101623.8730-1-antoniu.miclaus@analog.com>
+ <20260907101623.8730-2-antoniu.miclaus@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 10:28:26 +0000
-Message-Id: <20260907102827.02AA31F00A3A@smtp.kernel.org>
+Date: Mon, 07 Sep 2026 10:29:54 +0000
+Message-Id: <20260907102955.142B01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,61 +47,62 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The schema fails to enforce the presence of the `io-backends` pr=
-operty, despite the commit message explicitly stating it is required.
+
+Pre-existing issues:
+- [High] The driver defines `ADE9000_ST1_CROSSING_DEPTH` as 25, which limit=
+s the bitmap iteration in the IRQ handler, causing `ADE9000_ST1_DIPC_BIT` (=
+bit index 25) to be silently ignored and never cleared.
 --
 
-commit 9fc058b2c408d54ffde599d33ff5e645acdf0ad1
+commit 656c536a824cd57c69e995fb40cb1db36bf309ee
 Author: Antoniu Miclaus <antoniu.miclaus@analog.com>
 
-dt-bindings: iio: adc: ad4080: add AD4885 support
+iio: adc: ade9000: fix ADE9000 full-scale RMS and PCF codes
 
-Add AD4885 compatible string to the AD4080 devicetree binding. The AD4885
-is a dual-channel variant that requires two SPI chip selects and two
-io-backends for its independent ADC channels.
+The ADE9000 chip_info uses full-scale codes that do not match the datasheet.
+This commit corrects the RMS and PCF full-scale codes to the values from the
+ADE9000 datasheet, fixing a 0.3% reading error on the affected channels.
 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> index db8467b98e67d..07ac4e07f415a 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4080.yaml
+> diff --git a/drivers/iio/adc/ade9000.c b/drivers/iio/adc/ade9000.c
+> index fd1362a980523..0f64bfb221da0 100644
+> --- a/drivers/iio/adc/ade9000.c
+> +++ b/drivers/iio/adc/ade9000.c
+> @@ -677,9 +677,9 @@ static const struct ade9000_chip_info ade9000_chip_in=
+fo =3D {
+>  	.name =3D "ade9000",
+>  	.channels =3D ade9000_channels,
+>  	.num_channels =3D ARRAY_SIZE(ade9000_channels),
+> -	.rms_full_scale_codes =3D 52866837,
+> +	.rms_full_scale_codes =3D 52702092,
+>  	.watt_full_scale_codes =3D 20694066,
+> -	.pcf_full_scale_codes =3D 74770000,
+> +	.pcf_full_scale_codes =3D 74532013,
+>  };
 
-[ ... ]
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential problem in
+ade9000_irq1_thread() with how it handles the interrupts bitmap:
 
-> @@ -105,6 +106,7 @@ allOf:
->                - adi,ad4880
->                - adi,ad4883
->                - adi,ad4884
-> +              - adi,ad4885
->      then:
->        properties:
->          reg:
+drivers/iio/adc/ade9000.c:ade9000_irq1_thread() {
+...
+	bitmap_from_arr32(interrupt_bits, &interrupts, ADE9000_ST1_CROSSING_DEPTH);
+	for_each_set_bit_from(bit, interrupt_bits,
+			      ADE9000_ST1_CROSSING_DEPTH) {
+...
+}
 
-[Severity: Medium]
-The commit message states that the AD4885 "requires two SPI chip selects and
-two io-backends for its independent ADC channels."
+Since ADE9000_ST1_CROSSING_DEPTH is defined as 25, will this restrict the l=
+oop
+bounds to bits 0-24, causing bit 25 (ADE9000_ST1_DIPC_BIT) to be completely
+ignored?
 
-While this conditional block applies constraints to the newly added adi,ad4=
-885
-variant, it does not enforce the presence of the io-backends property:
-
-    then:
-      properties:
-        reg:
-          minItems: 2
-        io-backends:
-          minItems: 2
-
-Should a required directive be added to this block to enforce the presence =
-of
-the io-backends property as claimed in the commit message?
-
-    then:
-      properties:
-        ...
-      required:
-        - io-backends
+If userspace enables the DIPC event and the threshold condition is met, bit=
+ 25
+would be set in ADE9000_REG_STATUS1 asserting the IRQ. Because the handler
+skips bit 25, the interrupt status bit is never cleared. Would this result =
+in
+an interrupt storm since the hardware register uses write-1-to-clear logic?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907101944.9748=
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907101623.8730=
 -1-antoniu.miclaus@analog.com?part=3D1
