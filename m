@@ -1,108 +1,130 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B694E1799F
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 01:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8BB52F6596;
+	Mon,  7 Sep 2026 01:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788744639; cv=none; b=TLZqwZzPQb6/6Zf5olrwQRuuAci6Mcs+ncyN6BzNWvn8JjV4XRWE2Od+PIdVuvG2jQdT9Of78qfbQK0cZNHM9L0BhtPt8XI8ZyPHdT1XbRR0Adwiv4DAfFILT9EloIlfEdBTWzwbABCnQSO2pnO6vnbQCxlnID42MW0CGK3SSbA=
+	t=1788746089; cv=none; b=aLHIszP6fd77ak5TWoB1AyUegYdOqzC8jPV3/Sqe6JyZGcbCirvBZnf5LvcZdQqnloAgjFs09wZxAOzkgjTiDp0eIkFhZDKdCG7YyJAk2OihDZmr4JajxQoS4kFcPuIn4OBenNSqnawhYZXIxOmLEHKikI6FYvuFR3syMoJ/FG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788744639; c=relaxed/simple;
-	bh=dNNGYguUOLSgqqkfkvjIkkVDaQtxaxTdCgcuFwGgJX8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OJXy/31oG6u46S3EhAVmXdldbwqgM4HGwWPuU2+mI8XbSo+bREs+hiKjNOf6s4vqJtbGh4gb797vnF+nOK/uwvmy1TctNl0d5n6UizpWQqoHyLrS+TFMrh2Sb3br1Le+Rxd/F5nuIK+mI4OEWjOsLIjgP3xbWBf1WtPZq7X6yfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DmyZEFC3; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788746089; c=relaxed/simple;
+	bh=1AI0dKaOI65yf1+rfxltbIkAsJQpiGcpaW89EreOMv8=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=Em+LgFleIPlVfIxmNxzInC1fDURdAnJc6PrdMPEkLIynzsjCMNUrYJolhCpnX4roV6X0tE2a+EaluiltOr/unVzzLIqX9euE2fmGIhlWVjMO6lJ8q2Yz7xa1Gb4LHt1Rzg5DdF9vVFPsJWOozutwW0tZrgd49JRSaWSkUEYDGvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XP1joD+R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DmyZEFC3"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482e067e908so2464123f8f.2
-        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 18:30:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788744636; x=1789349436; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JUvMkYiTr+t7ea9aRviIs2wiCWDmgBxN3oKZgi8ZnUg=;
-        b=DmyZEFC3ZlrfcR7yaFHFgOkINCSL9iwfMA//9Y0owicHCr4IQGJRAJWz9k0aW5ZJ+e
-         nf26e8rOHvd8k7cPnxpTVMy61KrP1jadw9RPrgYmR9f1HPGqI/ZfWMD1q4dCtX0Z/9AH
-         LubO2cFNnP0NRfUSKSSpoeAVT+54HbdP+jXkIe+yW+qoX1chq9EEHwzgkO9kzBtSrIDg
-         64GHl3LvUVp/1n+dAX2R62p9BVEKdhuhMsBsTyHpzKeislgJa8JGUK6n5MAU5+ipuL24
-         hYtN+iYfGB2W2YEdlD5IxeXRFSNSd+Ij0HP8BlFOqZ4xreQhEZzQJeJ9XXCXO0DMtlt2
-         WUXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788744636; x=1789349436;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JUvMkYiTr+t7ea9aRviIs2wiCWDmgBxN3oKZgi8ZnUg=;
-        b=Tr4yNzOe/vs2LlfGMBeqCbS2OlXd9ZFluIcIg5zSYks076EgwHVIeObT2pnXmT8YfQ
-         yuPsccCXN/Cau4fASsgPubv2lKZq+n4UYOXoolAi5IJx6VX8//9LkSMJ/qDOW3LixIRI
-         Sie2yQtwdfQxpMn9IQhMUnQHkt1nVqVut5CE6OBnELOzTx2v/RADXI1qe8m++Vp5CwQP
-         z7zg/+ztp4OZ7h6jfVeHLqLmgtVQDYygHKOTevjF6svSy5W2JiPXqOC0dLGoS+IhcEdn
-         LA89MG5nc46gA0wfoc9Aqo+MYc/vxuex4iaM+j5eBhl6OtDLFX7o35OqhOxTdzCBM1if
-         8plA==
-X-Forwarded-Encrypted: i=1; AKwUvBxggED910Lp/tuY/zSoPdguP4sNhSfFlVx1Q0ZliE5gh3dhwIsYwk17/yvXURN8V3TLM6ajdBV7NwtY@vger.kernel.org
-X-Gm-Message-State: AFuF++lZJs4SskA6ePS8iU3JWb6wmMnp9aXHy3ACO8VG8n28p9r12nb8
-	OArInGhHOaCugsZpFHj5p6OcxibPVi3wuXgAYrNGT3WULufqa/G53oCC
-X-Gm-Gg: AYBFou0pzbOfmQmzatUGortr9PHcoCECvHrCZTHhmkCW2ov/MmaBoY7jfjf8+JrHQ6J
-	CFY6mF/znvCa6+/lzLFoV3+3m7RZUsHzljLrs4xHdNP0/0DMu815mM6Ycy5zsOM6pTnYPY7vE1X
-	b6raXM+hH6sPXE2ugLRzyS3U5Pxqil6EMYJtuAGog+XPB/2mGZ3527zle91CuJHtT2BqOg6QiDO
-	yFfRNIK1d2mWsTRfiKR5WqGjV7GdSjtLBYAgQZPifM5r8o+pTQRuqfeWCHSCtqXCm5qT1yeDL3C
-	w45VFL4WrIdKyfyGe7gC2HrsTWQX+BwBN4tVT5U0o179Eg9I6jKt5MLHYPAGKsdgWr0QBdIuGzt
-	3smgmxsyc3KXMPfXjVDa0M6kITmHU88pE2sqWGq2x0PkQOZyw4nfwqhiVkAODZCAPshh1iCMwx0
-	LQXyEZ9FIhkJdEF6S6Ix0u51sb1XnP40pu0Y18McUW9lRWdAHP+xum6nPW0YH+FF+fZuqaKrXS4
-	uZkIVytyKu1oDUwWF7j7zeO0b3oTkDLhK0ixmuQg+tjzoGQOx47strQJhqIjm6MqY+zi+DdN1a4
-	tE2jCkhoefVLFSuOXuwNfswsfWbP8BH0LDLnMZ+W2LraI3s+hMnucFTkPHN3xjH5RHA=
-X-Received: by 2002:a05:6000:2003:b0:485:8a46:7050 with SMTP id ffacd0b85a97d-4858a467187mr17523667f8f.34.1788744635748;
-        Sun, 06 Sep 2026 18:30:35 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9d84-5101-9c80-d25b-14b6-410c.310.pool.telefonica.de. [2a02:3100:9d84:5101:9c80:d25b:14b6:410c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485958f1493sm13291531f8f.37.2026.09.06.18.30.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 06 Sep 2026 18:30:34 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Rob Herring <robh@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org
-Subject: [PATCH] docs: dt: unittest: Use unittest_data_add()
-Date: Mon,  7 Sep 2026 03:30:30 +0200
-Message-Id: <20260907013030.22528-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XP1joD+R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3AE71F00A3A;
+	Mon,  7 Sep 2026 01:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788746087;
+	bh=ZjZk/T3T7cS/RqaqOE2LmS2HRZNX8JaAOt02nJKe9fY=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=XP1joD+RS+zy7Fu5hg4dLHHIdWVnrT5cDS8RQF5bCs90R+Nxvcp6WaC6LwFvtmOff
+	 awT+voaG3+DRI5h+q+dp9ZrsFdNCcyfONtO+21ylfvx2xrfUltZN6XsgzHKqlXYrtv
+	 ZHaWBzHZ6Qb55C1qVYIxFzftpe5tzp1hQQZ3LpfcTTDDZ7eVx9dDyiQwO6FGRUuqLI
+	 pRdRFSyGwWX83/agztY/sVRaOw2E+chj99pzAoWutdXlb0InDwH8lYtQwicvSt/xp2
+	 YhhAzwhhtQfDU4it8hLUJTBfUEucCyWotuiTB/TT0l6RhXc8s0kp+LvsPGwoKU2t4d
+	 RWGM+WV40NlbQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 0/8] Add support for InvenSense ICM-42370-P
+ accelerometer
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Kanak Shilledar <kanak.shilledar@axis.com>, 
+ Henrik Grimler <henrik.grimler@axis.com>, 
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>, 
+ Joshua Crofts <joshua.crofts1@gmail.com>, 
+ Marcelo Schmitt <marcelo.schmitt1@gmail.com>, 
+ Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com, 
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <ape0FNy38B_0RyN4@ashevche-desk.local>
+References: <20260901-b4-inv_icm42370p-v3-0-77cc31642115@axis.com>
+ <ape0FNy38B_0RyN4@ashevche-desk.local>
+Date: Mon, 07 Sep 2026 02:54:30 +0100
+Message-Id: <178874607008.3402141.6398096154260490037.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2510;
+ i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
+ bh=1AI0dKaOI65yf1+rfxltbIkAsJQpiGcpaW89EreOMv8=;
+ b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqnhlXbWdO3wFFdP61a3Kghm3ky8LhZNJNHyg3p
+ NiBm/iYCJiJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCap4ZVxEcamljMjNAa2Vy
+ bmVsLm9yZwAKCRBUhTSZxPQWiCPiEAC1ICpewwSaASUm++fBaH+3IIuP5VsVXjtG/430MEtGVa+
+ AhuoNxgLr3oUdd4C4V/GBcPEcSU33TAX+pq41kOXCtfydr+cW8uTfChe2gTwbwQ1gcLie2NJYNX
+ X2IemjNBPMctGUzTCbjA7+d7PJytfMi4ZgE7dFZp+uyQInxO3fDOS+e5E6uD/XW09wUY5V/yKKY
+ 6S9c7UzmE+Mx3Rx9v2RRmwNvOq20Cw/eduOeWW+gKIDqnt79d1NVk5cmWADsitsZ2pc3sdo+BOk
+ yi8b/NG4tAbUawqQ33WwLwq4PyndxFwds7zmDSRoZXibsKJ08+tr9JS+DYPSVArVdQA7anZMQ/Z
+ y/JZtGVHgGieXteeZwtAP+mVp69NlF/rwypmVLQb5ce9EKo3XtcTCqXosfWWATBCGYMZqWUo1vG
+ 7XXIR1rtMhGSLJckwo/8ZdbVjDv5nq5iZRQN/HO1C5x2/bWt5nZgigqaY+ukJVr4ma042mxdnYR
+ YguYZH1Of+KA72cozmyfTFnI5jeTiAXDcQ9jCV8+4z3Mt85lBLaXkefTtzo/a5WALO7VazH3U20
+ q7xhBPSWihS77V4ks0ngDbfWmeteBAz1KNFpK6YJFkGHCDqnWYIDw3w6do65ueYMINboGS5iJrY
+ u30ShpUy2RwpU94XcQq+Bi1KuKF/0GxlkWZwO9g==
+X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
+ fpr=6E2966B387840652912681B154853499C4F41688
 
-selftest_data_add() was renamed to unittest_data_add() by
-commit 9697a5595ece ("of/unittest: replace 'selftest' with 'unittest'").
+On 2026-09-02 08:30:07+03:00, Andy Shevchenko wrote:
+> On Tue, Sep 01, 2026 at 04:35:53PM +0200, Kanak Shilledar wrote:
+> 
+> > InvenSense ICM42370P is a high performance MEMS MotionTracking 3-axis
+> > accelerometer. It supports I2C, I3C and SPI protocols. It has a 2.25kB
+> > FIFO and two programmable interrupts with support for ultra-low-power
+> > wake-on-motion support. It has a built-in temperature sensor. This
+> > patch series adds basic support for the sensor with functionality of
+> > performing raw reads and writes via the I2C interface.
+> > 
+> > This device contains 4 register banks for configuring the device called
+> > MREG0, MREG1, MREG2 and MREG3. Unlike other devices from the same
+> > vendor, this contains a very different way of accessing the register
+> > banks apart from the default user bank 0 (MREG0). The register bank access
+> > procedure is mentioned in the datasheet Section 13. This is very
+> > similar to the existing InvenSense, ICM-42607-P driver. Thus, it
+> > improves the existing driver support and adds the ICM-42370-P device to
+> > it.
+> > 
+> > While adding the support for new device, I tried to perform some fixes
+> > to the existing driver which were pointed out in the v2 of this patch
+> > series.
+> > 
+> > The buffer support will be added in another patch series.
+> > 
+> > Note: The datasheet for InvenSense, ICM-42607-P could not be found on the 
+> > official https://www.invensense.tdk.com/en-us website. Thus, I am 
+> > using the datasheet available at https://www.lcsc.com.
+> > 
+> > Question to the reviewers:
+> > * There is no entry for drivers/iio/imu/inv_icm42607 in the MAINTAINERS
+> >   file, should a new MAINTAINERS entry be created for the inv_icm42607
+> >   driver with the original author as the maintainer? Currently
+> >   `get_maintainers.pl` is able to add the original author to the
+> >   recipients list, but `b4 prep --auto-to-cc` is not able to add.
+> 
+> Only if you have (or will have for sure) the confirmation from them.
+> Otherwise it's you most likely...
 
-Use the new name.
+Chris only just got this one merged so let us wait to here from him.
+> 
+> > * As per the comments in v2 from @Jonathan regarding splitting the
+> >   driver into multiple files, should we still have the driver as
+> >   multiple files or should it be merged into a single file?
+> 
+> It depends on the factors like busses to support.
+It is fine to have it split given it's an existing driver and supports
+more complex hardware.
 
-Fixes: 9697a5595ece ("of/unittest: replace 'selftest' with 'unittest'")
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/devicetree/of_unittest.rst | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Jonathan
 
-diff --git a/Documentation/devicetree/of_unittest.rst b/Documentation/devicetree/of_unittest.rst
-index 6ed6e3291964..5ea8ee0e81ef 100644
---- a/Documentation/devicetree/of_unittest.rst
-+++ b/Documentation/devicetree/of_unittest.rst
-@@ -125,7 +125,7 @@ Figure 1: Generic structure of un-flattened device tree
- 
- 
- Before executing OF unittest, it is required to attach the test data to
--machine's device tree (if present). So, when selftest_data_add() is called,
-+machine's device tree (if present). So, when unittest_data_add() is called,
- at first it reads the flattened device tree data linked into the kernel image
- via the following kernel symbols::
- 
 
-base-commit: 986c24e0fe44f844b44d365b71ce831947f50298
--- 
-2.53.0
 
