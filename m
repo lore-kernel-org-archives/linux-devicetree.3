@@ -1,65 +1,65 @@
-Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D3E46D2B1
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB80F4EBADE
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 13:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788787604; cv=none; b=s+x0wrNw9Fn6P/OVnIab6joMMcOoY0bPmSw918GTIK51WOCkq6zmxWLTYSkU88vUMiWh3npNutgNXkbVOLluZ2d+uU460Bc+aNNjwVFBjiO5n54g4fhT8HLws3dRh3hWu29D1UtgGMNGHW/F9sQHl3p4eYVFDdNRtemOwQmFVAk=
+	t=1788787605; cv=none; b=pAgxHwe8L5iV2nHINVnpDw1s7Mw9yw2KoIlqozrYSAc+Y+gqZfE53BvplSrbqFqO54PFbelZJPF6uwAyP9/7td7IOeoOgSDDJz6dqlC/ppJl1DGEHKcCcPGrT3AvwXzJRPZz3WaKeZf70QWMZ/W033iAnri/LgUoey1lNizki3Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788787604; c=relaxed/simple;
-	bh=G5jXm9KUeZYj2Bl7i7D49ZYRWMRfZvF8D6J8EGNejlE=;
+	s=arc-20240116; t=1788787605; c=relaxed/simple;
+	bh=xb8hi4uuW3KBK62XY1yYI5XdCz67rzTPXQ/r+H7c1GI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rODyoTVnjtufCf07nybFHAhRADPYjCSsZtjcleH/IiTIF8JfPzGx8+Q/MpCtLzb5893UD9OtREK0CuqStXHzPYC+yMbWhNOPRfnda38I0G3ayiq4Ey1ImJ7TCjU5TZCypPoe7L6X1xz6ZH9ehlQ0AEFktT6ZxANW7BQk7upHun8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=c3PMpTJ7; arc=none smtp.client-ip=209.85.218.44
+	 MIME-Version; b=rAb/WsHthZHbmUaCYt+UTbHWiQ3Bn05aWf58TAda3Esuvdcp/glclXHwVPBAF37Ci0Q+ohMx/qGtsULcBBrYk6mLegwjp+2Jswz7cK54VbOz6p8E8v9bFRHCpB6qeDBmla6wiKQlGCIYmFtoICU0NPX31f0NNifUYlaacEymCNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=UgrvRRAT; arc=none smtp.client-ip=209.85.218.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="c3PMpTJ7"
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c2533d83e3bso593477266b.2
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="UgrvRRAT"
+Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c28eef361f0so173485366b.2
         for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 06:26:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=sartura.hr; s=sartura; t=1788787596; x=1789392396; darn=vger.kernel.org;
+        d=sartura.hr; s=sartura; t=1788787597; x=1789392397; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=q+tecQI/RAFJySwtEv9OqcvDunXy81vhadYC9Bp1rn4=;
-        b=c3PMpTJ7uV3eUQmqwJKZj8MU/BCxWMS/FlDW05chphrUBbMxw/LTrkBm3+m0BSN22F
-         rLMOBq6KAtAaQcfajZOsRxi3/+GYrugDHvwnG3Okh+2+sUE+TC6MAHsQ3eDeG7P83x4S
-         PmB9aSciY/WcAWc+bMrQFt33zjeTr+Z7svaWILoPEgXLlJhAZWl+ty/6PoGUc7gak2Zg
-         A4ZmJGQnKApCkD7/DN+aQjeqm5xrKBcBELYq2cBjC3zd559RScw67SCWDxLkUT6a563C
-         K64RNT1vUDzsRvxCGozY9YI7OQaBE422SsTGDUNAvk0OpIyDjSKZoTvlLmY+IEK/PQvk
-         ZxQQ==
+        bh=4soDR+0gZiqt37Lbe4DFFhbgclQyHpPTsvSalKhA+JQ=;
+        b=UgrvRRATI/dMOrr9BHAIcGsFGYw38dnHEJoJEDjj/kP2pgZlxqL/8kDZfnW+jUPe5U
+         FkA6ENYCxXD+NcgA1NbbU+zDAH7+Gk92w2+P+8JnMpYd2ASsDRZW7cnp/CHR5H+iUGxr
+         CeFXkI9InwuPFG/OcxZgrnK8C14uDC/pD/ZQ1HThJv4K0vvTysNS7CS9Tv3TOeNVvTio
+         99Ph0nuADUTIVaPamcBCMEDhC09gHuj/4k+hu/KgEVmKJobLsNqCA9/fwBeNK7rzsrY/
+         q3Jgx4KQf67bUdn6F2NrfEAbIdkAbNW2tKvOLNBV4/JwtncNvuuqEHWPn6E2LNwBTD+K
+         aGBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788787596; x=1789392396;
+        d=1e100.net; s=20251104; t=1788787597; x=1789392397;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=q+tecQI/RAFJySwtEv9OqcvDunXy81vhadYC9Bp1rn4=;
-        b=qYJ15ekjAmdcYivMZyTsjIWQuRfD6NVDkSuX1wldWPXrTbrrg8xbmMd4qjccAQRhFp
-         pViR0cnNqn9PwFuCQwvcXeI5FZfsFCwkA1IjArSxd239JXJrf+QahvSrByFfuHFVtfAd
-         VPpkZ+VcATB+zXEzepZ2xkGwRBdSwqpgZ6AGGequ0OYJewCEV5e/2yGHp3UlLw8MvE0q
-         ADh3lYj200tnnsbfZA4G02ycNnCy6NOdjdldlUNVyyju3uppVW5OgiV8S5UQ5EA5vC8X
-         CoYLoeG4+3iDybqG4DAb046/MF7TYyCPyHEBxri4z1FMlUzBnDRSwHwt+IfkagFPnxPm
-         YFjA==
-X-Forwarded-Encrypted: i=1; AKwUvBxQfh6qVBHzZr+0h7MLqJ9tu/6lvoZGrksECFh++7VRLj3F2LthmsipQIz8qRmC8Y1gFUGLAgAN1BaJ@vger.kernel.org
-X-Gm-Message-State: AFuF++lqTM58RDlk6txb7fGztS7vynQT0yPoU/Gs60t157x7fQCJgh1g
-	ntKHYiFK3V2Y5rH2VtGQ7LWX7DOUfxk1Ia0fdyYNvH9jEZnGA+Gml3W0bhCvJfjHRgg=
-X-Gm-Gg: AYBFou3b7jRldt1/iWtAo/TP0A+C4VsSRKSBUAVXF3VIAjlq6474Nat72p0hOuNN8rO
-	YYJ4FfNOsXqk6Z6R7Z80ts2E3S2uNHH7Ez9IAo4BitMrOhlkQx0xicp+w1r9AoNeWpy+kzjblp6
-	Ds6/4R5zVGDQwxEEJJl0RxpaREzswNy+uTREfZs4xZdcTAEYtK7Rs6Ps7bHHh+/tlFRtBa4hUbj
-	PBCkznfUa248cQCylwRHZm/3DimuLgb9CmRk5HfY52p00LO4rXgywXYKrqNynl8+8rPNTur4QBa
-	of+WWIK4oofzaNJFiBtw0dtqI06IQLAE/UQuzoWY/V4lu8nNBvrxEruRp5skY6+T8gA32QQJ5Ft
-	rHlnUqT68V7PS7SO9V0vVKD81z49Bp5bnt/xFMqRHLQYPbe+Vvm5ZsqSx1S8A82gv2ABUytiO/o
-	5RxqlL2ASysECK8LdN0QmSNoFCWADxmcrnqsgov5KWaNn3NRFfbxm38cOYi3k7zpHjhunPMi1si
-	Bfze/UDLpo9ROmr5NDA4YSWRwxvIv6CNrirwy5fscFIh21v23zeJ3/B84f8UdEge1oteZlWJzJl
-	GtTy0DQiyTTRUaT+zBqKXgTwO/zWDwWWBysvhJS8sfvfJXoq
-X-Received: by 2002:a17:907:d28:b0:c25:8eb7:f388 with SMTP id a640c23a62f3a-c260cc0bcdbmr1608993266b.17.1788787595858;
-        Mon, 07 Sep 2026 06:26:35 -0700 (PDT)
+        bh=4soDR+0gZiqt37Lbe4DFFhbgclQyHpPTsvSalKhA+JQ=;
+        b=VxNLA/YhOvdWQbd470iRkpXisJu42+blYocNcI/WBM+CvlLI1EDbgqGPCwlu8EbyXN
+         cePLA4cccU2EFCsgAwO159L4ScQsZ54MhSdwwJQ/nh2TmprokzRElhILXPsYawjxBNCd
+         56EZOGAAVzVD1G+tgoVDGY1kWGQQSKIDhMzi3o8zlxequIme0dHnJujhWCfzpeLQfuuu
+         bAdbD8E1PLhBx6811SNBPPcvJ8mjDGO+SzkiAd+2MgrLmwmd9LIIqFoA1XTgxGp8TbJf
+         7hzIe9efK5d1VOz41NDeGoAAcrbuwtHWziMuy4Qi5UN5tgzn2FaKWccWyKAlX0UwcRL/
+         jBoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1ni8dWKpZ4JPiOvVQYDnVQa2Gm5tNQvunHfn+DJyXabQjWjAI5N0XS/pl4WBLhBHaNhdeu5bft0Y/@vger.kernel.org
+X-Gm-Message-State: AFuF++kSCIyaH0ISXZSebSNtPNL1YTsQncIen8HElHvffcyiOXh3GjKk
+	OHEJOOT78JZVWRzeW4UEt7I/Ony/+zt2bTIVrEuUCUPbsaThCJ5Ky3nIQ++52rF8nB4=
+X-Gm-Gg: AYBFou3fRJBFoXcnjHy6XBgUAkeHarygpneixR1AsN7Kk6HwlMLDmT5bBvS1mEr8V/Y
+	waknCA3EA6ruQTjEOPTSA4UxtgHEpgK93mJoTthGSrL6It/SriEMVn6EeRDAM6Fk3fD6D/ZDQBH
+	d89Lwlnn3lGcsi/mT1RNl9c+xOeQZ//4Od6yiIwKEcW2oc3jNJwNoOFh7vrXL5bbWoPhXXienfu
+	DOzXGmugAYrFNFlbV+Q+yOI7uFiPD1ArCuGrIigjaGNqhVxBxOsotRjcjiIJawv762BBpouwy0m
+	96bFQqhXv68FEHK8lEAxEMV/cGGDXDRFobZL18IJu0X25yf0oMRS6powZ3d1Tqpnc/7UyUsplkq
+	7CnWtFNyw8tMCdbCExEFlBV8DKokNKJRyWpgRQLcDZwj/nACtwA6D4HJfv8O9B93XGdpEd938WL
+	QHmYvSPmZj+KTB1OqGIIsns99cgmX83cQsuQsB/MqyIpKJfiwTqvIoo3czEg4mFoykWzs+NBkq2
+	gdrY0U8Fk3z3LpD3ZV5/3+fHcWWl4Ly/dffRZzTZTm9PGDk/LpRMU5voWvVFasa/3F7irO7x66A
+	Dtae9MBfwEhsNz95j90As/NYdIhPr1gXNYhxbw==
+X-Received: by 2002:a17:907:3f8b:b0:c28:e01d:1d10 with SMTP id a640c23a62f3a-c28e01d2ae8mr393259566b.49.1788787597442;
+        Mon, 07 Sep 2026 06:26:37 -0700 (PDT)
 Received: from threadripper-fedora-workstation (cpe-94-253-164-142.zg.cable.xnet.hr. [94.253.164.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2622a7c677sm366362766b.9.2026.09.07.06.26.34
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2622a7c677sm366362766b.9.2026.09.07.06.26.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 06:26:35 -0700 (PDT)
+        Mon, 07 Sep 2026 06:26:36 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: ulfh@kernel.org,
 	robh@kernel.org,
@@ -77,9 +77,9 @@ To: ulfh@kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH v2 4/6] arm64: dts: microchip: lan969x: add SDMMC nodes
-Date: Mon,  7 Sep 2026 15:25:32 +0200
-Message-ID: <20260907132617.1198548-5-robert.marko@sartura.hr>
+Subject: [PATCH v2 5/6] arm64: dts: microchip: ev23x71a: enable QSPI
+Date: Mon,  7 Sep 2026 15:25:33 +0200
+Message-ID: <20260907132617.1198548-6-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260907132617.1198548-1-robert.marko@sartura.hr>
 References: <20260907132617.1198548-1-robert.marko@sartura.hr>
@@ -91,68 +91,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add nodes for both SDMMC controllers. Connect their bus interface clock to
-the fabric clock and their core clock to the corresponding generated clock.
-
-Configure SDMMC0 with a 100 MHz generated clock for 50 MHz eMMC DDR
-operation. Configure SDMMC1 with an exact 50 MHz generated clock so the
-integer base clock encoded in the SDHCI capabilities remains accurate and
-the identification clock does not exceed 400 kHz.
-
-Keep both nodes ordered by unit address.
+Enable the QSPI controller and describe the onboard SPI NOR flash.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
----
-Changes in v2:
-* Use the fabric clock for the SDMMC bus interface clock.
-* Configure SDMMC1 with an exact 50 MHz generated clock.
-* Move the SDMMC1 node to preserve unit-address ordering.
-* Explain the selected clock rates in the commit description.
 
- arch/arm64/boot/dts/microchip/lan9691.dtsi | 24 ++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
+ .../arm64/boot/dts/microchip/lan9696-ev23x71a.dts | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/microchip/lan9691.dtsi b/arch/arm64/boot/dts/microchip/lan9691.dtsi
-index a8541c6a098d..5e330d5fab50 100644
---- a/arch/arm64/boot/dts/microchip/lan9691.dtsi
-+++ b/arch/arm64/boot/dts/microchip/lan9691.dtsi
-@@ -414,6 +414,18 @@ qspi0: spi@e0804000 {
- 			status = "disabled";
- 		};
+diff --git a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
+index 4012ea7d07bb..985ca31e74e7 100644
+--- a/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
++++ b/arch/arm64/boot/dts/microchip/lan9696-ev23x71a.dts
+@@ -463,6 +463,21 @@ phy27: phy@27 {
+ 	};
+ };
  
-+		sdmmc0: mmc@e0830000 {
-+			compatible = "microchip,lan9691-sdhci",
-+				     "microchip,sam9x60-sdhci";
-+			reg = <0xe0830000 0x00000300>;
-+			interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&fabric_clk>, <&clks GCK_ID_SDMMC0>;
-+			clock-names = "hclock", "multclk";
-+			assigned-clocks = <&clks GCK_ID_SDMMC0>;
-+			assigned-clock-rates = <100000000>;
-+			status = "disabled";
-+		};
++&qspi0 {
++	status = "okay";
 +
- 		qspi2: spi@e0834000 {
- 			compatible = "microchip,lan9691-qspi";
- 			reg = <0xe0834000 0x00000100>,
-@@ -429,6 +441,18 @@ qspi2: spi@e0834000 {
- 			status = "disabled";
- 		};
- 
-+		sdmmc1: mmc@e0838000 {
-+			compatible = "microchip,lan9691-sdhci",
-+				     "microchip,sam9x60-sdhci";
-+			reg = <0xe0838000 0x00000300>;
-+			interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&fabric_clk>, <&clks GCK_ID_SDMMC1>;
-+			clock-names = "hclock", "multclk";
-+			assigned-clocks = <&clks GCK_ID_SDMMC1>;
-+			assigned-clock-rates = <50000000>;
-+			status = "disabled";
-+		};
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		spi-max-frequency = <100000000>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++		spi-tx-bus-width = <1>;
++		spi-rx-bus-width = <4>;
++		m25p,fast-read;
++	};
++};
 +
- 		reset: reset-controller@e201000c {
- 			compatible = "microchip,lan9691-switch-reset",
- 				     "microchip,lan966x-switch-reset";
+ &serdes {
+ 	status = "okay";
+ };
 -- 
 2.55.0
