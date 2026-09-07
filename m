@@ -1,207 +1,102 @@
-Received: from mail-m15588.qiye.163.com (mail-m15588.qiye.163.com [101.71.155.88])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21400448D01;
-	Mon,  7 Sep 2026 08:15:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27C8C3375D5
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768955; cv=none; b=gAPHc/erem1g+5EMEXlSLDPCG585tSCizBnnBn4PZDJDiImZ+084OD3SP5AplCeaGaxDobWAyRf0SdVfl5YcJDU5aXjL8QOUjb/iF92tFQ4+Ii5MP8K3d0DnU5gtRtk+QksepPAvFjDSFyfht9L8z67wzOhp+UB8jS5DJvciUHc=
+	t=1788769014; cv=none; b=dAQm0807sohTDtkHxxGck98KyDf7e9VS57BRwcbGW/i2lC5G4qlO7LdUxJdYOdW8v+jQmGHF/PicBQUHkOaSIBw2/YGmIecsJYRVKtxobYdSBg5JuD/SoVECqNXEMRgQVVeQuP8pqf07tMk0ScSlBimsNIx27DXELD2lBCXigRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768955; c=relaxed/simple;
-	bh=XopvcVj4xqwi7IBJjsec+aRvrgJcTz1ao3mcsm3l+Bg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Tj8B8ft3pTDJ0mI/JuIBypLo7AD2adZyPBGXvyDAFeZjjQU5ff7+ARisA4i05Ha2RYkZpRW6xOMuBqcmhwEG+HsneM3oERMFSjdWXof+1xgiMXMQyL3Gi/3VSMZv8FRLfz/e2EzjWlV+iIdDHgmagiN619n9B9959esrAXWGYto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=R9o5yi+G; arc=none smtp.client-ip=101.71.155.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1788769014; c=relaxed/simple;
+	bh=7nowSITGcM1q970gApZvr6kZ03hlvDDs8a9iP9BMhhE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=u6gYUA2ythrUJnzgEm6+iSubM7EOan0uinhNH/kuOTvf/bBQ0hWfnhDkdKe7Db7WqEGr5wyTN8aNXJhyDLFV7gU3XdRbyJbbBRfAhRPQOniqyWQ1SBJdCjCCIZSh/J1XL6M2klBmxfs8PBsbbILjPTgir6G1NsjScoz22aHaW6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=u7Q2s1he; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="R9o5yi+G"
-Received: from [172.16.12.90] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ccabc703;
-	Mon, 7 Sep 2026 16:10:29 +0800 (GMT+08:00)
-Message-ID: <745c232e-d2ff-4d32-b997-55d4d37a39fa@rock-chips.com>
-Date: Mon, 7 Sep 2026 16:10:28 +0800
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="u7Q2s1he"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260907081643euoutp01e0439da86d444e397afe161632d9dacf~S__6IaPAD0164901649euoutp012
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 08:16:43 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260907081643euoutp01e0439da86d444e397afe161632d9dacf~S__6IaPAD0164901649euoutp012
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788769003;
+	bh=C49HkmDVZ4lVjfKu187yKcJcfrFqGDQxUYYBb3LwzE4=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=u7Q2s1heUqMda6W5XRBhcPx+MTlXcqrDqyl2qmNV0zWDSSmMKI2HWoP4uLN9hOlvP
+	 XmXHSulGrzA4zdKuuUTjPC1zQMRUSzsgxpRcQp3nM6VrhekYpsbS0+5HfPckFaxkLm
+	 fErxQpxeu4pXfP+9s405Gr40nX1gdcKu3786lkHw=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20260907081643eucas1p20588c21e5a4fc629f9ebc1f8f15c3522~S__54h-yh1075210752eucas1p2o;
+	Mon,  7 Sep 2026 08:16:43 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260907081643eusmtip2a290ef3efe626b53d73bbd7fd72e3e51~S__5ZfqCW0517005170eusmtip2N;
+	Mon,  7 Sep 2026 08:16:43 +0000 (GMT)
+Message-ID: <62afdbc4-f21a-477a-b0ab-de20c96b4b6d@samsung.com>
+Date: Mon, 7 Sep 2026 10:16:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 13/15] phy: starfive: Add jh7110-inno-hdmi-phy driver
-To: Icenowy Zheng <uwu@icenowy.me>, Maud Spierings
- <maud_spierings@murena.io>, Dominique Belhachemi <domibel@debian.org>
-Cc: m.wilczynski@samsung.com, Laurent.pinchart@ideasonboard.com,
- airlied@gmail.com, alex@ghiti.fr, andrzej.hajda@intel.com,
- andy.yan@rock-chips.com, andyshrk@163.com, aou@eecs.berkeley.edu,
- bmasney@redhat.com, conor+dt@kernel.org, conor@kernel.org,
- devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- hal.feng@starfivetech.com, heiko@sntech.de, hello@big-grey.co.uk,
- jernej.skrabec@gmail.com, jonas@kwiboo.se, kernel@esmil.dk,
- krzk+dt@kernel.org, lee@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-riscv@lists.infradead.org,
- linux-rockchip@lists.infradead.org, luca.ceresoli@bootlin.com,
- m.szyprowski@samsung.com, maarten.lankhorst@linux.intel.com,
- maudspierings@gocontroll.com, mfd@lists.linux.dev, mripard@kernel.org,
- mturquette@baylibre.com, neil.armstrong@linaro.org, p.zabel@pengutronix.de,
- palmer@dabbelt.com, pjw@kernel.org, rfoss@kernel.org, robh@kernel.org,
- sboyd@kernel.org, simona@ffwll.ch, tzimmermann@suse.de, vkoul@kernel.org
-References: <20260828-jh7110-clean-send-v2-13-331680c8b9d1@samsung.com>
- <0ccb4168-ff88-459c-972d-3c091c155db2@murena.io>
- <e780ecb8-918f-4816-99c8-b69b10b25a18@murena.io>
- <CAAvaLCwvVUddS14MPx0FHdnp+QeZ99+ox17pXt2hSWPTCFcHtw@mail.gmail.com>
- <cb0884b3-c9be-4cfd-ba43-27add3821ddd@murena.io>
- <6a5f8c11a092cef83bae8d9ea0100c2fc133a514.camel@icenowy.me>
- <CAAvaLCxMntrTbTQ9VNu4H_6LA30TRAqi7mCpn+x3hbTG9WqERA@mail.gmail.com>
- <057d97bd4b63fa4445dd86548f2ecdcbe9c3b1b6.camel@icenowy.me>
- <f68d95d0-f918-4dee-9443-38c64247b71a@murena.io>
- <72f82ae67eca7b5a594d86852c8b0dafb7d02c4c.camel@icenowy.me>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2] ARM: dts: samsung: exynos4210-i9100: Enable RTS/CTS
+ in Bluetooth node
+To: Paul Cercueil <paul@crapouillou.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar
+	<alim.akhtar@samsung.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <72f82ae67eca7b5a594d86852c8b0dafb7d02c4c.camel@icenowy.me>
-Content-Type: text/plain; charset=UTF-8
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <1666390417d0d9b8f58a7bdad1b8ecb475ba0d4f.camel@crapouillou.net>
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa07aeb328603a7kunma6aa1bc239fa0d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaGkIdVk9ITEtLGh4eHU5PHlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQkxVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=R9o5yi+G+F8zZyawx3whCVV/olFPrerxkAmSHzyaoP+qbbbFH+YbmhSzuasWco4g2ROixc1HaVg3Nk57qQfVWoyw147x+rkDDlxVI/S0hnMtjX9juxpUqfyv6S//I3qqIuaSa56RUA+YvW7x4fEuPAtkPm8AgKLXPFAQYdGtlmY=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=PAs6cpRutX6Xy3xUaS1PXdj4b2ODwk4xwVldcIzzW7w=;
-	h=date:mime-version:subject:message-id:from;
+X-CMS-MailID: 20260907081643eucas1p20588c21e5a4fc629f9ebc1f8f15c3522
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260829101532eucas1p29f4e04d4dfd169377793c276221059a6
+X-EPHeader: CA
+X-CMS-RootMailID: 20260829101532eucas1p29f4e04d4dfd169377793c276221059a6
+References: <CGME20260829101532eucas1p29f4e04d4dfd169377793c276221059a6@eucas1p2.samsung.com>
+	<20260829101509.138284-1-paul@crapouillou.net>
+	<6e319291-72b8-4a43-b953-8a9f0a6049c8@samsung.com>
+	<1666390417d0d9b8f58a7bdad1b8ecb475ba0d4f.camel@crapouillou.net>
 
-Hello Icenowy, Maud, Dominique,
+On 03.09.2026 15:29, Paul Cercueil wrote:
+> Le mercredi 02 septembre 2026 à 10:36 +0200, Marek Szyprowski a écrit :
+>> On 29.08.2026 12:15, Paul Cercueil wrote:
+>>> The BCM4330 is connected using CTS/RTS too, so add the 'uart-has-
+>>> rtscts'
+>>> property.
+>>>
+>>> Signed-off-by: Paul Cercueil <paul@crapouillou.net>
+>> Indeed the CTS/RTS pins are used for BT on most of the ARM Exynos
+>> boards,
+>> as the "<&uartX_fctl>" property is assigned for pinctl-0. This is not
+>> really
+>> specific to i9100, so maybe this property should be added to other
+>> dts?
+> I can add it to all exynos4 boards that use the "uartX_fctl" property.
+>
+>
+>> However I wonder if Samsung UART driver actually use this "uart-has-
+>> rtscts"
+>> DT property? A quick "git grep uart-has-rtscts drivers/tty" shows
+>> nothing
+>> related to Samsung Exynos...
+> It looks like it does not. I still think the DT property should be here
+> but I won't fight over this.
+I also don't have strong opinion on this issue. Krzysztof: do You see
+any benefit from adding this "uart-has-rtscts" property, just to describe
+precisely the actual hardware, even if it won't be used by any driver?
 
-On 9/7/2026 2:55 PM, Icenowy Zheng wrote:
-> 在 2026-09-07一的 08:02 +0200，Maud Spierings写道：
->> Hi Dominique and Icenowy,
->>
->> On 9/7/26 06:01, Icenowy Zheng wrote:
->>> 在 2026-09-06日的 17:16 -0400，Dominique Belhachemi写道：
->>>> On Sun, Sep 6, 2026 at 11:19 AM Icenowy Zheng <uwu@icenowy.me>
->>>> wrote:
->>>>>
->>>>> 在 2026-09-06日的 16:59 +0200，Maud Spierings写道：
->>>>>> On 9/6/26 07:39, Dominique Belhachemi wrote:
->>>>>>> On Sun, Aug 30, 2026 at 10:17 AM Maud Spierings
->>>>>>> <
->>>>>>> maud_spierings@murena.io <mailto:maud_spierings@murena.io>>
->>>>>>> wrote:
->>>>>>>
->>>>>>>      I was still having some glitching happening on the
->>>>>>> display,
->>>>>>> but
->>>>>>> I've
->>>>>>>      found the way to fix that, the question is what is
->>>>>>> actually
->>>>>>>      happening here.
->>>>>>>
->>>>>>>          0x29590020 <- 0x00000005
->>>>>>>      This one I have no idea, it is 0x00000009 with this
->>>>>>> patch
->>>>>>> series but
->>>>>>>      with the vendor kernel I get the value above. When I
->>>>>>> hook
->>>>>>> up my
->>>>>>>      external
->>>>>>>      display (regular 1440p) this becomes 0x0000000D on the
->>>>>>> vendor
->>>>>>> kernel.
->>>>>>>
->>>>>>>      But I can't find this register being written to
->>>>>>> anywhere
->>>>>>> there?
->>>>>>>
->>>>>>>
->>>>>>> Maybe this needs to be swapped?
->>>>>>>
->>>>>>> drivers/gpu/drm/bridge/inno-hdmi.c
->>>>>>>     -#define v_HSYNC_POLARITY(n)          ((n) << 3)
->>>>>>>     -#define v_VSYNC_POLARITY(n)          ((n) << 2)
->>>>>>>     +#define v_HSYNC_POLARITY(n)          ((n) << 2)
->>>>>>>     +#define v_VSYNC_POLARITY(n)          ((n) << 3)
->>>>>
->>>>> Very weirdly, the original definition here matches current
->>>>> mainline
->>>>> inno-hdmi.c, but the changed definition matches JH7110 vendor
->>>>> inno_hdmi.h [1].
->>>>>
->>>>
->>>> The vendor code is correct and matches the RK3128 TRM.
->>>
->>> Thanks for the tips on documentation, and I verified this.
->>>
->>> It seems that Rockchip people made this always wrong, even with
->>> their
->>> pre-DRM display driver... [1]
->>>
->>> BTW I checked the Innosilicon dGPU driver code, and its
->>> g3_ne_hdmi.h
->>> source file also contains the definition of BIT(3) as VSYNC. (It's
->>> quite weird that most logic of that driver is in some .o_shipped
->>> blob,
->>> but fortunately the g3 logic might be too new to be closed down)
->>>
->>> Thanks,
->>> Icenowy
->>>
->>> [1]
->>> https://github.com/rockchip-linux/kernel/blob/release-4.4/drivers/video/rockchip/hdmi/rockchip-hdmiv1/rockchip_hdmiv1_hw.h#L161
->>>
->>>>
->>>> HDMI_reg08
->>>>      Bit  Attr  Reset  Description
->>>>      3    RW    0x0    vs_polarity   VSYNC polarity   1'b0:
->>>> Negative
->>>> 1'b1: Positive
->>>>      2    RW    0x0    hs_polarity   HSYNC polarity   1'b0:
->>>> Negative
->>>> 1'b1: Positive
->>>>
->>>> Nobody noticed this so far because in 720p/1080p both polarities
->>>> are
->>>> positive, but Maud's 3:2 panel has differing H/V polarity.
->>>>
->>>> Best
->>>> -Dominique
->>
->> This also solves the devmem behaviour I saw, or well, doesn't realy 
->> explain it but does show what is actually happening. As Icenowy noted
->> (maybe that was on telegram only?) the inno-hdmi regs are 8bit
->> instead 
->> of 32 bit.
->>
->> What is actually happening is:
->>
->> devmem 0x29590000 b reads 0x29590000 as expected
->> but
->> devmem 0x29590004 b reads 0x29590001
->> devmem 0x29590008 b reads 0x29590002
->> ....
->> devmem 0x29590020 b reads 0x29590008
->>
->> For some reason the addressing is weird?
->>
->> With this change, the assigned clock change and removing the 
->> v_REG_CLK_INV | v_REG_CLK_SOURCE_SYS write to HDMI_SYS_CTRL, the
->> display 
->> comes up from the start as it should!
-> 
-> Well I checked the RK3128 TRM for these two bits, and their field
-> descriptions are -- "reserved".
-> 
-> What can I react...
-> 
-
-You can take a look at the TRM of the RK61X[0]. 
-I think it contains the register descriptions you're looking for :)
-
-[0]: https://dl.radxa.com/rock/docs/hw/ds/Rockchip%20RK61X%20TRM%20V1.3.1.pdf
-
+Best regards
 -- 
-Best, 
-Chaoyi
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
