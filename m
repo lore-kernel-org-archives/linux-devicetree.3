@@ -1,104 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F7F74E66A9
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 17:46:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB51851E44D
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 17:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803170; cv=none; b=Z6zXLDF2NRAFt/2J0ftZlPKwj+v9yezFWWr0VYTlVbdVPT2XPV6B3KJ/7WbWEv7GShy+o7Vz7TkxXuhYgPNpkk1vdfKsOOIV+uhgB6mWr0X8CpBOAquHG9yeh4Nn+zjqW67nuxboaAck/omrSLYf9eLv3b+QG+v9jk13LQDvuG4=
+	t=1788803251; cv=none; b=eskPhVUbQBo7dmN82oAA0gCzd/A3Ji5Cbmr5ybsKCT9I20UvwoR4kGyKP/lnvHNv3/w/iX7SDTHA6AzvhuVe+C743/o/AoYfH3mP6CiGbNJMK8fWVefLYtGTKW5hFjLLx0m7HdDekJJKs5gHfmSTqVQRvKv4FF9OYPTgnvi6Mis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803170; c=relaxed/simple;
-	bh=hjiL+jvpnZSleNt4sLsOU3gXhiYCfLcpIwa5WOzUxk8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cxB9OGEGKV5nmZrgVRBku3/6LZKek/YTK6+yQrR+gR1MxPAsaJGvqTeh3pbCxuIyKaBabW4wmTwrKWPQACgrq6OpPmCQR3rkNGE6ESZuPwfbfDtJ3wXtDMGziPaOibthsUQOTRvGRH/LW/hYoHUc/jwYXLKp1IZBIf45adIfLSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJsKYIxM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788803251; c=relaxed/simple;
+	bh=CQtqFLMRUcTx0dj7FUe3b3albQBIDJiu1m58tOlomAQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=nHe0Co1Ub2bztZmxnrEkwR5K90C0Wm82zy7ULuDMMYt7nrZkdQ5FVa+YRVc16xn3JAny5POn8tUSGQnd2gFB4wmRDBd70Q9b5nyUWboZa24Cp5w4CoS2iKSeKxc3UPZ0gvGzlYCDlyYp7hrOuRXAm8wkbiQ1H+U8MEY5Gxam1FM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=wfpKBPEy; arc=none smtp.client-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJsKYIxM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 182561F00A3D;
-	Mon,  7 Sep 2026 17:46:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788803165;
-	bh=JvTYLQCJoUKJbri2ibOWTfPnDGcRyFvRzsrYMFE5sC0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aJsKYIxMN0oLETNczl8t/6PUiPTQs28wTlSMdYWmhyYxicxtP4K27rGUANnD6dPN0
-	 2u1sQe0872ISqtclyWv6yXehDYsJg7jO37vnRq97lRkO2lqqD7n8T2nATZdJNiQVgc
-	 2iL1qnmZd3PWJR9bimLCeQvpsebRp4hh6fVtlQ1vicabgLmnGOztlDwZl3sbKoRq8q
-	 U/7QojFwgCMf2+cw+uTrr2+Oq+DzpJif21g8wfIJtdzdiKGZ2fIER37XdwKPo1FAgd
-	 Xh3ofWWStpHoICMA/FQcDClOApT53kTMAZWKIK1V9yIN4apko3Yr3n96wH8GqK74eD
-	 2PImpqZsvPe2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH net-next 6/7] net: mdio: add Airoha EN8811H MDIO
- device driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aleksei Sviridkin" <f@lex.la>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260906174548.4106801-6-f@lex.la>
-References: <cover.1788711797.git.f@lex.la>
- <20260906174548.4106801-6-f@lex.la>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 17:46:04 +0000
-Message-Id: <20260907174605.182561F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="wfpKBPEy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-2eefaa527c; t=1788803248;
+ bh=pulCHBNmHSLCMLUfuycAkgDBmy2iXM7iw4tKHzxTz4I=;
+ b=wfpKBPEyc9kgAhnxYkBPpUcRSWSFnVRMRR6h1aoI4f+a7MhUrS3dTO4EtTYVlavZuP7CicQSw
+ 7y1YZkoQxc1BJIoKJo2xEU81NbWaw+JGmXxWWFJF6wa6O/1O9rG2Fce0ydMTUyPcNOTqLuWR8os
+ 2NdeouD/liO2x55zOfh1SSk=
+X-Forward-Email-ID: 6a9ef8afe1a2da1fc80b68a4
+X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
+ smtp.forwardemail.net, 121.127.44.73
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <45014ba7-e213-4624-be45-78e88c1b52a0@lineageos.org>
+Date: Mon, 7 Sep 2026 18:47:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to
+ Exynos850
+To: Alexey Klimov <alexey.klimov@linaro.org>, semen.protsenko@linaro.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ peter.griffin@linaro.org
+Cc: alim.akhtar@samsung.com, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, thomas_turner@talktalk.net
+References: <20260905170914.1640-1-tturner@lineageos.org>
+ <20260905170914.1640-3-tturner@lineageos.org>
+ <DL8NQGNAVSYK.18TYE03LPQSW5@linaro.org>
+Content-Language: en-GB
+From: Thomas Turner <tturner@lineageos.org>
+In-Reply-To: <DL8NQGNAVSYK.18TYE03LPQSW5@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Incorrect PM wrapper used for dev_pm_ops structure pointer.
---
+Hi Alexey,
 
-commit 23bfd1bd681c899f8cb9185a35af023d5e062675
-Author: Aleksei Sviridkin <f@lex.la>
+On 07/09/2026 01:28, Alexey Klimov wrote:
+> On Sat Sep 5, 2026 at 6:09 PM BST, Thomas Turner wrote:
+>> Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
+>> for temperature throttling, DVFS, power domains, governor support,
+> 
+> One of the sensors exposed via ACPM is "linked" to the GPU/G3D as far as
+> I know. The driver part was sent already and three sensors work there
+> (two cpu clusters and GPU).
+> 
+> I've never tested yet the DVFS of G3D via ACPM. Maybe it is worth a try
+> on A21s. But it should work the same way as clusters clocks.
+> 
 
-net: mdio: add Airoha EN8811H MDIO device driver
+I have had a little look at your ACPM stuff currently staged, looks like 
+some really good work, would be cool to see if we could get dvfs working 
+via acpm at some point :D.
 
-This commit introduces the EN8811H MDIO device driver. The driver polls for
-and downloads firmware to the MD32 microcontroller before it functions as an
-Ethernet PHY.
+>> boosting and voltage control. Once PMIC is properly implemented, support
+>> will hopefully increase. However, the panfrost driver probes, the
+>> Mali-G52 GPU initializes and the core clock is set-up.
+>>
+>> Testing for this patch was done on a device not currently supported by
+>> linux, the Galaxy A21s. After enabling this node for that device
+>> locally, I was able to test and confirm basic GPU functionality. As of
+>> now, this patch has no users which have tested GPU capabilities and so
+>> the node has been set to "disabled".
+>>
+>> Here are some logs I pulled:
+>>
+>> panfrost 11500000.gpu: clock rate = 377000000
+>> panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
+>> panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,00000400
+>> panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+>> panfrost 11500000.gpu: shader_present=0x1 l2_present=0x1
+>> panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+>> [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+>>
+>> OpenGL core profile vendor: Mesa
+>> OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
+>> OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
+>> OpenGL core profile shading language version: 1.40
+>> OpenGL compatibility profile vendor: Mesa
+>> OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
+>> OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
+>> OpenGL compatibility profile shading language version: 1.40
+>> OpenGL ES profile vendor: Mesa
+>> OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
+>> OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
+>> OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+>>
+>> Signed-off-by: Thomas Turner <tturner@lineageos.org>
+> 
+> So, I've got A21s and installed pmOS to test all that.
+> My logs are slightly different but graphics is definitely alive:
+> [    0.200787] [drm] Initialized simpledrm 1.0.0 for fa000000.framebuffer on minor 0
+> [    0.215130] Console: switching to colour frame buffer device 90x100
+> [    0.225540] simple-framebuffer fa000000.framebuffer: [drm] fb0: simpledrmdrmfb frame buffer device
+> [    0.226134] panfrost 11500000.gpu: clock rate = 377000000
+> [    0.230960] panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
+> [    0.230981] panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,00000400
+> [    0.230991] panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+> [    0.231002] panfrost 11500000.gpu: shader_present=0x1 l2_present=0x1
+> [    0.232329] panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+> [    0.232726] [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 1
+> 
+> Also, when this is applied with status="okay" on Winlink board then
+> panfrost itself seems to be alive and drm initialises despite missing
+> regulator as indicated in my other email in v2 of this series, hence:
 
-> diff --git a/drivers/net/mdio/mdio-airoha-en8811h.c b/drivers/net/mdio/md=
-io-airoha-en8811h.c
-> new file mode 100644
-> index 0000000000000..d94d74d85f10d
-> --- /dev/null
-> +++ b/drivers/net/mdio/mdio-airoha-en8811h.c
+Alright cool, just for the records we have tested this series on the 
+A21s both with and without proper regulators and GPU seems to work fine 
+with dummy regs.
 
-[ ... ]
+> Reviewed-and-tested-by: Alexey Klimov <alexey.klimov@linaro.org>
+> 
 
-> +static DEFINE_SIMPLE_DEV_PM_OPS(en8811h_mcu_pm_ops, NULL, en8811h_mcu_re=
-sume);
-> +
-> +static const struct of_device_id en8811h_mcu_of_match[] =3D {
-> +	{ .compatible =3D "airoha,en8811h-mcu" },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, en8811h_mcu_of_match);
-> +
-> +static struct mdio_driver en8811h_mcu_driver =3D {
-> +	.probe =3D en8811h_mcu_probe,
-> +	.remove =3D en8811h_mcu_remove,
-> +	.mdiodrv.driver =3D {
-> +		.name =3D "airoha-en8811h-mcu",
-> +		.of_match_table =3D en8811h_mcu_of_match,
-> +		.pm =3D pm_sleep_ptr(&en8811h_mcu_pm_ops),
+Cheers, will give this version a few days to stew then I will add this 
+onto v4.
 
-[Severity: Low]
-Should this use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
-structure pointer?
+> Thanks for working on this.
+> Best regareds,
+> Alexey
 
-The power management subsystem guidelines indicate that pm_sleep_ptr()
-is reserved for individual sleep callbacks inside the dev_pm_ops
-structure itself, while pm_ptr() must be used when assigning the structure
-pointer to the driver declaration in en8811h_mcu_driver.
+I really appreciate all of the testing and insight you have provided in 
+the last few messages, now that we have Samsung E850s booting I hope to 
+expand support across the whole SoC :D.
 
-> +	},
-> +};
-> +
-> +mdio_module_driver(en8811h_mcu_driver);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1788711797.gi=
-t.f@lex.la?part=3D6
+Cheers,
+Tom
