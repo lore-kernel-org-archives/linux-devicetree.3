@@ -1,188 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6059F45FFB1;
-	Mon,  7 Sep 2026 11:06:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBE5424D46;
+	Mon,  7 Sep 2026 11:09:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779206; cv=none; b=NM6z01d5Bl6J8L5K2fFPmBlVSSaFYWTrl7f/4tSLTZJvgpKPBeeCUSrcy5zjZTKawW1cyP538uCPgl1cUpSZHv5jFUzicL9/18atMq5z3kXyKjCtGgaZKjlCv2hH5UHVArgBiU9FxPHOzaD3cjSvvlIko94V5bHJzW1lx5ODBUU=
+	t=1788779346; cv=none; b=njIPotEYtHhz/y0kduXr+s2d4Wsk8RUr72jaeydMqowhe7iEuhWRCoAzAVoPxWJZrHxKOBO2F4GQCKbb2W6M15YUm94P/SnceQxKevJEMy7bx3LMUNtvX07bUXbQku4VqT3WYu6U9dT9E9ZLvztCAMXbBsUyZX2BWu0BMcbDwXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779206; c=relaxed/simple;
-	bh=54JTb8/eMEvnsKTX04M/wtEJCLgNW8dn1kWtQc/OW7g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=THL0Y+Ms0oSPOpkxKymGUSKwzD+FpVJ3D5euq56fvm184mRV0KMeiGKO389OgegF+n69QrJK16zOETXUaWzUTiVi9cgZ9NgIYC4EWQZh0uFzJPjMN4i9uxX3MOnWSfQC4GXwbQa42+DrlCsNStqYJ4ce9+dh5TZnZSqqTSASUpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqMTD0H0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788779346; c=relaxed/simple;
+	bh=ZSVTuPs4tOQ6MilLZ/YlpwF9UnTmn1TqPf1+uC0eVrk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fO208fhJOiihainGRbwFmxw23SumHzG7H0QjJS3EaZuuKa+ePYBXa+/dDJ4uXj5VGtHNMb31uzpCMiqOfjZs+85ae5T17sDcg0H+lRNiTa512lsc9Mz1ahzvKnfFxAi4y+fLZCz5kTHxLQMdV/Y7NHNa5watYmiPeCoELyn48xI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFRA5riB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqMTD0H0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 941161F00A3A;
-	Mon,  7 Sep 2026 11:06:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFRA5riB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 168EA1F00AC4;
+	Mon,  7 Sep 2026 11:08:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788779204;
-	bh=Dbkicljb3VyWC6LbXIiFWxT1oy5hveAtpAfNwTRSlZE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SqMTD0H04Df3qhkqjy2tewI+7mVbdvbDlqZd7Q+SUH6UatKMY9WHDlreGntDtOpdg
-	 p4qOoWkgrncFv9wDft8iem7Ovva8IVLaZDKF446OJsuJn166VoceVE5VvU3/1B6YN1
-	 RqXrHz8Eet95rshhJPqPGSSj9Pm3JNf621y8s3/43DfN+ckptSFBVfEeBJb12BQ4A+
-	 3/02TDFj0DgRFEq8PhfJxdkTup1PicVmCmwE+z1+yaBNQ7hMwCMlt3KEOdWWIpCAuo
-	 6Nvdfh9Fjr54utCj5zEOW50i4Fp1AsQ1N3g9Px+dBIQQMZgkB9xPbZz4I9W4FPmUaT
-	 cRzSpaim+PF/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/4] Input: stmfts - wait for controller ready after
- reset
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Heidelberg" <david@ixit.cz>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
-References: <20260907-stmfts5-v7-0-4a53381cd038@ixit.cz>
- <20260907-stmfts5-v7-1-4a53381cd038@ixit.cz>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 07 Sep 2026 11:06:43 +0000
-Message-Id: <20260907110644.941161F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788779344;
+	bh=MKOffp+QRUepLWRx3cEKj7QDgchxuXLg4xrZKZeAQ5g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QFRA5riBpCuv+vbNl+CkpgU7Oa5X4VL7v9uTgFdKCsZE/uRkdgQ3Xchga9OTq1Wac
+	 YtiFJ2aLjhWoWSpxJe1p+HuSMe64AiMJdr5UYfe5taeKhqkFCTr8NYZ3l8EbjIgieI
+	 UKRM5G447uSAfGKO5u7Vknv3OzaY9BoPPzSDXhqs/87j5yu2OOyPTonxZ1tAjdoseK
+	 lp+qd5YdoqFJTo5mkQGrlRPG7iZdm96qK5N07Zd0mnEab/NNYUCcZ5XgmfuX/bID1Z
+	 ANOIT+jvFy2SbnggH+HKeVdecXy86Vxptl34doTAGx/RbrLBWbzmU0PY3kbhbw5/ER
+	 VkXRpyZvpaQzg==
+Date: Mon, 7 Sep 2026 13:08:55 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: george.moussalem@outlook.com
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Subject: Re: [PATCH v3 02/12] dt-bindings: phy:
+ qcom,ipq5332-uniphy-pcie-usb3: Document the IPQ5018 USB3 PHY
+Message-ID: <fkbmx5yyp65mp2qknnd2lbde5scfmr5dpbox5x4j4fu6uahtnl@mxx45aqojrg6>
+References: <20260825-ipq5018-usb3-v3-0-39be0955a6aa@outlook.com>
+ <20260825-ipq5018-usb3-v3-2-39be0955a6aa@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260825-ipq5018-usb3-v3-2-39be0955a6aa@outlook.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+On Tue, Aug 25, 2026 at 04:37:19PM +0400, George Moussalem via B4 Relay wrote:
+> From: George Moussalem <george.moussalem@outlook.com>
+> 
+> Describe the USB3 PHY found in the IPQ5018 SoC so add the compatible
+> string for it as well as the required resources (clocks and resets).
+> 
+> The PCIe and USB physical pads are muxed and selection is done via a
+> control register in TCSR. By default, PCIe mode is selected, hence make
+> the property for USB mux selection required.
+> 
+> In addition, the PHY requires a 5V supply for USB3 mode operation.
+> 
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+>  .../phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml     | 24 ++++++++++++++++++++++
+>  1 file changed, 24 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml
+> index 0d9d0fb405b6..1cd5392a1a0f 100644
+> --- a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-usb3-phy.yaml
+> @@ -18,6 +18,7 @@ properties:
+>    compatible:
+>      enum:
+>        - qcom,ipq5018-uniphy-pcie-phy
+> +      - qcom,ipq5018-uniphy-usb3-phy
+>        - qcom,ipq5332-uniphy-pcie-phy
+>  
+>    reg:
+> @@ -93,6 +94,29 @@ allOf:
+>        required:
+>          - num-lanes
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - qcom,ipq5018-uniphy-usb3-phy
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: usb3 pipe clock
+> +            - description: usb3 cfg ahb clock
+> +        resets:
+> +          items:
+> +            - description: usb3 phy reset
+> +        "#clock-cells":
+> +          const: 0
+> +        "#phy-cells":
+> +          const: 0
 
-Pre-existing issues:
-- [High] Unbalanced disable_irq() and regulator_bulk_disable() on consecuti=
-ve suspend/resume failures.
-- [High] System resume fails to restore the touchscreen's active state, lea=
-ving the hardware locked in SLEEP_IN mode if it was in use prior to suspend.
-- [High] The driver fragments multi-touch frames by calling `input_sync()` =
-after parsing every individual contact event.
-- [High] Information leak of uninitialized kernel stack memory via the 'sta=
-tus' sysfs attribute, and functional bug where valid status reads return un=
-initialized buffer data.
---
+clock-cells and phy-cells are already part of the top level 'required'
+constraint.
 
-commit 1a68dcc09b6690980cb8297285fc328a7de4c568
-Author: David Heidelberg <david@ixit.cz>
+- Mani
 
-Input: stmfts - wait for controller ready after reset
-
-After releasing the reset line stmfts_reset() sleeps a fixed 50 ms and
-stmfts_power_on() another 50 ms before the first I2C access.  That is
-enough for a warm reset, but when both supplies were really cut during
-system suspend the controller boots from cold and can need longer.  If
-it does, the first read fails, stmfts_resume() returns an error and the
-touchscreen is left powered off with its interrupt disabled.
-
-> diff --git a/drivers/input/touchscreen/stmfts.c b/drivers/input/touchscre=
-en/stmfts.c
-> index 972687797f826..711e3ad8587a0 100644
-> --- a/drivers/input/touchscreen/stmfts.c
-> +++ b/drivers/input/touchscreen/stmfts.c
-
-[ ... ]
-
-> @@ -598,16 +607,21 @@ static int stmfts_power_on(struct stmfts_data *sdat=
-a)
->  	 */
->  	msleep(20);
-> =20
-> -	if (sdata->reset_gpio)
-> -		stmfts_reset(sdata);
-> +	if (sdata->reset_gpio) {
-> +		err =3D stmfts_reset(sdata);
-> +		if (err) {
-> +			dev_err(&sdata->client->dev,
-> +				"controller not ready after reset: %d\n", err);
-> +			goto err_disable_irq;
-> +		}
-> +	} else {
-> +		enable_irq(sdata->client->irq);
-> +		msleep(50);
-> +	}
-
-[Severity: High]
-This is a pre-existing issue, but if system resume fails here in
-stmfts_reset(), stmfts_power_on() cleans up and returns an error. On the ne=
-xt
-suspend cycle, won't stmfts_suspend() unconditionally call stmfts_power_off=
-()
-again?
-
-drivers/input/touchscreen/stmfts.c:stmfts_suspend() {
-    ...
-	stmfts_power_off(sdata);
-    ...
-}
-
-And won't this increment the IRQ disable depth to 2 and unbalanced regulator
-usage counts, eventually causing the touchscreen to become permanently
-unresponsive?
-
-
-[Severity: High]
-This is a pre-existing issue, but stmfts_power_on() ends with a command to =
-put
-the controller to sleep:
-
-drivers/input/touchscreen/stmfts.c:stmfts_power_on() {
-    ...
-	/*
-	 * At this point no one is using the touchscreen
-	 * and I don't really care about the return value
-	 */
-	(void)i2c_smbus_write_byte(sdata->client, STMFTS_SLEEP_IN);
-
-	return 0;
-    ...
-}
-
-If the touchscreen was held open by userspace (sdata->running) prior to
-suspend, won't this leave the hardware asleep upon system resume? Since the=
- PM
-core does not automatically invoke runtime_resume, does the driver need to
-check sdata->running and manually wake the device here?
-
-
-[Severity: High]
-This is a pre-existing issue, but is it intentional to call input_sync() for
-every individual contact event here?
-
-drivers/input/touchscreen/stmfts.c:stmfts_report_contact_event() {
-    ...
-	input_mt_report_slot_state(sdata->input, MT_TOOL_FINGER, true);
-	input_report_abs(sdata->input, ABS_MT_POSITION_X, x);
-    ...
-	input_sync(sdata->input);
-}
-
-Since this is called for each finger during multi-finger touch frames, does=
-n't
-this fragment multi-touch frames by emitting a sync after each finger rather
-than grouping them at the end of the event parsing loop?
-
-
-[Severity: High]
-This is a pre-existing issue, but is the return value of
-i2c_smbus_read_i2c_block_data() handled correctly here?
-
-drivers/input/touchscreen/stmfts.c:stmfts_sysfs_read_status() {
-    ...
-	err =3D i2c_smbus_read_i2c_block_data(sdata->client, STMFTS_READ_STATUS,
-					    sizeof(status), status);
-	if (err)
-		return err;
-
-	return sysfs_emit(buf, "%#02x\n", status[0]);
-}
-
-Since i2c_smbus_read_i2c_block_data() returns the number of bytes read on
-success (e.g. 4), won't "if (err)" evaluate to true and return the byte cou=
-nt
-directly, bypassing sysfs_emit()?=20
-
-Additionally, if it were to return 0, wouldn't sysfs_emit() leak uninitiali=
-zed
-kernel stack memory (status[0]) to userspace?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-stmfts5-v7=
--0-4a53381cd038@ixit.cz?part=3D1
+-- 
+மணிவண்ணன் சதாசிவம்
