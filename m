@@ -1,148 +1,145 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D543845B0;
-	Mon,  7 Sep 2026 06:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5428B3644CB
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 06:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788763347; cv=none; b=l+kY6SWKVOoL0OUMNdJ7Mzt6R3DQ9rF+r+O8w+5PA21F6xViqG0di2cLDp7Cx6nOKBdqj4ckQ4tGOq+MOboXd0l0GoIvfMam/Hci53tSoNi3SDJaSgBdufUpEXvGdzKKbk69jWEPUrdmzsyDGniRi6Tpkjzs9M49aBAdY5gWGZ8=
+	t=1788763444; cv=none; b=VWG19FLaFpL4tepo0zKS0GzYY7UnGf8mqih3jZ4Xp+gaQ9GUn+WI3BfUNCQE3Tjon4yXIqUDsmALlpPgUcPoAo0+PlQHASBGsf9x0yqR5t/IC5ceXoOhSuWotkqIrLeh9HpjoIq/BG1IKPnkbW40zmAqb8lQ1CUCfRovzKxeJuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788763347; c=relaxed/simple;
-	bh=BOt0JM0ykbgk6R0bIWLPdl/vbv2tYWoVuu2Rm7dfXng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s84sFCr7C+pBk5auCSISfi70F0tieM3VFipyvpDnpR4rwODb0z2y8qI3s96puehmTtLKjUdmVm6Un2msYT02QLX90M7iOb4mvu1kd0FEJjIIrKcXScGiDQGp993VR3xA0wFM57cY/XhhPCr+ZabW3gj+Cr8GhFNRQZa23F3Q1RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TZTTF+4U; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TVsmZmXr; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788763444; c=relaxed/simple;
+	bh=j1VBciYU+56lFSPL/ui8DISKuAMHYfojI7BVoU5F1n0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X3FIuIjnFV0XxZWJsqT0XVKfaVI/yOSSusN2h3dAcaFCua5gJwEwN0lG8LeMP+SHwkOYQD1LUEZic2mOBxO+eyn61HoLwrjlWUaonw8vBiJqNv1FD8xBC3CHZJ8W9wOVxX0tt/C3Qi4Ooc99bPDSIMOi59KCZshN9YFFBMc+UsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GMerDzm7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TZTTF+4U";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TVsmZmXr"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788763321; bh=KtCwpxgTdgANQPuSDK+5DfN
-	OWiP7yAIRc/nEIcBZHLg=; b=TZTTF+4Uk9Y/sJ3vdSisQUNfb27IZfQpAJU9NWdNlqa3LJ6pji
-	Vt3aUtJIutlOLEaC3bIbvXTDUTcvx6krQ7fcmI5ViwrR7DIC3laA1TmzkT3luqgr3DrhKIATnFg
-	8sOAy+afDxAzVVMQRaqsVHwsM2xH3ShX63L4stvNDWsjoa/MkML0naZGvEv4qMZQsu4EnS+vXs0
-	nN5NSdTtMt9V4CKSVOnVdI7ijzPjv2v8ZltbRSLpmUoN6ZOkzX4FeRuMFvG9NXtN0L9hcHYXktH
-	LX35Mg5rifs6Ti5WU9xDNXrzJTFIg0IOQaqyuzVne0Wgco20yl71pKmtNci8Y+DgvNg==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1788763321; bh=KtCwpxgTdgANQPuSDK+5DfN
-	OWiP7yAIRc/nEIcBZHLg=; b=TVsmZmXrhFTjLfjFGybvwCYmglUBGxcNVWMTCLsRVSWXxcbk/3
-	yNl/U/jMmZ6pSiF0LkswmQQ8YzwZVblq3RCw==;
-Message-ID: <54719b3e-d882-4b0c-b477-1e12dcf65133@mainlining.org>
-Date: Mon, 7 Sep 2026 09:42:00 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GMerDzm7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9954B1F00A3A;
+	Mon,  7 Sep 2026 06:44:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788763442;
+	bh=NsZtcAtdnSPUU624lrdpdvYpBYbtMaS2ZGVy7VpsVhU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GMerDzm7qMg7I9wmAQJDBrg/I4938/49JjmGgpYC4C9TdGLPgO4fy73NMd0RSDVuy
+	 KlyUJwXX6rcwd9pN0AhQngZYcxVJXFLc0TC5X6rfCdhHcYFI3pYERnBVOYLD2vtuE8
+	 YGSQsWYZeE0VHXHujuJj9HyVHdbsMKdmtcz0vHAlweUXVnbHiM47EDLtLMrFWDSVYV
+	 EUwbpi6fpppCsF/aK+4AqPEsB72KuX+xo4X9GKVbNADClOMC/4Hbi53vDCO3zCsTxy
+	 ANGpplHsrJg+kxDeFkYM0rHxw+yQVuprehaHBU8nLsmmg/vso6JqXGG51kjAH6s2J1
+	 TMeIn0+4jyJSA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: lemans-evk: Add Raspberry Pi
+ 7-inch DSI panel overlay
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shashank Maurya" <shashank.maurya@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260907-rpi_dts_overlay-v2-2-a4989322ce00@oss.qualcomm.com>
+References: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
+ <20260907-rpi_dts_overlay-v2-2-a4989322ce00@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 06:44:02 +0000
+Message-Id: <20260907064402.9954B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 0/2] Novatek NT51021 DSI panel IC driver
-To: Ryan Brue <ryanbrue.dev@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
-References: <20260829-qcom-novatek-nt51021-panels-v1-0-cc1ca61bd261@mainlining.org>
- <20260907060129.120497-1-ryanbrue.dev@gmail.com>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <20260907060129.120497-1-ryanbrue.dev@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] Downstream-only I2C properties (`qcom,load-firmware` and `qcom,xfer=
+-mode`) are leaked into the upstream device tree.
+- [Low] The panel node is missing the mandatory fallback compatible for the=
+ ILI9881c driver.
+- [Low] The regulator MCU node uses an invalid node name and includes an un=
+supported vcc-supply property.
+--
 
-07.09.2026 09:01, Ryan Brue wrote:
-> Hi Nickolay,
->
-> I sent a duplicate NT51021 driver on September 5th without finding
-> yours from the 29th first. That was my mistake, and I have withdrawn
-> mine. That's my bad, I'm new to kernel development :)
->
-> Since I had the hardware set up, I tested your series on the device I
-> am working on: the Amazon Fire HD 10 (2017), an MT8173 tablet with a BOE
-> 1200x1920 NT51021 module, driven by mediatek-drm rather than msm. It
-> works.
->
-> Concretely, on that panel:
->
->    - your 10.1" register sequence, timings and mode_flags, unmodified,
->      bring the panel up correctly at your 60 Hz / 993.5 Mbps per lane
->    - it also works with my vendor's own sequence and timings under your
->      driver, at 62.5 Hz / 980 Mbps
->    - verified across a cold boot, display off and on cycles and a
->      suspend/resume, with the MIPI TX PLL reading back at the intended
->      rate each time
->
-> So, for what it is worth on hardware you cannot test:
->
-> Tested-by: Ryan Brue <ryanbrue.dev@gmail.com>
->
-> Two things I checked that might save you answering them later:
->
->    - The generic writes are right. Xiaomi's own panel dtsi uses dtype
->      0x29, and this panel accepts both generic and DCS short writes, so
->      nothing depends on the choice.
->
->    - prepare() never sending a set_display_on looked like an omission to
->      me at first, but the 0x01 software reset at the head of the init
->      restores it, and repeated off and on cycles pass. It may be worth a
->      comment, since unprepare() does send set_display_off and the
->      asymmetry invites the question.
->
-> One question on the binding, which is as much about my patch as yours.
-> Where does "boe,tv101wum-nx0" come from? Xiaomi's panel dtsi
-> (dsi-panel-nt51021-boe-10wu-video.dtsi) gives only
->
->      qcom,mdss-dsi-panel-name = "NT51021_BOE_BOE10";
->
-> with no part number, and the register sequence in your driver matches
-> that file byte for byte. TV101WUM-NX0 is a real BOE part, and its
-> datasheet active area of 216.576 x 135.36 mm agrees nicely with the
-> 135 x 216 in that dtsi, so the attribution looks reasonable. But if it
-> is inferred rather than read off the panel or a BOM, it may be worth
-> saying so in the commit message, or naming the compatible after the
-> board the way panel-novatek-nt36523.c does for
-> xiaomi,elish-boe-nt36523.
->
-> I ask because my module has no identity I can establish at all. It
-> answers no DSI read, DCS or generic, before or after sleep-out; the
-> vendor kernel and bootloader name it only "BOE", chosen from two board
-> ID straps; and its vendor-declared physical height is arithmetically
-> impossible, since 1200/136 and 1920/221 disagree by 1.5%. So I am
-> naming mine after the board, and would rather not accidentally imply it
-> is or is not your part.
+commit c29fa706b8fbecd36dcc880f57d516cffcc9f530
+Author: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
 
-I've found these part numbers on the photos of a replacement panels from 
-the AliExpress.
+arm64: dts: qcom: lemans-evk: Add Raspberry Pi 7-inch DSI panel overlay
 
-Also, for TV101WUM-NX0, I have a confirmation from Alexey Min, who 
-disassembled
-Xiaomi Mi Pad 4 Plus and took a photo of the panel's part number.
+This commit adds a device tree overlay for the Raspberry Pi 7" DSI touchscr=
+een
+panel on Lemans EVK. It configures mdss0_dsi0 with 2 data lanes and adds the
+panel MCU on I2C1.
 
-> If it is useful, I have the Fire HD 10 panel ready as a variant on top
-> of your series: two patches, binding and driver, adding
-> amazon,suez-boe-nt51021. The only change it needs in your code is
-> making mode_flags per variant. My vendor asks for sync-event video mode
-> with a continuously running HS clock rather than burst, and your two
-> panels keep exactly the flags they have now. Burst worked on my panel
-> too, so this is about matching what the module is characterised for,
-> not a fix.
-I will try to do that. Can I add you to the maintainers of this panel 
-driver?
-> I will hold that until your v2, since Neil's renaming will touch every
-> identifier it adds. Happy to test v2 on this hardware when you post it.
->
-> Thanks for doing this first.
->
-> Ryan
+> diff --git a/arch/arm64/boot/dts/qcom/lemans-evk-raspberrypi-dsi-7inch.dt=
+so b/arch/arm64/boot/dts/qcom/lemans-evk-raspberrypi-dsi-7inch.dtso
+> new file mode 100644
+> index 0000000000000..14743b3c38637
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/lemans-evk-raspberrypi-dsi-7inch.dtso
 
--- 
-Best regards,
-Nickolay
+[ ... ]
 
+> +&i2c1 {
+> +	qcom,load-firmware;
+> +	qcom,xfer-mode =3D <1>;
+
+[Severity: Low]
+Are these downstream I2C properties intended to be included in the upstream
+device tree?
+
+They do not exist in the upstream devicetree bindings and are not parsed by
+mainline drivers, which will cause schema validation errors during make
+dtbs_check.
+
+> +
+> +	status =3D "okay";
+> +
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +
+> +	reg_backlight: reg_backlight@45 {
+
+[Severity: Low]
+Does this node name violate the expected naming convention?
+
+It seems it should match the ^regulator(@.*)?$ pattern inherited from
+regulator.yaml to avoid dtbs_check schema validation errors.
+
+> +		compatible =3D "raspberrypi,touchscreen-panel-regulator-v2";
+> +		reg =3D <0x45>;
+> +
+> +		vcc-supply =3D <&reg_dsi_touch>;
+
+[Severity: Low]
+Is this vcc-supply property supported by the binding?
+
+The raspberrypi,7inch-touchscreen-panel-regulator-v2.yaml specifies
+additionalProperties: false and does not define vcc-supply. Since the panel
+explicitly enables reg_dsi_touch anyway, should this be removed to pass
+schema validation?
+
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		#pwm-cells =3D <3>;
+> +	};
+> +};
+> +
+> +&mdss0_dsi0 {
+> +	vdda-supply =3D <&vreg_l1c>;
+> +
+> +	status =3D "okay";
+> +
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +
+> +	panel@0 {
+> +		compatible =3D "raspberrypi,dsi-7inch";
+
+[Severity: Low]
+Is this missing the mandatory fallback compatible for the ILI9881c driver?
+
+According to Documentation/devicetree/bindings/display/panel/ilitek,ili9881=
+c.yaml,
+this should be an array of two strings containing the specific panel and the
+fallback ilitek,ili9881c.
+
+> +		reg =3D <0>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907-rpi_dts_ov=
+erlay-v2-0-a4989322ce00@oss.qualcomm.com?part=3D2
