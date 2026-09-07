@@ -1,122 +1,252 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5560D3783AD;
-	Mon,  7 Sep 2026 04:46:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D62391DB92C
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 04:48:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788756364; cv=none; b=NL+FQ+Dxe0XaUjfDfhMjm1GXnlFPaShNG08qiAc1L1hSlZLKMtMD/1dGt+J8DAK+vSH4Hi5r+ts2eqixBCBs+j2lbd5Xfubipf4qAD6E59fSHrjeqv4RVUrch9dwe5sK8x9CTXrXGfQXLLlI2v7VBfr5OpyA2yHqcsoAT7IJssY=
+	t=1788756486; cv=none; b=q/2mmMpL5v2GNR72eGX/ua6xdUWzOKrbVVT4XUI8ul2P5WqZjZCsdBjZC+7rmmsLPvxYtYNjH8iuhToverWvPUmctVMET50BS7TFORMsGBERDV/RI9ASm2FyqK6kN5U9S9aAWDeSi/k6iDnIIPnCWyBXQA1CY3TRsjJvGt9rAc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788756364; c=relaxed/simple;
-	bh=MvbHHEL5/a5EqTe+dAnJ+mIvKAY5vNH6ijYKQPM4nCI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O26aZYeiZliaELG02UV22tQOlQrwFLVeLep6w1L/VCMePyR8lU1rY3122TGErry/246AgXoT3QhiQd0iqDORgkwzXjQlEiSxFBI0DCAewEyYrrO4h6eTfIhBhnP1lQ8gg+eSzfEDkRO4u8ddd10zwCjgpWI1XdhEDf7xfipgD3A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jqmvuIBL; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788756486; c=relaxed/simple;
+	bh=2WMF6U/g7nQBnXSpps4vN5voTrNMlXOybCCVnMTQw6Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=s/UqdZEMgwTMvt2Jj1edMrMmhNesLG6CpgiOXv5MIj2XDBc+Mx68CW310rjtif0xQ15ifPznWXplTKQrK6r2NPljKYgK5XXiILVMA4gnqp3hW//gLDXiC+B/NtijvNNPDGMIzhlzdgPfIhTs9r9KPMDJjnZekXWjbsOzzkdENzc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LxfZohiy; arc=none smtp.client-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jqmvuIBL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788756363; x=1820292363;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=MvbHHEL5/a5EqTe+dAnJ+mIvKAY5vNH6ijYKQPM4nCI=;
-  b=jqmvuIBLomBJA3BWZ3QucWWOslJ3Vf13V/vXmhQAjwlqSfa7dtJgtzbN
-   bmyp5z8RkrMa09L3Uslyr5XSo3sdhRSq/+bgziHI68hmfqyxBrm4JHR8s
-   zeOEW1kMi5agFlZ9Afx8zR2dPJ1AfPSE0jqBm7q3O4jkD1o2lFg7P0wuC
-   hC33WssDXgQ97eNkv7p6m4dpXOQPGo9hrYtBsmLFC6APFX4U/U1noKC5v
-   IBsxzAUhdS3p0nAjrn83E5g5ru2dGK4ePGE5TZmuTKoKnfAaPennBIYNZ
-   CrQXgKriIRi80pbUOeAaBscIBjHRd2TMZLecfA3VcUGXN8ISdlz5bFPKO
-   A==;
-X-CSE-ConnectionGUID: WdIXD8VBSdqG9PifLKUoag==
-X-CSE-MsgGUID: 2qwucMzAQg2fQoqMFGAyyQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="93022620"
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="93022620"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 21:46:02 -0700
-X-CSE-ConnectionGUID: 6Svu84RsS9W24VILoF1UaQ==
-X-CSE-MsgGUID: 7Pmz5ViORtuzSLnZnlMKgw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,266,1779174000"; 
-   d="scan'208";a="274406097"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.182])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Sep 2026 21:45:56 -0700
-Date: Mon, 7 Sep 2026 07:45:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH v6 08/13] gpio: regmap: support write_data_after_dir
- and girq
-Message-ID: <ap5BgWtHMAxl28wF@ashevche-desk.local>
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
- <20260904-cv75-v5-v6-8-e918514cb3b1@ambarella.com>
- <apqxwRgi-uVKkOpr@ashevche-desk.local>
- <27a1901.423e.1a07a183bd4.Coremail.zl020895@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LxfZohiy"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-4563ac048f4so3204955fac.0
+        for <devicetree@vger.kernel.org>; Sun, 06 Sep 2026 21:48:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788756483; x=1789361283; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=TvFM7NNIPkG6fbK+OMkIIggJlPWe+qc7pAzr+tWOET4=;
+        b=LxfZohiyI6BSf/NE9qpsJGlOeSti7TFfQy31HVTcVh+sr8O3Atke9/Oo+erAnSUVKB
+         zLt65to1a2lwPkwuqECL7xMbGuT4p5bBhPVcR15bMApLYH223vok0IWMfe/r9w0uXuc0
+         MnV0bJKFPdI9KrdF1oySGvg0KDBtwzmfHKjKmIRtXTbLd0t7zEvPIlCNLwIpTf2EClGV
+         NahAT4DWepmYKwqiEPe4AJf5M+vjaiOWbGPCSWOpYq7gHskmNhSpoq83K+f1tp8vD2DI
+         7ZoV/y8iWLEnMptBW5PBfH5bWKK+L0m6z4wqTmVLlxuLJ7ZcBS4/VkttiqkW9bX0Wpjg
+         BqXg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788756483; x=1789361283;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TvFM7NNIPkG6fbK+OMkIIggJlPWe+qc7pAzr+tWOET4=;
+        b=IuPGNXt0lb5r06R4YVI7UXP3ovSbtBpHV40ME+OKS2LV7ouv/HPW/hE5ledaxfm49+
+         tLsZw9bHR5LcLIXfsxyI2utaUZGt2t7sIM57LmAnVZCbWmUfGLM0c265YIJRGtYxu2Ap
+         1Iw74+SE7/M1hFcC9t7jiR6R09Vr9/kBZ1vSf9yzs6HYFZdy6pFVJPL0mNGxdtwU0lEn
+         EmrNLCpfJUnoJCsBtYqkYCLepNvlUw/h6ZmjdGNSaAijccOYAYHmcs+ka51R5UkDYrRz
+         Yni8ny3FJJGIwapaUqRVkfBwmoRUSSC7wgQqb6+kwNq0/b+nzh4INfO7ulJAOHUu5TuG
+         D2yA==
+X-Forwarded-Encrypted: i=1; AKwUvBxycMo94f+riKmsqz40s334ZB6lvWTtdwZNTcmCAJaTFUOVICZC5wRpFOPEZ4bnkhYMPnDtVmgsdeMk@vger.kernel.org
+X-Gm-Message-State: AFuF++k/8HO+rNGrUo+gNf5AmOSKVzAbZS6/bnBRVazrkGxK/u76WOyw
+	uCcX2LPWWz4qXAIQU+OGoCYWHJDIYpnBHUT8ipuZ1lD9mDVgepvxaWgm
+X-Gm-Gg: AYBFou30pNK/5wlGNgh8oME1EaXR0dZOHLGfUNk6lgp6C5FZOtr6+hOb8+yTRMV7aGI
+	HYU5dt1RtpSRsQUmU/vak/Tgn5zg0nshByakNKGHtDuXOUQcD1lv7ZhZu2D50Y6vSEwIrXLmo6S
+	wnO6LeQzxtEa/S12xhZ9RrRLHFB9d7hNe+UOZAyDIt+IHsk3SlQ6IQZE+LOPt7C83kRe+P3/eNx
+	cH5jFWsz2k+jzFHohSjQzBPaFcTwSJNFL11qTSNaCK4FqXxCw4JT+fY+WYii2okyszy2OVbATFi
+	ONCIRZN/YHqFKVlL2elg3+g9AuNSymJct4ChotAA+yxPRbzA/6liAgztMUx7m6NZ+M/kbrsVlS7
+	0+5A9W05aJ7PM8oisAXEdtulTRWwgEfrMh23QqrWndA9KaT1Rr2kCLl8eLo5ULLk9d5Lc+lfVk6
+	Y01xMCEdpSy6QlIszuUUDt8vSSzVOOaYN8Cd+jQ631V4WH8oY+NpU9M7o3U5caLwOD1b9Vqp/hy
+	aaWnhgxYqUZYVhJs2U7Py98fyIyuzOaiNaKdz4NSu4ZOmAbgRWvFYvHmocpSVbrVkyDduKyAqR3
+	bmow55PjdVZ7XjJmWdxNZ2EupAn9k8Wy8CgTciXPw3fQ3GZV3PUeTj8ChdnKrusvdrZtl9v2ye0
+	co3qMTL8d+1fPHW6FSqQeG2l+SOeM
+X-Received: by 2002:a05:6870:8306:b0:475:e066:771b with SMTP id 586e51a60fabf-475e06695c9mr10380401fac.34.1788756482604;
+        Sun, 06 Sep 2026 21:48:02 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-475501412f2sm9013503fac.0.2026.09.06.21.48.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 21:48:02 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH net-next v10 0/2] net: phy: add X-Powers AC200/AC300 EPHY
+ support
+Date: Sun, 06 Sep 2026 22:47:45 -0600
+Message-Id: <20260906-submit-acx00-of-dynamic-v1-v10-0-dd272e03b547@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <27a1901.423e.1a07a183bd4.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43QS07DMBAG4KtUXmNkj99dcQ/Ews/WiCQoCVGqq
+ nfHCSysIFksZ8b+/tHc0RTHHCd0Pt3RGJc85aEvBSVPJ+Svtr9EnENpICAgiSaApy/X5RlbvxK
+ Ch4TDrbdd9nih2HBLgqcigQZUgM8xprzu+ivq44z7uM7o7WdSnPfo583e3l7zNA/jbV9kYfuP3
+ 0jRilwYJpiBZ0CJlQnEy6Wz+ePZD90etPCakk2KF8q4BElxTiWDIyVqyjQpUSiXLE1aUO1AHyl
+ ZUZQ2KVkoAmCcMZZBkkdK/Z9SG8WScIYqJcKfW+maYk1KFypAol5A1MrxI2VqSjcps91Kex2MD
+ SRoVlOPx+MbAl66c6MCAAA=
+X-Change-ID: 20260802-submit-acx00-of-dynamic-v1-94a0dc15f282
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ James Hilliard <james.hilliard1@gmail.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ =?utf-8?q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>, 
+ Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+ linux-sunxi@lists.linux.dev, netdev@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-On Mon, Sep 07, 2026 at 12:20:03PM +0800, zl020895 wrote:
+This submission contains only the networking binding and PHY driver and
+is intended for net-next. The AC200 I2C register provider was submitted
+separately for the MFD tree:
 
-> > Are you going to fix this HW in the next version of the SoC?
-> No — Ambarella does not use write_data_after_dir. It only preserves the
-> existing ARM PL061 quirk already documented in gpio-pl061 (data writes
-> ignored while the pin is still an input). Only pl061_arm sets the flag.
+  https://patch.msgid.link/20260906-submit-ac200-mfd-v10-0-f522e8dc2bd4@gmail.com
 
-Ah, this is a good news!
+The two series can build and be merged independently. AC300 needs only the
+networking series. The AC200 runtime path additionally needs the separately
+submitted MFD provider and binding. Their shared design point is the DT
+representation: the MDIO PHY-package node references the AC200 I2C node for
+access to package-control registers.
 
-In any case when documenting that flag, please also mention that any new HW
-should not use it as it's considered buggy (glitches during direction change
-are guaranteed).
+The AC200 and AC300 contain compatible Fast Ethernet link PHYs which
+report the same Clause 22 identifier and use the same link-side register
+layout. The link endpoint is inaccessible until package-specific control
+registers have powered and configured it.
 
-> I will also make the first gpio_regmap_set() conditional so the quirk
-> path writes once after direction_output, not twice.
+Both variants are modeled as standard Ethernet PHY packages with one
+forced-ID link-PHY child. The package reg value is the link address.
+AC300's control range is a fixed package-relative offset of 16 and is
+accessed with the PHY package helpers. AC200 reaches its control registers
+through a phandle to the companion IC's I2C register interface.
 
-I see that original pl061 actually writes twice. TBH I don't know the best
-effort here and if it's really required to do so. Probably others have
-better ideas...
+For AC200, the driver resolves the referenced I2C device, establishes a
+managed device link, and takes the supplier device lock before checking
+that the provider is fully bound and retrieving the regmap attached to
+that device. It waits for transient lock holders instead of treating lock
+contention as a missing dependency. The link then keeps the provider bound
+until the PHY consumer has unbound. This uses the generic device and
+regmap interfaces and supports multiple AC200 instances without syscon or
+a private cross-subsystem API.
 
-> > This needs to be in a separate update. Also we need to understand why
-> > it is required.
-> OK, girq will be a separate patch. PL061 keeps a custom chained
-> irqchip (not regmap-irq); gpio_regmap today only takes irq_domain or
-> regmap_irq_chip, so we passed girq to keep the usual gpio_irq_chip +
-> gpiochip_add flow. Open to using a caller-created irq_domain instead if
-> you prefer.
+Fixed hardware uses an AC200- or AC300-specific package compatible.
+Systems which can contain either package use the ACx00 package compatible
+and one packed SID configuration field. Bits 3 through 0 carry the analog
+calibration, bit 8 selects AC300, and bit 9 selects its low-calibration
+tuning. The driver chooses the backend before acquiring any
+backend-specific resource.
 
-If there is a chained IRQ, look how PMIC drivers usually do similar setups.
-First what comes to my mind is drivers/mfd/intel_soc_pmic_bxtwc.c.
+One xpowers-acx00 module binds the link child, joins the parent package and
+runs the selected backend. It manages the package supply, MII or RMII mode,
+vendor analog initialization and package state across suspend and resume.
+The common link implementation preserves automatic MDI/MDI-X and standard
+MAC-managed EEE advertisement while disabling only the vendor
+PHY-autonomous Intelligent EEE mode. A private mutex serializes
+package state across phylib callback contexts, while suspend recovery
+also holds the phylib lock.
 
--- 
-With Best Regards,
-Andy Shevchenko
+The two patches add the AC200/AC300 PHY-package binding and combined PHY
+driver. Board Device Trees and optional PHY features remain outside this
+initial series.
 
+The AC200 portions build on earlier work by Jernej Skrabec and Andre
+Przywara:
+
+  https://github.com/jernejsk/linux-1/commits/ac200-v4
+
+Public AC200 and AC300 documentation is linked from:
+
+  https://linux-sunxi.org/AC200
+
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v10:
+- rebase onto current net-next after the merge-window deferral
+- release the MDIO bus lock when selecting a vendor register page fails,
+  preserving the error and allowing package shutdown to access the bus
+- update the companion MFD reference to the submitted AC200 v10 series
+- Link to v9: https://patch.msgid.link/20260818-submit-acx00-of-dynamic-v1-v9-0-b8c8d9ad0d83@gmail.com
+
+Changes in v9:
+- serialize package state and multi-register power sequences across phylib
+  callback contexts
+- hold the phylib lock while recovering from suspend failures
+- unwind package power after reset, resume or configuration failures
+- restart autonegotiation when restoring EEE advertisement changes it
+- propagate page-selection errors instead of an uninitialized result
+- constrain AC300-capable child PHY addresses to the valid 0 through 7
+  range
+- clarify the AC200 runtime dependency and provider-owned, rate-locked
+  clock
+- document why the AC200 control sequence needs no AC300-style delay
+- rebase onto current net-next
+- Link to v8: https://patch.msgid.link/20260813-submit-acx00-of-dynamic-v1-v8-0-d2f1c52e87b4@gmail.com
+
+Changes in v8:
+- replace the AC200 supplier trylock/defer path with a blocking device lock
+- add Krzysztof's Reviewed-by tag to the PHY-package binding
+- rebase onto current net-next
+- Link to v7: https://patch.msgid.link/20260811-submit-acx00-of-dynamic-v1-v7-0-03f5b91775d5@gmail.com
+
+Changes in v7:
+- link to the separately submitted MFD v7 series:
+  https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
+- replace syscon publication and lookup with direct AC200 device/regmap
+  lookup
+- require the referenced AC200 provider to be fully bound under its device
+  lock
+- keep teardown ordered with the managed device link
+- rebase onto current net-next
+- Link to v6: https://patch.msgid.link/20260811-submit-acx00-of-dynamic-v1-v6-0-0229b99a32f6@gmail.com
+
+Changes in v6:
+- split the networking work from the independently mergeable MFD series
+- add the posting link for the separately submitted MFD series
+- remove the redundant explicit schema selector
+- describe the AC200 phandle in hardware terms and state its purpose
+- simplify the clock description and keep only the needed NVMEM dependency
+- reduce the binding examples to one
+- rebase onto current net-next
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
+
+To: James Hilliard <james.hilliard1@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: "David S. Miller" <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org
+Cc: linux-sunxi@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+James Hilliard (2):
+      dt-bindings: net: x-powers: add AC200/AC300 EPHY packages
+      net: phy: add X-Powers AC200/AC300 EPHY driver
+
+ .../bindings/net/x-powers,acx00-ephy-package.yaml  | 165 ++++++
+ drivers/net/phy/Kconfig                            |  11 +
+ drivers/net/phy/Makefile                           |   1 +
+ drivers/net/phy/xpowers/Makefile                   |   3 +
+ drivers/net/phy/xpowers/ac200.c                    | 314 +++++++++++
+ drivers/net/phy/xpowers/ac300.c                    | 387 +++++++++++++
+ drivers/net/phy/xpowers/acx00.c                    | 621 +++++++++++++++++++++
+ drivers/net/phy/xpowers/acx00.h                    |  28 +
+ 8 files changed, 1530 insertions(+)
+---
+base-commit: 31f961de2f90fbf52eb2d4e15b3eeaa09f9b4fc2
+change-id: 20260802-submit-acx00-of-dynamic-v1-94a0dc15f282
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
 
