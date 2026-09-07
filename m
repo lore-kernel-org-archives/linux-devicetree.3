@@ -1,102 +1,131 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DBBA479872;
-	Mon,  7 Sep 2026 15:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBAFB43B3C2;
+	Mon,  7 Sep 2026 15:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788795643; cv=none; b=PE1bAK7rZoW43a3V8mFGKqTRiE8LH2xGuPuUJ9i8zx/Awn4SUwh1PwuOjlyRzhornfYa0v4O0OFhz02VfIKoow1drArHLKBmb+Kq3XP1qHg28iTr8z5p2i3X5nfwL+l7dUiNIhhTBPVwDr3EYeqWkKZwrTX7ZbhF0Oy0vFc34mA=
+	t=1788796480; cv=none; b=Ecv9+G89SWUKGdkBTuJyWOoMGHKyiROzibFPJsFzGE7u4obg7jL+9fLfC1cmrkJvhkL80ww7A46/gglJslOPEV94JlJiUy/UELtfmCjHSWrVmZAlwz+VizP/jdPgbDSMi0zaW8R2U6yZEiMbjSQ3IVaNPHKS3KCBJPz2kdB7evA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788795643; c=relaxed/simple;
-	bh=Sx/HNDVU7WTJR5RalURss4PdH/vG92zJUgDsQSO7JpI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YhIyHh2qqOzsgQwx1xvbnr95zDRKnQSzNyF0WJoC6P0M8/abaqXn9WHOf/7YEHqw6cDgF+pPnFk8CvrCWG1bYTZRHhS/xHuH2ij//EuSvbj7YH1ZYa0RGahsGUltD8zM46Mc+FtIXkG+sVkitYNO6gMJsNO3q4vHYxMYBnFBkHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=wtzsGCtP; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788796480; c=relaxed/simple;
+	bh=cpjZAs0H8YjG0LwqvmBZ9l6jVNPRlBHZAhBzEimh5rw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Wrme9CUzzi9ztzwNedrcr8Vc41OBPbEvLKc3pmHaqSYao5FPAWfVGVX0cJDXlAr6tGmoQGzZLhvY4feBMqMmlKbBWMOgVwSl3CKNLJy/NliXlnNXedYyaRBGiPaL3+gD1PJzI52KeAUWi+GIAtqbFdM8TUV2WJtxlzd0pImSx8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hwh8vkCK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="wtzsGCtP"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hdrr5305nz8spS;
-	Mon, 07 Sep 2026 17:40:37 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788795637;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HYi5JP7HfZ3Zs6iqzCL0kQoLXPJOuF3USJISxOoiW/U=;
-	b=wtzsGCtPw0xW3CwlO2pFVErr9LcD2GJCO21t1UkF/ALWuF6I27rvwS6f5AXHcw4F1sUAcr
-	xb2XF4vNHoT1QYQ5dOGk2vpnrl2cRVMzqYUYu1q8n+Q9RAaLKFCS4VjmvuyIFMeUws4DLU
-	ml7OZSkcBcb6Y0TklMDnL8Uil7sLIre7yxsnU2riVTqQkfupVSz/OJKzTKBvYm+QN3AFzs
-	rxn0+HidgM1WunwJrHhCF0b4SDeY2Y7+Wm6Acsud1WDbgu/ofQB/7uZ1kD7W5uD1orjkQd
-	6BMbG3TQ4aWvf89XFEOg5Fkoto7vopYpZRRHEdt/zBAjocfz5NsiKL2YByCS9Q==
-Message-ID: <5712362e-661b-4c99-ac87-39c85af38f72@mailbox.org>
-Date: Mon, 7 Sep 2026 17:40:31 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hwh8vkCK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38991F00A3A;
+	Mon,  7 Sep 2026 15:54:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788796478;
+	bh=xsIS7Ca3fvHWYC1rr2r4J+/xi2oz+bhps4i7JVEh+Zs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Hwh8vkCKGyg+A84XRCuHAZ+FrzfeC8MLCBA2/4gvsRAyBgYtZ/jLb+Ll6CozSMFAl
+	 7jxzgXFt+R9FiS7HAuYvN2Fs1XyVTBm5XQZLadb2TKLbB6JX2pTfrjxz2TDLX8pm3c
+	 2m5g3n1igcQI3aZ92/qdEhebvS+/XuOeWJotpFOVxl3j2+NTsqdl52HCrGSXRr1bG4
+	 BpuWlWbQttDsfmuTC/RXKpJ5g3HfZWdMYfS4NUdEA6HzxiJMOdYQ2ko+Il0mUCdigH
+	 594eY+VcZUVurEWwVhRjlRFL/l+bbhlr/68rHlHQYp/L/P+WjaVUL2yGPCE09jlgzW
+	 3D3+m1uSw4jEg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] PCI: rcar-gen4: Add missing PM ops
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marek.vasut+renesas@mailbox.org>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
+References: <20260907153711.653861-1-marek.vasut+renesas@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 15:54:37 +0000
+Message-Id: <20260907155437.E38991F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [RFC][PATCH] PCI: rcar-gen4: Add missing PM ops
-To: Koichiro Den <den@valinux.co.jp>,
- Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-pci@vger.kernel.org, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
- <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260906173234.522400-1-marek.vasut+renesas@mailbox.org>
- <CAMuHMdWLxG8xSHwTneu=xT8bxs4io7QSw7ziyPUDo6nc-zx6Qw@mail.gmail.com>
- <2wbqkglawux4ti5ldjodf2xszq73hwyxln6da62daj4dtc5xp2@fya75y7m54cp>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <2wbqkglawux4ti5ldjodf2xszq73hwyxln6da62daj4dtc5xp2@fya75y7m54cp>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: dp1fm7a4o4y6rc89amqc7ceusqit7563
-X-MBO-RS-ID: d1e0c79e28b31d7f968
 
-On 9/7/26 3:46 PM, Koichiro Den wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Uninitialized variable dw->mode causes suspend/resume callbacks to=
+ be silently skipped.
+- [Low] Missing `static` keyword on `rcar_gen4_pcie_pm_ops` definition.
+--
 
-Hello Den-san,
+commit 0e99d69c4bfd5a0067af46f15d0ef68cd860b192
+Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-> I have reproduced the NULL pointer dereference at pci->pp.ops->deinit on R-Car
-> S4 Spider in EP mode with CONFIG_PCIE_DW_HOST=y.
-> 
-> (I used next-20260904 with this patch and the following fix applied:
->   "buffer: fix NULL dereference of bh->b_folio in __bh_submit()")
+PCI: rcar-gen4: Add missing PM ops
 
-[...]
+The R-Car Gen4 PCIe controller is part of a power domain that is shut down
+on V4M during suspend, losing state. This patch adds generic suspend/resume
+noirq ops to tear down and restart the link on suspend/resume.
 
->      [drivers/pci/controller/dwc/pcie-designware-host.c]
->      1225 int dw_pcie_suspend_noirq(struct dw_pcie *pci)
->      1226 {
->      ...
->      1286         pci->pp.skip_pwrctrl_off = pme_capable;
->      1287         dw_pcie_stop_link(pci);
->    > 1288         if (pci->pp.ops->deinit)
->      1289                 pci->pp.ops->deinit(&pci->pp);
->      1290
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c b/drivers/pci/co=
+ntroller/dwc/pcie-rcar-gen4.c
+> index fbe465a29068f..47754aee84278 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
 
-Thank you for your help with the endpoint part.
+[ ... ]
 
-The fix turns out to be very simple -- the suspend/resume handling is 
-specific to the PCIe controller in RC mode, so I added a conditional to 
-invoke those host (RC) suspend/resume operations only if the controller 
-is in that mode, and I sent a V2.
+> @@ -849,6 +849,28 @@ static int rcar_gen4_pcie_ltssm_control(struct rcar_=
+gen4_pcie *rcar, bool enable
+>  	return 0;
+>  }
+> =20
+> +static int rcar_gen4_pcie_suspend_noirq(struct device *dev)
+> +{
+> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(dev);
+> +	struct dw_pcie *dw =3D &rcar->dw;
+> +
+> +	if (dw->mode !=3D DW_PCIE_RC_TYPE)
+> +		return 0;
 
-This RC-only fix in V2 is also in line with what MX6 and DRA7xx PCIe 
-controllers do.
+[Severity: High]
+Is dw->mode guaranteed to be initialized here when CONFIG_PCIE_DW_DEBUGFS is
+disabled?
 
--- 
-Best regards,
-Marek Vasut
+It appears dw->mode relies on dwc_pcie_debugfs_init() for initialization.
+If debugfs is disabled, dwc_pcie_debugfs_init() becomes an empty inline
+function, leaving dw->mode as 0 (DW_PCIE_UNKNOWN_TYPE).
+
+Because 0 !=3D DW_PCIE_RC_TYPE, wouldn't this cause the callbacks to silent=
+ly
+bypass the suspend and resume logic entirely on production builds without
+debugfs, leaving the PCIe link up during suspend and dead after resume?
+
+> +
+> +	return dw_pcie_suspend_noirq(dw);
+> +}
+> +
+> +static int rcar_gen4_pcie_resume_noirq(struct device *dev)
+> +{
+> +	struct rcar_gen4_pcie *rcar =3D dev_get_drvdata(dev);
+> +	struct dw_pcie *dw =3D &rcar->dw;
+> +
+> +	if (dw->mode !=3D DW_PCIE_RC_TYPE)
+> +		return 0;
+
+[Severity: High]
+Similar to the suspend callback above, will this also silently skip resuming
+the link when debugfs is disabled?
+
+> +
+> +	return dw_pcie_resume_noirq(dw);
+> +}
+
+[ ... ]
+
+> +DEFINE_NOIRQ_DEV_PM_OPS(rcar_gen4_pcie_pm_ops,
+> +			rcar_gen4_pcie_suspend_noirq, rcar_gen4_pcie_resume_noirq);
+
+[Severity: Low]
+Should rcar_gen4_pcie_pm_ops be marked static?
+
+The DEFINE_NOIRQ_DEV_PM_OPS macro does not include the static keyword in its
+expansion. By not explicitly declaring it static here, this creates a global
+symbol that pollutes the global namespace, even though it is only used
+locally within this driver file.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907153711.6538=
+61-1-marek.vasut+renesas@mailbox.org?part=3D1
