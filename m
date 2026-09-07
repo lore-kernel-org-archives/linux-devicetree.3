@@ -1,221 +1,233 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E28C4EE84E;
-	Mon,  7 Sep 2026 14:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0690B47CA99
+	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 14:12:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788789692; cv=none; b=mkvY8cFERXOv7uaa6iunBlxKZBsJvCHsXUTRvz7+9GvEsH3V0pXyoF68nKRLstExCvPFAxZcyEMsk/T6wAFJtmJPhXAp3DEzXd0oRiGItOr4fZJ7SxbYCGV+8Ze9ttrSZErah3WWVt6pOfqu1SbjhhgucM5vSJfwlvYKlXyT36c=
+	t=1788790358; cv=none; b=mKSMF/OAFf7wZF/B+AXt0Ug+oBJyZs/9RY38zQr0sXN8KNlMHY5nHroUTiVjl9AByrp0QspAalQBF9vmfVopO91DMhUeYT5REpaIIIHD7WCt4f9BVVDMPhhjHVFCVi6W9jsiXauZXZrntYyjFj2Vs1n9bYVM++n13yADlzAOlcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788789692; c=relaxed/simple;
-	bh=/vECnPjWxz4Am2FXUZH/BO5GH/fidy0eNYtHKdj0ayo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LJ0FwNE3OdEL+qx99OQayxOkA88bpQ3pNtPX7UFuB7kErBB+OXg+wL4ffDujJnKXcdU+q1R+gtVQqjaO9LqgxUqahDRvAy0hatE5x9kycXzVkWVYTZw7VO0IJoAlqugd0p9zdPz+r2L8MOxJcHIpln3Y9lrgVT7XcBa/9TKvsVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sm1WYfMQ; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DRSIr7eo; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788790358; c=relaxed/simple;
+	bh=OQek3WVIqeFJXfSOZ70xWwuJ2WhXSEZoNQigwwI7A/o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=uoeGw0lTLvCGOrMoHApvUfhyGtRwRY8xX0MfIo9u6CTHEq5hQrhu0alLPTfoAOS+j9R9BhhbqdyKJHB89SEGa6VUesHodFoTyhoNl5qRPky/g6FZdhOxKAwyn3athAtjmR97tzSQJkkg+cSVG5WRPHrfi1EaicYN4afIXBPtKZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=N8z5QNqz; arc=none smtp.client-ip=95.215.58.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sm1WYfMQ";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DRSIr7eo"
-Message-ID: <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788789687;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0Bb91qdtQU0N5E11l6jfWxHxhaB6paVoj8BCJfLQFEs=;
-	b=sm1WYfMQ0uhWCREdKJ5XwD8aTS9mdvGiLwqgIoAcLvskYFxSSkxcNcmvS5nE/Xh4L+Hvht
-	8BdB7Rzk83ai3lL8tuUvP03kCB1cP4k7a5Fu/NKX1vIbNJvsNEkJfawRnAGs8w5vJeRriI
-	02Z6bgEHBLYy1I2hQfHq53y0Ymkvkc2CZo7927thHHiBp+CCoCXzWPITSbAfafVM28KK8w
-	zY0Dx/iltpww836xvZBBMTiddbhZAXkUyONhOj0Df0nJizlBEe2koOkRljDHh/yQtt/ZJ+
-	lmBc20h9uBPXYBZZ7mldQ2c8+gHcXaPrvpmFqrXW8WQ7NG/RgWnNSgusWSSykA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788789687;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0Bb91qdtQU0N5E11l6jfWxHxhaB6paVoj8BCJfLQFEs=;
-	b=DRSIr7eoYFpI3/aOat3YDAKGZFyJHVh0FLfkxh3bj56gm3nMcswcW1t6pWeX1ccYDUdbvu
-	fkGfrEVZ4iR6foAA==
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>, Vladimir
- Oltean <olteanv@gmail.com>,  "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
- Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Mon, 07 Sep 2026 16:01:26 +0200
-In-Reply-To: <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
-	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
-	 <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="N8z5QNqz"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OQek3WVIqeFJXfSOZ70xWwuJ2WhXSEZoNQigwwI7A/o=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788790353; v=1; x=1789395153;
+ b=N8z5QNqzhgHnaJ8THZZz6UFCthQFYUU3frR1MJ230AVH779mTy7CSiO0IiJKSPhPTM9lTHDe
+ jfNgVIkVTgI8wW77hkc7zKFVydcuBc0kPIPTTfvb3O0fFFraLIlpf67nKYOLYXggHYI0Xlvhr0n
+ G+cZ+SeVkQGx6F2kMF+nSgSKK9cs0cbGrWTYLf9RRzzrxvxW7dhwDlM98SMirerMc9dFBP76VrE
+ f5GZ8Xilc3tY4kgUleMvRI1/3pf7By3deZrVTn7f51c9KfKtb9MUk1lEvWzsygOJzmD2CLyOnAj
+ P1hFJU1dP9B02Ejvrh2hZoiTDla7qEoi6K6IKHOI86r3Q==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e05ef1087ebab64e;
+	Mon, 07 Sep 2026 14:12:32 +0000
+X-Mizu-Trace-ID: e05ef1087ebab64e
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 16:12:32 +0200
+Message-Id: <DL959BBXDOAZ.2RNX9SJVZIKPK@cknow-tech.com>
+Cc: <robh@kernel.org>, <conor+dt@kernel.org>, "Heiko Stuebner"
+ <heiko@sntech.de>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 3/3] arm64: dts: rockchip: Add support for FriendlyElec
+ NanoPC-T6 Plus
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: <sashiko-reviews@lists.linux.dev>, "Diederik de Haas"
+ <diederik@cknow-tech.com>
+X-Mailer: aerc 0.22.0-9-ge948bb7230f4
+References: <20260907122406.1862398-1-diederik@cknow-tech.com>
+ <20260907122406.1862398-4-diederik@cknow-tech.com>
+ <20260907123459.B96191F00A3A@smtp.kernel.org>
+In-Reply-To: <20260907123459.B96191F00A3A@smtp.kernel.org>
 
-On Mon, 2026-09-07 at 11:21 +0200, Krzysztof Kozlowski wrote:
-> On Thu, Sep 03, 2026 at 08:10:59PM +0200, Vasilij Strassheim wrote:
-> > Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
-> >=20
-> > The compatible identifies a register layout characterized by the core
-> > and feature identification registers at the encoded offsets. The
-> > concrete synthesis-time configuration is then autodetected from these
-> > registers.
-> >=20
-> > Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
-> > ---
-> >  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 161 +++++++++++++=
-++++++++
-> >  1 file changed, 161 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b=
-/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> > new file mode 100644
-> > index 000000000000..508e444e10da
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> > @@ -0,0 +1,161 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: SoC-e ethernet switch IP core for FPGAs
-> > +
-> > +maintainers:
-> > +  - Vasilij Strassheim <v.strassheim@linutronix.de>
-> > +
-> > +description:
-> > +  SoC-e Ethernet switch IP cores are FPGA-based switches whose feature=
-s
-> > +  and number of ports are selected at synthesis time. Ports can connec=
-t
-> > +  to CPUs, external PHYs, FPGA logic, or other switch cores. The
-> > +  integrated MDIO controller provides multiple independently selectabl=
+On Mon Sep 7, 2026 at 2:34 PM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Missing 3.3V regulator for the 4G LTE M.2 B-key connector and =
+incorrect assignment of a 5V regulator.
+> --
+>
+> commit 5412bbe217132fabf745d86e1c28d6b071b41043
+> Author: Diederik de Haas <diederik@cknow-tech.com>
+>
+> arm64: dts: rockchip: Add support for FriendlyElec NanoPC-T6 Plus
+>
+> This commit introduces basic support for the FriendlyElec NanoPC-T6 Plus.
+> It highlights the hardware differences from the NanoPC-T6 LTS, such as th=
 e
-> > +  external outputs.
-> > +
-> > +$ref: dsa.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: soce,swip-00-04-0c-10
-> > +    description:
-> > +      Register layout with the core version register at offset 0x00 an=
-d
-> > +      feature identification registers at offsets 0x04, 0x0c, and 0x10=
+> addition of an M.2 B-key connector for a 4G LTE module.
+>
+> Link: https://wiki.friendlyelec.com/wiki/index.php/NanoPC-T6_Plus
+> Link: https://wiki.friendlyelec.com/wiki/images/a/ad/NanoPC-T6_Plus_2511_=
+SCH.pdf
+> Link: http://everest-semi.com/pdf/ES8389%20PB.pdf
+>
+>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts b/ar=
+ch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts
+>> new file mode 100644
+>> index 0000000000000..f23ac4bd9f167
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6-plus.dts
+>> @@ -0,0 +1,91 @@
+>> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+>> +/*
+>> + * Copyright (c) 2021 Rockchip Electronics Co., Ltd.
+>> + * Copyright (c) 2023 Thomas McKahan
+>> + * Copyright (c) 2024 Linaro Ltd.
+>> + */
+>> +
+>> +/dts-v1/;
+>> +
+>> +#include "rk3588-nanopc-t6.dtsi"
+>> +
+>> +/ {
+>> +	model =3D "FriendlyElec NanoPC-T6 Plus";
+>> +	compatible =3D "friendlyarm,nanopc-t6-plus", "rockchip,rk3588";
+>> +
+>> +	codec_es_3v3: regulator-codec-es-3v3 {
+>> +		compatible =3D "regulator-fixed";
+>> +		regulator-min-microvolt =3D <3300000>;
+>> +		regulator-max-microvolt =3D <3300000>;
+>> +		regulator-name =3D "codec_es_3v3";
+>> +		vin-supply =3D <&vcc4v0_sys>;
+>> +	};
+>> +
+>> +	usb2_port_5v: regulator-usb2-port-5v {
+>> +		compatible =3D "regulator-fixed";
+>> +		enable-active-high;
+>> +		gpio =3D <&gpio1 RK_PA4 GPIO_ACTIVE_HIGH>;
+>> +		pinctrl-0 =3D <&usb20_host_pwren_h_pin>;
+>> +		pinctrl-names =3D "default";
+>> +		regulator-min-microvolt =3D <5000000>;
+>> +		regulator-max-microvolt =3D <5000000>;
+>
+> [Severity: Medium]
+> Is it correct to define this regulator with a 5V constraint?
+>
+> This uses the exact GPIO (gpio1 RK_PA4) previously used for the removed U=
+SB hub
+> on the LTS board and retains the 5V constraint, whereas the new M.2 B-key=
+ slot
+> would typically need a 3.3V regulator instead.
+
+The problem is that the comment on the LTS board is wrong and so is the=20
+regulator name fwiw. At least according to the schematics page 32,
+the LTS has 2 5V regulators:
+1) USB2_PORT_5V (Plus has this too and is described above)
+2) USB2_10PIN_5V
+
+There is no regulator named 'vcc5v0-usb20-host' in the schematics. The
+downstream commit that added support for the Plus does though.
+But there it's actually attached to u2phy3_host, not u2phy2_host.
+
+ad 1) This is what powers the 2 USB 2.0 ports at the back, connected to
+      u2phy2_host port. The host-port -> phy-supply is "Phandle to a=20
+      regulator that provides power to VBUS".
+      On page 32 on the 'lower' left side of the page you can see it
+      does exactly that.
+      The MTT USB 2.0 HUB is only connected to the lower USB 2.0 port
+      for its DM and DP lines, not VBUS.
+ad 2) Pin 1 & 2 of the 10-pin header are connected to USB2_10PIN_5V and
+      that isn't described at all in the LTS DTS file.
+
+The USB Hub is identified as=20
+0424:2514 Microchip Technology, Inc. (formerly SMSC) USB 2.0 Hub
+
+and in a WIP commit I have this:
+```
++&usb_host1_ehci {
++	#address-cells =3D <1>;
++	#size-cells =3D <0>;
++
++	usb-hub@1 {
++		compatible =3D "usb424,2514";
++		reg =3D <1>;
++		reset-gpios =3D <&gpio1 RK_PA4 GPIO_ACTIVE_LOW>;
++		vdd-supply =3D <&vcc_3v3_s3>;
++		vdda-supply =3D <&vcc_3v3_s3>;
++	};
++};
+```
+But even without using that compatible, it loads the correct module.
+But in all my testing thus far adding that to the DT did not bring any
+benefits, it may even be worse ...
+
+I have a MT7925 M.2 Wi-Fi+BT card in my NanoPC-T6 Plus and while
+Wi-Fi looks great (1.4/1.9 Gbps connection), BT has been horrible.
+Similar story for my BE200 M.2 Wi-Fi+BT card I have in my LTS board.
+And the most annoying thing: it's behavior is very inconsistent.
+
+My cheapo (cherry) BT keyboard works fine/decent and connecting to my FNB58=
+ USB
+meter over BT is great. Haven't tried anything useful with that latter one,=
+ but
+it consistently finds it and when I connect to it, it succeeds. It even sta=
+ys
+connected \o/ :-O
+All the rest? It either doesn't see it, it can't connect to it, or it
+connects to it to drop the connection after a few seconds.
+And after a reboot? No one knows what will happen.
+I've had ONE time a stable connection between the MT7925 and my BT speakers=
 .
-> > +      Switch instances using this register layout are autodetected fro=
-m
-> > +      these registers and use this compatible regardless of their
-> > +      synthesis-time feature and port configuration.
->=20
-> There is no traceable and documented version or model name?
->=20
+Only it didn't show as a sink in pipewire/wireplumber so I couldn't actuall=
+y
+use it. I haven't been able to make a connection since.
 
-tl;dr
-There are too many, but they are not specific enough. I think it is not
-useful to use this information to define a specific compatible. Using a
-set of known registers, the driver can check the active features and
-capabilities and adapt accordingly, regardless of marketing names.
+My current theory is that the drivers are buggy, see f.e. here:
+https://lore.kernel.org/linux-wireless/DL5P72WYQVOQ.23G9D01OY3BAA@cknow-tec=
+h.com/
+and that's for the Wi-Fi part which actually work fine (AFAICT).
 
-SoC-e shows different variants of their IP cores on their website:
-https://soc-e.com/soctek-ip-cores/
-SocTek is product line that covers different types of IP cores. Ethernet
-switches, Timing controllers, and SpaceWire.
-For Ethernet switches, there are different variants listed like Managed
-Ethernet Switch (MES), Managed Redundant Switch (MRS) and some others.
-Most of the variants are build of other variants e.g. MRS =3D MES+HPS
-Think of it as name of a base collection of IP functionality. On top of
-it you can license additional features. This do not result in a
-different name. If you start with MES and buy HPS later on, you may or
-may not end up with MRS.
-Additionally, the actual switch is synthesized in FPGA, so the final
-implementation can vary even if the same IP core is used e.g. port
-number, deactivated features, etc.
-This is used to bring down product costs: You can buy the same hardware,
-really the same hardware - here a PLC - with a different bitstream.
-Depending on the enabled features you have to pay more money for it.
+The problems may also be caused by an incomplete description of the USB 2.0=
+ Hub.
+Dunno if a full description is within my capabilities though.
 
+But there are also other issues with both the LTS and Plus board, like the
+RTC being recognized ... but only sometimes. I have a battery for it, but
+that doesn't seem to matter much/at all. (I may know why though)
 
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  mdios:
-> > +    type: object
-> > +    additionalProperties: false
-> > +    description:
-> > +      External MDIO buses provided by the integrated MDIO controller.
-> > +      Each child bus selects one controller output.
-> > +
-> > +    properties:
-> > +      '#address-cells':
-> > +        const: 1
-> > +      '#size-cells':
-> > +        const: 0
-> > +
-> > +    patternProperties:
-> > +      '^mdio@[0-9a-f]+$':
-> > +        $ref: /schemas/net/mdio.yaml#
-> > +        unevaluatedProperties: false
-> > +
-> > +        properties:
-> > +          reg:
-> > +            maximum: 30
-> > +            description:
-> > +              MDIO controller output index, which must be lower than t=
-he
-> > +              number of implemented switch ports.
-> > +
-> > +        required:
-> > +          - reg
-> > +
-> > +    required:
-> > +      - '#address-cells'
-> > +      - '#size-cells'
-> > +
-> > +patternProperties:
-> > +  '^(ethernet-)?ports$':
->=20
-> ethernet-ports
->=20
-> > +    patternProperties:
-> > +      '^(ethernet-)?port@[0-9a-f]+$':
->=20
-> ethernet-port
->=20
+That's why I mentioned *basic* support for it.
+AFAICT it's functionally equivalent to the NanoPC-T6 LTS.
 
-Is there a reason for such a restriction?
-The pattern intentionally follows the generic DSA binding in dsa.yaml,
-which permits both ports/port@N and ethernet-ports/ethernet-port@N. The
-device-specific pattern is needed here to apply the SoC-e port
-constraints to both accepted node naming variants.
+>> +		regulator-name =3D "usb2_port_5v";
+>> +		vin-supply =3D <&vcc5v0_sys>;
+>> +	};
+>> +};
+>
+> [ ... ]
+>
+>> +&u2phy2_host {
+>> +	phy-supply =3D <&usb2_port_5v>;
+>
+> [Severity: Medium]
+> Could this assignment provide the wrong voltage to the 4G LTE module?
+>
+> Assigning the 5V regulator to the USB PHY port that typically connects to=
+ the
+> 4G LTE module's M.2 B-key slot incorrectly requests a 5V supply instead o=
+f the
+> required 3.3V. This could result in the module failing to receive power o=
+r
+> operating with incorrect regulator parameters.
+>
+>> +};
 
-> > +        $ref: dsa-port.yaml#
-> > +        unevaluatedProperties: false
-> > +
-> > +        properties:
-> > +          reg:
-> > +            maximum: 30
-> > +            description:
-> > +              Switch port index. Supported switch configurations have
-> > +              up to 31 ports, numbered from 0 through 30.
-
-Thanks,
-Vasilij
+I don't have a 4G LTE module, so can't test/try that. But as the phy-supply
+is connected to u2phy2_host, not u2phy3_host, I don't see how the phy-suppl=
+y
+for the 2 USB 2.0 ports at the back of the device could harm an 4G/LTE modu=
+le.
