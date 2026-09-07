@@ -1,88 +1,58 @@
-Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDB3478859
-	for <devicetree@vger.kernel.org>; Mon,  7 Sep 2026 11:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A25C47D441;
+	Mon,  7 Sep 2026 11:31:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780599; cv=none; b=BQH2FNmo0PN46Au8kyPyw028dXtawvARMsB1NSSH/r8+7tNI8TWe7eyqbuW0Ypu07p2OmlTTxK+AA5tzNx0+i8z06x2te6WlVsn67o8nzJJ0zgeqQXE1dxVy3hxv6rUE16hOQVOm/ryEViXbFd2yOIqDCciEUoKo/ATJCxiVuv8=
+	t=1788780664; cv=none; b=OuVk4BRtH0ihsEwzXiQCoM3m+8eOty5Z4WSHQkj2ntxp91rtb+JV/76Z9xhAmkeLpVE8a6ah7gkTDJ+zSz+QfYaNSoOP78MV1QWADOhMNkxw/BbLWxT8lYMTyVNFr7yrkceiMvxs6pazbPyN53De/t/79COcw70lEzMvruoozMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780599; c=relaxed/simple;
-	bh=6g7Sp3XgfzuQIIWtVmmh2ggTd+fvJQViOEJ1mFJ2k4U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=NgpdQ1xxVRksAYmIvdgj9XdjKHM2lEfX76Q/knxocto2nrG5qpaS12j4LUmfYH5c1YnnMtpjZo0LCxnDkSrwFJzL+5HpcBYrH9L2carTmfPVkMwzQIxt0QtFCOIhxCicGVdK2lpdqyABDtAbZ22F+iWD4qven8cy6PRYdV30GY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=szLUb5gj; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1788780664; c=relaxed/simple;
+	bh=/BYKYcikgor5SSTHOWrqFHRAYUpGOcDhnBnyacCSMlM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LLUYvxUp+eEPDz8MI6rp+9/dmRcfxVkBxXVufNtz6Ivb7RimICM02pAoPbDqncUpzvadeIuC52v2QzdLzQoHNb7HYBO/q0HreFBCIVMd0jqM902mgEs/Jyb/bcVC7G53g9p1CAAmRoLhYaqWU6p9wsoroinpr72YhQpJs1R18bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eSkGQ2fE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="szLUb5gj"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=6g7Sp3XgfzuQIIWtVmmh2ggTd+fvJQViOEJ1mFJ2k4U=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1788780595; v=1; x=1789385395;
- b=szLUb5gjG0Ttu49xlUytt/3LHQPzFYQ6p3PExwJNJNgMULgwJyhlEOxZysrrcBk+YwNiuPLa
- csIC/HpUGvA4dAlqiLutHWqaA4zcp+k1wMV6MzwRTiCsK4GPxzL/ghGEflWILjJF4Opu9kjAIba
- xpIky0huN3L1nphYhW002j+c=
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 04e3b4fe8b7f3d22;
-	Mon, 07 Sep 2026 11:29:45 +0000
-X-Mizu-Trace-ID: 04e3b4fe8b7f3d22
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Rob Herring <robh@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Fuad Tabba <tabba@google.com>
-Subject: [PATCH v2 0/2] of/irq: msi-parent handling in of_msi_xlate()
-Date: Mon,  7 Sep 2026 12:29:42 +0100
-Message-Id: <20260907112944.313618-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.39.5
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eSkGQ2fE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75A751F00A3A;
+	Mon,  7 Sep 2026 11:31:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788780662;
+	bh=/BYKYcikgor5SSTHOWrqFHRAYUpGOcDhnBnyacCSMlM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eSkGQ2fE2HvKcrO48C/RgtmhAvdHfZ6qWxRh8dFcMpkOFaFrB0HKDJ5Eho/EVwyA1
+	 nLhbQ6TiLN/WhkSrEE82V5lFfLBXU58bmYj+NyrAlNhJR3yrkHbHMacUHsQb6K+d4N
+	 ScmhioKW6agPH7Y6u93hVpfQpHwXvzohuDSkPHjZhUp4q6gz83/9VX+LV84NqdQC3m
+	 rlhHXF3mz8TNqMwQhoAvGEngffoaBeH/VQXU43fulV+yi9r+I3d+ElGqd/xrPjg2Cz
+	 dxkqptkw26VAaVNl+E9uCC/kbPWYHqLFKn/pTbdbY9Jp2NgTskyHo8rYFntkoa8etZ
+	 MFpWnVB3Y+OHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/6] PCI: spacemit-k1: Add device data support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Inochi Amaoto" <inochiama@gmail.com>
+Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260907112606.465778-2-inochiama@gmail.com>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-2-inochiama@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 07 Sep 2026 11:31:01 +0000
+Message-Id: <20260907113102.75A751F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi folks,
+> To reuse the K1 PCIe driver logic for K3 PCIe controller, add device
+> data to handle the K1 specific logic and make room for the incoming
+> logic for K3.
+>=20
+> Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
 
-Changes since v1 [1]:
-  - Added patch 2: end the walk at the first node that declares an
-    msi-parent, with the reference handling moved into of_msi_xlate().
-    (Lorenzo)
-  - Patch 1 is unchanged.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-Patch 1 is the v1 fix: of_check_msi_parent() hands back a node reference
-even when the caller passed one in as a filter, which of_msi_xlate()
-documents as receiving none. Patch 2 is what Lorenzo asked for [2]: a
-node declaring an msi-parent names the MSI controller for what sits
-below it, so the walk ends there rather than carrying on to an
-ancestor's msi-map.
-
-Patch 2 removes the line patch 1 adds, along with the rest of the
-reference handling. They stay separate because patch 1 is a small fix
-for a leak that has been there since v6.18, and patch 2 changes
-behaviour: folding them would hide the fix inside the change.
-
-Based on Linux 7.3-rc1 (cee9395acd804).
-
-Cheers,
-/fuad
-
-[1] https://lore.kernel.org/all/20260904073424.3855365-1-fuad.tabba@linux.dev/
-[2] https://lore.kernel.org/all/apqnaNmeuUjfC8Ng@red-moon/
-
-Fuad Tabba (2):
-  of/irq: Fix device node refcount leak in of_check_msi_parent()
-  of/irq: Stop the MSI walk at the first msi-parent
-
- drivers/of/irq.c | 39 ++++++++++++++++++++++-----------------
- 1 file changed, 22 insertions(+), 17 deletions(-)
-
--- 
-2.39.5
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260907112606.4657=
+78-1-inochiama@gmail.com?part=3D1
 
