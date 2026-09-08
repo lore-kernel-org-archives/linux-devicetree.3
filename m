@@ -1,100 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE77748F017;
-	Tue,  8 Sep 2026 22:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E607592204;
+	Tue,  8 Sep 2026 22:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905252; cv=none; b=RNjm1c5XjiqankpZH9EamQI5l1ZR7nMy8bNRr8/5wF+sa/iH8VdY7GRjSBh510tiAXXsslLHQ1XFCoKNTJC++1BB9E2v2RU/cSXtjOiPVgcXOT1vqpOnQmgJHJlVGWrKLuPhmS83MQsfEBXl9OFx8a2+9jvCVHbaqKDEsNoY7GQ=
+	t=1788906635; cv=none; b=OtivIFIZT2VRaRL/eesWOentk/psEvlIM7Ti8jI+zMKUcqrmHU9bMGuxU+l2HXc5j/Nv7nMSVK2GZXZFeUI6vVwr3uRKW0x8ACuIDL8zthzxp6Xf1bd7SQTMWQe0aANz3dn1pIGF2bL9exwMRqp2c2rwa/rWd92rABzG/d6TIkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905252; c=relaxed/simple;
-	bh=uH5244xLkHh5tX3Dib7zbddMlpVeIRO6MVtfqaE05tg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cYPme55tz6dUN7cF9k696FqmlEjdjLZIeTzqW4L1lgbNfpF3YvHZbf7+WjHSPSXTcFf48YHgQrFOnrSSzwjeYMqzsw4NJzEz0JL0BMdm/4P3ZrTD8Or23OWIA1CrOj2gWvsv8H8S+uwFm3UzAZHVjOXg14qXWgMaohxGefN5mMw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfBSgd3p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788906635; c=relaxed/simple;
+	bh=AvglF/lS5jLRZxY5Tu3J3C80lthHKnHNLMrZERrEiJo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OTHw5zNlgDtLy62dKgAOIiPwi4JCcByJyhY1SsIEcz6LV4DvknCBF2ueeqNOSda3xske7acQrjpDd0tVKJ7L5o8YYK0azLE/sCWFLHImrmvZSV6YEJbDjw+i3lgbHtPJ/dnMEaAQJd6uPzep0KUvg1VrVi44ArkcNPiQZ6Qvmys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jYXb0xZz; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfBSgd3p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CF1E1F00A3A;
-	Tue,  8 Sep 2026 22:07:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788905251;
-	bh=ws1+Xls/DEAU0aHZG1BtMNrUT8GjPjqImlOpVAgnj/U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CfBSgd3pRdedFd1iSIASn8xbXTRS7pra0Rw5ga8G/yuT3u78tWb3OdWBUindLxyMt
-	 u/MTe/1hBx7CSZSNU7BuAtRQyXsmkvrK2gDiZm8gdlQiqHgNzNpHbFpoJYqlXK5j8d
-	 U5VrZj0bIcqfDGnEFkhcUo61HlkAAeiqa75px2c1KytR72i66KIxdEtOQ8O5wHi2+7
-	 7mkEI/VPDynr/a2YxBA2v+PIY8jegoQchfSpd1J48T4mgUU5Y+kjj7z/A6KLQ9g6k/
-	 qOn8lGslPEl2WpJxA/5KE0gLHndVFjVZRUPpoh/qJODmXF1GOATf5y5NhFG57QXO5G
-	 aNr36NcnyZf/g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] ARM: dts: mediatek: Add basic support for Amazon
- ford board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zakariya Hadrami" <zkh@mailbox.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
-In-Reply-To: <20260908-mt8127-amazon-ford-basic-v3-4-fc46bf1b6cb2@mailbox.org>
-References: <20260908-mt8127-amazon-ford-basic-v3-0-fc46bf1b6cb2@mailbox.org>
- <20260908-mt8127-amazon-ford-basic-v3-4-fc46bf1b6cb2@mailbox.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 22:07:30 +0000
-Message-Id: <20260908220731.0CF1E1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jYXb0xZz"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E14410196A;
+	Wed, 09 Sep 2026 00:30:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1788906621; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding; bh=aBIZOzE3i1JjRrtYfZeSQABj8yITCJ8amCyPP3PLllk=;
+	b=jYXb0xZzzrz69AyOLg6dTibqq+Uzjau6AnH/hwucb2M2eoGND1Nx0pOB78iapxGXLgKDAF
+	2NwLHWGUgIH8fdP+EupnLVqE5/1/9sMvAqUzxpFJ95/eaHWVvAMqa6mn9DQSvWIQDh/R7j
+	GjOrUSXUrGszy10G985W0iozPhA3OYpvGObQuD1e64n8gmEQEAnZq9Zx3lRxGQ1HfBmomH
+	ql3Y5z+XNs4+iqENCKo76Xa2siBv/fUbYIzrUIXw7aMMiarPUDZV0Cvc6IovPMkeFBvXrU
+	t5NrETB7Th8cFMGJhmhXOgppJ69krcf2TOsZQoeShL6EmPM3liacPvHXH3xeyg==
+From: Marek Vasut <marex@nabladev.com>
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marex@nabladev.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
+Date: Wed,  9 Sep 2026 00:29:42 +0200
+Message-ID: <20260908223005.38536-1-marex@nabladev.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Device Tree Compiler (DTC) warnings due to using a unit address wit=
-hout a 'reg' property in the simple-framebuffer node.
---
+Describe ID EEPROM nWP GPIO, label and nvmem layout. The i.MX8MM eDM SBC
+and i.MX8MP eDM SBC nvmem layout is almost identical, except for length
+of product-name@32 field, which is 19 Bytes on the Mini and 24 Bytes on
+the Plus.
 
-commit 03486b0d7f26e5bd328d2d2b8f2a803bdf72c6b4
-Author: Zakariya Hadrami <zkh@mailbox.org>
+Signed-off-by: Marek Vasut <marex@nabladev.com>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Fabio Estevam <festevam@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
+Cc: Rob Herring <robh@kernel.org>
+Cc: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org
+Cc: imx@lists.linux.dev
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
+---
+V2: Fix wifi@1200 typo
+---
+ .../freescale/imx8mm-data-modul-edm-sbc.dts   |  56 ++++++++
+ .../freescale/imx8mp-data-modul-edm-sbc.dts   | 128 ++++++++++++++++++
+ 2 files changed, 184 insertions(+)
 
-ARM: dts: mediatek: Add basic support for Amazon ford board
+diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+index df857de0375cf..cb76471440433 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+@@ -431,7 +431,63 @@ usb-hub@2c {
+ 	eeprom: eeprom@50 {
+ 		compatible = "atmel,24c32";
+ 		reg = <0x50>;
++		label = "dmo-board-info";
+ 		pagesize = <32>;
++		wp-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			company-name@24 {
++				reg = <0x24 0xd>;
++			};
++
++			product-name@32 {
++				reg = <0x32 0x13>;
++			};
++
++			board-revision@4b {
++				reg = <0x4b 0x3>;
++			};
++
++			serial-number@4f {
++				reg = <0x4f 0x8>;
++			};
++
++			manufacturing-date@70 {
++				reg = <0x70 0xa>;
++			};
++
++			test-date@7b {
++				reg = <0x7b 0xa>;
++			};
++
++			product-number@86 {
++				reg = <0x86 0x8>;
++			};
++
++			board-variant@9a {
++				reg = <0x9a 0x9>;
++			};
++
++			company-acronym@a4 {
++				reg = <0xa4 0x3>;
++			};
++
++			mac-address@b0 {
++				reg = <0xb0 0x6>;
++			};
++
++			board-id@100 {
++				reg = <0x100 0x4>;
++			};
++
++			wifi-id@120 {
++				reg = <0x120 0x4>;
++			};
++		};
+ 	};
+ 
+ 	rtc: rtc@68 {
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+index c284edfa1f4c8..4614a0de07906 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+@@ -421,14 +421,142 @@ tpm: tpm@2e {
+ 	eeprom900: eeprom@50 {	/* board rev.900 */
+ 		compatible = "atmel,24c32";
+ 		reg = <0x50>;
++		label = "dmo-board-info";
+ 		pagesize = <32>;
++		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
+ 		status = "disabled";
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			company-name@24 {
++				reg = <0x24 0xd>;
++			};
++
++			product-name@32 {
++				reg = <0x32 0x18>;
++			};
++
++			board-revision@4b {
++				reg = <0x4b 0x3>;
++			};
++
++			serial-number@4f {
++				reg = <0x4f 0x8>;
++			};
++
++			manufacturing-date@70 {
++				reg = <0x70 0xa>;
++			};
++
++			test-date@7b {
++				reg = <0x7b 0xa>;
++			};
++
++			product-number@86 {
++				reg = <0x86 0x8>;
++			};
++
++			board-variant@9a {
++				reg = <0x9a 0x9>;
++			};
++
++			company-acronym@a4 {
++				reg = <0xa4 0x3>;
++			};
++
++			eeprom900mac: mac-address@b0 {
++				reg = <0xb0 0x6>;
++			};
++
++			board-id@100 {
++				reg = <0x100 0x4>;
++			};
++
++			wifi-id@120 {
++				reg = <0x120 0x4>;
++			};
++
++			board-lvds-id@140 {
++				reg = <0x140 0x4>;
++			};
++
++			camera-id@160 {
++				reg = <0x160 0x4>;
++			};
++		};
+ 	};
+ 
+ 	eeprom902: eeprom@51 {	/* board rev.902 */
+ 		compatible = "atmel,24c32";
+ 		reg = <0x51>;
++		label = "dmo-board-info";
+ 		pagesize = <32>;
++		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
++
++		nvmem-layout {
++			compatible = "fixed-layout";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			company-name@24 {
++				reg = <0x24 0xd>;
++			};
++
++			product-name@32 {
++				reg = <0x32 0x18>;
++			};
++
++			board-revision@4b {
++				reg = <0x4b 0x3>;
++			};
++
++			serial-number@4f {
++				reg = <0x4f 0x8>;
++			};
++
++			manufacturing-date@70 {
++				reg = <0x70 0xa>;
++			};
++
++			test-date@7b {
++				reg = <0x7b 0xa>;
++			};
++
++			product-number@86 {
++				reg = <0x86 0x8>;
++			};
++
++			board-variant@9a {
++				reg = <0x9a 0x9>;
++			};
++
++			company-acronym@a4 {
++				reg = <0xa4 0x3>;
++			};
++
++			eeprom902mac: mac-address@b0 {
++				reg = <0xb0 0x6>;
++			};
++
++			board-id@100 {
++				reg = <0x100 0x4>;
++			};
++
++			wifi-id@120 {
++				reg = <0x120 0x4>;
++			};
++
++			board-lvds-id@140 {
++				reg = <0x140 0x4>;
++			};
++
++			camera-id@160 {
++				reg = <0x160 0x4>;
++			};
++		};
+ 	};
+ 
+ 	rtc: rtc@68 {
+-- 
+2.53.0
 
-This tablet uses a MediaTek MT8127 system-on-chip with 1GB of RAM.
-It can currently boot into initramfs with a working UART and
-Simple Framebuffer using already initialized panel by the bootloader.
-
-> diff --git a/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts b/arch/arm=
-/boot/dts/mediatek/mt8127-amazon-ford.dts
-> new file mode 100644
-> index 0000000000000..21bdab0e43f88
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-
-[ ... ]
-
-> +	chosen {
-> +		stdout-path =3D "serial0:921600n8";
-> +
-> +		framebuffer0: framebuffer@b7a00000 {
-
-[Severity: Low]
-Will this node name cause Device Tree Compiler warnings during make dtbs?
-
-Since the node is named with a unit address (@b7a00000) but only uses a
-memory-region property without a corresponding reg property, it seems this
-would trigger a unit_address_vs_reg warning.
-
-Additionally, it might trigger an avoid_default_addr_size warning because
-its parent (chosen) lacks #address-cells and #size-cells.
-
-Would it be better to omit the unit address here?
-
-> +			compatible =3D "simple-framebuffer";
-> +			memory-region =3D <&framebuffer_reserved>;
-> +			width =3D <1024>;
-> +			height =3D <600>;
-> +			stride =3D <(1024 * 2)>;
-> +			format =3D "r5g6b5";
-> +		};
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-mt8127-ama=
-zon-ford-basic-v3-0-fc46bf1b6cb2@mailbox.org?part=3D4
