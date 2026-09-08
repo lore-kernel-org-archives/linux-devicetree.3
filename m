@@ -1,135 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4872E599A5E
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 18:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264FC5908DD;
+	Tue,  8 Sep 2026 18:03:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890538; cv=none; b=C7PU3y01gQqXSWzgoK6i8XLXHLjlwaCeCcN9HWf2CkrWvku2O2yn8a2+ua33Enq4UsHL9/GO+HseoORWbUaQsx+5EfF8XdhxpBrTfZoVjTZSiRny4z80IlU8iU1OB8z/C8pXNEXxUTCwHxtxmxW/OmFfvj7K6bl7y3oYzKp0qs4=
+	t=1788890625; cv=none; b=t3Z/TeCTJQsj3SwzHWLk2ak92EIQZD3tvhDVd1hlyyERGhRVn2Eeb2DjlRUIszMrxStIr/7/iOeXR/p3iUGnKUN6YHeyLk+uk3+DXkPwQ1rnWhQ36HuMJuCrhD2OP62LbC5jDdp7J5brTBDT6OHHTZ35qegJdmDPmkY1GKmi1x8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890538; c=relaxed/simple;
-	bh=BDNBy7AIVH/fx56SD5E5ecBJAcyxm/yO0xm5UoXqelA=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=gS+MafV2+HjJn00nmzgORCWvGav8d7nWv4iYlJnwccBEYtR7vPdFZzDHPFwKDmWWuxSx7La3JCFk3IRozgVmdCsgssTiL1KDx8XFIYO2z0eky6oUKaV2GF7ARQmb2RT8pthlME7T7V8cSYQRZwbKF24s1rR4Ob9Vzq0xD+dz+Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nv2Y6zNC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890625; c=relaxed/simple;
+	bh=g8gaWVtpR0N2D+c50/zh69oZ3JLwsmCAyGVWni76RhA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z6qSBnR5152SEvstzU1eQxdI4elKODiVyaBteL6cV7tGPKlrSiPGrA1y8mTQHU51O7juLoDEPob9jxW6dJ9epJ9/T3ljIK/eWE4tccV7/BzFgkFY20/Z8XK8BzI63Te6Yl9l93MjMSdr7O8ERrxsB9DvjSrM0ci+TdicLHFYCbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9PBGEno; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nv2Y6zNC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A45001F00A3D;
-	Tue,  8 Sep 2026 18:02:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9PBGEno"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8761D1F00A3A;
+	Tue,  8 Sep 2026 18:03:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890537;
-	bh=kT0hHosdrbmQwUM2AUizcp7Jzv73P5mSJH7gbHyQcp4=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=Nv2Y6zNCS0Njj264cWEYue/Yfci5wzuIojUf4O93UTzDc251QyfNgvZB7cGBLfP9h
-	 KkLTUnz/C6fHIbDMJLdribLU5Nkk+yX4KrUXO+GkfiUjiNKs5ZN7OLOqE53+2UT59c
-	 K/eVE9Q3xBRB+frlQwv+avbuYLMRLVfRtAQsvKQ/2zK+KKsbT5ow1dd/s9OThChnYq
-	 /6yCfbzDxWWzsW+ZGpyryZ2x4jzeHRPuXxfw9J+vQcYlnxS+8s+yj64QfENcl1AkVc
-	 WsFbQcjUyVFzdDZpUMM/2Ag3M8ghCKDqg82bQIx1C7V6gt5jPTK5ul86E4eT8oPPMR
-	 AOEtQYn/PVKyQ==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 35059198003A;
-	Tue,  8 Sep 2026 14:02:15 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 14:02:15 -0400
-X-ME-Sender: <xms:pU2garhdU5lBB6zmHM35TwJodTTCqDnFrJfU0SZOsbuzzNEiSN3uFw>
-    <xme:pU2gai0L4f_j_vZHkLbEj7cD0ATDhCsuIN7IXTaoAczfVEILgnti3Fzr0KKjKN4LK
-    6WBmRXoxbCJOBu5IW4W7WQ4fQwb-0BZroqFJlv-Ceu2QceIsuYEcx0>
-X-ME-Proxy-Cause: dmFkZTEQVbJo8jTXVn+5+OwdkBij81Fry+YUOczZJgnIVkmOxw8+fibr1YJr00j7BSAwmg
-    l9g8CIJ5MEALSMiAZxgQ+1gsBIuJfyoHtQMLfDfnpd5LLkrWlLI6uWqEtJuy0pTKQwP1hC
-    laAbrAkGDWKR2M9EKYkx9XINIhQZL9rYjFlG4gv+7eC4NmYJ+t2GSoxEgCs8jD8PKNX/L4
-    N4vqTUb4mTH80baeR3U4Jb52xKxv1pt4OgjZ48zcpodZnTXxeg8KlY1ch/oyFYlNWbqonr
-    Uv8gtyy+CBN39O3iasQ+2mojRw2xrPKMWD4jYYGaYkbUl0WFpZ5HO7q8pe5/cGF3zWlCYX
-    ayF1zd17H3CESkUoDfub9KXPX3VhAIEe176NqxP7OmbGh67g5fYYbJ+8E99UfOwagPWw1C
-    su0GPbhz7GONmAzvCUTtBG0UIoHrfMcOZr8ufaD2+bD/gjkh7w1kK4cPgy8uHRg8eMsbFC
-    npIB//+7QqNxHVPREeD1BId38PLgCipIgyRUbfclxinVal0jC+bNn7oW9Fd4HFBqYaOwu9
-    6ifTT1BpfV6S7NLJMlKRs+c3SPajhoKOohmUZ2zHpxj57hlxj6MRrKnkFd3w4JxFU2bQgk
-    Z5luL7ncYbQuOB38j9skSaOvA5b+ZWRPhaK3jwF0HkLq4HeXR4fWGz5UIIwg
-X-ME-Proxy: <xmx:p02gasG8cTTkKuXjg9H3-oh3MoK9KO0j1rCPL9hzUf_267aG8IBicg>
-    <xmx:p02gannIvOK4NyCVFLjsc3aq62ML7_4Hb1ziO8v-fOP4LEN5l95Q7w>
-    <xmx:p02gaobtTc8dTn-LMzdpt-3lr91NqWAKNTVQkfj0tGop0KicQpeVGA>
-    <xmx:p02gakH0ywG7NKw_m5pjSMN-12urQshlkAAuYPfnFkJHnmzmtaa9VQ>
-    <xmx:p02gahI66tLp2Ot9h7wX8nS2I07h613v4_iGiQD03MflRu559ph-ZnP2>
-Feedback-ID: i36794607:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id C5C2432A007B; Tue,  8 Sep 2026 14:02:13 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1788890624;
+	bh=iKTjKW+fOiZeD1KxQV7HvuEp3nfVuLzMeXDXviM50ho=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G9PBGEnox/B03RmcJTj6GOEOJ2qkVvUWF6CPbvaoFkOQD331PQK04+RDNJo0fE5FF
+	 c8MKgTTz+UkvhA8PmZp9qDmKwHz/rqHV10ijX7hSOb6ftmOl2BSxtlkbEr9AuazGoZ
+	 QpTBwffg5VcgqgjDtFqIfoAG8cneHxb+H86oGbiuB8iG5MXAdPS00ASSmDE4fQSnZZ
+	 vX8F66RjHA8Z0eH4yX3Aw0afG76YgGuJ7DuvTELDCIcpk3NEs6tjGqC3PWAQwSz2fT
+	 y8eo6bPtm5EuHJkpSkSFdJxCdbCZ24MpbqEu3jm2b8j0kRJ4I3gC0f4rw25K2J7IXj
+	 lm5V3NxKOQwhw==
+Date: Tue, 8 Sep 2026 19:03:39 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nikita Travkin <nikitos.tr@gmail.com>,
+	Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+Subject: Re: [PATCH RFC 1/3] dt-bindings: leds: aw2013: Add aw2027 compatible
+ and rename to aw20xx
+Message-ID: <20260908-sample-onshore-a2cf8af658b4@spud>
+References: <20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org>
+ <20260907-aw2013-aw20xx-rename-v1-1-c9a7df12a701@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: Aq7JKXuBk433
-Date: Tue, 08 Sep 2026 20:01:53 +0200
-From: "Arnd Bergmann" <arnd@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: "Conor Dooley" <conor+dt@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Frank Li" <Frank.Li@kernel.org>, imx@lists.linux.dev,
- devicetree@vger.kernel.org
-Message-Id: <747cdd3b-5224-4bd9-9dc4-4ac828a05921@app.fastmail.com>
-In-Reply-To: <20260908160512.0FE271F00A3D@smtp.kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-8-arnd@kernel.org>
- <20260908160512.0FE271F00A3D@smtp.kernel.org>
-Subject: Re: [PATCH 07/13] ARM: imx: remove i.MX31 SoC support
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xN1OfmFunrnmuw20"
+Content-Disposition: inline
+In-Reply-To: <20260907-aw2013-aw20xx-rename-v1-1-c9a7df12a701@postmarketos.org>
 
-On Tue, Sep 8, 2026, at 18:05, sashiko-bot@kernel.org wrote:
+--xN1OfmFunrnmuw20
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
->
-> [Severity: Medium]
-> Can the removal of CONFIG_DEBUG_IMX31_UART leave obsolete preprocessor blocks
-> in header files?
->
-> In arch/arm/include/debug/imx-uart.h, there is still a check for this
-> symbol:
->
-> #elif defined(CONFIG_DEBUG_IMX31_UART)
-> #define UART_PADDR      IMX_DEBUG_UART_BASE(IMX31)
->
-> Could this block now be dead code because the config symbol no longer exists?
+On Mon, Sep 07, 2026 at 04:47:51PM -0700, Paul Sajna wrote:
+> Document the awinic,aw2027, which is very similar to aw2013.
+> Rename the driver to support all of the 20xx series.
+>=20
+> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+> ---
+>  .../bindings/leds/{leds-aw2013.yaml =3D> leds-aw20xx.yaml}       | 10 ++=
+++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml b/Do=
+cumentation/devicetree/bindings/leds/leds-aw20xx.yaml
+> similarity index 91%
+> rename from Documentation/devicetree/bindings/leds/leds-aw2013.yaml
+> rename to Documentation/devicetree/bindings/leds/leds-aw20xx.yaml
+> index 26238446f2bd..f20b5344e3e1 100644
+> --- a/Documentation/devicetree/bindings/leds/leds-aw2013.yaml
+> +++ b/Documentation/devicetree/bindings/leds/leds-aw20xx.yaml
 
-Fixed now, I did script the search for unused Kconfig symbols,
-but missed the DEBUG_IMX31_UART dependency as that was a later
-addition to the series. I'll run those scripts again.
+Please retain a filename matching a compatible. IOW, leave this alone.
+pw-bot: changes-requested
 
->
-> [Severity: Medium]
-> Could the removal of SOC_IMX31 orphan the hardware random number generator
-> driver?
->
-> In drivers/char/hw_random/Kconfig, HW_RANDOM_MXC_RNGA currently has:
->
-> config HW_RANDOM_MXC_RNGA
-> 	tristate "Freescale i.MX RNGA Random Number Generator"
-> 	depends on SOC_IMX31 || COMPILE_TEST
->
-> Since SOC_IMX31 is no longer defined, this driver can now only be selected
-> via COMPILE_TEST.
->
-> Is there also a risk of leaving dead code in the clock driver?
->
-> In drivers/clk/imx/Kconfig, CLK_IMX31 has:
->
-> config CLK_IMX31
-> 	def_bool SOC_IMX31
->
-> Could this convert the driver code into uncompilable dead code since
-> SOC_IMX31 is removed?
+The rest of this is fine, but please note in your commit message what
+makes this device different to the existing one.
 
-These are all addressed in a later series.
+Thanks,
+Conor.
 
-> [Severity: Medium]
-> Are there dangling declarations left behind in the subsystem headers?
->
-> In arch/arm/mach-imx/common.h, these declarations still exist:
->
-> void mx31_map_io(void);
-> void imx31_init_early(void);
->
-> Could these dead declarations be removed as well?
+> @@ -1,21 +1,23 @@
+>  # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>  %YAML 1.2
+>  ---
+> -$id: http://devicetree.org/schemas/leds/leds-aw2013.yaml#
+> +$id: http://devicetree.org/schemas/leds/leds-aw20xx.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: AWINIC AW2013 3-channel LED Driver
+> +title: AWINIC AW20XX 3-channel LED Driver
+> =20
+>  maintainers:
+>    - Nikita Travkin <nikitos.tr@gmail.com>
+> =20
+>  description: |
+> -  The AW2013 is a 3-channel LED driver with I2C interface. It can control
+> +  The AW20XX is a 3-channel LED driver with I2C interface. It can control
+>    LED brightness with PWM output.
+> =20
+>  properties:
+>    compatible:
+> -    const: awinic,aw2013
+> +    enum:
+> +      - awinic,aw2013
+> +      - awinic,aw2027
+> =20
+>    reg:
+>      maxItems: 1
+>=20
+> --=20
+> 2.55.0
+>=20
 
-Fixed now.
+--xN1OfmFunrnmuw20
+Content-Type: application/pgp-signature; name=signature.asc
 
-       Arnd
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBN+wAKCRB4tDGHoIJi
+0mihAQDYRW3Dc+tmgQeM9ZVjwjmMEmIKNmrerr12ozj7zbw/VwEA1Bn5tdnnzeDt
+Nry9qwkRP7pEKTIM3vQgS8iE5Gnb6g0=
+=tgWJ
+-----END PGP SIGNATURE-----
+
+--xN1OfmFunrnmuw20--
