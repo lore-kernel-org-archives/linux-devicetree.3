@@ -1,474 +1,159 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732B757F75C
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 15:57:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE2D5921E2
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 15:58:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788883059; cv=none; b=r+XOdRM9kVkoy654io9pAhDDdPvACiTzU3kCLi0rxZEjT3sAXJ2iFZu7Kba5e3kVFy537kxsGI397IYOb7dRTMgz6xjhWJzBVH6ntPeAQAg3cXmaqbsGauBobsH+Vo9k24+NcbBQshCmH6KKNqr1m/vOcNxS76FqKWft/FoV/2E=
+	t=1788883090; cv=none; b=kDHyLMUOLQxO8bFxFOtuHjS4IQAaAtY+wDX+bboPnbaj4GJrBAsjCyZzxX35o62RSQyc5e5uc8nnLmYbbafoqU+dCZTXeh8gLFequ1f6oKzedtQsI5VKXQhjqMnMo9W7qFk6oG3fTmH8/a8r+edOKWK18DuLn3EoBNREibN2k9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788883059; c=relaxed/simple;
-	bh=RichJAb3WUIXvHmkckzegxBh9c+qsyloSrT5sVgqtYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hpAW8Lu0vTf8rjjRygdUUQUej0e+VRgBWIfrKtn1rNDpCz/Gb8jYv1tNHgFqx+2y6pUmPiCS8zS9t2h6EHG+aD7zsgM+o4GXdn6UJU00nGUD/zm9cCxi/yWtxidNj9XLqquCxBGlZZxgIKq0VFIYLedxTGp8feXlQuLwvWetAhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Q2StC/yO; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1788883090; c=relaxed/simple;
+	bh=HCOjmtuIURC8etW7PMldOk8sZqet30nx4hUSBGF2CaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ihPMtueTMbko9J+6Z+aY4UsuJ3Rm8rcrQp22+0LdyV7dielJ9/1XxZDwaT2cqvvVGVMiJ1NU+nLb5Y9t2PbdlRjWO6kidVj589nAC+6JdbUpB9PxMdcpMAaWtm5SLet/4xGWA74/ybaWHzGYiBMfI2GiVsZG1R4/dWhZ8lisiyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=R1wihYgR; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Q2StC/yO"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso52127925e9.3
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 08:57:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="R1wihYgR"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-485850cf499so3185622f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 08:58:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1788883054; x=1789487854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FgFh9Cc2TQQLTwmVJEQQxCEyfMY2XV4D1NQ7tPACFGU=;
-        b=Q2StC/yO1kKmgE8cN2MyLVeU1va6dRJapVE18yA2Epk4zoh3tbodgX0FE7Rtfgk726
-         IjjB+K9pMc0rngUEIeC1FIzdqB8BrTELImJ7nfTO+axahsOJz/gktuVCfKBJwWDLz5vC
-         1ly8Yh/3FQvGzHS8VCGNalXDQ6iTNXINMhFHi1V3XMVPIYsdvjFzLbvjQQZZpyBPXbYe
-         OipvPtjy/HtLUeI2dAyozw/wKStNYxr1edVM7JjmfDsoSx5vMV05SK6tQYb+ZajeajjT
-         hpdDv0LhUb7QPkAU8/RegE2u16VUJE9OGYgXnfSaglAMIZ4jF80WMnXw8guWDCSyzKtt
-         +4DQ==
+        d=baylibre.com; s=google; t=1788883086; x=1789487886; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=COKTXmW8lCYoLX/NVE9lHsQ1T9j35CdnW3YzobS56+o=;
+        b=R1wihYgRLDUHV4dUomXmKTaBwR50POp7oEB6TzD5CsxU5cGBvanOrj5b/MGM2TbnhB
+         RqgXlGux3WqVJ7wAU77ykLKoLugAOgc5MY13YEI2L8PeaSZZk4X9lt4Yba5Jb1b4NRNO
+         pDqSFhE33y2l1ce4kwcaVi0e1CgYOWUA5OWhuQkgQQH8mkjoAOHQk6fmPf6RnqsFX4+V
+         khy0aO8TEsZbVKRsF/bk+0NX0qbnsmn18pKJQpQZNevFEWvsvDiv5of+RacNp2mLeKRi
+         FMVabifqOWn5F3WUvNFlJ3xXDSG4JMl7l6wpQ5J9WKdGPEaUR6fifhD7d7GhpbjD/gxp
+         pFfw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788883054; x=1789487854;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FgFh9Cc2TQQLTwmVJEQQxCEyfMY2XV4D1NQ7tPACFGU=;
-        b=kkEXpjWGV5Fv53FWslHvNnTasfH87/E7pZv9Hrv/VsbT7mP3tsgEUs/MxxjgiYObOd
-         azBewdUlx7wIx5ynbSXUIM0R9JIX7Y6om1AmI+Ei2QdqYiX27a4tp+uVaWBwd8GL1KsG
-         UWzmzUqEb7PFJeCG8uymbhx2NGUVuNrsObw3xeK6hS9N15nUZm+W0oQExQpz22jMHGHc
-         Qj1qKIxT7rlv0TH0getmGxyPPqMxK+v5sAkg6W1KLaUR7brUAvH63MF0UHCoa4RIfbQI
-         6OKasiVAZwq7ZMHlMTJp+1NXJ4WXDnUdWiw+5Jgb6ZHeFrm1EaffTZ09PjH+kLfVLu0W
-         9rtQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzaK+iRfEFlK3gNBoaefkM5vv5JvyMdCxiW/DtsTbJ/RhVdF3Usb8uJTA4hUh1SnAEGjs/8KfzqUQPA@vger.kernel.org
-X-Gm-Message-State: AFuF++l6gKb+nivcDorINpVZGEYY+vybIIPHg5Uc76if7zmzoAcDPx58
-	IIDR+MAWhMas4sh7epAHQOCqp0PQW1aCxEKawh1A7e1QFzlb91iIFX5PDwxxL6q24U4=
-X-Gm-Gg: AYBFou0dBA+/iasjHc22oLA4pZMnScorBQprKCzMgLZ5tkDWZkBIvx6HEmpRjcw2LTf
-	EUJS/RXhd7BpfTSLs1Nq5VK26LkSf46kMBaAmrs1Jwi3AR/Epb43ooY4w7/6XwctBMKwV9XyD8J
-	65MMvsYZjRV1OL29FdjuOOU48+XY1GoauFTU8n+BWoOXV9H/DThlp1ejCNAeSBEhdM5X6ja1Z1g
-	45HTq/x1woKMLLKB0stjlzJOm60O/2G7HirEa5ZZ00k7SXLbR/A8g9mvi2A1/JFU8A86Sk9+dOT
-	9UcgL3IzaTQxqq3Gb+0hn7PBR43OxSlxstxu3Nd6IBnsCcSSZ2TNukDxHxP46/LHCCCB8CcKVYB
-	uWZ9sjsnxkUpNdQM49cKSG8cA8iJ1H+OBUhDdJCBQW5ljaNIWnhk1i6dVnApYc1ZIKZOePZ3PW0
-	oEzV40tbE3i7mtdb9wHIdLNo+hyo+jNZMRDXzeyLU=
-X-Received: by 2002:a05:600c:3485:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-49cf825c119mr660622285e9.16.1788883054080;
-        Tue, 08 Sep 2026 08:57:34 -0700 (PDT)
-Received: from remote-01 ([84.17.55.227])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf7703cefsm542370045e9.5.2026.09.08.08.57.32
+        d=1e100.net; s=20251104; t=1788883086; x=1789487886;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=COKTXmW8lCYoLX/NVE9lHsQ1T9j35CdnW3YzobS56+o=;
+        b=C6DEdeqfwgt41kgf9jQmy2D8MYWAw+UKwV6Rgai41cB9ltJ6W826RafT3Fp8tM4WWb
+         qjAn2R4JuhXvR/ZJSZEUTMYrBV95qb80I7m1QyXsnMYkRYeYqbxCrlt4KabX3o/83L3S
+         AKoyocpMF/BgNTV8j28jiwZNC2sCFCakr4mxStpVjzA9Bu8zuNgZt4hnO4i2fsMk7CCl
+         JT5tTR+QFXGXHqsTdqmVXZz/5E1pfKyty/uGdTvAJ5TMSpXS0CYRJAaLX785wINNwzr0
+         sbtcazHzdW2qKHI7QSMeRECuf1PW2aSVVgJoAUxc+oydsHdpe5Ri7H0bFiL4W0xS9t4Q
+         1xig==
+X-Forwarded-Encrypted: i=1; AKwUvBxEiQ+d9XZyF1YxmphdVvGdyk+0RsHsd79UKB6ceWNizAuVZ6yAdAYuKRHG6IYjdMROcF2bw5vLzyAn@vger.kernel.org
+X-Gm-Message-State: AFuF++koVsE6xBRMRYfEuPWpu9WRscUUBatAQu4HrRElJu3m+fNElXKz
+	nYYuAb2Bu+6JNiESFuH3WA2AXihfWm7JkXN7tBjsFks3IeTZo7YdenwoYYGzBViKpd0=
+X-Gm-Gg: AYBFou2RGkjtWhYesqLGVZaj7ZVB3z9lYK6r3pH71wGrYkZg/gV4LTBTTGTQgbrgKXu
+	yPfDfsL74UNWaPus3gpmBGKh1qGO7W5+yKQGWR2h7Z5lFwoeTl56V+yAICQ7J61Ck+W+1XoZre/
+	XfPp/yHoKL6aDZDM19WfoHrENzQd7LIOqEEjGKHLE2WPGGDvkH/U9Aiye0vVZV80XMHy/X6q3Ts
+	/ByuThM4hlGTD3u3YqLZB2DyeVysEgdW2ahWcBwgJjzXjuUvXmA+Sfqs7uilDusJrwW0/1NvGw7
+	YPNEaOx1FXATaNY9/Ps2ARRIWdwbQKJViMey6mYd7mZQALZuHC1JuAp08k4ny90g+GG1EDZdwmA
+	NHbEe4Q0iY5HulFJyb/7rY76AORvQKScsRVFhDNFG1gXj/+nwqEgrGZ0aRithzwJXEAc9x0iesr
+	I3aAisjBEGyoocnX/YoRdxbWsJ9tmr2/nGxf6aqkMN417Cuuh2kV0ZIyoDQQPHnXUww4GCNd98o
+	yCFu2Gh53bx4cBh70BqDpsnaKgIUfVB0BtOuNbn0RIkVJZqlPI=
+X-Received: by 2002:a05:600c:a0b:b0:49c:cee2:1697 with SMTP id 5b1f17b1804b1-49cf8262133mr304493845e9.16.1788883085916;
+        Tue, 08 Sep 2026 08:58:05 -0700 (PDT)
+Received: from localhost (p200300f65f19a9042cc2680c1f1bf2f5.dip0.t-ipconnect.de. [2003:f6:5f19:a904:2cc2:680c:1f1b:f2f5])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48588394fa1sm35076368f8f.8.2026.09.08.08.58.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 08:57:33 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: linux@armlinux.org.uk,
-	andrew@lunn.ch,
-	andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: conor@kernel.org,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aleksei Sviridkin <f@lex.la>
-Subject: [RFC PATCH net-next v2 2/2] net: phylink: wait for PHYs that are known to probe late
-Date: Tue,  8 Sep 2026 15:57:28 +0000
-Message-ID: <20260908155729.4164814-3-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908155729.4164814-1-f@lex.la>
-References: <20260908155729.4164814-1-f@lex.la>
+        Tue, 08 Sep 2026 08:58:05 -0700 (PDT)
+Date: Tue, 8 Sep 2026 17:58:04 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Charles Keepax <ckeepax@opensource.cirrus.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Maciej Strozek <mstrozek@opensource.cirrus.com>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Takashi Iwai <tiwai@suse.com>, Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>, 
+	Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>, patches@opensource.cirrus.com, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
+Message-ID: <aqAvgcljjWCkFquD@monoceros>
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="765wben5jmkzogdu"
+Content-Disposition: inline
+In-Reply-To: <20260907083727.733705-12-srinivas.kandagatla@oss.qualcomm.com>
 
-A PHY whose driver or firmware lives on a filesystem mounted after the
-MAC probes cannot be connected when the port is set up, and the port is
-lost for the rest of the uptime. Let the PHY declare that with
-needs-host-firmware and poll for it instead of failing.
-Deferring the MAC's own probe is not an option: it would take every
-port with it, including the one needed to mount the filesystem that
-holds the firmware. Return 0 rather than -ENODEV, because DSA reads
--ENODEV as permission to look for the PHY on the switch's internal MDIO
-bus, which is the wrong device.
 
-Wait for a driver that has bound, not for a device that exists, because
-the generic driver would otherwise bind and cannot drive such a PHY.
-The test cannot be made to hold past its own return: the device lock it
-wants cannot be held across the attach, whose failure path takes it
-again. What is caught instead is the outcome one step later, where the
-attach bound a generic driver and returned success, and the poll puts
-that back. The window before it, where phy_attach_direct() meets a NULL
-phydev->drv, stays open; closing it wants a check inside that function,
-or an event from the bind instead of this poll.
+--765wben5jmkzogdu
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v2 11/11] ASoC: codecs: add Qualcomm Tambora (WCD9378)
+ SDCA codec
+MIME-Version: 1.0
 
-Only that lost race is retried. A connect that fails with the real
-driver bound is not, because the failure path ends in phy_detach(),
-which asserts a PHY-node reset line - and on the boards this exists for
-that erases the firmware a retry would need, once per attempt for the
-uptime. A PHY that was ready at connect time arms no poll and keeps the
-old behaviour. Every path that arms the poller cancels it first and
-waits, so nothing else has to keep the poller and its state apart.
+Hello,
 
-While the poll runs the port has no PHY, so reporting the MAC's own
-link modes would describe a link that cannot come up and would let
-ethtool accept settings for it. Report an empty set instead, and refuse
-to configure, to set pause parameters, and to restart autonegotiation,
-which has nothing to renegotiate with. The reply says autonegotiation
-is off, which is the ethtool core's zero left in place and agrees with
-the empty set: a port advertising nothing is negotiating nothing.
-Reading pause parameters is left alone, because it reports the
-configured request rather than a capability, and the EEE calls already
-return -EOPNOTSUPP with no PHY attached.
+On Mon, Sep 07, 2026 at 09:37:25AM +0100, Srinivas Kandagatla wrote:
+> +#include <linux/mod_devicetable.h>
 
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
- drivers/net/phy/phylink.c | 210 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 203 insertions(+), 7 deletions(-)
+Please don't include <linux/mod_devicetable.h>. Either rely on
+<linux/soundwire/sdw.h> to provide sdw_device_id (my preferred way), or
+(if you want full iwyu) include <linux/device-id/sdw.h>.
 
-diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-index 6ed2219961fb..a872f000204a 100644
---- a/drivers/net/phy/phylink.c
-+++ b/drivers/net/phy/phylink.c
-@@ -98,6 +98,14 @@ struct phylink {
- 
- 	u32 wolopts_mac;
- 	u8 wol_sopass[SOPASS_MAX];
-+
-+	/* The poller owns these; every other writer cancels it first. */
-+	struct fwnode_handle *late_phy_fwnode;
-+	u32 late_phy_flags;
-+	struct delayed_work late_phy_poll;
-+	unsigned int late_phy_poll_ms;
-+	unsigned int late_phy_waited_ms;
-+	bool late_phy_warned;
- };
- 
- #define phylink_printk(level, pl, fmt, ...) \
-@@ -1829,6 +1837,20 @@ int phylink_set_fixed_link(struct phylink *pl,
- }
- EXPORT_SYMBOL_GPL(phylink_set_fixed_link);
- 
-+static void phylink_late_phy_poll(struct work_struct *work);
-+
-+/* Synchronous because the node is put here and the poller reads it, and
-+ * not every caller holds the rtnl that would keep them apart. It cannot
-+ * deadlock on a caller that does: the poller only ever takes rtnl with
-+ * trylock, so it never waits for the lock this may be called under.
-+ */
-+static void phylink_late_phy_cancel(struct phylink *pl)
-+{
-+	cancel_delayed_work_sync(&pl->late_phy_poll);
-+	fwnode_handle_put(pl->late_phy_fwnode);
-+	pl->late_phy_fwnode = NULL;
-+}
-+
- /**
-  * phylink_update_pause_state() - Update the phylink pause frame configuration
-  * @pl: a pointer to a &struct phylink instance
-@@ -1987,6 +2009,7 @@ struct phylink *phylink_create(struct phylink_config *config,
- 	mutex_init(&pl->phydev_mutex);
- 	mutex_init(&pl->state_mutex);
- 	INIT_WORK(&pl->resolve, phylink_resolve);
-+	INIT_DELAYED_WORK(&pl->late_phy_poll, phylink_late_phy_poll);
- 
- 	pl->config = config;
- 	if (config->type == PHYLINK_NETDEV) {
-@@ -2070,6 +2093,8 @@ void phylink_destroy(struct phylink *pl)
- 	if (pl->link_gpio)
- 		gpiod_put(pl->link_gpio);
- 
-+	phylink_late_phy_cancel(pl);
-+
- 	cancel_work_sync(&pl->resolve);
- 	kfree(pl);
- }
-@@ -2339,10 +2364,8 @@ static int phylink_bringup_phy(struct phylink *pl, struct phy_device *phy,
- }
- 
- static int phylink_attach_phy(struct phylink *pl, struct phy_device *phy,
--			      phy_interface_t interface)
-+			      phy_interface_t interface, u32 flags)
- {
--	u32 flags = 0;
--
- 	if (WARN_ON(pl->cfg_link_an_mode == MLO_AN_FIXED))
- 		return -EINVAL;
- 
-@@ -2380,7 +2403,7 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
- 		pl->link_config.interface = pl->link_interface;
- 	}
- 
--	ret = phylink_attach_phy(pl, phy, pl->link_interface);
-+	ret = phylink_attach_phy(pl, phy, pl->link_interface, 0);
- 	if (ret < 0)
- 		return ret;
- 
-@@ -2392,6 +2415,133 @@ int phylink_connect_phy(struct phylink *pl, struct phy_device *phy)
- }
- EXPORT_SYMBOL_GPL(phylink_connect_phy);
- 
-+#define PHYLINK_LATE_PHY_POLL_MS	1000
-+#define PHYLINK_LATE_PHY_WARN_MS	60000
-+#define PHYLINK_LATE_PHY_POLL_MAX_MS	30000
-+
-+static bool phylink_late_phy_pending(struct phylink *pl)
-+{
-+	return pl->late_phy_fwnode && !pl->phydev;
-+}
-+
-+/* Stale the moment it returns: the device lock this wants cannot be held
-+ * across the attach, whose own failure path takes it again.
-+ */
-+static bool phylink_phy_is_usable(struct phy_device *phy_dev)
-+{
-+	return phy_dev && device_is_bound(&phy_dev->mdio.dev) && phy_dev->drv;
-+}
-+
-+static void phylink_late_phy_backoff(struct phylink *pl)
-+{
-+	pl->late_phy_poll_ms = min_t(unsigned int, pl->late_phy_poll_ms * 2,
-+				     PHYLINK_LATE_PHY_POLL_MAX_MS);
-+}
-+
-+static void phylink_late_phy_poll(struct work_struct *work)
-+{
-+	struct phylink *pl = container_of(to_delayed_work(work), struct phylink,
-+					  late_phy_poll);
-+	struct phy_device *phy_dev;
-+	bool again = false, lost_race = false;
-+	int ret;
-+
-+	/* Never block on rtnl: this runs on a shared workqueue. */
-+	if (!rtnl_trylock()) {
-+		pl->late_phy_waited_ms += pl->late_phy_poll_ms;
-+		goto requeue;
-+	}
-+
-+	/* Stable here: whoever clears it waits for this work first. */
-+	phy_dev = fwnode_phy_find_device(pl->late_phy_fwnode);
-+	if (!phylink_phy_is_usable(phy_dev)) {
-+		if (phy_dev)
-+			phy_device_free(phy_dev);
-+
-+		if (!pl->late_phy_warned &&
-+		    pl->late_phy_waited_ms >= PHYLINK_LATE_PHY_WARN_MS) {
-+			pl->late_phy_warned = true;
-+			phylink_warn(pl,
-+				     "still waiting for %pfw (needs-host-firmware)\n",
-+				     pl->late_phy_fwnode);
-+		}
-+		/* Past the warn it may never come: stop paying 1 Hz for it. */
-+		if (pl->late_phy_waited_ms >= PHYLINK_LATE_PHY_WARN_MS)
-+			phylink_late_phy_backoff(pl);
-+		/* The first run is immediate, so count the sleep ahead. */
-+		pl->late_phy_waited_ms += pl->late_phy_poll_ms;
-+		rtnl_unlock();
-+		goto requeue;
-+	}
-+
-+	/* Under the mutex, unlike at connect: this port may be live. */
-+	if (pl->link_interface == PHY_INTERFACE_MODE_NA) {
-+		mutex_lock(&pl->state_mutex);
-+		pl->link_interface = phy_dev->interface;
-+		pl->link_config.interface = pl->link_interface;
-+		mutex_unlock(&pl->state_mutex);
-+	}
-+
-+	ret = phylink_attach_phy(pl, phy_dev, pl->link_interface,
-+				 pl->late_phy_flags);
-+	if (!ret && phy_driver_is_genphy(phy_dev)) {
-+		/* Lost the race: the attach bound the generic driver, which
-+		 * is the outcome this poller exists to avoid.
-+		 */
-+		phy_detach(phy_dev);
-+		lost_race = true;
-+		ret = -EAGAIN;
-+	}
-+	if (!ret) {
-+		ret = phylink_bringup_phy(pl, phy_dev,
-+					  pl->link_config.interface);
-+		if (ret) {
-+			phy_detach(phy_dev);
-+		} else {
-+			/* Only a major config programs the masks bringup
-+			 * narrowed.
-+			 */
-+			if (!test_bit(PHYLINK_DISABLE_STOPPED,
-+				      &pl->phylink_disable_state)) {
-+				mutex_lock(&pl->state_mutex);
-+				pl->force_major_config = true;
-+				mutex_unlock(&pl->state_mutex);
-+				/* MAC before the PHY, the order a start
-+				 * uses; on a port already running that is a
-+				 * forced major config, not an initial one.
-+				 */
-+				phylink_run_resolve(pl);
-+				flush_work(&pl->resolve);
-+				phy_start(phy_dev);
-+			}
-+		}
-+	}
-+	if (lost_race) {
-+		/* The lost race unbound the generic driver again, and the
-+		 * real one is arriving, so look again at the current rate
-+		 * without spending the wait's budget.
-+		 */
-+		again = true;
-+	} else if (ret) {
-+		/* Not retried: every attempt ends in phy_detach(), which
-+		 * asserts a PHY-node reset line, and on the boards this
-+		 * exists for that erases the firmware a retry would need.
-+		 */
-+		phylink_err(pl, "failed to connect late PHY: %pe\n",
-+			    ERR_PTR(ret));
-+	}
-+	phy_device_free(phy_dev);
-+	rtnl_unlock();
-+
-+	if (!again)
-+		return;
-+
-+requeue:
-+	queue_delayed_work(system_freezable_power_efficient_wq,
-+			   &pl->late_phy_poll,
-+			   msecs_to_jiffies(pl->late_phy_poll_ms));
-+}
-+
- /**
-  * phylink_of_phy_connect() - connect the PHY specified in the DT mode.
-  * @pl: a pointer to a &struct phylink returned from phylink_create()
-@@ -2402,7 +2552,8 @@ EXPORT_SYMBOL_GPL(phylink_connect_phy);
-  * specified by @pl. Actions specified in phylink_connect_phy() will be
-  * performed.
-  *
-- * Returns 0 on success or a negative errno.
-+ * Returns what phylink_fwnode_phy_connect() returns, including 0 for a
-+ * deferred connect with no PHY attached yet.
-  */
- int phylink_of_phy_connect(struct phylink *pl, struct device_node *dn,
- 			   u32 flags)
-@@ -2420,7 +2571,13 @@ EXPORT_SYMBOL_GPL(phylink_of_phy_connect);
-  * Connect the phy specified @fwnode to the phylink instance specified
-  * by @pl.
-  *
-- * Returns 0 on success or a negative errno.
-+ * If the PHY node carries the needs-host-firmware property and the
-+ * PHY is not usable yet, 0 is returned with no PHY connected: a poller
-+ * connects it once its driver has probed. Until then the MAC runs
-+ * without a PHY and ethtool reports no link modes.
-+ *
-+ * Returns 0 on success - the PHY connected, or the deferred connect
-+ * armed - or a negative errno.
-  */
- int phylink_fwnode_phy_connect(struct phylink *pl,
- 			       const struct fwnode_handle *fwnode,
-@@ -2430,6 +2587,8 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
- 	struct phy_device *phy_dev;
- 	int ret;
- 
-+	phylink_late_phy_cancel(pl);
-+
- 	if (!phylink_expects_phy(pl))
- 		return 0;
- 
-@@ -2442,6 +2601,22 @@ int phylink_fwnode_phy_connect(struct phylink *pl,
- 	}
- 
- 	phy_dev = fwnode_phy_find_device(phy_fwnode);
-+	if (fwnode_property_present(phy_fwnode, "needs-host-firmware") &&
-+	    !phylink_phy_is_usable(phy_dev)) {
-+		/* -ENODEV here would also send DSA to the switch's own bus. */
-+		if (phy_dev)
-+			phy_device_free(phy_dev);
-+
-+		pl->late_phy_fwnode = phy_fwnode;
-+		pl->late_phy_flags = flags;
-+		pl->late_phy_poll_ms = PHYLINK_LATE_PHY_POLL_MS;
-+		pl->late_phy_waited_ms = 0;
-+		pl->late_phy_warned = false;
-+		queue_delayed_work(system_freezable_power_efficient_wq,
-+				   &pl->late_phy_poll, 0);
-+		return 0;
-+	}
-+
- 	/* We're done with the phy_node handle */
- 	fwnode_handle_put(phy_fwnode);
- 	if (!phy_dev)
-@@ -2483,6 +2658,8 @@ void phylink_disconnect_phy(struct phylink *pl)
- 
- 	ASSERT_RTNL();
- 
-+	phylink_late_phy_cancel(pl);
-+
- 	mutex_lock(&pl->phydev_mutex);
- 	phy = pl->phydev;
- 	if (phy)
-@@ -3042,6 +3219,14 @@ int phylink_ethtool_ksettings_get(struct phylink *pl,
- 
- 	ASSERT_RTNL();
- 
-+	/* No PHY yet: the port supports nothing, not what the MAC alone can. */
-+	if (phylink_late_phy_pending(pl)) {
-+		kset->base.port = pl->link_port;
-+		kset->base.speed = SPEED_UNKNOWN;
-+		kset->base.duplex = DUPLEX_UNKNOWN;
-+		return 0;
-+	}
-+
- 	if (pl->phydev)
- 		phy_ethtool_ksettings_get(pl->phydev, kset);
- 	else
-@@ -3114,6 +3299,10 @@ int phylink_ethtool_ksettings_set(struct phylink *pl,
- 
- 	ASSERT_RTNL();
- 
-+	/* Would configure the MAC alone, for a link that cannot come up. */
-+	if (phylink_late_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (pl->phydev) {
- 		struct ethtool_link_ksettings phy_kset = *kset;
- 
-@@ -3287,6 +3476,9 @@ int phylink_ethtool_nway_reset(struct phylink *pl)
- 
- 	ASSERT_RTNL();
- 
-+	if (phylink_late_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (pl->phydev)
- 		ret = phy_restart_aneg(pl->phydev);
- 	phylink_pcs_an_restart(pl);
-@@ -3326,6 +3518,10 @@ int phylink_ethtool_set_pauseparam(struct phylink *pl,
- 	if (pl->req_link_an_mode == MLO_AN_FIXED)
- 		return -EOPNOTSUPP;
- 
-+	/* pl->supported still describes the MAC, so the test below passes. */
-+	if (phylink_late_phy_pending(pl))
-+		return -EOPNOTSUPP;
-+
- 	if (!phylink_test(pl->supported, Pause) &&
- 	    !phylink_test(pl->supported, Asym_Pause))
- 		return -EOPNOTSUPP;
-@@ -3812,7 +4008,7 @@ static int phylink_sfp_config_phy(struct phylink *pl, struct phy_device *phy)
- 	/* Attach the PHY so that the PHY is present when we do the major
- 	 * configuration step.
- 	 */
--	ret = phylink_attach_phy(pl, phy, config.interface);
-+	ret = phylink_attach_phy(pl, phy, config.interface, 0);
- 	if (ret < 0)
- 		return ret;
- 
--- 
-2.53.0
+> [...]
+> +static const struct sdw_device_id wcd9378_sdw_id[] = {
+> +	SDW_SLAVE_ENTRY(0x0217, 0x0110, 0),
+> +	{}
+> +};
 
+s/{}/{ }/ please to match the common style.
+
+> +MODULE_DEVICE_TABLE(sdw, wcd9378_sdw_id);
+> +
+> +static struct sdw_driver wcd9378_sdw_driver = {
+> +	.driver = {
+> +		.name	= "wcd9378",
+> +		.pm	= pm_ptr(&wcd9378_sdw_pm_ops),
+> +	},
+> +	.probe		= wcd9378_sdca_probe,
+> +	.remove		= wcd9378_sdca_remove,
+> +	.id_table	= wcd9378_sdw_id,
+> +	.ops		= &wcd9378_sdw_ops,
+> +};
+
+subjective feedback: I'm not a fan of aligning the = in such
+initialisations. They tend to get inconsistent over time, and sometimes
+(like here) they even start inconsistently. So if you ask me, use a
+single space before each =.
+
+> +module_sdw_driver(wcd9378_sdw_driver);
+> +
+> +MODULE_DESCRIPTION("Qualcomm WCD9378 (Tambora) SoundWire codec");
+> +MODULE_AUTHOR("Qualcomm Technologies, Inc.");
+> +MODULE_LICENSE("Dual BSD/GPL");
+> +MODULE_IMPORT_NS("SND_SOC_SDCA");
+> +MODULE_IMPORT_NS("SND_SOC_SDCA_CLASS");
+
+Best regards
+Uwe
+
+--765wben5jmkzogdu
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqgMIkACgkQj4D7WH0S
+/k7HSggApAsqBk4MvLcFhPNfq1ozMJSIoE+LirT/GzBRY6d7XMtZW8CLtYNiq6Q3
+HeZbQlcqOlJ5fT3O6pGkpEwA23r0GX7JtqBOgz39PxQV9CX8l72tcqw6CcQrG2tV
+qoub2YTQt/7/ZaPAHEhxxcZxWzR1+S02ejC6kf2+4FrySDkUfBdJ3vVD/KKxbyS9
+FcMHpBbR9Nv/J01dLTASs9iUWSki8qNwld1+hhfWTFYI7Ho+7Yrt79+LAiUqwJjj
+Ph2+Toa/P2Zf6i5IFf0K3k9g7HfMxt8WzYTeW5asujYRo0bNQfBk3vj9yqwJveHr
+H2iSp++GJEzaPEbhyx9imFpQ3voL1A==
+=cFZA
+-----END PGP SIGNATURE-----
+
+--765wben5jmkzogdu--
