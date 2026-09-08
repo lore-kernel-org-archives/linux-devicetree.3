@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD364EE84F
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 14:58:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873A2558210
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 14:58:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788879495; cv=none; b=Ih2EdzRt+/PFvTqzLRvYpgpbrKvhJHqXNwe+iAHak1KF5/11q63XUa5e7t9RAeW+gZ3QWMBPFxSpnXqV54JQn/UVArKa+rSKoQAm1RzukPRP400vZceow6/7s2Xi3rHAH6Sw4JX9Jm7BgDpL3C1BlLRoO1JWkVrrjnHOz67ZRPY=
+	t=1788879500; cv=none; b=WbgswHY2A/6+yBRYr2H8mrILibaoYA+3P25r7T2HtSdzN8dJouXLquRZCLeFzIwz080RWVKciijqMusigbY7J7ipuL7+lssg8ACiwvyOKRV6N85SREiKe/6EXcHS6gWliutJiZYGbeMcD//rNW1tk3lmAz2PYMWmYUb3wmzf5J4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788879495; c=relaxed/simple;
-	bh=BfrbL1Fwh6l+Z6nIdrB6wR8juwiurOHR3kGeK2lY/yQ=;
+	s=arc-20240116; t=1788879500; c=relaxed/simple;
+	bh=qHUlRmmCEFH0pekvHNTdxOkuBUAknchAtPGzvZSdAVA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FhjhYi7dZvGhT4VtvnP4D6ZNTUY0sK50kku28N/sy+HXV7lJQFm7ntOpFFYw0KB7SW5blZ+BtJ60bsCOTSRzTRrgFp6QK2KEyYsYW4cGqWkktdaVxeAsxTlfe0OEV6JS4L7JXTgplc2NxT/sDgbs8v0KnMc4zKrvQhMffUtDFuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tx0KeTIt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=O2wVT0Ax; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=jReIbt2I6Mt9e9axnZ6Yz8LBZYS1Mv8nVzhuMDRR+5spIF2ZNrcvYZu10FMbuqOAm9fOA6hcWWCQnnf3rvM1iMq4t5x1FXUBvbobuOKAvSH2osrujd2tN2uov5tCmMH9Gv1el57cqoDZhyCXt0ngS7HY4PgxDOlr//JC6kpDVng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OX8DgjxH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SLTU00xq; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tx0KeTIt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="O2wVT0Ax"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Ej3pV230323
-	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 14:58:02 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OX8DgjxH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SLTU00xq"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688EiwdE2607697
+	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 14:58:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	EswjIYLr1e96wvciUd6ySjqcZdj8RdoKtvkdKwUdjN0=; b=Tx0KeTIt0AOxpg1Z
-	EI3PzlCzkOxqx31uyixTbn5VZ2vcGP/cfKpWNggL11BX4NRpgK3vbuttK23ugi0P
-	NyK6aVgGqPjJ7NsQboVYsOnhrRYuQ1NHtARXej7cmss8eLdezFM46FUs0+MjtPBk
-	lq/RBD/byupgRAGykXT1bysneTIruSD7pLgaDdp0jviV5s1VXXxlknoh8jV946TY
-	tG+Zyz/RU7xT3FuZZxbsCksFjbU32dy8LKZZDMV4Ek3RI/bbB7BPAOX2hEq8ErGK
-	l0vmqKSFncRg9gCyJfhC5UlNZY/RrgviL65EDkjGaKQCGCXOdIRwzsTu4HMv+zr+
-	mFiP2Q==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjb0pakhj-1
+	seUOJdBEpaaK2UmSYK4aVK9u6IT6FpqMeeYKLF/OBic=; b=OX8DgjxHIzM1T1JJ
+	LsJn3a+0v6E1Nn3El6WzTEIPiTBZIkN1jiSzHXMW9puHwPTibwRHhohuK+IYB+L3
+	6hv9Ffcv09Tj68PcK6t03UXQSUjZykW9D90A4CblNMe1iE9HbHzEle4CyEgKTqgF
+	y1hHd0F1yJOCmbXBmIXBPjZw/vfKlNf4ivwmHP8BJ78BfABPUqVD8Kq9DhoT00dg
+	tcvYusAFp4atnM829GtYqGVqz1/IEZnJVjvOudXDjsfiFaE0lbiZno87R3VS9o0o
+	00ln7PbWBFjOrRtcL6125WMatVYXpoYO4Od3Yd0z5DEEqYJMocdHGmPUwFv2E0y+
+	4UGCKg==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjatjjpcy-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 14:58:02 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-980a896f53eso2424382241.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 07:58:02 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 14:58:05 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-73858d44c8aso1004691137.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 07:58:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788879481; x=1789484281; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788879484; x=1789484284; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EswjIYLr1e96wvciUd6ySjqcZdj8RdoKtvkdKwUdjN0=;
-        b=O2wVT0AxwK0CTVqFXMDURnYvs5NfpdquQRC0YtIgapBRL5uCYZuN5jcabI/oArvffx
-         hgCgiJRDjuZ1ajOqAiNcpLdNhpxzbqmKTnp1chjaPeAh6R3GbNYLsYtLRBH5Qv7iq9HM
-         7KCGPI+ZpSvwJwDC7ut45xS5Iiyb/c4Aq/jzGhZ9C3TGZxsU/nryc6v4zlAO99UFqZes
-         /pF0L5ENdRFkWl7dDaebT3dHvDM+xLfkPLyzQ3MFsrAIkSWGuKoiJqOXpKEeycpbDykb
-         w/1wi7z+92s/dMmMPQAmsNlwKQFc5bMrjTE4sLPCrnayBghfT72BXK2YnTOeIimzDqsU
-         79mQ==
+        bh=seUOJdBEpaaK2UmSYK4aVK9u6IT6FpqMeeYKLF/OBic=;
+        b=SLTU00xqNQy0/p36Ixryy14tzp5PycryUJ499T6zQskFccQQBEC2Pn/Ysq9ErK/+vr
+         FxwFUB8qkMCI7wEWxDPWur1ipozJovLsG5OCSxLCnYvBD2hutX4GUSnhdt37D+aa7WLa
+         MX0gTKIbNzspEDf6BkAG77+kFMcycp68EmOTv20TAwsjNp0ZPCALfXjAeFNao3mbRgeh
+         7thPKrecZFNGjllKb48XFOXpwGU37vzk3xOkSSyZWP20ZT1iC3vd5effFrE+hhev2DDi
+         LeugMf92UPvsHX26TstVmZDYNl7sJQst5K+AC4fcA3Jg4YXwYzeVGsHQctCcvSWtDrds
+         Ym4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788879481; x=1789484281;
+        d=1e100.net; s=20251104; t=1788879484; x=1789484284;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=EswjIYLr1e96wvciUd6ySjqcZdj8RdoKtvkdKwUdjN0=;
-        b=SFHvtlxZ4V7C5ON6Uk1EeAgS5LgfX/IGh0WPjzMpKmvFrRMV4WjLf7GlO+sg/zkTmx
-         xLW2sMeNhnj+ARO6uFlc9QtlfQrJOjR8IRJhPshEmS2QW81kHXaPjaaGaEOxdpnter7+
-         MkVmhkNuUffRA0O59mMCR9YYPoI9UsOtk8q7p+P1qR7STm3o1NbBsDDszTjseyB6Gkp7
-         zAjyVrgl9zwP9KgZM1wYASanSy2KW8quGY0MCKEOCXr9FNzgMclgJUpnjZTYsfmgBF6l
-         I9c3cVihaTajcar7NAj0jIhC+5Jkc7q8edf5QbO5dYWSPoGfbSBIMttIDlDuRXCloOYc
-         x6Vw==
-X-Forwarded-Encrypted: i=1; AKwUvBySK05zK1K94jk8VGq2q+ptY3wqhJqEvPn/zgmXBpckad/3a3rzRh1wBnOjqW8DHh69fMsQdqVKms3I@vger.kernel.org
-X-Gm-Message-State: AFuF++kq5O0pRV4ZhZo8GQ35ve/zXlVzKqouhpW+g+8wbBhG9u5fl88I
-	MUefu/UMrN5YJ01LkpjaceePj0kQViDvXyRH7VDlLNHmpuAyB3iqWrGAAQYultbNmmSmotCyW7C
-	pPu8lAWL8Caz2uwSppKW+Bp0lTgKb8yn3RQ8KQk7rr2CEvhOKUnwSA9VVJ8DVzhFc
-X-Gm-Gg: AYBFou2GyhK0pq8sIVvGjiCoZw4fGzI1jnloK/6YXDg5jUNofpebQV8CBzUB6K1rRcw
-	by4KGDsftw3i33n4Hg5yJMt3iCs9J+lxigA4ahFjkYVbUY2xg+b+UOnZjAPldFWcHcyvtmQEPrI
-	uBfIReEliD5v/9PsgsxrPrQaTDE7hibbOXHqDIF8Lo8805lem/gDrJgfTGwTeijYbkxtOGt/6nt
-	8ezo/iS6AR0jk5p2URBKyz9G5Dz5bV+tfn+o/khWOY2iI/mARuCuhz0eW2OhuBBB/pyQ0Nf1bFx
-	lI8yY5M+uP2eAQNZrYR1UnF9vtL7rQySgtn6vVFE9QqxR/7Ewssmt7q4M4/84165bktXsZqfSFN
-	5SgwVlc28AfvUtmpV05YnPR6hcV12
-X-Received: by 2002:a05:6102:290a:b0:785:f288:c23 with SMTP id ada2fe7eead31-78a4a918bdfmr12691807137.3.1788879481291;
-        Tue, 08 Sep 2026 07:58:01 -0700 (PDT)
-X-Received: by 2002:a05:6102:290a:b0:785:f288:c23 with SMTP id ada2fe7eead31-78a4a918bdfmr12691786137.3.1788879480827;
-        Tue, 08 Sep 2026 07:58:00 -0700 (PDT)
+        bh=seUOJdBEpaaK2UmSYK4aVK9u6IT6FpqMeeYKLF/OBic=;
+        b=okPxqaz8J17i+4clts4N5pGXpGtX57y2tB5gbvaX+xgPmfs9SMgTgBf+uE8ow5VwDA
+         IrjRMVn8hOydS5XoWFVC4qDpF8PYmUzqwNqBv5lD3SA1Iscklmg5/xiPrpFhd4y6peJ4
+         50YPxsVUNyv0pJUjqHyLFlkDNL8b+LTwwdQeQ0oVpHFiGcpFzSODGl7+0l0x13Y0vERy
+         /Pd9nKDem4o5VZKREfpwyuIU6VTFyK18nVpYOcngS19HjTEL6VdAdIPVIOS7aijb0WLX
+         bqkoWxYNqLhmFPsIjEX34jGP67PFGfIVrF/U4mhIeK8tVABExg+KHykZXjGBiH2c8cq6
+         TJdA==
+X-Forwarded-Encrypted: i=1; AKwUvBx8QJOGq4Cxi5m6+z2M6rYMblmrJBGw63da7mz0bjZzPq7bx+i/VV1IrDS++rwkqGScERgfg+Qv7D3E@vger.kernel.org
+X-Gm-Message-State: AFuF++kcfK4+mwYulN5+E2XZiqlMvaM8ZugWE9OpObuyK4Iz3Vge06f4
+	2Wmm4R5hyJPjU5cCe4mEUo8CTfJ7ylmLJftgVoQyzq8wmIEE79iCilbQlnft8QdfTwACGlf/ZuS
+	wlsUAd+AZeCAQ/estUpbB6LqnfIUKqy0y33LLJDxHZMIA43CX9UuodufhkrE285/1
+X-Gm-Gg: AYBFou2HSuQonMyRKPGgQzq76F3bhP7VEAU4031ez9MXHKtF8Z4SOULO4+5RYBdqx9T
+	aqztPkMnFfumATUa+3i8UoyoqTN0zH2AM8W4F1tpZxsNTR6SRTsoaxCDyD0Ubs1kFSbErkWTA3x
+	9WFga44nRlqxOsCTCNW6uDeu4CFu4IqLrAZ3uMG5mxmeLsVGfeXkKh3zHCQMGzDqU8W+1WuPOaQ
+	tO+BPKb5JAMaIrpCbpFSgwva6j89ygni4KXmXuHHq74HJfzgxejbOvXdzTXniPjgZJeNygsv3Fy
+	x2lo6J5f7+VanDuG979EWMC+uE4ZgO19E1W3ZYIX5GnAKOzdw+NZBL/OYx24Dl+UPmkILNcmHwm
+	NlS8wlSWIr6O7iAyqKvaU4EQXnB+n
+X-Received: by 2002:a05:6102:f83:b0:784:94dd:5389 with SMTP id ada2fe7eead31-78a4a9ae110mr10773727137.13.1788879484408;
+        Tue, 08 Sep 2026 07:58:04 -0700 (PDT)
+X-Received: by 2002:a05:6102:f83:b0:784:94dd:5389 with SMTP id ada2fe7eead31-78a4a9ae110mr10773647137.13.1788879483779;
+        Tue, 08 Sep 2026 07:58:03 -0700 (PDT)
 Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:79a2:f118:df09:fe51])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485958f1493sm25191276f8f.37.2026.09.08.07.57.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485958f1493sm25191276f8f.37.2026.09.08.07.58.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:57:59 -0700 (PDT)
+        Tue, 08 Sep 2026 07:58:02 -0700 (PDT)
 From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Date: Tue, 08 Sep 2026 16:57:21 +0200
-Subject: [PATCH net-next v14 02/10] dt-bindings: phy: document the serdes
- PHY on sa8255p
+Date: Tue, 08 Sep 2026 16:57:22 +0200
+Subject: [PATCH net-next v14 03/10] phy: qcom: add the SGMII SerDes PHY
+ driver for SCMI systems
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-qcom-sa8255p-emac-v14-2-ec212b747a7d@oss.qualcomm.com>
+Message-Id: <20260908-qcom-sa8255p-emac-v14-3-ec212b747a7d@oss.qualcomm.com>
 References: <20260908-qcom-sa8255p-emac-v14-0-ec212b747a7d@oss.qualcomm.com>
 In-Reply-To: <20260908-qcom-sa8255p-emac-v14-0-ec212b747a7d@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -130,121 +130,212 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
         linux-rockchip@lists.infradead.org, sophgo@lists.linux.dev,
         linux-riscv@lists.infradead.org, brgl@kernel.org,
         Bartosz Golaszewski <bartosz.golaszewski@linaro.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1956;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5706;
  i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
- bh=BfrbL1Fwh6l+Z6nIdrB6wR8juwiurOHR3kGeK2lY/yQ=;
- b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqoCJnajTItqWRiT6SMc37O+jx/iYaFaHW4w2Xx
- saScv6vyGKJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqAiZwAKCRAFnS7L/zaE
- w++tD/0fr2YRZr6C7h4q6iPVWjh2HNSX4GV9MKYWKIYBmYFejDYaJEFc4h98X4UjI5Rw1vfad+B
- /EYWEucAMPhKHZQqcKRsmq9VqmbfcIFXrFVI8rRRuHhLp0IWaXYIIeSecT7Uu2Lbj1tDFgUII95
- juhVAMKcY2pDV4SasZOyYAKEBo49uQrVuTG74OWjZ/F0bPqy+RzfXqcnavEpTBzq/DKS0KYKsvh
- FeOll87EJdwRuJmIgANys9iKZRuag6wHKvdzv+6cJnSE2TrRlL5waOQAyiQ/Z6t6YUF/gQVJXX+
- iQZRwGUMtY7eJdwLS8X/2MZF8gMzIYh9Lct/RKik0ZNiHpTc7mc+Vs3kwj96kscXCK12u2XXMIF
- 9ueQLpXb3y/gm8jDFwekh+uZ0j5ZUnUnKsDLZxuF0iVNjQFbZuJPf81dcBV4f14ddUdOpBKz8qv
- 2EaOTsJ/6GqT/YBtlLSJKA74dZtPs4DDosX6jcqJ9Ujrn8+gJnhOFp5Jq32nMVYe1Qx9BKaliPM
- X8fJX1IUax5vBGTEiueUd0MyoDwfm5Ps5zAFCVrhgD9Pi06qFACTxu5z4+WIl0YDKnY0NaqjX0a
- LEYtyDlUEFpDHJUuaR5ridtl4gfyUa+f0oQOCFnR0C27C4ixRpilc3ub3jVoBu5XUvvy1Iw3DJS
- 1Is5ebpQSqIVC/g==
+ bh=qHUlRmmCEFH0pekvHNTdxOkuBUAknchAtPGzvZSdAVA=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqoCJpUSAwXwYqyImVUA8IHz/qZBphfJZmEFMBI
+ m2ZW2y5mMiJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCaqAiaQAKCRAFnS7L/zaE
+ w2PhD/0as5tliI1sEyOitt3o+EQ4kh5yKkHvigZwetzwKxwOQu6f+gUa12Gh+Ov7edkBjpD8a3W
+ iMbZlHnG5eKnGJphgRMMitIfM6T1OqsPv3r/O8N1svmU7Rnjt9BKaKy2gFDaSMZlQaDjydAgS6j
+ JYGoCCNyQ+zCdEngS0hE6Zvmnr4rSRrbfCDwvRzmtSBQdHIb+EObCBfDhDX7BBvh62DlJ72wZ4L
+ yvB9fnZW6tAxBufOOQHqH/V5a/dNykdyNGGZAUrx282uTWyK3n1U0h6I6D+/arZmPVEcA+0xZsc
+ 7IZ/11r8niZPcNCiTmwZYaDEPtMje17Lje0Mr60FjT/v2RDxI2BBrbqbN6/TRLvZUiOTtPevFNZ
+ Z/W6AynG1j/kuo+oHLCYJ8lAKTu/qO1pMySExNkmWs9WffnDG6MjTRvOkZbuYPf+aJS8SFURcwO
+ 8k5H7KcrHhWLZUEC5iJR7ISWqq4mzZKosEGkxYHgjeN92zl1TGoaUT3PcrxO7mEmwRB1CGLPGQI
+ nmnOTQGLAg/g6kGs8U2xA4zsmXCtvgWv8GpJu0oyKlpfr4r7Q3fR9j93fekRA0I/CXonYf69tsW
+ 3YOfCWEAIgWWJ0OkY1gq6xWcUoMPC/21vMVDfEHSUNAZrZUct1D9thR41qNiPt5fNoLohNF1w0y
+ HAXMirb7OBtMCBQ==
 X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
  fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
-X-Proofpoint-ORIG-GUID: XKImv4lGUjCDoRktgGDQ1T_mS5oSSHBO
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE2MSBTYWx0ZWRfXwfM/sSRscJEH
- 659yxsM4Amr+gdqSYWD04lt29XxYKHpDDQKjzexKCgYaaRJSFHW4JmUsIbKcNyXC6n/w+GBtoiW
- jBm3fJ85ncM3mwyECe15HbebLoq42PI=
-X-Authority-Analysis: v=2.4 cv=HL3z0Itv c=1 sm=1 tr=0 ts=6aa0227a cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE2MSBTYWx0ZWRfX9wfcwqy+tIBl
+ pVfZPaDdzMfSPBYRU2LiIUP+ZXop8exDVgyjF+gAw8ZKVicJuPrV4rLm/1fCATfM7XCffjnJgNx
+ dTwxHyZtlft9pE6DYaicYJu+YpNI8y4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE2MSBTYWx0ZWRfX9UxjmGTdSd2a
+ k/HcbXZK9ecFuSXBvQAK+1ndvqjTqZCLwgMe3Bo2EAMyvd1NV81Db/HQUD/iCEeLOr/nnIAb7un
+ lKoxouYabd0/UNJwvCL1kKC9MD660oAXpMHiUCo49gvpwT9uNSQRwStWBQbUOmSXiQQ5n7DhKNf
+ 1Q7kRcXy/Qw3d+PmswrTBNe7Glb76Mgcz7OdkKgBQPeYuQ45uQ6d139jAEFi22NslGb9McxxNJ3
+ 7lvG9384TCzd1Dxl6RSWQzBgfMypWqPBKrpLDwAMzFhmVqh0nz1b4O5iIoItHGwNODL6IZRwGNR
+ B+ymPiUvdryQzDiKWkOKauYUDZ5xOL78LUbd67Z12/Q2WqZ+ibMPd7M+XkjcBrTOLly6xhCzxme
+ SpXb/T417NL5XBeE9TfUbjpwSPYecgabLIAUQCAGnwqRp2OSehC1gCQUlSC6bZpBxJJqXcyRPL8
+ KiWRwyQprsdIszgX0Yg==
+X-Proofpoint-ORIG-GUID: pAyI0ZCplxn_yeVh8WXm761TVEGAh8sQ
+X-Authority-Analysis: v=2.4 cv=QrduG1yd c=1 sm=1 tr=0 ts=6aa0227d cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=wENndLYK2PIMvs9AUu4A:9 a=QEXdDO2ut3YA:10
- a=TOPH6uDL9cOC6tEoww4z:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: XKImv4lGUjCDoRktgGDQ1T_mS5oSSHBO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE2MSBTYWx0ZWRfX21znx6ofgNrE
- v07jJHXcYkKeGQOF3SdhXSZ820920bCl60AYrHSlLtn98BNVZWdBSREHTxF9anR6UB1EOlkDtrL
- /8J65Iie8WV1JC4AaK0rs/lPe2YLpQbZsrBMf54YvvhIgZJEINPV2NvQ3K9UEsVkzFVomcly5Hy
- Om0TSblUz/r5yWn1XJQK7/d7J1QWeFk5Ghw5maMWpOa61OoblKREle9Txs6iLnMqrkk3lxYt9X8
- DoY9lfxdLqbJ3AtetrHR1YhmXa3bKcoQb8H7ukfE8IyAqXpOvp+042FJD3pjAtGG+GqmYUbPvmv
- ntRWoj06nFTobRPgnHXMn9/VnzrX+vp8IIlTMRbIfOhMg1eYGcoh5k4vzaBGszlMXmoVgmhEGv8
- bBJNABrX3RNTQiUDNsXohlRlIQmUFtwQOk7i0PanIJJXtoIHh7LAcPOj+sRkoWT1GNyAB9y7/Wz
- io0DAMT3m9vQbMSel5A==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=_Lfrdvl5uC9KR1EAoRcA:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: pAyI0ZCplxn_yeVh8WXm761TVEGAh8sQ
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
- impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2609080161
+ clxscore=1015 bulkscore=0 adultscore=0 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080161
 
-Describe the SGMII/SerDes PHY present on the Qualcomm sa8255p platforms.
-This is essentially the same hardware as sa8775p rev3 but the PHY is
-managed by firmware over SCMI.
+Implement support for the firmware-managed SGMII/SerDes PHY present on
+Qualcomm platforms. Do this as a separate driver from the HLOS-managed
+variant as they don't share almost any code.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
- .../bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml | 50 ++++++++++++++++++++++
- 1 file changed, 50 insertions(+)
+ drivers/phy/qualcomm/Kconfig                   |  11 +++
+ drivers/phy/qualcomm/Makefile                  |   1 +
+ drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c | 115 +++++++++++++++++++++++++
+ 3 files changed, 127 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml
+diff --git a/drivers/phy/qualcomm/Kconfig b/drivers/phy/qualcomm/Kconfig
+index d910a5d1a1ac3ad77599e72c3f4a3b2aebd02dbf..677662f642e42f6ed969fa281d161ff185be9ae4 100644
+--- a/drivers/phy/qualcomm/Kconfig
++++ b/drivers/phy/qualcomm/Kconfig
+@@ -242,3 +242,14 @@ config PHY_QCOM_SGMII_ETH
+ 	help
+ 	  Enable this to support the internal SerDes/SGMII PHY on various
+ 	  Qualcomm chipsets.
++
++config PHY_QCOM_SGMII_ETH_SCMI
++	tristate "Qualcomm DWMAC SGMII SerDes/PHY driver (firmware managed)"
++	depends on OF && (ARCH_QCOM || COMPILE_TEST)
++	select GENERIC_PHY
++	select PM
++	select PM_GENERIC_DOMAINS
++	help
++	  Enable this to support the internal SerDes/SGMII PHY on Qualcomm
++	  chipsets where the SerDes hardware (clocks and registers) is owned
++	  by the firmware.
+diff --git a/drivers/phy/qualcomm/Makefile b/drivers/phy/qualcomm/Makefile
+index 8bf887d58ee4a65687216dd91a6592da7941ace2..4972009b217e39ad3d19300e5b7dede4e88feca4 100644
+--- a/drivers/phy/qualcomm/Makefile
++++ b/drivers/phy/qualcomm/Makefile
+@@ -26,3 +26,4 @@ obj-$(CONFIG_PHY_QCOM_USB_SS)		+= phy-qcom-usb-ss.o
+ obj-$(CONFIG_PHY_QCOM_USB_SNPS_FEMTO_V2)+= phy-qcom-snps-femto-v2.o
+ obj-$(CONFIG_PHY_QCOM_IPQ806X_USB)	+= phy-qcom-ipq806x-usb.o
+ obj-$(CONFIG_PHY_QCOM_SGMII_ETH)	+= phy-qcom-sgmii-eth.o
++obj-$(CONFIG_PHY_QCOM_SGMII_ETH_SCMI)	+= phy-qcom-sgmii-eth-scmi.o
+diff --git a/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
 new file mode 100644
-index 0000000000000000000000000000000000000000..9e846e381555514bb32177f884abf0cf2c942948
+index 0000000000000000000000000000000000000000..ae961975dcd87555d458ca491092622366e58127
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml
-@@ -0,0 +1,50 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/phy/qcom,sa8255p-dwmac-sgmii-phy.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/phy/qualcomm/phy-qcom-sgmii-eth-scmi.c
+@@ -0,0 +1,115 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Firmware-managed variant of the Qualcomm DWMAC SGMII SerDes/PHY driver.
++ */
 +
-+title: Qualcomm SerDes/SGMII ethernet PHY controller (firmware managed)
++#include <linux/device-id/of.h>
++#include <linux/ethtool.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/phy.h>
++#include <linux/phy/phy.h>
++#include <linux/platform_device.h>
++#include <linux/pm_domain.h>
++#include <linux/pm_runtime.h>
 +
-+maintainers:
-+  - Bartosz Golaszewski <brgl@kernel.org>
++static int qcom_dwmac_sgmii_phy_scmi_validate(struct phy *phy, enum phy_mode mode,
++					      int submode,
++					      union phy_configure_opts *opts)
++{
++	if (mode != PHY_MODE_ETHERNET)
++		return -EINVAL;
 +
-+description:
-+  The SerDes PHY sits between the MAC and the external PHY and provides
-+  separate Rx Tx lines.
++	switch (submode) {
++	case PHY_INTERFACE_MODE_SGMII:
++	case PHY_INTERFACE_MODE_1000BASEX:
++	case PHY_INTERFACE_MODE_2500BASEX:
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
 +
-+properties:
-+  compatible:
-+    const: qcom,sa8255p-dwmac-sgmii-phy
++static int qcom_dwmac_sgmii_phy_scmi_set_mode(struct phy *phy, enum phy_mode mode,
++					      int submode)
++{
++	struct device *dev = phy->dev.parent;
++	unsigned int perf_state;
++	int ret;
 +
-+  reg:
-+    items:
-+      - description: serdes
++	ret = qcom_dwmac_sgmii_phy_scmi_validate(phy, mode, submode, NULL);
++	if (ret)
++		return ret;
 +
-+  power-domains:
-+    maxItems: 1
++	perf_state = (submode == PHY_INTERFACE_MODE_2500BASEX) ?
++		     SPEED_2500 : SPEED_1000;
 +
-+  power-domain-names:
-+    maxItems: 1
++	return dev_pm_genpd_set_performance_state(dev, perf_state);
++}
 +
-+  "#phy-cells":
-+    const: 0
++static const struct phy_ops qcom_dwmac_sgmii_phy_scmi_ops = {
++	.set_mode	= qcom_dwmac_sgmii_phy_scmi_set_mode,
++	.validate	= qcom_dwmac_sgmii_phy_scmi_validate,
++	.owner		= THIS_MODULE,
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - "#phy-cells"
-+  - power-domains
-+  - power-domain-names
++static void qcom_dwmac_sgmii_phy_scmi_runtime_disable(void *data)
++{
++	struct device *dev = data;
 +
-+additionalProperties: false
++	pm_runtime_disable(dev);
++}
 +
-+examples:
-+  - |
-+    phy@8901000 {
-+        compatible = "qcom,sa8255p-dwmac-sgmii-phy";
-+        reg = <0x08901000 0xe10>;
-+        #phy-cells = <0>;
-+        power-domains = <&scmi7_dvfs 0>;
-+        power-domain-names = "serdes";
-+    };
++static int qcom_dwmac_sgmii_phy_scmi_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct phy_provider *provider;
++	struct phy *phy;
++	int ret;
++
++	/*
++	 * Enable runtime PM on the provider before creating the PHY so that the
++	 * PHY core enables runtime PM on the PHY device too. The single SCMI
++	 * power domain has already been attached to this device by the driver
++	 * core, so runtime PM votes propagate to firmware through the genpd
++	 * device link. No register or clock access is done here - firmware owns
++	 * the SerDes.
++	 */
++	pm_runtime_enable(dev);
++
++	ret = devm_add_action_or_reset(dev, qcom_dwmac_sgmii_phy_scmi_runtime_disable, dev);
++	if (ret)
++		return ret;
++
++	phy = devm_phy_create(dev, NULL, &qcom_dwmac_sgmii_phy_scmi_ops);
++	if (IS_ERR(phy))
++		return dev_err_probe(dev, PTR_ERR(phy), "failed to create the phy\n");
++
++	provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
++	if (IS_ERR(provider))
++		return dev_err_probe(dev, PTR_ERR(provider),
++				     "failed to register the PHY provider\n");
++
++	return 0;
++}
++
++static const struct of_device_id qcom_dwmac_sgmii_phy_scmi_of_match[] = {
++	{ .compatible = "qcom,sa8255p-dwmac-sgmii-phy" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, qcom_dwmac_sgmii_phy_scmi_of_match);
++
++static struct platform_driver qcom_dwmac_sgmii_phy_scmi_driver = {
++	.probe	= qcom_dwmac_sgmii_phy_scmi_probe,
++	.driver = {
++		.name = "qcom-dwmac-sgmii-phy-scmi",
++		.of_match_table = qcom_dwmac_sgmii_phy_scmi_of_match,
++	},
++};
++module_platform_driver(qcom_dwmac_sgmii_phy_scmi_driver);
++
++MODULE_DESCRIPTION("Qualcomm DWMAC SGMII PHY driver (firmware managed)");
++MODULE_AUTHOR("Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>");
++MODULE_LICENSE("GPL");
 
 -- 
 2.47.3
