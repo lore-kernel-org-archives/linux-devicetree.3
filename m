@@ -1,103 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C15F73AA9E2;
-	Tue,  8 Sep 2026 20:24:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2332147E5
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 20:25:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899074; cv=none; b=Ed+sqmEhk7E0dSCcuI1suf4FxCBZpAW9iGnlpqGTbusvqj5qL0B9t8dkv8Eo9MCXL+4QSsDIefYWe9nD4NoJ+ms565jAk+lAWeWU4pbbfBhS+WCJmO+iSPX4UMQC6pADqWactF8kdV7gxqNrG8p5EDMf7PuK0grlaLf7l1wheWQ=
+	t=1788899113; cv=none; b=MTMINhhJZMqvyeG7bTIw6dKp6Gz5sLdIsH3J7bPK4LUeLLRDxshubndUR7gbOs5Fvp/CFn08Vxx4oUqJmIxe7y2V88/o6mhdiB1EfyUT6RAnNxV5LSnj9TPTCzUOZFw0dJ0vuEjv6Hu83xKY6Yvl9QRONg3ifNsi6Z3o9Gfaymk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899074; c=relaxed/simple;
-	bh=34UMiWTgxcFBqUNYh11YSBmRYxGFZiGVkCLTRzlNjdY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gcfLeWrjauxpQB6KKPZmdWgLpPaN5mx9fLz0yoLnz5YDGV0399Hhms9wiXKYcy75na1Xaag1cwB06rs8Hyz3GpwLOYzqJnsLTnzq4fatMbNFXxvAmd1Uk8oLsKXxN6nuTQXJhiRf1UVEgfiiH0ruZ3LioJD0KZNGPn5qKmPWKqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n13BLIwJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788899113; c=relaxed/simple;
+	bh=+ufXwoeqL6cYe0Wl9ESo1E1y7zrIkDEat4o5vWlOnwk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=le0to/4iBJU3/cJkd90zZtE10rgi1jnQq3oN+b4CqNPQ7fTMpK7ySpnJcnUuVgE7j/1RkVOV/dh/cB4+iIvty3BJhmKuIGtiQG+Emq47+ECd/c9XdsXkFU7McZbOhUbPICo8zRJ4nIgslUz0LpDRaQ7EQsFwwQesUAbBOPO0AXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MiQrbJSi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n13BLIwJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5FF31F00A3A;
-	Tue,  8 Sep 2026 20:24:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MiQrbJSi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB8C1F00A3A;
+	Tue,  8 Sep 2026 20:25:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899073;
-	bh=UX81FKHggDlYBKlQeaoEzIUHgB632Ksy7gdLpHI4rVY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=n13BLIwJUvc/OQ5IesL7KDPLWb0H+mPh8H9Cy3ItVDb5BGON0ikp86TlzyYX7EaHR
-	 3ePPwGuAnceTgnPER+uk8XpmI9RTdqctlshgC29YgNuiZoHhZ6cEP+/0mjsHF69Ycf
-	 fAzuq0xDMnj/rJWwi0U5PqMfFrXX2cvN5v00YNvIzIxhQ8zWM7c/mhX+QnTAtBBpWT
-	 ZU3jSm49HKaF6HjrwQPDrlsh9Iu1Ay1CKpMuvfpXfdKokzTGCbUyAt5OMjwatkpsk7
-	 C3IpYx6T0VZoqFUM+e10ISLdebrmDk17Ae3XUifqAczThEmuBjdWAFZsCtA/SO67AN
-	 bIxrG97DoV5qg==
-Message-ID: <1b51428b-5dcd-4fdc-8f4e-d16ab14426a1@kernel.org>
-Date: Tue, 8 Sep 2026 22:24:27 +0200
+	s=k20260515; t=1788899111;
+	bh=DByEoP7UawBMhzE8v6nVl02Qwwxwj6hXfFrMIkuWd8o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MiQrbJSi11mIYwZOIwMbq4nOnP3O2q6OgCj3VhY+GCdzD3eV0uvYTgovlayTjiQJS
+	 bkbXBEnnaCMbhjeBYRhMFszXnS033PICS4jJH0vIFfKlLetFIVIs4IAl6fJICjGbNW
+	 QmucKOPAPwOf0cvO7ZrIdjWdDpGFtDvvayl8lTen9i28pmKxS8oO2D1F27BZbH1XWS
+	 DAslyDEpyiswbhmIcNzGoU417kdxQ3+D05gXd9ZHETJ9RUciek1r2atli3lf2oimUc
+	 CUh6UCZspUvIGnrf5kNHdZMi0zfA+Iv/ZBGjv7MBNt+9yP6DgLUZMX1eND9B/Rs/vS
+	 BGF9tGZkgriXw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 5/9] net: stmmac: qcom-ethqos: fix RGMII_ID
+ mode to use DLL bypass
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260908-shikra_ethernet-v2-5-bbe3389d0652@oss.qualcomm.com>
+References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
+ <20260908-shikra_ethernet-v2-5-bbe3389d0652@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 20:25:10 +0000
+Message-Id: <20260908202511.6AB8C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 11/22] thunderbolt: Find Apple VSE capability during
- startup
-To: Joshua Peisach <jpeisach@ubuntu.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-usb@vger.kernel.org, Neal Gompa <neal@gompa.dev>,
- Janne Grunau <j@jannau.net>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Yehezkel Bernat <YehezkelShB@gmail.com>,
- Mika Westerberg <westeri@kernel.org>,
- Andreas Noever <andreas.noever@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, asahi@lists.linux.dev,
- Rob Herring <robh@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- linux-arm-kernel@lists.infradead.org,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-11-1f80085f93fb@kernel.org>
- <DL94J88RKZ3S.2EX69YJ6JOX4P@ubuntu.com>
-Content-Language: en-US
-From: Sven Peter <sven@kernel.org>
-In-Reply-To: <DL94J88RKZ3S.2EX69YJ6JOX4P@ubuntu.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
+Pre-existing issues:
+- [High] The driver mishandles PHY_INTERFACE_MODE_RGMII_RXID, incorrectly a=
+dding a MAC-side RX delay via the DLL, causing double RX delay when combine=
+d with the PHY's RX delay.
+--
 
-On 9/7/26 15:38, Joshua Peisach wrote:
-> On Sun Sep 6, 2026 at 2:36 PM EDT, Sven Peter wrote:
->> Only Apple Silicon host routers have the Apple vendor-specific extended
->> capability. Look it up when the software connection manager starts and
->> store its offset in the root switch.
->>
->> The Apple NHI driver can then use the stored offset when programming
->> cable information without searching the router capabilities itself.
->>
->> Signed-off-by: Sven Peter <sven@kernel.org>
->> ---
->>  drivers/thunderbolt/tb.c      | 4 ++++
->>  drivers/thunderbolt/tb.h      | 2 ++
->>  drivers/thunderbolt/tb_regs.h | 1 +
->>  3 files changed, 7 insertions(+)
->>
->> diff --git a/drivers/thunderbolt/tb.c b/drivers/thunderbolt/tb.c
->> index bf1c192ec10a..d2832323cc36 100644
->> --- a/drivers/thunderbolt/tb.c
->> +++ b/drivers/thunderbolt/tb.c
->> @@ -3025,6 +3025,10 @@ static int tb_start(struct tb *tb, bool reset)
->>          return dev_err_probe(tb->nhi->dev, PTR_ERR(tb->root_switch),
->>                       "failed to allocate host router\n");
->>
->> +    ret = tb_switch_find_vse_cap(tb->root_switch, TB_VSE_CAP_APPLE);
->> +    if (ret > 0)
->> +        tb->root_switch->cap_vsec_apple = ret;
->> +
->
-> Nitpick: I *think* based on the surrounding code that this can be
-> simplified to "if (ret)"
->
+commit 62a16405ee0e741087a5282875b7de0ba607d81f
+Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
+net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
 
-No, ret < 0 is an error and if something goes wrong cap_vsec_apple must 
-remain zero and not whatever errno tb_switch_find_vse_cap returned.
+This commit fixes RGMII_ID mode by powering down the MAC's DLL and setting
+DDR bypass mode, ensuring the MAC does not add delay when the PHY already
+provides it. It introduces a new ethqos_rgmii_id_macro_init() helper and
+adjusts clock rate logic accordingly.
 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
+ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 
-Sven
+[ ... ]
 
+> @@ -405,8 +416,7 @@ static void ethqos_rgmii_macro_init(struct qcom_ethqo=
+s *ethqos, int speed)
+>  		      RGMII_IO_MACRO_CONFIG2);
+> =20
+>  	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+> -	if (ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII_ID ||
+> -	    ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII_TXID)
+> +	if (ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII_TXID)
+>  		phase_shift =3D 0;
+>  	else
+>  		phase_shift =3D RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
+
+[Severity: High]
+This is a pre-existing issue, but does this function mishandle
+PHY_INTERFACE_MODE_RGMII_RXID?
+
+By keeping RGMII_RXID in this generic initialization path, it appears
+the MAC-side RX delay via the DLL will still be enabled later in the
+function when negotiating 1Gbps speeds:
+
+	rgmii_setmask(ethqos, SDCC_DDR_CONFIG_PRG_DLY_EN,
+		      SDCC_HC_REG_DDR_CONFIG);
+
+Since the PHY already provides an RX delay in RGMII_RXID mode, does this
+result in a double RX delay?
+
+A double RX delay could shift the receive clock too far relative to the
+data eye at Gigabit speeds, potentially causing data corruption or packet
+loss.
+
+While this patch successfully fixes RGMII_ID by moving it to bypass mode,
+could RGMII_RXID be broken on platforms that specify it in their device tre=
+e,
+and would it need similar bypass handling?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-shikra_eth=
+ernet-v2-0-bbe3389d0652@oss.qualcomm.com?part=3D5
