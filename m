@@ -1,120 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086575540A6;
-	Tue,  8 Sep 2026 21:59:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573BE44C50E;
+	Tue,  8 Sep 2026 22:02:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788904784; cv=none; b=IBm0mjuSbqMWj5A26eD7wAq4jmaA7AyNM4mVLZvrPLekiyvn8TsdQ79SvdKO1mwybB/wDuRAhBVbAVrFrtEIwbmCGNrvHxjvaH0A/HKOVQl8hGIo+ZV2aV3vCKrxjpqRHLpwNi92PiEytGCJxxYsezwh2iBuPJjF9y17EgtegKs=
+	t=1788904978; cv=none; b=KK7Th04GxkOXszyGhwU3W9RyUsXfRKP2tj6u2KRJ2QoBsEJ/1BzN1subtN4TzWv1zEnPiD7Ai/sWYjB+k/TnZNd4rp7Yvnto4gEhGfMDMqa6yvm95p3GqKX6riW6wLEk88ZHMZ5e3XXg6rgBMiYpi1Luc/6/SyPSWjvHdmAjTz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788904784; c=relaxed/simple;
-	bh=xwkNg+ob/c3KokeOld57iOXYmaf8KK17Vu+pdHK1f54=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tbdL2ptcz2WlJgEuyivtFTKXrtQXjHfsDAMQf3xmsYh+v3gqW0FHN9e/T+M5sgGN1afgdA8RaLC0mPtQkyGFtWvOfHGKV8w6NuRRBLB2DFXxV7zrefnn2WoX26y+A+ML8sj9+NXqcvc1lKQIZ3CucWLFXKvM6UjVBumqYNwIM6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvDkZnV0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788904978; c=relaxed/simple;
+	bh=R60+4qcR0P/pktXBLNj8Al/G1qbUe/NUP//7QfAIrQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z4/wgxDu0cyb1n29FtAxLZhlZK+bjYlb+hVk9jSu+oKuFyZ/vNtEoDjjbeyqPbQCsg4mMLu5FSijlYihl8kOY3FgBIDJhl6R4gftXM1GiVVF7OhQXSvYkwIqf07P2ZllUjMz08jnrJoZI79CI2i51JZvIamYBW4UN3KFLG+Z1CI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UT/RDuGY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvDkZnV0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6539C1F00A3A;
-	Tue,  8 Sep 2026 21:59:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UT/RDuGY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CED1F00A3A;
+	Tue,  8 Sep 2026 22:02:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788904782;
-	bh=OTt7Dt+lYemMz6FmxplGaQLySp2r+VnEJrSG+Ecc12A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dvDkZnV036DkG6og7f0FQrpudX9QloDRNpscNPvWegXxC+wI98x5VPlhn/Hud5RNj
-	 5bA/Uar4fMlZ44Wg/MDs2fRJSUD2abD5NDfGgmCr/qEfuBCa/C1JleT+xvxKgRPBgn
-	 8GiifRWNNkEftvryegSveDHLRSotuzXj/orNWZz5mcUoHlpCqSQjtoQrm237S6p5ps
-	 vY2AbTzRM35eG6OhCXWpCoBDJzo43xazw7Ar3WFlopJ20s+S+Z98c/ZmITofTGEcEb
-	 e0k8brkC3g1W0zTIniPPcZlPm7JYVC7w0Az+NZ1Vigsixh1WGxG6X/2/TIIAoMwRRa
-	 TQY6z/cK4wTxg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP
- GPIO, label and layout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908215519.33061-1-marex@nabladev.com>
-References: <20260908215519.33061-1-marex@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 21:59:41 +0000
-Message-Id: <20260908215942.6539C1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788904976;
+	bh=R60+4qcR0P/pktXBLNj8Al/G1qbUe/NUP//7QfAIrQI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UT/RDuGY5co/m6vnmsXNnFeBZ7pNoE7vhc+tG+vJiUhc3uc3YjMZAI9IvEWxfPKu6
+	 Mxro0UGl0eIaARRH+xG/34ojFuoHndezxpqv1m7WkjVNzdNA0GZvjME0JlQaFwLXIc
+	 jwD+uEhQ48MISJ36mBb0je6uS2tQLX57Z7TunRBpZa2byBtWCOoJEtLUrYoJKldBB6
+	 z/etYFrQ9agJJJvHm7nK1jI3vUtEVFEafFtnuGXQ9Sc10TYlWBdZb4F7o2xgQ0iI+m
+	 peWSAyckMQTFdVD5Gqz8GuKsGMuzWHhmGJnDpu7Y2n8c9Davvkbtaxe5pItEqkoKMf
+	 E7i5MV8xo9j0Q==
+Date: Tue, 8 Sep 2026 23:02:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Lee Jones <lee@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v11 1/2] dt-bindings: mfd: x-powers: Add AC200
+Message-ID: <aqCGC9rRgjdi5E92@squawk>
+References: <20260907-submit-ac200-mfd-v11-0-58dd9dc7f69a@gmail.com>
+ <20260907-submit-ac200-mfd-v11-1-58dd9dc7f69a@gmail.com>
+ <20260908-semisoft-appendage-ecbeb9b2d88e@spud>
+ <CADvTj4rZnsSWe2NOKxpmTE9inyUFU2Cz4AS-zwuBEXkM4hjkLQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pFie8xmZ++pOmoyS"
+Content-Disposition: inline
+In-Reply-To: <CADvTj4rZnsSWe2NOKxpmTE9inyUFU2Cz4AS-zwuBEXkM4hjkLQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Devicetree unit address mismatch for `wifi-id` node
---
 
-commit 082793f42f1059431835df44206b8d1014d852b6
-Author: Marek Vasut <marex@nabladev.com>
+--pFie8xmZ++pOmoyS
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
+On Tue, Sep 08, 2026 at 03:38:00PM -0600, James Hilliard wrote:
+> On Tue, Sep 8, 2026 at 12:05=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
+rote:
+> >
+> > On Mon, Sep 07, 2026 at 03:03:14PM -0600, James Hilliard wrote:
+> > > The AC200 is an I2C-controlled mixed-signal companion IC containing
+> > > audio, video, RTC and Fast Ethernet PHY functions.
+> > >
+> > > Describe the shared input clock, audio DAI, TV encoder display graph =
+and
+> > > optional bandgap calibration in one parent node. The codec and TV enc=
+oder
+> > > do not need separate firmware nodes.
+> > >
+> > > AC_LDOIN and TV_VCC are distinct 3.3 V supply inputs. Describe them
+> > > separately without requiring different external regulators. Require t=
+he
+> > > audio supply when the DAI is described and the video supply when the
+> > > display graph is present, while allowing PHY-only configurations.
+> > >
+> > > Describe the optional shared INTB connection without an internal
+> > > interrupt domain. Cable detection status remains readable over I2C wh=
+en
+> > > INTB is not connected. Include wired and unwired examples.
+> > >
+> > > The Ethernet PHY is represented by a PHY package on its MDIO bus, wit=
+h a
+> > > phandle back to this device for access to the package control registe=
+rs.
+> > > It therefore does not require an MFD child node. The input clock must=
+ run
+> > > at 24 or 27 MHz when the Ethernet PHY is used, matching the rates enc=
+oded
+> > > by its documented clock selector.
+> > >
+> > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> > > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> >
+> > btw, this is kinda odd. Jernej has a signoff, but no other attribution.
+> > Are they a coauthor missing a Co-developed-by
+>=20
+> I had just retained the existing Signed-off-by from some of his patches
+> that got incorporated into this one, is using Co-developed-by better
+> practice for attribution? Should I use both a Co-developed-by and
+> the Signed-off-by for this sort of thing?
 
-This commit describes the ID EEPROM nWP GPIO, label, and nvmem layout for
-the i.MX8MM and i.MX8MP eDM SBCs.
+Yes, both. Co-developed-by is how you signify that Jernej wrote some of
+this. Right now, the code is attributed solely to you as the one in the
+author field of the patch.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts =
-b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-> index 472c584fb3bd2..92df23e432499 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+--pFie8xmZ++pOmoyS
+Content-Type: application/pgp-signature; name=signature.asc
 
-[ ... ]
+-----BEGIN PGP SIGNATURE-----
 
-> +			board-id@100 {
-> +				reg =3D <0x100 0x4>;
-> +			};
-> +
-> +			wifi-id@1200 {
-> +				reg =3D <0x120 0x4>;
-> +			};
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqCGBwAKCRB4tDGHoIJi
+0s4uAQDMsUKvaPAYVjWf0Mybx/iJ3FiNEUqmABl6mCPoNcHKsAD9HrCVDTMb0onT
+kMHeK+tZViLYO1dbv2bAYzMfCWRCJww=
+=20Rw
+-----END PGP SIGNATURE-----
 
-[Severity: Low]
-Does this unit address mismatch the reg property? The node name uses 1200,
-but the base address in the reg property is 120. This will likely cause a
-dtc compiler warning for a simple-bus unit address format error.
-
-> +		};
->  	};
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts =
-b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-> index cb28cf1cdd23f..dbdf4b8f696f6 100644
-> --- a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-
-[ ... ]
-
-> +			board-id@100 {
-> +				reg =3D <0x100 0x4>;
-> +			};
-> +
-> +			wifi-id@1200 {
-> +				reg =3D <0x120 0x4>;
-> +			};
-
-[Severity: Low]
-Is the unit address 1200 a typo here as well? The reg property specifies 120
-for the i.MX8MP SBC rev.900, which does not match the node name.
-
-[ ... ]
-
-> +			board-id@100 {
-> +				reg =3D <0x100 0x4>;
-> +			};
-> +
-> +			wifi-id@1200 {
-> +				reg =3D <0x120 0x4>;
-> +			};
-
-[Severity: Low]
-Similarly for the i.MX8MP SBC rev.902, should this unit address be updated
-to match the 120 specified in the reg property?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908215519.3306=
-1-1-marex@nabladev.com?part=3D1
+--pFie8xmZ++pOmoyS--
