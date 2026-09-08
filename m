@@ -1,127 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C411F3AC0C9
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 20:25:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65A1D3AB496
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 20:25:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899113; cv=none; b=HGaPOaJAUnghC6uAKYCwFOwNyepFXG4TZBC8F4eG1GE9l1wLwyMjdEsuoVF0hQ3Wm5ZrNq9WujdfKd6BksXhWt3/lWdrmiAPalKYsShLqFO2xOS/t6lBITfTOx/oYHnZSecAB8WqM4oZp6OgnPkRKKv/DJSLCZdziKS8hZja464=
+	t=1788899114; cv=none; b=h4YdER+Jm3ainyQYGHU3NDC6cvagJxv53moSPYf9MBjMXW4ngkEwrtzSbQMeANjuUwT5N3ga+1y1WqXllQc1k13cyJHjV8vpZu+iDQK0YI+KBvIC+3+13vFmAWDuO14oqT3CG86xqG25kbjeCGn99vnYW3mdNULCWo6RhG+Z6E8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788899113; c=relaxed/simple;
-	bh=gcTZWkkpwaNyBQVGYpg9/MH+tzevp1RKCVsuoqgIG2Y=;
+	s=arc-20240116; t=1788899114; c=relaxed/simple;
+	bh=mD6zQHBP72bUE5l0vztI9pBH3Vn1a5P9nyQEMHUZnMw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BPEvMsObPubS1m6jeQWrbiC5NNRGMrz420uT42xugs/1HLu/3vltgqard9HS7w7+ECoQJDPqBfoSC3uH/PsnZzWZAvQPRdHwQuTGIH/1n5FJabxzNVULfDVxPYRYrSS4OWruAjvJ+CHtkWeJFizLwkxyDIzAhib1A7XDFR7p2L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDHOqzzU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NAw2lcq6/+LmcShmZ6aK+6PSQDTnr3Qm/ryU8tbOj/1Yg0waYWc/W0Vt762fqZuJgs0MIBRVFIjYyOKsa34ccPmq3q8gETqnSW59Vr1FcgGjM65Lb7gF2Z6oy0o1siqDG/z91mR3MQALAtF1jZV1pNQLhGHNWWhCh91nu0vULLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AAeTd+Ar; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDHOqzzU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3432B1F00A3D;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AAeTd+Ar"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A4211F00A3E;
 	Tue,  8 Sep 2026 20:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899112;
-	bh=qYZLjcvEgIEsulTa+FNPJhtY74BB0px9ODZ/+ln+8zg=;
+	s=k20260515; t=1788899113;
+	bh=ywBd02Blh3RlFnvZRUhz/5/BxrR/c1p069IdNmWmN8E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kDHOqzzUO3Jv7vfCm04FBzB3HyHzasnQr58wP+iAEwi0dlXAix+4pW4f9Of69pwui
-	 YYihzWSuoVt3KKsS0EKrU3GM5s7jXic94lpUASd285i6TEJDac0pRm4oampbLkEy0i
-	 0/RKfpXu6huU1Bsy1nouwUZd5iOGtWumSrS4+9KtewTdc9x09ZwtYqxbXBcIPhw6Te
-	 FQknZTNrtyf+8BsFu5yUPQrZkDcsT3oNP7A7K6WKq+tVCAmfj+boLF/pHsxvTPqvyn
-	 EtyO5mrr16YTcd1YnbQmf2YR7MYLr4puQRP9lr1wGSgvnGOGcsbsFKAm/YtBsmfPo5
-	 zsIFSeFOncr2Q==
+	b=AAeTd+ArHfFOxcQ26k9ozKq30aj8rGCRIUrRq5ICGEngI2acsp5KQw9FK6pUlqym8
+	 rgOjn0LIqWAx5jF/tMowdnWkada57XwjXCiyca4Qi0zEjucobjpvqAlkwaLzeu53Ub
+	 Z3QeZAG+oiue8REZTwSNNVU2laTNbmlXoJZir0qaXdJD6UJu7o6c0oSUWo6inqzNu7
+	 1oU1Su6r/BW6TA4+xCQJPmrrEX/KKaP+JGHsVx9wB/NTezGayENb/P8l0Z7GCBm9Vt
+	 KimVHEmXdqBWWTy5o+3zcF+e/9zct96bVhL/Qrmxi+OOP/JRCKkg6QPphW4Ksj+utP
+	 dnayZ4I5U+Imw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 3/9] dt-bindings: net: qcom,ethqos: add
- qcom,shikra-ethqos compatible
+Subject: Re: [PATCH net-next v2 2/9] net: phy: dp83867: add regulator supply
+ management
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908-shikra_ethernet-v2-3-bbe3389d0652@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
 References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
- <20260908-shikra_ethernet-v2-3-bbe3389d0652@oss.qualcomm.com>
+ <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 20:25:11 +0000
-Message-Id: <20260908202512.3432B1F00A3D@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 20:25:12 +0000
+Message-Id: <20260908202513.0A4211F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] Missing array length constraints (`minItems` / `maxItems`) on `cloc=
-k-names` in conditional blocks allows mismatched `clocks` and `clock-names`=
- lengths to pass schema validation.
+- [High] Incorrect usage of devm_regulator_get_enable_optional() causes unc=
+onditional 200ms boot delays.
+- [Low] The `#ifdef CONFIG_OF` guard improperly restricts regulator managem=
+ent to device-tree platforms.
 --
 
-commit 53e47f10606b15f76c5e6798405fb948136930d0
+commit 6d9389913bb995393df4699729d85576835ff23d
 Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+net: phy: dp83867: add regulator supply management
 
-dt-bindings: net: qcom,ethqos: add qcom,shikra-ethqos compatible
-   =20
-Shikra's EMAC requires two additional clocks for NOC interconnect
-access. This commit adds qcom,shikra-ethqos to the compatible enum
-and an if/else block for clock constraints.
+This commit adds regulator supply management during probe for the DP83867
+PHY. It enables required power rails and sleeps 200ms if any supply was
+enabled to meet datasheet requirements.
 
-> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Doc=
-umentation/devicetree/bindings/net/qcom,ethqos.yaml
-> index 423959cb928d9..ad2cc706fa740 100644
-> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+> index 88255e92b4cdb..dbeee7cad6f0c 100644
+> --- a/drivers/net/phy/dp83867.c
+> +++ b/drivers/net/phy/dp83867.c
+
 [ ... ]
-> @@ -92,6 +99,41 @@ required:
->    - clock-names
->    - reg-names
+
+> @@ -719,9 +720,41 @@ static int dp83867_resume(struct phy_device *phydev)
+>  	return 0;
+>  }
 > =20
-> +allOf:
-> +  - $ref: snps,dwmac.yaml#
+> +static int dp83867_power_on(struct phy_device *phydev)
+> +{
+> +#ifdef CONFIG_OF
+
+[Severity: Low]
+Does this restrict the regulator management to device tree platforms
+unnecessarily?
+
+The Linux regulator subsystem is firmware-agnostic and safely returns
+-ENODEV when supplies are not found via standard mappings, so wrapping this
+in an OF-specific guard appears to skip the initialization for platforms
+using other configurations like ACPI or board files.
+
+> +	static const char * const supply_names[] =3D {
+> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+> +	};
+> +	struct device *dev =3D &phydev->mdio.dev;
+> +	u32 count =3D 0;
+> +	int i, ret;
 > +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,shikra-ethqos
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 6
-> +        clock-names:
-> +          items:
-> +            - const: stmmaceth
+> +	for (i =3D 0; i < ARRAY_SIZE(supply_names); i++) {
+> +		ret =3D devm_regulator_get_enable_optional(dev, supply_names[i]);
+> +		if (!ret)
+> +			count++;
 
-[Severity: Low]
-Is a minItems: 6 constraint missing for clock-names in this block?
+[Severity: High]
+Does this logic accurately detect newly-enabled regulators?
 
-Without it, this property inherits the top-level minItems: 4, which means
-a device tree node with 6 clocks but only 4 clock-names could silently
-pass dtbs_check schema validation.
+If CONFIG_REGULATOR is disabled, the dummy implementation of
+devm_regulator_get_enable_optional() unconditionally returns 0, which would
+falsely increment count to 4.
 
-> +            - const: pclk
-> +            - const: ptp_ref
-> +            - const: rgmii
-> +            - const: axi-noc
-> +            - const: pcie-tile-axi-noc
-> +      required:
-> +        - operating-points-v2
-> +    else:
-> +      properties:
-> +        clocks:
-> +          maxItems: 4
-> +        clock-names:
-> +          items:
-> +            - const: stmmaceth
+Furthermore, even if regulator support is enabled, it returns 0 for
+regulators that are already enabled (e.g. shared supplies or boot-on
+regulators). This contradicts the commit message's claim that it only sleeps
+when a supply is "newly enabled".
 
-[Severity: Low]
-Does this block also need a maxItems: 4 constraint for clock-names?
+Would it be better to open-code devm_regulator_get_optional() and check
+regulator_is_enabled() before enabling the supply? That way the driver can
+accurately detect if it was just turned on, avoiding an unconditional 200ms
+boot delay per PHY.
 
-Without it, clock-names can match up to the top-level definition's 6
-elements for the older compatibles, allowing mismatched clocks and
-clock-names array lengths to silently pass schema validation.
-
-> +            - const: pclk
-> +            - const: ptp_ref
-> +            - enum:
-> +                - rgmii
-> +                - phyaux
+> +		else if (ret !=3D -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable %s supply\n",
+> +					     supply_names[i]);
+> +	}
+> +
+> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
+> +	if (count)
+> +		fsleep(200000);
+> +#endif
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-shikra_eth=
-ernet-v2-0-bbe3389d0652@oss.qualcomm.com?part=3D3
+ernet-v2-0-bbe3389d0652@oss.qualcomm.com?part=3D2
