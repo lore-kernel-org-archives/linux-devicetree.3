@@ -1,125 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 573BE44C50E;
-	Tue,  8 Sep 2026 22:02:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B2748F014;
+	Tue,  8 Sep 2026 22:06:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788904978; cv=none; b=KK7Th04GxkOXszyGhwU3W9RyUsXfRKP2tj6u2KRJ2QoBsEJ/1BzN1subtN4TzWv1zEnPiD7Ai/sWYjB+k/TnZNd4rp7Yvnto4gEhGfMDMqa6yvm95p3GqKX6riW6wLEk88ZHMZ5e3XXg6rgBMiYpi1Luc/6/SyPSWjvHdmAjTz8=
+	t=1788905176; cv=none; b=e7U0f8OHejn6sfxkpU2VZSAyUmftTv4gKzRnZ+1j74trZMNGVzDEohN7Fe8XfuJSIXl/JVR+YoE8ecAlwqB+/QMrt0yCIW3q+Ei22NFREACNCJDQw9abT4eGf4hBX+2lLsD9tvbL09O7PAOKR8xnxUX3MlWq7X0ztvmSf3ssRPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788904978; c=relaxed/simple;
-	bh=R60+4qcR0P/pktXBLNj8Al/G1qbUe/NUP//7QfAIrQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z4/wgxDu0cyb1n29FtAxLZhlZK+bjYlb+hVk9jSu+oKuFyZ/vNtEoDjjbeyqPbQCsg4mMLu5FSijlYihl8kOY3FgBIDJhl6R4gftXM1GiVVF7OhQXSvYkwIqf07P2ZllUjMz08jnrJoZI79CI2i51JZvIamYBW4UN3KFLG+Z1CI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UT/RDuGY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788905176; c=relaxed/simple;
+	bh=Av3kkS5oLU6sQkS8YfG/n02RrJ7xVCtUZvuOyf93H5k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=S/kML0Y3Z1ajGidhksDhD6G+7nLpZUQtF42hDQWhLZ0c0Dz3+ndW4v1NJaXYXiY3RQPz88xfH3p9W2D+72TYButuhK/iBqBwy3h+G8qSn79/WEGS9qF5pJ9IRom0+et/WPV6KXHCv/vvJf2+a0YMpRE5E/XnRGCtDq7e8YafO4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAZH9pcb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UT/RDuGY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1CED1F00A3A;
-	Tue,  8 Sep 2026 22:02:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAZH9pcb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E641F00A3A;
+	Tue,  8 Sep 2026 22:06:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788904976;
-	bh=R60+4qcR0P/pktXBLNj8Al/G1qbUe/NUP//7QfAIrQI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UT/RDuGY5co/m6vnmsXNnFeBZ7pNoE7vhc+tG+vJiUhc3uc3YjMZAI9IvEWxfPKu6
-	 Mxro0UGl0eIaARRH+xG/34ojFuoHndezxpqv1m7WkjVNzdNA0GZvjME0JlQaFwLXIc
-	 jwD+uEhQ48MISJ36mBb0je6uS2tQLX57Z7TunRBpZa2byBtWCOoJEtLUrYoJKldBB6
-	 z/etYFrQ9agJJJvHm7nK1jI3vUtEVFEafFtnuGXQ9Sc10TYlWBdZb4F7o2xgQ0iI+m
-	 peWSAyckMQTFdVD5Gqz8GuKsGMuzWHhmGJnDpu7Y2n8c9Davvkbtaxe5pItEqkoKMf
-	 E7i5MV8xo9j0Q==
-Date: Tue, 8 Sep 2026 23:02:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Lee Jones <lee@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 1/2] dt-bindings: mfd: x-powers: Add AC200
-Message-ID: <aqCGC9rRgjdi5E92@squawk>
-References: <20260907-submit-ac200-mfd-v11-0-58dd9dc7f69a@gmail.com>
- <20260907-submit-ac200-mfd-v11-1-58dd9dc7f69a@gmail.com>
- <20260908-semisoft-appendage-ecbeb9b2d88e@spud>
- <CADvTj4rZnsSWe2NOKxpmTE9inyUFU2Cz4AS-zwuBEXkM4hjkLQ@mail.gmail.com>
+	s=k20260515; t=1788905174;
+	bh=MCCOO0Ig5UrQDdNY7DSQQHHrTzvZGtioV6BxK+4pQNs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QAZH9pcbPu/BngtWjjytul+Sq+39WISfO4+j+JlycpGRo0ocGvmm4WAoMOxBCT34j
+	 8KOA47odpS6o+IUHILnFi8cI46h3hOl/v7vpNdJIIRWvwBGIwSqXYWkYGys/NK7HE/
+	 7w36nyVe47OOGzWX5huN9WNYmZAb1P3U3w1V1co1yHYeNvVCyyvsTftF+WSVA8I+FB
+	 rLLa4ATjXu8tMNu/sbvlOxJvfOx46i7bcZzT47b/s7M15efyu+1A6CDsM81ioa0+gV
+	 B/f16dV/vAMOh7IatfLlKOAebabLr/HsHIc07udOgG2DL2RYnFr+Mysy0Aw/cOaXbs
+	 TSDLXP44U6ghw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8mn: Add display DT overlays for the ifm
+ VHIP4 EvalBoard
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <20260908215409.32993-1-marex@nabladev.com>
+References: <20260908215409.32993-1-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 22:06:14 +0000
+Message-Id: <20260908220614.88E641F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pFie8xmZ++pOmoyS"
-Content-Disposition: inline
-In-Reply-To: <CADvTj4rZnsSWe2NOKxpmTE9inyUFU2Cz4AS-zwuBEXkM4hjkLQ@mail.gmail.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The 1.8V regulator `reg_adv_1v8` is incorrectly configured to ou=
+tput 3.3V, violating hardware requirements for the ADV7535.
+- [Medium] The `hdmi-transmitter@3d` node (ADV7535) is missing `clocks` and=
+ `clock-names` properties to link the defined `cec_clock`, breaking CEC sup=
+port.
+--
 
---pFie8xmZ++pOmoyS
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit fdacb0c2eecf5c57dea7a716eb4e6d3417011685
+Author: Fedor Ross <fedor.ross@ifm.com>
 
-On Tue, Sep 08, 2026 at 03:38:00PM -0600, James Hilliard wrote:
-> On Tue, Sep 8, 2026 at 12:05=E2=80=AFPM Conor Dooley <conor@kernel.org> w=
-rote:
-> >
-> > On Mon, Sep 07, 2026 at 03:03:14PM -0600, James Hilliard wrote:
-> > > The AC200 is an I2C-controlled mixed-signal companion IC containing
-> > > audio, video, RTC and Fast Ethernet PHY functions.
-> > >
-> > > Describe the shared input clock, audio DAI, TV encoder display graph =
-and
-> > > optional bandgap calibration in one parent node. The codec and TV enc=
-oder
-> > > do not need separate firmware nodes.
-> > >
-> > > AC_LDOIN and TV_VCC are distinct 3.3 V supply inputs. Describe them
-> > > separately without requiring different external regulators. Require t=
-he
-> > > audio supply when the DAI is described and the video supply when the
-> > > display graph is present, while allowing PHY-only configurations.
-> > >
-> > > Describe the optional shared INTB connection without an internal
-> > > interrupt domain. Cable detection status remains readable over I2C wh=
-en
-> > > INTB is not connected. Include wired and unwired examples.
-> > >
-> > > The Ethernet PHY is represented by a PHY package on its MDIO bus, wit=
-h a
-> > > phandle back to this device for access to the package control registe=
-rs.
-> > > It therefore does not require an MFD child node. The input clock must=
- run
-> > > at 24 or 27 MHz when the Ethernet PHY is used, matching the rates enc=
-oded
-> > > by its documented clock selector.
-> > >
-> > > Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> > > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> >
-> > btw, this is kinda odd. Jernej has a signoff, but no other attribution.
-> > Are they a coauthor missing a Co-developed-by
->=20
-> I had just retained the existing Signed-off-by from some of his patches
-> that got incorporated into this one, is using Co-developed-by better
-> practice for attribution? Should I use both a Co-developed-by and
-> the Signed-off-by for this sort of thing?
+arm64: dts: imx8mn: Add display DT overlays for the ifm VHIP4 EvalBoard
 
-Yes, both. Co-developed-by is how you signify that Jernej wrote some of
-this. Right now, the code is attributed solely to you as the one in the
-author field of the patch.
+This commit adds display DT overlays for the ifm VHIP4 EvalBoard v1, adding
+support for the Displaytech DT050BTFT-PTS panel and the NXP ADV7533 DSI-to-=
+HDMI
+adapter. It supports different DSI lane counts to allow testing multiple
+configurations.
 
---pFie8xmZ++pOmoyS
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-over=
+lay-nxp-adv7533-hdmi.dtso b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-eval=
+board-v1-overlay-nxp-adv7533-hdmi.dtso
+> new file mode 100644
+> index 0000000000000..e1a7aa6806c48
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-nxp=
+-adv7533-hdmi.dtso
+[ ... ]
+> +	reg_adv_1v8: regulator-adv-1v8 {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-always-on;
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+                                           ^^^^^^^
 
------BEGIN PGP SIGNATURE-----
+[Severity: Medium]
+Is the voltage configuration correct here? The reg_adv_1v8 node appears to
+represent a 1.8V power supply used by the ADV7535, but its voltage limits
+are set to 3.3V. This misinforms the regulator core about the hardware
+voltage.
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqCGBwAKCRB4tDGHoIJi
-0s4uAQDMsUKvaPAYVjWf0Mybx/iJ3FiNEUqmABl6mCPoNcHKsAD9HrCVDTMb0onT
-kMHeK+tZViLYO1dbv2bAYzMfCWRCJww=
-=20Rw
------END PGP SIGNATURE-----
+> +		regulator-name =3D "ADV-1V8";
+> +	};
+[ ... ]
+> +&i2c3 {
+> +	#address-cells =3D <1>;
+> +	#size-cells =3D <0>;
+> +	status =3D "okay";
+> +
+> +	hdmi-transmitter@3d {
+> +		compatible =3D "adi,adv7535";
+> +		reg =3D <0x3d>, <0x3e>, <0x3c>, <0x3f>;
+> +		reg-names =3D "main", "edid", "cec", "packet";
+> +		a2vdd-supply =3D <&reg_adv_1v8>;
+> +		adi,dsi-lanes =3D <4>;
+                 ^^^^^^^^^^^^^^^^^^^
 
---pFie8xmZ++pOmoyS--
+[Severity: Medium]
+Is there a missing clock reference for the CEC block? A cec_clock is defined
+earlier in the file but is not linked here.
+
+Without clocks and clock-names properties linking to cec_clock, the DRM bri=
+dge
+core will fail to find it when calling devm_clk_get(dev, "cec"), which retu=
+rns
+-ENOENT. This causes adv7511_cec_init() to abort, leaving CEC uninitialized.
+
+> +		avdd-supply =3D <&reg_adv_1v8>;
+> +		dvdd-supply =3D <&reg_adv_1v8>;
+> +		pvdd-supply =3D <&reg_adv_1v8>;
+> +		v3p3-supply =3D <&reg_adv_3v3>;
+> +		status =3D "okay";
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908215409.3299=
+3-1-marex@nabladev.com?part=3D1
