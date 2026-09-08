@@ -1,233 +1,270 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4808153ED1F
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 12:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD865437C5
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 12:57:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788871963; cv=none; b=u7tTez8SmOWeNGe+F+ptTyFGiedjstjNS7lJQZJm/sD8z2WrWMSaDO6n3SKf73D4mO0TrczbPjujtND7fxaGBd+GOUuHwfTeg1jGZr6Lgv8eF0vRbIyRJrAR61u4zfeHTUir/i3q+pVJrFca4Rsrthhni2WIKmway05y7RJqzfE=
+	t=1788872233; cv=none; b=setli6NKSHc0PA5GDVH+ZFV6jsJu7OKRmLgvQeHjTE1B7hE1BNb4pTM6qxMi7WwZEdEUdnHSFGZVh+ky31YmUBmVfXc4GRBcJ7lY/9TDuNKdvUOsABVh44kI0T02LMNMBxREQlyc/yQAWiIyAgPoavs9jaM2bVbrth6NvvKxQyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788871963; c=relaxed/simple;
-	bh=TfOZGp3CcJXvWeSY+eQooIYpSTF/hSg5dVY5/9ePKyk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s/ghzVQtWcTT2BXqy7OLm9mX4VJYTa/gXm9gg0r9KcexvBnRA5R2EKZvqTSd9GttiN2B6cyXx9GQMrjNiVDf/4qNkHAMsJm3sSGNFb3+Metc7WCcda88ZYOL7IUnIp9/T4HgVr+0ygm8To9FV7wYpdiV8OIj1Tn9X9AySXyD4QE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtAko6vC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788872233; c=relaxed/simple;
+	bh=gyHTh4NGguywImP87mr4XfIknTSrases36hyKFw66hk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Qi1dHzltsXfY4wh6pZJVeKelEgjiHhGbDqTFKmiJcz4HlD8Mp7cZso8iYgoC/PF75xuflLUMEUgbVXWl+pc7ZEIjUyidSUwK4IQVHD7iSN8LZeaa2MFKMZ8VlPROtx1fPZU4BVLGBeXG1Hjth7L9D5YpJE1tY2Feho7HxOaSB6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=P4OPP6PY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=n1XZ6Xnq; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtAko6vC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB7FF1F00A3A;
-	Tue,  8 Sep 2026 12:52:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788871962;
-	bh=PcW2YGzy6SOLBvc3AFEgZKdHOgH3owsKOw+orwxQq5Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LtAko6vCY2T9QbGOmH0xQnj1I9KFMb8zWkr1yAXBSvjO9nr/Z8WVv0OEqGa7lAm6A
-	 8XptGP7eZ3sA9VRBzVhlmUWqkWq69vEamWzzH8doZPFePGOU36ACM8nlqqeIQwcFJr
-	 liluysklJdQdDC1hXbCe1bfgtz3BTsdqkdCCmC6pJKUYiyD+TFG1p44URylaLZgr9T
-	 YG+RHayXjliByxzucfWKMROCrTrMhD+2RLRSSPQGuQ0008KX9kCgmsnfN8zqMX9qR8
-	 mdCY0STul2Bml5FDZpG9kSxa/x7HwnNsEbHU3f3VLGwySy1hqkXMsuw/JJuihfRQLG
-	 lk58pqqxKxliQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] i2c: mux: Add NXP PCA9641 I2C bus master arbiter
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shiv Prakash Gupta" <shivprakash.gupta@nxp.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908123146.1839854-3-shivprakash.gupta@nxp.com>
-References: <20260908123146.1839854-1-shivprakash.gupta@nxp.com>
- <20260908123146.1839854-3-shivprakash.gupta@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 12:52:41 +0000
-Message-Id: <20260908125241.EB7FF1F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="P4OPP6PY";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="n1XZ6Xnq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788872229;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Xism0p7odqr7Sscph4oNHgGiSSlpH6A34QvGL/UHI+s=;
+	b=P4OPP6PYLJeBgyV3Eze4a1Uk9R5QqxDs+Ubpr12Lgj6evJLft20MWkVnXYCloZqQVjUjU/
+	yqdgbZ5XxAYjATF+7N1tl/+WMjC+xUI3DyGWFWio2j0FpW5HoUfVvZ3iYWtPbWmXKTD4Vw
+	fHxbOzhkHsaRjjyOlCZIRagpmR3BX7M=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-365-BaG5VK5GOyagSnPRRNcR9g-1; Tue, 08 Sep 2026 08:57:07 -0400
+X-MC-Unique: BaG5VK5GOyagSnPRRNcR9g-1
+X-Mimecast-MFC-AGG-ID: BaG5VK5GOyagSnPRRNcR9g_1788872227
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-495529a93f9so45620765e9.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 05:57:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1788872226; x=1789477026; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xism0p7odqr7Sscph4oNHgGiSSlpH6A34QvGL/UHI+s=;
+        b=n1XZ6XnqX7fhonRdukXakhnk1R/Uy0q2FthYJ/Ci+XiDnVHm0pKKOkkBDrFIYCntto
+         mBCnj7qBI70uBH6kfjvi9J/NGAlTkcsx/kFlY9K66K6dBB1jB02SyE09u/6l9E8Cn2MH
+         IzoKWIMaDWg0QC+5dq8maskb4W9jXZ6wYyOSbXJI5VtaRHlbnHLClfmGNUMw3C1hgJ/6
+         GjA/tbWEWQISz3k3NKv5rkswxZyT2yTP4vDwTRQwKdDcGUiocnJT22QYZOhzDl/xyON+
+         4iLtmh/viujHG0miQupkYZq+UaoYjeihyfPj51HyBvpN6XqDXtoOKgUQQqrIgcCKNILN
+         7sVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788872226; x=1789477026;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Xism0p7odqr7Sscph4oNHgGiSSlpH6A34QvGL/UHI+s=;
+        b=T6fSr32MbF0GYBGqEhMPoU0s8lsvYO9AxHA+3dkZgoNN5QiZoIE48vtlyEwStArDo0
+         KPHeGP1WEK2PI4kD0cyMfzLF14Etb7zzPWxpzq9rYLlP4QYQnT3cTNcFRBzZFXYQie95
+         NMWjriY/QCQ348bwvFVYv4eVxgSxazJMIfs039LtPCbVxqPb1GAqEtNLBGC3i7EO+Vrx
+         ebL0aL11jBD2Rv9BbxDa8tR31ovnv3iUI1UnOp753btu+IUjBMrK4gDWsCW+1zlXi87V
+         wGvITiQ75RfS46AodLeh3ntqUT/Z+C2ARJ+F0GRnjH/dr7EE1TxhMFJlqrso6oF81o0N
+         YvhA==
+X-Forwarded-Encrypted: i=1; AKwUvByr29bG+EMA1iC9seCVbkRHCABbjwPJnQEKQRFDnocQjVxsolZXEJ5ATZ99qweFYWsXaXI4gdgMcH1H@vger.kernel.org
+X-Gm-Message-State: AFuF++mrd5MLqntKIzZx+PxKDX7feGqitUD1MyDIszw2j5au5csklg0z
+	pY7un9E6YDrhJxh+iJC6VN8fUly5tOXbiJISJDQoKPQxLJM90jpeZnqVSHB58S7qdG2cjPJgV9v
+	cMIGc/MWhLFpC1U2HTUDUeXOju66OIhth6RC30zXRgkEAvpb9c+iFVyKfGy9Y+6k=
+X-Gm-Gg: AYBFou0BHVYZ/rKlo9pSiVuMgtdDylQ4CDgBiW9Gy+K+y2/Enb6heouWKOmuTX1FL06
+	Sylge/rhnDR5hlPZk1lbF8c09S94CJuiMEGEtIU6+faiteoR7CVz0+JY5QNPwmfMH/AoYnvjPTG
+	iLZOfLmgRINw4+elTTvDA7yJ+v1ezZTknu210pMuecCKzCPXU9Ha49geZYY/tvh48+WD3ByIN0y
+	qiTjVf+waIQihqPUYnPNPFBjdsI7OWSoT9eeFVg+7O1BHYANXcJBxyFopABUMZ54E6WewtwLhRV
+	QRBmGPJlzWfVtt3a1L4wGDQPMOzvZKfNPDlWTUYCspQnmyBLoVJvFI9sLdXXS3Nz3okWkm/9W8/
+	OTLvb6ZBzoU2i8jVfhQP9oDinbN1D46Ew48sTcZg0HdasEhhUXAUukEL+LJPr5RAl+ENfyg1Omg
+	==
+X-Received: by 2002:a05:600c:3b07:b0:49c:fa20:cbfb with SMTP id 5b1f17b1804b1-49cfa20cd04mr266648255e9.18.1788872226562;
+        Tue, 08 Sep 2026 05:57:06 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b07:b0:49c:fa20:cbfb with SMTP id 5b1f17b1804b1-49cfa20cd04mr266647645e9.18.1788872226004;
+        Tue, 08 Sep 2026 05:57:06 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c074asm35101103f8f.23.2026.09.08.05.57.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 05:57:05 -0700 (PDT)
+Message-ID: <ee4a593f-93b3-4d89-885c-bdf101212411@redhat.com>
+Date: Tue, 8 Sep 2026 14:57:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v8 00/15] dpll: add SiTime SiT9531x DPLL clock
+ driver
+To: Ali Rouhi <arouhi@sitime.com>
+Cc: "vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>,
+ "arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>,
+ "ivecera@redhat.com" <ivecera@redhat.com>, "robh@kernel.org"
+ <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "cjubran@nvidia.com" <cjubran@nvidia.com>,
+ "Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "jiri@resnulli.us" <jiri@resnulli.us>
+References: <20260902214030.20955-1-arouhi@sitime.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260902214030.20955-1-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The interrupt implementation is fatally flawed: it requests a shar=
-ed IRQ with a NULL primary handler (which fails unconditionally), fails to =
-clear the hardware interrupt source (causing an infinite IRQ storm), blindl=
-y consumes shared interrupts (stealing from other devices), and instantly a=
-borts I2C transfers upon spurious wakeups.
-- [High] Missing clearing of LOCK_REQ on error paths leads to permanent bus=
- lockout.
-- [High] pca9641_probe fails to re-mask interrupts if i2c_mux_add_adapter f=
-ails, leading to an unhandled IRQ storm.
-- [Medium] Incorrect teardown order in `pca9641_remove()` masks hardware in=
-terrupts before unregistering child adapters, causing concurrent transactio=
-ns to stall.
-- [Medium] The driver unmasks hardware interrupts before registering the IR=
-Q handler, risking immediate spurious interrupts and disabled IRQ lines.
-- [Low] The `i2c_device_id` array fails to use named initializers.
---
+On 9/2/26 11:40 PM, Ali Rouhi wrote:
+> This series adds a DPLL subsystem driver for the SiTime SiT95316 and
+> SiT95317 I2C clock generators. Each device integrates four PLLs with
+> automatic reference selection and on-chip TDC phase-offset measurement,
+> and is used for synchronization in telecom, networking, and data-center
+> timing.
+> 
+> The series contains the device-tree binding, the driver under
+> drivers/dpll/sit9531x/, and the MAINTAINERS entry.
+> 
+> v1: https://lore.kernel.org/netdev/20260511211143.19792-1-arouhi@sitime.com/
+> v2: https://lore.kernel.org/netdev/20260520191943.73938-1-arouhi@sitime.com/
+> v3: https://lore.kernel.org/netdev/20260731180951.65725-1-arouhi@sitime.com/
+> v4: https://lore.kernel.org/netdev/20260806232439.27551-1-arouhi@sitime.com/
+> v5: https://lore.kernel.org/netdev/20260810230439.22866-1-arouhi@sitime.com/
+> v6: https://lore.kernel.org/netdev/20260812175337.18155-1-arouhi@sitime.com/
+> v7: https://lore.kernel.org/netdev/20260815221919.64226-1-arouhi@sitime.com/
+> 
+> The driver was a single 5.6k-line patch through v7. Vadim and Ivan asked
+> for it to be split into logical parts, with the first zl3073x series as
+> the model, so v8 introduces it feature by feature instead:
+> 
+>   1-2   bindings: vendor prefix, then the device schema
+>   3     basic support: paged regmap, variant detection, probe
+>   4     DPLL types and pin properties from system firmware
+>   5     register the DPLL devices and pins, and keep their state
+>   6     input pin state on a DPLL, with the pin-state contract
+>   7     input pin priority
+>   8     pin frequency, both directions
+>   9     output pin state (mute)
+>   10    output phase adjust
+>   11    esync on outputs
+>   12    phase offset through the TDC
+>   13    fractional frequency offset of the selected reference
+>   14    the inter-PLL sync net as a pair of pins
+>   15    optional device-tree overrides for two board facts
+> 
+> The two bindings patches come first, so the driver never matches on a
+> compatible string before the schema that describes it is in the tree.
+> 
+> Each of the thirteen driver patches was built on its own, with W=1 on
+> x86_64 and i386, and is sparse clean. Each one also links: no patch
+> calls something that a later patch introduces, so the module builds at
+> every step of the series and a bisect cannot land on a tree that fails
+> to compile.
+> 
+> The split makes no functional change of its own. The tree this series
+> ends at compiles to objects byte-identical to the tree the single patch
+> produced once the fixes below are applied to it.
+> 
+> Changes in v8:
+> 
+>   - Split the driver patch into the thirteen patches listed above.
+> 
+>   - Advertise automatic mode only. v7 mapped DPLL_MODE_MANUAL onto the
+>     chip's free-run bit and then refused DPLL_PIN_STATE_CONNECTED on
+>     input pins, so it offered the mode whose one purpose is manual
+>     selection and refused the only request that mode exists for.
+>     Free-run selects no input at all, so on this device it is a lock
+>     state, not a selection mode. v8 advertises AUTOMATIC only and
+>     refuses anything else from .mode_set(), which now clears the outer
+>     loop disable bit so a PLL left free-running by the loaded
+>     configuration returns to selecting from the priority table.
+>     Free-run is reported through lock status as UNLOCKED.
+> 
+>     The device can also pin one reference while the loop keeps running,
+>     so real MANUAL support is possible later. It is left out here
+>     because the mode mapping becomes ABI once merged, and it belongs in
+>     the same series as the userspace that needs it rather than being
+>     approximated now.
+> 
+>   - State the pin-state contract once, above the pin ops, and let the
+>     two selection-role pins share one implementation of it. The driver
+>     had five ops tables and five hand-written encodings of the same
+>     state machine, and every review round has found another place where
+>     two of them disagreed. This closes several findings at once:
+>     CONNECTED reported while the outer loop was disabled, membership
+>     taken from the shared-receiver refcount rather than from the
+>     priority table, SELECTABLE on an INTSYNC destination userspace had
+>     disconnected, .prio_set() inserting a source that was never in the
+>     table, and .prio_remove() returning 0 when the disconnect would
+>     have emptied it. The last two are now -EINVAL and -EBUSY.
+> 
+>   - Report LOCKED_HO_ACQ only once the holdover estimate is valid. It
+>     was asserted whenever the loop was locked, without reading the bit
+>     that says the device has accumulated a frequency estimate good
+>     enough to fall back on. That bit is distinct from the one that says
+>     the PLL has already switched over to holdover.
+> 
+>   - Fix the 32-bit build. The output phase adjust reduced a negative
+>     request modulo the output period with % on two u64 values, leaving
+>     the module with an undefined __umoddi3; it now uses div64_u64_rem(),
+>     which the rest of the arithmetic there already uses. Reported by
+>     Jakub Kicinski.
+> 
+>   - Correct the register model comment: the page selector is at 0xFF and
+>     a page holds 256 registers, as the definitions right below the
+>     comment already said. Reported by Ivan Vecera.
+> 
+>   - Type ordinary clock outputs as DPLL_PIN_TYPE_EXT instead of
+>     DPLL_PIN_TYPE_GNSS, which claimed a GNSS-disciplined timing port.
+>     Advertise a phase-adjust range on outputs only, and drop the input
+>     pins' .phase_adjust_get with it: inputs have no .phase_adjust_set,
+>     so a non-zero range promised something every set would refuse.
+> 
+>   - Always issue the loop lock in the programming commit, so a transient
+>     I2C error cannot leave the chip in PRG_CMD with its loops open. Undo
+>     the global enable when the INTSYNC enable fails partway. Take
+>     multiop_lock before testing the selected reference in the frequency
+>     offset getter, as the sibling phase-offset getter already does.
+> 
+>   - Latch every read of the chip's debug block the way the phase read
+>     does. That block returns a sample of an internal measurement tap,
+>     selected by a read code and latched by reading a trigger register.
+>     The generic helper read the trigger once where the phase path reads
+>     it three times, and a single read returns the previous latch. On
+>     hardware this showed as a frequency offset that would not move while
+>     a phase measurement of the same PLL tracked a temperature step
+>     cleanly.
+> 
+>   - Report which PLLs came up and which EEPROM profile was loaded, and
+>     warn when a PLL drives outputs without having reached its active
+>     state, or when the profile's stored and computed CRCs disagree. In
+>     both cases every register still reads back a plausible value, so
+>     nothing about the failure is visible until the measurements come out
+>     wrong.
+> 
+>   - Say what the phase offset getter measures, next to the callback: the
+>     loop's residual error sampled with the loop closed, which is the
+>     quantity the ABI asks for -- not the vendor's open-loop
+>     phase-difference procedure, which would need the digital loop filter
+>     frozen and would leave the PLL undisciplined until something
+>     released it. A netlink read must not do that.
+> 
+>   - Drop fifteen register definitions that have never had a caller.
+>     Eleven describe that open-loop sequence and the PLL restart path,
+>     neither of which the driver performs. The other four -- the PLL page
+>     macro and the three DIVN2 fields -- had no user in any patch of the
+>     split, so there was no honest patch to introduce them in. Each will
+>     come back with its first user.
+> 
+>   - Binding: put the example VCO frequency inside a band. 6251500000 sat
+>     in the gap between the device's two bands, which the property's own
+>     description rules out; it is now 6900000000, which a shipping
+>     profile on our SiT95316 board runs. This is the only change to the
+>     binding since v6 -- the property and its description are unchanged
+>     -- so Krzysztof's Reviewed-by is carried across it.
+> 
+> The AI review's use-after-free report on the pin properties remains a
+> false positive: dpll_pin_alloc() calls dpll_pin_prop_dup(), which copies
+> freq_supported with kmemdup() and the labels with kstrdup(), so the core
+> owns its copies and the driver has to free its own.
+Clashiko had several comments, and some of them definitely look real.
+Please note that you are supposed to handle such comments proactively,
+see commit c82ff94592fb68f529afe63ca7f5ddb7dae4ba83
 
-commit 2d4a239fba3344246dc50ddca835d1ac1501417b
-Author: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+/P
 
-i2c: mux: Add NXP PCA9641 I2C bus master arbiter driver
-   =20
-This patch adds a driver for the NXP PCA9641 2-to-1 I2C bus master arbiter.
-It supports interrupt-assisted arbitration when INT0/INT1 is connected to a
-GPIO, and falls back to polling mode when an interrupt is not configured.
-
-> diff --git a/drivers/i2c/muxes/i2c-mux-pca9641.c b/drivers/i2c/muxes/i2c-=
-mux-pca9641.c
-> new file mode 100644
-> index 0000000000000..c12aa88dcf560
-> --- /dev/null
-> +++ b/drivers/i2c/muxes/i2c-mux-pca9641.c
-
-[ ... ]
-
-> +static const struct i2c_device_id pca9641_id[] =3D {
-> +	{ "pca9641" },
-> +	{}
-> +};
-
-[Severity: Low]
-Is it possible to use named initializers here? I2C subsystem guidelines
-typically expect initialized arrays of type struct i2c_device_id to use
-named initializers.
-
-[ ... ]
-
-> +static irqreturn_t pca9641_irq_handler(int irq, void *dev_id)
-> +{
-> +	struct pca9641 *data =3D dev_id;
-> +
-> +	complete(&data->lock_grant_comp);
-> +	return IRQ_HANDLED;
-> +}
-
-[Severity: High]
-Does this handler need to clear the hardware interrupt source before
-returning IRQ_HANDLED? Since this is a shared interrupt, claiming the
-interrupt without checking or clearing the hardware source could lead to
-an IRQ storm, and might consume interrupts meant for other devices sharing
-the same line.
-
-[ ... ]
-
-> +		if (!wait_for_completion_timeout(&data->lock_grant_comp,
-> +						 client->adapter->timeout)) {
-> +			ctrl =3D pca9641_reg_read(client, PCA9641_CONTR);
-> +			if (ctrl < 0)
-> +				return ctrl;
-> +			if (!(ctrl & PCA9641_CTL_LOCK_GRANT)) {
-> +				dev_warn(&client->dev,
-> +					 "Timed out waiting for bus grant\n");
-> +				return -ETIMEDOUT;
-> +			}
-> +			goto set_bus_connect;
-> +		}
-
-[Severity: High]
-If this wait times out, do we need to clear the PCA9641_CTL_LOCK_REQ bit in
-the control register before returning? Bailing out here without clearing it
-seems like it might permanently lock out the downstream I2C bus for the
-other master.
-
-> +
-> +		ctrl =3D pca9641_reg_read(client, PCA9641_CONTR);
-> +		if (ctrl < 0)
-> +			return ctrl;
-> +
-> +		if (!(ctrl & PCA9641_CTL_LOCK_GRANT)) {
-> +			dev_warn(&client->dev,
-> +				 "Interrupt fired but LOCK_GRANT not set\n");
-> +			return -ETIMEDOUT;
-> +		}
-
-[Severity: High]
-Since this IRQ is requested as shared, could a spurious wakeup or an
-interrupt from another device cause us to take this path? If so, this would
-instantly fail the transfer instead of safely resuming the wait.
-
-[ ... ]
-
-> +	do {
-> +		ret =3D pca9641_arbitrate(client);
-> +		if (ret)
-> +			return ret < 0 ? ret : 0;
-> +
-> +		if (data->select_timeout <=3D PCA9641_DELAY_SHORT)
-> +			udelay(data->select_timeout);
-> +		else
-> +			msleep(data->select_timeout / 1000);
-> +	} while (time_is_after_eq_jiffies(timeout));
-> +
-> +	dev_warn(&client->dev, "Failed to acquire I2C bus, timed out\n");
-> +	return -ETIMEDOUT;
-
-[Severity: High]
-Similar to the interrupt wait timeout, if this polling loop times out,
-should we clear the PCA9641_CTL_LOCK_REQ bit before returning -ETIMEDOUT?
-Otherwise, the lock might be held indefinitely.
-
-[ ... ]
-
-> +	/* Optional interrupt mode; fall back to polling on failure. */
-> +	if (client->irq > 0) {
-> +		ret =3D i2c_smbus_write_byte_data(client, PCA9641_INT_MSK,
-> +						PCA9641_INT_MSK_ARB);
-
-[Severity: Medium]
-Are hardware interrupts unmasked here before the IRQ handler is successfully
-registered? If the device asserts an interrupt before the OS handler is
-ready, could the kernel permanently disable the shared IRQ line?
-
-> +		if (ret < 0) {
-> +			dev_warn(&client->dev,
-> +				 "Failed to set interrupt mask (%d); using polling\n",
-> +				 ret);
-> +			goto add_adapter;
-> +		}
-> +
-> +		ret =3D devm_request_threaded_irq(&client->dev, client->irq,
-> +						NULL, pca9641_irq_handler,
-> +						IRQF_ONESHOT | IRQF_SHARED,
-> +						dev_name(&client->dev), data);
-
-[Severity: High]
-Will this request succeed? Requesting a threaded IRQ with IRQF_SHARED and a
-NULL primary handler usually fails unconditionally with -EINVAL, which would
-prevent interrupt mode from working entirely.
-
-[ ... ]
-
-> +add_adapter:
-> +	ret =3D i2c_mux_add_adapter(muxc, 0, 0);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-If i2c_mux_add_adapter fails here, should the error path re-mask the
-interrupts? Returning an error while hardware interrupts are left unmasked
-could lead to an unhandled IRQ storm.
-
-[ ... ]
-
-> +static void pca9641_remove(struct i2c_client *client)
-> +{
-> +	struct i2c_mux_core *muxc =3D i2c_get_clientdata(client);
-> +	struct pca9641 *data =3D i2c_mux_priv(muxc);
-> +
-> +	if (data->irq > 0)
-> +		(void)i2c_smbus_write_byte_data(client, PCA9641_INT_MSK,
-> +						PCA9641_INT_MSK_ALL);
-> +
-> +	i2c_mux_del_adapters(muxc);
-> +}
-
-[Severity: Medium]
-Could this teardown order stall concurrent transactions? Masking hardware
-interrupts before unregistering the child adapters via i2c_mux_del_adapters
-means that if a downstream transaction is waiting for a bus grant during
-removal, the completion might simply time out instead of finishing.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908123146.1839=
-854-1-shivprakash.gupta@nxp.com?part=3D2
