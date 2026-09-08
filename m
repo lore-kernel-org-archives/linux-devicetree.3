@@ -1,225 +1,158 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011019.outbound.protection.outlook.com [52.101.70.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769755328A4;
-	Tue,  8 Sep 2026 11:50:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868218; cv=fail; b=OwGzgYpSPzQZKuCWeiuM0/7EdQ/ddCMZcax87+uShLL93y08owiOBnZSzX3EAWmmCcOI5FDBNYw8ltwsQ08T/emmcP4FF/0FCucsaciwElavxwmdBLAsA57vfqDTiqg48+5uo+1aoZrhodDCcB3hRtUDF9tqOqbrOSEJVhM+4fc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868218; c=relaxed/simple;
-	bh=vsKaUQMCunSlmWeYEPnMWmm9qCmWNh5oGRkVrreCRJw=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=FwyO8+9nMUVRZmq0TzVFj9lpZNtb8kbaFtzSUx2bR4KSjLsFWQ/kwuvOMbI83vfmvjeMY8VpGh5iJVdWJFtEOdLZRjYGmrQ1J+DP89AU6rA8yyd+MzaX97TYoPltpYyAaIjv+Zz7+QF7OcLZ6GPO2yj5b4VFiYB97eIx5s193pg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XAnwZQAv; arc=fail smtp.client-ip=52.101.70.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D771952B1CD
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:58:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788868731; cv=none; b=OmkYv/2okQEgeOatLyrfunqLnzwK5wxPunnhr9yMwOc/wYqkbVVUBc3j6HU8dYg/XqhsxWNu/zKXEWzjkB2iAZkAA28D4++1mbewRyOlrULaDCxL7pzht5B2ewyM6sVCwjVgFkONCzwDSo/XWW3c5Jo0HCQllhpCPM2Qk1YCMiY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788868731; c=relaxed/simple;
+	bh=9mLInqnl0A4PpEzjATNo/tTkIoqMFHl/SuK3vHw1/6M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CTUn10yckJSVtdQYZpO7eq4wjWtvbnV5ZWF28p9fg9SYzBa7p6qwP9aGkyNxJYsNGz7XPF5a+faz35Sqz4H8hHfbRF09vLbzpx/MAxGS44nKLBjr4B6GLsKbwSTD87IlHBwAd/byEt6GfqpeswGQH3HlJSPdQiMbWVlk9hIkr/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aIFCv6P8; arc=none smtp.client-ip=74.125.224.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XAnwZQAv"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AFeCBB7Q+WOpkFRHKdk9IgWfgyHq51PFOiFUQXFMbzUGH8T4vakIRELSjBvCdLTdwtRn3FcU+URDCT3B7ko2RafXN+4uW7VFFG9uPwg7g7/c1ma0kHQcn0aO8eGnC1KM40OYQLtLmwqIjuRbAAoOfjx/KKGI4DGaFccQT2sblNrw/1BruDdhKWGlIFvWttsYzRA4CMK1NRRzAb59tW+hSMYWoJrCkgVOgX1nh6/18vuyr118rSotMBiwi/M1EzhBfEAGpea0BtS8EkIBsHD37J+dLbwbMdaEQlEoSLt9ZDO90GrkvrvJYO6ALL4flsSjj6XZGQFCMA2jiM4HvRFHNA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=777BBndEZWN0pQ0+ExXhYlFGeXGjovNqwjmxa9SC7PY=;
- b=zRjI3P3yQIboLxR8KBtYratOqG8chqxCwqwzhyjKHuib07GtVM5GHRMsQHXqeW39hna2bUQD5JKItXUt8tMJo8Mg1kx3zMiKzXS0StrVGOU2h+tfOqYTQGWqgGNOoMkEVcinaIWhiRfL/F+fcbzWReaxa1uz91EO03tbOB7GA+YCx39HQBaH9jvAirFZ0fA6Zrx8W8wQaZHlT5X7g3M2lCmeMfIymEjdVCQshW2CBtcRNK8T8yod3f4Ih8YsuwNV2001qU48TUSQg6vSJxrl8WmD+QBwLXOo5doGxf2Z+5mwbzwsBmZ3JOFw89x7sKcOSU9b/h+7A/l1ia8N8s9efA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=777BBndEZWN0pQ0+ExXhYlFGeXGjovNqwjmxa9SC7PY=;
- b=XAnwZQAv6OB9eLlhoFiLtleCHkfNAxBzeukJrUWBC1eVx+pdwj53UnFko2JMEYlYQerftrFNmiAThcTjOHDOSBU+/8hi7fzO7htZCGiUL+jgY+/TMiCcvmEe5Hcr2Xw38AjIKQ4DW7E7nO2iw6NVdhcGfAY8N97zQYL7rhmhYV/8T8dqTpPxaL7lVnIOWqB2T2JUIRZajUwezGdWATkOixWDUTWt4kfl5r4BJsOZhAJYuHFf9EN5S9SAAVf+HO7ORTERzgn0/IhRHjNB7UmPPxAkEshfX2gr40O5tc+QoDLoP5r1FbrcAIoyFJs1SHilhiCJOVTHFGA669cX3QAYOA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com (2603:10a6:20b:414::15)
- by GVXPR04MB9780.eurprd04.prod.outlook.com (2603:10a6:150:114::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 11:49:27 +0000
-Received: from AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c]) by AM9PR04MB8469.eurprd04.prod.outlook.com
- ([fe80::1f31:d3d0:6150:b49c%3]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 11:49:27 +0000
-From: pankaj.gupta@oss.nxp.com
-Date: Tue, 08 Sep 2026 22:48:17 +0530
-Subject: [PATCH v49 7/7] arm64: dts: imx8ulp: add reserved memory for
- EdgeLock Enclave
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-imx-se-if-v49-7-a59529118839@nxp.com>
-References: <20260908-imx-se-if-v49-0-a59529118839@nxp.com>
-In-Reply-To: <20260908-imx-se-if-v49-0-a59529118839@nxp.com>
-To: Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Pankaj Gupta <pankaj.gupta@nxp.com>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788887921; l=2500;
- i=pankaj.gupta@nxp.com; s=20260817; h=from:subject:message-id;
- bh=LA5pZ8YRZFeVk56nd//uP0RHiwT4E6voL97vzkkh9tk=;
- b=jMFcnBeC+5r/13IaXfC1W3n6fgJvNDNZC+rnQvy9/E5scIHQNCE1ChgZRZTCA+f/JB8e+5BHY
- TjAj+qd95k1ALcS2XAPOZvdFBv+xMkC3VtN47GcO2em9FCqrqp9Z0Ah
-X-Developer-Key: i=pankaj.gupta@nxp.com; a=ed25519;
- pk=g4ZgzIWbpXnSxRsoH+l6PWLP78a+Mzpl8e6RQe74d5Y=
-X-ClientProxiedBy: MA0PR01CA0025.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:b8::13) To AM9PR04MB8469.eurprd04.prod.outlook.com
- (2603:10a6:20b:414::15)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aIFCv6P8"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66e3d262d43so717300d50.2
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:58:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788868728; x=1789473528; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5YSbpx2/giMWiDN23LuZeurQee/vaO9NMucSm/vs5YM=;
+        b=aIFCv6P8aiQXIWJOjZP5dtyEiGA8isLyjLM4tPwxHTOJkU/uyjqL8D3JVc51QpJLnA
+         wxKxWApr99vB2THgvgL/3wC48TxH95YPqFsbljsBHwoNZ8awVWspHzMuZIoZNiaMBOaI
+         xW91ouqG3YcDxQzhegYK8J2/SsUpBR141zbZj6n8LHA1KEMP4V3Nb1MehFCaO4Kyh8ob
+         12Cp5m7g7yR/xPvmf5+PHa6KEHUY2jKbSRHsrufA+VkeJdH8E13wxx0DO4KtEr8XSZMM
+         LQTo1RmRWaYQcGKuV+JRR8a0RC5IH6GiiqbOljaHTJCz/NYF97wmB7KSffvr1I8nuhjY
+         nGQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788868728; x=1789473528;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5YSbpx2/giMWiDN23LuZeurQee/vaO9NMucSm/vs5YM=;
+        b=D4+5MUWpv10gM+C18Tfvt1fVOEn/TDCmCrzoOkj0J1EaydpMaPwG4SOBczIIzr1gZa
+         RBv3kXjYayu80Svrqmg6Y7/MzPCDF6pUTWfTCXL1YPOxHgVtF2hXc/snEv0RGWLLoS80
+         dPidzf2ZhYt/hmortNbjsexuQZtRKPwz7Ht0Ruh1iqjyVQ0xm8wklR8/v3XolOcF4I1z
+         iKELVG5W4lQysP3h1Zktvx6DoNKDSauPs0gHhEO5kv+6knZQ7MYu0mTVZPuK2kkVUwHt
+         BmI5cFMAyQCKhY4AKUwZbUnxwg7wAHmAFpc8Hj7VIveutB0EUcKEGy84zai2UalMjz7t
+         674g==
+X-Forwarded-Encrypted: i=1; AKwUvByFAnYnqPoZhq5c/JQEQ2pGlKZXUn74aCsvXjuWy4rZH07Kq7fXeAIpkywEdvs9AcLmiO4bzyadxoLs@vger.kernel.org
+X-Gm-Message-State: AFuF++kyooIGYjlMJCIGMlvIWfEs8y00Fk5ydMHrSiA/mZHX++e0AIRR
+	N03PbHnChXjDKeJPL18q08NvvjX9X4dbhQjKaHshkorvsoTymPI+Fa+U
+X-Gm-Gg: AYBFou1jyXaVxktdFhgZ58nGlOqnH+BZuE77ZcFrJkHcjsGlM8P68mr/aszITs7mKeY
+	YwFhn+NUHmhlob3i3vPr3XZENHpiw+4Z+ZKH87gUieG8kNMPER/e/rbszdgsLf/ACcbCfeUmTek
+	oIHsvl1v0G1AlgddoovxqMlaoOK2+AYJifedpvBdtK7X9tXXLXH//+ZYWqc9yazDBhiyxX7XNvZ
+	+RKWTlxQ5fo/GQ2EaHVINUDIkUY32BjMfxihgNr5ofT/7dJX49xtE7Z2UTMqyOM5JXilR+aDuO6
+	S6+NQM1WzZXwWO0wQLnnP7aC6PRX6OW96X0neqw2rqv/uyXVHsL61PwXx/cmD881EwPRcxLF929
+	mHH5FnXUfHJd+tmp+chPADS0TTWS6kQRCn5ncF/W4u0jn01Xj8TAvx5FWnMqMWQOK/A8xoQ/QaL
+	6on1EkYVaa4DGnmsfsjZXQPzbo5GexjtAwLIcpFSUxlwrTT6XVgf9AEIYzQ7bhlVKQfMRPg2RfI
+	HEUcQ==
+X-Received: by 2002:a05:690e:13cd:b0:66f:c284:47ff with SMTP id 956f58d0204a3-66fc2845290mr5848557d50.62.1788868727460;
+        Tue, 08 Sep 2026 04:58:47 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb495eccesm9958264d50.18.2026.09.08.04.58.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 04:58:47 -0700 (PDT)
+Date: Tue, 8 Sep 2026 08:58:40 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: "Kumar, Udit" <u-kumar1@ti.com>
+Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
+ LVDS adapter with the 10.1" V2 display
+Message-ID: <ugxocb3gmyhjefptdvsqtv2ebsngcr2ol4rfuwv4exukqd6lxs@yuema6b7ikgv>
+References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
+ <20260803173705.2268792-2-leoreis.costa@gmail.com>
+ <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+ <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM9PR04MB8469:EE_|GVXPR04MB9780:EE_
-X-MS-Office365-Filtering-Correlation-Id: 62f3c4dd-dcb2-4719-102d-08df0d9f3c9f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|366016|1800799024|376014|10067099003|18002099003|22082099003|56012099006|11063799006|921020;
-X-Microsoft-Antispam-Message-Info:
-	IxZ/gHSyU7xMDgLxqMLl1lb+n0u2uL5xxaz9+YyxaVyPJZUkqUhpXX/WqkHoDnPjbCtThGIjGLxwzus7wd5z2cN6V5p8vaQZN8S0SOGXpvr5p0aPO0MroGjwpwDHpCfZ+clykw0YyFr9btoAV21RiZxs3ULSrQQYeXUGaqfuZbeaq1dqWcr0r6pgOlZPCBWt5P7w3UpClpCyNgZIyP2mwgAt7zkYql8GJkEcavYG7052AlcC+/xxUbV0BHto8aOV2cKk4wY2hEFH9d8jNB/UUVIyf3mqtCxcyhE/NG0Ozk67veMh0G1CVpxapuu9F2qLZq083MvFeKAFQgeyoUUVfF8QlFeYq/DtDK+VJIR1slPsFb9bsfdlhrx7QpGcxzkU6dTWyS+mD75/T1xhH00aoc9ke8k7kERJyTZwOWxwM4yo1tLqlqajRLzm+p6GcZrTNSQXnKUVxWBdFU6EtmgR7XT/zV3R/SpVvU2ykyohMX0swxJ6Ed6zsrdJZ99qpGqOT5cTum5Rj+VMdDIULomJ1gHIAlmxe0IbVM9QF3U04Y82T+zIHwwXJwRCfg39YaOChjbhApEbDQfAvzcaysuybQSC7kZAArGbo2JhGtU3tyyWP7CytemoaleS6u+ULtAawxGL9wmkl91PupugDaG3YalQ5fQXO8cpQf2kLxDLQqvdGTypsFEfZPr1mx7/oSbnS8NUue3t/lJ/uFtN8v0r0A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8469.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SnlCN3RqNzZwVUhZeWlmVENhdW5pNFJWREhVRTJWajB6QXBTd2c1TEJ3MWl5?=
- =?utf-8?B?TEx5OWlmNGEweHhma1puYWRxaXBNVGNrZThSWmJPYWlMdWRSQkkyU25jVjJo?=
- =?utf-8?B?Y0Q1Y1pWcTFqTXVMUVhqdHFBcnY4dEZNczZzZ2F1OTNnMzFuUmFkeGY0RHRC?=
- =?utf-8?B?N2cvU0VpVWRmWjZJQVd5UDhDaXZ2VzhiUnd6ZUZZWnV1WDViY0VwKzlqdVhR?=
- =?utf-8?B?NnNtb3FJNzdlZEo1c09pWkd2eit2NlV6cjlETWVENFNZQmQ3MzJqMGdmTHZr?=
- =?utf-8?B?VXVrMEtHaHNoZXM5eWJYQitwQk1STy84R1pqTFl1c0ZrZjRqeVNvekxDMWN6?=
- =?utf-8?B?T2FndHllbCtiV2NsckxxREFzNTlpbVNuS3dPMEpPZy9ONlVvQ1dVMDZPZ0F4?=
- =?utf-8?B?eHZlWDVuRWZHaU1ZSUl6NktSYmJuUUdJQllxSm4wMk83L05QUThjSHI5ZlFC?=
- =?utf-8?B?ZHlxampoZ2VZUm9LR3FuYUZTQ3lwdFNGeEFCMm9jalBhRFFGZmdha3lUYnJL?=
- =?utf-8?B?QVJoWWJqQ0lEU01yM25TYVBmMnE3elF6dGJ1ZEg1MzVCemt4Y1VXK1dmZmJr?=
- =?utf-8?B?VGdXY2ZRQ1YzYi9PMFlJbVdqM2NsVFd1bkFaWTk3N2VHWUtwSUNxMnJLRDRT?=
- =?utf-8?B?OUFtTWw3VlR1OFM5TEIyWXkzU3VHSEE2UzFWVVJwUnFoeGx5OS9UTVBRbVNB?=
- =?utf-8?B?REhBdVFHYkdBbUF1bE9RSDY1VWdTMU9nbXRnaER2MjFzZk03cCtBV1JOc2N0?=
- =?utf-8?B?VExzZThCUlU2cUpZeVVNYUluMWI0WUkrb1BoUUFHN3hJOXJsZXdrTEljZFcz?=
- =?utf-8?B?LzV2NVNBZHEvNDF4bnA5TjdNaE55aFM2NlJSeXlJZU95UGJWT2plbGthVGtB?=
- =?utf-8?B?N1hPYjM2Q3BZWENNSkVqWlFaYkdOdTlSRURsTFFSRWVSRFI3VTJPcElBZUpV?=
- =?utf-8?B?a2lKOGRQQmRycDIrLzlyQmRTOERnYVh1Rm9DZUl5TC80dkV1V2M0QmF5V2pk?=
- =?utf-8?B?RHlqQXhwYWFmcndGYmxyN0hOZTlDbGN6S2tIbStBOXFkVUNlYy9KbmIzc1J5?=
- =?utf-8?B?THMyc01nL0k0Nm1NaXQzL2kyS2VYNUdYdmdubDR0bTVGZXhKMVdRU0JFc1Bp?=
- =?utf-8?B?SHlFTGxoUkxraDQwRnp3RThveUtMTjZ4cTZ0SDlRZEZmQXhxMjE5V3FTdkJl?=
- =?utf-8?B?cnhTS2NKenUvdXdEbEZEQVhFR2JiZHBMOW9MUWFMZkUvMEhtKzVieTE0MVIr?=
- =?utf-8?B?bmhqNk50Z1M5aVYyblZZT00wKzV0R2RkeTVvbjVYdFh3bkV3clpZeERoZGRK?=
- =?utf-8?B?Z1dEeHBtdm8ySGp3b3hLNmM1NncwTy9Obkg5WUQrNGVEUHg4Z2dFVjJjODla?=
- =?utf-8?B?RlVMajJaeVgxbElIQTVQcVhBVlU5bW5xSWV2aG5aamVrUitHL0tEYll3M2sv?=
- =?utf-8?B?a2VTUkJtMVA0YVFGV1ZvNzJwZ3hoK211V0lUL0hod0RjREpzM0FHT1o0bFI1?=
- =?utf-8?B?ZVFGbW1qM2N6NW9BYThQRkhhVGhEZ201WXk1S3Z2WWNUMUFtTFNWaHQvd21U?=
- =?utf-8?B?dWFiajNsUHhHL054bkhzbWRYQmxZNlpWVjhRbGE5Qzl4UlJ5dFhGanhIVkl4?=
- =?utf-8?B?K2I4T1VRdUQwZlZiM21IWkFtRkN4WDJuY1FxUGRsRHRyNldwZUM1bC92RmZD?=
- =?utf-8?B?cEhQb1VMY3pXUWloTVU0OUR0RzZnRXNPTVFqemh6a0VzMnpybmxTZU9QTG8w?=
- =?utf-8?B?aEdRWmVYT2NTYThkSklBdFFrNS94UmtzWDVPWDhuZUQ4WlpnYWNkMmg4SUdv?=
- =?utf-8?B?aFM2Qm93M05pUnZJMm9kY2RLbGtzYmZsZzN0dUFyVUZiZ0k5Nm5wOHNvemI4?=
- =?utf-8?B?dkF4a2swNHhZSC82TFUzTHJWYlNvZktaZGhtYStwdGFNaklyYTZCSDdXOHFW?=
- =?utf-8?B?dzlmSDIzOEVRZGlLeDVLUkMzNlZGdDBlampTSFZpWGNVL1dYcXNiQld5THU2?=
- =?utf-8?B?TjFrZUlCKzdYMCswekdENjN5bGhkTndQanppT3V4NmV2b3RaUWtJcjRWcUli?=
- =?utf-8?B?TzVnWllYdEJPQlpNd3R3Tmd3T2pXNjQ5L3J3cXRXbXRQWXNERDVTTjJkdXBH?=
- =?utf-8?B?ZVBJODV1a1lxc3R1d3drSWVnRUxKeTNZMXpDWjJpZ2FpM283MVZlc3RFaUh0?=
- =?utf-8?B?eVBYd2lKeENxS0pYZHhVWGt0ZTROOVN1ak5TSUFPTzl5aVA5eWRQbDNNTUdK?=
- =?utf-8?B?U2IzeEoyNnhhZGx2dGF4RnlSMHc1ampSVnd6RWNsbUw1Wm5kSlR4SGZxendK?=
- =?utf-8?B?NUpxRldnZmVjdi9VbEJ4SlNSN0FIUld6bUErVXJFS2grbnptVWRNang2TFVV?=
- =?utf-8?Q?GrwWWOEAGFOJclkVLOVYq4iqV5VFeGEPFdMRr?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 62f3c4dd-dcb2-4719-102d-08df0d9f3c9f
-X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8469.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:49:27.8851
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DBSGoC1yL7oZk2+AX16XHHeAVKyDtVlpJ3s/Uo3PGgYEKJ1RsLNj0hozHXCUUf8cyAJWWRYj/VsLT94ePrLePi/rngMR/QjaCkf69S3qHvLSvUoFe5BLtIqiSLriAhX3
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB9780
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
 
-From: Pankaj Gupta <pankaj.gupta@nxp.com>
+On Tue, Sep 08, 2026 at 08:17:57AM -0300, Leonardo Costa wrote:
+> Hi Udit,
+> 
+> On Sun, Sep 06, 2026 at 10:49:52AM +0530, Kumar, Udit wrote:
+> > Hi Leonardo
+> > 
+> > On 8/3/2026 11:04 PM, Leonardo Costa wrote:
+> > > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > > 
+> > > Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
+> > > Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
+> > > Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
+> > > DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
+> > > LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
+> > > touch controller.
+> > > 
+> > > Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
+> > > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> > > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > > ---
+> > >  arch/arm64/boot/dts/ti/Makefile               |   5 +
+> > >  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
+> > >  2 files changed, 158 insertions(+)
+> > >  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
+> > > 
+> > > diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+> > > index f4d109ef6798a..8a59fc597aede 100644
+> > > --- a/arch/arm64/boot/dts/ti/Makefile
+> > > +++ b/arch/arm64/boot/dts/ti/Makefile
+> > > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
+> > > [..]
+> > > +
+> > > +	panel-lvds-bridge {
+> > > +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
+> > 
+> > > +		backlight = <&backlight_pwm3>;
+> > > +		data-mapping = "vesa-24";
+> > > +		height-mm = <136>;
+> > > +		width-mm = <217>;
+> > > +
+> > > +		panel-timing {
+> > > +			clock-frequency = <70000000>;
+> > 
+> > Looking at
+> > https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
+> > 
+> > 
+> > you are using three different clock-freq 69500000, 64500000 and
+> > 70000000 here.
+> > Could add some comment here, why freq is adjusted.
+> 
+> It's for the same reason as the 69500000 clock frequency in the Verdin
+> AM62 patch. In general the DSI to LVDS bridge requires longer horizontal
+> porch and sync values than the typical values for the display, and we
+> intend to use the values on this patch in the general case when the
+> bridge is used. The reason why the frequency here (70000000) is
+> different from the Verdin AM62 one (69500000) is because we found that
+> that 70000000, along with the other timing values, work more
+> consistently with the bridge across our modules, the ones on the Verdin
+> AM62 ended up being a first iteration.
+> 
+> I'll add a comment explaining the difference from the native LVDS values
+> in the v2 patch.
 
-Reserve 1MB of DDR for the EdgeLock Enclave. The enclave hardware can only
-access DDR in the 0x80000000 - 0xafffffff window, so constrain the pool to
-that range with alloc-ranges and let the kernel choose the placement rather
-than hardcoding an address.
+Correcting my last reply:
 
-Provide this as a shared imx8ulp-firmware.dtsi that also enables the hsm0
-node and wires up its memory-region, so every i.MX8ULP board can bring up
-the enclave with a single include instead of duplicating the reserved
-memory node. Include it from imx8ulp-evk.
-
-Signed-off-by: Pankaj Gupta <pankaj.gupta@nxp.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
----
- arch/arm64/boot/dts/freescale/imx8ulp-evk.dts      |  3 ++-
- .../arm64/boot/dts/freescale/imx8ulp-firmware.dtsi | 31 ++++++++++++++++++++++
- 2 files changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-index 4b925832bb66..5fe58a025cfd 100644
---- a/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-evk.dts
-@@ -1,12 +1,13 @@
- // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
- /*
-- * Copyright 2021 NXP
-+ * Copyright 2021, 2025 NXP
-  */
- 
- /dts-v1/;
- 
- #include <dt-bindings/input/input.h>
- #include "imx8ulp.dtsi"
-+#include "imx8ulp-firmware.dtsi"
- 
- / {
- 	model = "NXP i.MX8ULP EVK";
-diff --git a/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-new file mode 100644
-index 000000000000..e4bc352f68af
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8ulp-firmware.dtsi
-@@ -0,0 +1,31 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Copyright 2025 NXP
-+ *
-+ * Default reserved memory and EdgeLock Enclave (ELE) enablement shared by
-+ * i.MX8ULP boards. Include this from a board dts to bring up the secure
-+ * enclave without having to duplicate the reserved-memory node. The ELE
-+ * hardware can only access DDR in the 0x80000000 - 0xafffffff window, so the
-+ * pool is constrained to that range with alloc-ranges and the kernel is left
-+ * to place the 1 MiB region.
-+ */
-+
-+/ {
-+	reserved-memory {
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		ele_reserved: ele-reserved {
-+			compatible = "shared-dma-pool";
-+			alloc-ranges = <0 0x80000000 0 0x30000000>;
-+			size = <0 0x100000>;
-+			no-map;
-+		};
-+	};
-+};
-+
-+&hsm0 {
-+	memory-region = <&ele_reserved>;
-+	status = "okay";
-+};
-
--- 
-2.43.0
-
+The 69500000 frequency and other timings were used on Verdin AM62 were
+due to the DPI->DSI bridge used on the module, not only due to the DSI
+to LVDS bridge that can be attached to the carrier boards. Ever since
+that, we found that the DSI to LVDS bridge itself generally also needs
+higher values to work consistently across our modules, compared to the
+ones typical for the display.
