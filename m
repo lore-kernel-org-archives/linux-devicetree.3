@@ -1,63 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A30213812FE;
-	Tue,  8 Sep 2026 19:37:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51313434998
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 19:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788896280; cv=none; b=Ymk4GvWpspdDvSEN6jQb10VVmxu5AAiwRjEda5aeXKcGEX//Sset70s1+3MfsSgIojZ0LrBSQFWZfOmtD+UIicc3WBiEJfJAB0blx5NAxgITK1V4XVxQAOkl+/bcBvPREMtdg8KwRyEhw3pTIY3BAbwAK1EQICjBo0ZgaNY2Ksw=
+	t=1788896416; cv=none; b=dhmlgncVPnXJtMDoKI1SZsRm6xjFvM0H4A7QZvQeoMQgHdntM9aTObmMyXCsMJ6zFZPlL5TfcknLrIbzvNBUEFvryAJQ04a+V/1Z+puspaglgzS7ErNbJU1TWeJpWAWotqLWGw4j3+Tj6MHoJFfezr3cUG6pow6ElCxYQOEyZ70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788896280; c=relaxed/simple;
-	bh=2qk0fy8BaA5H2eULjkDkeUiAjpBmUTLpUODBkGZ+mHk=;
+	s=arc-20240116; t=1788896416; c=relaxed/simple;
+	bh=EsrGjrnP7IgSiDLJcakyY4ms71wqAvVcdyupbrs+ipo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SA4oLx0HWBuecTMZ/i9PQf+mAVkcLaDdMSk0eMzjjxW6NDXzmGPZxmy/MMQVN+/ytJmjk70v5deFBqCpN2MqqQAruVBYq0FlKPGey1yxATr0aqI3x0dNKHicuGSuMRTD5oavAiGab9Y6w33XTHo2Ced77h+fP38O6oXQHW8/iVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LxLO7Ylh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=OVu/PJzsMQPieE8tdhJelccEaRZq0iSojp1+5aSgGutDHqPNk1s8i21DQBzAEOvfeiwHSoAA+HDx7dfGiFftzsKzJqiuqd+fDdwN/1n6+K2ouqG3qo0S7lj2ePMBda+z7U/kosUnVLCUfPFSBv3oR6qg3D1nnCT5xSdx3M+PovA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TEDHWMJM; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LxLO7Ylh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6FEFD1F00A3F;
-	Tue,  8 Sep 2026 19:37:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788896278;
-	bh=dqsuwEOibNCoxL+MY+KJcXPDxVwv27f/BtLbRZm4oLA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LxLO7YlhfkJ6kIOGDGZ5nSoikZlhH+iKssK96nrIO7LPlq5q0K2Xj6+A/pa9/a+RX
-	 MwPsws+1FTtge8362AgmAZRufc0hEQRFbUOUzwWcXHmJoIGnTqVfoWQPyV0JRvyvOs
-	 VmHenITvMjztqR/lCdFgSN/laLJDqebEOreLQId8H6kDq8mW2kpJlDTe+W6KqaHwWZ
-	 p+rR+msrIozKsAIdEu/QhUHnJKjr+snX2BjbUYougfQxRLPy6wTgLdGNR0Kn7VbpER
-	 Up1n5Q6hbMAqpZj1QlHWmyJkUyZ97Ej44ohBwdTHv5XiCehhhnrnKV33ex8bzFWzEm
-	 ddml7G1VkX4Cg==
-Date: Tue, 8 Sep 2026 20:37:52 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Sibi Sankar <sibi.sankar@oss.qualcomm.com>
-Cc: Pragnesh Papaniya <pragnesh.papaniya@oss.qualcomm.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Cristian Marussi <cristian.marussi@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Kyungmin Park <kyungmin.park@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Dmitry Osipenko <digetx@gmail.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-	Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	arm-scmi@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH RFC 01/10] firmware: arm_scmi: Add SCMI QCOM Generic
- Extension Protocol documentation
-Message-ID: <20260908-optimal-alpaca-of-justice-f55bba@sudeepholla>
-References: <20260724-rfc_v8_scmi_memlat-v1-0-cb732bcff1f4@oss.qualcomm.com>
- <20260724-rfc_v8_scmi_memlat-v1-1-cb732bcff1f4@oss.qualcomm.com>
- <20260724-crouching-starfish-of-apotheosis-d1cdf8@sudeepholla>
- <f39b2be0-b6d6-43a6-a412-44ff433c51f6@oss.qualcomm.com>
- <20260813-remarkable-handsome-heron-e99e78@sudeepholla>
- <fb0ad185-8989-48a9-86b4-9c765788febf@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TEDHWMJM"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-484392e3d33so3597241f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 12:40:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788896412; x=1789501212; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HzP/HtSzvmP6ZP70XBuHWUc2m2AKpgco5yULa/5Kmis=;
+        b=TEDHWMJM9duaytD8JkqocezS6iP42AtBh5KBUdL6VJfMAo8G72zIpPgMijD++58Po0
+         YwHwizi3QVSNbvl4pEaWbB6M+s9YZwMWDOxMFtEILOG/FKg4VCuHJvoiejsBGj/B8ELd
+         M6MBENKrWZ/n8I8xUJVhLId7XCco84KBIIBd6Q3NUTtCaMHVeFeMf1doV9F52xOheVWd
+         ZafumnTzVsVcJ//LRyR7yjnBPr1uq+kT7RtXKWt7YOL3NTbu2nSpJmOBbctZl8f7VUDn
+         MHay7jF4KqXdYWKswO4Url/5cuki37cFsHDoyppV6YdOQGmyHB73PIIkwYzxyZ1J62Ib
+         xNBQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788896412; x=1789501212;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HzP/HtSzvmP6ZP70XBuHWUc2m2AKpgco5yULa/5Kmis=;
+        b=XGOrz+sPMoVbzOZBCGWpdX2HJjeAWKBq4lwWbf6JyacLw0+2+f1/0LWVSC6MarRJ3x
+         96GwIcMlktmxcMboY3CRtY7M6r4AbC6uPSkTxWramjX9FLN/3/q+JBnAPYM/R7UU4AUe
+         SYBXe82UZne2DP3kxcbsS7zbHukfeWuAuYor8nZOPs/pXrsxZhYXp0H1RW5bEjOWb7fe
+         FyCCFrq/a1Jd34bsq8H7ryAokUXCPxjRv5Ry8mBQjYZBeoM3FUNi8BRP2uco71T3Shnb
+         tfey+aRo1Op126L4Phsnm+bPjDtWC9hxOJD+VOw1dmidvNlVPG45GxnQTeFgR8QS/rF9
+         92pA==
+X-Forwarded-Encrypted: i=1; AKwUvByFuRgRia3cSuKdAckVH5x/VjntAUTy1Jtzhsupbqyzkwk+L30HNOHTfYCKZ3SpZAofNN3w9bWQt68t@vger.kernel.org
+X-Gm-Message-State: AFuF++mezXbQLCcdMFTWEPQ3HTvU6/Sf2/uPkFwZbARXpHGafNSgvCz6
+	apZEjSOSEyDS0WwrNNtBkFJ1lR4Eo18Bk+PSma3HxxE6KIYC5er29OYW
+X-Gm-Gg: AYBFou2nd6JGxSRBzIP93FERzcftLV+6VkWNmTp/J6zdctKfy/LJIGmpiZR0MWAJmC6
+	lwi2d2ZTVQWU0fM1fS7omMx8o8vplnlm17aBwFKIKLXB8AIzc3mX/TYmtfQ0PRXeDDgqf7TKrGj
+	WU9+NP0KRJF+8ytcWKQS20RnEkTRM5b2RABlU27ZBBam3NMT/S+F35a/YH6qw1MGKVtCA3FvX0p
+	E5di1C3Tp7L3RFUuCHoilcnR59PXtUA/6FABo0yjCU4OmqfosqM7bAnhu2lyW0JWr33b0ZqoFBA
+	KbGRJ4Y8VJ+CNh3Oum8ONNhxxwe4Z4VklF/oA1LhCG58QTCaX72f4QH75WBXc4p25yEzCRQdIfb
+	nme2DSMMAq4ksFpa72MAzpuxYdWfYBG31Galf/jDpq3119wVfl7bjlbJNa/kG6nw2EuhuVICNde
+	rn4wcsR1+FghrSFYCwfxPd+HTbtdF7F+XVLls0WEYvPB9nX9Tbo16pumRlq9xJRd4LF3wMPMZBl
+	7m7WUVeIG5CcdPPvG4Xbp3YMPI6tocqciKXJ6YBsaq77mirjdY+Tjog4rOUU2fHSfxBDlwGwBHz
+	VIUBWq2l4x1r3VJORi0hvS6E
+X-Received: by 2002:a05:600c:a087:b0:49c:d26a:cf70 with SMTP id 5b1f17b1804b1-49cf825a75dmr321721005e9.15.1788896412155;
+        Tue, 08 Sep 2026 12:40:12 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-095-117-170-066.95.117.pool.telefonica.de. [95.117.170.66])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fc1be3sm991795e9.4.2026.09.08.12.40.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 12:40:10 -0700 (PDT)
+Date: Tue, 8 Sep 2026 21:39:36 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+	Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
+	Shawn Guo <shawnguo@kernel.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, Guenter Roeck <linux@roeck-us.net>
+Subject: Re: [PATCH 01/13] ARM: remove sa1100 platform
+Message-ID: <aqBhF5oS1A2W6dAa@gmail.com>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-2-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,182 +97,58 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fb0ad185-8989-48a9-86b4-9c765788febf@oss.qualcomm.com>
+In-Reply-To: <20260908152808.3928630-2-arnd@kernel.org>
 
-On Thu, Aug 20, 2026 at 01:26:57AM +0530, Sibi Sankar wrote:
-> 
-> On 8/13/2026 12:48 PM, Sudeep Holla wrote:
+On Tue, Sep 08, 2026 at 05:27:51PM +0100, Arnd Bergmann wrote:
+>  62 files changed, 19 insertions(+), 10501 deletions(-)
 
-[...]
+Note that Sashiko skipped reviewing this patch, because it exceeded
+its current 10000 line limit.
 
-> > The current rationale isn't entirely clear to me. Windows historically favors
-> > ACPI over native SCMI, meaning that supporting a proprietary vendor protocol
-> > would require non-native workarounds potentially hidden within interfaces like
-> > PEP. I am skeptical of this architectural direction. Since Android leverages
-> 
-> In an ideal world maybe but transition for all SoC capabilities to ACPI is
-> rarely that smooth and they do use the PEP interface.
-> 
+> diff --git a/drivers/rtc/rtc-sa1100.c b/drivers/rtc/rtc-sa1100.c
+> @@ -275,18 +275,10 @@ static int sa1100_rtc_probe(struct platform_device *pdev)
+> -	if (IS_ENABLED(CONFIG_ARCH_SA1100) ||
+> -	    of_device_is_compatible(pdev->dev.of_node, "mrvl,sa1100-rtc")) {
+> -		info->rcnr = base + 0x04;
+> -		info->rtsr = base + 0x10;
+> -		info->rtar = base + 0x00;
+> -		info->rttr = base + 0x08;
+> -	} else {
+> -		info->rcnr = base + 0x0;
+> -		info->rtsr = base + 0x8;
+> -		info->rtar = base + 0x4;
+> -		info->rttr = base + 0xc;
+> -	}
+> +	info->rcnr = base + 0x0;
+> +	info->rtsr = base + 0x8;
+> +	info->rtar = base + 0x4;
+> +	info->rttr = base + 0xc;
 
-Well I agree, then we shouldn't be bringing up the topic of OS agnostic
-firmware as that is not a reality on the platforms we are talking about
-then ?
+This drops the layout switch but keeps "mrvl,sa1100-rtc" in
+sa1100_rtc_dt_ids[] and in bindings/rtc/sa1100-rtc.yaml, so a DT with
+that compatible would now silently get the MMP register offsets instead
+of the SA1100 ones.
 
-> > the Linux kernel and already manages this through vendor modules, maintaining
-> > those as modules seems like the optimal path until we agree on the interface
-> > that can be merged.
-> > 
-> > Given that this patch series has been under discussion for nearly two years,
-> > please provide a summary of the feedback that has already been incorporated
-> > to address these concerns just for sake of argument and in your defence.
-> > 
-> > To clarify, the vendor protocol space is strictly intended for
-> > platform-specific functionalities that cannot be standardized; it should not
-> > be used to bypass standardization for convenience. It appears no evaluation
-> > was done to determine if or why the standard performance protocol was
-> > insufficient. Had that assessment occurred, I would expect the proposed
-> > interface to align much more closely with the standard definitions as I
-> > previously mentioned.
-> 
-> The design might seem contrived at the moment but it was still largely
-> shaped by the SCMI specification. There is a literally a 6-7 year window between
-> SCMI landing in mainline and the first mention of the vendor protocol identifiers
-> being re-useable between SoC vendors [1]. This largely shaped how Qualcomm
+> diff --git a/drivers/watchdog/Kconfig b/drivers/watchdog/Kconfig
+> @@ -614,16 +614,16 @@ config S3C2410_WATCHDOG
+>  	  be called s3c2410_wdt.
+>  
+>  config SA1100_WATCHDOG
+> -	tristate "SA1100/PXA2xx watchdog"
+> -	depends on ARCH_SA1100 || ARCH_PXA || COMPILE_TEST
+> +	tristate "PXA2xx watchdog"
+> +	depends on ARCH_PXA || COMPILE_TEST
+>  	help
+> -	  Watchdog timer embedded into SA11x0 and PXA2xx chips. This will
+> -	  reboot your system when timeout is reached.
+> +	  Watchdog timer embedded PXA2xx chips. This will reboot your
+> +	  system when timeout is reached.
+>  
 
-[1] shows the date as 2024, so 6-7 years is bit of exaggeration IMO.
+"embedded into PXA2xx chips" is better.
 
-> used vendor protocol. The first instance of vendor protocol was a straight
-> forward vendor protcol implementing just MEMLAT [2] but the sudden rise in
-> the number of protocol eating up vendor protocol space made them club
-> together the class of devfreq algorithms into a singular generic extension
-> protocol.
->
+The RTC_DRV_SA1100 help text a bit earlier in the patch also still says
+"built into your SA11x0 or PXA2xx CPU".
 
-I fully understand that this interface is already deployed in firmware and
-that changing that firmware ABI may no longer be practical. However, I
-think we need to separate two things: supporting an existing firmware ABI
-and accepting that ABI as the abstraction exposed through the upstream SCMI
-framework.
-
-The former is a compatibility constraint for Qualcomm platforms. The latter
-is an upstream interface and maintainability decision, and the existence of
-deployed firmware cannot by itself determine that decision.
-
-> "deliberated attempt to circumvent the standard SCMI protocol template"
-
-This was specifically targeted for having performance related tunables
-outside of PERF protocol. If that is not possible, then I take back that
-statement.
-
-> "expectation of immediate acceptance without modification"
-> 
-> I gather that ^^ are the major objections to the current series landing but
-> sadly none of these were raised during this 2 year period and this protocol
-> even had a "Reviewed-by" from the only other reviewer listed [3]. We
-> promised to fix all the concerns raised [4] in the next major/minor version upgrade
-> [5].
-
-It is common for intermediate versions to receive Reviewed-by tags, but those
-do not necessarily imply final acceptance of the entire series. If there is an
-instance where I provided a Reviewed-by and later withdrew it without
-providing a technical justification, please point it out.
-
-Also, with code alone, please do not expect me to review these series
-effectively. It took more than a year and half for the documentation to reach
-a state where the design and implementation could be reasonably understood.
-Now that we have sufficient improved documentation and a clearer understanding
-of the approach, a proper and detailed review has just begun.
-
-Therefore, I do not think it is fair to claim that these issues should have
-been identified during reviews over the past two years. The lack of clear and
-adequate documentation made meaningful review difficult, and I have repeatedly
-requested improvements to the documentation for precisely this reason.
-
-> The current version works as is on Hamoa/Purwa/Glymur/Mahua/Kaanapali
-> maintaining the same ABI (that should count for something) and it would only
-> need a major/minor version update when a new algorithm string gets added
-> or a new param-ids gets added. Both of these are yet to happen.
-> 
-
-My concern with the generic extension protocol remains the multiplexing
-model. SCMI protocol IDs are themselves the mechanism by which
-independently defined functionality is identified, discovered and
-versioned. Introducing another namespace underneath a single vendor
-protocol, where an algorithm string selects effectively independent
-interfaces with their own sets of param_ids, duplicates that mechanism and
-makes protocol 0x80 a container for potentially unrelated functionality.
-
-> Given that we put out the pseudo code of what the MEMLAT algorithm does
-> and spent the past several revisions trying to explain why generic perf nor
-> mpam would work for us we keep getting hit with the blanket "It appears
-> no evaluation was done to determine if or why the standard performance
-> protocol was insufficient". The only recommendation I see from your side
-> is move MEMLAT to it's own protocol. With the documentation/code
-> available to you can please let us know how current perf protocol or MPAM
-> can be used as a standin replacement?
-> 
-
-This is also why I suggested treating MEMLAT as a distinct vendor protocol.
-I am not suggesting that MEMLAT can necessarily be replaced by the standard
-Performance protocol or MPAM. Those are separate questions. If MEMLAT
-semantics do not map to either of those, then that is a perfectly valid
-reason for having a vendor protocol. But "this functionality requires a
-vendor protocol" does not imply that the generic SET/GET/START/STOP
-multiplexing protocol is the right upstream representation of it. I am
-completely against such generalisation which will end up being ambiguous
-sooner or later.
-
-> [1] - https://lore.kernel.org/lkml/Zag5L9j8-oCebKFm@pluto/
-> [2] - https://lore.kernel.org/lkml/1667451512-9655-1-git-send-email-quic_sibis@quicinc.com/#t
-> [3] - https://lore.kernel.org/lkml/Zo14-rQ1Jaxh5Idi@pluto/
-> [4] - https://lore.kernel.org/lkml/Z1GfGk0yQAVQKEVL@pluto/
-> [5] - https://lore.kernel.org/lkml/55fd0c34-c52c-95c5-5cd0-16fd66a4baa2@quicinc.com/
-> 
-> > 
-> > The core issue here is that the proposed vendor protocol interface has been
-> > presented as a finished product without open discussion or a willingness to
-> > iterate based on upstream feedback. This approach bypasses standard
-> > development processes.
-> 
-> It would be way easier for us to re-design this but it would mean that we
-> are abandoning the current users stuck with this firmware version and that's the
-> only reason for trying to land this in a form that is maintainable. Either
-> way  please do take the call to decisively NAK the series (even if it's coming 9
-> revisions late and at the cost of 2 years). That way we can give up on this
-> and go about upstreaming using the standard development process.
->
-
-I also don't think the fact that this has gone through several revisions
-means that architectural concerns can no longer be raised. I appreciate the
-amount of work that has gone into the series and the changes made in
-response to previous reviews, but neither elapsed time nor deployed
-non-standard vendor firmware can make an upstream interface immutable
-before it is merged. This series is not even properly versioned, carries
-RFC still without version if it is no the first RFC. Anyways, there are
-series that go through 15-20 versions before it get merged. See SCMI
-telemetry itself at v11 already. So, I don't understand your complaint and
-all I can say is welcome to the kernel development process if its still a
-for you.
-
-So I don't see this as a choice between accepting the current generic
-protocol or abandoning users of existing firmware. Sorry!
-
-If it is easier as you mentioned, yes please re-design MEMLAT and any other
-algorithm as a separate vendor protocol. If it helps take this as NACK for
-the current interface. Hopefully this helps you in making proper progress
-on upstreaming using the standard development process.
-
-This is not the only or first firmware ABI Qualcomm has failed to upstream
-because it was all baked and couldn't be changed. So nothing new/surprise
-at that end.
-
-> That said please do consider expanding your reviewer/maintainer count
-> in a way that gives you the capability to review series from all SoC
-> vendors.
-> 
-
-I don't quite understand this. Please elaborate.
-
--- 
-Regards,
-Sudeep
+Thanks,
+Karl
