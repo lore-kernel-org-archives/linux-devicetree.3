@@ -1,301 +1,422 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010024.outbound.protection.outlook.com [52.101.69.24])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C027534E744;
-	Tue,  8 Sep 2026 08:17:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788855449; cv=fail; b=te/Dn1TPiz+jAMKU0yRx0tqwbbJN0LBAGKnQvv2smrHdfNrwu+VyxUA0JG/4orUUBeXTCf57hShNEUX3km4LM8gT5oBRG6P52NkWSp3EMI1AlmZyeSkkFcY1N1GFITu5rhbo/fgZKPH0lREzfcALl3vAgWB7/FR6kb1J7yidQyw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788855449; c=relaxed/simple;
-	bh=fnpbdBuACj0HkgzeBVThssA1A6iyNPD0olXD5DVuhjc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XTdVq6hf2LlEgQEYDuzYyigs6szAm5eA6MCgAu8DBx1lHA9DFqJvGym1rHZC7qhTY0mxlPSy9sh1yqlf/myn5shb9TXf+r124Vtvisc2PSMx0qID8X7BRK9PYgp7UsyJiDfxFON51eb0lE/lmTe3+Bwob62o4p1weXnFDmPU9Y8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ZKrwtX66; arc=fail smtp.client-ip=52.101.69.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 122BE23815B
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 08:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788855673; cv=none; b=tpvTKtFNybOyhpr+8W5l1yg5CKY+0akbGOM4BUT8KPurVLwpcx1k96a2P+piEvjg3C4QG+X3tKZhkYajQ27GFC60aGisUJGmaoO81ia80uuZ/BV1HAxiqLWvz7ldin0d0zMq6tU6Y3mPk/z3xrNs8vRsqaUxRMuHUiZUg62yiCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788855673; c=relaxed/simple;
+	bh=2GPv3CSE0qVbAhsN2Kki3IjcD+uwTwSi7RbmJjZRcIM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=a9ww9LTaFS9Ej+Zwj/bea3TiavpnytulBzAEtxRib6OnagPLh1+6z3YBfnbYbQGyb8OcDQwmPiBQ65oBlqdT8olU72i33qK1lbTloYZFTGyy2HOdHE0t56x2g74nubt5LeaRNOcmW212p+bZLpHpfTY8AnVqcBpwZhnzzfemajQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=KmAefoZG; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ZKrwtX66"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fPvqi3l7Xm8tqSNmekKwMkgPPbvxmgCdlNQihLHs6dWERTf9cSI0/nULWRKS0cW0F0nAsEz6z8W8Vpj7jE3TwzDlEj6bLwkDODeMvgteteNOVuBBPeUvsAevJw1PEbUD1bCV9P13jzcEB1tAgKGRA2UrgEZKshIjZNmjaqvO9dv8adInZ+x28osM09IPnz54Ja7uVIQscmwrbcEYx2+YLsIgWdfNsVogNncA4iCxg3mMIdU5CelI4tR17HUvpjX4Aq+DlWwxvncGrYmPxX2xUSYy1s1Jp86X/tm6Xd38Piqqqo8p/GpVaSTs5gEOZ1AkNg9CALg5gKgCBkN18sqQeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tE8ZVF77Q8olof0Q3h+z5+sV11+Hg/Pz6SdsPrODRLM=;
- b=xZ5LB/lasTBpHy29j2RiSNbWjEnEIboGC1fIjBT5p9VxtaFE5rAM6JABZmK6cvqXdBl2qrlm20KxVO72YHCChsKlcNUGmKnpJt3nB/RptidSgMai/H5YvBLJ2jFhi5Mh0s3nDkQVh9NFDbdG3BigIy3VKKiidc+4y3cL8kPOt30CP8LJ+vxdhvrHwm0H95MizCxmMgCU5wa8jcvtEXAwfxGF83QmlH7KhfDPGE+U98XWUruwTXiJkPcsqHxD0QRUltGHxtEeb7MG0wP9UE2Vz5RBrbZ605Fm51/pu0ND+U0CwkTwfZEXNp/xOQIJGGKLG1hQdf3SwhR5xKYRsK5mLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tE8ZVF77Q8olof0Q3h+z5+sV11+Hg/Pz6SdsPrODRLM=;
- b=ZKrwtX66iyy6KHx9UtvlB3H5oHlPiI8n4U4SitgeyN+i9gft9CNOPYav/z5Vthj9/rJLCdkUuhe2RKyUo9aAi4bu949W36S7O14RFMW3wUuo6fWcgXsVsj8psH/9Az1159bSvVHnE+Ciopku9RyXztfJ1lsyjGUqUqGjKWl8g1Blfm5Bkjg/3Df4zk/TUfcm0fN8rGYvUF9LYJ9zxyTjIxlYNFHtY5RosYKPNh8rCbPUm/hw0Rw6YVe2XTTbeJY5Pb2vQ/D0WL/TKCHV4RW+m4w/cnFj+oGaRuxC9ctFbsu7focbgOa81/+LvsQQblTXDNccX5byc1jYVWlDwRwcjw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from PAXPR04MB9351.eurprd04.prod.outlook.com (2603:10a6:102:2b6::17)
- by VI0PR04MB754002.eurprd04.prod.outlook.com (2603:10a6:800:364::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 08:17:24 +0000
-Received: from PAXPR04MB9351.eurprd04.prod.outlook.com
- ([fe80::1058:a430:52c1:5aa]) by PAXPR04MB9351.eurprd04.prod.outlook.com
- ([fe80::1058:a430:52c1:5aa%6]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
- 08:17:24 +0000
-From: shengjiu.wang@oss.nxp.com
-To: lgirdwood@gmail.com,
-	broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	Frank.Li@nxp.com,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	shawnguo@kernel.org,
-	linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	shengjiu.wang@gmail.com,
-	Xiubo.Lee@gmail.com,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	tiwai@suse.com,
-	linuxppc-dev@lists.ozlabs.org
-Cc: Shengjiu Wang <shengjiu.wang@nxp.com>
-Subject: [PATCH v5 5/5] ASoC: fsl_easrc: expose individual DAIs per conversion path
-Date: Tue,  8 Sep 2026 16:21:40 +0800
-Message-Id: <20260908082140.1316872-6-shengjiu.wang@oss.nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260908082140.1316872-1-shengjiu.wang@oss.nxp.com>
-References: <20260908082140.1316872-1-shengjiu.wang@oss.nxp.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: MA5P287CA0058.INDP287.PROD.OUTLOOK.COM
- (2603:1096:a01:1d3::17) To PAXPR04MB9351.eurprd04.prod.outlook.com
- (2603:10a6:102:2b6::17)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="KmAefoZG"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20260908082102euoutp017c78737247c8a4df5becbff87bb31062~TSr85mlvm3221732217euoutp01Y
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 08:21:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20260908082102euoutp017c78737247c8a4df5becbff87bb31062~TSr85mlvm3221732217euoutp01Y
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1788855662;
+	bh=Sfx91CShzrdAeYPF8QQviGdlRmGljU972NsYhPjm+hY=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=KmAefoZGlo4tlmfgmycp5ej0k1xg7W7ABt9FWYLRrWFZZNx9ougFH/ZmcCnWZGvya
+	 f+WAV8zZQ464ojpc5Sv21SuCvzi/f98EEKTVuIGoWrWR0y5Tp+Zg7yIH5vZMWUZgRX
+	 Pr9DllXIxRHLWDddd/tr97W6bfWXSq0Vr9Vhu5cQ=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260908082101eucas1p1b98597ee7866e0889bb1a853c318175c~TSr8gW6EM0711007110eucas1p1J;
+	Tue,  8 Sep 2026 08:21:01 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260908082100eusmtip2b264cdb1a3edc330096d5427b9dc35a5~TSr7mezgn3204232042eusmtip2C;
+	Tue,  8 Sep 2026 08:21:00 +0000 (GMT)
+Message-ID: <fa91f9e3-ae45-44b2-9429-348fbc73c285@samsung.com>
+Date: Tue, 8 Sep 2026 10:21:00 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PAXPR04MB9351:EE_|VI0PR04MB754002:EE_
-X-MS-Office365-Filtering-Correlation-Id: 900e138d-3d75-491b-d285-08df0d819c81
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|7416014|366016|1800799024|376014|10067099003|6133799003|18002099003|22082099003|11063799006|56012099006|921020;
-X-Microsoft-Antispam-Message-Info:
-	UF9org7daUlvP/iGtxRSV7IEV8h47zNVRcCamIDh4UGYEWYITDfSXR6qgHKBLEFVKf0sbKCkgMqTzBro4xY+lXgIXGAj4RMpF4RSZY6Z1CMCpJnCulozivKzebXLUlj/9qi8xilj97OvCTsA9swr7o59lzoSeQ7q+gXSeviKe0+s73mhONnRrtX0RmLomyMPN9NNUA7XRkJLF7VUoT1D9yv5BmpVVE26rFA8gg1ZxicjZEZBI71+iVDdIO1oZ/9m86NfmYgGLvM7rxo4AeuBumePBo9PkpM1OUlPOW6xlAVxlTsa9t0jqvBo25LTwl8k/6WiFekcFR9Ll7UVyBvrxfZoZBq3/2sSItQ2Y826NefTqenjCPjl9oXjani21NT9g8UhsI2Jkwj09tiLGrHD96pifEIebp3zZA9lD6ORxPd3J0tWHTewTozdt+OK2zhRzl8Vp7xA9SNqPjGas4/x4L1412Cn4BSYQUPYmbIffnhOJvV0utnwRJBYK9spdVXWh9lUrRK6PDj1GnBmjsZ7IG4kOYwMe3xRnd1fokfuz6XxyzrN/aoiVn+FIK0IoudhgbNjCwPcV9WdlTOO0QPdFqs5o7Hy68ALGEAyB+DZNGA+LOazYyxaQvRCit9eMjIfgpH6Rce9J+yrbIfAlpcC4l4vHpehUheplOCB7BoMybCe3F7ajLm8e5oKyl9zCw0loDugCiYcPn++r7+M5G2IYg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB9351.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(7416014)(366016)(1800799024)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(11063799006)(56012099006)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?rH16LI2avDfEeg4QUw/8LuLJsI4cI0k0g8UjQTuZpqwueMVfL2hGm96bqM1U?=
- =?us-ascii?Q?74CKlPa7aSvHoNPhzF72zvATqQdN0sRUqmWwZweD8C3bWfftZI/kT0YvLwGZ?=
- =?us-ascii?Q?caWNWNyGmxA8ulKH5jam52HmpnD+cjaroNzxOWdqCN6dL5M3kwOM9DAtpVva?=
- =?us-ascii?Q?K3sYef6LpceKh3SOZA1QsrBHAtKVdiOuNDPz+EoLixzkBquk7255DNYx8OoQ?=
- =?us-ascii?Q?AQXxYonaA3dOSVCBQ0p6L3UlqeDpOocI4TtWKTTaIEmFVNWU6gyZwCTy8y/+?=
- =?us-ascii?Q?sVUe5nZAfUcjSr8LwZRfzxhDXKu28XRcpIvwqWJ1QyhfZ+yp6C5v1OCTbuV/?=
- =?us-ascii?Q?EiceP3foflL+qiFA5DZjyYSXws/RwBxCFNsAV1Cil1NooFnTu+3O/td+NAt3?=
- =?us-ascii?Q?btfmdTzKjNlW8cBDDRmLhxGfb05UperS9gEojIHxkt6FQXhBzNgfajGpknl7?=
- =?us-ascii?Q?56C7gXssYLX/6ZLK4N/ZvOuMVW8mVcZt2fjOPXnn7YrS8/mJgMxvxUYw3V+X?=
- =?us-ascii?Q?Sxu6PKYUoZ41B0lVqChKzrVRkzJTxMM70mycLvuPmusv2Z4QzrWfPgFnsABr?=
- =?us-ascii?Q?0dZntKGIpL+ZmvwZ+zszsP5Sg02DLIUw1vA5slHbUiNTr+d1GRA/AnPp6TjI?=
- =?us-ascii?Q?dhpHL922C9iH9A5fed9nRoXkExYLmLY9LMMD7b5YQBVhQRyPvoBZSjcxPV+7?=
- =?us-ascii?Q?RlcS2zvI3jYIK7DBaNbQoKwMMY1HoPCRxjlALFw8Kmjy7l4egPl5HJGt46w7?=
- =?us-ascii?Q?GaPBsmud495FzXmzinZFvGQxV64xw8yXBp313dj9fYG1Z1Wh9ulNDSzCkd8M?=
- =?us-ascii?Q?DcsSszQsF4IY52JqQG5+tgIIC0C5FMzLgP2x4PM/g8syNL453CDWyXK9U4hg?=
- =?us-ascii?Q?1Rbup1IXUxsd8hgcj+sAY17W6WDT4OmSHrcl/glR+2vHTSTv68yKAmAl/gh7?=
- =?us-ascii?Q?T3RhChl18LD83yR/deqInpyDGWsZKRGQx9ot55JmGvhdfw5WoTEuLoZCgjs0?=
- =?us-ascii?Q?cf0Z/RAT7Iam0Pa+0e9NBzxyRQjRpmf8XoFBgdXPlBw7sMh9+roFJdcvP8Mc?=
- =?us-ascii?Q?N8Uk4I60CT4tA4zg7Psn2AK+bTUuGJgPOZ/oZoygNd1pU8Z1z+ASa74dOKHG?=
- =?us-ascii?Q?rBMwo7OcKULbu6Wn19gf0cFecTen4JaAYIoMOJVlq7xmqvKsFDRxAb7lJ19o?=
- =?us-ascii?Q?o0fEwLCDKJKJKWaIKaLsBLZNDDj8SNWklySOQKK/s3VNtEWz6Zr35B+BBG4z?=
- =?us-ascii?Q?fbIIjn3j9ifdA+bzkoteQXVo7UynzjxEvbz1ZhHs8WAUkpUOP/ZEKtTbF7rZ?=
- =?us-ascii?Q?XSpk7ShM27yW42qWpYWXCNzxToR9sDv45E6gn1UWg/b0cHS6fZ8dmlj6Gzud?=
- =?us-ascii?Q?YnkDtjra0Q7iZc6zaKeMDOYjhyl+9OLaj80lQZjDMKH8Yux2SOWmo1fQi4M6?=
- =?us-ascii?Q?UI7ZMJqdCB/bcDqXzC6U0KTfPfQqjyxRHfnPjpWma6QZ3v6bJVIDAoWrTOq9?=
- =?us-ascii?Q?Ad/KFjw8q2uBXAYzIVjg7LwLUWvzuNtanDPnzAm0K7dmO8PSqLFhkn8+svKY?=
- =?us-ascii?Q?n6o+gM8w5d5NQsNcQApkSHqVOQmiPM598PXNFI8suR4c3dzTnATJqhIOsV+C?=
- =?us-ascii?Q?yRZqJ7/8+pFEIylyf5UAfEahGy/5T2abTmmKQtDo4FWyGTGojmpVGBPy5y08?=
- =?us-ascii?Q?srKoZYladFmt1XwcaSw7bjRG7JBiUQunFkt/j74+vPrHW9BcQ+1229iYrHuQ?=
- =?us-ascii?Q?fzOO3Ll2JYDJMiURXgScO7kXuKGa1rrVc42DFBCuS2AS4o93s8/a?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 900e138d-3d75-491b-d285-08df0d819c81
-X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB9351.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:17:24.0140
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 9gUvPL/auo2BL1UCd+0gQWJAoQuPxlnA1Tad7BNTFhGaJbGBn/H1JHvPPaOi46ln3YUUyJQTqlZOS3lUxRIlxDKAVS4LopI+i2GXnuVpafJMQJefNnXx80bqD8ia9MaR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB754002
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v6 07/12] mm/cma: Introduce cma_alloc_at() API
+To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
+	linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260908082101eucas1p1b98597ee7866e0889bb1a853c318175c
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d
+X-EPHeader: CA
+X-CMS-RootMailID: 20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+	<CGME20260904104542eucas1p15f23d1ef005ed971314ee29521fc1e9d@eucas1p1.samsung.com>
+	<20260904-tegra-vpr-v6-7-79042cfa8de5@nvidia.com>
 
-From: Shengjiu Wang <shengjiu.wang@nxp.com>
-
-The i.MX EASRC hardware supports four independent conversion contexts
-(A, B, C, D). The driver previously registered a single DAI with generic
-stream names "ASRC-Playback" and "ASRC-Capture", which prevents
-multiple independent conversion paths from being used simultaneously.
-
-Replace the single fsl_easrc_dai instance with an array of four DAI
-drivers to allow up to four independent conversion paths to be active
-at the same time:
-
-  easrc-0 -- ASRC-Playback / ASRC-Capture (backward compatible)
-  easrc-1 -- ASRC1-Playback / ASRC1-Capture
-  easrc-2 -- ASRC2-Playback / ASRC2-Capture
-  easrc-3 -- ASRC3-Playback / ASRC3-Capture
-
-easrc-0 retains the original generic stream names to preserve backward
-compatibility with existing machine drivers and board configurations.
-Each DAI retains the same channel, rate and format capabilities as the
-original, including IEC958 subframe support on the capture side. Update
-the devm_snd_soc_register_component() call to register all four DAIs.
-
-Signed-off-by: Shengjiu Wang <shengjiu.wang@nxp.com>
----
- sound/soc/fsl/fsl_easrc.c | 112 +++++++++++++++++++++++++++++++-------
- 1 file changed, 92 insertions(+), 20 deletions(-)
-
-diff --git a/sound/soc/fsl/fsl_easrc.c b/sound/soc/fsl/fsl_easrc.c
-index a6ac94055b17..cd22ea3e03bc 100644
---- a/sound/soc/fsl/fsl_easrc.c
-+++ b/sound/soc/fsl/fsl_easrc.c
-@@ -1589,27 +1589,99 @@ static const struct snd_soc_dai_ops fsl_easrc_dai_ops = {
- 	.hw_free	= fsl_easrc_hw_free,
- };
- 
--static struct snd_soc_dai_driver fsl_easrc_dai = {
--	.playback = {
--		.stream_name = "ASRC-Playback",
--		.channels_min = 1,
--		.channels_max = 32,
--		.rate_min = 8000,
--		.rate_max = 768000,
--		.rates = SNDRV_PCM_RATE_KNOT,
--		.formats = FSL_EASRC_FORMATS,
-+static struct snd_soc_dai_driver fsl_easrc_dai[] = {
-+	{
-+		.name = "easrc-0",
-+		.playback = {
-+			.stream_name = "ASRC-Playback",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "ASRC-Capture",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS |
-+				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
-+		},
-+		.ops = &fsl_easrc_dai_ops,
- 	},
--	.capture = {
--		.stream_name = "ASRC-Capture",
--		.channels_min = 1,
--		.channels_max = 32,
--		.rate_min = 8000,
--		.rate_max = 768000,
--		.rates = SNDRV_PCM_RATE_KNOT,
--		.formats = FSL_EASRC_FORMATS |
--			   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
-+	{
-+		.name = "easrc-1",
-+		.playback = {
-+			.stream_name = "ASRC1-Playback",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "ASRC1-Capture",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS |
-+				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
-+		},
-+		.ops = &fsl_easrc_dai_ops,
-+	},
-+	{
-+		.name = "easrc-2",
-+		.playback = {
-+			.stream_name = "ASRC2-Playback",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "ASRC2-Capture",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS |
-+				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
-+		},
-+		.ops = &fsl_easrc_dai_ops,
-+	},
-+	{
-+		.name = "easrc-3",
-+		.playback = {
-+			.stream_name = "ASRC3-Playback",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS,
-+		},
-+		.capture = {
-+			.stream_name = "ASRC3-Capture",
-+			.channels_min = 1,
-+			.channels_max = 32,
-+			.rate_min = 8000,
-+			.rate_max = 768000,
-+			.rates = SNDRV_PCM_RATE_KNOT,
-+			.formats = FSL_EASRC_FORMATS |
-+				   SNDRV_PCM_FMTBIT_IEC958_SUBFRAME_LE,
-+		},
-+		.ops = &fsl_easrc_dai_ops,
- 	},
--	.ops = &fsl_easrc_dai_ops,
- };
- 
- static const struct snd_soc_component_driver fsl_easrc_component = {
-@@ -2234,7 +2306,7 @@ static int fsl_easrc_probe(struct platform_device *pdev)
- 	regcache_cache_only(easrc->regmap, true);
- 
- 	ret = devm_snd_soc_register_component(dev, &fsl_easrc_component,
--					      &fsl_easrc_dai, 1);
-+					      fsl_easrc_dai, ARRAY_SIZE(fsl_easrc_dai));
- 	if (ret) {
- 		dev_err(dev, "failed to register ASoC DAI\n");
- 		goto err_pm_disable;
+On 04.09.2026 12:44, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+>
+> This API can be used to allocate a number of CMA pages starting at a
+> fixed offset. This is useful, for example, if the CMA area is used as
+> backing storage for a nested allocator that has stricter requirements
+> than CMA itself.
+>
+> In order to reuse most of the existing code, the cma_range_alloc()
+> function is enhanced to take as inputs a range of pages to look for a
+> free region. If this range encompasses the entire CMA range, the
+> behavior is as before, but the range can also be specified to match
+> the offset and size passed in from cma_alloc_at(), in which case that
+> is the range that will be allocated (or allocation will fail if the
+> range is not available).
+>
+> Suggested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+Acked-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> ---
+> Changes in v6:
+> - refactor cma_range_alloc() so it can be reused for _at() code paths
+> ---
+>  include/linux/cma.h        |  4 +++
+>  include/trace/events/cma.h | 77 ++++++++++++++++++++++++++++++++++++++--
+>  mm/cma.c                   | 88 +++++++++++++++++++++++++++++++++++-----------
+>  3 files changed, 146 insertions(+), 23 deletions(-)
+>
+> diff --git a/include/linux/cma.h b/include/linux/cma.h
+> index 8555d38a97b1..844404459a42 100644
+> --- a/include/linux/cma.h
+> +++ b/include/linux/cma.h
+> @@ -49,11 +49,15 @@ extern int cma_init_reserved_mem(phys_addr_t base, phys_addr_t size,
+>  					struct cma **res_cma);
+>  extern struct page *cma_alloc(struct cma *cma, unsigned long count, unsigned int align,
+>  			      bool no_warn);
+> +extern struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
+> +				 unsigned long count, bool no_warn);
+>  extern bool cma_release(struct cma *cma, const struct page *pages, unsigned long count);
+>  
+>  struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>  		unsigned int align, bool no_warn);
+>  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order);
+> +struct page *cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
+> +				 unsigned long count, bool no_warn);
+>  bool cma_release_frozen(struct cma *cma, const struct page *pages,
+>  		unsigned long count);
+>  
+> diff --git a/include/trace/events/cma.h b/include/trace/events/cma.h
+> index 37195edf2498..4e0ab63e303f 100644
+> --- a/include/trace/events/cma.h
+> +++ b/include/trace/events/cma.h
+> @@ -38,13 +38,17 @@ TRACE_EVENT(cma_release,
+>  
+>  TRACE_EVENT(cma_alloc_start,
+>  
+> -	TP_PROTO(const char *name, unsigned long request_count, unsigned long available_count,
+> +	TP_PROTO(const char *name, unsigned long start, unsigned long end,
+> +		unsigned long request_count, unsigned long available_count,
+>  		unsigned long total_count, unsigned int align),
+>  
+> -	TP_ARGS(name, request_count, available_count, total_count, align),
+> +	TP_ARGS(name, start, end, request_count, available_count, total_count,
+> +		align),
+>  
+>  	TP_STRUCT__entry(
+>  		__string(name, name)
+> +		__field(unsigned long, start)
+> +		__field(unsigned long, end)
+>  		__field(unsigned long, request_count)
+>  		__field(unsigned long, available_count)
+>  		__field(unsigned long, total_count)
+> @@ -53,14 +57,18 @@ TRACE_EVENT(cma_alloc_start,
+>  
+>  	TP_fast_assign(
+>  		__assign_str(name);
+> +		__entry->start = start;
+> +		__entry->end = end;
+>  		__entry->request_count = request_count;
+>  		__entry->available_count = available_count;
+>  		__entry->total_count = total_count;
+>  		__entry->align = align;
+>  	),
+>  
+> -	TP_printk("name=%s request_count=%lu available_count=%lu total_count=%lu align=%u",
+> +	TP_printk("name=%s start=%lu end=%lu request_count=%lu available_count=%lu total_count=%lu align=%u",
+>  		  __get_str(name),
+> +		  __entry->start,
+> +		  __entry->end,
+>  		  __entry->request_count,
+>  		  __entry->available_count,
+>  		  __entry->total_count,
+> @@ -132,6 +140,69 @@ TRACE_EVENT(cma_alloc_busy_retry,
+>  		  __entry->align)
+>  );
+>  
+> +TRACE_EVENT(cma_alloc_at_start,
+> +
+> +	TP_PROTO(const char *name, unsigned long pfn,
+> +		 unsigned long request_count, unsigned long available_count,
+> +		 unsigned long total_count),
+> +
+> +	TP_ARGS(name, pfn, request_count, available_count, total_count),
+> +
+> +	TP_STRUCT__entry(
+> +		__string(name, name)
+> +		__field(unsigned long, pfn)
+> +		__field(unsigned long, request_count)
+> +		__field(unsigned long, available_count)
+> +		__field(unsigned long, total_count)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__assign_str(name);
+> +		__entry->pfn = pfn;
+> +		__entry->request_count = request_count;
+> +		__entry->available_count = available_count;
+> +		__entry->total_count = total_count;
+> +	),
+> +
+> +	TP_printk("name=%s pfn=%lx, request_count=%lu available_count=%lu total_count=%lu",
+> +		  __get_str(name),
+> +		  __entry->pfn,
+> +		  __entry->request_count,
+> +		  __entry->available_count,
+> +		  __entry->total_count)
+> +);
+> +
+> +TRACE_EVENT(cma_alloc_at_finish,
+> +
+> +	TP_PROTO(const char *name, unsigned long pfn, const struct page *page,
+> +		 unsigned long count, int errorno),
+> +
+> +	TP_ARGS(name, pfn, page, count, errorno),
+> +
+> +	TP_STRUCT__entry(
+> +		__string(name, name)
+> +		__field(unsigned long, pfn)
+> +		__field(const struct page *, page)
+> +		__field(unsigned long, count)
+> +		__field(int, errorno)
+> +	),
+> +
+> +	TP_fast_assign(
+> +		__assign_str(name);
+> +		__entry->pfn = pfn;
+> +		__entry->page = page;
+> +		__entry->count = count;
+> +		__entry->errorno = errorno;
+> +	),
+> +
+> +	TP_printk("name=%s pfn=0x%lx page=%p count=%lu errorno=%d",
+> +		  __get_str(name),
+> +		  __entry->pfn,
+> +		  __entry->page,
+> +		  __entry->count,
+> +		  __entry->errorno)
+> +);
+> +
+>  #endif /* _TRACE_CMA_H */
+>  
+>  /* This part must be outside protection */
+> diff --git a/mm/cma.c b/mm/cma.c
+> index a10ea37a261d..f92d3a188209 100644
+> --- a/mm/cma.c
+> +++ b/mm/cma.c
+> @@ -783,25 +783,32 @@ static void cma_debug_show_areas(struct cma *cma)
+>  	spin_unlock_irq(&cma->lock);
+>  }
+>  
+> +/*
+> + * Searches the CMA memrange, from @start to @end, for a free region of
+> + * @count bits. If @end is less or equal to @start, will search the entire
+> + * memrange.
+> + */
+>  static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+> -				unsigned long count, unsigned int align,
+> -				struct page **pagep, gfp_t gfp)
+> +			   unsigned long start, unsigned long end,
+> +			   unsigned long count, unsigned int align,
+> +			   struct page **pagep, gfp_t gfp)
+>  {
+>  	unsigned long bitmap_maxno, bitmap_no, bitmap_count;
+> -	unsigned long start, pfn, mask, offset;
+> -	int ret = -EBUSY;
+> +	unsigned long pfn, mask, offset;
+>  	struct page *page = NULL;
+> +	int ret = -EBUSY;
+>  
+>  	mask = cma_bitmap_aligned_mask(cma, align);
+>  	offset = cma_bitmap_aligned_offset(cma, cmr, align);
+> -	bitmap_maxno = cma_bitmap_maxno(cma, cmr);
+> +	bitmap_maxno = (end > start) ? end : cma_bitmap_maxno(cma, cmr);
+>  	bitmap_count = cma_bitmap_pages_to_bits(cma, count);
+>  
+>  	if (bitmap_count > bitmap_maxno)
+>  		goto out;
+>  
+> -	for (start = 0; ; start = bitmap_no + mask + 1) {
+> +	while (true) {
+>  		spin_lock_irq(&cma->lock);
+> +
+>  		/*
+>  		 * If the request is larger than the available number
+>  		 * of pages, stop right away.
+> @@ -810,6 +817,7 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  			spin_unlock_irq(&cma->lock);
+>  			break;
+>  		}
+> +
+>  		bitmap_no = bitmap_find_next_zero_area_off(cmr->bitmap,
+>  				bitmap_maxno, start, bitmap_count, mask,
+>  				offset);
+> @@ -835,10 +843,11 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  
+>  		bitmap_set(cmr->bitmap, bitmap_no, bitmap_count);
+>  		cma->available_count -= count;
+> +
+>  		/*
+> -		 * It's safe to drop the lock here. We've marked this region for
+> -		 * our exclusive use. If the migration fails we will take the
+> -		 * lock again and unmark it.
+> +		 * It's safe to drop the lock here. We've marked this region
+> +		 * for our exclusive use. If the migration fails we will take
+> +		 * the lock again and unmark it.
+>  		 */
+>  		spin_unlock_irq(&cma->lock);
+>  
+> @@ -856,37 +865,45 @@ static int cma_range_alloc(struct cma *cma, struct cma_memrange *cmr,
+>  			 __func__, pfn, page);
+>  
+>  		trace_cma_alloc_busy_retry(cma->name, pfn, page, count, align);
+> +		start = bitmap_no + mask + 1;
+>  	}
+> +
+>  out:
+>  	if (!ret)
+>  		*pagep = page;
+> +
+>  	return ret;
+>  }
+>  
+> -static struct page *__cma_alloc_frozen(struct cma *cma,
+> -		unsigned long count, unsigned int align, gfp_t gfp)
+> +static struct page *__cma_alloc_frozen(struct cma *cma, unsigned long start,
+> +				       unsigned long end, unsigned long count,
+> +				       unsigned int align, gfp_t gfp)
+>  {
+>  	struct page *page = NULL;
+>  	int ret = -ENOMEM, r;
+>  	unsigned long i;
+> -	const char *name = cma ? cma->name : NULL;
+> +
+> +	/* cma_alloc_at() and friends will only work with single-range CMA */
+> +	if (WARN_ON_ONCE(start > 0 && cma->nranges != 1))
+> +		return page;
+>  
+>  	if (!cma || !cma->count)
+>  		return page;
+>  
+> -	pr_debug("%s(cma %p, name: %s, count %lu, align %d)\n", __func__,
+> -		(void *)cma, cma->name, count, align);
+> +	pr_debug("%s(cma %p, name: %s, start %lu, end %lu, count %lu, align %d)\n",
+> +		 __func__, (void *)cma, cma->name, start, end, count, align);
+>  
+>  	if (!count)
+>  		return page;
+>  
+> -	trace_cma_alloc_start(name, count, cma->available_count, cma->count, align);
+> +	trace_cma_alloc_start(cma->name, start, end, count,
+> +			      cma->available_count, cma->count, align);
+>  
+>  	for (r = 0; r < cma->nranges; r++) {
+>  		page = NULL;
+>  
+> -		ret = cma_range_alloc(cma, &cma->ranges[r], count, align,
+> -				       &page, gfp);
+> +		ret = cma_range_alloc(cma, &cma->ranges[r], start, end,
+> +				      count, align, &page, gfp);
+>  		if (ret != -EBUSY || page)
+>  			break;
+>  	}
+> @@ -908,7 +925,7 @@ static struct page *__cma_alloc_frozen(struct cma *cma,
+>  	}
+>  
+>  	pr_debug("%s(): returned %p\n", __func__, page);
+> -	trace_cma_alloc_finish(name, page ? page_to_pfn(page) : 0,
+> +	trace_cma_alloc_finish(cma->name, page ? page_to_pfn(page) : 0,
+>  			       page, count, align, ret);
+>  	if (page) {
+>  		count_vm_event(CMA_ALLOC_SUCCESS);
+> @@ -926,14 +943,22 @@ struct page *cma_alloc_frozen(struct cma *cma, unsigned long count,
+>  {
+>  	gfp_t gfp = GFP_KERNEL | (no_warn ? __GFP_NOWARN : 0);
+>  
+> -	return __cma_alloc_frozen(cma, count, align, gfp);
+> +	return __cma_alloc_frozen(cma, 0, 0, count, align, gfp);
+>  }
+>  
+>  struct page *cma_alloc_frozen_compound(struct cma *cma, unsigned int order)
+>  {
+>  	gfp_t gfp = GFP_KERNEL | __GFP_COMP | __GFP_NOWARN;
+>  
+> -	return __cma_alloc_frozen(cma, 1 << order, order, gfp);
+> +	return __cma_alloc_frozen(cma, 0, 0, 1 << order, order, gfp);
+> +}
+> +
+> +struct page *cma_alloc_at_frozen(struct cma *cma, unsigned long offset,
+> +				 unsigned long count, bool no_warn)
+> +{
+> +	gfp_t gfp = GFP_KERNEL | (no_warn ? __GFP_NOWARN : 0);
+> +
+> +	return __cma_alloc_frozen(cma, offset, offset + count, count, 0, gfp);
+>  }
+>  
+>  /**
+> @@ -959,6 +984,29 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
+>  }
+>  EXPORT_SYMBOL_GPL(cma_alloc);
+>  
+> +/**
+> + * cma_alloc_at() - allocate pages from contiguous area at fixed offset
+> + * @cma:     Contiguous memory region for which the allocation is performed.
+> + * @offset:  Index of the first page to allocate.
+> + * @count:   Requested number of pages (in PAGE_SIZE order).
+> + * @no_warn: Avoid printing message about failed allocation.
+> + *
+> + * This function allocates a part of the contiguous memory on a specific
+> + * contiguous memory area.
+> + */
+> +struct page *cma_alloc_at(struct cma *cma, unsigned long offset,
+> +			  unsigned long count, bool no_warn)
+> +{
+> +	struct page *page;
+> +
+> +	page = cma_alloc_at_frozen(cma, offset, count, no_warn);
+> +	if (page)
+> +		set_pages_refcounted(page, count);
+> +
+> +	return page;
+> +}
+> +EXPORT_SYMBOL_GPL(cma_alloc_at);
+> +
+>  static struct cma_memrange *find_cma_memrange(struct cma *cma,
+>  		const struct page *pages, unsigned long count)
+>  {
+>
+Best regards
 -- 
-2.34.1
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
