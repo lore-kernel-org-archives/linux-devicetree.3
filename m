@@ -1,54 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E527598C16;
-	Tue,  8 Sep 2026 18:00:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C392596505;
+	Tue,  8 Sep 2026 18:02:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890463; cv=none; b=a824j8NdsJwNfJ9A0lXD3GcszHFaz48IxAo1+y3yFbjOURyu2x1x6oPk3EXepvj9sCnK6PkLoT2vd31nToP/jlRzjyEyeM731FBvb5Jq9qks6aJxnZe1A3G5520fEHj85FALXXdVm0lO4HjdCm606ejB4kErCpN5UKinMFRn6Vo=
+	t=1788890531; cv=none; b=I2hps/L8Of62G8e4RdWrHZ/d5GKagDeq1QuweV/YqsiUnhMEG2nAPdE7rCZTBvRz39ceJYMbK2Q0sfd1zWru4IvKDS0OkwqetyznKZ21j+VYBhDUwVy99DRLF6XYv8q3n8SnLcZjK57XWwDsLDdNIN8Tkhk9aJFOeHlNsHLV81M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890463; c=relaxed/simple;
-	bh=iYO80B8I1+w6R8uwt1KzWcOb68xdO6xDg2rGoee6Wvo=;
+	s=arc-20240116; t=1788890531; c=relaxed/simple;
+	bh=n3V2a4c6aHGm1K1u+YJE1Ibm8+iKORtrh4Rp+upx/Cc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=piNingCa1Cs+z4uZtjnTmx8qC46jmgmpH4w7AoKv3ueFNy0s9qyIWSCg/Yele4uFitarb27O0/rkLOhzOcxBjwglptqL68lz1P5yhGuJ9kn4IPVYcIAlBK2rKWp/ZALzVYEZHVC5/oOgd71ExtcbAyOT+3CEE+D1Jmcm79ewdHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LVJlAWto; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AtVwZvNT4mOomcq9jKZD8QLU4ByPG+6J0iUC0T5OHVGlUJr6V6jbCtgnQLZoxaDXvrBexJ6pC94F4l41CyOg5Q/UA1fuMl6uW8mPbhQKgd1WRyIPX3rOtbrnCWFE3pnUTfmswxYuFtNb9BRd09UaH8TSR47qdmeQ9zAEIU823Zk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijGlZgsU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LVJlAWto"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93F391F00A3D;
-	Tue,  8 Sep 2026 18:00:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijGlZgsU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8AC351F00A3A;
+	Tue,  8 Sep 2026 18:02:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890457;
-	bh=iYO80B8I1+w6R8uwt1KzWcOb68xdO6xDg2rGoee6Wvo=;
+	s=k20260515; t=1788890530;
+	bh=fnf44b1jijqB+HDIBPwbGQPtA9lAXufRWz5wUuQaZSo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LVJlAWto+Ot4fi9SIelMgvzf2MC5fZEhyoOiXt6RxRXS3XHJdojlTHxbrBF8J8N6v
-	 Ya2pwq6P5LmtPvHY6LbdSTP6SKUJygK9x3xUrluezkA4rfwyewfXJZcfCF48C8Hchs
-	 1m7eCYAk6FM0PlV/uhZDdoiuIWW7es3tRJkyu3V6EMpCTr53TIAcaViocRjV5uPyJO
-	 r5LHwr/WOViFrLTPJfOvqOB3FFuwNc8SlM6n7iPSppoBmjF5h0dKZHLwS63fhkQdnE
-	 3f/01erVZYr9gvASHCbv5nY5PNsBdNI1y+d7UiQKELu4uJ+w+awHBBoUnI6PDKL0l0
-	 pZ01Ntsoo9C4A==
-Date: Tue, 8 Sep 2026 19:00:51 +0100
+	b=ijGlZgsU2yTb9NyG/QXKLC1OxtHXgcftO+TLwbSpqVB1i/LaJHK7y2Z3ociQBBpn7
+	 J0E714ZLZWyLhqCo5uZM7LWNAuT5cH168wHrL2h4ALlgI7OQdtTiej7MGSfuPAYAJw
+	 3UWTpbFhI0O9uFkwGRRFEYrCDGqprluXuAo26DQlmKgtCAn8ngaOob83sRbBCW1Yln
+	 33+3GlTT0kTd9oCzZBccDUq59gKBED9Okayoj4bN/lH9yXjQYekZshTVTPnk+O+QKB
+	 qDC99trMPLvEULwITneKTN2DyDYWbXxDr96zAgIaEwPHKlxFMwjJGwiv6ekG2yo3Ta
+	 w1pQ53B8dKVWw==
+Date: Tue, 8 Sep 2026 19:02:05 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Archit Taneja <architt@codeaurora.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
+To: Colin Huang <colin.huang2@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 7/7] dt-bindings: display/msm: hdmi: Correct name of
- disallowed supplies
-Message-ID: <20260908-very-rocker-799f0b4eb26b@spud>
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-7-dcf8956878ca@oss.qualcomm.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grant.peltier.jg@renesas.com>,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Colin Huang <u8813345@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
+ RAA229639 and RAA229640
+Message-ID: <20260908-prozac-bunch-5dc2a7fb4d9b@spud>
+References: <20260908-add-raa229639-and-raa229640-v2-0-83c75b61139d@gmail.com>
+ <20260908-add-raa229639-and-raa229640-v2-1-83c75b61139d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,34 +50,67 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vyaPzKmKVJe2FvgC"
+	protocol="application/pgp-signature"; boundary="WmcQSSsc7lRDv8Rj"
 Content-Disposition: inline
-In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-7-dcf8956878ca@oss.qualcomm.com>
+In-Reply-To: <20260908-add-raa229639-and-raa229640-v2-1-83c75b61139d@gmail.com>
 
---vyaPzKmKVJe2FvgC
+--WmcQSSsc7lRDv8Rj
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Sep 08, 2026 at 09:10:47AM +0200, Krzysztof Kozlowski wrote:
-> There are no properties in DTS or Linux drivers called
-> "core-vcc-supplies" or "hdmi-mux-supplies", so the binding probably
-> wanted "-supply" properties instead.
+On Tue, Sep 08, 2026 at 03:04:26PM +0800, Colin Huang wrote:
+> From: Colin Huang <u8813345@gmail.com>
 >=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Add Device Tree compatible strings for Renesas RAA229639 and
+> RAA229640 PMBus devices.
+>=20
+> A fallback compatible is not introduced because the available
+> documentation does not establish DT-level compatibility with
+> any existing supported device.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Please don't respin before people have a chance to actually respond to
+the thread. Please see my commentary on V(this - 1) on the compatiblity
+of the devices being added.
+pw-bot: changes-requested
 
---vyaPzKmKVJe2FvgC
+Thanks,
+Conor.
+
+>=20
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.=
+yaml b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> index 8216cdf758d8..3537c7ddfb09 100644
+> --- a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> @@ -60,6 +60,8 @@ properties:
+>            - renesas,raa229001
+>            - renesas,raa229004
+>            - renesas,raa229621
+> +          - renesas,raa229639
+> +          - renesas,raa229640
+> =20
+>        - items:
+>            - enum:
+>=20
+> --=20
+> 2.34.1
+>=20
+
+--WmcQSSsc7lRDv8Rj
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBNUwAKCRB4tDGHoIJi
-0oO7APsGmykE3+6RN+2pC/OzeWImWqXs3tPqdm85hWcBCC+MBAEAwQAtr/IdzR64
-GIh/rMnDt4ifvpxhUSy7oCiAj3QRnwE=
-=40c7
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBNnQAKCRB4tDGHoIJi
+0qCqAP93CNX9DUdipEyXLoFlvbRCevHnT+5WqQND5mfXnKGAAAD/fvbukVzEP/Vg
+aNPFloqtMrOIPefD7tnRcRsqM2irwwk=
+=190V
 -----END PGP SIGNATURE-----
 
---vyaPzKmKVJe2FvgC--
+--WmcQSSsc7lRDv8Rj--
