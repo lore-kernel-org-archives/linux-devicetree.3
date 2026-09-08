@@ -1,101 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC85C4EE87D
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 10:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 052DF4F7991;
+	Tue,  8 Sep 2026 10:10:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862204; cv=none; b=AEtNMJLI+krM0Sf5pu8gFvHTbTM62ukAvQMc6IpH8QjGFSao2kCvtF0NWdvcOC1nZhKBYLorcRpGkSruHc1pTRA+aJLe6jMdLneSAtzMMytF3gjm4x0Zpcih4Qo+//YRnyHUfi71qHbnMBBjct3Ag2RM59kemVkam7CnIrI5NTE=
+	t=1788862258; cv=none; b=X+HYkNiIUehxnGclUqrj6LgLlA9+j90a1Yyj9Hxk87scSLs5pBb3VwsYFYStSbitBaDVGm111qzB68UAkMRdOj6mOG49PceTz8k6mnuAh74Kr423drGV7cvMuUUuz36T4ZFvgsZ3GL69KqfSeFsatgHMJ1JBQfNCqGqgyBaDkuI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862204; c=relaxed/simple;
-	bh=Ltt9M3WnmdnLIUplLbYZ3vp9uDyRvn4m+BOi1DJdwcg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rfVogOSwLRaqfFMHV30SuxmTfzOk8erLgn+C0sBCWgx8Z0JX21fCuArvCNXEVi9DS9OZb3j6avdgI5rPKaBVkg845iV5If9a6Zffc3H6fu646FquWFT4FyBrQ3ZnOX0h4F0+pBo4n43o+CzwJ+zgwC2QhVOL+qhMpY93IgZg1Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J0G7Ls3K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788862258; c=relaxed/simple;
+	bh=qKnx0D28Jj6C3klzzYcvkc/kMUsORdfaOz83p13SD10=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P8RrBjwfHpZL194sRsy4n0YCDREK4WAp6hBEMbHnYE8zcF4/6cMCCP+o0DKH03K+7y0CJq9oC1E+5gDdWdvOdOuatO5hLUoRcVcax07CnQ9aY3Oe3RgOm+cCgvOm0vc0nyPcIH4nFk9dYxg0aXbl1pg/ijk9EcC+DqG7kxRoGps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lBdlO5jd; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J0G7Ls3K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EFCB1F00A3A;
-	Tue,  8 Sep 2026 10:10:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788862202;
-	bh=ELzyRW4FNuGIb2NoC0UKNbHK9TyChHCABhN2yzr0tAI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J0G7Ls3KVCXjmaNfIX3DR4AEwIYvQKrcEGPq2dP1nfe6Yl2YOeN97SywRdY583CUv
-	 TFXybTSE0rR0gWRGekPVVwCJyVeuTv/ZzmIgRGmS8SXO2UFR9EJQ5vNVBlgXCTzh7T
-	 zd4VIDw5iO1XPDMGyBHf+dfpk6QJbNSrfWZNCGD3948ps9Ql1F5pcYFkagWPJHbQmi
-	 O+E+OLew9y2YDh8lDHxbhkG/ikNvJcjc8Jx9VDeVQZmlRFefZMKOmxD/L3ToVoBPfL
-	 zj8PTaw+evaOa4HwuWlZpLUL6GoBPOUtSk69uBNAaDuHMd6mE0VedznjFHPOgHgkyE
-	 7meZV8l3uNeLQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/9] riscv: dts: spacemit: add USB2.0 controller
- nodes for K1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-6-f07342ffa051@linux.spacemit.com>
-References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
- <20260908-b4-spacemit-k1-usb2-v2-6-f07342ffa051@linux.spacemit.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 10:10:02 +0000
-Message-Id: <20260908101002.8EFCB1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lBdlO5jd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788862256; x=1820398256;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qKnx0D28Jj6C3klzzYcvkc/kMUsORdfaOz83p13SD10=;
+  b=lBdlO5jdAlQrj+HtBDl6V5T2+L7Z1jSP+/zJNngCahJIwgxjq+lW9cLW
+   wcCtFOchDynUQhLGEairBBZ/21AQrA4Aedkdle1WfAmjYWJ750CxYIopt
+   lz/xjV8PaCK55EPqmmZ2eI0vY1pKIN0D1gloKe8M2h4R8UWktam9sPkjD
+   0q7MvGsyoVY22HOzwPUctl0mu0iEaXsy9iUaLU1AcTwQ6WjO9kH7g0ETo
+   SGCfE4uz5qcYxmKqGeMvMHc/fJTlNfvcolJ/OmgC5ed71BTEoKHQfiKox
+   D4GXKZl8iVJzuHxLTivGEb7+QvsaIl2PdL/3Wk85rexKPIvrXgyK6Nfps
+   g==;
+X-CSE-ConnectionGUID: DUsx6htURR2ibdz84vpz7A==
+X-CSE-MsgGUID: s0uqgzISRM+L0+4AmMFKhA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="99853768"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="99853768"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:10:53 -0700
+X-CSE-ConnectionGUID: es+f+PFKRCytO+bPMOawrA==
+X-CSE-MsgGUID: MJYa/lB2Rpese1QSksVqvw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="274472907"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:10:51 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 8CB4411F7F5;
+	Tue, 08 Sep 2026 13:10:52 +0300 (EEST)
+Date: Tue, 8 Sep 2026 13:10:52 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ap_fLLHSEmw0J8yN@kekkonen.localdomain>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
+ <ap-1tDtGCWGc9Hvs@zed>
+ <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
+ <ap_TUa3D0-ZGnrXy@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_TUa3D0-ZGnrXy@zed>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Jacopo,
 
-Pre-existing issues:
-- [High] The `storage-bus` device tree node lacks a `dma-ranges` mapping to=
- system RAM, which breaks DMA functionality for the newly added USB2.0 cont=
-rollers.
---
+On Tue, Sep 08, 2026 at 11:21:51AM +0200, Jacopo Mondi wrote:
+> Hi Sakari
+> 
+> On Tue, Sep 08, 2026 at 11:12:45AM +0300, Sakari Ailus wrote:
+> > On Tue, Sep 08, 2026 at 09:17:15AM +0200, Jacopo Mondi wrote:
+> > > Hi Sakari
+> > >
+> > > On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
+> > > > Hi Sakari, thanks for the review
+> > > >
+> > >
+> > > [snip]
+> > >
+> > > > > > +
+> > > > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > > > > +{
+> > > > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > > > > +	};
+> > > > > > +
+> > > > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > > > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
+> > > > > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
+> > > > >
+> > > > > Don't mask error codes! Just return the error code returned by
+> > > > > v4l2_fwnode_endpoint_alloc_parse().
+> > > > >
+> > > >
+> > > > With PTR_ERR() I presume
+> > > >
+> > > > > > +
+> > > > > > +	/*
+> > > > > > +	 * Link frequencies: the driver supports a single link frequency,
+> > > > > > +	 * no need to check bitmap after this call.
+> > > > > > +	 */
+> > > > > > +	if (v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
+> > > > > > +				     ep_cfg.nr_of_link_frequencies,
+> > > > > > +				     mira016_link_freqs,
+> > > > > > +				     ARRAY_SIZE(mira016_link_freqs),
+> > > > > > +				     &mira016->link_freq_bitmap)) {
+> > > > >
+> > > > > Ditto.
+> > > > >
+> > > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > > > +		return -EINVAL;
+> > > > > > +	}
+> > > > > > +
+> > > > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> > > > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> > > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > >
+> > > > > Instead of callind v4l2_fwnode_endpoint_free() here and above, I'd add a
+> > > > > label for error handling.
+> > > > >
+> > > >
+> > > > ack
+> > >
+> > > I'll actually backtrack on this.
+> > >
+> > > Sashiko pointed out that mixing gotos and cleanups is probably not a good idea
+> > > and this time, the bot is right.
+> >
+> > I'm not quite sure what you mean. The general practice is that if error
+> > handling is trivial and there's only a single location to unwind something,
+> > you should do it on the site. In more complex cases use labels and gotos.
+> > That's what we have here. (There are of course more complicated cases where
+> > it's not that simple, but this isn't what we're discussing here.)
+> 
+> include/linux/cleanup.h
+> 
+>  * Lastly, given that the benefit of cleanup helpers is removal of
+>  * "goto", and that the "goto" statement can jump between scopes, the
+>  * expectation is that usage of "goto" and cleanup helpers is never
+>  * mixed in the same function. I.e. for a given routine, convert all
+>  * resources that need a "goto" cleanup to scope-based cleanup, or
+>  * convert none of them.
+> 
+> I take it as "do not mix gotos and cleanups"
+> 
+> As the 2 cleanup paths are trivial, I would rather do not mix the two.
 
-commit 45555a07cc8ff1f0aa27f21fd3042e46e3d7b6eb
-Author: Junzhong Pan <panjunzhong@linux.spacemit.com>
+I don't recall asking for that.
 
-riscv: dts: spacemit: add USB2.0 controller nodes for K1
-
-This commit adds the ChipIdea USB2.0 controller and PHY nodes for the
-SpacemiT K1 SoC. It includes configurations for both a Dual-Role and a
-Host-Only controller.
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k1.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k1.dtsi
-> index 3fabfd34114b2..22896e757dbb5 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1.dtsi
-[ ... ]
-> @@ -1301,6 +1317,30 @@ storage-bus {
->  			#size-cells =3D <2>;
->  			dma-ranges =3D <0x0 0x00000000 0x0 0x00000000 0x0 0x80000000>;
-> =20
-> +			usb2_0: usb@c0900000 {
-> +				compatible =3D "spacemit,k1-usb2";
-
-[Severity: High]
-This isn't a bug introduced by this patch, but placing these new DMA masters
-into the storage-bus node exposes a pre-existing flaw in the bus's
-dma-ranges configuration.
-
-The parent storage-bus defines its dma-ranges as restricting DMA to
-physical addresses between 0x0 and 0x7FFFFFFF (MMIO space). However,
-system RAM starts at 4GB (0x100000000).
-
-Will this prevent the newly added ChipIdea USB2.0 controllers from function=
-ing?
-Because there is no reachable RAM mapped in the parent bus, the generic DMA
-framework will limit the USB controllers' bus_dma_limit to 0x7FFFFFFF,
-causing DMA map operations or SWIOTLB allocations to fail when probing the
-driver or triggering data transfers.
-
-> +				reg =3D <0x0 0xc0900000 0x0 0x4100>;
-> +				interrupts =3D <105>;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-b4-spacemi=
-t-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com?part=3D6
+-- 
+Sakari Ailus
