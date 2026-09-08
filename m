@@ -1,75 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8447859D610;
-	Tue,  8 Sep 2026 18:20:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121C53A9605;
+	Tue,  8 Sep 2026 18:22:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788891637; cv=none; b=OVTLIZVY5GzK4Ejncimv6Sr0hJiNI3htRd6+amkEju2/mQaQdeH/dXdLhKXWxRXja3wp0/p1P5TOAY3HcbZRWOR1BxjgOIVbRAzq+yCrdyK6+sfpvmY2GB+ATDgBm8WsE2eKZcCtv43HBPK3YfxcQEr0oisGWnaNrGDhN6IHutw=
+	t=1788891726; cv=none; b=WODpZ4AXjSspkiOjTvkazDzFOvZOvClebS/jPAIENSlh3vnqki0TM/5BKWBQDukok6wc35jQTfcGPXE/RMgoI9QLVS/+C5GIl4SrZfce03Rq1IvrJIuxb6c0w41hPwc762ZVtL1Yr7h6e8t0Yt1GT25DuG0kfZO74nKsoY6QdkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788891637; c=relaxed/simple;
-	bh=iF1T2G54AB61FFX+H2X6INkXOrjW3hIt8QYNA5KfVTI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BPCIS2BtDnZZbqh29pmlvcQfTmXl/l3bxOVFz0gUdtKRnaRRc1EKkkt4uODG9pMiTsJKvC0ZWafMUilx2Asv8nhVvuQHmZpTzr0l/VlqFXrSG7Sg6sZy4u6RiIDy/qTUTSOfCqNNOyurwZHoYrxZ9qhBRzv3pHvJAnlP3pVEuWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mkjkTa04; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788891726; c=relaxed/simple;
+	bh=pZUGW3mxkjzlt6qWdkhwhkzsYVZmmQwBD7ygtdVa8ck=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=AEBTaqlWQ8h11lY1vO1AVYRdP+Y14U1BrtDLx1eg/DQ0uaMzxDV/lTQhtMajFENzWkeFlHdbt2xOh+zU3Cz3nGzvQYKyM0inZvG8pSGlWvIuW+U5jbrl4/dLlfU153Po6G3LhIfi1NFh4jTBGzCLj8NQ6sU8CFZb/lgFzEKDH+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TiT4BGm9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mkjkTa04"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BEBF1F00A3D;
-	Tue,  8 Sep 2026 18:20:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TiT4BGm9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F761F00A3A;
+	Tue,  8 Sep 2026 18:22:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788891636;
-	bh=ccXOdVFzH972jdgocJFa+E44+QQhkG58eRxMxfs9WlY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mkjkTa04ZPZEb5beLHdp/cJO/j/Gp8g1XFRdKygFna5WTunLf+r8AJ+WRXgQ0wVf1
-	 xnEldfNR/arHNmpMNuS7WfdDvlx6nXGCmo7rRblmzNnqDWMN1SukiyCZUIomuHCXGn
-	 xFYnEJK1j0AgS6jIDltyiXJOXB+DSpi2cRyTXAobmXF5mfVguV/7w7Sk+QIX7IgwoS
-	 MUIDpboS8kRfhsaDEIxZTp3rhqpmR+Uw5JBi4dK1e/MqpVcDanL/UKUwUPs3NtsZ5w
-	 gII4H9oioLPHv9uU2CDYf3L5P1N5atkLlJCNPSkygE1h1dUqt11qSpJrGdYVjbc5st
-	 S5+8c2Xqz3BtA==
-From: Conor Dooley <conor@kernel.org>
-To: linux-riscv@lists.infradead.org,
-	Conor Dooley <conor@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	linux-kernel@vger.kernel.org,
-	Pan Chuang <panchuang@vivo.com>
-Cc: Conor Dooley <conor.dooley@microchip.com>,
-	Daire McNamara <daire.mcnamara@microchip.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Valentina.FernandezAlanis@microchip.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] cache: sifive_ccache: Remove redundant dev_err_probe()
-Date: Tue,  8 Sep 2026 19:20:28 +0100
-Message-ID: <178889161921.3146991.13668063347588456069.b4-ty@microchip.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260713112946.468067-1-panchuang@vivo.com>
-References: <20260713112946.468067-1-panchuang@vivo.com>
+	s=k20260515; t=1788891725;
+	bh=KOkqH9+KsQ/pfEOXoQXs/QBpMjFn4xAHhMmlbJfXtIs=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=TiT4BGm938ZXzhfpCXXPU+WVWM5OoeDt3/bK+ZLWDhhs1eF+y1t+MrjCirtWxjCPV
+	 ZHP4C4FEGNTUf8kWLhlej6CO2Qx1qbgXw4xIjE7QUe9bCLx1nUVQI2rW/JUoxquQ7s
+	 obT6lVwnBhVjEUczZ6TqcKkztvD8bpofHYkv7K9t1HnaGWzgSdYAKrCuN4TENKgGfV
+	 d9avD5WoNmq9IrbBkHbWi1UkwqZqnl/tdmc5/MMAfq6LXh+FpWaDM72bj1zWFHRZIx
+	 dzAZ2PFKU8Z4apXP1uNN/BQdakhpCGb887ZATF8v/HYvAj1EdK9FGG7ExGmqRj6aLU
+	 cLy+eplHy6ggA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 62F16198003A;
+	Tue,  8 Sep 2026 14:22:02 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 14:22:02 -0400
+X-ME-Sender: <xms:R1KganhWojexTaEkcE9JNG2cPj7XgDgOFoXrGK4XmayHCNKPiO9VaQ>
+    <xme:R1Kgau10_SvGPB3yfP4vC7fFqFw7CFxNWNHyAOuKkR1D3WdEFe3_l1bs_81OVeuT-
+    TvpIP0I9YyFC9FtFqLdEAVy259vPupVkwojcM3tDj-Ur1n7W8HVZA>
+X-ME-Proxy-Cause: dmFkZTF3Xbdz07cy4boaCVQHFkenJCqc2sn4pb294JKVq2iAU/ryEnJrbS5rHRz/45kLdP
+    XWVPpmR29IIAjw31EDFDOoChR5dpk7oDeztrPOMK6Ck6rUZyoBVx+gU/Dj+v2ezibRn/3Z
+    6copKQyaHQTnzkXFaRPpL+YsGtqzZF8KdZn0FKgRlMOihu7MmoU83A9qIw5BuKzEDvlTFC
+    hkYrh2QdS2qnv5wk8D0+zIgWAi+fdBqzJoR6DSey3OStD8Far5kE1hHrAv5MW+cSE92604
+    C0JRxb+rlMAsR5nZZHdab1pbHPOU2NsD1PcNS9z4aUCnOnSHzZzNZWET46rcpd7ZG3n6Zp
+    23NB5BYR9Bd2vlT99ZOgkZynr7E8I3RD8qiC3VJf7Vwao2PfWxTnJpoGsqCAkB7VUl2RiA
+    iFQniTW0DmVYGD4YR/R1+UC0pImIplV9uP1J5d8ZROiVKPwGAQyS2/iK42Fmxof1ON/y7c
+    8HYLyRpBRPmYiSuAw8UZ7v+MaAJjjPcBzs4AGz7ScKQdHquEMdlRoBfggT0viLHZSI7dey
+    6sGEL6e5OCUhAEgk0wFO/27J+MEfYUkM3vdmBLb5bFJgJ2CA3jtJ7Yeo5xke8uESS3zrAl
+    /pg3sPxHGz8QeYtfQ6nR+fsf9bPOlUF4X3Z7E/Zv5bzYrIY2S3/tLiBS4wOw
+X-ME-Proxy: <xmx:SlKgakKMyflVPzT2IaiVNPoit3F_v_SjIGgTR7F9CFExNsQVJHhdWg>
+    <xmx:SlKgasG6ovtp0PxJslZBsEexayDxOMD1Ftz_o4s2LvqKcOfBVP1pMA>
+    <xmx:SlKgar7zpPWvSZN0h6Z3E1JiiiuQfAWt1u4bCGJuv8NIIDx0iClvNw>
+    <xmx:SlKgan3ZQ1aVDog9cCn7AS2QRAKeDXuh--6GdSSWbM_NUMzrG7ow7A>
+    <xmx:SlKgang6dUc9NvIN_N5Ch2nIpi01dqxYKTTh1R4UYO_yWH9JD0MboRxU>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 8F55A32A0078; Tue,  8 Sep 2026 14:21:59 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=466; i=conor.dooley@microchip.com; h=from:subject:message-id; bh=vcZWekDFgRHjqKZw/CO3x6YyAvbCmqMsDCJ5P79VCoI=; b=owGbwMvMwCVWscWwfUFT0iXG02pJDFkLAl9LztBwe2yjuO7Smqjkmd6z5MNmvnkvfcYsI93D8 fPLbQ9tOkpZGMS4GGTFFFkSb/e1SK3/47LDuectzBxWJpAhDFycAnCT2xn+mZ29dHbHts1xyW90 c2fUet1b8uUVp+6TrM47Op+XbrzD+JeRYf3CzG7B+oCtvx22dfjzzVEQmB9nuzLT1s2vNeVPsOp kbgA=
-X-Developer-Key: i=conor.dooley@microchip.com; a=openpgp; fpr=F9ECA03CF54F12CD01F1655722E2C55B37CF380C
-Content-Transfer-Encoding: 8bit
+X-ThreadId: ANqE0jO8KCPJ
+Date: Tue, 08 Sep 2026 20:21:39 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ "Damien Le Moal" <dlemoal@kernel.org>, linux-rtc@vger.kernel.org,
+ "Neil Armstrong" <neil.armstrong@linaro.org>,
+ "Vinod Koul" <vkoul@kernel.org>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Vladimir Oltean" <olteanv@gmail.com>, "Frank Li" <Frank.Li@kernel.org>,
+ linux-pci@vger.kernel.org, "Rob Herring" <robh@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, imx@lists.linux.dev,
+ "Niklas Cassel" <cassel@kernel.org>, linux-ide@vger.kernel.org,
+ linux-watchdog@vger.kernel.org
+Message-Id: <71266564-7be5-4621-ab03-29cf9ec49287@app.fastmail.com>
+In-Reply-To: <20260908161125.E4A331F00A3A@smtp.kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-6-arnd@kernel.org>
+ <20260908161125.E4A331F00A3A@smtp.kernel.org>
+Subject: Re: [PATCH 05/13] ARM: orion/dove/mv78xx0: remove all board files
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-From: Conor Dooley <conor.dooley@microchip.com>
+On Tue, Sep 8, 2026, at 18:11, sashiko-bot@kernel.org wrote:
+> [Severity: Low]
+> Since all the board files like arch/arm/mach-orion5x/ts78xx-setup.c are
+> removed in this patch, should the MAINTAINERS entry for the TS-78xx platform
+> further down in this file also be removed?
+>
+> The pattern F: arch/arm/mach-orion5x/ts78xx-* now points to deleted files,
+> which leaves an orphaned entry for Alexander Clouter.
 
-On Mon, 13 Jul 2026 19:29:46 +0800, Pan Chuang wrote:
-> Since commit 55b48e23f5c4 ("genirq/devres: Add error handling in
-> devm_request_*_irq()"), devm_request_irq() automatically logs
-> detailed error messages on failure. Remove the now-redundant
-> driver-specific dev_err_probe() calls.
+I fixed this instance now. I tried to automate this with a script
+but could not figure out how to deal with wildcard matches and
+only did the ones that have an exact file match.
 
-Applied to cache-for-next, thanks!
+If anyone has suggestions for doing this better, please let me know,
+or run your script on 
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+and send me the results.
 
-[1/1] cache: sifive_ccache: Remove redundant dev_err_probe()
-      https://git.kernel.org/conor/c/75effa447550
+> [ ... ]
+>
+>> diff --git a/arch/arm/mach-orion5x/Makefile b/arch/arm/mach-orion5x/Makefile
+>> index 6f54d7fef27a7..7e9634e043185 100644
+>> --- a/arch/arm/mach-orion5x/Makefile
+>> +++ b/arch/arm/mach-orion5x/Makefile
+>> @@ -2,15 +2,6 @@
+>>  ccflags-y := -I$(srctree)/arch/arm/plat-orion/include
+>>  
+>>  obj-y				+= common.o pci.o irq.o mpp.o
+>> -obj-$(CONFIG_MACH_KUROBOX_PRO)	+= kurobox_pro-setup.o
+>> -obj-$(CONFIG_MACH_TERASTATION_PRO2)	+= terastation_pro2-setup.o
+>
+> [Severity: Low]
+> Are irq.o and mpp.o now completely unreachable code?
+>
+> Since all the board files that called into these APIs have been removed,
+> it appears these objects are now unnecessarily compiled into the kernel
+> image. Should they be removed from obj-y here?
 
-Thanks,
-Conor.
+Added this to the patch, removing the two files and recursively
+seven more that become orphaned afterwards:
+
+ arch/arm/mach-orion5x/Makefile                |   2 +-
+ arch/arm/mach-orion5x/irq.c                   |  51 ---
+ arch/arm/mach-orion5x/irqs.h                  |   9 -
+ arch/arm/mach-orion5x/mpp.c                   |  41 --
+ arch/arm/mach-orion5x/mpp.h                   | 130 ------
+ arch/arm/plat-orion/Makefile                  |   4 +-
+ arch/arm/plat-orion/gpio.c                    | 616 --------------------------
+ arch/arm/plat-orion/include/plat/irq.h        |  15 -
+ arch/arm/plat-orion/include/plat/mpp.h        |  34 --
+ arch/arm/plat-orion/include/plat/orion-gpio.h |  38 --
+ arch/arm/plat-orion/irq.c                     |  39 --
+ arch/arm/plat-orion/mpp.c                     |  82 ----
+ 13 files changed, 2 insertions(+), 1066 deletions(-)
+
+This leaves only pcie.{c,h} in arch/arm/plat-orion/, which
+should be folded into arch/arm/mach-orion5x/pci.c, along
+with parts of arch/arm/kernel/bios32.c that nothing else
+uses any more. I don't have a patch for that yet.
+
+      Arnd
