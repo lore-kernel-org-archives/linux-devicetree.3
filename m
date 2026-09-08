@@ -1,321 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763F724E016;
-	Tue,  8 Sep 2026 18:05:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADD4C5964E0;
+	Tue,  8 Sep 2026 18:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890752; cv=none; b=Gm141sMFtnQRGJTOjn3dsplM17zErHM8B/W7Ah06kLWh0WUxDCO0QQr4KzBJoDblx47HvfhhRV3BMS/awx/zc4DI5Dkc9FbHy8VVh3bUVhQgXJhcksPHQM0RGM8u5NETyNc/MOmTM5lElQN6bxcqK94TRgfEIXBxwzcvBmHbcos=
+	t=1788890797; cv=none; b=Y4ysjaa3DwBFMgszDPKNlM5vNLGendWGR90IdSD7Wcq/X0L5d3mp866zmNGdv82KcgGpQC7bYMJxLbPxz1AGePuwhS0qBPyEyBnWcXW4okxaBzrrULo/CCx4Lr10D+lPAOA5MrkutjTzQu9sONMzHwWmdQnP3vuo1Lx8g3Vqm9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890752; c=relaxed/simple;
-	bh=JQzHor3hqLuiF8iayFyd1AQ09epOsGl5mSglWfkmXVQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=seOM7KmHf9FSExwojoSU4QnvbPAdum6lkYdq4hbM12grfd/jFhEcQDJYWHf7c5d35ZFsR4MxxrBUpArRq8xGqfJT4zVkfReiTjs1Vie4hUPS+XDQIY9FH8QuXg1q13Lu+RdsitRV2Jjp2tisAkKV4TnfXojjRJ90JhQPVhKwem0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJ9JDdQp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890797; c=relaxed/simple;
+	bh=yVyRgQwrCG4BlgyLUxb07EUXJkvl9QtgLR3SdcXC9Aw=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=h8XKEfg+S9hvyGrjP/Me6ri2sI9FADfTYnl4K8dPAFCM1kiXMoeOA9mPETNjok+i9q2e5v1yva5Bxl58u+83YZElpMZRWkcvR7+z6CB2e7wMVSfkPQvO7L+8nuqnFpMD+0HASsCrDimZIF8TVuab1fJHyZWLy21SGdJZfhZdlpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jiVeWI4B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJ9JDdQp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB8991F00A3A;
-	Tue,  8 Sep 2026 18:05:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jiVeWI4B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5161F00A3E;
+	Tue,  8 Sep 2026 18:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890749;
-	bh=7f41jQAfHxsDeDObc+RQIVm6qZ/UjFmvvrb1I+FWYFQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eJ9JDdQpAgCBXgoYH5R3Q6M9v1mQtW/BZYpiuBfZsKyr3LbLzmmLDQ1xP4t6/+FYQ
-	 h/uQBYc0CUxx/90hhmp8n8aFRiXIzrEm/HeRbSB9dH2+RK+c0VoVzUYQYLeTne7VkM
-	 9PtPh2eqILkzI2ZypWPRMdCI68HYkc8LhTpTdJSE/XJPr5JgJBPfnx1lks3IU/tY6/
-	 ATS1HWH0sLUlPEoZOMmMRs0gEZi2HrJXA9TnGmaGUjFg8hjwDJZtrIbSgkllUK6TeP
-	 Ak0g/dyt+VRUZWENyyN5QGy8nfqJhPW6cEXFhNYa3+pKQKM0RDBdftdAmVPwLdGqyI
-	 Khh/rU0RGZWEQ==
-Date: Tue, 8 Sep 2026 19:05:44 +0100
-From: Conor Dooley <conor@kernel.org>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Jernej Skrabec <jernej.skrabec@gmail.com>, Lee Jones <lee@kernel.org>,
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	"Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Chen-Yu Tsai <wens@kernel.org>, linux-sunxi@lists.linux.dev,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v11 1/2] dt-bindings: mfd: x-powers: Add AC200
-Message-ID: <20260908-semisoft-appendage-ecbeb9b2d88e@spud>
-References: <20260907-submit-ac200-mfd-v11-0-58dd9dc7f69a@gmail.com>
- <20260907-submit-ac200-mfd-v11-1-58dd9dc7f69a@gmail.com>
+	s=k20260515; t=1788890795;
+	bh=osZlX1KYWVAh1388Bi50g+L9Txatt7Z6LB29jbrNjSQ=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=jiVeWI4BMVeS7+F2AhaAwBfZNdyOD5m7ch7U+q5naWkPSS6JjI8BC1H6pZjJtnp+1
+	 LGhp4i8i0C5xCrQjM9ej1Idqz6C52hHgUY+RRl+z+RkcLMkFsgv45VlVlMRfrUZ4Ar
+	 cVLSi4yhSHuZQDhwMMhlwS4hJw15HY+j/yhFZcJO+/4NcjOWgDt62IkQUU2OcVo8eG
+	 4zPXUCw6VutY1h018yjPCGgxsNC/h2gJUxl0LPujXmTuMrO4eqz6vMohifJUUmdNoa
+	 hRofVKC+kRH3mdZ1TBi4zeZH8Sb8aFRnSZsR9OKsrQ686e/VUrlSe2wIv+5sr0/0d8
+	 CK3oEuAqC5OtA==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 01568198003A;
+	Tue,  8 Sep 2026 14:06:32 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 14:06:33 -0400
+X-ME-Sender: <xms:p06garNSPT52BOx7zaoaqxZwWhU6UPcJI_LTohoJYVi34qPz5wI3xg>
+    <xme:p06gagzc--q_x6Hubd-bB1avyba1clVbtuLFl0uonfA8mHTDpZt7y-Iq1u3uZQvj3
+    4aI0Q2xdDL_48ZXgVwVjxuDc1SQjG30SXV2wMq6irGoXwwQtlPh78U>
+X-ME-Proxy-Cause: dmFkZTFh48njHVC1+q1C9YYajiFW9bvd0vOJhvxnId51KA0klQ/8YdovJpocxLG9EMAvOT
+    7i97qgacsyoTbbveWrSVOGaeWd57AlZjCsQ4ItkueQm2S3pu+ziA8UyPildLEvTHuYF7yW
+    BpYYJkbo1Hmc6rQsNj6DAqAlv7gnt0B02ooPZtD43A5EiVumawUeZ6R9wiJFWW+q4D3rTb
+    MszLGbDgp8PTJLbilRJ+y4UFTmmyukLpceIBU2vfMLywAztD7jGm66WHSV/NZJuxYDfjnH
+    T/UJWrtS7jGe4Bs2S9c15ae5KVed2wd+KQoGccSsNHFxizEpPfsV4eKZkuAR4+SzP0i0n1
+    a3F6i3s5W+0j1P2ciY4wEv4ZK2T3KdM7rzITWtMnkhUtBc7Y0uyQJq8XF65zCpezbE2/uE
+    qzScwmrR6EpfCK7mD+BjQLjKmMUDdSxgLv+9xaECH12cWPHrCNSspaF9Kr8M/qB3wlBQOP
+    HtvlZTclGwmOr32pIQ8wr4MxPke6smisx2fevkR+4xMO9fIbx8tmxVSYf5bf7moysFvc1X
+    EP2uozM7UHJuQHRccKzpHNVtUF+xbB3OFNe57Dg7cgf+fgRpYMNoNqKiW/nTw9PjpSgHLB
+    GcXMLUYOQ+b03/U9dqQgBmPE2ErwH3Udxgd2GM3FMTeJhKUmbcAdH0SsULqQ
+X-ME-Proxy: <xmx:qE6gakxy12FwAN2PKpdSN21T3wYtMuyRkVuj0365_UEkURUC749fzA>
+    <xmx:qE6gaqj2SX4XvR4-yeSI2e_ifekwCHI9kvcpQ6kOVS7aWI27WbsR_w>
+    <xmx:qE6gaonRPDfEutMzPGb1JSIYtI-KK8qpYvObk7lV9B6knSppT2HZHw>
+    <xmx:qE6gaoi7IbDZCoLAW3yoMqTRZ_z8MTbn0mCxTFJePeaugfl87Ug2Og>
+    <xmx:qE6gak3d7WV0KgdCzzSfgOHZbryp6BMLejk-CSuIqi0Vgi0xo4aD0N66>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id A9D2832A0078; Tue,  8 Sep 2026 14:06:31 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="O3gs7ITcrQu7aIDc"
-Content-Disposition: inline
-In-Reply-To: <20260907-submit-ac200-mfd-v11-1-58dd9dc7f69a@gmail.com>
+X-ThreadId: ASnAkbSYNi0J
+Date: Tue, 08 Sep 2026 20:06:11 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: "Conor Dooley" <conor+dt@kernel.org>, "Frank Li" <Frank.Li@kernel.org>,
+ imx@lists.linux.dev, "Rob Herring" <robh@kernel.org>,
+ devicetree@vger.kernel.org
+Message-Id: <a699181a-4c13-4a27-a52c-9b0abb98bc41@app.fastmail.com>
+In-Reply-To: <20260908160134.A3BD81F00A3A@smtp.kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-5-arnd@kernel.org>
+ <20260908160134.A3BD81F00A3A@smtp.kernel.org>
+Subject: Re: [PATCH 04/13] ARM: remove legacy pxa board files
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
---O3gs7ITcrQu7aIDc
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Tue, Sep 8, 2026, at 18:01, sashiko-bot@kernel.org wrote:
+>> diff --git a/arch/arm/mach-pxa/Kconfig b/arch/arm/mach-pxa/Kconfig
+>> index 2fb29b9ef7446..354e3dc177763 100644
+>> --- a/arch/arm/mach-pxa/Kconfig
+>> +++ b/arch/arm/mach-pxa/Kconfig
+> [ ... ]
+>> -config GUMSTIX_AM200EPD
+>> -	bool "Enable AM200EPD board support"
+>> -
+>> -config GUMSTIX_AM300EPD
+>> -	bool "Enable AM300EPD board support"
+>> -
+>> -endchoice
+>> -
+>> -config PXA_SHARPSL
+>> -	bool "SHARP Zaurus SL-5600, SL-C7xx and SL-Cxx00 Models (DEPRECATED)"
+>
+> [Severity: Medium]
+> Since PXA_SHARPSL and related configs are removed here, does this leave
+> unmet dependencies in other subsystems?
+>
+> For example, in drivers/pcmcia/Kconfig, PCMCIA_PXA2XX has:
+>     depends on ARM && ARCH_PXA && PCMCIA && PXA_SHARPSL
 
-On Mon, Sep 07, 2026 at 03:03:14PM -0600, James Hilliard wrote:
-> The AC200 is an I2C-controlled mixed-signal companion IC containing
-> audio, video, RTC and Fast Ethernet PHY functions.
->=20
-> Describe the shared input clock, audio DAI, TV encoder display graph and
-> optional bandgap calibration in one parent node. The codec and TV encoder
-> do not need separate firmware nodes.
->=20
-> AC_LDOIN and TV_VCC are distinct 3.3 V supply inputs. Describe them
-> separately without requiring different external regulators. Require the
-> audio supply when the DAI is described and the video supply when the
-> display graph is present, while allowing PHY-only configurations.
->=20
-> Describe the optional shared INTB connection without an internal
-> interrupt domain. Cable detection status remains readable over I2C when
-> INTB is not connected. Include wired and unwired examples.
->=20
-> The Ethernet PHY is represented by a PHY package on its MDIO bus, with a
-> phandle back to this device for access to the package control registers.
-> It therefore does not require an MFD child node. The input clock must run
-> at 24 or 27 MHz when the Ethernet PHY is used, matching the rates encoded
-> by its documented clock selector.
->=20
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+These are addressed in a later patch.
 
-btw, this is kinda odd. Jernej has a signoff, but no other attribution.
-Are they a coauthor missing a Co-developed-by
+> For instance, drivers/pcmcia/pxa2xx_sharpsl.c,
+> drivers/video/backlight/corgi_lcd.c, and sound/soc/pxa/spitz.c appear
+> to be specific to the removed Sharp SL and Spitz boards. The sharpsl-nand
+> device probed in drivers/mtd/nand/raw/sharpsl.c is also no longer
+> registered.
+>
+> Additionally, there are leftover ifdef blocks, such as
+> #ifdef CONFIG_GUMSTIX_AM200EPD in drivers/video/fbdev/core/fbmem.c
+> (inside register_framebuffer) and include/linux/fb.h, as well as
+> #ifdef CONFIG_SHARPSL_PM in drivers/hwmon/max1111.c (in max1111_read_channel).
+>
+> Could these drivers and dead ifdef blocks be cleaned up in a follow-up?
 
-> ---
+I have patches for all these, yes.
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> [Severity: Low]
+> With the implementations of these platform data setters removed, should
+> their corresponding external declarations be cleaned up from the
+> subsystem headers to prevent dangling prototypes?
+>
+> For example:
+> - pxa_set_fb_info() in include/linux/platform_data/video-pxafb.h
+> - pxa_set_ohci_info() in include/linux/platform_data/usb-ohci-pxa27x.h
+> - pxa_set_mci_info() in include/linux/platform_data/mmc-pxamci.h
 
-Thanks,
-Conor.
+I have separate patches to remove those three files, either as part of
+removing the drivers, or changing them to DT-only.
 
->  .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 168 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   7 +
->  2 files changed, 175 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml b/=
-Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> new file mode 100644
-> index 000000000000..75dafa7c1071
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> @@ -0,0 +1,168 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mfd/x-powers,ac200.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: X-Powers AC200 mixed-signal IC
-> +
-> +maintainers:
-> +  - James Hilliard <james.hilliard1@gmail.com>
-> +  - Jernej Skrabec <jernej.skrabec@gmail.com>
-> +
-> +description:
-> +  The AC200 is a mixed-signal companion IC containing audio, video, RTC =
-and
-> +  Fast Ethernet PHY functions. Its control registers are accessed over I=
-2C.
-> +  The audio codec and TV encoder are described by properties of this nod=
-e.
-> +  The Ethernet PHY is described separately on its MDIO bus.
-> +
-> +allOf:
-> +  - $ref: /schemas/sound/dai-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: x-powers,ac200
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description:
-> +      AC200 input clock. When using the Ethernet PHY, its configured rat=
-e must
-> +      be 24 or 27 MHz, matching the rates encoded by the documented EPHY=
- clock
-> +      selector.
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      The shared, level-triggered, open-drain INTB output for the TV enc=
-oder,
-> +      Ethernet PHY and RTC interrupts. Omit when INTB is not connected. =
-TV
-> +      encoder cable detection status can also be read over I2C without an
-> +      interrupt.
-> +
-> +  '#sound-dai-cells':
-> +    const: 0
-> +
-> +  ac-ldoin-supply:
-> +    description:
-> +      The 3.3 V supply connected to the AC_LDOIN pin for the audio codec=
- LDO
-> +      input. This may be the same regulator as tv-vcc-supply.
-> +
-> +  tv-vcc-supply:
-> +    description:
-> +      The 3.3 V supply connected to the TV_VCC pin for the composite-vid=
-eo
-> +      DAC. This may be the same regulator as ac-ldoin-supply.
-> +
-> +  nvmem-cells:
-> +    maxItems: 1
-> +    description: TV encoder bandgap calibration.
-> +
-> +  nvmem-cell-names:
-> +    items:
-> +      - const: bandgap
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Input to the TV encoder, carrying CCIR656.
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Output to the composite-video connector.
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +
-> +dependencies:
-> +  '#sound-dai-cells': [ ac-ldoin-supply ]
-> +  ports: [ tv-vcc-supply ]
-> +  nvmem-cells: [ nvmem-cell-names ]
-> +  nvmem-cell-names: [ nvmem-cells ]
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        mixed-signal@10 {
-> +            compatible =3D "x-powers,ac200";
-> +            reg =3D <0x10>;
-> +            clocks =3D <&pwm 5>;
-> +            interrupt-parent =3D <&pio>;
-> +            interrupts =3D <1 20 IRQ_TYPE_LEVEL_LOW>;
-> +            #sound-dai-cells =3D <0>;
-> +            ac-ldoin-supply =3D <&reg_aldo2>;
-> +            tv-vcc-supply =3D <&reg_aldo2>;
-> +
-> +            ports {
-> +                #address-cells =3D <1>;
-> +                #size-cells =3D <0>;
-> +
-> +                port@0 {
-> +                    reg =3D <0>;
-> +
-> +                    tve_in: endpoint {
-> +                        remote-endpoint =3D <&tcon_out_tve>;
-> +                    };
-> +                };
-> +
-> +                port@1 {
-> +                    reg =3D <1>;
-> +
-> +                    tve_out: endpoint {
-> +                        remote-endpoint =3D <&composite_in>;
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        mixed-signal@10 {
-> +            compatible =3D "x-powers,ac200";
-> +            reg =3D <0x10>;
-> +            clocks =3D <&pwm 5>;
-> +            /* INTB is not connected. */
-> +            tv-vcc-supply =3D <&reg_aldo2>;
-> +
-> +            ports {
-> +                #address-cells =3D <1>;
-> +                #size-cells =3D <0>;
-> +
-> +                port@0 {
-> +                    reg =3D <0>;
-> +
-> +                    endpoint {
-> +                        remote-endpoint =3D <&tcon_out_tve>;
-> +                    };
-> +                };
-> +
-> +                port@1 {
-> +                    reg =3D <1>;
-> +
-> +                    endpoint {
-> +                        remote-endpoint =3D <&composite_in>;
-> +                    };
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3a19da74d00c..419340093c9b 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -29504,6 +29504,13 @@ F:	drivers/net/wwan/
->  F:	include/linux/wwan.h
->  F:	include/uapi/linux/wwan.h
-> =20
-> +X-POWERS AC200 DRIVERS
-> +M:	Jernej Skrabec <jernej.skrabec@gmail.com>
-> +M:	James Hilliard <james.hilliard1@gmail.com>
-> +L:	linux-sunxi@lists.linux.dev
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/mfd/x-powers,ac200.yaml
-> +
->  X-POWERS AXP288 PMIC DRIVERS
->  M:	Hans de Goede <hansg@kernel.org>
->  S:	Maintained
->=20
-> --=20
-> 2.53.0
->=20
-
---O3gs7ITcrQu7aIDc
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBOeAAKCRB4tDGHoIJi
-0m1EAQDQUFIrVqa3Qt3UvFTvHo/KvNhQLZLnh/2IKBh3Sm26MAD8Cq4xr2CRFZvi
-cci5HgCN7FejM5iyIqSPGxr/KZpDHgA=
-=vh/H
------END PGP SIGNATURE-----
-
---O3gs7ITcrQu7aIDc--
+         Arnd
