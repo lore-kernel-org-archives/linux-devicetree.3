@@ -1,104 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67917396D25
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:32:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7A24233941
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:37:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852764; cv=none; b=lDnI9akCoX2d9rAHlesJNmj/Kx0aLdNvRE7VEs0rZuINb2Kp71x6CMHkzrNdlqefq7dUJt41mGbhk4+WSYUvalJdBbzkqX4YxGDUitAHc3DyiGFEFPxzFKSxnW3m+84p7v5P2o3O69tZP/KejeGZQl/U3Yv0bil0XDpGtLdxeoE=
+	t=1788853046; cv=none; b=hCGl4QFaWA5+1AW00pxLJxe2Xaoo/UehSURIu9kDUpZHpQK8NUxfII7y/fdUY+B7srM0N5asKFaoIYoyD7MdCr8h5XG+p8+M5sRKj1sJ24YpSZTSlCpl+45Cxf4r/2pScRm/0W9uwtcVPwqwqyP5ZIRYgW347rh4o4qCnL/0wvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852764; c=relaxed/simple;
-	bh=ao+/s9eIaf8M01iar8WDrSuXAhedsd4RWg5xOwmssxs=;
+	s=arc-20240116; t=1788853046; c=relaxed/simple;
+	bh=O0/ChRmLR49PqjlSk3WxMDNtjzdOttNj4jO+gAd5+6Y=;
 	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=M3THo/NAeS2xZXWN6x7LihlKentq46O3NDQ5UfMsYKs+uML9l4BnyjNNtCuemzzUrUfo+x+ISzO1nwhX2UvvP8oRRQ5/vbEDQUMLsA3IkwtH7fncmUeneuFoxSGxzVgwhKTFb1881DyG9jimYhWkiejYLbJaj1yYRvUrfc5Zk2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LadyelDW; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=CjitpzyLsAGCBlpa6MqnIe9AiQEXTp4t1MjI1PhB8Dboo6+n60Nu3i3DEPnXutBvcedLRxT/dKdAigRXbePHlnWcsnL9TJ8SpLcOEdThUGbEf+gAEEs9aQ3HmPTjRgwfGh6cch9kAWgiwdZ7nZWz4VUwvcIE1wpw/Ly+n2TAaR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YGppl/v2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LadyelDW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21ED21F00A3A
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:32:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YGppl/v2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9251F1F00ADE
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:37:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788852763;
-	bh=BUVvKjrO5CilP0Dhdnmye4vxFJhvbGovkQ7n4BbuuAg=;
+	s=k20260515; t=1788853044;
+	bh=O0/ChRmLR49PqjlSk3WxMDNtjzdOttNj4jO+gAd5+6Y=;
 	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=LadyelDWcNtzqn2pNDPzvE2ycihraLgBZJHb2jgVLHZZXzxgABvvuAdH7JVsF0ef7
-	 hOCOsWfZgMq38Hw97bgA4s5aD6TcqNRa3uSb6utMDdvzy9wJ7f79H452uu5XmX32Lf
-	 BsVMBAce4AwFBaI6PVcKTdCAwZd/MD2v0a+Blri6jINnKmNF0uTg6eiA59HZNt0sqd
-	 pNULmwRPByHIr8/0We3MvslK0s5bWBbvgpsaV/RX8s67xpmG+NiDvPfGuJe+szXdD7
-	 eB7t0Fyd46VQ/Pt0cnLJZJaHIdNmDjg6rmuK0nZx4Ckt63GBjxffjSD/6cVwmwVvxP
-	 k4OW5NDiHLmbg==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a151eda82dso36205551fa.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 00:32:43 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz1Rtc1jgj/NeYUcAkv+RcyRtk16RE8ZIos0DnFjaPZFRo7j1515pFC+PU5seBdj6SPFihX/KeYSeFC@vger.kernel.org
-X-Gm-Message-State: AFuF++mZmuY3R575zWGyfRcTRZNK3iGE9kSXVqxEZky4l3/jsP/BvUNh
-	qV2t94Rk/4mLVVAulS9UjWfB52dRY7wwaZOpqBHmEftn8Dq3dJlOXF+LxFThmQGn4uuaH3VPAV4
-	Yqj13pXHyN7RVfC0c6/s/mtyC7NhlIcL4oEGDHM5ytA==
-X-Received: by 2002:a05:651c:222c:b0:39f:ef09:bc55 with SMTP id
- 38308e7fff4ca-3a371b30ee3mr58920061fa.3.1788852761641; Tue, 08 Sep 2026
- 00:32:41 -0700 (PDT)
+	b=YGppl/v2ZzsUMlXq1v4/UcsTR9rpe/o+mauE+QnB5zxoeJ0WSyfAnXXbkTk8TXzR8
+	 Oi91O72/4fXg6CfKCqgd/N0oC9U7HjXchu6nxcMThdSiThnyduR5gJGM2ZrDmvEdAt
+	 NFxUKTqo2snfKZbMKwALg/TMLkk+7roI6194RlnQTZiPZH1noN5XhVIdYHX9ZfAySj
+	 soCS0rNLmQGpOefI0HvO6V0XTK+NaaVajCx9g2te/v8utsWe3UEQeDnn3uzepXu9ow
+	 8Ab5Cc7itDVyrhpF5MpwBuF0uFrpEHfOwrIoOWKw39eKaFK8N2hbueiU++xuKJumCk
+	 rrhQuHIKzAVwQ==
+Received: by mail-lj1-f171.google.com with SMTP id 38308e7fff4ca-39c8ee87f7eso38651311fa.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 00:37:24 -0700 (PDT)
+X-Gm-Message-State: AFuF++ksKuOEzdbTiLlg2eHxf9ro8YujbirGcK7uYSzW5gzj7rQkyIHs
+	H4zjYHXMF6h6C4EmnfRxfNltpzxFWzFHN2lxTCkvsbH6mZbTgOSzKz2E3mCn//WtupRQOnKIJy7
+	VJ/DdK0cccGm6v3owLhEStO5i0XAdJIMcWTPfi4EN9Q==
+X-Received: by 2002:a05:651c:b26:b0:3a1:35f3:d2f2 with SMTP id
+ 38308e7fff4ca-3a371bd1cd9mr30141431fa.12.1788853043166; Tue, 08 Sep 2026
+ 00:37:23 -0700 (PDT)
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 8 Sep 2026 02:32:40 -0500
+ HTTPREST; Tue, 8 Sep 2026 00:37:21 -0700
 Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 8 Sep 2026 02:32:40 -0500
+ HTTPREST; Tue, 8 Sep 2026 00:37:21 -0700
 From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260902013858.130887-1-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20260907-unnamable-geography-d04f61df0fe5@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902013858.130887-1-shengchao.guo@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 02:32:40 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Me9AcVByS64-AwW08wPyHHnL=73E5N5srPzTSqusMHMTA@mail.gmail.com>
-X-Gm-Features: AcwNN1XHgy9F2mNEObYLvFmWhv5aBUGsku_NoIXOHxOBjg8w5SFRiAiimbjLAiE
-Message-ID: <CAMRc=Me9AcVByS64-AwW08wPyHHnL=73E5N5srPzTSqusMHMTA@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: arm-smmu: Document Adreno SMMU for Nord SoC
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+References: <20260905000919.155694-1-rosenp@gmail.com> <20260907-unnamable-geography-d04f61df0fe5@spud>
+Date: Tue, 8 Sep 2026 00:37:21 -0700
+X-Gmail-Original-Message-ID: <CAMRc=MdHUpmoFDtmXdbXnbS+_4ffBQcFLo9XjdO=jMom+getpg@mail.gmail.com>
+X-Gm-Features: AcwNN1V0p3oAVIg0gRX7T9HWtn8hpH3AtiTX2TEeTVAnx9nYkEQ0V6n4JfAdYO8
+Message-ID: <CAMRc=MdHUpmoFDtmXdbXnbS+_4ffBQcFLo9XjdO=jMom+getpg@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: gpio: pca95xx: add onnn,pca9655 compatible
+To: Conor Dooley <conor@kernel.org>
+Cc: devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>
+	Peter Robinson <pbrobinson@gmail.com>, 
+	"open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>, 
+	Rosen Penev <rosenp@gmail.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 2 Sep 2026 03:38:58 +0200, Shawn Guo
-<shengchao.guo@oss.qualcomm.com> said:
-> Add specific compatible string to document the GPU SMMU present on
-> Nord SoC, and constrain it to the single HLOS vote clock.
+On Mon, 7 Sep 2026 18:54:12 +0200, Conor Dooley <conor@kernel.org> said:
+> On Fri, Sep 04, 2026 at 05:09:19PM -0700, Rosen Penev wrote:
+>> The pca9655 is the On Semi variant of the pca9555 16-bit I2C GPIO
+>> expander and is register-compatible with it. The addition of the
+>> compatible in the driver missed the documentation update.
 >
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-> ---
-> Changes for v2:
-> - Add the missing HLOS vote clock constraint
-> - Link to v1: https://lore.kernel.org/all/20260901140816.74200-1-shengchao.guo@oss.qualcomm.com/
->
->  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> index ffa33b7f4a96..214a9c051588 100644
-> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
-> @@ -102,6 +102,7 @@ properties:
->                - qcom,hawi-smmu-500
->                - qcom,kaanapali-smmu-500
->                - qcom,milos-smmu-500
-> +              - qcom,nord-smmu-500
->                - qcom,qcm2290-smmu-500
->                - qcom,qcs615-smmu-500
->                - qcom,qcs8300-smmu-500
-> @@ -579,6 +580,7 @@ allOf:
->                  - qcom,glymur-smmu-500
->                  - qcom,hawi-smmu-500
->                  - qcom,kaanapali-smmu-500
-> +                - qcom,nord-smmu-500
->                  - qcom,sm8750-smmu-500
->              - const: qcom,adreno-smmu
->              - const: qcom,smmu-500
-> --
-> 2.43.0
->
+> The commit message makes it sound like this device should use a
+> fallback. Why doesn't it? Either it should, or the commit message needs
+> an update.
+> pw-bot: changes-requested
 >
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Actually commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
+pca9655") added this compatible to the driver back in 2021 but it had remained
+undocumented until now. Unfortunately there's no denying I signed off on it. :(
+
+This commit should probably contain a Fixes: tag pointing at this commit.
+
+Bart
