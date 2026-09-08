@@ -1,137 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603E85013CA;
-	Tue,  8 Sep 2026 09:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43B551A74C;
+	Tue,  8 Sep 2026 09:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859647; cv=none; b=bACuSVm/hbJ8HbQ07LzVUt6TOGvDWx7+E70tUPUmStLL9jEI7sWgX6jWxaKV+hAlV0IvUAs0n0DVOPBSmk1/DSqzNz6nsOPjVTx2yrVYllGWRwbHPP5/huCYr+2jH/C1r2OpNzO1CXL6JUDyAi2TugdmWl87zreXoViqySAsVIw=
+	t=1788859688; cv=none; b=Ariv563i+yoEE1IzfoCxhCGyPrhOz4Bq6AOqRTAaq2IT1quA+SA6SnW1SzzxVwGiVdJyDOEj/nhjkY/oqAJaMEXiMF1pPIfEfmzyYCfnrfYUswDDWGmOegsbFKdbf2d4miINnwbaf/Hp+tbuS1rSHnNn/BZeFOJaiiDKjHCyhtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859647; c=relaxed/simple;
-	bh=Ser78ur/Hp5OvdMUy5OZ98mktqdsEMDg1PUdcYQiAxI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BmCVJH6n7ushcsdJf5NKjRycxKJ7mqg4Lx1WqImzEaNQ7JUQmci3sn8yJHdtIyAnuyxGgTGVW4aBthhmWirOVKyqZnBU33+n5R5Gui0ztTLkCadgOlPzDqinDIejognbipzUJ3SMN79KbLU100JsH2B4tqgLbuckOxkG+kw7d/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaF/fX3J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788859688; c=relaxed/simple;
+	bh=anKXb2/mw2cM/NRT0bOuM5llujwO+s+QSMlAjWdsOoc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=eKB/fD9vnVSnqRp5xVaq0YuXCQp1FDAyRPEX3ftAq2NMtGgUiD0RT8eFxoxQvZ006xkK4jBgk5PmLZ/EaM2BauOrs/UPpYeaVKQS/yn6lg9C/ytA2731tO9cpP518kOlWoywaDRIE/PGAj1clm3cW2Ao1srunRIkKoz2TuDSlsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EObH7ZOm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaF/fX3J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6661A1F00A3A;
-	Tue,  8 Sep 2026 09:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EObH7ZOm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15781F00A3F;
+	Tue,  8 Sep 2026 09:28:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788859646;
-	bh=e9S4ei21MKUHBJjiz+ftl+IF+EunK9f6ULHxYAUuV7M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PaF/fX3J0DRupK9yZ8ExzCVv71/WO0ICJ28j+TyvKhtF/hisGFrPp6LKseCIVXv/Q
-	 Xv4AshCcIwMNuKbb8+dxto3+mGjz5rMUQq/QJ2IgqPw+dooCVV2iDULjBmGXzLbgLD
-	 rOSVB53nuuWeM8HFhRcmKqJ/CyAipkyYFgAjsw9QpuZe6RgVyP8fpuVv9HwLu6uVex
-	 jfAohxfE8UZsnlwsbHyRf8t1dccvI1hCQ0fCo8vMvs6meWiOVcd2Pq0AedZDxTHTkm
-	 5hC6JTFuW4s0Eu1Yb+f0+8bQC6rJCaK0bT+r6tHPo6xivVUvui4MB6MkT/727ZDg1r
-	 unFw927J5uwSA==
-Date: Tue, 8 Sep 2026 11:27:23 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Vincent Donnefort <vdonnefort@google.com>
-Cc: catalin.marinas@arm.com, will@kernel.org, rppt@kernel.org, 
-	akpm@linux-foundation.org, sudeep.holla@kernel.org, jenswi@kernel.org, robh@kernel.org, 
-	mark.rutland@arm.com, sumit.garg@kernel.org, ardb@kernel.org, david@kernel.org, 
-	danielmentz@google.com, linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, 
-	op-tee@lists.trustedfirmware.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 07/10] arm64: Implement __set_direct_map*()
-Message-ID: <ap_UYjvpf1sXBXE-@orome>
-References: <20260902104712.2399797-1-vdonnefort@google.com>
- <20260902104712.2399797-8-vdonnefort@google.com>
+	s=k20260515; t=1788859686;
+	bh=eWhX/94QFhYIeWrTPucUi8kWwVwJz4lNZq22M50v2J8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EObH7ZOm6B2esM419X41p7YBFTIq8pbB6WhEVUbnpDaY29uPwVlnFMmYB2KNxUMr8
+	 kI3FRVebsRAGwHkVSFPA3zOjIKzrz2Pdo+vHBkpj3RN74uaMj0Lljjc5drsbODWM7a
+	 WcniHGNF0YpS3Ln5oVrKPxTrSgJ14reGi82KlGZ5ct6zl0H72GrnBwImRlXABfCvtz
+	 /3BGtsGoFVO3GvvuD6Qg3OIVjqflUPC7q/QLYmjSA7EsrayXkStinO/xVzFWRYCwT1
+	 +bzMVmq1nOlHzeB2s1J/9tzrbFxTOvU5oiHtUd699Ov0fIxexQFWSEzUtUOaJSQ9TQ
+	 cbXpTFKlyVLnw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oleg Keri" <okerixx@gmail.com>
+Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260908091752.5508-3-okerixx@gmail.com>
+References: <20260908091752.5508-1-okerixx@gmail.com>
+ <20260908091752.5508-3-okerixx@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 09:28:05 +0000
+Message-Id: <20260908092805.E15781F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="43scnsiptq6igc3p"
-Content-Disposition: inline
-In-Reply-To: <20260902104712.2399797-8-vdonnefort@google.com>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Hardware monitoring device registered directly from a platform d=
+river outside of drivers/hwmon/.
+- [Low] Missing dependency on CONFIG_INPUT in Kconfig.
+--
 
---43scnsiptq6igc3p
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 07/10] arm64: Implement __set_direct_map*()
-MIME-Version: 1.0
+commit f4e16083031d59790bcde21682359e0fb96b3392
+Author: Oleg Keri <okerixx@gmail.com>
 
-On Wed, Sep 02, 2026 at 11:47:09AM +0100, Vincent Donnefort wrote:
-> Add implementation for the unsafe functions __set_direct_map*(). They do
-> not verify for can_set_direct_map() and expect the caller to do so
-> beforehand.
->=20
-> Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
->=20
-> diff --git a/arch/arm64/include/asm/set_memory.h b/arch/arm64/include/asm=
-/set_memory.h
-> index 1a37f4ef130b..080a40846bbe 100644
-> --- a/arch/arm64/include/asm/set_memory.h
-> +++ b/arch/arm64/include/asm/set_memory.h
-> @@ -16,6 +16,10 @@ int set_memory_valid(unsigned long addr, int numpages,=
- int enable);
+platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+
+This commit adds a new embedded controller driver for the Lenovo Yoga Slim
+7x Gen 11 laptop. It exposes thermistors, battery cell voltages, and CPU
+fan speed as hardware monitoring channels, as well as keyboard backlight and
+hotkey input events.
+
+> diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kcon=
+fig
+> index e32e01b2a9bdd..9d8e875413fa6 100644
+> --- a/drivers/platform/arm64/Kconfig
+> +++ b/drivers/platform/arm64/Kconfig
+> @@ -90,6 +90,28 @@ config EC_LENOVO_THINKPAD_T14S
 > =20
->  int set_direct_map_invalid_noflush(struct page *page);
->  int set_direct_map_default_noflush(struct page *page);
-> +int __set_direct_map_invalid_noflush(struct page *page);
-> +#define __set_direct_map_invalid_noflush __set_direct_map_invalid_noflush
-> +int __set_direct_map_default_noflush(struct page *page);
-> +#define __set_direct_map_default_noflush __set_direct_map_default_noflush
->  int set_direct_map_valid_noflush(struct page *page, unsigned nr, bool va=
-lid);
->  bool kernel_page_present(struct page *page);
+>  	  Say M or Y here to include this support.
 > =20
-> diff --git a/arch/arm64/mm/pageattr.c b/arch/arm64/mm/pageattr.c
-> index c59ef17eb0d0..28adab0edace 100644
-> --- a/arch/arm64/mm/pageattr.c
-> +++ b/arch/arm64/mm/pageattr.c
-> @@ -294,28 +294,38 @@ int set_memory_valid(unsigned long addr, int numpag=
-es, int enable)
->  					__pgprot(PTE_PRESENT_VALID_KERNEL));
->  }
-> =20
-> -int set_direct_map_invalid_noflush(struct page *page)
-> +int __set_direct_map_invalid_noflush(struct page *page)
->  {
->  	pgprot_t clear_mask =3D __pgprot(PTE_PRESENT_VALID_KERNEL);
->  	pgprot_t set_mask =3D __pgprot(PTE_PRESENT_INVALID);
-> =20
-> +	return update_range_prot((unsigned long)page_address(page),
-> +				 PAGE_SIZE, set_mask, clear_mask);
-> +}
+> +config EC_LENOVO_YOGA_SLIM7X_GEN11
+> +	tristate "Lenovo Yoga Slim 7x Gen 11 Embedded Controller driver"
+> +	depends on ARCH_QCOM || COMPILE_TEST
+> +	depends on I2C
+> +	depends on HWMON
+> +	select NEW_LEDS
+> +	select LEDS_CLASS
 
-I think these would work quite nicely if you rebase the series onto
-linux-next, which contains the patches that add the number of pages to
-these functions.
+[Severity: Low]
+Does this Kconfig entry need a dependency on INPUT?
 
-You can then keep can_set_direct_map_range() from the previous patch and
-call that from the set_direct_map_*_noflush() functions instead of the
-simple can_set_direct_map() (which is a shortcut path in the _range
-check anyway.
+If CONFIG_EC_LENOVO_YOGA_SLIM7X_GEN11 is built-in (=3Dy) but CONFIG_INPUT is
+built as a module (=3Dm), will this cause a linker error since the driver
+unconditionally calls input_register_device() and devm_input_allocate_devic=
+e()
+in yoga_ec_register_keys()?
 
-I've used that locally in my tree and it seems to be working just fine.
+[ ... ]
 
-Thierry
+> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drive=
+rs/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+> new file mode 100644
+> index 0000000000000..521a7fb8f3562
+> --- /dev/null
+> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
 
---43scnsiptq6igc3p
-Content-Type: application/pgp-signature; name="signature.asc"
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> +static int yoga_ec_probe(struct i2c_client *client)
+> +{
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqf1PsACgkQ3SOs138+
-s6FbJhAAq7rdW+WQpw2aS+4U2xEYrsJtjGRTj94QjexotpKa2p3eyw0SLesuF9zU
-+2u/FbYsoxer4kU3QDhJC96FhLS9GwWuldwvOy3tXj+Jgim+5vBbEqynCr0nEGqg
-nQCYWjZXMgSab6kJdxEjcywIXZ/noCDsK2bqF5PN1dz/4lhTVuDGHaxmbf3yV/oR
-TebCIeTN5gSrIxZLAC9yWHu+1QVl4v5+06tJOJdtuIIiS+V/AKr9MFHxKRw5O4st
-ElIm7uM6goaowuUnByavL3kZ1Vm56bc8k2rDqQ/7gcqoJfqUfqH0jPxAzpLsscQO
-vXxM6OoEqPLB0bFou1KWnLPvxjQIAtjWjous+w7QTthjSgnwkbsW5UcrOZWw9o1Q
-VPc3KGvB/1djAVyBUmV4I00sfrvwqqS4wMAcXkffhZo9likAZCQJG3dNp/su464N
-X9aN99o2iMMqCnOzSedwMh9t7i422FTUpUMl4m+hCnqIHqVG7VUVI32s2nx1S5n2
-5RBZckCoNgL2LgG1tgsnTpl3My/l+AhW3OwRTqdXIA/b8h6+/DonZVNIoeAcAEeu
-0IYdOPIOnagFiYOCWzkMNEl6ce/Vd2AOl6JQ3ZEaIdS2FUMumXbdnbtLftgj9RtP
-BB16Tsr/sbJb+A3+9MeoYl9ASll6PDapN/3qICYTCK0NkSRK+S0=
-=54Zj
------END PGP SIGNATURE-----
+[ ... ]
 
---43scnsiptq6igc3p--
+> +	dev_dbg(dev, "thermistors present: %#lx\n", ec->temp_present);
+> +
+> +	hwmon =3D devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", e=
+c,
+> +						     &yoga_ec_chip_info, NULL);
+
+[Severity: Medium]
+Does this violate the hardware monitoring subsystem layout rules?
+
+The hwmon architectural guidelines specify that if the main functionality of
+a chip is not hardware monitoring, its hardware monitoring functionality
+should be implemented as an auxiliary device driver, and that driver should
+reside in drivers/hwmon/.
+
+Registering the hwmon device directly from this platform driver in
+drivers/platform/arm64/ bypasses these layering boundaries. Should this be
+split into an auxiliary device architecture for the hwmon components?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908091752.5508=
+-1-okerixx@gmail.com?part=3D2
