@@ -1,321 +1,296 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021094.outbound.protection.outlook.com [40.107.51.94])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C1852E042
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:28:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866930; cv=none; b=cCAinb8AEw88XJzb1n1gtNrHn+O3xfzhQn6tw8VNWCdGWAeDZbYNGWxvr4LHunBiRjvW0fmt57zTdgxpeYb9EMeDJW17t7NtUQkjpYwfbTNe/b3y4YcAHeTkO3WbnT0SQvrfuyQ/+p4tvvErkNgTfM0JZ9N4HEFZ/fQRZspA84s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866930; c=relaxed/simple;
-	bh=uCXnOs3tBzVQUkKRBye5FBuYclubwYCFkpUctCoCTyc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nti3E5XDKyopD0KQObferen45mlorvSPE+TlPdSoegYRFP8JDCU0l+aPpENWXdyqeBj3q5LrbpFfrpHeJepy3KJzpmFotW6vHAod9EJ+6EUTuPrqFkxQauq1Lp7iw6/YGx+EClxyaVTnG+sqQPa2lwmp6z/N2f0kNc8qZoHYaNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SdoHF3h0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7ED02749DA;
+	Tue,  8 Sep 2026 11:43:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.94
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788867793; cv=fail; b=ErDVG6kI+FzgTaEsR3EDPy1CuS7LpSFxbE5vZEKRNkBIgpa+ketT+7V+fcfMcelawNr4N74rzC6hAi1q6KlhSEuYPPFhoI1PIhJhrpgA2eMnONJIhwjTLsx0DWRlQT7WVXP/sEEwkcfr/w6LkuCgauMF2l6KU77G+9ZGFeu4kKY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788867793; c=relaxed/simple;
+	bh=12ghz8MxSkAY5RRKjNNI3sY7o20q/Br2/jTo4VBbcvo=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=YefrJT2IXOj/9+rKFJcSvJSi2IEhj/krgsuUXWYZo2cgqynWZj79q7Nfp1UHv50G7hHYjbG84SdMJc1erjPE/NPrsmEeqmc/V0rL+/aTrv9K4zOZNZhJj6UHguQRxb1J4txnEsZ2nsVzfh6FIqF2N6AD5h4tb6hB3+QdjAOkNyk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=bLhlguS5 reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.94
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SdoHF3h0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25981F00A3A;
-	Tue,  8 Sep 2026 11:28:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788866922;
-	bh=y729wYMQ7g2s+A5/4Jy7V9kHq1KmXptfkzPpnlzQvX8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SdoHF3h03BaFmQfExl2i1J6AAmxL+i91wyfmIxv9Vl25NAcDb5XdCred9es5stumZ
-	 +60T2E8ZBoXUSr8DALda4pGdZZmZnNuKm0B9GxC1WHer0UzRj8qmu0edeVV1D8qVGM
-	 ZkBy/yo/n4A0h7EA/SywEU8XBvity/GZ2MVOLVtVTcgfGExwcGm6ivYvz6E1TBC7hb
-	 QIra2ltj7MKKI7u2lFMbNEb19tQxnDCykt/UYN8Y5dQvDs5EbeDijjIA8/g/PxAqqK
-	 pvqK9uTbQuapQE1cW14VOOPlKAJKoaxfuGPAdcRIqbUQasRpaIYbg0s2i77pNmi7/8
-	 emFM3WNZBuOiw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] spi: spi-mem: Add Realtek SPI NOR flash
- controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908111640.2032749-3-eleanor.lin@realtek.com>
-References: <20260908111640.2032749-1-eleanor.lin@realtek.com>
- <20260908111640.2032749-3-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 11:28:41 +0000
-Message-Id: <20260908112841.E25981F00A3A@smtp.kernel.org>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="bLhlguS5"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=p/8Ms3kPwkxHicyAqip0TXe2wqmEAeOv89p9WQOT18BDY2Yi4pam3tutfcA3AW/UQFp8xbq3j97jB+loKlQq9bSGj8io9R8Nn3iEC0rnAu3ZjIGG3dDznbI7EulwjMz0PGZ1SQ5fN+wlGOzMznHIoDUCvVltrB+08Y54RFSUNkdtD+iuscgvme2bXEnTDqJl5rzwZskeSQwx5R/iK4HqA5XECjneRWq+pdpUKDBYIUGp9mC7gqOa2zHtbi82QSeg3Zb+qrww5H2w82Zja448UF72ggh9MIFIB+lCRi1FbZwW9VAJhFQJ+6ufFihAODkylPLbDbKbkG3kJM7RJ9fS/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wB56dF9QPr1X9hdvHbkvgKcP4sdl1ivb+A7vRBr+Wes=;
+ b=OmQEFhF7cEaR5JhEC8aiYczIO3+zrT19igpD1GBa6c/cpAhrscCiuK9Abr3+j9fcV8a0lxtSbC/j1w7qwhHySTKpBRyqsrPtdorKvvZcsJq+TTZQ/LgoFnAGNmH8h8F06ZDKjdOD33etn5vAj+jXCaqMm1GtVYH8q3iCILDZuPC3VT3/R718QhpSTmLRYV0Uv62vPKY5LUToH1Wyjfp2Ed5nSl/V+YsDvkmkDOqrXWEaKkod78rKDzMGvnrhriKRfefmSfGrIHt2JqWz3yLnZXZywkVhqhA2WDcYsL8cyVethRs19xFzLUS+UQE5vADK4Lo6Ss2+tQhF7vvI+I/eCg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wB56dF9QPr1X9hdvHbkvgKcP4sdl1ivb+A7vRBr+Wes=;
+ b=bLhlguS5ndA0dx69HCugusD6MQYN5xoaGY6QiYMPB0aymFvBuzteuF/FvLrL3iuBrPetHcwFn2Ro3BByimD/GPMiBMK+23pcc5cCBeK75xNKz2LyuaHN6zoXwgdaJWdmfEeeJvIUkr5WHYK0Ff5vUeS41b6Qu1+otgvInlh+9iOtK2NExk+jp2IGNiChZaAjcsEfveIZMNUuPyaEYkw9cSFiRosJsRmQGuK63JYdb29A5rMjkZKOcvoHsmrcYNTUfbOYuBqvE3lYZnyf1b6JR7mMTiMGLlEzlgYJ/FVhS5TQYEryolTwpRPpx6gr3blZm63bUymOrA/kkfNjQI99Rw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
+ by PN2PPFBA0397B73.INDP287.PROD.OUTLOOK.COM (2603:1096:c04:1::147) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
+ 11:43:00 +0000
+Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ ([fe80::f8da:c075:cde1:e167%7]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
+ 11:43:00 +0000
+From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+To: sakari.ailus@linux.intel.com
+Cc: tarang.raval@siliconsignals.io,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [RESEND PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
+Date: Tue,  8 Sep 2026 17:12:26 +0530
+Message-Id: <20260908114235.86568-1-elgin.perumbilly@siliconsignals.io>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PN5PR01CA0023.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25e::10) To MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:11e::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MA0P287MB2178:EE_|PN2PPFBA0397B73:EE_
+X-MS-Office365-Filtering-Correlation-Id: 94e8b8b2-207a-4a8b-044b-08df0d9e55c9
+X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|52116014|376014|23010399003|366016|1800799024|38350700014|6133799003|3023799007|10067099003|56012099006|5023799004|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ Y4Hk7/H9HpKpCY3MVnliVwl+vYxpokM41mNa8qH2RVGSQJC0J+xzjICB3NyQTcLo/0UXYgIL1pGrYyGByrdk0Ee8p4Ytr+Wq/Fuy9pyKBEyDsSq1imytopsxr9GjSxdaAGwfSKdmuVRhFfMP3bAN4A8S5wTck9FHEvyZVLdOUo+jOW5iBmdflilMUcDp9wDuW6ZbaWcqbHmprSEHv5W4cTCr8djf1Ybv9Lsl4S5WjQgP5m6leSDEHWxk307MZyOyVWQhhr73poEYgtSJSMUNEhQ9si8fSz+vF7c/wpUogIAm6xNjg6oBOAyB66Ze4XoP59bSK2umzRaj9SPN/6+ZZdDIHd9OAyU+pL7oajcc4qMFewlZUOQwySvZsdqW2isHj809/p46XSC6gqKl4Q99j4WpMEKMvoPBHFSW/TwrOI6aK9CcTV67rhHUP4yUvOnOe4sIe82t3v0lwq2neSPEJzeTXdK9rOv+7dNBBKp1CAxHLDr6ZR8VnA6sqM6rlDkfClkMiD3JGOhIHp4uvIJBlUiqkdKNguSE12sFNm3HmDkWQA4aN05EKhe24EoI25fYtK4akHh+CIzCz9QxfkH4e+lPr3ZOwbiYlS51Z4uLvh2Sn5fRRKqU2zyWNMEqJu2D9qdLBOoCCKiUnGGUeEgNJOf+IvNxgbajmhoy5nsbZZzgAy0CeBYa7V2kBGdpi+C/capDSbuW7VwObuUTk627GIy+iNoQPZLIK0Q8D/PyakE=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(52116014)(376014)(23010399003)(366016)(1800799024)(38350700014)(6133799003)(3023799007)(10067099003)(56012099006)(5023799004)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?4BPnAk8yAcov8v6zULZGnAvg62T0q8AHvR7dowfg12GUL2Y6cA471itSKA+s?=
+ =?us-ascii?Q?KVsliWEBGMDMzsxnmGpjIAL2MkjTuBFrT7VxqO3/pzPahgX84LDjLEh6Tr16?=
+ =?us-ascii?Q?v92Ck6EPAGpmcOLnDU5MLXSSBOoYNxP1COReT9HUUb/oxApsWkcwAbP/SAPS?=
+ =?us-ascii?Q?/l/8k0AvyZRfHoICjedhAObYFu7hnCY77o1JxDGqzzXBReOnSXQ2p5cUKjDU?=
+ =?us-ascii?Q?t9s3btzRgaDBuA29Y03WwwdyhtiFaUAKhBZwuSDciS3vin0ByTPXAXpNApNG?=
+ =?us-ascii?Q?JOn7csaMRP4VjXTFoDCsNHHquFYocX25kzXhD1tzTQJvxHIWJLRloe4UoO5V?=
+ =?us-ascii?Q?NpVn2p13nmVzD+zuxwn5B7hqGL8/ayRZwNTiwr/wYBcm6qpGg2eA09nk1wRb?=
+ =?us-ascii?Q?p8qxS947Y7RbC1sjDCf+DvsYec9Hx3sZFElMfv/dDmITq/h7QZo3JD60M4O4?=
+ =?us-ascii?Q?g0HooPxoGZUeshKh82xbItMaKGc57p3YhYNDRJzEg/ryICgXMfM7X2riXPEy?=
+ =?us-ascii?Q?pDOFWolIzGfVPvElV1DYT2ehI5WjZRnWB1enMTUBHVaF6G0abvUuYI9ibnna?=
+ =?us-ascii?Q?W2F3/R9SV7NaakrCMLnaPEPsjv9cxXm0ya10N3IcAfVlqgqRUpVQipYlyYR+?=
+ =?us-ascii?Q?KHphRCxhcPDw2GuAfhMBIMu9B1fuZR6DrO5ZhzrltFZpzMhpJtwMc0nGdDlc?=
+ =?us-ascii?Q?qOjJaIwZLW4ib/pBCRYK8TdcWf9T+mXMnSQuEjyLKb8bVG7wZ3+KvycLWpVm?=
+ =?us-ascii?Q?MLxxB36M2CDas8byFFi0YVcv+qcTNo9Mac3rWeQOYxsZODL/p1biNVL3Xpkh?=
+ =?us-ascii?Q?hrcmK4I7FCYEVBguoU1Lo2lWinkLaJL5YW0/maL/P/NjAWujQ3WFm7sdVd1i?=
+ =?us-ascii?Q?efgIE1swqzEH880u22ws4pn8DRQKCVB89vkAzcQbRwGcQ5i0jdA7pkXJDgh0?=
+ =?us-ascii?Q?ZUfJFCcNl+ZqWA3cDQ4bVOJ6wSM5NNaUZkcmzzTv7Im5SJh6HoLSUNd+mZYx?=
+ =?us-ascii?Q?OUYtO+EvGkW+pbunb3YxSim4jxUUv0fv8z0M2YxpHUQfAElN6fsWwwHE23JI?=
+ =?us-ascii?Q?xBRW0rmgdKgOxeuSciNjkQnVghLk7tm9gA4uduVFsagK39fImYf6iGJsZ9He?=
+ =?us-ascii?Q?L6k2rcxi7wIthUqytEKyYqPiQc7/6tc4YLoNGHnanYdnwIEUjt7hO2IF9XQX?=
+ =?us-ascii?Q?etqpSM1ZqbBVV7yTf7pFB2GEa4aNva3TOfUw6nCPOAe1EdHEBRNxQfkx+M/t?=
+ =?us-ascii?Q?d6HIg2CzRcpOqLy7K7FgbSIC5MyrJXJ75jt1MXigaFWSlvJwO0JoTGkaASxU?=
+ =?us-ascii?Q?cV8RSpwdKeSABgjgHeeocdPAJ8LSmy5NInD4F8SqzrQ+zISzn4oQwVd3iDMa?=
+ =?us-ascii?Q?p3EhJWgmk+CRXVHreCMU/th71ngNoTt5/hdG6cJNh9k8w3rnvFFZnN/LVd8D?=
+ =?us-ascii?Q?zBYSOSz2JZDU1D46Zl+ZtsYHVo2rwlZGzSRD9TlBxtCdTkFaADNQ+dgJoaRB?=
+ =?us-ascii?Q?lmiZac/qd6XQjt9QVuA/lN7zDtUI3iX8Qm2P6Ubkr+OW3Dxjt9eWe6Ixut9S?=
+ =?us-ascii?Q?L9K3tQYo7IwiRMTWmKdpsPdriB92Qx08/znjwgL8xkQOwc4wk0M12JB9EqNP?=
+ =?us-ascii?Q?g+sIzPrAcqQM7B6pn+ftwSCHCSxREH905FaPbd0eSueUBXNhPGHocM1ndPbV?=
+ =?us-ascii?Q?NML+Q37WJCzuBeHLX+y4kwz/A4xPjxHitZQMUYyTVr+tQbLGVRQr7NobQ+2+?=
+ =?us-ascii?Q?gAc5+T+SCaXccQwzNsYk9y2pd/ziMb23MWvPZFxC+3SX9tE3CBHy?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: 94e8b8b2-207a-4a8b-044b-08df0d9e55c9
+X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 11:43:00.6519
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: UIE8sfBIFx/nqufxoOBC+nYRVpDYTuT8hQ2ElE1irqE/rlK4nmph3Y3mwcM9WWtV3ZtnCWHHI13IfOfGn1WHBD8yuyKjOs7bCqEOK0JZslMIaxPlck8uXpePy/GlYDaP
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN2PPFBA0397B73
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Dual I/O mode is advertised for TX and RX but is not enabled for `=
-exec_op` reads or any writes, leading to silent data corruption.
-- [High] Missing bounds checks on flash offsets allow out-of-bounds virtual=
- memory accesses and arbitrary physical memory DMA.
-- [High] Stateless 4-byte address commands are corrupted due to strict reli=
-ance on the `EN4B` stateful opcode.
-- [Medium] Unchecked `pm_runtime_get_sync()` in `remove()` causes clock und=
-erflow if resume fails.
-- [Medium] Missing `reset_control_assert()` in the `probe()` error path and=
- `remove()`, leaking the hardware reset state.
-- [Low] The driver uses legacy `RUNTIME_PM_OPS()` and `SYSTEM_SLEEP_PM_OPS(=
-)` macros instead of `DEFINE_RUNTIME_DEV_PM_OPS()`, directly contradicting =
-the patch changelog.
-- [Low] Leftover error check on unassigned `ret` variable in `rtk_spi_do_wr=
-ite_and_cmds` is unreachable dead code.
+The following features are supported:
+- Manual exposure an gain control support.
+- vblank/hblank control support.
+- vflip/hflip control support
+- Test pattern control support.
+- mode support 1920 x 1080 @ 30 fps, SBGGR10
+
+The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a.
+
+v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22
+
+Compliance test for device /dev/v4l-subdev3:
+
+Driver Info:
+        Driver version   : 7.0.0
+        Capabilities     : 0x00000000
+        Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev3 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 12 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+        test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warnings: 0
+
+V4 -> V5
+
+Patch 1/2:
+- Correct typos.
+
+Patch 2/2
+- Remove the data lane check, as the sensor only supports two lanes.
+- Fix the error path in os02g10_parse_endpoint().
+- Remove the error message from the clk_prepare_enable path.
+
+V3 -> V4
+
+Patch 1/2:
+- Add the required endpoint.
+- Carry Vladimir's Reviewed-by tag.
+
+Patch 2/2:
+- Address small review comments from Vladimir and Sakari.
+- Drop Patch 3/3 as suggested by Sakari.
+
+
+V2 -> V3
+
+Patch 1/3:
+- Drop the fixed data-lanes property, as the sensor supports only a 2-lane MIPI interface.
+
+Patch 2/3:
+- Use regmap paging features for page selection.
+- Use sd instead of _sd.
+- Remove an extra blank line.
+- Remove hblank control, as it is not used to set hblank on this sensor.
+- Remove an unnecessary error check.
+- Reduce the scope of the ret variable in os02g10_set_pad_format().
+- Rely on the control value for link_freq_index.
+- Call os02g10_parse_endpoint() before initializing regulators, GPIOs, and the clock in probe().
+
+Add new Patch 3/3:
+- Add dynamic mode configuration instead of using a hardcoded specific mode, as suggested by Laurent.
+
+V1 -> V2
+
+patch 1/2:
+- Corrected $id to ovti,os02g10.yaml
+- Fixed data-lanes property structure to use proper items format
+
+patch 2/2:
+- Mode-specific register writes handled dynamically.
+- Moved page 2 registers into a dedicated page 2 block.
+- Used pm_runtime_get_if_active() in set_ctrls.
+- Resolved negative hblank issue.
+- Improved error messages in disable_stream.
+- Updated V4L2_SEL_TGT_CROP and V4L2_SEL_TGT_CROP_BOUNDS.
+- Added my name to the author list.
+
+Elgin Perumbilly (2):
+  dt-bindings: media: i2c: Add os02g10 sensor
+  media: i2c: add os02g10 image sensor driver
+
+ .../bindings/media/i2c/ovti,os02g10.yaml      |  94 ++
+ MAINTAINERS                                   |   8 +
+ drivers/media/i2c/Kconfig                     |  10 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/os02g10.c                   | 932 ++++++++++++++++++
+ 5 files changed, 1045 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,os02g10.yaml
+ create mode 100644 drivers/media/i2c/os02g10.c
+
 --
+2.34.1
 
-commit 94200312000dbff54ba23aa9dcbfc62c9c169eb0
-Author: Jyan Chou <jyanchou@realtek.com>
-
-spi: spi-mem: Add Realtek SPI NOR flash controller driver
-
-Add a spi-mem driver for the SPI NOR Flash Controller (SFC) found on Realtek
-DHC SoC. SFC supports Dual I/O.
-   =20
-Implement the exec_op API for regular control commands and the dirmap API
-for hardware-accelerated read/write operations.
-
-[ ... ]
-
-> diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
-> new file mode 100644
-> index 0000000000000..df75da60ce8a7
-> --- /dev/null
-> +++ b/drivers/spi/spi-rtk-nor.c
-
-[ ... ]
-
-> +static void rtk_spi_write_mode(struct rtk_spi_host *host,
-> +			       const struct spi_mem_op *op)
-> +{
-> +	u32 opcode =3D op->cmd.opcode;
-> +	u32 val;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-
-[Severity: High]
-The controller advertises SPI_TX_DUAL, but does this function enable dual
-I/O for writes? It looks like op->data.buswidth =3D=3D 2 is not checked her=
-e,
-so DUAL_MODE_EN is never set on the opcode, which could lead to silent data
-corruption when writing to the flash.
-
-> +
-> +	val =3D readl(host->regbase + SFC_CTL);
-> +	val |=3D RW_DATAEN | ADDR_EN;
-> +	writel(val, host->regbase + SFC_CTL);
-> +}
-
-[ ... ]
-
-> +static int rtk_spi_command_read(struct rtk_spi_host *host, const struct =
-spi_mem_op *op)
-> +{
-> +	size_t len =3D op->data.nbytes;
-> +	loff_t offset =3D op->addr.val;
-> +	u8 opcode =3D op->cmd.opcode;
-> +	u32 dummy_cycles, val;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-
-[Severity: High]
-Similarly, does this exec_op read path support dual I/O? It appears to miss
-the op->data.buswidth =3D=3D 2 check, so the DUAL_MODE_EN bit is missing wh=
-en
-dual reads are negotiated.
-
-> +
-> +	val =3D readl(host->regbase + SFC_CTL);
-> +	val &=3D ~(SFC_CTL_DMYCNT_MASK | ADDR_EN);
-
-[ ... ]
-
-> +static int rtk_spi_do_write_and_cmds(struct rtk_spi_host *host, const st=
-ruct spi_mem_op *op)
-> +{
-> +	u8 opcode =3D op->cmd.opcode;
-> +	u32 ctl_val =3D 0;
-> +	int ret =3D 0;
-> +
-> +	writel(opcode, host->regbase + SFC_OPCODE);
-
-[Severity: High]
-Is it intentional to ignore op->data.buswidth here as well? The DUAL_MODE_EN
-bit is not applied for these writes.
-
-> +
-> +	if (op->data.nbytes > 0)
-> +		ctl_val |=3D RW_DATAEN;
-> +	if (op->addr.nbytes > 0)
-> +		ctl_val |=3D ADDR_EN;
-> +
-> +	writel(ctl_val, host->regbase + SFC_CTL);
-> +
-> +	if (op->data.nbytes > 0) {
-> +		const u8 *buf =3D op->data.buf.out;
-> +		size_t i;
-> +
-> +		for (i =3D 0; i < op->data.nbytes; i++)
-> +			writeb(buf[i], host->iobase + op->addr.val + i);
-> +	} else {
-> +		readb(host->iobase + op->addr.val);
-> +	}
-> +
-> +	if (ret) {
-> +		dev_err(host->dev, "opcode 0x%02x failed: %d\n", opcode, ret);
-> +		return ret;
-> +	}
-
-[Severity: Low]
-Is this error handling block dead code? The variable ret is initialized to 0
-at the start of the function and is never modified before this check.
-
-> +
-> +	/*
-> +	 * Hardware Workaround:
-> +	 * The controller's auto-mode engine requires SFC_ADR_FOUR_BYTE_EN to be
-> +	 * explicitly updated when the flash enters or exits 4-byte mode.
-> +	 */
-> +	if (opcode =3D=3D RTK_SPI_OP_EN4B) {
-> +		host->is_4byte =3D true;
-> +		writel(0x1, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-> +	} else if (opcode =3D=3D RTK_SPI_OP_EX4B) {
-
-[Severity: High]
-Does this strict reliance on stateful opcodes break stateless 4-byte
-addressing?
-
-The spi-nor framework often uses stateless 4-byte opcodes (like
-SPINOR_OP_READ_1_1_1_4B) without explicitly sending an EN4B command. If
-op->addr.nbytes =3D=3D 4 is not checked dynamically, the hardware will emit=
- only
-3 bytes of address for those commands, potentially causing data corruption.
-
-> +		host->is_4byte =3D false;
-> +		writel(0x0, host->regbase + SFC_ADR_FOUR_BYTE_EN);
-> +	}
-> +
-> +	return ret;
-> +}
-> +
-> +static void rtk_spi_byte_transfer(struct rtk_spi_host *host, loff_t offs=
-et,
-> +				  size_t len, unsigned char *buf, bool is_read)
-> +{
-> +	if (is_read)
-> +		memcpy_fromio(buf, host->iobase + offset, len);
-> +	else
-> +		memcpy_toio(host->iobase + offset, buf, len);
-> +}
-
-[Severity: High]
-Does this function perform any bounds checking on the offset? If the flash
-size exceeds the memory-mapped IO window provided by the dirmap resource,
-adding offset directly to host->iobase could trigger a kernel page fault.
-
-> +
-> +static int rtk_spi_dma_transfer(struct rtk_spi_host *host, loff_t offset,
-> +				size_t len, bool is_read)
-> +{
-> +	u64 dma_buffer, timeout_us =3D SFC_DMA_TIMEOUT * 100;
-> +	u32 flash_phys_addr, val;
-> +	int ret;
-> +
-> +	writel(DMA_W_EN_START | DMA_W_EN, host->mdbase + MD_FDMA_CTRL1);
-> +
-> +	dma_buffer =3D host->dma_buffer;
-> +
-> +	/* Setup MD DDR address and flash address */
-> +	writel(lower_32_bits(dma_buffer), host->mdbase + MD_FDMA_DDR_SADDR);
-> +	writel(upper_32_bits(dma_buffer) & DMA_HIGH_BITS_MASK,
-> +	       host->mdbase + MD_FDMA_DDR_SADDR1);
-> +
-> +	/* MD_FDMA_FL_SADDR is a 32-bit hardware register */
-> +	flash_phys_addr =3D lower_32_bits(host->flash_phys_base + offset);
-> +	writel(flash_phys_addr, host->mdbase + MD_FDMA_FL_SADDR);
-
-[Severity: High]
-Similar to the byte transfer function, could this cause arbitrary physical
-memory corruption if offset is larger than the dirmap resource? Without
-bounds checks, the DMA engine might access unallocated physical memory.
-
-[ ... ]
-
-> +static int rtk_spi_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +err_pm_disable:
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +
-> +err_disable_clk:
-> +	clk_disable_unprepare(host->clk);
-> +
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Does this error path leave the hardware permanently out of reset? The reset
-line was deasserted earlier in probe, but reset_control_assert() is missing
-here, leaking the hardware reset state.
-
-> +
-> +static void rtk_spi_remove(struct platform_device *pdev)
-> +{
-> +	struct spi_controller *ctrl =3D platform_get_drvdata(pdev);
-> +	struct rtk_spi_host *host =3D spi_controller_get_devdata(ctrl);
-> +	struct device *dev =3D &pdev->dev;
-> +
-> +	spi_unregister_controller(ctrl);
-> +
-> +	pm_runtime_get_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	clk_disable_unprepare(host->clk);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(dev);
-> +}
-
-[Severity: Medium]
-Can pm_runtime_get_sync() fail here? If it returns an error, the clock might
-remain disabled, but clk_disable_unprepare() is called anyway, which would
-cause a clock count underflow.
-
-Also, similar to the probe error path, is it necessary to assert the reset
-line with reset_control_assert() before disabling the clock and exiting?
-
-[ ... ]
-
-> +static const struct dev_pm_ops rtk_spi_pm_ops =3D {
-> +	RUNTIME_PM_OPS(rtk_spi_runtime_suspend, rtk_spi_runtime_resume, NULL)
-> +	SYSTEM_SLEEP_PM_OPS(rtk_spi_suspend, rtk_spi_resume)
-> +};
-
-[Severity: Low]
-This isn't a bug, but the commit message explicitly states "Replace
-RUNTIME_PM_OPS() + SYSTEM_SLEEP_PM_OPS() with DEFINE_RUNTIME_DEV_PM_OPS()",
-yet these legacy macros are still used. They fail to wrap the callbacks in
-__maybe_unused, which can cause compiler warnings when PM is disabled.
-
-> +
-> +static struct platform_driver rtk_spi_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "rtk-spi-nor",
-> +		.of_match_table =3D rtk_spi_dt_ids,
-> +		.pm =3D pm_ptr(&rtk_spi_pm_ops),
-> +	},
-> +	.probe	=3D rtk_spi_probe,
-> +	.remove	=3D rtk_spi_remove,
-> +};
-> +module_platform_driver(rtk_spi_driver);
-> +
-> +MODULE_DESCRIPTION("Realtek SPI Nor Controller Driver");
-> +MODULE_AUTHOR("Jyan Chou <jyanchou@realtek.com>");
-> +MODULE_LICENSE("GPL");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908111640.2032=
-749-1-eleanor.lin@realtek.com?part=3D2
