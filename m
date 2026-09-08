@@ -1,64 +1,64 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D25151477D
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 09:28:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D5951E429
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 09:28:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859734; cv=none; b=rUwktjEmY9LM0U1v5qFQn54hhhHmv4zejgydWOqoeZSKZFT+iuOnUFtParRsB3qimg6uGCENn+eiDd8DIdotarxPcmLo0kluUwbJhnQG6SELIyqJBMQ9Cip/DbG4gzdXpFi/U/B6S4EfxsLLJZ44kgjQtkoeE68TQvP8MgH9z1w=
+	t=1788859737; cv=none; b=lxyP/RkTQJIJywFDIOjg9xndCkE8L/KNWQHz6Zh2Gm6i8rk9aHjPDFq7l4By58z2yduSHhkKy0s+SmSv4rhTb6+tr1tNLtAjESQZDSnFdjmXkhX72UmDyTMdji6ExMetmpfN5EKOBhbwtYEJKhPrwDfp2EULpBTVZCwkhnBl8Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859734; c=relaxed/simple;
-	bh=Qtu69igHTHFeUpqJnL+cNF9pCnQyvj2ES5i9e2nUAdc=;
+	s=arc-20240116; t=1788859737; c=relaxed/simple;
+	bh=tt2RAWD+bHSPy7yGLlzDmpcso5w9hUHauQQE1wwIZqQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U9p1yCDkRn6mQ3udwA2G2B+c9EbAuPLc+p77imSR9aMVB62WxlYRoi+HJuuS94SajcbGT05zPEUtYYtzcaIz1RnVM3I67/b84rWvDaBCMzWFj1vO9Fn9Q47IOdIQmkR1Yr8ngeu1/1zbiR/0AJgqG9KX+0b3DkrChtdBZ7ngB6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y7C6J/e0; arc=none smtp.client-ip=209.85.214.175
+	 MIME-Version; b=nrxImABZjjCEzfq4ZSKqBubuMQPQ1nI3Q4cKTYFChpGdQv37J1Zpf0fP6rRgps9YNXECRKvTi7bukeNRJsyaozB87a1baLZn9jjTDXEWRDLbE1YHe5XlbkisQlfbgwLhOn7aOIEXN2ChtTVnbcmP6pYvREsI8zPae5a0XpIGGlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WK/xO0MK; arc=none smtp.client-ip=209.85.215.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y7C6J/e0"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d5cad1a6baso38191635ad.3
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 02:28:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WK/xO0MK"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cc48fe04342so793907a12.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 02:28:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788859732; x=1789464532; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788859735; x=1789464535; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8EcwJ6FJdDLZqAgx4ZJcfrdseGR1/I5SVESCmgXprts=;
-        b=Y7C6J/e0ct2QBI9ua/KC9QZqNv4KyRGLUyKE7lgB2L4NQNynrBrzvywjnNS8fXh/wh
-         w0ni5BQCJ3gVGW7e55rCgzDDPkwEK1aZA3wMc4vSREC4vyVxHEdNeUEjaVusYt2qIeU5
-         hxk0LJ552zEo/QA6gV+Lg1mhVxYSjktBAtazPJjBmCg3q8uyPGv22SdBAX46DnXbGSit
-         KdL02thk19/NoRwIjMRrcqWLFwXe5TiJNWChG1w8XL6D4Qhb6i0PyvxpVWepNjXFmMoP
-         02TJvy11ejhYHWTF5sBT5HVDPx4w51jfxeIgFRnRl+xzK9N9UBn8OOOofLV+8da1Ht45
-         O/hA==
+        bh=d1MvCbfjotTiPMU9xzuQx8OmetQMTdloo3vQR2iBJfs=;
+        b=WK/xO0MKeMAJgw/ZD7+DzFmmU+Xo5cxEa7ScCAF/Ff8a0yiG6Ms0Q4GtLeWrnnmhCi
+         6miYzQda1ChoMlR0Xqd45xBOr7AeuBSUutuvhG07yqfFyGAvzErXfodwc983O5K7Khd9
+         ZVMrN2M+qTj1hItHCYrCosLn5xRZ9w1wUN4sOc7Ay1MtoJ7D2WLIr8mmiBbqdw8g3UIj
+         3r22D1tjsx8crfitD7WqTh9XFZtb04poq04KBBA6YudSN2DgYJHhR2juuGDREZ/y/5GS
+         0eb/Zqfof0uOpmgecJ+aqDvjs79DkSKpNEBOPVjvN0k05q3lN/oZp8rycvEQpxDSLUMZ
+         GSGQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788859732; x=1789464532;
+        d=1e100.net; s=20251104; t=1788859735; x=1789464535;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8EcwJ6FJdDLZqAgx4ZJcfrdseGR1/I5SVESCmgXprts=;
-        b=fL8NIDShE4P1loovHTRGNj8fCRmgRDhnrWNJHt/9aIZRSP9Y49EJn8pirvGD1+52rt
-         y9ch63wTxUyijNZfTMeIzJzgvAWY9yYG04gTOWzpmmKIf719I++3GdvhYS6iY6MfZEuh
-         6ZF1vLU/6C+qJoCHeWbd14ij+3UiDf/XPaRA93bfpaRwsTYZIT+j/1JIMkqYpWZYMQYN
-         ETeKtZA+OQRjkdnsdhNJ4sanyavGm+RlZng4VMpeUVdPMkUJn479jBg1TLU7z/ZeVyEc
-         vmbGhtXgsMePsNa6sQTci63bv1lERGyR60IgWV8xc+dTkhoYno5ExNGRJoP22QnkwQRw
-         ce6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwXQkr3GnWIaGNlM6mTOy4HNJI6OvMhJ96g0QmQHVva4OiSCNI5SQZpeIPuUW830x7gdoRG2GjYUgSW@vger.kernel.org
-X-Gm-Message-State: AFuF++nWKBF+8VbZeBfTOz05EkQUL8JWsrvsChIr7ktqYyZuEcp5c73q
-	92g31iwZQbzqjzxTdLKFhoji+Rzy5iRzdgH7Co7EHD4zgncu09w9ZCY6iIpegg==
-X-Gm-Gg: AYBFou3u4UuL4fH2qhBi/BdE2zbBDxUoNBSVhYzCrmbcWjFN88SxxpSf0Nv7XLl/Zmg
-	y3kSCoJ0UOJ982jnxiNoJ36LhUCx7OV7rYXGI8nablNry3w8gW8lHQ4M9QUDWYNmwkoIg4POiCx
-	AYq3aiWpOwmgXQhLrvP69aj77U/lVDk4lnGjj0yywgbGgq53e1K1jvezfrUTWmQI6AYvOevItP2
-	EUe7Q/xfcNXjNOdCxVNTrKTidoV4wmqVMXojuXgB/CS5qVAE5O/rpqXstHBzFIaZ9YZItUbKfIi
-	kJBtByYUMnhh2ZeQD3mCrG5mQYoj1AwaXw5NCbST9ycZna0/GA9WHE+k4jJiA90rymGI2ixn/As
-	Vt/HBRJT4VlqEWewRItJLnYRmGyUnnPjfZbMyltW5sBaby/qxQnZdWBbm/N6qo5uf+R6aTb3vop
-	lIhAi/K+SjfWqjHbbrV8rBaJ4o57TWbhHK8/4zXypAGyTnG5Cjia/fHRynh7LzQyGa6oWVcwPY/
-	asktxBL3V7nr5oBz6PEd8ad8SvH6voX/BWD4DhCMoWXP1izJeDj
-X-Received: by 2002:a17:90b:2808:b0:398:b46d:48c0 with SMTP id 98e67ed59e1d1-39b262aaeb7mr44896355a91.18.1788859731444;
-        Tue, 08 Sep 2026 02:28:51 -0700 (PDT)
+        bh=d1MvCbfjotTiPMU9xzuQx8OmetQMTdloo3vQR2iBJfs=;
+        b=gEsIhRyJQbr6DjuV2w2kj5SGMuXK5sl/c4sAa+6u7VlBHvkXeQ/pLzNomQjK0kOEZh
+         wBkAYWAl+NAa+featn5D4g7pojW19ZRUs90GFFm1QWDSaQ+nxBgJoqk55h3OR0dmnmOS
+         vT2cH1NsC/8ssluDpWr89vYjI7iz7lX/13DJbHNNPq2sGnyw94DS4OvgOGnDl4nsgrpK
+         QCseQviCPGLEslcqGBm0dJ6VaCNPt65Ix/1sALWo/rGRwdckXd3qYxT1igkVGRGFj9jl
+         BSQQPmoXfvUXO6iDYvcpnnFGcsyXb+94G2Hl2vkKpA86+kyEl9SFlgsVDiNnyOsQPmm5
+         G24g==
+X-Forwarded-Encrypted: i=1; AKwUvBzozMu1392HQaG0Zbu0FEJikQ6cIXbjYMjMOfoGvB9wedyhLtzV4TeQVM78wIBZPa65hUoo1e8YwuT2@vger.kernel.org
+X-Gm-Message-State: AFuF++lC0C5jnnGkTd+/OKhIhlciU+PNFvxfzWOku79ITq0KGPC4L/IU
+	golciBfnDMjsLnqRcvU80rY/jh6PUmnAXrCt3VcJMsXsK3/q0EeT/5MC
+X-Gm-Gg: AYBFou343wusdQAOxavHh8qQsNAdM1dwehu8GfzZnMuRfo5AQRrogOAtKpHy31ihidf
+	/n0JJUe9zqsvMJ4syDOH6j41cjwIxxXHWGhtFE6qN0GIz7djjnXqmOELELfIkbUamHTt+LsQann
+	TGp6uMZWB+ui+2WSEIhRu58FjC+gp0qsjj031QbVv/H/XvXuHQodgnVed20V2DGc30CCN6DDE7p
+	IYp0g7nkdmlNjSg2GPXQaiLNnuJ69MvjR3mQUSKVeb63lyIe96HTVSq/iztkFg50EgkiZP+3mfb
+	Yxq3BybbCaO2uZYLnOza9I0u2ftALV+w5HZzhkKR8mIV2NjLK24qLtwHShWh4Lkzjr0ie1pJBQU
+	zN1d4KLoCnUSeXoTGVDBpK4xbal9Bm5DNFUrpRcDlTe8ZGu5nsCo2Nhn+RqSS42hTvQ+2jP+Bx5
+	2GYE2DgjtjOISB3jFt96G0+eSU3zRq2NFoyDJKvVLvYlny+10nCzXrXeOA8jAhpzqoMT/uH3NeL
+	gOalZ0Cc1rkw+AkX4/18t/lENMVBtl8inxp/P6VJbOJySShDDVoyhNHyg6vmDfh
+X-Received: by 2002:a17:90b:4c52:b0:396:d27b:89b9 with SMTP id 98e67ed59e1d1-39b2612ccddmr41681971a91.10.1788859735196;
+        Tue, 08 Sep 2026 02:28:55 -0700 (PDT)
 Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.28.47
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08c39227sm32109846a91.9.2026.09.08.02.28.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:28:51 -0700 (PDT)
+        Tue, 08 Sep 2026 02:28:54 -0700 (PDT)
 From: Joey Lu <a0987203069@gmail.com>
 To: zhengxingda@iscas.ac.cn,
 	maarten.lankhorst@linux.intel.com,
@@ -77,9 +77,9 @@ Cc: ychuang3@nuvoton.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	Joey Lu <a0987203069@gmail.com>
-Subject: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support for nuvoton,ma35d1-dcu
-Date: Tue,  8 Sep 2026 17:28:35 +0800
-Message-ID: <20260908092840.225220-2-a0987203069@gmail.com>
+Subject: [PATCH v6 2/6] drm/verisilicon: add register-level macros for DC8000
+Date: Tue,  8 Sep 2026 17:28:36 +0800
+Message-ID: <20260908092840.225220-3-a0987203069@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260908092840.225220-1-a0987203069@gmail.com>
 References: <20260908092840.225220-1-a0987203069@gmail.com>
@@ -91,118 +91,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the binding.
-The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
-reset (core), with a single output port.
+Add register-level constants needed by the forthcoming DC8000 (DCUltraLite)
+hardware ops:
 
-The MA35D1 clock controller gates the core, AXI and AHB clocks with a
-single bit, but each remains a distinct clock line feeding the IP with
-its own rate constraints, so all four must still be listed individually
-in the devicetree; core, axi and ahb happen to share the same clock
-phandle.
+  VSDC_DISP_IRQ_VSYNC(n) in vs_crtc_regs.h: bit mask for per-output
+  VSYNC interrupt bits in DISP_IRQ_STA (0x147C) / DISP_IRQ_EN (0x1480),
+  which are the IRQ registers used by DCUltraLite in place of the DC8200
+  TOP_IRQ_ACK / TOP_IRQ_EN registers.
 
-Move the clocks/clock-names minItems to 4 and resets/reset-names
-minItems to 1 at the top level, since that is the lowest count any
-supported variant needs.  Add an allOf/if block that tightens the
-constraint back up to the fixed 5-clock/3-reset topology required by
-the existing thead,th1520-dc8200 compatible, and another one that caps
-the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
-actually wires up.
+  VSDC_FB_CONFIG_ENABLE (bit 0), VSDC_FB_CONFIG_VALID (bit 3) and
+  VSDC_FB_CONFIG_RESET (bit 4) in vs_primary_plane_regs.h: control bits
+  in the FB_CONFIG register used by DCUltraLite for framebuffer enable
+  and per-frame commit handshake.
+
+No behaviour change for existing DC8200 platforms.
 
 Signed-off-by: Joey Lu <a0987203069@gmail.com>
+Reviewed-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- .../bindings/display/verisilicon,dc.yaml      | 44 +++++++++++++++++++
- 1 file changed, 44 insertions(+)
+ drivers/gpu/drm/verisilicon/vs_crtc_regs.h          | 1 +
+ drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h | 3 +++
+ 2 files changed, 4 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-index 919a900122012..773966677d0f4 100644
---- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-+++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
-@@ -17,6 +17,7 @@ properties:
-     items:
-       - enum:
-           - thead,th1520-dc8200
-+          - nuvoton,ma35d1-dcu
-       - const: verisilicon,dc # DC IPs have discoverable ID/revision registers
+diff --git a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
+index c7930e817635c..d4da22b08cd5c 100644
+--- a/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
++++ b/drivers/gpu/drm/verisilicon/vs_crtc_regs.h
+@@ -54,6 +54,7 @@
+ #define VSDC_DISP_GAMMA_DATA(n)			(0x1460 + 0x4 * (n))
  
-   reg:
-@@ -26,6 +27,7 @@ properties:
-     maxItems: 1
+ #define VSDC_DISP_IRQ_STA			0x147C
++#define VSDC_DISP_IRQ_VSYNC(n)			BIT(n)
  
-   clocks:
-+    minItems: 4
-     items:
-       - description: DC Core clock
-       - description: DMA AXI bus clock
-@@ -34,6 +36,7 @@ properties:
-       - description: Pixel clock of output 1
+ #define VSDC_DISP_IRQ_EN			0x1480
  
-   clock-names:
-+    minItems: 4
-     items:
-       - const: core
-       - const: axi
-@@ -42,12 +45,14 @@ properties:
-       - const: pix1
+diff --git a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
+index cbb125c46b390..67d4b00f294e2 100644
+--- a/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
++++ b/drivers/gpu/drm/verisilicon/vs_primary_plane_regs.h
+@@ -16,6 +16,9 @@
+ #define VSDC_FB_STRIDE(n)			(0x1408 + 0x4 * (n))
  
-   resets:
-+    minItems: 1
-     items:
-       - description: DC Core reset
-       - description: DMA AXI bus reset
-       - description: Configuration AHB bus reset
- 
-   reset-names:
-+    minItems: 1
-     items:
-       - const: core
-       - const: axi
-@@ -79,6 +84,45 @@ required:
-   - reset-names
-   - ports
- 
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: thead,th1520-dc8200
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 5
-+
-+        clock-names:
-+          minItems: 5
-+
-+        resets:
-+          minItems: 3
-+
-+        reset-names:
-+          minItems: 3
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: nuvoton,ma35d1-dcu
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 4
-+
-+        clock-names:
-+          maxItems: 4
-+
-+        resets:
-+          maxItems: 1
-+
-+        reset-names:
-+          maxItems: 1
-+
- additionalProperties: false
- 
- examples:
+ #define VSDC_FB_CONFIG(n)			(0x1518 + 0x4 * (n))
++#define VSDC_FB_CONFIG_ENABLE			BIT(0)
++#define VSDC_FB_CONFIG_VALID			BIT(3)
++#define VSDC_FB_CONFIG_RESET			BIT(4)
+ #define VSDC_FB_CONFIG_CLEAR_EN			BIT(8)
+ #define VSDC_FB_CONFIG_ROT_MASK			GENMASK(13, 11)
+ #define VSDC_FB_CONFIG_ROT(v)			((v) << 11)
 -- 
 2.43.0
 
