@@ -1,294 +1,109 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0785550DC3;
-	Tue,  8 Sep 2026 21:55:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 564D35540A3;
+	Tue,  8 Sep 2026 21:59:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788904531; cv=none; b=O2vb6klch1CF0R3hyxr1fiq77NnRWA3iG21LVows4VSLPGOxrzp4cN8uGcIpLydJK+m5uUdRy3gqlA0M3m9KvG6GAJAFZSzjVNJgZ5W814CX90QUFYPqkGuBjUbzoZNa9n1yC6BiR6sYFcnt5l+iEbKT0L62WsFY97CYdTz+dbo=
+	t=1788904774; cv=none; b=Y0+94iUiuLTu68ciMXY9TNozvASr9MpPWd0RKGKYlQX6UIAizES4wYvDwCxnwbFD0mOB5bddUqdx9RntqsvOKJI6O2kjYnCRj0tpia3idqZHu8VmRn5deunUY5T9L4NSL1iKoLRY13y7xYbVKLuAifaSR4xUYpgW/gT22yCZRgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788904531; c=relaxed/simple;
-	bh=382uOfWKw9shIIHoy5dE+ILCsYYms/zIoHM1a/Ci/MI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YP+sqTzi7UgKGfoNd26jbQLvez0EdYJdbD23GBXn5WOpT3qPFTxGPq2JssaAdIL3gdyEPiglg59Ppf6PCr3V2tY7i0r6CJngFLffUuHfIP9h2oKAzB1+zi0O+qGpCMQkoP9PhezXWQbJ78LUsptnThppfe43C1/MrLDPa5KCghk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=eKACFwtP; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788904774; c=relaxed/simple;
+	bh=KnsYHCmJhO3Vb0bLFDF1cM26DZtWJ5D4q1xH4ulpGn0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QXXmcEmlc3nSsx2wChRayCXFSuNf8tuhIIBEB1n0VSHvBjvrsYeWxQcbyuMndSEe2qNNoff2tTbm9/kZ5HlCwMGTBbcu9fTkCmhfTuD2fYnn7Eey5gknllyFTK/bOWSpI5aOIswIie7Xf4gzQmtELjq05qNsDWuKdJvnc7ax3XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOL02Iln; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="eKACFwtP"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D80B8100346;
-	Tue, 08 Sep 2026 23:55:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788904523; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=Lx8vUrl8G0vy6Q42VWe8patHE21Kb5u7SDIaA+quT4A=;
-	b=eKACFwtPGFXiQXRqzxq816VuwkNmQSN7przuyniCP6SnnCZDU1IkDWeFLGeLV8KUhk6NcJ
-	KSjkBpHDvBVLi5B1rPl4TyTbFTAlyCkCIzCLj9cqaTbfLOWwPLmjUASyPMRwGA8gXvAGdi
-	FucFCZgFrR4sEsVvKHbskZ7h86HVlNShKv11B6WailahDlg9lYPLKyQDmVeJSKWjmGqQJ3
-	fb7hCeTK212kz5n/bmttw3wrQj349GElJxIkCWKhQjGdVmzNKic92185c5jQSzCohgi/O2
-	Qij43O7TdHvOujuXMzQLU5UvFPexEGu1SiF8T1BpnP9fO0YetfCUz3E5rGUSqg==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
-Date: Tue,  8 Sep 2026 23:54:37 +0200
-Message-ID: <20260908215519.33061-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOL02Iln"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0383BC2BCB8;
+	Tue,  8 Sep 2026 21:59:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788904774;
+	bh=KnsYHCmJhO3Vb0bLFDF1cM26DZtWJ5D4q1xH4ulpGn0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=QOL02IlnfHWD7jGXeQEASELSMujAXpwiJTTHcP/DqM0fI60llhoUXT1+upwn5Ky2P
+	 tXa92RBQlknBdonNcJuqva+Y2QK/HyzRk80D6/0wXmbPU/MYNr7B95TySsAdl8FVPv
+	 oFvOnA9j29ysAN4eVMwTuMHwz2iuouU68whdPedRKtDf0La/vGG9ct0qq9BqlD6LrD
+	 N0iPyeFhaXrZVQia1QKpRCDR651QBhpSEwe1MPRxiIAjQCy3aYUNYv+styFw6SjsdL
+	 aiys/iiJJGHu/GnuqZ/SQXTxI92XYGSk1naAoDtCdSaH5m2Ri17kVQg/2fGXN+KKlk
+	 gpBLzuwbsySKg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id D4A2DC79F99;
+	Tue,  8 Sep 2026 21:59:33 +0000 (UTC)
+From: Zakariya Hadrami via B4 Relay <devnull+zkh.mailbox.org@kernel.org>
+Subject: [PATCH v3 0/4] ARM: Basic support for Amazon ford tablet (MT8127)
+Date: Tue, 08 Sep 2026 23:59:13 +0200
+Message-Id: <20260908-mt8127-amazon-ford-basic-v3-0-fc46bf1b6cb2@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43NQQrCMBCF4auUrB1JpiRpXHkPcRGbqc2iTUlKU
+ EvvbloQ3Agu/wfzzcISRU+JnaqFRco++TCWqA8Va3s73gm8K82Qo+JKKBjmRqAGO9hXGKEL0cH
+ NJt+CkNw4zSV2mlg5nyJ1/rHTl2vp3qc5xOf+KYtt/aD6N5oFcHAcrRPStrU05ymGOYzHgdiGZ
+ vwXwgKpRhpCQxpt8w2t6/oGHgY0NwkBAAA=
+X-Change-ID: 20260616-mt8127-amazon-ford-basic-1509d7052f7e
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, zkh1@proton.me, 
+ Zakariya Hadrami <zkh@mailbox.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788904772; l=1494;
+ i=zkh@mailbox.org; s=20260908; h=from:subject:message-id;
+ bh=KnsYHCmJhO3Vb0bLFDF1cM26DZtWJ5D4q1xH4ulpGn0=;
+ b=wrrDEg/RMfwoGw7IQo/YXTUhAqbjbcfqBFbr/zOT7u3RChwi/3PRQxILrH055zw5uAUdY7mjA
+ ZbasiXzxO5KDxEJ9qYEoQv2vVcwiE+MWi0qA5TCLd+qeeCBsqQkbRV0
+X-Developer-Key: i=zkh@mailbox.org; a=ed25519;
+ pk=up24Xn4ScFKugfT4EJru/UQAS7JOIN+DSQqro+a05T4=
+X-Endpoint-Received: by B4 Relay for zkh@mailbox.org/20260908 with
+ auth_id=1015
+X-Original-From: Zakariya Hadrami <zkh@mailbox.org>
+Reply-To: zkh@mailbox.org
 
-Describe ID EEPROM nWP GPIO, label and nvmem layout. The i.MX8MM eDM SBC
-and i.MX8MP eDM SBC nvmem layout is almost identical, except for length
-of product-name@32 field, which is 19 Bytes on the Mini and 24 Bytes on
-the Plus.
+This series of patches adds basic support for MT8127 SoC based Amazon ford
+tablet.
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
+Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
 ---
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
- .../freescale/imx8mm-data-modul-edm-sbc.dts   |  56 ++++++++
- .../freescale/imx8mp-data-modul-edm-sbc.dts   | 128 ++++++++++++++++++
- 2 files changed, 184 insertions(+)
+Changes in v3:
+- Rebase onto v7.3-rc1.
+- Drop [PATCH v2 3/5] as it was superseded by upstream changes.
+- Link to v2: https://lore.kernel.org/r/20260617-mt8127-amazon-ford-basic-v2-0-6859e29e72a8@proton.me
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-index df857de0375cf..2b7fed0c5a7c7 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-@@ -431,7 +431,63 @@ usb-hub@2c {
- 	eeprom: eeprom@50 {
- 		compatible = "atmel,24c32";
- 		reg = <0x50>;
-+		label = "dmo-board-info";
- 		pagesize = <32>;
-+		wp-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			company-name@24 {
-+				reg = <0x24 0xd>;
-+			};
-+
-+			product-name@32 {
-+				reg = <0x32 0x13>;
-+			};
-+
-+			board-revision@4b {
-+				reg = <0x4b 0x3>;
-+			};
-+
-+			serial-number@4f {
-+				reg = <0x4f 0x8>;
-+			};
-+
-+			manufacturing-date@70 {
-+				reg = <0x70 0xa>;
-+			};
-+
-+			test-date@7b {
-+				reg = <0x7b 0xa>;
-+			};
-+
-+			product-number@86 {
-+				reg = <0x86 0x8>;
-+			};
-+
-+			board-variant@9a {
-+				reg = <0x9a 0x9>;
-+			};
-+
-+			company-acronym@a4 {
-+				reg = <0xa4 0x3>;
-+			};
-+
-+			mac-address@b0 {
-+				reg = <0xb0 0x6>;
-+			};
-+
-+			board-id@100 {
-+				reg = <0x100 0x4>;
-+			};
-+
-+			wifi-id@1200 {
-+				reg = <0x120 0x4>;
-+			};
-+		};
- 	};
- 
- 	rtc: rtc@68 {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-index c284edfa1f4c8..1d03cf73588c4 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-@@ -421,14 +421,142 @@ tpm: tpm@2e {
- 	eeprom900: eeprom@50 {	/* board rev.900 */
- 		compatible = "atmel,24c32";
- 		reg = <0x50>;
-+		label = "dmo-board-info";
- 		pagesize = <32>;
-+		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
- 		status = "disabled";
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			company-name@24 {
-+				reg = <0x24 0xd>;
-+			};
-+
-+			product-name@32 {
-+				reg = <0x32 0x18>;
-+			};
-+
-+			board-revision@4b {
-+				reg = <0x4b 0x3>;
-+			};
-+
-+			serial-number@4f {
-+				reg = <0x4f 0x8>;
-+			};
-+
-+			manufacturing-date@70 {
-+				reg = <0x70 0xa>;
-+			};
-+
-+			test-date@7b {
-+				reg = <0x7b 0xa>;
-+			};
-+
-+			product-number@86 {
-+				reg = <0x86 0x8>;
-+			};
-+
-+			board-variant@9a {
-+				reg = <0x9a 0x9>;
-+			};
-+
-+			company-acronym@a4 {
-+				reg = <0xa4 0x3>;
-+			};
-+
-+			eeprom900mac: mac-address@b0 {
-+				reg = <0xb0 0x6>;
-+			};
-+
-+			board-id@100 {
-+				reg = <0x100 0x4>;
-+			};
-+
-+			wifi-id@1200 {
-+				reg = <0x120 0x4>;
-+			};
-+
-+			board-lvds-id@140 {
-+				reg = <0x140 0x4>;
-+			};
-+
-+			camera-id@160 {
-+				reg = <0x160 0x4>;
-+			};
-+		};
- 	};
- 
- 	eeprom902: eeprom@51 {	/* board rev.902 */
- 		compatible = "atmel,24c32";
- 		reg = <0x51>;
-+		label = "dmo-board-info";
- 		pagesize = <32>;
-+		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			company-name@24 {
-+				reg = <0x24 0xd>;
-+			};
-+
-+			product-name@32 {
-+				reg = <0x32 0x18>;
-+			};
-+
-+			board-revision@4b {
-+				reg = <0x4b 0x3>;
-+			};
-+
-+			serial-number@4f {
-+				reg = <0x4f 0x8>;
-+			};
-+
-+			manufacturing-date@70 {
-+				reg = <0x70 0xa>;
-+			};
-+
-+			test-date@7b {
-+				reg = <0x7b 0xa>;
-+			};
-+
-+			product-number@86 {
-+				reg = <0x86 0x8>;
-+			};
-+
-+			board-variant@9a {
-+				reg = <0x9a 0x9>;
-+			};
-+
-+			company-acronym@a4 {
-+				reg = <0xa4 0x3>;
-+			};
-+
-+			eeprom902mac: mac-address@b0 {
-+				reg = <0xb0 0x6>;
-+			};
-+
-+			board-id@100 {
-+				reg = <0x100 0x4>;
-+			};
-+
-+			wifi-id@1200 {
-+				reg = <0x120 0x4>;
-+			};
-+
-+			board-lvds-id@140 {
-+				reg = <0x140 0x4>;
-+			};
-+
-+			camera-id@160 {
-+				reg = <0x160 0x4>;
-+			};
-+		};
- 	};
- 
- 	rtc: rtc@68 {
--- 
-2.53.0
+Changes in v2:
+- Move amazon ford compatible string to existing enum.
+- Fix watchdog node not sorted in unit address ascending order (sashiko report).
+- Move bindings documentation patches before patches implementing the bindings.
+- Link to v1: https://lore.kernel.org/r/20260617-mt8127-amazon-ford-basic-v1-0-d02ad15ac359@proton.me
+
+---
+Zakariya Hadrami (4):
+      dt-bindings: watchdog: mediatek: Add MT8127
+      dt-bindings: arm: mediatek: Add MT8127 Amazon ford
+      ARM: dts: mediatek: mt8127: Add watchdog support
+      ARM: dts: mediatek: Add basic support for Amazon ford board
+
+ .../devicetree/bindings/arm/mediatek.yaml          |  1 +
+ .../bindings/watchdog/mediatek,mtk-wdt.yaml        |  1 +
+ arch/arm/boot/dts/mediatek/Makefile                |  1 +
+ arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts  | 46 ++++++++++++++++++++++
+ arch/arm/boot/dts/mediatek/mt8127.dtsi             |  7 ++++
+ 5 files changed, 56 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260616-mt8127-amazon-ford-basic-1509d7052f7e
+
+Best regards,
+--  
+Zakariya Hadrami <zkh@mailbox.org>
+
 
