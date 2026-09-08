@@ -1,160 +1,178 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7391B56B874
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 16:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884556; cv=pass; b=LSIIpphY+dbalOj7xuVNuc8Im251gXd5osLkKjHVXV8cCKK4wF2FBniplmKGoSJGtrqFuSIGNEHMCnbJtsHJASxeDZXzMgvhjSqLjngqdyzegIZnRkpgfibSdNgZsRL0+P25m+JLDkHt0+PVEWTsLyJiZOlfmspV8yHRs4GJ94Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884556; c=relaxed/simple;
-	bh=gx0WNzHrzpR5Vg5y5KJZ32oxwshPQgn8Fi9efTzEQjU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kxVGjbEnR6toxEadmd4mq3bxkvneAJ6TnSAfUI8mvneEWnwlvoPnzir5dWRlx8wxpUlFv3ySxA3tdA6LJw1/1n1pdY7vgZanUEA5cCWJPdPl/uLST8pD0QoMdEEmENZ1rHDflrlBkVMT2NTS53nCOrYyXNpWEeA9dOOXL7dxMEw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MHI7JKr2; arc=pass smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3275F5581F6
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 16:22:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788884572; cv=none; b=R2qW5VVRsFQw08ZUBL2lhVLT3YivPLfdEhMCaKBRof+F1gnMKPrw6+UA5DD4O02Y2wtdxCb4QPE0KfMRN8nSYoXI5ddnU1y8YvQ6UtzCLKb0dtiaGg9MzQ6tbc2f2efgNJ/8lNnXIMXZTdAMacaxcLy3bVS8jSur3XKh2z4dviI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788884572; c=relaxed/simple;
+	bh=XUHil1vEravhRyA9+QGk5JFGaXFknoEQbXAIvX708AI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=C0K6KA72nn21XyXdTppZSUTGeASKZL56zShBTZ/IkYrHhZbHRvQrDtufM4TSWNmPzqHlVmYV0r3QjIX4klhAgBmN3CB0LG4OT+5az6xra9sMWGJQOPVZdeOxo9DSol4F+21gIwA9Znqq7MFcjwS9+VIJAgHf3qRKYAOWEUu2Bdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZXIfUZeS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MHI7JKr2"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482e257a23aso3339021f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 09:22:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788884552; cv=none;
-        d=google.com; s=arc-20260327;
-        b=p5bIoaMF+mWwlGFD67kzEkfWanqPdOseyVhNw/N9YrFw/qysRbA+8FuZtONkB1Nrci
-         CzT6gDR5QW+FnyJCIobpQLvIevDMEALEu/Stq+99GI4z43O33Xn1ZkHeA97P4FnueOlA
-         LV0uG0VYbVLqlv+pyuKsVFmavZUxeNyoD7gbasnEza+tu71G+NQ37kTVt3wsDWuPSnfb
-         84wjSzAM9z1yCxSu7Rt5NaWJTaqMBCKxuycJom/iQBK8RDUtIT0uhfoRaZ6If2247or+
-         /Pfhm1/WiFENIM772o96QmluviWQD9cwS8bZj5rFTrAFm779h+jaNu2vcruDK++qyruj
-         WjoQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jekOF2OhfE9K8vBMYq9LG6isiwXmYjORyhfyHiOqLIA=;
-        fh=MV0jhWW/bn8jjw5QxZbuucvItFo7WQkY9G5eAtuHQ+0=;
-        b=QlhnIVJ7Ipzhtksvz9ax4gAtjWAeAP6X00tJsk1BdiRwqUCvf31OUScDgK3I+g3XSZ
-         iXIkqcRmws+VCM89SWINR2KEKXNJpL6TfBErTZYSUE8fmWlnZLHp+Aer1BaQqwmrZ6/Y
-         t/Aq9nFmqqAfxP1LAuyMBR6Y2z4hhcysR9ASe1U9sooIbsnHiMI/T6vik2duBRCDw1UW
-         r3TxPj9/xVtqR+3+PsBehzd9+ND6Xwjlwr7sNZM5drSosseb5dGK/9sCdfCFvbGZHnMb
-         s0Zovn1xOjTgcGSTm8GuMFETyGkb66J3Rx+2H4Qr3YsS7k84PgIrCdfM25ThLw8QElNl
-         WQCQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788884552; x=1789489352; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jekOF2OhfE9K8vBMYq9LG6isiwXmYjORyhfyHiOqLIA=;
-        b=MHI7JKr2kkr24YW4snLpJdEML8QbgbEuKlTVoMWeXvxapQb9bE9iEJ/apSQfsEBCyF
-         6UK7QNkxSB/f9xiBqGLkw/iBAFfKmaoStMFU0SS5vDwnJAGG+tC7GH189zop7UdBzH8w
-         nwK+VulVgJKrc1YU+MG+M392P5la+71HfwYsPHAQAtL6Wmj11OiTlSRr3/2FVb7gcRtK
-         kzeWmmZTOwgHWcLQ2wBGrFe/9jhFTHjnktsABOgWj2M/hW1C+S4I+XMRSJOVRPGTC81W
-         1m9LjXgjk7Udg7NCQtPn+rsj5TDhUg6pzer5U/kGbQZXLXNO6XY0wDlRDF54Tgi9padj
-         LwxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788884552; x=1789489352;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jekOF2OhfE9K8vBMYq9LG6isiwXmYjORyhfyHiOqLIA=;
-        b=htMANQFfKCg0UeV5FfVZy0AwfA1CggXNHiHBAuT/phS22Bqt8ra98IHB2sWP0oBPiA
-         cCgXhzBaNfzPhesfO6kRnyO608MI41joYCvF+4cw0lsBub1Ge50kFlXzIF5mpzWB7dHU
-         CrbA3/dBIHMW3H7LIu+5It8+ysqPfepL2tTgB95tlIIrOeg/qQS3/2v+MXQ4P2M8mQLv
-         zwcLE10MS9deUUnXNKiJ05PhdSYMO5Z7KyAFRds5B+iOXh6gwQ38AAMLZT4rdDf65ydC
-         5dot1JwKYHDSsv5sx/S/Zz3gSCcP5UOH24j65dXin7BeOKGk90NYhKNB+tMStCTN6XC4
-         vQnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzmUJrUaGIQFx9GmRKYnV2U4E6lr9O0E6e49dSIbd+SjUep0aQADf7DV8WIR4T5LU78Q9y7m1ZlrvrA@vger.kernel.org
-X-Gm-Message-State: AFuF++l4HsTGNvnxwY9qTtu32NebMjEOyv9MntekuS0wOurf/1syyQDO
-	aMBJmzv3u7LpkR8jPLM2ztBp6LKvff9wN5bsBbL1jd1HZSDEEcNk+leNUVnq62phIYtSOkexKS0
-	MKZYEBJLDmbm+cMrfllePrDk6tW863NQ=
-X-Gm-Gg: AYBFou1ENpaBIXbhA5SoPj7YjhJBizWPmXSU1nTd5wboHHKPOKHoLzzHhx2v8vCJMmf
-	bMdoEyUbkchkatj4j3nqr5KsNRE8ZQPJnA0BjdBOiv5Us27wTbOzsaypDUSvit7NNwoeeYxgeBT
-	lXhrQ8/yrzhiPZuLbF6SrauiAtPumILWDjmOD/X5FaOJ1uaeFcoRf5h+DgK/K8LtUACVZWzYiVg
-	EA0EFLiPkVbe29tfyEdBzZdLoqpnHSiClPGQn5a82HLUUB4VeDCa6sOiiBbnjnYBLjvpdyHx6W5
-	qRo+MaBzfmRLLT82FayI2xdsHGigMK2rqNL8ShGcFTx8jvWwuFU9ivdKnT/N/DNvw1jUrhBQwhX
-	0yzT8E1b8O3mARRPzDiNOjoHK2M8jsg==
-X-Received: by 2002:a05:6000:29c9:b0:485:8ecc:9415 with SMTP id
- ffacd0b85a97d-4858ecc96bfmr18626346f8f.48.1788884552482; Tue, 08 Sep 2026
- 09:22:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZXIfUZeS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 770621F00A3A;
+	Tue,  8 Sep 2026 16:22:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788884570;
+	bh=FZrcMSVcWKjQBu3s0C0zRHYTlTWPR+ZQuRWfJ/za1po=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZXIfUZeSJr9eRwHZFoL5+QJrpFMvE4+dcdiF8lgshK9d4dIHI0cFCLAZEa+jxg2in
+	 eRpFEtSXNYaeuCfsvF+WM9urbp0aYiLaaAMUNV32J4t++Su0/blHgdMX7zFOgv3BaG
+	 pD0x5K6tp4jp+V7G+zJvH4oM/5/hmNkHii1Gn/RRdtJt9eGIB9hvb7jrykwtuBXc3S
+	 oSjsspDZoG6OGELtlHYaWLcSXPEQBKzqc9YDLKCtWDectSJe52cAfTkq7/ZM+YXPRg
+	 Ox/i44J0gLlTlbMW/mU/FH4dRixCFoT4b7jyiSQBcRuYpC8IAdU+GskEjtSltVsx8x
+	 YO6vy1TDfz+Uw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/4] kho: rename KHO scratch to KHO bootmem
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Pratyush Yadav" <pratyush@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260908155639.2496551-4-pratyush@kernel.org>
+References: <20260908155639.2496551-1-pratyush@kernel.org>
+ <20260908155639.2496551-4-pratyush@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 16:22:50 +0000
+Message-Id: <20260908162250.770621F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <CAMuHMdXBFu=W1MnEA+Eu_zzUy3qMyFRbbeLgYn0waxMdr5cAnA@mail.gmail.com>
-In-Reply-To: <CAMuHMdXBFu=W1MnEA+Eu_zzUy3qMyFRbbeLgYn0waxMdr5cAnA@mail.gmail.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 8 Sep 2026 17:22:04 +0100
-X-Gm-Features: AcwNN1U9H3bV0zPtcgBr5_fY5_Ex_KcZm0AWkc_KXas88ZieEy0_hzjnmDi9vSA
-Message-ID: <CA+V-a8uSR2jgpYqeUxteqhSD-FuxKBT_o2519y1z35cg+3XOig@mail.gmail.com>
-Subject: Re: [PATCH v4 0/7] Add syscon support for Renesas RZ/T2H & RZ/N2H in
- CPG/MSSR driver
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Geert,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-On Tue, Sep 8, 2026 at 1:31=E2=80=AFPM Geert Uytterhoeven <geert@linux-m68k=
-.org> wrote:
->
-> Hi Prabhakar,
->
-> On Mon, 17 Aug 2026 at 21:25, Prabhakar <prabhakar.csengg@gmail.com> wrot=
-e:
-> > This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs
-> > in the CPG/MSSR driver. The CPG/MSSR block on these SoCs is a
-> > multi-function block that integrates several system-level features beyo=
-nd
-> > clock and reset control, including clock monitoring, write protection,
-> > and peripheral configuration registers.
-> >
-> > For the other IP blocks to be configured a syscon support is provided i=
-n
-> > the CPG/MSSR driver. This allows other drivers to access the CPG/MSSR
-> > registers via a regmap interface.
->
-> > Lad Prabhakar (7):
-> >   clk: renesas: r9a09g077: Register SYSC regmap
->
-> Thanks, will queue in renesas-clk for v7.4.
->
-> >   arm64: dts: renesas: r9a09g077: Adjust CPG register region sizes
-> >   arm64: dts: renesas: r9a09g087: Adjust CPG register region sizes
->
-> Thanks, will queue both in renesas-devel for v7.4.
->
-Thank you for picking it up.
+New issues:
+- [High] Mismatch in device tree property names for KHO bootmem causes KHO =
+initialization failure on OF platforms.
+- [Medium] UAPI breakage: renamed fields in `struct kho_data`.
 
-> >   dt-bindings: watchdog: renesas,r9a09g057-wdt: Add CPG/MSSR syscon
-> >     support
->
-> This is now in watchdog-next.
->
-> >   watchdog: rzv2h: Add syscon support for WDTDCR
-> >   arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
-> >   arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
->
-> These two have a hard dependency on the first five patches, so they
-> are postponed.
->
-Agreed, once I sort out the series [0] maybe we can take all the WDT
-driver changes via renesas-soc due to its hard dependancy.
+Pre-existing issues:
+- [High] Kernel panic or Use-After-Free during early boot if KHO bootmem al=
+location fails.
+--
 
-[0] https://lore.kernel.org/all/20260814191415.2110732-1-prabhakar.mahadev-=
-lad.rj@bp.renesas.com/
+commit 3dec172ac499ac601fb7ed89fbed34f0bd01b393
+Author: Pratyush Yadav (Google) <pratyush@kernel.org>
 
-Cheers,
-Prabhakar
+kho: rename KHO scratch to KHO bootmem
+
+This commit renames the term "KHO scratch" to "KHO boot memory" (or bootmem)
+across function names, variable names, comments, and documentation. The cha=
+nge
+clarifies that the memory is provided by the previous kernel for early boot
+allocations, while the discovered allocatable areas are now called "noprsrv=
+".
+
+> diff --git a/arch/x86/include/uapi/asm/setup_data.h b/arch/x86/include/ua=
+pi/asm/setup_data.h
+> --- a/arch/x86/include/uapi/asm/setup_data.h
+> +++ b/arch/x86/include/uapi/asm/setup_data.h
+[ ... ]
+> @@ -85,8 +85,8 @@ struct ima_setup_data {
+>  struct kho_data {
+>  	__u64 fdt_addr;
+>  	__u64 fdt_size;
+> -	__u64 scratch_addr;
+> -	__u64 scratch_size;
+> +	__u64 bootmem_addr;
+> +	__u64 bootmem_size;
+>  } __attribute__((packed));
+
+[Severity: Medium]
+Will renaming these fields in a UAPI header break source compatibility for
+userspace tools (like kexec-tools) that are compiled against this structure?
+If userspace references scratch_addr and scratch_size, compiling against the
+new headers will fail.
+
+> diff --git a/drivers/of/kexec.c b/drivers/of/kexec.c
+> --- a/drivers/of/kexec.c
+> +++ b/drivers/of/kexec.c
+[ ... ]
+> @@ -285,8 +285,8 @@ static int kho_add_chosen(const struct kimage *image,=
+ void *fdt, int chosen_node
+>  				       fdt_mem, fdt_len);
+>  	if (ret)
+>  		return ret;
+> -	ret =3D fdt_appendprop_addrrange(fdt, 0, chosen_node, "linux,kho-scratc=
+h",
+> -				       scratch_mem, scratch_len);
+> +	ret =3D fdt_appendprop_addrrange(fdt, 0, chosen_node, "linux,kho-bootme=
+m",
+> +				       bootmem_arr, bootmem_len);
+
+[Severity: High]
+Does this create a mismatch with the FDT reader? Looking at the boot-time
+initialization in early_init_dt_check_kho() in drivers/of/fdt.c, the new
+kernel still appears to search for the old linux,kho-scratch property.
+
+If the reader side is not updated to match, will this cause the new kernel
+to silently discard the handed-over memory during kexec on OF platforms?
+
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec=
+_handover.c
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+[ ... ]
+> @@ -837,73 +837,73 @@ static void __init kho_reserve_bootmem(void)
+>  	if (!kho_enable)
+>  		return;
+> =20
+> -	scratch_size_update();
+> +	bootmem_size_update();
+> =20
+>  	/* FIXME: deal with node hot-plug/remove */
+> -	kho_scratch_cnt =3D nodes_weight(node_states[N_MEMORY]) + 2;
+> -	size =3D kho_scratch_cnt * sizeof(*kho_scratch);
+> -	kho_scratch =3D memblock_alloc(size, PAGE_SIZE);
+> -	if (!kho_scratch) {
+> -		pr_err("Failed to reserve scratch array\n");
+> +	kho_bootmem_cnt =3D nodes_weight(node_states[N_MEMORY]) + 2;
+> +	size =3D kho_bootmem_cnt * sizeof(*kho_bootmem);
+> +	kho_bootmem =3D memblock_alloc(size, PAGE_SIZE);
+> +	if (!kho_bootmem) {
+> +		pr_err("Failed to reserve bootmem array\n");
+>  		goto err_disable_kho;
+>  	}
+[ ... ]
+> -err_free_scratch_areas:
+> +err_free_bootmem_areas:
+>  	for (i--; i >=3D 0; i--)
+> -		memblock_phys_free(kho_scratch[i].addr, kho_scratch[i].size);
+> -err_free_scratch_desc:
+> -	memblock_free(kho_scratch, kho_scratch_cnt * sizeof(*kho_scratch));
+> +		memblock_phys_free(kho_bootmem[i].addr, kho_bootmem[i].size);
+> +err_free_bootmem_desc:
+> +	memblock_free(kho_bootmem, kho_bootmem_cnt * sizeof(*kho_bootmem));
+>  err_disable_kho:
+> -	pr_warn("Failed to reserve scratch area, disabling kexec handover\n");
+> +	pr_warn("Failed to reserve bootmem, disabling kexec handover\n");
+>  	kho_enable =3D false;
+>  }
+
+[Severity: High]
+This is a pre-existing issue, but if the initial memblock_alloc() fails in
+kho_reserve_bootmem(), the error path sets kho_enable =3D false but fails to
+clear kho_bootmem_cnt back to zero.
+
+If kho_bootmem_cnt is greater than zero and kho_bootmem is a NULL or freed
+pointer, could this cause a panic later in boot? Code like
+kho_bootmem_migratetype() unconditionally calls kho_bootmem_overlap(), which
+iterates up to kho_bootmem_cnt and blindly dereferences kho_bootmem:
+
+bool kho_bootmem_overlap(phys_addr_t phys, size_t size)
+{
+        ...
+        for (i =3D 0; i < kho_bootmem_cnt; i++) {
+                bootmem_start =3D kho_bootmem[i].addr;
+        ...
+}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908155639.2496=
+551-1-pratyush@kernel.org?part=3D3
