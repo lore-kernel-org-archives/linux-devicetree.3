@@ -1,99 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB685568FCD;
-	Tue,  8 Sep 2026 17:53:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FE965908B9;
+	Tue,  8 Sep 2026 17:54:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890039; cv=none; b=c10PqDhlDtFYsM1bsdxTw6B2hLT3kQ+ZbH0ZnpoinSfr8Yw1Qp3vYcQlzYQqi98WeUu+E0hWCLVFXSsr9bkSo5vXD3FeNg1iGswXUda/pFSfdl9lsTcYZTDIZ7dEl3WOlCLHMDZJn6BSqmm7aD9HJs3PiRERaRwuZPiuwqtYQcQ=
+	t=1788890076; cv=none; b=URQdPMYdTNvp9Dmcvf49Wywt7SeOQf5a5NBVocGqRx3bU0z3z1h65jWomfPyfUg5ZJshdaAQiwyzixakEj4SnHNaZmzk5RdHGU8OHHumgjw/MqDn6ccYSVCEc94M/fkb4+bo3B9QH6nOZxYPl4SXitm93FU/wu27q0YxDc2p4So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890039; c=relaxed/simple;
-	bh=THyk43Os195QXhM6lmIGBTbk+u8i8mAeEpREyyeu5Bc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WOq/6P1tklOqaBFraLdLjkQN6D4xfy1qPM1y4wZkpdQeV9tIuY1EHPUXyQ1pWvpL7p63fqwvRkvFe3P0HU3Ur+hI16hz910byylg/3ht9L7/P//K/vX66WqojLTgDfEt5gVL5al2VCQ4JSUIoy1zETrWs5XfkGyZxI+Hb/CxMms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrAnQQzo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890076; c=relaxed/simple;
+	bh=tRYOan3ALhxvuY5Y/G8ZJz7EfrvVLsXwqCX95KWaI2A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hOmxI3qK2yCMzjLUKvrZ+TW2TzgI4iFU6Ktaf6z+yXWouK108A9pn0DQ+o+8MsMnfPpas84iR3lFeBCT5DjgtOANcCYbOkYx101OIa0aje9cO+SNMThTjXDyNOVTckpGBigPBLfh0Z5qHgU6arSJozx3fmIyvZ8qqngtWSiotZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bsDNps5V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrAnQQzo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB1B1F00A3A;
-	Tue,  8 Sep 2026 17:53:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bsDNps5V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3051F00A3A;
+	Tue,  8 Sep 2026 17:54:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890037;
-	bh=4QtM6Hbi4gcywrhhjCn+7LKCMCBN31he95Z6+BIsvL4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YrAnQQzoZjGEEQ1bEJlKZIPx3b72jxLZfmFCM3nnDJ3HfT1OxBULdS7r7CiaDvZr9
-	 NpaSni/55+zi2/LlHuz4PasyOgnGyskkt22IAHghc/QTMk8AQtFL2GDX5zp7JftiK1
-	 0I97MrP5/m5afAjFtO6V3RabaIKxT50pghezytVXzouxFWkbZE89B3dR7fVzZFeGdr
-	 h+ZRbpQpL9HSBQB4aegyLfrlIGx6QGiX1Hfn1QDqIQT7RPNHK7pduJVNz/G933QwUL
-	 OVBi6EAx27Xz8p/FcVmbqrLWh2kJIvEWBy8Ww5ZAsIemo2NNViYU8oPrstfQV8g1Al
-	 PafGxWSgOcs3A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/8] dt-bindings: watchdog: Add compatible for
- MediaTek mt8167
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260908174259.9009-4-l.scorcia@gmail.com>
-References: <20260908174259.9009-1-l.scorcia@gmail.com>
- <20260908174259.9009-4-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 17:53:56 +0000
-Message-Id: <20260908175357.3FB1B1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788890075;
+	bh=BK7Pb5f6hOmg5Ney1uPXvfbfTZG8f/SafOJm4kyr358=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bsDNps5VY3DQIHbZFNO1vmNjWd5u+T4PsyGzbpZHfNIN76rznC6bSg4e9Xtzi9S1/
+	 PoasXXiY0ALETNAUzB5n2FWz5M46wu7mdSbN0OBPjnHevZ94LZ0gn5GyVSwVoobRA2
+	 Uxb0CVyNTGyjxUBP74oGHAEmDMedfZ2BJcIdWkpGkF1E8POs2lCaRwPfENvsZ4SH5f
+	 yga/cQ7rNQ+gvlIqSWzgNBVBn72n1zF3wofbk7jz0PSfrfb9e6Kypamqe2aMMSP01F
+	 U2AI651mT9ZN52EOl9wCi9MObsolFzb36xoAk90T2Q+Tvz/tefnVeLfGoopIIOwKX1
+	 Gp4iPd7l3AbkA==
+Date: Tue, 8 Sep 2026 18:54:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Shubham Patil <shubhamsanjay.patil@amd.com>
+Cc: alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <20260908-groin-undivided-0af701135404@spud>
+References: <20260908094257.3196120-1-shubhamsanjay.patil@amd.com>
+ <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="FMRvDAZvBKX3yjGb"
+Content-Disposition: inline
+In-Reply-To: <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing required property constraint for new provider capabiliti=
-es
---
+--FMRvDAZvBKX3yjGb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit 1623803f044eb5bb4bdac92465a186ae36fe6a1a
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
+> In-Band Interrupt and Hot-Join are synthesis-time options of the AXI I3C
+> IP. Describe them with two boolean properties.
+>=20
+> A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+> capable design is always IBI capable as well. Both events are reported
+> through the controller interrupt, which is therefore required whenever
+> the capability is present.
+>=20
+> Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> ---
+> Changes in V3:
+> - Move in-band-interrupt-capable and hot-join-capable into the common
+>   i3c.yaml schema and drop the xlnx, prefix.
+> - Keep dependencies in the AMD binding.
+> - Update the commit description accordingly.
+> - Conor Dooley acked v2 with the xlnx,-prefixed properties in the AMD
+>   binding [1].
+>   That Acked-by is not carried here: the names lost the vendor prefix
+>   and the definitions moved to i3c.yaml after Frank Li's comment.
+>   [1]:https://lore.kernel.org/all/20260824-tightwad-impose-495476599087@s=
+pud/
 
-dt-bindings: watchdog: Add compatible for MediaTek mt8167
+I disagree with Frank. These properties make sense for Xilinx because it
+is an FPGA IP and synthesis options impact this. For other devices, this
+should be determined from the compatible.
+Please revert to how things were done in v2, especially as no rationale
+was provided for why these should be common.
 
-Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
-which in turn falls back on mt6589-wdt. However according to the data
-sheet mt8167 toprgu is not actually compatible with mt6589 (it has 14 sw
-resets instead of 12, and its reset bit map table is different from
-mt6589).
+pw-bot: changes-requested
 
-Update the mtk-wdt binding to add a dedicated compatible for mt8167 and
-add the IDs that can be used in device trees to identify subsystem resets.
+Thanks,
+Conor.
 
-> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
-yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> index 953629cb9558b..f514be8a5851d 100644
-> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
-> @@ -26,6 +26,7 @@ properties:
->            - mediatek,mt6795-wdt
->            - mediatek,mt7986-wdt
->            - mediatek,mt7988-wdt
-> +          - mediatek,mt8167-wdt
+>=20
+> Changes in V2:
+> - Rename the properties to "xlnx,in-band-interrupt-capable" and
+>   "xlnx,hot-join-capable", and expand their descriptions.
+> - Express the interrupt requirement with dependencies: instead of an
+>   allOf/if-then clause.
+> ---
+>  Documentation/devicetree/bindings/i3c/i3c.yaml    | 15 +++++++++++++++
+>  .../devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml |  6 ++++++
+>  2 files changed, 21 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documentati=
+on/devicetree/bindings/i3c/i3c.yaml
+> index e25fa72fd7857..7430394cc6b9b 100644
+> --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> @@ -61,6 +61,21 @@ properties:
+>        Indicates that the system is accessible via this bus as an endpoin=
+t for
+>        MCTP over I3C transport.
+> =20
+> +  in-band-interrupt-capable:
+> +    type: boolean
+> +    description:
+> +      The controller supports In-Band Interrupts. A target can request
+> +      attention on SDA/SCL by driving its dynamic address during bus
+> +      arbitration, instead of using a dedicated side-band interrupt line.
+> +
+> +  hot-join-capable:
+> +    type: boolean
+> +    description:
+> +      The controller supports Hot-Join. A target attached or powered up
+> +      after the bus is already running can announce itself using the
+> +      reserved Hot-Join address so the controller can assign it a dynamic
+> +      address.
+> +
+>  required:
+>    - "#address-cells"
+>    - "#size-cells"
+> diff --git a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml =
+b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> index 2caa245a86568..9480de3fe8e1d 100644
+> --- a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> @@ -37,6 +37,10 @@ required:
+>    - reg
+>    - clocks
+> =20
+> +dependentRequired:
+> +  hot-join-capable: [ in-band-interrupt-capable ]
+> +  in-band-interrupt-capable: [ interrupts ]
+> +
+>  allOf:
+>    - $ref: i3c.yaml#
+> =20
+> @@ -54,5 +58,7 @@ examples:
+>          interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+>          #address-cells =3D <3>;
+>          #size-cells =3D <0>;
+> +        hot-join-capable;
+> +        in-band-interrupt-capable;
+>      };
+>  ...
+> --=20
+> 2.34.1
+>=20
 
-[Severity: Medium]
-Should #reset-cells be added as a conditionally required property for this
-new compatible?
+--FMRvDAZvBKX3yjGb
+Content-Type: application/pgp-signature; name=signature.asc
 
-Since this patch adds reset provider capabilities to the hardware (defining
-reset IDs in include/dt-bindings/reset/mediatek,mt8167-wdt.h), the schema
-needs to ensure #reset-cells is conditionally required for this variant.
+-----BEGIN PGP SIGNATURE-----
 
-Without adding #reset-cells to a required list for mediatek,mt8167-wdt
-under properties:compatible:oneOf or via an allOf block, a device tree
-node omitting it will silently pass dt_binding_check validation. This allows
-incomplete configurations that will fail at runtime when dependent nodes try
-to consume the resets.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBL1gAKCRB4tDGHoIJi
+0poQAQCLSpPeDIwNP31iFKBcmvHVCtAkP08+yE77wc12Mqs+NAD+LOWBpd18oZEy
+yIp+uwmXkEOHSuVPSMYmoXPe9CkgvQA=
+=zB1x
+-----END PGP SIGNATURE-----
 
->            - mediatek,mt8183-wdt
->            - mediatek,mt8186-wdt
->            - mediatek,mt8188-wdt
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908174259.9009=
--1-l.scorcia@gmail.com?part=3D3
+--FMRvDAZvBKX3yjGb--
