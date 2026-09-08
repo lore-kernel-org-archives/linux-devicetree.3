@@ -1,135 +1,255 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C634B533595
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 12:03:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E103F3D5656;
+	Tue,  8 Sep 2026 12:05:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788868992; cv=none; b=oTHZWNf6/7AXFYu3hrVnGku7Ax+AlzmAQyYXCFeKkZtja0cstlI8uUVS0qGZlkQycMv3criZwWgO/OsTHmH330fuRCIwHr0ERB63KZ4l0jZ92eg8qxEkMqRu7iFljR0+MZii/DGJav+Yf6DYd57JxakvRTd+hSblMlPIKJj3o7c=
+	t=1788869149; cv=none; b=nDESkQS1fzJPvTkGOCPF+yGCWFzOKssl1aN/t6hRUn++lHUjGhM5vnQI2pHM5pf/rG1U/2T18fiP7VbKUx8Gyk/gG4g7xzMUQRqPuItXBIwOXaRNG0PHR0nxcoSqSHOtTNnJpRyyeA9Te4Vrpw/YsCM91xBCL+O+UqrMzxW4PIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788868992; c=relaxed/simple;
-	bh=FIe2OvoryOHdkw1zF3XWIgUhFcSfu1ABEHKofcWfdpg=;
+	s=arc-20240116; t=1788869149; c=relaxed/simple;
+	bh=J0QWtQojSlALprMFrPXPpWiG5mBmKb/JAlBlmyHtaZ4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rWp92YFf8Yu45LBsrvXqIwfrwabXgoS2wh7hOBkvMxXiC1YD50f6r+izBiWHn75XAmIDOlQYHUtCtUkp4kKyzDvqx6j588UGddNk4xLqLig33SZQZ7M5n3veM3wlD8VlOtEOMuBaFRTGU6AIFO35Si2Ls/VgzPoPQ9+6XuiI9bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C5E11F00A3A;
-	Tue,  8 Sep 2026 12:03:07 +0000 (UTC)
+	 Message-Id; b=WqKS0Gagz4rUcGXvsjNTPfYbK9rZFDuQFdyH9mZwvbxqloUZ1OP0CpH3iU7N4b740tv/UikgutgzmHCAJmNJdxg/4fLUckKIZ6auy4X5pqMD4LpUL4l1za6yZi8XBF49Sybb7YwN2jKuQ2iy5ISB5NCT/FRO9kg4dTZQwZj0xqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a6xiCVks; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a6xiCVks"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 378D91F00A3A;
+	Tue,  8 Sep 2026 12:05:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788869139;
+	bh=2ojMZR/od4YfwFom3X3TwCJbl+TP8p0WoA6cxLf4L4w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a6xiCVksLF90JVPbXm5Fz5goXSylvbaKC2ZTbaL6GzDCkwQhyZiiVQe5ER/WsMRhJ
+	 KidRdLrc4fXzIurQrq52nle5e+oWf+DxwCZMnTFzscy/5jLeYKrSSw+L6AtaNxHbGc
+	 4xoVUt40NobwxRQoijew+mnBir423ldq3ZEsIjh0UcE+NNyhbkL+wPzEgwxkLNi9I2
+	 dAqpt58lOcwEHrlME4WnZqrk7gVv2GaMsDT59b2zu5yEchHKifdGFTi/+XFi6KVoG/
+	 ni4nbXzinZzBuztS2a+cYTiJBZtzC/T4Osp7xGGSaD1JBmrfeDNNWAJHE0+rEyR+2h
+	 0wViYTX/SUKcg==
 From: sashiko-bot@kernel.org
-Subject: Re: [RESEND PATCH v5 2/2] media: i2c: add os02g10 image sensor
- driver
+Subject: Re: [PATCH v49 5/7] firmware: imx: adds miscdev
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Elgin Perumbilly" <elgin.perumbilly@siliconsignals.io>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260908114235.86568-3-elgin.perumbilly@siliconsignals.io>
-References: <20260908114235.86568-1-elgin.perumbilly@siliconsignals.io>
- <20260908114235.86568-3-elgin.perumbilly@siliconsignals.io>
+To: pankaj.gupta@oss.nxp.com
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260908-imx-se-if-v49-5-a59529118839@nxp.com>
+References: <20260908-imx-se-if-v49-0-a59529118839@nxp.com>
+ <20260908-imx-se-if-v49-5-a59529118839@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 12:03:06 +0000
-Message-Id: <20260908120307.2C5E11F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 12:05:38 +0000
+Message-Id: <20260908120539.378D91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Setting digital gain to its advertised maximum of 2048 causes a wr=
-ap-around to 0, resulting in a black image.
-- [Medium] Incorrect error checking for pm_runtime_get_if_active() in os02g=
-10_set_ctrl() leads to unbalanced pm_runtime_put() and hardware access whil=
-e powered off.
-- [Low] Missing HBLANK control implementation despite claims in the commit =
-message.
+- [High] Moving `atomic_set(&fbusy_info->fw_busy, 0)` to the end of `se_cle=
+ar_fw_busy()` causes all session and storage handle cleanup requests to fai=
+l, permanently leaking firmware resources.
+- [High] Missing upper-bound checks for variable-length input DMA buffers i=
+n ELE_OEM_AUTH_CONTAINER_REQ and ELE_KEYSTORE_REPROV_ENABLE_REQ allow malic=
+ious userspace to trigger out-of-bounds physical memory reads, potentially =
+crashing the secure enclave or system.
 --
 
-commit 1c1498e9a9139b064778f0a3a923b9cecbc3aa62
-Author: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
+commit b1854f8ad905b9bef822cde3f1cab2d887c816c2
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-media: i2c: add os02g10 image sensor driver
+firmware: imx: adds miscdev
 
-This commit adds a new V4L2 subdevice driver for the Omnivision os02g10
-CMOS image sensor. It supports 1920x1080 resolution at 30fps and includes
-manual exposure, gain, blanking, flip, and test pattern controls.
+This commit introduces a character device driver to facilitate communication
+with the NXP secure enclave (EdgeLock Enclave) from user-space applications.
+It manages the shared memory buffers, enforces command whitelisting, and
+handles device context cleanup.
 
->     The following features are supported:
->     - Manual exposure an gain control support
->     - vblank/hblank control support
-
-[Severity: Low]
-Is the HBLANK control missing from this driver?
-
-The commit message advertises support for it, but V4L2_CID_HBLANK is never
-instantiated in os02g10_init_controls().
-
-> diff --git a/drivers/media/i2c/os02g10.c b/drivers/media/i2c/os02g10.c
-> new file mode 100644
-> index 0000000000000..61de45c54d188
-> --- /dev/null
-> +++ b/drivers/media/i2c/os02g10.c
+> diff --git a/drivers/firmware/imx/ele_common.c b/drivers/firmware/imx/ele=
+_common.c
+> --- a/drivers/firmware/imx/ele_common.c
+> +++ b/drivers/firmware/imx/ele_common.c
 [ ... ]
-> +static int os02g10_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct os02g10 *os02g10 =3D container_of_const(ctrl->handler,
-> +						     struct os02g10, handler);
-> +	struct v4l2_subdev_state *state;
-> +	struct v4l2_mbus_framefmt *fmt;
-> +	int ret =3D 0;
+> @@ -66,13 +66,13 @@ int se_val_cmd_addrs(struct se_if_device_ctx *dev_ctx=
+, struct se_api_msg *msg,
+[ ... ]
+> +		if (f->size_idx =3D=3D SE_CMD_RCVR_ADDR_VAR_SIZE) {
+[ ... ]
+> +		} else if (f->size_idx !=3D SE_CMD_ADDR_NO_SIZE) {
+> +			u64 len;
 > +
-> +	state =3D v4l2_subdev_get_locked_active_state(&os02g10->sd);
-> +	fmt =3D v4l2_subdev_state_get_format(state, 0);
+> +			if (f->size_idx >=3D payload_words)
+> +				return -EINVAL;
 > +
-> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> +		/* Honour the VBLANK limits when setting exposure */
-> +		s64 max =3D fmt->height + ctrl->val - OS02G10_EXPOSURE_MARGIN;
+> +			/* size_mask =3D=3D 0 with a valid size_idx is a descriptor bug. */
+> +			if (!f->size_mask)
+> +				return -EINVAL;
 > +
-> +		ret =3D __v4l2_ctrl_modify_range(os02g10->exposure,
-> +					       os02g10->exposure->minimum, max,
-> +					       os02g10->exposure->step,
-> +					       os02g10->exposure->default_value);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	if (pm_runtime_get_if_active(os02g10->dev) =3D=3D 0)
-> +		return 0;
-
-[Severity: Medium]
-Does this check properly handle negative error codes from
-pm_runtime_get_if_active()?=20
-
-If runtime PM is disabled, this function returns a negative error code
-(such as -EINVAL), which bypasses this check. This allows execution to
-proceed to the hardware accesses and subsequently call pm_runtime_put() at
-the end of the function, which will underflow the usage counter since it
-was never successfully incremented.
-
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_EXPOSURE:
-> +		cci_write(os02g10->cci, OS02G10_REG_LONG_EXPOSURE,
-> +			  ctrl->val, &ret);
-> +		break;
-> +	case V4L2_CID_ANALOGUE_GAIN:
-> +		cci_write(os02g10->cci, OS02G10_REG_ANALOG_GAIN,
-> +			  ctrl->val, &ret);
-> +		break;
-> +	case V4L2_CID_DIGITAL_GAIN:
-> +		cci_write(os02g10->cci, OS02G10_REG_DIGITAL_GAIN_L,
-> +			  (ctrl->val & 0xff), &ret);
-> +		cci_write(os02g10->cci, OS02G10_REG_DIGITAL_GAIN_H,
-> +			  ((ctrl->val >> 8) & 0x7), &ret);
+> +			/*
+> +			 * Widen to u64 before shifting: size_shift is u8 and
+> +			 * shifting a u32 by >=3D 32 is undefined behaviour.
+> +			 */
+> +			len =3D ((u64)msg->data[f->size_idx] >> f->size_shift) & f->size_mask;
+> +			if (len > end - addr)
+> +				return -EACCES;
+> +		} else if (f->buf_size) {
+> +			/* buf_size: literal byte count (FW-defined constant). */
+> +			if ((u64)f->buf_size > end - addr)
+> +				return -EACCES;
+> +		}
 
 [Severity: High]
-Does this bitwise mask handle the maximum digital gain value of 2048
-correctly?=20
+Does this code fail to enforce an upper bound when f->size_idx is
+SE_CMD_ADDR_NO_SIZE and f->buf_size is 0?
 
-When the user sets the digital gain to OS02G10_DIGITAL_GAIN_MAX (2048 or
-0x0800), shifting right by 8 yields 0x08. Masking this with 0x7 evaluates
-to 0. This writes 0x00 to both the low and high registers, unexpectedly
-setting the gain to 0 instead of the maximum.
+If a malicious caller provides a DMA address very close to the end of the
+window (e.g., end - 1), it seems the firmware might read past the allocated
+shared memory boundary. Could this lead to an out-of-bounds physical memory
+read over the DMA bus?
+
+[ ... ]
+> @@ -529,13 +529,13 @@ int ele_msg_send_rcv(struct se_if_device_ctx *dev_c=
+tx, void *tx_msg,
+[ ... ]
+> +	if (atomic_read(&fbusy_info->fw_busy)) {
+> +		spin_unlock_irqrestore(&priv->waiting_rsp_clbk_hdl.clbk_rx_lock, flags=
+);
+> +		dev_dbg(priv->dev, "%s: ELE became unresponsive.\n", dev_ctx->devname);
+> +		return -EBUSY;
+> +	}
+
+[ ... ]
+> diff --git a/drivers/firmware/imx/ele_msg_addr_field.c b/drivers/firmware=
+/imx/ele_msg_addr_field.c
+> --- a/drivers/firmware/imx/ele_msg_addr_field.c
+> +++ b/drivers/firmware/imx/ele_msg_addr_field.c
+> @@ -20,13 +20,13 @@ static const struct se_cmd_addr_field ele_get_info_ad=
+dr_fields[] =3D {
+[ ... ]
+> +static const struct se_cmd_addr_field ele_oem_auth_cntr_addr_fields[] =
+=3D {
+> +	/*
+> +	 * Container Header address: a 64-bit physical address split across two
+> +	 * words. data[0] holds the 32-bit MSB and data[1] holds the 32-bit LSB
+> +	 * (ELE API spec Table 27, word size =3D 0x3, so the command is header +
+> +	 * MSB + LSB only). The message carries no length word for this buffer;
+> +	 * the container size is variable and not communicated in the MU payloa=
+d,
+> +	 * and no static firmware-defined maximum is specified. Because this is=
+ a
+> +	 * read-only input buffer (the ELE ROM/FW copies the container header
+> +	 * into its internal memory for authentication and does not write back
+> +	 * through this address), enforcing only the start-address range check =
+is
+> +	 * acceptable: a rogue caller can at most cause firmware to read within
+> +	 * the shared-memory window, which is memory the caller already owns.
+> +	 * Output buffers must be fully bounded; input-only buffers are safe wi=
+th
+> +	 * addr-only checks.
+> +	 */
+> +	{ .lsb_idx =3D 1, .msb_idx =3D 0, .has_msb =3D true, .flag_idx =3D SE_C=
+MD_ADDR_ALWAYS,
+> +	  .size_idx =3D SE_CMD_ADDR_NO_SIZE },			/* container_hdr_addr */
+> +};
+
+[Severity: High]
+Is the assumption in this comment correct?
+
+Even for an input-only buffer, if there is no length bound checked here, a
+rogue caller could supply a valid start address immediately preceding an
+unmapped or restricted physical memory region. The firmware reading the
+variable-length container header could then cross the boundary, triggering a
+bus error, IOMMU fault, or SError that might crash the system or enclave.
+
+[ ... ]
+> @@ -125,13 +125,13 @@ static const struct se_cmd_addr_field ele_pub_key_e=
+xport_addr_fields[] =3D {
+[ ... ]
+> +static const struct se_cmd_addr_field ele_keystore_reprov_en_addr_fields=
+[] =3D {
+> +	/*
+> +	 * Signed message address: a 64-bit physical address split across two
+> +	 * words. data[0] holds the 32-bit MSB and data[1] holds the 32-bit LSB
+> +	 * (ELE API spec Table 202, word size =3D 0x3, so the command is header=
+ +
+> +	 * MSB + LSB only). The address points to the start of the complete
+> +	 * signed message block (header + 12-byte payload from Table 204 +
+> +	 * signature); the total block size depends on the signing format and is
+> +	 * not carried anywhere in the MU payload words. No static
+> +	 * firmware-defined maximum for the full block is specified. Because th=
+is
+> +	 * is a read-only input buffer (firmware reads and verifies the signed
+> +	 * block, does not write back through this address), enforcing only the
+> +	 * start-address range check is acceptable: a rogue caller can at most
+> +	 * cause firmware to read within the shared-memory window, which is
+> +	 * memory the caller already owns. Output buffers must be fully bounded;
+> +	 * input-only buffers are safe with addr-only checks.
+> +	 */
+> +	{ .lsb_idx =3D 1, .msb_idx =3D 0, .has_msb =3D true, .flag_idx =3D SE_C=
+MD_ADDR_ALWAYS,
+> +	  .size_idx =3D SE_CMD_ADDR_NO_SIZE },			/* signed_msg_addr */
+> +};
+
+[Severity: High]
+Similar to the container header check in ele_oem_auth_cntr_addr_fields, cou=
+ld
+this lack of an upper bound size check allow malicious userspace to trigger
+out-of-bounds physical memory reads by the firmware during reprovisioning
+operations?
+
+[ ... ]
+> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
+l.c
+> --- a/drivers/firmware/imx/se_ctrl.c
+> +++ b/drivers/firmware/imx/se_ctrl.c
+> @@ -1070,13 +1070,13 @@ static int se_if_misc_register(struct se_if_priv =
+*priv)
+[ ... ]
+> +static void se_clear_fw_busy(struct se_if_priv *priv)
+> +{
+[ ... ]
+> +			} else if (dev_ctx->cleanup_done) {
+> +				/*
+> +				 * Userspace fd already closed while fw_busy was
+> +				 * armed (e.g. SIGKILL). FW has now responded;
+> +				 * close deferred handles and free the DMA buf.
+> +				 */
+> +				if (dev_ctx->strg_hdl &&
+> +				    se_close_storage(priv->priv_dev_ctx,
+> +						     dev_ctx->strg_hdl))
+> +					dev_err(priv->dev,
+> +						"%s: failed to close deferred storage handle\n",
+> +						dev_ctx->devname);
+> +				if (dev_ctx->sess_hdl &&
+> +				    se_close_session(priv->priv_dev_ctx,
+> +						     dev_ctx->sess_hdl))
+> +					dev_err(priv->dev,
+> +						"%s: failed to close deferred session handle\n",
+> +						dev_ctx->devname);
+> +				dev_ctx->strg_hdl =3D 0;
+> +				dev_ctx->sess_hdl =3D 0;
+> +				cleanup_se_shared_mem(dev_ctx, true);
+> +			} else {
+[ ... ]
+> +	spin_lock_irqsave(&fbusy_info->fw_busy_lock, flags);
+> +	atomic_set(&fbusy_info->fw_busy, 0);
+> +	spin_unlock_irqrestore(&fbusy_info->fw_busy_lock, flags);
+> +	kref_put(&dev_ctx->refcount, se_if_dev_ctx_release);
+> +}
+
+[Severity: High]
+Will this cleanup path accidentally leak the handles it intends to close?
+
+In se_clear_fw_busy(), atomic_set(&fbusy_info->fw_busy, 0) is deferred until
+the very end of the function. However, the calls to se_close_storage() and
+se_close_session() both rely on ele_msg_send_rcv().
+
+Because ele_msg_send_rcv() checks atomic_read(&fbusy_info->fw_busy) and
+returns -EBUSY immediately if it is set (as quoted earlier from
+drivers/firmware/imx/ele_common.c), won't these close requests be rejected
+without ever reaching the firmware? This could allow a userspace process
+repeatedly killed by SIGKILL to exhaust the secure enclave's handles.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908114235.8656=
-8-1-elgin.perumbilly@siliconsignals.io?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-imx-se-if-=
+v49-0-a59529118839@nxp.com?part=3D5
