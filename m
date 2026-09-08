@@ -1,112 +1,75 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15BDC53FD55;
-	Tue,  8 Sep 2026 13:53:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53D3A552922;
+	Tue,  8 Sep 2026 13:57:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788875618; cv=none; b=YL8e5ATFuZqeV9z14LN0IwqL5hbMtHJlUTlL97VmOLmQ/sAaeOpH1XxgTDt2c9yTa0xgvU1IkPvqWoOhTJPCrqc6FUVY6VOLWl0HJrTOeYcCnqZr3YKfyY6o+Arp/WjBwLTUb+rkLJvLyIUuWOjoAHGR/QS26DpVMP+NgE7k9iA=
+	t=1788875860; cv=none; b=OuVUdz2zzjRUHZkh6hJG4K8jTsuwZrifpLqhx8ezJOo4DwbVBxeaJx/C1xotjJEWJOfICM7NyqnRe8reg/b7aRndK+y1qcOr1cdBM5CC9AgjpXnTTjVjTigSOqnyLuV5Gh9h4Sq+MW2vvuQdl2knjMD1YUpxAp2bKE+rY066ftQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788875618; c=relaxed/simple;
-	bh=qXuPQtQK/tzbYDqUo7i3Yoiv3UQY/plhMcQleYglgm8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LT3LcLWinbqRL3TTCtC8LgAmKXSjAGxi6sN6fsGs4ThslbM0eFSYmlFTXE4IL4fu8e+lr2jQgDAz6dMGryQTcUe0Rg1ZJ21OpckIXKarFvjjM6GiF/hN8pBUSapZY+f+QykV2fbfad7wf7SNjd6KzrQ2nu32pBHdjbiRT2YZDIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=ac60Plnx; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1788875860; c=relaxed/simple;
+	bh=NzOqW4pt1ajz4dkof3dvngKvosflxIFCUNOB+eH1C0c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aD1pCnyxMgIpdThysdBGWUqFPj/pSAnQvSv02KrdgYz+6ZSlyPqYD/JtVRE5lfF+Vsclt2tyVUHmeHowAbFxqbSiuJYkt5MUm6ry/Hvej13fI/yys9ua4+Uuo05Uqyn4eY6vAuzcauqcn92xXokCxhMZXzcXbOw+J68Zxe2byIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZVSmAlVj; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="ac60Plnx"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1788875590;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=JTEthrAA6LwUJ539D4ECKjt7zqyGUxoBnrgaPMytwWY=;
-	b=ac60PlnxF2eMpYSqf2qL/1e+TZwJ5HIEIQ/s6rl7IhU8cxkWm9zoEAJYIK6dMgcTy8V207
-	0BbHWAvrfrGS755v1N0KQdUcE7/lU96iSdTxC5puOqMGHTQZ5HvlkaQ22TzhqeAQwnRBgn
-	W2ByHt94z0pN3tqQqn4GSsI4gVlEEHVeLgbK+2wwzKx9Q+lF+FQduDiIY7bt4RAQiglI3y
-	Aq+VXXBH3zRnnYmReCVih4FBJfQVU9OpsFwsd4EAs9haqjXeDJSmEscTIAl1hZjALx6JYS
-	q9TwHT+nv+deUaUcpuz5Q22iCvuDst2CsvYKtze0WOn0T0MuME4PqsH3aA5r6w==
-Date: Tue, 08 Sep 2026 15:51:56 +0200
-Subject: [PATCH 9/9] arm64: dts: imx8mp-kontron: Fix LVDS clock frequency
- for DL device
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZVSmAlVj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=XSHjoqKZS76dua77JkRtMPbt7wmbUOwxQGX1OskVqgY=; b=ZVSmAlVjfi7BqYY3PRBrVxPHxD
+	sS5JSfpvLfTbVO26Z99zuuD5k90FELrsTyZ4Nl/bsWXlf6e9F9WwuMBlngO5JdANENGcmVw64gseh
+	F+7ENanw2owYL/FxvudbgCfsXoakPB8z+nI0QAZ4ErnRPZMH537uVzrUhMPf1yf24SxY=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3wK8-003uHO-Cv; Tue, 08 Sep 2026 15:57:20 +0200
+Date: Tue, 8 Sep 2026 15:57:20 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
+	Anurag Pateriya <apateriy@qti.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH PRELIMINARY 1/5] arm64: dts: qcom: shikra-iqs-som: fix
+ GPIO138 reservation
+Message-ID: <6e5624f5-410e-4413-82de-84cf864fd654@lunn.ch>
+References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
+ <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
+ <169b2cd5-d0d8-4682-8756-bacf545a95a0@lunn.ch>
+ <aqAQ+BxwJstTlnU3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-9-4d0e8a75db79@kontron.de>
-References: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
-In-Reply-To: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Frieder Schrempf <frieder.schrempf@kontron.de>, 
- Oualid Derouiche <oualid.derouiche@kontron.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1721;
- i=frieder.schrempf@kontron.de; h=from:subject:message-id;
- bh=JflSEapFC6tCDik1Iz5jWuT+Z2BejGAThr2/ZivZJV0=;
- b=owGbwMvMwCWWWSatKlDTJMZ4Wi2JIWuBsLNhq+mbwGWNS0XWfZDYN4mvy+PyLK5Hqw+Ybrj5a
- +4ZjvnPOkpZGMS4GGTFFFmk+C1e25rF+sgfq46CmcPKBDKEgYtTACaitY+RYR/3xl13w85ox+vX
- Ja+6Jqaq92Uzr8hrhkUyXgclynyO1gFV9HHHnjsa+spxziPzNLUjOz89m542xyBEWFo44e7tJit
- WAA==
-X-Developer-Key: i=frieder.schrempf@kontron.de; a=openpgp;
- fpr=1A0F38EB3D365D4C1FC67B5A69761B25107C8216
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqAQ+BxwJstTlnU3@oss.qualcomm.com>
 
-From: Oualid Derouiche <oualid.derouiche@kontron.de>
+> You're right that it reads like a standalone fix, and that's on me for
+> the commit message. There's no functional impact on current users: the
+> reserved GPIO (138) is unused today, so applying this on a released
+> kernel produces no error and there's nothing to backport to stable.
+> 
+> I'll reword the commit message so it reads as a prerequisite for
+> enabling Ethernet rather than implying a current break.
 
-The panel needs a pixel clock of 50 MHz, which means the LDB
-serializer has to run at 50 MHz * 7 = 350 MHz. The LDB rate itself
-is set by the fsl-ldb driver, but VIDEO_PLL1 needs to be pinned to
-700 MHz, so that both the LDB clock (/2) and the pixel clock (/14)
-can be derived from it exactly.
+And drop the Fixes: tag. It is that which draws the eye and makes the
+Reviewer ask the question.
 
-Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
-Signed-off-by: Oualid Derouiche <oualid.derouiche@kontron.de>
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso b/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-index 41a2bb74f156..88b30ca66adf 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-dl.dtso
-@@ -6,6 +6,7 @@
- /dts-v1/;
- /plugin/;
- 
-+#include <dt-bindings/clock/imx8mp-clock.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/interrupt-controller/irq.h>
- #include "imx8mp-pinfunc.h"
-@@ -99,6 +100,16 @@ &ldb_lvds_ch0 {
- 
- &lvds_bridge {
- 	status = "okay";
-+	/*
-+	 * The video PLL clock frequency needs to be configured manually.
-+	 * The panel needs a LVDS clock of 50 MHz * 7 = 350 MHz.
-+	 * IMX8MP_CLK_MEDIA_LDB = IMX8MP_CLK_MEDIA_DISP2_PIX * 7
-+	 * IMX8MP_VIDEO_PLL1 = IMX8MP_CLK_MEDIA_LDB * 2
-+	 */
-+	assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>,
-+			  <&clk IMX8MP_VIDEO_PLL1>;
-+	assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-+	assigned-clock-rates = <0>, <700000000>;
- };
- 
- /* redefine to remove touch controller GPIOs */
-
--- 
-2.55.0
-
+    Andrew
