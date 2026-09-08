@@ -1,156 +1,200 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90BD58B6B6;
-	Tue,  8 Sep 2026 16:56:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2D858FD1F;
+	Tue,  8 Sep 2026 16:57:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886595; cv=none; b=icPkkgfyGBkn2emEtTovbKCBP1hLU9y7ch52QROntSjAFqu1dLkn9snLtkFbwmbqhYkTBV9SwebbJRyCETmMNWlJgQzwG9ieHDj++rk1NJlXkMXtQ9+9l2aHLOBGQeesV7yvqoiYsL5kWkrUw5eEZf3VGj//KNnG/ZfKSqSnwTs=
+	t=1788886636; cv=none; b=owduuL3mno2SpfNYlbyyb31SrsTOcnLT6LcJHOOoPlRljBHJfYun8yLnmUeMaDHanSiQ6320CI1xiMGVa57shaeVqtwRrMfQuSMUCZp9f24aAaRZVwX3OtVZ2ZiXXmNdLczj6EQ8fH0aroKwxdhqhS67ZtrcNRUMBJXXgmDp0C0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886595; c=relaxed/simple;
-	bh=/XPuUaAUd29stiGou2x9DdmvMqe81AmQ7on+3rtpzOU=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PD9jcluICZCaS17VTaEfhwHf8YbLRsBjMFBBziqb8G4eXxDCHJK2jsFojAxmZjZPYq64ycYvfrGEkpE78QOJuTvdu59aU+8kAG+IqFMaPHyMyz3ltLEsOBuykIMnNg+H6XGDntLv2Y+KT8O2VdaevAOza8pWYXQBnC58/mpOWhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=ODicPeFe; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788886636; c=relaxed/simple;
+	bh=AZ7/hnsRMmplC0Dfsn4n0DXyeBio1jdcbd+swy637ig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=h90xzaTOv0jO4oirw4Tc7q/y46JqtxRQqHjDSTqbPcGhEpNmC2TQRn1A1FvnyNZ3uGcosNFwHUM/2QRzdewFSb5t3Nzy99AtiHdXDcB8WPI2SP7CcYlJ8448sHy2c63jThX8ekAg3kUuZ6tWjGikWb8YFMAdye2MCoo3njGSFbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G4VwgGus; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="ODicPeFe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:References:Cc:To:From:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=zxfHukaWNxcBEp0pmc++HuJ+JqVKCOkG3+1+3ES2XS0=; b=ODicPeFePwbXN1VGfvRTuTw3HQ
-	MDFglIpSFqbftx4Rgk0l6f8Db4SxPyiBWlMvvakDym59AosfMfjJDUSZ3NGqHwPZEXREWOvNG0/ll
-	MIP2cZobGqmgKWCvcv2SGmgmaAsxHBhN1UlgYxKXfQZu29u9VYNBL1Nk6fhcjmyggU1Z+0nj46eRa
-	RwQAtn6yIf67IGcLW/cVLbwlIiKcKLAgIy2xa3jO3pv05gk4bPegrrd0j3RXnCm6ohosilFB5ntJT
-	eHdW7uYopifPUoU05XgMAUGKeJNIySrlXa8FevPxlwg4ezN3IPLWiUGmfOMeYtJu6bVn+y5YqLP+G
-	v7NNaKxg==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x3z7A-00000009kEt-0dmC;
-	Tue, 08 Sep 2026 16:56:08 +0000
-Message-ID: <3b9c6799-0b74-41d0-8421-acfb3487b910@infradead.org>
-Date: Tue, 8 Sep 2026 09:56:05 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G4VwgGus"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 518681F00A3A;
+	Tue,  8 Sep 2026 16:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788886634;
+	bh=0/ZRRZlEm9Jct3VZ8ASm/fuP9FSPYxflHWk8H22J5eQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G4VwgGusCcHA2Pr62X2GzMQe1vYfxzkezjoWJOw6RSq0RQPiFNuPQzOmMa0VpD7fN
+	 4CRvgS3PXwrFc53IvnvUcPCZMHaVbxAEM1nNay0T3Yo/hxnMaOiOp/kNMcw9hgbMIf
+	 0qFwO05fjw9BlS443x7S4gUMnMJ0ofC2P0WMp7kVtHUwliCAbdW7GJlKUEG4FsBh0c
+	 JVrWbaSSqV65ljqVxf2qRUL/Br6gh5iFFBfaZTKoelL6DhZXe4gsEoEmvfqG70E2Ha
+	 8GDcplXsDCGQJNPVSKmBmowdPkHJZQkSdOdsZ6OxoEhNuj09owELBCLEc257xfSIVb
+	 nXKYSTQMQrLmQ==
+Date: Tue, 8 Sep 2026 17:57:10 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Colin Huang <u8813345@gmail.com>
+Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grant.peltier.jg@renesas.com>,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: isl68137: Add Renesas
+ RAA229639 and RAA229640
+Message-ID: <20260908-dinner-atrophy-757595146656@spud>
+References: <20260907-add-raa229639-and-raa229640-v1-0-8f7218cba85d@gmail.com>
+ <20260907-add-raa229639-and-raa229640-v1-1-8f7218cba85d@gmail.com>
+ <20260907-chimp-pectin-20f4ea3b772c@spud>
+ <CAPBH0A9GZSD5R657xo1woijKfgS6gecUND4uabguaqUON2exXw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/13] ARM: deprecated platform removal
-From: Randy Dunlap <rdunlap@infradead.org>
-To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
- Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
- <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- Nicolas Ferre <nicolas.ferre@microchip.com>,
- Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Gregory Clement <gregory.clement@bootlin.com>,
- Robert Jarzmik <robert.jarzmik@free.fr>,
- Kristoffer Ericson <kristoffer.ericson@gmail.com>,
- Ethan Nelson-Moore <enelsonmoore@gmail.com>,
- Geert Uytterhoeven <geert@linux-m68k.org>,
- Alexander Sverdlin <alexander.sverdlin@siemens.com>,
- Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
- "David Hildenbrand (Arm)" <david@kernel.org>,
- Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
-Content-Language: en-US
-In-Reply-To: <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e8B7m4pThKSSMqao"
+Content-Disposition: inline
+In-Reply-To: <CAPBH0A9GZSD5R657xo1woijKfgS6gecUND4uabguaqUON2exXw@mail.gmail.com>
 
+--e8B7m4pThKSSMqao
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
+On Tue, Sep 08, 2026 at 02:31:40PM +0800, Colin Huang wrote:
+> Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=888=E6=97=
+=A5=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=881:01=E5=AF=AB=E9=81=93=EF=BC=9A
+> >
+> > On Mon, Sep 07, 2026 at 03:03:29PM +0800, Colin Huang wrote:
+> > > From: Colin Huang <u8813345@gmail.com>
+> > >
+> > > Add Device Tree compatible strings for Renesas RAA229639 and
+> > > RAA229640 PMBus devices.
+> >
+> > Driver change suggests fallback compatibles could be used.
+> > Why aren't they? If they can be, add them. Otherwise, explain why not in
+> > your commit message.
+> >
+> > pw-bot: changes-requested
+> >
+> > Thanks,
+> > Conor.
+> >
+> Hi Conor
+>   Thanks for the review.
+>=20
+>   I didn't add a fallback compatible because I only have document for
+> RAA229639 and RAA229640
+>   and could not verify full DT level compatibility with any existing
+> supported devices. While both devices
+>   are handled by the existing raa_dmpvr2_2rail driver variant, I don't
+> have sufficient information to establish
+>   a compatible fallback relationship.
 
-On 9/8/26 9:53 AM, Randy Dunlap wrote:
-> 
-> 
-> On 9/8/26 8:27 AM, Arnd Bergmann wrote:
->> From: Arnd Bergmann <arnd@arndb.de>
->>
->> In the 7.3 kernel, I marked a number of platforms and features as
->> deprecated, with the plan to keep these around for the LTS kernel, but
->> remove them in 7.4, see [1].
->>
->> Cleaning out the deprecated platform code has turned into a larger effort
->> than I expected, currently standing at 300 patches, with a lot of them
->> still in need of being split up into smaller ones, see [2] for a current
->> snapshot.
->>
->> The first series here removes just the bits in arch/arm/mach-*/, plus
->> the portions that directly depend on the removed Kconfig symbols where
->> these are trivial to remove.
->>
->> The parts that are not included are those that remove architectural
->> features and device drivers that become unused after this part. Some of
->> those may also make their way into 7.4, but at this point I would target
->> 7.5 for most of them, to keep the dependencies simple.
->>
->> This also gives everyone a chance to voice their objections in case
->> that some of the removed platform code does have active users after all,
->> before all the corresponding drivers are gone.
->>
->>      Arnd
->>
->> Links:
->> [1] https://lore.kernel.org/all/20260701212353.2196041-1-arnd@kernel.org/
->> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
->>
->> Arnd Bergmann (13):
->>   ARM: remove sa1100 platform
->>   ARM: remove footbridge
->>   ARM: remove riscpc
->>   ARM: remove legacy pxa board files
->>   ARM: orion/dove/mv78xx0: remove all board files
->>   ARM: omap2: remove omap24xx support
->>   ARM: imx: remove i.MX31 SoC support
->>   ARM: imx: remove nommu support
->>   ARM: lpc18xx: remove entire platform
->>   ARM: stm32: remove stm32f4/f7/h7 MCU support
->>   ARM: versatile: remove mps2 support
->>   ARM: at91: remove samv7 support
->>   ARM: axxia: remove entire platform
->>
->>  Documentation/arch/arm/index.rst              |    1 -
->>  Documentation/arch/arm/netwinder.rst          |   85 -
-> 
-> I don't see netwinder.rst in any of the single patches.
-> Should it be in one of them?
-> 
-> 
-> [snip]
-> 
->>  arch/arm/configs/netwinder_defconfig          |   88 -
-> 
-> Same for netwinder_defconfig.
-> 
-> If netwinder is going away, can all of
-> Documentation/arch/arm/nwfpe/ also go away?
-> 
-> Or do all of these come later (in phase 2 or 3)?
+Given that the match data table looks like this:
+static const struct of_device_id isl68137_of_match[] =3D {
+	{ .compatible =3D "isil,isl68137", .data =3D (void *)raa_dmpvr1_2rail },
+	{ .compatible =3D "renesas,isl68220", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl68221", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl68222", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl68223", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl68224", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl68225", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl68226", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl68227", .data =3D (void *)raa_dmpvr2_1rail },
+	{ .compatible =3D "renesas,isl68229", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl68233", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl68239", .data =3D (void *)raa_dmpvr2_3rail },
 
-gag. I hadn't received patch 02/13 yet. Didn't realize that. :(
+	{ .compatible =3D "renesas,isl69222", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69223", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl69224", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69225", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69227", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl69228", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl69234", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69236", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69239", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl69242", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69243", .data =3D (void *)raa_dmpvr2_1rail },
+	{ .compatible =3D "renesas,isl69247", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69248", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69254", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69255", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69256", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69259", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "isil,isl69260", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "renesas,isl69268", .data =3D (void *)raa_dmpvr2_2rail },
+	{ .compatible =3D "isil,isl69269", .data =3D (void *)raa_dmpvr2_3rail },
+	{ .compatible =3D "renesas,isl69298", .data =3D (void *)raa_dmpvr2_2rail },
 
-Only the nwfpe/ question remains.
+	{ .compatible =3D "renesas,raa228000", .data =3D (void *)raa_dmpvr2_hv },
+	{ .compatible =3D "renesas,raa228004", .data =3D (void *)raa_dmpvr2_hv },
+	{ .compatible =3D "renesas,raa228006", .data =3D (void *)raa_dmpvr2_hv },
+	{ .compatible =3D "renesas,raa228228", .data =3D (void *)raa_dmpvr2_2rail_=
+nontc },
+	{ .compatible =3D "renesas,raa228244", .data =3D (void *)raa_dmpvr2_2rail_=
+nontc },
+	{ .compatible =3D "renesas,raa228246", .data =3D (void *)raa_dmpvr2_2rail_=
+nontc },
+	{ .compatible =3D "renesas,raa229001", .data =3D (void *)raa_dmpvr2_2rail =
+},
+	{ .compatible =3D "renesas,raa229004", .data =3D (void *)raa_dmpvr2_2rail =
+},
+	{ .compatible =3D "renesas,raa229621", .data =3D (void *)raa_dmpvr2_2rail =
+},
+	{ },
+};
 
--- 
-~Randy
+It's probably pretty safe to assume that a fallback would work here,
+given how many devices are served by the same data structures but
+maybe one of the Renesas folks on CC can confirm that for us.
+At the very least, you have documents for two devices and should be able
+to confirm if they're compatible with one another.
 
+Thanks,
+Conor.
+
+>=20
+>   I will clarify this in commit message in v2.
+>=20
+> Thanks.
+> Colin
+> > >
+> > > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml | 2=
+ ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68=
+137.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > > index 8216cdf758d8..3537c7ddfb09 100644
+> > > --- a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > > @@ -60,6 +60,8 @@ properties:
+> > >            - renesas,raa229001
+> > >            - renesas,raa229004
+> > >            - renesas,raa229621
+> > > +          - renesas,raa229639
+> > > +          - renesas,raa229640
+> > >
+> > >        - items:
+> > >            - enum:
+> > >
+> > > --
+> > > 2.34.1
+> > >
+
+--e8B7m4pThKSSMqao
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqA+ZgAKCRB4tDGHoIJi
+0rebAP9vWApRS2E/5cuGc3YpDfv9PUaMuq1UbT+MAk/mJ2lrlAEAq3V78XBC+40S
+gUOVRUWTkP0VEXMt0J1FbZ2vYs7zzAI=
+=IdR0
+-----END PGP SIGNATURE-----
+
+--e8B7m4pThKSSMqao--
