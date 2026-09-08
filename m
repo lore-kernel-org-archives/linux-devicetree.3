@@ -1,96 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B205559307;
-	Tue,  8 Sep 2026 21:59:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086575540A6;
+	Tue,  8 Sep 2026 21:59:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788904774; cv=none; b=J2hhf8TTOYcIKovSOIwGkokzYRGz4W9Tx3u3KKLH7eGyCzY9DnngGpvqaW/8uBSl0NQMbq8e61p0hxa65ZNHMzBSOe16sAfUqkbhcBUpFBV+loQOyTP0VkUX60MqGd1F/Mqqf+IYvmJEXxcAFo3RwRIGi86C4m1gKTW+eIP+FpE=
+	t=1788904784; cv=none; b=IBm0mjuSbqMWj5A26eD7wAq4jmaA7AyNM4mVLZvrPLekiyvn8TsdQ79SvdKO1mwybB/wDuRAhBVbAVrFrtEIwbmCGNrvHxjvaH0A/HKOVQl8hGIo+ZV2aV3vCKrxjpqRHLpwNi92PiEytGCJxxYsezwh2iBuPJjF9y17EgtegKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788904774; c=relaxed/simple;
-	bh=P0qNZiLTQV7gn0UuncV6cdn6iEieMHPrHFYC39KFYEM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UYnATcUMBfDXSCVruyIH4XoCzPn1P6+0WwNX8Zq0Q8ZEezhDsqWJecMhMJMhYJwBuu/6AGDjf6t5hiblVir3ibJEV4ZXeX8qg/7yTiREksKJMUsj+aI7cqLk3ksD4/vGsR9R9EFHfM04CqlCuKGw8WXH89YmiYlp04GE6DUK43w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iqm26a/y; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788904784; c=relaxed/simple;
+	bh=xwkNg+ob/c3KokeOld57iOXYmaf8KK17Vu+pdHK1f54=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tbdL2ptcz2WlJgEuyivtFTKXrtQXjHfsDAMQf3xmsYh+v3gqW0FHN9e/T+M5sgGN1afgdA8RaLC0mPtQkyGFtWvOfHGKV8w6NuRRBLB2DFXxV7zrefnn2WoX26y+A+ML8sj9+NXqcvc1lKQIZ3CucWLFXKvM6UjVBumqYNwIM6M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvDkZnV0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iqm26a/y"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 326F1C2BCFD;
-	Tue,  8 Sep 2026 21:59:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788904774;
-	bh=P0qNZiLTQV7gn0UuncV6cdn6iEieMHPrHFYC39KFYEM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=iqm26a/yV1ug357w6VwTeYtp7fJC7QQiSaxeVV3Nrbo2zXD9b9TH6LfKNTBldEQ0v
-	 MGcPBnsZcMCYjT1GsEv792p6QsQ1Hf6xl3UzjSgMzxZVgbjlvHsqOC3JWXfzgONf/u
-	 hjnu4n0ktg5rF/zfFoBTNu1yBThdpIfLmQG5mFaQk1yppmibyLG0RmckPTYydKjkFx
-	 ReYQyJKz7Yt9eEGExPiLvBuobIxB0xpcBsAZGZe+pIVZsdG1uiufwOKSMwJkHNoaZO
-	 +wXdkoPusLGKHAoW0KupTl6EeHc6oy9h92jY+AOIvq3e2Ib4+v/pcsv+3kDX8D+52f
-	 Xl/nFLsItoc9Q==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0ECBCC79FA1;
-	Tue,  8 Sep 2026 21:59:34 +0000 (UTC)
-From: Zakariya Hadrami via B4 Relay <devnull+zkh.mailbox.org@kernel.org>
-Date: Tue, 08 Sep 2026 23:59:15 +0200
-Subject: [PATCH v3 2/4] dt-bindings: arm: mediatek: Add MT8127 Amazon ford
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvDkZnV0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6539C1F00A3A;
+	Tue,  8 Sep 2026 21:59:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788904782;
+	bh=OTt7Dt+lYemMz6FmxplGaQLySp2r+VnEJrSG+Ecc12A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dvDkZnV036DkG6og7f0FQrpudX9QloDRNpscNPvWegXxC+wI98x5VPlhn/Hud5RNj
+	 5bA/Uar4fMlZ44Wg/MDs2fRJSUD2abD5NDfGgmCr/qEfuBCa/C1JleT+xvxKgRPBgn
+	 8GiifRWNNkEftvryegSveDHLRSotuzXj/orNWZz5mcUoHlpCqSQjtoQrm237S6p5ps
+	 vY2AbTzRM35eG6OhCXWpCoBDJzo43xazw7Ar3WFlopJ20s+S+Z98c/ZmITofTGEcEb
+	 e0k8brkC3g1W0zTIniPPcZlPm7JYVC7w0Az+NZ1Vigsixh1WGxG6X/2/TIIAoMwRRa
+	 TQY6z/cK4wTxg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP
+ GPIO, label and layout
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marek Vasut" <marex@nabladev.com>
+Cc: robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260908215519.33061-1-marex@nabladev.com>
+References: <20260908215519.33061-1-marex@nabladev.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 21:59:41 +0000
+Message-Id: <20260908215942.6539C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260908-mt8127-amazon-ford-basic-v3-2-fc46bf1b6cb2@mailbox.org>
-References: <20260908-mt8127-amazon-ford-basic-v3-0-fc46bf1b6cb2@mailbox.org>
-In-Reply-To: <20260908-mt8127-amazon-ford-basic-v3-0-fc46bf1b6cb2@mailbox.org>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-watchdog@vger.kernel.org, zkh1@proton.me, 
- Zakariya Hadrami <zkh@mailbox.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788904772; l=801;
- i=zkh@mailbox.org; s=20260908; h=from:subject:message-id;
- bh=6yb/XWefb2wuZDPOBmfMPSdJsXYrkjPox9GtsLygo8Q=;
- b=sMFKiD/2GwzKF6d3GNzPKgkcUEADwWjdd4VxnmDVNy01sA43lzYh19cVJCMiFZLQzBNjFB/d9
- ven0HoGbl/fAW6uhnnr6u5r5kjEHBdffi7Qm93MES4UX2N4vsP9kSMV
-X-Developer-Key: i=zkh@mailbox.org; a=ed25519;
- pk=up24Xn4ScFKugfT4EJru/UQAS7JOIN+DSQqro+a05T4=
-X-Endpoint-Received: by B4 Relay for zkh@mailbox.org/20260908 with
- auth_id=1015
-X-Original-From: Zakariya Hadrami <zkh@mailbox.org>
-Reply-To: zkh@mailbox.org
 
-From: Zakariya Hadrami <zkh@mailbox.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Devicetree unit address mismatch for `wifi-id` node
+--
 
-Add entry for the MT8127 based Amazon ford tablet.
+commit 082793f42f1059431835df44206b8d1014d852b6
+Author: Marek Vasut <marex@nabladev.com>
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
----
- Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
- 1 file changed, 1 insertion(+)
+arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
 
-diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
-index cd4040ad3437..180e6e4948e7 100644
---- a/Documentation/devicetree/bindings/arm/mediatek.yaml
-+++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
-@@ -122,6 +122,7 @@ properties:
-           - const: mediatek,mt7988a
-       - items:
-           - enum:
-+              - amazon,ford
-               - mediatek,mt8127-moose
-           - const: mediatek,mt8127
-       - items:
+This commit describes the ID EEPROM nWP GPIO, label, and nvmem layout for
+the i.MX8MM and i.MX8MP eDM SBCs.
 
--- 
-2.54.0
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts =
+b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+> index 472c584fb3bd2..92df23e432499 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
 
+[ ... ]
 
+> +			board-id@100 {
+> +				reg =3D <0x100 0x4>;
+> +			};
+> +
+> +			wifi-id@1200 {
+> +				reg =3D <0x120 0x4>;
+> +			};
+
+[Severity: Low]
+Does this unit address mismatch the reg property? The node name uses 1200,
+but the base address in the reg property is 120. This will likely cause a
+dtc compiler warning for a simple-bus unit address format error.
+
+> +		};
+>  	};
+
+> diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts =
+b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+> index cb28cf1cdd23f..dbdf4b8f696f6 100644
+> --- a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
+
+[ ... ]
+
+> +			board-id@100 {
+> +				reg =3D <0x100 0x4>;
+> +			};
+> +
+> +			wifi-id@1200 {
+> +				reg =3D <0x120 0x4>;
+> +			};
+
+[Severity: Low]
+Is the unit address 1200 a typo here as well? The reg property specifies 120
+for the i.MX8MP SBC rev.900, which does not match the node name.
+
+[ ... ]
+
+> +			board-id@100 {
+> +				reg =3D <0x100 0x4>;
+> +			};
+> +
+> +			wifi-id@1200 {
+> +				reg =3D <0x120 0x4>;
+> +			};
+
+[Severity: Low]
+Similarly for the i.MX8MP SBC rev.902, should this unit address be updated
+to match the 120 specified in the reg property?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908215519.3306=
+1-1-marex@nabladev.com?part=3D1
