@@ -1,108 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012C9594812
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:28:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82D405908DA;
+	Tue,  8 Sep 2026 17:28:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888485; cv=none; b=OFtZ1kpECKBhW1qeH9oz8SNOhVjP+P0ezzA3jp51FCqQACRP7lYrubttghzWyQq8rbrZJ/W59JGnlcVAeEBWMAsW/GkBaYKoq7RMUwgQ3QSAwnI4cAkjqSoMMf3aq/SL+baYliqZPx5Y3oYqwFwQaGfPL3OzQgtWxVreagUKmoc=
+	t=1788888519; cv=none; b=FJlR7TMqJlazY+m54S0HRU/T1EUHZc6cJszQFQlt8F6j4QkD7/zaaKsTS8wAKvpV43R1sSqoIA8tFeui3cZED7HBi12jIycWRXK46VSGfJWGw1vDsMAo+Y2PSEMKDtW2ektqn8MQG2RmStWGt1xXBf3MCNVn8fn6izzxDFM4+7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888485; c=relaxed/simple;
-	bh=XjM+NfW0WLuiq2c1NmH2zxMXe3faot5pYKc+rUVJPpc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qUYB474vM1sFLewwb2QzROUVmFVb+YH5dn7hMK/3UPLSikH5NMrq4itIm5gPtghFgsNz2y/bnwkDtEUA9hiEo3yOfzH5pnB/AvKwf/P9fyHXQRiswr64Pi3p23BDH3h6UniWkzi62fuqPzMC1SPdVT12lSzW82/7MfBQr9D6BwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gI9+h4ne; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788888519; c=relaxed/simple;
+	bh=cN+0Yh/iVR9Fq/yw46i3itGh4OTIcS9+F+vcebxnKBM=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=kxxYg+qp0S2JySZq16VaylbYiDu/I7coTvKtDcni//e7mE6vs+20ZHr6a5y/r89kzcCodO/6LwXgccPPrVNGUoyicRxhhasr38z0bvQnMa/K7y6zp1NoXUYesmBqIRKWjhPCy7B6choBMjUfvtrG8WbEJDXIiq/OdRE+3MfaUSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcwZE00Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gI9+h4ne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC6C1F01572
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:28:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcwZE00Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F721F00A3A;
+	Tue,  8 Sep 2026 17:28:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788888483;
-	bh=XjM+NfW0WLuiq2c1NmH2zxMXe3faot5pYKc+rUVJPpc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=gI9+h4nezNM4jezi/gSGd5v0FLkt/ViVbNzZjvmD3znGXhaCACEMxp772uTPuMKQM
-	 zic6KxCNmB1qGktDhB7Q297JxzmoM8+GnkdHIo6O7GM1RtjOrd3fZzRYHyhJZERfAL
-	 69YkYNVsnbzvuSM4by/7K8DV//vvvS6EZzyPHUmCVJVsLvVEmvcDqj4PUkSn25Oajf
-	 10cbl2TTkZfXsQfX5hnB5ZNJmlkw0FLAF4v960FUXFrX2QuGaGyIrJgQaLePxMk25x
-	 x+kVTIVGbOCV2GzFUF+D83VAJVNfudH9m5iPgdODO/y6lagRK9Jy6ORRoDJMgiu/Kr
-	 jXIyW+APwKbZA==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so3767613e87.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 10:28:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwyHLnW32jsc13WQ7H3s+a8FkFAB/SndjUGgAA8a2PzdIvZ27aS9enEPNLgTVnJ0DhBzk7FI7DjdxGW@vger.kernel.org
-X-Gm-Message-State: AFuF++lvHiqEFQsaOeuhC+4e3Hf4BpB0r9QWTp70VsAKQekQFDC7U46W
-	2Jy3RgPn0x7/FC8CwTbk1HXKYgV9j1K9Sy6kmFzjJHjW+2g5+Jn0J4n5OBzNmzGfFW7xii+ClqY
-	Pu6S1GyzSsv/bqmw+1VJfigAL2Fm2BBI=
-X-Received: by 2002:a05:6512:6884:20b0:5b6:1a7c:3f with SMTP id
- 2adb3069b0e04-5b61a7c0196mr2554286e87.66.1788888482136; Tue, 08 Sep 2026
- 10:28:02 -0700 (PDT)
+	s=k20260515; t=1788888518;
+	bh=qytXKT2Bs7Fj1a5oD427rFJpl/QRHKEtRWn23VJps5A=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=WcwZE00YZbCat3B23bNr4yvETUSPHmGcFwHwli5puCoV/nKZSlLPPnCCu2sV1hXDz
+	 KEYJKjRv0QpbCh143LAQGn3mCRa+acyQIOUPVqykojXA3b2sWZw19MBoTsC9igc1mm
+	 K6qztxRoLbqRV8cbVJagrGH2qMz558V5IfiYHI7kTX48Cy5dH8wW+NKNFmDsMJdhUD
+	 Db3JxFJWCae7yglsazmkOU4Uu0WdPlgPPKv5xS+OKQiUxG4B+BPqtFpwvlCIOdeRLx
+	 Ku59HsAhvtYi61F9LAmnimiKt1u40XqEeZtv3PsgmyOnLfnHNpmX8ZDfD1DQNiFEzg
+	 ecwCmQ8fZRrCQ==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Mika Westerberg <mika.westerberg@linux.intel.com>, 
+ Eugeniy Paltsev <Eugeniy.Paltsev@synopsys.com>, 
+ Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+ Jia Wang <wangjia@ultrarisc.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, linux-spi@vger.kernel.org, 
+ linux-i2c@vger.kernel.org, dmaengine@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+In-Reply-To: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
+References: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
+Subject: Re: (subset) [PATCH v2 00/10] riscv: Add device tree support for
+ UltraRISC DP1000
+Message-Id: <178888166750.78527.9666350258521008763.b4-ty@b4>
+Date: Tue, 08 Sep 2026 16:34:27 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-3-arnd@kernel.org>
-In-Reply-To: <20260908152808.3928630-3-arnd@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 8 Sep 2026 19:27:48 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkzrp4hsOERqOt6Zc75p-+KoWj0Tvu6VQk=ma2kgDH=Qw@mail.gmail.com>
-X-Gm-Features: AcwNN1UJNXIoMX0oKBuT_VyMabX-dcNfrhwjoX9gJLRVYT9sdHBezlMdahVsqlw
-Message-ID: <CAD++jLkzrp4hsOERqOt6Zc75p-+KoWj0Tvu6VQk=ma2kgDH=Qw@mail.gmail.com>
-Subject: Re: [PATCH 02/13] ARM: remove footbridge
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
-	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Ralph Siemsen <ralphs@netwinder.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1576; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=cN+0Yh/iVR9Fq/yw46i3itGh4OTIcS9+F+vcebxnKBM=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqoEW/xx71ld8bGzQNGA75RuPnRLPcvcpsICXtZ
+ m2ConXuoN+JATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqBFvwAKCRAk1otyXVSH
+ 0A0NB/9SicyMaMYqHrQpLTGrZEEoTKW/jaXP5bTkxZNIo5G02ydXYGJkNEhvzFH0FiXF9Un86d/
+ BL4XtHkrdRciyXPc0cgH0WYW9PYnp7ZInE2zlMjv6XNZvfI7J4Rmq0jFXIvrWv2FIWaqFHeBDap
+ RmhpQgOJUlP+zmnvK8kWL6MrCUcg+Td1KdQHD6nCZDY29cHnp/QS08+Xvmf6693lxU+DfhV9O5h
+ NHZcRxWuN+UPgCcNJ9LWyBmunRUkzzvADKvmCPoS6JjUt+WiCKV0GXKjLhPOqkCkvVeYeHMHN0q
+ +6+RAT82inmKbaaIieZZNo5ZhX1nH4+jZYCRpU3YN4/MrBbP
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue, Sep 8, 2026 at 5:28=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
-e:
+On Mon, 07 Sep 2026 17:54:39 +0800, Jia Wang wrote:
+> riscv: Add device tree support for UltraRISC DP1000
+> 
+> Add Devicetree support for the UltraRISC DP1000 RISC-V SoC and two
+> DP1000-based motherboards: Shenzhen Rongda M0 and Milk-V Titan.
+> 
+> DP1000 integrates eight UltraRISC CP100 CPU cores.  The SoC description
+> includes the CPU and cache topology, CLINT, PLIC, clock controller,
+> pinctrl, GPIO, four UARTs, two SPI controllers, four I2C controllers,
+> three PCIe root complexes, GMAC, and the DMA controller.
+> 
+> [...]
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> Footbridge was deprecated in 7.3 to be removed along with the other
-> StrongARM platforms and most remaining board files.
->
-> The main machine here is the NetWinder, which was a popular Arm based
-> desktop PC in the late 1990s and contributed to Arm's later success as
-> an embedded Linux platform, but was discontinued over 25 years ago and
-> is no longer all that useful.
->
-> I previously tried to convert this to devicetree in a sensible way but
-> gave up due to the platform being too different from modern SoC based
-> targets.
->
-> Cc: Russell King <linux@armlinux.org.uk>
-> Cc: Ralph Siemsen <ralphs@netwinder.org>
-> Cc: Helge Deller <deller@gmx.de>
-> Cc: dri-devel@lists.freedesktop.org
-> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
+Applied to
 
-Acked-by: Linus Walleij <linusw@kernel.org>
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
 
-I have one of those machines and it boot mainline but I
-certainly consider it a paperweight at this point, I can't use
-it for anything useful.
+Thanks!
 
-Yours,
-Linus Walleij
+[05/10] spi: dt-bindings: snps,dw-apb-ssi: Add compatible for UltraRISC DP1000 SoC
+        https://git.kernel.org/broonie/spi/c/f77de4c33f0e
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
+
