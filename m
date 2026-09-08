@@ -1,110 +1,87 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB6351D52F;
-	Tue,  8 Sep 2026 09:15:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9EE9417BCA
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 09:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858922; cv=none; b=a1enAdHl+UyeIoY8IdSROGgAkvPd9Nvmc72h0JkwOT/FqKDZX3azdrn6XCphQepxVyEvL+vpZdDBzUp3/M30w7dXLN3JE6EBD64lBQddy/kXmRjtK4aPEkw2ceweWWq3sOxnRnVY7VVwmeUBRM5JH70jo0Gxc1rGWx/6Wf6B9tQ=
+	t=1788858943; cv=none; b=f6DOZbBVS1qpHLz07WGTFBsMwiDx1dzxOglPR3tj1iq3ZOQk5RM5hLJwQQ+SmwNQx66Vgbxo9mwsAF753FbVpD4eTjdWg/Rx92jUxWNtDJe33+kpJVFNVabqZWIFexhNRDv8kfGrxP3rfUgD+InT1qn2UEtwvSHCThss2ira/4c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858922; c=relaxed/simple;
-	bh=yDNZEhg1qi3cdLkc6pYbOR3ONrVCKjzM8UOHzV5U7TE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oWfQNcwO4YR+Fkep3px8o3gXdfdi0gb13ZWaVT2B5U4XUGuB6oHoFJ3GdMhakmc2jJr7/aaBQo6od+B2ZivIcXFzwP30qHakEFXof02OD9QNFl8bGQ9vXEFOWpYydtDuLpEEnLFThBNJj93kESMAS0AOByMwnS4CB9ZRVdzf2f4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MVZyGCbY; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788858943; c=relaxed/simple;
+	bh=DIakRpD3MRJTxpP2zofX57D+mhMT6uR11PFjhe0LF60=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=p7+Pu5aM1GYOEY0DL+ZLil+w6t1Yz9tCruVPeqPXwDjywxPoDW3LbMgVGBiv/vleT162y6bO2bxjls9f1gquQoXSqp1yV+G3MKB4MM5RiKIaajM6LRca6140O45NKN7mOAlJ+2Gdu0dbQz92CPZVxymSRLJyfsK4URkweVMViu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=uO2JwLxO; arc=none smtp.client-ip=79.135.106.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MVZyGCbY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788858921; x=1820394921;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=yDNZEhg1qi3cdLkc6pYbOR3ONrVCKjzM8UOHzV5U7TE=;
-  b=MVZyGCbYBsvMCO+mZHogB1vxWyYpcdp89T6Ffi3bXPK9tsS31Cu+7XKm
-   bH0xqxVVQ5reMflQ39rhdbeXhqs6veCJakeAG6qxo3qsyJ9hwR63rZhRG
-   KlxaWP/I80DTQ0og4XaydqCkgPUTkbSxuwfCl5HRFAJJ9AF+CIF7tbAOT
-   BOaYhEC6Qik7+Hv34ggBfJtPhYWo9cNzS1yf38c5ZF71NC/IUcgoG40wl
-   wEz16LP27I47mcCU2j7qp5J3YuSsc7n+Z/spEzBqFg+eKRGwrhqkEZH0m
-   FNrGdr6H2dPXBVwOCbmG6AAzSP5dW0F+gQvLMQ/Tw7LVNv4yUL9mhgX1h
-   Q==;
-X-CSE-ConnectionGUID: 9N3qGOQvSoOEs7TM2Nl79A==
-X-CSE-MsgGUID: 2ILOEPTwSZ6TN/0BM83aCg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="112032178"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="112032178"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 02:15:20 -0700
-X-CSE-ConnectionGUID: QSsWcOlHT1eHpxa2iqmdJw==
-X-CSE-MsgGUID: QJkqW0aASJmOyzuliKmg5g==
-X-ExtLoop1: 1
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 02:15:16 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B0AFA121BC8;
-	Tue, 08 Sep 2026 12:15:18 +0300 (EEST)
-Date: Tue, 8 Sep 2026 12:15:18 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Walter Werner Schneider <contact@schnwalter.eu>,
-	Kate Hsuan <hpa@redhat.com>,
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
-Message-ID: <ap_SJs-vXJu4tClB@kekkonen.localdomain>
-References: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
- <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
- <MA0P287MB2178DE6EB4C9E675B9F967DD88D42@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
- <MA0P287MB2178A6EBE37DEB29AEF632C388B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="uO2JwLxO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
+	s=protonmail; t=1788858936; x=1789118136;
+	bh=B77vstwB1BpbPKfXpY6bvp+eKU4SYna+lBo0GBMmsFY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=uO2JwLxOnO8EH+v3MfqfEBrSg0/SKNK++RX21LY1N+0YoR8NogYdN8hffSd30VbTO
+	 0uu2LPKoQf2zi17RdVMzSStQrsF1VtwYj4ziQKPPungWcs2QN9xrESRLYFID9UhFtw
+	 k9YvvfnobcQTv2dHS2IQLIHb3wOFyYnSKy65XTCl3dqSHZguw+cjqQTnjP50txEBZz
+	 pnhc45Wm53Oaps74t9WR8B5zSKhQEo7bjVtJGxGGrczhcSnNeJgnz/R8UIJ84o945K
+	 6GZANkD71gnNHV2hwt2Fl1TBiPOYte/GRWlaqvIykyauX86tMQrEcsFzGbrH479fja
+	 mL7uTnUsgz72g==
+X-Pm-Submission-Id: 4hfJFM2z3qz1DF7p
+From: Esben Haabendal <esben@geanix.com>
+To: <sashiko-reviews@lists.linux.dev>
+Cc: <devicetree@vger.kernel.org>,  <robh@kernel.org>,  <conor+dt@kernel.org>
+Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
+In-Reply-To: <87mrtt8357.fsf@geanix.com>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
+	<lgSgGIif93eJ1usOlpNZhgkh3YsQ-210nNAm7LCuSB_7RdMgA45onz0txTfZJrprGgkQjQDLLq8kAlNsIPMv6A==@protonmail.internalid>
+	<20260907150846.8BC741F00A3A@smtp.kernel.org>
+	<-eFE1Y8Y1Rg3ESQeGhghGI_cdbvweQKDQ0mSHa1IIe6Cez6sEUN35FFQuxaQJl5v6wvGDaKW9StwHZTayRfU2Q==@protonmail.internalid>
+	<87mrtt8357.fsf@geanix.com>
+Date: Tue, 08 Sep 2026 11:15:34 +0200
+Message-ID: <871pb485op.fsf@geanix.com>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <MA0P287MB2178A6EBE37DEB29AEF632C388B12@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
+Content-Type: text/plain
 
-Hi Elgin,
+"Esben Haabendal" <esben@geanix.com> writes:
+> <sashiko-bot@kernel.org> writes:
+>>> +
+>>> +	ret = mma8452_standby(data);
+>>> +	if (ret < 0) {
+>>> +		dev_err(dev, "transition to STANDBY mode failed\n");
+>>> +		ret = -EAGAIN;
+>>> +		goto out_restore_ctrl_reg4;
+>>>  	}
+>>
+>> [Severity: Low]
+>> Does this mix goto-based error handling with guard() cleanup in the same
+>> function?
+>>
+>> The cleanup subsystem guidelines state that mixing goto and scope-based cleanup
+>> creates confusing ownership semantics.
+>>
+>> [ ... ]
+>
+> I will try to convert to scope-based cleanup to avoid this, and see if I
+> can create something nice with that approach.
 
-On Tue, Sep 08, 2026 at 09:03:10AM +0000, Elgin Perumbilly wrote:
-> >>Could you please have a look at this patch series and let me know your thoughts ?
-> >>
-> >>Best Regards,
-> >>Elgin
-> >
-> >Just following up on the os02g10 patch series.
-> >Is there any blocker preventing it from being merged, or anything I need to address?
-> >
-> >Best Regards,
-> >Elgin
-> 
-> Just following up once again on the OS02G10 patch series. Could you
-> please let me know if you had a chance to review it?
+I hope it is okay that I delay doing this for the next series, where I
+will introduce scope-based cleanup for runtime PM also.
 
-Thanks for the ping. I'd merge this, but the patches are malformed somehow.
-D
+While it is best not to mix goto and scope-based cleanup in the same
+functions, in this particular case, it is working as expected for now.
+The only scope-based cleanup is the guard which is first in the
+function, and is supposed to be run after all the goto-based error
+handling, which is exactly what will happen.
 
-Can you try resending them, please?
+But I will try and rework it to use scope-based cleanup only as part of
+the next series also.
 
-And my apologies for the delay -- during the summer holidays not much
-happens here and the e-mail backlog can take a long time to clean.
-
--- 
-Kind regards,
-
-Sakari Ailus
+/Esben
