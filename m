@@ -1,296 +1,66 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E607592204;
-	Tue,  8 Sep 2026 22:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2484349B9
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 22:33:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788906635; cv=none; b=OtivIFIZT2VRaRL/eesWOentk/psEvlIM7Ti8jI+zMKUcqrmHU9bMGuxU+l2HXc5j/Nv7nMSVK2GZXZFeUI6vVwr3uRKW0x8ACuIDL8zthzxp6Xf1bd7SQTMWQe0aANz3dn1pIGF2bL9exwMRqp2c2rwa/rWd92rABzG/d6TIkk=
+	t=1788906840; cv=none; b=QLSy20TkNukVmA+C5+NrBcWjxBxqYt+w03VMkhqWwf4GksiHM03wI7Z3w3OsQd1PvCrxgSphYJBYQ2JjhfClXkGX1tO2+82lrNG7dncADTeYRM3HNTXnnCx2kMPRFJQd5wuwtXp5ykOSZraA7jVXk4NFvIZmypdPpKBLa6nEFx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788906635; c=relaxed/simple;
-	bh=AvglF/lS5jLRZxY5Tu3J3C80lthHKnHNLMrZERrEiJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OTHw5zNlgDtLy62dKgAOIiPwi4JCcByJyhY1SsIEcz6LV4DvknCBF2ueeqNOSda3xske7acQrjpDd0tVKJ7L5o8YYK0azLE/sCWFLHImrmvZSV6YEJbDjw+i3lgbHtPJ/dnMEaAQJd6uPzep0KUvg1VrVi44ArkcNPiQZ6Qvmys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=jYXb0xZz; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1788906840; c=relaxed/simple;
+	bh=bGotYtBJRRTEFWmkklWSsKVMCZ8rUNaUONIwTcWcYuM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RT6FzZAGL56w8ImsV5PultmNM7PthlWNDpbrwUHXP+eSoIxkpF3NzAR6CJbq7SyScjUDx51AGt3QhKnNgVStsmYF4VLF3xx/BCoEmnFZlu0DHVsY8Vi2n0swqhsFg+/ihz3nFjDvVY1V/yLJ8sSI3sh1fXbgdDBp8qzwqK4U+V0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8ErcXaD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="jYXb0xZz"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E14410196A;
-	Wed, 09 Sep 2026 00:30:20 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1788906621; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding; bh=aBIZOzE3i1JjRrtYfZeSQABj8yITCJ8amCyPP3PLllk=;
-	b=jYXb0xZzzrz69AyOLg6dTibqq+Uzjau6AnH/hwucb2M2eoGND1Nx0pOB78iapxGXLgKDAF
-	2NwLHWGUgIH8fdP+EupnLVqE5/1/9sMvAqUzxpFJ95/eaHWVvAMqa6mn9DQSvWIQDh/R7j
-	GjOrUSXUrGszy10G985W0iozPhA3OYpvGObQuD1e64n8gmEQEAnZq9Zx3lRxGQ1HfBmomH
-	ql3Y5z+XNs4+iqENCKo76Xa2siBv/fUbYIzrUIXw7aMMiarPUDZV0Cvc6IovPMkeFBvXrU
-	t5NrETB7Th8cFMGJhmhXOgppJ69krcf2TOsZQoeShL6EmPM3liacPvHXH3xeyg==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-arm-kernel@lists.infradead.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm64: dts: imx8mm: imx8mp: Update EEPROM with nWP GPIO, label and layout
-Date: Wed,  9 Sep 2026 00:29:42 +0200
-Message-ID: <20260908223005.38536-1-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8ErcXaD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E081F00A3A
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 22:33:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788906839;
+	bh=bGotYtBJRRTEFWmkklWSsKVMCZ8rUNaUONIwTcWcYuM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=F8ErcXaD3DEFUYDvTL9ykS+ScUf3hsgoic12+mBb9Aynsk90qJnQKuxGL8Y34SUxz
+	 1CP+qeOXvANsBOzYuv646yvshlQWF4Z00Mkpr43Xz6lIt0wiEOHLIH9bIUDQNHV4HI
+	 Y+9yLCIq2Q8PnQ/YI+YoNs7ynHX9uBqWYhCfQNa3ebdo54dX9RVFjI7NAgDt1wx7hA
+	 xtr8RMAVBr0yqBqJyCwSQZuOz5PP8V5FkLvm0h1CyfMm8/D9kzbG5GjJC7qaR4rJPl
+	 W51eEhlBU8WOHB9IU2wyH+zPc/K9dYpB58cdtKuOZodL0/Nngs793zPHW60zmRwQ3q
+	 BuXSng6E2J9TA==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f16f16so445076e87.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 15:33:59 -0700 (PDT)
+X-Gm-Message-State: AFuF++ntYHsD12WpQLbvSDHxm1oT/jRihJu/IIoy/pKMQQPfCaXXReLS
+	60aChBqFApdPkLHU54Is22R70cDeeVgds9Ky8reUWxWm/Jix4spiccXjYFZ//ZztiKUgdM7oPNG
+	sS10IrSslQRZNGNjmkslQAA5hp5vLSMk=
+X-Received: by 2002:a05:6512:3da8:b0:5b4:ab4b:3fea with SMTP id
+ 2adb3069b0e04-5b763cedd16mr725336e87.17.1788906837956; Tue, 08 Sep 2026
+ 15:33:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org>
+ <20260901-ux500-dts-snowball-regulator-v2-8-fe88b01829bf@kernel.org>
+In-Reply-To: <20260901-ux500-dts-snowball-regulator-v2-8-fe88b01829bf@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 9 Sep 2026 00:33:45 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmFm=BwwYAW4Wmumb53CJeFYzwEAMmcz3OKa2umcR4rQQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VtCckGuGpZt-JADvooo6ExABUGUrTc3m9fUTRKXOhxFSG3J53jNFiAgVQ
+Message-ID: <CAD++jLmFm=BwwYAW4Wmumb53CJeFYzwEAMmcz3OKa2umcR4rQQ@mail.gmail.com>
+Subject: Re: [PATCH v2 08/13] dt-bindings: mfd: ab8500: Add regulators
+To: Stephan Gerhold <stephan@gerhold.net>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Axel Lin <axel.lin@ingics.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>
+Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, 
+	Conor Dooley <conor.dooley@microchip.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Describe ID EEPROM nWP GPIO, label and nvmem layout. The i.MX8MM eDM SBC
-and i.MX8MP eDM SBC nvmem layout is almost identical, except for length
-of product-name@32 field, which is 19 Bytes on the Mini and 24 Bytes on
-the Plus.
+Lee do you think you could ACK this patch so Mark can apply these
+changes?
 
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabio Estevam <festevam@gmail.com>
-Cc: Frank Li <Frank.Li@nxp.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Pengutronix Kernel Team <kernel@pengutronix.de>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: devicetree@vger.kernel.org
-Cc: imx@lists.linux.dev
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
----
-V2: Fix wifi@1200 typo
----
- .../freescale/imx8mm-data-modul-edm-sbc.dts   |  56 ++++++++
- .../freescale/imx8mp-data-modul-edm-sbc.dts   | 128 ++++++++++++++++++
- 2 files changed, 184 insertions(+)
+Technically maybe it's mostly regulator stuff and DT binding stuff,
+but it'd be nice to have the MFD maintainers blessing.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-index df857de0375cf..cb76471440433 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-data-modul-edm-sbc.dts
-@@ -431,7 +431,63 @@ usb-hub@2c {
- 	eeprom: eeprom@50 {
- 		compatible = "atmel,24c32";
- 		reg = <0x50>;
-+		label = "dmo-board-info";
- 		pagesize = <32>;
-+		wp-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			company-name@24 {
-+				reg = <0x24 0xd>;
-+			};
-+
-+			product-name@32 {
-+				reg = <0x32 0x13>;
-+			};
-+
-+			board-revision@4b {
-+				reg = <0x4b 0x3>;
-+			};
-+
-+			serial-number@4f {
-+				reg = <0x4f 0x8>;
-+			};
-+
-+			manufacturing-date@70 {
-+				reg = <0x70 0xa>;
-+			};
-+
-+			test-date@7b {
-+				reg = <0x7b 0xa>;
-+			};
-+
-+			product-number@86 {
-+				reg = <0x86 0x8>;
-+			};
-+
-+			board-variant@9a {
-+				reg = <0x9a 0x9>;
-+			};
-+
-+			company-acronym@a4 {
-+				reg = <0xa4 0x3>;
-+			};
-+
-+			mac-address@b0 {
-+				reg = <0xb0 0x6>;
-+			};
-+
-+			board-id@100 {
-+				reg = <0x100 0x4>;
-+			};
-+
-+			wifi-id@120 {
-+				reg = <0x120 0x4>;
-+			};
-+		};
- 	};
- 
- 	rtc: rtc@68 {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-index c284edfa1f4c8..4614a0de07906 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-data-modul-edm-sbc.dts
-@@ -421,14 +421,142 @@ tpm: tpm@2e {
- 	eeprom900: eeprom@50 {	/* board rev.900 */
- 		compatible = "atmel,24c32";
- 		reg = <0x50>;
-+		label = "dmo-board-info";
- 		pagesize = <32>;
-+		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
- 		status = "disabled";
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			company-name@24 {
-+				reg = <0x24 0xd>;
-+			};
-+
-+			product-name@32 {
-+				reg = <0x32 0x18>;
-+			};
-+
-+			board-revision@4b {
-+				reg = <0x4b 0x3>;
-+			};
-+
-+			serial-number@4f {
-+				reg = <0x4f 0x8>;
-+			};
-+
-+			manufacturing-date@70 {
-+				reg = <0x70 0xa>;
-+			};
-+
-+			test-date@7b {
-+				reg = <0x7b 0xa>;
-+			};
-+
-+			product-number@86 {
-+				reg = <0x86 0x8>;
-+			};
-+
-+			board-variant@9a {
-+				reg = <0x9a 0x9>;
-+			};
-+
-+			company-acronym@a4 {
-+				reg = <0xa4 0x3>;
-+			};
-+
-+			eeprom900mac: mac-address@b0 {
-+				reg = <0xb0 0x6>;
-+			};
-+
-+			board-id@100 {
-+				reg = <0x100 0x4>;
-+			};
-+
-+			wifi-id@120 {
-+				reg = <0x120 0x4>;
-+			};
-+
-+			board-lvds-id@140 {
-+				reg = <0x140 0x4>;
-+			};
-+
-+			camera-id@160 {
-+				reg = <0x160 0x4>;
-+			};
-+		};
- 	};
- 
- 	eeprom902: eeprom@51 {	/* board rev.902 */
- 		compatible = "atmel,24c32";
- 		reg = <0x51>;
-+		label = "dmo-board-info";
- 		pagesize = <32>;
-+		wp-gpios = <&gpio3 14 GPIO_ACTIVE_LOW>;
-+
-+		nvmem-layout {
-+			compatible = "fixed-layout";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			company-name@24 {
-+				reg = <0x24 0xd>;
-+			};
-+
-+			product-name@32 {
-+				reg = <0x32 0x18>;
-+			};
-+
-+			board-revision@4b {
-+				reg = <0x4b 0x3>;
-+			};
-+
-+			serial-number@4f {
-+				reg = <0x4f 0x8>;
-+			};
-+
-+			manufacturing-date@70 {
-+				reg = <0x70 0xa>;
-+			};
-+
-+			test-date@7b {
-+				reg = <0x7b 0xa>;
-+			};
-+
-+			product-number@86 {
-+				reg = <0x86 0x8>;
-+			};
-+
-+			board-variant@9a {
-+				reg = <0x9a 0x9>;
-+			};
-+
-+			company-acronym@a4 {
-+				reg = <0xa4 0x3>;
-+			};
-+
-+			eeprom902mac: mac-address@b0 {
-+				reg = <0xb0 0x6>;
-+			};
-+
-+			board-id@100 {
-+				reg = <0x100 0x4>;
-+			};
-+
-+			wifi-id@120 {
-+				reg = <0x120 0x4>;
-+			};
-+
-+			board-lvds-id@140 {
-+				reg = <0x140 0x4>;
-+			};
-+
-+			camera-id@160 {
-+				reg = <0x160 0x4>;
-+			};
-+		};
- 	};
- 
- 	rtc: rtc@68 {
--- 
-2.53.0
-
+Yours,
+Linus Walleij
