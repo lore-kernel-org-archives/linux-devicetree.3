@@ -1,157 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1E04A99D9;
-	Tue,  8 Sep 2026 09:05:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DAAB4DBD67;
+	Tue,  8 Sep 2026 09:06:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858342; cv=none; b=XYf0q33+py/0FvUkE/QKsA7UXuJSwrHX1ywDO2dSoIv8JHr3akDrZDiyhZB9EtNYWiErxvrFm0wZlzufVPA8g7RCxMg3W8aPw/CXbTBRoTZjsUiVCRzjxnmq6eSFWi2jgo3pw4QlpKysq/tr1lUAFnM0lPAWzDxJ9Zw9gdtHNgk=
+	t=1788858365; cv=none; b=K9q5SF7gZMfXwQQwMj3yEH4GmHkec8QFqJk1EV3G3BhUI8B7Xe1MSsCq9KUz1VcDidSiV8ALhsirenq8sC4I1TmaNnyOZgVRG9+VP6eaL22X4W8PkzMJAfCti1P3lm6Gbg+nGVGx2uaxygLTgOBQK7rudCnjGho6VOKuUqJxXIc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858342; c=relaxed/simple;
-	bh=m5Z0dnOwtdaj+Ji9M30PnHmJ4+TlyYI0QV2127NqB7k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i/BT0xkXENFFbOntfeYCkZ5K4EgSA/aFazc/yo1NdFiK69F92JLB3mkV8PZnbAckORETvhb7myLzyIjYSPt8bxUvv4T13cEZUzKgzk+8z9gaPGMmWbq5EOQs1zHHsg7UId5T96XwPeHkAlaSd9Myb3VW7ys4y7MoYE0xj2NMTH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4536C1F00A3A;
-	Tue,  8 Sep 2026 09:05:37 +0000 (UTC)
-Message-ID: <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
-Date: Tue, 8 Sep 2026 11:05:34 +0200
+	s=arc-20240116; t=1788858365; c=relaxed/simple;
+	bh=ST0gP7QOWAEguLX0D7sp6feT38ew3n67zLsz3Aus5FM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FC64FWH6PoFnWA4TeTB3yTWsojZ2S5Pzs0KY2c4sOoZfWXycxEr5HWE4ITO04dxZx3onDryu+GYRk73eY2MRJ9g+h1/GFw8AGFuIobY8kRCHxQFYrsiH4tFvkVXM07tJx83hudEp69pnp7DobJ88RM3btQK543Tzp4bOAIcKHqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYrWkFPC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYrWkFPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5AC41F00A3A;
+	Tue,  8 Sep 2026 09:06:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788858363;
+	bh=AX+7FxB8zQI4HWmkMOozVd16GP4ljWtJaR2TsbzyprU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JYrWkFPCdWEPSJH4cIfkWL2PGgf2NCTn1HI3WLNDkla5VfmVA0JpBbh/4qpIUp0Yp
+	 IoY+25twEkLH7elroyqUuVV6DcdnHrpszENRNnxwyt2GKnMgm/4Q03ASscrcZg40b3
+	 Ubk4eFhBkGpjWX3xCKCZhlLiVqF3tv5u8mhpAGomSttsDDk8yWmsVONvfu8TAju6RV
+	 6WPuJUjmZwzSTEeojQF2YPHYWtx5i6zNiQG2RCmElIQQqewGZwhxSmxLRlSmFgP8Gr
+	 UmR5TzSeslYUV56Lerkf4IkwebNxuHeHzkWIjBrEEir8STlG9excW/k9Gpn57F+T0J
+	 9UB3P/4TmP32Q==
+Date: Tue, 8 Sep 2026 11:06:00 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
+	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Saravana Kannan <saravanak@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>, vdonnefort@google.com
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <ap_MnVK8NYvEtYHS@orome>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <apquUWgrD9C2jWQ0@willie-the-truck>
+ <ap_HzwVp-6aOKEbJ@orome>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-To: Mostafa Saleh <smostafa@google.com>, jens.glathe@oldschoolsolutions.biz
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <ap_PdUrwLIVGJ3oG@google.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ap_PdUrwLIVGJ3oG@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="i6qijyjefsd32euh"
+Content-Disposition: inline
+In-Reply-To: <ap_HzwVp-6aOKEbJ@orome>
 
-On 08/09/2026 11:03, Mostafa Saleh wrote:
-> Hi Jens,
-> 
-> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
->> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
->> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
->> chassis, different silicon. Stubble and the DTB loader need distinct
->> compatibles.
->>
->> This series splits the board description into
->> x1-lenovo-ideacentre-mini-01q8x10.dtsi and adds thin leaves. Each SKU
->> keeps lenovo,ideacentre-mini-01q8x10 as fallback:
->>
->>   lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->>   qcom,x1e80100
->>
->>   lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
->>   qcom,x1p42100
->>
->> No qcom_scm change; the fallback is already on the allowlist.
->>
->> The remaining patches fix the common DTSI for both boxes:
->>
->> - Build the Hamoa EL2 DTB like the other Hamoa boards.
->> - Second M.2 3V3 is PMC8380_3 GPIO5, not TLMM18. A 2 s startup delay
->>   is required or pcie3 fails to probe. always-on is a hack until there
->>   is a real M.2 power sequencer.
->> - sound-name-prefix on the three DP ports. Enable lpass_vamacro: no
->>   onboard mics, but it provides fsgen for tx_macro and rx_macro.
->> - usb_mp port 1 is not populated (no PTN3222 @ 0x4f). USB-C is
->>   usb_1_ss0; rear Type-A is usb_mp port 0 behind a Genesys hub.
->>
->> The Genesys hub is left undescribed.
->>
->> UCM [1] and AudioReach [2] topology for these devices are online, too.
->>
->> Tested on:
->> - IdeaCentre Mini 01Q8X10, Purwa (X1-26-100), 91B6
->> - Hamoa: compile-tested only
->>
->> [1]: https://github.com/alsa-project/alsa-ucm-conf/pull/843
->> [2]: https://github.com/linux-msm/audioreach-topology/pull/74
->>
->> Assisted-by: Grok 4.5 (xAI)
->> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
->> ---
->> Jens Glathe (7):
->>       dt-bindings: arm: qcom: Distinguish IdeaCentre Mini 01Q8X10 SKUs
->>       arm64: dts: qcom: Split IdeaCentre Mini into a common DTSI
->>       arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
->>       arm64: dts: qcom: ideacentre-mini: Build the Hamoa EL2 DTB
->>       arm64: dts: qcom: ideacentre-mini: Fix the second M.2 3V3 rail
->>       arm64: dts: qcom: ideacentre-mini: Wire up DP sound names and VA macro
->>       arm64: dts: qcom: ideacentre-mini: Drop the unused USB MP port
->>
->>  Documentation/devicetree/bindings/arm/qcom.yaml    |   11 +-
->>  arch/arm64/boot/dts/qcom/Makefile                  |    8 +-
->>  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1188 +-------------------
->>  .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  |   42 +
->>  .../qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi    | 1185 +++++++++++++++++++
->>  5 files changed, 1246 insertions(+), 1188 deletions(-)
->> ---
->> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-> 
-> This series does not apply to ToT nor I can find this base-commit
-> in it.
 
-It's a public/standard commit, next.
+--i6qijyjefsd32euh
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+MIME-Version: 1.0
 
-What is ToT in upstream development?
+On Tue, Sep 08, 2026 at 10:39:17AM +0200, Thierry Reding wrote:
+> On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
+> > Hi Thierry,
+> >=20
+> > On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
+> > > This series adds support for the video protection region (VPR) used on
+> > > Tegra SoC devices. It's a special region of memory that is protected
+> > > from accesses by the CPU and used to store DRM protected content (both
+> > > decrypted stream data as well as decoded video frames).
+> > >=20
+> > > Patches 1 through 3 add DT binding documentation for the VPR and add =
+the
+> > > VPR to the list of memory-region items for display, host1x and NVDEC.
+> > >=20
+> > > The set_direct_map_*_noflush() functions that will be used later in t=
+his
+> > > series are exported in patch 4 so that the drivers that use them can =
+be
+> > > built as a module.
+> > >=20
+> > > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
+> > > but works on sizes that are not a power of two.
+> > >=20
+> > > The of_node_to_nid() function is exported in patch 6 because it is us=
+ed
+> > > in a later patch adding a driver that can be built as a module.
+> > >=20
+> > > Patch 7 introduces new APIs needed by the Tegra VPR implementation th=
+at
+> > > allow memory to be allocated at a fixed offset within a CMA area. Teg=
+ra
+> > > VPR needs this in order to implement its own allocator on top of CMA =
+to
+> > > meet the strict hardware requirements. This replaces the dynamic CMA
+> > > area creation patch from earlier versions.
+> >=20
+> > Did you get a chance to see how this could work with Vincent's series:
+> >=20
+> > https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
+> >=20
+> > ? I think that should remove your reliance on can_set_direct_map() and
+> > mean that you can retain block mappings for most of the linear mapping.
+>=20
+> I'm not sure if it would help all that much. Yes, if we mark the VPR
+> region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
+> the checks for can_set_direct_map() redundant. However, from what I can
+> tell, Vincent's series still forces page-granularity on these regions,
+> so it won't retain block mappings at all for them.
+>=20
+> The block mappings can be retained for the non-VPR memory, so that's
+> nice. It also reduces the amount of external prerequisites, but I had
+> kind of hoped that we could go one step further and keep block mappings
+> even for the VPR memory if the region happened to be a multiple of the
+> block size.
+>=20
+> The recent addition of page count to the set_direct_map_*() functions
+> helps reduce the amount of checks that need to be run, so maybe there's
+> not too much to be gained from removing whole block mappings at once
+> from the linear map.
 
-Best regards,
-Krzysztof
+I don't think everyone received Sashiko's review, so let me discuss this
+here. Sashiko rightly pointed out that set_direct_map_invalid_noflush()
+and set_direct_map_default_noflush() return 0 when can_set_direct_map()
+fails and that code will then simply continue to work as if the pages
+had been removed (or added back) even though they weren't.
+
+    arch/arm64/mm/pageattr.c:set_direct_map_invalid_noflush() {
+            ...
+            if (!can_set_direct_map())
+                    return 0;
+            ...
+    }
+
+Looking into this a bit, it looks like this is maybe a remnant from the
+early days when the check was simpler ("if (!rodata_full)", though I'm
+not sure the 0 return value made sense even then), but it seems wrong
+indeed for this to result in success when clearly the operation was
+skipped.
+
+None of the other architectures seem to have similar checks, except for
+clear cases of no-ops (like the address being outside the linear
+mapping, the number of pages being 0 or there not being any actual
+changes). All of the three callers seem to be prepared to deal with
+failure, so I think we should just make these fail instead of returning
+0.
+
+Any thought?
+
+Thierry
+
+--i6qijyjefsd32euh
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqfz/UACgkQ3SOs138+
+s6HbmA//a7qNERZAQ3yRWiydhrePbED3kRKv0HSv9N2gumrzKUdZsgRPZt9zq+tY
+jlGfE+pLkVxKn9OrAHS+c8ueItFNHkjdZbkMB9lYG0Wpclm5gpU11iBiiZtrzOHz
+WiEzKPtBJh4akwTJo0BLTQDqnf052vCmT1HW7/m51TmDBsYy531XuMqcF4V1cViJ
+L1KdyPc66KlBivmtcC0Kh0lVSbmsyS+SWJcxOvg+kwY8t02f68EHrUV9UTRgCmr8
+T5YO/ibccZVaey6WNDCqbdaQyUhHRzJNKuIrMGob5e49tDWOd4wB8Pa8CPMMgpUK
+3QPmfzDWrjHUimwGKdzu8R5LAk+zzEaxQMAlcaf3iEejg7WVY0DvDFA5m0Rbee8O
+BsryJINxaGuetAUqaF00N5UnCu5LreyjIiOFejWHY6BQM9oMlN0aBNnBMaozYOqF
+gvn9ioMnbVs4hhjggmGf7MOoKA87DU8Sb8JoZuZDTO51DrCB2P8gThFJHPkj7lgB
+hXjnzHdct/pO4qeaj6Y4FC63HBI58QoNMpmJGr7mZWeb5wWZQgj1Oobal1TbUZy1
+2G7m21x2Zegi9MmRwyS0XfXdGChMdxCttK0/XFo74Md1rKurzUjH8W3N2HdXTRrD
+DPvDE6pSnJSWnFNeDPebiamX72hoF000TpCe857/MUEH5n7Aamk=
+=GOLb
+-----END PGP SIGNATURE-----
+
+--i6qijyjefsd32euh--
