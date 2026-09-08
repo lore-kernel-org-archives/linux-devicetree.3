@@ -1,208 +1,108 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09821592209
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:27:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 012C9594812
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:28:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788888426; cv=none; b=LD1zo5zrZF1GoRZ7TkxoyBecPu5evgl9x/WOfJszNDfsJed10FefgPowPf5LGdPCU+YUNPb5kGnvEtmpPnW1APmXDVooey4vfRmkqDYQTQ5S2w4cMKtVMpt7bsekwCXo1Drjnj5CFcvgCiFZb//pntPeN1S4X0+yHUI8iWDverU=
+	t=1788888485; cv=none; b=OFtZ1kpECKBhW1qeH9oz8SNOhVjP+P0ezzA3jp51FCqQACRP7lYrubttghzWyQq8rbrZJ/W59JGnlcVAeEBWMAsW/GkBaYKoq7RMUwgQ3QSAwnI4cAkjqSoMMf3aq/SL+baYliqZPx5Y3oYqwFwQaGfPL3OzQgtWxVreagUKmoc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788888426; c=relaxed/simple;
-	bh=7EuFd8qw+NXi6D8T/yq0hMg8LIndzUrKVacIig9ZqHk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KjYwjoU1AMYzYV1WSw0zUTvZoo7g3vOn5tAg45neOEG/tsqPakjxT4DgGgmBmRFTAcIcHfk03KStx1UxyocIv8m4I+RUb+W6Co8I3ttuIszSuS0QkqOnj9HMof8tzT5a7UD8a+GGpMulk97JCT9v8ESuvvi1iR4QgKJg35vZNpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VAVS/Zp2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KnpP38aC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788888485; c=relaxed/simple;
+	bh=XjM+NfW0WLuiq2c1NmH2zxMXe3faot5pYKc+rUVJPpc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qUYB474vM1sFLewwb2QzROUVmFVb+YH5dn7hMK/3UPLSikH5NMrq4itIm5gPtghFgsNz2y/bnwkDtEUA9hiEo3yOfzH5pnB/AvKwf/P9fyHXQRiswr64Pi3p23BDH3h6UniWkzi62fuqPzMC1SPdVT12lSzW82/7MfBQr9D6BwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gI9+h4ne; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VAVS/Zp2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KnpP38aC"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688FdjYr2194944
-	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 17:27:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	amMF2MvJ98Lc+hlX80B9g6sPIEnWibvTt2OsLDuR2vk=; b=VAVS/Zp2G8+Ynn+Q
-	FL77+oMmFU5gJXbrUc1zxBhnxoyi9qMj9fQNzs/h2bgsfBW2SGJrcUMsXchXzu0Y
-	XqpUek/2xaFqvRM7bxgsIBuE5YHPSm0Q6taN77YnbCtxuXov/AWUFdNiJ3UTvaaD
-	MoGnFRPkL5cIH/kZRMjgF0d8gqI6YVZvaW315GxLRPfWLa99pb6vklhf0s5biJTs
-	GWvdtEuJKOnj6vMNvWV/umnMBxCNI/c1UZdqY3swDroHPvbs1BMjhgoN1ltKlDOj
-	5TiK3JwkzPczaENb8N3o8Mf2CtBoBEngvMtrWOjo4E9G/HrqRgKcXjMirx72rnSq
-	3U6m0A==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjkshs2gv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 17:27:04 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-385d2703b64so5848140a91.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 10:27:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788888423; x=1789493223; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=amMF2MvJ98Lc+hlX80B9g6sPIEnWibvTt2OsLDuR2vk=;
-        b=KnpP38aC6/AdSyMq9gsRZYGSgg4j42Wp1R+ipTJIevnMvq5+mtMhFeHdixt89uQ2FH
-         PqtVyZLjUzPhHvvpCrZxO8P7Dum38Auylu9u5WgT2XwBQsRylPX7AWqN8Wd4tM+dbhuO
-         uGgQXfxgFmIRvxREB/NCkHxpmWuvXy1DlE5tiBWR4bj0yo7TyulEFRmxk+ylN+ahnCy0
-         LgAbvWxXSHAMa/RjSy/fR+/vt+0M93L7iwEf6y0yJP9Fqku7jCleVdU/wbJukIWjMuyf
-         elBE7So3m2FHN41MnJcCElu2HmVLyTJOKauS57yzn7/cTyxGPALMzP7me70SnsPUlP3x
-         T6ng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788888423; x=1789493223;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=amMF2MvJ98Lc+hlX80B9g6sPIEnWibvTt2OsLDuR2vk=;
-        b=FrIxyEKwWWs1tQ9Ub1uEvznMo2JQRoCH7ijBGhjKtcKuQlwJfRPsAJJQ+Oe/+gKtvc
-         WnPDCVsVVRrLk29AxGfHLWsr9leqAO9wldVojOXOt7GiXOBcVyBPfU+LcoGO754LL8ZH
-         tbt4/KZl6Ixbq3wb/FvtQ4vJrYFXcy6QmSOWsQQlpbMOFiQq1Z3gFFn8r3R0z+Ki291N
-         n/0i8vODyNHHpt9fwwB2oAVc6y1sHnXGUS/T/QZLxqH8uVq1pS/tfrMR6/X29OYg4U6p
-         wRJ4teRRMeaaSGJwWAK0sJE7kM2JzE2GYkWKykPCiCznwIU1NrNWnj9i02ltdSSADl1h
-         N6iA==
-X-Forwarded-Encrypted: i=1; AKwUvByN2wNiTyFTCTKKEFAEI99+uIlPMTz42GL0jg+qZKN6d4PPWy5HREiIOmV/sFM3OXZ9hjV5CsqMhUb9@vger.kernel.org
-X-Gm-Message-State: AFuF++nzKQj4gSBdQoWzB0xK3jv6/0VGxYBITo7uZB6Rsm2yDeb76izd
-	/Tfmlkuz2l9OkJWYq1UkToDtfSsHGdNgUQmRLMZMm2BEWVBI6A9jdUI6d0d4PgrYfGlZJpKXu88
-	FWDNeiwFs1oETKje/UWgyJRE04WPWleqvX7/uu7Pfvm1P4RZBn9Ayj00p/NbHp7KE
-X-Gm-Gg: AYBFou3qkn6JzSd5cBab58lYx/mPcSPGpeA8PbzEt6U1fPCDRoKONW2jHBlc9DR/Zfw
-	7fq6XdkY4Jloc8R0KUJcAd4Uah7WeSDo5llmUhSHb/hK3DpgLxLvZqk1ElJb1+9UqFSROTzFvix
-	U/aVIEZ83h7VnvXM7L6if3Yew3tQcV8SfX5eCC+u571ur+YL0oLKmw3uJG0nXndzEJd2lKuNn8l
-	BO75bMEk6AZr8zkzUW3plu3mnCsi8crNtk7E6I/qyUhApaSTCsvu0Ys5ToRD1tHfVYKpuU6xQ7u
-	q0cdjWQ+m8n8/MHL+HUPCn6P+n9JxYqAw5mT+H+e//R/LcbzI0qKyuJhnrruEtK/ZRxto/j7G0R
-	qVQLMOQ8ui8LecGv50QuIPIhtWLnjVQ==
-X-Received: by 2002:a17:90a:ec84:b0:36b:b903:994 with SMTP id 98e67ed59e1d1-39b07f44dbdmr41175728a91.4.1788888423308;
-        Tue, 08 Sep 2026 10:27:03 -0700 (PDT)
-X-Received: by 2002:a17:90a:ec84:b0:36b:b903:994 with SMTP id 98e67ed59e1d1-39b07f44dbdmr41175692a91.4.1788888422812;
-        Tue, 08 Sep 2026 10:27:02 -0700 (PDT)
-Received: from [192.168.1.6] ([223.184.127.216])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm57765170c88.4.2026.09.08.10.26.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 10:27:02 -0700 (PDT)
-Message-ID: <5ac58cd1-2ef7-4ce9-bf97-dc120ddb9f20@oss.qualcomm.com>
-Date: Tue, 8 Sep 2026 22:56:56 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gI9+h4ne"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC6C1F01572
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:28:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788888483;
+	bh=XjM+NfW0WLuiq2c1NmH2zxMXe3faot5pYKc+rUVJPpc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=gI9+h4nezNM4jezi/gSGd5v0FLkt/ViVbNzZjvmD3znGXhaCACEMxp772uTPuMKQM
+	 zic6KxCNmB1qGktDhB7Q297JxzmoM8+GnkdHIo6O7GM1RtjOrd3fZzRYHyhJZERfAL
+	 69YkYNVsnbzvuSM4by/7K8DV//vvvS6EZzyPHUmCVJVsLvVEmvcDqj4PUkSn25Oajf
+	 10cbl2TTkZfXsQfX5hnB5ZNJmlkw0FLAF4v960FUXFrX2QuGaGyIrJgQaLePxMk25x
+	 x+kVTIVGbOCV2GzFUF+D83VAJVNfudH9m5iPgdODO/y6lagRK9Jy6ORRoDJMgiu/Kr
+	 jXIyW+APwKbZA==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b6036e9c70so3767613e87.1
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 10:28:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwyHLnW32jsc13WQ7H3s+a8FkFAB/SndjUGgAA8a2PzdIvZ27aS9enEPNLgTVnJ0DhBzk7FI7DjdxGW@vger.kernel.org
+X-Gm-Message-State: AFuF++lvHiqEFQsaOeuhC+4e3Hf4BpB0r9QWTp70VsAKQekQFDC7U46W
+	2Jy3RgPn0x7/FC8CwTbk1HXKYgV9j1K9Sy6kmFzjJHjW+2g5+Jn0J4n5OBzNmzGfFW7xii+ClqY
+	Pu6S1GyzSsv/bqmw+1VJfigAL2Fm2BBI=
+X-Received: by 2002:a05:6512:6884:20b0:5b6:1a7c:3f with SMTP id
+ 2adb3069b0e04-5b61a7c0196mr2554286e87.66.1788888482136; Tue, 08 Sep 2026
+ 10:28:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: sound: qcom,q6apm-dai: add stage-2
- (SCM/VMID) access model
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260826-a2a-shikra-vmid-v5-v2-0-c3dc62354eee@oss.qualcomm.com>
- <20260826-a2a-shikra-vmid-v5-v2-1-c3dc62354eee@oss.qualcomm.com>
- <006617c6-e3b0-4a3b-85e5-6b5af8f11879@kernel.org>
- <51413da4-eed6-4251-b2eb-5d2ad8cb36ec@oss.qualcomm.com>
- <c97d0871-0c89-4590-9ad3-4d3859d0522a@kernel.org>
- <23d6166f-50f7-4d23-a700-ab738c1e872f@kernel.org>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <23d6166f-50f7-4d23-a700-ab738c1e872f@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4OSBTYWx0ZWRfX4z7XxWyEDTKZ
- M3M2x2RUuCq9DaIvC8vP6m0fl/H5b/pH5la0qGM8ED+gPgyAS/1nDP2fzzSd54MpdU4zBSCdHNN
- TghLaxdrjtTn5/ckg7w2/TRp5RjffZ0=
-X-Proofpoint-ORIG-GUID: 0Rgll2synDknjcxxrAdFdpcB4Hl9jG3X
-X-Authority-Analysis: v=2.4 cv=TammcxQh c=1 sm=1 tr=0 ts=6aa04568 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=66SLN7faITJN3pPvMqR9OA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=jJ3HrK66ljBcDBb3hHsA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: 0Rgll2synDknjcxxrAdFdpcB4Hl9jG3X
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4OSBTYWx0ZWRfXyAs2b8pGNyyg
- g3YOAJb7vX1ev6ppp2WBKO5l2kwmXkFVcztDZSe3o+GVXASz+/YshEtrF/L0Y/otIBdtoe+79In
- Mp1CQ110kLO+3NW4eyVKgNM6h9FbefIdJOSVumDu8B3CG4preGr02XF/VIyZqRk6WiHlF19d/uq
- rYQUX4KxOPHD8Ot8fBJ8VCapWuo4lcTSzX361zsFMJTZsQUVYVs6pL05b2SeuFoh/tEH6y5gTlj
- DsRtJJ89KsWRFA4NZ3g66J7tCuIBHEQZlVurUZyij6e9NK9w+YcSD7RvzK/E2nHFmWMMxx7nypM
- QgCphOqsHNWYSQbYSsDtWEgXWahObqd56n2CcbwQFueICNextLQh/76l1S5mIeew1/pKOjvMiS5
- UYclu7wL/DmjRSgXLk+avdW3jvrvo96F7FO6BbQjkXMRWT6FO6LIDLp6bADt+QNvmBgA0U/mAcu
- DUws+nZ5GQfKXW1tr7A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0
- spamscore=0 suspectscore=0 bulkscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080189
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-3-arnd@kernel.org>
+In-Reply-To: <20260908152808.3928630-3-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 8 Sep 2026 19:27:48 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkzrp4hsOERqOt6Zc75p-+KoWj0Tvu6VQk=ma2kgDH=Qw@mail.gmail.com>
+X-Gm-Features: AcwNN1UJNXIoMX0oKBuT_VyMabX-dcNfrhwjoX9gJLRVYT9sdHBezlMdahVsqlw
+Message-ID: <CAD++jLkzrp4hsOERqOt6Zc75p-+KoWj0Tvu6VQk=ma2kgDH=Qw@mail.gmail.com>
+Subject: Re: [PATCH 02/13] ARM: remove footbridge
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ralph Siemsen <ralphs@netwinder.org>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
->>>>>    
->>>>>    properties:
->>>>>      compatible:
->>>>> @@ -20,9 +28,42 @@ properties:
->>>>>        minItems: 1
->>>>>        maxItems: 2
->>>>
->>>> As I said last time, different hardware, different programming
->>>> interface, different features, so a different compatible.
->>>
->>>
->>> The APM DAI block is the same packet format.  The driver uses a single
->>> of_device_id entry with no match data; there is no code path dispatched
->>> by the compatible string.
->>>
->>> The iommu vs VMID distinction is a property of the memory topology,
->>> not the DAI hardware, and is already described by the mutually exclusive
->>> iommus / qcom,vmids properties.  The DSP identity (ADSP vs mDSP) is
->>> carried by the GPR node's qcom,domain property and read at the send
->>> layer — the DAI node itself does not need to know which DSP it talks to.
->>
->> I am still trying to grasp it. You have a device "APM" and it accesses
->> PCM buffers or other memory in some way needing IOMMU for that.
->>
->> Now you add something which you call EXACTLY the same device, no
->> difference at all, same "APM", but this time this device operates
->> completely different, because it does not use IOMMU, but talks with
->> firmware via SCM.
->>
->> Well, I really do not see how is this still exactly the same or even
->> compatible device.
->>
->> The way device accesses its data is part of the programming model and
->> different programming models have different compatibles.
-> 
-> 
-> Additionally, as explained to me in off-list channel, the qcom,vmids is
-> not a hardware property at all (because hardware is the same), thus does
-> not look suitable for DT.
+On Tue, Sep 8, 2026 at 5:28=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
+
+> From: Arnd Bergmann <arnd@arndb.de>
 >
+> Footbridge was deprecated in 7.3 to be removed along with the other
+> StrongARM platforms and most remaining board files.
+>
+> The main machine here is the NetWinder, which was a popular Arm based
+> desktop PC in the late 1990s and contributed to Arm's later success as
+> an embedded Linux platform, but was discontinued over 25 years ago and
+> is no longer all that useful.
+>
+> I previously tried to convert this to devicetree in a sensible way but
+> gave up due to the platform being too different from modern SoC based
+> targets.
+>
+> Cc: Russell King <linux@armlinux.org.uk>
+> Cc: Ralph Siemsen <ralphs@netwinder.org>
+> Cc: Helge Deller <deller@gmx.de>
+> Cc: dri-devel@lists.freedesktop.org
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-I understand the concern. The qcom,vmids property describes which 
-Virtual machines the SoC firmware has configured to own the memory space 
-on a given board. similar to how iommus describes which SMMU the device 
-is wired to.
+Acked-by: Linus Walleij <linusw@kernel.org>
 
-There is existing precedent for this in the tree:
+I have one of those machines and it boot mainline but I
+certainly consider it a paperweight at this point, I can't use
+it for anything useful.
 
-- fastrpc (Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml) 
-uses qcom,vmids to describe remote processor VMIDs. The driver reads 
-them from DT and calls qcom_scm_assign_mem(). The compatible stays 
-generic (qcom,fastrpc).
-
-- rmtfs-mem 
-(Documentation/devicetree/bindings/reserved-memory/qcom,rmtfs-mem.yaml) 
-uses qcom,vmid the same way with a single generic compatible 
-(qcom,rmtfs-mem).
-
-We are following the same pattern here. Happy to discuss further if you 
-see a difference between these cases and ours.
-
-Thanks & Regards
-Ajay Kumar Nandam
-> Best regards,
-> Krzysztof
-
+Yours,
+Linus Walleij
