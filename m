@@ -1,159 +1,85 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73833A901C;
-	Tue,  8 Sep 2026 08:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DBFB38E8B8
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 08:11:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854946; cv=none; b=uNOfQT3l6rgahOxxziphWOEpDLlU9FkrJ7p49gxOb8Mr5sFfq8XJJLjrf1DBG11cy1vPFnm2S+l9viuNp1b6CC5pSl9vHGzJdcn3UOouOCfw3zG+x4TeLU2gQzjLdKNisYaBuAnshxe+j02VyKjwozGZkp2onbIxtvIas4xW4Ic=
+	t=1788855104; cv=none; b=o77N3rzRWgRc5tHAxjm6j49klK/vUq8mhI8hqTqued/ST4LCnWqJ0PFqV2z7wUYjzKElyx7n2lcuJzYjeJGy6Ktvh16QsNmwD4VNa3LJRwCp0sHk3m3yr3eTBPc1HSadpwWPDzantxHPaCVqJvlNHZ4ckREQz7oBJblZ0IDONMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854946; c=relaxed/simple;
-	bh=Pz4s/OkkJdrwX3L3b9G9j+92YEGxFvKWRVYgPeVfoIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WXviJ3srY5LN2ie7YHEe7JEnYuzuIYXtIPx6169Zr10OhquAE23xd2MN546tHPo5i+ZRvdlqSm01wGJriXwN9EuxWBC6PvKvRr4DAp/P/9Ifrpj9halgaAWZknCuf0sAiwu97h7WQV+Yiy0dB1Dds+NwBKx9ck2w+cxzCLRa1Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cdrUxvfj; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788855104; c=relaxed/simple;
+	bh=UDAVNzxyX9ieN/d/0afP/fZWor+tWH8YUjMIEJ1gNLM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=cuyaEniX9WxWi88HI2aLRV0MFP0xAHjfmJYgDMEx7f/Am32DqVBu2SBCINIw+HjiVaVzMwlXAnGpvag/rWdhU9ECjSxvngZ5Vy04XOiuK3vAPekfNgvfPxhS9Ylu4JYlX+7EXm8Hq2I5toSgaMzfH8kcLWlWKY4oxTiYOUF+0KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pv4g5Qu0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cdrUxvfj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788854945; x=1820390945;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Pz4s/OkkJdrwX3L3b9G9j+92YEGxFvKWRVYgPeVfoIk=;
-  b=cdrUxvfj66YcQ5+IBDfWEY0cTX1m6yd4i1sMJlYzDpoxAbRz4Ae61Lpo
-   TSTIb/uPHbIAG4Tm9uGMnh+2cw/Hfm2AFLLlFnb4zIIg1n4dRdZxmbUSA
-   Oe1+3kgZelUkdPfrxx2kzO6AwbRu96gIMl2uYDSeWarUx0WIqBNfLU85w
-   M31osRGfi8XZuCjF21H8+cztafoh3ALgV0XAZLJReK43Shzgcd4V/UOAf
-   zmoISULNwn83Vqn+X3oVye6eKiMQRKE54m0Kd3hxDa0CAWe1LXGZoC2Eg
-   fkeyx5sZpc0Qtmj6DhD6RgdiKbd0LG+hrZS4JgQX782l5UGqqOpnsJVv7
-   Q==;
-X-CSE-ConnectionGUID: g3AxdscvRzy+ceqAWVUlcA==
-X-CSE-MsgGUID: PQe7+rx1SQK50/LmkxTbSw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="100771329"
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="100771329"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:09:05 -0700
-X-CSE-ConnectionGUID: kCeffEvVQ/KHlW6WfeAo5Q==
-X-CSE-MsgGUID: 2dwkh/uRShOLteCW5P3xvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
-   d="scan'208";a="266577821"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.120])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 01:09:02 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 6A05511FA3A;
-	Tue, 08 Sep 2026 11:09:04 +0300 (EEST)
-Date: Tue, 8 Sep 2026 11:09:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ap_CoB5YL2rKAuCy@kekkonen.localdomain>
-References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
- <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
- <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
- <ap5n7OyZrI0KzzN-@zed>
- <ap561H8xYJvjZsRa@kekkonen.localdomain>
- <ap6ALNC8Q0M-Oo51@zed>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pv4g5Qu0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE8B91F00A3A;
+	Tue,  8 Sep 2026 08:11:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788855103;
+	bh=UDAVNzxyX9ieN/d/0afP/fZWor+tWH8YUjMIEJ1gNLM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Pv4g5Qu00r24ShA4k9ohQVAFuIun67W0VfStrnCO3hWxDSDcXOY4Bexa8sUBv0DCf
+	 BgpMhkqcTyDhp808Focp7aOsAehVsOHQDFpEdFNfeqkJUUEiu0Xvq8Horsi35+iY2s
+	 r4NZ5phM7UTpEjbE3RoFcK9YUPQzXs6fJ8zUEdRdicT8MMkzQFMyFMzqZAw09i3cA1
+	 wVsh74x8iZGt89TwiwfwPoYV9/6vaWyIF8OEkA2YpETYa4RCvvjgsHWQ9e1Ppbkrjs
+	 7Jti9moZdaHMibqGX/0kYhetJ+S9Ypx8EE9yotSEKmVwOU7RRkTgj8CSOCA3n4GG2s
+	 Vk4V+ucg23Nwg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v1 2/2] pinctrl: qcom: Add qcs615 lpass lpi pinctrl
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Karthik S" <karthik.s@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260908075854.3015560-3-karthik.s@oss.qualcomm.com>
+References: <20260908075854.3015560-1-karthik.s@oss.qualcomm.com>
+ <20260908075854.3015560-3-karthik.s@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 08:11:42 +0000
+Message-Id: <20260908081142.BE8B91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ap6ALNC8Q0M-Oo51@zed>
 
-Hi Jacopo,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Unused static arrays (`gpio0_pins` through `gpio31_pins`) will caus=
+e compiler warnings
+--
 
-On Mon, Sep 07, 2026 at 11:16:41AM +0200, Jacopo Mondi wrote:
-> > > > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
-> > > > > +{
-> > > > > +	struct mira016 *mira016 =
-> > > > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
-> > > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
-> > > > > +	struct v4l2_subdev_state *state;
-> > > > > +	struct v4l2_rect *crop;
-> > > > > +	int ret = 0;
-> > > > > +
-> > > > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
-> > > > > +	crop = v4l2_subdev_state_get_crop(state, 0);
-> > > > > +
-> > > > > +	if (ctrl->id == V4L2_CID_VBLANK) {
-> > > > > +		s32 exposure_max = crop->height + ctrl->val
-> > > > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
-> > > > > +		s32 exposure_def = min(exposure_max,
-> > > > > +				       mira016->exposure->val);
-> > > > > +
-> > > > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
-> > > > > +					       mira016->exposure->minimum,
-> > > > > +					       exposure_max,
-> > > > > +					       mira016->exposure->step,
-> > > > > +					       exposure_def);
-> > > > > +		if (ret)
-> > > > > +			return ret;
-> > > > > +	}
-> > > > > +
-> > > > > +	if (!pm_runtime_get_if_in_use(&client->dev))
-> > > > > +		return 0;
-> > > > > +
-> > > > > +	switch (ctrl->id) {
-> > > > > +	case V4L2_CID_EXPOSURE:
-> > > > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
-> > > > > +		break;
-> > > > > +	case V4L2_CID_VBLANK:
-> > > > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
-> > > > > +		break;
-> > > >
-> > > > Is hblank part of the register lists?
-> > > >
-> > >
-> > > These sensors (there will hopefully be more supported by this driver)
-> > > do not have a real horizontal blanking.
-> > >
-> > > Their line length is expressed by a time base multipled by a line
-> > > length which doesn't directly depend on the pixel width but rather on
-> > > the ADC and PHY timings.
-> > >
-> > > You could expand the line duration by increasing the time base, but I
-> > > wouldn't go there and use VBLANK only to control the frame duration.
-> > >
-> > > As you can see the HBLANK control is registered with  fixed value of
-> > > 0.
-> >
-> > How does control frame rate then? If HBLANK is zero, the frame rate is
-> > undefined, isn't it?
-> >
-> 
-> Why do you think so ?
-> 
-> The row_timing is the product of the time base (in usec) multiplied by
-> the row length expressed in time base cycles (see mira016_trow_psec()
-> and how seq_time_base and row_length are calculated).
-> 
-> VBLANK is still controllable, and you can vary the frame rate by
-> changing the vblank.
-> 
-> What have am I missing ?
+commit 72e924992eb3de90f14daba573a913e0c3530e32
+Author: Karthik S <karthik.s@oss.qualcomm.com>
 
-Using only vertical blanking value to control the frame rate is fine, but
-the correct HBLANK value is still needed by the user space to be able to
-set the frame rate.
+pinctrl: qcom: Add qcs615 lpass lpi pinctrl driver
 
--- 
-Regards,
+This commit adds a pinctrl driver to support pin configuration for the
+Low Power Audio SubSystem (LPASS) Low Power Island (LPI) on QCS615.
+It introduces a separate pin controller block specifically intended to
+control audio pins.
 
-Sakari Ailus
+> diff --git a/drivers/pinctrl/qcom/pinctrl-qcs615-lpass-lpi.c b/drivers/pi=
+nctrl/qcom/pinctrl-qcs615-lpass-lpi.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/pinctrl/qcom/pinctrl-qcs615-lpass-lpi.c
+[ ... ]
+> +static int gpio8_pins[] =3D { 8 };
+> +static int gpio9_pins[] =3D { 9 };
+[ ... ]
+> +static int gpio31_pins[] =3D { 31 };
+
+[Severity: Low]
+Are these static integer arrays (gpio0_pins through gpio31_pins) necessary?
+They appear to be unreferenced in this source file and will cause unused
+variable warnings.
+
+Unlike the top-level MSM pinctrl driver's PINGROUP macro, the LPASS LPI
+framework's LPI_PINGROUP macro does not seem to utilize these arrays.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908075854.3015=
+560-1-karthik.s@oss.qualcomm.com?part=3D2
