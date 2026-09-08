@@ -1,126 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5126051E420
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:17:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFD0521201
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866275; cv=none; b=Drb2R0r1x4O7QlLn/IgbNMILHHN8UoK/yExTDtN1W+NR4byRYReK9ukln1WtukXnn6V2+w4e9c2YvoehJ5YhbDtW4qkmkLw2+5k6dzRmaaHIDACQWk1/IgJybPVXm4LwSG0iNyyFgD24+W2Qq+cr5Um3CmZfaw3NsX+F3Iq8MZo=
+	t=1788866297; cv=none; b=FtfkdtEP6PO6KcbgEfSBAnq1zhkL+1hUxo2zwLvlWY9Cdpt66rNTOGd8kxzWQ2RDe5Ydr0vBj41W3wLq85sAE2G1LEL59qRWFp1WyOk/LzvFk1pV6vgCNxd84OcfbAAqnv+EE2OmwnQu6MxlXcn+q7vac0n5M9rTg7HbxlO2Fcc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866275; c=relaxed/simple;
-	bh=GfnlMwPTgUmccSO6EFqq7WzJlcW+k3KtYJufG5t0O44=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FOxSjJyO6/95IG/YxaHyk+XCyI97cLC4H7ZpDKqYVJI28uqaCfnAJLQUFMOuaW5jjNQ5rh0UVOsm694zpNcNDrkUIWz8eVaauaVfqOOYV4ceJLE2CjQhrkmkhnDXA1ToFZMeM73P87KTxa4fW9H0AlTKhtwAMZ0TptRdTkytP50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YM5oSijT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788866297; c=relaxed/simple;
+	bh=lX4V4yjGtJ3+RS/BGcYcxwkRKomux7igTneZYQSAgkc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nrMIIKgbfRb3Yx+FV5yaEVIf74GPxvKW2bwDXASjAN9PhnPw3kY8Z6/87rPQDYVKPNs3dly4Pw2CzhsphycKtws0kZGJKoDR/tKxiHd0MnpQ9ZaKOG/N/nZU9PD8o1vR6BoFt+BkW8nERj//S9HJNljL559xMh3mnTTQjKc9K64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ev51L5fQ; arc=none smtp.client-ip=74.125.227.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YM5oSijT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1DB1F00A3A;
-	Tue,  8 Sep 2026 11:17:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788866266;
-	bh=7WerRF0RmeufOKgk6DYuDq+dOMUjYdWC9aSFWlEeo+I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YM5oSijTmV5LmSwTfT6pCA0sZp3kfi+TLw+v+UENTTqvprpdYg6cQnKVW3lV5hgtH
-	 OZKZO1c+Cf/sWOVy4JOhDP+GaIC8Crd6RQNem8sIe5EZAvM3I95QpljBcTe91m186z
-	 sQewALpKCWIcJKQHlywtQr2rroN7q/FDZrUKmVuF+KbPhJvYflT9zh6X/hYfWpK0z4
-	 R8okQtkm8WaH0rEQ/zsiTGONAq+XYFsw3A6cPg8xLJdwnesaZsSgVZuNFme0Q3YaX3
-	 CGHA2LXGxRF24I07jWdvLCbbDqeZ+HIAe7fOv/7JpulZZ79hnDKCTjW1AcUwoJqqZu
-	 m2+7yD4r3enhg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
- Draeger's M48 board.
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petko Manolov" <petko.manolov@konsulko.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908111011.960876-2-petko.manolov@konsulko.com>
-References: <20260908111011.960876-1-petko.manolov@konsulko.com>
- <20260908111011.960876-2-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 11:17:45 +0000
-Message-Id: <20260908111746.5A1DB1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ev51L5fQ"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e518329so192274e0c.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:18:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788866289; x=1789471089; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GR+PLOaTo7otsU9ebeTCa7DS4PdH9ick+Ld4KYL7p5E=;
+        b=Ev51L5fQhBYYIGN6xLOPTjQv2rczFfFrLSkgYA1zlP+NvHJeUiMcMlsXyzfdMjIuug
+         qi/2p63yTzEHx/yuLXk0+liIKi/sJJ00tahgoMkTK3cYf2BQvxQMrBpF8O0hwWEyAQp3
+         4zLhamEHuSf6eOKN91tEESfm4+TZ76A80jaQ++vikrXjvj3lCb2d/HUTirPHcySQi4nW
+         CGs1OfWDebNOHdjoy3WrXLKpva/gSjP2Nffj59XMmwsG32r756xGxmVkpxZYEBPYFjjM
+         BtlD4zDMCR58x/3zwCqUMdhxxA3XyyxG9TBFtrfOi5x9dg14r+0peT2POdlRdKDtTPqw
+         Mz1g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788866289; x=1789471089;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GR+PLOaTo7otsU9ebeTCa7DS4PdH9ick+Ld4KYL7p5E=;
+        b=tF2Lx4tfOfmA/QwN/I6sBWrvjskw0VbZjGMRpJOiXtpReGXx8wmhaKphknXiBNM/O3
+         42F0j1qx0+WmkgbswqzIyvkPdUiDro+zFz83DRAV1LBXXIDuyVcxROU9zkRS34Lye6pg
+         kZsO0HPW2xfLFltCSjlN3yi1/p/TScsGActFFlkwcXvddPUKHBw4o7yTzYtUemrtm93O
+         X8jyYKA2mhJb9a/oareSX7VsTkG4l7BjJu0sKfHQQglF4P4o+sPLvIw8idycJ1Bu/FZM
+         gErFFjD0p1NrNMq2g27APsinUn9bI615TZgG/913An32TQ6ZbDL5yOT45AsDk1t4zEFm
+         4whw==
+X-Forwarded-Encrypted: i=1; AKwUvByWLvjarW5P1XBdsdFjhmGpKm0Gx22cGAQr+ToHtkW1GuGVA3ebudgjN01ms6grBHxg/FnTs9JKL1a/@vger.kernel.org
+X-Gm-Message-State: AFuF++mtjA2q/AZ2NFq7MUjl/GYIgR18l3Mh4O4izyL/KUMhD3sSj705
+	smNv2RJvlTEVgS8um35i34HpgHMgcWlLlXsqjdkR8BYNllncZsmTY+xk
+X-Gm-Gg: AYBFou2Icz9TSWGhs8I8ud0uwyqL2zLVIVeKY0r3JW1kmraMWyof1dSzqmpV7NXur5B
+	ChNuqwsKr1Ra+l4YYSYEIn63dXrioA24J55uLnhP1vPHOImCrIcxnNjYqxBry0QavKXWlDU7lBz
+	bStCvVz31oIa+QhqTUHcXilrftIOoBuBLCZ/vJ+8QOgxCxyXAOl8QHDcp9/4qSTdqq8FsaG1gzq
+	ysWoAoRAq35lqxPilEqt+4XT06cM0LHRun7G3RQEHuAUAfyylO+u9ZU2k8VRK28e/8m/LOYlblq
+	LAaGNMK3v0eAQIz9hAw9g4O+rDFqQffMZ86/8/8mS3GWKPZ0a+zDkHIfg1P2c2VpXj2eRPQRx4b
+	Zk0fcmOLqzQbBquu7In4wEcWg0CJABGpJF6/JnI5Lj+wV04RDpirkTjsKVqyVsaSPjhOCPQVZnJ
+	hlI8YVPfbYQz9WvWpEvpT7mQ/TENTePUYWg1SyTwdAdD2jPz5ko96FotiHGc12nogH72FbD9vDx
+	ZTu6w==
+X-Received: by 2002:a05:6102:c8d:b0:789:ec0f:3a03 with SMTP id ada2fe7eead31-78dd1a1cb33mr1540702137.4.1788866288632;
+        Tue, 08 Sep 2026 04:18:08 -0700 (PDT)
+Received: from leonardoc-nb ([67.159.246.222])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47a76487sm8467503137.5.2026.09.08.04.18.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 04:18:08 -0700 (PDT)
+Date: Tue, 8 Sep 2026 08:17:57 -0300
+From: Leonardo Costa <leoreis.costa@gmail.com>
+To: "Kumar, Udit" <u-kumar1@ti.com>
+Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
+ LVDS adapter with the 10.1" V2 display
+Message-ID: <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
+References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
+ <20260803173705.2268792-2-leoreis.costa@gmail.com>
+ <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] Undocumented and invalid property 'bank-name' is used in 'snps,dw-a=
-pb-gpio-port' child nodes.
---
+Hi Udit,
 
-commit 47ed41fa3ef1281bd4bccc254d37939ac832d285
-Author: Petko Manolov <petko.manolov@konsulko.com>
+On Sun, Sep 06, 2026 at 10:49:52AM +0530, Kumar, Udit wrote:
+> Hi Leonardo
+> 
+> On 8/3/2026 11:04 PM, Leonardo Costa wrote:
+> > From: Leonardo Costa <leonardo.costa@toradex.com>
+> > 
+> > Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
+> > Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
+> > Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
+> > DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
+> > LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
+> > touch controller.
+> > 
+> > Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
+> > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
+> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+> > ---
+> >  arch/arm64/boot/dts/ti/Makefile               |   5 +
+> >  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
+> >  2 files changed, 158 insertions(+)
+> >  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
+> > 
+> > diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+> > index f4d109ef6798a..8a59fc597aede 100644
+> > --- a/arch/arm64/boot/dts/ti/Makefile
+> > +++ b/arch/arm64/boot/dts/ti/Makefile
+> > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
+> > [..]
+> > +
+> > +	panel-lvds-bridge {
+> > +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
+> 
+> > +		backlight = <&backlight_pwm3>;
+> > +		data-mapping = "vesa-24";
+> > +		height-mm = <136>;
+> > +		width-mm = <217>;
+> > +
+> > +		panel-timing {
+> > +			clock-frequency = <70000000>;
+> 
+> Looking at
+> https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
+> 
+> 
+> you are using three different clock-freq 69500000, 64500000 and
+> 70000000 here.
+> Could add some comment here, why freq is adjusted.
 
-ARM: dts: draeger: Add socfpga devicetree for Draeger's M48 board.
+It's for the same reason as the 69500000 clock frequency in the Verdin
+AM62 patch. In general the DSI to LVDS bridge requires longer horizontal
+porch and sync values than the typical values for the display, and we
+intend to use the values on this patch in the general case when the
+bridge is used. The reason why the frequency here (70000000) is
+different from the Verdin AM62 one (69500000) is because we found that
+that 70000000, along with the other timing values, work more
+consistently with the bridge across our modules, the ones on the Verdin
+AM62 ended up being a first iteration.
 
-This commit adds a new device tree for the Draeger M48 board, based on the
-Intel/Altera Cyclone V SoC FPGA. It updates the yaml bindings, adds the new
-dtb to the Makefile, and introduces the new socfpga_cyclone5_draeger_m48.dts
-file.
+I'll add a comment explaining the difference from the native LVDS values
+in the v2 patch.
 
-> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
-.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> new file mode 100644
-> index 0000000000000..423c76cd1d4a7
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-
-[ ... ]
-
-> +	soc {
-> +		gpio3: gpio@ff202000 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			compatible =3D "snps,dw-apb-gpio";
-> +			reg =3D <0xff202000 0x20>;
-> +			status =3D "okay";
-> +
-> +			portd: gpio-controller@0 {
-> +				compatible =3D "snps,dw-apb-gpio-port";
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				snps,nr-gpios =3D <2>;
-> +				reg =3D <0>;
-> +				bank-name =3D "SYNC_I";
-
-[Severity: Low]
-Does this undocumented bank-name property break device tree schema validati=
-on?
-
-The snps,dw-apb-gpio.yaml schema limits properties on child nodes since it
-uses additionalProperties: false, which might cause a failure when running
-make dtbs_check on socfpga_cyclone5_draeger_m48.dts.
-
-> +			};
-> +		};
-> +
-> +		gpio4: gpio@ff202020 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			compatible =3D "snps,dw-apb-gpio";
-> +			reg =3D <0xff202020 0x20>;
-> +			status =3D "okay";
-> +
-> +			porte: gpio-controller@0 {
-> +				compatible =3D "snps,dw-apb-gpio-port";
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				snps,nr-gpios =3D <2>;
-> +				reg =3D <0>;
-> +				bank-name =3D "SYNC_O";
-
-[Severity: Low]
-Could this bank-name property be removed here as well to avoid a second
-schema validation error on the gpio4.porte node?
-
-> +			};
-> +		};
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908111011.9608=
-76-2-petko.manolov@konsulko.com?part=3D1
+Kind regards,
+Leonardo
