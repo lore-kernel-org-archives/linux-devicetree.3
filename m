@@ -1,162 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F364D990C
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13924F30E7
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 10:05:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861863; cv=none; b=DEZKi4QgyYYh3Gbq2ZPBPgGEcdjqdqr42htjMeeuDVK9a7ljM4HANU4J69z9/8KZs+fqnvXasVoGWola+GrtVFX11/WJDCW6ozOxLDU44vsh2yWRT22IN4BXe6rUJcEqHg/Fd4/GJRzKdgXTvRloQtunN/hZaqynUWshJyY5XYg=
+	t=1788861914; cv=none; b=UllJwCNdVnvpHaa9LytEeJnc64pU98Kjk8Ldi15KXeceWiTXxsF0fC2ShMSfheU2K+edV4e0spSux7ynL84zEZaPgfp6kUBUAATyxJejuG3zBTqWoP348w7SEWUo+cvV4bI+8gVE8r7AfMTv9lzSuOMO9GR8WFlNpyUQIDYj/j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861863; c=relaxed/simple;
-	bh=YCrooUowgJHnI+qdnhXJWKoK2G0nDq0Px01qLpti/mI=;
+	s=arc-20240116; t=1788861914; c=relaxed/simple;
+	bh=M/rcMXLiJzhgYINx1yrCAd8yfWAt7KfR82u5/Pl5UZE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X8sj7MoTV77FZQRqObGJV19CFKqxvUK5ic3BvrO1qqjA2CGcN/z+cWAGFqr7wRvEpua8qsYjpK440qa+5Z7zGdKDULFrGtSLNlC6kpuqe6iYZ1YBoff9xEPoJzFD1V1FZOEMBTm/TsHeZVovFBLrO1EKCs4iFtViYqmnjSDFvew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esKUUaDC; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=R8+j96gy8m3jF/aRleXU7iYlGjA1ul9OxdO5Nu7Ztq8svNiUOOw/7SRNmHa+9Dcm4YHhyt34CiEMHJ6Z7qwO70lzbfkmXNAOdKzrjAZnWmOdImQuHVC3kj+F+IYJ1h/jbnNrmOXTQkYIvDznC2t/A7QCiIR21a2j4bBEuj+ugmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SbD5Tl3e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esKUUaDC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E82C1F00A3A;
-	Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SbD5Tl3e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 38FE81F00A3A;
+	Tue,  8 Sep 2026 10:05:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788861861;
-	bh=y3VDoJY/ddJR02OQMQtg9KGif/6Y6mDm+so2rnX5Zds=;
+	s=k20260515; t=1788861912;
+	bh=dFC4sGYCBQ/hvi2SOCJ1HAdYNK0ldT1ZYBlrU54XG90=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=esKUUaDC07Qmu3eis1IvG+RKjneRZ2c/UmvmWrNh/BjImTJzNZKpXt2jYrwHgvlje
-	 WbGIxIh+icdyUymFcNahT55dhFWUiA15SoVO6ZnTueQh+ANrXe/m0Vy5IC4IRDRm+H
-	 Q2U3ewe49x+//sXCnkP4WveoGDzBfaZHihUk0mUsMnBrW4ifTbe8pKfL0RmDDmm6A2
-	 wNnpboanzaY69LQXwI//pkSDrOhzUqJdO+rpnPOed355KH40kZhq8jLf/cIwB8/65U
-	 ynPMbQmFJBoBXzc5UpfxaTuzYeFm9jE9ObvcnPgEX3uBc+ZPq2JwjNxMTesxrMHgAv
-	 oNI3JJL7+Ka+A==
+	b=SbD5Tl3eBfQto3J9ZgnKLVQTEatC+91EFM99p7m1f4iLj3d3hdYZjK2sWFP2hepVx
+	 iRIuFlUH9ZwenwhZIlPbzgnkfL+1rTD8xnCZz3SH2oRaOjsq/K3cb8ve0+nCXTM2hh
+	 oH7FHA65V9hLz6O/gPZp+10zpvX0xBnrmDk/fYvC9lTuIYzuwCdL+vIEYMMGaWpMme
+	 UrRzOP9WNud3KlrRx8k9UkJVs8s41Y6VKu4eVa4jrMNvVmBCARMf8bACCNmb/DQjhD
+	 zpJsXiCoBc+iqnDRtGU68CWxZw10uNnsijOYysLHyidKtidk/myuejI5axXzei7j82
+	 Wqa101UpJduvg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
- display controller support
+Subject: Re: [PATCH v2 5/9] usb: chipidea: usb2: add SpacemiT K1 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joey Lu" <a0987203069@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908092840.225220-5-a0987203069@gmail.com>
-References: <20260908092840.225220-1-a0987203069@gmail.com>
- <20260908092840.225220-5-a0987203069@gmail.com>
+To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-5-f07342ffa051@linux.spacemit.com>
+References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
+ <20260908-b4-spacemit-k1-usb2-v2-5-f07342ffa051@linux.spacemit.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 10:04:20 +0000
-Message-Id: <20260908100421.4E82C1F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 10:05:11 +0000
+Message-Id: <20260908100512.38FE81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] The `vs_dc8000_panel_enable_ex` and `vs_dc8000_panel_disable_ex` f=
-unctions incorrectly modify the `VSDC_FB_CONFIG` register using the `VSDC_F=
-B_CONFIG_RESET` bit, instead of setting the `PANEL_CONFIG.RUNNING` bit.
-- [High] The `vs_dc8000_crtc_begin` and `vs_dc8000_crtc_flush` functions ha=
-ve inverted logic for the `VSDC_FB_CONFIG_VALID` bit.
-- [Medium] The `vs_dc8000_irq_ack` function reads `VSDC_DISP_IRQ_STA` but f=
-ails to perform any hardware write to clear the pending hardware interrupts.
-
 Pre-existing issues:
-- [High] Early interrupt registration in `vs_dc_probe` causes a NULL pointe=
-r dereference if an interrupt fires before DRM initialization is complete.
+- [High] Dynamic dual-role switching via `usb-role-switch` or `extcon` is c=
+ompletely broken when `CI_HDRC_DUAL_ROLE_NOT_OTG` is used.
+- [Medium] Unsafe unconditional accesses to the OTGSC register on platforms=
+ without OTG registers.
 --
 
-commit 71018d22eb0156b0806e61d4495897f9c4f2d35b
-Author: Joey Lu <a0987203069@gmail.com>
+commit 8804983329a666f72771103794460f9ba731c4b4
+Author: Junzhong Pan <panjunzhong@linux.spacemit.com>
 
-drm/verisilicon: add DC8000 (DCUltraLite) display controller support
+usb: chipidea: usb2: add SpacemiT K1 support
 
-This commit adds support for the DC8000 (DCUltraLite) display controller
-generation to the Verisilicon DRM driver. It introduces a new vs_dc_funcs
-implementation that directly latches framebuffer updates through FB_CONFIG,
-handles panel output, and acknowledges VSYNC interrupts.
+This commit adds a compatible string and platform data for the SpacemiT K1
+USB2 controller. It configures the hardware with specific flags to account
+for the lack of internal OTG register support.
 
-> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
-risilicon/vs_dc8000.c
-> new file mode 100644
-> index 0000000000000..df7bd5bdd7f2a
-> --- /dev/null
-> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
-> @@ -0,0 +1,92 @@
-
-[ ... ]
-
-> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
-put)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_RESET);
-> +}
-> +
-> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
-tput)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			  VSDC_FB_CONFIG_RESET);
-> +}
-
-[Severity: High]
-The commit message states that "panel output starts as soon as
-PANEL_CONFIG.RUNNING is set", but vs_dc8000_panel_enable_ex() and
-vs_dc8000_panel_disable_ex() modify VSDC_FB_CONFIG with the
-VSDC_FB_CONFIG_RESET bit instead of setting the PANEL_CONFIG.RUNNING bit.
-Will this cause the panel output to never start and inadvertently hold the
-framebuffer in reset?
-
-> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			VSDC_FB_CONFIG_VALID);
-> +}
-> +
-> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
-> +{
-> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
-> +			  VSDC_FB_CONFIG_VALID);
-> +}
-
-[Severity: High]
-Does this invert the logic for the VSDC_FB_CONFIG_VALID bit? By asserting
-validity in vs_dc8000_crtc_begin() before plane register updates occur, and
-de-asserting it in vs_dc8000_crtc_flush() after the plane state is written,
-could this prevent the hardware from latching the correct configuration and
-lead to visual corruption?
-
-[ ... ]
-
-> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
-> +{
-> +	u32 hw_irqs, unified =3D 0, known =3D 0;
-> +	unsigned int i;
-> +
-> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+> diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/c=
+i_hdrc_usb2.c
+> index f81673edca3c1..606ca367343f3 100644
+> --- a/drivers/usb/chipidea/ci_hdrc_usb2.c
+> +++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
+> @@ -40,10 +40,18 @@ static const struct ci_hdrc_platform_data ci_zevio_pd=
+ata =3D {
+>  	.flags		=3D CI_HDRC_REGS_SHARED | CI_HDRC_FORCE_FULLSPEED,
+>  };
+> =20
+> +static const struct ci_hdrc_platform_data ci_k1_pdata =3D {
+> +	.capoffset	=3D DEF_CAPOFFSET,
+> +	.flags		=3D CI_HDRC_DISABLE_STREAMING |
+> +			  CI_HDRC_FORCE_VBUS_ACTIVE_ALWAYS |
+> +			  CI_HDRC_DUAL_ROLE_NOT_OTG,
 
 [Severity: Medium]
-The commit message implies the VSYNC interrupt is acknowledged through
-DISP_IRQ_STA/DISP_IRQ_EN, but vs_dc8000_irq_ack() only reads from
-VSDC_DISP_IRQ_STA without performing any hardware write to clear the
-pending interrupts. If the register does not auto-clear on read, could this
-missing clear mechanism cause an interrupt storm and hang the system?
+This isn't a bug introduced by this patch, but this flag configuration
+exposes a pre-existing flaw in the core driver. Can the K1 SoC bus fabric
+generate a slave error for accesses to unimplemented registers within the
+USB IP?
 
-> +
-> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
-> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
-> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
-> +			unified |=3D VSDC_IRQ_VSYNC(i);
-> +	}
-> +
-> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
-> +		      "Unknown hardware IRQ bits: %#x\n", hw_irqs & ~known);
+During a USB resume following a wakeup event, ci_controller_resume()
+unconditionally calls ci_extcon_wakeup_int(), which does a blind read to the
+unsupported OTGSC register:
+
+drivers/usb/chipidea/core.c:ci_extcon_wakeup_int() {
+        ...
+        u32 otgsc =3D hw_read_otgsc(ci, ~0);
+        ...
+}
+
+Similarly, if power is lost during suspend while in host mode,
+ci_power_lost_work() calls ci_handle_id_switch(), which unconditionally
+calls ci_otg_role(), resulting in another read of OTGSC.
+
+If the K1 hardware generates an access fault instead of returning 0 for
+unimplemented register reads, could this cause a synchronous load access
+fault on resume or wakeup?
 
 [Severity: High]
-This is a pre-existing issue, but in vs_dc_probe() the interrupt line is
-registered and unmasked via devm_request_irq() before vs_drm_initialize()
-is called. If an interrupt fires early (e.g. left over from the bootloader),
-vs_dc8000_irq_ack() will be called while dc->drm_dev is still NULL, causing
-a NULL pointer dereference when accessing &dc->drm_dev->base here. Can the
-interrupt registration be deferred until DRM initialization is complete?
+This is a pre-existing issue, but does dynamic dual-role switching work on
+this hardware when using this flag?
+
+The CI_HDRC_DUAL_ROLE_NOT_OTG flag forces ci->is_otg to be false. However,
+the role switch framework relies on ci_irq() to process changes. Looking at
+ci_irq_handler(), the entire extcon and OTG event processing block is gated
+by a check for ci->is_otg:
+
+drivers/usb/chipidea/core.c:ci_irq_handler() {
+        ...
+        if (ci->is_otg) {
+                otgsc =3D hw_read_otgsc(ci, ~0);
+        ...
+}
+
+If a Type-C controller or extcon driver invokes usb_role_switch_set() or
+ci_cable_notifier(), both call ci_irq(). Since ci->is_otg is false, will
+these events be silently ignored by the handler, leaving the port stuck in
+its default role despite the standard kernel APIs being registered?
+
+> +};
+> +
+>  static const struct of_device_id ci_hdrc_usb2_of_match[] =3D {
+>  	{ .compatible =3D "chipidea,usb2" },
+>  	{ .compatible =3D "xlnx,zynq-usb-2.20a", .data =3D &ci_zynq_pdata },
+>  	{ .compatible =3D "lsi,zevio-usb", .data =3D &ci_zevio_pdata },
+> +	{ .compatible =3D "spacemit,k1-usb2", .data =3D &ci_k1_pdata },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, ci_hdrc_usb2_of_match);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908092840.2252=
-20-1-a0987203069@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-b4-spacemi=
+t-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com?part=3D5
