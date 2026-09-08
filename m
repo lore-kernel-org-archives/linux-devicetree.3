@@ -1,135 +1,189 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50777519908;
-	Tue,  8 Sep 2026 09:40:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFE74E1415;
+	Tue,  8 Sep 2026 09:41:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860448; cv=none; b=Pt4YedEaWD0ngs+6vTktLNQmHTOBsiXl4c68URFgM6zGHDMki2nRx9s8UhKXDA5YVAg8A2EwwvHlIXJU+CkDwQAVvhHdfgs/cGXjM/SO6bfm8R0IxZYY84hx+PTF5niLfVP5eiABLrIUBY8Lkz8pmqPSFDHD6gALFpHDalmTU70=
+	t=1788860516; cv=none; b=ozEpv5Mg2+/zjie7gPMIhS0Y9yrvcGi/HWNtKj5lvF2Cv+LMa/zokat2xDhbAsH4ec0BRrGghPGK/4VM0R9Ztvzc+xnbXCrvzn8h6M0nr6Ynr6q1v1v9W61/7IzSUoozMTkJDBjrY8CippzAZwcp8mbxAbLh+e29Uf9L+mzNex0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860448; c=relaxed/simple;
-	bh=/MqnHKMUZO6pR7UnfizV67smzo2VOogPio2iF+YxGIM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AUCeFJnoeqvi5nddwGdAIwZj2RAXoGPNqu74rppJJhbAII86UNNMWoGtUbDHQxHZXZvgioXwRdLzI+hWG/ZgoQdCpWkxEPDsXX600Dkpbz0DtSoiqv7+c/qi43QQjLlXcKcIZ9EFr4yNNJ6XjbrYAjM8dLyT6qrZCn4oCQTo+qE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=PCb0x4mq; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788860516; c=relaxed/simple;
+	bh=mVWzArhsIEDBJ9wiE1E60QfHignwoHWXX2KeGyQsvUE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TGUR83osaIWL43XgV7sDSZdFG1t9idN2TtHXHCZ3TyStx0EgucpdCVgzasxWEElsQ7v0KCtMl1LfQIcsOLSGbrWUh9NlEEljhFzCIWNLq+Znk20xJ9ROwNkvRFliGNqcQrUxgXTmUttD2aJRA6ZQPv5LfsMjx1v/teQuyo8jt2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nn/z0Y/V; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="PCb0x4mq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788860387;
-	bh=FHFampfu+ImN2iiJYFmkXIBlrCdOXAMDPUO7WbZYY0I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=PCb0x4mquSapCsOP9uVykh8Bk1pT1OFD5GcZSPIPGU2Y6E5PhikhaBj22JaI8yRXf
-	 a92hmVjAz2STStDqANa3JZ3Yj7QOm843Wi5NAycW91piv5QqI+Q7NThxVjnj1dAm3x
-	 QtguhCn8jcn/XM01mG3iCEAeBSzVM20Ol+KnEDvU=
-X-QQ-mid: esmtpgz11t1788860380tc17f5ec9
-X-QQ-Originating-IP: Bugj5YLGVEyhMeIa6KzMeFxlT0lmNUHALoPlNP9mFzM=
-Received: from [192.168.1.100] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 08 Sep 2026 17:39:36 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 8537548706978725419
-EX-QQ-RecipientCnt: 19
-Message-ID: <0F6BBCA4EF1303F8+e4bc3221-1f7d-42b4-a9e4-169b14e6d04b@linux.spacemit.com>
-Date: Tue, 8 Sep 2026 17:39:36 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nn/z0Y/V"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C2487C2BD01;
+	Tue,  8 Sep 2026 09:41:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788860515;
+	bh=mVWzArhsIEDBJ9wiE1E60QfHignwoHWXX2KeGyQsvUE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=Nn/z0Y/V9n/EpHDUTlGH/d9MvUWWu9y6hf8fvhpebsrmhyMvd5CDV9mvsgWEbwcQa
+	 aG011T8aQKcIwDx0JchgcctQe86Fj+r/iwDlBEm1of3d8PmxGdpQYtcXv4oK+gdZ7q
+	 vu5Hw+5/YcVDFaRuqE+SCHUZ93+prLrgo9+DuAG/domn+ExI13oyE590HJO39AL6io
+	 +lRZwez48sg3YBJgPU8T3xqdo2W44N3NCxvOXJ869ONkwbP6TNfxOL3ZFCrAtuFcEV
+	 OQ/Ij+oVzjP9cBgV01Dlo9dmhPH0ux/J9zXIuNuPsHMwavSzTTpf1ClfBYTXVRUDnq
+	 CuzMFQsFnz/nQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 965CDC79FA1;
+	Tue,  8 Sep 2026 09:41:55 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Tue, 08 Sep 2026 13:40:54 +0400
+Subject: [PATCH v4 01/13] dt-bindings: phy: qcom,ipq5332-uniphy-pcie:
+ Document the IPQ5018 USB3 PHY
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/6] riscv: dts: spacemit: enable USB2.0 controllers on
- BananaPi F3
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev
-References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
- <20260812-b4-spacemit-k1-usb2-v1-5-f28cf29e522b@linux.spacemit.com>
- <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
-Content-Language: en-US
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-In-Reply-To: <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: NsTWTlXJmKxZ9b9lH0VlrKjOx80vPaKYD//8LCI2eOdjo0kW/6pfTkfa
-	UouNele6IjeBaUtOxZ9ZhfYDGQzIXm4Y25dpyTb9wSvNWJjqeoZl0ZP5RuGucj61mWkJ+Lf
-	ndS4vpiN9PBSaSWlY78SRDLfl8maEzCT1EUKDv5UbXqEw+xI3niZ+0uGC7rFzcPGgtqoM5j
-	+o/DLloLBUTU35YRN3gPElN3A/G8VzfpPdvvNQ93ETqTfZNhHcR+T6n7Kv6Vm6zRcaEnkJd
-	9AdXWZTjo8nUgJqxkZTIjnkUjTdiCsy4M/kim7Xb3CQG/hk+njJ34JeCCAxeiAJtjQ+aBIF
-	H3ayFQ540k54UZ6pwOvEyvSB7Elq0gHNbv8USvWWo7lhPZmVAix0mmjh0QL0fEYVJLbSdau
-	dWERvOOpuZBMnNp/Uwei2eni0R+nBykuqHq5gOFsusYpGr/jlMQOUXw8m9zX13IuJh9BL7R
-	T5C69XRvo+82rIDZWLvN50k9bdYl9nmirwHaAr89VDF+xPbpJQ1OerAjl8vVGH46301+6Sp
-	ECnDrcr8hhxRxhXbHCTGC8C5/4V+KlFhLy8xfE/xaKRfLvbs7CVhiXMBOS4s8Y3fS9T4q7N
-	HlQb4YQ5iefR/jHZiY7GTPFYuaS+nbABsAoB3qY3NDTSTWzgeeFcLdQxefB6FbYz8ZOCDiw
-	cLI+NHlDnzILtfsjqcytrAqRMSQF4wcTkgDX+pCy1hDzPK6urlnGc2Fl+5BcJnTvjGlqACj
-	WFRgvXLKpq+GjOAn1bjRHGVn/w0LUJctCJ025UraBuCKh2mDVLu2YVtcs8ULa6r2AxrNFyP
-	ZeUmxSFxGTtI03tl4CApt8u5+w8Bx7g5IDLwprq+rgllWxQyUleMNtGWIXJs3tjLoAeZnqy
-	DWB98Swvkb2bWYEnTIcPXSfnZjgQaF03tDXxjFGaebWfRRV85grEPciqUHhYtgqHAeCjll0
-	RxL6jNYk3JVtlNohKjjBe8RNB0caag7C0DZa7rZzAoNs4FATjpmf2RXtDy6H0CX1wWEofw4
-	+kuK+IDck6Rjz/3WQYKlo/vv0r+JAhaBBgXzmi4/El2HDxn/NeiMG8S8leeYDTCXPXwTEl5
-	IlSQ7jr3XUb
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
+Message-Id: <20260908-ipq5018-usb3-v4-1-b789702f0695@outlook.com>
+References: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
+In-Reply-To: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, 
+ Philipp Zabel <p.zabel@pengutronix.de>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
+ Nitheesh Sekar <quic_nsekar@quicinc.com>, 
+ Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Varadarajan Narayanan <quic_varada@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788860512; l=3216;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=TqWnP3AC9DE1HL7njHHwCLpEe8r5+8+QRZEW4l8Wl84=;
+ b=rVIhYL1zY84VxVREmCywegI2WeRUzTopjZCJlTxsroMvOs/QiM7ybKgi02klpu6I9dmxxhrkm
+ sJvHvCB9GPHCunW0NOfPvtmz50S4yY0W4OI3sHypLF32IGItMLwUdGX
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-On 9/7/2026 4:42 PM, Troy Mitchell wrote:
-> On Wed Aug 12, 2026 at 5:26 PM +08, Junzhong Pan wrote:
->> On BananaPi F3, usb2_0 is connected to a Type-C connector at device
->> mode by default. This port have no VBUS supply capability, thus host
->> mode only works with self-powered device or hub. User could switch the
->> role in sysfs.
->>
->> And the usb2_1 is connected to the USB2.0 pins of the Mini PCIe slot to
->> support cellular modules.
->>
->> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
->> ---
->>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 16 ++++++++++++++++
->>  1 file changed, 16 insertions(+)
->>
->> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> index 72f77e9edd63..fd0f96262009 100644
->> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
->> @@ -350,6 +350,22 @@ &uart0 {
->>  	status = "okay";
->>  };
->>  
->> +&usbphy0 {
->> +	status = "okay";
->> +};
->> +
->> +&usb2_0 {
->> +	status = "okay";
->> +};
->> +
->> +&usbphy1 {
->> +	status = "okay";
->> +};
->> +
->> +&usb2_1 {
->> +	status = "okay";
->> +};
->> +
->>  &usbphy2 {
->>  	status = "okay";
->>  };
-> Could you keep the USB nodes in the same order as in k1.dtsi, with
-> usbphy0/1/2 first, followed by usb2_0, usb2_1 and usb_dwc3?
-> 
-> 
+From: George Moussalem <george.moussalem@outlook.com>
 
-Will do, thanks
+Describe the USB3 PHY found in the IPQ5018 SoC, so add the compatible
+string for it as well as the required resources (clocks and resets).
+
+The PCIe and USB physical pads are muxed and selection is done via a
+control register in TCSR. By default, PCIe mode is selected, hence make
+the property for USB mux selection required.
+
+In addition, the PHY requires a 5V supply for USB3 mode operation.
+
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ .../bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml | 44 ++++++++++++++++++++--
+ 1 file changed, 41 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
+index 6e9df81441e9..f59fa4e88866 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,ipq5332-uniphy-pcie-phy.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/phy/qcom,ipq5332-uniphy-pcie-phy.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm UNIPHY PCIe 28LP PHY
++title: Qualcomm UNIPHY PCIe and USB3 28LP PHY
+ 
+ maintainers:
+   - Nitheesh Sekar <quic_nsekar@quicinc.com>
+@@ -17,6 +17,7 @@ properties:
+   compatible:
+     enum:
+       - qcom,ipq5018-uniphy-pcie-phy
++      - qcom,ipq5018-uniphy-usb3-phy
+       - qcom,ipq5332-uniphy-pcie-phy
+ 
+   reg:
+@@ -27,9 +28,24 @@ properties:
+     maxItems: 2
+ 
+   resets:
+-    minItems: 2
++    minItems: 1
+     maxItems: 3
+ 
++  vdd-supply:
++    description:
++      Phandle to 5V regulator supply to PHY digital circuit.
++
++  qcom,phy-usb-mux-sel:
++    description:
++      TCSR register address for mux selection control for PCIe / USB3 mode.
++      If the property is set, the driver will configure USB3 mux selection.
++      If not set, the setting defaults to PCIe mux selection (BIT(0) = 0).
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: phandle to TCSR syscon
++          - description: offset of PHY mux selection register
++
+   "#phy-cells":
+     const: 0
+ 
+@@ -47,7 +63,6 @@ required:
+   - resets
+   - "#phy-cells"
+   - "#clock-cells"
+-  - num-lanes
+ 
+ additionalProperties: false
+ 
+@@ -67,6 +82,27 @@ allOf:
+           items:
+             - description: phy reset
+             - description: cfg reset
++      required:
++        - num-lanes
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - qcom,ipq5018-uniphy-usb3-phy
++    then:
++      properties:
++        clocks:
++          items:
++            - description: usb3 pipe clock
++            - description: usb3 cfg ahb clock
++        resets:
++          items:
++            - description: usb3 phy reset
++      required:
++        - vdd-supply
++        - qcom,phy-usb-mux-sel
+ 
+   - if:
+       properties:
+@@ -85,6 +121,8 @@ allOf:
+             - description: phy reset
+             - description: ahb reset
+             - description: cfg reset
++      required:
++        - num-lanes
+ 
+ examples:
+   - |
+
+-- 
+2.53.0
+
 
