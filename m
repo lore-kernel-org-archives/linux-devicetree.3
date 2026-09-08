@@ -1,123 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65B2748F014;
-	Tue,  8 Sep 2026 22:06:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A22B48F000;
+	Tue,  8 Sep 2026 22:07:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788905176; cv=none; b=e7U0f8OHejn6sfxkpU2VZSAyUmftTv4gKzRnZ+1j74trZMNGVzDEohN7Fe8XfuJSIXl/JVR+YoE8ecAlwqB+/QMrt0yCIW3q+Ei22NFREACNCJDQw9abT4eGf4hBX+2lLsD9tvbL09O7PAOKR8xnxUX3MlWq7X0ztvmSf3ssRPA=
+	t=1788905227; cv=none; b=rN++RDQaMnj9uXIyeSGX8oYGU7Rt8kHTAeRIrQQDof3g5gmqud4+Gb3KSjgFISGVNaKj4pS6dNLb98yTchz7tRI2AOgwzLbj2Tiv+mkI3cVb0j/Uy3Us0BI2tLj9h8qU8R4Mk/VBpuJrIe6jFid/JwXQDFCs0nb0m574oHTDOls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788905176; c=relaxed/simple;
-	bh=Av3kkS5oLU6sQkS8YfG/n02RrJ7xVCtUZvuOyf93H5k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=S/kML0Y3Z1ajGidhksDhD6G+7nLpZUQtF42hDQWhLZ0c0Dz3+ndW4v1NJaXYXiY3RQPz88xfH3p9W2D+72TYButuhK/iBqBwy3h+G8qSn79/WEGS9qF5pJ9IRom0+et/WPV6KXHCv/vvJf2+a0YMpRE5E/XnRGCtDq7e8YafO4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QAZH9pcb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788905227; c=relaxed/simple;
+	bh=WepsCeX0ALim39H0LbQaoGEyC562nyyVvoxEGggtHR0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xh1F9Yy4fneREeDb4so7bWsm7ZBIN5HUSTKn+CehxFL45BoRVaZVPsIHwCD91mTJkdMaBZEwHCgTRTm4FNKBQncR44HSf7pTdfdmQO2T06MhbpuO3NV6aQnrgFScgJzIserQrO3u9jR3lZ7FoFQfoNXTRaqekRvRHWIhGvNj92U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ht1oyT2p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QAZH9pcb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88E641F00A3A;
-	Tue,  8 Sep 2026 22:06:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ht1oyT2p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB041F00A3A;
+	Tue,  8 Sep 2026 22:07:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788905174;
-	bh=MCCOO0Ig5UrQDdNY7DSQQHHrTzvZGtioV6BxK+4pQNs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QAZH9pcbPu/BngtWjjytul+Sq+39WISfO4+j+JlycpGRo0ocGvmm4WAoMOxBCT34j
-	 8KOA47odpS6o+IUHILnFi8cI46h3hOl/v7vpNdJIIRWvwBGIwSqXYWkYGys/NK7HE/
-	 7w36nyVe47OOGzWX5huN9WNYmZAb1P3U3w1V1co1yHYeNvVCyyvsTftF+WSVA8I+FB
-	 rLLa4ATjXu8tMNu/sbvlOxJvfOx46i7bcZzT47b/s7M15efyu+1A6CDsM81ioa0+gV
-	 B/f16dV/vAMOh7IatfLlKOAebabLr/HsHIc07udOgG2DL2RYnFr+Mysy0Aw/cOaXbs
-	 TSDLXP44U6ghw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: imx8mn: Add display DT overlays for the ifm
- VHIP4 EvalBoard
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marek Vasut" <marex@nabladev.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20260908215409.32993-1-marex@nabladev.com>
-References: <20260908215409.32993-1-marex@nabladev.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 22:06:14 +0000
-Message-Id: <20260908220614.88E641F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788905225;
+	bh=JoK2n9Z7urXwu7MomxxLbY36ml5lzGDpWoJEJWTo6Js=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ht1oyT2pmfS8hYNjLMLZv8UUdLolw9bM0vdtZG4PTG8bQMpx9IU1W+LbDS4g9HbEY
+	 qnbKlwUqqY+or2QCAlEyVAo1riElAbTP21bEZDYkxNHH5klnLBe6TmZF5TQupdeUyg
+	 WQI+OzzrdXlS9dsds4R9kVBJl+JlOCDNyyiQx7bLfxdbYXumGT7xcfwA1QMv/P+gn3
+	 CYID6n1aMc84oLxAOpBcyHmazgNi24qXeS9bF3Ip886d7DlV5Via6OEMcm8gs1bPF6
+	 wYV0IxvuLLAXfqSWjcmdJZXf+ALB8ZTHsKf3ZZe04KAY9MT/VCntZJrUUAhGbXM3R5
+	 RaDxaspaqSnMg==
+Date: Tue, 8 Sep 2026 22:07:03 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Xu Yang <xu.yang_2@nxp.com>,
+	Peng Fan <peng.fan@nxp.com>, Peter Chen <peter.chen@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	Ze Huang <huang.ze@linux.dev>
+Subject: Re: [PATCH v2 9/9] riscv: defconfig: enable ChipIdea USB controller
+ support
+Message-ID: <20260908220703-GKD2346@kernel.org>
+References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
+ <20260908-b4-spacemit-k1-usb2-v2-9-f07342ffa051@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-9-f07342ffa051@linux.spacemit.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The 1.8V regulator `reg_adv_1v8` is incorrectly configured to ou=
-tput 3.3V, violating hardware requirements for the ADV7535.
-- [Medium] The `hdmi-transmitter@3d` node (ADV7535) is missing `clocks` and=
- `clock-names` properties to link the defined `cec_clock`, breaking CEC sup=
-port.
---
+Hi Junzhong,
 
-commit fdacb0c2eecf5c57dea7a716eb4e6d3417011685
-Author: Fedor Ross <fedor.ross@ifm.com>
+On 17:48 Tue 08 Sep     , Junzhong Pan wrote:
+> Enable the ChipIdea USB2 controller and SpacemiT K1 USB2 PHY to support
+> USB2.0 controllers on the SpacemiT K1 SoC.
+> 
+> Tested-by: Ze Huang <huang.ze@linux.dev>
+> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+> ---
+>  arch/riscv/configs/defconfig | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/arch/riscv/configs/defconfig b/arch/riscv/configs/defconfig
+> index 04ae305d5511..5b556488de66 100644
+> --- a/arch/riscv/configs/defconfig
+> +++ b/arch/riscv/configs/defconfig
+> @@ -222,6 +222,9 @@ CONFIG_USB_CDNS3_HOST=y
+>  CONFIG_USB_CDNS3_STARFIVE=m
+>  CONFIG_USB_MUSB_HDRC=m
+>  CONFIG_USB_MUSB_SUNXI=m
+> +CONFIG_USB_CHIPIDEA=y
+> +CONFIG_USB_CHIPIDEA_UDC=y
+> +CONFIG_USB_CHIPIDEA_HOST=y
+I know some prefer to enable as loadable module for non major drivers
+so, can you check if it works as module? and alter the config
 
-arm64: dts: imx8mn: Add display DT overlays for the ifm VHIP4 EvalBoard
+>  CONFIG_NOP_USB_XCEIV=m
+>  CONFIG_USB_GADGET=y
+>  CONFIG_USB_CONFIGFS=m
+> @@ -272,6 +275,7 @@ CONFIG_PWM=y
+>  CONFIG_PWM_PXA=m
+>  CONFIG_THEAD_C900_ACLINT_SSWI=y
+>  CONFIG_PHY_SUN4I_USB=m
+> +CONFIG_PHY_SPACEMIT_K1_USB2=y
+>  CONFIG_PHY_STARFIVE_JH7110_DPHY_RX=m
+>  CONFIG_PHY_STARFIVE_JH7110_PCIE=m
+>  CONFIG_PHY_STARFIVE_JH7110_USB=m
+> 
+> -- 
+> 2.34.1
+> 
 
-This commit adds display DT overlays for the ifm VHIP4 EvalBoard v1, adding
-support for the Displaytech DT050BTFT-PTS panel and the NXP ADV7533 DSI-to-=
-HDMI
-adapter. It supports different DSI lane counts to allow testing multiple
-configurations.
-
-> diff --git a/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-over=
-lay-nxp-adv7533-hdmi.dtso b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-eval=
-board-v1-overlay-nxp-adv7533-hdmi.dtso
-> new file mode 100644
-> index 0000000000000..e1a7aa6806c48
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/imx8mn-vhip4-evalboard-v1-overlay-nxp=
--adv7533-hdmi.dtso
-[ ... ]
-> +	reg_adv_1v8: regulator-adv-1v8 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-always-on;
-> +		regulator-min-microvolt =3D <3300000>;
-> +		regulator-max-microvolt =3D <3300000>;
-                                           ^^^^^^^
-
-[Severity: Medium]
-Is the voltage configuration correct here? The reg_adv_1v8 node appears to
-represent a 1.8V power supply used by the ADV7535, but its voltage limits
-are set to 3.3V. This misinforms the regulator core about the hardware
-voltage.
-
-> +		regulator-name =3D "ADV-1V8";
-> +	};
-[ ... ]
-> +&i2c3 {
-> +	#address-cells =3D <1>;
-> +	#size-cells =3D <0>;
-> +	status =3D "okay";
-> +
-> +	hdmi-transmitter@3d {
-> +		compatible =3D "adi,adv7535";
-> +		reg =3D <0x3d>, <0x3e>, <0x3c>, <0x3f>;
-> +		reg-names =3D "main", "edid", "cec", "packet";
-> +		a2vdd-supply =3D <&reg_adv_1v8>;
-> +		adi,dsi-lanes =3D <4>;
-                 ^^^^^^^^^^^^^^^^^^^
-
-[Severity: Medium]
-Is there a missing clock reference for the CEC block? A cec_clock is defined
-earlier in the file but is not linked here.
-
-Without clocks and clock-names properties linking to cec_clock, the DRM bri=
-dge
-core will fail to find it when calling devm_clk_get(dev, "cec"), which retu=
-rns
--ENOENT. This causes adv7511_cec_init() to abort, leaving CEC uninitialized.
-
-> +		avdd-supply =3D <&reg_adv_1v8>;
-> +		dvdd-supply =3D <&reg_adv_1v8>;
-> +		pvdd-supply =3D <&reg_adv_1v8>;
-> +		v3p3-supply =3D <&reg_adv_3v3>;
-> +		status =3D "okay";
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908215409.3299=
-3-1-marex@nabladev.com?part=3D1
+-- 
+Yixun Lan (dlan)
