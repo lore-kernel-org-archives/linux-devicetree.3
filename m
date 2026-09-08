@@ -1,143 +1,110 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9D3D517BD0
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 10:35:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356BE43DA26;
+	Tue,  8 Sep 2026 10:36:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863714; cv=none; b=bn7xAhqbdPonuHkHcD28eAt9K2Gy8sBk870llu1ruRw1Uv3gjQkPpNzgHvM/p229lyjGCQamFN0lQk9nlKl+VBJoV+fgyQtSrFcW3wrMq6ukgnsGXeC4NOmE6pkgtSbw8z7L8I0owaVcoB5ak/gCZLzaFW+hfI8q6JBJSwrkMTU=
+	t=1788863796; cv=none; b=Xpr6QjFFnScpFJUXzX6x0juGLohRMfgkkB7O56vQSDrgZQikyp2yrAdOU32kJ8EScx/qWZvKGhzWlLshkS3JOYHQaB2i4uXEXOW83csBXUKOBrC0NF7I7rP2wTRgwlXym+QeZGGbyFiNOGV38+BBFRqtYsmQ+h4QGNWrl7fjBho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863714; c=relaxed/simple;
-	bh=7Cog2nkDO+lKZqVVRGnvxVjru8LcS09xNUgvu87wQA0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oOLSaYHrRaBcjoLcjhSUk2NAsyBWLJOmfX2VPbiVyxZstKey60gidc8FSdlOr8yfDTjaPtBsB3AZ1E5hDicceQzuHLzdEaMtl/MyrEc+lGNZnPWZxzD20n9GElAZNdqfWPui9m2ewS343TLhSkD3GalC/rSENamD71dtjLMhSkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xw0JsCwG; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788863796; c=relaxed/simple;
+	bh=PxI5zvn+71UM5Yd+E1ab+n7WXUOO9kjov2qj2+d4q7U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LrpEF8V/Pt97sKAnMQWJ2DWc3ngaHggQUy6Bqv+FZieWXvFWtEBrei4OuVyqEexCPpiXi8jR33C6ChjOfo99oNaUwIJz/RCHRBYR2yCDw5i30xCz5BdmDVmFy5zNewVGFzNuRLhaw5UNy4WdYipaoeP4mti9QFsHdrUCzLSMuHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Oyno4xHW; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xw0JsCwG"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so53556435e9.2
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 03:35:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788863710; x=1789468510; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UPBRY5QywHVL60y+J3dACmXSkYJynfKQaq7TX1tS5GU=;
-        b=Xw0JsCwGgTJBJUOdgJQ0/PV5QtezEwGc0jNutB1Gw1zv8reNebQGdiefiaHa8KRr7U
-         1hMyJ3apnPINs0U3xivR0HvBeRSGdr4veM9pY9lS2KYFV2jS1Oh96h8RfW/hvmKqmW4t
-         0ZT+THY/QnLX+luO1Bw7BwROOdexDWheEZguw2Akhrhz4CylHupCIPu1I3iOowkRZ275
-         fD+wAN+sjY3BCTr1l60LconWYoTD1M5bqD3KpLk2cZU42HqFhsfscDxaXEq3TbRxR4kD
-         p+/D4o+k5TOHI+AyPknq9gcaaWMNWMcKYlfoH1ZcR1Xsn/rzTcZgyP7HHU6qebFfva2r
-         sjrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788863710; x=1789468510;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UPBRY5QywHVL60y+J3dACmXSkYJynfKQaq7TX1tS5GU=;
-        b=e1AQF3zhrKCriMYTuEB4V27Max9yRoX6IWF5jHewmT5E0YdXp+ZlyQANN0Ff7gH5OK
-         gjoqx0eLLInOFB6opUSk3S4QHEQq0I4YB2M4o5R6nOmaPOGtZ/n63YsaJfsNc61Tb3TT
-         IJaPhzxdQQ5EqvL+dZ7JQxFxBCzc0/KeAM0x+wHWP5tEmolJaC2vFmMMgIRJKiv4ytGn
-         sEwW4SUPFPiHD8sx4drKtjSf4maFN+preOP1JJU2gNuEBnU2N5d9hic7dROjCYAzU/m0
-         vuq/jTgMZT/0jaT221n39bLq7RTHxvG2Z4JuZdRV0IbN+tllGYztwqixxCjwqZbSzgCg
-         bKQA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+fapMAq88MXoYBDYEIfdyDn3al011gCw9g2Bf0CuMCFAp5z9EGwiRJJW4ciXoTAkNmSSDy47LiZrg@vger.kernel.org
-X-Gm-Message-State: AFuF++lkyUPQ15LGEOEBwt/F2DiUxAQ7NK8fBHV6NOifShA79OolIQ6C
-	xQrZ67tC/02HyAGc59w+JNkJNxY8vFqiVgnJ+T0rKVBpEKMsxkorLA9t
-X-Gm-Gg: AYBFou3te9gE7zLqKF9oFQI2RyGpBBa+Bfgdg6VB2jBq4MUToxSBstoQiIk80xrOJav
-	5t32SCDtbNS2yLaAqUN+x3+GfvmAAQy/umeQ7L4zUghOMPUq+Td81gwhViI1TuIUNofMV5zTMoU
-	J8fH+GX3lRRfi+a9lk1OH7/AVnhRQ8ia1XTIfwANoo01H9HjA0GpPwElCUz+gu4Oo/Cp2tDhwX7
-	Yac5hGxVlMD4dSSquzE79Qq5o/5ENo6D4TBEfJ4pi4Ljzfb2dEssR1gtd84flEQAia9NBThdK8N
-	B70X51Lx+sQVLN2ZdKWYUZEFREKk06bdWa/4L3HG9Ly1TPtjkoghfG4E4ISLcxP+FgjGcfP/7aH
-	swIbN/Zs16wfP5rY09HISQZuVX5YSBWnMo8En/92ZKGbr15ugPeAvATxIcZBwXme/uVzHC0ThPJ
-	Dq1uiLFcuXvq1dHXK+/dXnWlMKCb8NgLEpluL3qPSeyGv/enSf0Vu5pRVuitfcUPeLagtYgbyj
-X-Received: by 2002:a05:600c:8b05:b0:499:be2d:c290 with SMTP id 5b1f17b1804b1-49cf824e751mr303216285e9.9.1788863709661;
-        Tue, 08 Sep 2026 03:35:09 -0700 (PDT)
-Received: from [172.31.2.29] ([188.24.0.23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cffdb2c40sm236442825e9.1.2026.09.08.03.35.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 03:35:08 -0700 (PDT)
-Message-ID: <eff6fe78-cc4b-4192-93ed-53a738fc3c3a@gmail.com>
-Date: Tue, 8 Sep 2026 13:35:05 +0300
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Oyno4xHW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788863794; x=1820399794;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PxI5zvn+71UM5Yd+E1ab+n7WXUOO9kjov2qj2+d4q7U=;
+  b=Oyno4xHW3aQSncldFXVD75JOQnKv5Nfwnw5TJQcpYyzNWwvkgWvDKx9l
+   /qp78O486mtpEHks3HSAzwvjtkuaykvc6gaJIPpuM6fTi7zf44xtg/0pk
+   qUpcnlP5eDz6XMvHX9eZYlSSD/cGTEQ9gfF7aHkKJtZ9MO1g23GU8UL37
+   aLOrxDWH9IFGfhMwPIn3geRTIxMeRjgAsn8UUK5jZ5M5csUWfRu8Kzr+M
+   gkPMiinsIufMDL82uYDor8FKphrNfQywlZslWDAoMkXSukntS68JdTRKH
+   a7p7jgzHkbRUblxVtWGpLoW9au7bBwCiImoIBKF2vB6BQuUkjQ++RWdxD
+   g==;
+X-CSE-ConnectionGUID: Hs8pof4yShWQZYaRav9b9Q==
+X-CSE-MsgGUID: ycQUOSRgQVWrPbBB5B5CEw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="93126163"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="93126163"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:36:34 -0700
+X-CSE-ConnectionGUID: TuvDnmkVSr+FB6eKcdh/cA==
+X-CSE-MsgGUID: 0Nd3SmNYSrGBwMdfU4ycZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="275090326"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.92])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:36:31 -0700
+Date: Tue, 8 Sep 2026 13:36:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Esben Haabendal <esben@geanix.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Martin Kepplinger <martink@posteo.de>,
+	Sean Nyekjaer <sean@geanix.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Martin Kepplinger <martin.kepplinger@theobroma-systems.com>,
+	Christoph Muellner <christoph.muellner@theobroma-systems.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 6/9] iio: accel: mma8452: Add comment block for struct
+ mma8452_data
+Message-ID: <ap_lK_0HR6BotZrG@ashevche-desk.local>
+References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
+ <20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, dumitru.ceclan@analog.com
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-gpio@vger.kernel.org,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
- <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
- Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <apqGlTiybdvQX3Ao@kekkonen.localdomain>
-Content-Language: en-US
-From: Ceclan Dumitru <mitrutzceclan@gmail.com>
-In-Reply-To: <apqGlTiybdvQX3Ao@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-mma8452-open-drain-v8-6-c17407e22118@geanix.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Mon, Sep 07, 2026 at 04:51:01PM +0200, Esben Haabendal wrote:
+> The struct mma8452_data is central for this driver, and it makes sense to
+> have a description of the fields in it to make it easier to work with the
+> driver.
+
+...
+
+> +/**
+> + * struct mma8452_data - IIO device private data structure
+> + * @client:			the I2C client object
+> + * @lock:			mutex for synchronziation of register
+> + *				read-modify-write and holding chip in STANDBY
+> + *				mode while writing to registers
+> + * @orientation:		mounting matrix, flipped axis etc
+> + * @chip_info:			chip specific data
+> + * @vdd_reg:			reference to VDD regulator
+> + * @vddio_reg:			reference to VDDIO regulator
+> + * @buffer:			triggered buffer
+> + * @sleep_val:			time in ms to sleep while waiting for drdy
+> + * @ctrl_reg1:			CTRL_REG1 register shadow value
+> + * @data_cfg:			DATA_CFG register shadow value
+> + * @open_drain:			true for irq pin in open-drain mode
+> + */
+
+Have you tried to generate *.html and *.pdf out of this? Does rendering look
+okay in both cases?
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-
-On 9/4/26 11:51 AM, Sakari Ailus wrote:
-> Hi Dumitru,
-> 
-> On Mon, Aug 31, 2026 at 04:21:19PM +0300, Dumitru Ceclan via B4 Relay wrote:
->> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
->> replacing the few GMSL2 drivers already in upstream, and introducing a
->> common framework that can be used to implement such GMSL chips, which
->> avoids code duplication while also adding support for previously
->> unsupported features.
->>
->> While the normally acceptable and polite way would be to extend the
->> current mainline drivers, the choice was made here to add a totally new
->> set of drivers. The current drivers support only a small subset of the
->> possible features, and only a few devices, so the end result after
->> extending them would in any case be essentially fully rewritten, new
->> drivers.
->>
->> This series depends on support for internal pads, for which a patch has
->> been added.
->>
->> The previous version is at:
->> v15: https://lore.kernel.org/r/20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com
->>
->> Since the previous series, Cosmin has left Analog Devices.
->> Because included changes from previous version are trivial, his sign-off
->> and tags were retained.
-> 
-> Can you check this
-> <URL:https://linux-media.pages.freedesktop.org/-/users/sailus/-/jobs/109521830/artifacts/junit/test-smatch.log.txt>
-> please? If there's a single patch that needs to be modified, I can squash a
-> patch into that, otherwise v17 it is.
-> 
-
-These are the same warns reported by Niklas in V13. Dan fixed them in
-smatch in devel branch but fix is not in master. Testing with smatch on
-that branch yields no warnings.
-
-https://lore.kernel.org/all/ai_txjwLPHsSKsJI@stanley.mountain
-https://repo.or.cz/smatch.git/commit/d12183645a31b737d7fb39cbefa589e34615e8f7
-
-v17 is still needed to revert one breaking change introduced in v16 and
-fix more findings from Sashiko.
-
-Thanks,
-  Dumitru
