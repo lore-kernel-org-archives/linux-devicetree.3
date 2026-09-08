@@ -1,129 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D917A582B9C;
-	Tue,  8 Sep 2026 16:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C50EF57F73D;
+	Tue,  8 Sep 2026 16:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788886163; cv=none; b=V62IEJAKlu+7OBK14bvqqMKfGaeKuLKi2zNLeI39CH381vihgcJigYs2Z4aAQN3W+OHqipFHSVems8SAD4hwNHfdPl++tzGTtgavO9QZVle5fvLnHnHDgeE6YtWIiTJB59JwjKV8YHyf8x0PwEKyHyWGbVAJj7esks94GJiahiM=
+	t=1788886462; cv=none; b=I7EH4q47MVxYwJSAqLhu4Jgb7LKjszF8ZYRWSX3ov7ew1icVnJ0N6wSudJ8elxEIDS0jxIOVIMordU6EUjhOZGjN0jpsJbMgSVY7uLHCWeIpt4at1MrB9jr5o4Wkx9B5KzAYqYxuApAKCZ6H44g7u9GcdwHuLJmp/9ledkJ0Ays=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788886163; c=relaxed/simple;
-	bh=Sw0EXLGyFgEjs/QlWOHTiW3WtfNHSIEQ+FShKAG6YQo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tfiyelj75i9PnDzmt6isqqL+XdM8a12hpUWAHnr6RiHZ6C1gyFy5liPG1OuXWHh+cXsDdKfBog4FgzzPvn5mOz+DMnMvSBKHExPn9MiRh49gPMhUwclp4OxVPJqyAse9+f8OOXOjljAV9+XR/uK+aSrbY+l/hHewNMZbPtyT8Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPwxPVk8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788886462; c=relaxed/simple;
+	bh=67dfvoVDkYR8Zd9d8dGEQV8aYWgXblUjXYlm0fotljg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WesdK8qkY6c2MfP16Jnno6SsJLbX24rbsx7S6QDzFIOEjudZx1A7hwd8FunycLBpYMb2h/yHFMao4aQ/sPC+Hb3G1KDRLfU/WcAcVoosAv63mn61NdLfYzhjS5KRf+D/mPHBJY1gI5juoXlU98CkbRhf9y30HBXeP3VmeL4EWRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=twmW+hOv; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPwxPVk8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963E41F00A3A;
-	Tue,  8 Sep 2026 16:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788886161;
-	bh=y6T1PYQqEn6OIeTwH0vHF5OJqwdcrmzAmh0h23/q0Us=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SPwxPVk8fz9RQjdCG9nvLPDAsXD85yMMzSEOXuCEo7gfKxDVXHXYiF8KjV2YNssYn
-	 glrzFWegtcKevREEyWDO+WhXWBQdbomRRpcmlp+OJzaElgAZ9KrIq5BFkhmAwAlP4F
-	 +BDAV557/dV5SOnBm/REj2a9720pP9vb7dDWSgomxtCEm3z8sNkACsY/U5/c6HsToL
-	 wGxLutYGuwQcffvnlJAISi/NR27hiGP5m9Uou01pKkPiQaL/MMy2qp9bt7Tc4at2yb
-	 gHsbbkieoSGR3ei2HRmjMTL0HQ7o/mhC0wTCMAxbjz6/7O9PQpbI0T3Bq8+G/GY6ZJ
-	 5yadK4lV92WrQ==
-Date: Tue, 8 Sep 2026 17:49:15 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 4/6] dt-bindings: timer: sifive,clint: Deprecate
- spacemit,k3-clint
-Message-ID: <20260908-veto-shelve-cb17a634b3b3@spud>
-References: <20260909-k3-aclint-v2-0-7931e5bc86ad@pigmoral.tech>
- <20260909-k3-aclint-v2-4-7931e5bc86ad@pigmoral.tech>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="twmW+hOv"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=y4hi2ivsLfr2ufMlsG0ARQMmUxC4cRTpVCxzIc4mQOk=; b=twmW+hOvQXNAxGM0/ZuSyJQMeS
+	Ct0OE5kY5oLVOaCoRr0dqX9krn78Y5xBXUZPvT3+pnaXbPshun+O1UjToTkbS4OPfx4Rj+mmd9LMh
+	j1PrCNYSmV5j4i6U13g2dDDXQMhZSTKbes2kep5xUO5+nc/dk0sx6sVw4EH8N6aeXdE+rv5Q4O0h8
+	fRZRJdXNWCK3SV6nvGIUGqi/VMC/8VO8hEsaHI+q4SqlKAlLLzAQHjWCfTTaBEuXs76tSGO9faHgO
+	3c0pJhaTnlD1WV26qHa9b1KEg5Cw4/yamZN4YjH1Bf5HWeRNF4/rcybPo1jGMr1h2IwSFXEAuHXsx
+	byFzaGWA==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x3z4x-00000009jyE-0Hpm;
+	Tue, 08 Sep 2026 16:53:51 +0000
+Message-ID: <fd157e63-e581-44b6-9e4a-962002669438@infradead.org>
+Date: Tue, 8 Sep 2026 09:53:48 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IuSQJzEXQvkbH5Mt"
-Content-Disposition: inline
-In-Reply-To: <20260909-k3-aclint-v2-4-7931e5bc86ad@pigmoral.tech>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/13] ARM: deprecated platform removal
+To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Linus Walleij <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>,
+ Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
+ <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>,
+ Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+ Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+ Geert Uytterhoeven <geert@linux-m68k.org>,
+ Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+ Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, imx@lists.linux.dev,
+ linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org
+References: <20260908152808.3928630-1-arnd@kernel.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20260908152808.3928630-1-arnd@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
---IuSQJzEXQvkbH5Mt
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 12:28:47AM +0800, Junhui Liu wrote:
-> The SpacemiT K3 implements separate ACLINT MSWI, MTIMER and SSWI
-> devices. The existing spacemit,k3-clint compatible incorrectly describes
-> the SSWI register space as a legacy CLINT.
->=20
-> Deprecate this compatible in favor of the K3-specific ACLINT
-> compatibles.
 
-If it is this badly wrong, please just delete it.
-Leaving it deprecated implies that it is frowned upon but still works.
-pw-bot: changes-requested
+On 9/8/26 8:27 AM, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> In the 7.3 kernel, I marked a number of platforms and features as
+> deprecated, with the plan to keep these around for the LTS kernel, but
+> remove them in 7.4, see [1].
+> 
+> Cleaning out the deprecated platform code has turned into a larger effort
+> than I expected, currently standing at 300 patches, with a lot of them
+> still in need of being split up into smaller ones, see [2] for a current
+> snapshot.
+> 
+> The first series here removes just the bits in arch/arm/mach-*/, plus
+> the portions that directly depend on the removed Kconfig symbols where
+> these are trivial to remove.
+> 
+> The parts that are not included are those that remove architectural
+> features and device drivers that become unused after this part. Some of
+> those may also make their way into 7.4, but at this point I would target
+> 7.5 for most of them, to keep the dependencies simple.
+> 
+> This also gives everyone a chance to voice their objections in case
+> that some of the removed platform code does have active users after all,
+> before all the corresponding drivers are gone.
+> 
+>      Arnd
+> 
+> Links:
+> [1] https://lore.kernel.org/all/20260701212353.2196041-1-arnd@kernel.org/
+> [2] https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+> 
+> Arnd Bergmann (13):
+>   ARM: remove sa1100 platform
+>   ARM: remove footbridge
+>   ARM: remove riscpc
+>   ARM: remove legacy pxa board files
+>   ARM: orion/dove/mv78xx0: remove all board files
+>   ARM: omap2: remove omap24xx support
+>   ARM: imx: remove i.MX31 SoC support
+>   ARM: imx: remove nommu support
+>   ARM: lpc18xx: remove entire platform
+>   ARM: stm32: remove stm32f4/f7/h7 MCU support
+>   ARM: versatile: remove mps2 support
+>   ARM: at91: remove samv7 support
+>   ARM: axxia: remove entire platform
+> 
+>  Documentation/arch/arm/index.rst              |    1 -
+>  Documentation/arch/arm/netwinder.rst          |   85 -
 
-Thanks,
-Conor.
+I don't see netwinder.rst in any of the single patches.
+Should it be in one of them?
 
->=20
-> Fixes: 6cdeb30db4d8 ("dt-bindings: timer: add SpacemiT K3 CLINT")
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> ---
->  Documentation/devicetree/bindings/timer/sifive,clint.yaml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/=
-Documentation/devicetree/bindings/timer/sifive,clint.yaml
-> index 3673836e14de..88b9be2230a1 100644
-> --- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-> +++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-> @@ -34,7 +34,6 @@ properties:
->                - microchip,pic64gx-clint # Microchip PIC64GX
->                - sifive,fu540-c000-clint # SiFive FU540
->                - spacemit,k1-clint       # SpacemiT K1
-> -              - spacemit,k3-clint       # SpacemiT K3
->                - starfive,jh7100-clint   # StarFive JH7100
->                - starfive,jh7110-clint   # StarFive JH7110
->                - starfive,jh8100-clint   # StarFive JH8100
-> @@ -62,6 +61,10 @@ properties:
->            - const: riscv,clint0
->          deprecated: true
->          description: For the QEMU virt machine only
-> +      - items:
-> +          - const: spacemit,k3-clint
-> +          - const: sifive,clint0
-> +        deprecated: true
-> =20
->      description:
->        Should be "<vendor>,<chip>-clint", followed by "sifive,clint<versi=
-on>"
->=20
-> --=20
-> 2.55.0
->=20
 
---IuSQJzEXQvkbH5Mt
-Content-Type: application/pgp-signature; name=signature.asc
+[snip]
 
------BEGIN PGP SIGNATURE-----
+>  arch/arm/configs/netwinder_defconfig          |   88 -
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqA8iwAKCRB4tDGHoIJi
-0v9CAP4tmH9S8FqWvAmMNur5RwhJXGOKYGFd14MfPoINIao7xwD/WE/k+8/EMQm5
-+qKGULH+GknCPb7GvBi+nEKSOiozsQk=
-=uhnI
------END PGP SIGNATURE-----
+Same for netwinder_defconfig.
 
---IuSQJzEXQvkbH5Mt--
+If netwinder is going away, can all of
+Documentation/arch/arm/nwfpe/ also go away?
+
+Or do all of these come later (in phase 2 or 3)?
+
+thanks.
+-- 
+~Randy
+
