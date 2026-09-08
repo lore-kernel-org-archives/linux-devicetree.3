@@ -1,198 +1,222 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010020.outbound.protection.outlook.com [40.93.198.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35912D3727;
-	Tue,  8 Sep 2026 17:07:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B18550DB8;
+	Tue,  8 Sep 2026 17:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.20
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788887259; cv=fail; b=XR4Pyhuw4VDHo7/XzKunaRDCFyv/u8RdVv/Eijr9iCA2+n9tQxalvKUoj5FhUYc3MsdqAbtMWMrnEp7X7gSc0j4L+l86EVGRFyuNBE6vOJWg2Jp+o3gGRkiz0rBQDy1mhgv65IwHiCMyPzOTqBOly2C2pPUVvI9Gdm7Qo7zGFo0=
+	t=1788887534; cv=fail; b=Nqt4huxf+LvSZhyI9cA4/dIz40qJog+EM+QUrwRBTesbzFIZWDIfV3s127tu0tfkfBmPiknEP8piT5v9lJwxY2lCqvUGYezy+MrWy6nNujqG58ghQMespcwOqG1O2/1zZxQ5z8aPQkBj/QKf0tFdj32EJ2iF+3aroGTyOv4XGdU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788887259; c=relaxed/simple;
-	bh=OIVx9s1riWx+UqHLDTsfy9bVYljiqga492giQMeC3rQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=bbybdklys03TqkoM1MIDa4ewcQ6iYksTj7gP1X8e9yZ2EPCTYOotDO4eRhpd+w1btHPRk57h1zQNi617/kza7H0BLZlKKXLQXf+n6BxN/8k3iY21FYVh753pn0H+mNxti1UavBLn82YbK7vLaC6MXQtWYSmHbMTBU+jWX4gfB3s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=pdGkXfB0; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=a4WP7O+I; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1788887534; c=relaxed/simple;
+	bh=En58L+sFchxkbbaln9ua9ZAPdeJEtZmBjwn7rSTBATY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=S4RVJlo0WIogrsbcmxbMLrWPZaFBHaCxRQi50XPP8jT8MosHTe9e6fw/Po4abe7sp97S86lzHl7sWBfGCUSvENzDHEZWI2urYcBkpKxFV+p/TFkpgHy4FTRW/RdkQSaOqpiJw6yJjjZgt9FTEDwH5YR/KZz7yECQZIrGU6KVkOE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=W4H9j0Zr; arc=fail smtp.client-ip=40.93.198.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="pdGkXfB0";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="a4WP7O+I"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 688EkPfO173220;
-	Tue, 8 Sep 2026 12:07:33 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=proofpoint-05-2026; bh=WJVyonQPf03US
-	X4RK1at4qTPhvvjwTnMfMX3BXM7FEc=; b=pdGkXfB0jTlL4+q2U0+7pYMSHAEur
-	T/yxsHJ/q9oj2BdN8f+VsVbW0+muvfWTjI79oA5ZzIz+GMaoe7STyjKfWPpDwxxu
-	NNCy1lTopAtjTEZ7Qq8ErnadQGvq9ZsxFqqrIFkK3qAr2ivZ/YbRb05711mKpcQs
-	a1USrv3Hb8dPf4Se0a0nlr4PIC1GIOwz/fI4hVCXBwJ4rDoaRXA3JlShler266At
-	bz54JqVFif3nEeLjVAfaZHDI85k5wwxbikjTKRExzILEES4L90bBB7HX2ZTUAG2H
-	cg2VP8Rd0PCYRcrYAkrXJmNdvmk9VczI+Ru0wNV51+lDJqs27ohwBzxpg==
-Received: from cy3pr05cu001.outbound.protection.outlook.com (mail-westcentralusazon11013016.outbound.protection.outlook.com [40.93.201.16])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gjkdmsjnr-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 12:07:32 -0500 (CDT)
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="W4H9j0Zr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X87UTHjXrQK+ebvQw89GPYtTgUVdCd2sfo1EM61HFNexSVjfkOMse1tiCaGZMU8FYKONZJ42fufgj2eW/oNn2nffN7OBksdJMGNP86yRVlc2L5bREoujONgLc8L9uf+PDyrmhUiTjMu7bimY67MGH7jhRZ78bUu7hI6YX1PrwiMWChqmBq+ZunqnGtyKWjDhaHlWGrbNCZ8dZCfsYCzyfINV30VTS84AQNFadxbc+Fv1ouT35KH8DqRQmMfa7PSZw78gBN4W2C4GQcRlZ86pulICZaI08+pOy62oWbET+sA0bHEYray0IDL3enlddOVFHGyeqjGED4o/Obk9vIIRrw==
+ b=P5DPE06o7OE8Rv1AlKSL3lcHZFUnby8pNDX4QFcEK6zGyrQ0bEhxNXaI3MpsHe3rsf8Haa+2bXTUfq8y5yqSD1IagzOmhN/IdPX5FPhySu6zo14gpIg2SrLpH/ft84akL2i8j3G6mCIPG7PNfcupFcREN9maiJjOCz+PHAWN8qjx/vqDbzHtxv6xa2FjGQ9OUu+ymSu2237ST1gFF7CQC5T7EUgaDU6St1tAqiV/xYORpIxKU3/Gtz/7UDJHU+jehgdrZRnWDmJPvABwPSslv5vzsX8xL5pMDI/d/9wsZcCCzCH80KwCnZXw5Fpgch3FP4Ni8swgcdNZcDyFK0cR2g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WJVyonQPf03USX4RK1at4qTPhvvjwTnMfMX3BXM7FEc=;
- b=UjKWZ7gAJmUUfx+HENqePFpgtsl8Nhb1GrKv+E2HY4tLCc1TdWdzDY+G+juVz5LuHB+gh6P1fJSiw4nFl21+udr67ZSVdsUahreWNeELIdEqViaTp2zdFT+CKaOxsjDQ2ztfmmKbEO5aWbnpjGjaxtenBs2R8WiPTmoWW/ps4I4uIECG5AEeD4fofHqVZmwPTAMJVnP+sJFplt+KFdNquNQNh+EOTeqHd9PrdXEKJbVt1mIP57wsVYD5y8/rnYmqeugIqG2PhHIYS7Uc3NnAQWzOzt1/xS4Q4vd0NBDRzSBQdMCZvD18zM1+XMeXIswvBxxJLGyYHy1wQPLg04Y8zw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ bh=lt9nlLmJOi252GVaEj5ROTgNEYAZu2l58euHP8ulZGk=;
+ b=SuvkyFsrXM3YMflfaV08dFkylv4kz9mYs69TD6nm4DOK5TaY6wC25qf5I69+GK6OLyq66qmRDVe+vcsXAIT2huZJ2uKD/Q+PqdFGniqONn8gEsOXZmRBEPyQsqIRg11toYJkQ7Qhh7OUQT0Am47p/rDyPP184g9JC2IfrUqWCY+wpBIEc1mqY6YFtSL6VbojMqYOkUodHRerLcOq1aKd7S0A2QI9FizW5NPVxZGb0GzwkmLPAuXcTHnTDZZlRL4XuRobOcMnRZ8viDLwisPLfzGisFfsYae6Aimgd14+DeOg31sN80HUr5JGHB43uWA8UpcDsnufr/bDWeyGAwfi5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WJVyonQPf03USX4RK1at4qTPhvvjwTnMfMX3BXM7FEc=;
- b=a4WP7O+IKfbN9ZWYJlRWeWwjCTxCBRNt4hjS1f0vEV7/Po8l2jVosEGEkrsOXPZ5ZbAxnNi3jm0kMleocqG/PnOalXhu43JX8HvKfO1FQVTsqPS+I5Naf/82M06k5MsOGJ2UM4Cbw0F1V7CWzcmPaxhkrCUk8+wfGnkEz93Fpyo=
-Received: from CH2PR07CA0043.namprd07.prod.outlook.com (2603:10b6:610:5b::17)
- by SABPR10MB997941.namprd10.prod.outlook.com (2603:10b6:806:50d::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
- 17:07:30 +0000
-Received: from CH2PEPF0000013F.namprd02.prod.outlook.com
- (2603:10b6:610:5b:cafe::35) by CH2PR07CA0043.outlook.office365.com
- (2603:10b6:610:5b::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.6 via Frontend Transport; Tue, 8
- Sep 2026 17:07:30 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CH2PEPF0000013F.mail.protection.outlook.com (10.167.244.71) with Microsoft
+ bh=lt9nlLmJOi252GVaEj5ROTgNEYAZu2l58euHP8ulZGk=;
+ b=W4H9j0ZrhracoJrHwYzsLq21TmjL+VVtmF9ssKIo1G4H4EcWdnuhXOa3Q6TsWAhkFj3nN7TIRsDgbso3g4lDV7SIw/7ByUnFNNwLMHvgLfvg42hffPYGvT0bORa85FVBCUcH8XxIF+wlOk5TB8z/o7W/6qEYvzgT+S6T7gvC9RiZzxeP+C1BLVpOW5SyrVaJtFMerZbTbIjW2OtQu3jfVn6gqmfJDzoOH3ezyyG80TFBw+DM7ZTH7wlJaMnOKlZJUCQqddGs/Pp0S+ujHyCEI0S2GbUvbLi1b3oLsXmCAYPLVlZzroNUtKXdftl4UgYwlAo21Ddk4Ml5nkNAv+127A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
+ PH0PR03MB6560.namprd03.prod.outlook.com (2603:10b6:510:b2::12) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 17:07:28 +0000
-Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 12:06:36 -0500
-Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 12:06:36 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
- (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 8 Sep 2026 12:06:35 -0500
-Received: from hpz2.dhcp.ti.com (hpz2.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 688H6Zge2860316;
-	Tue, 8 Sep 2026 12:06:36 -0500
-From: Judith Mendez <jm@ti.com>
-To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
-        Vignesh Raghavendra
-	<vigneshr@ti.com>,
-        Tero Kristo <kristo@kernel.org>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: [PATCH] mmc: dts: am654: Add 650ms power off delay for proper MMC power cycle
-Date: Tue, 8 Sep 2026 12:06:35 -0500
-Message-ID: <20260908170635.238775-1-jm@ti.com>
-X-Mailer: git-send-email 2.34.1
+ 15.21.406.7; Tue, 8 Sep 2026 17:12:07 +0000
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.005; Tue, 8 Sep 2026
+ 17:12:07 +0000
+From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Subject: [PATCH v6 0/4] Add USB3.1 support for Agilex5
+Date: Wed,  9 Sep 2026 01:04:36 +0800
+Message-ID: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
+X-Mailer: git-send-email 2.49.GIT
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SI3PR02CA0012.apcprd02.prod.outlook.com
+ (2603:1096:4:295::11) To DM8PR03MB6230.namprd03.prod.outlook.com
+ (2603:10b6:8:3c::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH2PEPF0000013F:EE_|SABPR10MB997941:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1ada7a58-bdd1-4d6e-2e40-08df0dcba9c8
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|PH0PR03MB6560:EE_
+X-MS-Office365-Filtering-Correlation-Id: 36e82a80-fc85-4270-cf31-08df0dcc4fbb
+X-MS-Exchange-AtpMessageProperties: SA
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|18002099003|56012099006|10067099003;
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|6133799003|3023799007|56012099006|11063799006|18002099003|55112099003;
 X-Microsoft-Antispam-Message-Info:
-	Cpg1deoLOARZoca91uc2oWecabNfVKEdrH6tLvFUWE+/Q6o+GJi8L3PQ9Q1PblBorURdeQCYm6DfNgeKB+m5PuxQLLDyuqgtWd+Ay/nlKIpYraPz3+f12uVNjTX8TEWSbGzi5dzrAa5xCE0tWBPjrYKU3W1cQEgvO8ILd4/PUOSBiYT+HPnnucExW2bcuqXjy51BKRueD9MZctGALwN9e3wqitQt8fyclQy2wqqBoQW3hg+a7ARyikExxdl7cV0+SIGQwH3AI9UDmxC1PXR0u0/Z41s79MejmJ986UeQpv64oC3TT0TTSn9jUb4L76xJj124DhBJJQFYR/V42jF5UdHrtpnRWYKDazD8ke+IeWjoqplrN5pys7MQ+Sh52lNFCxyBRr9h2Ik9u/vdr45yRNq113rkD5Q++WAyPySReKgetmQmcYFJ4J60dXGdKIg191H8CmVHbbeqOUfeOWAuJz9T8s31fBs1gI7IS9VU6xIPqtAwbTJE/bldkGcsh4rYg1IkVd0dhVLrCod1lw/BqBFke1Z6VKz1yxQf9A54v2ThWRoj5Pn+XwBMO6Uh4oXn30Z5mhjhECqCcYtWD7Emf/IWBfh4u5+iulmjIg8+KJqV6bOEgFdQP73wiXzHzAxTcfH8fV6wAtWFl/ml7aD4wRXFPgOASXDgR0VVG1sqY4IBpDvFQ3VG7LFRs+l0yQ+F
+	iTFlCN85LTKcL+Uz27SqC9mc2pbNsj3RhoTn38JC8FeIV/vfA6LOFxn/W4fbbsITUzVcQ95hf42q2oGRFPgvzjiHqj0fFyasrYZsOhlMqhBnimEJPintx+QDFOsNK51ygY+I4KQh+m8lsh7XLMC1v8mNQfkaqgQ879rlRQBbpOGzTaof3a0RwjfXFOKHSQzj7urK3dulRaetN/RoFNogfZcPrSubUjAsmIpvMli573A4kSg104iVN9ABXWyWoVuUNeoOhMLkh4UU6+FvX/S/iEXEkUtzrCle+43b1gPfAzdpyPEMx3RjY5Ylz4GVPYuAiYXcwT+2iQlStVtCrnhjy125Z4OaS4jR3C1xvciQEMa8weiKIzvVAu5oAQhtNXrPRL+A8tLQ9SqqfVZoj/bj5T0rl3/RzU7LFagju6uwj7lyDvjWt//vTWP1N0IBUEDmo/7aayFk+jNCpfdBPcxV9Djyo7GX91iK3LJTroiLfPPHTXpNrUG5aM64Uua6Fbyi/qYUscYLUPZX2+ZwfWiMiyxSwNvZP6RBBWT/kDDMxoYPHoUiPVsCF8rNTDofo8uTutI/xPjxLgt/Q1gKe4Pj3Ohu9FxemDdQR8AYUYU2/m/k2LXaRV4SpOJbqrXrYfFKE+XtZj/e0lOK8vMLG57Br3tE5kSqLTXxnomK6sgrPPE=
 X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(18002099003)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(6133799003)(3023799007)(56012099006)(11063799006)(18002099003)(55112099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	DYQGsQhsS9OQ0L3t2yMdiCtms7jHrcIzJzDymYB+Li2B4B66EqmXtFxPQiRlguqgCmGsJcyJRumJJvDcZ1bZyBku8/O+0e0xeQ4vQhK8zNJ8U8XzQBDJMBajMKfVU0dMJnZ4pVS3aAE1gIFpb1x1r/fMyqULUnrbbuzBahD4Tb9e8J7FDiVF31ESUWxkS6i3e9aFNTg9R0HYnN7HCgZac6AGZgemIwYx0S/Q02pZupjiqLkFHG7z9VJfQ3keRdVMJF2nDLbjUQaBIfY3W1muM6O7zYew40cZ/Q0t6VAA8pLlNas0DV0Ge5QsbYX8SNjVOYDflehIBn7AmlYh9r2BwUjOKP7nGT8QpocMgqFRVyr7Gsgd3CJbRM3IcegWLBGEcrVEuzJAMZ10I87Dm8pKbHsH9I4V2tbXilmuYkiBrJZTbWFBikeesnyCERBIM3gY
-X-Exchange-RoutingPolicyChecked:
-	apHKN6TvkqPacjSLu9a1WcbqhY/mujSvLFHIAUIeHbHgY6QUepwFhUqtT14RhN3sdU/trQ7MoaEFimDt8i/5OSUpedzYYF0VD8W7Tmb8bAdNSQZxLFMzI0MIr/mxH+lA/gjJbVOIckGxnXaJ5e/LuxaCVJd7VVZCWPlZZ29OqwTUSQ1VAvAdvw/w1cMgdaLFX5qTqT7qW/ju1wJ79NFhc/HzRniz6ZgsfXhwLloqPqmjmEMcJ0Ose2DCaPk3gL5ZQaHY5LuymDPJZu52W6Uxt9dAaI2N7PZkoUfTN6LGmrZZNTQDk8e9YCvdMXj/Rl1cozeLED7yi1O+vOiJzzU5sA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 17:07:28.6937
+	=?us-ascii?Q?rtO5nz5ymNAXgCPxvUO6UrX6gJdo9Mp8hx+kpHNtp+dlAFM9mwNYx2uWAl3g?=
+ =?us-ascii?Q?q7K41vwbm3LwxkaSu8V/HsQ5x2O1daEkBTj92tz+uU+Zy2U3/KEMHW0Qnaub?=
+ =?us-ascii?Q?4P4CGhtnvjqWsYZKuKN1xPtsbI76kZjH77yY1NOB6Ees7ywNjNZn4oySVAHV?=
+ =?us-ascii?Q?frfbsCnUeC1l4QmvrT5hWs1heJWh2N9DWhIIn8McgqJAueAFdB+iNBJPQbIN?=
+ =?us-ascii?Q?t0IvkhEoz4Is8Ev/ZOFflSUm5M1MaSVKjoQtFluhrb+H4JgzKKvZ++o4Hhmi?=
+ =?us-ascii?Q?hOKgp5Q5yR7yFUXP2on8OqynlZ52YZsv4w6pEkqpMFRzlkOcUaRXuzwkWCp+?=
+ =?us-ascii?Q?5PWqao2+P8/U21WiQukA00oGtEMBOgHquk9LoeJoDEPQCsOs8cfNuu4QS5f2?=
+ =?us-ascii?Q?XPDVpdLFc+Vi2qq8gUS5S/Q3Qfv9rv4k6Y26YEVJS9cZDHv2rRWvY7DnRU/j?=
+ =?us-ascii?Q?rdwdwJQqCGhj4oPpvZ83HgXlnjpgHVvPEry0Mvsy2s7oO2dXO+CpFdVuV7B/?=
+ =?us-ascii?Q?IDopSPpi1GacsxlZ/T840Tfmd5YPuItG/f5Z7ahGHR7yrepKxMDHI2/DFwuZ?=
+ =?us-ascii?Q?QSM+XLInEKk5pnlcENtQIHGtzvbkbTabJ1PTR7Xk/eQ9zu7pKR1hF41vJ5A8?=
+ =?us-ascii?Q?t9IBw9t1dfyTXke2t2VielvwPR/RhAy5wLgr8hZcvfcu37R1XHmTv7WkO67J?=
+ =?us-ascii?Q?RSsQCrr8Nl3ipdjrrJtP2sRRb8ion41SgetYLuFDVv+iRsysl5Sws+LVR1SO?=
+ =?us-ascii?Q?PbajbYaNKZ1iIXsIgOlp42KxLYa1dKRa3Z5JHW1QgZUM8qby7skqVt6lW8ig?=
+ =?us-ascii?Q?ILpjVycOl096k4+ma9IuvXzcLJytgS2eyRjqD08rtNBt6nsdaozjjiALyTMI?=
+ =?us-ascii?Q?NONYB/WXiRY4EQf8LSzNyol8fSJZo9ZqGJS5WLO6oage2j6x6UnxTod6yhi9?=
+ =?us-ascii?Q?acGt/TOvgeqkiR5HfNKJMMqEjMfOERofH2FYI/zpveK8PHnqmGB/iFIEJBdU?=
+ =?us-ascii?Q?DTnI6DY/7hszO53e2Pb8hDWQyKBmmkschgBZ2uldvHqZ6vbjqxI9ejr9rt54?=
+ =?us-ascii?Q?ZJ1HSe94ODIbTafJAI1pLNsjPe0c17glp7L3V/LsRGteaUpPraGefWyy/cbo?=
+ =?us-ascii?Q?eOyRcObMIDc79sdTsHQGlHzXVVVITVLr6leHSgqbc5MDaltwMXPcARz2Q5S+?=
+ =?us-ascii?Q?kda4gC2W7i0FxVRVQSfG+dMctgdyO4zv37kNUDa13lEMry1uPV3ZvWmSYCaB?=
+ =?us-ascii?Q?0/Kd4qz3k+T/bMy/PuOrjWqNsCPDj3uVNCpYDh79TRvsMSH1Q1mF/9hwiEhL?=
+ =?us-ascii?Q?0BW/ITobKizw19nCmLXA14mz+zIlZTbF57PV4thsaVIWP/5K1cBjQJ8IutYm?=
+ =?us-ascii?Q?CHoJd06/KU+AtHI3b/j4QX+Yh05aFcKCeTUhhVA3ATOthJvsLN2uCqfZbZd2?=
+ =?us-ascii?Q?mZ73iY4I1OFo7b3m+9a214flHQE4ue6rk+jmtMILLEGnGsdjKFY8mSHWJjpe?=
+ =?us-ascii?Q?CmB0OfAcTaDHnGs1wnl7QVqFu8YvdNCWS0yR80le1AcxaKxzjUpK7wXK4TR7?=
+ =?us-ascii?Q?xaKYjjfkuQmBxaQl0uDRHQA/Y2FqaMKPQQhhZs47hTSHVtMieC9ll14/nKZO?=
+ =?us-ascii?Q?iKSqtY6eRCoh49RrQayapYINsX4Pi196EMSKHumsSk+mEdidD+ovsCcYzWdT?=
+ =?us-ascii?Q?SLy/O6qzfTt1dNisSvRhTF3mom9jz9AMQ27sAbCwkST/3aZSVI5cziAXhrQM?=
+ =?us-ascii?Q?x4hZcF7Dk7QTjL00GNwamjSgiMw1mJo=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 36e82a80-fc85-4270-cf31-08df0dcc4fbb
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 17:12:07.3639
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1ada7a58-bdd1-4d6e-2e40-08df0dcba9c8
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH2PEPF0000013F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SABPR10MB997941
-X-Proofpoint-ORIG-GUID: CXEZsjyKlNjpwlyvkahlkaPmE-Hh_PlH
-X-Authority-Analysis: v=2.4 cv=KpZ9H2WN c=1 sm=1 tr=0 ts=6aa040d4 cx=c_pps
- a=YOgfsySBG6Gh3lLixmEA+w==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=VdqzKS8jKosA:10 a=V5UXEbMT0ywA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22
- a=sozttTNsAAAA:8 a=lUCeq0Dp3Nc7E5BXnPwA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfXxH2IJKbJ8uQe
- tX42dF0mE7/r8t94iVT448geuXWr0joA4m8asXKn+5J99QgQtDrItoQY8rxdlUk1ucok8JYFf79
- TjxQyOjQg8aExv0mg+BuIeJi2N15jvc=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE4NCBTYWx0ZWRfX1HWOrPq7YVsS
- jTmN2nmvWDLAh2oJn7BGsjkYoYUmSyxIHqieFbjJptkjN4IhmJ2pzzd40tykguhJ5YZnIuXOARh
- 4iRKw6P051GRtn9/eS8iLmOmeJfbpolLiYxAWlNTM9WlfOiHBN1BDGWP9rFEueyCaEhYZFYf4Yj
- kn4UOVDPk17G8l2IhHWC9KhQ67JUVFU0XTFKmwxSAg5VMOCIpO2/7hF02oobUge1iZ0p5qMyG7h
- W2a1QyRFrIsj73+BCdk5v3+RF2oXw5oXIq+lve666/+JiES+ffjYciMtCsDNUzL8+phj3dvfl6v
- SR6SSZrheUiDfTn7qpQ7md+uyucpbsGwJ26vTaFWXpOyMrKM0F63KE9vm/HVpOjyv1+zgc5cAQI
- vu56z+NFX/a9zILJT68lfSNZPH9i5Qc89F91gDOPtM/TB5jnqryqD3Z6iIKpDoQUHvEGrNhvWTZ
- +NW8YDTg4kCV/l/3zwg==
-X-Proofpoint-GUID: CXEZsjyKlNjpwlyvkahlkaPmE-Hh_PlH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 adultscore=0 suspectscore=0 priorityscore=1501
- bulkscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080184
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Kp0q4yqs6M2cFZxvOaeInhaRK5++68UekTXZGO0DXN8lvSCG2FfML6fy9BN9VGCOjHmMtL1bW0PQqzuCvBlmJOfiUk5Sutx5w0r+A+sKJAc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR03MB6560
 
-The AM65x EVM MMC1 VDD rail discharges slowly through RC circuit.
-SD spec (section 6.4.1.3) requires VDD < 0.5V for minimum 1ms during
-power cycle. Measured discharge time on this board is ~632.97ms to
-reach < 0.5V threshold.
+Agilex5 integrates a Synopsys DesignWare USB3 controller via a
+SoC-specific wrapper that requires dedicated clock, reset, PHY, and
+optional SMMU integration. The USB DMA path on the interconnect is
+limited to a 40-bit address width.
 
-During boot, MMC power cycles between boot stages. Without power off
-delay, VDD doesn't fully discharge. Card retains 1.8V signaling state
-from previous stages. When U-Boot initializes, card no longer asserts
-S18A in ACMD41 response (already switched to 1.8V). Host misinterprets
-card state and forces 1.8V anyway, falling into a bad state and causing
-a boot failure.
+This series adds a device tree binding for the Agilex5 DWC3 controller and
+introduces the corresponding USB3.1 node in the Agilex5 SoC and SoCDK
+device trees. The controller is placed under a simple-bus with a 40-bit
+dma-ranges window so the DMA/IOMMU stack respects the interconnect address
+width when SMMU is enabled. As the SoCDK only exposes the USB3.1 interface,
+the unused USB0 node is removed.
 
-Add power-off-delay-us = 650000 (650ms) to ensure proper VDD discharge
-during power cycles, allowing card to fully reset state between boot
-stages.
+On this SoC the DWC3 "ref" and "suspend" inputs share the same hardware
+clock source, so both clock phandles use the already published
+AGILEX5_USB31_SUSPEND_CLK ID (no new clock binding ID).
 
-Signed-off-by: Judith Mendez <jm@ti.com>
+Finally, the Agilex5 compatible string is added to the dwc3 generic
+platform driver so the controller can probe through that glue driver.
+
+Merging:
+- Patches 1 and 4 (dt-bindings + dwc3-generic-plat): USB tree
+- Patches 2 and 3 (arm64 dts): SoC / arm64 dts tree (or taken with the
+  USB series if preferred, with an appropriate Ack)
 ---
- arch/arm64/boot/dts/ti/k3-am654-base-board.dts | 1 +
- 1 file changed, 1 insertion(+)
+changelog:
+v5->v6:
+* Make snps,dis_u2_susphy_quirk and snps,dis_u3_susphy_quirk required.
+  There is only one DWC3 instance on Agilex5 and both quirks are used
+  on that node.
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-index ca1300e130936..edcf039ccfbd0 100644
---- a/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am654-base-board.dts
-@@ -460,6 +460,7 @@ &sdhci0 {
- &sdhci1 {
- 	status = "okay";
- 	vmmc-supply = <&vdd_mmc1_sd>;
-+	power-off-delay-us = <650000>;
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&main_mmc1_pins_default>;
- 	ti,driver-strength-ohm = <50>;
+v5 patch link:
+https://lore.kernel.org/all/cover.1788757821.git.adrian.ho.yin.ng@altera.com/
+
+v4->v5:
+* Binding: replace unevaluatedProperties: false with additionalProperties:
+  false, and allow only the extra DWC3 properties used on this SoC via
+  "foo: true" (dr_mode, maximum-speed, snps,dis_u2_susphy_quirk,
+  snps,dis_u3_susphy_quirk).
+
+v4 patch link:
+https://lore.kernel.org/all/cover.1788503540.git.adrian.ho.yin.ng@altera.com/
+
+v3->v4:
+* Drop dt-bindings/clock and clk driver patches; do not extend the
+  published Agilex5 clock binding. Reuse AGILEX5_USB31_SUSPEND_CLK for
+  both "ref" and "suspend" clock inputs.
+* Fix usb31_bus dma-ranges cell layout (sashiko comment): use
+  #address-cells = <2> and a Stingray-style 40-bit dma-ranges window
+  instead of a 32-bit child address space with a truncated 1 TiB size.
+* Update altr,agilex5-dwc3.yaml per review: drop obvious reg/resets
+  descriptions, order clock-names as bus_early/ref/suspend (matching
+  snps,dwc3.yaml), and rename reset-names to core/ecc.
+* Limit the series to USB binding, DTS, and dwc3-generic-plat (no clk
+  subsystem patches in the same series).
+v3 patch link:
+https://lore.kernel.org/all/cover.1786518803.git.adrian.ho.yin.ng@altera.com/
+
+v2->v3:
+* Add the missing USB3.1 reference clock ID and register usb31_ref_clk
+  as a fixed-factor clock in the Agilex5 clock driver.
+* Drop dma_addressable_bits core/glue changes; describe the 40-bit DMA
+  limit in DT with dma-ranges instead.
+* Wrap the USB3.1 node in a simple-bus with a 40-bit dma-ranges window.
+* Keep Agilex5 support in dwc3-generic-plat as a compatible match only
+  (no platform-specific DMA mask override).
+
+v2 patch link:
+https://lore.kernel.org/all/cover.1765249127.git.adrianhoyin.ng@altera.com/
+
+v1->v2:
+* Update new binding name to match compatible.
+* Update binding to use single node instead of parent child node structure.
+* Update binding according to comments from maintainer.
+* Split USB3 and USB2 changes in dts into separate commits.
+* Update to use flattened model and use dwc3-generic-plat driver instead of
+  dwc3-of-simple driver.
+* Add dma_addressable_bits as a dwc3 property which is set by the glue driver
+  which is used to configure the dma mask in the core driver.
+
+v1 patch link:
+https://lore.kernel.org/all/cover.1762839776.git.adrianhoyin.ng@altera.com/
+---
+
+Adrian Ng Ho Yin (4):
+  dt-bindings: usb: add Altera Agilex5 DWC3 controller
+  arm64: dts: intel: agilex5: add USB3.1 controller node
+  arm64: dts: intel: agilex5: remove usb0 in Agilex5 SoCDK
+  usb: dwc3: add Altera Agilex5 support to generic platform driver
+
+ .../bindings/usb/altr,agilex5-dwc3.yaml       | 112 ++++++++++++++++++
+ .../arm64/boot/dts/intel/socfpga_agilex5.dtsi |  35 ++++++
+ .../boot/dts/intel/socfpga_agilex5_socdk.dts  |   4 +-
+ drivers/usb/dwc3/dwc3-generic-plat.c          |   1 +
+ 4 files changed, 150 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
+
 -- 
-2.34.1
-
+2.49.GIT
