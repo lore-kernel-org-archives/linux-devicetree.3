@@ -1,108 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3D8521219;
-	Tue,  8 Sep 2026 09:19:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788859142; cv=none; b=NXDaDROnxJfJ7JIPQ/Ae60TQUKK533LmMdQmfpY8tc08VcT/WVuK5vED6BR/G2LOE6n3cCw4Vt/4NyfYQBdByGkaljB5fxaI2Xvb8N5E3NJPVASim20FDsgaK7qb++9lLDnbZJyr5TO52NVmNOkeRjeJ+FbfMGzn5f9oAFmtRn0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788859142; c=relaxed/simple;
-	bh=jC952bHmiBBRZiJqd17i/7x1m+YVL1dngpkL95OZce4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MyeAY3euvx8n4vbXuFObTVI/ubkOgE1MRDQ8bcjHg1cMOif6fmmHSHcGwB1LJ1TxnQ9f2m8NIsZvKazT9dSvVdCFHBRvsF+hAWO5Se+GQijA9hfymHO3mUM56sQhPV+sEyTcOoUJWCJ9eDiWlDegP7BnF0irZA18ascnyVhO+5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB201F00A3D;
-	Tue,  8 Sep 2026 09:18:59 +0000 (UTC)
-Date: Tue, 8 Sep 2026 11:18:53 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com, 
-	will@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org, 
-	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com, sumit.garg@kernel.org, 
-	ardb@kernel.org, david@kernel.org, danielmentz@google.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mm@kvack.org, op-tee@lists.trustedfirmware.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 01/10] memblock: Introduce MEMBLOCK_LLMAP
-Message-ID: <ap_RRSM7RBONvHaR@orome>
-References: <20260902104712.2399797-1-vdonnefort@google.com>
- <20260902104712.2399797-2-vdonnefort@google.com>
- <ap2_926WXr7uAYVX@kernel.org>
- <ap6I1FN_2ylRzFXH@google.com>
- <ap-74AkHSGXbFCF_@kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E945C511193
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 09:19:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788859169; cv=pass; b=ZztN/B4nYUeea2nNmW7eVjXuxAvc05R86ZsIVrHvUz6HF8nsgueQnd9gdjb5YOeWmNA+EF2rpY0elB7jl1GgPYpI3WH20Z3JgNsETdF4Pd0fpksc6BwHbBLYhBEYqNWVVz4pqZDCNtow9PuT4c0T97ITxlZOVoQLibzXkzykujM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788859169; c=relaxed/simple;
+	bh=1CJ3Fj5ZeETTIou3X8k81+BylqMvg1us8lXgPWVlAw4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hqxGccbSy6hFe2pGa8cy4uGnnL3pfs7U1FVfBp3ttWlS7bSCiSpU1d9EwThgt9z/MdHxBfqrtOv5n+MbZuI9YS97zDmfvyMG7HtEHp4yF64dCkRPgY/Uz7V5SvUyKQN+mEqpSZkk3tEOYB8LQTOMCreNaYAUt7Ukffq5vkdBk9o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O+XC3HIE; arc=pass smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O+XC3HIE"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2d6f9e2f681so47236275ad.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 02:19:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788859167; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VtJWyjkgcR9X+rOZoBORSrVabyPw7G7Ez8Tj2omx9noVapvfoLORr8wAj7WOM8xYxX
+         0JR0T0q9D3OqS2rG2dAk60OO3kej0PKOcX53QfXz2i/nNH/niaZHDng7XvSu49Qgm61Q
+         Qog+nq576FcT+ZR1uH1GYTLv4zVpzOk2aZuToZyOW46cat02gWg0kWW3CsMTbbAuXhA0
+         BxHwCk+a5KRzwIeG+GQCvl0xoOFlZX8fF4GNgcMcxGJ82LZaukaptBCoZtUx9CVhXkJH
+         zenFzwqoixczfDGX5d5xA0sBG/sZZPEttBeVcebESue/dYFuRmyjEAqxI2JWMlYaDWgd
+         L0kA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=yG4Pnz01dW2S7kM9qcZcTMa47qByQxdGgpfF/vR9rUI=;
+        fh=V1NNgnk2AwsG2OSlzgnOlfySccyhnAbfEorTE9Pu9Mc=;
+        b=NRCb2mgELbKx6qwxjs5Lqtll/SKTvGBX6BnHPvceEwkAtVxw9NrGUdtQ8HDTvwe3DV
+         X0/oTduHGZYe7ArhccHvhlgiON6K/xToe9Y8WW/+dbxlvnbSRf+64Ukp82SV2kn0tfWb
+         7UQfzCgMVlURenGia2e1+yHFKUhaqV4e4vYTbj/Y6SamcfTuPPSplJzVeTKzT6WpPtfz
+         tcZrpgCa/FQzzP+A3NxTKfY5cOt8BLiHRErgYHz0y6JT1Bh2gxPSy0lqyZmOmHN5ZUBi
+         SRcTwxAugzKehLwOIAEE1DErc1h3xCoaHSwPPHTtwtSjvGcO8e654S7mTt5y05lWIj03
+         njiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788859167; x=1789463967; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yG4Pnz01dW2S7kM9qcZcTMa47qByQxdGgpfF/vR9rUI=;
+        b=O+XC3HIEh4BvShXFCFAaXRAFIX46peg6MtueGCced9Gl6ZE3xOxNkfco69Lfy3plI3
+         szB4t5ssfobRGXsPxZgr8QvO/8va2hII6m/9oMSj5+0rD6wWoFT4BScsIJL9lO5gWEWX
+         gDItRBp2o/heh/OfsLdLVFnlS7VWf3B4sZenYi804DwdILHrM2TzosHoRq4R3X0ldary
+         VBP1R9T+LCZZivgjKOTkvUCYyWWfbxkyx91fQIF/j25ldADwBKnBgtfJt8T+iBBcqVh0
+         1ytdA2H2jShNv5YGSmnMpi2Bm9dYa1HFfB5YbZmAxgfAEv7+/6ls9rDEboZlhOpJKm0q
+         lqBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788859167; x=1789463967;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yG4Pnz01dW2S7kM9qcZcTMa47qByQxdGgpfF/vR9rUI=;
+        b=diz/vUq+BnC5OB3qzItW9Z8fp7NQC9wNUY/atOZtGKNMgPcwS7mhxXY2JrDSu/zMGX
+         C/3vckBPdGvCCleZK7Pd5e5ZbGto/HZw/wtbx0OFsPMEPHf2ltkXahWcFdHPGpwOffE/
+         0CLJLLCgSpX5Y9IZqGeQuHNxbI5B+i9L8CFpXI333bEsdkiupVQuZMcQqA3PL/TT4WPS
+         PVidvvC10lIMbij/8ETx07lwXzWwS9Y6v4ACXNleuf63lALbWZNLXFJ/X3bXA77LGx69
+         mefNl+eSbnlzaQGH2mi1xhq55mD+xovFeVf+orDU5VCK/T0JToPw6uHUvvy67bqyCrx0
+         J//Q==
+X-Forwarded-Encrypted: i=1; AKwUvByJUu+KsdC5UVqZLPRuCG9nnXby/oQ+F3pZrKwopRB51lYGYF2byAdenyLwxdllJGNBxV5VDUOacF5D@vger.kernel.org
+X-Gm-Message-State: AFuF++ka3mTjRBUVSbURHr3sMEP9bqRn4n8Sqt11/5eAb0T9NsZgu21/
+	5gsRf6AajgJo0pbNGdl+0tvHe6Voh3Txjq9gkurqKN+0yKrxnKpUyBKSzoiVwc+NZyKx2DUiyWb
+	XrzPxzz/HMs+Th8fK/qa4VrBntjyrKCI=
+X-Gm-Gg: AYBFou1fyudVmTfuRB0XIPKaUxcomvwQ/QdvIHEBoEhbF3Y36gA9TYi9P+5WQosfmco
+	06xN09Hw+80ceIdtmpkab+wBD2JFB5z0MJNE/mR9Tt2SvKqtjGquFBIQ4XAuOU1L8wS/YKXQK67
+	kefKImEZM+H9v2T1dkDs81YxpfU6NScrmZxMgvk83om0J1UdIMv0/BTbzpC44pW9RRQIW856R13
+	OU9BfRr59lgK6uynnXf1vwrAd91kOf6NzW32Fr8PDFVf5jFMJcZOP1q2IhG+AjeAL0IxxeQHhPb
+	9yRqzmS4SQv1p/AnrRezmQ/pdQ1KgXWARu+VHOg66WPcQ/tslM3QdwpE+BRGKboOLDElVUIlcWD
+	wWngagSKiYttZWqSgdM/wCN4UE3EX67oyAnrwNhqKUygWEr7Dr/lwKGYW
+X-Received: by 2002:a17:903:3c47:b0:2db:eb5:47ea with SMTP id
+ d9443c01a7336-2db12106896mr426721305ad.0.1788859167169; Tue, 08 Sep 2026
+ 02:19:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ajtkrsfbue5mdrla"
-Content-Disposition: inline
-In-Reply-To: <ap-74AkHSGXbFCF_@kernel.org>
+References: <20260908090448.3332-1-ansuelsmth@gmail.com> <20260908090448.3332-5-ansuelsmth@gmail.com>
+In-Reply-To: <20260908090448.3332-5-ansuelsmth@gmail.com>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 8 Sep 2026 16:19:14 +0700
+X-Gm-Features: AcwNN1VpPKN1gkIiS51yj4BLA5N52CV9eNK9WOCJ4im1zZlIaPxLmU_uBzBetZQ
+Message-ID: <CAABR9nERV0bGkEQm=4kLNBZVfurr+6c-Q_to9=XixJV9CT=vyQ@mail.gmail.com>
+Subject: Re: [PATCH v6 4/5] ASoC: airoha: Add AFE driver for Airoha AN7581
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Cyril Chao <Cyril.Chao@mediatek.com>, 
+	Darren Ye <darren.ye@mediatek.com>, Rosen Penev <rosenp@gmail.com>, 
+	Daniel Golle <daniel@makrotopia.org>, linux-sound@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
 
+> +       ret = devm_request_irq(dev, irq_id, an7581_afe_irq_handler,
+> +                              IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
+> +       if (ret)
+> +               return dev_err_probe(dev, ret, "Failed to request irq for asys-isr\n");
+> +
 
---ajtkrsfbue5mdrla
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v9 01/10] memblock: Introduce MEMBLOCK_LLMAP
-MIME-Version: 1.0
-
-On Tue, Sep 08, 2026 at 10:40:16AM +0300, Mike Rapoport wrote:
-> On Mon, Sep 07, 2026 at 10:50:12AM +0100, Vincent Donnefort wrote:
-> > On Sun, Sep 06, 2026 at 10:33:11PM +0300, Mike Rapoport wrote:
-> > > On Wed, Sep 02, 2026 at 11:47:03AM +0100, Vincent Donnefort wrote:
-> > > > Keeping last-level mappings is interesting on some architectures as=
- it
-> > > > allows mapping/unmapping pages from the kernel direct map without t=
-he
-> > > > risk of splitting blocks which, under the break-before-make rule, m=
-ay
-> > > > trigger page-faults the kernel can't handle.
-> > > >=20
-> > > > However, mapping the entire direct map at PTE-level is costly. So
-> > > > instead, create a new memblock flag MEMBLOCK_LLMAP to enable the sy=
-stem
-> > >=20
-> > > I believe MEMBLOCK_PTE_MAP sounds more descriptive.
-> >=20
-> > The idea was to have something close from NOMAP, to emphasis it is one =
-or the
-> > other. But PTE_MAP sounds good too.
->=20
-> Could be PTEMAP if you prefer.
-> My point was that unlike PTE, "LL" is not perceived as last-level, it
-> should be looked up.
-
-We were discussing the concept of enabling entire block mappings to be
-removed at once from the linear map, so at that point "PTE"MAP may no
-longer be accurate.
-
-I imagine that in some scenarios we might be able to go to PUD mappings
-for something like VPR (say systems with a fair amount of system memory
-and we want to carve out 4 GiB for VPR, split into four 1 GiB chunks).
-
-Thierry
-
---ajtkrsfbue5mdrla
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqf0voACgkQ3SOs138+
-s6EFrw//chVhQxMWtCxc+JK5ON8AveSiC1Dhl62Q8IhDi1Pr5AWMxC7K8li30qSy
-0r+vt3im7cyLAkLE4+kAZXtHcCV1288tZZErEnuotKkDkGDaDExBqr5yHlPseVq0
-2ekvvxz7mSRh5Wfxn5Tq+MYQcwUYACknVRhGjuplsa05oSZA7GWbViEHFVP25/Pq
-14BkCYqXXj/NfSceq84ukKSePfpEG9Jrmnl7Ey73eyGHNeRvziLQC7qd9MuHwiqp
-Jn9Geb830b3ufqnZK23k5BuEp/+lAGTkflZGTlEM5A6yTIEnvfVtpimFwGtHret9
-L0HZ/xg087+Wj7Kdgu/VjdftAzj81qqnKT8dpnGWH4SwsTLtcRDqxpNZatKlVJsF
-NJG1Q8yBEtB+KIIiSK/00K2im6bSroJoGbTljdLQVi/hjBkQuDHtugvyyycXYc5y
-cLPWS6i+0eG+IWvM+wGH7zWT9kvJeyYWh8jH4qk/J0sTkVlz5IY25AOerpGGdx4S
-slR0PSPzLmGm/uHHm6PpuJK8vjqKJkGmsLiXQ5XkrUgmOG8EkWHG9Uzx358zDsQg
-AYe3yJ0IiuCS2fketV+KzHy7VqFU3tC9kgkyrIO3PJSJLSVSeTVFNJ3WTUJTEBBb
-ztr3XvA0Jm7feoWXZzfW9fwBYnq+5ey+M+KDQ6qsCZGpgY7FCeo=
-=5bgM
------END PGP SIGNATURE-----
-
---ajtkrsfbue5mdrla--
+I think we can return the error directly here, as devm_request_irq()
+already reports the error.
+dev_err_probe() would result in a redundant error message.
