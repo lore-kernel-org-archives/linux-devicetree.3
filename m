@@ -1,140 +1,162 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D630449EC5B;
-	Tue,  8 Sep 2026 10:03:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F364D990C
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788861805; cv=none; b=WI/929WTaDi0smIyHgZ4ir/eIXn2PRBRot0dggRKrSr7n/PIumrTnCPtGxFO5XwkoIc16lE9fkLGXgZGe8gnpFQPtEvnDzqnvjQB+og3W+BOPjcjmiQU+OpUj/aY/HVlXgF3llQnDwQt9xi0cddZeSCoqxId3a7Uh3+vZAn+zmQ=
+	t=1788861863; cv=none; b=DEZKi4QgyYYh3Gbq2ZPBPgGEcdjqdqr42htjMeeuDVK9a7ljM4HANU4J69z9/8KZs+fqnvXasVoGWola+GrtVFX11/WJDCW6ozOxLDU44vsh2yWRT22IN4BXe6rUJcEqHg/Fd4/GJRzKdgXTvRloQtunN/hZaqynUWshJyY5XYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788861805; c=relaxed/simple;
-	bh=vQIBuuR/BmwsBY5JOxkTHsS75Xhl8dHGbo7qnFPGjH0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AoDa25Bf/sCNuyVJalTE8e1gwd/Jhkq5u1wQm2jat5e1i9BBYwtK8YTo+avJM9clq4VHtU22vhExB6TPVpQ0qEBL2Sl5Xkj0+8Uvybe7CYQuKfgYprJXvT4fWvjgkhkCZEFQxU4r7cG6HMPN3xKkIObIsylaImSYvu++9RvO5WQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=IWGY9+g0; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	s=arc-20240116; t=1788861863; c=relaxed/simple;
+	bh=YCrooUowgJHnI+qdnhXJWKoK2G0nDq0Px01qLpti/mI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X8sj7MoTV77FZQRqObGJV19CFKqxvUK5ic3BvrO1qqjA2CGcN/z+cWAGFqr7wRvEpua8qsYjpK440qa+5Z7zGdKDULFrGtSLNlC6kpuqe6iYZ1YBoff9xEPoJzFD1V1FZOEMBTm/TsHeZVovFBLrO1EKCs4iFtViYqmnjSDFvew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esKUUaDC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="IWGY9+g0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1788861730;
-	bh=AsIdMehAHVx8Vn9co92csSXF/XK0Y8AfqFEfTMs6vWU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=IWGY9+g0N4J643i6P6VTebvhRdq9bdF/HKLJuHhy/DDLPuTuF30MWpbuAk9imMU5/
-	 n80sPjYLcZ/tTKq6hXiQZ7sHUijOo5jpVTTAd8Z00nafIZjheK05ZInQzRACNQFNds
-	 gARtKOaZnZDOrnTe8xsFTNRj3GYRFsZz4I8z1yZk=
-X-QQ-mid: zesmtpgz4t1788861723t07d26cc1
-X-QQ-Originating-IP: gaC7llghVtvXGohF4L9JNRie7K9GccucX/uj9em3fyM=
-Received: from [192.168.1.100] ( [120.237.158.181])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 08 Sep 2026 18:02:00 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 7742146852528035138
-EX-QQ-RecipientCnt: 20
-Message-ID: <140A6F61DCF6A29E+a53e2017-306b-460b-bce2-a269c3491509@linux.spacemit.com>
-Date: Tue, 8 Sep 2026 18:01:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esKUUaDC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E82C1F00A3A;
+	Tue,  8 Sep 2026 10:04:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788861861;
+	bh=y3VDoJY/ddJR02OQMQtg9KGif/6Y6mDm+so2rnX5Zds=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=esKUUaDC07Qmu3eis1IvG+RKjneRZ2c/UmvmWrNh/BjImTJzNZKpXt2jYrwHgvlje
+	 WbGIxIh+icdyUymFcNahT55dhFWUiA15SoVO6ZnTueQh+ANrXe/m0Vy5IC4IRDRm+H
+	 Q2U3ewe49x+//sXCnkP4WveoGDzBfaZHihUk0mUsMnBrW4ifTbe8pKfL0RmDDmm6A2
+	 wNnpboanzaY69LQXwI//pkSDrOhzUqJdO+rpnPOed355KH40kZhq8jLf/cIwB8/65U
+	 ynPMbQmFJBoBXzc5UpfxaTuzYeFm9jE9ObvcnPgEX3uBc+ZPq2JwjNxMTesxrMHgAv
+	 oNI3JJL7+Ka+A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 4/6] drm/verisilicon: add DC8000 (DCUltraLite)
+ display controller support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joey Lu" <a0987203069@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260908092840.225220-5-a0987203069@gmail.com>
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-5-a0987203069@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 10:04:20 +0000
+Message-Id: <20260908100421.4E82C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/9] usb: chipidea: usb2: use
- devm_clk_get_optional_enabled()
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
- Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
- spacemit@lists.linux.dev, Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Ze Huang <huang.ze@linux.dev>
-References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
- <20260908-b4-spacemit-k1-usb2-v2-3-f07342ffa051@linux.spacemit.com>
-Content-Language: en-US
-From: Junzhong Pan <panjunzhong@linux.spacemit.com>
-In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-3-f07342ffa051@linux.spacemit.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
-X-QQ-XMAILINFO: MhBjP4hWpZv/XkDWrLgj2CupeClGVTds+5kNmXaVIvtbVU2lEoup+HHG
-	j97unkHczhBBlTv5PeZaMSe9a22cFTYVIzVlaKeu8HOsKLygM8+xakNCXNBm/PFP23B5/3p
-	yhlbnz2cB5vsflLo2qT6wKSsTpi3gM556vAMZz10PlcKmx+wIiGMaFbxVHuQS7kdU5CF5mO
-	irLeQMpuZo82gmRk+vRZ/Ndro+bXXwNyLzXjq0wOe5fnBAn4ZEOtOIwOso0Ff4E1twARpd6
-	Tt2OzgsnB3y/X+ePDHhOsYt936zZY2DCFDWi5Ec5B8LmY/P/7cd3ZMydOP49RNqVcr6xUud
-	oUQUbaBMzvYSOMv+ZwmTTEi8KfnUu+291BzhRHB+NDOwPNYoLXv4UZaNoQLvShojbE00W51
-	T9YYScjU2b1i0K4/FEKeY6h3Q2e99uYevTyw8skWU5aFDe4bn2ahGuurP7cFxSI8wb2qbxx
-	eFnXbU6yOc/AoOIkmRobrmDYq+U7sZRgxbDOWDVyFN/xGmApCByeMwNcgjb/u0WWYHxQDps
-	Uz3pn0+sq/QnF1fF7lBm4P18kzEjjEH55QN5KMFKnAjbEgumubwaFSpHilxZcl0t3BqIDUA
-	rCkNkiUCNYo19CuX4Gp3DFFGT0tdNc1SNgMMgmJbcRJX507lGJi2TLDhyeuDtc+GO/vbJ92
-	S6O1McPDVUSuIBm971o1QaytITY49aFqaI/rTxKbAzNH71BLH83prXefrvXv++z/6ZNELjA
-	Wk51d9uVPr21OfaEgDq8AeO9kE9bNznN5HVKW3PUFljdqO8BKY3rAKaetaqKjGzqu+aSGMl
-	eNIel9wLVvoA0v8bnPowxlXw5tyeA/Mr9w5xbL4bG8S11a+m9nsSWFoW7JtP0yWe1n1I2Ai
-	EiMrhiOUaK+m+2xFxvwmkaM3dgP347JOl09qy/xJYAdk8bBON5BzZ1/IZSLqj+EuQ74u/xt
-	oGZsdGqUV40656LOkJzbA5qrANjpIr2O8+He98T1zIJZ0sjkWSJtT8Bjqogy7OI7SD+B8oC
-	jbXJpYkTtEJByELZcf27Bfkgxwbym8ya3ysnczvuwUsAoIt6yW/gcBEXaFba6ZP0Mw8T5+g
-	oNJ46xPKrDp22gVA7SgOiavgxSyVgzV9b4PX94xIlXNS5+WHQwKH8zM6b2ODA9Y9w==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-X-QQ-RECHKSPAM: 0
 
-On 9/8/2026 5:55 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Double disable and unprepare of the clock during device removal.
-> --
-> 
-> commit d2e0018bd6f14cd49dfa6012d83048e3abde69f6
-> Author: Junzhong Pan <panjunzhong@linux.spacemit.com>
-> 
-> usb: chipidea: usb2: use devm_clk_get_optional_enabled()
-> 
-> Convert devm_clk_get_optional() and clk_prepare_enable() into a single
-> call devm_clk_get_optional_enabled().
-> 
->> diff --git a/drivers/usb/chipidea/ci_hdrc_usb2.c b/drivers/usb/chipidea/ci_hdrc_usb2.c
->> index 8ffa1e95d8e86..6fae2d4a053a1 100644
->> --- a/drivers/usb/chipidea/ci_hdrc_usb2.c
->> +++ b/drivers/usb/chipidea/ci_hdrc_usb2.c
-> [ ... ]
->> @@ -99,10 +94,6 @@ static int ci_hdrc_usb2_probe(struct platform_device *pdev)
->>  	pm_runtime_enable(dev);
->>  
->>  	return 0;
->> -
->> -clk_err:
->> -	clk_disable_unprepare(priv->clk);
->> -	return ret;
->>  }
->>  
->>  static void ci_hdrc_usb2_remove(struct platform_device *pdev)
-> 
-> [Severity: High]
-> Does this conversion also require removing the manual cleanup in
-> ci_hdrc_usb2_remove()?
-> 
-> Since the clock is now managed by devm_clk_get_optional_enabled(), it will
-> automatically handle disabling and unpreparing the clock when the device
-> is removed. 
-> 
-> Leaving the manual clk_disable_unprepare(priv->clk) in ci_hdrc_usb2_remove():
-> 
-> static void ci_hdrc_usb2_remove(struct platform_device *pdev)
-> {
-> 	struct ci_hdrc_usb2_priv *priv = platform_get_drvdata(pdev);
-> 
-> 	pm_runtime_disable(&pdev->dev);
-> 	ci_hdrc_remove_device(priv->ci_pdev);
-> 	clk_disable_unprepare(priv->clk);
-> }
-> 
-> appears to result in a double disable and unprepare of the clock during
-> device removal, which could lead to unbalanced reference counts and trigger
-> kernel warnings.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Ok, I will fix this in v3. Thanks.
+New issues:
+- [High] The `vs_dc8000_panel_enable_ex` and `vs_dc8000_panel_disable_ex` f=
+unctions incorrectly modify the `VSDC_FB_CONFIG` register using the `VSDC_F=
+B_CONFIG_RESET` bit, instead of setting the `PANEL_CONFIG.RUNNING` bit.
+- [High] The `vs_dc8000_crtc_begin` and `vs_dc8000_crtc_flush` functions ha=
+ve inverted logic for the `VSDC_FB_CONFIG_VALID` bit.
+- [Medium] The `vs_dc8000_irq_ack` function reads `VSDC_DISP_IRQ_STA` but f=
+ails to perform any hardware write to clear the pending hardware interrupts.
 
+Pre-existing issues:
+- [High] Early interrupt registration in `vs_dc_probe` causes a NULL pointe=
+r dereference if an interrupt fires before DRM initialization is complete.
+--
+
+commit 71018d22eb0156b0806e61d4495897f9c4f2d35b
+Author: Joey Lu <a0987203069@gmail.com>
+
+drm/verisilicon: add DC8000 (DCUltraLite) display controller support
+
+This commit adds support for the DC8000 (DCUltraLite) display controller
+generation to the Verisilicon DRM driver. It introduces a new vs_dc_funcs
+implementation that directly latches framebuffer updates through FB_CONFIG,
+handles panel output, and acknowledges VSYNC interrupts.
+
+> diff --git a/drivers/gpu/drm/verisilicon/vs_dc8000.c b/drivers/gpu/drm/ve=
+risilicon/vs_dc8000.c
+> new file mode 100644
+> index 0000000000000..df7bd5bdd7f2a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/verisilicon/vs_dc8000.c
+> @@ -0,0 +1,92 @@
+
+[ ... ]
+
+> +static void vs_dc8000_panel_enable_ex(struct vs_dc *dc, unsigned int out=
+put)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_RESET);
+> +}
+> +
+> +static void vs_dc8000_panel_disable_ex(struct vs_dc *dc, unsigned int ou=
+tput)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_RESET);
+> +}
+
+[Severity: High]
+The commit message states that "panel output starts as soon as
+PANEL_CONFIG.RUNNING is set", but vs_dc8000_panel_enable_ex() and
+vs_dc8000_panel_disable_ex() modify VSDC_FB_CONFIG with the
+VSDC_FB_CONFIG_RESET bit instead of setting the PANEL_CONFIG.RUNNING bit.
+Will this cause the panel output to never start and inadvertently hold the
+framebuffer in reset?
+
+> +static void vs_dc8000_crtc_begin(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_set_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			VSDC_FB_CONFIG_VALID);
+> +}
+> +
+> +static void vs_dc8000_crtc_flush(struct vs_dc *dc, unsigned int output)
+> +{
+> +	regmap_clear_bits(dc->regs, VSDC_FB_CONFIG(output),
+> +			  VSDC_FB_CONFIG_VALID);
+> +}
+
+[Severity: High]
+Does this invert the logic for the VSDC_FB_CONFIG_VALID bit? By asserting
+validity in vs_dc8000_crtc_begin() before plane register updates occur, and
+de-asserting it in vs_dc8000_crtc_flush() after the plane state is written,
+could this prevent the hardware from latching the correct configuration and
+lead to visual corruption?
+
+[ ... ]
+
+> +static u32 vs_dc8000_irq_ack(struct vs_dc *dc)
+> +{
+> +	u32 hw_irqs, unified =3D 0, known =3D 0;
+> +	unsigned int i;
+> +
+> +	regmap_read(dc->regs, VSDC_DISP_IRQ_STA, &hw_irqs);
+
+[Severity: Medium]
+The commit message implies the VSYNC interrupt is acknowledged through
+DISP_IRQ_STA/DISP_IRQ_EN, but vs_dc8000_irq_ack() only reads from
+VSDC_DISP_IRQ_STA without performing any hardware write to clear the
+pending interrupts. If the register does not auto-clear on read, could this
+missing clear mechanism cause an interrupt storm and hang the system?
+
+> +
+> +	for (i =3D 0; i < VSDC_MAX_OUTPUTS; i++) {
+> +		known |=3D VSDC_DISP_IRQ_VSYNC(i);
+> +		if (hw_irqs & VSDC_DISP_IRQ_VSYNC(i))
+> +			unified |=3D VSDC_IRQ_VSYNC(i);
+> +	}
+> +
+> +	drm_WARN_ONCE(&dc->drm_dev->base, hw_irqs & ~known,
+> +		      "Unknown hardware IRQ bits: %#x\n", hw_irqs & ~known);
+
+[Severity: High]
+This is a pre-existing issue, but in vs_dc_probe() the interrupt line is
+registered and unmasked via devm_request_irq() before vs_drm_initialize()
+is called. If an interrupt fires early (e.g. left over from the bootloader),
+vs_dc8000_irq_ack() will be called while dc->drm_dev is still NULL, causing
+a NULL pointer dereference when accessing &dc->drm_dev->base here. Can the
+interrupt registration be deferred until DRM initialization is complete?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908092840.2252=
+20-1-a0987203069@gmail.com?part=3D4
