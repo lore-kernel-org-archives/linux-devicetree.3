@@ -1,133 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819435A5131;
-	Tue,  8 Sep 2026 19:06:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DCB75A5132;
+	Tue,  8 Sep 2026 19:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788894384; cv=none; b=Ch5C2eQiM1/DxGp6HAIJ7IwmTm81H0mAOp/Gir0bTfmGuvgDef9GEnW+EB7azMVmrCThYaZEnl/FmwNa8LEZjCO9AUXhrPI/OlOEBp1yN9C9gMI+tVZfysdCl5RjRsN8BfIeQUFjgID0xN8Mkr/MfzSsZgAkNWS5uuJvxuZ4EGU=
+	t=1788894643; cv=none; b=PxQFXPJ4rFTFG6mPbc1CdBa53ls81LVN5NZ8+CpJpJv9mDULtYGyhJ7C6s8vSE5bvNBhSjOGBVYeTX9SqAwBs24kM/cwy00peWm8kBeqA/1kDmdhhT7sj3n0odgOV2D4HfQSl/M02kMmgKwf9VQU834QT3G030kVKbzPVuvaAgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788894384; c=relaxed/simple;
-	bh=fViLGx/9MvVKD74qWjWa0+YbBrjhT8B0nMMeb53Z95E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AIcQVJd/7JsrgvL7eT59NVe0USzGPZdJia6VICqaiuTqElH/o+oxLmQeXY9AFxTE0rz/K2CmwrkyAgob2+HLZkbqHBTF/H6QjVcEvU+qWop02ccc03ioKzn6pXuoMt/iGjL7Jd8XQ+IZiHzMA3o69HwKx+B2We075fi+mUzSfP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MP2UYmI/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788894643; c=relaxed/simple;
+	bh=UB+elDH9fL9e7rU2w0OYCl7Zw8p4Ewx0PKVNLlTwTX4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGRj+JpQDXjLLsb3nMKDmmylU/5fPR98tbC0C1saZU+n90zwMc0NEOUxdPRa+nLWAe9F3AYruWYN/B0ggxrKKRKWOSVapnJ+cwQsXHe+uzJhS04zRGpSNWzFoDOKG/p9RxyqgLQZJCGrD1yqd3sVi2aegGglCrKtTlD6GK2ytSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=baP90ovS; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MP2UYmI/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6FD61F00A3A;
-	Tue,  8 Sep 2026 19:06:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788894383;
-	bh=YIqTcSA+AXu0Tj9KdjRHU1rvVOzldf73AMr/cfV9FB0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MP2UYmI/CWmr5D4BBqLozzvkc+oQf/cjgnqaZYMlUeH5VQF6M7PCb6804rvI5J1LN
-	 9+CwAKwQ13EWsSUWQgPXRhQcX4cWVBYQJ0G926eb7wtH7ZWaiZkeNGIpm2TSr+fsdC
-	 z/D9IDIiC0/mwrHl9tqJZEYCNKiILPrjjh1Xu7Gdp/bU78jFmknE8u8hmpi1ZwNjju
-	 H3Vma5ZZUPiqyoiGVb/tT0paDhFunE04Gixt0vRN5iAC5MbCyf1DmASLaZ0814xuc7
-	 0ZFsxPDDmjCGTy+RY/rr4tPSZhwhwCxhkzghSDo96i9YCuOpFd+mFBzSJwQy2ZStiY
-	 RFIO8NE7caiog==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 - dt-bindings: maxim-ds1302: Convert to dt schema v2]
-  dt-bindings: maxim-ds1302: Convert to dt schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sudheendra Sampath" <giveback4fun@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20260908190137.1168904-1-giveback4fun@gmail.com>
-References: <20260908190137.1168904-1-giveback4fun@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 19:06:22 +0000
-Message-Id: <20260908190622.B6FD61F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="baP90ovS"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=MKMYqfrBrMYn/5yN5icicfB7HmLakHz70UZ6nQbvNdw=; b=baP90ovSn7yOGV68CQ06bT8wE1
+	k0BGocz5+SarcWptS3sR04aBuqrSN74A9bXsORuET3nbqB1sVHekniMG9n0B6bcOq1QHk2xI+qPbH
+	1m3tiFro2xqEJwLmMaUpBp0kD8INOOvi//B1SJIGCCy7J57jVh6cUZNSe7c0Kv6ge1Wo=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x41DC-003yBG-It; Tue, 08 Sep 2026 21:10:30 +0200
+Date: Tue, 8 Sep 2026 21:10:30 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
+ switch
+Message-ID: <df6dc527-8b4a-4775-828a-2633369277cd@lunn.ch>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
+ <28f8ec21-162a-4c2c-8e01-6586f39f06f8@lunn.ch>
+ <041e2884bc1aa1725a86efd413e2e3301b54d91d.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <041e2884bc1aa1725a86efd413e2e3301b54d91d.camel@linutronix.de>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] spi-max-frequency is incorrectly restricted to an enum of exact =
-values, preventing valid lower frequencies.
-- [Medium] spi-cs-high is unconditionally required, breaking setups with in=
-verted hardware CS.
-- [Medium] The binding defines an SPI peripheral and RTC but fails to refer=
-ence standard core schemas.
-- [Low] The YAML conversion silently removes the device tree example sectio=
-n.
---
+On Tue, Sep 08, 2026 at 08:15:35PM +0200, Vasilij Strassheim wrote:
+> On Mon, 2026-09-07 at 21:04 +0200, Andrew Lunn wrote:
+> > > +    patternProperties:
+> > > +      '^mdio@[0-9a-f]+$':
+> > > +        $ref: /schemas/net/mdio.yaml#
+> > > +        unevaluatedProperties: false
+> > > +
+> > > +        properties:
+> > > +          reg:
+> > > +            maximum: 30
+> > > +            description:
+> > > +              MDIO controller output index, which must be lower than the
+> > > +              number of implemented switch ports.
+> > 
+> > Is there a relationship between an MDIO bus and a port?
+> 
+> Yes, there is a one-to-one relationship for this IP. The MDIO bus
+> selector corresponds to the switch port index.
+> 
+> > 
+> > I'm just wondering if the MDIO bus should be a property of the
+> > port. There are switch which have an MDIO bus per port.
+> > 
+> 
+> I see this model in the new NETC switch binding. I will move the
+> optional mdio node below the corresponding ethernet-port@N and derive
+> the selector from the port's reg.
 
-commit 4b0cc4e2d5ae6befdb10a7457cde3f6698ee83c7
-Author: Sudheendra Sampath <giveback4fun@gmail.com>
+Since this is an FPGA, i assume there are no internal PHYs. Mixed mode
+is not something FPGAs do. There are sometime "interesting"
+relationships between port number and address on the MDIO bus. But
+without internal PHYs you don't need to worry about this.
 
-dt-bindings: maxim-ds1302: Convert to dt schema
+> > > +patternProperties:
+> > > +  '^(ethernet-)?ports$':
+> > > +    patternProperties:
+> > > +      '^(ethernet-)?port@[0-9a-f]+$':
+> > > +        $ref: dsa-port.yaml#
+> > > +        unevaluatedProperties: false
+> > > +
+> > > +        properties:
+> > > +          reg:
+> > > +            maximum: 30
+> > > +            description:
+> > > +              Switch port index. Supported switch configurations have
+> > > +              up to 31 ports, numbered from 0 through 30.
+> > 
+> > 30 seems odd. Is 31 something special? 
+> > 
+> 
+> The hardware stores the port count directly in a 5-bit field, so 31 is
+> the maximum representable count. Therefore, valid zero-based port
+> indices range from 0 to 30. The switch documentation is unclear about
+> the encoding, but I tested a three-port configuration and the field
+> contained 3.
 
-This commit converts the Maxim DS1302 real-time clock text binding to the DT
-schema format based on code review comments.
+So in theory, a 0 port switch is possible!
 
-> diff --git a/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml b/Do=
-cumentation/devicetree/bindings/rtc/maxim-ds1302.yaml
-> new file mode 100644
-> index 0000000000000..54a2fcf7f8e7b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/maxim-ds1302.yaml
-> @@ -0,0 +1,50 @@
-[ ... ]
-> +  spi-max-frequency:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: DS-1302 has 500 kHz if powered at 2.2V, and 2MHz if pow=
-ered at 5V
-> +    enum:
-> +      - 500000
-> +      - 2000000
-
-[Severity: Medium]
-Does this restrict spi-max-frequency too strictly? Schema validation might
-fail for perfectly valid device trees that specify frequencies other than
-500kHz or 2MHz (e.g., 250000) to ensure signal integrity.
-
-Should this use a constraint like maximum: 2000000 rather than an exact enu=
-m?
-
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - spi-max-frequency
-> +  - spi-3wire
-> +  - spi-lsb-first
-> +  - spi-cs-high
-
-[Severity: Medium]
-Will this unconditionally require spi-cs-high and break backwards
-compatibility for existing setups?
-
-The original text binding noted that this property is required unless inver=
-ted
-in hardware. Forcing it globally in the required list might reject legitima=
-te
-hardware configurations where the chip select is hardware-inverted.
-
-> +
-> +additionalProperties: false
-
-[Severity: Medium]
-Does additionalProperties: false incorrectly reject standard SPI peripheral
-properties here?
-
-If a device tree uses properties like spi-cs-setup-delay-ns or
-spi-rx-delay-us, dt_binding_check will throw an error. Should the schema
-include references to /schemas/spi/spi-peripheral-props.yaml# and rtc.yaml#,
-and then use unevaluatedProperties: false instead to properly inherit stand=
-ard
-capabilities?
-
-[Severity: Low]
-Is the examples block missing from the end of the schema file?
-
-The original text file included an example demonstrating node placement.
-Without it, dt_binding_check cannot validate the schema against a concrete
-instance, and the usage documentation is lost.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908190137.1168=
-904-1-giveback4fun@gmail.com?part=3D1
+   Andrew
