@@ -1,166 +1,202 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA935964FD
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:47:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13125599A2F
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:49:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889644; cv=none; b=TBo0GgqsW8pRX/t9dmp2LTDAFpkBposcNZ4D+Q6A3zqmj4kSsCDUkCJ8yuqPlleN9mS4io0OOYhxhDk/nRoUEf/VDPln5aIl/Y3Zz6n64ctyIRLAYxVI5+xBAvlPGUgVeHilLXruCmg5rCjB4r9eKCW8STGh5RDxNTtZYoqHg3U=
+	t=1788889766; cv=none; b=apr14ms6o6qCgjc5zf7E3ijhUmNK4FUepQLa4Ny5WYLJsai4+Tc8Jcd3iV1ZZjsHygSVi4EtyqSCAQHwIQXkQWvtrlqTobGXFMaNR+6yK5Or6EIrHWnUzUeXckBzWfZx/jAQ+Hdd9WhbuHHQdtGMCImI1kEkANaUlRW6ZcU5Jh8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889644; c=relaxed/simple;
-	bh=U/7Pe7r0ZMKz37Lw42Lm+e/3S1UsI243tV/LJVvgzbA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Iua02odx31es3VKzFW2obUoyi+DH5P9r33YRLeGUsdgyul+a3TSMRIwjexmpdaZWx11f+3eIj+jRwDBuY2hP2QBTax5P/Pbusx/EEX2MJBuR5359fLSZbQ5PIgr1qgiAEkV9EuewAhGdJrIv5N5Szg+lXQaGTgcLBEkAK4nWZdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mY6IwZz9; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788889766; c=relaxed/simple;
+	bh=mWaxN87JC2EDFezne34c7EaHfBw90oiDI4rQKPLfvvU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Yj1ASPgBEtcuLEpKakiyeSwG9YMOScV5n3AaaCnH7B8YqoZn4e/NB2+QjAkGfxb16H5VyZ+KqXnaq5KwqPNSw5U1utKly160GXcArhT0qUyB/Iiik7bVKHOk5Q2GDBiMdRJw0W/P4lo0PXdddGIJyt7YQ6kEczRpWnq67o7KnWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kcvmtLm+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KSo7tkNW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mY6IwZz9"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b5e50eb70so105005e9.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 10:47:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kcvmtLm+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KSo7tkNW"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Fdap9360098
+	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 17:49:24 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	vXpB3HjGCxpveG5hbmpDHm8SjVKdHjWqdRtp8+xhDXg=; b=kcvmtLm+rk8tRsVG
+	EO/cUkorf9R8iho59kOuEkIxzUHpyBJbJ2uUFEbPkKRNSoXGMnjVJwQ/YgBWuv2R
+	aHV91uZn+k5kRwSWofrb0Z8nv0KhVmrBqbs8R85Rp1fKzqasOuoqngI66qY2Faox
+	mYTkaMutXs/qSuBE9ZCkwovTKdLdkciH1oEVlrRIsHGe7oxPgZG2hbP2/whgIgWC
+	hAWlWdlpxz6baK9YlsoTO7naq7iFryvmJIZhMIA9LrU+fCw7EvkoMLFWSsD8prkH
+	sxLrO40KxsAn1IHpGVPDrt5oKPM7OhwnAA4Wt5wJmt3LK8y9v98nG2LdmFtK1+pL
+	ejm9ig==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjb0pbe8s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 17:49:23 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-785b66a7017so1162855137.2
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 10:49:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788889640; x=1789494440; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UCVkwa3k8DOjVmDVZ4RnssOFce+vSofrYawaYtydteo=;
-        b=mY6IwZz93LchzX5l9nwHvr3uMOaq3cXh6x1jiVxdhOUFDu6xVap9hvRiRbZQMjGGMG
-         PZhsYg8An9FMofmGOEVyu5S9Hdx1HZej5Hf5flQgFPP2gdphrj+TbzXCArGvCxURKyQR
-         iFLQdLow/a6ZU4kkOMRxTqxzdVAKS13M9rSUcxQr4+ae/h6O2GiWGaTrB1h10Tl9ss1U
-         jPgvajk7+p4oYGEcLZaHvQ8apdIR1+QCIPQEs4Ag7F9PIRrR6gWW3FetOoQsa3ihZAWj
-         hzYpzOhbZdUK+ek8eP2yPCRmssUmZZg/DDWcmLp8u403WbWQIVm3qji1KeK3TD7Vjp30
-         c4iA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788889640; x=1789494440;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788889763; x=1789494563; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=UCVkwa3k8DOjVmDVZ4RnssOFce+vSofrYawaYtydteo=;
-        b=jHANjXlK8ZqWJV9zw0w3a7o+ry+ZFq5k3SDS//ImWFL2U0WrfB2s+bGMZ+6kTjYZl3
-         heZqeZfdUCAYhUbjaRqMiIi8/ZWPLHWRlzSWYT1o6JDfkV3FQwVego5i6eJToO/WycgM
-         OpiosqugMX/6Jk3ivOGhLYqfotq7eXNgsbNsX+dxqWGRfe6509W/fCwCSnexqENNtRT8
-         Ch/RcN/3dIgG5GkwsfCUrcl5uFwa9+UgpBRbDS0D8NYblrNOtslD3V++dVjFqgWW6mXQ
-         CJ8rrjcOS8cQC7LAupazh8jpsWMwkaCqz3nzjffhU72G4Y5ygiO9ZYh/zoJKKy83gzLR
-         vYNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFaTwoxCEhQauPRq9fXzZ5TRRtq2kn7ibaDwRhdvu4cGn0BgrKnmuZP/InEiMpz/LJg7Y26SCfunaU@vger.kernel.org
-X-Gm-Message-State: AFuF++nBxaOCvzg/gmHcY1Q/LBUHcvB3jVJErG52Q0admWbKXHSb4+vy
-	v7YmHSdsBBFvGjgEP3xYKRA/NRScF8ZBquYyFv+ZnYyAVJKjdkOwKi18fAu/ugOJwA==
-X-Gm-Gg: AYBFou3hVGtAU/+nfN0fus/52/ijsFSOC//vFTRi9JR5EeYeB45TDpBZ5fZU/tJwr3M
-	Gkp+NZD469R8+l+IV5n7lXz5mksctcK3CN4EI1XUaBEEd0JDzI7yHBUpylnLySccDVg2KzOvwWl
-	30mXPGPkCvLMWD3otf7LdNunVFc3iwkJxr9le6Vm3Y1LFvg2kPAv7Tl+ndik3x0o5n3KiCLybNw
-	BccU2IQ5qDQmSldLUhygHikkh1hl20P55XAqpKyQdArdsOZSNVjZ2wj8m+mNxA+E5Vun/M81eHv
-	yLrd4rmVIQwP0otMvR3rn92LPTcE+XzWTLtqr69m2oxHwaxQacDS6cNUQM7i4RUkHllRPJSN/d/
-	WJtNOhNuunia1Xj7tTsOFTp+zuaPcXdtk1X0odtN17caQ6Bb8VrBoPLPSFH83tWBxPzZgUNRdAH
-	7bWLxvzPvGDSgbIEnMGcuPK0Yx6ZpWWcx0dtssyx4EVYey3VXUgcYT1RXwA0gdf66SLcz73shgO
-	BaZB7rxsRy/s1RveRSKEJXnvWFi8Q==
-X-Received: by 2002:a05:600c:1c20:b0:49c:e7a9:ebd6 with SMTP id 5b1f17b1804b1-49d01daafe2mr3937845e9.8.1788889639702;
-        Tue, 08 Sep 2026 10:47:19 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48594172546sm29337706f8f.15.2026.09.08.10.47.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 10:47:18 -0700 (PDT)
-Date: Tue, 8 Sep 2026 17:47:15 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-Message-ID: <aqBKI0Fg3ZqYPOJh@google.com>
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <ap_PdUrwLIVGJ3oG@google.com>
- <dcae935c-ccbb-4cb5-a184-eb5dc2cc84b8@oldschoolsolutions.biz>
- <ap_qwdz-3WibXRjq@google.com>
- <364326dc-9715-4e77-bf25-4d0a30179826@oldschoolsolutions.biz>
- <ap_69OsnAOwQyo50@google.com>
- <9762659c-fbde-4887-8da8-200db7dfad09@oldschoolsolutions.biz>
+        bh=vXpB3HjGCxpveG5hbmpDHm8SjVKdHjWqdRtp8+xhDXg=;
+        b=KSo7tkNW5WJKzMJHyMLdrf9bUEpI4LHpPAnVo5LcG/UgdNU308mI8IEJOoeGnkgXLf
+         8iKxnJ06YT+rE1b+2AWSw9cU+0RhFe3MQgRrm+cp9M1VhZHdhw3EDrzRiCqjK3JmFQzs
+         KI9nl94W6fV7q+7HJVx1h7ETBeYHDRx2pVSei3DWuTzkJVKzPOvNu+jIEd/eLXsYAY7b
+         4sGo5r6Kg2+GOWsNNt1QS3z2OjcPnCVwH/6VBjKjHiFSM9yRsK8JHBnwxenBTYEz8cRg
+         w00q5LvExKv3KON6j4VnimYMxiDEEy8zwC6EQRQM5lhSM+sH6a9cg9Fn/pDQcRlvlqrv
+         zXNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788889763; x=1789494563;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vXpB3HjGCxpveG5hbmpDHm8SjVKdHjWqdRtp8+xhDXg=;
+        b=RlST2vMHWT4osmKkdDpR+ZPd2/6e2aRvM2QONSQqHTxgDqmQM+U93nhnZbc6+PXPWt
+         v4M2W9ZKSjDBRthUoCxvLmMySI9TmfjRic6Ocpt9VGXzDt+Lv+zDvODfOvQRjr8L0QSG
+         R5VcMjC+cYQfNwjXK6k51r0qQq2GW/z2gZntf4apvmjW23pJkcOYAQRHMVk6fUw8d7P1
+         pWSQs45bw4fZHUzhCM1laeuj7jduwOZ/fLfSWT81ByPkwRIsTTVmj+w6B/9AEArV3YcX
+         guvKf1dv9MPAOxBceTq8Wi/luTPl9R8LKfjP19J+Tp4Xbc0ML3fiyFdNU7gstkE5oPOk
+         PTtA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQZ3M+w7FF5I5Oc7Ks6ydqsQGBMoazr2xXZUgtTylj/54G3omaZWBCZi3g/i4k/5u7YxRvWQDHs9Tv@vger.kernel.org
+X-Gm-Message-State: AFuF++luKo3e3/N3Q3CJ53/19duNcBY+Uhb+ikS6PIctiqmawjXPFK6A
+	4pjx8wu0WBEgZhnxBKP7xH5xGtfcpkuqQBBgVHbS86zun2kulPBlepyIYDAxG+DNthcfviqlb9C
+	lJPmGSrnqFLeNRBDqbEwGsExqfRBRT0vjVWgdgQS25eYMkWLKg+o/oSaFmLfoTcA+
+X-Gm-Gg: AYBFou08vJXFYJoWkr/zAD0kScTwajZ2e51RWIzSc/wHtnxzj9bg93dOqvBDPPFaFCT
+	DhsTzext5LpoXvcfTHsv0l8hfsHrnVdxnuwSG3iHDvudpfu3jq4c0/pY2g4Rw3rdY/S86/83nm5
+	VB55VdbmAgGVAAomWIa1YtBYx4q2/HiUOBMpgWoFVmYZlNlb1JXpzPOJo0gUJA2ExtHr88egm+z
+	Z09ldisHXBLCrD9AO5a0EDpI52RS781htgzAucVP5hSWL5Oj5HFyHTghgPaIKoJCeI56QY8qBJI
+	/4tnhhRHiLsWxjhqE1VSx/mnJVbYo5sNMwl+WW1D+cDNwwsUv0tDMORsCSYVthaQhATxOTZi4eR
+	n8gfTCwJAFud7WS7pgAJct2SITWg=
+X-Received: by 2002:a05:6102:38c7:b0:779:e75e:63c6 with SMTP id ada2fe7eead31-78a4a99f93emr11680300137.12.1788889762895;
+        Tue, 08 Sep 2026 10:49:22 -0700 (PDT)
+X-Received: by 2002:a05:6102:38c7:b0:779:e75e:63c6 with SMTP id ada2fe7eead31-78a4a99f93emr11680279137.12.1788889762354;
+        Tue, 08 Sep 2026 10:49:22 -0700 (PDT)
+Received: from [192.168.68.120] ([5.133.47.210])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49ce5563c6csm413124815e9.4.2026.09.08.10.49.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 10:49:21 -0700 (PDT)
+Message-ID: <1b0b1079-2646-41e2-a513-6513934e8ba6@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 18:49:20 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9762659c-fbde-4887-8da8-200db7dfad09@oldschoolsolutions.biz>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/11] ASoC: SDCA: export PM helpers keyed on
+ sdca_class_drv
+To: Charles Keepax <ckeepax@opensource.cirrus.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Jaroslav Kysela <perex@perex.cz>, Liam Girdwood <lgirdwood@gmail.com>,
+        Maciej Strozek <mstrozek@opensource.cirrus.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+        Takashi Iwai <tiwai@suse.com>,
+        Faiz Nabi Kuchay <fkuchay@oss.qualcomm.com>,
+        Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+        patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260907083727.733705-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260907083727.733705-3-srinivas.kandagatla@oss.qualcomm.com>
+ <aqA2W+hSCjLVIa2m@opensource.cirrus.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+In-Reply-To: <aqA2W+hSCjLVIa2m@opensource.cirrus.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: kp0L0YdH7iOmBZEwy6FjmLTBdU0yY9wN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE5MyBTYWx0ZWRfX1fZXoqbFx5Dw
+ U21qG9KauqMju6DRgl/aJVdIbgj9t1jVjtfagaiN10XUp8z4k4mRhzMQWGs3YJgPm3N8jo1usOB
+ nXVYGz2fCDxgyNp4RZkPDGezZOIgoC0=
+X-Authority-Analysis: v=2.4 cv=HL3z0Itv c=1 sm=1 tr=0 ts=6aa04aa3 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=tyrENRfuTtrdjV8_xjIA:9 a=QEXdDO2ut3YA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-GUID: kp0L0YdH7iOmBZEwy6FjmLTBdU0yY9wN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE5MyBTYWx0ZWRfXyBVJisrVdWud
+ Rz4jvyvg0P7IVfvLS/o4c/gjGDJFGUoxRQOOgdTXReY8ebV1ZpV4wtrZ4k2m6ouiUUo9kf453l/
+ B+9Cg3XzUSy+fcHlUfM+MOkwO0GTsUbLxpQZEGxzZqOJk8lA6RgCTyJUdPEHBlcTPHN/hJyaYfM
+ m1aGUr6ed0RsirZjdGhlWf4LWdB6dtPAhtFxWEHalBfL7kotT5fD4/U2fwltYGj2CQ/Btkab/Jt
+ iMKJ6gK2A8IvB0tyCZVWNy3KLe6RmMySNSvI/9F11hlsEkhp/S8/QqBBvtQ1cf/ijJZF7WlTI2K
+ Tzg3xuZsRQuUitjtzT8vG5vsbWF9HnmG/7f5XsnmMig5k4ZGUloLlHDqgsA5DuRCD3TxbIbR42i
+ 8HZReuz7z0wKKKGVaVpaG92rAHdEuUqJmvkThvom0OywykTLE9V9FxOiYCgTsztUnfKbazCi0DQ
+ mCXcpT7cMFCPeAEGJTQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609080193
 
-On Tue, Sep 08, 2026 at 05:04:44PM +0200, Jens Glathe wrote:
-> Hi Mostafa,
+On 9/8/26 5:22 PM, Charles Keepax wrote:
+> On Mon, Sep 07, 2026 at 09:37:16AM +0100, Srinivas Kandagatla wrote:
+>> The class PM callbacks pull sdca_class_drv out of drvdata, so the
+>> built-in class_sdw_driver owns the drvdata slot.  That works for the
+>> generic case but blocks codec drivers that want to embed
+>> sdca_class_drv in their own private struct -- they need drvdata for
+>> their codec priv.
+>>
+>> Split the four callbacks into exported helpers that take a
+>> struct sdca_class_drv * directly:
+>>
+>>   sdca_class_system_suspend()
+>>   sdca_class_system_resume()
+>>   sdca_class_runtime_suspend()
+>>   sdca_class_runtime_resume()
+>>
+>> Codec drivers can now compose these into their own dev_pm_ops without
+>> going through drvdata.
+>>
+>> For the built-in class_sdw_driver, add small dev_pm_ops wrappers that
+>> fetch drv from drvdata, wire them into sdca_class_pm_ops, and export
+>> the ops so any generic SDCA slave can pick them up as-is.
+>>
+>> No functional change: the built-in class_sdw_driver keeps the same PM
+>> semantics; only the internal plumbing shifts to operate on
+>> sdca_class_drv instead of struct device *dev.
+>>
+>> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+>> ---
+>> +/*
+>> + * PM helpers.  Codec drivers embed sdca_class_drv in their own priv,
+>> + * own dev_set_drvdata(), and compose these into their own dev_pm_ops:
+>> + *
+>> + *	static int wcd_runtime_suspend(struct device *dev) {
+>> + *		struct wcd_priv *priv = dev_get_drvdata(dev);
+>> + *		return sdca_class_runtime_suspend(&priv->class);
+>> + *	}
+>> + *
+>> + * The built-in class_sdw_driver in sdca_class.c uses sdca_class_pm_ops
+>> + * directly because it stashes the sdca_class_drv in drvdata itself.
+>> + */
+>> +int sdca_class_runtime_suspend(struct sdca_class_drv *drv);
+>> +int sdca_class_runtime_resume(struct sdca_class_drv *drv);
+>> +int sdca_class_system_suspend(struct sdca_class_drv *drv);
+>> +int sdca_class_system_resume(struct sdca_class_drv *drv);
+>> +extern const struct dev_pm_ops sdca_class_pm_ops;
 > 
-> On 9/8/26 14:09, Mostafa Saleh wrote:
-> > I don't have a display connected (never managed/bothered to enable it).
-> > 
-> > Can you please share your .config, I can test with it, just to eliminate
-> > the possibility it's causing the issue.
-> > 
-> > Thanks,
-> > Mostafa
-> 
-> This is my .config [1].
-> 
-> [1]: https://pastebin.com/QhDizqCB
+> I don't think we use sdca_class_pm_ops outside the class driver
+> here, I would leave that internal unless we have a need for it.
+You are right, I will remove this in v3.
 
-Thanks! I tested with your config plus
-- CONFIG_EFI_ARMSTUB_DTB_LOADER=y otherwise I can't load my device
-  tree from UEFI shell
-- CONFIG_SERIAL_QCOM_GENI=y, otherwise I can't see the console.
-
-Booting in EL2 is similar to before with SMMUv2 errors.
-
-Booting in EL1 hangs with timeouts and missing suppliers:
-[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x512f0011]
-[    0.000000] Linux version 7.3.0-rc1-next-20260904+ (smostafa@mostafa1.c.googlers.com) (Debian clang version 21.1.8 (3), Debian LLD 21.1.8) #2 SMP PREEMPT_DYNAMIC Tu6
-[    0.000000] KASLR enabled
-[    0.000000] Machine model: Lenovo IdeaCentre Mini 01Q8X10 (Purwa)
-[    0.000000] earlycon: qcom_geni0 MMIO:0x0000000000894000 (options '')
-[    0.000000] printk: legacy bootconsole [qcom_geni0] enabled
-[    0.000000] CPU features: SYS_ID_AA64MMFR0_EL1[63:60]: forced to 1
-[    0.000000] ITS@0x0000000017040000: Devices Table too large, reduce ids 32->19
-[    0.000000] ITS@0x0000000017040000: Devices too large, reduce ITS pages 1024->256
-[    0.163152] qcom-pcie 1c00000.pcie: supply vdda not found, using dummy regulator
-[    0.163313] qcom-pcie 1c08000.pcie: supply vdda not found, using dummy regulator
-[    0.168334] clk: Not disabling unused clocks
-[    0.168336] PM: genpd: Not disabling unused power domains
-[    0.170770] qcom-pcie 1c00000.pcie: supply vddpe-3v3 not found, using dummy regulator
-[    0.178347] qcom-pcie 1c08000.pcie: supply vddpe-3v3 not found, using dummy regulator
-[    0.184718] qcom-pcie 1c00000.pcie: supply vdda not found, using dummy regulator
-[    0.211932] Warning: unable to open an initial console.
-[    0.212057] qcom-pcie 1c00000.pcie: supply vddpe-3v3 not found, using dummy regulator
-[    0.213907] qcom-pcie 1c08000.pcie: supply vdda not found, using dummy regulator
-[    0.213928] qcom-pcie 1c08000.pcie: supply vddpe-3v3 not found, using dummy regulator
-[    0.244210] qcom-pcie 1c08000.pcie: supply vdda not found, using dummy regulator
-[    0.244275] qcom-pcie 1c00000.pcie: supply vdda not found, using dummy regulator
-[    0.251833] qcom-pcie 1c08000.pcie: supply vddpe-3v3 not found, using dummy regulator
-[    0.259418] qcom-pcie 1c00000.pcie: supply vddpe-3v3 not found, using dummy regulator
-[   10.213618] qcom-pcie 1bf8000.pcie: supply vdda not found, using dummy regulator
-[   10.214873] arm-smmu 3da0000.iommu: deferred probe timeout, ignoring dependency
-[   10.228713] arm-smmu 3da0000.iommu: probe with driver arm-smmu failed with error -110
-
-With that config my device tree doesn't boot also and hangs similar
-to above.
-
-I believe we are testing on different SoCs from your fastfetch:
-CPU: Qualcomm Snapdragon X Elite 1E80100 (8) @ 2.96 GHz
-
-While mine:
-CPU: Qualcomm Snapdragon X Elite 1P42100 (8) @ 2.96 GHz
-
-I enabled CONFIG_QCOM_SOCINFO which shows:
-[root@alarm ~]# cat /sys/devices/soc0/soc_id
-635 # which does not exist in qcom,ids.h
-[root@alarm ~]# cat /sys/devices/soc0/revision
-1.0
-
-Thanks,
-Mostafa
+--srini
 
 > 
-> with best regards
-> 
-> Jens
-> 
+> Thanks,
+> Charles
+
