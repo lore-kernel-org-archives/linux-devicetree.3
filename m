@@ -1,127 +1,360 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010026.outbound.protection.outlook.com [52.101.201.26])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 096155AEC5B
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 19:21:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895267; cv=none; b=ZL8OgAot2jEbCW5O/G31TccKtnS99XOAHMAIpMvmietfx1hzpKotJ9erVXmobWAvTlUfjbwcsNlpJGYM+vfSVM+ibazFt6pg7UdFukrpB7pDbBwagzN61bC7ID/oWJ+F3hRiBpJo0ZdMo5z5mNkHfSPyrhONlKlUGTUzmML/y1g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895267; c=relaxed/simple;
-	bh=6A1+E/vOD7X29NvY+oVvPlZs2BNXNhPpx7MgYd5DIlE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gd65NYYzdm1LaYTPpYY/owWF/nWPdpeIoxucsba7FjLGtDIfc5sTjNW+7voFvTa67X5lBXkOphY5yYPpm5OV4C+9JTfjLmYYzu5KdLxWvtXfwjWquTAxUYXEzOQa+PqIuWG9hg5jng58Wij4ncv4wOZykgGiSm+wy/6bjFzAhlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BWHzRgJp; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450795AEC64;
+	Tue,  8 Sep 2026 19:21:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.26
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788895268; cv=fail; b=WAzz7mQXLqEdNs4dc319R64HgH2unHLO/9jYpzhIyVYzZzgMlKC14oHhwzBTHKqM39eVmRqnhZPVnTEQhVDf0XaSHdOCG7MRGBmZPnFFsftXd7qvZf3oAiCaJXmCICzuFs0So2/GccK/M+AUM14Eqp8pnVq4mHAg2dh5fQpABDo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788895268; c=relaxed/simple;
+	bh=HbJkWX2FDZjd+kCROoaAp65l2oqSopXDjnST6eKyWIw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=anObqc9V+4DmTLzhr0MenJK6M/ss6oTjG2CwnkEqEL9+S1TfgHTucuD8zmWYACZDxOZFZTqXtOyOKTaoshXllJPD3HT/XlZvwI/SaWc4vRzKtmH/7bt4N7u2HnzNj+K1rXYJd5AZEmlYoIk9AldNzRfkQxmO5iesBhlpN3u+bQI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=hyLC9FiA; arc=fail smtp.client-ip=52.101.201.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BWHzRgJp"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49b8ce9b733so40642305e9.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 12:21:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788895257; x=1789500057; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+C2znoDc6QFtOLilfHto1MLA/C5JcF5zobRDR2Fyfh8=;
-        b=BWHzRgJpnXvqYctyVfmeiQqdbiWdgKdoqxOGd9+3Z8OoOw/WgXgqoTHwGxfHsTkxpl
-         5mX8Ds6ePsh4E7z2JLX28v7HiMvIycEN610oM6IJclOx3MRiUFmd249iqJJh0rZeR2zY
-         vsa0ZJzqozus1LSaiPShqIV6yS+hOHgULU9R3KnVmQR4ey3nY1hiNDWa76aFHw2oETH/
-         YzTs1WCzUBFdarLLju8/BpDSCREfFoGsebF4vFDWPyWt27IDACJVjOXts7UJAXWR9jAd
-         XzZJJJdHagLQz2jsSRJ2hwmCzmH2nEeT8QrXcPiE5JAwrZBEFJvg+8DUe8XTpmAhjvUp
-         boeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788895257; x=1789500057;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+C2znoDc6QFtOLilfHto1MLA/C5JcF5zobRDR2Fyfh8=;
-        b=RWDOdUDx2WzGoxatpIs17w+p9Ev2/wSweMC5kUSZm1JMeAE6eq7r7NccktfchCGouF
-         1Vw2vum5fQxvJJDE4VMP/SF06m5WHUhnsWcLMFj3n6st2DgTZO3vmE7R08+tva+3Z3Ib
-         yTQdtpNWQmZX0fVxrRzroANn+cHprvTQwt5DzIOEe22kkPRLRbIkACeOnL/C7DkqaCl/
-         KWX7FuJ2kHOgIPsHWspnjgi28YnvnTmbdE0e0nzhE4NVkGNaNC4JxzClllSX1c8Bwj3z
-         mxtL/pmMd5eVv0tXGhw4bsi2EHIEDctE93PEQJV2NRUunZ3CZg8d0G0HYgRMCLDVKaiZ
-         0L/A==
-X-Forwarded-Encrypted: i=1; AKwUvBzxXkvFE3+PdPVH/tZAlHzph+iaF1kI6pztF9isWd3BMCjghM8nb7kbjxkH7qzMNsbNAwZKXT13cmuR@vger.kernel.org
-X-Gm-Message-State: AFuF++kSaHjCj3HXNMFOAp342zp/+QrUC6EBhXmBiA45Va80Yknve2y4
-	yLfCWTTYeQRy/sqE061su8UkwtqFlu0UY9DQH16pgqUDqzVAsHg/X1z6
-X-Gm-Gg: AYBFou1AFpHuux0JRvM9i/WRyf5IG4tQY8hRImGX8ZY4gvKjaJvrjOH5D/YP27o93Wv
-	uyBPFCSHLWjgvE5gYzlvojow2JBVSDqFUldxD8kTlh/1kvIgHJtrG5sD7EoFnb0RT3SwQTnCZQL
-	ZDA6+WIwPeAasdEsGt3WguhkULOhirDAhBeG1zwq81Stm5aR2pR+VL0+JGE/KDLAYsXPRJwtkOC
-	crR46st/oj2gQn81PNLWzpfQ1teV/7YUnkGi8Bnm9qpG0osSFBLt8V4zX/coaKHDu6Jx2bhF3tX
-	63bCcQiz+us5320hzguP/QwoJIQWVeEMYmrHtwikzDxjkmoiOv4m5GZrtAnWh8QSu3XwWaZk2NL
-	PbYf7vIlZjWZyhyKUYAAPUU8nuR7LsA94NQS9zQYL48syP3E0o77KDmT4G5M3ih38Fw+oPAnEln
-	drTgNf/aYaHckpldQKA3qb/3ZJu3K8NNzsmisUoIRSnfWaq+JAVVTk9zMnIZoJBgmGP26xdTPXQ
-	o2KFJAWEIdEOv7y7Mv5TXJbztaM/c28HNB8AvXfqA==
-X-Received: by 2002:a05:600c:3495:b0:49c:dadb:18a7 with SMTP id 5b1f17b1804b1-49cf8244260mr314855325e9.10.1788895257060;
-        Tue, 08 Sep 2026 12:20:57 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm407885845e9.6.2026.09.08.12.20.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 12:20:56 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v4 1/2] dt-bindings: iio: adc: ti,ads1015: Add label property
-Date: Tue,  8 Sep 2026 22:20:35 +0300
-Message-ID: <20260908192036.8503-2-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908192036.8503-1-flaviu.nistor@gmail.com>
-References: <20260908192036.8503-1-flaviu.nistor@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="hyLC9FiA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=D4cjIMCkHeOdWJWKF+f61bW3odezXh5MgoYClxr0yt1rQqsL/TwZGie/th+sWEZpQR4ik8e3x8U/m+mvo2zmm591GMFPTWzT1K89mbO8rehCn0NwjLQp59QkpbqoIrgjGS68tbAhN04VYK+QAJNncGLfCyA6OFtvrd/tWET6+OP2iHoV0Eel++xuSm2T7WCayd8M33AEaaOz0/xyLQ+5XZ862Ujdr+wiG8hhppoV71U6J6cgme7DAHMZtXbJ9BiJ2SVpXO0dRodwKfgIVY+8xP+K3TuYh62Gd6TQFHEBTOOJ3quAFy0a2xtFNJHEs6rmd3NsCPpJOnexHqSBptmwQQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=a2TR2rfQJZAdozzzGJmS6EUcaEISc8MfL70mFCGxrZE=;
+ b=ycQaB9v6QalgRBRrEb0Uxotbu0QLVBlxSBIuCpB4P9pujqNzEvliDRDMDxh3F2R5yoZtL25QoGJW9AvYpdN5QA9vr8GvIRE/UTbRxcMJNKZTDKQEtypHrVIjQwyJk47/L7g0Iyp0PeV54vY/xNzz8v1Qys40V8nBccvbuhRGd9LJ2HpwpwY+QUS1VLj9wDo2z2LkZ09APfVGT7mgavAHPLHiVmTGf5tdKnDoMKvkTnMFi5qF2mHA6LKgYcYxGN67El7jj7+/3jyvFKVtqabwCTDGbno7Q/f1Y+RlKkn6sPOdDw2Oz4k4xfKZOHiAw5HL7AzKalIyd62bVptzRt4txg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=a2TR2rfQJZAdozzzGJmS6EUcaEISc8MfL70mFCGxrZE=;
+ b=hyLC9FiAJ+0oR82VXBW3Fb2iMGQ4Qw6a+l0jCFqEA5MTbfE+/Hs5I5HG3/zXVG3aLF6JJjqeXkOGGPglld5VBHa2rXH5gBtEiEjL5QR9Eg8oFU7laAZtm6SgAmEXH4DTg93nivTGM9J12ndRLYNdkRyR+gNFtW1VxwBGbOxsUHk=
+Received: from CH0PR04CA0005.namprd04.prod.outlook.com (2603:10b6:610:76::10)
+ by LV8PR12MB9715.namprd12.prod.outlook.com (2603:10b6:408:2a0::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Tue, 8 Sep 2026
+ 19:20:54 +0000
+Received: from BN3PEPF0000B072.namprd04.prod.outlook.com
+ (2603:10b6:610:76:cafe::47) by CH0PR04CA0005.outlook.office365.com
+ (2603:10b6:610:76::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
+ Sep 2026 19:20:54 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ BN3PEPF0000B072.mail.protection.outlook.com (10.167.243.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 19:20:53 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 14:20:47 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Tue, 8 Sep
+ 2026 14:20:46 -0500
+Received: from xhdsneeli40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
+ Transport; Tue, 8 Sep 2026 14:20:41 -0500
+From: Srinivas Neeli <srinivas.neeli@amd.com>
+Date: Wed, 9 Sep 2026 00:49:55 +0530
+Subject: [PATCH net-next v2 7/8] net: xilinx: tsn: add the endpoint TX data
+ path
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260909-patches_v2_external-v2-7-3a40babaff4c@amd.com>
+References: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
+In-Reply-To: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
+To: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>, Andrew Lunn
+	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Richard Cochran
+	<richardcochran@gmail.com>, Michal Simek <michal.simek@amd.com>, "Sebastian
+ Andrzej Siewior" <bigeasy@linutronix.de>, Clark Williams
+	<clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-rt-devel@lists.linux.dev>, Srinivas Neeli <srinivas.neeli@amd.com>,
+	<neelisrinivas18@gmail.com>, <git@amd.com>
+X-Mailer: b4 0.16.0
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN3PEPF0000B072:EE_|LV8PR12MB9715:EE_
+X-MS-Office365-Filtering-Correlation-Id: 624c38b3-3dcb-4ddd-31eb-08df0dde4cbc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|7416014|376014|23010399003|1800799024|82310400026|11063799006|56012099006|10067099003|921020|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	yCwMMLekk1pGyE0DZvjhYgAp/kEVoGZuznmHjrhyd9gwSmmNIAy2YdJmtH0/mhcePhiZLz6EC1WT1aUobruar0tqeZ9QAXuNhxikB3fbh8Ak/0EVDb1KgUvJGIsdXN+VWCNT3kM/TlFY7GekWLF8wWQOoaIvy0Ogl9Ice4LHyLrVNg/I8uTEubpcp9jtlkWyxrXHphzuSI696Wd2lvIaORyG1a3i12I8cIoYHch1FG6qAMq72IaZ0lDENXb0DncjJWiVazsarzYaL5h9Tb9tUU7QB79xFHpX1zJzr4VjZgaSVZSl8XjtIBCqHS20fP1J9uMAM49760XVDRadZi+Qf59uxAHt4eMSpe69s3Nen86yA7alGj56LL9LWJwLPY2xSCf+9vt5eVeqxKXpPfjSa0uPdfzqOylE6UaV1in29yQGCOuyldQ0K4ALTCNeyJIJ4Pos8CSOPFegkS9UvYB9buQGcaszQWOEuHpqFGmMGO9YWhbJprCBhheicVK7s6QuLzvyVyNRAul01IsCsj6nw+8VbsNRfDNV7199F9vjfjYx5yBXUBnaJyBQdZ2/Hjy/iqe65Eb4ZSsy5hsDIR48r1PaV/iBqUHGgOuEuVYsDDLiqNvjmUWvH5dnjI03FZyYw10T9sHtHm+wp6dOCZg9vLn52Lys/z2lpZ6mu6ZoffaRaAQ4kkvHhbBGShnn2JzVfR8VJNAUkqlqa8cbbzVcb98esPSqAqv/K9bJjtqOQdv+/oRVe8oO3sUj8maoxu0I
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(7416014)(376014)(23010399003)(1800799024)(82310400026)(11063799006)(56012099006)(10067099003)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bcghSC86s1xKur2HuLP4dEhRU8vY2SAjhKBCBQUFG0SEi0YKYmk94IXDNX4RvHn+aIjD4aI65WVXO1l6rqEiCyRzF2qexZJINes5cfl1azTZlUGUIqKyEqP8pSW5/Ymx6L3MU4kMEh4bnxUpv5AmrG9wMyFZOh/GmU1FMM7/v//XJcMWEi/kAfiFi+m3p7r+sZ8wkHwr3d8rdG+HSNZ88ZudeysH0L7+Yx2I/bbc88pfuoTU8N/GyA/JbB9CEJsWvrmb9IoWSimWbAgMwsic2uUVguyMvdg8seveOpTqw7ZK64LjzgdVA8sveZn0b3tZWuOX2mPs+hN3xML8pPXW5WsDNgYKPQjbb7Z+ylvEIcaD+haKF8TvvGjv7OaDNkmbVNgHjC54CQik2v8Y6TEECVsASlHEZke+Ess6D/hqGq5BHXG6wJvZluBPGM1mtBPf
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 19:20:53.0773
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 624c38b3-3dcb-4ddd-31eb-08df0dde4cbc
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN3PEPF0000B072.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV8PR12MB9715
 
-Add support for an optional label property per channel similar to other ADC
-chips. This allows assigning distinct names for each channel which can
-match the schematic signal name.
+Add the transmit path so the endpoint can send frames.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
+Look up the physical DMA channel for the frame's queue through the map
+built at probe, map the frame and submit it to that channel. Stop the
+queue when the ring runs out of space, and wake it from the completion
+callback once a slot frees up.
+
+Co-developed-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Nagadheeraj Rottela <nagadheeraj.rottela@amd.com>
+Signed-off-by: Srinivas Neeli <srinivas.neeli@amd.com>
+
 ---
- Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+Changes in v2:
+- Take the scatterlist entry count from skb_to_sgvec() instead of assuming
+  nr_frags + 1, so dma_map_sg() cannot walk past the end of the list.
+- Check dmaengine_submit() with dma_submit_error() before advancing the ring
+  head and charging BQL, and drop the frame if the submit fails.
+- Publish the ring head with WRITE_ONCE(), paired with the READ_ONCE() on the
+  completion side.
+- Take the ring size from the channel instead of the compile-time constant.
+- Use dmaengine_prep_slave_sg() instead of calling the ops member directly.
+- Move tx_lock into the per-channel struct, mirroring rx_lock, so independent
+  TX queues do not serialise on one device-wide lock.
+- Narrow the tx_lock kernel-doc to what it actually protects.
+- Mark the ring_tail store in the completion callback with WRITE_ONCE() to
+  match the READ_ONCE() readers.
+- Use the spinlock_bh guard class in the completion callback so it matches the
+  spin_lock_bh() in the xmit path.
+- Index tx_chans directly by logical queue in ep_start_xmit() and drop the
+  phys_chan/dma_dev locals, so the transmit path no longer re-derives the
+  channel through tx_dma_chan_map.
+---
+ drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c | 150 +++++++++++++++++++++++-
+ 1 file changed, 149 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-index 718f633c6e04..777a75c21d7f 100644
---- a/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-+++ b/Documentation/devicetree/bindings/iio/adc/ti,ads1015.yaml
-@@ -66,6 +66,11 @@ patternProperties:
-           - minimum: 0
-             maximum: 7
+diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+index 9ed1170794e0..9e9a45169681 100644
+--- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
++++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+@@ -29,6 +29,8 @@
+ #include <linux/timer.h>
+ #include <linux/types.h>
  
-+      label:
-+        $ref: /schemas/types.yaml#/definitions/string
-+        description:
-+          A descriptive name for this channel, like "vcc_ram" or "CH3".
++#include <net/netdev_queues.h>
 +
-       ti,gain:
-         $ref: /schemas/types.yaml#/definitions/uint32
-         minimum: 0
-@@ -125,6 +130,7 @@ examples:
-                 reg = <4>;
-                 ti,gain = <3>;
-                 ti,datarate = <5>;
-+                label = "CH3";
-             };
-         };
-     };
+ #include "xilinx_tsn.h"
+ 
+ #define DRIVER_NAME			"xilinx_tsn_ep"
+@@ -82,6 +84,7 @@ struct skbuf_dma_descriptor {
+  * @ring_tail: consumer index
+  * @ring_size: number of slots in @skb_ring
+  * @rx_lock: serialises @ring_head between the RX callback and the refill timer
++ * @tx_lock: serialises @ring_head and @ring_tail between xmit and TX completion
+  * @rx_refill_timer: retries RX refill after an allocation failure
+  * @is_tx: true for TX channels, false for RX
+  */
+@@ -94,6 +97,7 @@ struct xlnx_tsn_ep_dma_chan {
+ 	u32 ring_tail;
+ 	u32 ring_size;
+ 	spinlock_t rx_lock;	/* serialises @ring_head */
++	spinlock_t tx_lock;	/* serialises @ring_head and @ring_tail */
+ 	struct timer_list rx_refill_timer;
+ 	bool is_tx;
+ };
+@@ -300,8 +304,147 @@ static void ep_dma_rx_cb(void *data, const struct dmaengine_result *result)
+ 	ep_rx_refill(xchan, true);
+ }
+ 
++static void ep_dma_tx_cb(void *data, const struct dmaengine_result *result)
++{
++	struct xlnx_tsn_ep_dma_chan *xchan = data;
++	struct skbuf_dma_descriptor *skbuf_dma;
++	struct netdev_queue *txq;
++	struct net_device *ndev;
++	struct scatterlist *sgl;
++	struct sk_buff *skb;
++	int sg_len;
++	int len;
++
++	scoped_guard(spinlock_bh, &xchan->tx_lock) {
++		skbuf_dma = ep_get_desc(xchan,
++					xchan->ring_tail & (xchan->ring_size - 1));
++		if (!skbuf_dma || !skbuf_dma->skb)
++			return;
++
++		skb = skbuf_dma->skb;
++		sgl = skbuf_dma->sgl;
++		sg_len = skbuf_dma->sg_len;
++
++		dma_unmap_sg(xchan->dma_dev, sgl, sg_len, DMA_TO_DEVICE);
++
++		skbuf_dma->skb = NULL;
++		WRITE_ONCE(xchan->ring_tail, xchan->ring_tail + 1);
++	}
++
++	ndev = skb->dev;
++	txq = netdev_get_tx_queue(ndev, skb_get_queue_mapping(skb));
++	len = skb->len;
++
++	if (unlikely(result->result != DMA_TRANS_NOERROR)) {
++		DEV_STATS_INC(ndev, tx_errors);
++	} else {
++		DEV_STATS_INC(ndev, tx_packets);
++		DEV_STATS_ADD(ndev, tx_bytes, len);
++	}
++
++	dev_consume_skb_any(skb);
++	netif_txq_completed_wake(txq, 1, len,
++				 CIRC_SPACE(READ_ONCE(xchan->ring_head),
++					    READ_ONCE(xchan->ring_tail),
++					    xchan->ring_size), 2);
++}
++
+ static netdev_tx_t ep_start_xmit(struct sk_buff *skb, struct net_device *ndev)
+ {
++	struct dma_async_tx_descriptor *dma_tx_desc;
++	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
++	struct skbuf_dma_descriptor *skbuf_dma;
++	int queue = skb_get_queue_mapping(skb);
++	struct xlnx_tsn_ep_dma_chan *xchan;
++	struct netdev_queue *txq;
++	int sg_len, nents, ret;
++	dma_cookie_t cookie;
++
++	if (unlikely(queue >= ep->num_tx_queues)) {
++		if (net_ratelimit())
++			netdev_warn(ndev, "Invalid TX queue %d (max %u)\n",
++				    queue, ep->num_tx_queues);
++		goto err_drop_skb;
++	}
++
++	if (ep->tx_dma_chan_map[queue] == TSN_DMA_CH_INVALID) {
++		if (net_ratelimit())
++			netdev_warn(ndev, "Logical TX queue %d has invalid DMA mapping\n",
++				    queue);
++		goto err_drop_skb;
++	}
++
++	xchan = ep->tx_chans[queue];
++
++	sg_len = skb_shinfo(skb)->nr_frags + 1;
++	txq = netdev_get_tx_queue(ndev, queue);
++
++	spin_lock_bh(&xchan->tx_lock);
++	if (CIRC_SPACE(xchan->ring_head, READ_ONCE(xchan->ring_tail),
++		       xchan->ring_size) <= 1) {
++		netif_txq_try_stop(txq,
++				   CIRC_SPACE(xchan->ring_head,
++					      READ_ONCE(xchan->ring_tail),
++					      xchan->ring_size),
++				   2);
++		spin_unlock_bh(&xchan->tx_lock);
++		if (net_ratelimit())
++			netdev_warn(ndev, "TSN TX ring full\n");
++
++		return NETDEV_TX_BUSY;
++	}
++
++	skbuf_dma = ep_get_desc(xchan, xchan->ring_head & (xchan->ring_size - 1));
++	if (!skbuf_dma) {
++		spin_unlock_bh(&xchan->tx_lock);
++		goto err_drop_skb;
++	}
++	spin_unlock_bh(&xchan->tx_lock);
++
++	sg_init_table(skbuf_dma->sgl, sg_len);
++	ret = skb_to_sgvec(skb, skbuf_dma->sgl, 0, skb->len);
++	if (ret < 0)
++		goto err_drop_skb;
++	sg_len = ret;
++
++	nents = dma_map_sg(xchan->dma_dev, skbuf_dma->sgl, sg_len, DMA_TO_DEVICE);
++	if (!nents)
++		goto err_drop_skb;
++
++	dma_tx_desc = dmaengine_prep_slave_sg(xchan->chan, skbuf_dma->sgl,
++					      nents, DMA_MEM_TO_DEV,
++					      DMA_PREP_INTERRUPT);
++	if (!dma_tx_desc)
++		goto err_unmap_sg;
++
++	skbuf_dma->skb = skb;
++	skbuf_dma->sg_len = sg_len;
++	dma_tx_desc->callback_param = xchan;
++	dma_tx_desc->callback_result = ep_dma_tx_cb;
++
++	spin_lock_bh(&xchan->tx_lock);
++	cookie = dmaengine_submit(dma_tx_desc);
++	if (dma_submit_error(cookie)) {
++		spin_unlock_bh(&xchan->tx_lock);
++		skbuf_dma->skb = NULL;
++		goto err_unmap_sg;
++	}
++	WRITE_ONCE(xchan->ring_head, xchan->ring_head + 1);
++	netdev_tx_sent_queue(txq, skb->len);
++	netif_txq_maybe_stop(txq,
++			     CIRC_SPACE(xchan->ring_head,
++					READ_ONCE(xchan->ring_tail),
++					xchan->ring_size),
++			     2, 2);
++	spin_unlock_bh(&xchan->tx_lock);
++
++	dma_async_issue_pending(xchan->chan);
++
++	return NETDEV_TX_OK;
++
++err_unmap_sg:
++	dma_unmap_sg(xchan->dma_dev, skbuf_dma->sgl, sg_len, DMA_TO_DEVICE);
++err_drop_skb:
+ 	dev_kfree_skb_any(skb);
+ 	DEV_STATS_INC(ndev, tx_dropped);
+ 	return NETDEV_TX_OK;
+@@ -331,10 +474,13 @@ static int ep_open(struct net_device *ndev)
+ static int ep_stop(struct net_device *ndev)
+ {
+ 	struct xlnx_tsn_ep *ep = netdev_priv(ndev);
++	unsigned int i;
+ 
+ 	netif_tx_disable(ndev);
+ 	WRITE_ONCE(ep->closing, true);
+ 	ep_exit_dmaengine(ep);
++	for (i = 0; i < ndev->num_tx_queues; i++)
++		netdev_tx_reset_subqueue(ndev, i);
+ 
+ 	return 0;
+ }
+@@ -398,7 +544,9 @@ ep_alloc_dma_chan(struct xlnx_tsn_ep *ep, const char *name, bool is_tx,
+ 	chan->ep = ep;
+ 	chan->ring_size = ring_size;
+ 	chan->dma_dev = dmaengine_get_dma_device(chan->chan);
+-	if (!is_tx) {
++	if (is_tx) {
++		spin_lock_init(&chan->tx_lock);
++	} else {
+ 		spin_lock_init(&chan->rx_lock);
+ 		timer_setup(&chan->rx_refill_timer, ep_rx_refill_timer, 0);
+ 	}
+
 -- 
-2.34.1
+2.43.0
 
