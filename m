@@ -1,223 +1,284 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AF55452A2
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 14:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D6A52FE50
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 14:47:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788878463; cv=none; b=jnbzA82DXPIUyUWGyFyPbcrBgNQu8/ofVxpmXmUbTN9TK3M3peOaWxqEJX4fgyzdSb1UgVVkCdVV2I3oDl6pHI+ArS0RRbOkShbxv97xL87t9tOdbB2wrBxXqB03TkNnxALeaIUxq5QAOdCW5yDiDd7Gm+haSoHJU63geaAcZQw=
+	t=1788878835; cv=none; b=D53ZPDL/7w5MLgVpJCWNqeBvcSqyOUzzbBa6zL2tM0KPPwAHRwgkDIMffEMQ3Gx3KwrsxSx3CzlWqrj6iXFCcJVTEFUfaEx9F2wZxj5KFBElD4Ud2UGnmrkFoZ10ng1fky+BQY8PPdUPyN0L+3Jqi3esqgtezTkJCpggmfvqRZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788878463; c=relaxed/simple;
-	bh=5cup85Qb2q3dpZ9j4NJ+riAqKzhV1ATVnwyRINFCU4Y=;
-	h=Message-ID:Date:From:To:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JuL0iVUwae1Kh5a87d+XbrmGzjeF4becqIoVK9xQRlHvhpIX8rzNkaClO6E8RN+vqTm2ZzLIsJggo9Yk2klkbTEu5v87MN7nNZfEOlBHeNbxRqOyK5BWhYyZ9mvRIIP2XHYRskLLVFK1b0bBiTePZ7OhgjrYRtweCNPJYM8cQ+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NCNsePWP; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788878835; c=relaxed/simple;
+	bh=xTJjfD5LOLFQIBHTyKxlBjiEn1EV8JlKMGzF8eRjNwU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FbKbYLoxQ1jmcl61P50KCnxkcjH+A5BfNnCxfUIO36X24oMfNc0S7owWZUwG5Msxx1wBTw3rC2s2Ue4Vk/9eYsRTj0p3W2IpVtrzyWM69mGJT+yn+dKA7vcFnXTxzgiyk1QbliUq/xb5ieEnmYbXaNQJxlwNz18LDTTD6DV2KiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BgJRwNhu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y6fJqpPN; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NCNsePWP"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-485850cbac3so3055860f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 07:40:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BgJRwNhu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y6fJqpPN"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688EjREn4109763
+	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 14:47:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=ST7wDY9QZk1oGjjrN6llgg
+	nO0dFwmF9Svnv+hjQYAyA=; b=BgJRwNhuUWBhQXkjeKX0A+aaLb2C236cUyWi+Y
+	lPpZhFfKBKlf5sPNedjk3dvDcQiU9vH/AkNjma0IkpquFUS8OxkQqRNu4XyIkXze
+	hbJN7yJ5a9uMVH+aD2QjC3uDi6LJfEgUUnF0LJUNOdJyZxHExONJugpiGsqYAAzF
+	ANTbXxYTS5iZ7I1TLlhcx2I72a4QiQG4sOMGfCXrjQ4HnSvUaGiOTOv2y37pebbj
+	RKpAB12Av4Bixtl0JZVmoc0cFbU3+pbIQgx0Z8sXWzTKFxhqYGK5zrQQQX98RAwa
+	2HQsrl+MhKWw6aW7cxPcFCOc0VjEO3fXn41z2CG1/eW4xD0A==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjg8xs6tj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 14:47:04 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-385d2703b64so5697762a91.1
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 07:47:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788878449; x=1789483249; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:to:from:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Miv8sjNJdTG6Gu0+wUlQ27sQKF6CmSEymk2ANPK2DPg=;
-        b=NCNsePWPXgamXF5gE4I3+PMEkTLFk+CMHkSX+Y6c/fky3QE9NjQkeZCz2HIM7CcR3N
-         h+oTpBpH60cySSKTMUG030QaKEw73BFKARvuS/VRF70SRsnEuP/JdlTBKj4mI+TthW4s
-         U3oGATfgegngzuY92haEsHeG3VxR2oP51lbevojyhBOWxgisEfApusaLEl3gxDoo7PrO
-         1FFOAksWQOpIp4Ne5on8E5NH5qjBwFgmFFZ/uzMTPT9LaSSu+TNLYeFKtypkUlUNPGRo
-         /pSXaaqben506bSbbdIZpeosm5j8GvkOGE/oZQZBMbyMm/ize14mfMpGm6OlqgVlL1xi
-         PAWg==
+        d=oss.qualcomm.com; s=google; t=1788878824; x=1789483624; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ST7wDY9QZk1oGjjrN6llggnO0dFwmF9Svnv+hjQYAyA=;
+        b=Y6fJqpPNB3YteVoeL/6vkt4CkOyfwseqxYIASgDYH7igzawO+htZo71HRqX3Bd1ZM4
+         fPAz78xI/PJrfO99U60ym2XINRTxFAHIEbuVsyAhO/t/BhBWEIJW6I8vClcdwaK9Ml9l
+         bIypR8GFRL3uzifOKaos8+or1PCkn1sOTfPAqW3ekAFd2Env3HAoLVYexMAw/WTrHn8m
+         0szHcFvLFWBq2bVfJ7BSGrPV/hk/VP9yulyekXzCNQ6iqF4tBuBE0KLQujBNgCfYIQLU
+         7d5ITRgH1PzFSg23w+U4fky/XKjEx0yG2MZfqWh+bOcmJyvnaujSv5rwN80+Rb9eLGjn
+         PR8Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788878449; x=1789483249;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Miv8sjNJdTG6Gu0+wUlQ27sQKF6CmSEymk2ANPK2DPg=;
-        b=BfHGdxKNo/jmBLJiEPZKqrAr6ikhKMG2FzraD0NFbVEPb62IeTYrsuDcIt65LkmTZ1
-         M2OHD00PptdkWF6gJKL0n+uwVhqHWWJsFDrOiYJ3QlRxabnjaHS8C+iYY8URVOrL5bZt
-         1ZXbFrqyGtKX4HgCMnqpPjtJVVDNhzKSErufquRsfFh+gj7s932YdtR9b339EngP+JbO
-         bCzaKGMFSS68frFKPjGduFyg87RC4ftPTv8d5POv+pvXrwFQDLxX7dGD8mYVfVIkMyNl
-         bwwXx7vEfn8HRndwjJAuSvmvg2HqNpenVUVOLZW02oTqUBMKDhkbU5o1TXYYMHEyTgRe
-         2NXg==
-X-Forwarded-Encrypted: i=1; AKwUvBw2GoPgTDqi+WfdzFNCgmKCWfDDqXJJRrKIwQGwyan94dIXb5rJiisgqG2ptkHqRZxVIVGAdqC+rGKI@vger.kernel.org
-X-Gm-Message-State: AFuF++mJvtYqR68OorPsT3jE94bi1G5nVO76VOVSq8MLTMzP0cWsySZ2
-	4PkMkM5QK+oQEHdefPChSwSmWnlg7BmGdaC4q63koOtUOgLXhdxHjOJd
-X-Gm-Gg: AYBFou3j5xCoxjOLlDF8OH1DMx+cS7o1DXB3mrfFnxeURH/dkjVTiyBg+cGhRO/ZvIv
-	rX2OXjIe2FNbYERNnNqQVDYwqARaShcgilsGzEhBHj0m5ou3TRfIKGWhNpXByYLNax6SpfC3tM+
-	lKEtRyoL/5xP0J2DmbIY+kjJaPmtUUKa/MGTAmLaoHzMTagfIOXXmJ+8hqqn7ACONcItJWiIXNg
-	8uBbyc9mHjxT7eEwepKtRuYrPD3ceORHKwsvBzD/4vCN/TWCZDM7UZ7SAAuOp0jN5sBTYxFgouW
-	Q+AOB32zeVGfBL6uEE3/F6Y3y20Wd6tv9coDx2MFfFGkJ0G6EO+PwyNxgbtduCWMdoCQOw1uK0S
-	Si7EVpX6y/ygiI7eCieo3EuGYFzV/CIy6/yr5AH0kafRXoGQrNjMunbE/qK8DS1p8ugutuHN59S
-	KvAtTqrw302iQjwjDjxQFap6N270WmHJetOVBP/gzLNb4VaYqfjy7qVYZUNEs2ZdJM8n7mXTqKO
-	dg4CH8HJ3VFJIBLlF7cAOsPvZRULpszL8xj
-X-Received: by 2002:a05:6000:46c2:b0:484:4769:18a4 with SMTP id ffacd0b85a97d-485872cd677mr23543135f8f.14.1788878449028;
-        Tue, 08 Sep 2026 07:40:49 -0700 (PDT)
-Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm39338196f8f.10.2026.09.08.07.40.46
+        d=1e100.net; s=20251104; t=1788878824; x=1789483624;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=ST7wDY9QZk1oGjjrN6llggnO0dFwmF9Svnv+hjQYAyA=;
+        b=YqiiPnEyh5MN/VQUozZ1Cbz11azdvejA1JntWxkrPRHamfRAPAH53nublPHCfocWbv
+         /qAj0cdhDwCVYCUvOp/drLodOaX3ueqkKkBRGuBlSLO9PHaRstqKkKF8dHPpbQDUbVEU
+         HlxYx8eKWtf8rwBiQzd726KLY6Hh+CNHXVe8DTEAiWwJQA9rdn7yYbGGO5wPtCehZoD1
+         KxjL4HlExFfVFurHQ0iCKAqQU+uWBKRcnfWEG0ij+vqwfvh5d7/eNC+Ujvsv0a1h5oKB
+         E5LpmeOoOpv++iTc7ew5Y9mmLzjDOfNCEiNytSun2WORn8AjU9XT/+kml8yHS1ku/Ft8
+         6sIQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx9yP0I655mxGOIeMtFQLMqH/OG+M/WT0srR1z954UBUG2zsqPVJS3MQ+P3UHQ60tgmZP1uUGqh2jXM@vger.kernel.org
+X-Gm-Message-State: AFuF++l9v0IyyjzQiFbgdAc7rUCEVoaTKmPE67Y9juZ6P/urS+lQ1x6X
+	MVg8p0WPUDjhk4VI4YOXDYOiABGmAIGZHkNYdJkRW7ycR8+ZYxNNitOaAH5OnyTEpHtQxGq8q/n
+	mDOEYRaJeEXOfsZ6qb1WkYM2lp5pKcepmvMhiUhnEyLxrteYyALObL0NIyIuk2MDD
+X-Gm-Gg: AYBFou1YGHdnDAOw/ir8HcCMUNCosDAbG2gRTgvfhXZDFBqYY+tpxtoQRTcRPHcz1tT
+	6kB24LXtghkYAki3/N9jq/E8YA4zHsYACYztAItQicAznqbKiyuwPUdC77pKl4+/2En3Kraaud6
+	N24oirlHuwmES4CYU3cLE+BZq3jH3XOZqB9o1JGXcQulmvfU+Pp78GKKQhtNwtT5PxIfFbtDnf2
+	YPCuK/S8trbaYXoxS3uk+kiYeOCauNO9kOTqlI4XXydboWS884bomd3Sfqe02yB/E1Hyg1qNEaq
+	UvmwZkSgjECCwdqiI5xtRWAJn4HtpJq42GfN6/tc/HY+RQfuw+nwfMCyeaLThu9b2VIjS6xOIKZ
+	TylPmPF6sm4xlUtouZ3gLuKVUntx5IPJtR+0N
+X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr38609766a91.1.1788878823545;
+        Tue, 08 Sep 2026 07:47:03 -0700 (PDT)
+X-Received: by 2002:a17:90a:e7c9:b0:38e:9784:dd47 with SMTP id 98e67ed59e1d1-39b07f2f51amr38609705a91.1.1788878822944;
+        Tue, 08 Sep 2026 07:47:02 -0700 (PDT)
+Received: from hu-vishsant-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-333c9db92b1sm37018331eec.9.2026.09.08.07.46.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 07:40:48 -0700 (PDT)
-Message-ID: <6aa01e70.ebbd881c.32bd35.196e@mx.google.com>
-X-Google-Original-Message-ID: <aqAebOgm5w4VILoS@Ansuel-XPS.>
-Date: Tue, 8 Sep 2026 16:40:44 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Simon Horman <horms@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Lorenzo Bianconi <lorenzo@kernel.org>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [PATCH net-next v15 00/12] net: pcs: Introduce support for
- fwnode PCS
-References: <20260901083001.8044-1-ansuelsmth@gmail.com>
+        Tue, 08 Sep 2026 07:47:01 -0700 (PDT)
+From: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+Date: Tue, 08 Sep 2026 20:16:43 +0530
+Subject: [PATCH v4] dt-bindings: remoteproc: qcom,shikra-pas: Allow
+ bam-dmux subnode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901083001.8044-1-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-shikra-pas-bam-dmux-binding-v4-1-6044889e7e3d@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIANIfoGoC/43NTQ6CMBCG4auYrh1Df6DFlfcwLkpbYKKAttpgC
+ He3stGFGjeTvLN4vokE59EFsl1NxLuIAYc+hViviGl13zhAm5qwjBWZZBJCi0ev4awDVLoD291
+ GqLC32DfAlC6qupQql4Yk4exdjeOi7w+pWwzXwd+XsUif3//cSIGCyWheGmm4s2I3hLC53PTJD
+ F23SYc8+cjeyfI3yRJpVV47rYShgn4h+YtUlP8meSJpITWvqzyz7BM5z/MDQCvLW3MBAAA=
+X-Change-ID: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kumar Patro <bibek.patro@oss.qualcomm.com>,
+        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788878817; l=5433;
+ i=vishnu.santhosh@oss.qualcomm.com; s=20251203; h=from:subject:message-id;
+ bh=xTJjfD5LOLFQIBHTyKxlBjiEn1EV8JlKMGzF8eRjNwU=;
+ b=D3EiykkSbxrcWm38hRsxB6VTUWXZEET42Pcgy8jgmvgFQuF58Ds79vOBbAIakrak0rQQ/JZ8e
+ /l1VH2SqGxhCMiuUpFayEp/ZeqrniTItldmp/y1Mi3OPhGNDaYcwHOt
+X-Developer-Key: i=vishnu.santhosh@oss.qualcomm.com; a=ed25519;
+ pk=G8/AJPecB1feGI7wxArGWGN0PPGQS0GUaD4THQCbdis=
+X-Authority-Analysis: v=2.4 cv=J7GaKgnS c=1 sm=1 tr=0 ts=6aa01fe8 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=gmyZvYRh-Lm61jtpQzcA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-ORIG-GUID: nEgVA3RhDkJPISJOt4D9EXKmO7NRfAIe
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE1OCBTYWx0ZWRfX/ok6L2ib8jOq
+ h7jezsCUN3RxrN6wK1cgP7k4PAHkExSV4YEK//CUk14ly5ZDUVn27spAidp3IvnjhY/GXY5dSGg
+ vYUuGqC8m3eVG2+jJ5PwQsSQzZ/E+/nwkBpCWCJDwb1SxmG2igwV5SQzKxd4G9k6I4fS//tHCHm
+ EdKJr743Gnl0nd2Kaaunk+o4BvbheBUmm378X7sX8GYKNFkEtf1d+wzv0M/83Fl8uTcgr+I8ykx
+ fDm8u/nKWTIAqJc0Go+TaQ2tDRlqQ2jJWAAEuXGixyb2lI1XW36PeMtLw7izRD6vKkge+hWw7Rn
+ 5SWRMGavPt74aFTHMPPvlVPQEWq1XVRU6CXRYLmZVNccBBY+xdLBx3XcYAHkgR4OZNjISNPGg4Q
+ MplOWHoXwSG1EeHztW9vcT3JyYJ66iX8B1DM0iUVkwWE50H/p29fn1n34Zy0+Cy/SL3kRgWO7DF
+ dDtof13Ssk6KbV7OfwQ==
+X-Proofpoint-GUID: nEgVA3RhDkJPISJOt4D9EXKmO7NRfAIe
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE1OCBTYWx0ZWRfXxfF3DAGKBrkI
+ Fq7Nke905bFWIJsM613s8PvvNYKOiVDucTLJJv5UdF4/wZWYQRI8VvJea7Ay0eAklcozz/0b7kd
+ iXbMbdbZ3ieexeKA98FZL4dAuGMlFf4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ priorityscore=1501 impostorscore=0 lowpriorityscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609080158
 
-On Tue, Sep 01, 2026 at 10:29:15AM +0200, Christian Marangi wrote:
-> This series introduce a most awaited feature that is correctly
-> provide PCS with fwnode without having to use specific export symbol
-> and additional handling of PCS in phylink.
-> 
-> At times there were 2 different implementation (this and the one
-> from Sean) but Sean agreed that this can be picked and used in favor
-> of his implementation as long as his case with race condition is
-> correctly handled.
-> 
-> ---
-> First the PCS fwnode:
-> 
-> The concept is to implement a producer-consumer API similar to other
-> subsystem like clock or PHY.
-> 
-> That seems to be the best solution to the problem as PCS driver needs
-> to be detached from phylink and implement a simple way to provide a
-> PCS while maintaining support for probe defer or driver removal.
-> 
-> To keep the implementation simple, the PCS driver devs needs some
-> collaboration to correctly implement this. This is O.K. as helper
-> to correctly implement this are provided hence it's really a matter
-> of following a pattern to correct follow removal of a PCS driver.
-> 
-> A PCS provider have to implement and call fwnode_pcs_add_provider() in
-> probe function and define an xlate function to define how the PCS
-> should be provided based on the requested interface and phandle spec
-> defined in fwnode (based on the #pcs-cells)
-> 
-> fwnode_pcs_get() is provided to provide a specific PCS declared in
-> fwnode at index.
-> 
-> A simple xlate function is provided for simple single PCS
-> implementation, fwnode_pcs_simple_xlate.
-> 
-> A PCS provider on driver removal must call fwnode_pcs_del_provider()
-> to delete itself as a provider.
-> 
-> ---
-> Second PCS handling in phylink:
-> 
-> We have the PCS problem for the only reason that in initial
-> implementation, we permitted way too much flexibility to MAC driver
-> and things started to deviate. At times we couldn't think SoC
-> would start to put PCS outside the MAC hence it was OK to assume
-> they would live in the same driver. With the introduction of
-> 10g in more consumer devices, we are observing a rapid growth
-> of this pattern with multiple PCS external to MAC.
-> 
-> To put a stop on this, the only solution is to give back to phylink
-> control on PCS handling and enforce more robust supported interface
-> definition from both MAC and PCS side.
-> 
-> It's suggested to read patch 0003 of this series for more info, here
-> a brief explaination of the idea:
-> 
-> This series introduce handling of PCS in phylink and try to deprecate
-> .mac_select_pcs.
-> 
-> Phylink now might contain a linked list of available PCS and
-> those will be used for PCS selection on phylink_major_config.
-> 
-> MAC driver needs to define pcs_interfaces mask in phylink_config
-> for every interface that needs a dedicated PCS.
-> 
-> These PCS needs to be provided to phylink at phylink_create time
-> by setting the .fill_available_pcs and .num_possible_pcs in phylink_config.
-> Helpers to parse PCS from fwnode are provided
-> fwnode_phylink_pcs_count() that will return the count of PCS entries
-> described in the firmware node and fwnode_phylink_pcs_parse() that will
-> fill a preallocated array of PCS pointer with the actual available PCS
-> (ignoring the one that still needs to be probed).
-> 
-> phylink_create() will fill the internal PCS list with the passed
-> array of PCS. phylink_major_config and other user of .mac_select_pcs
-> are adapted to make use of this new PCS list.
-> 
-> The supported interface value is also moved internally to phylink
-> struct. This is to handle late removal and addition of PCS.
-> (the bonus effect to this is giving phylink a clear idea of what
-> is actually supported by the MAC and his constraint with PCS)
-> 
-> The supported interface mask in phylink is done by OR the
-> supported_interfaces in phylink_config with every PCS in PCS list.
-> 
-> PCS removal is supported by forcing a mac_config, refresh the
-> supported interfaces and run a phy_resolve().
-> 
-> PCS late addition is supported by introducing a global notifier
-> for PCS provider. If a phylink have the pcs_interfaces mask not
-> zero, it's registered to this notifier.
-> 
-> PCS provider will emit a global PCS add event to signal any
-> interface that a new PCS might be available.
-> 
-> The function will then check if the PCS is related to the MAC
-> fwnode and add it accordingly.
-> 
-> A user for this new implementation is provided as an Airoha PCS
-> driver. This was also tested downstream with the IPQ95xx QCOM SoC
-> and with the help of Daniel also on the various Mediatek MT7988
-> SoC with both SFP cage implementation and DSA attached.
-> 
-> Lots of tests were done with driver unbind/bind and with interface
-> up/down also by adding print to make sure major_config_fail gets
-> correctly triggered and reset once the PCS comes back.
-> 
-> The dedicated commits have longer description on the implementation
-> so it's suggested to also check there for additional info.
-> 
-> It's worth to mention that OpenWrt is currently using this on
-> Mediatek SoC and QCOM ipq807x/ipq60xx/ipq50xx and Airoha are
-> already ported in staging tree for testing.
-> 
+The Shikra modem uses BAM-DMUX for its WWAN data path, but the
+qcom,shikra-pas remoteproc binding has no way to describe that
+modem-owned child device.
 
-Any news of this? I feel this version is now very mature and wonder if an
-human review is possible or any feedback of any needed change to make any
-progress?
+Without a bam-dmux child node, the binding cannot model the relationship
+between BAM-DMUX and the modem remoteproc, and userspace cannot
+associate the multiplexer with the correct remoteproc instance.
 
+Add an optional bam-dmux subnode to qcom,shikra-mpss-pas referencing
+qcom,bam-dmux.yaml, and restrict it to the MPSS compatible since only
+the modem subsystem uses BAM-DMUX. Add a second example exercising the
+new subnode for dt_binding_check.
+
+Co-developed-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>
+Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+---
+Changes in v4:
+- Reword the commit message to explain why BAM-DMUX belongs under the modem remoteproc.
+- Restore the original CDSP example and add a separate MPSS example that exercises the new bam-dmux subnode.
+- Link to v3: https://lore.kernel.org/r/20260813-shikra-pas-bam-dmux-binding-v3-1-167a3fb50d21@oss.qualcomm.com
+
+Changes in v3:
+- Reword commit message to keep it scoped to the binding change. 
+- Retarget the example to qcom,shikra-mpss-pas and add a bam-dmux child.
+- Link to v2: https://lore.kernel.org/r/20260729-shikra-pas-bam-dmux-binding-v2-1-d85fea84c141@oss.qualcomm.com
+
+Changes in v2:
+- Restrict bam-dmux to the qcom,shikra-mpss-pas compatible.
+- Link to v1: https://lore.kernel.org/r/20260727-shikra-pas-bam-dmux-binding-v1-1-c0159c7c3ed4@oss.qualcomm.com
+---
+ .../bindings/remoteproc/qcom,shikra-pas.yaml       | 75 ++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+index 253b14eb2b598f0ca91854c8ff4d0b785090e621..da66034311522ba36d160959172c1444c5999509 100644
+--- a/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
++++ b/Documentation/devicetree/bindings/remoteproc/qcom,shikra-pas.yaml
+@@ -44,6 +44,11 @@ properties:
+       - description: Firmware name of the Hexagon core
+       - description: Firmware name of the Hexagon Devicetree
+ 
++  bam-dmux:
++    $ref: /schemas/net/qcom,bam-dmux.yaml#
++    description:
++      Qualcomm BAM Data Multiplexer (provides network interface to the modem)
++
+   glink-edge:
+     $ref: /schemas/remoteproc/qcom,glink-edge.yaml#
+     description:
+@@ -117,6 +122,16 @@ allOf:
+         power-domains: false
+         power-domain-names: false
+ 
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,shikra-cdsp-pas
++            - qcom,shikra-lpaicp-pas
++    then:
++      properties:
++        bam-dmux: false
++
+ unevaluatedProperties: false
+ 
+ examples:
+@@ -165,3 +180,63 @@ examples:
+             label = "cdsp";
+         };
+     };
++
++  - |
++    #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/interconnect/qcom,icc.h>
++    #include <dt-bindings/interconnect/qcom,rpm-icc.h>
++    #include <dt-bindings/interconnect/qcom,shikra.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++
++    remoteproc@6080000 {
++        compatible = "qcom,shikra-mpss-pas";
++        reg = <0x06080000 0x100>;
++
++        interrupts-extended = <&intc GIC_SPI 307 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 1 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 2 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 3 IRQ_TYPE_EDGE_RISING>,
++                              <&modem_smp2p_in 7 IRQ_TYPE_EDGE_RISING>;
++        interrupt-names = "wdog", "fatal", "ready",
++                          "handover", "stop-ack", "shutdown-ack";
++
++        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>;
++        clock-names = "xo";
++
++        interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ALWAYS_TAG
++                         &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
++
++        power-domains = <&rpmpd RPMHPD_CX>;
++        power-domain-names = "cx";
++
++        memory-region = <&mpss_wlan_mem>;
++
++        qcom,smem-states = <&modem_smp2p_out 0>;
++        qcom,smem-state-names = "stop";
++
++        firmware-name = "qcom/shikra/modem.mbn";
++
++        glink-edge {
++            interrupts = <GIC_SPI 68 IRQ_TYPE_EDGE_RISING>;
++            mboxes = <&apcs_glb 12>;
++            qcom,remote-pid = <1>;
++            label = "mpss";
++        };
++
++        bam-dmux {
++            compatible = "qcom,bam-dmux";
++
++            interrupt-parent = <&modem_smsm>;
++            interrupts = <1 IRQ_TYPE_EDGE_BOTH>, <11 IRQ_TYPE_EDGE_BOTH>;
++            interrupt-names = "pc", "pc-ack";
++
++            qcom,smem-states = <&apps_smsm 1>, <&apps_smsm 11>;
++            qcom,smem-state-names = "pc", "pc-ack";
++
++            dmas = <&bam_dmux_dma 4>, <&bam_dmux_dma 5>;
++            dma-names = "tx", "rx";
++        };
++    };
+
+---
+base-commit: 3d6d817622b0a9721e3cc404df3469171582be13
+change-id: 20260727-shikra-pas-bam-dmux-binding-28a6bf97857c
+
+Best regards,
 -- 
-	Ansuel
+Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+
