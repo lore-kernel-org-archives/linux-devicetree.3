@@ -1,94 +1,105 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17B2556E048
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 15:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84B4E572697
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 15:54:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882886; cv=none; b=aBRho3lbkQGngZ4Gobt8Q+TmzCYW3eyOrtc2iJvY36UBtWstEamL938Kzidl8++JKQcS4RqZ5DyjLs3wiA1oNJoaXxhusuR4bISZbzcQpN+yt7bSTfT5webMREy9x5BDmbYp8bNbenya1ZlmNGCfd+7/Yf/30Oy1Zj9fl3nw28U=
+	t=1788882886; cv=none; b=QQoa8i3YnOWVKUL3Tv9EHE2h1HNlCD/fi/C0lPwJHl5LnhAigJ35ZUyOOx7JwEma7DxE8sCcqaJ6CsvOBEjNhfcjOVDqM12LLML20YvEyUBf4+LB+lVIhHUiQyxEtWSqmWNG2DbU2kff4XEewYKdbLriJdFGEyfweqzNmD24I9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788882886; c=relaxed/simple;
-	bh=/3rnNXag/vS5IrYn6Xz2BrIs6kjE4MLs3wdioFECscc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=qaZ13Kpkr9aPaKL3kto5ucTAvUq+ytRVeTTTpDCHPlNU6dlPnNiI2Vklf6ro4JibldQgRDPD9jwp+3Hl5CtPnSfA7JSyFhIAbPbd+KGcHxGKDNLeDwEyF4zPGNdikDQSqGEp5jvgORr55PX2QI7rGFf0gyU1g8j96ImBfhVrroU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=toaa46GB; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	bh=vJLLBfkaN4n0z7LfLM0SdkDcnADIq78u4hb+z3cSCvs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=AhCRLH7v453hg8lZrx7Rww3bSkHRVgqAYHxtHZZL+ZN5rcnlGG1pN+TI35N+BHA3i4dcUh81noaf3kYZPQakPaWclb26TKn8ghDmNyqt+rUQIEK9MFF9e4hA6l1BeReSTJTPGELvf7flpwQ4NoXsHqe8zrqBqkTTR46aAVFme5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mZmHWOMJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="toaa46GB"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 2A2774E4159A;
-	Tue,  8 Sep 2026 15:54:42 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id EB8D36031F;
-	Tue,  8 Sep 2026 15:54:41 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 70CC511C7AF49;
-	Tue,  8 Sep 2026 17:54:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788882881; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=6jYHof1xozakTmB//jQ3mXI6cUayuxeFSdZ/OEuL1ao=;
-	b=toaa46GBaAVcoNTbW8tvTfTTrSljE7hWXu0MeOJ3pAxuye9gHyQlI+d7ll5ckFxmRkV1hk
-	WggaIc0lIOCtjc/uq0/8ndwbEKD4BxyQ2ljIgGd/pMdkvIZSAFR7/NmMFT89A1yRueyQvn
-	Ji8OvEZOI4a/v7mjyVKI/lz3htZvA0rApBWEgXnrT5E6Jtt4Y0NDkN+P9YKJt52znXPNSZ
-	cbPRegXkxAZXTa276Y8SA8Dpc1vIO/CuWXSba1Pm3IHktv0xGu7hSXK3GIdVDRBeaNhRAk
-	aLNq91/BCjCNxMkrqfRrcE22fSrYDoEdozDJMRN8sp3NBt7KzNmCAgycKnkiuQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
-  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,
-  <sebin.francis@ti.com>,  <u-kumar1@ti.com>,  <a-dutta@ti.com>
-Subject: Re: [PATCH v9 16/18] mtd: spinand: negotiate optimal controller
- operating point before dirmap creation
-In-Reply-To: <693550b9-a1fb-4732-b6ab-b06fd6b11423@ti.com> (Santhosh Kumar
-	K.'s message of "Tue, 8 Sep 2026 18:44:13 +0530")
-References: <20260825171737.776052-1-s-k6@ti.com>
-	<20260825171737.776052-17-s-k6@ti.com> <8733vp0yuv.fsf@bootlin.com>
-	<693550b9-a1fb-4732-b6ab-b06fd6b11423@ti.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Tue, 08 Sep 2026 17:54:38 +0200
-Message-ID: <874ifzu4ap.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mZmHWOMJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5E611F00A3A
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 15:54:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788882885;
+	bh=yRJdV9GVxWUYV9yCpWvEhBDguuUlSfuEeEuU4CaxoZ4=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=mZmHWOMJriTMhh79lfF6vevN5fYL+hyZ5SmAO+HRxHmDuit/QMZfZm1eky9VaWhpO
+	 EY8PfZs7F6JTliu7YDNeGL7uL6Fo3nNDrQwjrXYBEPDLRWyXaVnj+ihLIHhrf7//ic
+	 MbmMioZtN3usiS1yD51p+BwHYCZYZQ7+pee+q5YQbJQn0SrG7Uoz3Ps6QBRQKzOAXv
+	 9E7yVYSmfOyTJoPo0jH/dZg0twpFUM8BPfDLxnVpPbm8y8p9XUDhZsG0BMW1urCEp/
+	 sF4F4Cc1cSitK9b78P+or+8H0LbIjlZl4fFOYwwv6BKzX0raXmdBf/NkRRmK+X+5wk
+	 x9uarNvZUHhXw==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 308AF198003A;
+	Tue,  8 Sep 2026 11:54:43 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 11:54:43 -0400
+X-ME-Sender: <xms:wS-gajNhMGM3Gxzcef-yXdGene2vzQIJIJCQsMbUucZg0ESkSia7ew>
+    <xme:wS-gaowIgGPrv4h32oHDZXsUYBzPo0dZzRKFqJcyScwWTAbh6y1ncqGdX0Dv4nlzP
+    7ljYN5QqELhRvEIf6VDdxmSAoQA4tmZ4jgobBKRyMXX9a1r83UIo7Qo>
+X-ME-Proxy-Cause: dmFkZTGLwLZViC9sd85t/P9neK5mQH2VP8dHwnJbVAzTMRboBc9GY3Y0SufdB0PabDu0Bw
+    etX//xWANhEWe+XH12gf0SVEuw/OxEtX4HEnkpJ2rHojRxBWwsQIfNpyPzv7uBN+lSKv5/
+    SqiouBbLssFGgSzJUBbsFNUp6wNdJz2qBToqFbpHCAoGYosRPqyJBSMsHHzbikA99KMoJN
+    liA0KaarEy1JNDfft14Z8BYFZIaVtTSiLGElG0zXYaXrUyfWlxzh2ILUNIu9U3WIUTlIHC
+    ccb7Z+RwpoaVMTAahwIuzfRyusxsV7yqkohJmElcj0EterN2DarbMY4Gu2AhvdwWGHSUSF
+    +QqGOmoEymLbEZ6M8sQd83uUOXo7c7Txg4K89ukNWAElSHrOj586Q4FZ6+hfCt73bCXAOY
+    1xdw78eGIF/CdsscaDLf8AFeXiqjERP3Fq6Gnkt38qDdT2MonVMajVbcD6YqBhSTey9oTZ
+    tIs3Ehn+cMdTxQosFIAxv7Oclq7Epb0ae6DTYo1CGZhmQWIxeXVc5LmxrkgzQqnm1x3O5j
+    FwHN3beBUmEnTRjBFh93yn4JsIbaq7lgNJqAd+PrKfSHerCbz0fd0LOoPZlRMEQsuKEoj4
+    YgdzeCEwX5GSgW7Wz+xbRJTdRDur0fqHFkCISHeqOVXQRi2ylcw8S4/wsPtw
+X-ME-Proxy: <xmx:wy-gasx4ChskjzrEKIJ6om9udRtN3q00ZZk5Hs8QWVvY4dP4cA83zQ>
+    <xmx:wy-gaii72i4Fgq-O1aO7O54W_yWEQhxvgJbw3ivrMy7xdwfyTg7RGA>
+    <xmx:wy-gagl8a5u2zS0xIaHUUfe5LxJRRNInPL7dzMuXbcLxnfBAs79iBw>
+    <xmx:wy-gaghUL3NmZb5NcX7WSJZsyfxf55U3J0f83-ErG9dzlcfF81L28A>
+    <xmx:wy-gas3Luj_0c3PVbuzJEEcAoqgxlhY-jbl5gKU0DhqGlBpftxsVaUXN>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id C855E32A0078; Tue,  8 Sep 2026 11:54:41 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+X-ThreadId: AaAMVJPR8SoN
+Date: Tue, 08 Sep 2026 17:54:21 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: "Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, "Frank Li" <Frank.Li@kernel.org>,
+ "Rob Herring" <robh@kernel.org>
+Message-Id: <04fd3dc4-6aee-42ba-b41c-df7acb89239e@app.fastmail.com>
+In-Reply-To: <20260908154346.CDA0D1F00A3A@smtp.kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-11-arnd@kernel.org>
+ <20260908154346.CDA0D1F00A3A@smtp.kernel.org>
+Subject: Re: [PATCH 10/13] ARM: stm32: remove stm32f4/f7/h7 MCU support
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Hello Santhosh,
-
->>> +		if (!ret && spinand->max_read_op.max_freq) {
->>> +			templates->read_cache =3D best;
->>> +			if (spinand->all_cont_read_variants) {
->>> +				templates->cont_read_cache =3D
->>> +					spinand_find_cont_read_variant(spinand, best, iface);
->>> +				spinand->cont_read_possible =3D
->>> +					!!templates->cont_read_cache;
->> I believe you almost addressed the concerns raised in v7 about
->> cont_read_possible, except what you do here is still a bit dangerous
->> since you could re-enable continuous reads on no_cs_assertion capable
->> controllers. I believe you should clear the flag only, never risk to set
->> it, something like:
->> if (!templates->cont_read_cache)
->>      spinand->cont_read_possible =3D false;
->> With this fixed,
->> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+On Tue, Sep 8, 2026, at 17:43, sashiko-bot@kernel.org wrote:
+>> -The STMicroelectronics STM32 family of Cortex-A microprocessors (MPUs) and
+>> -Cortex-M microcontrollers (MCUs) are supported by the 'STM32' platform of
+>> -ARM Linux.
+>> +The STMicroelectronics STM32 family of Cortex-A microprocessors (MPUs) is
+>> +supported by the 'STM32' platform of ARM Linux, support for the Cortex-M
+>> +based MCUs is has been removed.
 >
-> Thank you for the review.
+> [Severity: Low]
+> Is there a grammatical typo here? Should it be "has been removed" instead of
+> "is has been removed"?
+
+Fixed.
+
+> [Severity: Medium]
+> This is a pre-existing issue, but does removing this selection of STM32_EXTI
+> permanently disable the irq-stm32-exti.c driver?
 >
-> Fixed as you suggested - spinand_try_ranked_variant() now only clears
-> cont_read_possible when the newly selected variant has no matching
-> cont_read counterpart; Will carry this into v10 along with the other
-> fixes.
+> Looking at drivers/irqchip/Kconfig on line 485, STM32_EXTI is defined as an
+> invisible boolean config symbol. Without being selected here, the driver will
+> never be built. Could the corresponding driver and Kconfig entry be removed as
+> well?
 
-Perfect, thank you. I'm good with it then.
+As with the other platform removal in this series, I already
+have patches for these as well, see
+https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
 
-Cheers,
-Miqu=C3=A8l
+       Arnd
