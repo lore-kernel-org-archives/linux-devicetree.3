@@ -1,581 +1,212 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511B833F589;
-	Tue,  8 Sep 2026 06:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B14338239F
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 06:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849741; cv=none; b=ZeCNcn/tRSpfCCaLQ0db4UJp+d4vTKtkA9JCMIj+J+FIOvlvNZd6TX4GDZv+mfrL1m9Sf5n1lCCv8B7v/ziUhgtYuQGZ14gUnvOH0nvXBzgxKIOqOmGZ1G7JETlQDcLbVv0jAIoA6OX947GLmbrLJ2tIoBvRdQXcjmbF/NHm3Rk=
+	t=1788850393; cv=none; b=pkO9ZnWkfY5tsp/YxRerDWCIwkAlLYSbgHXjfD9x7SvAdCucaVYyaA/15ZnOMTuepVY4e0+4YmJ1nZrbHsC+Qn4r4I5zUiThdN0rZEcCmVhBqkEWwMWtXd7gRJFPOjkwxPIWeMOrLx5xpufBGijXW1juzFgyy+IYMIP3QDCuvQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788849741; c=relaxed/simple;
-	bh=R1LsAciT+xsC2ZiK1jLwcFP0kPKlFlMJbz4ySywZy0o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ue3d6yUxf270u+yUI5N/wCtcqvOtJcgY0iHzwHjxITifkUgS4ByRofbGeujIlz6YMgLpJO5v0v9jawch+FQI7ZO2ZwO2XfdfLZ0DPTD1m8kaLV+bd61FJ8veN7CnQ2p0MY6EgJndhC//fPf2f9idHw4Eke7GvT+CluR+ahc7QVw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=IB5UQrg6; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1788850393; c=relaxed/simple;
+	bh=/rHP3l7Gq28erKII9JbPiB+PWMjwfT4NtvvwFQeB180=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fJOIIGrSPuYx1JqFrgyJK4xkqlOfw2VjNW8Pxxv5QpJTLYjYwBV23R31Qi3cWjIX5pcvbAIJOXEayA1K7GdsF4Qjn1mKbxstEmX3iWXceE3CTfy6m1BMB46LW63j+sz6w3nOFiDwY1lbg5bVfuQyOOdlSQuleUPztcd7xUotjkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GMUcJJ9U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JXjeU9g3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="IB5UQrg6"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GMUcJJ9U";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JXjeU9g3"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M4bj2363336
+	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 06:53:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=8u90eAf+GOGer9u+qAuP5b
+	dr9jQFbofFPJyNttu8OIQ=; b=GMUcJJ9Usd5QgC8dmVdXyWj9vS/e9WBHaHvlHf
+	mzui1t67GnqdeFrtCnBWeLdKoSiSjNtTbpujp/Ynqp5gcV0YC4vUdJe4WRfxGxvW
+	ztrclTYprFN3WYrUDePpsb2fCaEOQCEJkBBlObzfpj8MAMSnF5QaBMvjQ6yYOKPI
+	27MlXbNtS4OML3Gj37TeR3wcJTwIPIH/pA/ivT9rAC9qjZrIXPK81B9plVsn32fh
+	mgalwnPQLqfxUl8oC6zo5uA02hLd46QsTTdUjemvjoVbXJ35Aavn5TcEZH9N+Knh
+	RveDyKgid2btGIx9Uid5ZHDhB3AdRlui0r67bkaiObHkrnvQ==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjagugnn8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:53:10 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398d292eac1so8910179a91.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 23:53:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1788849726;
-	bh=HW8YPibjl9buYwl5JB/jgTRDOYqx1+/Fng2gFbCfFww=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IB5UQrg6Z0kgAIKuXNeDpSIK2QfJapcwSWfy0n88DzYE9cXcXlWd8yRe1OZnSyo08
-	 9vJNYAM8TlSMrG7WT7HqvsDKWP0OiNE2PZVDwMyYEwgfznO2hwT+50jSZZ9XAvgcu9
-	 C5aMB0rTMVbY96eVRbG7hyOYr6f/5t9gns6tIAR/E+r7wClUroyinA4sMubl08LTVg
-	 3bTgMJHUmK3QxE4inbbSFLzijchwUiWbQUXC/bwcpx8DGdxwiqPr16Ifo3XFBQVNpE
-	 VNV8L75hRplBObkH2rfq316g0cH9jyS2h3XIFAeZ14X7XEgm5njwSMBYhsM0/yxhgN
-	 bg9baiC5TnU5A==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hfDrG0bTcz4wSs; Tue, 08 Sep 2026 16:42:06 +1000 (AEST)
-Date: Tue, 8 Sep 2026 16:41:06 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is available
- at offset 0
-Message-ID: <ap-t8qMg5VMwh-T9@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-3-herve.codina@bootlin.com>
- <apOhk-NQusFgV5Sx@gractus.seuss>
- <20260831140119.1f14b420@bootlin.com>
- <apaBuQ8kn2bOzYcI@gractus.seuss>
- <20260901141826.49b1a1b7@bootlin.com>
- <apfKx_u3v3GBfzOz@gractus.seuss>
- <20260907184641.537cfa49@bootlin.com>
+        d=oss.qualcomm.com; s=google; t=1788850390; x=1789455190; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8u90eAf+GOGer9u+qAuP5bdr9jQFbofFPJyNttu8OIQ=;
+        b=JXjeU9g3g2hhf0umgwE3ZyB3HRLqHV9pw+RxOD6H9a2SZp9dlgWgjiLU3A4z54XjJM
+         F8V5quwBfnxkxXhxrNzjBcM/cN2aaHasgrmsBbET8B3Lo5ruFIvGaSMnpKU/C76KUVy/
+         8fhz34jk19tgXX3GRrctd5odVpPD6ZX1bpyzqXC/MEhnIZq5lEnQi6IjZc/0q96anh2d
+         //q0X8EiLfwCnt0ezoCUK2PbCn4wSD+7mC3va4fA0P++kd7cH4nAYlEgNnqmwwWMRAq1
+         pCAU1qBkLJvj2YBJcPXhtWh69tpFxtA5dmnKJ2Bh5OZ+LPRa55jsCIFXL8WxpPuZGJdL
+         vR5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788850390; x=1789455190;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=8u90eAf+GOGer9u+qAuP5bdr9jQFbofFPJyNttu8OIQ=;
+        b=amwiI0WfdInMGFnOcCy4xztHknUXjd1mX9xY5JZbguvSOJ/dKUVoYXKFoaJrd+c30w
+         QUXFnfkwa6Zg9+wD+FeYSEYOl/zfcaNG9KW+KQLqTCu+6CQ5kMYwyASEkBipKGzWyD+u
+         +EL4+uZPVg4/1Ob9ZFEakSUuOlxC0WHbBC1NrFXI39HoTS0Ny2nDMHGZpUqWPP2UbUWJ
+         xie4zKYYO0A+BUicI7skKUzoNyv+uMdsqlzsnNCHOdOIpY9AtkO/EoWiHG4Mu21plxtc
+         7Tsm3fyRozlZnx4nfu8RHpUtbrXp6hDga/rU02sNLxFtf/C00+dctS7A6BgOicNgS+kx
+         sCXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzMGfGukNFXD4evG8mHhTFRF7Y+0BHr6PJMDrW5rQwE21kiFAXNW7iibKzgGB2PoG0g/tAwO0rsDyuU@vger.kernel.org
+X-Gm-Message-State: AFuF++lZbXAK+DcoZhqUavhKDFzPkE+3Bkz5i6hTIPHbXODUG6RCp4LY
+	pH4XdLMxiyY3Eqm96fyZeoeCRacsYcWbw0bnjGoEo6uqPv9rx887vhnAgXx929xX6Ex3X2mIzo5
+	mz7P/Xr5bceCSMc3tL98K0t4GirNhD/nAKDUooaKZSGg3iZODl+HIlVWUhdVEBnC7
+X-Gm-Gg: AYBFou1+VYPQKQH4Vs6SMKBnlhJaW2vzckDbPkQth8i/iWIoeYiKdlwPu8KSiQjPd8o
+	oEJeg1jddFgc2xYjIVy6kUVozSPRAbXmFLLmVbJ/KP7oIFPWSKiAlFKXlPzVJtmWzBRb8hmmaVv
+	M4vLvzJa3bKRutS/AGZgwVo5WEmyTJxmsekHl0wb4cvc5ojczAMUKnIdNDEuhuO9yHKbdtUk5BR
+	+1ml5lWrKx96kWgynwv13DBSCMwiguqTGCUA7LnL8gPPanrR9UmxSVxI81kustPMfNYcU4WmptJ
+	S05WehyZT5BtcgOAqZQ9UMvpsMU2sNeUNZY9r9I5idY9H3JK+wqX450HeiqIrXL2oTSoeFff6oZ
+	K+pXRkKC7JM6lYHwOLJ4e9HtZkzfB4dUzRg==
+X-Received: by 2002:a17:90b:2ecd:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39b2609f306mr46201442a91.3.1788850389941;
+        Mon, 07 Sep 2026 23:53:09 -0700 (PDT)
+X-Received: by 2002:a17:90b:2ecd:b0:396:40e6:f631 with SMTP id 98e67ed59e1d1-39b2609f306mr46201376a91.3.1788850389427;
+        Mon, 07 Sep 2026 23:53:09 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm28231417c88.6.2026.09.07.23.53.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 23:53:08 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Date: Tue, 08 Sep 2026 12:23:01 +0530
+Subject: [PATCH v4] arm64: dts: qcom: agatti: Add memory-region for audio
+ PD
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YZwUZMmSg92pVfpF"
-Content-Disposition: inline
-In-Reply-To: <20260907184641.537cfa49@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260908-agatti-audio-v4-1-b3db91d3fdec@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAMywn2oC/3XMQQ6DIBCF4as0rItBEJCueo+mCxioklRpRU0b4
+ 92Lroypm0n+Sd43oeg67yK6nCbUudFHH9oUxfmEoNZt5bC3qRElVJCSCKwr3fce68H6gBmXBqw
+ stFOA0uTVuYf/rNztnrr2sQ/dd9XHfPkeQGOOcwxWSCEAFIC5hhiz96CfEJomSwct3ki3htwZN
+ BlMcWVybUrC1YHBNgYlO4Mlo5CMSaKkc5z9MeZ5/gESEZORNwEAAA==
+X-Change-ID: 20260806-agatti-audio-357bcd74ae9c
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788850384; l=2319;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=/rHP3l7Gq28erKII9JbPiB+PWMjwfT4NtvvwFQeB180=;
+ b=yLmZzC3rXbMx6rEvh8K9U8LuTyZG1JpSu11wy4TufoCp9al/pHtMCf2nz1mXK5OD65iJk3/dW
+ Q/0VmPiVMIzB32zRbms0v/sUMdWgScxjJ97keeJydGmmp/dRBzeeB9p
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Authority-Analysis: v=2.4 cv=TqLWQjXh c=1 sm=1 tr=0 ts=6a9fb0d6 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tc8gWtmjloUqR9SNod4A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-GUID: 5DvfssWMahhtuJlDfflMsllmQDnK74By
+X-Proofpoint-ORIG-GUID: 5DvfssWMahhtuJlDfflMsllmQDnK74By
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA3MCBTYWx0ZWRfX/j9OM39sPzZT
+ THM67o6yU2l6OJikWTm80PEzfwlzDSMY4Q/yVLctrsS4AgevM92VBLZuPsCoJIjPVJPRWUPkaer
+ ARJskUuarGWdk+JTh88IsF9A3q0Y61Y=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA3MCBTYWx0ZWRfX0Q8kpvklgZ42
+ 1I6L+xJxeh0K5aeb5ra6MvxX0tkiVW2tjYp999IN/rWsBLr8ya3FHGbmPRz2Sx0tlKeBRfK6Cmn
+ u+hF7pvHTcjVmYoQUmCgxw1gij7Qjk0nZDaUfJ7T8kCJYsqhRHXFQlbD3QmsJMEi8TINT4cDlIi
+ ett3G57Vx4UGit64vJsgjwZx0tyty1J3Ww/GvuG8bKMBK4lAyqEiA9zfUwAvFe9YvzE63YMWr1E
+ bzUQi6M8sEg3e6k8alPj7UdFRazlWH/VMbmylKqAR35EUHqbcMtM6A82QjgTvuamJzRZ4xZ61a/
+ uy16inQpfAz5NL0r61g6u75TB/IDgJZB3vcWXMdBJfkQi+TcDw1QNV2+RGSMRVTv4LfA7eQtKEM
+ gPXeB6C2n6IgrY1mRWV7EkpxWh/Wr5f77Fn3MWf6Jt+geg67Q4rxjN8Vjp7ogNWSpHXZl+72Clx
+ Miz9lweMjr413j1fXHA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 adultscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ phishscore=0 malwarescore=0 clxscore=1015 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080070
 
---YZwUZMmSg92pVfpF
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Reserve memory region for audio PD dynamic loading and remote heap
+requirements. Add the required VMID list for memory ownership
+transfers.
 
-On Mon, Sep 07, 2026 at 06:46:41PM +0200, Herve Codina wrote:
-> Hi David,
->=20
-> On Wed, 2 Sep 2026 17:06:03 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> ...
-> > >=20
-> > > Ok, I will update fdt_check_node_offset_() to have it updating its of=
-fset
-> > > parameter to the real offset of the root node when its value is 0.
-> > >=20
-> > > Based on this update, will see where it goes. I mean, impacts on call=
-ers, if
-> > > it simplifies things or not, if the offset update needs also to be pr=
-opagate
-> > > to caller's parameter or any other similar point that we can see duri=
-ng the
-> > > implementation.
-> > >=20
-> > > Having something implemented and available in a patch will be the bes=
-t to
-> > > compare changes and impacts related to fdt_check_node_offset_() updat=
-e.
-> > >=20
-> > > Here we have a version of handling offset 0 vs real root node without=
- any
-> > > offset update done in fdt_check_node_offset_(). In the next iteration=
- we will
-> > > have the version with update done in fdt_check_node_offset_().
-> > >=20
-> > > I think the golden rules to follow on this point is "keep it as simpl=
-e as
-> > > possible". =20
-> >=20
-> > Agreed.  Feel free to repost just the NOP before root patches on their
-> > own.  At this time, frequent small series is easier for me to tackle
-> > than occasional large series.
-> >=20
->=20
-> I've moved forward on the fdt_check_node_offset_() update.
->=20
-> The new fdt_check_node_offset_() looks like this:
-> --- 8< ---
-> int fdt_check_node_offset_(const void *fdt, int *offset)
-> {
-> 	int nextoffset;
->=20
-> 	if (!can_assume(VALID_INPUT)
-> 	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-> 		return -FDT_ERR_BADOFFSET;
->=20
-> 	if (*offset =3D=3D 0) {
-> 		*offset =3D fdt_root_offset(fdt);
-> 		if (*offset < 0)
-> 			return *offset;
-> 	}
->=20
-> 	if (fdt_next_tag(fdt, *offset, &nextoffset) !=3D FDT_BEGIN_NODE)
-> 		return -FDT_ERR_BADOFFSET;
->=20
-> 	return nextoffset;
-> }
-> --- 8< ---
+Fixes: 851d5ae6003b ("arm64: dts: qcom: agatti: enable FastRPC on the ADSP")
+Tested-by: Christopher Obbard <chris.obbard@oss.qualcomm.com>
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Changes in v4:
+- Added a Fixes tag.
+- Link to v3: https://lore.kernel.org/r/20260820-agatti-audio-v3-1-47337097ee53@oss.qualcomm.com
 
-That looks fine.  If it was an exposed function I'd want to look for a
-better interface, but as an internal function it's fine.
+Changes in v3:
+- Changed alloc-ranges to <0x0 0x0 0x1 0x0> to cover the full 32-bit address space.
+- Collected Reviewed-by/Tested-by tags.
+- Link to v2: https://lore.kernel.org/r/20260807-agatti-audio-v2-1-3959b1ab8059@oss.qualcomm.com
 
-> If the given offset is 0, fdt_check_node_offset_() considers we want to c=
-heck
-> the root node and so update offset to the real root node offset.
->=20
-> Ok, I still need some fdt_root_offset() calls from some other parts but t=
-hat's
-> not my main issue.
->=20
-> My main issue comes with orphan nodes in addons. fdt_check_node_offset_()=
- is
-> called with offset pointing to an orphan node and this offset can be 0.
->=20
-> The offset 0 seen by fdt_check_node_offset_() can be the "fake" offset of=
- a root
-> node and in that case fdt_check_node_offset_() should update offset to th=
-e real
-> root node offset but it can also be the offset of the orphan node we want=
- to check
-> and in that case the offset should not be updated.
->=20
-> fdt_check_node_offset_() cannot determine whether or not the offset shoul=
-d be
-> updated.
+Changes in v2:
+- Fixed VMID list alignment.
+- Link to v1: https://lore.kernel.org/r/20260806-agatti-audio-v1-1-cd6766cc9ccb@oss.qualcomm.com
+---
+ arch/arm64/boot/dts/qcom/agatti.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-Hrm.  But if offset 0 has an orphan node, we can see that with the
-FDT_BEGIN_NODE or FDT_BEGIN_NODE_REF there, right?
+diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
+index e7fed60a59d9..8d557010d3c0 100644
+--- a/arch/arm64/boot/dts/qcom/agatti.dtsi
++++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+@@ -381,6 +381,14 @@ rmtfs_mem: memory@89b01000 {
+ 			qcom,client-id = <1>;
+ 			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA QCOM_SCM_VMID_NAV>;
+ 		};
++
++		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
++			compatible = "shared-dma-pool";
++			alloc-ranges = <0x0 0x0 0x1 0x0>;
++			reusable;
++			alignment = <0x0 0x400000>;
++			size = <0x0 0x800000>;
++		};
+ 	};
+ 
+ 	smp2p-adsp {
+@@ -2346,6 +2354,9 @@ fastrpc {
+ 					compatible = "qcom,fastrpc";
+ 					qcom,glink-channels = "fastrpcglink-apps-dsp";
+ 					label = "adsp";
++					memory-region = <&adsp_rpc_remote_heap_mem>;
++					qcom,vmids = <QCOM_SCM_VMID_LPASS
++						      QCOM_SCM_VMID_ADSP_HEAP>;
+ 
+ 					qcom,non-secure-domain;
+ 
 
-> With orphan nodes in the loop, fdt_check_node_offset_() becomes:
-> --- 8< ---
-> int fdt_check_node_offset_(const void *fdt, int *offset)
-> {
->         int nextoffset;
->         uint32_t tag;
->=20
->         if (!can_assume(VALID_INPUT)
->             && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
->                 return -FDT_ERR_BADOFFSET;
->=20
->         if (*offset =3D=3D 0) {
-> #pragma message "We have a problem!"
->                 /*
->                  * An orphan node can be present at offset 0.
->                  * In that case, looking for the root node may or may not=
- be
->                  * correct.
->                  * Indeed is offset =3D 0 requested because we want the r=
-oot
->                  * node and sadly an orphan node is available at offset 0=
- or
->                  * is it requested because we want to really check the or=
-phan
->                  * node available at offset 0. How to determine the corre=
-ct
->                  * case?
->                  */
->                 tag =3D fdt_next_tag(fdt, *offset, &nextoffset);
->                 if (tag =3D=3D FDT_BEGIN_NODE || tag =3D=3D FDT_BEGIN_NOD=
-E_REF)
->                         return nextoffset;
->=20
->                 *offset =3D fdt_root_offset(fdt);
->                 if (*offset < 0)
->                         return *offset;
->         }
->=20
->         tag =3D fdt_next_tag(fdt, *offset, &nextoffset);
->         if (tag !=3D FDT_BEGIN_NODE && tag !=3D FDT_BEGIN_NODE_REF)
->                 return -FDT_ERR_BADOFFSET;
->=20
->         return nextoffset;
-> }
-> --- 8< ---
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260806-agatti-audio-357bcd74ae9c
 
-Right.. like that.  Except simpler would be to have fdt_root_offset()
-stop when it sees a FDT_BEGIN_NODE_REF as well as a FDT_BEGIN_NODE.
-Or maybe that should be, say, fdt_root_offset_(), and
-fdt_root_offset() will wrap it to return an error on an addon tree
-with no root.
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-> Of course, extra complexity could be added such as an additional paramete=
-r but
-> I don't think it would make sense.
->=20
-> The simplest way to handle the case is to not update the offset in
-> fdt_check_node_offset_() and let callers to pass the offset pointing to t=
-he
-> real node offset expected to be checked. This is my initial proposal.
-
-Even with the bulky fdt_check_node_offset_() above that doesn't seem
-simpler to me.  fdt_check_node_offset_() is largish, but the
-complexity is all in one place rather than distributed everywhere.
-
-> Of course, I am still open to other ideas.
->=20
-> For information, without addons and orphan nodes, just to compare against=
- my
-> original proposal, the full patch ("libfdt: Don't assume the root node is
-> available at offset 0") with the offset update done in fdt_check_node_off=
-set_()
-> becomes:
-> --- 8< ---
-> diff --git a/libfdt/fdt.c b/libfdt/fdt.c
-> index 56d4dcb2..d4d4b64b 100644
-> --- a/libfdt/fdt.c
-> +++ b/libfdt/fdt.c
-> @@ -228,16 +228,24 @@ uint32_t fdt_next_tag(const void *fdt, int startoff=
-set, int *nextoffset)
->  	return tag;
->  }
-> =20
-> -int fdt_check_node_offset_(const void *fdt, int offset)
-> +int fdt_check_node_offset_(const void *fdt, int *offset)
->  {
-> +	int nextoffset;
-> +
->  	if (!can_assume(VALID_INPUT)
-> -	    && ((offset < 0) || (offset % FDT_TAGSIZE)))
-> +	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
->  		return -FDT_ERR_BADOFFSET;
-> =20
-> -	if (fdt_next_tag(fdt, offset, &offset) !=3D FDT_BEGIN_NODE)
-> +	if (*offset =3D=3D 0) {
-> +		*offset =3D fdt_root_offset(fdt);
-> +		if (*offset < 0)
-> +			return *offset;
-> +	}
-> +
-> +	if (fdt_next_tag(fdt, *offset, &nextoffset) !=3D FDT_BEGIN_NODE)
->  		return -FDT_ERR_BADOFFSET;
-> =20
-> -	return offset;
-> +	return nextoffset;
->  }
-> =20
->  int fdt_check_prop_offset_(const void *fdt, int offset)
-> @@ -252,13 +260,38 @@ int fdt_check_prop_offset_(const void *fdt, int off=
-set)
->  	return offset;
->  }
-> =20
-> +int fdt_root_offset(const void *fdt)
-> +{
-> +	int nextoffset =3D 0;
-> +	int offset;
-> +	uint32_t tag;
-> +
-> +	do {
-> +		offset =3D nextoffset;
-> +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
-> +		switch (tag) {
-> +		case FDT_END_NODE:
-> +		case FDT_PROP:
-> +			return -FDT_ERR_BADSTRUCTURE;
-> +
-> +		case FDT_BEGIN_NODE:
-> +			return offset;
-> +
-> +		default:
-> +			break;
-> +		}
-> +	} while (tag !=3D FDT_END);
-> +
-> +	return (nextoffset < 0) ? nextoffset : -FDT_ERR_NOTFOUND;
-> +}
-> +
->  int fdt_next_node(const void *fdt, int offset, int *depth)
->  {
->  	int nextoffset =3D 0;
->  	uint32_t tag;
-> =20
->  	if (offset >=3D 0)
-> -		if ((nextoffset =3D fdt_check_node_offset_(fdt, offset)) < 0)
-> +		if ((nextoffset =3D fdt_check_node_offset_(fdt, &offset)) < 0)
->  			return nextoffset;
-> =20
->  	do {
-> diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
-> index 11f2e2ee..ec8af835 100644
-> --- a/libfdt/fdt_ro.c
-> +++ b/libfdt/fdt_ro.c
-> @@ -281,7 +281,7 @@ int fdt_path_offset_namelen(const void *fdt, const ch=
-ar *path, int namelen)
->  		while (*p =3D=3D '/') {
->  			p++;
->  			if (p =3D=3D end)
-> -				return offset;
-> +				goto terminate;
->  		}
->  		q =3D memchr(p, '/', end - p);
->  		if (! q)
-> @@ -294,7 +294,13 @@ int fdt_path_offset_namelen(const void *fdt, const c=
-har *path, int namelen)
->  		p =3D q;
->  	}
-> =20
-> -	return offset;
-> +terminate:
-> +        /*
-> +         * Avoid returning offset 0 or the real root offset.
-> +         * Be sure to return one and only one offset for the root node, =
-its
-> +         * real offset.
-> +         */
-> +	return offset ? offset : fdt_root_offset(fdt);
->  }
-> =20
->  int fdt_path_offset(const void *fdt, const char *path)
-> @@ -304,14 +310,17 @@ int fdt_path_offset(const void *fdt, const char *pa=
-th)
-> =20
->  const char *fdt_get_name(const void *fdt, int nodeoffset, int *len)
->  {
-> -	const struct fdt_node_header *nh =3D fdt_offset_ptr_(fdt, nodeoffset);
-> +	const struct fdt_node_header *nh;
->  	const char *nameptr;
->  	int err;
-> =20
-> -	if (!can_assume(VALID_DTB) && (((err =3D fdt_ro_probe_(fdt)) < 0)
-> -	    || ((err =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)))
-> -			goto fail;
-> +	if (!can_assume(VALID_DTB) && (err =3D fdt_ro_probe_(fdt)) < 0)
-> +		goto fail;
-> +
-> +	if ((err =3D fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
-> +		goto fail;
-> =20
-> +	nh =3D fdt_offset_ptr_(fdt, nodeoffset);
->  	nameptr =3D nh->name;
-> =20
->  	if (!can_assume(LATEST) && fdt_version(fdt) < 0x10) {
-> @@ -344,7 +353,7 @@ int fdt_first_property_offset(const void *fdt, int no=
-deoffset)
->  {
->  	int offset;
-> =20
-> -	if ((offset =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)
-> +	if ((offset =3D fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
->  		return offset;
-> =20
->  	return nextprop_(fdt, offset);
-> @@ -574,6 +583,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, cha=
-r *buf, int buflen)
->  {
->  	int pdepth =3D 0, p =3D 0;
->  	int offset, depth, namelen;
-> +	int root_offset;
->  	const char *name;
-> =20
->  	FDT_RO_PROBE(fdt);
-> @@ -581,7 +591,14 @@ int fdt_get_path(const void *fdt, int nodeoffset, ch=
-ar *buf, int buflen)
->  	if (buflen < 2)
->  		return -FDT_ERR_NOSPACE;
-> =20
-> -	for (offset =3D 0, depth =3D 0;
-> +	root_offset =3D fdt_root_offset(fdt);
-> +	if (root_offset < 0)
-> +		return root_offset;
-> +
-> +	if (!nodeoffset)
-> +		nodeoffset =3D root_offset;
-> +
-> +	for (offset =3D root_offset, depth =3D 0;
->  	     (offset >=3D 0) && (offset <=3D nodeoffset);
->  	     offset =3D fdt_next_node(fdt, offset, &depth)) {
->  		while (pdepth > depth) {
-> @@ -627,13 +644,21 @@ int fdt_supernode_atdepth_offset(const void *fdt, i=
-nt nodeoffset,
->  {
->  	int offset, depth;
->  	int supernodeoffset =3D -FDT_ERR_INTERNAL;
-> +	int root_offset;
-> =20
->  	FDT_RO_PROBE(fdt);
-> =20
->  	if (supernodedepth < 0)
->  		return -FDT_ERR_NOTFOUND;
-> =20
-> -	for (offset =3D 0, depth =3D 0;
-> +	root_offset =3D fdt_root_offset(fdt);
-> +	if (root_offset < 0)
-> +		return root_offset;
-> +
-> +	if (!nodeoffset)
-> +		nodeoffset =3D root_offset;
-> +
-> +	for (offset =3D root_offset, depth =3D 0;
->  	     (offset >=3D 0) && (offset <=3D nodeoffset);
->  	     offset =3D fdt_next_node(fdt, offset, &depth)) {
->  		if (depth =3D=3D supernodedepth)
-> @@ -663,12 +688,15 @@ int fdt_supernode_atdepth_offset(const void *fdt, i=
-nt nodeoffset,
->  int fdt_node_depth(const void *fdt, int nodeoffset)
->  {
->  	int nodedepth;
-> -	int err;
-> +	int offset;
-> +
-> +	offset =3D fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, &nodedepth);
-> +	if (offset < 0)
-> +		return offset;
-> +
-> +	if (!can_assume(LIBFDT_FLAWLESS) && offset !=3D fdt_root_offset(fdt))
-> +		return -FDT_ERR_INTERNAL;
-> =20
-> -	err =3D fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, &nodedepth);
-> -	if (err)
-> -		return (can_assume(LIBFDT_FLAWLESS) || err < 0) ? err :
-> -			-FDT_ERR_INTERNAL;
->  	return nodedepth;
->  }
-> =20
-> diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
-> index 850aafe4..a1a07f01 100644
-> --- a/libfdt/fdt_rw.c
-> +++ b/libfdt/fdt_rw.c
-> @@ -226,7 +226,7 @@ static int fdt_add_property_(void *fdt, int nodeoffse=
-t, const char *name,
->  	int err;
->  	int allocated;
-> =20
-> -	if ((nextoffset =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)
-> +	if ((nextoffset =3D fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
->  		return nextoffset;
-> =20
->  	namestroff =3D fdt_find_add_string_(fdt, name, namelen, &allocated);
-> @@ -377,6 +377,12 @@ int fdt_add_subnode_namelen(void *fdt, int parentoff=
-set,
-> =20
->  	FDT_RW_PROBE(fdt);
-> =20
-> +	if (!parentoffset) {
-> +		parentoffset =3D fdt_root_offset(fdt);
-> +		if (parentoffset < 0)
-> +			return parentoffset;
-> +	}
-> +
->  	offset =3D fdt_subnode_offset_namelen(fdt, parentoffset, name, namelen);
->  	if (offset >=3D 0)
->  		return -FDT_ERR_EXISTS;
-> diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
-> index c69a18ed..7a1915a5 100644
-> --- a/libfdt/libfdt.h
-> +++ b/libfdt/libfdt.h
-> @@ -503,6 +503,19 @@ int fdt_num_mem_rsv(const void *fdt);
->   */
->  int fdt_get_mem_rsv(const void *fdt, int n, uint64_t *address, uint64_t =
-*size);
-> =20
-> +/**
-> + * fdt_root_offset - Get the offset of the root node
-> + * @fdt: pointer to the device tree blob
-> + *
-> + * The root node can be located after the offset 0. Indeed FDT_NOP tags =
-can be
-> + * present at offset 0. fdt_root_offset() takes care of those possible F=
-DT_NOP
-> + * tags.
-> + *
-> + * returns: offset of the root node or negative libfdt error value other=
-wise
-> + */
-> +int fdt_root_offset(const void *fdt);
-> +
-> +
->  /**
->   * fdt_subnode_offset_namelen - find a subnode based on substring
->   * @fdt: pointer to the device tree blob
-> @@ -1025,7 +1038,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, c=
-har *buf, int buflen);
->   * at a specific depth from the root (where the root itself has depth
->   * 0, its immediate subnodes depth 1 and so forth).  So
->   *	fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, NULL);
-> - * will always return 0, the offset of the root node.  If the node at
-> + * will always return the offset of the root node.  If the node at
->   * nodeoffset has depth D, then:
->   *	fdt_supernode_atdepth_offset(fdt, nodeoffset, D, NULL);
->   * will return nodeoffset itself.
-> diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
-> index 0e103caf..d5072279 100644
-> --- a/libfdt/libfdt_internal.h
-> +++ b/libfdt/libfdt_internal.h
-> @@ -20,7 +20,7 @@ int32_t fdt_ro_probe_(const void *fdt);
->  		}							\
->  	}
-> =20
-> -int fdt_check_node_offset_(const void *fdt, int offset);
-> +int fdt_check_node_offset_(const void *fdt, int *offset);
->  int fdt_check_prop_offset_(const void *fdt, int offset);
-> =20
->  const char *fdt_find_string_len_(const char *strtab, int tabsize, const =
-char *s,
-> diff --git a/libfdt/version.lds b/libfdt/version.lds
-> index cbfef546..d0b71669 100644
-> --- a/libfdt/version.lds
-> +++ b/libfdt/version.lds
-> @@ -7,6 +7,7 @@ LIBFDT_1.2 {
->  		fdt_string;
->  		fdt_num_mem_rsv;
->  		fdt_get_mem_rsv;
-> +		fdt_root_offset;
->  		fdt_subnode_offset_namelen;
->  		fdt_subnode_offset;
->  		fdt_path_offset_namelen;
-> --- 8< ---
->=20
->=20
-> I hope all of those details will help to move forward.
->=20
-> Best regards,
-> Herv=E9
->=20
-
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---YZwUZMmSg92pVfpF
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqfrfIACgkQzQJF27ox
-2GfjSBAAnQbTcPPGls17WN2oRpG4M+/ssZHQTURIQkt4G+z6S7MDvNa+yZZSanxy
-z4T6IgallQi6Jo+MxLooxwpuAstUC3BVXVzfUlWogXQlJqIjyFffCqIz5fkxJY7y
-0Cwh+qQULf10Ip+50KGmVKUZ+j+leQJSRrQ8H/iLRCptwHBwm2NEuzUK2zdLstfG
-WiGGHyQZZxZkqci0W9bkKEiJY/tBaniUv0Z0oBPuIWljzoP75EibRq0TbaUGeyc2
-6flmHXbN1B1bm+lhgURSi3ny/NWoJR96NRz9zgR16pGnji9tgjGjyfWL3FiW2MKZ
-Tm/7n864Oyc0aCFk33EgW5R85zFppU0BYqn0mvw3dnPlgpo6WDvFeUFCXvNK3Tv7
-zuchkIXhBloYe3jaVuGnUWWYofALqR9tT8r4WR6i+UK1bGqSIeCyMnrznycu5mVP
-79+hmugUkGH/U7kHDcHCEnbyrGQRmj9wYsCo5oncL7zm/9hwCzS/BJUS1nbKYmNN
-76h85W8nmlItB+UAS+xWT/G/z7dWCbkdGXHva6zQHh08dJdApHOUqttEc0ULKe8e
-ncjyZsWJfr/OIBvgRCNOjPgyIsYb2dV/M4s8d5nzFY+4DB2rqwtzfizgXN1GbVDH
-6wbOlOL/H1TughIo9K/cRblMDqaDKUORUc+JPukj7ViyWc7fOcw=
-=uTPI
------END PGP SIGNATURE-----
-
---YZwUZMmSg92pVfpF--
