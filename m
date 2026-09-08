@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7403F99F4;
-	Tue,  8 Sep 2026 08:40:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65CF13D3498;
+	Tue,  8 Sep 2026 08:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788856857; cv=none; b=SDthw1Z9Pi9wjmALgQoO0+gpq0ioLibRypHVEU/dCO/IU/hq9zl4a394O24KbRoqSfzGFqxzZUFB/nMj1ovkwGt3jDtbwIoCp2Obtdkk2ylyFBbHbhSyhTF8MVtNiAOXG3GCkwx5pnIylazReJIKUzwoRKqqxnJAySTDjdzO/CE=
+	t=1788856971; cv=none; b=AcyB5mw9evSEhQXaH4JPGLyPeU/8N3DqNnJOvzvffUbLUolX6EES+49KKbXCRhGzStcX0FR4mryfIINFzppKDV343Uy0qCwq8pG4nVBVuvsKgvQKMqekn8lRKpZssH9gpfbXubH9CW817VyajNMjuNQ3W8xt1yrxAb8CCFmDNjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788856857; c=relaxed/simple;
-	bh=oPG8VBNrRlqipsMmtZpmQ3beL9mc/4dKsNEBMmlHVzg=;
+	s=arc-20240116; t=1788856971; c=relaxed/simple;
+	bh=wmzPfUG6OMd6SXJ/gLHhbOb1alILy66CcV6rzfKIUkU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=U1L5eavygcg3bbt6Gn1711bUIWGN4hOVHgufFTd9D2jz5p94RgUaAP4mdaCrNzWYmpk64KNgxs/jawBXxVRUKhl5MHbQR6z6G0dia8jEr/4op73nqseyQ39jGRAiFbdaJRsNdf3vLaEHiLkNU7qjze1NoNH8FcD2MA60MtWSQR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PhWtAtE0; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=npsuM6xGzPiNGNZtmWefMm/1Jfcr7z9WrJUr84PgONFwAZUd3eLCdS9UJ78NkmUAYDyjNp23rWRfAgi1aCUQgaEUoIvZ5Gr6Q4eJCnhZIrg7O4WCIqePHNN+xORyL+XO9WBdgVWq6V6XwvFyJ6gKaWPD60V6UYVJekxQcUbHoBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkreHeI2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PhWtAtE0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B582E1F00A3D;
-	Tue,  8 Sep 2026 08:40:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkreHeI2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 84B7A1F00A3D;
+	Tue,  8 Sep 2026 08:42:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788856854;
-	bh=jSuLEe6P7QY7UzfjfsGtEwmzDfa2TYxR0HKzgMeZmUw=;
+	s=k20260515; t=1788856970;
+	bh=fVFljffm031sI1y7wyLyTTTPjkaePVEttrtm9XlbPF0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PhWtAtE0KEcCG98o1pIsJJ6a3rK1l6z+R9VmbKYDRmWiJcQ3H0AblQV9Q9DElj/K2
-	 9DdzrzLxjLdApNdLM5QUyNugyFFw3OpDQ3rGJIwApIPTmloOgJ4C85emmurItDWD5i
-	 KtLG7BXjtOJyH/OExhNyJWsWvtAAc1qDz9RGM1CIVa47QMf9LbJifJPgdWxenngJPk
-	 5F8/5FStfc87d42IPU0eROCZahzFTosbELD41d7O7oqz0dAHcUBuiOuFKpS/go+2GX
-	 c4N9bFWmyax34NmoGtTAxqi6OSRqXWt4zirCd0S5zCmHshCYwoEQ/pAIAjfISq1yDB
-	 U9/X+prdEhmdw==
-Message-ID: <fd428d1c-646f-47f1-9fbb-91f3b50760dd@kernel.org>
-Date: Tue, 8 Sep 2026 10:40:45 +0200
+	b=kkreHeI2Lg4XnYjx8Fr6cdJ1FSYfU1w0kgR5TgDB6pdz7cF8UYmunXULyfmZXWQNa
+	 Tu54h0ACg42lYo56vY+Z/bR4ai9w4dOukd9mzPpPCjQKTN4qPsB+K3jCtTF+CST/AD
+	 9X54C1K9ZpLhM3eN6a03r+rVTFKigAoBCXlp19Hr8EU7nC+u9zErZWeGibkgbCSpvw
+	 GSGQSd3DssgEc2niJxiO2k2xpS6sppBNZjGushHYhlvEF1ck3xvg+4i6PZfGJCDehI
+	 2RuZVD/RB1oCArH18ffAIe7rZh0gTHQDbTvyp6Y5Q6oyhwQV+mVIwFmlRaZuGkxf4+
+	 13oJo9P7QjGfg==
+Message-ID: <c0e617f9-202a-4786-8383-2ce7567b7d29@kernel.org>
+Date: Tue, 8 Sep 2026 10:42:40 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,7 +54,7 @@ References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
  <e9388ffc-ddc8-456f-ad7f-1d185d35ab69@kernel.org>
  <ap+zd/2QmerMwi0o@oss.qualcomm.com>
  <c23369fc-84ff-4881-8327-c18fc3692306@kernel.org>
- <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com>
+ <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com> <ap+7oEcW6GONVdEk@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,38 +100,38 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ap+3+Xhq6ygnPzQ7@oss.qualcomm.com>
+In-Reply-To: <ap+7oEcW6GONVdEk@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 08/09/2026 09:23, Mohd Ayaan Anwar wrote:
-> On Tue, Sep 08, 2026 at 09:14:45AM +0200, Krzysztof Kozlowski wrote:
->> On 08/09/2026 09:04, Mohd Ayaan Anwar wrote:
->>> On Tue, Sep 08, 2026 at 08:56:39AM +0200, Krzysztof Kozlowski wrote:
->>>> On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
->>>>> Hi,
->>>>>
->>>>> This preliminary series adds the DTS changes required to enable
->>>>> Ethernet on the Qualcomm Shikra CQM, CQS, and IQS EVKs.
->>>>
->>>> What is "PRELIMINARY" patch in upstream? Where is this process
->>>> documented or expressed?
+On 08/09/2026 09:39, Mohd Ayaan Anwar wrote:
+> On Tue, Sep 08, 2026 at 12:53:46PM +0530, Mohd Ayaan Anwar wrote:
+>> On Tue, Sep 08, 2026 at 09:14:45AM +0200, Krzysztof Kozlowski wrote:
+>>> On 08/09/2026 09:04, Mohd Ayaan Anwar wrote:
+>>>> The only reason I added a PRELIMINARY tag was because these DTS changes
+>>>> should go in after the driver changes and dt-bindings.
 >>>>
 >>>
->>> My apologies. The code is ready, and I was hoping that sharing the DTS
->>> changes would make reviewing the driver and dt-bindings a bit easier.
->>> The original RFC had them together, and I split it out for net-next
->>> and linux-next.
+>>> DTS cannot go after the driver changes. If that is your requirement,
+>>> then original work is broken and needs to be fixed.
+>>>
 >>
->> Yeah, but why calling it completely different than every other patchset?
->> Why coming with different style? Why this cannot be RFC?
+>> I should have worded it better. I am only worried about the dt-bindings
+>> going in before this DTS. The driver changes just add support for
+>> whatever we are desribing in this series, they can go in after
+>> dt-bindings and DTS without any issues.
+>>
 > 
-> Agreed. In hindsight, this should probably have been an RFC v2. I saw
-> some recent series using a PRELIMINARY tag, but I see that its
+> ...would it be preferable to instead have the split like this?
+> 
+>   - This series + dt-bindings (on top of linux-next)
+>   - Only driver changes from [1] (for net-next)
 
-Where?
-https://lore.kernel.org/all/?q=s%3APRELIMINARY
-
+No, because it would be against explicit documented rules in the kernel
+and against clear guidelines and recent discussions within Qualcomm. I
+wonder why did we have these long discussions about Shikra if only a few
+people were listening and the rest will be repeating the same broken
+process as before?
 
 Best regards,
 Krzysztof
