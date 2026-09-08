@@ -1,93 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF2F5632AF;
-	Tue,  8 Sep 2026 15:51:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483A94F6472
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 15:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882678; cv=none; b=qu3g0ehRFwATTMnuqHhZZhcciaw9CGyr/HwjQLnP3JHunLloohrsPGlX67eHCvBqaUBPPPcD5wn01e22Vzx9zVwu1b5VTN1ojSmaOGxAJgotzARwIaJooqKXq6AiICg3UET6xuu2YWUr59AkqkA7je/MUkiogE38YzW5r6VD7X4=
+	t=1788882722; cv=none; b=dT81cNCmDzq+SCC9NxvNokBbr74YBK8esjqO4QV8Dklp/LewtKxNJugM+w1q3AtbM+gU2VIykaKy+HWbBvzMTTGN6DC7YTazMr9S440Yy7Ta+ZE1jPyVuX4UXrHfwfAmX6wIDglsclQqM+/PtcGlf4LlXyarunJRm8xPzV0jgnU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882678; c=relaxed/simple;
-	bh=7xQ6D4LtbqpCMJPeZHt+weqDMu9iZpeN8/T+jwZ8IpU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PL1DOhec+dqO7cjWgk5ughHlNc0EbWUpdU+qMtuep/fGWlG9Q+HLx30y1HREImdvk7W/gPvssbbn7WsTMVyEx0y5HaNK2uq6/7jY8NLtNugELnRIHVlg8mFhyZFjE3mnzr77RSafU1oS39RuFLEhbUp4bxCzzmcy2GBKym5iyAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y/b3gqtG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788882722; c=relaxed/simple;
+	bh=DAhVo+VnvuwPf8P1BI0svmi6m7U7fXWrZ8gzfloqoPY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HlnIjJPXWJvu+qk0fZvWi1c+zFQt4ZYr9hxSF8az9yYHdVt0wnjmz441Fr2PZQ+BdWYEhTKTdGw1v9dZdj6NCrLuRABhSwGYfZu++iubmO2v0PryZjjKQj4abK/zFqcNAbJNqounqaD5eyHdBMvW5LAPhe2bVZvooSGQzBgrtbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=C2nxzAJ/; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y/b3gqtG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5CDF1F00A3A;
-	Tue,  8 Sep 2026 15:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788882677;
-	bh=XfOrHkiMplGRPl8SWGT/5JqovBnoPMBcDcjoWEm7sBE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Y/b3gqtGHY2t5nR5Lc8O3Hfv+ez2dVOr5DdaWskRHCHs/Z4jvPjK0TRPV2BpyLwZX
-	 iGGql5/WD2j+KIpW93FI8W+W/0TVSyDzcHsXV0W8Jicme2BMm1PVg/lTtLXQwRpP6A
-	 1t9jhylhpmj5s0ugKkBOEyobcAoVMdyf1IT5TYeGZz/JQd5EXirC0sfVGkFl22gEaf
-	 UkPgtX/3aprEIi7CgNoYITNwz/bJxe+bVqTrL+vqeNdtUnD01NpUOaebBoZP3njnea
-	 xqmh5vbgSVzxcW3MKU+p5f6H6qYFgudDniAZYwVY3Rk7QtwqnpYp644+aEF061TFRi
-	 Ejv5eEXgE+QyA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 11/13] ARM: versatile: remove mps2 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Arnd Bergmann" <arnd@kernel.org>
-Cc: robh@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908152808.3928630-12-arnd@kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-12-arnd@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 15:51:16 +0000
-Message-Id: <20260908155116.B5CDF1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="C2nxzAJ/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 0DF491A1A5A;
+	Tue,  8 Sep 2026 15:51:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D37BE6031F;
+	Tue,  8 Sep 2026 15:51:51 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2476D11C7AF49;
+	Tue,  8 Sep 2026 17:51:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788882711; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=DAhVo+VnvuwPf8P1BI0svmi6m7U7fXWrZ8gzfloqoPY=;
+	b=C2nxzAJ/2j1JQy7Wp+D4kWMW3N7lqM5p8+HWmkRrLjB8pT4MGOshpbTVcWIHpNilkCUC8U
+	Iso2bROUUjnekiNbw0hO8//tj/RMQ307uz8DdvsbCs4Mzh9bIGXDEX2AFPezDyWozHpGQW
+	wmhlHFJ1WoxG/o0tLsAqUqJ40DGKiYqLgVHW5U0zAIlRSDyrJFpdPfI5SoPuOU3iC9vkfW
+	2V4GhxIvoYPQR9Q4TdeOx1gRFst/gW5FkfXTFghGir3fwetU1Su2gg8rpNDEFrDGPHN6DM
+	s3Sz2VwYMFMVRa29P+ymcXOSyJ64NJgAPXDeX8xIwEgsb4OZwcqPKJmjRCIdYA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] mtd: rawnand: sunxi: support randomized OOB formats
+In-Reply-To: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-2-b12074f4aca7@gmail.com>
+	(James Hilliard's message of "Fri, 04 Sep 2026 15:22:12 -0600")
+References: <20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-0-b12074f4aca7@gmail.com>
+	<20260904-submit-sunxi-nand-vendor-oob-layout-v1-v2-2-b12074f4aca7@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 08 Sep 2026 17:51:46 +0200
+Message-ID: <87ik4fu4fh.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `ARCH_MPS2` config symbol was removed from the tree, but it =
-is still referenced in the `depends on` clause for `SERIAL_MPS2_UART` in th=
-e serial subsystem.
---
+Hi James,
 
-commit 6586f00f58e77d469ef87ccde160d87dd5f7e427
-Author: Arnd Bergmann <arnd@arndb.de>
+On 04/09/2026 at 15:22:12 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-ARM: versatile: remove mps2 support
+> The controller randomizer covers the bad block marker along with the
+> rest of the OOB data. The driver currently compensates the marker bytes
+> before writes and after reads so that they remain plain on flash.
+>
+> Allwinner NAND firmware instead stores the marker through the
+> randomizer. Media using that format appears to contain bad blocks unless
+> the randomizer is enabled while reading the marker.
+>
+> Honor the allwinner,randomized-oob property by marking the NAND as
+> requiring scrambling during normal hardware-ECC transfers and leaving
+> the marker in the randomizer data stream. Keep the existing plain marker
+> behavior when the property is absent. Reject the property with software
+> or disabled ECC because those paths do not operate the controller
+> randomizer.
+>
+> MTD_OPS_RAW behavior remains unchanged: raw accesses bypass both ECC and
+> randomization and expose the physical representation. The raw-NAND
+> core's bad-block and flash-BBT paths use decoded accesses and therefore
+> continue through the hardware-ECC/randomizer path.
+>
+> This changes marker handling on all supported controllers; the H6/H616
+> protected user-data placement is handled separately.
+>
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-The Arm mps2 platform is the reference implementation for Arm
-microcontrollers and is useful for testing but not expected to be used
-as a production device. With all the Cortex-M based products gone, there
-is no longer a need for a reference platform either, so remove it as well.
+I believe it is still not completely working. If you look at the error
+path in the read functions, in case we face a factory bad block, there
+will be no data, we will face the "page is maybe empty" case where we
+still address columns like before. Since data is randomized with these
+accesses, I believe we would return errors which will not be interpreted
+correctly by the core. The discovery of the factory bad block markers is
+thus broken during BBT scan. But a BBT read is also broken, because even
+if errors are ignored, we perform pattern matching on data which is, if
+my understanding of your implementation is correct, not de-randomized in
+this case.
 
-> diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
-> index 13b38be3353a3..cf380b6868676 100644
-> --- a/arch/arm/Kconfig
-> +++ b/arch/arm/Kconfig
-> @@ -443,20 +443,6 @@ source "arch/arm/mach-zte/Kconfig"
-> =20
->  source "arch/arm/mach-zynq/Kconfig"
-> =20
-> -config ARCH_MPS2
-> -	bool "ARM MPS2 platform (DEPRECATED)"
-
-[Severity: Medium]
-Since the ARCH_MPS2 config symbol is being removed from the tree here, shou=
-ld
-it also be removed from the depends on clause for SERIAL_MPS2_UART?
-
-Looking at drivers/tty/serial/Kconfig, it still references this deleted
-symbol for the serial subsystem:
-
-config SERIAL_MPS2_UART
-	bool "MPS2 UART port"
-	depends on ARCH_MPS2 || COMPILE_TEST
-
-Will leaving this unresolved cause the SERIAL_MPS2_UART driver to only be
-buildable under COMPILE_TEST and lead to silent Kconfig dependency
-resolution issues?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908152808.3928=
-630-1-arnd@kernel.org?part=3D11
+Thanks,
+Miqu=C3=A8l
