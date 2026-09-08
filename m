@@ -1,109 +1,119 @@
-Received: from mail-oi1-f179.google.com (mail-oi1-f179.google.com [209.85.167.179])
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD16B3E4C69
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 12:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7667E53B616
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 12:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788870135; cv=none; b=IAlBBWBoKDWk0Vw54tJ2du37Ae7mZlsiMhhElwaDZ14FH0pdOMy3T0HsI1eRmbtR3OLPVCPS+Yxwp+rZVNJKIKpQTXXJfZRAlWMVfOIDL41zWtAInJOhJBy+AE9kom96/eyoAp+FGA2QMYzAsazcVKEcARdGlt3lTH5tcLGcpsQ=
+	t=1788870707; cv=none; b=bDcNSkUqZQSnk/pWf+wJusC1aL/V5kqttut1rbVv6cxW/D0JIQ8yJ8jafrzEkTOF2bwof/prCtIKRDg6Z/KaIJiaNtDHMuHYR2x8O52iDo25MkewPA+Gg75Ej8733PITg3kiKsgmXMZzp438BxkqXcno3TapeI4VQIjKqw6tv/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788870135; c=relaxed/simple;
-	bh=4qfVZ/5nw4amR7KDjxEudFePppzurkPQMXOHgtElbeY=;
+	s=arc-20240116; t=1788870707; c=relaxed/simple;
+	bh=xjqICCjmH0ghryW8dOBfRncjaOxBbTFkSNvlzCO9/PI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=J005+uYvqv4RSWNmRWCn3RDYBWmhlWthEMaZXFm3dIXAEDmeFV09EMuZYq83QcBGXdOMDmiolzSLu1TgYlvkT9dFH0a3+N7HYvcvv3inVQeClpqflnfuuSorajPMgIwaqJ2e4X5adC8SU2GsH3yV9pfHgCG1BKKoLOuRD9qENRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.179
+	 To:Cc:Content-Type; b=h3khWym9JQAou8++Gx1CMLNdRM0OthLQrOs66jB0FlXRxtTWmCbJvf2zEWFBr7BU87oW02KiPKB3ommfkp/aL7yVU95esbCLZ0N/eDus/p7UOgcLu3xJPk2sc/vBNSFWb8sU4r7UqTt6+XAYqsVA6fWCcLd7O0T/XaHiCHczWoA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oi1-f179.google.com with SMTP id 5614622812f47-4b39befc6a8so2276100b6e.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 05:22:12 -0700 (PDT)
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5c2ae02f69eso3983498e0c.2
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 05:31:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788870131; x=1789474931;
+        d=1e100.net; s=20251104; t=1788870705; x=1789475505;
         h=content-type:cc:to:subject:message-id:date:from:in-reply-to
          :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=1ITJx792r+ituep1jxzGor7V94Ftkp9w2SLxSuD0zdE=;
-        b=n+DBMOZJgcJTPPr+TAXZFpfYftmoDxShk4Bj+zoFlF/7varw5cjaY3qTfOI1SVfeao
-         om8I7W6BPMz3iyKWhflToGcQ/C08EjkEMHVcvi9Te5XiKTiTgICaHPOKbgBpqdo4X7+3
-         qsPvcdhUAZjOK8MMrnPVvjm8mxcpWZeU04kU3EVFRTxdIY7vkBvqG/dLJqLCgcHyaYq/
-         vH71qJN6gTfqPP2wQMTgkeF3HYcijkUbsCchB+4Mi9yh9jbJKk55D6cM0MBnkCni8K+7
-         CntSZfvelHr870MROqCml+EPNjIY4+jLk6U0a5tOkolwZO2DbsZ4030NcFUCwAvKX4nW
-         bx1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwEK18jhOUcwPZdVw2baGUeff/oi0rXuJXcNVn329srsTYePJ1SIlQ9YVg8Sgx2zxb5MRIyqZlu3kU8@vger.kernel.org
-X-Gm-Message-State: AFuF++liqHx+eRVFSRcUlVeaAr0MGPuRxcMqHYDZkkF9k9CVXfa62kgG
-	V2RERftISNWnyakAVxGdk1G3ho5ulYUSa+TuzjYOVEs/hy1GoAMNgYbxRhin2EUG
-X-Gm-Gg: AYBFou03PeB777LLENG5J39pPpGZOP6ZVWlSsVyA3TIg5tO3Js6CfQRl1alYEUSXI+I
-	+2dYn4xj8zNT966Hyvj8kifnaAdOCBkhvsipB8P+HODbuqeky/xPr6se8mUNCu83xAd6W5oxjlT
-	I8xdGKRZ2g8c2CG0p+7nyDmM5AERNlGJGS5XzLUtZDW5Vj0XUO1YZCGgHZ2AAACdFM3evsXley4
-	aviXzeYtuteaMIGQofpZeoCEjNWhykTSvKCaPUxQOgQoTRxEPkoPFasDBO+wPkzxouO7L7PYcFV
-	W9Fk6wjQvhHoe3aOguZevPXQkOywoKyfpv1xMMbJgmklM+RlXeClspoIfrjDLRgWou81Sx0Fpv9
-	kXzRNZL7fOvMolkOlUzo8A2sKyoEphMpy/r59b9vv9qzQgzbUXKcculLE4Mpzsd17t9vdaaNCcP
-	dOiji4+oSInRbA2CDsBlkCI8QON4Th9FqXXrEHeOrn+fyQ3hK274RXnWuwEHflHbr+i95ABSc8x
-	bkBcJVlz8N1aH3C/m0ZtzB4ug==
-X-Received: by 2002:a05:6808:f8c:b0:4b9:a829:f018 with SMTP id 5614622812f47-4b9a829f8f4mr13782640b6e.36.1788870130758;
-        Tue, 08 Sep 2026 05:22:10 -0700 (PDT)
-Received: from mail-oa1-f54.google.com (mail-oa1-f54.google.com. [209.85.160.54])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4bced93b205sm5598675b6e.14.2026.09.08.05.22.10
+        bh=AvhvPfE1o8U9V0xY+ZBtjmprcW5MUShi55REbbGvMBg=;
+        b=Rq/ss9F7zR0QAIodcdBxRrHYLJhpISV+mxPzx0s4/9mEciHWaUlyssaPO3O7qcf8i0
+         j+AJetYGJAddb16wpbdoqHjqT1GZKFPSm8S2c00f79OCNR84r00iWO37haG0vZ2dOpbQ
+         SUv3o5ZjFqXlDo7jgxqPAh5ebJkSnWALSRPsCuZc5wbyeHAyEDcCwEkvxc5ITeuh6Kbc
+         btrUP7JXr6PBdenSCJbMxoZdrzjCgaEleDamO+OW6Xfota2pPIkjp6zCcjQc+t3sA1tH
+         pDrYu4uwRtbFtMxlYN6CYjwXgJH0NUHyZGzjRzET8TVJ6JH9+GrI0Mvj4KgREpUyI66I
+         F6Hg==
+X-Forwarded-Encrypted: i=1; AKwUvBzxI3uoRmR+lKD9CWJGi6aIh+B6u+i6BO7ErU85DelOmZ4gazYXWNkZZs7aOCWyg+rF2uj3ibpGRxuC@vger.kernel.org
+X-Gm-Message-State: AFuF++ke9ROxZnNO6xvuURvfyuIdglMgGDBcA7s/8GWNYtXLJnCD+h0B
+	0oBntVkjTXdvyKY/HMrgp0E8fZudypMKbfM5namuHzCXQF1yoewzTL91Aw9V9oDJ
+X-Gm-Gg: AYBFou09f34zAqThCCj+sbIfwfwXiZpBCDzDv0hwmBg4sQHulckfrJFBbkkesUHmcCV
+	ze3qo+DL4XRGFaoAZwPg2TZ+JAi3gEpDSNajRc9y+j6ull6A6VB8W7cLr/GgWkM56CWUDvpgEpB
+	TfV4mDRuv6fXhkGxpYhsa84+x2NgMC5J/syKZD1EyM/3AviYtKz/rB5v8AXSHmYsCQHO7cUmQt6
+	FMGPSWY3Yy5du+Rug3AI5qnvpXMECzguVNePRbhpLzL426LDFbb9TpKX/wnC5g6rRpca4UekvNH
+	FKLmkE3qBk15MT7zM1HaV8Nn4NwgiscpM9V1ixXVZ3ka/NJpy4NB07vnBnLXYa8nwL2upO1F1hc
+	hvM1c/ojfoYV0uezBv7KeG/W847+n8eD919m0da5REadhEMjOtlGmXYznzi2ygliGhP3iVYrNlC
+	JqmRxYdFfIYLeoh3GnUYWggDyRo3hqxp2How59/4it6LXRZZ1Em2F0Cojuch/Es+apuIsfppUCa
+	BNe8A780odN85n+g1mjzCspCk9K2b7SLWnF
+X-Received: by 2002:a05:6102:1484:b0:785:1d9c:633c with SMTP id ada2fe7eead31-78a4a8436b7mr12798892137.7.1788870705102;
+        Tue, 08 Sep 2026 05:31:45 -0700 (PDT)
+Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-980d774ad5dsm2419203241.9.2026.09.08.05.31.40
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 05:22:10 -0700 (PDT)
-Received: by mail-oa1-f54.google.com with SMTP id 586e51a60fabf-455ca262ccbso3698529fac.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 05:22:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzZ46d38Ty9J+LwlpfxynaGx/j1eP0RALrRRpLa7Vzsq69x4dV2EBEVo7FDvojfvuii8OQdEBudBYxg@vger.kernel.org
-X-Received: by 2002:a05:6122:4698:b0:5bf:4522:fca7 with SMTP id
- 71dfb90a1353d-5c7ed3b2275mr10642726e0c.4.1788869822558; Tue, 08 Sep 2026
- 05:17:02 -0700 (PDT)
+        Tue, 08 Sep 2026 05:31:41 -0700 (PDT)
+Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-7542a2ee156so2490756137.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 05:31:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBycK7Ljx9VzmnuVNjkzukC7E909t0Cj3LdT2NRwVOIF/WbLEX780H/c7+exERGsZGk+C3f080Y/eCH8@vger.kernel.org
+X-Received: by 2002:a05:6102:374f:b0:784:b9ec:913d with SMTP id
+ ada2fe7eead31-78a4a91b281mr10556868137.8.1788870699731; Tue, 08 Sep 2026
+ 05:31:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com> <20260907-rcar-du-dsc-v6-5-f8ef711a7494@ideasonboard.com>
-In-Reply-To: <20260907-rcar-du-dsc-v6-5-f8ef711a7494@ideasonboard.com>
+References: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 8 Sep 2026 14:16:50 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUpLrjtUh5pGP9ys_PSFt10vKdQCyo3UGaedcwaf8UEww@mail.gmail.com>
-X-Gm-Features: AcwNN1XnePIl5mdE7u2itKH3ZKW58ZQZ46L6E5RD6lZgFL-MnDqW0nO0uTjSR8c
-Message-ID: <CAMuHMdUpLrjtUh5pGP9ys_PSFt10vKdQCyo3UGaedcwaf8UEww@mail.gmail.com>
-Subject: Re: [PATCH v6 5/6] arm64: dts: renesas: sparrow-hawk: Enable
- DisplayPort by adding DSC
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+Date: Tue, 8 Sep 2026 14:31:27 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXBFu=W1MnEA+Eu_zzUy3qMyFRbbeLgYn0waxMdr5cAnA@mail.gmail.com>
+X-Gm-Features: AcwNN1VHwQtBXkE1g5B-tKWZHl1EPxPwrUnATnMeQZH1DQxtt1IMi9pdue90c-g
+Message-ID: <CAMuHMdXBFu=W1MnEA+Eu_zzUy3qMyFRbbeLgYn0waxMdr5cAnA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/7] Add syscon support for Renesas RZ/T2H & RZ/N2H in
+ CPG/MSSR driver
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
+	Guenter Roeck <linux@roeck-us.net>, Wim Van Sebroeck <wim@linux-watchdog.org>, 
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 7 Sept 2026 at 11:30, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->
-> DisplayPort on the Sparrow Hawk board uses sn65dsi86 bridge, which in
-> turn gets the video stream from the SoC's DSI1 port. DSI1 pipeline has a
-> DSC block in between the DU and the DSI1. However, there was no DSC
-> driver in Linux and also the DSC was not defined in the dts files, and
-> thus the DisplayPort output did not work.
->
-> Now that we have DSC defined in the SoC dts file (r8a779g0.dtsi), we can
-> enable DSC for sparrowhawk.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> [tomi.valkeinen: separated the sparrow hawk changes from the soc changes]
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Hi Prabhakar,
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.4, pending acceptance of the
-DSC DT bindings.
+On Mon, 17 Aug 2026 at 21:25, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs
+> in the CPG/MSSR driver. The CPG/MSSR block on these SoCs is a
+> multi-function block that integrates several system-level features beyond
+> clock and reset control, including clock monitoring, write protection,
+> and peripheral configuration registers.
+>
+> For the other IP blocks to be configured a syscon support is provided in
+> the CPG/MSSR driver. This allows other drivers to access the CPG/MSSR
+> registers via a regmap interface.
+
+> Lad Prabhakar (7):
+>   clk: renesas: r9a09g077: Register SYSC regmap
+
+Thanks, will queue in renesas-clk for v7.4.
+
+>   arm64: dts: renesas: r9a09g077: Adjust CPG register region sizes
+>   arm64: dts: renesas: r9a09g087: Adjust CPG register region sizes
+
+Thanks, will queue both in renesas-devel for v7.4.
+
+>   dt-bindings: watchdog: renesas,r9a09g057-wdt: Add CPG/MSSR syscon
+>     support
+
+This is now in watchdog-next.
+
+>   watchdog: rzv2h: Add syscon support for WDTDCR
+>   arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
+>   arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
+
+These two have a hard dependency on the first five patches, so they
+are postponed.
 
 Gr{oetje,eeting}s,
 
