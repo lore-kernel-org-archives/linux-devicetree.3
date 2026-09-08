@@ -1,67 +1,67 @@
 Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8270258EF3
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 13:27:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11BB55D898
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 13:27:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874078; cv=none; b=WRes++SmdART+AU0KMic9i+NOpKSLHBJxBcQNwJzerSVehmnUHR8w8gAocaO6JwtN1lNHyDRBZJPUvvppetm8ZSzCwHqkvS8EZ9SjM/nkJn6+6gTNx9xlK7QbJgZ9b08O/wDhyLftVYGDt6nI1iCpBE+pz/owEqcKy3xQjNqr8g=
+	t=1788874082; cv=none; b=AbtRuqYXT6/pj1xXdMrDawaQl/qm+OybNj8R6umUOaPcbvZdYZWi3bmQGF1VaLV7jCRc7sauptPKeHDZ5dLJGjLgKt6hmVeVjd4lAwvwqPDr4RAGwIyGKOtaIiq9g5hdTFTFTXkYcZMSRP/KOo5STwzHo38t31qn8v0M4+5S5YE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874078; c=relaxed/simple;
-	bh=RQ4g8roiCImK09lGOGkJ6W+2Czo4bfLHxiAgB+DarvI=;
+	s=arc-20240116; t=1788874082; c=relaxed/simple;
+	bh=pAsEvkPu3covvOGoVW/KlsUNTc00k7Qd0xwuz3K8QkQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tSqtNhbQh4Zjhf0iYjnkPF7F+yO9HpD4xI6JPKdLhZcJc/vWgybvFn9sBTd+srD8Cu527mAE7o1AAky7uZJk/dp9Nk9gWblmef24LJglQuw/ukhGZ4DRQ1GGUzwpKsWZW44Kgowk8gqZ2ByzPIU4eihDYr0EVkqjtbzFj4YNp44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VaGeVBMV; arc=none smtp.client-ip=209.85.222.182
+	 In-Reply-To:Content-Type; b=TD+hjED75fICzuwaf9A/g+X18t6J27mxUbz8FvloV6LDt3DzlFWM/5NdZa8cHJbdFyS5YMCbzJOLn4sUaCXLi3Z51PLVRx70duXchSzNGbBs0Ip8DXbiHExttMm4KRIYCg4wrMiYGa3j2K7cvgMeYGbU4vDvIzHOOr0n+Cwhucs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=RNoQ8z7X; arc=none smtp.client-ip=209.85.222.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VaGeVBMV"
-Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9397e2994dcso384668885a.2
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:27:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="RNoQ8z7X"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9399ec950caso209275985a.1
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:27:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788874061; x=1789478861; darn=vger.kernel.org;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788874062; x=1789478862; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ljmgwCAVphhfVW4k+b+cxvt43CtdExVqUZy6qEm1NMU=;
-        b=VaGeVBMVvfcfuopMTbsglQM1RH0UOrRFSPJZT3WtgxfqOgNLandccrc/MO8grDPLMC
-         gbZ5X4Zpj4fiMfEfJL1hAxIXEVuD0HzLyATcZPS2RawGaqFgEheMkzosZlmRvqFn/EMs
-         K+d/SW18cgFjOQ/SLEqRsMXtG4y7+M2cMv6PdDYBypEblr18PWJ9UItFLp/5JMPBydAp
-         TbOYE4drFSxChcCOYgNJqJgP9hdFShpFUsN1SnvF9lyrsOnW8SWdN/GwgqXzlLU1urBY
-         woLzVDVZBYY4adtCFAZn6a1EwtPRO9kVqdSeMUB97t/iapywn8y6auuCEZyAoaudUjbN
-         cyKQ==
+        bh=qNO/TqMTBOHVJmTKy/WseOZnYihRsPoGCcusIiyOoTY=;
+        b=RNoQ8z7Xs/IqIBn1H7QZuEX8UcDt+ZJXY+/HJicZ0ZlCoNsm2JNSYt8+FQqVJWpA28
+         83nAk1992L8N6lSwVm7EhMiv432dxySWQs0/XC/FnPF0HxrlScto18D346xICY/oLwyl
+         irOEbF7GJoHQuL9sh6pVrmojYxJkyztF3mTnr8KtPzJpaswh3uIv4kst3avjigaA0Sal
+         9gm6EEDGuq9/tvKYGCmkq9m2HIBkcbg7W94vFh2v55S9QQLgJi5p1xNRwrmq05uxnPDv
+         9GoK8SvimaKPug9Ea9kMdPURJcaShAFvniEEAZaJaiIRTtjIurko2iE/a+zOS1UF95Mi
+         wEwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788874061; x=1789478861;
+        d=1e100.net; s=20251104; t=1788874062; x=1789478862;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ljmgwCAVphhfVW4k+b+cxvt43CtdExVqUZy6qEm1NMU=;
-        b=ssjlNPLVWvbl8ctDq6GJH280mOO7HkVBvZYO7KOqbaz9V0fx5KazCzxjoKw9YUHg09
-         j0GvB/GN+jGdtuRONzHT0aYXzv32KZisIoo1pLN7SV5n4DOIPk3zZbNSIK+5bmPijv/D
-         XAFDJJDWZ+EeOk/9+ZCTtHZDuTOqqfBpp97Ktp3xY0uxz30sebfE0G4l61yCACXUmhT3
-         Y0QpgiaZbWcTD/5Kawb6nVsuDm01pq5dorCqp6DgD+4NgcyihqqyRgd65ycm6vqVHBob
-         ijbwSOkBQKIq1YqKXqjNkN2Hwjbzjf/QoXRBH7771VUY1GvRPsMvROANCpntI7LyWyG7
-         QTkA==
-X-Forwarded-Encrypted: i=1; AKwUvBx+GonKaOHdoy735GiEKXDjwKuPPFBKpW0BbzjRmvHyC31gatvplTp902yg+grkEb5alxBh5StLZNRY@vger.kernel.org
-X-Gm-Message-State: AFuF++mx5FryagZuMyp1P8seEsHhgTOn4IPTvThoLpqFuOG64MqDZFda
-	LPJ8hvj3v7BZ9VIMXSTwnVQCsH/4OqtdCG4MPfrpc5h3NNvgCPNrN0qoCZo+KhsvU7w=
-X-Gm-Gg: AYBFou1YkB6l+ulC6zee8jRTb+vgy5jMPCQMxMhebQXovbDuI8Lmbliw1po9uCAPP2r
-	PUJ20GPFUzVtb1Ts+L3QibGFJCO8asCYy9mtnv3lx2giALx/nW6N8zYIw63hTLq4gduAbxp+XNf
-	AVsKKXV0KdJvhY5vl3z94k307zGBwK9vd+NeulnqqatDsICnjrc3WOAKK1mzE23rsBMriTHCDig
-	Hryf42SE5MlyHRBRNhGpiPSEBjXqZnaMUkpNuNIjacGCGMNqRrElK9Rf603sjSuENS3qNFEqsap
-	XgFaDMXoNuukSn/UL+azCe5x3qoxnwEgsE9Aej53b0DpjqvMwu5aJqPJiojT/Wn240Pb/N/CIPg
-	5/dQieX7QYbyUtIk/N9maTLAt+QaZK1As3MDCmwAwQj5Ob+3H7MwYVKchlgm3gkPgDzfanB20ad
-	iak27/qZkezN5ovOLHyBlr5d7W28fA1y2omyMWtqBYH0F1+VZhtkZKRFHlVFNR
-X-Received: by 2002:a05:620a:8198:b0:939:5cd3:75ce with SMTP id af79cd13be357-93980311c5bmr2025182085a.8.1788874059680;
-        Tue, 08 Sep 2026 06:27:39 -0700 (PDT)
+        bh=qNO/TqMTBOHVJmTKy/WseOZnYihRsPoGCcusIiyOoTY=;
+        b=qKulQ7yVx218/sYjPsiRaJptuQNXpi4/MvP7XTJ0KoOSNJr3PdQZN1lgMlIw2Ytsi0
+         ROz4K0WfGPkvXSZ6VIK6yduGgXotEMOyJY1WI/vpLW8SkrnNO17gEeVlQf41X+9/ejH3
+         QK2GMhbpG2TAEC26fwlHsAFxkpxuK/+flGFzV2zMGW1b3uZNimz2xlRywnAvJvqXmp8L
+         0wLPVSCSJYIpmYcUfrRaOANqmAKOTcRmMoDSKDyi2WSWkiORFSGSMfulYSkEthNuroXm
+         HiRn2EEp57hvddC/3/49cH627rwLCqj3fSa9xTOIK27j+ZGj9IkEbHCF7QvYSCmICMF2
+         4Hhw==
+X-Forwarded-Encrypted: i=1; AKwUvBxLctQe9hjbw/35AUvCHywyyygr2kRPb+0jwakTgslr02GrQG6rY8TjtXmezi25lfCjmuDcntzEYqAq@vger.kernel.org
+X-Gm-Message-State: AFuF++l84AHQXXHLhqVoAv4vJyLhF2ddfmMOJTKihEDCIbHetVKoZA0q
+	xmjQKIr5Gp+6iW3fxVtQcI7Sq4LAMHKG7u95nbvS8U+0xgFDwUqQn7rTHFVpLZPKfhU=
+X-Gm-Gg: AYBFou1b6UGUbZSYk8pxFC3Vs/VAiiNsuSwVvjlLqbeXEXi+cV8RwqdLxRBztSSr4//
+	u7VG8LeodFocCr6R1O1AigCrgatGexMhSVYVEeoFZ9tdNy11eNdkNwAPZX+gWxE3BLgsB4JgI2A
+	FpEz6rD8F2GZvbiTmSPvh+Ivlrl+gwbOpzzjc7daf5taoneAV1VVUA8SxjMBPrH9e9ZX9gEKbDY
+	x3c8mh0++lVXXjPP2nbCVbOs+6qxkuZdbMGyix5XmJ+xUPdAut2JPMHxItUjM+8MigJLzTz4WNq
+	5LXFB2e1hZ1Qnwj27jtP+7jo+L5M4ThhBZt6JyfDTckjlMOCV0hNTQBYb4vIwygHKLTqvDfumKm
+	UsQoZpzKr4o30JJqjHkBc3exNcZqGXdUdsUzybIsg7K4djkeyHwzqxN/yVKD88V0rloslSuh4iI
+	740/kw/8BVD/mRUXbiumjr8n3IbF2oHT5fFaFihOZvJG+9yLVZyzZzYU3+VMck
+X-Received: by 2002:a05:620a:8c0e:b0:939:6dfa:db9d with SMTP id af79cd13be357-939804fa21fmr2230570085a.50.1788874062236;
+        Tue, 08 Sep 2026 06:27:42 -0700 (PDT)
 Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939b8fbc1dbsm249492285a.11.2026.09.08.06.27.38
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939b8fbc1dbsm249492285a.11.2026.09.08.06.27.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 08 Sep 2026 06:27:39 -0700 (PDT)
-Message-ID: <abb6c06b-8e5a-4f05-a49f-2aca6ed0c634@riscstar.com>
-Date: Tue, 8 Sep 2026 08:27:37 -0500
+        Tue, 08 Sep 2026 06:27:41 -0700 (PDT)
+Message-ID: <8f6cbccf-3169-4b32-9c8b-406d53449590@riscstar.com>
+Date: Tue, 8 Sep 2026 08:27:40 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +69,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/5] PCI/pwrctrl: tc9563: introduce support for
+Subject: Re: [PATCH v3 1/5] dt-bindings: PCI: toshiba,tc9563: Document
  embedded GPIO controller
 To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
  Bjorn Helgaas <bhelgaas@google.com>,
@@ -84,73 +84,115 @@ To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
 Cc: Daniel Thompson <daniel@riscstar.com>,
  Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
  linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
+ linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org
 References: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
+ <20260904-pci-tc9563-aux-v3-1-5b1449d62ba2@oss.qualcomm.com>
 Content-Language: en-US
 From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
+In-Reply-To: <20260904-pci-tc9563-aux-v3-1-5b1449d62ba2@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/4/26 12:15 PM, Lorenzo Bianconi wrote:
-> This series is based on pwrctrl upstream branch.
+> The TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
+> lines. The controller is registered as an auxiliary device by the TC9563
+> power controller and accessed through the same register map.
 
-I'm accustomed to a cover page that's a bit more informative
-than this about the subject of the series overall.  Your use
-of --base (to produce the "base-commit" tag below) duplicates
-(more specifically) the above statement anyway.
+s/power controller/power controller driver/
 
-How about just a little bit of context about how the TC9563
-uses an embedded GPIO controller that we now wish to also
-use in another driver.  So this series isolates the access
-to that IP block in a separate driver that can safely share
-access?
+On the other hand, this is a devicetree binding, which should
+really focus on the hardware, not the software.  The auxiliary
+device and the regmap are software constructs that aren't
+hardware-related.
 
-You might even highlight that the TC9563 is an SoC that
-*contains* a PCIe switch, but also contains other components
-(including an I2C interface and GPIO controller).
+I think this description should focus on the fact that the
+TC9563 SoC (which contains the PCIe switch) *also* has a
+GPIO controller that is managed via the same I2C interface.
+And that it's possible the description within the binding
+should be modified that way as well.  (However please defer
+to any input provided by the devicetree maintainers...)
 
-Aside from that, the series looks good to me.  You just need
-approval from the devicetree maintainers.
+> Describe the switch node itself as the embedded GPIO controller and
+
+s/as the/as implementing an/
+
+> document the per-port reset-gpios property.
+> 
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+
+I will let the devicetree maintainers comment on the way you
+document your properties.
 
 					-Alex
-  > ---
-> Changes in v3:
-> - Describe gpio-controller support in TC9563 binding instead of defining
->    a gpio child node.
-> - Link to v2: https://lore.kernel.org/r/20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Fix PCI_PWRCTRL_TC9563 Kconfig dependency
-> - Move of_node refcounting management in tc9563_pwrctrl_adev_add().
-> - Link to v1: https://lore.kernel.org/r/20260901-pci-tc9563-aux-v1-0-dd9b80738e70@oss.qualcomm.com
-> 
+
 > ---
-> Alex Elder (1):
->        gpio: tc9563: Add support for the embedded GPIO controller
+>   .../devicetree/bindings/pci/toshiba,tc9563.yaml       | 19 ++++++++++++++++++-
+>   1 file changed, 18 insertions(+), 1 deletion(-)
 > 
-> Lorenzo Bianconi (4):
->        dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
->        PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
->        PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
->        arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
+> diff --git a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> index f084830c6d0c..c4cd162cb084 100644
+> --- a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> +++ b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> @@ -31,6 +31,11 @@ properties:
+>       description:
+>         GPIO controlling the RESX# pin.
+>   
+> +  gpio-controller: true
+> +
+> +  '#gpio-cells':
+> +    const: 2
+> +
+>     vdd18-supply: true
+>   
+>     vdd09-supply: true
+> @@ -84,6 +89,11 @@ $defs:
+>       type: object
+>   
+>       properties:
+> +      reset-gpios:
+> +        maxItems: 1
+> +        description:
+> +          GPIO controlling the reset line connected to the downstream port.
+> +
+>         toshiba,tx-amplitude-microvolt:
+>           description:
+>             Change Tx Margin setting for low power consumption.
+> @@ -128,7 +138,7 @@ examples:
+>               ranges;
+>               bus-range = <0x01 0xff>;
+>   
+> -            pcie@0,0 {
+> +            tc9563: pcie@0,0 {
+>                   compatible = "pci1179,0623";
+>   
+>                   reg = <0x10000 0x0 0x0 0x0 0x0>;
+> @@ -149,6 +159,9 @@ examples:
+>   
+>                   resx-gpios = <&gpio 1 GPIO_ACTIVE_LOW>;
+>   
+> +                gpio-controller;
+> +                #gpio-cells = <2>;
+> +
+>                   pcie@1,0 {
+>                       compatible = "pciclass,0604";
+>                       reg = <0x20800 0x0 0x0 0x0 0x0>;
+> @@ -158,6 +171,8 @@ examples:
+>                       ranges;
+>                       bus-range = <0x03 0xff>;
+>   
+> +                    reset-gpios = <&tc9563 2 GPIO_ACTIVE_LOW>;
+> +
+>                       toshiba,no-dfe-support;
+>                   };
+>   
+> @@ -170,6 +185,8 @@ examples:
+>                       ranges;
+>                       bus-range = <0x04 0xff>;
+>   
+> +                    reset-gpios = <&tc9563 3 GPIO_ACTIVE_LOW>;
+> +
+>                       toshiba,tx-amplitude-microvolt = <10>;
+>                   };
+>   
 > 
->   .../devicetree/bindings/pci/toshiba,tc9563.yaml    |  19 ++-
->   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts       |   7 +-
->   drivers/gpio/Kconfig                               |  11 ++
->   drivers/gpio/Makefile                              |   1 +
->   drivers/gpio/gpio-tc9563.c                         |  99 +++++++++++++
->   drivers/pci/pwrctrl/Kconfig                        |   1 +
->   drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c           | 154 +++++++++++++++++++--
->   include/linux/soc/qcom/tc9563.h                    |  19 +++
->   8 files changed, 294 insertions(+), 17 deletions(-)
-> ---
-> base-commit: 028f86457e822ab9de5b0d6d23efddc1b8b54ae1
-> change-id: 20260731-pci-tc9563-aux-66a29d438f60
-> 
-> Best regards,
 
