@@ -1,122 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E89122EAD15;
-	Tue,  8 Sep 2026 17:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB685568FCD;
+	Tue,  8 Sep 2026 17:53:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889817; cv=none; b=aNWOZyaDpvqUv1fIpWGKHdHNu3082uhgatDK0Sw9y4iKYQOM5PkjGnpqnOa/jk/EtRz47+DKEc776KYad36coqMHhW8mnF15ZV37wF4sxGtZiRq+CCbwaI9G5yCFE5zIeYiFMCCqREAPTInUMDyoZ7RqxzlkJYdOiIdA/vdfM2E=
+	t=1788890039; cv=none; b=c10PqDhlDtFYsM1bsdxTw6B2hLT3kQ+ZbH0ZnpoinSfr8Yw1Qp3vYcQlzYQqi98WeUu+E0hWCLVFXSsr9bkSo5vXD3FeNg1iGswXUda/pFSfdl9lsTcYZTDIZ7dEl3WOlCLHMDZJn6BSqmm7aD9HJs3PiRERaRwuZPiuwqtYQcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889817; c=relaxed/simple;
-	bh=NV9RvyR0QyZB/j8pNOoCUKYeZY3RF7yFVC4bCoAEf9Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=r1S+7XEEY4XPo18osdwsfL3v+owoZXN629DeS2WOyjrtUmgSgYMo26cmNn8YHfQFfTd8rgmY90BG8OMDuGa20ymmYS1E8uytpHGuRRoeflT1gMGXHSUZejBVRqN77LZ/wivEeDsrDV+3+Ihn3BOnUAo35JcIQQZVFy4WBEE5M1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mS7Iv8JB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890039; c=relaxed/simple;
+	bh=THyk43Os195QXhM6lmIGBTbk+u8i8mAeEpREyyeu5Bc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WOq/6P1tklOqaBFraLdLjkQN6D4xfy1qPM1y4wZkpdQeV9tIuY1EHPUXyQ1pWvpL7p63fqwvRkvFe3P0HU3Ur+hI16hz910byylg/3ht9L7/P//K/vX66WqojLTgDfEt5gVL5al2VCQ4JSUIoy1zETrWs5XfkGyZxI+Hb/CxMms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YrAnQQzo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mS7Iv8JB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 144F31F00A3A;
-	Tue,  8 Sep 2026 17:50:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YrAnQQzo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FB1B1F00A3A;
+	Tue,  8 Sep 2026 17:53:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788889815;
-	bh=//uuhykbHITGZZ7vXNYzwKmowhpT9TF5NuDZncqVLqc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mS7Iv8JBf5eOu0WPKJCvDjM76ISD9Rg/d0fjtyT8KmvvKCsFRuhsS2Z4NM30UzL02
-	 nIYHVWBCas9cT91zewU1aJL56kkbDd6WlV476TcKb5uLvXhFi9lPuxjE1ldATt1XOV
-	 AOO1wKGNEFbTJM5cXtsispzFsQ1SrSL7Awqhj4TJsP1WgylrIsDcWeUmOeXzy0F9/o
-	 LFUhr+jSlQbzqgKxvgM2ADEJza7/lHBwVwpSvnG5oopyTS0S0TfXP7LzZiWoMK9+g0
-	 PCUM0dqpAN4IOcVs5BxZY6oRQWQO3UFCHrZMuRgMh0oRz1NijwcgDTY55iBzvK/if+
-	 jder6keVg9ovg==
-Date: Tue, 8 Sep 2026 18:50:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Junzhong Pan <panjunzhong@linux.spacemit.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
-	Peter Chen <peter.chen@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
-	Ze Huang <huang.ze@linux.dev>
-Subject: Re: [PATCH v2 2/9] dt-bindings: usb: ci-hdrc-usb2: require clocks
- and resets for spacemit,k1-usb2
-Message-ID: <20260908-tapering-panic-e76cb4114d92@spud>
-References: <20260908-b4-spacemit-k1-usb2-v2-0-f07342ffa051@linux.spacemit.com>
- <20260908-b4-spacemit-k1-usb2-v2-2-f07342ffa051@linux.spacemit.com>
+	s=k20260515; t=1788890037;
+	bh=4QtM6Hbi4gcywrhhjCn+7LKCMCBN31he95Z6+BIsvL4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YrAnQQzoZjGEEQ1bEJlKZIPx3b72jxLZfmFCM3nnDJ3HfT1OxBULdS7r7CiaDvZr9
+	 NpaSni/55+zi2/LlHuz4PasyOgnGyskkt22IAHghc/QTMk8AQtFL2GDX5zp7JftiK1
+	 0I97MrP5/m5afAjFtO6V3RabaIKxT50pghezytVXzouxFWkbZE89B3dR7fVzZFeGdr
+	 h+ZRbpQpL9HSBQB4aegyLfrlIGx6QGiX1Hfn1QDqIQT7RPNHK7pduJVNz/G933QwUL
+	 OVBi6EAx27Xz8p/FcVmbqrLWh2kJIvEWBy8Ww5ZAsIemo2NNViYU8oPrstfQV8g1Al
+	 PafGxWSgOcs3A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/8] dt-bindings: watchdog: Add compatible for
+ MediaTek mt8167
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260908174259.9009-4-l.scorcia@gmail.com>
+References: <20260908174259.9009-1-l.scorcia@gmail.com>
+ <20260908174259.9009-4-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 17:53:56 +0000
+Message-Id: <20260908175357.3FB1B1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cx6n4VJrT74vmFyW"
-Content-Disposition: inline
-In-Reply-To: <20260908-b4-spacemit-k1-usb2-v2-2-f07342ffa051@linux.spacemit.com>
 
---cx6n4VJrT74vmFyW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Missing required property constraint for new provider capabiliti=
+es
+--
 
-On Tue, Sep 08, 2026 at 05:48:39PM +0800, Junzhong Pan wrote:
-> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
-> work, add constraints for it.
->=20
-> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+commit 1623803f044eb5bb4bdac92465a186ae36fe6a1a
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-Squash this into patch 1.
+dt-bindings: watchdog: Add compatible for MediaTek mt8167
 
-> ---
->  Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 14 +++++++++++=
-+++
->  1 file changed, 14 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Do=
-cumentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> index 6f8d88a0681d..5c2b7eb1a6ff 100644
-> --- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> +++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-> @@ -114,6 +114,20 @@ allOf:
->            maxItems: 2
->          clock-names:
->            maxItems: 2
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: spacemit,k1-usb2
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +        resets:
-> +          minItems: 1
-> +      required:
-> +        - clocks
-> +        - resets
-> =20
->  unevaluatedProperties: false
-> =20
->=20
-> --=20
-> 2.34.1
->=20
+Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
+which in turn falls back on mt6589-wdt. However according to the data
+sheet mt8167 toprgu is not actually compatible with mt6589 (it has 14 sw
+resets instead of 12, and its reset bit map table is different from
+mt6589).
 
---cx6n4VJrT74vmFyW
-Content-Type: application/pgp-signature; name=signature.asc
+Update the mtk-wdt binding to add a dedicated compatible for mt8167 and
+add the IDs that can be used in device trees to identify subsystem resets.
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.=
+yaml b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> index 953629cb9558b..f514be8a5851d 100644
+> --- a/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> +++ b/Documentation/devicetree/bindings/watchdog/mediatek,mtk-wdt.yaml
+> @@ -26,6 +26,7 @@ properties:
+>            - mediatek,mt6795-wdt
+>            - mediatek,mt7986-wdt
+>            - mediatek,mt7988-wdt
+> +          - mediatek,mt8167-wdt
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBK0gAKCRB4tDGHoIJi
-0jgEAPoD/utP2/Sy4njxEBqRq7ll+X3uQeDuZxxMuHskHm1s0AD/ai7Bo6A4fBgd
-EDgNhPtdvP05rnHU3zmJnLTWJW1DiAw=
-=StnG
------END PGP SIGNATURE-----
+[Severity: Medium]
+Should #reset-cells be added as a conditionally required property for this
+new compatible?
 
---cx6n4VJrT74vmFyW--
+Since this patch adds reset provider capabilities to the hardware (defining
+reset IDs in include/dt-bindings/reset/mediatek,mt8167-wdt.h), the schema
+needs to ensure #reset-cells is conditionally required for this variant.
+
+Without adding #reset-cells to a required list for mediatek,mt8167-wdt
+under properties:compatible:oneOf or via an allOf block, a device tree
+node omitting it will silently pass dt_binding_check validation. This allows
+incomplete configurations that will fail at runtime when dependent nodes try
+to consume the resets.
+
+>            - mediatek,mt8183-wdt
+>            - mediatek,mt8186-wdt
+>            - mediatek,mt8188-wdt
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908174259.9009=
+-1-l.scorcia@gmail.com?part=3D3
