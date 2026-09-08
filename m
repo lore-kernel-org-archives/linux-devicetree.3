@@ -1,141 +1,104 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84DD3390CAD
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:25:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67917396D25
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:32:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788852348; cv=none; b=uVQbW7vPyppIlk1x3siISnM0I7F1jfMXE2d3Ou7lhRzH3zmcXK4vI5s8ew//QbZ4s3Xjy9Hh85H2I6NYB5V6Q6d3knKunEUmFnqflsgihNY1yVHEDTDGpRS5KDA/EjTgQFU0ZdcCcGSfsVgiyRo2+Da9lQLCWudWIuKP+9K1n1w=
+	t=1788852764; cv=none; b=lDnI9akCoX2d9rAHlesJNmj/Kx0aLdNvRE7VEs0rZuINb2Kp71x6CMHkzrNdlqefq7dUJt41mGbhk4+WSYUvalJdBbzkqX4YxGDUitAHc3DyiGFEFPxzFKSxnW3m+84p7v5P2o3O69tZP/KejeGZQl/U3Yv0bil0XDpGtLdxeoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788852348; c=relaxed/simple;
-	bh=Lv1FzL55ClwsY1NygJV0Iek4iChHbkXH2FOAQHfXqmM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jsn34tplEIXqIvbpKXISH+OBAkzszSVmk7gKp/ai6gX5sHjmz3at+OrD9Gz/Gaf+Z+VAAE28OUrovOybg9fLWcRZ/UfGybo0EaCSLRd7y7ii1hLVGReOwKJ3EGFCY2tSJOf2KfE8dkzrrnsgpfCW3QQ7YZJhaihg0TGq20dceLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PPCy7M0k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788852764; c=relaxed/simple;
+	bh=ao+/s9eIaf8M01iar8WDrSuXAhedsd4RWg5xOwmssxs=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=M3THo/NAeS2xZXWN6x7LihlKentq46O3NDQ5UfMsYKs+uML9l4BnyjNNtCuemzzUrUfo+x+ISzO1nwhX2UvvP8oRRQ5/vbEDQUMLsA3IkwtH7fncmUeneuFoxSGxzVgwhKTFb1881DyG9jimYhWkiejYLbJaj1yYRvUrfc5Zk2A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LadyelDW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PPCy7M0k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 645FF1F00A3A;
-	Tue,  8 Sep 2026 07:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LadyelDW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21ED21F00A3A
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:32:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788852347;
-	bh=1lgD2/r9LjhQmUOUH0YH3LrX/i+KeQI0zSLtZTqIS20=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PPCy7M0kEV/l5uMwCDewbk5ofC7S+199WVCjwjePE5xMFlpWt3DCukjEiId8ZnQsE
-	 hYLsJvy1uQRjvRscFQaEb98lAhL7ibXwHBhi8U8Nd+AXji1lUjIwGSm0VPJz0zkJIF
-	 ZVAFhNq0PaJXc81j6Pbvfzdt0D55iJgWG0yxOWQYgw6j/LqZiTN8s5m5ZsHJj1oaZB
-	 2EwMukTw18IZmoBOSZLDRY943Df1e3JaKfeS8ylG0ASdBfOzOk7BMk2CRgkDN2DSw0
-	 OP0jclFfkglLXBVLkyeC33RtCD1+A/pVKYgb3N6ht4YH7w8/AmdUQ6cQ02koaV334p
-	 4nPHZ/o7qV2iQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/7] drm/msm/hdmi: Handle msm_hdmi_power_on() errors
- during .atomic_pre_enable()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-2-dcf8956878ca@oss.qualcomm.com>
-References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
- <20260908-drm-msm-hdmi-fixes-before-eliza-v3-2-dcf8956878ca@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 07:25:45 +0000
-Message-Id: <20260908072546.645FF1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788852763;
+	bh=BUVvKjrO5CilP0Dhdnmye4vxFJhvbGovkQ7n4BbuuAg=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=LadyelDWcNtzqn2pNDPzvE2ycihraLgBZJHb2jgVLHZZXzxgABvvuAdH7JVsF0ef7
+	 hOCOsWfZgMq38Hw97bgA4s5aD6TcqNRa3uSb6utMDdvzy9wJ7f79H452uu5XmX32Lf
+	 BsVMBAce4AwFBaI6PVcKTdCAwZd/MD2v0a+Blri6jINnKmNF0uTg6eiA59HZNt0sqd
+	 pNULmwRPByHIr8/0We3MvslK0s5bWBbvgpsaV/RX8s67xpmG+NiDvPfGuJe+szXdD7
+	 eB7t0Fyd46VQ/Pt0cnLJZJaHIdNmDjg6rmuK0nZx4Ckt63GBjxffjSD/6cVwmwVvxP
+	 k4OW5NDiHLmbg==
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-3a151eda82dso36205551fa.1
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 00:32:43 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz1Rtc1jgj/NeYUcAkv+RcyRtk16RE8ZIos0DnFjaPZFRo7j1515pFC+PU5seBdj6SPFihX/KeYSeFC@vger.kernel.org
+X-Gm-Message-State: AFuF++mZmuY3R575zWGyfRcTRZNK3iGE9kSXVqxEZky4l3/jsP/BvUNh
+	qV2t94Rk/4mLVVAulS9UjWfB52dRY7wwaZOpqBHmEftn8Dq3dJlOXF+LxFThmQGn4uuaH3VPAV4
+	Yqj13pXHyN7RVfC0c6/s/mtyC7NhlIcL4oEGDHM5ytA==
+X-Received: by 2002:a05:651c:222c:b0:39f:ef09:bc55 with SMTP id
+ 38308e7fff4ca-3a371b30ee3mr58920061fa.3.1788852761641; Tue, 08 Sep 2026
+ 00:32:41 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Sep 2026 02:32:40 -0500
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Tue, 8 Sep 2026 02:32:40 -0500
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260902013858.130887-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260902013858.130887-1-shengchao.guo@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 02:32:40 -0500
+X-Gmail-Original-Message-ID: <CAMRc=Me9AcVByS64-AwW08wPyHHnL=73E5N5srPzTSqusMHMTA@mail.gmail.com>
+X-Gm-Features: AcwNN1XHgy9F2mNEObYLvFmWhv5aBUGsku_NoIXOHxOBjg8w5SFRiAiimbjLAiE
+Message-ID: <CAMRc=Me9AcVByS64-AwW08wPyHHnL=73E5N5srPzTSqusMHMTA@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: arm-smmu: Document Adreno SMMU for Nord SoC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>, 
+	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Will Deacon <will@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Wed, 2 Sep 2026 03:38:58 +0200, Shawn Guo
+<shengchao.guo@oss.qualcomm.com> said:
+> Add specific compatible string to document the GPU SMMU present on
+> Nord SoC, and constrain it to the single HLOS vote clock.
+>
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+> Changes for v2:
+> - Add the missing HLOS vote clock constraint
+> - Link to v1: https://lore.kernel.org/all/20260901140816.74200-1-shengchao.guo@oss.qualcomm.com/
+>
+>  Documentation/devicetree/bindings/iommu/arm,smmu.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> index ffa33b7f4a96..214a9c051588 100644
+> --- a/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> +++ b/Documentation/devicetree/bindings/iommu/arm,smmu.yaml
+> @@ -102,6 +102,7 @@ properties:
+>                - qcom,hawi-smmu-500
+>                - qcom,kaanapali-smmu-500
+>                - qcom,milos-smmu-500
+> +              - qcom,nord-smmu-500
+>                - qcom,qcm2290-smmu-500
+>                - qcom,qcs615-smmu-500
+>                - qcom,qcs8300-smmu-500
+> @@ -579,6 +580,7 @@ allOf:
+>                  - qcom,glymur-smmu-500
+>                  - qcom,hawi-smmu-500
+>                  - qcom,kaanapali-smmu-500
+> +                - qcom,nord-smmu-500
+>                  - qcom,sm8750-smmu-500
+>              - const: qcom,adreno-smmu
+>              - const: qcom,smmu-500
+> --
+> 2.43.0
+>
+>
 
-New issues:
-- [High] Aborting `atomic_pre_enable()` on power-on failure guarantees an i=
-mprecise abort (system crash) in `atomic_post_disable()` due to uncondition=
-al accesses to unpowered PHY and HDMI controller registers.
-
-Pre-existing issues:
-- [High] Unclocked MMIO access in `msm_hdmi_set_timings()` before the HDMI =
-PM runtime is resumed.
---
-
-commit 9912da31672d32069f2e4d118d3714a533a0157a
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-drm/msm/hdmi: Handle msm_hdmi_power_on() errors during .atomic_pre_enable()
-
-This commit adds error handling for msm_hdmi_power_on() during the=20
-.atomic_pre_enable() phase to prevent register accesses if the power=20
-domain fails to come up.
-
-Cc: <stable@vger.kernel.org>
-
-> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c b/drivers/gpu/drm/msm=
-/hdmi/hdmi_bridge.c
-> index 157f19bd90b4e..db85400e574e4 100644
-> --- a/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_bridge.c
-
-[ ... ]
-
-> @@ -287,13 +294,18 @@ static void msm_hdmi_bridge_atomic_pre_enable(struc=
-t drm_bridge *bridge,
-> =20
->  	msm_hdmi_set_timings(hdmi, &crtc_state->adjusted_mode);
-
-[Severity: High]
-This is a pre-existing issue, but does calling msm_hdmi_set_timings() here
-risk unclocked MMIO access?
-
-This register access occurs before the power domain is reliably enabled by
-msm_hdmi_power_on() later in this function. If the connector is forced on
-while disconnected (so HPD is disabled and no background PM reference is
-held), the AHB/APB clocks for the HDMI block are off.
-
-Writing to these registers without an active clock can immediately stall the
-bus and cause an imprecise external abort (kernel panic).
-
-> -	mutex_lock(&hdmi->state_mutex);
-> -	if (!hdmi->power_on) {
-> -		msm_hdmi_phy_resource_enable(phy);
-> -		msm_hdmi_power_on(bridge);
-> -		hdmi->power_on =3D true;
-> +	scoped_guard(mutex, &hdmi->state_mutex) {
-> +		if (!hdmi->power_on) {
-> +			if (msm_hdmi_phy_resource_enable(phy))
-> +				return;
-> +
-> +			if (msm_hdmi_power_on(bridge)) {
-> +				msm_hdmi_phy_resource_disable(phy);
-> +				return;
-
-[Severity: High]
-Does aborting here guarantee a crash later during teardown?
-
-When this error path disables PHY resources and returns early, it leaves
-hdmi->power_on =3D false. However, because atomic_pre_enable() returns void,
-the DRM core is unaware of the failure and continues the modeset sequence.
-
-Eventually, the DRM core will call msm_hdmi_bridge_atomic_post_disable(),
-which unconditionally writes to unpowered registers:
-
-msm_hdmi_bridge_atomic_post_disable() {
-    ...
-    msm_hdmi_set_mode(hdmi, hdmi->hpd_enabled);
-    msm_hdmi_phy_powerdown(phy);
-}
-
-Since the PHY clocks were explicitly disabled by this error path, accessing
-these registers without an active clock will cause an imprecise external
-abort on MSM hardware.
-
-> +			}
-> +			hdmi->power_on =3D true;
-> +		}
->  	}
-> -	mutex_unlock(&hdmi->state_mutex);
-> =20
->  	if (connector->display_info.is_hdmi)
->  		msm_hdmi_audio_update(hdmi);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-drm-msm-hd=
-mi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com?part=3D2
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
