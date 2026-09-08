@@ -1,74 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD76581244;
-	Tue,  8 Sep 2026 17:56:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE683592200
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:57:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890217; cv=none; b=Mr9mHznhTlHh0WHR4d/Gj3bDdpHlRvRxQO/jQget/Soe0EyxjhC+r2B9fukG4JrS2UXB+xqCLBAGYoCFNhbcKc16TAr0j7VebV2k+PHDe2hhuDLTpL/mDz6619417EGP151ZouzflHiTlNfqpLHPv8lORFT5u8rR5K4wwA5+TGE=
+	t=1788890273; cv=none; b=Av/V0AALPoC7aRhONnyR3CWgRAtqn2CTZv5ZLY7fs59TpdbUCK288Taa9g7sKaOjV4GjIEGPKwfTQ874UUK4cTgOIp0zN2wEXuz641aByTAOiPsV2aee0zLp31cVDeJLPJaHI/NeJoeQV9maOLN9z0LHadJ3M7Vdu8QUjHNYyC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890217; c=relaxed/simple;
-	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UcUkFOztXBdde/R6n2QjbuS9nr8dDjzhm9bkV8GhigGyVRm4E12D2HQO+qGfGu9agWsRd0dDrQwtFNkNRHyGAxLZ8JzFU5i169pvrdGM4uL+7cpkcsJKpP5uUcoYuoEO3cUD5IKJBaoGHPEJ4npUpFKeR/Yra8Pr9Nnj432udPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCR5T3ug; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890273; c=relaxed/simple;
+	bh=6EPl8PH0ghzR4wjMiR7Q8Me3AMe7QphGpp3x2/jbeFA=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=hRIRWQgh7p4QrjSBb+9YQLC6p+uqLwEuz1WqcONfHqr7PrqakoggX43+hBFP2P+Y6j01UC+MmPU7oLoImWqIVbaZvVay2SQUH/1elCApZpJGGe/x8NceCrNZBiU8ajm6rI67XjFOszt1NyNsrkoEyCP33hQjMwp8RRwkWn0A6LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNminXqn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCR5T3ug"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D961F00A3A;
-	Tue,  8 Sep 2026 17:56:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNminXqn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118991F00A3E
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:57:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890215;
-	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MCR5T3ug3ogPL0IrNrVo72MWGWIY1CA9c5kINyRxx0jaUzvEgFt/fv7Z9i5VJzOa0
-	 j4aGiYDceRUzHWPvg/QxXjOHvU10uyJRc1AYOUlU6X61WgVrSBhv68zt6yi5yo5GY8
-	 owJ1C5NmpGfZr8awAGK/5TJYXcfBcsGLQFdBGEJ18paDYS43f9oQVQoRQAjzTYh4BC
-	 y0pNJGoN2yYjSZ5VbvN+xdqmPCIyV1XAkxj2QGQRtOUWZT5SFhiy8hVY2jOShketuP
-	 Xye8BM6H3XWky726vCFJSqIt1/68eFsj+0cl3RazMPIlfJwZLr7ldm8TQHCdeLeNeG
-	 /kto8pO0QYXeQ==
-Date: Tue, 8 Sep 2026 18:56:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>,
-	Prasad Bolisetty <pbolisetty@axiado.com>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	openbmc@lists.ozlabs.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
-Message-ID: <20260908-pesticide-creative-6185ca4971e9@spud>
-References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
- <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
+	s=k20260515; t=1788890271;
+	bh=//+DL+MTdww4mg3Ada41hfau+W3+4fTfJDlGXqtRQ+g=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=UNminXqn/CuKIhSfwm1JCbzpGNs2iuB+nzZYAwgwBTGhqQlLkx4pzkvi8gaV8kApl
+	 9SEbSRwMi4PaL1CR6Pu/wFyB36Q8GcczBoiLEcPMcXq5OQoheMj2L990+FTRrgONvc
+	 qNT25HsgwKEQvyjfl3RR6rFPl6mMvPveGcoY7UQza/2cH+Xl8aDl5SrFXiIbRM95V6
+	 a3MooiaRPc2Y+QJv+SZtvR7uIuE44ONmvOzGEc6ziV9JSRqRWcFaYo2lPOfeVW/xXv
+	 nBBgpV0BZTno+rWPzMMTCMSnPYUK9NUExbr1CcAetERVuzicxtYzbFNVLVoEgrra2B
+	 7aDvVX4TLYRfg==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id 7A69E1980052;
+	Tue,  8 Sep 2026 13:57:49 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 13:57:49 -0400
+X-ME-Sender: <xms:m0yganBEz592w3zaueDtR7ZFMJuduTgR4_oAp4uYnGQcEUKBTWMAEA>
+    <xme:m0ygaoWXi1Wg2fis7naZkECFFqQoz7FRuvyCeaUXFH8ugw6V2OvBcWbkkpKO3Jhno
+    Qbuxvq4P2EyZ9V6rEGDXYJKQ4uQqujibWDp89GKqxDJM8Rg7xixhkw>
+X-ME-Proxy-Cause: dmFkZTEXuYpjZ1wAkm/2LvOlQkLNMJ0Z2ChbMNcUSPWGbBGa6pqiWHAiObHM8tVPEL8QRd
+    hiQ0ImqRveN7sdGSqUU0YGgzBllaCjWQB4kYxULxdZNCa4cmDb/MsC6/zrUP5SDhtMDV0p
+    jnj69s5Gt1Uv0hwRtF2k9hsoDrdBwK9nYe022ghrXEsBgmh2orTz389+Pz0k4JcL+buYHh
+    noVq6d1kLrVTMDtTneTDA3E1ZeFPxU9FnBh+PYnJAu2q2/Ko4ZFW7mvLGpR3ZPAfxZ6yl5
+    BW2DGdjjhiZ14+1/Vp6ZUbNGc0DzP1tfRGtofP9SKAKFsSVj9pJkR3bRJTyBMUs/EG1nTW
+    9i8lIDtnYNZE5QDCBW46X/1FHPBerBS1bv4MO92XuSICv9LBCIu3kGX5DBNbp53z+Z3hdg
+    0ML+hgh0GrnP/W0GdztR81vqWvIQaMVbo1KSQKwFcN5L//4Wa4dziECNd8RqLIVTPqTtWw
+    D7tFLz04Ygk+vedTXAFQDh9FMBfoJy7Lo2sg52V5KjJanOrRTM4WVfSlys00K52SG04MSJ
+    TT4L2WEamH6Wu9Y3WbcKkfT7KIMP94SgDZzzvEM7uMBkLEyg49Gcth09l17LaOhy1Bd4Cb
+    zMO1mC9X0mhlg5An7kidoZ0KbEbBENOiDidiLefnjimZdNHBWsBYorQOthfA
+X-ME-Proxy: <xmx:nUygapVBmx82bC4_JiB5d0FBdHsJWIsiwjagP-cYQmf5WyT_ZDFBiQ>
+    <xmx:nUygajnoSxLTefYkU66TYj_MqSVieBuN-Ydow3CMkq5HSY9SkAo0Hw>
+    <xmx:nUygasCkv6cB9GG8CyiV-elc4gzfXqNW57cL7mKDJMI8qgJa22rBNQ>
+    <xmx:nUygaqijVdzWFxCRkkZiv3X-bZeMrE5w6tV1qROsNIR1GdmtybYrAQ>
+    <xmx:nUygahzvItMafEAba5NyHMHjxd5oP2hvpgjaNcegyXZm3lTJ6_ov1Qxb>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id DC7BF32A0078; Tue,  8 Sep 2026 13:57:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kFlJqgktNAXA6FxP"
-Content-Disposition: inline
-In-Reply-To: <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
+X-ThreadId: Aub4sDdj1xcV
+Date: Tue, 08 Sep 2026 19:57:27 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, "Frank Li" <Frank.Li@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, "Rob Herring" <robh@kernel.org>
+Message-Id: <a859cd07-8f52-4ae1-b28c-7bc052694a5a@app.fastmail.com>
+In-Reply-To: <20260908155546.5DB8B1F00A3A@smtp.kernel.org>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-3-arnd@kernel.org>
+ <20260908155546.5DB8B1F00A3A@smtp.kernel.org>
+Subject: Re: [PATCH 02/13] ARM: remove footbridge
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
---kFlJqgktNAXA6FxP
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, Sep 8, 2026, at 17:55, sashiko-bot@kernel.org wrote:
+>>  __tagtable(ATAG_MEM, parse_tag_mem32);
+>>  
+>> -#if defined(CONFIG_ARCH_FOOTBRIDGE) && defined(CONFIG_VGA_CONSOLE)
+>> -static int __init parse_tag_videotext(const struct tag *tag)
+>> -{
+> [ ... ]
+>> -__tagtable(ATAG_VIDEOTEXT, parse_tag_videotext);
+>> -#endif
+>> -
+>
+> [Severity: Medium]
+> Since this patch removes the footbridge architecture, should similar
+> arch-specific dead code be removed from arch/arm/kernel/atags_compat.c as
+> well?
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+I have a separate patch to remove that file entirely and chose
+not to remove the lines here to avoid a merge conflict.
 
---kFlJqgktNAXA6FxP
-Content-Type: application/pgp-signature; name=signature.asc
+>> deleted file mode 100644
+>> index 96a74d447028d..0000000000000
+>> --- a/arch/arm/mach-footbridge/Kconfig
+>> +++ /dev/null
+>> @@ -1,57 +0,0 @@
+> [ ... ]
+>> -config ARCH_NETWINDER
+>> -	bool "NetWinder"
+> [ ... ]
+>> -config FOOTBRIDGE
+>> -	def_bool y
+>
+> [Severity: Medium]
+> By removing the FOOTBRIDGE and ARCH_NETWINDER configs here, what happens to
+> the drivers in other subsystems that still depend on them? 
+>
+> For example, drivers/watchdog/Kconfig still contains dependencies like:
+>     config 21285_WATCHDOG
+>         depends on FOOTBRIDGE
 
------BEGIN PGP SIGNATURE-----
+See the longer series with the patches to remove this.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBMYwAKCRB4tDGHoIJi
-0mf7AP9iW5keEM1nmOylKZgW02slNGlrttLScQ5pyEVZQL9NxwEA7+4S6lfDL6fB
-sJf9uC3qpk4vYAvdb0oCNDo4HdaxOg4=
-=VFZT
------END PGP SIGNATURE-----
+> And drivers/char/Kconfig has symbols like DS1620, NWBUTTON, and NWFLASH
+> that depend on ARCH_NETWINDER. Will these be left permanently unbuildable
+> since their configurations are orphaned?
+>
+> Additionally, 977_WATCHDOG depends on:
+>     (FOOTBRIDGE && ARCH_NETWINDER) || (ARM && COMPILE_TEST)
+>
+> If someone builds with COMPILE_TEST, won't this driver try to build but
+> fail due to missing headers?
 
---kFlJqgktNAXA6FxP--
+I don't see any headers causing problems in 977_WATCHDOG, but
+I'll do some more build testing on the current series before
+I post the next version.
+
+I did randconfig tests on a slightly older version of the longer
+series, but not on intermediate parts, so it's possible that
+I missed something there.
+
+>> diff --git a/arch/arm/include/asm/hardware/dec21285.h b/arch/arm/include/asm/hardware/dec21285.h
+>> deleted file mode 100644
+>> index 894f2a635cbbd..0000000000000
+>> --- a/arch/arm/include/asm/hardware/dec21285.h
+>> +++ /dev/null
+>
+> [Severity: Medium]
+> Will the removal of this header cause fatal build errors for the orphaned
+> drivers mentioned above?
+>
+> For example, if compilation is attempted (such as with COMPILE_TEST),
+> nwflash_init() in drivers/char/nwflash.c and serial21285_init() in 
+> drivers/tty/serial/21285.c both still include <asm/hardware/dec21285.h>.
+>
+> Does this patch need to remove those orphaned drivers as well to prevent
+> build breakages?
+
+The nwflash/nwbutton and dc21285_serial drivers have a hard
+dependency on ARCH_NETWINDER, so those should be fine.
+
+       Arnd
