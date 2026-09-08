@@ -1,128 +1,135 @@
-Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.135])
+Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45617423786;
-	Tue,  8 Sep 2026 09:40:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.135
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50777519908;
+	Tue,  8 Sep 2026 09:40:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788860409; cv=none; b=cksAKlPO2vNHeK/1dh2/4hv86M3aCRZ+HabzvaS5LnJDPrqJs/gob2xZ4Mpkifh8RnW/g95tdwG+4z/i3oTFsDD2facau6MNkAJT7Yo7g+5UlPYMxXeefYGsFF+f8ByngimU2XVTuWCmiNHmUp2HEWwlT3fPXLIWDtNie+79OBA=
+	t=1788860448; cv=none; b=Pt4YedEaWD0ngs+6vTktLNQmHTOBsiXl4c68URFgM6zGHDMki2nRx9s8UhKXDA5YVAg8A2EwwvHlIXJU+CkDwQAVvhHdfgs/cGXjM/SO6bfm8R0IxZYY84hx+PTF5niLfVP5eiABLrIUBY8Lkz8pmqPSFDHD6gALFpHDalmTU70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788860409; c=relaxed/simple;
-	bh=Fk0kAPLiE59Bae1wl7rvNGfaKXuJWJD2nQcqbQl/PBQ=;
+	s=arc-20240116; t=1788860448; c=relaxed/simple;
+	bh=/MqnHKMUZO6pR7UnfizV67smzo2VOogPio2iF+YxGIM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IvBieacSNs95/yKaDIPb6ylOry1x8vENv/TxhcxBfg1nByFi2BkTNx6Sjq/im47ZngXrmDUD5nMzTSpNWcxjRvBIIHjVpIHY2yQ3Syo9Oc36+GlRixrQxHonsG/vXKSCYz83IFjoO8uhbkY1RjYcDCzF1u5Pu/VUnn03AMkdvDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=kH5pVu/C; arc=none smtp.client-ip=212.227.126.135
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
+	 In-Reply-To:Content-Type; b=AUCeFJnoeqvi5nddwGdAIwZj2RAXoGPNqu74rppJJhbAII86UNNMWoGtUbDHQxHZXZvgioXwRdLzI+hWG/ZgoQdCpWkxEPDsXX600Dkpbz0DtSoiqv7+c/qi43QQjLlXcKcIZ9EFr4yNNJ6XjbrYAjM8dLyT6qrZCn4oCQTo+qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=PCb0x4mq; arc=none smtp.client-ip=54.206.34.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="kH5pVu/C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=oldschoolsolutions.biz; s=s1-ionos; t=1788860395; x=1789465195;
-	i=jens.glathe@oldschoolsolutions.biz;
-	bh=Fk0kAPLiE59Bae1wl7rvNGfaKXuJWJD2nQcqbQl/PBQ=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=kH5pVu/CkN8IMYmqYcueNyu1Hg5SrLvGsyAq0nNRwyZrfXy7vNHGVMAtoShnmM1P
-	 sOcwPeBic3FddByWzxtmkTNzn2n+TYeI+VndkBd02bDr9Uc+lFXp67AUy1jDb0F+F
-	 vRrRtMD64Jj6diGcanZQi/UacRcY5O4lNMF6RTdySRlU8OfvtxsdrqiIKYlKKtZ9a
-	 pwibD2/Sq92pejn0jV9vDh8uStb5CMLMoRm1N3XpJM7ZZZSLkjnutFbimjLsK1P4r
-	 3e9cyOU30vHvB/uwcMCWlXuuHpOdNy57HqL03VKJK3ZiSFz5EQV/wv4s/7p+RDlTx
-	 d0idZfT84H0BOdSnyw==
-X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
-Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue012
- [212.227.15.167]) with ESMTPSA (Nemesis) id 1N8VkX-1wqD4E24jB-018AdM; Tue, 08
- Sep 2026 11:39:55 +0200
-Message-ID: <dcae935c-ccbb-4cb5-a184-eb5dc2cc84b8@oldschoolsolutions.biz>
-Date: Tue, 8 Sep 2026 11:39:54 +0200
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="PCb0x4mq"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1788860387;
+	bh=FHFampfu+ImN2iiJYFmkXIBlrCdOXAMDPUO7WbZYY0I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=PCb0x4mquSapCsOP9uVykh8Bk1pT1OFD5GcZSPIPGU2Y6E5PhikhaBj22JaI8yRXf
+	 a92hmVjAz2STStDqANa3JZ3Yj7QOm843Wi5NAycW91piv5QqI+Q7NThxVjnj1dAm3x
+	 QtguhCn8jcn/XM01mG3iCEAeBSzVM20Ol+KnEDvU=
+X-QQ-mid: esmtpgz11t1788860380tc17f5ec9
+X-QQ-Originating-IP: Bugj5YLGVEyhMeIa6KzMeFxlT0lmNUHALoPlNP9mFzM=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Tue, 08 Sep 2026 17:39:36 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 8537548706978725419
+EX-QQ-RecipientCnt: 19
+Message-ID: <0F6BBCA4EF1303F8+e4bc3221-1f7d-42b4-a9e4-169b14e6d04b@linux.spacemit.com>
+Date: Tue, 8 Sep 2026 17:39:36 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-To: Mostafa Saleh <smostafa@google.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <ap_PdUrwLIVGJ3oG@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 5/6] riscv: dts: spacemit: enable USB2.0 controllers on
+ BananaPi F3
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev
+References: <20260812-b4-spacemit-k1-usb2-v1-0-f28cf29e522b@linux.spacemit.com>
+ <20260812-b4-spacemit-k1-usb2-v1-5-f28cf29e522b@linux.spacemit.com>
+ <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
 Content-Language: en-US
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-In-Reply-To: <ap_PdUrwLIVGJ3oG@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <DL8Y8HJ75OUV.2AC7IAYJ0UB26@linux.spacemit.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Provags-ID: V03:K1:cfAUSRl8AGcLYbstoya/W13tCt2eO+Pyjsrg5ZZR9vDTzxYOrQ0
- EafFQ1R3MbDowstmeoRQv8yttGT0SyzOnr9ymbIoRn9bJGfzd3x1SuD263i7iqzvqDP6Yhw
- n4XJQ9H8UqhYgkPzl+D1iRu/YzpMnDGBfq7MrLYvRanuz6XU9AZdXfFjURIGcP7sYpf/yCy
- uPFuiukXDh4u6PH2smGLg==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:uDyiNOGbqkI=;4PkjzD8tyPUwoxcI5klYkdNo4/7
- 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
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: NsTWTlXJmKxZ9b9lH0VlrKjOx80vPaKYD//8LCI2eOdjo0kW/6pfTkfa
+	UouNele6IjeBaUtOxZ9ZhfYDGQzIXm4Y25dpyTb9wSvNWJjqeoZl0ZP5RuGucj61mWkJ+Lf
+	ndS4vpiN9PBSaSWlY78SRDLfl8maEzCT1EUKDv5UbXqEw+xI3niZ+0uGC7rFzcPGgtqoM5j
+	+o/DLloLBUTU35YRN3gPElN3A/G8VzfpPdvvNQ93ETqTfZNhHcR+T6n7Kv6Vm6zRcaEnkJd
+	9AdXWZTjo8nUgJqxkZTIjnkUjTdiCsy4M/kim7Xb3CQG/hk+njJ34JeCCAxeiAJtjQ+aBIF
+	H3ayFQ540k54UZ6pwOvEyvSB7Elq0gHNbv8USvWWo7lhPZmVAix0mmjh0QL0fEYVJLbSdau
+	dWERvOOpuZBMnNp/Uwei2eni0R+nBykuqHq5gOFsusYpGr/jlMQOUXw8m9zX13IuJh9BL7R
+	T5C69XRvo+82rIDZWLvN50k9bdYl9nmirwHaAr89VDF+xPbpJQ1OerAjl8vVGH46301+6Sp
+	ECnDrcr8hhxRxhXbHCTGC8C5/4V+KlFhLy8xfE/xaKRfLvbs7CVhiXMBOS4s8Y3fS9T4q7N
+	HlQb4YQ5iefR/jHZiY7GTPFYuaS+nbABsAoB3qY3NDTSTWzgeeFcLdQxefB6FbYz8ZOCDiw
+	cLI+NHlDnzILtfsjqcytrAqRMSQF4wcTkgDX+pCy1hDzPK6urlnGc2Fl+5BcJnTvjGlqACj
+	WFRgvXLKpq+GjOAn1bjRHGVn/w0LUJctCJ025UraBuCKh2mDVLu2YVtcs8ULa6r2AxrNFyP
+	ZeUmxSFxGTtI03tl4CApt8u5+w8Bx7g5IDLwprq+rgllWxQyUleMNtGWIXJs3tjLoAeZnqy
+	DWB98Swvkb2bWYEnTIcPXSfnZjgQaF03tDXxjFGaebWfRRV85grEPciqUHhYtgqHAeCjll0
+	RxL6jNYk3JVtlNohKjjBe8RNB0caag7C0DZa7rZzAoNs4FATjpmf2RXtDy6H0CX1wWEofw4
+	+kuK+IDck6Rjz/3WQYKlo/vv0r+JAhaBBgXzmi4/El2HDxn/NeiMG8S8leeYDTCXPXwTEl5
+	IlSQ7jr3XUb
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-RECHKSPAM: 0
 
-Hi Mostafa,
-
-On 9/8/26 11:03, Mostafa Saleh wrote:
-> Hi Jens,
->
-> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
->> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
->> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
->> chassis, different silicon. Stubble and the DTB loader need distinct
->> compatibles.
+On 9/7/2026 4:42 PM, Troy Mitchell wrote:
+> On Wed Aug 12, 2026 at 5:26 PM +08, Junzhong Pan wrote:
+>> On BananaPi F3, usb2_0 is connected to a Type-C connector at device
+>> mode by default. This port have no VBUS supply capability, thus host
+>> mode only works with self-powered device or hub. User could switch the
+>> role in sysfs.
 >>
-[...]
->> This series does not apply to ToT nor I can find this base-commit
->> in it.
+>> And the usb2_1 is connected to the USB2.0 pins of the Mini PCIe slot to
+>> support cellular modules.
 >>
->> Does that have any dependency?
+>> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+>> ---
+>>  arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts | 16 ++++++++++++++++
+>>  1 file changed, 16 insertions(+)
 >>
->> Thanks,
->> Mostafa
+>> diff --git a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> index 72f77e9edd63..fd0f96262009 100644
+>> --- a/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> +++ b/arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts
+>> @@ -350,6 +350,22 @@ &uart0 {
+>>  	status = "okay";
+>>  };
+>>  
+>> +&usbphy0 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb2_0 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usbphy1 {
+>> +	status = "okay";
+>> +};
+>> +
+>> +&usb2_1 {
+>> +	status = "okay";
+>> +};
+>> +
+>>  &usbphy2 {
+>>  	status = "okay";
+>>  };
+> Could you keep the USB nodes in the same order as in k1.dtsi, with
+> usbphy0/1/2 first, followed by usb2_0, usb2_1 and usb_dwc3?
+> 
+> 
 
-No dependencies. But I test if i can apply to torvalds/master
-
-with best regards
-
-Jens
-
+Will do, thanks
 
