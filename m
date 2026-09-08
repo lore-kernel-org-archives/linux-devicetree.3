@@ -1,115 +1,108 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4F5344D8B;
-	Tue,  8 Sep 2026 07:01:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887EF3246EB
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 07:03:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788850875; cv=none; b=a5e4lAFGHOZqz2Pjnu1x4vnba58tSdnTJis5kzjHGWGOIhTESA8TaN63PoC+F2r5MjfW6pQzkH9PMX7Gul1wTP/v00BE4xzMDOtd6ScNxFzzHnuhlK9PQKRHYW9cdL/tGYMDNqb+n4QCqTV4rfb1OD+UpbcBI3VrjaabZnGLOmY=
+	t=1788851012; cv=none; b=ZHLBe6SCXtD6vLIHGW5Rt5VzfOXVgbOAPXjNwH8543EBRq0QCjhNL0Apuri/365k/ce+GyVkETc9hyeUOeMcui08mvRBPYBR5Bhhc5hc8M241cPS0hfFZKroJSha83IZxPz5z5+KxUapJr9sqTqAxlY6y1fyMs/oIZb8VX9V98k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788850875; c=relaxed/simple;
-	bh=HWjbQo5zlhO13u55bbJAZDvviqnOCqacnSO0CJjRVfk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IFANEJL5IwGJ+sFvBHtGWtA7GPyZQ85tgaedpBgXRbvfcynDu50Zhi8NFZaqV3KMoiQvj1Fv2zmlgPw2ZObAn2l/wW8zLQp1fFJiFqe+y1hlzf3ouFV7CUB0bCjfrNndHlYSNu9SgQYenj37WTmdQMGIcpEtQqPiKXwugS5CRPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=O8c9EkGg; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788851012; c=relaxed/simple;
+	bh=YDnXzWdSADEyWmZMlHW4CzhF+mLcfT9q6uGYCwtIulI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aZlV6OKNSuUn8lRGGpU1WM4u60KEuAGUUEjKj7UeZT5K+jMscOOZNUhNb5L/mlSrz/GbRe4EhGiUcKB6nEHiLNXytTVaQ/e1nzN9M1HRRwombwuRs+gry1Yj91iCDcWCu3LNknX17RDavblIMzoVu26RqgXdwdYloKiEY9tIiI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LkzRUfNS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="O8c9EkGg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788850871;
-	bh=HWjbQo5zlhO13u55bbJAZDvviqnOCqacnSO0CJjRVfk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=O8c9EkGgt2iwa6KoH+ylDYXlyStOBc6o5crFO8lp7bwdTe9h/O4zrO9GmvyogrLgi
-	 UVbG+XwQrXs7Mzrxq+QzP2s0IFVqObF1EKB4nWlN05yjfE2sEB0KhmqmnitSDSaQ6D
-	 2rD2G5mpmY1pmo+a9mr9HxNTvSI9zvpbjsiFJsHJxM4H689oeQ/+GMjRLBduOILXUd
-	 RJ6wZdiZEGEwKzZFmKg4uA/2dEwJhCtvIoaV+bodSCkxdymTWYfyBSDw5GA3wluzpL
-	 KT4teytQYunCA+t4Ze/c5kuoRhwftyPhDYWTpjH5XFxnWrgKPagO1DMnBjyBR9fosU
-	 PYDsoc3SqXvqw==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 71F6917E03B6;
-	Tue, 08 Sep 2026 09:01:11 +0200 (CEST)
-Message-ID: <04cf83db-7914-47fa-8d37-baf5e925d86d@collabora.com>
-Date: Tue, 8 Sep 2026 09:01:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LkzRUfNS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2189A1F00A3A;
+	Tue,  8 Sep 2026 07:03:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788851011;
+	bh=qbKBt9NEwsK7J3EtXRd8ktbdKgGC7WkxjDASWd3hmpk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LkzRUfNS4znzHvF1dQmkD7/6K9GwqgQhMkRD5Cd+MqZA500NzFMFGX1323TJ7O/6v
+	 ulQQzrYh8v+N0jUPhWdJU9pT5WwItQYvSZnuGFkp4NPuslMBncABvSDENPqvCAgPhI
+	 W2GFwuKOS7Onn51TZrkh+R6Gc99SbIXdlpdMEtuVGYdUR5v3cHNd8/VKyyPO2QppsJ
+	 9hoEVTCOH34AAfiNxo5boEPPDjlylH8FRi0Y1ohvdysRf6xffjwNoxyCSugWvKn/ee
+	 +olXxLKhKKt1WkMVAlrY10tjfFXuoWdbmoqfap8eI5XM39CIOidNZ1Xy6lgCD1eLz6
+	 B78mli6E050qQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4] arm64: dts: qcom: agatti: Add memory-region for
+ audio PD
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260908-agatti-audio-v4-1-b3db91d3fdec@oss.qualcomm.com>
+References: <20260908-agatti-audio-v4-1-b3db91d3fdec@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 07:03:30 +0000
+Message-Id: <20260908070331.2189A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/3] MediaTek mt6572 GCE support
-To: rva333@protonmail.com, Jassi Brar <jassisinghbrar@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Houlong Wei <houlong.wei@mediatek.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 9/7/26 20:03, Roman Vivchar via B4 Relay wrote:
-> This patch series adds support for the Global Command Engine found in
-> the mt6572 SoC.
-> 
-> Notably, the patch 2 introduces legacy ISA format, which is used on
-> mt6572, 6582 and 6592 SoCs. mt6577 doesn't have the GCE at all and
-> mt6595 is much more close to 6795/8173.
-> Patch 3 adds mt6572 platform data and legacy_isa forwarding to the
-> instruction JIT.
-> 
-> This format was reverse engineered from the Android HAL and uses 22-bit
-> offset with 2-bit subsystem ID, unlike the newer 16-bit offset and 8-bit
-> subsystem ID.
-> The mt6572 HAL includes workarounds for WFE and EOC instructions, emitting
-> another WFE as barrier at WFE, and JUMP +8 at EOC.
-> mt6582 and 6592 HAL dropped WFE barrier, but still have JUMP +8.
-> 
-> This sounds very much like some kind of software mitigations for hardware
-> bugs, but during testing on 6572 nothing bad happened so far. These
-> additional instructions are not included in the patches.
-> 
-> Note that while GCE can be used for e.g. mt6592 UFOE (which is at
-> 0x14013000, so outside of the u16 range), currently the driver still uses
-> u16 for the offset, because I don't have any 6592 device.
-> 
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Series is
+Pre-existing issues:
+- [Critical] The fastrpc driver assigns CMA memory to the DSP via qcom_scm_=
+assign_mem() but never restores HLOS permissions before freeing it back to =
+the kernel, leading to a fatal XPU memory protection fault.
+--
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+commit ec8640fac73b78cbfdda01ddc330dda934f6259f
+Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-> ---
-> Changes in v2:
-> - Move dt-bindings to mailbox directory from gce (Krzysztof)
-> - Clarify that only v2 and v3 GCEs support PA writes
-> - Link to v1: https://patch.msgid.link/20260728-6572-gce-v1-0-750bba32689e@protonmail.com
-> 
-> ---
-> Roman Vivchar (3):
->        dt-bindings: mailbox: mediatek,gce-mailbox: add mt6572
->        soc: mediatek: cmdq-helper: add legacy GCE ISA support
->        mailbox: mtk-cmdq: add mt6572 support
-> 
->   .../bindings/mailbox/mediatek,gce-mailbox.yaml     |  1 +
->   drivers/mailbox/mtk-cmdq-mailbox.c                 | 11 +++++
->   drivers/soc/mediatek/mtk-cmdq-helper.c             | 57 +++++++++++++++-------
->   include/dt-bindings/mailbox/mediatek,mt6572-gce.h  | 52 ++++++++++++++++++++
->   include/linux/mailbox/mtk-cmdq-mailbox.h           |  1 +
->   5 files changed, 104 insertions(+), 18 deletions(-)
-> ---
-> base-commit: 8cd9520d35a6c38db6567e97dd93b1f11f185dc6
-> change-id: 20260727-6572-gce-6a571ef4af09
-> 
-> Best regards,
-> --
-> Roman Vivchar <rva333@protonmail.com>
+arm64: dts: qcom: agatti: Add memory-region for audio PD
 
+Reserve memory region for audio PD dynamic loading and remote heap
+requirements. Add the required VMID list for memory ownership
+transfers.
+
+> diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/q=
+com/agatti.dtsi
+> index e7fed60a59d93..8d557010d3c0d 100644
+> --- a/arch/arm64/boot/dts/qcom/agatti.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+[ ... ]
+> @@ -2346,6 +2354,9 @@ fastrpc {
+>  					compatible =3D "qcom,fastrpc";
+>  					qcom,glink-channels =3D "fastrpcglink-apps-dsp";
+>  					label =3D "adsp";
+> +					memory-region =3D <&adsp_rpc_remote_heap_mem>;
+> +					qcom,vmids =3D <QCOM_SCM_VMID_LPASS
+> +						      QCOM_SCM_VMID_ADSP_HEAP>;
+
+[Severity: Critical]
+This is a pre-existing issue, but does adding this configuration activate
+buggy TrustZone memory assignment code paths in fastrpc on this platform?
+
+The fastrpc driver assigns CMA memory to the DSP via qcom_scm_assign_mem()
+but never restores HLOS permissions before freeing it back to the kernel,
+which leads to a fatal XPU memory protection fault.
+
+For example, when freeing user-mapped remote heap memory in
+drivers/misc/fastrpc.c:fastrpc_req_munmap_impl():
+
+	fastrpc_buf_free(buf);
+
+Or when freeing the static process remote heap in
+drivers/misc/fastrpc.c:fastrpc_rpmsg_remove():
+
+	if (cctx->remote_heap)
+		fastrpc_buf_free(cctx->remote_heap);
+
+In both cases, the physical pages are returned to the generic CMA pool
+without restoring HLOS permissions. Any subsequent kernel allocation from
+this CMA pool will cause an immediate kernel panic (XPU violation).
+
+Since a local userspace application can allocate remote heap memory via
+FASTRPC_IOCTL_MMAP and then free it via FASTRPC_IOCTL_MUNMAP, could this
+be trivially triggered as a local Denial of Service (DoS)?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-agatti-aud=
+io-v4-1-b3db91d3fdec@oss.qualcomm.com?part=3D1
