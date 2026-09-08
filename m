@@ -1,124 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E85550DBE;
-	Tue,  8 Sep 2026 15:42:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A23356511C;
+	Tue,  8 Sep 2026 15:43:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788882147; cv=none; b=M0w/XwkeNi8dP1l7EccV8o10/jBFWM0/yidP7QjZhTk9EyEgkjFfSwsTqXpo+YHC6JYCZ3cnUNvx86z3p7zY2+n/amjTkvYcVovAT44FH3OkRGHqn73lsQwC5EwcvUaS+AdYPj6+P4SWXlX0VoH79VxMmcBm2UqdjyGmWV+aC7g=
+	t=1788882214; cv=none; b=IVr8vevbWb6R/GyPMK/XjedT1/kBsOmLGCpQ5LFFdfWOQ8oJzbB4AbQU83FR8pgaKa+kETf33crKCMiiZgThWc9TR+6CBbv+9hYSXpa2tJTpIGWrXj0bgKHWxmz0j+8oUskK17I+EBwG3f1loFpH6m/T9pmq2NjSUnPEnRB4Zg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788882147; c=relaxed/simple;
-	bh=gpXIqvcsWu3k5PBYYwLgojfkEo7p4v/88ZEi+fP/94g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tUkjfkJUJKpK0fTi7OCVuM6yVoM9DznW7JDzx83XQpLCbs7aZTX6GmPRRe3KCI99ACKB50NgoRglQGn6C15Tzar7bpr0aWA+AqF6THHzbfItZLSJQWdoqfXiwStipzSawwlMTVfOtDH9nJC5h7N6DZHzGEpJoZrTrqJ3JIdqMbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263CC1F00A3D;
-	Tue,  8 Sep 2026 15:42:25 +0000 (UTC)
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563
- embedded GPIO controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908-pci-tc9563-aux-v4-5-c7fc7778292b@oss.qualcomm.com>
-References: <20260908-pci-tc9563-aux-v4-0-c7fc7778292b@oss.qualcomm.com>
- <20260908-pci-tc9563-aux-v4-5-c7fc7778292b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 15:41:54 +0000
-Message-Id: <20260908154225.263CC1F00A3D@smtp.kernel.org>
+	s=arc-20240116; t=1788882214; c=relaxed/simple;
+	bh=vIEGeOZUzsykkPDscIatc5dhymUawWaQUcyRFICynD8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VirN1uojMJT+XMl6yHbm0yudVKc3KEdgDqDLGP33xPxJ5mW45GndtIP5pagiZdd8VwKisqz5IvjgZUsPT9n9Yw9XHdKNRJZXkN7kkOECPg3i/47U7zLDn/9AdpyzgLDElVzOkQ+bR/QwPrQL58so/xCMa7DSWdNPhddMBT2353U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jJTAzR1x; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jJTAzR1x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 733DD1F00A3D;
+	Tue,  8 Sep 2026 15:43:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788882213;
+	bh=ODv2oVQ+zj8LzCCwIIMj4+ozkkVjMeRgl5H0fCblGLM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jJTAzR1xLe2+tbJ9A7apNobRbYhUzmETYEpovrhxNgPp+VwM/urv5SsSEij/GPo8X
+	 hYhcyYJ5ROxyn/GqkyRygWjc1d4NxKbY69fxN9GcF3EPiL1Uu0cIZRYxJdsTaKD//A
+	 Ypl0uKD3xFFpYr5e3PIliXszCvPgyTdrFw7/BDlDjnws5K3/J5A6RYcMT3SvqyY9j7
+	 C0qlrVBnQPbeU016NyiBKn5bP8Fa++AskBwjoRSJ5LIRmvfcMW9aq9x4esrYT+SR5G
+	 qHxNOmulL0F6+3BE/AyWcE6A5B7iCT9vuaBfKrkcm0a2hYDE/+/bg4Oa378kjOffIS
+	 RXgdTpr2cjzeg==
+Date: Tue, 8 Sep 2026 16:43:25 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Lee Jones <lee@kernel.org>, Guru Das Srinagesh <linux@gurudas.dev>,
+	Liam Girdwood <lgirdwood@gmail.com>, linux-arm-msm@vger.kernel.org,
+	linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	mfd@lists.linux.dev, Suresh Vankadara <svankada@qti.qualcomm.com>,
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+	Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
+	Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/6] Add CAMSS support for Qualcomm Glymur
+Message-ID: <8103069c-d774-4303-8366-11059e462d84@sirena.org.uk>
+References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="yPw+0TGEn0HbTJ9A"
+Content-Disposition: inline
+In-Reply-To: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
+X-Cookie: The world is not octal despite DEC.
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but in `pci_pwrctrl_=
-power_on_device()`, if powering on a child node fails (e.g., returning `-EP=
-ROBE_DEFER`), previously successfully powered-on sibling children within th=
-e same loop iteration are not rolled back, leading to left-on power states.
---
+--yPw+0TGEn0HbTJ9A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-commit f88f26b5508f76a873435c0070f5f6adab4564f7
-Author: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+On Mon, Sep 07, 2026 at 01:43:36PM +0530, Nihal Kumar Gupta wrote:
 
-arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
+> Patch 1 depends on the following dt-bindings series:
+> [1] https://lore.kernel.org/all/20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org
 
-This commit adds the TC9563 embedded GPIO controller to the QCS6490-RB3Gen2
-device tree. It describes the switch node as a GPIO controller and uses it
-to drive the PERST# reset lines for two external downstream PCIe ports
-(pcie@1,0 and pcie@2,0).
+Qualcomm people, could you *please* stop sending me serieses that can't
+be applied.  As previously indicated I am getting far too much of this,
+it makes everything unmanagable.  Nihal, this isn't you or this series
+specifically, it's been a general problem with how Qualcomm is working
+that I've raised before.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/bo=
-ot/dts/qcom/qcs6490-rb3gen2.dts
-> index a13315bf0fb07..4da7342ca90d6 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
+Resend this once enough of the dependencies are in that it can at least
+be applied.  Reworking the series so that it can be applied without
+other in flight serieses would be fine, even if it needs everything to
+land in order to actually fully work.
 
-[ ... ]
+--yPw+0TGEn0HbTJ9A
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> @@ -891,6 +891,9 @@ pcie@0,0 {
->  		pinctrl-0 =3D <&tc9563_resx_n>;
->  		pinctrl-names =3D "default";
-> =20
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +
->  		pcie1_switch0_dsp1: pcie@1,0 {
->  			reg =3D <0x20800 0x0 0x0 0x0 0x0>;
->  			#address-cells =3D <3>;
-> @@ -899,6 +902,7 @@ pcie1_switch0_dsp1: pcie@1,0 {
->  			device_type =3D "pci";
->  			ranges;
->  			bus-range =3D <0x3 0xff>;
-> +			reset-gpios =3D <&tc9563 2 GPIO_ACTIVE_LOW>;
->  		};
-> =20
->  		pcie@2,0 {
-> @@ -909,6 +913,7 @@ pcie@2,0 {
->  			device_type =3D "pci";
->  			ranges;
->  			bus-range =3D <0x4 0xff>;
-> +			reset-gpios =3D <&tc9563 3 GPIO_ACTIVE_LOW>;
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-This isn't a bug introduced by this patch, but adding multiple downstream P=
-CIe
-ports under a single power-controlled switch node here exposes a pre-existi=
-ng
-resource leak in the PCI power control core.
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgLR0ACgkQJNaLcl1U
+h9AZAgf+LfTfUWipFC+MxrZIf/omzw5XlxIpLtxDgJRAtx16M+Z1GI7gwQJfJOM7
+il61Fwq5Kk1MhBLaaK643iz0rUo/780ML2AxG/kUCElqYqkefzQc73hNPz+aNwyE
+ch4qnMU75bdlVFykQ2ZW7zltNG597wHo4PJTQv/2iYQWgwx3BUYKquDn/tEhnTF/
++HCJvCov4TwITSLj0u34BxghM6Tjrp2uFdAVFKpsDboT3s1CGhIGS8l37NTiBvR+
+8WP9W/NZ8ngjwl4ctH4V5YjVtplJiOP2nZcDsnrnItZqq0Xs+MxFMBTZBNHr6MT3
+DOPZSwbyrcfF5hKDPdvHRIW/Rftk3w==
+=Y05L
+-----END PGP SIGNATURE-----
 
-In pci_pwrctrl_power_on_device(), if powering on a child node fails (for
-example, returning -EPROBE_DEFER for pcie@2,0), previously successfully
-powered-on sibling children within the same loop iteration (like pcie@1,0)
-are not rolled back:
-
-drivers/pci/pwrctrl/core.c:pci_pwrctrl_power_on_device() {
-    ...
-    for_each_available_child_of_node_scoped(np, child) {
-        ret =3D pci_pwrctrl_power_on_device(child);
-        if (ret)
-            return ret;
-    }
-    ...
-}
-
-Because the function returns immediately on failure, the regulator and clock
-enable counts for the earlier siblings are permanently leaked. Since probe
-deferral is a standard boot path, this leads to unbounded resource enable
-increments.
-
-Should pci_pwrctrl_power_on_device() be updated to power off successfully
-processed children during the error path before returning?
-
-> =20
->  			/* Renesas =CE=BCPD720201 PCIe USB3.0 Host Controller */
->  			usb-controller@0,0 {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-pci-tc9563=
--aux-v4-0-c7fc7778292b@oss.qualcomm.com?part=3D5
+--yPw+0TGEn0HbTJ9A--
