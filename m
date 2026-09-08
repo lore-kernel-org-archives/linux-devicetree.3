@@ -1,91 +1,86 @@
-Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74A4E53A8AB;
-	Tue,  8 Sep 2026 13:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788873347; cv=fail; b=dYjRV6h1dXpao+vPObtUfn0SnCGBlfvE7RNvHWqzjPJ6ZaoJhnTVtPm9afgHA0JfJfti9EpojjfgC321gRSZvuUjKW/HgBhzUrmaBBFfFxdV16T7TBfaIqgsYR6141TMBmA7p8zb2Gf5zri7dXJuUHKGXImty6nlNAr8WGnRtQ8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788873347; c=relaxed/simple;
-	bh=+dIjTny25Km6qS5z1O6oma6DcauRiq0PW63yz56JsmM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=fiAKmJ7bXqMfmfhbreKJJiSDnbRRIa4j8N90dNxoDvANIqsKEuhEYW6ps9qZ2wimPXMlQmV41f9n/KjhrZ3gGiN5JtIo5EfUyZaShC+iKX6GKkZo0LmFgBN9ouS+pFRhzlUvvm/1ny5R63Pm2lwb+aamL06sIcaye0GFF7GDGek=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Rvq5f/lr; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=a8qAbSEe; arc=fail smtp.client-ip=148.163.154.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 039544ACC78
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 13:19:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788873554; cv=none; b=UkDZQCtCcCgrVxTlQ+VzcFmRe9Z8h12lp/9KfcYCe7zXTWVs67Env88wNRzvResTp02REml37w9laInUmjeEoLZXIbG8D3puGYG4GjVEP0ivC/3f8UsBgSrxjmCpl49aHaBbCzvN0HuoYN79uni7IJLYHqpqxhSn4PA0JDVew0Y=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788873554; c=relaxed/simple;
+	bh=9YMYEyXu4SirAqbmQxF+UCJAn8WCFaimhxY6fO+yn7w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DJRZQr3L5WKCqKszyQQbI6c7cP5qZhGou9CODfcLd5bPr5bygDUNezNcwrwLzeuglKpU2ZU7nZw2q9U/ay9aSwxzJ/5ehVSLLPSnFkOUT/nODgEFaS+5Jaxy5XvSO/Az388kXT8hdC6d/EOVd+/AjEeZtPruascSsK/BhL3GTiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kYj0hJom; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cn81Qql2; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Rvq5f/lr";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="a8qAbSEe"
-Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
-	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Con9E1605204;
-	Tue, 8 Sep 2026 08:15:27 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=aA7Th7lzUdMDJFs7Uye49ulVRSIpHBW/yFevIPT52
-	NY=; b=Rvq5f/lrTK05pNPPrBBzHdOeZ+1XJYzX63U5naOyg75EAKMDDRH4lEvm7
-	MqtYMwEeJqsCg2nFWfrfNsbopS5IzBbOpo9Om/4Uwp6JmHJEinJW3OFLljPgX3X1
-	KVsYXG7O6vnHLLdkn9+GihYPSq/rr9BzKSvyaIJyBpRQfgP2ZIxnKuBFheDDRGW6
-	hF+vI+EYvHmd2S8LBql3xCG73VCucuh9GinWdJlEh7qesf+RKyWNcLLPIOLS9PDv
-	1v8lhbzpCL3kVn6bpixjFSfHz+/pWWrx71qRho3xRAaBtM0yhEOpiy6Zh5CzTel0
-	amu4EEP+lF2Cnu/dQsp+frFORQzWg==
-Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010027.outbound.protection.outlook.com [52.101.85.27])
-	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4gj940k5rn-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Tue, 08 Sep 2026 08:15:26 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=GFmYI88gkQoqGR8w3SYCUrYFTVpk22B3s7UqgCyUBE4dFe85akZFbb4EexJHWT6wkaPQm7FZcJ9EpoyFACM8f6iS9YUZVOmKlzMKLE1/GZJbhz4wgMRd88+749+c6Pf2bYZ/qjQHc8udZcO+ou93oqRyctpIucoHjeED4l3iJh58yG2OofgdIJNiDILcfGaWYvzHDbHnDAcQPG4pUDHvViAM4l1rmMcG0bmI4LLPbAoyc4B/NO3ZnOF6f0aXvoHaHSp8WJasxnIcuaO6AqBHzmXRHSGupzpTpJNh1tDsJMcYxXQGBQfbpO9t3wUP3H+JMrHsRoE8yMdThc4lMLxWIA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aA7Th7lzUdMDJFs7Uye49ulVRSIpHBW/yFevIPT52NY=;
- b=ucwqIYvE5Q6XHI5rVdpQ+sYEQrvUNv0zWCQgoAz4K8mDcC7Fg3WnIGA8UD6lLSDvutBFXRVNIge0Dw7tV24EEhrxqUYEa0gjNhZH+kPPYB44h7msd05dGXmOd6s/IhK0ILinxqWTflDiV6Q0WwvKjCgTy+k5WMLe+DFtNEyl+fCpJfTnMfXltdgfoEP8fUy4jLsbBuWnV+oI0l4m+n6go0JOqnzEUJYueCu8NtXzaSjZK+WI0JEASY2SLnfW2hehMyTF4EzOr+/q+wMAJhTp4ozoOSHiZFi8P4EATlpKsuM0vs3o9xpJs/m7+176gG4LXX1spPn2nTOC9dLXBmpaQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aA7Th7lzUdMDJFs7Uye49ulVRSIpHBW/yFevIPT52NY=;
- b=a8qAbSEeGRP2+tIPuvYoqmRGH7/7THhjqN1U6F2/xJoMackoc1lEZ3ZvrLjOBLKfsRKfjUYUXaSq1Mn3eyGbC37oDX+AvS85DyKKlKtRRn4UKocHKqUgzAlSX6ZZ0xlkOn2K49IfcfPr5m8E8sUHG0kaItKCAk5TadOA9VW7sZM=
-Received: from CH2PR14CA0055.namprd14.prod.outlook.com (2603:10b6:610:56::35)
- by SJ2PR10MB7037.namprd10.prod.outlook.com (2603:10b6:a03:4c5::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.6; Tue, 8 Sep 2026
- 13:15:15 +0000
-Received: from BN2PEPF0000A98E.namprd04.prod.outlook.com
- (2603:10b6:610:56:cafe::37) by CH2PR14CA0055.outlook.office365.com
- (2603:10b6:610:56::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 13:15:14 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BN2PEPF0000A98E.mail.protection.outlook.com (10.167.248.133) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 13:15:13 +0000
-Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 08:14:19 -0500
-Received: from DFLE204.ent.ti.com (10.64.6.62) by DFLE215.ent.ti.com
- (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Tue, 8 Sep
- 2026 08:14:19 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Tue, 8 Sep 2026 08:14:19 -0500
-Received: from [10.24.52.55] (santhoshkumark.dhcp.ti.com [10.24.52.55])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 688DEE8t2519261;
-	Tue, 8 Sep 2026 08:14:14 -0500
-Message-ID: <693550b9-a1fb-4732-b6ab-b06fd6b11423@ti.com>
-Date: Tue, 8 Sep 2026 18:44:13 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kYj0hJom";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cn81Qql2"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 688Cl1jR2932831
+	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 13:19:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7+HRkriuVzWqqqsg8EA57IGDloRqI/G0+65px0QRHcc=; b=kYj0hJomTc8vS9pd
+	acc79svyiqXIqmKuKOKq7HqPOsiLMxuEGgRC+qr/OJvzAik0ajJGDVZdNXQ+W91G
+	wlk3EmOsxqCG+vRvsrjMxvDrMEqULUo3r9/TVGVhu/HtAPalh9e9OJQCZWIqpgJG
+	4h//LoPWuLO1ASAgcvqNuqGltixZIF3uxHQoxqkganVxixLI3zRjNAek8ljOXRmp
+	awqgiOqwWBXqTA9Diz7hvHiFU8rHBasLhmkKQ5r80IkTTrRuTWSjj7mO91T2F+UY
+	lrYH9RcDUuquAh8AIXD191FgI0WCJf7SYpfYHH9ULa0c3NNonFysNduJAY7o+lIg
+	ZHD1HA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjf1ch32n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 13:19:08 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93918756165so769088085a.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788873547; x=1789478347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7+HRkriuVzWqqqsg8EA57IGDloRqI/G0+65px0QRHcc=;
+        b=Cn81Qql2iR422aRceav3G+NuF5z+JWBCJVWj9WtdpT9aEd0OM6aHUjNta/9MpvTYt0
+         0/+7BNh4pbZvj7KPDxG6XEOPUlwG4r13KBp4vLv6XxTyY80hmVOryqp6Wky6+UF38mFN
+         Dg2na7USTmIu5XPh2LbC3+I/Xkv/i+fAz5hTWjl6q4JJFzwCqeRfZrm4dTK92DLLYvwj
+         BdZe/ZSXD9SVPhwe4lOtzR4JU+mOjFEbv4f+xTRvbXQVv+7y5IzKVT9gY/lH8DdekB+7
+         4x4M0SJFKX0v7w+Ql+Gq1yMcSRam4vnjq/hcPr9QnocpzD0JFrUlTL076D5v/+x3gWEb
+         rShw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788873547; x=1789478347;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7+HRkriuVzWqqqsg8EA57IGDloRqI/G0+65px0QRHcc=;
+        b=TN8UFbUz01QlQfuRnU6qWhQYK8TixToOcoq/9b9giKdUKoQJzMGS51wjXb2FzxV+Wn
+         BKjjM7w1QJJoqFwq+X/myGtKXCmMChh3jOtvqrjjmixocrnod16N/ZgGkX4XmPOcq+FQ
+         zXUhTY6ctZidGPmWPj81QT3sP2N+LoOjODMshtSY2ta9pjPuqcCGGphI56TfDQZRIQrr
+         XC1dNEmEvJwh/3DCnPsBg0YvL+UbSNOec0syquRrySuF0Ees0NxdplkjZUkSQBPBls9P
+         WQheqDpB0Q6ktNvC/on/TAMTPNpXLKdBjLHqlXdCsxre8goysPjPXyVElCkGmtDgjg68
+         MO3A==
+X-Forwarded-Encrypted: i=1; AKwUvBz3KVzJRmlqGGL/PWdJtej0MsaQOVpUM0EdEDcLOE/5sl4UcUveWYgQGNwB8F+Q3Ro0JkLTfFCaPHam@vger.kernel.org
+X-Gm-Message-State: AFuF++m75J1FEeGTqifq0ZKrYlrqjknO7qf137q01OXTz52gAdGpPeJ8
+	/q5QPthiRSAPJFRZrAVeTmaoMBxmrxw5G4rFeiNO/JrzOsBGfgzJSyr1aA2LlOcb7W80k4cG0JJ
+	kiPl4fqjpy2JS+ZcvirRezLRVhE22/YQ7l+UK2uQKW8UB9dXhlu6G6EcFjkTUhk2N
+X-Gm-Gg: AYBFou1GEI2uBzgSkhvf9xdQc1Dqhf10BxvWqRG6Hnks3XikoNXEdHCV56TlLg0DmYo
+	gVkFjc1dN4u8HcdpU+PFq1crMIJ62uvWp9hhlxqJwcycYApRcQEKHPnZyUdgikgsMe/maDb4Zxm
+	ZDPwgwdPwB2oKv6+UOJG16+/4RdFyWmg8vo3SBAvEUG6bBYZppiyi+yRUZpi8ZBFeQSqqK9M0Qr
+	CBxUj+O647NkJQpP7g4CDHxb1rulYuliMNImW9sUGNucCibLhHop8nX6cl6teFS/xBzu21GUd7X
+	KILAvCru2zhjxNfdvhsYS+ZvIJ7EzvGFzjKETVSgOtRvtIM+beX9IC22nHhQFnyEM4vztgkqHBf
+	LGT4ga17I2VF00msinQ3+KdCGqRb0
+X-Received: by 2002:a05:620a:17a4:b0:939:6de6:9517 with SMTP id af79cd13be357-9398049f91emr3268239285a.46.1788873547453;
+        Tue, 08 Sep 2026 06:19:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:17a4:b0:939:6de6:9517 with SMTP id af79cd13be357-9398049f91emr3268232985a.46.1788873546917;
+        Tue, 08 Sep 2026 06:19:06 -0700 (PDT)
+Received: from [192.168.1.110] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce554d52esm335727855e9.3.2026.09.08.06.19.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 06:19:05 -0700 (PDT)
+Message-ID: <771390d1-b7c9-4c13-8849-c71a922825f8@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 15:19:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,146 +88,306 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 16/18] mtd: spinand: negotiate optimal controller
- operating point before dirmap creation
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-CC: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-        <conor+dt@kernel.org>, <richard@nod.at>, <vigneshr@ti.com>,
-        <pratyush@kernel.org>, <mwalle@kernel.org>,
-        <takahiro.kuwano@infineon.com>, <linux-spi@vger.kernel.org>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-mtd@lists.infradead.org>, <praneeth@ti.com>,
-        <sebin.francis@ti.com>, <u-kumar1@ti.com>, <a-dutta@ti.com>,
-        <s-k6@ti.com>
-References: <20260825171737.776052-1-s-k6@ti.com>
- <20260825171737.776052-17-s-k6@ti.com> <8733vp0yuv.fsf@bootlin.com>
+Subject: Re: [PATCH RFC/DO NOT MERGE 10/12] drm/msm/hdmi_phy_eliza: Add
+ support for Synopsys-based HDMI phy on Eliza
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org,
+        robh@kernel.org, devicetree@vger.kernel.org,
+        linux-phy@lists.infradead.org, olteanv@gmail.com, vkoul@kernel.org,
+        conor+dt@kernel.org
+References: <20260828-drm-msm-hdmi-eliza-v1-0-67843277de17@oss.qualcomm.com>
+ <20260828-drm-msm-hdmi-eliza-v1-10-67843277de17@oss.qualcomm.com>
+ <20260828141923.8E5F81F00A3A@smtp.kernel.org>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: Santhosh Kumar K <s-k6@ti.com>
-In-Reply-To: <8733vp0yuv.fsf@bootlin.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A98E:EE_|SJ2PR10MB7037:EE_
-X-MS-Office365-Filtering-Correlation-Id: 49ae45ec-1d33-47d5-babc-08df0dab3784
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|36860700016|82310400026|1800799024|376014|10067099003|6133799003|18002099003|22082099003|56012099006|5023799004|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	Ck0dsl1+zcu0TE9ZFj/nIM3ZfvKgiUy/SlsF2n1SDA7qppGF07oxJXunCgG/BMEHZThgcu3Q2P1hUZV6ZuMAWcFbEm+fi+o6qFpz0Z//7suOuC+hbRs+jn5upn4Clc4pJaw0uOUo+CzXVJyIJ3/byvVXwoaZagll6iL5MDBNSvNfLsakUZ7/YFG49Ik1xx1LpnRCz7Wt2o7xRlLZZZRcBaKPqFHGar4d88VyucLo6hFdde2OImHEiyGZ5trkw4ZjDl44HlGC9doU5baAtiIAphMKxmqqer028QTYxQgMO4lOkdgWikchvfL3L4l7JTd87YTjwGiQCI4YJ1TR2MWhhJjRMQAcZJnVI2iyh5QMfKK8EUAZCmwxldellfKlrfZtXj+bZaCXcULxIpWdy1MTc/3Gt3IuFv7iBl7zolNp+/NMCKPk58zHXNE6z2xs4RCziVbM9FsdntWQP9Fh8bGhFHc3SFgWPnca6UOLEl3ITVUeKLtTsYiCaVYhMFWfoGivKS70YPbWtJ983VKb+J1JgYfKENm6gw8HQ53W9u3M/KYbNVEzo//oty2ZfwIvbrER5+LepGpux6SvpE3do8i2vDhqFjjRH2fsCWSrklOzEobUHcB1GcRUiPMQfF1by0lZUPfk0Wm4q9+Ncf5khyhIbENRldLCzEID1PorhzTfPbj9Y+Mv92GxcbLG/Js612Yne7Eeki/oSYU8hhXEArW21g==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(5023799004)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ek36LFRJcK6iJ2wjrPwX3Ojcgi3eJwy00KEheTEDzX57Udf2IE3Og+8VoSdiHQnnm4kM9ibKx/LRvzc9emPT4A1pxag6pfkzesj+vQQ36D92lft0EcS0E4K184UuZmftuo1P6wHJylFz/V2ljSQXNAfuQuy3w2MzSqnZIbcAalSJ3ZmngUa0XElb6BP/cnIU+OWg3Mm1Bg4DqEo7wzf3Y0sl0yZhtrH4h+WhhL5wcaRw6SYqJTYY7fjrXCj8xJU8I1EFdUvPgSBxTacU3jdhEN5XQFpDw0kmLxNTA4PF4jl/T2A6Ze5zGgqHc0HEbfVXZ70sUd35Uoxc61b/ilcy9oYoYQcVoBMa0Ti+mBVpVdJKGryAoRAvhU02l9giXEwHSLZNrO82e1Qo4jq4fR1t6EK1XXl3kHZdeqtPdgOd3VCfRCMTrvtUc/X0k0A9EhOk
-X-Exchange-RoutingPolicyChecked:
-	W+M2UCmgaESC/fgReT3bs5fi5OtiDoyfrsXzcEgLkMzoMMWbCnYG03JbgnuL5qQ9/Fz3CyhLM+TCF2Fx1cmjzAnCMDBfSK8XtgJNO2ZTOn4hk7VJowhoInUJj3wvVX+NfAUP7ooYgwNbNVgA49fbD06lCp8XOHyFqx0jzaRo2HSVepGoLSoHaNAZe7+lvnfBT9qtFmzzqkMM1Cr/9diedlD2ERSUEdvrE/6Hq/T9gJXqeaDerbHUY3xqv7hI/HxlIEIS4QPj4D/MCz+ReeTaK9bWptl5MKW0ysdBN/w6kGafafU7ykyEq57BsT9aJr3YBB0xuD7dpBHLzmwviiNh+g==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 13:15:13.0748
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 49ae45ec-1d33-47d5-babc-08df0dab3784
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000A98E.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR10MB7037
-X-Proofpoint-ORIG-GUID: fRFXX3AUFbTQhVhaplfsS9D-UdTQWnB7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE0MiBTYWx0ZWRfX0eAZ4wuFo+zf
- /x94jgps9Ue/SKFEU5YQn+dnUDZ8cpHNkFGKu3zOfKUmC1rn31BzdegIHTp5OQmYbdexIG8KzBP
- Bw27yqMpvoduGIb3PsWdZN5SlB4ea7LaTJJ5xAFxeOI+EAhR7NXSxbu6kz1XXcWabFk5iKUtEzj
- JdqQK5dN+L9xZ3LF4IYfNJQKz39dqmFFTbNCA5MZQcwxAIx+vLtcdBY7RPC2KrDr1tdqRpcj8GV
- G15a6piUbCNolPgnNFk9C0Ycr7+lsaJZPdIwqtgUx0tKsISODhiaLT2X282J8/mjLREqWLOf7YF
- zeNwjrNvibHcUnZOBMyVEhpQsUpaa8x7mdPh4FBeAfg9b79PZFRu0Fql5y39eajZyswXRYA2sNX
- POaubsFTgjxb38AFPWY731JQ6hTnMPb5xZ5wZKrOfCBVDnuLB3N9OAWZk7ESb+0bd4pah/TExnp
- zj4i2alEQmxwP0CDkaw==
-X-Authority-Analysis: v=2.4 cv=UrNT8ewB c=1 sm=1 tr=0 ts=6aa00a6e cx=c_pps
- a=3isWwmYGSdluMw1j68YAZQ==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=jwouBfj2j3NM8CExmVVE:22 a=P-IC7800AAAA:8 a=_5h-cKRuB_vkGlxcQI4A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-GUID: fRFXX3AUFbTQhVhaplfsS9D-UdTQWnB7
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE0MiBTYWx0ZWRfX7fi/ZCuV+Jh4
- lPaxt0J3uyC9iZu05q0swElcDiuTOf7PdCImi+fT8g0KtbF1yOudBjx46519SFkufjD6FCtOYJ/
- Geqk/480NbEt5TcWSc38DS+MBrkbumU=
+In-Reply-To: <20260828141923.8E5F81F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=VN3tWdPX c=1 sm=1 tr=0 ts=6aa00b4c cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=rwc4GHvP-eKwHY9TLAEA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-ORIG-GUID: kkMy8V5B4-pv6un1hA67OBHcECPSL0UH
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDE0MSBTYWx0ZWRfXz9pXlYnyLM05
+ Ic3fK2NuwAW4zmB2s6FKBphF3j8WX9Duipd2VgsUUhl9R0/w024sB7MDB9zRnyswXqIJRp0hliG
+ FMPFOjC2sOljATXlNlc0bbmWvtXTyCw=
+X-Proofpoint-GUID: kkMy8V5B4-pv6un1hA67OBHcECPSL0UH
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDE0MSBTYWx0ZWRfX+KsSE1hvqGxi
+ KIsxJRYY33m1iPpZX91zByoFqF1otXnwd3IzhW39VpN0hCSFXuTsyJ7HLlde0p8oOivyvJzHnV+
+ Y0+cKQvOxTMfbmXpNhJE3uUEBxa0RN48x6mUL0seSOE4WFJ8QTwDRUfD/vde2kYewww3fWSpwMx
+ A+TlGghP0uJshSJem8QmcM5LYSwHFVgCVsiOZdoeEudcT2yKYZyl01L+hc1CYrZJEGTVEZJ/MFE
+ 5aWn0O/4bBCFre35pEL5yJqeUdwy03sn7KOBD53tLGZgg9j7seme/ATc+5zuMmYLYrXb1iU0K2v
+ r1m2ra+SYmzRPHAxGD3eZLmhV7J6aMckzr0ZXvGLHLaClVCWweEvx8th9qEIYSGeCuTztcU24Ja
+ QdXoTPknlpcepf7hhbfOswyC3S58BLrH1NfKmL/08OoYS3qysAxt3TdezokrZmDbL08Z6H6oDbF
+ inPORUQC6QcGAjQGD+w==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_02,2026-09-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
- spamscore=0 clxscore=1015 suspectscore=0 priorityscore=1501 bulkscore=0
+ phishscore=0 malwarescore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080142
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080141
 
-Hello Miquel,
-
-On 04/09/26 21:53, Miquel Raynal wrote:
-> Hello Santhosh,
+On 28/08/2026 16:19, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 10 potential issue(s) to consider:
+> - [High] Silent truncation of 64-bit integers passed to `gcd()` on 32-bit architectures leads to incorrect clock calculations.
+> - [High] 32-bit integer overflow during PHY bit rate calculation causes incorrect hardware configuration for high-bandwidth displays.
+> - [High] Deterministic division by zero during CCF clock registration due to uninitialized configuration.
+> - [High] Severe CPU soft lockup risk due to excessive 3-second busy-wait loop using `readl_poll_timeout_atomic`.
+> - [High] Premature integer division causes precision loss yielding incorrect hardware PLL parameters.
+> - [Medium] Data race on PLL configuration state by bypassing Common Clock Framework (CCF) synchronization.
+> - [Low] 64-bit division using '/' and standard division macros causes build failure on 32-bit platforms.
+> - [Low] Unsupported floating-point literals used in integer calculations.
+> - [Low] Use of `mdelay(8)` wastes CPU resources in a sleepable context.
+> - [Low] Fragile design conflates the presence of PHY regulators with the name format of device tree memory resources.
+> --
 > 
->> +static bool spinand_try_ranked_variant(struct spinand_device *spinand,
->> +				       struct spi_mem *mem,
->> +				       enum spinand_bus_interface iface,
->> +				       u32 *tried_mask)
+> commit 9c53defce3c459b1740fbff4f2434baad5c70aee
+> Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Subject: drm/msm/hdmi_phy_eliza: Add support for Synopsys-based HDMI phy on Eliza
+> 
+> Add driver for HDMI phy block from Synopsys used on Eliza SoC. Adjust core
+> parts for handling HDMI phy initialization sequence.
+> 
+>> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+>> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+>> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+>> @@ -168,13 +171,17 @@ static int msm_hdmi_phy_probe(struct platform_device *pdev)
+>>  	if (!phy->cfg)
+>>  		return -ENODEV;
+>>  
+>> -	phy->mmio = msm_ioremap(pdev, "hdmi_phy");
+>> +	if (phy->cfg->num_regs)
+>> +		phy->mmio = msm_ioremap(pdev, "hdmi_phy");
+>> +	else
+>> +		phy->mmio = msm_ioremap(pdev, NULL);
+> 
+> [Severity: Low]
+> Does this use a fragile heuristic? This logic overloads the presence of
+> power regulators (num_regs) to guess the format of device tree memory
+> resources. These two hardware properties are orthogonal, which could break
+> if future device tree bindings diverge.
+
+Ack
+
+> 
+>> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy_eliza.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy_eliza.c
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy_eliza.c
+> [ ... ]
+>> +static int hdmi_eliza_pll_calculator(struct hdmi_pll_eliza *pll,
+>> +				     unsigned long rate,
+>> +				     unsigned long parent_rate,
+>> +				     struct hdmi_eliza_phy_pll_reg_cfg *cfg)
 >> +{
->> +	const struct spinand_op_variants *variants = spinand->all_read_variants;
->> +	struct spinand_mem_ops *templates = iface == ODTR ?
->> +		&spinand->odtr_op_templates : &spinand->ssdr_op_templates;
->> +	const struct spi_mem_op *best;
->> +	int ret;
+> [ ... ]
+>> +	s64 precision3 = 1e3;
+>> +	s64 precision6 = 1e6;
+> 
+> [Severity: Low]
+> Are these floating-point literals supported? Scientific notation defaults
+> to double literals, which relies on compiler implicit conversion to integers.
+> The kernel strictly prohibits floating-point types.
+
+Yeah, that's not really a kernel style but downstream pattern which I
+did not clean up.
+
+
+> 
+> [ ... ]
+>> +	/* expon = floor(log2(4.999999e9/base_rate)) */
+>> +	utemp = 4.999999e9;
+> 
+> [Severity: Low]
+> Are these floating-point literals supported? This is another instance where
+> scientific notation will evaluate as a double literal.
+> 
 >> +
->> +	if (!variants)
->> +		return false;
+>> +	expon = fls64(utemp / base_rate) - 1;
+> 
+> [Severity: Low]
+> Can this cause a build failure on 32-bit platforms? The direct 64-bit
+> division operator triggers a dependency on __udivdi3, which is unresolved
+> on 32-bit architectures. do_div or div64_u64 should be used instead.
+> 
+> [ ... ]
+>> +	/* multiplier = 2*(floor(bit_rate) * 2**expon / ref_clk_int) -16) */
+>> +	multiplier = DIV_ROUND_UP(vco_freq, ref_clk_int);
+> 
+> [Severity: Low]
+> Could this also trigger a 32-bit build failure? DIV_ROUND_UP performs a
+> native division, and since vco_freq is a 64-bit value, this requires a 64-bit
+> division routine that is unavailable on 32-bit builds.
+
+I got build warnings on this and remaining 32-bit, so I'll be fixing these.
+
+> 
+> [ ... ]
+>> +	if (aux2 == 0) {
+>> +		cfg->remainder = 0;
+>> +		cfg->denominator = 1;
+>> +	} else {
+>> +		cfg->remainder = DIV_ROUND_UP(aux2, gcd(aux1, aux2));
+>> +		cfg->denominator = DIV_ROUND_UP(aux1, gcd(aux1, aux2));
+> 
+> [Severity: High]
+> Does this truncate 64-bit values on 32-bit architectures? The gcd function
+> takes unsigned long parameters, which are 32-bit on 32-bit kernels. Since
+> aux1 and aux2 can hold values requiring up to 36 bits, they will be silently
+> truncated when passed into gcd, feeding incorrect fractions into the PLL
+> configuration.
+> 
+> [ ... ]
+>> +	/* stemp = (REF_CLK_MHZ/2**ref_ana_mpll_div) */
+>> +	stemp = (REF_CLK_HZ / 1000000) * precision3;
+> 
+> [Severity: High]
+> Does this premature division cause a loss of precision? REF_CLK_HZ is
+> divided by 1,000,000 first, which drops the remainder before scaling. With
+> REF_CLK_HZ at 38,400,000, the result truncates to 38 instead of preserving
+> the 0.4 MHz. The error is then squared later, propagating significant drift
+> into the PLL analog parameters.
+> 
+> [ ... ]
+>> +	cfg->cp_int_holder = DIV_ROUND_CLOSEST(stemp3, precision6);
+> 
+> [Severity: Low]
+> Can this result in a build failure on 32-bit architectures? 
+> DIV_ROUND_CLOSEST triggers native division on s64 variables, which will fail
+> to link without __divdi3.
+> 
+> [ ... ]
+>> +static int hdmi_eliza_pll_prepare(struct clk_hw *hw)
+>> +{
+> [ ... ]
+>> +	/*
+>> +	 * This Synopsys PLL does not have a PLL lock-like register, thus there
+>> +	 * is no way to tell when the PLL actually locked.
+>> +	 * Returning now, would lead to stuck pclk or iface RCG clocks at off
+>> +	 * (disp_cc_mdss_hdmi_pclk_clk status stuck at 'off'),
+>> +	 * thus obviously the professional solution is to delay.
+>> +	 * 8 ms was figured out during tests, not based on any datasheet.
+>> +	 */
+>> +	mdelay(8);
 >> +
->> +	while ((best = spinand_op_find_best_variant(spinand, variants, iface,
->> +						    *tried_mask, NULL))) {
->> +		*tried_mask |= BIT(best - variants->ops);
->> +		spinand->max_read_op = *best;
->> +		spinand->max_read_op.max_freq = 0;
->> +		spinand->max_write_op.max_freq = 0;
->> +		ret = spi_mem_execute_tuning(mem, &spinand->max_read_op,
->> +					     &spinand->max_write_op);
->> +		if (ret && ret != -EOPNOTSUPP)
->> +			dev_dbg(&mem->spi->dev, "%s optimization failed: %d\n",
->> +				iface == ODTR ? "ODTR" : "SSDR", ret);
->> +		if (!ret && spinand->max_read_op.max_freq) {
->> +			templates->read_cache = best;
->> +			if (spinand->all_cont_read_variants) {
->> +				templates->cont_read_cache =
->> +					spinand_find_cont_read_variant(spinand, best, iface);
->> +				spinand->cont_read_possible =
->> +					!!templates->cont_read_cache;
+>> +	return 0;
+>> +}
 > 
-> I believe you almost addressed the concerns raised in v7 about
-> cont_read_possible, except what you do here is still a bit dangerous
-> since you could re-enable continuous reads on no_cs_assertion capable
-> controllers. I believe you should clear the flag only, never risk to set
-> it, something like:
-> 
-> if (!templates->cont_read_cache)
->      spinand->cont_read_possible = false;
-> 
-> With this fixed,
-> 
-> Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> [Severity: Low]
+> Is mdelay strictly necessary here? Busy-waiting the CPU for 8 milliseconds
+> wastes resources in a context where sleeping is fully permitted. The prepare
+> callback can safely yield the CPU using msleep or usleep_range.
 
-Thank you for the review.
-
-Fixed as you suggested - spinand_try_ranked_variant() now only clears
-cont_read_possible when the newly selected variant has no matching
-cont_read counterpart; Will carry this into v10 along with the other
-fixes.
-
-Thanks,
-Santhosh.
+msleep should be fine
 
 > 
-> I believe I will take this patch only after Mark takes the batch before,
-> which looks mostly good for my non-spi-expert eyes. Either Mark shares
-> an immutable tag, or I wait one cycle.
+> [ ... ]
+>> +static u64 hdmi_eliza_pll_vco_freq(u64 ref_clk_hz, u32 multiplier, u32 frac_quot,
+>> +				   u32 frac_rem, u32 frac_den)
+>> +{
+>> +	u64 num;
+>> +	u64 den;
+>> +
+>> +	num = 32ULL * 65536ULL * frac_den +
+>> +		(u64)multiplier * 65536ULL * frac_den +
+>> +		2ULL * ((u64)frac_quot * frac_den + frac_rem);
+>> +
+>> +	den = 2ULL * 65536ULL * frac_den;
+>> +
+>> +	return mul_u64_u64_div_u64(ref_clk_hz, num, den);
+>> +}
+>> +
+>> +static unsigned long hdmi_eliza_pll_recalc_rate(struct clk_hw *hw,
+>> +					       unsigned long parent_rate)
+>> +{
+>> +	struct hdmi_pll_eliza *pll = hw_clk_to_pll(hw);
+>> +	u64 rate;
+>> +
+>> +	rate = hdmi_eliza_pll_vco_freq(REF_CLK_HZ, pll->cfg.multiplier,
+>> +				       pll->cfg.quotient, pll->cfg.remainder,
+>> +				       pll->cfg.denominator);
+> [ ... ]
+>> +int msm_hdmi_pll_eliza_init(struct platform_device *pdev)
+>> +{
+> [ ... ]
+>> +	pll = devm_kzalloc(dev, sizeof(*pll), GFP_KERNEL);
+> [ ... ]
+>> +	ret = devm_clk_hw_register(dev, &pll->clk_hw);
 > 
-> Thanks,
-> Miquèl
+> [Severity: High]
+> Can this lead to a division by zero during probe? 
 
+Ack
+
+> 
+> When devm_clk_hw_register is called, the Common Clock Framework immediately
+> invokes recalc_rate. Because the pll structure is zero-allocated,
+> pll->cfg.denominator is zero. This zero is passed into
+> hdmi_eliza_pll_vco_freq, which results in den evaluating to 0 and
+> triggering a kernel panic in mul_u64_u64_div_u64.
+> 
+> [ ... ]
+>> +static void hdmi_eliza_phy_tx_lane_config(struct hdmi_phy *phy,
+>> +					  unsigned long pixclock)
+>> +{
+>> +	const unsigned int bpp = 24;
+> [ ... ]
+>> +	if (pixclock * bpp >= HDMI_PHY_MAX_BIT_RATE)
+>> +		hdmi_phy_update_bits(phy, REG_HDMI_ELIZA_PHY_TX_COMMON_CONTROL_0, BIT(2), 0);
+>> +	else
+> 
+> [Severity: High]
+> Will this calculation overflow 32-bit bounds before the comparison? 
+> 
+> The pixclock parameter is typed as unsigned long, which is 32-bit on 32-bit
+> kernels. For high bandwidth displays, multiplying a high pixclock by 24 will
+> exceed the 32-bit integer maximum of 4.29 billion. This overflow will result
+> in a smaller wrapped value, breaking the conditional check and incorrectly
+> programming the PHY for high-resolution displays.
+> 
+> [ ... ]
+>> +static int hdmi_eliza_phy_ready_poll(struct hdmi_phy *phy, u32 reg, u32 mask, u32 val)
+>> +{
+>> +	u32 state;
+>> +	const u32 sleep_us = 2000;
+>> +	const u32 timeout_us = 3000000;
+>> +
+>> +	if (readl_poll_timeout_atomic((phy->mmio + reg), state,
+>> +				      ((state & mask) == val),
+>> +				      sleep_us, timeout_us)) {
+> 
+> [Severity: High]
+> Does this present a severe CPU soft lockup risk? 
+> 
+
+Ack, sleeping should be allowed, so readl_poll_timeout
+
+
+> The readl_poll_timeout_atomic macro disables preemption and spins using a
+> udelay. Looping a 2000 microsecond delay for up to 3,000,000 microseconds
+> (3 seconds) violates scheduling rules and is very likely to trigger watchdog
+> lockups if the hardware fails to respond.
+> 
+> [ ... ]
+>> +static void hdmi_eliza_phy_init(struct hdmi_phy *phy,
+>> +				   unsigned long pixclock)
+>> +{
+> [ ... ]
+>> +	hdmi_eliza_pll_configure_pll(phy->pll, 396000000, 19200000);
+> 
+> [Severity: Medium]
+> Does this bypass the Common Clock Framework synchronization? 
+> 
+> Directly invoking hdmi_eliza_pll_configure_pll here forcefully mutates the
+> shared pll->cfg state locklessly. CCF invariants generally mandate that 
+> clock state modifications are protected by prepare_lock. Concurrently
+> reading the clock state from sysfs or debugfs could hit a data race.
+
+Ack, but then programming guide will be violated.
+
+
+Best regards,
+Krzysztof
