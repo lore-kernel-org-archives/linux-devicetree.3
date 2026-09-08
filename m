@@ -1,64 +1,64 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AACB54EEB4
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 13:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1355678F7
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 13:08:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788872884; cv=none; b=RO3gfkyzqq/NJfK/KXRx+4TWGkSuBsYJOnYGxA15+jntBFIh8FuPb3LKM95CofX31ozjOiZiX4EbgPE74sSt3bLzqFAwjJnKGCsHB0phSGJpeG09W5U7PdSCB8MFFF/y3BROiOvRgbYhbiDR/l8TA4BhxxoNR0wE9W12ZC0E6FE=
+	t=1788872886; cv=none; b=rw7Db34m5qBn5gRpLv6wdEAJXgFCIlFoqeYSuAB+8Cj0bLRh/aJEXY1r4FqfzBmZJgQB50UPBIwStcoThjmjexRaOsWQMlPmKkB5AInNxmPqdJBP8M22tGENfgI19dKVibSVY50e25bkquInxG/AJrBVs4MNrBgDpc92vnLYVQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788872884; c=relaxed/simple;
-	bh=gkkTYq1OpW1LdtRjfwsi/bJV0O2wt9hs+XlnNEqqaw4=;
+	s=arc-20240116; t=1788872886; c=relaxed/simple;
+	bh=+OIWRe3YDSSSfno1aUGzUXI4pqYdomv36H08zvrEp/Q=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mM60vdE8Bp3bj+9PQxyLwxpfhjiuNPgsn7nm8+sbvr7/69qJiCMvdwnVG19Rpv36MdolBrLr0Xo9eWB34elIs/9Z1xCNBH2d+nMyDn7MyhrxCKmDVFYDpkdermlgBrtiGtEbP0+HRSzIHwIV+2vyN2aVmw6HdtPrOR05mYrMiQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CQaVp+R8; arc=none smtp.client-ip=209.85.221.47
+	 MIME-Version; b=WRJmFLhZzKrQMjvULqxVw0oDU6trNSUoENPqSUIDI6hsWZOxLzv6Vz0kogx52TpC2NjbR8R5mUbnsERvGFG6A/ON6twq8maf1QYhVOH3qWvBv+ZswmVwESvCxTdTh+bXUG2cr++Fy9dQQCYWOKALEsbFFdepJoDgadjn18YJdEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OC87lQmX; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CQaVp+R8"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-485850cbac3so2978196f8f.3
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:08:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OC87lQmX"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49b8687630fso39393635e9.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:08:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788872880; x=1789477680; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788872882; x=1789477682; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=6zK26D4c5pgQKL2UdaReKAoHDcjPjh8dzU2JRSqnNNE=;
-        b=CQaVp+R8OR9mHUoeuDZWeZcJtaGV4ThWXqnYEbTTZ/oFshajW6hgPxOEbDM/pA5BD0
-         yVe92J/YOBdj8RfxtlAo5PAb0YTawx9Ey5J88LWqO6iEQqWKMSa0oBIiFfXJgP1ZryDy
-         QXVywcHGv5IGcFcQkMhIkYI8iqbOq4mo8IIsy2TZ+r95RfOpcfQR1j0a2YvrqOHhZ9g9
-         05/hg+IBK74GO3lPRuLewoKSQpxBpRhDWDCap/TvaeVBbW1r2sO1Jw5foLAY/P8HdbPL
-         RmYofswyjiPrMPe9AWhGv/Apb/gCT+Zd1EA3BhDp6Kj4Q1USlYGauAyRcqNnvEqVvkqM
-         pYLw==
+        bh=RugyRWGWsjHVr0AiFzCDOt1qK0c+eaQP2Q1JnZpRYIo=;
+        b=OC87lQmXh7w+yK8XuPde0PyMYCCjA20cG1IvIEvJLT2rPe0wWO8Nx7deSAnXX6LmCG
+         OJaAYLb5eePj7yh/R1fNTaKnV0/kK2ZrH3mp6m1H9dxAgLMLmh4Ie96sT3dmtcpeTEZX
+         ZzXH57ikqTwtAKYUPHcONPP6viWlpAPsxLSPbM4LkWXAQPiN6Ufxt3Ku+kbgLDfYhPB9
+         TqKgKMX2UFYCTgKqbSS751CnS+S/czJj+BFfEtAtQ4cjbCpnz4JJHaWRBiGUQicIFzBe
+         I0IQTDyet5evUFpFkGd/8r8TsEMNOHTZ1jxZlA+tafsUOXNmN2j/7MKavtLrpDsckAGP
+         gzXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788872880; x=1789477680;
+        d=1e100.net; s=20251104; t=1788872882; x=1789477682;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6zK26D4c5pgQKL2UdaReKAoHDcjPjh8dzU2JRSqnNNE=;
-        b=qDE98MkmzV9nmRagXBc5v0StcH24avsYNHJJBBWwji/97BhfiWjeuf40KpztJ9w0vp
-         L1vXzN2U6jmynTna19nrGaqTI+ouvl/Pa4UqiegkYLeTltosTz2UfDJtuZYfqqM1cpc7
-         IKFwwtGgklsy2FxSWFSSP5UJqs5stf1+YzD8gVi3BKxOfsu9w7Jj2iftXc+5+NRxgPTF
-         ZUGUG3wAqgR2WrGGHYUScm28Dnw9fQJPfcOYa9AHPY8xJkXS/RvO+vx7b4IPF3Njek2c
-         IQbUlPhEvYdAWqk3w5TOnl01M+FhW5gEbzuPsiVB5v/wB9yVpDsV0JRTQhKnnwYoCOzy
-         AT4w==
-X-Forwarded-Encrypted: i=1; AKwUvBym6D+Exq7vtNhYR0hH9B+Tb6lMEvv3BadOLt4uW+gHxD5aG8FErfMco+t6gPcyk5DENRa3U1vVu1Et@vger.kernel.org
-X-Gm-Message-State: AFuF++l+2dbcSbPIWtIYwKXZu+j0jbopdooqrMJ7gkQ2EBVNz6eQVEVH
-	WgZEcDQIYqMQHkqsV4umskQYcGPuMDvmHsraF0mNwmhufbxw3GZpKw/E
-X-Gm-Gg: AYBFou2LiH6zDfrkaQHkDEnvFKyM8EypqneBOjTtY2rqAh0z5V+UlxRqD9sMJQmyknX
-	klq0Kyp2HzU8Kmkm2ugwjDEPG487PolXc3DfXVerOBjqEg9pH+aMdCo2pE2tMgXesLl9yIrDj0v
-	Yz96kUR2IkdaXYfsqG/oCBtdg2elV+mMiHeXoShaojlz/HIBIl26lA5fDziFIVbIYaNYUlXLcfp
-	z4vZa3RIskGf8f4UC0mtS+xor+kds7jXmfV4rZ5fkov6WG8GcQrPROUoxqqQBw+wUAerJaYQERf
-	xxS/PxwmHf1eaFNhiEcfWKkuVv0xQ5gp8j3wQ+hIaISI+m4AdZNaRg+ffUi7lgbETCdQczrrHYz
-	CsjJvLcYfYftu8y8X1fhdrO2knrz2ojhaMkhbOLV1JQGh8esim9qoOhJF76L/jF28cl/COQkVrJ
-	U015YyRtn9n1x9FQO4QuX1edwG6l5RisyipEtaZNsjBvprXJeP+poQPjHicy37FnrBVaIoPVb4M
-	t/pYFW314i+PwKfFL4aCO7EXsyfjpP6tL6jMFwqLgk=
-X-Received: by 2002:a05:6000:610:b0:485:82bf:8728 with SMTP id ffacd0b85a97d-48586e32b7amr34058783f8f.0.1788872880038;
-        Tue, 08 Sep 2026 06:08:00 -0700 (PDT)
+        bh=RugyRWGWsjHVr0AiFzCDOt1qK0c+eaQP2Q1JnZpRYIo=;
+        b=sL4NzWVHYfhLSaINGJfbBk1KKCDQBf/s9nlCbfHKKyjIOjMbsnfHgMMUnPLlYrul0A
+         1djlyok4aLpVo9SxGJppuINq18/+8pYSDARXs2fkpFPysTyvcj2iz3kVa8guJzdIrUrm
+         v6gke9Esa5dbDmzfILQQDZbrX+WGi/FE5m1DjL+3+KSrfyK8CoR+AFopd5WdnQN1lH08
+         ilnvtA9ozlutsDkJcaf6pvQspI4uIHshkSOkb7fq5TmHY40NfPswKu8hUQV8VcOQAZ5Z
+         Jf5oUoVm3gE6976EGC1v6tJc2qEE+R6ip3s/PXRxJui1kfAbSpdwM7no7LprXsPbl1EB
+         655Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy4MPMzYO7dSK9QdAIIiLNHsjGJhPDruALtc6NHl2g0QdcHJIcxq/Kix/zWWpG7N7EaA7pM9y+zJXaT@vger.kernel.org
+X-Gm-Message-State: AFuF++k36fUagOT6QZRtJC3G/oq92xezooX14ldORvqIz//ylxJzsok8
+	KdlgL97aycPFNnQpOGvo7dmEXpcuYbkQrs5u26IBYxTwYrKhLwadkpEm
+X-Gm-Gg: AYBFou3nrmDw6f6oVZD/btYhVh+KfBa1fuYbnnB2bF7s8s4/FOMcGo4eAxWZg6Ao5wZ
+	4arWUeXcVASelm40Dp4hv256wysxEUxnfwupZ76IZI/jIEygLvzvxUPhRaFBcrT0NBsc/ywjcD4
+	VLrX+yIK/JO+CzEwZ7R1wa2BsGYpSjXsMrlZU5GUL7uE2OhMFI68cUfMmVaUv9F1fbHCJ+Wcdpt
+	uHJBOU/GYa+fK6kAOzaVN8fAxJ79wWr+gAuHVBORTg6oKP3zMfDrwgXqogQlSROwqxoNlCULGM9
+	36Ut2Hwi2m8yG4iShfGRxK/jUNK29DQPE/8NSqeMphtaiHIH+l3Vcom0eJCVdkP2R1Q1uiOUpxl
+	D4aLjbCJk9kjTJ6b655yPvXuYCEiGRFBgkZYW4CTyLp1bztDhKVwn7HRrresdHD3ha2kA5kmX93
+	d9tdDOmapm2SpfxWDmRb6OnMlM6Tn77f0h+gxrr8iptfr/5lQwpiaKwCv+gSawYOg8fbguBlo5R
+	wwHlg+fMpomCy6GscASdXaNaDwzxkRp
+X-Received: by 2002:a05:600c:c1c8:10b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-49cfa21e8f3mr187137995e9.31.1788872881636;
+        Tue, 08 Sep 2026 06:08:01 -0700 (PDT)
 Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm28884165f8f.20.2026.09.08.06.07.58
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-4859162f354sm28884165f8f.20.2026.09.08.06.08.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 06:07:59 -0700 (PDT)
+        Tue, 08 Sep 2026 06:08:01 -0700 (PDT)
 From: Oleg Keri <okerixx@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Rob Herring <robh@kernel.org>,
@@ -69,9 +69,9 @@ Cc: linux-arm-msm@vger.kernel.org,
 	mfd@lists.linux.dev,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] dt-bindings: mfd: qcom,pm8008: make the interrupt line optional
-Date: Tue,  8 Sep 2026 15:07:44 +0200
-Message-ID: <20260908130745.2545-2-okerixx@gmail.com>
+Subject: [PATCH 2/2] mfd: qcom-pm8008: support PMICs with no interrupt line
+Date: Tue,  8 Sep 2026 15:07:45 +0200
+Message-ID: <20260908130745.2545-3-okerixx@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260908130745.2545-1-okerixx@gmail.com>
 References: <20260908130745.2545-1-okerixx@gmail.com>
@@ -83,49 +83,116 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The PM8008 raises an interrupt for its own status, its temperature alarm
-and its two GPIOs, but the pin does not have to be routed. On the Lenovo
-Yoga Slim 7x Gen 11 it is not: the platform firmware describes the PMIC
-with an I2C connection and nothing else, and the vendor driver talks to it
-purely over I2C.
+The interrupt is only needed for the temperature alarm and the two GPIOs.
+Where the pin is not routed the regulators are still perfectly usable, but
+probe fails: client->irq is 0 and request_threaded_irq() rejects it.
 
-Drop interrupts from the required list, along with interrupt-controller
-and #interrupt-cells, which cannot work without it. Add a dependency so
-that a node claiming to be an interrupt controller still has to say where
-its own interrupt comes from.
+Skip the IRQ chip in that case and register the regulator cell alone. The
+temperature alarm cannot be registered without a domain either, because
+its IORESOURCE_IRQ would be handed to the platform device as a raw number
+rather than being mapped, and the GPIO cell needs the domain for the same
+reason.
 
 Signed-off-by: Oleg Keri <okerixx@gmail.com>
 ---
- Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/mfd/qcom-pm8008.c | 63 +++++++++++++++++++++++++--------------
+ 1 file changed, 40 insertions(+), 23 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml b/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml
-index 0c6e1870db1d..db1592e115e8 100644
---- a/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml
-+++ b/Documentation/devicetree/bindings/mfd/qcom,pm8008.yaml
-@@ -88,7 +88,6 @@ properties:
- required:
-   - compatible
-   - reg
--  - interrupts
-   - vdd-l1-l2-supply
-   - vdd-l3-l4-supply
-   - vdd-l5-supply
-@@ -97,10 +96,12 @@ required:
-   - gpio-controller
-   - "#gpio-cells"
-   - gpio-ranges
--  - interrupt-controller
--  - "#interrupt-cells"
-   - "#thermal-sensor-cells"
+diff --git a/drivers/mfd/qcom-pm8008.c b/drivers/mfd/qcom-pm8008.c
+index 60204cc9a2dc..b51a9657ee56 100644
+--- a/drivers/mfd/qcom-pm8008.c
++++ b/drivers/mfd/qcom-pm8008.c
+@@ -183,6 +183,10 @@ static const struct mfd_cell pm8008_cells[] = {
+ 	MFD_CELL_NAME("pm8008-gpio"),
+ };
  
-+dependentRequired:
-+  interrupt-controller: [ interrupts ]
-+  "#interrupt-cells": [ interrupts ]
++static const struct mfd_cell pm8008_regulator_cells[] = {
++	MFD_CELL_NAME("pm8008-regulator"),
++};
 +
- additionalProperties: false
+ static void devm_irq_domain_fwnode_release(void *data)
+ {
+ 	struct fwnode_handle *fwnode = data;
+@@ -195,9 +199,12 @@ static int pm8008_probe(struct i2c_client *client)
+ 	struct regmap_irq_chip_data *irq_data;
+ 	struct device *dev = &client->dev;
+ 	struct regmap *regmap, *regmap2;
++	const struct mfd_cell *cells;
+ 	struct fwnode_handle *fwnode;
++	struct irq_domain *domain;
+ 	struct i2c_client *dummy;
+ 	struct gpio_desc *reset;
++	int num_cells;
+ 	char *name;
+ 	int ret;
  
- examples:
+@@ -231,33 +238,43 @@ static int pm8008_probe(struct i2c_client *client)
+ 	 */
+ 	usleep_range(1000, 2000);
+ 
+-	name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
+-	if (!name)
+-		return -ENOMEM;
+-
+-	name = strreplace(name, '/', ':');
+-
+-	fwnode = irq_domain_alloc_named_fwnode(name);
+-	if (!fwnode)
+-		return -ENOMEM;
+-
+-	ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
+-	if (ret)
+-		return ret;
+-
+-	ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap, client->irq,
+-				IRQF_SHARED, 0, &pm8008_irq_chip, &irq_data);
+-	if (ret) {
+-		dev_err(dev, "failed to add IRQ chip: %d\n", ret);
+-		return ret;
++	if (client->irq > 0) {
++		name = devm_kasprintf(dev, GFP_KERNEL, "%pOF-internal", dev->of_node);
++		if (!name)
++			return -ENOMEM;
++
++		name = strreplace(name, '/', ':');
++
++		fwnode = irq_domain_alloc_named_fwnode(name);
++		if (!fwnode)
++			return -ENOMEM;
++
++		ret = devm_add_action_or_reset(dev, devm_irq_domain_fwnode_release, fwnode);
++		if (ret)
++			return ret;
++
++		ret = devm_regmap_add_irq_chip_fwnode(dev, fwnode, regmap,
++						      client->irq, IRQF_SHARED, 0,
++						      &pm8008_irq_chip, &irq_data);
++		if (ret) {
++			dev_err(dev, "failed to add IRQ chip: %d\n", ret);
++			return ret;
++		}
++
++		domain = regmap_irq_get_domain(irq_data);
++		cells = pm8008_cells;
++		num_cells = ARRAY_SIZE(pm8008_cells);
++	} else {
++		domain = NULL;
++		cells = pm8008_regulator_cells;
++		num_cells = ARRAY_SIZE(pm8008_regulator_cells);
+ 	}
+ 
+ 	/* Needed by GPIO driver. */
+-	dev_set_drvdata(dev, regmap_irq_get_domain(irq_data));
++	dev_set_drvdata(dev, domain);
+ 
+-	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, pm8008_cells,
+-				ARRAY_SIZE(pm8008_cells), NULL, 0,
+-				regmap_irq_get_domain(irq_data));
++	return devm_mfd_add_devices(dev, PLATFORM_DEVID_AUTO, cells,
++				num_cells, NULL, 0, domain);
+ }
+ 
+ static const struct of_device_id pm8008_match[] = {
 -- 
 2.55.0
 
