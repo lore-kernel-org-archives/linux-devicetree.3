@@ -1,131 +1,95 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6452B4A3418
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:02:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7EE9524B01
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788865370; cv=none; b=EKN4gu5ql8SsvxZzuCVNnfRTpJIfgsT7zuCGcRTVrN4FUqa90YoAIo/xf+vpXcch0uA9+DTtmbwjTMd7mk9AnjQPrAWN5EZZWHugsMTCr7rqOJpJ2VICCfa53A71IX9DmoHU2UPvGqXf7Eh0/mP9uPomH+wbnb+ZI0sWAlVHcSI=
+	t=1788865825; cv=none; b=SGQi2rtgJf0m7Pg5p662gnySbjAuFAgn61osL4UfJp8sXJPTG+ego+cvNsOSEeSmRO5clk38CIHZNvgplEQjLMptZ+2+aZCeVZnxmn5Mji6NnSK88qdBJU3sEhEhBrWjEqwaWAwBRt9+zAdYjCkMJybqSJUcfk56JY0uEmhJ5HU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788865370; c=relaxed/simple;
-	bh=sBa8ltIh4+pH6a10LBu/cywBUv7pw7RdSU2NuPS8+JU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RnI3WKEcHMpihFGlJyR1e2a/2Q83Jc1mbr78dA6fybfaseoVHLvx6BaSVdFBCwkwrCQKOwV6GVM000J44ACO/RFeNSzuTnrs6cZmQ72RmQt+H1BAljsCMgtMh8EgGvDRLe4cnHBmJAr2Sn8iZPWqYq8EMykhIliIck2wl6Y1Hik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vFvNbTPV; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788865825; c=relaxed/simple;
+	bh=oqSDhFf73aL5+BlWTbjr8MdQCyWd9kcTHGdxvnv6FWc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=vEswh4CMB6aBx5Mb6kbkUXDYV+H42QY0Cvry3vbDxhP5PiUfXibd9s3iHty/Ile/YMxK4rgt5YMhtsYkbJThnebjWHGsb1H/E4QkeJAH4ePdQ7hmyt+ZwIaRZbsiCERpOUH9zNFWhmwFT91oKNI0Qo1X8u2AK28ZQPBU90nR43A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=UThMrAZ3; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vFvNbTPV"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a5d8fd8d8dso16300a12.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:02:48 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="UThMrAZ3"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48444ec4fe2so2796276f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:10:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788865366; x=1789470166; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RrjJW9gbDN+73JFbZgzTZ4EPfRkPYet7uyVCoDfB100=;
-        b=vFvNbTPVuttGVMVUGzXSVNzSMTkdbPNvpYiXKzu/83cxPeqd4XtB6JYuzABwrEFwlC
-         uscSDw7lNExciJ9U0b/1HUrlKbXAmV5O9zO7zIgDCMXGTrx3CgDRpq3yqNlNCvo5jUaI
-         RHLZ4Py1PGu2arSFMl+p1VFDlpzX1I0MOI94EecpSPdlPAM9ul1rfnIHL/HX2QF+55w3
-         uHRO6UNoouilk+6GASamhSXzOSZ8L9//n6q7Z9zHe+zFTJImMBr2HSAT4nQm79/ciHEA
-         /Z1H2LkULeul/VMHz2NmnFAVCzPloUZFWKC2eybHWCc9aOv5EoXaCDXlp8av0QbU/yya
-         MANw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788865366; x=1789470166;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=konsulko.com; s=google; t=1788865820; x=1789470620; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RrjJW9gbDN+73JFbZgzTZ4EPfRkPYet7uyVCoDfB100=;
-        b=DhHeeRaNpp5K/aQMyD1yjSKY1P4eUyw0RlTgyvS9Guoxmp0RyjrFzbA5uUfmMoShPR
-         UN+VzcytPLL5fl/fGKFZzxCnPBMFv4vrA8llU+PCHvPGwwP5M1Vjne9RNpCAm+ciniUE
-         YIjPV0v/YUqR4QqraJ+IjZytf1LETi7MF3evS9rnd3d9698h1m64RUYt5K4qWKZ+Fx6Y
-         mjSgPqyqtvJ1rCAMRcQpLSElRrJnqzSRaYvTAWldV7FA8XZcfrQc5pIf2N2/6zkQeo4t
-         nYUHJxDSle54TlEuA0bo38ywryUzx5S0MUTtosJpYTLG44j4vLAwe4HyVlpo2Jav9AeA
-         Qpzw==
-X-Forwarded-Encrypted: i=1; AKwUvBw1sue+sbtQpw22ViTQM8kQYIdVifYx7f12jonUqBWvE4cJp8AXmy/XsG5QHBRi2x2NavV2ALsoFcPK@vger.kernel.org
-X-Gm-Message-State: AFuF++kND0g+k35A8tW9UWUPg3f0crjffA1MXmxCAqghC/rWWBMMTgMt
-	5DZq+otZvB0GR/TdTM6BBOiG89PVzF5LgRA1UKmNaooMQu2RfsdsLZ+irJmSOT4uXg==
-X-Gm-Gg: AYBFou2aI7oUSuA8Bp16tr/SUOVGr0HXmd/9yctIo+sXI2gAPc9JAZbARi89ffdncur
-	FEb3o6zFdIwCpaIjl3cTFaSB/O04D68DCjxiJLKjz6j/vb2u3c5Dosa9vhkxOn7f/FiGYKVHdNz
-	wrz9djJGctaisK6MSCkjDjGVaN05Nhc59w/B+wBxwIR1rmSWOGS+2nzjU9ucFxRtafJq/Jkm2r4
-	zo0oivPg6SkDfz+T1Fp08lvLB4B+cp1X9mhuUB+UCKXkEN5jVQK6Xnr/wNPsgXpSDAKytxvsmt/
-	ynZavD/qvx9WDojghM4ShXUjnboll4AZYcRSokt9PVorIVVitZFF9ceN4kVTS5qM5mSpYZ6DWbj
-	XiVTnuPU2yz/ZCZf4TUxwbXrM0eotXSZZ3XGfIbQdTf8GDlKTlWwl2WyBco0ZYrnhoiVqRqaBas
-	U5gX8SFtqj3oPt9XEfu65iPZCRjq1HnMre4b+SP0e+X0+p64M+hbrs4Q4FaJEdaTUhpaGR4zbr4
-	fUA1q419uhaiQGZA4cIgLkOwslUSQ==
-X-Received: by 2002:a05:6402:1a4c:b0:6a6:9d10:f52b with SMTP id 4fb4d7f45d1cf-6a7f682636amr90301a12.12.1788865365985;
-        Tue, 08 Sep 2026 04:02:45 -0700 (PDT)
-Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d036652sm606844766b.2.2026.09.08.04.02.45
+        bh=gcn9aLAAZo7wqesym8j61ULNO9k3Gwxg2yqdzb1whoQ=;
+        b=UThMrAZ39Rdm6u0zCYYww48RcovwiYNPAJ0EYinf+j920Lm1rZV9GUJKb5OgnK+oLG
+         w2x+vFsurhdrB5plHhSswhD0YPdYf1JsgBhbnv6cWehQ3BubXz9Iv46lHiafafwNc0fF
+         sfk0y/dAOlAg9djWLI+kkOWXlExd9R4aExKCA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788865820; x=1789470620;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gcn9aLAAZo7wqesym8j61ULNO9k3Gwxg2yqdzb1whoQ=;
+        b=VkC6y/EQzZD84DCRXV9zlNl1WG5kIrhVeHlvhGk8jOSeoDlvNl9RGNgJpU+lsGkqBZ
+         m0Yce5VtDCZBKlituXYGlx4y3uvDbo+WSaR4OruEkVNVoryhz/z5dHXCZQnFKGkUsN7U
+         zFhKpHUlSoOdLB2+Z3FHFtHZAlDNvkhrHkTP8ZmmyjJXAp5/zU2ZYckm0/WlcPAlJ2JW
+         5wiXdaqfyHxgra0PVtl9A57Un64oM2VJpv+PyiK6AcbzCybTFTgdj7Y/XTaupPIZbDRu
+         MF48Y1lXnoaL2N02v1Uf/eg165IiysKfwWge0JZQsY7fbwSG0IEv2wC1hwUCT1XyhcTW
+         6ZZQ==
+X-Gm-Message-State: AFuF++mKUI9BeqQtran6kf2P81pF28O5G0O3OnZZtTEzABTwy3RxePND
+	peb8VY6Py2+QXZ6KYwsJDQEmJhBQuGygtjzeU4YEBpgZu9sYy2KXNTYk/oLo+BaPNfk=
+X-Gm-Gg: AYBFou1otHIg5FaODWlOZPvcAtHhxVUBGff5kl1wpEenqngAnLpZM4EbMIeIFrM3wgn
+	sCdSQG0swvu6Nv6XY7nRyGHVUwn6fsAjoXcGAjykOIt2Z0Wqt3gapoC1EvaYHDFGG65VQ8rGoHF
+	v7mTrg29ypGTQlr1wrRzPqcbLnalVy4qgftoKnBk2Lxl2EsW6Zx7D7mXpfqZ8EMuruUg9Eq2zqN
+	NqPaRdwC22r7iy0DqT+dTBijJKq5mH1F1lnbrFsQp4a98XCvLZGBdUr1vxH4d239h6TmBrJXBZG
+	LLf90sWr83nrAOFhvjoa3jJ7v9ST0Pjc14NjEBSxz4sWRvYWzpLhH+iHJjQZn1RKkjEK8emlFd/
+	1hd4OEg1BlNDG9iF3TPzDzkCUIM1a2sYiPYl8uEADlPVi5nIk2ns6lue2G9flT3tScHccXUxiMi
+	4We8hlgW0PohjsNTaatoctKPjYg0bBLITpgaxC5O5Y84KMo6FzoQSCJ9bnyVwHGybM0IjhdVt3f
+	eZFHXplvQZrOPVB
+X-Received: by 2002:a5d:5f89:0:b0:485:892b:bdad with SMTP id ffacd0b85a97d-485892bbf0bmr51682730f8f.12.1788865820340;
+        Tue, 08 Sep 2026 04:10:20 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48594172546sm26855073f8f.15.2026.09.08.04.10.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:02:45 -0700 (PDT)
-Date: Tue, 8 Sep 2026 11:02:40 +0000
-From: Mostafa Saleh <smostafa@google.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	jens.glathe@oldschoolsolutions.biz,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
- Purwa
-Message-ID: <ap_rUIaJGAk-gZVP@google.com>
-References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
- <ap_PdUrwLIVGJ3oG@google.com>
- <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
- <ap_RKfCbXAVBRtSY@google.com>
- <4d2c00e1-8331-4a08-93f9-6564d0c46aa6@oss.qualcomm.com>
+        Tue, 08 Sep 2026 04:10:19 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dinguyen@kernel.org,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v2 0/1] ARM: dts: draeger: Add socfpga devicetree for Draeger's M48 board.
+Date: Tue,  8 Sep 2026 14:09:59 +0300
+Message-ID: <20260908111011.960876-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4d2c00e1-8331-4a08-93f9-6564d0c46aa6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 11:57:33AM +0200, Konrad Dybcio wrote:
-> On 9/8/26 11:11 AM, Mostafa Saleh wrote:
-> > On Tue, Sep 08, 2026 at 11:05:34AM +0200, Krzysztof Kozlowski wrote:
-> >> On 08/09/2026 11:03, Mostafa Saleh wrote:
-> >>> Hi Jens,
-> >>>
-> >>> On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
-> >>>> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
-> >>>> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
-> >>>> chassis, different silicon. Stubble and the DTB loader need distinct
-> >>>> compatibles.
-> 
-> [...]
-> 
-> >>>> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
-> >>>
-> >>> This series does not apply to ToT nor I can find this base-commit
-> >>> in it.
-> >>
-> >> It's a public/standard commit, next.
-> >>
-> >> What is ToT in upstream development?
-> > 
-> > I am using Linus's Tree:
-> > https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/
-> 
-> This tree contains the latest release/rc tags, linux-next is an
-> aggreagation of each submaintainers' branches, effectively "what is
-> the next release going to look like" so essentially that's where the
-> development happens
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the same
+carrier and they are cross-monitoring each other.
 
-AFAIU, linux-next is useful to get a view of the next release. However,
-it shouldn't be used for developement. It should be either Linus's tree
-or the maintainer's tree (as mentioned in process/submitting-patches)
+This is the SoCFPGA devicetree part.
 
-Thanks,
-Mostafa
+Petko Manolov (1):
+  ARM: dts: draeger: Add socfpga devicetree for Draeger's M48 board.
 
-> 
-> Konrad
+ .../devicetree/bindings/arm/altera.yaml       |   1 +
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
+ 3 files changed, 132 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+
+-- 
+2.47.3
+
