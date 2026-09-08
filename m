@@ -1,129 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66ABF33C1B7
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 16:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95696360EFC;
+	Tue,  8 Sep 2026 16:18:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788884008; cv=none; b=epW4ymIYsdj21xJnS4+eApmDRivsm/zRf70IGmcC/Pw6dChSwuqmLQ1a0DGuz2gu+Wkhbje/ZwRMcEZlwCtU7pralAg/PYPThJceig6pifZgU494prp7UVO3BPqJTRAwrEWua4TLBNydAJkhHC05OXdlbQMYT1oe479oqxP1tFY=
+	t=1788884335; cv=none; b=t+8HVjRKfpOP1kRWSuhsRGkCO3uqxyvoTRnWu6D60IscPEVJvhVur9UU70h3Pbomi/Bvlxu3NkOdPNgeY58G3WQ0elyxYBVpi83Q2B3SQ1O58AjJrMCSQrWz6/Om9Sc3fnFlPhEW/Pilgk+bsSRoNtF80KjYt9N0OpG38AFKrGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788884008; c=relaxed/simple;
-	bh=os778mhmxiFRuKdG1gYjixpQLv3n1AMtEItADs+ox2I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dnVDunBA1E/cUhftZ6rptzZObfZbXBhNB5WEAjsQYWl2rhvjaAVyHLfp0zYKYhgXSdK0Nurxl9bqIBuyWqEFPyYUOarD1612y6DNhyvqu+4+OIdWDUZE2QKczsldq6vsm55+xGW+PrERigezWzy7oAM0SpSdG3g9tLwGp+TefP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dc8yBds+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788884335; c=relaxed/simple;
+	bh=f1Jg9wpo1aaPvqekZqgWJP47UkgGXxwkxKzZP/qxiuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UwWHnjDsixC9JrLcnnx3IbEIVThK0/wz/5Cf3cav5ARR9+0LDkh1MaixWjdLs6/CBK0lEG8eL+huulW8s8Z3cDnN+pWVNC5t3QZ8L4w9+Hh8poFKkuddtpLg5/sIDFvMOCm6E2QKmUpdUioiPQ8a+NrCwyxuVTIIgSgxCuO/SVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=SqyHDiZx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dc8yBds+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AD571F00A3A;
-	Tue,  8 Sep 2026 16:13:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788884003;
-	bh=1l8Hyj+FdeO/N8wGq/9zjBoxuj6s7d28JmXRyZKsHhQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dc8yBds+GMczzpr6vGBb5YbRvgqDbIOx9cjsOmt9iIlnZOV7tDDlZO4g0f95fMoRN
-	 QrCZwD7BBXkisVlIHfblkp18k6dZ9tjWaGYpoRJm4kTpd3HLob0B1DbsM3WvvO1oCG
-	 HGeHz9DveoHS1G20uXWztrzX51LVWYWDBzyi8U6M74/k1mHk3oyvFqK0i/h+YDbaPR
-	 nnsgOf4KMd5AbE61LhNCACNb8Ngvb2P+/Iposnn8ikAh0WXsn1g1Mon2oNfxytcKP5
-	 mVusLx4VH+Gvs/BgOoIf2gCJuV5NKGmJeDhZbyyWtMCb7ab4flpJxXkY6GlJF6SVyW
-	 vvTnrvTwhJLsQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] memblock: rename KHO_SCRATCH to KHO_NOPRSRV
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pratyush Yadav" <pratyush@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908155639.2496551-3-pratyush@kernel.org>
-References: <20260908155639.2496551-1-pratyush@kernel.org>
- <20260908155639.2496551-3-pratyush@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 16:13:22 +0000
-Message-Id: <20260908161323.2AD571F00A3A@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="SqyHDiZx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=1VrAOeua9RY4Cyl0UJm4PGO/+r6BxBF2vE+BDj2nsg0=; b=SqyHDiZxSCw7IoUpHC4u1i/0a6
+	hBC3yTLqIe+krvblvAb28aAHQHzL3HSltdgJtU575hWdyaB6yQeIIecwFtkNz1xlhVC9+zglTJkF3
+	0zaBIxphWLCs/32EOelKSalU0zCTyYuNDj3XDRT/amKXfFsmC3JA1HDJUd8sOkUbGFO4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x3yWh-003wRU-M1; Tue, 08 Sep 2026 18:18:27 +0200
+Date: Tue, 8 Sep 2026 18:18:27 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Russell King <linux@armlinux.org.uk>,
+	Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Gregory Clement <gregory.clement@bootlin.com>,
+	Robert Jarzmik <robert.jarzmik@free.fr>,
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>,
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	"David Hildenbrand (Arm)" <david@kernel.org>,
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-omap@vger.kernel.org, Alexander Clouter <alex@digriz.org.uk>,
+	"Jeremy J. Peper" <jeremy@jeremypeper.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>, Vinod Koul <vkoul@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>, Mark Brown <broonie@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Thomas Weissschuh <thomas.weissschuh@linutronix.de>,
+	linux-ide@vger.kernel.org, linux-mmc@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-phy@lists.infradead.org,
+	linux-rtc@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-watchdog@vger.kernel.org, linux-sound@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH 05/13] ARM: orion/dove/mv78xx0: remove all board files
+Message-ID: <a7792d03-917d-40c8-bb99-c939f374aa38@lunn.ch>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-6-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908152808.3928630-6-arnd@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] Typo in the dummy fallback function for `memblock_set_kho_noprsrv_o=
-nly()` when `CONFIG_KEXEC_HANDOVER` is disabled.
-- [Low] Stale references to 'scratch' memory left unupdated in comments in =
-`arch/x86/kernel/e820.c`.
---
+On Tue, Sep 08, 2026 at 05:27:55PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> The 'orion' platform is the predecessor to what linux now calls the
+> 'mvebu' line of Marvell SoCs, and originally covered orion5x,
+> mv78xx0, kirkwood, dove and a few others that do not have any
+> upstream support at the moment.
+> 
+> Only a few board files remain here, these are the ones left
+> in 2022 board file purge because they had some level of support
+> in Debian or OpenWRT, mostly for commercial NAS or router boxes.
+> This distro support is now gone, and nobody has converted the
+> board files to devicetree, though the orion5x and dove platforms
+> also come with devicetree support for some other machines.
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
-commit 1cbb2e7144e320e54e1042768c9a90f6433c5d65
-Author: Pratyush Yadav (Google) <pratyush@kernel.org>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 
-memblock: rename KHO_SCRATCH to KHO_NOPRSRV
-
-This commit renames the vague MEMBLOCK_KHO_SCRATCH flag to MEMBLOCK_KHO_NOP=
-RSRV
-to better reflect that it represents memory with no preservations during ea=
-rly
-KHO boot. It updates the memblock functions and comments accordingly.
-
-> diff --git a/arch/x86/kernel/e820.c b/arch/x86/kernel/e820.c
-> index eb72537bc0b19..2a6e19f952517 100644
-> --- a/arch/x86/kernel/e820.c
-> +++ b/arch/x86/kernel/e820.c
-> @@ -1363,7 +1363,7 @@ __init void e820__memblock_setup(void)
->  	 * After real mode trampoline is allocated, we clear that scratch
->  	 * marking.
->  	 */
-
-[Severity: Low]
-This isn't a bug, but should the block comment here in e820__memblock_setup=
-()
-also be updated? It still refers to "scratch marking" and earlier in the bl=
-ock
-to "scratch memory", which seems to miss the commit's intent to update memb=
-lock
-comments to use "noprsrv".
-
-> -	memblock_mark_kho_scratch(0, SZ_1M);
-> +	memblock_mark_kho_noprsrv(0, SZ_1M);
-> =20
->  	/*
->  	 * 32-bit systems are limited to 4BG of memory even with HIGHMEM and
-
-[ ... ]
-
-> diff --git a/include/linux/memblock.h b/include/linux/memblock.h
-> index db3b106c63351..186b965cfc896 100644
-> --- a/include/linux/memblock.h
-> +++ b/include/linux/memblock.h
-
-[ ... ]
-
-> @@ -615,11 +615,11 @@ static inline void memtest_report_meminfo(struct se=
-q_file *m) { }
->  #endif
-> =20
->  #ifdef CONFIG_KEXEC_HANDOVER
-> -void memblock_set_kho_scratch_only(void);
-> -void memblock_clear_kho_scratch_only(void);
-> +void memblock_set_kho_noprsrv_only(void);
-> +void memblock_clear_kho_noprsrv_only(void);
->  #else
-> -static inline void memblock_set_kho_scratch_only(void) { }
-> -static inline void memblock_clear_kho_scratch_only(void) { }
-> +static inline void memblock_set_kho_noprsev_only(void) { }
-
-[Severity: Low]
-Is there a typo in the name of this dummy fallback function? It is named
-memblock_set_kho_noprsev_only (with 'ev' instead of 'rv').
-
-Could this cause a build failure due to a missing function declaration if c=
-ode
-compiled without CONFIG_KEXEC_HANDOVER attempts to call
-memblock_set_kho_noprsrv_only()?
-
-> +static inline void memblock_clear_kho_noprsrv_only(void) { }
->  #endif
-> =20
->  #endif /* _LINUX_MEMBLOCK_H */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908155639.2496=
-551-1-pratyush@kernel.org?part=3D2
+    Andrew
