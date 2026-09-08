@@ -1,68 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EA4749AA5A;
-	Tue,  8 Sep 2026 21:40:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 941784A0EFB;
+	Tue,  8 Sep 2026 21:41:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903650; cv=none; b=f+V6GABuUO3j3xw/RC2xaeP+bI9XJu409x+gYX/rKhmBWWj+GH8/cEQoQHhy7lA/oVR7/SS3aEnGYXK9X+ssel/f3MoGqlFapBhihMnbzln/xwJRCQr6DY8ALCdofiTTkuDpHTPE8Y7pKRnWIyL9FtEXNRmfbWDIXdhDPUp0D8c=
+	t=1788903721; cv=none; b=huYY3oVWOTO0IgNJBzpRg9XREfpzCvfPAjhZX1IP+6OJnfCa1QN7tgxQGuJd44bD2XVhebAUPppIzYf7kpuvNb7EnsVFj/gfsUfPFNMFSpgLn76WYvor3L2AVQ8v6NzlxVoBfVNqBOOfhNDCXipbOYvzqVqJx4BrpoNeIcm3bV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903650; c=relaxed/simple;
-	bh=qhZR2fbr8yD1EuU1wQUTTWjOWsRSD/QOEfA8yGlGtaA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Bex/v6ha/q56tkGfCPuuGCjd7geamVRa7GOwIzp1yjfqiyQEbNCR1qEnMrwH7NdfQm/qluGdLkaR6jqENjHLZXwsDPrvP2Buwv0jiW0k8M4wNz/b8MBBHqqOAwmsE30VEabtFymmYps/ExMP5q2BKOge6xY4v9FfuFkO6ohCzPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRWYFNqD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788903721; c=relaxed/simple;
+	bh=4dNan55tob2LOF4ICRiPwaJKoCoLQny5O3PU+Yv8Qvg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l8i1pnP+xF1ehMqn1tLkGscV4pRj+SbpYpJErmNr4ESE9//1Zc7j7hVFtGPd5Ct4uRRtlDUxL5gnVEevCi/EuAx3Z62nZPqz1OkwIhQaObKeQNtm6CmIXmQq5JQL9up4c9azN4/6g5egX1TRufFbLaNbAtYBzfM8xrlSc2C4dAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=c8hh8DVj; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRWYFNqD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CB251F00A3A;
-	Tue,  8 Sep 2026 21:40:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788903647;
-	bh=qhZR2fbr8yD1EuU1wQUTTWjOWsRSD/QOEfA8yGlGtaA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oRWYFNqDj6ctSFCfmjit4geUIdgW5Yee9RdwbgPwzKr5qhCTwcbidLxcBGiAxWarg
-	 Wfh1KLMj0LlXnBqNgcyzUrO0zYEhB5JfAKQiq2YpnRrsNskIgNrASanAYikvdsYRkT
-	 4ItLIJWesUOz6vAwTgwAau9XGzPwiOVDIye/ungwpbFbhl6bjQuCaYTa/zUXSqsvkx
-	 T1toaNQwYLqhfkuITNIFf5ChUmrZAijMbWw6moFa7Nkqye3CXbHW6o/fUohNzmKa/e
-	 hMUWP48zUONvSTMtuAN9BzqnwkIKOFJP29YisCyxw9SEgaco9DLOQ1Mlwj813MvE/l
-	 0f0SAq1PyExyg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/4] PCI: of: avoid allocations in
- of_pci_prop_compatible()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-pci@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908213459.2519059-2-elder@riscstar.com>
-References: <20260908213459.2519059-1-elder@riscstar.com>
- <20260908213459.2519059-2-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 21:40:46 +0000
-Message-Id: <20260908214047.0CB251F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="c8hh8DVj"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hfcfk28JFz8tb0;
+	Tue, 08 Sep 2026 23:35:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788903310;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yPRewbRjUY6AxemfQFvb3JMr40Wk83tULzwCS3eA65Y=;
+	b=c8hh8DVjXTUksj1nzMqKlJitW8Q1dBKDcSsIw3R0irgSq55BYQ+2/NVplJe53H+4zS+e+/
+	Oahmeq3IunayEHEOJHIbOmrOYyfgYlrn41FLU66Bm5ZZXEw1PUUuLEax2JmrdBq1HJC+ZI
+	I0NdMYWuScdFyllvRDoAVahns4l4uVmGb7QfUk3upZNSNS0+q36ziaTEVBkXkn9YPUE0fH
+	dpY7fRfXx4synD74tDIiMe497sPOyagpgjYwhcGgjAx17D4F4PxVMtVPJRIkd3GfocW2Tf
+	7HaKb0LoVQrFtMoXBdUEXKobqB+fA99DHsFA9Zca3eU0U0nNkhMv4usfp+wusQ==
+Message-ID: <de8e26a0-cd05-4448-8392-0fb3953e7d3f@mailbox.org>
+Date: Tue, 8 Sep 2026 18:29:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Add missing PM ops
+To: Koichiro Den <den@valinux.co.jp>
+Cc: linux-pci@vger.kernel.org, Geert Uytterhoeven <geert+renesas@glider.be>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Magnus Damm <magnus.damm@gmail.com>, Manivannan Sadhasivam
+ <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260907163554.725127-1-marek.vasut+renesas@mailbox.org>
+ <74il3j2dzfdt4xhqrfjkifhnpnmgqtplon2mtzfjzkbszwegi7@vou6a5rshcvr>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <74il3j2dzfdt4xhqrfjkifhnpnmgqtplon2mtzfjzkbszwegi7@vou6a5rshcvr>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: br9gyjqousy31kxahj56zaqan7ipmphb
+X-MBO-RS-ID: 8d8dffee87eec16168b
 
-> Three compatible strings are formatted in of_pci_prop_compatible().
-> Their sizes are known in advance, and the largest is 16 bytes.
->=20
-> Rather than dynamically allocating the space for those strings, just
-> set aside a buffer on the stack large enough to hold all three.
->=20
-> This avoids a problem that Sashiko pointed out, where an allocation
-> failure would cause subsequent crash because strlen() is called
-> unconditionally in of_changeset_add_prop_string_array().
->=20
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/sashiko-reviews/a647bd56-7dc8-4fec-9d96-834=
-622054cdf@riscstar.com
-> Signed-off-by: Alex Elder <elder@riscstar.com>
+Hello Den-san,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 9/8/26 3:05 AM, Koichiro Den wrote:
+> On Mon, Sep 07, 2026 at 06:35:22PM +0200, Marek Vasut wrote:
+>> The R-Car Gen4 PCIe controller is part of a power domain. On R-Car S4
+>> and V4H, this is an always-on power domain which is not shut down in
+>> suspend. On R-Car V4M, this is a dedicated A2PCIPHY power domain,
+>> which is shut down during suspend, and the controller loses state,
+>> which prevents the PCIe from working after resume.
+>>
+>> Fix this by adding generic suspend/resume noirq ops for the controller,
+>> which tear the link down on suspend, and restart it on resume. Use the
+>> same PM ops on all of R-Car Gen4 to gracefully suspend and resume the
+>> PCIe link on V4H and S4 too.
+>>
+>> Test case which demonstrates the problem on R-Car V4M:
+>> "
+>> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/pre
+>> $ echo s2idle > /sys/power/mem_sleep
+>> $ echo platform > /sys/power/pm_test
+>> $ echo mem > /sys/power/state
+>> $ hexdump -vC /sys/bus/pci/devices/0000:00:00.0/config > /tmp/post
+>> $ diff -Naru /tmp/pre /tmp/post
+>> ...
+>> -00000000  12 19 32 00 07 05 10 00  00 00 04 06 00 00 01 00
+>> +00000000  12 19 32 00 07 05 10 00  00 00 00 ff 00 00 80 00
+>>                                            ^^^^^
+>>                                      Class 0604->00ff
+>> "
+>>
+>> Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller support for host mode")
+>> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>> Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>> Reported-by: Geert Uytterhoeven <geert+renesas@glider.be>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> ---
+> 
+> The s2idle test with pm_test=platform now passes in EP mode on S4 Spider even
+> with CONFIG_PCIE_DW_HOST=y. Thanks! Feel free to use the tag for it if it helps.
+> 
+> Tested-by: Koichiro Den <den@valinux.co.jp>
+Thank you for your test. I would like to ask -- is the EP side of PCIe 
+link behaving correctly during suspend/resume cycle on your S4 setup ? 
+Does the EP require any special handling during suspend/resume ?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908213459.2519=
-059-1-elder@riscstar.com?part=3D1
+Thank you for your help !
 
+-- 
+Best regards,
+Marek Vasut
