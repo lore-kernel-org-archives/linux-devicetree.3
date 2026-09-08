@@ -1,97 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A181560AA3;
-	Tue,  8 Sep 2026 13:26:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8270258EF3
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 13:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788874004; cv=none; b=BcmJ1ElEmCJsYYRV/sPXB3dJPa+nGRh9yuzDWiWAT+mWjsniplyGJZ2nG/J7ywCC5DXr6kcEZ/dxUPckZg6OMgxDKOl7DQerLUR2/+sHZDHfFA1ouYIDGNv37Ak00LBdQl1GNeCC9vskcR5XwtJhE/MXuxJxU097XlsQwfXQ4Js=
+	t=1788874078; cv=none; b=WRes++SmdART+AU0KMic9i+NOpKSLHBJxBcQNwJzerSVehmnUHR8w8gAocaO6JwtN1lNHyDRBZJPUvvppetm8ZSzCwHqkvS8EZ9SjM/nkJn6+6gTNx9xlK7QbJgZ9b08O/wDhyLftVYGDt6nI1iCpBE+pz/owEqcKy3xQjNqr8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788874004; c=relaxed/simple;
-	bh=kkCW25mTBC6D6EOM8A27Os9PxNPMAbNEV5hiQ10NpKY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W7dxCkZllbQW2zM9/2kHolercSxfG3jG0DZToX71Wg75Kh5EXFuMQDcD7/ViCdaCfR/2WT0/EAHTbzKFMwSk5RE3wn/jK4p5Nw0yq+OaUVDmZgnw4A42/7R/38U9RUNsHk2oJMWmLlSX0rWVb7MfOlpQ/0/Nk3oHbVEG15Ni254=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HY+Lyj6I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788874078; c=relaxed/simple;
+	bh=RQ4g8roiCImK09lGOGkJ6W+2Czo4bfLHxiAgB+DarvI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tSqtNhbQh4Zjhf0iYjnkPF7F+yO9HpD4xI6JPKdLhZcJc/vWgybvFn9sBTd+srD8Cu527mAE7o1AAky7uZJk/dp9Nk9gWblmef24LJglQuw/ukhGZ4DRQ1GGUzwpKsWZW44Kgowk8gqZ2ByzPIU4eihDYr0EVkqjtbzFj4YNp44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=VaGeVBMV; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HY+Lyj6I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11A111F00A3A;
-	Tue,  8 Sep 2026 13:26:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788873988;
-	bh=q04zxj00YAVHVF+Y7P5cma6NzSCR12O+/Gqj/zD7dkw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HY+Lyj6IGR96zyT1qsYCwOJAHIyn5hCfupkAzuvfru0PDM+N5dpWX6zFCjnfOGn6i
-	 tVQ1YJvsY6jjM92UHvYU/acV6trLMJn3hkLbc1E1immJ4BXulpmsztWugpgNhL7/Ha
-	 V19XmH9Za03TpyfGzHd/RFYbQE952PGFoybuIkP5CisLHNylBlDy71fGOMoJ1kCGSt
-	 MPDn4/gTi6CnLFi5qoj2BLbTXX8uDofg5CSFDMwUd/x/CDbMYcFk1BHHptKQtIdxuu
-	 QwGxtPT+SfARx0kFZJ9/wRzu03zr1bDN2spuSmFRhcLfj5hYhHk3+LF2mlPabYJid+
-	 zrdApXJlXJ+BA==
-Date: Tue, 8 Sep 2026 14:26:23 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, robh@kernel.org,
-	Saikiran <bjsaikiran@gmail.com>, monish.chunara@oss.qualcomm.com,
-	jishnu.prakash@oss.qualcomm.com, nitin.rawat@oss.qualcomm.com,
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-	lgirdwood@gmail.com, andersson@kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	krzk+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 0/2] regulator: qcom-rpmh: Add off-on-delay support
-Message-ID: <086f8e7c-0afa-45d5-bdb2-54ac5f79eefa@sirena.org.uk>
-References: <20260127190211.14312-1-bjsaikiran@gmail.com>
- <20260515111647.qg75thdvcbvvjpoi@hu-kamalw-hyd.qualcomm.com>
- <06a264d0-6a14-4b71-b783-82b771f04411@oss.qualcomm.com>
- <oa3okt7mdhoqmrebwim5yswarbcacbmhpwfvqbhtv6ib3cwrwi@ddox6mw3uhmy>
- <0d4fa333-df22-42b9-b9c2-ccb43ac4fac3@oss.qualcomm.com>
- <3pybhkqdvve2ct6burnhav3utis6nljz7ncheqcrs7v55ullz4@nek57empeoca>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="VaGeVBMV"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-9397e2994dcso384668885a.2
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 06:27:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788874061; x=1789478861; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ljmgwCAVphhfVW4k+b+cxvt43CtdExVqUZy6qEm1NMU=;
+        b=VaGeVBMVvfcfuopMTbsglQM1RH0UOrRFSPJZT3WtgxfqOgNLandccrc/MO8grDPLMC
+         gbZ5X4Zpj4fiMfEfJL1hAxIXEVuD0HzLyATcZPS2RawGaqFgEheMkzosZlmRvqFn/EMs
+         K+d/SW18cgFjOQ/SLEqRsMXtG4y7+M2cMv6PdDYBypEblr18PWJ9UItFLp/5JMPBydAp
+         TbOYE4drFSxChcCOYgNJqJgP9hdFShpFUsN1SnvF9lyrsOnW8SWdN/GwgqXzlLU1urBY
+         woLzVDVZBYY4adtCFAZn6a1EwtPRO9kVqdSeMUB97t/iapywn8y6auuCEZyAoaudUjbN
+         cyKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788874061; x=1789478861;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ljmgwCAVphhfVW4k+b+cxvt43CtdExVqUZy6qEm1NMU=;
+        b=ssjlNPLVWvbl8ctDq6GJH280mOO7HkVBvZYO7KOqbaz9V0fx5KazCzxjoKw9YUHg09
+         j0GvB/GN+jGdtuRONzHT0aYXzv32KZisIoo1pLN7SV5n4DOIPk3zZbNSIK+5bmPijv/D
+         XAFDJJDWZ+EeOk/9+ZCTtHZDuTOqqfBpp97Ktp3xY0uxz30sebfE0G4l61yCACXUmhT3
+         Y0QpgiaZbWcTD/5Kawb6nVsuDm01pq5dorCqp6DgD+4NgcyihqqyRgd65ycm6vqVHBob
+         ijbwSOkBQKIq1YqKXqjNkN2Hwjbzjf/QoXRBH7771VUY1GvRPsMvROANCpntI7LyWyG7
+         QTkA==
+X-Forwarded-Encrypted: i=1; AKwUvBx+GonKaOHdoy735GiEKXDjwKuPPFBKpW0BbzjRmvHyC31gatvplTp902yg+grkEb5alxBh5StLZNRY@vger.kernel.org
+X-Gm-Message-State: AFuF++mx5FryagZuMyp1P8seEsHhgTOn4IPTvThoLpqFuOG64MqDZFda
+	LPJ8hvj3v7BZ9VIMXSTwnVQCsH/4OqtdCG4MPfrpc5h3NNvgCPNrN0qoCZo+KhsvU7w=
+X-Gm-Gg: AYBFou1YkB6l+ulC6zee8jRTb+vgy5jMPCQMxMhebQXovbDuI8Lmbliw1po9uCAPP2r
+	PUJ20GPFUzVtb1Ts+L3QibGFJCO8asCYy9mtnv3lx2giALx/nW6N8zYIw63hTLq4gduAbxp+XNf
+	AVsKKXV0KdJvhY5vl3z94k307zGBwK9vd+NeulnqqatDsICnjrc3WOAKK1mzE23rsBMriTHCDig
+	Hryf42SE5MlyHRBRNhGpiPSEBjXqZnaMUkpNuNIjacGCGMNqRrElK9Rf603sjSuENS3qNFEqsap
+	XgFaDMXoNuukSn/UL+azCe5x3qoxnwEgsE9Aej53b0DpjqvMwu5aJqPJiojT/Wn240Pb/N/CIPg
+	5/dQieX7QYbyUtIk/N9maTLAt+QaZK1As3MDCmwAwQj5Ob+3H7MwYVKchlgm3gkPgDzfanB20ad
+	iak27/qZkezN5ovOLHyBlr5d7W28fA1y2omyMWtqBYH0F1+VZhtkZKRFHlVFNR
+X-Received: by 2002:a05:620a:8198:b0:939:5cd3:75ce with SMTP id af79cd13be357-93980311c5bmr2025182085a.8.1788874059680;
+        Tue, 08 Sep 2026 06:27:39 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-939b8fbc1dbsm249492285a.11.2026.09.08.06.27.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 06:27:39 -0700 (PDT)
+Message-ID: <abb6c06b-8e5a-4f05-a49f-2aca6ed0c634@riscstar.com>
+Date: Tue, 8 Sep 2026 08:27:37 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9VW76fA+11sgbf3o"
-Content-Disposition: inline
-In-Reply-To: <3pybhkqdvve2ct6burnhav3utis6nljz7ncheqcrs7v55ullz4@nek57empeoca>
-X-Cookie: The world is not octal despite DEC.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] PCI/pwrctrl: tc9563: introduce support for
+ embedded GPIO controller
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
+ Bjorn Helgaas <bhelgaas@google.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+ Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>
+Cc: Daniel Thompson <daniel@riscstar.com>,
+ Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
+ linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 9/4/26 12:15 PM, Lorenzo Bianconi wrote:
+> This series is based on pwrctrl upstream branch.
 
---9VW76fA+11sgbf3o
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+I'm accustomed to a cover page that's a bit more informative
+than this about the subject of the series overall.  Your use
+of --base (to produce the "base-commit" tag below) duplicates
+(more specifically) the above statement anyway.
 
-On Tue, Sep 08, 2026 at 06:43:09PM +0530, Kamal Wadhwa wrote:
-> On Mon, Jun 29, 2026 at 02:13:00PM +0200, Konrad Dybcio wrote:
+How about just a little bit of context about how the TC9563
+uses an embedded GPIO controller that we now wish to also
+use in another driver.  So this series isolates the access
+to that IP block in a separate driver that can safely share
+access?
 
-> > In that case, I see no real downside in allowing that, especially given
-> > it would/should be used sparingly and only in cases like you mentioned
-> > where the board has some quirks
+You might even highlight that the TC9563 is an SoC that
+*contains* a PCIe switch, but also contains other components
+(including an I2C interface and GPIO controller).
 
-> yes. we can use this sparingly for such board issues.
+Aside from that, the series looks good to me.  You just need
+approval from the devicetree maintainers.
 
-> @Mark, @Rob - can you please comment if you think this is acceptable?
+					-Alex
+  > ---
+> Changes in v3:
+> - Describe gpio-controller support in TC9563 binding instead of defining
+>    a gpio child node.
+> - Link to v2: https://lore.kernel.org/r/20260903-pci-tc9563-aux-v2-0-34c625b542c1@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Fix PCI_PWRCTRL_TC9563 Kconfig dependency
+> - Move of_node refcounting management in tc9563_pwrctrl_adev_add().
+> - Link to v1: https://lore.kernel.org/r/20260901-pci-tc9563-aux-v1-0-dd9b80738e70@oss.qualcomm.com
+> 
+> ---
+> Alex Elder (1):
+>        gpio: tc9563: Add support for the embedded GPIO controller
+> 
+> Lorenzo Bianconi (4):
+>        dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
+>        PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
+>        PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
+>        arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
+> 
+>   .../devicetree/bindings/pci/toshiba,tc9563.yaml    |  19 ++-
+>   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts       |   7 +-
+>   drivers/gpio/Kconfig                               |  11 ++
+>   drivers/gpio/Makefile                              |   1 +
+>   drivers/gpio/gpio-tc9563.c                         |  99 +++++++++++++
+>   drivers/pci/pwrctrl/Kconfig                        |   1 +
+>   drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c           | 154 +++++++++++++++++++--
+>   include/linux/soc/qcom/tc9563.h                    |  19 +++
+>   8 files changed, 294 insertions(+), 17 deletions(-)
+> ---
+> base-commit: 028f86457e822ab9de5b0d6d23efddc1b8b54ae1
+> change-id: 20260731-pci-tc9563-aux-66a29d438f60
+> 
+> Best regards,
 
-Could you please ask a specific question?  What is "this" here?  There
-is an large amount of quoted material in the message and referencs to
-some property but I'm not clear which one.
-
-Please also do not add random extra characters to my name, and also
-you've CCed konrad.dybcio@kernel.org which appears invalid.
-
---9VW76fA+11sgbf3o
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqgDP4ACgkQJNaLcl1U
-h9APVAgAgq+stEwEc/8U6SjPxakkpGCjCDA/SXo7iDLCsUVsVlArF0X9xby1ke8j
-MYXZ/4StflzSrvE4jca2Pxpznzc1L1GwitqsmVQxGrTZRlchaZV4X8pHknbJJA8v
-BbZTb0JZKHiYpjPu5boA3jCYQq4GBVsffU2DN+JJJy/jmTSsiLXzFvEiAZdSxmI5
-iYQ6k1owEM7QgVcqbivuKSKMNio8XmC1OP4EQ8hdeq1BcGMYLPkT6/uBMZTiAAUy
-/7RIH7PqhGAU8ePnPK0TRoj+NUpknydYc1esMX4HZ2N7u7HJ4ug0Xmj7h/26KUT9
-k7oZNP2t1WSU+ZbUSNgT9OQ7mWBypg==
-=bqAj
------END PGP SIGNATURE-----
-
---9VW76fA+11sgbf3o--
