@@ -1,79 +1,98 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B715859221B;
-	Tue,  8 Sep 2026 17:38:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2103DE430
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:39:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788889103; cv=none; b=sF/cBKq1np15koOqsLGTjRMFZBtT2f+/Q9HenjChlIgAZM93TRmLsw2G6X2HjeCqNKKgju0+nw9q3jVc1XH984H6DyM+5g88FhGVf0FtsDOj3MUdLLzYBvwpy33GBPTenl2c84lBcgR6Lh+dgyVdWNLDbp1/iGE31QKOFqlZJpo=
+	t=1788889189; cv=none; b=qRYb8p2MlqECQ7xdftFzSVjbFNOLPiicEKSsWroT5KJdT1nCoiDjD+kfHVnX9vKoLBWMLltEn31HcI2jx1etEBEJp0x+W0jbrl08iXseHULqRRMhSfl2WQYfuuRCpiSsYW+9Z9n7imgAdfp0T8IZceQbA2PyUQaXruseTz33dmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788889103; c=relaxed/simple;
-	bh=bRgy5T5W0KgX9F3ZoSCoTIxqZG0nVr7jNUHrMLEYcTI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HNB2Db0LODCJs3atAwvFHHVbS7IdoUI1tdtQw3PNmW762x7DDniEeNVMCJSgHMffBVfPMlbsNrnEs8/FM9w71LTcWy4fFhfRYpOpBfpGMrp4m7s8Aryf61UVTx145f4uYb8pxkzbZUX1pgQK4yciGiOKVdq9Kp8YTTVYPonTV5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H0D5TMVJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788889189; c=relaxed/simple;
+	bh=qeRwoMgiYVUi/Ah3tQJF0Pa9MvRlkNB1dv59WKnnW+4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Pbx35Pha9GDcGPenekijUR1Esh1iBVLUwrSw5utXgv8l+V3fUCPscpdLdohc7ATq7YENsT6V4tngAjryM2iP/P0wSjS7UNyG79YVs80XAIKzVDDJWP/9HDnePsJS80um0uNI8cwZMmN2lFIxCPIBXVcoye+XZkXlr+EdtQMxUqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SC8mB5rP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H0D5TMVJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846811F00A3A;
-	Tue,  8 Sep 2026 17:38:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SC8mB5rP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11D011F00A3F
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:39:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788889102;
-	bh=bRgy5T5W0KgX9F3ZoSCoTIxqZG0nVr7jNUHrMLEYcTI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H0D5TMVJUI/WmvzLp2e5LwnkMtTWgZOz8iM5MPle+B4Up1HqvZP7HNUsxhhWcKwTp
-	 Tfycp7+59W81EZjVQzGR2mm1kd3yaHVSfx4Ag8qr1Rxwy+a8JwVYLvspdE0hmke1Pp
-	 Z0xCoYhlquwl9/iKu9a/GzyGaeYRUjkb0LklS51FcwNj8LFg/mx/wSSa6QGk8cIIgx
-	 ww1D9t5P/lsrlUSIMpndJOikA6Lvs6E5iLUaCcGtkKDGfn/Qi2CcP+EXz4mkHmo9Vv
-	 QEKfcYKOIccEF3+7zaAGEx6QS+f8XgwJvJjzbo5yla7P6kSnsO9JrOhAIQGz2qz3yQ
-	 fLsuPJsVxeIvg==
-Date: Tue, 8 Sep 2026 18:38:16 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Radu Rendec <radu@rendec.net>, Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>, Guodong Xu <docular.xu@gmail.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 3/6] dt-bindings: interrupt-controller:
- thead,c900-aclint-sswi: Add SpacemiT K3
-Message-ID: <20260908-lecturer-cornfield-7f701982730e@spud>
-References: <20260909-k3-aclint-v2-0-7931e5bc86ad@pigmoral.tech>
- <20260909-k3-aclint-v2-3-7931e5bc86ad@pigmoral.tech>
+	s=k20260515; t=1788889187;
+	bh=qeRwoMgiYVUi/Ah3tQJF0Pa9MvRlkNB1dv59WKnnW+4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=SC8mB5rPyRTvkIZvrBlaOR0NMk3ObczsexyyqjAcxnvVlw2KWPZwVcgOTJohPKr4v
+	 lFwpA6TAjXfPrX5vVoLpEZEllzT5VjBEHLjG+/RNg4j/oF7Igi7JxJBvHPjfKTI3Mn
+	 5jwmtTmPXIzLvCDliV4B8pZz05GCd5UT7sunng5r60WkldzA+7CD3masBg7dGPOkVF
+	 TXpx52hb5VUss5MoyBD2mhEIiX3XbbyzesyYp9HYTX+K8OOyK76IUmfxC2bY7+WcIQ
+	 UVCLz8Na0Ufzp6bkonl9YeSy0WvpUjzOXn5Tl1TOVdNiZ+OyDS6tKqz9xvuPqyPa3G
+	 mozDMh9YQ8zfQ==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aec201b582so3385088e87.1
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 10:39:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxDFwznd/VGO/7eCbqxd7TcQGNZPl02NVhNYpY1jrw9xXzFP10vkYChdhyQGAxYnoxb9g4o0DOBYiCB@vger.kernel.org
+X-Gm-Message-State: AFuF++kMpgl4AUmp/ZPJkNMI5YIyULaEZrynkO6zLv6mXZ1H4MtwruI2
+	hJrG71dmn7CzjRp8N9ui0p/w1h4chkPu4ijGD9k2Lf+aLC5oOkiFAnDltIi8GAVaFVJDbfvZ8rh
+	rUUlUFMiLxjXwEJiR5ehSHg5bEX3h4S8=
+X-Received: by 2002:a05:6512:6c8:b0:5b6:1870:268d with SMTP id
+ 2adb3069b0e04-5b6187043e1mr5134617e87.62.1788889185812; Tue, 08 Sep 2026
+ 10:39:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oQWXLwoO16ML7jtG"
-Content-Disposition: inline
-In-Reply-To: <20260909-k3-aclint-v2-3-7931e5bc86ad@pigmoral.tech>
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-13-arnd@kernel.org>
+In-Reply-To: <20260908152808.3928630-13-arnd@kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 8 Sep 2026 19:39:32 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkZqGPP5XO0FwORA=exTpMTHnw9pjEDnhDRbdGAXaE47g@mail.gmail.com>
+X-Gm-Features: AcwNN1XFd_7XP6HTCgVzAbMTQ1UQaJXktIWC_-YLfvh2SZkqTOYcmI8a_fbRBVk
+Message-ID: <CAD++jLkZqGPP5XO0FwORA=exTpMTHnw9pjEDnhDRbdGAXaE47g@mail.gmail.com>
+Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, 
+	"David Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
---oQWXLwoO16ML7jtG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Tue, Sep 8, 2026 at 5:30=E2=80=AFPM Arnd Bergmann <arnd@kernel.org> wrot=
+e:
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+> From: Arnd Bergmann <arnd@arndb.de>
+>
+> The Atmel at91 line, now known as Microchip SAM contains both
+> SoCs using ARM926 and Cortex-A CPUs as well as a number of
+> microcontrollers. Only a single one of those MCUs currently
+> has Linux support, and has no known users.
+>
+> The samv7 platform was deprecated in Linux-7.3LTS, which will
+> remain supported a while longer after it is gone from mainline.
+>
+> Cc: Nicolas Ferre <nicolas.ferre@microchip.com>
+> Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>
+> Cc: Claudiu Beznea <claudiu.beznea@tuxon.dev>
+> Signed-off-by: Arnd Bergmann <arnd@arndb.de>
 
---oQWXLwoO16ML7jtG
-Content-Type: application/pgp-signature; name=signature.asc
+Acked-by: Linus Walleij <linusw@kernel.org>
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBICAAKCRB4tDGHoIJi
-0kpXAQC8OSH/32amtCuarJmBKD0X8OJRlr68eC9OrTz06njAQQEAlLoifckm/Qo1
-oLzjk0p89N1TMPLXBX4B9xUQMRXRpAM=
-=Zs39
------END PGP SIGNATURE-----
-
---oQWXLwoO16ML7jtG--
+Yours,
+Linus Walleij
