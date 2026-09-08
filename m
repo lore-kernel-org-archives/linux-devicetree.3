@@ -1,271 +1,257 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F968519929;
-	Tue,  8 Sep 2026 10:44:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C44D524B09
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:00:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788864259; cv=none; b=I0jDoyBctdy5JKd5VUuihO1tV7ppUHstBVEZNFG6+H6CZaPpcCYP0kMJKXZ4R+oXPQsd2FB73ccotSNXZUF/2O03TlSjczYrN17q61vMdaC7kj5CtnNrgSGlDUlpnYtdylYBhExtX3DRU/DcxBBcXTl7n3DioRejVvWfOfpZhwQ=
+	t=1788865227; cv=none; b=THyfGYwx0gmZILV3x+xsMd6CWLx5qth1z3Usm3FVnpZYVebZwvG2eEMfWedeChNB95m3PXST+z8MOjVHSCtyijmvwFjV2+PMu1kvuC9xw0JJQvZI8vKxfv+NRDYwnn3IoVSsOyIgBBKt7Ur8y/bQNiCNqGRZNt4ay9msdNI7Ybc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788864259; c=relaxed/simple;
-	bh=gbAlidygxk94zk3/WSntggQJAuRKtZnPLiSVxKcHsws=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GAU1Muwn5alJ8pvZfUWoS9fbuMgOlP7xg6898OLdRtExl0t7+NBjwm7zm+Pq2SH46+YHUzgHzSSuX6XvgjYdEgis/U9dcUF61C5ocw980O49FcH/eOCnw4tp4GfwctX6mD9WYDUNRhIUhgxJsEpqxsVjURXiok6UMvMjJX1M9yo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bu5c3lRv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788865227; c=relaxed/simple;
+	bh=AuOGdBlVPO3/BhnPeRs0DUN8+8LroCjbn12VOX+pt+E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eRVK5fJ83T7vWZR/nwH8eUi6YxJSouYmmG25SVtD2UHiT3+AxK5Jc6rcdVhksiZKFLtAkKysZCmhd+qgzFSbHJu9Bfr/9rVnjEIYb95oOQvsWI/yVL2TZoVLoVxz+fso4GzIXCZ3WsBqVWYVcfv3JdbudejlyzhwhfGs4/SP6ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=t6L6C8oX; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bu5c3lRv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EF0D1F00A3A;
-	Tue,  8 Sep 2026 10:44:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788864257;
-	bh=DqKdPD3RRD1JhstaJB5YFIaX8JFP4SPiPL+dCdHEuMc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bu5c3lRvGT9JhkuHfO4NDsDq6ApaiY5vcZi40CwNR5bUdvtGWjPT03GlqY/cnvcjs
-	 Pq1j6M+U9PWh/mjR2kVZDeEC4YqS6MKsBnLGk4yxeu8HSCKODBz2M/MmjhD0aJbokM
-	 9ndp0KyxV5hYjHZAgArv+ny9dQS3YPbPn/p/DEtrERQvOJ0zMjlOCBoHNLlS0No8QZ
-	 gjXA+fv0QMpZdz1Nd3IqYfuvTh19wTLoqpkWgTIvuPuQJARjhgwgKdhEKyGxBgjPRE
-	 JPOGwYjCQ9XmNmqFgvB1BTdBARroVSyfgO64wZtjXi8gywR4C4K4hYQTZ0PCoXXWEJ
-	 eOPwA4bi+38rg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/2] serial: wk2xxx: Add WK2xxx SPI UART driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: zjzhao@edatec.cn
-Cc: robh@kernel.org, linux-serial@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260908103129.58085-3-zjzhao@edatec.cn>
-References: <20260908103129.58085-1-zjzhao@edatec.cn>
- <20260908103129.58085-3-zjzhao@edatec.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 10:44:13 +0000
-Message-Id: <20260908104417.7EF0D1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="t6L6C8oX"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a613a6bcd8so21458a12.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:00:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788865223; x=1789470023; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1skVfny1yNuvWZ+AsoMymhBqezpvencAbLaQbwhzUxk=;
+        b=t6L6C8oXrUCpbo87z5wCzJjPXseJfTimzde4LCMNK4r4tVDU/qUZEtyAiI+ENSSMTL
+         R1aQjlKE2+Zrw8CGN7ZXC44NOTxqdKUgOpXiPTBQF1mUopVJYXOrwj2MedQWmNv6Ihyk
+         6XVRPknOo7uY1Yb0Ga+cnn6E61LPKIz8DtGH0xB4cgnSWdlRONmaippN1CDJ5uy5gR+G
+         I7mGMZSbv+9XHQK2xYIo/djRq6QFoQdO7SVzF3C5uaKqjnNEIT89Xsn+T/bXpPyj0h2i
+         7PJRAamj6WohJhald/LDdZYKmNMUIWokRv34A2pQ9T6JYL6+mbISLdQZl8I3mpPwEFmD
+         UdPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788865223; x=1789470023;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1skVfny1yNuvWZ+AsoMymhBqezpvencAbLaQbwhzUxk=;
+        b=iSAxof4/JnoimI1vKinyoClm3mIQ7OuUWXugYlV6wDd3BENXVCRakuxJ7YE0B2liZD
+         IVBf3HASlX+AdxAutTi4F9RX+of3xIX0zj5xWTBBOe9mWBIbpFndElo1WDX68wNHG7+9
+         1LU4z7S7xILnlxJvpIREQgH51Tj5ZlzmQ4OUjDtmR00ChutDgcAO7GQT5WcstxzT7DwL
+         GHdG8oFDCSb5iPdrOUE10bSegeFsTuKXZYxBRMig7KZD0IADeutQxrOiM/0WnK3NqxL9
+         F5mFrTJNT6t7rn0sTnp7ZxklXzr7ALVDnrK9yQaqfo9WfHfaWw+zh+y+p8rpQ1kFr9I8
+         3DjA==
+X-Forwarded-Encrypted: i=1; AKwUvByPQliN9dAloqFOCANkbKp6pDPUJ8wuYjJmFKrQZjOIylf5JD+2GREsBKZjSbnO5TMelKWYPJ6uVGhf@vger.kernel.org
+X-Gm-Message-State: AFuF++kaloU1Kshzg0JB0B67RjW5xvpMPzH+RGZWVfFIdYgW5wSxghTv
+	hBC+Am0mVNssVHakbXL1OzngLk6INbxbopZG3G4y2ZKyusQdZLqTcqLLO+FU3UVpfg==
+X-Gm-Gg: AYBFou1wiovvJFYXRR5dh0n947P5jrhULPyE1MgTg23II1JVqh7Z2mMYjnrNc9YdV7x
+	N4M8oT+bpStKshxwMp6hBSVzpT3opX6WZCAea9/fEu/mHMYQr4lpqpFwJs4RniA+QLjGbaE3PN0
+	an7cOGOMs2yrNFQGODsG1sCbIuQ3KDyn5yA0ytOC3vQjSAgpOmJHwzBxZxdaaYU1TzWFtPY549a
+	z2ZzbRyNo02Zm6XUW4Y6uvgyvDuZFPK3xXVdaDH4AAuqGmbO1VM2XmqW5q82CSHHMmhMXj/csfH
+	E2h0ls64L1go+ymBtuqPTrIZ6+kxU3EzgGbrM3dS0r+mx1JVcG1VWOtaHCkvv+zsteZvGJlAMK8
+	qUQfl5EVO97pId+02KO6HZ8hwzZ6c2XGvwmUBFpQM4ZZ41mESJRr69Ft7zdh3cazmelzOHZfP0G
+	Y0BhSDM0qCMW+IjX75Cc6pYFc0Du1tIXe5ZxN4hW8nwYOu1khxjqYR3g9VHNbivetceX2WFO+zp
+	NB1td1GlqAUpot/Q5rupybdbUi1lw==
+X-Received: by 2002:a05:6402:21dc:b0:6a7:453c:a166 with SMTP id 4fb4d7f45d1cf-6a83aa836f7mr25317a12.1.1788865222615;
+        Tue, 08 Sep 2026 04:00:22 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68a6c2asm5389903a12.6.2026.09.08.04.00.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 04:00:21 -0700 (PDT)
+Date: Tue, 8 Sep 2026 11:00:17 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
+ Purwa
+Message-ID: <ap_qwdz-3WibXRjq@google.com>
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+ <ap_PdUrwLIVGJ3oG@google.com>
+ <dcae935c-ccbb-4cb5-a184-eb5dc2cc84b8@oldschoolsolutions.biz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <dcae935c-ccbb-4cb5-a184-eb5dc2cc84b8@oldschoolsolutions.biz>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] UART transmit FIFO data corruption and stats race due to missing p=
-ort lock in wk2xxx_handle_tx().
-- [High] TTY buffer flood due to persistent overrun flag in batch RX loop.
-- [High] The tx_empty callback performs a synchronous SPI read which sleeps=
- while the serial core holds the port spinlock.
-- [High] Early return on SPI error in wk2xxx_shutdown skips essential softw=
-are state cleanup, causing open_ports to permanently leak.
-- [Medium] OF node reference leak when parsing DT nodes for non-RS485 varia=
-nts.
-- [Medium] Commit message claims to apply serial properties from DT subnode=
-s, but they are not applied.
-- [Low] The driver intentionally breaks the build on architectures with L1_=
-CACHE_BYTES < 31 (e.g., m68k).
---
+On Tue, Sep 08, 2026 at 11:39:54AM +0200, Jens Glathe wrote:
+> Hi Mostafa,
+> 
+> On 9/8/26 11:03, Mostafa Saleh wrote:
+> > Hi Jens,
+> > 
+> > On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
+> > > The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
+> > > (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
+> > > chassis, different silicon. Stubble and the DTB loader need distinct
+> > > compatibles.
+> > > 
+> [...]
+> > > This series does not apply to ToT nor I can find this base-commit
+> > > in it.
+> > > 
+> > > Does that have any dependency?
+> > > 
+> > > Thanks,
+> > > Mostafa
+> 
+> No dependencies. But I test if i can apply to torvalds/master
 
-commit 8ec8660308853d2cff61b90024208e8b3e1bafdb
-Author: Zi Jie Zhao <zjzhao@edatec.cn>
-Subject: serial: wk2xxx: Add WK2xxx SPI UART driver
+I can't apply it on Linus's tree so I used your next tag + (revert
+for the QoS broken patch I mentioned)
 
-This commit introduces a new driver for the WK2xxx SPI to UART bridge ICs.
-It models the driver after the NXP sc16is7xx driver, utilizing a kthread
-worker for SPI register accesses and supporting polled or interrupt-driven
-operation.
+The patches doesn't build, I added this for now:
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 0cfbf3018a7b..d282ce5635d8 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -173,7 +173,6 @@ dtb-$(CONFIG_ARCH_QCOM)     += purwa-iot-evk.dtb
+ purwa-lenovo-ideacentre-mini-01q8x10-el2-dtbs := purwa-lenovo-ideacentre-mini-01q8x10.dtb x1-el2.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)        += purwa-lenovo-ideacentre-mini-01q8x10.dtb purwa-lenovo-ideacentre-mini-01q8x10-el2.dtb
 
-> diff --git a/drivers/tty/serial/wk2xxx.c b/drivers/tty/serial/wk2xxx.c
-> index 0000000000000..15869fbdeab07
-> --- /dev/null
-> +++ b/drivers/tty/serial/wk2xxx.c
-[ ... ]
-> +	/*
-> +	 * Shared SPI transfer buffers. All SPI accesses are serialized by
-> +	 * s->reg_lock, so these are never used concurrently. Each buffer is
-> +	 * cache-line aligned and sized to a full cache line, so DMA cache
-> +	 * maintenance on one of them can never invalidate a line shared
-> +	 * with any other field (notably the p[] array below).
-> +	 */
-> +	u8				spi_tx[L1_CACHE_BYTES] ____cacheline_aligned;
-> +	u8				spi_rx[L1_CACHE_BYTES] ____cacheline_aligned;
-> +	struct wk2xxx_one		p[];
-> +};
-> +
-> +static_assert(WK2XXX_MAX_SPI_LEN + 1 <=3D L1_CACHE_BYTES);
+-dtb-$(CONFIG_ARCH_QCOM)        += purwa-iot-evk-el2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)        += qcm6490-fairphone-fp5.dtb
+ dtb-$(CONFIG_ARCH_QCOM)        += qcm6490-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)        += qcm6490-particle-tachyon.dtb
 
-[Severity: Low]
-Does this intentionally break the build for architectures with a cache line=
-=20
-size smaller than 31 bytes (such as m68k where L1_CACHE_BYTES is 16)?=20
 
-Might it be better to size the array to something like=20
-max(L1_CACHE_BYTES, 32) instead of failing the compilation?
+I can't boot in EL2 (with purwa-lenovo-ideacentre-mini-01q8x10-el2.dtb):
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x512f0011]
+[    0.000000] Linux version 7.3.0-rc1-next-20260904-g505bc4a244a7-dirty (smostafa@mostafa1.c.googlers.com) (Debian clang version 21.1.8 (3), Debian LLD 21.1.8) #2 SMP
+PREEMPT Tue Sep  8 10:10:35 UTC 2026
+[    0.000000] KASLR enabled
+[    0.000000] Machine model: Lenovo IdeaCentre Mini 01Q8X10 (Purwa)
+[    0.000000] earlycon: qcom_geni0 MMIO:0x0000000000894000 (options '')
+[    0.000000] printk: legacy bootconsole [qcom_geni0] enabled
+[    0.000000] CPU features: SYS_ID_AA64MMFR0_EL1[63:60]: forced to 1
+[    0.000000] arch_timer: [Firmware Bug]: VHE-capable CPU without EL2 virtual timer interrupt
+[    0.191075] qcom_scm firmware:scm: qseecom: scm call failed with error -22
+[    0.198139] qcom_qseecom qcom_qseecom: probe with driver qcom_qseecom failed with error -22
+[    0.227426] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x86cd79c0, fsynr=0x400010, cbfrsynra=0x1000, cb=4
+[    0.291862] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x1000
+[    0.299508] arm-smmu 15000000.iommu: FSYNR0 = 00400010 [S1CBNDX=64 WNR PLVL=0]
+[    0.307018] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x86b020c0, fsynr=0x400040, cbfrsynra=0x1000, cb=4
+[    0.318879] arm-smmu 15000000.iommu: FSR    = 00000402 [Format=2 TF], SID=0x1000
+[    0.326462] arm-smmu 15000000.iommu: FSYNR0 = 00400040 [S1CBNDX=64 IND PLVL=0]
+[    0.333884] arm-smmu 15000000.iommu: Unhandled context fault: fsr=0x402, iova=0x86b020c0, fsynr=0x400040, cbfrsynra=0x1000, cb=4
+[a lot more of SMMU errors]
 
-[ ... ]
-> +static void wk2xxx_handle_tx(struct uart_port *port)
-> +{
-[ ... ]
-> +	to_send =3D kfifo_out_linear_ptr(&tport->xmit_fifo, &tail, txlen);
-> +	sent =3D 0;
-> +	while (to_send) {
-> +		unsigned int chunk =3D min_t(unsigned int, to_send,
-> +					   WK2XXX_MAX_SPI_LEN);
-> +
-> +		if (wk2xxx_fifo_write(s, portno, tail, chunk))
-> +			break;
-> +		tail +=3D chunk;
-> +		to_send -=3D chunk;
-> +		sent +=3D chunk;
-> +	}
-> +	uart_xmit_advance(port, sent);
+And with in EL1 (with purwa-lenovo-ideacentre-mini-01q8x10.dtb)
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x512f0011]
+[    0.000000] Linux version 7.3.0-rc1-next-20260904-g505bc4a244a7-dirty (smostafa@mostafa1.c.googlers.com) (Debian clang version 21.1.8 (3), Debian LLD 21.1.8) #2 SMP
+PREEMPT Tue Sep  8 10:10:35 UTC 2026
+[    0.000000] KASLR enabled
+[    0.000000] Machine model: Lenovo IdeaCentre Mini 01Q8X10 (Purwa)
+[    0.000000] earlycon: qcom_geni0 MMIO:0x0000000000894000 (options '')
+[    0.000000] printk: legacy bootconsole [qcom_geni0] enabled
+[    0.000000] CPU features: SYS_ID_AA64MMFR0_EL1[63:60]: forced to 1
+[    0.000000] ITS@0x0000000017040000: Devices Table too large, reduce ids 32->19
+[    0.000000] ITS@0x0000000017040000: Devices too large, reduce ITS pages 1024->256
+[    0.223762] remoteproc remoteproc0: Direct firmware load for qcom/x1p42100/LENOVO/91B6/qcadsp8380.mbn failed with error -2
+[    0.235468] remoteproc remoteproc0: Direct firmware load for qcom/x1p42100/LENOVO/91B6/qcadsp8380.mbn failed with error -2
+[    0.246800] remoteproc remoteproc0: request_firmware failed: -2
+[    0.252897] remoteproc remoteproc1: Direct firmware load for qcom/x1p42100/LENOVO/91B6/qccdsp8380.mbn failed with error -2
+[    0.261226] qcom-pcie 1bf8000.pcie: supply vdda not found, using dummy regulator
+[    0.261707] qcom-pcie 1c00000.pcie: supply vdda not found, using dummy regulator
+[    0.261729] qcom-pcie 1c00000.pcie: supply vddpe-3v3 not found, using dummy regulator
+[    0.261871] qcom-pcie 1c08000.pcie: supply vdda not found, using dummy regulator
+[    0.261889] qcom-pcie 1c08000.pcie: supply vddpe-3v3 not found, using dummy regulator
+[    0.279415] remoteproc remoteproc1: Direct firmware load for qcom/x1p42100/LENOVO/91B6/qccdsp8380.mbn failed with error -2
+[    0.295042] remoteproc remoteproc1: request_firmware failed: -2
+[    0.332189] qcom_pmic_glink pmic-glink: Failed to create device link (0x180) with supplier a600000.usb for /pmic-glink/connector@0
+[    0.346753] qcom-pcie 1c08000.pcie: supply vdda not found, using dummy regulator
+[    0.349142] ------------[ cut here ]------------
+[    0.354378] qcom-pcie 1c08000.pcie: supply vddpe-3v3 not found, using dummy regulator
+[    0.359106] disp_cc_mdss_dptx1_link_clk_src: rcg didn't update its configuration.
+[    0.367176] WARNING: drivers/clk/qcom/clk-rcg2.c:136 at update_config+0xd4/0xe8, CPU#2: kworker/u33:0/56
+[    0.384583] Modules linked in:
+[    0.387723] CPU: 2 UID: 0 PID: 56 Comm: kworker/u33:0 Not tainted 7.3.0-rc1-next-20260904-g505bc4a244a7-dirty #2 PREEMPT
+[    0.398963] Hardware name: LENOVO 91B6CTO1WW/3796, BIOS O6NKT3BA 05/02/2025
+[    0.406111] Workqueue: events_unbound deferred_probe_work_func
+[    0.412095] pstate: 61400005 (nZCv daif +PAN -UAO -TCO +DIT -SSBS BTYPE=--)
+[    0.419240] pc : update_config+0xd4/0xe8
+[    0.423267] lr : update_config+0xd0/0xe8
+[    0.427295] sp : ffff80008027b980
+[    0.430703] x29: ffff80008027b990 x28: ffff000802f813c0 x27: ffffc1572aad6000
+[    0.438024] x26: ffffc1572a4df03f x25: ffffc1572a639ff6 x24: ffffc1572a61b412
+[    0.438026] x23: 0000000000000000 x22: 0000000000000002 x21: 0000000000000001
+[    0.438028] x20: ffffc1572a4bb085 x19: ffffc1572acfc020 x18: 0000000000000000
+[    0.459979] x17: 0000000006af4b93 x16: 0000000000000094 x15: 0000000000100000
+[    0.467302] x14: 00000000000066a7 x13: 000000000199e0a9 x12: 00000000000000a5
+[    0.474624] x11: 00000000000000c0 x10: 0cf36ad3ab101c53 x9 : a7b4a80d3a726d00
+[    0.481946] x8 : a7b4a80d3a726d00 x7 : 0000000000000000 x6 : 000000000000003f
+[    0.489268] x5 : 0000000000000040 x4 : 0000000000000000 x3 : 0000000000000001
+[    0.496588] x2 : 0000000000100000 x1 : ffff000800c8b000 x0 : 00000000fffffff0
+[    0.503913] Call trace:
+[    0.506433]  update_config+0xd4/0xe8 (P)
+[    0.510464]  clk_rcg2_set_parent+0x58/0x68
+[    0.514666]  __clk_set_parent+0x50/0x214
+[    0.518696]  clk_core_set_parent_nolock+0xe8/0x1b4
+[    0.523611]  clk_set_parent+0xa4/0x13c
+[    0.527458]  of_clk_set_defaults+0x2f0/0x644
+[    0.531847]  platform_probe+0x38/0x9c
+[Many more of those also]
 
-[Severity: High]
-Is it safe to manipulate the xmit_fifo pointers and call uart_xmit_advance(=
-)=20
-here without holding the port lock?
+However, booting with the hacked device tree I am using [1]:
 
-If a concurrent operation like a tcflush() ioctl resets the FIFO via=20
-uart_flush_buffer() (which zeroes the in and out indices), could this=20
-lockless uart_xmit_advance() call advance the out index beyond the in index=
-,=20
-causing a substantial underflow and subsequent data corruption?
+[root@alarm ~]# lsusb
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 002 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 003 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+Bus 003 Device 002: ID 05e3:0610 Genesys Logic, Inc. Hub
+Bus 004 Device 001: ID 1d6b:0003 Linux Foundation 3.0 root hub
+Bus 004 Device 002: ID 05e3:0625 Genesys Logic, Inc. USB3.2 Hub
+Bus 004 Device 003: ID 0781:5591 SanDisk Corp. Ultra Flair
 
-[ ... ]
-> +static void wk2xxx_handle_rx(struct uart_port *port)
-> +{
-[ ... ]
-> +	/* Map the FIFO status register error flags to line status. */
-> +	if (fsr & WK2XXX_FSR_ERR_MASK) {
-> +		if (fsr & WK2XXX_FSR_RFPE_BIT) {
-> +			port->icount.parity++;
-> +			lsr |=3D WK2XXX_LSR_PE_BIT;
-> +			flag =3D TTY_PARITY;
-> +		}
-> +		if (fsr & WK2XXX_FSR_RFFE_BIT) {
-> +			port->icount.frame++;
-> +			lsr |=3D WK2XXX_LSR_FE_BIT;
-> +			flag =3D TTY_FRAME;
-> +		}
-> +		if (fsr & WK2XXX_FSR_RFOE_BIT) {
-> +			port->icount.overrun++;
-> +			lsr |=3D WK2XXX_LSR_OE_BIT;
-> +			flag =3D TTY_OVERRUN;
-> +		}
-[ ... ]
-> +	for (i =3D 0; i < rxlen; ++i) {
-> +		u8 ch =3D one->buf[i];
-> +
-> +		if (uart_handle_sysrq_char(port, ch))
-> +			continue;
-> +
-> +		if (lsr & port->ignore_status_mask)
-> +			continue;
-> +
-> +		uart_insert_char(port, lsr, WK2XXX_LSR_OE_BIT, ch, flag);
-> +	}
+[root@alarm ~]# lspci
+0004:00:00.0 PCI bridge: Qualcomm Technologies, Inc SC8380XP PCIe Root Complex [Snapdragon X / X Plus / X Elite]
+0004:01:00.0 Network controller: Qualcomm Technologies, Inc WCN785x Wi-Fi 7(802.11be) 320MHz 2x2 [FastConnect 7800] (rev 01)
+0005:00:00.0 PCI bridge: Qualcomm Technologies, Inc SC8380XP PCIe Root Complex [Snapdragon X / X Plus / X Elite]
+0005:01:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller (rev 1b)
+0006:00:00.0 PCI bridge: Qualcomm Technologies, Inc SC8380XP PCIe Root Complex [Snapdragon X / X Plus / X Elite]
+0006:01:00.0 Non-Volatile memory controller: SK hynix Platinum P41/PC801 NVMe Solid State Drive
 
-[Severity: High]
-Could this loop insert an excessive number of dummy overrun characters into=
-=20
-the TTY buffer?
+[root@alarm ~]# fastfetch
+                  -`                     root@alarm
+                 .o+`                    ----------
+                `ooo/                    OS: Arch Linux ARM aarch64
+               `+oooo:                   Host: 91B6CTO1WW (IdeaCentre Mini 01Q8X10)
+              `+oooooo:                  Kernel: Linux 7.3.0-rc1-next-20260904-g505bc4a244a7-dirty
+              -+oooooo+:                 Uptime: 3 mins
+            `/:-:++oooo+:                Packages: 204 (pacman)
+           `/++++/+++++++:               Shell: bash 5.3.15
+          `/++++++++++++++:              Terminal: vt220
+         `/+++ooooooooooooo/`            CPU: Qualcomm Snapdragon X Elite 1P42100 (8) @ 2.96 GHz
+        ./ooosssso++osssssso+`           Memory: 501.91 MiB / 30.74 GiB (2%)
+       .oossssso-````/ossssss+`          Swap: Disabled
+      -osssssso.      :ssssssso.         Disk (/): 8.77 GiB / 468.38 GiB (2%) - ext4
+     :osssssss/        osssso+++.        Locale: C
+    /ossssssss/        +ssssooo/-
+  `/ossssso+/:-        -:/+osssso+-
+ `+sso+:-`                 `.-/+oso:
+`++:.                           `-/+/
+.`                                 `/
 
-Since lsr is modified once outside the loop when the WK2XXX_FSR_RFOE_BIT is=
-=20
-set, the WK2XXX_LSR_OE_BIT remains active for the entire iteration. When=20
-uart_insert_char() evaluates this bit, it will insert a dummy overrun byte=
-=20
-for every single character in this chunk (up to 256 times) for a single=20
-overrun event.
 
-[ ... ]
-> +static unsigned int wk2xxx_tx_empty(struct uart_port *port)
-> +{
-> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
-> +	u8 fsr =3D 0;
-> +
-> +	if (wk2xxx_port_reg_read(s, port->iobase, WK2XXX_FSR_REG, &fsr))
-> +		return TIOCSER_TEMT;
+[1] https://lore.kernel.org/all/20260429141815.827157-1-smostafa@google.com/
 
-[Severity: High]
-Can this sequence sleep while executing in an atomic context?
+Thanks,
+Mostafa
 
-The serial core routinely invokes the ops->tx_empty() callback while holdin=
-g=20
-the port spinlock with interrupts disabled (for instance, during the=20
-TIOCSERGETLSR ioctl). However, wk2xxx_port_reg_read() performs a synchronou=
-s=20
-spi_sync() transfer which can sleep.
-
-[ ... ]
-> +static void wk2xxx_shutdown(struct uart_port *port)
-> +{
-> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
-> +	unsigned int portno =3D port->iobase;
-> +	u8 reg;
-> +
-> +	scoped_guard(mutex, &s->reg_lock) {
-> +		/* Disable the sub-UART interrupt in the global mask. */
-> +		if (wk2xxx_raw_read(s, WK2XXX_GIER_REG, &reg))
-> +			return;
-
-[Severity: High]
-If this SPI read fails, the function returns early. Does this leave the=20
-software state permanently out of sync?
-
-By returning here, the function skips the atomic_dec_return(&s->open_ports)=
-=20
-and kthread_flush_worker() cleanup steps at the end of wk2xxx_shutdown().=20
-This leaves the open_ports counter permanently elevated and strands the=20
-polling kthread so it can never be stopped.
-
-[ ... ]
-> +static int wk2xxx_probe(struct spi_device *spi)
-> +{
-[ ... ]
-> +		/* Locate the matching "serial@i" DT subnode, if any. */
-> +		for_each_available_child_of_node(dev->of_node, child) {
-> +			u32 reg;
-> +
-> +			if (!of_node_name_eq(child, "serial"))
-> +				continue;
-> +			if (of_property_read_u32(child, "reg", &reg))
-> +				continue;
-> +			if (reg =3D=3D i) {
-> +				port_np =3D child;
-> +				break;
-> +			}
-> +		}
-[ ... ]
-> +		/*
-> +		 * Temporarily retarget dev's fwnode to the per-port subnode
-> +		 * so uart_get_rs485_mode() picks up the per-port properties.
-> +		 */
-> +		if (port_np && devtype->has_rs485) {
-> +			device_set_node(dev, of_fwnode_handle(port_np));
-> +			ret =3D uart_get_rs485_mode(&s->p[i].port);
-> +			device_set_node(dev, saved_fwnode);
-> +			of_node_put(port_np);
-> +			if (ret)
-> +				goto out_ports;
-> +		}
-
-[Severity: Medium]
-Is there a device tree node reference leak here for non-RS485 variants?
-
-The port_np reference is acquired via the for_each_available_child_of_node(=
-)=20
-loop earlier. However, if devtype->has_rs485 evaluates to false (such as fo=
-r=20
-the WK2132 or WK2202 variants), this block is entirely bypassed and=20
-of_node_put(port_np) is never called.
-
-[Severity: Medium]
-The commit message states the driver will "apply serial and RS-485 properti=
-es=20
-from each serial@N DT subnode to the corresponding channel."
-
-While uart_get_rs485_mode() is called in this block, should there also be a=
-=20
-call to uart_read_port_properties() to ensure the generic serial properties=
-=20
-(like tx-trigger or rx-trigger) are actually applied as described?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908103129.5808=
-5-1-zjzhao@edatec.cn?part=3D2
+> 
+> with best regards
+> 
+> Jens
+> 
+> 
