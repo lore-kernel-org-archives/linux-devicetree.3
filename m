@@ -1,93 +1,95 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D81503BD3;
-	Tue,  8 Sep 2026 10:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F034A3F13;
+	Tue,  8 Sep 2026 10:18:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788862600; cv=none; b=VigAGZWNVwFtZDNUb5xgGpAac+96m5Rzj3m1xpe3eb7CRHCuC2Eb2dep702LT6BCxad9fJT37umn8O+1eJv6VNnSD3jwyrd5pM7XT47kwR7Zd8iQos7/wjbovZvvPn4AF3IrCE4gkmNKFXifWXK9E2W1ND3DdQ6HBN63i3C6a5k=
+	t=1788862681; cv=none; b=BwZLgGXCrhjKY1KYoCymnWZ6ynO5RDgqvpkzD95RGU7VEXGPpDpmoeF/26zk577CfUK08LNGLTUjgMf2Bgk392x7v0CJqkmcZZV/DnjhFL/O8R5+PqVRRGfwqXbjK2A5bcG1fX3R/06Gh3HzuRCpbFkSZpGUKT9mG+XpZSLbkig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788862600; c=relaxed/simple;
-	bh=DjboxyyhcZpTbpDaKMgn5L7lBy9Q6jXJE2/Ais/0SX4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZK8Wiy9Q55pHHJvemzkkpsPZ4z90oEnYTnMzxz00rX/P0QnGYh88lNDmHgdPesFJysDbiOWjG75diE0vcAvMK4FJJr5zy4w/u3bSkMTBYrxfLYyIpF7Rv3J0bT/BVddzaA7YK7tdOpf5+/GrAm/N6osF5E8p5b0Bd1T3IKWu7bI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=kqq9KQ8R; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EkshkgsY; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1788862681; c=relaxed/simple;
+	bh=REefT6Y4BF9qgcV86uQSOz0t9HuJ3hYnZlBIuoh/3Xs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T9GWmP1pahoRyAe0xGj1oO8yWbG4qPYTF6Z3HnR3iBocIq6ninB2g+ONE6oBVVsaujpvN3YOmiOHTTz2meCOkJBYZ3VcCq77HdMnD0/ESIXNdGeDaIswjcb4JPU9ue2REjNAmRg/5yYDtuUO0/wiMZ3XSejtMRlODXbhTelQAn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwavFRK/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="kqq9KQ8R";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EkshkgsY"
-Message-ID: <4096c8ea58f0ab600b991d8742ed565ab84fb24c.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1788862597;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67xHPOdRg6Md3IYmYXDCVQ2pUGm9kQLicmtON3YiCpY=;
-	b=kqq9KQ8RaeCFpW6Gqyy+RWggJUqmqAwIjhKZVmpeWgLQKIDKXjKe/KtxHfxfI4bpee05jP
-	DMyuGAWcuSM5S23LStBlVrN+zGJXrTAJM5bNsx5Wlyvh8MzGtDbmizf6DFnJPyOPBj9mwZ
-	/6eB0TgvRWj4rk67Y8GX0/g3P/Bx+WpdB5jraa4HyLI0au0Do0sJDYzotd0fi8YCLSUi9e
-	5Y5ObsylCciYP7G6nlosHAkoLiX5RioFQhqDdnxmtfMHKUANSa8zQX0+YHXH/FXW29b59o
-	0HWF9/au2Hju3AkOSZKvtyjnlk/rE/LQO6sAmX9W4RezqG3HRwYC0lHQYt4lsw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1788862597;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=67xHPOdRg6Md3IYmYXDCVQ2pUGm9kQLicmtON3YiCpY=;
-	b=EkshkgsYjeEIHpzUPdBmGY6rSRNKdM9CDsI8tK8lemoCAMIeB34IdxXGRPZJDsyxWmA3zB
-	DqFD7aqDIemutCAw==
-Subject: Re: [PATCH net-next v2 2/4] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
- devicetree@vger.kernel.org,  linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, Martin Kaistra <martin.kaistra@linutronix.de>,
- Benedikt Spranger <b.spranger@linutronix.de>
-Date: Tue, 08 Sep 2026 12:16:36 +0200
-In-Reply-To: <85b4b052-e97c-40b8-b434-de1b6e3af1b5@lunn.ch>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
-	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-2-fb0587cb466b@linutronix.de>
-	 <20260907-petite-pillbug-from-atlantis-dd3ea4@quoll>
-	 <9751fadc03ab555327f5baf1d2adc10821f13b1e.camel@linutronix.de>
-	 <85b4b052-e97c-40b8-b434-de1b6e3af1b5@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwavFRK/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 798C01F00A3A;
+	Tue,  8 Sep 2026 10:17:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788862680;
+	bh=1BUq9DqNfvFJpJpxO4ESAHte1Bx4yrvo0vCrnSZ9Wno=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MwavFRK/ztSyhXEhkjmbGgqiZw9sxr6mV1TbmhsRFf12TB/TYGglIbkUGeV7tUtxg
+	 F148rzwylaMteqXTQlfgqCpYKWA3xLRuiSk/6ZuEdUVkyxHT5HaPDlNP0bbVm6Mp4p
+	 FjSWVQUHDyaswMIHtvx1lOd10oe48Ss+ENBMUdnmWGrLP856Z/MdRVE992y9WKpPde
+	 +MjO72CMnbl+RMjRI6UWUrE7V/VLv19l77g/zVYAe07/V28dqEfQXF1MRWhBgAn38K
+	 WdW1TZooWTeccR2yS/OgrcO2v9FkbaEz0BGcv51hlHvuCPSmslvFgE1NzbkgrltoCJ
+	 qqFQ5EJFaso2A==
+Date: Tue, 8 Sep 2026 13:17:50 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Vincent Donnefort <vdonnefort@google.com>, catalin.marinas@arm.com,
+	will@kernel.org, akpm@linux-foundation.org, sudeep.holla@kernel.org,
+	jenswi@kernel.org, robh@kernel.org, mark.rutland@arm.com,
+	sumit.garg@kernel.org, ardb@kernel.org, david@kernel.org,
+	danielmentz@google.com, linux-arm-kernel@lists.infradead.org,
+	linux-mm@kvack.org, op-tee@lists.trustedfirmware.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v9 01/10] memblock: Introduce MEMBLOCK_LLMAP
+Message-ID: <ap_gztTqHQv_GD35@kernel.org>
+References: <20260902104712.2399797-1-vdonnefort@google.com>
+ <20260902104712.2399797-2-vdonnefort@google.com>
+ <ap2_926WXr7uAYVX@kernel.org>
+ <ap6I1FN_2ylRzFXH@google.com>
+ <ap-74AkHSGXbFCF_@kernel.org>
+ <ap_RRSM7RBONvHaR@orome>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_RRSM7RBONvHaR@orome>
 
-On Mon, 2026-09-07 at 20:56 +0200, Andrew Lunn wrote:
-> > > ethernet-ports
-> > >=20
-> > > > +    patternProperties:
-> > > > +      '^(ethernet-)?port@[0-9a-f]+$':
-> > >=20
-> > > ethernet-port
-> > >=20
-> >=20
-> > Is there a reason for such a restriction?
-> > The pattern intentionally follows the generic DSA binding in dsa.yaml,
->=20
-> You need to be careful with the DSA binding. It is old, and uses some
-> things which are not considered best practices today. But they cannot
-> be removed because of backwards compatibility.
->=20
+On Tue, Sep 08, 2026 at 11:18:53AM +0200, Thierry Reding wrote:
+> On Tue, Sep 08, 2026 at 10:40:16AM +0300, Mike Rapoport wrote:
+> > On Mon, Sep 07, 2026 at 10:50:12AM +0100, Vincent Donnefort wrote:
+> > > On Sun, Sep 06, 2026 at 10:33:11PM +0300, Mike Rapoport wrote:
+> > > > On Wed, Sep 02, 2026 at 11:47:03AM +0100, Vincent Donnefort wrote:
+> > > > > Keeping last-level mappings is interesting on some architectures as it
+> > > > > allows mapping/unmapping pages from the kernel direct map without the
+> > > > > risk of splitting blocks which, under the break-before-make rule, may
+> > > > > trigger page-faults the kernel can't handle.
+> > > > > 
+> > > > > However, mapping the entire direct map at PTE-level is costly. So
+> > > > > instead, create a new memblock flag MEMBLOCK_LLMAP to enable the system
+> > > > 
+> > > > I believe MEMBLOCK_PTE_MAP sounds more descriptive.
+> > > 
+> > > The idea was to have something close from NOMAP, to emphasis it is one or the
+> > > other. But PTE_MAP sounds good too.
+> > 
+> > Could be PTEMAP if you prefer.
+> > My point was that unlike PTE, "LL" is not perceived as last-level, it
+> > should be looked up.
+> 
+> We were discussing the concept of enabling entire block mappings to be
+> removed at once from the linear map, so at that point "PTE"MAP may no
+> longer be accurate.
+> 
+> I imagine that in some scenarios we might be able to go to PUD mappings
+> for something like VPR (say systems with a fair amount of system memory
+> and we want to carve out 4 GiB for VPR, split into four 1 GiB chunks).
 
-Got it. Technically, it makes no difference, so I will just fix it.
+_LEAFMAP then? ;-)
+ 
+> Thierry
 
-Thanks,
-Vasilij
+
+
+-- 
+Sincerely yours,
+Mike.
