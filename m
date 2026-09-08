@@ -1,150 +1,166 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DFD0521201
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:18:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A005850EC07
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 11:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788866297; cv=none; b=FtfkdtEP6PO6KcbgEfSBAnq1zhkL+1hUxo2zwLvlWY9Cdpt66rNTOGd8kxzWQ2RDe5Ydr0vBj41W3wLq85sAE2G1LEL59qRWFp1WyOk/LzvFk1pV6vgCNxd84OcfbAAqnv+EE2OmwnQu6MxlXcn+q7vac0n5M9rTg7HbxlO2Fcc=
+	t=1788866377; cv=none; b=MIlA/ZuptCMgeCZcgK5XHCpTSDeVAHJoPb18Awj/LhBHzgNo/P3ZZKgnkF0y7pHuNzj1U8jZRrliJM0b2oY8y2Ltfbd8LPVlq+hlq4I6Wo9TDm8CgsYeOHoubtX8SgE+VL0eLKCuZmJyh7MGtiVAC7h8jmdBSmfwOQHGyprgcuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788866297; c=relaxed/simple;
-	bh=lX4V4yjGtJ3+RS/BGcYcxwkRKomux7igTneZYQSAgkc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nrMIIKgbfRb3Yx+FV5yaEVIf74GPxvKW2bwDXASjAN9PhnPw3kY8Z6/87rPQDYVKPNs3dly4Pw2CzhsphycKtws0kZGJKoDR/tKxiHd0MnpQ9ZaKOG/N/nZU9PD8o1vR6BoFt+BkW8nERj//S9HJNljL559xMh3mnTTQjKc9K64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ev51L5fQ; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1788866377; c=relaxed/simple;
+	bh=9O9kWGGQbODtRL5UAdOuaAinJL8bBPDsv7WUv1hTnnQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Im7bktB4pTqj2epNVe1S8edTrEI3CsJ/y7XlyR36H2BJjY2wPkZei6FNI4NDGRoB8COdeJ47Wtu16zBCTpOJXJGXdYQl3KWwONRvcLtcgCbXctrXtmlRFg3I62AA/MU7PE/yCGBN2f6fd5X5qHusSEDC2AiEdnsySGxvxsjtF/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rxsm3lPX; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ev51L5fQ"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e518329so192274e0c.0
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:18:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rxsm3lPX"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4858a186d5bso367759f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 04:19:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788866289; x=1789471089; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GR+PLOaTo7otsU9ebeTCa7DS4PdH9ick+Ld4KYL7p5E=;
-        b=Ev51L5fQhBYYIGN6xLOPTjQv2rczFfFrLSkgYA1zlP+NvHJeUiMcMlsXyzfdMjIuug
-         qi/2p63yTzEHx/yuLXk0+liIKi/sJJ00tahgoMkTK3cYf2BQvxQMrBpF8O0hwWEyAQp3
-         4zLhamEHuSf6eOKN91tEESfm4+TZ76A80jaQ++vikrXjvj3lCb2d/HUTirPHcySQi4nW
-         CGs1OfWDebNOHdjoy3WrXLKpva/gSjP2Nffj59XMmwsG32r756xGxmVkpxZYEBPYFjjM
-         BtlD4zDMCR58x/3zwCqUMdhxxA3XyyxG9TBFtrfOi5x9dg14r+0peT2POdlRdKDtTPqw
-         Mz1g==
+        d=gmail.com; s=20251104; t=1788866369; x=1789471169; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
+        b=Rxsm3lPXjtOsq1hx/7RxBKcxjgKMvn30bD6YpJJ4fVzzU+dDl7uVNIMHh/T1gahU54
+         S6P9oHrfld1hU2yw9l1mtSedUlysUtSzXGUFgZvnmNdjMSsQHmdr0CMLeIqVAweH40kR
+         tj7LGOi2fhwAhR5baHueT7rHFTZ4S2fWtWtpD8R/4WpbGLQTAZtnXyc55l2cpgXLIG2B
+         rJWK3VES0Y37wMkFMH8sHJL41Dbm38gcROwCDPdfJW7Wb3b8D0toJ3ewEt5zORQMY/la
+         JghS6sv65UYICvQ5xmFVj8J5EBXt6CwUbnv0xncJbJsbVa+VwlOyB16DKAfs0V8tiaex
+         WXyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788866289; x=1789471089;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GR+PLOaTo7otsU9ebeTCa7DS4PdH9ick+Ld4KYL7p5E=;
-        b=tF2Lx4tfOfmA/QwN/I6sBWrvjskw0VbZjGMRpJOiXtpReGXx8wmhaKphknXiBNM/O3
-         42F0j1qx0+WmkgbswqzIyvkPdUiDro+zFz83DRAV1LBXXIDuyVcxROU9zkRS34Lye6pg
-         kZsO0HPW2xfLFltCSjlN3yi1/p/TScsGActFFlkwcXvddPUKHBw4o7yTzYtUemrtm93O
-         X8jyYKA2mhJb9a/oareSX7VsTkG4l7BjJu0sKfHQQglF4P4o+sPLvIw8idycJ1Bu/FZM
-         gErFFjD0p1NrNMq2g27APsinUn9bI615TZgG/913An32TQ6ZbDL5yOT45AsDk1t4zEFm
-         4whw==
-X-Forwarded-Encrypted: i=1; AKwUvByWLvjarW5P1XBdsdFjhmGpKm0Gx22cGAQr+ToHtkW1GuGVA3ebudgjN01ms6grBHxg/FnTs9JKL1a/@vger.kernel.org
-X-Gm-Message-State: AFuF++mtjA2q/AZ2NFq7MUjl/GYIgR18l3Mh4O4izyL/KUMhD3sSj705
-	smNv2RJvlTEVgS8um35i34HpgHMgcWlLlXsqjdkR8BYNllncZsmTY+xk
-X-Gm-Gg: AYBFou2Icz9TSWGhs8I8ud0uwyqL2zLVIVeKY0r3JW1kmraMWyof1dSzqmpV7NXur5B
-	ChNuqwsKr1Ra+l4YYSYEIn63dXrioA24J55uLnhP1vPHOImCrIcxnNjYqxBry0QavKXWlDU7lBz
-	bStCvVz31oIa+QhqTUHcXilrftIOoBuBLCZ/vJ+8QOgxCxyXAOl8QHDcp9/4qSTdqq8FsaG1gzq
-	ysWoAoRAq35lqxPilEqt+4XT06cM0LHRun7G3RQEHuAUAfyylO+u9ZU2k8VRK28e/8m/LOYlblq
-	LAaGNMK3v0eAQIz9hAw9g4O+rDFqQffMZ86/8/8mS3GWKPZ0a+zDkHIfg1P2c2VpXj2eRPQRx4b
-	Zk0fcmOLqzQbBquu7In4wEcWg0CJABGpJF6/JnI5Lj+wV04RDpirkTjsKVqyVsaSPjhOCPQVZnJ
-	hlI8YVPfbYQz9WvWpEvpT7mQ/TENTePUYWg1SyTwdAdD2jPz5ko96FotiHGc12nogH72FbD9vDx
-	ZTu6w==
-X-Received: by 2002:a05:6102:c8d:b0:789:ec0f:3a03 with SMTP id ada2fe7eead31-78dd1a1cb33mr1540702137.4.1788866288632;
-        Tue, 08 Sep 2026 04:18:08 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-78a47a76487sm8467503137.5.2026.09.08.04.18.04
+        d=1e100.net; s=20251104; t=1788866369; x=1789471169;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bMadN6VBiKEQvvZox4M1avk0HRML78KU4CFtSbLK3WM=;
+        b=f6dlwpyAyHT4p+WFPIUclTLzlNdw+y1ZhgTE1uqQ4rVRxamz66Uw7O/QiPzSZL0qJU
+         NY/ZMGaUpnRy2J4V+grrczUhXX1o45ZB4R14eXo+rSFdZiKSkMbasB3b2hBLPSq+9Jjn
+         xDfsJWJKaFk66ApgWcthnWAFvzLsIxjx4tKXhRPOVn/WwhysYOQzxchlLWyzJu3iiEFZ
+         iAZILmjFxwmkzZYOxnhsx6o/kaW87e5Gq+1RNeJavL/kSHC2vnqCU1SiJenfzzWmqNYJ
+         m+ogvDAGSItKk+TwIjlgV+GmYkpkrO47YgWzoaOwdn1+xnV1jo+0O8M9L4twLhKTlmgs
+         YThw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDgfHTECwIrTgS8+pTqRGIPaq7slfph34WhjG/EhjKXBQpa9YppLKmxziKNs/jEo+8xU/5cRSHaG3k@vger.kernel.org
+X-Gm-Message-State: AFuF++m9pYVKswBSHhwZle5BhVxPChbFQ17Gd4nQ6MXZFsl7Fm5zd4co
+	rlJ0kpO1JQ0ZGeNN5WhhMVqN4MRt1SzHas+dayNLM94rgCZmgBpXejrJ
+X-Gm-Gg: AYBFou0BoMJ0jheG8hinNxMGzc7VTPTAoCK5GVfpibCH5412KF0mb9AT0uhrLWyRB6P
+	TFPAi40/jYBpldnLKgFbLBENxY4Wh5DkASHP6Oj/lYHO6QrStPJxF9rZDrIvQ9QJrJ00GjXXfOx
+	V5T3WpfAcDUjmnp8Io69mCI1pgzRulciBoTSTYjS0sr24Fa+SNsBVxBAvmbnELdtX0uQ75wE8xD
+	+tiEVM6ScNzXmta6jzIoTBWmcNsSlbuberR/xad1ngaHa5Lg674/h3tWRtbExBel6nY2E/38zWe
+	EZ3+uWpnUXdhEnAu2ycNA836Q3jGz3QO3VpWVCzhnZ3E3fV4jRk7guAnegszgs4AIxFe/wyjGvl
+	ppY//3V6NyyvC8ryaeycGl2iBBO6F1/bKekhmYBys/m/lWKKbBn4JANJ8KrgAHKLNAJQ4UfNHUD
+	MBBnb8qbu7gAik5Ga14Z/wBg5sANVvSeAzZy6tD7J0rg/xdwAp9NeJiGhhsNTEwzQvV2spv78ge
+	EUlYDoNQIjnLR4vqTX4InTQtaulg98schYM9CjAmrgsVP5f6OoiBRfWOn9VjTXaB7wv
+X-Received: by 2002:a05:600c:8b2e:b0:49c:cbf4:572b with SMTP id 5b1f17b1804b1-49d01dcc1fdmr173785985e9.2.1788866368697;
+        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
+Received: from OrangePi5-Plus.BB-HOME (20014C4E1B825D009E74109367A274C5.dsl.pool.telekom.hu. [2001:4c4e:1b82:5d00:9e74:1093:67a2:74c5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce58da3acsm973747855e9.0.2026.09.08.04.19.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 04:18:08 -0700 (PDT)
-Date: Tue, 8 Sep 2026 08:17:57 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: "Kumar, Udit" <u-kumar1@ti.com>
-Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
- LVDS adapter with the 10.1" V2 display
-Message-ID: <kumbe27i7a632rthuruthpt6z65aszivylj2u7cdkeqecx3zgd@vi27clpphsq3>
-References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
- <20260803173705.2268792-2-leoreis.costa@gmail.com>
- <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+        Tue, 08 Sep 2026 04:19:28 -0700 (PDT)
+From: Igor Paunovic <royalnet026@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Igor Paunovic <royalnet026@gmail.com>
+Subject: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+Date: Tue,  8 Sep 2026 13:19:08 +0200
+Message-ID: <20260908111908.19371-1-royalnet026@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Udit,
+The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
+to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
+pin; the mainline board file uses RK_PB0, which does not carry the RTC
+interrupt on this board.
 
-On Sun, Sep 06, 2026 at 10:49:52AM +0530, Kumar, Udit wrote:
-> Hi Leonardo
-> 
-> On 8/3/2026 11:04 PM, Leonardo Costa wrote:
-> > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > 
-> > Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-> > Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-> > Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-> > DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-> > LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-> > touch controller.
-> > 
-> > Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-> > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > ---
-> >  arch/arm64/boot/dts/ti/Makefile               |   5 +
-> >  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
-> >  2 files changed, 158 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-> > 
-> > diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-> > index f4d109ef6798a..8a59fc597aede 100644
-> > --- a/arch/arm64/boot/dts/ti/Makefile
-> > +++ b/arch/arm64/boot/dts/ti/Makefile
-> > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
-> > [..]
-> > +
-> > +	panel-lvds-bridge {
-> > +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-> 
-> > +		backlight = <&backlight_pwm3>;
-> > +		data-mapping = "vesa-24";
-> > +		height-mm = <136>;
-> > +		width-mm = <217>;
-> > +
-> > +		panel-timing {
-> > +			clock-frequency = <70000000>;
-> 
-> Looking at
-> https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
-> 
-> 
-> you are using three different clock-freq 69500000, 64500000 and
-> 70000000 here.
-> Could add some comment here, why freq is adjusted.
+As a result the alarm interrupt never reaches the SoC, so the RTC alarm
+cannot be used as a wakeup source on this board.
 
-It's for the same reason as the 69500000 clock frequency in the Verdin
-AM62 patch. In general the DSI to LVDS bridge requires longer horizontal
-porch and sync values than the typical values for the display, and we
-intend to use the values on this patch in the general case when the
-bridge is used. The reason why the frequency here (70000000) is
-different from the Verdin AM62 one (69500000) is because we found that
-that 70000000, along with the other timing values, work more
-consistently with the bridge across our modules, the ones on the Verdin
-AM62 ended up being a first iteration.
+This was verified on the board by enabling the alarm interrupt (AIE with
+AF already set, so INT# is asserted) and sampling the EXT_PORT register
+of all five GPIO banks: GPIO0_C6 is the only pad that follows AIE
+(high with AIE=0, low with AIE=1, in two off/on cycles), while GPIO0_B0
+stays high and its interrupt counter stays at zero.
 
-I'll add a comment explaining the difference from the native LVDS values
-in the v2 patch.
+Switch the interrupt and its pinctrl entry to GPIO0_C6. The board has an
+external pull-up on this open-drain line, so no internal bias is needed.
 
-Kind regards,
-Leonardo
+With this change the alarm interrupt is delivered while the system is
+running, and the RTC wakes the SoC out of s2idle.
+
+Fixes: 236d225e1ee7 ("arm64: dts: rockchip: Add board device tree for rk3588-orangepi-5-plus")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM checkpatch dtbs_check
+Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
+Reviewed-by: Ondrej Jirman <megi@xff.cz>
+---
+Changes in v2:
+- Drop the internal pull-up: the board schematic already has an external
+  pull-up on this line (Ondrej Jirman). Only the pin number changes now.
+- Reworded the effect paragraphs to state only what was measured; no
+  functional change.
+- Link to v1: https://lore.kernel.org/all/20260906181622.11991-1-royalnet026@gmail.com/
+
+Notes for reviewers (not part of the commit message):
+
+Measured on an Orange Pi 5 Plus. The input levels of all five GPIO banks were
+read from their EXT_PORT registers via /dev/mem while toggling the alarm
+interrupt enable through /sys/class/rtc/rtc0/wakealarm; GPIO0_C6 was the only
+pad that followed it.
+
+The s2idle wakeup was measured with the v1 form of this patch (same pin, but
+with the internal pull-up still set): 'PM: Triggering wakeup from IRQ 52'.
+With bias-disable, as posted here, I re-checked that the alarm interrupt still
+increments the hym8563 interrupt count at the programmed alarm time, with no
+spurious interrupts on the level-low line.
+
+Note that on this board the resume itself can still stall later in the USB 2.0
+host controllers (a separate issue reported in [1]); with those controllers
+unbound the full s2idle cycle completes. It does not affect this fix.
+
+[1] https://lore.kernel.org/all/20260907190000.s2idle-usb2-resume-royalnet026@gmail.com/
+
+ arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+index 145986695720..3f2806284754 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-orangepi-5-plus.dts
+@@ -189,7 +189,7 @@ &hdptxphy1 {
+ 
+ &hym8563 {
+ 	interrupt-parent = <&gpio0>;
+-	interrupts = <RK_PB0 IRQ_TYPE_LEVEL_LOW>;
++	interrupts = <RK_PC6 IRQ_TYPE_LEVEL_LOW>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&hym8563_int>;
+ };
+@@ -298,7 +298,7 @@ hdmi1_tx_on_h: hdmi1-tx-on-h {
+ 
+ 	hym8563 {
+ 		hym8563_int: hym8563-int {
+-			rockchip,pins = <0 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
++			rockchip,pins = <0 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
+ 	};
+ 
+
+base-commit: 1fc5a74b108fc90951890ec513ac81869f5eaff1
+-- 
+2.43.0
+
