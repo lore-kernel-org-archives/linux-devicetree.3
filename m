@@ -1,144 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189EA3290A5
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 10:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B3D7513541;
+	Tue,  8 Sep 2026 10:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788863967; cv=none; b=mWcbEAtzntodXdXbcDCGX/OBn6yrw640iYMtPyqhVQTIJHZi6R6sx5kdFGEUEdoUNvIqTdXJmP8rGrPxmiEcR11CIvy2iRNuqovl9M/i5UiWD2pFYw6v7FXaZZKbu+PANmreUmjjQih6vgxwEEggQxtNRdt1bvTAwvj+BC+ge58=
+	t=1788864099; cv=none; b=JH7yKSmgKfzr13/MIXIDMHno30E6MNUQvqI24Kz9/6Xhx4zInX2T5i1ZxMNLcwLw8YOaYec9wSz4iMGP1uKrL09FO/Et6qy3lAlFzpbHp6xDTBYx9e83IIewePNAJ/smPhBpQDCl9kQT76zSeyHsvhM9iHNbOv07Rn5j2AWlIsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788863967; c=relaxed/simple;
-	bh=ZkWIEmMvDRrXW/o2cCknn5H4UIvxHIShHqe06WYRBP8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JgtyX3AATZvIf6a3DRZMnV3+eyYyjIrxb9h5gxtZBvuTZrRGEye5+C4fPcG1wDpOxR1gRrCk88KErYC/zqnPb9X6SZGpVAtuXHpch/ZRRFp6YlYyrLcj44/RMbLZoEXKS4NDioNAxL+bq88Gj7MRYL/F173RSPF10aCA8ZE/jpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FSQejPjY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788864099; c=relaxed/simple;
+	bh=Gw7KN0Or/jOkVbOCW9IUJ128+upxz2FvtjLVYKII3dQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Fx5+TpNSrr1FrEMcA0hqv7TpsnKkopC4JPTeLIb4R+HZ6btR+rVejftHCIQ5sy8uiSy4dnFedaPRBQDKhQyIQvCKZ+44cO5Y+yeUxyOZBbGNyaeOKfZZXMqmHr/yiSakxr6T7FdxL8BPDXw2j52q7GGve6y8xf6wWudcsI9P7rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U0TUmpCT; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FSQejPjY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605631F00A3D;
-	Tue,  8 Sep 2026 10:39:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788863965;
-	bh=juJ4DzLhYeERpJWLTP8Alcr7dztbOTBzDRIhbo64Tk8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FSQejPjYrm3krgK95cXnMXshL+F3RaOB3FINbAYIfiFV1+ZdYZmtXKzkRDww43kL4
-	 2gUGn3PDsnNX6i2uttpodkV68SqdKdVYn2L+qH5r68OqTgNpvrLd7x0WfuKlwGhmi4
-	 npT9zOnf64trIgpXDVaCtO/5RPd3Vy6WIyYp0ERG++OZDtdSvoMyKcdPgMQTo8udW0
-	 SlVKtxtjcWS8kyvNaENAr6+WC0c20pOnWWKr8XstkHlC84wsffH379UCHvBGWKoZwY
-	 wA+YyYRT3ibaA2bchdFZ8otqCDyvJ3bvGR3uDwTjgWv1EvMa16dJyTaxFVZ/9ZF7qE
-	 mzJ1FLvmm3sZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] i3c: master: dw: Clamp GETMRL/GETMWL to controller FIFO
- limits
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shubham Patil" <shubhamsanjay.patil@amd.com>
-Cc: Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, linux-i3c@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260908102724.3232660-1-shubhamsanjay.patil@amd.com>
-References: <20260908102724.3232660-1-shubhamsanjay.patil@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 10:39:24 +0000
-Message-Id: <20260908103925.605631F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U0TUmpCT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788864097; x=1820400097;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Gw7KN0Or/jOkVbOCW9IUJ128+upxz2FvtjLVYKII3dQ=;
+  b=U0TUmpCTqZbOiIE9PP6jSyWNxK1gxK1W4CQ65kC+YmU5fJhGkzpkeaai
+   wGb+HTOEprsSaBGM9tM1rr3nBKYeBCETqpmxsbe39Cq7PlCTiV5m+lfgh
+   D3ct2Q1ueMg8uHtzMS0V1e8f5jmUh9PqWYEYujrMMRrCd0IqjXxQ3yJg0
+   Omn+hc9sW54AgRPGAlec1GGZqmpttllZIu78XjexEIJsYhM8eiNGGpSZS
+   2GaHg7JFptdISlttWOsWw+eEQqom+oSKv296nWwsxQeYiTtqnwQUlA4UV
+   TjgKhTFXfGUPlM3Ox6ufMDPouuDEX4UbPsG7Q4OTmgv2Lam40DoRy+zI2
+   g==;
+X-CSE-ConnectionGUID: n1NgR5lCRLeMgLCxrst0aw==
+X-CSE-MsgGUID: JTM8ZwJWTpqUnedUMnlo7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89292662"
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="89292662"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 03:41:37 -0700
+X-CSE-ConnectionGUID: Cn4i2TNtSGiFr8qAHvdhVQ==
+X-CSE-MsgGUID: 0Ze/sG3wQDqoJxVvvBbL4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,268,1779174000"; 
+   d="scan'208";a="270468783"
+Received: from igk-lkp-server01.igk.intel.com (HELO cc074f2a4298) ([10.211.93.152])
+  by orviesa008.jf.intel.com with ESMTP; 08 Sep 2026 03:41:34 -0700
+Received: from kbuild by cc074f2a4298 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x3tGd-000000000f4-2tBu;
+	Tue, 08 Sep 2026 10:41:31 +0000
+Date: Tue, 8 Sep 2026 12:40:32 +0200
+From: kernel test robot <lkp@intel.com>
+To: Alex Elder <elder@riscstar.com>, bhelgaas@google.com, robh@kernel.org,
+	saravanak@kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, herve.codina@bootlin.com,
+	daniel@riscstar.com, mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com, linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/4] PCI: of: introduce of_pci_verify_node()
+Message-ID: <202609081256.UUzbm16V-lkp@intel.com>
+References: <20260904134607.1856121-5-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260904134607.1856121-5-elder@riscstar.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit message contradicts the implementation and inline com=
-ments regarding GET buffer updates on a failed SET command.
+Hi Alex,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on cee9395acd8043be0644b25c34bfa86623f2b935]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Alex-Elder/PCI-of-avoid-allocations-in-of_pci_prop_compatible/20260904-084603
+base:   cee9395acd8043be0644b25c34bfa86623f2b935
+patch link:    https://lore.kernel.org/r/20260904134607.1856121-5-elder%40riscstar.com
+patch subject: [PATCH v4 4/4] PCI: of: introduce of_pci_verify_node()
+config: loongarch-allyesconfig (https://download.01.org/0day-ci/archive/20260908/202609081256.UUzbm16V-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609081256.UUzbm16V-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609081256.UUzbm16V-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   drivers/pci/of_property.c:335:7: error: incompatible pointer to integer conversion initializing 'char' with an expression of type 'char[48]' [-Wint-conversion]
+     335 |         char bufp = buf;
+         |              ^      ~~~
+   drivers/pci/of_property.c:338:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     338 |         ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:341:41: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     341 |         compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
+         |                                                ^ ~~~~
+         |                                                  &
+   drivers/pci/of_property.c:344:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     344 |         ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:347:43: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     347 |         compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
+         |                                                  ^ ~~~~
+         |                                                    &
+   drivers/pci/of_property.c:350:17: error: incompatible integer to pointer conversion passing 'char' to parameter of type 'char *'; take the address with & [-Wint-conversion]
+     350 |         ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
+         |                        ^~~~
+         |                        &
+   include/linux/sprintf.h:13:35: note: passing argument to parameter 'buf' here
+      13 | __printf(3, 4) int snprintf(char *buf, size_t size, const char *fmt, ...);
+         |                                   ^
+   drivers/pci/of_property.c:351:41: error: incompatible integer to pointer conversion assigning to 'const char *' from 'char'; take the address with & [-Wint-conversion]
+     351 |         compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+         |                                                ^ ~~~~
+         |                                                  &
+>> drivers/pci/of_property.c:336:6: warning: unused variable 'i' [-Wunused-variable]
+     336 |         int i, ret;
+         |             ^
+   1 warning and 7 errors generated.
+
+
+vim +/i +336 drivers/pci/of_property.c
+
+407d1a51921e9f Lizhi Hou  2023-08-15  326  
+5a35f85c8e450f Alex Elder 2026-09-04  327  /* The three compatible property strings have max sizes 12+1, 15+1, and 13+1 */
+5a35f85c8e450f Alex Elder 2026-09-04  328  #define PROP_SIZE	16	/* Max size of each compatible string */
+407d1a51921e9f Lizhi Hou  2023-08-15  329  static int of_pci_prop_compatible(struct pci_dev *pdev,
+407d1a51921e9f Lizhi Hou  2023-08-15  330  				  struct of_changeset *ocs,
+407d1a51921e9f Lizhi Hou  2023-08-15  331  				  struct device_node *np)
+407d1a51921e9f Lizhi Hou  2023-08-15  332  {
+407d1a51921e9f Lizhi Hou  2023-08-15  333  	const char *compat_strs[PROP_COMPAT_NUM] = { 0 };
+5a35f85c8e450f Alex Elder 2026-09-04  334  	char buf[PROP_COMPAT_NUM * PROP_SIZE] = { };
+5a35f85c8e450f Alex Elder 2026-09-04  335  	char bufp = buf;
+407d1a51921e9f Lizhi Hou  2023-08-15 @336  	int i, ret;
+407d1a51921e9f Lizhi Hou  2023-08-15  337  
+5a35f85c8e450f Alex Elder 2026-09-04  338  	ret = snprintf(bufp, PROP_SIZE, "pci%x,%x", pdev->vendor, pdev->device);
+5a35f85c8e450f Alex Elder 2026-09-04  339  	if (ret >= PROP_SIZE)
+5a35f85c8e450f Alex Elder 2026-09-04  340  		return -EINVAL;
+5a35f85c8e450f Alex Elder 2026-09-04  341  	compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] = bufp;
+5a35f85c8e450f Alex Elder 2026-09-04  342  	bufp += ret + 1;
+407d1a51921e9f Lizhi Hou  2023-08-15  343  
+5a35f85c8e450f Alex Elder 2026-09-04  344  	ret = snprintf(bufp, PROP_SIZE, "pciclass,%06x", pdev->class);
+5a35f85c8e450f Alex Elder 2026-09-04  345  	if (ret >= PROP_SIZE)
+5a35f85c8e450f Alex Elder 2026-09-04  346  		return -EINVAL;
+5a35f85c8e450f Alex Elder 2026-09-04  347  	compat_strs[PROP_COMPAT_PCICLASS_CCSSPP] = bufp;
+5a35f85c8e450f Alex Elder 2026-09-04  348  	bufp += ret + 1;
+407d1a51921e9f Lizhi Hou  2023-08-15  349  
+5a35f85c8e450f Alex Elder 2026-09-04  350  	ret = snprintf(bufp, PROP_SIZE, "pciclass,%04x", pdev->class >> 8);
+5a35f85c8e450f Alex Elder 2026-09-04  351  	compat_strs[PROP_COMPAT_PCICLASS_CCSS] = bufp;
+5a35f85c8e450f Alex Elder 2026-09-04  352  
+5a35f85c8e450f Alex Elder 2026-09-04  353  	return of_changeset_add_prop_string_array(ocs, np, "compatible",
+5a35f85c8e450f Alex Elder 2026-09-04  354  						  compat_strs, PROP_COMPAT_NUM);
+407d1a51921e9f Lizhi Hou  2023-08-15  355  }
+5a35f85c8e450f Alex Elder 2026-09-04  356  #undef PROP_SIZE
+407d1a51921e9f Lizhi Hou  2023-08-15  357  
+
 --
-
-commit 00d2a5b4dfc14cff243cee94eac37b1733ad5a1d
-Author: Shubham Patil <shubhamsanjay.patil@amd.com>
-
-i3c: master: dw: Clamp GETMRL/GETMWL to controller FIFO limits
-   =20
-The DW master rejects private SDR transfers larger than caps.datafifodepth
-with -EOPNOTSUPP. Targets often report MRL/MWL values larger than that
-FIFO, so the core stores limits the controller cannot meet.
-
-> After a successful GETMRL/GETMWL, issue Direct SETMRL/SETMWL to the
-> same target with lengths capped to the data FIFO (in bytes), then
-> rewrite the GET payload so the core keeps the same values. Only update
-> the GET buffer once SET is acked, so a failed SET does not leave the
-> core and the target disagreeing.
-
-[Severity: Medium]
-Is this commit message accurate? The implementation correctly updates the G=
-ET
-buffer regardless of the SET outcome to protect the controller's FIFO, matc=
-hing
-the inline comments, but this directly violates the claim here that the buf=
-fer
-is only updated if SET is acked.
-
-> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
-3c-master.c
-> index 4563d8761ba0b..51defcb577619 100644
-> --- a/drivers/i3c/master/dw-i3c-master.c
-> +++ b/drivers/i3c/master/dw-i3c-master.c
-[ ... ]
-> @@ -844,6 +850,130 @@ static int dw_i3c_ccc_get(struct dw_i3c_master *mas=
-ter, struct i3c_ccc_cmd *ccc)
-> +/*
-> + * Cap the limits a target reported through GETMRL to what this controll=
-er can
-> + * actually transfer, so the core never asks for a private read the data=
- FIFO
-> + * cannot hold. The optional IBI payload byte is capped to the IBI queue=
- depth
-> + * instead; since that byte is a u8, the IBI cap only ever applies to
-> + * controllers whose IBI queue is smaller than 255 bytes.
-> + *
-> + * Direct SETMRL is optional, so a target may implement GETMRL and NACK =
-the SET.
-> + * Clamp the values handed back to the core either way: a failed SET onl=
-y means
-> + * the target keeps its own larger limit, which is harmless as long as t=
-he core
-> + * stays within ours.
-> + */
-> +static int dw_i3c_master_clamp_mrl(struct dw_i3c_master *master,
-> +				   struct i3c_ccc_cmd *ccc)
-> +{
-[ ... ]
-> +	ret =3D dw_i3c_ccc_set(master, &set_cmd);
-> +	if (ret)
-> +		dev_dbg(&master->base.dev,
-> +			"SETMRL not accepted by target: %d\n", ret);
-> +
-> +	if (clamp_read) {
-> +		mrl->read_len =3D cpu_to_be16(max_fifo_bytes);
-> +		dev_dbg(&master->base.dev,
-> +			"clamped target MRL from %u to %u bytes (FIFO depth limit)\n",
-> +			read_len, max_fifo_bytes);
-> +	}
-
-[Severity: Medium]
-Could this update in dw_i3c_master_clamp_mrl() lead to developer confusion
-regarding core state synchronization? It updates the MRL buffer uncondition=
-ally
-after a potentially failed SET command, contrary to the commit message.
-
-[ ... ]
-> +static int dw_i3c_master_clamp_mwl(struct dw_i3c_master *master,
-> +				   struct i3c_ccc_cmd *ccc)
-> +{
-[ ... ]
-> +	ret =3D dw_i3c_ccc_set(master, &set_cmd);
-> +	if (ret)
-> +		dev_dbg(&master->base.dev,
-> +			"SETMWL not accepted by target: %d\n", ret);
-> +
-> +	mwl->len =3D cpu_to_be16(max_fifo_bytes);
-
-[Severity: Medium]
-Similarly, does this unconditional update in dw_i3c_master_clamp_mwl() need
-clarification in the commit message to avoid confusion about when the GET
-buffer is updated?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908102724.3232=
-660-1-shubhamsanjay.patil@amd.com?part=3D1
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
