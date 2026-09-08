@@ -1,258 +1,173 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF92B34F270
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 08:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C177D378D8E
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 08:02:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788854491; cv=none; b=tOsDa5SU/5KMPKkauYfvYYhDJWikmbfMnHDNWriekGSN2Qxmd2zV5wAxkrzerZoz4SDLAWaRqM7suS2TRB21LP6pn36qUPJe0z1JXEzAN1tSQOtP04vLCwoLZdETea95ZkPRq2PRJwz1E6+ohpmXi6SpDdUXiBrySkAWiumHS8A=
+	t=1788854537; cv=none; b=X3eAyR6hItGgIPruM24D6vLr1qR6wmXdO6NURnNWRzHadPZUgXyU0tx7U4i45X3YL3rF0x+Lr479SQFGKjoHTo36AP/Xl7u8GDZbkjRErty6z2dnMGNXXB58jIbUIIz1z339cxFvZMIE/mCKolGoVVCBmYdTteaOFv+UCVkn0qM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788854491; c=relaxed/simple;
-	bh=z623OSOb6uOq/0jf/wjVHRqGtaT8xKUfonIY60W2fx8=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=M74zBh0kKxMq54S3S43oW6XKYUOulojIXgHe/FGbwz5XC1Txpbdg8qfz7opRx5juui89yvzEt488AG5V0zb4uB0U37Ro1AcF2IdjfuprXXFuXFS1ACOmYjPaOZX73uj6beil35T53I1L8K5Gpp+wXiCa0J8hzVCTLlvsfrAmjCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sAOUHU77; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788854537; c=relaxed/simple;
+	bh=SBgXFYdNYEUPVWubdVb9unTaNhEgBh6xGV7DWi4TnQQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e+yi5w0VkiqeCafSqO++u0GmHCzV5uDOQKsXQclS1OUJ54nPve+YyksYt7y6+z6ADpPkOHj8c5meFB4q85DFNgN1tUZXAhTqpHb4WA66e5hqPcKFhUSccT38I9TNM9z/5Q8MTvNphYKBwcVmM5vZ1TR+w9tQYihDa+at8rjwOA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=arIuAESW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZXI7+1KO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sAOUHU77"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ccfbe062eso41422195e9.3
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 01:01:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="arIuAESW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZXI7+1KO"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6886M1wW2979294
+	for <devicetree@vger.kernel.org>; Tue, 8 Sep 2026 08:02:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	WozNudziLKgBxiX08uWyerO5nuWlCikb2YN/NDCsgqM=; b=arIuAESWcUWwrGI2
+	pjqkoOyJNILtKK2cq6jHIw1appcqCWGaIrfPiN9hHaHs8t++cmtKy3CztvswBNVD
+	t/6GjjGovrE5VKW00dJhb7Di5oG4pOLrSRwr8G6SqWWHV1FuFCfZmy4YkB9ya1+K
+	ocMxPyWERANVyf/04rKh2xg5jPmZiBXA5WaefWlk1WEX21EhXsYBQ3zNmjkhImXz
+	/7lfYFr6uGGQjS4gm+sKQ6MLV5ExzzAtYG7G/n3z9v55eWrDxNxZ/2IDzXUQUCDa
+	O6gJ401SKTb7APWF/bnEwrDYZif3Ao/9o7AHNWUmW0JvheanXxCTexjM44ZEqwbO
+	cpWkFQ==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghuykbt5d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 08:02:14 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-783743bffb9so61249137.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 01:02:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788854488; x=1789459288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xDQnWL+09MRQg3JHhpcIAGJ0gQMTwutt9tXBZmD4GyU=;
-        b=sAOUHU77g8AmRqosJMUKGE6wp56zgS3feonGPeYq1q4FY/1YCdgjZS5gEvJxmufqxJ
-         7yd7AVxh4X8GOrnw7+c8/2YcgrFtCIJ8+cnoNrMFp51upPRyR/Yz6skp1azin1z1JiPP
-         YpbWNAmD2oG7FXXgcFUZrlMwcHOpr7Rtp8Pa+tSG+Jvwd8wrmGiP08Db39A7fAY5/gRA
-         gwTiuRfDK0Eg9UQcfuXD+XubUE6EzgqpHRWjHrywX90YCHsjYAGMRPYKe16RiCWnsUst
-         6F3sY8vcstNKstWitiS7eMYoC9zi/JUFBLqv5Z7j9JbGPhxxiN88aKL/rz/wx8F5FCOu
-         7JvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788854488; x=1789459288;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788854534; x=1789459334; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xDQnWL+09MRQg3JHhpcIAGJ0gQMTwutt9tXBZmD4GyU=;
-        b=WPyKK6dcT/a9G67EtL23bKWnS1P7O+OWv2fDjgfUVMrlI6XmuY3OCV2Cc+lmrWzRnL
-         rnpSV2SS0sFyHiYrpXTCzcyRBWJoZPS36eo3UG4TqVv5WI9wZ7zuAtu3Rw1KbAgWaV0h
-         oNxrqq9h+QuvBDV5gBgB3WFDTYXVf40aR6JXBwJG+YsZgOC4RYrTLct0FXSrUYvZ2kN/
-         hUStBVskmmrddqer5VSMUDjNpcp3zGf2fsf81COQ0EzSHIXOI+7khm7ZiqePP6YzgCAy
-         sGFlkCzhzOY3ks31rTfb02p9+1lpR/1fTbmdqC/VhFPCeu/XW8Nk7Sn0EhXDo5HIk9ru
-         DXSA==
-X-Forwarded-Encrypted: i=1; AKwUvBzlYVJR89nYs+/XFbNGpa9CIS7IufegShvMzgNMrjwdUr3nMVCr7UCUD31FqOKn4rFNsobJLK9e4oQz@vger.kernel.org
-X-Gm-Message-State: AFuF++l0HSrMd6PSoG8nn0yJc0In1Oq/aRkBe9yWzkYYR6agyig8gt+h
-	QeOktZXjY7jvWo5CzrvQXZCP7vbdgi+3L9zhhKhxe+9XYHy9CBK54ZSJ
-X-Gm-Gg: AYBFou3msMY+VnDRnXjRLJm6RGr470gS7/OBJwcnb1MxbRIwQ5DpxGq6a09cJbVPtb0
-	HDgumKFW8/Cq3FZia5Z6P1jXs9DsTLjeUaeY+V1iVtSJ2VmL4nDuhOo7bY699PoI2IC566zHfgS
-	XJAmDv40XHbRE1g+abk8XAkb/pfQpfTMmuzgTc5vQCho+/d3mp+m8RrEHublsuzGK8ZTu6DZk+W
-	4kOmjLg3jnrk3yxuiqaDGKBaYSehBcM4e17tPRGEcRQ87zRkDOJbISnpV2woIdBih+VfxfLOZ5M
-	HvPtOVhq6tXyjqZZUbocR16y4a1VEkABVQQ9+zHI9fPHm4MYBeI3YIKWGSS6Jd1hVGL1/AnXH5k
-	Ub3/KhhGZ6hy8XXTAKrKzM2ZYbJZ1g8HJaApkPaxlCjL7ZK1jNZproYiQWNqb3k/xK0HoaCwhe0
-	OARoozcnd7PPiEvmY4QGgS3saAl15cTdQiZPyz7o6lDzWMlPQQFvHJNg00xjzzC+nrsMZBtRS/T
-	VI+T9trKCMZ3KciY8mNctraWYha3QZTBYrkvn1Z5G8ecbebtwrlktvNP5TnoxfeLbEf6q3dhXR0
-	5lMH4/kHfOmpowR/H7iKVdLw0IYQ8jwV+Y37Q2dTNpNmvUZiwOeCVy51QpC/xoOqSqC8Y8QZfEr
-	CW3/UOa6TyMzLPrPvha4UV7r6F+TrBldWqCUATrqMZphAEI5QFHVLvj6Kr9PtNZDe7E/rNb7k2D
-	xEqtb4
-X-Received: by 2002:a05:600c:3b07:b0:49c:fa20:cbfb with SMTP id 5b1f17b1804b1-49cfa20cd04mr250384235e9.18.1788854487057;
-        Tue, 08 Sep 2026 01:01:27 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf75ce49esm641964095e9.1.2026.09.08.01.01.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 01:01:26 -0700 (PDT)
-Date: Tue, 8 Sep 2026 10:01:23 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Shi Hao <i.shihao.999@gmail.com>, "Jose A.
- Perez de Azpillaga" <azpijr@gmail.com>
-Subject: Re: [PATCH v2 2/2] iio: light: add AS7343 multi-spectral sensor
- driver
-Message-ID: <20260908100123.00005af7@gmail.com>
-In-Reply-To: <20260907210042.32552-3-marcus.yu.56@gmail.com>
-References: <20260907210042.32552-1-marcus.yu.56@gmail.com>
-	<20260907210042.32552-3-marcus.yu.56@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=WozNudziLKgBxiX08uWyerO5nuWlCikb2YN/NDCsgqM=;
+        b=ZXI7+1KOnex1vLq3oiTv+pwnS1arKhYcdBlEO9ktZHE6iIo6tSvOMFLZeT8feAMV7Q
+         0vHutoax6xqfJQ6zYPJNoHe5u0z73dpc5xuqLwqe3gnhA5PLoAcnBZbbCPlstNpuVuNG
+         2x6nuk2CMwElwJ2LNcvnJKrWg3mBzorMexyOdP8UWYNqmU1zobZyOxDthjR2ZlPlmWFt
+         yC8SUShCqI5IEbg49qKmPa+7/H11ukYUWkrHGd0rDTqtR+fjUnE1DGiN1Cet8MkvRHjV
+         0r3MGQuX5OftvJfyQtBHg+kCWKc9bDn+t+Z6Cpcc699pP71BqpI1rhepjSSBTyuoub36
+         lPzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788854534; x=1789459334;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WozNudziLKgBxiX08uWyerO5nuWlCikb2YN/NDCsgqM=;
+        b=CCZaJkS3AaIBiLjIhqHcFPfOLA0RiaHKg5V4X/O+YU0Gi6l8H9wd7jFyEb7GmQLZN+
+         fNElDY6+C3XKzmlDbSJUO9NjY33mOiQuZM17618OSPzYqGeCVJndRLwxPnglgQlPLlZs
+         lrBV2EeuxhG9TulC9AEtGNIo2DDlGd81D1gGjMn0AV8lyaRU+WXAHyddEoVgGUIUm4V+
+         Y3Kn5QA+EQ0f4XIDkSZOvph5P1jbENeHh86fgnpxkGoN7MM7M1dy29gqjOnGZSseECxg
+         HRAMTrdWQPqFkCAfHuuUff0HHSQYAHH1f/Ix4/CDMmivLgo8TNzwk4C9se3019PjOe4N
+         3ePQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwC8VzJimtEhgUhFKEYcu4tRpNsq6Mj+P/6LLCcoiL9NOy2CSM1cJIXeYJYYY9k+oazybeBT1JJN3c9@vger.kernel.org
+X-Gm-Message-State: AFuF++lmEjj2slmmQeDj9Jy1SsgpAzS2hDxAqg3l0JvYWq9JahXhXn2/
+	3uMPNp5Semov5HhtVPdceWu6mfDn3FtvVfjbHOndAbgCsQYzDx4OFd+QKm15fzS6MFhT9sEXLRZ
+	f9WqOHcDz6pFOQRDlkSUCUrb9N0/v3S1K26j5cWB3yJvOoo+07t0K1exz5jtyC0P5
+X-Gm-Gg: AYBFou0pxPoLsdQRmmIFdIoqBr21N9XYijQB7zPHDk2cgsaEVaY7wn3VnhQBwAN0eNM
+	0vK+XVNxm+5BoHA0Jzb06r7vUrM/iZem56AqNybTt4gOVewTv2eG9mgXKrkzrzmz6+E9x1t6vmE
+	aY9QYjzWm87ZXbNSAv+8abedGj6G/ngaSk4eKS//4Xu/5/mL6pF2t0TojmfvK82X8wMHcvCsas+
+	vu8XDgidNqizvZsyhmhpXdx0c8tcBYNds4e2P3uUVznNJKo0bwgt6u3vQahXkSc2oJWQVxCxr4Y
+	1N+v8a148xKl5SGG41zRc2RUYb+I0zjnupA1c5WddYTysXXWiwX3drEalMejcsZwbzRAEb4fiPO
+	j0NmJsfRgTrr8LXHYkJ/Tjg==
+X-Received: by 2002:a05:6102:b03:b0:781:9922:78f3 with SMTP id ada2fe7eead31-78a60e5b62amr2664028137.2.1788854533909;
+        Tue, 08 Sep 2026 01:02:13 -0700 (PDT)
+X-Received: by 2002:a05:6102:b03:b0:781:9922:78f3 with SMTP id ada2fe7eead31-78a60e5b62amr2664022137.2.1788854533373;
+        Tue, 08 Sep 2026 01:02:13 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d559364sm565451966b.35.2026.09.08.01.02.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 08 Sep 2026 01:02:12 -0700 (PDT)
+Message-ID: <06bb2b19-bdb0-4dcc-a6e2-6805edd9084e@oss.qualcomm.com>
+Date: Tue, 8 Sep 2026 10:02:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/7] drm/msm/hdmi_phy: Cleanup after
+ msm_hdmi_phy_resource_enable() failure
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Archit Taneja <architt@codeaurora.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, stable@vger.kernel.org
+References: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-0-dcf8956878ca@oss.qualcomm.com>
+ <20260908-drm-msm-hdmi-fixes-before-eliza-v3-1-dcf8956878ca@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260908-drm-msm-hdmi-fixes-before-eliza-v3-1-dcf8956878ca@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfX4/uQyeoWncu0
+ zYdVxvEOEpImkTd5ltl4krZsuAcQ+AhTtsMkC3aDRqdsXBDLJXYbFlmO8DNJNjqIk7LEovqeo9y
+ 93+EOEkPpsEeeKqzlDDumxtEzIuo7qE=
+X-Proofpoint-GUID: tCMFHoG-2A6OCqXnzovjO4gRcN5Y6Fiq
+X-Authority-Analysis: v=2.4 cv=ObSoyBTY c=1 sm=1 tr=0 ts=6a9fc106 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=dCp4QOuT8fr3gmi_UlEA:9 a=QEXdDO2ut3YA:10
+ a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-ORIG-GUID: tCMFHoG-2A6OCqXnzovjO4gRcN5Y6Fiq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA4MDA4MiBTYWx0ZWRfXyDq48pYgWKYR
+ fEFhS+kkuoMkVqlss2fNv+dY13PVy1vapbRzZRx8qJxfQnU0kvPx4x4byLjvV1B/dugDo2+BjkA
+ ZBOiKu76uGzfKKz4KwcnzijMV3SGrgzzjKtWbKEui04wgtTWpblmRmrNnuOzJzFGCew0TA8/wGc
+ JyCsmRM8o2+ijnnUGScPEyq6gnqyCFKBXdafnPzuuXyD9CmQhZc7TQ9H2bh2AecH0SCdB8MUqEU
+ vylYXJFy5+lOBDavmxxn1gTp6HtF7OOa9B/U4Y9mq4vcg4PeKkxbaF8KHDHP8JV238YtQNzlKv3
+ 2WvW8BCU+KulreSSIwlvWvXSIDEneadvglKKwKdH/kXXwnVZR/0YSTVCgHQO09RUZLUtT4a2MxJ
+ PIcEs5/HXINoe3ibGVgGU4dgNWUCvHwgEmTf/cv4udvXyoeNU8cpknHTWEFkODSnDwV/B5fq1Id
+ DxH09gySQ9uxCzp6Xmg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_01,2026-09-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 phishscore=0
+ priorityscore=1501 malwarescore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609080082
 
-Hi Chang,
+On 9/8/26 9:10 AM, Krzysztof Kozlowski wrote:
+> If msm_hdmi_phy_resource_enable() fails, e.g. when enabling regulators,
+> it should reverse the state of things already changed.
+> msm_hdmi_phy_resource_enable() is used also in probe path, thus such
+> failure, which could be simple deferred probe, would leave these
+> resources permanently enabled for the rest of the runtime.
+> 
+> Cc: <stable@vger.kernel.org>
+> Fixes: 15b4a4523859 ("drm/msm/hdmi: Create a separate HDMI PHY driver")
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/hdmi/hdmi_phy.c | 16 ++++++++++++++--
+>  1 file changed, 14 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> index eb1088755cb3..15e37596bdb1 100644
+> --- a/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> +++ b/drivers/gpu/drm/msm/hdmi/hdmi_phy.c
+> @@ -67,16 +67,28 @@ int msm_hdmi_phy_resource_enable(struct hdmi_phy *phy)
+>  	ret = regulator_bulk_enable(cfg->num_regs, phy->regs);
+>  	if (ret) {
+>  		DRM_DEV_ERROR(dev, "failed to enable regulators: (%d)\n", ret);
+> -		return ret;
+> +		goto err_pm_put;
 
-Please check out Sashiko's review, there are some PM runtime things that
-should be resolved + some comments inline.
+If you're a fan, there's PM_RUNTIME_ACQUIRE_xxx in cleanup.h
 
-https://sashiko.dev/#/patchset/20260907210042.32552-1-marcus.yu.56%40gmail.com
-
-Thanks!
-
-Josh
-
-On Mon,  7 Sep 2026 14:00:42 -0700
-Chang Yu <marcus.yu.56@gmail.com> wrote:
-
-...
-
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/dev_printk.h>
-> +#include <linux/err.h>
-> +#include <linux/i2c.h>
-> +#include <linux/module.h>
-> +#include <linux/pm.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/sysfs.h>
-
-+ bits.h, types.h, <asm/byteorder.h> (asm headers go separately, as IIO headers).
-
-> +
-> +#include <linux/iio/iio.h>
-> +
-
-...
-
-> +struct as7343_data {
-> +	struct regmap *regmap;
-> +};
-> +
-> +static int as7343_read_raw(struct iio_dev *indio_dev,
-> +			   struct iio_chan_spec const *chan, int *val,
-> +			   int *val2, long mask)
-> +{
-> +	struct as7343_data *data = iio_priv(indio_dev);
-> +	int ret;
-> +	unsigned int unused;
-> +	u16 result;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_RAW: {
-
-The device should resume here, otherwise you'll be reading while suspended.
-
-> +		/*
-> +		 * Reading ASTATUS latches all data registers to this read.
-> +		 * We don't care about the returned saturation/gain status for
-> +		 * now.
-> +		 */
-
-Sashiko points out that a mutex here would come in handy. If you're going to add
-a mutex, use the guard(mutex) macro for automatic unlocking on scope exit.
-
-> +		ret = regmap_read(data->regmap, AS7343_ASTATUS, &unused);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret = regmap_bulk_read(data->regmap, chan->address, &result, 2);
-> +		if (ret)
-> +			return ret;
-> +
-> +		*val = le16_to_cpu(result);
-> +		return IIO_VAL_INT;
-> +	}
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +
-> +static const char *as7343_channel_label(struct iio_chan_spec const *chan)
-> +{
-> +	switch (chan->channel) {
-> +	case AS7343_CHAN_IDX_FZ:
-> +		return "FZ";
-> +	case AS7343_CHAN_IDX_FY:
-> +		return "FY";
-> +	case AS7343_CHAN_IDX_FXL:
-> +		return "FXL";
-> +	case AS7343_CHAN_IDX_NIR:
-> +		return "NIR";
-> +	case AS7343_CHAN_IDX_F2:
-> +		return "F2";
-> +	case AS7343_CHAN_IDX_F3:
-> +		return "F3";
-> +	case AS7343_CHAN_IDX_F4:
-> +		return "F4";
-> +	case AS7343_CHAN_IDX_F6:
-> +		return "F6";
-> +	case AS7343_CHAN_IDX_F1:
-> +		return "F1";
-> +	case AS7343_CHAN_IDX_F7:
-> +		return "F7";
-> +	case AS7343_CHAN_IDX_F8:
-> +		return "F8";
-> +	case AS7343_CHAN_IDX_F5:
-> +		return "F5";
-> +	default:
-> +		return NULL;
-> +	}
-> +}
-> +
-> +static int as7343_read_label(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan, char *label)
-> +{
-> +	const char *name;
-> +
-> +	name = as7343_channel_label(chan);
-> +	if (!name)
-> +		return -EINVAL;
-
-A blank line here would be better.
-
-> +	return sysfs_emit(label, "%s\n", name);
-> +}
-> +
-> +static const struct iio_info as7343_info = {
-> +	.read_raw = as7343_read_raw,
-> +	.read_label = as7343_read_label,
-> +};
-> +
-> +static const struct regmap_config as7343_regmap_config = {
-> +	.name = "as7343",
-> +	.reg_bits = 8,
-> +	.val_bits = 8,
-> +	.max_register = AS7343_MAX,
-> +	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-> +	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-> +	.cache_type = REGCACHE_NONE,
-> +};
-> +
-> +static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-> +{
-> +	unsigned int val;
-> +	u16 step;
-
-__le16 instead of u16.
-
-> +	int ret;
-> +
-> +	/* Power on */
-> +	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_PON);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Need to set REG_BANK to 1 before we can access ID */
-> +	ret = regmap_set_bits(data->regmap, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = regmap_read(data->regmap, AS7343_ID, &val);
-
-You should check the value of ret as well in case of a regmap failure.
-
--- 
-Kind regards,
-Joshua Crofts
+Konrad
