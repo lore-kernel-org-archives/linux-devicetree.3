@@ -1,185 +1,139 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324675AEC66
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 19:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72EA24349A8
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 19:22:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788895272; cv=none; b=P18QB+f0/1JABzh1uqvLkKIA6pocLPrL+6LZ5Fr4XpY78/0TEKoCwqy46C51r9zNrRtgugh6F0MAOPLDcxkQK2ns9szO1mi1eWvgC0Uy6MedS2rMpsv9t3Oamz7AvRjfYzKHFQ+uo2KOVDGRmXhGTXrXXQDzqFlVCoQdU6lwNXs=
+	t=1788895364; cv=none; b=Kpecrmn4YBnQQ+6w0ofqlItLy0ue1zaGqh7gYGziHDV6VkNnb+xKTNHt1bEr6scV8lNF0UeWkg+MdeneiK0ufwuMmpV6tHik/PtpLH65UaW/GSEo6tUU8rFR6sqlh5VjGIinsgXDKrKUDsPgG+GtRYzAxsbB5CwiOG6KwyMcm84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788895272; c=relaxed/simple;
-	bh=25uBJoo4JZ26ZIYB2cQwpWUhC8xBD8wl805UIP6bEjI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AscFTkOOQg+bI2uKw1BnzWAGmzmPE6y8XdiGTT6MpkBWnfUj2iSwwcV/Tyy0CfHHbIw0GsO7BH5GabUiGjhwOGVnH6x/AhMsUUxpfenCBLYoN9xfmQIbW/DoXgeNTvjPNw0Ic5LteomDVNNPYAS4eDjJ3igkH0qdZOfvUemsy9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XXIr8EPn; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1788895364; c=relaxed/simple;
+	bh=BL1RUYoOl+2DCnnljwHrTpWKc1vt3ozShPXUSpVHg8g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KE4W95nJ9swtp3kACUtbvU4zgEgfzs989Mdl+FsVFrU6eRYPiY+TiZEvsTrYkA8LaXsS8MV0ij8YgkdbNEHaZ8wh+0ksX440jIEiVr03idvx1nc4mwOqUBzTrVMO6nqZXt6J45cJp2xiFeNBZUw6T9scdIJmhIdnoh/vDdhDot0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IldMupf/; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XXIr8EPn"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48584dc164fso4652131f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 12:21:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IldMupf/"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so40582455e9.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 12:22:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788895263; x=1789500063; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JUDx5mN4Fxz6V+jBn6+jDa8+QAdVAQRdNH1HIZiM03M=;
-        b=XXIr8EPnJeeqMDq70m2wC6zQ3Huiwp6UKDqQt17f7yRLqTt5SJiN109hL1JxP0HIcj
-         Ck17v6VbtRwN3D9j7Tf3wmsGo569p8a0t+zzfHaZqD6RwSmnLx+mU4peczRFvKckiIe7
-         beqcPPJTMpNcNR1OPchsFD1ahnHrYi0oO9CIZIUT8Ce4g/2qBMYhT/ZpdTComMn6MLWj
-         WXA4JaJQ9pZj3k9YzPCBgXBEKXDeXFohiZI7gRPVG00snOOXWyMTR2PwVcoQ8WVJ2oCL
-         1R3QTUWa0+udDu9FkNL0IVIWMybvbTSDAJpg000zdRQNWCXczfPNBipGP17DiRz9HjIg
-         JT6g==
+        d=gmail.com; s=20251104; t=1788895358; x=1789500158; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GVs4+8gm56Wnu6exUObCNgkOQEYDE8t6OW3Oqkq6qd8=;
+        b=IldMupf/CXO1fJhcChwVffZ26pAdYEuJJo7n3NchFgpe6wbStMGfI4utvCihSq3+Mx
+         QfakSVaL/MJcsyxLgiVpLhVZFiyd8ScB3t8IUALrvbnZWyWN17avGp9xQ9S7P4++LXdU
+         LUlfBZMoh7BO7j3i9dt1eIczOoUyh6xGljMyldbvy7aZbl9McjsggHDOzBBQdaTDXM7h
+         T05dJ6nI49n7G0r3JT59zHl54FDUVXNFF31hTE4azXp5dODZo1yxFt83JcwMmjJUyP59
+         wMfR0iaSQSzgKmfqD4f+FZODJ2rym9Fks8lUDFHOufvKk5rwLwpiVRfU7SdRzD88aQWa
+         rObQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788895263; x=1789500063;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JUDx5mN4Fxz6V+jBn6+jDa8+QAdVAQRdNH1HIZiM03M=;
-        b=m6DiFWbCAzpKWnsvVMWJyj0acvklr5IPFRsACg7vJpUn+MtNPFHlBODXesWvFbakSb
-         ajJtai6kaazThdC6BP6KNQ4lCoTeofOctW0yFa9hF0yuGsFyeaYZww6JCMNDa/DSJNXz
-         6zbDHTsS7RQhv+wnW5iVTxU7ur+LJ2/ClbDs0/K8zwKFRuQ+tOkfImGX4s3MXS7YzFMt
-         G3mJI2TFczA0CMq2e/rtI5sSdxx/9FZZlyixtiE+mOAGjZuusdqJFhOvyZRuKQ96RY1e
-         gTYdZP+u2FxaZY74NsKtQEpNjruNlovUa4EujYbZKt45Rh08ZswZzHFUHWbnv2MO2hm3
-         fYPA==
-X-Forwarded-Encrypted: i=1; AKwUvBxMRmsAbMwe0dP8wQXWJ5rJBUpEVsFwYj6qDGvLamKhsHxKJzgKSJumy5MxW6Vr1hiHLc4LUn+cEY9z@vger.kernel.org
-X-Gm-Message-State: AFuF++kLXDxdoj5KThV/tfUSO/+4BsWVfnQgVLgJDGEFHcHW5xLGcV1X
-	dyr96v5L4X40umg2zG16PT1C70GvXW2lPD2f3M1vt5rpxBE2bK6d2/c8
-X-Gm-Gg: AYBFou2Eo6x1gSmzY2mJ0mewqG1KH0Icj4qLm4VbWsTb104GftECLicmnQY6XFpSeh2
-	gkhFEfXIXmxTWxnyf+rB8yi1k1NesugrqIar5P27YMiyIRClE0ip7dTS3IFU5F1QkLDjbP9tPF8
-	xLqz7U7f/QqAZJuxVjbibqYaenzWwoRvYAmHUWzhBzG4wNuKdjKxevs8Li4vdnDHGvCnZOHCqoK
-	LxBYF/bFyZDN1GmQTfRLwpG9A6QVBepP1ov3XaVT4ckza+sRBn7ZgkXEnO9h9+4n+o8E5gteh6P
-	1M6G0KI/gpkZ0vMum2nZox2+O6qcfwtEyz53LfQ2k+B/8KMGDrE/QFbOZTgnSGaKTyczTy3iUwu
-	YzUxvs+HJq4AvBD7NIHHa0/hPqedlrSPLEP9mLPDsU2/gmrojz2dk6pKbUqdJfE9DFETpJ5Mtrb
-	D+S8od6B2/y4D37k45H1qTyfTm0ODTCRn9ppuX1se+6p+aKHrnevPvOWFnlaEr++az8ZFFCC6O/
-	EgbJZ8B4ivGXQ2Yf5gLnGfVBq6oYkuBoa05srCXCg==
-X-Received: by 2002:a05:600c:3e06:b0:49d:99:1d98 with SMTP id 5b1f17b1804b1-49d00991db1mr243065025e9.9.1788895262515;
-        Tue, 08 Sep 2026 12:21:02 -0700 (PDT)
-Received: from flaviu-Aspire-E5-572G.. ([93.122.248.115])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cf770fcf5sm407885845e9.6.2026.09.08.12.21.00
+        d=1e100.net; s=20251104; t=1788895358; x=1789500158;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GVs4+8gm56Wnu6exUObCNgkOQEYDE8t6OW3Oqkq6qd8=;
+        b=IBqU6xWc3GAmGhSffpivEn5eCjU5dhhJ6fyB6GeVWas8rERrvQ/Qj8l8zIPOjXgm8d
+         NKrbHBaI6fTmukw7lbLlyxIo3F2HvGCpZnZG9gKKp0hIQyQYzcDk5zc+EQfVKvlnT+Hd
+         yLR79AHsPI5E7ObNlCTSLGf09BPT+tHVdjRNgzoxpCmSFi4J1DlrC/gg8uOE5AMby9pg
+         GJIbGMxL2LPCEOEplML1iUq0hnzDfAPQn3CzHvigsQzNJejD7c94PQ1BL8BT6FjYws8V
+         CFSEXFSgXVeAUo54Uu+rqUGmpDCA/SVsjsa5sji2mR0BkSkSm+xNvnl+AHUBJ7C94XTx
+         PgsA==
+X-Forwarded-Encrypted: i=1; AKwUvBwUYQNhG4lio9A+2bp5CCiNkHJqeu9gg/v7mIxLaOqa54dSqBwNgA7r6d1kjyFluskSZiiNme85XWCf@vger.kernel.org
+X-Gm-Message-State: AFuF++lnPxvGjXpAtj5YVf4nTnL9ItP/NsXSYTMkLR8LrYDyJYuLhnUF
+	LbIfAQLqs1LHnOzW2WUI1YAGbLAvrPjaocrs7Y8ZWK9SdfAEZUFqUHa+
+X-Gm-Gg: AYBFou3g8OxKtpo6cHPut532tuE9DlilgDi9HSBAMn5Wwn4w/4fPUK8cdSbSkjq55R/
+	slRFHFJ03jXUDNYPiep4dnAXtjiMFmSjs564wNYoZ8x15XWMred8/Mwz/GK8avtcPF5zJ6VmxVO
+	x+VaoAFq5Oy6RzY7P7C0LHDYc5tNFc6xzsHbzhjb9YF3nOaIcMVz4pHR8Yx7Pl7hK0apUxOwy6Q
+	BR6ZMBh3C/sZRwauMqlNs1T2EAXwSeJm3bpG1/qk2LOwZrCtms3TmcRB9EGrE6EjhpTRX4xPMgs
+	qcG5i330tyTNm0siusg4BkfcoLtlmgP+sjZjVdlAx5aGYsw4atASsVBhM8EuvYiPeZro5fCYX/J
+	9kLuxwLepoTioVwhLC/jek5ZCx3a6He+00izYn9Ve43Khlx3L6Mt1mDcfj9tJu+/P7NcBWyEtLb
+	qEdajV0s0YXZ8JEXFrShyQqaWtKPKS/dgneKXI3Lk5GI8R3/ZzHoJxSWIxvqdPfJIdKVRLaaj5J
+	I1e/3aDQvls1WG758tytj5ZugXgD6QNVjn0AN0+eNkYC4UetUyUPmkj6zYotQTesYzVTR+lNSUX
+	nzzCCZNz3vAGyDv6g15x2eotYFgeIw==
+X-Received: by 2002:a05:600c:3ba3:b0:49d:e79:612f with SMTP id 5b1f17b1804b1-49d0e79635amr157041045e9.26.1788895358151;
+        Tue, 08 Sep 2026 12:22:38 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl (dynamic-095-117-170-066.95.117.pool.telefonica.de. [95.117.170.66])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485881353e8sm38080321f8f.1.2026.09.08.12.21.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 12:21:01 -0700 (PDT)
-From: Flaviu Nistor <flaviu.nistor@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Antoniu Miclaus <antoniu.miclaus@analog.com>
-Cc: Flaviu Nistor <flaviu.nistor@gmail.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: [PATCH v4 2/2] iio: adc: ti-ads1015: Add support for label
-Date: Tue,  8 Sep 2026 22:20:36 +0300
-Message-ID: <20260908192036.8503-3-flaviu.nistor@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260908192036.8503-1-flaviu.nistor@gmail.com>
-References: <20260908192036.8503-1-flaviu.nistor@gmail.com>
+        Tue, 08 Sep 2026 12:22:37 -0700 (PDT)
+Date: Tue, 8 Sep 2026 21:21:22 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, 
+	Russell King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, 
+	Stefan Agner <stefan@agner.ch>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, 
+	Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+	Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+	Nicolas Ferre <nicolas.ferre@microchip.com>, Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+	Andrew Lunn <andrew@lunn.ch>, Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore <enelsonmoore@gmail.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Alexander Sverdlin <alexander.sverdlin@siemens.com>, 
+	Shawn Guo <shawnguo@kernel.org>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, Paul Walmsley <paul@pwsan.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Kyungmin Park <kyungmin.park@samsung.com>, 
+	Helge Deller <deller@gmx.de>, Tero Kristo <kristo@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, linux-media@vger.kernel.org, linux-mtd@lists.infradead.org, 
+	linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-clk@vger.kernel.org
+Subject: Re: [PATCH 06/13] ARM: omap2: remove omap24xx support
+Message-ID: <aqBXOemS4boakDGt@gmail.com>
+References: <20260908152808.3928630-1-arnd@kernel.org>
+ <20260908152808.3928630-7-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260908152808.3928630-7-arnd@kernel.org>
 
-Add support for label sysfs attribute similar to other ADC devices. This is
-particularly useful because the label can match the schematic signal name,
-identifying channel voltages easier if label is defined via device tree.
+On Tue, Sep 08, 2026 at 05:27:56PM +0100, Arnd Bergmann wrote:
+>  86 files changed, 60 insertions(+), 10696 deletions(-)
 
-Signed-off-by: Flaviu Nistor <flaviu.nistor@gmail.com>
----
- drivers/iio/adc/ti-ads1015.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Note that Sashiko skipped reviewing this patch, because it exceeded
+its current 10000 line limit.
 
-diff --git a/drivers/iio/adc/ti-ads1015.c b/drivers/iio/adc/ti-ads1015.c
-index 0fbfa4e499aa..0f9244107c6d 100644
---- a/drivers/iio/adc/ti-ads1015.c
-+++ b/drivers/iio/adc/ti-ads1015.c
-@@ -233,6 +233,7 @@ static const struct iio_event_spec ads1015_events[] = {
- struct ads1015_channel_data {
- 	unsigned int pga;
- 	unsigned int data_rate;
-+	const char *label;
- };
- 
- struct ads1015_thresh_data {
-@@ -586,6 +587,15 @@ static int ads1015_read_raw(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int ads1015_read_label(struct iio_dev *indio_dev,
-+			      struct iio_chan_spec const *chan, char *label)
-+{
-+	struct ads1015_data *data = iio_priv(indio_dev);
-+
-+	return sysfs_emit(label, "%s\n",
-+			  data->channel_data[chan->address].label);
-+}
-+
- static int ads1015_write_raw(struct iio_dev *indio_dev,
- 			     struct iio_chan_spec const *chan, int val,
- 			     int val2, long mask)
-@@ -843,6 +853,7 @@ static const struct iio_buffer_setup_ops ads1015_buffer_setup_ops = {
- static const struct iio_info ads1015_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- 	.read_event_value = ads1015_read_event,
- 	.write_event_value = ads1015_write_event,
-@@ -853,6 +864,7 @@ static const struct iio_info ads1015_info = {
- static const struct iio_info tla2024_info = {
- 	.read_avail	= ads1015_read_avail,
- 	.read_raw	= ads1015_read_raw,
-+	.read_label	= ads1015_read_label,
- 	.write_raw	= ads1015_write_raw,
- };
- 
-@@ -861,7 +873,9 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 	struct iio_dev *indio_dev = i2c_get_clientdata(client);
- 	struct ads1015_data *data = iio_priv(indio_dev);
- 	struct device *dev = &client->dev;
-+	const char *label;
- 	int i = -1;
-+	int ret;
- 
- 	device_for_each_child_node_scoped(dev, node) {
- 		u32 pval;
-@@ -897,6 +911,15 @@ static int ads1015_client_get_channels_config(struct i2c_client *client)
- 			}
- 		}
- 
-+		if (fwnode_property_present(node, "label")) {
-+			ret = fwnode_property_read_string(node, "label", &label);
-+			if (ret) {
-+				dev_err(dev, "invalid label on %pfw\n", node);
-+				return ret;
-+			}
-+			data->channel_data[channel].label = label;
-+		}
-+
- 		data->channel_data[channel].pga = pga;
- 		data->channel_data[channel].data_rate = data_rate;
- 
-@@ -985,6 +1008,13 @@ static int ads1015_probe(struct i2c_client *client)
- 	/* we need to keep this ABI the same as used by hwmon ADS1015 driver */
- 	ads1015_get_channels_config(client);
- 
-+	/* Channels without a label property fall back to the datasheet name */
-+	for (i = 0; i < ADS1015_CHANNELS; i++) {
-+		if (!data->channel_data[i].label)
-+			data->channel_data[i].label =
-+				indio_dev->channels[i].datasheet_name;
-+	}
-+
- 	data->regmap = devm_regmap_init_i2c(client, chip->has_comparator ?
- 					    &ads1015_regmap_config :
- 					    &tla2024_regmap_config);
--- 
-2.34.1
+> -CONFIG_ARCH_MULTI_V6=y
+>  CONFIG_OMAP_RESET_CLOCKS=y
+> -CONFIG_ARCH_OMAP2=y
 
+With CONFIG_ARCH_MULTI_V6 gone, CONFIG_ARM_ERRATA_411920=y a few lines
+down can be deleted (savedefconfig drops it)
+
+> diff --git a/arch/arm/mach-omap2/gpmc.h b/arch/arm/mach-omap2/gpmc.h
+> deleted file mode 100644
+
+perl scripts/get_maintainer.pl --self-test=patterns now warns:
+  ./MAINTAINERS:19896: warning: no file matches	F:	arch/arm/mach-omap2/*gpmc*
+
+> @@ -560,13 +533,11 @@ void __init pdata_quirks_init(const struct of_device_id *omap_dt_match_table)
+>  	 * We still need this for omap2420 and omap3 PM to work, others are
+
+Stale comment about omap2420
+
+> diff --git a/arch/arm/mach-omap2/voltagedomains2xxx_data.c b/arch/arm/mach-omap2/voltagedomains2xxx_data.c
+> deleted file mode 100644
+> [...]
+> -void __init omap2xxx_voltagedomains_init(void)
+
+The declaration for this is still in voltage.h.
+
+Thanks,
+Karl
