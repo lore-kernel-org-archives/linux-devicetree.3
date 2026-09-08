@@ -1,151 +1,162 @@
-Received: from flow-b2-smtp.messagingengine.com (flow-b2-smtp.messagingengine.com [202.12.124.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E834349AE;
-	Tue,  8 Sep 2026 21:33:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190D5498909
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 21:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788903195; cv=none; b=uvpnTbVyoaBnfUut65eBMCyhzz9XUXwNq32VMuxsFq6VU3/ngdIxjlIFSCkgRTGry9DlhpEXyFaMAeDIH/gj+gQyIYkScbvf7S2Tc/3s0ti5rlLky7H6LnXqpFOnJgTWgPi49JxPD7TxqxehMmbdUoe/WqIxeJc/JMpJSNL0t0I=
+	t=1788903306; cv=none; b=NrWsax4//LKEKyuv6KMeqbzTAjsZowD9xtDxx4VKlQkWCd0x2hOUMq1JNGFsp7H1i9fCvBvFKzPRYG+P1GrGZEKhPfNDFpyf00ViaJcBU/0vOPkzngBe3HM2Vza3v5eGmmOew6JYzQ8GBz4XmIM87zDpSheuThqe8w65Y8SCE7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788903195; c=relaxed/simple;
-	bh=3/JQSzgf9YHWg5l/5GHjUZVyubUuG4QtLXw4g385ex8=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=GNHiu9UAYVuGzvOcgFlocccpWtUF6tNFFSPNca53KT3RcpzaNHdxQ5zFie1UFnpuJN056Qwpu7b7iOx424c2NUFQ0QFilTTZ4ZAipQOnvpIkulv7KMI6IrB0Z88jhK2Ko72Mz/GQ8LLMEO/fcwXIj9zCJ75nAuSsG+HuZGVxkFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=R6DcFHtf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=K5fiYbiH; arc=none smtp.client-ip=202.12.124.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1788903306; c=relaxed/simple;
+	bh=SU1R4QKOuMLYjs4xMtC1UDxdDQxBPwW6jbYItMCVIlU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g/ruvJ2Ru5X7/pGxQRkwuvChtOHgQvNavqpfqZ/QmXzf2SqxFQcvSaXv8OzGt7ESYVstd8CFaC8Cp4p7ANcXZBaA7n1a48slghu5UQ+n7iLAQTDWOx8jl1plG1gDhC+tkS2aDgoVqdCvcvRCU7uNjab9olb/j0MLq1dNXLjBQuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=N9SmWOYQ; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="R6DcFHtf";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="K5fiYbiH"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailflow.stl.internal (Postfix) with ESMTP id 3AFDE1300C19;
-	Tue,  8 Sep 2026 17:33:08 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 17:33:13 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788903187;
-	 x=1788910387; bh=DHeVyoRZa5bzvMZFXHX2pnTEuWP22KkhzmvZL93CYjU=; b=
-	R6DcFHtfC8d9m7oGqZtrAVIjNrw7ZJ25HduhAgNa6wWLEiRSfRAvCMkQcb+TnEmn
-	6RJn6yudamIek6tVOsNs8K5mnktHqRUtKIUa5XR05LpYF7EpGuf2o9U298pfd1pZ
-	R6cubNoL/UpkP9S+iLT3kWxiMExp++mFHsfgumbGEOWfXQaFyYI+Ti6JJdMDvV59
-	yh0GXXHzihCLFQ7cjG5Qa6n0S2zJRXNgtGookn+YQBTpBoaWNr1rKYXKLLwwBPMR
-	KUmr9wFBrsvBE3ypUSefYI797QdVQgn3IAAquMRi8+OyRZ5D7zl3AlTSxdkQfeR4
-	kNtdN/N1IquR2qavZBaeFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788903187; x=
-	1788910387; bh=DHeVyoRZa5bzvMZFXHX2pnTEuWP22KkhzmvZL93CYjU=; b=K
-	5fiYbiHr6+3zUdHnvQ4whOn7jhhO1f8BCePlpTan3niIMn/fY4Y3oEbtP3trvV8/
-	U60RDJ9PrfZj/BgsUwXGBmIu004M4HYYyTt6hvY29+a2nQ8+hFXpo6LQLeIxMXTx
-	zLcmACBMNu/TH+FYw98GrJEcBPgNdjoQB8/BA54rMOY+K+yJklNk6/t0ltS/renn
-	M9bR5El6mPWJhlS0/PVIs3rQ98wsesXVDyivwNzLqjIQhDezrE68YhE7ndWQSmEa
-	JtgiNkLekRYbnlCO4oSfl9Cp/qoCt71Xli3tvcEdJa+BY9YRb7FAlhkXGqyORSfY
-	VK0JS5j3BcCkUnpbe/S9w==
-X-ME-Sender: <xms:BX-gan9uDTZjFMtz7uiswUC5l1xG4tjAPNhGTeV9uUcr3p6c6ZQw8Q>
-    <xme:BX-gauj5oO9KE768YFWHBjdUU5zi3cEgFyqgexmW6RRVf01xuhoQ0hj2zhdWIblhs
-    e0lWGiMwjkBJOU8a6Bu1ygJRoQggOIBPYMn4atuiHKCXcbEhThRIuo>
-X-ME-Proxy-Cause: dmFkZTFkZRAq9OscV/rQQpnQvuL5fXj2gffXK4SxYiFAoyeVl5NkU6reCbRCLnKorSaemz
-    WueOW17Uu3T2iToY/AKaEaLNp+vE9CNO2JxUrjaQIigTmtxn895HkPO7Fz0+voz6Y5fFVU
-    6yuRlW2vLaUNd5DO39Ee9aM/EE9j2Ne8gjkE3ji5xldvud1HLp4l6ldWYVzwCOqd1wi3R3
-    zUBxarxblHLM359+Km5yzxvtssSSw3EiySPQGAQgz2tbotMeNq0IFVCgBM7wPUBiKm83yI
-    G8OfaqLFvlRtN4JZCggPI4XeYCegk2yzLARziG5W4E2rrBV44CCYg303tWltnrOAUU8htq
-    ZsV4pxYT2gbzAKoOzUFuCx24Ktr56NV1NpGCHeUlnQA/e6sI4grpl8Pv0bm0LgKOHeUiHQ
-    kIql8AOvd3JhNbfSnpLfELWc1DJ9weePIw7ueqU4ehP/dvpejMZ5XunRqoJfNtEsjdaqBO
-    xcOKx3T2Oy6EeVn1E7tbRst5yEooHTuRRGPKP8CPUoCK0TUdnT/7DnQUYYsh2oxl2BQQOb
-    bo3EINTomzY0sOQybZJuH32SjdZ/OIlHNF1OykIGMGIeUHXT2qDT4gNh5Ex+XjWvHKsZ49
-    l5pj1xKTe+tTuB8457nFm+VYToNZaIH8R4fs5RU34hVLpPmYiVkJPmP5N2ww
-X-ME-Proxy: <xmx:C3-gakEcJ4GhwVA1joR4oCawyFfIrhR6TnB65iffu3HQvY-yTsQ3Jg>
-    <xmx:C3-gau2JvEzthorIw0-9XHBI_g4Vt2EM0sJqQ3rKYQ4-01heonLFtg>
-    <xmx:C3-gamw2xnFclntHcLzRe7mLHQcVgwERhkwLUk4HRCIkpNbGS_9_cQ>
-    <xmx:C3-gaoFGM59GCcXe6tG8lWdBOlgeVHpnEf5sFw-Qg0n9KDSh2bQzYQ>
-    <xmx:E3-gag5MLaQdTQmLi7YRqIHgz4miN6rpJasUfAKv0oA59wwDcvnrBF5S>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 05A5A32A007B; Tue,  8 Sep 2026 17:32:53 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="N9SmWOYQ"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910cadeb4so52787885a.1
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 14:35:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1788903303; x=1789508103; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=29uwmA8S4hpFYYevpIh20NDUf1Fu5RH3fxGFGGFur6w=;
+        b=N9SmWOYQeVvziz2qWF65nb4UFGbh/CKXZtN+tPhbzmW0r5dMTL1PWg78yZO2VaHu3Q
+         GYEoiiRieLlDoB0r52P1Pwi2sxkMmmyK7eMuM2r6PEfXVRIvUqI7+SiiJeyCp7j8Y0K2
+         hUBTHSny7BhlEzaRzuV5eBpb/Pt6JY47SLtkwGMtLKahEWwiqm9vAQhkUygE4CCEGcZd
+         JhKVbDNmkLfuCHeYc6aHNEhFQino8OQSaWFzPQCz1iDtdj5Sd2sMZYdCPVx0fgIB2lhp
+         VyRTziVQilbYJHZdaQHrESboHjAv7Ymth7cEoN17dxOPhg8mi/9+W6faaoSMA/WsginG
+         pKdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788903303; x=1789508103;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=29uwmA8S4hpFYYevpIh20NDUf1Fu5RH3fxGFGGFur6w=;
+        b=LCbvCuqvlMjhYKEdD6+lCut7KsrzH+DPsW2AZOyxDthjGtNQEtCxAPFBXfLkXwA0m7
+         q0SvDps+AIjxefNHzp9WuwGKjyR3Qv7HsLHhEG3+f3qvGnEUJ6rKsAcrsh69nBlVYPms
+         OvetiaAErcXoz18SS4Ojr8DREjOG6NT/qT4FSN2eN/PC6pKlPiKcdC2eSF9d2Dp0BRYp
+         CxaOs2/YsARsgkKxBNyJJ9g7iyAAa2lX4NDhCLBm7aJZY32YLojkq8hgGjVNCfwMAp2S
+         tZ//WivHj+PVtqsKIX65qvmOb9ZMTjQkW5RU3MjX+ZNVmy+L9jyC9S92C9jy0H44Xy5+
+         9BmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHhe4955NylHxKw9bwyOmCaQKhsxk2M6pFrEEPavar3X/zi9TWgOthDXwjrfQKC5CDcnfJklorOctD@vger.kernel.org
+X-Gm-Message-State: AFuF++n3eskwpYeEkLxlts8g8MM6N3Ay0j5UXEeP6JVlPQ43k38q9jwP
+	3ABynzyPMwp3J5Ug/2xCdGF8mwMC7ABG1sXn9jSRxhtpWrXzWXt6Vsk7HRa+lUDvO0WQmWP6/Pe
+	usNK8L5I=
+X-Gm-Gg: AYBFou0Sy2EGIHUxZF+2d2NpJBosB52ovXXy4jE9ddKiBr6YjBvEhq6+utS4Io3BtlM
+	Q+t7j7XS9HqEb8tmkGd1fOqSyd5qXKpugysULTyzLO7TPQWKXxIXBmFSFfCZ5yUU7Gb0TAE0Ihm
+	fpmGozux3K2A8tshHq6eCpyC46KyCqy/vJLW0l1p/PCJs8dbrb/wX+mJ+AmHzJ5gzjYzuLh19cD
+	2cRiGF5RaRhHCI5eZ6crAuVwPyTCmXx7+WKTkdPtUvMnPifGr/8Xtmm1ZjFUvqw63kEj4gkpWg9
+	+bx7BliuoJfpIksjcZEdwwf+q4avTW7hcyG7/PNlPRARyrAOPqzKKmYcpqmPi5EbLXCopVv2psP
+	A0BuAxZQVldNbzSixF7196K3dNb2NrDvbDtnbWrSmR73VQp21xggMEU+4MCLxFU6XtghYdCvGG8
+	FjignHjan2eUFsBQKvdgdETpipU7a6nUBsMiyB0XvMpDAPosELYwDw/vVQFulJGjmA
+X-Received: by 2002:a05:620a:258d:b0:939:2c5c:7977 with SMTP id af79cd13be357-939c93fd11cmr302094885a.20.1788903302808;
+        Tue, 08 Sep 2026 14:35:02 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9397f9f0734sm1250497885a.4.2026.09.08.14.35.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 14:35:02 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com,
+	robh@kernel.org,
+	saravanak@kernel.org
+Cc: herve.codina@bootlin.com,
+	daniel@riscstar.com,
+	mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	linux-pci@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 0/4] PCI: of: warn on bogus device_type property
+Date: Tue,  8 Sep 2026 16:34:54 -0500
+Message-ID: <20260908213459.2519059-1-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AwGOxrB98c9B
-Date: Tue, 08 Sep 2026 23:32:32 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Nicolas Pitre" <nico@fluxnic.net>, "Arnd Bergmann" <arnd@kernel.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Linus Walleij" <linusw@kernel.org>,
- "Russell King" <linux@armlinux.org.uk>,
- "Drew Fustini" <fustini@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "Liviu Dudau" <liviu.dudau@arm.com>,
- "Sudeep Holla" <sudeep.holla@kernel.org>,
- "Lorenzo Pieralisi" <lpieralisi@kernel.org>,
- "Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>,
- "Pengutronix Kernel Team" <kernel@pengutronix.de>,
- "Fabio Estevam" <festevam@gmail.com>,
- "Vladimir Zapolskiy" <vz@mleia.com>, "Stefan Agner" <stefan@agner.ch>,
- "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
- "Alexandre Torgue" <alexandre.torgue@foss.st.com>,
- "Aaro Koskinen" <aaro.koskinen@iki.fi>,
- "Andreas Kemnade" <andreas@kemnade.info>,
- "Kevin Hilman" <khilman@baylibre.com>,
- "Roger Quadros" <rogerq@kernel.org>, "Tony Lindgren" <tony@atomide.com>,
- "Nicolas Ferre" <nicolas.ferre@microchip.com>,
- "Claudiu Beznea" <claudiu.beznea@tuxon.dev>,
- "Andrew Lunn" <andrew@lunn.ch>,
- "Sebastian Hesselbarth" <sebastian.hesselbarth@gmail.com>,
- "Gregory Clement" <gregory.clement@bootlin.com>,
- "Robert Jarzmik" <robert.jarzmik@free.fr>,
- "Kristoffer Ericson" <kristoffer.ericson@gmail.com>,
- "Ethan Nelson-Moore" <enelsonmoore@gmail.com>,
- "Geert Uytterhoeven" <geert@linux-m68k.org>,
- "A. Sverdlin" <alexander.sverdlin@siemens.com>,
- "Shawn Guo" <shawnguo@kernel.org>,
- "Karl Mehltretter" <kmehltretter@gmail.com>,
- "David Hildenbrand (Red Hat)" <david@kernel.org>,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-stm32@st-md-mailman.stormreply.com,
- Linux-OMAP <linux-omap@vger.kernel.org>,
- "Guenter Roeck" <linux@roeck-us.net>
-Message-Id: <cd80749e-0d32-4efb-af4e-eff8cd553fb4@app.fastmail.com>
-In-Reply-To: <ccd58677-5e25-1f9f-2bb4-d1770fce8ac4@fluxnic.net>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-2-arnd@kernel.org>
- <ccd58677-5e25-1f9f-2bb4-d1770fce8ac4@fluxnic.net>
-Subject: Re: [PATCH 01/13] ARM: remove sa1100 platform
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 8, 2026, at 22:36, Nicolas Pitre wrote:
-> On Tue, 8 Sep 2026, Arnd Bergmann wrote:
->
->> From: Arnd Bergmann <arnd@arndb.de>
->>=20
->> Most sa1100 platforms were removed a few years, with the remaining
->> ones left as a starting point for a conversion to devicetree.
->>=20
->> Nothing ever happened on that front, so remove the rest now,
->> including the sa1111 and locomo drivers that were once shared
->> with pxa but are already sa1100-exclusive now.
->
-> The SA1100 was the starting point of my career. Feels strange how much=20
-> time has passed.
+Add a check when adding a PCI device to ensure the device_type
+property is (or is not) correctly defined when the device has
+a non-null devicetree node pointer.
 
-Indeed, same for me: my first paid job involved both SA1100 and
-the i486 compatible AMD =C3=89lan SoC that was also removed this year.
+PCI has a well-defined bus and device discovery process.  The
+PCI_DYNAMIC_OF_NODES Kconfig option allows PCI devices to *also*
+have a devicetree node.  This enables certain things that are
+not possible with PCI enumeration alone.
 
-> I parted with such hardware a long time ago in any case.
->
-> Acked-by: Nicolas Pitre <nico@fluxnic.net>
+While working on a Qualcomm platform, I learned that some PCI
+endpoint nodes were defined with device_type = "pci" properties.
+Herve Codina pointed out that this was not correct.  Rob Herring
+indicated that people seem to have trouble getting the PCI
+devicetree nodes right, and asked whether we could warn if this
+particular problem occurred.  During review, Herve Codina also
+suggested that bridge nodes be checked to ensure they *do*
+have the proper device_type property, and later, Sashiko suggested
+that "pciex" (and "cardbus") also be accepted as valid bridge
+device_type property values.
 
-Thanks,
+The first patch prevents a possible null pointer dereference that
+Sashiko pointed out some time back.  This is the only patch that
+has changed in this version.  (Last time I neglected to enable the
+Kconfig option that ensured this go compiled, and it contained
+two obvious compile errors.)
 
-       Arnd
+The second and third patches are simple cleanups.  The last adds
+the new PCI devicetree node checks and warnings.
+
+					-Alex
+
+Between version 4 and version 5:
+- Made a local variable (bufp) a pointer type in the first patch
+- Eliminated an unused local variable (i) in the first patch
+
+Version 4 is available here:
+  https://lore.kernel.org/lkml/20260904134607.1856121-1-elder@riscstar.com/
+
+Between version 3 and version 4:
+- Insert a first patch that fixes a Sashiko-reported issue
+- Drop the final "duplicate warning" patch from v3
+- Include "pciex" as a valid PCI bridge device_type property value
+- Add Herve's Reviewed-by tag on the last patch
+
+Version 3 is available here:
+  https://lore.kernel.org/lkml/20260901011338.1323243-1-elder@riscstar.com/
+
+Between version 2 and version 3:
+- Drop a patch that made a change only needed by a different series
+- Switch a function header to use kernel-doc format
+- Add a warning if a PCI bridge node has no device_type property
+- Added a patch to remove a duplicate warning in the devicetree code
+
+Version 2 is available here:
+  https://lore.kernel.org/lkml/20260812172247.276554-1-elder@riscstar.com/
+
+Between version 1 and version 2:
+- Check the PCI devicetree node even when PCI_DYNAMIC_OF_NODES is
+  not enabled
+
+Version 1 is available here:
+  https://lore.kernel.org/lkml/20260807194100.455599-1-elder@riscstar.com/
+
+Alex Elder (4):
+  PCI: of: avoid allocations in of_pci_prop_compatible()
+  PCI: of: drop the reg_num argument to of_pci_set_address()
+  PCI: of: don't zero flags in of_pci_get_addr_flags()
+  PCI: of: introduce of_pci_verify_node()
+
+ drivers/pci/bus.c         |  1 +
+ drivers/pci/of.c          | 32 ++++++++++++++++++++++++++
+ drivers/pci/of_property.c | 47 ++++++++++++++++++++++-----------------
+ drivers/pci/pci.h         |  3 +++
+ 4 files changed, 63 insertions(+), 20 deletions(-)
+
+
+base-commit: df2908090cda368b01ff43709f51890076c56157
+-- 
+2.53.0
+
