@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2332147E5
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 20:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C411F3AC0C9
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 20:25:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788899113; cv=none; b=MTMINhhJZMqvyeG7bTIw6dKp6Gz5sLdIsH3J7bPK4LUeLLRDxshubndUR7gbOs5Fvp/CFn08Vxx4oUqJmIxe7y2V88/o6mhdiB1EfyUT6RAnNxV5LSnj9TPTCzUOZFw0dJ0vuEjv6Hu83xKY6Yvl9QRONg3ifNsi6Z3o9Gfaymk=
+	t=1788899113; cv=none; b=HGaPOaJAUnghC6uAKYCwFOwNyepFXG4TZBC8F4eG1GE9l1wLwyMjdEsuoVF0hQ3Wm5ZrNq9WujdfKd6BksXhWt3/lWdrmiAPalKYsShLqFO2xOS/t6lBITfTOx/oYHnZSecAB8WqM4oZp6OgnPkRKKv/DJSLCZdziKS8hZja464=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788899113; c=relaxed/simple;
-	bh=+ufXwoeqL6cYe0Wl9ESo1E1y7zrIkDEat4o5vWlOnwk=;
+	bh=gcTZWkkpwaNyBQVGYpg9/MH+tzevp1RKCVsuoqgIG2Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=le0to/4iBJU3/cJkd90zZtE10rgi1jnQq3oN+b4CqNPQ7fTMpK7ySpnJcnUuVgE7j/1RkVOV/dh/cB4+iIvty3BJhmKuIGtiQG+Emq47+ECd/c9XdsXkFU7McZbOhUbPICo8zRJ4nIgslUz0LpDRaQ7EQsFwwQesUAbBOPO0AXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MiQrbJSi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BPEvMsObPubS1m6jeQWrbiC5NNRGMrz420uT42xugs/1HLu/3vltgqard9HS7w7+ECoQJDPqBfoSC3uH/PsnZzWZAvQPRdHwQuTGIH/1n5FJabxzNVULfDVxPYRYrSS4OWruAjvJ+CHtkWeJFizLwkxyDIzAhib1A7XDFR7p2L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDHOqzzU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MiQrbJSi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB8C1F00A3A;
-	Tue,  8 Sep 2026 20:25:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDHOqzzU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3432B1F00A3D;
+	Tue,  8 Sep 2026 20:25:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788899111;
-	bh=DByEoP7UawBMhzE8v6nVl02Qwwxwj6hXfFrMIkuWd8o=;
+	s=k20260515; t=1788899112;
+	bh=qYZLjcvEgIEsulTa+FNPJhtY74BB0px9ODZ/+ln+8zg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MiQrbJSi11mIYwZOIwMbq4nOnP3O2q6OgCj3VhY+GCdzD3eV0uvYTgovlayTjiQJS
-	 bkbXBEnnaCMbhjeBYRhMFszXnS033PICS4jJH0vIFfKlLetFIVIs4IAl6fJICjGbNW
-	 QmucKOPAPwOf0cvO7ZrIdjWdDpGFtDvvayl8lTen9i28pmKxS8oO2D1F27BZbH1XWS
-	 DAslyDEpyiswbhmIcNzGoU417kdxQ3+D05gXd9ZHETJ9RUciek1r2atli3lf2oimUc
-	 CUh6UCZspUvIGnrf5kNHdZMi0zfA+Iv/ZBGjv7MBNt+9yP6DgLUZMX1eND9B/Rs/vS
-	 BGF9tGZkgriXw==
+	b=kDHOqzzUO3Jv7vfCm04FBzB3HyHzasnQr58wP+iAEwi0dlXAix+4pW4f9Of69pwui
+	 YYihzWSuoVt3KKsS0EKrU3GM5s7jXic94lpUASd285i6TEJDac0pRm4oampbLkEy0i
+	 0/RKfpXu6huU1Bsy1nouwUZd5iOGtWumSrS4+9KtewTdc9x09ZwtYqxbXBcIPhw6Te
+	 FQknZTNrtyf+8BsFu5yUPQrZkDcsT3oNP7A7K6WKq+tVCAmfj+boLF/pHsxvTPqvyn
+	 EtyO5mrr16YTcd1YnbQmf2YR7MYLr4puQRP9lr1wGSgvnGOGcsbsFKAm/YtBsmfPo5
+	 zsIFSeFOncr2Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 5/9] net: stmmac: qcom-ethqos: fix RGMII_ID
- mode to use DLL bypass
+Subject: Re: [PATCH net-next v2 3/9] dt-bindings: net: qcom,ethqos: add
+ qcom,shikra-ethqos compatible
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908-shikra_ethernet-v2-5-bbe3389d0652@oss.qualcomm.com>
+In-Reply-To: <20260908-shikra_ethernet-v2-3-bbe3389d0652@oss.qualcomm.com>
 References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
- <20260908-shikra_ethernet-v2-5-bbe3389d0652@oss.qualcomm.com>
+ <20260908-shikra_ethernet-v2-3-bbe3389d0652@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 20:25:10 +0000
-Message-Id: <20260908202511.6AB8C1F00A3A@smtp.kernel.org>
+Date: Tue, 08 Sep 2026 20:25:11 +0000
+Message-Id: <20260908202512.3432B1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,67 +47,81 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The driver mishandles PHY_INTERFACE_MODE_RGMII_RXID, incorrectly a=
-dding a MAC-side RX delay via the DLL, causing double RX delay when combine=
-d with the PHY's RX delay.
+- [Low] Missing array length constraints (`minItems` / `maxItems`) on `cloc=
+k-names` in conditional blocks allows mismatched `clocks` and `clock-names`=
+ lengths to pass schema validation.
 --
 
-commit 62a16405ee0e741087a5282875b7de0ba607d81f
+commit 53e47f10606b15f76c5e6798405fb948136930d0
 Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
+dt-bindings: net: qcom,ethqos: add qcom,shikra-ethqos compatible
+   =20
+Shikra's EMAC requires two additional clocks for NOC interconnect
+access. This commit adds qcom,shikra-ethqos to the compatible enum
+and an if/else block for clock constraints.
 
-This commit fixes RGMII_ID mode by powering down the MAC's DLL and setting
-DDR bypass mode, ensuring the MAC does not add delay when the PHY already
-provides it. It introduces a new ethqos_rgmii_id_macro_init() helper and
-adjusts clock rate logic accordingly.
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Doc=
+umentation/devicetree/bindings/net/qcom,ethqos.yaml
+> index 423959cb928d9..ad2cc706fa740 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
 [ ... ]
-
-> @@ -405,8 +416,7 @@ static void ethqos_rgmii_macro_init(struct qcom_ethqo=
-s *ethqos, int speed)
->  		      RGMII_IO_MACRO_CONFIG2);
+> @@ -92,6 +99,41 @@ required:
+>    - clock-names
+>    - reg-names
 > =20
->  	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
-> -	if (ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII_ID ||
-> -	    ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII_TXID)
-> +	if (ethqos->phy_mode =3D=3D PHY_INTERFACE_MODE_RGMII_TXID)
->  		phase_shift =3D 0;
->  	else
->  		phase_shift =3D RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
+> +allOf:
+> +  - $ref: snps,dwmac.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,shikra-ethqos
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
 
-[Severity: High]
-This is a pre-existing issue, but does this function mishandle
-PHY_INTERFACE_MODE_RGMII_RXID?
+[Severity: Low]
+Is a minItems: 6 constraint missing for clock-names in this block?
 
-By keeping RGMII_RXID in this generic initialization path, it appears
-the MAC-side RX delay via the DLL will still be enabled later in the
-function when negotiating 1Gbps speeds:
+Without it, this property inherits the top-level minItems: 4, which means
+a device tree node with 6 clocks but only 4 clock-names could silently
+pass dtbs_check schema validation.
 
-	rgmii_setmask(ethqos, SDCC_DDR_CONFIG_PRG_DLY_EN,
-		      SDCC_HC_REG_DDR_CONFIG);
+> +            - const: pclk
+> +            - const: ptp_ref
+> +            - const: rgmii
+> +            - const: axi-noc
+> +            - const: pcie-tile-axi-noc
+> +      required:
+> +        - operating-points-v2
+> +    else:
+> +      properties:
+> +        clocks:
+> +          maxItems: 4
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
 
-Since the PHY already provides an RX delay in RGMII_RXID mode, does this
-result in a double RX delay?
+[Severity: Low]
+Does this block also need a maxItems: 4 constraint for clock-names?
 
-A double RX delay could shift the receive clock too far relative to the
-data eye at Gigabit speeds, potentially causing data corruption or packet
-loss.
+Without it, clock-names can match up to the top-level definition's 6
+elements for the older compatibles, allowing mismatched clocks and
+clock-names array lengths to silently pass schema validation.
 
-While this patch successfully fixes RGMII_ID by moving it to bypass mode,
-could RGMII_RXID be broken on platforms that specify it in their device tre=
-e,
-and would it need similar bypass handling?
-
-[ ... ]
+> +            - const: pclk
+> +            - const: ptp_ref
+> +            - enum:
+> +                - rgmii
+> +                - phyaux
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-shikra_eth=
-ernet-v2-0-bbe3389d0652@oss.qualcomm.com?part=3D5
+ernet-v2-0-bbe3389d0652@oss.qualcomm.com?part=3D3
