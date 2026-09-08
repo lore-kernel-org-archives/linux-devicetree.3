@@ -1,173 +1,229 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazolkn19013086.outbound.protection.outlook.com [52.103.43.86])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E9E245005;
-	Tue,  8 Sep 2026 01:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.43.86
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788830240; cv=fail; b=O6j6ebpfYEtiQljhOf/qR10ZeDksYURzo2MZwGnX8en+S1UzyIMR/+bR+k/sBBOFzDWbyZ379eR0nGl7A26WybD/KX/O/Zf0g6BcPjzUZJ1nq1QVU0XmvabmKFiQoZl/bythaqqj69mNrbGE4af7CCiN1AICDEkJVdJq8dVu8h0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788830240; c=relaxed/simple;
-	bh=eUdWkq/LN5dAcynqldUt3RYU5t1Afnp+vuJculJiLnU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UVKkUKacOvuYujYnZ6PyeT2usVERtv0QYJqC3w2ycgU5p98NsnBNgjOXq5APCd/9ewJzE6J8Bm0cXCkxv3PbqJuMC5Vgml3nKXKP/uuplzmG7ZlSPLNo1RrNjmoUZ3h8shLGdgzdu9nQ+3OZ9Olp3sktR+TYcyYnmCuEjlTnRC4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in; spf=pass smtp.mailfrom=outlook.in; dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b=AxnibbKI; arc=fail smtp.client-ip=52.103.43.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.in
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.in
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E41D31A08AF
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 01:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788831969; cv=none; b=m+jWqgbql2cp1aYtPnbid6z6VirJCu8KiQyn0B0jThzfz2VFMlDS7jBUuE54VBJ9YLCwWvOe78bl6QZikdYQCiy4ZlMeUAThIln4XVQiob6rlCeIlbGa7EXrErIboPWq84vDM6dhYX16nK7A8mPf5h/9J3fnu2oGWT55M1CxQg0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788831969; c=relaxed/simple;
+	bh=b7u6brZRUA8GCKrZRSAmIpIFE/mzdWyxVCYN8QqoqJw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s5RA/kwFBLO1xvpZkwhtyyDV+lhxg/l9XBbnPYqJbA4TlYLV0Mwd5lHtN8yXjoMqZ7vAFdKVFVE5JpCFXj/DBahzNzOBA53sz/kTT43jsiqusTYJluWRyDZShDDAdmlcB8f9EwOjrQew4L8D5JZXjYwfbZOZ69gzNr6ihJPXodc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pDkoudMX; arc=none smtp.client-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=OUTLOOK.IN header.i=@OUTLOOK.IN header.b="AxnibbKI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=CdkY+PjBlEMTDcaieog7EAMLZcFYufBIpaMWD8ntK7+yN/JHybTu2UCETBi1OzBnlCodEfrl3r0DHXXW9omIYzXsK+ng7FFmwS81+d8CtszP4LesjrcLyiiLG+32SSLgGpvbGu+aDR8Fw+mCDSDgIyNwoOKvtcI3ifoJTvyWyvfs9mSwhfFyqdAKsTyadV2lB0Y6UO+V32HMdOlaB34HVvvFmSSVAAa8i8BlEiiSlaQQXhwlzsoUvbrjGp0lZICHmTgVrgpAVkW4Kw6RvBts1q+LoXja8/HrOEdP0ZvVC908vbnwQ6kLotlUSh7e7MH2wX/P5ApwFBSvGOHP/tdtoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eaeC+d/hbJnTDmONQBd1FfkgoRzvRMCLW4CrUn5VG34=;
- b=zQRx8VebdM8AaoxJHZCQxxFRXo959AeT7GEU9pc8kxipUbr7ONnRPLHJp1H4IU6CIAcSX6VPWwDIj/z5InTGVD1Oompd6/aFMvP5+s173JsbHgZS4bSK2JS0inWMiQV1740+aWuTSu3LHMFw4B8rlGsriYN/TdViVGeuq0WfQ82H7acddgqwPEouBCRoFlXhNKRMhS1BIJwEcp7Us9g3EVM4PiDIvHPHDPW21/jIFdGePD4U8574+88+rzWvOCER0iSoaEhhEaFR5EqtzKufeVl0zl4yGzVqdeSFpvSuRT3QGJaT8+zkbUR6rx0gzCWL51sr6H9IopNG86cVuRGkQA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=OUTLOOK.IN;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eaeC+d/hbJnTDmONQBd1FfkgoRzvRMCLW4CrUn5VG34=;
- b=AxnibbKIIRW4GF0xjG2v9++pT45YaHKyAx30uoyoI8TbR5M3yFotsCCwUEdwrQwCOY4Gm5QZghD0cSCPNrDE6nD0Z5wVhzjJd6tGLLwKWl0AY70guK99Wahg3pM2m7NwD34Z9bxno/K5PUtt5Qd1wqSVM9snlTaipPIy9O+MTOufZV/EuvoepKFCGFdh2DL6tPX8VwtpzqXZlrVuYx4qkq+mz5rJ2mdbss9vqVJnZVxaLbzWkvDihoKjroUPOMkH9+7P3l3NjXEehZ4R2PmfKpSIUwQXF+/C0jojMBzHzrGlzscjB24z6ifT3jsScY3g0E2Ccfu59Ie7zQUTxfl6Gw==
-Received: from TYZPR01MB5131.apcprd01.prod.exchangelabs.com
- (2603:1096:400:334::10) by SEZPR01MB8328.apcprd01.prod.exchangelabs.com
- (2603:1096:101:339::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 01:17:14 +0000
-Received: from TYZPR01MB5131.apcprd01.prod.exchangelabs.com
- ([fe80::8085:27fc:798a:5fa0]) by TYZPR01MB5131.apcprd01.prod.exchangelabs.com
- ([fe80::8085:27fc:798a:5fa0%4]) with mapi id 15.21.0382.014; Tue, 8 Sep 2026
- 01:17:14 +0000
-From: Shujath Mohd <shujath@outlook.in>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pDkoudMX"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84830c774a0so3806719b3a.1
+        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 18:46:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788831967; x=1789436767; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hJ3bKwcyB7ptCjFnxYzYbWXHilW0QPTLoxB6wvOt2lQ=;
+        b=pDkoudMXMwPsN/wuWEyo64qggKwNUvJ0UFOhTb8xVfD0ao4+2EisGV2SebCefWSjqw
+         wdyboceed2rQuePA/RX5LJlb2foMpu+fflpzfvc33F7lP2rzVrDKsir8jCypjiD1jgxT
+         mBgR6VWT69KzTnT62r/NSx+7hFEcvuhYs92jdc7YZqv4RwvZaK3BtnXfWpPkcHeY/iCt
+         iK4581+0Vzu13qhYf2cEmA47dhsjagkPEz+Qt0w9lKEjOcsRh6YhunzoU+qlcPU2PkDz
+         WIg2vjDto1V6tZSjmplBN2J6B3kVrK6qSgzysaOk6N9Y/K6uYXPB2RWlpu+QAeqMWljt
+         6UfQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788831967; x=1789436767;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hJ3bKwcyB7ptCjFnxYzYbWXHilW0QPTLoxB6wvOt2lQ=;
+        b=NkqXaa27XxCLY77yK4mMyV7H+y2CtJ5rjE5eyDnRW/jeUy/xLg/yPBJKpV4RPICAOs
+         Wb0KkS4wFmmm8s//DXxD5cTi15OpuuKCp+ZT05e6C04dwKQAfFM3/1fGSz1xioxI29j0
+         J1rLEMX8DZgB64gWDIRYGKk+lgG/RdsVYXFUzrARith36z9Wbd4Fq62z7WFktVUex5Zs
+         jZ+qm8fe2ZvfpCGmaGGZjL0ztxWxkBCwBKkK01ntE64wgxdpmHogKFQnvhWN4ISLLjzr
+         3lW1StoIDBi9UgpjQxmovNSnDGLynNmMeXSnD3g1dyBW+swXa8mvSxvdP+E3Zm1uAax0
+         O1bQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzbjsvTBYRbycf0c8NaiZUvSdJnCu6hSl9kOJbmrYHuV0TVuUahDrTIOANHQuEe3g01V21Mm+RZV+91@vger.kernel.org
+X-Gm-Message-State: AFuF++mT6e5tMBSoXp7/YVu+kXNvmEdQ1klEbnU2PXjRQVJSLqdIT0Bu
+	Zo9eS5oIc5Wl2BJhasFHA0zFY7+333+20ueILJM38MpQVENn/tHjj6xN
+X-Gm-Gg: AYBFou2XJPxlEYIrmmRsZZuhrkc2CYIcH1WE2gjRZZt40MpeJE1NoxdIV3ZbiiFQZXp
+	iWIoO8b3dAGqkX9n8R/4uj+Od91a+oSpp+moxZ7HVF580IOjOWKkfEgMkf7KarUJrStUyB6ipvC
+	XRfvcmNtH2a71/Fgh2siRCf2AmGEd8Iv8/whAk7qVgcl8CmLZcvd04xW9PICVvtQDrc0lGO621a
+	SQUGLh444NKG/eKOOUxAfFX1zoxxFNuUtUZn7fPIRJlt4RCqt3vMnOo71QsMlA0TSaqgW81bn7z
+	6WxxCmW30eYnzbdMyah8gVNyLnVvp6YaAnIN2xqelrfpDVwHPJkGWAdBdzcFNRUxl5nzq7b/j36
+	ARhCFIGXxXSAGiaJegX71eCGOtRPOX3OFKpVkwadysgaKi6VfzXK3HGhmriyh40RwiaOxlla4bu
+	D+jvUn9evd+yb+eACpVulMXZHg1yff7g9gm15sX7LqU/cqMI3z0HhqBaaeN38u7AaejOmQMrUTq
+	Iv11WmgFsMjoRCLpqwtA3oLAIzScing3RlxnU3edNIuVA==
+X-Received: by 2002:a05:6a00:600d:b0:847:99bb:b6d0 with SMTP id d2e1a72fcca58-86168591720mr39700598b3a.15.1788831967118;
+        Mon, 07 Sep 2026 18:46:07 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8633cc0f7e2sm3142089b3a.37.2026.09.07.18.46.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 18:46:06 -0700 (PDT)
+From: Zi-Yu Chen <zychennvt@gmail.com>
+To: Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: ychuang3@nuvoton.com,
+	schung@nuvoton.com,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Shujath Mohd <shujath@outlook.in>
-Subject: [PATCH 2/2] arm64: dts: qcom: sdm845-sony-tama: enable modem
-Date: Tue,  8 Sep 2026 06:46:39 +0530
-Message-ID:
- <TYZPR01MB5131FC151BBDEDD2C6C615A3C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <TYZPR01MB51313D5E4F5EE3CAF57C0876C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-References: <TYZPR01MB51313D5E4F5EE3CAF57C0876C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PNYP287CA0106.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2bb::8) To TYZPR01MB5131.apcprd01.prod.exchangelabs.com
- (2603:1096:400:334::10)
-X-Microsoft-Original-Message-ID: <20260908011639.94222-2-shujath@outlook.in>
+	mkl@pengutronix.de,
+	Zi-Yu Chen <zychennvt@gmail.com>
+Subject: [PATCH v3] arm64: dts: nuvoton: ma35d1: add CAN nodes
+Date: Tue,  8 Sep 2026 09:45:26 +0800
+Message-Id: <20260908014526.413399-1-zychennvt@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TYZPR01MB5131:EE_|SEZPR01MB8328:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d71c4de-b91f-44a1-64b2-08df0d46ea23
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|23021999003|19110799012|8060799015|51005399006|15080799012|24021099003|25010399006|5072599009|40105399003|2607281247196008|26104999009|440099028|3412199025|1710799026;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?sIdNFog+eDQ3AF4eoUuO1mC8eYk2hQHG6wFh1joFZQ4GC79KA27rg41VGbe8?=
- =?us-ascii?Q?s+oDGkNu7V+bYHNbwQLkjsIM9d96ygWlCPq+v6rWko5S8m+crpEz24cg1W5X?=
- =?us-ascii?Q?kWrdJJVKhzJ3QuAhNsTe/2MECoEnVFIMjXrOpz/WCtd0emQGTkpKdWO3HqBV?=
- =?us-ascii?Q?Gsm6FHAyYAWeTFlxF1PeHC2bI0z1cb5ZEwO3xdGaQedvO0RaJnSYl71vQ/az?=
- =?us-ascii?Q?W8tQh0aM6qkHMC8df2z9bNjEM32AOPd6ucsGhWVbaFXcQbIgohRwv6iPVl/K?=
- =?us-ascii?Q?AfcTU3zRF0z0zIBfGEO7TW2k5QXWOykmPCiBsn9a6yFc9ojb2nZC1A/zxs5c?=
- =?us-ascii?Q?32uhIQyMVD1oRSdO9SF9LhCw3805V7Pw+BdLBQvCVJOLZV8In5kk74auqSqn?=
- =?us-ascii?Q?bno+toXyraS/z5nWldvjSgjFTzk0sopDabDIaGRjuCKwu/RBwtwXmyS0Qryl?=
- =?us-ascii?Q?c29orZTcZbnkVW9br38arwi2MIFdgO75H5cg7+vClpoHp3MFl4bKUvcylYz5?=
- =?us-ascii?Q?F6RKV4ZoM/VfLJnll0SbHzrhxksQ4sA9fIvwy7rhwRPogXYTrSxkMdsX7WsN?=
- =?us-ascii?Q?4lGq6CAPn8nDql1wWnVpAEc4G8gOSubMXQWmJPt5vHs0eKo6hgby13SkYZsP?=
- =?us-ascii?Q?4TQT6DhayqT27P3oQVFIzLeI3SrrzIMfnlHk0ZNWpYsz78SnDZNBI/Yai3ZG?=
- =?us-ascii?Q?ZrVgSShAu3jujDsyegADYNa8jwQGpv7E7Q4GVyo4fC9Mc7IXV8Dq7YX1sv+2?=
- =?us-ascii?Q?qu06kOIfDsTe/zLo5ZGJjKr4wL1emhsaaqlKWNohsq7Me/5tTDDUQUuvAN16?=
- =?us-ascii?Q?jk97uZDpC51bZxCUMXrqxvyzAy0lDPJQleBYXRZMbb7/Jl+4zdvkHF+QeYiW?=
- =?us-ascii?Q?8FclUlA6+sSB5VaIZqP0pyJQXNIXjgs6wsNydr3LQMfgjDn8ZPnVFlSJ6ATM?=
- =?us-ascii?Q?lFUbfeHlxZmS5KqR3OIcVg=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7lADPAiXQ7d0krsa56IyDSX6fkcDRb4RjwKCDEt/C/aqbQf0mCb/z324E3v6?=
- =?us-ascii?Q?8INRtH4fssQJfuDQEN1fwFpb6S+Jb9SAjnJdlx1s+ZEZbLBTz3wbPsJMkCSH?=
- =?us-ascii?Q?qoGNtd0Q0WBASAYihaMXTv8UWXkf9vuvO/nZfis4lcf9CwHjWtSXUPf5ack1?=
- =?us-ascii?Q?Ok5J58yJaldyadL8CtIpYckd2bw2ncFATB39SCMnsi42cFm3oRWFNJn2EyG6?=
- =?us-ascii?Q?JMO1w2rqTuiflyWsTZoo9DxiO2bmORKS3WbUjHV/MeDGfhEYMbzeNfbDiFBB?=
- =?us-ascii?Q?684ee0VCnQ99Oq608kvSi0Dcs2215yQ0pSdploZ/8gC99HbN/dM9U72EmHd4?=
- =?us-ascii?Q?tFbdf5jXH2t8Ik74TiUQP7nEa8wl0AJ7oMOCPlYYeB1Gl6uC5S9R6n++VHIy?=
- =?us-ascii?Q?Sskv8zwBRjgfEO3yIQ0CWd4B04mTvx9/u8DOO5ghvp0Wkk2TAyPsi17/2Xyl?=
- =?us-ascii?Q?clAl0QPLZfAkpPu5X0phCmInTvPOyflP2djXXb4Fdm0rI5BT+lyFkN+WE6oB?=
- =?us-ascii?Q?ZW0+U1/vsB+445Hc4XiYJH7VpHecgP0HX3/PZaLhyB4xnCQUDIK7ajcD/BYM?=
- =?us-ascii?Q?3meYT0FXfRo83GedPYes1eGit5GxO5okKWaoLTcV01O0DxYIuqGXJ0EXxskP?=
- =?us-ascii?Q?LL5eNoBqyQ/cacqaMwhp788n3i/aw7pgMgN8YMbzr6ggAwcN/JJxq9HnP89h?=
- =?us-ascii?Q?laZVZgvfDb8riSH9EqkNtjorx6uqqfSZDQfwUjarZb2UhcPgQi7d6ElOXxHn?=
- =?us-ascii?Q?Q6ZLVxvzlTwiqmTWwXlWRaxWuFJvFWLmrwnMG4eKv+JzzRvA4T3ebFWgYvyS?=
- =?us-ascii?Q?E6LB45Y+nnrMZK+dI8HwR3P7QtbUF65w3P8rWDvedOP9RvvjZvVYfdrM/idM?=
- =?us-ascii?Q?s2nIMOvX4dm06tlyRWSFGGfn0D3fhBi6U607FPk2euc1uOGrDk3GqeiVnCtk?=
- =?us-ascii?Q?Vjzrmk1/5PFNL4Ee15J/pLiJk9MWLq9rTzFVoKtEKKDQJ0Wdjj1di/V/X+zZ?=
- =?us-ascii?Q?yFY9c1wKzMPq0rVlmH4qbU3VnmayFcK62yYzOr7xHU3yoTZpKFYUorMPFyKk?=
- =?us-ascii?Q?z+0gTHgzHLKyETgCN1F5i3G45AR4k72ZRNJZ0tOe+6vvpl+W7rgfAlA9J77v?=
- =?us-ascii?Q?T3H1YTDUbCX8gHORwS3P64tmQ6jUYAO5/ZaB4F0t2BMjYSOsYrBHb/hwBGPh?=
- =?us-ascii?Q?eLZk3xIgVl5KNiShmG3KMn2wHc+pQFOJQN118MQ3Stka1gMPxhmktOEm8tqX?=
- =?us-ascii?Q?Pomoo3Bxu0eJNivi0elEvtOPZv8PhMR2lj7wa9C7LLA2ssr8yyhJnluI0hQo?=
- =?us-ascii?Q?zJhNNN4KbgAvsHNBzDq6/8/0MlbG/awlSUnzO1f+L1Mu1ow/YFMTPZP9KEzd?=
- =?us-ascii?Q?ZnqXSvAf5bmcqGCtdmZPd1M0AUL7?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-3e488.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d71c4de-b91f-44a1-64b2-08df0d46ea23
-X-MS-Exchange-CrossTenant-AuthSource: TYZPR01MB5131.apcprd01.prod.exchangelabs.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 01:17:14.2967
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEZPR01MB8328
+Content-Transfer-Encoding: 8bit
 
-Enable the modem remoteproc on Sony Xperia TAMA devices and provide
-the corresponding MBA and modem firmware.
+Add controller nodes for the four Bosch M_CAN blocks found on the
+Nuvoton MA35D1 SoC.
 
-The modem requires ta-service to be running for proper initialization.
+Additionally, configure pinctrl and enable CAN1 and CAN3 on the
+MA35D1 SOM board. Also, update the APLL frequency to 160MHz to ensure
+the CAN controllers receive the required input clock for 80MHz operation.
 
-The remoteproc firmware configuration has been verified with the
-following firmware running:
-
-  remoteproc0: mba.mbn
-  remoteproc1: adsp.mbn
-  remoteproc2: cdsp.mbn
-  remoteproc3: slpi.mbn
-
-Signed-off-by: Shujath Mohd <shujath@outlook.in>
+Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
+Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+v3:
+ - Change CAN clock to 80MHz and APLL to 160MHz to use a higher multiple
+   of 40MHz, as suggested by Marc.
+v2: 
+ - Move assigned-clocks and assigned-clock-rates configurations of
+   CAN_DIV from SoC-level ma35d1.dtsi to board-level ma35d1-som-256m.dts
+ - Update APLL frequency to 200MHz to ensure the CAN controllers
+   receive the required 50MHz input clock.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-index 1c61a274604f..f05cc5db9ae9 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
-@@ -415,6 +415,15 @@ &ipa {
- 	status = "okay";
+ .../boot/dts/nuvoton/ma35d1-som-256m.dts      | 32 +++++++++++-
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi       | 52 +++++++++++++++++++
+ 2 files changed, 83 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+index f6f20a17e501..7bed0287e256 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
+@@ -37,6 +37,22 @@ clk_hxt: clock-hxt {
+ 	};
  };
  
-+/*
-+ * Modem requires ta-service for initialization.
-+ */
-+&mss_pil {
-+	firmware-name = "qcom/sdm845/Sony/tama/mba.mbn",
-+			"qcom/sdm845/Sony/tama/modem.mbn";
++&can1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_can1>;
++	assigned-clocks = <&clk CAN1_DIV>;
++	assigned-clock-rates = <80000000>;
 +	status = "okay";
 +};
 +
- &cdsp_pas {
- 	firmware-name = "qcom/sdm845/Sony/tama/cdsp.mbn";
- 	status = "okay";
++&can3 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_can3>;
++	assigned-clocks = <&clk CAN3_DIV>;
++	assigned-clock-rates = <80000000>;
++	status = "okay";
++};
++
+ &clk {
+ 	assigned-clocks = <&clk CAPLL>,
+ 			  <&clk DDRPLL>,
+@@ -45,7 +61,7 @@ &clk {
+ 			  <&clk VPLL>;
+ 	assigned-clock-rates = <800000000>,
+ 			       <266000000>,
+-			       <180000000>,
++			       <160000000>,
+ 			       <500000000>,
+ 			       <102000000>;
+ 	nuvoton,pll-mode = "integer",
+@@ -56,6 +72,20 @@ &clk {
+ };
+ 
+ &pinctrl {
++	can-grp {
++		pinctrl_can1: can1-pins {
++			nuvoton,pins = <11 14 4>,
++				       <11 15 4>;
++			bias-disable;
++		};
++
++		pinctrl_can3: can3-pins {
++			nuvoton,pins = <11 10 3>,
++				       <11 11 3>;
++			bias-disable;
++		};
++	};
++
+ 	uart-grp {
+ 		pinctrl_uart0: uart0-pins {
+ 			nuvoton,pins = <4 14 1>,
+diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+index e51b98f5bdce..494724a25f3b 100644
+--- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
+@@ -244,6 +244,58 @@ gpion: gpio@340 {
+ 			};
+ 		};
+ 
++		can0: can@403c0000 {
++			compatible = "bosch,m_can";
++			reg = <0x0 0x403c0000 0x0 0x200>, <0x0 0x403c0200 0x0 0x2000>;
++			reg-names = "m_can", "message_ram";
++			interrupts = <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "int0", "int1";
++			clocks = <&clk HCLK3>, <&clk CAN0_GATE>;
++			clock-names = "hclk", "cclk";
++			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
++			status = "disabled";
++		};
++
++		can1: can@403d0000 {
++			compatible = "bosch,m_can";
++			reg = <0x0 0x403d0000 0x0 0x200>, <0x0 0x403d0200 0x0 0x2000>;
++			reg-names = "m_can", "message_ram";
++			interrupts = <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "int0", "int1";
++			clocks = <&clk HCLK3>, <&clk CAN1_GATE>;
++			clock-names = "hclk", "cclk";
++			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
++			status = "disabled";
++		};
++
++		can2: can@403e0000 {
++			compatible = "bosch,m_can";
++			reg = <0x0 0x403e0000 0x0 0x200>, <0x0 0x403e0200 0x0 0x2000>;
++			reg-names = "m_can", "message_ram";
++			interrupts = <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "int0", "int1";
++			clocks = <&clk HCLK3>, <&clk CAN2_GATE>;
++			clock-names = "hclk", "cclk";
++			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
++			status = "disabled";
++		};
++
++		can3: can@403f0000 {
++			compatible = "bosch,m_can";
++			reg = <0x0 0x403f0000 0x0 0x200>, <0x0 0x403f0200 0x0 0x2000>;
++			reg-names = "m_can", "message_ram";
++			interrupts = <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "int0", "int1";
++			clocks = <&clk HCLK3>, <&clk CAN3_GATE>;
++			clock-names = "hclk", "cclk";
++			bosch,mram-cfg = <0x0 4 4 32 32 32 8 8>;
++			status = "disabled";
++		};
++
+ 		uart0: serial@40700000 {
+ 			compatible = "nuvoton,ma35d1-uart";
+ 			reg = <0x0 0x40700000 0x0 0x100>;
 -- 
-2.55.0
+2.34.1
 
