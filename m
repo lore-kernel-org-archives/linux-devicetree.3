@@ -1,127 +1,198 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012024.outbound.protection.outlook.com [52.101.66.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E9394AF17E;
-	Tue,  8 Sep 2026 08:53:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788857602; cv=fail; b=EdmCwIfHJUo7GaGDB5PZGA49h/iax1wf/gKqoueV9z1EDRVe7Z2sf04pNXx0zdWx3CHuKceDHH+qJplz5BxdqIMYDB4dtXkeAJ42JVzYYRWI57p2VGKBwlUfUySoSYC34Q0+mcHjzApM2BADdxf495fabrEGub0J9pfmj0th2Qc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788857602; c=relaxed/simple;
-	bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WN4yg0bFvm/YfEfsXKQtgOWmN5q96rd03tMBxsSSbMiclgczM+02DPFxK6QflJLGKIl+zZqtsFvWHTw3Ss2pfyiQAMy2rwsmbi2VN/tzjsHH6oQxDJuxwqzvEfbXYSJp3FtGxNEGwWsLNLqnuamUEGnOlncswXHN2Y5o1gG8lhs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=hrBQUcSM; arc=fail smtp.client-ip=52.101.66.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90914B04A1
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 08:58:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788857891; cv=none; b=mEcTFYzaj7MF+B0CHmHu38vVl9TyWwJGaX0zrQGJJ1fb0OhrhCl2nXyVvUpSyawO3C0smH4bf7BZoN91qdFzJAZ/N0vTcR/L7UP+4WyUOoL/wUj5aH/eO616pDNP4DNYus7tAKon1nUuwhqu6fm7IlNbAgQFE13SxhW+clWsjZ8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788857891; c=relaxed/simple;
+	bh=PJJQNvMp8i9KxxLS+rEKdYHyflNnINHi84WAuotPNB0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JDpzyg003n/uRaJkfrExUaaY3Zglvjov9tKrHGNGwTCZjqlIJR0Y2K3pllBGR8clUk1uh8zW9P0zogPstfBMiAbAY5G2cDLzycoaUPdmnHjRS5dfhyCrUra5gSJb8vkoE4dHjCmUSB4VQTUsWWW0pUow9GcYf2il8wt/7yov8W0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=RZjIIvCI; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="hrBQUcSM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F2CfXqpoDX7d48+lIpMLjNQtmE/ZrNVEuMl3cqoO7UwH/lsWnG++6S2nN5DLiEM1kj8uA3cSztBh6K8+cxB38e3Cev240/1shzkbEl3MvgC+XAV/uvWKMDM61JpLQGTiMGptq/uqtpAWqQgZhLdQl0wiSXGI5uRZjkbCRCaZr+bRR63trZrHw02YQCip5xqUz9RNmKXEM136I/Ld5x+N3DuCVPLxg/Stll81RtUhRfO7ZgTEadR8M1Xi9w3eZ+9hZH4rlWaCUUwOVWabWZtaDDJjgTS4qrBDWvejtt/tUTiSzrW/tMEzCSNocUPUqc5y4NvPieDYo/N43k9n3u35lA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
- b=yqUF49KvOO40y1uW06z1AOdS1gA7KCcz1iESv1TyRTVzzd2d7+5SmpHvOsZSzAWKRjA/KTfEl+5FUAY48VhBBRg3eHWHZedQeorsBIxa0Cx40+polS4vcvVg4EvtGX+YRic94TL8iENMexg5qY3kizAaPNRn38hyV3JaLRRJnQEdHvg80sjszFhgYRalmM9CZjaXv3tO23mLaq03MZr57o3noCDuC4mxDhaj8+Xgk0z4WXb9zxEIgSwyYzfoc2O7a4ct221In0sFfML1GBw7UVQbGiJ/fTjrZeFmBIb6ARUAUKRFq2u/RDiemd0rTcCOqM6bw96E16v1+x2cdXvPMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=posteo.net smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VQgBn9GaPqeyhE08fH8KVG5lWbgt/9WN/M0N99BPnms=;
- b=hrBQUcSMQM30+xYJ0yVksd4Aei8wHNrGHujV8N37X5ZfEOgaVEm/K+RyBaT5lflpLYzOpVnuXi30a2zLPtoUKeJadUMF98DlHKIvk0YEsy/IhHf7WUhZ1/28rEyznj2on9JLJT2XBC8mu0HO368OEN6QeV1qZvixybceNUm8Esw78ygML+x9wtK62xeUzMHUMhjUEOcYuEjGfiCb6uWl1jV1thjNDVL0KoyiE/lRTO55sL8O8/NWQjBzjt6JwMDZeSInyHg9xEm1OSfFyeTqFcJhXDzfM5ezy7butsTBHiRDyqgHQv5Ca/84HyuFaXtDEoS2iZ4mcl+bEJqaFtBStw==
-Received: from ZRAP278CA0002.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:10::12)
- by DU0PR10MB6608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:403::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.15; Tue, 8 Sep
- 2026 08:52:57 +0000
-Received: from MI3PEPF0000847F.eurprd02.prod.outlook.com
- (2603:10a6:910:10:cafe::2e) by ZRAP278CA0002.outlook.office365.com
- (2603:10a6:910:10::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Tue, 8
- Sep 2026 08:52:56 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- MI3PEPF0000847F.mail.protection.outlook.com (10.167.240.166) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Tue, 8 Sep 2026 08:52:56 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
- 2026 10:58:21 +0200
-Received: from [192.168.8.15] (10.48.86.45) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 8 Sep
- 2026 10:52:54 +0200
-Message-ID: <7b131dede6a53c2e7f775137a7a98b7902a8487b.camel@foss.st.com>
-Subject: Re: [Linux-stm32] [PATCH] arm64: dts: st: fix arm, smc-id of the
- SMC watchdog on stm32mp2
-From: Antonio Borneo <antonio.borneo@foss.st.com>
-To: Mateusz Nowicki <mateusz.nowicki@posteo.net>,
-	<alexandre.torgue@foss.st.com>, <mcoquelin.stm32@gmail.com>
-CC: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>, <linux-kernel@vger.kernel.org>,
-	<krzk+dt@kernel.org>, <linux-arm-kernel@lists.infradead.org>
-Date: Tue, 8 Sep 2026 10:52:53 +0200
-In-Reply-To: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
-References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.48.4 
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="RZjIIvCI"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49a97714f5dso42618665e9.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 01:58:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1788857882; x=1789462682; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1zFe5CkdviVdWpTUjRsL71ghioltrlS4PEP9q+np+JE=;
+        b=RZjIIvCIiWyCEv/WsP9MnybSlBRLNivD48VZibYeUqfC7lI+DfCD+EIoTkewzwl7Tb
+         cG7laJWXtfkz04bMnAGoKBHYiVvxKisaewfYDW3y4XXcRwc8C1W5/9vRVMBeUuzM1gQ6
+         3E1phxUpQ8kuKtOftF5ftqER+bYmlfjeOqFSNXq/qsamJFkRhasF6ujUWr05oyeROr8M
+         +43EDKFVMtlMrxnWytwKu4KoumTDstluwJR1LvQLFhAPUoM7K8+7hRlZInYbovB0Js96
+         Z5LmKZas/enzuoxxfwFunc+geQqNKrEW63EF7MNQR2QtjrEc7uNiX6jdwTF6SdCh2zvP
+         rVQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788857882; x=1789462682;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1zFe5CkdviVdWpTUjRsL71ghioltrlS4PEP9q+np+JE=;
+        b=smlIe47wdk3YC6S2VC8ddZsbHk4H+DQY7Tc8+bslO18PhMO4jknuQJbPihBjecQmvB
+         VWCFs8LfOIKs+VECrt3E6X2QdlEtBwJJYi0zqKNo6teaPgD/S5a5VfUTOX+pTwYRynG3
+         yw/VLT8G9SZ1/OgHyMEfSI/qHOqZ7Gpgi1MVEqZxnYoYsP0/0BvHJqIwF0g2R/0qKeaj
+         oV6OW8iI/8KMtCe7oc5occs2n4ZPrm2bL61cQAP3ENtT7nrpVlBWYbPrSzqs36aQp3eH
+         oPySDRC2GGUeTJIsDsBD8kAsGumN2iHQRNjEsN+HcecLdrXzAbj/sbrjsZyd9MwFvxRD
+         uA1A==
+X-Forwarded-Encrypted: i=1; AKwUvByWf/NIrDAAJM43BpSsicd0bKNsZ0XybUgRTnw63+YX2nau+iwtpZ09jwV2Rz4t/OqI0VJpebc2tcvN@vger.kernel.org
+X-Gm-Message-State: AFuF++l2kdiS8YLLkzYj1SB4VyAqUvW4IqqUmZKXZmaR2pF3JD8uyPge
+	yMcaroN7nyRaWAnNTr3PqeJSgOecuOlYBx84y3tiuJHOH0HsUV3OQlsw7o+2A0FMhA==
+X-Gm-Gg: AYBFou3ZfHJ3TqXm//b4DOT3PpAcaZx7n4+GsyM83veSPtikJOBdjt8pBhxdLMT2voa
+	R4aZnBfTvhAWIAneo0M7gbPsGzdLqEftjDsuavz+lFO1IgBkf8o1RXJN8ZQLXfLvlAXrINxn8LO
+	ni65mKv6UadqXtI6OMYEuInkXHgCBEdw+LBTYvJNGXRh7GlyI1t5oFPuIWD32Vb3TPo2306fLTh
+	LAslpZo2KYGJorJh5FXpeIiaiIg/3V4Ukc0P8IWoOHGOh5qQvCMp+AJVPnPcnEXziKoqSpBSjkj
+	0HYfPL6bTEnPw45D/KmMQASEATdgzg3eWP+eUyDXVbmurhKukWm4SaqMOp1wDjTTxMCp4dv9eQ6
+	DR9aSzV2vZ6wviun9ALxIB2QimweuIns6mshnOLYOa6X3tuGEzZWdLn4Zu8tCxqIiZpbi+QAeWX
+	MEVV9U3AQsjzmrLoLf1xRqJor/UeBMdJsQKvuoqG262csc5ik0rcBaoCl1okQUHssyLKNE8uT7H
+	LAcoHIqdWP9A4I1SUNhT0aVK9QPwOjiPQ==
+X-Received: by 2002:a05:600c:4713:b0:49c:fa20:cc00 with SMTP id 5b1f17b1804b1-49cfa20cd4dmr257500325e9.23.1788857881099;
+        Tue, 08 Sep 2026 01:58:01 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5f912esm476174585e9.4.2026.09.08.01.58.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 08 Sep 2026 01:58:00 -0700 (PDT)
+Date: Tue, 8 Sep 2026 09:57:57 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <ap_OFQepcu26g88u@google.com>
+References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
+ <apquUWgrD9C2jWQ0@willie-the-truck>
+ <ap_HzwVp-6aOKEbJ@orome>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PEPF0000847F:EE_|DU0PR10MB6608:EE_
-X-MS-Office365-Filtering-Correlation-Id: f6d484a1-8691-4e43-716a-08df0d8693da
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|82310400026|36860700016|23010399003|1800799024|10067099003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	ziA6vmkJn6b0CDXNSSDqup1KsK8h4X/3rwjvYcLjAOc/kOCszaUvXDWFj7QjaBnPX5cwmtRdUINQtWx790bPedBuZAlrtdmXLgPChKMc6iYIw4GtbGEp9zYnHMac57UaL2MkGWXu9A6GFEG65ad2c8aRZe1GfCvdhbT2YCq2y1SAi1LT95ZlXTyVNrgrY+1UNr+tzFdRoI2fBeIMI30/gjKBZ8iQ9oyZceyuQdbJXzb2D/TxG9m4l31dhCQRW9MmaYAtR1q41LDOOUEmat9cLNuoVt8Ek5fZuMKdY0Y8HwT20BuJWBoI/WvA8IFZ83tURFOLdNS5kaA8AprWnrosCThet2xhlmEXgfbEnHToItFWsxqnySp5AX4HmsONYY01PHvPqH/vHUBkq6zC+DCy+m7fqn+LDcQX4SehiwSrDxjTrzlhrImmTjNnJ4wrSbXBtuadEtENRtNTgWY1wqI39bZWXczxEg04exsm2sM7S8lv2nUtw7bUb/X44dx31089nGtzLuTEEdADPG8vyuzAeXQTQdhzckprCoSS9LYOHdBCdNnJAzWj85vZQtIoo2V707WlO42WzQU0H7TU+kJyfrsimW9RWa3/0jxJ/m3VE4CuOfbi1APwa5ITNKdr9w7uXk7Cm+xUZu0VcfBlmukiSXIg9Fsr+JRMJuuE9PiRA1K+Ddm1+GZ1cHhwzuzNi3nTnpKd7/XJb7M6DycQHtokKw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(82310400026)(36860700016)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	X7rDzUDbyaAoK5mInJib896IiLKnnSq4dmuCygnDZsHIVfZ5FV5Umlg3HiQvaIm41RgHsGLIAn5HKYiTsKIjNMJ57zLSQ66t3fIXWNQqJQ4zl2f8RXDk6tcScAfdrWY57bXvxNnOaZQ/YAPsPcvLY1xjogoH8CIF2ILeElXsPHFPitKOKpkKYs2TnQDrFqnvgEg4M4qW4W9rjXhbJHaX2phDpEeeGgbgTSX/0BcvchaZm6/hcGplWSfDlvnam4G1yTgAVzRB0YsI4kIwLOqUCXzzXBe+GcDGXk3ui+QP+Dwoya97i6ywEARxZI+LccJucruzo2+jwn5qkWbDO6XJ2va6dPl0zEjLiKSVoT8IaTucOt3LV41Wa2BJMDI0iyLahoanVcLYwOdDiFFVi/YHI9rEiNikdeitDF9XX3HsbrhOv5A6mHYNZxbu2QzTru80
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Sep 2026 08:52:56.6402
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f6d484a1-8691-4e43-716a-08df0d8693da
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MI3PEPF0000847F.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB6608
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_HzwVp-6aOKEbJ@orome>
 
-On Mon, 2026-09-07 at 09:14 +0000, Mateusz Nowicki wrote:
-> OP-TEE implements the STM32MP2 watchdog SMC service with function ID
-> 0xbc000000 (CFG_WDT_SM_HANDLER_ID), not 0xb200005a. With the current
-> value the arm_smc_wdt probe fails with -EIO and the IWDG started by the
-> bootloader is never refreshed.
->=20
-> Fixes: 89fca38168c9 ("arm64: dts: st: add arm-wdt node for watchdog suppo=
-rt on stm32mp251")
-> Fixes: e9b03ef21386 ("arm64: dts: st: introduce stm32mp23 SoCs family")
-> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+On Tue, Sep 08, 2026 at 10:39:17AM +0200, Thierry Reding wrote:
+> On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
+> > Hi Thierry,
+> > 
+> > On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
+> > > This series adds support for the video protection region (VPR) used on
+> > > Tegra SoC devices. It's a special region of memory that is protected
+> > > from accesses by the CPU and used to store DRM protected content (both
+> > > decrypted stream data as well as decoded video frames).
+> > > 
+> > > Patches 1 through 3 add DT binding documentation for the VPR and add the
+> > > VPR to the list of memory-region items for display, host1x and NVDEC.
+> > > 
+> > > The set_direct_map_*_noflush() functions that will be used later in this
+> > > series are exported in patch 4 so that the drivers that use them can be
+> > > built as a module.
+> > > 
+> > > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
+> > > but works on sizes that are not a power of two.
+> > > 
+> > > The of_node_to_nid() function is exported in patch 6 because it is used
+> > > in a later patch adding a driver that can be built as a module.
+> > > 
+> > > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
+> > > allow memory to be allocated at a fixed offset within a CMA area. Tegra
+> > > VPR needs this in order to implement its own allocator on top of CMA to
+> > > meet the strict hardware requirements. This replaces the dynamic CMA
+> > > area creation patch from earlier versions.
+> > 
+> > Did you get a chance to see how this could work with Vincent's series:
+> > 
+> > https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
+> > 
+> > ? I think that should remove your reliance on can_set_direct_map() and
+> > mean that you can retain block mappings for most of the linear mapping.
+> 
+> I'm not sure if it would help all that much. Yes, if we mark the VPR
+> region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
+> the checks for can_set_direct_map() redundant. However, from what I can
+> tell, Vincent's series still forces page-granularity on these regions,
+> so it won't retain block mappings at all for them.
+> 
+> The block mappings can be retained for the non-VPR memory, so that's
+> nice. It also reduces the amount of external prerequisites, but I had
+> kind of hoped that we could go one step further and keep block mappings
+> even for the VPR memory if the region happened to be a multiple of the
+> block size.
+> 
+> The recent addition of page count to the set_direct_map_*() functions
+> helps reduce the amount of checks that need to be run, so maybe there's
+> not too much to be gained from removing whole block mappings at once
+> from the linear map.
+> 
+> Thierry
 
-Reviewed-by: Antonio Borneo <antonio.borneo@foss.st.com>
+I should be able to add PMD_SIZE mapping support to the series. That was
+actually my original idea as we can easily force the CMA allocation granule to
+be PMD_SIZE too.
 
-Thanks,
-Antonio
+I didn't implement it as I thought there were not much interest in the end (and
+also as contiguous.c is always using PAGE_SIZE granularity).
+
+But now as I have implemented a specific pool (and do not use contiguous.c as
+originally planned), if you believe it is important for the VPR driver, let me
+see if I can extend the support in a V2.
+
+-- 
+Vincent
