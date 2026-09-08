@@ -1,157 +1,100 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE683592200
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:57:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4C05111A8;
+	Tue,  8 Sep 2026 17:58:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890273; cv=none; b=Av/V0AALPoC7aRhONnyR3CWgRAtqn2CTZv5ZLY7fs59TpdbUCK288Taa9g7sKaOjV4GjIEGPKwfTQ874UUK4cTgOIp0zN2wEXuz641aByTAOiPsV2aee0zLp31cVDeJLPJaHI/NeJoeQV9maOLN9z0LHadJ3M7Vdu8QUjHNYyC8=
+	t=1788890333; cv=none; b=mVG8oSHzT9bFTc53Gk8T1llAQrnlRE8ZVscgGQWwoH9yPdwZsd3JnRXsRzv1FJKFMHvDcSgUrTaD2z84nEZXSLOl0j7f0VI9HUg5hlNQJz5jPSPm4an91joLDBNlHtrvSYgqCSdRsRvkOSc+naedsqy2aEg7wfiuw5lfItz1K8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890273; c=relaxed/simple;
-	bh=6EPl8PH0ghzR4wjMiR7Q8Me3AMe7QphGpp3x2/jbeFA=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=hRIRWQgh7p4QrjSBb+9YQLC6p+uqLwEuz1WqcONfHqr7PrqakoggX43+hBFP2P+Y6j01UC+MmPU7oLoImWqIVbaZvVay2SQUH/1elCApZpJGGe/x8NceCrNZBiU8ajm6rI67XjFOszt1NyNsrkoEyCP33hQjMwp8RRwkWn0A6LQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNminXqn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890333; c=relaxed/simple;
+	bh=fI7oVrJGmODkETK21KExKt5SM6XwZY5nsoSFNHo7lvY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=czmVH4Hv9svvKOLH15869t1TF+xuDp7MycEnY/ygVSUJ+yel0C/Ue1AvpMgH9V4k7co7w5CUiMgPaeNz51TeillKBvwDmCo9BNMrF2e+Da7jj5FkvTe5T7ujFCM0IdID+UMVOaCUw++XRRzzG5RvXnYxKlAw8PhMQnqJKQ8le7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AoqHgkTT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNminXqn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118991F00A3E
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 17:57:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AoqHgkTT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BE5C1F00A3A;
+	Tue,  8 Sep 2026 17:58:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890271;
-	bh=//+DL+MTdww4mg3Ada41hfau+W3+4fTfJDlGXqtRQ+g=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=UNminXqn/CuKIhSfwm1JCbzpGNs2iuB+nzZYAwgwBTGhqQlLkx4pzkvi8gaV8kApl
-	 9SEbSRwMi4PaL1CR6Pu/wFyB36Q8GcczBoiLEcPMcXq5OQoheMj2L990+FTRrgONvc
-	 qNT25HsgwKEQvyjfl3RR6rFPl6mMvPveGcoY7UQza/2cH+Xl8aDl5SrFXiIbRM95V6
-	 a3MooiaRPc2Y+QJv+SZtvR7uIuE44ONmvOzGEc6ziV9JSRqRWcFaYo2lPOfeVW/xXv
-	 nBBgpV0BZTno+rWPzMMTCMSnPYUK9NUExbr1CcAetERVuzicxtYzbFNVLVoEgrra2B
-	 7aDvVX4TLYRfg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7A69E1980052;
-	Tue,  8 Sep 2026 13:57:49 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Tue, 08 Sep 2026 13:57:49 -0400
-X-ME-Sender: <xms:m0yganBEz592w3zaueDtR7ZFMJuduTgR4_oAp4uYnGQcEUKBTWMAEA>
-    <xme:m0ygaoWXi1Wg2fis7naZkECFFqQoz7FRuvyCeaUXFH8ugw6V2OvBcWbkkpKO3Jhno
-    Qbuxvq4P2EyZ9V6rEGDXYJKQ4uQqujibWDp89GKqxDJM8Rg7xixhkw>
-X-ME-Proxy-Cause: dmFkZTEXuYpjZ1wAkm/2LvOlQkLNMJ0Z2ChbMNcUSPWGbBGa6pqiWHAiObHM8tVPEL8QRd
-    hiQ0ImqRveN7sdGSqUU0YGgzBllaCjWQB4kYxULxdZNCa4cmDb/MsC6/zrUP5SDhtMDV0p
-    jnj69s5Gt1Uv0hwRtF2k9hsoDrdBwK9nYe022ghrXEsBgmh2orTz389+Pz0k4JcL+buYHh
-    noVq6d1kLrVTMDtTneTDA3E1ZeFPxU9FnBh+PYnJAu2q2/Ko4ZFW7mvLGpR3ZPAfxZ6yl5
-    BW2DGdjjhiZ14+1/Vp6ZUbNGc0DzP1tfRGtofP9SKAKFsSVj9pJkR3bRJTyBMUs/EG1nTW
-    9i8lIDtnYNZE5QDCBW46X/1FHPBerBS1bv4MO92XuSICv9LBCIu3kGX5DBNbp53z+Z3hdg
-    0ML+hgh0GrnP/W0GdztR81vqWvIQaMVbo1KSQKwFcN5L//4Wa4dziECNd8RqLIVTPqTtWw
-    D7tFLz04Ygk+vedTXAFQDh9FMBfoJy7Lo2sg52V5KjJanOrRTM4WVfSlys00K52SG04MSJ
-    TT4L2WEamH6Wu9Y3WbcKkfT7KIMP94SgDZzzvEM7uMBkLEyg49Gcth09l17LaOhy1Bd4Cb
-    zMO1mC9X0mhlg5An7kidoZ0KbEbBENOiDidiLefnjimZdNHBWsBYorQOthfA
-X-ME-Proxy: <xmx:nUygapVBmx82bC4_JiB5d0FBdHsJWIsiwjagP-cYQmf5WyT_ZDFBiQ>
-    <xmx:nUygajnoSxLTefYkU66TYj_MqSVieBuN-Ydow3CMkq5HSY9SkAo0Hw>
-    <xmx:nUygasCkv6cB9GG8CyiV-elc4gzfXqNW57cL7mKDJMI8qgJa22rBNQ>
-    <xmx:nUygaqijVdzWFxCRkkZiv3X-bZeMrE5w6tV1qROsNIR1GdmtybYrAQ>
-    <xmx:nUygahzvItMafEAba5NyHMHjxd5oP2hvpgjaNcegyXZm3lTJ6_ov1Qxb>
-Feedback-ID: i36794607:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id DC7BF32A0078; Tue,  8 Sep 2026 13:57:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1788890331;
+	bh=Nd9vL7366quzXSzytNP0ezSXovdi1blO+h9i8j1gkmc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AoqHgkTTBSHbIYMYbCeEx73x7pMToPdK+JYc0+zG/hbTO5Dg2iyXHRdrE43wTnwLu
+	 C3u4lijzcfMhH4fcLH+4sHcq5YwOncs6go57K+pF7RgTbmMkyWuXxXcvpTqdphOEmi
+	 sC5hwiSFxnk4o91NppKuIc3KeNftKwZZsgJ97Ba6GOUCTeVSJK++TF/jhkBVV4UXt8
+	 xLfCmxfInHTD8886plvyNOnv1wDarlT1cVm2QmTT8CKMguDO4VYIeqEv9fknU0yVhO
+	 sX5tTjumNo03lOXjRmTUaB+TkrSnFcO7twAWYN6U4+SiYc9ZDpZ5r43+ynDeNDh594
+	 gy5q5s10L/vJw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 6/8] dt-bindings: reset: Add mmsys reset ids for
+ mt8167
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260908174259.9009-7-l.scorcia@gmail.com>
+References: <20260908174259.9009-1-l.scorcia@gmail.com>
+ <20260908174259.9009-7-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 08 Sep 2026 17:58:50 +0000
+Message-Id: <20260908175851.5BE5C1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: Aub4sDdj1xcV
-Date: Tue, 08 Sep 2026 19:57:27 +0200
-From: "Arnd Bergmann" <arnd@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, "Frank Li" <Frank.Li@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, "Rob Herring" <robh@kernel.org>
-Message-Id: <a859cd07-8f52-4ae1-b28c-7bc052694a5a@app.fastmail.com>
-In-Reply-To: <20260908155546.5DB8B1F00A3A@smtp.kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-3-arnd@kernel.org>
- <20260908155546.5DB8B1F00A3A@smtp.kernel.org>
-Subject: Re: [PATCH 02/13] ARM: remove footbridge
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 8, 2026, at 17:55, sashiko-bot@kernel.org wrote:
->>  __tagtable(ATAG_MEM, parse_tag_mem32);
->>  
->> -#if defined(CONFIG_ARCH_FOOTBRIDGE) && defined(CONFIG_VGA_CONSOLE)
->> -static int __init parse_tag_videotext(const struct tag *tag)
->> -{
-> [ ... ]
->> -__tagtable(ATAG_VIDEOTEXT, parse_tag_videotext);
->> -#endif
->> -
->
-> [Severity: Medium]
-> Since this patch removes the footbridge architecture, should similar
-> arch-specific dead code be removed from arch/arm/kernel/atags_compat.c as
-> well?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The mt8167-mmsys reset provider capability is introduced without=
+ updating the YAML binding to require #reset-cells.
+--
 
-I have a separate patch to remove that file entirely and chose
-not to remove the lines here to avoid a merge conflict.
+commit 58d3f60477024bb27299c071d1ec1f38c92deeac
+Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Subject: dt-bindings: reset: Add mmsys reset ids for mt8167
 
->> deleted file mode 100644
->> index 96a74d447028d..0000000000000
->> --- a/arch/arm/mach-footbridge/Kconfig
->> +++ /dev/null
->> @@ -1,57 +0,0 @@
-> [ ... ]
->> -config ARCH_NETWINDER
->> -	bool "NetWinder"
-> [ ... ]
->> -config FOOTBRIDGE
->> -	def_bool y
->
-> [Severity: Medium]
-> By removing the FOOTBRIDGE and ARCH_NETWINDER configs here, what happens to
-> the drivers in other subsystems that still depend on them? 
->
-> For example, drivers/watchdog/Kconfig still contains dependencies like:
->     config 21285_WATCHDOG
->         depends on FOOTBRIDGE
+According to the SoC data sheet, the mt8167 has 28 mmsys resets. This commit
+adds the corresponding IDs that can be used in device trees to identify
+subsystem resets.
 
-See the longer series with the patches to remove this.
+> diff --git a/include/dt-bindings/reset/mediatek,mt8167-mmsys.h b/include/=
+dt-bindings/reset/mediatek,mt8167-mmsys.h
+> new file mode 100644
+> index 0000000000000..b21f67b3b55c7
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/mediatek,mt8167-mmsys.h
+> @@ -0,0 +1,35 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-3-Clause) */
+> +#ifndef _DT_BINDINGS_RESET_MEDIATEK_MT8167_MMSYS_H_
+> +#define _DT_BINDINGS_RESET_MEDIATEK_MT8167_MMSYS_H_
+> +
+> +/* MMSYS reset IDs */
+> +#define MT8167_MMSYS_SW0_RST_B_SMI_COMMON	0
 
-> And drivers/char/Kconfig has symbols like DS1620, NWBUTTON, and NWFLASH
-> that depend on ARCH_NETWINDER. Will these be left permanently unbuildable
-> since their configurations are orphaned?
->
-> Additionally, 977_WATCHDOG depends on:
->     (FOOTBRIDGE && ARCH_NETWINDER) || (ARM && COMPILE_TEST)
->
-> If someone builds with COMPILE_TEST, won't this driver try to build but
-> fail due to missing headers?
+[Severity: Medium]
+This commit introduces a new reset provider capability by adding reset IDs
+for mt8167-mmsys, but should the corresponding YAML binding be updated as
+well?
 
-I don't see any headers causing problems in 977_WATCHDOG, but
-I'll do some more build testing on the current series before
-I post the next version.
+Looking at Documentation/devicetree/bindings/arm/mediatek/mediatek,mmsys.ya=
+ml,
+when hardware gains new provider capabilities like resets, the standard
+properties such as #reset-cells must be added to the required list or a
+compatible string-specific conditional block.
 
-I did randconfig tests on a slightly older version of the longer
-series, but not on intermediate parts, so it's possible that
-I missed something there.
+Without this update, a device tree node using mediatek,mt8167-mmsys could
+omit the #reset-cells property and still pass dtbs_check schema validation.
 
->> diff --git a/arch/arm/include/asm/hardware/dec21285.h b/arch/arm/include/asm/hardware/dec21285.h
->> deleted file mode 100644
->> index 894f2a635cbbd..0000000000000
->> --- a/arch/arm/include/asm/hardware/dec21285.h
->> +++ /dev/null
->
-> [Severity: Medium]
-> Will the removal of this header cause fatal build errors for the orphaned
-> drivers mentioned above?
->
-> For example, if compilation is attempted (such as with COMPILE_TEST),
-> nwflash_init() in drivers/char/nwflash.c and serial21285_init() in 
-> drivers/tty/serial/21285.c both still include <asm/hardware/dec21285.h>.
->
-> Does this patch need to remove those orphaned drivers as well to prevent
-> build breakages?
+This allows incomplete device trees to slip through, potentially causing
+runtime failures for reset consumers.
 
-The nwflash/nwbutton and dc21285_serial drivers have a hard
-dependency on ARCH_NETWINDER, so those should be fine.
+Should the mediatek,mmsys.yaml binding be updated to enforce #reset-cells
+for this compatible string?
 
-       Arnd
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908174259.9009=
+-1-l.scorcia@gmail.com?part=3D6
