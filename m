@@ -1,125 +1,82 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B645501F44
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 09:11:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C11BF529414
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 09:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788858665; cv=none; b=IsEuCFWnsvYso6gnOtvmDICVKBEpxwJBnyoADs7ZCqZ3q2PK+24/w4eo3v3jyZ8c5XSiAzXXa7tEMxNldjR/xRk3e0JSe5ER+EQF1qVIAQiQ0wca2BaEPcGvqahJDZ4bvVMhJuvKYR5SR8F4NBTTlxbn0oSoueCXl19avdRHWP8=
+	t=1788858673; cv=none; b=Wueu4PjUXPb97dZGojyCcDFYlJ2UdaKayu8MwE9EoLmd1Q5QfgT4PjbU27CeA3kGP24gqITR3XhYoXPqZQ8jus5f8GoqQLo3FoX/vDT8MI621UFpz1Yw5tG3eXuUKDYlbjnOdH9TbhWUQ/sb8lstTEYu59pinH2iVQxLigFGUxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788858665; c=relaxed/simple;
-	bh=PvXsmkWYs08Fb6emr0vNeygHcdGIKgZy2QeAteTTf+I=;
+	s=arc-20240116; t=1788858673; c=relaxed/simple;
+	bh=TmzzV+fM1QSXib/KcubYMEqzdh2Oyo//gEQU5hpWWs0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PHIj40+zrMMDxS69gju333vhFmnRG/kWrCANbSTq1symgQ8GgS17vhM5TgYs5+keGKs3xdJbbqQQ3yvKRIXpzDHb9kE3fa+wVPjk7Zjn6h7wzY4gsU9dUtBmrIkkiydrN37pYH888YJp3J2vzgqc44Q1g3PN9z/zs67GmMlqKas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=od9zMfWD; arc=none smtp.client-ip=209.85.128.51
+	 Content-Type:Content-Disposition:In-Reply-To; b=WyfS+t2q7hWFZNGR/IgkvqeLWjuB5JWTRTuWKPgoldSMOpQXL+Jlpy8IhpyOIwDaYFwUm5uJVkm6Nc5RJLI/xjBe8PlZO2wIej7wZmEu3i2IiVwATpTjQpQdRkhH3nXHJCwe9NnyIo4ZqvaDNjz4Bfggv04Q/NI5cBUeyGwhc4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=FSQzD4Uk; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="od9zMfWD"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so44140835e9.2
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 02:11:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="FSQzD4Uk"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a613a6bcd8so20214a12.0
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 02:11:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788858660; x=1789463460; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1788858670; x=1789463470; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jO5c4Bt3ZAdytp/EWde+NVli4TynjxjjAsIpB98Fp84=;
-        b=od9zMfWDcF4OHQCHDnTSp+IxWBh7YcrsnqnYcySKIEcmm/ceS5PK+Ald4WsDAMQGca
-         JtStGdPNa4jsxYXMI/49ZgEEFYt9UcWI8IyRBsO3AybC/oohRQiO3QSxj3hPa2MT3HmE
-         jG815bbsxFI0fkVFJ6+wGUaARnLJaKxSfY22sakMY30hoTw9lRCpmnZd9jHdxlPxrk9a
-         IhrRS2O3xf1/jf1vWiD+7YlOF/bR52YD3FZlFwsuobxev0U4c3rqbs0WfcZmcYym8q6G
-         JzkgBiT4ugQ/LjmCIyf9fuaf6Rc5IxypahVG3fBdT3jSyDWYo8B9u4GFtEseJ8rKv28I
-         CGHA==
+        bh=IrpwdRZwJHUrRXfsJpygnheg0Tk5qU692FixuJGcKnA=;
+        b=FSQzD4UkKoH7nFV+7KtLqMVKXnWrx07dj06vGUF5qCMJuLbG4ZrPfKi5C0/XT1Rjt1
+         9sv96NRQrCD6n3IF62sOlQXXt5aWCepfhPvy2JcVAv9/wsJowp5T1wumjdrvAK8lecox
+         hYhinp0BbxOtUGVOLK3yDeutdbeN3zTI4V7c/Pc+l6EhslrDgVdxFcSVvFMtp8c9JuDA
+         pONAT0BtkPv0SczblcxKsa1WYOqoEOpAP2qMtKbV1Jwp7t9hgo8ckoPS01M++h28tuZO
+         imoO/WnAZ6aKT5PbPhXTILmkPxkMDxzftbNjDdyS3hige91wbGrWvH348nwiuycEB8CN
+         IZlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788858660; x=1789463460;
+        d=1e100.net; s=20251104; t=1788858670; x=1789463470;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jO5c4Bt3ZAdytp/EWde+NVli4TynjxjjAsIpB98Fp84=;
-        b=UibSPKQmQWcB9XugNpnyemh2Wq8f7XqBYWWnhh8GuIFmleOCx/xumd1qVNMs2Z9bfz
-         6HNAzXjCrCquvvqhKeHR24Kq+Z9vm55Nzf23KstpVcqXqT4mQkjJ+kxy1OjNnIYyCqVB
-         wPEa/OiatXIpD6KyDiALQTEqe+1djNW5GXcr1J8Umb2olm0xQBcT+SUurMkgqvSN7fG3
-         GtcBuiiV1M2UFAQQlthzZbiH+fXHjiuUdBRFJRjrCL0bjqzGH64QogqnLduw2bn/gFgC
-         PtNshEnzKG0ZxGWc0Bk6lVEiZ+JenYKzZ6WF6HN5bE33erpW5W/18rc69xiXmmzn7wrx
-         v00w==
-X-Forwarded-Encrypted: i=1; AKwUvBzteHenePzOLPTOLicEIZgkVfWPZSqrb6Q5KtQMDCBmK0VXSbbNKtFkoDpDoQ4Cwa8JbMq5c+LBRb13@vger.kernel.org
-X-Gm-Message-State: AFuF++l5E9cTakkabkSdNX6k2yjCK6/f7JrymX34iQ87JKQVdt+TYWQN
-	o3avK8rVzgPTMYFHa3tE1at5Ur8AvJvM1u1mUxxb+ON0QD5biPdT+4CrWSKO1C0VkA==
-X-Gm-Gg: AYBFou160DIn18U6TbPpWXgVkwK3IriEeFa9hHXTwF+DbfHmFcX6xSLIuUzBuJ/pQ9v
-	Jb9xV3WzDciIPSQwJUZFsWDgsGGNHOIvDoymVcruoSZmor1Wr4WkNrz7iJl92ZWvS2rd+3BNszR
-	uStk8FNxa2DNFrn9jE9DToFVw/0BagJIzZWJ+tidPkuUsTIbVgbWgRyVlUMIUvmJtFTkAOrsMxX
-	V33vcTmC1GqaxTm0R5nZVdnIRrA0ngn8j0Z7RjFQkwZQJHzkzI8yF+wmPxg9GPM9S6OHZ+xnFev
-	PSxIO9aostzlNspcDr7tCdHf/zEH8l7ryVPr4qEjUeDRiVLTZLsEGRUhFgp2oAX3VPBeht/S9Ht
-	JUFiEL6SBxa49jYG8jC24PR7t5u2ViHF0Y0b2DFZERh5Fsf4vdncDAkUoEaAK0YWuYZDEfEedbw
-	IUQDUq+DXIyZve65uaKHPTRojRgjs9dfr317Dd7J7DGtVAoVxxhXTY3Uqs+ogLqfnLYiIEADXbh
-	5TEbCwLcRuP8tNI4grp7KeXPy3zdo4r/6eM29l8M9A=
-X-Received: by 2002:a05:600c:1549:b0:499:a5fc:2087 with SMTP id 5b1f17b1804b1-49cf81f47e6mr290181665e9.6.1788858659472;
-        Tue, 08 Sep 2026 02:10:59 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cfd3f815bsm279081265e9.4.2026.09.08.02.10.58
+        bh=IrpwdRZwJHUrRXfsJpygnheg0Tk5qU692FixuJGcKnA=;
+        b=cbW7E7En+3S82GvoS2baECYnEZlEyTbL6ZLXv/qL/ZjSg79DbB+YIyFRrHsQaiIEC9
+         DZHHncss1cyKt1FfF8Bwa34zKlXUuKPQpgCtxJ20cfr3wO6FGHviaQ0bwkWV1BYoapfw
+         KL6S99uFiLSlrnyidfB308xSQpivN+qUMHQoF0QkdDvmBJWqQa3rQ/JymExj2gQ/8scc
+         4UFKd6vV3IQlEntRBhJ+mEGswOKjnE5KDGYVwmqXG9MwfJYaEsKsiwsjd6aH0Y/xzlYh
+         bnuKl4yj4u+4aRShs+kQzjFeKaPv9WUzgy6jNAWOTgd5oc8tt6qwrX2Wgv3O2RYWrU53
+         lkkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzOxHUmkITsabKlYmo19cPdupuF+X9r3Vurxwc9SgIBmfTACJiO8Qz4RLmq9ra9n9lgZbzzEv6vtLSk@vger.kernel.org
+X-Gm-Message-State: AFuF++livDAHCzRPpWKmAogNGp9diET26N4shDj3Y5wU6qbIOSGMXux1
+	OBcvu8tEqtCXyv6prWF8qL+RUisFsfeTjT9A/71Xx4vwsZ2xhUAmBrVhKwJLKc3ysz6ClrGytdF
+	8vtP14A==
+X-Gm-Gg: AYBFou3/EXZjIipCQc3ParNIb2hDG52ceSpDGuda5oitwkdj8sjycYAHXg8w50q8gyJ
+	5Ysu7uvSHIKE7zGTNQyK+yH1jPBykDH847kuoutH4Fw3TwUmqfkwRzShdwy/NUo8g66r5u21Dd4
+	/3K/ezFfBEMYUOV8x9VkWrobspSgrH5aUtMPheLmUG3lsospfBSJ7c+n2fCzxB/DSIfb3ecekE8
+	SSYsrBj+WF9bVl0qUlLZl0TrAeHtHPnN49orjXABv+K9mt8z/72d+O2y9mdvyNpd1VNSjtpPUWa
+	ret0m7db3t81RS7KtWc1ra7Z7efmIBsuNyL/7iac7ARhpb94fjcpqDVjd+awXc4IsjXyzcQdnxJ
+	eALFMNtW2T1SblMglTKZPs4c6wBiS3OB1AOR4UgYK5X3F4tQPOvvxFshsjKCo+TVrZuq5J4LCJQ
+	J9XwQIwxTql7M91T9NNfrpcswtxM95/HYuMGNmdnViY+8Sh65jgoVZC4XR4m/iNjesrzgyzHYc7
+	X1zu7BtKmQZrstKsq8WgaubEVD9sQ==
+X-Received: by 2002:a05:6402:a5cb:20b0:6a1:f088:9486 with SMTP id 4fb4d7f45d1cf-6a7f67b5d76mr50415a12.4.1788858669454;
+        Tue, 08 Sep 2026 02:11:09 -0700 (PDT)
+Received: from google.com (250.192.189.35.bc.googleusercontent.com. [35.189.192.250])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c260d5921e2sm581052366b.46.2026.09.08.02.11.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 02:10:58 -0700 (PDT)
-Date: Tue, 8 Sep 2026 10:10:55 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Will Deacon <will@kernel.org>, Rob Herring <robh@kernel.org>,
+        Tue, 08 Sep 2026 02:11:08 -0700 (PDT)
+Date: Tue, 8 Sep 2026 09:11:05 +0000
+From: Mostafa Saleh <smostafa@google.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: jens.glathe@oldschoolsolutions.biz,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>,
-	Saravana Kannan <saravanak@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
-	linux-trace-kernel@vger.kernel.org,
-	Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v6 00/12] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <ap_RH4ZDE3XI0rng@google.com>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <apquUWgrD9C2jWQ0@willie-the-truck>
- <ap_HzwVp-6aOKEbJ@orome>
- <ap_OFQepcu26g88u@google.com>
- <ap_QJG8EevX98SXa@orome>
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] arm64: dts: qcom: IdeaCentre Mini 01Q8X10 Hamoa +
+ Purwa
+Message-ID: <ap_RKfCbXAVBRtSY@google.com>
+References: <20260905-x1-ideacentre-mini-prettify-v1-0-9a87882973bb@oldschoolsolutions.biz>
+ <ap_PdUrwLIVGJ3oG@google.com>
+ <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -128,87 +85,86 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ap_QJG8EevX98SXa@orome>
+In-Reply-To: <799c3128-cf43-4a64-a8c8-3f6695bbf424@kernel.org>
 
-On Tue, Sep 08, 2026 at 11:08:26AM +0200, Thierry Reding wrote:
-> On Tue, Sep 08, 2026 at 09:57:57AM +0100, Vincent Donnefort wrote:
-> > On Tue, Sep 08, 2026 at 10:39:17AM +0200, Thierry Reding wrote:
-> > > On Fri, Sep 04, 2026 at 12:41:05PM +0100, Will Deacon wrote:
-> > > > Hi Thierry,
-> > > > 
-> > > > On Fri, Sep 04, 2026 at 12:44:51PM +0200, Thierry Reding wrote:
-> > > > > This series adds support for the video protection region (VPR) used on
-> > > > > Tegra SoC devices. It's a special region of memory that is protected
-> > > > > from accesses by the CPU and used to store DRM protected content (both
-> > > > > decrypted stream data as well as decoded video frames).
-> > > > > 
-> > > > > Patches 1 through 3 add DT binding documentation for the VPR and add the
-> > > > > VPR to the list of memory-region items for display, host1x and NVDEC.
-> > > > > 
-> > > > > The set_direct_map_*_noflush() functions that will be used later in this
-> > > > > series are exported in patch 4 so that the drivers that use them can be
-> > > > > built as a module.
-> > > > > 
-> > > > > Patch 5 adds bitmap_allocate(), which is like bitmap_allocate_region()
-> > > > > but works on sizes that are not a power of two.
-> > > > > 
-> > > > > The of_node_to_nid() function is exported in patch 6 because it is used
-> > > > > in a later patch adding a driver that can be built as a module.
-> > > > > 
-> > > > > Patch 7 introduces new APIs needed by the Tegra VPR implementation that
-> > > > > allow memory to be allocated at a fixed offset within a CMA area. Tegra
-> > > > > VPR needs this in order to implement its own allocator on top of CMA to
-> > > > > meet the strict hardware requirements. This replaces the dynamic CMA
-> > > > > area creation patch from earlier versions.
-> > > > 
-> > > > Did you get a chance to see how this could work with Vincent's series:
-> > > > 
-> > > > https://lore.kernel.org/r/20260902104712.2399797-1-vdonnefort@google.com
-> > > > 
-> > > > ? I think that should remove your reliance on can_set_direct_map() and
-> > > > mean that you can retain block mappings for most of the linear mapping.
-> > > 
-> > > I'm not sure if it would help all that much. Yes, if we mark the VPR
-> > > region as LLMAP (or PTE_MAP, whichever it ends up being), it should make
-> > > the checks for can_set_direct_map() redundant. However, from what I can
-> > > tell, Vincent's series still forces page-granularity on these regions,
-> > > so it won't retain block mappings at all for them.
-> > > 
-> > > The block mappings can be retained for the non-VPR memory, so that's
-> > > nice. It also reduces the amount of external prerequisites, but I had
-> > > kind of hoped that we could go one step further and keep block mappings
-> > > even for the VPR memory if the region happened to be a multiple of the
-> > > block size.
-> > > 
-> > > The recent addition of page count to the set_direct_map_*() functions
-> > > helps reduce the amount of checks that need to be run, so maybe there's
-> > > not too much to be gained from removing whole block mappings at once
-> > > from the linear map.
-> > > 
-> > > Thierry
+On Tue, Sep 08, 2026 at 11:05:34AM +0200, Krzysztof Kozlowski wrote:
+> On 08/09/2026 11:03, Mostafa Saleh wrote:
+> > Hi Jens,
 > > 
-> > I should be able to add PMD_SIZE mapping support to the series. That was
-> > actually my original idea as we can easily force the CMA allocation granule to
-> > be PMD_SIZE too.
+> > On Sat, Sep 05, 2026 at 11:28:55AM +0200, Jens Glathe via B4 Relay wrote:
+> >> The IdeaCentre Mini 01Q8X10 (board 91B6) ships with two SoCs: Hamoa
+> >> (X1E80100), already upstream, and Purwa (X1P42100 / X1-26-100). Same
+> >> chassis, different silicon. Stubble and the DTB loader need distinct
+> >> compatibles.
+> >>
+> >> This series splits the board description into
+> >> x1-lenovo-ideacentre-mini-01q8x10.dtsi and adds thin leaves. Each SKU
+> >> keeps lenovo,ideacentre-mini-01q8x10 as fallback:
+> >>
+> >>   lenovo,hamoa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
+> >>   qcom,x1e80100
+> >>
+> >>   lenovo,purwa-ideacentre-mini-01q8x10, lenovo,ideacentre-mini-01q8x10,
+> >>   qcom,x1p42100
+> >>
+> >> No qcom_scm change; the fallback is already on the allowlist.
+> >>
+> >> The remaining patches fix the common DTSI for both boxes:
+> >>
+> >> - Build the Hamoa EL2 DTB like the other Hamoa boards.
+> >> - Second M.2 3V3 is PMC8380_3 GPIO5, not TLMM18. A 2 s startup delay
+> >>   is required or pcie3 fails to probe. always-on is a hack until there
+> >>   is a real M.2 power sequencer.
+> >> - sound-name-prefix on the three DP ports. Enable lpass_vamacro: no
+> >>   onboard mics, but it provides fsgen for tx_macro and rx_macro.
+> >> - usb_mp port 1 is not populated (no PTN3222 @ 0x4f). USB-C is
+> >>   usb_1_ss0; rear Type-A is usb_mp port 0 behind a Genesys hub.
+> >>
+> >> The Genesys hub is left undescribed.
+> >>
+> >> UCM [1] and AudioReach [2] topology for these devices are online, too.
+> >>
+> >> Tested on:
+> >> - IdeaCentre Mini 01Q8X10, Purwa (X1-26-100), 91B6
+> >> - Hamoa: compile-tested only
+> >>
+> >> [1]: https://github.com/alsa-project/alsa-ucm-conf/pull/843
+> >> [2]: https://github.com/linux-msm/audioreach-topology/pull/74
+> >>
+> >> Assisted-by: Grok 4.5 (xAI)
+> >> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+> >> ---
+> >> Jens Glathe (7):
+> >>       dt-bindings: arm: qcom: Distinguish IdeaCentre Mini 01Q8X10 SKUs
+> >>       arm64: dts: qcom: Split IdeaCentre Mini into a common DTSI
+> >>       arm64: dts: qcom: Add Purwa IdeaCentre Mini 01Q8X10
+> >>       arm64: dts: qcom: ideacentre-mini: Build the Hamoa EL2 DTB
+> >>       arm64: dts: qcom: ideacentre-mini: Fix the second M.2 3V3 rail
+> >>       arm64: dts: qcom: ideacentre-mini: Wire up DP sound names and VA macro
+> >>       arm64: dts: qcom: ideacentre-mini: Drop the unused USB MP port
+> >>
+> >>  Documentation/devicetree/bindings/arm/qcom.yaml    |   11 +-
+> >>  arch/arm64/boot/dts/qcom/Makefile                  |    8 +-
+> >>  .../qcom/hamoa-lenovo-ideacentre-mini-01q8x10.dts  | 1188 +-------------------
+> >>  .../qcom/purwa-lenovo-ideacentre-mini-01q8x10.dts  |   42 +
+> >>  .../qcom/x1-lenovo-ideacentre-mini-01q8x10.dtsi    | 1185 +++++++++++++++++++
+> >>  5 files changed, 1246 insertions(+), 1188 deletions(-)
+> >> ---
+> >> base-commit: af5f12805e5cefa4fe68d6127c7e1fb78cd5535c
 > > 
-> > I didn't implement it as I thought there were not much interest in the end (and
-> > also as contiguous.c is always using PAGE_SIZE granularity).
-> > 
-> > But now as I have implemented a specific pool (and do not use contiguous.c as
-> > originally planned), if you believe it is important for the VPR driver, let me
-> > see if I can extend the support in a V2.
+> > This series does not apply to ToT nor I can find this base-commit
+> > in it.
 > 
-> I don't think it needs to be part of a v2 and can be a follow-up. It
-> should be transparent from an API point of view and merely be an
-> optimisation for that specific case.
+> It's a public/standard commit, next.
 > 
-> Eventually it'd be nice to have, though it might also be worth checking
-> what the actually gains are.
-> 
-> Thierry
+> What is ToT in upstream development?
 
-Ack. I'll keep it as is then and we will see later how to extend it, if it is
-necessary.
+I am using Linus's Tree:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/log/
 
--- 
-Vincent
+Thanks,
+Mostafa
+
+> 
+> Best regards,
+> Krzysztof
