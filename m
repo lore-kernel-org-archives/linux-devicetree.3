@@ -1,932 +1,581 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C167A38399D
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 06:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511B833F589;
+	Tue,  8 Sep 2026 06:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788849215; cv=none; b=lGlI34P+uXWeje7wfCN18MJwEj5+s8wQdcFrMwOSEzSUZFrti96qt+kv4hqUztcqpMqYjz3Xq94mje/0k+n2S58gfZUntSE3NG6Qlxgl9oMiC8SnSaEgmNJuvO2X+SyKf5R8+05aeSJmWTWrgoqqQM8irh3qwU7seZVQUfkNfmM=
+	t=1788849741; cv=none; b=ZeCNcn/tRSpfCCaLQ0db4UJp+d4vTKtkA9JCMIj+J+FIOvlvNZd6TX4GDZv+mfrL1m9Sf5n1lCCv8B7v/ziUhgtYuQGZ14gUnvOH0nvXBzgxKIOqOmGZ1G7JETlQDcLbVv0jAIoA6OX947GLmbrLJ2tIoBvRdQXcjmbF/NHm3Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788849215; c=relaxed/simple;
-	bh=7aQWP2Vor/3sXPBp+dn/JJmr/1wEPteY5kKIKy0vNo4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iDjkmOI0KJKaagYn63Hr4Z0kl9QxnqaUe1QiIp3HoZZPGojYLfIG7uc80LEULueLFCyOzqhVzsUGRrAxyFZPkUv48WqrNIJrKH7UPDrg5s5h5Nz8rd6wTKN5xH81TWKBvLcezsniFd57bhtgNyL1/glg3wH+VONde6wwZoAB3M8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bAeXS3Y6; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788849741; c=relaxed/simple;
+	bh=R1LsAciT+xsC2ZiK1jLwcFP0kPKlFlMJbz4ySywZy0o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ue3d6yUxf270u+yUI5N/wCtcqvOtJcgY0iHzwHjxITifkUgS4ByRofbGeujIlz6YMgLpJO5v0v9jawch+FQI7ZO2ZwO2XfdfLZ0DPTD1m8kaLV+bd61FJ8veN7CnQ2p0MY6EgJndhC//fPf2f9idHw4Eke7GvT+CluR+ahc7QVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=IB5UQrg6; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bAeXS3Y6"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398e9698a70so3699167a91.0
-        for <devicetree@vger.kernel.org>; Mon, 07 Sep 2026 23:33:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="IB5UQrg6"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788849212; x=1789454012; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tsJi2lZEpF2IDanNSkhreh3goiVXfD4CAZAn7dod6ww=;
-        b=bAeXS3Y6ela68qwQUfnpCk1oTtJTQd35wzLm/Zv3hdeQXCPbzW01D52v5LXEIVUXgU
-         UBcyhX3AJyWlOKoa+SRo/LTWZ1+dsi8/PRnjzjqwFMHhpVcZiAfgepLAbcMH6K6UhFjF
-         ht9REVfsqszruOrqdtFx/A9fB2pPPlrgbcCOYZETLF0jIu6VrNmIvIHu2J45yxusOaqR
-         T9LGVrhGWdXiAZ1ZfuuUvXgpsDZ8hE3LJX38RwAPK0lbc+whJBqHWbhywLA17ZvvnJI9
-         HLKJ2/b5RWKE2zexOBo2RnTJTb2Zf2hNYYsYgYrPzT3HMTI4IxXT0joVcQT0QCaP72fd
-         KTjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788849212; x=1789454012;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tsJi2lZEpF2IDanNSkhreh3goiVXfD4CAZAn7dod6ww=;
-        b=UxoSNcAWXFhJ7MRRKJoBibR/sdZp+iqpwlDY1lub6EOsjgOWrynQGGAs1EUk313BO6
-         UsZOJupGJS2eXj7mHiJ4VxMa9kFtRypbYtfTa80wJFeYqMOjFVavLgQOUnuBQRYeLbfT
-         MW37reXjQBKh2jY7uebOOb8oW4EgOfLLWj/U0HKi9S+dKIRkhpMJXTPyO+NQEsgvZq6N
-         0E1AkLouJwrWQyv5/tV5Z6xtVvD5SkyM12SCnkJ/R4U1JzNuDmmkk6ww/79BsD3czcAa
-         GMWtjEtKdoSByjEk86xnuBcJ59YkTS5KO2TDhY3qCltxPPmyMLvd1kaPtmpZbZX40dDH
-         pISg==
-X-Forwarded-Encrypted: i=1; AKwUvBz7ZvT232wNnbziewnfgjMEwA/rKtzABj8Sn/+QqDEFnV8ZdZIfOBPPvA6lEquk0Ln5Ke8qFNnBfseu@vger.kernel.org
-X-Gm-Message-State: AFuF++nzxySc99FkLc6T7M4nzNMthxtSLfvWUEv4XY7wJdfhQ7018GJV
-	7/kcWZ/hxTmEx0PdVDn/Vu/oHYbtOGAO7HJ0gexQJaU6AIRchbMwES/v
-X-Gm-Gg: AYBFou3p2kUaR7QszDJVhcrso5fHo2jgrDvf9ys5RVVdShWEEZZVVpP7lde+rJe45VN
-	UtM5IkoTCLDk/zJcVVi+uJX3vgPbZKjIyRl1fytaaLVdxhMUCGtmfN6RXv7dvpvcXyqTvhV30bf
-	Kc7B+iDaFfk/xWK+zY69k7uIAWEAJlCMGHxwX/gQkA4lB5ayc7Er/Vb6I7JdArKSjH4n4ddK60Y
-	ImOp2oBzYAPOxq0g1M0k9+3cIVzhxzHLAuKoXJLT1w0dl/UetDJqFEtuoA9K5VBaBPV/5Lq6Pkw
-	IaN8j9IdSgfEbWWbRdi0KsQ1NuuHU0uJLMkxAl5ojO8Kd32woCZEvlACc8eYaIsdtuYXOS+OVeo
-	eDXxq+xTsZp9/hy7NQF6GJW4Ox9WWQhhd3fUv7nxF6R5GmdBTFQA1YiPZllJ3oXNqoxRZ11vdZx
-	56HWP8bGvZFupdcwTB+fyreWHRMpEmdmZskxe7rQA/fVjVqqnCZblk86n/30UR/qFwsW3C7G+JW
-	2SRLcVSJrN3QsB+S58Z2knXUwHpuKa1aL8=
-X-Received: by 2002:a17:90b:2884:b0:398:e86b:ce14 with SMTP id 98e67ed59e1d1-39b262ab44emr39243676a91.20.1788849211851;
-        Mon, 07 Sep 2026 23:33:31 -0700 (PDT)
-Received: from [172.19.1.48] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08d0d845sm31381442a91.17.2026.09.07.23.33.28
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 23:33:30 -0700 (PDT)
-Message-ID: <bbe24480-a844-4b02-b072-6388859cdc1e@gmail.com>
-Date: Tue, 8 Sep 2026 14:33:26 +0800
+	d=gibson.dropbear.id.au; s=202608; t=1788849726;
+	bh=HW8YPibjl9buYwl5JB/jgTRDOYqx1+/Fng2gFbCfFww=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IB5UQrg6Z0kgAIKuXNeDpSIK2QfJapcwSWfy0n88DzYE9cXcXlWd8yRe1OZnSyo08
+	 9vJNYAM8TlSMrG7WT7HqvsDKWP0OiNE2PZVDwMyYEwgfznO2hwT+50jSZZ9XAvgcu9
+	 C5aMB0rTMVbY96eVRbG7hyOYr6f/5t9gns6tIAR/E+r7wClUroyinA4sMubl08LTVg
+	 3bTgMJHUmK3QxE4inbbSFLzijchwUiWbQUXC/bwcpx8DGdxwiqPr16Ifo3XFBQVNpE
+	 VNV8L75hRplBObkH2rfq316g0cH9jyS2h3XIFAeZ14X7XEgm5njwSMBYhsM0/yxhgN
+	 bg9baiC5TnU5A==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hfDrG0bTcz4wSs; Tue, 08 Sep 2026 16:42:06 +1000 (AEST)
+Date: Tue, 8 Sep 2026 16:41:06 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is available
+ at offset 0
+Message-ID: <ap-t8qMg5VMwh-T9@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-3-herve.codina@bootlin.com>
+ <apOhk-NQusFgV5Sx@gractus.seuss>
+ <20260831140119.1f14b420@bootlin.com>
+ <apaBuQ8kn2bOzYcI@gractus.seuss>
+ <20260901141826.49b1a1b7@bootlin.com>
+ <apfKx_u3v3GBfzOz@gractus.seuss>
+ <20260907184641.537cfa49@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 2/3] i2c: ma35d1: Add Nuvoton MA35D1 I2C driver support
-To: Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Cc: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Andrew Jeffery <andrew@codeconstruct.com.au>
-References: <20260807060400.2047517-1-zychennvt@gmail.com>
- <20260807060400.2047517-3-zychennvt@gmail.com>
-Content-Language: en-US
-From: zychen <zychennvt@gmail.com>
-In-Reply-To: <20260807060400.2047517-3-zychennvt@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YZwUZMmSg92pVfpF"
+Content-Disposition: inline
+In-Reply-To: <20260907184641.537cfa49@bootlin.com>
 
-Hi Andi,
+--YZwUZMmSg92pVfpF
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Gentle ping on this patch.
+On Mon, Sep 07, 2026 at 06:46:41PM +0200, Herve Codina wrote:
+> Hi David,
+>=20
+> On Wed, 2 Sep 2026 17:06:03 +1000
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> ...
+> > >=20
+> > > Ok, I will update fdt_check_node_offset_() to have it updating its of=
+fset
+> > > parameter to the real offset of the root node when its value is 0.
+> > >=20
+> > > Based on this update, will see where it goes. I mean, impacts on call=
+ers, if
+> > > it simplifies things or not, if the offset update needs also to be pr=
+opagate
+> > > to caller's parameter or any other similar point that we can see duri=
+ng the
+> > > implementation.
+> > >=20
+> > > Having something implemented and available in a patch will be the bes=
+t to
+> > > compare changes and impacts related to fdt_check_node_offset_() updat=
+e.
+> > >=20
+> > > Here we have a version of handling offset 0 vs real root node without=
+ any
+> > > offset update done in fdt_check_node_offset_(). In the next iteration=
+ we will
+> > > have the version with update done in fdt_check_node_offset_().
+> > >=20
+> > > I think the golden rules to follow on this point is "keep it as simpl=
+e as
+> > > possible". =20
+> >=20
+> > Agreed.  Feel free to repost just the NOP before root patches on their
+> > own.  At this time, frequent small series is easier for me to tackle
+> > than occasional large series.
+> >=20
+>=20
+> I've moved forward on the fdt_check_node_offset_() update.
+>=20
+> The new fdt_check_node_offset_() looks like this:
+> --- 8< ---
+> int fdt_check_node_offset_(const void *fdt, int *offset)
+> {
+> 	int nextoffset;
+>=20
+> 	if (!can_assume(VALID_INPUT)
+> 	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
+> 		return -FDT_ERR_BADOFFSET;
+>=20
+> 	if (*offset =3D=3D 0) {
+> 		*offset =3D fdt_root_offset(fdt);
+> 		if (*offset < 0)
+> 			return *offset;
+> 	}
+>=20
+> 	if (fdt_next_tag(fdt, *offset, &nextoffset) !=3D FDT_BEGIN_NODE)
+> 		return -FDT_ERR_BADOFFSET;
+>=20
+> 	return nextoffset;
+> }
+> --- 8< ---
 
-You reviewed the driver part in v7, and this part has been updated in v8/v9 based on the review feedback.
+That looks fine.  If it was an exposed function I'd want to look for a
+better interface, but as an internal function it's fine.
 
-The v9 series was sent on Aug 7. Please let me know if you have any further comments on this version.
+> If the given offset is 0, fdt_check_node_offset_() considers we want to c=
+heck
+> the root node and so update offset to the real root node offset.
+>=20
+> Ok, I still need some fdt_root_offset() calls from some other parts but t=
+hat's
+> not my main issue.
+>=20
+> My main issue comes with orphan nodes in addons. fdt_check_node_offset_()=
+ is
+> called with offset pointing to an orphan node and this offset can be 0.
+>=20
+> The offset 0 seen by fdt_check_node_offset_() can be the "fake" offset of=
+ a root
+> node and in that case fdt_check_node_offset_() should update offset to th=
+e real
+> root node offset but it can also be the offset of the orphan node we want=
+ to check
+> and in that case the offset should not be updated.
+>=20
+> fdt_check_node_offset_() cannot determine whether or not the offset shoul=
+d be
+> updated.
 
-Thanks!
-Zi-Yu Chen
+Hrm.  But if offset 0 has an orphan node, we can see that with the
+FDT_BEGIN_NODE or FDT_BEGIN_NODE_REF there, right?
 
-Zi-Yu Chen 於 2026/8/7 下午 02:03 寫道:
-> Add I2C support for Nuvoton MA35D1 SoC.
-> The controller supports standard, fast and fast-plus modes,
-> and provides controller/target functionality.
-> 
-> Signed-off-by: Zi-Yu Chen <zychennvt@gmail.com>
-> ---
->  drivers/i2c/busses/Kconfig      |  13 +
->  drivers/i2c/busses/Makefile     |   1 +
->  drivers/i2c/busses/i2c-ma35d1.c | 779 ++++++++++++++++++++++++++++++++
->  3 files changed, 793 insertions(+)
->  create mode 100644 drivers/i2c/busses/i2c-ma35d1.c
-> 
-> diff --git a/drivers/i2c/busses/Kconfig b/drivers/i2c/busses/Kconfig
-> index d7b89508311f..e69120d46977 100644
-> --- a/drivers/i2c/busses/Kconfig
-> +++ b/drivers/i2c/busses/Kconfig
-> @@ -1602,4 +1602,17 @@ config I2C_VIRTIO
->            This driver can also be built as a module. If so, the module
->            will be called i2c-virtio.
->  
-> +config I2C_MA35D1
-> +	tristate "Nuvoton MA35D1 I2C driver"
-> +	depends on ARCH_MA35 || COMPILE_TEST
-> +	select I2C_SLAVE
-> +	help
-> +	  If you say yes to this option, support will be included for the
-> +	  I2C controller in the Nuvoton MA35D1 SoC. This driver
-> +	  supports the standard I2C bus protocols, including master and
-> +	  slave modes.
+> With orphan nodes in the loop, fdt_check_node_offset_() becomes:
+> --- 8< ---
+> int fdt_check_node_offset_(const void *fdt, int *offset)
+> {
+>         int nextoffset;
+>         uint32_t tag;
+>=20
+>         if (!can_assume(VALID_INPUT)
+>             && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
+>                 return -FDT_ERR_BADOFFSET;
+>=20
+>         if (*offset =3D=3D 0) {
+> #pragma message "We have a problem!"
+>                 /*
+>                  * An orphan node can be present at offset 0.
+>                  * In that case, looking for the root node may or may not=
+ be
+>                  * correct.
+>                  * Indeed is offset =3D 0 requested because we want the r=
+oot
+>                  * node and sadly an orphan node is available at offset 0=
+ or
+>                  * is it requested because we want to really check the or=
+phan
+>                  * node available at offset 0. How to determine the corre=
+ct
+>                  * case?
+>                  */
+>                 tag =3D fdt_next_tag(fdt, *offset, &nextoffset);
+>                 if (tag =3D=3D FDT_BEGIN_NODE || tag =3D=3D FDT_BEGIN_NOD=
+E_REF)
+>                         return nextoffset;
+>=20
+>                 *offset =3D fdt_root_offset(fdt);
+>                 if (*offset < 0)
+>                         return *offset;
+>         }
+>=20
+>         tag =3D fdt_next_tag(fdt, *offset, &nextoffset);
+>         if (tag !=3D FDT_BEGIN_NODE && tag !=3D FDT_BEGIN_NODE_REF)
+>                 return -FDT_ERR_BADOFFSET;
+>=20
+>         return nextoffset;
+> }
+> --- 8< ---
+
+Right.. like that.  Except simpler would be to have fdt_root_offset()
+stop when it sees a FDT_BEGIN_NODE_REF as well as a FDT_BEGIN_NODE.
+Or maybe that should be, say, fdt_root_offset_(), and
+fdt_root_offset() will wrap it to return an error on an addon tree
+with no root.
+
+> Of course, extra complexity could be added such as an additional paramete=
+r but
+> I don't think it would make sense.
+>=20
+> The simplest way to handle the case is to not update the offset in
+> fdt_check_node_offset_() and let callers to pass the offset pointing to t=
+he
+> real node offset expected to be checked. This is my initial proposal.
+
+Even with the bulky fdt_check_node_offset_() above that doesn't seem
+simpler to me.  fdt_check_node_offset_() is largish, but the
+complexity is all in one place rather than distributed everywhere.
+
+> Of course, I am still open to other ideas.
+>=20
+> For information, without addons and orphan nodes, just to compare against=
+ my
+> original proposal, the full patch ("libfdt: Don't assume the root node is
+> available at offset 0") with the offset update done in fdt_check_node_off=
+set_()
+> becomes:
+> --- 8< ---
+> diff --git a/libfdt/fdt.c b/libfdt/fdt.c
+> index 56d4dcb2..d4d4b64b 100644
+> --- a/libfdt/fdt.c
+> +++ b/libfdt/fdt.c
+> @@ -228,16 +228,24 @@ uint32_t fdt_next_tag(const void *fdt, int startoff=
+set, int *nextoffset)
+>  	return tag;
+>  }
+> =20
+> -int fdt_check_node_offset_(const void *fdt, int offset)
+> +int fdt_check_node_offset_(const void *fdt, int *offset)
+>  {
+> +	int nextoffset;
 > +
-> +	  This driver can also be built as a module. If so, the module
-> +	  will be called i2c-ma35d1.
+>  	if (!can_assume(VALID_INPUT)
+> -	    && ((offset < 0) || (offset % FDT_TAGSIZE)))
+> +	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
+>  		return -FDT_ERR_BADOFFSET;
+> =20
+> -	if (fdt_next_tag(fdt, offset, &offset) !=3D FDT_BEGIN_NODE)
+> +	if (*offset =3D=3D 0) {
+> +		*offset =3D fdt_root_offset(fdt);
+> +		if (*offset < 0)
+> +			return *offset;
+> +	}
 > +
->  endmenu
-> diff --git a/drivers/i2c/busses/Makefile b/drivers/i2c/busses/Makefile
-> index 3755c54b3d82..ca75dae4955c 100644
-> --- a/drivers/i2c/busses/Makefile
-> +++ b/drivers/i2c/busses/Makefile
-> @@ -131,6 +131,7 @@ obj-$(CONFIG_I2C_XILINX)	+= i2c-xiic.o
->  obj-$(CONFIG_I2C_XLP9XX)	+= i2c-xlp9xx.o
->  obj-$(CONFIG_I2C_RCAR)		+= i2c-rcar.o
->  obj-$(CONFIG_I2C_GXP)		+= i2c-gxp.o
-> +obj-$(CONFIG_I2C_MA35D1)	+= i2c-ma35d1.o
->  
->  # External I2C/SMBus adapter drivers
->  obj-$(CONFIG_I2C_DIOLAN_U2C)	+= i2c-diolan-u2c.o
-> diff --git a/drivers/i2c/busses/i2c-ma35d1.c b/drivers/i2c/busses/i2c-ma35d1.c
-> new file mode 100644
-> index 000000000000..61d7605c3a05
-> --- /dev/null
-> +++ b/drivers/i2c/busses/i2c-ma35d1.c
-> @@ -0,0 +1,779 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) 2026 Nuvoton technology corporation.
+> +	if (fdt_next_tag(fdt, *offset, &nextoffset) !=3D FDT_BEGIN_NODE)
+>  		return -FDT_ERR_BADOFFSET;
+> =20
+> -	return offset;
+> +	return nextoffset;
+>  }
+> =20
+>  int fdt_check_prop_offset_(const void *fdt, int offset)
+> @@ -252,13 +260,38 @@ int fdt_check_prop_offset_(const void *fdt, int off=
+set)
+>  	return offset;
+>  }
+> =20
+> +int fdt_root_offset(const void *fdt)
+> +{
+> +	int nextoffset =3D 0;
+> +	int offset;
+> +	uint32_t tag;
+> +
+> +	do {
+> +		offset =3D nextoffset;
+> +		tag =3D fdt_next_tag(fdt, offset, &nextoffset);
+> +		switch (tag) {
+> +		case FDT_END_NODE:
+> +		case FDT_PROP:
+> +			return -FDT_ERR_BADSTRUCTURE;
+> +
+> +		case FDT_BEGIN_NODE:
+> +			return offset;
+> +
+> +		default:
+> +			break;
+> +		}
+> +	} while (tag !=3D FDT_END);
+> +
+> +	return (nextoffset < 0) ? nextoffset : -FDT_ERR_NOTFOUND;
+> +}
+> +
+>  int fdt_next_node(const void *fdt, int offset, int *depth)
+>  {
+>  	int nextoffset =3D 0;
+>  	uint32_t tag;
+> =20
+>  	if (offset >=3D 0)
+> -		if ((nextoffset =3D fdt_check_node_offset_(fdt, offset)) < 0)
+> +		if ((nextoffset =3D fdt_check_node_offset_(fdt, &offset)) < 0)
+>  			return nextoffset;
+> =20
+>  	do {
+> diff --git a/libfdt/fdt_ro.c b/libfdt/fdt_ro.c
+> index 11f2e2ee..ec8af835 100644
+> --- a/libfdt/fdt_ro.c
+> +++ b/libfdt/fdt_ro.c
+> @@ -281,7 +281,7 @@ int fdt_path_offset_namelen(const void *fdt, const ch=
+ar *path, int namelen)
+>  		while (*p =3D=3D '/') {
+>  			p++;
+>  			if (p =3D=3D end)
+> -				return offset;
+> +				goto terminate;
+>  		}
+>  		q =3D memchr(p, '/', end - p);
+>  		if (! q)
+> @@ -294,7 +294,13 @@ int fdt_path_offset_namelen(const void *fdt, const c=
+har *path, int namelen)
+>  		p =3D q;
+>  	}
+> =20
+> -	return offset;
+> +terminate:
+> +        /*
+> +         * Avoid returning offset 0 or the real root offset.
+> +         * Be sure to return one and only one offset for the root node, =
+its
+> +         * real offset.
+> +         */
+> +	return offset ? offset : fdt_root_offset(fdt);
+>  }
+> =20
+>  int fdt_path_offset(const void *fdt, const char *path)
+> @@ -304,14 +310,17 @@ int fdt_path_offset(const void *fdt, const char *pa=
+th)
+> =20
+>  const char *fdt_get_name(const void *fdt, int nodeoffset, int *len)
+>  {
+> -	const struct fdt_node_header *nh =3D fdt_offset_ptr_(fdt, nodeoffset);
+> +	const struct fdt_node_header *nh;
+>  	const char *nameptr;
+>  	int err;
+> =20
+> -	if (!can_assume(VALID_DTB) && (((err =3D fdt_ro_probe_(fdt)) < 0)
+> -	    || ((err =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)))
+> -			goto fail;
+> +	if (!can_assume(VALID_DTB) && (err =3D fdt_ro_probe_(fdt)) < 0)
+> +		goto fail;
+> +
+> +	if ((err =3D fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
+> +		goto fail;
+> =20
+> +	nh =3D fdt_offset_ptr_(fdt, nodeoffset);
+>  	nameptr =3D nh->name;
+> =20
+>  	if (!can_assume(LATEST) && fdt_version(fdt) < 0x10) {
+> @@ -344,7 +353,7 @@ int fdt_first_property_offset(const void *fdt, int no=
+deoffset)
+>  {
+>  	int offset;
+> =20
+> -	if ((offset =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)
+> +	if ((offset =3D fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
+>  		return offset;
+> =20
+>  	return nextprop_(fdt, offset);
+> @@ -574,6 +583,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, cha=
+r *buf, int buflen)
+>  {
+>  	int pdepth =3D 0, p =3D 0;
+>  	int offset, depth, namelen;
+> +	int root_offset;
+>  	const char *name;
+> =20
+>  	FDT_RO_PROBE(fdt);
+> @@ -581,7 +591,14 @@ int fdt_get_path(const void *fdt, int nodeoffset, ch=
+ar *buf, int buflen)
+>  	if (buflen < 2)
+>  		return -FDT_ERR_NOSPACE;
+> =20
+> -	for (offset =3D 0, depth =3D 0;
+> +	root_offset =3D fdt_root_offset(fdt);
+> +	if (root_offset < 0)
+> +		return root_offset;
+> +
+> +	if (!nodeoffset)
+> +		nodeoffset =3D root_offset;
+> +
+> +	for (offset =3D root_offset, depth =3D 0;
+>  	     (offset >=3D 0) && (offset <=3D nodeoffset);
+>  	     offset =3D fdt_next_node(fdt, offset, &depth)) {
+>  		while (pdepth > depth) {
+> @@ -627,13 +644,21 @@ int fdt_supernode_atdepth_offset(const void *fdt, i=
+nt nodeoffset,
+>  {
+>  	int offset, depth;
+>  	int supernodeoffset =3D -FDT_ERR_INTERNAL;
+> +	int root_offset;
+> =20
+>  	FDT_RO_PROBE(fdt);
+> =20
+>  	if (supernodedepth < 0)
+>  		return -FDT_ERR_NOTFOUND;
+> =20
+> -	for (offset =3D 0, depth =3D 0;
+> +	root_offset =3D fdt_root_offset(fdt);
+> +	if (root_offset < 0)
+> +		return root_offset;
+> +
+> +	if (!nodeoffset)
+> +		nodeoffset =3D root_offset;
+> +
+> +	for (offset =3D root_offset, depth =3D 0;
+>  	     (offset >=3D 0) && (offset <=3D nodeoffset);
+>  	     offset =3D fdt_next_node(fdt, offset, &depth)) {
+>  		if (depth =3D=3D supernodedepth)
+> @@ -663,12 +688,15 @@ int fdt_supernode_atdepth_offset(const void *fdt, i=
+nt nodeoffset,
+>  int fdt_node_depth(const void *fdt, int nodeoffset)
+>  {
+>  	int nodedepth;
+> -	int err;
+> +	int offset;
+> +
+> +	offset =3D fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, &nodedepth);
+> +	if (offset < 0)
+> +		return offset;
+> +
+> +	if (!can_assume(LIBFDT_FLAWLESS) && offset !=3D fdt_root_offset(fdt))
+> +		return -FDT_ERR_INTERNAL;
+> =20
+> -	err =3D fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, &nodedepth);
+> -	if (err)
+> -		return (can_assume(LIBFDT_FLAWLESS) || err < 0) ? err :
+> -			-FDT_ERR_INTERNAL;
+>  	return nodedepth;
+>  }
+> =20
+> diff --git a/libfdt/fdt_rw.c b/libfdt/fdt_rw.c
+> index 850aafe4..a1a07f01 100644
+> --- a/libfdt/fdt_rw.c
+> +++ b/libfdt/fdt_rw.c
+> @@ -226,7 +226,7 @@ static int fdt_add_property_(void *fdt, int nodeoffse=
+t, const char *name,
+>  	int err;
+>  	int allocated;
+> =20
+> -	if ((nextoffset =3D fdt_check_node_offset_(fdt, nodeoffset)) < 0)
+> +	if ((nextoffset =3D fdt_check_node_offset_(fdt, &nodeoffset)) < 0)
+>  		return nextoffset;
+> =20
+>  	namestroff =3D fdt_find_add_string_(fdt, name, namelen, &allocated);
+> @@ -377,6 +377,12 @@ int fdt_add_subnode_namelen(void *fdt, int parentoff=
+set,
+> =20
+>  	FDT_RW_PROBE(fdt);
+> =20
+> +	if (!parentoffset) {
+> +		parentoffset =3D fdt_root_offset(fdt);
+> +		if (parentoffset < 0)
+> +			return parentoffset;
+> +	}
+> +
+>  	offset =3D fdt_subnode_offset_namelen(fdt, parentoffset, name, namelen);
+>  	if (offset >=3D 0)
+>  		return -FDT_ERR_EXISTS;
+> diff --git a/libfdt/libfdt.h b/libfdt/libfdt.h
+> index c69a18ed..7a1915a5 100644
+> --- a/libfdt/libfdt.h
+> +++ b/libfdt/libfdt.h
+> @@ -503,6 +503,19 @@ int fdt_num_mem_rsv(const void *fdt);
+>   */
+>  int fdt_get_mem_rsv(const void *fdt, int n, uint64_t *address, uint64_t =
+*size);
+> =20
+> +/**
+> + * fdt_root_offset - Get the offset of the root node
+> + * @fdt: pointer to the device tree blob
 > + *
-> + * Author: Zi-Yu Chen <zychennvt@gmail.com>
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/err.h>
-> +#include <linux/errno.h>
-> +#include <linux/i2c.h>
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/kernel.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/property.h>
-> +#include <linux/reset.h>
-> +#include <linux/units.h>
-> +
-> +/* MA35D1 I2C registers offset */
-> +#define MA35_CTL0		0x00
-> +#define MA35_ADDR0		0x04
-> +#define MA35_DAT		0x08
-> +#define MA35_STATUS0	0x0c
-> +#define MA35_CLKDIV		0x10
-> +#define MA35_TOCTL		0x14
-> +#define MA35_ADDR1		0x18
-> +#define MA35_ADDR2		0x1c
-> +#define MA35_ADDR3		0x20
-> +#define MA35_ADDRMSK0	0x24
-> +#define MA35_ADDRMSK1	0x28
-> +#define MA35_ADDRMSK2	0x2c
-> +#define MA35_ADDRMSK3	0x30
-> +#define MA35_WKCTL		0x3c
-> +#define MA35_WKSTS		0x40
-> +#define MA35_CTL1		0x44
-> +#define MA35_STATUS1	0x48
-> +#define MA35_TMCTL		0x4c
-> +#define MA35_BUSCTL		0x50
-> +#define MA35_BUSTCTL	0x54
-> +#define MA35_BUSSTS		0x58
-> +#define MA35_PKTSIZE	0x5c
-> +#define MA35_PKTCRC		0x60
-> +#define MA35_BUSTOUT	0x64
-> +#define MA35_CLKTOUT	0x68
-> +#define MA35_AUTOCNT	0x78
-> +
-> +/* MA35D1 I2C Status */
-> +/* Controller */
-> +#define MA35_M_START				0x08	/* Start */
-> +#define MA35_M_REPEAT_START			0x10	/* Controller Repeat Start */
-> +#define MA35_M_TRAN_ADDR_ACK		0x18	/* Controller Transmit Address ACK */
-> +#define MA35_M_TRAN_ADDR_NACK		0x20	/* Controller Transmit Address NACK */
-> +#define MA35_M_TRAN_DATA_ACK		0x28	/* Controller Transmit Data ACK */
-> +#define MA35_M_TRAN_DATA_NACK		0x30	/* Controller Transmit Data NACK */
-> +#define MA35_M_ARB_LOST				0x38	/* Controller Arbitration Lost */
-> +#define MA35_M_RECE_ADDR_ACK		0x40	/* Controller Receive Address ACK */
-> +#define MA35_M_RECE_ADDR_NACK		0x48	/* Controller Receive Address NACK */
-> +#define MA35_M_RECE_DATA_ACK		0x50	/* Controller Receive Data ACK */
-> +#define MA35_M_RECE_DATA_NACK		0x58	/* Controller Receive Data NACK */
-> +#define MA35_BUS_ERROR				0x00	/* Bus error */
-> +
-> +/*  Target */
-> +#define MA35_S_REPEAT_START_STOP	0xa0	/* Target Transmit Repeat Start or Stop */
-> +#define MA35_S_TRAN_ADDR_ACK		0xa8	/* Target Transmit Address ACK */
-> +#define MA35_S_TRAN_DATA_ACK		0xb8	/* Target Transmit Data ACK */
-> +#define MA35_S_TRAN_DATA_NACK		0xc0	/* Target Transmit Data NACK */
-> +#define MA35_S_TRAN_LAST_DATA_ACK	0xc8	/* Target Transmit Last Data ACK */
-> +#define MA35_S_RECE_ADDR_ACK		0x60	/* Target Receive Address ACK */
-> +#define MA35_S_RECE_ARB_LOST		0x68	/* Target Receive Arbitration Lost */
-> +#define MA35_S_RECE_DATA_ACK		0x80	/* Target Receive Data ACK */
-> +#define MA35_S_RECE_DATA_NACK		0x88	/* Target Receive Data NACK */
-> +
-> +/* Other */
-> +#define MA35_ADDR_TRAN_ARB_LOST		0xb0	/* Address Transmit Arbitration Lost */
-> +#define MA35_BUS_RELEASED			0xf8	/* Bus Released */
-> +
-> +/*  I2C_CTL constant definitions. */
-> +#define MA35_CTL_AA			BIT(2)
-> +#define MA35_CTL_SI			BIT(3)
-> +#define MA35_CTL_STO		BIT(4)
-> +#define MA35_CTL_STA		BIT(5)
-> +#define MA35_CTL_I2CEN		BIT(6)
-> +#define MA35_CTL_INTEN		BIT(7)
-> +#define MA35_CTL_SI_AA		(MA35_CTL_SI | MA35_CTL_AA)
-> +#define MA35_CTL_STO_SI		(MA35_CTL_STO | MA35_CTL_SI)
-> +#define MA35_CTL_STA_SI		(MA35_CTL_STA | MA35_CTL_SI)
-> +
-> +/* Constants */
-> +#define MA35_CLKDIV_MSK		GENMASK(15, 0)
-> +#define I2C_PM_TIMEOUT_MS	5000
-> +#define STOP_TIMEOUT_MS		50
-> +
-> +struct ma35d1_i2c {
-> +	spinlock_t lock;
-> +	wait_queue_head_t wait;
-> +	struct i2c_msg *msg;
-> +	unsigned int msg_num;
-> +	unsigned int msg_idx;
-> +	unsigned int msg_ptr;
-> +	int err;
-> +	int irq;
-> +	void __iomem *regs;
-> +	struct clk *clk;
-> +	struct device *dev;
-> +	struct i2c_adapter adap;
-> +	struct i2c_client *target;
-> +	struct reset_control *rst;
-> +};
-> +
-> +static inline bool ma35d1_is_controller_status(unsigned int status)
-> +{
-> +	return status >= MA35_M_START && status <= MA35_M_RECE_DATA_NACK;
-> +}
-> +
-> +/*
-> + * ma35d1_i2c_write_ctl - Update the I2C control register
-> + * @i2c: Pointer to the ma35d1 i2c instance
-> + * @ctl: Control bits to set (e.g., MA35_CTL_STA, SI, AA)
+> + * The root node can be located after the offset 0. Indeed FDT_NOP tags =
+can be
+> + * present at offset 0. fdt_root_offset() takes care of those possible F=
+DT_NOP
+> + * tags.
 > + *
-> + * Read-modify-write the CTL0 register while preserving unrelated bits.
+> + * returns: offset of the root node or negative libfdt error value other=
+wise
 > + */
-> +static void ma35d1_i2c_write_ctl(struct ma35d1_i2c *i2c, unsigned int ctl)
-> +{
-> +	unsigned int val;
-> +
-> +	guard(spinlock_irqsave)(&i2c->lock);
-> +	val = readl(i2c->regs + MA35_CTL0);
-> +	val &= ~(MA35_CTL_SI_AA);
-> +	val |= ctl;
-> +	writel(val, i2c->regs + MA35_CTL0);
-> +}
-> +
-> +static void ma35d1_i2c_set_addr(struct ma35d1_i2c *i2c)
-> +{
-> +	unsigned int rw = i2c->msg->flags & I2C_M_RD;
-> +
-> +	writel(((i2c->msg->addr & 0x7f) << 1) | rw, i2c->regs + MA35_DAT);
-> +}
-> +
-> +static void ma35d1_i2c_controller_complete(struct ma35d1_i2c *i2c)
-> +{
-> +	i2c->msg_ptr = 0;
-> +	i2c->msg = NULL;
-> +	i2c->msg_idx++;
-> +	i2c->msg_num = 0;
-> +
-> +	wake_up(&i2c->wait);
-> +}
-> +
-> +static void ma35d1_i2c_reset(struct ma35d1_i2c *i2c)
-> +{
-> +	unsigned int clkdiv, slvaddr;
-> +
-> +	clkdiv = readl(i2c->regs + MA35_CLKDIV);
-> +	slvaddr = readl(i2c->regs + MA35_ADDR0);
-> +
-> +	disable_irq(i2c->irq);
-> +	i2c->msg = NULL;
-> +	reset_control_assert(i2c->rst);
-> +	usleep_range(10, 20);
-> +	reset_control_deassert(i2c->rst);
-> +	enable_irq(i2c->irq);
-> +
-> +	writel(clkdiv, (i2c->regs + MA35_CLKDIV));
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_I2CEN | MA35_CTL_INTEN);
-> +
-> +	if (i2c->target)
-> +		writel(slvaddr, i2c->regs + MA35_ADDR0);
-> +}
-> +
-> +static void ma35d1_i2c_stop(struct ma35d1_i2c *i2c, int ret)
-> +{
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STO_SI);
-> +
-> +	if (ret)
-> +		i2c->err = ret;
-> +
-> +	ma35d1_i2c_controller_complete(i2c);
-> +}
-> +
-> +/*
-> + * ma35d1_i2c_restore_idle - restore controller state to idle
-> + * @i2c: Pointer to the ma35d1 i2c instance
-> + *
-> + * Restore the controller to an idle state after an unexpected event.
-> + * Abort an active controller transfer, otherwise re-arm target mode
-> + * if enabled.
-> + */
-> +static void ma35d1_i2c_restore_idle(struct ma35d1_i2c *i2c)
-> +{
-> +	if (i2c->msg)
-> +		ma35d1_i2c_stop(i2c, -EIO);
-> +	else if (i2c->target)
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-> +	else
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> +}
-> +
-> +/* Check if this is the last message in the set */
-> +static inline bool is_last_msg(struct ma35d1_i2c *i2c)
-> +{
-> +	return i2c->msg_idx >= (i2c->msg_num - 1);
-> +}
-> +
-> +/* Check if this is the last byte in the current message */
-> +static inline bool is_last_byte(struct ma35d1_i2c *i2c)
-> +{
-> +	return i2c->msg_ptr == i2c->msg->len - 1;
-> +}
-> +
-> +/* Check if reached the end of the current message */
-> +static inline bool is_msgend(struct ma35d1_i2c *i2c)
-> +{
-> +	return i2c->msg_ptr >= i2c->msg->len;
-> +}
-> +
-> +/*
-> + * ma35d1_i2c_irq_target_trx - I2C Target state machine handler
-> + * @i2c: ma35d1 i2c instance
-> + * @i2c_status: hardware status code from MA35_STATUS0
-> + */
-> +static irqreturn_t ma35d1_i2c_irq_target_trx(struct ma35d1_i2c *i2c,
-> +					     unsigned long i2c_status)
-> +{
-> +	unsigned char byte = 0;
-> +
-> +	switch (i2c_status) {
-> +	case MA35_S_RECE_ARB_LOST:
-> +		/*
-> +		 * Arbitration lost during address transmission phase.
-> +		 * The hardware switches to Target Transmitter mode when
-> +		 * our own SLA+W is detected on the bus.
-> +		 */
-> +		i2c->err = -EAGAIN;
-> +		ma35d1_i2c_controller_complete(i2c);
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
-> +		break;
-> +
-> +	case MA35_S_RECE_ADDR_ACK:
-> +		/* Own SLA+W has been receive; ACK has been return */
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_REQUESTED, &byte);
-> +		break;
-> +
-> +	case MA35_S_TRAN_DATA_NACK:
-> +	case MA35_S_RECE_DATA_NACK:
-> +		/*
-> +		 * Data byte or last data in I2CDAT has been transmitted and NACK received,
-> +		 * or previously addressed with own SLA address and NACK returned.
-> +		 */
-> +		break;
-> +
-> +	case MA35_S_RECE_DATA_ACK:
-> +		/*
-> +		 * Previously address with own SLA address Data has been received;
-> +		 * ACK has been returned
-> +		 */
-> +		byte = readb(i2c->regs + MA35_DAT);
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_WRITE_RECEIVED, &byte);
-> +		break;
-> +
-> +	case MA35_ADDR_TRAN_ARB_LOST:
-> +		/*
-> +		 * Arbitration lost during address transmission phase.
-> +		 * The hardware switches to Target Receiver mode when
-> +		 * our own SLA+R is detected on the bus.
-> +		 */
-> +		i2c->err = -EAGAIN;
-> +		ma35d1_i2c_controller_complete(i2c);
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_READ_REQUESTED, &byte);
-> +		writel(byte, i2c->regs + MA35_DAT);
-> +		break;
-> +
-> +	case MA35_S_TRAN_ADDR_ACK:
-> +		/* Own SLA+R has been receive; ACK has been return */
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_READ_REQUESTED, &byte);
-> +		writel(byte, i2c->regs + MA35_DAT);
-> +		break;
-> +
-> +	case MA35_S_TRAN_DATA_ACK:
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_READ_PROCESSED, &byte);
-> +		writel(byte, i2c->regs + MA35_DAT);
-> +		break;
-> +
-> +	case MA35_S_REPEAT_START_STOP:
-> +	/*
-> +	 *  A STOP or repeated START has been received
-> +	 *  while still addressed as Target/Receiver
-> +	 */
-> +		i2c_slave_event(i2c->target, I2C_SLAVE_STOP, &byte);
-> +		break;
-> +
-> +	default:
-> +		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
-> +			i2c_status);
-> +		ma35d1_i2c_restore_idle(i2c);
-> +		return IRQ_NONE;
-> +	}
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +/*
-> + * ma35d1_i2c_irq_controller_trx - I2C Controller state machine handler
-> + * @i2c: ma35d1 i2c instance
-> + * @i2c_status: hardware status code from MA35_STATUS0
-> + */
-> +static irqreturn_t ma35d1_i2c_irq_controller_trx(struct ma35d1_i2c *i2c,
-> +						 unsigned long i2c_status)
-> +{
-> +	unsigned char byte;
-> +
-> +	/* Ensuring messages are absolutely valid in Controller mode. */
-> +	if (unlikely(!i2c->msg)) {
-> +		dev_err(i2c->dev, "Spurious controller interrupt (status: 0x%02lx)\n", i2c_status);
-> +		ma35d1_i2c_restore_idle(i2c);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	switch (i2c_status) {
-> +	case MA35_M_START:
-> +	case MA35_M_REPEAT_START:
-> +		ma35d1_i2c_set_addr(i2c);
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> +		break;
-> +
-> +	case MA35_M_TRAN_ADDR_ACK:
-> +	case MA35_M_TRAN_DATA_ACK:
-> +		/* SLA+W has been transmitted and ACK has been received */
-> +		if (i2c_status == MA35_M_TRAN_ADDR_ACK) {
-> +			if (is_last_msg(i2c) && i2c->msg->len == 0) {
-> +				ma35d1_i2c_stop(i2c, 0);
-> +				return IRQ_HANDLED;
-> +			}
-> +		}
-> +
-> +		if (!is_msgend(i2c)) {
-> +			byte = i2c->msg->buf[i2c->msg_ptr++];
-> +			writel(byte, i2c->regs + MA35_DAT);
-> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> +		} else if (!is_last_msg(i2c)) {
-> +			dev_dbg(i2c->dev, "WRITE: Next Message\n");
-> +
-> +			i2c->msg_ptr = 0;
-> +			i2c->msg_idx++;
-> +			i2c->msg++;
-> +
-> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA | MA35_CTL_SI);
-> +		} else {
-> +			ma35d1_i2c_stop(i2c, 0);
-> +		}
-> +		break;
-> +
-> +	case MA35_M_TRAN_DATA_NACK:
-> +		ma35d1_i2c_stop(i2c, -EIO);
-> +		break;
-> +
-> +	case MA35_M_TRAN_ADDR_NACK:
-> +	case MA35_M_RECE_ADDR_NACK:
-> +		/*
-> +		 * Controller Transmit Address NACK
-> +		 * 0x20: SLA+W has been transmitted and NACK has been received
-> +		 * 0x48: SLA+R has been transmitted and NACK has been received
-> +		 */
-> +		dev_dbg(i2c->dev, "\n i2c: ack was not received\n");
-> +		ma35d1_i2c_stop(i2c, -ENXIO);
-> +		break;
-> +
-> +	case MA35_M_RECE_ADDR_ACK:
-> +		if (is_msgend(i2c)) {
-> +			if (is_last_msg(i2c)) {
-> +				ma35d1_i2c_stop(i2c, 0);
-> +			} else {
-> +				dev_dbg(i2c->dev, "READ: Next Transfer\n");
-> +
-> +				i2c->msg_ptr = 0;
-> +				i2c->msg_idx++;
-> +				i2c->msg++;
-> +
-> +				ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA_SI);
-> +			}
-> +		} else if (i2c->msg->len == 1) {
-> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> +		} else {
-> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-> +		}
-> +		break;
-> +
-> +	case MA35_M_RECE_DATA_ACK:
-> +	case MA35_M_RECE_DATA_NACK:
-> +		/* DATA has been received and ACK/NACK has been received */
-> +		byte = readb(i2c->regs + MA35_DAT);
-> +		i2c->msg->buf[i2c->msg_ptr++] = byte;
-> +
-> +		if (is_last_byte(i2c)) {
-> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> +		} else if (is_msgend(i2c)) {
-> +			if (is_last_msg(i2c)) {
-> +				dev_dbg(i2c->dev, "READ: Send Stop\n");
-> +
-> +				ma35d1_i2c_stop(i2c, 0);
-> +			} else {
-> +				dev_dbg(i2c->dev, "READ: Next Transfer\n");
-> +
-> +				i2c->msg_ptr = 0;
-> +				i2c->msg_idx++;
-> +				i2c->msg++;
-> +
-> +				ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA_SI);
-> +			}
-> +		} else {
-> +			ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI_AA);
-> +		}
-> +		break;
-> +
-> +	case MA35_M_ARB_LOST:
-> +		/* Arbitration Lost */
-> +		i2c->err = -EAGAIN;
-> +		ma35d1_i2c_controller_complete(i2c);
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_SI);
-> +		break;
-> +
-> +	default:
-> +		dev_err(i2c->dev, "Status 0x%02lx is NOT processed\n",
-> +			i2c_status);
-> +		ma35d1_i2c_restore_idle(i2c);
-> +		return IRQ_NONE;
-> +	}
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static irqreturn_t ma35d1_i2c_irq(int irqno, void *dev_id)
-> +{
-> +	struct ma35d1_i2c *i2c = dev_id;
-> +	unsigned long status;
-> +
-> +	status = readl(i2c->regs + MA35_STATUS0);
-> +
-> +	if (status == MA35_BUS_ERROR) {
-> +		dev_err(i2c->dev, "bus error\n");
-> +		ma35d1_i2c_restore_idle(i2c);
-> +		return IRQ_HANDLED;
-> +	}
-> +
-> +	if (ma35d1_is_controller_status(status))
-> +		return ma35d1_i2c_irq_controller_trx(i2c, status);
-> +	else
-> +		return ma35d1_i2c_irq_target_trx(i2c, status);
-> +}
-> +
-> +static int ma35d1_i2c_doxfer(struct ma35d1_i2c *i2c, struct i2c_msg *msgs,
-> +			     int num)
-> +{
-> +	unsigned long timeout;
-> +	unsigned int val;
-> +	int ret, err;
-> +
-> +	i2c->msg = msgs;
-> +	i2c->msg_num = num;
-> +	i2c->msg_ptr = 0;
-> +	i2c->msg_idx = 0;
-> +	i2c->err = 0;
-> +
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_STA);
-> +
-> +	timeout = wait_event_timeout(i2c->wait, i2c->msg_num == 0, HZ * 5);
-> +	ret = i2c->msg_idx;
-> +
-> +	if (timeout == 0) {
-> +		dev_dbg(i2c->dev, "xfer timeout\n");
-> +		ret = -ETIMEDOUT;
-> +		goto reset;
-> +	}
-> +
-> +	err = readl_poll_timeout(i2c->regs + MA35_CTL0, val,
-> +				 !(val & MA35_CTL_STO), 100,
-> +				 STOP_TIMEOUT_MS * 1000);
-> +	if (err) {
-> +		dev_err(i2c->dev, "bus idle timeout\n");
-> +		ret = -EBUSY;
-> +		goto reset;
-> +	} else if (i2c->err) {
-> +		dev_dbg(i2c->dev, "xfer error %d\n", i2c->err);
-> +		ret = i2c->err;
-> +	}
-> +	return ret;
-> +
-> +reset:
-> +	ma35d1_i2c_reset(i2c);
-> +	return ret;
-> +}
-> +
-> +static int ma35d1_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
-> +			   int num)
-> +{
-> +	struct ma35d1_i2c *i2c = i2c_get_adapdata(adap);
-> +	int ret;
-> +
-> +	ret = pm_runtime_resume_and_get(i2c->dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = ma35d1_i2c_doxfer(i2c, msgs, num);
-> +
-> +	if (i2c->target)
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-> +	pm_runtime_put_autosuspend(i2c->dev);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ma35d1_reg_target(struct i2c_client *target)
-> +{
-> +	struct ma35d1_i2c *i2c = i2c_get_adapdata(target->adapter);
-> +	unsigned int slvaddr;
-> +	int ret;
-> +
-> +	if (i2c->target)
-> +		return -EBUSY;
-> +
-> +	if (target->flags & I2C_CLIENT_TEN)
-> +		return -EAFNOSUPPORT;
-> +
-> +	/* Keep device active for target mode listening. */
-> +	ret = pm_runtime_resume_and_get(i2c->dev);
-> +	if (ret) {
-> +		dev_err(i2c->dev, "failed to resume i2c controller\n");
-> +		return ret;
-> +	}
-> +
-> +	i2c->target = target;
-> +
-> +	slvaddr = target->addr << 1;
-> +	writel(slvaddr, i2c->regs + MA35_ADDR0);
-> +
-> +	/* I2C enter SLV mode */
-> +	ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ma35d1_unreg_target(struct i2c_client *target)
-> +{
-> +	struct ma35d1_i2c *i2c = i2c_get_adapdata(target->adapter);
-> +	int ret;
-> +
-> +	if (!i2c->target)
-> +		return -EINVAL;
-> +
-> +	writel(0, i2c->regs + MA35_ADDR0);
-> +	/* Clear AA bit */
-> +	ma35d1_i2c_write_ctl(i2c, 0);
-> +
-> +	synchronize_irq(i2c->irq);
-> +	i2c->target = NULL;
-> +
-> +	ret = pm_runtime_put_sync(i2c->dev);
-> +	if (ret < 0)
-> +		dev_err(i2c->dev, "failed to suspend i2c controller");
-> +
-> +	return 0;
-> +}
-> +
-> +/* Declare Our I2C Functionality */
-> +static u32 ma35d1_i2c_func(struct i2c_adapter *adap)
-> +{
-> +	return I2C_FUNC_I2C | I2C_FUNC_SMBUS_EMUL;
-> +}
-> +
-> +/* I2C Bus Registration Info */
-> +static const struct i2c_algorithm ma35d1_i2c_algorithm = {
-> +	.xfer = ma35d1_i2c_xfer,
-> +	.functionality = ma35d1_i2c_func,
-> +	.reg_target = ma35d1_reg_target,
-> +	.unreg_target = ma35d1_unreg_target,
-> +};
-> +
-> +static const struct i2c_adapter_quirks ma35d1_i2c_quirks = {
-> +	.flags = I2C_AQ_NO_ZERO_LEN_READ,
-> +};
-> +
-> +static int ma35d1_i2c_suspend(struct device *dev)
-> +{
-> +	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-> +	unsigned int val;
-> +
-> +	/* Prepare for wake-up from I2C events if target mode is active */
-> +	if (i2c->target) {
-> +		ma35d1_i2c_write_ctl(i2c, MA35_CTL_AA);
-> +
-> +		/* Setup wake-up control */
-> +		writel(0x1, i2c->regs + MA35_WKCTL);
-> +
-> +		/* Clear pending wake-up flags */
-> +		val = readl(i2c->regs + MA35_WKSTS);
-> +		writel(val, i2c->regs + MA35_WKSTS);
-> +
-> +		enable_irq_wake(i2c->irq);
-> +
-> +		return 0;
-> +	}
-> +	return pm_runtime_force_suspend(dev);
-> +}
-> +
-> +static int ma35d1_i2c_resume(struct device *dev)
-> +{
-> +	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-> +	unsigned int val;
-> +
-> +	if (i2c->target) {
-> +		/* Disable wake-up */
-> +		writel(0x0, i2c->regs + MA35_WKCTL);
-> +
-> +		/* Clear pending wake-up flags */
-> +		val = readl(i2c->regs + MA35_WKSTS);
-> +		writel(val, i2c->regs + MA35_WKSTS);
-> +
-> +		disable_irq_wake(i2c->irq);
-> +		return 0;
-> +	}
-> +	return pm_runtime_force_resume(dev);
-> +}
-> +
-> +static int ma35d1_i2c_runtime_suspend(struct device *dev)
-> +{
-> +	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-> +
-> +	clk_disable(i2c->clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ma35d1_i2c_runtime_resume(struct device *dev)
-> +{
-> +	struct ma35d1_i2c *i2c = dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	ret = clk_enable(i2c->clk);
-> +	if (ret) {
-> +		dev_err(dev, "failed to enable clock in resume\n");
-> +		return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static void ma35d1_i2c_pm_cleanup(void *data)
-> +{
-> +	struct device *dev = data;
-> +
-> +	pm_runtime_get_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_put_noidle(dev);
-> +}
-> +
-> +static int ma35d1_i2c_probe(struct platform_device *pdev)
-> +{
-> +	unsigned int busfreq = I2C_MAX_STANDARD_MODE_FREQ;
-> +	struct device *dev = &pdev->dev;
-> +	struct ma35d1_i2c *i2c;
-> +	struct resource *res;
-> +	int ret, clkdiv;
-> +	u32 val;
-> +
-> +	i2c = devm_kzalloc(dev, sizeof(*i2c), GFP_KERNEL);
-> +	if (!i2c)
-> +		return -ENOMEM;
-> +
-> +	init_waitqueue_head(&i2c->wait);
-> +	spin_lock_init(&i2c->lock);
-> +
-> +	i2c->dev = dev;
-> +
-> +	i2c->clk = devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(i2c->clk))
-> +		return dev_err_probe(dev, PTR_ERR(i2c->clk),
-> +				     "failed to get core clk\n");
-> +
-> +	i2c->regs = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-> +	if (IS_ERR(i2c->regs))
-> +		return PTR_ERR(i2c->regs);
-> +
-> +	i2c->rst = devm_reset_control_get_exclusive(&pdev->dev, NULL);
-> +	if (IS_ERR(i2c->rst))
-> +		return dev_err_probe(dev, PTR_ERR(i2c->rst),
-> +				     "failed to get reset control\n");
-> +
-> +	ret = reset_control_deassert(i2c->rst);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to deassert reset line\n");
-> +
-> +	/* Setup info block for the I2C core */
-> +	strscpy(i2c->adap.name, "ma35d1-i2c", sizeof(i2c->adap.name));
-> +	i2c->adap.owner = THIS_MODULE;
-> +	i2c->adap.algo = &ma35d1_i2c_algorithm;
-> +	i2c->adap.quirks = &ma35d1_i2c_quirks;
-> +	i2c->adap.retries = 2;
-> +	i2c->adap.algo_data = i2c;
-> +	i2c->adap.dev.parent = &pdev->dev;
-> +	i2c->adap.dev.of_node = pdev->dev.of_node;
-> +	i2c_set_adapdata(&i2c->adap, i2c);
-> +
-> +	if (!device_property_read_u32(dev, "clock-frequency", &val)) {
-> +		if (val != 0 && val <= MEGA)
-> +			busfreq = val;
-> +	}
-> +	/* Calculate divider based on the current peripheral clock rate */
-> +	clkdiv = DIV_ROUND_CLOSEST(clk_get_rate(i2c->clk), busfreq * 4) - 1;
-> +	if (clkdiv < 0 || clkdiv > 0xffff)
-> +		return dev_err_probe(dev, -EINVAL, "invalid clkdiv value: %d\n",
-> +				     clkdiv);
-> +
-> +	i2c->irq = platform_get_irq(pdev, 0);
-> +	if (i2c->irq < 0)
-> +		return dev_err_probe(dev, i2c->irq, "failed to get irq\n");
-> +
-> +	platform_set_drvdata(pdev, i2c);
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, I2C_PM_TIMEOUT_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = devm_add_action_or_reset(dev, ma35d1_i2c_pm_cleanup, dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	writel(MA35_CTL_I2CEN | MA35_CTL_INTEN, i2c->regs + MA35_CTL0);
-> +	writel(FIELD_PREP(MA35_CLKDIV_MSK, clkdiv), i2c->regs + MA35_CLKDIV);
-> +
-> +	ret = devm_request_irq(dev, i2c->irq, ma35d1_i2c_irq, 0, dev_name(dev),
-> +			       i2c);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "cannot claim IRQ %d\n", i2c->irq);
-> +		return ret;
-> +	}
-> +
-> +	ret = devm_i2c_add_adapter(dev, &i2c->adap);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to add bus to i2c core\n");
-> +		return ret;
-> +	}
-> +
-> +	dev_info(&i2c->adap.dev, "%pa MA35D1 I2C adapter registered\n",
-> +		 &res->start);
-> +	return 0;
-> +}
-> +
-> +static const struct dev_pm_ops ma35d1_i2c_pmops = {
-> +	SYSTEM_SLEEP_PM_OPS(ma35d1_i2c_suspend, ma35d1_i2c_resume)
-> +		RUNTIME_PM_OPS(ma35d1_i2c_runtime_suspend,
-> +			       ma35d1_i2c_runtime_resume, NULL)
-> +};
-> +
-> +static const struct of_device_id ma35d1_i2c_of_match[] = {
-> +	{ .compatible = "nuvoton,ma35d1-i2c" },
-> +	{},
-> +};
-> +MODULE_DEVICE_TABLE(of, ma35d1_i2c_of_match);
-> +
-> +static struct platform_driver ma35d1_i2c_driver = {
-> +	.probe      = ma35d1_i2c_probe,
-> +	.driver     = {
-> +		.name   = "ma35d1-i2c",
-> +		.of_match_table = ma35d1_i2c_of_match,
-> +		.pm = pm_ptr(&ma35d1_i2c_pmops),
-> +	},
-> +};
-> +module_platform_driver(ma35d1_i2c_driver);
-> +
-> +MODULE_AUTHOR("Zi-Yu Chen <zychennvt@gmail.com>");
-> +MODULE_DESCRIPTION("MA35D1 I2C Bus Driver");
-> +MODULE_LICENSE("GPL");
+> +int fdt_root_offset(const void *fdt);
+> +
+> +
+>  /**
+>   * fdt_subnode_offset_namelen - find a subnode based on substring
+>   * @fdt: pointer to the device tree blob
+> @@ -1025,7 +1038,7 @@ int fdt_get_path(const void *fdt, int nodeoffset, c=
+har *buf, int buflen);
+>   * at a specific depth from the root (where the root itself has depth
+>   * 0, its immediate subnodes depth 1 and so forth).  So
+>   *	fdt_supernode_atdepth_offset(fdt, nodeoffset, 0, NULL);
+> - * will always return 0, the offset of the root node.  If the node at
+> + * will always return the offset of the root node.  If the node at
+>   * nodeoffset has depth D, then:
+>   *	fdt_supernode_atdepth_offset(fdt, nodeoffset, D, NULL);
+>   * will return nodeoffset itself.
+> diff --git a/libfdt/libfdt_internal.h b/libfdt/libfdt_internal.h
+> index 0e103caf..d5072279 100644
+> --- a/libfdt/libfdt_internal.h
+> +++ b/libfdt/libfdt_internal.h
+> @@ -20,7 +20,7 @@ int32_t fdt_ro_probe_(const void *fdt);
+>  		}							\
+>  	}
+> =20
+> -int fdt_check_node_offset_(const void *fdt, int offset);
+> +int fdt_check_node_offset_(const void *fdt, int *offset);
+>  int fdt_check_prop_offset_(const void *fdt, int offset);
+> =20
+>  const char *fdt_find_string_len_(const char *strtab, int tabsize, const =
+char *s,
+> diff --git a/libfdt/version.lds b/libfdt/version.lds
+> index cbfef546..d0b71669 100644
+> --- a/libfdt/version.lds
+> +++ b/libfdt/version.lds
+> @@ -7,6 +7,7 @@ LIBFDT_1.2 {
+>  		fdt_string;
+>  		fdt_num_mem_rsv;
+>  		fdt_get_mem_rsv;
+> +		fdt_root_offset;
+>  		fdt_subnode_offset_namelen;
+>  		fdt_subnode_offset;
+>  		fdt_path_offset_namelen;
+> --- 8< ---
+>=20
+>=20
+> I hope all of those details will help to move forward.
+>=20
+> Best regards,
+> Herv=E9
+>=20
 
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--YZwUZMmSg92pVfpF
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqfrfIACgkQzQJF27ox
+2GfjSBAAnQbTcPPGls17WN2oRpG4M+/ssZHQTURIQkt4G+z6S7MDvNa+yZZSanxy
+z4T6IgallQi6Jo+MxLooxwpuAstUC3BVXVzfUlWogXQlJqIjyFffCqIz5fkxJY7y
+0Cwh+qQULf10Ip+50KGmVKUZ+j+leQJSRrQ8H/iLRCptwHBwm2NEuzUK2zdLstfG
+WiGGHyQZZxZkqci0W9bkKEiJY/tBaniUv0Z0oBPuIWljzoP75EibRq0TbaUGeyc2
+6flmHXbN1B1bm+lhgURSi3ny/NWoJR96NRz9zgR16pGnji9tgjGjyfWL3FiW2MKZ
+Tm/7n864Oyc0aCFk33EgW5R85zFppU0BYqn0mvw3dnPlgpo6WDvFeUFCXvNK3Tv7
+zuchkIXhBloYe3jaVuGnUWWYofALqR9tT8r4WR6i+UK1bGqSIeCyMnrznycu5mVP
+79+hmugUkGH/U7kHDcHCEnbyrGQRmj9wYsCo5oncL7zm/9hwCzS/BJUS1nbKYmNN
+76h85W8nmlItB+UAS+xWT/G/z7dWCbkdGXHva6zQHh08dJdApHOUqttEc0ULKe8e
+ncjyZsWJfr/OIBvgRCNOjPgyIsYb2dV/M4s8d5nzFY+4DB2rqwtzfizgXN1GbVDH
+6wbOlOL/H1TughIo9K/cRblMDqaDKUORUc+JPukj7ViyWc7fOcw=
+=uTPI
+-----END PGP SIGNATURE-----
+
+--YZwUZMmSg92pVfpF--
