@@ -1,137 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F2FF3644A6;
-	Tue,  8 Sep 2026 17:56:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD76581244;
+	Tue,  8 Sep 2026 17:56:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788890175; cv=none; b=DuZ7QFqIip6x3rhQmCwj/sGaF7rsCKCRJVPzskEPBU3rHgDUU6egUkhsCHBDi8b0YDRE+M29HswPTMFM1P27g4L3IMHcN84wnuIbfYFKS12NXwnuU8FV2clpazlIEEI//xrj1tSdjQOYGPKVu/OXm8qIVTriY5HBx2Y8GHCN0Bc=
+	t=1788890217; cv=none; b=Mr9mHznhTlHh0WHR4d/Gj3bDdpHlRvRxQO/jQget/Soe0EyxjhC+r2B9fukG4JrS2UXB+xqCLBAGYoCFNhbcKc16TAr0j7VebV2k+PHDe2hhuDLTpL/mDz6619417EGP151ZouzflHiTlNfqpLHPv8lORFT5u8rR5K4wwA5+TGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788890175; c=relaxed/simple;
-	bh=7CpfYdD6wSkzSISnVDK4ugnzxr9yteaP9YUMT4SB68o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tFek3iyCinSB+wCAscByOBD/fhwpNGkoLC6afkRSTCDAltUmqpcpgLNfgDOOcuUY9fx+c3I/g5CUOc0JlqugMOGvIiVCu9ymx9O1cwwD8uPm0F7yfMskX0HZEd2Uu052uUzsl/bPx9fNOIBbfKxvDmKb+TAhiIFmmKW9ndC9EJs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IPIgml/i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788890217; c=relaxed/simple;
+	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UcUkFOztXBdde/R6n2QjbuS9nr8dDjzhm9bkV8GhigGyVRm4E12D2HQO+qGfGu9agWsRd0dDrQwtFNkNRHyGAxLZ8JzFU5i169pvrdGM4uL+7cpkcsJKpP5uUcoYuoEO3cUD5IKJBaoGHPEJ4npUpFKeR/Yra8Pr9Nnj432udPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCR5T3ug; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IPIgml/i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8B01F00A3A;
-	Tue,  8 Sep 2026 17:56:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCR5T3ug"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D961F00A3A;
+	Tue,  8 Sep 2026 17:56:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788890174;
-	bh=fHW4NUKCl+SxZlSjchtGF48BdtW4437v4vLO4jGvVEk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IPIgml/i4QQ/V81JmfB4MPt8uxAfrxjiHI+D1tiDSYXNkHP5sxey7vpBwpP/KIL3P
-	 se+S74oGjHUI6Uglsbx8MHnIGR4DC71goY7jueIXO8+JgPz6z4QC/Ay5Nvy+xeYj1Z
-	 4zeHGoq1iU25bKBsgGE/GkRUAYKXF5sZ9O2iXXulXqHOFsbQ7sJ0M2dyyd103ZqCeC
-	 hy5oFcpBCrsry9YybcsTm+6wiExFqwtf1nwrSTo2+J94NnBEnMF5q/UMfziBpTXeAj
-	 Ci0Cm9BF0YUdNwWYbvfW3GdJDGzLrkeYHeUy2BqhtuvnPRrR474145x5guB/Ty9Koh
-	 yJLcFigZKEAZw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/8] watchdog: mediatek: Add support for mt8167
- toprgu/watchdog
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Leonardo Scorcia" <l.scorcia@gmail.com>
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260908174259.9009-5-l.scorcia@gmail.com>
-References: <20260908174259.9009-1-l.scorcia@gmail.com>
- <20260908174259.9009-5-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 08 Sep 2026 17:56:13 +0000
-Message-Id: <20260908175613.DC8B01F00A3A@smtp.kernel.org>
+	s=k20260515; t=1788890215;
+	bh=k3jSdgnbL5LvBC8GXl/H4R9qhk5svWd3V6MyFuObhUE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MCR5T3ug3ogPL0IrNrVo72MWGWIY1CA9c5kINyRxx0jaUzvEgFt/fv7Z9i5VJzOa0
+	 j4aGiYDceRUzHWPvg/QxXjOHvU10uyJRc1AYOUlU6X61WgVrSBhv68zt6yi5yo5GY8
+	 owJ1C5NmpGfZr8awAGK/5TJYXcfBcsGLQFdBGEJ18paDYS43f9oQVQoRQAjzTYh4BC
+	 y0pNJGoN2yYjSZ5VbvN+xdqmPCIyV1XAkxj2QGQRtOUWZT5SFhiy8hVY2jOShketuP
+	 Xye8BM6H3XWky726vCFJSqIt1/68eFsj+0cl3RazMPIlfJwZLr7ldm8TQHCdeLeNeG
+	 /kto8pO0QYXeQ==
+Date: Tue, 8 Sep 2026 18:56:51 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Petar Stepanovic <pstepanovic@axiado.com>
+Cc: Akhila Kavi <akavi@axiado.com>,
+	Prasad Bolisetty <pbolisetty@axiado.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
+	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	openbmc@lists.ozlabs.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: pwm: add Axiado AX3000 PWM
+Message-ID: <20260908-pesticide-creative-6185ca4971e9@spud>
+References: <20260908-axiado-ax3000-pwm-v4-0-19a03671cd5b@axiado.com>
+ <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kFlJqgktNAXA6FxP"
+Content-Disposition: inline
+In-Reply-To: <20260908-axiado-ax3000-pwm-v4-1-19a03671cd5b@axiado.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+--kFlJqgktNAXA6FxP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Pre-existing issues:
-- [High] The watchdog character device is registered and exposed to userspa=
-ce before its configuration properties are parsed from the Device Tree, cre=
-ating a time-of-check to time-of-use race condition. This problem wasn't in=
-troduced by this patch, but it remains unfixed.
---
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-commit 636d28c87d7152b3a57c046cb13f6a93c3f5aaef
-Author: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+--kFlJqgktNAXA6FxP
+Content-Type: application/pgp-signature; name=signature.asc
 
-watchdog: mediatek: Add support for mt8167 toprgu/watchdog
+-----BEGIN PGP SIGNATURE-----
 
-Add support for the Top Reset Generation Unit/Watchdog Timer found on mt816=
-7.
-Since according to its data sheet mt8167 toprgu reset bits are not contiguo=
-us,
-add support for a reset table to the driver. Also address a preexisting Sas=
-hiko
-finding regarding has_swsysrst_en configuration.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqBMYwAKCRB4tDGHoIJi
+0mf7AP9iW5keEM1nmOylKZgW02slNGlrttLScQ5pyEVZQL9NxwEA7+4S6lfDL6fB
+sJf9uC3qpk4vYAvdb0oCNDo4HdaxOg4=
+=VFZT
+-----END PGP SIGNATURE-----
 
-> diff --git a/drivers/watchdog/mtk_wdt.c b/drivers/watchdog/mtk_wdt.c
-> index d609f0fa35e32..abe58ed6a5045 100644
-> --- a/drivers/watchdog/mtk_wdt.c
-> +++ b/drivers/watchdog/mtk_wdt.c
-
-[ ... ]
-
-> @@ -457,12 +493,14 @@ static int mtk_wdt_probe(struct platform_device *pd=
-ev)
-> =20
->  	wdt_data =3D of_device_get_match_data(dev);
->  	if (wdt_data) {
-> +		mtk_wdt->toprgu_sw_rst_num =3D wdt_data->toprgu_sw_rst_num;
-> +		mtk_wdt->toprgu_sw_rst_tb =3D wdt_data->toprgu_sw_rst_tb;
-> +		mtk_wdt->has_swsysrst_en =3D wdt_data->has_swsysrst_en;
-> +
->  		err =3D toprgu_register_reset_controller(pdev,
->  						       wdt_data->toprgu_sw_rst_num);
->  		if (err)
->  			return err;
-> -
-> -		mtk_wdt->has_swsysrst_en =3D wdt_data->has_swsysrst_en;
->  	}
-> =20
->  	mtk_wdt->disable_wdt_extrst =3D
-
-[Severity: High]
-This is a pre-existing issue, but it looks like the watchdog device is
-exposed to userspace before its configuration properties are fully parsed
-from the Device Tree.
-
-In mtk_wdt_probe() in drivers/watchdog/mtk_wdt.c, the device is registered
-earlier:
-
-	err =3D devm_watchdog_register_device(dev, &mtk_wdt->wdt_dev);
-	if (unlikely(err))
-		return err;
-
-This registration immediately fires a KOBJ_ADD uevent. If a process opens
-/dev/watchdog during boot while the probe thread is blocked (for example,
-if there is mutex contention in toprgu_register_reset_controller()),
-watchdog_open() will call mtk_wdt_start().
-
-However, mtk_wdt_start() relies on properties that are parsed after the
-registration:
-
-	if (mtk_wdt->disable_wdt_extrst)
-		reg &=3D ~WDT_MODE_EXRST_EN;
-	else
-		reg |=3D WDT_MODE_EXRST_EN;
-
-	if (mtk_wdt->reset_by_toprgu)
-		reg |=3D WDT_MODE_CNT_SEL;
-	else
-		reg &=3D ~WDT_MODE_CNT_SEL;
-
-Since mtk_wdt->disable_wdt_extrst and mtk_wdt->reset_by_toprgu are still
-uninitialized (false) when this race occurs, could mtk_wdt_start() configure
-the hardware incorrectly, potentially causing a system hang instead of a
-reboot when a watchdog timeout triggers?
-
-Would it be safer to move the property parsing before the call to
-devm_watchdog_register_device()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908174259.9009=
--1-l.scorcia@gmail.com?part=3D4
+--kFlJqgktNAXA6FxP--
