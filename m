@@ -1,62 +1,64 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25ED59D60C
-	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 18:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B867259E33D
+	for <devicetree@vger.kernel.org>; Tue,  8 Sep 2026 18:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788892461; cv=none; b=FnVPTtE3OL8Gkr00q64k8O1+Fsw1fORtXZO/KOlbOwe/BNrGVOaNZmn47RJmdkgiyscMWmEIyQD7SjOOF6xTwO9CwTbxTErSfvJEJJOyl7sgfxq0F6HtyzZwAV5DDB/qR771fkiprCOGsPUJoXIX9Iwy5wf2Oxgkq/tfFoJyx40=
+	t=1788892467; cv=none; b=ZT6Ma5SK8hokZcEQa+NXrE9+vHlPSeztevqsu2hUweazmdWqcZqkyzTy/KrWL6VZkXb3x95bhGKKVOLQNp+Qzmw4IgoiY0iN8YTlUtRwWylvZGcj7oshTG3KMB/r/YTfOn+9JQq+l2JE5hL0Yf3HYpx9GGJBzuiyirh6p89KNM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788892461; c=relaxed/simple;
-	bh=4eGTP4LUxsjfl69Msy68378nEsw33bHsm07+fTnlLT4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Cc8eRgLPfmLz1dsJ2FdGiVb9xHxaPm3vmoxQD1j9C781ZiWkP3ZjwcZkdlt+dPyWXCej+aNbzB2pJHejKw37X/iRW5eTqC5hv/Boeze4tTzQzQ3qP9iWKW/gqnOQabF4IR0IKka9E2fHqExRyOpK9Q+g3pO4gSpSZCxl6k55PK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=efl7mipp; arc=none smtp.client-ip=209.85.221.45
+	s=arc-20240116; t=1788892467; c=relaxed/simple;
+	bh=yMIqHAyYFGtS2eBd0WBVHOU4tQ7yI35DjGOHB3lvWEk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SlQo+XmslwFkqqko1N6rq7VRZBmrrtZDaLF9O4fMP8cHAsKYw0gDXSc486+BT6j478SAo1x6+780oROPYYoQEuNN2Q6OjWomu+mCtxLK7dEMyl+etMmzxx9+e+8ryve+3uIfwWTei/8BJkcrQA51uZcR9lIQ+eUL2HWbb7pumCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rNaNuL8f; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="efl7mipp"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4859245e493so2631587f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 11:34:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rNaNuL8f"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49b8687630fso42507275e9.3
+        for <devicetree@vger.kernel.org>; Tue, 08 Sep 2026 11:34:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788892455; x=1789497255; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DlzHWsXat6ojDJ/DAFZB3TdvYphSiZcgNgIhwrwJoq8=;
-        b=efl7mippk5rRe/T7glofPen+X0bnSTrkcumgHFCpVOH9vMwvAgiFBC4k5YQKMNcJvf
-         9iJfRpUipv3ZaeZcGr9QxGTbFWy9gXY2NTCF7BR9Y7zvN1IANDO1jx24AZbneLEm/ncb
-         JwCVSbjXjibhsaKNAQXlall3wQGcKvgPPVmRLhoRFJhXV1H1aHGg70O5rj/e7Gs3UKzF
-         daYD+SSshnPNCtD8BhLfTLqI3Thxn9bVd48UH5pEMLQzWhG1ivHRaZhLDDbU2J04e+aT
-         HYNbWxErBoiguchpzQW+if1OtFHlUCUAIRorxZcsz99r6AaFtle5gThTb9fybgra8vHK
-         n8rQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788892455; x=1789497255;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788892457; x=1789497257; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=DlzHWsXat6ojDJ/DAFZB3TdvYphSiZcgNgIhwrwJoq8=;
-        b=aYSSxjvuO/eWvEXj345PDHTvlZ1BWSnptE5/U4/0eT9ndXykQX8h7HFbmckRpikJR5
-         //o55lYc1gtBaeYACgd6Lb43lUrZXTqINzddgLZ/UffaLcpGmjfb8n4TEVaP1ieECR8r
-         z5oRsKOqtm3gmuV/HrP4NBXGn3HwIqIgdrC82bF9k7GM5QBiC5QEKg1bqEewqVOK/IMg
-         BbfU7CuPU/xqfkuEws7lTdGw+RFKjEbfjn3bD7UmSDcpU14pik7gHY4ceFqEihnMTDq9
-         M7cnZVQ4ZVQmAPC16NIeRHbj44rjqQu0TqZj69jOc70ecfCKiYBKQ5MLW3LrlATwQJ+c
-         KzHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrIaHuJmhzSoIya9ib2mWub6XWeh+CLnGV190BPEVIWL/W7jYLePlS47dhLkxR5vT1nabf2uTsOknv@vger.kernel.org
-X-Gm-Message-State: AFuF++ljHoI4LH7Juaj7xzQ1yd24yrQyDs7KW8TuFGiCQet417EqRcNz
-	0tkcFERfP7+AkME6ZkmsJv65EHtigc25sxc2MPlmrfll/HF/50QgmY1k
-X-Gm-Gg: AYBFou3qfQe+yi0YKCOg5y6zOycCIU5QIM07DiOwq/UD4cn6n45vfFgpd/chOlr1Veb
-	qisZorhOJPKqSaPfrOIlgD4IRpj94s9lAvZ4z7v5pPp5r8XrSZXN2XSvLkquAubOhMW75hl5RJb
-	45OyeuoPxIqMaeSt19C7K4ryuwxoJ37N6Z1V2H357gVcBrTLowV3CwlbZW3CtCwSL4CklftmE0J
-	fc3/VMjxxh/TY8Il2z8m9OcPJmXbBZHk4XjuTxSsMCN1RY4kk7PaFyUlynWuQROQM5aJe432N3R
-	Vkc2ZSMZXpP26HualoxaVun19fieTzgP7i/S3tNcL5WJy2Xx5pecvFbylK6Cx1JyORYhTeQbrn3
-	xLFb13CkwJTfKjhr3EGi6eSfgtaHjWZFBXhl2BpWz14xmpTv8czZ0Kt6PdnYSPkvr7AEvtreXZO
-	wcWdB5uKXw/5gI0FZHlYBP0pKFohM0AwDkOvIGq9cyid/nVlvDvUwkdsoalMH62aVr+XTLon5pV
-	AbHtb0fkTArE+uBN26KPIEAyDBeaCvg
-X-Received: by 2002:a05:600c:3145:b0:49d:1916:59c7 with SMTP id 5b1f17b1804b1-49d19165a7amr67722275e9.7.1788892454444;
-        Tue, 08 Sep 2026 11:34:14 -0700 (PDT)
+        bh=HRuj29Ji4lepfajyUf6OsbyzRBUwpagoj3OZk9BKOfQ=;
+        b=rNaNuL8f6E6kKRL5HP186VbzBYBgRyTR4LhaxrREJLNkjfP7uRv2301sBpO+G1DGE3
+         sAR2MKhOc6ue4gOTa3o30oUtAn2C7F3AsPvTtAh9ykSBvBKKSRQcxc/iicL9d9p5xrTR
+         qGT/BTofCLLISlGSMokNIIVsPb7+Bcar12tUqWNH55bBB/T+OU6uWufUX20eWMa6uo3X
+         1710F5zeE47H38y0FSkiltdmOuN9AjOS2glr+KQ6JVYgaCECqTlYIsoldTUF5wniO/ZT
+         GagHlifgM6Wa5Y5ybqdo9bDA0y63/GwlW0jX5v/T74QEjugzTpgtVYO04JijomluahMp
+         Lv4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788892457; x=1789497257;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HRuj29Ji4lepfajyUf6OsbyzRBUwpagoj3OZk9BKOfQ=;
+        b=Zng3u8LYc6ZB9H4gQabEQerq2sg0wDq19blFXYU6wP4COk9GoU4m4nLf8iPnrHfJtV
+         QFFRnE20AecIOi8wee/1q3jjhe281wZ/y4kp95FHT7D0iu0eN8VpHpw1rGQU7cauoKTw
+         6gYE5IiyrjmnH48eCF8XsvsMudpYbhTiCHnwyESpLXeRSXz5XUHBcQ4F4qfZiMxvhF4D
+         0XY5wvxNt5zPM+UOyrLwAxEYvjRow+bZ9loPGB3WYxyjmdl42GttndCl9i4kgrQI6I63
+         ukkEQ4sV81tnwP6qGgy8vXrNK9KSZ0O7oYHwAZ10PDa57hpLrDoa7CTyHAh+mEyfFxbt
+         Efpg==
+X-Forwarded-Encrypted: i=1; AKwUvBwe0P8hNd0F3RtitPv2y00SHj/6yhbMQZvuwyQXls5Ig7mlbjIjPjc3jaPQaO6kpg4CyYXghwQqv/2e@vger.kernel.org
+X-Gm-Message-State: AFuF++kdELdK71eAkCDYxsFaQuEhfKk+W4Tqvy1f+HXNkHgGlkWSiAN/
+	KQVc9IpeL9LlrUmcsDj8cZvDQHWQzqUcUmEdsYePYtl8NXZkASHZpSdD
+X-Gm-Gg: AYBFou2/peyVbp2/uZHkChF276nZcgRXKblo6RfufnGWJRKU2ls0BvQQsV9OhKkIprk
+	iuhSi5MdnXPAEYxr1p9fPVZxtuaXzRBojLIKqPvJ8kCCrwFF3LYs+UTKJVm6QecChFtAKTPKlm3
+	TVMk+F3N/O+xw+2MjNlKx4/59b0mOv0hdPDJRWNpOrCH6sE3SK26fzunguY8Fydfp7YvtMmoyPi
+	tb1Xq5SAihBRofKzngT1bQb78gFiM3dGCjQbqT/BiUUImUjqGaz+AvDJAUwUz+m8fuSlHEw83Pm
+	BH9TwwHcbJjuUZRkpzch5r9jtqGsytawXfQoQFEMe5Rh32uAxNIxDK3prqQbnRrwyw07+hmljBF
+	dYdBYEcfLKqhykP3Uik7NPSS308kKzLwgqQ4ykt+6B4iOhj0eU6/qmlvqElcxzqeVsNrLhwzJmX
+	as5kEEuNzQ/hBij/A/8rR524/RLaQ5mKJvM7XQEj3l+V0uoL7rWT8viTuNfdoMRoEWS4zmbyjmk
+	xM7rsnmS3ljUjZnjdjwo2VQOv+DF3J7
+X-Received: by 2002:a05:600c:474c:b0:49c:f4e1:4c2d with SMTP id 5b1f17b1804b1-49cf828cd70mr287272355e9.16.1788892456722;
+        Tue, 08 Sep 2026 11:34:16 -0700 (PDT)
 Received: from localhost.localdomain (mob-31-26-103-238.net.vodafone.it. [31.26.103.238])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm312095435e9.0.2026.09.08.11.34.11
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d04fe7f9dsm312095435e9.0.2026.09.08.11.34.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 08 Sep 2026 11:34:13 -0700 (PDT)
+        Tue, 08 Sep 2026 11:34:16 -0700 (PDT)
 From: Oleg Keri <okerixx@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -70,11 +72,14 @@ Cc: linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	platform-driver-x86@vger.kernel.org,
 	linux-hwmon@vger.kernel.org,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Subject: [PATCH v2 0/2] platform/arm64: Lenovo Yoga Slim 7x Gen 11 embedded controller
-Date: Tue,  8 Sep 2026 20:34:01 +0200
-Message-ID: <20260908183403.2107-1-okerixx@gmail.com>
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v2 1/2] dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
+Date: Tue,  8 Sep 2026 20:34:02 +0200
+Message-ID: <20260908183403.2107-2-okerixx@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260908183403.2107-1-okerixx@gmail.com>
+References: <20260908183403.2107-1-okerixx@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,75 +88,101 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo Yoga Slim 7x Gen 11 is a Qualcomm Snapdragon X2 Elite (glymur)
-laptop. It carries a Compal EF06 embedded controller on I2C at address
-0x70, which is the only source on this machine for the board thermistors,
-the battery cell voltages, the fan tachometer, the keyboard backlight, and
-the mic-mute and airplane-mode keys.
+Document the Compal embedded controller found on the Lenovo Yoga Slim 7x
+Gen 11, a Qualcomm Snapdragon X2 Elite (glymur) laptop. It sits on I2C at
+address 0x70 and is distinct from the Qualcomm reference EC that the
+reference designs place at 0x76.
 
-Patch 1 documents the binding, patch 2 adds the driver.
+Signed-off-by: Oleg Keri <okerixx@gmail.com>
 
-Why this is not qcom-hamoa-ec
------------------------------
-
-The Snapdragon reference designs - glymur CRD, hamoa IoT EVK, Asus Zenbook
-A16 - place their embedded controller at 0x76, and
-drivers/platform/arm64/qcom-hamoa-ec.c drives those. This machine is
-different: only 0x70 ACKs, and 0x76 is not populated at all. That is also
-why the firmware reports every host fan capability as unsupported, since
-profiles, trip points, LUTs and tachometer queries are all addressed to
-0x76.
-
-Binding qcom-hamoa-ec here does not work. It speaks a different command set
-(0x05/0x0e/0x42), appears to probe only because it never validates the
-firmware version it reads back, then reports zero fans and leaves the
-interrupt asserted at roughly 25 events/s indefinitely.
-
-The ACPI tables describe both controllers: one at 0x76 (OperationRegion
-DVUM, fields FC20-FC2A) inherited from the reference design, and the one
-this driver targets at 0x70 (OperationRegion ERAM, battery and charger
-fields). Only the latter responds on this board.
-
-Notes
------
-
-Fan speed is reported but not controlled, deliberately - the EC enforces no
-thermal floor over a manual setpoint. Patch 2 has the measurement.
-
-The DT node for the controller is not part of this series; it lands with
-the board DTS, which is being upstreamed separately.
-
-Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11").
-
-Changes in v2:
-- Patch 2: drop #include <linux/mod_devicetable.h>; <linux/i2c.h> already
-  provides both of_device_id (via linux/of.h) and i2c_device_id (via
-  linux/device-id/i2c.h), and the header is on its way out.
-  Reported-by: Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>
-- Patch 2: add "depends on INPUT" to EC_LENOVO_YOGA_SLIM7X_GEN11; the driver
-  registers an input device unconditionally, so a config with INPUT=n did
-  not link.
-- Patch 1: pick up Conor Dooley's Acked-by.
-- Link to v1: https://lore.kernel.org/all/20260908091752.5508-1-okerixx@gmail.com/
-
-
-Oleg Keri (2):
-  dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
-  platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
-
- .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec  |  21 +
- .../lenovo,yoga-slim7x-gen11-ec.yaml          |  56 ++
- MAINTAINERS                                   |   8 +
- drivers/platform/arm64/Kconfig                |  23 +
- drivers/platform/arm64/Makefile               |   1 +
- .../arm64/lenovo-yoga-slim7x-gen11-ec.c       | 638 ++++++++++++++++++
- 6 files changed, 747 insertions(+)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../lenovo,yoga-slim7x-gen11-ec.yaml          | 56 +++++++++++++++++++
+ MAINTAINERS                                   |  8 +++
+ 2 files changed, 64 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
- create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
 
+diff --git a/Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+new file mode 100644
+index 000000000000..37337de86b0b
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Lenovo Yoga Slim 7x Gen 11 Embedded Controller
++
++maintainers:
++  - Oleg Keri <okerixx@gmail.com>
++
++description:
++  The Lenovo Yoga Slim 7x Gen 11, a Qualcomm Snapdragon X2 Elite (glymur)
++  laptop, has a Compal embedded controller on I2C. It reports board
++  thermistors, battery cell voltages and CPU fan speed, and drives the
++  keyboard backlight.
++
++  This controller is not the Qualcomm reference EC that the Snapdragon
++  reference designs place at address 0x76; it speaks a different command
++  set and answers at 0x70.
++
++properties:
++  compatible:
++    const: lenovo,yoga-slim7x-gen11-ec
++
++  reg:
++    const: 0x70
++
++  interrupts:
++    maxItems: 1
++    description:
++      The controller pulses this line while it has events queued.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@70 {
++            compatible = "lenovo,yoga-slim7x-gen11-ec";
++            reg = <0x70>;
++
++            interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 38612eca2987..e35679264e22 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -14882,6 +14882,14 @@ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-driver-lenovo-yb9-kbdock
+ F:	drivers/platform/x86/lenovo/yb9-kbdock.c
+ 
++LENOVO YOGA SLIM 7X GEN 11 EMBEDDED CONTROLLER DRIVER
++M:	Oleg Keri <okerixx@gmail.com>
++L:	linux-arm-msm@vger.kernel.org
++S:	Maintained
++F:	Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
++F:	Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
++F:	drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
++
+ LETSKETCH HID TABLET DRIVER
+ M:	Hans de Goede <hansg@kernel.org>
+ L:	linux-input@vger.kernel.org
 -- 
 2.55.0
 
-
-base-commit: df2908090cda368b01ff43709f51890076c56157
