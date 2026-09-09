@@ -1,209 +1,145 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2104.outbound.protection.partner.outlook.cn [139.219.146.104])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A4D3A7852;
-	Wed,  9 Sep 2026 06:18:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.104
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934723; cv=fail; b=ej9yhs+StXrX+02lF9OQ3h4QwET7wLpGVrBhd3Vv4ynpkmfC4jGdXCg+r/YfisvkORqK4GEneacBI7FbeQ14KM3yra0ayORcXmfYDdPHaPI1BNQYtdJUZ0XZfGREM3UlFHNGb2DtsmiED2bZoiKNxZ/dlP2zoflPgqlrA4x1DGQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934723; c=relaxed/simple;
-	bh=L3kWmHagBXo+LONExhSJznNgfAa2TB0F/NF/DA2U/xg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Ul1Ps5Jr1otwA9BFyQAefzvhG0aarGVqA9nL5TfH4Nfu2OODEAkVxifqrGja9960hsvCAAD73qmVK+5PMFth3IUH01Jl2dHbhn5ySUCwsdKKNBCp2Vb0uqxdCuG9u8PhxHQzcasTbJOdNGjEKrRL5YTMYqGzvDLDay7P2ft85OY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.104
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=TK3qbEcSr6BAFcOg0IDnyf2CywUGFRc0xR8vQmQy604U+WUs22LrF6I70EVZutP/6vd5koYeFRnDBLcS1Eb8Mk/HuJMbD8nsqKyG85AYVi16IYs9u3e2dcFJDscCyzFU1+qq8ZeB6BmkPCHgFJHQiCB6WJ+Spf2l9ArOzxXJw/DW6EPnJUlWNLpdkNMVVaHlNJgtRNBM/nyZjnwAjdmoCLGZ0HPYrP1lN0Bd4E9HJdq64nx/p6ugRm7S1MMP3hixQOmdjensMu64cAJhEkW7pFuT0l2LbNtfPC8JT9Xp5A7LZ+kDZhtP6LH8sCI4cUxbzUMG1JPmtm8KeOFcCCJN+A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=91IBFkekoyrjI+nDmQJA4wLRF4Be374Ak/3DGItdEi8=;
- b=HUimvhHFsHpcvNQiUQSHmAWk5WqqqrAlUOi/5s9n50zYYr0LXeZ81tvkPB2F4mYU8/aHXTrBnCcKOYQAqGpHqnJ4jHd+aIIkdz6iR6IFoIx1Dah8p/lUk67kH4b6pXYCiNlwzHAWNhYJ4JCi8f5g2VahX9jxoY45424iwYdfKke07gJpKnk8oR2PLgrya5iePUM4JSBsyfZpB5ueFgcC3fuOIsdEXGwoOeetu1Xj1Zr1K4yjDY5nuD1B8t/pVjNiQ/eVyN9vprFbxwZpcGrX1IEY4iKgxtG0c/XwO2zjyilHcFLOXfxY2fINhulDt7T/k8qx7JnP4DonAHEEVBWsLw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Wed, 9 Sep
- 2026 01:43:20 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
- with mapi id 15.21.0339.017; Wed, 9 Sep 2026 01:43:20 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
-	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
-	<linux-riscv@lists.infradead.org>, Lianfeng Ouyang
-	<lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v7 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Thread-Topic: [PATCH v7 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Thread-Index: AQHdOTzS/Ezb1OmSwkyNoZ30RtNkILbFJiCAgABglEA=
-Date: Wed, 9 Sep 2026 01:43:20 +0000
-Message-ID:
- <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
-References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
- <20260831113514.66382-4-changhuang.liang@starfivetech.com>
- <20260908-annually-catfight-39e3a1543274@spud>
-In-Reply-To: <20260908-annually-catfight-39e3a1543274@spud>
-Accept-Language: zh-CN, en-US
-Content-Language: zh-CN
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
-x-ms-office365-filtering-correlation-id: fc801271-77aa-4eda-79c8-08df0e13ba7c
-x-ms-exchange-senderadcheck: 1
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|4143699003|10067099003|18002099003|22082099003|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- JF/bDqvZ9OFs5F7pJNV+sY6MBcTng4rhZY00XJp25GGA2E7UyONHhIIC4vuyC6BQGbCcPN1FUFh5nTXvHva5TzeAwhvpyPbbMnuT4D4/1sa/pgp513w2PRuQWdmSoIpmf8eFcvfyyzFt5OBH1gor1E8u1jInpQ4DXniWQXDvAik/qd09Zd8sAZNhmW6oNSFA7BJMtojan3D0KlCf4E8VPXdpnz5HhJsyFbpvT/we9PgbF67hVvDH7vtcHvDYn9XdPuxbhOXe0pr9VzS4CUJ1Gq/wFucpB9+jlUY945YnQR1TsTIvJkjSqnMe+ytjTxV4Rp1qANqrhMwOVvDt2izarFLF6v3uJayysJOlhou14M/qsD8sv/YYBefNz0gsznpJhFnk6KK1Rq30qEGTFb4AiG/mOcLf6W9bdD3x5oMc91ZqjRSkybMqi6Dr8zV7akWTF0TqnmfO3CDEbxYmPN15G/bNxoGIGdm7EcS0ZwisXx9ATIzq4n5eBbCbkrQQykZT5gkTVp0AUQ1gUZk2JqoqKXroI5PCBKK3mX2+NZyrx6/hXL1oQFHYgoZ9kLBvcUIL
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(4143699003)(10067099003)(18002099003)(22082099003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?wwhS1HLCjM0fXs2odjqCIeoIFOZF/piN9xx7Hk3TcGdvQ2yMRjXY2DSxqEFm?=
- =?us-ascii?Q?GayWBN9zRi9Md4TqeyWnojw24H546ECCqsxOKtmyYEsanIibRZyMBFkGqRm0?=
- =?us-ascii?Q?1QN+CVg2FSLGvmF/FMJuwH3lFhwTxWoqJNwXSWXraSxK+25OsgJ4+gtSnQiD?=
- =?us-ascii?Q?vTbFnhFXDdXhca75BTq+UWWGlwj0ypxBuTLcpAbEDq3lJNfuU9i6n7Hvr6sy?=
- =?us-ascii?Q?5CkvrBxqt3a9m2n5Tv7+DcyHI3WbFTQK8jnWYIjzy7g+v9m6PI5dl68fxFK9?=
- =?us-ascii?Q?ipl11AyxslKSM06QBH/hJ8SDTUgszt2UGKhkZItP/3/VGvJN8FXNr2oRJZdf?=
- =?us-ascii?Q?3ydzAPNdvfgM1RLJkb5zeYSgmds7cTJU1d9KtgCcqNECsjikDRlvvOKGqyly?=
- =?us-ascii?Q?CymKLNuq9tda/hFnG42AgzlBz6CWcthgWzW28fKoA28yCCJbiIVXNc6TuqH5?=
- =?us-ascii?Q?Weq1ieZ04YIRrH48wno+q9DavrqCLyPyGPgVcepyXbJ3k4A1obryEOXYkhv+?=
- =?us-ascii?Q?uv5u42ZdD1Nb0oCbLGDnKN9KFcmD8UvQjAW+wlCIfgm57rbvcbWZiTmrFrW5?=
- =?us-ascii?Q?ZHkCgi9v8ERCgmiDY/T1LV57zQxOrsQebjGYRFGQgziRXt84SkK9E3ewdi06?=
- =?us-ascii?Q?jc0IXHCzHWUxxrANaVNRZC65Z4hcpGQS1cxPlSCIoCsElN1/frWNNj1bHSUY?=
- =?us-ascii?Q?Y6xGLCLG0bdF7w+M9b5smVPNaVf9HmEfQsl40O0NRnk2xQV8B7Rpsm/+4jd6?=
- =?us-ascii?Q?OQfxzsEX1gvmegqZOT6YTEYw61reB8kRvNwxvw1MKzt5e4cSX52IlhsR3J/C?=
- =?us-ascii?Q?hh8bu7VdWn0YdGcfoCXT/zI6KuIrrQxzjm3/svqUi7Z4XgTbB4h93WgSyuqr?=
- =?us-ascii?Q?rEowQb+nlQvkYlzNM9Ex9/8tABIxuj0Vx5BKSpTyYAQL78+CwwRnTCeEaXMU?=
- =?us-ascii?Q?J3RaMW7s6HK5fxSzEEJ2+vigAtH2jQz5t76xjQRFhqjrap6aaNxyVHMPd5UW?=
- =?us-ascii?Q?5E6xG2cKV2w01HqaxxX3DiuDH//3w8jgkZ3IZHfvycNu6Ap9d3LW+pP8xB0r?=
- =?us-ascii?Q?iePaayc8fXGehv87Sgt9Hth9lDYWOR0oVaAmnmoK16abCCmYVwm8sFVAiIlO?=
- =?us-ascii?Q?atCoeSBv/Q50jfqZZdqAYmBfZMi+W8xgGNmJ5XqfJoVV0t7IK/LtR6z1pYDl?=
- =?us-ascii?Q?XEYtAEUZP5siQV/nPfuTGlxnNxhvSzm5f8+pren6BOKl+RQoYZdFJ9MXCew+?=
- =?us-ascii?Q?f/KNo3CbCCRXrcPjq+D1y0rkfP6iioP/tGnERMGz6tvKeWz4jill9/AuIR0m?=
- =?us-ascii?Q?gcDM80tpbF2epGUIlaBjm4L2hsstVK2JX3Op9CnVOLCPyt/C6xhiNvbVn28H?=
- =?us-ascii?Q?d01oxaPripj0yP08iGNSlH4cn3bpvclOBUXTsaU8SpTG1cuPOl22EHK2t0sq?=
- =?us-ascii?Q?f+RH6SW2lq6+u6xWVd4AFNOA8uw4HZgh9MfktsJcjrj80YliG0LwA3c/WxwC?=
- =?us-ascii?Q?JKV4DQG8SdBLSwNRkOGNQv66uVENWelnvkn6dsL0G9Xwza72Ln/sbeA+3FdM?=
- =?us-ascii?Q?e8Ux6NnvDSyAM9CU3qRgBDSw7RZ+bwZNBMZgxMbjWvANE/1I52A7MSKxNXu0?=
- =?us-ascii?Q?Wtl6o6YHo3c4SnpiAVm9Bu4L7aOUM0TrzXMnLUsj0LFYUVKWDiBqM/zygCY6?=
- =?us-ascii?Q?MIjLirHMNrzvEQVQI5QxMPYMTFTRW2S5HrYZkhF+Vyec6eQHLbXbQN1KxK/D?=
- =?us-ascii?Q?8QzSXBPujtSNqHPlS3RRWaCKYxcP+jk=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6ACF3A7F45;
+	Wed,  9 Sep 2026 06:19:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788934791; cv=none; b=hr399CHqtuvAVAPwNbMJfooLljacGFbpV3ajWIqIESNi1v+FYOUNxgXqObsNlNow3Lx/vdEGfx/KGIs5c+UhHjN+wIOiDkWPMPikS3W6Y8XeUKZfN2F+2bu58gatXodj7bbN+aXpb713UsCXDkR5xwYpejFRocYmrBuy3mBYff8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788934791; c=relaxed/simple;
+	bh=DdkhrJz088Y42mOGiZke2jPS+a0M45HsBLmGaZRwd8E=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=nysAdItxy0NsubZ+qTefvu3vvC8UhAk172wTWfGMhOqgjoEHNz/1dTFrqy1jlXQgtRcfVreINXMmRU3pO3h4eAoiheDtDdFKH3hE2mzZAvOftI8fNuhOsazqnfZC4CoPz/9nhgmkvEnuXeKPjlTPONDRNRh8Wyr8oJXAow0X3OE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=FYQ5tRg1; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="FYQ5tRg1"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6892klNC2763506;
+	Wed, 9 Sep 2026 02:19:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=pNdgAVXDOL0BvLX0EVXIRmmMXNB
+	AiUhmNCTEzTHpCbA=; b=FYQ5tRg1wpvsZ3Fx2iCMahSBjObOL5Vv+EnV9E9U5hb
+	PBi4xPdSoVfH/vCsbCLHPz5Xva0dUhlbZA0GHt+FHK+tTvG49jNx6DI7/eIWe61K
+	RGk/f+dyYu/4MqtTxB+XccoVicy6gMPqZSBsneGsnpfis6SA1ovgat+wrq1eHAcc
+	kJ1G+9DQ1Hw9TlfSsqZ0Ur72p5jFDBTv2clakd3rz/Q/NTpv1AGcoeuDwYftIOD0
+	c5nPggyKRInPvaSM7oFrTqKzVNQIr7uMKO7jnZUbJ2dpK2KLXJ5ose+fH3nqnsg3
+	85dmcYAr8S6ZAIqz+FPoUaSyjyhq0sgloFpbAnFrbWw==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4gh1dc5mfx-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 09 Sep 2026 02:19:30 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6896JTcl044524
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 9 Sep 2026 02:19:29 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Wed, 9 Sep
+ 2026 02:19:29 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 9 Sep 2026 02:19:29 -0400
+Received: from 10.98.41.145 ([10.66.6.190])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6896JFq5015040;
+	Wed, 9 Sep 2026 02:19:18 -0400
+From: Kim Seer Paller <kimseer.paller@analog.com>
+Subject: [PATCH 0/2] Add support for AD3536R DAC
+Date: Wed, 9 Sep 2026 14:19:08 +0800
+Message-ID: <20260909-iio-ad3536r-upstream-v1-0-16ab930dcee3@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-Network-Message-Id: fc801271-77aa-4eda-79c8-08df0e13ba7c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 01:43:20.4710
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0oKCA7QqJKk0yhIurZh5BUS9es2JH4Y4kCrV4pn8pAijfa+N4SnpCA2F5x2dpDkViUizVVqvWIN8cPzCyX+m6dKUA0sR7I2wy1V8Vyv0j7hWvHL6s67TgghlmOEcSfv1
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFz6oGoC/yXMQQ6CMBBA0auQWTtJS7WxXsW4KGWqYyKQGTAkp
+ He34PIt/t9ASZgUbs0GQl9WHocKe2ogveLwJOS+GlrTehNMQOYRY+8uzgsuk85C8YNXH1J2zpI
+ 9G6jpJJR5Pbb3x9+6dG9K8/6CUn4jwnHmeAAAAA==
+X-Change-ID: 20260909-iio-ad3536r-upstream-869cf331e140
+To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David
+ Lechner <dlechner@baylibre.com>,
+        Andy Shevchenko <andy@kernel.org>, Rob
+ Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor
+ Dooley <conor+dt@kernel.org>
+CC: <linux-iio@vger.kernel.org>, <linux@analog.com>,
+        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        Kim Seer Paller
+	<kimseer.paller@analog.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788934755; l=1110;
+ i=kimseer.paller@analog.com; s=20250213; h=from:subject:message-id;
+ bh=DdkhrJz088Y42mOGiZke2jPS+a0M45HsBLmGaZRwd8E=;
+ b=BtTqivgeqgARMvyZ34ZMD6HLZ76Z5zLwhx0GAgQUlssTDStvT+ws05f7hMPkF5v+ITA753VNS
+ D88yLcVW5vlCn0syg4NGucLx/pTALGiHYwmtbfSw9Tr9y+csvQFeq6Z
+X-Developer-Key: i=kimseer.paller@analog.com; a=ed25519;
+ pk=SPXIwGLg4GFKUNfuAavY+YhSDsx+Q+NwGLceiKwm8Ac=
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=XOsAjwhE c=1 sm=1 tr=0 ts=6aa0fa72 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=gAnH3GRIAAAA:8
+ a=74-Zdgd0EFUuAABUam4A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MCBTYWx0ZWRfX9XXFDsetwgF7
+ aOzFokmIHDO90cpZOzE/D5dYGfBLPYENhT79rWkrR+FBll74JjIEVSDeJZUjC5dkNUgBPv+1yfi
+ Is9v7hU5kv8Zotm29Fj9pBc7rrWpTdN+Iw0yyBpp+TeIiVqZXhO0
+X-Proofpoint-ORIG-GUID: E449tdp78IsHttZSU5E7g9mXfX_ozvg3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MCBTYWx0ZWRfXwQr6jaX1ajHv
+ /d6WTBRghltEPb9NOdoJB4b2irrR3SdCyGSCa0/v94EoP7vGmvoCi2XKbBAcJyDhkWrXTbKoxXq
+ /kS8aQzF9BCmlfy2dbtEs6+LMq8MJFh2rOMavkCybyPVkcoijw7U2kR2xK2Gq2vfhMuv1owANMa
+ Dj8wQBuRNUqUcA6vComOMQyu9SG1QGFZM6Fj7/uxKmvv5GAitsHb1gtDoG0LzPXfHnnkIDrf0kw
+ b2Vn19GfHR2sxhb/gBmIVuP7EOSQkBtowiyMy6sJ3/uI0jqdH9/LSHG1V9fA1INSjfX+r2jydjF
+ 2AJU1wgVvauHoeDwZvs4tzFEPbZ7Pvs+4h/ScnR1lSMnRW6CvY8xtNl70MTNcjFC9aJqdCA14oS
+ ca2dPqpHuy8oYFKCB1zBNExLfDWzSCfhfi/1eukdZyjQRLl9A6Mkv/Qvj7OuZRYVK+jzif2pnQ8
+ CShmdfdwzjFIPipU1iA==
+X-Proofpoint-GUID: E449tdp78IsHttZSU5E7g9mXfX_ozvg3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 bulkscore=0 phishscore=0 impostorscore=0 adultscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609090070
 
-Hi, Conor
+The AD3536R is a 16-channel, 12-bit, buffered voltage output DAC with an
+on-chip 2.5V reference. It is the 12-bit variant of the AD3532R and
+shares the same register map, so support is folded into the existing
+ad3530r driver.
 
-Thanks for the review.
+This series:
+ - adds the compatible string to the ad3530r binding
+ - adds an ad3530r driver chip_info entry and SPI/OF ID table entries
 
-> On Mon, Aug 31, 2026 at 04:34:56AM -0700, Changhuang Liang wrote:
-> > diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > new file mode 100644
-> > index 000000000000..6d8f5516a178
-> > --- /dev/null
-> > +++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > @@ -0,0 +1,17 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-> > +/*
-> > + * Copyright (C) 2022 StarFive Technology Co., Ltd.
-> > + *
-> > + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > + */
-> > +
-> > +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
-> > +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
-> > +
-> > +/* sys0 pad numbers */
-> > +#define PADNUM_SYS0_GPIO_A0				0
-> > +#define PADNUM_SYS0_GPIO_A1				1
-> > +#define PADNUM_SYS0_GPIO_A2				2
-> > +#define PADNUM_SYS0_GPIO_A3				3
->=20
-> Krzysztof's point [1] about these still stands. Pad indices aren't bindin=
-gs.
-> Sure, your driver and your dts both might want to use these but that does=
-n't
-> make them a binding. For that to be the case, they need to effectively be
-> made up numbers - like how clocks are often listed with numbers from 0 in=
-to
-> the dozens or hundreds, when that may or may not correlate with actual bi=
-ts
-> in registers, e.g. indices 0-31 in a clock binding might be in register 1=
- and then
-> 32-63 are in register 2. There's no need for a binding here to assign mea=
-nings
-> to numbers, because the meanings are assigned by the hardware itself - in=
-dex
-> 0 for SYS0 *is* A0, because that's how the hardware is designed.
->=20
-> Were the numbers to run continuously, so that we had
->=20
-> #define JHB100_PADNUM_A0	0
-> #define JHB100_PADNUM_A1	1
-> #define JHB100_PADNUM_A2	2
-> #define JHB100_PADNUM_A3	3
-> #define JHB100_PADNUM_A4	4
-> and so on down to
-> #define JHB100_PADNUM__D0	1234
->=20
-> then it would be a binding, because we're assigning a meaning to 1234 tha=
-t's
-> not something determined by the hardware.
->=20
-> FWIW, I'm happy to have the unchanged starfive,jhb100-pinctrl.h sit in
-> arch/riscv/boot/dts/starfive, because the defines are helpful - but as th=
-ings
-> stand I think Krzysztof is right.
+Datasheet:
+https://www.analog.com/media/en/technical-documentation/data-sheets/ad3532r.pdf
 
-For the current series, the drivers also use some definitions from the bind=
-ing. In=20
-the next version, should the macro definitions be directly placed in their =
-respective=20
-pinctrl-starfive-jhb100-<domain>.c files?
+Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
+---
+Kim Seer Paller (2):
+      dt-bindings: iio: dac: ad3530r: add AD3536R
+      iio: dac: ad3530r: add support for AD3536R
 
->=20
-> Cheers,
-> Conor.
->=20
-> 1 -
-> https://lore.kernel.org/all/ZQ4PR01MB1202123864865439817E1549F2AA2
-> @ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn/
+ .../devicetree/bindings/iio/dac/adi,ad3530r.yaml    | 15 ++++++++-------
+ drivers/iio/dac/Kconfig                             |  1 +
+ drivers/iio/dac/ad3530r.c                           | 21 +++++++++++++++++++++
+ 3 files changed, 30 insertions(+), 7 deletions(-)
+---
+base-commit: 42a9b823307844dc9f496df67d11ec3691317c67
+change-id: 20260909-iio-ad3536r-upstream-869cf331e140
 
-Best Regards,
-Changhuang
+Best regards,
+--  
+Kim Seer Paller <kimseer.paller@analog.com>
 
