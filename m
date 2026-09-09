@@ -1,65 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5065489897;
-	Wed,  9 Sep 2026 15:13:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935E93E315F;
+	Wed,  9 Sep 2026 15:13:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966823; cv=none; b=gsGrz71I6WjinmPd8/r5Cdnf1+c/OniKA051g4gZdlblub9LxKO2TlHcjCvBshyGYbMxsir2yNie+0WlLjvV1qmqPrk6BOmVlkUZKh/1Om/fPVjNKEBVNxgt4+6aGMJ09jGiX5JoctVsLNzrTSV9RkUOWDsSmGeD/HLVTxH7Ego=
+	t=1788966833; cv=none; b=gvCKLIJxrUOlh6Jjj3gus/HpLhfqoTr6zesPAnlJCsOIdb0jDdxlgM3ouNzUhF9yr7kd+aG1RQxkOmq2uFSmrHSD/7ZWT9bNNpxVUjLjYnWDfaYQhdUVluTnm6ux+4ZXz1jUbabEC1WLE47fcrdDSfG8HCBlVRkHJ1BMMLrvdWU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966823; c=relaxed/simple;
-	bh=laODArpHD7hJ5nZFGu/uefw+aY34FW4pX1wpxiGkHzo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e4HwNQKwHui5fDNm2M/Cjo7/8K+PNSmwMRUQaG5GrywHRZakQiaZE+TLMsqv+sWIDPYIEOHD4DFfQOVYlKToueqxrtaXm/R9RjG6Ks6VqbaPfkdhngs4BcZ8eT3LSJLaKDUI/2G1WvTTELn58smg0zH1LfZfdh1u1sygpTnWK28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Br9njwCk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788966833; c=relaxed/simple;
+	bh=HQ3SoXdr1MfOnxZvo6D1nkjndkMLbUqUXZ0aIbN6qYc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NiS+qTJMJNORFieT2zWXUq/0uqYkET/guJr5/V8N1ebZIW3TmndOjFpqCbUVvqASGC4xPOKtVnIYMtq7vMARoqvu6ZMKGrJzVySh6ZZQR5G8KqBXGNWRUpmsHjIKN5CX1ws1eSQOM/s1UM+PUzNk3Dow5JqPMrB6niRPj4g3TbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=Gav6f28F; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=R8qONZ/T; arc=none smtp.client-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Br9njwCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA5DA1F00A3A;
-	Wed,  9 Sep 2026 15:13:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966822;
-	bh=nJcrh9JEinHMCgGEO7t8lXSXFKHEPWcMg70GS9PZibY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Br9njwCkZta5D7//9pt0BfVfuYXsixJ5Dvdhe+WAWsf+ToTRj9Cvr96PLb/IzYXLe
-	 vC18qW2IAJbPLH4V5YgewO6h/g2lNhwos2egF6BdeAGIWEk2+O3uPoL+F1+Zss/cVM
-	 U2f9q0sTp9i/mdZHZL14Y7wQ3tduoLqDX+MS/yHavxG619REPqhi3QJF/XThsFkqH9
-	 Tj9qlO8kSCAJOrhTR7vbDWcd8aCU8bgv1l6PnJ32u9TEiwxjk9K6EgGe7t/STMbgS5
-	 AZVq2RhK2YtzYanXAvrKYBBqt7ARml8d/P8/yIMldiIw4TA399ZRAdHrx3LfgBOsSu
-	 1it5iM5RfVAow==
-Date: Wed, 9 Sep 2026 16:13:36 +0100
-From: Lee Jones <lee@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Stephan Gerhold <stephan@gerhold.net>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Axel Lin <axel.lin@ingics.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="Gav6f28F";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="R8qONZ/T"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hg48F01nqz8sdx;
+	Wed, 09 Sep 2026 17:13:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788966829;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l+Zr7ZH/3uj/Y31eE4ONXsO32kJg+iEv0h43imtrhVA=;
+	b=Gav6f28FwdptAziLY82ADN0vdmsrkDPYlFlviD/5ei6lMPSfzczQY3CMTBcEY6NSVW2oFm
+	letVWebuREF7RlBxMTaTNSO4H/t7dhtXtaGQ0JmajSI+F67S5sXEeH0S4WKajgL5yOn0/l
+	7vu03VvXbrwtr8YQN7R25zOaXocBfqi8PNDX/e7DwdjFru3vq7btQqXMgKL2s3NxjOYOIm
+	4qqgthWXEE3DjFXQ5HZTB5TljW3SYSGqum5OnKOG9Nouy53OPtiCHOYf7/tMNLR8RfGUzt
+	Vv5o3EkFJcvJDRxJQr6I72Kv9r8JrJ2M8Sh71+PD5CKIxEFTWmusYrbrCBMrRg==
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788966826;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=l+Zr7ZH/3uj/Y31eE4ONXsO32kJg+iEv0h43imtrhVA=;
+	b=R8qONZ/TD7rKNF3I+ETMBdQGOXlb1p/XfJrzoAj+9MAe0DQ7PjPbpZlfIC0Mw13HxyRDIQ
+	AWMgzezBif9hb2da9UpPG/7HPzutfiaCjd7yPAlyCYzjUYP60LG0SmnCkbuhI+WH4/jLc0
+	2P1AznxCL+IuSolQ6tS6qFyO6wfDEAbWJqIzhtcO0sTcj1Lhql+nr0jsij8Ksq1ax973qs
+	y3Je7fRtz7rQpk2MjwFmbfvrRkRfgjtImH9O2NJCy8tm+txQKlUl7GNv0K2OLi+fHMfJi1
+	8bNvDMiupFbo266FtQ0pqyI5tFZA68n6phk8e1e5XBFwZOc8pHklkYd0Q9k8EA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	mfd@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 08/13] dt-bindings: mfd: ab8500: Add regulators
-Message-ID: <20260909151336.GB2133376@google.com>
-References: <20260901-ux500-dts-snowball-regulator-v2-0-fe88b01829bf@kernel.org>
- <20260901-ux500-dts-snowball-regulator-v2-8-fe88b01829bf@kernel.org>
- <CAD++jLmFm=BwwYAW4Wmumb53CJeFYzwEAMmcz3OKa2umcR4rQQ@mail.gmail.com>
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: sparrow-hawk: Align MSIOF1 PFC node name with label
+Date: Wed,  9 Sep 2026 17:13:12 +0200
+Message-ID: <20260909151341.28322-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAD++jLmFm=BwwYAW4Wmumb53CJeFYzwEAMmcz3OKa2umcR4rQQ@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: y1izspzudz5mcjqp53uq1e7u5ezqy9hj
+X-MBO-RS-ID: 950bc9a4690d73fbaa9
 
-On Wed, 09 Sep 2026, Linus Walleij wrote:
+Align MSIOF1 PFC node name with label to improve consistency.
+No functional change.
 
-> Lee do you think you could ACK this patch so Mark can apply these
-> changes?
-> 
-> Technically maybe it's mostly regulator stuff and DT binding stuff,
-> but it'd be nice to have the MFD maintainers blessing.
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+ .../arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-Or I could just apply it, like normal?
-
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
+index a6294fd32daee..c6848a364098e 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
++++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk.dts
+@@ -700,6 +700,12 @@ irq4_pins: irq4 {
+ 		function = "intc_ex";
+ 	};
+ 
++	/* Page 30 / Audio_Codec */
++	msiof1_pins: msiof1 {
++		groups = "msiof1_clk", "msiof1_sync", "msiof1_txd", "msiof1_rxd";
++		function = "msiof1";
++	};
++
+ 	/* Page 31 / FAN */
+ 	pwm0_pins: pwm0 {
+ 		groups = "pwm0";
+@@ -751,12 +757,6 @@ sd_uhs_pins: sd-uhs {
+ 		power-source = <1800>;
+ 	};
+ 
+-	/* Page 30 / Audio_Codec */
+-	msiof1_pins: sound {
+-		groups = "msiof1_clk", "msiof1_sync", "msiof1_txd", "msiof1_rxd";
+-		function = "msiof1";
+-	};
+-
+ 	/* Page 30 / Audio_Codec */
+ 	sound_clk_pins: sound-clk {
+ 		groups = "audio_clkin", "audio_clkout";
 -- 
-Lee Jones
+2.53.0
+
