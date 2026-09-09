@@ -1,210 +1,75 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F0B4519A8
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:51:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9FD1A6835;
+	Wed,  9 Sep 2026 07:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940297; cv=none; b=iZTQ2LisfRZIGkNjESXZr26v+RZRnz3xjM1uzBtX8TVfRFXitGeGFX5BHKUFaxp882yJ2bqYaKG2+u/K9e6dpfE11fLlT7SL6DFd1OsvR5sjaz3VdIlyntggbn/YKswfp/59WL0nLmnEXnPm6Ps98iTzV/LcwAWuB9NOUvGf9b4=
+	t=1788940321; cv=none; b=d4jWnUQktPFXW6QeIeuLQqQIvgi8sEj/asVAYhXLR2w5Bt4oIAbZMAcNT4HevoUA5TLPbhXgvvPd3rqfDlZblbne1YefdOqU7cNNuWvW63paj3s42rDjhRieoslqHEsihPCYYqWQz+urIcDvb+3at9T1eXT/N4BrwpwreC2FsKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940297; c=relaxed/simple;
-	bh=L93RZFfSNxCUGv3IQaOPX+eNMIHvMrFA8PqhAa8TdM8=;
+	s=arc-20240116; t=1788940321; c=relaxed/simple;
+	bh=dUESelDRcMcbWsrkRSlHWMWFgBjHtb8uoGGa1xfW+Jg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ByDZyvEN4/Tc6FiyIIZa2vhpunoM2Vvp/Izm3bd6VEsshvw8YBpvyyUIfuAkJCrjsVXQ2h5tUiXJv0INwjDgtso3GZR0wfi+Yofw2vqtLZHhZQzzULVFo08vtW75YVIzXrFyGSuB17Us2nMK7l2VCP/AFMEUTiS3YBVrw6XcHfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BqU7obUy; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=tOW6q3LFFB1PSSI6c4FDQm4INQBwubfUQtXv/hPZqclpXLnkczJYldrljnLDdkjbH4TYcxLwLnxOdNQGo5tcwjWk55KvGHpvE87i97q1Qt9zrPs4bFp+4qEAcnokeEDDAwF6Tnon8q0vVfLHTMmuA1M0wedMzXEhCr16ks4q6Tk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KRC2oOA9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BqU7obUy"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6f9e2f681so61081385ad.3
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:51:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788940295; x=1789545095; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jKrEyC/4kP8ddKpasgLPQzfssOl6topa0dwYgM8fxlQ=;
-        b=BqU7obUyrAVj4F1/sz5IrQyo2Nak+BLQsiXCUzX1QCLg6mTaWKlOkyUQqYvTrGtzH4
-         LGEfTk2vgVUNYqT9SpuE5VfklDThxqbzbxH7ZsuBpkD131EZm6IjmLgMEIqhhi6Z5Qc7
-         Kg5nH56JPG71m4BA7Hr8HLgMHm5JQ3FBeX8LkXsYI7udWcVL0L3M2uFK6B8PzeaQPWId
-         xX/A/oiKBEIoZfgXhytkIyGNNa2nJkoFJIi3QqxuLhrgsmsBUi0M9Oc4gdmWpOe4XKcb
-         hZ1QO2PVfN1wqhhvjvKVoIbI4zyheTvcwN9cmarfdZDWQbhq5s6mMx/KjePq1Q75dSJ6
-         FQ/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788940295; x=1789545095;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jKrEyC/4kP8ddKpasgLPQzfssOl6topa0dwYgM8fxlQ=;
-        b=i+/o/EAygFs1iTBiSWKkJIccumf/PAKSUwu/d9I1xGdZZzVOLlAdg7HyyjawOJSbnQ
-         gFZIZGSoly+yy6DmhhAZWP8vtWjxinwMoxixuu6L2nsvb8JchMjE9oXUx8JG/TZ8fSnS
-         bC251+hbEZ8zkzYVw7Ck+0/i+zkNcOvCMWdxOM87PcESDxP0gP3h/Us4eneeM4Ev/qtc
-         PWOFApmlJWZZXNWnkFDNpKA4U8PysmBlAdqyjT1uSvhj+djCgZNubFqSKhj3Z9XxF7NO
-         SuUZnGwAtPSIxgsfqjCrgwZcq+IDqfAFfmCExfG9HAxpLBS7ZmtyK/EBF6lqEz0J2We4
-         7ZpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxwdGGjHENy8ninst0sVb5Zhn4/iWtdKkemyq3WpuM6Jll6N8AtZojaRjEow3BWM8z2RpbXtu9LWH8J@vger.kernel.org
-X-Gm-Message-State: AFuF++nFJCgxjmH7L2fc0O6cMZTZ26+dYvm/eDmFcssqMRkRG4KC36z2
-	OW328YZsh6qme9ncUDkSd65AZeVpxl84VLNN4eCsU/Sm9khFl8dB4wCC
-X-Gm-Gg: AYBFou0uStd1327dikdysAZdjlSgOv9G+04y1f3MHPpMpwY6W/vfJW7LClK9iFTTVKd
-	9HmC+WFSdKAibJUsRTJK55uTpEhlsQuf3z3nRDdiqMKlFo0LZRXOBNZxowUrmVyiCexWl4gQkCo
-	ro+A2VmGfQlM/Y7sb5HkKOUICpPq3/DjNjuhSGg4omxCS4LD1KPmV7WmeW0mp5bbIClnnwmHKmG
-	u+2HhscYQcEThpQtIsJyX5Z2r1L34CfBGc98N92r0cR3RTJa3qRXNs+m1rJCQGIek2XXkU+Cssh
-	TytFVd7G5FqU4+KaEywfo7EY/qcG7cdXNdr3/kOvRK+b9RR+oZrjp36wGFqAArn3IFD4aCUqbmn
-	8WBMq3UqrQusq1N5nPfwMXxjTDif+KTqo3jPdz+i95SaJbhF1ptiA4WdHBEFDFhRLPTG5bf/Dqx
-	1DU5pm5lrpxCPKfkICVpgrzdxYQOxs594SpKz2z/h4aRCfTps8DAuSmwvz5x65eCDT8/jihg==
-X-Received: by 2002:a17:903:3c47:b0:2db:eb5:47ea with SMTP id d9443c01a7336-2db12106896mr504658855ad.0.1788940294598;
-        Wed, 09 Sep 2026 00:51:34 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d9f9sm67640495ad.32.2026.09.09.00.51.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 00:51:33 -0700 (PDT)
-Date: Wed, 9 Sep 2026 15:51:02 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
-	Inochi Amaoto <inochiama@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
-	Christian Bruel <christian.bruel@foss.st.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Alex Elder <elder@riscstar.com>, 
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Randolph Lin <randolph@andestech.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	Vidya Sagar <vidyas@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Danilo Krummrich <dakr@kernel.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>
-Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v5 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
- controller support
-Message-ID: <aqEOHmlKdKqQWYE8@inochi.infowork>
-References: <20260907112606.465778-1-inochiama@gmail.com>
- <20260907112606.465778-7-inochiama@gmail.com>
- <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KRC2oOA9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2751F00A3D;
+	Wed,  9 Sep 2026 07:51:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788940319;
+	bh=5vuh78kClq7KGvNejQQj0xWgLvOfNW79nm/EQCjh7xM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KRC2oOA996pcNN3ePwBT2Aj3PJb5c180iP1CZ3GDkEW9Tm7In9H55tc1zN4j130Lh
+	 6HlGVdRu6z78+bjhJqHnLE9yVRsjUxwImOAdCCR83SJX8rJjDpn0z/xzoPnww1ZgEf
+	 PhD++BDphIUiac/NAoWZ6A1HkJtB6yDBD3W1Omcgp/zZVPOLsbiudnaujERNlIzVE6
+	 bGFOV8T+gnv77bZhh8BqTdDdnKWQ7VfnGUqDYIuf6M7R/ZD6Qb+WELWBKvNm9NixIz
+	 BebInEfVLIWNjg5uxGXcyecPMAKzIRdnTTiU/1nSyxYbMGwRlDMbW8G6iCf+kCf9kq
+	 usy+3sDjogSrA==
+Date: Wed, 9 Sep 2026 09:51:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hongliang Yang <hongliang.yang@cixtech.com>
+Cc: peter.chen@kernel.org, gregkh@linuxfoundation.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	p.zabel@pengutronix.de, vkoul@kernel.org, neil.armstrong@linaro.org, pawell@cadence.com, 
+	rogerq@kernel.org
+Subject: Re: [PATCH v4 2/4] dt-bindings: usb: Add CIX Sky1 USBSSP controller
+Message-ID: <20260909-sceptical-eager-cobra-b550a2@quoll>
+References: <20260906032440.470788-1-hongliang.yang@cixtech.com>
+ <20260906032440.470788-3-hongliang.yang@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
+In-Reply-To: <20260906032440.470788-3-hongliang.yang@cixtech.com>
 
-On Mon, Sep 07, 2026 at 09:14:23PM +0800, Troy Mitchell wrote:
-> On Mon, Sep 7, 2026 at 07:26:05PM +0800, Inochi Amaoto wrote:
-> > [...]
-> >
-> > @@ -303,6 +316,116 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
-> > [...]
-> >
-> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
-> > +{
-> > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
-> > +	struct k1_pcie *k1 = to_k1_pcie(pci);
-> > +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
-> > +	u32 val;
-> > +	int ret;
-> > +
-> > +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
-> > +
-> > +	k1_pcie_toggle_soft_reset(k1);
-> > +
-> > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
-> > +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
-> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
-> > +
-> > +	ret = k1_pcie_enable_resources(k1);
-> > +	if (ret)
-> > +		goto failed_resources;
-> > +
-> > +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
-> > +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
-> > +
-> > +	ret = phy_bulk_init(k1->phy_count, k1->phys);
-> > +	if (ret)
-> > +		goto failed_phy;
-> > +
-> > +	msleep(PCIE_T_PVPERL_MS);
-> > +
-> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
-> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
-> > +
+On Sun, Sep 06, 2026 at 11:24:38AM +0800, Hongliang Yang wrote:
+> Add device tree binding for the CIX Sky1 Cadence USBSSP controller
+> glue layer. The integration adds glue registers and mode strap
+> controls in the Sky1 S5 system controller. The CIX glue node wraps
+> a Cadence USBSSP core as a child node.
 > 
-> Should we use pci->pe_rst when reset-gpios is provided, and keep the PMU path as
-> a fallback? The SDK handles both cases. The DWC core requests that GPIO with
-> GPIOD_OUT_HIGH, but this path only releases PERST# through the PMU, so an
-> endpoint using the GPIO would remain in reset.
+> The per-controller RCSU control and status registers live in a shared
+> RCSU region described by the cix,sky1-usbss-rcsu binding and are
+> referenced through the cix,usb-rcsu phandle.
 > 
+> The per-controller RCSU registers are accessed through a syscon regmap
+> referenced by the cix,usb-rcsu phandle.
+> Signed-off-by: Hongliang Yang <hongliang.yang@cixtech.com>
 
-I do not think this should be included in this version. I found PICO-ITX
-has no reset gpio support. This means I can not test this feature.
+One more note:
 
-I suggest adding this function when there is a board using this function.
+Please use git to write commit msgs and then actually commit.
 
-> > [...]
-> >
-> > +	/* Finally, as a workaround, disable ASPM L1 */
-> > +	k1_pcie_disable_aspm_l1(k1);
-> > +
-> > +	return 0;
-> > +
-> 
-> Would we also need to configure IOMMU bypass during initialization? The SDK sets
-> the PCIe A/B/C bypass bits in PMUA_PCIE_SUBSYS_MGMT when there is no usable
-> iommu-map. The proposed K3 PCIe DTS has no iommu-map, and I could not find the
-> corresponding bypass setup in this series.
-> 
-> Is bypass already guaranteed by firmware or the reset state, or should the
-> driver set it here? My concern is that enumeration could succeed while endpoint
-> DMA still goes through an unconfigured IOMMU.
-> 
+Missing blank line before tag. This is triviality, but why you can't
+just use tools which solve such trivialities and no one ever has to care
+about noticing them?
 
-I think the firmware should mark it bypassed as the default, at least
-I have notice this behavior, but I am not sure whether it is the builtin
-firmware or the uboot do this trick.
+Best regards,
+Krzysztof
 
-> > [...]
-> >
-> > +static int k3_pcie_parse_port(struct k1_pcie *k1)
-> > +{
-> > +	u32 status0, status1, status2;
-> > +
-> > +	/* This register require a RAW for cleanup */
-> > +	status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	status1 = readl_relaxed(k1->link + INTR_STATUS);
-> > +	status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
-> > +
-> > +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
-> > +	writel_relaxed(status1, k1->link + INTR_STATUS);
-> > +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
-> > +
-> > +	return k1_pcie_parse_port(k1);
-> > +}
-> > +
-> 
-> Are these status registers accessible before the controller clocks are enabled
-> and resets released? k3_pcie_parse_port() runs before dw_pcie_host_init(), which
-> calls k3_pcie_init() to enable those resources.
-> 
-
-Yes they can. It is something interesting.
-
-> The SDK uses the same ordering, but I am not sure whether it relies on firmware
-> leaving the registers accessible. If so, would it be safer to move this clearing
-> into k3_pcie_init(), after enabling the resources?
-> 
-
-In fact, I have no idea about which clock control this MMIO area, if it is dbi
-clock (but I guest it is not), it is kind of weird for this clear and should
-move to the init. Do you have some knowledge on this?
-
-Regards,
-Inochi
