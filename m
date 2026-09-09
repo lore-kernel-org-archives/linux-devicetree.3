@@ -1,130 +1,104 @@
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52ABB37B021
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 17:27:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD4B1379C42
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 17:30:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974823; cv=none; b=GnnaKXuXAueq9nOKZYhgkIio1fE5EFWHulh5gYE3d5gEGCgZ30Bn2+fQaGeCIyVxkX4Bf3Nqw4wiysxvD6vTM0H4SEoxBBd30sLoSYi0p3psndl2HcDesMY6IgxZzlk5KqbngFNpvxHwU/ca0cCS7cKZX9QEviqEwmciZkmfqWg=
+	t=1788975034; cv=none; b=bHYUDpGcMPHhHiwkqhZ1vZ/J3NjVAR7a7ANWzinPcqbGkQOqK4PEUqoiBJXXaAoetOf1fFfi4btm/2E4aXbR1Nf+EzTCp8Iow6GwJaFpoFV5IFAJuXtqTx5czK46vwXVU96H6lPdp7os3yyBGKhugccfLAOCj5NdGOMjpaHUaYo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974823; c=relaxed/simple;
-	bh=SUxP5gT1ZaOy4mmgP6chw0Cr8VRY83cgnbGtN/GeIrM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Juba0PEXZLUnv5bkxUONe2kx0MkAELpdJM4IJ6oA4Ev5GeJdzMl39vhC5tJ7Qktne4uw8wdBnNE+rZObQrIfWrZFZW+kMl9M27PAV8HW66VIDTA4EGjuCpuEssc4D2Wb+anS8tHuazrpTkfGsKMWUSd+azwpmLFh2ynnACbgodo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jI6Ly9NO; arc=none smtp.client-ip=209.85.215.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788975034; c=relaxed/simple;
+	bh=iPB8qc9U5oMmzltnfECrAvDNufzUtQ6SqGx+G6Gggg4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=F7mrk7vNKvJoUmFG0vJbgIxgDYPHBXvqLnHqqCoO8JA6HtMqyZNMl00cm15oW35qyFHt/2J6XM3bDIJD/YmhQVEAfGHzToSuwNLnIO9FFVNmunvMYZrcOwPDXMI51hHJxQTJNZhly5nZ7aXPiYn4AuzPczcjqEDc3Oo0OzJFa7A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+1VnzsG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jI6Ly9NO"
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso421036a12.3
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 10:27:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788974821; x=1789579621; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
-        b=jI6Ly9NOhS1CJVDcDoKjwgjST/iQVlVpolh/hifxBJGV2nz6t+8GlFWLZ4bzANtEHt
-         /Gubm7aHSBwsXnEHDwS28/J38FGObVki5RAT4+MKtWxDxCzdeulLhOlDre6S80gl/1TC
-         7EygHVvY8rB9EzbY4vuEGBvLIXgnThM7ofFVrmOOyUnxK3+Cw8/lUB1Qrw2zcQyD28sq
-         aOwfF4Jak4nLrwlBRcrBmxMV3zq77fRSSDlQwIxXNAn/g3MvLudGjEbIzxRGELLjSs75
-         zSMaaTiP34sWBjEuq0+gSjLhjHao2DyO1AI08J/NXT1fTMGf7TSzj1Dp3m+TJmQDgi3k
-         TF6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788974821; x=1789579621;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
-        b=sawZJrNRHsa0LVHiyZBvL00m4Pi0pBVA0SHXLRks5jtc7e4JUN4Gy52UFYJDodgLVs
-         yuujP06k44CdlYaruUqzVvb1zL1slWi34Vqs1fOSj/om/Yjso1IZ/aUSX5K8cwQA342N
-         bZIcvKRevlX6jkvumU5dQBvzEpQm3sBhrRjVnyAAXuRZO14fFQCxQUBA6fyHs3GYiO87
-         zAZPaLt2D7ZB8MaeKkOyDKxoAcypMUJpPchEVqVYIe9rWbGgMcF6glzPoHTYeV1Ge34j
-         tpOsf+BtT9EpsjnxfGLznViIkKk2eW3tLc5BrcHeZkA8U/h+doL7y7rSX64fq0IK2azT
-         3EpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwWrcVBSz3p/aavBTlwqMZzEGyXcXTeBhgHPr8oPmz2eEuhiyeJ814dJHRq+XWNgNZzn2WWUQjEyF5@vger.kernel.org
-X-Gm-Message-State: AFuF++mUYvqMh1pPpfuShKZ1eYXQsqUZ9vOG/sDW3XYytpS6KlY4oxfe
-	95f2nwqpQZPor3f11LD/L5A3yVAdmh022/6T5pxKg89/J8ZQ4EBOy08o
-X-Gm-Gg: AYBFou1KIVrEU1bc4FmCu787Vsz/rlSsIRMs9SUuA+weh0B1KlTCYxZKh9so9W+6dWs
-	EjE8YXIc4J33gTHY4imhBTiEJhopOyKamVMZ0BjqXEZuDD4D8EXJZbKmtzRZr8lz+5XQYxnXpFX
-	nGbyB/TLEVhL4soXlInR4Mw/RAmqPj/i44h/kov+CaY4I58nHYfhCblBHFdqpD1DTu9fFostWe8
-	zxT3zh2xpNluotWIkJVqqcz6B7PQeFZnrpv8c2VmntF797+ygg4bQGf//7M7ODH2tJPUD6d0UWl
-	SYeaGSt2WclXygKTYyBZhpJoSzj204sl4t3mta4kBdxsEmzUabYRB1Fqr6RPa/6ElJqmheQUOIH
-	mJKG0L0Qgp0/rAj6QeDBS4XYfm4TnYm9Z1eZEwuQN0vIJF8fzwbmznU6sCWZnTLc3aTwpQnGCWf
-	saDHVkePTUEfjd0dItDRE5tQwBjm06WzUOjs8YUndJg7mUsCJMC6sD+xcHchAxS+N/3G14TaqiZ
-	G9n98MxpHi5/usdfr8D5uuaEQuLr8ctW/0DbJw2VDin4fZALnxJ
-X-Received: by 2002:a05:6a21:9d84:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3da3a16a579mr57975715637.26.1788974820346;
-        Wed, 09 Sep 2026 10:27:00 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:2d43:5153:5c50:643e])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm52422943eec.7.2026.09.09.10.26.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 10:26:59 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:26:55 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Arnd Bergmann <arnd@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
-	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
-	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
-	llvm@lists.linux.dev
-Subject: Re: [PATCH 00/14] mfd: unused driver purge
-Message-ID: <aqGWjAuGXq_JHvxk@google.com>
-References: <20260909132153.1596191-1-arnd@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+1VnzsG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 240941F000FF;
+	Wed,  9 Sep 2026 17:30:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788975032;
+	bh=2Rlo7YDG9lSS6IQI+xqN3wsd55keF0QlblTSeDnIu2w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=E+1VnzsGgGZjkZcPSYXIKGIr6qPGIqmD9pJjIW/qLlgTBcxMcKsItnDpbloUfKa2n
+	 dHbBFURDH+gW6tav9uKH+zSefaFUPEPz+KuJw8kA5qMl3tr3fcKcq/WzX7S6bQpwz/
+	 tHOdDD47auAsl+O9BM0MHT6y5pkROO7Fkg90nxpDqXcNbmIHi2ivMAnIO/eZBD+DYk
+	 Q1etGVREXJ8dGjsWSTT7uh0UU/YSQvMgP2iOr0fE52ZVEzimc+yolBneoc8L+3NGGU
+	 87pSLI+8qZHZaCHMuwY4aaI6UyDiJoComELDMqjZs4A91P3m/UQP092oA6WCQK7T8I
+	 Zu6ldNOS0xnow==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/1] arm64: dts: qcom: sm8350-sony-xperia-sagami: enable
+ UFS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jan Paszkowski" <jan.m.paszkowski@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260909172421.33593-2-jan.m.paszkowski@gmail.com>
+References: <20260909172421.33593-1-jan.m.paszkowski@gmail.com>
+ <20260909172421.33593-2-jan.m.paszkowski@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 17:30:31 +0000
+Message-Id: <20260909173032.240941F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 
-On Wed, Sep 09, 2026 at 03:21:37PM +0200, Arnd Bergmann wrote:
-> From: Arnd Bergmann <arnd@arndb.de>
-> 
-> As part of my cleanup of old platforms, I had a look at all drivers that
-> may have become unused because the last platform_data or DT definition
-> was removed, or because of unmet Kconfig dependencies.
-> 
-> These are all the mfd drivers I found. The first ten in the list
-> actually turned out to have been unusable long before my series, and
-> I have added explanations on how I determined this in each patch. The
-> last four patches are still in use in linux-7.3 but become unused after
-> my series [1] that I hope to get merged for 7.4.
-> 
-> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
-> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
-> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
-> to simplify the interdependencies: removing just the mfd driver would
-> leave unselectable or broken drivers in other subsystems.  I also have
-> additional patches for each of the other subsystems, currently a total
-> of 300 patches, many of which still need better testing or proper
-> changelog texts.
-> 
-> Please let me know if you all think this approach is ok, or if I should
-> explode this further and turn these 14 patches into 70 individual ones
-> by splitting them per subsystem.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Duplicate Device Tree property `vcc-max-microamp` overwrites the i=
+ntended value and leaves `vccq-max-microamp` unconfigured.
+--
 
-Sounds good to me, especially if Lee makes an immutable branch from this
-pull so we can all pull it in...
+commit c3bcdc386d74df860f7d4d12d1aed983ad46ea5d
+Author: Jan Paszkowski <jan.m.paszkowski@gmail.com>
 
-Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
+arm64: dts: qcom: sm8350-sony-xperia-sagami: enable UFS
 
-Thanks.
+This commit enables UFS on the sm8350-sony-xperia-sagami device, noting
+that previous device-killing bugs seem to be resolved.
 
--- 
-Dmitry
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi b/ar=
+ch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+> index 4b62ee50da7be..969c8cb31df9f 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8350-sony-xperia-sagami.dtsi
+> @@ -893,9 +893,20 @@ sdc2_card_det_sleep: sd-card-det-sleep-state {
+
+[ ... ]
+
+> -/* BIG WARNING! DO NOT TOUCH UFS, YOUR DEVICE WILL DIE! */
+> -&ufs_mem_hc { status =3D "disabled"; };
+> -&ufs_mem_phy { status =3D "disabled"; };
+> +&ufs_mem_hc {
+> +	status =3D "okay";
+> +	reset-gpios =3D <&tlmm 203 GPIO_ACTIVE_LOW>;
+> +	vcc-supply =3D <&pm8350_l7>;
+> +	vcc-max-microamp =3D <800000>;
+> +	vccq-supply =3D <&pm8350_l9>;
+> +	vcc-max-microamp =3D <900000>;
+
+[Severity: High]
+Does this mistakenly define vcc-max-microamp twice instead of configuring
+vccq-max-microamp for the pm8350_l9 supply?
+
+Because the property name is duplicated, the device tree compiler will
+overwrite the initial 800,000 uA value with 900,000 uA, leaving the vccq
+regulator without its intended maximum microamp constraint.=20
+
+Given the history of UFS hardware issues mentioned in the commit message,
+could this unconfigured vccq regulator lead to system instability, boot
+failures, or hardware damage?
+
+> +};
+> +
+> +&ufs_mem_phy {
+> +	status =3D "okay";
+> +	vdda-phy-supply =3D <&pm8350_l5>;
+> +	vdda-pll-supply =3D <&pm8350_l6>;
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909172421.3359=
+3-2-jan.m.paszkowski@gmail.com?part=3D1
