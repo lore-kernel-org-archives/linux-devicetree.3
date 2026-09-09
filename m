@@ -1,130 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76805437CC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03EA53FD2B
 	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961986; cv=none; b=Jc3/R3vIH4pjFv5biA3vbHQiM4c5Y4dsMcwiAf/COX0OYik/g022bkk+gzZrDmFGQ3LoPcPr9Y94XZ45/tYTTaB5Bx5DfMDJqzKQTGrGKdFGrl7d4nJrTH0whxTwMEYipGMPSq0PI68A/6z+wX4Dm3JTjERwWirUoEw60OJAcHk=
+	t=1788961986; cv=none; b=FsfA1v3EiedJYby92HIlQdT+s38dEpHNMxx0or8xhvGYeFlSdUOruo+5gpRd8LP5PZbFhEwHmNnW/dtccTWHw9iGnUVifFfrvHionVmF4Sv6Hdx1GVJgP9HxwJ0HfCilVFF9dPgZKafsObZsIkI8ypoqf8DVPw+9E52ZIeVHKzk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788961986; c=relaxed/simple;
-	bh=0uPvPNpkcZGekahMEekLOX30jmjNlvM5QoRbbYQTk3U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jCrBgj6Bvpsp7Sy76aGzXhegR12gYvJX0udvw9cAtnAC7E0WS2uYk7poQBbNS4i2NyYc8AoIhieAscNylZxhVJxemUeGnqjqjKsKbXj4sZ2aWVOvP7sPUkzM+QtvK2V/Sk8sTXYxIYmPv1s9Kip17GkSvm9wvmjC3Bea2mVz+Og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hLEtI5Yj; arc=none smtp.client-ip=100.103.45.18
+	bh=kGskmSpjTvB1C3VTKlENlT/OvhGiFXTDYZuO1oCByjg=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=H7oq+aIcOuVCxbtt5cLFTv9f9JqnRy5CZTLlMy+naCqBxVn6Yh6m4GMOaGzNyA2QGJmiIZjpiDbfdtFoqngf+mPk+15ByOCp4eJ8NXETNRhwpklk+A754JmRcoI2tpvLJdI+gmiFjGDlGzhWlpOsB0qQxIg5x2R4aPWS8g97yAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=E/hdhf1U; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hLEtI5Yj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33BCC1F00A3D;
-	Wed,  9 Sep 2026 13:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788961984;
-	bh=wWiYW35MGqSLsxMPa/5CIpMoelEULjLBOKxve6JGIHE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hLEtI5YjEF72GKxTDsO4UCqcrJbXpzcnq1BGvtp6usT0JlayVZdSoZZr42xxQR/sW
-	 aLAZl43Ph+SsdBnAa+/DUMocI10eUpFf2l0QMm02rBStUN84LXDcfm+oAhBV2DRQGk
-	 R5wRw3cmC9bKYsMgflUYxoryUNABtS42P4FtHBGzLnNx47Ik1AJBJG0grqIt5kD4KW
-	 wabRuRfeEjZlI9vD5KCNGqw/jrQImFeEisO8ANBPIOXNdLMbAcF+vTOTf87hZlZO08
-	 fXChMg/QSE1qgWUGUCUAn7MZPbimjyMQKdLdydWDqP7Q4eFR0MCrwpAJdw6TiP1arw
-	 tZdTBwzRR0mQg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 22/22] media: i2c: maxim-serdes: add MAX9296A driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260909-gmsl2-3_serdes-v17-22-002499e534e8@analog.com>
-References: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
- <20260909-gmsl2-3_serdes-v17-22-002499e534e8@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:53:03 +0000
-Message-Id: <20260909135304.33BCC1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="E/hdhf1U"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 680BE1A1A75;
+	Wed,  9 Sep 2026 13:53:03 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3776960448;
+	Wed,  9 Sep 2026 13:53:03 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0854711C7AF7E;
+	Wed,  9 Sep 2026 15:52:42 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788961977; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=LARMi1G5vACDqaigY0BsBdggnGiivAk4mChXML/OD+c=;
+	b=E/hdhf1UAf6+awCCGLMt4GqsieDb9sx1GlubU0wQbEP/cGP/9TCKn3ur/zCRNU+xIB6TL9
+	O66Exidu2gRdvXmFyZnl4ek4P5RPtsEUrdBaz81RVPJZsRJUKNalpVLjAB+2pSgWuCEwE1
+	EtwWTV3ZjMnCoq9EphEll2qS9zAxncWRYyRSGaMNT1Y05pDCKkssAUa1sc48avM4C/P5YP
+	Irto4HpWyTkPk7Lm1t9g8SxfYgL+HGMkG+T2wAXEJpxwNimJBkQ4ZOgbZ5V+TFkagG/aRg
+	U8klrqF77Otz1nRkZ9/9HQrNyNZ1sgTM41SlsoKU8OKm7oCezyWR4++gTwRqMg==
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
+ Damon Ding <damon.ding@rock-chips.com>
+Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
+References: <20260828065153.590802-1-damon.ding@rock-chips.com>
+Subject: Re: [PATCH v8 0/5] Add eDP lane mapping support
+Message-Id: <178896196279.1382015.17901090259379845522.b4-ty@b4>
+Date: Wed, 09 Sep 2026 15:52:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] MIPI TX controller registers (e.g. MIPI_TX10, MIPI_TX3, MIPI_TX51)=
- are incorrectly configured using PHY IDs instead of Pipe IDs, leaving vide=
-o pipes 0 and 3 unconfigured.
---
 
-commit 66bd782f7bdf1b5e7ef00c3c965bc6161148af83
-Author: Cosmin Tanislav <demonsingur@gmail.com>
+On Fri, 28 Aug 2026 14:51:48 +0800, Damon Ding wrote:
+> This series adds configurable eDP physical lane mapping support via
+> device tree data-lanes property.
+> 
+> Lane mapping is mainly used for below scenarios:
+> 1. Correct PCB lane swap and differential line routing crossover
+>    without hardware changes;
+> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+> 3. Support multiple panel hardware variants on the same board
+>    by configuring data-lanes in device tree only.
+> 
+> [...]
 
-media: i2c: maxim-serdes: add MAX9296A driver
+Applied, thanks!
 
-Add a new MAX9296A driver that also supports MAX96714, MAX96714F,
-MAX96714R, MAX96716A and MAX96792A.
+[1/5] dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpoint
+      commit: af9b0fc07000db17656580fd38e5ff27c36c2ab9
+[2/5] drm/dp: Add helper to validate DP lane counts
+      commit: 6eac4c8bb10302abc0ea0bd1d506c46ec789ce2b
+[3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
+      commit: 02f569dd66c94dd67b2586f776235cf4177409ed
+[4/5] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
+      commit: 4ff2f941b7828042feb2971c7039c8f790a105a4
+[5/5] drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+      commit: bf63a72ea005d5e1cc12a9ad5e228c4b44246b0f
 
-Integrate it with the common Deserializer framework, while keeping
-compatibility with existing usecases, avoiding code duplication, and
-also enabling more features across all chips.
+Best regards,
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
-> diff --git a/drivers/media/i2c/maxim-serdes/max9296a.c b/drivers/media/i2=
-c/maxim-serdes/max9296a.c
-> new file mode 100644
-> index 0000000000000..7b25b54e63deb
-> --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max9296a.c
-> @@ -0,0 +1,1461 @@
-[ ... ]
-> +static int max9296a_init_phy(struct max_des *des, struct max_des_phy *ph=
-y)
-> +{
-> +	struct max9296a_priv *priv =3D des_to_priv(des);
-> +	bool is_cphy =3D phy->bus_type =3D=3D V4L2_MBUS_CSI2_CPHY;
-> +	unsigned int num_data_lanes =3D phy->mipi.num_data_lanes;
-> +	unsigned int dpll_freq =3D is_cphy ? phy->link_frequency
-> +					 : phy->link_frequency * 2;
-> +	unsigned int num_hw_data_lanes;
-> +	unsigned int hw_index =3D max9296a_phy_id(priv, phy);
-> +	unsigned int index =3D phy->index;
-> +	unsigned int used_data_lanes =3D 0;
-> +	unsigned int val;
-> +	unsigned int i;
-> +	int ret;
-[ ... ]
-> +	/* Configure a lane count. */
-> +	ret =3D regmap_update_bits(priv->regmap, MAX9296A_MIPI_TX10(hw_index),
-> +				 MAX9296A_MIPI_TX10_CSI2_LANE_CNT,
-> +				 FIELD_PREP(MAX9296A_MIPI_TX10_CSI2_LANE_CNT,
-> +					    num_data_lanes - 1));
 
-[Severity: High]
-Are the MIPI_TX registers correctly indexed using the PHY ID here?
-
-The MIPI_TX register block (base 0x400) appears to be per-pipe as seen in
-max9296a_set_pipe_remap(), meaning its index should likely be the pipe ID
-(0, 1, 2, 3), not the PHY ID. If indexed by PHY ID, video pipes 0 and 3 will
-remain unconfigured, while pipes 1 and 2 will be misconfigured.
-
-> +	if (ret)
-> +		return ret;
-[ ... ]
-> +static int max9296a_set_phy_mode(struct max_des *des, struct max_des_phy=
- *phy,
-> +				 struct max_des_phy_mode *mode)
-> +{
-> +	struct max9296a_priv *priv =3D des_to_priv(des);
-> +	unsigned int phy_id =3D max9296a_phy_id(priv, phy);
-> +	int ret;
-> +
-> +	/* Set alternate memory map modes. */
-> +	ret =3D regmap_assign_bits(priv->regmap, MAX9296A_MIPI_TX51(phy_id),
-> +				 MAX9296A_MIPI_TX51_ALT_MEM_MAP_12,
-> +				 mode->alt_mem_map12);
-
-[Severity: High]
-Does this code also incorrectly use the PHY ID to configure the alternate m=
-emory
-map on the MIPI TX block instead of the pipe ID?
-
-> +	if (ret)
-> +		return ret;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-gmsl2-3_se=
-rdes-v17-0-002499e534e8@analog.com?part=3D22
