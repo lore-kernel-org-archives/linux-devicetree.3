@@ -1,319 +1,209 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2104.outbound.protection.partner.outlook.cn [139.219.146.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2F63438B5;
-	Wed,  9 Sep 2026 06:18:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934714; cv=none; b=ajYsbDzhSKtg6JjdEZosk99+paCefXvTG9m/jM0oy9US673SW5JWRRbEVekAg4ef212TLow5iag8Gwnrg4qrYq10cg+2Zrs4PadVqqfX4KTMybglPIaSoiU4z1sv7pFPpIrKlM2tqXeCteiixo7O+z8KSbkSe/lNRPIkVjljqT0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934714; c=relaxed/simple;
-	bh=nBpXqvbBeac6mFbQDF/PL2sGhareohEgFgyuJn3lprQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lnLeE4uH51EQVDyCOTOFbWCsybXKcZAB7ikqEnh9ZME/Vjx4HKocHRApIAUdkgfoanRXkSY80gdgEqdNkMqUf7ZlouuTrKYaX0fx4mmXPzojomQalWZgpLvUuVDs+BZ76ukzlLklkj5KOeRfUffZ71I6SHxAq0df8xkFCJ/mGAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=oGxg4djI; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="oGxg4djI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202608; t=1788934697;
-	bh=dE7AIMm/vRXxGCVsB5UB239x+Yww0GL1Qfh53w0UAek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=oGxg4djIswfn0jIOCbgW5H8LddddkKdZ+49A8+chdrirL4JSydBvtWVh7WYmiNvYA
-	 Pmaj7N3su9w/dilrDIpWGQ+4bYUPBPQod+U1s+1Iuzjfl9ZL3fBkKto/agQjkl37NW
-	 IMuWXl2EYzQMj10Vu/frVprNQm5UTGrztO1yz8yUGWAEi3Vze0IPeY0Sb39nRb5tJX
-	 HCl81SIXFyeQhhMdwDiJk2k/W7sGqpea/jviMaOLBKeilcP1AhpRiHGIMUS2YGqyEZ
-	 fEum0UILVGMANxSRoPAcFLhPhIG9jIj/tHcEJfE/5bjAUBcwgFqWWZQUDiW3cnHNAp
-	 21gvOpR/118Ew==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4hfrGK2ytBz4wJs; Wed, 09 Sep 2026 16:18:17 +1000 (AEST)
-Date: Wed, 9 Sep 2026 16:18:22 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 02/15] libfdt: Don't assume the root node is available
- at offset 0
-Message-ID: <aqD6LcbwtrZkk28m@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
- <20260826083146.304291-3-herve.codina@bootlin.com>
- <apOhk-NQusFgV5Sx@gractus.seuss>
- <20260831140119.1f14b420@bootlin.com>
- <apaBuQ8kn2bOzYcI@gractus.seuss>
- <20260901141826.49b1a1b7@bootlin.com>
- <apfKx_u3v3GBfzOz@gractus.seuss>
- <20260907184641.537cfa49@bootlin.com>
- <ap-t8qMg5VMwh-T9@gractus.seuss>
- <20260908100823.1f474894@bootlin.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A4D3A7852;
+	Wed,  9 Sep 2026 06:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.104
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788934723; cv=fail; b=ej9yhs+StXrX+02lF9OQ3h4QwET7wLpGVrBhd3Vv4ynpkmfC4jGdXCg+r/YfisvkORqK4GEneacBI7FbeQ14KM3yra0ayORcXmfYDdPHaPI1BNQYtdJUZ0XZfGREM3UlFHNGb2DtsmiED2bZoiKNxZ/dlP2zoflPgqlrA4x1DGQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788934723; c=relaxed/simple;
+	bh=L3kWmHagBXo+LONExhSJznNgfAa2TB0F/NF/DA2U/xg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Ul1Ps5Jr1otwA9BFyQAefzvhG0aarGVqA9nL5TfH4Nfu2OODEAkVxifqrGja9960hsvCAAD73qmVK+5PMFth3IUH01Jl2dHbhn5ySUCwsdKKNBCp2Vb0uqxdCuG9u8PhxHQzcasTbJOdNGjEKrRL5YTMYqGzvDLDay7P2ft85OY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=TK3qbEcSr6BAFcOg0IDnyf2CywUGFRc0xR8vQmQy604U+WUs22LrF6I70EVZutP/6vd5koYeFRnDBLcS1Eb8Mk/HuJMbD8nsqKyG85AYVi16IYs9u3e2dcFJDscCyzFU1+qq8ZeB6BmkPCHgFJHQiCB6WJ+Spf2l9ArOzxXJw/DW6EPnJUlWNLpdkNMVVaHlNJgtRNBM/nyZjnwAjdmoCLGZ0HPYrP1lN0Bd4E9HJdq64nx/p6ugRm7S1MMP3hixQOmdjensMu64cAJhEkW7pFuT0l2LbNtfPC8JT9Xp5A7LZ+kDZhtP6LH8sCI4cUxbzUMG1JPmtm8KeOFcCCJN+A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=91IBFkekoyrjI+nDmQJA4wLRF4Be374Ak/3DGItdEi8=;
+ b=HUimvhHFsHpcvNQiUQSHmAWk5WqqqrAlUOi/5s9n50zYYr0LXeZ81tvkPB2F4mYU8/aHXTrBnCcKOYQAqGpHqnJ4jHd+aIIkdz6iR6IFoIx1Dah8p/lUk67kH4b6pXYCiNlwzHAWNhYJ4JCi8f5g2VahX9jxoY45424iwYdfKke07gJpKnk8oR2PLgrya5iePUM4JSBsyfZpB5ueFgcC3fuOIsdEXGwoOeetu1Xj1Zr1K4yjDY5nuD1B8t/pVjNiQ/eVyN9vprFbxwZpcGrX1IEY4iKgxtG0c/XwO2zjyilHcFLOXfxY2fINhulDt7T/k8qx7JnP4DonAHEEVBWsLw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.18; Wed, 9 Sep
+ 2026 01:43:20 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0339.017; Wed, 9 Sep 2026 01:43:20 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, Lianfeng Ouyang
+	<lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v7 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+Thread-Topic: [PATCH v7 03/21] dt-bindings: pinctrl: Add
+ starfive,jhb100-sys0-pinctrl
+Thread-Index: AQHdOTzS/Ezb1OmSwkyNoZ30RtNkILbFJiCAgABglEA=
+Date: Wed, 9 Sep 2026 01:43:20 +0000
+Message-ID:
+ <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
+ <20260831113514.66382-4-changhuang.liang@starfivetech.com>
+ <20260908-annually-catfight-39e3a1543274@spud>
+In-Reply-To: <20260908-annually-catfight-39e3a1543274@spud>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
+x-ms-office365-filtering-correlation-id: fc801271-77aa-4eda-79c8-08df0e13ba7c
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|366016|1800799024|7416014|376014|4143699003|10067099003|18002099003|22082099003|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ JF/bDqvZ9OFs5F7pJNV+sY6MBcTng4rhZY00XJp25GGA2E7UyONHhIIC4vuyC6BQGbCcPN1FUFh5nTXvHva5TzeAwhvpyPbbMnuT4D4/1sa/pgp513w2PRuQWdmSoIpmf8eFcvfyyzFt5OBH1gor1E8u1jInpQ4DXniWQXDvAik/qd09Zd8sAZNhmW6oNSFA7BJMtojan3D0KlCf4E8VPXdpnz5HhJsyFbpvT/we9PgbF67hVvDH7vtcHvDYn9XdPuxbhOXe0pr9VzS4CUJ1Gq/wFucpB9+jlUY945YnQR1TsTIvJkjSqnMe+ytjTxV4Rp1qANqrhMwOVvDt2izarFLF6v3uJayysJOlhou14M/qsD8sv/YYBefNz0gsznpJhFnk6KK1Rq30qEGTFb4AiG/mOcLf6W9bdD3x5oMc91ZqjRSkybMqi6Dr8zV7akWTF0TqnmfO3CDEbxYmPN15G/bNxoGIGdm7EcS0ZwisXx9ATIzq4n5eBbCbkrQQykZT5gkTVp0AUQ1gUZk2JqoqKXroI5PCBKK3mX2+NZyrx6/hXL1oQFHYgoZ9kLBvcUIL
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(7416014)(376014)(4143699003)(10067099003)(18002099003)(22082099003)(56012099006)(38070700021);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?wwhS1HLCjM0fXs2odjqCIeoIFOZF/piN9xx7Hk3TcGdvQ2yMRjXY2DSxqEFm?=
+ =?us-ascii?Q?GayWBN9zRi9Md4TqeyWnojw24H546ECCqsxOKtmyYEsanIibRZyMBFkGqRm0?=
+ =?us-ascii?Q?1QN+CVg2FSLGvmF/FMJuwH3lFhwTxWoqJNwXSWXraSxK+25OsgJ4+gtSnQiD?=
+ =?us-ascii?Q?vTbFnhFXDdXhca75BTq+UWWGlwj0ypxBuTLcpAbEDq3lJNfuU9i6n7Hvr6sy?=
+ =?us-ascii?Q?5CkvrBxqt3a9m2n5Tv7+DcyHI3WbFTQK8jnWYIjzy7g+v9m6PI5dl68fxFK9?=
+ =?us-ascii?Q?ipl11AyxslKSM06QBH/hJ8SDTUgszt2UGKhkZItP/3/VGvJN8FXNr2oRJZdf?=
+ =?us-ascii?Q?3ydzAPNdvfgM1RLJkb5zeYSgmds7cTJU1d9KtgCcqNECsjikDRlvvOKGqyly?=
+ =?us-ascii?Q?CymKLNuq9tda/hFnG42AgzlBz6CWcthgWzW28fKoA28yCCJbiIVXNc6TuqH5?=
+ =?us-ascii?Q?Weq1ieZ04YIRrH48wno+q9DavrqCLyPyGPgVcepyXbJ3k4A1obryEOXYkhv+?=
+ =?us-ascii?Q?uv5u42ZdD1Nb0oCbLGDnKN9KFcmD8UvQjAW+wlCIfgm57rbvcbWZiTmrFrW5?=
+ =?us-ascii?Q?ZHkCgi9v8ERCgmiDY/T1LV57zQxOrsQebjGYRFGQgziRXt84SkK9E3ewdi06?=
+ =?us-ascii?Q?jc0IXHCzHWUxxrANaVNRZC65Z4hcpGQS1cxPlSCIoCsElN1/frWNNj1bHSUY?=
+ =?us-ascii?Q?Y6xGLCLG0bdF7w+M9b5smVPNaVf9HmEfQsl40O0NRnk2xQV8B7Rpsm/+4jd6?=
+ =?us-ascii?Q?OQfxzsEX1gvmegqZOT6YTEYw61reB8kRvNwxvw1MKzt5e4cSX52IlhsR3J/C?=
+ =?us-ascii?Q?hh8bu7VdWn0YdGcfoCXT/zI6KuIrrQxzjm3/svqUi7Z4XgTbB4h93WgSyuqr?=
+ =?us-ascii?Q?rEowQb+nlQvkYlzNM9Ex9/8tABIxuj0Vx5BKSpTyYAQL78+CwwRnTCeEaXMU?=
+ =?us-ascii?Q?J3RaMW7s6HK5fxSzEEJ2+vigAtH2jQz5t76xjQRFhqjrap6aaNxyVHMPd5UW?=
+ =?us-ascii?Q?5E6xG2cKV2w01HqaxxX3DiuDH//3w8jgkZ3IZHfvycNu6Ap9d3LW+pP8xB0r?=
+ =?us-ascii?Q?iePaayc8fXGehv87Sgt9Hth9lDYWOR0oVaAmnmoK16abCCmYVwm8sFVAiIlO?=
+ =?us-ascii?Q?atCoeSBv/Q50jfqZZdqAYmBfZMi+W8xgGNmJ5XqfJoVV0t7IK/LtR6z1pYDl?=
+ =?us-ascii?Q?XEYtAEUZP5siQV/nPfuTGlxnNxhvSzm5f8+pren6BOKl+RQoYZdFJ9MXCew+?=
+ =?us-ascii?Q?f/KNo3CbCCRXrcPjq+D1y0rkfP6iioP/tGnERMGz6tvKeWz4jill9/AuIR0m?=
+ =?us-ascii?Q?gcDM80tpbF2epGUIlaBjm4L2hsstVK2JX3Op9CnVOLCPyt/C6xhiNvbVn28H?=
+ =?us-ascii?Q?d01oxaPripj0yP08iGNSlH4cn3bpvclOBUXTsaU8SpTG1cuPOl22EHK2t0sq?=
+ =?us-ascii?Q?f+RH6SW2lq6+u6xWVd4AFNOA8uw4HZgh9MfktsJcjrj80YliG0LwA3c/WxwC?=
+ =?us-ascii?Q?JKV4DQG8SdBLSwNRkOGNQv66uVENWelnvkn6dsL0G9Xwza72Ln/sbeA+3FdM?=
+ =?us-ascii?Q?e8Ux6NnvDSyAM9CU3qRgBDSw7RZ+bwZNBMZgxMbjWvANE/1I52A7MSKxNXu0?=
+ =?us-ascii?Q?Wtl6o6YHo3c4SnpiAVm9Bu4L7aOUM0TrzXMnLUsj0LFYUVKWDiBqM/zygCY6?=
+ =?us-ascii?Q?MIjLirHMNrzvEQVQI5QxMPYMTFTRW2S5HrYZkhF+Vyec6eQHLbXbQN1KxK/D?=
+ =?us-ascii?Q?8QzSXBPujtSNqHPlS3RRWaCKYxcP+jk=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="BGDMZ4DzofC+sZVg"
-Content-Disposition: inline
-In-Reply-To: <20260908100823.1f474894@bootlin.com>
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: fc801271-77aa-4eda-79c8-08df0e13ba7c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 01:43:20.4710
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 0oKCA7QqJKk0yhIurZh5BUS9es2JH4Y4kCrV4pn8pAijfa+N4SnpCA2F5x2dpDkViUizVVqvWIN8cPzCyX+m6dKUA0sR7I2wy1V8Vyv0j7hWvHL6s67TgghlmOEcSfv1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
 
---BGDMZ4DzofC+sZVg
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi, Conor
 
-On Tue, Sep 08, 2026 at 10:08:23AM +0200, Herve Codina wrote:
-> On Tue, 8 Sep 2026 16:41:06 +1000
-> David Gibson <david@gibson.dropbear.id.au> wrote:
+Thanks for the review.
+
+> On Mon, Aug 31, 2026 at 04:34:56AM -0700, Changhuang Liang wrote:
+> > diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+> > b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+> > new file mode 100644
+> > index 000000000000..6d8f5516a178
+> > --- /dev/null
+> > +++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
+> > @@ -0,0 +1,17 @@
+> > +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
+> > +/*
+> > + * Copyright (C) 2022 StarFive Technology Co., Ltd.
+> > + *
+> > + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
+> > + */
+> > +
+> > +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+> > +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
+> > +
+> > +/* sys0 pad numbers */
+> > +#define PADNUM_SYS0_GPIO_A0				0
+> > +#define PADNUM_SYS0_GPIO_A1				1
+> > +#define PADNUM_SYS0_GPIO_A2				2
+> > +#define PADNUM_SYS0_GPIO_A3				3
 >=20
-> > On Mon, Sep 07, 2026 at 06:46:41PM +0200, Herve Codina wrote:
-> > > Hi David,
-> > >=20
-> > > On Wed, 2 Sep 2026 17:06:03 +1000
-> > > David Gibson <david@gibson.dropbear.id.au> wrote:
-> > >=20
-> > > ... =20
-> > > > >=20
-> > > > > Ok, I will update fdt_check_node_offset_() to have it updating it=
-s offset
-> > > > > parameter to the real offset of the root node when its value is 0.
-> > > > >=20
-> > > > > Based on this update, will see where it goes. I mean, impacts on =
-callers, if
-> > > > > it simplifies things or not, if the offset update needs also to b=
-e propagate
-> > > > > to caller's parameter or any other similar point that we can see =
-during the
-> > > > > implementation.
-> > > > >=20
-> > > > > Having something implemented and available in a patch will be the=
- best to
-> > > > > compare changes and impacts related to fdt_check_node_offset_() u=
-pdate.
-> > > > >=20
-> > > > > Here we have a version of handling offset 0 vs real root node wit=
-hout any
-> > > > > offset update done in fdt_check_node_offset_(). In the next itera=
-tion we will
-> > > > > have the version with update done in fdt_check_node_offset_().
-> > > > >=20
-> > > > > I think the golden rules to follow on this point is "keep it as s=
-imple as
-> > > > > possible".   =20
-> > > >=20
-> > > > Agreed.  Feel free to repost just the NOP before root patches on th=
-eir
-> > > > own.  At this time, frequent small series is easier for me to tackle
-> > > > than occasional large series.
-> > > >  =20
-> > >=20
-> > > I've moved forward on the fdt_check_node_offset_() update.
-> > >=20
-> > > The new fdt_check_node_offset_() looks like this:
-> > > --- 8< ---
-> > > int fdt_check_node_offset_(const void *fdt, int *offset)
-> > > {
-> > > 	int nextoffset;
-> > >=20
-> > > 	if (!can_assume(VALID_INPUT)
-> > > 	    && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-> > > 		return -FDT_ERR_BADOFFSET;
-> > >=20
-> > > 	if (*offset =3D=3D 0) {
-> > > 		*offset =3D fdt_root_offset(fdt);
-> > > 		if (*offset < 0)
-> > > 			return *offset;
-> > > 	}
-> > >=20
-> > > 	if (fdt_next_tag(fdt, *offset, &nextoffset) !=3D FDT_BEGIN_NODE)
-> > > 		return -FDT_ERR_BADOFFSET;
-> > >=20
-> > > 	return nextoffset;
-> > > }
-> > > --- 8< --- =20
-> >=20
-> > That looks fine.  If it was an exposed function I'd want to look for a
-> > better interface, but as an internal function it's fine.
-> >=20
-> > > If the given offset is 0, fdt_check_node_offset_() considers we want =
-to check
-> > > the root node and so update offset to the real root node offset.
-> > >=20
-> > > Ok, I still need some fdt_root_offset() calls from some other parts b=
-ut that's
-> > > not my main issue.
-> > >=20
-> > > My main issue comes with orphan nodes in addons. fdt_check_node_offse=
-t_() is
-> > > called with offset pointing to an orphan node and this offset can be =
-0.
-> > >=20
-> > > The offset 0 seen by fdt_check_node_offset_() can be the "fake" offse=
-t of a root
-> > > node and in that case fdt_check_node_offset_() should update offset t=
-o the real
-> > > root node offset but it can also be the offset of the orphan node we =
-want to check
-> > > and in that case the offset should not be updated.
-> > >=20
-> > > fdt_check_node_offset_() cannot determine whether or not the offset s=
-hould be
-> > > updated. =20
-> >=20
-> > Hrm.  But if offset 0 has an orphan node, we can see that with the
-> > FDT_BEGIN_NODE or FDT_BEGIN_NODE_REF there, right?
-> >=20
-> > > With orphan nodes in the loop, fdt_check_node_offset_() becomes:
-> > > --- 8< ---
-> > > int fdt_check_node_offset_(const void *fdt, int *offset)
-> > > {
-> > >         int nextoffset;
-> > >         uint32_t tag;
-> > >=20
-> > >         if (!can_assume(VALID_INPUT)
-> > >             && ((*offset < 0) || (*offset % FDT_TAGSIZE)))
-> > >                 return -FDT_ERR_BADOFFSET;
-> > >=20
-> > >         if (*offset =3D=3D 0) {
-> > > #pragma message "We have a problem!"
-> > >                 /*
-> > >                  * An orphan node can be present at offset 0.
-> > >                  * In that case, looking for the root node may or may=
- not be
-> > >                  * correct.
-> > >                  * Indeed is offset =3D 0 requested because we want t=
-he root
-> > >                  * node and sadly an orphan node is available at offs=
-et 0 or
-> > >                  * is it requested because we want to really check th=
-e orphan
-> > >                  * node available at offset 0. How to determine the c=
-orrect
-> > >                  * case?
-> > >                  */
-> > >                 tag =3D fdt_next_tag(fdt, *offset, &nextoffset);
-> > >                 if (tag =3D=3D FDT_BEGIN_NODE || tag =3D=3D FDT_BEGIN=
-_NODE_REF)
-> > >                         return nextoffset;
-> > >=20
-> > >                 *offset =3D fdt_root_offset(fdt);
-> > >                 if (*offset < 0)
-> > >                         return *offset;
-> > >         }
-> > >=20
-> > >         tag =3D fdt_next_tag(fdt, *offset, &nextoffset);
-> > >         if (tag !=3D FDT_BEGIN_NODE && tag !=3D FDT_BEGIN_NODE_REF)
-> > >                 return -FDT_ERR_BADOFFSET;
-> > >=20
-> > >         return nextoffset;
-> > > }
-> > > --- 8< --- =20
-> >=20
-> > Right.. like that.  Except simpler would be to have fdt_root_offset()
-> > stop when it sees a FDT_BEGIN_NODE_REF as well as a FDT_BEGIN_NODE.
-> > Or maybe that should be, say, fdt_root_offset_(), and
-> > fdt_root_offset() will wrap it to return an error on an addon tree
-> > with no root.
+> Krzysztof's point [1] about these still stands. Pad indices aren't bindin=
+gs.
+> Sure, your driver and your dts both might want to use these but that does=
+n't
+> make them a binding. For that to be the case, they need to effectively be
+> made up numbers - like how clocks are often listed with numbers from 0 in=
+to
+> the dozens or hundreds, when that may or may not correlate with actual bi=
+ts
+> in registers, e.g. indices 0-31 in a clock binding might be in register 1=
+ and then
+> 32-63 are in register 2. There's no need for a binding here to assign mea=
+nings
+> to numbers, because the meanings are assigned by the hardware itself - in=
+dex
+> 0 for SYS0 *is* A0, because that's how the hardware is designed.
 >=20
-> No, fdt_root_offset() must get the root node offset. An orphan node ident=
-ified
-> with FDT_BEGIN_NODE_REF cannot be a root node.
+> Were the numbers to run continuously, so that we had
 >=20
-> An addon can have, a root node only, orphan nodes only or both a root nod=
-e and
-> orphan nodes.
+> #define JHB100_PADNUM_A0	0
+> #define JHB100_PADNUM_A1	1
+> #define JHB100_PADNUM_A2	2
+> #define JHB100_PADNUM_A3	3
+> #define JHB100_PADNUM_A4	4
+> and so on down to
+> #define JHB100_PADNUM__D0	1234
 >=20
-> fdt_root_offset() looks for the root node (i.e. the first FDT_BEGIN_NODE =
-at
-> top level). If not found, -ERRNOTFOUND (addon) or -ERRBADSTRUCTURE (not a=
-ddon).
+> then it would be a binding, because we're assigning a meaning to 1234 tha=
+t's
+> not something determined by the hardware.
 >=20
-> Having a fdt_root_offset() stop at either FDT_BEGIN_NODE_REF or FDT_BEGIN=
-_NODE
-> is "fdt_first_node_offset()".
+> FWIW, I'm happy to have the unchanged starfive,jhb100-pinctrl.h sit in
+> arch/riscv/boot/dts/starfive, because the defines are helpful - but as th=
+ings
+> stand I think Krzysztof is right.
 
-> Let me introduce the internal fdt_first_node_offset_()
-> - fdt_root_offset()
->   It calls fdt_first_node_offset_() and check that this node is a
->   FDT_BEGIN_NODE node.
+For the current series, the drivers also use some definitions from the bind=
+ing. In=20
+the next version, should the macro definitions be directly placed in their =
+respective=20
+pinctrl-starfive-jhb100-<domain>.c files?
+
 >=20
-> - fdt_check_node_offset_()
->   if the offset =3D=3D 0, it updates the value with the offset returned by
->   fdt_first_node_offset_()
-
-Right, that's exactly what I'd suggest.
-
-A possible tweak would be to have fdt_check_node_offset_() only apply
-special case 0 handling if the _actual_ offset 0 doesn't look like a
-valid node offset.  Not sure if that will make things messier or
-cleaner.
-
-> And so, a node offset 0 doesn't means the root node but the first node
-> in the dtb (root or orphan). I am totally fine with this definition.
-
-Right.  If you don't want that behaviour for addon dtbs, then I think
-the way to go would be to explicitly avoid all special case handling
-of 0 if the header flags an addon.  Handling addons requires new code,
-so we don't have to maintain backwards compatibliity for things that
-used 0 assuming it meant root node.
-
-> At some point, maybe users of the API (when addon are involved) will have=
- to
-> take care of that and perform something like:
->   root =3D fdt_root_offset();
->   fdt_get_property(fdt, root, "prop", NULL);
+> Cheers,
+> Conor.
 >=20
-> Or
->   fdt_for_each_orphan(orphan, fdt) {
->      fdt_get_property(fdt, orphan, "prop", NULL);
->      ...
->   }
->=20
-> Here also, I am totally fine with that an I already use this kind of sequ=
-ence
-> in libfdt/fdt_addon.c to apply an addon on a base dtb.
->=20
-> I will introduce fdt_first_node_offset_() but let me know if you prefer
-> having fdt_first_node_offset_() introduced right now in this "structure
-> tags" series or later in the addon series.
+> 1 -
+> https://lore.kernel.org/all/ZQ4PR01MB1202123864865439817E1549F2AA2
+> @ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn/
 
-Either is fine; do whichever results in less code churn.
+Best Regards,
+Changhuang
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---BGDMZ4DzofC+sZVg
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqg+i0ACgkQzQJF27ox
-2GfWcQ//fuxnBuGqBQf+T9uagh4tcc0h3oDkohwDnSEbBKTcTMl8SLJsrBDq4lNR
-tQzk/MKnBpXvnnJKs+3ubvALMrr8SKnIj1IgJaYgG201jxJ1CSBLE3qIjp/0KPo/
-JRLhDIJOjphn6aH81R9gLIZORgvcp4a+P6bsH5AAzoGmfd/Lvad9SX6+wk0pWsHh
-JdyI/b1zPye2jkCzEzA/Xk41ipkBSy1dnxkHRurB1af3ScDFCfj+ijd0OlKThHhk
-F6a1j95PgvEjm7uhgDAO3mzrRaoyqmbHFzGprPcHlAmVpljBr7G0V2UEFTACO05a
-TunnbXl0CMnIdG+VviBtEqKmfVEOsyuT8aW4OSJzP3lTFB3mf6K3nfEOdbb+TMZi
-0+p1wtmH2zeJw88BxVlCdlFiFr5QqMBDk52hgNh3HfEAPRxhE3oWAmsmYXODZdOl
-tORVTFG3cWFNPzjM8sUzEkX/4CFYsa8f5lwKEKL2UYWi+fVEvbABHGi25PPx/o9H
-bBngF2uULhZiyo9P2hfo/GXSF3qS0tkbfokiIhzt5NYUnf5di6KbjCGChYyogX5A
-8bIlV1HaByFMvKKDtS7XKE/vas42e8EeTCRI0wEh/3ciuFUCnM0GrXhSFH3EYAXV
-cGYkbSZtXVq7WM70NsXG6trBsRr0ccwkPMQYPVjNnIshGz9Ojoc=
-=QphR
------END PGP SIGNATURE-----
-
---BGDMZ4DzofC+sZVg--
