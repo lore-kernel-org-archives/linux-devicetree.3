@@ -1,104 +1,109 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E243058FD2B
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 20:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393FC397925
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 20:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986586; cv=none; b=XafCeDndHTdQb5YbnYuih0//Wj5GKJG/O4Bm+h1VALvT0RRbhkepY/pFprLC4lXT8Xev1VwlBrGH7TRRzxse+zYakowlo7Kw2kgQrQmvjJOtttlOY22wRMKNOY3glW3dqsabk6Z8hv8WfafCyOLSFKJJPGboyHoxzhXCN3wLU9g=
+	t=1788986796; cv=none; b=KAeawpIT8USP1eKkWNbFIYtd9KKenl9FgrA5lcyNDT4a6KthzV/evFdx6S3TrYOU89NnSlQUKcS1inRikiikt+p44SbXsUUDtG6QWPnFekeqX/TkZ8uCP+TQdOMenBT9h1ydKvWeTqfpmCipbHDMkfgoQxE68PG7/zgRKFiSIvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986586; c=relaxed/simple;
-	bh=E7DWEF6kIazrc+lVVClekzdOah7P641Dc3PJ2nRN9Vs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U65i5cmSBt2s0CZU9GdrbbvOv+WvahsArui4UN/7mesOesQzVcJFeMxMi6/THSJA0jWFVApEe3XncbiZXuzg2wqRh/jzzJ/B/kLnAVEe+SMQzMbh3j4cKaP+61ZOeNSw5sBVIxchZ1VobUbhnMTYOsex6YuOyNZxduStj9kvDNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bzutj+q1; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788986796; c=relaxed/simple;
+	bh=Y8b79y5XCtZlernPwxLw5KD0jSJxpZoqTdqKWTaKyts=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dXsMPKkYy629RGVJc7faVlQqRo6AuxbOlS8P9DbhXOkmo8fchgee6VU+CUzD6wVRFmfmxZygTo3ylK0OZfaFjYibVzYat173UfzHrNszKgC3VYL1gSDUh9orEcIaNlbmPg/M926AqZaI1ltFhs2mIZYSHh7YZJBOs1XLq47YSSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3a25rUy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bzutj+q1"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso8135092a91.2
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 13:42:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788986569; x=1789591369; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WShcmBXFwgNzgoPR80LHtqAmSPW10etwWYZcOuhMszU=;
-        b=bzutj+q1Fppr+Gt9UeN9vABv3gUmz1FwFsm//AkzqFB/cJoa5l/wuPpFwLHMwc+Wib
-         nDgppEui6tU5k3BWZfuv60DElJ+ybZaXpmcQUV7Ja89RhWUqhFIBm9C5CPeFUPD/aTvh
-         P+ocq3ccwaPJ77XXCx3Gwm74BHkgd+iQReOKa+5FOItmOE/WaOsRXLHyVy/C0yfmk5BM
-         8yJEzdpi9Okz0ydZYilSs2cbv6Gnguaxw72tzxF48pcu/Chua1Cas4kqqjbSTzRLzjIq
-         DmNUJmDrURL75lZA0VeWNmLmUWPAumCwZuslZjpTWgVmjlUNwt2axVVAO/ZQG9KFBseo
-         NOAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788986569; x=1789591369;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WShcmBXFwgNzgoPR80LHtqAmSPW10etwWYZcOuhMszU=;
-        b=WMkbbp0+6CmwptrNDgl6xD6DBFrLeFx6Wq2AKANNW+Akgp7e/fvTDGDyh5SBwZ98jH
-         0v5gyuEL/7zZfXX+IbZvR8zplDtRBVyXWpFk/fCqNOYUDJbTOUb9JSLTV7TEATJQdQoB
-         b4gY4ICTkg8wEwicIl4iWu5rJwY9GNw5fAF8eIa3FOT64QmYLkbUemS47b9vKumEqnuL
-         Kp3dtFTJbccY1U+OBovkKEjGgZPzGS8WcRRaM1cDoo/0Tn+UVSc2eR1AUj8JcRtdglec
-         zp8bqHVCjBB5ItTSLIoH8Gb/vC+qkaFLHic759EkfGbbYLQDgG9MOs5jj6d5Y0qyZa9K
-         /pNA==
-X-Forwarded-Encrypted: i=1; AKwUvByTGvz31s3JKa8x9/RTYZRH5fUa/p6s5stUJlnnm829N324VDzOQVozLV1vKX/54GEJ3E++3jwo9TrV@vger.kernel.org
-X-Gm-Message-State: AFuF++lR5n5xfpC9xZoCBSFA0qyACT+lFj3ejDx5qB6Jzik1Mr8qfpYj
-	bBMlo0vhj09UQse9xkr1vmls7tR8zNRpqTRqILEjkQv3dE17wPuPTrQ9
-X-Gm-Gg: AYBFou0Y1BP6bjAH6A6huxYKmhI4y+U0ml6VtWsvSHQ/wheVPOewmFk1mY0KYIzsyXZ
-	kMVt5bTSmhDyPPpm8pJ+ftAYQP/xZ4xbH8Xft90XMlu2Ex2IvNl+oUe2TWFm8JddlUWzHaIFdXZ
-	TZuBrdvUYCUWGJDyOK8IN/R5+WEoOI7BsGMQ1HuZHl7ro00fA9ygWgjgf6xN4XOhyVe5/lObGo4
-	BCxNqxE6W/LNoZpeT7JyUuFSnzWiCv1Jyz9c6GQ2oXSIDm77WvUth2sKXXtfvUEZ8o9wwmUWOHd
-	Q6BAlzht3bXC29KWNB/L220KdXBbtiHCh/2bYVstlBid1Iwc5ATSq2eWtkDRwnu8b34sxryygMo
-	H8EmWtGv/FqWXI8lN9JJtdDCVtnfZgTG5/jzrZn7q7PvrpCUa9f2d9tfD6kni3B6I0Hp42eayqp
-	Lqpxox2ir1s3o64RewJUKWT4LyOlVk8d+ZjTUYpKb/91vDVJNCn4gdXG8ZnZOw4cOhpRZ8Y88rf
-	gWf6iTt7GHG
-X-Received: by 2002:a17:90b:2f46:b0:396:6344:3b63 with SMTP id 98e67ed59e1d1-39b260de5c6mr59642710a91.2.1788986569020;
-        Wed, 09 Sep 2026 13:42:49 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d774197c4sm1220340a91.8.2026.09.09.13.42.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 13:42:48 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 9 Sep 2026 13:42:47 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Zakariya Hadrami <zkh@mailbox.org>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sean Wang <sean.wang@mediatek.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, zkh1@proton.me,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/4] dt-bindings: watchdog: mediatek: Add MT8127
-Message-ID: <6a212071-3b1a-4dcd-8d9c-8df6352813b9@roeck-us.net>
-References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
- <20260909-mt8127-amazon-ford-basic-v4-1-e9af5c420ab1@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3a25rUy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5E91F000FF;
+	Wed,  9 Sep 2026 20:46:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788986785;
+	bh=rE14afaGEUMx+se97FtBVIJKxJ8S9rD9lckvL0Fo1+I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a3a25rUy8WzGLm4XEEgtlBnvRaDKFKIcF+KldmoQXGEdK7co9KSGliVc0jBwo2z/O
+	 lYujBgPZN8hB1QkWJsbZoW43jADEscBkQ/3Pmc8nIK1YzuODFKV0DzihQ1AWqy4W1a
+	 Xipa9n+YxgArn0gscLVIa65JDSUf6LRFxO0queNztejbTNOJhLLuX0vMVJSuckWMKH
+	 +TIv/rXAx1TfEamexAZ18vz71hlJ4w7ScYHHqmtBq+BOgXkQu9GEE2974vyQCKNDkD
+	 B8QkSSeHb562PSizDUhX04d5lYb3Ovf5+E6ic7gG4LNFPC7NFMmAchq2/8E4tqrs+k
+	 r+q1KBcr83N0Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] media: ipu-bridge: Add Sony IMX681
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sergey Lebedev" <lsa.uz@pm.me>
+Cc: media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909203717.90605-4-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
+ <20260909203717.90605-4-lsa.uz@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 20:46:24 +0000
+Message-Id: <20260909204624.9A5E91F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-1-e9af5c420ab1@mailbox.org>
 
-On Wed, Sep 09, 2026 at 09:38:00PM +0200, Zakariya Hadrami wrote:
-> From: Zakariya Hadrami <zkh@mailbox.org>
-> 
-> Add entry for MT8127 SoC's watchdog which is compatible with MT6589's
-> one.
-> 
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Applied.
+Pre-existing issues:
+- [High] Dangling secondary fwnode pointers upon unregistration leading to =
+UAF
+--
 
-Thanks,
-Guenter
+commit 14048fa470e12c0fb57d0c87c84bc92c1497b100
+Author: Sergey Lebedev <lsa.uz@pm.me>
+
+media: ipu-bridge: Add Sony IMX681
+
+This patch adds support for the Sony IMX681 user-facing sensor to the IPU
+bridge. It ensures the sensor can be properly connected in the graph by
+mapping its ACPI identifier.
+
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/int=
+el/ipu-bridge.c
+> index 7e65491faf6dc..68c2eb326f1dc 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -97,6 +97,8 @@ static const struct ipu_sensor_config ipu_supported_sen=
+sors[] =3D {
+>  	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+>  	/* Omnivision OV8856 */
+>  	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
+> +	/* Sony IMX681 */
+> +	IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
+
+[Severity: High]
+This isn't a bug introduced by this patch, but there is a pre-existing issue
+in the IPU bridge setup and teardown path.
+
+In ipu_bridge_connect_sensor(), the ACPI device's secondary fwnode pointer =
+is
+manually assigned to point to the newly created software node:
+
+    primary->secondary =3D fwnode;
+
+Additionally, ipu_bridge_instantiate_ivsc() also sets the secondary fwnode
+for the CSI device:
+
+    set_secondary_fwnode(sensor->csi_dev, fwnode);
+
+When an error occurs and err_free_swnodes is reached during module
+initialization, or when ipu_bridge_unregister_sensors() is called during
+teardown, the underlying software nodes are freed:
+
+    software_node_unregister_node_group(sensor->group);
+
+However, primary->secondary and the csi_dev secondary fwnode are never clea=
+red
+back to NULL. Does this leave dangling pointers that could lead to a
+use-after-free if another subsystem iterates over or accesses the secondary
+fwnodes after the group is unregistered?
+
+>  	/* Sony IMX471 */
+>  	IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909203717.9060=
+5-1-lsa.uz@pm.me?part=3D3
