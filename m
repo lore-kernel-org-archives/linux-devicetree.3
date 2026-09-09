@@ -1,100 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9890472527;
-	Wed,  9 Sep 2026 20:50:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502F5548577
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 20:52:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987030; cv=none; b=D++CbBWmMcSNU617H65BBV+RDJJfO/I0paf0M6vZLCsAadD7M3UVhbdOOSMyFUZH0smCiNHPre6Jv5MMg880xU4vlf1NxwOjZOcIo+5ghAfjZOxS/QUgwzsljhVXrHtFj+wUmJrkykZlVZUiwdTd4HjBzURQzj4if9UGW2ycow0=
+	t=1788987174; cv=none; b=kujemUcq6nWzRmWLEn17BN7LIiv58vQ4Z3DaqR0JL1b8JmdsAGg4igIoerLrrpQAugHNyzMOMmFbmrlSVg+HmffoGsklwDXFRttYp8mMEpkaSO6nNlI3JqvmUG++rDEgm04lZmzPDyBIdX/14GsL2K4Dd+2qw3o1XExm9XPhprs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788987030; c=relaxed/simple;
-	bh=jMty4ajwnELhURTjsE6eNqa3g/f3bJYi9e2DCx52xvk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=id0KC7gEjOrdQ0hrz40GLEKDN6QYnusUZW4WjPKOh3uf8ca5Xn9q9Rintcy14Iv2kh6p+nOkVqtUqDI8wc+yyG3vfmEXIJ2lspOLSzt1U3Ntd20QbEMPHmP6U5H+xqs6rirEH2K2ZTKeBBkgumWrCV+GLLCH3/yZ2nS3jjFp7pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOMeFThn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788987174; c=relaxed/simple;
+	bh=mrdnlgQ6Rkt2HU5IlqxpCbwoR8r3ktUYo2WumV4V9TA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=h39/+nm2QCmTWprXvv1wRZO0vsvs+nA4gTIwDxaXHYeAUrUuRxXfESxY0p3QllXydAZOif2ugqqbIpn0kdqNsiDChtJO6KJsiTGafFj9bxVlO2I1ztNou3z45eu+wpxyGcqzDTeGRvyAOr2NO+yNtBj3kn7lhV3LdcZhBydhSUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPSxfYgl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOMeFThn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73AC61F00893;
-	Wed,  9 Sep 2026 20:50:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPSxfYgl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB941F000FF;
+	Wed,  9 Sep 2026 20:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788987014;
-	bh=sEYSNtkQsHWLYM3PXCQWIlCK3l7SMDlKCMnAzv0/c04=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=gOMeFThnbpVMkbb/Ox7his+45bTJSZUYII58tClT7B8IjjpnIKFg6jLm5H0UsoOJY
-	 RUXCNaGZpbKb5PEhI/OdxxWOoBTXYoZfHWNmCVkVoepyaqJWuS6Qr+gtbhw1myp8bm
-	 2OZUGUh8j0ZkNjOUvlTeX/HNUf11W90knVRiU3Z0Lr2AtlfBHcoH3rUgk6yqGBw/77
-	 t61uzTrJ2RmBaP8oTPgK1nQSi5NC5Rgq6AYLeAXtZSIJaGWHHrvi5MpcXjkeMEsamA
-	 8HnZh94+oYrhwK7Ivk/BCHl9N1x8LjC+uOgJ6yV9CduQC/WH37KV6z7otqORactsEp
-	 dB8mtHsZclHfw==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id C2B03198003A;
-	Wed,  9 Sep 2026 16:50:10 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 16:50:10 -0400
-X-ME-Sender: <xms:gMahahDNLKkgf41aoJ7QltWnM6RjqnFpLfXsEojPI_9JWYuPk2iNog>
-    <xme:gMahaqWDng7vjgrXuNAJZtouBbnOu9dKHOb_H84YyQJQkj3qP0y8S-vvvD1z-CQ7u
-    tpVSYnCSUxwrq2nqgQjHhARBIoqOZDKM8W--cYdHTAmXZL6hXtrCpuW>
-X-ME-Proxy-Cause: dmFkZTG0uhuAwommTLNbPA5zod+Ry1qWg/m7XlAGS9AdDnt3HTzO0NGzxkWWcRme1Tw0h6
-    2oy+SYxgKztzRfyTjPJiM9vSe+eacDZh4DciJUPEIZV25DTKFUp824VkumpHvRrGOv/0uZ
-    ITnJQHUUoBa9V3Il4KqyRBk26etkkKEVTIsIjSYZfhjUr+jIr27VYJ4CUq9E6v0MqhyHHT
-    Pa0UQQrdGQNuqNG6ZLgVgfay6/rIuK7BT7LhjOY8wUuwIQoryxN6QuDg5BU2J/1X+OK6Ua
-    OrBdMMNlKJPGlQuVV1BHGhlCy9po7rYP0YrFEfYf4v1gpVIY+KoUh0HRsQhWy9Z1NcphWX
-    W8sG8Mtoj6S1OZxYPWVZPKkNHhvIs7VSSqEjX33Rj6p04iZ+bqaVzR/Xcb0c5IeJD0evQr
-    +eBpaz3wbej2T+yt4olZbvQCvZMP88jwwKNZFqZCdJC4uemKpuNXA9uqW0Xh3TyuuzQRMq
-    qmYBwykaCczZAe/Vls5T0E9LtGoPESTCNComwicK60COcZaapRYsW1HNZw0sdFhXKPPK/S
-    5wQD0N+O3DZpgl/p6Gg6ikRyWnFIKINIurficUB19XTpSUuiqo8cL0VbFqagd6oxH6kRLi
-    cm8qR4ZH1F1Y3jJ+GxSwPhDHaQvfeIom0Om/ZrEbgHhWGxbgAzdfgFyt0zqg
-X-ME-Proxy: <xmx:gsahagC8DuynwTStL5ScvWsLHE4Pod8CYU1jOS5DnTK-BttUxCdX9w>
-    <xmx:gsahau3Vr7wX7MCFw_jYXNrh6a-x0a8e6SQ0Zmt9VHhZY4VyWakx8g>
-    <xmx:gsahalOmgsfnZ8TiK2vbZqQHgFzdb5bOjWnkh5RJ2MWqpmVwb-td2Q>
-    <xmx:gsahaj4i2OtfLp4fLGOgmxvOaUJeQPp0JAqE7M3ADtmx_KbHPQpJaA>
-    <xmx:gsahaqbk07EfSSONzdTia82tGwneMbOHRyPdPWn7pCFmJT79vSYE6br9>
-Feedback-ID: i36794607:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 81AA132A007B; Wed,  9 Sep 2026 16:50:08 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	s=k20260515; t=1788987165;
+	bh=X64/7qmIkNbYXdYQ/7We1leVgfNDJdkX6/jdAmDEP2E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aPSxfYgl+xX04+N8+8LHqSXdlYNCJU1eiDZ6jlKRnB8nQdR7NKAc8XL/g/lJtOllQ
+	 o+Ko8ZfqRU4Pzd5gi04VLiTexMIDJk7fxHa4Xmr3vvmP5zhHvOJnvNCZ2f7rkWzWLG
+	 OESTYdZ8DFDAeb2a/AbPWAFxUP9fX5Aj7BNnB6JFOzIF9mHy8LDiZ+seX/GiMHk5CY
+	 iHJW8w5TEuBX47q+nLa+sThn3+nArqYIyKl2SCgNgcqs1Ytz7u/f/k4+c+8i57vmKe
+	 rDU56lqtJHmy/01W+yuE3mkWYwjvVLbYZ4SMJOTvFZzyrqoVaSCz0k2g+FuxzRxuEH
+	 MYSHqYTB/fHRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/3] media: i2c: Add Sony IMX681 sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sergey Lebedev" <lsa.uz@pm.me>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260909203717.90605-3-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
+ <20260909203717.90605-3-lsa.uz@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 20:52:43 +0000
+Message-Id: <20260909205244.EDB941F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: Arw8dbDHChV7
-Date: Wed, 09 Sep 2026 22:49:48 +0200
-From: "Arnd Bergmann" <arnd@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: mfd@lists.linux.dev, "Lee Jones" <lee@kernel.org>,
- linux-rtc@vger.kernel.org,
- "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- linux-input@vger.kernel.org, media-ci@linuxtv.org,
- "Conor Dooley" <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- "Rob Herring" <robh@kernel.org>, linux-leds@vger.kernel.org,
- dri-devel@lists.freedesktop.org,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>
-Message-Id: <9cd2bbe1-6e0a-4387-b082-5ea4d70c7379@app.fastmail.com>
-In-Reply-To: <20260909133929.AB9A01F00A3D@smtp.kernel.org>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-11-arnd@kernel.org>
- <20260909133929.AB9A01F00A3D@smtp.kernel.org>
-Subject: Re: [PATCH 10/14] mfd: remove unused rc5t583 driver
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 9, 2026, at 15:39, sashiko-bot@kernel.org wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Hardware exposure register becomes out of sync with V4L2 state w=
+hen VBLANK is changed.
+- [Medium] Independent toggling of group hold register defeats atomic param=
+eter updates.
+--
 
-> [Severity: Low]
-> Does this removal break Kconfig consistency and leave dead code in the tree?
->
-> The config GPIO_RC5T583 in drivers/gpio/Kconfig still depends on MFD_RC5T583,
-> which violates Kconfig rules since the target dependency is now missing.
->
-> Additionally, drivers/gpio/gpio-rc5t583.c is left in the tree and still includes
-> the deleted <linux/mfd/rc5t583.h> header, making it unbuildable, and its entry
-> is still present in drivers/gpio/Makefile.
->
-> Should the GPIO driver be removed in this patch as well?
+commit 7db2a0f5a0754b78ccc388a5ff14535efd86e6ff
+Author: Andre Gilerson <andre.gilerson@gmail.com>
 
-Right, I had this as a separate patch but folded that in here now.
+media: i2c: Add Sony IMX681 sensor driver
 
-      Arnd
+This commit adds a new V4L2 I2C sensor driver for the Sony IMX681 camera,
+which is used on the Surface Pro 11 for Business. It implements standard
+functionality including register initialization, the streams API, and
+runtime PM.
+
+> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
+> new file mode 100644
+> index 0000000000000..eba792ca18ef4
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx681.c
+[ ... ]
+> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct imx681 *imx681 =3D container_of(ctrl->handler, struct imx681,
+> +					     ctrl_handler);
+> +	s64 exposure_max;
+> +	int pm_status;
+> +	int ret =3D 0;
+> +
+> +	/* Update exposure max when VBLANK changes (even when not streaming) */
+> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> +		exposure_max =3D IMX681_HEIGHT + ctrl->val - IMX681_EXPOSURE_OFFSET;
+> +		__v4l2_ctrl_modify_range(imx681->exposure,
+> +					 IMX681_EXPOSURE_MIN, exposure_max,
+> +					 1, IMX681_EXPOSURE_DEFAULT);
+> +	}
+> +
+> +	/*
+> +	 * 1 with a reference taken, 0 if the device is not active, or -EINVAL
+> +	 * if runtime PM is unavailable. Only the 0 means there is nothing to
+> +	 * do: without runtime PM the sensor is powered from probe and never
+> +	 * suspended, so the write still has to go out - but no reference was
+> +	 * taken then, and none may be dropped.
+> +	 */
+> +	pm_status =3D pm_runtime_get_if_active(imx681->dev);
+> +	if (!pm_status)
+> +		return 0;
+> +
+> +	switch (ctrl->id) {
+> +	case V4L2_CID_VBLANK:
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_FRAME_LENGTH,
+> +			  IMX681_HEIGHT + ctrl->val, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
+
+[Severity: Medium]
+Does this leave the hardware exposure register out of sync with the V4L2
+state?
+
+When VBLANK is modified, the exposure control range is clamped earlier in
+this function. However, if the old exposure value is clamped to a new, smal=
+ler
+maximum, the newly clamped exposure value is never written to the hardware
+because VBLANK and EXPOSURE are not clustered. This could leave the sensor's
+hardware exposure register with an out-of-bounds value.
+
+> +		dev_dbg(imx681->dev, "set frame_length: %d, ret=3D%d\n",
+> +			IMX681_HEIGHT + ctrl->val, ret);
+> +		break;
+> +
+> +	case V4L2_CID_EXPOSURE:
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_EXPOSURE, ctrl->val, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
+
+[Severity: Medium]
+Does this independent toggling of the group hold register defeat its purpos=
+e?
+
+Group hold is intended to defer register updates until a frame boundary to
+ensure multiple settings apply atomically. By toggling it independently for
+each V4L2 control, simultaneous user updates to VBLANK, EXPOSURE, and GAIN
+will take effect individually and may split across different frames,
+potentially causing temporary visual tearing or artifacts.
+
+Would it be better to cluster these controls and use a single group hold bl=
+ock
+when they are updated together?
+
+> +		dev_dbg(imx681->dev, "set exposure: %d, ret=3D%d\n",
+> +			ctrl->val, ret);
+> +		break;
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909203717.9060=
+5-1-lsa.uz@pm.me?part=3D2
