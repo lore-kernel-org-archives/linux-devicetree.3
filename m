@@ -1,125 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D64E577E5D
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1B3579827;
+	Wed,  9 Sep 2026 13:38:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961117; cv=none; b=AJdAutNiY9gd1gU8f5j4mw7byGGrzUdKcur4sc0pukMYbxU+FqHYQIMKIlsii4pW/rYC7Do1kVjoCPeDB1r/c9OScnYGl6v9kewVIJbQfJYPPVJV0MiUbnZ7SEVwxAKeasmP/kcD40QWRv1S4q87DD7b6QyyE9TY7faGQ/zrJTU=
+	t=1788961133; cv=none; b=j+0832yhSHEJFuetqi2FIxFlVLItwDRq2+aOKW+pLiV3KTgFwVcBTMZrxJFC5SNJpm0gS3vXq50Yp9r/B017fIcuEMkAPFHokM91H6xu3yyK9hEOAQAgCelBgWUHsVIJOql2mVJfBdvQmi8GHEkFc2wRiNh8pJYADkWe89VCuZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961117; c=relaxed/simple;
-	bh=BRIUR/yP4aYnCyMy5/qA0M2fDRm7bdHsOX0mFqUPdoY=;
+	s=arc-20240116; t=1788961133; c=relaxed/simple;
+	bh=ofliS+GTstoNAge1etMSZcB3OORb59HBeWKRo0U+3H4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ngfIDL42LdhU7BNsVQffXibsZ3G6vR5xzd39yn2TlAA9qJqqK5Xy7PPPdyXzVsaE2tlKob8lbcU5n9XZwBssxe4MAKG0P+XgGW2MM2ZxVbbMDv5+9uW7jRhpMZ0vuElmY9myhzwIr68aZ25O7amIbUZAwsCR5kVHFHfJ3lKu5Uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k41uAOej; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=b47qeHBiZTNaX5F+/gNomL/GDpng3kLpsk/ooCW9gPF6DyWhY4iOBHHFiZcXAa5sk0BttLVAa3b24TItsCsDZX79ZwAz3QMaLJaWGcDN0QL7LALwOOd7N8UcXLo7vPnQWDTG6UJS0wftlo5fTGmT9AF32gUEzBnNKjx2IqqhL3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqOKe6PS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k41uAOej"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7759A1F00A3A;
-	Wed,  9 Sep 2026 13:38:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqOKe6PS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 523701F00A3A;
+	Wed,  9 Sep 2026 13:38:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788961115;
-	bh=YpG8N6UiKznz20E3UwUh5dkXT8mkWof3LDzYZ3SUlsY=;
+	s=k20260515; t=1788961132;
+	bh=HGGR++Bxj12lmQW85xJhvJa3QTXaJAiswbiR+ZJCm7k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k41uAOejn8+TaWZjagXiNFgHWXhQkRpChCD0HGR7DBDdvctqlUuryYCc2EOd9QZce
-	 2yUgZgALSz4sphnj5yT5CY3IucaggY/6hjQ48Y9MQ/M1Xb2+ymsSp9/1CvgBQp56eE
-	 VIrk4EVwrgphRTmJ4MzStZW4PWfAwPXdB0arrLSAOmjMJoNNKEt9oYB8Uz1cowDBem
-	 A3hy1KQLP8KRkVqsRwmA3zXMUFxwtPTONoTFR5WtuoJxSIremHeXuTiuBjvxLJvOyZ
-	 1IaVEom6JMSdBf4xwCAbzInBhdPFs3Togily9kxhM5OGofcQRvgioPT9FUzwsJ5wbf
-	 ErpUddrQUb8NA==
+	b=DqOKe6PS9CHLaioeKIf0kkI8CL/v6bN1wYR6BU4santnzUIBKfwXf4PwVg+RjF7ZY
+	 QolWZxjJqf1RFBcMadN0tWoD5Ea8qp4Kq6fqc4dwE/inetf+cm2itcwzEpVmHyH/sd
+	 eUbIDlPlstfxupEVtzHwAnfY/FCohMnDvv0m0ZFP5s1CrDNcUH7hG5h2QpcSW7fk+p
+	 uOfi8yCSYPqOLEPriIDj5bXIPqCpKxrNsp0Vitrs5L091NL3zX0/BpJcCEjFFAz985
+	 vqzo7mHWcs6UwlILreuIxpKM7EGP7gUKZnRsxrzYdOMjF7M8MRb5pHWs2lspapcl/F
+	 caGns+iPpykZQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 12/22] dt-bindings: media: i2c: add MAX9296A,
- MAX96716A, MAX96792A
+Subject: Re: [PATCH 03/14] mfd: remove unused si476x driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260909-gmsl2-3_serdes-v17-12-002499e534e8@analog.com>
-References: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
- <20260909-gmsl2-3_serdes-v17-12-002499e534e8@analog.com>
+To: "Arnd Bergmann" <arnd@kernel.org>
+Cc: linux-leds@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-watchdog@vger.kernel.org, linux-hwmon@vger.kernel.org, dmitry.torokhov@gmail.com, lee@kernel.org, linux-input@vger.kernel.org, mfd@lists.linux.dev, media-ci@linuxtv.org, robh@kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>
+In-Reply-To: <20260909132153.1596191-4-arnd@kernel.org>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-4-arnd@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:38:34 +0000
-Message-Id: <20260909133835.7759A1F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 13:38:50 +0000
+Message-Id: <20260909133851.523701F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `i2c-alias-pool` property is overly restricted to a maximum of=
- 2 items, which breaks valid multi-device configurations.
-- [Medium] The `i2c-atr` child node fails to mandate `#address-cells` and `=
-#size-cells`.
+- [Low] The device tree binding 'fsl,imx-audio-si476x' is left orphaned in =
+the fsl-asoc-card.yaml binding document.
 --
 
-commit 6d3d3d8d9d81c31ffd5ad3feef43850ff819e86e
-Author: Cosmin Tanislav <demonsingur@gmail.com>
+commit d07c2cc9eb18a826ae9829a06854385c1084b44d
+Author: Arnd Bergmann <arnd@arndb.de>
 
-dt-bindings: media: i2c: add MAX9296A, MAX96716A, MAX96792A
+mfd: remove unused si476x driver
+   =20
+This commit removes the unused si476x driver, which was originally added
+without devicetree support. It drops the MFD core, radio, and ASoC codec
+drivers, along with cleaning up the corresponding build rules and the
+fsl-asoc-card matching table.
 
-The MAX9296A deserializer converts single or dual serial inputs to MIPI
-CSI-2 outputs. The GMSL2 links operate at a fixed rate of 3Gbps or 6Gbps
-in the forward direction and 187.5Mbps in the reverse direction.
-
-> diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.y=
-aml b/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.yaml
-> new file mode 100644
-> index 0000000000000..de6bfcec5dc63
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/maxim,max9296a.yaml
+> diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+> index 310ee4c282a1c..ff8ae6e514ea4 100644
+> --- a/sound/soc/fsl/fsl-asoc-card.c
+> +++ b/sound/soc/fsl/fsl-asoc-card.c
 
 [ ... ]
 
-> +  port0-poc-supply:
-> +    description: Regulator providing Power over Coax for GMSL port 0
-> +
-> +  port1-poc-supply:
-> +    description: Regulator providing Power over Coax for GMSL port 1
-> +
-> +  i2c-alias-pool:
-> +    maxItems: 2
+> @@ -1398,7 +1391,6 @@ static const struct of_device_id fsl_asoc_card_dt_i=
+ds[] =3D {
+>  	{ .compatible =3D "fsl,imx-audio-wm8960",         .data =3D &fsl_asoc_w=
+m8960_pdata },
+>  	{ .compatible =3D "fsl,imx-audio-mqs",            .data =3D &fsl_asoc_m=
+qs_pdata },
+>  	{ .compatible =3D "fsl,imx-audio-wm8524",         .data =3D &fsl_asoc_w=
+m8524_pdata },
+> -	{ .compatible =3D "fsl,imx-audio-si476x",         .data =3D &fsl_asoc_s=
+i476x_pdata },
+>  	{ .compatible =3D "fsl,imx-audio-wm8958",         .data =3D &fsl_asoc_w=
+m8958_pdata },
+>  	{ .compatible =3D "fsl,imx-audio-nau8822",        .data =3D &fsl_asoc_n=
+au8822_pdata },
+>  	{ .compatible =3D "fsl,imx-audio-wm8904",         .data =3D &fsl_asoc_w=
+m8904_pdata },
 
-[Severity: High]
-Does this limit to a maximum of 2 items break valid multi-device configurat=
-ions?
-
-The i2c-alias-pool provides a pool of I2C aliases for the I2C Address
-Translator (ATR). Every remote I2C peripheral accessed through the
-deserializer (serializers, image sensors, EEPROMs) requires one alias
-from this pool.
-
-A dual-link deserializer configuration with a serializer and a sensor
-on each link requires at least 4 aliases. By restricting maxItems to
-2, the schema appears to artificially prevent users from specifying
-enough aliases for a standard fully-populated setup.
-
-> +
-> +  i2c-atr:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      '#address-cells':
-> +        const: 1
-> +
-> +      '#size-cells':
-> +        const: 0
-> +
-> +    patternProperties:
-
-[Severity: Medium]
-Should the i2c-atr node mandate #address-cells and #size-cells in a required
-array?
-
-The i2c-atr node defines patternProperties for child nodes i2c@[0-1],
-which contain a reg property. Any parent node containing children
-with unit addresses must specify #address-cells and #size-cells.
-
-While the schema defines these properties here, it does not seem to
-include a required array for them within the i2c-atr node definition,
-allowing a structurally invalid device tree to silently pass validation.
+[Severity: Low]
+Since this patch removes the fsl,imx-audio-si476x compatible string from the
+fsl_asoc_card_dt_ids matching table, should the devicetree bindings
+documentation in Documentation/devicetree/bindings/sound/fsl-asoc-card.yaml
+also be updated to remove the orphaned fsl,imx-audio-si476x entry?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-gmsl2-3_se=
-rdes-v17-0-002499e534e8@analog.com?part=3D12
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909132153.1596=
+191-1-arnd@kernel.org?part=3D3
