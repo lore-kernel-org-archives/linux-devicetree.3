@@ -1,159 +1,108 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012009.outbound.protection.outlook.com [40.93.195.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2EF3DC878;
-	Wed,  9 Sep 2026 07:19:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.9
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788938399; cv=fail; b=M1J1jVs3zutQRA4wpBd0B7FfSp4W/zIzfHLex+4feH1hz23ssD8wBl69NmVDrDwTW9B9+N1eRL8vP5vvYtmK0NCCIgZ2M0tqhSmJmp8EoSMqIPkbsg/H2T+nW6UBLuEJSlM0INEpMitbL/yiEn3gBdISSVo0hj23kYbNpasKPjY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788938399; c=relaxed/simple;
-	bh=UUtucPOXr6yFzi4beVa4526GaQ4dIL7L3nztQrsse1g=;
-	h=Message-ID:Date:Subject:To:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EtqHz8WcH5+Qe6GmhmofgtRdMpQoqpLAm2fv8EBbf7YCoGG08umKSR+wB1Fjco+K1E99z6r7lyyV3cHk/VTBe7gLxEFEGE1uldB1+JULjiohrD149JfD6Gm9ICUArrZKoMXIwRL9dRwQZWhoSY5oRffxzliM3Tb46o3+iEnEyNs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=ScFNof53; arc=fail smtp.client-ip=40.93.195.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8C1443E40
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788938502; cv=none; b=mG2k3JZJmEnZ0IcqaqibJ7eqrXJWRSI2JtcKvgPz0NCo6OyP2AqtPPqj4RveXRtNEiZn+QvxB41kVURYXXvPJnfLRm6OuuYtF3mZ1fiqHxjJB4sbPPMz89+u8sxxwzQXlawdkJfQtusGQnwqEs2/7oK7FCgjK6n7erPHBcwMqjY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788938502; c=relaxed/simple;
+	bh=bdtfK8hlgNaxrFNODYutQUM199Ay4f+K5uqqRn3MwW4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HyPT73trko3H//Ld8yGgSun2ZHflaprrfRPX8c7YBol2vOknxvWJEN/97FOJTRte4RtgAhnQabo7RP0j61YbHB9sRVvpaoXekex5YXuZVbT3MneB5xDGatkEAYwf9Q/2YJD8EwIUDPJeiBtf33Rfb6uF9pTxdFG58fvJDVjyD0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SDBvlvib; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="ScFNof53"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=yFI0Qshh+OePZ6cKp0cVtVOLpRZNrKrnpZdyTVNnbKk4Gqss1D5Md3EXs2Bevva0XqtJRgRIYGVUkVm5p63kxdAMxfJW/JJzDcrml60HCwf07aDJK8Df/y6wS7naIPVLzb+mB9vt6RmO9LNzZ2DvO10pBkLJjBqXLO9di35rEnpBQK3jLCaFEktB0Mcv4aYbx+YfuQb5f1MqIAKzAybNkHLla1+Ur4sxBG8IyUyy1qFnksYZ1vv4/6IcwoaIzFhv+cygZ7ZhSIhBkK69XyiOw8akJsQmD67ZXT5BS8AvWCp8PVS81krEHnlzwo2eFP/724nb8RjPYX3CYOx+jGn3fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4yGNjy6Tchi2sNjLoMYE/kahO0wMd70Ohwwyx0Y5DIg=;
- b=AuBkVPZkJAXdAUiFm+a+AwbmVmRJQwtmQlOKhVyWZyQ4ItKVctiXHll4UtWnLW7kYDl91Pz5Q+TrK+oa3DInTP2c1hna8pLgqJt0FTteUtkNRrIgDFB6gE3Igru1z1LOQuvAlURVerxjN2OICwNLJnMchwblJNIFa7ClaWpMEGUawjjJTV0odXU8hHzHDXGrxM0u5ED9ycJZjOeZ5JadOmidyKHAZMI6V3pAyTg1zyUoPg0SSGOyjwrU+0TqB5wAS2ghmZ1bfjZFM2teY3XU1bd0KPKcwuLqB8ErHSFUyBAshdY5ag6t/ElThgzO3BBICn+o2FpOVMKYnv7G1TPkrw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4yGNjy6Tchi2sNjLoMYE/kahO0wMd70Ohwwyx0Y5DIg=;
- b=ScFNof53WQTqUxBnMOcgNsZWSrzk7u7OZBw+YnIzK/MSC7a0NCQHwYymTEEamxJZOrLRLa0xxU7cKbIJcwpHucHJhMGPW6nSjgrbBiHOnky+voH15RfsIeWgiWWarJuMxhxQdnb3LHIJ6IkHeLIL7plC5CnCJoYXgti0kHNhouaghksvTNhdeOJQe0enPQYp1ULTAxkGJMLYhnCbGjLC0T9WmXVoM1k02FMahGusw7MJ/tV7x8x5/2wpIrxQ28gdp0faX3807PQOr24HrYWph4eYgwd17VDMtiGY/X7ZOXn1unteoLEOxZ8JaNxUkYlbLgc92dFjq2fmnni71RKPfQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com (2603:10b6:5:39c::23)
- by DM6PR03MB5146.namprd03.prod.outlook.com (2603:10b6:5:1e8::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
- 07:19:55 +0000
-Received: from DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b]) by DM4PR03MB6192.namprd03.prod.outlook.com
- ([fe80::b75b:5c92:1e9d:514b%4]) with mapi id 15.21.0382.012; Wed, 9 Sep 2026
- 07:19:55 +0000
-Message-ID: <40947009-9861-49e4-8b60-80f81d8c5b8b@altera.com>
-Date: Wed, 9 Sep 2026 15:19:48 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: altera: move all SoCFPGA device trees from
- dts/intel
-To: Dinh Nguyen <dinguyen@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <802bf0d27fbff9b1ddb6b9fc323a1a9f8f050f74.1788512748.git.evon.chiam@altera.com>
- <114057e1-f35b-4ca4-ae8f-dd2fd66180b3@kernel.org>
-Content-Language: en-US
-From: "Chiam, Evon" <evon.chiam@altera.com>
-In-Reply-To: <114057e1-f35b-4ca4-ae8f-dd2fd66180b3@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SG2P153CA0016.APCP153.PROD.OUTLOOK.COM (2603:1096::26) To
- DM4PR03MB6192.namprd03.prod.outlook.com (2603:10b6:5:39c::23)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SDBvlvib"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso80222955e9.2
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:21:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788938494; x=1789543294; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
+        b=SDBvlvibwtRp7WxoRjBENUi5Mk7PF4tbHz37lIYZBerv7MR8wWxDs45RYaxKpgFAWV
+         pYI/DkS78MuIAuTGDO/NrjRYSVn8xVNEnDW60UocPGTgW5jSzIjsAkn/p7BynGilfNw/
+         kdsBQsT7VKEX105ExxrK1qdogg9mUsbg4QXYchZS8K9PL85mU5trPa6zwk4GtM0i8CxH
+         9npTCSxiJr2Ln48+KHPLMYHC8cxwbiDOrkPAkywyRhRxmylyzsieYIKOu3Hxo1LJdxYI
+         pVevHD4eqqxqChgmWHfNJpBs+dYl69Yg+DxruqJA0H9OHi+UnZT8u6qZZkT5pkAe3Gjs
+         La5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788938494; x=1789543294;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
+        b=gEpC4VAcPLeU1rL9KoQyFTWz2KYC/Jzhwn+wAkBu8vN1KgwIpNwnobcP+9FF+cUiRr
+         sJ1JLHjoET7/p0rH4YQn5Iy/97oKBOGgkKFLwjiRPVflSwfwLEpE8JmqtwenNdK4Q2Yi
+         w3p5LPwQGbB4j7ilds4UFnh5ZGshGCKCrLjHeZtUo6oN9rBHpQEzkRrhifaQ8Tmq9dt9
+         kZpAJnK3CevD3WQm0A5WmFdQd/vxDnjmp70Z7BCQOKIs+j7Tn5ggvlQUgp7pfkU8fnCA
+         9hs6jFg3VuXYp/sdcOCSaIQ6hIIygYo7QbHLHaToxGlnDP14smwDtUIfa98UBpXcg7go
+         Glmw==
+X-Forwarded-Encrypted: i=1; AKwUvBxktTzqWqkqgL13xDQetQHbib8zMWNuZ9+Qix7S3+Xr5neOebWn8mHd9KP3PNKR3GBIjogOLQ5sWFf9@vger.kernel.org
+X-Gm-Message-State: AFuF++k1qIkBUcVKbUijvsIBSCNSL6qywOgvazfszwyosRZzDJHRJA1P
+	76vD2xroKOHNBCMbYud8LoDNfUO7VypMohqI8S6WbrmGQNdYl5DkZ/sB
+X-Gm-Gg: AYBFou3s0emrD6SSWe35MMZxGVhHL21l7g4NwLBgTYQedqNhxABJxvWbebu58MUNE7U
+	yx6tNQYb6YYS0/7Dyrr5LFMIVwNsqK/vffagqPvi7aZydgIjbw89lnZ4QLxvIBI06wSQAnvyi6c
+	UX4bik2Wyw87CJiihzdlGc8XsbsXc1P+DRYcLBTOIoXGp1srZnwd4zlUL7/o6MUWOY+b7XOrzM6
+	169nxDoK2FgJL3vYlwb2ZDvninmvSfxUAvV9TDdTJa4B3kft8fp8W3oo1/Z5ls4Xu6vY9Oga8BC
+	jfyYAPxY9W9B5un/BemC+1wncZHO+RjmlanGvEvV7kihduTUT+GYGLy89RoV60EDaDTWTazMflg
+	KEBYVgYvqMLQV5K6l2U8a62XwcWWWivPrp/VNgtso1gfj/LRG8/csBCYgGNsC7ZI0rm5Uk7LyCm
+	QVLkBuQBlCE1daVIAm2yUw5unXufz5dFzR1VOcoNQ0IcTs9ghft7PP6SyZx0m52x4LCXE=
+X-Received: by 2002:a05:600c:3511:b0:49c:fa21:1c86 with SMTP id 5b1f17b1804b1-49cfa211cd7mr325233275e9.27.1788938493693;
+        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm46703902f8f.25.2026.09.09.00.21.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Fabien Parent <fparent@baylibre.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH RESEND] arm64: dts: mediatek: mt8516: remove cpu3 armpll clock-name
+Date: Wed,  9 Sep 2026 09:20:14 +0200
+Message-ID: <20260909072051.4627-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM4PR03MB6192:EE_|DM6PR03MB5146:EE_
-X-MS-Office365-Filtering-Correlation-Id: cbbe0c38-6518-4a71-d139-08df0e42bf5c
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|55112099003;
-X-Microsoft-Antispam-Message-Info:
-	ddIvP551Wi8dAt2/YGxXAFuYZdKBnf1MJgkUx+XHQBnJfecunNDDM1pzSjrO12KnevKxASvY5N2GDqA0PuUbMZFdgQ9yEYCEvSL+hEcYyLdxteW2L7QvPE1LzM8pp7pqF+36Uvm0L1OVkC9iguxWx0jCl4/Ob6LZKEDjuqH19yyEU6V6fEDsyelPhKJQe2Oyb9JiZCrBmxEfAW4p5gt4ZiQ54Gx9ttsdP8nd3bBQUsCn6iwRxICGBmE3ug4l5kVKzpoFR+NrQRm6swSGX18tQ7T2ZsubpTOxFt9P8EjDO9WsAPIkGEnqZ8pg0xqYLj31ScJGDwkNtcMu6HBhqjB8RU/HZq+DHg+6DjelaBn7AvKO9rCqMAG5peZYK4AwrvZZ9+Kq9d44IaLj/k7Ww7rc89ynU7C1HNEEXtpNEDJf9h+pN2AWfcK6RmKdkebTo4EnOIQydKWbXHEcyVGkfGbDjV1NXO6nhAiznfmvweAEx622EpCPdPculw86pH3LaaLeHVM41sfDFxCVGrAItHTzh+SBYwbaai2egbCec84mTdVax6JYiRM2U8BAt0Ks1FpHXmL4hcJJ9JnOWq+jAQXS9nAMXRabjb6QrFGUal7RkstK7/h/xZTj4l7jZM0H9cuxICXYIPJQdy7n/OLAXA3UWYHLHTPp5aXrP8M9deGeFKI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR03MB6192.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(55112099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aXZFQUNSMWdySzdXcGpLbVhjZldVSzBsTWFwMXRZVEFNSWNyT3RpREtETDNk?=
- =?utf-8?B?VS9DSFJqanY5eVpZWk5OZEYvUGcwaHE0Q2xaRnliOURtUzdoUVBvbGZlZk9W?=
- =?utf-8?B?WlluQXI5QlUrc0plNnFZVHQrdzhrR0V0UFo2Ynl5N1ZqbU9zMmFRaVRsY1Nm?=
- =?utf-8?B?ZFExY2J6TlBBWWVHLzNJU3ZqcW9RS2dvaEpIcGJzSmxGT2xMVG90ZUltWVdz?=
- =?utf-8?B?Uis2RTdudVhJYS82bkV5bnd4UEI4djdBUW5Oc0VhRjJHNXRiL05Zd1ArR0kw?=
- =?utf-8?B?RmlkaEh3TW9HS0U4eEJ0c2pLY3U4dnVTaEErT1UxbyswTUFqRFh4L0R0cXo1?=
- =?utf-8?B?elQrcXZZZmFoVU1RUDNrazZ4NmduN1Vqemd2UVVaNU5uMHVrV09VdGI1ckVt?=
- =?utf-8?B?bWVqRFZZdlZPeHdvV3EvazBjUU5zR05OdWlKRUEvSmRMeFRDelZqSVZyczBz?=
- =?utf-8?B?QUs1VFhpNHFXZDRYelZuanR4ZGZSMEJ1NUJncHdrNjZoYlBJb0wxL0FlM0Rx?=
- =?utf-8?B?YjkwbFpjYlBpdHAvS3NtWHk2MHJqZnpFbUNoWFpncGgrVEZ4cnR3VHgxdjJn?=
- =?utf-8?B?TUV0Smd5MnJGUjRyZHEwUklUSFpPZWE2eEJYZllmM1B0dUJPUFgzQldQMUZT?=
- =?utf-8?B?ZUE1cHA0a0psR2dRTG5TcURuUGNWa2E4Mkg3Wnl3ay9ORUtXUGsxb1o0dkVS?=
- =?utf-8?B?RUVCMU1MRC84S3pxekQwVVl4dHhMY1NXOWlDK2xTSVlBVzhWcEF1YWNDaGNl?=
- =?utf-8?B?cU1jVzVQTlpTRHhrbjZpY0lpRmxhSW9COWNyR1djZS96VHc1dDFRbVpXbW1R?=
- =?utf-8?B?WDBxVSszbVZKM3hnVnJYcGY3b0RRSDk1OFJWMjFuRXlVL1FhMlM2cHZvdUVN?=
- =?utf-8?B?NFJrM1Z3c3pTYzdEYkxRbXRtbjNnTDhUY2pBVW9QR3kxYnVLN2NWSi9lODZu?=
- =?utf-8?B?bWNuYkVuK203dzZxWWIyUFZDT2pTa2VwYlZERjlMU29aeUVKWDh6TXEwWGN4?=
- =?utf-8?B?Wmx0OVE3cWtkWk5nczQ2ajM3QmNMV0Fpc2NIaWNjK1NZU1NUMEx2SWp1bVVP?=
- =?utf-8?B?ZWN5WFdyK3FmNDFZb09pRit6d2dzTUpWcFovMUhXVGcxMXhYWUgwWnoyN25k?=
- =?utf-8?B?VlZTVHQ3RE9lUWRSMEFPaGE4Vk9ic085TXJmME1qQ0FNd3YvcWVwSmNSTW1L?=
- =?utf-8?B?dTNnOVpCOHl5VjkzdVY1ckI0TjYzRVorcm9tZWxoalB5QXR1Vm95bHB0Vmoz?=
- =?utf-8?B?WURNamg0U0VJcmR1MktKNnRQalQ5RlcxUkhKTGxQZ0JpU1ZaTHZGZHRiVTBh?=
- =?utf-8?B?YnVyODN2QU03djRSaEd6elYvR0QxSVdZL0dQQ2JSVVF2cGtRdm5oZldTb3Ny?=
- =?utf-8?B?MWxKY2kwNTRZdjNRaXhMaTIyY1ozMFlUWkJxSmxNQkwvRFVxUGd0N0RYUGZC?=
- =?utf-8?B?aWhOMmRqTnhNblBTdGt1dzVwMFNqRlRIcFkvcXIvQ1lnd0txbnc5SE1YZ1JX?=
- =?utf-8?B?ZW93N0psNVduQmRZMWpwWk5JTENoUVJrZHpVbUh6TnZpQmtPUnV5bHdNVXNX?=
- =?utf-8?B?cGM5VWcrTG1ZVTh6dkM4MDdiQnlaRTlSQ0VGanVDQlZ3WUF3Y292M3FzK09L?=
- =?utf-8?B?YkxKQ1ljOEhZRVFtYk9mZE1mQ0Vwc01yOFlhWjFoUmllQjN4MWJVWDlQdHNX?=
- =?utf-8?B?M2RKbGJPcjNQTEUwRm5SZm4reTZFKzh1V1BDZGE5cmhaUzlnZUlsMjBTcGZG?=
- =?utf-8?B?Q016Vi83TUU4Mjl5bkVBZlRPS2ZYQkRPN1ZoTWNja01kM0tQS2E5UjE5OVJZ?=
- =?utf-8?B?Z0tiVmlFd2VheTBJclo4ZWZCaHd5Ykk1YURLbWFsSHl0eDFFaGNVZTc2THIx?=
- =?utf-8?B?VlViY1ROYUFYWkFPOG96V0R6WUhvdlVHbnl3WVdsNVdCblRKMXBkelNKVkNF?=
- =?utf-8?B?Zk1vRGFwNzdWM0N5ZC9LK0JlVzZBZEtkTEVjSEpETEJwVzJTZGVZUDBrK3Zv?=
- =?utf-8?B?TXMyZTMyMHcvcXZuWHpZUEFYSzVNaXZPK1hkbE9mcWdJSjByT3RaRG53NWNY?=
- =?utf-8?B?K1M2OWpvdXhpZ1dNU1crc0lPN3U1dHRnYVJsTHNVcTdncjJFY1pXakN4WHZS?=
- =?utf-8?B?SXI2RHVsOE0vREJCNEFIZWFJRFkvY251KytKd3FXMHhOWC9BRU9UV0VhTkFP?=
- =?utf-8?B?Vmp2bk5JaFZvRW8vR1lHYVYrN1VYZDBHalhWNnZzQ09iSXlHc21WTWlGYTZl?=
- =?utf-8?B?SnJhOXdDcmpneTNvYlZYV0haczNRdml3Nlp0VEZqRzlXS2FzVEpVcG5td2gz?=
- =?utf-8?B?OCtBMGpqbUhVdWptVVNKb0JRNGw0WU5hNllXK2lRN21zVjJtN3h3UT09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cbbe0c38-6518-4a71-d139-08df0e42bf5c
-X-MS-Exchange-CrossTenant-AuthSource: DM4PR03MB6192.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 07:19:55.1900
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: pgnST7xtEcyQOng0i+oT4AVyBacE/OFk6gaS/JZ72OU1tshoSHIdeZrcagzhrTeX30g6aSIpKbeFNjfXl/844Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR03MB5146
+Content-Transfer-Encoding: 8bit
 
-Hi Dinh
+The armpll clock in cpu3 clock-names property comes from MediaTek sources,
+but it's unused in the kernel and not populated in the clocks property.
+Let's remove it and align the node with other cpu nodes of the same SoC.
 
-On 8/9/2026 6:18 pm, Dinh Nguyen wrote:
-> 
-> 
-> On 9/4/26 18:06, evon.chiam@altera.com wrote:
->> From: "Chiam, Evon" <evon.chiam@altera.com>
->>
->> The dts/intel/ directory contains two distinct families:
->> - Altera SoCFPGA platforms (Stratix 10, Agilex, Agilex5, Agilex72,
->>    Agilex7M, N5X)
->> - Intel Keembay
->>
-> Nit: replace "device trees" in your commit header with either "support" 
-> or "files" . The "dts" in the header is already saying these are changes 
-> to device trees.
-> 
-> Also replace "from dts/intel" to "to dts/altera".
-> 
-> Dinh
+Fixes: 5236347bde42 ("arm64: dts: mediatek: add dtsi for MT8516")
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+ arch/arm64/boot/dts/mediatek/mt8516.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Fixed the subject in v2 and reworded it as suggested.
-https://lore.kernel.org/all/4b78273b85041f74b12245d0bf222f018afd2bd6.1788933630.git.evon.chiam@altera.com/
+diff --git a/arch/arm64/boot/dts/mediatek/mt8516.dtsi b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
+index b5e753759465..596f673a0d88 100644
+--- a/arch/arm64/boot/dts/mediatek/mt8516.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
+@@ -95,7 +95,7 @@ cpu3: cpu@3 {
+ 				<&CPU_SLEEP_0_0 &CPU_SLEEP_0_0 &CPU_SLEEP_0_0>;
+ 			clocks = <&infracfg CLK_IFR_MUX1_SEL>,
+ 				 <&topckgen CLK_TOP_MAINPLL_D2>;
+-			clock-names = "cpu", "intermediate", "armpll";
++			clock-names = "cpu", "intermediate";
+ 			operating-points-v2 = <&cluster0_opp>;
+ 		};
+ 
+-- 
+2.43.0
 
-Thanks and regards,
-Evon
