@@ -1,115 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59FF4563FCD;
-	Wed,  9 Sep 2026 20:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8146C3C584A;
+	Wed,  9 Sep 2026 21:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987529; cv=none; b=SuewRfzuDHyOdD+zpmL7FLn5xNB9+aTJW2ue5sbaTxyQ8jlgSUYm7vMJ+Xr70tMS9ySb+YEAeLDFG6FIGx7DRtLJxSnRA4OXC6pTNEoGcw8x2XTRu5MPtSz5JCy6gybDPQk5ULjWZj37nXHgVsPMwP4hSoY0q5G+pIAeugSmhXo=
+	t=1788987863; cv=none; b=Z42SBwDXPX6RXYcRUqEuy3LY9F5Xp1w6TqvoN5yBdbNzXHFueJlEwEUZTTDY7OQq7E1mfHm4ktyuGLMt0OjV+xsTE4rDSukaXDNp1D0n6aKerafWZg8UAvZlp0I+HKENn/s8DKyehGQuToVazJnV3SRnQMEfX/QF8Y2/eQ/8Wfg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788987529; c=relaxed/simple;
-	bh=T4YX0/YeQKFu1n2aj/247Lr1iHLs459EJU1boZffqjM=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=g0psFnQ2le8wfLjbf142N2/aStQYZ8SF3HFPwFzvprdo7qJe/B0yO0QqX3dKTMoDP58fKUIWGjI/RAKK+KLwaPxOEQE8RNfkzmQOEH89lvq9amIxXNrCeiOsXMGn5PPVVFQV6c7md0pmKOZs+kWWfBqzoGWK2SW5bhzDIM01lEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bUySngUE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788987863; c=relaxed/simple;
+	bh=ux4LwqZlbuHjN5pDgf+R+mKnPiisvTQFqDbT/x5yXuE=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dAbB7JjXvQp8nAs/lt/s973W0BFrP4tX88qjCoeiU+QDQGJqz7zf3I85OjxSHMgk6lgld0dkOwRs9p/vEz7EQVuA964QTdLHbGuk+g+F6xCo5zeN1j/Lc2BkRsjZxDyFDWzcDrYfdhtX6UO+CVj8djMjp93FovjCUJurbgEW3XI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=kflyLVDU; arc=none smtp.client-ip=79.135.106.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bUySngUE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 620461F00898;
-	Wed,  9 Sep 2026 20:58:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788987521;
-	bh=WLf3bD3M9fRfofQ2lgVpxSYxYNW4K7cyzG/C6m0f6Os=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=bUySngUElKIVPPaeTsPeuasSjPmvMwFvrL4fRY+oiz2Wl3PQfKeDyzDhLyLLvT7Rj
-	 94WzEjIKOMh4BEymKPe+/31nvX0Bl9tj6E2KamIN4PIYlQszRuTnLMsCEbmWMr4j2d
-	 jiUhuY/rzes8whqR+VYRU5WmVU0gqgWXOWMQAp3JUIajiUsOqWXlqlnIOnNGk7+VA4
-	 McJtZLrzfHS75zp7QAaLUXQrdI32oU+mJ69AtOA3mFjWSZKUoQ1B0sDpmUeASUZmup
-	 8XrEH+Yk7rUsGxCTnYXlcmAgaCeg9MTPnLDxo1AdF3EUYDp+mO7mtCRPMpd/aBDvyJ
-	 5PWnoNuJWMxLg==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id A408E198003A;
-	Wed,  9 Sep 2026 16:58:38 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 16:58:38 -0400
-X-ME-Sender: <xms:fMihalj6z86RbPxvjDox6iD5bH0aV2RlX6LrnphgQyijY6BsngWvQQ>
-    <xme:fMihak17J95UeADfFCejG71IZoWTCZMfnHSsb2KBT3IQgNKZWQbpMudbb2HQ2TOD7
-    -6ZBP_JE5z4aDZ5C7zzA3gSFqAm3dWBKwqpE4wJH1o4y5HzVgD2RoUx>
-X-ME-Proxy-Cause: dmFkZTEI0PP4Scmd59mEKuYPT6WYIAftppxw0Cj0RtyYPVhFKLGQ6ZQ4za+D8viqR+5YWb
-    o0cbMra2wRzr1pAXHSzJkGhZFez5/oSm+iAvmk+3h85Tw4naH3TaedqTiKJSMx9+Hjw14j
-    FS7Aadri1gFiGJffqeMrNoC5Z88Befo+G/vxIh3QrnPD7Ekyywl7SaBXt1wt//+VaoKfZc
-    0MRq1SmAgFPC8r+2+i4AHH2Hk2GuTLsR1GMnsBjUlzji1oH7HxSg/MBYyp88HjmjvI7VOY
-    c64EhYKOPh2PycyCMH4Jn4WScLwzrup1UJKoow8FZMfFzEpMQgZxHRp+Q2rHWFjUiD/sTI
-    3EsQS/WKKn0b9/4zUQsJSPQyiWBz8Xi38OPH++J8VZMhP7thapItUFUuW1a9IeOxABSAWr
-    4fJW7HMh+FwD3Y2y72ImuE5tcw4vKqg1wCzBG0JSYUZETyL4ucSIMDNy4TgUweGW7xBRHl
-    HwM5kcnNn2d6ykTsQSNKs1lLm0Iz4TKR9GURzgarxhRh5Nvze8lNuU269Q3wHTqAmD7qSc
-    0/0YbHbk4IqvvUqYY4HwH7+RK9I8c+B1eUcqsD+ALGBH2bPEzVicZWdIJy7JLSgnhJ91+D
-    2D5vWn0QL9blWAKKe+FvV+hESeNM4pKPva7KPl1TvAgvIShdvLORULj/nWsw
-X-ME-Proxy: <xmx:fsihaggEPEQCHOd8lC1odW-IPQOygNL7XpZ5RrHQRyKknY8vw_x50Q>
-    <xmx:fsihalWxDk5Z4HrO9WtnzaVwFsb89o8jn9M_v7Cuxxmx6Dbn-fSsTw>
-    <xmx:fsihapuB5Vn8cDP_balfG5dTsVmCHpkXiCmM_BioR2DmFrR1dVBHVg>
-    <xmx:fsihauYvUqcyWCYejcMu4PKDy0-q_tGJ25JfIB_wzvFXHv5n9siWsQ>
-    <xmx:fsihai6l8HNDuvTZEN9Uc9PpKXSn9m0KY62mtSjJU7iTiDyeLvYXg3Lj>
-Feedback-ID: i36794607:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 5362D32A007B; Wed,  9 Sep 2026 16:58:36 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="kflyLVDU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=2yofm2bllvcebmrjy3frax4z3q.protonmail; t=1788987854; x=1789247054;
+	bh=P91JSApwUvPyWA9CkkLfouUbbAesRpLSdan/W/e1NLc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=kflyLVDUd+HQMXYvAACOjgkarCgP+mmFkRMoSd9fUdmqTUY1pbe7/o+bZjzhKNEs1
+	 GsiXJ2VniwDyxkYH5twLDlQl3Jenxb6RZdPHmnZnN01XcTEjvRK9qTH7bWFT8SwL6D
+	 YBdDibUGVVPY/gRznESkCYqozO8+Ph1CCfdVRYyWcLl7h3wv7Wivdabk50pdzlm9Bh
+	 9xfhunZH79+W1j/Gko1RuKmQrhY+1CGQshIIf9IsM/De6yDTdaYP4RUmi23VUghx6G
+	 os8sL2x+Y1z1V61EeiETk5ZQOGNGRXRBOWL/krHoV2iXMmwTTtgJBBhaYtx46mf7wm
+	 Jewj0gYlYHNvg==
+Date: Wed, 09 Sep 2026 21:04:05 +0000
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+From: Esteban Urrutia <esteuwu@proton.me>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Nazar Kompanets <xlie7669@gmail.com>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm8450: Add IPA node
+Message-ID: <530a28fb-28da-4ee0-9c77-6bac7ea6c047@proton.me>
+In-Reply-To: <kirwxhjjskimczzf7fv6go5b4j27qouqvj27n7vckd4vkr3rkd@tf2ugwqbp3kc>
+References: <20260909-sm8450-ipa-v2-0-2deb8b4e91a5@proton.me> <20260909-sm8450-ipa-v2-3-2deb8b4e91a5@proton.me> <kirwxhjjskimczzf7fv6go5b4j27qouqvj27n7vckd4vkr3rkd@tf2ugwqbp3kc>
+Feedback-ID: 147889766:user:proton
+X-Pm-Message-ID: d485751c4d99f1bb18b42b75c245d66e48bc113a
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A9f0ba5DxpVF
-Date: Wed, 09 Sep 2026 22:58:16 +0200
-From: "Arnd Bergmann" <arnd@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: media-ci@linuxtv.org, "Lee Jones" <lee@kernel.org>,
- "Rob Herring" <robh@kernel.org>,
- "Dmitry Torokhov" <dmitry.torokhov@gmail.com>, linux-rtc@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-input@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-watchdog@vger.kernel.org,
- mfd@lists.linux.dev, "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
- "Conor Dooley" <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org
-Message-Id: <786e24af-cf9b-452b-9ef4-4cc8952d4c8c@app.fastmail.com>
-In-Reply-To: <20260909134355.5ED151F00A3A@smtp.kernel.org>
-References: <20260909132153.1596191-1-arnd@kernel.org>
- <20260909132153.1596191-15-arnd@kernel.org>
- <20260909134355.5ED151F00A3A@smtp.kernel.org>
-Subject: Re: [PATCH 14/14] mfd: remove unused iPaq micro driver
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 9, 2026, at 15:43, sashiko-bot@kernel.org wrote:
+On 9/9/26 4:06 PM, Dmitry Baryshkov wrote:
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/=
+qcom/sm8450.dtsi
+>> index b8793482b181..95b6fd22a846 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+>> @@ -2625,6 +2625,47 @@ adreno_smmu: iommu@3da0000 {
+>>  =09=09=09dma-coherent;
+>>  =09=09};
+>>
+>> +=09=09ipa: ipa@3f40000 {
+>> +=09=09=09compatible =3D "qcom,sm8450-ipa";
+>> +
+>> +=09=09=09reg =3D <0 0x3f40000 0 0x10000>,
+>> +=09=09=09      <0 0x3f50000 0 0x5000>,
+>> +=09=09=09      <0 0x3e04000 0 0xfc000>;
+>> +=09=09=09reg-names =3D "ipa-reg",
+>> +=09=09=09=09    "ipa-shared",
+>> +=09=09=09=09    "gsi";
+>> +=09=09=09iommus =3D <&apps_smmu 0x5c0 0x0>,
+>> +=09=09=09=09 <&apps_smmu 0x5c2 0x0>;
+>> +
+>> +=09=09=09interrupts-extended =3D <&intc GIC_SPI 654 IRQ_TYPE_EDGE_RISIN=
+G>,
+>> +=09=09=09=09=09      <&intc GIC_SPI 432 IRQ_TYPE_LEVEL_HIGH>,
+>> +=09=09=09=09=09      <&ipa_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+>> +=09=09=09=09=09      <&ipa_smp2p_in 1 IRQ_TYPE_EDGE_RISING>;
+>> +=09=09=09interrupt-names =3D "ipa",
+>> +=09=09=09=09=09  "gsi",
+>> +=09=09=09=09=09  "ipa-clock-query",
+>> +=09=09=09=09=09  "ipa-setup-ready";
+>> +
+>> +=09=09=09clocks =3D <&rpmhcc RPMH_IPA_CLK>;
+>> +=09=09=09clock-names =3D "core";
+>> +
+>> +=09=09=09interconnects =3D <&aggre2_noc MASTER_IPA 0 &mc_virt SLAVE_EBI=
+1 0>,
+>> +=09=09=09=09=09<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_IPA_CFG =
+0>;
+>> +=09=09=09interconnect-names =3D "memory",
+>> +=09=09=09=09=09     "config";
+>> +
+>> +=09=09=09qcom,qmp =3D <&aoss_qmp>;
+>> +
+>> +=09=09=09qcom,smem-states =3D <&ipa_smp2p_out 0>,
+>> +=09=09=09=09=09   <&ipa_smp2p_out 1>;
+>> +=09=09=09qcom,smem-state-names =3D "ipa-clock-enabled-valid",
+>> +=09=09=09=09=09=09"ipa-clock-enabled";
+>> +
+>> +=09=09=09sram =3D <&ipa_modem_tables>;
+>=20
+> No qcom,gsi-loader / memory-region ?
 
-> For example, arch/arm/mach-sa1100/Kconfig still selects this symbol for
-> SA1100_H3600:
->
->     select MFD_IPAQ_MICRO
->
-> This causes unmet dependency warnings during the build.
->
-> Additionally, child drivers like KEYBOARD_IPAQ_MICRO in
-> drivers/input/keyboard/Kconfig still depend on it:
->
->     depends on MFD_IPAQ_MICRO
->
-> which turns them into unselectable dead code.
+Right. I forgot about this change. I'll add those in v3.
 
-The platform patch has to come first, yes.
+>> +
+>> +=09=09=09status =3D "disabled";
+>> +=09=09};
+>> +
+>>  =09=09usb_1_hsphy: phy@88e3000 {
+>>  =09=09=09compatible =3D "qcom,sm8450-usb-hs-phy",
+>>  =09=09=09=09     "qcom,usb-snps-hs-7nm-phy";
+>=20
+>=20
+> Also the device is disabled by default. On which platform did you enable
+> it? Is it supported upstream?
 
-> Should the child driver source files and headers be removed as well?
-> In drivers/leds/leds-ipaq-micro.c, micro_leds_brightness_set() attempts to
-> call a function from the MFD core that has just been removed:
+Yes, as it should be. It has currently been tested as working in:
+- sm7475-realme-senna
+- sm8450-oneplus-negroni
+- sm8475-motorola-bronco
+None of these devices have device trees upstreamed at the moment.
+I plan on eventually upstreaming support for motorola-bronco.
 
-I have separate patches for the other ones in this case but could fold
-them in here if necessary.
+Regards,
+Esteban
 
->     return ipaq_micro_tx_msg_sync(micro, &msg);
->
-> The header include/linux/mfd/ipaq-micro.h also remains, declaring APIs like
-> ipaq_micro_tx_msg() that no longer have an implementation.
-
-Removing that file as well now.
-
-    Arnd
