@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E50747D957;
-	Wed,  9 Sep 2026 08:44:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866F53AFCF0
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 08:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943497; cv=none; b=bK2AJt5MovB4hM90Hcwfrs1m9mjeRY27a/WPm/eoGn5XmHuajGal6cXf43yaGv6NetvO7PbUzxuGBa34G7Vyhgvdpsh+NRGI9v3Rwg8pTA0nSYqlOtmovgrw+YBSZAu62P0dLd1DKBsv3sylEleXdBBempkoQYqVaCUyJHnKIhw=
+	t=1788943617; cv=none; b=Nb1MHHM3Aw6SEJq00b2/RFa8aKKsTcgfYuppCUQMusTFy3K51Nqy3yvDBBz5br/j1MbprVV/eX5w4NuoHmnYaF6FcC3NBGTx1zZAZgp+mX1NYAj0IeboaEs+nDPBFSqPXrANOxB2J2hhzsND1CFBxneUcuiDzLbAhRq/nlPFVXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943497; c=relaxed/simple;
-	bh=Zqe8OB97ij2Kvb2paWRhuVr4nGq8KAjq5ZNb+vYzvjg=;
+	s=arc-20240116; t=1788943617; c=relaxed/simple;
+	bh=VLtcvW+Jg6P+9+acsDRexGa+pz2Kbsi3MQRM2GmwZtw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ICyScfjWWvID+dGhZ5BzOPFdHT86A6qYyYFwF01JgOng0ZZA8lzNkX9F1D7MnSgNz5vIrkv7MuQHmEM66LTkOMsEYROWjJo4+b/kH7ike4kIuXGzobbsKgRtbenxwRhDwAN6S13xYsgltK6zPkD8mtxTjSS9zuK/9d4pHvA9ji8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+dtl1kf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZrpWeYcCZwBA7iEwbV+YQjkohm/SrvTUSpeTLbFY5k7RoZ2PJKJN8zAILfzmSAOEKaYcv3IrKVtxpVlxjexLyvcMwvicEkf8ADSLijkAxQe3PFZ+RaEys5pvJErK8A9tGy3ewIzep6IYJOOXNOHfIpaW+dQfVt8RqN7tWOW2eKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/feNCxO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+dtl1kf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26C591F00A3A;
-	Wed,  9 Sep 2026 08:44:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/feNCxO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69C81F00A3A;
+	Wed,  9 Sep 2026 08:46:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788943493;
-	bh=mI/OCnPdpGXWg/zb0umgLaX5VtbHl+HNKwh0RVPjinA=;
+	s=k20260515; t=1788943615;
+	bh=l5+zXiMcvP6eJPMT51PBBEr7txciTZZIlDvpI9mOI/o=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N+dtl1kfr+bMzOLMsq/apz5ntBwBztjD/g+/M6gyn7iA3SXxhDduLMsWLUR7RsUjS
-	 iuab1K630W5EwflhUfWLAsJ/C+tOBrUCvHSE8uOO9cLbtQMUG1EImaDr4RfKt0FPN/
-	 UvjNv1IDsglrugESyEwc/yolYVWiRzC0zoN61udV5B4amXhtdjYSbXxfVUmdQM6EWK
-	 xKtLCnwQk2GyoRtZbpVLM030ok0znHud0nhyJJIUjKkR0WD6t0tX0+Mf4sSjExzCyp
-	 o+zfJe1My31Acj0kFnDnrGasz2OEfsHgD0FfvReYi4PEarVZ2EWX6cUtUc58d6BiJH
-	 1TN00aAT/JBMA==
+	b=M/feNCxO04SYQA1+wd8vjTzcvcWl6jBSGCPoGb99Iy/gh8gCPBz/9szTdIzBo2xnu
+	 7qUOiDntkteEmwfKYaD2iieW/clcZqCgscH0cdceF0iqZwq3AsrJhS7H/QMvdMghBs
+	 bmeoVc922zxEAtjDA4WzrC0AiOboleEzaCuZeajka5WrhbTYXNr+extapxaa7YazGC
+	 qvVad8qb+HCmYOz7UzNfKftRkz48FUoEJ5/5BqO3Ctn9pdjs3JtcMXYmNpssA1WTJs
+	 joo30vTiEVmChkUYjy0ZYFXWinX3bBoUDopWZPo9pfUF8kPx71DWrLRfgLrfqpmXGT
+	 cZta6v3E78cWw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/15] mtd: rawnand: sunxi: support randomized OOB
- formats
+Subject: Re: [PATCH v2 4/6] dtc: dt-check-style: Unduplicate checks in
+ check_mixed_indent_chars()
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-10-838cb0ba1547@gmail.com>
-References: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com>
- <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-10-838cb0ba1547@gmail.com>
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v2-4-c5cb4c9d9b66@oss.qualcomm.com>
+References: <20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com>
+ <20260909-b4-dts-style-checker-continued-lines-v2-4-c5cb4c9d9b66@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 08:44:52 +0000
-Message-Id: <20260909084453.26C591F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 08:46:53 +0000
+Message-Id: <20260909084654.B69C81F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,70 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] A divide by zero occurs when maximizing ECC strength for a 512-byt=
-e page NAND.
+- [Medium] Undocumented behavioral change in loop refactoring expands inden=
+tation checks to continuation lines of unindented properties.
 --
 
-commit b0b5203da9f471c1f78c9b3ee0393b943af5ad6f
-Author: James Hilliard <james.hilliard1@gmail.com>
+commit 89ba14f0783d8be45f1d6722eb8a627b6c4b34e4
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-    mtd: rawnand: sunxi: support randomized OOB formats
+dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
 
-This commit adds support for randomized out-of-band (OOB) data formats on
-Allwinner NAND controllers. It honors the allwinner,randomized-oob property
-to keep the bad block marker in the randomizer data stream during normal
-hardware-ECC transfers.
+This commit splits the indentation checking logic into a separate
+_check_mixed_indent_chars() helper function. The goal is to avoid
+duplicating code when checking both primary lines and continuation lines.
 
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index 51d01f7f539e8..138a141edbe4d 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
+> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
+> index 4ac10cb450684..41c97d996882f 100755
+> --- a/scripts/dtc/dt-check-style
+> +++ b/scripts/dtc/dt-check-style
 
 [ ... ]
 
-> @@ -2234,6 +2462,10 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand=
-_chip *nand,
->  		ecc->strength *=3D 2;
->  	}
-> =20
-> +	/* This format requires an ECC step that fits in the page. */
-> +	if (sunxi_nand->randomized_oob && mtd->writesize < ecc->size)
-> +		return -EINVAL;
-> +
+>  def check_mixed_indent_chars(ctx):
+>      """Indent must be all-tabs, except for aligning indentation (comments
+>      or continued lines)."""
+>      for dl in ctx.lines:
+> -        if not dl.indent_str:
+> -            continue
+> -        if dl.linetype =3D=3D LineType.PREPROCESSOR:
+> -            continue
+> -        if re.search(r' \t', dl.indent_str):
+> -            yield (dl.lineno, 'mixed tabs and spaces in indent')
+> -        if dl.indent_str.count(' ') > 7:
+> -            yield (dl.lineno, 'too many space characters in indent (more=
+ than 7)')
+> +        yield from _check_mixed_indent_chars(dl)
+>          for cont in dl.continuations:
 
-[Severity: High]
-This isn't a bug introduced by this patch, but earlier in
-sunxi_nand_hw_ecc_ctrl_init() there appears to be a divide-by-zero risk
-when probing a NAND device with a 512-byte page size while the
-nand-ecc-maximize device tree property is set:
+[Severity: Medium]
+Does this unintentionally alter the script's behavior for unindented
+properties with multi-line continuations?
 
-	if (nanddev->ecc.user_conf.flags & NAND_ECC_MAXIMIZE_STRENGTH) {
-		int bytes =3D mtd->oobsize;
+Previously, if a line lacked indentation, the outer loop would hit a contin=
+ue
+statement, entirely skipping the evaluation of dl.continuations for that li=
+ne.
 
-		ecc->size =3D 1024;
-		nsectors =3D mtd->writesize / ecc->size;
+With the new _check_mixed_indent_chars() helper, an early return inside the
+helper simply finishes checking the primary line, but execution then procee=
+ds
+to evaluate dl.continuations in the outer loop anyway. While scanning these
+continuation lines might be desirable, it silently expands the style checke=
+r's
+scope in a commit presented as a pure functional no-op.
 
-		...
-
-		/*
-		 * Once all user data has been subtracted, the rest can be used
-		 * for ECC bytes
-		 */
-		bytes /=3D nsectors;
-
-Since ecc->size is hardcoded to 1024, nsectors evaluates to 0 if
-mtd->writesize is 512. Does this cause a division by zero kernel panic
-during device probe?
-
->  	/* Add ECC info retrieval from DT */
->  	for (ecc_mode =3D 0; ecc_mode < nfc->caps->nstrengths; ecc_mode++) {
->  		if (ecc->strength <=3D strengths[ecc_mode]) {
-
-[ ... ]
+> -            if not cont.indent_str:
+> -                continue
+> -            if cont.linetype =3D=3D LineType.PREPROCESSOR:
+> -                continue
+> -            if re.search(r' \t', cont.indent_str):
+> -                yield (cont.lineno, 'mixed tabs and spaces in indent')
+> -            if cont.indent_str.count(' ') > 7:
+> -                yield (cont.lineno, 'too many space characters in indent=
+ (more than 7)')
+> +            yield from _check_mixed_indent_chars(cont)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-submit-sun=
-xi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-b4-dts-sty=
+le-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com?part=3D4
