@@ -1,161 +1,142 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D375C3A7F49;
-	Wed,  9 Sep 2026 06:19:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967071DB95E
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 06:24:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934795; cv=none; b=M3aHYTK2tX4TLHrriHVuL0LLXCK8yEkGjSaWtx779WNsPrm2xM8pAX294wwSu1KzYanOWVrMuwnXju4AX4vPJOmrR7VqiVK79Ht77IDX+Krqk4nk62hmQdciTQK6qt+8K9M/69OVyd0eme7fqB0xmIc+yBvAoeIrkmmoQp4Lmaw=
+	t=1788935066; cv=none; b=N1FMAvV+YDNth3uK6S8Gjd6VLI45T6R3YdJATS6mAo9/ON/S0UvrZaLEE3NEtq1chnSPgJAOFkQs2wb/kf7vVYzI8qlkNRT73Oai72IF3MQjfanxqvuUpZH660LCpakDMYSbmrSh4OQN7ZEgRqCAoCnAOjWs62AkAYId6n83T5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934795; c=relaxed/simple;
-	bh=vi3lPY3GfZLF/LWRiBX+7U5bwiGq5nXyAtEFv59PatA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=oT2FbB63IB7Ag3xXy7oYfgkKr6k5ZnuFK2ZK8uZaCmkH0r0pFPjRCp4jyjzecXpWHF0L7h4fz5z2ibuIwhNmT1Tns9qVpWwjl32NF1msH6h5PQzNiT1OfWcJdB/ZGwqJEHUVZFZj9Inl0BCE54ZGaMRqUB7u5MUU+Z3/8+bciT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=XdeXXEyw; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1788935066; c=relaxed/simple;
+	bh=uLGW6pogrQ0eNUFVU5WpS6671DiReK1S5uVdWBfXAxI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WBCezaWjipblGb9+LrCAjfJVLRs+htfL5qNlp7/D0cD3U7e5toSSdQZfgAl++EHmUj2+uIUKcDG6WPtOovpbfZxWI68PrAMFkBrIYhlRnfC4BcffJjP4OlZIG75LOzKCbTPfJou5ynezGlA7AGaYo9YffsM51anHuMZ1e0NQq8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FalZJDGC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="XdeXXEyw"
-Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6894kJxE4155563;
-	Wed, 9 Sep 2026 02:19:35 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=q1lgN
-	Pz9hxihL6gTpFmVTlsfsRVhGOjN76BYM8oF5tM=; b=XdeXXEywfW8mLJHrBzWt0
-	it0RTtSsnmarD+h0U6/M9ydAxdpQqnvUgh9xr/dtsGT2ZB1HhMT6Cs1QPJy6n7SR
-	xl3EjnYGXPuvU3bY2WQ4rku9H6/r+qUG/Tki1AiteY9PKzzYHINlci7Tvn93EgFx
-	wY4UyPz+gjtUwDZaP25ilZaG5ZZEXxBt+ImcP6GfiBYXh00e2/4zAlFeJzZlrzYv
-	Hrz8yrqsjx7N9sps04iNYcu0rvs3q1bo/AyyDnRnhH4jHAaRIr2td0N+iaS9LZVj
-	1gYhQgDDUUTix969VRo7l5q/X0f6vFINKgWZBfSzGvqpJKC++C2wmjjmA4muxIhW
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gjvfb1drc-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 09 Sep 2026 02:19:34 -0400 (EDT)
-Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6896JXV7044539
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 9 Sep 2026 02:19:33 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by ASHBMBX9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Wed, 9 Sep
- 2026 02:19:33 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Wed, 9 Sep 2026 02:19:33 -0400
-Received: from 10.98.41.145 ([10.66.6.190])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6896JFq6015040;
-	Wed, 9 Sep 2026 02:19:24 -0400
-From: Kim Seer Paller <kimseer.paller@analog.com>
-Date: Wed, 9 Sep 2026 14:19:09 +0800
-Subject: [PATCH 1/2] dt-bindings: iio: dac: ad3530r: add AD3536R
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FalZJDGC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030121F00A3A;
+	Wed,  9 Sep 2026 06:24:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788935065;
+	bh=cHPwqSHpy0dzdxn20RPPo1AYnC14etEiAkf47cuXPNg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=FalZJDGCS8IUaKjlMApTYM5CEa+3QC3/Q37t/8sa9ro9J5Pe9Fu4O1b5JNj0N2Cpv
+	 5ZGPGmNYPxKnYllWl2eISW+OG5cisFU5Ca4LOtiDqvfDCUjVNDbSjxz6nC9oUFyvhy
+	 x+nMRaVquJVRwrvE7xwz1pK+lj3Z2XteppTew9AIJZpA/gpnEw+A7KKqhn7UQvf8hq
+	 Nh2XDzE4FHRyXzKNsWXnCJSdNQaax5njvuu/PlEcTHU2C7RP4vWMHHu1gjkojzwRFu
+	 sB9jNHLQ80xi81E0aMZ4R1S2QfBTk8AMaujiFfO1QwAVTZLxCR8MKNAngdLxkeuseR
+	 rubmLpt5Z7zTA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH PRELIMINARY 4/5] arm64: dts: qcom: shikra-cqs-evk:
+ enable the first Ethernet port
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohd Ayaan Anwar" <mohd.anwar@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260908-shikra_ethernet_dts-v1-4-69c0c5c7c124@oss.qualcomm.com>
+References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
+ <20260908-shikra_ethernet_dts-v1-4-69c0c5c7c124@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 06:24:24 +0000
+Message-Id: <20260909062425.030121F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-ID: <20260909-iio-ad3536r-upstream-v1-1-16ab930dcee3@analog.com>
-References: <20260909-iio-ad3536r-upstream-v1-0-16ab930dcee3@analog.com>
-In-Reply-To: <20260909-iio-ad3536r-upstream-v1-0-16ab930dcee3@analog.com>
-To: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Jonathan Cameron <jic23@kernel.org>,
-        David
- Lechner <dlechner@baylibre.com>,
-        Andy Shevchenko <andy@kernel.org>, Rob
- Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor
- Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Kim Seer Paller
-	<kimseer.paller@analog.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788934755; l=2271;
- i=kimseer.paller@analog.com; s=20250213; h=from:subject:message-id;
- bh=vi3lPY3GfZLF/LWRiBX+7U5bwiGq5nXyAtEFv59PatA=;
- b=qqZ6NZicvWNeCN4DTiO3FP7d6Mz+QoAo8U9dowkgVupQpHxc922Bt8okARx+5vk2AJNYKpq90
- Ev9HtDd2ZokDs01jex5UNC0sLwI+1ru3KKddcNmhlTVpEtp493+WKoF
-X-Developer-Key: i=kimseer.paller@analog.com; a=ed25519;
- pk=SPXIwGLg4GFKUNfuAavY+YhSDsx+Q+NwGLceiKwm8Ac=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-GUID: tYiY8Fa_wvPosV_Te_J8XBpF7Boj-tF5
-X-Authority-Analysis: v=2.4 cv=Yvk/gYYX c=1 sm=1 tr=0 ts=6aa0fa76 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=uXIjobp8t2wMuQ0fPvqm:22 a=gAnH3GRIAAAA:8
- a=uBxG8GyZfWQcEiJ1Gu0A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA3MCBTYWx0ZWRfX3Tie9pzzL87a
- zAU27XJlsqhtwBY3ak83L8ojZl46e9/d7yZxjjP64pkeefCGa1wVWltmR3IYZK5xbiZX3okt/zM
- YhnaLwjQXHl99rQacZXUujW1+kpP4+XqdY4VG12biRyRwRxsQ8sO
-X-Proofpoint-ORIG-GUID: tYiY8Fa_wvPosV_Te_J8XBpF7Boj-tF5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA3MCBTYWx0ZWRfX50bS/uVk/QWM
- eb2GqEioCx6k20PakhcbZ8B6yqbW+o+xAoqCiGnGn1NfgRYUiKLGUIljL25YqPv9Pq2AHYyAYiw
- A9//k0vpg4NZtV8EcXrYqKYjcUEk+BxKbwalnJxCqRs6Z/MJ/VDa0O6S/e+gDEku/QTwpvP5AUR
- FPgjlfRw54bYDex+fceArSpBdPMQJXwWyjUtrM02gu9PyFpznvO3Ba85UnT6ZrEfj54XCvGPsHJ
- jYE69LVTGlH7XrPquwmBPe5VTp14BuqBfr58qacv/A/A3CMb3dHcZUApBpSF8MIQPJlz5WOqc2K
- 8pxq4MU1V4mhshcFD6SH7jZAZJ20EY3ArxDZitbymMoJVe2qpcB/Pv1v0x5/+jfdwavXi/2O9xI
- Gti6xkUiA+WFod8m/CUbN1sL5LGVQ/9I6bMPxwnTXT7m5lwUmdm6LwCL7BrGTVRIF5kQv6TIL6W
- nAfyETBSRa0ql3BLE4g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 bulkscore=0 adultscore=0 impostorscore=0 suspectscore=0
- clxscore=1011 phishscore=0 priorityscore=1501 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090070
 
-The AD3536R is the 12-bit variant of the 16-bit AD3532R. It is a
-16-channel, buffered voltage output DAC that shares the same register map
-as the AD3532R. Add its compatible string and mention it in the binding
-description.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Ethernet PHY remains permanently unpowered because the `vdda-2p5-s=
+upply` property is ignored and the regulator defaults to off.
+--
 
-Signed-off-by: Kim Seer Paller <kimseer.paller@analog.com>
----
- .../devicetree/bindings/iio/dac/adi,ad3530r.yaml          | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+commit b5b6a106e748058add8ac1a40dcbd3ae6ad2a0d0
+Author: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad3530r.yaml b/Documentation/devicetree/bindings/iio/dac/adi,ad3530r.yaml
-index 2fe098619772..bf0278335583 100644
---- a/Documentation/devicetree/bindings/iio/dac/adi,ad3530r.yaml
-+++ b/Documentation/devicetree/bindings/iio/dac/adi,ad3530r.yaml
-@@ -10,13 +10,13 @@ maintainers:
-   - Kim Seer Paller <kimseer.paller@analog.com>
- 
- description: |
--  The AD3530/AD3530R (8-channel), AD3531/AD3531R (4-channel), and AD3532/AD3532R
--  (16-channel) are low-power, 16-bit, buffered voltage output digital-to-analog
--  converters (DACs) with software-programmable gain controls, providing
--  full-scale output spans of 2.5V or 5V for reference voltages of 2.5V. These
--  devices operate from a single 2.7V to 5.5V supply and are guaranteed monotonic
--  by design. The "R" variants include a 2.5V, 5ppm/°C internal reference, which
--  is disabled by default.
-+  The AD3530/AD3530R (8-channel), AD3531/AD3531R (4-channel), AD3532/AD3532R
-+  (16-channel), 16-bit and AD3536R (16-channel), 12-bit are low-power, buffered
-+  voltage output digital-to-analog converters (DACs) with software-programmable
-+  gain controls, providing full-scale output spans of 2.5V or 5V for reference
-+  voltages of 2.5V. These devices operate from a single 2.7V to 5.5V supply and
-+  are guaranteed monotonic by design. The "R" variants include a 2.5V, 5ppm/°C
-+  internal reference, which is disabled by default.
-   Datasheet can be found here:
-   https://www.analog.com/media/en/technical-documentation/data-sheets/ad3530_ad530r.pdf
-   https://www.analog.com/media/en/technical-documentation/data-sheets/ad3531-ad3531r.pdf
-@@ -31,6 +31,7 @@ properties:
-       - adi,ad3531r
-       - adi,ad3532
-       - adi,ad3532r
-+      - adi,ad3536r
- 
-   reg:
-     maxItems: 1
+arm64: dts: qcom: shikra-cqs-evk: enable the first Ethernet port
 
--- 
-2.34.1
+This commit enables ethernet0 for the Shikra CQS EVK board with a DP83867
+RGMII PHY. It also adds a fixed 2.5V regulator controlled by a GPIO to power
+the PHY.
 
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boo=
+t/dts/qcom/shikra-cqs-evk.dts
+> index e62ba5aef71ff..7b30c67c68e8c 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
+> @@ -21,6 +21,42 @@ aliases {
+>  	chosen {
+>  		stdout-path =3D "serial0:115200n8";
+>  	};
+> +
+> +	rgmii_phy_supply: regulator-rgmii-phy {
+> +		compatible =3D "regulator-fixed";
+> +		regulator-name =3D "rgmii-phy-pwr";
+
+[Severity: High]
+Will this regulator ever be enabled by the core?=20
+
+Since no consumer driver will explicitly request it (see below), and the no=
+de=20
+is missing the regulator-always-on property, it appears the regulator core=
+=20
+will leave it disabled at boot.
+
+> +		regulator-min-microvolt =3D <2500000>;
+> +		regulator-max-microvolt =3D <2500000>;
+> +		gpio =3D <&tlmm 149 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +		pinctrl-0 =3D <&rgmii_phy_pwr_default>;
+> +		pinctrl-names =3D "default";
+> +	};
+> +};
+
+[ ... ]
+
+> +		rgmii_phy: ethernet-phy@7 {
+> +			compatible =3D "ethernet-phy-id2000.a231";
+> +			reg =3D <0x7>;
+> +			reset-gpios =3D <&tlmm 135 GPIO_ACTIVE_LOW>;
+> +			reset-assert-us =3D <10000>;
+> +			reset-deassert-us =3D <50000>;
+> +			vdda-2p5-supply =3D <&rgmii_phy_supply>;
+
+[Severity: High]
+Does the kernel actually use the vdda-2p5-supply property?=20
+
+It seems this custom property is completely ignored because no driver,=20
+including the DP83867 driver or the MDIO core, parses vdda-2p5-supply.=20
+Without a driver acting as a consumer, the PHY will fail to power on.
+
+It looks like this same pattern might also be replicated in patch 5/5 for=20
+the second Ethernet port.
+
+> +		};
+> +	};
+>  };
+
+[ ... ]
+
+> +&tlmm {
+> +	rgmii_phy_pwr_default: rgmii-phy-pwr-default-state {
+> +		pins =3D "gpio149";
+> +		function =3D "gpio";
+> +		drive-strength =3D <2>;
+> +		bias-disable;
+> +		output-low;
+
+[Severity: High]
+Is it intentional to drive the enable GPIO low here at boot?=20
+
+The regulator is defined as active-high above, so this default pinctrl=20
+state explicitly turns off the active-high regulator. Combined with the=20
+ignored supply property, this would leave the Ethernet PHY permanently=20
+unpowered and non-functional unconditionally at boot.
+
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260908-shikra_eth=
+ernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com?part=3D4
