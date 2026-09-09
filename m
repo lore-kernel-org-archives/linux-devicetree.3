@@ -1,171 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184213DD87F
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 11:25:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2397D5437CD
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 11:28:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953142; cv=none; b=uTB2XIDr8MJjdhvzcv6ehixeD9H2CFRF/crXBgvkNcRwmUlz69+PxYZyRKmW9uaX7knTJjPMbS10xVy4Ev37+EhEsNRDQ+DY+mLLRO6nRiUSpJLDXIgxX5p8dwdj4uFEJBGEpUhVEcRrjXl/Vc7ixHzOr5BqRZYa5cSTxVxcYYw=
+	t=1788953323; cv=none; b=UuOOaLoQrtpCSoYgybY2ErOLAFhO++2AnpgyPwzaYFg7xTmiAxMSA3KLOTZ/sUMxlX/Cwv5rv4EgE/TbMczDyh8s8wGPkN6bZDcvm/+ZADfzpInnGvtZIe/QE0SCqa+t4rilOpXMrAGN7wdZKKRAqchsCSvwe+fLQTMFzo1IcRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953142; c=relaxed/simple;
-	bh=RulMoOP2etH5sCMy6TpVpNIAjei5vfzgOrSiOe1sat0=;
+	s=arc-20240116; t=1788953323; c=relaxed/simple;
+	bh=uA0rX1Hd/dM/Wr/7O55MDGFaNqohsTXQCJB+14CkuKY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EYfjk4SaTSKT8H/B8RdhwQpaOlXCVauuJTsyK24HLv6gJW/ClqBBkak5PO44/S5+q2gRPVHYWT122pY1GaEG+xD/gTvHBD/yw9gi8TnRjCJpCPlPYg+WQtdVqbszUcYdjbWUnQI/GkX6CY3+bMCrVBKTNfQWjRMPRXPCtM8cGF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PIJyRgMl; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=eMhbJx+QKNmsfOtvA9N8g7TZv0GdmUuHnTE6iH3kHIYUMTk2GlRuuPgLb2IcKkIXBBZlhXUDnNWCvZfSSH9gXJtILxXj8bFAkFQSwOgsqpAMbsMuQk94h7a9OOBUTNne0IOBN5AgqcxeLnSgwIPgIP8hcvth5kFz45GBew/8VgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H3UGcrBT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PIJyRgMl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C7F71F00A3E;
-	Wed,  9 Sep 2026 11:25:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H3UGcrBT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A241F00A3D;
+	Wed,  9 Sep 2026 11:28:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953140;
-	bh=fGNtEw/MiK+TwNUgRNuEVULV0BbH2TqPTsZP88dUkI8=;
+	s=k20260515; t=1788953321;
+	bh=tMMeFeB3upQYHEmlPCeIqq+gZWgBLspluTrrDFLMmDE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PIJyRgMlxik/x/YHgKSuMO4FlICc3SwQt0l2ndHxr5DW02slBvef+71mcitTSffZH
-	 9lBgvzoJXXbjuprNPYMoibtwZLjgwZE5So01dj839GfrRTkoygTV3FYa+84JGdrzUS
-	 ueOH1oku3aDjSDLwSt4CHJwihS+g5yMYC0buEbvsN80t6uAB82zXmNBycwGAqSg7Wq
-	 X8/R5UHdhP/KU7IbU5kA/fKwxvq9XjKWfhNrVdDrp+UJdS6uwc6QPtiqu7bCyo4OZg
-	 Lghja5QZHXNPLYmb6vJtqdSciYijfu+75wtKglYvudUu5wOsKFFkSvonOi8YT0PPar
-	 J04TLapN5X/NA==
+	b=H3UGcrBTd+CyIM8LDdROsqlr4+3uO6qYc2lwvhADyO48TZJSxBGH6tUrm2OU0g2Xy
+	 18FZYvYmVkzHLLOC7eHsRxiVXOvDhHCEiAx94xxCyMZdiU2nJR0kmfaz6GZ99VrtQ6
+	 cygHXrR8Ep8AALvhi8ymplix9b4E2wgSEAZswQ6bX7/ONFf9mn+CO0gzMJI65CDW0Y
+	 Aq3iApW7d88ShPJvLtQBZWu6Byr4hW/E4sfOtJXbPIxw2aQriNepZ27/MDRBp11vr2
+	 m083Lr8F2rNlNYDu2hyWLw46ahw/+DhwermkjsS5lSFuseaV9pN/Ik/yaeVM2Cb5U4
+	 GWoYxHzba8V0g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] Add socfpga devicetree for Draeger's M48 board.
+Subject: Re: [PATCH v3 3/3] nvmem: mtk-efuse: add mt6572 support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petko Manolov" <petko.manolov@konsulko.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260909111513.2259643-4-petko.manolov@konsulko.com>
-References: <20260909111513.2259643-1-petko.manolov@konsulko.com>
- <20260909111513.2259643-4-petko.manolov@konsulko.com>
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260909-6572-nvmem-v3-3-c0c441656431@protonmail.com>
+References: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
+ <20260909-6572-nvmem-v3-3-c0c441656431@protonmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 11:25:40 +0000
-Message-Id: <20260909112540.7C7F71F00A3E@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 11:28:41 +0000
+Message-Id: <20260909112841.A0A241F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The 'bank-name' property violates the device tree schema for 'snps,=
-dw-apb-gpio-port' child nodes.
-- [Low] Use of deprecated `snps,nr-gpios` property.
-- [Low] Deprecated explicit `name` property in the memory node.
+
+Pre-existing issues:
+- [High] Flawed string comparison logic in `mtk_efuse_fixup_dt_cell_info` a=
+llows unintentional prefix matching.
 --
 
-commit c5c8260180405203e51bdeb09506abe3c2c76c4d
-Author: Petko Manolov <petko.manolov@konsulko.com>
+commit a7b90ac028ac0c3f0279ff49927a48455c13bc74
+Author: Roman Vivchar <rva333@protonmail.com>
 
-Add socfpga devicetree for Draeger's M48 board.
+nvmem: mtk-efuse: add mt6572 support
+   =20
+This commit adds a platform data struct for the efuse controller to support
+the MediaTek MT6572 SoC, configuring read alignment and post-processing
+behavior.
 
-This commit introduces a new devicetree for the Draeger M48 board based on
-the Cyclone V SoC. It sets up the necessary nodes for various peripherals
-including GPIO, GMAC, I2C, and QSPI.
+> diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
+> index 178b9d85f813e..99d061eef6e33 100644
+> --- a/drivers/nvmem/mtk-efuse.c
+> +++ b/drivers/nvmem/mtk-efuse.c
+> @@ -132,6 +132,11 @@ static int mtk_efuse_probe(struct platform_device *p=
+dev)
+>  	return 0;
+>  }
+> =20
+> +static const struct mtk_efuse_pdata mtk_mt6572_efuse_pdata =3D {
+> +	.uses_post_processing =3D false,
 
-> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
-.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> new file mode 100644
-> index 0000000000000..6c5a8013d40c7
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> @@ -0,0 +1,129 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-> + */
-> +#include "socfpga_cyclone5.dtsi"
-> +
-> +/ {
-> +	model =3D "Draeger M48 Cyclone V SoC";
-> +	compatible =3D "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
-> +
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +	};
-> +
-> +	memory@0 {
-> +		name =3D "memory";
+[Severity: High]
+This is a pre-existing issue, but while reviewing the post-processing logic
+controlled by this flag, I noticed a potential flaw in how cell names are
+matched.
 
-[Severity: Low]
-Is it necessary to explicitly define the name property here? The Devicetree
-Specification deprecates explicit name properties, as node names are
-automatically derived from the node identifier. Its inclusion will trigger =
-dtc
-warnings during the build.
+In mtk_efuse_fixup_dt_cell_info(), the string comparison allows shorter str=
+ings
+to falsely match as a prefix:
 
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x40000000>;
-> +
-> +		/* 1GB */
-> +	};
-> +
-> +	aliases {
+drivers/nvmem/mtk-efuse.c:mtk_efuse_fixup_dt_cell_info() {
+    ...
+	if (cell->nbits <=3D 3 &&
+	    strncmp(cell->name, "gpu-speedbin", min(sz, strlen("gpu-speedbin"))) =
+=3D=3D 0)
+		cell->read_post_process =3D mtk_efuse_gpu_speedbin_pp;
+    ...
+}
 
-[ ... ]
+Because it uses min(sz, strlen("gpu-speedbin")), wouldn't this incorrectly
+apply GPU speedbin post-processing to any NVMEM cell whose name is merely a
+prefix of "gpu-speedbin" (e.g., "gpu" or "gp") as long as it has nbits <=3D=
+ 3?
 
-> +	soc {
-> +		gpio3: gpio@ff202000 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			compatible =3D "snps,dw-apb-gpio";
-> +			reg =3D <0xff202000 0x20>;
-> +			status =3D "okay";
-> +
-> +			portd: gpio-controller@0 {
-> +				compatible =3D "snps,dw-apb-gpio-port";
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				snps,nr-gpios =3D <2>;
+Could this lead to unintended data corruption by incorrectly modifying the
+hardware read value for those unrelated NVMEM cells?
 
-[Severity: Low]
-Could this use the standard ngpios property instead? The snps,nr-gpios
-property is explicitly marked as deprecated in the snps,dw-apb-gpio.yaml
-binding, and using it might trigger validation warnings.
-
-> +				reg =3D <0>;
-> +				bank-name =3D "SYNC_I";
-
-[Severity: Low]
-Will this property cause a device tree schema validation failure? The
-snps,dw-apb-gpio-port binding enforces additionalProperties: false and does
-not define bank-name. Running make dtbs_check will likely report a warning
-here.
-
-> +			};
-> +		};
-> +
-> +		gpio4: gpio@ff202020 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			compatible =3D "snps,dw-apb-gpio";
-> +			reg =3D <0xff202020 0x20>;
-> +			status =3D "okay";
-> +
-> +			porte: gpio-controller@0 {
-> +				compatible =3D "snps,dw-apb-gpio-port";
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				snps,nr-gpios =3D <2>;
-
-[Severity: Low]
-Could this also use the standard ngpios property instead, as the snps,nr-gp=
-ios
-property is deprecated?
-
-> +				reg =3D <0>;
-> +				bank-name =3D "SYNC_O";
-
-[Severity: Low]
-Will this property cause a device tree schema validation failure for the po=
-rte
-node? The snps,dw-apb-gpio-port binding does not define bank-name and enfor=
-ces
-additionalProperties: false.
-
-> +			};
-> +		};
-> +	};
+> +	.needs_aligned_read =3D true,
 > +};
+> +
+>  static const struct mtk_efuse_pdata mtk_mt8186_efuse_pdata =3D {
+>  	.uses_post_processing =3D true,
+>  	.needs_aligned_read =3D false,
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909111513.2259=
-643-1-petko.manolov@konsulko.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-6572-nvmem=
+-v3-0-c0c441656431@protonmail.com?part=3D3
