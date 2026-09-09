@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13325456293
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 08:36:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7ABC45563F
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 08:36:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942964; cv=none; b=KoL1jdb0PeXKGyaCEYaWrLcZsPnTKxs1S3VGCFout1inV9GeHYKBqy/pCq2yqsbH6JkEMB0kmO6vhbPzAeJ2kCGsMluXLGs7k7Vvcp0UGEWvHnpfhllnYc/naVm2C1x0BimA7sdQv73SRk/S4yYv4zsa+dE1rqp+Cxig0n2Y7OA=
+	t=1788942967; cv=none; b=cJbyew6CNffGxCetcThWqr/DPzBN1GexPizFY03UnftAbqiJuO8tYguJ76mUhjrwxtNpzXoJIk/h7KKT2A1gCJyUxaTTO8PdOPUkOJ/j7j+AvRu925irpHPWuwuZFShPChoPRuWb07DQdB78KBkCfwtCBnQEZo9EE11ZlI2nSGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942964; c=relaxed/simple;
-	bh=RpsFWGOJ/fmrFBjXtNLPVOkO7viH6czPpMx9xQdFNUs=;
+	s=arc-20240116; t=1788942967; c=relaxed/simple;
+	bh=IWHg3NxDjAQuyvLPrxd0bg+vjcwN4JdBqQLR55GtCQI=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=l4DIihwbdPALQ8y0bKobQWqb41j+DjTtbnnW5XD00esxKikfrHshO/Z1TZmNgcp8Eyl5HAZrigQ+DlayZhrusX4IaNqPCWlGmUdIrif9PDe61bKpC4YagWlJwfAY9+jrgl++0yaZ4y5XMpjxFS/8Y/hpeaEfCR1HC8P2cgXwyhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JtwqYvGt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NQsTJplm; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=PM1CaYCn6i+OGkRgOxIc9cXn16eyw0lNm/IcHUl5rbWhpzm89doQwXMOjKaW7L82kSUEptPY1XlpK+VroWJSzJh71iInLSmSH6B2euiohBmktVb7nOjwESJ6d2eB0bafomCEtPTuOIURpDaLBZlfAGLUaMGenMJBVgRBtPBIxkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=babebhFH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Mqko7dZn; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JtwqYvGt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NQsTJplm"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6893ox6Q3771173
-	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 08:36:02 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="babebhFH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Mqko7dZn"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6898ZtMW639511
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 08:36:04 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hOiYjCn1nD7fLf7vrzvPOq3oVs5fH9mikkYiajsOtfs=; b=JtwqYvGteBBlCoHd
-	Q19JF+O2q0h0PUl1vXChPHh19lw5c0PC8rLBHal6gny4IgFcyZNxsGryBIpl7E0T
-	oASjHV74BQLB+/ShHnOQk5/zOfKAp3VQ/YB9yhO9AoX5LzxeWaeUID5PGyNtGnCg
-	Xna9mV7iReCoNs/SB0ABTkgWbWMZuGbH6b54E25p4FXRSN8MjUPVMmNbYN3w65P8
-	F293h/m4uq/eyv06Fpw+0qlHdUeqpbvQ8OwtSFEGNIO2V0eURam7AzLvaT/wllYh
-	fZESAEwo4gr2QWUnGdh9q6HV8pCZvG96jR/DrCG7fg9Zs76LfEqflrVLEYPeGp2n
-	9ZICKQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjywr122f-1
+	KOoY6mCIop7DLsgHwFMY2E+1AD8DaONcY4sNreB3ZeY=; b=babebhFHpu+aDK/U
+	/jsF//7phqFo5nJiPdQ/43tCQ+rWgcgi3mQBeSa/bQw3uF30M8Y82sHNzUNY6BAj
+	UcUOLHANH9io5kaJA8gDFtnrfGYxZmZTiRSHFoEtJKDjT8hshim6vzHgVUDA1WVq
+	Ok6fYjFvfC+Vori5R2kEIQSfK+1N1JVRO5A8WMYKI4Zedlzho7d4FEVcaqpQQyqw
+	3MYIj3dq84p8nP95ZPhkmoOhGOgJrC3t5a/MMC/YPIdNZR+Sw8PH023FGAxRPB0g
+	gSLSc15v6nvf7k33MYgbsC8rxBayZh2LPEt5bpRmxhIcE5AzifNEXNgasRWVCZdR
+	jHdbGg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjxqj9aa8-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 08:36:02 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e82060977so921593585a.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 01:36:02 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 08:36:04 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-936708f129aso703050785a.0
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 01:36:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788942961; x=1789547761; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788942964; x=1789547764; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hOiYjCn1nD7fLf7vrzvPOq3oVs5fH9mikkYiajsOtfs=;
-        b=NQsTJplms2lrRMlcpO2Zs/KBp7lxIpxm86UG6Km+d4l0BU8ME1LpuYyJwEUW2mnhE4
-         oQovHScUts2GoBXpz9ZhDz45IFT0/eaRewrKiv+uiSQtsF3tUwyc3hSfp9naP5f/Ww35
-         l2sfTKnfqEPQBQaHAFy/cTHnc9uadDjAmjiP27ryRVJwj5XSFkaZJYU/ibUUvfShCxE8
-         AseH4yiGS9lFfp+0jY4BVA9lpGuRZ2BLzA45xqTFVpVmvHkeuVZX2D7vIE+VZBPyBVgA
-         rXp/7Yw+i3Q3OHQ6uCMflPCTEsi7hzWcwVFiL4rlwpCQ7haArYFfTgge8G6vcHMK1T+C
-         /J0A==
+        bh=KOoY6mCIop7DLsgHwFMY2E+1AD8DaONcY4sNreB3ZeY=;
+        b=Mqko7dZn5LEGUsC8AjtlIZIokc9FYX2PrFkaEAL41TuaTBJh31W+Jj/tva7WpFTVEc
+         gINCsNdyY8EOLEv8w/jrF6RBpJvSX1JfOPYlzrscWUYjsPTEcNgZjXNpnSYiIZUMYujD
+         ZZO69XCXhSAilf1uqdpCGESVr3YT/MpfGfzHi9C1ZCZ3u9AiPrbBNLjB9UeI3ILh4JQz
+         UmfIClAjYTgN4PuR40adqehS5sSMayz3tH2Lflkg/bT5uFSOCegjBcYlfHI+N0mhRBXw
+         DtCM+sVpVGVdt/JTrqjd4LzC2bEMpFw7HG0tGkpuWvnXbbKDdnxjf9pSaPJ5r81NY6RG
+         lBAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788942961; x=1789547761;
+        d=1e100.net; s=20251104; t=1788942964; x=1789547764;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hOiYjCn1nD7fLf7vrzvPOq3oVs5fH9mikkYiajsOtfs=;
-        b=YDRwGMavdeMEW1gwzAIPrQCLF9hwmZez7jhiqDG7AVRyG+YiPZan08d2MMpF+BQ6da
-         j8XL1qa3sei2jdqgfkywxAwpOZr/LwJ0YBTEzsL9tMnoJ+U+N1Q0VzDOMS18vk3f4X2f
-         v25OxsABo+9tLbyl7JiqKQCZpjyiyF++z1X98qdGRpFxUCmPw+/vSeuca6gN0P1Eb+Zp
-         t11zfcbsoCphZ2aBIQh3wzD8sR6gVb9bcHMwCQsEmTJI4cpaJwlPoScv+kJi0zQj2kFn
-         W3+ipjPw2L5KZEpe57YpmeugugQQisojAkax+F55VBdfuzi/lhO68eWL1BakenFmEBoB
-         vptA==
-X-Gm-Message-State: AFuF++m9UELwHs8YzrsXq5+HiC13XZPTvDYq2n2Qiv4hU9HVE4fLoNpw
-	nLLvwDkBtf49uLCG1CofLJK/fVEPFXqqcbzZqWJqZReb7laDkysr9nRjgumoVC3IrHyJaFEU7JZ
-	GTPUszmfegRHwu5473KXFEr+cm8XIsVhJU3+uMCsFGTkskHocWs5cRYC615aHi9kz
-X-Gm-Gg: AYBFou0wnm5fDEOzYK8Ryt9z7Ca841N4Hih+7w5WH0zDoGwICJJeepU4OtWMrZu/Cjv
-	xL7XdDL8YZrN0ouEdsDNci9rHBW714rcIux9SqtGNGGc/EpvPcs/XDdFGXLQTHxhUpqsRA+8djo
-	G4PpTjY/Jy8Ke74wD5H9LWfP/4zDUHVoQuwWx420+/YOF4VikVXMgBOWJNwlrujGD6bkUjQkLks
-	vRU+ucHlmPVatJZjzmJfh/SPE07SYEGYYRMBR5mbXzKGFdH9uwOnUy2TYsEx6gc79KiFf8rgy/D
-	3R1Q0rnB9SOx4OlS68b8+40aE36yTiRDQcjeOYFiNgmElTQuyMJOT9nhA95Rt6L//w9188ePApz
-	oG95NXSlQibbwcKNoWAhzx+E=
-X-Received: by 2002:a05:620a:6015:b0:939:7cca:ed30 with SMTP id af79cd13be357-9397ccafdd2mr2772149985a.45.1788942961234;
-        Wed, 09 Sep 2026 01:36:01 -0700 (PDT)
-X-Received: by 2002:a05:620a:6015:b0:939:7cca:ed30 with SMTP id af79cd13be357-9397ccafdd2mr2772139685a.45.1788942959154;
-        Wed, 09 Sep 2026 01:35:59 -0700 (PDT)
+        bh=KOoY6mCIop7DLsgHwFMY2E+1AD8DaONcY4sNreB3ZeY=;
+        b=q2YZ3kYqJKZpVa6c68kYBuiGHhdGtG8Luww9jLamne5BP70vKzEObji+QtO6qIys7M
+         reRqzWufw+jXIctU3l1X3rwTfyG7wKL2cZEiT7uOltEN6nZaMVxH+jzRdyEWmJv3ujgA
+         GTsez9cve2HSSS7C0TmHveWpkHXRkxrjw6yKXzIxS5K1fJIIxPsWAenWOG4X21Q+4OHx
+         jG7UlDAQtkJ+04vvkV5S6zDeJ6OX8sg71Mfl29byob/lIiu6oC2a08592CgFgneO9ZYh
+         20pcICDrCDvqR9um7pE90xyll+0KVcLgmMw8fw+SlM5/fM3W7ErB2daYSSWh4NtXl6V2
+         GJOQ==
+X-Gm-Message-State: AFuF++m0W1ARkgZWOMkSpy1uGONA2VtAw9Ul2rlbJT8eFTYM8uvAbXRM
+	1a8sgilppfPWjFLS03mN9OxNNlAG57+lkcurYzdqL0Qe3ASqSuSWVxJNG32hkbTylgaR4WgM1k2
+	PfVK4TJXI9AaIT5iWdMHf8Hg1wl1z58aJrB6Rmz5nvoURe3K8RBCNgYvEiRQc4BtpFaxuRNhy
+X-Gm-Gg: AYBFou2+5+f42XCEify6CxGWiLqpKt7CRdC8uISymjDKsHqsyoRbDe4LDDKKt1iFGhS
+	/pXWHIJS9xiUJ/xtjaTN2nrNjFHwWRxnk2g5mWWS/xbgFnphpyOZlky0iA/6t76Uv20DEHiEf2a
+	M3MNAy99uKZ0i5J8qqpoB+S32BRvhG8ZMYdSjqVwd1XUuaJRLJ9gY76ijvIWYU7frfeIPF0+Wl/
+	cpk9xWUosMRgS2UWs+mKuLNDEXlg3MvIFmW5hlba3i2SfrpP3CFh0WGrOnLYIwGQVQ4jRScxZ9b
+	f1EbRjED872IsOMh/Iqk1I8RmxuSGsCpHn30d0+l37m8SkrmZIFCkyNKDPYX3h4AwF2xfBiaJsa
+	aCi6OzQwFvMGskW8HwPf7m9Y=
+X-Received: by 2002:a05:620a:258d:b0:939:2c5c:7977 with SMTP id af79cd13be357-939c93fd11cmr605479385a.20.1788942963492;
+        Wed, 09 Sep 2026 01:36:03 -0700 (PDT)
+X-Received: by 2002:a05:620a:258d:b0:939:2c5c:7977 with SMTP id af79cd13be357-939c93fd11cmr605476885a.20.1788942963052;
+        Wed, 09 Sep 2026 01:36:03 -0700 (PDT)
 Received: from [127.0.1.1] ([178.197.219.214])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfdf6sm43210269f8f.34.2026.09.09.01.35.57
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bfdf6sm43210269f8f.34.2026.09.09.01.36.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 01:35:58 -0700 (PDT)
+        Wed, 09 Sep 2026 01:36:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Date: Wed, 09 Sep 2026 10:35:44 +0200
-Subject: [PATCH v2 1/6] dtc: dt-check-style: Handle continued lines in
- check_hex_case()
+Date: Wed, 09 Sep 2026 10:35:46 +0200
+Subject: [PATCH v2 3/6] dtc: dt-check-style: Handle continued lines in
+ check_trailing_whitespace()
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-b4-dts-style-checker-continued-lines-v2-1-c5cb4c9d9b66@oss.qualcomm.com>
+Message-Id: <20260909-b4-dts-style-checker-continued-lines-v2-3-c5cb4c9d9b66@oss.qualcomm.com>
 References: <20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com>
 In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -99,123 +99,135 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3317;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3744;
  i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
- bh=RpsFWGOJ/fmrFBjXtNLPVOkO7viH6czPpMx9xQdFNUs=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqoRpmhPHdIrvukJy+Dz0gqu+ohDhxPjGperCVF
- J+WBZ4DL4SJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqEaZgAKCRDBN2bmhouD
- 1wztD/9Wq1/D0IBgCJdcFKWr3XtxZc2CQ3RtOQo4hJ8gVMh77TCCsBb/OmtP6j1OHbJR5Yzc1cl
- iLi+hLegBZESOt/yef8ksxAqkDi0ENqmOdw9iRaBtpDHR8FwZdAtliyrG2f+PGecUBe7rYk0ZsN
- QrDv95kiwD3KGgfHo4yhKy0pCWxY8FSb50zgRiLAyWhUUyiznsQEKPU1kEgovDC/rRNKpzIOvgO
- SUrSu7fdMhNavRJI9eH86HOzj/fJv98S6a2SI0RGK11+HLFkbTAzyGhqIagPspNGojlh0dNVrDD
- lHuKkVqmgI4Hoi57quPzZaIzpaWEsWQ4DcmYifX45RYE8fo6oR+3eRU/NwYzI+n3EvbxTF6qTqc
- /OoCtvEXJHi80DLRKtBm6QlljGdzxq7wH6CUzNPHJeVw60vYBhHjT+NIM+Im6/RRBfvqY09Fs2b
- BsYdI+XHKwS74YSu7rHoXqzQOQaijRnfLCHnKTMHXfNTH0yUelRdQrnE/4RcIxJX0pqilt7SG4X
- WeOtWoQCp9+ygj3nomvDZGg9KN7E7mHMHyK9TdfcLmunbXNVUTzuTcxOmQjV4adYWH7IiX32vdd
- NiKcGZDGYC0TG0yB8qG4bU86xaG+WnzEr7GEQm3p+PBejsMXWSEFlzX2TLkJxFU643lH4TI8j/y
- Du5KKQNVHtwhcxQ==
+ bh=IWHg3NxDjAQuyvLPrxd0bg+vjcwN4JdBqQLR55GtCQI=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqoRpnud/QxRRiZNqO9ZF+4J5CS1iqOJQDgkHL3
+ mVUs7bGsgeJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqEaZwAKCRDBN2bmhouD
+ 12ATD/0UrmJzGsnG/5GAeZAi9+LiWnuHC7nzKuszc29m4L7UtH6xIPok9H1LBKZ0aPLJf9XAHpe
+ 0Od419kWAaiSluBwgeV6gA4PaUGWXB5f1+Kkv1jh+TXzhEdF6YeEjFJFb4tXZ5omXQl6oJcSg7d
+ LJG7I2dvTc0rKAf6V/pXuN/OqmbtN91RuOymQNZoySPTlpXAtwrW3bT3J81aYIpm6YacNBfmoGP
+ bDSBrOZQ7CJajmskfSPOc+sb+vq2pL4+Wd3jTLnE5Tn7jnh96FzDO43Uh7j/Di6/PF+pQKXH8tn
+ 3mi5YEpUUyqJi/ZHxQR1elsmtQKOfPMHIfjPwxpiuQ8tZMKmPI//YnXaB4TWMB5/4WnFskQKz/j
+ 2ut0+gB2hQQpBM42yENvwgY2DC+l9SMhuYnfdWMwpVt94bQNeVWjdsOlxDi6TwR/jsrUIJsOgxC
+ IznM9sv2PG2AeGOCKcb6hZ/Yr3hchaazGrFzWQxyaYe9zcxb4xe6rN20ZgCgiKxW/eNrPkR64CF
+ zf37B4CcIK64KLDWh/ogiKctc0Ima+0Vfdy382wJGkxshtGrclH+FrPYx7JzNtIMnBbu/dk53A7
+ IczLbF5PMWhFu0m2QVTYkZao9y+FxXp1MkIfyVNGuN90VPDX/0HS4ad8WDN9agIJJa4t0Fwng0M
+ 3agiDyaanNmh7Og==
 X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
  fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-X-Authority-Analysis: v=2.4 cv=a4YAM0SF c=1 sm=1 tr=0 ts=6aa11a72 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+X-Proofpoint-ORIG-GUID: dZ_wj0lXohRECHY9NceKoXwZFr7ehwA_
+X-Proofpoint-GUID: dZ_wj0lXohRECHY9NceKoXwZFr7ehwA_
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX0TndQYLiFy0I
+ ONgbL+55YVRXGsJzleSydl3KJY8H2TmMv/CkmZalBQu/Kg6p5XKOjB11mhLK64zVuRDsonh+puz
+ xA3Q6TQQ4WSGfoFtGr17QXR5T/VQRwXZSZVVOJY4A0OowksdpPQ6iAP+wOY9h2PDQ+Rie8yyyoc
+ fqYRIPl/rzLmN4tb2720CQRh3NDSNhUoaXdZZLJLlxxcB7Y8n7lZKtMBzWv1TLtCUuK/z43BwC3
+ Whz0vgo2n1CnltUy4L75FThJ+sDxMYxvcEMbGpZVK3ZKv2oyV1K5Msr7bTM7TL1JAn/ohdpIgbU
+ /aXaQUfTIGXZhwO0K7hJgQhCo2GaSW+aPBKlVmHnGvCdTO+kzaKXFHG3eNIEaKFLmYINDQEE+vG
+ QBGykmp9IvyJxqSoisnQxfas905LgaXBsluHJU/QiYiTGQ3hRhmjRdASrkFsd9tLl5qIY30YJMU
+ XcL7WXigcbJRfktUypA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX0ywmRenZq8ax
+ HFmcVcd3arWzQVPJWWv1HsnVTcCgmHCOyER13ygBq+5zmxOJ1eorpJyhExabEvcn8GGZqb/yKhP
+ FuVnXMF/Cpmp7PTcp7hv+BC6Bsp8CkA=
+X-Authority-Analysis: v=2.4 cv=f/p4wuyM c=1 sm=1 tr=0 ts=6aa11a74 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
  a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=SU40fdrgiSb2mxkwluUA:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfXwrRAhA1V1oU7
- LRmbbDkQqhxwhvbKowkwKOJVyV2E/qbq5eN2o5ncJlL0IPqC1NyJl7mvfn1sFYrH5LMWaEsUBUb
- 8w6bos2Vo7EC8ZIvexEk+sIYjdw1WNwe3fhO+yUpf6rf8gNJlnqxABmwpG2LavX30YfFilJ39kj
- bT0TNvOoSqBcciaWNj/brqYjexIFvka//plIuXnIozYxpgHUucofR+j/Bpjd4kICQ5uOqyoN73J
- j8bBRdXsL/0Hrd6UK3Cwt+ejJT2nTceYB7bC8m1YDFA9Fr3ElIXgfuePLBiJDMFdjCzuQsHsRYF
- Ub4febeWKkHpUmnXDMIuOqmMFMTv7ACb2FA9gI6YfmaBY2EennX+Iq4VmgMPeASZ4YknwDSxJvS
- H5Zlk2SIEmelY0dFoIFlw6e7pQI3QBOtoqb+chTK8mJrpztunPCCSybCUYrTDigBUHOoUSTssTV
- xyTg5O9X8zXgYRp4DjA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDA5NCBTYWx0ZWRfX7lq+oBvbvrHS
- V77nNAcEtHeLBlqlD5K7VsafCH9lijMwz4fDAfCMZR8P32APTw93DL42tAQhFHdZ8tX3Jqg6+88
- T+fRdONjCNGCUBGdIZt4pYFoh4YGdsg=
-X-Proofpoint-ORIG-GUID: qwp0kKlLk_2TFmuBH0_8apPxUGVy7PHZ
-X-Proofpoint-GUID: qwp0kKlLk_2TFmuBH0_8apPxUGVy7PHZ
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=n0VsRDhmN3h0bdBGaSQA:9 a=QEXdDO2ut3YA:10
+ a=NFOGd7dJGGMPyQGDc5-O:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 phishscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 spamscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ lowpriorityscore=0 spamscore=0 suspectscore=0 adultscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090094
 
 Continued lines are not separate DtsLine items in ctx.lines, so they
-need own iteration.  Rule for hex case is applicable to continued values
-as well.
+need own iteration.  Rule for trailing white-space is applicable to
+continued values as well.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- scripts/dtc/dt-check-style                         | 24 ++++++++++++++--------
- .../dtc/dt-style-selftest/bad/yaml-hex-case.yaml   |  5 ++++-
- .../expected/yaml-hex-case.yaml.txt                |  2 ++
- 3 files changed, 21 insertions(+), 10 deletions(-)
+ scripts/dtc/dt-check-style                                     | 10 ++++++++--
+ scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts          |  8 ++++++++
+ scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml        |  5 ++++-
+ scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt |  1 +
+ .../dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt   |  2 ++
+ 5 files changed, 23 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-index 15a3ba82fd5f..6d978c4d9832 100755
+index ff5e715593df..3694b0b1ebb6 100755
 --- a/scripts/dtc/dt-check-style
 +++ b/scripts/dtc/dt-check-style
-@@ -547,18 +547,24 @@ def check_continuation_alignment(ctx):
-             dl_value_complete = cont.stripped.endswith('",') or cont.stripped.endswith('>,')
+@@ -985,10 +985,16 @@ def check_tab_in_yaml_example(ctx):
+                 yield (cont.lineno, 'tab character not allowed in DTS example')
  
  
-+def _check_hex_case(dl):
-+    if dl.linetype in (LineType.BLANK, LineType.COMMENT,
-+                        LineType.COMMENT_START, LineType.COMMENT_BODY,
-+                        LineType.COMMENT_END, LineType.PREPROCESSOR):
-+        return
-+    for m in re.finditer(r'\b0[xX][0-9a-fA-F]+\b', dl.code):
-+        lit = m.group(0)
-+        if any(c.isupper() for c in lit[2:]) or lit[1] == 'X':
-+            yield (dl.lineno,
-+                    'hex literal %r must be lowercase' % lit)
++def _check_trailing_whitespace(dl):
++    if dl.raw != dl.raw.rstrip():
++        yield (dl.lineno, 'trailing whitespace')
 +
 +
- def check_hex_case(ctx):
-     """Hex literals (0xN) must use lowercase digits and prefix."""
+ def check_trailing_whitespace(ctx):
      for dl in ctx.lines:
--        if dl.linetype in (LineType.BLANK, LineType.COMMENT,
--                           LineType.COMMENT_START, LineType.COMMENT_BODY,
--                           LineType.COMMENT_END, LineType.PREPROCESSOR):
--            continue
--        for m in re.finditer(r'\b0[xX][0-9a-fA-F]+\b', dl.code):
--            lit = m.group(0)
--            if any(c.isupper() for c in lit[2:]) or lit[1] == 'X':
--                yield (dl.lineno,
--                       'hex literal %r must be lowercase' % lit)
-+        yield from _check_hex_case(dl)
+-        if dl.raw != dl.raw.rstrip():
+-            yield (dl.lineno, 'trailing whitespace')
++        yield from _check_trailing_whitespace(dl)
 +        for cont in dl.continuations:
-+            yield from _check_hex_case(cont)
++            yield from _check_trailing_whitespace(cont)
  
  
- def check_indent_consistent(ctx):
-diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
-index c55359a4ca68..b0b8683b883a 100644
---- a/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
-+++ b/scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+ def check_unclosed_block_comment(ctx):
+diff --git a/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts b/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts
+index 1eb24d91c640..73c24525ce18 100644
+--- a/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts
++++ b/scripts/dtc/dt-style-selftest/bad/dts-trailing-ws.dts
+@@ -5,4 +5,12 @@ / {
+ 	compatible = "example,test-board";  
+ 	#address-cells = <1>;
+ 	#size-cells = <1>;
++
++	interrupt-controller@10000 {
++		compatible = "example,intc";
++		reg = <0x10000 0x1000>;
++		clocks = <1 2 3>,
++			 <4 5 6>,  
++			 <7 8 9>;
++	};
+ };
+diff --git a/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml b/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
+index f338c14174e6..17eeed3411c6 100644
+--- a/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
++++ b/scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
 @@ -25,5 +25,8 @@ examples:
    - |
-     foo@1000 {
-         compatible = "example,test-hex-case";
--        reg = <0xABCD 0x100>;
-+        reg = <0xABCD 0x100>,
-+              <0x2BCD 0x100>,
-+              <0x3BCD
+     device@1000 {
+         compatible = "example,test-trailing";  
+-        reg = <0x1000 0x100>;
++        reg = <0x1000 0x100>,
++              <0x2000 0x100>, 
++              <0x3000 
 +               0x100>;
      };
-diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
-index 6600f7cd1ba5..f42490256939 100644
---- a/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
-+++ b/scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
+diff --git a/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt b/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt
+index 94d9ae9d616c..a15a7d637c30 100644
+--- a/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt
++++ b/scripts/dtc/dt-style-selftest/expected/dts-trailing-ws.dts.txt
+@@ -1,2 +1,3 @@
+ # mode=relaxed
+ bad/dts-trailing-ws.dts:5: [trailing-whitespace] trailing whitespace
++bad/dts-trailing-ws.dts:13: [trailing-whitespace] trailing whitespace
+diff --git a/scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt b/scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt
+index cfdbc8476c73..4f2ec9572bc6 100644
+--- a/scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt
++++ b/scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt
 @@ -1,2 +1,4 @@
- # mode=strict
- bad/yaml-hex-case.yaml:28: example 0 [hex-case] hex literal '0xABCD' must be lowercase
-+bad/yaml-hex-case.yaml:29: example 0 [hex-case] hex literal '0x2BCD' must be lowercase
-+bad/yaml-hex-case.yaml:30: example 0 [hex-case] hex literal '0x3BCD' must be lowercase
+ # mode=relaxed
+ bad/yaml-trailing-ws.yaml:27: example 0 [trailing-whitespace] trailing whitespace
++bad/yaml-trailing-ws.yaml:29: example 0 [trailing-whitespace] trailing whitespace
++bad/yaml-trailing-ws.yaml:30: example 0 [trailing-whitespace] trailing whitespace
 
 -- 
 2.53.0
