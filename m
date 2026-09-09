@@ -1,128 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 606B53BC687
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 19:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788983543; cv=none; b=ZSMElrzXkrF/Y/aRRfvt7GH8hpwUfLdrOolX/2Ef5uqT3lLxO+ZUzCSV4BnbF1ozzCKZjedMlZ34k7BFMxnztf8C8Wh+CCYWnmWj5tcDQNaWpqmQTdHw8zw9v3oU4P05mtc6qf/Pou6CHl7Zy1WoWKlbJpyK0w4BqUOpLMJaunE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788983543; c=relaxed/simple;
-	bh=jbjdF9v3rb2/fUqt6TFBRYG8DllWv4fFDzJHSeBHbrQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jB3OkFR+J9iPZ2mPsBdzU7AWEh9gcbv3xNCrJQKLbQxMCpZUuHPiJJypVbupDq5IJOCSUAm5+b0rbDDNhrQJtPouBAzXRt+Tnxn55dIOPZWKRBt29PQzBNjWtX2EPg6EDJFIswjD9NK9FC/RlzSt3mttEpio8hlqBndBjMMiwBE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGq3iuu/; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBB213C09F7
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 19:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788983552; cv=pass; b=mRjUs3ERt8vw+thbYkZJmsbah1gpUbTkLsGjTyAq9LneZp7smYMb1E5+g/vtIVajI2CZMrBDPM50KDQ9Pf1NQ8JfMOZZdEbxIiHNHC5JwSPvH1c62Hy4YWczU49BwaSOefA3PAK18kfd/vbPcs7kHuGtiajclCrvWUuZ2Gw6+B8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788983552; c=relaxed/simple;
+	bh=Vd54AXtbA+BVxVXTBmuGUtVDHo2JVpb2vqgbLrKQDoY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fD4GejVnkbxfo6HzJs+dZVbrPzhoJW5ocgGmrFVk9x/+a+G3pCg16gtL2LiPw7pbeWyzuffmH8G9a1+Clzh1P3pc46cW2rMlg8M6my0gJ2A8Ls3ln+lBxtmH/YezRCs5ypd9Jjsp2k0CnOCt3qZQP0spgrsgdg/FdHDTRZ57Ask=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=c000xhyj; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGq3iuu/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8D531F000FF;
-	Wed,  9 Sep 2026 19:52:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788983540;
-	bh=+dE405p7v6aMygVq85pNcQeFzfkH//VK+9wopHaTXHs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KGq3iuu/uFdsD9sqKuBq8Rj3OhwvZZQya8/MiijKVfbWFD4YCY1uQqvYe2SMtK4+D
-	 Bh9xDKnMaChs2Dq+dKtkoRhdwC0i2GYjNuGDI89PADI8DHHnTIjo7vCTsq7MC9OYDs
-	 fVlKOptqJwfXaZjsIbRCE8Rpiq8UV5PKLN1ule/2u0Rjw4rg42d8o9OWfgEFM7mxJV
-	 5rlHFBfMQR9vKrbqNyTX79nKBJcTRgjOJSE5F831qR6N0vAoclI4LkOAwIX9t5PKqq
-	 sY5mmgujWcuyqat6NSCAkKRJG39mBGNkLuDx0QsJmZfPzRs8/Dkd98D+PHamQg/7ns
-	 VmWzt0cyyeDKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] media: i2c: Add Sony IMX681 sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sergey Lebedev" <lsa.uz@pm.me>
-Cc: media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260909193953.86192-3-lsa.uz@pm.me>
-References: <20260909193953.86192-1-lsa.uz@pm.me>
- <20260909193953.86192-3-lsa.uz@pm.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 19:52:19 +0000
-Message-Id: <20260909195219.D8D531F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="c000xhyj"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43da99easo10289517b3.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 12:52:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788983549; cv=none;
+        d=google.com; s=arc-20260327;
+        b=nkc7mthtbd/lVEA/hLqX4u+GPVsl4Im0097eo1Fz+vpiQq+G9i95ErQoPCgr5k7/84
+         82NR91o7Saov/Q3gEncmWF4vr3LKy9nOwWwMETICAmuX2SGg1n+kVaUVyzt5XkalDhit
+         rUHbMAGqVxkws/UW5/jgtjSXyuDEB/z8CMLMTKik1ufKc6/obUNFl+gvmDQN1YdvXzeA
+         I/lO4LD+93v4iiZwhMzbu8RmDLUVV2VvtkE9d8r14wRJ/90QZ4Bb2uocc/ex6cwztU7S
+         WauOLmVt5ZCYvU69CjRuE2nlqVC6vAfEfiMQuumx41TugXZrWJ0UdkNnnvl8HZBMMTNh
+         8hGg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JE506qyM+xSDVLQ18Cv32kLGdbyz+6FYOgoc9bYH4MI=;
+        fh=YYvB2sP0YSqjhGEPxQd7hcuya7sKpF9nRxwpinucgS0=;
+        b=tBcdeMcXbuEZNWrX3jd6HnjZAvmtp4KSOqGj2adoBrmbEXgxIMZ2s73SZzLmF2MCHX
+         u02M1bsWi6+YZ3J9DDEir7M4gfTvt3nd7B3Wa5p/2EhJGmzi87/qBQldDU6SJg0ZBomR
+         EA6hTkzu9RKM0JX+YCQWUpNQbK/PN6XuFnV91AIIwqD0xSOne7sYr0UIQ6DEe5knChvS
+         2x3aJ3qkgqMnHStxJyAQob096ZReSzC8qQwyFAcaOKSyZwA1CHJKgiJ+CDRUJNLAN1VJ
+         WUbv/WX39EbWOvZAz7+3T12YDBngZRl6LsVVi4LR/iqcHOhB9tU9iLjgGOrxMJS74GTx
+         hC1g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788983549; x=1789588349; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JE506qyM+xSDVLQ18Cv32kLGdbyz+6FYOgoc9bYH4MI=;
+        b=c000xhyjMnMMURzP1zlvDv/QBpEnhy4hqSKg2rIAUSK8QeWHKD/Tv8VCpxX36r8aqr
+         U9hmHI0J46TrbulCzeJ3pNRzElJeANEAABuVFltaKd4+8++NCWaYmJV6gF+Hyv5dJ5NE
+         CYaHANMTZoRU57K2o/hI0hU0pvtKPa4Ys0hjJL8tJ5GepQkahfBJUyVpC/lggCWwZDnY
+         x6x6015mMxe0sk7VCA0pdeFFK/g9e6I+yYtj2EeGB+/dtPlRnlm+16juq47Eg0K24zn2
+         c8GDm/CmQRpCXrxK4tCLlo9kAnTcjLRNEn1Ko854Q9sMhvebZ61AB8GCke7ALqtUv/tT
+         r8fg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788983549; x=1789588349;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JE506qyM+xSDVLQ18Cv32kLGdbyz+6FYOgoc9bYH4MI=;
+        b=bu6wXtct6PptLj1jHnpHcwc+TUMURijXT0oWz3eflc4dJvGNlmMNiVVE//MpXnkrzE
+         8zGh7HmC22kB/iB/cz1dlmFI+Hl67S0UaXH/2pmyN+Czzb+0qzsnGog44G0YOFNv+Vza
+         02CxJglOT03Qm18mJKiFWLfeAWvpda3OB/JAGq7Jqr9mKOki9qFXyIHR6y3XWLwMd8fU
+         k/b4gskKY3xCpYKjyzQVi+UtVYomDsZiZejfdYWz87oH3Dn/MuLD+XVxb7D8TrIuC5Y4
+         UWKRPpwGqVnkTcxdiB82iqpRGCG8ZQ1MgWWfDdl9Hh5A5NwgSrEXWjpSragdbDxZlflM
+         8u4g==
+X-Forwarded-Encrypted: i=1; AKwUvBywOT0CGlxIr5YeXp/RycI6WwWvQM0gOJzxmJCaT3kkpnXttYcbGzrJb1HmOg0pjIOA/iK9JazFkGRf@vger.kernel.org
+X-Gm-Message-State: AFuF++kKBMReNoyDodmYmH95E0eZooHpWI2g+LJvn3dEyUfipIY6NBWR
+	GBfg1rffEhGc+oz2dU0uj2+3IASeexnUUwxwy4aUrIzl+LWam8RaGpd43hsx+d3g8HpFlTiBWPv
+	WltLft/+PHYxq410KJWmlBaucIyFdfvOBbc+rQehhyw==
+X-Gm-Gg: AYBFou0dhBtyD/qMeAHokDrayKeVZYBu7q7vMnMtLktq4O6twrGr1IWncb2j+g+7il7
+	VXSgP1MYo3qz2Zf5xY468Mfe+4qogDh1+4KrJ4CUpxkAvwtBoyvFsqWsU7ASwjYvVPXzORIQlyW
+	Rt5WV6d/69KGyb/cS6Nr/nuS3EhgTkYVTQO3QwLR5tRleOwAKRyXb6+MyXwcjt91mKQLnm7ic/2
+	l7OqSgtyqRbvJg4Rtg85yU8DdSgwv9EQG/VDaS2INbHxKIWCUH1ZwZLoAXV1O52d9SPAKPQufyY
+	tGm4BV/P9WJJG0Fs31gykPes7735fmTVChpt06C9Uwr8mA2tBQ+1TnB4tdzZBUN/bXTbQ77agwB
+	jbNHwmWIf1pzv/g==
+X-Received: by 2002:a05:690c:31a:b0:87c:a15f:b667 with SMTP id
+ 00721157ae682-88153e6779amr21225247b3.19.1788983549289; Wed, 09 Sep 2026
+ 12:52:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260909194450.183693-1-tturner@lineageos.org> <20260909194450.183693-3-tturner@lineageos.org>
+In-Reply-To: <20260909194450.183693-3-tturner@lineageos.org>
+From: Sam Protsenko <semen.protsenko@linaro.org>
+Date: Wed, 9 Sep 2026 14:52:16 -0500
+X-Gm-Features: AcwNN1XFLGvzp87hqDe4D94_SRB5dZ_z-E3RMUBPTQ90wJSi_XkiyxbHOQTg3Lw
+Message-ID: <CAPLW+4=sHV_xOfhDkfZ-TXUaY+BcmHRn25x+YGcmz8Kar6d-gg@mail.gmail.com>
+Subject: Re: [PATCH v4 2/2] arm64: dts: exynos: Add GPU/Mali Bifrost node to Exynos850
+To: Thomas Turner <tturner@lineageos.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	peter.griffin@linaro.org, alim.akhtar@samsung.com, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	thomas_turner@talktalk.net
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] V4L2 controls are silently ignored when CONFIG_PM is disabled.
---
+On Wed, Sep 9, 2026 at 2:45=E2=80=AFPM Thomas Turner <tturner@lineageos.org=
+> wrote:
+>
+> Add nodes for GPU (Mali Bifrost) to Exynos850. Does not provide support
+> for temperature throttling, DVFS, power domains, governor support,
+> boosting and voltage control. Once PMIC is properly implemented, support
+> will hopefully increase. However, the panfrost driver probes, the
+> Mali-G52 GPU initializes and the core clock is set-up.
+>
+> Testing for this patch was done on a device not currently supported by
+> linux, the Galaxy A21s. After enabling this node for that device
+> locally, I was able to test and confirm basic GPU functionality. As of
+> now, this patch has no users which have tested GPU capabilities and so
+> the node has been set to "disabled".
+>
+> Here are some logs I pulled:
+>
+> panfrost 11500000.gpu: clock rate =3D 377000000
+> panfrost 11500000.gpu: mali-g52 id 0x7212 major 0x0 minor 0x0 status 0x0
+> panfrost 11500000.gpu: features: 00000000,00000df7, issues: 00000000,0000=
+0400
+> panfrost 11500000.gpu: Features: L2:0x07100206 Shader:0x00000000 Tiler:0x=
+00000809 Mem:0x1 MMU:0x00002830 AS:0xff JS:0x7
+> panfrost 11500000.gpu: shader_present=3D0x1 l2_present=3D0x1
+> panfrost 11500000.gpu: [drm] Using Transparent Hugepage
+> [drm] Initialized panfrost 1.6.0 for 11500000.gpu on minor 0
+>
+> OpenGL core profile vendor: Mesa
+> OpenGL core profile renderer: Mali-G52 MC1 (Panfrost)
+> OpenGL core profile version: 3.1 (Core Profile) Mesa 26.1.6
+> OpenGL core profile shading language version: 1.40
+> OpenGL compatibility profile vendor: Mesa
+> OpenGL compatibility profile renderer: Mali-G52 MC1 (Panfrost)
+> OpenGL compatibility profile version: 3.1 (Core Profile) Mesa 26.1.6
+> OpenGL compatibility profile shading language version: 1.40
+> OpenGL ES profile vendor: Mesa
+> OpenGL ES profile renderer: Mali-G52 MC1 (Panfrost)
+> OpenGL ES profile version: OpenGL ES 3.1 Mesa 26.1.6
+> OpenGL ES profile shading language version: OpenGL ES GLSL ES 3.10
+>
+> Signed-off-by: Thomas Turner <tturner@lineageos.org>
+> Reviewed-and-tested-by: Alexey Klimov <alexey.klimov@linaro.org>
+> ---
+> Changes in v4:
+>   - Add Reviewed-and-tested-by tag
+>
 
-commit 399d495a390ace2e779563ec50b4c97d653a6b76
-Author: Andre Gilerson <andre.gilerson@gmail.com>
+If adding the tags is the only change in v4 patch series, there was no
+need to submit v4. When maintainers apply your patches they collect
+all tags from the latest patch version themselves. So you only need to
+collect the tags from the previous version review if you want to
+submit the next version for some actual reasons (not just for merely
+collecting the tags). Sorry if I forgot to explain it clearly.
 
-media: i2c: Add Sony IMX681 sensor driver
-   =20
-The Sony IMX681 is the user-facing camera on the Microsoft Surface Pro 11
-for Business (Intel Lunar Lake, IPU7), where it is enumerated as ACPI
-device SONY0681. Without a driver the camera does not appear at all.
-
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> index 5c52007f9cbeb..5f7b0d22c8f07 100644
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -310,6 +310,16 @@ config VIDEO_IMX678
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called imx678.
-> =20
-> +config VIDEO_IMX681
-> +	tristate "Sony IMX681 sensor support"
-> +	select V4L2_CCI_I2C
-> +	help
-> +	  This is a Video4Linux2 sensor driver for the Sony
-> +	  IMX681 camera.
+> Changes in v3:
+>   - Re-word commit message to be less ambiguous
+>   - Provide some logs in the commit message
+>   - Add a blank line before status property
+>
+> Changes in v2:
+>   - Add a patch addressing the samsung,exynos850-mali compatible string
+>
+>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 13 +++++++++++++
+>  1 file changed, 13 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/=
+dts/exynos/exynos850.dtsi
+> index 911643008b9f..721b2b2c4ffb 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> @@ -310,6 +310,19 @@ cmu_g3d: clock-controller@11400000 {
+>                         clock-names =3D "oscclk", "dout_g3d_switch";
+>                 };
+>
+> +               gpu: gpu@11500000 {
+> +                       compatible =3D "samsung,exynos850-mali", "arm,mal=
+i-bifrost";
+> +                       reg =3D <0x11500000 0x5000>;
+> +                       interrupts =3D <GIC_SPI 126 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-names =3D "job", "mmu", "gpu";
+> +                       clocks =3D <&cmu_g3d CLK_GOUT_G3D_GPU_CLK>;
+> +                       clock-names =3D "core";
 > +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called imx681.
+> +                       status =3D "disabled";
+> +               };
 > +
-
-[ ... ]
-
-> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
-> new file mode 100644
-> index 0000000000000..bdaf435541a82
-> --- /dev/null
-> +++ b/drivers/media/i2c/imx681.c
-> @@ -0,0 +1,880 @@
-
-[ ... ]
-
-> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct imx681 *imx681 =3D container_of(ctrl->handler, struct imx681,
-> +					     ctrl_handler);
-> +	s64 exposure_max;
-> +	int ret =3D 0;
-> +
-> +	/* Update exposure max when VBLANK changes (even when not streaming) */
-> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> +		exposure_max =3D IMX681_HEIGHT + ctrl->val - IMX681_EXPOSURE_OFFSET;
-> +		__v4l2_ctrl_modify_range(imx681->exposure,
-> +					 IMX681_EXPOSURE_MIN, exposure_max,
-> +					 1, IMX681_EXPOSURE_DEFAULT);
-> +	}
-> +
-> +	/*
-> +	 * Only apply controls to hardware when streaming. The call returns 1
-> +	 * having taken a reference, 0 if the device is not active, or -EINVAL
-> +	 * if runtime PM is disabled - and in that last case no reference is
-> +	 * taken, so it must not reach the pm_runtime_put() below.
-> +	 */
-> +	if (pm_runtime_get_if_active(imx681->dev) <=3D 0)
-> +		return 0;
-
-[Severity: Medium]
-When the driver is built without CONFIG_PM, pm_runtime_get_if_active()
-returns -EINVAL. Does this code misinterpret that error code as the device=
-=20
-being inactive?
-
-Since VIDEO_IMX681 doesn't select or depend on PM in Kconfig, returning 0
-here when pm_runtime_get_if_active() returns -EINVAL will silently ignore=20
-all V4L2 control writes (exposure, gain, blanking, test pattern) when the=20
-kernel is compiled without CONFIG_PM.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909193953.8619=
-2-1-lsa.uz@pm.me?part=3D2
+>                 cmu_apm: clock-controller@11800000 {
+>                         compatible =3D "samsung,exynos850-cmu-apm";
+>                         reg =3D <0x11800000 0x8000>;
+> --
+> 2.47.3
+>
