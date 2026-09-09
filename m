@@ -1,99 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-106104.protonmail.ch (mail-106104.protonmail.ch [79.135.106.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D0633557D
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B383D53FD5C;
+	Wed,  9 Sep 2026 14:48:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965280; cv=none; b=rA8vw05wIlHCSrz9rz6fW5iWMmmONXApOD+W2xLov8vNoh/NLo8Cydj6ENK6VDrFzX0VEStdr+lQ/Q5CO9PX/yhS/88U4KeRhbdMnkPPDTTfaikZT5HBXdKdk3yVccH7DZ9XWGU1f+SoOM/5/533j8/cvzjSHuRQRqn0tyQRZ/k=
+	t=1788965294; cv=none; b=ov2R6JK8CiGWb9pgyfGcKZEj+oSHOb8QOrcs3ZAX2FxkxrsJbek+KhkZ1Ngw0gN0pcD4VkVvUo0zWj8NVZrKRU690/SSwXU1A1C+3XpI76EuUmvVlnq7mkxYY6wHkeQSqRVLaTyaXyP9U6wNgDrQNtWcI8ERvPWIHw+oiISZ5Vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965280; c=relaxed/simple;
-	bh=mBSXEvVMxm+pdizqkgGd4f4BV+SH4BXxf3Gm9G8Sbos=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rVqd00lbxy5ax9BhvDXEoZ9Ajv2udKsjPU0Tl8BMPxZsl1S/hzOmGS/xpNrr0AbuBBqUkb14rCe/6eGafYwIeY5COr/xZmLs4uzbRhKhNR01oPkZ6EpStUygQUrUvJfUWty3/VURzlhZlXAgIF50hGxrih1Bn0KxWnVTtQBu0WI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IGVj5Iue; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965294; c=relaxed/simple;
+	bh=FH1l0J0w861ll6J8cWgCzFfonI6e9QEAr/ZwFhnKEpw=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dYEcTwCskeAbwpMpS94Xrr3PHNM3g/lE7m62YESOVXSfKRHvChWui09w8pb9zGzq484BgdQGPVapb88qAyI1z9L68mDtiyZjmLRQhlYKWwUukGIUOT2EANNkgxgTWpKhdxNnDNIWYCPnXm4MFmtb7Bu1rX3Gaa2IVIK/C3NKHzE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=heutEvUr; arc=none smtp.client-ip=79.135.106.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IGVj5Iue"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97AB71F00A3F;
-	Wed,  9 Sep 2026 14:47:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965278;
-	bh=Kh0msfJsTN2Yybb2tDAzKvWLFRb2vG4mfLyk9409bzQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IGVj5Iuefr/PCK24E7Cg2uwMO+lDt/1o8tcPct3N7lYiBqjd2OoiblCJjTWWn9E35
-	 U+dkQIvlz/haxrkkgIXuf09bm29gJ7y87SX9mQ/tBbe3ayN9u+YqMZPjr5R16rN1cg
-	 YFeuEwV0ykNyM2aJxE+kIslGKzaqAWp77bAWqUyH1CkbhkqWxTeJzURFnhaeXP8sBD
-	 N56bOHhb4Q3o/tI1gVjl+dT0/xgLTq8FLHs3gUL66RSIHlnZP3rRLxxwQMTJUBy6u4
-	 hmL5mdHUlPaA685XVfBEzbxXRuucwKjJ0ILT+S5z4kpsa+1kM2hP2hD4iz9o4CbiRX
-	 m3acAQ7PgAmRQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 08/10] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
- driver into two modules
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
-References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
- <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 14:47:58 +0000
-Message-Id: <20260909144758.97AB71F00A3F@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="heutEvUr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1788965281; x=1789224481;
+	bh=9e2xytwfhYr9357vCuzcaoFTrbV5rohrhm5PdDDzSoQ=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=heutEvUrdiuFmplmXJMuc/MIXcK8rDdVN01E9hZKtvupAapM8EQBEfLXHhJHeVnRG
+	 2KrI+D8MvNFYPe9ACX4wwZ2vYNfruxJNL30sDLMYqHwsJg/w7+3xKq+9kiAvvg5vU0
+	 UKamY5cxG3lKfORVNJrJDzGXw6wU8qFicYcySDCPkQq9KJt16dgf94BiJZV7kDIf0P
+	 9QyeHFXJrWjxGinp5lzCyTt1VdKSdGWCVyIDUJhV1qBvK0z/dSdF5D+Y3+HuB6QNKp
+	 4IeuCSHp6HkMsfRGGMJZ8BDzqlH66pkVuPUhxWMRoblSBy/CVa0O+mktugN1dzsDY0
+	 D5j6GOlabvFAw==
+Date: Wed, 09 Sep 2026 14:47:54 +0000
+To: Andrey Korshunov <razor1702@gmail.com>
+From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>
+Subject: Re: [PATCH v2 2/3] arm64: dts: rockchip: Split out the common NanoPi RK3528 parts
+Message-ID: <BxIHWWXJmSvUm8NVgiaDUYHBOUaTS9qf4cAXQKfx8UgN_F90zHJpu0fMHWAZr70as9EnmOyj4cUPeFCO2p9JljBigVijrvYWzRpTG0WMm9U=@proton.me>
+In-Reply-To: <20260909134716.879-1-razor1702@gmail.com>
+References: <20260907-r28s-upstream-v2-2-21ab570fc91c@proton.me> <20260909134716.879-1-razor1702@gmail.com>
+Feedback-ID: 91982645:user:proton
+X-Pm-Message-ID: 362103fa24347cf345c686bb025fda6f2830d27f
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Renaming the visible Kconfig symbol breaks existing configuratio=
-ns by silently dropping the driver from user builds.
---
+On Wed, Sep 09, 2026 at 04:47:16PM +0300, Andrey Korshunov wrote:
 
-commit 528e4c3512ab81e838d441fdb1209303ed961a7f
-Author: Ariana Lazar <ariana.lazar@microchip.com>
+> of_mdio_bus_register() reads the PHY ID with get_phy_device() before
+> phy_device_register() fetches the PHY node's reset-gpios, so a PHY that
+> the bootloader left in reset is simply not found:
+>
+>   mdio_bus stmmac-0: MDIO device at address 1 is missing.
 
-iio: dac: mcp47feb02: refactor MCP47FEB02 I2C driver into two modules
+Thanks, the diagnosis is right and I have reproduced the ordering in
+the code: `__of_mdiobus_register()` registers the bus before it walks the
+children. And for a PHY node with only the generic c22 compatible,
+`fwnode_mdiobus_register_phy()` reads the PHY ID via `get_phy_device()`
+before `phy_device_register()` gets as far as requesting reset-gpios.
 
-This patch prepares the MCP47FEB02 driver for bus-specific code by splitting
-the existing implementation into separate core and I2C modules. It introduc=
-es a
-new I2C-specific Kconfig option to support this separation.
+> Describing the reset on the MAC instead makes stmmac install it
+> as mii_bus->reset, which runs before the bus is scanned:
+>
+>     &gmac1 {
+>         snps,reset-active-low;
+>         snps,reset-delays-us =3D <0 20000 100000>;
+>         snps,reset-gpio =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+>     };
 
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 657c68e75542e..cc10d43ffd1e8 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-[ ... ]
-> @@ -550,8 +550,13 @@ config MCP4728
->  	  will be called mcp4728.
-> =20
->  config MCP47FEB02
-> -	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 DAC driver"
-> +	tristate
-> +
-> +config MCP47FEB02_I2C
-> +	tristate "MCP47F(E/V)B01/02/04/08/11/12/14/18/21/22/24/28 I2C DAC drive=
-r"
+But I would rather not use those: snps,reset-gpio, snps,reset-active-low
+and snps,reset-delays-us are all deprecated in snps,dwmac.yaml,
+so a new DTS using them is unlikely to get through netdev.
 
-[Severity: Medium]
-Does removing the prompt from CONFIG_MCP47FEB02 break existing configuratio=
-ns?
+The MDIO bus level reset in mdio.yaml solves the same ordering problem
+without using deprecated property. `__mdiobus_register()` asserts and
+releases it before any device on the bus is registered, so it also
+covers the DT described case where the bus is not scanned at all:
 
-Users upgrading their kernels with an existing .config where
-CONFIG_MCP47FEB02=3Dy or m will silently lose support for this DAC. When th=
-ey
-run make oldconfig, the module will be dropped because the new visible symb=
-ol,
-CONFIG_MCP47FEB02_I2C, defaults to 'n' and nothing automatically selects it.
+=09&mdio1 {
+=09=09reset-delay-us =3D <20000>;
+=09=09reset-gpios =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+=09=09reset-post-delay-us =3D <100000>;
 
-Could a transition path be provided to prevent this regression, perhaps by
-defaulting the new I2C driver to the value of the old configuration, or by
-using a configuration scheme that automatically enables the I2C driver if t=
-he
-old symbol was previously selected?
+=09=09rgmii_phy: ethernet-phy@1 {
+=09=09=09compatible =3D "ethernet-phy-ieee802.3-c22";
+=09=09=09reg =3D <0x1>;
+=09=09};
+=09};
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mcp47feb02=
-_refactor-v5-0-8b67bcab93d1@microchip.com?part=3D8
+with gmac1_rstn_l moved to the MAC's pinctrl-0, since the MDIO bus has
+no device of its own for pinctrl to bind to. There is only one PHY on
+mdio1, so a bus wide reset is equivalent to the per-PHY one.
+
+v3 carries this as patch 1, against the NanoPi Zero2 and ahead of the
+move, so it can be backported:
+
+<https://lore.kernel.org/r/20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.=
+me>
+
+A `Tested-by` on that form would be very welcome, since it is not the
+variant you tested.
+
+> I had an R28S series of my own out before I saw yours; I am dropping it.
+
+Sorry about the duplicated effort.
+
+Thanks,
+Rong An.
