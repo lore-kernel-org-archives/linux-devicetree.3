@@ -1,104 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FA03B774B;
-	Wed,  9 Sep 2026 19:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A85D569F11;
+	Wed,  9 Sep 2026 19:29:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981673; cv=none; b=lQwEYuOnAQ1/MbT11Brf8aTgZEtqWSr3XN92CY7kAo93HBRmqHAxUskzi6TgiefeQuvEj3bM6QRj6oJthX2fao2DbbSoKC4qiB+ML1CKZnr6xPBqR8DBkd77JJS/1B5gffRNQABP//5Z3+6xB7NaktVnlVvHykZqXN2Ht5y0JAQ=
+	t=1788982150; cv=none; b=OsK9kn9cQtuRpSlAmC83bsJy3YFKa8cyJgR28Znlddj72rYHxPktoonp1e4Cwv++SVzjyfACcopEX3UXUVqsXqkY/yUiK5N54+Fa+yDR9NMfPgQbbg2vjif/2/cIqavIR1DwiGGceG6wNOql86PO3pCHTs/Nm9qZtF/vaAQfw6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981673; c=relaxed/simple;
-	bh=FnOmKp8lWp4Nwz5Our/7BQIbTjDwUHB6OqKZnUeKN8g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F4OZEAg/g2YsLBTV7RzJ9P2R1UKQAyg7jGSTu/Q8UblgOa0hVXj4aJaAhPnyEAG9Zco4KYtJimoY1zYlhQH58Fqskrh+8LFlKGUvyh+ogblCH1jr1Poc9w5CMJNcc9h9QoE1KkxO5B5oumSO0ml3RbI2Hs28msxgqlEUy7e0128=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ICA4k5Za; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788982150; c=relaxed/simple;
+	bh=u0C7UNcPm9Vs1Nhb8pf/Brf+J5IEED1yVMFPRSAcarI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=t1LU4HesWXwOID8a9Lus3cHQH/h8zyCliRQu+vIrS5+WRanLb5z4rfB/FV6k0gFVgInJIzArCv73YcpMHo7fyWxw6MkQ8gkGccarDTNscavWvhnP2GNsYANZsGS9rpBTN19Dq+q+4aSyaasfZvYTPbRqdG0faTY9ZNlbCn1RRqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=BDhaYE1p; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=BBW4B77D; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ICA4k5Za"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 542A81F000FF;
-	Wed,  9 Sep 2026 19:21:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788981671;
-	bh=GGxKEZTqr82EcGuC2dWFD6B1GTuAj4Hlrhe/WtwmRK0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ICA4k5ZaQ/OI54YJnC+tFzFATlfJ5w0E4dKZp8KEnwYNywLbkPt3hBHnVBiz48KXw
-	 gbxcT+dqOtHTiSOKAqjX3eRJazUUpuKeoa58vla+iUv0yHdkScr7dpWe4GQyIYz75c
-	 fvDuyM8nKMU/bZwztEd93o7OwM/i669ifXWoZxszRg6+JHBY9YFHzd0BRfYEN/dkYP
-	 ZK+ASyoz1Nqsvnh6esU3cqrIROEmkNqYEHFFr5hwfT/CDEhSCk+D46k0aTP3g0xDwJ
-	 bjHp2zCvQjwwNv7j7aDiFBPofXKX+Zg3v1nlfu93AdsIcvI+E8L0kYnWeorr4xjOp5
-	 /tWUN2UAr8FqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 7/8] net: xilinx: tsn: add the endpoint TX
- data path
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Neeli" <srinivas.neeli@amd.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-rt-devel@lists.linux.dev
-In-Reply-To: <20260909-patches_v2_external-v2-7-3a40babaff4c@amd.com>
-References: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
- <20260909-patches_v2_external-v2-7-3a40babaff4c@amd.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="BDhaYE1p";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="BBW4B77D"
+Message-ID: <ab7e4eeed1b8296188355413cce1aa2b2aa5c670.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1788982140;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9law9+CgCfDsQ6flDKJswQTstAjtY8tODH32Z4bNGQM=;
+	b=BDhaYE1pGmhk3Cm4cto9WTwk5b6VM9sENFMpKrfGMlXOZCag4k9V67DS7PSd/wlwzdFo4u
+	eAPUoOIW4NyYRYdaHRKJ4kEfqjUzm4GMOHabQKrMVmyLVVqmD66GaqNZlpY4gE8FKMt8oP
+	8wTH5r0MLlI7Y9ptY7j857BmvlQzCL+TVIuxuIgodU6snMkhnUtvxLB102xaBHM8u8Q432
+	wMYoVqnYsp+XBayxlj17gCYGDWnvy+tD6WS3QSoauFapWMqVSIkAkvCKwSoweqvQOD5KoK
+	qUh3xe/Hk0BX6xECWNS0DlN+0Nsbpdg7WZOpinCAg8gjyTv3oxDLV+Q2UfcM2Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1788982140;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=9law9+CgCfDsQ6flDKJswQTstAjtY8tODH32Z4bNGQM=;
+	b=BBW4B77DQ3V2MvL1l2g1Dem5WdUOUTvAQlu8+VqHwscTGtrU9at8BqbnBQZU+o8+SQHTD5
+	X1FrURFXZYvRlHDA==
+Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
+ SoC-e switch IP cores
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
+ <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
+ <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
+Date: Wed, 09 Sep 2026 21:28:59 +0200
+In-Reply-To: <5c955c96-7883-4e59-97ef-9fc3b63abf58@lunn.ch>
+References: 
+	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
+	 <3c2c5b39-6a7d-4cb2-af1c-b5015b6bf1e8@lunn.ch>
+	 <db26d5c9262069a11e5cbe00e176b81e40baebeb.camel@linutronix.de>
+	 <5c955c96-7883-4e59-97ef-9fc3b63abf58@lunn.ch>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 19:21:10 +0000
-Message-Id: <20260909192111.542A81F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Incorrect SKB free function used for dropped packets on DMA erro=
-r.
---
+On Tue, 2026-09-08 at 21:20 +0200, Andrew Lunn wrote:
+> > > What is the MDIO master?
+> >=20
+> > It refers to the switch-integrated MDIO controller: one shared set of
+> > MMIO transaction registers serving multiple selectable MDIO buses. The
+> > switch documentation calls it an MDIO bridge. I will rename "master" to
+> > "controller".
+>=20
+> In Linux, we have the concept of MDIO muxes. You have one true MDIO
+> bus master, and then logic gates to connect it to many MDIO
+> busses. Generally, the MDIO data line has a set of analogue switches
+> to mux it to one of the many MDIO busses.
+>=20
+> Having only one true MDIO bus master means you cannot do transactions
+> in parallel.
 
-commit dba43ed8ae5a63ef3cc1b455fd12d3567126babd
-Author: Srinivas Neeli <srinivas.neeli@amd.com>
+That's true. I had already considered using an MDIO mux for v2, but
+decided to retain the existing implementation while addressing the other
+feedback first.
 
-net: xilinx: tsn: add the endpoint TX data path
+> It seems like this is how this hardware works. The question is, should
+> we model it this way. Take a look at mdio-mux-mmioreg.c. Maybe the
+> MDIO bus driver can be placed into drivers/net/mdio, and a
+> mdio-mux-mmioreg stacked on top of it to provide the per port MDIO
+> busses. That will make the locking simpler, and remove a lot of code.
+>=20
 
-Add the transmit path so the endpoint can send frames. Look up the physical
-DMA channel for the frame's queue through the map built at probe, map the
-frame and submit it to that channel. Stop the queue when the ring runs out
-of space, and wake it from the completion callback once a slot frees up.
+For the next revision, I will try to implement this model. The MDIO
+controller will become a standalone driver under mdio and register a
+single parent mii_bus. A generic mdio-mux-mmioreg instance will then
+provide the per-port child buses. Something like this:
 
-> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/ne=
-t/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> index 9ed1170794e03..9e9a45169681f 100644
-> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
-[ ... ]
-> @@ -300,8 +304,147 @@ static void ep_dma_rx_cb(void *data, const struct d=
-maengine_result *result)
-[ ... ]
-> +static void ep_dma_tx_cb(void *data, const struct dmaengine_result *resu=
-lt)
-> +{
-[ ... ]
-> +	if (unlikely(result->result !=3D DMA_TRANS_NOERROR)) {
-> +		DEV_STATS_INC(ndev, tx_errors);
-> +	} else {
-> +		DEV_STATS_INC(ndev, tx_packets);
-> +		DEV_STATS_ADD(ndev, tx_bytes, len);
-> +	}
-> +
-> +	dev_consume_skb_any(skb);
+ethernet-switch@xy {
+    /* ... */
 
-[Severity: Medium]
-Does this code use the correct SKB free function on the error path?
+    mdio_parent: mdio@204 {
+        compatible =3D "soce,swip-mdio-23-02";
+        reg =3D <0x204 0xc>, <0x200 0x4>;
+        reg-names =3D "data", "control";
+    };
 
-When the DMA transmission fails (result->result !=3D DMA_TRANS_NOERROR) in
-ep_dma_tx_cb() inside drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c, the
-packet is effectively dropped. However, dev_consume_skb_any() is used here
-unconditionally.
+    mdio-mux@200 {
+        compatible =3D "mdio-mux-mmioreg", "mdio-mux";
+        reg =3D <0x200 0x4>;
+        mux-mask =3D <0x1f0000>;
+        mdio-parent-bus =3D <&mdio_parent>;
+        #address-cells =3D <1>;
+        #size-cells =3D <0>;
 
-Tracing tools like dropwatch rely on dev_kfree_skb_any() to distinguish
-dropped packets from successfully transmitted ones (which use
-dev_consume_skb_any()). Calling dev_consume_skb_any() on the error path
-will cause these drops to be incorrectly reported as successful transmissio=
-ns.
+        mdio@0 {
+            reg =3D <0>;
+            /* PHYs connected to port 0 */
+        };
 
-Should the error path use dev_kfree_skb_any() instead?
+        mdio@10000 {
+            reg =3D <0x10000>;
+            /* PHYs connected to port 1 */
+        };
+    };
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-patches_v2=
-_external-v2-0-3a40babaff4c@amd.com?part=3D7
+    /* ethernet-ports ... */
+};
+
+This requires a separate binding and compatible string for the MDIO
+controller. I currently have soce,swip-mdio.yaml and the
+register-layout-specific soce,swip-mdio-23-02 in mind, although I still
+need to consider the naming.
+
+> 	Andrew
+
+Thanks,
+Vasilij
