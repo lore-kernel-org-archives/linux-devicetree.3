@@ -1,254 +1,136 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38994F55A5;
-	Wed,  9 Sep 2026 13:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B52D5678FA
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:58:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788962101; cv=none; b=n4zkM1y9xgnGXIpNBqX1A/Lyuk67upX/P/114A1Eu2KyA2OPfDrw8twIMxev67xJsoOQGxL+fewTbBkR5RVUeFD8GRMGr15BV1G4lbjzscOUrTKGC8jEekFWl/kax/v4+02fdZjoirlalDfXB8UypykjbzcDbV5GrSgvnE+3hls=
+	t=1788962287; cv=none; b=EsHldIYQGwnhLF3wthaS8fxIjMFBeTDsFFUwmLU4ECjuGYXMNve9MYAb82zjqzoOLZq4v8nLX9xEiX8Zn4XFDUnlRDiLnc2pbuNt0o8fTcH+ftHIDdK31q/COf9Bbw/ymOeW/fmOTO2gQVl79mK6SnIlzzIJfjvu54zRqbBGG40=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788962101; c=relaxed/simple;
-	bh=8igw4+GL904N8sIe6g1uPOL6GHbFNdVYipx8uF75oOQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=A+efPrjIUQdPd7jxEiIRA52ZM0fDhc6aBwsEHG73HmGMVgr1YzvXQAWeMt1ZFKlMULLN9bvNbjjqBq4qykgzz/TLVsd98tLCkahlz6Bb9nwwM5eb8w3orNpmOr0mj6q1kK0k5aq2jiBqCPdgBSJ3niS6NSC8pEUCp96/jEwKvSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: eleanor.lin@realtek.com
-X-PTX-Original-Recipient: broonie@kernel.org
-X-PTX-Original-Recipient: robh@kernel.org
-X-PTX-Original-Recipient: krzk+dt@kernel.org
-X-PTX-Original-Recipient: conor+dt@kernel.org
-X-PTX-Original-Recipient: james.tai@realtek.com
-X-PTX-Original-Recipient: cy.huang@realtek.com
-X-PTX-Original-Recipient: stanley_chang@realtek.com
-X-PTX-Original-Recipient: jyanchou@realtek.com
-X-PTX-Original-Recipient: linux-spi@vger.kernel.org
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B238C20590C;
-	Wed, 09 Sep 2026 15:54:55 +0200 (CEST)
-Message-ID: <c647c66bdb3d87157a5684b755c95123fe9ba198.camel@pengutronix.de>
-Subject: Re: [PATCH v4 2/2] spi: spi-mem: Add Realtek SPI NOR flash
- controller driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Yu-Chun Lin <eleanor.lin@realtek.com>, broonie@kernel.org,
- robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: james.tai@realtek.com, cy.huang@realtek.com, stanley_chang@realtek.com, 
-	jyanchou@realtek.com, linux-spi@vger.kernel.org,
- devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 15:54:55 +0200
-In-Reply-To: <20260909125701.273314-3-eleanor.lin@realtek.com>
-References: <20260909125701.273314-1-eleanor.lin@realtek.com>
-	 <20260909125701.273314-3-eleanor.lin@realtek.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1788962287; c=relaxed/simple;
+	bh=CcKAjDss9MmchJrCmUEW6HzwblPM9ix3CqLeRPrag+c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=tXtah6oh5ji3zwBkDqcVCLfJOL0UUOqyR3rmR3QeEYtzeefWBqS+t9eFbrv52ZBjvi0FfIxcXs4ogB0tZjag+mQ/4/aXT7yCQ+Hayg+6tTSx+1ItQ3qeW+XsxDHEMnaTU111E4LYeqaQfBtpW3yvntqrdls8ou29Lnyin1m6Izk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QVskkqsB; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QVskkqsB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCFBB1F00A3F;
+	Wed,  9 Sep 2026 13:58:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788962286;
+	bh=8dgx8m0Hye6PYZGfyqfJcDvM+fniSOb72l8VZVinduc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QVskkqsBhvuFeQtZRyWS736OWphyyeSvKU7kw3TPj5MhcFKVkXTwoeeu/BcYhZeaG
+	 g/bqyHGwDEKfSMEx2VEHbFDqRoLf5B1UHH8PVioYl5pIn40YjTELtEH3wIJiRoMJFy
+	 I+0LCUD5xHV82RKS0VIMUFq2IIYOUW0B/g0GTWsqBOFohW4iRxbiLRwYOFJRSGVQZJ
+	 7uaJa5JgjMGg5B3q5/hmQ9PtyPN8yRmIcXqorswX3hsGARev3nCjxIyC9m6p/b+ONG
+	 1ioAt6+RHFpk4FlszN2NZYe0BPlk/R6fqzICCd6a2xzF3XvdN6tv2Zdso94xSON8zk
+	 Wl/ipeWizBVBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v17 20/22] media: i2c: maxim-serdes: add MAX96724 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
+Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260909-gmsl2-3_serdes-v17-20-002499e534e8@analog.com>
+References: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
+ <20260909-gmsl2-3_serdes-v17-20-002499e534e8@analog.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Wed, 09 Sep 2026 13:58:05 +0000
+Message-Id: <20260909135805.DCFBB1F00A3F@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Mi, 2026-09-09 at 20:57 +0800, Yu-Chun Lin wrote:
-> From: Jyan Chou <jyanchou@realtek.com>
->=20
-> Add a spi-mem driver for the SPI NOR Flash Controller (SFC) found on Real=
-tek
-> DHC SoC. SFC supports Dual I/O.
->=20
-> Implement the exec_op API for regular control commands and the dirmap API
-> for hardware-accelerated read/write operations.
->=20
-> The controller is described by three register ranges. The first one (ctrl=
-)
-> holds the control registers. The second one (dma) holds the DMA engine
-> registers, used to transfer the payload between the flash and main memory=
-.
-> The third range is the memory aperture (dirmap) that maps the flash
-> contents.
->=20
-> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
-> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
-> ---
-> Changes since v2:
-> - Add Yu-Chun's last name.
-> - Specify "NOR" in the commit message and descriptions to avoid future
-> conflicts with SPI NAND or GSPI.
-> - Make SPDX license and copyright notice headers in C++-style.
-> - Drop driver-internal polling (rtk_spi_read_status()), leaving the statu=
-s
-> polling and timeout handling to framework.
-> - Track the 4-byte addressing state and properly restore it in rtk_spi_in=
-it()
-> to prevent state loss during runtime PM suspend/resume.
-> - Add hardware cleanup in rtk_spi_dma_transfer() to explicitly trigger a
-> graceful stop of the DMA engine if a timeout occurs.
-> - Check bounds against the direct mapping window (dirmap_size) in both PI=
-O and
-> DMA transfer paths.
-> - Add reset_control_assert() in the probe error path and .remove().
-> - Replace RUNTIME_PM_OPS() + SYSTEM_SLEEP_PM_OPS() with
-> DEFINE_RUNTIME_DEV_PM_OPS().
-> ---
->  MAINTAINERS               |   6 +
->  drivers/spi/Kconfig       |  10 +
->  drivers/spi/Makefile      |   1 +
->  drivers/spi/spi-rtk-nor.c | 623 ++++++++++++++++++++++++++++++++++++++
->  4 files changed, 640 insertions(+)
->  create mode 100644 drivers/spi/spi-rtk-nor.c
->=20
-[...]
-> diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] TOCTOU race in stream enablement leads to a kernel stack out-of-bo=
+unds read and info leak via Virtual Channel mapping.
+--
+
+commit 09e380cc5beec37cc922ac65a1a89a282d99562a
+Author: Cosmin Tanislav <demonsingur@gmail.com>
+Subject: media: i2c: maxim-serdes: add MAX96724 driver
+
+This commit adds a new MAX96724 driver that supports MAX96712, MAX96724F
+and MAX96724R quad deserializers. It integrates the devices with the common
+deserializer framework.
+
+> diff --git a/drivers/media/i2c/maxim-serdes/max96724.c b/drivers/media/i2=
+c/maxim-serdes/max96724.c
 > new file mode 100644
-> index 000000000000..5ccfa234b6b1
+> index 0000000000000..458e78f285111
 > --- /dev/null
-> +++ b/drivers/spi/spi-rtk-nor.c
-> @@ -0,0 +1,623 @@
-[...]
-> +static int rtk_spi_probe(struct platform_device *pdev)
+> +++ b/drivers/media/i2c/maxim-serdes/max96724.c
+
+[ ... ]
+
+> +static int max96724_set_pipe_remap(struct max_des *des,
+> +				   struct max_des_pipe *pipe,
+> +				   unsigned int i,
+> +				   struct max_des_remap *remap)
 > +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct spi_controller *ctrl;
-> +	struct rtk_spi_host *host;
-> +	struct resource *res;
+> +	struct max96724_priv *priv =3D des_to_priv(des);
+> +	struct max_des_phy *phy =3D &des->phys[remap->phy];
+> +	unsigned int phy_id =3D max96724_phy_id(des, phy);
+> +	unsigned int index =3D pipe->index;
 > +	int ret;
-> +
-> +	ctrl =3D devm_spi_alloc_host(dev, sizeof(*host));
-> +	if (!ctrl)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, ctrl);
-> +	host =3D spi_controller_get_devdata(ctrl);
-> +	host->dev =3D dev;
-> +
-> +	host->clk =3D devm_clk_get(dev, NULL);
-> +	if (IS_ERR(host->clk))
-> +		return PTR_ERR(host->clk);
-> +
-> +	ret =3D clk_prepare_enable(host->clk);
+
+[ ... ]
+
+> +	/* Set destination Data Type and Virtual Channel. */
+> +	/* TODO: implement extended Virtual Channel. */
+> +	ret =3D regmap_write(priv->regmap, MAX96724_MIPI_TX14(index, i),
+> +			   FIELD_PREP(MAX96724_MIPI_TX14_MAP_DST_DT,
+> +				      remap->to_dt) |
+> +			   FIELD_PREP(MAX96724_MIPI_TX14_MAP_DST_VC,
+> +				      remap->to_vc));
+
+[Severity: High]
+Can a TOCTOU race in stream enablement lead to a kernel stack out-of-bounds
+read and an information leak here?
+
+When max_des_update_streams() is called, it fetches the remote sensor's fra=
+me
+descriptor twice: first in max_des_populate_remap_context(), and later in
+max_des_get_pipe_remaps(). If a concurrent V4L2 ioctl on the sensor changes
+the Virtual Channel (vc) ID between these calls, a race occurs.
+
+During the second pass, max_des_get_pipe_remaps() invokes the getter without
+re-validating the newly fetched src_vc_id:
+
+max_des_get_pipe_remaps() {
+    ...
+    ret =3D max_des_get_src_dst_vc_id(context, pipe->index, hw.phy->index,
+                                    src_vc_id, &dst_vc_id);
+}
+
+Inside max_des_get_src_dst_vc_id(), this results in an out-of-bounds read
+on the stack-allocated context array if src_vc_id is modified to bypass
+bitmask checks (e.g., if it is a multiple of BITS_PER_LONG):
+
+max_des_get_src_dst_vc_id() {
+    ...
+    *dst_vc_id =3D context->vc_ids_map[pipe_id][phy_id][src_vc_id];
+}
+
+The out-of-bounds stack data is then assigned to remap->to_vc and passed to
+this hardware driver. By programming remap->to_vc into the hardware register
+here, is it possible that up to 2 bits of kernel stack memory per race could
+be leaked onto the observable MIPI CSI-2 bus?
+
 > +	if (ret)
 > +		return ret;
 > +
-> +	host->rstc =3D devm_reset_control_get_optional_exclusive(dev, NULL);
-> +	if (IS_ERR(host->rstc)) {
-> +		ret =3D PTR_ERR(host->rstc);
-> +		goto err_disable_clk;
-
-If you moved clk_prepare_enable() below this, you could just return
-here.
-
-> +	}
-> +
-> +	reset_control_assert(host->rstc);
-> +	usleep_range(10, 20);
-> +	reset_control_deassert(host->rstc);
-> +
-> +	ret =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(35));
-> +	if (ret) {
-> +		dev_err(dev, "Failed to set dma mask\n");
-> +		goto err_disable_clk;
-
-No reset_control_assert() in this error path?
-
-> +	}
-> +
-> +	host->buffer =3D dmam_alloc_coherent(dev, SFC_DMA_MAX_LEN,
-> +					   &host->dma_buffer, GFP_KERNEL);
-> +	if (!host->buffer) {
-> +		ret =3D -ENOMEM;
-> +		goto err_disable_clk;
-> +	}
-> +
-> +	host->regbase =3D devm_platform_ioremap_resource_byname(pdev, "ctrl");
-> +	if (IS_ERR(host->regbase)) {
-> +		ret =3D PTR_ERR(host->regbase);
-> +		goto err_disable_clk;
-> +	}
-> +
-> +	host->mdbase =3D devm_platform_ioremap_resource_byname(pdev, "dma");
-> +	if (IS_ERR(host->mdbase)) {
-> +		ret =3D PTR_ERR(host->mdbase);
-> +		goto err_disable_clk;
-> +	}
-> +
-> +	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "dirmap");
-> +	host->iobase =3D devm_ioremap_resource(dev, res);
-> +	if (IS_ERR(host->iobase)) {
-> +		ret =3D PTR_ERR(host->iobase);
-> +		goto err_disable_clk;
-> +	}
-
-It looks to me like all these dmam_ and devm_ initialization calls
-should be moved up before the clock enable and reset assert/deassert.
-
-> +
-> +	host->dirmap_size =3D resource_size(res);
-> +	host->flash_phys_base =3D res->start;
-> +	host->is_4byte =3D false;
-> +
-> +	ctrl->mode_bits =3D SPI_RX_DUAL | SPI_TX_DUAL;
-> +	ctrl->bus_num =3D -1;
-> +	ctrl->mem_ops =3D &rtk_spi_mem_ops;
-> +	ctrl->num_chipselect =3D 1;
-> +	ctrl->auto_runtime_pm =3D true;
-> +
-> +	rtk_spi_init(host);
-
-This is the first call that actually needs clocks running and reset
-triggered.
-
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, SFC_AUTOSUSPEND_TIMEOUT);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_get_noresume(dev);
-> +
-> +	ret =3D spi_register_controller(ctrl);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to register controller\n");
-> +		goto err_pm_disable;
-> +	}
-> +
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	return 0;
-> +
-> +err_pm_disable:
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_disable(dev);
-> +	pm_runtime_set_suspended(dev);
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	reset_control_assert(host->rstc);
-> +
-> +err_disable_clk:
-> +	clk_disable_unprepare(host->clk);
-> +
-> +	return ret;
+> +	/* Set destination PHY. */
+> +	return regmap_update_bits(priv->regmap, MAX96724_MIPI_TX45(index, i),
+> +				  MAX96724_MIPI_TX45_MAP_DPHY_DEST(i),
+> +				  field_prep(MAX96724_MIPI_TX45_MAP_DPHY_DEST(i),
+> +					     phy_id));
 > +}
-> +
-> +static void rtk_spi_remove(struct platform_device *pdev)
-> +{
-> +	struct spi_controller *ctrl =3D platform_get_drvdata(pdev);
-> +	struct rtk_spi_host *host =3D spi_controller_get_devdata(ctrl);
-> +	struct device *dev =3D &pdev->dev;
-> +
-> +	spi_unregister_controller(ctrl);
-> +
-> +	pm_runtime_get_sync(dev);
-> +	pm_runtime_disable(dev);
-> +	reset_control_assert(host->rstc);
-> +	clk_disable_unprepare(host->clk);
-> +	pm_runtime_put_noidle(dev);
-> +	pm_runtime_set_suspended(dev);
 
-Why is this cleanup order different from the probe error path?
-
-
-regards
-Philipp
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-gmsl2-3_se=
+rdes-v17-0-002499e534e8@analog.com?part=3D20
