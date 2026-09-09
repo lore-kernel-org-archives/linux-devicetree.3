@@ -1,98 +1,250 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C186DCE1;
-	Wed,  9 Sep 2026 14:44:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F73576EC3
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:45:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788965078; cv=none; b=LK54Pg0qcS0f2VT3pDcD0jkBrIz2Tw+/3sR26ciR4kPVqoJc0oANiWlFgUoJm2O3yepl3xciGjRSFkJPFzmCpjCzBFZtpvg1Lr2bYpm4Viyz2YMuA1Ee5Nxg2Z9mJm8j549Nin1TBmdH1oWq6w+d65A73vlevexYdhdawpPrfFs=
+	t=1788965111; cv=none; b=KT6CEOboOsWOzoNHjJUngMS6DgP4X0fFvv7YyjKKTIwrUgMiXA52xdPBuw1L2FfZja9/oDWLBEGNkut3GjjgDOYxg6UZa+f4SsnGVdpMhZ10vL9wubd6BcHBSS7oZLTPKzlafxi/2O5dNyWJbfoCHxElHD3wMqbu6K37tkJGcXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788965078; c=relaxed/simple;
-	bh=OIDfxYfqmu2Ih8oS8M2qJF3yY6RhAeQ+tTrgGOgS6lk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MuHic/YGpmjgsmnTqePdxwsc/eTUTuNcd+/U7qPe2Q7xzCLmXtOIluMBAzKp26mMSciHC99m112u0H7y7GQJph8Um0rmw5gvNqqibeWY1CEcnAcFb5t9i8JLnvVtVY8zO9Z+En2TZqGzbB8Ybb0IohreldQEg+uqKRpRYw7Dgj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P8tXjrgK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788965111; c=relaxed/simple;
+	bh=lngbaFIw7df51hzvDfpcwYG1fGj9Oc7zBuT183aLNVA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GiL2mNDIEJbakY7bMy47+55J8Qq3RgRhFPEA/L9CPgkg5napSU3YVd0UlJjF7ZBKQNaDgyAVGStDgLoQGVZAavCB8bwbElrkI+mr+cAUEC+0nRhbKAShiU/BsBF6vuFCU5FIJARjmBNOYKJIDNyR28Os3NH+gJIZMzbZBeDyJKc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=N0CSpgVr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=InpgR9SF; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P8tXjrgK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585DC1F00A3A;
-	Wed,  9 Sep 2026 14:44:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788965076;
-	bh=xGQa4umocNQPl2GBMWaPQRtAI4fAX3MesHNulA0VUaw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P8tXjrgKs3SxMzTz/VbwlC4Irbe3G0TRzskSF27d03bU61ncn/YvpKqD5rUT5wMnK
-	 Z8sksvzLTcq1dI6/N9rkNeYh/lxsU7fwbomcnlHizjD2rk2I4jA3m4vY9CTgU+2LPG
-	 yPjedm/rotgNAFX3wUkNn8fHGFHHDBzKuV80EpDRl6lxBRl6Gsvd7kSAs9oFjTDNZh
-	 Cm4T5MReeCNFaF5JDjyPsVmahRaMQroFX/BfY1rpVFWTAPn14kesOkJaH8UAMc41tG
-	 jlVikEHXM01lt68qbYVx0ivg+KUe2IZt21KUEnqA1PM6BkFK/kYPYqnn2v2PCyI7Dn
-	 nuiQM7+Sr8hDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: broadcom: Add RTC to Raspberry Pi 5 B
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sander Speetjens" <sander.speetjens@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, linux-rtc@vger.kernel.org
-In-Reply-To: <20260909141300.1368790-4-sander.speetjens@gmail.com>
-References: <20260909141300.1368790-1-sander.speetjens@gmail.com>
- <20260909141300.1368790-4-sander.speetjens@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 14:44:35 +0000
-Message-Id: <20260909144436.585DC1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="N0CSpgVr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="InpgR9SF"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU74D2375921
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 14:45:09 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=0ZRG+xpPfqS2+swMicsmkK+9
+	EkUi9QaTQm3JgCuQh98=; b=N0CSpgVrul6qu8O5h0DXcRK0MEH1V+IUCww2U/zL
+	35KIUHJjCUFhLahoFQE3ho77HM0dcktjLjkR6vjmvaCjhcc0d5kofsFX6eplxTku
+	K4hTzoqXoRFEAM3UZbtl9O0yYcVyJH3HG03r9S1HCnh6N0WWVei5vl+2VlAq0IpG
+	WbgeuJIiSVD2JlRyzrwoTc4WvSSt0WIBR1OC8P6qGrJ2s5y9iiC3UfmKck8vWWtt
+	1e8RfuEYHizlXataJyPJXmnuiWsBndc/pngfxIb+Ms0pNQpvhDB7hhFkAWikoYPm
+	VVjv/Yt+QzCDfgdEjH+osItM8EyPqZNAkt2+1lmR5LUOeQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5ru115n-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 14:45:08 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2dc92350888so17570605ad.3
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 07:45:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788965108; x=1789569908; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0ZRG+xpPfqS2+swMicsmkK+9EkUi9QaTQm3JgCuQh98=;
+        b=InpgR9SFUBmz4qGcdsZ58aK8zKOvF4lBNbOxweNgHONQoj+dxEs1zms1qriuZJdRxh
+         1Iq9oYQUw6sZ8IAO+F2QbxF8QArx7watk31oJrgxcU/kyKS2xGMjt/9rXejEofRzH3y/
+         vHut7CK4RkGEJDP0zCDaEBuVPV/mnWkJ+tUbVnH7Z318PCkgfqneHCBCUtky2BVb8nzB
+         1y4Py2Yr+WScJAnczlQG2jzcyPByQZYFdwMYVTpVVzRKjs0BCeLzzccSBqn4OAlTSk00
+         qCWJFG+FXfVT3xhznrJRPt6khL8JvHNa2oHJRWZMivaczfJVxYvsiyC76zM1vEX0BXJw
+         b25A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788965108; x=1789569908;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0ZRG+xpPfqS2+swMicsmkK+9EkUi9QaTQm3JgCuQh98=;
+        b=Ni1s8rsNDPH+dgand5zCnrF3DzMgsUo0jTptZIEBIaBLif6+2vaXUu3GR2zVEm4xUg
+         Aye3o/Fv5+ZMDrCBGMw5oN1tO7PhJbQc1NXgu8KIuBltAyWd2deyRgt66rVa/WXX0WeM
+         9aqFC6L9UZ9rNdt7MuX9R6TsUZtMdpfUmGH5Apz+acfvVxdlktRbMwdDephA6E4doWVp
+         1hFZJQJ3zBywCk7c1i5CAM/HWclFVTh5TB75nP/ajjtdhdmUwCDJdj/PGToEFee+TzQr
+         4JijykRC2gyrVMPttwnww6qtidg7Kape8awhk0rue4V5iSbHFVe7rrilkPtPd28ZlUPq
+         LvRA==
+X-Forwarded-Encrypted: i=1; AKwUvByEdxcE6xA/Ek4uon69lX32+j7vW4aMvRlFjLNdr25yYHWtGis479cUQ5/aC6GExajfMo59U29il5Gf@vger.kernel.org
+X-Gm-Message-State: AFuF++lLAB3nYsGM+cmXuqSBpcJYg/WktTUe01ItHareRbkebrc34H1g
+	uE1sWWRGKg8i55bOewX/P9geCBgmvbWNq+xhLhMVMkd2n4AMod9IeOlBoRsay3cm8V2yDgOHWKO
+	6cd3oX2RIYJ6wu0gBzx+b5pPB+fyTG9Q1w63LXzgG3kO+ZC2DpamEX0D8jx/LgHPY
+X-Gm-Gg: AYBFou1H61QTveAk2+/GPCxFzj2tkbRnZxIFmvX+w7abQyGaMmhuIn6xlmnJeU886wa
+	9scD90BrjWVzRf1TbE9aEGTQoJnWpzbqOuB0kmC0VzBRqmGKf4OgH01KOGicT5ojBxfGXtRugJO
+	rs9ApF1TKjJkOqcYH1U6STTm99kNktaqqBQmlnFA8woVlE7JRdVTNUVcpf8bZj9LvOsdyaKBYBH
+	4vbTHJH+GGKDK05My1saplL4q0yR35N45p7G2mqeaewJ7I0bk0M1FaDGohwYoD94eaTK29k/CB2
+	tfcSFXSUsfFbUQKhNVQdSmhxhA5n7GzVkjmK7tsHKsuugaSVjDIjded3BjHL4lctsUfCI927O2I
+	XTUXSup/4Ot3+MUUg88bFNmz6wo3JamDuHd8PHSifuGU=
+X-Received: by 2002:a17:902:ebc7:b0:2d7:f0:896b with SMTP id d9443c01a7336-2dd0797ada3mr22680145ad.13.1788965107502;
+        Wed, 09 Sep 2026 07:45:07 -0700 (PDT)
+X-Received: by 2002:a17:902:ebc7:b0:2d7:f0:896b with SMTP id d9443c01a7336-2dd0797ada3mr22679445ad.13.1788965106910;
+        Wed, 09 Sep 2026 07:45:06 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db149cc85dsm75711565ad.74.2026.09.09.07.45.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:45:06 -0700 (PDT)
+Date: Wed, 9 Sep 2026 22:44:57 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+        Lars-Peter Clausen <lars@metafoo.de>,
+        Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>, linux-sound@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v1 1/5] ASoC: codec: adau1977-i2c: Add OF device match
+ table
+Message-ID: <aqFw6RNBZrkiAg-y@QCOM-aGQu4IUr3Y>
+References: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
+ <20260907-nord-asoc-driver-support-v1-1-997d3b20cf43@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-nord-asoc-driver-support-v1-1-997d3b20cf43@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=M+997Sws c=1 sm=1 tr=0 ts=6aa170f4 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=1coeNckUEot7TYRSRIgA:9 a=CjuIK1q_8ugA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: A-7VMFA5S8CJsMNQJV7xAazJvoBRhHkq
+X-Proofpoint-ORIG-GUID: A-7VMFA5S8CJsMNQJV7xAazJvoBRhHkq
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2NCBTYWx0ZWRfXyAd8dLs243o9
+ AvwPtJ9RBAtvkVESMJdnNXUH3/D1s/WIId8xi6hD8bxwBP7WVv/ylnGYkF2lflG2FctbTP5thb2
+ Rf8rjsFpRpxvt22DiHFKH2uwpvWpCA8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2NCBTYWx0ZWRfX55nGoG0qygMn
+ vezgTxGg2L7pLIMs5doldIU/6YeL7gVtvFVBfzdmSroxdl6aLKM/2u/zTlzhqzPXUnN5leyV0Q4
+ h3pdB+9ibgJBsGtOvfB0/kcOYdoHprl+frWGi3v5eB/aklZk4BKcPWfNFSUqfN6A5xxdEf0XFZ8
+ BMV9TsPEbdBWmVdX5F0CYjdLzOTGnNPrlZgk/qKsVUPjT2CGKsEmKVFsLrtpTjFQB9K5S/l6wIR
+ RzjCLhSrjK2o+CgF2s6I8WmtV4GxBudh6m8Hmg+mgckuIUCVlfOY99FZCqwsBS3aSrGSMWGLAEt
+ d8ph6vLct58UdCeApNj8S0iY10X8C8T6xuK/SL7X448wLAzA+U6yn6SGytCZrZMDrUBImVzdsOi
+ fDx72weHIH8xHHQQ0FB80dd8jGxKoccU3EGKgr3PDGiT+4ZUaBRk2tuJ0JxUZ9ltUOtAhTB80BW
+ Dnn3iZE6u8oKSjZRKhw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 bulkscore=0 spamscore=0 phishscore=0 impostorscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609090164
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The RTC node uses a non-generic node name.
-- [Low] Commit message contains multiple obvious spelling mistakes.
---
+On Mon, Sep 07, 2026 at 11:39:42PM +0530, Mohammad Rafi Shaik wrote:
+> The ADAU1977 I2C driver lacks an OF device match table, preventing
+> it from binding to codec instances described via Device Tree. Systems
+> using compatible strings such as "adi,adau1977", "adi,adau1978", or
+> "adi,adau1979" fail to probe the driver as a result.
 
-commit badbff5dbc66bc9afed161f21071dd3b6408304c
-Author: Sander Speetjens <sander.speetjens@gmail.com>
+This justification isn't accurate -- DT instances do bind today. The I2C
+core matches DT clients by stripping the vendor prefix from the first
+compatible and comparing the result against the driver's id_table:
 
-arm64: dts: broadcom: Add RTC to Raspberry Pi 5 B
+  of_i2c_get_board_info()          drivers/i2c/i2c-core-of.c
+    of_alias_from_compatible()  ->  client->name = "adau1979"
+  i2c_device_match()               drivers/i2c/i2c-core-base.c
+    i2c_match_id(driver->id_table, client)  -> matches
 
-This commit adds a devicetree node for the battery-backed RTC found on the
-Raspberry Pi 5's custom DA9091 PMIC, accessed via the firmware mailbox.
+So "adi,adau1979" already probes without this patch, and the patch as
+written doesn't fix a probe failure.
 
-> The Raspberry Pi 5 contains a RTC on a custom DA9091 PMIC that is accesed=
- trought the firware mailbox.
-> This so we have a battery backed RTC, so the OS does not need network to =
-get the time.
+What it does fix -- and what I think the changelog should say -- is
+module autoloading. For any client with an of_node, the bus emits the
+OF modalias, not the I2C one:
 
-[Severity: Low]
-There are a few typos here: "accesed trought the firware" should be "access=
-ed
-through the firmware", and "This so we have" should be "This is so we have".
+  static int i2c_device_uevent(...)
+  {
+          rc = of_device_uevent_modalias(dev, env);
+          if (rc != -ENODEV)
+                  return rc;
+          ...
+          return add_uevent_var(env, "MODALIAS=%s%s", I2C_MODULE_PREFIX,
+                                client->name);
+  }
 
-> diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi b/arc=
-h/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-> index b7a6bc34ae1ab..5a82dd585f32b 100644
-> --- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-> +++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi
-> @@ -102,6 +102,13 @@ wl_on_reg: wl-on-reg {
->  		startup-delay-us =3D <150000>;
->  		enable-active-high;
->  	};
+The kernel therefore advertises "of:N...Cadi,adau1979", which no module
+claims without MODULE_DEVICE_TABLE(of, ...). With SND_SOC_ADAU1977_I2C=m
+the codec module never gets loaded and the card stays in -EPROBE_DEFER
+with nothing in the log pointing at the cause.
+
+> 
+> Add a descriptive prompt string for SND_SOC_ADAU1977_I2C/SPI so
+> the driver is visible and selectable when running menuconfig.
+
+This should probably be a separate change?
+
+> 
+> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+> ---
+>  sound/soc/codecs/Kconfig        | 4 ++--
+>  sound/soc/codecs/adau1977-i2c.c | 9 +++++++++
+>  2 files changed, 11 insertions(+), 2 deletions(-)
+> 
+> diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
+> index d3730c4da51b..6f481a54313f 100644
+> --- a/sound/soc/codecs/Kconfig
+> +++ b/sound/soc/codecs/Kconfig
+> @@ -526,13 +526,13 @@ config SND_SOC_ADAU1977
+>  	tristate
+>  
+>  config SND_SOC_ADAU1977_SPI
+> -	tristate
+> +	tristate "Analog Devices ADAU1977 CODEC - SPI"
+>  	depends on SPI_MASTER
+>  	select SND_SOC_ADAU1977
+>  	select REGMAP_SPI
+>  
+>  config SND_SOC_ADAU1977_I2C
+> -	tristate
+> +	tristate "Analog Devices ADAU1977 CODEC - I2C"
+>  	depends on I2C
+>  	select SND_SOC_ADAU1977
+>  	select REGMAP_I2C
+> diff --git a/sound/soc/codecs/adau1977-i2c.c b/sound/soc/codecs/adau1977-i2c.c
+> index d1c6c4ddf506..9f54fa8375b1 100644
+> --- a/sound/soc/codecs/adau1977-i2c.c
+> +++ b/sound/soc/codecs/adau1977-i2c.c
+> @@ -34,9 +34,18 @@ static const struct i2c_device_id adau1977_i2c_ids[] = {
+>  };
+>  MODULE_DEVICE_TABLE(i2c, adau1977_i2c_ids);
+>  
+> +static const struct of_device_id adau1977_i2c_of_match[] __maybe_unused = {
+> +	{ .compatible = "adi,adau1977" },
+> +	{ .compatible = "adi,adau1978" },
+> +	{ .compatible = "adi,adau1979" },
+> +	{ },
+> +};
+> +MODULE_DEVICE_TABLE(of, adau1977_i2c_of_match);
+
+Worth noting for whoever touches this next: the variant is still resolved
+via i2c_get_match_data()'s fallback to id_table, since ADAU1977 == 0
+can't be expressed through .data. That's fine as-is, but it means
+adau1977_i2c_ids[] is now load-bearing in a way that isn't obvious --
+removing it as "redundant" would silently make every compatible probe as
+ADAU1977.
+
 > +
-> +	rpi_rtc: rpi-rtc {
+>  static struct i2c_driver adau1977_i2c_driver = {
+>  	.driver = {
+>  		.name = "adau1977",
+> +		.of_match_table = of_match_ptr(adau1977_i2c_of_match),
 
-[Severity: Low]
-Should this node use a generic name like "rtc" instead of "rpi-rtc"? The
-Devicetree specification recommends generic names reflecting the class of t=
-he
-device rather than the specific model.
+Drop of_match_ptr() and the __maybe_unused. Upstream has been removing
+of_match_ptr() from drivers for years.
 
-> +		compatible =3D "raspberrypi,rpi-rtc";
-> +		firmware =3D <&firmware>;
-> +		status =3D "okay";
-> +		trickle-charge-microvolt =3D <0>;
-> +	};
+Shawn
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909141300.1368=
-790-1-sander.speetjens@gmail.com?part=3D3
+>  	},
+>  	.probe = adau1977_i2c_probe,
+>  	.id_table = adau1977_i2c_ids,
+> 
+> -- 
+> 2.34.1
+> 
+> 
