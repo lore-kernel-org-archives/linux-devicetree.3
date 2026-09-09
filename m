@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F183A3CB8FF;
-	Wed,  9 Sep 2026 21:47:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75573BED61;
+	Wed,  9 Sep 2026 21:47:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788990453; cv=none; b=bhnkeGiTx8frq+ZSWuuNXVaBQ0XBuwnESZyvozhKzN2nb14r7xUXbkWUUUuwFdhiQMH1ES9atKVFl3UljsqxaN4IPt14IO5PKrvL1tHvIS1F2p8nyd9FjYKNAl5Vl0Hrpd7NeFOtnisUxEJqPCvY1ylNXEgByY6ch+6LdqelDno=
+	t=1788990456; cv=none; b=YfHICjBeFXes1IT4HGKADfLaltY8HOb8igYuzwtQMgBdQHDEOYfDVoyl5FndyN4Jon5rXLibo9DFBMVvClKGleABvdDRG2FAkxcVVwcgkNRO9XirJCWrJjxxGKIPyKBN6G9X81lSSwgKkJ71O2MlDmysyk4oJb0f3MrGPCqOfdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788990453; c=relaxed/simple;
-	bh=8UjF79UMzrjRdzbcoEST5V7GkCdM3ZKnBNl/7fPJOng=;
+	s=arc-20240116; t=1788990456; c=relaxed/simple;
+	bh=mxmCFcHexHv9KSFGTwkZ6nRLna1emqzvTuP5Ux1zJj8=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dPjGlts+n9mAdGsNMVN0P+FIg5+qo6+a+10ZeR2ie6rFRA0G6YMpMxsTy8LylLwmGXQvb5/RrPfLiTxHrxE2pF718NZY86gbaBQHjWjlgseiKxbG1w0Zgp41bwK4EpYVvul9NSa0M6jOOdmYGV2lXFIYPj625rXlPK651xgJciI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVXjXBUV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=KSxn01EnOilGwrQcyEAIThRBEsKz6eZ+va+BlVkSjHjgDSgOdi8UP8bdTb5QnEbSPHdTwr188traZBPe2gqry55Rz4KiE/d4raYAODRVjXTjxrz2tpV8CuaYJDtywDqREHi2LTiSBoMBQ3r6m025qBqytrt+dlgYkPqEpmXbvXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NaPADtvv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVXjXBUV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDDC1F0089B;
-	Wed,  9 Sep 2026 21:47:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NaPADtvv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D65D1F0089A;
+	Wed,  9 Sep 2026 21:47:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788990438;
-	bh=b2bY2Hub+SpZQObKGH18+rjbZSyIPstkqYWfKls+4LU=;
+	s=k20260515; t=1788990431;
+	bh=Fxm0rfg/W700YPmfHnrKBmFSWVktG0RSyDx6J4rYQAc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RVXjXBUV4HlAflLQ3q+oqew72NDkWjHS6Oc3IIUlF9KwXQkYJ+a6HY3Bo4hUzrvo1
-	 pMzRyCoKA4dJPVOxBOuvIxxkmy4f/UH+nY0YQFcnPI3eNPZxQzUOAiEqwtF/woQbUM
-	 MG9XLE8yVgCyvjG5rFmIJt2wJqTQ4GPs1LTB8PuDxprCKeqvCZeKtAOZORd+EaKWu3
-	 f1GJ0RxyVeuWGlYYv6sU3kRMnq2fdgZZ+EvQwJYXksh+rJxu8C0i6dc46nNpzydAIK
-	 6i+6Myui6K3iraBSZ2hbE5Fda6S20JElabb97S9n9CsIr2a9EMLBvrwzOVYCmOTx1D
-	 tjGaagutFVtxw==
-Subject: Re: [PATCH net-next 8/9] net: stmmac: qcom-ethqos: add per-platform
- NOC clock voting
+	b=NaPADtvvzmV+s2NvbIW2UOB799kJDqph9FG7qpdZNYPB8JB9DakHXvheENaAkFlt0
+	 rqvIYntlUwYij2NOfumWJNsadhT7pV2KuKjUiCnd8mSEqm9vdd0sJy5pViEAqh/Ddw
+	 heYd1xaZ44pqa8U8Ccel7jEVMthWLeREfUeng+Xde8kqYcndHOHHw9LBkyyw9mbFoi
+	 SAH5mcPUKI5r+nhD2kFQr7gwBvxj7b7Z22FbiBXtrB1bpMpYyYak3Iw9i9KgIDfZvp
+	 cIoJ00eHSs/EGuQ3E8fWBz4ullGk8kCGaq4O+t3ApjOQzPm1JHcGKmvyjzh5AK5Wr3
+	 Q2GRfXVGWQhGw==
+Subject: Re: [PATCH net-next 5/9] net: stmmac: qcom-ethqos: fix RGMII_ID mode
+ to use DLL bypass
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -40,10 +40,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Wed, 09 Sep 2026 21:47:16 +0000
-Message-ID: <178899043644.219967.16301993674109894726@kernel.org>
-In-Reply-To: <20260904-shikra_ethernet-v1-8-a50765996035@oss.qualcomm.com>
-References: <20260904-shikra_ethernet-v1-8-a50765996035@oss.qualcomm.com>
+Date: Wed, 09 Sep 2026 21:47:09 +0000
+Message-ID: <178899042982.219967.10620350671306953901@kernel.org>
+In-Reply-To: <20260904-shikra_ethernet-v1-5-a50765996035@oss.qualcomm.com>
+References: <20260904-shikra_ethernet-v1-5-a50765996035@oss.qualcomm.com>
 X-sashiko-severity: High
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -54,305 +54,177 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 5 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 2 (1)
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
 
-- [High] Incorrect power sequencing order in ethqos_clks_config() error
-  path drops OPP performance state before disabling dependent clock.
-- [Medium] Missing PM_OPP Kconfig dependency and undisclosed OPP/DT
-  requirement: qcom_ethqos_init_noc_clks()…
-- [Medium] Probe-time OPP/performance-state vote is never withdrawn on
-  later probe failures.
-- [Low] ETHQOS_MAX_NOC_CLKS is introduced but never enforced:
-  qcom_ethqos_init_noc_clks() (dwmac-qcom-ethqos.c:809-815) copies…
-- [Low] Concern that the added NOC-clock/OPP infrastructure (struct
-  ethqos_noc_clk_cfg, the new driver-data and runtime fields,…
+- [High] ethqos_set_clk_tx_rate() applies the new DLL-bypass (no-MAC-
+  delay) link clock rate to every RGMII variant except plain "rgmii",…
+- [Low] The patch is titled "fix RGMII_ID mode to use DLL bypass" and the
+  changelog states the driver "currently falls through to the generic…
 
 Pre-existing issues:
-- [Low] Concern that
-  Documentation/devicetree/bindings/net/qcom,ethqos.yaml documents…
+- [Medium] For PHY_INTERFACE_MODE_RGMII_RXID the PHY supplies the RX
+  delay, yet that mode still takes the legacy path in…
 
 --
 
-net: stmmac: qcom-ethqos: add per-platform NOC clock voting
+net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
 
-Adds struct ethqos_noc_clk_cfg plus driver-data and runtime fields so each
-compatible can declare its own set of System NOC clocks with per-clock
-rates.  The clocks are acquired in probe via qcom_ethqos_init_noc_clks()
-and enabled/disabled next to the link clock in ethqos_clks_config(), with
-the OPP framework used to carry the VDD_CX performance state.
+For rgmii-id the PHY supplies both delays, so this powers down the DLL,
+sets DDR bypass and programs the IO_MACRO through a new
+ethqos_rgmii_id_macro_init() helper.  It also changes the link clock rate
+calculation in ethqos_set_clk_tx_rate() and drops RGMII_ID from the
+phase-shift suppression in ethqos_rgmii_macro_init().
 
 A few questions below.
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 4f9bef662c579..a31541506a4c9 100644
+> index 44270c25d874f..67738c1598c50 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -7,6 +7,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/phy.h>
->  #include <linux/phy/phy.h>
-> +#include <linux/pm_opp.h>
->  
->  #include "stmmac.h"
->  #include "stmmac_platform.h"
-> @@ -84,11 +85,18 @@
->  
->  #define SGMII_10M_RX_CLK_DVDR			0x31
->  
-> +#define ETHQOS_MAX_NOC_CLKS			3
-> +
->  struct ethqos_emac_por {
->  	unsigned int offset;
->  	unsigned int value;
->  };
->  
-> +struct ethqos_noc_clk_cfg {
-> +	const char *id;
-> +	unsigned long rate;
-> +};
-> +
->  struct ethqos_emac_driver_data {
->  	const struct ethqos_emac_por *rgmii_por;
->  	unsigned int num_rgmii_por;
-> @@ -98,6 +106,8 @@ struct ethqos_emac_driver_data {
->  	const char *link_clk_name;
->  	struct dwmac4_addrs dwmac4_addrs;
->  	bool needs_sgmii_loopback;
-> +	const struct ethqos_noc_clk_cfg *noc_clk_cfg;
-> +	unsigned int num_noc_clks;
->  };
->  
->  struct qcom_ethqos {
-> @@ -112,6 +122,10 @@ struct qcom_ethqos {
->  	bool rgmii_config_loopback_en;
->  	bool has_emac_ge_3;
->  	bool needs_sgmii_loopback;
-> +
-> +	struct clk_bulk_data noc_clks[ETHQOS_MAX_NOC_CLKS];
-> +	unsigned long noc_clk_rates[ETHQOS_MAX_NOC_CLKS];
-> +	int num_noc_clks;
->  };
->  
->  static u32 rgmii_readl(struct qcom_ethqos *ethqos, unsigned int offset)
-> @@ -691,15 +705,51 @@ static int ethqos_mac_finish_serdes(struct net_device *ndev, void *priv,
->  static int ethqos_clks_config(void *priv, bool enabled)
->  {
->  	struct qcom_ethqos *ethqos = priv;
-> +	unsigned int i;
->  	int ret = 0;
->  
->  	if (enabled) {
-> +		if (ethqos->num_noc_clks) {
-
-[Severity: Low]
-This isn't a bug, but as submitted every new block here and in
-qcom_ethqos_init_noc_clks() is gated on ethqos->num_noc_clks, and no
-ethqos_emac_driver_data entry in this commit sets .noc_clk_cfg or
-.num_noc_clks, so none of the new code runs yet.  The consumer arrives
-later in the series with "net: stmmac: qcom-ethqos: add Shikra EMAC
-support", which adds shikra_noc_clks[] and
-{ .compatible = "qcom,shikra-ethqos", .data = &shikra_data }, so the
-infrastructure does get exercised by the end of the series.  Was the split
-intentional?
-
-> +			ret = dev_pm_opp_set_rate(&ethqos->pdev->dev,
-> +						  ethqos->noc_clk_rates[0]);
-> +			if (ret) {
-> +				dev_err(&ethqos->pdev->dev,
-> +					"NOC OPP rate set failed: %d\n", ret);
-> +				return ret;
-> +			}
-> +
-
-[Severity: High]
-The unwind order here looks inverted with respect to the disable
-path added a few lines below.  When clk_bulk_prepare_enable() on
-ethqos->noc_clks fails, this drops the performance state with
-dev_pm_opp_set_rate(&ethqos->pdev->dev, 0) first and only then calls
-clk_disable_unprepare(ethqos->link_clk), so between the two calls the
-link clock is still running while the VDD_CX vote taken by the earlier
-dev_pm_opp_set_rate(dev, ethqos->noc_clk_rates[0]) has already been
-released.  The !enabled branch of the same function does it the other
-way around - clk_bulk_disable_unprepare(), clk_disable_unprepare(link_clk),
-then dev_pm_opp_set_rate(dev, 0) - which is the sequence I would expect
-if the clocks require the vote to be held while they are ungated.
-
-The same concern applies to the clk_prepare_enable(ethqos->link_clk)
-failure just above, although there nothing else is enabled yet so the
-ordering is moot.
-
-Is the ordering in the error path deliberate, or should these two calls
-be swapped so that every unwind mirrors the disable sequence?  If the
-hardware genuinely does not care about the relative order of the vote
-and the link clock, it would still be worth keeping the error path and
-the disable path identical so the intended sequencing is obvious to the
-next reader.
 
 [ ... ]
 
-> @@ -736,6 +791,46 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
->  	netdev_dbg(priv->dev, "PTP rate %lu\n", plat_dat->clk_ptp_rate);
+> @@ -183,7 +186,15 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
+>  	if (rate < 0)
+>  		return rate;
+>  
+> -	return clk_set_rate(ethqos->link_clk, rate * 2);
+> +	/* Clock Rate Requirements:
+> +	 * MAC added delay: 250/50/5 Mhz for 1G/100M/10M
+> +	 * No MAC delay (DLL bypass): 250/25/2.5 Mhz for 1G/100M/10M
+> +	 */
+> +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII ||
+> +	    speed == SPEED_1000)
+> +		rate *= 2;
+> +
+> +	return clk_set_rate(ethqos->link_clk, rate);
 >  }
+
+[Severity: High]
+Should this predicate match the one that actually selects the bypass
+hardware configuration?
+
+Here the un-doubled (bypass) rate is applied to every RGMII variant
+except plain "rgmii", so rgmii-txid and rgmii-rxid also get the
+un-doubled rate at 100M and 10M:
+
+  ethqos_set_clk_tx_rate()
+     if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII ||
+         speed == SPEED_1000)
+             rate *= 2;
+
+But in ethqos_fix_mac_speed_rgmii() only PHY_INTERFACE_MODE_RGMII_ID
+takes the new early return into the bypass configuration:
+
+  if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+          rgmii_setmask(ethqos, SDCC_DLL_CONFIG_PDN, SDCC_HC_REG_DLL_CONFIG);
+          rgmii_setmask(ethqos, SDCC_USR_CTL_DDR_BYPASS, SDCC_USR_CTL);
+          ethqos_rgmii_id_macro_init(ethqos, speed);
+          return;
+  }
+
+rgmii-txid and rgmii-rxid still run the full DLL init and
+ethqos_rgmii_macro_init(), which sets RGMII_CONFIG_DDR_MODE and programs
+PRG_RCLK_DLY, i.e. the "MAC added delay" configuration that the new
+comment says needs 50 MHz at 100M and 5 MHz at 10M.  Those modes now get
+25 MHz and 2.5 MHz instead, where before the patch the rate was always
+doubled.
+
+arch/arm64/boot/dts/qcom/sa8540p-ride.dts uses phy-mode = "rgmii-txid"
+on both EMAC nodes, so is this a regression for that board whenever the
+link comes up at 100 Mbps or 10 Mbps?
+
+Would something like the following keep the two halves consistent?
+
+  if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
+      speed == SPEED_1000)
+          rate *= 2;
+
+The condition is still unchanged at the tip of the series
+(70ec5f4a19736338086794f26222dcb9ec15b24c); the later commit
+"net: stmmac: qcom-ethqos: warn about legacy RGMII PHY modes" only adds a
+dev_warn() on that path and does not restore the doubled rate.
+
 >  
-> +/* Some SoCs gate NOC access behind dedicated clocks. Acquire them here
-> + * so ethqos_clks_config() can enable/disable them at runtime. The OPP
-> + * table is used to propagate the required VDD_CX performance state via
-> + * dev_pm_opp_set_rate().
-> + */
-> +static int qcom_ethqos_init_noc_clks(struct qcom_ethqos *ethqos,
-> +				     const struct ethqos_emac_driver_data *data)
-> +{
-> +	struct device *dev = &ethqos->pdev->dev;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (!data->num_noc_clks)
-> +		return 0;
-> +
-> +	for (i = 0; i < data->num_noc_clks; i++) {
-> +		ethqos->noc_clks[i].id = data->noc_clk_cfg[i].id;
-> +		ethqos->noc_clk_rates[i] = data->noc_clk_cfg[i].rate;
-> +	}
-> +	ethqos->num_noc_clks = data->num_noc_clks;
-
-[Severity: Low]
-Should this loop check data->num_noc_clks against ETHQOS_MAX_NOC_CLKS?
-The macro is added by this patch but never enforced anywhere, while the
-destinations are fixed-size members of the devm_kzalloc'd struct:
-
-	struct clk_bulk_data noc_clks[ETHQOS_MAX_NOC_CLKS];
-	unsigned long noc_clk_rates[ETHQOS_MAX_NOC_CLKS];
-
-Today the only table added by the series (shikra_noc_clks[]) has exactly
-three entries, so nothing overflows noc_clks[] or noc_clk_rates[] right
-now.  A future driver-data entry with four clocks would write past both
-arrays, and a table that sets .num_noc_clks without .noc_clk_cfg would
-dereference NULL at data->noc_clk_cfg[i].  Would a static_assert() on each
-table, or an explicit
-
-	if (data->num_noc_clks > ETHQOS_MAX_NOC_CLKS)
-		return -EINVAL;
-
-be worth adding here?
-
-> +
-> +	ret = devm_clk_bulk_get(dev, ethqos->num_noc_clks, ethqos->noc_clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get NOC clocks\n");
-> +
-> +	ret = devm_pm_opp_set_clkname(dev, data->noc_clk_cfg[0].id);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set OPP clock name\n");
-> +
-> +	ret = devm_pm_opp_of_add_table(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add OPP table\n");
+>  static void
+> @@ -405,8 +416,7 @@ static void ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
+>  		      RGMII_IO_MACRO_CONFIG2);
+>  
+>  	/* Determine if the PHY adds a 2 ns TX delay or the MAC handles it */
+> -	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID ||
+> -	    ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+> +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
+>  		phase_shift = 0;
+>  	else
+>  		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
 
 [Severity: Medium]
-Does this need a Kconfig dependency on PM_OPP?
+This isn't a problem introduced by this patch, but was rgmii-rxid
+considered while reworking this?
 
-With CONFIG_PM_OPP=n, include/linux/pm_opp.h provides stubs that return
--EOPNOTSUPP for devm_pm_opp_set_clkname() (via devm_pm_opp_set_config()),
-devm_pm_opp_of_add_table() and dev_pm_opp_set_rate(), and each call here
-is turned into a probe failure by dev_err_probe().
+qcom_ethqos_probe() accepts it and routes it to the same handler:
 
-config DWMAC_QCOM_ETHQOS in drivers/net/ethernet/stmicro/stmmac/Kconfig
-currently has only:
+  case PHY_INTERFACE_MODE_RGMII_RXID:
+  case PHY_INTERFACE_MODE_RGMII_TXID:
+          plat_dat->fix_mac_speed = ethqos_fix_mac_speed_rgmii;
 
-	depends on OF && (ARCH_QCOM || COMPILE_TEST)
+and ethqos_rgmii_macro_init() programs the MAC RX delay regardless of
+phy-mode:
 
-and config PM_OPP in drivers/opp/Kconfig is a promptless "bool", i.e.
-select-only, so PM_OPP=n is a legal configuration for this driver.  In
-that build, any compatible declaring NOC clocks would fail to probe and
-no netdev would be created.  Should DWMAC_QCOM_ETHQOS select PM_OPP, or
-should these calls be made conditional?
+  rgmii_updatel(ethqos, SDCC_DDR_CONFIG_PRG_RCLK_DLY,
+                FIELD_PREP(SDCC_DDR_CONFIG_PRG_RCLK_DLY,
+                           prg_rclk_dly), SDCC_HC_REG_DDR_CONFIG);
 
-Also, devm_pm_opp_of_add_table() makes an operating-points-v2 node a hard
-requirement for such compatibles.  The commit message says:
+  rgmii_setmask(ethqos, SDCC_DDR_CONFIG_PRG_DLY_EN,
+                SDCC_HC_REG_DDR_CONFIG);
 
-  "The clocks are acquired during probe and enabled/disabled alongside
-   the existing link clock in ethqos_clks_config()."
+(and SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY_CODE = 5 plus the EXT_PRG_RCLK_DLY
+bits at 100M/10M).  For rgmii-rxid the PHY already supplies the RX delay,
+which is the same class of issue the patch fixes on the rgmii-id side.
+No in-tree qcom DTS uses "rgmii-rxid", so only out-of-tree boards would
+see it.  Could the changelog say whether rgmii-rxid was evaluated and
+left alone deliberately?
 
-Could the new mandatory OPP table / device tree requirement be mentioned
-there too?
+[ ... ]
 
-> +
-> +	ret = dev_pm_opp_set_rate(dev, data->noc_clk_cfg[0].rate);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set initial NOC OPP rate\n");
-> +
-> +	return 0;
-> +}
-> +
->  static int qcom_ethqos_probe(struct platform_device *pdev)
->  {
->  	struct device_node *np = pdev->dev.of_node;
-> @@ -795,6 +890,12 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->  	ethqos->has_emac_ge_3 = data->has_emac_ge_3;
->  	ethqos->needs_sgmii_loopback = data->needs_sgmii_loopback;
+> @@ -493,6 +539,21 @@ static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
 >  
-> +	if (data->num_noc_clks) {
-> +		ret = qcom_ethqos_init_noc_clks(ethqos, data);
-> +		if (ret)
-> +			return ret;
+>  	ethqos_set_func_clk_en(ethqos);
+>  
+> +	/* For rgmii-id mode, the PHY should add the required delays.
+> +	 * Therefore, power down the DLL and program it in bypass mode.
+> +	 * Program the IO_MACRO as per the settings recommended by the
+> +	 * programming guide for bypass mode. This will ensure that the
+> +	 * MAC core doesn't add any additional delays.
+> +	 */
+> +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+> +		rgmii_setmask(ethqos, SDCC_DLL_CONFIG_PDN, SDCC_HC_REG_DLL_CONFIG);
+> +		rgmii_setmask(ethqos, SDCC_USR_CTL_DDR_BYPASS, SDCC_USR_CTL);
+> +
+> +		ethqos_rgmii_id_macro_init(ethqos, speed);
+> +
+> +		return;
 > +	}
 > +
->  	ethqos->link_clk = devm_clk_get(dev, data->link_clk_name ?: "rgmii");
->  	if (IS_ERR(ethqos->link_clk))
->  		return dev_err_probe(dev, PTR_ERR(ethqos->link_clk),
-
-[Severity: Medium]
-Can the performance-state vote taken by the dev_pm_opp_set_rate() at the
-end of qcom_ethqos_init_noc_clks() leak if probe fails right after?
-
-The only code that drops it is ethqos_clks_config(priv, false) with its
-dev_pm_opp_set_rate(dev, 0), and that path is installed only later in
-probe:
-
-qcom_ethqos_probe()
-	qcom_ethqos_init_noc_clks()	/* dev_pm_opp_set_rate(dev, rate) */
-	devm_clk_get(dev, "rgmii")	/* can return -EPROBE_DEFER */
-	ethqos_clks_config(ethqos, true)
-	devm_add_action_or_reset(dev, ethqos_clks_disable, ethqos)
-
-If devm_clk_get() defers or ethqos_clks_config(true) fails, probe returns
-before ethqos_clks_disable is registered.  Devres teardown does not appear
-to compensate: _opp_table_kref_release() and _opp_clear_config() in
-drivers/opp/core.c do not call _set_opp_level(dev, NULL) or
-_set_required_opps(..., NULL), and on the genpd side only the default
-pstate is dropped:
-
-drivers/pmdomain/core.c:genpd_dev_pm_detach() {
-	...
-	/* Drop the default performance state */
-	if (dev_gpd_data(dev)->default_pstate) {
-		dev_pm_genpd_set_performance_state(dev, 0);
-		dev_gpd_data(dev)->default_pstate = 0;
-	}
-	...
-}
-
-so the VDD_CX vote requested through the OPP would stay in place for a
-device that never bound, and genpd_remove_device() unlinks the device
-without re-evaluating genpd->performance_state.
-
-Is this initial dev_pm_opp_set_rate() needed at all?
-ethqos_clks_config(ethqos, true) applies the same rate a few lines later
-and _set_opp() early-returns when the OPP is unchanged, so dropping it (or
-pairing it with its own devm action) would close the window.
 
 [Severity: Low]
-This isn't a bug introduced by this patch, but at this point in the series
-Documentation/devicetree/bindings/net/qcom,ethqos.yaml already documents
-qcom,shikra-ethqos with the axi-noc / pcie-tile-axi-noc clocks and a
-required operating-points-v2 property, while qcom_ethqos_match[] has no
-matching entry and no driver data setting .noc_clk_cfg / .num_noc_clks.
-The pair becomes consistent with the later commit "net: stmmac:
-qcom-ethqos: add Shikra EMAC support", which adds both the compatible and
-shikra_data, so this is only a transient mismatch inside the series.
+The subject says "fix RGMII_ID mode to use DLL bypass" and the changelog
+describes a user-visible timing misconfiguration, but the commit carries
+only a Signed-off-by, with no Fixes: tag and no stable Cc.
+
+Would this one be appropriate?
+
+  Fixes: 164a9ebe9742 ("net: stmmac: dwmac-qcom-ethqos: Respect phy-mode and TX delay")
+
+That commit introduced the per-phy-mode delay handling for rgmii-id and
+rgmii-txid while leaving the DLL/RX delay path enabled for rgmii-id.
+
+>  	/* Initialize the DLL first */
+>  
+>  	/* Set DLL_RST */
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-shikra_ethernet-v1-0-a50765996035%40oss.qualcomm.com
