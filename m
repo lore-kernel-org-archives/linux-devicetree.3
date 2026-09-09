@@ -1,32 +1,33 @@
-Received: from mta-65-226.siemens.flowmailer.net (mta-65-226.siemens.flowmailer.net [185.136.65.226])
+Received: from mta-64-226.siemens.flowmailer.net (mta-64-226.siemens.flowmailer.net [185.136.64.226])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA3F54EEAC
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 12:54:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.65.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4069558200
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 12:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.226
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958469; cv=none; b=SQMoFG7yzBZYeSUTb50JOY2QX6uzGEwrFijc85aHR/yXiPI40rjwZ1F6JS/DLOBeStOLz3GZ98SqtrAytuHLEW5iDw6YJ++3pT22qPYb4Iwum8tRkqvRjTajEGDp+/CeEZRtG6m/L2RVMh8gSE26XO8uRXTzRpnw0qp5/hB8/C0=
+	t=1788958471; cv=none; b=bfRjhEa72wJGCMtxwqv3K8EK5Q/sSIqkJ2uTBQaij9bxIT9kJe6WzDPJtNy193EtAMMeJw1Nwo7L02ztPnuKZ/RopW8qM8AvbUTdWagKx9YqKQPKrJ5UKPYrIXu0L2/Kq3oCSdTpFXLTPUe1H3TXPEDVM2oiB3UcrHx3Aqut4xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958469; c=relaxed/simple;
-	bh=maP6p9XlFsf5L+vQv425mi2fMpKe7K7btTFfPcwcVBA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ha8s8PuELR9Fiw20liUq8aknZAJCnozry/aVnqhikhv37LGheIe6kzqxohxX851M/VgauDNmXgdh1oY7/ThDB9bTOOtCKoZT8M7jWEWBAFDq5fqCtU0kDbmqhI1bGtrJye5Mj0yzdmFxIwRK69DKPyP9Qr7ZMeXGzCVVLGq0tYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=qv7j+Ohn; arc=none smtp.client-ip=185.136.65.226
+	s=arc-20240116; t=1788958471; c=relaxed/simple;
+	bh=LxXuSemfvLfB0hYjhrPyjrstL6HPZJMt/PvEriFCrkI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hGH6lWcfP8US03FOslrLcSER7PILOZ9oEWLEkvjGSGZ1WIQuWqWEa228lDNzR3trNgBhhFCWX61O9hhTYG+6RT8d2jM+8DtgcAkEiye5MCtpzR3iqNZdtI8X5Osymrw9Bvd30ZyHJj4g69/yCvNRqECwIWhAjHiHW52nmJuEQSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b=ly5zwG0G; arc=none smtp.client-ip=185.136.64.226
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="qv7j+Ohn"
-Received: by mta-65-226.siemens.flowmailer.net with ESMTPSA id 202609091254152caf7ad1540002075a
+	dkim=pass (2048-bit key) header.d=siemens.com header.i=alessandro.zini@siemens.com header.b="ly5zwG0G"
+Received: by mta-64-226.siemens.flowmailer.net with ESMTPSA id 20260909125416662d0da5d000020706
         for <devicetree@vger.kernel.org>;
-        Wed, 09 Sep 2026 14:54:15 +0200
+        Wed, 09 Sep 2026 14:54:16 +0200
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
  d=siemens.com; i=alessandro.zini@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=LciXuYSqhTVCiOY+WMRThV65Q+FKd8QICsZRn1HZ84Q=;
- b=qv7j+OhnDTqlWRw/rKISl3MIJc/5L5oxIZjizGxIx3FEkxxTTDUYrAm29mKroIG5BCAIq4
- KRC/9ByD2/HQf9ij1HpCrReZMj+2/Uh69jJ9OlAyc9Zlka45dMPPT/XvCWlV3RtI5caQTyn6
- Z56oywtYqxsHz9kk27dMYGMMspdu67zvfaHyugPlGApnRcu5kJyn1EsArgNZgC7oLRXPeB5x
- TEgWCwxHRLrph+kOA9VHMFLNgzKvZgBKcz2wYmFNLcSr3YjfliZFkJLZBscAZmtWxllwbdyO
- 0sSC1uRTDjJdBk1DMA7fIIWFyoVMABzTd0tjrbioLs5FyngJOTnXyuHA==;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=uARyWAzAhNOFNlSn1qnqPZqLHMWebU/zTPfFGQFWQfo=;
+ b=ly5zwG0Gog2ml5AQLyT48BwaPeaE2JvU3uw+46X2sO5h+Jrh1mbwWK3NebNXOPOq8+SEjV
+ 4eoJ1WT8iGYxFA0m2Sl+U0bolcV+rmmHpWHS6wWTkdjHwLC3tPXd7cOBdjwfAbBojda4X1Cn
+ vPCc3PYmPjQqzuBETcqXtnZFLikVbbP3RUkTWxjV7XdLs0QiDLP7KD4Ro81STSxR/6JQL0OX
+ ujqZA8/Us7Q55tNwfawTzg6BecuamOc29wxA8lwZXdWOcLkF8rlYPgf/yv1brphwZtB06pp3
+ SAYWXUlHAow7CypQcnkh/sQWg/KT1uL8r9SpBhnYGGNv/kXJHF4Dngxg==;
 From: Alessandro Zini <alessandro.zini@siemens.com>
 To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -41,9 +42,11 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Alessandro Zini <alessandro.zini@siemens.com>
-Subject: [PATCH net-next 1/2] dt-bindings: net: microchip,lan8650: add reset-gpios property
-Date: Wed,  9 Sep 2026 14:53:57 +0200
-Message-ID: <20260909125358.23003-1-alessandro.zini@siemens.com>
+Subject: [PATCH net-next 2/2] net: ethernet: microchip: lan865x: add reset-gpios support
+Date: Wed,  9 Sep 2026 14:53:58 +0200
+Message-ID: <20260909125358.23003-2-alessandro.zini@siemens.com>
+In-Reply-To: <20260909125358.23003-1-alessandro.zini@siemens.com>
+References: <20260909125358.23003-1-alessandro.zini@siemens.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,30 +57,62 @@ Content-Transfer-Encoding: 8bit
 X-Flowmailer-Platform: Siemens
 Feedback-ID: 519:519-1327013:519-21489:flowmailer
 
-Add optional reset-gpios property to describe the connection to the
-hardware RESET_N pin of the LAN8650/1 MAC-PHY.
+Add support for an optional reset GPIO. If specified, assert the
+hardware reset line for 10 us (datasheet specifies min 5 us) and allow
+1 ms settle time for crystal oscillator startup before starting OA TC6
+communication.
 
 Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
 ---
- Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ .../net/ethernet/microchip/lan865x/lan865x.c  | 21 +++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-index 766ff58147ae3..1b543ce307632 100644
---- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-+++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-@@ -40,6 +40,11 @@ properties:
-       Event.
-     maxItems: 1
+diff --git a/drivers/net/ethernet/microchip/lan865x/lan865x.c b/drivers/net/ethernet/microchip/lan865x/lan865x.c
+index 26a2761332a5a..62abc577be90d 100644
+--- a/drivers/net/ethernet/microchip/lan865x/lan865x.c
++++ b/drivers/net/ethernet/microchip/lan865x/lan865x.c
+@@ -9,6 +9,8 @@
+ #include <linux/kernel.h>
+ #include <linux/phy.h>
+ #include <linux/oa_tc6.h>
++#include <linux/gpio/consumer.h>
++#include <linux/delay.h>
  
-+  reset-gpios:
-+    description:
-+      GPIO connected to the active-low RESET_N pin of the MAC-PHY.
-+    maxItems: 1
+ #define DRV_NAME			"lan8650"
+ 
+@@ -41,6 +43,7 @@ struct lan865x_priv {
+ 	struct net_device *netdev;
+ 	struct spi_device *spi;
+ 	struct oa_tc6 *tc6;
++	struct gpio_desc *reset_gpio;
+ };
+ 
+ static int lan865x_set_hw_macaddr_low_bytes(struct oa_tc6 *tc6, const u8 *mac)
+@@ -346,6 +349,24 @@ static int lan865x_probe(struct spi_device *spi)
+ 	spi_set_drvdata(spi, priv);
+ 	INIT_WORK(&priv->multicast_work, lan865x_multicast_work_handler);
+ 
++	priv->reset_gpio = devm_gpiod_get_optional(&spi->dev, "reset",
++						   GPIOD_OUT_LOW);
++	if (IS_ERR(priv->reset_gpio)) {
++		ret = dev_err_probe(&spi->dev, PTR_ERR(priv->reset_gpio),
++				    "Failed to get reset GPIO\n");
++		goto free_netdev;
++	}
 +
-   spi-max-frequency:
-     minimum: 15000000
-     maximum: 25000000
++	if (priv->reset_gpio) {
++		/* Assert hardware reset for 10 us (datasheet specifies min 5 us)
++		 * and allow 1 ms settle time for crystal oscillator startup.
++		 */
++		gpiod_set_value_cansleep(priv->reset_gpio, 1);
++		fsleep(10);
++		gpiod_set_value_cansleep(priv->reset_gpio, 0);
++		fsleep(1000);
++	}
++
+ 	priv->tc6 = oa_tc6_init(spi, netdev, NULL);
+ 	if (!priv->tc6) {
+ 		ret = -ENODEV;
 -- 
 2.55.0
 
