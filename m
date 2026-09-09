@@ -1,125 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D07576ED8
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:33:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52FE58123E;
+	Wed,  9 Sep 2026 14:33:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964393; cv=none; b=nLKk+qQ6w/C2suTQKdemgRaRP30AS2Z1ICHI35+KnhzCGiQi77P49lZeLsex47y2yBnGbmMiFMwvfmtgmRuJ+XF9FE9gwliRNHV+208wUiV1lPp5l8C94+NroHX/L0gYUc+3S6NJnANbAtaFm+oTRUTOh9G3BCOwlL/TS7QlGo0=
+	t=1788964435; cv=none; b=EOAidjks1yZ+RPYw8qZxE0AtQTyC6BY89moD+Pb0GVCZtsOashMi3+FwIY2F/enOmE83WPYSfEfuP2wQN5i4a8n2ni2kvnK0BvioXgIqdcsLL/NTkMA7tXKi0xedeMwmDS3OExDlhK0aDAfwy+LLv7gi0bz9v8xHAzKFhRiRkGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964393; c=relaxed/simple;
-	bh=vtgwGwGKYciXl1ZfA8Cfnlkt1aPpSxSpMwqMKkh2mtU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MFHg7TE0R0M+GGBO0XSOKiNbzCbzIGVIl54pQIffU8aPcMyXh/RNIabQ8GcJxS0CWCkB3/PkYreIAskqDcjUa3WIRKVkXried6enPIZYzfgVslLFPrye+qFJd57DEEZbjZNvu9U2fgeX2Izp0GOLee4zzkwL7NGMIULZS2TQ0Vg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjzNAMmk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788964435; c=relaxed/simple;
+	bh=rssftvIB7JoeWgPHfSiz0eTsk9hUcMMvgkEOARy/pIY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=YehKCmi95wykpbEL9Pb71ox0KHyvuzFSZsLTSW7+SH82YN1cqUSR3kjS1Yi9K9O5SvpcRED9welomQ6klSnT+8ma1v8X2nJ/XodY73l+xpPfsM616KNlo7zoCMclHHbVoQoTctGwr8ENiKWgyaoRUXmWfYt28MgYMUBki3gohGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAdba5f+; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjzNAMmk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9041F00A3A;
-	Wed,  9 Sep 2026 14:33:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964392;
-	bh=P0EPq+UOSM378S+5zByLOMmuIlYsI+/T9A5xlqKYeAU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FjzNAMmko0Eab/BUIwHuRg+MHGz4cC+7ouDmYRZF6aweNxdJpUowbrUzlt8N5z1Pa
-	 1dKkliEbMh27Zz+CQWi4oEhx1MKjfhh06IpkhBmK+JinmY3dSTpsrgILjrOmiFZyZQ
-	 1x89oAoaJCDq9EBa1BKNdozz0/QeLZ/R6fKNBhyNXumZhgCtPbf+aEjw++Axfmos2u
-	 FAyfNeIDWEDUQdbvax0h6JJqUNonzJkHvwWFLzq5AuS6sWeSgZSC2f+2pL3KIP3rBv
-	 qE+b6hMCP7c3n97R6T3zgJbHJE5UM5DQO4BGh6JEc0w+m96ySMA8B1KIsFe1G303qk
-	 6GMhre9nTFF/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/10] iio: dac: mcp47feb02: Return len when
- disabling EEPROM store
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260909-mcp47feb02_refactor-v5-3-8b67bcab93d1@microchip.com>
-References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
- <20260909-mcp47feb02_refactor-v5-3-8b67bcab93d1@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 14:33:11 +0000
-Message-Id: <20260909143312.0F9041F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAdba5f+"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7355DC2BCF6;
+	Wed,  9 Sep 2026 14:33:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788964435;
+	bh=rssftvIB7JoeWgPHfSiz0eTsk9hUcMMvgkEOARy/pIY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=kAdba5f+RakFKdpMriPx1K93vIY7A5TJlvMhh9DExtsyDexUCDVEZ418E4+NoahYY
+	 B+E6TRxpMZE2szTyFudEjcHwoWMqIC66u9usikNxZXkdY2/XsNi8NMSHxRoAlpglF6
+	 XIxrLtBeIkXvjoZ2UTBtKPxllGpu7rlVUfuXk+e/JbF1PL+E1IVU0940hfWm/eyNUg
+	 +EVveEAWOp/hYZqxk86WoK0S2FPa7wGAWa/iH6bunGbxF5TunBTQabun3ZhrIAddlm
+	 RU8ymDtID0PhONxXkPI0q19A+uDlt8JhqaBJXM3k2me9MN4WnOMiEuMlItMB+uoVpx
+	 Hu8hzilLcI5AQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D8DAC79FB7;
+	Wed,  9 Sep 2026 14:33:55 +0000 (UTC)
+From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
+Date: Wed, 09 Sep 2026 22:33:22 +0800
+Subject: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY
+ from the MDIO bus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Message-Id: <20260909-r28s-upstream-v3-1-ee3e1a34a353@proton.me>
+References: <20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.me>
+In-Reply-To: <20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.me>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, 
+ Andrey Korshunov <razor1702@gmail.com>, 
+ Diederik de Haas <diederik@cknow-tech.com>, 
+ =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2540;
+ i=HystericalDragons@proton.me; h=from:subject:message-id;
+ bh=Uf1K3l1f7dmnIbSjn3YINB58f9z+/Y2KTLHOEJQ3J20=;
+ b=owGbwMvMwCUmepz3XUtTHjvjabUkhqyFeYF5wTYZZufNc3dv9ruWplDnsHhyx9trYu0Lv3zrE
+ u3q4vToKGVhEONikBVTZJHdVB0ptCp6ZhGL1HGYOaxMIEMYuDgFYCIvgxkZukw3NQa+aF/TeMRv
+ 6UcLK3PfqOgfIS5GTAs2Tt2+6M6XWwz/tH+27+k/yZp+dYfyf4YzmlpG4X+yPcw2WyzvS5Y0qw9
+ kBwA=
+X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
+ fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
+X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
+ with auth_id=1004
+X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Reply-To: HystericalDragons@proton.me
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: 安容 <HystericalDragons@proton.me>
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but suspend and resu=
-me operations clobber the user-configured channel powerdown state.
---
+The RGMII PHY reset is described in the PHY node, where it is applied
+too late to be of use. __of_mdiobus_register() registers the bus before
+walking its children, and for a PHY node without an explicit
+ethernet-phy-idAAAA.BBBB compatible, fwnode_mdiobus_register_phy() calls
+get_phy_device() to read the PHY ID over the bus before
+phy_device_register() gets as far as requesting reset-gpios. A PHY that
+the bootloader left in reset is therefore never found:
 
-commit 835e4538da01c3026ccf6237cb4357a864fa680c
-Author: Ariana Lazar <ariana.lazar@microchip.com>
+  mdio_bus stmmac-0: MDIO device at address 1 is missing.
 
-iio: dac: mcp47feb02: Return len when disabling EEPROM store
+This happens with mainline U-Boot (generic-rk3528), which does not touch
+the pin, and leaves the port dead.
 
-This commit modifies store_eeprom_store() to return the input buffer
-length instead of 0 when state is false. This properly signals that the
-buffer was fully consumed, preventing unnecessary write retries.
+Describe the reset on the MDIO bus instead. __mdiobus_register() asserts
+and releases the bus level reset-gpios before any device on the bus is
+registered, so the PHY responds whatever state the bootloader left it
+in. There is only one PHY on mdio1, so a bus wide reset is equivalent.
 
-> diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
-> index bf78618ac2c89..2ee981393aa1a 100644
-> --- a/drivers/iio/dac/mcp47feb02.c
-> +++ b/drivers/iio/dac/mcp47feb02.c
-> @@ -469,7 +469,7 @@ static ssize_t store_eeprom_store(struct device *dev,=
- struct device_attribute *a
->  		return ret;
-> =20
->  	if (!state)
-> -		return 0;
-> +		return len;
-> =20
+The pin is muxed by the GPIO request itself, but keep gmac1_rstn_l
+described: move it to the MAC, as the MDIO bus has no device of its own
+to apply pinctrl to.
 
-[Severity: High]
-This is a pre-existing issue, but suspend and resume operations clobber the
-user-configured channel powerdown state.
+Fixes: b944112abef4 ("arm64: dts: rockchip: Add FriendlyElec NanoPi Zero2")
+Reported-by: Andrey Korshunov <razor1702@gmail.com>
+Closes: https://lore.kernel.org/r/20260909134716.879-1-razor1702@gmail.com
+Signed-off-by: 安容 <HystericalDragons@proton.me>
+---
+ arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-Looking at mcp47feb02_suspend():
+diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
+index 97d85124d2..f3e543d261 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
+@@ -215,7 +215,7 @@ &gmac1 {
+ 	phy-supply = <&vcc_3v3>;
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
+-		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
++		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>, <&gmac1_rstn_l>;
+ 	status = "okay";
+ };
+ 
+@@ -242,14 +242,13 @@ hym8563: rtc@51 {
+ };
+ 
+ &mdio1 {
++	reset-delay-us = <20000>;
++	reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
++	reset-post-delay-us = <100000>;
++
+ 	rgmii_phy: ethernet-phy@1 {
+ 		compatible = "ethernet-phy-ieee802.3-c22";
+ 		reg = <0x1>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&gmac1_rstn_l>;
+-		reset-assert-us = <20000>;
+-		reset-deassert-us = <100000>;
+-		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+ 	};
+ };
+ 
 
-drivers/iio/dac/mcp47feb02.c:mcp47feb02_suspend() {
-    ...
-	for_each_set_bit(ch, &data->active_channels_mask, data->phys_channels) {
-		u8 pd_mode;
+-- 
+2.55.0
 
-		data->chdata[ch].powerdown =3D true;
-    ...
-}
 
-Does this unconditionally overwrite the channel's powerdown state during
-suspend, causing the user's prior configuration to be permanently lost?
-
-Similarly, looking at mcp47feb02_resume():
-
-drivers/iio/dac/mcp47feb02.c:mcp47feb02_resume() {
-    ...
-	for_each_set_bit(ch, &data->active_channels_mask, data->phys_channels) {
-		u8 pd_mode;
-		int ret;
-
-		data->chdata[ch].powerdown =3D false;
-    ...
-		ret =3D regmap_update_bits(data->regmap, MCP47FEB02_POWER_DOWN_REG_ADDR,
-					 DAC_CTRL_MASK(ch),
-					 DAC_CTRL_VAL(ch, MCP47FEB02_NORMAL_OPERATION));
-    ...
-}
-
-Could this force all channels out of powerdown during resume, ignoring any
-user-configured disabled state? Waking up a DAC channel that was explicitly
-powered down by the user via sysfs could drive unintended voltage to attach=
-ed
-hardware upon system resume.
-
->  	/*
->  	 * Verify DAC Wiper and DAC Configuration are unlocked. If both are dis=
-abled,
->  	 * writing to EEPROM is available.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mcp47feb02=
-_refactor-v5-0-8b67bcab93d1@microchip.com?part=3D3
