@@ -1,142 +1,160 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3775B5592FF
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EE71442FD1
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788959780; cv=none; b=gZXD9Of8Aejchn4/YEtt+mVMKFwYYwKjdFiFvSuLIGHopMfRKlbzb/CGYPCbNlkOuXy76VqW/ddCISR6YTAActGiYNFiFz6/xTQthyfUpJy9Ln2+4ssHCLRnN9klsci/VQSb8ssE3MtBJo3hp+OXVvEKUfn9livk3/MYyZPUXMU=
+	t=1788959808; cv=none; b=fDyG/G3D7sGt2C75QLvPXLTb/5f6kUwGI0wuKG9kyL+CCA3C+PfAAkpnOWD5Z+clGqvd1Ae6PxcizCKJ9UMUJRJrd4E/CiZxxbgR0xpmjv4T/+nVQTM/J91s8vcbq85b52GJMjnC8IYLVZp6DTPZ18hz8KIFrNzj4/EVYwi+Y/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788959780; c=relaxed/simple;
-	bh=8cHU73DFXtRtPescVxujtpMZQk9MTMfdIvtDQt32qVs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OpivY7zqHGkTJH86SLfc3Oh0MZ/Oe2i5Q0dlyCJiK2/T4ytrf88rpaomvJBCcRk1PoR/dyJ3GlZlzdhXkcHXbvUnNdeA8wnYcTyFhtROy49/j5iiisvZTNyAu8ZlJ4C+qHwEbCd4XpqbAMVZM6zQ52OkAVLRO4cXIPdBpy6nFHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KIvIp0lJ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788959808; c=relaxed/simple;
+	bh=iXyqVSWvmcW331rAsdNhFo+83AVBlrw5mw/55ZewwM0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AVECCUMk9yUgpYzvMwn8h/GEVroT89fr6COr1ryvnTFX3BKkWbrEltUPsN+tJw1QAb8TQzTxfrqsXk5jUXUagZX1BHUG4SAXRTX+lIM/nH8QB8GwT7CDIONkrlDFH4X17fdDxambdBlQimSyaxyIM3EEMY+yvtX5oS1mzyuPgwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JsFEBh9t; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HTLa7K25; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KIvIp0lJ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747eb79f6so1630875ad.0
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 06:16:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JsFEBh9t";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HTLa7K25"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689CD9hw3054129
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 13:16:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	H9O/ZCwMRsoEO1n+0T3o5T+zX4t0ZK8Ed1UCC5oqjrI=; b=JsFEBh9t1JX/nXmN
+	5VuC1+yMKMrqmIlfarexpHaROym84F9Dsg7+UelBOay5JJFkHbgArMeHxhRvGiNF
+	phK/vdWXHnPRHW5kZi0cAovhgqNi0zIktY160VDTLV1iz6zLI9027ewPhncNQ49i
+	tVwiC+EufIqHQNx2oL+9eZdOyEpqcJtFz37kGUWpVAlpkasGWYWejMzMYIyZ4n2+
+	0tPJIeCx+YRgbPYQDRr270x/qwC0VHfIIuulf3ewVKv2+UYRm2ntMxGCL+CPN5ff
+	8Mf1cBTHFDTPlwiLWXYTv2vIs6Pz1CYlGYSeSOhV+G5zRxC3+4orlOMTDAOVl9c5
+	FJ5Yww==
+Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com [209.85.221.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk79207dw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 13:16:46 +0000 (GMT)
+Received: by mail-vk1-f200.google.com with SMTP id 71dfb90a1353d-5c66ec39d8cso139520e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 06:16:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788959777; x=1789564577; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GrcCiK7RtNBCwAredkKzf4aDW0PIdvjt37y7QGKpm58=;
-        b=KIvIp0lJi2qm8M6TvwIEtxgwD6NIF3G/XC4rjT+3cRi5ZgKAgy+DLul5kPr+t/Qbmy
-         5C40HLZv30CRwTmULmOWNrl9Mm1GhlR6jp/qf/Bx5v7YA74MHiKxripLOloljen3ERJ8
-         wX83SEypzwbDR4Rm/TxvyASCrMfaSydfxjkQoLqq65Sm57O/ZKfArWlRRyx9e/1F34z4
-         Rp0aNFltcxFdygyreQZ7p2htlgNMHh9ikKKVNrKVekIJd/MiBoSwmTvx3wUge84ak/0u
-         dvq5VNgNjLuWRFH+xfhz9PkZApd4KNV8fN+et46uYBxaIhj9D26WT7Qbn225ekuFKenQ
-         Vrmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788959777; x=1789564577;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788959805; x=1789564605; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=GrcCiK7RtNBCwAredkKzf4aDW0PIdvjt37y7QGKpm58=;
-        b=tRQOQdNo8QC/bO7hd5ruASSTtbA5dPiL/uwyFVm3R+1I6ZXHfFa29dEGBZqJ+BPH41
-         8gqhbD9ZY3PU0CFU1ADyrKDXzWiUhf0Y3Odw1vPsH5/MWZpwA9ZsApZaSylbWzyDaCMH
-         uXfKp8CsieKjWLNDeaf/t8hIW0SVsefkPyb4MUnJb+pvXuMTWnlijdZjIwen21aJMxe5
-         AIyPf5StRy2D8UeTVJrXQm4VWjM2Zp8Xhn6qgAdtshh0MsT3a+pwd1A9WvNnT8C3ppkM
-         WeBT3QGBDLfXE4YU5aBY1mXtgPlMRT9zOkv6usfWA831EgNZY1gLxBQF8Q+Yjs6XwyxU
-         m7/g==
-X-Forwarded-Encrypted: i=1; AKwUvBx8hQQw/t/q6jUTsg4TCybNdFRrg5yLicNjussuCm1LE0ByFm0jrh9b2l5dtZ37hFeXw2/dIvUlvbc7@vger.kernel.org
-X-Gm-Message-State: AFuF++kwR6RZ8ViWxcHHaT4Lb9s3rZ3q1AZrXxnErP8s9j4Dh8eD7wJk
-	jBOb14fQClJzrKJMJZkV/hLvkuHtV4/G1sRh9Hew8YzIXJwD1RI3bJZQ
-X-Gm-Gg: AYBFou2IPa6mAObXqN/UHUgun8/RsQojd8uVNQ3aKMj524AwiqLoPFlbJWEebRCqDg9
-	2qey6garlmsXwkwpPPM8SKJsqw5YTiLyd0lKyTAVuf777WLNwY7ztk0ZmkLyhN1No2k1gqEoOcu
-	oHbU0tbtEByr8RKQEgktChYowhIlmbdt8HJfLBIywhGcvaoOaTIjtWU05gD5pPw3hzoxWQvRYq7
-	5EcYLwXUVz8se5Ul9nC4bJBHoahZ/yYUDjydi0e8gCHxKmdmM8aOQFd3HDwpV5BUffI4nlhEC7J
-	QG2u9ZAg53UBrPGY5C4wiOhFwsIQxuk+G4U5JlrU7hxiJlqIlaxSl+L2xvPb728geK4dAD3r5qq
-	A+uc+WcG3VZafunY4UyMi2KEEKiSUM2DmvcZrmNoAkBY+vddRPMnpeVQ9bbBbJtR8TlwgtqajYe
-	TsZdCVZPyBiKw3l8OGpO9GGMvk+ti50mozegNEfsfGoUGNSqgUML23I8s226l9hhyuoPIczPabN
-	/MXtg==
-X-Received: by 2002:a17:903:3c24:b0:2d9:33d4:a910 with SMTP id d9443c01a7336-2dd0780d87cmr17875895ad.4.1788959776857;
-        Wed, 09 Sep 2026 06:16:16 -0700 (PDT)
-Received: from leonardoc-nb ([67.159.246.222])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14841054sm74730735ad.3.2026.09.09.06.16.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 06:16:16 -0700 (PDT)
-Date: Wed, 9 Sep 2026 10:16:10 -0300
-From: Leonardo Costa <leoreis.costa@gmail.com>
-To: "Kumar, Udit" <u-kumar1@ti.com>
-Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
- LVDS adapter with the 10.1" V2 display
-Message-ID: <btthxxtvgma657mrvcu5ledxu3fedlf3satbeu6ppn6jb3o6cr@wfffny6ucxck>
-References: <20260803173705.2268792-1-leoreis.costa@gmail.com>
- <20260803173705.2268792-2-leoreis.costa@gmail.com>
- <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+        bh=H9O/ZCwMRsoEO1n+0T3o5T+zX4t0ZK8Ed1UCC5oqjrI=;
+        b=HTLa7K25vGodel9jy4rxVQekFCBfMC+cgH5HrZHx6irH78piA161tWbx0TMqZXF3Kn
+         xmhPhDbCQDx+g2Hlo4oaZXp10BhQOoo3wzzODh5C182qEdlG9idBi4pET0wOjI9UXyv9
+         FwEdWl69VlisqoDSDFuCm3ARk2pnmg4UEC6WkOnlHYcppIHdKnpd8OZvirdfeefhjDEG
+         1ohV5zFQma1pzROAtziVPotjS8srajcFIp6465LJ2ogtWniZJaPk43ZHc+Uksl+EORPr
+         /fLIT+Th5R9HTkqYqxQPI9Tm86hP375G33Mfvs1tCfBH8YsdAy9Tg9OTlJOe15I8GHTa
+         EkXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788959805; x=1789564605;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=H9O/ZCwMRsoEO1n+0T3o5T+zX4t0ZK8Ed1UCC5oqjrI=;
+        b=khLzODo+zW+WluPxAINoScsw4T0sZ61NX1lF8wjDcZ3y5Nb8gNsvbzPoguYJyhR90O
+         GArxNwns5OU0Wa8YXdlF7wDtIPBT2k0xVgDrc1VArGCHsoI25ddAX7BaIhoT9pZmvmq8
+         2xv2dsMQKLbmdP0GtGcKl9fgwUwf1PJ+KtgHzyMZBDWKczrviEtF6KginUwsN33mOFj/
+         LTsh4g6F9m8K0mMDKMJiMZ4ojkFX20fkUFg87nFiWZYqNiP7QVr2o99mOYutoFo8W/Wp
+         8ZPZbr1mRjNtB6HP12I87Tm5YkkmAoxQOv19ZYqivHPLoii18Q5447l9CHhK091zl40U
+         OS2A==
+X-Forwarded-Encrypted: i=1; AKwUvBwsmtcwO54aALRah1KL3uzFQwNufn98EP893MnWFnGDccu+29v/lUDpO4ORUow4kKbC0PygsuEmv4vX@vger.kernel.org
+X-Gm-Message-State: AFuF++nd2kQZ3946/o+Blo1CxTf6XzF5eBXn8r3ee4IOdsupO1kV5qI2
+	SZhtfxpVkPW6TVZHuaL+N1Vwr0AuizU/5TuMvc7+0697agGpkK7F4dL4T0dfzrMThMJmuiSclCa
+	1lfuc16T9D6ojxfITQam3hrlV0kBvoPpcEQfIy/faEbY84JYn6Qgq5ZJZREkVHA4Z
+X-Gm-Gg: AYBFou2eieOCFIIYX63dTlvyFRSrdQDHnNJPkgwIkKJU4kPIyPXMd0M7EcRmHunKFJW
+	mFtB/EzJyJFxhMaaZ+nG54P9LxT0gkuIGnA1J8kS53mBbgSNjpzMAAuN820VPqQKsggoLfl4fDa
+	ZDPQGLd5DxpNS6Sw2NN0Zh+iD8Vm3idCpDfYdwD8TOspSvdsR8YIeGJpQ7OUa3vAWjKc/hXlcPE
+	+bofuaVK/8OASH7vcL5+LUou4miXb7npFtAiHrs+2rnTBuwzuGKwJbuQbQGegtRXSgcPZEyAIz/
+	SD4xOErKlbsyKhEbynZz22L7O4Wf+ilI/edXSmhG/sW8qFKre7vPKmQ3TS3VkJnEySROLYRFEH6
+	EzrRO7/lTsrsQikwTWfPo6g==
+X-Received: by 2002:a05:6122:8118:b0:5bf:b91f:3bb5 with SMTP id 71dfb90a1353d-5c7fb9c4ce4mr4813030e0c.2.1788959800330;
+        Wed, 09 Sep 2026 06:16:40 -0700 (PDT)
+X-Received: by 2002:a05:6122:8118:b0:5bf:b91f:3bb5 with SMTP id 71dfb90a1353d-5c7fb9c4ce4mr4812434e0c.2.1788959794996;
+        Wed, 09 Sep 2026 06:16:34 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b74d55a4absm3280227e87.50.2026.09.09.06.16.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 06:16:33 -0700 (PDT)
+Message-ID: <062d0fc6-dcae-4636-ae95-c8144317f0ff@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 15:16:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <29aaa2ec-c1fe-4f60-a6d1-f8c797587986@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-lg: Enable NFC
+To: David Heidelberg <david@ixit.cz>, Paul Sajna
+ <sajattack@postmarketos.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+        ~postmarketos/upstreaming@lists.sr.ht
+References: <20260906-sdm845-lg-judy-nfc-v2-1-63aeb7b1a5f6@postmarketos.org>
+ <28fb606b-8631-483a-a02e-ecd16e9cc238@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <28fb606b-8631-483a-a02e-ecd16e9cc238@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=bd1bluPB c=1 sm=1 tr=0 ts=6aa15c3e cx=c_pps
+ a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=OQN141zOAAAA:20 a=Gbw9aFdXAAAA:8 a=DKkjQw_Nfd4kA1BEE-cA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=XD7yVLdPMpWraOa8Un9W:22 a=9vIz8raoGPyDa4jBFAYH:22
+ a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE0OSBTYWx0ZWRfX5ejj9rVDNHmM
+ dlooRtW1j7MfQf9qrHYF9b7XFfwm1aPbJtB64IPSkt//niPfunPZgObvJq16TOEv57FaF0Xj+LL
+ RR2FcOdfRI7gPNFl8DjZ1z/Vr68Q73YJP6hiEg6gKe97pc4Xv6Lah2MS9sEIXMjZAt94QErfYC3
+ CzVyEjZJAh5Gs3b0ZO48Qktj+JCFStAMNsBVM50+X60tQb4jaX+HMI9cNu2BkP6HKVDrGxgXlRC
+ qtYHl6wSdsmvKAUsUmonDJakf4c0Luoqjw2zEbIGcaeatF/mg5lQQteTjH9HQLRcKthazp4jXGh
+ THVE9M+YkBfDS70+YcQ7MaaJZjQBkj8gT83KTvc4L5OhQr/I02MliifFQNr8vInCAMFdUnjgCyd
+ hNPm0JMmQaxtBU5vYZpbBKZs6To1+VxTcLB/ZUeioqzs7KKZbRgDv07fFj8B1pius4R/VghX7CZ
+ F/And2x0//jL5Qxsv3A==
+X-Proofpoint-ORIG-GUID: 1OiyO7i3gFJ7_UHL19Lk5afeb4_rsMvp
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE0OSBTYWx0ZWRfX2EnNHh10yJz4
+ dKkC26aneWjTy/d2pHrut6eO2V00QLtMzOws1AZmkEUBaEaThh+932bQAc2qIGKuJF5F39bF2BI
+ MedylwB3E1B+vTna94crQ71e9+DI+5Q=
+X-Proofpoint-GUID: 1OiyO7i3gFJ7_UHL19Lk5afeb4_rsMvp
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
+ bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090149
 
-Hi Udit,
+On 9/6/26 11:32 PM, David Heidelberg wrote:
+> On 06/09/2026 23:11, Paul Sajna wrote:
+>> Add the i2c and tlmm nodes to support the NXP PN547 NFC chip
+>>
+>> Downstream dtsi for reference:
+>> https://github.com/LineageOS/android_kernel_lge_sdm845/blob/lineage-22.2/arch/arm64/boot/dts/lge/sdm845-judy/sdm845-judyln_lao_com/sdm845-judyln_lao_com-nfc.dtsi
+>>
+>> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+>> ---
 
-On Sun, Sep 06, 2026 at 10:49:52AM +0530, Kumar, Udit wrote:
-> Hi Leonardo
-> 
-> On 8/3/2026 11:04 PM, Leonardo Costa wrote:
-> > From: Leonardo Costa <leonardo.costa@toradex.com>
-> > 
-> > Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-> > Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-> > Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-> > DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-> > LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-> > touch controller.
-> > 
-> > Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-> > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > ---
-> >  arch/arm64/boot/dts/ti/Makefile               |   5 +
-> >  ...dsi-to-lvds-v2-panel-cap-touch-10inch.dtso | 153 ++++++++++++++++++
-> >  2 files changed, 158 insertions(+)
-> >  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-v2-panel-cap-touch-10inch.dtso
-> > 
-> > diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-> > index f4d109ef6798a..8a59fc597aede 100644
-> > --- a/arch/arm64/boot/dts/ti/Makefile
-> > +++ b/arch/arm64/boot/dts/ti/Makefile
-> > @@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
-> > [..]
-> > +
-> > +	panel-lvds-bridge {
-> > +		compatible = "optologic,scx1001511ggc49", "panel-lvds";
-> 
-> > +		backlight = <&backlight_pwm3>;
-> > +		data-mapping = "vesa-24";
-> > +		height-mm = <136>;
-> > +		width-mm = <217>;
-> > +
-> > +		panel-timing {
-> > +			clock-frequency = <70000000>;
-> 
-> Looking at
-> https://lore.kernel.org/linux-arm-kernel/20260623195741.495734-1-leoreis.costa@gmail.com/T/#mc4ed25e5253da6dc635fd3eddc317dac8f447f3e
-> 
-> 
-> you are using three different clock-freq 69500000, 64500000 and
-> 70000000 here.
-> Could add some comment here, why freq is adjusted.
+[...]
 
-Just to confirm it, considering my last reply, do I understand correctly
-that you want a v2 of this patch that adds this comment? In the end, these
-are just values that we found to work consistently with the bridge, and
-we're not sure if this comment would add much value.
+>> +    nfc_default: nfc-default-state {
+>> +        pins = "gpio12", "gpio62", "gpio63", "gpio116";
+> 
+> here the verbosity may not be bad (device-tree functions as documentation too)
+> gpio116 is associated with eSE NFC part (just guessing, but... it worked before, so), and generally the pn547 doesn't need it at all to work.
+> 
+> TBH not sure if there or what consensus is here about this. The eSE needs it, but we don't have the driver thus also no integration with NFC part.
 
-Kind regards,
-Leonardo
+The eSE driver would still be acting on the NFC node, right?
+
+Konrad
