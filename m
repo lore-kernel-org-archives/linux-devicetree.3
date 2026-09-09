@@ -1,135 +1,111 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B8233F8CA;
-	Wed,  9 Sep 2026 15:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE43E1DA62E;
+	Wed,  9 Sep 2026 15:15:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966911; cv=none; b=ZlNVH/kKeYh+NaTCaZFowo/l+mwIZbZjeIGK8RTP9OmnY8lmK7mTS8luUoKgJTA0rIgEqNhpjw0BCbH0C9+Z2PlERtlcbKEKJU8dLrZP5hoxuSjH63/n7CTe8id8yCphA5yvZdkii5MgUz0lwupiZLCwHZ8aWBtxltsOFgT1fKI=
+	t=1788966953; cv=none; b=PKPrjKMrunez6OfVicrkz6x72KuyAph01f+hBrWOplWtL3S23I0DlUXtB6LkCIOjTYiet2twR4xog5raSb60GyHHcVaPUdpnv9h6NhJ7OFsAW1lx8mrLz0jib0O3V3MmeDiSyrjcyhixnq99FE3HES05wnguthEjTa9y6LXfRec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966911; c=relaxed/simple;
-	bh=88t2KFUYEG1ls7SLqreKfx7a/sqi1kIjDcCRwnQG8Fw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J59VTxjfz5exMGO2OBcSjuPXb7a+FazF3IY1pAHZt2vAJGupQhHNxP+ZWo+t0L0u5hTASjl/msrYoAfCtww7/Md6jlOE+gGy6J7ai0OxqYxX5qU1oAU/IJSVpKKzbdGew/fELzwpXlZgj0wgCkJ317oOcHiXQ9OswxFhCf/5gtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vpfLvzpx; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788966953; c=relaxed/simple;
+	bh=xzL5jLVDUcIVNSyQO6ojFOnw5F3gLNaRBHz0ENW5HHc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=r6RFNDtnFsFeOhwrJ9WupzjMAvxqFPzoOyWqAokDTtnQEJTm4uHOt6xlHU7wz6RcBRMkmt3kqN38q3xR5KJJWFR6YfgqO3hnk+yuANMq6yIGJ1F787L372kzu108JH/0sWH6MNE6BamM5dx2zErdgYja7sBdHrRwtKB3M/Yb/bM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ5H3XLw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vpfLvzpx"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B48B14E415B2;
-	Wed,  9 Sep 2026 15:15:05 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 6CFCB60448;
-	Wed,  9 Sep 2026 15:15:05 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A542411C7AF6A;
-	Wed,  9 Sep 2026 17:15:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788966904; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=TKIumftg5isbpXQKzme3lvhBlw9M5ic7cFq7rPAt2L0=;
-	b=vpfLvzpx5PQf+lAopJKrbF3xSa1LRWSHkt5cfM1tozXsgkzvX6SwdKT0KlJBDJT4vhS5HG
-	LB2m9WyL4EjcTSdHqge+XyY1dWAeLsHDaApXfulQaDuaKE5/hNszu9s65P4WWxUIKmvZCt
-	2oLDiQIUykAc6fW59LAXZCsrZz2S27dlQ0gbH7ejBtntAy5pjPLnUlfkfZEdt685uCCGS4
-	oKB4wgGYMoNVhh9EkLb2caDvPtUiUPQUxEw0ImIPGwgREYRrTBTaDIkV7Q7yzV9QG0PlMZ
-	zCqZVRJ7arpdaM1JYKzEPsvcbX5FcnFgFxNpGJlb93pHCp1l8MTvtuDEWMc+BA==
-Date: Wed, 9 Sep 2026 17:15:00 +0200
-From: Alexandre Belloni <alexandre.belloni@bootlin.com>
-To: Sander Speetjens <sander.speetjens@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Jonathan Bell <jonathan@raspberrypi.com>,
-	Stefan Wahren <wahrenst@gmx.net>, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add Raspberry Pi 5 RTC binding
-Message-ID: <20260909151500e29e65a6@mail.local>
-References: <20260909141300.1368790-1-sander.speetjens@gmail.com>
- <20260909141300.1368790-2-sander.speetjens@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ5H3XLw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA281F00A3A;
+	Wed,  9 Sep 2026 15:15:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788966951;
+	bh=zOpunk0DYvxuVu8SJ5MWt2pHj5oTk0F02LZtjnE/OfU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XJ5H3XLwV5VPnyYFztg0qvaNMurz1hu0y6VhkZiCJwBKBY0pK77AQ8L2XRPKYD1+x
+	 xJiggrPAQPPgflplbUQIbaqkoJwToibE0HXORbi5HRCIpbo3H3RCC4hnguMVHDePC4
+	 we5JKeYcb8e9jRKsufv6pA8k6VgbYJVkwR7BDVqpkIDTxfF4j0ggCp97WiaFi1LwKD
+	 YiXWKRzmGwwrJWk3jBzV6tPYwKdmGmotJ76ECh7spejnERERpxmEGLxK8ZO+hT20IH
+	 rWrFC5kTPg2TEXqghv3WQjY2TPm43XBKdi+3CDhgYqT4GRKeNUPusWiBK6WZG4Ua6+
+	 cmymLYfSujJ+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/5] PCI/pwrctrl: tc9563: Add GPIO auxiliary device
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909-pci-tc9563-aux-v5-3-c9b33f56c8d3@oss.qualcomm.com>
+References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
+ <20260909-pci-tc9563-aux-v5-3-c9b33f56c8d3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 15:15:50 +0000
+Message-Id: <20260909151551.2DA281F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909141300.1368790-2-sander.speetjens@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 09/09/2026 16:12:58+0200, Sander Speetjens wrote:
-> Add device tree bindings for the Raspberry Pi 5 RTC.
-> Located in a custom DA9091 PMIC and accesed trough the firmware mailbox.
-> 
-> Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
-> Assisted-by: Grok
-> ---
->  .../bindings/rtc/raspberrypi,rtc-rpi.yaml     | 48 +++++++++++++++++++
->  1 file changed, 48 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/rtc/raspberrypi,rtc-rpi.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/rtc/raspberrypi,rtc-rpi.yaml b/Documentation/devicetree/bindings/rtc/raspberrypi,rtc-rpi.yaml
-> new file mode 100644
-> index 000000000000..e9bade7f8c91
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/raspberrypi,rtc-rpi.yaml
-> @@ -0,0 +1,48 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/rtc/raspberrypi,rtc-rpi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Raspberry Pi firmware RTC
-> +
-> +maintainers:
-> +  - Jonathan Bell <jonathan@raspberrypi.com>
-> +
-> +description: |
-> +  Raspberry Pi RTC from the DA9091 accessed through the Raspberry Pi firmware
-> +  property interface.
-> +
-> +properties:
-> +  compatible:
-> +    const: raspberrypi,rpi-rtc
-> +
-> +  firmware:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the Raspberry Pi firmware device.
-> +
-> +  trickle-charge-microvolt:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Auxiliary device teardown via devres races with manual power off i=
+n remove(), allowing I/O to powered-down hardware.
+- [Low] Missing explicit `select AUXILIARY_BUS` in Kconfig for PCI_PWRCTRL_=
+TC9563.
+--
 
-This should probably be trickle-voltage-millivolt
+commit 6f8a88de67f080d18050c0ce0599dc8854f71eab
+Author: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 
-> +    description:
-> +      RTC backup battery trickle-charge voltage. A value of 0 disables
-> +      trickle charging.
-> +    anyOf:
-> +      - const: 0
-> +      - minimum: 1300000
-> +        maximum: 4400000
-> +
-> +required:
-> +  - compatible
-> +  - firmware
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    rtc {
-> +        compatible = "raspberrypi,rpi-rtc";
-> +        firmware = <&firmware>;
-> +        status = "okay";
-> +        trickle-charge-microvolt = <0>;
-> +    };
-> -- 
-> 2.55.0
-> 
+PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
+   =20
+This commit adds an auxiliary device to represent the GPIO controller
+embedded in the TC9563. It passes the regmap via platform data to enable
+the gpio-tc9563 driver to register the GPIO chip.
 
--- 
-Alexandre Belloni, co-owner and COO, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+> diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
+> --- a/drivers/pci/pwrctrl/Kconfig
+> +++ b/drivers/pci/pwrctrl/Kconfig
+> @@ -29,6 +29,7 @@ config PCI_PWRCTRL_TC9563
+>  	select PCI_PWRCTRL
+>  	default m if ARCH_QCOM
+>  	depends on I2C
+> +	depends on GPIO_TC9563
+>  	select REGMAP_I2C
+
+[Severity: Low]
+Since the driver now directly calls auxiliary bus symbols, should this conf=
+ig
+explicitly select AUXILIARY_BUS to prevent potential build failures if
+transitive dependencies change?
+
+> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrct=
+rl/pci-pwrctrl-tc9563.c
+> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+[ ... ]
+> +static int tc9563_pwrctrl_adev_add(struct device *dev, const char *name,
+> +				   struct device_node *of_node,
+> +				   void *priv_data)
+> +{
+[ ... ]
+> +	ret =3D auxiliary_device_add(adev);
+> +	if (ret) {
+> +		auxiliary_device_uninit(adev);
+> +		return ret;
+> +	}
+> +
+> +	return devm_add_action_or_reset(dev, tc9563_pwrctrl_adev_remove, adev);
+> +}
+
+[Severity: High]
+Because the auxiliary device is queued for removal via devres, won't it be
+destroyed after the driver's manual remove function executes?
+
+If the hardware is shut down and the adapter reference is dropped in the=20
+driver's manual remove path before the devres callbacks run, couldn't this
+allow I/O to powered-down hardware if another process accesses the GPIO
+sysfs interface during this teardown window?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-pci-tc9563=
+-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com?part=3D3
