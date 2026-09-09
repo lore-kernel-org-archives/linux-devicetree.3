@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA31D332637;
-	Wed,  9 Sep 2026 06:07:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7F0376A06;
+	Wed,  9 Sep 2026 06:11:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788934054; cv=none; b=TTTfIBmURBh0xvEyIwupNnqbEsR98uSW8J/bY/LOR2fW1XNHUNnzK2ctS7S6voK2U3EwEgXqqPmZGlvNGi0mtMj5mZXcK9vPb9u+nnz70xoHDfwsPj6sf2pYirUxeqFQ48YSiRqDGAcJSunR02ly/xLRK8m1gHInTr7HQGJ9/xg=
+	t=1788934303; cv=none; b=UHmV9VqQveYwoW3w75RV4Q3K7gxyfpEFh+hmnaiSh3UomBeehlV77A15hluRQXllX2w4/2TuPdfZm5TkRuZ7Uerp/sJtpMxdAeyqn1xKjZ5RUNsnh8D6aiVNWRYmdzdW/wwaJwRycaUY3TpsyCr3zbMDKHyAdBkVnfyfrAV7cmk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788934054; c=relaxed/simple;
-	bh=U7v3XsLCphE4wshOWWCpr2M2x6+OXCgWzJwOnBqTAtQ=;
+	s=arc-20240116; t=1788934303; c=relaxed/simple;
+	bh=AA88sVHu2RjejiGwmGjLyptcgv7EEHaQUyZCPpvyB4A=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=n31IEpaqUcAOSBk4EBu7Vh8dU+XYNz8U5dmXWI/k21XZ9fzWJByNwQstgSG23UxdhlYxZHp+QsqIFzE7/qDpcnI7HzUvMijZROzhiwLX1pBcE0Wt0BFO9wO23UA8hEZuOIn7sRlYXiEfCsy+KZsPk7aPTpuT8Wyb8CnyhV2Rmw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XpUWj45G; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=cJmnGTjC6LtlixGW0Fm1fUoj1/480zq0OR7Yn7WG7YBaJaV5OlxttWBX6IDSBVUKiudPnxtcf3n7+NnzEO4NevBkfz56I7kS6QXXfpwHtXZ7u22x7MYS6SAtTWJVbguHiStbaJk9QQ3+NAbw2wmkshFpgls0p2rR96qcvp3SWgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=koO1jTZd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XpUWj45G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51A151F00A3A;
-	Wed,  9 Sep 2026 06:07:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="koO1jTZd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B4B1F00A3A;
+	Wed,  9 Sep 2026 06:11:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788934052;
-	bh=sCWgbO/HmDCGRypEbkff2kKanCBnA5ge8SwiD4kj4nE=;
+	s=k20260515; t=1788934299;
+	bh=wKVzZ3DXomIuSaP/EgVD76UrmtWu9SrVhn2lBA4cc7k=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XpUWj45GqaBHjC7KgWHyJJ8mkyoCrmnS8oxplKJtzUiPAYyp2VXO9uMlhlHwzAEAn
-	 O6xxRSvmBGBMVgFtJreNqWeAcFLg89J8Eof2t6k2as8BOlcpmDEYJZ0f1t4GHPybuw
-	 K+2aQ4AleUbjYRwzRTAJu7QY4cffwwHbaHu8qOCrfIecVK4dSTCNRswREiE8JPwW3X
-	 nx+n3oTLQBlQcN5jc5EGBFEbBIgcqmAM3RpiXKRKCEYo0KU9S3abtzaV8iOKsSckGp
-	 AZ6dYH3dGdSt+tz8g60fEo7ruI2ENaX/ta0arAyI2mbZcKB/qR9cNexAuJR2VLnXDa
-	 +wDokvJ8PZ3Bw==
-Message-ID: <f33ff763-136e-4c10-bd77-d40bb4baf02c@kernel.org>
-Date: Wed, 9 Sep 2026 08:07:23 +0200
+	b=koO1jTZdY8lUmp8ZIlLpM90UDSszO2+fNjIIL8oOLPp6yYIZ9zwkkDPUNwu/czmmd
+	 0jgjB+zPzqrQTa+8Try6aE55cVpJ12vSylOoS2jCIgIlOalhMzcojIruawC7K6fpdM
+	 JzwmL0HmircrECSv1Ozk9OpZkAnc/tRfcrz+pKr1PucClnBotMW5Wx5s5pSVAVrO7j
+	 V9rvbMmV1mk3gGv/g4uss/ohBF6bVJ3/uKBtr247YVtj1EcmSBrf99MQb8OWr/Q64c
+	 G4N0HvCL4fsrg4pu1koYH4vL66Odli4Xb/0aHAS/zmGkKHJkBNOVJ4eRKj8pdzjkhO
+	 wMJHKN/9pxvDw==
+Message-ID: <219e88c6-5f49-4db3-8a30-54d387711fcc@kernel.org>
+Date: Wed, 9 Sep 2026 08:11:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,21 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v18 3/8] dt-bindings: i3c: Add NXP P3H2x4x i3c-hub support
-To: Lakshay Piplani <lakshay.piplani@nxp.com>, linux-kernel@vger.kernel.org,
- linux-i3c@lists.infradead.org, alexandre.belloni@bootlin.com,
- krzk+dt@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, broonie@kernel.org, lee@kernel.org,
- Frank.Li@nxp.com, lgirdwood@gmail.com
-Cc: vikash.bansal@nxp.com, priyanka.jain@nxp.com, aman.kumarpandey@nxp.com
-References: <20260903062108.2712296-1-lakshay.piplani@nxp.com>
- <20260903062108.2712296-4-lakshay.piplani@nxp.com>
+Subject: Re: [PATCH 2/3] dt-bindings: pinctrl: Add EcoNet EN7528 pin
+ controller
+To: Ahmed Naseef <naseefkm@gmail.com>
+Cc: linux-gpio@vger.kernel.org, Benjamin Larsson
+ <benjamin.larsson@genexis.eu>, Christian Marangi <ansuelsmth@gmail.com>,
+ Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Lorenzo Bianconi <lorenzo@kernel.org>,
+ Mikhail Kshevetskiy <mikhail.kshevetskiy@iopsys.eu>,
+ Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org
+References: <cover.1786262697.git.naseefkm@gmail.com>
+ <7e6150b186c2d16820d7382bce065596a0854a47.1786262697.git.naseefkm@gmail.com>
+ <20260828-adorable-bug-from-arcadia-fcad00@quoll>
+ <apGcOAUpb6XZ2Iud@DESKTOP-TIT0J8O.localdomain>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,151 +95,41 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260903062108.2712296-4-lakshay.piplani@nxp.com>
+In-Reply-To: <apGcOAUpb6XZ2Iud@DESKTOP-TIT0J8O.localdomain>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/09/2026 08:21, Lakshay Piplani wrote:
-> From: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+On 28/08/2026 16:33, Ahmed Naseef wrote:
+> On Fri, Aug 28, 2026 at 08:59:57AM +0200, Krzysztof Kozlowski wrote:
+>> On Sun, Aug 09, 2026 at 12:04:59PM +0400, Ahmed Naseef wrote:
+>>> +maintainers:
+>>> +  - Lorenzo Bianconi <lorenzo@kernel.org>
+>>> +
+>>> +description:
+>>> +  The EcoNet EN7528 pin controller is used to control SoC pins. It shares the
+>>> +  IP with the Airoha pin controllers, but its IOMUX and pin configuration
+>>> +  registers have a different layout.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: econet,en7528-pinctrl
+>>> +
+>>> +  airoha,chip-scu:
+>>> +    description: phandle to the chip SCU syscon
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>
+>> If the entire address space is part of the SCU, then this device should
+>> be part of the SCU, e.g. its subnode.
 > 
-> Add bindings for the NXP P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841)
-> multiport I3C hub family. These devices connect to a host via
-> I3C/I2C/SMBus and allow communication with multiple downstream
-> peripherals.
-> 
-> Signed-off-by: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> Signed-off-by: Vikash Bansal <vikash.bansal@nxp.com>
-> Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> 
-> ---
-> Changes in v18:
->  - Rebased onto v7.3-rc1; no intended driver behaviour changes
-> 
-> Changes in v17:
->  - Explain in the binding description that all variants share the same register
->    interface, software reads the target-port count from DEV_CAPAB, and
->    the x0/x1 variants differ only in power-up defaults that the driver
->    overrides
-> 
-> Changes in v16:
->  - Add an allOf/if-then block for the 4-port variants (nxp,p3h2440 and
->    nxp,p3h2441) that limits i3c@[0-3]/smbus@[0-3] and disallows target
->    ports [4-7], so DTs describing nonexistent ports fail validation
->  - Add #address-cells and #size-cells to the required list, since the hub
->    is a parent bus to the target-port child node
->  - Add an explicit minimum of 0 to the target-port reg constraints, retain
->    the maximum of 7, and restrict the maximum to 3 for four-port variants
-> 
-> Changes in v15:
->  - Add compatible strings for the P3H2440, P3H2441, P3H2840 and P3H2841
->    variants
->  - Fix the target-port reg schema to describe the single-cell port index
-> 
-> Changes in v14:
->  - No change
-> 
-> Changes in v13:
->  - Fix mismatch between example unit-address and reg property by correcting the reg value
->    to match the node name
-> 
-> Changes in v12:
->  - No change, added Reviewed-By tag
-> 
-> Changes in v11:
->  - No change
-> 
-> Changes in v10:
->  - No change, added Reviewed-By tag
-> 
-> Changes in v9:
->  - Referenced i3c.yaml and i2c-controller.yaml for child nodes
->  - Dropped unnecessary #address-cells and #size-cells from child nodes
-> 
-> Changes in v8:
->  - Add compatible in i3c example
-> 
-> Changes in v7:
->  - Fix schema validation issues
->  - Adjust required properties
->  - Add I2C example
-> 
-> Changes in v6:
->  - Use a vendor prefix for the attributes
-> 
-> Changes in v5:
->  - Removed SW properties: cp0-ldo-microvolt,cp1-ldo-microvolt,
->    tp0145-ldo-microvolt, tp2367-ldo-microvolt
->  - Changed supply entries and its descriptions
-> 
-> Changes in v4:
->  - Fixed DT binding check warning
->  - Removed SW properties: ibi-enable, local-dev, and always-enable
-> 
-> Changes in v3:
->  - Added MFD (Multi-Function Device) support for I3C hub and on-die regulator
->  - Added Regulator supply node
-> 
-> Changes in v2:
->  - Fixed DT binding check warning
->  - Revised logic for parsing DTS nodes
-> ---
-> ---
->  .../devicetree/bindings/i3c/nxp,p3h2840.yaml  | 328 ++++++++++++++++++
->  MAINTAINERS                                   |   9 +
->  2 files changed, 337 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> new file mode 100644
-> index 000000000000..6b0076b4487f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i3c/nxp,p3h2840.yaml
-> @@ -0,0 +1,328 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright 2025-2026 NXP
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/i3c/nxp,p3h2840.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: NXP P3H2X4X I3C HUB
-> +
-> +maintainers:
-> +  - Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-> +  - Vikash Bansal <vikash.bansal@nxp.com>
-> +  - Lakshay Piplani <lakshay.piplani@nxp.com>
-> +
-> +description: |
-> +  P3H2x4x (P3H2440/P3H2441/P3H2840/P3H2841) is a family of multiport I3C
-> +  hub devices that connect to:-
-> +  1. A host CPU via I3C/I2C/SMBus bus on upstream side and connect to multiple
-> +     peripheral devices on the downstream  side.
-> +  2. Have two Controller Ports which can support either
-> +     I2C/SMBus or I3C buses and connect to a CPU, BMC or SOC.
-> +  3. P3H2840/ P3H2841 are 8 port I3C hub with eight Target Ports.
-> +  4. P3H2440/ P3H2441 are 4 port I3C hub with four Target Ports.
-> +     Target ports can be configured as SMBus or I3C and connect to
-> +     peripherals.
-> +
-> +  All variants use the same register interface. Software reads the number
-> +  of target ports from DEV_CAPAB. The x0/x1 variants differ in their
-> +  power-up defaults, which the driver replaces with the DT configuration.
+> It is not: the registers are split over two blocks. The GPIO, interrupt
+> and PWM flash-mode registers are in the block the node sits under, and
+> the IOMUX and pin configuration registers are in the SCU. Both are
+> needed, so whichever of the two is the parent, the other one has to come
+> in by phandle.
 
-I don't understand what this driver reference means and what is its
-purpose here.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - nxp,p3h2440
-> +      - nxp,p3h2441
-> +      - nxp,p3h2840
-> +      - nxp,p3h2841
-
-I don't see improvements.
+Sure, one is parent and other is sibling. This is standard. But
+non-standard is to claim to have no MMIO but then get that MMIO from
+someone else...
 
 
 Best regards,
