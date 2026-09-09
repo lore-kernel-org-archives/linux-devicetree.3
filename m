@@ -1,207 +1,247 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C6F6387347
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 09:54:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D3A380FF8;
+	Wed,  9 Sep 2026 09:56:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947661; cv=none; b=ajenP9T1vmb6dj+CrYD/xN+UhSL7ZDh4Z9pVz4slUyPwdWosLW9mK1U7N0pWCr0E1sBCcWxEtRZZ187L5JP3v6IvrObZKVFxjiuasyO2U7q2jH+WIjBE4U7PM/jrfqZMg/kyKySqHF+8SZnucry0coKv9anitJyQS0Ps1H03noY=
+	t=1788947795; cv=none; b=Gg0BQWU/LAPI+Qo6Evezwf8HeQCPQKhdg9K7oxRjAEFZGQRCODQSZUJjazA3POz0GNN2Pw8ZlwFNkMamAJkUusJ7JgoZ2hCL6l0sA9oBHhZcY65sqoUO73M/grhhV/8gNUiKjKbPKu4bdixFTK0uH742hasidlb9p9rMqdi9JbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947661; c=relaxed/simple;
-	bh=7Y6iDoWSVZLfFBshi0b4hs2DykWxH9/UUHj9OOzof+0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gdT80EuuOhylR75FDRpyt0gAu6Ci9vZZYjBu71C7sR41gRqNENV78ThcIESGFYaPSJWiutAsE+Wz5C+303R24QQ5Rkty4+3ic0PAib3dpD+34XcmsoX7hiyRlbavG4Ni0iYEgbn7tYyQKZc4tMMZo9BgObW9ZAbv0EckM2dXACY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nHwxHSBF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788947795; c=relaxed/simple;
+	bh=q+2CzjmdlxkgedUdRnCmW10aP6x7ZEPy60jhejBPhtY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ckyqabgyg8qKGSjkdk9c0bKK+vCnvKji7HR+CncnYVmGzdRKpn9DOvzmcL4KYot2uab9PBVuMgoAXO3miPsWNBycSIB1giAz3+9dhavPSIdVLZSaKw2zs1FiGnAKkPRjKQbzxCzES9zK2eQ0tCJaNfFToLua2/Z3FH3vu7Eal/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IG+iF8NG; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nHwxHSBF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30C81F00A3D;
-	Wed,  9 Sep 2026 09:54:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788947660;
-	bh=WIuUZcVe2UXewNV0LRzVMQyS4T34o/IpvI/Gf9Rv474=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nHwxHSBFm5HdcGDYoGKXmTHExwPbkP+vHb5D8t7mZJf1y9GV6LrLZF7adL4djEXa7
-	 Kq57E3S6jjUiPxuKuuEVOT9f316gMHfI+COa5UrO2qjDRsjr9XPJlE6MZyIZ+pyOgI
-	 YMoId8PezDCzpMwQHUx3GgBnjohxgHAUMWd3/MsI4Uj2ZGo2rBoEBe1jZivDwzR2PV
-	 7X9/VORUaXzizQ6YdtnGoK32dEgg22eiZ8aR0OjetHUWd+oEROt17+XltB0mydKKJa
-	 ijak89K1/e9TpNlKJVb7LElxlCogMUlbSDqZkCYa6BtaZBYO84WLUCCRc7EAnsXaA3
-	 2iPL/8m3CA8bg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] phy: tegra: Add Tegra264 MPHY driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kartik Rajput" <kkartik@nvidia.com>
-Cc: robh@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org
-In-Reply-To: <20260909-tegra264-mphy-v1-2-ce61a80dc065@nvidia.com>
-References: <20260909-tegra264-mphy-v1-0-ce61a80dc065@nvidia.com>
- <20260909-tegra264-mphy-v1-2-ce61a80dc065@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 09:54:19 +0000
-Message-Id: <20260909095419.C30C81F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IG+iF8NG"
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6E9724B0;
+	Wed,  9 Sep 2026 11:54:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788947694;
+	bh=q+2CzjmdlxkgedUdRnCmW10aP6x7ZEPy60jhejBPhtY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IG+iF8NGh6xaR57ik48qKoAuKp3zz6+BLueT0R4xuVXF46morqpkxSTqke0fyAnrn
+	 TBkLg5pXJAmvqLM6NKlTABKJuDjyY2e3jbnX9Ee1M6HrSFLxtOoeDRy932Mrjuz/V3
+	 P35o09YUiOBUNgWFLHm8GjljFQcPN9E6EWTzzLs4=
+Date: Wed, 9 Sep 2026 11:56:27 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+Message-ID: <aqEsceb73f5ysKmK@zed>
+References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
+ <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
+ <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
+ <ap_0yL-JatdVDaXG@zed>
+ <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
+ <aqEJk6dKWuyMLLRt@zed>
+ <aqEUTAAhwI09JOuR@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqEUTAAhwI09JOuR@kekkonen.localdomain>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Data race on shared `mphy->power_count` and clock state across mul=
-tiple PHY instances.
-- [High] TX PHY lacks power management operations, creating a fragile API c=
-ontract that risks system crashes.
-- [High] Wrong base address pointer used for `MPHY_RX_APB_CAPABILITY` regis=
-ters.
-- [Medium] Missing reset assertion for `mphy->rst_clk_ctl` in the normal `t=
-egra_mphy_rx_power_off` path.
---
+Hi Sakari
 
-commit bceb08380e03847a80ce77db39c3ff271cbccb0c
-Author: Kartik Rajput <kkartik@nvidia.com>
+On Wed, Sep 09, 2026 at 11:09:48AM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
+>
+> On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
+> > Sakari,
+> >
+> > On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
+> > > Hi Jacopo,
+> > >
+> > > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
+> > > > Hi Sakari
+> > > >
+> > > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
+> > > > > Hi Jacopo,
+> > > > >
+> > > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
+> > > > > > Add bindings for the ams OSRAM Mira016 image sensor.
+> > > > > >
+> > > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > > > > ---
+> > > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
+> > > > > >  MAINTAINERS                                        |  7 ++
+> > > > > >  2 files changed, 104 insertions(+)
+> > > > > >
+> > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > > new file mode 100644
+> > > > > > index 000000000000..49a606fca6cb
+> > > > > > --- /dev/null
+> > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > > @@ -0,0 +1,97 @@
+> > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > > > +%YAML 1.2
+> > > > > > +---
+> > > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
+> > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > > +
+> > > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
+> > > > > > +
+> > > > > > +maintainers:
+> > > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
+> > > > > > +
+> > > > > > +description:
+> > > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
+> > > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
+> > > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
+> > > > > > +  physical layer specifications to transmit the image data to the host
+> > > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
+> > > > > > +
+> > > > > > +allOf:
+> > > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
+> > > > > > +
+> > > > > > +properties:
+> > > > > > +  compatible:
+> > > > > > +    const: ams,mira016
+> > > > > > +
+> > > > > > +  reg:
+> > > > > > +    maxItems: 1
+> > > > > > +
+> > > > > > +  clocks:
+> > > > > > +    maxItems: 1
+> > > > > > +
+> > > > > > +  vdd28-supply:
+> > > > > > +    description:
+> > > > > > +      I/O voltage supply, 2.8 volts
+> > > > > > +
+> > > > > > +  vdd11-supply:
+> > > > > > +    description:
+> > > > > > +      I/O voltage supply, 1.1 volts
+> > > > > > +
+> > > > > > +  reset-gpios:
+> > > > > > +    description: Sensor reset (RST_N) GPIO
+> > > > > > +    maxItems: 1
+> > > > > > +
+> > > > > > +  port:
+> > > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
+> > > > > > +    additionalProperties: false
+> > > > > > +    description:
+> > > > > > +      Video output port
+> > > > > > +
+> > > > > > +    properties:
+> > > > > > +      endpoint:
+> > > > > > +        $ref: /schemas/media/video-interfaces.yaml#
+> > > > > > +        unevaluatedProperties: false
+> > > > > > +
+> > > > > > +        properties:
+> > > > > > +          data-lanes:
+> > > > > > +            items:
+> > > > > > +              - const: 1
+> > > > >
+> > > > > The device obviously supports non-continuous clock mode (and that's what
+> > > > > the driver also only does right now) but as the continous clock mode is
+> > > > > required by CSI-2, I presume the device can do both.
+> > > > >
+> > > > > So I think you should have
+> > > > >
+> > > > >              clock-noncontinuous: true
+> > > > >
+> > > > > here.
+> > > > >
+> > > >
+> > > > Maybe I'm confused (again, after 10 or so years of doing this) by the
+> > > > usage of unevaluatedProperties/additionalProperties, but if I read
+> > > > Documentation/devicetree/bindings/writing-schema.rst right
+> > > >
+> > > >   * unevaluatedProperties: false
+> > > >       Used when this binding references other schema whose all properties
+> > > >       should be allowed.
+> > > >
+> > > > Means all properties from video-interfaces.yaml are accepted (which is
+> > > > imho very wrong, but it's a battle with dt maintainers I don't want to
+> > > > start again).
+> > >
+> > > I guess you should have
+> > >
+> > > 		additionalProperties: false
+> > >
+> > > too?
+> > >
+> >
+> > Where exactly do you mean ?
+> >
+> > I don't think I can have additionalProperties: and
+> > unevaluatedProperties: in the same node, do I ?
+>
+> Yes, these are mutually exclusive.
+>
+> >
+> > It's been a long time ago when we discussed with dt-maintainers what
+> > the policy should have been for endpoints that reference
+> > video-interfaces.yaml.
+> >
+> > To me, the most sensible thing was to use "additionalProperties: false"
+> > and explicitly allow the supported properties, instead of allowing all
+> > of them. However dt maintainers had a different opinion (for reasons I
+> > honestly can't remember) and I think we have stabilized on the
+> > following pattern
+> >
+> >         port:
+> >           $ref: /schemas/graph.yaml#/$defs/port-base
+> >           additionalProperties: false
+> >
+> >           properties:
+> >             endpoint:
+> >               $ref: /schemas/media/video-interfaces.yaml#
+> >               unevaluatedProperties: false
+> >
+> >               properties:
+> >                 ...
+> >
+> > All the most recently merged bindings in media/i2c have this pattern
+> >
+> > 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
+> > 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
+> > 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
+> >
+> > I feel like I'm missing something obvious, otherwise I don't see why
+> > this binding should be different ?
+>
+> Good question. Perhaps there was no specific thought given on
+> non-contiguous clock support? I guess most of the above should probably
+> specify it, even if the driver doesn't support it.
 
-phy: tegra: Add Tegra264 MPHY driver
+Maybe I'm still missing something, but using
+'unevaluatedProperties: false' and referencing video-interfaces.yaml
+means you can include all properties from there (which, again, I think
+it's wrong, but allows you to specify continous/non-continuous clock
+support).
 
-Add a driver for the MIPI M-PHY found on NVIDIA Tegra264 SoCs. The
-M-PHY has two lanes, each with a transmit and a receive direction,
-exposed as four PHYs to the UFS host controller.
+>
+> There's a good example of doing this in
+> Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
+> as the maintainer there. :-)
 
-> diff --git a/drivers/phy/tegra/phy-tegra-mphy.c b/drivers/phy/tegra/phy-t=
-egra-mphy.c
-> index 0000000000000..01cafe1c7477f
-> --- /dev/null
-> +++ b/drivers/phy/tegra/phy-tegra-mphy.c
+eheh, that binding has 'additionalProperties: false' which means you
+have to list properties you accept.
 
-[ ... ]
+This would be my preferred approach, but if my recollection is
+correct, we stabilized on using 'unevaluatedProperties: false' after
+discussing it with dt maintainers.
 
-> +static int tegra_mphy_rx_power_on(struct phy *phy)
-> +{
-> +	struct tegra_mphy *mphy =3D dev_get_drvdata(phy->dev.parent);
-> +	struct tegra_mphy_lane *lane =3D phy_get_drvdata(phy);
-> +	u32 value;
-> +	int err;
-> +
-> +	if (mphy->power_count++ =3D=3D 0) {
-            ^^^^^^^^^^^^^^^^^^^^^^^
+Does anyone have a different recollection ?
 
-[Severity: High]
-Since l0 and l1 are distinct PHY instances exposed to the consumer, can
-concurrent phy_power_on() or phy_power_off() calls race on this shared
-mphy->power_count?
-
-The PHY framework's internal mutex only serializes operations on a per-PHY
-basis. An unprotected read-modify-write here could lead to corrupted
-reference counts, unbalanced clock states, and hardware faults.
-
-> +		err =3D clk_bulk_prepare_enable(mphy->num_clks, mphy->clks);
-> +		if (err) {
-> +			mphy->power_count--;
-> +			dev_err(&phy->dev, "failed to enable clocks: %d\n", err);
-> +			return err;
-> +		}
-> +		reset_control_deassert(mphy->rst_clk_ctl);
-> +	}
-> +
-> +	reset_control_deassert(lane->rst_rx);
-> +	reset_control_deassert(lane->rst_tx);
-                               ^^^^^^^^^^^^^^^^^^^^
-
-[Severity: High]
-Is it intentional that the RX power-on path handles the reset logic for the
-independently exposed TX PHY?
-
-The TX PHY currently lacks .power_on and .power_off callbacks and seems to
-rely implicitly on the RX PHY to enable hardware clocks. If the TX PHY is
-accessed via phy_configure() before the RX PHY is fully powered on, could
-this result in unclocked memory-mapped I/O and trigger a synchronous
-external abort?
-
-> +
-> +	err =3D tegra_mphy_rx_write_kick_go(lane, MPHY_RX_APB_VENDOR3B, MPHY_EQ=
-_TIMEOUT);
-> +	if (err) {
-> +		dev_err(&phy->dev, "eq_timeout programming failed: %d\n", err);
-> +		goto err_reset;
-> +	}
-> +
-> +	err =3D tegra_mphy_rx_write_kick_go(lane, MPHY_RX_APB_VENDOR49, MPHY_PW=
-R_CHANGE_CLK_BOOST);
-> +	if (err) {
-> +		dev_err(&phy->dev, "pwr_change_clk_boost programming failed: %d\n", er=
-r);
-> +		goto err_reset;
-> +	}
-> +
-> +	value =3D readl(lane->regs + MPHY_RX_APB_CAPABILITY_88_8B);
-                      ^^^^^^^^^^
-
-[Severity: High]
-Should this use lane->rx_regs instead of lane->regs for offset application?
-
-Using lane->regs misdirects the read/write operations to offsets 0x88 and
-0x94 instead of 0x2088 and 0x2094 (since MPHY_RX_OFFSET is 0x2000), which
-may lead to memory corruption and failed configurations.
-
-> +	value &=3D ~RX_HS_G1_SYNC_LENGTH_CAPABILITY(~0);
-> +	value |=3D RX_HS_G1_SYNC_LENGTH_CAPABILITY(0xf);
-> +	writel(value, lane->regs + MPHY_RX_APB_CAPABILITY_88_8B);
-> +
-> +	value =3D readl(lane->regs + MPHY_RX_APB_CAPABILITY_94_97);
-                      ^^^^^^^^^^
-
-[Severity: High]
-Does this also need to use lane->rx_regs instead of lane->regs?
-
-> +	value &=3D ~RX_HS_G3_SYNC_LENGTH_CAPABILITY(~0);
-> +	value |=3D RX_HS_G3_SYNC_LENGTH_CAPABILITY(0xf);
-> +	value &=3D ~RX_HS_G2_SYNC_LENGTH_CAPABILITY(~0);
-> +	value |=3D RX_HS_G2_SYNC_LENGTH_CAPABILITY(0xf);
-> +	writel(value, lane->regs + MPHY_RX_APB_CAPABILITY_94_97);
-
-[ ... ]
-
-> +static int tegra_mphy_rx_power_off(struct phy *phy)
-> +{
-> +	struct tegra_mphy *mphy =3D dev_get_drvdata(phy->dev.parent);
-> +	struct tegra_mphy_lane *lane =3D phy_get_drvdata(phy);
-> +
-> +	if (WARN_ON(mphy->power_count =3D=3D 0))
-> +		return -EINVAL;
-> +
-> +	reset_control_assert(lane->rst_rx);
-> +	reset_control_assert(lane->rst_tx);
-> +
-> +	if (--mphy->power_count =3D=3D 0)
-> +		clk_bulk_disable_unprepare(mphy->num_clks, mphy->clks);
-                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-[Severity: Medium]
-Should mphy->rst_clk_ctl be asserted here before or after disabling the
-clocks?
-
-The driver intentionally deasserts mphy->rst_clk_ctl in
-tegra_mphy_rx_power_on() when power_count goes from 0 to 1, but omits the
-corresponding reset_control_assert() in this successful power-off path,
-which leaks the reset state across power cycles.
-
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static const struct phy_ops tegra_mphy_tx_ops =3D {
-> +	.configure =3D tegra_mphy_tx_configure,
-> +	.calibrate =3D tegra_mphy_tx_calibrate,
-> +};
-        ^^
-
-[Severity: High]
-Are .power_on and .power_off callbacks intentionally omitted for the TX PHY
-ops?
-
-Leaving the TX PHY exposed to configuration while in an unclocked state
-creates a fragile API contract that risks system crashes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-tegra264-m=
-phy-v1-0-ce61a80dc065@nvidia.com?part=3D2
+>
+> --
+> Regards,
+>
+> Sakari Ailus
