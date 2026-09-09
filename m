@@ -1,133 +1,124 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7BAD37C903;
-	Wed,  9 Sep 2026 05:44:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6C86302CC1;
+	Wed,  9 Sep 2026 05:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788932680; cv=none; b=QIL26X/ifzAf/L9HuG5vt9LPFlEPar+oEcXmUfiuwN1TQ9RN/mjVeK7f0DtTGMISV1rcxTHz8wcsTJ9frDPGVtDFrMQdeLB2JOaSqeSgyBQHq4y5gRbuyjor7JJAiUqIvZbrP88SNe/UzSbsb0OzxI9cvnA+VF5JWp7cWDTFb2I=
+	t=1788932865; cv=none; b=KD212G7aEmwuuWV/KNTg7Mpz6FNsOPjZQDuJnsrC3GE5zb2+PUgW5+ZAMByGN6gYxc8SXjVKpW36LbWGhstI8XNg3uBk91U7Xi4BXswuOeFG4N0z43N84l0BqCCLXCQZuX3x0v5U5cFHhj6c1BKUkXgqLZvcqkJdqIIhaqBgPm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788932680; c=relaxed/simple;
-	bh=WnsctUHK1jq217/nF8GOsjdDP+LdgHlKq5T70Pzgr+Q=;
+	s=arc-20240116; t=1788932865; c=relaxed/simple;
+	bh=0OX7NS0OHrMcjPYcf0nWdOyQaiJxpeRx3bGnjIIZ+nQ=;
 	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CZxfO0MRPMTVGQKp7QIkW560VUu5c0jUzrhlDv7E/KhpJTzJpeQItk0xAjCyYPcjeO9TYp/6A+jPGbR6PC0IHeYWpnbddF8HtNt6DVec2dYga7SqKNUzklLY7a6JyKAHWBO+wGeZmEQr6XQjJIUqDOFHh9k5HQ1JZVvbo6IEk0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
-	by APP-03 (Coremail) with SMTP id rQCowAD3_Doq8qBqbs49Bw--.1368S2;
-	Wed, 09 Sep 2026 13:44:11 +0800 (CST)
-Message-ID: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
- support for nuvoton,ma35d1-dcu
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Wed, 09 Sep 2026 13:44:10 +0800
-In-Reply-To: <20260908092840.225220-2-a0987203069@gmail.com>
-References: <20260908092840.225220-1-a0987203069@gmail.com>
-	 <20260908092840.225220-2-a0987203069@gmail.com>
+	 Content-Type:MIME-Version; b=jOiHnS3vsft1Q/WnzsjIezwcbyFKzDEGRSQ5BVpR29ASEbd9w9Sp/+xE2jwDbPQglCsYtBh3x9nR3+j4JM31A3ugu4zNSoOMpz14ToZLUPkDThf5KnQ7U7IudmRzOeY8kBtZ7d+/xRAlociC7dMG3mhks0FGBDmC7C2phThsy3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=BdAPqQCS; arc=none smtp.client-ip=203.29.241.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="BdAPqQCS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=codeconstruct.com.au; s=2022a; t=1788932854;
+	bh=QXi4CxIsKcFvAvcPGZXQs2Kbt4qOqbHhroxMBzzNvgY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=BdAPqQCSCLiA3BLGFkoi4pwfXq9Nciain3C0UiJ88sQo+oW+A4mOuJChPKVJaJc4J
+	 rnXAnGPsmYvz/9jgM002rlvpKsBUBR272pNPj6pHGpyGQDuuoOP20KDlkjHsovyElr
+	 KLokXclSXQ6v7PbgDLoZkzogzFQdzsBSlquAU/6lnWJadkrPuVM7FRyw5U5KgA5Cdk
+	 QeJKkyQdhvsl7yn3TaXTOa79fEqYl1i06fYjRAlgDA1XWKpcv+EYy+cSUREnLNtX8s
+	 UAi1XgTxIQkN+tCDDik9p2VeJSGyovPjNU9+DKxxqqNKEpvUUiCtUJli2lWFGRLH3t
+	 /0sdbSsI4Bbiw==
+Received: from [192.168.68.117] (unknown [180.150.113.112])
+	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 2604A60917;
+	Wed,  9 Sep 2026 13:47:33 +0800 (AWST)
+Message-ID: <f9d084200f79269c02e96cb165fcd3ba67be5271.camel@codeconstruct.com.au>
+Subject: Re: [PATCH v2 0/8] Add Aspeed AST2700 SDRAM EDAC support
+From: Andrew Jeffery <andrew@codeconstruct.com.au>
+To: Ryan Chen <ryan_chen@aspeedtech.com>, Borislav Petkov <bp@alien8.de>
+Cc: Stefan Schaeckeler <sschaeck@cisco.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Joel Stanley	 <joel@jms.id.au>, Tony Luck
+ <tony.luck@intel.com>, "devicetree@vger.kernel.org"	
+ <devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, "linux-aspeed@lists.ozlabs.org"	
+ <linux-aspeed@lists.ozlabs.org>, "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>, "linux-edac@vger.kernel.org"	
+ <linux-edac@vger.kernel.org>, Krzysztof Kozlowski	
+ <krzysztof.kozlowski@oss.qualcomm.com>, "stable@vger.kernel.org"	
+ <stable@vger.kernel.org>
+Date: Wed, 09 Sep 2026 15:17:32 +0930
+In-Reply-To: <TY2PPF5CB9A1BE6E8F9A377C5FB805E6D9DF2B12@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
+References: <20260824-edac-v2-0-c8d8bb693586@aspeedtech.com>
+	 <20260902160843.GCaphKC-y8HpkiAIWh@fat_crate.local>
+	 <TY2PPF5CB9A1BE6E8F9A377C5FB805E6D9DF2B12@TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowAD3_Doq8qBqbs49Bw--.1368S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxArW8uFWkGryUArWUXrWrZrb_yoWrWF48pF
-	95tFWUJryxJrn3Xr4UKr1jyFyUJw1kJw1DJr1xXF1UKr4UJr10qr4Ygr1qgF15Jr48Xry5
-	JF1UWr17Zr12yr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPCb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4xvF2IEb7IF0Fy264kE64k0F24l
-	FcxC0VAYjxAxZF0Ex2IqxwACI402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtV
-	W8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
-	6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2
-	Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
-	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UMVCEFcxC0VAYjxAxZFUvcSsGvfC2KfnxnUUI
-	43ZEXa7IU8-Aw3UUUUU==
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-5ZyoIDIwMjYtMDktMDjkuoznmoQgMTc6MjggKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gQWRk
-IHRoZSBOdXZvdG9uIE1BMzVEMSBEQ1VsdHJhTGl0ZSAobnV2b3RvbixtYTM1ZDEtZGN1KSB0byB0
-aGUKPiBiaW5kaW5nLgo+IFRoZSBEQ1VsdHJhTGl0ZSB1c2VzIG9ubHkgZm91ciBjbG9ja3MgKGNv
-cmUsIGF4aSwgYWhiLCBwaXgwKSBhbmQgb25lCj4gcmVzZXQgKGNvcmUpLCB3aXRoIGEgc2luZ2xl
-IG91dHB1dCBwb3J0Lgo+IAo+IFRoZSBNQTM1RDEgY2xvY2sgY29udHJvbGxlciBnYXRlcyB0aGUg
-Y29yZSwgQVhJIGFuZCBBSEIgY2xvY2tzIHdpdGggYQo+IHNpbmdsZSBiaXQsIGJ1dCBlYWNoIHJl
-bWFpbnMgYSBkaXN0aW5jdCBjbG9jayBsaW5lIGZlZWRpbmcgdGhlIElQCj4gd2l0aAo+IGl0cyBv
-d24gcmF0ZSBjb25zdHJhaW50cywgc28gYWxsIGZvdXIgbXVzdCBzdGlsbCBiZSBsaXN0ZWQKPiBp
-bmRpdmlkdWFsbHkKPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVu
-IHRvIHNoYXJlIHRoZSBzYW1lIGNsb2NrCj4gcGhhbmRsZS4KClRoaXMgaXMgd2VpcmQsIGJ1dCBJ
-IG11c3QgYWRtaXQgdGhhdCB3ZSdyZSBsaW1pdGVkIGJ5IHRoZSBDb21tb24gQ2xvY2sKRnJhbWV3
-b3JrIGhlcmUsIHNvIEkgY2Fubm90IGdpdmUgYSBiZXR0ZXIgc29sdXRpb24gZWl0aGVyLgoKQW55
-d2F5IGxldCdzIHNldHRsZSB3aXRoIHRoZSBjdXJyZW50IHJlc3VsdC4KCj4gCj4gTW92ZSB0aGUg
-Y2xvY2tzL2Nsb2NrLW5hbWVzIG1pbkl0ZW1zIHRvIDQgYW5kIHJlc2V0cy9yZXNldC1uYW1lcwo+
-IG1pbkl0ZW1zIHRvIDEgYXQgdGhlIHRvcCBsZXZlbCwgc2luY2UgdGhhdCBpcyB0aGUgbG93ZXN0
-IGNvdW50IGFueQo+IHN1cHBvcnRlZCB2YXJpYW50IG5lZWRzLsKgIEFkZCBhbiBhbGxPZi9pZiBi
-bG9jayB0aGF0IHRpZ2h0ZW5zIHRoZQo+IGNvbnN0cmFpbnQgYmFjayB1cCB0byB0aGUgZml4ZWQg
-NS1jbG9jay8zLXJlc2V0IHRvcG9sb2d5IHJlcXVpcmVkIGJ5Cj4gdGhlIGV4aXN0aW5nIHRoZWFk
-LHRoMTUyMC1kYzgyMDAgY29tcGF0aWJsZSwgYW5kIGFub3RoZXIgb25lIHRoYXQKPiBjYXBzCj4g
-dGhlIG5ldyBudXZvdG9uLG1hMzVkMS1kY3UgY29tcGF0aWJsZSBhdCB0aGUgNC1jbG9jay8xLXJl
-c2V0IGNvdW50IGl0Cj4gYWN0dWFsbHkgd2lyZXMgdXAuCj4gCj4gU2lnbmVkLW9mZi1ieTogSm9l
-eSBMdSA8YTA5ODcyMDMwNjlAZ21haWwuY29tPgo+IC0tLQo+IMKgLi4uL2JpbmRpbmdzL2Rpc3Bs
-YXkvdmVyaXNpbGljb24sZGMueWFtbMKgwqDCoMKgwqAgfCA0NAo+ICsrKysrKysrKysrKysrKysr
-KysKPiDCoDEgZmlsZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspCj4gCj4gZGlmZiAtLWdpdAo+
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24s
-ZGMueWFtbAo+IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
-aXNpbGljb24sZGMueWFtbAo+IGluZGV4IDkxOWE5MDAxMjIwMTIuLjc3Mzk2NjY3N2QwZjQgMTAw
-NjQ0Cj4gLS0tIGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVy
-aXNpbGljb24sZGMueWFtbAo+ICsrKyBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5n
-cy9kaXNwbGF5L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiBAQCAtMTcsNiArMTcsNyBAQCBwcm9wZXJ0
-aWVzOgo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGVudW06Cj4gwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgLSB0aGVhZCx0aDE1MjAtZGM4MjAwCj4gK8KgwqDCoMKgwqDCoMKgwqDCoCAt
-IG51dm90b24sbWEzNWQxLWRjdQo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNvbixk
-YyAjIERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZSBJRC9yZXZpc2lvbgo+IHJlZ2lzdGVycwo+IMKg
-Cj4gwqDCoCByZWc6Cj4gQEAgLTI2LDYgKzI3LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoCBt
-YXhJdGVtczogMQo+IMKgCj4gwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoCBtaW5JdGVtczogNAo+IMKg
-wqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIGNsb2Nr
-Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIGNsb2NrCj4gQEAgLTM0
-LDYgKzM2LDcgQEAgcHJvcGVydGllczoKPiDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogUGl4
-ZWwgY2xvY2sgb2Ygb3V0cHV0IDEKPiDCoAo+IMKgwqAgY2xvY2stbmFtZXM6Cj4gK8KgwqDCoCBt
-aW5JdGVtczogNAo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGNvbnN0OiBjb3Jl
-Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGF4aQo+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVy
-dGllczoKPiDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+IMKgCj4gwqDCoCByZXNldHM6Cj4g
-K8KgwqDCoCBtaW5JdGVtczogMQo+IMKgwqDCoMKgIGl0ZW1zOgo+IMKgwqDCoMKgwqDCoCAtIGRl
-c2NyaXB0aW9uOiBEQyBDb3JlIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERN
-QSBBWEkgYnVzIHJlc2V0Cj4gwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRp
-b24gQUhCIGJ1cyByZXNldAo+IMKgCj4gwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgIG1pbkl0
-ZW1zOiAxCj4gwqDCoMKgwqAgaXRlbXM6Cj4gwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiDC
-oMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gQEAgLTc5LDYgKzg0LDQ1IEBAIHJlcXVpcmVkOgo+
-IMKgwqAgLSByZXNldC1uYW1lcwo+IMKgwqAgLSBwb3J0cwo+IMKgCj4gK2FsbE9mOgo+ICvCoCAt
-IGlmOgo+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gK8KgwqDCoMKgwqDCoMKgIGNvbXBhdGli
-bGU6Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoCBjb250YWluczoKPiArwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ICvCoMKgwqAgdGhlbjoKPiArwqDCoMKg
-wqDCoCBwcm9wZXJ0aWVzOgo+ICvCoMKgwqDCoMKgwqDCoCBjbG9ja3M6Cj4gK8KgwqDCoMKgwqDC
-oMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4g
-K8KgwqDCoMKgwqDCoMKgwqDCoCBtaW5JdGVtczogNQo+ICsKPiArwqDCoMKgwqDCoMKgwqAgcmVz
-ZXRzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4gK8KgwqDCoMKgwqDC
-oMKgIHJlc2V0LW5hbWVzOgo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDMKPiArCj4g
-K8KgIC0gaWY6Cj4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY29t
-cGF0aWJsZToKPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5zOgo+ICvCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgIGNvbnN0OiBudXZvdG9uLG1hMzVkMS1kY3UKPiArwqDCoMKgIHRoZW46Cj4gK8Kg
-wqDCoMKgwqAgcHJvcGVydGllczoKPiArwqDCoMKgwqDCoMKgwqAgY2xvY2tzOgo+ICvCoMKgwqDC
-oMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrLW5hbWVz
-Ogo+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDQKPiArCj4gK8KgwqDCoMKgwqDCoMKg
-IHJlc2V0czoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCj4gKwo+ICvCoMKgwqDC
-oMKgwqDCoCByZXNldC1uYW1lczoKPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1heEl0ZW1zOiAxCgpN
-YXliZSBpdCdzIHJlYXNvbmFibGUgdG8gcmVzdHJpY3QgbWF4IHBvcnQgY291bnQgdG8gMSBmb3Ig
-TUEzNUQxPwpBbHRob3VnaCBJIGFtIG5vdCBzdXJlIGFib3V0IGhvdyB0byBkbyB0aGlzLi4uCgpU
-aGFua3MsCkljZW5vd3kKCj4gKwo+IMKgYWRkaXRpb25hbFByb3BlcnRpZXM6IGZhbHNlCj4gwqAK
-PiDCoGV4YW1wbGVzOgo=
+On Tue, 2026-09-08 at 07:13 +0000, Ryan Chen wrote:
+>=20
+> > Subject: Re: [PATCH v2 0/8] Add Aspeed AST2700 SDRAM EDAC support
+> >=20
+> > On Mon, Aug 24, 2026 at 10:42:27AM +0800, Ryan Chen wrote:
+> > > Add ECC error reporting for the Aspeed AST2700 SoC to the existing
+> > > aspeed_edac driver.
+> > >=20
+> > > The AST2700 memory controller keeps the same overall EDAC programming
+> > > model as the earlier Aspeed BMC SoCs, but uses a different register
+> > > layout, a split interrupt status/clear/mask scheme and DDR4/DDR5 memo=
+ry.
+> > > Rather than fork the driver, the existing code is first tidied and
+> > > generalised, then the AST2700 is added as one more per-SoC variant.
+> > >=20
+> > > Patches 2-5 are bug fixes and cleanups to the existing driver. Patche=
+s
+> > > 6 and 7 rework the implementation to accommodate the AST2700. Patch 8
+> > > adds the AST2700 support itself.
+> >=20
+> > Sashiko has comments:
+> >=20
+> > https://sashiko.dev/#/patchset/20260824-edac-v2-0-c8d8bb693586%40aspeed
+> > tech.com
+> >=20
+> > Please address them: if valid, fix them, if not, explain why they don't=
+ need to
+> > be fixed.
+> >=20
+> > Btw, I don't see Stefan reviewing this driver and his last mail on LKML=
+ is from
+> > 2025 so it looks like we'll orphan this driver too.
+> >=20
+> > Thx.
+> >=20
+> > --
+> > Regards/Gruss,
+> > =C2=A0=C2=A0=C2=A0 Boris.
+> >=20
+> > https://people.kernel.org/tglx/notes-about-netiquette
+>=20
+> Hello Boris,
+> 	Thanks your review.
+>=20
+> I've already replied to both of Sashiko's findings on their respective
+> threads:
+> 6/8: https://sashiko.dev/#/message/TY2PPF5CB9A1BE61E82EEE55F3F725362CCF2A=
+D2%40TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+> 8/8: https://sashiko.dev/#/message/TY2PPF5CB9A1BE62172BCC358347C4836CCF2A=
+D2%40TY2PPF5CB9A1BE6.apcprd06.prod.outlook.com
+>=20
+> Short version: neither needs a code change. On 8/8 the premise doesn't
+> hold - u-boot masks every implemented DRAMC interrupt source
+> (INT_MASK reads GENMASK(16, 0), bits 31:17 are not implemented), so no
+> non-ECC source can raise the line and the spurious detector cannot
+> kick in.=20
 
+I feel this is a fragile analysis given multiple components involved. I
+think it would be easier and safer (both in terms of kernel behaviour
+and guarding against change in u-boot behaviour) if we have the kernel
+driver take complete ownership of the interrupt configuration.
+
+Andrew
