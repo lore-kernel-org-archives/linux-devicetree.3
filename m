@@ -1,232 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A39D35C6A0
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 17:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52ABB37B021
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 17:27:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974801; cv=none; b=X7CJjJaB7tgLZ4rylODEmG8CAQUdok6e0KKYk76mjB/b/mP7WG22RhRvgAmMRYVBouJM5jjJqQjSx5S+PhY/qLKinG7ATuszWnCsMrHK+SuHM2xaIKQZPAC0FcHpwgEjTBiZHO4qwLovRJ4WA8+y+u3YI4SrW7e+wZ5UzWI8/6A=
+	t=1788974823; cv=none; b=GnnaKXuXAueq9nOKZYhgkIio1fE5EFWHulh5gYE3d5gEGCgZ30Bn2+fQaGeCIyVxkX4Bf3Nqw4wiysxvD6vTM0H4SEoxBBd30sLoSYi0p3psndl2HcDesMY6IgxZzlk5KqbngFNpvxHwU/ca0cCS7cKZX9QEviqEwmciZkmfqWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974801; c=relaxed/simple;
-	bh=/pTN6JoYJ+R2bFldo67j81clqF1Yrv9y8c3oQwqCv0I=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oA8ZQu0e/iLcHydTW/39IwYRZf5JiHJj+5Ody6guhDt7nKXPMhouyvFbhEND1OU8bXJ4vSf3Dc17IFyRKNpFj4BHmnuWB8ZNrqTOYKgfKxqpuEUExqD/waCntCOwzzCxYEs1dqP7mn4W7fcUEDEk7GkIHE9JJTzDhn6A1Jh8ugI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cstSFthR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788974823; c=relaxed/simple;
+	bh=SUxP5gT1ZaOy4mmgP6chw0Cr8VRY83cgnbGtN/GeIrM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Juba0PEXZLUnv5bkxUONe2kx0MkAELpdJM4IJ6oA4Ev5GeJdzMl39vhC5tJ7Qktne4uw8wdBnNE+rZObQrIfWrZFZW+kMl9M27PAV8HW66VIDTA4EGjuCpuEssc4D2Wb+anS8tHuazrpTkfGsKMWUSd+azwpmLFh2ynnACbgodo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jI6Ly9NO; arc=none smtp.client-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cstSFthR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BCDE91F000FF;
-	Wed,  9 Sep 2026 17:26:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788974800;
-	bh=hjDPLPqtSAsnSdo4Z7Hs6WiEhuhqBgDtq9BB81aaXRk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cstSFthRqO6lVIsICDPijyPtpm3csRqcLe1HEyrK37vqXfwwBdZbc/NPLb5/Mwve9
-	 WG+jG6RIrWnq45rIVwWwLHKu6hpopY6E7rFt48HbNVHsNFqfqQV/KYjKwBppGKSfwG
-	 Yr7PjRnRL9HknJrCEepiR3TjXrn+Fee8yjrAOWcSBNZl0wrY5rWYz5gQiGwEVtlbY4
-	 +8br7kS9X4QkToQZ86t1oJsjCLjxYKf/CbNobCf4hZNBHA/6nZqbk+AkIy3cq2igg5
-	 yTyWO02lXKYcDYh1urVJpdwVF777/i+ngvk0vtvni79QfsX5+NrkgzgsA2OYZBRC+K
-	 tJopUfFhbfcug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260910-kx-i2s-dts-v2-1-91f5376c899d@linux.spacemit.com>
-References: <20260910-kx-i2s-dts-v2-1-91f5376c899d@linux.spacemit.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 17:26:39 +0000
-Message-Id: <20260909172639.BCDE91F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jI6Ly9NO"
+Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso421036a12.3
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 10:27:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788974821; x=1789579621; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
+        b=jI6Ly9NOhS1CJVDcDoKjwgjST/iQVlVpolh/hifxBJGV2nz6t+8GlFWLZ4bzANtEHt
+         /Gubm7aHSBwsXnEHDwS28/J38FGObVki5RAT4+MKtWxDxCzdeulLhOlDre6S80gl/1TC
+         7EygHVvY8rB9EzbY4vuEGBvLIXgnThM7ofFVrmOOyUnxK3+Cw8/lUB1Qrw2zcQyD28sq
+         aOwfF4Jak4nLrwlBRcrBmxMV3zq77fRSSDlQwIxXNAn/g3MvLudGjEbIzxRGELLjSs75
+         zSMaaTiP34sWBjEuq0+gSjLhjHao2DyO1AI08J/NXT1fTMGf7TSzj1Dp3m+TJmQDgi3k
+         TF6A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788974821; x=1789579621;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BxkJmMQiuFGLIVhYvP7iekSRoJyyqxrT2LFSLJP0a4Q=;
+        b=sawZJrNRHsa0LVHiyZBvL00m4Pi0pBVA0SHXLRks5jtc7e4JUN4Gy52UFYJDodgLVs
+         yuujP06k44CdlYaruUqzVvb1zL1slWi34Vqs1fOSj/om/Yjso1IZ/aUSX5K8cwQA342N
+         bZIcvKRevlX6jkvumU5dQBvzEpQm3sBhrRjVnyAAXuRZO14fFQCxQUBA6fyHs3GYiO87
+         zAZPaLt2D7ZB8MaeKkOyDKxoAcypMUJpPchEVqVYIe9rWbGgMcF6glzPoHTYeV1Ge34j
+         tpOsf+BtT9EpsjnxfGLznViIkKk2eW3tLc5BrcHeZkA8U/h+doL7y7rSX64fq0IK2azT
+         3EpA==
+X-Forwarded-Encrypted: i=1; AKwUvBzwWrcVBSz3p/aavBTlwqMZzEGyXcXTeBhgHPr8oPmz2eEuhiyeJ814dJHRq+XWNgNZzn2WWUQjEyF5@vger.kernel.org
+X-Gm-Message-State: AFuF++mUYvqMh1pPpfuShKZ1eYXQsqUZ9vOG/sDW3XYytpS6KlY4oxfe
+	95f2nwqpQZPor3f11LD/L5A3yVAdmh022/6T5pxKg89/J8ZQ4EBOy08o
+X-Gm-Gg: AYBFou1KIVrEU1bc4FmCu787Vsz/rlSsIRMs9SUuA+weh0B1KlTCYxZKh9so9W+6dWs
+	EjE8YXIc4J33gTHY4imhBTiEJhopOyKamVMZ0BjqXEZuDD4D8EXJZbKmtzRZr8lz+5XQYxnXpFX
+	nGbyB/TLEVhL4soXlInR4Mw/RAmqPj/i44h/kov+CaY4I58nHYfhCblBHFdqpD1DTu9fFostWe8
+	zxT3zh2xpNluotWIkJVqqcz6B7PQeFZnrpv8c2VmntF797+ygg4bQGf//7M7ODH2tJPUD6d0UWl
+	SYeaGSt2WclXygKTYyBZhpJoSzj204sl4t3mta4kBdxsEmzUabYRB1Fqr6RPa/6ElJqmheQUOIH
+	mJKG0L0Qgp0/rAj6QeDBS4XYfm4TnYm9Z1eZEwuQN0vIJF8fzwbmznU6sCWZnTLc3aTwpQnGCWf
+	saDHVkePTUEfjd0dItDRE5tQwBjm06WzUOjs8YUndJg7mUsCJMC6sD+xcHchAxS+N/3G14TaqiZ
+	G9n98MxpHi5/usdfr8D5uuaEQuLr8ctW/0DbJw2VDin4fZALnxJ
+X-Received: by 2002:a05:6a21:9d84:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3da3a16a579mr57975715637.26.1788974820346;
+        Wed, 09 Sep 2026 10:27:00 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:2d43:5153:5c50:643e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339a534df1sm52422943eec.7.2026.09.09.10.26.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 10:26:59 -0700 (PDT)
+Date: Wed, 9 Sep 2026 10:26:55 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Arnd Bergmann <arnd@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Arnd Bergmann <arnd@arndb.de>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	Pavel Machek <pavel@kernel.org>, Michael Hennerich <michael.hennerich@analog.com>, 
+	Support Opensource <support.opensource@diasemi.com>, Sebastian Reichel <sre@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
+	linux-doc@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-hwmon@vger.kernel.org, patches@opensource.cirrus.com, linux-watchdog@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, linux-input@vger.kernel.org, 
+	linux-leds@vger.kernel.org, linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	linux-fbdev@vger.kernel.org, linux-sound@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
+	llvm@lists.linux.dev
+Subject: Re: [PATCH 00/14] mfd: unused driver purge
+Message-ID: <aqGWjAuGXq_JHvxk@google.com>
+References: <20260909132153.1596191-1-arnd@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909132153.1596191-1-arnd@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly added I2S device tree nodes use hardcoded magic numbers f=
-or DMA channels instead of the available hardware macros from `k3-pdma.h`.
---
+On Wed, Sep 09, 2026 at 03:21:37PM +0200, Arnd Bergmann wrote:
+> From: Arnd Bergmann <arnd@arndb.de>
+> 
+> As part of my cleanup of old platforms, I had a look at all drivers that
+> may have become unused because the last platform_data or DT definition
+> was removed, or because of unmet Kconfig dependencies.
+> 
+> These are all the mfd drivers I found. The first ten in the list
+> actually turned out to have been unusable long before my series, and
+> I have added explanations on how I determined this in each patch. The
+> last four patches are still in use in linux-7.3 but become unused after
+> my series [1] that I hope to get merged for 7.4.
+> 
+> Somewhat unorthodox, I took a shortcut here and remove both the mfd drivers
+> and the corresponding subsystem drivers (gpio, hwmon, iio, input, led,
+> media, power, regulator, rtc, video, watchdog, asoc) in a combined patch,
+> to simplify the interdependencies: removing just the mfd driver would
+> leave unselectable or broken drivers in other subsystems.  I also have
+> additional patches for each of the other subsystems, currently a total
+> of 300 patches, many of which still need better testing or proper
+> changelog texts.
+> 
+> Please let me know if you all think this approach is ok, or if I should
+> explode this further and turn these 14 patches into 70 individual ones
+> by splitting them per subsystem.
 
-commit 8163a94c4a6b08c0fea00752b0853d3f434a12d1
-Author: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Sounds good to me, especially if Lee makes an immutable branch from this
+pull so we can all pull it in...
 
-riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+Acked-by: Dmitry Torokhov <dmitry.torokhov@gmail.com> # for input
 
-Add the six SSPA-based I2S controller nodes for the K3 SoC.
-i2s0 and i2s2-i2s5 each have a dedicated per-controller sysclk
-divider, so they use the published 7-clock layout.
+Thanks.
 
-Link: https://lore.kernel.org/all/20260721-kx-i2s-dts-v1-0-d22cb6cfaab5@lin=
-ux.spacemit.com/
-
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> index c3f2dce0969c0..f2ff9f02249c3 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-
-[ ... ]
-
-> @@ -1140,6 +1140,85 @@ uart10: serial@d401f000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		i2s0: i2s@d4026000 {
-> +			compatible =3D "spacemit,k3-i2s";
-> +			reg =3D <0x0 0xd4026000 0x0 0x30>;
-> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S0_SYSCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S0_BCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S0_BUS>,
-> +				 <&syscon_apbc CLK_APBC_I2S0>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S0_SYSCLK_DIV>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-> +			clock-names =3D "sysclk", "bclk", "bus", "func",
-> +				      "sysclk_div", "c_sysclk", "c_bclk";
-> +			dmas =3D <&pdma 21>, <&pdma 22>;
-
-[Severity: Low]
-Could this use the available hardware macros from k3-pdma.h instead of
-hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA0_TX>,
-<&pdma K3_PDMA_SSPA0_RX>?
-
-> +			dma-names =3D "tx", "rx";
-> +			resets =3D <&syscon_apbc RESET_APBC_I2S0>;
-> +			#sound-dai-cells =3D <0>;
-> +
-> +			status =3D "disabled";
-> +		};
-> +
-> +		i2s1: i2s@d4026800 {
-> +			compatible =3D "spacemit,k3-i2s";
-> +			reg =3D <0x0 0xd4026800 0x0 0x30>;
-> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S1_SYSCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S1_BCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S1_BUS>,
-> +				 <&syscon_apbc CLK_APBC_I2S1>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-> +			clock-names =3D "sysclk", "bclk", "bus", "func",
-> +				      "c_sysclk", "c_bclk";
-> +			dmas =3D <&pdma 23>, <&pdma 24>;
-
-[Severity: Low]
-Could this use the available hardware macros from k3-pdma.h instead of
-hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA1_TX>,
-<&pdma K3_PDMA_SSPA1_RX>?
-
-> +			dma-names =3D "tx", "rx";
-> +			resets =3D <&syscon_apbc RESET_APBC_I2S1>;
-> +			#sound-dai-cells =3D <0>;
-> +
-> +			status =3D "disabled";
-> +		};
-> +
-> +		i2s2: i2s@d4027000 {
-> +			compatible =3D "spacemit,k3-i2s";
-> +			reg =3D <0x0 0xd4027000 0x0 0x30>;
-> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S2_SYSCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S2_BCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S2_BUS>,
-> +				 <&syscon_apbc CLK_APBC_I2S2>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S2_SYSCLK_DIV>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-> +			clock-names =3D "sysclk", "bclk", "bus", "func",
-> +				      "sysclk_div", "c_sysclk", "c_bclk";
-> +			dmas =3D <&pdma 56>, <&pdma 57>;
-
-[Severity: Low]
-Could this use the available hardware macros from k3-pdma.h instead of
-hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA2_TX>,
-<&pdma K3_PDMA_SSPA2_RX>?
-
-> +			dma-names =3D "tx", "rx";
-> +			resets =3D <&syscon_apbc RESET_APBC_I2S2>;
-> +			#sound-dai-cells =3D <0>;
-> +
-> +			status =3D "disabled";
-> +		};
-> +
-> +		i2s3: i2s@d4027800 {
-> +			compatible =3D "spacemit,k3-i2s";
-> +			reg =3D <0x0 0xd4027800 0x0 0x30>;
-> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S3_SYSCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S3_BCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S3_BUS>,
-> +				 <&syscon_apbc CLK_APBC_I2S3>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S3_SYSCLK_DIV>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-> +			clock-names =3D "sysclk", "bclk", "bus", "func",
-> +				      "sysclk_div", "c_sysclk", "c_bclk";
-> +			dmas =3D <&pdma 58>, <&pdma 59>;
-
-[Severity: Low]
-Could this use the available hardware macros from k3-pdma.h instead of
-hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA3_TX>,
-<&pdma K3_PDMA_SSPA3_RX>?
-
-[ ... ]
-
-> @@ -1170,6 +1249,46 @@ spi1: spi@d4040800 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		i2s4: i2s@d4041000 {
-> +			compatible =3D "spacemit,k3-i2s";
-> +			reg =3D <0x0 0xd4041000 0x0 0x30>;
-> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S4_SYSCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S4_BCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S4_BUS>,
-> +				 <&syscon_apbc CLK_APBC_I2S4>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S4_SYSCLK_DIV>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-> +			clock-names =3D "sysclk", "bclk", "bus", "func",
-> +				      "sysclk_div", "c_sysclk", "c_bclk";
-> +			dmas =3D <&pdma 60>, <&pdma 61>;
-
-[Severity: Low]
-Could this use the available hardware macros from k3-pdma.h instead of
-hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA4_TX>,
-<&pdma K3_PDMA_SSPA4_RX>?
-
-> +			dma-names =3D "tx", "rx";
-> +			resets =3D <&syscon_apbc RESET_APBC_I2S4>;
-> +			#sound-dai-cells =3D <0>;
-> +
-> +			status =3D "disabled";
-> +		};
-> +
-> +		i2s5: i2s@d4041800 {
-> +			compatible =3D "spacemit,k3-i2s";
-> +			reg =3D <0x0 0xd4041800 0x0 0x30>;
-> +			clocks =3D <&syscon_mpmu CLK_MPMU_I2S5_SYSCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S5_BCLK>,
-> +				 <&syscon_apbc CLK_APBC_I2S5_BUS>,
-> +				 <&syscon_apbc CLK_APBC_I2S5>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S5_SYSCLK_DIV>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_SYSCLK>,
-> +				 <&syscon_mpmu CLK_MPMU_I2S_BCLK>;
-> +			clock-names =3D "sysclk", "bclk", "bus", "func",
-> +				      "sysclk_div", "c_sysclk", "c_bclk";
-> +			dmas =3D <&pdma 62>, <&pdma 63>;
-
-[Severity: Low]
-Could this use the available hardware macros from k3-pdma.h instead of
-hardcoded magic numbers, such as <&pdma K3_PDMA_SSPA5_TX>,
-<&pdma K3_PDMA_SSPA5_RX>?
-
-> +			dma-names =3D "tx", "rx";
-> +			resets =3D <&syscon_apbc RESET_APBC_I2S5>;
-> +			#sound-dai-cells =3D <0>;
-> +
-> +			status =3D "disabled";
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-kx-i2s-dts=
--v2-1-91f5376c899d@linux.spacemit.com?part=3D1
+-- 
+Dmitry
