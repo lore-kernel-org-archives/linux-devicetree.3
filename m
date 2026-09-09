@@ -1,233 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9642758124E;
-	Wed,  9 Sep 2026 16:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66996576EB5;
+	Wed,  9 Sep 2026 16:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788970089; cv=none; b=McTES+UTezaQjw+xoUlq++L54ZYssuQQKH9LGAtWwnYUEalhflTTu3iBoMZIuODB4TjD8QamXlHjqxn4zNkn5bbumUgpAxQktFkfJDNUYXKzMwUPIH/h/F21UshJcpkn37w78JyWiUKAuxVUdQdKD0AXOnsY2IixeaZTH/LMoC0=
+	t=1788970242; cv=none; b=ug5Z15tfNUDWosd1lMDLALkxOMRrwOa6EqUjE6dzw977SOLUaHnOtQU2SpsbaSuv7KW4KS1FtI6o+eRL5h5BnFcutsvN1E0ZP+xERsoXEDkBVyLvaEt9qQUN6ZvjNRM4CrAeosSPAZrLQE0/mkNL6RQt94yS/nGCGDwSJ6VqLAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788970089; c=relaxed/simple;
-	bh=tkaAhqeEYkEodfy8OsxfJfnG3t0wx8Y1psJJPit8mNg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YVZWtDsWUiyNcwgurUGj1kkuzcWi+E3O/j4TIo2fYRPqd4obF8gLDM7vXKcyR04UIBnTV7qt/uRXBUagQxD3U2t4XBsQ6ci2ko2JMiJ610oFKzgUStHo4wiLNUFd3NLoZaT4Vlz9EPOtS2He8AlY2AjK8Nb1oQosaxtsZZxMHSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7WmWBti; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788970242; c=relaxed/simple;
+	bh=ZPvRPiwLPr1FPQ1PU3R8Ow/4JR+ZdHFaVHXCEI6XBw4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GNdiKHYWY06XdXa6S/1kKr4CFkfKuHrU/qDzOnBoTTKjrJYXiFqJVWK9WqNaF7KQ5ldaeBaUHg7inko/CjIbWUNi5mrvwkrFU8GO3qigmCjfoCLc3g7BubK8n9ISoMXG9f2h76wvdOvRw9vF2ysLaPN/SD/qriljGUg1nzT1nW0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=i555D44u; arc=none smtp.client-ip=199.89.1.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7WmWBti"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353001F00A3E;
-	Wed,  9 Sep 2026 16:08:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788970088;
-	bh=xfh6dQwvhJNBpZKgTnhO+xK92GSq+lmModl5wWIGjuQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D7WmWBtiXCIe5SG3D8cRAEjOqty4zUOe9OTItrGucs+Q9qiZSKr2RPvFHQ2nwo61q
-	 hEjkiKme6f5fJwjIK9l/BFSjmkbIZ+/sq2Uw+vMrBIi5DnavUW8iiU8yOp+LHa1r6k
-	 mi9AP82ugFByN5NxAB5K42b+4n7uDj9OIwtakBbrIcnV0XxN5ISJT1BjB3MRNkrxk8
-	 pUalZcDKp9O8ae8CUQop9SdH+sflmHAp7lAT/rgkSV1J7JuIP0IQO4s3WXO6lOZxr4
-	 3vJAlQsrkh+M3/6MQE22gS4wSszn+aU5EQDEZWvXEZ2ocFEw4Hg4cc/RpdB9FrTJ6P
-	 d3qUIx1zwC0rA==
-Date: Wed, 9 Sep 2026 18:07:59 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v5 4/7] phy: cpcap-usb: add DCP detection and make UART
- idle mode optional
-Message-ID: <oheoylzdj3arrnfdm6747cuubllkdmg4gx7vm3zhs3owuooj4v@zdbytrztbdp4>
-References: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
- <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="i555D44u"
+Received: from localhost (localhost [127.0.0.1])
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4hg5Pr53qjz1XM4Sx;
+	Wed,  9 Sep 2026 16:10:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1788970233; x=1791562234; bh=pLj/Ofe7oVMEBbdIEYbnkuIZ
+	aaXKaasGR5Wdd8zPo5E=; b=i555D44uM+30tM3kb9cZRjpqypwoNdtwtUktFI4g
+	7qD9biquc7rVw4XnAEqTfb2S3JuAg17Harge+7fgMSyGldBmKPUcQrqWAyyaqPUd
+	SAQjN4/S2rOvphW8LP7TVmfjwDnp5m2TwsRjib1Rcxr0ogNgLO7sxJzjd9tCfHFs
+	rqfAUqDAzwVEa5E/v5sBIkXRrF+CxNTbMgI2HvmPEs0O/2syNw3fEG2FZFdqc77O
+	XkRgGoypdQIv8+Cn571AF21GOEQHJRWfcVzE6DVlW8CQ4YrywoZlsQw5ZrJjz5xs
+	8KsLM+nz6zZnzXEjmJnhTWQB6vC3LAHLESkRy8mdiJSOUQ==
+X-Virus-Scanned: by MailRoute
+Received: from 011.lax.mailroute.net ([127.0.0.1])
+ by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id zB1bHIkeI3rz; Wed,  9 Sep 2026 16:10:33 +0000 (UTC)
+Received: from [IPV6:2401:fa00:80d:9:bdb1:3a99:5373:a9ef] (unknown [104.133.214.195])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4hg5Pc5VMSz1XM311;
+	Wed,  9 Sep 2026 16:10:28 +0000 (UTC)
+Message-ID: <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
+Date: Wed, 9 Sep 2026 09:10:26 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
+ driver
+To: =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ Kartik Rajput <kkartik@nvidia.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>,
+ Avri Altman <avri.altman@sandisk.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+ "Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Thierry Reding <treding@nvidia.com>,
+ linux-scsi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
+ <20260909-tegra264-ufs-v1-4-e4a9831702a0@nvidia.com>
+ <aqFqhNA50674GtPo@monoceros>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <aqFqhNA50674GtPo@monoceros>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Jul 11, 2026 at 11:42:07PM +0300, Ivaylo Dimitrov wrote:
-> Handle DCP separately from USB host connections using CPCAP charger
-> detection status.
-> 
-> Make the existing idle UART mode optional via the "enable_uart" module
-> parameter. When disabled (default), the PHY remains in its USB/charger
-> detection configuration while idle.
-> 
-> Also initialize the PHY into the baseline configuration required for
-> reliable charger detection during probe.
-> 
-> Use the optional "safe" pinctrl state before switching between modes to
-> avoid glitches on USB or UART lines.
-> 
+On 9/9/26 7:20 AM, Uwe Kleine-K=C3=B6nig wrote:
+>> +	{}
+>=20
+> { } please (i.e. a space between the braces)
 
-Looks like this change is doing multiple things at once. Please split the
-changes logically to separate patches.
+The preferred style for Linux kernel code is {} (no space).
 
-> Note: Enabling UART idle mode increases idle power consumption (by 25mW
-> on droid4).
-> 
-> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
-> 
-> # Conflicts:
-> #	drivers/phy/motorola/phy-cpcap-usb.c
+Bart.
 
-What is this conflict?
-
-> ---
->  drivers/phy/motorola/phy-cpcap-usb.c | 301 +++++++++++++++++++++------
->  1 file changed, 238 insertions(+), 63 deletions(-)
-> 
-> diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/phy-cpcap-usb.c
-> index 741145c89e5b..2d770ff19e93 100644
-> --- a/drivers/phy/motorola/phy-cpcap-usb.c
-> +++ b/drivers/phy/motorola/phy-cpcap-usb.c
-> @@ -110,6 +110,15 @@ enum cpcap_gpio_mode {
->  	CPCAP_OTG_DM_DP,
->  };
->  
-> +enum cpcap_mode {
-> +	CPCAP_UNKNOWN,
-> +	CPCAP_IDLE,
-> +	CPCAP_CHARGER,
-> +	CPCAP_USB,
-> +	CPCAP_USB_HOST,
-> +	CPCAP_DOCK,
-> +};
-> +
->  struct cpcap_phy_ddata {
->  	struct regmap *reg;
->  	struct device *dev;
-> @@ -119,15 +128,19 @@ struct cpcap_phy_ddata {
->  	struct pinctrl_state *pins_ulpi;
->  	struct pinctrl_state *pins_utmi;
->  	struct pinctrl_state *pins_uart;
-> +	struct pinctrl_state *pins_safe;
->  	struct gpio_desc *gpio[2];
->  	struct iio_channel *vbus;
->  	struct iio_channel *id;
->  	struct regulator *vusb;
->  	atomic_t active;
-> -	unsigned int vbus_provider:1;
-> -	unsigned int docked:1;
-> +	enum cpcap_mode mode;
->  };
->  
-> +static bool cpcap_enable_uart;
-> +module_param_named(enable_uart, cpcap_enable_uart, bool, 0644);
-> +MODULE_PARM_DESC(enable_uart,
-> +		 "Enable UART on the USB connector while idle (increases power consumption)");
-
-Use of module params is discouraged these days. Also, you are disabling it by
-default, which could cause surprises to users who have boards wired up for debug
-console. But considering that it consumes a lot of power, I think it is OK to
-disable it this way. I can't think of another way to add this knob.
-
->  static bool cpcap_usb_vbus_valid(struct cpcap_phy_ddata *ddata)
->  {
->  	int error, value = 0;
-> @@ -196,8 +209,9 @@ static int cpcap_phy_get_ints_state(struct cpcap_phy_ddata *ddata,
->  	return 0;
->  }
->  
-
-[...]
-
-> @@ -473,21 +559,10 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
->  {
->  	int error;
->  
-> -	/* Disable lines to prevent glitches from waking up mdm6600 */
-> -	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
-> +	error = cpcap_usb_set_safe_mode(ddata);
->  	if (error)
->  		return error;
->  
-> -	if (ddata->pins_utmi) {
-> -		error = pinctrl_select_state(ddata->pins, ddata->pins_utmi);
-> -		if (error) {
-> -			dev_err(ddata->dev, "could not set usb mode: %i\n",
-> -				error);
-> -
-> -			return error;
-> -		}
-> -	}
-> -
->  	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC1,
->  				   CPCAP_BIT_VBUSPD, 0);
->  	if (error)
-> @@ -503,11 +578,23 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
->  		goto out_err;
->  
->  	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
-> -				   CPCAP_BIT_USBXCVREN,
-> +				   CPCAP_BIT_USBXCVREN |
-> +				   CPCAP_BIT_UARTMUX0 |
-> +				   CPCAP_BIT_EMUMODE0,
-
-As Sashiko noted, you are not clearing CPCAP_BIT_USBSUSPEND bit set in
-cpcap_usb_set_idle_mode().
-
->  				   CPCAP_BIT_USBXCVREN);
->  	if (error)
->  		goto out_err;
->  
-> +	if (ddata->pins_utmi) {
-> +		error = pinctrl_select_state(ddata->pins, ddata->pins_utmi);
-> +		if (error) {
-> +			dev_err(ddata->dev, "could not set usb mode: %i\n",
-> +				error);
-> +
-> +			return error;
-> +		}
-> +	}
-> +
->  	/* Enable USB mode */
->  	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_OTG_DM_DP);
->  	if (error)
-> @@ -521,6 +608,38 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
->  	return error;
->  }
->  
-> +static int cpcap_usb_set_dcp_mode(struct cpcap_phy_ddata *ddata)
-> +{
-> +	int error;
-> +
-> +	error = cpcap_usb_set_safe_mode(ddata);
-> +	if (error)
-> +		return error;
-> +
-> +	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
-> +				   CPCAP_BIT_USBXCVREN |
-> +				   CPCAP_BIT_UARTMUX0 |
-> +				   CPCAP_BIT_EMUMODE0, 0);
-> +	if (error)
-> +		goto out_err;
-> +
-> +	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
-> +				   CPCAP_BIT_SUSPEND_SPI, 0);
-> +	if (error)
-> +		goto out_err;
-> +
-> +	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_DM_DP);
-> +	if (error)
-> +		goto out_err;
-> +
-> +	return 0;
-> +
-> +out_err:
-> +	dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
-
-Don't print function names in the error log.
-
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
