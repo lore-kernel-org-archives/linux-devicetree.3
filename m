@@ -1,128 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC9B5427E2;
-	Wed,  9 Sep 2026 11:24:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 184213DD87F
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 11:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953051; cv=none; b=iqkEBoIG5VUmfT2txfOLWbfWlRWkyp9tU5bCJjYu+BI2qjejM0prjYaooWxqoB0Jdr06qDpXnDh7hP4n45WfEVv2QMDsAhWM5g1ceyQb7YFRqOKe9jyeI1Uf2YBGwNvCc2VI7hvi3CFmVs+rthX14cLhvVGtLRojTUVwMzNyGvc=
+	t=1788953142; cv=none; b=uTB2XIDr8MJjdhvzcv6ehixeD9H2CFRF/crXBgvkNcRwmUlz69+PxYZyRKmW9uaX7knTJjPMbS10xVy4Ev37+EhEsNRDQ+DY+mLLRO6nRiUSpJLDXIgxX5p8dwdj4uFEJBGEpUhVEcRrjXl/Vc7ixHzOr5BqRZYa5cSTxVxcYYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953051; c=relaxed/simple;
-	bh=/F2t/Uq8IPUCABLqE6ue7gTeeL1hInqTVzeqBu+4o14=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jDwpYSAk6Ov2au5etiG9diwm5mSeSA/tWpm8WA1MgbfhUi77qz1jfrFmw3GHfokXepTPzQpLtZgnOeq1cJnDdiApVT9XJjoiV4EuGiZaY9rgM9CFHnfbDgGIXSiiysRztYIBt7Ltr5e6rgHG0UzwPmNdKaM5ebaVGtemnTwW0Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JzrIT9vU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788953142; c=relaxed/simple;
+	bh=RulMoOP2etH5sCMy6TpVpNIAjei5vfzgOrSiOe1sat0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EYfjk4SaTSKT8H/B8RdhwQpaOlXCVauuJTsyK24HLv6gJW/ClqBBkak5PO44/S5+q2gRPVHYWT122pY1GaEG+xD/gTvHBD/yw9gi8TnRjCJpCPlPYg+WQtdVqbszUcYdjbWUnQI/GkX6CY3+bMCrVBKTNfQWjRMPRXPCtM8cGF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PIJyRgMl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JzrIT9vU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4B691F00A3D;
-	Wed,  9 Sep 2026 11:24:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PIJyRgMl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C7F71F00A3E;
+	Wed,  9 Sep 2026 11:25:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788953050;
-	bh=uHekCidMeo5wbTQLA0ISsEzIRynEmrNc4aEvGPZ6XU0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JzrIT9vU2Ev90WuzxqXPCs1Qq4B1ThJVgTsG2XRgjNI8XTJ3WOgf/xUafTLKlea0E
-	 KzrTmwu0iS9jl/mGOvEH9JLvFO5DAWMIeAVUf7aSzYWdaCh8wu6EAB0yj0RJC4dviE
-	 eh3jKB0hWKrYQEHoWUJOXsuepRZjIo92lkDflG7uZ0kFqmk+1vKZcs5swU8TU23f6t
-	 AtiBZWPbJuLAYKsLMQl5kweJOncnRfihT8xMvhe89sjLdkcRzFs8lVpHzw2xhAlRfk
-	 8YZTXeI6bavHrXYCJcou+VnkkoYevNyZ02xAkKEWIvpttWxejLObWjlbLPGd/5f6ds
-	 6uAO3byrs6PKg==
-Message-ID: <4aee70eb-bd1d-4320-8921-e55bb8e0d176@kernel.org>
-Date: Wed, 9 Sep 2026 13:24:02 +0200
+	s=k20260515; t=1788953140;
+	bh=fGNtEw/MiK+TwNUgRNuEVULV0BbH2TqPTsZP88dUkI8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PIJyRgMlxik/x/YHgKSuMO4FlICc3SwQt0l2ndHxr5DW02slBvef+71mcitTSffZH
+	 9lBgvzoJXXbjuprNPYMoibtwZLjgwZE5So01dj839GfrRTkoygTV3FYa+84JGdrzUS
+	 ueOH1oku3aDjSDLwSt4CHJwihS+g5yMYC0buEbvsN80t6uAB82zXmNBycwGAqSg7Wq
+	 X8/R5UHdhP/KU7IbU5kA/fKwxvq9XjKWfhNrVdDrp+UJdS6uwc6QPtiqu7bCyo4OZg
+	 Lghja5QZHXNPLYmb6vJtqdSciYijfu+75wtKglYvudUu5wOsKFFkSvonOi8YT0PPar
+	 J04TLapN5X/NA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] Add socfpga devicetree for Draeger's M48 board.
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petko Manolov" <petko.manolov@konsulko.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260909111513.2259643-4-petko.manolov@konsulko.com>
+References: <20260909111513.2259643-1-petko.manolov@konsulko.com>
+ <20260909111513.2259643-4-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 11:25:40 +0000
+Message-Id: <20260909112540.7C7F71F00A3E@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH PRELIMINARY 1/5] arm64: dts: qcom: shikra-iqs-som: fix
- GPIO138 reservation
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
- Anurag Pateriya <apateriy@qti.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
-> The GPIO mappings on the IQS variant differ from the CQ variants.
-> GPIO138 is connected to the RGMII1_RX_CTL pin rather than the NFC ESE
-> Secure IO pin; the latter is connected to GPIO49. This incorrect
-> reservation causes the probe of the second Ethernet port to fail:
-> 
->   shikra-tlmm 500000.pinctrl: error -EINVAL: pin-138 (5d20000.ethernet)
->   shikra-tlmm 500000.pinctrl: error -EINVAL: could not request pin 138
->   (GPIO_138) from group gpio138 on device 500000.pinctrl
->   qcom-ethqos 5d20000.ethernet: Error applying setting, reverse things back
-> 
-> Replace gpio138 with gpio49 in the reserved list.
-> 
-> Fixes: 779aead2dace ("arm64: dts: qcom: shikra: Add gpio-reserved-ranges to tlmm")
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The 'bank-name' property violates the device tree schema for 'snps,=
+dw-apb-gpio-port' child nodes.
+- [Low] Use of deprecated `snps,nr-gpios` property.
+- [Low] Deprecated explicit `name` property in the memory node.
+--
 
-This looks duplicating:
-https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
+commit c5c8260180405203e51bdeb09506abe3c2c76c4d
+Author: Petko Manolov <petko.manolov@konsulko.com>
 
-Best regards,
-Krzysztof
+Add socfpga devicetree for Draeger's M48 board.
+
+This commit introduces a new devicetree for the Draeger M48 board based on
+the Cyclone V SoC. It sets up the necessary nodes for various peripherals
+including GPIO, GMAC, I2C, and QSPI.
+
+> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
+.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> new file mode 100644
+> index 0000000000000..6c5a8013d40c7
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> @@ -0,0 +1,129 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
+> + */
+> +#include "socfpga_cyclone5.dtsi"
+> +
+> +/ {
+> +	model =3D "Draeger M48 Cyclone V SoC";
+> +	compatible =3D "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
+> +
+> +	chosen {
+> +		stdout-path =3D "serial0:115200n8";
+> +	};
+> +
+> +	memory@0 {
+> +		name =3D "memory";
+
+[Severity: Low]
+Is it necessary to explicitly define the name property here? The Devicetree
+Specification deprecates explicit name properties, as node names are
+automatically derived from the node identifier. Its inclusion will trigger =
+dtc
+warnings during the build.
+
+> +		device_type =3D "memory";
+> +		reg =3D <0x0 0x40000000>;
+> +
+> +		/* 1GB */
+> +	};
+> +
+> +	aliases {
+
+[ ... ]
+
+> +	soc {
+> +		gpio3: gpio@ff202000 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			compatible =3D "snps,dw-apb-gpio";
+> +			reg =3D <0xff202000 0x20>;
+> +			status =3D "okay";
+> +
+> +			portd: gpio-controller@0 {
+> +				compatible =3D "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				snps,nr-gpios =3D <2>;
+
+[Severity: Low]
+Could this use the standard ngpios property instead? The snps,nr-gpios
+property is explicitly marked as deprecated in the snps,dw-apb-gpio.yaml
+binding, and using it might trigger validation warnings.
+
+> +				reg =3D <0>;
+> +				bank-name =3D "SYNC_I";
+
+[Severity: Low]
+Will this property cause a device tree schema validation failure? The
+snps,dw-apb-gpio-port binding enforces additionalProperties: false and does
+not define bank-name. Running make dtbs_check will likely report a warning
+here.
+
+> +			};
+> +		};
+> +
+> +		gpio4: gpio@ff202020 {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			compatible =3D "snps,dw-apb-gpio";
+> +			reg =3D <0xff202020 0x20>;
+> +			status =3D "okay";
+> +
+> +			porte: gpio-controller@0 {
+> +				compatible =3D "snps,dw-apb-gpio-port";
+> +				gpio-controller;
+> +				#gpio-cells =3D <2>;
+> +				snps,nr-gpios =3D <2>;
+
+[Severity: Low]
+Could this also use the standard ngpios property instead, as the snps,nr-gp=
+ios
+property is deprecated?
+
+> +				reg =3D <0>;
+> +				bank-name =3D "SYNC_O";
+
+[Severity: Low]
+Will this property cause a device tree schema validation failure for the po=
+rte
+node? The snps,dw-apb-gpio-port binding does not define bank-name and enfor=
+ces
+additionalProperties: false.
+
+> +			};
+> +		};
+> +	};
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909111513.2259=
+643-1-petko.manolov@konsulko.com?part=3D3
