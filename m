@@ -1,146 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502F5548577
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 20:52:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 754B33C1404;
+	Wed,  9 Sep 2026 20:54:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987174; cv=none; b=kujemUcq6nWzRmWLEn17BN7LIiv58vQ4Z3DaqR0JL1b8JmdsAGg4igIoerLrrpQAugHNyzMOMmFbmrlSVg+HmffoGsklwDXFRttYp8mMEpkaSO6nNlI3JqvmUG++rDEgm04lZmzPDyBIdX/14GsL2K4Dd+2qw3o1XExm9XPhprs=
+	t=1788987255; cv=none; b=uSk1EfYlcZoWK2m2BhyNu0iJWVKO4W+IguwM+HXG6F34Rcn9EWnVqYVCNAMMxjHPRJteBECopFu9dYkRLwDetiWc6SZsfcYJ84NYh86EpUtVeuuEkuLyTNf4778nYue+n16dyq4XHuQyZ8zG5PAhGgttVRbd1mrL2ggv22gRUlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788987174; c=relaxed/simple;
-	bh=mrdnlgQ6Rkt2HU5IlqxpCbwoR8r3ktUYo2WumV4V9TA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h39/+nm2QCmTWprXvv1wRZO0vsvs+nA4gTIwDxaXHYeAUrUuRxXfESxY0p3QllXydAZOif2ugqqbIpn0kdqNsiDChtJO6KJsiTGafFj9bxVlO2I1ztNou3z45eu+wpxyGcqzDTeGRvyAOr2NO+yNtBj3kn7lhV3LdcZhBydhSUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aPSxfYgl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788987255; c=relaxed/simple;
+	bh=yzL3v1513rz6WHiWVe+wJzFLNLB1yY30ElfWbd1HSfs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=ImKl50LQBplxUdV3NPNsvs0BzHO6ssc15sgay7wsZjfDTXiLO6XPSdYjCYC7sc+cl8lsgEnFKR1r0oaMEy2LbMaAcyZCIzKqcyWT8xIzJudnLKvZT6/yl8GdNBzZ7Vo9R0Oy1V8cV0yNaB8ASpMut9gFcg03oZpPwEXdN2405bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aiA/pdIj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aPSxfYgl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDB941F000FF;
-	Wed,  9 Sep 2026 20:52:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aiA/pdIj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A5871F00898;
+	Wed,  9 Sep 2026 20:54:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788987165;
-	bh=X64/7qmIkNbYXdYQ/7We1leVgfNDJdkX6/jdAmDEP2E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aPSxfYgl+xX04+N8+8LHqSXdlYNCJU1eiDZ6jlKRnB8nQdR7NKAc8XL/g/lJtOllQ
-	 o+Ko8ZfqRU4Pzd5gi04VLiTexMIDJk7fxHa4Xmr3vvmP5zhHvOJnvNCZ2f7rkWzWLG
-	 OESTYdZ8DFDAeb2a/AbPWAFxUP9fX5Aj7BNnB6JFOzIF9mHy8LDiZ+seX/GiMHk5CY
-	 iHJW8w5TEuBX47q+nLa+sThn3+nArqYIyKl2SCgNgcqs1Ytz7u/f/k4+c+8i57vmKe
-	 rDU56lqtJHmy/01W+yuE3mkWYwjvVLbYZ4SMJOTvFZzyrqoVaSCz0k2g+FuxzRxuEH
-	 MYSHqYTB/fHRQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/3] media: i2c: Add Sony IMX681 sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sergey Lebedev" <lsa.uz@pm.me>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260909203717.90605-3-lsa.uz@pm.me>
-References: <20260909203717.90605-1-lsa.uz@pm.me>
- <20260909203717.90605-3-lsa.uz@pm.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 20:52:43 +0000
-Message-Id: <20260909205244.EDB941F000FF@smtp.kernel.org>
+	s=k20260515; t=1788987243;
+	bh=tfXQTmImp135HQJ1XNVWEd7kOlyLsNALM8g5dX8a/g0=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=aiA/pdIjUq3jK2VtKXAJhzTYfN7m0ye+xJUj1Y5Xqv/F3Gd20lcsNg92wVLW9DYKo
+	 dmeZyQXmRQskW6XVB5uel0524JNfXBPa/6XNzvW/DD0e8gOEZPpfXaKqy0AFv7cN7y
+	 wpBQJacbYRGyT3oqCp3+47N3BnUSeftHt2icCFzxeD1fCyk+PFrEFp00WSKMcglGjq
+	 8u17kjUWu+QJo+y1Cf3QhpyfkJd/ZVZsTHmR05KvOefvzz/2QDgXtE4X9MUjH1GByY
+	 e0/IfwMItrgOaCZM6r6/+phavM7WXcmzh/H3jzXAkbprlu1ara9RlK6hldMC+J6crr
+	 AhevkUQ6w2SQQ==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id C3C57198003A;
+	Wed,  9 Sep 2026 16:54:01 -0400 (EDT)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Wed, 09 Sep 2026 16:54:01 -0400
+X-ME-Sender: <xms:Z8ehalx-9CwrvJLxOGnwC3Jz8MobiJ-AanvBR8tMKTcULe9GK0Y41A>
+    <xme:Z8ehagFJ_-3HFIoW6kRx8oluTOpYEakz6C_ri6RhW3EsvCo5NqtZyvCQmxt8fTaer
+    daRvxYe0uIhRZe87LjxxdkU37xXQzhKDdM_7IvmfFrehsBqgIJN-QSn>
+X-ME-Proxy-Cause: dmFkZTGd0gYElPLkZTGmydE4FJ0If9jioCyIM+W8sjFCuuKJ7B87MfdRRXaGX1CUdrmjmk
+    uNeecr4CTC00G2zkUjjvOr13Od+s/xO80x78gjiY+3LwzTo0x5+RpRR3CQpY3azaV3JPzi
+    Aulh4ILQkWxyCno+9QxFk1l8Sa0Uhxm1FMe87851yQP4/IgFosqjygQs/sO+fceZIZhRG4
+    ZZDOvJOERjnqcjsQhgeR8WjceRchUiy2W1cgk1fBahgEaz87BvdSW7/mR2IUldwmBQiriD
+    vg8YX7EjzwzkCJ69GC/uhWPrul+29zbp2vkTZ21y12C1TMexYpFXrEmx1Ch9Hx6jXmdMTu
+    PCFfT7anXonwKOSlM9tyKGMvYx393qCqkYvXAjgENLr4nYevlJROHeeU6TjXwvXrAFvVNv
+    UygasiMaBqp4OmwU+2UnP4jLzXsXBLXD04um6YphAoG2yxmYMg8smeVLteJFOKCBAizNTs
+    gjmfBYj3Y+e9pzIOgfZpRatzcH010WD1Zd48nxtHuLPvwLqy9wfx5syxFOjRSl+4pO/L0L
+    a5vHEh9FdtP1yDhGyQYkZg2uZRnOvqiEkUQRD7ObTzOnX85+7C7Ds7Afw8AenHR0YyJf0x
+    u0DErY1UIzTTPBbnB/tZbhAThI+oclt+d4nCxgXHYWi7kQeFQtMLLkMVU+Pw
+X-ME-Proxy: <xmx:acehamwmy0i8cFCjL9LnMMZb7GKpwvAwatiILAPw1vy8fqsRJjP3ow>
+    <xmx:acehauktFkQXN4yiY5ANIb_Fr2IYCHPSUd3PoJLYmBjnDJdHxnf2lw>
+    <xmx:acehap-EcgV8WhhvfbVqGB0xco2cVD4P5kEO2rvYKO0UI-dzjM8Q1Q>
+    <xmx:acehapoQwqJ5MRfkBygnhtTZsvZieIX7cvO36Tp5lVY6orRSPs92HA>
+    <xmx:acehatIJZUTtWArdFQxtDdLEHwjOMn6ozASv2NU2GMonszqpqigCT54J>
+Feedback-ID: i36794607:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 6981132A007B; Wed,  9 Sep 2026 16:53:59 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-ThreadId: AGc9YchnkBDN
+Date: Wed, 09 Sep 2026 22:53:38 +0200
+From: "Arnd Bergmann" <arnd@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ linux-hwmon@vger.kernel.org, "Lee Jones" <lee@kernel.org>,
+ "Rob Herring" <robh@kernel.org>, dri-devel@lists.freedesktop.org,
+ mfd@lists.linux.dev, linux-watchdog@vger.kernel.org,
+ "Conor Dooley" <conor+dt@kernel.org>, linux-rtc@vger.kernel.org,
+ media-ci@linuxtv.org, linux-leds@vger.kernel.org, linux-input@vger.kernel.org
+Message-Id: <8618e335-4e89-4175-a9a5-17aa72f9e682@app.fastmail.com>
+In-Reply-To: <20260909134823.AA3201F00A3D@smtp.kernel.org>
+References: <20260909132153.1596191-1-arnd@kernel.org>
+ <20260909132153.1596191-13-arnd@kernel.org>
+ <20260909134823.AA3201F00A3D@smtp.kernel.org>
+Subject: Re: [PATCH 12/14] mfd: remove unused mcp-sa11x0/ucb1x00 driver
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Hardware exposure register becomes out of sync with V4L2 state w=
-hen VBLANK is changed.
-- [Medium] Independent toggling of group hold register defeats atomic param=
-eter updates.
---
+On Wed, Sep 9, 2026, at 15:48, sashiko-bot@kernel.org wrote:
+>>
+>> The sa1100 platform has been removed, so these drivers are no longer
+>> used anywhere.
+>
+> [Severity: High]
+> Is the sa1100 platform fully removed in this series? Looking at the tree,
+> arch/arm/mach-sa1100/assabet.c and arch/arm/mach-sa1100/collie.c still
+> exist and unconditionally include the headers deleted by this patch.
 
-commit 7db2a0f5a0754b78ccc388a5ff14535efd86e6ff
-Author: Andre Gilerson <andre.gilerson@gmail.com>
+As explained in the cover letter, the platform is only removed in another
+series I posted.
 
-media: i2c: Add Sony IMX681 sensor driver
+> [Severity: Medium]
+> Does removing the MCP_UCB1200 config symbol leave the collie_battery
+> driver as orphaned dead code?
+>
+> Looking at drivers/power/supply/Kconfig, BATTERY_COLLIE depends on
+> SA1100_COLLIE && MCP_UCB1200. Furthermore,
+> drivers/power/supply/collie_battery.c still includes the now-deleted
+> include/linux/mfd/ucb1x00.h header.
+>
+> If this Kconfig symbol is removed without cleaning up the power supply
+> subsystem, it causes an unmet dependency warning and leaves the battery
+> driver unselectable.
 
-This commit adds a new V4L2 I2C sensor driver for the Sony IMX681 camera,
-which is used on the Surface Pro 11 for Business. It implements standard
-functionality including register initialization, the streams API, and
-runtime PM.
+I have separate patches for this.
 
-> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
-> new file mode 100644
-> index 0000000000000..eba792ca18ef4
-> --- /dev/null
-> +++ b/drivers/media/i2c/imx681.c
-[ ... ]
-> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct imx681 *imx681 =3D container_of(ctrl->handler, struct imx681,
-> +					     ctrl_handler);
-> +	s64 exposure_max;
-> +	int pm_status;
-> +	int ret =3D 0;
-> +
-> +	/* Update exposure max when VBLANK changes (even when not streaming) */
-> +	if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
-> +		exposure_max =3D IMX681_HEIGHT + ctrl->val - IMX681_EXPOSURE_OFFSET;
-> +		__v4l2_ctrl_modify_range(imx681->exposure,
-> +					 IMX681_EXPOSURE_MIN, exposure_max,
-> +					 1, IMX681_EXPOSURE_DEFAULT);
-> +	}
-> +
-> +	/*
-> +	 * 1 with a reference taken, 0 if the device is not active, or -EINVAL
-> +	 * if runtime PM is unavailable. Only the 0 means there is nothing to
-> +	 * do: without runtime PM the sensor is powered from probe and never
-> +	 * suspended, so the write still has to go out - but no reference was
-> +	 * taken then, and none may be dropped.
-> +	 */
-> +	pm_status =3D pm_runtime_get_if_active(imx681->dev);
-> +	if (!pm_status)
-> +		return 0;
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_VBLANK:
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
-> +		cci_write(imx681->cci, IMX681_REG_FRAME_LENGTH,
-> +			  IMX681_HEIGHT + ctrl->val, &ret);
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
-
-[Severity: Medium]
-Does this leave the hardware exposure register out of sync with the V4L2
-state?
-
-When VBLANK is modified, the exposure control range is clamped earlier in
-this function. However, if the old exposure value is clamped to a new, smal=
-ler
-maximum, the newly clamped exposure value is never written to the hardware
-because VBLANK and EXPOSURE are not clustered. This could leave the sensor's
-hardware exposure register with an out-of-bounds value.
-
-> +		dev_dbg(imx681->dev, "set frame_length: %d, ret=3D%d\n",
-> +			IMX681_HEIGHT + ctrl->val, ret);
-> +		break;
-> +
-> +	case V4L2_CID_EXPOSURE:
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
-> +		cci_write(imx681->cci, IMX681_REG_EXPOSURE, ctrl->val, &ret);
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
-
-[Severity: Medium]
-Does this independent toggling of the group hold register defeat its purpos=
-e?
-
-Group hold is intended to defer register updates until a frame boundary to
-ensure multiple settings apply atomically. By toggling it independently for
-each V4L2 control, simultaneous user updates to VBLANK, EXPOSURE, and GAIN
-will take effect individually and may split across different frames,
-potentially causing temporary visual tearing or artifacts.
-
-Would it be better to cluster these controls and use a single group hold bl=
-ock
-when they are updated together?
-
-> +		dev_dbg(imx681->dev, "set exposure: %d, ret=3D%d\n",
-> +			ctrl->val, ret);
-> +		break;
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909203717.9060=
-5-1-lsa.uz@pm.me?part=3D2
+       Arnd
