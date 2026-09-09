@@ -1,74 +1,94 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-20.mta1.migadu.com [95.215.58.20])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 215354DBD73
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 10:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52E314F30E0
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 10:29:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788949782; cv=none; b=kmHNox0tssC1pJ2Qb+oVqfB47qztpQhvOPRxlf5X3OvY1oK/4poHwVV/SPhQE0eIajSR5g01gyP90l8jlcKMVrdgylW2xlCybHSQrRFheU6XScL79AGD9Rb1mK8r2aRMKqe/blIojQ9QHOoMcljvwDP8kfBiG96som5amDfRNWo=
+	t=1788949797; cv=none; b=h3r65eIG8dREJmulzaFj6yieMC1ROln+BDDjqA8Q7FhnsaxN3yaygpSHE33Paidw0uhL7CGc+ZkzCElO+5nQF9/pvYG/2tk5bOlWrzhh2eDiynyVGT0avOKZN2odhvWNvQ7i38u/cN6B8z3uR4LH0BkiJK533VBWYCHpEV/E+D0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788949782; c=relaxed/simple;
-	bh=+S8G1QTSh+/2ZxLJJReUEKrRR2fKzGymIwe3VHDcPCU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UpZ4lDz6MGCpXA/9/YU1Me4eUhfv7iFzz4ojf4DwMcBKmdI1PR1N+M3VUWDPlxs1fZ7qFGDCElYC3s11F0dKKyTZ1PZr9hLUdCid8TMJPactFmPv8tXBf1/Eud2XMcoD5SaEnPtN9OV1agnFRmh6hSslb3QXgW16LIxoJfvIPmk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlKJuqLB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788949797; c=relaxed/simple;
+	bh=S1uOY2Lbxqeick8URdu0hldNgRFplEY0Z+aGMt8MGNs=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=sGpS1A59lF6DWW0AXHzZNvgw7xrn7PF4QBwxiR/p1QrXHpiPYpjeQ8GxG+LMbgBZN+Y/pYVZzNFHggXLEs51pGBFr+eJL/6p3XCT7Zx+BQEuEBibvW5uUtUkiC3pMJ/FG9o/vNkA+eaq/05KOm0XOvhJMZJRgWQWKyIM1h5hDrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=TDdDHlYN; arc=none smtp.client-ip=95.215.58.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlKJuqLB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17101F00A3D
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 10:29:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788949780;
-	bh=ophW8hL5cnAgIkhl4wzLKsoeshxW8ytst2y+WVzOBZY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=mlKJuqLBnudHHUxwhBtzODAjQdHw/7MPOocYRHlBaQctYzb4t3DQESjyqkj8+qMXU
-	 N3YqQMCS4jvOixhEdQqBOm7Ndp0B3XumnQrog8MkXg7rNYyl9KqeUD8vp4pzHS7N5l
-	 Y8AegTmTWPsTKzhKsJPOKc2Xknd/PwahpbRxuN9EfHTYo4ZPHD28uiszeYIjigJTMO
-	 3KSnFicE0vZGq32dV113lHe/DyNM02zOazBOaBkvwMdFn68oo3cAdIatTYQT6gXDVR
-	 D/ih/h7/NUXa+e4+rdIkUHCw+X7R1cqVB4841DmBKon2OfhO8sYNqTP0PwNowQ4YEB
-	 DAuDse1QYAvoQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b79so30167e87.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 03:29:40 -0700 (PDT)
-X-Gm-Message-State: AFuF++kn777WTTSzYTwAsK6Cf2HVbpDi9wFiCTISVTqLfk0T/PJAH4Py
-	UmLaEOolSDFoGMkg8vNodaXm9v1LMQ3mon1bYnFq6W0yDAEM8/vFlNBEi9nFlAoKDDbX4+06GJu
-	mZ0sz0qEBWqcug1+ge1pXBxXixU29HEY=
-X-Received: by 2002:ac2:4f07:0:b0:5b4:7d9d:16d7 with SMTP id
- 2adb3069b0e04-5b8984de1efmr140771e87.11.1788949779595; Wed, 09 Sep 2026
- 03:29:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="TDdDHlYN"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=S1uOY2Lbxqeick8URdu0hldNgRFplEY0Z+aGMt8MGNs=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1788949787; v=1; x=1789554587;
+ b=TDdDHlYNH54z6sZAhOVE2kJX4AEndUlowGoiMfiDQl5YaeJApQ43XF2WmeG9Iii0Zp9brjXJ
+ D54q1dbvFvnU9syL+wBJ6XH5Aj+rnzyoNfjbxuZidaUiaHj80AKIDFCi46qJohNzgJCprgIsRWL
+ SPiYgbbdHldw+RiWi/jMEKbSPtRnL9+oJXU8iEOWDqRIlHM/BmOZGsabbwvSC6ty7R6goqTMPRW
+ NCtMJ4h5bOuJLd45/GwlcQ0Dd8jhiu8ft5kfI+8Fi9EAPwnPYo+HKT4gZI2sZvHeSUUAoWFcJUR
+ uPi5Qbr+kYALAR+IshWbQbYae+YyMXTKQhenjLlXzgPsw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e2b854a189f54564;
+	Wed, 09 Sep 2026 10:29:47 +0000
+X-Mizu-Trace-ID: e2b854a189f54564
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260908-ks8995-to-ksz8-v10-0-7379239eb65f@kernel.org>
- <20260908-ks8995-to-ksz8-v10-1-7379239eb65f@kernel.org> <20260909093926.34F8D1F00AC4@smtp.kernel.org>
-In-Reply-To: <20260909093926.34F8D1F00AC4@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 9 Sep 2026 12:29:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm+vpuOrpVJxOqsqxadT8yPMd82NJ9V1f_bbguOzs-SYA@mail.gmail.com>
-X-Gm-Features: AcwNN1VjDXhRpeSgmQnU6UCD9FrZtdwZrLV8mA3yo76B382PsM3nc5sQock5VEo
-Message-ID: <CAD++jLm+vpuOrpVJxOqsqxadT8yPMd82NJ9V1f_bbguOzs-SYA@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 1/4] dt-bindings: net: dsa: microchip: Add KSZ8995XA
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 09 Sep 2026 12:29:47 +0200
+Message-Id: <DLAPRUR4Q73F.1KIBGA408LQSJ@cknow-tech.com>
+Cc: "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ <linux-rockchip@lists.infradead.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: arm: rockchip: Add FriendlyElec NanoPi
+ R28S
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Andrey Korshunov" <razor1702@gmail.com>, "Heiko Stuebner"
+ <heiko@sntech.de>
+X-Mailer: aerc 0.22.0-9-ge948bb7230f4
+References: <20260908235824.665-1-razor1702@gmail.com>
+In-Reply-To: <20260908235824.665-1-razor1702@gmail.com>
 
-On Wed, Sep 9, 2026 at 11:39=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+On Wed Sep 9, 2026 at 1:58 AM CEST, Andrey Korshunov wrote:
+> The NanoPi R28S is a router board from FriendlyElec with the Rockchip
+> RK3528A SoC.
 
-> > @@ -122,6 +123,7 @@ allOf:
-> >              enum:
-> >                - microchip,ksz8863
-> >                - microchip,ksz8873
-> > +              - microchip,ksz8995xa
+There's already an attempt in the works to upstream NanoPi R28S support:
+https://lore.kernel.org/linux-rockchip/20260907-r28s-upstream-v2-0-21ab570f=
+c91c@proton.me/
+
+Cheers,
+  Diederik
 >
-> [Severity: Low]
-> Does adding this 5-port switch to this specific enum block bypass generic
-> DSA port validation?
+> Signed-off-by: Andrey Korshunov <razor1702@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Docume=
+ntation/devicetree/bindings/arm/rockchip.yaml
+> index a799bb843..1d937795a 100644
+> --- a/Documentation/devicetree/bindings/arm/rockchip.yaml
+> +++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+> @@ -340,6 +340,11 @@ properties:
+>                - friendlyarm,nanopi-r2s-plus
+>            - const: rockchip,rk3328
+> =20
+> +      - description: FriendlyElec NanoPi R28S
+> +        items:
+> +          - const: friendlyarm,nanopi-r28s
+> +          - const: rockchip,rk3528
+> +
+>        - description: FriendlyElec NanoPi R3S
+>          items:
+>            - const: friendlyarm,nanopi-r3s
+>
+> base-commit: df2908090cda368b01ff43709f51890076c56157
 
-Grrr I inversed the if expression, there is a NOT there.
 
-OK human error. I will respin it as v11.
-
-Yours,
-Linus Walleij
