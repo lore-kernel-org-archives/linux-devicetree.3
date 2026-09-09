@@ -1,156 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21C3E4A13AD;
-	Wed,  9 Sep 2026 10:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04E73AEB29;
+	Wed,  9 Sep 2026 10:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788948329; cv=none; b=e50FJaR9K6P6Os92G7dOwrTqq4E6cT0Nr7/Pj/MnBWNAXwNZlq00bJSUp5YKCBiDA3fzYgJlzKrBSaE4IzZE8YxEdnIgoNvaJ4eW4M/lrnoItUXR2SsM0fdAoT1b4ygQ2B6lpPEwM8x5YarZbnyxLx9ihww9VD4uAUnC7/SMQdo=
+	t=1788948398; cv=none; b=f5uUaOaP/qcD7Dwjo2mOYaQRxvUWapgC2NugdW7T4wlqWtBq5NI4xpne6zXA6lkcMXl9IgNmaTwCXlynVxwcdFy5zHBT0rELvLQj/8o47NtCGT0WEPXWw/1loGLuu0G/Jljv0/tS/CpGixNoBQRar/2K+qzzIcxcOahqSvjXIgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788948329; c=relaxed/simple;
-	bh=kJV1f3wB2RcXY3XSY6MQqbSq5MB+kbNhrwlsOrgQJrs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D6ay1j1AhlYgw1Hf71em2LoEM0l1CzEYFMnKFDujZI/3jCMrEW61DWwaqI+nrnTPfsJDT4FXKDQvcpsdt3OziXjJ2DqCNPvBmJYfwky2KJrVVS70KSg69akwFmU//Hz2bX2+DfKnXSBAYYg1EDFuPSKBJ613HQKb7mUiokFuWJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Da7lqg5D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788948398; c=relaxed/simple;
+	bh=JhycYhJJUanyVuGcohA5eVQCc8DNkJi2xbPdL1LXYrg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=YCyY/xFZAw4fsF3NFv10kjn05fJcw/E/+SldyMfYh0+4N9XLc7+FuT/eOGZyHsv5L/fs2KkjVkHoJv0c3cfegex5Sct79eqW0Es8vFUXT0Opc6/MZNSp2sArAyURp/lzcWD6acBTh04WGmVs2Q/9y8MUYfv2VckD7+0cgzrcGHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=QAHG1B7I; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Da7lqg5D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2585E1F00ADE;
-	Wed,  9 Sep 2026 10:05:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788948327;
-	bh=DoOFUTTLq3F8SnEe2BxPjPHx1V1IzLc22vrDVr7s0qE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Da7lqg5DuVdSEz0zDKFb8J9Z+VkDjG93eZuIcAXcREQ2aDFko+cNF2lzOTsJBKjM+
-	 VsWLj7ddjbK7pjhXVYPCJff3BKRIduusD8QU4WCR6FEbodMnZpQLYdjdA9Ao3DtyXv
-	 IeCV/xXu/IcfAqrgmOYMfbuTim39bcfnhWOHd164kyjKmC5RXI4oHBk8P8qXS46TOn
-	 6ftny5crMo+OO8GsD7qhAFEUI/XzXJgL+YiMAGS5SHAKTunwV6pUFaCQRX1dZ8fpUz
-	 oyjRPSnFO90qFV4Y4c1XrGl1PUH3HcbH6IkDn3U6YKfrDMjLCPnxuuyU8QD/noEk4n
-	 o4Kvp4XZQctyA==
-Date: Wed, 9 Sep 2026 11:05:02 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v7 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Message-ID: <aqEvTU_-69_PAQf7@squawk>
-References: <20260831113514.66382-1-changhuang.liang@starfivetech.com>
- <20260831113514.66382-4-changhuang.liang@starfivetech.com>
- <20260908-annually-catfight-39e3a1543274@spud>
- <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="QAHG1B7I"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 41A674E415AA;
+	Wed,  9 Sep 2026 10:06:33 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 0658360448;
+	Wed,  9 Sep 2026 10:06:33 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6581311C7AF2B;
+	Wed,  9 Sep 2026 12:06:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1788948392; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=jmdHwhBYhc3o3X3pk1kA+wKgzKoOELJNf8tERf+4oGU=;
+	b=QAHG1B7IMyhmuJCx3Dy5lMJQKpRpA6kuEsy2VzkgNqs1NF9KABobuwHS1IwA6sW05awC1u
+	2964CnrjqCOD66Y9GiYHzdLsczuWoKxi5g6rvayIegbcK8jiBVQJxJRQt+uCYsHMwFpfdI
+	REdZDA2RfknjGS/f63Ocyb3hkFsBuFhfxWTFMaXvFI9672+6OlWYlhEpm5ymB+MD6PyGpF
+	gNu8cSZpP9m/HwcJuGARvBbZwZsJ0Csh6LcU4GxoICfdk4ik4eSRV51fWTAxUGMbo8Ur0q
+	h0lQsWyNRlrwcmAgeypd8AOXNzAWdTsCfc90G8PpynlBNhIfRxsRsOBAfIpWWQ==
+Date: Wed, 9 Sep 2026 12:06:25 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Magnus
+ Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, Pascal Eberhard
+ <pascal.eberhard@se.com>, Miquel Raynal <miquel.raynal@bootlin.com>, Thomas
+ Petazzoni <thomas.petazzoni@bootlin.com>, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/4] dt-bindings: timer: Add the Renesas RZ/N1 timer
+Message-ID: <20260909120625.726f191f@bootlin.com>
+In-Reply-To: <CAMuHMdUn+di4YWAGS+CeBiCD_9EhqUz0O4FkuHZwmPo531+7Tg@mail.gmail.com>
+References: <20260721082952.215691-1-herve.codina@bootlin.com>
+	<20260721082952.215691-2-herve.codina@bootlin.com>
+	<anJGNyNxcSAwylK8@ninjato>
+	<CAMuHMdUn+di4YWAGS+CeBiCD_9EhqUz0O4FkuHZwmPo531+7Tg@mail.gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CzfhbBx3OnI0r5Pd"
-Content-Disposition: inline
-In-Reply-To: <ZQ4PR01MB1202F0B2A4BB3D370C82D523F2B02@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
---CzfhbBx3OnI0r5Pd
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hi Geert, Wolfram,
 
-On Wed, Sep 09, 2026 at 01:43:20AM +0000, Changhuang Liang wrote:
-> Hi, Conor
->=20
-> Thanks for the review.
->=20
-> > On Mon, Aug 31, 2026 at 04:34:56AM -0700, Changhuang Liang wrote:
-> > > diff --git a/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > > b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > > new file mode 100644
-> > > index 000000000000..6d8f5516a178
-> > > --- /dev/null
-> > > +++ b/include/dt-bindings/pinctrl/starfive,jhb100-pinctrl.h
-> > > @@ -0,0 +1,17 @@
-> > > +/* SPDX-License-Identifier: GPL-2.0 OR MIT */
-> > > +/*
-> > > + * Copyright (C) 2022 StarFive Technology Co., Ltd.
-> > > + *
-> > > + * Author: Changhuang Liang <changhuang.liang@starfivetech.com>
-> > > + */
-> > > +
-> > > +#ifndef __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
-> > > +#define __DT_BINDINGS_PINCTRL_STARFIVE_JHB100_H__
-> > > +
-> > > +/* sys0 pad numbers */
-> > > +#define PADNUM_SYS0_GPIO_A0				0
-> > > +#define PADNUM_SYS0_GPIO_A1				1
-> > > +#define PADNUM_SYS0_GPIO_A2				2
-> > > +#define PADNUM_SYS0_GPIO_A3				3
-> >=20
-> > Krzysztof's point [1] about these still stands. Pad indices aren't bind=
-ings.
-> > Sure, your driver and your dts both might want to use these but that do=
-esn't
-> > make them a binding. For that to be the case, they need to effectively =
-be
-> > made up numbers - like how clocks are often listed with numbers from 0 =
-into
-> > the dozens or hundreds, when that may or may not correlate with actual =
-bits
-> > in registers, e.g. indices 0-31 in a clock binding might be in register=
- 1 and then
-> > 32-63 are in register 2. There's no need for a binding here to assign m=
-eanings
-> > to numbers, because the meanings are assigned by the hardware itself - =
-index
-> > 0 for SYS0 *is* A0, because that's how the hardware is designed.
-> >=20
-> > Were the numbers to run continuously, so that we had
-> >=20
-> > #define JHB100_PADNUM_A0	0
-> > #define JHB100_PADNUM_A1	1
-> > #define JHB100_PADNUM_A2	2
-> > #define JHB100_PADNUM_A3	3
-> > #define JHB100_PADNUM_A4	4
-> > and so on down to
-> > #define JHB100_PADNUM__D0	1234
-> >=20
-> > then it would be a binding, because we're assigning a meaning to 1234 t=
-hat's
-> > not something determined by the hardware.
-> >=20
-> > FWIW, I'm happy to have the unchanged starfive,jhb100-pinctrl.h sit in
-> > arch/riscv/boot/dts/starfive, because the defines are helpful - but as =
-things
-> > stand I think Krzysztof is right.
->=20
-> For the current series, the drivers also use some definitions from the bi=
-nding. In=20
-> the next version, should the macro definitions be directly placed in thei=
-r respective=20
-> pinctrl-starfive-jhb100-<domain>.c files?
+On Wed, 5 Aug 2026 09:46:41 +0200
+Geert Uytterhoeven <geert@linux-m68k.org> wrote:
 
-Only the ones that are actually used, which I think is a limited subset
-of the definitions in this header. At least, none of the ones that I
-looked up were actually used in the drivers, except for the sys0 ones.
+> Hi Wolfram,
+> 
+> On Tue, 4 Aug 2026 at 22:06, Wolfram Sang
+> <wsa+renesas@sang-engineering.com> wrote:
+> > On Tue, Jul 21, 2026 at 10:29:47AM +0200, Herve Codina (Schneider Electric) wrote:  
+> > > The Renesas RZ/N1 timer block controller is the controller in charge of
+> > > timers available in the Renesas RZ/N1 SoCs family.
+> > >
+> > > This controller handles 8 timers:
+> > >  - 6 16-bit timers
+> > >  - 2 32-bit timers
+> > >
+> > > Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>  
+> >
+> > In general:
+> >
+> > Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> >
+> > One nit:
+> >  
+> > > +        reg = <0x51001000 0x400>;  
+> >
+> > Isn't 0x400 a bit excessive? The last documented register in my docs is
+> > 0x114, so maybe 0x200 will do above?  
+> 
+> FTR, 0x200 or 0x400 does not make much of a difference, as this is
+> mapped in PAGE_SIZE units anyway.
+> 
+> According to Table 2.1 ("Register Map") in the RZ/N1 Introduction
+> document it could even be 0x1000...
+> 
 
---CzfhbBx3OnI0r5Pd
-Content-Type: application/pgp-signature; name=signature.asc
+In order to be consistent with register listing available in the docs,
+I plan to reduce the size to 0x200 in the next iteration.
 
------BEGIN PGP SIGNATURE-----
+Let me know if you disagree with that.
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqEvTgAKCRB4tDGHoIJi
-0tkiAP4ju3bCLww2Qz0ZX7JJ3vLgGAKAjceC7CmVV8I/mNuImAD/SuYzUxILRQFb
-FRai3/OvTbB6UApRe77WAcLJupsGww8=
-=rHeS
------END PGP SIGNATURE-----
+Best regards,
+Hervé
 
---CzfhbBx3OnI0r5Pd--
