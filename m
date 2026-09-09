@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE43E1DA62E;
-	Wed,  9 Sep 2026 15:15:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83171DA62E
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966953; cv=none; b=PKPrjKMrunez6OfVicrkz6x72KuyAph01f+hBrWOplWtL3S23I0DlUXtB6LkCIOjTYiet2twR4xog5raSb60GyHHcVaPUdpnv9h6NhJ7OFsAW1lx8mrLz0jib0O3V3MmeDiSyrjcyhixnq99FE3HES05wnguthEjTa9y6LXfRec=
+	t=1788966968; cv=none; b=sP+FXw4gaJT1BrtkC3/4Do5jZrP8h8ywZM+0GQxkP5+GqeAwVi3jL9Y2g4u7oVHSKHlI1ph9Zmsy8uvARI114/GevSgqRKKyeygPfVs/CuDjY9CP+wc0PqZqA+udyNLXUdWrXHZfzwAhaVCuDL3nXPtn/34TICY1d1mChUxcUMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966953; c=relaxed/simple;
-	bh=xzL5jLVDUcIVNSyQO6ojFOnw5F3gLNaRBHz0ENW5HHc=;
+	s=arc-20240116; t=1788966968; c=relaxed/simple;
+	bh=Mj39BtijOzScpcPxB05rLu6ja4cHo/p7aMutpCNPrmw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r6RFNDtnFsFeOhwrJ9WupzjMAvxqFPzoOyWqAokDTtnQEJTm4uHOt6xlHU7wz6RcBRMkmt3kqN38q3xR5KJJWFR6YfgqO3hnk+yuANMq6yIGJ1F787L372kzu108JH/0sWH6MNE6BamM5dx2zErdgYja7sBdHrRwtKB3M/Yb/bM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJ5H3XLw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=KndMQRf0FAyJRmiU6pgGvstNs4hofLspohRhhcB2vISmoGoR6x0qVQMqRu0TDT3ilspomNwmjHkwjvOeD021tSMfHsTeArNTy7RJ3qN5zCDwL6aOMgxfpY9l5RUjCsXCbAQvMWN77hstImlVp0GQzbg2HNux8oOSnns1b1hlBnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oMuuUS4x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJ5H3XLw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DA281F00A3A;
-	Wed,  9 Sep 2026 15:15:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oMuuUS4x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06DF1F00A3A;
+	Wed,  9 Sep 2026 15:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966951;
-	bh=zOpunk0DYvxuVu8SJ5MWt2pHj5oTk0F02LZtjnE/OfU=;
+	s=k20260515; t=1788966967;
+	bh=63afFCmAYc2tH1BPrtZvWSgnCvPBDeQzXJHShKqwqGg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XJ5H3XLwV5VPnyYFztg0qvaNMurz1hu0y6VhkZiCJwBKBY0pK77AQ8L2XRPKYD1+x
-	 xJiggrPAQPPgflplbUQIbaqkoJwToibE0HXORbi5HRCIpbo3H3RCC4hnguMVHDePC4
-	 we5JKeYcb8e9jRKsufv6pA8k6VgbYJVkwR7BDVqpkIDTxfF4j0ggCp97WiaFi1LwKD
-	 YiXWKRzmGwwrJWk3jBzV6tPYwKdmGmotJ76ECh7spejnERERpxmEGLxK8ZO+hT20IH
-	 rWrFC5kTPg2TEXqghv3WQjY2TPm43XBKdi+3CDhgYqT4GRKeNUPusWiBK6WZG4Ua6+
-	 cmymLYfSujJ+Q==
+	b=oMuuUS4xrd6OSsviAmobESKfiFU61fbcxFmodBrgwHC6VPmrZtUJmdV6Ruj7E9Qds
+	 Lng6u3lc779LA8Jw763zfyLcDmRUCiFm5C2Rhy+qKtCuadohFdfr2tTkyhB/8E7i3S
+	 xNiM4VXTyYOq1svjkacT0Q2ldbyMCw85A4KECa587UNKueZCjvlYo0XPx8yHTXX3Dx
+	 lsZPSi10uhLScVtHbmFnwUUGZID/uRvkjCiTtA5CGmKTg0+bHBm/zqzvxKcghGvCr9
+	 F93dE4o7Esa0yM8/aQh+pR69orRDXDcqRRNZmQTFSXsIqD5w8Zh9xgNCVqW0M0Qmz3
+	 TeZ5NMdg5b7Ew==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/5] PCI/pwrctrl: tc9563: Add GPIO auxiliary device
- support
+Subject: Re: [PATCH v3 05/13] media: iris: Add non-pixel and pixel context
+ bank devices
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lorenzo Bianconi" <lorenzo.bianconi@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260909-pci-tc9563-aux-v5-3-c9b33f56c8d3@oss.qualcomm.com>
-References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
- <20260909-pci-tc9563-aux-v5-3-c9b33f56c8d3@oss.qualcomm.com>
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-5-2fe43ae45495@oss.qualcomm.com>
+References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
+ <20260909-vpu_iommu_iova_handling-v3-5-2fe43ae45495@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 15:15:50 +0000
-Message-Id: <20260909151551.2DA281F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 15:16:06 +0000
+Message-Id: <20260909151606.E06DF1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,65 +47,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Auxiliary device teardown via devres races with manual power off i=
-n remove(), allowing I/O to powered-down hardware.
-- [Low] Missing explicit `select AUXILIARY_BUS` in Kconfig for PCI_PWRCTRL_=
-TC9563.
+
+Pre-existing issues:
+- [High] Use-After-Free of devres-allocated `core` memory on driver unbind =
+via lingering file descriptors.
+- [High] Missing `cancel_delayed_work_sync` in driver teardown allows `sys_=
+error_handler` to execute asynchronously on freed memory.
 --
 
-commit 6f8a88de67f080d18050c0ce0599dc8854f71eab
-Author: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+commit 5f2788e633116dd856570ea29baabf6ce4157fbe
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
-   =20
-This commit adds an auxiliary device to represent the GPIO controller
-embedded in the TC9563. It passes the regmap via platform data to enable
-the gpio-tc9563 driver to register the GPIO chip.
+media: iris: Add non-pixel and pixel context bank devices
 
-> diff --git a/drivers/pci/pwrctrl/Kconfig b/drivers/pci/pwrctrl/Kconfig
-> --- a/drivers/pci/pwrctrl/Kconfig
-> +++ b/drivers/pci/pwrctrl/Kconfig
-> @@ -29,6 +29,7 @@ config PCI_PWRCTRL_TC9563
->  	select PCI_PWRCTRL
->  	default m if ARCH_QCOM
->  	depends on I2C
-> +	depends on GPIO_TC9563
->  	select REGMAP_I2C
+The VPU issues DMA through several SMMU streams, and the hardware does
+not give every stream the same addressable range. This patch describes
+"non-pixel" and "pixel" as separate context bank subnodes. Helper
+functions are added to create and clean up these devices during probe
+and remove.
 
-[Severity: Low]
-Since the driver now directly calls auxiliary bus symbols, should this conf=
-ig
-explicitly select AUXILIARY_BUS to prevent potential build failures if
-transitive dependencies change?
-
-> diff --git a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c b/drivers/pci/pwrct=
-rl/pci-pwrctrl-tc9563.c
-> --- a/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
-> +++ b/drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index e4acf4a74f944..debd1f0e57038 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
 [ ... ]
-> +static int tc9563_pwrctrl_adev_add(struct device *dev, const char *name,
-> +				   struct device_node *of_node,
-> +				   void *priv_data)
-> +{
-[ ... ]
-> +	ret =3D auxiliary_device_add(adev);
-> +	if (ret) {
-> +		auxiliary_device_uninit(adev);
-> +		return ret;
-> +	}
+> @@ -207,6 +268,8 @@ static void iris_remove(struct platform_device *pdev)
+> =20
+>  	v4l2_device_unregister(&core->v4l2_dev);
+> =20
+> +	iris_deinit_cb_devs(core);
 > +
-> +	return devm_add_action_or_reset(dev, tc9563_pwrctrl_adev_remove, adev);
-> +}
+>  	mutex_destroy(&core->lock);
 
 [Severity: High]
-Because the auxiliary device is queued for removal via devres, won't it be
-destroyed after the driver's manual remove function executes?
+This isn't a bug introduced by this patch, but doesn't this leave the
+driver vulnerable to a use-after-free if a userspace process has the
+video device open during driver unbind?
 
-If the hardware is shut down and the adapter reference is dropped in the=20
-driver's manual remove path before the devres callbacks run, couldn't this
-allow I/O to powered-down hardware if another process accesses the GPIO
-sysfs interface during this teardown window?
+The core context is allocated with devm_kzalloc() in iris_probe(),
+so it will be freed automatically upon return from iris_remove().
+
+However, this function does not wait for active V4L2 file descriptors
+to close. If a lingering file descriptor is closed later, iris_close()
+will invoke iris_remove_session(), which accesses the freed core
+memory and attempts to lock the destroyed mutex:
+
+iris_vidc.c:iris_remove_session() {
+    ...
+    mutex_lock(&core->lock);
+    ...
+}
+
+[Severity: High]
+This is a pre-existing issue, but is there a missing
+cancel_delayed_work_sync() for core->sys_error_handler during teardown?
+
+In iris_probe(), the delayed work is initialized:
+
+    INIT_DELAYED_WORK(&core->sys_error_handler, iris_sys_error_handler);
+
+If a hardware SYS_ERROR interrupt fires near the time of unbind, the
+delayed work could be scheduled. Since iris_remove() completes without
+cancelling it, the core memory is freed by devres.
+
+The work queue could subsequently execute iris_sys_error_handler()
+asynchronously on the freed pointer, attempting to access core->dev
+and call iris_core_deinit(core).
+
+>  }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-pci-tc9563=
--aux-v5-0-c9b33f56c8d3@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-vpu_iommu_=
+iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com?part=3D5
