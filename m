@@ -1,131 +1,510 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40DFD3A4F4B;
-	Wed,  9 Sep 2026 06:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8911F322C88;
+	Wed,  9 Sep 2026 06:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788933932; cv=none; b=vD984SmhLdZ6qkzqbZS2+nu7K9PMjpF+nQZqa137cI0IfFJwrDRcUKI79enGawQA9m6wA9DfMj1ZB8EbUMopaB59ph6ughqs82wxdyrC4pl8OYOqJGHgzwKNALBMOkGXIoCYv1vXt24Dvm9umJoCegTG4/BiEoFneomWDlSL58w=
+	t=1788933984; cv=none; b=IHzJZ3nEjPOPHDDE7aruJE+UQpINt22wA/gUfwALpjgccdIpw1yvqsKostIxNLgsXXC2y6BhEakXuRzKqMcAG55HWx4Rzw6rFJXawZ5GhP2+KTVs96qnANM1+n8rWsmavPbJRBrey/dunDG/KYUoj8Ixr7eGRH1Wp9xtLCZlzEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788933932; c=relaxed/simple;
-	bh=uedZdcAsNT1FPUlvvFGnNz1v+nVBBehCcaJO3uGUjVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BIsrwwTSrJJYoOoXYCeIajMC2vmWZR+UObBbWDEe3nWX7sO/nvq0clTppq+3+6/dalfJvDGRajtbC3iVwVvZGTd8ka9bU4JLSUg8MPHKd2/hxHXZu9RNuPqtquWNDMM/xUNzHmJdmvmaVAM+Z7xHqmMM0e2skl9ODGZAlzEsdok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZ8mzmw4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788933984; c=relaxed/simple;
+	bh=Bw4j1B4E4V2fQ1bWgeT0bLMh8TzMXvVi2QiCeZxF208=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n4Cb7a+qESNKx4dBlcLxCmodOgKcNU60OVoW01O/qXZnWNDcEMO2NVgRC+7h6IDUYlKHkvIXb7lH+63yzDJ95wWTTw5AkqyVXyN/NwCD79w/4ZtmIc0K7HX8mZPiS4aEZQphRKdHFwdpIZQjC7FW+Qirrx0n4hjvJhSuoNbX15U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=b5g9VAXa; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZ8mzmw4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 038531F00A3A;
-	Wed,  9 Sep 2026 06:05:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788933930;
-	bh=VRmMjAOEgjzu9kTkNIFZgb36kRrDVAvnBqtog2U4v3I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OZ8mzmw4F8hENLk4KZRZ7Dxmdx0a5v0vUEB6C2X40i2hfUR/KA+UY97+LqTRWnEYb
-	 xVmaCPH1p1ukIwJgSuJzsCeRG9IiC3nzJVnky+FPHCQJJZ7Cni0r0nMAcL8bNGNvXJ
-	 yTwitK8EDFYmcyJXu8NLWFQI9UmMmODSaSWbf0K60RTvF3/PqhA3TTXOXxTywFBtvj
-	 V9Uw1oMKQyB+q8Hk44XqmQ+9jEzc3f0EjgxOrcsD9aGNzOnDpm+k6pio1gOVPsY28v
-	 wy9kWKTrXyHLuiXbj4FjCVF7Lj6069qx2idsbGqW0Z5XMJDVQaaoGQJ2s9F/htoLL1
-	 J2hcJM4okOsNw==
-Message-ID: <19a4c144-460b-4dcf-b173-23d14677e2d5@kernel.org>
-Date: Wed, 9 Sep 2026 08:05:22 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="b5g9VAXa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788933981; x=1820469981;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Bw4j1B4E4V2fQ1bWgeT0bLMh8TzMXvVi2QiCeZxF208=;
+  b=b5g9VAXaWIyNbkPOE/mqVMSM0jxH3kq1InX6zRCNTmlygr5DZGVpa47i
+   OtALLUIKJTMJcmp+poH4TnO/zZrX0RVd+yRweCMZf6HPwKyYRwStt5D3D
+   /a/1Ogfmuaudt+rQd7HEy7kzfOyV60h+qibYWfRggudHuSsyqoexRPiOp
+   Z8Ji0cjjFYwsg7iwgXIwSEGuhuU4IpYNOjFtq7/NkZWrQTHuot1IqzzYP
+   Na4AaYuMEqXs1QhmQmz4rLXFdB/jyXgzPVD3abkmwu7J35hg9VctHa91B
+   YstUE3yt9SJEDlNgXoDhFTxckRytx13DK9Cd5oF8Nbh1Wctfk5gJLtmwq
+   Q==;
+X-CSE-ConnectionGUID: rPn/5iTmQDCaCdco099J5Q==
+X-CSE-MsgGUID: XzoH2XqvSVCxeD53vxtl1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89388094"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="89388094"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Sep 2026 23:06:20 -0700
+X-CSE-ConnectionGUID: Xp3J1TRXQfqDkwg+IlzWWA==
+X-CSE-MsgGUID: 4ikTEY7yS/CBczOstZe2tQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="274751945"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by orviesa003.jf.intel.com with ESMTP; 08 Sep 2026 23:06:16 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 42C2899; Wed, 09 Sep 2026 08:06:15 +0200 (CEST)
+Date: Wed, 9 Sep 2026 08:06:15 +0200
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: Sven Peter <sven@kernel.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
+	Neal Gompa <neal@gompa.dev>,
+	Andreas Noever <andreas.noever@gmail.com>,
+	Mika Westerberg <westeri@kernel.org>,
+	Yehezkel Bernat <YehezkelShB@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v2 19/22] thunderbolt: Add Apple Silicon support
+Message-ID: <20260909060615.GJ106095@black.igk.intel.com>
+References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
+ <20260906-b4-apple-soc-tbt-v2-19-1f80085f93fb@kernel.org>
+ <20260908091844.GD106095@black.igk.intel.com>
+ <22808191-5310-4d90-9fac-68d0d85b4c54@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [EXT] Re: [PATCH v16 4/8] mfd: p3h2x4x: Add driver for NXP
- P3H2x4x i3c hub and on-die regulator
-To: Lakshay Piplani <lakshay.piplani@nxp.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
- "alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "robh@kernel.org"
- <robh@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "broonie@kernel.org" <broonie@kernel.org>, "lee@kernel.org"
- <lee@kernel.org>, Frank Li <frank.li@nxp.com>,
- "lgirdwood@gmail.com" <lgirdwood@gmail.com>
-Cc: Vikash Bansal <vikash.bansal@nxp.com>,
- Priyanka Jain <priyanka.jain@nxp.com>,
- Aman Kumar Pandey <aman.kumarpandey@nxp.com>
-References: <20260826103819.1614843-1-lakshay.piplani@nxp.com>
- <20260826103819.1614843-5-lakshay.piplani@nxp.com>
- <43e67e46-f93e-4cad-81c6-d489663aa7c0@kernel.org>
- <AS4PR04MB93626CB21700033FA2DD8AF8FBAC2@AS4PR04MB9362.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <AS4PR04MB93626CB21700033FA2DD8AF8FBAC2@AS4PR04MB9362.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <22808191-5310-4d90-9fac-68d0d85b4c54@kernel.org>
 
-On 28/08/2026 18:13, Lakshay Piplani wrote:
-> Hi Krzysztof,
-> 
-> Thanks for the review.
-> 
->>> +static const struct of_device_id p3h2x4x_i2c_of_match[] = {
->>> +     { .compatible = "nxp,p3h2440", },
->>> +     { .compatible = "nxp,p3h2441", },
->>> +     { .compatible = "nxp,p3h2840", },
->>> +     { .compatible = "nxp,p3h2841", },
->>
->> So devices are fully compatible? Why isn't this expressed in the binding? Or
->> explained in the commit msg?
->>
-> 
-> Yes, from this driver's point of view. All four share the register
-> interface used by the driver; the port count is read at runtime from
-> DEV_CAPAB. The x0/x1 variants differ in their default/debug power-up
-> configuration, and the driver applies the DT configuration during probe.
-> 
-> I will explain this in the binding description and the commit message.
+Hi,
 
-This is not what I asked. Why they are not made compatible?
+On Tue, Sep 08, 2026 at 09:02:09PM +0200, Sven Peter wrote:
+> Hi Mika,
+> 
+> thanks again for the quick review!
+> 
+> On 9/8/26 11:18, Mika Westerberg wrote:
+> > Hi,
+> > 
+> > On Sun, Sep 06, 2026 at 08:36:42PM +0200, Sven Peter wrote:
+> > > Add a platform driver for the ACIO host router complex and Native Host
+> > > Interface (NHI) found on Apple Silicon SoCs.
+> > > 
+> > > The driver registers notifications for Thunderbolt and USB4 partner modes
+> > > on the Type-C bus and derives the cable details from the Thunderbolt VDOs
+> > > or USB4 EUDO.
+> > > 
+> > > After powering up ACIO, the driver boots its RTKit co-processor and
+> > > populates the DART and NHI child devices once their MMIO regions become
+> > > accessible. It then registers the NHI with the software connection
+> > > manager and forwards the cable details to the host router.
+> > > 
+> > > The Apple NHI uses one interrupt per ring and overrides the generic ring
+> > > register accessors, interrupt handling and ring configuration. It also
+> > > uses the OF graph connection between the USB3 adapter and the DWC3
+> > > controller to create the device link required to restore tunnels before
+> > > USB resumes. As of this commit only XDomain connections and
+> > > USB3-via-USB4 tunnels are supported.
+> > > 
+> > > Signed-off-by: Sven Peter<sven@kernel.org>
+> [...]
+> 
+> > > +
+> > > +#define APPLE_CIO_NHI_PDF_STRIDE			0x4000
+> > > +
+> > > +#define APPLE_CIO_USB3_ADAPTER				4
+> > Do you really need to hard-code this? It's not possible to figure out from
+> > the host router adapters directly?
+> 
+> It's possible I think but the host router isn't up yet by the time I need it
+> to add the links in tb_probe.
+> > 
+> > > +
+> > > +#define APPLE_CIO_NHI_IRQ_STATUS			0xd0000
+> > > +#define APPLE_CIO_NHI_IRQ_ENABLE			0xd0010
+> > > +#define APPLE_CIO_NHI_IRQ_THROTTLE			0xd004c
+> > > +#define APPLE_CIO_NHI_IRQ_THROTTLE_INTERVAL_MASK	GENMASK(15, 0)
+> > > +#define APPLE_CIO_NHI_IRQ_THROTTLE_GRANULARITY_NSEC	256
+> > > +
+> > > +#define APPLE_CIO_SRAM_IOVA_BASE			0x10000000
+> > > +
+> > > +#define APPLE_CIO_NHI_BOOT_TIMEOUT			10000 /* ms */
+> > > +
+> > > +/*
+> > > + * The Apple vendor-specific extended capability contains a cable-information
+> > > + * word which has to be programmed from the USB4/Thunderbolt details reported
+> > > + * out-of-band by the Type-C PD controller. It must be programmed into the
+> > > + * host router before link discovery starts.
+> > > + */
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO			0x01
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_PRESENT		BIT(0)
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_ORIENTATION_REVERSE	BIT(1)
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_ACTIVE_CABLE	BIT(2)
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_BIDIR_LSRX		BIT(3)
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_20_GBPS		BIT(4)
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_LEGACY_ADAPTER	BIT(9)
+> > > +#define TB_VSE_CAP_APPLE_CABLE_INFO_TBT2_3		BIT(10)
+> > > +
+> > > +struct apple_cio;
+> > I think you may not need the forward declaration here.
+> 
+> Yup, I think that's just a leftover. Will drop it.
+> > 
+> > > +struct apple_cio_altmode {
+> > > +	struct apple_cio *acio;
+> > > +	struct typec_altmode *altmode;
+> > > +	struct notifier_block notifier;
+> > > +};
+> > > +
+> > > +/**
+> > > + * struct apple_cio - Apple Converged I/O block
+> > > + * @dev: ACIO device
+> > > + * @np: ACIO device tree node
+> > > + * @rtk: RTKit instance for the ACIO co-processor
+> > > + * @rc_base: ACIO root controller registers
+> > > + * @rc_res: ACIO root controller MMIO resource
+> > > + * @rc_tunable: Tunable sequence for the ACIO root controller
+> > > + * @sram_res: ACIO co-processor SRAM resource
+> > > + * @sram_base: ACIO co-processor SRAM
+> > > + * @reset: ACIO reset controller
+> > > + * @pd_list: Power domains used by the ACIO block
+> > > + * @lock: Serializes cable transitions and ACIO power changes
+> > > + * @current_cable_info: Cable information currently programmed into ACIO
+> > > + * @target_cable_info: Cable information requested by the Type-C PD driver
+> > > + * @nhi_boot_completion: Signals completion of the NHI bringup
+> > > + * @nhi_boot_status: Status returned by the NHI bringup
+> > > + * @connector: Type-C connector firmware node linked to this ACIO
+> > > + * @typec_lock: Serializes Type-C alternate mode attachment and removal
+> > > + * @typec_notifier: Type-C bus notifier used to discover partner alternate modes
+> > > + * @tbt_altmode: Thunderbolt partner alternate mode subscription
+> > @tb_altmode if possible
+> > 
+> > The driver uses "tb" everywhere so that's preferred for consistency.
+> 
+> And I thought I got them all! Fixed that one (and another one below) as
+> well!
+> 
+> [....]
+> 
+> > > +static const struct apple_rtkit_ops apple_cio_rtkit_ops = {
+> > > +	.shmem_setup = apple_cio_rtkit_shmem_setup,
+> > > +};
+> > > +
+> > > +static int apple_nhi_probe_irqs(struct apple_nhi *anhi)
+> > > +{
+> > > +	char name[64];
+> > I think you can move this into the block where it's used.
+> 
+> Yup, will move it.
+> 
+> > 
+> > > +	int nirqs;
+> > > +
+> > > +	nirqs = platform_irq_count(anhi->pdev);
+> > > +	if (nirqs < 0)
+> > > +		return dev_err_probe(anhi->dev, nirqs, "platform_irq_count failed\n");
+> > > +	if (!nirqs)
+> > > +		return dev_err_probe(anhi->dev, -EINVAL, "no interrupts found\n");
+> > > +	if (nirqs % 2)
+> > > +		return dev_err_probe(anhi->dev, -EINVAL,
+> > > +				     "invalid number of interrupts: %d must be even\n",
+> > > +				     nirqs);
+> > > +	anhi->nrings = nirqs / 2;
+> > > +
+> > > +	anhi->rx_irqs = devm_kcalloc(anhi->dev, anhi->nrings,
+> > > +				     sizeof(*anhi->rx_irqs), GFP_KERNEL);
+> > > +	if (!anhi->rx_irqs)
+> > > +		return -ENOMEM;
+> > > +	anhi->tx_irqs = devm_kcalloc(anhi->dev, anhi->nrings,
+> > > +				     sizeof(*anhi->tx_irqs), GFP_KERNEL);
+> > > +	if (!anhi->tx_irqs)
+> > > +		return -ENOMEM;
+> > > +	anhi->rx_irq_names = devm_kcalloc(anhi->dev, anhi->nrings,
+> > > +					  sizeof(*anhi->rx_irq_names), GFP_KERNEL);
+> > > +	if (!anhi->rx_irq_names)
+> > > +		return -ENOMEM;
+> > > +	anhi->tx_irq_names = devm_kcalloc(anhi->dev, anhi->nrings,
+> > > +					  sizeof(*anhi->tx_irq_names), GFP_KERNEL);
+> > > +	if (!anhi->tx_irq_names)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	for (int i = 0; i < anhi->nrings; ++i) {
+> > > +		snprintf(name, sizeof(name), "rxring%d", i);
+> > > +		anhi->rx_irqs[i] = platform_get_irq_byname(anhi->pdev, name);
+> > > +		if (anhi->rx_irqs[i] < 0)
+> > > +			return anhi->rx_irqs[i];
+> > > +		anhi->rx_irq_names[i] = devm_kasprintf(anhi->dev, GFP_KERNEL, "%s-%s",
+> > > +						       dev_name(anhi->dev), name);
+> > > +		if (!anhi->rx_irq_names[i])
+> > > +			return -ENOMEM;
+> > > +
+> > > +		snprintf(name, sizeof(name), "txring%d", i);
+> > > +		anhi->tx_irqs[i] = platform_get_irq_byname(anhi->pdev, name);
+> > > +		if (anhi->tx_irqs[i] < 0)
+> > > +			return anhi->tx_irqs[i];
+> > > +		anhi->tx_irq_names[i] = devm_kasprintf(anhi->dev, GFP_KERNEL, "%s-%s",
+> > > +						       dev_name(anhi->dev), name);
+> > > +		if (!anhi->tx_irq_names[i])
+> > > +			return -ENOMEM;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static unsigned int apple_cio_ring_index(struct tb_ring *ring)
+> > This can take const
+> Ack
+> > 
+> > > +{
+> > > +	struct apple_nhi *anhi = nhi_to_anhi(ring->nhi);
+> > And this can be const too.
+> Ack
+> > 
+> > > +
+> > > +	if (ring->is_tx)
+> > > +		return ring->hop;
+> > > +	else
+> > Drop the else here.
+> Ack.
+> 
+> > > +		return ring->hop + anhi->nrings;
+> > > +}
+> > > +
+> > > +static void apple_nhi_ring_interrupt_active(struct tb_ring *ring, bool active)
+> > > +{
+> > > +	struct apple_nhi *anhi = nhi_to_anhi(ring->nhi);
+> > > +	unsigned int idx = apple_cio_ring_index(ring);
+> > > +	u32 reg, interval;
+> > > +
+> [...]
+> > > +static void apple_nhi_release_irq(struct tb_ring *ring)
+> > > +{
+> > > +	if (ring->irq <= 0)
+> > > +		return;
+> > > +
+> > > +	devm_free_irq(ring->nhi->dev, ring->irq, ring);
+> > > +	ring->irq = 0;
+> > I think it reads better if you do
+> > 
+> > 	if (ring->irq > 0)
+> > 		devm_free_irq(ring->nhi->dev, ring->irq, ring);
+> > 	ring->irq = 0;
+> 
+> Agreed, will change it to that.
+> 
+> > 
+> > > +}
+> > > +
+> > > +static void __iomem *apple_nhi_ring_desc_base(struct tb_ring *ring)
+> > > +{
+> > > +	struct apple_nhi *anhi = nhi_to_anhi(ring->nhi);
+> > > +	void __iomem *io = anhi->nhi_base;
+> > > +
+> > > +	io += ring->hop * APPLE_CIO_NHI_RING_STRIDE;
+> > > +	io += ring->is_tx ? APPLE_CIO_NHI_TXRING_DESC_BASE :
+> > > +			    APPLE_CIO_NHI_RXRING_DESC_BASE;
+> > > +	return io;
+> > > +}
+> > > +
+> > > +static void __iomem *apple_nhi_ring_options_base(struct tb_ring *ring)
+> > > +{
+> > > +	return apple_nhi_ring_desc_base(ring) + 0x10;
+> > Here maybe use macro for the 0x10 magic number.
+> 
+> Ack.
+> 
+> > 
+> > > +}
+> > > +
+> > > +static void apple_nhi_ring_configure(struct tb_ring *ring, u32 flags, u32 e2e_flags)
+> > > +{
+> > > +	void __iomem *options = apple_nhi_ring_options_base(ring);
+> > > +	struct apple_nhi *anhi = nhi_to_anhi(ring->nhi);
+> > > +	u32 sof_eof_mask;
+> > > +
+> > > +	lockdep_assert_held(&ring->lock);
+> > > +
+> > > +	if (ring->is_tx) {
+> > > +		/*
+> > > +		 * All TX rings share what macOS calls a shared buffer with 232 entries. This is how
+> > > +		 * macOS splits it up, ring 0 only carries control packets and gets the minimum.
+> > > +		 */
+> > > +		if (ring->hop == 0)
+> > > +			writel(2, options + 4);
+> > > +		else if (ring->hop <= 5)
+> > > +			writel(40, options + 4);
+> > > +		else
+> > > +			writel(5, options + 4);
+> > Any idea what's special with the ring 5? And why the numbers 40 and 5? I
+> > think they refer intra-domain shared buffers (which is what we are going to
+> > use for XDomain connections in Linux going forward too).
+> 
+> No idea really. All I know is that there's some string calling these "shared
+> buffers" and that there are 232 in total.
+> macOS assigns two to the first ring (probably because it only has
+> configuration traffic and doesn't need more), then 40 to the next 5 rings
+> (which are presumably used for xdomains most of the time) and then 5 to the
+> rest (which I guess are rarely used) so that it ends up at 232 spread across
+> 12 rings. I think the setup is arbitrary but I have to write something >0
+> here or otherwise the ring won't work IIRC.
 
-Best regards,
-Krzysztof
+Okay thanks. It makes sense for now to mimic what Apple is doing although
+we are currently using dedicated buffering for all XDomain links but you
+program these to the rings itself and the CM takes care of the rest so that
+should be okay.
+
+> > > +	} else {
+> > > +		sof_eof_mask = ring->sof_mask << 16 | ring->eof_mask;
+> > > +		writel(sof_eof_mask, options + 4);
+> > > +		writel(sof_eof_mask, anhi->pdf_base + ring->hop * APPLE_CIO_NHI_PDF_STRIDE);
+> > > +	}
+> > > +
+> > > +	/*
+> > > +	 * The firmware samples the ring configuration when the valid bit is set and E2E flow
+> > > +	 * control never engages when configured afterwards. Write everything at once like macOS.
+> > > +	 */
+> > > +	writel(flags | e2e_flags, options);
+> > > +}
+> > > +
+> > > +static bool apple_nhi_add_links(struct tb_nhi *nhi)
+> > > +{
+> > > +	struct apple_nhi *anhi = nhi_to_anhi(nhi);
+> > > +	struct fwnode_handle *endpoint, *remote;
+> > > +	struct device_link *link;
+> > > +	struct device *consumer;
+> > > +
+> > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(anhi->acio->dev),
+> > > +						   APPLE_CIO_USB3_ADAPTER, 0, 0);
+> > Okay they have the power contract as part of the DT description that's
+> > good. I just worry that if they change the USB3 Gen X adapter place this
+> > will break.
+> > 
+> > Do you have a snippet what it looks like in DT description?
+> 
+> We don't use Apple's Device Tree at all, we make up our own representation
+> for Linux device tree and supply that in our bootloader m1n1 to the kernel.
+
+Ah right forgot that ;-)
+
+> See the dt-binding commits and the later dts commits.
+> If the adapter place changes the new hardware will get a new compatible and
+> we can determine it from that one then. The other alternative would be to
+> just walk through all ports (except for the type-c lanes) defined in the DT
+> and just add all links here. It's a bit moot right now since we can't do
+> runtime or proper suspend anyway yet.
+
+Understood.
+
+> I'll need those graph connections later on for PCIe and DP tunnels as well
+> since they need a software notification whenever a tunnel is brought up or
+> torn down. Here's how the connection looks like right now though. It's a
+> graph connection that's also used to e.g. connect dwc3 to the Type-C
+> controller. This hasn't been reviewed by the devicetree maintainers yet:
+> 
+>  &dwc3_0 {
+> ports {
+> #address-cells = <1>;
+> #size-cells = <0>;
+> 
+> port@1 {
+> #address-cells = <1>;
+> #size-cells = <0>;
+> reg = <1>;
+> 
+> dwc3_0_ss: endpoint@0 {
+> reg = <0>;
+> remote-endpoint = <&atcphy0_usb3>;
+> };
+> 
+> dwc3_0_usb4: endpoint@1 {
+> reg = <1>;
+> remote-endpoint = <&usb4_0_acio_usb3>;
+> };
+> };
+> };
+>  };
+> 
+>  &usb4_0_acio {
+> ports {
+> #address-cells = <1>;
+> #size-cells = <0>;
+> 
+> port@4 {
+> reg = <4>;
+> usb4_0_acio_usb3: endpoint {
+> remote-endpoint = <&dwc3_0_usb4>;
+> };
+> };
+> };
+>  };
+
+If it is possible, I suggest to use the same way we do in ACPI side here:
+
+https://learn.microsoft.com/en-us/windows-hardware/drivers/pci/dsd-for-pcie-root-ports#map-native-protocols-pcie-displayport-tunneled-through-usb4-to-usb4-host-routers
+
+It was specifically designed so that it should support DT as well (that's
+why it uses the device properties _DSD).
+
+> 
+> 
+> 
+> > (I'm still in progress to setup Asahi tethered boot on my m1 mac so cannot
+> > check it at the moment).
+> 
+> You've probably found it already, but we have a guide here:
+> https://asahilinux.org/docs/sw/tethered-boot/
+> Let me know if you run into any issues!
+
+Sure thanks!
+
+> > 
+> > > +	if (!endpoint)
+> > > +		return false;
+> > > +
+> > > +	remote = fwnode_graph_get_remote_port_parent(endpoint);
+> > > +	fwnode_handle_put(endpoint);
+> > > +	if (!remote)
+> > > +		return false;
+> [....]
+> > > +
+> > > +	mutex_lock(&anhi->tb->lock);
+> > > +
+> > > +	if (!anhi->tb->root_switch->drom) {
+> > > +		dev_err(anhi->dev, "no valid host DROM in the device tree\n");
+> > > +		ret = -EINVAL;
+> > > +		goto err_unlock_tb_domain;
+> > > +	}
+> > > +
+> > > +	if (!anhi->tb->root_switch->cap_vsec_apple) {
+> > > +		dev_err(anhi->dev, "unable to find VSE Apple capability\n");
+> > Maybe "missing Apple VSE capability" or so because finding was already
+> > done.
+> 
+> Ack.
+> 
+> > 
+> > > +		ret = -ENODEV;
+> > > +		goto err_unlock_tb_domain;
+> > > +	}
+> > > +
+> > > +	ret = tb_sw_write(anhi->tb->root_switch, &acio->target_cable_info, TB_CFG_SWITCH,
+> > > +			  anhi->tb->root_switch->cap_vsec_apple +
+> > > +			  TB_VSE_CAP_APPLE_CABLE_INFO, 1);
+> > I would prefer if we could keep the USB4 stuff outside of the host
+> > interface. It should be fine to do this in tb.c based on the capability but
+> > getting the cable info there is tricky :(
+> 
+> Hm... I wonder if adding apple_cable_info to struct tb and then something
+> like this would work
+> 
+> anhi->tb = tb_probe(...);
+> anhi->tb->apple_cable_info = acio->target_cable_info;
+> ret = tb_domain_add(anhi->tb, false);
+> 
+> since I have to call tb_domain_add for each new cable that's connected
+> anyway. I'll give it a try and maybe move the VSE cable bit #defines to
+> tb_regs.h as well then.
+
+Yes that could work.
