@@ -1,185 +1,310 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92710545D92
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 11:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D21545D89;
+	Wed,  9 Sep 2026 11:35:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788953661; cv=none; b=Ltae9+yAq02IxFAIdNcAWAomnWurAFN7xx/SL0zVnJEFBuJsg2NXl+itQDB53RVk3dmQqelmD2EhhOe5xJGm647OOqxx0by3o4u/N2DKZbNRlqAU75qGdzRzosL3sOYDsasvQzUwKA3iy0r7gKwPGIRHWoDFUkuwJicMNs6MNHU=
+	t=1788953711; cv=none; b=Q3gMFxwNwh6wWGScy2Hzs5fADvSmWNFItW58M0WKSAO7xwgkhKGQL/TLJBGK0GVLJtnQt1tu6hWBeZFInVE8Hks715Ksd3/N5vzqtRR18fp3mBTWUdHl3NnkQhKIZecUrXWF5+SM56GF4Hcm6MEtuEJHa/c31KCRHvPXUNZXiGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788953661; c=relaxed/simple;
-	bh=gBHBZjUolX3ivaVZcN/dbcES/2LmlGtAFF2GWiOv9zU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cHSWR/iNGvtsGlQ8jW62v+O9QJ9f9PsWFRRcA1tvtvW8y6wPAXiJixtRrbsVp8G8aNNGH/KNIZ0T3u1mJKKrMTqJx28qVvKDP0TRhMFtfwZIwc/5IxVEu/1wHXq2EVW3qeYEk8cJ2Bhaoi22mKMtpxnKd6RSNR/fVrZSl3UhrYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kHsylMHB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aWelVWCB; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788953711; c=relaxed/simple;
+	bh=vWtYzgFoGyDW55i1EvWYaGwYdE+b+139zE1xcTgIGLg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZE8e8lL9EHBW6G9XRK5nprttJLTAjmsHvYyNgtn6L8V4B4b/9KgsCZFKs4CuWbNfS5HczPOmN9oHP3T8/ogS1RJnSryQVyTl20+dz/KCG7NrmgTBlcX5ZV9hefUjuOQa41YPo8b80Wtdmf2LnNyBTyDGbLpF5v6jp/fta1mnUfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hDZ/cSx0; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kHsylMHB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aWelVWCB"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU4eW2171613
-	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 11:34:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=VkFNie0npr3o0gEEDYtkg+VD
-	BnFIkHEk4uIug4kbZDI=; b=kHsylMHBdmve31tkrzie5pyECzo0GZjJ6Vo2xsuD
-	yZlVXRUEhWj+ZcorFC9P/zz8x5kKb/AazOEZr47smD5RtlMItDp/D1mmuzuoaaBf
-	kU0x0ktd/I2seoUI4HwkrgR9zVAQYa/C2wklwxmwTtbSEukzdCGE+gwn2bXvdN2D
-	ck1ZGKc2IdfhPwnP1aKmyK+DDqAgJR8AQUmnLq1HdJHdff0RfH06uaU5VwdwE+1Y
-	T+jZTxMBiUvsE7wy1tELhXAr+3Ksr0TjPViSxiR4iJpNxm5FnsojufBJsLYw9R7E
-	XhgeQxIDnBPkfdxHoNluav0fyj+Syl+b9HRaoYg+mJzsdg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk5rgg7hj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 11:34:18 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e7ff7b375so7294715a91.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 04:34:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788953657; x=1789558457; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VkFNie0npr3o0gEEDYtkg+VDBnFIkHEk4uIug4kbZDI=;
-        b=aWelVWCByOEoSBuA4ylrQ0KkikreqSfSFsNyQ4nUy6sQgqizhQwrBdW4BG+hl0hu0h
-         g/Eg2xBqEGr3FeUSHHsRQCGkHjgs9+jfs7JvYchlFsZcabPL97FfLujLrHJEK8TBa+B5
-         ttcdclvpsWfYsw2PgcdQ+CL1gPMtLSLhUujd0V43IwDcY9YPC4gdWXFp38NFH6Yj1RQq
-         SLVFpXPhz+cWjfP2Sdcq0AS/izqPo9hHSAe9z4apqRiYi6BuU+opGge1JqevR2paTnBV
-         fKYIaFRaKh2DfjnGzd33Tb3d5FziCbtSBztLVUVHHW6sjwEkwfDM/wStvziXYIemWL2m
-         l4fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788953657; x=1789558457;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VkFNie0npr3o0gEEDYtkg+VDBnFIkHEk4uIug4kbZDI=;
-        b=rycTy657MAO/CKYqT2+Gdli51Hq4uLKBfYIUrZaj2/pEl3leKxnrgbU/Z9EqXmpIU5
-         WXDwFuO8eN1GbBIHqla47BYYYinCLDxMVtWAqR93O1DAuprAjLXDz0Cx1dC5F9GKH0rD
-         Fr+GT4N82D40S60GcZI9mJyfPSXyvNA8w5+39uZpTtBG72b9R2BcUchTB898XazHeR66
-         x91+mY0sUtETNC8MDtxR0zZdLiV4G1C7xoLjwE3C8CUfOUaM8WhBxvIr9xmkK1iXbT8t
-         vk3dak3NtD+kw6j14zQbpO0YM8WzyNMACJvoiy5vPg3wmtXyDxUN//lQLmpeQE71k+sI
-         hiCg==
-X-Forwarded-Encrypted: i=1; AKwUvBz4imhMxndWaG/+pk93356ZH5qyqx+LUy0Vcs1aSuhZsgYzvHW+9eRx96Npw0zYR5k0mFVx6DqgTOoS@vger.kernel.org
-X-Gm-Message-State: AFuF++n12rM5ijnldv7IEl6sOe0ZmFXJYEBabIh6S/f+jrJyzQknKdaN
-	ojtlGAFRdyTdylvrS8sh09JksOuG2yd/xcSVkfxSY1a9gveE6zs88vpjFSahsSdIOm+TOAUmVbv
-	1ZNOT9vDQ5vT3qDFUv22g9YURAJUl1hKnpwpDc6/T2cv82rxRCE1zx2tqNxTW7QUs
-X-Gm-Gg: AYBFou3Vh96bQiUCdmz9BaA9k2Dxgo8GaeIw51nNtd9aI/ZByf+Q8oOQlByeRboz1H/
-	B9dkrI/oiBEd9SXylQXKOIVo0jOiwOENxNUFXVaS10BeUVntZBcrMmHTx5uYgA0Pulxes6s6thO
-	PYjIgw7oQqVXejkbyREXJINqBF5uzRH7+jHSgHqeI3e/UfBml1Uo7+OV9rmRLBahNbJ2BKq7saM
-	iAAVhcMvP+CULmrvn0IwMA0DHMCutQGwOY13zqnrhgpH3fXXycKn/xdYGkTx/OBDLd1k6E20hjM
-	kVxb98i68JAwr7Mkv1aj6BEaYfzZe0gt4t1Zz/ZwICMXTkS/LNuMdPRgIwvMNlYdW9eKt9BDl/1
-	IJsAttLSlXD5OqQ==
-X-Received: by 2002:a17:90b:54c3:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39b2612ecebmr53996890a91.9.1788953657101;
-        Wed, 09 Sep 2026 04:34:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:54c3:b0:398:d6e8:f84e with SMTP id 98e67ed59e1d1-39b2612ecebmr53996780a91.9.1788953656466;
-        Wed, 09 Sep 2026 04:34:16 -0700 (PDT)
-Received: from oss.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-339770f0489sm12225302eec.8.2026.09.09.04.34.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 04:34:16 -0700 (PDT)
-Date: Wed, 9 Sep 2026 17:04:09 +0530
-From: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Anurag Pateriya <apateriy@qti.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Andrew Lunn <andrew+netdev@lunn.ch>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-Subject: Re: [PATCH PRELIMINARY 1/5] arm64: dts: qcom: shikra-iqs-som: fix
- GPIO138 reservation
-Message-ID: <aqFEMWZOjK/DyeII@oss.qualcomm.com>
-References: <20260908-shikra_ethernet_dts-v1-0-69c0c5c7c124@oss.qualcomm.com>
- <20260908-shikra_ethernet_dts-v1-1-69c0c5c7c124@oss.qualcomm.com>
- <4aee70eb-bd1d-4320-8921-e55bb8e0d176@kernel.org>
- <98602703-4a1c-4e91-b7bf-934bb9894eb7@kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hDZ/cSx0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788953706;
+	bh=vWtYzgFoGyDW55i1EvWYaGwYdE+b+139zE1xcTgIGLg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=hDZ/cSx0bzccFpphdPKKNtfp6k0jlDQ1n23WXH3eE8oCcTUe/6KRHEt6rQC8pSJJZ
+	 10Shmt7hi2kahfuAmSUfXa7VNc2TN3DUfB5SlCo5s3+YqyYUfee8bdf0cDgKEfmniS
+	 vrPtpgIJATczURXsqnfmQKIBE95ehYnJozWK3RNRjguiZPDGZqqdVfjSxdGLWKMlks
+	 1dMsp+ZBWQo7DC+h/WQOCVAlgpzrZJ2Eiw3wGypOa44P9/GF61uvy3Q6jvQIvb3QmE
+	 FNL736Ore/nnmdh6QheYCK0gCxI3ZZJ4LhqGO8Mw3itzK984Q5Yna3nSLCIJzCusRH
+	 t7/vTN9j8OSkQ==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0E53017E0917;
+	Wed, 09 Sep 2026 13:35:06 +0200 (CEST)
+Message-ID: <6800d4bc-cb1e-4807-a302-3f5d7a3a53e8@collabora.com>
+Date: Wed, 9 Sep 2026 13:35:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <98602703-4a1c-4e91-b7bf-934bb9894eb7@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEyOCBTYWx0ZWRfX2XLnkcpYCxIA
- kTQUrEAVZoVlBQHxzBa9Q/rMMrDKd3fALv1qVnxFT6fG6yfMUICaoyv/v6NlG3sacO/5ggHeKOh
- 72Oe/j3X/sajiqDp34Ebvyq1s0+E4WM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEyOCBTYWx0ZWRfXzjohpIc7R9ab
- qeN9zolIRYSgnwVoVKQs1p7ORb4kPBeFx6sS6R1/M14QhvWr2+Tr4nyu06ZZUDx9+l8X+hQnidi
- VuA6z+iDHLb+/sA6YYA4BMRCC6zZSyl8+A2+CnAWl9WEdRjLLPMFy+PgmZ/6KRdGNofH1BRqrX9
- ye3Rj1qHZChsi0XoaK85UWl0dJu8YWArg+3cqhzdSYB4hBcely1k3dG+tUZDOvJiC/ElWUT1qnM
- 2W1wWVFS92yKjshyeywjZZP7ZDkGZdWG4OxjyJbl9vNgsMYF5QaZ0+QFm3MWe2zmKG8njTrodRd
- a/hctnd4vy18Z8JpNlSqNGBJP1FfRKc5aVbly6fyHvtiXy9UGoCDGkiv5V+2fJ8DMfz8NypsJYs
- aS4qVplQ0E6DzAWx7Xct9g43N1yw29LMKA7U9mDuE8RC7oHZHpvRXrQqGpd4IL6sme4iJCg1sW2
- CuX7+dNT0lpaczOYbAA==
-X-Authority-Analysis: v=2.4 cv=B6qJFutM c=1 sm=1 tr=0 ts=6aa1443a cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=sXEucBwicj8mESCGqQQA:9 a=CjuIK1q_8ugA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: rZxsR8hwkLDpcMqg05oMHtWSD1eCaMPD
-X-Proofpoint-ORIG-GUID: rZxsR8hwkLDpcMqg05oMHtWSD1eCaMPD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 malwarescore=0
- bulkscore=0 clxscore=1015 impostorscore=0 lowpriorityscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090128
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/12] drm/mediatek: mtk_dp: Rework register offsets
+ for proper PHY usage
+To: =?UTF-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>,
+ "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+Cc: "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+ "kernel@collabora.com" <kernel@collabora.com>,
+ "robh@kernel.org" <robh@kernel.org>,
+ Alexandre Mergnat <amergnat@baylibre.com>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>,
+ "dmitry.osipenko@collabora.com" <dmitry.osipenko@collabora.com>,
+ =?UTF-8?B?Sml0YW8gU2hpICjnn7PorrDmtpsp?= <jitao.shi@mediatek.com>,
+ "simona@ffwll.ch" <simona@ffwll.ch>, "mripard@kernel.org"
+ <mripard@kernel.org>,
+ "maarten.lankhorst@linux.intel.com" <maarten.lankhorst@linux.intel.com>,
+ "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "linux-mediatek@lists.infradead.org" <linux-mediatek@lists.infradead.org>,
+ =?UTF-8?B?SmFzb24tSkggTGluICjmnpfnnb/npaUp?= <Jason-JH.Lin@mediatek.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+ "granquet@baylibre.com" <granquet@baylibre.com>,
+ "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>,
+ "airlied@gmail.com" <airlied@gmail.com>,
+ =?UTF-8?B?SnVzdGluIFllaCAo6JGJ6Iux6IyCKQ==?= <Justin.Yeh@mediatek.com>,
+ "matthias.bgg@gmail.com" <matthias.bgg@gmail.com>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ =?UTF-8?B?UmV4LUJDIENoZW4gKOmZs+afj+i+sCk=?= <Rex-BC.Chen@mediatek.com>
+References: <20260709113148.49090-1-angelogioacchino.delregno@collabora.com>
+ <20260709113148.49090-7-angelogioacchino.delregno@collabora.com>
+ <ad5343f93cc992dca96b42f6cb81868de0458f70.camel@mediatek.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <ad5343f93cc992dca96b42f6cb81868de0458f70.camel@mediatek.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 09, 2026 at 01:30:04PM +0200, Krzysztof Kozlowski wrote:
-> On 09/09/2026 13:24, Krzysztof Kozlowski wrote:
-> > On 08/09/2026 08:23, Mohd Ayaan Anwar wrote:
-> >> The GPIO mappings on the IQS variant differ from the CQ variants.
-> >> GPIO138 is connected to the RGMII1_RX_CTL pin rather than the NFC ESE
-> >> Secure IO pin; the latter is connected to GPIO49. This incorrect
-> >> reservation causes the probe of the second Ethernet port to fail:
-> >>
-> >>   shikra-tlmm 500000.pinctrl: error -EINVAL: pin-138 (5d20000.ethernet)
-> >>   shikra-tlmm 500000.pinctrl: error -EINVAL: could not request pin 138
-> >>   (GPIO_138) from group gpio138 on device 500000.pinctrl
-> >>   qcom-ethqos 5d20000.ethernet: Error applying setting, reverse things back
+On 8/28/26 05:32, CK Hu (胡俊光) wrote:
+> On Thu, 2026-07-09 at 13:31 +0200, AngeloGioacchino Del Regno wrote:
+>> Rework all of the register offsets to subtract the DP PHY register
+>> range from the MediaTek DisplayPort IP register range which starts
+>> from TOP_OFFSET instead.
+>>
+>> This is done in preparation for adding support for registering the
+>> PHY from devicetree, and also for properly handling PHY registers
+>> in the PHY driver (instead of half and half...), which is also one
+>> prerogative to add support for new IP versions in the future.
+>>
+>> Note that the current regmap_config was renamed to make sure that
+>> it being legacy is mentioned, as a new config will be required in
+>> future changes.
+>>
+>> Of course, with the TOP offset being related to hardware registers
+>> this will never change for the currently supported SoCs, hence for
+>> simplifying code, the MTK_DP_TOP_OFFSET_LEGACY is added statically
+>> to the legacy regmap configuration while, on the other hand, it is
+>> added dynamically to the mtk_dp structure, as the latter is used
+>> to add an offset to every register write in the mtk_dp driver.
+>>
+>> The regmap_config provided reg_base (which does exactly the same)
+>> cannot be used here, because the PHY driver is using the very same
+>> regmap pointer, and the offset shall not be taken into account in
+>> writes performed by the PHY driver (only ones performed by mtk_dp!).
+>>
+>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>> ---
+>>   drivers/gpu/drm/mediatek/mtk_dp.c     | 101 +++++-----
+>>   drivers/gpu/drm/mediatek/mtk_dp_reg.h | 255 ++++++++++++--------------
+>>   2 files changed, 179 insertions(+), 177 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
+>> index b50264ca1f31..b2e5fa0914bc 100644
+>> --- a/drivers/gpu/drm/mediatek/mtk_dp.c
+>> +++ b/drivers/gpu/drm/mediatek/mtk_dp.c
+>> @@ -35,6 +35,27 @@
+>>   
+>>   #include "mtk_dp_reg.h"
+>>   
+>> +/* PHY Registers - for legacy only */
+>> +#define DP_PHY_GLB_BIAS_GEN_00		0x0
+>> +#  define RG_XTP_GLB_BIAS_INTR_CTRL	GENMASK(20, 16)
 > 
-> 
-> Apply this patch and reproduce it. Is is possible? Didn't we talk about
-> this already?
-> 
-> >>
-> >> Replace gpio138 with gpio49 in the reserved list.
-> >>
-> >> Fixes: 779aead2dace ("arm64: dts: qcom: shikra: Add gpio-reserved-ranges to tlmm")
-> >> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> >> ---
-> >>  arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi | 2 +-
-> >>  1 file changed, 1 insertion(+), 1 deletion(-)
-> >>
-> > 
-> > This looks duplicating:
-> > https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
-> > 
-> 
-> Ah, no, mixed patches. Duplication is between other works:
-> https://lore.kernel.org/all/20260820085347.822-1-xueyao.an@oss.qualcomm.com/
-> https://lore.kernel.org/all/20260826-shikra-dtpm-v4-1-8476223184de@oss.qualcomm.com/
-> 
-> But nevertheless I am sure we talked about this, that commit msg and is
-> not accurate... Cannot find the thread, though...
+> Align the register definition indent to other mtk dp register definition.
 > 
 
-Yes, I'll reword the commit message so it reads as a prerequisite for
-enabling Ethernet rather than implying a current break. Also, the Fixes:
-needs to be dropped as mentioned by Andrew.
+The plan is to make cosmetic changes later to align all register definitions
+in the entire mediatek-drm to follow that, because this indent style is a bit
+more readable, especially when definitions get a bit more complex.
 
+#define REGISTER
+#  define REG_BITMASK0
+#    define BITMASK_RELATIVE_VALUE
+#  define REG_BITMASK1
 
-	Ayaan
+>> +#define DP_PHY_GLB_DPAUX_TX		0x8
+>> +#  define RG_CKM_PT0_CKTX_IMPSEL	GENMASK(23, 20)
+>> +#define MTK_DP_0034			0x34
+>> +#  define DA_CKM_CKTX0_EN_FORCE_EN	BIT(10)
+>> +#define DP_PHY_LANE_TX_0		0x104
+>> +#define DP_PHY_LANE_TX_1		0x204
+>> +#define DP_PHY_LANE_TX_2		0x304
+>> +#define DP_PHY_LANE_TX_3		0x404
+>> +#  define RG_XTP_LNx_TX_IMPSEL_PMOS	GENMASK(15, 12)
+>> +#  define RG_XTP_LNx_TX_IMPSEL_NMOS	GENMASK(19, 16)
+>> +#define DP_PHY_AUX_RX_CTL		0x1040
+>> +#  define RG_DPAUX_RX_VALID_DEGLITCH_EN	BIT(2)
+>> +#  define RG_XTP_GLB_CKDET_EN		BIT(1)
+>> +#  define RG_DPAUX_RX_EN		BIT(0)
+>> +
+> 
+> [snip]
+> 
+>>   static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 offset, u32 val)
+>>   {
+>> -	int ret = regmap_write(mtk_dp->regs, offset, val);
+>> +	int ret = regmap_write(mtk_dp->regs, offset + mtk_dp->legacy_regoff, val);
+>>   
+>>   	if (ret)
+>>   		dev_err(mtk_dp->dev,
+>> @@ -436,7 +460,7 @@ static int mtk_dp_write(struct mtk_dp *mtk_dp, u32 offset, u32 val)
+>>   static int mtk_dp_update_bits(struct mtk_dp *mtk_dp, u32 offset,
+>>   			      u32 val, u32 mask)
+>>   {
+>> -	int ret = regmap_update_bits(mtk_dp->regs, offset, mask, val);
+>> +	int ret = regmap_update_bits(mtk_dp->regs, offset + mtk_dp->legacy_regoff, mask, val);
+>>   
+>>   	if (ret)
+>>   		dev_err(mtk_dp->dev,
+>> @@ -566,7 +590,8 @@ static int mtk_dp_set_color_format(struct mtk_dp *mtk_dp,
+>>   			   DP_TEST_COLOR_FORMAT_MASK);
+>>   
+>>   	mtk_dp_update_bits(mtk_dp, MTK_DP_ENC0_P0_303C,
+>> -			   val, PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK);
+>> +			   FIELD_PREP(PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK, val),
+> 
+> This is not related to register offset, so move to other patch.
+> 
+>> +			   PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK);
+>>   	return 0;
+>>   }
+>>   
+> 
+> [snip]
+> 
+>>   static int mtk_dp_phy_configure(struct mtk_dp *mtk_dp,
+>> @@ -1401,21 +1414,21 @@ static void mtk_dp_power_enable(struct mtk_dp *mtk_dp)
+>>   			   SW_RST_B_PHYD, SW_RST_B_PHYD);
+>>   	mtk_dp_update_bits(mtk_dp, MTK_DP_TOP_PWR_STATE,
+>>   			   DP_PWR_STATE_BANDGAP_TPLL, DP_PWR_STATE_MASK);
+>> -	mtk_dp_write(mtk_dp, MTK_DP_1040,
+>> +	regmap_write(mtk_dp->regs, DP_PHY_AUX_RX_CTL,
+>>   		     RG_DPAUX_RX_VALID_DEGLITCH_EN | RG_XTP_GLB_CKDET_EN |
+>>   		     RG_DPAUX_RX_EN);
+>> -	mtk_dp_update_bits(mtk_dp, MTK_DP_0034, 0, DA_CKM_CKTX0_EN_FORCE_EN);
+>> +	regmap_clear_bits(mtk_dp->regs, MTK_DP_0034, DA_CKM_CKTX0_EN_FORCE_EN);
+> 
+> How do you know MTK_DP_1040 has a meaningful name DP_PHY_AUX_RX_CTL?
+
+Datasheet states the name.
+
+> Why don't you know MTK_DP_0034 has a meaningful name?
+
+...datasheet doesn't state the name :-)
+
+> 
+>>   }
+>>   
+>>
+> 
+> [snip]
+> 
+> 
+>> @@ -69,43 +29,59 @@
+>>   #define DP_TX2_PRE_EMPH_MASK			GENMASK(19, 18)
+>>   #define DP_TX3_VOLT_SWING_MASK			GENMASK(25, 24)
+>>   #define DP_TX3_PRE_EMPH_MASK			GENMASK(27, 26)
+>> -#define MTK_DP_TOP_RESET_AND_PROBE	0x2020
+>> +#define MTK_DP_TOP_RESET_AND_PROBE	0x20
+>>   #define SW_RST_B_PHYD				BIT(4)
+>> -#define MTK_DP_TOP_IRQ_MASK		0x202c
+>> +#define RG_SW_RST_MASK				GENMASK(7, 0)
+>> +#define RG_SW_RST				0xff
+>> +#define RG_PROBE_LOW_SEL_MASK			GENMASK(18, 16)
+>> +#define RG_PROBE_LOW_SEL			BIT(16)
+>> +#define RG_PROBE_LOW_HIGH_SWAP_MASK		BIT(23)
+>> +#define RG_PROBE_LOW_HIGH_SWAP			BIT(23)
+> 
+> These new definition is not related to this patch, so move to other patch.
+> 
+>> +
+>> +#define MTK_DP_TOP_IRQ_MASK		0x2c
+>> +#define ENCODER_IRQ_MSK				BIT(0)
+>> +#define TRANS_IRQ_MSK				BIT(1)
+> 
+> Ditto.
+> 
+>>   #define IRQ_MASK_AUX_TOP_IRQ			BIT(2)
+>> -#define MTK_DP_TOP_MEM_PD		0x2038
+>> +
+>> +#define MTK_DP_TOP_MEM_PD		0x38
+>>   #define MEM_ISO_EN				BIT(0)
+>>   #define FUSE_SEL				BIT(2)
+>>   
+>> -/* offset: ENC0_OFFSET (0x3000) */
+>> -#define MTK_DP_ENC0_P0_3000			0x3000
+>> +#define EDP_TX_TOP_CLKGEN_0		0x74
+>> +#define EDP_TX_TOP_CLKGEN_REST_MASK		0xf
+>> +#define EDP_TX_TOP_CLKGEN_REST_VALUE		0xf
+> 
+> Ditto.
+> 
+>> +
+>> +/* offset: ENC0_OFFSET (0x1000) */
+>> +#define MTK_DP_ENC0_P0_3000			0x1000
+>>   #define LANE_NUM_DP_ENC0_P0_MASK			GENMASK(1, 0)
+>>   #define VIDEO_MUTE_SW_DP_ENC0_P0			BIT(2)
+>>   #define VIDEO_MUTE_SEL_DP_ENC0_P0			BIT(3)
+>>   #define ENHANCED_FRAME_EN_DP_ENC0_P0			BIT(4)
+>> -#define MTK_DP_ENC0_P0_3004			0x3004
+>> +#define DP_I_MODE_ENABLE				BIT(6)
+>> +#define REG_BS_SYMBOL_CNT_RESET				BIT(7)
+> 
+> Ditto.
+
+Ok
+
+> 
+>> +#define MTK_DP_ENC0_P0_3004			0x1004
+>>   #define VIDEO_M_CODE_SEL_DP_ENC0_P0_MASK		BIT(8)
+>>   #define DP_TX_ENCODER_4P_RESET_SW_DP_ENC0_P0		BIT(9)
+>>   #define SDP_RESET_SW_DP_ENC0_P0				BIT(13)
+>>
+> 
+> [snip]
+> 
+>>   #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_8BIT		(3 << 8)
+>>   #define VIDEO_COLOR_DEPTH_DP_ENC0_P0_6BIT		(4 << 8)
+>>   #define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_MASK		GENMASK(14, 12)
+>> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		(0 << 12)
+>> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422		(1 << 12)
+>> -#define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420		(2 << 12)
+>> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RGB		0
+>> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR422	1
+>> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YCBCR420	2
+> 
+> You change the value. Why?
+> 
+
+That's done in order to use the FIELD_PREP macro.
+
+Cheers,
+Angelo
+
+> Regards,
+> CK
+> 
+>> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_YONLY		3
+>> +#  define PIXEL_ENCODE_FORMAT_DP_ENC0_P0_RAW		4
+>>   #define VIDEO_MN_GEN_EN_DP_ENC0_P0			BIT(15)
+>> -#define MTK_DP_ENC0_P0_3040			0x3040
+>> +#define MTK_DP_ENC0_P0_3040			0x1040
+>>   #define SDP_DOWN_CNT_DP_ENC0_P0_VAL			0x20
+>>   #define SDP_DOWN_CNT_INIT_DP_ENC0_P0_MASK		GENMASK(11, 0)
+>>
+> 
+
