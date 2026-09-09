@@ -1,234 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5E03921C6
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 18:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324C33955DE
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 18:03:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976802; cv=none; b=HOxBufA7Y3Uurf4ynAwsAMu8e0j8TCLfF0eTb4i5J1zHON43kst2MERZ0YVKD/aSdpATUHNHKoDFTVolFkheESv1JJ4YxSYOR9sUalocfAC+aZaWfTjwu8vi8BF1GtbtvMs6CCHroXeD5o3SuvgWUcKCvYD0nNuiR/z45NKpqbg=
+	t=1788977008; cv=none; b=BUKBu3acKtJayy5v/GR7Bu01S+K2VuHf5Y97inSyztSyZ21q7VZr2Ri+qdvvEzd3eCWdFWcCc/qHhcTn0zl4nc2b2b0arSyXCXmlwVmHzsq/16ny7BbLgH279JfQd5mF/m3TIf3W3d24TABKD18Z8IUROqrMeTglVoDRq58t49w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976802; c=relaxed/simple;
-	bh=Gb/c4t7QF9QkmzIh6GwcR/d33OMUnxNBxN+I7+8XwFU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MPMXLARWDShhlcmp98mgR6NfwzO5tboB90wTiiGu0vk0vA2ZDmf9ap3WjBCxLhlxEUgkVT1lxJxyfy8FnIXHKrouWwW+VnrGK7sU5HWRtpem4iX8xjFYKWlUAFsP9s4JPgI8/C1DTca98jvklW2qcpLGKsqlLvspDnkEgrJ0maU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TN7zUHWm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788977008; c=relaxed/simple;
+	bh=h0+O/uLPWOX80ES9M0XKdB5md+a2oSQUnkWr/gWIyaY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/N/Z4+moUwCACh44SsAtyVPnMZAHV4uy2bB6ywPQbYdbCzS2M/HwITxMFWpvFI7uInxRuvynnX0Oa4PAh7dQcURJc+gr9MKelygzXJo41BCHDxufrjN0I0Z1EANvWPWMQbM0AM1KvnR0vANVBCw01cy9+XlMhDut6zs57g3dZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sSuSjSAv; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TN7zUHWm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BF71F000FF;
-	Wed,  9 Sep 2026 18:00:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788976801;
-	bh=iTarC5nn06l6wZr09nuP18ND0COo7EAilgusNPQmmgQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TN7zUHWmDc4RN9v1qMPYWuSh26OWNklVdvC6U/YhFEpVWHdBi3BQSy+r4asP/eMeM
-	 8wDw46b7dQQh6a2NGfcKouvZ5Q/x/NETLnxf8ESQbze7Vd16tWrkOTgW8KLpSM3yWQ
-	 nth06gn4BUBIHKD/uprLmKu15khjorrq6qhvbu8EN/Qh9wdQXriCjfRzcndUqwMISy
-	 l9Ay8kFWz0ed40/n7cF13oQy9Qir9PAtljsZQS9YIbGhnKJk40ktej5uXkjOIhekjk
-	 JVaOVCFBifoNgRShJ2aKaMqw0KecASHh0I0F1BBzBJm/pHAQplQ72tA2zbq8GiYbIE
-	 s9KX1alzxUuYA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] media: i2c: Add Sony IMX681 sensor driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sergey Lebedev" <lsa.uz@pm.me>
-Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260909174240.80023-3-lsa.uz@pm.me>
-References: <20260909174240.80023-1-lsa.uz@pm.me>
- <20260909174240.80023-3-lsa.uz@pm.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 17:59:59 +0000
-Message-Id: <20260909180000.A8BF71F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sSuSjSAv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso8678075e9.0
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 11:03:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788977004; x=1789581804; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bjvBiyvh/g8+fag4d0kfWnymDoayXnCGlAJvwIriZP8=;
+        b=sSuSjSAvW8G2BiaFjsjQTtHpBnXuK45djz92Q9LkrjJF0eLYfXK5ORDPxf1bLn6zL3
+         YJ2X6HCYZJxZV8UHdllvGXuNgyAUpiFgmJBFB0u9t4Xzjr2e+oc6A4M7WHeMz7NdxTII
+         CKrvrQexlLxFuMUkdB2/6i/bpZzDk3OgZZfU+T64Brce7xRpJamNgA8cym6f/1u1MHDE
+         nWZBsOlUiaIpXxmm3vW5ZG0UpKyoch37Ewz6+H+VvumF/vNAHvW2eM3VGFC0w8A4B1j3
+         uoEhVMBfdLKk+K4PcVTUfuJnuGsqctxjt7mb44UlW4Bo4Ge7pG7rzPt9cm/drMKazaZX
+         L5aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788977004; x=1789581804;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=bjvBiyvh/g8+fag4d0kfWnymDoayXnCGlAJvwIriZP8=;
+        b=rEKfHyXDE2w8GcGByC9uZzaMloPt38gnWDuC8/uvu290p7BIFeteRzuo4s4WeUMFw3
+         WaEat5FkM2a5J6VZ860fWdAF4cGPP+GcgYMubOiJPEmbgb0SZMayZPeYRGKe9QGNxRGv
+         9ZjgkLOWR15vKl7wD/B4DmynSm4Wrirykg2DbTAOEipplDNoEahoLEk3XSOxboZ41vnK
+         4FJd3kQgXNlQYN2R37ysE4Adj8UVr2zkrk1w5EHwijpcMCdYNScPIgL1jSFO/i1qcnlB
+         45xNusdMxgO67ErR9ndGhLVemkYZ9uvCPqCr0+8cGmO5jFoWaHX7UVCyNI1O3/6e1Xdm
+         5L1w==
+X-Forwarded-Encrypted: i=1; AKwUvBxzI/wRFXL79emji7GtSEBk1bu1WoXeUwAZ7S5vdU/JsCXXIZAZI0pYIn2QqTHSZ10s+j3PJAiEl/Kh@vger.kernel.org
+X-Gm-Message-State: AFuF++n60sYVT27M4Gw+A5H21U15iR6LABs3WrbLwO1FVDB8eYTaynbj
+	RYhvFbaydkrKxunuy4O7qqtJOzVFJN9/w1adpLaCtP/9i2bVaMlleE0m
+X-Gm-Gg: AYBFou3eJ4i/kOvDsoyYPi5m5DlkoaUdy7YzOGNHTkF0rNMaKIM+rlQgUlUXQbJV369
+	TW38tUeINfOLAy8X1a5GoCi227q68bO/v1hIR8UcNfs2OdeewhCHls0/OA/VDUliZm2JI++n01U
+	W2U3KJfOeoBFHisxFyjfR00o9wcsNWVN6xQIOqjVJteitd6HqCgDKFZvQp8IcyWkz+Q6OndHEtH
+	ac7Mqc+JL0XpuUa0JKa9zvuloAZ9qek85R10cXRfsiqFJLSGsFqOQnHZrSCuJggqHw2VFtNZxYk
+	2Lrcg893DIZn8g0iNJ2pKwY7Zd/Pq6SWaU/zKrzI3MoGE2ipQeCID55g8K9K9+52FrXQdpjjRwl
+	EwK41sQqAbJt2Y9WglNVKz8MSFkjFngoxg/94ho1ipixvqle3sV317LsthDEFZ0JzGrKQZAxk4J
+	4Nva2fi/QZ3stgt9AKj2dah1HK2l5JdDTZ3lvbwXlwYybCXIun6crD0Y73UoOKgl1B6HcWwCW6
+X-Received: by 2002:a05:600d:8647:10b0:499:59fd:dbfc with SMTP id 5b1f17b1804b1-49d26d863famr4558255e9.1.1788977004041;
+        Wed, 09 Sep 2026 11:03:24 -0700 (PDT)
+Received: from antoniarch ([37.163.183.38])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20db6e76sm76460505e9.3.2026.09.09.11.03.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 11:03:23 -0700 (PDT)
+Date: Wed, 9 Sep 2026 20:01:39 +0200
+From: Antoni Pokusinski <apokusinski01@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-rtc@vger.kernel.org, robh@kernel.org, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v6 3/9] rtc: abx80x: add mutex protection for register
+ writes
+Message-ID: <aqGeyGaUriVsueZ2@antoniarch>
+References: <20260907203216.53192-1-apokusinski01@gmail.com>
+ <20260907203216.53192-4-apokusinski01@gmail.com>
+ <20260907204634.2A7C11F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260907204634.2A7C11F00A3A@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Ignoring devm_regulator_bulk_get() return value causes NULL pointe=
-r dereference and Use-After-Free during regulator_bulk_enable().
-- [High] Potential NULL pointer dereference in imx681_set_pad_format() when=
- state is NULL.
-- [High] Incorrect check of pm_runtime_get_if_active() return value leads t=
-o hardware access while suspended and reference count underflow.
-- [High] Unclustered controls V4L2_CID_ANALOGUE_GAIN and V4L2_CID_DIGITAL_G=
-AIN clash over the same hardware register.
-- [Medium] Missing pm_runtime_put_noidle() on the probe error path leads to=
- a PM usage counter leak.
---
-
-commit def0570ed5235b7103f00a2f2f7f233dec35fdd6
-Author: Andre Gilerson <andre.gilerson@gmail.com>
-Subject: media: i2c: Add Sony IMX681 sensor driver
-
-This commit adds support for the Sony IMX681 sensor, used in the
-Microsoft Surface Pro 11 for Business. It implements standard V4L2
-subdev APIs, CCI register access, runtime PM, and streams support based
-on register sequences recovered from I2C traces.
-
-> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
-> new file mode 100644
-> index 0000000000000..78c8da89c6323
-> --- /dev/null
-> +++ b/drivers/media/i2c/imx681.c
-> @@ -0,0 +1,900 @@
-[ ... ]
-> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-[ ... ]
-> +	/* Only apply controls to hardware when streaming */
-> +	if (!pm_runtime_get_if_active(imx681->dev))
-> +		return 0;
-
-[Severity: High]
-Does this incorrectly treat negative error codes from
-pm_runtime_get_if_active() as a success condition?
-
-pm_runtime_get_if_active() returns a negative error code (like -EINVAL) when
-Runtime PM is disabled. Because negative values are non-zero, this check
-evaluates to false and execution proceeds to access the hardware, which cou=
-ld
-be powered off.
-
-[ ... ]
-> +	case V4L2_CID_ANALOGUE_GAIN: {
-[ ... ]
-> +		cci_write(imx681->cci, IMX681_REG_ANALOG_GAIN, ana_code,
-> +			  &ret);
-> +		cci_write(imx681->cci, IMX681_REG_DIGITAL_GAIN, dig_reg,
-> +			  &ret);
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
-> +		dev_dbg(imx681->dev, "set gain code %d: analog=3D%d digital=3D0x%x, re=
-t=3D%d\n",
-> +			ctrl->val, ana_code, dig_reg, ret);
-> +		break;
-> +	}
-> +
-> +	case V4L2_CID_DIGITAL_GAIN:
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
-> +		cci_write(imx681->cci, IMX681_REG_DIGITAL_GAIN, ctrl->val,
-> +			  &ret);
-
-[Severity: High]
-Will this independent digital gain control blindly overwrite the compensato=
-ry
-value computed in the V4L2_CID_ANALOGUE_GAIN handler?
-
-Since these controls are unclustered, the framework applies them individual=
-ly
-in ID order when streaming starts. The digital component computed and writt=
-en
-by ANALOGUE_GAIN to IMX681_REG_DIGITAL_GAIN could be overwritten here, losi=
-ng
-the intended high-gain configuration.
-
-> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
-> +		dev_dbg(imx681->dev, "set digital gain: %d, ret=3D%d\n",
-> +			ctrl->val, ret);
-> +		break;
-[ ... ]
-> +	}
-> +
-> +	pm_runtime_put(imx681->dev);
-> +	return ret;
-> +}
-
-[Severity: High]
-If pm_runtime_get_if_active() failed and returned a negative error code, the
-usage counter was never incremented. Does this unconditional pm_runtime_put=
-()
-call corrupt the usage counter by causing an underflow?
-
-[ ... ]
-> +static int imx681_set_pad_format(struct v4l2_subdev *sd,
-> +				 struct v4l2_subdev_state *state,
-> +				 struct v4l2_subdev_format *fmt)
-> +{
-> +	struct v4l2_mbus_framefmt *format;
-[ ... ]
-> +	fmt->format.xfer_func =3D V4L2_XFER_FUNC_NONE;
-> +
-> +	format =3D v4l2_subdev_state_get_format(state, fmt->pad);
-> +	*format =3D fmt->format;
-
-[Severity: High]
-Is it possible for state to be NULL here, leading to a NULL pointer derefer=
-ence
-when v4l2_subdev_state_get_format() returns NULL?
-
-For subdevices without the V4L2_SUBDEV_FL_STREAMS flag, the media framework=
-'s
-check_state() wrapper does not enforce that state is non-NULL for active
-formats. If a bridge driver directly calls v4l2_subdev_call() and passes a =
-NULL
-active state, this will oops.
-
-[ ... ]
-> +static int imx681_power_on(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
-> +	struct imx681 *imx681 =3D to_imx681(sd);
-> +	int ret;
-> +
-> +	dev_dbg(imx681->dev, "power on\n");
-> +
-> +	ret =3D regulator_bulk_enable(IMX681_NUM_SUPPLIES, imx681->supplies);
-
-[Severity: High]
-Can this cause a crash in the regulator core if regulators were unavailable
-during probe?
-
-In imx681_probe(), the driver explicitly ignores failures from
-devm_regulator_bulk_get() to support ACPI setups. However, when that fails,=
- the
-regulator core's error path leaves the imx681->supplies array populated with
-NULL pointers or dangling pointers for partially acquired regulators. Calli=
-ng
-regulator_bulk_enable() on that invalid array dereferences them.
-
-[ ... ]
-> +static int imx681_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	ret =3D devm_regulator_bulk_get(imx681->dev, IMX681_NUM_SUPPLIES,
-> +				      imx681->supplies);
-> +	if (ret) {
-> +		dev_dbg(imx681->dev,
-> +			"regulators not available (expected on ACPI): %d\n",
-> +			ret);
-> +		/* Continue without regulators - INT3472 may handle power */
-> +	}
-
-[Severity: High]
-Since failures here are expected and ignored, does the imx681->supplies arr=
-ay
-need to be cleared to avoid the crash in imx681_power_on() mentioned above?
-
-[ ... ]
-> +	/* Enable runtime PM */
-> +	pm_runtime_set_active(imx681->dev);
-> +	pm_runtime_get_noresume(imx681->dev);
-> +	pm_runtime_enable(imx681->dev);
-> +	pm_runtime_set_autosuspend_delay(imx681->dev, 1000);
-> +	pm_runtime_use_autosuspend(imx681->dev);
-> +
-> +	/* Init V4L2 controls */
-> +	ret =3D imx681_init_controls(imx681);
-> +	if (ret)
-> +		goto error_pm;
-[ ... ]
-> +error_pm:
-> +	pm_runtime_disable(imx681->dev);
-> +	pm_runtime_set_suspended(imx681->dev);
-
-[Severity: Medium]
-Will this error path leak the runtime PM usage counter?
-
-The probe function increments the usage counter via pm_runtime_get_noresume=
-(),
-but this cleanup path does not decrement it with pm_runtime_put_noidle().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909174240.8002=
-3-1-lsa.uz@pm.me?part=3D2
+On Mon, Sep 07, 2026 at 08:46:33PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Incomplete mutex protection allows concurrent I2C reads to break configuration key sequences.
+> --
+> 
+> commit c33d071aef97a2d9a731cf3e557a1cf0fbf7c50c
+> Author: Antoni Pokusinski <apokusinski01@gmail.com>
+> 
+> rtc: abx80x: add mutex protection for register writes
+> 
+> The ABX80X RTC driver performs multi-step register operations such as
+> NVMEM transfers or register writes preceded by a configuration key
+> write. Add a mutex to serialize all the register writes to protect
+> these sequences against race conditions.
+> 
+> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
+> > index e4fd7b5d4b110..44de234efecf7 100644
+> > --- a/drivers/rtc/rtc-abx80x.c
+> > +++ b/drivers/rtc/rtc-abx80x.c
+> [ ... ]
+> > @@ -445,6 +458,7 @@ static ssize_t oscillator_store(struct device *dev,
+> >  				const char *buf, size_t count)
+> >  {
+> >  	struct i2c_client *client = to_i2c_client(dev->parent);
+> > +	struct abx80x_priv *priv = i2c_get_clientdata(client);
+> >  	int retval, flags, rc_mode = 0;
+> >  
+> >  	if (strncmp(buf, "rc", 2) == 0) {
+> > @@ -456,6 +470,8 @@ static ssize_t oscillator_store(struct device *dev,
+> >  		return -EINVAL;
+> >  	}
+> >  
+> > +	guard(mutex)(&priv->lock);
+> > +
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but since this commit aims to
+> protect configuration key sequences from race conditions, does this leave a
+> similar race open for concurrent I2C reads?
+>
+> If Thread A executes a protected write sequence (like oscillator_store), and
+> Thread B executes an RTC read operation, can Thread B's I2C read interleave
+> and reset the configuration key?
+>
+No, becasue reads do not cause configuration key reset
+> For example, abx80x_rtc_read_time() does not take priv->lock while reading
+> the ABX8XX_REG_HTH registers.
+> 
+> Similarly, abx80x_is_rc_mode() (called from sysfs and read_time) performs an
+> unlocked read of the ABX8XX_REG_OSS register.
+> 
+> The ABX8XX chip specification dictates that any intervening I2C read resets
+> the configuration key. This would leave the register locked, causing Thread
+> A's subsequent protected register write to silently fail without returning
+> an error to userspace.
+> 
+> Should priv->lock be taken during these read paths as well to fully prevent
+> I2C interleaving from aborting configuration key writes?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260907203216.53192-1-apokusinski01@gmail.com?part=3
