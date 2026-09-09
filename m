@@ -1,253 +1,134 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6544550DBB
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 18:55:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1683A31F9BD;
+	Wed,  9 Sep 2026 19:01:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980123; cv=none; b=VWF8r4Xj/9bDUNaivuh9Ly1U0W3HkKejd1omaSmNvEcb9dunjZKUXyyGNXY5L+lBN/uHtdClQ0v9kWCBqJYI/sdGeks3dhktGwsNzFgAF5HvkiIDdHj5mr9kLESGe2433EdcXKlEITaEEFHE40wb51UKDVZ/qm+FC8QBHRheYyw=
+	t=1788980487; cv=none; b=Ug+ykopVYdJJWCf+cVHskChNtfYxL3ge9a5KkNAG7wnW8wLh4J6dAhypATJek9IM/m7Ns95kYyj/aEoUzM9OpLU7FzGGoY3Mf17274ldYPvfzRSc7OBuTChzR6KVTAJ8EV8SCKfH4Exih2s/IDQVuj41+yxvZdSmB6w4QXzPCus=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980123; c=relaxed/simple;
-	bh=U1NdQA2aJNUMNdQHV1yvInMQLf5QuGfXhDOBIEUVFTg=;
+	s=arc-20240116; t=1788980487; c=relaxed/simple;
+	bh=wOYpV9+kjOSeRztAds1dW6IO0mPN7/x23ns19noRwvw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gqq+Tnpykxd2aUBNR4Fvz626mFyvYXJSgjmyQ88hobnEDAYtMt6Dm2V4i8gzEiATerMLd+gykYwqoI8nSfQ9C+zpVgI9BpIjfi08w2zRjwRACCSWciI987ANAOEDDctmE1oBxbaHIeK40HiyOJ26X+bu0ZCrIlMJ7Ab596HfgSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UBKV82pF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IirCt3Gu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=eqMun9bZhGnU7YYEIMKFbO9S25ostFeD/6FOC+sY2ceNa0z08VYJWZW4LZodsZZMDXIXIe0nONcCqQ2UjSIeisUvENfd9a6gB7ihUqE8A+Bu0ATuJE4PUWkpviGNd5ZspWPk1hh2rwdLBSW5TB+fUPnltXHp6K+mhiiWDxtygaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zOsDRFRz; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UBKV82pF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IirCt3Gu"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689IgBQF3343882
-	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 18:55:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=M5rvIWGTIvOTCE3UxEp1CtwJ
-	p24SA8aalhpVBxX9P4c=; b=UBKV82pFgJhLWH2fGpTDOEjWYD13vt/8iJpHl8CP
-	Wr99KKnwqJFy13Qd4uny+m/WphgkXa5cJ/2iqk8KchWGMv5GOzJvBZtqW0J53X5e
-	DWwKK2h8e1LdBzzOU2ilj3+96RVr853RiUg4DYPAh/ekLdJUW2vgs6Qah9bZKqzn
-	KKlCQF1AO6wDQd7rTmmaXaUUWjurunrQcUcPH50lY3way1V77/rcx5jZnZSdakXk
-	QoFrzV2r0wmw4j+vXJLlgjQk80PSz1wG92C0GQiY8FcFYOZsu2bsWmlCXHsExeCK
-	TOAWRQYBg3W1cogKlmAWR3bNqjA89QvEyn6+ocAG5M1UEA==
-Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcygg1mj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 18:55:18 +0000 (GMT)
-Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78bb7517525so860440137.3
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 11:55:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788980118; x=1789584918; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=M5rvIWGTIvOTCE3UxEp1CtwJp24SA8aalhpVBxX9P4c=;
-        b=IirCt3GuGiCMboTbA3d4HgfwpRQGh4tvs3IA9686PXb2KsPWswH4WeZ7rkML9EJX60
-         NAo+k+NA+ipBJu/MOAH5VNnroxp9po9TqPOmO/0U+f0TslYncH+WDxbM8JdajdY1bK2U
-         8YsuMxbkXM5rZ0DjAzyQUb0GymdPbHcH+cLhdULSiNh2M+9V38ahujt2O4Pcz5ZqTHjA
-         hife1/IjTndzyC/NiXfBiKnlzbw+wOk4nqcyCfq4fcJltMhGygPVjwdOlkd+DPvGfZI6
-         jHtDWEW4+lRiaiSfADliZPDbmpBtzoaOpQkU33bkLl052XejRxlgrYCfUgYmJnT7r0SJ
-         gANw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788980118; x=1789584918;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=M5rvIWGTIvOTCE3UxEp1CtwJp24SA8aalhpVBxX9P4c=;
-        b=XIg0jkVlbygeHYDAtQzAa6VhQ5rezZuSoTPinWxqTvkYzd06ry6QEDOla/v+pWex+g
-         uJQ8hs5KkLAhntf3j29SUL6qL4/ECeOwVPNtnRUBdpibt2USv9kSbcALr69NC+1A3KaI
-         zExDIXw9J32Vb9OymW0WMHLDmaKxmiXokbkyY2Iqe6FU7HlEzv0JFx7evbFLcOE+n6S0
-         q4S4Kq5UiIgel0WcwetiV3JUkNlCAbJD9aoCttFVCeb13r+cUaa+G9xMfGzTzV5ZVj+d
-         whO3aQJLBtuOMYTQGpK0gI+gus47496sdHyNuaX1ZEw8zLU433kjGi6KqLitHiTGWyNE
-         JoeQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxC96zJrlkAr7iPTiXNLNIukYAELl49+I8MR9zlBhHnLG5G2d/Zz2TZVTekjbzMOrvHTHCDoFVKgHJ2@vger.kernel.org
-X-Gm-Message-State: AFuF++nYSPrJ4phn857keEUBqTwVBQtYypUwh5lpT+nVkbdEoGL2SqFl
-	q+4wBHwg15U54OvsXOPoLDXr6wdHoLNl82Flh7qSSEFZsDzt6PhVP4iCAjh3DE79Iw/Pgg4qzaR
-	1xhCgld7xlwUDPX6IrHqT15evMWuhczpgVH0E1Vp19dHMaJaX6aN5yqo+j9wN943+
-X-Gm-Gg: AYBFou2xgGjgRFWRLFA1TY9rnY8jqnsyIHI03E/tzKXoKehJkdfEJN73+pWxVZQYExM
-	pz38BGjddmk5Z2v7TPn3uOPpcn68BHyJSIeli+FOhZlxEMsRcyQjt5sdl5+GGF+QUrQ8Sr2Nqaa
-	XyqAS1ozZx/VfzArIYQQh4mo1w3VTpo5pCODakqs9WDLyjfvxEIgQMtrTai5kUxoJnrKmLyt/TO
-	U+t2GBV/mSKFQ8A3qGvHVKovE7Bu7FxtMfhfYf4qExqA4Eli0aiDN3zrEnhM4jOou/VBpa4j566
-	7RfGFMh+jHSFyD5f6E0So7P83jZ4W2nWq3Hnm3QgKbymfsIaftwupVfo5RYSCC8dPMOZ1GyLefe
-	eCqAp7Qa9rSpXxw==
-X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id ada2fe7eead31-78a4a6c8a04mr16623458137.4.1788980117665;
-        Wed, 09 Sep 2026 11:55:17 -0700 (PDT)
-X-Received: by 2002:a05:6102:6b01:b0:785:3211:f5e4 with SMTP id ada2fe7eead31-78a4a6c8a04mr16623409137.4.1788980116994;
-        Wed, 09 Sep 2026 11:55:16 -0700 (PDT)
-Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26d49d57sm9738765e9.14.2026.09.09.11.55.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:55:15 -0700 (PDT)
-Date: Wed, 9 Sep 2026 20:55:15 +0200
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-To: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Andrew Davis <afd@ti.com>,
-        Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>,
-        Richard Cochran <richardcochran@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexandre Torgue <alexandre.torgue@foss.st.com>,
-        Giuseppe Cavallaro <peppe.cavallaro@st.com>,
-        Jose Abreu <joabreu@synopsys.com>,
-        Maxime Chevallier <maxime.chevallier@bootlin.com>,
-        Maxime Coquelin <mcoquelin.stm32@gmail.com>, netdev@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org,
-        linux-stm32@st-md-mailman.stormreply.com,
-        linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH net-next v2 9/9] net: stmmac: qcom-ethqos: add Shikra
- EMAC support
-Message-ID: <aqGrk9TLx8RJ4Xzr@lore-desk>
-References: <20260908-shikra_ethernet-v2-0-bbe3389d0652@oss.qualcomm.com>
- <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zOsDRFRz"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=4B+JtYnaN3jovWrVTtixgnxDuklodZXdvo3NMICFkTo=; b=zOsDRFRzoTis9Dak8q3yKb9spD
+	Zu936BpafKqNr/usumC1wIe0kkMMbVPxVZ86J0GNMIhqCb8lXZPPsRmyqiQqwL1vwwftxToYdyyyw
+	e3mhS/tZHQMxKLRjd39l9GLMSTUfe7+m7q7JJM+OaYKCIrcxYJJDIUSK3FYj7RJ7e05g=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4NXm-004MfQ-A1; Wed, 09 Sep 2026 21:01:14 +0200
+Date: Wed, 9 Sep 2026 21:01:14 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Aleksei Sviridkin <f@lex.la>
+Cc: andrew+netdev@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, horms@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ericwouds@gmail.com,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH net-next v2 0/7] net: mdio: an MDIO device driver for
+ the Airoha EN8811H
+Message-ID: <44f163ed-8362-4aad-99c9-f8709dfbed76@lunn.ch>
+References: <20260908155707.4164559-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hx4+qUIsDXNsQO4F"
-Content-Disposition: inline
-In-Reply-To: <20260908-shikra_ethernet-v2-9-bbe3389d0652@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIxMSBTYWx0ZWRfX7kMMaSWcCR/Z
- iPvNLm419hf5JCexNCpzFvcWvL3fisaNEEJiRkdGzi8PyO5WJNEdEYX7Wv+u22sMd+7ZxY3+ulp
- uUpxYJXW6kkD4ArbBVz//HxrKLiiFUY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIxMSBTYWx0ZWRfXz5+ARCgK0g9d
- 62LmJKrkqcMBqi8IU5Z5F8IC1XXDceWS7ZwW4SmNDYIoJCjqqorzbFRQOmbRUHrBy9yBFXvjtPl
- Eymlt97QoWL+RFYHeUgqOlUpnbJ/ZL9cyMM9iuoUQpCkcZBKQ+Jos3HNUwEEi26o39J6upp07RQ
- Y2ibiButaWKkFCsErwKI0TOhru4umQte931oEp7ZTaD+Ahw9tXvbbF8Rj7CgGoRWb4n0e+WDutq
- n1wHk2xkBAHJZnNO+lioW50Dz0WwJPpOYVHQBXXK/vVpJnmu8f3ySFQQsjUCpufpjYAeJnWomMh
- qk8tEI73/UfMZMg5Rx2RXl0j5tkfY/cgJXvUuU+ynuUIvAdhbeEw6mBVPiGjQeE46sR/hR9FF8Z
- KhR8ZVPodkS1rYm/wSGYTQbZMEuJUcWYZrUXnD3px6LleuhUq8scrqSgDikm+D3VNORnvApW+9R
- WtTz8B5j2RNmV42E8Cw==
-X-Proofpoint-ORIG-GUID: eisJad86ZC74qFT86pfmiMqhy2DU4hNb
-X-Proofpoint-GUID: eisJad86ZC74qFT86pfmiMqhy2DU4hNb
-X-Authority-Analysis: v=2.4 cv=Z/F5j3RA c=1 sm=1 tr=0 ts=6aa1ab96 cx=c_pps
- a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
- a=DFbXc3gujWXi7Ms4cGQA:9 a=CjuIK1q_8ugA:10 a=AyJwBSL0_NbV6ZD5tKsA:9
- a=gYDTvv6II1OnSo0itH1n:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- impostorscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609090211
-
---hx4+qUIsDXNsQO4F
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260908155707.4164559-1-f@lex.la>
 
-> Shikra integrates two Qualcomm ETHQOS controllers based on the Synopsys
-> GMAC IP, similar to previous platforms.  Register qcom,shikra-ethqos
-> backed by a new shikra_data descriptor that enables the three NOC clocks
-> required for DMA memory access (axi-noc, pcie-tile-axi-noc, stmmaceth)
-> all at 120 MHz, and the 36-bit DMA address width.
->=20
-> As part of the NOC clock voting logic, the qcom-ethqos glue driver takes
-> a second enable reference on the "stmmaceth" clock, which is already
-> enabled by the stmmac core. All three clocks in shikra_noc_clks[] must
-> run at 120 MHz for NOC access, and managing "stmmaceth" through the same
-> clk_bulk path keeps the rate-setting and enable/disable together.
->=20
-> Signed-off-by: Mohd Ayaan Anwar <mohd.anwar@oss.qualcomm.com>
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c    | 31 ++++++++++++++++=
-++++++
->  1 file changed, 31 insertions(+)
->=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/dr=
-ivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 8871d285941162c72e2a8f79d2eef915d9283796..c474f1e5a043777a52bcbff8a=
-488640f6dbdca30 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -328,6 +328,36 @@ static const struct ethqos_emac_driver_data emac_v4_=
-0_0_data =3D {
->  	},
->  };
-> =20
-> +static const struct ethqos_noc_clk_cfg shikra_noc_clks[] =3D {
-> +	{ "axi-noc", 120000000 },
-> +	{ "pcie-tile-axi-noc", 120000000 },
-> +	{ "stmmaceth", 120000000 },
-> +};
-> +
-> +static const struct ethqos_emac_driver_data shikra_data =3D {
-> +	.dma_addr_width =3D 36,
-> +	.has_emac_ge_3 =3D true,
-> +	.noc_clk_cfg =3D shikra_noc_clks,
-> +	.num_noc_clks =3D ARRAY_SIZE(shikra_noc_clks),
-> +	.rgmii_config_loopback_en =3D false,
-> +	.dwmac4_addrs =3D {
+On Tue, Sep 08, 2026 at 03:57:00PM +0000, Aleksei Sviridkin wrote:
+> The Airoha EN8811H answers its PHY ID from power-on, but it is an MD32
+> microcontroller until the host loads firmware into its volatile RAM.
+> Today one driver owns both roles: the PHY driver downloads the firmware
+> from .probe(), which works only when the files are readable by then and
+> leaves the reset line in the hands of a PHY node whose detach wipes what
+> was loaded.
 
-nit: this part seems in common between emac_v3_0_0, emac_v4_0_0 and
-shikraemac_v3_0_0, emac_v3_0_0 and shikra.
-Can we add a common definition? E.g.
+I think because you are sending this as RFC, the AI bots are ignoring
+it. I also think it is not getting build testing etc.
 
-static const struct dwmac4_addrs qcom_emac_dwmac4_addrs {
-	...
-};
+> What I am asking:
+> 
+>  1. The binding lets software timing pick the topology: the same chip
+>     on the same board is a plain PHY node when its firmware is in the
+>     bootloader, and an MCU with a child bus when the firmware arrives
+>     with the rootfs. Move the files into an initramfs and the
+>     recommended description changes without a wire moving. The hardware
+>     argument that does hold is narrower - the reset line belongs to the
+>     MD32 core rather than to the PHY the firmware creates, and a PHY
+>     node that owns it wipes the firmware on detach - and it argues for
+>     the MCU node, not for the child bus. If the child bus has to be
+>     justified by hardware too, I do not have that argument, and the
+>     honest options are to describe the chip one way always, or to say
+>     plainly in the binding that this is a driver model choice. Which
+>     would you rather see?
 
-Regards,
-Lorenzo
+One way to argue it is that the MDIO bus it connected to the MCU. The
+MCU, once booted, forwards the MDIO bus through to the PHY part of the
+package.
 
-> +		.dma_chan =3D 0x00008100,
-> +		.dma_chan_offset =3D 0x1000,
-> +		.mtl_chan =3D 0x00008000,
-> +		.mtl_chan_offset =3D 0x1000,
-> +		.mtl_ets_ctrl =3D 0x00008010,
-> +		.mtl_ets_ctrl_offset =3D 0x1000,
-> +		.mtl_txq_weight =3D 0x00008018,
-> +		.mtl_txq_weight_offset =3D 0x1000,
-> +		.mtl_send_slp_cred =3D 0x0000801c,
-> +		.mtl_send_slp_cred_offset =3D 0x1000,
-> +		.mtl_high_cred =3D 0x00008020,
-> +		.mtl_high_cred_offset =3D 0x1000,
-> +		.mtl_low_cred =3D 0x00008024,
-> +		.mtl_low_cred_offset =3D 0x1000,
-> +	},
-> +};
-> +
->  static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
->  {
->  	struct device *dev =3D &ethqos->pdev->dev;
-> @@ -962,6 +992,7 @@ static const struct of_device_id qcom_ethqos_match[] =
-=3D {
->  	{ .compatible =3D "qcom,qcs404-ethqos", .data =3D &emac_v2_3_0_data},
->  	{ .compatible =3D "qcom,sa8775p-ethqos", .data =3D &emac_v4_0_0_data},
->  	{ .compatible =3D "qcom,sc8280xp-ethqos", .data =3D &emac_v3_0_0_data},
-> +	{ .compatible =3D "qcom,shikra-ethqos", .data =3D &shikra_data},
->  	{ .compatible =3D "qcom,sm8150-ethqos", .data =3D &emac_v2_1_0_data},
->  	{ }
->  };
->=20
-> --=20
-> 2.34.1
->=20
->=20
+>  3. Removing the parent MDIO controller reaches this driver's remove
+>     with the child PHY attached, and nothing pins the parent's owner.
+>     Closing it wants a way for a bus to tell its PHYs' consumers to let
+>     go, which is a phy-core change. The failed-resume path above wants
+>     the same channel for "re-initialise" rather than "let go", so that
+>     is two uses for one mechanism. Is it worth doing here?
 
---hx4+qUIsDXNsQO4F
-Content-Type: application/pgp-signature; name=signature.asc
+Consider a normal setup, what happens when you remove the MDIO
+controller when the PHY is directly connected?  And look at what MDIO
+mux drivers do, which is not so different a use case.
 
------BEGIN PGP SIGNATURE-----
+>  4. MDIO_AIROHA_EN8811H sits in the "MDIO controller drivers" menu,
+>     though it drives a device on a bus and not a controller. The
+>     mdio-mux entries set the precedent, but say if you want it
+>     elsewhere.
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqGrkwAKCRA6cBh0uS2t
-rArrAP9R8xEG+zLWVTIluHMbwn06eRZVDw4njA5XwSEu+LwHrQEAo4TJM5euvbra
-4jutQknO4Wvvhxx1ELycGgKuzOGCTw0=
-=m+rn
------END PGP SIGNATURE-----
+It is fine. I would also add a select or depends on the PHY driver
+Kconfig stanza to link it to the MDIO_AIROHA_EN8811H driver.
 
---hx4+qUIsDXNsQO4F--
+>  5. The child bus accepts exactly one address, the one this node
+>     occupies on the parent, and I do not think the schema can say so.
+>     What it does say now is that a child named ethernet-phy@N is
+>     validated as one, and that it must not carry reset-gpios or its
+>     timings - the whole reason this node exists is that a PHY-node
+>     reset is what phy_detach() asserts, and it erases the firmware.
+>     What it cannot say is that a differently named child is refused:
+>     mdio.yaml's own patternProperties evaluates any node@hex and its
+>     additionalProperties: true admits the rest, so unevaluatedProperties
+>     has nothing left to reject. Is prose enough for the address, and is
+>     there an idiom I am missing for the rest?
+
+Prose is enough. And C code to catch DT authors who get it wrong. But
+you also need to be careful to not break backwards compatibility when
+the PHY driver is used alone.
+
+>  6. include/linux/mdio/mdio-airoha-en8811h.h is named for the driver
+>     that consumes it, while its four neighbours in that directory name
+>     the driver that implements them - here the implementation is
+>     drivers/net/phy/air_phy_lib.c. Where should this header live, and
+>     should the MAINTAINERS entry that now claims it also claim the
+>     library files it declares?
+
+The location is fine. MAINTAINERS need to list it. What you might want
+to do is list it twice, once in the PHY driver MAINTAINERS record, and
+again in the MDIO driver section. Any changes need to be coordinated
+in both, so all Maintainers should get notified.
+
+    Andrew
+
+---
+pw-bot: cr
