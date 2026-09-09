@@ -1,119 +1,114 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EB7559CA7;
-	Wed,  9 Sep 2026 12:54:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0491D54B1CB;
+	Wed,  9 Sep 2026 12:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788958495; cv=none; b=QNPft9KbnlmQvehwhqhsN5Toz0C+K4Bh3qC5EtDKOLV77LOlcoXKTAKeig9jg+5f5ElYmn9+qH+RJjLnhP/23ydgeYOvfvc/0b3Igs8I/824M2PcX5bu0fjWSywoW61gV5oKjqt1G+fffYxia30Wg7JZHdCkeAnHZcHlGqy4CaY=
+	t=1788958638; cv=none; b=Q83sFp9GxjRQpuv5jS6AfTss4aGjZaNHGdwl7nMIByOPltD4y3faKf9iXkExvf9e1zgVB1BxNeOUCcxgvqVAJwVys+etZBJrxPX3KQ1J4S9vICfP3KLiYowrnHdCi8VthKf4WhS7y5RpnWfRhBxDavs61yE4ajrn0NLzQoCdKzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788958495; c=relaxed/simple;
-	bh=jAH9WRQ0ggsOvsHdlKlkxoYUhZgdRnYF6+2XNgzh1NU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=cOQu0AXTWcS6+NtZrrP67Yw5/aSeyr/Y0crOMfGxwfu5jXee7G834kubXHZwq984QZ3wm89w/ZYQ9wqLB5pfRRoC0j61PFRC6yNOJquvXWm4ujQ1e9xO9tG6K0NsVAZy7AzC7bYKpaOpICbNL7G2bJhD3IZmRGNIodf8CW3kRsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=pBXlcIme; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788958638; c=relaxed/simple;
+	bh=tdreiLwIS05AdMPP74uZG2hXsYGJW4b8eSocskwbFKw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qrQ7YGJdH0UPj7gOt1fXU3K9SQzfWPYFGqPqkso/DhQs1PyhRrh7svKTk8j9fUvw+xOJv1c5gLzf9i/sMxh0x9pQk8Sd/RJggtrSCF0SR0iL6VxE7IRnPU+gN4jVmaDLOsv511xqXlhBsMWWX8CVhvY3dd2jSLt/tdV7A8yvox0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=A3hpnu41; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="pBXlcIme"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 0DB1E1A1A7B;
-	Wed,  9 Sep 2026 12:54:51 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CB77D6053C;
-	Wed,  9 Sep 2026 12:54:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2B09611C7AF7D;
-	Wed,  9 Sep 2026 14:54:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788958485; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=jAH9WRQ0ggsOvsHdlKlkxoYUhZgdRnYF6+2XNgzh1NU=;
-	b=pBXlcImemWNdneh0k1Hj1bg9DcpIx2uZGLw6KPAxLtiNBI2GNPFvvdAYeKNLB46Nt29ChS
-	7LCgusQF9x2Ekjb4zSDxGZBUL2Jj8oUdPBhE2yFI7GtWt3vKV7gGXVE6jYhTaX4gyOWj4w
-	yIYiVLSGoNRWEL+p0q+2aWVNhR1O/OQhR6kt2DoT3gas73BfLJjMuYOUyDlLSJt1zgXZ5U
-	Ndz67fuFW6UK0Iv8f407aA9RfKgde8mwABubg6je9fsY6zVCMuEnkrBf+HGvomebcuAHIj
-	SURtqMPp/Cy8qmP4OE8V1F0901A3D0YsFs69NnBTkUh3QG4F2ZShHXEPHPqrGw==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, Linus Walleij
- <linusw@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: Drew Fustini <fustini@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Rob
- Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Liviu Dudau
- <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, Lorenzo
- Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, Sascha
- Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team
- <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Vladimir
- Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Aaro Koskinen <aaro.koskinen@iki.fi>,
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman
- <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, Tony Lindgren
- <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, Claudiu
- Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, Sebastian
- Hesselbarth <sebastian.hesselbarth@gmail.com>, Robert Jarzmik
- <robert.jarzmik@free.fr>, Kristoffer Ericson
- <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore
- <enelsonmoore@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>,
- Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo
- <shawnguo@kernel.org>, Karl Mehltretter <kmehltretter@gmail.com>, "David
- Hildenbrand (Arm)" <david@kernel.org>, Nicolas Pitre
- <npitre@baylibre.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org,
- Alexander Clouter <alex@digriz.org.uk>, "Jeremy J. Peper"
- <jeremy@jeremypeper.com>, Damien Le Moal <dlemoal@kernel.org>, Niklas
- Cassel <cassel@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Krzysztof
- =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam
- <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Vinod Koul
- <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Guenter Roeck <linux@roeck-us.net>,
- Mark Brown <broonie@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
- Thomas Weissschuh <thomas.weissschuh@linutronix.de>,
- linux-ide@vger.kernel.org, linux-mmc@vger.kernel.org,
- linux-pci@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-rtc@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-watchdog@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-gpio@vger.kernel.org
-Subject: Re: [PATCH 05/13] ARM: orion/dove/mv78xx0: remove all board files
-In-Reply-To: <20260908152808.3928630-6-arnd@kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-6-arnd@kernel.org>
-Date: Wed, 09 Sep 2026 14:54:34 +0200
-Message-ID: <87pkymmvp1.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="A3hpnu41"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 689Cv1lE5624288, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1788958622; bh=t4CbWs9yYsovLZ4KQtJHg+cOy5SOzfflAszrgWwrXVg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=A3hpnu417eyXY2z5d7lcQj4A3JfyLtnj8qko7Ar5RSnG6coMpnMu4chrjLyXdso+Q
+	 lAutHmPXsHhAwaej+KytGWLtbTatlwyMWbCkijnybqAYs+oh/mTe8zCLOB+2kyFAUm
+	 EV5qKh5J1NCTI1U+p7hMw7MKhje/ZTBDdCiLqL8+DvRzSVZE+RKs1s0LCyLdTJTM9y
+	 pdgUm2O7J2N9fVbsNvj+vhsE3IUNKeM1dS67PRJtwbdzYVZhaXqVn+teG1y5H9ret5
+	 FEyhtY1znnh04cwBWJbwvlfjOSH/31z5l2fo3f+CdlU5Dj4sZLrWOvehlN9t/+BNyZ
+	 VeSkYE62v7/Rg==
+Received: from mail.realtek.com (rtkexhmbs03.realtek.com.tw[10.21.1.53])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 689Cv1lE5624288
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 9 Sep 2026 20:57:02 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS03.realtek.com.tw (10.21.1.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Wed, 9 Sep 2026 20:57:02 +0800
+Received: from RTKEXHMBS03.realtek.com.tw (10.21.1.53) by
+ RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 9 Sep 2026 20:57:02 +0800
+Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS03.realtek.com.tw
+ (10.21.1.53) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Wed, 9 Sep 2026 20:57:02 +0800
+From: Yu-Chun Lin <eleanor.lin@realtek.com>
+To: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>
+CC: <p.zabel@pengutronix.de>, <james.tai@realtek.com>, <cy.huang@realtek.com>,
+	<stanley_chang@realtek.com>, <eleanor.lin@realtek.com>,
+	<jyanchou@realtek.com>, <linux-spi@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v4 0/2] spi: realtek: Add support for RTD1625 SPI NOR Flash Controller
+Date: Wed, 9 Sep 2026 20:56:59 +0800
+Message-ID: <20260909125701.273314-1-eleanor.lin@realtek.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-Arnd Bergmann <arnd@kernel.org> writes:
+Hi all,
 
-> From: Arnd Bergmann <arnd@arndb.de>
->
-> The 'orion' platform is the predecessor to what linux now calls the
-> 'mvebu' line of Marvell SoCs, and originally covered orion5x,
-> mv78xx0, kirkwood, dove and a few others that do not have any
-> upstream support at the moment.
->
-> Only a few board files remain here, these are the ones left
-> in 2022 board file purge because they had some level of support
-> in Debian or OpenWRT, mostly for commercial NAS or router boxes.
-> This distro support is now gone, and nobody has converted the
-> board files to devicetree, though the orion5x and dove platforms
-> also come with devicetree support for some other machines.
->
+This patch series introduces support for the Realtek RTD1625 SPI NOR Flash
+controller.
 
-Acked-by: Gregory CLEMENT <gregory.clement@bootlin.com>
+Thansk,
+Yu-Chun
+---
+Changes since v2:
+General:
+- Specify "NOR" in the commit message and descriptions to avoid future
+conflicts with SPI NAND or GSPI.
 
-Thanks,
+Patch 1:
+- Add Conor's acked-by tag.
 
-Gregory
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Patch 2:
+- Add Yu-Chun's last name.
+- Make SPDX license and copyright notice headers in C++-style.
+- Drop driver-internal polling (rtk_spi_read_status()), leaving the status
+polling and timeout handling to framework.
+- Track the 4-byte addressing state and properly restore it in rtk_spi_init()
+to prevent state loss during runtime PM suspend/resume.
+- Add hardware cleanup in rtk_spi_dma_transfer() to explicitly trigger a
+graceful stop of the DMA engine if a timeout occurs.
+- Check bounds against the direct mapping window (dirmap_size) in both PIO and
+DMA transfer paths.
+- Add reset_control_assert() in the probe error path and .remove().
+- Replace RUNTIME_PM_OPS() + SYSTEM_SLEEP_PM_OPS() with
+DEFINE_RUNTIME_DEV_PM_OPS().
+
+v3: https://lore.kernel.org/lkml/20260908111640.2032749-1-eleanor.lin@realtek.com/
+v2: https://lore.kernel.org/lkml/20260906145755.1230079-1-eleanor.lin@realtek.com/
+v1: https://lore.kernel.org/lkml/20260904031252.244280-1-eleanor.lin@realtek.com/
+
+Jyan Chou (2):
+  dt-bindings: spi: Add Realtek RTD1625 SPI NOR support
+  spi: spi-mem: Add Realtek SPI NOR flash controller driver
+
+ .../bindings/spi/realtek,rtd1625-nor.yaml     |  65 ++
+ MAINTAINERS                                   |   6 +
+ drivers/spi/Kconfig                           |  10 +
+ drivers/spi/Makefile                          |   1 +
+ drivers/spi/spi-rtk-nor.c                     | 623 ++++++++++++++++++
+ 5 files changed, 705 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/spi/realtek,rtd1625-nor.yaml
+ create mode 100644 drivers/spi/spi-rtk-nor.c
+
+-- 
+2.43.0
+
