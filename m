@@ -1,128 +1,125 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE26857C72B;
-	Wed,  9 Sep 2026 14:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F100828CF5F
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:30:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964037; cv=none; b=jF05fKc5xgdbD+5VgCZXMm+qnW4WBPoh7QUy1e4wcxThgVuP3oMbeY+bd7MPOAXR5b37WtON9OYr6nREqoW15gi79y6iJWLqs4YlUJKYWysaXRFQrgX2d40AxU7XRsz2Ra44OOATZRvqKvGDodR0wrPCV5jXFU2rUtzG9TIiQ3U=
+	t=1788964214; cv=none; b=nkgkdr+SH6e1ogVkN7ALjHApQ3x5Ns8P0i8h6kwBWUUqoakB4CuOem6AN3modhqryl4L2wJuUYq4d/F4L0p0YN3tK0SM5YKRQTclLcM3YnEozck6+uO/b7mc1mPbk6UdgMAo6PCtJ+fCPwKrlLs9wdGXxuH0nHRhn97lhn4zLKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964037; c=relaxed/simple;
-	bh=Xzc9CDaEataSODX3+D8tIBpZnqAi1qMg/rSgS+n+z2s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KuWtKPqp9iSt+39JVvIudDc0Ao2wT7Ubna28TiKWEZdG/n3PHjWDw/oDsvMFmamzTXvK6wJw1njfU4JYasqVTgX7gVvTMJcSGRk9WXjuKGzIrpCS7kFM7l+QuqNi5hE404Z76SomA6g8+mABVEJP2ineyrmy5wAknSM/4D65V9g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hpCzk5Y0; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788964214; c=relaxed/simple;
+	bh=0YFMnqGw9bccI8KxwbFpJ1xieBxNwfdIRimleiGYpy4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TZbDac8KLv7sgZuuG+eKleDQrNpFW5sLfnyDQ0Q6z6YZdLtP3mVJ2hDI7luUaaZzcUzIHVWXeLoahHFWPVeyJlthRNlbpKRE0p2D1sHOSs95e3IPZ6+WnM4wII2i/sCZpFxUMgA5C2Ojqldmq6zdchSq6GcBrapeRg+nqJKgGK4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dbic1zN6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hpCzk5Y0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788964035; x=1820500035;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Xzc9CDaEataSODX3+D8tIBpZnqAi1qMg/rSgS+n+z2s=;
-  b=hpCzk5Y0BdH966YP/VSV4n07VtcZ0ptkt5AfDCluym00s/AanVEh9+vd
-   tZxCkPyngRBsJeSh2XlOEhrHcHKR1f4KA/4Pn1iF0IbXCSqH5DGOfG7NW
-   Q98biVB9dlPR28ViOAhMiXCFLhig96P5p5ngDX30WYeLTEGy5Fgm5jxy6
-   4Hu33uGcRr66U0R27CBh9xwL+2kolmVAv7YThszhbgnPvZvAQj7tTPvI2
-   p8ZxIyiC3mQ9RJqFsSZM1ILlYy9EV1x7H1o0wU31HgcjqMKYyz+p71cMK
-   ZG9EOcpjrDYZgePZmXF6roiAMoXIxK9EAabTPzuuqiEtjB1vOtvTVJ0tx
-   Q==;
-X-CSE-ConnectionGUID: clsaYYlVTeaHzS47XKArGQ==
-X-CSE-MsgGUID: RkgOe0H8SxqWCSoa2ABjtA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106908361"
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="106908361"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 07:27:14 -0700
-X-CSE-ConnectionGUID: O1CZCFz7Qyap+OeL8wYAUA==
-X-CSE-MsgGUID: 8DeSi4z3Shev8h1HQmYGKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
-   d="scan'208";a="301221372"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.249])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 07:27:06 -0700
-Date: Wed, 9 Sep 2026 17:27:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: Jingoo Han <jingoohan1@gmail.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
-	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
-	Christian Bruel <christian.bruel@foss.st.com>,
-	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
-	Alex Elder <elder@riscstar.com>,
-	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
-	Randolph Lin <randolph@andestech.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Vidya Sagar <vidyas@nvidia.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
-	Longbin Li <looong.bin@gmail.com>
-Subject: Re: [PATCH v5 2/6] PCI: spacemit-k1: Add multiple PHY handles support
-Message-ID: <aqFst9QH9YTFlY3X@ashevche-desk.local>
-References: <20260907112606.465778-1-inochiama@gmail.com>
- <20260907112606.465778-3-inochiama@gmail.com>
- <ap_jh_NAqHnIlZeu@ashevche-desk.local>
- <aqEQnkrPSKB-3fam@inochi.infowork>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dbic1zN6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D40D1F00A3D;
+	Wed,  9 Sep 2026 14:30:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788964212;
+	bh=ogSuoMuUB5O+EyKQBHSypvvboaepaSh6PbdbluLI6os=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Dbic1zN6ygFr7bdlW1ho5zWPcttCZF2vySe+avY2osxu9C/sEmZKVi4jlxj1nQiys
+	 eruIbhiBQiUHp+bSivFjolyD46BpqQhbhR4JlaKPXmhdJBQudfTcQ85uJ+WSjz6KUs
+	 cKp+RBDW5Qvf1luB4IXLBkR96K+YvzoRacuxp1iLSyfo/PtKUF01vtMIhyfofCvKch
+	 xbjxUROzGeTN+pNCNUepU9WaRUjm/VQaWpJyLNeksJ2BLoxdH+lmWXuSWmTmYTwdeP
+	 PZ3j1YZva58uKIacduvbMyL6C208lhvrtvPyr7czw/1F0hsgVq7iANy5bxqgHVzQgn
+	 iguO/g8AnLvVQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] iommu/mediatek-v1: fix IOMMU device binding
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Roman Vivchar" <rva333@protonmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260909-6572-iommu-v1-2-de261da09fb2@protonmail.com>
+References: <20260909-6572-iommu-v1-0-de261da09fb2@protonmail.com>
+ <20260909-6572-iommu-v1-2-de261da09fb2@protonmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 14:30:12 +0000
+Message-Id: <20260909143012.8D40D1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqEQnkrPSKB-3fam@inochi.infowork>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Wed, Sep 09, 2026 at 04:00:15PM +0800, Inochi Amaoto wrote:
-> On Tue, Sep 08, 2026 at 01:29:27PM +0300, Andy Shevchenko wrote:
-> > On Mon, Sep 07, 2026 at 07:26:01PM +0800, Inochi Amaoto wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Moving `mtk_iommu_v1_create_mapping()` into `mtk_iommu_v1_probe_fi=
+nalize()` introduces a data race that can corrupt the shared IOMMU mapping =
+and domain, leading to memory leaks and incorrect domain assignments.
+--
 
-...
+commit 506d7ce15633b781671040d746cf03c5adc6f9ca
+Author: Roman Vivchar <rva333@protonmail.com>
 
+iommu/mediatek-v1: fix IOMMU device binding
 
-> > > +	count = devm_of_phy_bulk_get_all(dev, node, &k1->phys);
-> > > +	if (count < 0)
-> > > +		return count;
-> > > +	if (count == 0 || count > data->max_phy_count)
-> > > +		return -EINVAL;
-> > 
-> > Elsewhere we distinguish count == 0 with -ENOENT.
-> 
-> Is there is an example? I think it is suitable for its internal check 
-> to translate -ENOENT to count 0, because no phys property means no
-> phy. For a get helper with optional semantics. I think it is fine
-> to return 0.
+The driver silently fails to bind devices, causing DRM to fall back to PA m=
+ode.
+This patch provides an of_xlate callback to properly bind devices and use VA
+mode.
 
-This the brief list of what I roughly grepped with word "count" in the name.
+> diff --git a/drivers/iommu/mtk_iommu_v1.c b/drivers/iommu/mtk_iommu_v1.c
+> index ac97dd2868d4b..72355f41c36af 100644
+> --- a/drivers/iommu/mtk_iommu_v1.c
+> +++ b/drivers/iommu/mtk_iommu_v1.c
 
-gpiod_count()
-of_hte_req_count()
-i2c_acpi_resource_count()
-ice_sriov_set_msix_vec_count()
-reset_control_get_count()
+[ ... ]
 
--- 
-With Best Regards,
-Andy Shevchenko
+> @@ -519,9 +476,15 @@ static void mtk_iommu_v1_probe_finalize(struct devic=
+e *dev)
+>  	__maybe_unused struct mtk_iommu_v1_data *data =3D dev_iommu_priv_get(de=
+v);
+>  	int err;
+> =20
+> +	err =3D mtk_iommu_v1_create_mapping(dev);
 
+[Severity: High]
+Does moving the call to mtk_iommu_v1_create_mapping() into
+mtk_iommu_v1_probe_finalize() introduce a data race?
 
+Previously, this was called from mtk_iommu_v1_probe_device(), which executes
+under the iommu_probe_device_lock.  By moving it here, it executes without
+synchronization.
+
+If two client devices of the same MTK IOMMU probe concurrently (e.g., via
+asynchronous probing or deferred probe), they can race in
+mtk_iommu_v1_create_mapping():
+
+drivers/iommu/mtk_iommu_v1.c:mtk_iommu_v1_create_mapping() {
+        ...
+        data =3D dev_iommu_priv_get(dev);
+        mtk_mapping =3D data->mapping;
+        if (!mtk_mapping) {
+                /* MTK iommu support 4GB iova address space. */
+                mtk_mapping =3D arm_iommu_create_mapping(dev, 0, 1ULL << 32=
+);
+                if (IS_ERR(mtk_mapping))
+                        return PTR_ERR(mtk_mapping);
+
+                data->mapping =3D mtk_mapping;
+        }
+        ...
+}
+
+Can this lead to a memory leak of the initial mapping and DMA failures for
+the racing client device, as it might get attached to a software domain
+that does not match the hardware page tables?
+
+> +	if (err) {
+> +		dev_err(dev, "Can't create IOMMU mapping - DMA-OPS will not work\n");
+> +		return;
+> +	}
+> +
+>  	err =3D arm_iommu_attach_device(dev, data->mapping);
+>  	if (err)
+> -		dev_err(dev, "Can't create IOMMU mapping - DMA-OPS will not work\n");
+> +		dev_err(dev, "Can't attach to IOMMU mapping - DMA-OPS will not work\n"=
+);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-6572-iommu=
+-v1-0-de261da09fb2@protonmail.com?part=3D2
