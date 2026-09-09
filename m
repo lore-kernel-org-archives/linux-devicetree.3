@@ -1,208 +1,297 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E14804B04B2
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:49:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 063FC4B5CBD
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:49:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961778; cv=none; b=bSD/gQXof0vVt/KHQ11vSiOYXDOkiJReQVfjwIdAKGfqYURA6Hsv2yszkQVDvh9CDHOnNFtyFJ2cgCQvyLvUwHGKHX3p2vy02AeCPaj51P7ErWtcwsHPOv8RTf3s4WCYibRrd2B+zD0/pS4I8HkmgtjzXXqQ+SM+Z0xMY0cr6yY=
+	t=1788961784; cv=none; b=fmYwr2Px55RgtwIP0ss2YVy4yboUxT/4lQiZhgwczudGDtFtG/E5KHPhQKs/8D3KGgyESS3rUUhQKkAqACiC8s5tFzAdivMKko9NDWxwcw0N3gJGQ6L7YZYeMAzrJJ/UrAtRr90yXEGiEUl6MRNv3mrS7IqjEN23g9PG64DLPr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961778; c=relaxed/simple;
-	bh=czUzjAzwEvbsG98Oa01XrotXE+fukm6kiX5X36SjW9w=;
+	s=arc-20240116; t=1788961784; c=relaxed/simple;
+	bh=lclhfDyMSo5EE0ur0gokYQmF0AfTTqXG5i6lzJ8Z4SU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CkcKpqRyVIrcJ52ysdRRsqTzkIvAqabZ1E2DEhV6215RWCBkC1FNrJKbzGMKfZRbvu0QJVLbgRhDfmrsGJzeb82qEleKd7wDfDl6QJLJ5w7aPTcand8Oi3MAlEbyNUkyexB1GF06AjQoUraDoOgg10FYKAhAdrNMi+yMzAUTzDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WpUFVf5w; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RoK+Nymyf+BkUiYBiSyD2fSsaHiRlPiwWLLiDk1DIcSvbj5jKL8kt5dbzovZUWhYMTAe857ZvpzwadS+2rBpoBEKH4rIyw7Otvua6R2a3tzkr6LjebOBGSuZWEobkssKqZTKNrJG2gaG0TkLDXf+HBhdoKhV12zEnJjYfTb/VaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uixx7+2N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WpUFVf5w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA701F00A3D;
-	Wed,  9 Sep 2026 13:49:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uixx7+2N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A3FE1F00A3D;
+	Wed,  9 Sep 2026 13:49:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788961776;
-	bh=YDDRLcpbGkfIg2sJFPILudHHdHmKor1x3nGX0n21MzM=;
+	s=k20260515; t=1788961782;
+	bh=a7wrHBGRd9QDuh5kAJiUCpu12kwUUu/RRklKJDZlMiQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WpUFVf5whc0KTERMngpBRZRAZybMeiGmWHzjLo82PE+TqzpTQT+JBaexxEDOsovLQ
-	 42rP4yq2us+N9HYt8znHdipAwEgFqajcBJTpR7pAVZIFuHIEoVcYVrfVWv57lAN/lQ
-	 tQKN9VhgV6SvU1GHBtnLEq89eDVFaudbznuECdffo8VUAy7SZGviJvTmKBuUZFBmE4
-	 OrAyCqW1j1zUyw2DkLsw+X2SrwZSHe2pU5MwKJyGVHxcu3k9oRN/PiLLpU+AoLNIOJ
-	 bSZeGSgPvH/9D8hYJJyKFd2cdJ+2SF+Jv2YxR3IT+q7Ky1/PweADYkMcwIhBAgC/Fq
-	 ICERUctvEuo3w==
+	b=Uixx7+2NDRMsZ7/tSgJ2cajTh8JEyh5fonxxVde/j3PtvyQMKV6LcZYadnsw6qSQO
+	 ZctjMLk1C9h+CYTSwpMf0uvOa34k2Ff2dM9H5O9/rvyFI8kBfBymTvc2WDH+s2e2Cj
+	 labo7F13kmrdWgsRZ6WsHXY+HvJZAqaLg4evelvn9SHXwyMG1SNpb/23FXMrMB95mY
+	 Ll7yiihR64heh5zfr6Qw+bGSgLkQ6bSRCuiXNl0Vewd4G+Rzee16xBtXG7nGnA/FQX
+	 p8VMHfKkEuzaj7g0bmuMgzMUmGGoQwDAr3GEq9WEM8bopxZ27ueEHiFczwRJluRfek
+	 ur4RRiI+U0Gcg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 17/22] media: i2c: maxim-serdes: add MAX96717 driver
+Subject: Re: [PATCH v17 14/22] media: i2c: add Maxim GMSL2/3 serializer
+ framework
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20260909-gmsl2-3_serdes-v17-17-002499e534e8@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260909-gmsl2-3_serdes-v17-14-002499e534e8@analog.com>
 References: <20260909-gmsl2-3_serdes-v17-0-002499e534e8@analog.com>
- <20260909-gmsl2-3_serdes-v17-17-002499e534e8@analog.com>
+ <20260909-gmsl2-3_serdes-v17-14-002499e534e8@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 13:49:36 +0000
-Message-Id: <20260909134936.7AA701F00A3D@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 13:49:41 +0000
+Message-Id: <20260909134942.5A3FE1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] Incorrect pin index mapping for slew rate configuration modifies w=
-rong hardware registers and rejects valid pins.
-- [High] Setting a pin to input direction fails to explicitly enable the re=
-ceiver, leaving the GPIO permanently unreadable if previously disabled.
-- [Medium] Incorrect initialization of `diff_old` restricts maximum matchab=
-le clock frequency on 64-bit systems.
-- [Medium] Speculative: Missing delay between hardware reset assertion and =
-deassertion for the reference generator.
+- [High] Global active stream state `ser->active` is incorrectly cleared ba=
+sed on a single pad's activity, bypassing safety checks.
+- [High] Lockless TOCTOU race on remote subdevice pointer `hw->source->sd` =
+leads to a Use-After-Free.
+- [Medium] V4L2 API violation: format and frame interval setters return `-E=
+INVAL` instead of coercing unsupported requests.
+- [Medium] Error handlers in `max_ser_update_phy` hardcode the global state=
+ instead of using the provided rollback state parameter.
+- [Medium] Fragile rollback logic relies on dynamic memory allocation (`dev=
+m_kcalloc`) and ignores failures.
 --
 
-commit 29038ca9d5127738bdf88351f0cbd48295171826
+commit 9430220b74c7534e5c5a372a45443f0cc95ff25e
 Author: Cosmin Tanislav <demonsingur@gmail.com>
-Subject: media: i2c: maxim-serdes: add MAX96717 driver
 
-Add a new MAX96717 driver that also supports MAX9295A, MAX96717F and
-MAX96793. Integrates it with the common serializer framework.
+media: i2c: add Maxim GMSL2/3 serializer framework
 
-> diff --git a/drivers/media/i2c/maxim-serdes/max96717.c b/drivers/media/i2=
-c/maxim-serdes/max96717.c
+This commit adds a common framework for Maxim GMSL2/3 serializers. It
+enables support for the Streams API, I2C ATR, automatic GMSL link version
+negotiation, and various other features across the chips.
+
+> diff --git a/drivers/media/i2c/maxim-serdes/max_ser.c b/drivers/media/i2c=
+/maxim-serdes/max_ser.c
 > new file mode 100644
-> index 0000000000000..c87ea9e82c1ca
+> index 0000000000000..673c1b34b8e77
 > --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max96717.c
+> +++ b/drivers/media/i2c/maxim-serdes/max_ser.c
+
 [ ... ]
-> +static int max96717_get_pin_config_reg(unsigned int offset, u32 param,
-> +				       unsigned int *reg, unsigned int *mask,
-> +				       unsigned int *val)
+
+> +static int max_ser_route_to_hw(struct max_ser_priv *priv,
+> +			       struct v4l2_subdev_state *state,
+> +			       struct v4l2_subdev_route *route,
+> +			       struct max_ser_route_hw *hw)
 > +{
-[ ... ]
-> +	switch (param) {
-> +	case PIN_CONFIG_SLEW_RATE:
-> +		if (offset < 3) {
-> +			*reg =3D MAX96717_PIO_SLEW_0;
-> +			if (offset =3D=3D 0)
-> +				*mask =3D MAX96717_PIO_SLEW_0_PIO00_SLEW;
-> +			else if (offset =3D=3D 1)
-> +				*mask =3D MAX96717_PIO_SLEW_0_PIO01_SLEW;
-> +			else
-> +				*mask =3D MAX96717_PIO_SLEW_0_PIO02_SLEW;
-> +		} else if (offset < 5) {
-> +			*reg =3D MAX96717_PIO_SLEW_1;
-> +			if (offset =3D=3D 3)
-> +				*mask =3D MAX96717_PIO_SLEW_1_PIO05_SLEW;
-> +			else
-> +				*mask =3D MAX96717_PIO_SLEW_1_PIO06_SLEW;
-> +		} else if (offset < 7) {
-> +			return -EINVAL;
-
-[Severity: High]
-Does this logic improperly treat the pin offset as a sequential register
-index?
-
-When offset is 4, it is mapped to MAX96717_PIO_SLEW_1_PIO06_SLEW instead
-of its correct register. Additionally, valid offsets like 5 and 6 return
--EINVAL.
-
-This issue surfaces when max96717_mux_set_rclkout() is called with group
-set to 4 (MAX96717_RCLK_MFP):
-
-> +static int max96717_mux_set_rclkout(struct max96717_priv *priv, unsigned=
- int group)
-> +{
-> +	unsigned long config;
+> +	struct max_ser *ser =3D priv->ser;
+> +	struct v4l2_mbus_frame_desc fd =3D {};
+> +	struct max_ser_phy *phy;
+> +	unsigned int i;
 > +	int ret;
 > +
-> +	config =3D pinconf_to_config_packed(PIN_CONFIG_SLEW_RATE,
-> +					  MAX96717_PIO_SLEW_FASTEST);
-> +	ret =3D max96717_conf_pin_config_set_one(priv, group, config);
-
-This will corrupt pin 6's slew rate and leave pin 4 unconfigured. Should the
-offsets be explicitly mapped to their corresponding physical pins?
-
-[ ... ]
-> +static int max96717_conf_pin_config_set_one(struct max96717_priv *priv,
-> +					    unsigned int offset,
-> +					    unsigned long config)
-> +{
-[ ... ]
-> +	switch (param) {
-> +	case PIN_CONFIG_BIAS_PULL_DOWN:
-> +	case PIN_CONFIG_BIAS_PULL_UP:
-> +		arg =3D arg >=3D MAX96717_BIAS_PULL_STRENGTH_1000000_OHM;
-> +		config =3D pinconf_to_config_packed(MAX96717_PINCTRL_PULL_STRENGTH_HIG=
-H, arg);
-> +		return max96717_conf_pin_config_set_one(priv, offset, config);
-> +	case PIN_CONFIG_LEVEL:
-> +		config =3D pinconf_to_config_packed(PIN_CONFIG_OUTPUT_ENABLE, 1);
-> +		return max96717_conf_pin_config_set_one(priv, offset, config);
-> +	case PIN_CONFIG_OUTPUT_ENABLE:
-> +		config =3D pinconf_to_config_packed(MAX96717_PINCTRL_RX_EN, 0);
-> +		return max96717_conf_pin_config_set_one(priv, offset, config);
-> +	case MAX96717_PINCTRL_TX_ID:
+> +	memset(hw, 0, sizeof(*hw));
+> +
+> +	hw->is_tpg =3D max_ser_pad_is_tpg(ser, route->sink_pad);
+> +	if (hw->is_tpg)
+> +		return max_ser_tpg_route_to_hw(priv, state, route, hw);
+> +
+> +	phy =3D max_ser_pad_to_phy(ser, route->sink_pad);
+> +	if (!phy)
+> +		return -ENOENT;
+> +
+> +	hw->pipe =3D max_ser_find_phy_pipe(ser, phy);
+> +	if (!hw->pipe)
+> +		return -ENOENT;
+> +
+> +	hw->source =3D max_ser_get_phy_source(priv, phy);
+> +	if (!hw->source->sd)
+> +		return 0;
+> +
+> +	ret =3D v4l2_subdev_call(hw->source->sd, pad, get_frame_desc,
+> +			       hw->source->pad, &fd);
 
 [Severity: High]
-Does PIN_CONFIG_INPUT_ENABLE need to be explicitly handled here to re-enable
-the receiver?
-
-When max96717_gpio_direction_output() cascades into
-PIN_CONFIG_OUTPUT_ENABLE, it sets MAX96717_PINCTRL_RX_EN to 0 to disable
-the receiver. If the pin is subsequently reconfigured as an input via
-max96717_gpio_direction_input(), PIN_CONFIG_INPUT_ENABLE merely disables
-the output driver but lacks a cascade to set MAX96717_PINCTRL_RX_EN back to=
- 1.
-
-This could leave standard GPIO inputs permanently unreadable if they were
-previously disabled.
+Is this pointer safe to access here without taking a lock? If a userspace
+thread concurrently calls format or routing ioctls, and the remote sensor
+module is unloaded, max_ser_notify_unbind could set source->sd =3D NULL. Si=
+nce
+there is no synchronization (like a reference count or graph lock) held
+across this block, does this allow v4l2_subdev_call to dereference a freed
+pointer?
 
 [ ... ]
-> +static unsigned int max96717_clk_find_best_index(struct max96717_priv *p=
-riv,
-> +						 unsigned long rate)
+
+> +static int max_ser_set_tpg_fmt(struct v4l2_subdev *sd,
+> +			       struct v4l2_subdev_state *state,
+> +			       struct v4l2_subdev_format *format)
 > +{
-> +	unsigned int i, idx =3D 0;
-> +	unsigned long diff_new, diff_old =3D U32_MAX;
+> +	struct v4l2_mbus_framefmt *fmt =3D &format->format;
+> +	struct max_ser_priv *priv =3D v4l2_get_subdevdata(sd);
+> +	struct max_ser *ser =3D priv->ser;
+> +	const struct max_serdes_tpg_entry *entry;
+> +	struct v4l2_fract *in;
 > +
-> +	for (i =3D 0; i < ARRAY_SIZE(max96717_predef_freqs); i++) {
-> +		diff_new =3D abs_diff(rate, max96717_predef_freqs[i].freq);
-> +		if (diff_new < diff_old) {
+> +	if (format->stream !=3D MAX_SERDES_TPG_STREAM)
+> +		return -EINVAL;
+> +
+> +	entry =3D max_ser_find_tpg_entry(ser, 0, fmt->width, fmt->height,
+> +				       fmt->code, 0, 0);
+> +	if (!entry)
+> +		return -EINVAL;
 
 [Severity: Medium]
-Will U32_MAX restrict the maximum matchable clock frequency on 64-bit syste=
-ms?
-
-Since unsigned long is 64-bit, if a client requests a very high rate
-(e.g., ULONG_MAX) to query the maximum supported rate, the calculated
-diff_new (ULONG_MAX - freq) will be far greater than U32_MAX.
-
-The condition diff_new < diff_old will be false for all iterations, causing
-the loop to exit without updating idx and falling back to the lowest
-possible frequency (6.25 MHz). Should diff_old be initialized to ULONG_MAX
-instead?
+Does this violate the V4L2 core contract by rejecting the format entirely
+instead of coercing it? Typically, the driver should automatically adjust
+formats to the closest match rather than returning an error when an exact
+match isn't found.
 
 [ ... ]
-> +static int max96717_clk_set_rate(struct clk_hw *hw, unsigned long rate,
-> +				 unsigned long parent_rate)
+
+> +static int max_ser_set_frame_interval(struct v4l2_subdev *sd,
+> +				      struct v4l2_subdev_state *state,
+> +				      struct v4l2_subdev_frame_interval *fi)
 > +{
-[ ... ]
-> +	val |=3D MAX96717_REF_VTG0_REFGEN_RST;
-> +	val |=3D MAX96717_REF_VTG0_REFGEN_PREDEF_EN;
+> +	struct max_ser_priv *priv =3D v4l2_get_subdevdata(sd);
+> +	struct max_ser *ser =3D priv->ser;
+> +	const struct max_serdes_tpg_entry *entry;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	struct v4l2_fract *in;
 > +
-> +	ret =3D regmap_write(priv->regmap, MAX96717_REF_VTG0, val);
+> +	if (!max_ser_pad_is_tpg(ser, fi->pad) ||
+> +	    fi->stream !=3D MAX_SERDES_TPG_STREAM)
+> +		return -ENOTTY;
+> +
+> +	if (fi->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE && ser->active)
+> +		return -EBUSY;
+> +
+> +	fmt =3D v4l2_subdev_state_get_format(state, fi->pad, fi->stream);
+> +	if (!fmt)
+> +		return -EINVAL;
+> +
+> +	entry =3D max_ser_find_tpg_entry(ser, 0, fmt->width, fmt->height,
+> +				       fmt->code, fi->interval.numerator,
+> +				       fi->interval.denominator);
+> +	if (!entry)
+> +		return -EINVAL;
+
+[Severity: Medium]
+Similar to the format setter above, should this coerce the frame interval to
+the closest supported value instead of outright rejecting the request with =
+an
+error?
+
+[ ... ]
+
+> +static int max_ser_update_pipe(struct max_ser_priv *priv,
+> +			       struct max_ser_pipe *pipe,
+> +			       struct v4l2_subdev_state *state,
+> +			       u64 *streams_masks)
+> +{
+> +	struct max_ser *ser =3D priv->ser;
+> +	struct max_ser_pipe_mode mode =3D { 0 };
+> +	unsigned int num_dts;
+> +	unsigned int *dts;
+> +	unsigned int vcs;
+> +	int ret;
+> +
+> +	if (!ser->ops->num_dts_per_pipe)
+> +		return 0;
+> +
+> +	dts =3D devm_kcalloc(priv->dev, ser->ops->num_dts_per_pipe, sizeof(*dts=
+),
+> +			   GFP_KERNEL);
+> +	if (!dts)
+> +		return -ENOMEM;
+
+[Severity: Medium]
+Is it safe to rely on dynamic allocation here? This is called during stream
+start/stop operations, and if the allocation fails during a rollback, the
+error is ignored and the hardware could be left in a corrupted state. Also,
+using device-managed memory dynamically on operations triggered by userspace
+might continuously leak memory onto the devres list.
+
+[ ... ]
+
+> +static int max_ser_update_phy(struct max_ser_priv *priv,
+> +			      struct v4l2_subdev_state *state,
+> +			      struct max_ser_phy *phy, u64 *streams_masks,
+> +			      u64 *old_streams_masks)
+> +{
+> +	struct max_ser *ser =3D priv->ser;
+> +	u32 pad =3D max_ser_phy_to_pad(ser, phy);
+> +	bool enable_changed =3D !streams_masks[pad] !=3D !old_streams_masks[pad=
+];
+> +	bool enable =3D !!streams_masks[pad];
+> +	struct max_ser_pipe *pipe;
+> +	int ret;
+> +
+> +	pipe =3D max_ser_find_phy_pipe(ser, phy);
+> +	if (!pipe)
+> +		return -ENOENT;
+> +
+> +	if (!enable && enable_changed) {
+> +		ret =3D max_ser_phy_set_active(ser, phy, enable);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret =3D max_ser_update_pipe(priv, pipe, state, streams_masks);
 > +	if (ret)
-> +		return ret;
+> +		goto err_revert_phy_disable;
 > +
-> +	ret =3D regmap_clear_bits(priv->regmap, MAX96717_REF_VTG0,
-> +				MAX96717_REF_VTG0_REFGEN_RST);
+> +	ret =3D max_ser_update_pipe_enable(priv, pipe, state, streams_masks);
+> +	if (ret)
+> +		goto err_revert_pipe_update;
+> +
+> +	if (enable && enable_changed) {
+> +		ret =3D max_ser_phy_set_active(ser, phy, enable);
+> +		if (ret)
+> +			goto err_revert_update_pipe_enable;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_revert_update_pipe_enable:
+> +	max_ser_update_pipe_enable(priv, pipe, state, priv->streams_masks);
+> +
+> +err_revert_pipe_update:
+> +	max_ser_update_pipe(priv, pipe, state, priv->streams_masks);
 
 [Severity: Medium]
-Is it possible the hardware reference generator needs a delay to cleanly re=
-set?
+Should these rollbacks use the old_streams_masks parameter instead of
+hardcoding the global priv->streams_masks? If a nested rollback fails partw=
+ay
+(for example, when max_ser_update_phys attempts to revert a partially
+successful multi-pad update), utilizing the global state here might restore
+to the wrong target state instead of the actual old state.
 
-This asserts the reset flag and immediately clears it in the next I2C
-transaction via regmap_clear_bits(). If the I2C bus is fast or commands are
-batched, the hardware might not register a sufficient pulse width. Could th=
-is
-cause the PLL state machine to fail to lock?
+[ ... ]
+
+> +static int max_ser_update_streams(struct v4l2_subdev *sd,
+> +				  struct v4l2_subdev_state *state,
+> +				  u32 pad, u64 updated_streams_mask, bool enable)
+> +{
+> +	struct max_ser_priv *priv =3D v4l2_get_subdevdata(sd);
+> +	struct max_ser *ser =3D priv->ser;
+> +	unsigned int num_pads =3D max_ser_num_pads(ser);
+> +	u64 *streams_masks;
+> +	int ret;
+
+[ ... ]
+
+> +	devm_kfree(priv->dev, priv->streams_masks);
+> +	priv->streams_masks =3D streams_masks;
+> +	ser->active =3D !!streams_masks[pad];
+> +
+> +	return 0;
+
+[Severity: High]
+Does this incorrectly clear the global active stream state if a single
+pad is disabled? If userspace enables a stream on one pad (setting
+ser->active to true) and then disables a stream on a different pad, this
+unconditionally sets ser->active to false based only on the disabled pad,
+even though the first pad is still streaming. This could bypass hardware
+configuration safety checks elsewhere that rely on ser->active.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-gmsl2-3_se=
-rdes-v17-0-002499e534e8@analog.com?part=3D17
+rdes-v17-0-002499e534e8@analog.com?part=3D14
