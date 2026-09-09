@@ -1,64 +1,79 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B439563FC2;
-	Wed,  9 Sep 2026 14:11:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F26D956C642
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963085; cv=none; b=re+qoSXvMasePLfcoGyneou4mQ5MuXtxbLq5rDOGot1VAacJZq734mKWXSgUz1WsNVWb/1xZ0lhrG5JNYzzYdVfSCniiWDdWogbqwFDZcDXFuo4Cvtbeo35v/Wq0vZ4G1xcGS9X2GcMw7x13/81gpwFuyfiy3mwaogDT10vUJ14=
+	t=1788963201; cv=none; b=bC4LMDw1aOBBoYPoNWdWzEKoYnNTgxmmO6cN5SGV/oB932DAh+Dai7ScEjSHLgIeLl9Q7whLuLWNnnoPkh3U+VMxDtYB7OjBUC+la/TxJz4P2b/nrB2yZgoIe7gEOvqxC570gEPi2A9ycTekBTmzpuCd4pEitAeAGA6DitjxSp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963085; c=relaxed/simple;
-	bh=l0cPlu2DDz0z1wfTWKziEigHZ8deRCc992bI56Zs2wI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=caLCc7TjP42KnFvc2FAFrfyjC1/Z1c4b8knZPdZef9onPYQp5DO+fa5SHn5b9Xh+QoS8qIayWrDM+cf2klr01OqO9Nk6T5WI69OLo2WdxEv4XnbZcefyY9DlLnL7eOkZcDrk56mKzLQEeRnAjNrSRrzJAzF1N1tblboFWk20QaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=l3kvrUpI; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1788963201; c=relaxed/simple;
+	bh=gmFmfrJxoA7Nug84IXGdn2hbInOVt7EfY3z2c5RGPzQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=db7ZrU3+VXI8JbkMLf4i6uBoOcb1Z52amS7jA2D7OezW6WgkydCz57HLHY9I4x8RLXySUOyDnVC593W9xNJSe33lLePH+H2/R38Ml4lECNt0IbAHVBdwP4rhTIn8IMIHPia4VE71ctDoTdtfPUJSneFttft88qN8owr5fm1kpu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hej+Qxsg; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="l3kvrUpI"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2EAA23F6816;
-	Wed,  9 Sep 2026 16:04:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1788962647; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=X/+BNWDKLoFixMVMbyw0fK4a3AqpLvc8xjOhsuwSKbk=;
-	b=l3kvrUpIKzr18/Nzk1fGohzICAd7xTuRF3R/INmZqkfu5tmXTL3Z3Rx7muvG17DDamXMmD
-	LMTtd55MDHeRirWOakXbb6GxTSndTQdLawnreXOYpDgEgSgouV3+toun8kQNm6F7tCtTnX
-	jXzeaAVLaW7qvBNZ59VQQhLwQ3uwENAFqdyFJB4Iw3z25Qiu2J5h7wQ4pNSxasmXStKLlF
-	NOsOLoik/UMsvuPQzSG1m22ZzBVnLcp/VfFG1cT6X6FdOX3gZQWNYoZN8zbyQtinz0ahcA
-	hQKhREw59ALIXAggzKHwY5S2plTieigfW2xu/P2nT8Mkb9rJ9ddxWjOSOKiXcQ==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: netdev@vger.kernel.org
-Cc: andrew@lunn.ch,
-	olteanv@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com,
-	chester.a.unal@arinc9.com,
-	daniel@makrotopia.org,
-	linux@armlinux.org.uk,
-	arinc.unal@arinc9.com,
-	Landen.Chao@mediatek.com,
-	dqfext@gmail.com,
-	sean.wang@mediatek.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hej+Qxsg"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-485850cbac3so3858802f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 07:13:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788963198; x=1789567998; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IVGNbjOGRpPw3H08VWW1qB2tpMVtFhtvxOuvQrtYFmg=;
+        b=Hej+QxsgaMjR8YUZQf1FayQskkaC3YcXIj/BSyVBk9HLGtfb4nCVVBOnUd7MD1lcr3
+         b7AvvLeeDJKSagAFIVq1BwhEGQqmABXAR9CR5b3MzwHXH1477tsUmafPIC0zZ3lwepBo
+         YWcbQe0a/U+WT4q0GcM0XS+rooJPm34LfDvABXFDDZWVgtf24A4gaJcrTbaH3UQfDfA2
+         3dV8HFNrKMA8E/b4OssVO8ZAp9mf+iLDp5EKtcOME0nXpkS3CubjzsN6X3aNDit+xxYU
+         LSvz9DvHYKj0DMHvvuRMO0rwgAfaOm35DMGAOHeTFddtPGe5WwJmaN2wWwNRGVwNrt5R
+         hYWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788963198; x=1789567998;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=IVGNbjOGRpPw3H08VWW1qB2tpMVtFhtvxOuvQrtYFmg=;
+        b=jV8LuoY/T8EmIfSxDBBDRE3mOu8GvBamBlAIf9Rh7LsKh55r6+CMXwvq7kpQzwu2Pe
+         N+xGjNI+c1HUVSpyPpAF+c//7R84wWZN/qhdTOM+zNgzdimzoIljIeKNfiYTp3s5oYyV
+         mtS6j3d573HAbrgViVfb5bc1vOvH+L6vi6JCT9Yb9ke6oV6t0LG3ifl18PLviKVskywI
+         AfM7th2qnB1J4mYhFKKo7tQ7A0BVy5fGLc2BL5ZvXco82pwO9cYEMvkhEl3VhlMjPYIP
+         u7hXZAVPo06INYi+8eracekp0zzsubr3TzIK2Su6o9GzMYphjarPLag3/YbczeyjeNt2
+         5Apg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4vCB6IWM2bcrujYgM2mHH3OHVHtnoAXw/H09oRXw6tND/DqN5G1jOrVCH046hkq3ehyqI5hJs7CY8@vger.kernel.org
+X-Gm-Message-State: AFuF++kngc8HhO0g+kMa2UtBUYepNwVHEvi0jM3kZcJTNp7IAjeO+LD1
+	oQZemWyVAysNfANTxXI0mKSihUBof41gVlA20q9WWuRELJrFBIhVE/Tq
+X-Gm-Gg: AYBFou2KwWoVehPR+10qKbJXHVKkRI1ZUcQNThYutMp4gs4sUMvgjI91QApxqBK1jS9
+	T0cU5JfFErCCmuHaVUtTokBLrpBken/Y/Q7eqaqun4YF7+YVcuOqndi3aHtrjQBGsqZObAMh6s+
+	v0ySRdQdxIJbojDo3xXaUw7VUsqV0U8YbLcof5XMQKVbtaoxXF9hImIkRGcK2/JtfUCt88SgK+D
+	7uSLW8WGAyps/b4iu9zX9kanTxMbhBiVA+ryxmHEAOST5cw+BB9p3o5MQvl6xjn4FBgYXmzktc8
+	MopkhvYEV5act4oIRRNsE2ajCGgUoLU/9FC3FqyaAQRXfRHyscIrTL6wZ4TvOqwbbOe3DqSg7Ez
+	zchloq01hOOcGyepVBGknoJ87pI7Yq6yFBTbtQ/vlYGZzUeaXpfDwi/mRDvgQe3yKa669SJilOi
+	Rr9/Ts3bb0QWM1y+mByO62JgZ1CnkZPqJWy4RNWj/MiL/iTGC52iiQMPuV84o2mYMPon58ksA/c
+	W9t/hKSo9Cy1wiD3lzthwmqrKbapdmA08DvmE57szs06lmG3M7b8BtR2A==
+X-Received: by 2002:a05:6000:184f:b0:485:b148:aa13 with SMTP id ffacd0b85a97d-485b148acf3mr3046846f8f.40.1788963197769;
+        Wed, 09 Sep 2026 07:13:17 -0700 (PDT)
+Received: from zeus.localdomain (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c074asm43273521f8f.23.2026.09.09.07.13.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:13:17 -0700 (PDT)
+From: Sander Speetjens <sander.speetjens@gmail.com>
+To: Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Jonathan Bell <jonathan@raspberrypi.com>,
+	Stefan Wahren <wahrenst@gmx.net>,
+	linux-rtc@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	linux-rpi-kernel@lists.infradead.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	naseefkm@gmail.com,
-	b.larsson@gmx.com,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH net-next 1/7] net: dsa: mt7530: get ctrl phy addr using a function
-Date: Wed,  9 Sep 2026 14:03:40 +0000
-Message-Id: <20260909140346.2861572-2-cjd@cjdns.fr>
-In-Reply-To: <20260909140346.2861572-1-cjd@cjdns.fr>
-References: <20260909140346.2861572-1-cjd@cjdns.fr>
+	sander.speetjens@gmail.com
+Subject: [PATCH 0/3] Raspberry Pi 5 RTC driver
+Date: Wed,  9 Sep 2026 16:12:57 +0200
+Message-ID: <20260909141300.1368790-1-sander.speetjens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -66,192 +81,47 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-The MDIO MT7530 has 5 integrated PHYs, of these, the first PHY has
-the additional registers that are used for such things as configuring
-the clock configuration for the switch. The switch is typically on
-MDIO address 31 and the PHYs are 0, 1, 2, 3, and 4 with 0 being the
-special one. So taking the address of mdiodev (the switch) add 1 and
-modulo 31 finds the first PHY.
+The Raspberry Pi 5 has a battery-backed RTC located on the DA9091 PMIC.
+Access to the RTC is provided exclusively through the VideoCore firmware
+mailbox interface (not via a direct I2C/SPI register interface).
 
-However there are a number of MMIO based implementations of MT7530
-and on these, mdiodev is NULL though they often still have a control
-PHY for the purpose. Move MT753X_CTRL_PHY_ADDR to a function which
-handles the NULL condition somewhat more gracefully and allows a
-place for MMIO implementations to add special case handling to
-provide their control PHY address.
+This series adds:
+  - a DT binding for the "raspberrypi,rpi-rtc" compatible
+  - the RTC driver that talks to the firmware
+  - the corresponding DT node for the Raspberry Pi 5 B
 
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/net/dsa/mt7530.c | 54 +++++++++++++++++++++-------------------
- drivers/net/dsa/mt7530.h |  2 --
- 2 files changed, 29 insertions(+), 27 deletions(-)
+The driver and binding are based on (and largely taken from) the
+downstream Raspberry Pi kernel. The main changes for upstream are
+the addition of a formal DT binding and moving the RTC node out of
+the /soc node (it is not an MMIO device).
 
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 28f94cd25b95..9a50a492e6f0 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -46,6 +46,16 @@ static const struct mt7530_mib_desc mt7530_mib[] = {
- 	MIB_DESC(1, MT7530_PORT_MIB_RX_ARL_DROP, "RxArlDrop"),
- };
- 
-+static int
-+mt753x_ctrl_phy_addr(struct mt7530_priv *priv)
-+{
-+	if (WARN_ON_ONCE(!priv->mdiodev))
-+		return 0;
-+
-+	/* Default is 1st PHY */
-+	return (priv->mdiodev->addr + 1) & (PHY_MAX_ADDR - 1);
-+}
-+
- static void
- mt7530_mutex_lock(struct mt7530_priv *priv)
- {
-@@ -63,32 +73,30 @@ mt7530_mutex_unlock(struct mt7530_priv *priv)
- static void
- core_write(struct mt7530_priv *priv, u32 reg, u32 val)
- {
-+	int ctl_phy = mt753x_ctrl_phy_addr(priv);
- 	struct mii_bus *bus = priv->bus;
- 	int ret;
- 
- 	mt7530_mutex_lock(priv);
- 
- 	/* Write the desired MMD Devad */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_CTRL, MDIO_MMD_VEND2);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Write the desired MMD register address */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, reg);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, reg);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Select the Function : DATA with no post increment */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
-+	ret = bus->write(bus, ctl_phy,
- 			 MII_MMD_CTRL, MDIO_MMD_VEND2 | MII_MMD_CTRL_NOINCR);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Write the data into MMD's selected register */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, val);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, val);
- err:
- 	if (ret < 0)
- 		dev_err(&bus->dev, "failed to write mmd register\n");
-@@ -99,6 +107,7 @@ core_write(struct mt7530_priv *priv, u32 reg, u32 val)
- static void
- core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
- {
-+	int ctl_phy = mt753x_ctrl_phy_addr(priv);
- 	struct mii_bus *bus = priv->bus;
- 	u32 val;
- 	int ret;
-@@ -106,26 +115,23 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
- 	mt7530_mutex_lock(priv);
- 
- 	/* Write the desired MMD Devad */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_CTRL, MDIO_MMD_VEND2);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_CTRL, MDIO_MMD_VEND2);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Write the desired MMD register address */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, reg);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, reg);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Select the Function : DATA with no post increment */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
-+	ret = bus->write(bus, ctl_phy,
- 			 MII_MMD_CTRL, MDIO_MMD_VEND2 | MII_MMD_CTRL_NOINCR);
- 	if (ret < 0)
- 		goto err;
- 
- 	/* Read the content of the MMD's selected register */
--	ret = bus->read(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			MII_MMD_DATA);
-+	ret = bus->read(bus, ctl_phy, MII_MMD_DATA);
- 	if (ret < 0)
- 		goto err;
- 	val = ret;
-@@ -133,8 +139,7 @@ core_rmw(struct mt7530_priv *priv, u32 reg, u32 mask, u32 set)
- 	val &= ~mask;
- 	val |= set;
- 	/* Write the data into MMD's selected register */
--	ret = bus->write(bus, MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--			 MII_MMD_DATA, val);
-+	ret = bus->write(bus, ctl_phy, MII_MMD_DATA, val);
- err:
- 	if (ret < 0)
- 		dev_err(&bus->dev, "failed to write mmd register\n");
-@@ -2674,8 +2679,11 @@ mt7531_setup(struct dsa_switch *ds)
- {
- 	struct mt7530_priv *priv = ds->priv;
- 	u32 val, id;
-+	int ctl_phy;
- 	int ret, i;
- 
-+	ctl_phy = mt753x_ctrl_phy_addr(priv);
-+
- 	/* Reset whole chip through gpio pin or memory-mapped registers for
- 	 * different type of hardware
- 	 */
-@@ -2743,25 +2751,21 @@ mt7531_setup(struct dsa_switch *ds)
- 	 * phy_[read,write]_mmd_indirect is called, we provide our own
- 	 * mt7531_ind_mmd_phy_[read,write] to complete this function.
- 	 */
--	ret = mt7531_ind_c45_phy_read(priv,
--				      MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--				      MDIO_MMD_VEND2, CORE_PLL_GROUP4);
-+	ret = mt7531_ind_c45_phy_read(priv, ctl_phy, MDIO_MMD_VEND2,
-+				      CORE_PLL_GROUP4);
- 	if (ret < 0)
- 		return ret;
- 
- 	val = ret;
- 	val |= MT7531_RG_SYSPLL_DMY2 | MT7531_PHY_PLL_BYPASS_MODE;
- 	val &= ~MT7531_PHY_PLL_OFF;
--	ret = mt7531_ind_c45_phy_write(priv,
--				       MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr),
--				       MDIO_MMD_VEND2, CORE_PLL_GROUP4, val);
-+	ret = mt7531_ind_c45_phy_write(priv, ctl_phy, MDIO_MMD_VEND2,
-+				       CORE_PLL_GROUP4, val);
- 	if (ret < 0)
- 		return ret;
- 
- 	/* Disable EEE advertisement on the switch PHYs. */
--	for (i = MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr);
--	     i < MT753X_CTRL_PHY_ADDR(priv->mdiodev->addr) + MT7530_NUM_PHYS;
--	     i++) {
-+	for (i = ctl_phy; i < ctl_phy + MT7530_NUM_PHYS; i++) {
- 		mt7531_ind_c45_phy_write(priv, i, MDIO_MMD_AN, MDIO_AN_EEE_ADV,
- 					 0);
- 	}
-diff --git a/drivers/net/dsa/mt7530.h b/drivers/net/dsa/mt7530.h
-index 2bbbe617b52e..3dabbc99fbbc 100644
---- a/drivers/net/dsa/mt7530.h
-+++ b/drivers/net/dsa/mt7530.h
-@@ -747,8 +747,6 @@ enum mt7531_xtal_fsel {
- #define  MT7531_PHY_PLL_OFF		BIT(5)
- #define  MT7531_PHY_PLL_BYPASS_MODE	BIT(4)
- 
--#define MT753X_CTRL_PHY_ADDR(addr)	(((addr) + 1) & (PHY_MAX_ADDR - 1))
--
- #define CORE_PLL_GROUP5			0x404
- #define  RG_LCDDS_PCW_NCPO1_MASK	GENMASK(15, 0)
- #define  RG_LCDDS_PCW_NCPO1(x)		FIELD_PREP(RG_LCDDS_PCW_NCPO1_MASK, x)
+The driver supports time read/write, alarm, and optional trickle
+charging voltage configuration via device-tree.
+
+Testing
+-------
+- Hardware: Raspberry Pi 5 Model B revC
+- Kernel: v7.2
+- dt_binding_check: passed
+- Basic RTC operations (read/write time, alarm) verified
+
+Jonathan Bell (1):
+  rtc: Add Raspberry Pi 5 RTC driver
+
+Sander Speetjens (2):
+  dt-bindings: rtc: Add Raspberry Pi 5 RTC binding
+  arm64: dts: broadcom: Add RTC to Raspberry Pi 5 B
+
+ .../bindings/rtc/raspberrypi,rtc-rpi.yaml     |  48 +++
+ .../dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |   7 +
+ drivers/rtc/Kconfig                           |  11 +
+ drivers/rtc/Makefile                          |   1 +
+ drivers/rtc/rtc-rpi.c                         | 277 ++++++++++++++++++
+ 5 files changed, 344 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/rtc/raspberrypi,rtc-rpi.yaml
+ create mode 100644 drivers/rtc/rtc-rpi.c
+
 -- 
-2.39.5
+2.55.0
 
