@@ -1,81 +1,74 @@
-Received: from mail-24416.protonmail.ch (mail-24416.protonmail.ch [109.224.244.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [149.28.215.223])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 987F23CA491
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 19:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E65A3C1D4D
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 19:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.28.215.223
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982837; cv=none; b=BTMzWetuvwomPDgntTMdVdsgTvIzgh3hfESfhLB7fULmWhJWngZay7+5BGnwVeftvG3wDGNRRwYOI0o0/iXLG0Md+e7kc8kkaMfSNL3QQIItt/B5nv3QxQs5/Xb07R7Iyzcy5bqcSiLCWULIIXQwLn0xHMn/e888VNPOn26uB2I=
+	t=1788983109; cv=none; b=LowitU7O/MGm4HwrZsJRqiFkML14rCDJfI3rU99bC3ktwUJ24nP1P4VQvTRZdagO8zJE/i7dQeAM+s2Y/YYWEYzFThYlg5eCwtqo3X2eqbE4eE3sJGDAleKGRfhTRKAva79JpWCTU/mUSF2e11M7/e1Za/OraP24mFuqXMiT7tw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982837; c=relaxed/simple;
-	bh=TU9tS4wITpHYBcAVM8/pudHRv+AetuJo3E3c70HNOzI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YA9CPQofkqhx8EfB18gUBbsYlEbi4agGrCYrHHe+95A31Z0lliJdR/o4P+5MzSiOyVKZ/hALIGVGxaFU1Sg2sN+dcDgr7pI//bG29ezOWW2K30xL739FwTW2c4Zywn2TQUUK5UUSK+YjqWyCjTXKx6emSZ668h0UqtlSK7FKEPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=T1shfXax; arc=none smtp.client-ip=109.224.244.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788983109; c=relaxed/simple;
+	bh=4XB/I+FIqmb244yO8hTo1zUisuonT4XFLkLy0pw0SRM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DCi+QPGViEIUGDmfjem5sQ7WXThR4R6Wg0alR9D5IYTyRD6sirJALB6oFSZ7GhIm4GBgwPEmNNMfAFK5QKngR9/wou1T2hUcoLKhfAh50K5cshL2abBzaFd5X1W+EBH/Gk/z4cI7W3tlIGayCBqbwa6E156c+hiiks6Gy8MRfoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=kPCYlq4Q; arc=none smtp.client-ip=149.28.215.223
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="T1shfXax"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788982832; x=1789242032;
-	bh=TU9tS4wITpHYBcAVM8/pudHRv+AetuJo3E3c70HNOzI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=T1shfXaxZYHaMKF4BiWfgNYO03mY5sxmR29BByY/OBw5TiQkG66+IIUnlE1PYtYrV
-	 Sxt4fDifpbhKF40J6ePTOd1EmWJ4QCohUN/Tra+PiYedK+ee09FrT0stxmTv16edGl
-	 zWnNqv/jBJx9OlO5lgwixoc8C1URxvNiR3nNpFpGKLSBCG+syACyPeSV9z8U7Dd3qz
-	 0SvvOq0LsDrvgNDyYrWmJhJAVya+DY+GHrgWex8Q6uYE0ASIVSEfumnfU/nTMvtBIi
-	 5KVNTdiwNhrOfWb0Zf/K6h/x6Q9/ylf+W+JePxpBmqwyeMRxF6Q8Bj/UIB6dbauarm
-	 pXGRQ6bWw5+Mg==
-Date: Wed, 09 Sep 2026 19:40:29 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v2 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20260909193953.86192-4-lsa.uz@pm.me>
-In-Reply-To: <20260909193953.86192-1-lsa.uz@pm.me>
-References: <20260909193953.86192-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 950077151668ae279c0a15af86edd10aa4c419c7
+	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="kPCYlq4Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=fe-2eefaa527c; t=1788983101;
+ bh=5ENYo56kYOoaOL7ZeChMo/ToS0E03eRMjgDAeWj53nw=;
+ b=kPCYlq4QFFsWgl2/vPxglOHfZ6sF/TCthjTr/ncpVcXs9fSL4+hcnMgBPviNk+r6yAsSxCrzI
+ Vj4dEwhs2pF9E3CYXzdm140Df6WCSl4vkTzd0Nxv6zTCthm0QC9CipAQUjS/WYCjoXzEWBl8KBF
+ 3d2YbuR3vRdzIaRiu10SOCs=
+X-Forward-Email-ID: 6aa1b7365382f19eb5d6c7ab
+X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
+ smtp.forwardemail.net, 149.28.215.223
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Thomas Turner <tturner@lineageos.org>
+To: semen.protsenko@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	peter.griffin@linaro.org
+Cc: alim.akhtar@samsung.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas_turner@talktalk.net
+Subject: [PATCH v4 0/2] Exynos850 GPU support
+Date: Wed,  9 Sep 2026 20:44:48 +0100
+Message-ID: <20260909194450.183693-1-tturner@lineageos.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+This patch series documents and provides basic GPU support for the
+Exynos850 SoC, making use of the Mali G52 GPU through the panfrost
+driver. Only basic support is provided here and as such lots of features
+are missing. This series only adds the GPU node for the Exynos850 SoC
+dtsi, but keeps it disabled, so it stays disabled currently on E850-96
+board (The only user of the Exynos850 SoC dtsi upstream).
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+Thomas Turner (2):
+  dt-bindings: gpu: arm,mali-bifrost: add exynos850-mali compatible
+  arm64: dts: exynos: Add GPU/Mali Bifrost node to Exynos850
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/gpu/arm,mali-bifrost.yaml   |  1 +
+ arch/arm64/boot/dts/exynos/exynos850.dtsi           | 13 +++++++++++++
+ 2 files changed, 14 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 7e65491fa..68c2eb326 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -97,6 +97,8 @@ static const struct ipu_sensor_config ipu_supported_senso=
-rs[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
---=20
-2.53.0
-
+-- 
+2.47.3
 
