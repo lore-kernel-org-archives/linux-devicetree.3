@@ -1,156 +1,260 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2571559CA5
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:13:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66DD05437C7;
+	Wed,  9 Sep 2026 15:14:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788966837; cv=none; b=oIwyM3T1gv830PnJu29HVTcZreP1eFZiZW4qCp+Ucojj4CG9QtQM9bcGP65e2qs1gSVvhKslo4j9HhM3b8h8jxvOnB0Bo2saS5Gez3JtKibU7FYhnEEtewTr9AtsknN1Kjqe2R6t4/ISlhYFfhekFGo8R99nGgSu+wD9Q4JiXXw=
+	t=1788966874; cv=none; b=FEaj4WI/gjYOVihTiDBA0AEGGgb4PRQRETScQ3PDCzERQozgArh1AQYjWVQQxklkLP24CdUMha/H0iYCn1cW0tXwlDLvke1c/5ITh8LK1rokoKpPN3Swzx2k/50ywyKPEBFd8W8bMM/VVucjFuPTPojoB+coQbwhlUhSoTo2Tpo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788966837; c=relaxed/simple;
-	bh=Q76seR7gqTVi8gVXtpUpO7g8aW7FkFDtxS59KpV9Z4E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GITW94qqE70G1k9z9g96ai1erssIsRP0+UywB37P7DdKdbeB5mjQ9JANMqM6f/znC3BisYGF0SY7LhZegSzsVQbU8180FAfOTh5PAS57d/vg4EscpWwe5idmnKU+Jaz8AqsYRtuFIYtbw0olEhIvQ7afNshyhxVJT4MzBjAtB0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nG7LCQc6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788966874; c=relaxed/simple;
+	bh=NWo98yh3UDHnCrLVd1UVEfAByvGYrnUIgbiSl7qUb58=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UXrIaMovQInbZoIUFSy+oMA0cF9Xv4o4Am3D53ECBmid6Vu55PUPHLAELiixpiLV8JXHrZzbhFHOC/sM+UvC01ocWtgNyda1SBUhfy/GSCO2Lh32knqaLtbGvr3YNVnH34n3t/+dcO+Id0UqzaFNgQPuOVPuuORVZodLUlYVIQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=awzQbg+0; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CUEEvUGP; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nG7LCQc6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2FE1F00A3A;
-	Wed,  9 Sep 2026 15:13:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788966835;
-	bh=Uqiu2JlFau0H8iGvXgnSpWsV7nDxs0owL3JtIDFO6Ac=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nG7LCQc6XcTU9Bs2yeudBEKZHQn/ngLBNV91s1y1xUUbJ+MZYC5xTNTfR3m+1y4CO
-	 vhiKlRrRqDixfdUbF6ZBkQ7j5VQH1fuvnKeMim2NMrkdzCCjFZAJ1DigSN5TxHedDU
-	 xpNRD77Fdv+BQff3iULVHVDqVrOkZHsmPSuzPq0kHPu/0Z+KZ0n1l062BDMh6YhTIo
-	 cMyQjujDMzr9xz9+k+CzbtNGk8r4T5vWIbmkB2J/GdmK3qCvQ274qy8gKqrtNyOtb2
-	 XeJSenYDR2F0PC+MEAmyo8mSch8Of+UNIF0KONjMMmqYmi0NNuQ9BE2AmEqd91ktOD
-	 q38i4M+ZqtPJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/13] media: iris: Route buffers to the matching
- context bank device
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-6-2fe43ae45495@oss.qualcomm.com>
-References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
- <20260909-vpu_iommu_iova_handling-v3-6-2fe43ae45495@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 15:13:54 +0000
-Message-Id: <20260909151355.3A2FE1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="awzQbg+0";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CUEEvUGP"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg4921xQLzMlDG;
+	Wed, 09 Sep 2026 17:14:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788966870;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FHRx7wOPho4cF95Tvg/O53cRuFRQttg9t3cb9/+lFgM=;
+	b=awzQbg+0WuHBXAzA3KMNF1Ty50/hrWfvF36UkuB2vOL4FJqrs0Kr0E/NdZgz8OE8lyL9dN
+	5KG0UhBrO3+y9pJw94FR0M9w+I1EgYPK7bhbbCCB1l5qbyWo4aqrbS8VfDSimbM75An0YH
+	40cb+HBeVlfJYiW9j0ALA5jbY/beQAjC+kAudxRjA1Belfocn/yEymd6fNlzAHS41Xn9r3
+	Tkjs4QXo7H+c8cO9qLft70dtzNKtUZOHVdX0fWAEWFrptolGFLO1gUXgiFHmDV5FKVi7e+
+	7H00DLaPtiC3ktCAAbCd793Eu0QbUfMl+KkHCEQ0vw3ai9RBg7mixTLChgDPZA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=CUEEvUGP;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788966868;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=FHRx7wOPho4cF95Tvg/O53cRuFRQttg9t3cb9/+lFgM=;
+	b=CUEEvUGPu9aU31JwV6RQjU7ZfILjqumd2gdhsxT+ZXMHUgMtw+ATpqAlksS4vNni3mlC3A
+	Mmvdl3kUsGh12pyX23QReXc6PnxyVqvIXpB1h5D9m9QikF/Fl3+W+IUo88QV31a6DBa8Rr
+	LzT5/40GaQysQ/AtV5xc1EWS6RbyOPbl1kHjJ+c1XrimsN4nwraxaQK04Hlcks3fMMzxuP
+	t6DJ7YA1hOhZCoxKuhaVLKIYQWCKGkl5u++8j9mF/0IiVTsV16dinwO40LzAnEPSL512uZ
+	jVQrUfbaopAno5ksJW7A2ygqqETLqv5+wHHecQvN4dkvaq/FKxTyv/bm+Yxpmg==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: renesas: sparrow-hawk: Add overlay for WaveShare 2CH CANFD HAT
+Date: Wed,  9 Sep 2026 17:13:55 +0200
+Message-ID: <20260909151423.28358-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 89e2888c1d20c75e8e1
+X-MBO-RS-META: qfsu8qqwdpdmxdh5bqxnx63z684595px
+X-Rspamd-Queue-Id: 4hg4921xQLzMlDG
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add a DT overlay to bind the WaveShare 2-Channel Isolated CAN FD
+Expansion HAT on the Retronix R-Car V4H Sparrow Hawk board.
 
-New issues:
-- [Critical] Context bank devices (np_dev and p_dev) are unregistered and f=
-reed during driver removal while V4L2 queues and internal buffers still hol=
-d references to them, leading to a Use-After-Free and IOMMU faults in dma_f=
-ree_attrs().
+Current device link is at https://www.waveshare.com/2-ch-can-fd-hat.htm
 
-Pre-existing issues:
-- [Critical] V4L2 instances access devres-managed `iris_core` structure aft=
-er it has been freed during module removal.
---
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+V2: - Drop the unique spi controller node identifier
+    - Switch IRQ to active low
+    - Sort compatible and reg properties
+    - Add "CN7 pin 22" comment
+    - Move pwm1 node to the top and add comment
+    - Rename MSIOF0 PFC node
+---
+ arch/arm64/boot/dts/renesas/Makefile          |   3 +
+ .../r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso   | 135 ++++++++++++++++++
+ 2 files changed, 138 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
 
-commit 0b3161aa43cd126ba013789330d51a653b78bf3a
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Subject: media: iris: Route buffers to the matching context bank device
+diff --git a/arch/arm64/boot/dts/renesas/Makefile b/arch/arm64/boot/dts/renesas/Makefile
+index e4a7d7ab5b0e9..b742baf509a14 100644
+--- a/arch/arm64/boot/dts/renesas/Makefile
++++ b/arch/arm64/boot/dts/renesas/Makefile
+@@ -124,6 +124,9 @@ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-5in.dtb
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-7in.dtbo
+ r8a779g3-sparrow-hawk-rpi-display-2-7in-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-rpi-display-2-7in.dtbo
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-rpi-display-2-7in.dtb
++dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-2ch-canfd.dtbo
++r8a779g3-sparrow-hawk-ws-2ch-canfd-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-ws-2ch-canfd.dtbo
++dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-2ch-canfd.dtb
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-display-13in.dtbo
+ r8a779g3-sparrow-hawk-ws-display-13in-dtbs := r8a779g3-sparrow-hawk.dtb r8a779g3-sparrow-hawk-ws-display-13in.dtbo
+ dtb-$(CONFIG_ARCH_R8A779G0) += r8a779g3-sparrow-hawk-ws-display-13in.dtb
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+new file mode 100644
+index 0000000000000..213bac3e3abca
+--- /dev/null
++++ b/arch/arm64/boot/dts/renesas/r8a779g3-sparrow-hawk-ws-2ch-canfd.dtso
+@@ -0,0 +1,135 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++/*
++ * Device Tree Overlay for the Waveshare 2-Channel Isolated CAN FD HAT
++ * on connector CN7 on R-Car V4H ES3.0 Sparrow Hawk board
++ *
++ * Copyright (C) 2026 Marek Vasut <marek.vasut+renesas@mailbox.org>
++ *
++ * Example usage:
++ * - Connect HAT signals to Sparrow Hawk board CAN BUS connector CONN2:
++ *   HAT CAN_0 H -- CONN2 pin 6
++ *   HAT CAN_0 L -- CONN2 pin 2
++ *   HAT CAN_1 H -- CONN2 pin 5
++ *   HAT CAN_1 L -- CONN2 pin 1
++ *
++ * - Determine which interface is which:
++ *   $ ip -d link show
++ *   2: can0: <NOARP,ECHO> ...
++ *      ...
++ *        clock 40000000 ... e6660000.can <------ Native Renesas CANFD
++ *   3: can1: <NOARP,ECHO> ...
++ *      ...
++ *   4: can2: <NOARP,ECHO> ...
++ *      ...
++ *        clock 40000000 ... spi1.0 <------------ SPI CANFD on this HAT
++ *   5: can3: <NOARP,ECHO> ...
++ *      ...
++ *
++ * - Bring connected interfaces up:
++ *   # CAN_0 link
++ *   $ ip link set can0 up type can bitrate 125000 dbitrate 250000 fd on
++ *   $ ip link set can3 up type can bitrate 125000 dbitrate 250000 fd on
++ *
++ *   # CAN_1 link
++ *   $ ip link set can1 up type can bitrate 125000 dbitrate 250000 fd on
++ *   $ ip link set can2 up type can bitrate 125000 dbitrate 250000 fd on
++ *
++ * - Perform CAN test, run each of the pair commands in separate terminals:
++ *   # CAN_0 link
++ *   $ canfdtest -v can0
++ *   $ canfdtest -g -v can3
++ *
++ *   # CAN_1 link
++ *   $ canfdtest -v can1
++ *   $ canfdtest -g -v can2
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/*
++ * PWM1 uses PWM1_B pin configuration for pin GP2_13. This conflicts
++ * with SPI_1 CE_1 signal which is also on pin GP2_13. Disable PWM1
++ * in case this hat is in use.
++ *
++ * In case of a dynamic overlay, pwm1 must be disabled before SPI_1
++ * is probed. Otherwise the latter will fail with -EBUSY due to the
++ * conflicting pin being still in use. Hence place pwm1 node here.
++ */
++&pwm1 {
++	status = "disabled";
++};
++
++&{/} {
++	/* Fixed clock dedicated to SPI CAN on 2-CH CAN FD HAT */
++	clk_can0: clk-ws-2ch-canfd0 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <40000000>;
++	};
++
++	clk_can1: clk-ws-2ch-canfd1 {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <40000000>;
++	};
++
++	/*
++	 * SPI_1 is operated as GPIO SPI, because MSIOF5 can not be
++	 * muxed on the pins allocated for SPI_1 on this CANFD HAT.
++	 */
++	spi {	/* SPI_1 */
++		compatible = "spi-gpio";
++		#address-cells = <1>;
++		#size-cells = <0>;
++		sck-gpios = <&gpio0 10 0>;		/* CN7 pin 40 */
++		miso-gpios = <&gpio0 9 0>;		/* CN7 pin 35 */
++		mosi-gpios = <&gpio0 12 0>;		/* CN7 pin 38 */
++		cs-gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;	/* CN7 pin 12 */
++		num-chipselects = <1>;
++
++		can@0 {
++			compatible = "microchip,mcp2518fd";
++			reg = <0>;
++			clocks = <&clk_can1>;
++			/* CN7 pin 18 */
++			interrupts-extended = <&gpio1 25 IRQ_TYPE_LEVEL_LOW>;
++			spi-max-frequency = <20000000>;
++		};
++	};
++};
++
++&msiof0 {	/* SPI_0 */
++	#address-cells = <1>;
++	#size-cells = <0>;
++	pinctrl-0 = <&msiof0_pins>;
++	pinctrl-names = "default";
++	status = "okay";
++
++	/*
++	 * Native MSIOF chipselect does not work with MCP2518FD
++	 * because MCP251xFD driver needs to keep the chipselect
++	 * line asserted between transfers. This requirement is
++	 * fulfilled only by using GPIO chipselect.
++	 */
++	cs-gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
++
++	can@0 {
++		compatible = "microchip,mcp2518fd";
++		reg = <0>;
++		clocks = <&clk_can0>;
++		/* CN7 pin 22 */
++		interrupts-extended = <&gpio1 26 IRQ_TYPE_LEVEL_LOW>;
++		spi-max-frequency = <20000000>;
++	};
++};
++
++&pfc {
++	msiof0_pins: msiof0 {	/* SPI_0 */
++		groups = "msiof0_clk", "msiof0_txd", "msiof0_rxd";
++		function = "msiof0";
++	};
++};
+-- 
+2.53.0
 
-The VPU issues direct memory accesses through several stream units, requiri=
-ng
-non-pixel streams to use a specific context bank device due to address range
-differences. This commit updates the buffer and queue allocation routines
-to fetch and use the matching context bank device based on the buffer type.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/med=
-ia/platform/qcom/iris/iris_buffer.c
-> index eb8de60c1177f..6e03d13ac1a79 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-[ ... ]
-> @@ -650,10 +650,10 @@ int iris_queue_internal_buffers(struct iris_inst *i=
-nst, u32 plane)
-> =20
->  void iris_destroy_internal_buffer(struct iris_inst *inst, struct iris_bu=
-ffer *buffer)
->  {
-> -	struct iris_core *core =3D inst->core;
-> +	struct device *dev =3D iris_get_cb_dev(inst, buffer->type);
-> =20
->  	list_del(&buffer->list);
-> -	dma_free_attrs(core->dev, buffer->buffer_size, buffer->kvaddr,
-> +	dma_free_attrs(dev, buffer->buffer_size, buffer->kvaddr,
->  		       buffer->device_addr, buffer->dma_attrs);
-
-[Severity: Critical]
-Does this code introduce a use-after-free regression for the context bank
-device?
-
-If userspace keeps the device node open during driver unbind, the context
-bank devices might be unregistered and freed. When the file descriptor is
-subsequently closed by userspace, tearing down the internal buffers will
-invoke dma_free_attrs() with the freed device.=20
-
-Since we are using these devices for memory tracking without taking a
-reference, can this lead to memory corruption?
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/=
-media/platform/qcom/iris/iris_resources.c
-> index 2c4d34c7bd77d..a6c3df892ca98 100644
-> --- a/drivers/media/platform/qcom/iris/iris_resources.c
-> +++ b/drivers/media/platform/qcom/iris/iris_resources.c
-[ ... ]
-> @@ -138,3 +139,43 @@ int iris_disable_unprepare_clock(struct iris_core *c=
-ore, enum platform_clk_type=20
-> =20
->  	return 0;
->  }
-> +
-> +struct device *iris_get_cb_dev(struct iris_inst *inst, enum iris_buffer_=
-type buffer_type)
-> +{
-> +	struct iris_core *core =3D inst->core;
-
-[Severity: Critical]
-This is a pre-existing issue, but can this dereference of inst->core lead
-to a use-after-free?
-
-The iris_core structure is devres-managed. If the driver is unbound while
-userspace still has the file descriptor open, devres will free the core
-structure immediately.=20
-
-When the file is closed later, teardown paths that call into functions like
-iris_get_cb_dev() will access the freed inst->core structure.
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_vidc.c b/drivers/media=
-/platform/qcom/iris/iris_vidc.c
-> index fcbc60016beec..064cf0a80748d 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vidc.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vidc.c
-> @@ -108,7 +108,7 @@ iris_m2m_queue_init(void *priv, struct vb2_queue *src=
-_vq, struct vb2_queue *dst_
->  	src_vq->drv_priv =3D inst;
->  	src_vq->buf_struct_size =3D sizeof(struct iris_buffer);
->  	src_vq->min_reqbufs_allocation =3D MIN_BUFFERS;
-> -	src_vq->dev =3D inst->core->dev;
-> +	src_vq->dev =3D iris_get_cb_dev(inst, BUF_INPUT);
->  	src_vq->lock =3D &inst->ctx_q_lock;
-
-[Severity: Critical]
-Can assigning this dynamically unregistered context bank device to the
-queue cause a similar regression?
-
-Like the internal buffers, if the driver unbinds while userspace
-holds a file descriptor open, the queue teardown during the deferred
-file close might dereference the freed context bank device.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-vpu_iommu_=
-iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com?part=3D6
