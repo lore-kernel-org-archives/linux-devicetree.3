@@ -1,158 +1,157 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 478273BED7B
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 19:37:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3982B3CBE6D;
+	Wed,  9 Sep 2026 19:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788982653; cv=none; b=pAvuBfHV8PQcDDwp4C/J2eMHUBDS6MASNkjtOiT8udkbEF9zmJnn0QO5GcoyOHaZKhEMvV9SkpATNEsjN1YROIPXCdys8EYnYqQ/GthFuVVuHUi3m6ZSlY3l9WJ5vWxEsrAstmiLP7jvHIt5tZIOyS9LIUKO/35dwfyysiZazd0=
+	t=1788982691; cv=none; b=t+tJsQ1oxWjw3TQpJB1lRB/b2GGRt6ppHWhGc2AcOpeRpTURYWBLiKpUUVmqBIi/nuVKcXMTa5/lA+v2XpkBsUsLxVlyj7n4S/OhQAzmTXo4MZHgAIiIF8xxSLSl0nrnhYuwFsXmfMjbKBueJG7JrFhX5tEJBx8TzCMmQ3fjLuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788982653; c=relaxed/simple;
-	bh=RN+2l8Ry5cU7Y+SQkk4XBFHCoYkQHFINdSGrSv0wojQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HSmj+T1bzK1+ja1+Xc5JITbU4Z+yhIHqmuK/PzlaF6x133uCuIRmGDyUzvF/prhWQBWZ+ITONx6oxc5aTZtoSaAzhVAqgCxPTsJFhDDEsh6HpFnWC68VsUX9Bvn9CQ4972g5A9eR5W5Q0y+RkQ6ifghohOX6sKvB0g3uKza+4Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KZAaKhWK; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788982691; c=relaxed/simple;
+	bh=OmLxNhwIEeGHYJj3Y2qiAiLAo8DjCGsOiITKuTiyw48=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=j5GMEYo56YBrx1uGfUX+ms8Hhg0LxTOtfhxOnhmc5htbmEb+wkGulLHoJ2Zs71VGni6avLjsb5vaGapKbnP5dOBfO3G2yc6jTaV6NFZXgyFKIrjApwUfYrKRsgI2lPs++JkX0oRnuX5Mjir5mXYsPsRFvmf5G2IvnnPw0TI9CB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ruwBtuB0; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KZAaKhWK"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso53892475e9.3
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 12:37:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788982648; x=1789587448; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=phDmBn0qMNYKxqReRuAEO8P3Gi0eFxNdFtNGKUME1DM=;
-        b=KZAaKhWKHEzwGluEC1dehoXQWFWkKWawi1YLvku2Tj2PZReu8uzKVBiyzLGeflpHHN
-         kJA6P3/z018/XqYnb/N1f6VIXdv4M8LUz4L0uBMHtJ1l8FGB7co7uCTgfvdwEdeSDT3P
-         CTnrnFMXnDHTkT60nqY5PGfZDgGECr4cOu3LR6MAkRksh0LYbqouLLaoCeUH29G7xR50
-         3KhpBRBU6gcQ+t8l+Qg0mZL4Zwi7lWkarRvg7b9eOfmLs5tcTStBP57O2MsxCc4gzCdB
-         KOdCL5KMX/8hbaX1nB1keRBhGVA0DFOnHoMuqJV6XswmxBwl/nMGIQJ2bkhyLliEsePJ
-         Oq+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788982648; x=1789587448;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=phDmBn0qMNYKxqReRuAEO8P3Gi0eFxNdFtNGKUME1DM=;
-        b=kguEr1WTJwtoUDDF+3UDscEdAHSrlvpXgiGfFrrnfThidruSlDtRtKjrju3U75SUEc
-         BYOlsYOB+i2jYZuNgJHJYmh37wGpilfhkI1ohRf/RcV06UjAYKzCxDub8FKAa9MlLIT8
-         Y3ipMMWuozEHM6+6QN4BujQlzhpLVqRYtAV/xx14+lwmXXLDiXnxiOwJ6VpEvk1A/dtw
-         7iRjxULocRmOg5TAYIjCWH4c3CqIIm42v4CGlzr3liu682w9bI3Eucv5fAriZr+l6mk+
-         uaEnJLIja6Z4T3Kh2mzmx9JCEc5KduPP5dADzEOHlwXTK+N11PwbmKT6maLnHzxr+197
-         pBCA==
-X-Forwarded-Encrypted: i=1; AKwUvByWOQ7ASF84/uVpEZFdMvCqd0o2zUKxdiQJjVb6NeHUp/rClGUmgTNpfKdrC+bdgBvFx7N7fHuiHgwo@vger.kernel.org
-X-Gm-Message-State: AFuF++mBw7Ok7Vq/su5nIwKvMNUxm3wUpgraGuyGuBa0fBiO9UmbiK1J
-	D0CMQQX4Ms3lf31kjyGn+te23hV/oe2Aoq3QXd6iMEvtT/OR8hmHpkgF
-X-Gm-Gg: AYBFou3jm+PzJy5L947b3XNghw1lXfnA8/Yth9Zm6ofTuTFuUBk7nlS+UWDswfvJNIl
-	OimaYKw9qCQrJHWWE1kzhqSD2k1ouEbzFUt901Wbn3gYRBOBSwTbHD1uh7fmnPOFDYT6G6yyfUI
-	vno67Lwr0Cu9hi2qW0roef+hwywecUbF9iOpf6N01ak1O3tAA9qOkzQyoaxiED5BWiQ6dfNpI4+
-	HKkdIjaurVrzfTC4lU/ioXuST2gDG1en+u9Pc2AuDxLe+0YIs7Z4BOrNTQoegIkZ89p46RJLwtE
-	MYp+jBdVtj8gKsdPQQxHGrS0ZLu6GS2Vl6RLxNGLo0fZJTQnESZQ/ab5uhuuIrDvAcTmKjPFMkQ
-	7EcP3oCx+CZhiLeGxU3ilsJr7jy6rRliCuo1GNqO1Wzo5YOD1bHlO7ZgxgK0pVdSiTHlStBArGN
-	P1Ld8raMQe9SRO+Nm7LHOZiir1i74qyWPiPOuVMr2UXUkWN2Ft5INA6+UnZ+1ruHHe8H3jv861k
-	o5t1LGdL9HFXjLydMfDdzQ0zh2HodXewcCHWwya67vS7k6eYeaNbYGLLwbDVMPTUp8JhlM2Mv2o
-	+Z3883ClXQ==
-X-Received: by 2002:a05:600c:6298:b0:49d:17d4:d6ad with SMTP id 5b1f17b1804b1-49d17d4d6e7mr144087385e9.23.1788982647983;
-        Wed, 09 Sep 2026 12:37:27 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:d357:e592:d56c:d3b5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26be64a5sm13123995e9.6.2026.09.09.12.37.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 12:37:27 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [RFC PATCH 3/3] arm64: dts: renesas: r9a09g057h44-rzv2h-evk: Move SDHI1 dma range from 8-12 GiB
-Date: Wed,  9 Sep 2026 20:36:39 +0100
-Message-ID: <20260909193640.8069-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260909193640.8069-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ruwBtuB0"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E3A15C2BCFF;
+	Wed,  9 Sep 2026 19:38:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1788982690;
+	bh=OmLxNhwIEeGHYJj3Y2qiAiLAo8DjCGsOiITKuTiyw48=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ruwBtuB08FvUpDWjmLZHBPIjeCFnETC4h7L4QFwMacWp/FSVNUCx+qaIhsDlH7I5I
+	 boir9XRUHidOLMY4GL8CrAQg6OoKnfNMdsxCS+L4x9x+O18gykVE6GtDOZtFYjhD1r
+	 WeC2TpRjzWvKD9WH9Vgs+JpLEav+4v0Rf6VQy1hY7Ot6cglnBmjgYMFYCFAhdi3sd2
+	 q6n9WdVkER0n0JYl0el9aWDzp+fTyUHP4sgxdke6YFdVutuUPRYoHCDYXPNYrLGbws
+	 ZaIyuNbMnFJnww6CUUAkJ3FZOr5iLzhfsoJgF25lW9Zr8khRfdcVjOCSF4MWy6xTGh
+	 xFoM0uStMH6Dw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id CA4D0C88E41;
+	Wed,  9 Sep 2026 19:38:10 +0000 (UTC)
+From: Zakariya Hadrami via B4 Relay <devnull+zkh.mailbox.org@kernel.org>
+Date: Wed, 09 Sep 2026 21:38:03 +0200
+Subject: [PATCH v4 4/4] ARM: dts: mediatek: Add basic support for Amazon
+ ford board
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-mt8127-amazon-ford-basic-v4-4-e9af5c420ab1@mailbox.org>
+References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
+In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
+ Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>
+Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-watchdog@vger.kernel.org, zkh1@proton.me, 
+ Zakariya Hadrami <zkh@mailbox.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788982689; l=2117;
+ i=zkh@mailbox.org; s=20260908; h=from:subject:message-id;
+ bh=ArzZhvqbaHzkwMRg8G+mxS9/RyxJ5FW/7LRvsjsHapo=;
+ b=GLHETlbpi5XIYO5QxABxqgKWx4PFuSTFhmt6Oyla2JeDqArgYfJ4Jzy/6UZPNy3TTgT8Z5D9j
+ HHjkqdWyeIBBP2EZtQFQZSvXX4vK0efzQFHYK3qZtMuidLgqks4qiAs
+X-Developer-Key: i=zkh@mailbox.org; a=ed25519;
+ pk=up24Xn4ScFKugfT4EJru/UQAS7JOIN+DSQqro+a05T4=
+X-Endpoint-Received: by B4 Relay for zkh@mailbox.org/20260908 with
+ auth_id=1015
+X-Original-From: Zakariya Hadrami <zkh@mailbox.org>
+Reply-To: zkh@mailbox.org
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Zakariya Hadrami <zkh@mailbox.org>
 
-Relocate SDHI1's AOF-remapped DMA window to physical 8-12 GiB
-(0x2_0000_0000-0x2_ffff_ffff), by updating the dma-ranges entry on
-aof_sdhi1_bus so that SDHI1's full 4 GiB device-side address space
-(child base 0x0, size 4 GiB) is linearly remapped starting at parent
-base 0x2_0000_0000.
+This tablet uses a MediaTek MT8127 system-on-chip with 1GB of RAM.
+It can currently boot into initramfs with a working UART and
+Simple Framebuffer using already initialized panel by the bootloader.
 
-Since SDHI1's DMA-visible addresses no longer correspond 1:1 to
-ordinary system RAM, buffers handed to it must be guaranteed to
-physically reside within this window. Add a restricted-dma-pool
-reserved-memory region covering the same 8-12 GiB range and attach
-it to sdhi1 via memory-region, so the kernel bounces SDHI1's DMA
-buffers through this pool instead of allowing dma_alloc_coherent()/
-dma_map_sg() to hand back arbitrary physical pages outside the range
-the programmed SYS_AOF17 fields can actually reach.
-
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
 ---
- .../boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts  | 16 ++++++++++++++++
- 1 file changed, 16 insertions(+)
+ arch/arm/boot/dts/mediatek/Makefile               |  1 +
+ arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts | 54 +++++++++++++++++++++++
+ 2 files changed, 55 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-index 0926ab891fa5..6845d576af42 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a09g057h44-rzv2h-evk.dts
-@@ -99,6 +99,17 @@ reg_3p3v: regulator-3p3v {
- 		regulator-always-on;
- 	};
- 
+diff --git a/arch/arm/boot/dts/mediatek/Makefile b/arch/arm/boot/dts/mediatek/Makefile
+index 37c4cded0eae..a610bc75c7d9 100644
+--- a/arch/arm/boot/dts/mediatek/Makefile
++++ b/arch/arm/boot/dts/mediatek/Makefile
+@@ -14,5 +14,6 @@ dtb-$(CONFIG_ARCH_MEDIATEK) += \
+ 	mt7623n-rfb-emmc.dtb \
+ 	mt7623n-bananapi-bpi-r2.dtb \
+ 	mt7629-rfb.dtb \
++	mt8127-amazon-ford.dtb \
+ 	mt8127-moose.dtb \
+ 	mt8135-evbp1.dtb
+diff --git a/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
+new file mode 100644
+index 000000000000..8edad5482de2
+--- /dev/null
++++ b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
+@@ -0,0 +1,54 @@
++// SPDX-License-Identifier: GPL-2.0
++
++/dts-v1/;
++#include "mt8127.dtsi"
++
++/ {
++	model = "MediaTek MT8127 Amazon Ford";
++	compatible = "amazon,ford", "mediatek,mt8127";
++	chassis-type = "tablet";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
++		stdout-path = "serial0:921600n8";
++
++		framebuffer0: framebuffer@b7a00000 {
++			compatible = "simple-framebuffer";
++			memory-region = <&framebuffer_reserved>;
++			width = <1024>;
++			height = <600>;
++			stride = <(1024 * 2)>;
++			format = "r5g6b5";
++		};
++	};
++
++	memory@80000000 {
++		device_type = "memory";
++		reg = <0 0x80000000 0 0x40000000>;
++	};
++
 +	reserved-memory {
 +		#address-cells = <2>;
 +		#size-cells = <2>;
 +		ranges;
 +
-+		sdhi1_aof_pool: sdhi1-aof-pool@200000000 {
-+			compatible = "restricted-dma-pool";
-+			reg = <0x2 0x00000000 0x0 0x08000000>;
++		framebuffer_reserved: framebuffer@b7a00000 {
++			reg = <0 0xb7a00000 0 0x1000000>;
++			no-map;
 +		};
 +	};
-+
- 	vqmmc_sdhi1: regulator-vccq-sdhi1 {
- 		compatible = "regulator-gpio";
- 		regulator-name = "SDHI1 VccQ";
-@@ -130,6 +141,10 @@ y1: y1-clock {
- 	};
- };
- 
-+&aof_sdhi1_bus {
-+	dma-ranges = <0x0 0x00000000 0x2 0x00000000  0x1 0x00000000>;
 +};
 +
- &audio_extal_clk {
- 	clock-frequency = <22579200>;
- };
-@@ -542,6 +557,7 @@ &scif {
- };
- 
- &sdhi1 {
-+	memory-region = <&sdhi1_aof_pool>;
- 	pinctrl-0 = <&sdhi1_pins>;
- 	pinctrl-1 = <&sdhi1_pins>;
- 	pinctrl-names = "default", "state_uhs";
++&uart0 {
++	status = "okay";
++};
++
++&watchdog {
++	status = "okay";
++};
+
 -- 
-2.55.0
+2.54.0
+
 
