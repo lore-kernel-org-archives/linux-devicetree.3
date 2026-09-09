@@ -1,236 +1,233 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DB1F57D22E;
-	Wed,  9 Sep 2026 16:02:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9642758124E;
+	Wed,  9 Sep 2026 16:08:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788969753; cv=none; b=XwmtRT9uNbKB2HiyoAmSvxfZ+tzlWZdzox06ZwNszCUp+uLLgLynIOlrmfvIq6GOaQODljtfAwrLBw6MfWtWn8I6IAw+lcFm07dTTQ2s41b22KS1LCdcyIH2pcm1orijSvV7mpxeyV1gzClXhAbN7905W1h5YcJPP5oHUrsC3Xs=
+	t=1788970089; cv=none; b=McTES+UTezaQjw+xoUlq++L54ZYssuQQKH9LGAtWwnYUEalhflTTu3iBoMZIuODB4TjD8QamXlHjqxn4zNkn5bbumUgpAxQktFkfJDNUYXKzMwUPIH/h/F21UshJcpkn37w78JyWiUKAuxVUdQdKD0AXOnsY2IixeaZTH/LMoC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788969753; c=relaxed/simple;
-	bh=W288Ghy+G6SRNFd9heZFgsVypuJPaHVCW7UZnHtqicY=;
+	s=arc-20240116; t=1788970089; c=relaxed/simple;
+	bh=tkaAhqeEYkEodfy8OsxfJfnG3t0wx8Y1psJJPit8mNg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ag8tFIC/oSWMiWGBduxORI2gN631RWHJvJ7HfBTk/JfGUh7nm8arXpzlpcoX4eMVbNfI7usmSySgfMTAiBsDRprdc+Dx11bVRjNM4w56IlWyfWEaaGiQir630uWYA1f2w1I0PBOQFidYS2mGYJE9XI3zsoi4ouvUslqVT6vLFDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VVeIvDtm; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YVZWtDsWUiyNcwgurUGj1kkuzcWi+E3O/j4TIo2fYRPqd4obF8gLDM7vXKcyR04UIBnTV7qt/uRXBUagQxD3U2t4XBsQ6ci2ko2JMiJ610oFKzgUStHo4wiLNUFd3NLoZaT4Vlz9EPOtS2He8AlY2AjK8Nb1oQosaxtsZZxMHSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7WmWBti; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VVeIvDtm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C951F00A3A;
-	Wed,  9 Sep 2026 16:02:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7WmWBti"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 353001F00A3E;
+	Wed,  9 Sep 2026 16:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788969751;
-	bh=Z/MWPUmEe4x01QZIZ/zvtxM6OS+KislP+4+9TIvvzvc=;
+	s=k20260515; t=1788970088;
+	bh=xfh6dQwvhJNBpZKgTnhO+xK92GSq+lmModl5wWIGjuQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VVeIvDtmG7P3L6O3Wtg+pJikiAmIAfRvPW7XJ+UHmsrm14ngFDDKdOa5OnurE7FT5
-	 qB48MbPf8iToLjrUcwIEDdEpDbU2AP5dBdCIywvwA0pkUWc8XK3KScvE2xj0p/v9LR
-	 OZUgH3IPHi1L+7OlyH+03gxsFp/6BcHvDmuCMiewN9GwVmqgoyHFSYGKHJF7GU9mjb
-	 gQ3BeT5rD3LbyUrAa1mqmM4af2wDllQVeqoFYIWh+UIOYhIcoQ6EnGAXSkkjRj/47Z
-	 GSmse7y8ZBoZFrbNFpBr4h1tLqPodW3URAemkV64+pdVzx47qV2gOwuDr0Boax/h0R
-	 /GOCrPIx1ChGQ==
-Date: Wed, 9 Sep 2026 17:02:27 +0100
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Paul Sajna <sajattack@postmarketos.org>, linux-leds@vger.kernel.org,
-	robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH RFC 3/3] leds: aw2013: Add AW2027 support and rename to
- aw20xx
-Message-ID: <20260909160227.GE2133376@google.com>
-References: <20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org>
- <20260907-aw2013-aw20xx-rename-v1-3-c9a7df12a701@postmarketos.org>
- <20260908000128.B92201F00A3A@smtp.kernel.org>
+	b=D7WmWBtiXCIe5SG3D8cRAEjOqty4zUOe9OTItrGucs+Q9qiZSKr2RPvFHQ2nwo61q
+	 hEjkiKme6f5fJwjIK9l/BFSjmkbIZ+/sq2Uw+vMrBIi5DnavUW8iiU8yOp+LHa1r6k
+	 mi9AP82ugFByN5NxAB5K42b+4n7uDj9OIwtakBbrIcnV0XxN5ISJT1BjB3MRNkrxk8
+	 pUalZcDKp9O8ae8CUQop9SdH+sflmHAp7lAT/rgkSV1J7JuIP0IQO4s3WXO6lOZxr4
+	 3vJAlQsrkh+M3/6MQE22gS4wSszn+aU5EQDEZWvXEZ2ocFEw4Hg4cc/RpdB9FrTJ6P
+	 d3qUIx1zwC0rA==
+Date: Wed, 9 Sep 2026 18:07:59 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org, linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v5 4/7] phy: cpcap-usb: add DCP detection and make UART
+ idle mode optional
+Message-ID: <oheoylzdj3arrnfdm6747cuubllkdmg4gx7vm3zhs3owuooj4v@zdbytrztbdp4>
+References: <20260711204210.197144-1-ivo.g.dimitrov.75@gmail.com>
+ <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908000128.B92201F00A3A@smtp.kernel.org>
+In-Reply-To: <20260711204210.197144-5-ivo.g.dimitrov.75@gmail.com>
 
-On Tue, 08 Sep 2026, sashiko-bot@kernel.org wrote:
+On Sat, Jul 11, 2026 at 11:42:07PM +0300, Ivaylo Dimitrov wrote:
+> Handle DCP separately from USB host connections using CPCAP charger
+> detection status.
+> 
+> Make the existing idle UART mode optional via the "enable_uart" module
+> parameter. When disabled (default), the PHY remains in its USB/charger
+> detection configuration while idle.
+> 
+> Also initialize the PHY into the baseline configuration required for
+> reliable charger detection during probe.
+> 
+> Use the optional "safe" pinctrl state before switching between modes to
+> avoid glitches on USB or UART lines.
+> 
 
-> Thank you for your contribution! Sashiko AI review found 8 potential issue(s) to consider:
-> 
-> New issues:
-> - [High] Missing NULL check for the result of `device_get_match_data()`, which leads to a kernel oops during manual sysfs driver binding.
-> - [Medium] The return value from `regmap_update_bits()` for configuring the global IMAX register is ignored and overwritten.
-> - [Medium] Incorrect default current configuration for AW2027 assigns a global register enum to a local scale, leading to 0mA output.
-> - [Low] The inline function `aw20xx_microamp_to_imax` lacks the `static` keyword, creating a non-static inline definition that causes linker errors or compiler warnings.
-> - [Low] Struct initialization uses a non-constant expression at file scope, causing a hard compiler error.
+Looks like this change is doing multiple things at once. Please split the
+changes logically to separate patches.
 
-Please review, explain or fix the Sashiko review(s).
+> Note: Enabling UART idle mode increases idle power consumption (by 25mW
+> on droid4).
+> 
+> Signed-off-by: Ivaylo Dimitrov <ivo.g.dimitrov.75@gmail.com>
+> 
+> # Conflicts:
+> #	drivers/phy/motorola/phy-cpcap-usb.c
 
-If this is a set, this request includes the other patches too.
+What is this conflict?
 
-> Pre-existing issues:
-> - [High] Self-deadlock in `aw20xx_probe()` due to holding `chip->mutex` during LED registration.
-> - [High] Late assignment of `chip->num_leds` breaks initialization during probe and causes unbalanced regulator disables.
-> - [Low] Failure to use dev_err_probe() for regulator requests violates LED subsystem guidelines.
-> --
+> ---
+>  drivers/phy/motorola/phy-cpcap-usb.c | 301 +++++++++++++++++++++------
+>  1 file changed, 238 insertions(+), 63 deletions(-)
 > 
-> commit 66ff1fb4c5655ece202f9cdb3c5a3a75b313c787
-> Author: Paul Sajna <sajattack@postmarketos.org>
-> Subject: leds: aw2013: Add AW2027 support and rename to aw20xx
-> 
-> This commit adds support for the AW2027 LED driver by renaming the existing
-> AW2013 driver to aw20xx and abstracting chip-specific features. It introduces
-> a common chipdef structure to handle differences in maximum current, current
-> mixing levels, and initialization registers.
-> 
-> > diff --git a/drivers/leds/leds-aw20xx.c b/drivers/leds/leds-aw20xx.c
-> > index 216755d6010fe..635965b712d48 100644
-> > --- a/drivers/leds/leds-aw20xx.c
-> > +++ b/drivers/leds/leds-aw20xx.c
-> 
-> [ ... ]
-> 
-> > +/* finds the closest current step to the given microamp
-> > + * given the max current and number of levels
-> > + */
-> > +inline u32 aw20xx_microamp_to_imax(u32 microamp, const struct aw20xx_chipdef *cdef)
-> > +{
-> > +	return min_t(u32, ((microamp * (cdef->current_levels - 1))
-> > +			  + (cdef->current_max / 2)) / cdef->current_max,
-> > +		     cdef->current_levels - 1);
-> > +}
-> 
-> [Severity: Low]
-> Does this inline function need the static keyword? When compiling with C99/C11
-> standards, an inline function without static might require an external
-> definition, which could lead to build failures or linker errors.
-> 
-> [ ... ]
-> 
-> > +static const struct aw20xx_chipdef aw2013_chipdef = {
-> > +	.chip_id = AW2013_RSTR_CHIP_ID,
-> > +	.regmap_cfg = aw2013_regmap_config,
-> > +	.default_imax = 0b01, // 5mA
-> > +	.gcr2_imax = false,
-> > +	.current_levels = 4,
-> > +	.current_max = 15000,
-> > +};
-> > +
-> > +static const struct aw20xx_chipdef aw2027_chipdef = {
-> > +	.chip_id = AW2027_RSTR_CHIP_ID,
-> > +	.regmap_cfg = aw2027_regmap_config,
-> 
-> [Severity: Low]
-> Does this cause a compiler error due to non-constant initialization? Using
-> the global variable aw2013_regmap_config to initialize this struct by value
-> at file scope is not a constant expression in standard C. The same applies
-> below for aw2027_regmap_config.
-> 
-> > +	.default_imax = AW2027_IMAX_15MA,
-> 
-> [Severity: Medium]
-> Does this assign a global register enum to a property used for the LCFG local
-> current step? AW2027_IMAX_15MA expands to 0. Writing 0 to the 16-level local
-> current scale (AW20XX_LCFG_CUR_MASK) configures the LED for 0mA instead of
-> 15mA if the led-max-microamp devicetree property is missing.
-> 
-> [ ... ]
-> 
-> > +	if (chip->cdef->gcr2_imax) {
-> > +		/* AW2027 supports 4-step global imax, and also a 16-step control for limiting
-> > +		 * individual current per LED. This doesn't map to the single value the
-> > +		 * devicetree provides super well, so set global imax  to maximum, and
-> > +		 * local imax to whatever gets us closest to the value in the devicetree
-> > +		 */
-> >  		ret = regmap_update_bits(chip->regmap,
-> > -					 AW2013_LCFG(chip->leds[i].num),
-> > -					 AW2013_LCFG_IMAX_MASK,
-> > -					 chip->leds[i].imax);
-> > -		if (ret) {
-> > -			dev_err(&chip->client->dev,
-> > -				"Failed to set maximum current for led %d: %d\n",
-> > -				chip->leds[i].num, ret);
-> > -			return ret;
-> > +				AW20XX_GCR2,
-> > +				AW20XX_IMAX_MASK,
-> > +				AW2027_IMAX_30MA);
-> > +
-> > +		for (i = 0; i < chip->num_leds; i++) {
-> > +			ret = regmap_update_bits(chip->regmap,
-> 
-> [Severity: Medium]
-> Is the return value for the global IMAX register update intentionally ignored?
-> The ret variable is immediately overwritten by the loop, meaning any hardware
-> I2C errors during AW20XX_GCR2 configuration will not be caught.
-> 
-> [ ... ]
-> 
-> > -		led->cdev.brightness_set_blocking = aw2013_brightness_set;
-> > -		led->cdev.blink_set = aw2013_blink_set;
-> > +		led->cdev.brightness_set_blocking = aw20xx_brightness_set;
-> > +		led->cdev.blink_set = aw20xx_blink_set;
-> >  
-> >  		ret = devm_led_classdev_register_ext(&chip->client->dev,
-> >  						     &led->cdev, &init_data);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does assigning chip->num_leds after
-> registering the LED class devices cause initialization problems?
-> Looking at aw20xx_probe_dt(), chip->num_leds is set to i after the loop
-> completes. However, devm_led_classdev_register_ext() executes default triggers
-> synchronously, which call aw20xx_brightness_set(). If num_leds is still 0,
-> aw20xx_chip_in_use() silently returns false, skipping chip enablement and
-> causing unbalanced regulator disables while probe is still running.
-> 
-> [ ... ]
-> 
-> >  static int aw20xx_probe(struct i2c_client *client)
-> >  {
-> > -	struct aw2013 *chip;
-> > +	struct aw20xx *chip;
-> > +	const struct aw20xx_chipdef *cdef;
-> >  	int ret;
-> >  	unsigned int chipid;
-> >  
-> > +	cdef = device_get_match_data(&client->dev);
-> > +
-> 
-> [Severity: High]
-> Does this need a NULL check? If a user with privileges manually binds the
-> driver to an I2C device via sysfs, device_get_match_data() will return NULL,
-> causing a kernel oops when it is later dereferenced.
-> 
-> [ ... ]
-> 
-> >  	mutex_lock(&chip->mutex);
-> >  
-> >  	chip->client = client;
-> > +	chip->cdef = cdef;
-> >  	i2c_set_clientdata(client, chip);
-> >  
-> > -	chip->regmap = devm_regmap_init_i2c(client, &aw2013_regmap_config);
-> > +	chip->regmap = devm_regmap_init_i2c(client, &chip->cdef->regmap_cfg);
-> 
-> [Severity: High]
-> This is a pre-existing issue, but does holding chip->mutex here cause a
-> self-deadlock during probe? Later in the probe path, aw20xx_probe_dt() calls
-> devm_led_classdev_register_ext(). If a default trigger is configured, it
-> synchronously calls aw20xx_brightness_set() which attempts to acquire the
-> same chip->mutex lock.
-> 
-> [ ... ]
-> 
-> >  	}
-> >  
-> >  	ret = regulator_bulk_enable(ARRAY_SIZE(chip->regulators),
-> > -				    chip->regulators);
-> > +					chip->regulators);
-> >  	if (ret) {
-> 
-> [Severity: Low]
-> This is a pre-existing issue, but does the regulator request code earlier
-> in aw20xx_probe() violate the LED subsystem guidelines? It uses manual
-> ret != -EPROBE_DEFER checks and dev_err() instead of dev_err_probe(), which
-> is required to correctly handle deferred probes and clean up the kernel log.
-> 
-> -- 
-> Sashiko AI review � https://sashiko.dev/#/patchset/20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org?part=3
-> 
+> diff --git a/drivers/phy/motorola/phy-cpcap-usb.c b/drivers/phy/motorola/phy-cpcap-usb.c
+> index 741145c89e5b..2d770ff19e93 100644
+> --- a/drivers/phy/motorola/phy-cpcap-usb.c
+> +++ b/drivers/phy/motorola/phy-cpcap-usb.c
+> @@ -110,6 +110,15 @@ enum cpcap_gpio_mode {
+>  	CPCAP_OTG_DM_DP,
+>  };
+>  
+> +enum cpcap_mode {
+> +	CPCAP_UNKNOWN,
+> +	CPCAP_IDLE,
+> +	CPCAP_CHARGER,
+> +	CPCAP_USB,
+> +	CPCAP_USB_HOST,
+> +	CPCAP_DOCK,
+> +};
+> +
+>  struct cpcap_phy_ddata {
+>  	struct regmap *reg;
+>  	struct device *dev;
+> @@ -119,15 +128,19 @@ struct cpcap_phy_ddata {
+>  	struct pinctrl_state *pins_ulpi;
+>  	struct pinctrl_state *pins_utmi;
+>  	struct pinctrl_state *pins_uart;
+> +	struct pinctrl_state *pins_safe;
+>  	struct gpio_desc *gpio[2];
+>  	struct iio_channel *vbus;
+>  	struct iio_channel *id;
+>  	struct regulator *vusb;
+>  	atomic_t active;
+> -	unsigned int vbus_provider:1;
+> -	unsigned int docked:1;
+> +	enum cpcap_mode mode;
+>  };
+>  
+> +static bool cpcap_enable_uart;
+> +module_param_named(enable_uart, cpcap_enable_uart, bool, 0644);
+> +MODULE_PARM_DESC(enable_uart,
+> +		 "Enable UART on the USB connector while idle (increases power consumption)");
+
+Use of module params is discouraged these days. Also, you are disabling it by
+default, which could cause surprises to users who have boards wired up for debug
+console. But considering that it consumes a lot of power, I think it is OK to
+disable it this way. I can't think of another way to add this knob.
+
+>  static bool cpcap_usb_vbus_valid(struct cpcap_phy_ddata *ddata)
+>  {
+>  	int error, value = 0;
+> @@ -196,8 +209,9 @@ static int cpcap_phy_get_ints_state(struct cpcap_phy_ddata *ddata,
+>  	return 0;
+>  }
+>  
+
+[...]
+
+> @@ -473,21 +559,10 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
+>  {
+>  	int error;
+>  
+> -	/* Disable lines to prevent glitches from waking up mdm6600 */
+> -	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_UNKNOWN_DISABLED);
+> +	error = cpcap_usb_set_safe_mode(ddata);
+>  	if (error)
+>  		return error;
+>  
+> -	if (ddata->pins_utmi) {
+> -		error = pinctrl_select_state(ddata->pins, ddata->pins_utmi);
+> -		if (error) {
+> -			dev_err(ddata->dev, "could not set usb mode: %i\n",
+> -				error);
+> -
+> -			return error;
+> -		}
+> -	}
+> -
+>  	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC1,
+>  				   CPCAP_BIT_VBUSPD, 0);
+>  	if (error)
+> @@ -503,11 +578,23 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
+>  		goto out_err;
+>  
+>  	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
+> -				   CPCAP_BIT_USBXCVREN,
+> +				   CPCAP_BIT_USBXCVREN |
+> +				   CPCAP_BIT_UARTMUX0 |
+> +				   CPCAP_BIT_EMUMODE0,
+
+As Sashiko noted, you are not clearing CPCAP_BIT_USBSUSPEND bit set in
+cpcap_usb_set_idle_mode().
+
+>  				   CPCAP_BIT_USBXCVREN);
+>  	if (error)
+>  		goto out_err;
+>  
+> +	if (ddata->pins_utmi) {
+> +		error = pinctrl_select_state(ddata->pins, ddata->pins_utmi);
+> +		if (error) {
+> +			dev_err(ddata->dev, "could not set usb mode: %i\n",
+> +				error);
+> +
+> +			return error;
+> +		}
+> +	}
+> +
+>  	/* Enable USB mode */
+>  	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_OTG_DM_DP);
+>  	if (error)
+> @@ -521,6 +608,38 @@ static int cpcap_usb_set_usb_mode(struct cpcap_phy_ddata *ddata)
+>  	return error;
+>  }
+>  
+> +static int cpcap_usb_set_dcp_mode(struct cpcap_phy_ddata *ddata)
+> +{
+> +	int error;
+> +
+> +	error = cpcap_usb_set_safe_mode(ddata);
+> +	if (error)
+> +		return error;
+> +
+> +	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC2,
+> +				   CPCAP_BIT_USBXCVREN |
+> +				   CPCAP_BIT_UARTMUX0 |
+> +				   CPCAP_BIT_EMUMODE0, 0);
+> +	if (error)
+> +		goto out_err;
+> +
+> +	error = regmap_update_bits(ddata->reg, CPCAP_REG_USBC3,
+> +				   CPCAP_BIT_SUSPEND_SPI, 0);
+> +	if (error)
+> +		goto out_err;
+> +
+> +	error = cpcap_usb_gpio_set_mode(ddata, CPCAP_DM_DP);
+> +	if (error)
+> +		goto out_err;
+> +
+> +	return 0;
+> +
+> +out_err:
+> +	dev_err(ddata->dev, "%s failed with %i\n", __func__, error);
+
+Don't print function names in the error log.
+
+- Mani
 
 -- 
-Lee Jones
+மணிவண்ணன் சதாசிவம்
