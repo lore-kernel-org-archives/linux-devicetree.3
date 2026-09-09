@@ -1,103 +1,254 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D03EA53FD2B
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 13:53:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D38994F55A5;
+	Wed,  9 Sep 2026 13:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788961986; cv=none; b=FsfA1v3EiedJYby92HIlQdT+s38dEpHNMxx0or8xhvGYeFlSdUOruo+5gpRd8LP5PZbFhEwHmNnW/dtccTWHw9iGnUVifFfrvHionVmF4Sv6Hdx1GVJgP9HxwJ0HfCilVFF9dPgZKafsObZsIkI8ypoqf8DVPw+9E52ZIeVHKzk=
+	t=1788962101; cv=none; b=n4zkM1y9xgnGXIpNBqX1A/Lyuk67upX/P/114A1Eu2KyA2OPfDrw8twIMxev67xJsoOQGxL+fewTbBkR5RVUeFD8GRMGr15BV1G4lbjzscOUrTKGC8jEekFWl/kax/v4+02fdZjoirlalDfXB8UypykjbzcDbV5GrSgvnE+3hls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788961986; c=relaxed/simple;
-	bh=kGskmSpjTvB1C3VTKlENlT/OvhGiFXTDYZuO1oCByjg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=H7oq+aIcOuVCxbtt5cLFTv9f9JqnRy5CZTLlMy+naCqBxVn6Yh6m4GMOaGzNyA2QGJmiIZjpiDbfdtFoqngf+mPk+15ByOCp4eJ8NXETNRhwpklk+A754JmRcoI2tpvLJdI+gmiFjGDlGzhWlpOsB0qQxIg5x2R4aPWS8g97yAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=E/hdhf1U; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="E/hdhf1U"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 680BE1A1A75;
-	Wed,  9 Sep 2026 13:53:03 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 3776960448;
-	Wed,  9 Sep 2026 13:53:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0854711C7AF7E;
-	Wed,  9 Sep 2026 15:52:42 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788961977; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=LARMi1G5vACDqaigY0BsBdggnGiivAk4mChXML/OD+c=;
-	b=E/hdhf1UAf6+awCCGLMt4GqsieDb9sx1GlubU0wQbEP/cGP/9TCKn3ur/zCRNU+xIB6TL9
-	O66Exidu2gRdvXmFyZnl4ek4P5RPtsEUrdBaz81RVPJZsRJUKNalpVLjAB+2pSgWuCEwE1
-	EtwWTV3ZjMnCoq9EphEll2qS9zAxncWRYyRSGaMNT1Y05pDCKkssAUa1sc48avM4C/P5YP
-	Irto4HpWyTkPk7Lm1t9g8SxfYgL+HGMkG+T2wAXEJpxwNimJBkQ4ZOgbZ5V+TFkagG/aRg
-	U8klrqF77Otz1nRkZ9/9HQrNyNZ1sgTM41SlsoKU8OKm7oCezyWR4++gTwRqMg==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- Heiko Stuebner <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>, 
- Damon Ding <damon.ding@rock-chips.com>
-Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org
-In-Reply-To: <20260828065153.590802-1-damon.ding@rock-chips.com>
-References: <20260828065153.590802-1-damon.ding@rock-chips.com>
-Subject: Re: [PATCH v8 0/5] Add eDP lane mapping support
-Message-Id: <178896196279.1382015.17901090259379845522.b4-ty@b4>
-Date: Wed, 09 Sep 2026 15:52:42 +0200
+	s=arc-20240116; t=1788962101; c=relaxed/simple;
+	bh=8igw4+GL904N8sIe6g1uPOL6GHbFNdVYipx8uF75oOQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=A+efPrjIUQdPd7jxEiIRA52ZM0fDhc6aBwsEHG73HmGMVgr1YzvXQAWeMt1ZFKlMULLN9bvNbjjqBq4qykgzz/TLVsd98tLCkahlz6Bb9nwwM5eb8w3orNpmOr0mj6q1kK0k5aq2jiBqCPdgBSJ3niS6NSC8pEUCp96/jEwKvSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: eleanor.lin@realtek.com
+X-PTX-Original-Recipient: broonie@kernel.org
+X-PTX-Original-Recipient: robh@kernel.org
+X-PTX-Original-Recipient: krzk+dt@kernel.org
+X-PTX-Original-Recipient: conor+dt@kernel.org
+X-PTX-Original-Recipient: james.tai@realtek.com
+X-PTX-Original-Recipient: cy.huang@realtek.com
+X-PTX-Original-Recipient: stanley_chang@realtek.com
+X-PTX-Original-Recipient: jyanchou@realtek.com
+X-PTX-Original-Recipient: linux-spi@vger.kernel.org
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
+	(Authenticated sender: pza@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id B238C20590C;
+	Wed, 09 Sep 2026 15:54:55 +0200 (CEST)
+Message-ID: <c647c66bdb3d87157a5684b755c95123fe9ba198.camel@pengutronix.de>
+Subject: Re: [PATCH v4 2/2] spi: spi-mem: Add Realtek SPI NOR flash
+ controller driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Yu-Chun Lin <eleanor.lin@realtek.com>, broonie@kernel.org,
+ robh@kernel.org, 	krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: james.tai@realtek.com, cy.huang@realtek.com, stanley_chang@realtek.com, 
+	jyanchou@realtek.com, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, 	linux-kernel@vger.kernel.org
+Date: Wed, 09 Sep 2026 15:54:55 +0200
+In-Reply-To: <20260909125701.273314-3-eleanor.lin@realtek.com>
+References: <20260909125701.273314-1-eleanor.lin@realtek.com>
+	 <20260909125701.273314-3-eleanor.lin@realtek.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+
+On Mi, 2026-09-09 at 20:57 +0800, Yu-Chun Lin wrote:
+> From: Jyan Chou <jyanchou@realtek.com>
+>=20
+> Add a spi-mem driver for the SPI NOR Flash Controller (SFC) found on Real=
+tek
+> DHC SoC. SFC supports Dual I/O.
+>=20
+> Implement the exec_op API for regular control commands and the dirmap API
+> for hardware-accelerated read/write operations.
+>=20
+> The controller is described by three register ranges. The first one (ctrl=
+)
+> holds the control registers. The second one (dma) holds the DMA engine
+> registers, used to transfer the payload between the flash and main memory=
+.
+> The third range is the memory aperture (dirmap) that maps the flash
+> contents.
+>=20
+> Signed-off-by: Jyan Chou <jyanchou@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> ---
+> Changes since v2:
+> - Add Yu-Chun's last name.
+> - Specify "NOR" in the commit message and descriptions to avoid future
+> conflicts with SPI NAND or GSPI.
+> - Make SPDX license and copyright notice headers in C++-style.
+> - Drop driver-internal polling (rtk_spi_read_status()), leaving the statu=
+s
+> polling and timeout handling to framework.
+> - Track the 4-byte addressing state and properly restore it in rtk_spi_in=
+it()
+> to prevent state loss during runtime PM suspend/resume.
+> - Add hardware cleanup in rtk_spi_dma_transfer() to explicitly trigger a
+> graceful stop of the DMA engine if a timeout occurs.
+> - Check bounds against the direct mapping window (dirmap_size) in both PI=
+O and
+> DMA transfer paths.
+> - Add reset_control_assert() in the probe error path and .remove().
+> - Replace RUNTIME_PM_OPS() + SYSTEM_SLEEP_PM_OPS() with
+> DEFINE_RUNTIME_DEV_PM_OPS().
+> ---
+>  MAINTAINERS               |   6 +
+>  drivers/spi/Kconfig       |  10 +
+>  drivers/spi/Makefile      |   1 +
+>  drivers/spi/spi-rtk-nor.c | 623 ++++++++++++++++++++++++++++++++++++++
+>  4 files changed, 640 insertions(+)
+>  create mode 100644 drivers/spi/spi-rtk-nor.c
+>=20
+[...]
+> diff --git a/drivers/spi/spi-rtk-nor.c b/drivers/spi/spi-rtk-nor.c
+> new file mode 100644
+> index 000000000000..5ccfa234b6b1
+> --- /dev/null
+> +++ b/drivers/spi/spi-rtk-nor.c
+> @@ -0,0 +1,623 @@
+[...]
+> +static int rtk_spi_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct spi_controller *ctrl;
+> +	struct rtk_spi_host *host;
+> +	struct resource *res;
+> +	int ret;
+> +
+> +	ctrl =3D devm_spi_alloc_host(dev, sizeof(*host));
+> +	if (!ctrl)
+> +		return -ENOMEM;
+> +
+> +	platform_set_drvdata(pdev, ctrl);
+> +	host =3D spi_controller_get_devdata(ctrl);
+> +	host->dev =3D dev;
+> +
+> +	host->clk =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(host->clk))
+> +		return PTR_ERR(host->clk);
+> +
+> +	ret =3D clk_prepare_enable(host->clk);
+> +	if (ret)
+> +		return ret;
+> +
+> +	host->rstc =3D devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(host->rstc)) {
+> +		ret =3D PTR_ERR(host->rstc);
+> +		goto err_disable_clk;
+
+If you moved clk_prepare_enable() below this, you could just return
+here.
+
+> +	}
+> +
+> +	reset_control_assert(host->rstc);
+> +	usleep_range(10, 20);
+> +	reset_control_deassert(host->rstc);
+> +
+> +	ret =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(35));
+> +	if (ret) {
+> +		dev_err(dev, "Failed to set dma mask\n");
+> +		goto err_disable_clk;
+
+No reset_control_assert() in this error path?
+
+> +	}
+> +
+> +	host->buffer =3D dmam_alloc_coherent(dev, SFC_DMA_MAX_LEN,
+> +					   &host->dma_buffer, GFP_KERNEL);
+> +	if (!host->buffer) {
+> +		ret =3D -ENOMEM;
+> +		goto err_disable_clk;
+> +	}
+> +
+> +	host->regbase =3D devm_platform_ioremap_resource_byname(pdev, "ctrl");
+> +	if (IS_ERR(host->regbase)) {
+> +		ret =3D PTR_ERR(host->regbase);
+> +		goto err_disable_clk;
+> +	}
+> +
+> +	host->mdbase =3D devm_platform_ioremap_resource_byname(pdev, "dma");
+> +	if (IS_ERR(host->mdbase)) {
+> +		ret =3D PTR_ERR(host->mdbase);
+> +		goto err_disable_clk;
+> +	}
+> +
+> +	res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "dirmap");
+> +	host->iobase =3D devm_ioremap_resource(dev, res);
+> +	if (IS_ERR(host->iobase)) {
+> +		ret =3D PTR_ERR(host->iobase);
+> +		goto err_disable_clk;
+> +	}
+
+It looks to me like all these dmam_ and devm_ initialization calls
+should be moved up before the clock enable and reset assert/deassert.
+
+> +
+> +	host->dirmap_size =3D resource_size(res);
+> +	host->flash_phys_base =3D res->start;
+> +	host->is_4byte =3D false;
+> +
+> +	ctrl->mode_bits =3D SPI_RX_DUAL | SPI_TX_DUAL;
+> +	ctrl->bus_num =3D -1;
+> +	ctrl->mem_ops =3D &rtk_spi_mem_ops;
+> +	ctrl->num_chipselect =3D 1;
+> +	ctrl->auto_runtime_pm =3D true;
+> +
+> +	rtk_spi_init(host);
+
+This is the first call that actually needs clocks running and reset
+triggered.
+
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, SFC_AUTOSUSPEND_TIMEOUT);
+> +	pm_runtime_use_autosuspend(dev);
+> +	pm_runtime_set_active(dev);
+> +	pm_runtime_enable(dev);
+> +	pm_runtime_get_noresume(dev);
+> +
+> +	ret =3D spi_register_controller(ctrl);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to register controller\n");
+> +		goto err_pm_disable;
+> +	}
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	return 0;
+> +
+> +err_pm_disable:
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_disable(dev);
+> +	pm_runtime_set_suspended(dev);
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	reset_control_assert(host->rstc);
+> +
+> +err_disable_clk:
+> +	clk_disable_unprepare(host->clk);
+> +
+> +	return ret;
+> +}
+> +
+> +static void rtk_spi_remove(struct platform_device *pdev)
+> +{
+> +	struct spi_controller *ctrl =3D platform_get_drvdata(pdev);
+> +	struct rtk_spi_host *host =3D spi_controller_get_devdata(ctrl);
+> +	struct device *dev =3D &pdev->dev;
+> +
+> +	spi_unregister_controller(ctrl);
+> +
+> +	pm_runtime_get_sync(dev);
+> +	pm_runtime_disable(dev);
+> +	reset_control_assert(host->rstc);
+> +	clk_disable_unprepare(host->clk);
+> +	pm_runtime_put_noidle(dev);
+> +	pm_runtime_set_suspended(dev);
+
+Why is this cleanup order different from the probe error path?
 
 
-On Fri, 28 Aug 2026 14:51:48 +0800, Damon Ding wrote:
-> This series adds configurable eDP physical lane mapping support via
-> device tree data-lanes property.
-> 
-> Lane mapping is mainly used for below scenarios:
-> 1. Correct PCB lane swap and differential line routing crossover
->    without hardware changes;
-> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-> 3. Support multiple panel hardware variants on the same board
->    by configuring data-lanes in device tree only.
-> 
-> [...]
-
-Applied, thanks!
-
-[1/5] dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpoint
-      commit: af9b0fc07000db17656580fd38e5ff27c36c2ab9
-[2/5] drm/dp: Add helper to validate DP lane counts
-      commit: 6eac4c8bb10302abc0ea0bd1d506c46ec789ce2b
-[3/5] drm/bridge: analogix_dp: Restore mandatory samsung DP DT properties
-      commit: 02f569dd66c94dd67b2586f776235cf4177409ed
-[4/5] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
-      commit: 4ff2f941b7828042feb2971c7039c8f790a105a4
-[5/5] drm/bridge: analogix_dp: Add support for optional data-lanes mapping
-      commit: bf63a72ea005d5e1cc12a9ad5e228c4b44246b0f
-
-Best regards,
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
-
+regards
+Philipp
