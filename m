@@ -1,153 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F325153B5FD
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:32:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69D07576ED8
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:33:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964352; cv=none; b=JhXWQNeq+GJ14cTctpgu2eYIYgZytWyDNS/yk4lM7JiM2iK4OkBLJRe7dA1DNynyAkkm8baNzLQkRlZ/wIXvHoGd4MedjCys8MevNvlblowYYn9cf7M/qsdO2/AiZZzXzs2WrhhvXmrKpFVRz7BfiWi8zTjuDhaMVqJMNJBEls4=
+	t=1788964393; cv=none; b=nLKk+qQ6w/C2suTQKdemgRaRP30AS2Z1ICHI35+KnhzCGiQi77P49lZeLsex47y2yBnGbmMiFMwvfmtgmRuJ+XF9FE9gwliRNHV+208wUiV1lPp5l8C94+NroHX/L0gYUc+3S6NJnANbAtaFm+oTRUTOh9G3BCOwlL/TS7QlGo0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964352; c=relaxed/simple;
-	bh=7mCXoVmTWOvYlndfuhSjIuXORUZU1YvZPh4LlL7KPX4=;
+	s=arc-20240116; t=1788964393; c=relaxed/simple;
+	bh=vtgwGwGKYciXl1ZfA8Cfnlkt1aPpSxSpMwqMKkh2mtU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AQrPjEWjyqr2E21bBNOX1LUX3aVGP64WQ4y0Rx5o4yD02yMX7b1hA2yWvKClC1OYDOzoAGhaJchnPAUyP6YkicLxJ8xaxNhzeQfOz2/IOh3EC48i92Jk37LtQLTpYd7EnFUmIDqVNqg7d2fpd76cqyfpPjyD+5Hp1sJk4Yhq5nQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaIinygF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=MFHg7TE0R0M+GGBO0XSOKiNbzCbzIGVIl54pQIffU8aPcMyXh/RNIabQ8GcJxS0CWCkB3/PkYreIAskqDcjUa3WIRKVkXried6enPIZYzfgVslLFPrye+qFJd57DEEZbjZNvu9U2fgeX2Izp0GOLee4zzkwL7NGMIULZS2TQ0Vg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjzNAMmk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaIinygF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 797DC1F00A3E;
-	Wed,  9 Sep 2026 14:32:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjzNAMmk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9041F00A3A;
+	Wed,  9 Sep 2026 14:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788964350;
-	bh=W7uC+F89taEPrcLK4uIm/OD3XDCBK6JTCtMOJ7ZR4qA=;
+	s=k20260515; t=1788964392;
+	bh=P0EPq+UOSM378S+5zByLOMmuIlYsI+/T9A5xlqKYeAU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VaIinygFOT5YtoJOSpguWcfr5yPBGSh+ROQ0lKTu6MscHXAHxnDUHhvw05NVikLLm
-	 M0Xuy5bL+fk9KFBZ3YgpZktb+Xw5qgdKCbISjvC9XAGT88CKNOTtGwOAQ7nFTPSPu6
-	 mq4WNYEVErL8JnHorzIapBKpBp/tQMm0KadwByQlDTZlcaxTeC75rlBkS6b4nm15bi
-	 iE1mKgA19IYAyY6LbJ6vdt6UNbdWrYgdRpQUqU6jRUDOD3hQSUkGSCfCYOg0/GhwbK
-	 Co2BnLzfIFw38deKgGyYkHoT4vz31s0PkGMerw2RBJIwFeQ8ymTZsgdyLA/xC4l9hh
-	 UsmROEMXDOC+w==
+	b=FjzNAMmko0Eab/BUIwHuRg+MHGz4cC+7ouDmYRZF6aweNxdJpUowbrUzlt8N5z1Pa
+	 1dKkliEbMh27Zz+CQWi4oEhx1MKjfhh06IpkhBmK+JinmY3dSTpsrgILjrOmiFZyZQ
+	 1x89oAoaJCDq9EBa1BKNdozz0/QeLZ/R6fKNBhyNXumZhgCtPbf+aEjw++Axfmos2u
+	 FAyfNeIDWEDUQdbvax0h6JJqUNonzJkHvwWFLzq5AuS6sWeSgZSC2f+2pL3KIP3rBv
+	 qE+b6hMCP7c3n97R6T3zgJbHJE5UM5DQO4BGh6JEc0w+m96ySMA8B1KIsFe1G303qk
+	 6GMhre9nTFF/w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 01/10] iio: dac: mcp47feb02: initialize dac_data
- field in channel data struct at probe
+Subject: Re: [PATCH v5 03/10] iio: dac: mcp47feb02: Return len when
+ disabling EEPROM store
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ariana Lazar" <ariana.lazar@microchip.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260909-mcp47feb02_refactor-v5-1-8b67bcab93d1@microchip.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909-mcp47feb02_refactor-v5-3-8b67bcab93d1@microchip.com>
 References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
- <20260909-mcp47feb02_refactor-v5-1-8b67bcab93d1@microchip.com>
+ <20260909-mcp47feb02_refactor-v5-3-8b67bcab93d1@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 14:32:30 +0000
-Message-Id: <20260909143230.797DC1F00A3E@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 14:33:11 +0000
+Message-Id: <20260909143312.0F9041F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Incorrect powerdown state evaluation at probe time causes the driv=
-er to misinterpret hardware powerdown mode 1 as normal operation.
-- [High] System resume unconditionally forces channels out of powerdown, lo=
-sing user configuration.
+- [High] This problem wasn't introduced by this patch, but suspend and resu=
+me operations clobber the user-configured channel powerdown state.
 --
 
-commit f99608deaab75112b697e5e0e28a4014f58de232
+commit 835e4538da01c3026ccf6237cb4357a864fa680c
 Author: Ariana Lazar <ariana.lazar@microchip.com>
 
-iio: dac: mcp47feb02: initialize dac_data field in channel data struct at p=
-robe
+iio: dac: mcp47feb02: Return len when disabling EEPROM store
 
-Prevent operations which use cache from overwriting default hardware values
-with zeros by reading active DAC registers during probe to correctly
-initialize the channel struct DAC values.
+This commit modifies store_eeprom_store() to return the input buffer
+length instead of 0 when state is false. This properly signals that the
+buffer was fully consumed, preventing unnecessary write retries.
 
 > diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
-> index a823c2a673a26..7502959d98eab 100644
+> index bf78618ac2c89..2ee981393aa1a 100644
 > --- a/drivers/iio/dac/mcp47feb02.c
 > +++ b/drivers/iio/dac/mcp47feb02.c
-> @@ -1020,7 +1020,12 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47f=
-eb02_data *data)
->  	gain_ch =3D gain_ch & MCP47FEB02_GAIN_BITS_MASK;
->  	for_each_set_bit(i, &data->active_channels_mask, data->phys_channels) {
->  		struct device *dev =3D regmap_get_device(data->regmap);
-> -		unsigned int pd_tmp;
-> +		unsigned int pd_tmp, dac_val;
-> +
-> +		ret =3D regmap_read(data->regmap, REG_ADDR(i), &dac_val);
-> +		if (ret)
-> +			return ret;
-> +		data->chdata[i].dac_data =3D dac_val;
+> @@ -469,7 +469,7 @@ static ssize_t store_eeprom_store(struct device *dev,=
+ struct device_attribute *a
+>  		return ret;
 > =20
->  		data->chdata[i].ref_mode =3D (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTR=
-L_MASK;
->  		data->chdata[i].use_2x_gain =3D (gain_ch >> i)  & MCP47FEB02_GAIN_BIT_=
-MASK;
+>  	if (!state)
+> -		return 0;
+> +		return len;
+> =20
 
 [Severity: High]
-This is a pre-existing issue, but does the probe logic misinterpret hardware
-powerdown mode 1 as normal operation?
+This is a pre-existing issue, but suspend and resume operations clobber the
+user-configured channel powerdown state.
 
-If the probe phase reads the powerdown state register and it returns 1, pd_=
-tmp
-is 1. This correctly maps powerdown_mode to index 0.
+Looking at mcp47feb02_suspend():
 
-However, the boolean powerdown evaluation becomes !!0, which is false:
+drivers/iio/dac/mcp47feb02.c:mcp47feb02_suspend() {
+    ...
+	for_each_set_bit(ch, &data->active_channels_mask, data->phys_channels) {
+		u8 pd_mode;
 
-mcp47feb02_init_ctrl_regs() {
-        [ ... ]
-        pd_tmp =3D (pd_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
-        data->chdata[i].powerdown_mode =3D pd_tmp ? (pd_tmp - 1) : pd_tmp;
-        data->chdata[i].powerdown =3D !!(data->chdata[i].powerdown_mode);
-        [ ... ]
+		data->chdata[ch].powerdown =3D true;
+    ...
 }
 
-Because of this, the channel is flagged as actively operating when the
-hardware is physically in powerdown mode 1 (1kOhm to GND), creating a
-mismatch between the software state and the physical hardware state.
+Does this unconditionally overwrite the channel's powerdown state during
+suspend, causing the user's prior configuration to be permanently lost?
 
-[Severity: High]
-This is another pre-existing issue, but do the suspend and resume routines
-discard user configuration and unconditionally force channels out of powerd=
-own?
+Similarly, looking at mcp47feb02_resume():
 
-During suspend, the driver overrides the software powerdown state to true:
+drivers/iio/dac/mcp47feb02.c:mcp47feb02_resume() {
+    ...
+	for_each_set_bit(ch, &data->active_channels_mask, data->phys_channels) {
+		u8 pd_mode;
+		int ret;
 
-mcp47feb02_suspend() {
-        [ ... ]
-        data->chdata[ch].powerdown =3D true;
-        pd_mode =3D data->chdata[ch].powerdown_mode + 1;
-        ret =3D regmap_update_bits(data->regmap, MCP47FEB02_POWER_DOWN_REG_=
-ADDR,
-                                 DAC_CTRL_MASK(ch), DAC_CTRL_VAL(ch, pd_mod=
-e));
-        [ ... ]
+		data->chdata[ch].powerdown =3D false;
+    ...
+		ret =3D regmap_update_bits(data->regmap, MCP47FEB02_POWER_DOWN_REG_ADDR,
+					 DAC_CTRL_MASK(ch),
+					 DAC_CTRL_VAL(ch, MCP47FEB02_NORMAL_OPERATION));
+    ...
 }
 
-During resume, it blindly forces all active channels to false and writes
-MCP47FEB02_NORMAL_OPERATION to the hardware:
+Could this force all channels out of powerdown during resume, ignoring any
+user-configured disabled state? Waking up a DAC channel that was explicitly
+powered down by the user via sysfs could drive unintended voltage to attach=
+ed
+hardware upon system resume.
 
-mcp47feb02_resume() {
-        [ ... ]
-        data->chdata[ch].powerdown =3D false;
-
-        ret =3D regmap_write(data->regmap, REG_ADDR(ch), data->chdata[ch].d=
-ac_data);
-        [ ... ]
-        ret =3D regmap_update_bits(data->regmap, MCP47FEB02_POWER_DOWN_REG_=
-ADDR,
-                                 DAC_CTRL_MASK(ch),
-                                 DAC_CTRL_VAL(ch, MCP47FEB02_NORMAL_OPERATI=
-ON));
-        [ ... ]
-}
-
-If a user intentionally powered down a channel, it will unexpectedly wake up
-and output voltage upon system resume.
+>  	/*
+>  	 * Verify DAC Wiper and DAC Configuration are unlocked. If both are dis=
+abled,
+>  	 * writing to EEPROM is available.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-mcp47feb02=
-_refactor-v5-0-8b67bcab93d1@microchip.com?part=3D1
+_refactor-v5-0-8b67bcab93d1@microchip.com?part=3D3
