@@ -1,179 +1,323 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E1648A8B4;
-	Wed,  9 Sep 2026 08:51:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D265A470EA3;
+	Wed,  9 Sep 2026 08:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943905; cv=none; b=tRXEaG75b9CLahgcTXjGu30WpY7cnxkDCibS1KH0eJNUVdlCJw77ycIkHUcVpC5/moqS5fUbPclcsoelc7ekJI6gRelCj4nln/NY+oA2PlUlLizenVFeNHbcnXQ2Y3q3raxfwq/MmUtZqSX6SymiaUTI4Vs+NZWr9vR9a7cPAU4=
+	t=1788944064; cv=none; b=ifbTTIdl8OIbm+nIrxntsfZIarj6U2kKQ5WqG3lZAaERyrMHGZV0DHvfgyjNcvL/XIjkXGX/G67gACgEE91wwhfQc97ow3aAf4uECSpjQx6HvOqTLZS2TCQq8VCnTyVTiDwaUU3HtbEgR7xpbB5C7glwHx4ntX7pwmwZwABNVuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943905; c=relaxed/simple;
-	bh=5xm2Blazpnjvx2S1yj/eNiDKJR7yRxKvns2MniKOW1Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Z3ebThfWK14qW1nGSjsTIcxA94QcZugsLQgTK9/rPb+6KddgukzO4WwjUOlwHT2PRqix/8yyzHBNVorKQUba6IjozMUq2P1Wmzim14Faf+7ZwjcZeqxGQk6+/6Kb7kQF4jTCDn4knw/2GLSZlhfSdXcqiB4MuPLwRDXm/x/wqyA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPAJjXf+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPAJjXf+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A98A1F00A3D;
-	Wed,  9 Sep 2026 08:51:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788943898;
-	bh=cj7lqzOPfEAccIXYNNQ0SI+fFxYm5vEZW8hfCn4nVGw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UPAJjXf+WhpPHzr5PRBsoe3tMGFnhBDyQN7fRzksI5bft5bf3285msyc8WQgl+SoH
-	 JXM3xDRGw1NDA01D8p27nPSimM01hwpoli6xnYIi4195SwtmlCjHzaG1wL7cuMCGOq
-	 PIyDsJZsefsOCtwCt4PUHCZ14RflPASuMyBKDLf7gu5VjQz50PXzUlw3JwEh3TtZIl
-	 39ttYL8w5J9UXNdCyQSAC3X1EeJRNlO2miy03nvkmCak8oHPpA2JZn+oeCiAGfPs17
-	 0wxlN6bWfMiA2XUueTcPe5EFeQR+mGQoPeD0XX7T3U5QwvkrkZFvhILIEeF35rpu14
-	 9QyZdjeTYMgzw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/15] mtd: rawnand: sunxi: select the packed H6/H616
- OOB layout
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-11-838cb0ba1547@gmail.com>
-References: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com>
- <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-11-838cb0ba1547@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 08:51:38 +0000
-Message-Id: <20260909085138.9A98A1F00A3D@smtp.kernel.org>
+	s=arc-20240116; t=1788944064; c=relaxed/simple;
+	bh=OT3HE675N+VdybCn3UOUW38GVdcZHrAGIqgFEgNE7wY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=k5VjUw6rAC81zB+vzR1bwNoUJq+jQ1sKoupYgTgPyZyFA0w6QOsM27H/4qVuI4xHtyx5edty+CgejxjhYNcjf0XFGNERCeUB+it9S/4nxXdDwXUXl1kwIWZ8o6orgHADqPHOGgbFSfHS12XDWoiachnailclWr0gdOgJ6oJr2/I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+X-PTX-Original-Recipient: alvin.sipraga@analog.com
+X-PTX-Original-Recipient: linusw@kernel.org
+X-PTX-Original-Recipient: conor+dt@kernel.org
+X-PTX-Original-Recipient: sboyd@kernel.org
+X-PTX-Original-Recipient: krzk@kernel.org
+X-PTX-Original-Recipient: robh@kernel.org
+X-PTX-Original-Recipient: krzk+dt@kernel.org
+X-PTX-Original-Recipient: mturquette@baylibre.com
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
+X-PTX-Original-Recipient: linux-gpio@vger.kernel.org
+X-PTX-Original-Recipient: linux-clk@vger.kernel.org
+X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
+X-PTX-Original-Recipient: kernel@pengutronix.de
+X-PTX-Original-Recipient: s.hauer@pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
+	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id C28DB202043;
+	Wed, 09 Sep 2026 10:54:12 +0200 (CEST)
+Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <s.hauer@pengutronix.de>)
+	id 1x4E4K-0003io-23;
+	Wed, 09 Sep 2026 10:54:12 +0200
+Received: from [::1] (helo=dude02.red.stw.pengutronix.de)
+	by dude02.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
+	(envelope-from <s.hauer@pengutronix.de>)
+	id 1x4E4K-00000006WeY-2GL6;
+	Wed, 09 Sep 2026 10:54:12 +0200
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Wed, 09 Sep 2026 10:54:07 +0200
+Subject: [PATCH v8 1/2] dt-bindings: clock: add TI CDCE6214 binding
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-clk-cdce6214-v8-1-4dfa355c1f65@pengutronix.de>
+References: <20260909-clk-cdce6214-v8-0-4dfa355c1f65@pengutronix.de>
+In-Reply-To: <20260909-clk-cdce6214-v8-0-4dfa355c1f65@pengutronix.de>
+To: Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org, kernel@pengutronix.de, 
+ linux-gpio@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Linus Walleij <linusw@kernel.org>, 
+ =?utf-8?q?Alvin_=C5=A0ipraga?= <alvin.sipraga@analog.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788944052; l=6861;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=OT3HE675N+VdybCn3UOUW38GVdcZHrAGIqgFEgNE7wY=;
+ b=HUmJlHyah0E6yRPguByL833PJoT1r04F2pA0f2QCoVaJWlmqljUIwxudcf8d6zcKM1baB5cQm
+ bhN+YD9fZOXCIiDSX22caHEREYa06TVzSTXb2oLLKCFgwkIBQ3odbPa
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+Add device tree binding for the CDCE6214, an Ultra-Low Power Clock
+Generator With One PLL, Four Differential Outputs, Two Inputs, and
+Internal EEPROM.
 
-Pre-existing issues:
-- [High] The free OOB region incorrectly overlaps with the ECC OOB region f=
-or ECC steps > 0, causing silent ECC data corruption.
-- [High] A division by zero kernel panic occurs when maximizing ECC strengt=
-h on a NAND flash with 512-byte pages.
-- [High] Unbounded accumulation of user data lengths leads to out-of-bounds=
- MMIO writes, clobbering adjacent controller configuration registers.
---
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ .../devicetree/bindings/clock/ti,cdce6214.yaml     | 192 +++++++++++++++++++++
+ include/dt-bindings/clock/ti,cdce6214.h            |  25 +++
+ 2 files changed, 217 insertions(+)
 
-commit 576ae0cb150295224ce149147695feb0bb49c1cf
-Author: James Hilliard <james.hilliard1@gmail.com>
+diff --git a/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml b/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml
+new file mode 100644
+index 0000000000000..4a9c9155894af
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/ti,cdce6214.yaml
+@@ -0,0 +1,192 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/ti,cdce6214.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI CDCE6214 programmable clock generator with PLL
++
++maintainers:
++  - Sascha Hauer <s.hauer@pengutronix.de>
++
++description: >
++  Ultra-Low Power Clock Generator With One PLL, Four Differential Outputs,
++  Two Inputs, and Internal EEPROM
++
++  - CDCE6214: https://www.ti.com/product/CDCE6214
++
++properties:
++  compatible:
++    enum:
++      - ti,cdce6214
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    minItems: 1
++    maxItems: 2
++
++  clock-names:
++    minItems: 1
++    items:
++      - enum: [ priref, secref ]
++      - const: secref
++
++  '#clock-cells':
++    const: 1
++
++patternProperties:
++  '-pins$':
++    type: object
++    additionalProperties: false
++
++    patternProperties:
++      '^conf':
++        type: object
++        additionalProperties: false
++        $ref: /schemas/pinctrl/pincfg-node.yaml#
++
++        properties:
++          pins:
++            items:
++              enum: [priref, secref, out0, out1, out2, out3, out4 ]
++
++          ti,io-standard:
++            description: |
++              1: CMOS
++              2: LVDS
++              3: Low-Power HCSL
++              4: XTAL mode
++              5: differential
++            enum: [1, 2, 3, 4, 5]
++            $ref: /schemas/types.yaml#/definitions/uint32
++
++          ti,xo-cload-femtofarads:
++            description: Load capacity for XO in Femtofarad
++
++          ti,xo-bias-microamp:
++            description: Bias current setting of the XO
++
++          ti,cmosp-mode:
++            description: |
++              Driving mode for CMOSN output:
++              1: Low Polarity
++              2: High Polrity
++              3: Disable
++            $ref: /schemas/types.yaml#/definitions/uint32
++            maximum: 3
++
++          ti,cmosn-mode:
++            description: |
++              Driving mode for CMOSN output:
++              1: Low Polarity
++              2: High Polrity
++              3: Disable
++            $ref: /schemas/types.yaml#/definitions/uint32
++            maximum: 3
++
++        allOf:
++          - if:
++              properties:
++                pins:
++                  contains:
++                    const: priref
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1, 5 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    const: secref
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1, 4, 5 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    const: out0
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    enum:
++                      - out1
++                      - out4
++            then:
++              properties:
++                io-standard:
++                  enum: [ 1, 2, 3 ]
++
++          - if:
++              properties:
++                pins:
++                  contains:
++                    enum:
++                      - out2
++                      - out3
++            then:
++              properties:
++                io-standard:
++                  enum: [ 2, 3 ]
++
++        required:
++          - pins
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - '#clock-cells'
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/ti,cdce6214.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        clock-generator@67 {
++            compatible = "ti,cdce6214";
++            reg = <0x67>;
++            #clock-cells = <1>;
++            clocks = <&clock_ref25m>;
++            clock-names = "priref";
++
++            cdce6214_pins: cdce6214-pins {
++                conf1 {
++                    pins = "secref";
++                    ti,io-standard = <CDCE6214_IOSTD_XTAL>;
++                    ti,xo-cload-femtofarads = <8100>;
++                    ti,xo-bias-microamp = <100>;
++                };
++
++                conf2 {
++                    pins = "out1";
++                    ti,io-standard = <CDCE6214_IOSTD_CMOS>;
++                    ti,cmosp-mode = <CDCE6214_CMOS_MODE_HIGH>;
++                    ti,cmosn-mode = <CDCE6214_CMOS_MODE_LOW>;
++                };
++
++                conf3 {
++                    pins = "out4";
++                    ti,io-standard = <CDCE6214_IOSTD_CMOS>;
++                    ti,cmosp-mode = <CDCE6214_CMOS_MODE_HIGH>;
++                    ti,cmosn-mode = <CDCE6214_CMOS_MODE_LOW>;
++                };
++            };
++        };
++    };
+diff --git a/include/dt-bindings/clock/ti,cdce6214.h b/include/dt-bindings/clock/ti,cdce6214.h
+new file mode 100644
+index 0000000000000..41ec4f8868bbb
+--- /dev/null
++++ b/include/dt-bindings/clock/ti,cdce6214.h
+@@ -0,0 +1,25 @@
++/* SPDX-License-Identifier: (GPL-2.0 OR MIT) */
++#ifndef _DT_BINDINGS_CLK_TI_CDCE6214_H
++#define _DT_BINDINGS_CLK_TI_CDCE6214_H
++
++/* Clock indices for the clocks provided by the CDCE6214 */
++#define CDCE6214_CLK_OUT0	2
++#define CDCE6214_CLK_OUT1	3
++#define CDCE6214_CLK_OUT2	4
++#define CDCE6214_CLK_OUT3	5
++#define CDCE6214_CLK_OUT4	6
++#define CDCE6214_CLK_PLL	7
++#define CDCE6214_CLK_PSA	8
++#define CDCE6214_CLK_PSB	9
++
++#define CDCE6214_IOSTD_CMOS	1
++#define CDCE6214_IOSTD_LVDS	2
++#define CDCE6214_IOSTD_LP_HCSL	3
++#define CDCE6214_IOSTD_XTAL	4
++#define CDCE6214_IOSTD_DIFF	5
++
++#define CDCE6214_CMOS_MODE_LOW		1
++#define CDCE6214_CMOS_MODE_HIGH		2
++#define CDCE6214_CMOS_MODE_DISABLED	3
++
++#endif /* _DT_BINDINGS_CLK_TI_CDCE6214_H */
 
-mtd: rawnand: sunxi: select the packed H6/H616 OOB layout
+-- 
+2.47.3
 
-This patch adds a randomized OOB layout for the H6/H616 controller,
-configuring a separate protected user-data length for ECC step zero to match
-the firmware format. It keeps the maximized user-data layout when the
-property is absent.
-
-> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
-xi_nand.c
-> index 138a141edbe4d..bd239d150730b 100644
-> --- a/drivers/mtd/nand/raw/sunxi_nand.c
-> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-[ ... ]
-> @@ -2365,6 +2374,12 @@ static int sunxi_nfc_maximize_user_data(struct nan=
-d_chip *nand, uint32_t oobsize
->  	if (!sunxi_nand->user_data_bytes)
->  		return -ENOMEM;
-> =20
-> +	if (sunxi_nand->randomized_oob) {
-> +		sunxi_nand->user_data_bytes[0] =3D
-> +			sunxi_nfc_h6_user_data_sz(nsectors);
-> +		return 0;
-> +	}
-> +
->  	for (step =3D 0; (step < nsectors) && (remaining_bytes > 0); step++) {
->  		for (i =3D 0; i < c->nuser_data_tab; i++) {
->  			if (c->user_data_len_tab[i] > remaining_bytes)
->  				break;
->  			sunxi_nand->user_data_bytes[step] =3D c->user_data_len_tab[i];
->  		}
-
-[Severity: High]
-This is a pre-existing issue, but does this loop lack an aggregate bounds
-check against the hardware MMIO limit?
-
-It appears this greedily assigns up to 32 bytes of user data per ECC step.
-For a large page NAND flash, such as an 8KB page with 8 steps, it could
-allocate up to 256 bytes in total.
-
-When this total is later written out in sunxi_nfc_hw_ecc_set_prot_oob_bytes=
-()
-via a writel loop:
-
-sunxi_nand.c:sunxi_nfc_hw_ecc_set_prot_oob_bytes() {
-    ...
-    for (i =3D 0; i < user_data_sz / 4; i++, ptr +=3D 4) {
-        writel(sunxi_nfc_buf_to_user_data(ptr),
-               nfc->regs + NFC_REG_USER_DATA(nfc, reg_index + i));
-    }
-    ...
-}
-
-Will this step outside the available USER_DATA register bank and clobber
-adjacent controller configuration registers like SPARE_AREA or PAT_ID,
-potentially causing controller malfunction or a kernel panic during probe?
-
-[ ... ]
-> @@ -2422,6 +2437,10 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand=
-_chip *nand,
->  				bytes -=3D 2;
-> =20
->  			bytes -=3D total_user_data_sz;
-> +		} else if (sunxi_nand->randomized_oob) {
-> +			total_user_data_sz =3D
-> +				sunxi_nfc_h6_user_data_sz(nsectors);
-> +			bytes -=3D total_user_data_sz;
->  		} else {
-
-[Severity: High]
-This isn't a bug introduced by this patch, but earlier in this function
-when the NAND_ECC_MAXIMIZE_STRENGTH flag is set, the code hardcodes
-ecc->size to 1024.
-
-If this is run on a NAND device with a 512-byte page size, will nsectors
-evaluate to 0?=20
-
-If nsectors is 0, the later operation to calculate the remaining ECC bytes
-performs a division by zero:
-
-sunxi_nand.c:sunxi_nand_hw_ecc_ctrl_init() {
-    ...
-    /*
-     * Once all user data has been subtracted, the rest can be used
-     * for ECC bytes
-     */
-    bytes /=3D nsectors;
-    ...
-}
-
-Will this crash the kernel on boot for 512-byte page devices?
-
-[ ... ]
-
-[Severity: High]
-This is also a pre-existing issue, but does sunxi_nand_ooblayout_free()
-incorrectly overlap the free OOB region with the ECC OOB region?
-
-Looking at sunxi_nand_ooblayout_free() for sections > 0:
-
-sunxi_nand.c:sunxi_nand_ooblayout_free() {
-    ...
-    oobregion->offset =3D sunxi_get_ecc_offset(sunxi_nand, ecc, section);
-    oobregion->length =3D user_data_sz;
-
-    return 0;
-}
-
-Should this be using sunxi_get_oob_offset() instead? By setting the free
-region offset to the ECC region offset, it seems that if a filesystem utili=
-zing
-OOB writes to the free OOB area, it will write directly into the ECC parity
-bytes, silently destroying the parity data and causing uncorrectable read
-errors.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-submit-sun=
-xi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com?part=3D11
