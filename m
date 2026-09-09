@@ -1,137 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76CB225F99F;
-	Wed,  9 Sep 2026 07:49:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F0B4519A8
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:51:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940146; cv=none; b=DEqgOSo/TTSFxxKgd4qPmxMTvqNO2zQLLpOUm41IMEkx3SZs05aPQCHd6Ss7kir8OHFnRb/fT50EQq4QlRGx7yEwxCYUQBcGanPMYhbvIH3LzX+wCHuCDwnYrbn9jQFwKO64LlD/zbKjx8C6vFEqvw+JkjeFJdb+uiW268odkWU=
+	t=1788940297; cv=none; b=iZTQ2LisfRZIGkNjESXZr26v+RZRnz3xjM1uzBtX8TVfRFXitGeGFX5BHKUFaxp882yJ2bqYaKG2+u/K9e6dpfE11fLlT7SL6DFd1OsvR5sjaz3VdIlyntggbn/YKswfp/59WL0nLmnEXnPm6Ps98iTzV/LcwAWuB9NOUvGf9b4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940146; c=relaxed/simple;
-	bh=ISQDd1oJEQJmG/NynBkrUI70OPSeSTJUlMkBuQns42Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kc5qz50Y9lSAtZLqEMxNlAg8nEbmWTkvqygrVsCt4aCn1IqCMiKGqabWbIITlPmTbayjz8U+JwzjR09PbXDmJOOt7CvZX20pe+PqmS+nyf+AkOLO8ONkJwNs5/yMch4+L6fOIgD6kg41wGHTMF8kmlsCGtK301uIQHRJgd2rf+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aoutg6l0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788940297; c=relaxed/simple;
+	bh=L93RZFfSNxCUGv3IQaOPX+eNMIHvMrFA8PqhAa8TdM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ByDZyvEN4/Tc6FiyIIZa2vhpunoM2Vvp/Izm3bd6VEsshvw8YBpvyyUIfuAkJCrjsVXQ2h5tUiXJv0INwjDgtso3GZR0wfi+Yofw2vqtLZHhZQzzULVFo08vtW75YVIzXrFyGSuB17Us2nMK7l2VCP/AFMEUTiS3YBVrw6XcHfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BqU7obUy; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aoutg6l0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B71A1F00A3D;
-	Wed,  9 Sep 2026 07:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788940145;
-	bh=hgnZT+2Mit5xpVjYvXSjzD7nZQWY3h9bkFOl6mmp6VE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aoutg6l0ahEWNqSvkL74AzduJYMljzmNogoR3fwrcgiv8TqgtrQACSc53f29qsR+Y
-	 zKB4X5gSunES93G58vRXWZhe9XC2xTrHs0pfuophcsW1KziqpVXNEcL2QLGeqcl73y
-	 8Q2lJlG67Q3J4mGJYb1z6dczTn3Vt/4MPe8n4ujPV6qDUafyRsaDqIzcfaFdTlnn+o
-	 9QoKWuPr/EzRnP+7cGpUqdI8xxek1TvzFTHwUnfiIC0adkO3YHsK9l/aahG18br4ib
-	 W1wz4dNeq4vDzgeE/yUtXJI7L6mwqZvRRVUWvwSUFLxISEiRC8ZoRc7qG5/FarHap4
-	 b59RMVAAygeoA==
-Message-ID: <37dab3cf-c138-4d05-8e34-461a86d71281@kernel.org>
-Date: Wed, 9 Sep 2026 09:48:56 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BqU7obUy"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d6f9e2f681so61081385ad.3
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:51:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788940295; x=1789545095; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jKrEyC/4kP8ddKpasgLPQzfssOl6topa0dwYgM8fxlQ=;
+        b=BqU7obUyrAVj4F1/sz5IrQyo2Nak+BLQsiXCUzX1QCLg6mTaWKlOkyUQqYvTrGtzH4
+         LGEfTk2vgVUNYqT9SpuE5VfklDThxqbzbxH7ZsuBpkD131EZm6IjmLgMEIqhhi6Z5Qc7
+         Kg5nH56JPG71m4BA7Hr8HLgMHm5JQ3FBeX8LkXsYI7udWcVL0L3M2uFK6B8PzeaQPWId
+         xX/A/oiKBEIoZfgXhytkIyGNNa2nJkoFJIi3QqxuLhrgsmsBUi0M9Oc4gdmWpOe4XKcb
+         hZ1QO2PVfN1wqhhvjvKVoIbI4zyheTvcwN9cmarfdZDWQbhq5s6mMx/KjePq1Q75dSJ6
+         FQ/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788940295; x=1789545095;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jKrEyC/4kP8ddKpasgLPQzfssOl6topa0dwYgM8fxlQ=;
+        b=i+/o/EAygFs1iTBiSWKkJIccumf/PAKSUwu/d9I1xGdZZzVOLlAdg7HyyjawOJSbnQ
+         gFZIZGSoly+yy6DmhhAZWP8vtWjxinwMoxixuu6L2nsvb8JchMjE9oXUx8JG/TZ8fSnS
+         bC251+hbEZ8zkzYVw7Ck+0/i+zkNcOvCMWdxOM87PcESDxP0gP3h/Us4eneeM4Ev/qtc
+         PWOFApmlJWZZXNWnkFDNpKA4U8PysmBlAdqyjT1uSvhj+djCgZNubFqSKhj3Z9XxF7NO
+         SuUZnGwAtPSIxgsfqjCrgwZcq+IDqfAFfmCExfG9HAxpLBS7ZmtyK/EBF6lqEz0J2We4
+         7ZpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxwdGGjHENy8ninst0sVb5Zhn4/iWtdKkemyq3WpuM6Jll6N8AtZojaRjEow3BWM8z2RpbXtu9LWH8J@vger.kernel.org
+X-Gm-Message-State: AFuF++nFJCgxjmH7L2fc0O6cMZTZ26+dYvm/eDmFcssqMRkRG4KC36z2
+	OW328YZsh6qme9ncUDkSd65AZeVpxl84VLNN4eCsU/Sm9khFl8dB4wCC
+X-Gm-Gg: AYBFou0uStd1327dikdysAZdjlSgOv9G+04y1f3MHPpMpwY6W/vfJW7LClK9iFTTVKd
+	9HmC+WFSdKAibJUsRTJK55uTpEhlsQuf3z3nRDdiqMKlFo0LZRXOBNZxowUrmVyiCexWl4gQkCo
+	ro+A2VmGfQlM/Y7sb5HkKOUICpPq3/DjNjuhSGg4omxCS4LD1KPmV7WmeW0mp5bbIClnnwmHKmG
+	u+2HhscYQcEThpQtIsJyX5Z2r1L34CfBGc98N92r0cR3RTJa3qRXNs+m1rJCQGIek2XXkU+Cssh
+	TytFVd7G5FqU4+KaEywfo7EY/qcG7cdXNdr3/kOvRK+b9RR+oZrjp36wGFqAArn3IFD4aCUqbmn
+	8WBMq3UqrQusq1N5nPfwMXxjTDif+KTqo3jPdz+i95SaJbhF1ptiA4WdHBEFDFhRLPTG5bf/Dqx
+	1DU5pm5lrpxCPKfkICVpgrzdxYQOxs594SpKz2z/h4aRCfTps8DAuSmwvz5x65eCDT8/jihg==
+X-Received: by 2002:a17:903:3c47:b0:2db:eb5:47ea with SMTP id d9443c01a7336-2db12106896mr504658855ad.0.1788940294598;
+        Wed, 09 Sep 2026 00:51:34 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d9f9sm67640495ad.32.2026.09.09.00.51.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 00:51:33 -0700 (PDT)
+Date: Wed, 9 Sep 2026 15:51:02 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>, 
+	Inochi Amaoto <inochiama@gmail.com>, Jingoo Han <jingoohan1@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Christian Bruel <christian.bruel@foss.st.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Alex Elder <elder@riscstar.com>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Randolph Lin <randolph@andestech.com>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Vidya Sagar <vidyas@nvidia.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Danilo Krummrich <dakr@kernel.org>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
+	Yixun Lan <dlan@gentoo.org>, Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+Message-ID: <aqEOHmlKdKqQWYE8@inochi.infowork>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-7-inochiama@gmail.com>
+ <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] dt-bindings: interrupt-controller: apple,aic2: Add
- apple,t8140 compatible
-To: Yureka Lilian <yureka@cyberchaos.dev>, Nick Chan <towinchenmi@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, asahi@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-watchdog@vger.kernel.org
-References: <20260904-apple-a18-pro-initial-devicetrees-v1-0-0c25401d165d@cyberchaos.dev>
- <20260904-apple-a18-pro-initial-devicetrees-v1-4-0c25401d165d@cyberchaos.dev>
- <4e65ef39-cf1b-49d4-a899-da36acb442c2@gmail.com>
- <20260909-advanced-marble-lorikeet-eebeef@quoll>
- <76ad4ffe-82b8-42ec-abbe-a8c35ed8705f@kernel.org>
- <76d1c5c8-f051-4365-b113-e18be5aaa9a0@cyberchaos.dev>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <76d1c5c8-f051-4365-b113-e18be5aaa9a0@cyberchaos.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
 
-On 09/09/2026 09:34, Yureka Lilian wrote:
->>>>> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
->>>>> index 1cb886785173..e3cadc5ad39d 100644
->>>>> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
->>>>> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
->>>>> @@ -46,6 +46,7 @@ properties:
->>>>>                 - apple,t6030-aic3
->>>>>                 - apple,t6031-aic3
->>>>>                 - apple,t8132-aic3
->>>>> +              - apple,t8140-aic3
->>>> the title should be "... Add t8140 compatible" describing the hardware corresponding
->>>> to the added compatible since the compatible being added is not "apple,t8140".
->>> Commit msg is correct, it does exactly what you wrote, no?
->>>
->>>> (Alternatively, if you mention the compatible in title, say "...Add apple,t8140-aic3" as
->>>> "compatible" is already implied)
->>> That would be repeating diff, so not really helpful.
->>
->> Ah, you meant the subject of the patch...
->>
->>
->> Best regards,
->> Krzysztof
+On Mon, Sep 07, 2026 at 09:14:23PM +0800, Troy Mitchell wrote:
+> On Mon, Sep 7, 2026 at 07:26:05PM +0800, Inochi Amaoto wrote:
+> > [...]
+> >
+> > @@ -303,6 +316,116 @@ static int k1_pcie_parse_port(struct k1_pcie *k1)
+> > [...]
+> >
+> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
+> > +{
+> > +	struct dw_pcie *pci = to_dw_pcie_from_pp(pp);
+> > +	struct k1_pcie *k1 = to_k1_pcie(pci);
+> > +	u32 reset_ctrl = k1->pmu_off + PCIE_CLK_RESET_CONTROL;
+> > +	u32 val;
+> > +	int ret;
+> > +
+> > +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
+> > +
+> > +	k1_pcie_toggle_soft_reset(k1);
+> > +
+> > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
+> > +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
+> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
+> > +
+> > +	ret = k1_pcie_enable_resources(k1);
+> > +	if (ret)
+> > +		goto failed_resources;
+> > +
+> > +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
+> > +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
+> > +
+> > +	ret = phy_bulk_init(k1->phy_count, k1->phys);
+> > +	if (ret)
+> > +		goto failed_phy;
+> > +
+> > +	msleep(PCIE_T_PVPERL_MS);
+> > +
+> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
+> > +
 > 
+> Should we use pci->pe_rst when reset-gpios is provided, and keep the PMU path as
+> a fallback? The SDK handles both cases. The DWC core requests that GPIO with
+> GPIOD_OUT_HIGH, but this path only releases PERST# through the PMU, so an
+> endpoint using the GPIO would remain in reset.
 > 
-> That's how I parsed it too. Removed the "apple," from the subject, so 
-> it's just "dt-bindings: interrupt-controller: apple,aic2: Add t8140 
-> compatible".
 
-Sure
+I do not think this should be included in this version. I found PICO-ITX
+has no reset gpio support. This means I can not test this feature.
 
-Best regards,
-Krzysztof
+I suggest adding this function when there is a board using this function.
+
+> > [...]
+> >
+> > +	/* Finally, as a workaround, disable ASPM L1 */
+> > +	k1_pcie_disable_aspm_l1(k1);
+> > +
+> > +	return 0;
+> > +
+> 
+> Would we also need to configure IOMMU bypass during initialization? The SDK sets
+> the PCIe A/B/C bypass bits in PMUA_PCIE_SUBSYS_MGMT when there is no usable
+> iommu-map. The proposed K3 PCIe DTS has no iommu-map, and I could not find the
+> corresponding bypass setup in this series.
+> 
+> Is bypass already guaranteed by firmware or the reset state, or should the
+> driver set it here? My concern is that enumeration could succeed while endpoint
+> DMA still goes through an unconfigured IOMMU.
+> 
+
+I think the firmware should mark it bypassed as the default, at least
+I have notice this behavior, but I am not sure whether it is the builtin
+firmware or the uboot do this trick.
+
+> > [...]
+> >
+> > +static int k3_pcie_parse_port(struct k1_pcie *k1)
+> > +{
+> > +	u32 status0, status1, status2;
+> > +
+> > +	/* This register require a RAW for cleanup */
+> > +	status0 = readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
+> > +	status1 = readl_relaxed(k1->link + INTR_STATUS);
+> > +	status2 = readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
+> > +
+> > +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
+> > +	writel_relaxed(status1, k1->link + INTR_STATUS);
+> > +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
+> > +
+> > +	return k1_pcie_parse_port(k1);
+> > +}
+> > +
+> 
+> Are these status registers accessible before the controller clocks are enabled
+> and resets released? k3_pcie_parse_port() runs before dw_pcie_host_init(), which
+> calls k3_pcie_init() to enable those resources.
+> 
+
+Yes they can. It is something interesting.
+
+> The SDK uses the same ordering, but I am not sure whether it relies on firmware
+> leaving the registers accessible. If so, would it be safer to move this clearing
+> into k3_pcie_init(), after enabling the resources?
+> 
+
+In fact, I have no idea about which clock control this MMIO area, if it is dbi
+clock (but I guest it is not), it is kind of weird for this clear and should
+move to the init. Do you have some knowledge on this?
+
+Regards,
+Inochi
