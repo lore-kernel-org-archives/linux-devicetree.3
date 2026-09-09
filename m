@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD2A559CA3;
-	Wed,  9 Sep 2026 12:39:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3C1356261F;
+	Wed,  9 Sep 2026 12:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957547; cv=none; b=LPTKn4Ub1ai7O1ozVLbsg2yJpvIvQHvwsPWux7bCrzvWkkhXvKRTw5ZAt2EJVD0Z68WDptq29efaeFNntKXaN+2oAGGhu5skKqtettkE9H+WXqZXJNTJr4ZxyYqYeG2DRq+qJggUbandzb1bUHdUvm8pdbPrPhfJKVMk6tfFL2w=
+	t=1788957560; cv=none; b=T33Pg5IiQQ0DwpPQCwUpvSpArFDIRe3IEAjK+Lge4GQTX4SGBkT7lAsuNf+CvsTQ46Z7Z4Oybf2fU3srmK0hU21c5CS/aVMCX38xu0DjpvhZblLT+Q/9pOtkmRvfQ8HFThoM07EDvbI4WO4s/uF1685JBFBktx/6573SbbbuJII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957547; c=relaxed/simple;
-	bh=IdcxEiGmXAdQ2pJO0tkiHtsxWR5Mqusn6wl8E+jTwYI=;
+	s=arc-20240116; t=1788957560; c=relaxed/simple;
+	bh=+05FvJJjwnHRYscYNxnxB2etPGCvnMkm4RfFqheONsM=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=j9Knt+g4GKxrNk6add5Qit6d3bRrxwGHhl7lP8Gi5V7ssgL2/mNm9ILVjtIrL3MyovlCBCgg+w0/blrOgWZlpCTVl4eDSPdfGSrVAa1vUS2ep4lEyRLvxawySaEJzlgyCq6m/nUe9a/fInByydJCVW7BMijTX9ra4zCLa8sMsbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iyYlQj/l; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=DOaxkHrvz/Ux+PIm3QV7ycwEPVV8TyJFeafhiNB0YseBYoag5keFj8pCPTUm4fsV/Ug3shWAPUlj1PyirhYtMNuLRQzXfp+1B6x7i+OcaUfLN+cYQ2E93IOHmSHnResY2hDNqinfjfI/qOHaGBg+iG1bM5iIIjO21mVS6auAXNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cExm8Kq/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iyYlQj/l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9D6A1F00A3E;
-	Wed,  9 Sep 2026 12:39:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cExm8Kq/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F8A1F00A3D;
+	Wed,  9 Sep 2026 12:39:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788957542;
-	bh=tSIaSL0ymmmaxqC51K3SNloZqopwpchw+uADipbUbhk=;
+	s=k20260515; t=1788957558;
+	bh=DnqHe56X31XVSlrCwlzo/Ft8NWQ3Cpoin39smqZWZXU=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=iyYlQj/lDMy6UbCX088wWUj+cITAJa4/z7FGrbvlw2NoxMQW/xVAxyd2AYhUQO/YY
-	 I5MZQimghmrYmmNcJsdkFe4RwloKl4NWSjFjQg0KzUeiqrcAJFu0+NFY5wgF9/6t2g
-	 02CgqHDbStOBeSqzryupNmu9I3ikEIJ4Qm+Uo3z0ZnlKIyzRMhZ1/NQZVQ6C1/H9Nf
-	 DZ9YPSWMicQ4AwOM9CG1+FrzcPOtaT6qBm9lCMbq+3LRxL5JKy3c6/DrwLOkUOhf5N
-	 GUEtBVNHGP42SbMtn+qIsaiDDLjB7ZvGXKtIijLLfcueZjKJxL3mckPGt6cH30UuJW
-	 CWuOexNYEQ4xw==
-Subject: Re: [PATCH net-next v7 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
+	b=cExm8Kq/8JNGtZJdQ0D/KdJpHaFJ0MrF25BV1Yfu17mOoAj+UdkCb6HpV+76FILwv
+	 Kn8u6ue7JIUyyhbiYFG52Eo/r3hWgmoHApotWS4/eLfnXspA5fxAyr6HvJsRu5jWes
+	 UOQUsOPQBLlaikBz06sztKmpi1/hjE8uVniW6hGDq29vLugk6PQHCdoB5OjnObbRai
+	 5BizdEkFkWeugtnFT1w2whTd8cufeAqgppmCQ8gntmR4Wq4cUymiKlY0q7JS6eYEah
+	 EFUSeEi06/NjyWi+juNtlM+MZohzVVUwAmOZ/KYvYMbO9ZIG7gHZdwF4rucA7hlcJo
+	 MCItS2VRisdVA==
+Subject:
+ Re: [PATCH net-next v10 1/4] dt-bindings: net: dsa: microchip: Add KSZ8995XA
 From: netdev-bot+sashiko@kernel.org
-To: arthur@marmottus.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- krzysztof.kozlowski@oss.qualcomm.com
-Date: Wed, 09 Sep 2026 12:39:01 +0000
-Message-ID: <178895754151.219967.10801079239966954315@kernel.org>
-In-Reply-To: <20260904-wiznet-link-gpio-v7-3-69f01b70c96f@marmottus.net>
-References: <20260904-wiznet-link-gpio-v7-3-69f01b70c96f@marmottus.net>
-X-sashiko-severity: High
+To: linusw@kernel.org
+Cc: woojung.huh@microchip.com, UNGLinuxDriver@microchip.com, andrew@lunn.ch,
+ olteanv@gmail.com, davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ marex@denx.de, horms@kernel.org, linux@armlinux.org.uk, nb@tipi-net.de,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org
+Date: Wed, 09 Sep 2026 12:39:16 +0000
+Message-ID: <178895755698.219967.14487699742720379802@kernel.org>
+In-Reply-To: <20260908-ks8995-to-ksz8-v10-1-7379239eb65f@kernel.org>
+References: <20260908-ks8995-to-ksz8-v10-1-7379239eb65f@kernel.org>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -49,286 +49,105 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 2 · Low: 1
+Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-- [High] On w5500 the carrier state is now sampled exactly once per ifup
-  (and once per resume) from PHYCFGR, with no polling fallback and no…
-- [Medium] `w5500_get_phycfgr_lnk()` returns a tri-state value (<0 on
-  SPI/register read error, 0 link down, 1 link up), and its consumers…
-- [Medium] The carrier state is computed and published by two
-  unsynchronized contexts.
-- [Low] The YAML binding added earlier in this series
-  (Documentation/devicetree/bindings/net/wiznet,w5100.yaml, commit "dt-…
+- [Medium] In
+  Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml the new…
+- [Low] Reported concern (validated as NOT a defect):
+  `microchip,ksz8995xa` is documented in…
 
 --
 
-w5100: detect carrier state using link status bit and optional interrupt
+dt-bindings: net: dsa: microchip: Add KSZ8995XA
 
-This adds link detection on the w5500 by reading the Link Status bit of
-the PHY Configuration register, and adds an optional second interrupt
-(LINKLED) to notice link changes. The netdev is now registered as the
-last step of w5100_probe(), and the link interrupt is enabled/disabled
-in open/stop and resume/suspend.
+This adds the compatible microchip,ksz8995xa to the Microchip KSZ DSA
+switch binding, described as having the same properties as the KS8995XA
+and being like the KSZ8795 and KSZ8864.
 
-A few questions about the carrier handling below.
-
-> diff --git a/drivers/net/ethernet/wiznet/w5100.c b/drivers/net/ethernet/wiznet/w5100.c
-> index 53d8dc642fbd6..ecb99621d0a1e 100644
-> --- a/drivers/net/ethernet/wiznet/w5100.c
-> +++ b/drivers/net/ethernet/wiznet/w5100.c
-
-[ ... ]
-
-> @@ -345,6 +349,44 @@ static void w5500_memory_configure(struct w5100_priv *priv)
->  	}
->  }
->  
-> +static int w5500_get_phycfgr_lnk(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int ret = w5100_read(priv, W5500_PHYCFGR);
-> +
-> +	if (ret < 0) {
-> +		netif_err(priv, link, ndev,
-> +			  "failed to read link status: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return ret & PHYCFGR_LNK;
-> +}
-> +
-> +static irqreturn_t w5500_detect_link(int irq, void *ndev_instance)
-> +{
-> +	struct net_device *ndev = ndev_instance;
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +	int state;
-> +
-> +	if (!netif_running(ndev))
-> +		return IRQ_HANDLED;
-> +
-> +	state = w5500_get_phycfgr_lnk(ndev);
-> +	if (state < 0)
-> +		return IRQ_HANDLED;
-> +
-> +	if (state) {
-> +		netif_info(priv, link, ndev, "link is up\n");
-> +		netif_carrier_on(ndev);
-> +	} else {
-> +		netif_info(priv, link, ndev, "link is down\n");
-> +		netif_carrier_off(ndev);
-> +	}
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-
-[ ... ]
-
-> @@ -414,6 +456,16 @@ static void w5100_get_drvinfo(struct net_device *ndev,
->  		sizeof(info->bus_info));
->  }
->  
-> +static u32 w5100_get_link(struct net_device *ndev)
-> +{
-> +	struct w5100_priv *priv = netdev_priv(ndev);
-> +
-> +	if (priv->ops->chip_id == W5500)
-> +		return w5500_get_phycfgr_lnk(ndev) > 0;
+> diff --git a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+> index 8d4a3a9a33fcc..ed39530b6cbbb 100644
+> --- a/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+> +++ b/Documentation/devicetree/bindings/net/dsa/microchip,ksz.yaml
+> @@ -23,6 +23,7 @@ properties:
+>        - microchip,ksz8864  # 4-port version of KSZ8895 family switch
+>        - microchip,ksz8873
+>        - microchip,ksz8895  # 5-port version of KSZ8895 family switch
+> +      - microchip,ksz8995xa
+>        - microchip,ksz9477
+>        - microchip,ksz9897
+>        - microchip,ksz9896
+> @@ -122,6 +123,7 @@ allOf:
+>              enum:
+>                - microchip,ksz8863
+>                - microchip,ksz8873
+> +              - microchip,ksz8995xa
+>      then:
+>        $ref: dsa.yaml#/$defs/ethernet-ports
+>      else:
 
 [Severity: Medium]
-Does the "> 0" here turn a register read failure into a definite "link
-down"?
+Is this second hunk intentional?  The enum being extended here sits under
+a "not:", so adding a compatible to it selects the "else" branch rather
+than the "then" branch:
 
-w5500_get_phycfgr_lnk() returns three distinct things: a negative errno,
-0 for link down and 1 for link up.  w5500_spi_read() can really return an
-error, since it propagates spi_write_then_read():
+  - if:
+      not:
+        properties:
+          compatible:
+            enum:
+              - microchip,ksz8863
+              - microchip,ksz8873
+              - microchip,ksz8995xa
+    then:
+      $ref: dsa.yaml#/$defs/ethernet-ports
+    else:
+      patternProperties:
+        "^(ethernet-)?ports$":
+          patternProperties:
+            "^(ethernet-)?port@[0-2]$":
 
-	return ret ? ret : data;
+The "else" branch is the hand-rolled KSZ88x3 schema.  It only matches
+port@0 through port@2, does not reference dsa.yaml#, and additionally
+allows the KSZ88x3/REFCLKO-only flag microchip,rmii-clk-internal.
 
-w5500_detect_link() deliberately leaves the carrier alone in that case:
+The KSZ8995XA is a 5-port part with the CPU port at index 4.  The chip
+data added later in this series, ksz_switch_chips[KSZ8995XA] in
+drivers/net/dsa/microchip/ksz_common.c, has:
 
-	state = w5500_get_phycfgr_lnk(ndev);
-	if (state < 0)
-		return IRQ_HANDLED;
+	.cpu_ports = 0x10,	/* can be configured as cpu port */
+	.port_cnt = 5,		/* total cpu and user ports */
 
-but w5100_get_link() folds the errno into 0, so w5100_open() will call
-netif_carrier_off() on a transient SPI failure even when the link is up,
-and w5100_resume() (which has no else branch) will leave the carrier off.
-The same lossy mapping is what the newly added ethtool .get_link reports,
-so an SPI error shows up as "Link detected: no".
+So for microchip,ksz8995xa, would port@3 and port@4 (including the MII
+CPU port with ethernet/phy-mode/fixed-link) match no subschema and go
+unvalidated, and would a node with no ports/ethernet-ports at all also
+pass since the dsa.yaml base requirements are no longer applied?
 
-Would it be better to keep the error case out of the carrier decision, the
-way the interrupt handler does?
+The same silicon is also described by
+Documentation/devicetree/bindings/net/dsa/micrel,ks8995.yaml, which
+drivers/net/dsa/microchip/ksz_spi.c maps to the same
+ksz_switch_chips[KSZ8995XA] entry.  That file uses:
 
-> +
-> +	return 1;
-> +}
-> +
+  allOf:
+    - $ref: dsa.yaml#/$defs/ethernet-ports
 
-[ ... ]
+and its example documents ethernet-port@0 through ethernet-port@4, which
+is the opposite of the 3-port constraint now applied to
+microchip,ksz8995xa.
 
-> @@ -659,6 +711,15 @@ static int w5100_open(struct net_device *ndev)
->  	w5100_hw_start(priv);
->  	napi_enable(&priv->napi);
->  	netif_start_queue(ndev);
-> +
-> +	if (priv->link_irq >= 0)
-> +		enable_irq(priv->link_irq);
-> +
-> +	if (w5100_get_link(ndev))
-> +		netif_carrier_on(ndev);
-> +	else
-> +		netif_carrier_off(ndev);
+This also seems to disagree with the commit message, which says the part
+is "just like the KSZ8795 and KSZ8864" and "has the same properties as
+the KS8995XA" - both microchip,ksz8795 and microchip,ksz8864 take the
+"then" branch and use the generic dsa.yaml ethernet-ports schema.
 
-[Severity: High]
-Can the interface end up permanently NO-CARRIER on a w5500 board whose
-device tree only declares the single INT interrupt?
+Would dropping the second hunk and keeping only the top-level compatible
+enum addition give the described behaviour?
 
-The second (LINKLED) interrupt is optional and is introduced by this
-series, so on existing device trees w5100_probe() does:
-
-	priv->link_irq = ops->chip_id == W5500 ?
-			 fwnode_irq_get(dev_fwnode(dev), 1) : -ENODEV;
-
-fwnode_irq_get() returns a negative value for index 1, no link interrupt
-is requested, and every "if (priv->link_irq >= 0)" site is skipped.
-
-That leaves the sample taken here as the only carrier update for the whole
-lifetime of the ifup.  If PHYCFGR.LNK reads 0 at that moment (cable not
-plugged, or auto-negotiation not finished yet after the reset done in
-w5100_probe() -> w5100_hw_reset()), netif_carrier_off() is called and
-nothing turns it back on: the only netif_carrier_on() call sites are
-w5500_detect_link(), w5100_open() and w5100_resume(), and there is no
-timer or delayed work polling PHYCFGR.
-
-Before this patch the w5500 carrier was never cleared at ifup, so is this
-a behaviour change for existing w5500 device trees, where a link that
-comes up after ifup is never noticed until the user bounces the interface?
-
-The commit message says:
-
-	"The interrupt is only needed to detect subsequent link changes."
-
-Could this state that without the interrupt there is no detection of
-subsequent link changes at all, including the initial link-up?
-
-[Severity: Medium]
-Separately, does the ordering of enable_irq() and the PHYCFGR sample here
-allow the threaded handler's newer verdict to be overwritten by an older
-one?
-
-__dev_open() sets __LINK_STATE_START before calling ndo_open, so
-netif_running() is already true and the early bail in w5500_detect_link()
-does not exclude a concurrent run.  enable_irq() can also replay an edge
-that arrived while the line was masked:
-
-w5100_open()
-	enable_irq(priv->link_irq);
-	w5100_get_link()	  /* sleeping SPI read, old value */
-
-			w5500_detect_link()	 /* newer PHYCFGR value */
-				netif_carrier_on(ndev);
-
-	netif_carrier_off(ndev);  /* overwrites with the stale sample */
-
-Nothing serializes the read-and-publish pair: the handler takes no lock,
-open holds only RTNL which the IRQ thread never takes, and struct
-w5100_priv has no lock covering the carrier update.  With edge-only
-notification and no polling, the wrong state then persists until the link
-toggles again.
-
-w5100_resume() has the same enable-then-sample order and only ever calls
-netif_carrier_on(), so a "down" seen by the handler can be discarded.
-
-Note the teardown paths do it the other way around and disable_irq()
-first, which does synchronize with the threaded handler.
-
-> +
->  	return 0;
->  }
->  
-
-[ ... ]
-
-> @@ -745,13 +811,21 @@ int w5100_probe(struct device *dev, const struct w5100_ops *ops,
->  		break;
->  	default:
->  		err = -EINVAL;
-> -		goto err_register;
-> +		goto err_wq;
->  	}
->  
->  	priv->ndev = ndev;
->  	priv->ops = ops;
->  	priv->irq = irq;
->  
-> +	priv->link_irq = ops->chip_id == W5500 ?
-> +			 fwnode_irq_get(dev_fwnode(dev), 1) : -ENODEV;
-
-[Severity: Low]
-This isn't a bug in the C code, but does the binding added earlier in the
-series match this restriction?
-
-Documentation/devicetree/bindings/net/wiznet,w5100.yaml describes the
-interrupts as:
-
-  interrupts:
-    minItems: 1
-    items:
-      - description: Main interrupt (INT pin on the device).
-      - description:
-          Optional interrupt for link status changes (LINKLED pin on w5500).
-
-with no allOf/if-then keyed on the compatible string, so wiznet,w5100 and
-wiznet,w5200 nodes may declare two interrupts and still pass
-dt_binding_check.  Here index 1 is only looked up for chip_id == W5500, so
-such a line is silently ignored (priv->link_irq stays -ENODEV).
-
-Would an if-then block limiting the second interrupt to wiznet,w5500 (or
-honouring the second interrupt for all parts) express this better?  The
-w5500-only restriction is currently only in free-form description text,
-which validation does not enforce.
-
-> +	if (priv->link_irq == -EPROBE_DEFER) {
-> +		err = dev_err_probe(dev, priv->link_irq,
-> +				    "failed to get link irq\n");
-> +		goto err_wq;
-> +	}
-> +
-
-[ ... ]
-
-> @@ -839,6 +931,9 @@ static int w5100_suspend(struct device *dev)
->  	struct w5100_priv *priv = netdev_priv(ndev);
->  
->  	if (netif_running(ndev)) {
-> +		if (priv->link_irq >= 0)
-> +			disable_irq(priv->link_irq);
-> +
->  		netif_carrier_off(ndev);
->  		netif_device_detach(ndev);
->  
-> @@ -857,6 +952,12 @@ static int w5100_resume(struct device *dev)
->  		w5100_hw_start(priv);
->  
->  		netif_device_attach(ndev);
-> +
-> +		if (priv->link_irq >= 0)
-> +			enable_irq(priv->link_irq);
-> +
-> +		if (w5100_get_link(ndev))
-> +			netif_carrier_on(ndev);
->  	}
->  	return 0;
->  }
-
-Since suspend unconditionally clears the carrier and resume only sets it
-when this single read reports link, is there any path that re-asserts the
-carrier later when there is no link interrupt or when the PHYCFGR read
-fails here?
+The same negated enum entry is still present at the end of the series
+(c34290e766e1566f450a527435a9398d135e21d4), so no later patch appears to
+change it.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-wiznet-link-gpio-v7-0-69f01b70c96f%40marmottus.net
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-ks8995-to-ksz8-v10-0-7379239eb65f%40kernel.org
