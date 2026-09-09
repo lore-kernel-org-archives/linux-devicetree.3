@@ -1,210 +1,128 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7D4D49C4CB;
-	Wed,  9 Sep 2026 09:57:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C2B3A874F;
+	Wed,  9 Sep 2026 10:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947881; cv=none; b=Yo983kfgNBMdIhfTTqqoq202oRJiJSkX36nRwEeNYv/xkSmOInE3O2Yrq6Y1NvK2Gbe+Wqioj2K03UA0wKuqsFFEaKfq2X80ff62gJzBg9Z0XaHtu7mUHwuLdFh2RUARqln/u7oulXpIo2icrSCGG2nRyEeZpxVS4und0O30p4U=
+	t=1788948048; cv=none; b=nxRZpQkoXZVDWCk0oUz6I8Dv2QO7/yExQpY+RNJCd6t/MTM+5LlQ32YFasS2yDH3pFzrV0vOldlyTwa21kSSxNn815uU/10LBzRm52aSnSiZcGCuYWZ7DGLnb32oPvzZ/ZVZERD/gU/C7aV035t39enQBF5yYeeCbnFAVHSVYy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947881; c=relaxed/simple;
-	bh=yViiyIOoTETpn5qLLltYZZ+RjGHj/8+ZFoZNJ7YZagg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WiTETFR726xJJ37eXt3BxQeHLm5daTOJRdGR4AtXJ2QgNhfItTBRGtSiO2GQqj/PE2tD4hUiDEWkr/7TC0O+bkHldfILYG3IPh4GdXHX9bhqH6vCS5HHJbWAYaeYzVDcSyDGEGAehKpAZOIIGmlguSdR5Guj+WkOgAbMkOcigIM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=hUjJd9lU; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1788948048; c=relaxed/simple;
+	bh=/+K2FWb0NqMXX3bNyrlhPit09ZtX2Yf7/0Pz4DvGUf4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LDen+DycjF+ClPNMiE0ew3/eXmZ3UmJ4CNzBCE0lKy5+u/Ff0MiJEKt3ZbxY6hrGa7yok0/Dn3xk4I/+OVuJ+ScDLybV07oWcaLuryJ2xH+hb1xNfIUfbmq/6fwonMAc/u4wq/77HtsPV/IJTcuze9isbU6rp+bEVCgiQGVecI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fsjIsfeh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="hUjJd9lU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788947877;
-	bh=yViiyIOoTETpn5qLLltYZZ+RjGHj/8+ZFoZNJ7YZagg=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=hUjJd9lUgZoybA2t3pdx3sN2JlpK4D+sHHWgF5lPqA3qGYVV/Zy0vZGrfrXv6krzf
-	 twkLwSMygFoUaAVxZnSYhHs5iOtQ62Mt8Dtc4bs8NBGu933AUbrpQf0lLsMOmwe5jX
-	 MwzwDJS7frXeF/Iuwd+YMgImlK/IE4MK8QVcWpRUwnPeDZ02SNsm9x9xqQGYtwYBFt
-	 xluYmpwBYM/9jWVUxXBvFSKUy94t1s3QpA/+4wy5Vd+ev6ZWGSVeDflPgyTwtWQ5I3
-	 8zB91b3anH5aiPA5rzZlItcr4Y1xZOECxQcef7zgYdbo+46lPVCFdSW0PHNpo4eDTi
-	 IhBnHZJiDYIUQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2B4DC17E0945;
-	Wed, 09 Sep 2026 11:57:57 +0200 (CEST)
-Message-ID: <39494ea2-7fb5-4414-8560-47ddd40260cf@collabora.com>
-Date: Wed, 9 Sep 2026 11:57:56 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fsjIsfeh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CDDB1F00A3A;
+	Wed,  9 Sep 2026 10:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788948046;
+	bh=mFYIey+4GUg1N9wRii2VCB2Fb1doK/c3LSlsHkcprr8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fsjIsfehzy/iKihALwmiT/UyeyfHvyRU1F5YQFkL38OvIClj3WMMcCrf9xyXl28dN
+	 7wfRCwBwKIP3D8ssCUMdcguBwS+EzvncaC4XNn6F8Cp3CdP/FJ3tMdx4Js8j1n2I1A
+	 xL6KceIBadVocGv2zdtHwvLnJnDqwC2MrqsQegckSi9/2icgnD9d9XEetvhml8fyC7
+	 ZIWFF+KuCO2gPi3rpvMTSsrTGUN/RQrONZEW2BPv7b3StFfyciJKBAZ58p2C2adQx4
+	 hFRn2CIZZAApG/RYlG0Tdw6eUuOzzKM3x9ngyyMEgd5PiubgdOBMcpEvyE4NHeZZ4F
+	 jWDWEss7UqBpA==
+Date: Wed, 9 Sep 2026 11:00:31 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Peter Rosin <peda@lysator.liu.se>
+Cc: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>, andi.shyti@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com
+Subject: Re: [PATCH 1/2] dt-bindings: i2c: Add NXP PCA9641 I2C bus master
+ arbiter
+Message-ID: <aqEuPBNsbdGZ1MJX@squawk>
+References: <20260908123146.1839854-1-shivprakash.gupta@nxp.com>
+ <20260908123146.1839854-2-shivprakash.gupta@nxp.com>
+ <20260908-skirt-makeshift-2050f3bcbb22@spud>
+ <aqDt0uC7FNRmsv9S@gryt>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] soc: mediatek: cmdq-helper: add legacy GCE ISA
- support
-To: rva333@protonmail.com, Jassi Brar <jassisinghbrar@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>, Houlong Wei <houlong.wei@mediatek.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20260907-6572-gce-v2-0-412a5b037290@protonmail.com>
- <20260907-6572-gce-v2-2-412a5b037290@protonmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260907-6572-gce-v2-2-412a5b037290@protonmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HSmNYzxqv+7gjE2q"
+Content-Disposition: inline
+In-Reply-To: <aqDt0uC7FNRmsv9S@gryt>
 
-On 9/7/26 20:03, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
-> 
-> Some SoCs, such as mt6572, have different WRITE and POLL instruction
-> encoding. Instead of 16-bit offset and 8-bit subsystem ID, old GCEs have
-> 22-bit offset and 2-bit subsystem ID.
-> 
-> Extend cmdq_instruction struct with additional union and struct to hold
-> the legacy format of instruction encoding. Add legacy_isa to select
-> legacy GCE ISA when writing instruction. Finally, add special handing
-> for legacy_isa cases.
-> 
-> Also correct comment about PA writes, because it's incorrect for legacy
-> ISA. Only v2 (mt8167, 8173) and v3 (mt8168, 6768, 6779, 6785, etc) have
-> GPRs and SPRs for PA writes.
-> 
-> While mt6572 GCE supports 22-bit offsets, the parameter type for offset
-> remains 16 bit, because all mt6572 GCE mmsys consumers are in the 0xffff
-> range.
-> 
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+--HSmNYzxqv+7gjE2q
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Verified in the lab on multiple MediaTek boards.
+On Wed, Sep 09, 2026 at 07:25:38AM +0200, Peter Rosin wrote:
+> Den Tue, Sep 08, 2026 at 06:47:01PM +0100, skrev Conor Dooley:
+> > On Tue, Sep 08, 2026 at 06:01:45PM +0530, Shiv Prakash Gupta wrote:
+> > > Add device tree binding schema for the NXP PCA9641 2-to-1 I2C bus
+> > > master arbiter.
+> > >=20
+> > > The PCA9641 arbitrates between two upstream I2C masters competing for=
+ a
+> > > single downstream slave bus using a lock/grant ownership model. The
+> > > binding supports an optional 'interrupts' property for interrupt-assi=
+sted
+> > > arbitration.
+> > >=20
+> > > Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+> > > ---
+>=20
+> ...
+>=20
+> > > +  i2c-arb:
+> > > +    type: object
+> > > +    $ref: /schemas/i2c/i2c-controller.yaml
+> > > +    unevaluatedProperties: false
+> > > +    description:
+> > > +      I2C bus node representing the downstream slave bus controlled =
+by the
+> > > +      PCA9641. Downstream slave devices are declared as child nodes =
+here.
+> >=20
+> > Why does this node need to exist? Can't the i2c-arbiter node itself
+> > contain the child devices?
+>=20
+> For symmetry with the pre-existing I2C arbs, which all have the extra
+> node for historical implementation reasons? I don't know if that's
+> considered a valid reason? I prefer to have all arbs follow the same
+> structure...
 
-... but I either need an ack on patch 3/3 from mailbox maintainers, or they need
-an ack from me on this patch to pick everything.
+If this is just how these devices are described in general, I think
+that's probably fine.
 
-I'm fine with anyone picking this, so...
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+(Also, good to see you back active)
 
-Cheers,
-Angelo
+Cheers.,
+Conor.
 
+>=20
+> The "documentation" describing common I2C arbitration details went missing
+> here:
+>=20
+> https://lore.kernel.org/all/20230731163833.319258-1-krzysztof.kozlowski@l=
+inaro.org/
+>=20
+> Cheers,
+> Peter
 
-> ---
-> This change doesn't bring any functional change for mt6572. mt6572 uses
-> subsystem ID 0 for display, alongside with 16-bit offsets, so layout is
-> still compatible with v2/v3 GCEs. However, it's better to properly
-> describe layout.
-> ---
->   drivers/soc/mediatek/mtk-cmdq-helper.c   | 57 ++++++++++++++++++++++----------
->   include/linux/mailbox/mtk-cmdq-mailbox.h |  1 +
->   2 files changed, 40 insertions(+), 18 deletions(-)
-> 
-> diff --git a/drivers/soc/mediatek/mtk-cmdq-helper.c b/drivers/soc/mediatek/mtk-cmdq-helper.c
-> index f8ee6c9ade89..fb82f2a85a21 100644
-> --- a/drivers/soc/mediatek/mtk-cmdq-helper.c
-> +++ b/drivers/soc/mediatek/mtk-cmdq-helper.c
-> @@ -31,18 +31,27 @@ struct cmdq_instruction {
->   		};
->   	};
->   	union {
-> -		u16 offset;
-> -		u16 event;
-> -		u16 reg_dst;
-> -	};
-> -	union {
-> -		u8 subsys;
->   		struct {
-> -			u8 sop:5;
-> -			u8 arg_c_t:1;
-> -			u8 src_t:1;
-> -			u8 dst_t:1;
-> -		};
-> +			union {
-> +				u16 offset;
-> +				u16 event;
-> +				u16 reg_dst;
-> +			};
-> +			union {
-> +				u8 subsys;
-> +				struct {
-> +					u8 sop:5;
-> +					u8 arg_c_t:1;
-> +					u8 src_t:1;
-> +					u8 dst_t:1;
-> +				};
-> +			};
-> +		} __packed;
-> +
-> +		struct {
-> +			u32 offset_legacy:22;
-> +			u32 subsys_legacy:2;
-> +		} __packed;
->   	};
->   	u8 op;
->   };
-> @@ -86,7 +95,7 @@ int cmdq_dev_get_client_reg(struct device *dev,
->   		client_reg->subsys = CMDQ_SUBSYS_INVALID;
->   
->   		/*
-> -		 * All GCEs support writing register PA with mask without subsys,
-> +		 * GCE v2/v3 support writing register PA with mask without subsys,
->   		 * but this requires extra GCE instructions to convert the PA into
->   		 * a format that GCE can handle, which is less performance than
->   		 * directly using subsys. Therefore, when subsys is available,
-> @@ -219,10 +228,16 @@ int cmdq_pkt_write(struct cmdq_pkt *pkt, u8 subsys, u16 offset, u32 value)
->   {
->   	struct cmdq_instruction inst = {
->   		.op = CMDQ_CODE_WRITE,
-> -		.value = value,
-> -		.offset = offset,
-> -		.subsys = subsys
-> +		.value = value
->   	};
-> +
-> +	if (pkt->priv.legacy_isa) {
-> +		inst.offset_legacy = offset;
-> +		inst.subsys_legacy = subsys;
-> +	} else {
-> +		inst.offset = offset;
-> +		inst.subsys = subsys;
-> +	}
->   	return cmdq_pkt_append_command(pkt, inst);
->   }
->   EXPORT_SYMBOL(cmdq_pkt_write);
-> @@ -459,10 +474,16 @@ int cmdq_pkt_poll(struct cmdq_pkt *pkt, u8 subsys,
->   {
->   	struct cmdq_instruction inst = {
->   		.op = CMDQ_CODE_POLL,
-> -		.value = value,
-> -		.offset = offset,
-> -		.subsys = subsys
-> +		.value = value
->   	};
-> +
-> +	if (pkt->priv.legacy_isa) {
-> +		inst.offset_legacy = offset;
-> +		inst.subsys_legacy = subsys;
-> +	} else {
-> +		inst.offset = offset;
-> +		inst.subsys = subsys;
-> +	}
->   	return cmdq_pkt_append_command(pkt, inst);
->   }
->   EXPORT_SYMBOL(cmdq_pkt_poll);
-> diff --git a/include/linux/mailbox/mtk-cmdq-mailbox.h b/include/linux/mailbox/mtk-cmdq-mailbox.h
-> index 07c1bfbdb8c4..9fcebc4ca864 100644
-> --- a/include/linux/mailbox/mtk-cmdq-mailbox.h
-> +++ b/include/linux/mailbox/mtk-cmdq-mailbox.h
-> @@ -72,6 +72,7 @@ struct cmdq_cb_data {
->   
->   struct cmdq_mbox_priv {
->   	u8 shift_pa;
-> +	bool legacy_isa;
->   	dma_addr_t mminfra_offset;
->   };
->   
-> 
+--HSmNYzxqv+7gjE2q
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqEuPAAKCRB4tDGHoIJi
+0s/xAP9eGC1HEFjaIFD5tXdlGCyTXfKghGC3PRNhtlzsTWx++QEAq1xMfj6+tL8R
+K+FZvGJGfh1Rh/B/LlS6BZ4yBDwLzAo=
+=ekYY
+-----END PGP SIGNATURE-----
+
+--HSmNYzxqv+7gjE2q--
