@@ -1,108 +1,105 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8C1443E40
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 607F9323416;
+	Wed,  9 Sep 2026 07:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788938502; cv=none; b=mG2k3JZJmEnZ0IcqaqibJ7eqrXJWRSI2JtcKvgPz0NCo6OyP2AqtPPqj4RveXRtNEiZn+QvxB41kVURYXXvPJnfLRm6OuuYtF3mZ1fiqHxjJB4sbPPMz89+u8sxxwzQXlawdkJfQtusGQnwqEs2/7oK7FCgjK6n7erPHBcwMqjY=
+	t=1788938930; cv=none; b=gYzsryWueLHK/85yG8xj2B/baH4290Rh14igU8buBUVu5bRaWYpKaJrHxbPmoSUj8s+17N94CqVFKDR1t8OcWG1Vwof45+hSXhcwRatVlwGQv+qcZ/DSmsp6aesqd9x6p1MbSSsRUPT7BDSh9r3xmcPV19loStnfwykgZn3pE4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788938502; c=relaxed/simple;
-	bh=bdtfK8hlgNaxrFNODYutQUM199Ay4f+K5uqqRn3MwW4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HyPT73trko3H//Ld8yGgSun2ZHflaprrfRPX8c7YBol2vOknxvWJEN/97FOJTRte4RtgAhnQabo7RP0j61YbHB9sRVvpaoXekex5YXuZVbT3MneB5xDGatkEAYwf9Q/2YJD8EwIUDPJeiBtf33Rfb6uF9pTxdFG58fvJDVjyD0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SDBvlvib; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788938930; c=relaxed/simple;
+	bh=8yVzF90AoaAUb8R+7eeWxFRhtRbFA35v3+7WbXbVEDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FQQ4VRNPiqb1PLv1xuJfyS471kch/0EQ19D0Xve8UKztW+kMD3iHxLYv64w6w/uC5r8Dh6SM/3HPlZoiWgD03JqnMa7XtwhJB9cFFfwEMwBy82K8NwAVT/PpPlpIafmdNMc4MrEI2cHA8BAgAqYp/m4vJ/tW6BPTG0zTfMGFvkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KsOz/14p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SDBvlvib"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso80222955e9.2
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:21:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788938494; x=1789543294; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
-        b=SDBvlvibwtRp7WxoRjBENUi5Mk7PF4tbHz37lIYZBerv7MR8wWxDs45RYaxKpgFAWV
-         pYI/DkS78MuIAuTGDO/NrjRYSVn8xVNEnDW60UocPGTgW5jSzIjsAkn/p7BynGilfNw/
-         kdsBQsT7VKEX105ExxrK1qdogg9mUsbg4QXYchZS8K9PL85mU5trPa6zwk4GtM0i8CxH
-         9npTCSxiJr2Ln48+KHPLMYHC8cxwbiDOrkPAkywyRhRxmylyzsieYIKOu3Hxo1LJdxYI
-         pVevHD4eqqxqChgmWHfNJpBs+dYl69Yg+DxruqJA0H9OHi+UnZT8u6qZZkT5pkAe3Gjs
-         La5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788938494; x=1789543294;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Psx5izFz/CT47tzHifey69nrknoh0GX9iQboe2Wpy28=;
-        b=gEpC4VAcPLeU1rL9KoQyFTWz2KYC/Jzhwn+wAkBu8vN1KgwIpNwnobcP+9FF+cUiRr
-         sJ1JLHjoET7/p0rH4YQn5Iy/97oKBOGgkKFLwjiRPVflSwfwLEpE8JmqtwenNdK4Q2Yi
-         w3p5LPwQGbB4j7ilds4UFnh5ZGshGCKCrLjHeZtUo6oN9rBHpQEzkRrhifaQ8Tmq9dt9
-         kZpAJnK3CevD3WQm0A5WmFdQd/vxDnjmp70Z7BCQOKIs+j7Tn5ggvlQUgp7pfkU8fnCA
-         9hs6jFg3VuXYp/sdcOCSaIQ6hIIygYo7QbHLHaToxGlnDP14smwDtUIfa98UBpXcg7go
-         Glmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxktTzqWqkqgL13xDQetQHbib8zMWNuZ9+Qix7S3+Xr5neOebWn8mHd9KP3PNKR3GBIjogOLQ5sWFf9@vger.kernel.org
-X-Gm-Message-State: AFuF++k1qIkBUcVKbUijvsIBSCNSL6qywOgvazfszwyosRZzDJHRJA1P
-	76vD2xroKOHNBCMbYud8LoDNfUO7VypMohqI8S6WbrmGQNdYl5DkZ/sB
-X-Gm-Gg: AYBFou3s0emrD6SSWe35MMZxGVhHL21l7g4NwLBgTYQedqNhxABJxvWbebu58MUNE7U
-	yx6tNQYb6YYS0/7Dyrr5LFMIVwNsqK/vffagqPvi7aZydgIjbw89lnZ4QLxvIBI06wSQAnvyi6c
-	UX4bik2Wyw87CJiihzdlGc8XsbsXc1P+DRYcLBTOIoXGp1srZnwd4zlUL7/o6MUWOY+b7XOrzM6
-	169nxDoK2FgJL3vYlwb2ZDvninmvSfxUAvV9TDdTJa4B3kft8fp8W3oo1/Z5ls4Xu6vY9Oga8BC
-	jfyYAPxY9W9B5un/BemC+1wncZHO+RjmlanGvEvV7kihduTUT+GYGLy89RoV60EDaDTWTazMflg
-	KEBYVgYvqMLQV5K6l2U8a62XwcWWWivPrp/VNgtso1gfj/LRG8/csBCYgGNsC7ZI0rm5Uk7LyCm
-	QVLkBuQBlCE1daVIAm2yUw5unXufz5dFzR1VOcoNQ0IcTs9ghft7PP6SyZx0m52x4LCXE=
-X-Received: by 2002:a05:600c:3511:b0:49c:fa21:1c86 with SMTP id 5b1f17b1804b1-49cfa211cd7mr325233275e9.27.1788938493693;
-        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883c6ba4sm46703902f8f.25.2026.09.09.00.21.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 00:21:33 -0700 (PDT)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Fabien Parent <fparent@baylibre.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH RESEND] arm64: dts: mediatek: mt8516: remove cpu3 armpll clock-name
-Date: Wed,  9 Sep 2026 09:20:14 +0200
-Message-ID: <20260909072051.4627-1-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KsOz/14p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008D31F00A3A;
+	Wed,  9 Sep 2026 07:28:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788938929;
+	bh=t+tV0/lAuT7CI4Ui5m8EmZlQe7dn2V6hXPejm7rkrWo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KsOz/14poZfHaEGIYearElwNKpYepOycHddfz19fcbPukp3QY0jFiThoKoo6dH8ox
+	 ruNgL2F2sgLxRWLbCzTid0KtgtOALFDWS1/vZn+0RHolpOCqWjj51MW+dFmHSs328p
+	 6V68IYu/RTvevUQrL5vSfTOWwYf+AEnrwBYR4E8Zp5nIdgB9OJUrc8UpWc+0oJ4ZjG
+	 UStIj/s7p9/UgYcAQypYG0aTynHwQQD+92scbsmHbu0AgO9XuUeCxDFmBbZJEq5KBD
+	 rGZ3f+YTeCovtgRktywNP4E+0jPaFWh/uVIrE++8FWGiZnvOwp8jm7Bwx0IyuHCRpR
+	 FmRE+ukf41yVQ==
+Date: Wed, 9 Sep 2026 09:28:45 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+	Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, 
+	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 1/5] dt-bindings: PCI: toshiba,tc9563: Document
+ embedded GPIO controller
+Message-ID: <20260909-fascinating-vermilion-tarantula-0c9dff@quoll>
+References: <20260904-pci-tc9563-aux-v3-0-5b1449d62ba2@oss.qualcomm.com>
+ <20260904-pci-tc9563-aux-v3-1-5b1449d62ba2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260904-pci-tc9563-aux-v3-1-5b1449d62ba2@oss.qualcomm.com>
 
-The armpll clock in cpu3 clock-names property comes from MediaTek sources,
-but it's unused in the kernel and not populated in the clocks property.
-Let's remove it and align the node with other cpu nodes of the same SoC.
+On Fri, Sep 04, 2026 at 07:15:18PM +0200, Lorenzo Bianconi wrote:
+> The TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
+> lines. The controller is registered as an auxiliary device by the TC9563
 
-Fixes: 5236347bde42 ("arm64: dts: mediatek: add dtsi for MT8516")
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
----
- arch/arm64/boot/dts/mediatek/mt8516.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+"auxiliary device" is Linux term, so not really relevant here.
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8516.dtsi b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
-index b5e753759465..596f673a0d88 100644
---- a/arch/arm64/boot/dts/mediatek/mt8516.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8516.dtsi
-@@ -95,7 +95,7 @@ cpu3: cpu@3 {
- 				<&CPU_SLEEP_0_0 &CPU_SLEEP_0_0 &CPU_SLEEP_0_0>;
- 			clocks = <&infracfg CLK_IFR_MUX1_SEL>,
- 				 <&topckgen CLK_TOP_MAINPLL_D2>;
--			clock-names = "cpu", "intermediate", "armpll";
-+			clock-names = "cpu", "intermediate";
- 			operating-points-v2 = <&cluster0_opp>;
- 		};
- 
--- 
-2.43.0
+> power controller and accessed through the same register map.
+> 
+> Describe the switch node itself as the embedded GPIO controller and
+> document the per-port reset-gpios property.
+
+Isn't the switch node already described?
+
+> 
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/pci/toshiba,tc9563.yaml       | 19 ++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> index f084830c6d0c..c4cd162cb084 100644
+> --- a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> +++ b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> @@ -31,6 +31,11 @@ properties:
+>      description:
+>        GPIO controlling the RESX# pin.
+>  
+> +  gpio-controller: true
+> +
+> +  '#gpio-cells':
+> +    const: 2
+> +
+>    vdd18-supply: true
+>  
+>    vdd09-supply: true
+> @@ -84,6 +89,11 @@ $defs:
+>      type: object
+>  
+>      properties:
+> +      reset-gpios:
+> +        maxItems: 1
+> +        description:
+> +          GPIO controlling the reset line connected to the downstream port.
+
+Why do you exactly need this? Isn't this PERST, thus already there?
+
+Best regards,
+Krzysztof
 
