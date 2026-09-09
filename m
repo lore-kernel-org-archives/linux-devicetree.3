@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90D3E330656;
-	Wed,  9 Sep 2026 17:25:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C38136E484;
+	Wed,  9 Sep 2026 17:26:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788974714; cv=none; b=cp9LWFH9FKdVmZ/Ch9YHJ0xtoyDfErgQWuxivsbcNODGdIRjvcDkgoHLgNc5o0ZnGoi1/psP+7z0jWnmk1x4899jo4nJs+Nq216uRxtBlYlgPcERu0yKM+Z5w/RogiVOATHmquCFzqBeC35EoVrj91NrkMXNt8hgR1I5O5r8Iho=
+	t=1788974765; cv=none; b=sYTiHxO2xLB+Zd/2r88INTL2iiAWeIsddoTaIA5wDoMeHdzsPBsl9NRZ7vKS5gqMu8Qjz7M/8qJVyccAidV05tPGoAYIq9sQIAGSblDrRWNlJ07buuCyVxSNjXkFRUTG7pngBzf2bTX/ULzdmSEprE4OvDJDpJOSQSAF/DnbDdw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788974714; c=relaxed/simple;
-	bh=5rFM+3004Q7764Q5ps3RoCHOL05xYse9OzbYlGtf5QQ=;
+	s=arc-20240116; t=1788974765; c=relaxed/simple;
+	bh=saOq0T08ujEkv7uf07ir5qxUt0lSS9BcKQRan01kmio=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KvVBgtzRFG9guCrNgN83aq46bVQYsg75PzpKQMOjVV/32gALC1ENT9Y1fiiKvWdozbbHGJFpGGd1uAQDLQAHuinth+vzdX58i3xaqhdoPqQuigQ0EfZveymMoR1KCP/iY4B1xxoohYXbhbotTARlbcexCBd0k6QhTD+AgpWoqc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W24FkBl5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QIeAutei350pJsvcoHTFASyWZkNgFwOO5wkvSbG1nN/EzSwKjK1TL9/EYY4UnKfG4G6yiiHslxJV0tp2M7PRv4vQnStqqLnsBFtYv8UFTqmLdbmqX/uSC+FX0C7kZDZhBH0qfoU8nOXKsvXwWEbeXWqLPix7kizlV/ckrMYUOTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nl4q23VJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W24FkBl5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD6531F000FF;
-	Wed,  9 Sep 2026 17:25:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nl4q23VJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D2301F000FF;
+	Wed,  9 Sep 2026 17:25:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788974713;
-	bh=pGC6HZ9uyZkKy06/6NNUy5COxbIDi6w5V6zYh4L2LLQ=;
+	s=k20260515; t=1788974764;
+	bh=SP6jmQqIOLrkVvQFwD6N9WK9kKibbvJko54SPU9/I58=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W24FkBl5KvkzxbniUTFT3e5LDRnH2G5w9A6DSLU8/IKFQ+F88esI3/gY6j3yyXHBL
-	 Ow5Qw769UBFZHL1VJNQiWhbM1696eQYezkbX0FAXsfr58MoNhzdZd4mX11WCNid4PS
-	 jzYTqa3JTTL4CA8rtD+m3Yvxj8KARVZ2wHhw75LI54IEUqtCq0V1A+eNe7DxjCfTqw
-	 neS4N8WNEJePRmlY8NgblD2FuCKIq6ov8qVj4E/fpvUc6gLw7pKw9G5tYkdQBiQuH/
-	 8rjDJwsDwvDF/LCbRXPHy2rClREH/ta27xO8Hj34IW50I5F2ml++zqMYSGGNLiKpV0
-	 LeePmTnGMZ1PQ==
-Date: Wed, 9 Sep 2026 19:25:03 +0200
+	b=nl4q23VJ5Bm5v7pAPhT0FU5OXL0bq5WJU1l32a55XGKzfUR69tUcrge+B6lV3RU2B
+	 3AHjhFmXm5sK4D1zu5dK3s99hvKvhjKA/G6fmJfI87yA1aTqkCej67GTeeLLrTALCo
+	 LRAdzsW2J+2SCJv3PNJKPckBndFwi5KB1e3jziA98+cwrcQhr3nGD9z1haUZLF1+0n
+	 pzvj/U1vA65Oy20ntN4HC+ejsMV3qALbI96pD0duvwY8Eot2EgTa/JEWli3gc18o0r
+	 rikvNe+39scM4J9j8AgFo5OQ9f3FBzJdzyor8NvfNHP2PSR/4XemWgNdFA77J4t+5l
+	 CneQU4HMOtzaw==
+Date: Wed, 9 Sep 2026 19:25:54 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
@@ -35,11 +35,10 @@ Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org,
 	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
 	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask
- to SoC data
-Message-ID: <cydeh263kd5o2un27oeplqx2phe7vzhxvk53kr7dbvtplazafv@rs37qtkhguhj>
+Subject: Re: [PATCH v3 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+Message-ID: <nz5vqejravxuaxdodfjb5mdmdndevwe75rtbfi7ndow3qlqdim@xuo2awaygbv2>
 References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-12-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-13-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,37 +48,16 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-12-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260707154245.198361-13-angelogioacchino.delregno@collabora.com>
 
-On Tue, Jul 07, 2026 at 05:42:44PM +0200, AngeloGioacchino Del Regno wrote:
-> In preparation for adding support for the eDP PHY found in newer
-> SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
-> data.
+On Tue, Jul 07, 2026 at 05:42:45PM +0200, AngeloGioacchino Del Regno wrote:
+> The MT8196 SoC features an updated PHY IP compared to the older
+> ones, and there is one that is specific to Embedded DisplayPort.
+> 
+> Add support for the eDP PHY found in the MediaTek MT8196 SoC and
+> all of its variants.
 > 
 > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> ---
->  drivers/phy/mediatek/phy-mtk-dp.c | 13 +++++++++----
->  1 file changed, 9 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-> index 4603f28d1466..f5aadc5fdc42 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-> @@ -220,6 +220,7 @@ struct mtk_dp_phya_imp_sel {
->   * @regs_ana_lane:  Register (layout) offsets for ana_lan
->   * @regs_dig_glb:   Register (layout) offsets for dig_glb
->   * @regs_dig_lane:  Register (layout) offsets for dig_lan
-> + * @mask_dig_tx_ln: Register mask for PHYD_TX_LN_EN field
->   * @val_dig_bitrate:IP Version specific register values for Bit Rate setting
->   * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
->   * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
-> @@ -239,6 +240,9 @@ struct mtk_dp_phy_pdata {
->  	const u8 *regs_dig_glb;
->  	const u8 *regs_dig_lane;
->  
-> +	/* Register masks */
-
-Duplicate comment. With this removed,
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
