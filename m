@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45238328B62;
-	Wed,  9 Sep 2026 17:03:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5C1332EAE;
+	Wed,  9 Sep 2026 17:06:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788973399; cv=none; b=rCPWSah/NSXMI77OvJ84QS7xTkxl6YgPglhdvhyNdzfC9qglNdP+OSkStM3ZHefLEjQbnUDJLPzF34xhnWgPH6tWVVEDhEodBm92q3KsspPc0BdHyGQhb+Lmgp5VSy21Y4g9VbyhpwzhrORzI3EGzbnGTYa4CyjvQ5tmt0aBRww=
+	t=1788973597; cv=none; b=jnAHHPVqmEFVZszIoNctnWbHFTo8QGJCaI13FaicrTDW/dbi0g0+Q2oTcThEwhVcNCS16Ex2ojRJra8bbFktWeY2QAdQ9dxQsK4IDaCBCeQdxr+KL7SAu1MlObwwf9QQii3Z5VMZ3Gve+hfE++XF+gj5cTx9+dpUVYPeIDVX3Mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788973399; c=relaxed/simple;
-	bh=tX2VUfTLGv8UQmUm4FCMONQXQwnKDPo3atFzKdSPHd0=;
+	s=arc-20240116; t=1788973597; c=relaxed/simple;
+	bh=77+XzkSOXInCvVcDLKJcCQpyTJcm6rqnBky9V4IS6QM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=juSxhnsG/SIs2L1pP6bUaA2JlZAYqZ/ymT4UTuFI+FVEuT+vr76jLnyL+NwBo2lBu4fJBYw3TDJCwisAN8EIuofaIkdEqN+yy499S66wEQGmzup8zJeLBC0q2gJ8WwZTtvZOsbVVirgc89HGu0ZFUReWSNF3NzYBOMOSRx6EcdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkVQ0vIu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FsUGEBhRVhqqx2RRE7WbvI/Rtr4ROQWNuFeike+xZkDu8XIVd0yCHmvTtjaEJk6dmhBXiXCMz7gEymotH+FqCZNYDB0Ar0zPn1z7qONZEDl3OO/O+WiuV7gjBYLRz4XR518efvw+f01rzvFLOHiO4LIPbZbveCmZgq0Mv4JCgB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I05C/y3R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkVQ0vIu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C0C281F000FF;
-	Wed,  9 Sep 2026 17:03:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I05C/y3R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3355E1F000FF;
+	Wed,  9 Sep 2026 17:06:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788973397;
-	bh=p2s8uYoBSnPRtzrtxy84WXDVLveffRjaRrPrEHzO3Eg=;
+	s=k20260515; t=1788973596;
+	bh=tEGujVrnh45aRHa6TGYv0vK65BrEMTGrkS+B+KBLQdY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XkVQ0vIuB6RQIRTUzSey3nGs+UX/fU73qGe5rLJyVH74queEPlJAnPabs0WWtPtc2
-	 AxwFcbtRNCukAPEqEW7rAq4WamRm6e5w76DIxmlGofvrUfKd0d4x75v7u9tRtkcbDC
-	 JOTgcuqnOx117t79O/6qN0+IE/2TJ9rK8MLBBsHqfRu8ueC01Gs12akCoHc+tPQTpu
-	 R85FtifAhbIUhJFuE5Xt77KmJDvQv+HKr6+Q5nDAcNzmAfny9H3TMDj7eeyFonpnuq
-	 tDHH4fZvp9tjRevl4BB7ecdS22L6GBeX2minc5iWSMTNe7DbPL8JP52sSmaZFVZSqc
-	 7XoXLn9sP/kQA==
-Date: Wed, 9 Sep 2026 19:03:08 +0200
+	b=I05C/y3RGAUYs8rLS+AVasAowNXB0L71hpYAq6erADUXn5hHQkhD+0+xtK7cpCsFX
+	 Tlg4o87zyOadC7pg8Zqfvrpa4NWWwtzsEjHVzbJvRHmZ3589sP1HNv4m90tU5iPCVc
+	 gB8dR2YKj9bZRHjqnSn44gva1V3e5jNI1wf4Z/VMyno3eylGdGRwsNncBxZXN+//yw
+	 15YtQvmp0YemRPV6GYgQ5SjxP5ZGE13+YXTRvm1urVIwEg97CY6xYzzTqRKeDQioUe
+	 eP26eJBDjf1MDrLEkTNvR/RTG6pdANv7Nzs/s3fCwGgeyalvTl+kQrZOd757ld1QFn
+	 LzyeefD/yNBHQ==
+Date: Wed, 9 Sep 2026 19:06:27 +0200
 From: Manivannan Sadhasivam <mani@kernel.org>
 To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
@@ -35,11 +35,11 @@ Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org,
 	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
 	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 03/12] phy: phy-mtk-dp: Allow probing with devicetree
- match
-Message-ID: <bkx46kvsmovy2rbjnqwov65whmwnbkoig27iihk7w4qcosqoqf@jymp7vcu3ezi>
+Subject: Re: [PATCH v3 04/12] phy: phy-mtk-dp: Migrate register offsets to
+ SoC specific pdata
+Message-ID: <42rp4gtodsf35nqkabudeskzxxdfsrhvsyug74i536cuyrhjfz@puo46jjfbnf7>
 References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-4-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-5-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,19 +49,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-4-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260707154245.198361-5-angelogioacchino.delregno@collabora.com>
 
-On Tue, Jul 07, 2026 at 05:42:36PM +0200, AngeloGioacchino Del Regno wrote:
-> Make it possible to decouple the registration of the DisplayPort
-> PHY driver from the DisplayPort IP driver by adding a devicetree
-> match to probe the PHY, registering an OF PHY provider and this
-> device's own MMIO regmap - if, and only if, this PHY driver was
-> registered with an OF match.
+On Tue, Jul 07, 2026 at 05:42:37PM +0200, AngeloGioacchino Del Regno wrote:
+> In preparation for adding support for newer SoCs and for adding
+> more capabilities to this driver in an efficient manner, migrate
+> all of the hardcoded register offsets to SoC specific pdata and
+> assign that for both DT and platform probing.
 > 
-> In order to retain compatibility with older devicetrees that are
-> not declaring the DisplayPort PHY as a separate node, the legacy
-> code was moved in a `mtk_dp_phy_legacy_probe()` function, which
-> gets called if the driver was registered by the DisplayPort one.
+> While at it also cleanup writing the driving parameters to the PHY
+> by iterating through all lanes with a loop instead: note that for
+> that to happen the default 0/1/2 driving parameters were added,
+> those are really just zero.
 > 
 > Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
