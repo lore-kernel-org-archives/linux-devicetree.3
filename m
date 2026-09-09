@@ -1,213 +1,303 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com [209.85.208.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DE73D668E
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788937819; cv=none; b=WHr1WNRm9P1KTbJpFepre4HnEzjCa+H2LAW3MLEk2is15fi/5t9alq+xgtGSjEHelqtH8A4gQBZpw4Ii78ZBLL71mWWqa0erdacMdZll2Xstvy6SjQU5ZZxrARl7/3g98fej6hkYnXOiPASdY/RLvVJOC7aafNI/x3eLuLrzmUE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788937819; c=relaxed/simple;
-	bh=xtvAdc18ghBTpVdh52XHh10xl6bE+yFY3X/qpW3LJN0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370553D75DE
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:10:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.177
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788937858; cv=pass; b=P2E3PW4VVk42d+CLNOVvvu4eWAys2OUbqW2OPVjFTF9rEAj9f3kN/QYh78QBkAci+Drjm47b4qeF5kie56ZlbRhU1PXUgZhR9wBH6M76xx1gg+KtYFJU/ypjxRYjME666d3BrxwXYTXm5g0tVBS8u4y6l10sf0aqMVVjsB4fKSs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788937858; c=relaxed/simple;
+	bh=cV6UlgSsoeieB0QU53jtGzzQVyQymOnaPmCvkqkbYk0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ooqg7kqgW2UlYtGmMdpjODdpRQEihXNxmlHfRsKLzHnw3povsxEX1Az1Gf3lLC7dCGsroxA2bwDHE+TYTHHxXnc2J5RagAfibF/izrfPA1opk7krjyIbmrydzdSCCIMPSodrTiI4TYOE4jDt8gC9/Rrn7Ms2KBRVWPN/8E58SOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	 To:Cc:Content-Type; b=jo/Rz0+jo9QEsEkPMAdIMgAGVl2Hg2A5/ufeqrZ2FdGEhuqhj+N1D9i39Z1kGu76S5aM/lxalLT3wym56WA/em+/3TNyxIyByNtTrOqZTCNHlv/Psi2KA1DI1PMgZeuEtLNsd4tcodzvmNuBCZxqT5EsOoPKFZk9ShDrSbnJ/7A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XM9U9dFV; arc=pass smtp.client-ip=209.85.208.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-5c671456e25so5088043e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:10:17 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XM9U9dFV"
+Received: by mail-lj1-f177.google.com with SMTP id 38308e7fff4ca-39ca300db70so41696641fa.2
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:10:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788937850; cv=none;
+        d=google.com; s=arc-20260327;
+        b=iKMEL4FxKRXTdXlOvAHN9r/+P6YeUEHOQjeZS0TSVXyMLvU8D/y2eqTV8UXcA5f4MO
+         u3ra6NKciMxQdi3aH9SBsJBY8wy4TMM01eDyqmTdt6E7m6XOy6xNJZoscSf3A+eAX1Jz
+         gPugUBhOiLJ3Q67eaM/mY4erxJWlzqzUZ9TKZR9jVwr0hD5YB0AVoPAWNnQWpCJXsXkN
+         h7wd6JZNRnMfZI4GVD6HQ5TmA9aaY58z0AynJ6Fq7xVb1fxIoak6HI3AdvHwkRyVbWqp
+         x+Hd0R1LSdYOqywjuZ9IOCnlqEomcuH9GX+vUFyT03WzePnpQOspjCT5SbUXZuZBD39B
+         CGLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ROD27d8m1GR2fFN6iwOvveba7kIgkMyQccBJdEpOPig=;
+        fh=OqliKpaEQIYKo9aHmV3NK5Oan5WBEZ/1ugUf8NCCYWY=;
+        b=pY6K2FFalPIBCI5B27Zw8E5ofpxAXRmLf796wcq5Uk3irzGRrvAKZ4dXDBIOMJspkO
+         yRmB+CIqxIXZT17So87ITNI/lh/TBetGmpclzf2B/JTH/7BJEwxyN5ik1ehtwcNQKsbK
+         yV6PjpqMFEITGIv4EzPzWsyF+D4pMZG4z0gNqW7f4mnogFYfKr7wzTucrBDn13ZbzKy0
+         Cs/1FmA5dVpIFeyD7nXTcvVuMAYGg+Uq4pKW2xLZo8vUNJU50GwGN+Y948yDS36B7IRW
+         xDcLyaZJD4jWCMTAlbrEwghhxdnHLMr6wdQU3KYT09oiAsLcQYidDeWbUPvg5mRn8v6F
+         jQ2Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788937850; x=1789542650; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ROD27d8m1GR2fFN6iwOvveba7kIgkMyQccBJdEpOPig=;
+        b=XM9U9dFVh8+9/DSTvcmT2g+ndD8Ks5zbRwdMzNvOmiOxy1RXe32jtZc73F2nWvT3Qe
+         OPp49eSHTDJ05s/wKP+KcwUQ+lvMT96880d1mm71y/XNAnKGD2r/QLQ1aNrutI+tRd6V
+         yqSZ3HHpY43V4+KUTUrXgbDRw1AJFreQ8H6P22jjbLzicEgEwa0dsg4fNeAJIgY467J/
+         sRYlzvaWCCGbyWs82Gft/3ZBsZ3MAzOttAqoK7mO8kQlDtE/lHmb4nOJenpkZE9Dxhf3
+         M+nnKCgUfGdxXxjxY6DZ2eV0uN4NOzarqjm+lB/xq+8Mgl3Ux9T3xcrXl7luzXrscn9B
+         Z0UA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788937817; x=1789542617;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MbiU+Gmg7tt4Ds22WMmgVMp5D6+AnMt3i1Pvl+3BP1U=;
-        b=SeaYKMyxlqAIDh7Nv8E6JsSalphQbnFI46xmTZCMvw3/XYlzLyG6kIslzGkxCFJk/V
-         f/+yBnIQ4VFIYLUZVaB4rx817oo+DLevl9hOOwaOfu2CvvaDqpZWljO54wXWSkUZaPCZ
-         lvKGnwO2zWc1x5LWKFAiYMzuT2WFcSGt4RcnfvCA/yBgdvgYGV2jqf24xsJuhsX0hdzA
-         Nf/So/E9Jrt4b5QE9iBIgCDWF9v+sIftTmIMC16B54B6RtA2tqQTgbPLoItGLX5+ib4o
-         t17ZNeg3f7tG9jL0CpLdAlxN1l3OpsCVe8pmoCPVjqvale2Ms/53HnA+/aLrXzAzXHkB
-         w4Sg==
-X-Forwarded-Encrypted: i=1; AKwUvBzFnJpXXxz+pa1MKd4B1/ZqiGKx+KtS8zAD9U8SKzmkN494AteZP49q1hyU/R1edr0W7NHnBnweUcwG@vger.kernel.org
-X-Gm-Message-State: AFuF++ntSmSPVW9j6WqMFV57Y1olTKINH1VrWgFefi2YRlos7tgI819N
-	/HH1dx9zZp+oyykoUhCx80tf/Q+IpS9QhNGAq/TPOJ1w9qtR28r0VHArEt4U4BbK
-X-Gm-Gg: AYBFou1O3UWQ1obFlPG2jnF6YHOpzTLw1HStYh30bSLppTphgMd8Un9RKa5DNzjzMR+
-	rxKYzOIwKi6eRRXCAhf4DapgiHse1JoZkc9CN1HmGOqYyikWv3c9oJLWwdt0UVl8KgdUd/y0Y1e
-	rT8SC0uGrQQaUOEWX5YuusOOKspd7giYEWbACyHCwgTVCvi0MDUwjhLScegV6/lkbAFH8XFK0uM
-	nCbc1W9Ev5ltwdAyhu+Cn669v4jQeAakUzpdyqMlKOtoLaEFQoMWwGi7J3AFLd2wuI1d1bvVfAt
-	GsvriCU9enEYu76UuvK+bLXQ57MjKKQTOR3Ifyw87v0mFxbBBMX0UiFHVB7kHLqW6YjhBggUAKA
-	nb+BQgl7a2EjLSjX98wu8w5mVpHlzQqZ5FsEvNXe3AUY/xkpNbYl8DfAoqqoyqEnzuCcAy6JkvL
-	7XahVjRbP4ejY02vrc/lusQ8d9MCsEccak7vTS68uA2wY4YjcYY4qQFXut7H5Eqsop3TYd2+Mxl
-	q5CUpc12pzH8h2GsSkJbCpuY2Hid/T2jtJ9j7sqmnm7Ceg=
-X-Received: by 2002:a05:6122:6b83:10b0:5c7:c898:9817 with SMTP id 71dfb90a1353d-5c7dcf71bf6mr8773839e0c.7.1788937816764;
-        Wed, 09 Sep 2026 00:10:16 -0700 (PDT)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com. [209.85.217.53])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec3b2cb1sm11486871e0c.16.2026.09.09.00.10.09
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 00:10:10 -0700 (PDT)
-Received: by mail-vs1-f53.google.com with SMTP id ada2fe7eead31-78fb1fb9508so319361137.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 00:10:09 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwGQGdAxyDaUX8Lw4g4/PzmpXv3MaBN8q+ky6y4V7S0+rD217l5QGdczQSNK576sC98B5ubCEejwmTH@vger.kernel.org
-X-Received: by 2002:a67:ce08:0:b0:78f:efcb:23dc with SMTP id
- ada2fe7eead31-78fefcb246dmr362053137.13.1788937809146; Wed, 09 Sep 2026
- 00:10:09 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788937850; x=1789542650;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ROD27d8m1GR2fFN6iwOvveba7kIgkMyQccBJdEpOPig=;
+        b=gpof3gT/urz/QydFqrQKYYz3RqOb2aHbN4i5lJ1isIVWlwiJUd058vGqAKZnFQQRTU
+         Pk8FsX7swj/CqWNoni/iiOfeZlZ43FDaFllx/NnYYU0z+l5gwcgucJ42UL+4USAPHbUP
+         QyvfMuOHej5A+oZIKhiD7eobzF6MMassO5E0XQzQH+LNW9y/PkfR1sHMWZGKT4pgrU6e
+         CVxAOuD728O3jG9JUFoq/NtCv3C8K5p+TEFbH8TBswYlKP1S6Q5YiEiTZC82opTl5prp
+         ar9RueLg+wa8EX1kv4xo4kgPS7wPO+cfwz46KBOwacT+fpEWl9eaOfHnJta2lssTzefz
+         kApw==
+X-Forwarded-Encrypted: i=1; AKwUvBxUCy53MgIlCVGq7Mw6ynDDBLx2wZ4PuUKGrZ3GO3hcnx5aYEe44hFNCQ3yM2PGoJqkhI5GsfvUSlky@vger.kernel.org
+X-Gm-Message-State: AFuF++lboBkrJ6S3maWet7zPGBEjw29NAB0Gl/pGnqGXw492XXhpQGeY
+	YXFzSjquxe3No+dvy9Id2EabWKUy1u+I4Z+/riKzm+2OffCAnxWQz9bPv0F6RQm/qYYWIn4eja3
+	d/3rA8mV5aq6qYN/O+NF+CBZvBQ4FQqc=
+X-Gm-Gg: AYBFou2JSFL56mkGYEet+8KFWaSJQ8Y6W7t3gatEnUPXRSyo6hUAFi7DW0zV5VmgCnO
+	02NdP/GvhccYTYajl1Q/lagxHa3kvmPgf8F+dlA1P7d0zOgkIYbvQL+0SKrqkk58wzKdf0qXFYh
+	kAHHOkD4ys9ZTk2q9+WTlJKBaxiaGGmILjydoRxZjiDs27vN7wRjwkiS7GPFsqG2czuhxYnu2n+
+	aF55T4PNGoxk5Dh7hNYMCbGFl3T89EcOHgQxdysCx5/SbCu5j9ETNwbruj3vL6EjuJ65EE5SQqD
+	ng/wM/qgCoykJVp7KpX72ufL37pwCiuoLvEkjS2zghYMo4bZbLI7fzML/i+BAVTPpy/RSs9b6j+
+	VpOnCn2tUNqeW
+X-Received: by 2002:a05:651c:43c2:10b0:3a3:74b9:8a7c with SMTP id
+ 38308e7fff4ca-3a374b98b1cmr22174011fa.21.1788937849797; Wed, 09 Sep 2026
+ 00:10:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260704151521.211335-1-marek.vasut+renesas@mailbox.org>
- <20260704151521.211335-2-marek.vasut+renesas@mailbox.org> <CAMuHMdUapaP-8kkWT5cXtEO1h58aAzzm34XqO_mcrgbVSyXEwg@mail.gmail.com>
- <b516bf77-fb15-41f2-80ac-b80c621fedd1@mailbox.org> <CAMuHMdWb2Qk=heWhwFh4TsEggHOmzTd4Lj-vG6kXjRVMDDUG2A@mail.gmail.com>
- <43eccc85-fca3-4c69-9114-b45ab5e1b487@mailbox.org> <CAMuHMdVWm1JzmXx1++dhvHbnBbVqQnVVAANfmH5Y24bhJU7pXQ@mail.gmail.com>
- <b837e41d-ba6f-40bf-89db-b62ccd2be467@mailbox.org>
-In-Reply-To: <b837e41d-ba6f-40bf-89db-b62ccd2be467@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 9 Sep 2026 09:09:58 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVt8LQbpXfPB_MVhPP0Ro_n3L8VkOJCs1oF=WNe8MkcAQ@mail.gmail.com>
-X-Gm-Features: AcwNN1VSSE2fLPvAgm84NJgnwSpTg-UVtPnuSPQuKoRSOCrHArKIFOH_BqKYQOA
-Message-ID: <CAMuHMdVt8LQbpXfPB_MVhPP0Ro_n3L8VkOJCs1oF=WNe8MkcAQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] gpio: rcar: Add R-Car X5H (R8A78000) support
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: linux-gpio@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260907080831.11281-1-syhuang3@nuvoton.com> <c1f812d6-9938-494f-ae37-e250434a25f7@roeck-us.net>
+In-Reply-To: <c1f812d6-9938-494f-ae37-e250434a25f7@roeck-us.net>
+From: Sheng-Yuan Huang <hsyemail2@gmail.com>
+Date: Wed, 9 Sep 2026 15:10:38 +0800
+X-Gm-Features: AcwNN1UlzTkjD7sEoviBsfQKLTRM8RtP5VhfLDJP0BM5vsjXETF0F6kXVtLWwCo
+Message-ID: <CACW=pY4mpuC1+Z21egn3jJY6jtMhMx1PFFbM+Rcy6giuzXpJ1Q@mail.gmail.com>
+Subject: Re: [PATCH v1] hwmon: (lm75) Add support for Nuvoton NCT7715
+To: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Jean Delvare <jdelvare@suse.com>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marek,
+Thank you for the review. I may have misunderstood which conversion
+you are referring to, so I would like to clarify both parts.
 
-On Wed, 9 Sept 2026 at 03:34, Marek Vasut <marek.vasut@mailbox.org> wrote:
-> On 9/8/26 9:49 AM, Geert Uytterhoeven wrote:
-> >>>> On 9/4/26 1:15 PM, Geert Uytterhoeven wrote:
-> >>>>>> +++ b/drivers/gpio/gpio-rcar.c
-> >>>>>
-> >>>>>> @@ -65,14 +66,59 @@ struct gpio_rcar_priv {
-> >>>>>>
-> >>>>>>     #define RCAR_MAX_GPIO_PER_BANK         32
-> >>>>>>
-> >>>>>> +static inline int gpio_rcar_remap_offset(struct gpio_rcar_priv *p, int *offs)
-> >>>>>
-> >>>>> IMO passing a pointer to offs complicates the code.  Perhaps pass offs
-> >>>>> by value, and return the adjusted offset or a negative error code?
-> >>>>
-> >>>> I want to avoid that, since if I only return error value, I can then do
-> >>>> simple:
-> >>>>
-> >>>> ret = gpio_rcar_remap_offset(...);
-> >>>> if (ret)
-> >>>>      return ret;
-> >>>>
-> >>>> in gpio_rcar_read() and gpio_rcar_write(), which are the only two call
-> >>>> sites of this function.
-> >>>
-> >>> gpio_rcar_read() and gpio_rcar_write() do not return error codes.
-> >>> I was thinking of
-> >>>
-> >>>       offs = gpio_rcar_remap_offset(p, offs);
-> >>>       if (offs < 0)
-> >>>               return 0;
-> >>>
-> >>> which is almost the same, but avoids passing offs by address.
-> >>
-> >> Is there any benefit to it, compared to keeping the value and return
-> >> code separate ?
+If this refers to the NCT7715_CONFIG_* masks, they use the logical bit
+positions of the 16-bit configuration register defined by the
+NCT7715 specification. They are not pre-swapped for the SMBus word
+byte order.
+
+If this refers to the I2C accessors, the NCT7715 transfers its 16-bit
+configuration register MSB first. The lm75 regmap bus uses
+reg_read/reg_write callbacks. In this path, regmap passes the logical
+register value to the callbacks, and i2c_smbus_*_word_swapped()
+performs the conversion between that value and the SMBus word byte
+order.
+
+I verified this on hardware by changing update_interval. i2cget shows
+0xe060, 0xa060, 0x6060, and 0x2060 for 125, 250, 1000, and 4000 ms,
+respectively. After accounting for the SMBus word byte order, these
+are logical values 0x60e0, 0x60a0, 0x6060, and 0x6020. In each case,
+only the NCT7715 conversion-rate field, bits [7:6], is changed.
+
+Guenter Roeck <linux@roeck-us.net> =E6=96=BC 2026=E5=B9=B49=E6=9C=887=E6=97=
+=A5=E9=80=B1=E4=B8=80 =E4=B8=8B=E5=8D=8811:30=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On 9/7/26 01:08, hsyemail2@gmail.com wrote:
+> > From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 > >
-> > Naive me (I am not a compiler writer) thinks the compiler may have a
-> > harder time to optimize the code when addresses are involved.
->
-> Will the compiler generate code that is worse in the end ?
->
-> >>>>>> +{
-> >>>>>> +       /* R-Car Gen4 and older do not need any offset remap. */
-> >>>>>> +       if (!p->info.has_layout_gen5)
-> >>>>>> +               return 0;
-> >>>>>> +
-> >>>>>> +       /*
-> >>>>>> +        * R-Car Gen5 register layout is slightly different and the offsets
-> >>>>>> +        * that have to be added to or subtracted from each register offset
-> >>>>>> +        * can be divided into five groups, listed below.
-> >>>>>> +        */
-> >>>>>> +       switch (*offs) {
-> >>>>>> +       case IOINTSEL...OUTDT:
-> >>>>>> +               return 0;
-> >>>>>> +       case INDT:
-> >>>>>> +               *offs += 0x10;
-> >>>>>> +               return 0;
-> >>>>>> +       case INTDT...EDGLEVEL:
-> >>>>>> +               fallthrough;
-> >>>>>> +       case BOTHEDGE:
-> >>>>>> +               *offs += 0x70;
-> >>>>>> +               return 0;
-> >>>>>> +       case OUTDTSEL:
-> >>>>>> +               *offs -= 0x34;
-> >>>>>> +               return 0;
-> >>>>>> +       case INEN:
-> >>>>>> +               *offs -= 0x38;
-> >>>>>> +               return 0;
-> >>>>>> +       default:
-> >>>>>> +               /*
-> >>>>>> +                * This here must never be reached, if this is reached, that
-> >>>>>> +                * means there is a catastrophic failure in the driver. Skip
-> >>>>>> +                * any IO read/write to prevent further damage.
-> >>>>>> +                */
-> >>>>>> +               WARN_ON(1);
-> >>>>>
-> >>>>> A build-time failure would be better.  I tried BUILD_BUG() instead,
-> >>>>> but unfortunately gcc is not smart enough to notice this case is
-> >>>>> never reached.  __always_inline doesn't seem to help either.
-> >>>> I had one more idea -- how about we convert the driver to mmio regmap,
-> >>>> use opaque register numbers throughout the driver to identify registers
-> >>>> to the regmap (maybe not a great idea), and then implement .read/.write
-> >>>> callbacks in the regmap_config which instead of doing plain
-> >>>> readl()/writel() for register IO would instead do this remapping ?
-> >>>> Regmap could validate that the opaque register numbers are only the
-> >>>> expected register numbers and reject all the others. Maybe the opaque
-> >>>> register numbers could instead of Gen4 register offsets. What do you think ?
-> >>>
-> >>> That's similar (but more complex?) than the array look-up
-> >>> in drivers/tty/serial/sh-sci.c I pointed to before.
-> >>> drivers/i2c/busses/i2c-riic.c uses the same method.
-> >>
-> >> Those do not use regmap (drivers/base/regmap/), do they ?
+> > The Nuvoton NCT7715 is compatible with the LM75 temperature and
+> > limit register layout, but its 16-bit configuration register is
+> > transmitted most-significant byte first. Add support for the NCT7715,
+> > including byte-swapped SMBus accesses for its configuration register.
 > >
-> > No they don't.
->
-> What about my regmap suggestion ?
->
-> >>> I.e. just convert the existing register defines into an enum, and use
-> >>> that to index a table with the family-specific offsets?
-> >>
-> >> Are we back to the table look up discussion instead of remap function ?
+> > Handle its conversion-rate field and shutdown bit separately, since
+> > their bit positions differ from the standard LM75 layout.
 > >
-> > Yes, I think that's the simplest and best-performing solution
+> I don't think so. See below.
 >
-> The performance benefit of the table look up was never confirmed.
-
-You think a single array element retrieval would be more expensive
-than an out-of-line call to regmap, involving function pointers and
-(oh yes) a table look-up?
-
-> > : one
-> > extra table look-up (array indexing) in gpio_rcar_{read,write}(),
-> > compared to an extra function call to gpio_rcar_remap_offset().
+> > Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+> > ---
+> >   .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
+> >   Documentation/hwmon/lm75.rst                  |  6 ++
+> >   drivers/hwmon/lm75.c                          | 57 ++++++++++++++++++=
+-
+> >   3 files changed, 62 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Docume=
+ntation/devicetree/bindings/hwmon/lm75.yaml
+> > index b48bf3fd721f..832a8c5d83e9 100644
+> > --- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
+> > +++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+> > @@ -31,6 +31,7 @@ properties:
+> >         - nxp,p3t1750
+> >         - nxp,p3t1755
+> >         - nxp,pct2075
+> > +      - nuvoton,nct7715
+> >         - st,stds75
+> >         - st,stlm75
+> >         - microchip,tcn75
+> > diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rs=
+t
+> > index ca46754e028b..fac0b8f29ddc 100644
+> > --- a/Documentation/hwmon/lm75.rst
+> > +++ b/Documentation/hwmon/lm75.rst
+> > @@ -150,6 +150,12 @@ Supported chips:
+> >
+> >                  https://ams.com/documents/20143/36005/AS6200_DS000449_=
+4-00.pdf
+> >
+> > +  * Nuvoton NCT7715
+> > +
+> > +    Prefix: 'nct7715'
+> > +
+> > +    Addresses scanned: none
+> > +
+> >   Author: Frodo Looijaard <frodol@dds.nl>
+> >
+> >   Description
+> > diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> > index 2d2d752aeac9..0b55f6b7c68d 100644
+> > --- a/drivers/hwmon/lm75.c
+> > +++ b/drivers/hwmon/lm75.c
+> > @@ -39,6 +39,7 @@ enum lm75_type {            /* keep sorted in alphabe=
+tical order */
+> >       max6626,
+> >       max31725,
+> >       mcp980x,
+> > +     nct7715,
+> >       p3t1750,
+> >       p3t1755,
+> >       pct2075,
+> > @@ -107,6 +108,15 @@ static const unsigned short normal_i2c[] =3D { 0x4=
+8, 0x49, 0x4a, 0x4b, 0x4c,
+> >   #define LM75_REG_MAX                0x03
+> >   #define PCT2075_REG_IDLE    0x04
+> >
+> > +#define NCT7715_CONFIG_RESOLUTION_12_BIT     GENMASK(14, 13)
+> > +#define NCT7715_CONFIG_SHUTDOWN                      BIT(8)
+> > +#define NCT7715_CONFIG_CONVERSION_RATE_MASK  GENMASK(7, 6)
+> > +#define NCT7715_CONFIG_EXTENDED_MODE         BIT(4)
+> > +#define NCT7715_CONFIG_RATE_0_25HZ           0
+> > +#define NCT7715_CONFIG_RATE_1HZ                      BIT(6)
+> > +#define NCT7715_CONFIG_RATE_4HZ                      BIT(7)
+> > +#define NCT7715_CONFIG_RATE_8HZ                      GENMASK(7, 6)
+> > +
+> >   struct lm75_data {
+> >       const char *label;
+> >       struct regmap                   *regmap;
+> > @@ -122,6 +132,10 @@ struct lm75_data {
+> >   /*-------------------------------------------------------------------=
+----*/
+> >
+> >   static const u8 lm75_sample_set_masks[] =3D { 0 << 5, 1 << 5, 2 << 5,=
+ 3 << 5 };
+> > +static const u16 nct7715_sample_set_masks[] =3D {
+> > +     NCT7715_CONFIG_RATE_8HZ, NCT7715_CONFIG_RATE_4HZ,
+> > +     NCT7715_CONFIG_RATE_1HZ, NCT7715_CONFIG_RATE_0_25HZ
+> > +};
+> >
+> >   #define LM75_ALERT_POLARITY_HIGH_8_BIT      (BIT(2))
+> >   #define LM75_ALERT_POLARITY_HIGH_16_BIT     (BIT(2) << 8)
+> > @@ -259,6 +273,15 @@ static const struct lm75_params device_params[] =
+=3D {
+> >               .sample_times =3D (unsigned int []){ 30, 60, 120, 240 },
+> >               .resolutions =3D (u8 []) {9, 10, 11, 12 },
+> >       },
+> > +     [nct7715] =3D {
+> > +             .config_reg_16bits =3D true,
+> > +             .set_mask =3D NCT7715_CONFIG_RESOLUTION_12_BIT,
+> > +             .clr_mask =3D NCT7715_CONFIG_EXTENDED_MODE,
+> > +             .default_resolution =3D 12,
+> > +             .default_sample_time =3D 250,
+> > +             .num_sample_times =3D 4,
+> > +             .sample_times =3D (unsigned int []){ 125, 250, 1000, 4000=
+ },
+> > +     },
+> >       [tmp100] =3D {
+> >               .set_mask =3D 3 << 5,     /* 12-bit mode */
+> >               .clr_mask =3D 1 << 7,     /* not one-shot mode */
+> > @@ -354,6 +377,11 @@ static inline long lm75_reg_to_mc(s16 temp, u8 res=
+olution)
+> >   static inline int lm75_write_config(struct lm75_data *data, u16 set_m=
+ask,
+> >                                   u16 clr_mask)
+> >   {
+> > +     if (data->kind =3D=3D nct7715)
+> > +             return regmap_update_bits(data->regmap, LM75_REG_CONF,
+> > +                                       clr_mask | set_mask | NCT7715_C=
+ONFIG_SHUTDOWN,
+> > +                                       set_mask);
+> > +
+> >       return regmap_update_bits(data->regmap, LM75_REG_CONF,
+> >                                 clr_mask | set_mask | LM75_SHUTDOWN, se=
+t_mask);
+> >   }
+> > @@ -486,6 +514,13 @@ static int lm75_update_interval(struct device *dev=
+, long val)
+> >               if (data->params->resolutions)
+> >                       data->resolution =3D data->params->resolutions[in=
+dex];
+> >               break;
+> > +     case nct7715:
+> > +             err =3D lm75_write_config(data, nct7715_sample_set_masks[=
+index],
+> > +                                     NCT7715_CONFIG_CONVERSION_RATE_MA=
+SK);
+> > +             if (err)
+> > +                     return err;
+> > +             data->sample_time =3D data->params->sample_times[index];
+> > +             break;
+> >       case tmp112:
+> >       case as6200:
+> >               err =3D regmap_update_bits(data->regmap, LM75_REG_CONF,
+> > @@ -609,6 +644,8 @@ static int lm75_i2c_reg_read(void *context, unsigne=
+d int reg, unsigned int *val)
+> >       if (reg =3D=3D LM75_REG_CONF) {
+> >               if (!data->params->config_reg_16bits)
+> >                       ret =3D i2c_smbus_read_byte_data(client, LM75_REG=
+_CONF);
+> > +             else if (data->kind =3D=3D nct7715)
+> > +                     ret =3D i2c_smbus_read_word_swapped(client, LM75_=
+REG_CONF);
+> >               else
+> >                       ret =3D i2c_smbus_read_word_data(client, LM75_REG=
+_CONF);
+> >       } else {
+> > @@ -628,8 +665,11 @@ static int lm75_i2c_reg_write(void *context, unsig=
+ned int reg, unsigned int val)
+> >       if (reg =3D=3D PCT2075_REG_IDLE ||
+> >           (reg =3D=3D LM75_REG_CONF && !data->params->config_reg_16bits=
+))
+> >               return i2c_smbus_write_byte_data(client, reg, val);
+> > -     else if (reg =3D=3D LM75_REG_CONF)
+> > +     else if (reg =3D=3D LM75_REG_CONF) {
+> > +             if (data->kind =3D=3D nct7715)
+> > +                     return i2c_smbus_write_word_swapped(client, reg, =
+val);
 >
-> The function is inlined by the compiler. The table look up will likely
-> suffer due to non-locality of the data in cache.
-
-It is not inlined by gcc 13.3.0 (Ubuntu 13.3.0-6ubuntu2~24.04.1).
-The table needs 13x2 bytes, which fits in a cache line on anything
-but m68k.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> This code is double swapping. The calling code swaps (bit settings),
+> regmap calls this function, where the word is swapped again.
+>
+> Guenter
+>
