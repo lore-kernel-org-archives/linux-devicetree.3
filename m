@@ -1,161 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067213AC0E6;
-	Wed,  9 Sep 2026 06:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A274037CD3A;
+	Wed,  9 Sep 2026 06:38:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788935793; cv=none; b=hXCg5YhJwOpqxezXfouPys7q8nXOTqW/f+aZG6mzXKbrSA6ZQr7BwY0VZAnFnQMpo7jjAd68XAy8LsKFiwaUoAR6Fby/uJVr25xQcMMfJsAFFu+cwYsG1A3HU4OVw8oEzs3e47la02PZk1jpf/40uaL+kMwAOgySjbwkHMc1MSQ=
+	t=1788935914; cv=none; b=meLH57JHLj1MSr5T+noozNfd2UY7prGnWJZfz8t+CKByd4IKna9AEO2UHuSNDTdio0dNDzeHxJYFHTk3tDw+1HAD8sdXlKl2gnEO0zDi5rRadRnZ3xsMPvKOQUkxVIBg7LVskj/rjAEoMN4SKOmmoPDTfXrfho5qGsEQ+8YXD/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788935793; c=relaxed/simple;
-	bh=D9zD1a6oGdbIQd2sAG3m2lMm/9RjajktNe680PEPnL8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IgU2c6YrtZceAacWiEYb66bVIuFGl0se7ouzXZKuJqCXYXYgt+dF6jrWVkGBHNpDk5HAHmJ2pRkGzf9FN3a434ddZ2uXc1uL1lban3fO5vzZJTSeHnPv0HgUB8QeCbwGFoBlq8j29V/Js9Rdb/2tZbsxPgMNqzvakXlF6fJJgQs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHzfHw1E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788935914; c=relaxed/simple;
+	bh=UaIdji8NEtlfoefjnaKdXcnvMFGMrqOl7BlgXiQJyTg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g8lmyprO3U+KWKVOuioHGs3TzuU1xC3ysR7uacech2vX1HJ0eRTVw+a06kXa6VUlzhwd+NHkBxsVRhlp5OrhzCtFxLrZQL4crEDIWYLkahHk0OsK/er0to97NzUCa2fdyaeOOAPycJuv95llrNEENIqn7Xo7WKmtFl7aackIwWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=ZJUbXApF; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHzfHw1E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AB4B51F00A3A;
-	Wed,  9 Sep 2026 06:36:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788935789;
-	bh=8gsFSI8DqrI6by3i57gfq8RB93kP30yCYUQ/MLyjQBc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KHzfHw1E8TTl9UsFwSKEHMHljx10831Cbf9dhhnxQPOC9xY+wUxlTCJLVZ7VAGrFU
-	 59fE403Ofj5gEe97IV9kTOxk7eHJt+gxrRyp+DyITBkMdQ2yOxQwgPTedBGYWFd4IF
-	 7EOwLWKFTB9fcFeEZd6oMiK0CCI/4qwCTuDtePTIz8+WLS5m3GE3yQl1JoqTU2lFQj
-	 VL+xQXOaljBhozxuk87tNPSWUd/AIO0Exj4wVgb6jSKwk2Neg75QN1spKNndtvXQi1
-	 qF0aUzVCVJa1LVlcZXS3CavKO5aCEIbTe5IqI/YUWzfuiEmMMiPnzRhok8sRYcmFSW
-	 0LUnZJLql1i0g==
-Message-ID: <3dbe92ee-805f-496d-9a7d-94c837e674b5@kernel.org>
-Date: Wed, 9 Sep 2026 08:36:23 +0200
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="ZJUbXApF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1788935897;
+	bh=sQ2ccdLCDWYB8CuKHAwsJqQXF9yoxyVRzyQ3rWcsEMo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=ZJUbXApFm6WJVXzNTdo3NK0WW9HD879B7TfI4Dv/gaD1WgSs6ddWmY2Vn/554+Yqy
+	 DD4qJfgBqdvwoYFxFpFlsjnuompdnIOkc09iCQJPyE1KebhiqS9oYDG8dL4ib4uRkC
+	 yG9Ku+WAOdpb76d70Moqj4O/q9Fo009E2hRMkL6v1BVgXxjY4yh1IzEFfwHS0CeRfp
+	 S8Zeit0X+zVAo/XqDfytYs7kED8Si2+AYgte3mH/bzBxzn1QMTYfVLWzI2pA44mVxI
+	 j03i0Ub4e2DFse9iCUrB3MHZmUB06jwLGwuuOserzkaZA22/mE16oliitistdvul6a
+	 4QIqBk43wCA5w==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hfrjP1F1Dz4wCt; Wed, 09 Sep 2026 16:38:17 +1000 (AEST)
+Date: Wed, 9 Sep 2026 16:38:18 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v3 05/15] tests: treegen: Introduce emit_fdt_header_vers()
+Message-ID: <aqD-0OoMyZNQ_UeE@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-6-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/1] ARM: dts: draeger: Add socfpga devicetree for
- Draeger's M48 board.
-To: Petko Manolov <petko.manolov@konsulko.com>, linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dinguyen@kernel.org
-References: <20260908111011.960876-1-petko.manolov@konsulko.com>
- <20260908111011.960876-2-petko.manolov@konsulko.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260908111011.960876-2-petko.manolov@konsulko.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="d83/6er6i6bw0E7Z"
+Content-Disposition: inline
+In-Reply-To: <20260826083146.304291-6-herve.codina@bootlin.com>
 
-On 08/09/2026 13:10, Petko Manolov wrote:
-> Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
+--d83/6er6i6bw0E7Z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Please run scripts/checkpatch.pl on the patches and fix reported
-warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
-patches and (probably) fix more warnings. Some warnings can be ignored,
-especially from --strict run, but the code here looks like it needs a
-fix. Feel free to get in touch if the warning is not clear.
+On Wed, Aug 26, 2026 at 10:31:36AM +0200, Herve Codina wrote:
+11;rgb:1c1c/1c1c/1f1f> treegen is used to generate custom dtbs. It uses emi=
+t_fdt_header()
+> to generate the header part.
+>=20
+> The current definition of this function doesn't allow to set custom
+> settings related to version fields.
+>=20
+> In order to easily generate some dtb with custom version values,
+> introduce emit_fdt_header_vers().
+>=20
+> The modification doesn't introduce any functional changes.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
 
+Reviewed-by: David Gibson <david@gibson.dropbear.id.au>
 
 > ---
->  .../devicetree/bindings/arm/altera.yaml       |   1 +
->  arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
->  .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 130 ++++++++++++++++++
->  3 files changed, 132 insertions(+)
->  create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Documentation/devicetree/bindings/arm/altera.yaml
-> index 3030cf46fe74..8ed1ba733510 100644
-> --- a/Documentation/devicetree/bindings/arm/altera.yaml
-> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
-
-Same comments. Binding should not be part of other patches.
-
-> @@ -47,6 +47,7 @@ properties:
->            - enum:
->                - altr,socfpga-cyclone5-socdk
->                - denx,mcvevk
-> +              - draeger,M48
->                - ebv,socrates
->                - macnica,sodia
->                - novtech,chameleon96
-> diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-> index 8df0976da01c..cdcea11abdfa 100644
-> --- a/arch/arm/boot/dts/intel/socfpga/Makefile
-> +++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-> @@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
->  	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
->  	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
->  	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-> +	socfpga_cyclone5_draeger_m48.dtb \
->  	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
->  	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
->  	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> new file mode 100644
-> index 000000000000..423c76cd1d4a
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> @@ -0,0 +1,130 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-> + */
-> +#include "socfpga_cyclone5.dtsi"
+>  tests/treegen.c | 12 +++++++++---
+>  1 file changed, 9 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/tests/treegen.c b/tests/treegen.c
+> index 6891bfd6..28943d43 100644
+> --- a/tests/treegen.c
+> +++ b/tests/treegen.c
+> @@ -105,7 +105,8 @@ static void fill_prop_name(struct buf *b, size_t strs=
+, size_t prop, size_t strof
+> =20
+>  /* FDT structure helpers */
+> =20
+> -static size_t emit_fdt_header(struct buf *b)
+> +static size_t emit_fdt_header_vers(struct buf *b, uint32_t version,
+> +				   uint32_t last_comp_version)
+>  {
+>  	size_t off =3D emit_u32(b, FDT_MAGIC);
+> =20
+> @@ -113,14 +114,19 @@ static size_t emit_fdt_header(struct buf *b)
+>  	emit_u32(b, 0);	/* off_dt_struct */
+>  	emit_u32(b, 0);	/* off_dt_strings */
+>  	emit_u32(b, 0);	/* off_mem_rsvmap */
+> -	emit_u32(b, 0x11);	/* version */
+> -	emit_u32(b, 0x10);	/* last_comp_version */
+> +	emit_u32(b, version);	/* version */
+> +	emit_u32(b, last_comp_version);	/* last_comp_version */
+>  	emit_u32(b, 0);	/* boot_cpuid_phys */
+>  	emit_u32(b, 0);	/* size_dt_strings */
+>  	emit_u32(b, 0);	/* size_dt_struct */
+>  	return off;
+>  }
+> =20
+> +static size_t emit_fdt_header(struct buf *b)
+> +{
+> +	return emit_fdt_header_vers(b, 0x11, 0x10);
+> +}
 > +
-> +/ {
-> +	model = "Draeger M48 Cyclone V SoC";
-> +	compatible = "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
-> +
-> +	chosen {
-> +		bootargs = "earlyprintk";
+>  static void finish_rsvmap(struct buf *b, size_t hdr, size_t rsvmap)
+>  {
+>  	struct fdt_header *fh =3D (struct fdt_header *)(b->data + hdr);
+> --=20
+> 2.55.0
+>=20
+>=20
 
-That's not a mainline suitable argument, drop.
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
 
+--d83/6er6i6bw0E7Z
+Content-Type: application/pgp-signature; name=signature.asc
 
-Best regards,
-Krzysztof
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqg/tAACgkQzQJF27ox
+2Gc6qxAAoPZsp6xvSa6oM3sroDgBDVoMcRPaalhaTGQiB55rqwmCOqlgCkvlcrx5
+R2VT5/P35iZUeqde0pzuyo5XWXU8BDDWZoBlf9TLy41+f+qwqh0aATpgxm/Q8ltW
+vyyh0rp4qqNutSdXkp1x+hfd1LANrUF7IZu/bJ67n7GSXOde40V5hv1XCBijV89q
+YWzyF40V68813SMBOmpTp55+r/KErORd5pPxpGIkzhIfcjg50npRB7hP+a4M5yN9
+MDu+Pi3DdC3ra4MVkaskJXLZ/A5G/GufyNp+uhwBPHIvMiokyYuKtVecS7n3PxaJ
+yd1+aujk86tGF2mcTPs+qnPLS7qQwOCySY2YMCmzsmlHsCXPV1vLeg3DNeY5eJTI
+KjAeVffHCGvLML7DCjUpjy/dDEiEfoRGyF8I27gsY7A61zsF0VzozyIR7H8yiKto
+EsX+dBcXVONwh/JixNwuVG5SpNIZDYBKBhMI5a6/4P92UajLE5Owju8QDUEALL9U
+4wSKD8bV773N4CiwyqbWh1PX7POIp3egyE+zVp8f2DkV8/5FNQfZdO19D6RTfwWo
+mOQzatkO5qLNkPjokXsvyDc67sr79fQ5YiQQQ1oFtR/HtTRQQHzHtOXTJ0dZtNAx
+TWELkqg1xskSkTGQmR6v1yYaGKDQlx24Hyvd+49G4xUjWOdF2XQ=
+=QTGD
+-----END PGP SIGNATURE-----
+
+--d83/6er6i6bw0E7Z--
