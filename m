@@ -1,105 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675C0313293;
-	Wed,  9 Sep 2026 15:25:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324325867C7
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:26:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788967539; cv=none; b=gv9fzdvHIhI+hGEdUFWMaRBioEACpJPi2cETSassXLvH0RvSTrXVkmCtC3iTeXDT/CH8QlihZm8VKIZ5/YjS2DVoRjNxGTYh/8rrID0bVhJRUjZ9W54r/gLEmQhJkpe/c67JVnE2n6X+sL12/LsYvrtROsafE8ZI0Oo7Fk3hpxw=
+	t=1788967602; cv=none; b=KKIAG2qxSvatH6JCtxg/Sc/78tVV9UH1tnae4w0bE7Auc09+yQyait8OOyM/+9HvK07PRtoEUvv42daorifTahSG70b0d3/+UCpPxKc3gtBRbKRSUQqPVPA5a+5CYM01iUG6b52KxlrAbz2O6Wk8egIQT39dFhAQTyOu8zfGAf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788967539; c=relaxed/simple;
-	bh=/afPPKJdZnhaKPEK4nzZMa0B5vKrALNsbxmllum7CI8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=daSddqipOdNiiFXOaNxn1BHmSVQnkU5z7rd1QTlcy+kpmuVKRWLNpRQpM6250CmKLSIpMx+bfSckAOF71gnePGu+YGAC0lp5yQGzveyY+4sov9p7MRnQdwW3P+FctPWDagorJdGbuKz0IVsH954JMmZ7LSxiVOMZAddogQ5dUcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l1qlHl9q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788967602; c=relaxed/simple;
+	bh=bNaR1IjuN9egLREK6OFottQEEF3ROt6A6Rlk6OmjHnM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=NFYBfW1CR2DYrtGwn5fC+D76jkemvltAvANN0O6awShp7q79/Ck80DgCd9sTrhvVZ9Yj47m+LN9fjtBQYqBcZdbwKQb7u8p81gh2i3GZX36qfCwqCZIRK9LlP7fDF2Pe2mT6hz4T3fxzEM+8127Sa5nySzLqwytDohp0KpVViPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GF31eWIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l1qlHl9q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1B11F00A3A;
-	Wed,  9 Sep 2026 15:25:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GF31eWIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35D481F00A3A;
+	Wed,  9 Sep 2026 15:26:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788967538;
-	bh=CgI5hertI7sI8saRle0DZ/JnUHB1XYzvgxvb3HuwJqI=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=l1qlHl9qyWUbJwySqxPtdvqGRUCZVn1maDUj9c50xuPytTkfi2zSpej2kd1eJdeSZ
-	 iBp9zDpoiCL1h6MgSWLtXp0U6SYuCpLxy2HU7jKjYA2QmPfO6cuQiCd1u3vhxrpyGn
-	 TAAwwC+YxFDZCVYN0SvvWF/WK58E3Fv+PnKIAKSPCJpiFGbTv/FmzdaPpVI/8mTrhC
-	 UnsrpkFXW/tNgRgSMwcXt8qdYowiHQPYPDrtyKGOlykm1ZMMfjwqimm4x+GeDeWQVC
-	 L2dv6syMTfB34MWrENawexUWjueQbNFkDOLCB9yTvKF7dZUY/BF2jzX4c+iEHhHBxi
-	 8O7LBxv3I335Q==
-Message-ID: <5a8bc263-0263-4ccb-b5dd-f5e899dc25c4@kernel.org>
-Date: Wed, 9 Sep 2026 17:25:32 +0200
+	s=k20260515; t=1788967600;
+	bh=g80UKbBWaawzfcGng+WgyaOcB5f/cJOnOw9TC0C7wgg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GF31eWIb32Rw1VMxJV9vzX00YQuhsTVZ8o1ufd0Ri/ux1hdg9df+UW/nbYs+/8Ukk
+	 eQ906ASGPkJEYxHUWDjyFEjRTOWOx7Q13HE/8+H0laBZ8dUwiZ4RZfhs/L+SYliVDZ
+	 8evVTfbD2gAnEoewZHOyQqO8mOwC5YZJjdMNTsDfqQooDzte3fyI029x9ZU4yMOCgp
+	 ZfrYz7EO116dbckKDlh47z/bG8FA74WtYwkBpKeMU4g6BLU7JQMKwIbKO9ziRQZffV
+	 pwoqvESm/1y5kZ1lNilLK5agepJWx1JSSuOAUoetqdvAlecBuBDcpx3iAZs1tcy/dL
+	 0SVLDf25sipcw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 12/13] arm64: dts: qcom: sm8650: Add Iris context
+ bank subnodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20260909-vpu_iommu_iova_handling-v3-12-2fe43ae45495@oss.qualcomm.com>
+References: <20260909-vpu_iommu_iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com>
+ <20260909-vpu_iommu_iova_handling-v3-12-2fe43ae45495@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 15:26:39 +0000
+Message-Id: <20260909152640.35D481F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 19/22] thunderbolt: Add Apple Silicon support
-From: Sven Peter <sven@kernel.org>
-To: Mika Westerberg <mika.westerberg@linux.intel.com>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, Andreas Noever <andreas.noever@gmail.com>,
- Mika Westerberg <westeri@kernel.org>, Yehezkel Bernat
- <YehezkelShB@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-References: <20260906-b4-apple-soc-tbt-v2-0-1f80085f93fb@kernel.org>
- <20260906-b4-apple-soc-tbt-v2-19-1f80085f93fb@kernel.org>
- <20260908091844.GD106095@black.igk.intel.com>
- <22808191-5310-4d90-9fac-68d0d85b4c54@kernel.org>
- <20260909060615.GJ106095@black.igk.intel.com>
- <33699664-6afb-4b46-99d1-98a0f5e57f39@kernel.org>
-Content-Language: en-US
-In-Reply-To: <33699664-6afb-4b46-99d1-98a0f5e57f39@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 09.09.26 17:20, Sven Peter wrote:
-> Hi,
-> 
-> On 09.09.26 08:06, Mika Westerberg wrote:
-> 
-> [...]
-> 
->>
->> If it is possible, I suggest to use the same way we do in ACPI side here:
->>
->> https://learn.microsoft.com/en-us/windows-hardware/drivers/pci/dsd- 
->> for-pcie-root-ports#map-native-protocols-pcie-displayport-tunneled- 
->> through-usb4-to-usb4-host-routers
->>
->> It was specifically designed so that it should support DT as well (that's
->> why it uses the device properties _DSD).
-> 
-> Oh, nice, I didn't know those existed. Konrad already has a PR open to 
-> add these to dt-schema [1] and a PR that already makes use of these for 
-> dwc3 [2].
-> I can just write generic code similar to the ACPI one then to add the 
-> device links and split it off from this series, though I think that dt- 
-> schema PR must be merged before we're allowed to use that representation.
-> I'll adjust the dt-bindings here for v3 to just drop the representation 
-> as OF ports/endpoints as well.
-> For the PCIe/DP tunnel notifications I should be able to use the same 
-> representation, possibly with an additional usb4-adapter-index property 
-> or similar to differentiate between the two DP IN adapters, once I get 
-> to that then.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Dynamically created sub-devices for SMMU context banks lack PM run=
+time enablement, keeping the SMMU permanently active.
+- [High] of_iommu_derive_resv_regions() erroneously translates IOVAs into C=
+PU physical addresses.
+--
 
-Though now that I read it again: do you know what PortInstance# in
+commit 6e1de71c7ed4433a945133dd5bedc79a78bdd2e4
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-Package () { "usb4-port-number", PortInstance#}, // PortInstance# is 
-unused and can be 0
-       }
+arm64: dts: qcom: sm8650: Add Iris context bank subnodes
 
-refers to? Is that meant to e.g. by 0 for the first DP IN adapter and 1 
-for the second? Or is that meant to be used when the NHI handles 
-multiple Type-C ports? The description isn't clear to me...
+This commit introduces subnodes for the non-pixel and pixel VPU SMMU streams
+so that each stream can be associated with its respective addressable range.
+It adds an iommu-ranges property to the non-pixel stream to restrict its
+allocations, addressing hardware faults caused by buffers landing below the
+600MB IOVA boundary.
 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/q=
+com/sm8650.dtsi
+> index b679fd8afb7d5..97dad9c7f7fc4 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
 
+[ ... ]
 
-Sven
+> @@ -5287,6 +5288,15 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ON=
+LY>,
+>  			 */
+>  			status =3D "disabled";
+> =20
+> +			non-pixel {
+> +				iommus =3D <&apps_smmu 0x1940 0x0>;
 
+[Severity: High]
+Does adding these subnodes cause a PM runtime leak in the SMMU?
+
+When these dummy platform devices are dynamically created for context banks=
+ by
+the iris driver in drivers/media/platform/qcom/iris/iris_probe.c:
+
+iris_create_cb_dev() {
+    ...
+    pdev =3D platform_device_register_full(&plat_dev_info);
+    ...
+}
+
+The IOMMU core intercepts them, attaches them to the SMMU, and establishes a
+PM runtime device link (DL_FLAG_PM_RUNTIME). Because the driver never
+explicitly calls pm_runtime_enable() on these dummy devices, their PM
+runtime disable depth remains greater than zero.
+
+The PM core interprets this as the consumer being active, forcing the
+supplier (the SMMU) and its interconnect power domains to resume and stay
+active permanently.
+
+> +				iommu-ranges =3D <0x25800000 0xba800000>;
+
+[Severity: High]
+Does the use of iommu-ranges here cause the IOMMU core to reserve the wrong
+address space?
+
+When this property is parsed in drivers/iommu/of_iommu.c to compute reserved
+regions:
+
+of_iommu_derive_resv_regions() {
+    ...
+    maps =3D of_translate_dma_region(dev->of_node, maps, &iova, &length);
+    ...
+}
+
+The function of_translate_dma_region() uses dma-ranges to translate up to a
+CPU physical address, rather than preserving the intended IOVA space.
+
+This CPU physical address is then incorrectly passed as the IOVA base to
+iommu_alloc_resv_region(), which can severely break the IOVA allocator and
+block valid DMA allocations on architectures with non-identity DMA offsets.
+
+> +			};
+> +
+> +			pixel {
+> +				iommus =3D <&apps_smmu 0x1947 0x0>;
+> +			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-vpu_iommu_=
+iova_handling-v3-0-2fe43ae45495@oss.qualcomm.com?part=3D12
