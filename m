@@ -1,271 +1,249 @@
-Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80522D2394;
-	Wed,  9 Sep 2026 08:09:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D24BC471CE1;
+	Wed,  9 Sep 2026 08:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788941363; cv=none; b=YyrWKEOVs3x+S0bBs2tpmgk96K8rFKgII/lV/gX29FtIkrpUjilJgXPgRdVvdlqeb7WFlAdpNI3ZfnoWEQjsvEClSOagq/jPt+qi+MDxnKsp4lJtJ3uvf76/brwoRM9bYoM6UwrNmvJI9gpKOejbrmNPwTaJeMn8GvdqbMahE20=
+	t=1788941391; cv=none; b=BSpm6GkG1zhKtOujofMOF19sAq3Kes0jNxqOrVyKNBrH579ijrZaHOf7+NtOmeuE8rbdMB7zTEHsAo62oVNuAeSlEy58xf8XCfu5BsK3gFU8htByNgI57F72OaJgpo1jieC5DY73gBrQbkgxf4zr95ygz3c9pO69x1EfqTaOlgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788941363; c=relaxed/simple;
-	bh=VME4BPMRxHcODBkmIIbXPXvF4ro7JXBuVxpLit80aI4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=THthV0RBvNGBbLenKqQKGjxIpHWUJa4lbcJgeGAoyOj1/Dt2XC++1VhbW1m42x6CVhxSzY+tsOsjZ2AJIrYQbFvkgPeghprR+vLRfzwzRz40lZBfbQGoSIq+ujEOGntNzqToWs1aA3O7S4oOLsXfSwyqgs3gD7VzPlMButLQMM8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=18.169.211.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpip3t1788941340tcb6847ee
-X-QQ-Originating-IP: x1z6lSOXDA2sqZzODoKXrIHUUnd9HNU9oeUk/YVicr4=
-Received: from [192.168.30.32] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 09 Sep 2026 16:08:55 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 5462903154121869628
-EX-QQ-RecipientCnt: 9
-From: Xilin Wu <sophon@radxa.com>
-Date: Wed, 09 Sep 2026 16:08:53 +0800
-Subject: [PATCH v3] arm64: dts: qcom: sc8280xp: Mark FastRPC context banks
- as dma-coherent
+	s=arc-20240116; t=1788941391; c=relaxed/simple;
+	bh=nJf9e9n0RS3AChK6hJmzK4ownlkSv1zPyUT4ZORJ41A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fbwei2K+e5wnv2cgt65e3ffh47OwY/6oN6uUKZdrmtQcssIhBCjyG5Ch+A9EHK6ujJgtXvztDezGHtKilhWf3YsRgD6EEXqloY1gGV7xK/qcTmLOBNKvEOCdhWIhZA1bXDxV+w//AKJtGkLwqcET4WKO7YfgvBtTyeFkm97z2h0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N6OHebKw; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N6OHebKw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788941390; x=1820477390;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nJf9e9n0RS3AChK6hJmzK4ownlkSv1zPyUT4ZORJ41A=;
+  b=N6OHebKw8VRrcHeUZwmaWxUIddRsFEn/2VT9vxqATuyAZFIa4BKVHp80
+   +TCHc4OM7HxNaUUt3opbtEJKKESMEXW94uCEvHkYi5FcBLLYUnEWVxwMv
+   YFxuv8gdMH+G+BQnoXk4cYaNI51wDZ9ACY3MzM5D1n9s8Mk6YVtV4C+LR
+   AErVnKUT1s21v22N3LUqqoHTN6FYbIrG1OFvLO/1JyPW8j9RJ36dNSJWU
+   at9AMRdDFo2CguPDTnD0br+rWpeMigZ/Cb24o7Zx0oUDjudfGaZ99Tnrx
+   6Nau7g88DPbOsnksVa26TM0cGIUIDCY2jqItkXQHGe+rEwWw5f5nVk9zO
+   A==;
+X-CSE-ConnectionGUID: 5J9bHUxgRie36IHQ2RDq5A==
+X-CSE-MsgGUID: Reo7enTCSgWvELG48Vkh1w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100714127"
+X-IronPort-AV: E=Sophos;i="6.25,270,1779174000"; 
+   d="scan'208";a="100714127"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 01:09:49 -0700
+X-CSE-ConnectionGUID: qkVtJRARQLaeWg7qnRXWaQ==
+X-CSE-MsgGUID: bYCaIeymRXWkk5Uw7Ew1VA==
+X-ExtLoop1: 1
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 01:09:46 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id E8F77121BD2;
+	Wed, 09 Sep 2026 11:09:48 +0300 (EEST)
+Date: Wed, 9 Sep 2026 11:09:48 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+Message-ID: <aqEUTAAhwI09JOuR@kekkonen.localdomain>
+References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
+ <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
+ <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
+ <ap_0yL-JatdVDaXG@zed>
+ <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
+ <aqEJk6dKWuyMLLRt@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-sc8280xp-fastrpc-dma-coherent-v3-1-d38184e8cf9d@radxa.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43OzQ6CMBAE4FcxPbumrfwUT76H8bBtF6kJlLSVY
- AjvLuBBb3qcZPLNTCxScBTZaTexQIOLzndLOO53zDTY3QicXTKTXBY85yVEo6TiYw81xhR6A7Z
- FML6hQF2CrOCGasyV1ZotRh+oduPmX67vHB/6Tiat6NpoXEw+PLcDg1h7/24NAgRQJZFsWZWqy
- M8B7YgH41u2bg3yo1W8+qXJRUMhJOraZkJn39o8zy8SLc+dKgEAAA==
-X-Change-ID: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Xilin Wu <sophon@radxa.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5357; i=sophon@radxa.com;
- h=from:subject:message-id; bh=VME4BPMRxHcODBkmIIbXPXvF4ro7JXBuVxpLit80aI4=;
- b=owGbwMvMwCVmdFg0fe08Iz/G02pJDFkLRcQPndjyx1LHIzYqUaZxn5SsXv7zv0aOjZwPVu3br
- bZQPs+jo5SFQYyLQVZMkUUhnmEue2XutadipXowc1iZQIYwcHEKwEQiVzL8s2VhFm+LjmWQZZ14
- 8+ZuLXUFoRXe5U9DnRW/Gtss2JvvzfBXuiHJe++dR5etHNa7cRje5Nru3Hv36M5uSZf+Hy9Tpx3
- kAAA=
-X-Developer-Key: i=sophon@radxa.com; a=openpgp;
- fpr=205F009D07796DD6E516752E32C31567AD9E324E
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MAUIYBroEq6R6gODr684PWc8TQgzkzPuaSUdL2r7XzOvX4FZf3iUjuC7
-	aT/g20O69RSPF9KbNSjxA0L19YwBz8sOWYFaTCqfP9nQ2duodL44Gw8325CIYK75pA2AaQ+
-	4Ar88KNmKy/ZUIdB/ryvPSYTeNSphE8Tv0K0TFGqlrCiv6TaP5sbaZA3T3ZNp6o+mKG2Iyr
-	IXuBvPxIuHx5UIEyTAF+Gz+e6FNrp2G6u8GaQmulElZSr6E942fR8LWbNI7s1rgsnYJ5im1
-	qS8QR/eIwZ4llpMdh5h+PtnyvoRHY4aTYQbrO+pd5bOu4A7Cs+u7k6jRy5k425uDdJSdX8S
-	PQT0Rm+QCfpbet70WXAuL12cbJ2Pga8xDN4P1IK+p/a5DwqP4mZZAZA912ZZQRbjpEbJy2q
-	STAlRptcQiV3ifNEOrvDtVPsW5fENiuyJ6yZ2zgvm9L3gZVHuciseeIIpFl08wOfFtolBmw
-	xV3DqyQ38IH4l2jgFl0FzLS9oTINdeKvqG0NKgfdv47MnuZazvkFXp4BOxIq/P6guVdD/A+
-	M3isN/tR+qZknJfKl7YYQaGFrKW7c3ughAaYSxROsqkCQCiRbA8f74Ll5hpCdcwFXqbUjw9
-	lzuvpq8C7EJnR38ct2AoEKrrRLNzQBCKsbA/Mg1LD6ULPXCFhgGiVsCyz0m+ROER7sCGJY+
-	XngAIQGD/A/dkyLAlhJfYSbcY01BNULhJxAxxl3WBoYLRgKhL0rJVHBxodHgzAAkuAMHF9a
-	ErXn7UbuUFEJ7L6fxifpPXGOB0aw+8aIydz48bBm8x/5Gts6OxGaCtviPWAJuX+SggSvJre
-	QZ83/L4BVfofssUtGqrRPaRoGC/zyDa/sI2rfSJywn+sCyqJp/IyRtN/NCOm5bbq9kaXOOF
-	93mXY+v0+02A4phR8A2DyQDkIzzJnpG3E6LIpIte06V8Py3dE78ABWOxlMtkx+s5wAYIenU
-	ahgi7D3WGAHzLeC7SjB87PThAyL/HuxxspqLXkrCJiM9z/NrFOJVtn5q4Mot8gvgxVbr81W
-	IB1n2HQqJqOFWN9+dYP6RGssQbiaOuE7R+88B8M5jqH+f5hqyQ5BMo2SjHiAYr0UMwj2cgU
-	z8lH/jG1VsbvEj7tNxYjOE=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqEJk6dKWuyMLLRt@zed>
 
-The FastRPC context banks are DMA-coherent on SC8280XP. Describe this in
-the device tree so that the DMA API uses the appropriate coherency
-attributes for their mappings.
+Hi Jacopo,
 
-When FastRPC allocates shared buffers from the system DMA heap, the
-missing property can cause intermittent failures while loading DSP
-libraries. Both fastrpc_test and the QAIRT platform validator can fail
-with DSP loader errors such as "mmap hdrs failed" and "bad address".
+On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
+> Sakari,
+> 
+> On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
+> > Hi Jacopo,
+> >
+> > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
+> > > Hi Sakari
+> > >
+> > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
+> > > > Hi Jacopo,
+> > > >
+> > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
+> > > > > Add bindings for the ams OSRAM Mira016 image sensor.
+> > > > >
+> > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > > > ---
+> > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
+> > > > >  MAINTAINERS                                        |  7 ++
+> > > > >  2 files changed, 104 insertions(+)
+> > > > >
+> > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > new file mode 100644
+> > > > > index 000000000000..49a606fca6cb
+> > > > > --- /dev/null
+> > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
+> > > > > @@ -0,0 +1,97 @@
+> > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > > > +%YAML 1.2
+> > > > > +---
+> > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
+> > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > > > +
+> > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
+> > > > > +
+> > > > > +maintainers:
+> > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
+> > > > > +
+> > > > > +description:
+> > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
+> > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
+> > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
+> > > > > +  physical layer specifications to transmit the image data to the host
+> > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
+> > > > > +
+> > > > > +allOf:
+> > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
+> > > > > +
+> > > > > +properties:
+> > > > > +  compatible:
+> > > > > +    const: ams,mira016
+> > > > > +
+> > > > > +  reg:
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  clocks:
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  vdd28-supply:
+> > > > > +    description:
+> > > > > +      I/O voltage supply, 2.8 volts
+> > > > > +
+> > > > > +  vdd11-supply:
+> > > > > +    description:
+> > > > > +      I/O voltage supply, 1.1 volts
+> > > > > +
+> > > > > +  reset-gpios:
+> > > > > +    description: Sensor reset (RST_N) GPIO
+> > > > > +    maxItems: 1
+> > > > > +
+> > > > > +  port:
+> > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
+> > > > > +    additionalProperties: false
+> > > > > +    description:
+> > > > > +      Video output port
+> > > > > +
+> > > > > +    properties:
+> > > > > +      endpoint:
+> > > > > +        $ref: /schemas/media/video-interfaces.yaml#
+> > > > > +        unevaluatedProperties: false
+> > > > > +
+> > > > > +        properties:
+> > > > > +          data-lanes:
+> > > > > +            items:
+> > > > > +              - const: 1
+> > > >
+> > > > The device obviously supports non-continuous clock mode (and that's what
+> > > > the driver also only does right now) but as the continous clock mode is
+> > > > required by CSI-2, I presume the device can do both.
+> > > >
+> > > > So I think you should have
+> > > >
+> > > >              clock-noncontinuous: true
+> > > >
+> > > > here.
+> > > >
+> > >
+> > > Maybe I'm confused (again, after 10 or so years of doing this) by the
+> > > usage of unevaluatedProperties/additionalProperties, but if I read
+> > > Documentation/devicetree/bindings/writing-schema.rst right
+> > >
+> > >   * unevaluatedProperties: false
+> > >       Used when this binding references other schema whose all properties
+> > >       should be allowed.
+> > >
+> > > Means all properties from video-interfaces.yaml are accepted (which is
+> > > imho very wrong, but it's a battle with dt maintainers I don't want to
+> > > start again).
+> >
+> > I guess you should have
+> >
+> > 		additionalProperties: false
+> >
+> > too?
+> >
+> 
+> Where exactly do you mean ?
+> 
+> I don't think I can have additionalProperties: and
+> unevaluatedProperties: in the same node, do I ?
 
-Mark the ADSP, CDSP and SLPI FastRPC context banks as dma-coherent to fix
-these failures and allow QAIRT applications to run on the CDSP. It also
-matches the behavior of the Windows driver.
+Yes, these are mutually exclusive.
 
-Signed-off-by: Xilin Wu <sophon@radxa.com>
----
-Changes in v3:
-- Add missing dma-coherent property to ADSP fastrpc nodes as well
-- Link to v2: https://patch.msgid.link/20260909-sc8280xp-fastrpc-dma-coherent-v2-1-a112abfd41b4@radxa.com
+> 
+> It's been a long time ago when we discussed with dt-maintainers what
+> the policy should have been for endpoints that reference
+> video-interfaces.yaml.
+> 
+> To me, the most sensible thing was to use "additionalProperties: false"
+> and explicitly allow the supported properties, instead of allowing all
+> of them. However dt maintainers had a different opinion (for reasons I
+> honestly can't remember) and I think we have stabilized on the
+> following pattern
+> 
+>         port:
+>           $ref: /schemas/graph.yaml#/$defs/port-base
+>           additionalProperties: false
+> 
+>           properties:
+>             endpoint:
+>               $ref: /schemas/media/video-interfaces.yaml#
+>               unevaluatedProperties: false
+> 
+>               properties:
+>                 ...
+> 
+> All the most recently merged bindings in media/i2c have this pattern
+> 
+> 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
+> 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
+> 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
+> 
+> I feel like I'm missing something obvious, otherwise I don't see why
+> this binding should be different ?
 
-Changes in v2:
-- Rebased onto v7.3-rc2
-- Rephrase commit message
-- Link to v1: https://patch.msgid.link/20260507-sc8280xp-fastrpc-dma-coherent-v1-1-e92aed797865@radxa.com
+Good question. Perhaps there was no specific thought given on
+non-contiguous clock support? I guess most of the above should probably
+specify it, even if the driver doesn't support it.
 
-To: Bjorn Andersson <andersson@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+There's a good example of doing this in
+Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
+as the maintainer there. :-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-index fbcfd3883bbb..f9ade505d83f 100644
---- a/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sc8280xp.dtsi
-@@ -2910,18 +2910,21 @@ compute-cb@1 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <1>;
- 						iommus = <&apps_smmu 0x0521 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@2 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <2>;
- 						iommus = <&apps_smmu 0x0522 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x0523 0x0>;
-+						dma-coherent;
- 					};
- 				};
- 			};
-@@ -2978,18 +2981,21 @@ compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x0c03 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@4 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <4>;
- 						iommus = <&apps_smmu 0x0c04 0x0>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@5 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <5>;
- 						iommus = <&apps_smmu 0x0c05 0x0>;
-+						dma-coherent;
- 					};
- 				};
- 
-@@ -6235,84 +6241,98 @@ compute-cb@1 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <1>;
- 						iommus = <&apps_smmu 0x3181 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@2 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <2>;
- 						iommus = <&apps_smmu 0x3182 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@3 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <3>;
- 						iommus = <&apps_smmu 0x3183 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@4 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <4>;
- 						iommus = <&apps_smmu 0x3184 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@5 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <5>;
- 						iommus = <&apps_smmu 0x3185 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@6 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <6>;
- 						iommus = <&apps_smmu 0x3186 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@7 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <7>;
- 						iommus = <&apps_smmu 0x3187 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@8 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <8>;
- 						iommus = <&apps_smmu 0x3188 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@9 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <9>;
- 						iommus = <&apps_smmu 0x318b 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@10 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <10>;
- 						iommus = <&apps_smmu 0x318b 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@11 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <11>;
- 						iommus = <&apps_smmu 0x318c 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@12 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <12>;
- 						iommus = <&apps_smmu 0x318d 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@13 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <13>;
- 						iommus = <&apps_smmu 0x318e 0x0420>;
-+						dma-coherent;
- 					};
- 
- 					compute-cb@14 {
- 						compatible = "qcom,fastrpc-compute-cb";
- 						reg = <14>;
- 						iommus = <&apps_smmu 0x318f 0x0420>;
-+						dma-coherent;
- 					};
- 				};
- 			};
+-- 
+Regards,
 
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260507-sc8280xp-fastrpc-dma-coherent-460cefa58dbb
-
-Best regards,
---  
-Xilin Wu <sophon@radxa.com>
-
+Sakari Ailus
