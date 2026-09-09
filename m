@@ -1,62 +1,64 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0648C47F795
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D2B56B840
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968453; cv=none; b=ZkY8O0SH6E3prtTypm+Um4vI/JnOp1118ZWfqaDbsS+qLV7lQf+o4GzdyPZtHqU9S3Wx1DWoZxnRKm9WkX9CQNKQv+rzPsPbE1tqbfVczLN7d/HUcmqA6h+E1P7fuvxz2FvfJGu89x6NagCk9mQd2uuc6KudyidFH1vCxg64hfw=
+	t=1788968456; cv=none; b=jBg63oRyDDwL3nHTK8EuOOreFmRyFpe6kvidWfb83iXxAMvHPJPsINJsyhxBOwCwh7UuYbpmms1T19rdc6QO9neEDRiORQsiYvH6haBo4szhX2SZCkAhhBk/vk2ST38Amx8AmJu47pj8L5eeMmzDS3862uFOKbG7DQkSa3FTbME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968453; c=relaxed/simple;
-	bh=3GY6XOvXPbUEDiiCOkrH5UVYFspQUAgBaWkiq8xenTw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CXktWMYT5MqjjGE6l57HLM2eooqcRtWAk3VE4aeVW0zrcdNiJw7xa+lOhMylS7BangOzWSHkZexWBCzEoH7hma93htzEwB/4zxy3LxWJKM1/KCkqK2i0Qto0fgqcP3FS01BYK7ZtEmXVuDVOk3DVPcwbt5zY5oT+FIAWpJ4YnHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LPa9kVI0; arc=none smtp.client-ip=209.85.221.54
+	s=arc-20240116; t=1788968456; c=relaxed/simple;
+	bh=2tYt6Xz3Ww2Nu03hw+VbVfk++p/qUxznZgUfL+6yi/8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JAQNK6Btkf4ZzdMyGAclvUtFjWRe90n7hQrCWPqALG/+q1dbyaYv1AnQRbLIQVCQhTZ0GAH9OngubCU9pYWKfcPcwr30T4jj5MfVM0QNweV7xmcDYfec1FwMJwTSiX679L4toFu/Tl3Vb1DkECE6F2lM21lqWix1m5842/5QwfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a++l9u1u; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LPa9kVI0"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso4403000f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 08:40:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a++l9u1u"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4858303de5dso7230566f8f.2
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 08:40:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788968450; x=1789573250; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8S9AI7MuVos4oGOaFeo64Xw5+h+A/2gGgWVTyAi5z6M=;
-        b=LPa9kVI0GaR1hZP89/qsJwppad5ZC9ikRj3+HrI4jlVOWJ3GtYs10gCPhxL+pKYrYO
-         1hFY0wWoH+EGD000IEU2reBYDlPC/n5xJlEm6j08cKI+xJF+X+o8ESnXLainmQg3T/rb
-         q/eCDHquAXyCOTRD6yNFa46Y9x1ybSARMGxRi6nJVwtmy0i0CIZHg7bc5YkLp9Ev9Nzu
-         ARE2crb45g9vsFgnB1uk8t/TDSZrgqWx7RoOZXz4T73qCDFYSZc1QN32uedHbyCIWyvy
-         imZG5CR6f3xW0Kgh9BH2dxspIvAFaYht/JPEMe11YNKAMMShEUkxO8Jk9RhST+6q4b9Y
-         VCUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788968450; x=1789573250;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788968453; x=1789573253; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8S9AI7MuVos4oGOaFeo64Xw5+h+A/2gGgWVTyAi5z6M=;
-        b=JfuZsiSm2aX2UifIftdJvfA3ugrWD+KdoxGrC7/faeKEorb2zhGBaBdEs5yCiVq7ZT
-         9tk7fysxJt/r79/uQP3xppH7VgBHN+V+hW5u/XIK9cFVBZnHBgcUe+EHVCspx4bXLuyO
-         vIzyje5a+XRAjQ2kNWnQbHEwkiWQB2ttzV3jXbQ30S/a07cXgo2KS+9zbnYcX/6uWuwb
-         j1nae4ajFY2l6KZNZNnjPUtI0OL8dZBvMSizQO+zHMSzZHH6d/6DG08w6levpm2o8zUj
-         y5XyHLrPUne8qbv49UNSBMbmsAGLTUNRx84jM03emxP9lSEhzmRfFKqZQojbdRtlekO/
-         uBSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzRgfhX7uHDzFMDg54Bv9vemUHXbhPmgM78mgJJ7v6DHQEuWBmcRZO5h/096FUg8bZKLbW5GgGH25tc@vger.kernel.org
-X-Gm-Message-State: AFuF++ms19na7TVPMJjNWS3BaecEvzjkZKDOO8lhp3ZpoLVr1GD2G+dP
-	Jw8S4o9KsQiRz5vApo8NG5O3btnSW3GZnaLGjCsTluAfcXgUOJuZddJG
-X-Gm-Gg: AYBFou0t3yDk3vq+TClOxwDGg03ViMmN7kL7jf/o4L4rLC98+fj5ZZbPWnfTrpenk68
-	mOjhDwKBLbmkm2ti5SGv7tInQTCn/iB5mEOdl74bySpKHwI3c+O/0lSE+xEVxX66aA5OlSrHcVp
-	doEPiOxWsBV+EQkwftuUC3jl+vQ2MBGKtYvVfdVNfeUBvl4jD1d8J+t9gtbYca7vhqwVN06jsjT
-	GzS/hJqJS4lTvHp6Ja23p3q79ygWg8eQPM6WaOnqjRlIRA7Fkrbzv9hTKEIYw5sh+QdR2GtnZvD
-	qRX4OLIO3wotLwd46d+1Zq+Vld1iFklldUdAv8bO+3S7CQSaPxS9ddZa6uSXt2mfle8JP83QBER
-	UqhOSmwPRwcWrnXrrguF17px9ovppItLjiMvRkccdSw1N9vvWUgEoNeWWHsz6SScOb+CgJ16g0t
-	uqMcHULV0ZJGMi3Rq78dw+7zwz0RbKeA4GajtnPsACIT4As3DVnGspTq0r4GSLfht3OXJ9k47jB
-	mf9QSd2ip6S5Vv6z2Cx+qoWtg==
-X-Received: by 2002:a05:6000:2602:b0:485:8c16:a34a with SMTP id ffacd0b85a97d-4858c16a7ffmr34924854f8f.34.1788968449996;
-        Wed, 09 Sep 2026 08:40:49 -0700 (PDT)
+        bh=ZIkGfv940lwcDRBFVlKYwWw1ZND7s87QEgBkPEkik3A=;
+        b=a++l9u1u0UrA2UvsE2v3E0oTOsbk+dDKaHv1u8aM9qEiQ1yx3AYp4XjhM7XJcESAHP
+         mW0k9VvF2VVWpxA5bGqZzEcNU4SllEi8KRAqQRZ+VBmIonPH95UZFm4hdYs0DC+DV5T1
+         tK5/OBWOIAIGE5/MXh0Kpkc97Z3UdKtemiK8d9H0kt2ksf0R8yMkBnxa7tsO6zbb+ca0
+         pECFVSmKkdkkT29FGVSa98pnwBzhXEHQ2T86VaAkRroL/sYAuZGBuq8yBxXlC8AKWzQE
+         8ViMOIIWXBcyM9G/gyCynwzbqGRXIOxhRUa3gUTFq/SjhurPg9tHhdadMe7zzB1E6Vrl
+         m29w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788968453; x=1789573253;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZIkGfv940lwcDRBFVlKYwWw1ZND7s87QEgBkPEkik3A=;
+        b=aMwu1tB2LhVX35u53XfGCc+3lyYDurKiMws7BdVBK2y/TIYLKc9lGN3j7nZ+MwK2c/
+         z8c5i4XOJFIsS3uHhS8e1utSIlcxrgknMaiTo0HFCXBRMJihcxhJ4GWkdESPfviLWlNq
+         8Y1xEW2SqFiyiGkCkX3JEzI9Ne93n0MHNcr7hF3Zxmv55B56lx1aWZDqpJCufP85ccTh
+         /cIX6/Do9Y4jbHo3b2V2ttdVvcL8DkOj+XRX/q2LrON+IPQf5dM7VI5aC6PmYu0I4d5z
+         nm6zFoq5CUc/Gr4W7WxSiDX+XKIC5hts0hD9XDexc2k4cRS+Z0JSlHDSCPXOAGxA0yCL
+         HlYw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVvePH0WfoiTtgYpCH0X51sV4qRkAoUXXSUa3UYUAnCbGvxmoJIVmfitbhZ0wX4ufYCCTG+ADza4Pj@vger.kernel.org
+X-Gm-Message-State: AFuF++lCLpdRVCrc1M7vPO+JCO2I0nqHfMnrfUfd9UndZyzV0YpTcBdt
+	xPDADDEVz4sIV65gW078ExWWwpa9dGBKw2skOinYQ+e/jV9iCc2e1Xbb
+X-Gm-Gg: AYBFou16fbMp6eERdrlrFxE/LegLc2GItEQyMq5cdEP0AA75TEwoywwlzUU8syAIuUt
+	GxwTvCg3RPGoFYEN9KoAzIcKqlOfbJQq7+p+zFbbIhZ+XwH2GubkpuZMcLnI9ipLnBonEH9sc97
+	t6q8HJ7YBMipkPbMii2f01lhkaecKC2WUf+azx0HjwaehG0RGsgt3U5csHmp04nByvPF1icfmCQ
+	EWj5zOQzPJxwDAd8XaA60gzRKZ8XAbmuAIEdq8eCJexZ/zTsjxZCPmE9Rrn+rqIh/WmvmQwd4+O
+	dut8c6r0Tr/puAqxWv7/iVjzI4qgn6tttChi01lbol0ZzlooYUenOZqHaHvvNdfDZ1z8/5TkZzQ
+	zQe+iqcI8YYQceqt7OtCIPWF99kvMYPQzBHXKZ69aHA9xH4E0oxYaF5XcXuzY4W3QB5pgu4klC5
+	LE974X2yf5Ln0yWIX4AizN5VYqVNrDCULsCkd0mqmAi9gDBmQWpWPQZsYipofjqysXNnntux68g
+	aJxEyETnBwNJWwKrwvnh+xAWw==
+X-Received: by 2002:a5d:588d:0:b0:485:8c16:a338 with SMTP id ffacd0b85a97d-4858c16a615mr33895800f8f.45.1788968453181;
+        Wed, 09 Sep 2026 08:40:53 -0700 (PDT)
 Received: from SMW024614.wbi.nxp.com ([128.77.115.158])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm43810943f8f.32.2026.09.09.08.40.48
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885be1c1sm43810943f8f.32.2026.09.09.08.40.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:40:49 -0700 (PDT)
+        Wed, 09 Sep 2026 08:40:52 -0700 (PDT)
 From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -71,10 +73,12 @@ Cc: Pengutronix Kernel Team <kernel@pengutronix.de>,
 	linux-kernel@vger.kernel.org,
 	imx@lists.linux.dev,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v4 0/2] Introduce basic support for MR-NAVQ95
-Date: Wed,  9 Sep 2026 08:39:41 -0700
-Message-ID: <20260909153943.1048-1-laurentiumihalcea111@gmail.com>
+Subject: [PATCH v4 1/2] dt-bindings: arm: fsl: add MR-NAVQ95 board
+Date: Wed,  9 Sep 2026 08:39:42 -0700
+Message-ID: <20260909153943.1048-2-laurentiumihalcea111@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260909153943.1048-1-laurentiumihalcea111@gmail.com>
+References: <20260909153943.1048-1-laurentiumihalcea111@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,81 +89,26 @@ Content-Transfer-Encoding: 8bit
 
 From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 
-Hi folks,
+Add DT compatible string for the MR-NAVQ95 board.
 
-So, as the title says, this series attempts to introduce basic support for
-NXP's MR-NAVQ95 board. The "basic support" refers to introducing a new DTS
-and enabling a couple of peripherals so that the board'll be able to boot
-from eMMC/SD/NFS.
-
-So, compared to MX95-19x19-EVK, this board has a smaller form factor
-(comparable to the MX95-based FRDM boards) and is designed for
-robotics-related applications (e.g. drones, rovers, humanoids, etc...).
-The board is currently at revision B and is only available internally.
-The board should be officially announced around October/November 2026.
-
-Given that the board and its support are fairly new and still under
-development, I would expect some (hopefully) small changes to the DTS.
-Hopefully, this'll be acceptable.
-
-The schematics, a brief overview and some pictures of the board are
-publicly available at [1].
-
-[1]: https://github.com/NXP-Robotics/MR-NAVQ95
-
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 ---
+ Documentation/devicetree/bindings/arm/fsl.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes in v4:
-
-* added missing "memory" node.
-
-* link to v3: https://lore.kernel.org/imx/20260901131918.1189-1-laurentiumihalcea111@gmail.com
-
-Changes in v3:
-
-* use "gpios" instead of the deprecated "gpio" for the "regulator-usdhc2"
-node.
-
-* fix issues raised by running "dt-check-style --mode strict". Note that
-"dt-check-style" still reports the following issues:
-
-[property-order] property 'compatible' out of canonical order [...]
-[line-length] line exceeds 80 columns [...]
-
-these'll be fixed by Krzysztof Kozlowski's on-going patches: [3]. Manually
-applied his patches and dt-check-style seems happy with the DTS.
-
-* link to v2: https://lore.kernel.org/imx/20260827150657.1657-1-laurentiumihalcea111@gmail.com/
-
-[3]: https://lore.kernel.org/lkml/20260826-n-dts-style-checker-continued-v5-0-fdd16ca6e771@oss.qualcomm.com/
-
-Changes in v2:
-
-* remove the "pinctrl_usdhc2_100mhz", "pinctrl_usdhc2_200mhz", and
-"pinctrl_usdhc1_100mhz" DT nodes as they have the same configuration
-as "pinctrl_usdhc2" and "pinctrl_usdhc1", respectively.
-
-* add "bootph-pre-ram" property to all nodes that were included in Elena's
-u-boot patches. See [2]. Note that "imx95-u-boot.dtsi" is still required
-for the binman node and for the rest of the nodes tagged with
-"bootph-pre-ram".
-
-* link to v1: https://lore.kernel.org/imx/20260825120812.2152-1-laurentiumihalcea111@gmail.com/
-
-[2]: https://lists.u-boot-project.org/pipermail/u-boot/2026-August/629002.html
-
----
-
-Laurentiu Mihalcea (2):
-  dt-bindings: arm: fsl: add MR-NAVQ95 board
-  arm64: dts: freescale: add MR-NAVQ95 basic board support
-
- .../devicetree/bindings/arm/fsl.yaml          |   1 +
- arch/arm64/boot/dts/freescale/Makefile        |   1 +
- arch/arm64/boot/dts/freescale/imx95-navq.dts  | 228 ++++++++++++++++++
- 3 files changed, 230 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx95-navq.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/fsl.yaml b/Documentation/devicetree/bindings/arm/fsl.yaml
+index 338dd9eafb17..c91ae3ab7cd1 100644
+--- a/Documentation/devicetree/bindings/arm/fsl.yaml
++++ b/Documentation/devicetree/bindings/arm/fsl.yaml
+@@ -1536,6 +1536,7 @@ properties:
+               - fsl,imx95-15x15-frdm      # i.MX95 15x15 FRDM Board
+               - fsl,imx95-19x19-evk       # i.MX95 19x19 EVK Board
+               - fsl,imx95-19x19-frdm-pro  # i.MX95 19x19 FRDM PRO Board
++              - fsl,imx95-navq            # MR-NAVQ95 board
+               - toradex,verdin-imx95-19x19-evk  # i.MX95 Verdin Evaluation Kit (EVK)
+           - const: fsl,imx95
+ 
 -- 
 2.53.0
 
