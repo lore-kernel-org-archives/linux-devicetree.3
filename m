@@ -1,247 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309135908B9;
-	Wed,  9 Sep 2026 14:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E949157982C;
+	Wed,  9 Sep 2026 14:34:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788964436; cv=none; b=CS4vFJTjblIvDI51yzidIFg+lriIC/eU4LXEIl6Lqibet+ClmKmsrv33tYTmkLFj1DJ5menGeqjcL3dxKLqMceDVsIzdsSCjeJ8fP0RTSk23epeYGtQr17U1t2lB9ExJJVpUMM0h2xDJ4uFwcmbF92Gh78AS5epf4CuysajVZUk=
+	t=1788964487; cv=none; b=K+8MQBIeayAYxGYpF048FRbZJgCU3EEEzQAjmqIaGQFuktSSpS+sxNBY99f3ozEHkk9kPgL1Z1evcULG41SOICKZoq46/3Bt8qNuf/a4mXqIg6guzIXxd9T7RaIoqRMN8QhqRvBZRIX6NQs7WzRzuPlBVY842sQO8gvYiw5zmHs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788964436; c=relaxed/simple;
-	bh=FgYAt4FdKYRaHvN/Jovmu1CGu4q+km/qUNCr8TO8xwE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=NGpSQzcfnu0KQ5BTOBXPZnh8nwUXHynNCtxbPY0YGt0ZkrSePeGX84uZV5tt6lCegGZK/uftNzy9mRevOp5Bjfb3xoK+wVqrVv2gCG07/EG/RwfCSxDifbrT+LnXwT5a+d2Pe2OMIaBj/Bn10QSdvBJ08mQCzyBFOZcbsIf1EaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dSDSqR9N; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788964487; c=relaxed/simple;
+	bh=5ZphuIZheKokBeZCnzL7vVPrW944hqFbB8fS4HNJfWY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=So+Vpm5cqefDQdWxEjOZotwHN0GThlo0WaIqoM0+vKrPTSegz55ECN5JxeUQItCFEE8nINZpm20Zw4HAUaniOli7sv2gB9bE1MpAJH1mTSrgOhAeurNixA8S0w69YPRkITYpmTaettJPiMqA5SeetHTjHawI+tWCobe9RoywX2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jp4jjyyQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dSDSqR9N"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BF5CBC2BCFB;
-	Wed,  9 Sep 2026 14:33:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788964435;
-	bh=FgYAt4FdKYRaHvN/Jovmu1CGu4q+km/qUNCr8TO8xwE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dSDSqR9NYHZPXJdLKkHQZSfdvCQUzG6w9qXm7qH34YR0/ODBkPFJ4kkwD4uT5UaKT
-	 /Ycjuw8ArmuMvoET1oNSpr2dwe1cIV9VKyfYFoE8rnF2yv1ZjTO8cyzDUxhTEcGXar
-	 hYKgy4Z8zb3azsOLEzJTrA68QlHj/2srEFDIQfGRy/kl7ch84qcThAjA9WE0DMdtD7
-	 XDxPIbw0D8YrnzColj3cBktajy2mtF0qoWjOde2otC2sv7YfPZxWSkcjfdIdvpzFrX
-	 6vWanek3cwHyBlUglaWX0hRkagI92lVNLpNgWfpHSwbdE3snMd4/p81jTLbR0283ns
-	 F9Cv4xvlYbZdQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AD068C79FBB;
-	Wed,  9 Sep 2026 14:33:55 +0000 (UTC)
-From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Wed, 09 Sep 2026 22:33:26 +0800
-Subject: [PATCH v3 5/5] arm64: dts: rockchip: Follow the DTS coding style
- in the NanoPi RK3528 devicetrees
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jp4jjyyQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78CDF1F00A3D;
+	Wed,  9 Sep 2026 14:34:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788964485;
+	bh=pCe4wRAHjUOVrleH/SJn/pJ/jk5WQCArtXnv/geWzxA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Jp4jjyyQ+GsuQ9uVI32QAX3jNEsr09KaLjdoknaRrmqlyRdClVocaP9PUVRDqKyYC
+	 1sbWuvdNSKK7P/qGT5G34AWEQ0RGW7rPjf5byxgqJ1cITuA6h4R7/VZACUv+c9IiSE
+	 iyZo8mM/3Kmpu7thfb6xczxmeiETSxvxQ1yklOLbdw08yfDhDlrYE4bfZTGi5wenpy
+	 O8+KObHrnXyITBy48RLcH5QtE+5dBNVMZo4EhYTsu/9tJo7YVEAKICZlENqMFBHlzF
+	 DjYfcnkmL9B5GrJ4d4FqgCfo+xi88+VkUEaZs2vCkb6TQQkmv5S8sDQ90UsYZaxwd4
+	 uQxaO0sZYtUiQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] rtc: Add Raspberry Pi 5 RTC driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sander Speetjens" <sander.speetjens@gmail.com>
+Cc: devicetree@vger.kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org, linux-rtc@vger.kernel.org
+In-Reply-To: <20260909141300.1368790-3-sander.speetjens@gmail.com>
+References: <20260909141300.1368790-1-sander.speetjens@gmail.com>
+ <20260909141300.1368790-3-sander.speetjens@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 14:34:45 +0000
+Message-Id: <20260909143445.78CDF1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260909-r28s-upstream-v3-5-ee3e1a34a353@proton.me>
-References: <20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.me>
-In-Reply-To: <20260909-r28s-upstream-v3-0-ee3e1a34a353@proton.me>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, 
- Andrey Korshunov <razor1702@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4985;
- i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=Dx8JcLzyZT+3t40Yo8VLHukY1rcwOrhijfk5CDwzcYM=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqyFeYE7JdWva/W4qp3d+23SVVPXZafqJcsLzBN33Zij9
- 7zK9mJQRykLgxgXg6yYIovspupIoVXRM4tYpI7DzGFlAhnCwMUpABPZZcfwm82k4GDV/Emnb8i8
- nLFiVVn0j+zz0WdEazScD7FsUP92zI+R4eaXS3cN3RfbX3Z2tN3bHW41r/GnWYewgeLUidfPJzE
- U8gMA
-X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
- fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
-X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
- with auth_id=1004
-X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Reply-To: HystericalDragons@proton.me
 
-From: 安容 <HystericalDragons@proton.me>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The device tree node reference acquired via of_parse_phandle() is =
+never released.
+- [High] The firmware reference is leaked on probe errors and during driver=
+ unbind.
+- [High] The driver leaks the wakeup source allocated by device_init_wakeup=
+() on error paths and module unload.
+- [Medium] The driver truncates 64-bit timestamps to 32 bits and fails to c=
+onfigure RTC range bounds.
+--
 
-scripts/dtc/dt-check-style --mode=strict reports two deviations from
-Documentation/devicetree/bindings/dts-coding-style.rst in the shared
-NanoPi RK3528 devicetree and in the NanoPi Zero2 board devicetree:
-"pinctrl-0" has to sort before "pinctrl-names", and "status" has to be
-preceded by a blank line when the node has content before it.
+commit 3148e2d83cccdbeec926774910d9505646955095
+Author: Jonathan Bell <jonathan@raspberrypi.com>
 
-Sort the properties and add the missing blank lines. The generated
-devicetree blobs are unchanged.
+rtc: Add Raspberry Pi 5 RTC driver
 
-The remaining findings of the tool are left alone, as they contradict
-the established practice in arch/arm64/boot/dts/rockchip: "model"
-before "compatible", "regulator-name" before the other regulator
-properties, "regulator-min-microvolt" before "regulator-max-microvolt",
-"pwms" before "pwm-supply" and "linux,code" before "wakeup-source" or
-"press-threshold-microvolt".
+Upstreaming the downstream Raspberry Pi 5 RTC driver.
+This driver supports the custom DA9091, which is accessed through the firmw=
+are
+mailbox.
 
-Suggested-by: Diederik de Haas <diederik@cknow-tech.com>
-Signed-off-by: 安容 <HystericalDragons@proton.me>
----
- .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      |  5 +++--
- arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 26 +++++++++++++++-------
- 2 files changed, 21 insertions(+), 10 deletions(-)
+> diff --git a/drivers/rtc/rtc-rpi.c b/drivers/rtc/rtc-rpi.c
+> new file mode 100644
+> index 0000000000000..e455b4116957d
+> --- /dev/null
+> +++ b/drivers/rtc/rtc-rpi.c
+[ ... ]
+> +static int rpi_rtc_set_time(struct device *dev, struct rtc_time *tm)
+> +{
+> +	struct rpi_rtc_data *vrtc =3D dev_get_drvdata(dev);
+> +	u32 data[2] =3D {RTC_TIME, rtc_tm_to_time64(tm)};
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-index 48e4273872..96c537da6a 100644
---- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-@@ -25,8 +25,8 @@ button-recovery {
- 
- 	leds {
- 		compatible = "gpio-leds";
--		pinctrl-names = "default";
- 		pinctrl-0 = <&led1>, <&led_sys>;
-+		pinctrl-names = "default";
- 
- 		led-0 {
- 			color = <LED_COLOR_ID_RED>;
-@@ -59,8 +59,8 @@ usb2_host_5v: regulator-5v0-usb2-host {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
- 		gpios = <&gpio4 RK_PB5 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
- 		pinctrl-0 = <&usb20_host1_pwren>;
-+		pinctrl-names = "default";
- 		regulator-name = "usb2_host_5v";
- 		regulator-min-microvolt = <5000000>;
- 		regulator-max-microvolt = <5000000>;
-@@ -96,5 +96,6 @@ &usb_host0_ohci {
- 
- &usb2phy_host {
- 	phy-supply = <&usb2_host_5v>;
-+
- 	status = "okay";
- };
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-index 1980d14d6f..45e31b90a7 100644
---- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-@@ -77,8 +77,8 @@ vcc_3v3: regulator-3v3-vcc {
- 	vcc3v3_sd: regulator-3v3-vcc-sd {
- 		compatible = "regulator-fixed";
- 		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
--		pinctrl-names = "default";
- 		pinctrl-0 = <&sdmmc_pwren_l>;
-+		pinctrl-names = "default";
- 		regulator-name = "vcc3v3_sd";
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
-@@ -97,8 +97,8 @@ vcc5v0_sys: regulator-5v0-vcc-sys {
- 	vccio_sd: regulator-vccio-sd {
- 		compatible = "regulator-gpio";
- 		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
- 		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
-+		pinctrl-names = "default";
- 		regulator-name = "vccio_sd";
- 		regulator-min-microvolt = <1800000>;
- 		regulator-max-microvolt = <3300000>;
-@@ -152,20 +152,23 @@ &gmac1 {
- 	phy-handle = <&rgmii_phy>;
- 	phy-mode = "rgmii-id";
- 	phy-supply = <&vcc_3v3>;
--	pinctrl-names = "default";
- 	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
- 		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>, <&gmac1_rstn_l>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- };
- 
- &gpu {
- 	mali-supply = <&vdd_logic>;
-+
- 	status = "okay";
- };
- 
- &i2c1 {
--	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c1m0_xfer>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- 
- 	hym8563: rtc@51 {
-@@ -174,8 +177,8 @@ hym8563: rtc@51 {
- 		#clock-cells = <0>;
- 		interrupt-parent = <&gpio4>;
- 		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
- 		pinctrl-0 = <&rtc_int_l>;
-+		pinctrl-names = "default";
- 		wakeup-source;
- 	};
- };
-@@ -216,19 +219,22 @@ sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
- };
- 
- &pwm1 {
--	pinctrl-names = "default";
- 	pinctrl-0 = <&pwm1m0_pins>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- };
- 
- &pwm2 {
--	pinctrl-names = "default";
- 	pinctrl-0 = <&pwm2m0_pins>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- };
- 
- &saradc {
- 	vref-supply = <&vcc_1v8>;
-+
- 	status = "okay";
- };
- 
-@@ -241,6 +247,7 @@ &sdhci {
- 	non-removable;
- 	vmmc-supply = <&vcc_3v3>;
- 	vqmmc-supply = <&vcc_1v8>;
-+
- 	status = "okay";
- };
- 
-@@ -252,12 +259,14 @@ &sdmmc {
- 	sd-uhs-sdr104;
- 	vmmc-supply = <&vcc3v3_sd>;
- 	vqmmc-supply = <&vccio_sd>;
-+
- 	status = "okay";
- };
- 
- &uart0 {
--	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0m0_xfer>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- };
- 
-@@ -266,6 +275,7 @@ &usb_host0_xhci {
- 	maximum-speed = "high-speed";
- 	phys = <&usb2phy_otg>;
- 	phy-names = "usb2-phy";
-+
- 	status = "okay";
- };
- 
+[Severity: Medium]
+Does this code silently truncate the 64-bit timestamp when it assigns the=20
+return value of rtc_tm_to_time64() to a u32 array element?
 
--- 
-2.55.0
+Since rtc->range_max is left unconfigured (defaulting to 0), the RTC core=20
+does not enforce bounds checks. Thus, if a user attempts to set a date beyo=
+nd=20
+year 2106, the timestamp will be truncated here, leading to silent hardware=
+=20
+time corruption.
 
+[ ... ]
+> +static int rpi_rtc_probe(struct platform_device *pdev)
+> +{
+> +	struct rpi_rtc_data *vrtc;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct device_node *np =3D dev->of_node;
+> +	struct device_node *fw_node;
+> +	struct rpi_firmware *fw;
+> +	int ret;
+> +
+> +	fw_node =3D of_parse_phandle(np, "firmware", 0);
+> +	if (!fw_node) {
+> +		dev_err(dev, "Missing firmware node\n");
+> +		return -ENOENT;
+> +	}
 
+[Severity: High]
+Can this of_parse_phandle() call leak the device tree node reference? It=20
+acquires a reference to fw_node unconditionally, but I do not see a matchin=
+g=20
+of_node_put(fw_node) in this function to release it once it is no longer=20
+needed.
+
+> +
+> +	fw =3D rpi_firmware_get(fw_node);
+> +	if (!fw)
+> +		return -EPROBE_DEFER;
+
+[Severity: High]
+Does this leak the firmware reference if the driver fails probe later, or i=
+s=20
+subsequently unbound?=20
+
+The rpi_firmware_get() function increments a reference count on the firmwar=
+e=20
+object. Since there is no cleanup on error paths, nor a devm_rpi_firmware_g=
+et()=20
+variant used here, the resource appears to be permanently leaked when probe=
+=20
+fails.
+
+> +
+> +	vrtc =3D devm_kzalloc(&pdev->dev, sizeof(*vrtc), GFP_KERNEL);
+> +	if (!vrtc)
+> +		return -ENOMEM;
+> +
+> +	vrtc->fw =3D fw;
+> +
+> +	device_init_wakeup(&pdev->dev, 1);
+
+[Severity: High]
+Could this leak the wakeup source allocated by device_init_wakeup() on erro=
+r=20
+paths and during module unload?=20
+
+Because device_init_wakeup(&pdev->dev, 1) allocates a wakeup source, failin=
+g to=20
+call device_init_wakeup(&pdev->dev, 0) during probe failures leaves the wak=
+eup=20
+source dangling.
+
+> +
+> +	platform_set_drvdata(pdev, vrtc);
+> +
+> +	vrtc->rtc =3D devm_rtc_allocate_device(&pdev->dev);
+> +	if (IS_ERR(vrtc->rtc))
+> +		return PTR_ERR(vrtc->rtc);
+[ ... ]
+> +	vrtc->rtc->ops =3D &rpi_rtc_ops;
+
+[Severity: Medium]
+Should rtc->range_max be properly configured before device registration?=20
+Without configuring the bounds, the RTC subsystem permits out-of-range time=
+s=20
+that will trigger the truncation issue noted earlier in rpi_rtc_set_time().
+
+[ ... ]
+> +static struct platform_driver rpi_rtc_driver =3D {
+> +	.probe =3D rpi_rtc_probe,
+> +	.driver =3D {
+> +		.name =3D "rpi-rtc",
+> +		.of_match_table =3D rpi_rtc_dt_match,
+> +	},
+> +};
+
+[Severity: High]
+Is a .remove callback missing here to handle driver unbinds? Without it, th=
+e=20
+firmware reference acquired by rpi_firmware_get() and the wakeup source=20
+allocated by device_init_wakeup() will be leaked whenever the driver is unb=
+ound=20
+by a local administrator.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909141300.1368=
+790-1-sander.speetjens@gmail.com?part=3D2
