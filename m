@@ -1,81 +1,136 @@
-Received: from mail-244116.protonmail.ch (mail-244116.protonmail.ch [109.224.244.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D47D05867EC;
-	Wed,  9 Sep 2026 20:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC583C3442
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 20:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788986293; cv=none; b=psCDK7RCVpDEcP1XyrRVk8fWElpdnpzS9oBu2+ZYraDSRz35eRGaXY34Doni2BJBLhZvd/vlA6EINDnxkQCCYI99aqqWutj9N/4h8zPCX6QVRADuYY4ftKjYnDNPHP3ar7oUWywtX3sBxxMBBHksf8ZUbdUmg/b/3RbJGEymv4s=
+	t=1788986304; cv=none; b=bT2Le7Wfpt04LCb/CvgyoTLBvmYi9oS0T6xCDkZJqeaouXDJCZvPMqFsgyqPbnaG7VkZkG4UcscipkQrcKrDWpcndMUPVbIpHidaT/ZIycf2qI/6FwaHzSN1k8wGh8bGuQvC6zeFq4ftcYTACMoes3uGINLHed7K4iiK51e+XOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788986293; c=relaxed/simple;
-	bh=TU9tS4wITpHYBcAVM8/pudHRv+AetuJo3E3c70HNOzI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jz04GrGFu7n9BKJ3I43Sjo/Wd/06vTaVXoRQsL/wqbPj5bbOSvplTMQ7k8zSm54PkZZLa9uevavgvcM73GBTGslDAULxL3rgMLZvC4mYc411tcRDY9mKHeWG+obVdyto3HObUL+4ueN2vi+pdqg0eGBp6zOUts0Ki89IvpN9x4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=Ew1g0X5+; arc=none smtp.client-ip=109.224.244.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788986304; c=relaxed/simple;
+	bh=8AbxnatoXUifDGjwqaRizi+Qr5E765H8Y73G5gm5o0w=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PbP61s8wjMZa30g58W0V0/FKa+mrxZEbg+4VTSTKnU39f1VFIUS2sg3xLjewuKHKbGSGbbFN7crAgXO3+v+M/0yiEFzN7vlroyRGsd4M+JoQw4PRzBwjzs5821MukOe9fBU7a/vPoxOSErej+cHDvxWkRojsgqmm2amhCtfMrsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j1ZUVrBC; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="Ew1g0X5+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788986275; x=1789245475;
-	bh=TU9tS4wITpHYBcAVM8/pudHRv+AetuJo3E3c70HNOzI=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Ew1g0X5+o+F+N08SELWATyiIARiszM8zgi5CNgF6khecqOiNpVsmeGbW6LqB56igz
-	 bQwAvHbnP5ZaJSTYkKZebEuUlUZY+RemNPqBBmK7cMe6E6F2GkegeXv5N4Kk7WYMSb
-	 3JKZEy76QiJxUx/5ZZhxQuvpuSi/az5WKN+moIXHx4Ljn2GfIwVklNXNbVNqwVv33b
-	 KPxLOomrjqfsGUAfc6WU/kUKKlXSmudnAwtYkmJnhNYkGhwO/UVcl/tIsE4nN6sRD9
-	 vIF7X/Uv85lT8xXPtCTlfd6T5NHujALoioHb+sgjGXFVIkLhV7DNYomD95wSWO7p4H
-	 bo4ocnzTlldVw==
-Date: Wed, 09 Sep 2026 20:37:49 +0000
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German <germanpapulindez@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH v3 3/3] media: ipu-bridge: Add Sony IMX681
-Message-ID: <20260909203717.90605-4-lsa.uz@pm.me>
-In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
-References: <20260909203717.90605-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: dbe18e390f058b7322a395242d278e71e738bf16
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j1ZUVrBC"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso60139125e9.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 13:38:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788986287; x=1789591087; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c7afDL+31SJFMeOGNst+LXN4XK7ERQT0EAu5rJfALKU=;
+        b=j1ZUVrBCTUr6ssVDgFsnNBe/bfoX4Pw/ntRyU86Ka+7BQgDqExaYZsFnJ71vGkU770
+         aDf+Ggl3HQ6RGoIe+G3SDbDA6U9+EKVDCcrNU/qczhMSqQmsNJxH3CwfDEQQNUpuS5kt
+         hAoxDWyvxavJqBphdjER72rTUhC+MtKIBbus4VCnc/Wv/Tw9S+7LjFf11mO5F3GporlR
+         eBaGy1wy6k+cdUYUHqB8ZqfjRxr3j0DbR705v70GpJ76dELf9vx3waYJBOC0Y+lcCphC
+         TspCInNgabfcYsVIlIcH0liZhbxQ4dAv2DPa+hSar3G91sJD0E/TDX0EGD/Su2Q9HHf0
+         RXMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788986287; x=1789591087;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c7afDL+31SJFMeOGNst+LXN4XK7ERQT0EAu5rJfALKU=;
+        b=Uw3XRBHs5BgPIjhIucuGTJQhdkSTvPoKvGxyAD9SS9xvJKuZDsq7Csgm7qbIBK7eob
+         3kTiAhGjKHqOfv4pkb4hRbTTEdb+DHx4guXE0XHjGvjhRVNrko3+FyxboAhZTAJvhyyU
+         WaKt/vNqImWV67vxZwZlQvDIAvA0uQmnxwDdSdSp4+B3oUMJXRrf4qFvyY+sl/fPwGwI
+         in7ucoshILLWk9CskziFjimhuI/OQmU3XqxS7WM/SywO9K5euhRV4o5a/liAvnB5px64
+         WRUlzbMbwOvLvKc0W44x0qrJL+2uQ2ekUMw3IqersjlnGxKF+8uubuWGGvGqnhBf9Z8J
+         gEWg==
+X-Forwarded-Encrypted: i=1; AKwUvByudrw591UFaCCD98MGEFrPxakMppj7+htVAmgJkUo/6b71d10WJhxDva1qNhaAa0aNNPtxD2pIHnU3@vger.kernel.org
+X-Gm-Message-State: AFuF++mTXRAaQx8wlruUoEpPKSyu7soAjALQbfk1LiuyY8wTNdEZlqTW
+	siC4HN5CqS57W8G/farIwCPV7eH/3qPtimx/wqTYhak2gG1aL2cT7biK
+X-Gm-Gg: AYBFou2Pg9EKO5hUeeBftTGKby8nxLuUIQN36jkHSIMvEs6R6/4EeSJeMKA7H52SOKM
+	JVtVsQ7kjnc1BA42DEvaYfybcGB/lvIVRS+YppHz75L7YzfSji0tx7sFQlHfhRf3tPdVneyY7U0
+	B50w/bmN/WguYYNWgW0CaTraCZJJ1VL7R/a9xeREZMl7LxylZ4dGgxpZv1vvlbWuTM9GY3lb6f6
+	KIk0b6CUxMFMwi6YLDUlJuSWrMHorZ0IQmtTcFrdmEQHe8WODbHxCa4I8F0JnhOqw9oUuLdBpFW
+	IBjJ+LUigP/5L6bPvxtilzoHDQSSZSGZE5/uQhTcqICVjsTtP1f27XQwPM+97ZUhxlWpY/CvVrE
+	oggd5jraLpD23qz8CtNCPa2xZINoj3yGczYP0+JfE7tUVjpj5ijb1aPZWDHwzkTwDc3hrfk3MIQ
+	7yBbCqp01qtU7cYZp1x5M+Zpcp0Y8iPQS6oq9bGWFQwtH852Ze21vRdQ3v56EnnRiJNPve4oUYr
+	SBvly1hS0O8DSfdst7m8ByUGesNjr9WXLtLgSbB6qA=
+X-Received: by 2002:a05:600c:3b02:b0:49c:fa21:1c7d with SMTP id 5b1f17b1804b1-49cfa211d76mr359028785e9.18.1788986286889;
+        Wed, 09 Sep 2026 13:38:06 -0700 (PDT)
+Received: from [192.168.0.40] (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20daed90sm6913595e9.2.2026.09.09.13.38.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 13:38:06 -0700 (PDT)
+Message-ID: <af6cf493-c84e-41a1-a4d0-0460101f33a6@gmail.com>
+Date: Wed, 9 Sep 2026 22:38:05 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add Raspberry Pi 5 RTC binding
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Jonathan Bell <jonathan@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>,
+ linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260909141300.1368790-1-sander.speetjens@gmail.com>
+ <20260909141300.1368790-2-sander.speetjens@gmail.com>
+ <4c237cd8-024f-405e-a00e-e22ff9529d08@kernel.org>
+ <8cd19ae8-372b-444b-bd2a-dc01221b5896@kernel.org>
+Content-Language: en-US
+From: Sander Speetjens <sander.speetjens@gmail.com>
+In-Reply-To: <8cd19ae8-372b-444b-bd2a-dc01221b5896@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7) carries
-a Sony IMX681 as its user-facing sensor, enumerated as ACPI device
-SONY0681. Add it so ipu_bridge_connect_sensors() builds its half of the
-graph; without the entry the sensor is never connected, whatever driver is
-present.
+ > And more important, where is any interface to actually control the RTC?
+ > I see nothing, so your firmware is? Then this is not a separate device
+ > and you just added DTS for your driver, which is a no go (see writing
+ > bindings).
 
-One link frequency, 969.6 MHz, on two CSI-2 lanes.
+The RTC is a physical, battery-backed RTC, but the Raspberry Pi
+firmware exposes its register interface exclusively through the
+firmware mailbox.
 
-Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+I initially used a firmware phandle so that the RTC driver could obtain
+the existing rpi_firmware instance.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 7e65491fa..68c2eb326 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -97,6 +97,8 @@ static const struct ipu_sensor_config ipu_supported_senso=
-rs[] =3D {
- =09IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
- =09/* Omnivision OV8856 */
- =09IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-+=09/* Sony IMX681 */
-+=09IPU_SENSOR_CONFIG("SONY0681", 1, 969600000),
- =09/* Sony IMX471 */
- =09IPU_SENSOR_CONFIG("SONY471A", 1, 200000000),
- =09/* Sony IMX471 (found on Lenovo X1 Carbon G14) */
---=20
-2.53.0
+Based on your comment, I think it would be more appropriate to model
+the RTC as a child device of rpi-firmware. The driver could then obtain
+the firmware interface from its parent, rather than adding a phandle
+solely for driver plumbing.
 
+This would also mean moving the binding to
+arm/bcm/raspberrypi,bcm2835-firmware.yaml.
 
+Best regards,
+Sander
+
+On 9/9/26 17:54, Krzysztof Kozlowski wrote:
+> On 09/09/2026 17:47, Krzysztof Kozlowski wrote:
+>> On 09/09/2026 16:12, Sander Speetjens wrote:
+>>> +
+>>> +  firmware:
+>> There is no such generic property. You need vendor prefix. Wasn't this
+>> already discussed for Rpi? I feel like every time contributors send
+>> downstream DTS ignoring what was discussed upstream.
+>>
+>>
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description:
+>>> +      Phandle to the Raspberry Pi firmware device.
+>> You said nothing more than property name and type. Explain what for.
+>>
+> And more important, where is any interface to actually control the RTC?
+> I see nothing, so your firmware is? Then this is not a separate device
+> and you just added DTS for your driver, which is a no go (see writing
+> bindings).
+>
+> Best regards,
+> Krzysztof
