@@ -1,71 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0275E526A9C;
-	Wed,  9 Sep 2026 16:52:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE719568FDF;
+	Wed,  9 Sep 2026 16:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788972725; cv=none; b=kxNafySjZ/l5lAjaVtMAtYiBaU1gk1i3IzbFCCkIS+fAXZo/GxFkftNePHxwRx6cVEtjFoFxsEgIB7A2mI0VZbyyxWnhEG7n/Q3NaC8UdY6KbG1aDDhkG+USZK4NHflg0EM2pd+zUXBzI918jIoFlEYamT2BxFkS9Olnjq3ybXQ=
+	t=1788972761; cv=none; b=cKLvENhHHhGSiE/JDpzm7cPiKP+GiV5B/1CqoLDfFReJcDTlYcGlUeWqR1s0VdD8MPS/NisFeGC0Uii2JewlsVialTni9BCYBnN4cc35GPOYNBvRtOwjMYVLizRI1KRtdLGi16zMAS1AUYT0bpBYDnyST99QnTM5VmZHoiZHFG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788972725; c=relaxed/simple;
-	bh=77U0sNB5KVlqdmLgJrpu4tHO39n35SBjSp/QWT3jEL0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o5aKrYD7CECeuSrHvabugVXmmfQf5sI8Zzq49NEvCErcEPic/We6WchOxEW4QQ/ze1LZ3vzJR57jtCOnFXaV6yEIHVnNbIECcVri8kiA2IS6kNw9YJiwgkhdO4hZ/C0bUffO/T9WukH/SqUdTDOhthRCvK8sVVH5qDabTCy4ka4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfC+MCc0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788972761; c=relaxed/simple;
+	bh=D8Xg7T6KqYH4/WUvkf9lj526uOKKiRcA2jkTEUin+E8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=O997wvWyYkzMqs0P64MTvksCBCjp/Wyx7gu5e5VczTumwdzz57e61GJzFZMO+8+dsMwNZ2fdxcTVVtm/dmzu4C/UyOWqSa/smJ2V5EcGy0cQqiEQCCsK711+qWQkRqREHwXZHRu/s6jeM8S71cyDXISCwdH8ZE322/ARJAKqXYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=CEVMBYM2; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfC+MCc0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 573181F000FF;
-	Wed,  9 Sep 2026 16:51:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788972723;
-	bh=HgC9sEOwgkiHFo9nm8IwcHna7p/hR9fCjHKYivIfM14=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CfC+MCc0nrX7sMf/aBoff2VzQK24psnb39s3VkoDRq+ZhH3P6alsK7j92SN649FA2
-	 tUPITzXgmaBspYY1PWbUV0Xe+VvZbGNMPtCQMuPYziiEtX6wORnCfKwQUu3mfaqvNC
-	 xVjLr2LssKMqtTMNkIc8gK+Ls02og5sFm/2iZVlAr686Dwx/qUGgseOBLqXw2RRMFo
-	 Y+A6ZRAKwJJAwo9StOnlUkdJLHDJ5Du4eSU5yr0OBveWL3Wwr/JBHZiM47stWgtTQ+
-	 x9tv2u5sEyTUYm2gHMCBe9ere+sf4Ji91HsSBzcj8YAl8glI4XJJ+raDv2lGkpojQu
-	 X1hp2a542rnZg==
-Date: Wed, 9 Sep 2026 18:51:54 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v3 01/12] dt-bindings: phy: Document MT8195 and MT8196
- DisplayPort PHYs
-Message-ID: <flb6ugxd5ssocnrxqs7vtjfvtjschvscoputms6bruw2uelpf3@xp2eumt5pwmk>
-References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
- <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="CEVMBYM2"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hg6LD3WqWzMlGK;
+	Wed, 09 Sep 2026 18:52:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1788972756;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wANtG2Wck81u3ITB1BffycJAGPKSfj9OAY9Ew1PSRKk=;
+	b=CEVMBYM2BnLkVG3JuEdeDg1EQxeHGPhwOfeiIlk5vHwGcD4wFkqW9UVpLX5BVTOh43eD/X
+	hqjQAH3MFjIFQLnkEBTeoV2hCSKL4OtLmXeXBRp27LAP3+G5pY0WuCYHQ8OjNni/0q2oik
+	0895QKLQvP74XrhzS+hRWPSf4/v8BxKQI5bFLQb986bJIRWNpHIpuMYdAG6WwJ9sz2OhKS
+	c99QrIePvOm1sUGburFEw0VMapoqjDL/GOTjIrcVF835cnQD1Y9V535O3IMr7TxplN2meY
+	bv62AL1LwjJX/EmWq1MrVu3crIWKYOOPK+zzyfVKiWS5671IfIEtFigi+e3LSA==
+Message-ID: <3b345291-b14d-45a4-818e-355b487c46a9@mailbox.org>
+Date: Wed, 9 Sep 2026 16:43:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260707154245.198361-2-angelogioacchino.delregno@collabora.com>
+Subject: Re: [PATCH v7 1/2] dt-bindings: usb: dwc3: Document Renesas R-Car
+ Gen5 DWC3 xHCI USB controller
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-usb@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+References: <20260903213031.314473-1-marek.vasut+renesas@mailbox.org>
+ <20260904-colonial-wimp-b37c27657664@spud>
+ <7771adfd-7447-4802-ad75-7c889ad32ee7@mailbox.org>
+ <20260907-tassel-bargraph-836b6f41fc43@spud>
+ <04bb7d78-4b0e-49ba-910a-6fa2b0a8c1a7@mailbox.org> <aqE11WTb6EMhn6Tb@squawk>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <aqE11WTb6EMhn6Tb@squawk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: kq35cnhos6bpsrynf31z5uqsc8hur51r
+X-MBO-RS-ID: 4ad110d8ca3e4f81110
 
-On Tue, Jul 07, 2026 at 05:42:34PM +0200, AngeloGioacchino Del Regno wrote:
-> This adds bindings for the DisplayPort and Embedded DisplayPort
-> PHYs found in the MediaTek MT8195 SoC (and variants of) and for
-> the Embedded DisplayPort found in the MT8196 SoC (and variants).
+On 9/9/26 12:32 PM, Conor Dooley wrote:
+
+Hello Conor,
+
+>> I could make only the ones which are currently used available, but that
+>> would be confusing the implementers by suggesting that the other quirks are
+>> not applicable even if they might be ; and this would likely turn into an
+>> endless stream of schema updates, with random users enabling random quirks
+>> they just used. I don't think that would be helpful.
 > 
-> This PHY supports varying impedance calibrations for the various
-> signals to reach an optimal EYE signal pattern for any specific
-> board(s), especially useful for very high bitrates such as HBR3
-> and higher, depending on board design.
-> 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> My understanding was that these things were effectively errata, so users
+> should not be enabling them willy nilly - the vast majority of these are
+> set in soc.dtsi files, and the couple dts users I checked were all SoCs
+> for which there was only one board.
 
-Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+I agree with the careful application of these properties part.
 
-- Mani
+However, I perceive them as tunables, not errata. If they were errata, I 
+would argue the errata quirks that apply to each controller instance in 
+each SoC should be derived from the compatible string. If they were 
+tunables, they should be DT properties.
+
+> IMO it's far more confusing to suggest
+> that a user has to figure out which of these may apply on their platform.
+
+The way I interpret this is, that the user should keep the defaults and 
+not enable any of the additional quirks unless they really need them. 
+But the DT checker should not warn the user that the quirk is invalid, 
+because I do not think that is the case -- the quirk is not invalid, it 
+is only not necessary in the majority of cases.
+
+> But of course, do what you want, they're your users.
+
+How shall we proceed here ?
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Best regards,
+Marek Vasut
