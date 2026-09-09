@@ -1,120 +1,112 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DDD437F755;
-	Wed,  9 Sep 2026 09:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 581E4489893;
+	Wed,  9 Sep 2026 09:53:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788947100; cv=none; b=fBrb3pj4GBJddq24z8CN66XLAVyGhQTBGhtT/wATrINs1jjFsrCEYDH/BXSnO/qMFAbhKHSM6qDlrd/e4wmgRcg/ED+QMyRKArdhqpnxC1TdpJVcOFqCcTyBZdl4w4LG7eCmoBRBW1fQRYIIFG7HkuDhyN8A5aofrAth6uIVlus=
+	t=1788947591; cv=none; b=sBrig2HQl6Lq44Z33HHfxtAsRaIDJEb41sMbIKhyd486Gz6Es4o9BdVCvgrAA6HpT2NXDdMJuJvKy4SI36C1d1dXQHYbb7TA51p/WvUKt41TMRmJGR0YRE4Vv/Prm/f8T2y04Bd+A5eyjO6o+LtTZ38xtAomqy4ljdubJoKyUE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788947100; c=relaxed/simple;
-	bh=nM2s8gx/Je8WGIJgPhRplMW74WrpUlMHbbNcaKQ3dko=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JwYIqGnSolcsyEvorF8b0bbtakeFT+lUxXAvxX8GFq2RHDEYa2VkoYEiu4chc47CzDYN1xnQ6xF4wMIdC02Y+i9Xlhs0tzfWZ/E9LXvUqPSt3Xj3GiXzTrEDECaCbNt6029K2Jh6AGOk7pX79olZXBSrN88yn3/kZw7djRFR23k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CGnKozlO; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1788947591; c=relaxed/simple;
+	bh=ZoLRYrhsi0rsdSeaR+606R03qSLubwt7gfupiCo9cfQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FdMwKqt+cC/kWz8avN77x7teM4Zb2q1CTbCTinHwmwfilwa0WimhK/g/Ky7QLHmN/6XkGeYtnrKTbOyvzLkY2JCRlyLgIO1UAZL4k9AsW0UUSMU/VD8QMLxsp0ak8V8w17wHYAqV65IM4DfIG9jEVrY8cNh0SbUh64ojRMNY/F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FNhYyLcY; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CGnKozlO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id CC3BD1A1A7B;
-	Wed,  9 Sep 2026 09:44:55 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8B5EB60448;
-	Wed,  9 Sep 2026 09:44:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DE30411C7AF71;
-	Wed,  9 Sep 2026 11:44:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1788947094; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=xxFbznEhAZfeywSFuyPBm4t7F5rpiDH6ysWr9B6AUuQ=;
-	b=CGnKozlOYqqcSG0ChL7uhiqNVGxfovumWhW5cx4pPMyONFltGfzCB4YgT/C+iQ0Y2q9SKr
-	kuGLAacjCePZn284Yyk2a3apc7bcDD8fsN69bmS5e+vqlhZUAl9wCYo2b6yrWECACEknc3
-	kXxiAWhkmDxyTd0Id1oKc+nJOF4dooWpKtjWSYic/xyKs9EYuNnfYJooC0+BPjfnH2PLAf
-	Cv0eTTOvaFJPeQ0oU4i0y2wP247VOqEu1aNMU1NZusMb3XcHN6uzp6dt0rB354h7gQIWCm
-	TFd44CxmuG8n8ZanQwWuv+iRC9VfdOjOJT3ohH4BsvI6Z73E+gS6iHwnvwqV7g==
-Date: Wed, 9 Sep 2026 11:44:49 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>, Herve Codina
- <herve.codina@bootlin.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
- Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
- Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Pascal Eberhard <pascal.eberhard@se.com>,
- Miquel Raynal <miquel.raynal@bootlin.com>, Thomas Petazzoni
- <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v4 2/4] clocksource/drivers: Add support for the Renesas
- RZ/N1 timers
-Message-ID: <20260909114449.1d1ff12d@bootlin.com>
-In-Reply-To: <20260721082952.215691-3-herve.codina@bootlin.com>
-References: <20260721082952.215691-1-herve.codina@bootlin.com>
-	<20260721082952.215691-3-herve.codina@bootlin.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FNhYyLcY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788947587;
+	bh=ZoLRYrhsi0rsdSeaR+606R03qSLubwt7gfupiCo9cfQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=FNhYyLcYk+pHG+NuCEBoN9Z9qL4DcRhrU+huzWhiidgEmeCWxspJXn7VJwZ/n0TJt
+	 hBnfmuUwE3ybYGY6GXbQD3iq2Q/ucPpom3qJSpa4w8ax2CP5F8lkk7VKIPj5QC2YQp
+	 +1Wr1BER27HnNb02KA28QvzTOz6zudDz1haVx88h08HrPtMMRT2RsvE9RKR3g3nXLN
+	 RpHf52dq9yke72Y+icPpIfFhsemJllPUfUz1TGqCHcBTB3qTLaiG1bB6J9W1fY3GpT
+	 Fa2jCs+2feOqQGIP1gNJhJfuvqW2cSgGw/DqWhZ50k4SSyNFndlDABnEj1WZLjTlWb
+	 cfVO5CvVgAKIA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id BA1F017E093B;
+	Wed, 09 Sep 2026 11:53:06 +0200 (CEST)
+Message-ID: <637ff670-1d12-479a-b35f-9d54b153a832@collabora.com>
+Date: Wed, 9 Sep 2026 11:53:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RESEND v2] dt-bindings: mediatek: hdmi-ddc: Correct the
+ compatibles for mt7623-mt8167
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+ linux-mediatek@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>, CK Hu <ck.hu@mediatek.com>,
+ Jitao shi <jitao.shi@mediatek.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260908184125.10916-1-l.scorcia@gmail.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260908184125.10916-1-l.scorcia@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Thomas, Daniel,
+On 9/8/26 20:41, Luca Leonardo Scorcia wrote:
+> The HDMI DDC driver for both mt7623 and mt8167 is actually the same as
+> mt8173-hdmi-ddc and the mt7623n.dtsi board include file already uses
+> mt8173-hdmi-ddc compatible as a fallback, but the documentation lists
+> them as separate entries. Correct the binding by adding the correct
+> fallback.
+> 
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-On Tue, 21 Jul 2026 10:29:48 +0200
-"Herve Codina (Schneider Electric)" <herve.codina@bootlin.com> wrote:
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 
-> The Renesas RZ/N1 timer block controller is the controller in charge of
-> timers available in the Renesas RZ/N1 SoCs family.
-> 
-> This controller handles 8 timers:
->   - 6 16-bit timers
->   - 2 32-bit timers
-> 
-> Each timer has its own interrupt, its own prescaler that can be used to
-> divide the clock by 25 and all of them can work in either one-shot or
-> periodic mode.
-> 
-> Signed-off-by: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
 > ---
->  drivers/clocksource/Kconfig      |  11 +
->  drivers/clocksource/Makefile     |   1 +
->  drivers/clocksource/timer-rzn1.c | 487 +++++++++++++++++++++++++++++++
->  3 files changed, 499 insertions(+)
->  create mode 100644 drivers/clocksource/timer-rzn1.c
+> Fixes the following dtbs_check error in mt7623n-rfb-emmc.dts and
+> mt7623n-bananapi-bpi-r2.dts:
 > 
-
-Sashiko as reported issues [0] and among them, I really don't know what to do.
---- 8< ---
-  [Severity: High]
-  Will using a 16-bit timer for the system clocksource break NO_HZ_IDLE?
-
-  Since the 16-bit timer is fed by a 1 MHz clock (clock_rate / 25), it will
-  wrap every ~65.5 milliseconds. Will this short wrap period force the core
-  timekeeping code to wake the system extremely frequently just to accumulate
-  time?
-
-  Would it be better to dedicate one of the available 32-bit timers to act
-  as the system clocksource and sched_clock?
---- 8< ---
-
-Those 32-bit timers are assigned by the driver code to per-cpu clockevent
-timers.
-
-I could use one of the 32-bit timers for clocksource and sched_clock but this
-also means the per-cpu clockevent timers will be 16-bit instead of 32-bit
-timers.
-
-Maintainers, what is better to do ?
-  a) 16-bit clocksource and sched_clock + 32-bit per-cpu clockevent timers
-or
-  b) 32-bit clocksource and sched_clock + 16-bit per-cpu clockevent timers
-
-[0] https://lore.kernel.org/all/20260721084351.CDA391F00A3A@smtp.kernel.org/
-
-Best regards,
-Hervé
+> i2c@11013000 (mediatek,mt7623-hdmi-ddc): compatible:
+>    ['mediatek,mt7623-hdmi-ddc', 'mediatek,mt8173-hdmi-ddc'] is too long
+> 
+>   .../bindings/display/mediatek/mediatek,hdmi-ddc.yaml  | 11 +++++++----
+>   1 file changed, 7 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+> index bd8f7b8ae0ff..966127e1ee63 100644
+> --- a/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+> +++ b/Documentation/devicetree/bindings/display/mediatek/mediatek,hdmi-ddc.yaml
+> @@ -15,10 +15,13 @@ description: |
+>   
+>   properties:
+>     compatible:
+> -    enum:
+> -      - mediatek,mt7623-hdmi-ddc
+> -      - mediatek,mt8167-hdmi-ddc
+> -      - mediatek,mt8173-hdmi-ddc
+> +    oneOf:
+> +      - const: mediatek,mt8173-hdmi-ddc
+> +      - items:
+> +          - enum:
+> +              - mediatek,mt7623-hdmi-ddc
+> +              - mediatek,mt8167-hdmi-ddc
+> +          - const: mediatek,mt8173-hdmi-ddc
+>   
+>     reg:
+>       maxItems: 1
 
