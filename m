@@ -1,45 +1,102 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1683A31F9BD;
-	Wed,  9 Sep 2026 19:01:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71553B3C05
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 19:06:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788980487; cv=none; b=Ug+ykopVYdJJWCf+cVHskChNtfYxL3ge9a5KkNAG7wnW8wLh4J6dAhypATJek9IM/m7Ns95kYyj/aEoUzM9OpLU7FzGGoY3Mf17274ldYPvfzRSc7OBuTChzR6KVTAJ8EV8SCKfH4Exih2s/IDQVuj41+yxvZdSmB6w4QXzPCus=
+	t=1788980807; cv=none; b=FO0NHrGo6XArYmxHeq7oqu/i2GI+kIFw7YEbaf56M9hQjVtuVC4EwR6YvOU+67qTEH22qEz/gKl7cCClf6mcrc3kuNesgePKSnuJCkipZH73ViPL99H8SpP99hq4jmujRrKYi3cjDNGjYjkfiDLHxckNzVgUjmyeWnBVsOeiS8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788980487; c=relaxed/simple;
-	bh=wOYpV9+kjOSeRztAds1dW6IO0mPN7/x23ns19noRwvw=;
+	s=arc-20240116; t=1788980807; c=relaxed/simple;
+	bh=YyKjRrENa2jqYzkE6b4VaoAexwD0Vzx+ljnaN+l9AoY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eqMun9bZhGnU7YYEIMKFbO9S25ostFeD/6FOC+sY2ceNa0z08VYJWZW4LZodsZZMDXIXIe0nONcCqQ2UjSIeisUvENfd9a6gB7ihUqE8A+Bu0ATuJE4PUWkpviGNd5ZspWPk1hh2rwdLBSW5TB+fUPnltXHp6K+mhiiWDxtygaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zOsDRFRz; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=rcqcVTcSm5OV7hi2YXt3fbxcdiLzoEX8j5YyzeigHlEQVSt/Asq1xn9ROcbABeZR1zQNhOEAGoSdVZx4Ci1RKCa06gR4V2Hjb+duIyUn3562it6HPfVC6RGL63lRzzvxuJtHQdpLjw8426F5Zqpyd1IlrgEooBt/n7Zppgdv/Sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RqIh4aSJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HcOIS6X5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zOsDRFRz"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=4B+JtYnaN3jovWrVTtixgnxDuklodZXdvo3NMICFkTo=; b=zOsDRFRzoTis9Dak8q3yKb9spD
-	Zu936BpafKqNr/usumC1wIe0kkMMbVPxVZ86J0GNMIhqCb8lXZPPsRmyqiQqwL1vwwftxToYdyyyw
-	e3mhS/tZHQMxKLRjd39l9GLMSTUfe7+m7q7JJM+OaYKCIrcxYJJDIUSK3FYj7RJ7e05g=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4NXm-004MfQ-A1; Wed, 09 Sep 2026 21:01:14 +0200
-Date: Wed, 9 Sep 2026 21:01:14 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Aleksei Sviridkin <f@lex.la>
-Cc: andrew+netdev@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ericwouds@gmail.com,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH net-next v2 0/7] net: mdio: an MDIO device driver for
- the Airoha EN8811H
-Message-ID: <44f163ed-8362-4aad-99c9-f8709dfbed76@lunn.ch>
-References: <20260908155707.4164559-1-f@lex.la>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RqIh4aSJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HcOIS6X5"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689IgPPv3140629
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 19:06:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=E+XR1BMyDeEa9EYabyzY1b90
+	OSvHsAhw5WOfhsjMWEA=; b=RqIh4aSJsBJJhjQyyoERwKmDQV68nY9nu4gVPW54
+	QxRKxjktF72bnvsW1vVXVgFg3maNHa2Scc0M8dyHs3jrwZboRe0e/qe7kDnYViMZ
+	CTI3a2ILQhvK6FO5QD3iOOr+KNfcAaejM0uI5onDZ5jeM857kQ2w2Ill/ww0Wue0
+	Dxk6PH7QWVc70HgSSJJYNPDhHJ9zjOxKSP9wOBs+ZUp7LXH7QCG3uqcNLu0ZHQfq
+	M0jo/FA8A1fbunmyU847R3NtoxT9+vDuA6DKSKJaN+RzN+bYYg9IQ4Ur3DH8YfGk
+	W3yRKoNPT4UJ+34dXnDGwhucivzGuZhgx+aHX8R7Zxp/dA==
+Received: from mail-ua1-f72.google.com (mail-ua1-f72.google.com [209.85.222.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg03h1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 19:06:44 +0000 (GMT)
+Received: by mail-ua1-f72.google.com with SMTP id a1e0cc1a2514c-9829a8b46a7so142772241.0
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 12:06:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788980804; x=1789585604; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=E+XR1BMyDeEa9EYabyzY1b90OSvHsAhw5WOfhsjMWEA=;
+        b=HcOIS6X59heNTsfLP6aSfLGAaKVSJXvSOk+zowmdge7gHLEwd6I2wd/Lq2wW+xWpjd
+         6CKGOrK+E9kkzjyb5KsU3KNdoTD0yN1o7U3ei43jBS5q/UM9cEc40tDyj/pZ9pW+FWey
+         nXrD2EpxF4nMlrCG2tK7udxIUGTlL7wIk3V8DLZF/Fop2c9NZDDrQ4/BvOggg5lhspLu
+         2OqApc79HdqGNfKWJppg4hrssUI1XZZ/6rqbfsBSd88+hXKBkV+daKvEEybbqAMpZBjt
+         4t1gLNxGH8Hzl35wXuG1rOOEuXgyDbQ82msvdzMKx74YQYUUJmS6MvlfCqSA6v/Ad93f
+         4pXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788980804; x=1789585604;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=E+XR1BMyDeEa9EYabyzY1b90OSvHsAhw5WOfhsjMWEA=;
+        b=ZA3qgO0N/Bpq+mWsJjaBXWP/WlGbu2Y0fa96Tp8vkcXJ3b4bgiNWAWuivfeyfdgGCm
+         6AOlnd4Foo+TFHxXFZzkvExoR2vecbE6nNnLAgw2FqjVTef+tbm/s/06qCyDP4a+DSGQ
+         w1csOhOQF0PWl/6T3Co8Lu4uLVzNguSeNO9yQJfe0RmnvZPP82a05fi+5GX53XvPAF50
+         qv+AdaCRl2eP91noATochuNI+gfdqpKgGXYitJF2npNo8nLiu3QJP867PusVoX280vrN
+         K08kJvqePdkcrkRjgtPOCxlUL58mBUwzw1HvOP+Zn+YphB9SgHwffYNVOxZHB22lOd/r
+         nk8A==
+X-Forwarded-Encrypted: i=1; AKwUvBzwdlUkaOSjazm3PAJiUxKDjS6dxpELfl4RgdCGMuX64HC6p8x2amu8bvWdym2Ivo0XyvoYD41zcLU8@vger.kernel.org
+X-Gm-Message-State: AFuF++krCLNmRdDZTDD4wXDYHR0uthMculhmZd/Q13m0yF9ijKKnz6Uc
+	RJaayXBS0IILhtwCEMfCOudH0wkSozXYnlw7bYAxloY9jEUpyKEpKSE1+VC5OxpA7zqxkPwGOGJ
+	yDSN4eirDQSHUVPFa6SGTSSgV2PueW2qC00uYzXcL0Jzyn+wmHzBAXzoLkFg9ozes
+X-Gm-Gg: AYBFou12N5knRZJAR2BBUPCo6ZglgGdUOg4qN9/1NHO2T1VLSa1kMCfAXWUZO4V48NX
+	9TekObf3YaKhkS0ySWKDRpIkys14+Hdkyb31L8/ZDwTM3/LFbnJK+u2ZGKLCWpppV+ws1P/Dz6S
+	UXqKx8xtroSlO4RAkRHQZ3qQmePnb5MCJnhBoyZ2r2nEz/rZHWixZdcDk/F7s0JbJ34Xd+MEsC4
+	4iUMemfMQiqF9zI48nqeXXjP4aQOjclnRbRO2Wf10nRZzRGuLRv3apm4WsM2KjDsFveqQFYABSg
+	CIGggMtBRsZRwpZF3MxyuUYVFD05atZn49tUKF7g1sYAmMqqS34WArbajghFhFaIIuvrriW2tNW
+	u3Lj1Pxak4I3x7jFPolOBn/BRuQJYMIL1H0Q6bcrO0EqXPyyc4Q+2b3jS5zLj0CHyXeXWABj9kw
+	aSGUyRSz+bKymN
+X-Received: by 2002:a05:6102:4191:b0:76f:eaa2:6fa7 with SMTP id ada2fe7eead31-79075874992mr2261908137.2.1788980803720;
+        Wed, 09 Sep 2026 12:06:43 -0700 (PDT)
+X-Received: by 2002:a05:6102:4191:b0:76f:eaa2:6fa7 with SMTP id ada2fe7eead31-79075874992mr2261880137.2.1788980803233;
+        Wed, 09 Sep 2026 12:06:43 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b61669aedesm4079194e87.10.2026.09.09.12.06.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 12:06:40 -0700 (PDT)
+Date: Wed, 9 Sep 2026 22:06:38 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Nazar Kompanets <xlie7669@gmail.com>, linux-arm-msm@vger.kernel.org,
+        netdev@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm8450: Add IPA node
+Message-ID: <kirwxhjjskimczzf7fv6go5b4j27qouqvj27n7vckd4vkr3rkd@tf2ugwqbp3kc>
+References: <20260909-sm8450-ipa-v2-0-2deb8b4e91a5@proton.me>
+ <20260909-sm8450-ipa-v2-3-2deb8b4e91a5@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,87 +105,105 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908155707.4164559-1-f@lex.la>
+In-Reply-To: <20260909-sm8450-ipa-v2-3-2deb8b4e91a5@proton.me>
+X-Authority-Analysis: v=2.4 cv=YZYodARf c=1 sm=1 tr=0 ts=6aa1ae44 cx=c_pps
+ a=ULNsgckmlI/WJG3HAyAuOQ==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=pGLkceISAAAA:8
+ a=yJmHqWV7plCzNz9V06cA:9 a=IT5BngQnVUfANsGC:21 a=CjuIK1q_8ugA:10
+ a=1WsBpfsz9X-RYQiigVTh:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIxMyBTYWx0ZWRfX7uFUnH+39E80
+ +AvzhRwItZOdBshAR03JAH4auwxIKgMRrvwJNE0jnPhKUeUk+NqHB1E7EThVaIhg9sITxo7kfXZ
+ OsXqS+ZNPEsM4oggEa29+d+GrqVhXL0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIxMyBTYWx0ZWRfXzPHuQjhQGN4w
+ A8MKnKjxKCzY3GY85NQcDOgWVNtU/MpFFKQy3mFvd1Hb83O3bSye8Lqfpgd7hEwsD1eUHk+V/00
+ bWI7IuEWPws33DBHiDIDO3imy0nP8Dc/x1XRu1Nf633paS3by8qWy2BOC6g0DmcNCHRgq0pKNDO
+ eHrN7ZR7ZYOppp+6BYwE9sg6QbF5wdYfy4BusPfbmpun8vK899/X+x7IZKMoXrDVgsuve9PvKBW
+ 4CHhxmYtxAY59t7mgTNTjfnwGZWK35pMN/fPCset02SpXt8OwpKaG2fDj7qj8fJZiaN/vlBJWy6
+ z5Phbp+NSQsh/AYt06mBebEQn4AAzIEgjEMwcnkNHeikZ/SrxAze8ElzKfsCregTfGjCPNbXRNr
+ QbrKeyyTv6W0BuqRGrsgXAX3zPShnGSPDFS6/OuNJCbX7rxAGulug+Fb/pt7Lz17jx9sUh4pWDE
+ uOXqIx8RLXi4cUxX/dA==
+X-Proofpoint-GUID: eLTNsSYi6G1RP9wXEpReaBhmeO6JkMOE
+X-Proofpoint-ORIG-GUID: eLTNsSYi6G1RP9wXEpReaBhmeO6JkMOE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
+ bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609090213
 
-On Tue, Sep 08, 2026 at 03:57:00PM +0000, Aleksei Sviridkin wrote:
-> The Airoha EN8811H answers its PHY ID from power-on, but it is an MD32
-> microcontroller until the host loads firmware into its volatile RAM.
-> Today one driver owns both roles: the PHY driver downloads the firmware
-> from .probe(), which works only when the files are readable by then and
-> leaves the reset line in the hands of a PHY node whose detach wipes what
-> was loaded.
-
-I think because you are sending this as RFC, the AI bots are ignoring
-it. I also think it is not getting build testing etc.
-
-> What I am asking:
+On Wed, Sep 09, 2026 at 03:11:39AM +0000, Esteban Urrutia wrote:
+> Add the description of the IPA block in the SM8450 SoC.
 > 
->  1. The binding lets software timing pick the topology: the same chip
->     on the same board is a plain PHY node when its firmware is in the
->     bootloader, and an MCU with a child bus when the firmware arrives
->     with the rootfs. Move the files into an initramfs and the
->     recommended description changes without a wire moving. The hardware
->     argument that does hold is narrower - the reset line belongs to the
->     MD32 core rather than to the PHY the firmware creates, and a PHY
->     node that owns it wipes the firmware on detach - and it argues for
->     the MCU node, not for the child bus. If the child bus has to be
->     justified by hardware too, I do not have that argument, and the
->     honest options are to describe the chip one way always, or to say
->     plainly in the binding that this is a driver model choice. Which
->     would you rather see?
+> Co-developed-by: Nazar Kompanets <xlie7669@gmail.com>
+> Signed-off-by: Nazar Kompanets <xlie7669@gmail.com>
+> Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+> ---
+>  arch/arm64/boot/dts/qcom/sm8450.dtsi | 59 +++++++++++++++++++++++++++++++-----
+>  1 file changed, 52 insertions(+), 7 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> index b8793482b181..95b6fd22a846 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> @@ -2625,6 +2625,47 @@ adreno_smmu: iommu@3da0000 {
+>  			dma-coherent;
+>  		};
+>  
+> +		ipa: ipa@3f40000 {
+> +			compatible = "qcom,sm8450-ipa";
+> +
+> +			reg = <0 0x3f40000 0 0x10000>,
+> +			      <0 0x3f50000 0 0x5000>,
+> +			      <0 0x3e04000 0 0xfc000>;
+> +			reg-names = "ipa-reg",
+> +				    "ipa-shared",
+> +				    "gsi";
+> +			iommus = <&apps_smmu 0x5c0 0x0>,
+> +				 <&apps_smmu 0x5c2 0x0>;
+> +
+> +			interrupts-extended = <&intc GIC_SPI 654 IRQ_TYPE_EDGE_RISING>,
+> +					      <&intc GIC_SPI 432 IRQ_TYPE_LEVEL_HIGH>,
+> +					      <&ipa_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
+> +					      <&ipa_smp2p_in 1 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names = "ipa",
+> +					  "gsi",
+> +					  "ipa-clock-query",
+> +					  "ipa-setup-ready";
+> +
+> +			clocks = <&rpmhcc RPMH_IPA_CLK>;
+> +			clock-names = "core";
+> +
+> +			interconnects = <&aggre2_noc MASTER_IPA 0 &mc_virt SLAVE_EBI1 0>,
+> +					<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_IPA_CFG 0>;
+> +			interconnect-names = "memory",
+> +					     "config";
+> +
+> +			qcom,qmp = <&aoss_qmp>;
+> +
+> +			qcom,smem-states = <&ipa_smp2p_out 0>,
+> +					   <&ipa_smp2p_out 1>;
+> +			qcom,smem-state-names = "ipa-clock-enabled-valid",
+> +						"ipa-clock-enabled";
+> +
+> +			sram = <&ipa_modem_tables>;
 
-One way to argue it is that the MDIO bus it connected to the MCU. The
-MCU, once booted, forwards the MDIO bus through to the PHY part of the
-package.
+No qcom,gsi-loader / memory-region ?
 
->  3. Removing the parent MDIO controller reaches this driver's remove
->     with the child PHY attached, and nothing pins the parent's owner.
->     Closing it wants a way for a bus to tell its PHYs' consumers to let
->     go, which is a phy-core change. The failed-resume path above wants
->     the same channel for "re-initialise" rather than "let go", so that
->     is two uses for one mechanism. Is it worth doing here?
+> +
+> +			status = "disabled";
+> +		};
+> +
+>  		usb_1_hsphy: phy@88e3000 {
+>  			compatible = "qcom,sm8450-usb-hs-phy",
+>  				     "qcom,usb-snps-hs-7nm-phy";
 
-Consider a normal setup, what happens when you remove the MDIO
-controller when the PHY is directly connected?  And look at what MDIO
-mux drivers do, which is not so different a use case.
 
->  4. MDIO_AIROHA_EN8811H sits in the "MDIO controller drivers" menu,
->     though it drives a device on a bus and not a controller. The
->     mdio-mux entries set the precedent, but say if you want it
->     elsewhere.
+Also the device is disabled by default. On which platform did you enable
+it? Is it supported upstream?
 
-It is fine. I would also add a select or depends on the PHY driver
-Kconfig stanza to link it to the MDIO_AIROHA_EN8811H driver.
-
->  5. The child bus accepts exactly one address, the one this node
->     occupies on the parent, and I do not think the schema can say so.
->     What it does say now is that a child named ethernet-phy@N is
->     validated as one, and that it must not carry reset-gpios or its
->     timings - the whole reason this node exists is that a PHY-node
->     reset is what phy_detach() asserts, and it erases the firmware.
->     What it cannot say is that a differently named child is refused:
->     mdio.yaml's own patternProperties evaluates any node@hex and its
->     additionalProperties: true admits the rest, so unevaluatedProperties
->     has nothing left to reject. Is prose enough for the address, and is
->     there an idiom I am missing for the rest?
-
-Prose is enough. And C code to catch DT authors who get it wrong. But
-you also need to be careful to not break backwards compatibility when
-the PHY driver is used alone.
-
->  6. include/linux/mdio/mdio-airoha-en8811h.h is named for the driver
->     that consumes it, while its four neighbours in that directory name
->     the driver that implements them - here the implementation is
->     drivers/net/phy/air_phy_lib.c. Where should this header live, and
->     should the MAINTAINERS entry that now claims it also claim the
->     library files it declares?
-
-The location is fine. MAINTAINERS need to list it. What you might want
-to do is list it twice, once in the PHY driver MAINTAINERS record, and
-again in the MDIO driver section. Any changes need to be coordinated
-in both, so all Maintainers should get notified.
-
-    Andrew
-
----
-pw-bot: cr
+-- 
+With best wishes
+Dmitry
