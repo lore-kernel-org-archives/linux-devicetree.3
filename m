@@ -1,249 +1,284 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F313B83E1
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 21:39:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9E13BA241;
+	Wed,  9 Sep 2026 21:47:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788989987; cv=none; b=ZJ4gyQO90vsJPzi5Avr9Htc6Gbfqgshcs9VMYth5VMlRuvszhwfehZ9xGHNDqOe6rVEfzKw6J9W8Wqtibq45Mr5fhUwxse74tSV/GO3vC9HZdRstZcHrHvLQwsaaaoWFigZMzg3xsJ4ZoGl+C0+IH7HpqWXsOQfKwa4N6/Ji0gY=
+	t=1788990436; cv=none; b=InIi2nd5d24pvNvxYE/GUS/6oUiuEudpGi3p7Fh4qvxTtWXF4KlA17HHmgXupRNI7n9w5GhCoJ+jgEFR1AOiq4CXLuBKk9y3G+IHXZMosI9XRMU3D66CFujEQWMmtquQznlP/Rv/QgbkauvWJLSmRGCKNgFunoeddAiUZgBv9a4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788989987; c=relaxed/simple;
-	bh=wW5ifA6n9tMS8z3mmmkMuM4S0IGyq4p4sAlmKv8OtA0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TUYMkHsLOsTLPg6WXqk5v/xysvaYLJUr9ZN2CJmOBOnnu0MTs5RxTLLX3UV7jhmpBSS0v9qVhBICj7M5QgkIjnG9+OtFzTgw+zRTNxWRnfOmir1BS57GEJsPjeU71nZ7YQPh8HLxnFtJHIuNQ7FT9gqX7oqX4xq3wCrAso6ORMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POYiFG4u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788990436; c=relaxed/simple;
+	bh=Oav56iHE9LAkQUO0YQDqj4BfY/L9HX4miqgxDpbrIbQ=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ZUdK4TQGHwkMgL4MJljdSVCOTGQ0DurlN2fFkf1QUtz2HBBB1NaZGXx6N2Xt7V0WQ92TKiMMHuS/pEwoxjjVGP3mumVXueC2WWB+c3vUrslnCILXXOIQQ6IKeqb1sd32+5yx/ibeNxAmEjjD+rwQlD9Yc+Xh4nvf5+0aF3SA04o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XvF+zqZp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POYiFG4u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2A451F000FF;
-	Wed,  9 Sep 2026 21:39:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XvF+zqZp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50A9D1F0089B;
+	Wed,  9 Sep 2026 21:47:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788989977;
-	bh=HWLRX46qflyUpgh/zwxDNfPiT21gsda8guLBjKTOXsE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=POYiFG4uI5kaS48SDseIsnV9q9XLQHcCaaaRuKqxQkUC7hTen27U/SY2FEJ5NX8Te
-	 mF9CFQmPYVqhdAiOBhmmkj+s7ARQhTK5pHFW5wn5/ukVnc8sOUCSkBiWt8ZryyWCHH
-	 jD7OzLZdgUfuneIrqAJyxOItO0qzM5q+7hGIXa0oF6o1ZrwvkEgAX0SegvQL3iuhE7
-	 5TXD4VgwsglQPh/IjnqE7u2HUcmbsdoru79YOyTMQ+VbZLxTvi3PKWCZA4Ibt18pxU
-	 lDH0aPUpldnOXKs9sDrm4LA/B1H3Ism/11ThEIToRgziDhYMbC2AfJOCTR7lgWzlp1
-	 9Vt94KwKESmxA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/5] iommu: Add Broadcom BCM2712 IOMMU driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Drake" <dan@reactivated.net>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260909-bcm2712-iommu-submit-v5-4-2539c52b249e@reactivated.net>
-References: <20260909-bcm2712-iommu-submit-v5-0-2539c52b249e@reactivated.net>
- <20260909-bcm2712-iommu-submit-v5-4-2539c52b249e@reactivated.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 21:39:36 +0000
-Message-Id: <20260909213936.B2A451F000FF@smtp.kernel.org>
+	s=k20260515; t=1788990425;
+	bh=IFR+HSUKYMe1MTegffKpRQhJblaCo7ANXcisz6wPPgM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=XvF+zqZpLKAX56jNU1JQm4dx34vpjc3LVhEEuh7U5uJIMD6bQGapyCOqeIsI4Geai
+	 glgxG343PhXqSyhShbXV6DvAZwqee8oPOux2zs4IbF98DYnJ6ZTO7LyIzq5Cmezaf2
+	 JPbo9hysCryH0Pb7zKPIQbjZkJR216aY6pVJriLkUmxcAEJgICjOw5f+P68nthAH6D
+	 7qL4cvJuCE0J/RAvO/gcl03fWMtAalXFTf/HkYNcX8dIu34jmwKHsDKfHbtnZqk98Y
+	 35Y3PjOHgWl1EYJl96awQFlLMS0K1OxjZO0pKEBYeoMZeIUOQWH1TxVOG4831JSBd9
+	 fJlhPnlMvFZoA==
+Subject:
+ Re: [PATCH net-next 2/9] net: phy: dp83867: add regulator supply management
+From: netdev-bot+sashiko@kernel.org
+To: mohd.anwar@oss.qualcomm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
+ konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Wed, 09 Sep 2026 21:47:03 +0000
+Message-ID: <178899042391.219967.303939015092483762@kernel.org>
+In-Reply-To: <20260904-shikra_ethernet-v1-2-a50765996035@oss.qualcomm.com>
+References: <20260904-shikra_ethernet-v1-2-a50765996035@oss.qualcomm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The driver incorrectly uses `generic_single_device_group` for mult=
-iple devices sharing a single translation domain, violating hardware isolat=
-ion semantics.
-- [High] Missing device link between the IOMMU and its cache device allows =
-Use-After-Free on device removal.
-- [High] Missing `.remove` callback leaves a dangling IOMMU device in the g=
-lobal list upon device removal.
-- [High] The `domain->geometry` structure is left uninitialized, restrictin=
-g the translation aperture to 0 and breaking TLB syncs.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
+
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
+
+- [High] The supplies are enabled from the PHY driver's ->probe callback,
+  which is structurally too late for the use case the commit message…
+- [Medium] dp83867_power_on() (drivers/net/phy/dp83867.c) treats a 0
+  return from devm_regulator_get_enable_optional() as "this rail was…
+- [Medium] dp83867_power_on() propagates every non--ENODEV error out of
+  dp83867_probe(), including -EPROBE_DEFER, which…
+
 --
 
-commit 7e5917775c64fe2961bd6b93fe8f1dd2a7a55a9d
-Author: Daniel Drake <dan@reactivated.net>
+net: phy: dp83867: add regulator supply management
 
-iommu: Add Broadcom BCM2712 IOMMU driver
+This adds dp83867_power_on(), called from dp83867_probe(), which walks four
+supply names, enables each one via devm_regulator_get_enable_optional(),
+and sleeps 200 ms if any of them returned success.
 
-This IOMMU translates memory access requests for the VC6 display
-pipeline and various multimedia devices in the Broadcom BCM2712 SoC used
-on Raspberry Pi 5.
-
-> diff --git a/drivers/iommu/bcm2712-iommu.c b/drivers/iommu/bcm2712-iommu.c
-> new file mode 100644
-> index 0000000000000..301855475c88b
-> --- /dev/null
-> +++ b/drivers/iommu/bcm2712-iommu.c
+> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+> index 88255e92b4cdb..e03b39fd080d1 100644
+> --- a/drivers/net/phy/dp83867.c
+> +++ b/drivers/net/phy/dp83867.c
 
 [ ... ]
 
-> +static int bcm2712_iommu_attach_dev(struct iommu_domain *domain,
-> +				    struct device *dev,
-> +				    struct iommu_domain *old)
+> @@ -719,9 +720,40 @@ static int dp83867_resume(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int dp83867_power_on(struct phy_device *phydev)
 > +{
-> +	struct bcm2712_iommu *mmu =3D dev_iommu_priv_get(dev);
-> +	struct bcm2712_iommu_domain *mydomain =3D to_bcm2712_domain(domain);
-> +	struct pt_iommu_bcm2712_hw_info info;
-> +	u32 default_page_pfn;
-> +	int ret =3D 0;
+> +	static const char * const supply_names[] = {
+> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+> +	};
+> +	struct device *dev = &phydev->mdio.dev;
+> +	u32 count = 0;
+> +	int i, ret;
 > +
-> +	/* all attached devices must belong to the same IOMMU instance */
-> +	if (mydomain->mmu !=3D mmu)
-> +		return -EINVAL;
+> +	for (i = 0; i < ARRAY_SIZE(supply_names); i++) {
+> +		ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
+> +		if (!ret)
+> +			count++;
+> +		else if (ret != -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable %s supply\n",
+> +					     supply_names[i]);
+> +	}
+
+[Severity: Medium]
+This propagates -EPROBE_DEFER out of dp83867_probe(), which
+devm_regulator_get_enable_optional() returns when the phandle resolves but
+the regulator provider has not registered yet.
+
+Can that deferral end up with genphy bound instead?  In
+phy_attach_direct(), if the MAC attaches the PHY while the dp83867 probe is
+still deferred:
+
+drivers/net/phy/phy_device.c:phy_attach_direct() {
+	...
+	if (!d->driver) {
+		if (phydev->is_c45)
+			d->driver = &genphy_c45_driver.mdiodrv.driver;
+		else
+			d->driver = &genphy_driver.mdiodrv.driver;
+
+		phydev->is_genphy_driven = 1;
+	}
+	...
+	if (phydev->is_genphy_driven) {
+		err = d->driver->probe(d);
+		if (err >= 0)
+			err = device_bind_driver(d);
+	...
+}
+
+Once genphy is bound, does the deferred retry still get a chance to bind
+dp83867, or does __device_attach() return early because dev->driver is
+already set?  If it is the latter, the port links with none of the
+DP83867-specific setup (RGMII internal tx/rx delays, tx/rx FIFO depth, IO
+impedance, clk-output-sel, rxctrl strap quirk) and nothing is logged.
+
+Would it be worth mentioning the new probe-deferral point in the commit
+message?
+
 > +
-> +	scoped_guard(spinlock_irqsave, &mmu->hw_lock) {
-> +		if (mmu->domain =3D=3D mydomain)
-> +			break;
+> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
+> +	if (count)
+> +		fsleep(200000);
 > +
-> +		/* Configure translation aperture */
-> +		bcm2712_iommu_writel(mmu, MMMU_ADDR_CAP_OFFSET,
-> +				     MMMU_ADDR_CAP_ENABLE |
-> +					     (domain->geometry.aperture_end >>
-> +					      ADDR_CAP_SHIFT));
-
-[Severity: High]
-Is domain->geometry.aperture_end left uninitialized here?
-
-In bcm2712_iommu_domain_alloc(), domain is allocated with kzalloc_obj(), wh=
-ich
-zeroes the structure, but geometry.aperture_end is never explicitly initial=
-ized.
-
-Would this configure a 0-sized translation aperture when writing to the
-hardware register?
-
-> +
-> +		/*
-> +		 * When the IOMMU handles a request, it adds the
-> +		 * PT_PA_BASE_OFFSET to (IOVA>>32) to calculate the PFN of the
-> +		 * corresponding L1 directory page.
-> +		 * IOVA bits [31:22] are then used to fetch the L1 descriptor
-> +		 * within (which in turn points to the L2 table).
-> +		 * This clever logic would allow for a L1 table larger than 4kb
-> +		 * (and hence a larger aperture).
-> +		 */
-> +		pt_iommu_bcm2712_hw_info(&mydomain->pt, &info);
-> +		bcm2712_iommu_writel(mmu, MMMU_PT_PA_BASE_OFFSET,
-> +				     info.pt_base >> IOMMU_PAGE_SHIFT);
-
-[Severity: High]
-Can this violate IOMMU isolation and corrupt DMA?
-
-The hardware seems to share a single translation table across all connected
-devices, as noted in the commit message. However, the driver configures
-.device_group =3D generic_single_device_group, allowing the IOMMU framework=
- to
-assign a unique group and potentially a different domain to each device.
-
-When bcm2712_iommu_attach_dev() is called for a subsequent device, won't it
-unconditionally reprogram the shared MMMU_PT_PA_BASE_OFFSET register, silen=
-tly
-hijacking and breaking DMA translations for previously attached devices?
-
-[ ... ]
-
-> +static void bcm2712_iommu_sync_all(struct iommu_domain *domain)
-> +{
-> +	size_t aperture_size =3D domain->geometry.aperture_end -
-> +			       domain->geometry.aperture_start + 1;
-> +
-> +	bcm2712_iommu_sync_range(domain, domain->geometry.aperture_start,
-> +				 aperture_size);
+> +	return 0;
 > +}
 
-[Severity: High]
-Since domain->geometry.aperture_end is uninitialized and zero, wouldn't
-aperture_size evaluate to 1 byte, failing to invalidate the full TLB mappin=
-g?
+[Severity: Medium]
+Does count actually track "newly enabled" supplies?  The commit message says
 
-[ ... ]
+  "Absent supplies are silently skipped, so boards that do not describe
+  them are unaffected."
 
-> +static struct iommu_domain *bcm2712_iommu_domain_alloc(struct device *de=
-v)
-> +{
-> +	struct bcm2712_iommu *mmu =3D dev_iommu_priv_get(dev);
-> +	struct bcm2712_iommu_domain *domain;
-> +	struct pt_iommu_bcm2712_cfg cfg =3D {};
+and
+
+  "When any supply is newly enabled the driver sleeps for 200 ms"
+
+but with CONFIG_REGULATOR=n the stub never returns -ENODEV:
+
+include/linux/regulator/consumer.h {
+	static inline int devm_regulator_get_enable_optional(struct device *dev,
+							     const char *id)
+	{
+		return 0;
+	}
+}
+
+so count becomes 4 on every probe, including boards that describe no
+supplies at all, and fsleep(200000) takes the msleep() branch:
+
+include/linux/delay.h:fsleep() {
+	...
+	else
+		msleep(DIV_ROUND_UP(usecs, USEC_PER_MSEC));
+}
+
+The driver has no depends on REGULATOR and no IS_ENABLED(CONFIG_REGULATOR)
+guard, so isn't this a plain 200 ms stall per DP83867 probe for all existing
+users?
+
+The CONFIG_REGULATOR=y case looks similar for an already-on rail:
+
+drivers/regulator/devres.c:_devm_regulator_get_enable() {
+	r = _devm_regulator_get(dev, id, get_type);
+	if (IS_ERR(r))
+		return PTR_ERR(r);
+
+	ret = regulator_enable(r);
+	...
+}
+
+regulator_enable() is reference counted and returns 0 for a rail already
+enabled by the bootloader, by regulator-always-on/boot-on, or by another
+consumer, so no ramp happens yet the 200 ms "post power-up stabilization"
+delay is still paid.  Should the delay instead be gated on something that
+reflects an actual off to on transition?
+
+>  static int dp83867_probe(struct phy_device *phydev)
+>  {
+>  	struct dp83867_private *dp83867;
 > +	int ret;
 > +
-> +	domain =3D kzalloc_obj(*domain);
-> +	if (!domain)
-> +		return NULL;
+> +	ret = dp83867_power_on(phydev);
+> +	if (ret)
+> +		return ret;
 
 [Severity: High]
-Does this code miss initializing the domain->base.geometry fields, which
-results in the issues pointed out in bcm2712_iommu_attach_dev() and
-bcm2712_iommu_sync_all()?
+Can the rails ever be enabled from here on the boards this targets?  The
+commit message describes boards that "use GPIO-controlled regulators for the
+DP83867 power rails", but drv->probe() only runs after the PHY has already
+answered MDIO ID reads during bus enumeration:
 
-[ ... ]
+of_mdiobus_register()
+  __of_mdiobus_parse_phys()
+    of_mdiobus_register_phy()
+      fwnode_mdiobus_register_phy()
+        get_phy_device()
+          get_phy_c22_id()
 
-> +static const struct iommu_ops bcm2712_iommu_ops =3D {
-> +	.identity_domain     =3D &bcm2712_identity_domain,
-> +	.domain_alloc_paging =3D bcm2712_iommu_domain_alloc,
-> +	.probe_device        =3D bcm2712_iommu_probe_device,
-> +	.device_group        =3D generic_single_device_group,
-> +	.get_resv_regions    =3D iommu_dma_get_resv_regions,
-> +	.of_xlate            =3D bcm2712_iommu_of_xlate,
-> +};
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
+	is_c45 = fwnode_device_is_compatible(child, "ethernet-phy-ieee802.3-c45");
+	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+		phy = get_phy_device(bus, addr, is_c45);
+	else
+		phy = phy_device_create(bus, addr, phy_id, 0, NULL);
+	...
+}
 
-[Severity: High]
-Does configuring generic_single_device_group incorrectly isolate devices th=
-at
-share a single hardware translation table, leading to the domain hijacking =
-in
-bcm2712_iommu_attach_dev()?
+Unless the DT child carries an explicit ethernet-phy-idAAAA.BBBB compatible,
+an unpowered DP83867 does not answer and the address is simply skipped:
 
-[ ... ]
+drivers/net/mdio/of_mdio.c:__of_mdiobus_parse_phys() {
+	...
+	if (rc == -ENODEV)
+		dev_err(&mdio->dev,
+			"MDIO device at address %d is missing.\n",
+			addr);
+	...
+}
 
-> +static int bcm2712_iommu_init_cache(struct bcm2712_iommu *mmu,
-> +				    struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +
-> +	struct device_node *cache_np __free(device_node) =3D
-> +		of_parse_phandle(dev->of_node, "brcm,iommu-cache", 0);
-> +	if (!cache_np)
-> +		return dev_err_probe(dev, -ENOENT,
-> +				     "missing brcm,iommu-cache property\n");
-> +
-> +	struct platform_device *cache_pdev __free(platform_device_put) =3D
-> +		of_find_device_by_node(cache_np);
-> +	if (!cache_pdev)
-> +		return dev_err_probe(dev, -EPROBE_DEFER,
-> +				     "waiting for cache device\n");
-> +
-> +	mmu->cache =3D platform_get_drvdata(cache_pdev);
+There is no deferred retry for that address, so dp83867_probe() and
+dp83867_power_on() never run and the GPIO regulator is never enabled.
 
-[Severity: High]
-Does this leave a dangling pointer if the cache device is unbound?
+For the case where the PHY is found (rail already on at boot, or the ID
+hard-coded in DT), reset release and register writes happen before the
+supplies are touched:
 
-The reference to cache_pdev is automatically put when leaving this function
-due to __free(platform_device_put), and no device link is established.
+drivers/net/phy/phy_device.c:phy_device_register() {
+	/* Deassert the reset signal */
+	phy_device_reset(phydev, 0);
 
-If the cache device is dynamically destroyed, its devres allocations will be
-freed, leaving mmu->cache pointing to freed memory which could cause a
-use-after-free during a TLB flush.
+	/* Run all of the fixups for this PHY */
+	err = phy_scan_fixups(phydev);
+	...
+}
 
-[ ... ]
+drivers/net/phy/phy_device.c:phy_probe() {
+	/* Deassert the reset signal */
+	phy_device_reset(phydev, 0);
 
-> +static struct platform_driver bcm2712_iommu_driver =3D {
-> +	.driver	=3D {
-> +		.name		     =3D "bcm2712-iommu",
-> +		.of_match_table	     =3D bcm2712_iommu_of_match,
-> +		.suppress_bind_attrs =3D true,
-> +	},
-> +	.probe	=3D bcm2712_iommu_probe,
-> +};
+	if (phydev->drv->probe) {
+		err = phydev->drv->probe(phydev);
+	...
+}
 
-[Severity: High]
-Can removing the device cause a use-after-free in the IOMMU subsystem?
+Nothing in the new code re-asserts reset or re-applies configuration after
+the rails stabilise, so does the part end up programmed while unpowered and
+then left at POR/strap defaults?
 
-Because this driver registers the IOMMU device using iommu_device_register()
-but does not provide a .remove callback, iommu_device_unregister() is never
-called.=20
+Grepping for regulator under drivers/net/mdio/ and in
+drivers/net/phy/mdio_bus.c turns up only the mdio-sun4i controller's own
+supply, so should rail control for a device that must answer MDIO during
+enumeration be handled before/at bus registration, or the rails described as
+regulator-always-on/boot-on in DT, rather than in the PHY driver probe?
 
-If the platform device is removed, the driver core frees the devm_kzalloc
-allocated struct bcm2712_iommu, but it remains in the global iommu_device_l=
-ist,
-leading to a use-after-free when traversed by other parts of the kernel.
+>  
+>  	dp83867 = devm_kzalloc(&phydev->mdio.dev, sizeof(*dp83867),
+>  			       GFP_KERNEL);
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-bcm2712-io=
-mmu-submit-v5-0-2539c52b249e@reactivated.net?part=3D4
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260904-shikra_ethernet-v1-0-a50765996035%40oss.qualcomm.com
