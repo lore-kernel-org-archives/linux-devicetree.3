@@ -1,207 +1,87 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2095838DC71
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 18:05:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E44A367F25;
+	Wed,  9 Sep 2026 18:12:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788977105; cv=none; b=VcrR0d/i0v5lgAG7cEYvUFuAhyBLAa1HmynuquPlaJBcrZasIS6peRoEMqGMsjuHGGHPz6yFahUHJ7NKy2wizhcgdIGrJVDzsXJm0tBNm1NTtHgmb8uADY1HI8W/sZLHHwV7gClx/0ZSuLw2UPn8hFhOQ/MIj92YiQMRHyxYaEw=
+	t=1788977528; cv=none; b=ioNlIy+pw+CrNFAu3QUBUD33LXVlvgVux4o6AS8alqON3EyjQEya+tPMWZtfSvit2eyHLF/JSnPQWRlD3PtaMgfBe8viNchuaI65qBuHv0/tVCv/CEIzkSj5idRaPcuQ919QYHJ5xRv2tUNRCLbJn94msml9ur3Hfp755VHverU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788977105; c=relaxed/simple;
-	bh=QG0AT3+mb6FrbZ9x9E6LCK3X/iginCERwfdb3AFxZtc=;
+	s=arc-20240116; t=1788977528; c=relaxed/simple;
+	bh=9zPZ6G7kkcAtdLbZg+dhbXdH7HfF9/56YhLkUXcpxg4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f5p5QyxmUVWPWpcoBaBfaWSB1OXGcEUf95nNNc96VJJe2zkgLFVJmhAQjHHP/2qncNHXX4paFX/NSDUMyPCIXvaf70GPmqIgACbt/nxwMbZQcLITq1kuRWze/g70P1lVm44FtV/3w3EQLB1SB+qSnSl4P/Ammg644zA/F1NOXgQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F2+L1A0f; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=fzWP4EDfXhwFomuNdu0t33LijcIB66PopctKfDY0KzZB1TUTcPzMMh7aw/nl4tkIjf/y1DosAwUcgojb4+7dUGaZYyfkrBAfEBBVjmwWz1yUYNfHgsdP57QXL/yN+9YBiSx5M1p8ZG3nzR3HSmBzi69lbDRhe/f69lCXLQDRnpk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVHaBX5H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F2+L1A0f"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso75597075e9.0
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 11:05:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788977102; x=1789581902; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/gxRIKfR1A0u5wLZR5CYHmnf41/Q9xKi2b6NUWXwby4=;
-        b=F2+L1A0fnvvgoI2PYk8O1hf/MpYtr+TpWiKb3O2FyKwVLmgPxtmskOr0TbaR9//rNq
-         dIQG++JnWdiWFC5jeR0ZspwOFtcjynTd9836oW2ibnuHp2A56M544W6Dx647HU4srH14
-         E1dN8SUEVY/SR1K09P5X5AI8+S6SvKQgVooV5W/tQlXALJeby9Moe/E+78GdGoQNAgw7
-         UaW9ezwR3PpEx1VwmLriFD9hvYktliI0csKwxM1NqRQqC0+bP9gW53VnFGWzfVJqwpnV
-         laJxaQyVST0cDdFFk4zLxHbXVA2npAaiFJfTXAt++pbfvqiPgXJYctePMlb6k89gWKx4
-         1cLw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788977102; x=1789581902;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=/gxRIKfR1A0u5wLZR5CYHmnf41/Q9xKi2b6NUWXwby4=;
-        b=pcqeYcy3wiE3/fSNsV8ZaAxvHxKSzQH3I4qyPxYIeyIUDAroXfuWnno4Wq4fgfKK8h
-         RJwkz35zv1UMCB2dC3Um0iclpqp+x5uw+Xp/qQ85MBatOv+mxy6n3QbT6FrwTMTYfeQy
-         AW0mBl7doQvdS2n8VauzyudHchImy/yg58dtjlkpjdQe8bjhaXGmlElzPltwBrCCL2pe
-         1y01vMZ6sz45ulBJh5jzVDp8LmhRMOkQTnYuaOYKCZmklXJVw+IrPWhmp0i8iCvrhQBU
-         ehSL89ZiPPvNBG2pB6EWN6Y2aJs0ClmCXLTiG7tv1nqkg4Rg2ezupfzDq1LhyvqjQ5S8
-         waFw==
-X-Forwarded-Encrypted: i=1; AKwUvByNYr89eYu25IzqVmILgv/7tU4/JJw7/g7fDn5eVHnEzgh3gi0uYsCwIUR2YxWMfLuwBnWI7RJrN3cq@vger.kernel.org
-X-Gm-Message-State: AFuF++lG6wF6XiiUaM2+VJb8xQYso/GuujQHyvyPdX/yxFBMMBeLMC1d
-	PgWQqkII7qAE0HpxNqzVDjr9fptrJADh6n02t95S//15GPEKR3qIZWG0
-X-Gm-Gg: AYBFou3SpYQBzOd4O5Oq+VmvQiOLFLvudZB5t56H1kCCb08wod26e1shdniAWhqkqiE
-	fu93jiu/y25M/fyfBz28QIJSasm9diecUGEd8eBBhFrwWxrJFqFXaFpBF/7cfOVErp00LK115YH
-	KGjD0r9W1ebcOUOlLrAp9B6wQvSoNJinb5D0X7WB110p6R1NHGVVFqPaMAdRTvQHvq/UyYM6RRj
-	zepRnXe43TsG1lDPIYAY4vdHaGdN2+x5MLmWOKVjM4Xv/HLWFTBMWDKCFP/v18LHJaRFGf0lGBP
-	tbWXBj1fESs+u/XWQMaxNfAwIryjX7pwq7+pm5mOP3ioRSu+ovE/du46eeYLaaQAdjkftHh/9j8
-	6bsSXAZsyJ7X6GGd6bZ3Zf7XfVsE/2vY8AaiLTk65e/4RCY3A1gPEuOWVocMIWavfu/3xkIgnGA
-	vXmgYKYujgYHFQv8zEPVFCnsUIHxfPuLeh3UgZMWE3RHHs5j1Ou1PhgLm/HTOv7ntW1cBMg9q1
-X-Received: by 2002:a05:600c:c173:b0:49c:cedc:3c36 with SMTP id 5b1f17b1804b1-49cf82a514cmr387988585e9.16.1788977102076;
-        Wed, 09 Sep 2026 11:05:02 -0700 (PDT)
-Received: from antoniarch ([37.163.183.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26bc08edsm4882485e9.3.2026.09.09.11.05.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 11:05:01 -0700 (PDT)
-Date: Wed, 9 Sep 2026 20:03:14 +0200
-From: Antoni Pokusinski <apokusinski01@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: linux-rtc@vger.kernel.org, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v6 7/9] rtc: abx80x: replace read-modify-write pattern
- with regmap helpers
-Message-ID: <aqGfFsFxy6LtKMjH@antoniarch>
-References: <20260907203216.53192-1-apokusinski01@gmail.com>
- <20260907203216.53192-8-apokusinski01@gmail.com>
- <20260907204635.27AB71F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVHaBX5H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C6B1F000FF;
+	Wed,  9 Sep 2026 18:12:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788977527;
+	bh=66ShHtkoMTqityLdxEunWRMs889mzaL4MtS8HVOIhP4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iVHaBX5Hxhx6vTNrkbqFgFE5mWoktO8KBSBgb7yjYEJRgSwGtggnfROuprHtTtOhY
+	 Lz+1RmzSkRnMiU7S9PyG9gbAau90MTg5oxM5VVklzeLDGZnJMmgJI3/Q3Rj4kPk0+9
+	 WGLQWxYvKlumW6Q6YOsFNSqUSLXvcwtj2wf+QaqayvGwFFPr/zijE06YcHPBN1vvAM
+	 qTnaJLqhv/wSbIECP2kre2qqh00K2kQ/tfibhliDhUOFB17Va8S4fzQCxNm5ln/1Ti
+	 5M+HMQ/I4SQ+3mqrirXLwzTJZj0l+VwtWpe10tJIUb6tuxC9C5JqYVgjvWk0KgpQV9
+	 PH7mu3fzQk2vQ==
+Date: Wed, 9 Sep 2026 19:12:01 +0100
+From: Simon Horman <horms@kernel.org>
+To: Esteban Urrutia <esteuwu@proton.me>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Nazar Kompanets <xlie7669@gmail.com>, linux-arm-msm@vger.kernel.org,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v2 0/3] SM8450 IPA support
+Message-ID: <20260909181201.GL40544@horms.kernel.org>
+References: <20260909-sm8450-ipa-v2-0-2deb8b4e91a5@proton.me>
+ <fa9794e3-d79e-4d77-8166-492d992154b4@proton.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260907204635.27AB71F00A3D@smtp.kernel.org>
+In-Reply-To: <fa9794e3-d79e-4d77-8166-492d992154b4@proton.me>
 
-On Mon, Sep 07, 2026 at 08:46:34PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] Refactoring to `regmap_write_bits()` and `regmap_update_bits()` breaks the hardware register unlock sequence by inserting an implicit I2C read transaction.
-> --
+On Wed, Sep 09, 2026 at 03:12:51AM +0000, Esteban Urrutia wrote:
+> On 9/9/26 12:10 AM, Esteban Urrutia wrote:
+> > This series has been tested on the following SoCs:
+> > - SM7475
+> > - SM8450
+> > - SM8475
+> > In these the modem works as expected and no crashes occur.
 > 
-> commit 46c86d8ff37edcfaf17e15de29d0c3426614da35
-> Author: Antoni Pokusinski <apokusinski01@gmail.com>
-> Date:   Mon Sep 7 20:32:14 2026 +0000
-> 
->     rtc: abx80x: replace read-modify-write pattern with regmap helpers
->     
->     Before introducing the regmap usage in the driver, updating specific
->     bits of a register was performed using the read-modify-write pattern.
->     Now, the functions regmap_update_bits() and regmap_write_bits() can
->     be used to simplify the code.
-> 
-> > diff --git a/drivers/rtc/rtc-abx80x.c b/drivers/rtc/rtc-abx80x.c
-> > index 7b8e6546ccffc..b1d8d5a5ddcf0 100644
-> > --- a/drivers/rtc/rtc-abx80x.c
-> > +++ b/drivers/rtc/rtc-abx80x.c
-> [ ... ]
-> > @@ -405,13 +390,15 @@ static int abx80x_rtc_set_autocalibration(struct device *dev,
-> >  		flags |= (ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512);
-> >  	}
-> >  
-> > +	guard(mutex)(&priv->lock);
-> > +
-> >  	/* Unlock write access to Oscillator Control Register */
-> >  	if (abx80x_write_config_key(dev, ABX8XX_CFG_KEY_OSC) < 0)
-> >  		return -EIO;
-> >  
-> > -	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
-> > -
-> > -	return retval;
-> > +	return regmap_write_bits(priv->regmap, ABX8XX_REG_OSC,
-> > +				 ABX8XX_OSC_ACAL_1024 | ABX8XX_OSC_ACAL_512,
-> > +				 flags);
-> >  }
-> 
-> [Severity: High]
-> Does this implicit read within regmap_write_bits() reset the hardware unlock
-> key?
->
-No, because reads do not cause configuration key reset.
-Same thing for all the comments below. 
-> Because the driver does not use a regmap cache (REGCACHE_NONE), calling
-> regmap_write_bits() or regmap_update_bits() will perform an implicit I2C
-> read before the write. 
-> 
-> In abx80x_rtc_set_autocalibration(), any I2C transaction occurring after the
-> unlock key is written might reset the hardware protection state machine, causing
-> the subsequent write to fail.
-> 
-> [ ... ]
-> > @@ -488,24 +474,14 @@ static ssize_t oscillator_store(struct device *dev,
-> >  
-> >  	guard(mutex)(&priv->lock);
-> >  
-> >  	/* Unlock write access on Oscillator Control register */
-> >  	if (abx80x_write_config_key(dev->parent, ABX8XX_CFG_KEY_OSC) < 0)
-> >  		return -EIO;
-> >  
-> > -	retval = regmap_write(priv->regmap, ABX8XX_REG_OSC, flags);
-> > -	if (retval < 0) {
-> > +	retval = regmap_write_bits(priv->regmap, ABX8XX_REG_OSC, ABX8XX_OSC_OSEL,
-> > +				   rc_mode == 0 ? 0 : (ABX8XX_OSC_OSEL));
-> > +	if (retval < 0)
-> >  		dev_err(dev, "Failed to write Oscillator Control register\n");
-> >  
-> >  	return retval ? retval : count;
-> 
-> [Severity: High]
-> Does this have the same issue with the implicit read voiding the unlock
-> sequence? 
-> 
-> The sysfs update to ABX8XX_REG_OSC might silently fail here.
-> 
-> [ ... ]
-> > @@ -948,8 +891,14 @@ static int abx80x_probe(struct i2c_client *client)
-> >  		if (abx80x_write_config_key(&client->dev, ABX8XX_CFG_KEY_MISC) < 0)
-> >  			return -EIO;
-> >  
-> > -		err = regmap_write(regmap, ABX8XX_REG_OUT_CTRL,
-> > -				   data | ABX8XX_OUT_CTRL_EXDS);
-> > +		/*
-> > +		 * Avoid extra power leakage. The RV1805 uses smaller
-> > +		 * 10pin package and the EXTI input is not present.
-> > +		 * Disable it to avoid leakage.
-> > +		 */
-> > +		err = regmap_write_bits(regmap, ABX8XX_REG_OUT_CTRL,
-> > +					ABX8XX_OUT_CTRL_EXDS,
-> > +					ABX8XX_OUT_CTRL_EXDS);
-> >  		if (err < 0) {
-> >  			dev_err(&client->dev,
-> >  				"Unable to write output control register\n");
-> 
-> [Severity: High]
-> Can the RV1805 specific output control configuration fail here?
-> 
-> Similar to the oscillator register, writing to ABX8XX_REG_OUT_CTRL requires an
-> unlock key sequence that could be broken by the implicit I2C read.
-> 
-> [ ... ]
-> > @@ -1026,11 +961,10 @@ static int abx80x_probe(struct i2c_client *client)
-> >  	if (abx80x_write_config_key(client, ABX8XX_CFG_KEY_OSC) < 0)
-> >  		return -EIO;
-> >  
-> > -	err = regmap_write(regmap, ABX8XX_REG_OSC,
-> > -			   data & ~(ABX8XX_OSC_ACIE |
-> > -				    ABX8XX_OSC_OFIE));
-> > +	err = regmap_write_bits(regmap, ABX8XX_REG_OSC,
-> > +				ABX8XX_OSC_ACIE | ABX8XX_OSC_OFIE, 0);
-> >  	if (err < 0) {
-> > -		dev_err(&client->dev, "Unable to write Oscillator Control register\n");
-> > +		dev_err(&client->dev, "Unable to update Oscillator Control register\n");
-> >  		return -EIO;
-> >  	}
-> 
-> [Severity: High]
-> Will oscillator control initialization at probe time fail due to the injected
-> read?
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260907203216.53192-1-apokusinski01@gmail.com?part=7
+> I forgot to mention that this series depends on the following patch:
+> https://lore.kernel.org/all/20260909-ipa-modem-drop-v1-1-0c9664f09c4a@proton.me/
+
+Our CI isn't smart enough to pick up dependencies.
+So you'll need to repost once that patch is present in net-next.
+As is, patch 2/3 fails to build.
+
+Also, I think the patch-set needs to be split up somehow
+so the networking portions can be accepted into net-next
+while the other patches go via a different subsystem.
+
+For the net-next portion, please set the target tree in the subject
+like this:
+
+Subject: [PATCH v3 net-next] ...
+
+For more information on the Netdev development process, please see:
+https://docs.kernel.org/process/maintainer-netdev.html
+
+-- 
+pw-bot: changes-requested
