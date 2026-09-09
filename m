@@ -1,188 +1,234 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A603338B7D2;
-	Wed,  9 Sep 2026 17:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A5E03921C6
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 18:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788976775; cv=none; b=QTRGYIvAoqCogixgDoP3JkzKaaUK9A1kxexw8r9IQyIS8w1NxyoFxzNaO3syoKdI2ugHlaTvxMdNbv8/C/m8pBicFaC5f9uURKwgoEnC1dXBAh80ctDUq4XIAMfio/7gNth8XUMFusAFA0rhGeqHWXjYU68y8Z0tEBfFh7doztk=
+	t=1788976802; cv=none; b=HOxBufA7Y3Uurf4ynAwsAMu8e0j8TCLfF0eTb4i5J1zHON43kst2MERZ0YVKD/aSdpATUHNHKoDFTVolFkheESv1JJ4YxSYOR9sUalocfAC+aZaWfTjwu8vi8BF1GtbtvMs6CCHroXeD5o3SuvgWUcKCvYD0nNuiR/z45NKpqbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788976775; c=relaxed/simple;
-	bh=XTIMQpXomokQSAIIs7mFutwU8DsOr98NPWE7+vTdTvU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l3rdeeBDP8tCRs7iTRY72im23F6gu2+Bd9sQ3Nrn9VyBWBdxOqeKml8oamQk8ObWSvKnZmMsrEDxWWaI1ncDgIc3LcfPyDjyPyLemAATmDO6W9PiBpbvKsieS+bbe6YkpYQ8NABlM7HWf5W6rPIZiybhlKo4BsOOlmL8bFJfpVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=rK3zkgqX; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=NLgzHMOE; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1788976802; c=relaxed/simple;
+	bh=Gb/c4t7QF9QkmzIh6GwcR/d33OMUnxNBxN+I7+8XwFU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MPMXLARWDShhlcmp98mgR6NfwzO5tboB90wTiiGu0vk0vA2ZDmf9ap3WjBCxLhlxEUgkVT1lxJxyfy8FnIXHKrouWwW+VnrGK7sU5HWRtpem4iX8xjFYKWlUAFsP9s4JPgI8/C1DTca98jvklW2qcpLGKsqlLvspDnkEgrJ0maU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TN7zUHWm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="rK3zkgqX";
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="NLgzHMOE"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hg7qP42yrzMlNW;
-	Wed, 09 Sep 2026 19:59:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788976769;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=zvZ+RLpuQp0o+qwBeKx2vcHy6+eRYrcr7uYrRT9pD6Y=;
-	b=rK3zkgqXllSJUp2FxHGWLF6yxHGrXqT9haUOZ4DYKx4aD33YCI9JBmLIyCm77X1tk9TSC5
-	L1tXvMee8PZgffYlepKVj34XNRsIGheckhHGFjRdpFCO5WgLW06gTYLTJDVkCVRiv6lWZ2
-	4yosVS+X/giwj39itTXjNAwjVFtj6zu74WRKmiHIwyuJKzWhxDhpQFN+8UlPxuGL5pLUIC
-	NEwZ8jAuCTJmcEJP+OgZ5on0RZgl+Vr83PlzB0TgcAcx46n1cp/h84MZ6HKbWTiekP0wjz
-	5+7zfQQShsj8x/RpEODnNnuvSwkBQvvhUrsmjZtTKQxMGtTZNexjguAfMgmZCw==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=NLgzHMOE;
-	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
-From: Marek Vasut <marek.vasut+renesas@mailbox.org>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1788976768;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=zvZ+RLpuQp0o+qwBeKx2vcHy6+eRYrcr7uYrRT9pD6Y=;
-	b=NLgzHMOEaNNhAsHZ8LUXNPm/lhkVSSl8toL6lOxfa6cud8ne590X3uzIWX/IpAJR45BxTF
-	shMj+9E3g92xT5lmeVfFvt+YBMLICIRVtsuKmgB+GvRJxoyRn+jkvW3RSTiyhauerYWrqD
-	5aYPLpu8OvqlYeg862orPEdPWZE0J51l4c8wjhDA0T0D5f1GgPsRxwPKjHgNREfgQaM/AL
-	/NvJzOkoso49K6Hr8JjuJ06fyaHsBCxXTkfeEG88+SWMX7OM8P8bGfat/RypnQzVKQNKqg
-	IzeykkMZAY5CTWdtEDO6JzVJrAspJTkYp81vw4pbeCvbmGn4OH8NwajCzPRBNA==
-To: linux-pci@vger.kernel.org
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Koichiro Den <den@valinux.co.jp>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org
-Subject: [RFC][PATCH] arm64: dts: renesas: r8a779f0: Add GICv3 ITS and update PCIe nodes
-Date: Wed,  9 Sep 2026 19:58:46 +0200
-Message-ID: <20260909175922.161658-1-marek.vasut+renesas@mailbox.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TN7zUHWm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BF71F000FF;
+	Wed,  9 Sep 2026 18:00:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788976801;
+	bh=iTarC5nn06l6wZr09nuP18ND0COo7EAilgusNPQmmgQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TN7zUHWmDc4RN9v1qMPYWuSh26OWNklVdvC6U/YhFEpVWHdBi3BQSy+r4asP/eMeM
+	 8wDw46b7dQQh6a2NGfcKouvZ5Q/x/NETLnxf8ESQbze7Vd16tWrkOTgW8KLpSM3yWQ
+	 nth06gn4BUBIHKD/uprLmKu15khjorrq6qhvbu8EN/Qh9wdQXriCjfRzcndUqwMISy
+	 l9Ay8kFWz0ed40/n7cF13oQy9Qir9PAtljsZQS9YIbGhnKJk40ktej5uXkjOIhekjk
+	 JVaOVCFBifoNgRShJ2aKaMqw0KecASHh0I0F1BBzBJm/pHAQplQ72tA2zbq8GiYbIE
+	 s9KX1alzxUuYA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] media: i2c: Add Sony IMX681 sensor driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sergey Lebedev" <lsa.uz@pm.me>
+Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909174240.80023-3-lsa.uz@pm.me>
+References: <20260909174240.80023-1-lsa.uz@pm.me>
+ <20260909174240.80023-3-lsa.uz@pm.me>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 17:59:59 +0000
+Message-Id: <20260909180000.A8BF71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-MBO-RS-ID: b5cbc2730be12df5f35
-X-MBO-RS-META: e97eicrzbd4yjyht5mzue8seow6mfuym
-X-Rspamd-Queue-Id: 4hg7qP42yrzMlNW
 
-This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
-SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
-and add msi-map into PCIe controller node.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Ignoring devm_regulator_bulk_get() return value causes NULL pointe=
+r dereference and Use-After-Free during regulator_bulk_enable().
+- [High] Potential NULL pointer dereference in imx681_set_pad_format() when=
+ state is NULL.
+- [High] Incorrect check of pm_runtime_get_if_active() return value leads t=
+o hardware access while suspended and reference count underflow.
+- [High] Unclustered controls V4L2_CID_ANALOGUE_GAIN and V4L2_CID_DIGITAL_G=
+AIN clash over the same hardware register.
+- [Medium] Missing pm_runtime_put_noidle() on the probe error path leads to=
+ a PM usage counter leak.
+--
 
-The GIC ITS does have master interface to issue transactions to RAM.
-The interface does support cacheable transactions, however, it does
-not support shareable attribute, because the AXI port signals are tied
-to inactive in this implementation. Therefore, add "dma-noncoherent"
-DT property into the GIC ITS subnode.
+commit def0570ed5235b7103f00a2f2f7f233dec35fdd6
+Author: Andre Gilerson <andre.gilerson@gmail.com>
+Subject: media: i2c: Add Sony IMX681 sensor driver
 
-The GIC redistributor does not have cacheable/shareable, therefore
-add "dma-noncoherent" DT property into the GIC node.
+This commit adds support for the Sony IMX681 sensor, used in the
+Microsoft Surface Pro 11 for Business. It implements standard V4L2
+subdev APIs, CCI register access, runtime PM, and streams support based
+on register sequences recovered from I2C traces.
 
-Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
----
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Geert Uytterhoeven <geert+renesas@glider.be>
-Cc: Koichiro Den <den@valinux.co.jp>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Magnus Damm <magnus.damm@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org
----
-NOTE: I am sending this as an RFC. Den-san, would you please test
-      whether this works correctly together with your Endpoint setup?
-      Especially whether the Host-side MSI change does not break it?
-      Thank you for your help!
----
- arch/arm64/boot/dts/renesas/r8a779f0.dtsi | 34 +++++++++++++++++------
- 1 file changed, 25 insertions(+), 9 deletions(-)
+> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
+> new file mode 100644
+> index 0000000000000..78c8da89c6323
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx681.c
+> @@ -0,0 +1,900 @@
+[ ... ]
+> +static int imx681_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+[ ... ]
+> +	/* Only apply controls to hardware when streaming */
+> +	if (!pm_runtime_get_if_active(imx681->dev))
+> +		return 0;
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
-index 878b1d53fa371..e17e7732a8d3c 100644
---- a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
-@@ -793,6 +793,8 @@ pciec0: pcie@e65d0000 {
- 			resets = <&cpg 624>, <&cpg 1121>;
- 			reset-names = "pwr", "core";
- 			max-link-speed = <4>;
-+			msi-parent = <&its 0>;
-+			msi-map = <0x0 &its 0x0 0x10000>;
- 			num-lanes = <2>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
-@@ -803,10 +805,10 @@ pciec0: pcie@e65d0000 {
- 			dma-ranges = <0x42000000 0 0x00000000 0 0x00000000 1 0x00000000>;
- 			#interrupt-cells = <1>;
- 			interrupt-map-mask = <0 0 0 7>;
--			interrupt-map = <0 0 0 1 &gic GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 2 &gic GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 3 &gic GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 4 &gic GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-map = <0 0 0 1 &gic 0 0 GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &gic 0 0 GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &gic 0 0 GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &gic 0 0 GIC_SPI 416 IRQ_TYPE_LEVEL_HIGH>;
- 			snps,enable-cdm-check;
- 			status = "disabled";
- 		};
-@@ -830,6 +832,8 @@ pciec1: pcie@e65d8000 {
- 			resets = <&cpg 625>, <&cpg 1122>;
- 			reset-names = "pwr", "core";
- 			max-link-speed = <4>;
-+			msi-parent = <&its 0>;
-+			msi-map = <0x0 &its 0x0 0x10000>;
- 			num-lanes = <2>;
- 			#address-cells = <3>;
- 			#size-cells = <2>;
-@@ -840,10 +844,10 @@ pciec1: pcie@e65d8000 {
- 			dma-ranges = <0x42000000 0 0x00000000 0 0x00000000 1 0x00000000>;
- 			#interrupt-cells = <1>;
- 			interrupt-map-mask = <0 0 0 7>;
--			interrupt-map = <0 0 0 1 &gic GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 2 &gic GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 3 &gic GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
--					<0 0 0 4 &gic GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-map = <0 0 0 1 &gic 0 0 GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 2 &gic 0 0 GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 3 &gic 0 0 GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>,
-+					<0 0 0 4 &gic 0 0 GIC_SPI 423 IRQ_TYPE_LEVEL_HIGH>;
- 			snps,enable-cdm-check;
- 			status = "disabled";
- 		};
-@@ -1290,11 +1294,23 @@ ipmmu_mm: iommu@eefc0000 {
- 		gic: interrupt-controller@f1000000 {
- 			compatible = "arm,gic-v3";
- 			#interrupt-cells = <3>;
--			#address-cells = <0>;
-+			#address-cells = <2>;
-+			#size-cells = <2>;
- 			interrupt-controller;
- 			reg = <0x0 0xf1000000 0 0x20000>,
- 			      <0x0 0xf1060000 0 0x110000>;
- 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-noncoherent;
-+
-+			ranges = <0x0 0x0 0x0 0xf1000000 0x0 0x200000>;
-+
-+			its: msi-controller@40000 {
-+				compatible = "arm,gic-v3-its";
-+				reg = <0x0 0x40000 0x0 0x20000>;
-+				dma-noncoherent;
-+				msi-controller;
-+				#msi-cells = <1>;
-+			};
- 		};
- 
- 		wwdt0: watchdog@ffc90000 {
--- 
-2.53.0
+[Severity: High]
+Does this incorrectly treat negative error codes from
+pm_runtime_get_if_active() as a success condition?
 
+pm_runtime_get_if_active() returns a negative error code (like -EINVAL) when
+Runtime PM is disabled. Because negative values are non-zero, this check
+evaluates to false and execution proceeds to access the hardware, which cou=
+ld
+be powered off.
+
+[ ... ]
+> +	case V4L2_CID_ANALOGUE_GAIN: {
+[ ... ]
+> +		cci_write(imx681->cci, IMX681_REG_ANALOG_GAIN, ana_code,
+> +			  &ret);
+> +		cci_write(imx681->cci, IMX681_REG_DIGITAL_GAIN, dig_reg,
+> +			  &ret);
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
+> +		dev_dbg(imx681->dev, "set gain code %d: analog=3D%d digital=3D0x%x, re=
+t=3D%d\n",
+> +			ctrl->val, ana_code, dig_reg, ret);
+> +		break;
+> +	}
+> +
+> +	case V4L2_CID_DIGITAL_GAIN:
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x01, &ret);
+> +		cci_write(imx681->cci, IMX681_REG_DIGITAL_GAIN, ctrl->val,
+> +			  &ret);
+
+[Severity: High]
+Will this independent digital gain control blindly overwrite the compensato=
+ry
+value computed in the V4L2_CID_ANALOGUE_GAIN handler?
+
+Since these controls are unclustered, the framework applies them individual=
+ly
+in ID order when streaming starts. The digital component computed and writt=
+en
+by ANALOGUE_GAIN to IMX681_REG_DIGITAL_GAIN could be overwritten here, losi=
+ng
+the intended high-gain configuration.
+
+> +		cci_write(imx681->cci, IMX681_REG_GROUP_HOLD, 0x00, &ret);
+> +		dev_dbg(imx681->dev, "set digital gain: %d, ret=3D%d\n",
+> +			ctrl->val, ret);
+> +		break;
+[ ... ]
+> +	}
+> +
+> +	pm_runtime_put(imx681->dev);
+> +	return ret;
+> +}
+
+[Severity: High]
+If pm_runtime_get_if_active() failed and returned a negative error code, the
+usage counter was never incremented. Does this unconditional pm_runtime_put=
+()
+call corrupt the usage counter by causing an underflow?
+
+[ ... ]
+> +static int imx681_set_pad_format(struct v4l2_subdev *sd,
+> +				 struct v4l2_subdev_state *state,
+> +				 struct v4l2_subdev_format *fmt)
+> +{
+> +	struct v4l2_mbus_framefmt *format;
+[ ... ]
+> +	fmt->format.xfer_func =3D V4L2_XFER_FUNC_NONE;
+> +
+> +	format =3D v4l2_subdev_state_get_format(state, fmt->pad);
+> +	*format =3D fmt->format;
+
+[Severity: High]
+Is it possible for state to be NULL here, leading to a NULL pointer derefer=
+ence
+when v4l2_subdev_state_get_format() returns NULL?
+
+For subdevices without the V4L2_SUBDEV_FL_STREAMS flag, the media framework=
+'s
+check_state() wrapper does not enforce that state is non-NULL for active
+formats. If a bridge driver directly calls v4l2_subdev_call() and passes a =
+NULL
+active state, this will oops.
+
+[ ... ]
+> +static int imx681_power_on(struct device *dev)
+> +{
+> +	struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
+> +	struct imx681 *imx681 =3D to_imx681(sd);
+> +	int ret;
+> +
+> +	dev_dbg(imx681->dev, "power on\n");
+> +
+> +	ret =3D regulator_bulk_enable(IMX681_NUM_SUPPLIES, imx681->supplies);
+
+[Severity: High]
+Can this cause a crash in the regulator core if regulators were unavailable
+during probe?
+
+In imx681_probe(), the driver explicitly ignores failures from
+devm_regulator_bulk_get() to support ACPI setups. However, when that fails,=
+ the
+regulator core's error path leaves the imx681->supplies array populated with
+NULL pointers or dangling pointers for partially acquired regulators. Calli=
+ng
+regulator_bulk_enable() on that invalid array dereferences them.
+
+[ ... ]
+> +static int imx681_probe(struct i2c_client *client)
+> +{
+[ ... ]
+> +	ret =3D devm_regulator_bulk_get(imx681->dev, IMX681_NUM_SUPPLIES,
+> +				      imx681->supplies);
+> +	if (ret) {
+> +		dev_dbg(imx681->dev,
+> +			"regulators not available (expected on ACPI): %d\n",
+> +			ret);
+> +		/* Continue without regulators - INT3472 may handle power */
+> +	}
+
+[Severity: High]
+Since failures here are expected and ignored, does the imx681->supplies arr=
+ay
+need to be cleared to avoid the crash in imx681_power_on() mentioned above?
+
+[ ... ]
+> +	/* Enable runtime PM */
+> +	pm_runtime_set_active(imx681->dev);
+> +	pm_runtime_get_noresume(imx681->dev);
+> +	pm_runtime_enable(imx681->dev);
+> +	pm_runtime_set_autosuspend_delay(imx681->dev, 1000);
+> +	pm_runtime_use_autosuspend(imx681->dev);
+> +
+> +	/* Init V4L2 controls */
+> +	ret =3D imx681_init_controls(imx681);
+> +	if (ret)
+> +		goto error_pm;
+[ ... ]
+> +error_pm:
+> +	pm_runtime_disable(imx681->dev);
+> +	pm_runtime_set_suspended(imx681->dev);
+
+[Severity: Medium]
+Will this error path leak the runtime PM usage counter?
+
+The probe function increments the usage counter via pm_runtime_get_noresume=
+(),
+but this cleanup path does not decrement it with pm_runtime_put_noidle().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909174240.8002=
+3-1-lsa.uz@pm.me?part=3D2
