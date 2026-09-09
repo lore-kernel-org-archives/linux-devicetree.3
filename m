@@ -1,75 +1,70 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2CE556B9A
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 12:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 158435592F1
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 12:35:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788957297; cv=none; b=jZvMybk0c5Uu7d22RH/l6pxt0Ukl/YdzbaU35MZtLycNiu3fzks8ZDFtx/nAxeIsBMIyGsx8ckeMFN7v98TenFtbbOsXV7VbN1eyAhFnpL4MP0VZaZm7nMPnLlL4IlBz2GavJC+p5Vv7+wvFjfFT6YwYrqLKeXyhTqiwQMbYIE0=
+	t=1788957308; cv=none; b=oUc2LT0Ihu1n7bHBb0RzxjbPpABA7TXh1Z+1L+qtZ9QeKSQ2b3di8waRNvqVLxElfchF84aFloTR2ao5yhzcFLGoZXRAa+g2xGA3kknHEkF6afGsHSlcG3Qhd+8auV8sLGA9izNV+u4FlSddW0zyPkEwmhPRlPDclCwngYM0osY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788957297; c=relaxed/simple;
-	bh=7DWuOuroHipYpKibd34yx1PZTOxQnkcdEL0QadKuQI4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kazaPVGNKAdoze2NKG/yVPtgohOqIQeppi35dK+C5Iak+12X4t9Vy9bZk/jHtToty9OxwHO+8kDxB5q0vCKCLo6Q4bTtbzQjfaz+elfUCh2VZMxDJUxr4W5D32IvOJO9Vt+t7SVL7LmePBgnY7TcR2/786JDoNw9zI6NKFQxyxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dhneNsWQ; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1788957308; c=relaxed/simple;
+	bh=yVtL9D1/Wj7jW4CgDSaIkKq7ZVcdtGzj+1oinlRj6+E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fGrpym2TOuOoNqiaI9acxprTO0tpdiPIOmTTu0/wRzQ71NY4Sif3VVht4anJh5/5ZSQQvJsPRjDnJ9wFRtu/XxEnWDW2jN+N8VVRw3mE1s8YFfe2CK6f0M6FLk5EMmJeX3zH4nvGoip04fOnFIWsLh/lfSHfhTNCAg71AOzq7f8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dB1dnvD5; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dhneNsWQ"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccc02279so140589a91.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 05:34:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dB1dnvD5"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c5so121380b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 05:35:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788957295; x=1789562095; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7DWuOuroHipYpKibd34yx1PZTOxQnkcdEL0QadKuQI4=;
-        b=dhneNsWQhhGKSIDJS65uYXDlr/lahqV/DZYDiy6J8Vw/JiUzS/YhkCwM1R1v7If9KL
-         8Y6NkoTHzRVl4b/SUnx64cw2O3s6cM/GdKZLhqW8S/sLolQ3D3k48mhpI+wAGD10pGuC
-         TaAGZvE+CmHkMoUVOhAooUevx5vKyS6/W+DYnfQ/QySZuCNgWWb8cmPJMRKmUJN4fNN+
-         Q0fZ1CCPlKxYiN59e68NHvFa/jGgsW4jYbbvgamCtL9SGLl7yJjb89cX278g0uhEX7DL
-         575usE393kQea2y6csBy/py6tqApFUDAAr5M4+WDsKpNF8Dzingbn+NAUxLKH7fdruRC
-         GZkw==
+        d=gmail.com; s=20251104; t=1788957306; x=1789562106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cyKDUP1nZZUAqox8fiTqoJmWbZILKCs3z/CNmlWToyk=;
+        b=dB1dnvD5jMKuiemDBdn6176fPKheqDZ5zI+/5L8mGdYqWteE+NjyIvM7H1foSQWZzX
+         zfDnhFO/PJbDBXOtfL0zYRcC8sfri228P3kBkVKDbfjZIqpXZDBl5fOIdrsxfMF5OytN
+         O16B9PtBTuqLB+rB0bFoSWFyGUGU/YJZbTbd54DfJ8aMkFaanpzOKT6QuadOfgTVZkYn
+         GikTcS8JoO6+CEFlhj8+IafR93ngwSYH3MsvwyMpy7JuglgRw1a9oXu10CSanK2Q5cGL
+         /iyzBP67EOdaeFr4Kf5vLT1AgyvLxmrgNlolELv5ohUble//ELGQs68EoQEGLr1iCPAw
+         I8rQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788957295; x=1789562095;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7DWuOuroHipYpKibd34yx1PZTOxQnkcdEL0QadKuQI4=;
-        b=P5tSUIFP/zpp1QN8etL4DSSUIWmxHsiFltoVz4EjsNMKVetq4yYRgj3Iy/DMGQVaJb
-         A7Os9B9XUwzPZSxvtgdydwP8EJVnbi6DS4ZPIhG2yeJMcT1AiNG/BYLXDuLFDJ3CEFM7
-         Bx6RuH+2jMeUeB4h4JCBqBlLZrVhGaU+h9jHiRqnb+p16r0M4csAh8Zi2QMqDvsCz+zg
-         zKCBZHfefvDxTWI9jwDipI8xUnkXZktVRNrN02Hs6ChdPisLj9sTqiyPwdAJa3Z9fbDK
-         FgKPJpR7IrposkVsfzXMdhUrhXdsOwR2r/Cn8C7idN9/D+AiZEZG1+/GW/pcbSRFKPJk
-         EImw==
-X-Forwarded-Encrypted: i=1; AKwUvBy6RyQ4/Lk2ldrYCttm4ulg9p8XdDaCbr1ww8CPiFvnLDDpEniOQVHaPETzUBVtA1cg2bGqxNbjIngZ@vger.kernel.org
-X-Gm-Message-State: AFuF++lTupAo40Qrj/II8GDee769fbArXrAwO2ImiT1K+LK521E0rgB7
-	SlKMqMcvoxK2cJLyq0hgckXgn0GgJOGp1zBvEhAgEjftHKX2kzo4t8kX
-X-Gm-Gg: AYBFou0s+LwLvIIa38/0oevPEj9qja6nefqtDfr1z0b6K61J75wjfTBcmPYarkxMo2Y
-	Y9TY8+NF4PhB95/aSfz1qd9mVo2NCG04rXq2SmiWpc8RKeECLsPylW3mSmah8M1YQ5Hw1ldnvYQ
-	D4wfshU4q4wYsYno9A9qhtre4eFTNXBAH0RQAGhOkF0Hgpoh7xy3jYwf4eS6fwbVj7wJv5NxOi6
-	qNbW7l9rvf6reaPvRDASRVLY0hjgXpeLu+/b8/AbbFH0XJ0ueNNH5QcvL2V2BgoXCi3XSeoT/z+
-	cdEnK5vOfLjOIebP1yQIzAsyCNU9ySLJHy2TbNFhnObmlS7ucTNgi/LAIQuHsTJmw0IIZx+aI4o
-	/fmB2fyQJyxJJK2kwc3RDpvUOM8tPLNvl9hbNy2aOh7jNa2xnjf7zmQVvfh6MIOPlfuNeqoV1qT
-	0DYVkKxXgtNDsmoVR+EMUodlf3pddWNWt1pc9gTWkpMGXNrnJgsDflC8QkeMrGH7CuOJgRu220O
-	G4++l3qW4qppCafxaJJJRqrLg==
-X-Received: by 2002:a17:90b:2b43:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39d709e5464mr892422a91.10.1788957295334;
-        Wed, 09 Sep 2026 05:34:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788957306; x=1789562106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cyKDUP1nZZUAqox8fiTqoJmWbZILKCs3z/CNmlWToyk=;
+        b=HdlMN6croFS+5O3zv2ad/euq/RxPk+gXAEdJrRsiXS3p36Fz2GMkQL5qDf4lt4Slzw
+         9y6oym++3u55TJ1bQJWxyNPey1Zoj7HoILhLQNJYlDlvkFeost7WfkSQ4Uh+So6Iv6EJ
+         XmZ1lHA2haDdYWPoZajSbpPgaFu3cAsxuRKlTRRhvdy3KiL8Oyoi6RBApPm9W6R+AHap
+         tBY6LGuczxE+MTZE/0g9Jk98XDxtml9WsNv2iWTQWKTy/R+eMe5LTmp7eQaQqJ28DIL+
+         pi7YTJIlgZ+TkY7AmXje9AmXjA0Sk4+jnNOhhs8K6AoK2MFNoEuyaHJKr7401j7CwSPb
+         UNOw==
+X-Gm-Message-State: AFuF++lcBWHjZZrcw1mM29LQi+ZPYqZobF2xc9C0nwGsJW724BgKgRMK
+	IpjMw2N3wPSvxOuZ9Qtow53TYn2UpyclyG1gdfM/WvAtj9R3ic8fj+EE2lAk/gEB
+X-Gm-Gg: AYBFou3/D5k2iyGROGoQuGcXOkzQbcMteEtbvqi1j4+jpoPYN7zxbR1ppffp3x+HAYr
+	FGlPkGWSiqA9/Z/+QQpKMQQhhYxH2bMBhCGiXEeCWQYCmxH6w3U0wRpTJ1MFbDC46/oszvAqRCm
+	X8FAwFxOhxOiXq3rhzGqjA0Pa72tH/SQcHdU5CqwXhVKCLVzXObr4u9i1coNmU/ry56pkJfe5pA
+	CR5UCZ6DNaBJaueGSA9UMwDae+GzvhZ8M3UUmibXh12PMkQ5eC6S9wDSOpnh9R5F76Q42c+aCse
+	y39SpGXALGSCvas7s7MjDT2q6W1F4pHGsOf3qr2+rsi/WjI9kS11bBrj/Rtt/s4xG3Soz6BomRi
+	vfHOY2iRKo6wljCBplrL3LXolGOhAMrj6l/tXWS/+9zbPsnrTBZBkx68jVlOlwx4VOW1nFlicmS
+	5Og0UI1BUkhFt1CrX7Rb7k28jqQq5GgmwBSxFK7wlW9bjlWRR8CcXfxFnXZwOXAidfl5Cz4FpHB
+	8EOWDEzWDptHMB4iEbTRdZ5Fg==
+X-Received: by 2002:a05:6300:6702:b0:3c3:b57b:627d with SMTP id adf61e73a8af0-3dacbdba23dmr1334869637.12.1788957306260;
+        Wed, 09 Sep 2026 05:35:06 -0700 (PDT)
 Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339af25062sm69561409eec.16.2026.09.09.05.34.53
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14324356931sm69514341c88.4.2026.09.09.05.35.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 05:34:54 -0700 (PDT)
+        Wed, 09 Sep 2026 05:35:05 -0700 (PDT)
 From: Hemanth Selam <hemanth.selam@gmail.com>
-To: robh@kernel.org
-Cc: saravanak@kernel.org,
-	devicetree@vger.kernel.org,
+To: robh@kernel.org,
+	saravanak@kernel.org
+Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] of: fix typos in comments
-Date: Wed,  9 Sep 2026 18:04:50 +0530
-Message-ID: <20260909123450.215657-1-hemanth.selam@gmail.com>
+Subject: [PATCH] of: fdt: fix "Cound" typo in fdt_translate_address()
+Date: Wed,  9 Sep 2026 18:05:01 +0530
+Message-ID: <20260909123501.215711-1-hemanth.selam@gmail.com>
 X-Mailer: git-send-email 2.48.1
-In-Reply-To: <CAL_Jsq+qAyYKDSFy1DiOMvdQu9ENK1gCa2tp2SMZiAE5yQpRQQ@mail.gmail.com>
-References: <20260907062017.5881-1-hemanth.selam@gmail.com> <CAL_Jsq+qAyYKDSFy1DiOMvdQu9ENK1gCa2tp2SMZiAE5yQpRQQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,13 +73,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 08, 2026 at 08:12:19AM -0500, Rob Herring wrote:
-> Still does not make sense.
+The comment above the count_cells() call reads "Cound address cells"
+where it should read "Count address cells", which is what the call below
+it does.
 
-You are right. "Iterate a node children" is no better than "Iterate a node
-childs": I replaced the word checkpatch flagged without fixing the sentence,
-which was the actual problem. Dropping this patch.
+Comment only, no functional change.
 
-Thanks for the review.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/of/fdt_address.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hemanth
+diff --git a/drivers/of/fdt_address.c b/drivers/of/fdt_address.c
+index f358d2c80754..2e4e46a58cb6 100644
+--- a/drivers/of/fdt_address.c
++++ b/drivers/of/fdt_address.c
+@@ -172,7 +172,7 @@ static u64 __init fdt_translate_address(const void *blob, int node_offset)
+ 		goto bail;
+ 	bus = &of_busses[0];
+ 
+-	/* Cound address cells & copy address locally */
++	/* Count address cells & copy address locally */
+ 	bus->count_cells(blob, parent, &na, &ns);
+ 	if (!OF_CHECK_COUNTS(na, ns)) {
+ 		pr_err("Bad cell count for %s\n",
+-- 
+2.48.1
+
