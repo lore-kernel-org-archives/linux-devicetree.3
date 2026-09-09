@@ -1,419 +1,361 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C86580388
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788963501; cv=pass; b=Lqym8LfPNH5Os+Pyo+rTkoHrE3n3laxEBLa2UIa7tnTUo6MQZgxOsNlCpD7y5+BB9Cn98quwa7rLNcdX8GvVwiIL2SWD+agxw07hhf0Ml39mQcIFkMaLv6oLnFeyFq277TGN437RdZnKKyxNfsFk5BjMJU7k9jTV67fwjIYgbgE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788963501; c=relaxed/simple;
-	bh=72wFbPpMuGx15LH/m5cgHl7Zu8cKL7S6eHLd26lZQ2w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GTjXYNVXSYAEQ/QTRPZwA6z+Umcv54tw1EqUyxznpGKZyGc/rU1qAO4MQISwfv9DY7qJFqENoinxYzzJZOO7tefb1KdUsu8mJKyqBfBcN9mUK8wmWOl/zQ8s8WQDB5Bw6HvqakqebaH8P84XzkDdQk3Wmi82lN5/5eSqzdkowPs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y/J+12eK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aucAGEPs; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EE0F5803AF
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 14:18:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788963504; cv=none; b=T3nXqXRzUPAF4p7w2+llpR1K9cfVMZgHKDOE8cFwQ9QS/1il/D2LpPVTBaaHtv08llOZmCZ7i1iizsyv8JbqpTbdoFgXZXCmh63qeiwD4y05DaPNSMlhaVcoVkMx9t22o2Nl3LM403ICoAQW+D/0m9KIoth9FK90LTyA6Gzu4TQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788963504; c=relaxed/simple;
+	bh=Y71eIQDDyUhXRKh/NkOaLzyOm5IcbP6RGlZeelTea5s=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=OMg7LasKiYiGCjMJO1iWVaUCV5lYMVUrrbZjkwGEqDTrs7TIHLEvgUY1UIC/ytkZK9Bsa3mvZSJyZYccn9NTAsG4p1lb4mtW9Frha/lihOW7LDbyf75hJWbckscn5iBDbvXmGuRHYi/hG+hnvUSvdNfNiZPvpzMY6zJkGDLHDBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XfxnY0wl; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eEF5VGl2; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y/J+12eK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aucAGEPs"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689CDD3w3054146
-	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 14:18:19 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XfxnY0wl";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eEF5VGl2"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689CCjFT1400912
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 14:18:21 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Ijz3qU9AqWAuODrFeJR7HLdMoz7Cv3StevXcIGLyJWM=; b=Y/J+12eKrVozqs4C
-	HnJljqDlqmXV6Yxb3DzRrQXaBUUidRg8ZtB+2Ud8DkIaU1723WZAeSRojyDes+5S
-	7lO4JcZI1Qb1faE86cSlbiQ/J6HSbD28LKekL3Opnr9mNI+fxAQV+EmHOi7cd9Mq
-	YYLuEu0r3FCX8u8qwnyzKrjSiPLjKq6w0DTMvXKPiI0n+EkOZpYfHbucgDH43wg9
-	GQGNMW4kezL8mfYWq26JR5VkurJriD9wMxe+sj90akccX5esHGizG62V/at55IXx
-	BihoaMpINlvaWPjaaQ0+MSNfX7ZjEjbEyuKK0dwB1uArFbdgt9dShGgx7bByuNrB
-	axahVQ==
-Received: from mail-ot1-f72.google.com (mail-ot1-f72.google.com [209.85.210.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk7920hus-1
+	vXE6XobC3ury7rZX6jNG08P1KoDrVHt7n7WgxsPOMyw=; b=XfxnY0wlMWDMpBbA
+	eAte+CIrumiTiT1u0UkoBUw/qihlJapQsw8j2gX+q0U40PfRZ1RDEsJAneNbU2Ix
+	1CXFqV9GZ2ndP1sJA0HVvtUXbZ1SAUbQXGYGfadLypJiMxPquzh0/pXnWqKxj/PU
+	8QAxXuR5d7BO1PnMUpjiy3nkX5/9XnAXIYtf52RyrajRC5x4RbRgYhIQiZ1b+FDo
+	SI3M9Lm5Qxt/01NZpuWlb/HwWeDI/j8JmyEi3SGNUgZbJ33S4HIiwOFpo01rvXuc
+	yw46+WgNT4WWooKAV+MgBvxrhib0+tWD26s1VOg7CUtR8+e8zk4oLK+bR8TEjzRc
+	8349ow==
+Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com [209.85.222.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk78x0j5y-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 14:18:19 +0000 (GMT)
-Received: by mail-ot1-f72.google.com with SMTP id 46e09a7af769-7ec3b429610so9140038a34.1
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 07:18:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788963498; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dmpnCBzuP4ZgepSdEt86clGkpHUHR0H1r+uQYkIQcdsWOI+DkdWGEz4c8+7Ey36cEu
-         ZRG06QJJrvBM5eCs84b3eA20dDu61MLOq/LMB4ERUVd29XPrfa8KpciSq2dqbfLMWlKL
-         yaiy+BCa4VZ2VMdVrCKrO7iGn/Na097qhda1a/agoBeAf9Nw0H6CPtXi9gzOws4mfNmn
-         uUq+ZpN6u8WMiQMIuogwwT/dfHxLrGVZl8TP+hF6IlBdo6tRJ+CfilU0bPmkVWJhqevz
-         3+Afb6CshJZEQRtf5MMASlaMJHNK2W36x3tkmi0KAYNrE30Zs54Z0Jrh9RSSqYMGB7qh
-         Lgug==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ijz3qU9AqWAuODrFeJR7HLdMoz7Cv3StevXcIGLyJWM=;
-        fh=nzLFLYGfn4gotfkbp2p9rmhCiaRAgCh5T8j9s555R4U=;
-        b=eKEYAIvb98R7Q8jwbcjJ74l/B+xa+93CPQTjb/h2QvquahvUpl5roVMVg8rJ6Zg6xR
-         73BKB/D5oDn2wCQvZmeKkG86eLBga4NQO57USlP/seV6VIPIervb/TCcydasyIHmsqro
-         EhcZjRCMmmTMPjXYvJdVR76NT4ZxNpR3YIAMYvTEG8kGE5oGe4FkAMeBKv/9Cpag1Z29
-         cEQYJX2VqhQXi2Dhj1jOJRY5UBUiCXSRBppAKjiZcSHsJWQcLXKxR56kErRpnag0BdYb
-         okdI3lEf7VGHMoQXjrQY5doIQzAIV0Q00yRGTD8VSI+i1i0gAFrAsrI8zShlIFECuRuP
-         wWxA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 14:18:21 +0000 (GMT)
+Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-97cb2f3c6f7so514822241.2
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 07:18:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788963498; x=1789568298; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ijz3qU9AqWAuODrFeJR7HLdMoz7Cv3StevXcIGLyJWM=;
-        b=aucAGEPsnOtXAwzchxKu8I9ffBz8kvo2mRc5EMa7yurhxXAGZjrtAathG+qNOn4TzV
-         sFB/n7gflvHe4ZpRqcGyW2fwKOgiexGWs9AOmnPQ38EWFMsFtdtIlqT6WSD1F6tvuaW6
-         /iTkr1P1p8w6HjgxHHm8PZJ7U0CFXTJcek5QhiwEkAkoe5La/20lI+x1pufCAaO1Jyek
-         vqVpwfcuqSn+jonqAm4JpJ/TCmlG3Lc1nZQsSUeDEaU/AwuqnaUG9yxdGBbuQDQTbA58
-         ahW2r1zluSURFsB9DtYl7yHKiY8b9iexew6BXFcNeQLjJHXPRe2USu++2rP8wC9yCbIu
-         cYvQ==
+        d=oss.qualcomm.com; s=google; t=1788963501; x=1789568301; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vXE6XobC3ury7rZX6jNG08P1KoDrVHt7n7WgxsPOMyw=;
+        b=eEF5VGl2Cq3wmZB8i58Qiud77LGUlIHKkQ9OX/V6v1l/mcxZpXj/PLthEnc/zbT9kV
+         fG8QgsVNHFfLkxk94OfZ3jwa+ha2VWirXIzke5ne3a3zDGqY/qLP0HJmpeasn7qWo6Oo
+         dI/fq/tiqeSj91qqB/1uKJsdQh3SmFG8G4ue6fxQCPf7q+pI9BMDNvZj8132THJINbr3
+         1tPVcYSFr6FbXNHWWPHkAwXviAFkKF8dArqv/FTKJNnRwBIrfFCBIDri/e1W7WcGjVey
+         8+adUmzMqkC226e+yCIMVZ5F+4r2R1nF/41H9J9/wJ1JMjbCqU576tbFJearB0rN4xpa
+         rEaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788963498; x=1789568298;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1788963501; x=1789568301;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Ijz3qU9AqWAuODrFeJR7HLdMoz7Cv3StevXcIGLyJWM=;
-        b=pVpXA8GUjdwVbSoU2aT8Rdg+Vn346+s/dm4HhsjK1hMibSlPPOEzM+KCfln5YicVQ8
-         AWPZCIiKdHoHkKqwMTSNUYQdh5s06JSFBQRrDDCpiH3zgedzDkEx9BNEj7H4/+Y/8rd2
-         q6pFEZCMUBneMPft7n3R/MKl2FjSy3xFHCp93WiPbY4/KdMVff2iyPGznArG6xP6cvMT
-         5ONFbktm2jnQ6kDKFxLP3590wXZcbkCf9iqx3oGNJamUAekgw5GwHkxlRIi4XJztYe3k
-         1rTV9E97pFbdNOKbjZQrwRqKcF4FWCVQd3UmvSX3LCgpRR6sgn1VfCYYsq++GTVCUd+a
-         8TgQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzBaDTCQn7MtpUCTfO48+SIgq8MrVPzs1mKZ6TJWlXmIll3BnNcWmwlW+5ufYQcUkh3DClkxD/cLSWK@vger.kernel.org
-X-Gm-Message-State: AFuF++nxXqetRgPBSSvmx/YT2cZsjw+hxc+bH8gz7X1L7B+QtsePE+ON
-	QM76PMkQSlnLceGXqUD9wbQbaSHUVm80e+bIhjB26iyQR8xi/49DmZDXQ2+TTDlvTa/6fXPekOg
-	SY6Qr7D60g5Dr1ppQ0sgchaaO87us/8qKAeFupevt7qsyXdQF/ikpsH18ZrpXz7lAWV+v9jlIBq
-	mN4xKeB/Ee5urfpUqCXTqKnSJFJL0k5zTqj3zcr9s=
-X-Gm-Gg: AYBFou0YiMn5kWQmyA5r95fwiT0JuklWEtdyJ3C5c5kNIpoVMzCgozOIFyrA6jRyDde
-	uzPvUp2VlllNvzpJPRRhoBO+GVlDwOxzOMjp7TuwpCePcqCxSP/nR61aqN/sMNGP+A46rTM9HEE
-	v3TEk0Cz7k2bAzbR/4/zB87q74zZLbtpCDrN6sVrUU2hN2xnqNt0yMtbBxtJ2HxnQHiytevsQA5
-	RDc9ZC+Ikst5/RW0WXv0oKt8rGstZXzW1pBvf5xAWJ+85ccemf9bvMtvR436ijlqJvMvrFRaKw=
-X-Received: by 2002:a05:6820:f028:b0:6b7:46fa:1693 with SMTP id 006d021491bc7-6bee715a830mr787287eaf.40.1788963498136;
-        Wed, 09 Sep 2026 07:18:18 -0700 (PDT)
-X-Received: by 2002:a05:6820:f028:b0:6b7:46fa:1693 with SMTP id
- 006d021491bc7-6bee715a830mr787232eaf.40.1788963497568; Wed, 09 Sep 2026
- 07:18:17 -0700 (PDT)
+        bh=vXE6XobC3ury7rZX6jNG08P1KoDrVHt7n7WgxsPOMyw=;
+        b=f7rKnMzozFw0/hampffS3hQWiTzGr4dIq9u5/Cmi23XoCkXp9Bo8hQIK1VBDTumJyU
+         UJKylOFtc03xJS5T1kJya5q/R+s5kgWsaqdfek8bGUA+hBSkn5fyR3dAWKoB6sOwDuGu
+         8rB3YPChiHdBjQYnul+4W7ROUQzfDkgkUnnsbY8r7ZaOGvZzCiTTTq2mS9WnzbZAKSnP
+         uKXZDw7tck/jQlka6nt5nMTodPs0XB5K3WzZlzcqbuV628isXo8+sBojJ/GBFVfqsW9u
+         7Eh1UUT6sekYQNehIsXYP0XPOLcrK2+HtC0Gu9TuFVepj81wDvd9JXnAz+0oOARJf6S2
+         jK3w==
+X-Forwarded-Encrypted: i=1; AKwUvBxVctdP16LPzF0uDtmpcnHW0VD8bhPro2XMxxxqH50rfQSQlG8M2MiPnNa2vz4phHnHcgmzX/n8JVwg@vger.kernel.org
+X-Gm-Message-State: AFuF++nGBOOOZxQ2sriMMbExLzIZDh54VLVh61kA3OwRnb4VxC1eK57Q
+	BulYd5r0eKDZL8qm0cl09xJw4xrcF6rxm/t2pslMp5Reqr/tEavIec4FGZeBe8R0L/miu2fN6GZ
+	D3gQ80q6yCo4r43AlKj50aFTO8YF1wJ8kD2X8BFRxxP5sJJ3MP84qhnotpLQXeuff
+X-Gm-Gg: AYBFou3XLHoCcr9Ex1YeSLaWJDt7XlpKAXjxZ0rnn36PXrabD2+Orfy5/J1DPJcDpA2
+	xMDnp3vNAbFZI44DULKaDT51dXRrdJGuMf9mKn9F2uF4AjovriuoTUttp/rtsOO3Tx7Pn0f+EoM
+	NaW+JuKSuJq5Kw+BJkUYZAPwd+qLVa9YEHV+dNfeTVaiSZu7hWLaJ8mhGndMr+x72mSQmvNn6W/
+	D/nZUQ3y4yuW+m5JoiBPpg2GICzn6uAsCDnkocOBriP6H9j6VYm9ALOPEK9B2MVlILTuD7HMhKR
+	REp0sJ7nOWUSyM98AHGVnUygRE7MNrXmio5J97C7EQwaHE4UcP8wwGsEInyKb4ZXk7ImN1ABbkZ
+	nIrZ+Ce1cHLfFrImEnW5Bku8=
+X-Received: by 2002:a05:6102:5346:b0:777:ab3c:b88c with SMTP id ada2fe7eead31-78a4aa9948fmr14313860137.8.1788963500621;
+        Wed, 09 Sep 2026 07:18:20 -0700 (PDT)
+X-Received: by 2002:a05:6102:5346:b0:777:ab3c:b88c with SMTP id ada2fe7eead31-78a4aa9948fmr14313301137.8.1788963495366;
+        Wed, 09 Sep 2026 07:18:15 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c293b6246c4sm77581766b.20.2026.09.09.07.18.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 07:18:14 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Date: Wed, 09 Sep 2026 16:17:56 +0200
+Subject: [PATCH 5/5] arm64: dts: fsd: Re-order properties to match coding
+ style
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org> <20260903-x1e-csi2-phy-v17-1-26606fa9a039@linaro.org>
-In-Reply-To: <20260903-x1e-csi2-phy-v17-1-26606fa9a039@linaro.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 16:18:06 +0200
-X-Gm-Features: AcwNN1XeMPnSrK1BZl7UqBZ6XmAK9pb6YYlBOZlSZsTEkGUJatiu98s12aEsERY
-Message-ID: <CAFEp6-1De_S+BwpDkH=Hkwc2YWe8m-cPBxkKCL86f=1fJ57xHg@mail.gmail.com>
-Subject: Re: [PATCH v17 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        "Bryan O'Donoghue" <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=bd1bluPB c=1 sm=1 tr=0 ts=6aa16aab cx=c_pps
- a=+3WqYijBVYhDct2f5Fivkw==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=gEfo2CItAAAA:8 a=KKAkSRfTAAAA:8 a=VwQbUJbxAAAA:8
- a=a1JshUc-Vb5zx_Q6SrkA:9 a=QEXdDO2ut3YA:10 a=eYe2g0i6gJ5uXG_o6N4q:22
- a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2MCBTYWx0ZWRfX/krHTUv1ggJH
- I+YAwF9JDjTthLV8eD+yjYksvUSJmovXzyjv3YQMa8TXIyJ27u17sPzkSn5B2b90rqw0XyRS5uP
- KVl8m1m8hOavOwTdrB/ye4FEJqw2gtRfjbK2T+DrmpStnrUcuo+Z3rRuraF2zTTdz3C5K2gLTyM
- rcLDn9nt1T9wNnaCnn2Mxks0S1pojK8msw8omIRPM0yWoZT+uJK8bTVaomTNKG0LViuJgxetiZm
- S+xIszfeKErM9dwSrnCE1M4evLAhSMoA0Ep+I/iIf1lpT6PwVssYMVHyXSp7hAcD793hUhY8bpo
- SOegsdSmOBO1MFvD8Cyy9Bmeq1XI5a6uD2yllXdKaJruq5xWlxS6FSahvvKGmvOM1CZhWPGnTs8
- OlWlyIsEcmIK/hGhEwSH0D7sxnXHvN2aH/PcB5osDe+7VJ9zGrGW3SPs3WAEkVGYXkFlLU80Yys
- BfE3ngNYqYx/l+Xd4GQ==
-X-Proofpoint-ORIG-GUID: 2-A_Cs6zBOvnpbLoTRPt1wS3BitUy55s
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2MCBTYWx0ZWRfX1yjQtcDqp5gV
- xFpii1/K3YhDnjW3wYRMCKQ49n2fSPs6XOPJCoeFLjKnMmo3PfBa3pL9CUXkRk02+vejBjhAE8j
- PfgQayWH14YWLF9lCMbBdYd04exbvXc=
-X-Proofpoint-GUID: 2-A_Cs6zBOvnpbLoTRPt1wS3BitUy55s
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260909-dts-samsung-cleanup-strict-v1-5-1b755a446b22@oss.qualcomm.com>
+References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.com>
+In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.com>
+To: Alim Akhtar <alim.akhtar@samsung.com>, linux-fsd@tesla.com,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Peter Griffin <peter.griffin@linaro.org>,
+        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7158;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=Y71eIQDDyUhXRKh/NkOaLzyOm5IcbP6RGlZeelTea5s=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqoWqV8WS50E8rmNpdpzicxS5MY0zirtCNvsHQ/
+ jdWVWc3MIOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqFqlQAKCRDBN2bmhouD
+ 13xoEACJGB+0HRDiw88mhMzjyFCiAhyUIPJyjQVG/AFypFan7lv0/bmSdwhOmvXOSKAq2L/MmvQ
+ uLoJ5IEPOSGjgIXeEyi5Xqb/Z/leiVKUK/QiQ1EHmJpZ9rnW29jrUNlxvZE9UBWviXBnluA1RFD
+ 8foQW4iLuoS2K6tLu2KQk3WylJyLFJZrhh6VXRFriX0599STF0Mn8SpgrwokdeAQ37hCc38/WKQ
+ aCiCR3ZULLIbJkLl6QZRRgmA/M1TYRLCghx4XMlMScRrvWopR6/orZR1ssTETbMMD5urZCitWCU
+ xftcRsmrGmRaPdzoUmyQZvnrmL5wvpFb4JZ+X3NkBeeWxPni0XgeXOtXU/u8gKcodl78yiQUc3m
+ qVlpr06+Qy5jQTxts+rqtN1kjE46kZFi0kCSCAzcdebV1N4yfoGK6A+FPVKJtflEYP42mM+GTx1
+ CDSo0HqzHjCnJFiXMSP/jhPtGmhrt9cXaSK8h4VA6xrBroy3fgFu/njkAfNWc/5O6z/KpwS6kDc
+ DU/0nvMXv/Q/ow7BXagzUSzWcVCWG3qXBf93SjKJmpXlQ6cCmD2pYTYA7fsQC/f3wicIWN5EPBO
+ S94L4/uMQmxkm2e0/AafRYWyE8FqPWdaqnQmjdHS31hJ2ngFvdQ3hfRNf+o5W9ozBQq4345afFE
+ lsY1rceJFnudd8A==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-ORIG-GUID: hmamWCZw0sZGkgJRE9vAH2EpDdNVa-D3
+X-Proofpoint-GUID: hmamWCZw0sZGkgJRE9vAH2EpDdNVa-D3
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE2MCBTYWx0ZWRfX8g+czgFEIFrw
+ Zw8bVWDpMlG9Ert1W75Gc0kjA0nTLxrFNffrAv77dnm1P2+xd8oSNE/7jUbBNfsABgpbr6c/P8m
+ MU11ZYLA78yQY0Pflp+KnrBGxv09sZM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE2MCBTYWx0ZWRfX3kJLuDQwOhSP
+ P7+ILaRT/LyuNEdPxLm9wBOvySDceH5Nc/csYChPZEEw5UFx+wNGrocM5sGMWPFvI5uGhdWR68S
+ QrSvu3jnJmYq1EuqPQ91xzhZHIGWrXB8Fuf8jNzYEX+6HKZRdzXlMAz1DOVAEW2/RMALs57iY8q
+ UhWbj4w3HFILIUg1MfwUCoXALHP+Mee6UDRY+S+0tR8U48ICJrXerlV9jAMiIXYCeEuF/S7m/83
+ 3dXlk75ECfPPipY1Jx9PhcZos1kcaQLZkcC75pzEqFksmkJd99AqJuoUbl1eVWYRjrMJu/BZDXh
+ +7XIsroTy5muB7+bseR84zRocLzexOEis6tr4G7cb4l1uWKjF7UNuMizhCAInJ0y+XOlRpE/chg
+ Kd5zdST1OG0JqoRhMm9WWkQZbrpNrb2mT7/pni+fL249h+e+A8pVjE0pvr7KdM5FJoYJA1BcxqP
+ lGoLVPQPuSa/eKpvl/Q==
+X-Authority-Analysis: v=2.4 cv=SvWgLvO0 c=1 sm=1 tr=0 ts=6aa16aad cx=c_pps
+ a=R6oCqFB+Yf/t2GF8e0/dFg==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=pFgJNHYOF-_vrOvKCzcA:9 a=QEXdDO2ut3YA:10
+ a=TD8TdBvy0hsOASGTdmB-:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 spamscore=0 lowpriorityscore=0 suspectscore=0
- bulkscore=0 impostorscore=0 phishscore=0 priorityscore=1501 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090160
+ clxscore=1015 spamscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2609090160
 
-Hi Byran,
+Re-order a few properties to match coding style, as pointed out by
+dt-check-style, e.g.:
 
-On Thu, Sep 3, 2026 at 10:54=E2=80=AFPM Bryan O'Donoghue
-<bryan.odonoghue@linaro.org> wrote:
->
-> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
-> supports both DPHY and CPHY operation. A special mode of DPHY operation -
-> called variously split-mode or combo-mode also allows for two sensors to =
-be
-> connected to one PHY.
->
-> The schema supports both the D-PHY and C-PHY bus types.
->
-> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+  fsd.dtsi:357: [property-order] property 'ranges' out of canonical order (should sort before '#size-cells')
+  fsd.dtsi:362: [property-order] property 'reg' out of canonical order (should sort before 'no-map')
 
-Checked, and some of the sashiko comments seem well-founded.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/tesla/fsd.dtsi | 40 +++++++++++++++++++-------------------
+ 1 file changed, 20 insertions(+), 20 deletions(-)
 
-Regards,
-Loic
+diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi b/arch/arm64/boot/dts/tesla/fsd.dtsi
+index 22b997880d65..36925b2749b5 100644
+--- a/arch/arm64/boot/dts/tesla/fsd.dtsi
++++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
+@@ -344,23 +344,23 @@ psci {
+ 	};
+ 
+ 	reserved-memory {
++		ranges;
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+-		ranges;
+ 
+ 		mfc_left: region@84000000 {
+ 			compatible = "shared-dma-pool";
+-			no-map;
+ 			reg = <0 0x84000000 0 0x8000000>;
++			no-map;
+ 		};
+ 	};
+ 
+ 	soc: soc@0 {
+ 		compatible = "simple-bus";
+-		#address-cells = <2>;
+-		#size-cells = <2>;
+ 		ranges = <0x0 0x0 0x0 0x0 0x0 0x18000000>;
+ 		dma-ranges = <0x0 0x0 0x0 0x0 0x10 0x0>;
++		#address-cells = <2>;
++		#size-cells = <2>;
+ 
+ 		clock_imem: clock-controller@10010000 {
+ 			compatible = "tesla,fsd-clock-imem";
+@@ -468,11 +468,11 @@ smmu_imem: iommu@10200000 {
+ 
+ 		gic: interrupt-controller@10400000 {
+ 			compatible = "arm,gic-v3";
++			reg = <0x0 0x10400000 0x0 0x10000>, /* GICD */
++			      <0x0 0x10600000 0x0 0x200000>; /* GICR_RD+GICR_SGI */
+ 			#address-cells = <0>;
+ 			#interrupt-cells = <3>;
+ 			interrupt-controller;
+-			reg = <0x0 0x10400000 0x0 0x10000>, /* GICD */
+-			      <0x0 0x10600000 0x0 0x200000>; /* GICR_RD+GICR_SGI */
+ 			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
+@@ -686,10 +686,10 @@ i2s_1: i2s@140f0000 {
+ 		pwm_0: pwm@14100000 {
+ 			compatible = "tesla,fsd-pwm", "samsung,exynos4210-pwm";
+ 			reg = <0x0 0x14100000 0x0 0x100>;
+-			samsung,pwm-outputs = <0>, <1>, <2>, <3>;
+ 			#pwm-cells = <3>;
+ 			clocks = <&clock_peric PERIC_PWM0_IPCLKPORT_I_PCLK_S0>;
+ 			clock-names = "timers";
++			samsung,pwm-outputs = <0>, <1>, <2>, <3>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -697,10 +697,10 @@ pwm_0: pwm@14100000 {
+ 		pwm_1: pwm@14110000 {
+ 			compatible = "tesla,fsd-pwm", "samsung,exynos4210-pwm";
+ 			reg = <0x0 0x14110000 0x0 0x100>;
+-			samsung,pwm-outputs = <0>, <1>, <2>, <3>;
+ 			#pwm-cells = <3>;
+ 			clocks = <&clock_peric PERIC_PWM1_IPCLKPORT_I_PCLK_S0>;
+ 			clock-names = "timers";
++			samsung,pwm-outputs = <0>, <1>, <2>, <3>;
+ 
+ 			status = "disabled";
+ 		};
+@@ -802,8 +802,8 @@ hsi2c_0: i2c@14200000 {
+ 			interrupts = <GIC_SPI 148 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c0_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C0>;
+ 			clock-names = "hsi2c";
+ 
+@@ -816,8 +816,8 @@ hsi2c_1: i2c@14210000 {
+ 			interrupts = <GIC_SPI 149 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c1_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C1>;
+ 			clock-names = "hsi2c";
+ 
+@@ -830,8 +830,8 @@ hsi2c_2: i2c@14220000 {
+ 			interrupts = <GIC_SPI 150 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c2_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C2>;
+ 			clock-names = "hsi2c";
+ 
+@@ -844,8 +844,8 @@ hsi2c_3: i2c@14230000 {
+ 			interrupts = <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c3_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C3>;
+ 			clock-names = "hsi2c";
+ 
+@@ -858,8 +858,8 @@ hsi2c_4: i2c@14240000 {
+ 			interrupts = <GIC_SPI 152 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c4_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C4>;
+ 			clock-names = "hsi2c";
+ 
+@@ -872,8 +872,8 @@ hsi2c_5: i2c@14250000 {
+ 			interrupts = <GIC_SPI 153 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c5_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C5>;
+ 			clock-names = "hsi2c";
+ 
+@@ -886,8 +886,8 @@ hsi2c_6: i2c@14260000 {
+ 			interrupts = <GIC_SPI 154 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c6_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C6>;
+ 			clock-names = "hsi2c";
+ 
+@@ -900,8 +900,8 @@ hsi2c_7: i2c@14270000 {
+ 			interrupts = <GIC_SPI 155 IRQ_TYPE_LEVEL_HIGH>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&hs_i2c7_bus>;
++			pinctrl-names = "default";
+ 			clocks = <&clock_peric PERIC_PCLK_HSI2C7>;
+ 			clock-names = "hsi2c";
+ 
+@@ -949,10 +949,10 @@ ethernet1: ethernet@14300000 {
+ 			assigned-clocks = <&clock_peric PERIC_EQOS_PHYRXCLK_MUX>,
+ 					  <&clock_peric PERIC_EQOS_PHYRXCLK>;
+ 			assigned-clock-parents = <&clock_peric PERIC_EQOS_PHYRXCLK>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&eth1_tx_clk>, <&eth1_tx_data>, <&eth1_tx_ctrl>,
+ 				    <&eth1_phy_intr>, <&eth1_rx_clk>, <&eth1_rx_data>,
+ 				    <&eth1_rx_ctrl>, <&eth1_mdio>;
++			pinctrl-names = "default";
+ 			local-mac-address = [00 00 00 00 00 00];
+ 			iommus = <&smmu_peric 0x0 0x1>;
+ 
+@@ -1012,8 +1012,8 @@ ufs: ufs@15120000 {
+ 				 <&clock_fsys0 UFS0_TOP0_CLK_UNIPRO>;
+ 			clock-names = "core_clk", "sclk_unipro_main";
+ 			freq-table-hz = <0 0>, <0 0>;
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&ufs_rst_n &ufs_refclk_out>;
++			pinctrl-names = "default";
+ 			phys = <&ufs_phy>;
+ 			phy-names = "ufs-phy";
+ 
+@@ -1024,10 +1024,10 @@ ufs_phy: ufs-phy@15124000 {
+ 			compatible = "tesla,fsd-ufs-phy";
+ 			reg = <0x0 0x15124000 0x0 0x800>;
+ 			reg-names = "phy-pma";
+-			samsung,pmu-syscon = <&pmu_system_controller>;
+ 			#phy-cells = <0>;
+ 			clocks = <&clock_fsys0 UFS0_MPHY_REFCLK_IXTAL26>;
+ 			clock-names = "ref_clk";
++			samsung,pmu-syscon = <&pmu_system_controller>;
+ 		};
+ 
+ 		ethernet0: ethernet@15300000 {
+@@ -1041,10 +1041,10 @@ ethernet0: ethernet@15300000 {
+ 				 <&clock_fsys0 FSYS0_EQOS_TOP0_IPCLKPORT_RGMII_CLK_I>,
+ 				 <&clock_fsys0 FSYS0_EQOS_TOP0_IPCLKPORT_CLK_RX_I>;
+ 			clock-names = "ptp_ref", "master_bus", "slave_bus", "tx", "rx";
+-			pinctrl-names = "default";
+ 			pinctrl-0 = <&eth0_tx_clk>, <&eth0_tx_data>, <&eth0_tx_ctrl>,
+ 				    <&eth0_phy_intr>, <&eth0_rx_clk>, <&eth0_rx_data>,
+ 				    <&eth0_rx_ctrl>, <&eth0_mdio>;
++			pinctrl-names = "default";
+ 			local-mac-address = [00 00 00 00 00 00];
+ 			iommus = <&smmu_fsys0 0x0 0x1>;
+ 
 
-> ---
->  .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 221 +++++++++++++++=
-++++++
->  1 file changed, 221 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy=
-.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> new file mode 100644
-> index 0000000000000..993271c42fa06
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> @@ -0,0 +1,221 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm X1E80100 SoC CSI2 PHY
-> +
-> +maintainers:
-> +  - Bryan O'Donoghue <bod@kernel.org>
-> +
-> +description:
-> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sen=
-sors
-> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PH=
-Y
-> +  modes.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,x1e80100-csi2-phy
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core
-> +      - const: timer
-> +      - const: ahb
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  operating-points-v2: true
-> +
-> +  opp-table:
-> +    type: object
-> +
-> +  power-domains:
-> +    items:
-> +      - description: Titan Top GDSC - Titan ISP Block, Global Distribute=
-d Switch Controller.
-> +      - description: MMCX voltage rail
-> +      - description: MXC or MXA voltage rail
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: top
-> +      - const: mmcx
-> +      - const: mx
-> +
-> +  vdda-0p9-supply:
-> +    description: Phandle to a 0.9V regulator supply to a PHY.
-> +
-> +  vdda-1p2-supply:
-> +    description: Phandle to 1.2V regulator supply to a PHY.
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description:
-> +          Sensor input. Always present. A single sensor is described by =
-a
-> +          single endpoint with the D-PHY clock lane at position 0 and on=
-e to
-> +          four data lanes.
-> +
-> +          DPHY split mode, where two independent sensors share the same =
-PHY,
-> +          is described by two endpoints, each with its own clock lane po=
-sition;
-> +          endpoint@0 with clock-lanes =3D <0> and one or two data-lanes =
-and
-> +          endpoint@1 with clock-lanes =3D <3> and one data lane.
-> +
-> +        unevaluatedProperties: false
-> +
-> +        patternProperties:
-> +          "^endpoint(@[01])?$":
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +                default: 4
-> +
-> +              clock-lanes:
-> +                maxItems: 1
-> +
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  minimum: 1
-> +                  maximum: 4
-> +                description:
-> +                  Data lane positions following this endpoint's clock
-> +                  lane. Positions are a per-port logical numbering, not
-> +                  package pad or ball positions.
-> +
-> +            required:
-> +              - data-lanes
-> +              - remote-endpoint
-> +
-> +        allOf:
-> +          - if:
-> +              required:
-> +                - endpoint@1
-> +            then:
-> +              properties:
-> +                endpoint@0:
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 0
-> +                    data-lanes:
-> +                      maxItems: 2
-> +                endpoint@1:
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 3
-> +                    data-lanes:
-> +                      items:
-> +                        - const: 4
-> +              required:
-> +                - endpoint@0
-> +            else:
-> +              patternProperties:
-> +                "^endpoint(@0)?$":
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 0
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Output to the CAMSS CSID controller.
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - operating-points-v2
-> +  - power-domains
-> +  - power-domain-names
-> +  - vdda-0p9-supply
-> +  - vdda-1p2-supply
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
-> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/media/video-interfaces.h>
-> +    #include <dt-bindings/power/qcom,rpmhpd.h>
-> +
-> +    phy@ace4000 {
-> +        compatible =3D "qcom,x1e80100-csi2-phy";
-> +        reg =3D <0x0ace4000 0x2000>;
-> +
-> +        clocks =3D <&camcc CAM_CC_CSIPHY0_CLK>,
-> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
-> +        clock-names =3D "core",
-> +                      "timer",
-> +                      "ahb";
-> +
-> +        interrupts =3D <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-> +
-> +        operating-points-v2 =3D <&csiphy_opp_table>;
-> +
-> +        power-domains =3D <&camcc CAM_CC_TITAN_TOP_GDSC>,
-> +                        <&rpmhpd RPMHPD_MMCX>,
-> +                        <&rpmhpd RPMHPD_MX>;
-> +        power-domain-names =3D "top",
-> +                             "mmcx",
-> +                             "mx";
-> +
-> +        vdda-0p9-supply =3D <&vreg_l2c_0p9>;
-> +        vdda-1p2-supply =3D <&vreg_l1c_1p2>;
-> +
-> +        ports {
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            port@0 {
-> +                reg =3D <0>;
-> +                csiphy0_in: endpoint {
-> +                    bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +                    clock-lanes =3D <0>;
-> +                    data-lanes =3D <1 2 3 4>;
-> +                    remote-endpoint =3D <&sensor_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg =3D <1>;
-> +                csiphy0_out: endpoint {
-> +                    remote-endpoint =3D <&csid_in>;
-> +                };
-> +            };
-> +        };
-> +
-> +        csiphy_opp_table: opp-table {
-> +            compatible =3D "operating-points-v2";
-> +
-> +            opp-300000000 {
-> +                opp-hz =3D /bits/ 64 <300000000>;
-> +                required-opps =3D <&rpmhpd_opp_low_svs_d1>,
-> +                                <&rpmhpd_opp_low_svs_d1>;
-> +            };
-> +        };
-> +    };
->
-> --
-> 2.55.0
->
->
+-- 
+2.53.0
+
