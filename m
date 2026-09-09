@@ -1,67 +1,148 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B90839E184;
-	Wed,  9 Sep 2026 19:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2CB03B8945;
+	Wed,  9 Sep 2026 19:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788981557; cv=none; b=S2EcEVY/nGm/zrFYjZ/MP3qSYBVFdf8nI3BvQJUbDlrznKiDIc8hBbF2ndIZaK0tax8roChuNHy/fBeUxOzkZJONdX7IzYrDDV7djAYWDOSn8OckS+/uCLbXUQmvtfaryX3zGNQzY0WMJya0YN6mSxElGTAOLA8RmsvGp5f8wgk=
+	t=1788981671; cv=none; b=QJtc7ATnyea8ggcFUHH+6UKwEcXi0TqGb2eNLkAFCbhVQRUV34K5ML4AWRUqybQOWx9LgbaxnWRxW1WsJCKTA6ffVfDnJ02II1DlHJx/xKXgFzgtdUqK42aWsFXWRts7/c2eMCsqcdCcafIqVbU22kYijedK+I5GqA1dFJcFEjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788981557; c=relaxed/simple;
-	bh=XU4wURfmD7yB2nyvojAw8YPiNGBpe+0TBpaJJ9lnQFc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J937pGuEM+Emz806K7ollvlgV2wsXl5g4UjIlT91bpSa8VI++jGvptYXpDZN9dU3IxH88ljyIRVy50bXh5/iPpby6ZQoHeYE2A3lAZTWH3yXFLR+hS0HL08+YXeCg3j5hlGcutqTnwXUT6NW4EjePSkNM1Modsl4+isRLBhwR7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=M2S3MVS6; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1788981671; c=relaxed/simple;
+	bh=VKUdjhGaBjpAa67ef1Uo4yhXuN8XeSzLQkiKiMjWsHY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=WSnh8g5+p0XZNZYsEeID3n4HmWuNZArb8OySeUBwwNQXF8y2E9xFuA4w46wSMigAMKGyk3VbptFlaDayuPY/o6Tm8tKZUMwmMajI1og0UitiDWnlQhKG+OdmFiXha0RkZU6yhhF6lkgmoANDxUwyZXLvTenUTnaxksWS12bZvHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kz655EUa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="M2S3MVS6"
-Received: from francesco-nb (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 290D220B62;
-	Wed,  9 Sep 2026 21:13:25 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1788981205;
-	bh=VHgUijc5vPlHoNasDHjsFJ3kz5HjmE2t49kAvqhiWGI=; h=From:To:Subject;
-	b=M2S3MVS6V9Zk0gJ0Rsy9dth6sRa0veNstdOq5lQXRtTIoUd/3itXFBF0culKlWDlL
-	 Fgqa1g+sZTO0CzSWGqZp1S1F5BwaNNZAuaC1PIXtcJZx+NcxsKQ9ISSc9ixWpZVmet
-	 O6yAWe0dS7BobfYaLylHFo9zkZol5Ih2LMPZOps0EPgTsB6haCQ2WbWeXDpKKsroj/
-	 u/aqarnGajx3VXWN9+tLoukIClg6AWRz/oNFKU2bevVtVs/o8C3HLLj76pI7N4j1kX
-	 vX/UGS149sdZuK/yBspL5QbiuCUt6mD6Hi7WC6nXIAIimc1HM7TFYAhr+43WIb4mQW
-	 1AhwjhPMngpew==
-Date: Wed, 9 Sep 2026 21:13:21 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: u-kumar1@ti.com, nm@ti.com, vigneshr@ti.com, kristo@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	leonardo.costa@toradex.com, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to
- LVDS adapter with the 10.1" V2 display
-Message-ID: <20260909191321.GA23582@francesco-nb>
-References: <20260909181332.1081552-1-leoreis.costa@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kz655EUa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 294661F000FF;
+	Wed,  9 Sep 2026 19:21:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788981669;
+	bh=M2nswE3qSbG9TCkaxssyQdz0iLobRd4wbX0aL90sGYE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Kz655EUagB+8c6/LMhj9HwtRvqdaSqblRUuPbZkIEa+fRUJXpcjT1Y6+oNfUjU83+
+	 rMv7+F35dBG/HhfbW4sd1dHWpMPvV+9TqupO85MLLHt2aWCgwch4J5lTil8WC9nlTF
+	 AjE+3ctHy4ngo5VnzjGcaG0OJqiyOnFZTJjhZSQx48Ay05wj4pTHVVyjitzuJNEpLL
+	 7nSvaGp5Rw07hc4ie6k0BJs725w+p0AzaTbQ+DLa+oMkoh0+VFjDxvq07DOLHThVIR
+	 TYdocJAk7xgRcdl6Ls3tbjuG4UNrRe848q9ymU5f4dR7ekDOi1lRNkbG7yIhhQQd3E
+	 pe5zsO+8TS8QQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 6/8] net: xilinx: tsn: add the endpoint RX
+ data path
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Srinivas Neeli" <srinivas.neeli@amd.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20260909-patches_v2_external-v2-6-3a40babaff4c@amd.com>
+References: <20260909-patches_v2_external-v2-0-3a40babaff4c@amd.com>
+ <20260909-patches_v2_external-v2-6-3a40babaff4c@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 19:21:08 +0000
+Message-Id: <20260909192109.294661F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909181332.1081552-1-leoreis.costa@gmail.com>
 
-On Wed, Sep 09, 2026 at 03:12:09PM -0300, Leonardo Costa wrote:
-> From: Leonardo Costa <leonardo.costa@toradex.com>
-> 
-> Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-> Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-> Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-> DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-> LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-> touch controller.
-> 
-> Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-lvds-adapter
-> Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The return value of dmaengine_submit() is ignored in the RX path, =
+leading to permanent RX ring desynchronization and data corruption if submi=
+ssion fails.
+- [Medium] Out-of-bounds read of DMA descriptor metadata due to missing len=
+gth validation.
+--
 
-Acked-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+commit 5fd8b30c57440a41e4ad90bda57e202d89a1aa7b
+Author: Srinivas Neeli <srinivas.neeli@amd.com>
+Subject: net: xilinx: tsn: add the endpoint RX data path
 
+This commit adds the RX data path for the Xilinx TSN endpoint, allowing it =
+to
+receive frames. It posts RX buffers to each channel upon opening and reaps
+them via a completion callback, serializing the refill against teardown.
+
+> diff --git a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c b/drivers/ne=
+t/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> index 23a15df71baad..9ed1170794e03 100644
+> --- a/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+> +++ b/drivers/net/ethernet/xilinx/tsn/xilinx_tsn_ep.c
+
+[ ... ]
+
+> @@ -113,6 +132,174 @@ ep_get_desc(struct xlnx_tsn_ep_dma_chan *xchan, int=
+ idx)
+>  	return xchan->skb_ring[idx];
+>  }
+> =20
+> +static void ep_dma_rx_cb(void *data, const struct dmaengine_result *resu=
+lt);
+> +
+> +static int ep_rx_submit_desc(struct xlnx_tsn_ep_dma_chan *xchan)
+> +{
+
+[ ... ]
+
+> +	skbuf_dma->skb =3D skb;
+> +	skbuf_dma->dma_address =3D sg_dma_address(skbuf_dma->sgl);
+> +	skbuf_dma->desc =3D dma_rx_desc;
+> +	dma_rx_desc->callback_param =3D xchan;
+> +	dma_rx_desc->callback_result =3D ep_dma_rx_cb;
+> +	xchan->ring_head++;
+> +	dmaengine_submit(dma_rx_desc);
+> +
+> +	return 0;
+
+[Severity: High]
+Does this code ignore the return value of dmaengine_submit() in the RX path?
+
+If dmaengine_submit() fails and returns an error cookie (e.g., due to an
+exhausted DMA descriptor pool), the hardware will not receive the descripto=
+r.
+However, because the software pre-increments xchan->ring_head and ignores
+the error, it assumes the descriptor is safely armed.
+
+When the next successful descriptor completes, the software will read from
+xchan->ring_tail, mistakenly unmapping and passing the SKB of the failed
+descriptor to the network stack. Could this lead to passing uninitialized
+kernel memory up the network stack and shifting all subsequent packet paylo=
+ads
+by one descriptor?
+
+[ ... ]
+
+> +static void ep_dma_rx_cb(void *data, const struct dmaengine_result *resu=
+lt)
+> +{
+
+[ ... ]
+
+> +	metadata =3D dmaengine_desc_get_metadata_ptr(skbuf_dma->desc,
+> +						   &meta_len,
+> +						   &meta_max_len);
+> +	if (IS_ERR_OR_NULL(metadata)) {
+> +		if (net_ratelimit())
+> +			dev_warn(ep->dev, "Failed to get RX metadata pointer\n");
+> +
+> +		dev_kfree_skb_any(skb);
+> +		DEV_STATS_INC(ndev, rx_dropped);
+> +		DEV_STATS_INC(ndev, rx_errors);
+> +		goto submit_new;
+> +	}
+> +
+> +	/* MCDMA metadata: [0] =3D status, [1] =3D sideband (TID/TDEST/TUSER), =
+[2..] =3D app */
+> +	tuser =3D metadata[1] & TSN_TUSER_MASK;
+
+[Severity: Medium]
+Is it possible for the DMA driver to return a valid metadata pointer with a
+short payload where meta_len is less than 8 bytes (2 words)?
+
+If meta_len does not cover metadata[1], this access could result in an
+out-of-bounds memory read. Does this code need to verify that meta_len is
+large enough before accessing metadata[1]?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-patches_v2=
+_external-v2-0-3a40babaff4c@amd.com?part=3D6
