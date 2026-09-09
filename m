@@ -1,60 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7AA437AA70;
-	Wed,  9 Sep 2026 07:59:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA7724582E0
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 08:00:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788940756; cv=none; b=j2xhWe5tCSrJx39QaxLMAff1QllSuyxZ+lXCglYf7mLVERwWCKLt4/gRTGEqD9b2wlwkeJYHcYsldMnOonSy6ykinhGBxeWHBTQUDYhVlWcJ+nC7UktM6x8t8gRajnIg0Yn8N+ex3tggFDFcC+2vztHvSvdFdw35nSqNtp06M1E=
+	t=1788940850; cv=none; b=qCeGRWl9wafnYt99vthhrHv1RELOVSaJbD8lqdHs9iBQ0Sg38PQcw3KkGu9zdXlZenRpEgt+UBMK4i6O3AFTbX7HzYVCeErQhsv4FMHLXyHXxVgjSgfSib33P5YbexXj/xYJzgVkBligxs3P+rQHKIS8lfm1+GW2y/i+AYnH9/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788940756; c=relaxed/simple;
-	bh=d0OS/gcSBtD79FghC5lEAvRzvjbPjZjrHfHbaN6oSYo=;
+	s=arc-20240116; t=1788940850; c=relaxed/simple;
+	bh=aN1MVkOCjwtOucEg+oqql9Bc/Rq8wSbHbAKKZ6P53QM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ngrwnd+BxBNKO48jbrNvoLGuQHQ/zyraFAN5yx9+ugy3h4m+XtIMb+/L/x1Aqj72JjW3hbhtVn3V5kJd2zQWd+JqYE4CVurt1TbwDWSFcd8FBriggdTP3fjm1iexdjTU91H0Q86FLUnURGQeajgpZSTVEYVtx/0gEHfbX9+OlwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLB3Cu9j; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=D55mBEHWGgEEijaO34w4BM0I5lXJMBBLigWAwL0upCxJB/g9xxRyZ5oAr4mr6eGlvkMxDfi9xav0QMVdBi8B2XMSKpU453kUABBS400FOBccUUbB2JgJAbRPYejsuHI8ZXc5MDzCGUOPnfckj75gzCspe4bvybeQ/XEdjODJSt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C2eN8CAY; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLB3Cu9j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DA8F1F00A3A;
-	Wed,  9 Sep 2026 07:59:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788940754;
-	bh=d0OS/gcSBtD79FghC5lEAvRzvjbPjZjrHfHbaN6oSYo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BLB3Cu9jiypADXMohR9yF4WKqcNfE0uoAs4QsbA/fMSw/L41C1S2RwXHxjlH/2626
-	 ExJGnCqCNxICg4ERWY5a6vMdQTdj+LMrqaga2XhCNG+Xwcw66CJQ8z4RImqKF8VRtP
-	 EYCb0hMEVZ2ql/iYm7ATpp8gfqxqcg+NgxO7HM5CgZ0mFoH6keV0OpuCeAYIkW3Wu/
-	 BaaZbb4zXU12XFkYrjfN68N5opkDa0f24TtADvyG9b6t9F/CaDBYFwhWeXOplneLHq
-	 QU8D3RE2oCJUq8n2YO390sgv7V3z6B2QAD5ch/WqWWISxeNTsV6PipwS6+z9IwWk9F
-	 ttDV7a2hoyrwg==
-Date: Wed, 9 Sep 2026 09:59:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH 2/3] dtc: dt-check-style: Properly detect comments in
- multi-line properties
-Message-ID: <20260909-juicy-handsome-wallaby-0cad87@quoll>
-References: <20260906180437.166760-4-krzysztof.kozlowski@oss.qualcomm.com>
- <20260906180437.166760-5-krzysztof.kozlowski@oss.qualcomm.com>
- <20260906181533.203811F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C2eN8CAY"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2dcff8f44f2so5152835ad.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 01:00:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788940848; x=1789545648; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KTUPUjrKl8uCmmUdksk98ps3euLofcTsZvaXovInbao=;
+        b=C2eN8CAYzMx4WTAcGWVcwXErM0jOxTQm/d9Dv3GFEbwR8VQGxz8MATAew1M4kPZkA4
+         +2OX1NgIAIu6HM+c2Dvmflur/YREZcONrVjNHzgZFERXsKDXofpXs+IVu9Kzm6e3tpDX
+         EPbp51rKc7PuPOvaL4e7orP808wu0AI0EAimfJGbDmb0IYiUTQD1G/ds4zaXQ8h+T1pJ
+         LxsexshAxAkttyec5BYidKWvJFll9R2IsZLVhQmYfASYikwANWgb01fsWbgHw3soSmAD
+         YuSThxA2VaZ9YYXElsmWmhZ4d+Hl02uaiWfYm/k3MogZB7cer9p/wmt9lLP4b0/omwR+
+         IbFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788940848; x=1789545648;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KTUPUjrKl8uCmmUdksk98ps3euLofcTsZvaXovInbao=;
+        b=KyseOih0896vHiYhHXhtRS5NuI+AAHs7DOAG7T6GYPP0eC2bZJT/MydtjGaiRyG0Sw
+         Pip5kYfQMTCkCkEMFbMz5FHJah99UvufVMSI/saej6qBPhc6bG/0wzG8gj+Du7qWQDxU
+         wfGRMXZ1SrJ01Hrz4eB6maSnCQ3g3+F5cmbUGCeksSSMP0SYYE0lXI0v3/TP3iilOuSM
+         MnvJ5vc2dFQHkdfukMMeQRynC636QHKlE87RY7w+KLalj5eZgY/2o5ogmJFevkAWzMai
+         Aibw5FPq/zVEKOkgHFltMISNZeKxngJ3mEfyxebljSbXV6EXbtUVCrcVS3K1WPENMD/F
+         RkFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBykkcQhDc6SqZtS6f/zqYG0lRWo0i3/G0l8BKiAfEIekX432RZAvcrL7dd+Nprd+3ja1p1L6ZmtXJd/@vger.kernel.org
+X-Gm-Message-State: AFuF++mp5EX07z/iLbIDB1YPQQhToPGHmn8FaaEj5fC1vE1iVePSBaKc
+	LqFFLQPfpcfJe2mTZCJFafh4s7gz0EoTJlEzMs1AB2PXyLmRD0t9p4eS
+X-Gm-Gg: AYBFou1FKJ5tggqa7wILIuBXwUk7jzJ51j2kk0lWv0gh2REWRtg4dpHS/kzbkhYg1Bs
+	RfEshinMApYt+mj2qf9CC+GauSsBDVLF21WLWyewkN8OyWBEUzBxbH0WWeXAju4H/R3ZPebxmXP
+	gNjByqhPL/pBK1i1VHqgu0n/M142t4N0HI84fvSra8FZlLHgPOXNExJ5geSsb/su43qX7sreMX6
+	ZokuJK5TZk0j4BeW0XFSX6hlhEbzd7+o1rZvjHHt6D8JvfkIK/jE4rLr3gfrEXFM8OPZorDVWEx
+	9MBoXmnoMeCPqcrQGlBY3gqezj7+vChenGUSUryF+uKFbOC8D+wxq+o9LDr6hbzTpdlHWFkCR1l
+	SLmOhMZ9uYgq3RiCCSMGsKKhSN9gtdtWfQUCl/7pZTY8gc0kEWCjeaFDcNvi1whx3j28RLUacRW
+	tTxGXmL4voUIzwqYC6AJAHu1qdYpmJuff4USMjKuozx5PGaxRSUcBqZVocz+dnIWZDUZuOkGJGF
+	WFGZRls
+X-Received: by 2002:a17:902:f70f:b0:2bf:dd0:c8b1 with SMTP id d9443c01a7336-2db1225b297mr497594465ad.0.1788940847987;
+        Wed, 09 Sep 2026 01:00:47 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db56c2a1f1sm37775965ad.78.2026.09.09.01.00.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 01:00:47 -0700 (PDT)
+Date: Wed, 9 Sep 2026 16:00:15 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Inochi Amaoto <inochiama@gmail.com>
+Cc: Jingoo Han <jingoohan1@gmail.com>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>, 
+	Christian Bruel <christian.bruel@foss.st.com>, Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>, Alex Elder <elder@riscstar.com>, 
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>, Randolph Lin <randolph@andestech.com>, 
+	Siddharth Vadapalli <s-vadapalli@ti.com>, Vidya Sagar <vidyas@nvidia.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Danilo Krummrich <dakr@kernel.org>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, Pengpeng Hou <pengpeng@iscas.ac.cn>, 
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>, Gustavo Pimentel <gustavo.pimentel@synopsys.com>, 
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>, 
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 2/6] PCI: spacemit-k1: Add multiple PHY handles support
+Message-ID: <aqEQnkrPSKB-3fam@inochi.infowork>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-3-inochiama@gmail.com>
+ <ap_jh_NAqHnIlZeu@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260906181533.203811F00A3A@smtp.kernel.org>
+In-Reply-To: <ap_jh_NAqHnIlZeu@ashevche-desk.local>
 
-On Sun, Sep 06, 2026 at 06:15:32PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Reclassifying pure comment lines inside multi-line properties as `LineType.CONTINUATION` causes them to bypass multiple style checks (line length, trailing whitespace, hex casing).
+On Tue, Sep 08, 2026 at 01:29:27PM +0300, Andy Shevchenko wrote:
+> On Mon, Sep 07, 2026 at 07:26:01PM +0800, Inochi Amaoto wrote:
+> > The PCIe controller on Spacemit K3 may use multiple PHYs at the
+> > same time. The feature is not supported by the current driver.
+> > So extend the PHY definition to support multiple PHY handles.
+> 
+> ...
+> 
+> > +static int k1_pcie_get_phy_handle(struct k1_pcie *k1, struct device_node *node)
+> > +{
+> > +	const struct k1_pcie_device_data *data = k1->data;
+> > +	struct device *dev = k1->pci.dev;
+> > +	int count;
+> > +
+> > +	count = devm_of_phy_bulk_get_all(dev, node, &k1->phys);
+> > +	if (count < 0)
+> > +		return count;
+> > +	if (count == 0 || count > data->max_phy_count)
+> > +		return -EINVAL;
+> 
+> Elsewhere we distinguish count == 0 with -ENOENT.
+> 
 
-Partially looks correct, the logic in rules (check_xxx()) should handle
-continuations as well. But OTOH, mentioned above rules do not matter for
-comments.
+Is there is an example? I think it is suitable for its internal check 
+to translate -ENOENT to count 0, because no phys property means no
+phy. For a get helper with optional semantics. I think it is fine
+to return 0.
 
-Best regards,
-Krzysztof
+Regards,
+Inochi
 
+> > +	k1->phy_count = count;
+> > +
+> > +	return 0;
+> > +}
+> 
+> -- 
+> With Best Regards,
+> Andy Shevchenko
+> 
+> 
