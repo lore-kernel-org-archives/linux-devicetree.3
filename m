@@ -1,43 +1,95 @@
-Received: from mail-10629.protonmail.ch (mail-10629.protonmail.ch [79.135.106.29])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8146C3C584A;
-	Wed,  9 Sep 2026 21:04:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CDC46EC70
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 21:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788987863; cv=none; b=Z42SBwDXPX6RXYcRUqEuy3LY9F5Xp1w6TqvoN5yBdbNzXHFueJlEwEUZTTDY7OQq7E1mfHm4ktyuGLMt0OjV+xsTE4rDSukaXDNp1D0n6aKerafWZg8UAvZlp0I+HKENn/s8DKyehGQuToVazJnV3SRnQMEfX/QF8Y2/eQ/8Wfg=
+	t=1788988096; cv=none; b=A/l49k7JXxNNBTVBWODUim6EQaigY98tG2UeSqbPpTGeKEFnNq387X7xHOqICJR4qMNNrqR16mtJayH+PCARSeYlUX9qwsbwKrgCzS2w+5ftogsEwX/uezSxrjKm8oSxItOm002H3278aUtSMx3mx7e/Y4VaTgvLVYglzL8I8OU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788987863; c=relaxed/simple;
-	bh=ux4LwqZlbuHjN5pDgf+R+mKnPiisvTQFqDbT/x5yXuE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dAbB7JjXvQp8nAs/lt/s973W0BFrP4tX88qjCoeiU+QDQGJqz7zf3I85OjxSHMgk6lgld0dkOwRs9p/vEz7EQVuA964QTdLHbGuk+g+F6xCo5zeN1j/Lc2BkRsjZxDyFDWzcDrYfdhtX6UO+CVj8djMjp93FovjCUJurbgEW3XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=kflyLVDU; arc=none smtp.client-ip=79.135.106.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1788988096; c=relaxed/simple;
+	bh=Co4BuMKDNcJbJfxryu291LqUTeZuoEWT5W4MxgeFnoE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iF8bXpKzeAi8LdHglx7QDEBGx+Alt28KU1tqtK42VQbk+ZLD0ZaEE8NpwWeFRnfpNvhCf3F5FyspsGpi/Rs1J8u2A6vxv05oeB3yA3oC9Mu/wKmu0nuYZeZYYQwmqDjR5kugztTpyovChuX6daulVB9Ia2psQMVCr8mx+5PjA58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eih6Wnpf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gnn8iYYV; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="kflyLVDU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=2yofm2bllvcebmrjy3frax4z3q.protonmail; t=1788987854; x=1789247054;
-	bh=P91JSApwUvPyWA9CkkLfouUbbAesRpLSdan/W/e1NLc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=kflyLVDUd+HQMXYvAACOjgkarCgP+mmFkRMoSd9fUdmqTUY1pbe7/o+bZjzhKNEs1
-	 GsiXJ2VniwDyxkYH5twLDlQl3Jenxb6RZdPHmnZnN01XcTEjvRK9qTH7bWFT8SwL6D
-	 YBdDibUGVVPY/gRznESkCYqozO8+Ph1CCfdVRYyWcLl7h3wv7Wivdabk50pdzlm9Bh
-	 9xfhunZH79+W1j/Gko1RuKmQrhY+1CGQshIIf9IsM/De6yDTdaYP4RUmi23VUghx6G
-	 os8sL2x+Y1z1V61EeiETk5ZQOGNGRXRBOWL/krHoV2iXMmwTTtgJBBhaYtx46mf7wm
-	 Jewj0gYlYHNvg==
-Date: Wed, 09 Sep 2026 21:04:05 +0000
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-From: Esteban Urrutia <esteuwu@proton.me>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Alex Elder <elder@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Nazar Kompanets <xlie7669@gmail.com>, linux-arm-msm@vger.kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 3/3] arm64: dts: qcom: sm8450: Add IPA node
-Message-ID: <530a28fb-28da-4ee0-9c77-6bac7ea6c047@proton.me>
-In-Reply-To: <kirwxhjjskimczzf7fv6go5b4j27qouqvj27n7vckd4vkr3rkd@tf2ugwqbp3kc>
-References: <20260909-sm8450-ipa-v2-0-2deb8b4e91a5@proton.me> <20260909-sm8450-ipa-v2-3-2deb8b4e91a5@proton.me> <kirwxhjjskimczzf7fv6go5b4j27qouqvj27n7vckd4vkr3rkd@tf2ugwqbp3kc>
-Feedback-ID: 147889766:user:proton
-X-Pm-Message-ID: d485751c4d99f1bb18b42b75c245d66e48bc113a
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eih6Wnpf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gnn8iYYV"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689JIdYf2232867
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 21:08:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	YGOr4z5VunluLH+EaYmR0ft7HmeTL6gHe7rOeRnzPdo=; b=eih6WnpftW1EBKUp
+	qK7itorA1cR70xsG9XtVw2PjjHK5A2U4vI35blPhAkjzU05eyRA6F5gLFH6rp5CF
+	ymspiD7eWBam+a6kT4ITEqDR5rAmFeksHkm9hyCbWRIISyuM/JB6WePnFBrlpLJk
+	k78vhXyqSzlchxACbeOQGihAmNx+8P6aE3IK3YMATxUXhyUw9xsP8vzn+Ct0dfZ+
+	y1iiV6iSDAaASz2ET4EKXb993+DQDI+fkCm2gxdWuMa4c7aI5id6TwLTUPQousea
+	cCfOHy818OW2dpopojWztY084RysbEUDLPY5SoNwH3lpChfWH2UVdAqSepaaqEVY
+	Odocfw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyfgnr1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 21:08:13 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-39aee9b4cf2so10047302a91.0
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 14:08:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788988093; x=1789592893; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YGOr4z5VunluLH+EaYmR0ft7HmeTL6gHe7rOeRnzPdo=;
+        b=gnn8iYYVms6BSDwoTxmR5xrV6AEQF7RqqyYhFcAi7hbyi9twkt6AUhrL/GaqJcbvoM
+         rJssw6mLT8HxQiDaoU8B0jNNRdUCyR/kjlfMc8o/5/TFvP9rve0AylvNDimfCDxzKdVP
+         4jZM00WXghdZOnR3wSD4ZXr++l4P+16pgr3xh88s+T3HVIG+uaTgij31oisscGZApOqz
+         e+76GxQW3F+R5wV9so7ULwgNH6ExT3IKQt5woEfaB+Dxy6grIaltejzLqL+r0GvV9ly0
+         5AGOWQsh7Hav9nPMjkyjRTEIyryEdgbFMul7Zrre96vKE+is7Sj8YALXuy87FC4aDYe7
+         mtCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788988093; x=1789592893;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YGOr4z5VunluLH+EaYmR0ft7HmeTL6gHe7rOeRnzPdo=;
+        b=sFJwpHIU83KXAqGL3GC9sVgccwZSUrLfw2516yDjiuqmW6M4BrlzH0lgE6YzKLX8FV
+         z6XN16Izi4QFfyvHaxjW0uPbUYqrRf4LdAw0ZvAJ4jFH1E38sIcG8RoQGIa93szHrDYW
+         Z3v2/ExkYcAZaA3rmC9tGjaHVRBlCbpcqWxGNsACwTo+9QrtabJRtVvxBwmrxXkfeUow
+         HXqZHJCyCs3ueedo5Tjislrak69oAQJu984SjcqZbWXrz8E53wB5/gGlD7zaVRM3in00
+         8++HO2xXT5bDFnVycJk01nOC/Ot/8i49p7o7iKlQgDt0gebKSL6k6idpFQEA1T07YIJR
+         +txA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAwhJ41VWHDHzwzUoep9KuSrsv/fM4t6bd591SOZBTwlouUr5K/1YNI2EeHTbAI/9wvLK9++4piTjd@vger.kernel.org
+X-Gm-Message-State: AFuF++mBTaF5s/8tScJz/STeizCekRxEHaShcXh9mTEOpPtU6fbyPAkw
+	gBMLrlg1CeyFfpVIlJzRYQt4WI9c80zsH4Y8VdI7Wzv7FfOFbfgimHybuoRvg5dyUhJLDOuv6av
+	qHQXk/c46lt2szmRGesEOxuAR02XiUh3p37cToLlm399PHhpndkPXgoAtcTmXr44F
+X-Gm-Gg: AYBFou0WWOAaNPiUiOA95WeEKmicqyXgP5MZIBgTYkXDqIb2Rtj1SJ7qHuZftnvFYu2
+	qv7P+UX+kvpvFrzgGu52bYzyjLoWcNHn9jB510KaXEprpuzCjWT0XYLqLtcqSiGizs/tBplGRgK
+	5748aN7wyNA4dh6qbapLHWB4PM46AabgSOrq0FTKlPvmGAuxKNUNjXfR0p9uyNI+6uoquSeecz3
+	36wwI9FxE5JAMTab0uKdQegmLrpEwXNbOTcwYoIAxRfAIFgVYeMITgkp+vKf9rAu3NrNI2b9aBC
+	rXpKUmZO7zO+7z1ut9bydRbC1YkNsmCGt/CSHkFlTkv2b2EAdJmGVcGA3rtUNY6+bFIxTFZRWU1
+	TM1SmNC6nMnX22/LAQO8Ms9wCWw==
+X-Received: by 2002:a17:90b:2e8c:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-39d7097de14mr4541002a91.4.1788988092653;
+        Wed, 09 Sep 2026 14:08:12 -0700 (PDT)
+X-Received: by 2002:a17:90b:2e8c:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-39d7097de14mr4540945a91.4.1788988092185;
+        Wed, 09 Sep 2026 14:08:12 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1432424d27asm62231705c88.2.2026.09.09.14.08.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 14:08:11 -0700 (PDT)
+Date: Thu, 10 Sep 2026 02:38:06 +0530
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, robh@kernel.org
+Subject: Re: [PATCH v13 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI
+ to HDMI driver
+Message-ID: <aqHKtvuWZCQTDnux@hu-mdsor-hyd.qualcomm.com>
+References: <20260909-lt9611c-v7-v13-0-aec234483725@oss.qualcomm.com>
+ <20260909-lt9611c-v7-v13-2-aec234483725@oss.qualcomm.com>
+ <20260909095358.41EBC1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,82 +97,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260909095358.41EBC1F00A3D@smtp.kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDIzNyBTYWx0ZWRfX7QRSCKYXhcOg
+ Yk8fLZvQiLCpqfvrtTQhCVXIg0BxRik0C/HjEaIRndNfcWqaJTIRBWRCyzXHwSR0ERupQ+gn69k
+ YwOY9JfugPxXKyJCQFzLKnCWmYgtecI=
+X-Proofpoint-ORIG-GUID: WwTdyGDbZqtUTZ3G46gLQa1-Zxtlyfda
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDIzNyBTYWx0ZWRfX2pB8iS1XF7m4
+ hxD4Jhq2ELdFlBC14uG0SzDXIrUtFYUsdoT9rIUhQsMO+M8tN7Cl/YdopVckjmxQ8A4jo/pKTlM
+ pUAe48f2HrtMcQXUCRo0zyuhwXEwfTJI00gJMlZWcIVtLYFA+CZlPO08QQusqqrKP2Bfr3yRGdX
+ B6Aw/FQ/+arvEEEjwuwzqYW5NHfKAuOA35t2giBERw98HM6MuedxnTc8y+RbBmtzOU4j/4dKt6C
+ MYGi3iphlPacZ2jG4qWrIMhkbz/WTxM+0n2MI2y8dEGuZPhPjPg5J0Js1HA+4ANJmnB7k4ZrtS9
+ rs9iiSm8KMvNytDd6FjeDSrADOq9lmFrWaTXzlx8w+n7K2x3uNabE3c8N8WHINcx63xAm2PnPDT
+ d0IHWoxoWyJXgHRwPBL4CRQHz3n1/Ocud3TM0apxn/J8FPzXRlAGxHgRZRho0UfSrbNFm1U0RvX
+ aflZlfCPYrtr+ixZ3vQ==
+X-Authority-Analysis: v=2.4 cv=H5pOUOYi c=1 sm=1 tr=0 ts=6aa1cabd cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=c92rfblmAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=Kz8-B0t5AAAA:8
+ a=DJsLk9TwWp4BRhIVdl4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22 a=GvGzcOZaWPEFPQC_NcjD:22 a=RuZk68QooNbwfxovefhk:22
+X-Proofpoint-GUID: WwTdyGDbZqtUTZ3G46gLQa1-Zxtlyfda
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-09_01,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 bulkscore=0 adultscore=0 lowpriorityscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609090237
 
-On 9/9/26 4:06 PM, Dmitry Baryshkov wrote:
->> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/=
-qcom/sm8450.dtsi
->> index b8793482b181..95b6fd22a846 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
->> @@ -2625,6 +2625,47 @@ adreno_smmu: iommu@3da0000 {
->>  =09=09=09dma-coherent;
->>  =09=09};
->>
->> +=09=09ipa: ipa@3f40000 {
->> +=09=09=09compatible =3D "qcom,sm8450-ipa";
->> +
->> +=09=09=09reg =3D <0 0x3f40000 0 0x10000>,
->> +=09=09=09      <0 0x3f50000 0 0x5000>,
->> +=09=09=09      <0 0x3e04000 0 0xfc000>;
->> +=09=09=09reg-names =3D "ipa-reg",
->> +=09=09=09=09    "ipa-shared",
->> +=09=09=09=09    "gsi";
->> +=09=09=09iommus =3D <&apps_smmu 0x5c0 0x0>,
->> +=09=09=09=09 <&apps_smmu 0x5c2 0x0>;
->> +
->> +=09=09=09interrupts-extended =3D <&intc GIC_SPI 654 IRQ_TYPE_EDGE_RISIN=
-G>,
->> +=09=09=09=09=09      <&intc GIC_SPI 432 IRQ_TYPE_LEVEL_HIGH>,
->> +=09=09=09=09=09      <&ipa_smp2p_in 0 IRQ_TYPE_EDGE_RISING>,
->> +=09=09=09=09=09      <&ipa_smp2p_in 1 IRQ_TYPE_EDGE_RISING>;
->> +=09=09=09interrupt-names =3D "ipa",
->> +=09=09=09=09=09  "gsi",
->> +=09=09=09=09=09  "ipa-clock-query",
->> +=09=09=09=09=09  "ipa-setup-ready";
->> +
->> +=09=09=09clocks =3D <&rpmhcc RPMH_IPA_CLK>;
->> +=09=09=09clock-names =3D "core";
->> +
->> +=09=09=09interconnects =3D <&aggre2_noc MASTER_IPA 0 &mc_virt SLAVE_EBI=
-1 0>,
->> +=09=09=09=09=09<&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_IPA_CFG =
-0>;
->> +=09=09=09interconnect-names =3D "memory",
->> +=09=09=09=09=09     "config";
->> +
->> +=09=09=09qcom,qmp =3D <&aoss_qmp>;
->> +
->> +=09=09=09qcom,smem-states =3D <&ipa_smp2p_out 0>,
->> +=09=09=09=09=09   <&ipa_smp2p_out 1>;
->> +=09=09=09qcom,smem-state-names =3D "ipa-clock-enabled-valid",
->> +=09=09=09=09=09=09"ipa-clock-enabled";
->> +
->> +=09=09=09sram =3D <&ipa_modem_tables>;
->=20
-> No qcom,gsi-loader / memory-region ?
+On Wed, Sep 09, 2026 at 09:53:57AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Hardware reset causes regmap's page selector cache to become desynchronized, leading to register accesses on the wrong page.
+Same as the earlier lt9611c_reset question — win_page is a local variable recomputed from the target register address on
+every access, not stored persistently in the regmap struct. With REGCACHE_NONE, _regmap_update_bits always performs a real
+hardware read of the selector register before writing it. After GPIO reset the chip reverts to page 0x00, regmap reads that
+back and re-issues the page selector write before accessing 0xe021. No desynchronization is possible.
 
-Right. I forgot about this change. I'll add those in v3.
-
->> +
->> +=09=09=09status =3D "disabled";
->> +=09=09};
->> +
->>  =09=09usb_1_hsphy: phy@88e3000 {
->>  =09=09=09compatible =3D "qcom,sm8450-usb-hs-phy",
->>  =09=09=09=09     "qcom,usb-snps-hs-7nm-phy";
->=20
->=20
-> Also the device is disabled by default. On which platform did you enable
-> it? Is it supported upstream?
-
-Yes, as it should be. It has currently been tested as working in:
-- sm7475-realme-senna
-- sm8450-oneplus-negroni
-- sm8475-motorola-bronco
-None of these devices have device trees upstreamed at the moment.
-I plan on eventually upstreaming support for motorola-bronco.
-
-Regards,
-Esteban
-
+> - [Medium] Memory leak of device tree node references on probe error paths.
+This can be fixed with small change in v14 with any other comment if
+there.
+> --
+> 
+> commit 8472ac6fb646e6b178a64a965210c4a862f133a2
+> Author: Sunyun Yang <syyang@lontium.com>
+> 
+> drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+> 
+> This commit introduces a new DRM bridge driver for the Lontium 
+> LT9611C(EX/UXD) DSI to HDMI chip. It handles chip initialization, EDID 
+> reading, firmware upgrading, and audio infoframe setup.
+> 
+> > diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
+> [ ... ]
+> > +static int lt9611c_probe(struct i2c_client *client)
+> > +{
+> [ ... ]
+> > +	ret = lt9611c_parse_dt(dev, lt9611c, &dsi0_node, &dsi1_node);
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret, "failed to parse device tree\n");
+> > +
+> > +	lt9611c->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
+> > +	if (IS_ERR(lt9611c->reset_gpio)) {
+> > +		ret = PTR_ERR(lt9611c->reset_gpio);
+> > +		return ret;
+> > +	}
+> 
+> [Severity: Medium]
+> Does this error path leak the device tree node references? The call to
+> lt9611c_parse_dt() acquires remote endpoint nodes for dsi0_node and
+> dsi1_node, but returning directly here skips dropping those references with
+> of_node_put(). Should this jump to an error cleanup label instead?
+> 
+> > +
+> > +	ret = lt9611c_regulator_init(lt9611c);
+> > +	if (ret < 0)
+> > +		return ret;
+> 
+> [Severity: Medium]
+> Similarly, could this return statement leak the same device tree node
+> references from lt9611c_parse_dt() if regulator initialization fails?
+> 
+> [ ... ]
+> > +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
+> > +{
+> [ ... ]
+> > +	ret = lt9611c_write_crc(lt9611c, fw_crc, FW_SIZE - 1);
+> > +	if (ret < 0) {
+> > +		dev_err(dev, "failed to write firmware crc\n");
+> > +		goto out_unlock;
+> > +	}
+> > +
+> > +	lt9611c_reset(lt9611c);
+> > +	ret = lt9611c_upgrade_result(lt9611c, fw_crc);
+> 
+> [Severity: High]
+> Can this cause regmap's page selector cache to become desynchronized?
+> 
+> The lt9611c_firmware_upgrade() function writes to page 0xe0 earlier, then
+> lt9611c_reset() toggles the reset GPIO. This reverts the chip's internal
+> page register to its default (0x00), but the regmap core's internal state
+> caches the window as still being at 0xe0.
+> 
+> When lt9611c_upgrade_result() immediately attempts to read from 0xe021,
+> will regmap skip writing the page selector and accidentally read from
+> page 0x00 instead, causing the upgrade verification to fail?
+> 
+> [ ... ]
+> > +static int lt9611c_bridge_resume(struct device *dev)
+> > +{
+> > +	struct lt9611c *lt9611c = dev_get_drvdata(dev);
+> > +	int ret;
+> > +
+> > +	ret = regulator_bulk_enable(ARRAY_SIZE(lt9611c->supplies), lt9611c->supplies);
+> > +	if (ret) {
+> > +		dev_err(lt9611c->dev, "regulator bulk enable failed.\n");
+> > +		return ret;
+> > +	}
+> > +	lt9611c_reset(lt9611c);
+> > +	enable_irq(lt9611c->client->irq);
+> > +
+> > +	return ret;
+> > +}
+> 
+> [Severity: High]
+> Does this reset during resume also desynchronize the regmap cache for any
+> subsequent display setup or HPD detect reads?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260909-lt9611c-v7-v13-0-aec234483725@oss.qualcomm.com?part=2
