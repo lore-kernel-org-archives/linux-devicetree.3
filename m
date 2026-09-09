@@ -1,172 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042C35237A4;
-	Wed,  9 Sep 2026 12:07:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED81854DAE9;
+	Wed,  9 Sep 2026 12:07:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788955650; cv=none; b=JsdoGY/K7Z0gfkIet9HhpPlLtwu/TUZ0ufE9di8NI+Gs3MWE1D5MHYJiW2zNgPRooP/lfUof8kzQMt20YsTRhszIlIsLbBuPQzNDzYgSVmQ+C3+H5PpoiPc/PYdg3MebqEx82PJK2HpTTipU97LnHAjLMn4E4a7lfHugPL3GNIg=
+	t=1788955676; cv=none; b=LU9L/X0rmi/X+8cEFV3YWx4NMus1ikacsV9qGoaXMKjS/CbOo0cflUQSpLVaOOMcMNX4QzYJw7JhNl58xni3VfZNRkXNWIGP3Wae4xoOUD9JncCk2IELwWPS3r0uWiVCXVfehRCK4wOONoLeeKoxTM2AXmmP/BunSMQ/Vj2KwVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788955650; c=relaxed/simple;
-	bh=2h8XIstbQQAAwItgV1Dpxh958hOmAz/lfHtGxpdZuOc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LJ4xeUUwzLcUf6Y4XODUxDHPJT97+Y8LDj5KUbVhuDjChvtjKUOyh0LnXOtvc3qXmD3yXaftAYwRYaC96ukPKmprw4lZBISGr2mlKy4wp1nYAFbCdWkPLSV0RuXUVZENvvqy050hvEu6SUzihfZcN3NMOF0Rz6M6y9RIMM4i+dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hrQSlYjs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788955676; c=relaxed/simple;
+	bh=PwIlSwSM7h+MN41R9Si1MKcCm0Qfa5bRXV3O0jodI3c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NhIzkP1vQ0DjYS4LulSckvouoso7rWqe3uxn16zA8KzUqY0ZsdDTfRu33btZK1MzP/povMCfxYFEKsn29/6oIH8bpYEtf+XXw7a9GKQe3Hpmwv9T/vOEcQjdctIjvFm4Wk2TxPg+l9GcGsTvoYsVcFYzikzU9eeUK3X83PvIg0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=mzHr1nKL; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hrQSlYjs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2FC1F00A3D;
-	Wed,  9 Sep 2026 12:07:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788955648;
-	bh=eWdprPw1IAwyZg2T0oKk+X/h6rbzr2IN/8PYX7S7qQU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hrQSlYjsg7LIQ485IzaZ/UX4LsV1qN6Q8wEFsitUnwfek7GRn6yQNByh5hNkBoC0i
-	 i2e0ezG7Z0oo9IcV6OvGcqIHGdqbmWdXSEDO+za6P/jPcav4mBE/AlOEo6xMET4ij3
-	 uLSSVGyYZwP8Endj9LlTRN7WcAB4n1CY0lnwHMtQrjkfPcft52E/k5/9K99Mopztg4
-	 rXdGg6DD+fYoQzPYkR+G+JCjYt/39/RmAdCbhEEg4SNKKbJKo0AhByzvyk/zn7AmfP
-	 tulSgVpJvFgNeAXwBtW+qrnTPUqes+7hLiV3bBOSPKWLivkvtL3fbFhuA4FD/bc/DJ
-	 baodBaYGJimjA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 5/5] phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe
- multi-PHY support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260909-nord-v3-5-b0a82721c547@oss.qualcomm.com>
-References: <20260909-nord-v3-0-b0a82721c547@oss.qualcomm.com>
- <20260909-nord-v3-5-b0a82721c547@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 12:07:27 +0000
-Message-Id: <20260909120728.3D2FC1F00A3D@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="mzHr1nKL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1788955673;
+	bh=PwIlSwSM7h+MN41R9Si1MKcCm0Qfa5bRXV3O0jodI3c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=mzHr1nKLDjRnxLOfoVcdGso5TFOWy5n9imJFT2xbri5GZIG5TsbjufX2Pix08dHOQ
+	 u7u3Tw9ZrtmH0vum+Rae/G/nUdgc4h9xh1hUrQRvuGASoSe6kTR4zBnZxwxpKkNaUB
+	 AVxW7JYsm+1m/kPlUb+wPaSCi1oMgPfzLLd9hLNku2BFDblhe6oLGOjCqGs9KbZHiV
+	 D+rp/Ir0TeFyGKYWIKK1Mf0XqtUpHBONBuWhkCfNcOt2oAUTSo26hy/jCutKU4DEFM
+	 J/IkEOPOEg/4+h8rV+6N2V95potscJK8BApi6ZpQZpKfsaUzqwY/xpa18psSM4r4h1
+	 k2S9ABsrEZjvw==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 951EF17E0D81;
+	Wed, 09 Sep 2026 14:07:52 +0200 (CEST)
+Message-ID: <4daba0e8-c661-440a-930e-fe11c5870fb8@collabora.com>
+Date: Wed, 9 Sep 2026 14:07:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 00/12] PHY: MediaTek DP PHY refactor and MT8196 eDP
+To: chunfeng.yun@mediatek.com
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com,
+ chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ kernel@collabora.com
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Critical] The `skip_init` logic is flawed for the existing Glymur PHY pl=
-atform, leading to a guaranteed NULL pointer dereference and unintended reg=
-ister corruption during initialization.
-- [High] Accessing PHY PCS registers in `qmp_pcie_init()` before explicitly=
- enabling the required AHB clocks leads to a synchronous external abort.
---
+On 7/7/26 17:42, AngeloGioacchino Del Regno wrote:
+> Changes in v3:
+>   - Added missing bitfield.h, pm_runtime.h includes (Sashiko)
+>   - Set calibration data before registering PHY (Sashiko)
+>   - Enable PM Runtime before creating PHY device (Sashiko)
+>   - Continue poweroff if some write fails, but still return failure
+>     as that would be a partial poweroff anyway (Sashiko)
+>   - Added zero driving params to fix default calibration data setting (Sashiko)
+>   - Added NULL check on device_Get_match_data (Sashiko)
+> 
 
-commit e58c7fedd872d7c03646f577c8b3832e397473b6
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+PHY maintainers, gentle ping.
 
-phy: qcom: qmp-pcie: Add Nord Gen5x16 PCIe multi-PHY support
+Cheers,
+Angelo
 
-This commit adds support for the Nord Gen5x16 bifurcated QMP PCIe PHY.
-It implements the PHY initialization sequencing including PLL, TXRXZ,
-and PCS tables, handling PHY power domains against their own device.
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c b/drivers/=
-phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie-multiphy.c
-[ ... ]
-> +static void qmp_pcie_init_port_registers(struct qmp_pcie *qmp)
-> +{
-> +	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
-> +	const struct qmp_pcie_offsets *offs =3D cfg->offsets;
-> +	const struct qmp_phy_cfg_tbls *tbls =3D &cfg->tbls;
-> +	int i;
-> +
-> +	for (i =3D 0; i < cfg->num_regs; i++) {
-> +		void __iomem *port =3D qmp->base[i];
-[ ... ]
-> +		qmp_configure(qmp->dev, port + offs->pll,
-> +			      tbls->pll_common, tbls->pll_common_num);
-> +		qmp_configure(qmp->dev, port + offs->pll,
-> +			      cfg->pll_tbls[i], cfg->pll_nums[i]);
+> Changes in v2:
+>   - Fixed register offsets for ANA phy in MT8196
+>   - Set/clear FORCE_VOLT_SWING_EN bit when configuring and resetting
+>     the voltage swing registers
+>   - Fixed endianness issue in call to nvmem_read_u16 (Sashiko)
+>   - Added early exit during lanes disablement if none are enabled to
+>     avoid out-of-bounds bitwise shift (Sashiko)
+>   - Removed useless call to pm_runtime_get_sync() in probe(), which
+>     also fixes issues pointed out by Sashiko
+>   - Fixed wrong dig vs ana register array usage in power_on/off (Sashiko)
+> 
+> 
+> This series performs major refactoring on the MediaTek DisplayPort PHY
+> driver, makes it probe with devicetree instead of getting registered
+> by the mtk_dp DRM driver, adds power_on/off() callbacks, and honors
+> the phy configure opts' set_lanes and set_voltages for, respectively,
+> varying the number of lanes and setting the voltage pre-emphasis and
+> swing on the PHY, for each lane.
+> 
+> This driver now also properly gets the PHY (EYE) Calibration Data from
+> NVMEM (eFuse array) if provided, instead of getting it (improperly)
+> injected by the mtk_dp driver.
+> 
+> Additionally, all of the driving parameters calculations and most of
+> the other register definitions were refactored to greatly enhance the
+> human readability of this code.
+> 
+> As a last step, this also transfers the register offsets for both the
+> digital and analog phy registers in arrays assigned to soc specific
+> data, in an effort to both introduce support for new minor revisions
+> of the MediaTek DisplayPort PHY and to have a clearer view of the
+> register related differences between those (for example, it is easily
+> understandable that the analog part remained exactly the same between
+> MT8195 and MT8196, but the digital part gets a slight update).
+> 
+> Speaking of which, as a last step, this also adds support for the
+> MT8196 SoC (and its derivatives), which uses this PHY only for its
+> Embedded DisplayPort (eDP) IP (spoiler: the DP one seems to be way
+> too different and requiring an entirely new PHY driver).
+> 
+> In this state, this driver can also easily support the MT8189 SoC
+> with a few lines of code: even though I do have clean code to add
+> support for this one, I was not (*yet*) able to test it on upstream
+> based kernels, and for this reason I decided to leave that one out
+> for now (but it's coming later for sure).
+> 
+> NOTE!
+> Despite all the apparently breaking changes in the refactoring, full
+> compatibility with older MTK_DP driver and with old devicetrees was
+> retained and carefully tested on multiple platforms!
+> 
+> P.S.: I am aware of the BUILD_DRIVING_PARAM_0( 0, 2, 4, 7) checkpatch
+> warning and I didn't fix it in bigger favor of human readability.
+> 
+> AngeloGioacchino Del Regno (12):
+>    dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
+>    phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
+>    phy: phy-mtk-dp: Allow probing with devicetree match
+>    phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
+>    phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
+>    phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
+>    phy: phy-mtk-dp: Support setting volt swing and preemphasis values
+>    phy: phy-mtk-dp: Add support for digital and analog calibration
+>    phy: phy-mtk-dp: Rewrite and document default driving param macros
+>    phy: phy-mtk-dp: Add bitrate register val definitions to SoC data
+>    phy: phy-mtk-dp: Add PHYD Lane EN register mask to SoC data
+>    phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+> 
+>   .../bindings/phy/mediatek,mt8195-dp-phy.yaml  |  77 ++
+>   drivers/phy/mediatek/phy-mtk-dp.c             | 882 ++++++++++++++++--
+>   2 files changed, 862 insertions(+), 97 deletions(-)
+>   create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+> 
 
-[Severity: Critical]
-If the existing Glymur platform calls qmp_pcie_init_port_registers(), could
-this dereference a null pointer? Looking at glymur_qmp_gen5x8_pciephy_cfg,
-cfg->pll_tbls is not initialized and remains null.
-
-[ ... ]
-> @@ -953,6 +953,30 @@ static int qmp_pcie_init(struct phy *phy)
->  {
->  	struct qmp_pcie *qmp =3D phy_get_drvdata(phy);
->  	const struct qmp_phy_cfg *cfg =3D qmp->cfg;
-> +	const struct qmp_pcie_offsets *offs =3D cfg->offsets;
-> +	int i, ret;
-> =20
->  	ret =3D qmp_pcie_pd_power_on(qmp);
->  	if (ret)
->  		return ret;
-> =20
-> +	/*
-> +	 * We can skip PHY initialization if all of the following conditions
-> +	 * are met:
-> +	 *  1. The PHY supports the nocsr_reset that preserves the PHY config.
-> +	 *  2. The PHY was started (and not powered down again) by the
-> +	 *     bootloader, with all of the expected bits set correctly.
-> +	 * In this case, we can continue without having the init sequence
-> +	 * defined in the driver.
-> +	 */
-> +	qmp->skip_init =3D cfg->pll_tbls && qmp->nocsr_resets;
-
-[Severity: Critical]
-Because cfg->pll_tbls is null for the Glymur platform, qmp->skip_init will
-always evaluate to false. Does this unintentionally force the Glymur
-platform to attempt the port register initialization in qmp_pcie_power_on()?
-
-> +	for (i =3D 0; qmp->skip_init && i < cfg->num_regs; i++) {
-> +		void __iomem *port =3D qmp->base[i];
-> +
-> +		if (!qphy_checkbits(port + offs->pcs, cfg->regs[QPHY_PCS_START_CONTROL=
-],
-> +				     SERDES_START | PCS_START) ||
-> +		    !qphy_checkbits(port + offs->pcs, cfg->regs[QPHY_PCS_POWER_DOWN_CO=
-NTROL],
-> +				     SW_PWRDN | REFCLK_DRV_DSBL))
-> +			qmp->skip_init =3D false;
-> +	}
-
-[Severity: High]
-Does reading QPHY_PCS_START_CONTROL here happen before the required AHB/APB
-clocks are enabled? The call to clk_bulk_prepare_enable() occurs further
-down in qmp_pcie_init().
-
-If the clocks are currently disabled, such as during boot or after a suspen=
-d=20
-cycle, will accessing these memory-mapped registers trigger a synchronous=20
-external abort?
-
-[ ... ]
-> @@ -1067,6 +1067,20 @@ static int qmp_pcie_power_on(struct phy *phy)
->  		goto err_disable_pipe_clk;
->  	}
-> =20
-> +	if (!qmp->skip_init) {
-> +		qmp_pcie_init_port_registers(qmp);
-> +
-> +		for (i =3D 0; i < cfg->num_regs; i++) {
-> +			qphy_clrbits(qmp->base[i] + offs->pcs,
-> +				     cfg->regs[QPHY_PCS_SW_RESET], SW_RESET);
-
-[Severity: Critical]
-If Glymur falls into this block due to skip_init being false, it reads
-from cfg->regs[QPHY_PCS_SW_RESET]. The Glymur register layout
-(pciephy_v8_50_regs_layout) does not define QPHY_PCS_SW_RESET.
-
-Can this result in reading index 0 (which maps to QPHY_PCS_STATUS) and
-writing to an undefined offset, thereby corrupting the PHY register at
-offset 0x0?
-
-> +			qphy_setbits(qmp->base[i] + offs->pcs,
-> +				     cfg->regs[QPHY_PCS_START_CONTROL],
-> +				     SERDES_START | PCS_START);
-> +		}
-> +
-> +		usleep_range(2000, 2500);
-> +	}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-nord-v3-0-=
-b0a82721c547@oss.qualcomm.com?part=3D5
