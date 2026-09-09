@@ -1,131 +1,123 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6429F560AA6
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:37:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDF3563FB5
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 15:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788968269; cv=none; b=OzSiFr72fUMDqgrjByHg7wh/bkuSoBgOMX1YJZfBxiF0LlgX45e/mi5ENOOxCsTM36AxhpsvArtDTYIpnKNYTq+96TuT4kwixO9qsEm0nabBGgOlm/9rI9Tr11JzX8DSV4DFDwASVtzfFCbj2/cl064uYS5abOyc9/oXUli9HdE=
+	t=1788968311; cv=none; b=qf+UDNzA/zED6ihSqiSbXuI5qy+LQ/ZcVokpD+9c5zWHBXF1nKw59/xlBhceYmzgiC1XJ5J1pxbhtCdARSvHN3ZqQUHbnfc2mdlCnXOmmEZX9okEsBH3A2F1C0Fz/dUVDr8hosbeGJzrXAjFOnXlgoeEbzTSjDpMvWp3F4qFjTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788968269; c=relaxed/simple;
-	bh=muQH5I6ChgHAB1kqWe7eklAj3bIkMv1c/zUd+2HZqUo=;
+	s=arc-20240116; t=1788968311; c=relaxed/simple;
+	bh=rTjQD0AWXvJKBlAO6G8aQGljW+/ivZFhpjJrPWqIlqM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rj/B19vpR6J5Y09WSQDCZTvBeAgxbuKI5dhOY+SZQ7l+EhmWN/b01DOLPYWMIV/pWDbAbE1KZC5IrZCgaHKUBQ5TI4KXB6HoNSnb8UHW4V8fL5O5iG8VatdWOh/VleTRttdJZfv5BGGhkJjtblGYjja4olxHb9WiUZFbk+66jbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=njJ5iq+o; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y6qYkPmo; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=u8Q4PwrakFwS4hZSdEbaWNKPWTzB1IM/pA/OY0nQJgpIY9BUcRa32o7UotFfNdetX7FO6d4ACToR7wEDypoCyen5KfNFc5T8Nhd+bK62WzJwAehG6/tcdB8KxbmV2cL4gtHcAUTfNlmAMT5FPucrSvNWPa8x5/2a8OmGcqA7Jus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jQRvUREd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j5Espijx; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="njJ5iq+o";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y6qYkPmo"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jQRvUREd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j5Espijx"
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU26m2019009
-	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 15:37:45 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689BU26q2019009
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 15:38:28 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=w7vo1cn+V8k5TLUXvoRE1Wm5
-	KpCTbnd+r56DBCfB5wk=; b=njJ5iq+o9y40wjVDL90c3YmEW3k5MD+N5GM2ag8w
-	LPcP88sEKs3uQvGkWb7pGX0TC8pDKnQj/+oj7rTMZ3MT4EfQLD2lRcoxkGUDQsWN
-	eJPQSvqROhp5fjpg43/C1UneAhDuNRCJbcdWkft+uH+NF5fma3f8rYGmITaHM3/H
-	DDkg16nJEADVNCUzdNUGthsqM+YdCUJfvNacojkB2YnabQ9516N2xoTxG5DHnly/
-	fMwhmF2ngoyz8AFjc2PJzYKe4RuVEiLi38u1tUw10AeQbu7Le73VvawGR2Ol5TU5
-	Xet6gIgutT+LY4P0OJLtvJxzZ6RrXAbA82oYgHnh0hBpNg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk62x95vj-1
+	:references:subject:to; s=qcppdkim1; bh=AIrVvX335LUhs5A+Yn7aX2BB
+	Y+6j0On/IVOblwEFVk4=; b=jQRvUREdk1xS2Lx4iYJfUiiZn/b0gjtXmFZErRNs
+	4TwmeHc58s67Q7do9hwxyDMvcuSNiprHsf556ELDPnKSqHPQzheHWV2UXrlMCMkd
+	7CGva87UV5fPGO+64vSFrBeeVwK9aN6sVD1IKOo4xyA1ZyFpo7G/j06S2X+nL9Cu
+	EFcJfuiRVBtmxjwdZm/eJha4k7RIZwY8e5eT7j96oiSt4R601+iUaXjkrQeQrQ02
+	UI8MvvE5joFfMyIvmakT7LHoHWu09Lnu7xIQonf5V7Il8n5j+dBnnSu6TkX0oX2I
+	Au1GoU25EYBTxOWtoBYYMHx4SIcR0+5XGinX4Yyy3Nwspg==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gk62x95xd-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 15:37:45 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39533bb224cso3594237a91.3
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 08:37:44 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 15:38:28 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7847917c402so4138838137.2
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 08:38:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788968264; x=1789573064; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1788968308; x=1789573108; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=w7vo1cn+V8k5TLUXvoRE1Wm5KpCTbnd+r56DBCfB5wk=;
-        b=Y6qYkPmobI7q+kRX29wHg4jNXlmlutR92KLFKb7+hWs/Q3m4ADacKxTjvjRUtO2OBU
-         V3eRWsEmfPcNGw7X3xTa4jv30+++LPdz7dXyVAEOVHuBrEZTMf4K4mwuZ7Zi2t2ruqo5
-         1TnoWJq0FOfvWFVhTbuNGIzMd2/DUoztzBZo1SkYp9Op9yaEQE661z0V8faX3AGtZIaO
-         3ytJvSW8ahP5nPWVH9JC+T+JJj/k6pqeQHE0U0wik63r4yLCadyTxjNlHVQuw9yIvC3O
-         XYkkJ9VMdVwEaLMHjTHkUUSQ+2pHGfgjtzqUDGHKHFaP95VYQYhiEouY/Sw2ljBWomTz
-         KETA==
+        bh=AIrVvX335LUhs5A+Yn7aX2BBY+6j0On/IVOblwEFVk4=;
+        b=j5EspijxangH5xYX5mECZ8Jo8GBXHk7VaTJMw03wR+cGjWeNLNL/sAtEaEK+q0/RvU
+         KAkelkCbkTAe/ygb6xPBAuWMpCHQaOOBiSz4R3fLvMsNGuNqth/ij3boLuaQ3aHOrZBr
+         2ALPF2UQ4h5bVDY0icCVk0tQBCklzzA3rbt5m2Ytas133JoNBrNg1FaOZgLRGFwhTNLq
+         2tZGYYnaFc3xm68mivOXYBQgcenbyAW8MoIaWkNc4x8z393rC9e3tbX1rgAl6abP3ALm
+         TJ/rHDrEWUJHSj9NozgzEtrLxnteMoRnx0xUx3JQ2x+p7vAfL9Q9D6oMyIQjiGJt3FGj
+         K++w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788968264; x=1789573064;
+        d=1e100.net; s=20251104; t=1788968308; x=1789573108;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=w7vo1cn+V8k5TLUXvoRE1Wm5KpCTbnd+r56DBCfB5wk=;
-        b=ZSN8atQn1AJfGJkdLWg4P4ia9cjIPCI+wHGA1jwz0mmzl0NJMG/juLUVxrjFlMwlij
-         nJxeM8vFnvY90bq6jEHE6pZ/juuoafjyCTSv8oQi1LKOOCkITMvCZhE0AhW1ayIufBVy
-         /bY3SvCfdVfXdkzhJ8PdacWL5Kl6FH7aRMAoqEM9Pr+CTIxfYWVww/tDAz3C6UIlHgyq
-         29rkHhRb6JNINhm68CeASzLjt/XxcfSMCiOhCGxZby6PSUCb8JCI7oq/NSUfx6Ko05Oq
-         zf6z+gNmBwjL9qTEdKaIgaqXV2xlw17NDYVj7Twbbz70o2nsTzFMjUJdw65uRaGi//0t
-         wEHA==
-X-Forwarded-Encrypted: i=1; AKwUvBxqmd+t4fOt/gWDu9jiG403Jhv1NWegT8JEv40SrY+vXcKXps+hvFtHU5F/mZ8Kfj6XnPhByVIwcYg7@vger.kernel.org
-X-Gm-Message-State: AFuF++n9Yr/OqBuIh3m3tHQV3iZ4hSdP3imao2xh9krqxkGqopR/EzLF
-	t9qWJDGxgfoJoO+lUiHZzU2wLK18VYvXyIt79E41p2r1+ACw5ir3n0lMwLgUVeQGLQh7XMXKbpN
-	d6mho/BhwWCCWjCfJkHvYsirmmHNsiDXJQQtD4e380NqtvEdcBLoBh4cjyrEPa4DC
-X-Gm-Gg: AYBFou1oFu/F0JD8pGjqTvnFUHFKZddFwxQOVD7/3p0fYtbMLPlqW/lX8ojSFWlV5lj
-	59sEAUdjTQfplNijyX/JOwWEFkd4q0WV4MNxwMxF2K7JbFokgQV8Oen3cQO7GJ1beJXQI/cvqU0
-	PvPUo+hJHgg17CzygSi91IBfV4KKE4rIeNvJgCYbIgo//4rN56uAA46NHhwMmKzMaMUQiWGywA8
-	rLQMlooEPGUtIVV2UqcUNEHMI/hr1SXVGcwe+eTMM2q3Bs/HbtkwZV0b0IL/KiUWN31vM0YmKvj
-	uk48xuEhLHfxgdFCV3b50slhKQ0vuMy9SlpIryKW70ZHVAO6NhQLJ0YUpqV2BYEmjPSCHztygBq
-	8f7RYht6ImA8w6W44LNaFTkgNdR/YhwFcT8lTqe5zgKg=
-X-Received: by 2002:a17:90a:6081:b0:39b:51cc:4586 with SMTP id 98e67ed59e1d1-39b51cc65admr21586949a91.19.1788968263833;
-        Wed, 09 Sep 2026 08:37:43 -0700 (PDT)
-X-Received: by 2002:a17:90a:6081:b0:39b:51cc:4586 with SMTP id 98e67ed59e1d1-39b51cc65admr21586884a91.19.1788968263083;
-        Wed, 09 Sep 2026 08:37:43 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa33e96sm44737096eec.12.2026.09.09.08.37.37
+        bh=AIrVvX335LUhs5A+Yn7aX2BBY+6j0On/IVOblwEFVk4=;
+        b=cjI+8gqOhrhko7zTUPNJVpKlLysHgr/UcRD+MoCLcFTjpxfOxuNiLSS+AcCXK3EGnp
+         7eOOD8BwQVfJTRE/rniAVGNLCeKjWAqjfpsx9f3+TWmBvnSLcZoc1V2QZVkefBtLQ0sY
+         i/eVXeWFskindIijY6jsSqASJh/Ur0cU0ZGRh0Dr0iL186EVIokjpzOGpnUVmztB7u06
+         gcZatzXN7MjP2Z6ZegTD7pfRzKQbXNjzExKgBSoa9SktU+K1w4GUFGhzTbDx8/psuN2z
+         prb3gANiKtbkojrlJc2PHH30k1ToDKckCQ/7VABuEt0ElRsKjbNUGvk6RV91gEvGUGs3
+         W6Xw==
+X-Forwarded-Encrypted: i=1; AKwUvBzJLsOSlURbdT/j6BfiWfannKMolQAn3GSQMENErulMmnNcDY2+PCv60IHpjac9SrF/L/ugQyHL84ze@vger.kernel.org
+X-Gm-Message-State: AFuF++nDIphntMBsnfdxG/U6Jo7KO2BRS/q/+I9OHt9appwqnh04rsfA
+	lbJ8h/XXSWBA4pEMFH/HOT+CQl6l+PNWr+tpUuTNys+BxZcj9Jps0MmILMCIY8rbcMEGS9Kg1qn
+	0+NaWx7f4DjjzvCmoQuWYlPHtbY7m7WDk5KRArgDEzLmLRwymljJLwdGW8/KAjWXN
+X-Gm-Gg: AYBFou39BUs8Rjgf19UE5woS/tnxHMNqi11dAlkcF4g1etuBIUnt5uf4JLh4ZDXwNUM
+	YoBFh8qYFBR4K64i2VuaQUmnuc5qDrM1hbcsL6nUYXPSBnGHCHGqMbxh8f+4gp0Qd4CpOd78fSJ
+	ZZdC9M2OsOIrqSVxaZfVJUDfE1v11wmkw6fnW8fe8wdkuLVNS8vBRJSRaoWTaV9ORNqQBvoW7ux
+	FzxUxsGic+9f8jecI/T7/miG9zioEM3PCcwqDjuq+Y3yv5lpUDpQKgBY7lSsPr3llMQhUDnh78r
+	0Y/Jj/lYi3XCkHJSdgK18LR7mWeU2nxEDgTaNRmcMgjaxYQSmjLvAKr+4Un1mYZzn2zf8fBCL3O
+	BdMZBywK/EfJDig==
+X-Received: by 2002:a05:6102:80a3:b0:77d:9fe9:1716 with SMTP id ada2fe7eead31-78a4a6e83e9mr21279649137.2.1788968307836;
+        Wed, 09 Sep 2026 08:38:27 -0700 (PDT)
+X-Received: by 2002:a05:6102:80a3:b0:77d:9fe9:1716 with SMTP id ada2fe7eead31-78a4a6e83e9mr21279354137.2.1788968301950;
+        Wed, 09 Sep 2026 08:38:21 -0700 (PDT)
+Received: from localhost ([188.216.77.92])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d1fd532dcsm61690985e9.1.2026.09.09.08.38.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 08:37:42 -0700 (PDT)
-Date: Wed, 9 Sep 2026 23:37:34 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-        Lars-Peter Clausen <lars@metafoo.de>,
-        Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>, linux-sound@vger.kernel.org,
-        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v1 5/5] ASoC: qcom: sc8280xp: Add Nord Ride sound card
- support
-Message-ID: <aqF9Pp_U2tAM3xWf@QCOM-aGQu4IUr3Y>
-References: <20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com>
- <20260907-nord-asoc-driver-support-v1-5-997d3b20cf43@oss.qualcomm.com>
+        Wed, 09 Sep 2026 08:38:21 -0700 (PDT)
+Date: Wed, 9 Sep 2026 17:38:20 +0200
+From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+        conor+dt@kernel.org
+Subject: Re: [PATCH v5 1/5] dt-bindings: PCI: toshiba,tc9563: Document
+ embedded GPIO controller
+Message-ID: <aqF9bHTBBMmRhmn9@lore-desk>
+References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
+ <20260909-pci-tc9563-aux-v5-1-c9b33f56c8d3@oss.qualcomm.com>
+ <20260909150403.A5C511F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ekoMoU4jMT3u/jKP"
 Content-Disposition: inline
-In-Reply-To: <20260907-nord-asoc-driver-support-v1-5-997d3b20cf43@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3NCBTYWx0ZWRfX91E6FIO9XpEO
- tPnKhoOmLJ6Kk26W9cZWdI38nlFDPvejD5we3knND3UoOyeJ9p2jQgpiCWMrDHBxVFe7FaKLJ86
- AjWEjkIX1+jk+uByI3lSGSlGuyRx/VA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3NCBTYWx0ZWRfXzuHfECXBwwtH
- /zSqT4J++aJ3Ry6N910FbW9GUIlgl9eNY8t5TWJ+kIXg3oa4x5VscrGcXnoRBvQR/hRWtmvMcbt
- D3oPf8W93Nr7BUpH4qGwqCm4stRFth2MKkAUKeyEaz5+SIVEHtc/+G0Jher8OfkN7NfEnPUCdBw
- nOyplZrDmbIK+M/wx311KjfNqDfPR3QIfjW4Q9AkhuEvEZyRitTCBfKuhia16dDAoJwIHaABKTB
- RJ4F9Cp9TDL5cX0JArwi8bxvr1NoEQDPmXO6xJQYgTgb8cYeqrGTFuIEt2xyrdOmqVgzCwqOy3f
- qy6hVJcy1k5G1NCE6GbqQz8oJLyKCfsZW/PQ2IAw9M4pN1JRl6qlC8GUM9qP0ujgNGY36r30VNR
- q5o7Di0EaIaO/3YGtqSYp0UJ5rDEEfYbNcpeuJs6c4XkqL3gBM+GfeESddltjAxoO6SF2TFqvXR
- wuGr2aCuqUUoIiipa0w==
-X-Authority-Analysis: v=2.4 cv=UeFhjqSN c=1 sm=1 tr=0 ts=6aa17d49 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=4H8KrXRR38DmKUzgn_EA:9 a=CjuIK1q_8ugA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: 9mU_LKCtBPW6tTIDs6PEJJBvxC4X3YhP
-X-Proofpoint-GUID: 9mU_LKCtBPW6tTIDs6PEJJBvxC4X3YhP
+In-Reply-To: <20260909150403.A5C511F00A3A@smtp.kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDE3NCBTYWx0ZWRfX3YmCoOACDjTV
+ zQPYdcCXfi+j6nkj45V+YDBZOdr8y/hrDIPklwCYxEqCSmicGVZPcwH0yh/vYB4HlEEkFnDibUc
+ kL5/JptpIUttxdZx0Dwqq4iTPd3wlqk=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDE3NCBTYWx0ZWRfX8W81fjt7arGn
+ tkzex+D+d2C7OVD+dRglnB1RuGrSSsni3zbS02FNpZs1p8IUA/+4q8hDzUVoR+DZU1luXvfOL6n
+ +UuY2ZN7/mcTJQ2zP65Uu46GUdVvdLRybQLVZZDqHFZCsWIUXleDgWBFH52CBxP99qCtRSelmwI
+ t2WsLpi3TX2lGmgEedku2eaw+Utjb3TeQudXjUY0rgQQS/LW2HBHjHjeKZKlLAm8/t+wTrnyoSX
+ WbT3t6LgQIEzJFkHbckwRHYC/jxf8IcwyT2gv+gKwzudylMTpi5JqRT7Fzbp9S1bRCgpCmgLHnj
+ GGwl6fOb41/8QY27it5EKHciuI6KrraYk4Eq6TOez5EOi9KRA4m2pDJTjPC7Y211p51ooCzpWOg
+ +20C1U5rJuE2pPIdgCc5NQGdbDsPNJgSwAp7egW7emzaN7ilibWR9YflCFYOmyVAcY+2tCJ4uuo
+ Xw+Qzfhg/icAfKHpkfA==
+X-Authority-Analysis: v=2.4 cv=UeFhjqSN c=1 sm=1 tr=0 ts=6aa17d74 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=c92rfblmAAAA:8
+ a=EUspDBNiAAAA:8 a=UfEYJwnE5WuK08dpBrEA:9 a=wPNLvfGTeEIA:10
+ a=6NAFynQPVF88eBM1lewA:9 a=-aSRE8QhW-JAV6biHavz:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: LPwgw1VlUp0mrJ6IwZhL4PYWKG47iePg
+X-Proofpoint-GUID: LPwgw1VlUp0mrJ6IwZhL4PYWKG47iePg
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-08_03,2026-09-09_01,2025-10-01_01
@@ -135,198 +127,94 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090174
 
-On Mon, Sep 07, 2026 at 11:39:46PM +0530, Mohammad Rafi Shaik wrote:
-> Add support for the Nord Ride sound card by introducing a new
-> compatible string and associated platform private data.
-> 
-> Nord uses external audio codecs with interface requirements that
-> differ from the generic SC8280XP platforms. Add a dedicated
-> hw_params callback to configure the appropriate DAI format for
-> playback and capture streams and to program the codec system clock
-> configuration required by the board.
-> 
-> The callback configures the PCM1681 playback path to operate in I2S
-> mode and the ADAU1979 capture path to operate in DSP_A mode. For
-> capture, the ADAU1979 system clock is sourced from LRCLK as
-> required by the hardware design.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
->  sound/soc/qcom/sc8280xp.c | 57 +++++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 57 insertions(+)
-> 
-> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-> index 4d48e1012cd4..4d8eafca4b7f 100644
-> --- a/sound/soc/qcom/sc8280xp.c
-> +++ b/sound/soc/qcom/sc8280xp.c
-> @@ -18,6 +18,7 @@
->  #include "common.h"
->  #include "sdw.h"
->  
-> +#define LRCLK_SYSCLK 1
+--ekoMoU4jMT3u/jKP
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Rather than open-coding the value, please move
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Medium] Missing Required Properties for new GPIO provider capabilities
+> --
+>=20
+> commit 384b355928f0212bcff0ab6c4447b15d28dc4109
+> Author: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+>=20
+> dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
+>=20
+> This commit documents the embedded GPIO controller within the TC9563 PCIe
+> switch. It exposes the controller by adding the gpio-controller and
+> #gpio-cells properties to the switch node, and updates the example to
+> demonstrate downstream ports utilizing these lines.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml =
+b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> > index f084830c6d0cb..c4ebb99f50c37 100644
+> > --- a/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> > +++ b/Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml
+> > @@ -31,6 +31,11 @@ properties:
+> >      description:
+> >        GPIO controlling the RESX# pin.
+> > =20
+> > +  gpio-controller: true
+> > +
+> > +  '#gpio-cells':
+> > +    const: 2
+> > +
+> >    vdd18-supply: true
+> > =20
+> >    vdd09-supply: true
+>=20
+> [Severity: Medium]
+> Does this binding need to include the newly added GPIO provider capabilit=
+ies
+> in the required properties list?
 
-  enum adau1977_clk_id;
-  enum adau1977_sysclk_src;
+In order to introduce any ABI change, we decided to not define 'gpio-contro=
+ller'
+and '#gpio-cells' properties as required.
 
-out of sound/soc/codecs/adau1977.h into include/sound/adau1977.h so
-machine drivers can include them, and write the call as
+Regards,
+Lorenzo
 
-  snd_soc_component_set_sysclk(codec_dai->component,
-                               ADAU1977_SYSCLK, ADAU1977_SYSCLK_SRC_LRCLK,
-                               rate, SND_SOC_CLOCK_IN);
+>=20
+> When hardware gains new provider capabilities, the subsystem guidelines
+> stipulate that the corresponding standard properties (gpio-controller and
+> #gpio-cells) must be added to the required properties list.
+>=20
+> Looking at the required properties block further down in this file:
+>=20
+> Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml:
+> required:
+>   - resx-gpios
+>   - vdd18-supply
+>   - vdd09-supply
+>   - vddc-supply
+>   - vddio1-supply
+>   - vddio2-supply
+>   - vddio18-supply
+>   - i2c-parent
+>=20
+> If gpio-controller and #gpio-cells are omitted from this list, device tre=
+es
+> created with the pci1179,0623 compatible string but lacking these propert=
+ies
+> could silently pass dt_binding_check validation but fail at runtime when
+> dependent subsystems attempt to use the GPIO functionality.
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260909-pci-tc9563-=
+aux-v5-0-c9b33f56c8d3@oss.qualcomm.com?part=3D1
 
-That documents both slots and turns a mix-up into a compile error.
+--ekoMoU4jMT3u/jKP
+Content-Type: application/pgp-signature; name=signature.asc
 
->  #define I2S_MCLKFS 256
->  
->  #define I2S_MCLK_RATE(rate) \
-> @@ -72,6 +73,8 @@ struct qcom_snd_soc_common {
->  	bool mi2s_bclk_enable;
->  	bool wcd_jack;
->  	int (*snd_prepare)(struct snd_pcm_substream *substream);
-> +	int (*snd_hw_params)(struct snd_pcm_substream *substream,
-> +			     struct snd_pcm_hw_params *params);
->  };
->  
->  struct sc8280xp_snd_data {
-> @@ -244,6 +247,47 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
->  	return 0;
->  }
->  
-> +static int nord_snd_hw_params(struct snd_pcm_substream *substream,
-> +			      struct snd_pcm_hw_params *params)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-> +	struct snd_soc_dai *codec_dai = snd_soc_rtd_to_codec(rtd, 0);
-> +	struct snd_soc_dai *cpu_dai = snd_soc_rtd_to_cpu(rtd, 0);
-> +	int rate = params_rate(params);
-> +	int ret;
-> +
-> +	switch (cpu_dai->id) {
-> +	case TERTIARY_MI2S_RX:
-> +		ret = snd_soc_dai_set_fmt(codec_dai,
-> +					  SND_SOC_DAIFMT_CBC_CFC |
-> +					  SND_SOC_DAIFMT_NB_NF |
-> +					  SND_SOC_DAIFMT_I2S);
-> +		if (ret && ret != -ENOTSUPP)
-> +			return ret;
-> +
-> +		break;
-> +	case TERTIARY_TDM_TX_7:
-> +		ret = snd_soc_dai_set_fmt(codec_dai,
-> +					  SND_SOC_DAIFMT_CBC_CFC |
-> +					  SND_SOC_DAIFMT_NB_NF |
-> +					  SND_SOC_DAIFMT_DSP_A);
-> +		if (ret && ret != -ENOTSUPP)
-> +			return ret;
-> +
-> +		/* adau1979 MCLK sourced from LRCLK */
+-----BEGIN PGP SIGNATURE-----
 
-The comment says MCLK is sourced from LRCLK, but the adau1977_set_sysclk()
-call selects the PLL input (ADAU1977_PLL_CLK_S) -- MCLK is the other choice.
-Something like "PLL clocked from LRCLK, no external MCLK" would match
-the register write?
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaqF9bAAKCRA6cBh0uS2t
+rAobAQCReUFtc/l5ysciS8O9zot3R4eXhbP7ioeZnrBFv/9JbAEApyvA9fzzEwQ4
+qK2BvU7gi3eJOwKs6zm0MmTSKXF2eAg=
+=OpeS
+-----END PGP SIGNATURE-----
 
-> +		ret = snd_soc_component_set_sysclk(codec_dai->component,
-> +						   0, LRCLK_SYSCLK,
-> +						   rate, SND_SOC_CLOCK_IN);
-
-There seems to be two problems, one functional and one cosmetic.
-
-First, I guess this is called too late to have the intended effect. On
-the ADAU1977 side, set_sysclk() doesn't only pick the clock source, it
-also computes the rate constraint mask:
-
-  } else if (source == ADAU1977_SYSCLK_SRC_LRCLK) {
-          mask = ADAU1977_RATE_CONSTRAINT_MASK_LRCLK;
-  }
-  ...
-  adau1977->constraints.mask = mask;
-
-and that mask is consumed in adau1977_startup():
-
-  snd_pcm_hw_constraint_list(substream->runtime, 0,
-          SNDRV_PCM_HW_PARAM_RATE, &adau1977->constraints);
-
-startup() runs before hw_params(), so on the first capture open after
-boot the mask is still 0 from probe and the rate constraint is not what
-the LRCLK-sourced configuration requires. Setting the source once from a
-dai_link init (or from a startup callback) rather than per-hw_params
-would get the ordering right and also avoid reprogramming the PLL source
-on every stream open. Could you confirm what the first arecord after
-ot negotiates? I suspect it only appears to work because the rate you
-test with is permitted by the unconstrained list anyway.
-
-Second, on the naming. The prototype is
-
-  int snd_soc_component_set_sysclk(struct snd_soc_component *component,
-                                   int clk_id, int source,
-                                   unsigned int freq, int dir);
-
-so in the call above the literal 0 is the clk_id (ADAU1977_SYSCLK) and
-LRCLK_SYSCLK is the source (ADAU1977_SYSCLK_SRC_LRCLK). The macro name
-reads like a clk_id, which is the slot it is *not* in, while the argument
-that really is a clk_id is an unexplained 0.
-
-> +		if (ret && ret != -ENOTSUPP)
-> +			return ret;
-> +		break;
-> +	default:
-> +		break;
-> +	};
-
-Stray semicolon
-
-> +
-> +	return 0;
-> +}
-> +
->  static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
->  				  struct snd_pcm_hw_params *params)
->  {
-> @@ -255,6 +299,12 @@ static int sc8280xp_snd_hw_params(struct snd_pcm_substream *substream,
->  	int bclk_freq = sc8280xp_get_bclk_freq(params);
->  	int ret;
->  
-> +	if (data->priv->snd_hw_params) {
-> +		ret = data->priv->snd_hw_params(substream, params);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	switch (cpu_dai->id) {
->  	case PRIMARY_MI2S_RX ... QUATERNARY_MI2S_TX:
->  	case QUINARY_MI2S_RX ... QUINARY_MI2S_TX:
-> @@ -461,6 +511,12 @@ static const struct qcom_snd_soc_common kaanapali_priv_data = {
->  	.wcd_jack = true,
->  };
->  
-> +static const struct qcom_snd_soc_common nord_ride_priv_data = {
-
-Again, can we drop "ride" to make it nord specific?
-
-Shawn
-
-> +	.driver_name = "nord",
-> +	.mi2s_bclk_enable = true,
-> +	.snd_hw_params = nord_snd_hw_params,
-> +};
-> +
->  static const struct qcom_snd_soc_common qcs9100_priv_data = {
->  	.driver_name = "sa8775p",
->  	.dapm_widgets = sc8280xp_dapm_widgets,
-> @@ -564,6 +620,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
->  	{ .compatible = "qcom,hawi-sndcard", .data = &hawi_priv_data },
->  	{ .compatible = "qcom,kaanapali-sndcard", .data = &kaanapali_priv_data },
->  	{ .compatible = "qcom,maili-sndcard", .data = &hawi_priv_data },
-> +	{ .compatible = "qcom,nord-ride-sndcard", .data = &nord_ride_priv_data },
->  	{ .compatible = "qcom,qcm6490-idp-sndcard", .data = &qcm6490_priv_data },
->  	{ .compatible = "qcom,qcs615-sndcard", .data = &qcs615_priv_data },
->  	{ .compatible = "qcom,qcs6490-rb3gen2-sndcard", .data = &qcs6490_priv_data },
-> 
-> -- 
-> 2.34.1
-> 
-> 
+--ekoMoU4jMT3u/jKP--
