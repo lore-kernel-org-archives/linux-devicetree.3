@@ -1,147 +1,148 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012040.outbound.protection.outlook.com [52.101.48.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC0B3AD522;
-	Wed,  9 Sep 2026 09:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788946932; cv=none; b=p6yZEknz/BoWlwi6MU9U6agqt3bliTEYQJ9Ybef990HyHnJ5b6RHhcQfCCAMZruYaHoZ9J+I8nFcAVDfhwwe8MYf9bcQmKh40SismAV2XTDuINTb+PAkNBEukBXoBix9Pxnjn1fUxZFSzNXgv1i4H524kpu4LxHdtzmC1f10j4g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788946932; c=relaxed/simple;
-	bh=RlquV2qEWjV+inAs1mB0hDuB0wfVFPu3WzBSbEbDSP4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cn/fiR6S5edhuK5dxnzI2GG9HGxKx6PXPgzKjNVeBVCO79KL0yNv0GMFO/UCsr8nHpNYnvBSc7ANy7Fmrr0TDZqb8VXEK2/NbAgOfKDVy5MCB8CKGNI9C1DZDJ8eruC+4m9a2yaU0/Kfl/FAI4cXENF6vdCkLz5q88vsIlTNPW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jnOJ3Xo9; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02F83A3816;
+	Wed,  9 Sep 2026 09:44:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788947078; cv=fail; b=RD/UirxVQEGpzG+re3r1PzL43u2ppfSVTB93iGTEvjKi+jhmSYoAsxXB49++U7wfhL1qWJum9KKTOOdxQcZei0NA85TgS23NIIDVWz1TJrF2f/qalsVwcONXqipMumN3Kv4lHKCASNPFS7nQKfXhQ2BhbBpe8mr0ESuo+UH5Zt4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788947078; c=relaxed/simple;
+	bh=wNxcr851kY/Gm/1qejXUgOgsuClCFjTSi0FHeFAi05I=;
+	h=From:Subject:Date:Message-ID:MIME-Version:Content-Type:To:CC; b=EkPW0gUBnVO498oI5DeTUYVeyyB4nYvBtPbkzUEnP18yu+jd6VqeI/tf6pnirZFZi3B3pColtPitfpKNbrAtZm51c3EkriORQe7BYOkmdoXkup3FROlCzL6vpB5oDyJ3vf6sE8tDvF9KgpIvx5dsn7NqB6841RB6+TsP6Y48Kf8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=VJ7LGKoB; arc=fail smtp.client-ip=52.101.48.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jnOJ3Xo9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1788946927;
-	bh=RlquV2qEWjV+inAs1mB0hDuB0wfVFPu3WzBSbEbDSP4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jnOJ3Xo9TUxGgqRwcdLIyZ6ln+F4/SN/xIoK8efS/zB+lcAcCqY7BxfY1ew6r7Vrr
-	 ytlTtrzrTIE8NHHm3tAX5uIgvBthOQH548iAjYlDTY91jX3yZUGy7a5v7a8zDOHWNF
-	 l2TUceV4RBarZ8UXG0Vo5TGYK/eMqMjddCkJCnL1Dw1YSsNuNdjC8W4we2647Zm0+E
-	 N7TeOVKYM6y1uh28q5D+K7tdzapc84R/cDJEJoPMgFQAYFiixA+/0yHl5kp4FlXj7D
-	 heJQ+K7sQYxq0+1Hdksa5YduKxqEMnA5JfIDi3cH5+m/2WqCmcBRVxwiPV3J16JfO2
-	 AX43Jork0HVYQ==
-Received: from [100.64.1.21] (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8998C17E0260;
-	Wed, 09 Sep 2026 11:42:06 +0200 (CEST)
-Message-ID: <f57e326d-50f1-4ca3-a61d-d7de4723f7cf@collabora.com>
-Date: Wed, 9 Sep 2026 11:42:06 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="VJ7LGKoB"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MLkFTTRV4GGZ+umEmqhH47DJVQan9ol9EnVaXaJIBugP2aChQZ0KfOyA7nEUhokSApEui+c546ZpywpAsN6iSUTjtrytIUphk2dJasQUZRWNusZeDr92rTtJegesjD2POHJfnqQKarXL99o7JEHjP1iofD9LIYvIwxiMWZ2fVqnHh3v7s4oQFg4THg7QGNpvHxxXk521TDHZeksfmR75n6wu+8n0iiCAaUZcODWZ86mg1t7i6KvXLEXXU6NWL87wCYhlxcTHnR/+riEW7OxcOiaFmCng1LfxXqyvsIQUfy0FyXLrJPG/MjYqnnsvDQpcID6ufgsQLgP8lYTO7IOzhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OWavlyhl3bRdBX+GzZ5lok6m4s7Vq+Mv6ofJZPkluRs=;
+ b=tbfoSPrwBWKChJSzv3mJ1NMePp24G4FL2DOo0FraZwEjxq9op/cbV46bACy5rtpzg/DIqb2RkVCLxmOAFU5DOKAOZkwg1Fqw8pXY3sWp49dOxfmpuqulMl0esiss2RMlTXbldX1HPjvvaopDhOd6IgKu9MEoqg8wO80cWWGDktB39R3KvPrdGHcb4VRR9A1tT+D3QHpNX9Lga8JGC86LEw3UYfzKxLX/MxjDV2z0xoJqAcFcJidwhqmoWoQm89zQoBCzY/sBI3HO8sr0MKCe10WCxXYNHX1nS83MNeQtJP5hZOlVv8nR1PvvayYScB8WkvcpRkGyL+ZIp0gNAbo5yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OWavlyhl3bRdBX+GzZ5lok6m4s7Vq+Mv6ofJZPkluRs=;
+ b=VJ7LGKoB0iAe3yP3bnNgrQTVUdld2kVAmhQ3rRnLAfWNdCsFlFK7d56eS/05fLhAYe81N6j/5c3l3dUtQkG2uZnWARfzIXvbyLon+gIZD0v7yTs4VnVzw4STGimJOi/yUceDaJNxeFD2PEhvt7LpjcVAr/UybaeSW/hfmXgl3J7i2xcKw29Tv+m6kxpJoN6helWb7zrWkiulv/Yxn61F3BgCP5no+16e0v5WxsUiZ/jktOgGo4k2KghCuwnOCmHUxdCI3Kgp30uiReHkFGINRHyhuZHQE6FcE1tj/FVcWOkRXvYOGHZ6Gahdu3mC3QFAnosHjm31Q43iAPPhW6kxcQ==
+Received: from SJ0PR03CA0076.namprd03.prod.outlook.com (2603:10b6:a03:331::21)
+ by SA5PPFCB4F033D6.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e2) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.8; Wed, 9 Sep 2026
+ 09:44:31 +0000
+Received: from CO1PEPF00012E64.namprd05.prod.outlook.com
+ (2603:10b6:a03:331:cafe::24) by SJ0PR03CA0076.outlook.office365.com
+ (2603:10b6:a03:331::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.7 via Frontend Transport; Wed, 9
+ Sep 2026 09:44:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CO1PEPF00012E64.mail.protection.outlook.com (10.167.249.73) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Wed, 9 Sep 2026 09:44:31 +0000
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 02:44:13 -0700
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by rnnvmail201.nvidia.com
+ (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 9 Sep
+ 2026 02:44:12 -0700
+Received: from [127.0.1.1] (10.127.8.13) by mail.nvidia.com (10.129.68.7) with
+ Microsoft SMTP Server id 15.2.2562.46 via Frontend Transport; Wed, 9 Sep 2026
+ 02:44:08 -0700
+From: Kartik Rajput <kkartik@nvidia.com>
+Subject: [PATCH 0/2] Add M-PHY support for NVIDIA Tegra264
+Date: Wed, 9 Sep 2026 15:13:57 +0530
+Message-ID: <20260909-tegra264-mphy-v1-0-ce61a80dc065@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/8] Add support for mt8167 toprgu and mmsys resets
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
- linux-mediatek@lists.infradead.org
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>,
- Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260908174259.9009-1-l.scorcia@gmail.com>
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Content-Language: en-US
-In-Reply-To: <20260908174259.9009-1-l.scorcia@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAF0qoWoC/yXMQQqAIBBA0avErBPUQqirRAvLsSbIQisK6e5ZL
+ d/i/wgBPWGAOovg8aBAi0sQeQb9qN2AjEwySC4Vr3jFNhy8lqpk8zpezBZorLK6LKSA1KweLZ3
+ fr2l/h72bsN/eCdz3AzbLdbtxAAAA
+X-Change-ID: 20260909-tegra264-mphy-f3edf6fa4321
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter
+	<jonathanh@nvidia.com>, Philipp Zabel <p.zabel@pengutronix.de>
+CC: Thierry Reding <treding@nvidia.com>, <linux-phy@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, Kartik Rajput <kkartik@nvidia.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788947048; l=858;
+ i=kkartik@nvidia.com; s=20260909; h=from:subject:message-id;
+ bh=wNxcr851kY/Gm/1qejXUgOgsuClCFjTSi0FHeFAi05I=;
+ b=ElDkauiJKm43Eef96RrM8I4rNw+3tIfQMX35NHkdAbhqzbG0NbCu3aY0ZfC23fdSYdEKqPQSs
+ 4pvoLIPoVy5DX5C5uzDmxVOegy8pg2DRDc5gqw9p5Sf42RmhV12hSrT
+X-Developer-Key: i=kkartik@nvidia.com; a=ed25519;
+ pk=V+1YkJqxCruxUVxLXtAG3f5k8O5skT0X4/QIB75KZ64=
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E64:EE_|SA5PPFCB4F033D6:EE_
+X-MS-Office365-Filtering-Correlation-Id: f3b43c7b-58fa-4f07-3205-08df0e56f2dd
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|23010399003|7416014|82310400026|1800799024|11063799006|10067099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	IA3yxNvg+cwonmpHSehuc5eOS5jTaO2lSe74x8aCKTut2oydBRun4mUYXPLmmKGkBdf5tdP5SRhHRIUBd7ozXYm9lRfZEcfY7zyj7sO9WN5+0/PwIa9YLSg9qPlJ36vKWli+sPULdI4dTRkeoX81LL9l0p9AyeVS+FpULleivdQEHEvzH66ySg1eTqMrFThURNKMfOBd1VycEcbrQX6zdvG6c97MCr+2pVAi0WAxrQS3hz+DCF4QoeZtPN/0BjooIdxe6/VZk9exbgRVjFzNQBhioU5sc1xe2bi9dbkHZBDtbs6a7MgUI+4OjrlF1WeoOtn+eloo4NDHO8BI5GFhxp2B1eNL4v+lHdgSKxuHTzIW/ibmzhd3IptrpWys9+ItWkXoeHZTaM8f3joXllLUCVxtd647UPc+1qyuTpcc8L+i7cFDKTrFb2D7mWXZR7Gn+RrKT64jFcUMi4PUq1iGxi5QLQkTE2FA5JddpKCi6QxJPLAuNwk98rL6pAITrwcMiIx76iWACvw3d7k+WTIEHWK7zwAytFgK3WouxfCGpnV9bNqrZ6xZWdZqP+DW9rAMOIfkoS6zv1iSDMhR/cLj7BzDv109I0BDdh4Gal1fEvB7M2mnrr6G8wKgMj8Oy4zOuUqBQvkbe8eYVn05QIzIsxlPdNtPV+uYM5Ok2ahrLiDV9tezORMrWdnG5h+H694+CK2iS0XGMWA7nRIck6O9jg==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(36860700016)(376014)(23010399003)(7416014)(82310400026)(1800799024)(11063799006)(10067099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	U2DRN3DJSaN/WLREkDtzByBMImSg8EjwW5hLaseYvPaRKnTWv0UuL0Sj0QYxwQ4zxkyPBu0bRw/BxLIMiT8HxPGU8hDf7/AVLt/ueErCWcfRY4ucFE/3kIik+4btgFGT6qZyAzog11w4GVq37S4BEPhERTxi+B7LP8/Gk5BmaNlF/iFcfCZRY3D4SsWjpqYpB0tj6wMiuN8ZZbj21cseBUmpd7ZeP1+syBR+k1yWH8f/w+nqK02gPx4cysDamWbnpncABejbUwQq0kLBBERx8hcunmyxMjiapOhtuRKHD64ZtWg7TnJzkGgvF0M6BRIeh36yA3pGARnQHs3RzD4WC3P93sefhNO5k05lJjB4btO1hO6MBhPHHMn+H7qfIBrDgBJHIBujDrIHB1FBozpiu2X6YZQsT0HGoMh4lIhqOXNtK5lx6pq6qQxqX8RpKIL/
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Sep 2026 09:44:31.2932
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: f3b43c7b-58fa-4f07-3205-08df0e56f2dd
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E64.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCB4F033D6
 
-On 9/8/26 19:38, Luca Leonardo Scorcia wrote:
-> Currently mt8167 inherits its watchdog from the included mt8516 dtsi,
-> which in turn falls back on mt6589-wdt, which does not support toprgu
-> resets yet. In the first two patches we add support for the 12 mt6589
-> toprgu resets.
-> 
-> However, according to its data sheet, mt8167 has 14 sw resets instead of
-> 12, and its reset bits are non-contiguous. This is currently unsupported
-> by the mtk-wdt driver and it caused confusion between reset IDs and reset
-> bits in other mtk SoCs device tree includes.
-> 
-> Therefore we introduce a dedicated mediatek,mt8167-wdt compatible for the
-> watchdog driver that describes correctly this SoC's resets. Since its
-> reset bits are non-contiguous, we add support for a watchdog reset table
-> to accommodate the distinction between device tree reset IDs and the
-> actual bits in the registers. Code is inspired by the reset table
-> currently implemented in the mmsys driver. There should be no effect
-> on existing sequential wdt resets.
-> 
-> In the last three patches we describe the mmsys reset table for the SoC.
-> According to the datasheet there are 28 mmsys reset bits divided across
-> two adjacent registers.
-> 
-> The series has been tested on a Sony PlayStation Classic Mini, on a Xiaomi
-> Mi Smart Clock and on a Lenovo Smart Clock 2.
-> 
+Add MIPI M-PHY support for NVIDIA Tegra264 SoCs. The M-PHY is a hardware
+block with two lanes, l0 and l1, used by the Tegra264 UFS host
+controller.
 
-Whole series is
+Signed-off-by: Kartik Rajput <kkartik@nvidia.com>
+---
+Kartik Rajput (2):
+      dt-bindings: phy: Add nvidia,tegra264-mphy
+      phy: tegra: Add Tegra264 MPHY driver
 
-Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+ .../bindings/phy/nvidia,tegra264-mphy.yaml         | 108 +++++
+ drivers/phy/tegra/Kconfig                          |  11 +
+ drivers/phy/tegra/Makefile                         |   1 +
+ drivers/phy/tegra/phy-tegra-mphy.c                 | 459 +++++++++++++++++++++
+ include/dt-bindings/phy/nvidia,tegra264-mphy.h     |  12 +
+ 5 files changed, 591 insertions(+)
+---
+base-commit: a9d7ced84989ec05be09b4b8428759ef60450a0f
+change-id: 20260909-tegra264-mphy-f3edf6fa4321
 
+Best regards,
+--  
+Kartik Rajput <kkartik@nvidia.com>
 
-> Changes in v5:
-> - Dropped the binding header for mt6589 reset IDs;
-> - Moved the definition of the number of resets for mt6589 inside
->    mtk-wdt driver;
-> - Separated the mmsys related changes to the last three commits.
-> 
-> Changes in v4 [4]:
-> - Squashed the reset IDs includes together with the bindings change;
-> - Added support for a reset table to the mtk-wdt driver. This allows us
->    to decouple reset IDs from device trees from reset bits and lets us
->    describe correctly the non-contiguous reset bits of mt8167;
-> - Improved explanations in commit messages.
-> 
-> Changes in v3 [3]:
-> - Improved explanations in the commit messages;
-> - Added the #reset-cells property to mt6589 watchdog node;
-> - Included the mediatek,mt6589-resets.h file in mt6589.dtsi;
-> - Included the mediatek,mt8167-resets.h file in mt8167.dtsi;
-> - Moved the mmsys reset table from the mt8167-mmsys.h header file to
->    the mmsys driver implementation.
-> 
-> Changes in v2 [2]:
-> - Sashiko pointed out correctly a missing entry in the mmsys reset table
->    in the last patch.
-> 
-> Initial version: [1]
-> 
-> [1] https://lore.kernel.org/linux-mediatek/20260717151134.678839-1-l.scorcia@gmail.com/
-> [2] https://lore.kernel.org/linux-mediatek/20260717163959.714561-1-l.scorcia@gmail.com/
-> [3] https://lore.kernel.org/linux-mediatek/20260809160643.33991-1-l.scorcia@gmail.com/
-> [4] https://lore.kernel.org/linux-mediatek/20260819101853.44681-1-l.scorcia@gmail.com/
-> 
-> Luca Leonardo Scorcia (8):
->    watchdog: mediatek: Add wdt/toprgu resets for mt6589
->    arm: dts: mediatek: mt6589: Enable toprgu reset controller
->    dt-bindings: watchdog: Add compatible for MediaTek mt8167
->    watchdog: mediatek: Add support for mt8167 toprgu/watchdog
->    arm64: dts: mt8167: Properly describe the SoC watchdog resets
->    dt-bindings: reset: Add mmsys reset ids for mt8167
->    soc: mediatek: mtk-mmsys: Add resets for mt8167
->    arm64: dts: mt8167: Add support for mmsys resets
-> 
->   .../bindings/watchdog/mediatek,mtk-wdt.yaml   |  1 +
->   arch/arm/boot/dts/mediatek/mt6589.dtsi        |  1 +
->   arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  9 ++++
->   drivers/soc/mediatek/mt8167-mmsys.h           |  3 ++
->   drivers/soc/mediatek/mtk-mmsys.c              | 38 +++++++++++++
->   drivers/watchdog/mtk_wdt.c                    | 54 +++++++++++++++++--
->   .../dt-bindings/reset/mediatek,mt8167-mmsys.h | 35 ++++++++++++
->   .../dt-bindings/reset/mediatek,mt8167-wdt.h   | 21 ++++++++
->   8 files changed, 157 insertions(+), 5 deletions(-)
->   create mode 100644 include/dt-bindings/reset/mediatek,mt8167-mmsys.h
->   create mode 100644 include/dt-bindings/reset/mediatek,mt8167-wdt.h
-> 
