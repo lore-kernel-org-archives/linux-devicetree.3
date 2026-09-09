@@ -1,161 +1,165 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB683CF02D
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 09:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFD13CEBBB
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 09:23:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788945700; cv=none; b=LIq30k9209lSisWsBctzgsbavCBWo09FZRUzufqUcv6f1VNo/Rzq5Us5VjipZRoXLkTu/LpdBYlfA2CvknuZFof5nMwdPvZ8qfzKKkj42dv4SAu4kMpDe/UWkZJSez74hzQtaVrX4dXv3yqE4RJqJy6U/UB3c6Bn4t1w5tvywl4=
+	t=1788945837; cv=none; b=VveMRYUhe3gj7VGoTufpgEaQ14DkENvqhyM60pNiOWIAIb3xwQRqXRR6Zw4Wg+OW2IhYaeXciNvy/DG7lz3fGxC8PK+ccuC1KyAcVXx6TNbANPrxDEa7XG4zriJELpXXDipkzZiyD4Vlvrxh1fdgVoFqaV36RPCrSbqdmVZ3jVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788945700; c=relaxed/simple;
-	bh=ICGMTrXpwIIBXAJnFc+I+pomrUKlAtLAiFtXWd8S6ng=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NlIBk4jlJUfbmKEvpHr9W1a7n4OhlstXtYN1AYG7PRuLC3MEb4IYeVjRypq8t+sv8zwQG7M8Kqi0VJ0WhEHl0yi8w0Gdnfk8A78ybBaquNDnWMCp9pMlXHrpOnZe6y5KujvP3xR+rZBYVG4OSlPnClzbpN/iTRV02j8SOiO7aqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iiU/8qZ+; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788945837; c=relaxed/simple;
+	bh=MefwGGus+1Q/IuGojqThe9twVN1fqV7QINFZMvuhCDQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f2MJ081QAUDcSQ1b0wGzTRENfH80VsTl9jUbp8o/kVUxFZYxgI3Ro7RkBleVpIJbqoSIrTFmz0JlmdbAPU2aJYYBdTcVsrPSozBB1tyAAKmGAAjeJBMwNaRtvd10t9DPPpyI+EMNTfAtKBRALnLcUpVuApQ+dQxpW/nfsmVK1JE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SIHsBrc2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VPyXt7tr; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iiU/8qZ+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso99705e9.2
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 02:21:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SIHsBrc2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VPyXt7tr"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6896PWuv337750
+	for <devicetree@vger.kernel.org>; Wed, 9 Sep 2026 09:23:55 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	gWyEGgxT4E7X9KltLLkSGf6POqbL5iNCiSRb74gc82E=; b=SIHsBrc2LY11MYJc
+	HPBKaHwKbKAo0/VmYro9lMRr+FAcUXpfbqdCs0I8WbVsbJ9ZP6FfkrErJWYo9Wkb
+	mnqRjQHECn8g93u+5+qBxcpoPCjd4qGRjfu1JOW4egFMf3dVJzMuBIxTbVXyt+M6
+	51yQjK3FDdWomqcM0C+5xpjRRAGATTvaEG7sPCnuxG+GAi3329KCp5yDhFVBedI6
+	B6OzyqNaK0D+zw5g+scUSTWyMzkNQ65P3t9fxVoFt7UMVsZw0/aJPzq7yQI8yqNb
+	4wU0HF9OUM2YSNJ9DdPbY57WjZ/AnUy/jRuqNOeqr9fwzpCRLyF/gsBvOjmaaQBr
+	Zh0scg==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gjqe7k68u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 09:23:55 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-938fd633df7so73436885a.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 02:23:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788945693; x=1789550493; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+bx8r12BeuAYLf50LSaYPgNAKicF1/HQoL76XK7CuDI=;
-        b=iiU/8qZ+6tWq1gzUi/Ch9L9OlIo1cxyyzvjb3qHVqoYprK+sRykh8iomBDSD6qpz2A
-         Gz2Kzs214ItwAflHDwBlnmBp+akdwh5o5BKdkggSuNt0m4AhAh28LXW9VjwsrVeZaaGp
-         Id51FcYuU8EIkKBRKoBXNdy5JYMyGtI+9hUsy8TIKMoLpEdvnBVItO7sQLwC/bbxF6wm
-         vvkU+leRyGFuWHduVPYf7uTnCNxBN41r0Pj8q2QQCGvkZAKObBHq0+LJkLmbrG2Rw3+O
-         bM4CtrFkxh2b1RAKkq5DsmjsyN91KVh96YcgSwEr4BNGh8B7QuhFByfCY53EC8UOjEzd
-         oAjQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788945693; x=1789550493;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1788945835; x=1789550635; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=+bx8r12BeuAYLf50LSaYPgNAKicF1/HQoL76XK7CuDI=;
-        b=Vm+j/BIfX0e2MOVMErb0jsUVLx3BUUFN9DtVa7+naC/uqcT0jZpky4V2LRfcu+9kOe
-         MKWKgXrwIpDmOasvtfeVL93UN8d77WOLgzYQ1l+KV33uDtlnbyhaXxO43WmSiKkwCmTJ
-         NL+HWGv7eKZYXM93bbXuZrlggrRaUMB1INFP5Ve/ijpGe+4V60woUVL13IWV0k7HNGwQ
-         7d306JV9MH98lR5zh5Fsvt40nA6R3W3ensa/5GeEcIvDP8d6VRxnqBRUVTuL6ec2/7c/
-         PIoYwIf5r0SeKrzvQC6ZyFgyw1Scui9u1Ta6jf8/Ebfo7YToW5tCZY8riFKFkhi6tuXK
-         Zggw==
-X-Forwarded-Encrypted: i=1; AKwUvBzt3KI+NkSy6E4HdfIj543zrFbWsmT97rCaZZqEx2GaFmXR2jKot7INh0DEXep+oa38cafVJ7ZZz+E1@vger.kernel.org
-X-Gm-Message-State: AFuF++lEoj9i9dK+MLWsMZmWdHp1apyfFdMamQ9szqLPcLpdLGOYhvRC
-	ehph6rebboIgOhpeB5JtYvWanDhGpzP+BmXXu8ucGBe0vou4mSLy2PJL
-X-Gm-Gg: AYBFou1TzjGCHeGZCJKdJkhEjERAlw+XWWjelmOXzgiqXMzf+FgdsjmH4miefx1buVP
-	Nvu8ZjLhI+W8XrKRsQf47fJigecK+d6jVfK39k7nCNNV8gjC9HjZx4vX1tfMbRK05ubEXI5XC5F
-	sWlruy3ji3w4RbHwEdOkvt3kT3EGFgjpQHQpeF+y6Y0Q5YENny8vc6U4fIZg6UkduJewLnDEhqJ
-	9RbEXAMmlGCCVOiYBwd5/ObWAFcw625Uyyt0aRAfOa1OsR3EVZjDAEbHtfftU0COTLWt6e/in4x
-	oD3sBXE/WDXV9wdngJ+b7meVU5KMOY6ETqOVaORjlNhWY7xSXS36t4dLdx1lO6QC36QoV9ABkE6
-	d9li+qHwo1IqKeR52KPOCKVJa6t9Vlo8WvtpIpiEIlZTwCIguzCXEJS+9f4px96thE07R9e09dP
-	I99WfCW8okgROjw37Mlz/8i+4Z8uezvwGHj8BURxrTqDmsdhqBbdiPbn1Uj1sTwzuQADvB2WDVZ
-	0l3kpVR15veFACsUkuBz3O//O5CrhUVnaMb6e8K6pVCifVEYotwdF8zRUQ3i1qhAvzslSR3Q6Cm
-	ikmbX83zJ/kwS/NORwj2v8BqzzwtRM73oMv2wwsDJw4ytec5Rq3od/clCjycfy8u7c6+c11V7M0
-	OINmUrqSO8A6xELgHp5Wiop+3crxXVJc2rHqWp1RUXH4MwdWRW0iBlqyFVcXgM71g1GUX506Dh7
-	c/IXSP
-X-Received: by 2002:a05:6000:40dc:b0:485:ac96:7251 with SMTP id ffacd0b85a97d-485c23e5bbfmr212565f8f.21.1788945692975;
-        Wed, 09 Sep 2026 02:21:32 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm41842268f8f.3.2026.09.09.02.21.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 02:21:32 -0700 (PDT)
-Date: Wed, 9 Sep 2026 11:21:30 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Esben Haabendal <esben@geanix.com>
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "Lars-Peter Clausen"
- <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Martin
- Kepplinger" <martink@posteo.de>, "Sean Nyekjaer" <sean@geanix.com>, "David
- Lechner" <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 9/9] iio: accel: mma8452: Support interrupt sharing
-Message-ID: <20260909112130.0000307e@gmail.com>
-In-Reply-To: <87ecf581cn.fsf@geanix.com>
-References: <20260907-mma8452-open-drain-v8-0-c17407e22118@geanix.com>
-	<20260907-mma8452-open-drain-v8-9-c17407e22118@geanix.com>
-	<MzPTxQYymt0hmx-TacfSh_fIDYxz6pFiDnu5MTWC5w7AsH0QPasKb40V8t01ggjLJlDF7yzQ4E_7o_kqDvMG6w==@protonmail.internalid>
-	<20260907171022.00007100@gmail.com>
-	<87ecf581cn.fsf@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=gWyEGgxT4E7X9KltLLkSGf6POqbL5iNCiSRb74gc82E=;
+        b=VPyXt7trWgrW1E695mc/hcGJCwKOHKmaWuZTDoi9A2lg5VgjPCheWX3KW2+adRq/5p
+         uBR8ykBuTyh0f4X5rSp1ZUQLs8qt74pe22PfmKhOoi4jgTOkN3436eZSvGiTSIBQeaxG
+         ++e4eDpadSSG6ukZ/P2hF8NW6+y+tCnDlETiC28gU7rZV/go9/iHjsTXapxj8R4NXDHo
+         UXowQxrGL1Uj0mKnrptfLOz27ANdDkDIVx7I0IXqob7CXyordY10sSMFx9BzJI4aMOPx
+         qkt/jaORfpQ7XdjL10JzcFvXPjJaVOAxjqL1tcQ5EBY7fr6xhAh0AiwtnROdLtY0z2Lp
+         oVwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788945835; x=1789550635;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gWyEGgxT4E7X9KltLLkSGf6POqbL5iNCiSRb74gc82E=;
+        b=iKbIPLXhy+T+MBVuK8ML1HJVcM4q1He5UsEfY3739F4qd07olIjDEKj43+z2Ae9pvM
+         GgjIqThkq62KFRRbqWBhiVuYBrFnjWflztyfsTmJ6YEr4yxk+u9X+o2QpFUVZXpEYsj1
+         8iPUTorvR0iMF56wxLuIY9QhLaMRLR/dftNv7zzav6gOY8DYcTWtSS2VK2JvqtJlSCCZ
+         bt5ynr7LS5t6qZziCmkuVSTNIYwyADkCAT+YvlO/zXUujZSkpDeRBTaao7mL013mfXOF
+         4rQGgZcUj5I1HrsR2nSeYKqmIZlbpjug+sA6dRkoHxPs633/MV5h5D1uYGdnZbUMnrj6
+         qexw==
+X-Forwarded-Encrypted: i=1; AKwUvBwVqutLEVjda0eoiaqk9LFDLlGAlOr5fgwiWu5Oenla7Fsr7JUQ6W6KIF6Qj4lQyhRdX7XjNvQJKq1V@vger.kernel.org
+X-Gm-Message-State: AFuF++lNHkAY6d+rqnfDJHCVhTl2yladeBfKbcgTQ2mhJ9onBthZFXRA
+	8dOBLRPoXKflJWbMCFPn/F854VBUIf3EHyzaMMmgI7i76IpYT0FIYhqe5X/nezyyTAtopPmJPYj
+	YiWiOFLuh27zuJsXomD9Tt5DEJJzVKgXC26avbi9TTAmRN0USOzqBo3C1w5HYmlEm
+X-Gm-Gg: AYBFou1cZEy4UXUu37+6UzxPYU9JxhwYmxdgNp4W59u+xYnouRhDLKdCFCPA4ELAJ8I
+	KE6IRjKC3xoy9DLZD5JEwau/nSqkXYuU6Fa+upiDkWUXQDblqo+46cT+zvSz2mPBn662Vi4eWoU
+	1DLAGBB0nU+OAxNjUstoamSOGXSzka2OT8py+XjT/G/00t+miruH/ue9zSQlPFdWyz+UbrAdrlH
+	S9xTk918aFur1BS8X4WwLs8iVEeffms6c69uuzfqNjrr8XhjNOv2SFncZq6NV7MkpDq+bpAryxV
+	TvIx4/Dt7wRqnvSHRYtQ4iIjLBfFP0dc8lW80NSJiYf6eMAG2ODDLbYD5N8WmqkaisOtK7aiN0O
+	Wcg9g3P0kkvPGfVvWZDzQbg==
+X-Received: by 2002:a05:620a:2913:b0:939:5924:e319 with SMTP id af79cd13be357-939914ccf18mr2213615085a.0.1788945829821;
+        Wed, 09 Sep 2026 02:23:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:2913:b0:939:5924:e319 with SMTP id af79cd13be357-939914ccf18mr2213612185a.0.1788945829338;
+        Wed, 09 Sep 2026 02:23:49 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68c42c2sm6520490a12.14.2026.09.09.02.23.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 09 Sep 2026 02:23:48 -0700 (PDT)
+Message-ID: <387b1aa6-f168-4fb8-95d1-895f74805767@oss.qualcomm.com>
+Date: Wed, 9 Sep 2026 11:23:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: qcom: sdm845-sony-tama: Add battery
+ properties
+To: Shujath Mohd <shujath@outlook.in>, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, andersson@kernel.org,
+        konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org
+References: <PUZPR01MB51418AF84C1FC5F640144D57C3B22@PUZPR01MB5141.apcprd01.prod.exchangelabs.com>
+ <5enkadptjkxm5mmjjwtqehm4futxejzwewevoewlpeedjhszbb@dsfsfewasuiu>
+ <TYZPR01MB513102932A34B982696E2AD2C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <TYZPR01MB513102932A34B982696E2AD2C3B12@TYZPR01MB5131.apcprd01.prod.exchangelabs.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA5MDEwNCBTYWx0ZWRfX//hCT1n2tkGK
+ 2OJmVoq2MKifizDqk7qVO1SmhcqxuOpvYdU5riZDL0Lb/VjzzkTGmk8WkjAokE22Vpf6wu466EI
+ wufsQx2ieCu94fgzF9Vm7HvNamV6eWM=
+X-Proofpoint-ORIG-GUID: UFgicZrihnOvbf_b2-keJsyEL9XwadOf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA5MDEwNCBTYWx0ZWRfX2Q7G+464x655
+ tll1PCVWEVPR6hsLirRptmV1iqkGwTOGCy0Tk6AC8IIQkGhASYHzJk4xDndrwO2+Dlltw2V5YGF
+ 5CKpV3GVMpcuLAXOXirKLmbJAIP5o7i/BD6UxvFmVJ+JZHIHCk5UgDzetnIATRzFTVdrjSSqfWa
+ rFOmRnBPZ1sYo5nzpfEyJVGmA+VpzErbwihCxm3whM+sXqG7f/5mkqbHKPb+PuTqRK5zw5gcTFL
+ 6EeN3Nlv0jYMGQg5JiW24hfJEx0AHlCnFVrUPT/ZX270JAyGeldPL82djX38RCKix251Y83riZD
+ Kvbiw3NVwzZES/HTkMPOKPUogf9YoV9UoezGaL3nV61NTjY4eaXCgpMCIobxSHz7gpPwRIRTHn4
+ zcdym4lVXb++k0xvbd90WWu/GBhyA/kzRX10MeF1ZhyAvWyEDXbK9VCLPMRgsEeZDmABuBa4Il7
+ g9suFH2qwW9Bot4n3yg==
+X-Authority-Analysis: v=2.4 cv=Xey5Co55 c=1 sm=1 tr=0 ts=6aa125ab cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=WY477xrWUYgG2yMJyFQA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-GUID: UFgicZrihnOvbf_b2-keJsyEL9XwadOf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-08_03,2026-09-08_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 malwarescore=0 spamscore=0 lowpriorityscore=0 bulkscore=0
+ phishscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609090104
 
-On Mon, 07 Sep 2026 18:36:56 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+On 9/8/26 9:56 AM, Shujath Mohd wrote:
+> Just the commit message, nothing in files
+> 
+> On 8 September 2026 12:49:24 pm IST, Abel Vesa <abel.vesa@oss.qualcomm.com> wrote:
+>> On 26-09-07 21:33:08, Shujath Mohd wrote:
+>>> Add simple-battery nodes describing the design capacity and voltage
+>>> limits of the Xperia TAMA batteries.
+>>>
+>>> The Xperia XZ2, XZ2 Compact, and XZ3 use 3.4 V as the drained
+>>> battery voltage and 4.245 V as the fully charged voltage.
+>>>
+>>> Signed-off-by: Shujath Mohd <shujath@outlook.in>
+>>
+>> So what changed since v1 ?
 
-> "Joshua Crofts" <joshua.crofts1@gmail.com> writes:
-> 
-> > On Mon, 07 Sep 2026 16:51:04 +0200
-> > Esben Haabendal <esben@geanix.com> wrote:
-> >  
-> >> Adding support for sharing interrupt line with other device requires the
-> >> interrupt handler to handle runtime PM suspension properly, ignoring the
-> >> irq if the device is suspended (maybe even off). And while at it, we use
-> >> the PM reference to ensure we do not get suspended while processing an irq.
-> >>
-> >> In order to prevent the chip from raising irq while suspended (that is when
-> >> using fixed regulator, where suspend just means setting the device in
-> >> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
-> >> then restores the value again when resuming.
-> >>
-> >> With that in place, it is safe to add the IRQF_SHARED flag.
-> >>
-> >> Keep in mind that the device by default is using push-pull for the irq pin,
-> >> which might require additional hardware design to allow interrupt sharing.
-> >>
-> >> Signed-off-by: Esben Haabendal <esben@geanix.com>
-> >> ---  
-> >
-> > ...
-> >  
-> >> @@ -1784,29 +1796,62 @@ static void mma8452_remove(struct i2c_client *client)
-> >>  #ifdef CONFIG_PM
-> >>  static int mma8452_runtime_suspend(struct device *dev)
-> >>  {
-> >> -	struct iio_dev *indio_dev = i2c_get_clientdata(to_i2c_client(dev));
-> >> +	struct i2c_client *client = to_i2c_client(dev);
-> >> +	struct iio_dev *indio_dev = i2c_get_clientdata(client);
-> >>  	struct mma8452_data *data = iio_priv(indio_dev);
-> >>  	int ret;
-> >>
-> >> -	scoped_guard(mutex, &data->lock)
-> >> -		ret = mma8452_standby(data);
-> >> +	guard(mutex)(&data->lock);
-> >> +  
-> >
-> > Hmm, this patch might benefit from breaking it into multiple patches
-> > (the change from scoped_guard to guard, the local pointers etc. along
-> > the fact that these aren't mentioned in the commit message), but
-> > that's up to Jonathan.  
-> 
-> I will try and improve the commit message. I don't think that breaking
-> it up makes a lot of sense.
-> 
-> The change from guard() to scoped_guard() is closely tied to the rest of
-> the changes. At least I am not sure if it is even sane to make that
-> change without the rest of this commit. It might be fine. Probably is,
-> but is it worth to risk causing trouble for older kernels?
-> 
-> Regarding the local pointers, I assume you mean the added struct
-> i2c_client and struct device pointers. They are only used in the added
-> code, so I don't see how I can split that out in a meaningful way.
-> 
 
-Ah fair enough, no need to split it then :)
+For context, everyone is expected to provide a brief changelog between
+revisions
 
--- 
-Kind regards,
-Joshua Crofts
+There's a pretty in-depth piece of documentation regarding all the
+(well, probably "most") such expectations:
+
+https://docs.kernel.org/process/submitting-patches.html
+
+And the b4 tool was created to take care of most of the annoying ones:
+
+https://b4.docs.kernel.org/en/latest/ 
+
+which everyone (contributors and maintainers alike) is encouraged to use
+
+Konrad
