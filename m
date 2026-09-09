@@ -1,116 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866F53AFCF0
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 08:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E1648A8B4;
+	Wed,  9 Sep 2026 08:51:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788943617; cv=none; b=Nb1MHHM3Aw6SEJq00b2/RFa8aKKsTcgfYuppCUQMusTFy3K51Nqy3yvDBBz5br/j1MbprVV/eX5w4NuoHmnYaF6FcC3NBGTx1zZAZgp+mX1NYAj0IeboaEs+nDPBFSqPXrANOxB2J2hhzsND1CFBxneUcuiDzLbAhRq/nlPFVXM=
+	t=1788943905; cv=none; b=tRXEaG75b9CLahgcTXjGu30WpY7cnxkDCibS1KH0eJNUVdlCJw77ycIkHUcVpC5/moqS5fUbPclcsoelc7ekJI6gRelCj4nln/NY+oA2PlUlLizenVFeNHbcnXQ2Y3q3raxfwq/MmUtZqSX6SymiaUTI4Vs+NZWr9vR9a7cPAU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788943617; c=relaxed/simple;
-	bh=VLtcvW+Jg6P+9+acsDRexGa+pz2Kbsi3MQRM2GmwZtw=;
+	s=arc-20240116; t=1788943905; c=relaxed/simple;
+	bh=5xm2Blazpnjvx2S1yj/eNiDKJR7yRxKvns2MniKOW1Y=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ZrpWeYcCZwBA7iEwbV+YQjkohm/SrvTUSpeTLbFY5k7RoZ2PJKJN8zAILfzmSAOEKaYcv3IrKVtxpVlxjexLyvcMwvicEkf8ADSLijkAxQe3PFZ+RaEys5pvJErK8A9tGy3ewIzep6IYJOOXNOHfIpaW+dQfVt8RqN7tWOW2eKg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M/feNCxO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Z3ebThfWK14qW1nGSjsTIcxA94QcZugsLQgTK9/rPb+6KddgukzO4WwjUOlwHT2PRqix/8yyzHBNVorKQUba6IjozMUq2P1Wmzim14Faf+7ZwjcZeqxGQk6+/6Kb7kQF4jTCDn4knw/2GLSZlhfSdXcqiB4MuPLwRDXm/x/wqyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPAJjXf+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M/feNCxO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69C81F00A3A;
-	Wed,  9 Sep 2026 08:46:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPAJjXf+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A98A1F00A3D;
+	Wed,  9 Sep 2026 08:51:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788943615;
-	bh=l5+zXiMcvP6eJPMT51PBBEr7txciTZZIlDvpI9mOI/o=;
+	s=k20260515; t=1788943898;
+	bh=cj7lqzOPfEAccIXYNNQ0SI+fFxYm5vEZW8hfCn4nVGw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M/feNCxO04SYQA1+wd8vjTzcvcWl6jBSGCPoGb99Iy/gh8gCPBz/9szTdIzBo2xnu
-	 7qUOiDntkteEmwfKYaD2iieW/clcZqCgscH0cdceF0iqZwq3AsrJhS7H/QMvdMghBs
-	 bmeoVc922zxEAtjDA4WzrC0AiOboleEzaCuZeajka5WrhbTYXNr+extapxaa7YazGC
-	 qvVad8qb+HCmYOz7UzNfKftRkz48FUoEJ5/5BqO3Ctn9pdjs3JtcMXYmNpssA1WTJs
-	 joo30vTiEVmChkUYjy0ZYFXWinX3bBoUDopWZPo9pfUF8kPx71DWrLRfgLrfqpmXGT
-	 cZta6v3E78cWw==
+	b=UPAJjXf+WhpPHzr5PRBsoe3tMGFnhBDyQN7fRzksI5bft5bf3285msyc8WQgl+SoH
+	 JXM3xDRGw1NDA01D8p27nPSimM01hwpoli6xnYIi4195SwtmlCjHzaG1wL7cuMCGOq
+	 PIyDsJZsefsOCtwCt4PUHCZ14RflPASuMyBKDLf7gu5VjQz50PXzUlw3JwEh3TtZIl
+	 39ttYL8w5J9UXNdCyQSAC3X1EeJRNlO2miy03nvkmCak8oHPpA2JZn+oeCiAGfPs17
+	 0wxlN6bWfMiA2XUueTcPe5EFeQR+mGQoPeD0XX7T3U5QwvkrkZFvhILIEeF35rpu14
+	 9QyZdjeTYMgzw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/6] dtc: dt-check-style: Unduplicate checks in
- check_mixed_indent_chars()
+Subject: Re: [PATCH v3 11/15] mtd: rawnand: sunxi: select the packed H6/H616
+ OOB layout
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260909-b4-dts-style-checker-continued-lines-v2-4-c5cb4c9d9b66@oss.qualcomm.com>
-References: <20260909-b4-dts-style-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com>
- <20260909-b4-dts-style-checker-continued-lines-v2-4-c5cb4c9d9b66@oss.qualcomm.com>
+To: "James Hilliard" <james.hilliard1@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-11-838cb0ba1547@gmail.com>
+References: <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com>
+ <20260909-submit-sunxi-nand-vendor-oob-layout-v1-v3-11-838cb0ba1547@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 08:46:53 +0000
-Message-Id: <20260909084654.B69C81F00A3A@smtp.kernel.org>
+Date: Wed, 09 Sep 2026 08:51:38 +0000
+Message-Id: <20260909085138.9A98A1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Undocumented behavioral change in loop refactoring expands inden=
-tation checks to continuation lines of unindented properties.
+
+Pre-existing issues:
+- [High] The free OOB region incorrectly overlaps with the ECC OOB region f=
+or ECC steps > 0, causing silent ECC data corruption.
+- [High] A division by zero kernel panic occurs when maximizing ECC strengt=
+h on a NAND flash with 512-byte pages.
+- [High] Unbounded accumulation of user data lengths leads to out-of-bounds=
+ MMIO writes, clobbering adjacent controller configuration registers.
 --
 
-commit 89ba14f0783d8be45f1d6722eb8a627b6c4b34e4
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+commit 576ae0cb150295224ce149147695feb0bb49c1cf
+Author: James Hilliard <james.hilliard1@gmail.com>
 
-dtc: dt-check-style: Unduplicate checks in check_mixed_indent_chars()
+mtd: rawnand: sunxi: select the packed H6/H616 OOB layout
 
-This commit splits the indentation checking logic into a separate
-_check_mixed_indent_chars() helper function. The goal is to avoid
-duplicating code when checking both primary lines and continuation lines.
+This patch adds a randomized OOB layout for the H6/H616 controller,
+configuring a separate protected user-data length for ECC step zero to match
+the firmware format. It keeps the maximized user-data layout when the
+property is absent.
 
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> index 4ac10cb450684..41c97d996882f 100755
-> --- a/scripts/dtc/dt-check-style
-> +++ b/scripts/dtc/dt-check-style
+> diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sun=
+xi_nand.c
+> index 138a141edbe4d..bd239d150730b 100644
+> --- a/drivers/mtd/nand/raw/sunxi_nand.c
+> +++ b/drivers/mtd/nand/raw/sunxi_nand.c
+[ ... ]
+> @@ -2365,6 +2374,12 @@ static int sunxi_nfc_maximize_user_data(struct nan=
+d_chip *nand, uint32_t oobsize
+>  	if (!sunxi_nand->user_data_bytes)
+>  		return -ENOMEM;
+> =20
+> +	if (sunxi_nand->randomized_oob) {
+> +		sunxi_nand->user_data_bytes[0] =3D
+> +			sunxi_nfc_h6_user_data_sz(nsectors);
+> +		return 0;
+> +	}
+> +
+>  	for (step =3D 0; (step < nsectors) && (remaining_bytes > 0); step++) {
+>  		for (i =3D 0; i < c->nuser_data_tab; i++) {
+>  			if (c->user_data_len_tab[i] > remaining_bytes)
+>  				break;
+>  			sunxi_nand->user_data_bytes[step] =3D c->user_data_len_tab[i];
+>  		}
+
+[Severity: High]
+This is a pre-existing issue, but does this loop lack an aggregate bounds
+check against the hardware MMIO limit?
+
+It appears this greedily assigns up to 32 bytes of user data per ECC step.
+For a large page NAND flash, such as an 8KB page with 8 steps, it could
+allocate up to 256 bytes in total.
+
+When this total is later written out in sunxi_nfc_hw_ecc_set_prot_oob_bytes=
+()
+via a writel loop:
+
+sunxi_nand.c:sunxi_nfc_hw_ecc_set_prot_oob_bytes() {
+    ...
+    for (i =3D 0; i < user_data_sz / 4; i++, ptr +=3D 4) {
+        writel(sunxi_nfc_buf_to_user_data(ptr),
+               nfc->regs + NFC_REG_USER_DATA(nfc, reg_index + i));
+    }
+    ...
+}
+
+Will this step outside the available USER_DATA register bank and clobber
+adjacent controller configuration registers like SPARE_AREA or PAT_ID,
+potentially causing controller malfunction or a kernel panic during probe?
+
+[ ... ]
+> @@ -2422,6 +2437,10 @@ static int sunxi_nand_hw_ecc_ctrl_init(struct nand=
+_chip *nand,
+>  				bytes -=3D 2;
+> =20
+>  			bytes -=3D total_user_data_sz;
+> +		} else if (sunxi_nand->randomized_oob) {
+> +			total_user_data_sz =3D
+> +				sunxi_nfc_h6_user_data_sz(nsectors);
+> +			bytes -=3D total_user_data_sz;
+>  		} else {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but earlier in this function
+when the NAND_ECC_MAXIMIZE_STRENGTH flag is set, the code hardcodes
+ecc->size to 1024.
+
+If this is run on a NAND device with a 512-byte page size, will nsectors
+evaluate to 0?=20
+
+If nsectors is 0, the later operation to calculate the remaining ECC bytes
+performs a division by zero:
+
+sunxi_nand.c:sunxi_nand_hw_ecc_ctrl_init() {
+    ...
+    /*
+     * Once all user data has been subtracted, the rest can be used
+     * for ECC bytes
+     */
+    bytes /=3D nsectors;
+    ...
+}
+
+Will this crash the kernel on boot for 512-byte page devices?
 
 [ ... ]
 
->  def check_mixed_indent_chars(ctx):
->      """Indent must be all-tabs, except for aligning indentation (comments
->      or continued lines)."""
->      for dl in ctx.lines:
-> -        if not dl.indent_str:
-> -            continue
-> -        if dl.linetype =3D=3D LineType.PREPROCESSOR:
-> -            continue
-> -        if re.search(r' \t', dl.indent_str):
-> -            yield (dl.lineno, 'mixed tabs and spaces in indent')
-> -        if dl.indent_str.count(' ') > 7:
-> -            yield (dl.lineno, 'too many space characters in indent (more=
- than 7)')
-> +        yield from _check_mixed_indent_chars(dl)
->          for cont in dl.continuations:
+[Severity: High]
+This is also a pre-existing issue, but does sunxi_nand_ooblayout_free()
+incorrectly overlap the free OOB region with the ECC OOB region?
 
-[Severity: Medium]
-Does this unintentionally alter the script's behavior for unindented
-properties with multi-line continuations?
+Looking at sunxi_nand_ooblayout_free() for sections > 0:
 
-Previously, if a line lacked indentation, the outer loop would hit a contin=
-ue
-statement, entirely skipping the evaluation of dl.continuations for that li=
-ne.
+sunxi_nand.c:sunxi_nand_ooblayout_free() {
+    ...
+    oobregion->offset =3D sunxi_get_ecc_offset(sunxi_nand, ecc, section);
+    oobregion->length =3D user_data_sz;
 
-With the new _check_mixed_indent_chars() helper, an early return inside the
-helper simply finishes checking the primary line, but execution then procee=
-ds
-to evaluate dl.continuations in the outer loop anyway. While scanning these
-continuation lines might be desirable, it silently expands the style checke=
-r's
-scope in a commit presented as a pure functional no-op.
+    return 0;
+}
 
-> -            if not cont.indent_str:
-> -                continue
-> -            if cont.linetype =3D=3D LineType.PREPROCESSOR:
-> -                continue
-> -            if re.search(r' \t', cont.indent_str):
-> -                yield (cont.lineno, 'mixed tabs and spaces in indent')
-> -            if cont.indent_str.count(' ') > 7:
-> -                yield (cont.lineno, 'too many space characters in indent=
- (more than 7)')
-> +            yield from _check_mixed_indent_chars(cont)
+Should this be using sunxi_get_oob_offset() instead? By setting the free
+region offset to the ECC region offset, it seems that if a filesystem utili=
+zing
+OOB writes to the free OOB area, it will write directly into the ECC parity
+bytes, silently destroying the parity data and causing uncorrectable read
+errors.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-b4-dts-sty=
-le-checker-continued-lines-v2-0-c5cb4c9d9b66@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-submit-sun=
+xi-nand-vendor-oob-layout-v1-v3-0-838cb0ba1547@gmail.com?part=3D11
