@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A69153A8BC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1CA531B0C;
 	Wed,  9 Sep 2026 10:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788950983; cv=none; b=DklrKcsN5z1tqutV4/vPKI2bPNFagxgrJfg+Hi94vXqusE6d9lchFuyb4dtauHdUNIxRXOMz8y6B9A+vFt4SR94ON05kzfN2N1XB2IY99EgmPERJRGOfmAsxH/sBh0YfxOosXKdULEj7Z2s9602Vam2qg6Rw4D5x/j9Vhu5K24o=
+	t=1788950983; cv=none; b=ctptT5GenCB+VH+tvusbYjuTwo3+E8BxcLUfm+mZj5ueV7pX10mTlpPDJ2swL2A2j6BjzrKYjBX8BmoD7EdBrqVYtB53NcJFYmUoEcagdGCtX3jwQUgfbkulJ+cNfmrIY0FWv5Tl4VGeToyw0LEA0JKllE5eWXLWiM1ZM2llK2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788950983; c=relaxed/simple;
-	bh=OselYV9Z79ga+Tc9lAyWGhBokVgW3jNj53PuyfqBRz8=;
+	bh=z/IHrbK6Kmc41Oj/Z168GnVdZNmfWEF1Ga3MCPTNHZk=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OMMvXIYR/RN6CFyiOMe/gVNhOtWn7ZcNzx/Fz6uBqWKiiLep/U7Oq/w940+Ecc6HD0zmfDVsg3+UraVp1KyUHgixnxobZEa9VEtdYAyHCtAlJ/92SnWLybNvYTam4rBSj1XjkjqD1c9/+SiyEOtCYrHuUJ/KfEPglYUDN202hmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pVFabxpe; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=hPFiMK73ZM2ymfzjAR6waUtwKfsKvxQgryJJw6/kV9MeMZyL6LFLb7TmbVBztSDw/hBEvcmfOERuWMi0MvUHDRhV3MVLl9tp04uNuccAaUqlfwjJ+5BchjhuKUwneEpnJ0ZAFCtPmUkb/f3UporgHaqd4rjFqWM5QBbkP2aaK+8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ta+yhd+F; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pVFabxpe"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 11957C2BCF5;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ta+yhd+F"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 30685C2BD00;
 	Wed,  9 Sep 2026 10:49:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788950983;
-	bh=OselYV9Z79ga+Tc9lAyWGhBokVgW3jNj53PuyfqBRz8=;
+	bh=z/IHrbK6Kmc41Oj/Z168GnVdZNmfWEF1Ga3MCPTNHZk=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=pVFabxpeuid4J1XDLcZ8yOhWwD1/XLnDCbhlC1MT9qAQ0FDMHgtQK8OivDatQ1q4j
-	 NEbabWkF9dm9tePDd8VGGhdOiR8MZRwQdCr7ECWY31IrxIEFYeBTl3kKgLCMSgn5at
-	 GcCqvwCfTUw27Cl0H1c343pAHSacObNy8RE7t2t1clzxn4qEifslrCx89mG10ZSW8Z
-	 BDQsImbM3oKZvtjDm5slSClAkSdGnd0h6qF0Fk7KarnNIZiqAg612d2qo8KwKiTzSB
-	 DddMCr+843lxBv4591jU66WKAMZ9WpyvE6jOL4IFWjAG8n1nJPSP//KGxEwUTyw7Nd
-	 mDf2LMookHh2g==
+	b=Ta+yhd+Fzo3eja/mzuoxXhx5v8ITsZQMzMcXjgFK6tOpH7M/HM72DAFPCu/URs1KS
+	 avcVL/dzSr782ZG+WrUaanqv9uXgkccm7wtbpuy4nWJaAdvb2kZ/RpU0E8CFebSYBX
+	 c8xr/usgF5/xzJ0E55mQOIZMD4v28+CQ7MFW52ZCGKqA6BxCYr7DLyJnF+TwIbKNtb
+	 a7vwupFqldQmzfYTxwZYL5RKmJ++ZgIo/BR88InR2kq6rlUaOMwBDW8l4h2dCMeBpP
+	 QJ2f8lQTb47hF1N1jWgaErJZ9UMnduxTAaT0tgMhJuuQTtjV1mqfsfqeVkhCEZoMI+
+	 KtS9uZBgyq5tA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E69FFC79FB6;
-	Wed,  9 Sep 2026 10:49:42 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 12E34C79FBE;
+	Wed,  9 Sep 2026 10:49:43 +0000 (UTC)
 From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Wed, 09 Sep 2026 13:48:50 +0300
-Subject: [PATCH v3 1/3] dt-bindings: nvmem: mediatek: efuse: add mt6572
+Date: Wed, 09 Sep 2026 13:48:52 +0300
+Subject: [PATCH v3 3/3] nvmem: mtk-efuse: add mt6572 support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,7 +40,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260909-6572-nvmem-v3-1-c0c441656431@protonmail.com>
+Message-Id: <20260909-6572-nvmem-v3-3-c0c441656431@protonmail.com>
 References: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
 In-Reply-To: <20260909-6572-nvmem-v3-0-c0c441656431@protonmail.com>
 To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
@@ -54,11 +54,11 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
  Roman Vivchar <rva333@protonmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788950981; l=1057;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788950981; l=1270;
  i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=t4yY7jNJW5Ruu7MkWUJRRcVwM0ArbnLdvtu2KDe4Mvo=;
- b=YvUkqieMw0zQ/HK0FnVLCruW13b9WxcWXKDU9gpaJfUQTM6+gZ3se4/2+kmSWJdnOxUpBsjmE
- 3JB1XTr2O8jB/Sa4+zik77Z6vLNrvdJYig0Nn9s0keEaoE4wiavkAGH
+ bh=j/0pkhNqmD2kWRqTyBoB6Qy34fCNHrTMKNnHg2hhmLk=;
+ b=5t1b0Kn5gUv3X47QncGs0iNVDDFmY67ZSD/Uqr1Nmr+N+pCIziA96GyYNqqRczjvwl7pVCkpG
+ EzAZSKelSYdD46PQ0cDr5qFZcaB4HxSJHyx6WkGe/TSY/vZ9rzeu1g4
 X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
  pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
 X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
@@ -68,36 +68,38 @@ Reply-To: rva333@protonmail.com
 
 From: Roman Vivchar <rva333@protonmail.com>
 
-Add a compatible string for the mt6572 SoC efuse controller.
+Add a platform data struct for the efuse controller.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 Signed-off-by: Roman Vivchar <rva333@protonmail.com>
 ---
- Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/nvmem/mtk-efuse.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml b/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
-index f9323b3ecfc8..e10947164941 100644
---- a/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
-+++ b/Documentation/devicetree/bindings/nvmem/mediatek,efuse.yaml
-@@ -24,13 +24,16 @@ properties:
+diff --git a/drivers/nvmem/mtk-efuse.c b/drivers/nvmem/mtk-efuse.c
+index 178b9d85f813..99d061eef6e3 100644
+--- a/drivers/nvmem/mtk-efuse.c
++++ b/drivers/nvmem/mtk-efuse.c
+@@ -132,6 +132,11 @@ static int mtk_efuse_probe(struct platform_device *pdev)
+ 	return 0;
+ }
  
-   compatible:
-     oneOf:
-+      - enum:
-+          - mediatek,mt6572-efuse
-+          - mediatek,mt8186-efuse
++static const struct mtk_efuse_pdata mtk_mt6572_efuse_pdata = {
++	.uses_post_processing = false,
++	.needs_aligned_read = true,
++};
 +
-       - items:
-           - enum:
-               - mediatek,mt8188-efuse
-               - mediatek,mt8189-efuse
-               - mediatek,mt8196-efuse
-           - const: mediatek,mt8186-efuse
--      - const: mediatek,mt8186-efuse
+ static const struct mtk_efuse_pdata mtk_mt8186_efuse_pdata = {
+ 	.uses_post_processing = true,
+ 	.needs_aligned_read = false,
+@@ -143,6 +148,7 @@ static const struct mtk_efuse_pdata mtk_efuse_pdata = {
+ };
  
-       - items:
-           - enum:
+ static const struct of_device_id mtk_efuse_of_match[] = {
++	{ .compatible = "mediatek,mt6572-efuse", .data = &mtk_mt6572_efuse_pdata },
+ 	{ .compatible = "mediatek,mt8173-efuse", .data = &mtk_efuse_pdata },
+ 	{ .compatible = "mediatek,mt8186-efuse", .data = &mtk_mt8186_efuse_pdata },
+ 	{ .compatible = "mediatek,efuse", .data = &mtk_efuse_pdata },
 
 -- 
 2.55.0
