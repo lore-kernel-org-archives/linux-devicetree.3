@@ -1,168 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32415479867;
-	Wed,  9 Sep 2026 08:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D8547A87C
+	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 08:32:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788942688; cv=none; b=OU6ypMl0w0N4TF9MdKHnlpu7IPirUCK+A13bOieSh5pOFuQfPBf0z41pCR2PS1cQ70A9wVW3H3n0HLpVknZd4MJIDfr54vOt5Be6onKTALw2BobNXdkS5REBT1z0sW5E9bO8A/0rj8G9w30y7Jd+qyHWokxWLgSuPIYrUPBu8bQ=
+	t=1788942751; cv=none; b=VM20oi+3aa4q+zrdCw8e9n16zq+viaflHkdxiKTHYJtR5RuWUcsSfycy0+fu7RpMJl6VPaZalCX2QB7CX2zpHCEHEOD1uajjGEYzqU8gEewWyfyvEOhlHjWdbxaZluHMPhdVw2gmeksR2iN2aDKuObx22u907+Z7giSzcuAtZ/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788942688; c=relaxed/simple;
-	bh=3iRworJfB5leJ0q0KstAVXfOMueQAkS0IcTsKYA1g9s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kxukrKEA6M5EDFa59Oe5yICaHwZqk5Q6AOWjVdYO4JWrPh5+JpM4ne+YVgIWExMpGGXkd8keLn0Al2uvjajcO+6BuCLqNq7YquDVB/HggaP/EuTWKXmwr5WR54xDHeB5Mm5+ANVv9C+5OgK+pICYGfC9GvlRV6vCk0PcyVX9SDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AkuxpnB9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788942751; c=relaxed/simple;
+	bh=BEkvdLBQ9PlLzmg3fi7affGfzYDdHOc++Z9nqYIag4o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oqwH6j+v6AGggDKGRrwHgkFw6pv/czqh05Bu9gTR1k6zXCUI+/eGay/KZDNUPK2okNsQuWpFnRJpnM1YuGeyIZ9ZsQD3UF/gq+PT+Q0nXh2nm9ljoKUTng/Pa1/J9cojKmy22sJqglTZhJeeaSuaTU/jZ2jJBfui4tLx8ByYaC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKNb7qL6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AkuxpnB9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36BC11F00ADE;
-	Wed,  9 Sep 2026 08:31:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKNb7qL6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7D731F00AC4;
+	Wed,  9 Sep 2026 08:32:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788942686;
-	bh=u90H3kvPiANnjYuJutZLUXCAY3/LlIec8aBZfM+ga7k=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AkuxpnB9gDnuD2XgPNSBlab6Z3PdHQZERsEVWHElRJ50N0hxy2uK6t/K1p5LnwKSd
-	 qtR1Nn0oxXrp0Vq+zyk+Z9Ldye+U20odLWC1zmFhuQHw+ZhZHnC2TalDrd33l0VRd7
-	 1+QjeDcfUDEXZ1/SI2cx5uvOLd8pEIuiOXVgaRQ5KL8UYBmPlur7NIfdjKU1Kthi42
-	 XTXaN594AG5csFXG3PaK+GpEJFgrVjM9K7MKptTJWizdRoTqfSWWx/weuKBsITT+gd
-	 uV66BafxxOZ3yiFCyIyskHjvm/Ps6rvzZf6aC4+nxYgZ//jhHHqt8qgqLb11IRQEb+
-	 75bsSLWIb6ndA==
-Date: Wed, 9 Sep 2026 10:31:17 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Ryan Chen <ryan_chen@aspeedtech.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] phy: aspeed: Add AST2700 USB3.2 PHY driver
-Message-ID: <5oamvlreciw524g3bpbemcpdpljc7thilejy6s4kwmt5hdjwcp@xmaef4eaurzk>
-References: <20260701-upstream_usb3phy-v3-0-00e12315b6f9@aspeedtech.com>
- <20260701-upstream_usb3phy-v3-2-00e12315b6f9@aspeedtech.com>
+	s=k20260515; t=1788942749;
+	bh=afQJmY3cTMefXcUyVKS26kDkuXCepv7q2agRrLst9S4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KKNb7qL6ZwetUtlxXLIL3B7N/rZ3rtl7bleeDMH3rFE9VLyZSZzhUfnEtUy8w3TfU
+	 WbooagrMVUQVgKXw+v4JE3AfL5BLDsPH+Vs1pwa/1H7H6BVUTNTg+IixWq0qoG4sko
+	 6QXXu8LBOZw8WzowJ2u5+oddYM/S5l8HYpp3Og+pCRyBeTb4PKobPsMcifCGxBazl9
+	 5Ud9hX9BDC8y/mi7x8IbqjQQdUeDHkggmUw9dgcJpiMlJYIt5By/Q/G6/oL2wEIILQ
+	 D8/MwY8lBul6BFmkMu3Zzto2pSxfs61lln2jwtR7HNeNOkEIX1QibZiQ1vhn968LAj
+	 04sa7/h1fq5Hg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: iio: adc: lltc,ltc2497: add LTC2499
+ to title
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andrei Stancovici" <andrei.stancovici@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909082755.366269-2-andrei.stancovici@analog.com>
+References: <20260909082755.366269-1-andrei.stancovici@analog.com>
+ <20260909082755.366269-2-andrei.stancovici@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 09 Sep 2026 08:32:28 +0000
+Message-Id: <20260909083228.D7D731F00AC4@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260701-upstream_usb3phy-v3-2-00e12315b6f9@aspeedtech.com>
 
-On Wed, Jul 01, 2026 at 02:58:18PM +0800, Ryan Chen wrote:
-> Add AST2700 USB3.2 PHY driver support.
-> 
-> Signed-off-by: Ryan Chen <ryan_chen@aspeedtech.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message claims to update the title to match the set o=
+f documented devices, but it fails to include LTC2305.
+--
 
-Just couple of nitpicks below. Once they are addressed:
+commit ed7e1178510ad0fd945eab7467d3323be2dec391
+Author: Andrei Stancovici <andrei.stancovici@analog.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+dt-bindings: iio: adc: lltc,ltc2497: add LTC2499 to title
 
-> ---
->  drivers/phy/Kconfig                  |   1 +
->  drivers/phy/Makefile                 |   1 +
->  drivers/phy/aspeed/Kconfig           |  15 +++
->  drivers/phy/aspeed/Makefile          |   2 +
->  drivers/phy/aspeed/phy-aspeed-usb3.c | 236 +++++++++++++++++++++++++++++++++++
->  5 files changed, 255 insertions(+)
-> 
-> diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-> index 19f3b7d12b7d..85fa381978f8 100644
-> --- a/drivers/phy/Kconfig
-> +++ b/drivers/phy/Kconfig
-> @@ -171,6 +171,7 @@ config PHY_XGENE
->  source "drivers/phy/allwinner/Kconfig"
->  source "drivers/phy/amlogic/Kconfig"
->  source "drivers/phy/apple/Kconfig"
-> +source "drivers/phy/aspeed/Kconfig"
->  source "drivers/phy/axiado/Kconfig"
->  source "drivers/phy/broadcom/Kconfig"
->  source "drivers/phy/cadence/Kconfig"
-> diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-> index d7aa516bcc49..c6dd02003bbe 100644
-> --- a/drivers/phy/Makefile
-> +++ b/drivers/phy/Makefile
-> @@ -23,6 +23,7 @@ obj-$(CONFIG_PHY_XGENE)			+= phy-xgene.o
->  obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
->  					   amlogic/	\
->  					   apple/	\
-> +					   aspeed/	\
->  					   axiado/	\
->  					   broadcom/	\
->  					   cadence/	\
-> diff --git a/drivers/phy/aspeed/Kconfig b/drivers/phy/aspeed/Kconfig
-> new file mode 100644
-> index 000000000000..7b5f48db2be8
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/Kconfig
-> @@ -0,0 +1,15 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#
-> +# PHY drivers for ASPEED
-> +#
-> +
-> +config PHY_ASPEED_USB3
-> +	tristate "ASPEED USB3 PHY driver"
-> +	select GENERIC_PHY
-> +	depends on (ARCH_ASPEED || COMPILE_TEST)
-> +	help
-> +	  Enable this to support the USB 3.2 PHY on the Aspeed AST2700 SoC.
-> +	  It supports SuperSpeedPlus Gen2x1 (10 Gbps), SuperSpeed (5 Gbps),
-> +	  High Speed (480 Mbps), Full Speed (12 Mbps) and Low Speed
-> +	  (1.5 Mbps), and is paired with the DWC3 USB controller.
-> diff --git a/drivers/phy/aspeed/Makefile b/drivers/phy/aspeed/Makefile
-> new file mode 100644
-> index 000000000000..d96d9d73a009
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/Makefile
-> @@ -0,0 +1,2 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +obj-$(CONFIG_PHY_ASPEED_USB3)		+= phy-aspeed-usb3.o
-> diff --git a/drivers/phy/aspeed/phy-aspeed-usb3.c b/drivers/phy/aspeed/phy-aspeed-usb3.c
-> new file mode 100644
-> index 000000000000..eff148faa14c
-> --- /dev/null
-> +++ b/drivers/phy/aspeed/phy-aspeed-usb3.c
-> @@ -0,0 +1,236 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + * Copyright 2026 Aspeed Technology Inc.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/clk.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +#include <linux/module.h>
-> +#include <linux/of.h>
-> +#include <linux/phy/phy.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/reset.h>
-> +
-> +#define PHY3S00		0x00
-> +#define PHY3S00_INIT_DONE		BIT(15)
-> +#define PHY3S00_SRAM_BYPASS		BIT(7)
-> +#define PHY3S00_SRAM_EXT_LOAD	BIT(6)
+The LTC2499 is already listed in the compatible enum and covered by the
+description, but was missing from the binding title. Add it so the title
+matches the set of devices the schema documents. No schema or property
+change is needed.
 
-If you want to mix register offsets and bitfield definitions, then you need to
-use indent to differentiate:
+> diff --git a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml =
+b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+> index c884b6e037670..8aa1ba0a87284 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/lltc,ltc2497.yaml
+> @@ -4,7 +4,7 @@
+>  $id: http://devicetree.org/schemas/iio/adc/lltc,ltc2497.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+> =20
+> -title: Linear Technology / Analog Devices LTC2497 and LTC2309 ADC
+> +title: Linear Technology / Analog Devices LTC2497, LTC2499 and LTC2309 A=
+DC
 
-	#define PHY3S00			0x00
-	#define  PHY3S00_INIT_DONE	BIT(15)
-	#define  PHY3S00_SRAM_BYPASS	BIT(7)
-	...
-	#define PHY3S04			0x04
-	...
+[Severity: Medium]
+The commit message states that adding LTC2499 makes the title match the set
+of devices the schema documents. However, is this update complete?
 
-> +#define PHY3S04		0x04
-> +#define PHY3C00		0x08
-> +#define PHY3C04		0x0C
+Looking at the compatible enum further down in the same file:
 
-Use lowercaps for all hex values
+properties:
+  compatible:
+    enum:
+      - lltc,ltc2305
+      - lltc,ltc2309
+      - lltc,ltc2497
+      - lltc,ltc2499
 
-- Mani
+LTC2305 is also documented by the schema but remains omitted from the title.
+Should the title be updated to include LTC2305 as well to fully match the
+commit message's stated goal?
 
--- 
-மணிவண்ணன் சதாசிவம்
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909082755.3662=
+69-1-andrei.stancovici@analog.com?part=3D1
