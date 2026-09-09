@@ -1,122 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004E73D667F
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 07:29:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BEE33D9DA9;
+	Wed,  9 Sep 2026 07:30:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788938997; cv=none; b=jy/T2hHPyGhybD9Elk0/RC3R+f5CJxb5AwtjfoZqZYi2dDhAGa0pXXyV3M+HCwugroRlJCeH4MI4aHphYauakMdYM3It+3CV75LFy0xIUL6iCARdSgnDczyO+bkwjhz1HptbBfwfr1QkMNbawpi0+W0q6PdUCcNWr8YckJ+axbI=
+	t=1788939025; cv=none; b=A+45von2MRc7v7O4BlFfWawd0PN6U2zreYlArYF4D9AoKeyNCwRACcqQ//0J/3yN75XGLHHmgyIyHsRyTF5h0CRSfsLIFsRs5TEWvQLZHBjiS2AYmnyOh6nR6I6MQ80Lq6KVhHys6BqwmPUU3RE3SPFJk3v200Q49qJEIDPOlKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788938997; c=relaxed/simple;
-	bh=dtAx6caQBTbN8etd0VWb3meyZwZTd9UnP0nrnqplqTg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pYU+Ze2hchD9Hwer+8AlmXLxsXhKGaSo8w+f6XMn3nzt8kOaGPiDThXH/RTzPuJ5T1dVSLCeh1ADC/s5arxCj5MbwZn4sBc9sN+PMGZuy9JmC25nuVFerG3uXt2y5/xzVRXBgWXsbghDSfBYz0UBgbynrD8fCsfO30U93DwiE/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b9+5bWTs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788939025; c=relaxed/simple;
+	bh=r8Pt05tOLsQVDNpEjrnfBltDznJH3HlN+GGjwIt/5vU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fdIuNtKw/0GHZmP9ks+NE7XUiG+g821MsI4s26a8UsDj+hCK4pcYoBwQrBbhJ3wXI5YqCZZgVGqJUZg0VrQ0HOWRbbMD5UuIhUyzqrOAxDWsatnuMOubtaJKuxOQou/FExNmo/NhyuZ0AvXBiIL0ifOWzF1rD5G21uw2MMRZCJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ry05l2AG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b9+5bWTs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8AA1F00A3E;
-	Wed,  9 Sep 2026 07:29:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ry05l2AG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21D461F00A3A;
+	Wed,  9 Sep 2026 07:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788938995;
-	bh=45POvm/xGmY6HmQV7NWUMyX9lspv7lDIZNtcY3R3jzU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b9+5bWTs4ZSnnCINgeTJmWW4qVU+vXyzDr+83nJ5Br7/IV/lSSb4JZe/c9PeuI65Q
-	 wO+mMHXsANCy7RpEvPMAZbThvSyXIWjs0EkUOddautU2skbLCUdbYL4Nx0RsM6PGmL
-	 HuA0LfqYpCN8YvjCyj5SWXpWGysI8bGRoai+sUqpg0xz54ZuoNi2vmjziMMLZF9YTC
-	 ci9DHR3kKk2e+iGehEbkJbbBCf0QYAMtPKlTh5a50siUxsT4+fm3jcK6UmTst24GWM
-	 J3bVmOJzd/8OfkkUdtpngvYi56USf/CK30N5v0iv5GNtOf4jaZJF8TcOWMUlu6Y9mM
-	 O7sPdef0fTQtg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] i3c: master: amd: Add hot-join support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shubham Patil" <shubhamsanjay.patil@amd.com>
-Cc: linux-i3c@lists.infradead.org, Frank.Li@kernel.org, "Alexandre Belloni" <alexandre.belloni@bootlin.com>, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260909071340.3649271-4-shubhamsanjay.patil@amd.com>
-References: <20260909071340.3649271-1-shubhamsanjay.patil@amd.com>
- <20260909071340.3649271-4-shubhamsanjay.patil@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 09 Sep 2026 07:29:54 +0000
-Message-Id: <20260909072955.3D8AA1F00A3E@smtp.kernel.org>
+	s=k20260515; t=1788939012;
+	bh=sMcLwJpcSb7+w22fu/uKQDJRMv/mZfHVYmTvM3dJGyM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ry05l2AGPFbuEm3vj0K0mvu4uXnh5I+6d1lM7v1nOmwOTaU6RuQ7hqG+ECd7vtgU/
+	 /TBIEDK2f5OCl2rPtlgxhlh53/bPEOZWDDdB4s8IaeeNlRADr0z8PvbuJYNRwxySsf
+	 WOK8X5VMWCFXoFN0nXZYEhm4FDkEqYRpV7YQbqhm78W08ttcQ1NEkaKEkLAzaesMWE
+	 5pKNtzEclT9zsSvAeFfsah9udo+v0U4oqsP1KJk/LSs/2utD8JVHzehON6jL5UfZGT
+	 HxiGJkgGTKXzg5410y9pDrT0k5OHPBHLMd8Z7OU32XcUcBg9Pr/77DGyT8Iibs1yEe
+	 IxJMdxI7EvT5A==
+Date: Wed, 9 Sep 2026 09:30:08 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Taniya Das <taniya.das@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] dt-bindings: clock: qcom: Add TCSR_UFS_CLKREF_EN
+ definition
+Message-ID: <20260909-devout-generous-oyster-0efdef@quoll>
+References: <20260905-glymur-ufs-clk-changes-v1-0-cdff2c67a8c2@oss.qualcomm.com>
+ <20260905-glymur-ufs-clk-changes-v1-1-cdff2c67a8c2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260905-glymur-ufs-clk-changes-v1-1-cdff2c67a8c2@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The driver fails to clear `XI3C_CR_HJ_MASK` and `XI3C_CR_IBI_MASK`=
- from the Core Control Register (`XI3C_CR_OFFSET`) during controller initia=
-lization. When the controller is subsequently enabled, any previously set b=
-its (e.g., from a warm boot, kexec, or bootloader) remain active. This caus=
-es the controller to silently ACK hot-join or IBI requests on the bus witho=
-ut generating interrupts (since `XI3C_INTR_RE_OFFSET` is zeroed), irrevocab=
-ly stalling bus enumeration.
---
+On Sat, Sep 05, 2026 at 12:20:42AM +0530, Jagadeesh Kona wrote:
+> UFS and PCIE_4 share the same clkref enable on Glymur. Hence define
+> TCSR_UFS_CLKREF_EN as an alias of TCSR_PCIE_4_CLKREF_EN for UFS consumers
+> to reference the shared clkref on Qualcomm Glymur platform.
+> 
+> Signed-off-by: Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>
+> ---
+>  include/dt-bindings/clock/qcom,glymur-tcsr.h | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/include/dt-bindings/clock/qcom,glymur-tcsr.h b/include/dt-bindings/clock/qcom,glymur-tcsr.h
+> index 72614226b113bb60f1e430fc18e13c46c8b043d3..f338ab4454a14aa75532cd0a6a56b6bbb02f9448 100644
+> --- a/include/dt-bindings/clock/qcom,glymur-tcsr.h
+> +++ b/include/dt-bindings/clock/qcom,glymur-tcsr.h
+> @@ -20,5 +20,6 @@
+>  #define TCSR_USB3_1_CLKREF_EN					10
+>  #define TCSR_USB4_1_CLKREF_EN					11
+>  #define TCSR_USB4_2_CLKREF_EN					12
+> +#define TCSR_UFS_CLKREF_EN					TCSR_PCIE_4_CLKREF_EN
 
-commit 2fc8cea47a914e1d8d7312826561a084f785d035
-Author: Shubham Patil <shubhamsanjay.patil@amd.com>
-Subject: i3c: master: amd: Add hot-join support
+I could not find usage of this new ABI in your patches. Can you point me?
 
-This commit adds hot-join support for the AMD AXI I3C master controller.
-It introduces sysfs-based configuration and handles events via the i3c core
-hot-join queue to run DAA for enumerating new devices.
+Best regards,
+Krzysztof
 
-> diff --git a/drivers/i3c/master/amd-i3c-master.c b/drivers/i3c/master/amd=
--i3c-master.c
-> index a50445530a430..400bf15e02992 100644
-> --- a/drivers/i3c/master/amd-i3c-master.c
-> +++ b/drivers/i3c/master/amd-i3c-master.c
-
-[ ... ]
-
-> @@ -1244,13 +1250,14 @@ static void xi3c_master_bus_cleanup(struct i3c_ma=
-ster_controller *m)
->  	struct xi3c_master *master =3D to_xi3c_master(m);
-> =20
->  	/*
-> -	 * Disarm all interrupt sources and the IBI ACK so the controller can't
-> -	 * assert once disabled; reset the refcount that tracks them.
-> +	 * Disarm the interrupts and the IBI/Hot-Join ACKs so nothing is left
-> +	 * armed for a later bus_init(); reset the refcount that tracks them.
->  	 */
->  	scoped_guard(spinlock_irqsave, &master->reg_lock) {
->  		iowrite32(0, master->membase + XI3C_INTR_RE_OFFSET);
->  		iowrite32(ioread32(master->membase + XI3C_CR_OFFSET) &
-> -			  ~XI3C_CR_IBI_MASK, master->membase + XI3C_CR_OFFSET);
-> +			  ~(XI3C_CR_IBI_MASK | XI3C_CR_HJ_MASK),
-> +			  master->membase + XI3C_CR_OFFSET);
->  		master->ibi.enabled_count =3D 0;
->  	}
-
-[Severity: High]
-Does xi3c_master_init() also need to clear these masks from XI3C_CR_OFFSET =
-to
-guarantee a clean state before enabling the controller?
-
-If the controller is enabled after a warm boot or kexec where a bootloader
-left the Hot-Join bit active, the driver currently fails to clear it in
-xi3c_master_init():
-
-drivers/i3c/master/amd-i3c-master.c:xi3c_master_init() {
-	/* Mask all interrupt sources and clear any stale latched events. */
-	iowrite32(0, master->membase + XI3C_INTR_RE_OFFSET);
-	iowrite32(ioread32(master->membase + XI3C_INTR_STATUS_OFFSET),
-		  master->membase + XI3C_INTR_STATUS_OFFSET);
-
-	/* Reset fifos */
-	xi3c_master_reset_fifos(master);
-
-	/* Enable controller */
-	xi3c_master_enable(master);
-}
-
-Since XI3C_INTR_RE_OFFSET is zeroed but the Hot-Join ACK bit might remain
-active in XI3C_CR_OFFSET, could the controller silently ACK hot-join reques=
-ts
-without generating CPU interrupts, permanently stalling bus enumeration?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909071340.3649=
-271-1-shubhamsanjay.patil@amd.com?part=3D3
