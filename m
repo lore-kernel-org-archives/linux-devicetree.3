@@ -1,135 +1,242 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D59D3B1EEF
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 18:56:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789066614; cv=pass; b=lPrGpZG1ii5y7Lz3skZPNNL+If5QAgeNSSA85FJgJCHQbpacYn9fXi+RJCw2WgPZj7eyckNzrLAfB1I5XtNQs9x8BkCSiPcRZoe6LzieprOCkc304S6jWG+mTZplviNyb9foAXKsD/7L1srnOrgwDAi6N5MsbzXw8a39vYf5n0w=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789066614; c=relaxed/simple;
-	bh=KYzmAlHaz7Clc/Y0Jls+1V6fGOjaYyOAWFoPDWex4WA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=G8agoJAHYhhwQHr79zd3p9Zy9GTIrituCQcv4UZ+vZ5EsO5afywK2UsE8GoTboOGaOpiNuPFAzvEHTUlaVBvPAJpEVnMMJ3tnfLJSFSn9OczLg9iKw1q76y/fArMmzFLBSFzyejkgKSfKpXyVdDqFS2fvOng6ZtvmGQPt366YDs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhyIEhiy; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C31594809
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 19:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789067712; cv=none; b=WSaspM51+hXCVwySs5eaxsooiEyAIFNuIC3R4ZwvAlbLFrGKK9v9TYwZqv+IzvVnWe+Krr5sCKfJD7EKN2AT5NRca3DyfhtCGzOGu6rN78nC3MmZ9JjtyXhP7NAfBFQ95EBcv5boQFTEOzcKllAdgqqsIVmC+JgKiNOTXmkI5sE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789067712; c=relaxed/simple;
+	bh=SIjCw6vu2Nolc5BGLxkzrlpiPylpl82CNVXXbYaAcVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aOyy9e4EXbxChG0l9BdA8KCi/Hao/dFFJrxC9ZVQgAdLZ3q8t83080UwRaROD6PTc/hr+u22qJgdsP5Pq8zlJU28vJyy0405dOc1DQBjhMHcTMskT2JMQ35Kg0GZmAhIEwf/Vz8eJnfYb84KpQjzjYt/ZEDm1WxSjvXKPsz7K78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sVgfi3CC; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhyIEhiy"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c2946dc8dbfso20795466b.0
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 11:56:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789066611; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ms5FyM2MFzG92MrMuCXp60Vo9jGN2Gmal8i3/tJKnapgeSk4J1FQw92PYKdTNR26em
-         PD4M4u9POLKt3x5ZDIiufa5FWofFUDzhGxPdzqtCPyP/B2t7QNI+8e1nlxO8FyOLours
-         8ZQj7Az/HvCBwLx29ixu1pESup2gcB3EwWjmhPsi4/7SC407jR5xDEdqGLx1wjqj6KLs
-         +ffM6vtB2S9xoRRtgGaZj3R8i9zRuZkf3kDh3gMeWumBsVkyUn5VBw8MyP8+HfGIhMDR
-         oze1+Bq1xQqxpfNaNGX7J0oghsNAMMAhSs2/5pjda5Yay1vmb4tFdcEgO4qm5+IaPF5M
-         gi8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
-        fh=LUDUp6kystYAd6+sGXHHcom8a6eah/CeGcyBUouT6j4=;
-        b=oOfLbs7gYiz2UWunXLJFaS140Vw8s+KSDH5qvDyZEJOeSvYd0GpY0+z4mu6WNZyPRm
-         umzAu/h+TmwGNJx2K2qc/1gLRMmUV7+YV7ZCMav3oJvI5CoRwF8RoXhX5H2qzmDD3nRM
-         uVbsKAM3Sc4RmpGGpsb/dSP8IhpSqGlyf3/dPrWBRPgilHcXFmnmTHT4z7Nu484l8Zyv
-         qRM38bpDLA4cQgMWlfHVHV4ptxMMMitFWCvdjbgSmEgnH+WakmlsRzeVqOFEpX37uiZ2
-         5i0S41kJEa/7L3z01dIIX8zjjkH6RfnGUz48R8aDlz/XHrj5a2cVrJj8DWMo3r5o1MdD
-         lPVg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sVgfi3CC"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b0d8bc2aaso2468965e9.0
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 12:15:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789066611; x=1789671411; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
-        b=XhyIEhiye/PryYCft1Q3UIsTvAEO/LDR3QJ0eXsVi5VGaVLXWYjVlMWVpcK0oj/BFI
-         T6UyeHHGz1UXty4xmtJCOwR4arM5KdrXuanUmEgWPOL6Dnc5fkQ4ZIcvKt6PemcpCPQT
-         1BuhoaEkqYNm/UZbYQPW1HWbXWAznI3Z99eiM3HWb6/T83hbjggR0OaQB9pLpDoqpNz2
-         7VBlzw7X+OUekiMmhbkk1WMAvFxnSBOtKuNcgsETgBS3AT+/qYr7u+rlq4WivoI0efUd
-         R6HKGfLteQbO9v8p2nKLFwxDVE4d8TE3MnweXQFLCQDfR+SZ+sWDU9dEmRGehNVsHQB1
-         ZMGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789066611; x=1789671411;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789067708; x=1789672508; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TxLFoqvsaen+/s4fMM/RLCX3g5k4dxrg7lkZo5p2w6c=;
-        b=oeOVhGRMc2my4NjG6VOA+wbwWG2ZHsK6vtg6Q0XHcAy+G/iSkV+lAs+eQYXqHhvTOJ
-         f07zxFOy+x1ExlmsHL2bOwDDC9XtEgkjYSyJwv1WLUVnbXyvYVsuSSp5YhY0f1QFOpti
-         rexESpXQx98GqQz03P/CJzfl7D2FlQn8+d4JKN2HIbcoVzHSODp+u+BhqLQOzH0pXgo7
-         ljSUVwce6n5eef/FH4QS5Hi7mSCOzTDurRsvxwi/FZBP81JvVdQEtFaQ1Qe8cyM0LsVQ
-         R3azQU14GZTd3+tB01cNeLTvW5QMEgSatvPWm0yVRaWwF4euDJnefr35eMB6KyYxgo9w
-         w+DA==
-X-Gm-Message-State: AFuF++lO687ZB74SUff33IRWejVIHYPuSZkHIXcNMaLPwuEkDJTCWWJ5
-	Ij/SqjEwjxP0QEE7SXHe3e832QBH4uLiYhkYrJyw+Mk8Psr+0n5AFkIMDVdeav/TH81oJB9XPHe
-	RtAePv7hWHk9QU6QIe/UFNZq7yt6di9w=
-X-Gm-Gg: AYBFou2gC6AYJfgPVQxbnMcm+MgSWM7z93EO06gScXkig4iKDprL202eeOnAW9gya0S
-	L4NjRdfIBtcFQVuQPgUyjqRzzCkPeCKTWo+Dsm6gHOdxBhVG0Ds6hntIRt+QLhwUSSD4m9VDdcE
-	VERuyBIzJk1eDIJ0DECGPe4VInZf9LwHDHhDlpDcUa84XBZ1aISNDF5HrNKWDvCYvvlCQ75V2Sl
-	TExi2tmrGCQSoz1Jbb8A/TAZNHhOXCpl0/8b4/HdV9SVSbBb5CY0dODWCiF65ZicmNyohm02KYB
-	stDwtBXcTaOYlIlul/XCRxE54QW38vrlvqMXQF+Oqp6JYAT4zws4toM/KQoi8SLbO4hH3p3G2fR
-	o59aQmpT8lXVXW73igE/POAKwL6D7SSW6wn/oCNxfz7yuw0KUrd10x39Zo3nH9PnNidpNJr1utP
-	gXTyUSPk7Y6Eb+zFfHvfv45DB+w+kEw7lmxxBLNZqc54zXqIg+aBxEL/ZA3UFifuvheQ==
-X-Received: by 2002:a17:907:3e87:b0:c29:386c:58df with SMTP id
- a640c23a62f3a-c296668deb5mr944166b.30.1789066610568; Thu, 10 Sep 2026
- 11:56:50 -0700 (PDT)
+        bh=4fbV+eT9jOuG2Qn7UfINqLkpoy41J2mIUSyeK6YfW10=;
+        b=sVgfi3CChuwLTM+233Ebm3W2XQR5ob8Xmj2hxYfYfBh6UdzmZAd1F8P50WlsFsU/AZ
+         psvIeuA7urpNdHC2OKN7WLUacvzOHSzyoK/yWr4EvMZhEwlAOrrd4qZ9wbIAMYT/wK8i
+         lSShDdJYiQFVx7of2GRr06kIfjHJpM4xRLWjwXxno3BVR7+ZVlFqyqNzU+yOOuCw2cF+
+         wN8myad8Eud2RRGywrPRDk/FoSdbXXUNLVzpgDWHMNVjK0204CXFQZbmQt4ZB6onKvg2
+         lMiY6Ew7FJo8UYojSKirkpmc+BC8Y3Le64BX8nt+4+wAjjUsAbpkmHFyr7PRoY9dOMBa
+         T3aw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789067708; x=1789672508;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4fbV+eT9jOuG2Qn7UfINqLkpoy41J2mIUSyeK6YfW10=;
+        b=NEO+Z3BwSGB9au2828KP7JftBH8uB7saBNMdOQvvpFspbcy+SxzANrOOxO0zj5iD3H
+         C4Z/Ai9b8qF/U2m43NGdnYQQD4PzGNcNYlWtbeNh5wFX+pZJd3i/9Zhqk5aQer8R9tN/
+         dFFUy21WWOznCdIeRZEn1+KOLUSYRH6LztS0JFZpywH6Qu7RKlD18JsQo4SmZ3zB1vSt
+         8LBcFf2+jXeubK8PiA8+wnwjDkoQv+0QUhaFGNZNAfmZ5rILP8MYj86yPOWEVnWYkx7B
+         3IeyU/7WHQsyAR/wr99/dVJ8o9R8fco+IpO8izcTTLbl8UWocRaqXPOHZfKGoKI9TfpL
+         6rHg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4T3GRbW+iZGy+0QadaH5VD3a1/E3FgFpP0lmkNBuY+/x2CsD8PxL+SKPPCeJu815u3obqcgPOWlyN@vger.kernel.org
+X-Gm-Message-State: AFuF++nJxTl+gy7qKggpL18sT6b5VryCrwXrlZ+ehYqwNi02gRV6cnk7
+	WIFufG48VGviFQnXHPB1GdFW7zNEagkcbBOrCvaqMlpEH54jTfRkXIKj
+X-Gm-Gg: AYBFou0vVK5igxDZKxhXxK66f0lacuJHmVu3VY2WUKOcgNeYXRZhm5nrevCoN4z4SQ5
+	Rsq5vcPY93OMh/oIIezhp2PanDJ5e5a8lHUY/Nvt3yXMHuVG2yXptTw71jE7+RQLnGnW+TIU6w7
+	7gwrobYpgx0USkiHCh28234UfRRbgE/Ou/4YMv3vPX75dHnQxgb4a1J0lM6pML78AuUgomSTvVQ
+	ZqLyq+hM20GFiKO/d6LSztxP74SRq2r7Zs6FbwP9vio7UUfmQMWgVDcOtj7oX14O9ET8DFN0ZAJ
+	Qia+uNz+6eWhz4iWUmt7hBd/X5j5rL8dw2REeO/Jp17uVGtr8YBuvigTNaXL5Pt6sq8NtWdKJUz
+	yOP+KcL3qacmBDIWXfUCQW1eX4L3Kpexm+nsPe2hZXTKfK5jJRpuDQuEfcwSnyasf2cftPsWSdN
+	o9WO+6Wup9WQBuU5B6y3ZTmI1KXjcwDDoV8P0G8MsfG6zeQG6Mtg6Oaw0gi6KAapUn2ge2mar1P
+	XQxXnFExw==
+X-Received: by 2002:a05:600c:a07:b0:49c:fc6c:be0d with SMTP id 5b1f17b1804b1-49e619bd19cmr5097405e9.19.1789067707645;
+        Thu, 10 Sep 2026 12:15:07 -0700 (PDT)
+Received: from strix.localnet ([197.250.227.248])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e61a33d72sm4385485e9.2.2026.09.10.12.15.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 12:15:06 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Cc: Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Brian Masney <bmasney@redhat.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Russell King <linux@armlinux.org.uk>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ mfd@lists.linux.dev
+Subject:
+ Re: [PATCH v11 05/12] mfd: zx297520v3: Add a clock and reset MFD driver
+Date: Thu, 10 Sep 2026 22:14:54 +0300
+Message-ID: <x9tzyTnKRAOyrdtSGnka0g@gmail.com>
+In-Reply-To: <20260910161711.GK1051768@google.com>
+References:
+ <20260826-zx29clk-v11-0-f8ad59c6426c@gmail.com>
+ <20260826-zx29clk-v11-5-f8ad59c6426c@gmail.com>
+ <20260910161711.GK1051768@google.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910001209.116465-1-rosenp@gmail.com> <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
-In-Reply-To: <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Thu, 10 Sep 2026 11:56:39 -0700
-X-Gm-Features: AcwNN1V6aaA1o2c79sKoypMBaKIL_zofsrFDIKG1O8uwY83YC9Mz1J-mEf9e4HU
-Message-ID: <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
-	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
-	open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; boundary="nextPartKW3nFVAkQr2M_09ZHSiKcQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-On Thu, Sep 10, 2026 at 9:46=E2=80=AFAM Florian Fainelli
-<florian.fainelli@broadcom.com> wrote:
->
-> On 9/9/26 17:12, Rosen Penev wrote:
-> > Add it and set for gmac0, which is the only GMAC used on this board.
-> >
-> > nvram size found from a random bootlog online.
-> >
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> > ---
-> >   v2: fix typo.
-> >   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 +++++++++++++=
-+
-> >   1 file changed, 14 insertions(+)
-> >
-> > diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arc=
-h/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > index c80ac16ad949..9ab618a097b1 100644
-> > --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> > @@ -25,6 +25,15 @@ memory@0 {
-> >                     <0x88000000 0x08000000>;
-> >       };
-> >
-> > +     nvram@1c080000 {
-> > +             compatible =3D "brcm,nvram";
-> > +             reg =3D <0x1c080000 0x180000>;
->
-> Why is not the nvram node moved to bcm5301x.dtsi given it is common to
-> all of the chips?
-To avoid probe errors on hardware where sizes are unknown.
-> --
-> Florian
+--nextPartKW3nFVAkQr2M_09ZHSiKcQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: Lee Jones <lee@kernel.org>
+Date: Thu, 10 Sep 2026 22:14:54 +0300
+Message-ID: <x9tzyTnKRAOyrdtSGnka0g@gmail.com>
+In-Reply-To: <20260910161711.GK1051768@google.com>
+MIME-Version: 1.0
+
+Hi Lee,
+
+Thanks again for your review!
+
+Am Donnerstag, 10. September 2026, 19:17:11 Ostafrikanische Zeit schrieb Le=
+e=20
+Jones:
+> On Wed, 26 Aug 2026, Stefan D=C3=B6singer wrote:
+
+> If you use of_platform_populate() there is no issue with this living in
+> soc/.
+>=20
+> You cannot use the MFD API outside of drivers/mfd though.
+
+I'll keep it in drivers/mfd. of_platform_populate would force me to expose =
+the=20
+inner split of the CRM devices in the DT, which Conor and Krzysztof advised=
+=20
+against.
+
+> > + * Copyright (C) 2026 Stefan D=C3=B6singer
+>=20
+> Are you sure ZTE are okay with you Copywriting a driver for their IP?
+
+This is my free time work reverse engineering work, not something I did in=
+=20
+coordination with ZTE or payment from them. I only took information about t=
+he=20
+hardware from their GPL dumps and not code. In my understanding the copyrig=
+ht=20
+of this code should be mine, and putting (c) ZTE would even be misleading.
+
+ZTE provided U-Boot sources on request. Their kernel sources were already=20
+public before. Sadly they provided no material on their LTE components.
+
+I didn't explicitly ask them for permission to upstream self-written driver=
+s=20
+for their platform because I don't think I need it and I'd just expect a=20
+request like this to languish in their legal department.
+
+The kernel once had support for a related zx296702 and zx296718 support tha=
+t=20
+was removed in 89d4f98ae90d ("ARM: remove zte zx platform"). This code was=
+=20
+written by Linaro and I believe commissioned by ZTE, so I don't think they =
+are=20
+upset about me doing their work for free. At some point I'll resurrect some=
+ of=20
+the drivers from back then, which will then of course carry the appropriate=
+=20
+Linaro and ZTE copyright notices.
+
+> > +enum zx_device_type {
+> > +	TYPE_INVALID =3D 0,
+> > +	TYPE_TOPCRM,
+> > +	TYPE_MATRIXCRM,
+> > +	TYPE_LSPCRM,
+> > +};
+>=20
+> What do each of these mean?
+>=20
+> Is the nomenclature taken from the datasheet?
+>=20
+> If not, can we improve it to make them easier to read for humans?
+>=20
+> Failing that, more comments would be helpful.
+>=20
+> > +
+> > +static const struct mfd_cell zx297520v3_topcrm_cells[] =3D {
+> > +	MFD_CELL_NAME("zx297520v3-topclk"),
+> > +	MFD_CELL_NAME("zx297520v3-topreset"),
+>=20
+> Why are these works concatenated together like this?
+>=20
+> Same with zx_device_type above?
+
+I don't have datasheets. The names are from ZTE's mmio defines, which I exp=
+ect=20
+to match whatever is in the datasheet.
+
+zx297520v3 is the name ZTE gave that SoC (printed on the chip, in their ker=
+nel=20
+sources and boot messages). Yeah I wish it were less of a random string of=
+=20
+letters and numbers. I believe it should be in the MFD cell name as a kind =
+of=20
+namespacing. In the (unlikely) event hat support for a different ZX SoC is=
+=20
+added some day it will bring similarly named "top"/"matrix"/"lsp" controlle=
+rs
+
+topcrm / matrixcrm / lspcrm are the names ZTE gave the 3 clock/reset/misc=20
+controllers. The DT binding docs in patches 1-3 elaborate on the respective=
+=20
+roles of these controllers (although that understanding is based on reverse=
+=20
+engineering, so it might be wrong)
+
+=46inally, "clk", "reset" are the names I gave the child nodes.
+
+Rather than write zx297520v3-topcrm-clk, zx297520v3-matrixcrm-reset I cut o=
+ut=20
+the "crm-" part.
+
+Can you think of better names? Are you OK with the names if I add the above=
+=20
+explanation as a comment - a little bit shortened, and making sure I don't=
+=20
+repeat information that's in the bindings more than necessary?
+
+Cheers,
+Stefan
+
+--nextPartKW3nFVAkQr2M_09ZHSiKcQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmqjAa4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoi1l4P/j2RW0zmocuD81Wb5sZv
+znns4ujhGapOszlboqNQmeHKggVJawfrXfzWDfrJjPPoh/CtxKqMnktV0jNxud+F
+2epOFBD7UpM75AM6FVhx++ol5zDBVsuGFUjJMTmJ8m9jji4bNEuZcD2mTtlAt9Hr
+E19NYXZLQ1QsWdUi05+JaAx40GfP3swda/sENz78aOm4KNkcbbnE9OGaG4JaTbb5
+xfNh3OZ5AlBeIKlfsZFdtJSKsb/iBpEIc24hMHVaWm+h+KjbFKpP4034lGwshYzT
+tB1BoP+jJ+ebVTKzKTpT3xiuW+cLQDegDAyKhzYZulk4ILuzIq7JomMVn4P8UzHR
+3YNTu8DdCEZbAqDDMNlWWTkpYRPTSvYtSbivB6DeCM6oO46o7WvlnFqcjWRqN4/z
+j0s062KBfAkiodcaVaeLCjmg6aPqYKf0/yjhDTsjZRiDSn6nIs58JPh8PNhfgNhw
+4XHOVKRhzTYxOrOJxP33xgwbQf9IeJQT6n3UFqw62ieLCpR5uFd31vIHHS+bH2kd
+dAv3ER5fhNZcladCb4H4Nbx4TwiQ+ry3+KIPEJWre3zFNW0F79AGo1yz21/Buy6h
+NBjFRtosY8KazSjZqVHFdCn9N6N0X+1x3R79gJgTRSXrCbk/icBx9pACGfOb0pET
+wvukjxM7IWssDtOA0cwG+zAr
+=PTj7
+-----END PGP SIGNATURE-----
+
+--nextPartKW3nFVAkQr2M_09ZHSiKcQ--
+
+
+
