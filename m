@@ -1,68 +1,69 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F383B71AA
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 20:53:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AF53C1F41
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 20:53:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073595; cv=none; b=MMSh2l6nciAt+r1VUVguZRvDN/tNp44e2KAm1TkzPPKT1O3rwKgidxpZIsAd7GKM7ldcy/N5oyVmUPx1kEI4NZqKmKKGRP2cZ0oJFpVqUv/MI+B9bSy3azpe7lumYW1paMpzLKe7TBwxr7wHi2teR+JeFkYpvYWS/9sV5kkLVYY=
+	t=1789073602; cv=none; b=XszCkJHLaZ12q4e68stgIp4zCt9i3NZ6Y6vK1HoJMcLqVvJTJ1aVKRVZwRaoTn2ubHE4lWOLHSzgElmk992CpyNFxRSOtGv84ZlwQvf0m/stH1QlmLTuyVsg5bTZNEHvrzHvCX4wRlXeNaPoYpSAbtX6LTAfwdEhcmy6J3JGpko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073595; c=relaxed/simple;
-	bh=1etk4KOXi29s0+VqLc6HiucY8F0vF73XSX3ZY6UDxlQ=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i69W9sid+Y0htMl+MT8rLT8i1EKiTwkdcuxA0vvup5xZ8wRO4K3bZcdD9fMLwsL/V+PIKxSvfG3OMVRSjyLYqASo+Tv5wjvd8OiuUahWA0q1KH0v4meD7HBdfvxaCoxE1oOAksnojtXALoVyRRfv+yz6miV3suXDsPJuODes384=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAS2Z78I; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789073602; c=relaxed/simple;
+	bh=U5QxWZAHtLux3C2Ggamr/Ic9Czjgsrz7b+m1iekGsMc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=EuFf/dwoYYv2rc/DJHQgeVVomIYi4SsHyE3By6CGA2bYKnqufAtHOKCsClp6PCzLq+oWwwN2NbIVg6sIbcnS7kqhXsPTesSMv2gNL461LTubXUuJ2AFkAc0O0LXazDGw63C+rJaTr34SZRp3LA3lub/2DengL/x2450d/R0gC0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECaYOthb; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAS2Z78I"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86323e4853aso18973b3a.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:53:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECaYOthb"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-853619d9956so9626b3a.3
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:53:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789073593; x=1789678393; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=a73flGMOwQ2zw+tC92cS5o7YqiRzKglgGjirm26OwL8=;
-        b=tAS2Z78IHB8vYGX0XrZituet/YZ55bFHQQvrAPRj+7ntMAC5kMr4nERJ8tnRUhDF7V
-         B4+KbAtkRWDsXvKVDeUGeUuSYz/ZNn1J+Nfk474tans9o2YkQY54HsXfP8a/8hIYzPRA
-         mYK0H7qbE9M63PX/k0I3GfLz6I19H9v7Ap8ytypZz80LS4DXlY07Dp2JaE1rlkNx1hF1
-         HCgdl+VJ7+1jzUZvMBB5gTpw2axtXbxsJdGimgDjloOkSBYTDHouJAWZEFsFRy7ckh9g
-         1URQwgeLYhFYLnhXAeCDOEPJB1c81v4g79daXrtEH2yVy/J2P+zvAFwnY+M8YqCVjtSj
-         8PvA==
+        d=gmail.com; s=20251104; t=1789073600; x=1789678400; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ykVw6AeDq6KgknPvJUHHi9wiyKW1QQ8OFJp7ecp+Ky8=;
+        b=ECaYOthbA2U1F+MhRpm1EaHeDtkk2zThkr8cD/ugrvZC1poWeDAT26J4RLMrl3Q+X6
+         o4z4YI/wECdDYwCiNIatpMc2VpodvobhBiZ+/fuXHaVdKmEu+qghWfv2ogf5ptBzTE1g
+         kuJGhCtSe4tXW/1QGXdQ4R2wYGrDl5UBxYR3XgX14v0gUsSG8x3GvW7rg2zdwStZ0eYU
+         FSBSgIi0gF0Y+RS0Et6dr5m/Fg8ngN5T9+gsvMMgxi5D6vylJYydj06vpzlTMmFDmU3+
+         MvetoXhFFjVv7iXuaTRw5ZmrI1mnORyQoJZkUM8hj64vLSvpiQvItsBKtpyCaAVjqIVw
+         GOdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789073593; x=1789678393;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=a73flGMOwQ2zw+tC92cS5o7YqiRzKglgGjirm26OwL8=;
-        b=V8EipFrLdrDpfV18CI6odUWs9YJBpIfVCIkcqHR1o9vu0fCckPMdz2lJI7yJ7SvL3M
-         abnjwHCbeaHI/7FASb6L4NhGO2bScw+069LV6Dq/hnL7eS0NPfs7QICE/mMmj26eVd11
-         POcpfldj1MzAqMu99gWk0kGFBGezF0EKGQiZ3Vld0dT1pUJVnZL5SN4qk0aNfrgmKryU
-         3mB4qHvpjQg+H5pDBtcJ6ADEaTa854yXZnfWxSLpNxU3wnK3de/JQzv1VvpVHJ1RDtiv
-         P40ARy7+MK8PxGCzNgwDCplWAKs9tKFdXNTwJEmuAHrm0Cs890Xae7jN0olCuAFCWApq
-         NrOw==
-X-Forwarded-Encrypted: i=1; AKwUvByQWqoJuPySo639Q7XDoVPGxaLYjTgIr12zNQUfh3MlOh3TJhgZdXO07e2Pzk6etYWtffiV5LSL/6OB@vger.kernel.org
-X-Gm-Message-State: AFuF++nL2ddbYreYGDOT18a3XqYe6K9itYSMydJFUP9+6j6C/TVzOvBj
-	NRVpNU1N1W3XQ7n0IzkUQuli/HsoiQ9ZaCEh5iUBGzmvKeod0tU9fx1n
-X-Gm-Gg: AYBFou0BC87HfsQBLXAdXxlrNV9xEXp4hfc18Qucr5f6Q6Cwim6N1vq2FcX9Fmd0Z57
-	Te0/TbRBqAQbqdweyf4G4gcG1dAAha6+qLHlsAo8IUm2/7hr9pDZG2SH6fv0OhIvvwGyzMccEj8
-	9TVGDrTt89tntDGvv/IehuumfwEdj+aGWfjGCjiZiVr79IfU/VLzWDGtR1SjLQJZcIBMeWkdkjc
-	iAHsklcF3V53+yzGFHv/NUw74s23RkUkeuOKGXPZxpnO9kZ73/IQyrENyJixs3gLLpDBLjXDEx8
-	lgMET03qtN95xFLIaHK43O33fz3Lw3iWqTLwgbZyGKVoSZ5MVU8UZvpweonCHcm47Eevrtln+IF
-	DflL9kpHrS2R+a2w17HuvlSX/CrV0BGAthf13TXhzGYkstjzBCURjDgQodq95E1WNRsy9jSH1pE
-	/f57if1iICr2gNdYEBtoy5DC/uv9wv9IRttu7v0CA47sqBEqHThSrUTflCxXrj7fvntpNF9zFns
-	AeW8BZbJWquWg==
-X-Received: by 2002:a05:6a00:4706:b0:842:4af4:3080 with SMTP id d2e1a72fcca58-86b2db09168mr433675b3a.1.1789073593092;
-        Thu, 10 Sep 2026 13:53:13 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789073600; x=1789678400;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ykVw6AeDq6KgknPvJUHHi9wiyKW1QQ8OFJp7ecp+Ky8=;
+        b=EZwUGO60IgOnDqnsslGRNE7troFHa1Ur54uZauawGrJwVp5ytKdeNbiZAZ0qEjmCXd
+         VL2UVx0vApFqCBVg+s3UPa4shQsjPUGeneMKQLP/y7AfiOWXi3c+e/4iQ0rMKKYbY0Nt
+         3y3hr/PWhzKXcMoDzFD45Fm8ImmHQkH+13xpESVgbrx7ZP2wEJ7H+Hgk0yCJEmkjqGDu
+         A40e90NKElfxZmDdMKZXvMHIVkDBqNuWM/Sj4FHY8J7mxHPVklxN6v02NvM0L1MQi0xb
+         YP302G6rpHKG6G8XJ6fPEsiG8OOXs0Zq7kW7qDjYo3Y/W1r2ZSZDkLzIGXyezCYiXGJm
+         b21g==
+X-Forwarded-Encrypted: i=1; AKwUvBx1RoQdaKzc0cV5hl0V6xZAGDAGrjb+iv/uEMddt9XYHtNRe10LAnMJ1/sW0u8Z4UY5QDmxAYBLEKDb@vger.kernel.org
+X-Gm-Message-State: AFuF++kQAxRG5Q/9pVo2jmXkxYpdkv1m2yzF76/7I4djO5Uoh0yegP6+
+	bBGmKZn7lAFlRsOI1OrTdjnXXJtVo691t+iFnX1IdFfEzLk/7axyKzbp
+X-Gm-Gg: AYBFou0ktMCsvEjDGbE4x9tBVBsEm14iSG/9TSOVToikEAY0uqK1b97dnewo8LWBzFw
+	EGurSHM4HSaLW25kahVO1RrCG1WZPLdhqNoJpojVFbqOi2ebSjrfAIiWnpWflPUqzQtaQU+wv3Q
+	kfLUB0WIjg5jIc0VDys66OBcYsxGSzjaq+vdTNK45z1F6sjxLxsWBdATeNURMj/YUo8t+4pfMvZ
+	Z6L9mnV/3DPflW/Y8v2m8/+FF2JvT0JosCc+0zJOyyxRWw11XVNvj4J0b93Q1KDzVOJOOyAeNh/
+	RUOYMe+3U76YZq66tdVQhiv18Guj2YjxtqWYnIacaVieyblij1Wv4/wZm8PQu35SccCOl25ufjq
+	ORgfRkQBA/zzO17HPYISMNysDYWO42ZXfpW7npwGlznEHcMlkPAMgcErXMb+BE1cGJmOWrl3U6j
+	XC8NRZcqHQyv4CfDBiJdtKmYAiEbwnJFHhxARgqtEqV3lTPNyYR502YCks0q5LRDWbSCD4MVLcA
+	T2UBuuZp4YO
+X-Received: by 2002:a05:6a00:4791:b0:863:2fc0:4052 with SMTP id d2e1a72fcca58-86b312044bamr433815b3a.2.1789073600411;
+        Thu, 10 Sep 2026 13:53:20 -0700 (PDT)
 Received: from [172.29.212.252] ([2409:40c2:5431:4168:e542:5202:be02:6ae4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250bf3e6sm150822b3a.5.2026.09.10.13.53.06
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250bf3e6sm150822b3a.5.2026.09.10.13.53.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 13:53:12 -0700 (PDT)
+        Thu, 10 Sep 2026 13:53:20 -0700 (PDT)
 From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Subject: [PATCH 0/2] ARM: dts: keystone-k2g: Fix usb-nop-xceiv dtbs_check
- warnings
-Date: Fri, 11 Sep 2026 02:22:49 +0530
-Message-Id: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
+Date: Fri, 11 Sep 2026 02:22:50 +0530
+Subject: [PATCH 1/2] ARM: dts: keystone-k2g: Add required #phy-cells to
+ usb-nop-xceiv nodes
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,44 +72,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wqDMBCE4VeRve6CifSgr1K8qDqtqxAlm5SK+
- O5Ge/kNzL+SwguUqmwlj6+oTC7BXDJq+5f7gKVLJpvbW14aw0F4xKJhcuCoDc/9wm/5sbEdgLJ
- 43Isrpffskeaz/Kz/1tgMaMORo23bAREne817AAAA
-X-Change-ID: 20260911-ti-keystone-usb-phy-fix-12deee938735
+Message-Id: <20260911-ti-keystone-usb-phy-fix-v1-1-9f6e9cd649a3@gmail.com>
+References: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
+In-Reply-To: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
 To: Nishanth Menon <nm@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, j.bhargav.u@gmail.com
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789073586; l=763;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789073586; l=871;
  i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=1etk4KOXi29s0+VqLc6HiucY8F0vF73XSX3ZY6UDxlQ=;
- b=I58F2Ztvq5Yw4MKly35QrlL677tsLpM8s3BEC7GGLLbtmngGRS/qsw1o2QnO0jUDXBqppxWC0
- z9Y/0+VNb2ABnG833oRMZ0sMVp2YAqbDcdPe6agtuKmZWdS5yaEXcZN
+ bh=U5QxWZAHtLux3C2Ggamr/Ic9Czjgsrz7b+m1iekGsMc=;
+ b=qOGeiLDnlzgOqFT3MXPuiSRMBTWGWKuBwOGs2MxGe9HPdKloutW1aOdKnSJ+jrJwLKKvVxTYZ
+ vchzeXSi0jBDVZPWuXrGLEyBqiz4eCc+DX7OA6vAcZLsvYjdNEd8FSf
 X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
  pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-usb0_phy and usb1_phy fail dtbs_check because:
-- missing the required #phy-cells.
-- simple-bus wrapper that forces unnecessary reg.
-
-Patch 1 adds #phy-cells with value 0 as required by binding.
-Patch 2 drops the wrapper and moves the PHYs to root.
+The usb-nop-xceiv binding requires "#phy-cells" with a value of 0.
+usb0_phy and usb1_phy are missing it. Add the required property.
 
 Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
 ---
-Bhargav Joshi (2):
-      ARM: dts: keystone-k2g: Add required #phy-cells to usb-nop-xceiv nodes
-      ARM: dts: keystone-k2g: Move usb-phy nodes out of simple-bus
+ arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi | 2 ++
+ 1 file changed, 2 insertions(+)
 
- arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi | 24 +++++++++---------------
- 1 file changed, 9 insertions(+), 15 deletions(-)
----
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
-change-id: 20260911-ti-keystone-usb-phy-fix-12deee938735
+diff --git a/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi b/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi
+index dafe485dfe19..5a63874090eb 100644
+--- a/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi
++++ b/arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi
+@@ -77,12 +77,14 @@ usbphy {
+ 		usb0_phy: usb-phy@0 {
+ 			compatible = "usb-nop-xceiv";
+ 			reg = <0>;
++			#phy-cells = <0>;
+ 			status = "disabled";
+ 		};
+ 
+ 		usb1_phy: usb-phy@1 {
+ 			compatible = "usb-nop-xceiv";
+ 			reg = <1>;
++			#phy-cells = <0>;
+ 			status = "disabled";
+ 		};
+ 	};
 
-Best regards,
 -- 
-Bhargav
+2.55.0
 
