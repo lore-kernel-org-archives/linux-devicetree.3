@@ -1,580 +1,313 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4A33CC7F3
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 218453D3492;
+	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022313; cv=none; b=HdnOS0Rs2YIU1klqEyq80sQNDP+BmrjiCQ7dCVc/0QRNvMnrmm388nDQrGkHJpC36A133VXognrAxl7vPgjRgO/wYloDdRvYJP8KxyTD2wynKiWkDiaLKlbin+G6cOEfcsVQLGUb6H5K4XggWoUcSflvnjjPkzBOlqqrvDJnsEI=
+	t=1789022337; cv=none; b=V8/B8zoAjIw7NPr+xGuy/FodQwh2vKDUQwqiynmwD9LWeaj1Zj+WoTemy31NHCEKZ4dBL7zR7WM/7IhlNRxIL67f+hBDqYFWPq8q9qurrHPbDfaArKWQMXD79sd+oA3dq8FfhJMd38Kz7kc3Lzbgzmytdm7MjKQ5X0N3bX/vIBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022313; c=relaxed/simple;
-	bh=bjNSDc28hHWXvcVX35AaDBlg4rfbeHeLTtUyF8ssjTA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QAnhvUFUXyHFd6sev2KnYFXVSrZI+YAjLWvGaEtZRHfqfzHrpzTGBYBGVVs1JBX7bbrs2p2RdMuVVt2n4q1agCSfzqmpKBSlHjB+5bBFsL4L6muJSE6mX/iNF5pzlbD2zfDRlzg3T5crWAnebYVC2mxcspeI6utu72MjJ0JF4k0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=b/KNbG2k; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789022337; c=relaxed/simple;
+	bh=Zb/LwgGr7DEM3tO0ucLyrTnmcy1CRThDJrc9WTV8lvw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=afjRr2zWZpnAnzCjEgkIezwjQgHvBJotjs/GEg8uEuINYqKYfSAsWDuHQSRYQr2oPSTOChg2oKyooP9nYTMev2WDtWXY0GDMEqwygGVTsRpH2yrfuu9Ey6UGXDn/Q65vOVhPtT2pwb9v7/IV29Uc4X8n+UWzxkCAqZXdlMx5/zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jv4CuJQm; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="b/KNbG2k"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4aa8e6bbso1677141d50.0
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 23:38:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789022311; x=1789627111; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ncn44ITRBd+HRnqWrq6QWCDEXG0oUGnfioDpZgtbeso=;
-        b=b/KNbG2k6HAtndFBcECyqjH5WMi7lQ5EgFUaUUmEmdr/LHR4XDfKorKBJR04c/3gxX
-         s5J0ulsH1NcZajYyWF7rBf+RUxUWXb2GQqNRgrH3VPsNZMfhd65/SEnSAThwgbPsI0xe
-         qDDoGEE71SIDIczLrPssngSUW6k9RvD/vJwWi0UkIUh/brwKm8pTyely20XMW50c4ACF
-         u1n4fq4nDQsSZ4v7/3qfQXJjbpVdhPDcltokte9z+C6VgyDuP1NEI1wNIm3kqIs7Arsi
-         CBNIvD8VccMxLAWawWmfHVUvPrKyGmmpOyyq8AMGT8nnVdIHWwNp7jIiudQq+k1spW6L
-         +nDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789022311; x=1789627111;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ncn44ITRBd+HRnqWrq6QWCDEXG0oUGnfioDpZgtbeso=;
-        b=lZILnfw4zsM9Sf3UtxxNYoBdnSGQJaDXUzO342PS5gmBFGm/ldU+Na+Xn4uDuHKw+B
-         DA1vQ/5kAxlCNgJoZDpywRvSgbtaEjCnO+JzqIcbapQ2auJzIVHH0S8+Cv+0lGFjzVnC
-         EUfFLX4U8/2Fbj83jg558HIj4tFBmjRL26d/YJFJFrBnlf9s9L6XQeAywuMmpqp+wg7S
-         j3IjvQcQ+5DNQu4J/8q6GmJAt4ZLdQIKwyQIxjFSxCLM+ggItmf4neL4galiINIRfLMq
-         VtRdoOLpwxfiHN5dxrPg4/EIORicPGwVXLI4gMaRyJobpopugPZU5DaXMsLrg8FzjAh3
-         qLbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzag3ovfa6f0oNdn9WOSgrJZk1aM9d3TEZ6KYM0aDetLxuL3H/0lPOW7qFfVr0fq3mZYtgFXAtaWE7L@vger.kernel.org
-X-Gm-Message-State: AFuF++mERmXneuxGUAojfiyyFsgGTaQlca/Fw9X7h0fhAnJhPrDGjmbV
-	1pYU6vxQeSE+DdhGsZmHQsz7GOBkhcKmmCIUboaIfuy6eIGPG3MLnQPx
-X-Gm-Gg: AYBFou0kx0boR+bwDy+ei34IBH4QFOMLWz53oU7kZXquXHqDQB01F4JD13aUxp5Cs8i
-	ePWPrORM0c9OdQ3/Wyq1dkswib7mxX5WwZZbwFtuU/41TdJipD9nhtxhfaNWatYDYGV8yD/s8iO
-	7CWR4OTp3x2bk8/VinWo8FU8fUPyF/gg0in/EIVGcvShkkqHf5Dumbk43Jozo6D6HX/PneKTqHM
-	Pr9WEIrL2hiC+GrKx+j5i1qv5LlQdXb8aRd34yzu63SO+WoK6yfPeVQj5+kBJ9JWwYaT3fwc5sy
-	ZCZekszKSEbmM9mZpo0rszJcqAgGQk8FFQqbiJHt4wL0jd2nXqT//drr8ejKx1pwtO8YdPyt2Xg
-	9EX6HdUygR3aBSl5uZEgWpJYNlYGM64SsUUS6jJPs5CLuTFR8980NVfAJicB81YK8gTKvBTc2EU
-	3VYlP7Ony8EzcGhFfall8xEoR2mAX5ABxXiOLO/ZLdYEQ9cZUFan/WHA==
-X-Received: by 2002:a05:690e:4881:20b0:66e:4677:71e3 with SMTP id 956f58d0204a3-6711364bc1dmr715819d50.0.1789022310642;
-        Wed, 09 Sep 2026 23:38:30 -0700 (PDT)
-Received: from localhost ([2600:1700:5431:250::1e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66fb48f1646sm13517200d50.9.2026.09.09.23.38.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 09 Sep 2026 23:38:29 -0700 (PDT)
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Chang Yu <marcus.yu.56@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH v3 2/2] iio: light: add AS7343 multi-spectral sensor driver
-Date: Wed,  9 Sep 2026 23:38:13 -0700
-Message-ID: <20260910063813.56419-3-marcus.yu.56@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910063813.56419-1-marcus.yu.56@gmail.com>
-References: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jv4CuJQm"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9E9A6C2BCFB;
+	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789022336;
+	bh=Zb/LwgGr7DEM3tO0ucLyrTnmcy1CRThDJrc9WTV8lvw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=jv4CuJQmb8nCqAad34jJJ7eAqEyxRXKYwxyoeWs4KA2t06fCOI2WaNNztsTtnFRzY
+	 hNTs4Fk3df2gx5L9r8Rvh3yM2M/+Z74AU+4mioBV+ZXTQZCSoN3+gJKNJoI28TlB3M
+	 QPbmGVPsZIOF3rCV81+PU9Mqf5gllxX7c0AObjYaBPFGMc14HoEYovbVmVFCaIHPol
+	 tFe72Vhl2yCWaHXEw3wI2gAUtjnE1QgP/aJmn4rzgnWt2XgfTa6pEL4mM3wfpS7e3d
+	 Nvyo/Bjo0b8KH8juVwL0jgRuHSdMKn4sOG/zj7S9CI8izJrNAseckbKOyp3OqsXjy2
+	 Dh539ky6MmItw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E749C79FB9;
+	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
+From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
+Date: Thu, 10 Sep 2026 06:38:53 +0000
+Subject: [PATCH v5 2/2] thermal: amlogic: Add support for A9 thermal
+ controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-a9-thermal-v5-2-892d798723e1@amlogic.com>
+References: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
+In-Reply-To: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
+To: Guillaume La Roque <glaroque@baylibre.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Xianwei Zhao <xianwei.zhao@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789022333; l=7899;
+ i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
+ bh=oYdIslolzA3DJMsonLIFZ8XXaiSWr9vCeZbDJqhZZ+8=;
+ b=8afdYiCb4M8S5u40CzJgmoU1mo831WNIy/wj2QJ06RlamFx1QDeoS/lru0BoJBN4I4aJlQf6/
+ rCWVeUwDL8pBtiK0Ech4QGd6MsoxGEcOkjFRcCM0dKwLiI0kpYPcB29
+X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
+ pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
+X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
+ auth_id=578
+X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Reply-To: xianwei.zhao@amlogic.com
 
-This patch adds a driver for the AMS AS7343 14-channel multi-spectral
-sensor with I2C interface.
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
 
-The driver exposes 12 spectral channels (11 visible + 1 near-infrared)
-via the IIO sysfs interface. Each channel's raw data is provided as a
-16-bit little-endian unsigned integer.
+Add support for the Amlogic A9 thermal controller.
 
-Basic power management (suspend/resume) is supported. Note that power
-management is designed in such a way that we only stop spectrual
-measurements when susepended and do not power off.
+The A9 thermal controller uses different calibration parameters, requires
+separate core and bus clocks, and supports a hardware over-temperature
+reset mechanism, and restore the hardware reset configuration after resume.
 
-More complex features such as auto-suspend, interrupts, and
-configurable gain/integration time will be added in future patches.
-
-Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
 ---
-Changes in v3:
- - Hold a mutex before reading measurements.
- - Add pm_runtime_resume_and_get before reading measurements.
- - Only start measurements after suspend action has been successfully
-   registered
- - Check the return value of regmap_read when verifying device ID.
+ drivers/thermal/amlogic_thermal.c | 121 +++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 118 insertions(+), 3 deletions(-)
 
-Changes in v2:
- - Adjust the default gain to x256 and integration time to 50.1ms as
- recommended by the datasheet.
- - Use read_label instead of .extend
- - Remove all unused scan_index related constants.
- - Add missing calls to pm_runtime_* methods in probe.
- - Fix various code style issues
-
- MAINTAINERS                |   1 +
- drivers/iio/light/Kconfig  |  11 +
- drivers/iio/light/Makefile |   1 +
- drivers/iio/light/as7343.c | 397 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 410 insertions(+)
- create mode 100644 drivers/iio/light/as7343.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 8cf4e1635053..236102b3c28e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1435,6 +1435,7 @@ M:	Chang Yu <marcus.yu.56@gmail.com>
- L:	linux-iio@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-+F:	drivers/iio/light/as7343.c
+diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_thermal.c
+index a0b530624b60..e7cedb944315 100644
+--- a/drivers/thermal/amlogic_thermal.c
++++ b/drivers/thermal/amlogic_thermal.c
+@@ -45,6 +45,19 @@
+ 		 TSENSOR_CFG_REG1_DEM_EN |	\
+ 		 TSENSOR_CFG_REG1_CH_SEL)
  
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
-diff --git a/drivers/iio/light/Kconfig b/drivers/iio/light/Kconfig
-index ef36824f312f..edbeeba9d873 100644
---- a/drivers/iio/light/Kconfig
-+++ b/drivers/iio/light/Kconfig
-@@ -149,6 +149,17 @@ config AS73211
- 	 This driver can also be built as a module.  If so, the module
- 	 will be called as73211.
++#define TSENSOR_CFG_REG2			0x8
++	#define TSENSOR_CFG_REG2_HITEMP_EN	BIT(31)
++	#define TSENSOR_CFG_REG2_REBOOT_EN	BIT(30)
++	#define TSENSOR_CFG_REG2_REBOOT_CODE	GENMASK(15, 4)
++	#define TSENSOR_CFG_REG2_REBOOT_TIME	GENMASK(23, 16)
++	#define TSENSOR_CFG_REG2_ENABLE		\
++		(TSENSOR_CFG_REG2_HITEMP_EN |	\
++		 TSENSOR_CFG_REG2_REBOOT_EN)
++
++#define TSENSOR_REBOOT_TIME_MAX		(0xff << 16)
++
++#define TSENSOR_TEMP_CAL		1
++
+ #define TSENSOR_STAT0			0x40
  
-+config AS7343
-+	tristate "AMS AS7343 14-Channel Multi-Spectral Sensor"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	 Say Y here to build support for the AMS AS7343 14-channel
-+	 multi-spectral sensor.
-+
-+	 To compile this driver as a module, choose M here: the module will
-+	 be called as7343.
-+
- config BH1745
- 	tristate "ROHM BH1745 colour sensor"
- 	depends on I2C
-diff --git a/drivers/iio/light/Makefile b/drivers/iio/light/Makefile
-index 64e354c49ed8..5d0d33802519 100644
---- a/drivers/iio/light/Makefile
-+++ b/drivers/iio/light/Makefile
-@@ -16,6 +16,7 @@ obj-$(CONFIG_APDS9306)		+= apds9306.o
- obj-$(CONFIG_APDS9960)		+= apds9960.o
- obj-$(CONFIG_APDS9999)		+= apds9999.o
- obj-$(CONFIG_AS73211)		+= as73211.o
-+obj-$(CONFIG_AS7343)		+= as7343.o
- obj-$(CONFIG_BH1745)		+= bh1745.o
- obj-$(CONFIG_BH1750)		+= bh1750.o
- obj-$(CONFIG_BH1780)		+= bh1780.o
-diff --git a/drivers/iio/light/as7343.c b/drivers/iio/light/as7343.c
-new file mode 100644
-index 000000000000..8982cd6ec5d8
---- /dev/null
-+++ b/drivers/iio/light/as7343.c
-@@ -0,0 +1,397 @@
-+// SPDX-License-Identifier: GPL-2.0-only
+ #define TSENSOR_STAT9			0x64
+@@ -63,6 +76,7 @@
+ 
+ #define TSENSOR_CALIB_OFFSET	1
+ #define TSENSOR_CALIB_SHIFT	4
++#define TSENSOR_HW_RESET_DEFAULT_TEMP	110000
+ 
+ /**
+  * struct amlogic_thermal_soc_calib_data
+@@ -85,14 +99,18 @@ struct amlogic_thermal_soc_calib_data {
+  * @u_efuse_off: register offset to read fused calibration value
+  * @calibration_parameters: calibration parameters structure pointer
+  * @regmap_config: regmap config for the device
++ * @reset_temp: the hardware-controlled reset temperature value
+  * @use_sm: read data from secure monitor instead of efuse
++ * @has_sysclk: sensor driver control sysclk
+  * This structure is required for configuration of amlogic thermal driver.
+  */
+ struct amlogic_thermal_data {
+ 	int u_efuse_off;
+ 	const struct amlogic_thermal_soc_calib_data *calibration_parameters;
+ 	const struct regmap_config *regmap_config;
++	u32 reset_temp;
+ 	bool use_sm;
++	bool has_sysclk;
+ };
+ 
+ struct amlogic_thermal {
+@@ -101,8 +119,10 @@ struct amlogic_thermal {
+ 	struct regmap *regmap;
+ 	struct regmap *sec_ao_map;
+ 	struct clk *clk;
++	struct clk *sysclk;
+ 	struct thermal_zone_device *tzd;
+ 	u32 trim_info;
++	u32 temp_code;
+ 	struct meson_sm_firmware *sm_fw;
+ 	u32 tsensor_id;
+ };
+@@ -138,6 +158,51 @@ static int amlogic_thermal_code_to_millicelsius(struct amlogic_thermal *pdata,
+ 	return temp;
+ }
+ 
 +/*
-+ * Support for AMS AS7343 14-channel multi-spectral sensor.
-+ * (7-bit I2C slave address 0x39)
-+ *
-+ * Based on the work of:
-+ *   Christian Eggers <ceggers@arri.de> (AS73211 driver)
-+ *
-+ * Copyright (c) 2026 Chang Yu <marcus.yu.56@gmail.com>
-+ *
-+ * Datasheets:
-+ *   https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-+ *
-+ * TODO:
-+ *   - Autosuspend
-+ *   - Support for configurable gain and integration time
-+ *   - Interrupt support
-+ *   - Add support for reading the VIS channel
-+ *   - Flicker detection
++ * Calculate a temperature code from a temperature value .
++ * The unit of the temperature is degree milliCelsius.
 + */
++static u32 amlogic_thermal_millicelsius_to_code(struct amlogic_thermal *pdata, int millicelsius)
++{
++	const struct amlogic_thermal_soc_calib_data *param =
++					pdata->data->calibration_parameters;
++	s64 factor, uptat, uefuse;
++	u32 temp_code;
 +
-+#include <linux/array_size.h>
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/cleanup.h>
-+#include <linux/dev_printk.h>
-+#include <linux/err.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/pm.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/sysfs.h>
-+#include <linux/types.h>
++	uefuse = pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
++			     ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 :
++			     (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
 +
-+#include <asm/byteorder.h>
++	factor = param->B + div_s64(millicelsius, 100);
++	factor = BIT(16) * factor;
++	factor = div_s64(factor, param->A);
++	factor = factor - uefuse;
 +
-+#include <linux/iio/iio.h>
++	uptat = param->n * factor;
++	uptat = div_s64(uptat, BIT(16));
++	uptat = param->m - uptat;
 +
-+/* AS7343 registers */
-+#define AS7343_ID	    0x5a
++	factor = factor * 100;
++	if (!uptat)
++		factor = (TSENSOR_TEMP_MASK - TSENSOR_TEMP_CAL) << 0x4;
++	else
++		factor = div_s64(factor, uptat);
 +
-+#define AS7343_ENABLE	    0x80
-+#define AS7343_ENABLE_PON   BIT(0)
-+#define AS7343_ENABLE_SP_EN BIT(1)
++	temp_code = ((factor >> 0x4) & TSENSOR_TEMP_MASK) + TSENSOR_TEMP_CAL;
 +
-+/*
-+ * Integration time is calculated as (ATIME + 1) * ((ASTEP + 1) * 2.78us).
-+ * Setting a 30 * 1.67ms = 50.1ms integration test as the default for now.
-+ */
-+#define AS7343_ATIME			   0x81
-+#define AS7343_ATIME_VAL		   29 /* (29 + 1) = 30 steps */
-+#define AS7343_ASTEP			   0xd4
-+#define AS7343_ASTEP_VAL		   599 /* 1.67ms step size */
++	return temp_code;
++}
 +
-+#define AS7343_CFG0			   0xbf
-+#define AS7343_CFG0_REG_BANK		   BIT(4)
++static void amlogic_tsensor_setup_hw_reset(struct amlogic_thermal *data)
++{
++	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REBOOT_CODE,
++			   data->temp_code << 0x4);
++	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2, TSENSOR_CFG_REG2_REBOOT_TIME,
++			   TSENSOR_REBOOT_TIME_MAX);
++	regmap_update_bits(data->regmap, TSENSOR_CFG_REG2,
++			   TSENSOR_CFG_REG2_ENABLE, TSENSOR_CFG_REG2_ENABLE);
++}
 +
-+#define AS7343_CFG1			   0xc6
-+#define AS7343_CFG1_AGAIN		   GENMASK(4, 0)
-+#define AS7343_CFG1_AGAIN_X0_5		   0
-+#define AS7343_CFG1_AGAIN_X1		   1
-+#define AS7343_CFG1_AGAIN_X2		   2
-+#define AS7343_CFG1_AGAIN_X4		   3
-+#define AS7343_CFG1_AGAIN_X8		   4
-+#define AS7343_CFG1_AGAIN_X16		   5
-+#define AS7343_CFG1_AGAIN_X32		   6
-+#define AS7343_CFG1_AGAIN_X64		   7
-+#define AS7343_CFG1_AGAIN_X128		   8
-+#define AS7343_CFG1_AGAIN_X256		   9
-+#define AS7343_CFG1_AGAIN_X512		   10
-+#define AS7343_CFG1_AGAIN_X1024		   11
-+#define AS7343_CFG1_AGAIN_X2048		   12
-+
-+#define AS7343_CFG20			   0xd6
-+#define AS7343_CFG20_AUTO_SMUX		   GENMASK(6, 5)
-+#define AS7343_CFG20_AUTO_SMUX_READOUT_ALL 3 /* all-channel readout */
-+
-+#define AS7343_ASTATUS			   0x94
-+
-+/* AS7343 data registers */
-+#define AS7343_DATA_FZ	0x95
-+#define AS7343_DATA_FY	0x97
-+#define AS7343_DATA_FXL 0x99
-+#define AS7343_DATA_NIR 0x9b
-+#define AS7343_DATA_F2	0xa1
-+#define AS7343_DATA_F3	0xa3
-+#define AS7343_DATA_F4	0xa5
-+#define AS7343_DATA_F6	0xa7
-+#define AS7343_DATA_F1	0xad
-+#define AS7343_DATA_F7	0xaf
-+#define AS7343_DATA_F8	0xb1
-+#define AS7343_DATA_F5	0xb3
-+#define AS7343_MAX	0xff
-+
-+/* AS7343 channel indices. MUST match data register order above. */
-+#define AS7343_CHAN_IDX_FZ  0
-+#define AS7343_CHAN_IDX_FY  1
-+#define AS7343_CHAN_IDX_FXL 2
-+#define AS7343_CHAN_IDX_NIR 3
-+#define AS7343_CHAN_IDX_F2  4
-+#define AS7343_CHAN_IDX_F3  5
-+#define AS7343_CHAN_IDX_F4  6
-+#define AS7343_CHAN_IDX_F6  7
-+#define AS7343_CHAN_IDX_F1  8
-+#define AS7343_CHAN_IDX_F7  9
-+#define AS7343_CHAN_IDX_F8  10
-+#define AS7343_CHAN_IDX_F5  11
-+
-+#define AS7343_CHAN(_chan)                                    \
-+	{                                                     \
-+		.type = IIO_INTENSITY,                        \
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW), \
-+		.address = AS7343_DATA_##_chan,               \
-+		.indexed = 1,                                 \
-+		.channel = AS7343_CHAN_IDX_##_chan,           \
-+	}
-+
-+static const struct iio_chan_spec as7343_channels[] = {
-+	AS7343_CHAN(FZ), AS7343_CHAN(FY), AS7343_CHAN(FXL), AS7343_CHAN(NIR),
-+	AS7343_CHAN(F2), AS7343_CHAN(F3), AS7343_CHAN(F4),  AS7343_CHAN(F6),
-+	AS7343_CHAN(F1), AS7343_CHAN(F7), AS7343_CHAN(F8),  AS7343_CHAN(F5),
+ static int amlogic_thermal_enable(struct amlogic_thermal *data)
+ {
+ 	int ret;
+@@ -254,6 +319,13 @@ static const struct amlogic_thermal_soc_calib_data amlogic_thermal_g12a = {
+ 	.n = 324,
+ };
+ 
++static const struct amlogic_thermal_soc_calib_data amlogic_thermal_a9 = {
++	.A = 9164,
++	.B = 2747,
++	.m = 370,
++	.n = 270,
 +};
 +
-+struct as7343_data {
-+	struct regmap *regmap;
-+	struct mutex mutex;
+ static const struct amlogic_thermal_data amlogic_thermal_g12a_cpu_param = {
+ 	.u_efuse_off = 0x128,
+ 	.calibration_parameters = &amlogic_thermal_g12a,
+@@ -272,6 +344,14 @@ static const struct amlogic_thermal_data amlogic_thermal_a1_cpu_param = {
+ 	.regmap_config = &amlogic_thermal_regmap_config_g12a,
+ };
+ 
++static const struct amlogic_thermal_data amlogic_thermal_a9_param = {
++	.use_sm			= true,
++	.has_sysclk		= true,
++	.calibration_parameters	= &amlogic_thermal_a9,
++	.regmap_config		= &amlogic_thermal_regmap_config_g12a,
++	.reset_temp		= 110000,
 +};
 +
-+static int as7343_read_raw(struct iio_dev *indio_dev,
-+			   struct iio_chan_spec const *chan, int *val,
-+			   int *val2, long mask)
-+{
-+	struct as7343_data *data = iio_priv(indio_dev);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+	unsigned int unused;
-+	__le16 result;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
-+
-+	switch (mask) {
-+	case IIO_CHAN_INFO_RAW: {
-+		/* Wait until integration time passes for all 3 cycles. */
-+		msleep(160);
-+
-+		/*
-+		 * Reading ASTATUS latches all data registers to this read.
-+		 * We don't care about the returned saturation/gain status for
-+		 * now.
-+		 */
-+		guard(mutex)(&data->mutex);
-+		ret = regmap_read(data->regmap, AS7343_ASTATUS, &unused);
-+		if (ret)
-+			break;
-+
-+		ret = regmap_bulk_read(data->regmap, chan->address, &result, 2);
-+		if (ret)
-+			break;
-+
-+		*val = le16_to_cpu(result);
-+		ret = IIO_VAL_INT;
-+		break;
-+	}
-+
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put(dev);
-+	return ret;
-+}
-+
-+static const char *as7343_channel_label(struct iio_chan_spec const *chan)
-+{
-+	switch (chan->channel) {
-+	case AS7343_CHAN_IDX_FZ:
-+		return "FZ";
-+	case AS7343_CHAN_IDX_FY:
-+		return "FY";
-+	case AS7343_CHAN_IDX_FXL:
-+		return "FXL";
-+	case AS7343_CHAN_IDX_NIR:
-+		return "NIR";
-+	case AS7343_CHAN_IDX_F2:
-+		return "F2";
-+	case AS7343_CHAN_IDX_F3:
-+		return "F3";
-+	case AS7343_CHAN_IDX_F4:
-+		return "F4";
-+	case AS7343_CHAN_IDX_F6:
-+		return "F6";
-+	case AS7343_CHAN_IDX_F1:
-+		return "F1";
-+	case AS7343_CHAN_IDX_F7:
-+		return "F7";
-+	case AS7343_CHAN_IDX_F8:
-+		return "F8";
-+	case AS7343_CHAN_IDX_F5:
-+		return "F5";
-+	default:
-+		return NULL;
-+	}
-+}
-+
-+static int as7343_read_label(struct iio_dev *indio_dev,
-+			     struct iio_chan_spec const *chan, char *label)
-+{
-+	const char *name;
-+
-+	name = as7343_channel_label(chan);
-+	if (!name)
-+		return -EINVAL;
-+
-+	return sysfs_emit(label, "%s\n", name);
-+}
-+
-+static const struct iio_info as7343_info = {
-+	.read_raw = as7343_read_raw,
-+	.read_label = as7343_read_label,
-+};
-+
-+static const struct regmap_config as7343_regmap_config = {
-+	.name = "as7343",
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = AS7343_MAX,
-+	.reg_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.val_format_endian = REGMAP_ENDIAN_LITTLE,
-+	.cache_type = REGCACHE_NONE,
-+};
-+
-+static int as7343_setup_device(struct device *dev, struct as7343_data *data)
-+{
-+	unsigned int val;
-+	__le16 step;
-+	int ret;
-+
-+	/* Power on */
-+	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_PON);
-+	if (ret)
-+		return ret;
-+
-+	/* Need to set REG_BANK to 1 before we can access ID */
-+	ret = regmap_set_bits(data->regmap, AS7343_CFG0, AS7343_CFG0_REG_BANK);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(data->regmap, AS7343_ID, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (val != 0x81)
-+		dev_info(dev, "Unknown device ID: %x\n", val);
-+
-+	ret = regmap_clear_bits(data->regmap, AS7343_CFG0,
-+				AS7343_CFG0_REG_BANK);
-+	if (ret)
-+		return ret;
-+
-+	/* Configure the SMUX to readout all channels */
-+	ret = regmap_update_bits(
-+		data->regmap, AS7343_CFG20, AS7343_CFG20_AUTO_SMUX,
-+		FIELD_PREP(AS7343_CFG20_AUTO_SMUX,
-+			   AS7343_CFG20_AUTO_SMUX_READOUT_ALL));
-+	if (ret)
-+		return ret;
-+
-+	/* Set 50.1ms integration time and x256 gain for now */
-+	step = cpu_to_le16(AS7343_ASTEP_VAL);
-+	ret = regmap_bulk_write(data->regmap, AS7343_ASTEP, &step, 2);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(data->regmap, AS7343_ATIME, AS7343_ATIME_VAL);
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(data->regmap, AS7343_CFG1, AS7343_CFG1_AGAIN,
-+				  FIELD_PREP(AS7343_CFG1_AGAIN,
-+					     AS7343_CFG1_AGAIN_X256));
-+}
-+
-+static int as7343_suspend(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+
-+	return regmap_clear_bits(data->regmap, AS7343_ENABLE,
-+				 AS7343_ENABLE_SP_EN);
-+}
-+
-+static int as7343_resume(struct device *dev)
-+{
-+	struct iio_dev *indio_dev = dev_get_drvdata(dev);
-+	struct as7343_data *data = iio_priv(indio_dev);
-+
-+	return regmap_set_bits(data->regmap, AS7343_ENABLE,
-+			       AS7343_ENABLE_SP_EN);
-+}
-+
-+static void as7343_suspend_action(void *data)
-+{
-+	as7343_suspend(data);
-+}
-+
-+static int as7343_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct as7343_data *data;
-+	struct iio_dev *indio_dev;
-+	struct regmap *regmap;
-+	int ret;
-+
-+	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
-+	if (!indio_dev)
-+		return -ENOMEM;
-+
-+	regmap = devm_regmap_init_i2c(client, &as7343_regmap_config);
-+	if (IS_ERR(regmap))
-+		return PTR_ERR(regmap);
-+
-+	data = iio_priv(indio_dev);
-+	i2c_set_clientdata(client, indio_dev);
-+	data->regmap = regmap;
-+	mutex_init(&data->mutex);
-+
-+	indio_dev->name = "as7343";
-+	indio_dev->info = &as7343_info;
-+	indio_dev->channels = as7343_channels;
-+	indio_dev->num_channels = ARRAY_SIZE(as7343_channels);
-+	indio_dev->modes = INDIO_DIRECT_MODE;
-+
-+	ret = devm_regulator_get_enable(dev, "vdd");
-+	if (ret)
-+		return ret;
-+
-+	ret = as7343_setup_device(dev, data);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_add_action_or_reset(dev, as7343_suspend_action, dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to add suspend action\n");
-+
-+	ret = pm_runtime_set_active(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to activate PM runtime\n");
-+
-+	ret = devm_pm_runtime_enable(dev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable PM runtime\n");
-+
-+	/* Start measurements */
-+	ret = regmap_set_bits(data->regmap, AS7343_ENABLE, AS7343_ENABLE_SP_EN);
-+	if (ret)
-+		return ret;
-+
-+	return devm_iio_device_register(dev, indio_dev);
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(as7343_pm_ops, as7343_suspend, as7343_resume,
-+				 NULL);
-+
-+static const struct of_device_id as7343_of_match[] = {
-+	{ .compatible = "ams,as7343" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(of, as7343_of_match);
-+
-+static const struct i2c_device_id as7343_id[] = {
-+	{ .name = "as7343" },
-+	{ },
-+};
-+MODULE_DEVICE_TABLE(i2c, as7343_id);
-+
-+static struct i2c_driver as7343_driver = {
-+	.driver = {
-+		.name           = "as7343",
-+		.of_match_table = as7343_of_match,
-+		.pm             = pm_ptr(&as7343_pm_ops),
+ static const struct amlogic_thermal_data amlogic_thermal_t7_param = {
+ 	.use_sm			= true,
+ 	.calibration_parameters	= &amlogic_thermal_g12a,
+@@ -291,6 +371,10 @@ static const struct of_device_id of_amlogic_thermal_match[] = {
+ 		.compatible = "amlogic,a1-cpu-thermal",
+ 		.data = &amlogic_thermal_a1_cpu_param,
+ 	},
++	{
++		.compatible = "amlogic,a9-thermal",
++		.data = &amlogic_thermal_a9_param,
 +	},
-+	.probe      = as7343_probe,
-+	.id_table   = as7343_id,
-+};
-+module_i2c_driver(as7343_driver);
+ 	{
+ 		.compatible = "amlogic,t7-thermal",
+ 		.data = &amlogic_thermal_t7_param,
+@@ -305,6 +389,7 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *base;
+ 	int ret;
++	u32 reset_temp;
+ 
+ 	pdata = devm_kzalloc(dev, sizeof(*pdata), GFP_KERNEL);
+ 	if (!pdata)
+@@ -323,9 +408,18 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
+ 	if (IS_ERR(pdata->regmap))
+ 		return PTR_ERR(pdata->regmap);
+ 
+-	pdata->clk = devm_clk_get(dev, NULL);
+-	if (IS_ERR(pdata->clk))
+-		return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
++	if (pdata->data->has_sysclk) {
++		pdata->clk = devm_clk_get(dev, "core");
++		if (IS_ERR(pdata->clk))
++			return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get core clk\n");
++		pdata->sysclk = devm_clk_get_enabled(dev, "pclk");
++		if (IS_ERR(pdata->sysclk))
++			return dev_err_probe(dev, PTR_ERR(pdata->sysclk), "failed to get pclk\n");
++	} else {
++		pdata->clk = devm_clk_get(dev, NULL);
++		if (IS_ERR(pdata->clk))
++			return dev_err_probe(dev, PTR_ERR(pdata->clk), "failed to get clock\n");
++	}
+ 
+ 	if (pdata->data->use_sm)
+ 		ret = amlogic_thermal_probe_sm(pdev, pdata);
+@@ -346,6 +440,17 @@ static int amlogic_thermal_probe(struct platform_device *pdev)
+ 
+ 	devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
+ 
++	if (pdata->data->reset_temp) {
++		reset_temp = pdata->data->reset_temp;
++	} else {
++		dev_dbg(dev, "using default hardware reset temperature\n");
++		reset_temp = TSENSOR_HW_RESET_DEFAULT_TEMP;
++	}
 +
-+MODULE_AUTHOR("Chang Yu <marcus.yu.56@gmail.com>");
-+MODULE_DESCRIPTION("AS7343 14 Channel Multi-Spectral Sensor driver");
-+MODULE_LICENSE("GPL");
++	pdata->temp_code = amlogic_thermal_millicelsius_to_code(pdata, reset_temp);
++
++	amlogic_tsensor_setup_hw_reset(pdata);
++
+ 	ret = amlogic_thermal_enable(pdata);
+ 
+ 	return ret;
+@@ -363,6 +468,8 @@ static int amlogic_thermal_suspend(struct device *dev)
+ 	struct amlogic_thermal *data = dev_get_drvdata(dev);
+ 
+ 	amlogic_thermal_disable(data);
++	if (data->data->has_sysclk)
++		clk_disable_unprepare(data->sysclk);
+ 
+ 	return 0;
+ }
+@@ -370,7 +477,15 @@ static int amlogic_thermal_suspend(struct device *dev)
+ static int amlogic_thermal_resume(struct device *dev)
+ {
+ 	struct amlogic_thermal *data = dev_get_drvdata(dev);
++	int ret;
++
++	if (data->data->has_sysclk) {
++		ret = clk_prepare_enable(data->sysclk);
++		if (ret)
++			return ret;
++	}
+ 
++	amlogic_tsensor_setup_hw_reset(data);
+ 	return amlogic_thermal_enable(data);
+ }
+ 
+
 -- 
-2.55.0
+2.52.0
+
 
