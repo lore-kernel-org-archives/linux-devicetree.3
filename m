@@ -1,146 +1,131 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF14449891E
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD573BE172
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:52:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048342; cv=none; b=Fk75ysnh6O5CygjXxDX8s1boICHxC6nyFBjVq9NAOVj0e6bwhvfEIQ2zHO6rzVbuoaPB8fDk5lsk80K57pRB5pgG52xcOGelFxyoD9C/Tx2kP8dAq1xV6pwjO/bgsIElzu9UAMqKGCKEGm6TXfy4LDieQSu+R5w/hlxgt5z0xmc=
+	t=1789048343; cv=none; b=QCukePM48hfnzi8kfOy2ehpmKOcB7LDp4K92AsAUkMCECTv4uUTExiW3Eu5EWSdLVgMyD6vxMVtccjt71cpn21iF2f72azlHa6TYlW8We3iowaptxxDJs0NlRfqKHgRcdPuIKNT9pkLo9r96HDaK2yKeAMgq+GM2mCOo8MaYf8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048342; c=relaxed/simple;
-	bh=glsruDap4efIY2dKE3ki0Euixx2B7cLyCTxErdzSxI8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jh79Qd+j9K9sU4RolAQ9FlaW5efj094K14PY1obYby4JDI1rJk4ozQ42oz7UUIuvoZwcARWHo+Q8bgg6cbM2Iuu1VAvGLLLNwMggwMTosorjkb7iBACWHefEbaGkfu7vWJQu1P8ehZDawDWd7osSj7dabjbeYiqZ51ZvIhne3fE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=NDMqxUVL; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789048343; c=relaxed/simple;
+	bh=ECcqTe8E5JOErumIyQygUyTofOaXLaZrLZ2bsweOL7Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=jXSdzJ0Zn0WgEHRG1sVwXULRWK1ow9MazCMmWjrXUINn9yUD4j/woGbL8xHG1m5y1TAf4tI6kQB8Jnex7D1BEKvE+jYxrQ3YdA6hCJ1b2yb5UX+P2MaxrrvKVLHgqbV4rK99e2rxF0PMSXU/Cc3PCjVfZM9GLIPdGb75zaAiFqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdCFJY5Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="NDMqxUVL"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so7540365e9.0
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:52:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789048338; x=1789653138; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=aaJKu3mrYn3envHbI/vmepj+qnfThCeH0Vyq7uWpNSA=;
-        b=NDMqxUVLUHJb8Lye3dmWVksdoPNt0ID7VxzNFEd6Aol5P6+pTclxMXy5GPAeH5h2S2
-         ErpkUUXeObyrA9VzAQx1xOrYyjqsK02uGB051BDsFcO1sE1/cS4aq//nIJnCmw4xgAft
-         Ao9mmKTlHYBFyUx2Js4+0slzf0VWoYcLdGUybireXLKdv/ehBwbLXPsfGKLWC+Kt2Z2W
-         F5FwQRWD9K80kguULQN0yXujnYcqqPMs5w6D0N+OOlSC/HpkSL6GPn9Yyqe/jTUWOmUq
-         z3R3hv07OGd6p/m9nibMsOZ9OmpS1RNcKfJ2KN4vwryeuh9zLE/G+KMvZjd8TF5siwvu
-         TLZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789048338; x=1789653138;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aaJKu3mrYn3envHbI/vmepj+qnfThCeH0Vyq7uWpNSA=;
-        b=exTIaz2w12fsXHS8mE1ktJEdppkHthbR+Yvn6fSyk0Eyr7buece6wMxmUWpxtQoM6A
-         qvKB0hxEVi6KJBd8gZtGkdt4VjBY0b5h8wZM+LJcIYETAG+ockOprkL2L54mGUC5zcfe
-         PaaeldLGX0hWVJ7dV1QnbYxwoGT/WMhPJdyQQYXZbkNFlm6KNvqGnxdNdZBn0LQ9/1Jl
-         mclj9WA83HJxQh3Lji73fkTRWDLzFX3hTJdzMm00GcU0QglXNywvF9xRKD2vF2ZKlfSU
-         e+UoEcfdwoLF8Gby1kPolQPAJm0wMm9tMxgFgwOcY0uigHfue1b3jcxKf6dMZJahB+rk
-         dS+A==
-X-Forwarded-Encrypted: i=1; AKwUvBy/wWNajGLFiWovhxT3/q2NnREH3otTANBcgOZCupZZtpoDI6v2DlhSIp+5f/a/+TAVUvbZ0A6NrWoA@vger.kernel.org
-X-Gm-Message-State: AFuF++nI9DhkSvXiLFfFVwmVo4J5TsnEWdEShQ/TtX29ZK+6G0vYhod8
-	sF5VUs1V+WUAPS7tzLTJPFowLF2pHaUUhKcXtUdDOnln2j8lfIW3MIJr8pPr91/wWJ4=
-X-Gm-Gg: AYBFou1eHgbcF3VWKFNoTQQtE/RynlfXnHfpmzdmV4b9KTtZOCFskYW8otrzs8k7dEH
-	qvwaUlrRFFm7ojCbsXLgUDCbnEuJX4QNSZ9oAurzZXOIUijiAvHHNQj3nTpWNkMv+FusY8bEvEr
-	BwhGp9KabNLjgahXS/5Fzz90lfQ0292qTVTOEEYvDnk0u1iChms/gj4AEhsD9ZNEI8zfjFlzaqJ
-	RUuWXqdF7km8wPyg/JhF4bp2L0d/3iWy32jIXt/dWvQ1PVpTk8+KrwDYro5aSefGbF3/ikTKNxc
-	6/Y470mftbrUzqkVR+EfEGRGJZs/g5i/6ipQYT8DbuefDf1Lma4DFTAKJQEjwQIoPuRzk7ovnD+
-	ncC1OBGoAKHI8EvlWG6z+JuFZNOn5/QxJws1l5cyj7EQjRjbUImPXPiPhjp3IuSVHSENgYD8D0z
-	nIr4dYvAEE57AuBhBilqEFoSSJxxAr7r2oNbbEtt3Ia0mcGTqG51OhupAT2aGK4lVK6wtmz10jQ
-	JRgCSm+nbfiBD6pQtJnlnJhkEdqZ4XL6hHIT3hKx/dDdVsbbGevZhZnZpf0
-X-Received: by 2002:a05:600c:68d4:b0:49c:fa21:e747 with SMTP id 5b1f17b1804b1-49d259174d7mr55588115e9.29.1789048338028;
-        Thu, 10 Sep 2026 06:52:18 -0700 (PDT)
-Received: from localhost (p200300f65f19a90462cfe0cd06b88b27.dip0.t-ipconnect.de. [2003:f6:5f19:a904:62cf:e0cd:6b8:8b27])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49d26bc08edsm47086665e9.3.2026.09.10.06.52.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:52:17 -0700 (PDT)
-Date: Thu, 10 Sep 2026 15:52:15 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Cc: Kartik Rajput <kkartik@nvidia.com>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@sandisk.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	"Martin K. Petersen" <mkp@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Thierry Reding <treding@nvidia.com>, linux-scsi@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
- driver
-Message-ID: <aqKus9TnDNm3Yt8Q@monoceros>
-References: <20260909-tegra264-ufs-v1-0-e4a9831702a0@nvidia.com>
- <20260909-tegra264-ufs-v1-4-e4a9831702a0@nvidia.com>
- <aqFqhNA50674GtPo@monoceros>
- <45a04396-c6c1-41f4-ace8-0ee0ccbc50ad@acm.org>
- <aqKOipmg5V4oqZlB@monoceros>
- <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdCFJY5Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495C31F000FF;
+	Thu, 10 Sep 2026 13:52:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789048341;
+	bh=nnJIDuYBweIP0CobdJ8vZqTbh/MdiNO99BrrYyA3BGM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MdCFJY5YreTJw5AX/SXvn5mIxOFY/QA8E5fnhrhn2GpdphR8ZpzGaFXLbmq9M+hg6
+	 PMIqF7aH2NZ2SBg4fd5lJ/rA3bLpHyPktVDtpDjtONcjnSAjmtyPLMjU7DdRl8dyJj
+	 Z0d+GSfqi5pjJ/zeifSlrvL9mG551/8rIijFLloIPUQ/EztPX+GGPset4S8XesKXX2
+	 Gl2daOpxGYZyLGALVgUrhbm88/aM7BvGe83ZfQELbnXL0i/SPSQFWw4DIXVw0ZV9Va
+	 x+NsjvX0DcHOCTd6hPKbCheJ/0O7muuWxA5a43DqISZm2aH0BbUoCwXQqRhZ9hJrCC
+	 R9L1v+exXUx9g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 25/34] arm64: dts: qcom: sdm845: Move PCIe phy and GPIOs
+ to root port node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260910-root_port-v1-25-90a252ddbbfa@oss.qualcomm.com>
+References: <20260910-root_port-v1-0-90a252ddbbfa@oss.qualcomm.com>
+ <20260910-root_port-v1-25-90a252ddbbfa@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 13:52:20 +0000
+Message-Id: <20260910135221.495C31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="4yq5mv4s7mho6e3h"
-Content-Disposition: inline
-In-Reply-To: <63f41284-a9ca-4d0e-ba34-096712f27b59@acm.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---4yq5mv4s7mho6e3h
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 4/4] scsi: ufs: tegra: Add Tegra264 UFS host controller
- driver
-MIME-Version: 1.0
+Pre-existing issues:
+- [High] Missing phy_exit() on early error paths in PCIe port parsing funct=
+ions, leading to leaked initialized PHY state.
+--
 
-Hello Bart,
+commit 7aa07cedc6576c48d7f1dd8ce61fd5bb50362173
+Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-On Thu, Sep 10, 2026 at 06:09:30AM -0700, Bart Van Assche wrote:
-> On 9/10/26 4:21 AM, Uwe Kleine-K=F6nig wrote:
-> > What makes you claim that {} is preferred?
->=20
-> There are many more occurrences of " =3D {};" (about 7000) in the Linux
-> kernel than of " =3D { };" (about 1500). Additionally, clang-format
-> changes any occurrence of " =3D { };" into " =3D {};".
+arm64: dts: qcom: sdm845: Move PCIe phy and GPIOs to root port node
 
-clang-format does this due to
+The PCIe phy reference and the perst/wake GPIO properties are
+per root port and belong in the root port node (pcie@0), not in the
+RC controller node. Move phys and phy-names from the controller to
+pcie0_port0 and pcie1_port0, adding labels to these nodes to allow
+board-level overrides. Move perst-gpios/wake-gpios from the
+controller overrides to the respective port nodes in the board files,
+renaming perst-gpios to reset-gpios to match the binding used in the
+root port context.
 
-	SpaceInEmptyParentheses: false
+> diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot=
+/dts/qcom/sdm845-db845c.dts
+> index 3e636926231d3..27a0b90d2b7ae 100644
+> --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
+> +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
+[ ... ]
+> @@ -618,15 +618,17 @@ &mss_pil {
+> =20
+>  &pcie0 {
+>  	status =3D "okay";
+> -	perst-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
+> -	wake-gpios =3D <&tlmm 134 GPIO_ACTIVE_LOW>;
+> -
+>  	vddpe-3v3-supply =3D <&pcie0_3p3v_dual>;
+> =20
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&pcie0_default_state>;
+>  };
+> =20
+> +&pcie0_port0 {
+> +	reset-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
+> +	wake-gpios =3D <&tlmm 134 GPIO_ACTIVE_LOW>;
+> +};
+> +
 
-in .clang-format which I claim we have due to prefering no space between
-() for function calls. It seems only newer clang-format (starting with
-version 22) can configure that individually using SpaceInEmptyBraces.
+[Severity: High]
+This isn't a bug introduced by this patch, but does this new device tree
+configuration expose a resource leak in the driver's error handling paths?
 
-And IMHO my statistic is more relevant because we're not talking about
-`=3D {};` or `=3D { };`.
+Because the driver now dynamically evaluates qcom_pcie_parse_perst() during
+qcom_pcie_parse_port() for these root port nodes, what happens if these GPI=
+Os
+defer probing?
 
-But I guess this is all subjective. Having said that I feel offended
-when seeing "=3D {};" and would ask to add a space there, too, when
-spotting that during a review.
+Looking at drivers/pci/controller/dwc/pcie-qcom.c in qcom_pcie_parse_port():
 
-Best regards
-Uwe
+	ret =3D qcom_pcie_parse_perst(pcie, port, node);
+	if (ret)
+		return ret;
 
---4yq5mv4s7mho6e3h
-Content-Type: application/pgp-signature; name="signature.asc"
+If this fails (e.g., returning -EPROBE_DEFER because GPIOs are not yet
+available), the function returns immediately. At this point, the newly pars=
+ed
+port has not been added to pcie->ports, so the caller's error handler fails
+to find it and doesn't call phy_exit(port->phy). Will this leak the initial=
+ized
+PHY state (such as regulator enable counts or unbalanced clock states) on e=
+very
+probe deferral attempt?
 
------BEGIN PGP SIGNATURE-----
+A similar issue appears to be present in qcom_pcie_parse_legacy_binding():
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqitgMACgkQj4D7WH0S
-/k5c1AgAhP3OT2P76z2Ij4muECOIAs0athRcUAms+cyF+w8uuehKZcqDgOD2PR6o
-YQfhjqkPJRbVqyvyyhfsOe2hVvJ8iRZR3SeSvLXuv39US2h2d1mJAnU5aMzM819w
-x2eIN3LdJV3ev/8d2cTQkXcTW+rtsl8d8zKnFkU6UbGzS4ltgn9sbU8M4Jybp62f
-ZEv3P431ilAA4Z80om0L5gJnMBTK1WoskWrIThKaVeDzoKGCsccSzB+snXLbOyz9
-jvCZHXz9DyQM+tbEIBI1zrAclO4Ghh06cxfIRkuBWTkqtQxWt/lhGp8OaTIdJlLG
-M8Niol0XhEcUL+wLnJCBWNywm/axDQ==
-=unfT
------END PGP SIGNATURE-----
+	port =3D devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+	if (!port)
+		return -ENOMEM;
 
---4yq5mv4s7mho6e3h--
+Does returning -ENOMEM here leak the PHY state without reverting the earlier
+phy_init(phy) call?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-root_port-=
+v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D25
