@@ -1,114 +1,151 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A417C3932D9;
-	Thu, 10 Sep 2026 09:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB943DEFF0
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032443; cv=none; b=DNOh2iJDGJYBfjgdh0wtcIfLepxTi1bAfLSXiBY0Fb/ucB1kO6Drr68Fe9X/nRSq2Ks3TUl0+khwXVb7IIsPzE9oJnB7NmxoDfubU+oWaRJHqjG0GfNaKA3E8KsHSloJtIxDGGlpWTa207q6M0syK9bu2Hvwv9fAnh1RuxaL1EM=
+	t=1789032520; cv=none; b=lxn6kK0jiY5QO6SLxoUIPQ7f64kBLbJQtR/bKehXIhMIT1Ey/iuPFHZ525RzFOd7xa2u3LLQ5x2woDX5uecxoWqwBhgsQpIqPRJdQcxFrivtilegKxaaahbSsUZBFxULJYDHPNZjaqTv6Z0K8bAZpUoTHUsARCVYoNF65Iz/jrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032443; c=relaxed/simple;
-	bh=g9Cp6K2YW/0ojAZM+PERC3yWY2MaFiW9F9EZGEa+wq0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oTMWPMTH6Y8G+fFzW6dotLdIuH47SXKRmCv/GEEmv0GBui4LCFmCmwnHQU0Mgi6kYMZl179tygq5HmO3D1yUpmYkMS7j0hiKOGVehwrjR6Aw09FQGwZkYobLT2rvqRDfwDNe8fHQr3luL7vvlJVOTJzqPDH1MW+QEN084+bHsIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X/DwY5Iy; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789032520; c=relaxed/simple;
+	bh=W503FlTpKMjD6V9Y7hOeOIQnpWOvIvwOop/p0fBnocU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AXn0h5Sb3ZsSy3+K/zcb7aJGACuFx9gxHc4IcuR3zxLMOkxI0sCXKwJj/0dneaiKh+8Y8bEOQUhi98DB5y0ZIHTbdbxBWZ0vkdLFqcHQoqJ6tRAOY232Fr41HqYfBeGiOjY+S3e/VvSIYUe/3XDy+Q9+l453Gt38BM6YMYS8d7E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AECJJy9j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X/DwY5Iy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789032440; x=1820568440;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=g9Cp6K2YW/0ojAZM+PERC3yWY2MaFiW9F9EZGEa+wq0=;
-  b=X/DwY5Iy/2j8ziFdaKHzSaOBDjDyRNy5y/du+QcwaU+d5m3VIZtMoDsN
-   KW6Y7iKgtxh7Wbmv8Em90AjRjYLD76CmY9Z9eZkfjPscQQkUdAwXjsn8I
-   ykCLbPDjaInIiSdTVchRfTzqVtQ1NbAJkDcDBcpWPuLXY6LuCicgYJVMd
-   RV37g5QOAd6UYPB4bu9SihR3IbNnmQ91zhUboobw3gSUW6Lr+9hFF6D5C
-   C3RMkJ+dHNPEiG8YGvoF3Y37ptXSdiE0R5VhRbo2aKTDEhsZT+FVe0axd
-   0zz/FrXwBaCF241u7EqzW1ovEzTCwYbQW1jj+6eKXQIfCBBwNZ+dLzCg0
-   g==;
-X-CSE-ConnectionGUID: gAFrPp3VSOuuHGmX2LlD+Q==
-X-CSE-MsgGUID: yrUUlg1CTnin5KczD3M1lg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100068155"
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="100068155"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:27:09 -0700
-X-CSE-ConnectionGUID: 9Lk46I8cT22DEwuQeaU5Rw==
-X-CSE-MsgGUID: YmZZHAgjTGqItji2nmnofw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="273537486"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:27:04 -0700
-Date: Thu, 10 Sep 2026 12:27:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: zl020895 <zl020895@163.com>
-Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: Re: [PATCH v6 11/13] serial: 8250_dw: add Ambarella CV75 quirks
-Message-ID: <aqJ35vMBiBZo2iUE@ashevche-desk.local>
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
- <20260904-cv75-v5-v6-11-e918514cb3b1@ambarella.com>
- <aqJrSnr0rwv4BOJ3@ashevche-desk.local>
- <122573f8.8232.1a08a9765fc.Coremail.zl020895@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AECJJy9j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 616891F000FF;
+	Thu, 10 Sep 2026 09:28:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789032516;
+	bh=lyd+mIHAWsyI9KPhZRpvz9u6XLwSvz8rSRvBIBTlkjk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AECJJy9jD/dPvr1j0l32otQmIj1j3zs3sSwdPWaponfmO5/ZMPbRG4RUGMC7zw0Re
+	 GPVCtv5aU9/LtjEL/xXUO5TkztO4uEdKB6uSCedFdnDiu2Gpurm4rY+SoOyoUU1yBa
+	 C6Xfmh0XCrNnCK5nsOipsdygyxkwcrgYVmfXwSXkhhqJ+IHOdgbCC8+XYB44bFXjFd
+	 t7U3rpjCE0GzzcFZ4SyZRp6mtCKFKnXZWGCD/5/nJAuKJzucoLMU4lP07mUfydaJa4
+	 xch9+6KkHrkCb87i+jeWyxQic8zmch+jUNPiNY6HdKPj1jZSsw3n5zYlENGrHoybCj
+	 2WNzYhG/Ih0vg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] usb: typec: Add onsemi FUSB15201 driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260910091751.819264-3-shengchao.guo@oss.qualcomm.com>
+References: <20260910091751.819264-1-shengchao.guo@oss.qualcomm.com>
+ <20260910091751.819264-3-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 09:28:35 +0000
+Message-Id: <20260910092836.616891F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <122573f8.8232.1a08a9765fc.Coremail.zl020895@163.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Thu, Sep 10, 2026 at 05:12:52PM +0800, zl020895 wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Unrecoverable interrupt storm due to masked write-1-to-clear opera=
+tions.
+--
 
-> > Wondering if we should undo this in the port's .shutdown() callback.
-> I saw the shutdown path already covers it: dw8250_shutdown() calls
-> serial8250_do_shutdown(), which does
-> 	up->ier = 0;
-> 	serial_port_out(port, UART_IER, 0);
-> so both the IER shadow and hardware IER are cleared, including ETOI.
+commit f97eba3512034404133da1fbd6a5cac5d95da491
+Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 
-Depending on the answer to Ilpo the enabling may need an updated comment
-summarising the above.
+usb: typec: Add onsemi FUSB15201 driver
 
-> At 2026-09-10 16:33:14, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
-> >On Fri, Sep 04, 2026 at 02:38:18PM +0800, Long Zhao via B4 Relay wrote:
+This commit adds the driver for the onsemi FUSB15201 dual-port USB Type-C=20
+and Power Delivery controller.
 
-...
+Link: https://lore.kernel.org/r/20260902045938.184221-3-shengchao.guo@oss.q=
+ualcomm.com
 
-> >> +	/*
-> >> +	 * Ambarella keeps variant IER bits (e.g. ETOI) set for correct RX
-> >> +	 * timeout behaviour. Force them into the 8250 IER shadow so later
-> >> +	 * generic IER updates do not clear them.
-> >> +	 */
-> >
-> >Wondering if we should undo this in the port's .shutdown() callback.
+> diff --git a/drivers/usb/typec/fusb15201.c b/drivers/usb/typec/fusb15201.c
+> new file mode 100644
+> index 0000000000000..897b2fabc449e
+> --- /dev/null
+> +++ b/drivers/usb/typec/fusb15201.c
 
--- 
-With Best Regards,
-Andy Shevchenko
+[ ... ]
 
+> +static irqreturn_t fusb15201_irq(int irq, void *data)
+> +{
+> +	struct fusb15201 *chip =3D data;
+> +	irqreturn_t ret =3D IRQ_NONE;
+> +	unsigned int i;
+> +
+> +	guard(mutex)(&chip->lock);
+> +
+> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
+> +		struct fusb15201_port *port =3D &chip->ports[i];
+> +		unsigned int pending;
+> +
+> +		if (!port->port)
+> +			continue;
+> +
+> +		if (regmap_read(chip->regmap, FUSB15201_REG_INTERRUPT(i),
+> +				&pending))
+> +			continue;
+> +
+> +		pending &=3D FUSB15201_INT_ALL;
+> +		if (!pending)
+> +			continue;
+> +
+> +		/* Write one to clear */
+> +		regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i), pending);
 
+[Severity: High]
+Can this lead to an unrecoverable interrupt loop if the hardware sets an
+unexpected bit?
+
+By applying a bitmask (pending &=3D FUSB15201_INT_ALL) before writing back =
+to
+the W1C register, any interrupt bit outside this mask will never be cleared.
+
+[ ... ]
+
+> +static int fusb15201_hw_init(struct fusb15201 *chip)
+> +{
+> +	bool source_only =3D true;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
+> +		struct fusb15201_port *port =3D &chip->ports[i];
+> +
+> +		if (!port->port) {
+> +			/* Nothing describes this port, keep it quiet. */
+> +			ret =3D regmap_write(chip->regmap,
+> +					   FUSB15201_REG_INT_MASK(i),
+> +					   FUSB15201_INT_ALL);
+
+[Severity: High]
+Does this leave bits 3-7 unmasked on unused ports?
+
+Since FUSB15201_INT_ALL is 0x07, writing it to the mask register might
+keep bits 0-2 masked, but leaves the upper bits completely unmasked.
+
+> +			if (ret)
+> +				return ret;
+> +
+> +			continue;
+> +		}
+> +
+> +		if (port->cap.type !=3D TYPEC_PORT_SRC)
+> +			source_only =3D false;
+> +
+> +		ret =3D regmap_write(chip->regmap, FUSB15201_REG_INT_MASK(i), 0);
+
+[Severity: High]
+Does writing 0 here unmask all interrupt bits on the port, including ones
+not covered by FUSB15201_INT_ALL?
+
+Combined with the clearing logic in fusb15201_irq() that only clears bits
+defined in FUSB15201_INT_ALL, if any of the upper bits trigger an
+interrupt, they won't be cleared. This would cause the IRQ handler to
+immediately re-trigger in a continuous storm.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910091751.8192=
+64-1-shengchao.guo@oss.qualcomm.com?part=3D2
