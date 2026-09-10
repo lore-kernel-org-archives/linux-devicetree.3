@@ -1,236 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED493A6B89
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE143B05BF
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789023997; cv=none; b=rbNIIyz58lZ3FNV6jq8WGTkmCF7UpNCptj7G3PyMCaFq0Atv2CPELorS5YNyqiwVB+9So5M4e9csp5af3ns5D6ZchA5OkNziDPPTfwFqrDMaH/SrKPIufhfUeTuz7VwgNcE3xdPPEGb4+SX7WmQaZgj+4Vz3RaaC00bdniUqoeI=
+	t=1789024066; cv=none; b=ntpgMykhrg9qVP1IQCCNrudCzH567Vl4du8S4akJWvYVlDP0LY4s0NciXVHG+SwEKYp5x5hQHP5mFgMfSZqDz1OOatBM6XwtUESM9XxEDWHweaimEvqSJbpRSstMRb+uckF5TY6hZ0v5nQIWwwMIUDBMviqJH47Jhd/L9v58+oQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789023997; c=relaxed/simple;
-	bh=/qyqj29fd7U3QUcLilY/sfihMsLctwHbPVo2rM7ihnk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BmyhawhOPPTPGm97ocIyBwLmUomWFwbEHTsXjUaAH1LsGDhCCSIOltgRbjdaBGULAy0FFLqPSVP5fLL9U1y57ls/7JOYOwdFTzfBgJFXOthfTonFrq5t5YhSTpne5OMKqBGUFYJ1C9NQ8Mx1QMY0Q3pGJ5McgqaWbw3LfIDFDb8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F9PnMdED; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789024066; c=relaxed/simple;
+	bh=7TGmcQ0ut3jQv55/l3p0mRfZ3tCXRLFJyZ/GoBCAVyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iM0SQvQuozwk7kIR8qLEC68cHVha65lx+9q830Hg+dKmD/spRdAfxSfc4dOekXlfC0AO3dFwaC3b6xXmOAML/dEkJ5uTHPSLJM19QgALbVGo/ShUJ2iLReuj6aUi1N3rrCIg3AR4jz+z43crCqe3BTtIxS7UZCtMGmrBJeHfRu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KtNe3wmN; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F9PnMdED"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60B5F1F000FF;
-	Thu, 10 Sep 2026 07:06:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789023994;
-	bh=6LkwQrB30HLdB2Acy9+37YVsFnfiC2AlT0Hczfl8aOg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F9PnMdEDWVs3uJoG6sp1vk8j7rxKYSPuKdZNsXrbgVDvcJhklvxxwwY+mRD9l0NR6
-	 a79fTplmjSFeabM/bI2b+etCi1u8gWAbVAzZrbs4ptqbj0kFl8MokD2egrGSaMi2uz
-	 qKNYjoF4XScb0m+fqQa7GfjJNvSuE13wmmwD7Gu6+Rciu8/S7sKS6o7/X83NUoa/IV
-	 FZRX2E6+SVe0cOACtc8ZkLbPPlDvRtbylcyjrtFKM+BetIGDWK5cER3r1N08qcronl
-	 F3LCN5Ebe4ByfG11RpZhoIQ/bEqnmBtIXCrd9Qq565430KlzMC4/DV8GWpaV/AeT2p
-	 +RAHE95s4H7Dg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] thermal: amlogic: Add support for A9 thermal
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xianwei Zhao" <xianwei.zhao@amlogic.com>
-Cc: robh@kernel.org, neil.armstrong@linaro.org, linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910-a9-thermal-v5-2-892d798723e1@amlogic.com>
-References: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
- <20260910-a9-thermal-v5-2-892d798723e1@amlogic.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 07:06:33 +0000
-Message-Id: <20260910070634.60B5F1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KtNe3wmN"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4843f205a5bso4428258f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 00:07:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789024061; x=1789628861; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3B+mk67NOh14yB8lu79Jka4GJUJbwG6mwKbpmyJ82rg=;
+        b=KtNe3wmN3dphauQGw6bTwU6OfYofoixT2zuTabC6+aHghgOZvlKJn1hRieE6REu1/q
+         bKmA9GDmmChky3wBLv+be/e/YchqTjFLTOhAOYb6pIqQQKqZQff8u8e8cH5A9wCLdFg7
+         QehRIYJiN5ylzL/wT6QSsXQMXOWAR3SNQ0snsJfb1uaoiHJrN6YWpEyiRl/t84dhZbEC
+         ENDIYJPoWBjeeQ6dcM//+MqxITSE+I4aNjjsKgJ94aAD/OmxsDPh0KmlmYQxwm6qlJef
+         rGaqEexVjkaN4R53mYjWWQfE3YkseFfqzmCK5+1vGRBx6xE0ynGo8MG2eMooGsM6kUMq
+         WDfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789024061; x=1789628861;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3B+mk67NOh14yB8lu79Jka4GJUJbwG6mwKbpmyJ82rg=;
+        b=GKRkaGIN6EkA7+wndROJfMP2TWdQo5B2q30PMoyLDPVdgSZ43WBwp1pkzmSgAzjIRV
+         OsW6dxswz8+7+zVZsV6z0MNgjy8MmmESHj5PG/0QECmw22N9j1zman/SrzcTgtmWTlUk
+         MqLdLgBSCnL4ddSriYe6hQmOHwhkhbjPdcgCIerwHJvGtZn0tUlA6hcN4zStO5YVLqpK
+         4td4ojHxYZKeGtjiih5gqfWOZCWbtOKJesshuAsi1jQdB1eTo1Rwdxy1dHuI+/A8W7HR
+         WHCnyA8Eq3fbm3QlGooc9bJ7eY8ieZk/1/PDyJdrdAUjfQextzBdvgOejKcM1WHmq9hU
+         5h/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzLIRAeD9oSrytVwpd+fkjNCLGoPhBy4f6UxzHq164EaF8O4M3vvZHUGZ2TYsM+DxJDdbycPwPIeraI@vger.kernel.org
+X-Gm-Message-State: AFuF++kge9r3sYf35KE55dzbrGJHA2r54yQpAROI50YZpc+ZSJriwvMt
+	zdxzIDXi9scQzuNieADkhGZeOH8ELWSVo34UCGTFeZE3lZT9w37RWlAJ
+X-Gm-Gg: AYBFou13+ohynYdiJKeBHdif1a9QIyHzXWfHUcG+wMsECkRiJSUwQd4gEy3QH9EVaOj
+	0ht9fE0CmBFs+zHa0OfrCjRX6LYN47i1pgXht1pvIBGllQGnzdxF+jdg8uJQS15QZkjsQv+JCwI
+	ksOI52/tYJUs9dpDKqFXcaMFhILlL7tDMuRQ6hCPXxxEcJddAeOOIqJDKiIjwYjPHm2YtOzM6dR
+	cWsdSWMUWrfIHkeIVOxe+Dc93lE8ClWY4bSWnACkHUtp32sTN1HsZy/K3YPZvQYoDdEU/83lJAJ
+	06AoCaE1LxUOyaSI54ZGZnU7hr5apuHPBQ29o0Gl6j5Mg99OZOK6PcFOEF1OzZVrzlXfU58AFVC
+	wWB0kmFLWjBH3CdbPqeqX8k3ZNKZR5/LNd0saZ1jNv7tDWVjY4+srPbjkUDcmSwDMUuaIXHh3Ox
+	t5E7KQx16cPjTiKeoCNvRQ0q6KWighPrQGY9k3xHrYH4/Dtfwk/Cv+97tiX94g4W5rslAPqvnDn
+	vc=
+X-Received: by 2002:a05:6000:4703:b0:485:93c5:856e with SMTP id ffacd0b85a97d-48593c58629mr30970075f8f.9.1789024061125;
+        Thu, 10 Sep 2026 00:07:41 -0700 (PDT)
+Received: from Empers0n ([193.23.219.104])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm52244311f8f.10.2026.09.10.00.07.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 00:07:40 -0700 (PDT)
+From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Henrik Rydberg <rydberg@bitmath.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
+Subject: [PATCH 0/2] Input: add Synaptics TouchComm I2C touchscreen driver and bindings
+Date: Thu, 10 Sep 2026 14:07:21 +0700
+Message-ID: <20260910070723.347768-1-sevanevorotov29@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+This series adds devicetree schema bindings and an input touchscreen
+driver for Synaptics TouchComm (TCM) generation-1 touchscreen controllers
+connected over I2C, such as the Synaptics S3908 found in the OnePlus 9RT.
 
-New issues:
-- [Critical] The A9-specific hardware over-temperature reset mechanism is e=
-nabled unconditionally on all SoCs, causing unclocked MMIO accesses and und=
-efined register writes that will crash existing platforms (e.g., G12A) on r=
-esume.
+The S3908 and compatible generation-1 controllers boot autonomously into
+application mode directly out of their embedded flash memory. The driver
+implements communication using the Synaptics TouchComm packet protocol,
+retrieving device identify information and handling reports through a
+threaded interrupt handler.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the thermal zone=
- and hwmon sysfs interfaces are registered before the hardware and clocks a=
-re fully initialized, creating a race condition that leads to unclocked MMI=
-O reads.
-- [High] This problem wasn't introduced by this patch, but incorrect sign e=
-xtension of a bitwise NOT operation on a 32-bit unsigned mask causes massiv=
-ely inflated negative trim values on 32-bit architectures, breaking thermal=
- calibration.
-- [High] This problem wasn't introduced by this patch, but disabling hardwa=
-re clocks in `remove()` before the devres-managed thermal zone is unregiste=
-red introduces a use-after-disable race condition that can crash the system.
---
+Features supported:
+ - Multi-touch reporting using the input_mt framework (Protocol B)
+ - Dynamic touch report layouts and coordinate/pressure decoding
+ - Standard touchscreen properties (axis swapping/inversion)
+ - Low-power wakeup gestures (double-tap to wake)
+ - System suspend / resume with deep sleep transition
+ - Regulator and reset GPIO lifecycle management
 
-commit c409169ce8a3938d784d6682dd656715a5d6d606
-Author: Xianwei Zhao <xianwei.zhao@amlogic.com>
+Vsevolod Nevorotov (2):
+  dt-bindings: input: touchscreen: add Synaptics S3908 controller
+  Input: synaptics_tcm_i2c - add Synaptics TouchComm I2C touchscreen
+    driver
 
-thermal: amlogic: Add support for A9 thermal controller
+ .../input/touchscreen/syna,s3908.yaml         |   69 ++
+ MAINTAINERS                                   |    7 +
+ drivers/input/touchscreen/Kconfig             |   15 +
+ drivers/input/touchscreen/Makefile            |    1 +
+ drivers/input/touchscreen/synaptics_tcm_i2c.c | 1033 +++++++++++++++++
+ 5 files changed, 1125 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
+ create mode 100644 drivers/input/touchscreen/synaptics_tcm_i2c.c
 
-Add support for the Amlogic A9 thermal controller.
+-- 
+2.55.0
 
-The A9 thermal controller uses different calibration parameters, requires
-separate core and bus clocks, and supports a hardware over-temperature
-reset mechanism. It also restores the hardware reset configuration after
-resume.
-
-> diff --git a/drivers/thermal/amlogic_thermal.c b/drivers/thermal/amlogic_=
-thermal.c
-> index a0b530624b60c..e7cedb9443151 100644
-> --- a/drivers/thermal/amlogic_thermal.c
-> +++ b/drivers/thermal/amlogic_thermal.c
-[ ... ]
-> @@ -138,6 +158,51 @@ static int amlogic_thermal_code_to_millicelsius(stru=
-ct amlogic_thermal *pdata,
->  	return temp;
->  }
-> =20
-> +/*
-> + * Calculate a temperature code from a temperature value .
-> + * The unit of the temperature is degree milliCelsius.
-> + */
-> +static u32 amlogic_thermal_millicelsius_to_code(struct amlogic_thermal *=
-pdata, int millicelsius)
-> +{
-> +	const struct amlogic_thermal_soc_calib_data *param =3D
-> +					pdata->data->calibration_parameters;
-> +	s64 factor, uptat, uefuse;
-> +	u32 temp_code;
-> +
-> +	uefuse =3D pdata->trim_info & TSENSOR_TRIM_SIGN_MASK ?
-> +			     ~(pdata->trim_info & TSENSOR_TRIM_TEMP_MASK) + 1 :
-> +			     (pdata->trim_info & TSENSOR_TRIM_TEMP_MASK);
-
-[Severity: High]
-This is a pre-existing issue, but by copying this logic from
-amlogic_thermal_code_to_millicelsius(), the new function inherits a sign
-extension bug.
-
-When the hardware provides a negative trim value (bit 15 set in trim_info),
-the bitwise NOT operation on the 32-bit unsigned TSENSOR_TRIM_TEMP_MASK mask
-evaluates to a large positive value on 32-bit systems (e.g., 0xFFFFFFFF).
-
-When this is assigned to the s64 uefuse variable, C promotion rules
-zero-extend it to 4294967295 rather than sign-extending to -1.
-
-This breaks thermal calibration for hardware instances with negative factory
-calibration offsets, rendering those devices unusable.
-
-Could we fix this integer conversion so that the negative value is properly
-sign-extended into the s64 variable?
-
-[ ... ]
-> @@ -346,6 +440,17 @@ static int amlogic_thermal_probe(struct platform_dev=
-ice *pdev)
-> =20
->  	devm_thermal_add_hwmon_sysfs(&pdev->dev, pdata->tzd);
-> =20
-
-[Severity: High]
-This isn't a bug introduced by this patch, but registering the thermal zone
-device here before the hardware clocks are fully initialized creates a race
-condition.
-
-The thermal core invokes the .get_temp callback immediately upon registrati=
-on
-to establish the initial temperature state.
-
-If the driver is built as a loadable module and loaded after boot, when
-bootloader-enabled clocks have already been disabled by the clock framework=
-'s
-late init, the .get_temp call will attempt to read from the hardware before
-its clock is prepared and enabled.
-
-Will this result in an unclocked MMIO read and subsequent bus fault?
-
-> +	if (pdata->data->reset_temp) {
-> +		reset_temp =3D pdata->data->reset_temp;
-> +	} else {
-> +		dev_dbg(dev, "using default hardware reset temperature\n");
-> +		reset_temp =3D TSENSOR_HW_RESET_DEFAULT_TEMP;
-> +	}
-> +
-> +	pdata->temp_code =3D amlogic_thermal_millicelsius_to_code(pdata, reset_=
-temp);
-> +
-> +	amlogic_tsensor_setup_hw_reset(pdata);
-> +
->  	ret =3D amlogic_thermal_enable(pdata);
-
-[Severity: Critical]
-Does unconditionally applying the A9-specific hardware reset setup here
-cause issues for older non-A9 platforms?
-
-For existing SoCs where has_sysclk is false, the peripheral clock (data->cl=
-k)
-isn't enabled until amlogic_thermal_enable() is called on the next line.
-
-Since the clock is physically off during probe, does this regmap_update_bit=
-s()
-write inside amlogic_tsensor_setup_hw_reset() trigger a bus fault?
-
-Also, could writing to TSENSOR_CFG_REG2 cause undefined register modificati=
-on
-on hardware that doesn't support this over-temperature reset mechanism?
-
-[ ... ]
-> @@ -370,7 +477,15 @@ static int amlogic_thermal_suspend(struct device *de=
-v)
->  static int amlogic_thermal_resume(struct device *dev)
->  {
->  	struct amlogic_thermal *data =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	if (data->data->has_sysclk) {
-> +		ret =3D clk_prepare_enable(data->sysclk);
-> +		if (ret)
-> +			return ret;
-> +	}
-> =20
-> +	amlogic_tsensor_setup_hw_reset(data);
->  	return amlogic_thermal_enable(data);
-
-[Severity: Critical]
-Similarly, does this execute an MMIO write before the peripheral clock is
-enabled during the resume path for non-A9 platforms?
-
-On non-A9 platforms, data->clk is only enabled inside
-amlogic_thermal_enable().
-
-If this write occurs while the clock is still physically disabled during
-system resume, could this cause a synchronous external abort and break power
-management completely?
-
-[Severity: High]
-This is a pre-existing issue, but is there a use-after-disable race conditi=
-on
-in the driver's remove path?
-
-drivers/thermal/amlogic_thermal.c:amlogic_thermal_remove() {
-    struct amlogic_thermal *data =3D platform_get_drvdata(pdev);
-
-    amlogic_thermal_disable(data);
-}
-
-Disabling the hardware clocks in remove() before the devres-managed thermal
-zone is cleanly unregistered could crash the system.
-
-Because pdata->tzd was registered with devm_thermal_of_zone_register(), it
-remains fully active and exposed to the thermal core until the devres clean=
-up
-phase, which executes after remove() returns.
-
-If the thermal core's polling timer fires, or if a user reads the temperatu=
-re
-sysfs attribute during this window, amlogic_thermal_get_temp() will attempt
-to read from the unclocked hardware.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-a9-thermal=
--v5-0-892d798723e1@amlogic.com?part=3D2
