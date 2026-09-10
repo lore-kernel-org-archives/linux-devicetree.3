@@ -1,151 +1,94 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320BE3DDAE6;
-	Thu, 10 Sep 2026 08:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3C92DB7B8;
+	Thu, 10 Sep 2026 08:28:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028850; cv=none; b=Ku9s5SPbqQykirraeLi8+0GRcZ+wIzk+EUfEaLXggPxVbHkm4g+jrJlw5jDy4HkQ/tAFfLfkdnCRISgPkdtRr2/3sR5CmEY5BsPgteRYO/W74bwr5WQfpZbGsdTmaTfeI//keVqRBx8+5YcTmW/U4ks44E8FOOj9/d6YWwrZWPo=
+	t=1789028901; cv=none; b=YGqS/ycGvdPomNgEsH6t3gF9c9bof0KasKsIIZ6b5joWDyn+oCQaUwhestB4rABlaVSHdnsi/Q8GGkMnkS5a34+O6A/xCAM0iR2l/nTNJy51Xtnb55rUhoW5sriMnUaeqEbvJZWU/SiBwdK/lB/lBZp9xvcs8EPzz028trvlFfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028850; c=relaxed/simple;
-	bh=xhn7CmoSGVXKLnLj7PjMERwPz/RLeNICsoMfS7OIgR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rQOmCHJtROoV3rFzlAhvu8ijTNd6si13UEwq063bD2/8QKRetnCXRSu8DuKsSW77tMMmt7DF6L1vvBsnAebuZXYmMP1O4bE3OM+V6XRn1NQVC9GWzPSvTiXBQtZy8SCWFtQq4MA8DAlGejBgqVCjs+MS4DEDxgv6n0edwrGjWuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k0OdZqiA; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789028901; c=relaxed/simple;
+	bh=WDkz52FIAfyAlNvttdx5kkKNy25D8LaFsV4Ljf1NNCE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tqOix7/HDWo/gcitPk84JqEfTdBeVNh3LHKqfrte1v/R9JchNPEz8Kr489Hml0GN820ONRo0zADLlfKKGVXot4YOVB+gGiCDDYA07fG73i40cFNLFCXedUgbrGDBpe0Ritb5YUMB0qiez3XlRivTYDoEFJkExe+/fWRHnuXFXEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ljj2NKjX; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k0OdZqiA"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id BD3FA4E415C0;
-	Thu, 10 Sep 2026 08:27:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 876EC602B8;
-	Thu, 10 Sep 2026 08:27:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C139511C78279;
-	Thu, 10 Sep 2026 10:27:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789028839; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=jACcRN4L5LH06EzCesgqYF/TiJYddTf1eF5yoFPnPlI=;
-	b=k0OdZqiAaYIthtG4DuZ14cn1P00/LYtHygSkSAjaNESDRpiXpGV2TMMzxs1tcEFWPLWJNc
-	+6odVSc9pf9iilLa1PdbShyuwuVC+paFnJpHqr+cC84W7RGOs7BhbpZuOW6GTbieoJd7CA
-	tmA9Q7vxpFxDWOTzfiq8qYt82BAMPmM4ZNonoY0VpNO2UDSpBmXqlHKOqwVUXLvzB3BSGu
-	WKFaKW8Z/LrWuSH0poMRynVO4S80hffHSWiAN61+Cn+wfTWgkY8VC14LJ1NiwDebPRMftY
-	s/RhNdq3DAYQCxU+HSE0WR1LuhMypbZ+zl8KwylRns5sSHhumTuMgOTFSmGeKg==
-Date: Thu, 10 Sep 2026 10:27:11 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 07/15] fdtdump: Handle unknown tags
-Message-ID: <20260910102711.07499464@bootlin.com>
-In-Reply-To: <aqI_KDZS9Kb6fwIG@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-8-herve.codina@bootlin.com>
-	<aqI_KDZS9Kb6fwIG@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ljj2NKjX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789028899; x=1820564899;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WDkz52FIAfyAlNvttdx5kkKNy25D8LaFsV4Ljf1NNCE=;
+  b=Ljj2NKjXbThsdm4nCgPO2KP35a6wXnMS8SBR0sJQFuli5ETab3Sy+l3p
+   IsRyKIL/K5n8HUCp4kg+shirULXYFuH4Gwiiyd0qtTN0oNinAfYZ3ZOBE
+   0l81rBh79oayblC9/ZT4cLAuwShykz1uTev6UI6YBZdudGAAvBEhsKcXs
+   4POfUKcR04t6+FwgBO/Ztaq76zDBwDn0MfMqiYQl7XU4+AkS9VhhwaKSd
+   VtVzBAo9lCDpGUVmn6KeqSZgHX8HAIw+2EKXDHEsYb/XahZ3g7krl223T
+   vJ3rjC0uZDDH+5zSG4XkTxBzYxxZ4fOLTRfMRn8ZBML7z+VKfaIRQ95Up
+   Q==;
+X-CSE-ConnectionGUID: PH7tmxqPRJeK06nqoMYi3g==
+X-CSE-MsgGUID: fc8LH/6HTfiqpg7h3kX0Ag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100133446"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="100133446"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 01:28:18 -0700
+X-CSE-ConnectionGUID: rlz8tED9TKGCoZrB/F3uXQ==
+X-CSE-MsgGUID: wyy+7JkkTWSAdSNp2cFeGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="301465602"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.189])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 01:28:16 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 1BB441216AE;
+	Thu, 10 Sep 2026 11:28:19 +0300 (EEST)
+Date: Thu, 10 Sep 2026 11:28:19 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 3/4] media: i2c: og0ve1b: Introduce per-sensor data
+ structure
+Message-ID: <aqJqI4ojJblnQQ5m@kekkonen.localdomain>
+References: <20260901-og0va1b-v6-0-a05b2d04c892@oss.qualcomm.com>
+ <20260901-og0va1b-v6-3-a05b2d04c892@oss.qualcomm.com>
+ <ap_v94pUrTo1C1Go@kekkonen.localdomain>
+ <20853e7e-0884-49ae-a6ce-48c0c826ea27@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20853e7e-0884-49ae-a6ce-48c0c826ea27@oss.qualcomm.com>
 
-On Thu, 10 Sep 2026 15:25:06 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Wed, Aug 26, 2026 at 10:31:38AM +0200, Herve Codina wrote:
-> > The structured tag value definition introduced recently gives the
-> > ability to ignore unknown tags without any error when they are read.
+On Thu, Sep 10, 2026 at 04:14:49PM +0800, Wenmeng Liu wrote:
+> > > +	u64 chip_id;
 > > 
-> > Add support for those structured tags in fdtdump and introduce a command
-> > line option to dump unknown tags that should be ignored.
+> > This one seems to be unused.
 > > 
-> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> > ---
-> >  fdtdump.c                              |  45 ++++++-
-> >  tests/Makefile.tests                   |   3 +-
-> >  tests/meson.build                      |   2 +
-> >  tests/run_tests.sh                     |  41 +++++++
-> >  tests/treegen.c                        | 162 +++++++++++++++++++++++++
-> >  tests/unknown_tags_can_skip.dtb.expect |  29 +++++
-> >  6 files changed, 278 insertions(+), 4 deletions(-)
-> >  create mode 100644 tests/unknown_tags_can_skip.dtb.expect
-> > 
-> > diff --git a/fdtdump.c b/fdtdump.c
-> > index 0e7a2659..7a8b2784 100644
-> > --- a/fdtdump.c
-> > +++ b/fdtdump.c
-> > @@ -44,7 +44,7 @@ static const char *tagname(uint32_t tag)
-> >  #define dumpf(fmt, args...) \
-> >  	do { if (debug) printf("// " fmt, ## args); } while (0)
-> >  
-> > -static void dump_blob(void *blob, bool debug)
-> > +static void dump_blob(void *blob, bool debug, int dump_unknown)
-> >  {
-> >  	uintptr_t blob_off = (uintptr_t)blob;
-> >  	struct fdt_header *bph = blob;
-> > @@ -146,20 +146,55 @@ static void dump_blob(void *blob, bool debug)
-> >  			continue;
-> >  		}
-> >  
-> > +		if ((tag & FDT_TAG_STRUCTURED) && (tag & FDT_TAG_SKIP_SAFE)) {
-> > +			sz = 0;
-> > +			switch (tag & FDT_TAG_DATA_MASK) {
-> > +			case FDT_TAG_DATA_NONE:
-> > +				break;
-> > +			case FDT_TAG_DATA_1CELL:
-> > +				sz = FDT_CELLSIZE;
-> > +				break;
-> > +			case FDT_TAG_DATA_2CELLS:
-> > +				sz = 2 * FDT_CELLSIZE;
-> > +				break;
-> > +			case FDT_TAG_DATA_VARLEN:
-> > +				/* Get the length */
-> > +				sz = fdt32_to_cpu(GET_CELL(p));
-> > +				break;
-> > +			}
-> > +
-> > +			if (dump_unknown) {  
 > 
-> I'd do this unconditionally: fdtdump is specifically for low-level and
-> debug dumping of a tree.  If you want pretty printing, dtc -Odts is
-> the thing to use.
-
-Ok, will do it unconditionally.
-
+> It is currently used by og0ve1b_identify_sensor().
 > 
-> > +				printf("%*s// Unknown tag ignored: 0x%08"PRIx32", data len %d",
-> > +				       depth * shift, "", tag, sz);  
-> 
-> "Unknown" seems redundant.  "ignored" is not really true - you're
-> dumping its contents, which is all that fdtdump could be asked to do
-> with it.  So I'd just say:
-> 
-> 	// Tag 0x<tag>: <data>
-> 
-> Or maybe "Metadata tag" / "skippable tag" if we go with one of those
-> terms as I suggested on an earlier patch.
+> The intention of moving chip_id into the sensor_data structure is to
+> prepare for support of additional sensors sharing the common driver
+> code. The next patch in the series adds OG0VA1B support, which uses a
+> different chip ID. Keeping chip_id in the per-sensor data allows the
+> common identification code to be reused unchanged.
 
-I am fine with 
-  // Tag 0x<tag>: <data>
+Ok, sounds good.
 
-I will use that.
-
-Best regards,
-Hervé
-
+-- 
+Sakari Ailus
