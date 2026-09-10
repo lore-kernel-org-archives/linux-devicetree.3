@@ -1,427 +1,250 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE3FE3BB685;
-	Thu, 10 Sep 2026 10:16:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789035398; cv=none; b=tQaAKE7GvGrcEItsdJ2AEpcy9Q6eb9w0WbPNtoc+tHcUBJ49taYfN0oqGO78c+NKb9bSSPZScF24s2CVlPJwPEx61FGJjO/qRBDuUQ8+tdS8iATCEHKFMdRtH4XgO5x3X2iNXOJm8Z+AIfDojU0Omb8HpcpIxas1yuvn0TczBsw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789035398; c=relaxed/simple;
-	bh=yZoil1auBuJ/awBb6hQ9+QCf2VYqwHcuAEIdABhHQxk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Hx68TDYbIXljETdbZxgo1BS7O5AW0csTQx/JdVJgGbz1dZcSG+QdoYy4B4zcHQXXrxxvaZp62Uup4/0v7fN+gYLsbpCySCIYu3Grws2SctS0BWj4UOIFra9lrXYu+807nTQl4nLew2EP+QRNu0jTqM06D1miAI4MM5mlemlYNnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=pk0PKNoc; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AA43B71C7
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 10:17:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789035482; cv=pass; b=YbTwqHc/dGnVacgQ4aQ4BRSYlK3/IGT3ogdhG9Uj3hyHLK3Jg6Kklfm/3MevdxK8zTSyyRwXkbFtHckGiGoS4xTwNU1yEmzwDyhZzImR7J4MJYorPUdGkgGOieuXDoKtgIDJmWxgr//QzIETuGZN+H9LlcDfTxhOuLvyMEsF5Pw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789035482; c=relaxed/simple;
+	bh=xJtlT+brubTDzcwB1LsQU2wH8jfhem1ycRIpQIZsMuc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Lf9fc/FBel3M1lNKrgAqGvVaIe1Cjy77J68oDtuVQrdKWWEtSTNd7gEbjiW6kbr1DyC1ZzU+Z8jtkhzj1wVXnlXD8g3wOCmAsnupvqzP2wNoYK3rO9+8M1Jb04Yd9fd/uW2WYdb735OhNl6U2+dUOfSNOBDrB2kP+nswzhdOKCE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=PGKqZv6u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YYG7PFlR; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="pk0PKNoc"
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 598DE1FAFD;
-	Thu, 10 Sep 2026 12:16:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789035389;
-	bh=lhQ0s/YhP1w0rT3tIUApfrO0PRobLOkstDVUOplcnfA=; h=From:To:Subject;
-	b=pk0PKNocqMKFdCMMxVGo7kfUdIc/61Iwu/VIWKxHINx+JpQt/Kg7XO7UvVt1836NA
-	 bQpWTHNfM4D94/XUxmpU3kRwGsyXDTrbcclTPPTS/r6tfIE3c4/1QbZyIpATuoQk7G
-	 /v8eCEEfeqdrejMHsyLdMg0h/C2IjYJ2yNUsR2uuEpGm7Z6SQxVi4SZP+iSBirogEM
-	 G476p+RQ3Wn/VTmByeU3bTUa7lLD6XXJqp95cVyoRUxYBjyNHkW6dOyW/bEMed/4Nz
-	 HAoswC6K/BfgqvW2gB1i/lHxZ79lV6o0B4VD4I3BfqGXvqwYSvFMobBNE3fqE07o6f
-	 MRxmL6wti/xcQ==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 7/7] arm64: dts: freescale: Add Toradex OSM iMX91
-Date: Thu, 10 Sep 2026 12:16:13 +0200
-Message-ID: <20260910101616.139270-8-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260910101616.139270-1-francesco@dolcini.it>
-References: <20260910101616.139270-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="PGKqZv6u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YYG7PFlR"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8prVh475031
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 10:17:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	5o0LQq2H5NyuqhWcIAsOhclTasLhXE6zFp16BztH0tM=; b=PGKqZv6uqTxJsb4V
+	yz/56PwDXoYI/+DTCIsMR3DS/Z1r3noojO+XzGn4dFF++mrEALLWcGYqgjyWe3WJ
+	ZHYBaIZghgOs2KV0ThF9P+XHnCRbNDHS5d/9EFsz6fhbSRUpiEfy/fBUN9IdRTOA
+	TW0teNVSH7BgXWyi7J4XQvW/RwS0u1vLSONrNTUqUcRTkuyenE4y8wVAhp7D12bc
+	YYaBUeeCvKRDcdXwi9yU0Sf8UBVOV/8PTrIKBN9qSXquo7+Dyvmf6QsOlNPpf2Yq
+	nah7yoUwbbBLZawcshuQMNKa5GbnhltI41cGg8CkvKkDjBxyHIp1j6SDVwjDSzKP
+	JBStIg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcygub9v-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 10:17:59 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so10839594a91.3
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 03:17:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789035478; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ROwzGvpDbocDHQAarlQck668HMU3caN+iaZZQgCBGiSUxNKggjCWQ6I5AekI1NDKNk
+         QCqkzpSEtPO2J89ZKgyfi44HoOdsH6za3Z6EQ7+DpJtV+z7o6UNXOosQ60xbqMyIL6J1
+         vJWJB5yst8O+E3EvxMH9mShQP0/4MWlQa7VgomZ+LBN1C8G9O0wefKWnIdO/TM77ifCU
+         lI9dHnAo7aVW+oYD7lflsu8H/dGS3hGoAZxLMnsKvwgFDn1ixWb2l+KjP4STNOkAn0oc
+         vdGaP1K5gPtJfjTxb01Chkbo+IIQxjd8lSqqroypSh6iShV9brcy9pyjXmnJmC56ZYJV
+         DZSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5o0LQq2H5NyuqhWcIAsOhclTasLhXE6zFp16BztH0tM=;
+        fh=x0XJG1aPIGS2P8plZxxyI/X9urAf2LPIv9AEUV5/oKA=;
+        b=Qbum6qBVBZMX7g+9gm7GsqtPawgYbvMxuwIac5CamhFz43rsM+L1zEfeg/ZRYowsuy
+         Yhs/EirvipZhMPTJooWJWYOsgJarxfcJHFNE3irZfvnzqZ7BwVZxgQCBzIMT47PKRrDn
+         Vqb9YSP2FyRpeHT2blee1+bqv4DO5OJXz0Zjqi3xV6cpsRn0MjP3SE/mBXgOp1B0rK1y
+         JyuTDJxc5rnq4HQvujZ5geOD8QO2rtCFbI72VVwlOuz1ec/xNtkXJdLHXBtBHRE9Jh3Y
+         iwb7OO/z1hYriauO/fi1c9pS3E3Ccm3NvtOLgWs1nILApEhL7MCubVK7jlen1EOVZGmJ
+         yyGA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789035478; x=1789640278; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5o0LQq2H5NyuqhWcIAsOhclTasLhXE6zFp16BztH0tM=;
+        b=YYG7PFlRv/m7RtW/2T+N2DJNrZXsXtWKhFJOa1UdQ68pEJDuw2oDtyLTbu+wQWJqvJ
+         ++i1ue1XoDSxWUvDyBIiYzS/frVNffrU9P9onZSrRwyVo6A3rY3Urmmj5kvDmf/X8W6i
+         ektBJtxE8Zl+w6+R9Xsixdh5tvaKkvwfpmLOiEQHgVvxBsQnb/4j+iaQtMAQeP21m+HQ
+         dZOmFs+ZhrWX0Rep3xscs+Worxc536G8Qt4fkbY/VeIxwx/6MmOr1WFKjnVDiHZnaj+P
+         ibWw/LjhdjXtk1z5Uq5qcaG+NMejXFHerT5KsK26vYHQ8H1gRZZ7f7tnR4YQw6y4QfJ9
+         N9qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789035478; x=1789640278;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5o0LQq2H5NyuqhWcIAsOhclTasLhXE6zFp16BztH0tM=;
+        b=h4OPh5I5Gtb5fqlYizTYfESmOK2Zh/lPZUeJC6ZQ61jbPqCws2kPm2SWB6qj5OH/lK
+         xTt96LaBh0Wu1IdkRlurtZHONVEAL5MlVk6khgvMap7sDx2+irClc7GC/FYRb77imkIK
+         b3MPZVWLTzCKQMa8yIQaBlvVzTugvDOH0L13vfbHrQDWzA578QvLDVQnufBrYV54fCCJ
+         Xl8CVTTjIoN/6dP/RZLaaGb5Aa2uu57Nd/A19sseHkoUAUrTZiz+ZikM5MY/hqsh/4Yw
+         Xvwx2IEydrzEKMjenh5VTQmzl3FZvVcLiXyjG2+ZsVVbCofW0L/pz+azNhYHREL876ZO
+         CQOw==
+X-Forwarded-Encrypted: i=1; AKwUvBwOrXFP2f2XJs1z/1+XTipdhq0oCGuqvKVyevbbzeQZeTOoF/b6IlUrJZd5JS3vf7xEOKrR/qFyC6Cr@vger.kernel.org
+X-Gm-Message-State: AFuF++lBo40QBI2LNth//vYxiExeA7g5AtAr132jqzOgw9vItzOYXKHp
+	qzMGIHK9MjMTDzJhM2TvHhzVxRu/g9z7HQkeFu3DqZjXjpfFyr8MQSJCKJqt+5lU8Ah1EMWSMJf
+	nqBKn1icYxwwq+HXERg9vogUCWeHtI7CfFzhrMQZFQdUnhE758m6Qt1+jDHFams5S4qRn3JNbwb
+	b/En66Lu1XxwBiHjtrNu73yZkmOiFuXU1BYdJj4dQ=
+X-Gm-Gg: AYBFou0RaOV1wP7KvHiM0OTQlNRSwMuJXVbLOFhOSkyOq0fFTV04+32+MxTy/MK0Nto
+	tPsaI/tLHitIJ7guen8iX0nt0CFSJ4aTw0yKHM5UUoDoaWtkTFjmekdcvmh5A+1CUl9A9dkVtMP
+	YnERJvjOYksQnTFX6tMam/OC3UsqnMHm6D3+A6eHM33eKoFAR4yDYipVgRPQ==
+X-Received: by 2002:a17:90b:558c:b0:38e:57a3:f218 with SMTP id 98e67ed59e1d1-39d70ae1a5emr10579647a91.13.1789035478537;
+        Thu, 10 Sep 2026 03:17:58 -0700 (PDT)
+X-Received: by 2002:a17:90b:558c:b0:38e:57a3:f218 with SMTP id
+ 98e67ed59e1d1-39d70ae1a5emr10579584a91.13.1789035478102; Thu, 10 Sep 2026
+ 03:17:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824-enable-ice-clock-scaling-v12-0-09271f583dc6@oss.qualcomm.com>
+ <20260824-enable-ice-clock-scaling-v12-3-09271f583dc6@oss.qualcomm.com>
+In-Reply-To: <20260824-enable-ice-clock-scaling-v12-3-09271f583dc6@oss.qualcomm.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 12:17:46 +0200
+X-Gm-Features: AcwNN1VvsxYSlSneh1UTJxLDFcgkCYVDC7Rwi96BfcNazOVn_vX8zy2Sk9dMolo
+Message-ID: <CAPx+jO_Ltc6Q+VdUgOs81azTiM5Vx12GH1z+CXt6NW=M601THQ@mail.gmail.com>
+Subject: Re: [PATCH v12 3/6] mmc: sdhci-msm: Set ICE clk to TURBO at sdhci ICE init
+To: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>,
+        "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>,
+        "Martin K. Petersen" <martin.petersen@oracle.com>,
+        Adrian Hunter <adrian.hunter@intel.com>, Ulf Hansson <ulfh@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Harshal Dev <harshal.dev@oss.qualcomm.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-scsi@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExOSBTYWx0ZWRfX3q5mJ+IjEone
+ dAoxfP/7slwjHB1ExK7YgcHIY1QGrfOTejknmPWc17Tmb4TXAcqj3ix0hklKwgGhp6YPRWelVNv
+ WZwpi/0S8MovgN+e2oJkvOeKc0q4q/t1b1GF0XmYH9HPyR6meU4DpoW3rsIHdhU+pBe2Kr3plg7
+ /LCfAyYoy7ZRmLNnHd+50EZqQFbK5LSusqZ/3AxNOyGdlhomGT4yBfXawXOoE7SnfLo0uZoKAa4
+ uG0IKgcJHBPzLK5B2P1PoMmqSY8HSjHeFmSi7Aa4tgv2ZoYkkgQi6RKP1u/qdgibNZ8NfVJDlGj
+ YRc9DS5cEJIXmfm3v3y7l7B5Q7HoxRRkT5KgGsx3az69f0Y3Aic5/Cp3ZrbpPQ7+Lx/rX+UiAYF
+ sK/TQFmiJrG7HIlBORulBEB7mP17jfQKK2UYA8tirdieP8nsppEPItK08aitbEKf9BRpdFqt3gw
+ xaF0edUojkquh8/U0dQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExOSBTYWx0ZWRfX+TLExbbRJ5wb
+ wSRZUWohUhUK6r8WYQ1s8PmVIuD33jKB5gcQ8nFm0Pi+jGOd2OMDo2FPRkGZuaie+1AFy31ZWgz
+ hshkmwBITT6py2mj7dPGIc55qLnHXfM=
+X-Proofpoint-ORIG-GUID: E2hJLrrxVl4i-QWwMsGwVrVXuMm4lC5O
+X-Authority-Analysis: v=2.4 cv=VONIDNPX c=1 sm=1 tr=0 ts=6aa283d7 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=QyXUC8HyAAAA:8
+ a=i-sMpDq2_rzAXM5hadQA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-GUID: E2hJLrrxVl4i-QWwMsGwVrVXuMm4lC5O
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100119
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Sun, Aug 23, 2026 at 9:48=E2=80=AFPM Abhinaba Rakshit
+<abhinaba.rakshit@oss.qualcomm.com> wrote:
+>
+> MMC controller lacks a clock scaling mechanism, unlike the UFS
+> controller. By default, the MMC controller is set to TURBO mode
+> during probe, but the ICE clock remains at XO frequency,
+> leading to read/write performance degradation on eMMC.
+>
+> To address this, set the ICE clock to TURBO during sdhci_msm_ice_init
+> to align it with the controller clock. This ensures consistent
+> performance and avoids mismatches between the controller
+> and ICE clock frequencies.
+>
+> For platforms where ICE is represented as a separate device,
+> use the OPP framework to vote for TURBO mode, maintaining
+> proper voltage and power domain constraints.
+>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Acked-by: Adrian Hunter <adrian.hunter@intel.com>
+> Reviewed-by: Adrian Hunter <adrian.hunter@intel.com>
+> Signed-off-by: Abhinaba Rakshit <abhinaba.rakshit@oss.qualcomm.com>
 
-Add support for the OSM iMX91 SoM and the development carrier board that
-can be mated with.
+This looks good to me!
 
-Link: https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx91
-Link: https://www.toradex.com/products/carrier-board/osm-development-board
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/Makefile        |   2 +
- .../dts/freescale/imx91-toradex-osm-dev.dts   |  22 ++
- .../boot/dts/freescale/imx91-toradex-osm.dtsi | 303 ++++++++++++++++++
- 3 files changed, 327 insertions(+)
- create mode 100644 arch/arm64/boot/dts/freescale/imx91-toradex-osm-dev.dts
- create mode 100644 arch/arm64/boot/dts/freescale/imx91-toradex-osm.dtsi
+Although I have a question - should we never drop the vote? Like at
+suspend and runtime suspend, at least?
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 64fa5d0527ff..39686f17891b 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -856,6 +856,8 @@ imx91-phyboard-segin-peb-av-18-dtbs += imx91-phyboard-segin.dtb imx91-phyboard-s
- dtb-$(CONFIG_ARCH_MXC) += imx91-9x9-qsb-can1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx91-phyboard-segin-peb-av-18.dtb
- 
-+dtb-$(CONFIG_ARCH_MXC) += imx91-toradex-osm-dev.dtb
-+
- dtb-$(CONFIG_ARCH_MXC) += imx91-tqma9131-mba91xxca.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx91-tqma9131-mba93xxca.dtb
- 
-diff --git a/arch/arm64/boot/dts/freescale/imx91-toradex-osm-dev.dts b/arch/arm64/boot/dts/freescale/imx91-toradex-osm-dev.dts
-new file mode 100644
-index 000000000000..ec5e701fb275
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx91-toradex-osm-dev.dts
-@@ -0,0 +1,22 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex OSM iMX91 SoM on OSM Development carrier board
-+ *
-+ * https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx91
-+ * https://www.toradex.com/products/carrier-board/osm-development-board
-+ */
-+
-+/dts-v1/;
-+
-+#include "imx91.dtsi"
-+#include "imx91-toradex-osm.dtsi"
-+#include "imx93-imx91-toradex-osm-dev-common.dtsi"
-+
-+/ {
-+	model = "Toradex OSM iMX91 on OSM Development Board";
-+	compatible = "toradex,osm-imx91-dev",
-+		     "toradex,osm-imx91",
-+		     "fsl,imx91";
-+};
-diff --git a/arch/arm64/boot/dts/freescale/imx91-toradex-osm.dtsi b/arch/arm64/boot/dts/freescale/imx91-toradex-osm.dtsi
-new file mode 100644
-index 000000000000..9d990937fd8d
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx91-toradex-osm.dtsi
-@@ -0,0 +1,303 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex OSM iMX91 SoM
-+ *
-+ * https://www.toradex.com/computer-on-modules/osm-arm-family/nxp-imx91
-+ */
-+
-+#include "imx91-pinfunc.h"
-+#include "imx93-imx91-toradex-osm-common.dtsi"
-+
-+&iomuxc {
-+	/* OSM CAN_A */
-+	pinctrl_can_a: can1grp {
-+		fsl,pins = <MX91_PAD_PDM_BIT_STREAM0__CAN1_RX	0x139e>, /* OSM AB17 */
-+			   <MX91_PAD_PDM_CLK__CAN1_TX		0x139e>; /* OSM AC17 */
-+	};
-+
-+	/* OSM CAN_B */
-+	pinctrl_can_b: can2grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO25__CAN2_TX		0x139e>, /* OSM AC19 */
-+			   <MX91_PAD_GPIO_IO27__CAN2_RX		0x139e>; /* OSM AB19 */
-+	};
-+
-+	/* OSM CAM_MCK */
-+	pinctrl_cam_mck: ccmclk1grp {
-+		fsl,pins = <MX91_PAD_CCM_CLKO1__CCMSRCGPCMIX_CLKO1	0x51e>; /* OSM C2 */
-+	};
-+
-+	/* OSM ETH_A RGMII */
-+	pinctrl_eth_a: eqosgrp {
-+		fsl,pins = <MX91_PAD_ENET1_RD0__ENET_QOS_RGMII_RD0			0x1fe>, /* OSM K15 */
-+			   <MX91_PAD_ENET1_RD1__ENET_QOS_RGMII_RD1			0x1fe>, /* OSM L15 */
-+			   <MX91_PAD_ENET1_RD2__ENET_QOS_RGMII_RD2			0x1fe>, /* OSM N15 */
-+			   <MX91_PAD_ENET1_RD3__ENET_QOS_RGMII_RD3			0x1fe>, /* OSM P15 */
-+			   <MX91_PAD_ENET1_RXC__ENET_QOS_RGMII_RXC			0x1fe>, /* OSM R15 */
-+			   <MX91_PAD_ENET1_RX_CTL__ENET_QOS_RGMII_RX_CTL		0x1fe>, /* OSM M15 */
-+			   <MX91_PAD_ENET1_TD0__ENET_QOS_RGMII_TD0			0x1fe>, /* OSM H15 */
-+			   <MX91_PAD_ENET1_TD1__ENET1_RGMII_TD1				0x1fe>, /* OSM G15 */
-+			   <MX91_PAD_ENET1_TD2__ENET_QOS_RGMII_TD2			0x1fe>, /* OSM H16 */
-+			   <MX91_PAD_ENET1_TD3__ENET_QOS_RGMII_TD3			0x1fe>, /* OSM G16 */
-+			   <MX91_PAD_ENET1_TXC__CCM_ENET_QOS_CLOCK_GENERATE_TX_CLK	0x1fe>, /* OSM J15 */
-+			   <MX91_PAD_ENET1_TX_CTL__ENET_QOS_RGMII_TX_CTL		0x1fe>; /* OSM K16 */
-+	};
-+
-+	/* OSM ETH_MDIO */
-+	pinctrl_mdio: eqosmdiogrp {
-+		fsl,pins = <MX91_PAD_ENET1_MDC__ENET1_MDC	0x1fe>, /* OSM T16 */
-+			   <MX91_PAD_ENET1_MDIO__ENET_QOS_MDIO	0x1fe>; /* OSM T15 */
-+	};
-+
-+	/* OSM ETH_B RGMII */
-+	pinctrl_eth_b: fecgrp {
-+		fsl,pins = <MX91_PAD_ENET2_RD0__ENET2_RGMII_RD0		0x1fe>, /* OSM J1 */
-+			   <MX91_PAD_ENET2_RD1__ENET2_RGMII_RD1		0x1fe>, /* OSM K1 */
-+			   <MX91_PAD_ENET2_RD2__ENET2_RGMII_RD2		0x1fe>, /* OSM M1 */
-+			   <MX91_PAD_ENET2_RD3__ENET2_RGMII_RD3		0x1fe>, /* OSM N1 */
-+			   <MX91_PAD_ENET2_RXC__ENET2_RGMII_RXC		0x1fe>, /* OSM P1 */
-+			   <MX91_PAD_ENET2_RX_CTL__ENET2_RGMII_RX_CTL	0x1fe>, /* OSM L1 */
-+			   <MX91_PAD_ENET2_TD0__ENET2_RGMII_TD0		0x1fe>, /* OSM G1 */
-+			   <MX91_PAD_ENET2_TD1__ENET2_RGMII_TD1		0x1fe>, /* OSM F1 */
-+			   <MX91_PAD_ENET2_TD2__ENET2_RGMII_TD2		0x1fe>, /* OSM G2 */
-+			   <MX91_PAD_ENET2_TD3__ENET2_RGMII_TD3		0x1fe>, /* OSM F2 */
-+			   <MX91_PAD_ENET2_TXC__ENET2_RGMII_TXC		0x1fe>, /* OSM H1 */
-+			   <MX91_PAD_ENET2_TX_CTL__ENET2_RGMII_TX_CTL	0x1fe>; /* OSM J2 */
-+	};
-+
-+	/* OSM SPI_B_CS as GPIO */
-+	pinctrl_spi_b_cs0_gpio: gpio1io11grp {
-+		fsl,pins = <MX91_PAD_SAI1_TXFS__GPIO1_IO11	0x139e>; /* OSM AA23 */
-+	};
-+
-+	/* OSM GPIO_A_0 */
-+	pinctrl_gpio_a0:  gpio2io0grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO00__GPIO2_IO0	0x139e>; /* OSM D17 */
-+	};
-+
-+	/* OSM GPIO_A_1 */
-+	pinctrl_gpio_a1: gpio2io1grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO01__GPIO2_IO1	0x139e>; /* OSM E17 */
-+	};
-+
-+	/* OSM GPIO_A_2 */
-+	pinctrl_gpio_a2: gpio2io2grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO02__GPIO2_IO2	0x139e>; /* OSM F17 */
-+	};
-+
-+	/* OSM GPIO_A_3 */
-+	pinctrl_gpio_a3: gpio2io3grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO03__GPIO2_IO3	0x139e>; /* OSM G17 */
-+	};
-+
-+	/* OSM SPI_A_CS0 as GPIO */
-+	pinctrl_spi_a_cs0_gpio: gpio2io12grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO12__GPIO2_IO12	0x139e>; /* OSM Y15 */
-+	};
-+
-+	/* OSM PWM_0 as GPIO */
-+	pinctrl_pwm0_gpio: gpio2io21grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO21__GPIO2_IO21	0x139e>; /* OSM E18 */
-+	};
-+
-+	/* OSM GPIO_A_4 */
-+	pinctrl_gpio_a4: gpio2io22grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO22__GPIO2_IO22	0x139e>; /* OSM H17 */
-+	};
-+
-+	/* OSM GPIO_A_5 */
-+	pinctrl_gpio_a5: gpio2io24grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO24__GPIO2_IO24	0x139e>; /* OSM J17 */
-+	};
-+
-+	/* On-module CTRL_INT# */
-+	pinctrl_ctrl_int: gpio3io27grp {
-+		fsl,pins = <MX91_PAD_CCM_CLKO2__GPIO3_IO27	0x139e>; /* CTRL_INT# */
-+	};
-+
-+	/* OSM GPIO_A_6 */
-+	pinctrl_gpio_a6: gpio4io14grp {
-+		fsl,pins = <MX91_PAD_ENET2_MDC__GPIO4_IO14	0x139e>; /* OSM K17 */
-+	};
-+
-+	/* OSM GPIO_A_7 */
-+	pinctrl_gpio_a7:  gpio4io15grp {
-+		fsl,pins = <MX91_PAD_ENET2_MDIO__GPIO4_IO15	0x139e>; /* OSM L17 */
-+	};
-+
-+	/* OSM I2C_B as GPIO */
-+	pinctrl_i2c_b_gpio: lpi2c1gpiogrp {
-+		fsl,pins = <MX91_PAD_I2C1_SCL__GPIO1_IO0	0x40000b9e>, /* OSM AA20 */
-+			   <MX91_PAD_I2C1_SDA__GPIO1_IO1	0x40000b9e>; /* OSM AA21 */
-+	};
-+
-+	/* OSM I2C_B */
-+	pinctrl_i2c_b: lpi2c1grp {
-+		fsl,pins = <MX91_PAD_I2C1_SCL__LPI2C1_SCL	0x40000b9e>, /* OSM AA20 */
-+			   <MX91_PAD_I2C1_SDA__LPI2C1_SDA	0x40000b9e>; /* OSM AA21 */
-+	};
-+
-+	/* On-module PMIC I2C as GPIO */
-+	pinctrl_pmic_i2c_gpio: lpi2c2gpiogrp {
-+		fsl,pins = <MX91_PAD_I2C2_SCL__GPIO1_IO2	0x40000b9e>, /* PMIC_I2C_SCL */
-+			   <MX91_PAD_I2C2_SDA__GPIO1_IO3	0x40000b9e>; /* PMIC_I2C_SDA */
-+	};
-+
-+	/* On-module PMIC I2C */
-+	pinctrl_pmic_i2c: lpi2c2grp {
-+		fsl,pins = <MX91_PAD_I2C2_SCL__LPI2C2_SCL	0x40000b9e>, /* PMIC_I2C_SCL */
-+			   <MX91_PAD_I2C2_SDA__LPI2C2_SDA	0x40000b9e>; /* PMIC_I2C_SDA */
-+	};
-+
-+	/* OSM I2C_A as GPIO */
-+	pinctrl_i2c_a_gpio: lpi2c3gpiogrp {
-+		fsl,pins = <MX91_PAD_GPIO_IO28__GPIO2_IO28	0x40000b9e>, /* OSM AA16 */
-+			   <MX91_PAD_GPIO_IO29__GPIO2_IO29	0x40000b9e>; /* OSM AA15 */
-+	};
-+
-+	/* OSM I2C_A */
-+	pinctrl_i2c_a: lpi2c3grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO28__LPI2C3_SDA	0x40000b9e>, /* OSM AA16 */
-+			   <MX91_PAD_GPIO_IO29__LPI2C3_SCL	0x40000b9e>; /* OSM AA15 */
-+	};
-+
-+	/* OSM SPI_B */
-+	pinctrl_spi_b: lpspi1grp {
-+		fsl,pins = <MX91_PAD_SAI1_TXC__LPSPI1_SIN	0x139e>, /* OSM Y22 */
-+			   <MX91_PAD_SAI1_TXD0__LPSPI1_SCK	0x139e>, /* OSM Y21 */
-+			   <MX91_PAD_SAI1_RXD0__LPSPI1_SOUT	0x139e>; /* OSM Y23 */
-+	};
-+
-+	/* OSM SPI_A */
-+	pinctrl_spi_a: lpspi8grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO13__LPSPI8_SIN	0x139e>, /* OSM U15 */
-+			   <MX91_PAD_GPIO_IO14__LPSPI8_SOUT	0x139e>, /* OSM V15 */
-+			   <MX91_PAD_GPIO_IO15__LPSPI8_SCK	0x139e>; /* OSM U16 */
-+	};
-+
-+	/* OSM UART_CON */
-+	pinctrl_uart_con: lpuart1grp {
-+		fsl,pins = <MX91_PAD_UART1_RXD__LPUART1_RX	0x39e>, /* OSM D22 */
-+			   <MX91_PAD_UART1_TXD__LPUART1_TX	0x39e>; /* OSM D23 */
-+	};
-+
-+	/* OSM UART_C */
-+	pinctrl_uart_c: lpuart2grp {
-+		fsl,pins = <MX91_PAD_UART2_RXD__LPUART2_RX	0x39e>, /* OSM A22 */
-+			   <MX91_PAD_UART2_TXD__LPUART2_TX	0x39e>; /* OSM B23 */
-+	};
-+
-+	/* OSM UART_A */
-+	pinctrl_uart_a: lpuart6grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO04__LPUART6_TX	0x39e>, /* OSM B13 */
-+			   <MX91_PAD_GPIO_IO05__LPUART6_RX	0x39e>, /* OSM A14 */
-+			   <MX91_PAD_GPIO_IO06__LPUART6_CTS_B	0x39e>, /* OSM C14 */
-+			   <MX91_PAD_GPIO_IO07__LPUART6_RTS_B	0x39e>; /* OSM C13 */
-+	};
-+
-+	/* OSM UART_B */
-+	pinctrl_uart_b: lpuart7grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO08__LPUART7_TX	0x39e>, /* OSM D13 */
-+			   <MX91_PAD_GPIO_IO09__LPUART7_RX	0x39e>, /* OSM D14 */
-+			   <MX91_PAD_GPIO_IO10__LPUART7_CTS_B	0x39e>, /* OSM D16 */
-+			   <MX91_PAD_GPIO_IO11__LPUART7_RTS_B	0x39e>; /* OSM D15 */
-+	};
-+
-+	/* OSM I2S_A */
-+	pinctrl_i2s_a: sai3grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO16__SAI3_TX_BCLK	0x139e>, /* OSM W20 */
-+			   <MX91_PAD_GPIO_IO19__SAI3_TX_DATA0	0x139e>, /* OSM W21 */
-+			   <MX91_PAD_GPIO_IO20__SAI3_RX_DATA0	0x139e>, /* OSM V21 */
-+			   <MX91_PAD_GPIO_IO26__SAI3_TX_SYNC	0x139e>; /* OSM W18 */
-+	};
-+
-+	/* OSM I2S_MCLK */
-+	pinctrl_i2s_a_mclk: sai3mclkgrp {
-+		fsl,pins = <MX91_PAD_GPIO_IO17__SAI3_MCLK	0x31e>; /* OSM V18 */
-+	};
-+
-+	/* OSM PWM_0 */
-+	pinctrl_pwm0: tpm4ch1grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO21__TPM4_CH1	0x139e>; /* OSM E18 */
-+	};
-+
-+	/* OSM PWM_1 */
-+	pinctrl_pwm1: tpm5ch2grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO18__TPM5_CH2	0x139e>; /* OSM F18 */
-+	};
-+
-+	/* OSM PWM_2 */
-+	pinctrl_pwm2: tpm6ch1grp {
-+		fsl,pins = <MX91_PAD_GPIO_IO23__TPM6_CH1	0x139e>; /* OSM G18 */
-+	};
-+
-+	/* OSM USB_A_EN */
-+	pinctrl_usb_a_en: usb1engrp {
-+		fsl,pins = <MX91_PAD_CCM_CLKO3__GPIO4_IO28	0x139e>; /* OSM AC16 */
-+	};
-+
-+	/* OSM USB_A_OC# */
-+	pinctrl_usb_a_oc: usb1ocgrp {
-+		fsl,pins = <MX91_PAD_CCM_CLKO4__GPIO4_IO29	0x139e>; /* OSM AC15 */
-+	};
-+
-+	/* OSM USB_B_EN */
-+	pinctrl_usb_b_en: usb2engrp {
-+		fsl,pins = <MX91_PAD_PDM_BIT_STREAM1__GPIO1_IO10	0x139e>; /* OSM AC20 */
-+	};
-+
-+	/* On-module eMMC */
-+	pinctrl_emmc: usdhc1grp {
-+		fsl,pins = <MX91_PAD_SD1_CLK__USDHC1_CLK	0x5fe>,      /* eMMC_CLK    */
-+			   <MX91_PAD_SD1_CMD__USDHC1_CMD	0x400013fe>, /* eMMC_CMD    */
-+			   <MX91_PAD_SD1_DATA0__USDHC1_DATA0	0x400013fe>, /* eMMC_DATA0  */
-+			   <MX91_PAD_SD1_DATA1__USDHC1_DATA1	0x400013fe>, /* eMMC_DATA1  */
-+			   <MX91_PAD_SD1_DATA2__USDHC1_DATA2	0x400013fe>, /* eMMC_DATA2  */
-+			   <MX91_PAD_SD1_DATA3__USDHC1_DATA3	0x400013fe>, /* eMMC_DATA3  */
-+			   <MX91_PAD_SD1_DATA4__USDHC1_DATA4	0x400013fe>, /* eMMC_DATA4  */
-+			   <MX91_PAD_SD1_DATA5__USDHC1_DATA5	0x400013fe>, /* eMMC_DATA5  */
-+			   <MX91_PAD_SD1_DATA6__USDHC1_DATA6	0x400013fe>, /* eMMC_DATA6  */
-+			   <MX91_PAD_SD1_DATA7__USDHC1_DATA7	0x400013fe>, /* eMMC_DATA7  */
-+			   <MX91_PAD_SD1_STROBE__USDHC1_STROBE	0x1580>;     /* eMMC_STROBE */
-+	};
-+
-+	/* OSM SDIO_A_CD# */
-+	pinctrl_sdio_a_cd: usdhc2cdgrp {
-+		fsl,pins = <MX91_PAD_SD2_CD_B__GPIO3_IO0	0x139e>; /* OSM J21 */
-+	};
-+
-+	/* OSM SDIO_A */
-+	pinctrl_sdio_a: usdhc2grp {
-+		fsl,pins = <MX91_PAD_SD2_CLK__USDHC2_CLK	0x5fe>,      /* OSM F21 */
-+			   <MX91_PAD_SD2_CMD__USDHC2_CMD	0x400013fe>, /* OSM E20 */
-+			   <MX91_PAD_SD2_DATA0__USDHC2_DATA0	0x400013fe>, /* OSM G20 */
-+			   <MX91_PAD_SD2_DATA1__USDHC2_DATA1	0x400013fe>, /* OSM G21 */
-+			   <MX91_PAD_SD2_DATA2__USDHC2_DATA2	0x400013fe>, /* OSM H20 */
-+			   <MX91_PAD_SD2_DATA3__USDHC2_DATA3	0x400013fe>; /* OSM H21 */
-+	};
-+
-+	/* OSM SDIO_A_PWR_EN */
-+	pinctrl_sdio_a_pwr_en: usdhc2pwrgrp {
-+		fsl,pins = <MX91_PAD_SD2_RESET_B__GPIO3_IO7	0x139e>; /* OSM D21 */
-+	};
-+
-+	/* On-module PMIC_SD_2_VSEL */
-+	pinctrl_sdio_a_vsel: usdhc2vselgrp {
-+		fsl,pins = <MX91_PAD_SD2_VSELECT__GPIO3_IO19	0x51e>; /* PMIC_SD_2_VSEL */
-+	};
-+
-+	/* OSM SDIO_B */
-+	pinctrl_sdio_b: usdhc3grp {
-+		fsl,pins = <MX91_PAD_SD3_CLK__USDHC3_CLK	0x5fe>,      /* OSM K20 */
-+			   <MX91_PAD_SD3_CMD__USDHC3_CMD	0x400013fe>, /* OSM K21 */
-+			   <MX91_PAD_SD3_DATA0__USDHC3_DATA0	0x400013fe>, /* OSM L20 */
-+			   <MX91_PAD_SD3_DATA1__USDHC3_DATA1	0x400013fe>, /* OSM L21 */
-+			   <MX91_PAD_SD3_DATA2__USDHC3_DATA2	0x400013fe>, /* OSM M21 */
-+			   <MX91_PAD_SD3_DATA3__USDHC3_DATA3	0x400013fe>; /* OSM N20 */
-+	};
-+
-+	pinctrl_wdog: wdoggrp {
-+		fsl,pins = <MX91_PAD_WDOG_ANY__WDOG1_WDOG_ANY 0x31e>; /* PMIC_WDOG_B */
-+	};
-+};
--- 
-2.47.3
+Kind regards
+Uffe
 
+> ---
+>  drivers/mmc/host/sdhci-msm.c | 22 ++++++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>
+> diff --git a/drivers/mmc/host/sdhci-msm.c b/drivers/mmc/host/sdhci-msm.c
+> index 0882ce74e0c9bdddd98341a67b97bcef74078e0c..1b4c276dce34d76dcbe75117d=
+e37e09ea2002633 100644
+> --- a/drivers/mmc/host/sdhci-msm.c
+> +++ b/drivers/mmc/host/sdhci-msm.c
+> @@ -1902,6 +1902,16 @@ static void sdhci_msm_set_clock(struct sdhci_host =
+*host, unsigned int clock)
+>
+>  static const struct blk_crypto_ll_ops sdhci_msm_crypto_ops; /* forward d=
+ecl */
+>
+> +static int sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host,
+> +                                  unsigned long target_freq,
+> +                                  bool round_ceil)
+> +{
+> +       if (msm_host->mmc->caps2 & MMC_CAP2_CRYPTO)
+> +               return qcom_ice_scale_clk(msm_host->ice, target_freq, rou=
+nd_ceil);
+> +
+> +       return 0;
+> +}
+> +
+>  static int sdhci_msm_ice_init(struct sdhci_msm_host *msm_host,
+>                               struct cqhci_host *cq_host)
+>  {
+> @@ -1959,6 +1969,11 @@ static int sdhci_msm_ice_init(struct sdhci_msm_hos=
+t *msm_host,
+>         }
+>
+>         mmc->caps2 |=3D MMC_CAP2_CRYPTO;
+> +
+> +       err =3D sdhci_msm_ice_scale_clk(msm_host, ULONG_MAX, false);
+> +       if (err && err !=3D -EOPNOTSUPP)
+> +               dev_warn(dev, "Unable to boost ICE clock to TURBO\n");
+> +
+>         return 0;
+>  }
+>
+> @@ -2149,6 +2164,13 @@ sdhci_msm_ice_suspend(struct sdhci_msm_host *msm_h=
+ost)
+>  {
+>         return 0;
+>  }
+> +
+> +static inline int
+> +sdhci_msm_ice_scale_clk(struct sdhci_msm_host *msm_host, unsigned long t=
+arget_freq,
+> +                       bool round_ceil)
+> +{
+> +       return 0;
+> +}
+>  #endif /* !CONFIG_MMC_CRYPTO */
+>
+>  /***********************************************************************=
+******\
+>
+> --
+> 2.34.1
+>
