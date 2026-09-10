@@ -1,139 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2176C3D3339;
-	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB4B38BF81;
+	Thu, 10 Sep 2026 06:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022337; cv=none; b=JrIzsxQqnXbHoP5b45yvQsrWTGOWE4prO5aKKtmSjOAulzGQmVpV5Zl5LzU2cwrWVUbdkTFHPbVBV13cfUjJ370PqliEQL9bzU2/pspzfRkKKxE5u91AZ2ftg+iZim9vXr0yc5KUhUm6IS80fbuEsi8P6j+Q+FalJwj3PYZi0j4=
+	t=1789022588; cv=none; b=a70CUz/iksNrw7Pa7lkjTPHKE+nKp0ZtRiHSvdN9xrKWXEBKkPx1xOTx/GHGDlsTSkU8rDgwMjrEkHcLBsYv6g9Zw04hYLpFd1tAMgkzydjanhWmaZOopXpYOu/BiW97pHM3bSSdCmU+hsJO7/kE1Neu/U4+DpNh8FjLV6EZ10Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022337; c=relaxed/simple;
-	bh=2TU5UtSqlTK5Fx9D95GxY0TfdDPbOgZck8finK/MKtM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kHEetB6Xz7uYV7BVKZTCJ29hoinqQrpS+g9jBSxj+u2JeArTlVyox7FqGlVM/FjYvl/ZDZrzIzKx5TowKkeT4tODPZn8j11lzOBvYGWfzaU1dpPY/DrFkqzAGpC2hJZYv9zDMTuyTiSxl6gp9nM7eLmSOK5WuwqWY56FGXzJI9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFsf7P2z; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789022588; c=relaxed/simple;
+	bh=PnSdyt8IKSG7Cusf+et3nfCE6GN+a6K2xDtnxZ+Uwgk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=usu23/HqtSJHSy3XTI0Mh8/vErM6gY3ixKGe1f0cOMin+JUT66z8bsl76MCxu/bOtspgMTr2SnXrog606XDDmSLPh/qWW6/kRpgtd/RQg+JQul4eewn6VmZDu70hiZ4uWLBwzVYJO86EV2Kn11ky0aro0+s1E+AVvfsgHUZ/gfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nEGUocWT; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFsf7P2z"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 91F01C2BCFC;
-	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789022336;
-	bh=2TU5UtSqlTK5Fx9D95GxY0TfdDPbOgZck8finK/MKtM=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=BFsf7P2zElLdbO5Q0ymkbWVfDBWZDNXAgIrMIRK7VgkT45En02HXgiunXNP/8/liU
-	 K0ZsJw+yQ9hTTs6Rczdyo5vBDeUfi09GJubqI89hesR7U/9nAQld+IBDuBktxlhB6f
-	 UBy82UkmbU2S+CVhQFFUpnescSUFVqvTlLhWbwTqg1UGNY7elBr6ix2V+rjiiah6Vv
-	 /5D/zXdb0ag5JEbqzW6Tmvmj7YxkHNxfxNnISxtaYwyuPfpf1swlMLlbVHaUYSttMq
-	 J6L0kHq0n5E3BcJc6pL9WSwqec+ESpyl67np9ZkcpL6j+X98YCeI3Y5JMQe3bOW6pl
-	 In3Fm/sn88A+g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 6DFBAC79FB7;
-	Thu, 10 Sep 2026 06:38:56 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 10 Sep 2026 06:38:52 +0000
-Subject: [PATCH v5 1/2] dt-bindings: thermal: amlogic: Add A9 thermal
- bindings
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nEGUocWT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789022587; x=1820558587;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PnSdyt8IKSG7Cusf+et3nfCE6GN+a6K2xDtnxZ+Uwgk=;
+  b=nEGUocWTzP0VqouPLnX+yoarTyWW14EGLl4QS/KOS2unNvPLw2i/Q7wM
+   m4C8oMJ9jf+5axPkLfGBRcC9d3wazWUXVgnq1tVHEEr3Mh8G6rfG6nKJH
+   OmvSyp7gJbQpiKbOurQIn8F5fAOx4dRBTgwMhS51pDhJSeBJBQXWIWBfg
+   BDtPnBub22nlOQrjMxIgLONyPFWjP5bJAg3x5aaIEbbkQTKE3P0rS5J4W
+   AG4KQdD7Xv5nLKAk4U0yXtkZ7e6AUlwNapcfxKGFR0n+++4tLS/ZtSlyf
+   H1j74oKQZFn3DySSI7Au/OOtg4mDKmrWU1hhZjqW9V7XK9UjWXEuFqlHN
+   g==;
+X-CSE-ConnectionGUID: PCOrR5gCT5eM+o8oY+X24w==
+X-CSE-MsgGUID: GWN/RBvyTFizN7+7mEzcNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="99792614"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="99792614"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:43:06 -0700
+X-CSE-ConnectionGUID: qMrwe2q5S86Ch2Xiv4qJ6A==
+X-CSE-MsgGUID: vOjSCGXARA64SzNa76+uMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="275058100"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:42:58 -0700
+Date: Thu, 10 Sep 2026 09:42:55 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Yao Zi <me@ziyao.cc>
+Cc: Inochi Amaoto <inochiama@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>,
+	Sherry Sun <sherry.sun@nxp.com>, Arnd Bergmann <arnd@arndb.de>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
+	Senchuan Zhang <zhangsenchuan@eswincomputing.com>,
+	Alex Elder <elder@riscstar.com>,
+	Xincheng Zhang <zhangxincheng@ultrarisc.com>,
+	Randolph Lin <randolph@andestech.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Vidya Sagar <vidyas@nvidia.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Gustavo Pimentel <gustavo.pimentel@synopsys.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, Yixun Lan <dlan@gentoo.org>,
+	Longbin Li <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 1/6] PCI: spacemit-k1: Add device data support
+Message-ID: <aqJRbzZhROtXncZu@ashevche-desk.local>
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-2-inochiama@gmail.com>
+ <ap_i5Pw4nVB4LZ-7@ashevche-desk.local>
+ <aqESGs3_BxOd4PYg@inochi.infowork>
+ <aqJDvogeo3avWWQ3@pie>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-a9-thermal-v5-1-892d798723e1@amlogic.com>
-References: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
-In-Reply-To: <20260910-a9-thermal-v5-0-892d798723e1@amlogic.com>
-To: Guillaume La Roque <glaroque@baylibre.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-amlogic@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789022333; l=1701;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=z03XxmpaVvRhkUiS0uq3ppP3WR/hzF6qXYwRuBxcXJE=;
- b=e5xlU76hScLnEWkvmwjg2BCWQHDq5iPnOnS9y+eaQqxdcGEpopL6reLgsKb3f/49yx6JkQyuI
- XwTcKScieLXC6weiHMdMNl4dIEW4HOEIJMy6NPXF7rCPMdzsP7AYx+V
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqJDvogeo3avWWQ3@pie>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Thu, Sep 10, 2026 at 05:44:50AM +0000, Yao Zi wrote:
+> On Wed, Sep 09, 2026 at 04:00:33PM +0800, Inochi Amaoto wrote:
+> > On Tue, Sep 08, 2026 at 01:26:44PM +0300, Andy Shevchenko wrote:
+> > > On Mon, Sep 07, 2026 at 07:26:00PM +0800, Inochi Amaoto wrote:
 
-Document the thermal controller compatibles for the Amlogic A9 SoC.
+...
 
-Describe the required "core" and "pclk" clocks, and update the schema
-constraints for A9-specific thermal controllers.
+> > > > +	data = device_get_match_data(dev);
+> > > > +	if (!data)
+> > > > +		return -ENODEV;
+> > > 
+> > > It's better to use -ENODATA which will help to distinguish from other ENODEV
+> > > cases (which are more often to happen).
+> > 
+> > OK, thanks
+> 
+> Honestly, I don't think this should even happen, since every compatible
+> supported by the driver carries its own of_match_data, and failing to
+> do so is obviously a driver bug, so I think this branch could be
+> dropped.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- .../bindings/thermal/amlogic,thermal.yaml          | 27 +++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+Does this driver do not support driver_override? How comes?
 
-diff --git a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-index 8cfa44dcda58..1b02404d67d5 100644
---- a/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/amlogic,thermal.yaml
-@@ -23,6 +23,7 @@ properties:
-           - const: amlogic,g12a-thermal
-       - enum:
-           - amlogic,a1-cpu-thermal
-+          - amlogic,a9-thermal
-           - amlogic,t7-thermal
- 
-   reg:
-@@ -32,7 +33,13 @@ properties:
-     maxItems: 1
- 
-   clocks:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 2
-+
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: pclk
- 
-   power-domains:
-     maxItems: 1
-@@ -73,6 +80,24 @@ allOf:
-       required:
-         - amlogic,secure-monitor
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - amlogic,a9-thermal
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 2
-+      required:
-+        - clock-names
-+    else:
-+      properties:
-+        clocks:
-+          maxItems: 1
-+        clock-names: false
-+
- unevaluatedProperties: false
- 
- examples:
+(Note, Sashiko is full of the issues of not checking for NULL the matching data
+ and hence it describes a scenario in which this leads to NULL pointer
+ dereference.)
 
 -- 
-2.52.0
+With Best Regards,
+Andy Shevchenko
 
 
