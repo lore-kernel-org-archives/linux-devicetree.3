@@ -1,161 +1,106 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C4754A2601;
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DB34B5123;
 	Thu, 10 Sep 2026 13:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047348; cv=none; b=eqzztZUZZ8hW0n3T7Tr7uptqndDncp7yrUJEn9FS7uNwu5LAtMg23688jU9Hw3Yv2ioau5b5G0a2rURpgK5FCseQf+/5uuuJUYLf+RPxCnvc+tdjd+clqCc/YOrZnlS5FRbQ1wQW0x4d3jQpJgDxhdu4ITqwPNC5dKjtkoJ0QQY=
+	t=1789047348; cv=none; b=cyJAWk5Txedkbm57EagZT9YlNejNUdnDWti3FkjBa3WgAzCrB8foeI6P5ma4o8yzBaDfwcXBjnsQe5LEWPDRiiorVB8xx4jzAOkfi5dMTXJfeWoV9KDo2O5eBLtuzoCEP3BRsl/hp7nbjJxlCk2QChO/3SXJG5dFfZhlkE9VyUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789047348; c=relaxed/simple;
-	bh=afNw4mfmWPusnYCWAuWnIcZqwy8vQndi0BEvd7sUpx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HMFC7Mutp2kVK8WSqCTp3J3zTdeiaRSEv9vIKHl7qDfnoGDwtRD+eS3ajd0J02ZwOQ6DganWdYKt3nMMkYOD+aEEJEJXMCgvLkW9uWz8VMSNemoKOFIpFUqEH9i3GXL5vcBP2j3IdR4vqeBFed5cWDV6faFqlTXh1Tzjq8iYsPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UfTRtROJ; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=c5AgCKdSOajPpARccn3bvlTK7ykVjDHs5zB01EAmn/KqwZlqQuhVcKro6KzBwLYdlV0QwI5hzqm7a4n0A6bWeVAmFoQPRQcgTcmqzYll2+vc2WLwVXDcb6vfaaOyqmwkfN5H2U3F+ZFvcS3X/14voV3PP8nV/AwyB9pc3wqmjOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WaLMUQSl; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UfTRtROJ"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5978922D7;
-	Thu, 10 Sep 2026 06:35:42 -0700 (PDT)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6DE663F528;
-	Thu, 10 Sep 2026 06:35:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789047346; bh=afNw4mfmWPusnYCWAuWnIcZqwy8vQndi0BEvd7sUpx8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UfTRtROJp3o3h+kxey19i79i5p4qm5F7glE6bRJQrgIYbYioCZeEY5yrFrRBP1oFX
-	 Wge3Vj4qNIzetJJqDKqGYvcETFwerYkqYBLrSrmevjQS6lhgc77Hxa3AwQ+DgaBSbA
-	 K9PGVLIAGmHvsbT/PtW7vjT5XljEHaKEEa6SqU6U=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	Yixun Lan <dlan@gentoo.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH 7/7] pinctrl: sunxi: add support for the Allwinner A733
-Date: Thu, 10 Sep 2026 15:35:18 +0200
-Message-ID: <20260910133519.459011-8-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910133519.459011-1-andre.przywara@arm.com>
-References: <20260910133519.459011-1-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WaLMUQSl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789047345;
+	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=WaLMUQSlhh3h07Nbscy1WypZiWeRgCtdUty5bDukiVtUWe+slwf2F+5mwo72TIszm
+	 6T6Q9GhSwTMpD21k4q6ue77OEJJfShmRKASXhWyGIHHquFBLPY/iDfVRqQk4OXHc5J
+	 pVYgJ8iLZbH4QE9D5TOqI0qtxsKUJBgF+TWOG4xR76WFh4n0Gbl25hw+KKg6WErh1G
+	 6DVeIKVnsb5hhNcsdjPAKN9gpUAfjTCorZdxvufBadjCL9MIeJ2fTcG8PrJG5byocv
+	 XAHTnomjWRar1KzjhajgPr2iG/PREbZllrHeEFekek6serh1cSVAc+rcCnZ++JXJFG
+	 R9osiRz2gQf2w==
+Received: from [192.168.0.15] (unknown [100.64.0.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: detlev)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2FC8917E03E1;
+	Thu, 10 Sep 2026 15:35:43 +0200 (CEST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+Date: Thu, 10 Sep 2026 09:34:50 -0400
+Subject: [PATCH v2 8/8] arm64: dts: rockchip: Rename rk3588 HDMI audio
+ cards
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-8-1396a6168e20@collabora.com>
+References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
+In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
+ Christian Hewitt <christianshewitt@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ David Summers <beagleboard@davidjohnsummers.uk>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+X-Mailer: b4 0.15.2
 
-The Allwinner A733 changes the layout of the pinctrl MMIO register
-frame, but stays otherwise rather close to the previous IP.
-The main PIO looks similar to the one in the A523, with ports B-K being
-implemented, each also with the same number of pins per port as on the
-A523.
+Rename the two cards from "hdmi0"/"hdmi1" to "RK3588 HDMI0"/"RK3588
+HDMI1" so they identify the SoC in user-visible ALSA fields and match
+the naming scheme used across the rest of the Rockchip family.
 
-Use the DT based pinctrl driver to describe just the generic pinctrl
-properties, so advertise the number of pins per bank, interrupt
-capabilities and the new quirks. The actual function/mux assignment will
-be taken from the devicetree.
-
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Fixes: b8c6c136971c0 ("arm64: dts: rockchip: Add HDMI audio outputs for rk3588")
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 ---
- drivers/pinctrl/sunxi/Kconfig               |  5 +++
- drivers/pinctrl/sunxi/Makefile              |  1 +
- drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c | 50 +++++++++++++++++++++
- 3 files changed, 56 insertions(+)
- create mode 100644 drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi  | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/pinctrl/sunxi/Kconfig b/drivers/pinctrl/sunxi/Kconfig
-index dc62eba96348e..831bb1dc93738 100644
---- a/drivers/pinctrl/sunxi/Kconfig
-+++ b/drivers/pinctrl/sunxi/Kconfig
-@@ -141,4 +141,9 @@ config PINCTRL_SUN55I_A523_R
- 	default ARM64 && ARCH_SUNXI
- 	select PINCTRL_SUNXI
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+index 376ad04e0786..7892e18a7835 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
+@@ -376,7 +376,7 @@ hdmi0_sound: hdmi0-sound {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,format = "i2s";
+ 		simple-audio-card,mclk-fs = <128>;
+-		simple-audio-card,name = "hdmi0";
++		simple-audio-card,name = "RK3588 HDMI0";
+ 		status = "disabled";
  
-+config PINCTRL_SUN60I_A733
-+	bool "Support for the Allwinner A733 PIO"
-+	default ARM64 && ARCH_SUNXI
-+	select PINCTRL_SUNXI
-+
- endif
-diff --git a/drivers/pinctrl/sunxi/Makefile b/drivers/pinctrl/sunxi/Makefile
-index 951b3f1e4b4f1..3658c9d06b498 100644
---- a/drivers/pinctrl/sunxi/Makefile
-+++ b/drivers/pinctrl/sunxi/Makefile
-@@ -29,5 +29,6 @@ obj-$(CONFIG_PINCTRL_SUN50I_H616)	+= pinctrl-sun50i-h616.o
- obj-$(CONFIG_PINCTRL_SUN50I_H616_R)	+= pinctrl-sun50i-h616-r.o
- obj-$(CONFIG_PINCTRL_SUN55I_A523)	+= pinctrl-sun55i-a523.o
- obj-$(CONFIG_PINCTRL_SUN55I_A523_R)	+= pinctrl-sun55i-a523-r.o
-+obj-$(CONFIG_PINCTRL_SUN60I_A733)	+= pinctrl-sun60i-a733.o
- obj-$(CONFIG_PINCTRL_SUN9I_A80)		+= pinctrl-sun9i-a80.o
- obj-$(CONFIG_PINCTRL_SUN9I_A80_R)	+= pinctrl-sun9i-a80-r.o
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-new file mode 100644
-index 0000000000000..ca82f08a3a65b
---- /dev/null
-+++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-@@ -0,0 +1,50 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Allwinner A733 SoC pinctrl driver.
-+ *
-+ * Copyright (C) 2025 Arm Ltd.
-+ */
-+
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/pinctrl/pinctrl.h>
-+
-+#include "pinctrl-sunxi.h"
-+
-+static const u8 a733_nr_bank_pins[SUNXI_PINCTRL_MAX_BANKS] =
-+/*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
-+	{  0, 11, 17, 24, 16,  7, 15, 20, 17, 28, 26 };
-+
-+static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
-+/*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
-+	{  0, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14};
-+
-+static struct sunxi_pinctrl_desc a733_pinctrl_data = {
-+	.irq_banks = 10,
-+	.irq_read_needs_mux = true,
-+	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
-+};
-+
-+static int a733_pinctrl_probe(struct platform_device *pdev)
-+{
-+	return sunxi_pinctrl_dt_table_init(pdev, a733_nr_bank_pins,
-+					   a733_irq_bank_muxes,
-+					   &a733_pinctrl_data,
-+					   SUNXI_PINCTRL_NCAT3_REG_LAYOUT);
-+}
-+
-+static const struct of_device_id a733_pinctrl_match[] = {
-+	{ .compatible = "allwinner,sun60i-a733-pinctrl", },
-+	{}
-+};
-+
-+static struct platform_driver a733_pinctrl_driver = {
-+	.probe	= a733_pinctrl_probe,
-+	.driver	= {
-+		.name		= "sun60i-a733-pinctrl",
-+		.of_match_table	= a733_pinctrl_match,
-+	},
-+};
-+builtin_platform_driver(a733_pinctrl_driver);
+ 		simple-audio-card,codec {
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+index b251bb129cdb..2bcf30d8a338 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+@@ -11,7 +11,7 @@ hdmi1_sound: hdmi1-sound {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,format = "i2s";
+ 		simple-audio-card,mclk-fs = <128>;
+-		simple-audio-card,name = "hdmi1";
++		simple-audio-card,name = "RK3588 HDMI1";
+ 		status = "disabled";
+ 
+ 		simple-audio-card,codec {
+
 -- 
-2.47.3
+2.55.0
 
