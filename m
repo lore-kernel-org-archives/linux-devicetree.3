@@ -1,113 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78B73CEB8B;
-	Thu, 10 Sep 2026 08:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320BE3DDAE6;
+	Thu, 10 Sep 2026 08:27:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789028489; cv=none; b=sgV3/UCQNzwEZ9cnG7arv2mxzFMDff+/yOBQA5IDSuTRPxXIW+VN9o7IgmNudJWS7hS0/gt8D7ix3nFxr+cy8rrsaBGm3WvEYI8f1UKD+MPb3Nr+TKOC7hjuqgsyTccotF2EBBUqqpueM4/TbkMKpSdVbJ1R/57weUomLLV0dpQ=
+	t=1789028850; cv=none; b=Ku9s5SPbqQykirraeLi8+0GRcZ+wIzk+EUfEaLXggPxVbHkm4g+jrJlw5jDy4HkQ/tAFfLfkdnCRISgPkdtRr2/3sR5CmEY5BsPgteRYO/W74bwr5WQfpZbGsdTmaTfeI//keVqRBx8+5YcTmW/U4ks44E8FOOj9/d6YWwrZWPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789028489; c=relaxed/simple;
-	bh=sQ9zTAPjip1SsCb64XQ6yKANNf8ZTY/UO75xHhswMok=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tynrZL7zUwGPwaKN13q+ipNqcNV31VWHh73Xzp52GehgUz+eq+oSEeEvQGeOr7S0UCywEzziFRNz6g7EgOh2Ls9fh013VLtcTrOE9zVXTcq2cSC80SThyO7mY1JPau3TTQOHTamy2MopBJL/wy/JTA+wVWTzUsnHSxz06dr4nGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SllDECNa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789028850; c=relaxed/simple;
+	bh=xhn7CmoSGVXKLnLj7PjMERwPz/RLeNICsoMfS7OIgR4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rQOmCHJtROoV3rFzlAhvu8ijTNd6si13UEwq063bD2/8QKRetnCXRSu8DuKsSW77tMMmt7DF6L1vvBsnAebuZXYmMP1O4bE3OM+V6XRn1NQVC9GWzPSvTiXBQtZy8SCWFtQq4MA8DAlGejBgqVCjs+MS4DEDxgv6n0edwrGjWuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=k0OdZqiA; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SllDECNa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD3BD1F00893;
-	Thu, 10 Sep 2026 08:21:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789028485;
-	bh=b8OHYvCSBYyRbDNK6D6vHOOn+SptlIIhGNZi4JZDPlc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SllDECNa3s2zNkb1HVPesbrnWCPLKnNHsO5faNovcWhQiujmw92AMGSnA0A1nwJl3
-	 xFNUPTxAaQ6HPmipvPou4iP4SnIf1Y/D8XQOzG8JXXKA08BONQlfoV1P3HLRfMPtzq
-	 1U6yjBH+cPPO1miJ21i4FtjmgiA7hABKL1XpDQIxvlSkcFXqcEeoqiWvYtjkHi4F0c
-	 43hdMBK9+F7ZTvfl4zqRBeTxfdA6WMCc4icVwa2p7M1wnqeMXu8vxE9U5fe7MRGkYD
-	 a5iGuZfa1Ey+RBxJcsp3WyyaDRFAb+2wj/c74ONmIzOEvCL+frpUdRNQRZ1xUwIUqg
-	 u8W+X2x4cdfew==
-Date: Thu, 10 Sep 2026 10:21:21 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
-	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v3 05/19] dt-bindings: soc: starfive: Add
- starfive,jh7110-vout-subsystem
-Message-ID: <20260910-chestnut-capuchin-of-current-ad15a0@quoll>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132718eucas1p1b25abe6cd0562e47dfeb75f8877e47b0@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-5-484f9ae72715@samsung.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="k0OdZqiA"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BD3FA4E415C0;
+	Thu, 10 Sep 2026 08:27:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 876EC602B8;
+	Thu, 10 Sep 2026 08:27:20 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C139511C78279;
+	Thu, 10 Sep 2026 10:27:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789028839; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=jACcRN4L5LH06EzCesgqYF/TiJYddTf1eF5yoFPnPlI=;
+	b=k0OdZqiAaYIthtG4DuZ14cn1P00/LYtHygSkSAjaNESDRpiXpGV2TMMzxs1tcEFWPLWJNc
+	+6odVSc9pf9iilLa1PdbShyuwuVC+paFnJpHqr+cC84W7RGOs7BhbpZuOW6GTbieoJd7CA
+	tmA9Q7vxpFxDWOTzfiq8qYt82BAMPmM4ZNonoY0VpNO2UDSpBmXqlHKOqwVUXLvzB3BSGu
+	WKFaKW8Z/LrWuSH0poMRynVO4S80hffHSWiAN61+Cn+wfTWgkY8VC14LJ1NiwDebPRMftY
+	s/RhNdq3DAYQCxU+HSE0WR1LuhMypbZ+zl8KwylRns5sSHhumTuMgOTFSmGeKg==
+Date: Thu, 10 Sep 2026 10:27:11 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 07/15] fdtdump: Handle unknown tags
+Message-ID: <20260910102711.07499464@bootlin.com>
+In-Reply-To: <aqI_KDZS9Kb6fwIG@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-8-herve.codina@bootlin.com>
+	<aqI_KDZS9Kb6fwIG@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260904-jh7110-clean-send-v3-5-484f9ae72715@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 04, 2026 at 03:27:06PM +0200, Michal Wilczynski wrote:
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - resets
-> +  - power-domains
-> +  - ranges
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/starfive,jh7110-crg.h>
-> +    #include <dt-bindings/power/starfive,jh7110-pmu.h>
-> +    #include <dt-bindings/reset/starfive,jh7110-crg.h>
-> +
-> +    soc {
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
-> +
-> +        display-subsystem@29400000 {
-> +            compatible = "starfive,jh7110-vout-subsystem";
-> +            reg = <0x0 0x29400000 0x0 0x200000>;
-> +            #address-cells = <2>;
-> +            #size-cells = <2>;
-> +            ranges;
-> +            clocks = <&syscrg JH7110_SYSCLK_NOC_BUS_DISP_AXI>;
-> +            dma-noncoherent;
-> +            power-domains = <&pwrc JH7110_PD_VOUT>;
-> +            resets = <&syscrg JH7110_SYSRST_NOC_BUS_DISP_AXI>;
-> +
-> +            syscon@295b0000 {
-> +                compatible = "starfive,jh7110-vout-syscon", "syscon";
-> +                reg = <0x0 0x295b0000 0x0 0x10000>;
-> +            };
+On Thu, 10 Sep 2026 15:25:06 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
 
-Please make the example complete.
+> On Wed, Aug 26, 2026 at 10:31:38AM +0200, Herve Codina wrote:
+> > The structured tag value definition introduced recently gives the
+> > ability to ignore unknown tags without any error when they are read.
+> > 
+> > Add support for those structured tags in fdtdump and introduce a command
+> > line option to dump unknown tags that should be ignored.
+> > 
+> > Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> > ---
+> >  fdtdump.c                              |  45 ++++++-
+> >  tests/Makefile.tests                   |   3 +-
+> >  tests/meson.build                      |   2 +
+> >  tests/run_tests.sh                     |  41 +++++++
+> >  tests/treegen.c                        | 162 +++++++++++++++++++++++++
+> >  tests/unknown_tags_can_skip.dtb.expect |  29 +++++
+> >  6 files changed, 278 insertions(+), 4 deletions(-)
+> >  create mode 100644 tests/unknown_tags_can_skip.dtb.expect
+> > 
+> > diff --git a/fdtdump.c b/fdtdump.c
+> > index 0e7a2659..7a8b2784 100644
+> > --- a/fdtdump.c
+> > +++ b/fdtdump.c
+> > @@ -44,7 +44,7 @@ static const char *tagname(uint32_t tag)
+> >  #define dumpf(fmt, args...) \
+> >  	do { if (debug) printf("// " fmt, ## args); } while (0)
+> >  
+> > -static void dump_blob(void *blob, bool debug)
+> > +static void dump_blob(void *blob, bool debug, int dump_unknown)
+> >  {
+> >  	uintptr_t blob_off = (uintptr_t)blob;
+> >  	struct fdt_header *bph = blob;
+> > @@ -146,20 +146,55 @@ static void dump_blob(void *blob, bool debug)
+> >  			continue;
+> >  		}
+> >  
+> > +		if ((tag & FDT_TAG_STRUCTURED) && (tag & FDT_TAG_SKIP_SAFE)) {
+> > +			sz = 0;
+> > +			switch (tag & FDT_TAG_DATA_MASK) {
+> > +			case FDT_TAG_DATA_NONE:
+> > +				break;
+> > +			case FDT_TAG_DATA_1CELL:
+> > +				sz = FDT_CELLSIZE;
+> > +				break;
+> > +			case FDT_TAG_DATA_2CELLS:
+> > +				sz = 2 * FDT_CELLSIZE;
+> > +				break;
+> > +			case FDT_TAG_DATA_VARLEN:
+> > +				/* Get the length */
+> > +				sz = fdt32_to_cpu(GET_CELL(p));
+> > +				break;
+> > +			}
+> > +
+> > +			if (dump_unknown) {  
+> 
+> I'd do this unconditionally: fdtdump is specifically for low-level and
+> debug dumping of a tree.  If you want pretty printing, dtc -Odts is
+> the thing to use.
+
+Ok, will do it unconditionally.
+
+> 
+> > +				printf("%*s// Unknown tag ignored: 0x%08"PRIx32", data len %d",
+> > +				       depth * shift, "", tag, sz);  
+> 
+> "Unknown" seems redundant.  "ignored" is not really true - you're
+> dumping its contents, which is all that fdtdump could be asked to do
+> with it.  So I'd just say:
+> 
+> 	// Tag 0x<tag>: <data>
+> 
+> Or maybe "Metadata tag" / "skippable tag" if we go with one of those
+> terms as I suggested on an earlier patch.
+
+I am fine with 
+  // Tag 0x<tag>: <data>
+
+I will use that.
 
 Best regards,
-Krzysztof
+Hervé
 
