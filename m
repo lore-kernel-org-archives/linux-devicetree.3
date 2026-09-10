@@ -1,167 +1,126 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F88363C46
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052045; cv=pass; b=O+Tm5UcKZGxccLnCH6AgHRCw9ItOPOTwWavR+OPmJJGCcmlSZM1NjYgTs6c8fPSqEtKskKjgPqiBxlPFkJoryTUkGFvvNdhJDqS7ph9cCso6lPP0iAw7q0YI3sKX5k3C7BWrbuFET591jQyBujg4+wMYH3DccA40WYptGkvGiPQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052045; c=relaxed/simple;
-	bh=IGzkZ29oQC5+zM7j41y1PzuVxI/kR6lS50DPmDPTu28=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qTqTXAjxRdFSTrBFh/hPIbCT92rmBZrmLZs7PnrTgTTvv86xtPi99YQBrv9Ocemc0Ep3Ya/z3gTrqoJNtnwX27AW07sslYi4bqMcGsSIM80m8wHsD7HV9/A0d2P3qwQrEiT7GqdSB5g5zhY29xFFq3AZu2zQ2RhD5ztCH6HNeWQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=bmR9DOE1; arc=pass smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6A94AB1AC
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:54:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789052063; cv=none; b=Jgd2fTnaLTl7yihLM0uQM8/HQqrz8yPbg+23/S+APuHhYfBZG+EouX7x+Xflu1f4aEelFpECRMb08oF9tABQD6MWLLjoQGRpd93suP1eLmFZQzCTuHHlnppXKLjS7C5WzoJpIxkRWTKP7vX+6544ZxL37oLujIOroHzwquut42g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789052063; c=relaxed/simple;
+	bh=+bkPUwN2hMVE3y7Yolp6psCq4hieuh/DtkDZpQvEXUY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jV2yPnlBljx4pUwSlc+EUcFdnxQTuNLl2w/Z5BmfSmPu7mtG/iYrvnVJKe8a3ScoW2ZWTI9R8ysJJLYAUHFTLwyfnzBP+keMGHlpiKGyEj5R7eEyj8/QpHlkQ4V27oocAhKaJ82bM4Fwa32c3SlFBJ6jdw29li8wE6yFPCs8zQM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=aqqTnoj3; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="bmR9DOE1"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so2200900a12.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:54:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789052042; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cu09+Itkr6x/dP1eZ417Z6Pk18sbpT0GwHwm6KPUDSBjVuwL7gwa1oNoFAckDv03mC
-         F2lwMRJn1lyz78uicMqUXbrcuI3dmSQUU14WuZR7nncOPMgD5BcbU8DVqbb0HlAQ9zc/
-         QB++QiqACTwM03+N6S7zrbKMJMY5+8gN8X8N3l9sFZDEKt+4nSiusoCVwpJD15ZwEYiF
-         VK6tDY7HnkjDqM4xuW3Rgv5D6/yNhvpBmYMCM2EKS7+QycfsVrzQQByry12wH2bpQ2Es
-         j0HBu2i/HZsfPGy4g1ZbLek+/ypk+l6IBHvWxweCX15b5rAtCzjUHFQjqd729cXpldvo
-         31/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
-        fh=AldpnyhbCTHKWy60/w8jw2Cz9egKGmRo0ydzExlLP6A=;
-        b=VGN51FrJpuClF52jT6YTlmG4y4/RYHkCOPxncMRuuWTUO0RWlfweniNaoNvIobV6W6
-         mnzDFoQmdATa7a3ZHne5bvhup9BdWrGf1WbZnF16RjTLiouAfUtS9LeMZjGa8GlDLLyn
-         VZmAe1k0mM4soZ0uN5xod7RgdmFuK5obu30mAiL1DL9hsV+1q6zcqo2UWygIst87ofNp
-         Je4vx51waNvHrRBLReuUVrtpWIfWAhoRbkSq0XwLFl5O2Z9elfsdIQHJ7aN9jD7oB6w/
-         EjQbcrASTIHws6nWhZoFC6MrqXo0Wedu8P7MS8JsX9prYEznPpE2YR1zNNOxgahoPNPG
-         Kzkw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="aqqTnoj3"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a9983162dcso2794076a12.1
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:54:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1789052042; x=1789656842; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
-        b=bmR9DOE1kiuwo/0EEYBWYaFXPCazkgK3+YC+fcIWVMElfEPXRcpZauAfFfOJ/xAAWC
-         Y0YOvJnzOcxuI76Ybw7x4R26ACCJDGFAWo0naEewthOogK1jd37Ey3JTto+uFhJqEEhJ
-         i6Y7EDpScFK+I7RBgjjjh9pky3yidw4vJCSFJk9TFG9yU4Qcp6vo/KSPdaxQyWjMWn5t
-         hWNsj3a2yGzjdUHYZ4dz37IewDMMZQa+I1pVusjNL75c630pXEBP/DnVlJFZH5OoFaKp
-         JhDd8hWME2feD3Lo0ZG/8721XQFqbSbYZ+399jb3EWuKoOtpthAHXFFRHSULJWf/FCUc
-         L6Zg==
+        d=fairphone.com; s=fair; t=1789052059; x=1789656859; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LX8jitlbpM5cd8REaraZghKiqPQkzzWMZOq8r/lMnsA=;
+        b=aqqTnoj3oK0EKm/ywIaHXnWGg+2XtRRn8Q2Fyt4tTIpKl1/dCTVuIoTAAqfPHAo1FK
+         m+MzoYiaMQqPQiw+EqYKz2QLFkvDbUanV8PSaI1gqDJxTtCUSbnRAbEt6+Zm6L9OGqh6
+         1cMt8xDBXVfr3ynnLBqo5Cxnq6qNRl5KdH0YnoLgzqKVIuGEF1oVuUgeS9Vyq8dyhyHn
+         QzBArwhYXecfHuYGWO7hnnEC5szxsYpc70ZDAgALZU7MPkoLl0Iri6m9kh4TuHxecyvv
+         U/+bY69BfEGmHVDq1d3Mae+QqDYcTfgFdkeO2nvtrqeXrdeHZDa/US3gAyNhJ3Li3OXJ
+         tvNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789052042; x=1789656842;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
-        b=L8hJrhvSxdJQ+/etljmlNMU5bDfVOA3Ag3F6zaokplfGTIrl4EI3GzdH/rtmKl0SLi
-         83x0/XUZE2wJbeu5YVNIMwcxlY3K0sEHF7v2B2dcrmRO0m2YtZLZF8suAFMbecmjR5IC
-         8b+Y3Bt4qrLfSSNRPmR65/3RX3U6PG8Y0vgJCh0wZDrIyY8SIQdvkmIoSIIiJbicjozf
-         zWzZllKOwthtz7PWjVtFx24keoll0d1jmQx0KVDUcaE+YKklaeg33O9P/MQg8ZIQvW+2
-         3WNahTf7li8WRnvHN19Y0ggcJymRleIewvElrkm4BR7CHaYCDg7XAfxrsvfl1bWu7mlW
-         RffQ==
-X-Gm-Message-State: AFuF++mmJ9XCV0BU0Xa0TD8HZ3ZfK7+4aFTlIZysWYg/rySyDiSLE2e0
-	RK0bGCxh2Wl8OFtHrVKlfIVd/neXfW6fNfsmVZ92yTrXV/dn3UA9gHdocxgrkhHI/HkL4ro8eE2
-	vNN503hE6C4YHXIPuNe2sj0SlbIG6lZv85741me5up3XiExVIbgWWWXg=
-X-Gm-Gg: AYBFou3SFtRIHYaTGv0t2NDJtFy/2OHvNofxx91JkWvvCQX6nM7bWi7ClMAHKw8bgV0
-	IAzDJdtfGe/gd/tOSmnF2rL5zq4oHwxcg4bV/1vPAYimkUUXFmmJNriO4KkGNR6QUhr06kC9Vbw
-	v5V94isxgn9+M6JZCAm3Gil2+RWZ7ugo8m/g6jfrcnGYmWbz12zydmpDysj7XZgUJ9lfzpjBpYf
-	TECkv3MsGlJ3J8TFsm3+feeCDjqKJ8rnRA1+0yU1xddha0Y3fM5xhz6llgBlxZS4I0vr4nh0Wb0
-	BDD7+CS+6DE1Y7M1ATlyoyoupN/KrrkFy5QvzvNc4hJr1GReIAFeOhGIwnBUOHM58V/GV5NWe4B
-	HcebxC4MjOwmk+vDM7E9ERPA=
-X-Received: by 2002:a17:907:c5ce:b0:c25:47a4:fedc with SMTP id
- a640c23a62f3a-c29418b652emr491393166b.2.1789051729432; Thu, 10 Sep 2026
- 07:48:49 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789052059; x=1789656859;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LX8jitlbpM5cd8REaraZghKiqPQkzzWMZOq8r/lMnsA=;
+        b=a7zSdbgIcci0XzrdeohwsKJWuGcrM1uBP3HRkQn9u57n2M2PWu3Bp3qFZxdPEELzuS
+         ADnL4JGBCe0vYVuEJpNoUW1eUDNeCCwPp3nxnFHMbIcRPzFlkoY4g7yR3PiwbUPeuCdl
+         Rqa/Ji6zEZoM7LynpGVlVa4sm/am3Ac+/0senfDuR7NJzLA342g5dHW2QWk2Xja0tSxu
+         wTBgYpZV63IDQOzzGDvIl+FRQfwGd3PiP3F8SrBANIi3EtflpxW0cMtbSUDhgAyjcK3P
+         cAf1DGp2ilbMGJbWFcrf2zAYfnDR7sLpSEl9KImXEC2YW19Q2KF9y+bNBvD/AMBIcHr0
+         ge6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBy7CcAFFL7cyInpsKMoBjmFDLU0jpWY7pFfo1/7wa7QjPrTw7/oYjzfKR2yjxriWJW1Akf8ErrUJl6Q@vger.kernel.org
+X-Gm-Message-State: AFuF++kqyTn0SjDZcVeyRdZQHOBstRnlqmJVU8Q1GokI69fXoAlUAJFt
+	9Xt/FRVzBc7HUK7Y8BfxHI25ZMUKKsD+zcDQFQKb9hc97hkNqACSeWa1VlBU72pBTM5OnUMZu2a
+	viBsodg4=
+X-Gm-Gg: AYBFou3XKCNmfCyG4vV2YoTKNKr5T7p5lRqDLJTp0LshpCqp9n24+Rq3KLLTapkiv61
+	ogAmi5BAVg23PRu7jJrz7hAfVR2d/suEdPvBdq40QlbTyBdocFnQt3QR3r1czQXvjjq+csyRAwb
+	qFQ5rTnHNa8iBnme2xvr4Weul23i5lIOUCnQNdFZUBCxTQS71bxsjnfpGBimvYF3VNhWA4qCahe
+	4y+EJLc7V/SxcT8L4tkU1J1Q+XCTRRWC4dVUDEH559T2/MkmDWdm4t/6/L5gL1ORIJWUUjv8bm7
+	vcy2rEHQQhmHS0msrbUVrJHGYszgGTUKGjvyykuFonqggaZH4eU29/W8euKj4RLg/ZKmmyRkGMr
+	j+bpMmTJJEanvgLzyZDyaOSBcIwv3XPstXplNuhOoW0YicqLG0VhCEM0y9GrI7Lp3cGM8sWST+J
+	kOKzuxzlOT8MtztU7uEY0qb8w4vr3NeXvInmGHAO8A0xvM5bwY06v8suDL2AwXO3HoCWNehjwEx
+	1dYm6edt++jIWucSQLQ936rNGfxXduDaBLIPi6ziI+MEovmzkii75uX
+X-Received: by 2002:a05:6402:1ed3:b0:6a9:984b:4c71 with SMTP id 4fb4d7f45d1cf-6a9984b4d29mr4002866a12.33.1789052059015;
+        Thu, 10 Sep 2026 07:54:19 -0700 (PDT)
+Received: from [172.16.240.55] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm8849715a12.30.2026.09.10.07.54.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 07:54:18 -0700 (PDT)
+From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Subject: [PATCH 0/3] Dongwoon DW9800K update patchset
+Date: Thu, 10 Sep 2026 16:54:15 +0200
+Message-Id: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
-In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 10 Sep 2026 18:48:33 +0400
-X-Gm-Features: AcwNN1UfoxjgFqkNtB6Aosk9zTLZTrJucLfz7oY5DTmBgBUsxij8crpGNXoG4yA
-Message-ID: <CAKTNdwH9QAgreJ-6+t1j_P1di4VyoMBSsFkf_g=mCi_-M8g9Pw@mail.gmail.com>
-Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
- CPU ID
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
-	Miquel Raynal <miquel.raynal@bootlin.com>, Finley Xiao <finley.xiao@rock-chips.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrA1MRFvjVURKEqd1VKIkWgXx7
+ sZ2+Rb/HxDIMwWokgM8fTnw5CJkmoDttPuQ4DYaMsweqCQKk4t2UyXi8LIjabfOAo3ST11Ikrm
+ CGM6e3rz/pnXzd1hNT3a5T3CeF4qEuex2AAAA
+X-Change-ID: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789052058; l=1198;
+ i=griffin.kroah@fairphone.com; s=20260910; h=from:subject:message-id;
+ bh=+bkPUwN2hMVE3y7Yolp6psCq4hieuh/DtkDZpQvEXUY=;
+ b=h/64XD5qztm48Ht/9zBI1inq2ZW3FDmtZYfN1L8lRUe4d0uepqpvhwda/UUVfl5l9krOHofuc
+ 6Q4DmXNqNA2AMKk6Iblgv4+KJMxBGkhN7/QUHa2Rc1EU24PyymgEcX4
+X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-On Wed, Sep 2, 2026 at 5:08=E2=80=AFPM Alexey Charkov <alchark@flipper.net>=
- wrote:
->
-> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
-> memory, and Rockchip bootloaders use it to give boards which have no
-> dedicated storage for a MAC address a stable one anyway: they hash the CP=
-U
-> ID and patch the resulting addresses into the device tree they hand over.
->
-> Kernels started without that fixup, e.g. straight from the SPL in Falcon
-> mode or by any other loader which does not implement Rockchip's derivatio=
-n,
-> fall back to random MAC addresses which change on every boot.
->
-> Formalize the derivation in the DT binding and add a Linux kernel driver
-> implementing it, so that a Linux image can use the same stable addresses
-> regardless of the boot flow.
->
-> Only RK3576 is wired up here, that being the SoC I can test on. Other
-> Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
-> than 0xa on RK3588, for instance - which makes supporting them a two-line
-> addition to the driver's match table plus the layout node.
->
-> Patch 1 is a prerequisite fix. The OTP hardware has its own internal stat=
-e
-> machine which only works correctly with serial access, but the current
-> driver serializes nothing, which results in timeouts and/or corrupted
-> reads (e.g. returning splicing a TSADC trim value into the buffer of a
-> caller asking for the CPU ID, or mixing up trim values of different TSADC
-> callers). Hence the Fixes: tag and Cc: stable.
->
-> Cross-checked on an RK3576 board: the addresses fixed up into the FDT by
-> U-Boot match the ones derived by the new driver, and the driver correctly
-> assigns them to the network interfaces when the kernel is booted without
-> U-Boot proper at all (via Falcon mode).
->
-> Sashiko also rightly pointed out a use-after-free in the nvmem core when
-> a layout driver is unloaded leaving its sysfs nodes and the postprocessor
-> function pointer dangling. This is fixed separately in [1].
->
-> [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16bebe=
-b518@flipper.net/
->
-> Signed-off-by: Alexey Charkov <alchark@flipper.net>
-> ---
-> Changes in v2:
-> - Switched from a scope-based guard to explicit lock/unlock calls in the
->   OTP driver to avoid mixing styles in a function using goto error
->   handling (Sashiko)
-> - Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpuid-mac-v1-0=
--ea9135270fc2@flipper.net
->
-> ---
-> Alexey Charkov (4):
->       nvmem: rockchip-otp: Serialize reads
+This patchset edits the dw9800k driver and related files, to properly
+match previously mismatched register writes, variables, and logic now
+that we have the datasheet for the dongwoon dw98900k.
 
-Incidentally, patch 1 of this series also fixes CPU thermal throttling
-on my RK3576 device: apparently, the mis-read OTP-programmed thermal
-trim values broke the thermal governor logic, which now works
-correctly with properly serialized OTP reads. So it would be great to
-have these merged.
+This is a breaking change, but is necessary to ensure proper bindings
+and driver behavior. The previous naive approach did not ensure proper
+functionality with different device tree properties.
+
+Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+---
+Griffin Kroah-Hartman (3):
+      dt-bindings: media: i2c: dw9800: Redocument DW9800K
+      media: i2c: dw9719: Update DW9800K driver
+      arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K support
+
+ .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 -
+ .../bindings/media/i2c/dongwoon,dw9800k.yaml       | 91 ++++++++++++++++++++++
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts |  5 +-
+ drivers/media/i2c/dw9719.c                         | 71 ++++++++++++++---
+ 4 files changed, 156 insertions(+), 12 deletions(-)
+---
+base-commit: 6970ecbc1f96154fb68107b467e6294c43947447
+change-id: 20260910-b4-dw9800k_cleanup-0b9a7a51e149
 
 Best regards,
-Alexey
+--  
+Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+
