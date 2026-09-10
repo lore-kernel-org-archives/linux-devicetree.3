@@ -1,170 +1,144 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9BA3B6366;
-	Thu, 10 Sep 2026 16:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7952A3B7B91
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:49:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058946; cv=none; b=FUwflGxowg/B5j+rlP3rgpPJ4uBSjAFb9aK/4z1D2LRnw8gHelSKPaxiGS1jldKHipdtc+Jynwueve65ZNWWWIY1sxpdQi3oKMnfOxP0fO0r1UeJuZdb3YsO4fO0qjEs3JhjC3PCxYq1Qh7A9XOOqk/qCkCcTFaR1+sQBs2xVTk=
+	t=1789058965; cv=none; b=Qe093dU+/Ps0gCDO5lWs4xZmbR/bISLgDn5LDww5PSyEEvkZjN/orhgF4IA5RMTAIOJ3/Tj5snYL9eaKs6mMjCk91/BIk2rayOWgNvZy5fSebs5FGSw0/04JMGhJVeZv/l6cwA/dTVAWwtbeHDmHUuckZEAFBQagi44++wcah1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058946; c=relaxed/simple;
-	bh=w9LBqioDmp+G9HlPJT66mkom2V/FZX8U8ZVlmvhpPbw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KHXNaqRluJarOlp1fbt4QT8iA6MXD44jUTKXzuP/vHUznlGUGa+n8yIthQWidCJeFJE8P6np+2alHbTMOflUDS0ITtScai/Fe7V0jgRYW5cFEi2LGosT5CIzyg70KJgzdhdl+eMUT6B4e+d6wvcRQyciIrkUFibfVDkysEAAh7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=EZ2PZmDZ; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1789058965; c=relaxed/simple;
+	bh=et0IgSAi65WntaNByaMxMnNVQe6qfEdQwD5tqMZuHTo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AefX1XphLWapIAWqxYgolUQ12KfQpkktLwJCzQOM4B4Kmr8XduSQC3Mi+dRR6CJTokq7XmhxtTiQvKu7p59DfJFL1n8t2mozXcvoBm03PricpnXSK1rd/MUVwNvtpKoSHXMX4o5OlqpjXGkpgxr1WHqnNAsMLbxpMIK7OxZ7SDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=SRnYUbHo; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="EZ2PZmDZ"
-Received: by chaosmail.tech (Postfix) id AE5ED1C9370;
-	Thu, 10 Sep 2026 16:42:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1789058534;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=1ROExpepAazfF+td89KM++edqjHj0/0Kl9QhUCXxhGo=;
-	b=EZ2PZmDZBlfjwm2JvEhIjLlrzXmUMNhGJZR15WzjC9fZbYBYN2J12OGgIDVNX9fEgYQppl
-	GlQ0cDvAf7dyyuXutEcYURjY1XMBS7JV0Q2eozS5zAlK3gvnUvS8Lw3BBXC/rwfcJjOKBm
-	TK/a+ocYpHltknbuzs/Wfk4aQ5rqgv8=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Thu, 10 Sep 2026 18:42:07 +0200
-Subject: [PATCH v7 1/3] dt-bindings: usb: tps6598x: Add sn201202x/ACE3
+	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="SRnYUbHo"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a99ac0e91eso3639502a12.2
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:49:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pardini.net; s=google; t=1789058962; x=1789663762; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=trXMroz5mGRhnvsqxF0GR3hfGr2ispYPFG7I9RaBuY8=;
+        b=SRnYUbHo7aDB9qNwRUFjDbMAwui3H40oD1onMYwI1gpayJaSnAfFuRDBzlF4gPvlFy
+         jj2fbeha677dIuoVZcn3XP0oiO40vfM/V4YU1MuViYuGljApvrz602lvh/FbPyGl+zcD
+         fUWe7ivp73W1vein78q8BJPCNDianX2pd4qUnxVKK7etnaxLKVeK78e5K3KZU8THhS/8
+         ld8wyGx3PP3G8HTbBIhqKidnIk6IhCAqrG8ZrKtQhSVQmbmlfjW45F5PhXo/zrJ6QxzI
+         UMSAnzEwimnT5ECaRZvTFeMuisW9rVDWFsHOjhvLFKBfNmO/rReYFJCBuwLmbyocJNNI
+         Pdrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789058962; x=1789663762;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=trXMroz5mGRhnvsqxF0GR3hfGr2ispYPFG7I9RaBuY8=;
+        b=BPmiymPc/DmjF6qJc7//H8r4XoON4HTRbXhRNofuyQrklpcvXrD9Uz7zt+4yulDjj4
+         TrLXy9Xk/fCEXpP3BmDaC77vnP92obqJ68kXCw33bCP9s+A5pmtbUhMh8oNhPpM7LRvy
+         kZhZiHKqte0BenPBt2Kgmw4/+ez0SeE/bURGPxIUy427WoT32cr0jLJzeRpmt8zFYYc1
+         SX1JdJKJvrbLtycAMYkl1fSQENn5ZIvCPviZzEo3CtAz3oHuPslio+4b7j1zwYDO11ag
+         ai3D+iWCjFxaSUklLOJXf97+gBp1VpGWC7tmjyAo0U1nN5JSwUhI4JHymkBTYw8IJWHI
+         qLpg==
+X-Gm-Message-State: AFuF++kv9DP6DAGhRycV6u8sLafQ+i+oMp/ID4SG1gfYHUpkR3s5rA30
+	lCcCMOorX84ge06xD99J2zULjmXSFM1zqCHy0leJl696J67xuEtJJ8jnsh1/3qprPIm4Rzt2H9V
+	u2bdrfoMD
+X-Gm-Gg: AYBFou182tV6r7bVi+y8BVddKnCI21Zp71HrxQ+lrI+uewznidoQgD+75OYZfoU6GiK
+	IDe+AUBZGiDPj6X9NPA3SeXYvb0ZQx15z3pbCHBmFB4/UNfaBrtBxjeCz/aaNQGjR/Y3hjH35LB
+	O+ZVFjzvR9tA2bo+ZDjWFwTVnnMD3kHOELl/kjrjcT1fjVOZNGwPV12IeJWUeZ7aC6qwZrbTASH
+	gOr/oSLwylHIjJl7UT5Z1KsrHohmgAmoi3jlcRThATd9ZfM2Rp+NeTB9eyu6g+dfJWAkCJ14Quq
+	UnubG+Ceh2WWFB8M3Q8UhJVPf6bop8blN5I010XeTU+8O+0I7CwmCczO8VKtzlUAtLJLaHhk7U/
+	XeUqrvYwnOUp8QkrKL6Jn+GBg7pQoGY+ffTp5oLFJYGk6Bn+XyMTcQg0sjyzmfRowpTz9XHVX3F
+	TPwdLVZRS/+i5COx4uL0e5qa+ohv3HdCzdQmtREXfipBOb0rV4sNV8dIQ6kHgZO8+rDc7V+f8MV
+	3Mb95ehGdyMOTW5MDb6KxA+WEcEf29ALxJLl5SWv9/bj/6ODzyFIptv3igrFw0SJTbW4HvGMpkI
+	gt4vRg9Nde48pBtQ/2TWX5dKSZYs1BrXltV4L5fgjiwClTqAunSeeK5SjA==
+X-Received: by 2002:a05:6402:2b9b:b0:6a9:a3a4:797d with SMTP id 4fb4d7f45d1cf-6a9a3a47b3fmr2194091a12.10.1789058961506;
+        Thu, 10 Sep 2026 09:49:21 -0700 (PDT)
+Received: from ?IPV6:2a02:a466:4d7a:0:8888:6b72:e1ae:406a? (2a02-a466-4d7a-0-8888-6b72-e1ae-406a.fixed6.kpn.net. [2a02:a466:4d7a:0:8888:6b72:e1ae:406a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c294682fcfbsm143774066b.16.2026.09.10.09.49.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 09:49:20 -0700 (PDT)
+Message-ID: <08011075-364c-4520-857e-cd1acf955b53@pardini.net>
+Date: Thu, 10 Sep 2026 18:49:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
+ CPU ID
+To: Alexey Charkov <alchark@flipper.net>,
+ Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Finley Xiao <finley.xiao@rock-chips.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Ricardo Pardini <ricardo@pardini.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ stable@vger.kernel.org
+References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+Content-Language: en-US
+From: Ricardo Pardini <ricardo@pardini.net>
+In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-tipd-ace3-v7-1-6c6ebe2193f2@chaosmail.tech>
-References: <20260910-tipd-ace3-v7-0-6c6ebe2193f2@chaosmail.tech>
-In-Reply-To: <20260910-tipd-ace3-v7-0-6c6ebe2193f2@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789058532; l=3481;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=w9LBqioDmp+G9HlPJT66mkom2V/FZX8U8ZVlmvhpPbw=;
- b=YimaAd3weM4uBDY5l6n1z5vD7kCr/VoXtHDVCEI53I2tue3goSFxEp+W7Bf8kC0N1bMEY3lN8
- l9FUoI/ocnRBYrsqXq1Jx0suvP5RYvKxuQTzwZNs6DoTrCnExvjYy1v
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-A variant of tps6598x that is attached to a SPMI bus and is found on
-Apple devices starting from the M3 series
+On 02/09/2026 15:07, Alexey Charkov wrote:
+> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> memory, and Rockchip bootloaders use it to give boards which have no
+> dedicated storage for a MAC address a stable one anyway: they hash the CPU
+> ID and patch the resulting addresses into the device tree they hand over.
+> 
+> Kernels started without that fixup, e.g. straight from the SPL in Falcon
+> mode or by any other loader which does not implement Rockchip's derivation,
+> fall back to random MAC addresses which change on every boot.
+> 
+> Formalize the derivation in the DT binding and add a Linux kernel driver
+> implementing it, so that a Linux image can use the same stable addresses
+> regardless of the boot flow.
+> 
+> Only RK3576 is wired up here, that being the SoC I can test on. Other
+> Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
+> than 0xa on RK3588, for instance - which makes supporting them a two-line
+> addition to the driver's match table plus the layout node.
+Hi Alexey,
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- Documentation/devicetree/bindings/usb/apple,sn201202x.yaml | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
- MAINTAINERS                                                |  1 +
- 2 files changed, 79 insertions(+)
+I went off trying this on RK3588 and - exactly like you said - it 
+translates perfectly there, just with a different offset. Thanks!
 
-diff --git a/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
-new file mode 100644
-index 000000000000..133a71bbedb7
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
-@@ -0,0 +1,78 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/apple,sn201202x.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Texas Instruments sn201202x Type-C Power Delivery controller
-+
-+maintainers:
-+  - Sasha Finkelstein <k@chaosmail.tech>
-+
-+description: |
-+  Texas Instruments sn201202x Type-C Power Delivery controller
-+
-+  A variant of tps6598x controller also known as Apple ACE3
-+  present on hardware with Apple SoCs starting from the M3.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - apple,sn201202x
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: Primary irq used for tps6598x events
-+      - description: Logical register selection completed
-+      - description: Standby command completed
-+      - description: Wakeup command completed
-+
-+  interrupt-names:
-+    items:
-+      - const: irq
-+      - const: select
-+      - const: sleep
-+      - const: wake
-+
-+  connector:
-+    $ref: /schemas/connector/usb-connector.yaml#
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    #include <dt-bindings/spmi/spmi.h>
-+    spmi {
-+        #address-cells = <2>;
-+        #size-cells = <0>;
-+        usb-pd@c {
-+            compatible = "apple,sn201202x";
-+            reg = <0xc SPMI_USID>;
-+            interrupts = <11 IRQ_TYPE_EDGE_RISING>,
-+                         <13 IRQ_TYPE_EDGE_RISING>,
-+                         <17 IRQ_TYPE_EDGE_RISING>,
-+                         <19 IRQ_TYPE_EDGE_RISING>;
-+            interrupt-names = "irq", "select", "sleep", "wake";
-+
-+            connector {
-+                compatible = "usb-c-connector";
-+                label = "USB-C";
-+
-+                port {
-+                    typec_ep: endpoint {
-+                        remote-endpoint = <&otg_ep>;
-+                    };
-+                };
-+            };
-+        };
-+    };
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6215fcb07770..ba4274ed9c79 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -2659,6 +2659,7 @@ F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
- F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
- F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
- F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
-+F:	Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
- F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
- F:	Documentation/hwmon/macsmc-hwmon.rst
- F:	arch/arm64/boot/dts/apple/
+Not content, I went for RK356x as well - and that revealed what I think 
+is a snag.
 
--- 
-2.55.0
+Both RK3576 and RK3588 currently describe their fixed cells as direct 
+children of the OTP node -- turns out that is the "legacy" way, which 
+works due to 'add_legacy_fixed_of_cells'.
+
+But RK356x/3528/3562, done more recently [1], use a single 
+'fixed-layout' with child cells; and there can only ever be one layout, 
+so we wouldn't be able to use the new layout for those.
+
+I imagine one way around it would be to allow such fixed cells also 
+under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and 
+adding patternProperties with '$ref: fixed-cell.yaml' in the binding, 
+similar to what fixed-layout.yaml does, but I'm unsure that would be a 
+good idea?
+
+Either way, thanks for this, it really helps with Falcon mode and edk2; 
+I can also use it for the fixed-function RTL8125 PCIe NICs I started 
+describing [2] (and will eventually send a v5).
+
+[1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
+[2] 
+https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-0-2bd38922d129@pardini.net/
+
+mvg,
+Ricardo
 
