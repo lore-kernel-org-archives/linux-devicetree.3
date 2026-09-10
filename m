@@ -1,164 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCA63C3F5B
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17123374E5C
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789022049; cv=none; b=fnfsw1hcz6wyKePOzP2G8qOmgkg6nqVhw41lv8UZJH27w8cR7bf1YO0zS7m7EKvZz7IOCY81XCkwA/8JZhMe6z1n7DNqQ90D0vyBiRIAqSCnpmUws3xF0P3BkCEpSOxpCpjeMTlXvB+gPHPoHUKgO1KabA2eKPg8Cw3HKM00oI4=
+	t=1789022303; cv=none; b=t6VNinnwUKh8Qk/JQZuaJPD2HLMHXx+LyrnX6QaHnvcEef5YC6uoDKZXtbVKOq6i0SnFkSNDp149a2q3KUQ0muMBxo1k8ir9jBuvvipneG+Z/2kSU0yU5g7UeXcJxBTjcbxqQ3Su9zP8OohtbW1X38AHvugrtU0XIIBS5xL5ZeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789022049; c=relaxed/simple;
-	bh=npcBFgV7Qn8ck8lM//UN7/T3mJwi4yhray30kienIZc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XxUa3cqLEc1YjlWzDLrUxOaiRZABwc+1mUQPjRBXGOQxBR00M5wDPVV6xvpxUX2ghxmYan+He+8Szkk3Ujeh364t4kWzK8IQD56za5jNYTgBOYOcqbe55I2208O4sFf4m/Tx9ptJQ/C6HLEI9/rMgsxkNwb2M4Nmbucw0gKRh5w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODqFBcr/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789022303; c=relaxed/simple;
+	bh=3YzZMhV2Kq9lLtJSLI346uWkJqVEa6j+MtFmvDNeOqw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gpopOjdLJbc24+C7Z0Yui96iupOJoEV2ittM77GhWtje1Se0mXLQA5xnCxqhwBxzPwsDZHOOsM8MmbqXVWYdsacejpsK2zBKmVwkIDDbku3QBWQA77e9o/NnprgxsPkCK8pLxQKzJpfqDyCbAOSOD/8UhNUmc0rsqyJp5mA0juI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UFf22cuf; arc=none smtp.client-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODqFBcr/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBD11F00899;
-	Thu, 10 Sep 2026 06:34:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789022042;
-	bh=vqnIfXnldyGd5lJ29aMEI76xUer00ebrN7yFwu/WcII=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ODqFBcr/93b+cJO4lNj0lDRruqMPKXg2XS4qoXv1RZNsW1qS9BgjfoodQh0/GRGfe
-	 Huz8X0oh3NCzBNgC35Szt7SWbKX7trd0d47Q/xBznsyXwn/rROYbsVA9b2ecZ4Lt3X
-	 46TfCnabDndGujeI3/RhOXY9IV5QxBJ3Q0ArXUNrJpyV+Ow8N9qYgPPnX9dlGlxjoJ
-	 5vcN/GwsD94aRwtGSvNYdU7KIU30pisoHrzgPLqFzXZjfzbvG+SKK8HZ/mOuFLHpOe
-	 N3usfyKu1LAiagiWt/xhps3uK1e2jfIe9y+9rv+FKOMx4cmqlEQ+DyFfV+QcPADv9B
-	 J4innfIgDJc6g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] soundwire: qcom: add EE-aware register layout
- for Shikra
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260910-shikra_soundwire_support-v2-2-f98c9a6ea1e1@oss.qualcomm.com>
-References: <20260910-shikra_soundwire_support-v2-0-f98c9a6ea1e1@oss.qualcomm.com>
- <20260910-shikra_soundwire_support-v2-2-f98c9a6ea1e1@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 06:34:01 +0000
-Message-Id: <20260910063402.1CBD11F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UFf22cuf"
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8664769db58so49700087b3.3
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 23:38:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789022300; x=1789627100; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FKnrAbcjeOnk62ec4y5R13bg9Rx0FTj94sh3BmJh88o=;
+        b=UFf22cuftVa9BulfSEJ1XmYo3xpz5sXwwzq9qkkDc2Yl4cTHGEg28jcuE8xPYRE2Hd
+         Bi0ml8Y8DzEBEyFHN6Hbsp0pJd9ogtkAS9dSnA/M8hAVxtI4t56LxeYtaziYtEqHXLY+
+         mXg/YZhs49AYBZGYadacIeMnqsGG7fWjW8qiqkfOtTZpTtsCGiq48qzKu9FesW6hPyb/
+         ofvbKZQYgJ1Tgz7vztXXS+peEYnSIVvFJUl49TXiCfFQaE7FSrdByFUaJee0BgDl+cSi
+         eSjkmmdGA8Tz7IFziqHJfKtrH7iR2MDV+b8zoy95k1ofkBkoDWGWtP6k3qCU9W7I+ZuN
+         kjKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789022300; x=1789627100;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FKnrAbcjeOnk62ec4y5R13bg9Rx0FTj94sh3BmJh88o=;
+        b=HOmnUodBiSJ2gb0bvFH+rkzfMfYGFUaVG8JzUi9D6qCau8wv6bDIxgHZaGAKqe8ng8
+         uqNYhM2kZCK1mp9tBDUudpjNNJConeJgoFQh0XCL7XqqvRvCFdnmYU1HMmeGN5EUvtsp
+         Q1i4GSBBzvGPySUvKCQUcNj1yjsC+mwNd2XX7Sm3VoMwFSDN5oFNIcsAet6jDcupnO5V
+         wahSoPxkl76VBlEr5a50l9/1V81pr9DWjZJvMcE/T4O3MkHJVqEuQmmVPetvaOQN6Bdb
+         +yAdapYZ1Yx+6O9iYX1in9Uvs2w8POvefw8qo1UbkseeQHHT+Z2LBUQmGWsiz8YHe74v
+         ul4A==
+X-Forwarded-Encrypted: i=1; AKwUvBymeOsDltCdfjH+dd0+YJshhG1vUepWIyNKzCkwYKcAujEXKLf3xMz3+iXiih8eeg4NkDfL3ItHubxG@vger.kernel.org
+X-Gm-Message-State: AFuF++lRDFeN9CC0Hm8IFXIvxFRTHV2xGAqSTCoDD5ysyMm3P38/8UoP
+	Et1EcT8Y3HPslBUznDVD6XXxVEyt8v9RBIAPsEC7T/LuaUMtIFYwiUqc
+X-Gm-Gg: AYBFou3scsq2AcUyJ85cTIVby50IK5jePVjLc3PwM9SVxCPh54NnMfA8XQKDLKtL6Zs
+	Kyqv621T5mWFi7L0ua2e8wTgAxM0po9+ciVzL54WR/32D3zwkdb7juyr+oVlpJip5CtcJ/Bv0Fq
+	2uPzKxbsQc3nwV48H8sBnjPyD2Gr3iCAq3r44gIl4CP/xKUil778T3/Uuy1ohVVIATc5VpbgL2x
+	iS4TAf40kbTX3L94QGtZV1wwSxICg0OfiR6XKUdtrojO5L8cygyX9jcpNiAc0H807SB+mDBfrJy
+	AENeSgVU8vNpcPt+IGe2bkOMHkPW3FzM1FA9kjjiJipDkFVFZACVdabAdQDfw2Q4rGQ4LCGFLXM
+	h64NkpBuA6Q1ZxyixbBrer/7JJOHv46/C5T6cIDNMdlwotvGZBP4kXuhPtysiwaiHcZndzJrZxr
+	cz0Y66051PuRyv+3MeG7V1KwsgZWLmxtS01pwAP2CiavuQbUv4rcC4iQ==
+X-Received: by 2002:a05:690c:31a:b0:80d:964f:88fd with SMTP id 00721157ae682-871221a70cbmr173607087b3.5.1789022300655;
+        Wed, 09 Sep 2026 23:38:20 -0700 (PDT)
+Received: from localhost ([2600:1700:5431:250::1e])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-873194f76e3sm105440077b3.5.2026.09.09.23.38.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 23:38:19 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: [PATCH v3 0/2] Add support for AS7343 multi-spectral sensor
+Date: Wed,  9 Sep 2026 23:38:11 -0700
+Message-ID: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+This series adds initial support for the AMS AS7343 14-channel
+multi-spectral sensor.
 
-Pre-existing issues:
-- [High] IRQ handler remains active after subsystem unregistration (Use-Aft=
-er-Free risk).
-- [Medium] Missing clock cleanup on error path in probe.
-- [Medium] Missing pm_runtime_disable() in remove.
---
+The sensor has 14 optical channels (11 visible + NIR + clear +
+flicker) in total. This initial driver supports reading raw counts
+from all 12 spectral channels (11 visible + NIR) via sysfs and basic
+power management.
 
-commit ea7f212648855ca1f1b27ca9b52687d659dc81f7
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Not yet supported:
+- Configurable integration time and gain
+- Interrupt support
+- Clear (VIS) channel and flicker detection
 
-soundwire: qcom: add EE-aware register layout for Shikra
+Patch 1 adds device tree bindings.
+Patch 2 adds the driver.
 
-On SoundWire v2.0 and later hardware, FIFO, and status
-registers are banked per Execution Environment (EE).
-The existing driver assumes the SoundWire controller is
-assigned to EE1, which is true for all currently supported
-Qualcomm SoCs.
+Testing was performed on a Raspberry Pi 4.
 
-Shikra is an exception and assigns the controller to EE0.
-As a result, the relevant register windows are located at
-different offsets and cannot be accessed using the default
-EE1 register layout.
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
 
-Add an ee field to the SoC match data and introduce a
-dedicated qcom,shikra-soundwire compatible with ee =3D 0.
-The driver uses this information at probe time to select
-the correct register layout, while all existing platforms
-continue to use the default EE1 configuration.
+Changes in v3:
+  - Fix gpio description and example in dt.
+  - Only start measurements after suspend action has been registered.
+  - Add a mutex and pm_runtime_resume_and_get before reading measurements.
 
-> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
-> index 35ffffd541bd1..6e0c5fb10efad 100644
-> --- a/drivers/soundwire/qcom.c
-> +++ b/drivers/soundwire/qcom.c
+Changes in v2:
+  - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
+  - Adjust the default gain to x256 and integration time to 50.1ms as
+  recommended by the datasheet.
+  - Use read_label instead of .extend
+  - Remove all unused scan_index related constants.
 
-[ ... ]
+Chang Yu (2):
+  dt-bindings: iio: light: add as7343
+  iio: light: add AS7343 multi-spectral sensor driver
 
-> @@ -1659,6 +1711,7 @@ static int qcom_swrm_probe(struct platform_device *=
-pdev)
->  	prop->default_row =3D data->default_rows;
-> =20
->  	ctrl->reg_read(ctrl, SWRM_COMP_HW_VERSION, &ctrl->version);
-> +	qcom_swrm_set_ee_register_layout(ctrl, data);
-> =20
->  	ret =3D devm_request_threaded_irq(dev, ctrl->irq, NULL,
->  					qcom_swrm_irq_handler,
+ .../bindings/iio/light/ams,as7343.yaml        |  72 ++++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/light/Kconfig                     |  11 +
+ drivers/iio/light/Makefile                    |   1 +
+ drivers/iio/light/as7343.c                    | 397 ++++++++++++++++++
+ 5 files changed, 488 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+ create mode 100644 drivers/iio/light/as7343.c
 
-[Severity: Medium]
-This isn't a bug introduced by this patch, but looking at the error handling
-further down in qcom_swrm_probe():
+-- 
+2.55.0
 
-	ctrl->wake_irq =3D of_irq_get(dev->of_node, 1);
-	if (ctrl->wake_irq > 0) {
-		ret =3D devm_request_threaded_irq(dev, ctrl->wake_irq, NULL,
-						qcom_swrm_wake_irq_handler,
-						IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
-						"swr_wake_irq", ctrl);
-		if (ret) {
-			dev_err(dev, "Failed to request soundwire wake irq\n");
-			goto err_init;
-		}
-	}
-
-If the devm_request_threaded_irq() for wake_irq fails, the code jumps direc=
-tly
-to the err_init label. Does this bypass the err_clk label, leaking the clock
-reference and keeping it prepared and enabled unexpectedly?
-
-[ ... ]
-
-> @@ -1769,16 +1822,19 @@ static int __maybe_unused swrm_runtime_resume(str=
-uct device *dev)
->  		reset_control_reset(ctrl->audio_cgcr);
-
-[Severity: High]
-This is also a pre-existing issue, but I have a question about the teardown
-sequence in qcom_swrm_remove() which sits just above this function:
-
-static void qcom_swrm_remove(struct platform_device *pdev)
-{
-	struct qcom_swrm_ctrl *ctrl =3D dev_get_drvdata(&pdev->dev);
-
-	sdw_bus_master_delete(&ctrl->bus);
-	clk_disable_unprepare(ctrl->hclk);
-}
-
-During driver unbind or module unload, this function tears down the bus and
-slave devices. However, the driver uses a devm-managed IRQ handler which
-remains active until devres release (after remove returns).
-
-If a hardware interrupt fires during this window, could qcom_swrm_irq_handl=
-er()
-execute and operate on the already destroyed bus and slave structures, lead=
-ing
-to a use-after-free or null pointer dereference?
-
-[Severity: Medium]
-This is another pre-existing issue in qcom_swrm_remove():
-
-The qcom_swrm_probe() function sets up PM runtime:
-
-	pm_runtime_set_autosuspend_delay(dev, 3000);
-	pm_runtime_use_autosuspend(dev);
-	pm_runtime_mark_last_busy(dev);
-	pm_runtime_set_active(dev);
-	pm_runtime_enable(dev);
-
-Should qcom_swrm_remove() call pm_runtime_disable() and related cleanup
-functions like pm_runtime_dont_use_autosuspend() to balance this PM setup a=
-nd
-avoid leaving the device in an unbalanced state upon driver reload?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-shikra_sou=
-ndwire_support-v2-0-f98c9a6ea1e1@oss.qualcomm.com?part=3D2
