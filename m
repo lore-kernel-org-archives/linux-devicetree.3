@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A60C5221C8
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 17:01:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F7541D652
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 17:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059685; cv=none; b=EiCKeqvtHqeEwrYO0JLKYxsw7xgnbkLrHX/Y5B9zj3ryMMQG956GES4aNM3XjnVyCIsRKGTdmq2x8prODjnqk/pSoB4s8Ef3pOmJWcroqjtaY623KJ4guMACeKlnxdyrJc83yQ6BSwDCRvBeIMssnJmYzBRAnILjWrDuhRhM7HY=
+	t=1789059692; cv=none; b=fNvVlM6n0dH8KfAdkebik7BVWnrzbOvQm17B9nho1FGy911cd7968dc2ME2gowU1LEQNwIP+PNY4OP0LgjCrEqwbr1Yl9Ev0UnKP35zrpZxuBpJm5OTMzVQZERaITnN0F46L3SaGx1BbpoPClmORRm+v/P0u/Jx1PH+Ow36usJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059685; c=relaxed/simple;
-	bh=mV482CVpK8049cBhDDzqu35+vqHQ2267Wy2AYia6JaY=;
+	s=arc-20240116; t=1789059692; c=relaxed/simple;
+	bh=y9zc6uVYFe4A6is1zWq0y1EA1cz1SlBddzdQSr11cA4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YmkALO+EZ1KP+Rg5jS1uA2bGeL5EqBrofcM0QBbMkPRtrQdxpQQ6bBm/lMWHgYQ6NhWVM/ehAC0EgZYumlaZngg/pXBrAMwML+saNy/b32DtmATxr+5rJgZf5Lo8tCjUigfFxC/S/dW4Nk9nrKX8KobeucVU2laq5IFkBC/gkWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bVxeMC8y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GS+srAsMuP8J9lXOKiklN1VMRJW6a8eGHnwJgEJJ9SOuO7a3K8Dk5wgX0gwczTy03qjabAsjZqcOxptI5xI8+xGt85qvxjvf/VdsJ2g5VSzVWMui+noMUDEU4zeTiT/qYIAWjxkvmjqAZds1JeJIo3EqGSVx/m95fUa1wGoj37U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jFWJBgST; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bVxeMC8y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362821F00898;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jFWJBgST"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03DCD1F00899;
 	Thu, 10 Sep 2026 17:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059677;
-	bh=kY+GVroWx1JlpqpQcvefXY1PZSPw5qnhzP5wpxZYDXM=;
+	s=k20260515; t=1789059678;
+	bh=mOEZotBT5p1zRt9wahxzcp2KrOa8gRJ2ZLr+DJpQfJA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bVxeMC8yXS6zNy8S+cah18BsvQ7ps4OYTinww7o40Kf4KkeQBnTEtiaZsllSXf7i/
-	 zj5vpwxzRbD3/81pURICYtkznKa3l6YOPMT0FcG8n9gHLxeEPW6FG3aqqT4sfl/5Mc
-	 HeRpsR5emMPMOwvukWdjIjGsmbLe2uRpDcHqQe6dX50ts6roCgATURDhLfIEf3z5ty
-	 NP6s++w60sU1sN/HPKXW50w49kGBF5yjJIjiPA2/X4bPp5FKHEP2jAXjznEYg1TCAW
-	 MnSxEzaXMDO1zAXYDUZVVzSpEeSWXuduO+KSECvunsvl7B/kuKTRsgO3bqIg8CfX2A
-	 KWR/miZvmaGFg==
+	b=jFWJBgSTydFQTeLhvY1rAirSNLXNnJ8GNsq0M/Yl4qHzG6UNsLr6+tkH+SC51gxZY
+	 353zcOahxy12fnxxAzTHb0YdXMP6sXpHJ3FKhwkZ5w0Ttzo90JAgDghinFUo7Sy3Nt
+	 CJTJJRS3ynDvyBPORoScWT34iQJMN4QKrEOImDrTbwR6fXjkdw5x9QcrUcRTsjfruA
+	 QQJRBmPM/H71tlr1FvwMvqsKYDdqdLZOin4jZl/aeIpv2mVLb/TBeSjVPSK1NQqcoC
+	 LKB9AhI97yKGAJmWn+gmClbTveRjSau+NPrlqQGRhAeh5iJT1d63ZYpQzWOXVtDSIs
+	 HqbUd7EZctjKw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 3/4] net: dsa: microchip: Support Microchip
- KSZ8995XA / KS8995XA
+Subject: Re: [PATCH net-next v11 2/4] net: dsa: tag_ks8995: Add the KS8995
+ tag handling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Linus Walleij" <linusw@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260909-ks8995-to-ksz8-v11-3-0e04411a559d@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260909-ks8995-to-ksz8-v11-2-0e04411a559d@kernel.org>
 References: <20260909-ks8995-to-ksz8-v11-0-0e04411a559d@kernel.org>
- <20260909-ks8995-to-ksz8-v11-3-0e04411a559d@kernel.org>
+ <20260909-ks8995-to-ksz8-v11-2-0e04411a559d@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 17:01:16 +0000
-Message-Id: <20260910170117.362821F00898@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 17:01:17 +0000
+Message-Id: <20260910170118.03DCD1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,68 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] Hardware Reset Timeout: `ksz8_reset_switch()` erroneously applie=
-s a PHY reset to all ports, including the CPU port which lacks an internal =
-PHY.
+- [Medium] Insufficient `.needed_headroom` causes expensive SKB reallocatio=
+n on the transmission fast-path for VLAN-tagged packets.
 --
 
-commit 80bf0b7a0236c83f85f86b7cc57ef97388c5c06c
+commit f2aa1666092956329d185ea98c072903551a8a85
 Author: Linus Walleij <linusw@kernel.org>
 
-net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+net: dsa: tag_ks8995: Add the KS8995 tag handling
 
-This commit adds support for the Microchip KSZ8995XA switch in the KSZ
-driver. It implements hardware detection, MAC operations, and specific
-PHY reset and initialization sequences required for this legacy device.
+This commit adds a new DSA tag driver for the Micrel KS8995 switch. It=20
+pushes a modified 802.1Q tag on transmission and untags it on reception,=20
+incorporating any hardware-accelerated VLAN tags into the packet payload.
 
-> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip=
-/ksz8.c
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
-> @@ -253,7 +255,35 @@ static int ksz8463_reset_switch(struct ksz_device *d=
-ev)
-> =20
->  static int ksz8_reset_switch(struct ksz_device *dev)
->  {
-> -	if (ksz_is_ksz88x3(dev)) {
-> +	if (ksz_is_ksz8995xa(dev)) {
-> +		unsigned int port, reg, val;
-> +		int ret;
+> diff --git a/net/dsa/tag_ks8995.c b/net/dsa/tag_ks8995.c
+> new file mode 100644
+> index 0000000000000..f6ef1ef1891fd
+> --- /dev/null
+> +++ b/net/dsa/tag_ks8995.c
+[ ... ]
+> +static struct sk_buff *ks8995_xmit(struct sk_buff *skb, struct net_devic=
+e *dev)
+> +{
+[ ... ]
+> +	/* The switch expects the special tag at offset 12. Move any hardware
+> +	 * accelerated VLAN tag into the payload so the conduit cannot insert
+> +	 * it outside the special tag.
+> +	 */
+> +	if (unlikely(skb_vlan_tag_present(skb))) {
+> +		skb =3D __vlan_hwaccel_push_inside(skb);
+> +		if (!skb)
+> +			return NULL;
+> +	}
 > +
-> +		/* The KSZ8995XA switch itself cannot be reset by software, but
-> +		 * often boot loaders have fun with ports, so reset them. This
-> +		 * reset bit is self-clearing.
-> +		 */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
-> +			ret =3D ksz_prmw8(dev, port, REG_PORT_STATUS_3,
-> +					PORT_PHY_SOFT_RESET,
-> +					PORT_PHY_SOFT_RESET);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +
-> +		/* IEEE 802.3 allows up to 500 ms for a PHY reset. */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
-> +			reg =3D dev->dev_ops->get_port_addr(port, REG_PORT_STATUS_3);
-> +			ret =3D regmap_read_poll_timeout(ksz_regmap_8(dev), reg, val,
-> +						       !(val & PORT_PHY_SOFT_RESET),
-> +						       1000, 600000);
-> +			if (ret)
-> +				return ret;
-> +		}
+> +	/* Always add a distinct outer tag. The user port removes this field on
+> +	 * egress, so reusing an existing 802.1Q tag would consume that VLAN ta=
+g.
+> +	 */
+> +	skb =3D vlan_insert_tag(skb, KS8995M_STPID(portmask), 0);
+[ ... ]
+> +static const struct dsa_device_ops ks8995_netdev_ops =3D {
+> +	.name =3D KS8995_NAME,
+> +	.proto	=3D DSA_TAG_PROTO_KS8995,
+> +	.xmit =3D ks8995_xmit,
+> +	.rcv =3D ks8995_rcv,
+> +	.needed_headroom =3D VLAN_HLEN,
 
 [Severity: Medium]
-Could this result in a timeout regression that fails switch initialization?
+Does this code reserve enough headroom for the worst-case transmission path?
 
-Both loops in ksz8_reset_switch() iterate over all ports up to
-dev->info->port_cnt, which is 5 for the KSZ8995XA, thereby including the
-CPU port. Since the CPU port lacks an internal PHY, writing to its
-REG_PORT_STATUS_3 targets an undefined or reserved register.
+When an SKB is transmitted via ks8995_xmit() with a hardware-accelerated
+VLAN tag, the driver first pushes the hardware tag into the payload via
+__vlan_hwaccel_push_inside() which consumes 4 bytes of headroom. It then
+inserts the custom KS8995 switch tag via vlan_insert_tag(), consuming
+another 4 bytes. This requires a total of 8 bytes of headroom.
 
-If the hardware latches the written bit or does not return 0 when read
-back, the regmap_read_poll_timeout() call will hit its 600ms timeout
-and return -ETIMEDOUT, entirely aborting the setup sequence.
+Because needed_headroom only requests 4 bytes (VLAN_HLEN), if an SKB arrives
+with exactly the requested headroom (such as when forwarded from another
+interface), will the second tag insertion exhaust the headroom and trigger
+an expensive SKB reallocation on the fast-path?
 
-Should these loops iterate up to dev->phy_port_cnt instead to avoid
-resetting non-existent PHYs?
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-ks8995-to-=
-ksz8-v11-0-0e04411a559d@kernel.org?part=3D3
+ksz8-v11-0-0e04411a559d@kernel.org?part=3D2
