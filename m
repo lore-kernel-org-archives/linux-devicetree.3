@@ -1,155 +1,126 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F43449B5B2
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 22:12:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00B1391E7E;
+	Thu, 10 Sep 2026 22:12:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789078352; cv=none; b=MoNXD/WJ9loEtfhyAPw2FxK71DdbCKNNACCw7IrZVy/IHZjSUusK+NlxSyOhxNCJpj4vsOa7oFekqTqUFFCsmdR5o6i2WcStVZMWo3nmInzoUvVAnw/x7l5cWvzxeBqA0Stm0BPf3LJ7sIoEA66+V2XvA5NcTs4dfHdza6fzwjw=
+	t=1789078357; cv=none; b=jqZL4fHUrJpgRchF+6l+kQmcy26lP9dU6JOq9gvTayLGIbBCSzHEMXULHl923vMMaytoZnj3HNTMnBsZNp2hanyKzbNb7KTPUYh0CEifBp3axEEnBVNMqB1UT4o79OTmLAM6yl1dMW8kDJUO0gFSm21A2dAdW3p83TSz9q/o584=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789078352; c=relaxed/simple;
-	bh=BbAJHt9adMYyzBOCLH5rvGTbgi1xMnGL52q958OEAto=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OYr9/VbfUe4EBMzs6oLKyCNeXe/ztB6AZcF5Zdbq8su73NABHWQBaczRhUJh8avcCmU8o9RvrN5VXcrSx/QQoGlhnLtjy0MfXnLH9iJgmDdhexde4q3dXYsxYJJgbTHIy8HWbBIwcTAWzurhMCpORz8rJ+UkAFegxvB6zMhWltE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBDgkh1u; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789078357; c=relaxed/simple;
+	bh=OR8f3f28DJUgBbXZUMtVRJDuqX/LidHSQUMXmLv9x0U=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Pc4k7MMNgptqZVkumC6V4wSjj0K99kv4Qto5cO07uOaYL3N0AdGSV3ll0B4pObzuAwis5YYFmWcLj2X+g+W6ShwjC1DPTl9yFYJpqaIE5pwOWIdAiIaV5OzuVKnSxUpucsjqGAO+9lCLQRamMG4JRN4x7/OVR4tIyNWd3HVGqcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=XN1pQFRJ; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBDgkh1u"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86b51649c7eso13938b3a.2
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 15:12:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789078349; x=1789683149; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jQaA/YsbwqnIY6MwaWj7Df5zJPQ8UAD3/8j58BDH8n4=;
-        b=dBDgkh1u5p8y98/Yplqy01MMvH/QswR24/nXsiApjY+3Eq82RDUSzHipK4uGJMfl1T
-         vGCTBOMofso1sGNaq+Sb3stiOj4YQ3keY6VUHNv5LfajyLfoLA8G8Lv2fSPzTmXaJpLD
-         u/lRV7hycnsJRRnkq+d4vRm9FVqiTRgdTXxcESCuhjmd47b8V/RCVncusGEAnaNJOX+s
-         yPAHDqGmEsmKBIway8rCXgjzSG+Q3RnvdWRq1evDlPerhw4zKYl8pFV8XzJq5MWIgedJ
-         NV26E17tm7I8eXBrj6gU11XAximHvcKbG9BvPEZggy555r43miMISLMpg1C0NW/m4Opl
-         o2YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789078349; x=1789683149;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jQaA/YsbwqnIY6MwaWj7Df5zJPQ8UAD3/8j58BDH8n4=;
-        b=hBmVNR6K3mmq48o0YgWyZjhHE/MN+C5f5sY2EVqk4ssnGp7mxtkybwYV71pP83EE3j
-         BEgF3pINJphBU4cB0yGQy2cUNmgcnuytQSSZLjhdhLIIY/28bGp0ASfj0JIgKq0nvUYv
-         +1mlGgvo/0r4axe/mxDbblrV2qKB751kKheVGkcN5+PdxPLE8Lt14iFZmfXFFTe9/L0Y
-         2wbBbdJoxLR9YGLCX7W47vs9P/KRbSyoFjcbuCuXGS3BfjZMnOsvPZVLqSZtkYkLviJY
-         KlfL8RLQB8gLtYwcc/SBb0bpnLnyOiPxVxpit0zZIMVrsIc3YgDuDfJpty+5i/CFh7Ot
-         GE/w==
-X-Forwarded-Encrypted: i=1; AKwUvBz/vQdBhBbacU6LUgdZXNUKvJvIlcv/R6ZzOrjGcyNDJhjdXRYzqneEdglVgpz9/LlHoYOarzrmzbji@vger.kernel.org
-X-Gm-Message-State: AFuF++mMqaEbRZtSuGTQ3108LXeb4awSkBQTF0Dnyz/0cp4swQaZd1RC
-	+k5lo2qCqx64ews7YprEED0f0BLv3Dt2v1kHpOH+v3bR+ravN+zK4ker
-X-Gm-Gg: AYBFou1YIZAUVzesHiZWOGXU8Cv0LJIlRHwUQCHX/yy4APNR9xfNSI2Z8P2UMSshBDO
-	Y4KXYNmLOpucp/wIpIAk98v+w/zSihDBexetKBrOsUpcg/BJEgKs3Gj1k3aDGNiDYah2rMWFUNS
-	IZKW1/Ha0YnTajuXqhqa6J7SSDUhfXJQ+JQN/Xw0nJfsepcJB7Iv4k4n+r4qbzziVAYaG5Gp5k/
-	p++n6oI80vA31gW4ZS6qLTLO0JyNRjAO1B+48AjF039efW1qu6FQBv2riBrZf7o8tb+USUw+zjN
-	ZR57UNt9WvxpIbhLk3soSbuGmu3YLTkYrH5ADDDE6knK/NSnzFWFFz0arsnMf8GaRxIt4DExO9I
-	/l8j4dRbqGHw15vxMKwwWWmjJQ75T+7w/Dm0krCsfWsRKefYRuoZ5qJFmMfVp5M1aB9GUDybfLX
-	2qMGY3UoPHdP/6ihpE4/wZPdYRTxJX2+065d8Y0uxAiWwwqWZuo7RlhkWMugXZqdDwtDNbKM0xp
-	RavjZVKJXv9
-X-Received: by 2002:a05:6a00:4891:b0:85f:2315:4efd with SMTP id d2e1a72fcca58-86b2f0f01f0mr781561b3a.1.1789078349465;
-        Thu, 10 Sep 2026 15:12:29 -0700 (PDT)
-Received: from [172.29.212.252] ([2409:40c2:5426:e355:af9c:7683:e7ab:273b])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b291bf622sm171875b3a.27.2026.09.10.15.12.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 15:12:29 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Fri, 11 Sep 2026 03:41:57 +0530
-Subject: [PATCH 1/2] ARM: dts: ti: omap: dra7: Remove clocks from crypto
- nodes
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="XN1pQFRJ"
+Received: from pps.filterd (m0167088.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ALWBil1089906;
+	Thu, 10 Sep 2026 18:12:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=T5BiH
+	q/Pjt54V+tlu51eq8FCe+U1mKvQWFvrYpUreHM=; b=XN1pQFRJ03H5Bv48pTlcL
+	6LaQOzZz6ii/iSb44OfsRVJWk7UN6hLzRbVzveZK+oWAg29J5jopN60SnNugxgjq
+	E3+1ImW6pcXU1KdIxOcbAO0GfFT0/1/E8T8LiXq/H0tPsG0oPXz6uMOHptZC3/AM
+	e51lxvxB3847VDPbmzzkQLrDbzHkKIrKjr+GRIxTGKqA/2fddUSKwRmPCwyGtSGD
+	E41Z+cqyYD98VTfuS5x6WRy5fRVOckarPmCS/Q+JT991jMRNeIfT22XkKVDiIkm7
+	lQp9upivQzJ8AoSOJR8kE21padLlgwTUwvXhURYuSUjpa1yJ3gUwdjSUnSf+yB18
+	A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4gkcx962da-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 10 Sep 2026 18:12:32 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 68AMCVjf010771
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 10 Sep 2026 18:12:31 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Thu, 10 Sep 2026 18:12:31 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Thu, 10 Sep 2026 18:12:30 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Thu, 10 Sep 2026 18:12:30 -0400
+Received: from JGERONI2-L01.ad.analog.com (MABALA-T01.ad.analog.com [10.117.222.255])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 68AMCIkN028000;
+	Thu, 10 Sep 2026 18:12:21 -0400
+From: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+To: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>
+CC: <krzk+dt@kernel.org>, <jic23@kernel.org>, <dlechner@baylibre.com>,
+        <nuno.sa@analog.com>, <Michael.Hennerich@analog.com>,
+        <andy@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>
+Subject: [PATCH v3 0/2] Add support for Analog Devices MAX30210
+Date: Fri, 11 Sep 2026 06:12:15 +0800
+Message-ID: <cover.1789032019.git.johnerasmusmari.geronimo@analog.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260304122509.67931-1-johnerasmusmari.geronimo@analog.com>
+References: <20260304122509.67931-1-johnerasmusmari.geronimo@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-ti-dra7-omap-sham-fix-v1-1-c430f01b4e13@gmail.com>
-References: <20260911-ti-dra7-omap-sham-fix-v1-0-c430f01b4e13@gmail.com>
-In-Reply-To: <20260911-ti-dra7-omap-sham-fix-v1-0-c430f01b4e13@gmail.com>
-To: Aaro Koskinen <aaro.koskinen@iki.fi>, 
- Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
- Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- "David S. Miller" <davem@davemloft.net>, 
- Animesh Agarwal <animeshagarwal28@gmail.com>
-Cc: linux-omap@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org, 
- j.bhargav.u@gmail.com
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789078323; l=1722;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=BbAJHt9adMYyzBOCLH5rvGTbgi1xMnGL52q958OEAto=;
- b=s2lsYvRL+iaAkkoY+sP2q/EZlVEKggnNXoz5w98GQwNOuT4KUIGfJoMx5eXFubB4Q8a/GAnEO
- FeHAazX9I2rAtuRZ2FVTHyxgN6rB/7YIZdyR+0K2oS3EGCP0xj2DFC0
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDI3OCBTYWx0ZWRfX7MFOMj5tX2IO
+ ykqusYVn2OpEa3ZGhKiJKzn4vxt8R55dHXUkBnGUXeOGrfewx80aoZvdl3tqqs2//5uniUlZblU
+ 1v6RkAVd03MKSpxA3Dq3+nK0CkCNHRDDIfPE2heEUutx5JbEwKZg
+X-Proofpoint-GUID: QtqJBJFhtV5J8qtx8tIEdJzu0GrDgAwP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDI3OCBTYWx0ZWRfX60WyRjsH5hqV
+ gfUppqnxgumrMacl365fNi8tl53QrvYJNcsGPzJ9ftmWOWpOy+C14GPHE15XFN+ulBnFioy8j7A
+ 2DTXI7I4bGg8a2RZSAFtvHQE/5VlTNX8j+dXcs0T+PrnI8rgszCZ2MFEO4RyYaEiSoMuSdHglHN
+ DN6gE0AHZiOSkq9taSwJKmpCQO9coknOfh3vCOyt/VQ0EecvUD6Y+PkKK4aZlsOw/R/9iQ2IqOD
+ qYFTmWWC0s+bDtsFd6Vi2phnrdWZe/BsCUHUu2c0lGe+W5jJani3Gd83C9a4aU2+kLRKwBT8EO3
+ 7AeYwL8SbP/agyYAoWSUj9U+KCj8j2r0wNRlfYOJqLNI9UdKelzr5/4+depqP3WQdd3xv6nBnqF
+ 1qJrXqvz1jLdolFafL5lfkzmHDfJuCr5/NhNgBrLfUzp3kvOWf3S3/j3AKsVOoeWRaUqsylJB9Y
+ aI+5Ftl4AlxHBBCdeRQ==
+X-Authority-Analysis: v=2.4 cv=G8CJgNk5 c=1 sm=1 tr=0 ts=6aa32b50 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=uXIjobp8t2wMuQ0fPvqm:22 a=6_3VhsULprTN-6r2Hc8A:9
+X-Proofpoint-ORIG-GUID: QtqJBJFhtV5J8qtx8tIEdJzu0GrDgAwP
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_07,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 adultscore=0 malwarescore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100278
 
-The omap-sham and omap-aes crypto drivers do not use "clocks" and
-"clock-names" properties. Clock management is handled by the ti-sysc
-interconnect parent wrapper. The dt-bindings for ti,omap-sham and
-ti,omap-aes don't define these clock properties. Having them in the
-child nodes causes dtbs_check warnings.
+Add IIO support and device-tree bindings for the Analog Devices MAX30210
+low-power digital temperature sensor.
 
-Remove the "clocks" and "clock-names" properties from the sham and aes
-nodes.
+Changes since v2:
+- Fix FIFO byte-count handling and sample decoding.
+- Fix IIO debug register read/write access.
+- Validate event threshold values and sampling-frequency register values.
+- Return the correct sampling-frequency format and reject direct reads while
+  buffered capture is enabled.
+- Clean up the Kconfig entry and device-tree supply declaration.
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
----
- arch/arm/boot/dts/ti/omap/dra7.dtsi | 8 --------
- 1 file changed, 8 deletions(-)
+John Erasmus Mari Geronimo (2):
+  dt-bindings: iio: temperature: add ADI MAX30210
+  iio: temperature: add support for Analog Devices MAX30210
 
-diff --git a/arch/arm/boot/dts/ti/omap/dra7.dtsi b/arch/arm/boot/dts/ti/omap/dra7.dtsi
-index 711ce4c31bb1..0784c6d9cbe4 100644
---- a/arch/arm/boot/dts/ti/omap/dra7.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dra7.dtsi
-@@ -1012,8 +1012,6 @@ aes1: aes@0 {
- 				interrupts = <GIC_SPI 80 IRQ_TYPE_LEVEL_HIGH>;
- 				dmas = <&edma_xbar 111 0>, <&edma_xbar 110 0>;
- 				dma-names = "tx", "rx";
--				clocks = <&l3_iclk_div>;
--				clock-names = "fck";
- 			};
- 		};
- 
-@@ -1043,8 +1041,6 @@ aes2: aes@0 {
- 				interrupts = <GIC_SPI 59 IRQ_TYPE_LEVEL_HIGH>;
- 				dmas = <&edma_xbar 114 0>, <&edma_xbar 113 0>;
- 				dma-names = "tx", "rx";
--				clocks = <&l3_iclk_div>;
--				clock-names = "fck";
- 			};
- 		};
- 
-@@ -1073,8 +1069,6 @@ sham1: sham@0 {
- 				interrupts = <GIC_SPI 46 IRQ_TYPE_LEVEL_HIGH>;
- 				dmas = <&edma_xbar 119 0>;
- 				dma-names = "rx";
--				clocks = <&l3_iclk_div>;
--				clock-names = "fck";
- 			};
- 		};
- 
-@@ -1103,8 +1097,6 @@ sham2: sham@0 {
- 				interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
- 				dmas = <&edma_xbar 165 0>;
- 				dma-names = "rx";
--				clocks = <&l3_iclk_div>;
--				clock-names = "fck";
- 			};
- 		};
- 
+ .../iio/temperature/adi,max30210.yaml         |  61 ++
+ MAINTAINERS                                   |   8 +
+ drivers/iio/temperature/Kconfig               |  10 +
+ drivers/iio/temperature/Makefile              |   1 +
+ drivers/iio/temperature/max30210.c            | 689 ++++++++++++++++++
+ 5 files changed, 769 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/temperature/adi,max30210.yaml
+ create mode 100644 drivers/iio/temperature/max30210.c
 
 -- 
-2.55.0
+2.34.1
 
