@@ -1,248 +1,262 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013061.outbound.protection.outlook.com [40.107.162.61])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013028.outbound.protection.outlook.com [40.107.162.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19EA04CCDE8;
-	Thu, 10 Sep 2026 16:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.61
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7988E4FDE6C;
+	Thu, 10 Sep 2026 16:26:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789057125; cv=fail; b=Fyo0/AgLkLnsq12c8H344SRU9BxCm2sUBAdcjpNV5MCsc7hteJ8QGLkOt1T9kTqx7PmRLc/Zmps1Cs+aJ5u3LQaOM8SCyCMXCEGgQL72GlhhwjNqeF6wVoqbcT9tTqmi4HgAKbrUzIKHGnCbLRlUGk1R/360z+sRcSNN+torH48=
+	t=1789057599; cv=fail; b=khMOhdN60v1oH4PmtfeiAkda1oQr5svfmsM5yjEMteztaTosvmXyKlBEjAC89jHhEYChcKOWqVd//WVapt1PAOXCsYezFahd4w6Qsq7yDeXSLlkXHoz+75il3yiCFAXQNcoWb4LyWIlrXaU8TkKVCNYLqjwQj1DTJJdm/xe/Hlc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789057125; c=relaxed/simple;
-	bh=31xKCLLrIIBlVu9j9ChMFU8XTNbXbuN1K4ik3zymyUg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=gzAsBOc+k0PNlz2fGpYAJE6oXQ9uhHBR671W73CgONknvMho7Vl8HGQBEd9UbUheVqh4Da+gq/AaXtfDCDtJ47R1fMfEsurxGnx6IP136EW0Iduy8vN00+//GmIGXJ+6BWGdr4eqQMno9GBJiVn4PQ4Sl/4BCtlj+VgUFoAdwws=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=EzPY8qGC; arc=fail smtp.client-ip=40.107.162.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1789057599; c=relaxed/simple;
+	bh=iC1BNZj61U7UCVwaXSwNwEiOPVbtOt9Fg2rN53FNzRA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=EOj2YGzs5ieNEgzcWhPyp8gF6/BEPr8pxkvbDrVdz4Wp+vbxwHfsJWFX810iIYzi6nWgsviNkW7z5OZHAICGMpAoPLcZvbeK/CVCq18g1J+t7fus7PeGFJZa4GVbKP0p+FzDbs2p/xz2HgSg0lpf/VgSJjuAsViyk8c3gOi3WhA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=NHrV4XuF; arc=fail smtp.client-ip=40.107.162.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="EzPY8qGC"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="NHrV4XuF"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EcCfDH6iLhVzdrERKmRo3aWr6AqmIhmnqwMk9pJurqhYVp8v/TRQWAWhHPiJhRZ+0T5cD3/f54UDxu81mn+T1garkOgHkdLhI2IvriXWZTMD/smhclbR5z9lemkjg1+JJZLQRX7XBW5I3f5UMji3e1A2qDu4n6VJ+hH5guOsguVgZqmHvXboFirzZohqbhIO1NcLiVGB8ynUHj+VOFgjcjNe0nWrhzrchPSjzE/sypkGpre+JLBmauZpPeCMXuHOQYzobCMd5fIOEseN4gIYqhVTiprx7Gws/+i7BPfP56CRThLy9lY7sHkUudOpx7iKtunPOc0b/8Ov496k0fMkRQ==
+ b=eZEXKDlufwgROnDlTXgJ5cFDpaKDhSjk3+AUjm1d7ChnL4FMTfBtNmG54aVW7TrWVFnWSHtXd6Cp0tQIq70/DS+0xc8I6Nec9SA4MpoqaYPtwdfeJ5TkA8xs+zPV2St750RvOz9CUwJjVnqULkERF5ReQHjJpk0kD6AQa3xIHuMlSGupqeiIQ+C7sQi0Anek6Ue8h7shbf0cLIkHovLK4ctb5H+vNnhveBGiRUEzNWIgAAb9RwrjY3uPB0FEPx4mOmuvHnbdCzuX4v4ZI3CI+Ud7QRDL0YlEwqEJKjUS5QU/yvfpVYL3fF1iNNtfCrhLRjxEvS/U6lv0EMdvIIeT1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XlGmQIimNNv0zNQkUs5tyS2Zt6/GWcnEpjM3m+LZ9Zg=;
- b=pUcUp4r3DEvPMK32PAuijq0EJGsRU9bPzm+faLE7qb+2l9oBQ6b4sAMLz9sF+0kc8UGrh1Axpve2iYsh6GKq92QldOLbvIsTWJ5Ahr7WkbTMGYwRKSREh/lszy14bHrrMHpyHmoF0yhWxwW3v2AjXVL3ZJtyo8gwVAhQjYSEI/gEpSyLmQmz21BfqIYE2PlM5kTzDMvhidfmUJJzRhQiGKeBOwvpbJHK2OBphX3DgdX6iicwCs2gmMT8oYq685I3+99XMESDdMcF33aXOZ8HWCX+p+TL5rBCn7nH/ao1+hN20jadIeZmXH8dTG0m2Dgl3IuaFVyC0Fuhz2ER7dNysw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
+ bh=kPUTII5jib0Plmd2JAI4VZ2bRIQ0d18sbZnWQYHBjDA=;
+ b=iE8OHJBG1xlVy9brB58RPkLAYhLbVsYzLSB0RXdxfR7+KKtseUm4Ecw4JFlRkML3YnTtrm16wswh2kVswtygkxfBPXiE7L4zF+KgOqFKYxXLyOcmBWru2M7uuegOkliW2SrGaOl5Qd9pNIFDHxWMnJcdKksxazr+HB6OZK0Cj5o3awrZDlG++w+GeQN5QqnCzi8IuMnRjSFtC7CES3k+XLilw89CfZRMgFY0mAel9aokJl3HxDoDliyLhW7oYyFHGmv/aHAH5bvlesLBdmrwhe22TA9JWVmQJ754XP36Wh+18AI3R3YYk8Q0ojyKk9PrDsgk8zgsabBZ4XV5vW4NGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XlGmQIimNNv0zNQkUs5tyS2Zt6/GWcnEpjM3m+LZ9Zg=;
- b=EzPY8qGCs2wXC6OQzA/rqgz6IFnxcQOuW8feXumVGIkojoQEK6uWZkugP9bel7Ry5XhBaqT1qvPLqAf+MbQn1V+A/AN++rwydEJH3m4WLhAwEGoZ/ji72seOrxGqiXOw/5zDRvvhajM0ioAgr+Z76HsQsjMrBKUhwC6sYTavg94YFvkq1N968QdSIaNIYJ0tSqKToPta1q18BEV6ThJ7aW+6KlZG2I5WWNWCkdV6WItyQzUz3lCCyPiDI1mLdscPyWRTk33xdQ/qYBqXebGPFatHvppQXv18MSAaJlUqa943W7/o8jCAdebgWinU4f5ti1UMZrRy2BjMw4jc3NTd4g==
-Received: from DU2P251CA0028.EURP251.PROD.OUTLOOK.COM (2603:10a6:10:230::32)
- by AS2PR10MB7021.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:59b::17) with
+ bh=kPUTII5jib0Plmd2JAI4VZ2bRIQ0d18sbZnWQYHBjDA=;
+ b=NHrV4XuFqEU7MsMf4+6K9g/LGmiyftBPb0FCt7XU0QKFVxvQ4f6409VWrSz+pYG9OUZf+bs+AM3Re88jlN58HDJjp38SATax1tQLSvr2MjDmAx0IoEYQ4cOEmTWWNG5e/VD1Jka/OnDt5UVXwPPlnawddb10jzoRsmT8+p/hWK/7ovUoZQmK7JVXC5q/uLuDTFdWc8MvD3LjxsFBQX6GGYYS+3IIUbFsGJhJQ8i9P90/R0Qo4HQdbHLZ/n7yhWkUoYjlRBV1lkTXxTjYa7zIuSfBJViOMSY68dVBv0AIg2uiETEzJUiGgaBJUt2yzjH0/d5JT3UybuFTXtzpH5ci9w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AS8PR04MB8293.eurprd04.prod.outlook.com (2603:10a6:20b:3fa::19) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 16:18:35 +0000
-Received: from DU2PEPF00028CFF.eurprd03.prod.outlook.com
- (2603:10a6:10:230:cafe::2c) by DU2P251CA0028.outlook.office365.com
- (2603:10a6:10:230::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 16:18:34 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DU2PEPF00028CFF.mail.protection.outlook.com (10.167.242.183) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 16:18:34 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 10 Sep
- 2026 18:24:36 +0200
-Received: from [10.48.86.251] (10.48.86.251) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 10 Sep
- 2026 18:18:33 +0200
-Message-ID: <ced0e0f8-c077-4329-b7cc-4387ab415d27@foss.st.com>
-Date: Thu, 10 Sep 2026 18:18:32 +0200
+ 2026 16:26:33 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.005; Thu, 10 Sep 2026
+ 16:26:33 +0000
+Date: Thu, 10 Sep 2026 11:26:22 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Subject: Re: [PATCH 3/6] dt-bindings: connector: Add Toradex camera connector
+Message-ID: <aqLaLmz7n31P6igy@SMW015318>
+References: <20260910-verdin-imx8mp-hmp-camera-ready-v1-0-3c9349ecdb9f@toradex.com>
+ <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-verdin-imx8mp-hmp-camera-ready-v1-3-3c9349ecdb9f@toradex.com>
+X-ClientProxiedBy: CY5PR15CA0238.namprd15.prod.outlook.com
+ (2603:10b6:930:66::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3
- xHCI USB controller glue
-To: Marek Vasut <marex@nabladev.com>, <linux-usb@vger.kernel.org>
-CC: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Conor Dooley <conor+dt@kernel.org>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Rob
- Herring" <robh@kernel.org>, <devicetree@vger.kernel.org>,
-	<kernel@dh-electronics.com>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>
-References: <20260910052340.246717-1-marex@nabladev.com>
- <20260910052340.246717-2-marex@nabladev.com>
-Content-Language: en-US
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-In-Reply-To: <20260910052340.246717-2-marex@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DU2PEPF00028CFF:EE_|AS2PR10MB7021:EE_
-X-MS-Office365-Filtering-Correlation-Id: 596af608-397d-460b-c033-08df0f5729d5
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8293:EE_
+X-MS-Office365-Filtering-Correlation-Id: eabc1c01-4576-448a-5b90-08df0f58469b
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|36860700016|1800799024|82310400026|23010399003|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|6133799003|13003099007;
+	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|376014|7416014|10067099003|6133799003|3023799007|22082099003|18002099003|56012099006|4143699003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	eed0GDtw734op/yOSD3vaFdfIiJKhU8L1xcZymP+z0XulC3P2O9nXDRrQG9ZBMzJFikFNZsFJpmnp/3WZ254eVNRf+/ZgnWm8fb6rjDVsXD9MRL7x5WsIkOGOl9E9ESRkN0TdW0DO2vRV+kzRkS6gryiDiMM+erYLO6aCxwbCel/cW5JKmHF2ckYKhXecA0r63ER5V3+OY/PUSj113Zv84X1/9XyLc20Y0sSq5kFbagQLUeg4FYHSCIyy3grEBN4k4UJq4Y0mKXadMO13/G0M/APYT0msuhlu0LIO46xl4kr4Psk5oibOrRr8GtZfh3eNDWqIWjZnpZ5IkhoqnmvNi3eVCJ2NE205ENxmG9+z9ApJvNjm4Kb92qL0oFEghN/qtyCei6uXUloAP0xNhjS28Lgj11qHJDzzCJld2XcgOtKiFpil4RYLu3x/34pf/WvTR84wZ8930cbGp/tqpSlaSGjvz4zLHhgIv+4xZNvdVPCnU0v631FC7qNzEXHcy573hymb+DW3W90/DH+F83mpcQz7TGJo30WI5+LuOGfKj30VxPlAWF/eB/p5l/+gutBWK+UyZqXfE9yzuQWmAnn/D7/+k+vZY7xi42pOfROxXfmZ12GSXFRnk6NfTFrzuJ1WXBY/nohftMk38C39gblKcuKUlzP661P66eVKmeKfIMxdzmGGNlgHhEpmsAjAFFwbJk933yl73v7dbYXd41l3w==
+	jMKRGq6Xv/C0uqd+S0o2smxa7hyQ3RrB+Wa44FOc7sbEFkMSrvUpbbVxD+eFkaGYEy/tHpGFXKWGFhmcy80bpVpg5DoRif2Iw3lqvW9bnpWE4vtyzi4x1fq8rtf5aHLJS73zWx4rpb/Xg8GDFpaz70e0ROHBHOcoeJBNJ32Lg9d9g0ijaQTyTclyZvAcjrFChTYeHuCdsptmSmrp9Z6mF2n3UQYWn3o9OGfn2chr+y8CEtbHJDakzd7Cy2GD5YQWj3bBKxQBTKIJIQKQdg/mMotYYjTZXPrC7iBV1P+v8AC5AMQJYgtmDZPUHv97wSLtMQz04SIY1uA+dDz/z0sKs5HWyO4+my9Z1Sw97MWN6fUmOcTmNk9fexJjnU4CgTv3BgqntDGCexq9UshF/slAgCGwKH28n1xs0idQvTS8SBwjhiJQn38kss2aV1BTr8bnH6UeG+QknAJxBN0qUKcmlcoPc+iHriwilCWLgt0v44vxxN9KyeFotlbhhIRTKMs7zgRYhcAbp2cgiEQgT4OmWrkMvtEPsBUC+/Z1pfHBqzBeyTvzm2UEocyi9NEZ47BAZPMuHspsaKJjoGTX3ZHijYXdZHXGbtwMA/vEBQ+AOjFpfMx4hUnDDmtCJILYJ3Wu
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(36860700016)(1800799024)(82310400026)(23010399003)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(6133799003)(13003099007);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(376014)(7416014)(10067099003)(6133799003)(3023799007)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	Z4HNUdDPxFzwxr5e72N47tzHBVCIOh1wYmo7rcbCsYi+Gicblmg3mI+cN1L+gRkLm3sBmhOkZVofKqJSe3c0m0EMltxj9Jfqae9PvVrm0PYZ2pHrOdH5y4E/nLuL5E51EePjK61xxbOs7jLrmtH4Fn14V24lQYEFfoFaJZiZyh2obkDxaj7K6AcmKubZTy+6I6WYaX4gctRl5SOVOAZuzm/FLf4PGesEfSLo3c4bwcC4ak1yFbEqSFMNdTsE/XCgoZCPXPpRj82YEjAzVB+8aTn0YVgd0QiujVqxmHa+AV5orGBmvBb0FgBZPd+TNwzn6auRzCx/0u8sfUdWuV+Tq1Xbw6+11Vcwa5iSoimoox2RNOiLS21DzIT8LK/HMGDn7Qs3Whq/kIqb6uBKCtlCKSXO7C7PcBA4N9HEBeLKGw7hoz9viS9QSKl+ao5rNO6u
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:18:34.7186
+	=?us-ascii?Q?f4jJf6nWfT45VeHiUeWuKhh4k71//aGM6h/xzVs+ab8qKf5rHtR3cXALwipM?=
+ =?us-ascii?Q?anGEXi0r7tC275BryBd9Zxgz3DPRp5ACwnpEv87dGC4QeOoDt85NzoI0ANSY?=
+ =?us-ascii?Q?uxclEYA8w82c48au6v/EvLDlR2rebqO9wqFwALdkA0aohgmRxn5gZdrGl4PF?=
+ =?us-ascii?Q?zPLOxwXkIhuE+hZZZxfTymzZB9IGIF3rl/xrX3lJ+YA6TD8JXbZJoHv4gHb+?=
+ =?us-ascii?Q?TcTW+Ojx8sX0t93QtKtayZZz5uqh9WgBhZELMyg9eWm3RjG6NF5+AuRHDo3K?=
+ =?us-ascii?Q?cePcA2uhUB8cCBLTbysEylUJSyXNZVRZeO4fwio+eCaOXHcnKHjb6BWiB1me?=
+ =?us-ascii?Q?gRtyM9RJcZDP4JUfAB0ziTdDNmMLjlYWLS7L6IN6jbb1BFh0kefghzw8B8i2?=
+ =?us-ascii?Q?9pQuVhtAKHFt0IzCKLzvrOLGq8Xxlqkz3udpO5G6VurteyFpA+oZztK9paQW?=
+ =?us-ascii?Q?D4W/2999180PKJPlzFnuIc0SMUp2mU0ACidX1fWZOWUZCC2wHc2+xnIKvX7n?=
+ =?us-ascii?Q?uyM88yUSh49YRKyLVmQbQkX4+fVXODVZt9wXgzmrdRuKfWuH1V996rABoGxs?=
+ =?us-ascii?Q?itXJ5uD/eKDYgEJB17svsUGtwqw1UUbS270YV5LZ+xKLzdRgkUVE9oFvqhyt?=
+ =?us-ascii?Q?ZkjIdyIqemSXtp18H6w7ju7VVT9UmkJ+4V7rRP0tm3lc4AUpnj93kNvLnOLk?=
+ =?us-ascii?Q?fVWIbYCXVtlnrlq/p/Wu9GhCxE/LGIqM2jy8MqGGRIREH3ONa0QjnbaBHX3B?=
+ =?us-ascii?Q?CMPhVuGpR52diiNlMiwJObUy4qiAENw7cvkqbBKM467ps2gNUR+NV7GwI8Jz?=
+ =?us-ascii?Q?QJuA4KL8yrKQhPsSIfO3NowKrTBK7/ceVH4R6IJDl7ZNwvzpmsebT8YYVe0C?=
+ =?us-ascii?Q?6v+Fp2ODDZ9B0YwapvmpMOUew1FAC9nCTJDiHN6mbBV+Qap3tdBbx/OdT1aD?=
+ =?us-ascii?Q?5YzwiHWZcHMnmuSK6xUpuNue7itZIGYxiqUC7J4B/ZHFZnvUeUQtyAFwVctn?=
+ =?us-ascii?Q?Eo7otKndAgqUeIAh9TF5Cr0sh/t842aqrmeuMEvMrMIzO5MMfTnp4pLcs8aR?=
+ =?us-ascii?Q?z/bAVREg87kJm68/Sp+XYlpAVt7feD4BpbO7gWfZJuek5pdn5oiGSsgQBTV5?=
+ =?us-ascii?Q?qBbtmG87ijleRm9ZmMlN2tTSimWha5ler6smv5IilS27JjZG/cwbHwVnyMSG?=
+ =?us-ascii?Q?a//84CPjOOenO5Td2SSQYgxqNk/FVGyhJRglycE1IMmPBDBSD+Z1irFM9dHs?=
+ =?us-ascii?Q?bivdgy+MFwLDc1ajmosgOeSFo44ZECsEQ07ujixKnCl/UmOohE1XO4jzyVQc?=
+ =?us-ascii?Q?hsK4L1PrwTtf5vT9hFbm2kCuZHrQKvSVScjt7ffogm3Oy74Lt022DF0cuNmz?=
+ =?us-ascii?Q?U5ww2018Wa52PKByezeAhWbN5uMaQVb12B6eIlGTT6XKvpDoRKEU8yEF2lxZ?=
+ =?us-ascii?Q?/SQKQth5pG+z+J9HNf097eQnxsmJz7l6RFlQgOI3kXCII3r3TfsivadCuZih?=
+ =?us-ascii?Q?QLhM3ki4wzAzynDO8K6vdnox5RL1b0HdnYXbISfH4OFw4YMw8+V4QijA+ukZ?=
+ =?us-ascii?Q?FSkWUDDOBIcD5AzHxnuv7Iljols7Y0XqjGRYF8qVxz0snkS5aATKrvLoJ05c?=
+ =?us-ascii?Q?U58HsLErl2mhBwl1D8gYdmZhCmt8MO12psHNHNbrNHpkGE9dW60pI/lIULEi?=
+ =?us-ascii?Q?w6KcWvUUKpTTjUrNu5ADRRMyZ1OgdU6ruUuZsrKD6nZ7tk1AzUjzBmUTgUzM?=
+ =?us-ascii?Q?fbqfymdvs23t4bSztA+pjdyuzNCMzsHbp1J5W0SSJBsvtkN4fDk4?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: eabc1c01-4576-448a-5b90-08df0f58469b
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:26:32.8906
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 596af608-397d-460b-c033-08df0f5729d5
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DU2PEPF00028CFF.eurprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB7021
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vUz79t3hjBGoN1iw8MrO0hPUuoZBE0jYnksh5Ad6I0EUtJcdaJ8aMTVepYQU7tMsV9aDYk+MlWliBsqAHjkAZDHoW9onaQx1+7/VjBkgB5BS3L59hQufNhKtCPYJ9/hF
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8293
 
-On 9/10/26 07:22, Marek Vasut wrote:
-> The ST STM32MP2 SoC contains one instance of DWC3 USB controller with
-> glue logic wrapper around it controlled by syscon. Extend the generic
-> DWC3 platform driver with ST STM32MP2 glue logic specifics.
-> 
-> Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-
-Hi Marek,
-
-You can add my:
-Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
-BR,
-Fabrice
-
+On Thu, Sep 10, 2026 at 05:37:59PM +0200, Ernest Van Hoecke wrote:
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> Toradex boards route the sideband signals of their 24-pin camera
+> connectors to different GPIO controllers. Camera overlays which name
+> those controllers directly must therefore be duplicated for each host
+> board.
+>
+> Describe reset, power-down, detection and power-control as
+> connector-local GPIO functions. This lets an accessory overlay remain
+> independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
+> remain described separately because the GPIO nexus does not abstract
+> them.
+>
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 > ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Marek Vasut <marex@nabladev.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> Cc: linux-usb@vger.kernel.org
-> ---
-> V2: No change
-> V3: - Use generic over-current-active-low
-> V4: - Include bitfield.h
->     - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
->       https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
-> V5: - Reorder usb2only_conf to improve readability
->     - Drop superfluous !!
->     - Add AB from Thinh
-> ---
->  drivers/usb/dwc3/dwc3-generic-plat.c | 46 ++++++++++++++++++++++++++++
->  1 file changed, 46 insertions(+)
-> 
-> diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-> index ca69ac0eb07ce..2dce1f24615c8 100644
-> --- a/drivers/usb/dwc3/dwc3-generic-plat.c
-> +++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-> @@ -7,6 +7,7 @@
->   * Inspired by dwc3-qcom.c and dwc3-of-simple.c
->   */
->  
-> +#include <linux/bitfield.h>
->  #include <linux/clk.h>
->  #include <linux/platform_device.h>
->  #include <linux/reset.h>
-> @@ -22,6 +23,12 @@
->  #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
->  #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
->  
-> +#define STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT	BIT(0)
-> +#define STM32MP2_USB3DRCR_OVRCUR_POLARITY			BIT(1)
-> +#define STM32MP2_USB3DRCR_VBUSEN_POLARITY			BIT(2)
-> +#define STM32MP2_USB3DRCR_USB2ONLYH				BIT(3)
-> +#define STM32MP2_USB3DRCR_USB2ONLYD				BIT(4)
+>  .../connector/toradex,camera-connector.yaml        | 86 ++++++++++++++++++++++
+>  1 file changed, 86 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> new file mode 100644
+> index 000000000000..06e6836e1aa6
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+> @@ -0,0 +1,86 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
+> +$schema: http://devicetree.org/meta-schemas/base.yaml#
 > +
->  struct dwc3_generic {
->  	struct device		*dev;
->  	struct dwc3		dwc;
-> @@ -85,6 +92,39 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
->  	return 0;
->  }
->  
-> +static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
-> +{
-> +	struct device *dev = dwc3g->dev;
-> +	bool ovrcur_polarity_low = device_property_read_bool(dev, "over-current-active-low");
-> +	bool prt_pwr_ctrl = device_property_read_bool(dev, "st,enable-port-power-control");
-> +	bool vbusen_polarity_low = device_property_read_bool(dev, "st,vbusen-active-low");
-> +	bool usb2only_conf = false;
-> +	struct regmap *regmap;
-> +	u32 drcr;
+> +title: Toradex camera connector GPIO nexus
 > +
-> +	if (device_property_match_string(dev, "phy-names", "usb3-phy") < 0)
-> +		usb2only_conf = true;
+> +maintainers:
+> +  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+> +  - Toradex Linux BSP Team <linux-bsp@toradex.com>
 > +
-> +	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscfg", 1, &drcr);
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "No st,syscfg phandle specified\n");
+> +description: |
+> +  Toradex boards provide 24-pin camera connectors carrying MIPI CSI-2, I2C,
+> +  clock, power, and sideband GPIO signals. This binding describes the sideband
+> +  signals as a GPIO nexus. The other connector resources remain described by
+> +  the surrounding board device tree.
 > +
-> +	return regmap_update_bits(regmap, drcr,
-> +				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
-> +				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
-> +				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
-> +				  STM32MP2_USB3DRCR_USB2ONLYD |
-> +				  STM32MP2_USB3DRCR_USB2ONLYH,
-> +				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
-> +					     prt_pwr_ctrl) |
-> +				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
-> +					     ovrcur_polarity_low) |
-> +				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
-> +					     vbusen_polarity_low) |
-> +				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD, usb2only_conf) |
-> +				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH, usb2only_conf));
-> +}
+> +  The nexus exposes connector-local GPIO function numbers to camera overlays
+> +  and maps the functions wired by a carrier board to their GPIO controllers.
+> +  GPIO specifiers contain a function number followed by standard GPIO flags.
+> +  A board may omit functions which it does not wire.
 > +
->  static int dwc3_generic_probe(struct platform_device *pdev)
->  {
->  	const struct dwc3_generic_config *plat_config;
-> @@ -231,12 +271,18 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
->  	.properties = DWC3_DEFAULT_PROPERTIES,
->  };
->  
-> +static const struct dwc3_generic_config stm32mp25_dwc3 =  {
-> +	.init = dwc3_stm32mp25_init,
-> +	.properties = DWC3_DEFAULT_PROPERTIES,
-> +};
+> +  The function numbers are:
+> +    - 0: Camera reset, connector pin 11
+> +    - 1: Camera power-down, connector pin 22
+> +    - 2: Camera identification, connector pin 23
+> +    - 3: Camera power control, connector pin 24
 > +
->  static const struct of_device_id dwc3_generic_of_match[] = {
->  	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
->  	{ .compatible = "spacemit,k3-dwc3", },
->  	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
->  	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
->  	{ .compatible = "starfive,jhb100-dwc3", },
-> +	{ .compatible = "st,stm32mp25-dwc3", &stm32mp25_dwc3 },
->  	{ /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
+> +properties:
+> +  compatible:
+> +    const: toradex,camera-connector
 
+Name is too generally, suggest use board name, we got similar comments at
+
+https://lore.kernel.org/imx/20260629074734.3643227-2-chancel.liu@oss.nxp.com/
+
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  gpio-map:
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  gpio-map-mask:
+> +    items:
+> +      - const: 0xffffffff
+
+are you sure need full 32bit, only 4 pin, maybe 0xf should enough?
+
+> +      - const: 0
+> +
+> +  gpio-map-pass-thru:
+> +    items:
+> +      - const: 0
+> +      - const: 0xffffffff
+> +
+
+missed
+	gpio-controller: true
+
+> +required:
+> +  - compatible
+> +  - "#gpio-cells"
+> +  - gpio-map
+> +  - gpio-map-mask
+> +  - gpio-map-pass-thru
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    camera-connector {
+> +        compatible = "toradex,camera-connector";
+> +        #gpio-cells = <2>;
+> +        /*
+> +         * 0: Camera reset, connector pin 11
+> +         * 1: Camera power-down, connector pin 22
+> +         * 2: Camera identification, connector pin 23
+> +         * 3: Camera power control, connector pin 24
+> +         */
+> +        gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
+> +                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
+> +                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
+> +                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
+> +        gpio-map-mask = <0xffffffff 0x0>;
+> +        gpio-map-pass-thru = <0x0 0xffffffff>;
+> +    };
+> +
+> +    gpio1: gpio-controller {
+> +        #gpio-cells = <2>;
+> +        gpio-controller;
+> +    };
+
+Need't gpio-controller.
+
+Frank
+
+> +
+> +...
+>
+> --
+> 2.43.0
+>
+>
