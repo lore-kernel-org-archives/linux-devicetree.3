@@ -1,191 +1,167 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010024.outbound.protection.outlook.com [52.101.56.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80203484235;
-	Thu, 10 Sep 2026 14:53:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3F88363C46
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052033; cv=fail; b=Ee7UZmNI9vbvloIUcTtv07sbNsqUoW4JtVedbASerlq1WwHOO2JWoXdgRSHOACZmqR8gxSTEm24cooMM6kOUioXRH3K1KmVpeKnGff+4hdnZqrlh/Au2i2Jffa6DEp1JSNN+6m8rJ2SqmXtPhB/yF+wqkaXarUC/Q8nCG/MIWF8=
+	t=1789052045; cv=pass; b=O+Tm5UcKZGxccLnCH6AgHRCw9ItOPOTwWavR+OPmJJGCcmlSZM1NjYgTs6c8fPSqEtKskKjgPqiBxlPFkJoryTUkGFvvNdhJDqS7ph9cCso6lPP0iAw7q0YI3sKX5k3C7BWrbuFET591jQyBujg4+wMYH3DccA40WYptGkvGiPQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052033; c=relaxed/simple;
-	bh=7MrpzwNhM4vIMXhY8mzEiWiusJ3483AGMz6w7ohSF0w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=sShsYdYsy8WHjlN5q+qxht7gHoPNd6034GCqXLGmb599spMowTLpEB623jfPuw7pqf7S+HD8RBgACCpRE7GlG5jXvPxiWtriIK6nwNqXN18g18ZKp1wRHehbUsx8iV4ZwVBWhFPt/ZR9r8/FhiiPO5PqVSZRdgqAm5uN8vom5XA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=f73lMds6; arc=fail smtp.client-ip=52.101.56.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1789052045; c=relaxed/simple;
+	bh=IGzkZ29oQC5+zM7j41y1PzuVxI/kR6lS50DPmDPTu28=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qTqTXAjxRdFSTrBFh/hPIbCT92rmBZrmLZs7PnrTgTTvv86xtPi99YQBrv9Ocemc0Ep3Ya/z3gTrqoJNtnwX27AW07sslYi4bqMcGsSIM80m8wHsD7HV9/A0d2P3qwQrEiT7GqdSB5g5zhY29xFFq3AZu2zQ2RhD5ztCH6HNeWQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=bmR9DOE1; arc=pass smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="f73lMds6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=VYaMj4gZwgZyq5rwQNS93xFkAGYRukfIS1+H1ld7zNFWt/GwhbBHCGZFpGx1vtg1FV/T+O8OBsHE4n8RgARDFYzJiros2zoR3HemO86PFGD8KLuKm111O/A7Ti3KUQ7406hCdVl8XCrOqibztc31h45po38i/nfQ8JFsCZSVDy8gcRhx6qETyOgSuh55e7Yz5Xi51E7X3DZb3orgoSZoHKqfJacEBm8EMi0ZsnUfCEg7P7z+t+oCroj2TwIcLc1Go5Vvl9QIYeei0KzGz4KQ93LbKmuSyZUaDBfBELF0KzrY2sFDuU9kzO0dNrLfn074EkGyAYR2bajo+6Z06jafPw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qiCsWrXULLF1qgN5eD2w3BNqIwTKHG1mFSloFwNXO8A=;
- b=EvZA0K5164ICH+YRW5OF5KLAMQVH2c5yStZLqvtxRN1a+5OylrAEbWQEi+VlGskp/rz91fAh8yvs64m0/JTmvm+Z/4w9o6vYgI4/7IQazZ+hdotJeOUNsB5JN+GpzO0P5V24i9NLRGmTDs4bVS+j4X3ovESHcFyYbFmJDrDnizwJI7PapK5lTVbcbiIaeAPKlCDlqC+16bb6HNAjzbNxQGxrZ4OZShvcwFq2jKHFZ/S5fRs55L86VayWtSGHHkZ7dUHRh9c4OuFpJWVfL5OalR+ZtNBvGHq6zgOvphle0rXpwLChxXEgfBnsqZ/7slJYHOd8P2JXc9tPjhHPzKYUPw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qiCsWrXULLF1qgN5eD2w3BNqIwTKHG1mFSloFwNXO8A=;
- b=f73lMds6J3grHlGOPgbGYCh34dkna1IyvaNCQwxigNa55U+Wmoox5FEwFL2YyfsLBvAIq3WLN+SFUagcYA0isQMgDlxBAEpcb5y5+JJUHyX0UVSbBxFBBtzhZXx56XrorvibJyVwwREzpXyAspGP9ZdcqdIqHWSMPnTtnwM1D/upuxcFWkgJX7+ovq2y1LG+0ejyo9P9wGO+RzHlNngHMasJX3bkPCByl4frg8cyN/GLWW4TFvaoydMINRC8Ba0wKlLSWgZGtoA83TOcuXfvn37PvwXb2bkK9s09t7QDDRe7ZDXRRFuA4/sgaWag7m891/GPLgqYoEV0oskwIwOHJQ==
-Received: from PH5P220CA0009.NAMP220.PROD.OUTLOOK.COM (2603:10b6:510:34a::14)
- by SN7PR12MB8145.namprd12.prod.outlook.com (2603:10b6:806:350::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
- 2026 14:53:44 +0000
-Received: from SA2PEPF000015CD.namprd03.prod.outlook.com
- (2603:10b6:510:34a:cafe::2d) by PH5P220CA0009.outlook.office365.com
- (2603:10b6:510:34a::14) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
- Sep 2026 14:53:44 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- SA2PEPF000015CD.mail.protection.outlook.com (10.167.241.203) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 14:53:44 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 07:53:15 -0700
-Received: from [127.0.1.1] (10.126.231.37) by rnnvmail201.nvidia.com
- (10.129.68.8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Thu, 10 Sep
- 2026 07:53:13 -0700
-From: Jon Hunter <jonathanh@nvidia.com>
-Date: Thu, 10 Sep 2026 15:52:59 +0100
-Subject: [PATCH] arm64: tegra: Add the USB Type-C controller for IGX Orin
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="bmR9DOE1"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so2200900a12.3
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:54:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789052042; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cu09+Itkr6x/dP1eZ417Z6Pk18sbpT0GwHwm6KPUDSBjVuwL7gwa1oNoFAckDv03mC
+         F2lwMRJn1lyz78uicMqUXbrcuI3dmSQUU14WuZR7nncOPMgD5BcbU8DVqbb0HlAQ9zc/
+         QB++QiqACTwM03+N6S7zrbKMJMY5+8gN8X8N3l9sFZDEKt+4nSiusoCVwpJD15ZwEYiF
+         VK6tDY7HnkjDqM4xuW3Rgv5D6/yNhvpBmYMCM2EKS7+QycfsVrzQQByry12wH2bpQ2Es
+         j0HBu2i/HZsfPGy4g1ZbLek+/ypk+l6IBHvWxweCX15b5rAtCzjUHFQjqd729cXpldvo
+         31/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
+        fh=AldpnyhbCTHKWy60/w8jw2Cz9egKGmRo0ydzExlLP6A=;
+        b=VGN51FrJpuClF52jT6YTlmG4y4/RYHkCOPxncMRuuWTUO0RWlfweniNaoNvIobV6W6
+         mnzDFoQmdATa7a3ZHne5bvhup9BdWrGf1WbZnF16RjTLiouAfUtS9LeMZjGa8GlDLLyn
+         VZmAe1k0mM4soZ0uN5xod7RgdmFuK5obu30mAiL1DL9hsV+1q6zcqo2UWygIst87ofNp
+         Je4vx51waNvHrRBLReuUVrtpWIfWAhoRbkSq0XwLFl5O2Z9elfsdIQHJ7aN9jD7oB6w/
+         EjQbcrASTIHws6nWhZoFC6MrqXo0Wedu8P7MS8JsX9prYEznPpE2YR1zNNOxgahoPNPG
+         Kzkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=flipper.net; s=google; t=1789052042; x=1789656842; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
+        b=bmR9DOE1kiuwo/0EEYBWYaFXPCazkgK3+YC+fcIWVMElfEPXRcpZauAfFfOJ/xAAWC
+         Y0YOvJnzOcxuI76Ybw7x4R26ACCJDGFAWo0naEewthOogK1jd37Ey3JTto+uFhJqEEhJ
+         i6Y7EDpScFK+I7RBgjjjh9pky3yidw4vJCSFJk9TFG9yU4Qcp6vo/KSPdaxQyWjMWn5t
+         hWNsj3a2yGzjdUHYZ4dz37IewDMMZQa+I1pVusjNL75c630pXEBP/DnVlJFZH5OoFaKp
+         JhDd8hWME2feD3Lo0ZG/8721XQFqbSbYZ+399jb3EWuKoOtpthAHXFFRHSULJWf/FCUc
+         L6Zg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789052042; x=1789656842;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZGkfTmvcfg2tYgnaJgCLfP1/mFjyPE2KGae6+BF91/w=;
+        b=L8hJrhvSxdJQ+/etljmlNMU5bDfVOA3Ag3F6zaokplfGTIrl4EI3GzdH/rtmKl0SLi
+         83x0/XUZE2wJbeu5YVNIMwcxlY3K0sEHF7v2B2dcrmRO0m2YtZLZF8suAFMbecmjR5IC
+         8b+Y3Bt4qrLfSSNRPmR65/3RX3U6PG8Y0vgJCh0wZDrIyY8SIQdvkmIoSIIiJbicjozf
+         zWzZllKOwthtz7PWjVtFx24keoll0d1jmQx0KVDUcaE+YKklaeg33O9P/MQg8ZIQvW+2
+         3WNahTf7li8WRnvHN19Y0ggcJymRleIewvElrkm4BR7CHaYCDg7XAfxrsvfl1bWu7mlW
+         RffQ==
+X-Gm-Message-State: AFuF++mmJ9XCV0BU0Xa0TD8HZ3ZfK7+4aFTlIZysWYg/rySyDiSLE2e0
+	RK0bGCxh2Wl8OFtHrVKlfIVd/neXfW6fNfsmVZ92yTrXV/dn3UA9gHdocxgrkhHI/HkL4ro8eE2
+	vNN503hE6C4YHXIPuNe2sj0SlbIG6lZv85741me5up3XiExVIbgWWWXg=
+X-Gm-Gg: AYBFou3SFtRIHYaTGv0t2NDJtFy/2OHvNofxx91JkWvvCQX6nM7bWi7ClMAHKw8bgV0
+	IAzDJdtfGe/gd/tOSmnF2rL5zq4oHwxcg4bV/1vPAYimkUUXFmmJNriO4KkGNR6QUhr06kC9Vbw
+	v5V94isxgn9+M6JZCAm3Gil2+RWZ7ugo8m/g6jfrcnGYmWbz12zydmpDysj7XZgUJ9lfzpjBpYf
+	TECkv3MsGlJ3J8TFsm3+feeCDjqKJ8rnRA1+0yU1xddha0Y3fM5xhz6llgBlxZS4I0vr4nh0Wb0
+	BDD7+CS+6DE1Y7M1ATlyoyoupN/KrrkFy5QvzvNc4hJr1GReIAFeOhGIwnBUOHM58V/GV5NWe4B
+	HcebxC4MjOwmk+vDM7E9ERPA=
+X-Received: by 2002:a17:907:c5ce:b0:c25:47a4:fedc with SMTP id
+ a640c23a62f3a-c29418b652emr491393166b.2.1789051729432; Thu, 10 Sep 2026
+ 07:48:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260910-tegra-for-7-4-arm64-dt-v1-1-52e7bc535489@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAErEomoC/x3MTQqAIBBA4avErBuwEMuuEi20RptFP4wRQXj3p
- OW3eO+FRMKUYKheELo58bEXNHUF8+r2SMhLMbSqNco2Ci+K4jAcgh1qdLIZjcuFpJ2x3gdPoYc
- Sn0KBn388Tjl/HuSqoGgAAAA=
-X-Change-ID: 20260910-tegra-for-7-4-arm64-dt-e4a69bbfbef8
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding
-	<thierry.reding@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jon Hunter <jonathanh@nvidia.com>
-X-Mailer: b4 0.16.1-dev
-X-ClientProxiedBy: rnnvmail201.nvidia.com (10.129.68.8) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA2PEPF000015CD:EE_|SN7PR12MB8145:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0751ac20-9f4d-4bbe-cd78-08df0f4b4f98
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|11063799006|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	eLutpXazWmf5Ki6KLxANxUNjaOfild5tCsbK+lakcgVVVoaYAa3Pr1s0xOzwn2lqnlmT+dEBfFfAVeZ1zdIPHMnn3LOWpdfRXG3sJGy9BnpbJyMpSoI2YqxEXuwq3tXgVXAUGR71kZEJPTpti73I+wKHzhI+re9r8ncQAB/yTx2szVl+e2QVMVCOPcJfh/Gtj6RzOVCTcizrwIZ7H6POi7qF2Ne5GFdzivPgOMvH44HBBekhJctZF78dGq/HeMCt1h19UQvsro489hLiwrhRFBoV/SVJaEd4OR8JWK1i7gyUkWQ80T00mlqhIcFyaITMKBQLtDEfawm1jDGr2TqyvF72gxXQ1dOa247OyAF+toe1qAXdPzwkFItr1Rk0io1gG0A41Z2RUDH/NOFNy8b1InicsNvTr2HbTdJa4RrQwI1ahFCHcGXThB0nmBiIRE4X/WS4ayNanE8FnrzPTlwTyHSssz/zGjbAeIdCdyHlMONJNG+x2tLFObK6gSp84IMFJznvihfez6Srlm6MC1/7eFDGWIGKE7jLqfz62z1UxyKlgsE489xsg9ST4zGFBSAVjUTREgBoyi0aXqhDRBTEdfLXrRtp7gqcjwmUDqKw8xG1znU7c1qt77ECvCAqZP2cO2rfZRmfHzuQHeqbM+f0kYpadZSH+OKX5s9QrOXL84oR86hHfAgEqwFYxaZXvPfb+Pl66lFfna/0lUN2ee/MHg==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/agfKG2YhwSu8D3mWqkpV0/0x7Y4vkjHrhDPhk3Hvajj+iXvjo2AP4UxNm6Jco1aRysQNDotc/PuenyMp7RWdNoOqpilQV9MWjPJBwj0a5DctfCMg/UDb0mzov1UwVa200YJcy5m6lYvcINWH3G9m9rdM5Ve4fj883fIrfmfu6wZVAFYB5A0yISl+388EpGzsu9iRQGh2s/+8ZhmHuju2+SiNI9vAoZ4wAGeybu8wx9Tc1n1Z4eoMhSZVucrn9J5yS6B0BH0bTyFvD2V0gA4odQwQB86jcBiMASFjAOc+YO3VuhK5K/oIYdGQ0enCDXBpR9IPcJp1Jcs/y0ADzZHxqiPpu2Ihs5V84vYltj3sEDqxG8Rnvp01eNpsFpSTy1jo5ShuiKEj01D0FpZASx6BK1bfpTpH5y4qRyZTsUKIkdiYJtdMzayHu72aNsySKZF
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 14:53:44.0779
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0751ac20-9f4d-4bbe-cd78-08df0f4b4f98
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SA2PEPF000015CD.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8145
+References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+From: Alexey Charkov <alchark@flipper.net>
+Date: Thu, 10 Sep 2026 18:48:33 +0400
+X-Gm-Features: AcwNN1UfoxjgFqkNtB6Aosk9zTLZTrJucLfz7oY5DTmBgBUsxij8crpGNXoG4yA
+Message-ID: <CAKTNdwH9QAgreJ-6+t1j_P1di4VyoMBSsFkf_g=mCi_-M8g9Pw@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
+ CPU ID
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Michael Walle <michael@walle.cc>, 
+	Miquel Raynal <miquel.raynal@bootlin.com>, Finley Xiao <finley.xiao@rock-chips.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add the USB Type-C controller that is present on the NVIDIA IGX Orin
-platform and hook up the Type-C controller connector to the USB2 OTG
-port on the Orin SoC. The vdd-supply for the Type-C controller is
-provided by fixed voltage 5V regulator and so populate this regulator
-for the IGX platform too.
+On Wed, Sep 2, 2026 at 5:08=E2=80=AFPM Alexey Charkov <alchark@flipper.net>=
+ wrote:
+>
+> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> memory, and Rockchip bootloaders use it to give boards which have no
+> dedicated storage for a MAC address a stable one anyway: they hash the CP=
+U
+> ID and patch the resulting addresses into the device tree they hand over.
+>
+> Kernels started without that fixup, e.g. straight from the SPL in Falcon
+> mode or by any other loader which does not implement Rockchip's derivatio=
+n,
+> fall back to random MAC addresses which change on every boot.
+>
+> Formalize the derivation in the DT binding and add a Linux kernel driver
+> implementing it, so that a Linux image can use the same stable addresses
+> regardless of the boot flow.
+>
+> Only RK3576 is wired up here, that being the SoC I can test on. Other
+> Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
+> than 0xa on RK3588, for instance - which makes supporting them a two-line
+> addition to the driver's match table plus the layout node.
+>
+> Patch 1 is a prerequisite fix. The OTP hardware has its own internal stat=
+e
+> machine which only works correctly with serial access, but the current
+> driver serializes nothing, which results in timeouts and/or corrupted
+> reads (e.g. returning splicing a TSADC trim value into the buffer of a
+> caller asking for the CPU ID, or mixing up trim values of different TSADC
+> callers). Hence the Fixes: tag and Cc: stable.
+>
+> Cross-checked on an RK3576 board: the addresses fixed up into the FDT by
+> U-Boot match the ones derived by the new driver, and the driver correctly
+> assigns them to the network interfaces when the kernel is booted without
+> U-Boot proper at all (via Falcon mode).
+>
+> Sashiko also rightly pointed out a use-after-free in the nvmem core when
+> a layout driver is unloaded leaving its sysfs nodes and the postprocessor
+> function pointer dangling. This is fixed separately in [1].
+>
+> [1] https://lore.kernel.org/all/20260902-nvmem-layout-unreg-v1-1-2d16bebe=
+b518@flipper.net/
+>
+> Signed-off-by: Alexey Charkov <alchark@flipper.net>
+> ---
+> Changes in v2:
+> - Switched from a scope-based guard to explicit lock/unlock calls in the
+>   OTP driver to avoid mixing styles in a function using goto error
+>   handling (Sashiko)
+> - Link to v1: https://patch.msgid.link/20260901-rk3576-otp-cpuid-mac-v1-0=
+-ea9135270fc2@flipper.net
+>
+> ---
+> Alexey Charkov (4):
+>       nvmem: rockchip-otp: Serialize reads
 
-Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
----
- .../dts/nvidia/tegra234-p3740-0002+p3701-0008.dts  | 36 ++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/nvidia/tegra234-p3740-0002+p3701-0008.dts b/arch/arm64/boot/dts/nvidia/tegra234-p3740-0002+p3701-0008.dts
-index 97cede1fcb70..a4ddffb16d85 100644
---- a/arch/arm64/boot/dts/nvidia/tegra234-p3740-0002+p3701-0008.dts
-+++ b/arch/arm64/boot/dts/nvidia/tegra234-p3740-0002+p3701-0008.dts
-@@ -93,6 +93,29 @@ rt5640_ep: endpoint {
- 				};
- 			};
- 
-+			typec@28 {
-+				compatible = "st,stusb1600";
-+				reg = <0x28>;
-+				interrupt-parent = <&gpio>;
-+				interrupts = <TEGRA234_MAIN_GPIO(K, 6) IRQ_TYPE_LEVEL_LOW>;
-+				vdd-supply = <&vdd_5v_sys>;
-+				vsys-supply = <&vdd_3v3_sys>;
-+
-+				connector {
-+					compatible = "usb-c-connector";
-+					label = "USB-C";
-+					data-role = "dual";
-+					power-role = "dual";
-+					typec-power-opmode = "default";
-+
-+					port {
-+						typec_con_ep: endpoint {
-+							remote-endpoint = <&usb_role_switch0>;
-+						};
-+					};
-+				};
-+			};
-+
- 			/* carrier board ID EEPROM */
- 			eeprom@55 {
- 				compatible = "atmel,24c02";
-@@ -173,6 +196,12 @@ usb2-0 {
- 					mode = "otg";
- 					usb-role-switch;
- 					status = "okay";
-+
-+					port {
-+						usb_role_switch0: endpoint {
-+							remote-endpoint = <&typec_con_ep>;
-+						};
-+					};
- 				};
- 
- 				usb2-1 {
-@@ -473,4 +502,11 @@ vdd_3v3_wifi: regulator-vdd-3v3-wifi {
- 		regulator-boot-on;
- 		enable-active-high;
- 	};
-+
-+	vdd_5v_sys: regulator-vdd-5v-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd-5v-sys";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
- };
-
----
-base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
-change-id: 20260910-tegra-for-7-4-arm64-dt-e4a69bbfbef8
+Incidentally, patch 1 of this series also fixes CPU thermal throttling
+on my RK3576 device: apparently, the mis-read OTP-programmed thermal
+trim values broke the thermal governor logic, which now works
+correctly with properly serialized OTP reads. So it would be great to
+have these merged.
 
 Best regards,
---  
-Jon Hunter <jonathanh@nvidia.com>
-
+Alexey
