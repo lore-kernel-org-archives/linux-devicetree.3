@@ -1,123 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71B2633BBCD;
-	Thu, 10 Sep 2026 06:31:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCA63C3F5B
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021868; cv=none; b=K3WKm7d01DoIgB8bPD7eaLNINJ3Hs9X7ocWLyUjHLxGiEEOtE54W3BjsFPQdpoBwF3mRGq3ujWimopO4Q7XFoPMplN4KbkxRI3qKLI814QlSAjfskZgtiXQJy940ONIr6vnarxEXOlZ9kt7iP5+kXD5i1x/QHCgz1uWxpS0mufQ=
+	t=1789022049; cv=none; b=fnfsw1hcz6wyKePOzP2G8qOmgkg6nqVhw41lv8UZJH27w8cR7bf1YO0zS7m7EKvZz7IOCY81XCkwA/8JZhMe6z1n7DNqQ90D0vyBiRIAqSCnpmUws3xF0P3BkCEpSOxpCpjeMTlXvB+gPHPoHUKgO1KabA2eKPg8Cw3HKM00oI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021868; c=relaxed/simple;
-	bh=XPt/ZMV6fQTCtpTEpvUBwdx1DO7yY3PzULQf11vhq/c=;
+	s=arc-20240116; t=1789022049; c=relaxed/simple;
+	bh=npcBFgV7Qn8ck8lM//UN7/T3mJwi4yhray30kienIZc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ONTptH5umxNgGhVCSQMIvlFVCrg0JWsricR5j7wUeELeRWID14thdbsxggWt5aCIThUGNtu/qCyPCdkqKK06701V/nMbNqem8+fv/RzyYhZyI9hspHOOQ+ke61jwbNKNYfW4CWfEVyFZHv/BzMfMA6npLoGvm/sZSFD9UyrXBs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KrTpr/4X; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XxUa3cqLEc1YjlWzDLrUxOaiRZABwc+1mUQPjRBXGOQxBR00M5wDPVV6xvpxUX2ghxmYan+He+8Szkk3Ujeh364t4kWzK8IQD56za5jNYTgBOYOcqbe55I2208O4sFf4m/Tx9ptJQ/C6HLEI9/rMgsxkNwb2M4Nmbucw0gKRh5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODqFBcr/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KrTpr/4X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ADEB1F000FF;
-	Thu, 10 Sep 2026 06:31:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODqFBcr/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CBD11F00899;
+	Thu, 10 Sep 2026 06:34:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789021865;
-	bh=+Qcfe64i4YBT15C2r5+ZwdoiuWDP1+o5rGvD3i7WT1s=;
+	s=k20260515; t=1789022042;
+	bh=vqnIfXnldyGd5lJ29aMEI76xUer00ebrN7yFwu/WcII=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KrTpr/4X8xB+hWZyfqAi6LyRIUTclOCyOOsfVY77phX+pftXH/ubrLeZMB44snHB8
-	 7FdS74TpAWkqJgKjgsTsdtSlAcrE6wFZHBrcuTBYoV2U80CwuAfJfRbytsJamBGuKN
-	 QJU2nlUvyGTaaIq+m0IaCa2AO9pSnEMRklTj2rrry5ey1w/W56YdZpEvseuI/W82A4
-	 At8WToXjG9sN8scrJYNOyKpVB4qb1BiiF7fEf+filLTh2KhURmlTUWh6UCDx6jmMjG
-	 Kmi+98sDhhdnT6B6sLu1SCbxurT7b1mIjlUcZN59W+WcDsBx9fWVxms/WbsLQiCk7u
-	 3SfFhEsxnlmhQ==
+	b=ODqFBcr/93b+cJO4lNj0lDRruqMPKXg2XS4qoXv1RZNsW1qS9BgjfoodQh0/GRGfe
+	 Huz8X0oh3NCzBNgC35Szt7SWbKX7trd0d47Q/xBznsyXwn/rROYbsVA9b2ecZ4Lt3X
+	 46TfCnabDndGujeI3/RhOXY9IV5QxBJ3Q0ArXUNrJpyV+Ow8N9qYgPPnX9dlGlxjoJ
+	 5vcN/GwsD94aRwtGSvNYdU7KIU30pisoHrzgPLqFzXZjfzbvG+SKK8HZ/mOuFLHpOe
+	 N3usfyKu1LAiagiWt/xhps3uK1e2jfIe9y+9rv+FKOMx4cmqlEQ+DyFfV+QcPADv9B
+	 J4innfIgDJc6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/tda38740) Add driver for Infineon
- TDA38740/TDA38725
+Subject: Re: [PATCH v2 2/2] soundwire: qcom: add EE-aware register layout
+ for Shikra
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Colin Huang" <colin.huang2@amd.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-2-3e87637da3d6@gmail.com>
-References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
- <20260910-add-tda38740-and-tda38725-v3-2-3e87637da3d6@gmail.com>
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260910-shikra_soundwire_support-v2-2-f98c9a6ea1e1@oss.qualcomm.com>
+References: <20260910-shikra_soundwire_support-v2-0-f98c9a6ea1e1@oss.qualcomm.com>
+ <20260910-shikra_soundwire_support-v2-2-f98c9a6ea1e1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 06:31:04 +0000
-Message-Id: <20260910063105.0ADEB1F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 06:34:01 +0000
+Message-Id: <20260910063402.1CBD11F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The driver intercepts PMBUS_READ_VOUT to apply `vout_scale_micro` =
-but fails to scale VOUT limits during reads and completely omits a write ho=
-ok, leading to dangerous unscaled hardware writes.
+
+Pre-existing issues:
+- [High] IRQ handler remains active after subsystem unregistration (Use-Aft=
+er-Free risk).
+- [Medium] Missing clock cleanup on error path in probe.
+- [Medium] Missing pm_runtime_disable() in remove.
 --
 
-commit 1abfb85e1a82a16c8ba7229d3c9657b7d232835d
-Author: Colin Huang <u8813345@gmail.com>
+commit ea7f212648855ca1f1b27ca9b52687d659dc81f7
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-hwmon: (pmbus/tda38740) Add driver for Infineon TDA38740/TDA38725
-   =20
-Add a PMBus driver for Infineon TDA38740 and TDA38725
-single-voltage synchronous buck regulators.
+soundwire: qcom: add EE-aware register layout for Shikra
 
-> diff --git a/drivers/hwmon/pmbus/tda38740.c b/drivers/hwmon/pmbus/tda3874=
-0.c
-> new file mode 100644
-> index 0000000000000..df5173d8da0c1
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/tda38740.c
+On SoundWire v2.0 and later hardware, FIFO, and status
+registers are banked per Execution Environment (EE).
+The existing driver assumes the SoundWire controller is
+assigned to EE1, which is true for all currently supported
+Qualcomm SoCs.
+
+Shikra is an exception and assigns the controller to EE0.
+As a result, the relevant register windows are located at
+different offsets and cannot be accessed using the default
+EE1 register layout.
+
+Add an ee field to the SoC match data and introduce a
+dedicated qcom,shikra-soundwire compatible with ee =3D 0.
+The driver uses this information at probe time to select
+the correct register layout, while all existing platforms
+continue to use the default EE1 configuration.
+
+> diff --git a/drivers/soundwire/qcom.c b/drivers/soundwire/qcom.c
+> index 35ffffd541bd1..6e0c5fb10efad 100644
+> --- a/drivers/soundwire/qcom.c
+> +++ b/drivers/soundwire/qcom.c
+
 [ ... ]
-> +static int tda38740_read_word_data(struct i2c_client *client, int page,
-> +				   int phase, int reg)
-> +{
-> +	const struct tda38740_data *data;
-> +	int ret;
-> +	u64 scaled;
-> +
-> +	if (reg !=3D PMBUS_READ_VOUT)
-> +		return -ENODATA;
+
+> @@ -1659,6 +1711,7 @@ static int qcom_swrm_probe(struct platform_device *=
+pdev)
+>  	prop->default_row =3D data->default_rows;
+> =20
+>  	ctrl->reg_read(ctrl, SWRM_COMP_HW_VERSION, &ctrl->version);
+> +	qcom_swrm_set_ee_register_layout(ctrl, data);
+> =20
+>  	ret =3D devm_request_threaded_irq(dev, ctrl->irq, NULL,
+>  					qcom_swrm_irq_handler,
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but looking at the error handling
+further down in qcom_swrm_probe():
+
+	ctrl->wake_irq =3D of_irq_get(dev->of_node, 1);
+	if (ctrl->wake_irq > 0) {
+		ret =3D devm_request_threaded_irq(dev, ctrl->wake_irq, NULL,
+						qcom_swrm_wake_irq_handler,
+						IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+						"swr_wake_irq", ctrl);
+		if (ret) {
+			dev_err(dev, "Failed to request soundwire wake irq\n");
+			goto err_init;
+		}
+	}
+
+If the devm_request_threaded_irq() for wake_irq fails, the code jumps direc=
+tly
+to the err_init label. Does this bypass the err_clk label, leaking the clock
+reference and keeping it prepared and enabled unexpectedly?
+
+[ ... ]
+
+> @@ -1769,16 +1822,19 @@ static int __maybe_unused swrm_runtime_resume(str=
+uct device *dev)
+>  		reset_control_reset(ctrl->audio_cgcr);
 
 [Severity: High]
-Does this bypass software scaling for all VOUT-related limit commands?
+This is also a pre-existing issue, but I have a question about the teardown
+sequence in qcom_swrm_remove() which sits just above this function:
 
-By returning -ENODATA for anything other than PMBUS_READ_VOUT, the PMBus
-core falls back to unscaled hardware reads for VOUT limits (e.g., in1_crit
-or in1_input limits).
+static void qcom_swrm_remove(struct platform_device *pdev)
+{
+	struct qcom_swrm_ctrl *ctrl =3D dev_get_drvdata(&pdev->dev);
 
-Should this function also scale the limit registers when they are read?
+	sdw_bus_master_delete(&ctrl->bus);
+	clk_disable_unprepare(ctrl->hclk);
+}
 
-> +
-> +	ret =3D pmbus_read_word_data(client, page, phase, reg);
-> +	if (ret < 0)
-> +		return ret;
-[ ... ]
-> +static int tda38740_probe(struct i2c_client *client)
-> +{
-[ ... ]
-> +	memcpy(&data->info, &tda38740_info, sizeof(tda38740_info));
-> +	data->vout_scale_micro =3D vout_scale_micro;
-> +	data->info.read_word_data =3D tda38740_read_word_data;
-> +
-> +	return pmbus_do_probe(client, &data->info);
+During driver unbind or module unload, this function tears down the bus and
+slave devices. However, the driver uses a devm-managed IRQ handler which
+remains active until devres release (after remove returns).
 
-[Severity: High]
-Is there a missing write_word_data hook here?
+If a hardware interrupt fires during this window, could qcom_swrm_irq_handl=
+er()
+execute and operate on the already destroyed bus and slave structures, lead=
+ing
+to a use-after-free or null pointer dereference?
 
-Since the driver intercepts reads to apply vout_scale_micro, writes to limit
-registers currently fall back to unscaled hardware writes.
+[Severity: Medium]
+This is another pre-existing issue in qcom_swrm_remove():
 
-If a user writes a 1.5V limit for a board with a 2x voltage divider, the PM=
-Bus
-core writes 1.5V directly to hardware without scaling. The hardware then
-regulates or triggers a fault only when the pin reaches 1.5V, which corresp=
-onds
-to 3.0V on the board, potentially causing physical damage.
+The qcom_swrm_probe() function sets up PM runtime:
 
-Could we add a write_word_data hook to ensure VOUT limit writes are scaled
-correctly?
+	pm_runtime_set_autosuspend_delay(dev, 3000);
+	pm_runtime_use_autosuspend(dev);
+	pm_runtime_mark_last_busy(dev);
+	pm_runtime_set_active(dev);
+	pm_runtime_enable(dev);
 
-> +}
+Should qcom_swrm_remove() call pm_runtime_disable() and related cleanup
+functions like pm_runtime_dont_use_autosuspend() to balance this PM setup a=
+nd
+avoid leaving the device in an unbalanced state upon driver reload?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-add-tda387=
-40-and-tda38725-v3-0-3e87637da3d6@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-shikra_sou=
+ndwire_support-v2-0-f98c9a6ea1e1@oss.qualcomm.com?part=3D2
