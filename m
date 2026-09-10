@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7C658FD3B;
-	Thu, 10 Sep 2026 20:08:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC07C59650D;
+	Thu, 10 Sep 2026 20:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789070886; cv=none; b=WV9XvDmwZh0WsRgb9WX/5gmEJBfghGfJlbT4ahOci05Jf7CaoK/QUgNhqhilToUV1bTgSPGwzz7lUvBLaGCCQKuCpij7+fJezIHDfRSpShR1dCSFwNdkoenkSNF/z/2T3ydw566bcgLjkknLIfOrhsqcv0gPhC3MDRozpZRfVLw=
+	t=1789070888; cv=none; b=Uh9/27AqbekDZVT+ajpN8QSIAXTiflyzgd9GMTqXw2kAAtDQ4i4iI36OgP0kWOrEhsytRFe4EirZh+Uj00LCDThLRuxlRoF+YibfwlDiizDeYr5szg5TsjfuwWHqtvSC1HkUhYFYA74JfMzN2WO7ynQ+a0Rrwg3ihiwRtBDi9XA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789070886; c=relaxed/simple;
-	bh=r6js+jziMUsagrxNtK58g/Crq9cEVtYCRnaAMm14gsM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Jc80OAaiJV9Efx4DbvIMu3Ip5zOvl6vU+V5Bk2t0eZexBbIwH9UpXQYr0PawF1sxuULNGVVtFITVhVctK4N05GbFgBKwv76/dgFgq9/tL3v36ZMs5+VpmPqs21qb4lXv+2wbx5xx44GnXy1BmzAs3OEGM3+8CyO6dj/Y9zJRNBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fD69EY71; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789070888; c=relaxed/simple;
+	bh=9VN3bwZka3S+tTg96FmOIUV3qYPE1M05k5Wl+t8sisQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=JZ5C+S8g97V+fOsPVt/2qAvBxXQXi1SzF6eOd2two3rhzuYkDXJDyy4fn9/ttRUtDzjaoE6VZNmWaRP6TcHjDp1/gorodLfk0NHQk/SKOqqlw7Jtfy0zabqASe00ZitK+7wn2x2BDCbNga/2DKWm5hm3K+/yhPXQ8KHEkNz5Am0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fYykwd/d; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fD69EY71"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3283BC2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fYykwd/d"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CF537C2BD05;
 	Thu, 10 Sep 2026 20:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789070886;
-	bh=r6js+jziMUsagrxNtK58g/Crq9cEVtYCRnaAMm14gsM=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=fD69EY71I6tk8uAOOPObfgW7WK6S4ii6TSCVw9vMNlWMzjfQ2QN6+gY+OMSAm1jAV
-	 nw2F/CsA1wN+/5GwiidOtEeFF58eBB6gABilVHq5c/BjQ5vgVemRqeOiJv5CU1NHKY
-	 Ixpy+pTBlpJgCZYp4CfLIn3RDspzIX0WxsA5htTZk5XnSXSxMCATDB7Y1lOoXzgIIr
-	 l8Zv4nD4a6NF4GSmbhxMSvGNAaz0E3lG2b3MJY4BW7aCMuRuZiEZpOe+qAWCMqPokx
-	 XKBTjmf61rVTBx9Oa560N5P0BbLFAkokGrinQmqSwuq9YnvJYPP+WC3TbwVpeTYes9
-	 EJk9c3T5ivFzQ==
+	bh=9VN3bwZka3S+tTg96FmOIUV3qYPE1M05k5Wl+t8sisQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=fYykwd/dQWxc1GcfAUYzHz9vvAfD6xQW5Or+3/9qU8kwWRQe3SeWqZpWKXgJvOMdI
+	 DbIba7rbihNAjtl4IPRiSnliZ2nR3T9gnGQhBeYwSNgkRqHnjHkswVpEkkMc1wntdC
+	 gbHdGfwwoa/H+3vD5PCFCS7MZ3YiC2UFhEwpvgENZq3VtZZA95NFPKVnFgYtewbFQT
+	 u0yVDLFZkZ+7qR0p068MCjIKhO0VQ/Xl9v0Td1fo5G3bbOO0lRfV5oCjmI/T+axvLp
+	 9A68gokm4SdW1gI7LcMVj8UjxnJ+kMPN/l0ESZB+QBW+f3SZxz1luV2yJH9G4gIMqd
+	 aTi2oGqEBhOBw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B2DEC88E41;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id BE3BCC88E42;
 	Thu, 10 Sep 2026 20:08:06 +0000 (UTC)
 From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
-Subject: [PATCH v5 0/7] describe RTL8125 PCIe NICs on Rockchip boards (and
- add DT binding)
-Date: Thu, 10 Sep 2026 22:07:50 +0200
-Message-Id: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+Date: Thu, 10 Sep 2026 22:07:57 +0200
+Subject: [PATCH v5 7/7] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on ROCK 5 ITX
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,12 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Oy07DMBAF0F+pvGaQn7HTFf+BuvBjQgaqtLLdC
- FTl33GKEEWwyPKOrs6dKyuYCQvb764s40yFTlML5mHH4uinFwRKLTPJZceN1JDflHEOUi2Q6xG
- wjpCwxEwB2xH8kXyBKDAJZ4ONhrNGnTMO9H6beT585XIJrxjraq+NkUo95Y/bH7NYe9+TZtvkL
- ECA74aYvOmUj/bp7HOiiR4nrGwdneU9229kJXDQveVcaie0Gv6y6odt8EZWNdZ554wNqk/+H1b
- fscJuZHVjZUjK9VImIfvf7LIsn1ekkhrxAQAA
-X-Change-ID: 20260524-rk3588-dts-rtl-eth-describe-dt-alias-c1ed187b7c50
+Message-Id: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-7-c1b9e5f10cd6@pardini.net>
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+In-Reply-To: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
 To: Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -58,17 +55,17 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  linux-rockchip@lists.infradead.org, Ricardo Pardini <ricardo@pardini.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5210;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1909;
  i=ricardo@pardini.net; h=from:subject:message-id;
- bh=r6js+jziMUsagrxNtK58g/Crq9cEVtYCRnaAMm14gsM=;
- b=owEBiQF2/pANAwAIATteP+Oex+3pAcsmYgBqow4jqF3C07w44Xc2TTt2lfJlkhcQU0sB7UkUX
- 6VOO4ISsdeJAU8EAAEIADkWIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCaqMOIxsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDMACgkQO14/457H7enshQf9HvMZjiH911nFDwBRO/U9Hl2hYxBMaDd
- Sh/ookigB/p5J/Jx+H7kvXw0Wysc7mVB78f3iU6z/O03r49guS4ZuQ4EoqQWdcPFjM9IZ1qE5lr
- jyldWV3qeAY0bdeTyq61Cgu0jaz7VZE8CaE9CNs5E2D7oBTibYWqe6dsIdcqOHFF6sJFtuFPUij
- Zf/H/vPMvTTASiC3RWk+tGD9IjaOXbdSZgY70bvYU6ZafuXmJgkxBJep4xPusG0k5SgM3w182II
- ZNRt+9qHthnp9QRGYMSUW3/vGlfhBLu+duhYiWMX0a3meSAhk9id9T1Y/A9/+RtFuvvsx5u6khj
- moJMXTi39bw==
+ bh=6JENscbgGnnWW/4PaIbc3X/OTv8wHFKHVCvXFVsCaGI=;
+ b=owGbwMvMwMFoHWf/eN7xty8ZT6slMWQt5lM5Z/zure0WD5bAba2XA91+FL/82syq2fdTRU/S1
+ OhlhOifTkZ/FgZGDgZLMUWWNRLKPN/Wvzp1x6NjMswgViaQKdIiDQxAwMLAl5uYV2qkY6Rnqm2o
+ Z2ikY6BjzMDFKQBTnXaWg6GVjcWSZZrtF86duUf1exXWOm3Ze1yT98wrA/WzkXNr87relftXt9U
+ tDJIucr7PmfsnZvlKW8elQk1/rrMXXjmTZnbuhoDaZtNzdx0UOh0shY2ML0yZGxFzpCHxXY1Ua3
+ ifw5cmo87VT1vffprCfOZpc2eO4Iy8b9HznTOKN7IyhLZMauwwO7Qla5qW/8my3weNpNcZPD2z3
+ 2GeoGW5X7juh6YehrULPG8ZTDa1kBLuOTCtJXxphtXGK9sknP9eUtTz/6FxuHPqTQEudfHDiU8r
+ Ln851t1dev2nxaJveZ86fy/ii47Ksunoepd23kwi+YW9b3C02s+m1QeyJprMPMD6cMfR1jM+0wy
+ EWSI1AQ==
 X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
  fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
 X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
@@ -76,114 +73,78 @@ X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
 X-Original-From: Ricardo Pardini <ricardo@pardini.net>
 Reply-To: ricardo@pardini.net
 
-Several Rockchip rk35xx boards carry on-board Realtek RTL8125 2.5GbE
-NICs whose PCI function nodes are not described in the DT. Describing
-them allows for stable ethernetN aliases (matching the GMAC alias
-convention on these boards) and lets U-Boot's fdt_fixup_ethernet()
-inject mac-address properties from its ethaddr/ethNaddr env, so MACs
-stay stable across boots and U-Boot and kernel MAC match.
+From: Ricardo Pardini <ricardo@pardini.net>
 
-Tested on a NanoPC-T6: /sys/bus/pci/devices/0004:41:00.0/of_node ->
-/sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0 and
-u-boot correctly adds local-mac-address property there which is
-correctly picked up kernel-side:
+The Radxa ROCK 5 ITX carries two on-board Realtek RTL8125 NICs behind
+pcie2x1l1 and pcie2x1l2.
 
-  => setenv eth1addr 8e:b4:90:66:66:66
-  => boot
-  ...
-  # readlink -f /sys/bus/pci/devices/0004:41:00.0/of_node
-  /sys/firmware/devicetree/base/pcie@fe190000/pcie@0,0/ethernet@0,0
-  # xxd /sys/bus/pci/devices/0004:41:00.0/of_node/local-mac-address
-  00000000: 8eb4 9066 6666                           ...fff
-  # ip link show dev end1 | grep ether
-       link/ether 8e:b4:90:66:66:66 brd ff:ff:ff:ff:ff:ff
+Describe the fixed function nodes and attach ethernet0/ethernet1
+aliases, so that U-Boot's fdt_fixup_ethernet() can inject mac-address
+properties from its ethaddr/eth1addr env, for stable MACs across
+boots that both U-Boot and the kernel agree on.
 
-Patch 1 adds a DT binding for Realtek RTL8125 family PCIe Ethernet
-controllers.
-
-Patch 2-7 describes the on-board RTL8125 function nodes on a few
-Rockchip boards.
-
----
-Changes in v5:
-- binding: reword commit message: pci10ec,8125 is already covered by
-  dtschema pci-device.yaml; the binding is added only to validate the
-  ethernet-controller properties on these nodes (local-mac-address,
-  nvmem-cells, et al) (ref Krzysztof, Heiner).
-- boards: add a few more Rockchip boards with RTL8125's.
-- Link to v4: https://patch.msgid.link/20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-0-2bd38922d129@pardini.net
-
-Changes in v4:
-- binding: simplify the binding YAML ref Sashiko's and Krzysztof's
-  reviews
-- binding: describe only the RTL8125 + rename to match ref Heiner's
-  review.
-- dt: fix the bus-range according to Sashiko's review.
-- Link to v3: https://patch.msgid.link/20260605-rk3588-dts-rtl-eth-describe-dt-alias-v3-0-8a8857b39daf@pardini.net
-
-Changes in v3:
-- new patch: add a DT binding for Realtek r8169 family PCIe Ethernet
-  controllers, per Sebastian Reichel's review (the "pciVVVV,DDDD" OF
-  spelling still needs a binding when used in a board DT).
-- new patch for Rock5 series, and include a brief rationale in each.
-- retitle the series, since it now covers a few boards and a binding
-  rather than just DeviceTree changes for the NanoPC-T6.
-- drop the v2 "rename vcc3v3_pcie2x1l0 regulator" patch from this
-  series; it will be sent separately as it is not relevant to this.
-- Link to v2: https://patch.msgid.link/20260529-rk3588-dts-rtl-eth-describe-dt-alias-v2-0-49700248143f@pardini.net
-
-Changes in v2:
-- fix: pcie2x1l0, not pcie2x1l1; indirectly caught by Sashiko's review [1]
-- while-at-it: rename regulator vcc3v3_pcie2x1l0 to l1
-- Link to v1: https://patch.msgid.link/20260525-rk3588-dts-rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7@pardini.net
-
-[1] https://sashiko.dev/#/patchset/20260525-rk3588-dts-rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7%40pardini.net
-
-To: Heiner Kallweit <hkallweit1@gmail.com>
-To: nic_swsd@realtek.com
-To: Andrew Lunn <andrew+netdev@lunn.ch>
-To: "David S. Miller" <davem@davemloft.net>
-To: Eric Dumazet <edumazet@google.com>
-To: Jakub Kicinski <kuba@kernel.org>
-To: Paolo Abeni <pabeni@redhat.com>
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: netdev@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
 Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
-
 ---
-Ricardo Pardini (7):
-      dt-bindings: net: add Realtek RTL8125 PCIe Ethernet
-      arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on NanoPC-T6
-      arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on ROCK 5 family
-      arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on CM3588-NAS
-      arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on NanoPi R5S
-      arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on NanoPi R6C
-      arm64: dts: rockchip: describe PCIe RTL8125 Ethernet on ROCK 5 ITX
+ arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts | 30 ++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
 
- .../devicetree/bindings/net/realtek,rtl8125.yaml   | 43 ++++++++++++++++++++++
- MAINTAINERS                                        |  1 +
- arch/arm64/boot/dts/rockchip/rk3568-nanopi-r5s.dts | 30 +++++++++++++++
- .../rockchip/rk3588-friendlyelec-cm3588-nas.dts    | 21 +++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 30 +++++++++++++++
- arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts | 30 +++++++++++++++
- .../boot/dts/rockchip/rk3588-rock-5b-5bp-5t.dtsi   | 15 ++++++++
- arch/arm64/boot/dts/rockchip/rk3588-rock-5t.dts    | 18 +++++++++
- .../arm64/boot/dts/rockchip/rk3588s-nanopi-r6c.dts | 21 +++++++++++
- 9 files changed, 209 insertions(+)
----
-base-commit: df2908090cda368b01ff43709f51890076c56157
-change-id: 20260524-rk3588-dts-rtl-eth-describe-dt-alias-c1ed187b7c50
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
+index 6f25e088f3189..f1d6647c57bf9 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588-rock-5-itx.dts
+@@ -20,6 +20,8 @@ / {
+ 	compatible = "radxa,rock-5-itx", "rockchip,rk3588";
+ 
+ 	aliases {
++		ethernet0 = &rtl_eth0;
++		ethernet1 = &rtl_eth1;
+ 		mmc0 = &sdhci;
+ 		mmc1 = &sdmmc;
+ 		mmc2 = &sdio;
+@@ -631,6 +633,20 @@ &pcie2x1l1 {
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_lan>;
+ 	status = "okay";
++
++	pcie@0,0 {
++		reg = <0x300000 0 0 0 0>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++		device_type = "pci";
++		bus-range = <0x30 0x3f>;
++
++		rtl_eth0: ethernet@0,0 {
++			compatible = "pci10ec,8125";
++			reg = <0x310000 0 0 0 0>;
++		};
++	};
+ };
+ 
+ /* RTL8125B_2 */
+@@ -640,6 +656,20 @@ &pcie2x1l2 {
+ 	reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_lan_phy2>;
+ 	status = "okay";
++
++	pcie@0,0 {
++		reg = <0x400000 0 0 0 0>;
++		#address-cells = <3>;
++		#size-cells = <2>;
++		ranges;
++		device_type = "pci";
++		bus-range = <0x40 0x4f>;
++
++		rtl_eth1: ethernet@0,0 {
++			compatible = "pci10ec,8125";
++			reg = <0x410000 0 0 0 0>;
++		};
++	};
+ };
+ 
+ &pcie30phy {
 
-Best regards,
---  
-Ricardo Pardini <ricardo@pardini.net>
+-- 
+2.55.0
 
 
