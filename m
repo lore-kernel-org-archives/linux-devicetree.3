@@ -1,265 +1,124 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190A64A68A8
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 15:07:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBFF4A485B;
+	Thu, 10 Sep 2026 15:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052840; cv=none; b=n81i46II024F7ToR7uxR6OvPswjyLxUX+ET20qLDa18unGtqtAY2VtqwqCXYm0YEG4qd+Ja0e8nsbLcAbCdZuD95TavHZKGxw6mEQRDYSz/rIKE27IY6uXqXlMda7aW91phu5URNCesgoNJue2hkk2GZJHkXHlb0XtKKQR378cI=
+	t=1789052883; cv=none; b=YImEWswPf/ibNq5G1efQHTa8btsKkuqyRsoCkiIt/H+HztR8OFuJqK7BtnKwfLfI/UYM+4ueqHa+g8+08SLizCswM3bp7lYHN1kMg6ZlG0eRo5pxSFkoykUV/KY4oj/PIasH1T1Xhb0k026FNelp79kkPxdmtajOSTPBWTKMp34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052840; c=relaxed/simple;
-	bh=E88cDnynQv3HnPcm4uO7dMBnqIizydtK5X9+r637agg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CQpnep6IYfdHxQv67/7ttIdk2IAIjW3l2e87eU10Qf0JJVkVQluR4sPY8sqrbVTYqivWzEOYuC9V5YB6nIpx06Ma3fB+LVEFGcFmkzAG1EPJo31l7XgzLBf5mwKzyH+qMmQ7uAgPaygrcUMHN2S9Y/+YdND2FOcSHUXgs9qWTBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XZrXuKyb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ebv/BTCW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789052883; c=relaxed/simple;
+	bh=ErwTpVinq47Bz5B3I6Trw0G9IjnA0HH1ShtsRhXmykM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=R0tt3q91w8TETh6u1Ix1mFW2WDEGR0wCp+FxiFq/T4wOV2PsOHAO49NYxZ6wLclQSI9RPf2KhGLXSgrGtB5WRjzQgyUVeMN01bO+/cu/eenUaJGI+IudIfm8KqfQBMOK7JkOF95AJCrcXff29x7Y4DGXbOkGeW0+V1wd8lHJjyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=s87aifiY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XZrXuKyb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ebv/BTCW"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AF4K7f1275334
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 15:07:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=x1PtJB+V44p
-	G+pMdvHfWiQQyxDHRsQYqIEhYQsVQ/Qs=; b=XZrXuKybu18DtITtsx4R2fcFe3z
-	c9khbhNyN4Fp21yuCJKnDtnhQT5d0QXf2u/w3UYZw7+m5na6KOxSM1xB/58GVbHq
-	nS0X/QIsT4MVow92gUF/Q/RHZuWTaf6SNovTk+R8qQqTQgy1PKLGj9oYFlH2G14G
-	UUckKEuflgbZHhdTcYKwS7d3ZqGNtNS0Cwlfbstj4lhuOFrQHKH2j1ewkrsO1MMO
-	EkLogM1zxCFNbCCg81ww3GFfpSMA//yk6MDwwHNq6HnXQbe+AZ0sNIj40HWMbLDc
-	T6iM2ZILq1a83vRfMNjov24jrV1Li1YN23F3uU35urBY8thLpn6iKMuEOCQ==
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkwkw8jur-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 15:07:10 +0000 (GMT)
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4c27f0df721so543853b6e.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 08:07:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789052830; x=1789657630; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x1PtJB+V44pG+pMdvHfWiQQyxDHRsQYqIEhYQsVQ/Qs=;
-        b=ebv/BTCWbPKV1O/qm4XhNJ1DrwtNpN/cfsXKzKJQZQ/dXgZU+bVZziK8yhinV6OnY6
-         CmVDp1vrbYcRYuM04uZpVPWWzYdhOSIDlhma7K8KSe/+MJlNvmoJjp3rR+VCgzFgzMvU
-         pH3iSUB1q3edrxrM18kPIapqhCit2YEXIoyGYMm9L3CjsCDRp15gMKbzE71A0FKs7Afl
-         qLSpQoNLvm2Bw8Kfwktun1n2mkmkDZsg5hRgWjsGP3bqmP3LbmIwpoADU6u3NKRHQ+p0
-         VekOSTpa/uXieon8ZuQFFE4w1aKHXqyfT+5G5rhucN0a2jngQrVGpH3STjWURBikmJjB
-         gDrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789052830; x=1789657630;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x1PtJB+V44pG+pMdvHfWiQQyxDHRsQYqIEhYQsVQ/Qs=;
-        b=h6iPLbWdwyeSYFfIMFB4npScdqMtPofCOS+3T1UEL2QI02mqPlBOaycJBnmWc1Ka2M
-         YKUVX6tNYQo2LxTo69JQdhfzpDEDOj09UyNEM5ogduCJ3bUFiVrPQLXqQ58gJW0CeUjS
-         AWC2dS4owk6xHQVbSBNhv5yNfHRZXuP0si9zgo857tW5K9gsLaGi/UhLuvASKTNMzZjm
-         GJW5rs/eWEWTRSutEK9NU3vbuwm/Z8NdZQZDxyQ8/Sr4ZUYAKOVu/7zzBJ0qw2ui1LM7
-         5STYOZh5wztQbSovxBLV3PKdTEur4EWsZfbj9DrRCk+YYUTIlXuqOyDdNyeEDwiaQx74
-         QiaA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBl3TxbDJUAxaUTKU8IMTfBX54rXOh28Mf+7E5HHPothcXR0KU+a4RtdJSzdI/aG7mWYnq/vtBdMhN@vger.kernel.org
-X-Gm-Message-State: AFuF++mOM6O9Awe/9yqQtAZsD7nfSm7Yrik7Sm5Umg9l78ueVWnsehPD
-	felmC+Rx8qrarLz2iVSJrROkZVChLHObflneKS1L6e2CMhTcfG6V9prgLlE1sbTSUO7gGJ7XUAb
-	8AyKBhcDC5HjznW7HoPztpF5DffQT0iISqpnjEKHyKkSFOMQ+hhcCIRxyHMwkwjLs
-X-Gm-Gg: AYBFou08eeuPJyAvBtFWoREPfuHuKWQsPC7HCxdrvrthq2q8chgScPBL/LDjqJeF7Wm
-	YR+dz8j6cuNMQBZHt1sOrcspvej9VXYZURMlyU+MPA0zRREb/LNvK4Go4yBEdNzu6nWRD+8E48K
-	C8zPRriBrpoEEsts7c9/g7TwF0AfAXJpTzMrQtjgQEjKd8tcWuRnmYxk5enASU/eU5y8hp74aJ5
-	HID9y36yuKRhhmDbxYP3bFqyz518aE75WoejvhRvg1gOO0xQ3rGuQxAk33fhK0QGCDpHcRnw1uZ
-	QBAN6zoMpj7uFV5hVrNcrcpYkZN47SLc+Mm3ybrCGH7Vw0hf7nvXd2NAmKHAfjraWEIOh6tfNo2
-	wBKt6iKlRJtUpRZeT28n7JGeNFU0=
-X-Received: by 2002:a05:6808:4fd4:b0:4b2:98a3:a567 with SMTP id 5614622812f47-4c13fa87a8amr5633954b6e.4.1789052829863;
-        Thu, 10 Sep 2026 08:07:09 -0700 (PDT)
-X-Received: by 2002:a05:6808:4fd4:b0:4b2:98a3:a567 with SMTP id 5614622812f47-4c13fa87a8amr5633876b6e.4.1789052829260;
-        Thu, 10 Sep 2026 08:07:09 -0700 (PDT)
-Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b97167bd69sm19340773b6e.13.2026.09.10.08.07.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 08:07:07 -0700 (PDT)
-From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>,
-        Yijie Yang <yijie.yang@oss.qualcomm.com>
-Subject: [PATCH v4 2/2] remoteproc: qcom_q6v5_pas: add per-PD proxy performance states for Hawi CDSP
-Date: Thu, 10 Sep 2026 20:36:38 +0530
-Message-ID: <20260910150638.3270162-3-mukesh.ojha@oss.qualcomm.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910150638.3270162-1-mukesh.ojha@oss.qualcomm.com>
-References: <20260910150638.3270162-1-mukesh.ojha@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="s87aifiY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=sAxry/9gxO8ra9Tc4i2+zGNNckg7kZCkH2Eff0cthwE=; b=s87aifiYli2n4g6vPxg0rGs/6G
+	VsxpkWgl2rFW3bWOpVaeOTJNOYzWTdFBPGepHGf4I65wXPy+jThikHXyZKiLVg+aZSzvI83DqQ/DU
+	rF89Eb92lJupn6o0wh8tJrfcJGRvVfzCNDKbZ63xYoGs6k7nFxuu3U8DXFobrRldKVhI=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4gNO-004Wa7-4q; Thu, 10 Sep 2026 17:07:46 +0200
+Date: Thu, 10 Sep 2026 17:07:46 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Vasilij Strassheim <v.strassheim@linutronix.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	Martin Kaistra <martin.kaistra@linutronix.de>,
+	Benedikt Spranger <b.spranger@linutronix.de>
+Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
+ SoC-e switch IP cores
+Message-ID: <5bc95ef2-4e23-4c80-af17-07aa3643bebf@lunn.ch>
+References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
+ <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
+ <371fe855-e21f-4d53-a13f-4486494c8ae1@lunn.ch>
+ <42efedd837c1631b38849693e1d66bd2b1fb1529.camel@linutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=EZNd0/mC c=1 sm=1 tr=0 ts=6aa2c79e cx=c_pps
- a=yymyAM/LQ7lj/HqAiIiKTw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=EzEDkhfgfUAEW4_RwPsA:9 a=efpaJB4zofY2dbm2aIRb:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE4MiBTYWx0ZWRfX5W0KRJ8TkDVC
- j7sVALpoHBFUSwR/HSkeCYGaLaGfPH2GwTQuPBEQ3GiHjXYzzvzby1mZuo/dp/NptwSV80A6Lti
- s0cqaMUE4zTn/hdhBboGxmWutnfzxBs=
-X-Proofpoint-ORIG-GUID: K_G24pm-JT70jVzjAavjeRs6nAj247Ev
-X-Proofpoint-GUID: K_G24pm-JT70jVzjAavjeRs6nAj247Ev
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE4MiBTYWx0ZWRfX1rJ8VR+OVwK7
- ZaClc3D1Axsi4tgmlsH/zAGyjALy52ObOQGU8d92glGnZC6e3WgA0yBsy6guOs4ZPdJU440d70j
- YNqACHAD1K2gVrr+Zl/Zcx8eky193fsfqSyIk0y5Yg0VIAQ4WwhZZA78Gv9c2LTU7qM3kLcFRCv
- Ko7iE3aoFW0hgEcYozi5cxheCKDikZj375SgBsCcmFyJuKK3GTDiH5BlHN76q2ockEgPljVhCnn
- 6AML3p8FdprW1wKgQFeOc3RWZMvn1lF1eU8dUw5Kdj+uMejTd/8AGwpwImZ42f90e2RLaOjPfvw
- 8uHq8xVndyEIIOJ/JgbR1UUQzRv+xO27q5fvCcJFpaT+qiVcSrKEGMyH5eI20Ycl5LLykfyKo4u
- DrtE9T9aD06E4a0pxduX3HGJZGS3Ph6tajsVX3TskEO9ZdAbVaSYbLqL6MioD7Qyamam4PrI+eG
- EP2PE9+dnAqyZmtvnNg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_05,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 impostorscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100182
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <42efedd837c1631b38849693e1d66bd2b1fb1529.camel@linutronix.de>
 
-The proxy power domain enable path requests INT_MAX performance
-state for every proxy PD. On Hawi, the NSP proxy power domain's
-RPMH power domain has no OPP at INT_MAX, while CX and MXC accept
-INT_MAX, mapping to their maximum supported level.
+Thanks for this list.
 
-Introduce a proxy_pd_performance_states array in qcom_pas_data
-to allow per-PD RPMH levels to be declared explicitly. Platforms
-that omit this field retain the existing INT_MAX behaviour.
+> ---
+> Global register block at 0x0000 (three registers currently used)
+> 	0x00 Core Version - Major and minor revision number (RO)
+> 	0x04 Licensed Features (RO)
+> 	0x08 Reserved
+> 	0x0C GUI Configuration - Implemented Features 0 (RO)
+> 	0x10 GUI Configuration - Implemented Features 1 (RO)
 
-Add Hawi CDSP remoteproc support with the following proxy PD
-performance states:
+GUI? I assume this is not Graphical User Interface, but something
+else?
 
-  CX:  RPMH_REGULATOR_LEVEL_TURBO
-  MXC: RPMH_REGULATOR_LEVEL_TURBO
-  NSP: RPMH_REGULATOR_LEVEL_NOM
+> 	Licensed Features Register (RO) (Bits specify if the given
+> 	feature is enabled by license):
+> 	[31:27] - Maximum Number of Ports: These bits specify the maximum
+> 	number of ports licensed
+> 	[26:15] - Reserved
+> 	- ACL: Access Control List (ACL) feature
+> 	- LLDP: LLDP feature
+> 	- IEEE 802.1X
+> 	- IEEE 802.1AX-2008 - Link Aggregation
+> 	- IEEE 802.3br/IEEE 802.1Qbu - Preemption
+> 	- IEC 61158-4-2 - DLR
+> 	- IEC 62439-2 - MRP
+> 	- IGMP Snooping
+> 	- Port mirroring
+> 	- IEEE 802.1s - MSTP
+> 	- IEEE 802.1w - RSTP
+> 	- IEEE 1588 - Transparent Clock
+> 	- Switch mode: managed or unmanaged
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Tested-by: Yijie Yang <yijie.yang@oss.qualcomm.com>
-Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
----
- drivers/remoteproc/qcom_q6v5_pas.c | 48 +++++++++++++++++++++++++++++-
- 1 file changed, 47 insertions(+), 1 deletion(-)
+This is probably something which should be tested in the probe
+method. No point loading the driver if it cannot be managed.
 
-diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom_q6v5_pas.c
-index a005546c265d..96a2436b777d 100644
---- a/drivers/remoteproc/qcom_q6v5_pas.c
-+++ b/drivers/remoteproc/qcom_q6v5_pas.c
-@@ -28,6 +28,7 @@
- #include <linux/soc/qcom/mdt_loader.h>
- #include <linux/soc/qcom/smem.h>
- #include <linux/soc/qcom/smem_state.h>
-+#include <dt-bindings/power/qcom,rpmhpd.h>
- 
- #include "qcom_common.h"
- #include "qcom_pil_info.h"
-@@ -51,6 +52,8 @@ struct qcom_pas_data {
- 	bool decrypt_shutdown;
- 
- 	char **proxy_pd_names;
-+	const unsigned int *proxy_pd_performance_states;
-+	unsigned int num_proxy_pd_performance_states;
- 
- 	const char *load_state;
- 	const char *ssr_name;
-@@ -79,6 +82,7 @@ struct qcom_pas {
- 	struct regulator *px_supply;
- 
- 	struct device *proxy_pds[3];
-+	const unsigned int *proxy_pd_performance_states;
- 
- 	int proxy_pd_count;
- 
-@@ -167,7 +171,12 @@ static int qcom_pas_pds_enable(struct qcom_pas *pas, struct device **pds,
- 	int i;
- 
- 	for (i = 0; i < pd_count; i++) {
--		dev_pm_genpd_set_performance_state(pds[i], INT_MAX);
-+		unsigned int state = INT_MAX;
-+
-+		if (pas->proxy_pd_performance_states)
-+			state = pas->proxy_pd_performance_states[i];
-+
-+		dev_pm_genpd_set_performance_state(pds[i], state);
- 		ret = pm_runtime_get_sync(pds[i]);
- 		if (ret < 0) {
- 			pm_runtime_put_noidle(pds[i]);
-@@ -873,6 +882,7 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 	pas->info_name = desc->sysmon_name;
- 	pas->smem_host_id = desc->smem_host_id;
- 	pas->decrypt_shutdown = desc->decrypt_shutdown;
-+	pas->proxy_pd_performance_states = desc->proxy_pd_performance_states;
- 	pas->region_assign_idx = desc->region_assign_idx;
- 	pas->region_assign_count = min_t(int, MAX_ASSIGN_COUNT, desc->region_assign_count);
- 	pas->region_assign_vmid = desc->region_assign_vmid;
-@@ -908,6 +918,14 @@ static int qcom_pas_probe(struct platform_device *pdev)
- 		goto unassign_mem;
- 	pas->proxy_pd_count = ret;
- 
-+	if (WARN(desc->proxy_pd_performance_states &&
-+		 desc->num_proxy_pd_performance_states != pas->proxy_pd_count,
-+		 "proxy_pd_performance_states count %u != pd count %d\n",
-+		 desc->num_proxy_pd_performance_states, pas->proxy_pd_count)) {
-+		ret = -EINVAL;
-+		goto detach_proxy_pds;
-+	}
-+
- 	ret = qcom_q6v5_init(&pas->q6v5, pdev, rproc, desc->crash_reason_smem,
- 			     desc->load_state, qcom_pas_handover);
- 	if (ret)
-@@ -1798,6 +1816,33 @@ static const struct qcom_pas_data glymur_soccp_resource = {
- 	.needs_tzmem = true,
- };
- 
-+static const struct qcom_pas_data hawi_cdsp_resource = {
-+	.crash_reason_smem = 601,
-+	.firmware_name = "cdsp.mdt",
-+	.dtb_firmware_name = "cdsp_dtb.mdt",
-+	.pas_id = 18,
-+	.dtb_pas_id = 0x25,
-+	.minidump_id = 7,
-+	.auto_boot = true,
-+	.proxy_pd_names = (char*[]){
-+		"cx",
-+		"mxc",
-+		"nsp",
-+		NULL
-+	},
-+	.proxy_pd_performance_states = (const unsigned int[]){
-+		RPMH_REGULATOR_LEVEL_TURBO,
-+		RPMH_REGULATOR_LEVEL_TURBO,
-+		RPMH_REGULATOR_LEVEL_NOM,
-+	},
-+	.num_proxy_pd_performance_states = 3,
-+	.load_state = "cdsp",
-+	.ssr_name = "cdsp",
-+	.sysmon_name = "cdsp",
-+	.ssctl_id = 0x17,
-+	.smem_host_id = 5,
-+};
-+
- static const struct qcom_pas_data eliza_cdsp_resource = {
- 	.crash_reason_smem = 601,
- 	.firmware_name = "cdsp.mbn",
-@@ -1827,6 +1872,7 @@ static const struct of_device_id qcom_pas_of_match[] = {
- 	{ .compatible = "qcom,eliza-adsp-pas", .data = &sm8550_adsp_resource },
- 	{ .compatible = "qcom,eliza-cdsp-pas", .data = &eliza_cdsp_resource },
- 	{ .compatible = "qcom,glymur-soccp-pas", .data = &glymur_soccp_resource },
-+	{ .compatible = "qcom,hawi-cdsp-pas", .data = &hawi_cdsp_resource },
- 	{ .compatible = "qcom,kaanapali-soccp-pas", .data = &kaanapali_soccp_resource },
- 	{ .compatible = "qcom,milos-adsp-pas", .data = &sm8550_adsp_resource },
- 	{ .compatible = "qcom,milos-cdsp-pas", .data = &milos_cdsp_resource },
--- 
-2.55.0
+> 	- Secure Chip
+> 	- Time Limitation
 
+What do these two mean?
+
+> 	MDIO - Control
+> 	[26:16] - Bus selection: These bits specify the port number over
+> 	which MDIO operation is performed.
+
+10 bits, which allows more MDIO busses than ports!
+
+> > I also wounder at the name. Does the data sheet really call it DSA?
+> > 
+> 
+> Yes, there is even a chapter describing Distributed Switch Architecture
+> (DSA) as "a subsystem that was primarily designed to support specific
+> vendor switches using Linux, ..." followed by information about "custom
+> DSA tagging".
+
+Does the switch support the D in DSA?
+
+> Yes, I agree that a feature structure will be needed once more fields
+> are used. I would prefer to keep the current interface for now and
+> introduce struct soce_features when another detected feature needs to be
+> retained. At the moment, it would contain only a single member.
+
+O.K.
+
+	Andrew
