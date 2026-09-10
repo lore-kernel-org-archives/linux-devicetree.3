@@ -1,47 +1,47 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE353DB303
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F343DDAF9
 	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 02:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093093; cv=none; b=Fy8eG3OUfRJ7N3Q/VpwIWg99GZOz4dOxexOT1Bj4hxpWVkzDQV0oEAkMVeVcGeUgMRuarDtvy4W3qUCWoSRjfxLDM5zU1MXmHj3q1tVDO4Hhwt2/9JBYk2a7MHAgXJnVNbMO2Eb3JyRe4rbONKt8a6AZKuoQQ1/QRurjggyQVGg=
+	t=1789093092; cv=none; b=p1SmB36+1Nax35IfVt76h7L7FkxtJxED82IF6BJHT6Z04kMRaL/+YjWenaWtsLPDYLsFiaU6vTUUenc9BgTZkEW+LSlEWjrjmpul2pm4yzII3xMEBwdsTnSsUF93BN/kZQ5BN+Sv+of0V/gPvlJUs+NVIzlb4SW0TL360XTip/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093093; c=relaxed/simple;
-	bh=sb9XA5jIUBxmoa+Co1REyrkLnNvoLNEwcKFBsdJV6xo=;
+	s=arc-20240116; t=1789093092; c=relaxed/simple;
+	bh=kHPbGj1JEPDYf64RC/Xv9T3MSsOhYXaN20QhCvaPSdc=;
 	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=nRRMaaOp3/pZLeUur7RfdvLyZ1kkfLM84ZUsqEhIpnpM60WhIffw2aOMT1xfXC8GzVWkSlAgjkYGTDfMyKEqwduATJq4vibDlC/y0Q2V0O5+MdtnkyEfXibKENWPKwlV/CKubtHO4VyxSUUPriDAuX/0lyCPnNolqn+Ayw0wZGw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ZWEAKJZJ; arc=none smtp.client-ip=203.254.224.34
+	 Content-Type:References; b=WSHya5BKjT6U1zUlvUUgvg2RdrzJOnVTnL/RIRvQTwNzD836U1N7gONRKVzqU6+z0VjPSI8b0D3CwJAYww0kXnYGiQhJ8vvsxZZkXzJm2eaFESmq1/OJoRZXekTPHcmeBJpAds22hQJNHOmtDUkfV6PHJk56E94zxSjau6JeRPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=lsXM5a+3; arc=none smtp.client-ip=203.254.224.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ZWEAKJZJ"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="lsXM5a+3"
 Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260911021803epoutp04f49c79cd686bca071637304199028e03~UIq410Q4A1516115161epoutp04-
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20260911021803epoutp02fc8a1a61549ccedf31f4f55e633551fe~UIq4uFmNv0309103091epoutp02U
 	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260911021803epoutp04f49c79cd686bca071637304199028e03~UIq410Q4A1516115161epoutp04-
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20260911021803epoutp02fc8a1a61549ccedf31f4f55e633551fe~UIq4uFmNv0309103091epoutp02U
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
 	s=mail20170921; t=1789093083;
-	bh=NFtbyzYoNl/zCEgTU0VH6n/v1JONtCfMPfAx62T90jY=;
+	bh=t+EDQvWQa/uEilf5YN4RKSZWevQxdNwz5KzOmFy3UsM=;
 	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=ZWEAKJZJVgEC7eZ2jFl1u3xZ2Hhys6o8newPTd3nLC9fZ6xPEaB05tziAoTWtxTjr
-	 B4hpZh2sClxvvqyGaHKyBLlKOeTEFD1QXCpBKdO/pa+fsdU4/zxRPhX5y7+skWBvCb
-	 YoVT56EZh2H+0zs9SkMUcI3tx4OJ8LfU51XvgkUc=
+	b=lsXM5a+3mHs9K4g91qU0Scoue8bv7OIX8xBuLJAjhLRgq7UzIC2kU01PFpOhAkGya
+	 85sqj3LxIcAAMlWNuL4sqgCRwhTH+tYrdRVWID92In5Gm+zfCsteGLFow4e8la7/HZ
+	 W4nMC1BvFvQ0Yk7d9mPWzfG/6LrfvaHtkIPfMjAQ=
 Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260911021803epcas5p125a2fd347d43b9bfdd2cf660e77fbc2b~UIq4dqRYd1230512305epcas5p1s;
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+	20260911021803epcas5p3908cfc4b1c6a992400ac8c5cad070b87~UIq4T34qJ2176921769epcas5p3_;
 	Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
 Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4hgyrC15sTz2SSKZ; Fri, 11 Sep
-	2026 02:18:03 +0000 (GMT)
-Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260910155949epcas5p25209000963122d8c73dc18152feeabee~UAPGFN7l72530325303epcas5p2N;
-	Thu, 10 Sep 2026 15:59:49 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hgyrB71ylz2SSKk; Fri, 11 Sep
+	2026 02:18:02 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+	20260910152656epcas5p37932f44add3b9a5ed48959aa3e389b47~T-yY9QN4o2646226462epcas5p3z;
+	Thu, 10 Sep 2026 15:26:56 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
 	(KnoxPortal) with ESMTPA id
-	20260910155947epsmtip28ec55c8ae2033e856b86e2b9ec9c545e~UAPEp86IB1332813328epsmtip2p;
-	Thu, 10 Sep 2026 15:59:47 +0000 (GMT)
+	20260910152655epsmtip16dad734bbabeb560250d7fb16f6480a5~T-yXkiE3T1817818178epsmtip1T;
+	Thu, 10 Sep 2026 15:26:55 +0000 (GMT)
 From: "Alim Akhtar" <alim.akhtar@samsung.com>
 To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>,
 	<linux-fsd@tesla.com>, "'Krzysztof	Kozlowski'" <krzk@kernel.org>, "'Peter
@@ -50,11 +50,10 @@ To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>,
 Cc: <linux-arm-kernel@lists.infradead.org>,
 	<linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>
-In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-4-1b755a446b22@oss.qualcomm.com>
-Subject: RE: [PATCH 4/5] arm64: dts: fsd: Re-order nodes to match coding
- style
-Date: Thu, 10 Sep 2026 21:29:46 +0530
-Message-ID: <2084663827.61789093083145.JavaMail.epsvc@epcpadp2new>
+In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-3-1b755a446b22@oss.qualcomm.com>
+Subject: RE: [PATCH 3/5] arm64: dts: fsd: Move idle states out of CPUs node
+Date: Thu, 10 Sep 2026 20:56:54 +0530
+Message-ID: <1524126153.41789093082973.JavaMail.epsvc@epcpadp2new>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -63,18 +62,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQI+vGmeAYQ1M8KGwzLNRALcGC0DngIGdcDsAfk7HAC15QOycA==
+Thread-Index: AQI+vGmeAYQ1M8KGwzLNRALcGC0DngGenlVEAYPjjQ616+RigA==
 Content-Language: en-us
-X-CMS-MailID: 20260910155949epcas5p25209000963122d8c73dc18152feeabee
+X-CMS-MailID: 20260910152656epcas5p37932f44add3b9a5ed48959aa3e389b47
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 CMS-TYPE: 105P
 X-CPGSPASS: Y
 X-Hop-Count: 3
-X-CMS-RootMailID: 20260909141824epcas5p28e392ad97ca2e5dae47a857272b5ea14
+X-CMS-RootMailID: 20260909141820epcas5p346144243c8bbe5126d2f8a4310834c4c
 References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.com>
-	<CGME20260909141824epcas5p28e392ad97ca2e5dae47a857272b5ea14@epcas5p2.samsung.com>
-	<20260909-dts-samsung-cleanup-strict-v1-4-1b755a446b22@oss.qualcomm.com>
+	<CGME20260909141820epcas5p346144243c8bbe5126d2f8a4310834c4c@epcas5p3.samsung.com>
+	<20260909-dts-samsung-cleanup-strict-v1-3-1b755a446b22@oss.qualcomm.com>
 
 
 
@@ -89,42 +88,74 @@ References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.
 > soc@vger.kernel.org; devicetree@vger.kernel.org; linux-
 > kernel@vger.kernel.org; Krzysztof Kozlowski
 > <krzysztof.kozlowski@oss.qualcomm.com>
-> Subject: [PATCH 4/5] arm64: dts: fsd: Re-order nodes to match coding styl=
-e
+> Subject: [PATCH 3/5] arm64: dts: fsd: Move idle states out of CPUs node
 >=20
-> Re-order several top-level and MMIO nodes to match coding style - orderin=
-g
-> by name or by unit address, as pointed out by dt-check-style,
-> e.g.:
+> Idle states are not really part of CPUs, as often they have domain idle s=
+tates,
+> so move them level up to fix to fix dt-check-style warning:
 >=20
->   fsd.dtsi:981: [child-address-order] child node @10040000 out of address
-> order
->   fsd.dtsi:315: [child-name-order] child node 'arm-pmu' out of name order
->   fsd.dtsi:348: [child-name-order] child node 'clock' out of name order
+>   fsd.dtsi:300: [child-name-order] child node 'idle-states' out of name o=
+rder
 >=20
-> While moving chunks of code, also re-order a few properties (I2S, SPI and
-> CAN nodes) to fix:
+> Also, re-order properties to silence:
 >=20
->   fsd.dtsi:661: [property-order] property 'clocks' out of canonical order
-> (should sort before 'samsung,syscon-phandle')
->   fsd.dtsi:936: [property-order] property 'pinctrl-names' must be placed =
-after
-> 'pinctrl-0'
->   fsd.dtsi:936: [property-order] property 'pinctrl-names' out of canonica=
-l
-> order (should sort before 'samsung,spi-src-clk')
->=20
-> Moving several nodes already creates unreviewable commit, thus reshufflin=
-g
-> the properties allows to skip changing the same line twice without loss o=
-f
-> readability.
+>   fsd.dtsi:305: [property-order] property 'compatible' out of canonical o=
+rder
+> (should sort before 'idle-state-name')
+>   fsd.dtsi:308: [property-order] property 'entry-latency-us' out of canon=
+ical
+> order (should sort before 'arm,psci-suspend-param')
 >=20
 > Signed-off-by: Krzysztof Kozlowski
 > <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
+Probably this need to be done for many other SoCs and platforms
 
 Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
+
+
+>  arch/arm64/boot/dts/tesla/fsd.dtsi | 22 +++++++++++-----------
+>  1 file changed, 11 insertions(+), 11 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/tesla/fsd.dtsi
+> b/arch/arm64/boot/dts/tesla/fsd.dtsi
+> index d076ea634f4e..acbe93756a76 100644
+> --- a/arch/arm64/boot/dts/tesla/fsd.dtsi
+> +++ b/arch/arm64/boot/dts/tesla/fsd.dtsi
+> @@ -296,19 +296,19 @@ cpucl_l2: l2-cache0 {
+>  =09=09=09cache-line-size =3D <64>;
+>  =09=09=09cache-sets =3D <4096>;
+>  =09=09};
+> +=09};
+>=20
+> -=09=09idle-states {
+> -=09=09=09entry-method =3D "psci";
+> +=09idle-states {
+> +=09=09entry-method =3D "psci";
+>=20
+> -=09=09=09cpu_sleep: cpu-sleep {
+> -=09=09=09=09idle-state-name =3D "c2";
+> -=09=09=09=09compatible =3D "arm,idle-state";
+> -=09=09=09=09local-timer-stop;
+> -=09=09=09=09arm,psci-suspend-param =3D <0x0010000>;
+> -=09=09=09=09entry-latency-us =3D <30>;
+> -=09=09=09=09exit-latency-us =3D <75>;
+> -=09=09=09=09min-residency-us =3D <300>;
+> -=09=09=09};
+> +=09=09cpu_sleep: cpu-sleep {
+> +=09=09=09compatible =3D "arm,idle-state";
+> +=09=09=09idle-state-name =3D "c2";
+> +=09=09=09local-timer-stop;
+> +=09=09=09entry-latency-us =3D <30>;
+> +=09=09=09exit-latency-us =3D <75>;
+> +=09=09=09min-residency-us =3D <300>;
+> +=09=09=09arm,psci-suspend-param =3D <0x0010000>;
+>  =09=09};
+>  =09};
+>=20
+>=20
+> --
+> 2.53.0
 
 
 
