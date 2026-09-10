@@ -1,99 +1,79 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB53481FD0;
-	Thu, 10 Sep 2026 12:18:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B82248593C;
+	Thu, 10 Sep 2026 12:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789042714; cv=none; b=oN8dGrl/y8z3tPtMliqCCn6Nk0pKxCn5iGlKTYa65FqvEB1tFLDYRStjB0e/AGVQR9dYvguC54+yzYyLl8x4mawRsztR7QTcmj/V4ep5PeEvbTsxrUdZ+a6GROWYwDPtLAcxRMylrl6qxot1zaWLyrcf/DEy3Xuj3+sWChNIKjQ=
+	t=1789043029; cv=none; b=FbVxCxtjgdwGISB/+OXHJQbQCuSsFBVofGqCycYsEUL1aNXKaRIeEHHYk4OFBO5NaEbidJ0yMDKBxBL1VVSTjozvgRwQAUbjUF6XF6kbrgbcWvZoNTMl/ctBB/ZiitZmFUFLycww6gDfdUuikeuVMd5LAcMOlym+rr3D9JoJkfM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789042714; c=relaxed/simple;
-	bh=zJ4+yME/Q7Os+J6hyzP++ZKOiQK5dIN/UxzKF4o52GI=;
+	s=arc-20240116; t=1789043029; c=relaxed/simple;
+	bh=aKNIgiiXJVkvUc/+xAj4Wu2P7aPpl/cZu7ivAUmAS+0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D7cepvcxc1tp34wZC9qUgabzhDTGXhvOxG7OVBXRLVDykPyHUKEEZVnOI8UluqlVrRYAdRYnwMZ2Fy3Ot9IK4RD+c5gCOA/yzHH/4vPGsrz1BzRFLIQ+rY0llqVLEVL+ACXl6umIdZJwXOYFRYy/rHsQXKU1PbnIO/bdoLJ5VPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=x3ZCxRG2; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=tq6hAzhReYIkOtiL0nTdDnkjjngkQeQryvtrnhk10HhRjvlSiyVEiA6/wz95NTr3p345r93SSL7uROEXA6fWjsoAXby667ZNXh7/B/jrsA2vwmT7H5VQZQ0iHQVxsbjLKEf2P8MFRhxtme5cUPD+xio76gLFCkMXbiyXZ3fF0RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ktuQmeDT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="x3ZCxRG2"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=gNS3JIqSU8/+D32CAHUVJplRawU3iI1w217293UE1DE=; b=x3ZCxRG2UY5byY0ir/oPwV9lyK
-	wiR6f6CkgkKxjnPpGLUnjUa8KIJQ4ELN+MQsXriyfad1i8/AUcvVR11yU/Ml19JhtJk3OSDEA7QZv
-	tGO+aqgJ3PaKSvZYOwMJNXNm+V6orCMditwx7L3hpkuxw1qHyRaWbduRXRHeoXtebgno=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4djM-004UmW-3T; Thu, 10 Sep 2026 14:18:16 +0200
-Date: Thu, 10 Sep 2026 14:18:16 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-Message-ID: <b7fdbd43-d069-40e1-aff4-30197371739d@lunn.ch>
-References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
- <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
- <3c2c5b39-6a7d-4cb2-af1c-b5015b6bf1e8@lunn.ch>
- <db26d5c9262069a11e5cbe00e176b81e40baebeb.camel@linutronix.de>
- <5c955c96-7883-4e59-97ef-9fc3b63abf58@lunn.ch>
- <ab7e4eeed1b8296188355413cce1aa2b2aa5c670.camel@linutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ktuQmeDT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E413E1F000FF;
+	Thu, 10 Sep 2026 12:23:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789043027;
+	bh=m1VhSVCtMgiBJf29Yc8esGBmlET73PXMwLnKd186wJc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ktuQmeDThejQ3JxmUDBQrDaFgL6jaZfxdugefXOh8UQciZGravx0r+/2Ra517iLbp
+	 VUCQ9jP7nzKTLYg574KrbCFJBy5wkf52oUeDIlKUiWxkVd0lvdCVGB1cOr7194KL7j
+	 9qKJG0ijmM16ldzGs2lSoIaqmkBc8k5btkgoclv9uaXlthtglNCRo335sANvj7rvIP
+	 VdsXADVnS/PXZLBV5ntpyixYZVOOalQShcWgoE3KzbQh4R9jHDjp21bOVdITOzcVkg
+	 vIYC0Pbvf8fIzlY/7+Vkc/AkjstGTVuZPxq9X742HDCodJ97QWJDfetyLp7COC5O4s
+	 UqBJgal6/ewfg==
+Date: Thu, 10 Sep 2026 12:23:44 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: gsh517025@gmail.com, alex@ghiti.fr, aou@eecs.berkeley.edu,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+	pjw@kernel.org, robh@kernel.org, spacemit@lists.linux.dev
+Subject: Re: [PATCH 1/1] riscv: dts: spacemit: enable onboard eeprom for
+ OrangePi
+Message-ID: <20260910122344-GKB20735@kernel.org>
+References: <4e8e6f90-9731-4416-8b1a-be1cef12bb72@gmail.com>
+ <20260907063010.1882362-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ab7e4eeed1b8296188355413cce1aa2b2aa5c670.camel@linutronix.de>
+In-Reply-To: <20260907063010.1882362-1-amadeus@jmu.edu.cn>
 
-> ethernet-switch@xy {
->     /* ... */
+Hi Chukun,
+
+On 14:30 Mon 07 Sep     , Chukun Pan wrote:
+> Hi,
 > 
->     mdio_parent: mdio@204 {
->         compatible = "soce,swip-mdio-23-02";
->         reg = <0x204 0xc>, <0x200 0x4>;
->         reg-names = "data", "control";
->     };
+> > -         mac-address {
+> > +         mac_address: mac-address {
 > 
->     mdio-mux@200 {
->         compatible = "mdio-mux-mmioreg", "mdio-mux";
->         reg = <0x200 0x4>;
->         mux-mask = <0x1f0000>;
->         mdio-parent-bus = <&mdio_parent>;
->         #address-cells = <1>;
->         #size-cells = <0>;
+> This requires removing the aliases for Ethernet.
 > 
->         mdio@0 {
->             reg = <0>;
->             /* PHYs connected to port 0 */
->         };
+> > But I am not sure whether this wiring should be part of this patch.
+> > Without such wiring, the kernel falls back to random MAC addresses
+> > on this board.
 > 
->         mdio@10000 {
->             reg = <0x10000>;
->             /* PHYs connected to port 1 */
+> Currently, U-Boot patches the MAC address using the Ethernet alias
+> from the Device Tree. The vendor U-Boot reads the MAC address from
+> the eeprom. I think the mainline U-Boot will add this feature, so
+> we don't need to add this one?
+> 
+I think it would take long time for us to get there - to have a mainline
+U-Boot which support parsing MAC address from eeprom. So, I have no
+objection to the idea of adding mac info into the dts.. 
 
-These comments are probably wrong, as i suggested in my previous
-reply. There is no reason that port 0 PHY could not be on bus 10000.
+Just let me know if you guys want to do in another separate patch, so I could
+take this patch first, or want to squash together and send an incremental
+ version? P.S checked k1-bananapi-cm6 board which already done as suggested..
 
-I've no idea if it will work, but maybe try:
-
->         reg = <0x203 0x1>;
->         mux-mask = <0x1f>;
-
-and then you get better bus numbers?
-
-    Andrew
+-- 
+Yixun Lan (dlan)
