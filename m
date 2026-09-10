@@ -1,93 +1,62 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97AB3C1F5B;
-	Thu, 10 Sep 2026 06:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331F03BB135
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:13:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020772; cv=none; b=LJaoNs+yfc9k+Y8fCs40mBOSiLQHRK2Dx7GmIe3hEkKC4fLmUVxtH1f+8O069eymnEsY+3GJyMfy7y108QPj32TCFLwpKs+FdvjGxgAkB30KMCZ4wllF/cU9xsmpuB3MSTwKknj4FG97u8lJ1mV1QGamGc5JnNi8um4+j22MiE8=
+	t=1789020816; cv=none; b=MaHjUa4jpc5zfUvKA0bWiECSYPn0C9IjPvaUXP7kMD0q/HvuddQJphAYTs8LeE0cCuIwCJgnJA5QmN/lA2NuR0cxHtNIEB3lb+njVHEqU5l0bc5qXGv36pDtra1/QYal+hJpn285IZxFgZ4xhc3C25D+N08RzYi1vqxhLxDOZX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020772; c=relaxed/simple;
-	bh=KobOE/h8JrfDHgAwD+CS5A6vwB7noAIfgQFcvdDu6JA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=C8nAb7nqTnFicoCxyiqrc+2NBXEb8F4RNH33s+eXkcHfpnDwrYkRcX2LSVekBEb/3HuKs8WO6gf8ikMmeSF3EwSgZAq7kaXVfy7Wa8FuWEE8Z0X1sxmHIRdqbsWljhoplrbM9ZP+bF8hBTFnCXM9eDamwIAKH4xA1vkEZCQuDiY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SqEMEu63; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789020816; c=relaxed/simple;
+	bh=4DRjpTmqx3rm6I0hvi9f55+dQTsiCr0e/ow5gOW+LpY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gl6cYzWI0cIpuQ3i/3ITr9dHMzMG3foJ6JzodRnGTbuNSf3wo5t/6PCUfy9e7amMhEBKkscqIRxQQn9EyLHWqGEh22Ev4cZoxh9TtJxg0nBcqwIB8rYziyhtl6Ydr4q+7Mh4YIMQY/A8E8DBM/HyzyHT18doBHrPfPhLGw5wopk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=hEx0l+z5; arc=none smtp.client-ip=109.224.244.24
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SqEMEu63"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789020756; x=1820556756;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KobOE/h8JrfDHgAwD+CS5A6vwB7noAIfgQFcvdDu6JA=;
-  b=SqEMEu63LUp6l+yaiXHcjefO3JsVdV2pMAEKT2fIyZHgC18JkB2IFTdF
-   NJ3FEAQL3dayompJ4rclPuZR36RIZ3TdUph4qV3qQ6l8qDakseIRYOf1H
-   UJRNGFIVBhAl1ROva7JvrqQVmeFXHWHTaEtbmzGnr6C9CITQ3BaWzs0lN
-   ITYFwbQrLIm4aYJwSQrVOsq0yT0FMZFTp0Dxakv9oyUSZemxcQ3giiwcu
-   T6YhmZmxCAT96Q8yzmOFQ3teQqCx6gZbyCRRphLFDAhNqluMpbsy7VXpo
-   VM3rOtUuQO1ANyQ+88gBRd454Lu0bvSgARB7Qz0x0GQ4C97VVdZxI0tbt
-   g==;
-X-CSE-ConnectionGUID: iCe8fzzkQBKVx5RfEPysow==
-X-CSE-MsgGUID: hrxdBnLiRZKKz6OwowsL3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="89224761"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="89224761"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:12:32 -0700
-X-CSE-ConnectionGUID: RJoLa3dgSPiHts8DSjba/g==
-X-CSE-MsgGUID: 78+5gUQdTOuNqszUdDNe5A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="301435425"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:12:29 -0700
-Date: Thu, 10 Sep 2026 09:12:26 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 05/10] iio: dac: mcp47feb02: Avoid unjustified probe
- failure on missing label
-Message-ID: <aqJKSjET9wLNeHDm@ashevche-desk.local>
-References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
- <20260909-mcp47feb02_refactor-v5-5-8b67bcab93d1@microchip.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="hEx0l+z5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789020801; x=1789280001;
+	bh=Zd0oHaUPampheUnb5yp3fSoD46Zp5JgfaDgEyt/77nc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=hEx0l+z5MazM82bsK0LQVJgbNwzldOr6D7oexcHVXrvG3G6Ut7o8b62vriwR+5SJ0
+	 YB8SDumn52wbJV6r6tr4h8WBBlzPCzoKG/i5CILdZ4aXHgw7dkDXshmHmm1GdNMeSQ
+	 dTRc5Rso1psDPR+y9pH8PGA/6S5VYD0Yev1L00VsGQ8w9aN++17WcVWPLl5cq8mHKt
+	 vXmarUU0bTdc/JA7KfuIWkdtth0noA2pgv/fi8qeLmscI8K/goOiWFzerv2x42dIQr
+	 9YSv5XeDII5b+LN2siBBb3KCs28YaUZLgjRoUPSKueDotjdzyob+FhrpUFaRPRamje
+	 VOyIy7uRVyOHA==
+Date: Thu, 10 Sep 2026 06:13:15 +0000
+To: Andrey Korshunov <razor1702@gmail.com>
+From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
+Cc: Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, "diederik@cknow-tech.com" <diederik@cknow-tech.com>, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY from the MDIO bus
+Message-ID: <VIvc1QJ9XRgfW_Po-U_fVw3BL7qNmB3Zrl4K3PXWt91BLhwpBHvwhN62PaVPq5YFX2VrZNkbrct8X3HfIBBvy1kbd9mQg9O_mGOrmoRLmcs=@proton.me>
+In-Reply-To: <20260909225002.976-1-razor1702@gmail.com>
+References: <20260909-r28s-upstream-v3-1-ee3e1a34a353@proton.me> <20260909225002.976-1-razor1702@gmail.com>
+Feedback-ID: 91982645:user:proton
+X-Pm-Message-ID: 6b1b673b5273e349cfb62c001e3957c12eff0c54
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-mcp47feb02_refactor-v5-5-8b67bcab93d1@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 05:18:48PM +0300, Ariana Lazar wrote:
-> Fix unjustified probe failure on missing optional 'label' property by
-> replacing dev_err_probe() with dev_err(). Correct %pfw usage by passing the
-> child fwnode handle directly in the error message.
+Thanks for the test. It is better evidence than the Zero2 would have
+given on its own. The mechanism lives in the MDIO core instead of the board=
+:
+`__mdiobus_register()` releases the bus reset before `get_phy_device()` rea=
+ds
+the ID, and the two boards wire the same RTL8211F to mdio1 behind the same
+pin, so the R28S result carries to the Zero2. I have annotated the tag
+accordingly:
 
-...
+  Tested-by: Andrey Korshunov <razor1702@gmail.com> # NanoPi R28S
 
->  		ret = fwnode_property_read_string(child, "label", &data->labels[reg]);
->  		if (ret)
-> -			return dev_err_probe(dev, ret, "%pfw: invalid label\n",
-> -					     fwnode_get_name(child));
-> +			dev_err(dev, "%pfw: invalid label\n", child);
-
-Why not leaving dev_err_probe()? And why error in such a case? Perhaps you want
-dev_warn_probe()?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Good to know 2026.07 leaves the pin asserted as well. The commit message
+does not name a U-Boot release, so it stands as written.
