@@ -1,90 +1,92 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F3DFD49EC56;
-	Thu, 10 Sep 2026 13:35:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DD7649F134;
+	Thu, 10 Sep 2026 13:35:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047333; cv=none; b=MTaHVKUE30P504BPism62ymtcr7PbFCIA69dTSLI37yuRXg9sR1LMz5mRAR1o28iQhf4Wr7gP2DLXoRVMuvfZEtQEBTqWLsE+dDguQq665zmFCH2QGkEUkf54nWj2DNonxl6dBVIlRYYsNaoDQ+WzzC3BGgDe0g1Qc9b26SQkfE=
+	t=1789047334; cv=none; b=mXGNmssHNf+9iETSzPN3+3QamK2Kl3LKXXSg2kL8n7IgjldCw0z8XGQ5WZQWsmrF0KW7bm8GYYecLBGA6iNAJhovy/Pa61ZVzri9mC1W3VTl10tEtotvxWzb5uhMCfh4p1pWb56k384UqG0HMhBwJqVYgGqfcg7v5ma4ggy62iw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047333; c=relaxed/simple;
-	bh=FxDtznMDF3G6v0CC70O4PDTkkMNel6NjQbC+dSOUz88=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mH+my7yK8QNiYIbbc0WKguIFaFca9ypsR2qWf/YLboxLBDSJF2nJkPMzXtXogf9Orw9VevEZ5q2NhqUXGYCHkoKg40XR01BkywTD0gpcNbOYUJH2zN1ueBGBnaASLs61iTTq5FDE55s2Rv4gqkcqr1QZzmdKlp1iFw7qWBMlj5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=P2rUvKCc; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789047334; c=relaxed/simple;
+	bh=FhtiaZ2Qzu9sS1DBggkgNh9n1DpPL5VKV7ZWJoFJtDY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=RTsl+9oiwgJebGt67dgz3Mu2/vDyt2crQFUPKxBYChl3pp3jySgruiOOcng1pn5lZLnOhjoPdxpV74IyezC+aAPYtbY0OPNWR1l8AfG1JxmooEyCovQZjFCl0lcrfJ8usSzsE8TVmrmwXhZg+slVH7mfZJ2Ky5LKgkbQFg06CMY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=duW9rHep; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="P2rUvKCc"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B2A0C2103;
-	Thu, 10 Sep 2026 06:35:27 -0700 (PDT)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C8AE93F528;
-	Thu, 10 Sep 2026 06:35:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789047331; bh=FxDtznMDF3G6v0CC70O4PDTkkMNel6NjQbC+dSOUz88=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=P2rUvKCc6VWahL75AGslFxx/iJECXrzPx0JPzJM6WnYBtpajHI33FgH8EJo2UJEsv
-	 8PKF6u3/TDuCfgyMvC/K1OnSfw8CJ5cZtGERkvscnIH5PdRuwJ9e5mGsyRnv3Z4n5O
-	 W0jBsHSre5QW+IjH3+zxOCX8ovtNwI5NlkbR4L7U=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	Yixun Lan <dlan@gentoo.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH 2/7] pinctrl: sunxi: only use PortK special handling on A523
-Date: Thu, 10 Sep 2026 15:35:13 +0200
-Message-ID: <20260910133519.459011-3-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260910133519.459011-1-andre.przywara@arm.com>
-References: <20260910133519.459011-1-andre.przywara@arm.com>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="duW9rHep"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789047331;
+	bh=FhtiaZ2Qzu9sS1DBggkgNh9n1DpPL5VKV7ZWJoFJtDY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=duW9rHep6ao2ePurjh/DT6Xk2AluhQbDbizVdDqBhNGMhbpOh73CEtzYcM4xij5XQ
+	 Z6fVzV7l8R0Y6yUOQ2OQGKRKlMySbeSF+48bAwUFRARgad12I9eIc+LrqqXb6J5I+9
+	 AAjtgcwxzq/KQ53xvFCznEqvN8bte5GE/9qlwha9OPUbPob8YAt6yphO6LRdU9flck
+	 T895qYGVOF1WegMjoSOuv94fk6p+3nrszsY3ouuO2BRpE3PPOmv5k5gFpOAHDhrPCJ
+	 vzLvEBVPH4+2biz0D1XluyTUML/hR078aTMku8mFlvYppzfVmJC4zFmt3PL90rf+ye
+	 duzr0IRAGZzog==
+Received: from [192.168.0.15] (unknown [100.64.0.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: detlev)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 32A8817E0EB0;
+	Thu, 10 Sep 2026 15:35:29 +0200 (CEST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+Date: Thu, 10 Sep 2026 09:34:44 -0400
+Subject: [PATCH v2 2/8] ARM: dts: rockchip: Rename rk3288-miqi HDMI audio
+ card
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-2-1396a6168e20@collabora.com>
+References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
+In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
+ Christian Hewitt <christianshewitt@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ David Summers <beagleboard@davidjohnsummers.uk>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+X-Mailer: b4 0.15.2
 
-The Allwinner A523 pinctrl IP requires an exception for addressing PortK,
-since the registers for this GPIO bank did not fit anymore in the
-existing MMIO frame. Since the A523 was also the first SoC to actually
-implement PortK, we just enabled this quirk unconditionally.
-Now the new Allwinner A733 changed the MMIO frame layout, so PortK can
-and must be handled without any special code.
+Rename the card from "HDMI" to "RK3288 HDMI" so it identifies the SoC
+in user-visible ALSA fields and no longer collides with the identical
+"HDMI" string used by other Rockchip SoCs.
 
-Mark the special casing for PortK with the ELEVEN_BANKS quirk flag we
-introduced, so that it will only be used on SoCs using the A523 pinctrl
-IP.
-
-Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Fixes: 2a91dcd5be9d ("ARM: dts: rockchip: add HDMI audio to rk3288-miqi")
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
 ---
- drivers/pinctrl/sunxi/pinctrl-sunxi.c | 2 +-
+ arch/arm/boot/dts/rockchip/rk3288-miqi.dts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-index bc6948e3fb495..2524e0b3a2a5a 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
-@@ -67,7 +67,7 @@ static u32 sunxi_bank_offset(const struct sunxi_pinctrl *pctl, u32 pin)
- {
- 	u32 offset = 0;
+diff --git a/arch/arm/boot/dts/rockchip/rk3288-miqi.dts b/arch/arm/boot/dts/rockchip/rk3288-miqi.dts
+index a5f5c6d38f80..090255244c86 100644
+--- a/arch/arm/boot/dts/rockchip/rk3288-miqi.dts
++++ b/arch/arm/boot/dts/rockchip/rk3288-miqi.dts
+@@ -82,7 +82,7 @@ vcc_sys: regulator-vsys {
+ 	sound {
+ 		compatible = "simple-audio-card";
+ 		simple-audio-card,format = "i2s";
+-		simple-audio-card,name = "HDMI";
++		simple-audio-card,name = "RK3288 HDMI";
+ 		simple-audio-card,mclk-fs = <512>;
  
--	if (pin >= PK_BASE) {
-+	if (pin >= PK_BASE && (pctl->flags & SUNXI_PINCTRL_ELEVEN_BANKS)) {
- 		pin -= PK_BASE;
- 		offset = PIO_BANK_K_OFFSET;
- 	}
+ 		simple-audio-card,codec {
+
 -- 
-2.47.3
+2.55.0
 
