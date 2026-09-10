@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25A7A3BCD2C
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 12:40:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D5636F900;
+	Thu, 10 Sep 2026 12:41:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044059; cv=none; b=PIUF42MvpfOhrX7eNjDnKcovmc02ayx0VjS0NGwZrS6Gs53y2ta3gmqpwc7Nke1EdtmRBU/tdow4GTZAt2/xj8uVUG6ef/7ypeQAJFpEBt6vlrZpMLZ6W2TasDONaf0+cIhaMCfsXtPNuqHmy5n4+3jQ85qUoqIC+z05ueyf4kw=
+	t=1789044095; cv=none; b=lg6CBjyppaeGAuCseYrUYwVRrgDSxQmoOvJlHrXMCRCkp3sfRj5G1qclGnaIkGD7hcvNoWN4/FWuTCaRKtovg5lvpn9Hmk3a7WBOrQzaiRHv4dwnTuQLZzxjFXY0hdeMOA4lbV1NV854rs248XEAW1iqHL50x3upnRGvjkwnKN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044059; c=relaxed/simple;
-	bh=QC4oJfZyc1t2idVQqggHtEsbVf+ZZEQyRKmrKemYCNA=;
+	s=arc-20240116; t=1789044095; c=relaxed/simple;
+	bh=bxj7pEaOWolPSC0SaktKdrneFgu3v+bCqwAZd6aSJP4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jiaG6NuxMTDrO5Rn3UvSvyMep4aEGXkR78hQgrEaJ4dCAtX6MYa5Hhvmcv62r1ZKFpYnnOrPgjNfY9maoTNsxAiz/Wc6FC2brr3pCznQMfondNkxW0EftWN6DiPWpnpBL4Edr6vKXIkpKBYllgHf4pv+fhpW3i7SdrJz+Igf200=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNIQqNp/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RZz77LEUw5Tbj/uaXVw8DQn8BE3eom09Eb1exONCHGUaz1r+Nk8Vb33kXLSwmTF6zc/RSaSDoCm0W96ErTGWJ9GcjfLLj6KvUnmOQMqxxywUjmmv+t3P0jkmXAzk8v+kJNLVthQPtBrnzN+XSLQrQYPcVemX3ZbZx1gjDFZH2t4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H6oWutnU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNIQqNp/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E0481F000FF;
-	Thu, 10 Sep 2026 12:40:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H6oWutnU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1299D1F000FF;
+	Thu, 10 Sep 2026 12:41:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789044057;
-	bh=oX62sUMTLhau2OaqnrWVB4F0vrhdyICm1f48AVkYt20=;
+	s=k20260515; t=1789044094;
+	bh=DmqJlyl/yDAfWA0SB9plsfHlfzS7CY4I+YWxvTqmqR4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kNIQqNp/dDT7GJUpcr3bsYeoYFqI1R0C3sk8YJnWLjnyjnddJfkkNa4j7MaIgKiWh
-	 R+wPzbn9L1kgX+2XSGqEpPsUtSq7dAzb3moKecXI6u55sqYLhkEnBqurEldpsv9wLb
-	 j+JkCpwQuexI0AP0PoCCXIneooHG071D0Ry4F5kvfgoT3HGE3/KZbewG27zXYftGPV
-	 FdlXd7zxtJuDL4U8Spgg7Ln1G++2EgpMcXTxDILAnCiatIGepxPmWMwNXDFuR6fTIF
-	 t5hYOAX6GZmpKUnwCY/yXVNbW91em0nFuKHXtpiQqX1WitupqimApBfBff2OpdR9NI
-	 SQhgfSf7b7Phw==
+	b=H6oWutnUtwVooXIdPrwKCIgZKOJcAoU2HLTPYb6eP7voueh7H1Vj1SM+02B/iVeua
+	 g0N3mU8zzz6Xcna9Vuqqbnd5kL58cv9Wssvl7qH4oYtxUxg4feP/PbbN//3MR+pYf1
+	 YjFAJccWtS0qi2Lw7N7gVYKXnp3DCWx+HSfER6vLhxjDP1MQua36KkAd3zOeKmFvYJ
+	 dNhnzSaaCmjv9Mkx7Gh0qs/VEktslWJmpu3h3Cy9m3vYS/3Iy+sv6KiQ4eoU/G9P2c
+	 M6ofsTXKiaNEKqHe9v7k17jSheiFdcifAzW1cjAzyaUT8zVAi82vKs+eFgRVRoGX4Q
+	 dPfFj+VfOnOLA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v3 3/3] arm64: dts: qcom: sm7125-samsung: add
- initial device tree
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Erikas Bitovtas" <xerikasxx@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260910-sm7125-samsung-v3-3-c467bea0fb9c@gmail.com>
-References: <20260910-sm7125-samsung-v3-0-c467bea0fb9c@gmail.com>
- <20260910-sm7125-samsung-v3-3-c467bea0fb9c@gmail.com>
+To: "Colin Huang" <colin.huang2@amd.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com>
+References: <20260910-add-tda38740-and-tda38725-v4-0-dbae7fabce09@gmail.com>
+ <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 12:40:56 +0000
-Message-Id: <20260910124057.6E0481F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 12:41:33 +0000
+Message-Id: <20260910124134.1299D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,79 +47,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The `rmtfs_mem` and `framebuffer` nodes violate unit address conven=
-tions, causing dtc compiler warnings.
+- [Medium] The binding omits standard properties for voltage regulators and=
+ PMBus alerts, preventing complete hardware description due to `additionalP=
+roperties: false`.
 --
 
-commit f4aab33141cc83eeb5caf4d1bd15dc706240103e
-Author: Erikas Bitovtas <xerikasxx@gmail.com>
+commit ad3970039034a68048f73bbed304c8a0650c3bdf
+Author: Colin Huang <u8813345@gmail.com>
 
-arm64: dts: qcom: sm7125-samsung: add initial device tree
+dt-bindings: hwmon: pmbus: Add Infineon tda38740 and tda38725
 
-Samsung Galaxy A52/A72 are devices released on atoll (SM7125) platform
-in 2021. Add initial device tree for SM7125 Samsung platform with
-support for various peripherals.
+This commit adds device tree binding documentation for the Infineon
+TDA38740 and TDA38725 PMBus synchronous buck regulators.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts b/arch/arm6=
-4/boot/dts/qcom/sm7125-samsung-a52q.dts
-> index 0000000000000..ecba5be8164ea
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38=
+740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.=
+yaml
+> new file mode 100644
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+
 [ ... ]
-> +&rmtfs_mem {
-> +	reg =3D <0x0 0xf4f00000 0x0 0x202000>;
-> +};
 
-[Severity: Low]
-Does this reg assignment cause a dtc compiler warning? The reg property is
-assigned here without updating the node name to include the unit address
-@f4f00000.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi b/arch/a=
-rm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-> index 0000000000000..b8863e111bc4f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7125-samsung-common.dtsi
-[ ... ]
-> +		ranges;
+> +required:
+> +  - compatible
+> +  - reg
 > +
-> +		framebuffer@9c000000 {
-> +			compatible =3D "simple-framebuffer";
-> +			memory-region =3D <&cont_splash_mem>;
+> +additionalProperties: false
 
-[Severity: Low]
-Should this node name have a unit address? The unit address @9c000000 is
-present in the node name without a corresponding reg property, which usually
-triggers a unit_address_vs_reg warning from the device tree compiler.
+[Severity: Medium]
+Because this is a voltage regulator with a PMBus interface, board device
+trees might need to describe physical hardware connections like the SMBALER=
+T#
+interrupt pin or standard regulator supply nodes.
 
-> +			width =3D <1080>;
-[ ... ]
-> +		pstore_mem: ramoops@b4600000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0x0 0xb4600000 0x0 0x100000>;
-> +			record-size =3D <0x40000>;
-> +			console-size =3D <0x40000>;
-> +			ftrace-size =3D <0x40000>;
-> +			pmsg-size =3D <0x40000>;
-> +		};
+Will this strict constraint cause dt-schema validation failures if a board
+node attempts to add standard properties like interrupts?
+
+Should this schema include standard regulator and interrupt properties in
+the definition, or perhaps use unevaluatedProperties with the relevant
+$ref inclusions, to allow boards to completely describe their hardware
+without validation errors?
+
 > +
-> +		rmtfs_mem: memory {
-> +			compatible =3D "qcom,rmtfs-mem";
-> +			qcom,use-guard-pages;
-
-[Severity: Low]
-Should this node name include a unit address? This node is defined here as
-memory without a unit address, but it receives a reg property in the
-board-specific DTS files. This typically generates a unit_address_vs_reg dtc
-warning during the build.
-
-> +			no-map;
-> +
-> +			qcom,client-id =3D <1>;
-> +			qcom,vmid =3D <QCOM_SCM_VMID_MSS_MSA>;
-> +		};
-> +	};
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-sm7125-sam=
-sung-v3-0-c467bea0fb9c@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-add-tda387=
+40-and-tda38725-v4-0-dbae7fabce09@gmail.com?part=3D1
