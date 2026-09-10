@@ -1,67 +1,67 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A825045A2AB
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 10:44:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5091459AE7
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 10:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789037097; cv=none; b=EETMGruYbFW+eZ2c7ipMupaJcDKpZizeAX2lsBlzdP2FDtasT7X0bp8CAuWlquMBAqCV9+CZwafa79NC2oNiDEsEzpyuVe9mDJ4K22pMT7DpgQ/pN8Wd1KT6iqmIylu2VBmhCCUCB6HZJBANcOZc+TO73VIvBXaB5pKqz6cvVN0=
+	t=1789037101; cv=none; b=R8glJC2WNOAHzWYqJ3wfQAlUh+m2pC0LDB+ytsV+9C2sJ6VcEWWzaFSIKFHEeBcMI4Bpsjnfb6j7aIV0jv2hvdhq9JqsUx5BMgY9hTk/DLS3OFqFxeowaK/sHnO4qH3iw2X7BcAnilFqzS58dS4Wg8NkTAUuBd6NQsN73ROc3GI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789037097; c=relaxed/simple;
-	bh=je4IU/IAiNq5H5O0okakTCOl1tHQPQzrOgxF5PvigMM=;
+	s=arc-20240116; t=1789037101; c=relaxed/simple;
+	bh=GJPDThOnszeiZ3vt9KH8FW9Eaxz3tFiR4MX/ju/T7HQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=gQhhROVO+f4LlsImVo0EfNU+1U/ceAb+JUqHaBBijmDMcMTL1I6VCkHCdBsRsvFjTchjYxVcpCTURYIr8/1g8RikZUtnCQTdgEZRHvHi+of7BR/YNu90icZrrFadBqM00xYCvB9CAfLGDvJAn164LlpUUh2KTtVU9ijysg9gmIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=XTm2ur24; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=k+fEqsuxahLkOohJTgL+X44Un620kFtHNyhYOrZ8Eat6HK9dlszXbvD2PQFbkax1CYsMqZlM5BstqdYulPW9j9Nthtax1yBb7TSjwzwDOEAxOwwMBRvMDR+yM8rnvTX8EX132lkVx1yK9AwwsXpzpnrwimTwjkrOdKxmy9UtdG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=oLX1UIEw; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="XTm2ur24"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b94fce6e8so9993555e9.2
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 03:44:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="oLX1UIEw"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4956869750eso62245735e9.2
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 03:44:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789037089; x=1789641889; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1789037094; x=1789641894; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oFwgLyL207NuimkwPEL2xJQg2+Ohyu6vwh5w42Gzx6g=;
-        b=XTm2ur247I3tfEhieZ+NSA6FJwNFLzoEsdPc0bJ/++aCDpEWFrMJHkLcqBZ8jRu/Sn
-         zELSOsc32E1CP9AnUzvJzaYX8DXjndKQpqG9M7WFAekdgAuYaaH4oGh1hz2hJIcmFSai
-         I5IAGoes3sGeJ5cm/PGWiu0qfUM/uMLSCO7tPDZ+3pcNOXz9mPhyylTtQGYbBrPeArry
-         DLPdTWcXoCI3FTngRkVnahiqAsGBZabBWlk0PvKc4GNcBogd321aCuQAgEcwZXYNmzW1
-         t2A3JaXOqOZ9lY3O5K+v0bG2n4fwWX5n7d2fbOpFlNR0JoAb184SJTOl5oVkNEI+QfRl
-         Xnyg==
+        bh=4df3jNNf+SwA47LnnMoTuv12BdxZ5QKPK9X6Eu1aAJA=;
+        b=oLX1UIEwrzXr6XNxNIXjGiIMF47J6pdkF0wted53IyufnlfsxVKLrByJ/T3InPCgxe
+         aImyKlDFdUeYeAH/jGxAwP4D53EWaTwz5+MauzelZUWnDCHrls0MHG7SpuS8DmH7AIq2
+         24H02ztN6H6EsepFIbOhNkjtL8GwNxG/vbg4gO2f7BMHKCnMHnvitLROQwaWCfn0o4qm
+         A+Ftwvl4BrtuVc4zqN1yocKglEIot71+ECLyJBiKW4Mq5id23wTZrzy4FNaYizjIhXqr
+         EaWsr+x6okoYFBeJXte2mzCRVm5CEDqBrnGhh11X23wvo5VA3HfMXayOAtN2pAF53ZwO
+         WFmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789037089; x=1789641889;
+        d=1e100.net; s=20251104; t=1789037094; x=1789641894;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oFwgLyL207NuimkwPEL2xJQg2+Ohyu6vwh5w42Gzx6g=;
-        b=C5c3p2zIzqmIpjIu8AO8uvrbfkq0zeQhGlDdG2hPkn5c9KqkmvoMDWnPqAXci8RWut
-         yOQDfQ1W7pAKJ935X9z0J27XNkUPENjmroQujJoXGO6vxaN21aH1yHknz1FFQiXrug8e
-         JGxgHFTG4cTuFHtTdOzJWV6DnOjZ5hxlkPzgs+gich3iqPdV/SZE5j2Rxz5fWh9PdxcL
-         ogVnCkiDaxJlcVDZZ5rhZIOxCwYnidGJjCjMgxDsPeY1/xIMFCF1R+yiW8+I5cb3H92i
-         lcbEAzsmu4Cr8swvfUkXXrlFPiwkzTvzrkZXGXw67TvVuhhhgP2SQO/ceTim8bRPuEp1
-         ewkw==
-X-Gm-Message-State: AFuF++m0D/xCay8IW1bE8vvgQ5/JG4AoXyjEa/EmSnmYM4yNfkga9gbR
-	1gHxjyEPe/Jd04vPTCUXgf8aO2ExE7dImgfkaojmBqqAfeVwdVnj+sWdHPoK5VY7ko0=
-X-Gm-Gg: AYBFou2m2t5By33qyCrSTBVffQLu9c9a9Dl4dn/fr12GSgrxzpVQda7o6opYnYyTV7P
-	b5O05J75fbdJg5DkwucdsO8gk3AlpQibH9meUO+xBDVESFygOe/BIilpnGUeBhK6eE2a7+OawJ/
-	EwE/k9jO8welg9IaVJU+ac3+9fMvhM0fn8kfuWQpIt6kki7ZHFxKPH0QQHVFAD5NKYCE+qMGG2S
-	CaVpu8zc36/1ezDaBuyrU3XR6wjCp1eGmY8YHiQ3aBWV1NlX2s27t/1eo1RUKrd8n3j7TSqmnPQ
-	o7N+3m9I1egTTibqSAqvjfy2rOBGOyjIsAPmnjexsy5UPcz0g7zM5+33sbAFVAsZlIyaehA8lBd
-	eDWWD3a8KwtUIK0ZGWEeHJo8vhvzFcxvYXkfXCEok0WmPwoocr581dAUtN0wRsgn2XKuZQO/58P
-	tG3vwehsEa0J6lCBKq93tgpezIQPZmw0tbLachnQ+zQJdYGsL9rRDbCrJatOT9gjJJyB+GoqVCN
-	e/IvHc4Wenj9K867A==
-X-Received: by 2002:a05:600c:4f4b:b0:49d:1fd8:b874 with SMTP id 5b1f17b1804b1-49d2590a8aamr63493805e9.19.1789037089485;
-        Thu, 10 Sep 2026 03:44:49 -0700 (PDT)
+        bh=4df3jNNf+SwA47LnnMoTuv12BdxZ5QKPK9X6Eu1aAJA=;
+        b=tW0At/4PtDL+KjyA5UYbhFCVcPVqgLUkgKNVN6oe8TACgrNG+JZONZOeH4FCt2x8eM
+         yS20W2iIm30+pBWDu3E7wjwK1KdG5LHrz6wG0XDbH+lOyfx3dx0TZoU9V7GDMg2gpvWg
+         /Vm3xVACj/F8RNCU75Q7f9P/o4MPwonxy9YzA+49dTuVrY7koO4OpDDSC3PwT2RiDsew
+         Xi8RTqVrQG2KtzXtE/qFRDoTt5vdte5YdYi2WvWHjjwmj2oqVR/YZo4r6aq01GST+F+R
+         cJIKzOioJyjY+vlKBM/buG4ptVBG6HSWEQVkhH1AVMOAoYj+9yqneqSl7Df7PgCa6xJB
+         zEiQ==
+X-Gm-Message-State: AFuF++kkzkFuLnufCUzONe2H16tyry9HUiXhBrtRSp1QIX2U0BK1J18W
+	LSdn/+U+mL73bEiAlIMEAmu1SmsSPqKI0Mya7lyxyMO0fniNxDqGE8TOxgcc1aWCrkc=
+X-Gm-Gg: AYBFou2YhHaTGHWFldI6SZKOYMGnreIJ2C1OjY/xgxDXsl01ylIyrxOS1cUNEFu9t/K
+	v2JnFO6ANv24kZFujlzUpQWX+D4yONohymO3EMYdI76yBRQj8bwAeuJicgzvKP+PGeJuhDlq22I
+	Au9nyNa75kuR0xujviAhHYD8wkrC2je7KP27qN2Qj7gHbXIW9tidwnHObptcy3qBxl/XE2UdwCD
+	Cv4TJ1KZ78G3JgJ+7CduDGUuWu02ofdO0KyxamYLhRfyJclvJZiuUYNZVHgLPEU+Sz112BWaCF1
+	yGxfr6ZVbCkAVNr4nvcALE/czS6TteqQK8AEgMAN3y/YBguJtsUw91KCZvFM6yJ9ZSWjRBmYSHG
+	UMB7rjaqkqc/Pw/j0PcQ1j06DnH6uK88KMaBC64bOL37HhYLJY95Zny5bxgnfWQd1edbSwbBoCy
+	Me7BScTE5tFcIV9y4WTCKPyeuiuK4fmPhk8ZUZByDSYmPOpDrRaRD74yBWWWxl9rI0Z6r6EKKHp
+	R/4hpDYzelp3ue2XA==
+X-Received: by 2002:a05:600c:314f:b0:49c:ffde:45ff with SMTP id 5b1f17b1804b1-49cffde4629mr343074845e9.17.1789037093673;
+        Thu, 10 Sep 2026 03:44:53 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d20fc1be3sm59311885e9.4.2026.09.10.03.44.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c04ba2sm63146745e9.12.2026.09.10.03.44.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 03:44:49 -0700 (PDT)
+        Thu, 10 Sep 2026 03:44:53 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-Date: Thu, 10 Sep 2026 12:44:36 +0200
-Subject: [PATCH v8 2/5] mfd: axp20x-i2c: Fix i2c instantiation
+Date: Thu, 10 Sep 2026 12:44:38 +0200
+Subject: [PATCH v8 4/5] mfd: axp20x: Add support for AXP318W PMIC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-axp318-regulator-v8-2-e906a61a7f3d@baylibre.com>
+Message-Id: <20260910-axp318-regulator-v8-4-e906a61a7f3d@baylibre.com>
 References: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
 In-Reply-To: <20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com>
 To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>, 
@@ -80,124 +80,396 @@ To: Andre Przywara <andre.przywara@arm.com>, Lee Jones <lee@kernel.org>,
  Hans de Goede <hansg@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  mfd@lists.linux.dev, linux-sunxi@lists.linux.dev, 
- Sashiko <sashiko-bot@kernel.org>, Jerome Brunet <jbrunet@baylibre.com>
+ Jerome Brunet <jbrunet@baylibre.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3852; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=je4IU/IAiNq5H5O0okakTCOl1tHQPQzrOgxF5PvigMM=;
- b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqoooXI2FPbcy5D4dzaZLIQfK0JjInNHjIj/fsQ
- C2n7o393jWJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqKKFwAKCRDm/A8cN/La
- hcYjEACMMwiVJofpRxE5wvVz8a5UJPrh5vMeNxuETytkLx6pEu4wj/5Vd3oH/Ijh8pEUCbBTU2E
- CaJLHpMHIiMREmTK3U3bk//62uew5b68ZGF9ABO4OXPv1VhjJkS2BXk9Veb1vWWeqdbrL+I8G2E
- V97hM7Jfrhn0McyS6uOttH45cE0oPS0oQwsiMW3k3XwiKmXwhS/UsuDYGudk99sKd9qTix8WlQP
- w7SM8F8JLocGKhi2ZHAKgLBdwDgIpdO53baiC3+LWMaFzLMfxVdMYN2wBmhkMjin58fxNXr/70n
- 83NPdV0x3jJ9T7VFEU5mV3mG685ZJZipllGx0BDVRPUjsRdvY3/nprekZ1Y7k5nl877fX5YbSgI
- t82+BAxr4mrFhTKWk/eNT7+zKMK1oypunbaEtiFKPvakLsB5je5v77RtvOGG9NoRS65KquLClfn
- Dh7qF+cM3wngtumnzIY7TV5H+vH7qgWfeEv8xCtBtJ03j0S5STgBteCAREueO2ypoUOMrxLOcdS
- LmlDY2GYAz1Sg9g4/Oh1rXZJWxCqNhYqSQRC5NX5ApGLIDaBShA4pTKRZEyVV7sxgu8o/mPzt7p
- xNPQA30W1rWcMZd19ko+k1aiQDJXPBjQAMRAfK804dz6wWel6pqxNPCSfq3/rDXPS3CjxVpvpoJ
- 867+tHFELvOIvvA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12979; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=8KErW1FkPZKKzrIm6143ej3q+jSd6lOTIZxIGTzIMGo=;
+ b=owEBbQKS/ZANAwAKAeb8Dxw38tqFAcsmYgBqoooZtwfiBaHUIc8bzVQcykinbG3jRWKj8fjox
+ NIeKZfBzUSJAjMEAAEKAB0WIQT04VmuGPP1bV8btxvm/A8cN/LahQUCaqKKGQAKCRDm/A8cN/La
+ hRy8D/9GH+zGwxI2z3NnksSzCSQdAbEpiilj6AFFhkRZAWbZa9WT/fOFqI2qzwqa6nGBxFAqPNB
+ eYxtbVCAukj6vUjEdx6TqhxQJxGQ9CC9GR/yKN6vkaHT4kxuUNaNDa0HQXfelX+YJxp2sxro5DC
+ ZR7qYdI8We1o3y2xswhEXMgotPIJfwoq6hI161gJu5ULgMVxUuPh8nlGxLmjvU9H/2yUNGvnvtZ
+ L+VXqPAFO3WodftTWKMfRoNN5Ht0bv5rocXFQtnH2hIWfukQZjJLcfqK5Umj2Ka8hqI+gt6gId9
+ z81ezeFU42Duvvb6aBXHPzzYLiS6Ts0mF7KBwQVyOPH8x2tdPH0/Bf4z/NYkW9zuSVorn+bMHT7
+ 8J/o+jime1TJ28cySojjjjuWhPc6gKxWiaIj3m+GsFi68TVsJxHnOWNaommCvRu7H/jBsrdjrgt
+ 4o1lk9JCcxzsIYLPjoR6LAej+NnB/edeG2FXpF2e/dPpmAddYmXmACIRGm8Z/yi4ifEwRDVmeR4
+ 2xFgxONyaba/66TW9VC+FIIPsK8uArZgvsGcFfU8Hcw7y577j8UzDwdpoj7SIh5gNePhWtLKSyY
+ vInDaICxHYkvRlY90mhCOMRcICydeqTvpPxOYZ1BACOZkiEujjQmTvICjVR/TBo0MRrggTLp5i7
+ fwA9c4ZFiLIYV3Q==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-Apparently this device never really supported i2c instantiation via
-sysfs, because the driver does not even look at the i2c device data,
-which are not set. It would only probe if the device matched through DT.
+From: Andre Przywara <andre.przywara@arm.com>
 
-Fix that for correctness, even-though it is probably useless.
-Add the missing AXP323 while at it.
+The AXP318W is a PMIC chip produced by X-Powers, it can be connected to
+an I2C bus.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel.org
-Fixes: 41751b033aaa ("mfd: axp20x-i2c: Add i2c-ids to fix module auto-loading")
-Acked-by: Chen-Yu Tsai <wens@kernel.org>
+It has a large number of regulators: 9(!) DCDC buck converters, and 28
+LDOs, also some ADCs, interrupts, and a power key.
+
+Describe the regmap and the MFD bits, along with the registers exposed
+via I2C only. This covers the regulators and interrupts for now.
+Advertise the device using the new compatible string.
+
+We use just "318" for the internal identifiers, for easier typing and
+less churn, but use "318W" for anything externally visible. If something
+else other than the "AXP318W" shows up, that's an easy change then.
+
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
 Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 ---
- drivers/mfd/axp20x-i2c.c   | 24 +++++++++++++-----------
- drivers/mfd/axp20x-rsb.c   |  1 +
- drivers/mfd/axp20x.c       |  1 -
- include/linux/mfd/axp20x.h |  3 +--
- 4 files changed, 15 insertions(+), 14 deletions(-)
+ drivers/mfd/axp20x-i2c.c   |   2 +
+ drivers/mfd/axp20x.c       |  88 +++++++++++++++++++++++++++
+ include/linux/mfd/axp20x.h | 145 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 235 insertions(+)
 
 diff --git a/drivers/mfd/axp20x-i2c.c b/drivers/mfd/axp20x-i2c.c
-index 5c93136f977e..a76bec5604c4 100644
+index a76bec5604c4..64c212b76e5e 100644
 --- a/drivers/mfd/axp20x-i2c.c
 +++ b/drivers/mfd/axp20x-i2c.c
-@@ -35,6 +35,7 @@ static int axp20x_i2c_probe(struct i2c_client *i2c)
- 	axp20x->irq = i2c->irq;
- 	dev_set_drvdata(axp20x->dev, axp20x);
- 
-+	axp20x->variant = (kernel_ulong_t)i2c_get_match_data(i2c);
- 	ret = axp20x_match_device(axp20x);
- 	if (ret)
- 		return ret;
-@@ -76,17 +77,18 @@ MODULE_DEVICE_TABLE(of, axp20x_i2c_of_match);
- #endif
- 
- static const struct i2c_device_id axp20x_i2c_id[] = {
--	{ "axp152" },
--	{ "axp192" },
--	{ "axp202" },
--	{ "axp209" },
--	{ "axp221" },
--	{ "axp223" },
--	{ "axp313a" },
--	{ "axp717" },
--	{ "axp803" },
--	{ "axp806" },
--	{ "axp15060" },
-+	{ .name = "axp152",	.driver_data = AXP152_ID },
-+	{ .name = "axp192",	.driver_data = AXP192_ID },
-+	{ .name = "axp202",	.driver_data = AXP202_ID },
-+	{ .name = "axp209",	.driver_data = AXP209_ID },
-+	{ .name = "axp221",	.driver_data = AXP221_ID },
-+	{ .name = "axp223",	.driver_data = AXP223_ID },
-+	{ .name = "axp313a",	.driver_data = AXP313A_ID },
-+	{ .name = "axp323",	.driver_data = AXP323_ID },
-+	{ .name = "axp717",	.driver_data = AXP717_ID },
-+	{ .name = "axp803",	.driver_data = AXP803_ID },
-+	{ .name = "axp806",	.driver_data = AXP806_ID },
-+	{ .name = "axp15060",	.driver_data = AXP15060_ID },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, axp20x_i2c_id);
-diff --git a/drivers/mfd/axp20x-rsb.c b/drivers/mfd/axp20x-rsb.c
-index 059656f2a1bd..8fdc870c1fe4 100644
---- a/drivers/mfd/axp20x-rsb.c
-+++ b/drivers/mfd/axp20x-rsb.c
-@@ -35,6 +35,7 @@ static int axp20x_rsb_probe(struct sunxi_rsb_device *rdev)
- 	axp20x->irq = rdev->irq;
- 	dev_set_drvdata(&rdev->dev, axp20x);
- 
-+	axp20x->variant = (kernel_ulong_t)device_get_match_data(axp20x->dev);
- 	ret = axp20x_match_device(axp20x);
- 	if (ret)
- 		return ret;
+@@ -66,6 +66,7 @@ static const struct of_device_id axp20x_i2c_of_match[] = {
+ 	{ .compatible = "x-powers,axp221", .data = (void *)AXP221_ID },
+ 	{ .compatible = "x-powers,axp223", .data = (void *)AXP223_ID },
+ 	{ .compatible = "x-powers,axp313a", .data = (void *)AXP313A_ID },
++	{ .compatible = "x-powers,axp318w", .data = (void *)AXP318_ID },
+ 	{ .compatible = "x-powers,axp323", .data = (void *)AXP323_ID },
+ 	{ .compatible = "x-powers,axp717", .data = (void *)AXP717_ID },
+ 	{ .compatible = "x-powers,axp803", .data = (void *)AXP803_ID },
+@@ -84,6 +85,7 @@ static const struct i2c_device_id axp20x_i2c_id[] = {
+ 	{ .name = "axp221",	.driver_data = AXP221_ID },
+ 	{ .name = "axp223",	.driver_data = AXP223_ID },
+ 	{ .name = "axp313a",	.driver_data = AXP313A_ID },
++	{ .name = "axp318w",	.driver_data = AXP318_ID },
+ 	{ .name = "axp323",	.driver_data = AXP323_ID },
+ 	{ .name = "axp717",	.driver_data = AXP717_ID },
+ 	{ .name = "axp803",	.driver_data = AXP803_ID },
 diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index 4d770e718716..de6946d4bb13 100644
+index de6946d4bb13..67ab529ebd2c 100644
 --- a/drivers/mfd/axp20x.c
 +++ b/drivers/mfd/axp20x.c
-@@ -1267,7 +1267,6 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
- 	const struct mfd_cell *cells_no_irq = NULL;
- 	int nr_cells_no_irq = 0;
+@@ -42,6 +42,7 @@ static const char * const axp20x_model_names[] = {
+ 	[AXP223_ID] = "AXP223",
+ 	[AXP288_ID] = "AXP288",
+ 	[AXP313A_ID] = "AXP313a",
++	[AXP318_ID] = "AXP318W",
+ 	[AXP323_ID] = "AXP323",
+ 	[AXP717_ID] = "AXP717",
+ 	[AXP803_ID] = "AXP803",
+@@ -218,6 +219,38 @@ static const struct regmap_access_table axp313a_volatile_table = {
+ 	.n_yes_ranges = ARRAY_SIZE(axp313a_volatile_ranges),
+ };
  
--	axp20x->variant = (long)device_get_match_data(dev);
- 	switch (axp20x->variant) {
- 	case AXP152_ID:
- 		axp20x->nr_cells = ARRAY_SIZE(axp152_cells);
++static const struct regmap_range axp318_writeable_ranges[] = {
++	regmap_reg_range(AXP20X_DATACACHE(0), AXP20X_DATACACHE(3)),
++	regmap_reg_range(AXP318_DCDC_OUTPUT_CONTROL1, AXP318_DCDC_MODE_CTRL1),
++	regmap_reg_range(AXP318_DCDC_MODE_CTRL3, AXP318_DCDC_MODE_CTRL3),
++	regmap_reg_range(AXP318_LDO_OUTPUT_CONTROL1, AXP318_IRQ_EN4),
++	regmap_reg_range(AXP318_IRQ_STATE1, AXP318_IRQ_STATE4),
++	regmap_reg_range(AXP318_SHUTDOWN_SRC_CTRL1, AXP318_POK_CTRL),
++	regmap_reg_range(AXP318_WAKEUP_PWROK_PIN_CFG, AXP318_WAKEUP_PWROK_PIN_CFG),
++	regmap_reg_range(AXP318_TS_PIN_CFG, AXP318_TS_PIN_CFG),
++	regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_TEMP_ADC_H_EN),
++	regmap_reg_range(AXP318_DIE_TEMP_ADC_H_EN, AXP318_DIE_TEMP_ADC_H_EN),
++	regmap_reg_range(AXP318_GPADC_H_EN, AXP318_GPADC_H_EN),
++	regmap_reg_range(AXP318_GPIO_CTRL, AXP318_WDOG_CTRL),
++};
++
++static const struct regmap_range axp318_volatile_ranges[] = {
++	regmap_reg_range(AXP318_IRQ_STATE1, AXP318_IRQ_STATE4),
++	regmap_reg_range(AXP318_POWER_REASON, AXP318_SHUTDOWN_SOURCE),
++	regmap_reg_range(AXP318_TEMP_ADC_H_EN, AXP318_GPADC_L),
++	regmap_reg_range(AXP318_GPIO_INPUT, AXP318_GPIO_INPUT),
++};
++
++static const struct regmap_access_table axp318_writeable_table = {
++	.yes_ranges = axp318_writeable_ranges,
++	.n_yes_ranges = ARRAY_SIZE(axp318_writeable_ranges),
++};
++
++static const struct regmap_access_table axp318_volatile_table = {
++	.yes_ranges = axp318_volatile_ranges,
++	.n_yes_ranges = ARRAY_SIZE(axp318_volatile_ranges),
++};
++
+ static const struct regmap_range axp717_writeable_ranges[] = {
+ 	regmap_reg_range(AXP717_PMU_FAULT, AXP717_MODULE_EN_CONTROL_1),
+ 	regmap_reg_range(AXP717_MIN_SYS_V_CONTROL, AXP717_BOOST_CONTROL),
+@@ -447,6 +480,15 @@ static const struct regmap_config axp313a_regmap_config = {
+ 	.cache_type = REGCACHE_MAPLE,
+ };
+ 
++static const struct regmap_config axp318_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.wr_table = &axp318_writeable_table,
++	.volatile_table = &axp318_volatile_table,
++	.max_register = AXP318_WDOG_CTRL,
++	.cache_type = REGCACHE_MAPLE,
++};
++
+ static const struct regmap_config axp323_regmap_config = {
+ 	.reg_bits = 8,
+ 	.val_bits = 8,
+@@ -663,6 +705,28 @@ static const struct regmap_irq axp313a_regmap_irqs[] = {
+ 	INIT_REGMAP_IRQ(AXP313A, DIE_TEMP_HIGH,		0, 0),
+ };
+ 
++static const struct regmap_irq axp318_regmap_irqs[] = {
++	INIT_REGMAP_IRQ(AXP318, DCDC8_V_LOW,		0, 7),
++	INIT_REGMAP_IRQ(AXP318, DCDC7_V_LOW,		0, 6),
++	INIT_REGMAP_IRQ(AXP318, DCDC6_V_LOW,		0, 5),
++	INIT_REGMAP_IRQ(AXP318, DCDC5_V_LOW,		0, 4),
++	INIT_REGMAP_IRQ(AXP318, DCDC4_V_LOW,		0, 3),
++	INIT_REGMAP_IRQ(AXP318, DCDC3_V_LOW,		0, 2),
++	INIT_REGMAP_IRQ(AXP318, DCDC2_V_LOW,		0, 1),
++	INIT_REGMAP_IRQ(AXP318, DCDC1_V_LOW,		0, 0),
++	INIT_REGMAP_IRQ(AXP318, PEK_RIS_EDGE,		1, 6),
++	INIT_REGMAP_IRQ(AXP318, PEK_FAL_EDGE,		1, 5),
++	INIT_REGMAP_IRQ(AXP318, PEK_SHORT,		1, 4),
++	INIT_REGMAP_IRQ(AXP318, PEK_LONG,		1, 3),
++	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV2,	1, 2),
++	INIT_REGMAP_IRQ(AXP318, DIE_TEMP_HIGH_LV1,	1, 1),
++	INIT_REGMAP_IRQ(AXP318, DCDC9_V_LOW,		1, 0),
++	INIT_REGMAP_IRQ(AXP318, GPIO3_INPUT,		2, 6),
++	INIT_REGMAP_IRQ(AXP318, GPIO2_INPUT,		2, 5),
++	INIT_REGMAP_IRQ(AXP318, GPIO1_INPUT,		2, 4),
++	INIT_REGMAP_IRQ(AXP318, WDOG_EXPIRE,		3, 0),
++};
++
+ static const struct regmap_irq axp717_regmap_irqs[] = {
+ 	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL2,		0, 7),
+ 	INIT_REGMAP_IRQ(AXP717, SOC_DROP_LVL1,		0, 6),
+@@ -884,6 +948,17 @@ static const struct regmap_irq_chip axp313a_regmap_irq_chip = {
+ 	.num_regs		= 1,
+ };
+ 
++static const struct regmap_irq_chip axp318_regmap_irq_chip = {
++	.name			= "axp318w_irq_chip",
++	.status_base		= AXP318_IRQ_STATE1,
++	.ack_base		= AXP318_IRQ_STATE1,
++	.unmask_base		= AXP318_IRQ_EN1,
++	.init_ack_masked	= true,
++	.irqs			= axp318_regmap_irqs,
++	.num_irqs		= ARRAY_SIZE(axp318_regmap_irqs),
++	.num_regs		= 4,
++};
++
+ static const struct regmap_irq_chip axp717_regmap_irq_chip = {
+ 	.name			= "axp717_irq_chip",
+ 	.status_base		= AXP717_IRQ0_STATE,
+@@ -1061,6 +1136,10 @@ static const struct mfd_cell axp313a_cells[] = {
+ 	MFD_CELL_RES("axp313a-pek", axp313a_pek_resources),
+ };
+ 
++static const struct mfd_cell axp318_cells[] = {
++	MFD_CELL_NAME("axp20x-regulator"),
++};
++
+ static const struct mfd_cell axp717_cells[] = {
+ 	MFD_CELL_NAME("axp20x-regulator"),
+ 	MFD_CELL_RES("axp20x-pek", axp717_pek_resources),
+@@ -1248,6 +1327,9 @@ static int axp20x_power_off(struct sys_off_data *data)
+ 	case AXP313A_ID:
+ 		shutdown_reg = AXP313A_SHUTDOWN_CTRL;
+ 		break;
++	case AXP318_ID:
++		shutdown_reg = AXP318_SHUTDOWN_CTRL;
++		break;
+ 	default:
+ 		shutdown_reg = AXP20X_OFF_CTRL;
+ 		break;
+@@ -1312,6 +1394,12 @@ int axp20x_match_device(struct axp20x_dev *axp20x)
+ 		axp20x->regmap_cfg = &axp313a_regmap_config;
+ 		axp20x->regmap_irq_chip = &axp313a_regmap_irq_chip;
+ 		break;
++	case AXP318_ID:
++		axp20x->nr_cells = ARRAY_SIZE(axp318_cells);
++		axp20x->cells = axp318_cells;
++		axp20x->regmap_cfg = &axp318_regmap_config;
++		axp20x->regmap_irq_chip = &axp318_regmap_irq_chip;
++		break;
+ 	case AXP323_ID:
+ 		axp20x->nr_cells = ARRAY_SIZE(axp313a_cells);
+ 		axp20x->cells = axp313a_cells;
 diff --git a/include/linux/mfd/axp20x.h b/include/linux/mfd/axp20x.h
-index b352661d99a1..1badb4868d17 100644
+index 1badb4868d17..5c307f41a31f 100644
 --- a/include/linux/mfd/axp20x.h
 +++ b/include/linux/mfd/axp20x.h
-@@ -997,8 +997,7 @@ static inline int axp20x_read_variable_width(struct regmap *regmap,
- /**
-  * axp20x_match_device(): Setup axp20x variant related fields
-  *
-- * @axp20x: axp20x device to setup (.dev field must be set)
-- * @dev: device associated with this axp20x device
-+ * @axp20x: axp20x device to setup (.dev and variant fields must be set)
-  *
-  * This lets the axp20x core configure the mfd cells and register maps
-  * for later use.
+@@ -19,6 +19,7 @@ enum axp20x_variants {
+ 	AXP223_ID,
+ 	AXP288_ID,
+ 	AXP313A_ID,
++	AXP318_ID,
+ 	AXP323_ID,
+ 	AXP717_ID,
+ 	AXP803_ID,
+@@ -116,6 +117,84 @@ enum axp20x_variants {
+ #define AXP313A_IRQ_STATE		0x21
+ #define AXP323_DCDC_MODE_CTRL2		0x22
+ 
++#define AXP318_DCDC_OUTPUT_CONTROL1	0x10
++#define AXP318_DCDC_OUTPUT_CONTROL2	0x11
++#define AXP318_DCDC1_CONTROL		0x12
++#define AXP318_DCDC2_CONTROL		0x13
++#define AXP318_DCDC3_CONTROL		0x14
++#define AXP318_DCDC4_CONTROL		0x15
++#define AXP318_DCDC5_CONTROL		0x16
++#define AXP318_DCDC6_CONTROL		0x17
++#define AXP318_DCDC7_CONTROL		0x18
++#define AXP318_DCDC8_CONTROL		0x19
++#define AXP318_DCDC9_CONTROL		0x1a
++#define AXP318_DCDC_MODE_CTRL1		0x1b
++#define AXP318_DCDC_MODE_CTRL3		0x1d
++#define AXP318_LDO_OUTPUT_CONTROL1	0x20
++#define AXP318_LDO_OUTPUT_CONTROL2	0x21
++#define AXP318_LDO_OUTPUT_CONTROL3	0x22
++#define AXP318_LDO_OUTPUT_CONTROL4	0x23
++#define AXP318_ALDO1_CONTROL		0x24
++#define AXP318_ALDO2_CONTROL		0x25
++#define AXP318_ALDO3_CONTROL		0x26
++#define AXP318_ALDO4_CONTROL		0x27
++#define AXP318_ALDO5_CONTROL		0x28
++#define AXP318_ALDO6_CONTROL		0x29
++#define AXP318_BLDO1_CONTROL		0x2a
++#define AXP318_BLDO2_CONTROL		0x2b
++#define AXP318_BLDO3_CONTROL		0x2c
++#define AXP318_BLDO4_CONTROL		0x2d
++#define AXP318_BLDO5_CONTROL		0x2e
++#define AXP318_CLDO1_CONTROL		0x2f
++#define AXP318_CLDO2_CONTROL		0x30
++#define AXP318_CLDO3_CONTROL		0x31
++#define AXP318_CLDO4_CONTROL		0x32
++#define AXP318_CLDO5_CONTROL		0x33
++#define AXP318_DLDO1_CONTROL		0x34
++#define AXP318_DLDO2_CONTROL		0x35
++#define AXP318_DLDO3_CONTROL		0x36
++#define AXP318_DLDO4_CONTROL		0x37
++#define AXP318_DLDO5_CONTROL		0x38
++#define AXP318_DLDO6_CONTROL		0x39
++#define AXP318_ELDO1_CONTROL		0x3a
++#define AXP318_ELDO2_CONTROL		0x3b
++#define AXP318_ELDO3_CONTROL		0x3c
++#define AXP318_ELDO4_CONTROL		0x3d
++#define AXP318_ELDO5_CONTROL		0x3e
++#define AXP318_ELDO6_CONTROL		0x3f
++#define AXP318_IRQ_EN1			0x40
++#define AXP318_IRQ_EN2			0x41
++#define AXP318_IRQ_EN3			0x42
++#define AXP318_IRQ_EN4			0x43
++#define AXP318_IRQ_STATE1		0x48
++#define AXP318_IRQ_STATE2		0x49
++#define AXP318_IRQ_STATE3		0x4a
++#define AXP318_IRQ_STATE4		0x4b
++#define AXP318_POWER_REASON		0x50
++#define AXP318_SHUTDOWN_SOURCE		0x51
++#define AXP318_SHUTDOWN_SRC_CTRL1	0x52
++#define AXP318_SHUTDOWN_SRC_CTRL2	0x53
++#define AXP318_DISCHARGE_OVERTEMP_CTRL	0x54
++#define AXP318_SHUTDOWN_CTRL		0x55
++#define AXP318_WAKEUP_VOFF_CTRL		0x56
++#define AXP318_POK_CTRL			0x57
++#define AXP318_WAKEUP_PWROK_PIN_CFG	0x5d
++#define AXP318_TS_PIN_CFG		0x60
++#define AXP318_TEMP_ADC_H_EN		0x65
++#define AXP318_TEMP_ADC_L		0x66
++#define AXP318_DIE_TEMP_ADC_H_EN	0x67
++#define AXP318_DIE_TEMP_ADC_L		0x68
++#define AXP318_GPADC_H_EN		0x69
++#define AXP318_GPADC_L			0x6a
++#define AXP318_GPIO_CTRL		0x70
++#define AXP318_GPIO_INPUT		0x71
++#define AXP318_GPIO_OUTPUT		0x72
++#define AXP318_PWM_CTRL1		0x73
++#define AXP318_PWM_CTRL2		0x74
++#define AXP318_PWM_CTRL3		0x75
++#define AXP318_BACKUP_BATTERY_CTRL	0x76
++#define AXP318_WDOG_CTRL		0x77
++
+ #define AXP717_ON_INDICATE		0x00
+ #define AXP717_PMU_STATUS_2		0x01
+ #define AXP717_BC_DETECT		0x05
+@@ -498,6 +577,50 @@ enum {
+ 	AXP313A_REG_ID_MAX,
+ };
+ 
++enum {
++	AXP318_DCDC1 = 0,
++	AXP318_DCDC2,
++	AXP318_DCDC3,
++	AXP318_DCDC4,
++	AXP318_DCDC5,
++	AXP318_DCDC6,
++	AXP318_DCDC7,
++	AXP318_DCDC8,
++	AXP318_DCDC9,
++	AXP318_ALDO1,
++	AXP318_ALDO2,
++	AXP318_ALDO3,
++	AXP318_ALDO4,
++	AXP318_ALDO5,
++	AXP318_ALDO6,
++	AXP318_BLDO1,
++	AXP318_BLDO2,
++	AXP318_BLDO3,
++	AXP318_BLDO4,
++	AXP318_BLDO5,
++	AXP318_CLDO1,
++	AXP318_CLDO2,
++	AXP318_CLDO3,
++	AXP318_CLDO4,
++	AXP318_CLDO5,
++	AXP318_DLDO1,
++	AXP318_DLDO2,
++	AXP318_DLDO3,
++	AXP318_DLDO4,
++	AXP318_DLDO5,
++	AXP318_DLDO6,
++	AXP318_ELDO1,
++	AXP318_ELDO2,
++	AXP318_ELDO3,
++	AXP318_ELDO4,
++	AXP318_ELDO5,
++	AXP318_ELDO6,
++	AXP318_SWOUT1,
++	AXP318_SWOUT2,
++	AXP318_RTC_LDO,
++	AXP318_REG_ID_MAX,
++};
++
+ enum {
+ 	AXP717_DCDC1 = 0,
+ 	AXP717_DCDC2,
+@@ -819,6 +942,28 @@ enum axp313a_irqs {
+ 	AXP313A_IRQ_PEK_RIS_EDGE,
+ };
+ 
++enum axp318_irqs {
++	AXP318_IRQ_DCDC1_V_LOW,
++	AXP318_IRQ_DCDC2_V_LOW,
++	AXP318_IRQ_DCDC3_V_LOW,
++	AXP318_IRQ_DCDC4_V_LOW,
++	AXP318_IRQ_DCDC5_V_LOW,
++	AXP318_IRQ_DCDC6_V_LOW,
++	AXP318_IRQ_DCDC7_V_LOW,
++	AXP318_IRQ_DCDC8_V_LOW,
++	AXP318_IRQ_DCDC9_V_LOW,
++	AXP318_IRQ_DIE_TEMP_HIGH_LV1,
++	AXP318_IRQ_DIE_TEMP_HIGH_LV2,
++	AXP318_IRQ_PEK_LONG,
++	AXP318_IRQ_PEK_SHORT,
++	AXP318_IRQ_PEK_FAL_EDGE,
++	AXP318_IRQ_PEK_RIS_EDGE,
++	AXP318_IRQ_GPIO1_INPUT = 20,
++	AXP318_IRQ_GPIO2_INPUT,
++	AXP318_IRQ_GPIO3_INPUT,
++	AXP318_IRQ_WDOG_EXPIRE = 24,
++};
++
+ enum axp717_irqs {
+ 	AXP717_IRQ_VBUS_FAULT,
+ 	AXP717_IRQ_VBUS_OVER_V,
 
 -- 
 2.53.0
