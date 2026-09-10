@@ -1,123 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f177.google.com (mail-oi1-f177.google.com [209.85.167.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902054BFE85
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 00:21:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CBAA2D12EE
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 00:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788999687; cv=none; b=RUAq5su83Wwn8PoHjihfZBX+jQlhStW5LK8553mBTepwNk0wBggyoHeeAV9NfzoZZLuxuLaw7DE0Z9DFn1v8I3VJk4tMFtbFJ+oJx6R5aAZoF75DO9uGLznXwrEKY1x+6hBr6JiMzLuuEZExamvJDBiu4AHSaFLvtB4hf3+y+G8=
+	t=1789000016; cv=none; b=fEucLdG2H0czNk1R8XgXURJS4cZlccuDTgPKzc9f2Nj8WEIZi0oM031mhILyS7bQw78a2xqnh4vhkQHV7bL1F91t01v1U3mDTixWBTd74xnh/EfJ4MgkrLMaPuI9JnSWaHmGi5DOSqYqi+zcMDYbs3/4L3HlYVfunvmlo9A4OEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788999687; c=relaxed/simple;
-	bh=GFW6Fqlwsl+9Fx8FFOTBd9s2rkers7nUgr8g/mpbT98=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f19FDCv0E+UgtgmoZXT2Q5tU4gTZM0Du8+P08nvx/H5I4p99oMm9NO7X6z7iMddktMeeBVDmQEgGEkozKDb3PILvySGPjo1qzNUWugASNqSrOE5So94YP7IelCeNhWea4Jtu2TOTV0zrvxo/JZjR82H+6FikA4INfMymog1tang=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNpmASHw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789000016; c=relaxed/simple;
+	bh=RIXKv16Aru2M4tQKU6z+MhEDUZYJPpqno6Opxuayn9w=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Px+PpKddm5/yTx94qoSMuFpsdO5DrxtKoG4YXxjgaxIEW36PsdWw2joNu+Rird7I9G3GYAfP8qVwXBVz6wOwfcypg7q7cqxmzLNzPadRPIN/KZU5C2v6KXTPt7Vw0Wlz8wqX1TPlUm7OvlpZIdZk+w2z3mYI5+5/rWCCIEyuzn4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=exXOmIyz; arc=none smtp.client-ip=209.85.167.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNpmASHw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86301F000FF;
-	Thu, 10 Sep 2026 00:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788999686;
-	bh=OwMHPt7ZyKMKcZ/wkuYOLfb9kSclNfhAFasAjF3TUZQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oNpmASHwmcL7ejkyOZgK4FfY5/R9Q7821UBmP7Gyux8pkYqJasUM1xa4KUou9ak78
-	 mGPGYz57jmpBWc60cOd67F8RVs6tQWFvekloygRv13FuUYpqGiDkLn7CTs+dk/Su8p
-	 TFGBUvvnrH/sOGvZaMlgJjUHXh3BB169rGQdPJZqHSpEROImOg7GFE0x6RETmPMiTp
-	 UFoBvZ7dq5pN8pX5cp2M8iKY6mFJy0CaPllGlq5w6S7CTIa7DBeLFt7gZBfrQNA4GK
-	 afmnSU01K8z5P1tN/NNry+crIXvrCCh0idEVNL2tH0OZOJEKzVC63WPyLKGM5uIjte
-	 tM+2+L+j0TvfQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rosen Penev" <rosenp@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910001209.116465-1-rosenp@gmail.com>
-References: <20260910001209.116465-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 00:21:25 +0000
-Message-Id: <20260910002125.E86301F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="exXOmIyz"
+Received: by mail-oi1-f177.google.com with SMTP id 5614622812f47-495b27007d0so4663201b6e.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 17:26:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789000013; x=1789604813; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=3Jdgkq5Uq5n6rA9cD2yXMgC3ZncV0Yws6KPpBDh5fU4=;
+        b=exXOmIyztcKWzJGzp3tQ8v3EVbu4f/Obb2rYbZvcnErrMXBJyqn5jeTP2OJBc13Bsc
+         zIkhFl8yGZaigUdLD18o8YiwoB1K0tXhmVkg1MiWzpjudBw2GlxUhp5NN/iCeiIMX/1j
+         S9A+oi7HKibC0JxothZG/xA9Bk2aYTl+CP0DY/nmw7PVeKjdlm6aMO1JkJ8QPZy5eyCQ
+         lCV5IBT2T1FtPY6/nJY+/zhXvBiuzgoJKJDgSjJ3rnf3ZZye1DDX/B5uiFJrSvEAKH1Z
+         PRvg4Dj4pX7d4QVPTJZTvRD/L0uR8oklNEimbNGuEhZ/2IbxytTagtoe+LAm86SRQAV/
+         vuRA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789000013; x=1789604813;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3Jdgkq5Uq5n6rA9cD2yXMgC3ZncV0Yws6KPpBDh5fU4=;
+        b=O1/kVzd2oVJJ554pLmLW+ivohti7JfwisljKEwhe1ZCQrz+kRpu+AerfQJnj1ey07u
+         1Pj5GHu+1J4LLZvrAJdjBmCQ7sOBLPXmHodfujfikqqsUTl8ZHy/3l1mwQowQoFYA4Va
+         YxdXm+H9FLnLLe1MVbhXK4rvmIqGshkNFpR/xhTTeV8f0cerXuhsvxBq3sVYh4VQDpsL
+         T5VEux4OK3N/H0NomjXJHLoqRfEDNc3uvNPxnfCmLH0DFE+ZzJXVXdp3V6pKx2gbXp3c
+         wOexVKepXYzQtQKL+oi1A2dNXuVJkfOYfvbK8sU5tDJdqErQ3F2UF6W471jj0gNdiMy/
+         f4kA==
+X-Forwarded-Encrypted: i=1; AKwUvBwMeQq/gjsDbBGRYfLHs6N1GIPtYGsWCNfi8aERw559g4jqVQ9XEJNV2g/70KBg9V3dvEkHUYKZYAJR@vger.kernel.org
+X-Gm-Message-State: AFuF++mDGe4w8EHBW8WsM9CZUhaTYBXn9pBU7KZ60hl6EP9lSALZNyPX
+	RhRC5c5AbFtczQWOUTQ/4xBSOsfDDtjUJKsHZaxj5a/0U0AdWWfRJyw4nlwqTiXT
+X-Gm-Gg: AYBFou2Km7MqZTcdCLh12qeHlDB/p/hFnvhx6xyBHzbQcZ4KeGgGacqfzRLCAe+hqKN
+	HxhGVDxSN2UAWNqdM4/Sh+/jGGIlKUtrF/YlerAgTnflHvWy+9NfyPTvxmZ76idTPFCYp2zyQK8
+	8svezsU5EGGCrbBPje3FprY75Om/fh6Diyuk2nIituWGfSiZ19WWIGYwgiObgGgiiXcg0gw7jfw
+	E7pGNftKCFxil19N13Af4FKN3gm0wey/CGlRgGqSC43x8lHv9GtAObf6YHHssMje02FZ5PSmOGu
+	auPvcDLr28DiSkwnovh+FGAlvW4pYQThwhVa38CZdHapN/ST8h+N0hB4cGNIxTCpNRF+R1mZZga
+	gZPR+MSINfmZ83Xw5ID95U+jmhUu5GJ7cx+cezw4DFKVP61f23qg1eJVhglTZx1LxYRZ0Xtu+AQ
+	9+k6cI9YjxRZoxpD0DrWufGAMIgb+M7ITrVndkEHd23BtJO36JqzEpj3rsDVQdm+GhmUG/jXadi
+	Qj2RRwsVJc7bSEitvkLHO186+l59/wu4ZHmQh4VkY3NBuMSsCT5dFNP/Djn0yjZe4HwciRbOcMV
+	WqUEASQtF2lavRYAEYcFTveqtdVwOPzMC23p0G3LiCuMmwtbDJ0m9q42c+PHomtbY5F9zicGKhz
+	IYpTCrdsYFciIiHCf65ZIXaLTOEuV6MuR9Tgmfvxo
+X-Received: by 2002:a05:6820:3405:10b0:6b7:8415:d797 with SMTP id 006d021491bc7-6b78415d88cmr13815338eaf.66.1789000013189;
+        Wed, 09 Sep 2026 17:26:53 -0700 (PDT)
+Received: from [127.0.1.1] (184-96-151-165.hlrn.qwest.net. [184.96.151.165])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7fe2fbf5db8sm10182789a34.25.2026.09.09.17.26.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 17:26:52 -0700 (PDT)
+From: James Hilliard <james.hilliard1@gmail.com>
+Subject: [PATCH v12 0/2] mfd: add X-Powers AC200 support
+Date: Wed, 09 Sep 2026 18:26:49 -0600
+Message-Id: <20260909-submit-ac200-mfd-v12-0-a44d6bc30a4f@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XOTU7DMBAF4KtUXmM0HmJ73BX3QCz82xqRBCXBa
+ lXl7jgFqVEbieUbzXxvLmyMQ44j2+8ubIglj7nvahD4tGP+aLtD5DnUAUNABSQEH79dmyduPQL
+ wNgVOzgYVwEQkyerZ1xBTPl3Nt/ffXG8+op8WZ9k45nHqh/O1tMhl748Hc+NPle8TD+fOttnzI
+ niRHLhLViSSghzS66G1+fPZ9y1biopaUVufFlUBL51Ag54a8wDo/wBdAXKgkpRom6DvAboBBnA
+ DoAqgtaA0giPr7wGzBl42AFMB5XQMqMmQeQAErAW1IQioRJKIkYJHF5oHQqwJvUWISkgKwQSvk
+ zJ2Tczz/AO9vlxwVwIAAA==
+X-Change-ID: 20260811-submit-ac200-mfd-8bad6d09e285
+To: Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ James Hilliard <james.hilliard1@gmail.com>, Lee Jones <lee@kernel.org>, 
+ Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, 
+ "Jagielski, Jedrzej" <jedrzej.jagielski@intel.com>, 
+ Andre Przywara <andre.przywara@arm.com>, Chen-Yu Tsai <wens@kernel.org>, 
+ linux-sunxi@lists.linux.dev, mfd@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+The X-Powers AC200 is an I2C-controlled mixed-signal companion IC with a
+paged register map shared by its audio, video, RTC and Fast Ethernet PHY
+functions.
 
-Pre-existing issues:
-- [High] Zero-size allocation leads to a kernel panic if NVRAM is completel=
-y empty or uninitialized.
---
+Add a complete binding and an MFD provider with audio codec and TV encoder
+cells. Describe the audio DAI, analog supply inputs, TV encoder display
+graph and optional bandgap calibration in the parent node, without
+separate function nodes.
 
-commit 3e511df55083f5f3829311b665dd624ff8599e95
-Author: Rosen Penev <rosenp@gmail.com>
+INTB is optional. When connected, pass the physical IRQ to the TV encoder
+cell for shared, threaded interrupt handling. There is no DT interrupt
+controller or private IRQ domain. The ASoC codec and DRM bridge drivers
+remain separate subsystem work.
 
-ARM: dts: BCM5301X: AC56U: add nvram node
+The PHY remains enumerated on MDIO. Its separately submitted driver uses
+the x-powers,ac200 phandle, a managed device link and dev_get_regmap() for
+ancillary I2C register access:
 
-This commit adds the brcm,nvram node to the bcm4708-asus-rt-ac56u device tr=
-ee.
-It configures it for gmac0, which is the only GMAC used on this board, and =
-sets
-the size based on a bootlog.
+  https://patch.msgid.link/20260909-submit-acx00-of-dynamic-v1-v11-0-eb45e89ef918@gmail.com
 
-> diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arch/=
-arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> index c80ac16ad9496..9ab618a097b1f 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> @@ -25,6 +25,15 @@ memory@0 {
->  		      <0x88000000 0x08000000>;
->  	};
-> =20
-> +	nvram@1c080000 {
-> +		compatible =3D "brcm,nvram";
-> +		reg =3D <0x1c080000 0x180000>;
-> +
-> +		et0macaddr: et0macaddr {
-> +			#nvmem-cell-cells =3D <1>;
-> +		};
-> +	};
-> +
+The two series can be merged independently; AC200 Ethernet requires both.
+This series is based on the MFD for-mfd-next branch.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but enabling the brcm,nvram node
-exposes a potential kernel panic in the nvmem driver if the NVRAM is
-completely empty or uninitialized.
+The binding and MFD implementation adapt earlier work by Jernej Skrabec
+and Andre Przywara, retaining their sign-off chain:
 
-In drivers/nvmem/brcm_nvram.c:brcm_nvram_copy_data(), if the flash partition
-consists only of padding bytes (e.g., after an erase), the scanning loop
-decrements priv->data_len to 0:
+  https://github.com/jernejsk/linux-1/commits/opi3-eth/
 
-	for (priv->data_len =3D priv->nvmem_size;
-	     priv->data_len;
-	     priv->data_len--) {
-		if (readb(base + priv->data_len - 1) !=3D priv->padding_byte)
-			break;
-	}
+Public documentation is linked from https://linux-sunxi.org/AC200.
 
-This results in a zero-byte allocation:
+Assisted-by: Codex:gpt-6-astra
+Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+---
+Changes in v12:
+- add Jernej Skrabec's Co-developed-by tags to the binding and driver
+  while retaining the sign-off chains (requested by Conor Dooley)
+- add Conor Dooley's Reviewed-by tag to the binding
+- update the companion PHY reference to the submitted v11 series
+- Link to v11: https://patch.msgid.link/20260907-submit-ac200-mfd-v11-0-58dd9dc7f69a@gmail.com
 
-	priv->data =3D devm_kzalloc(priv->dev, priv->data_len, GFP_KERNEL);
+Changes in v11:
+- fold the codec and TV encoder properties into the AC200 parent node
+  while retaining separate Linux MFD cells (requested by Conor Dooley)
+- describe only the optional physical INTB connection; remove the DT
+  interrupt-controller properties and internal interrupt-number header
+- replace the regmap IRQ controller with a shared physical IRQ resource
+  for the TV encoder, omitted when INTB is not connected
+- mask all sources before enabling INTB and leave per-source interrupt
+  handling to the function drivers
+- pass static const MFD cell arrays directly to the core, without copying
+  or filtering them by DT child nodes; share the cell initializers between
+  the IRQ and no-IRQ arrays
+- map the function supplies to the parent using MFD supply aliases and
+  clarify that the distinct AC_LDOIN and TV_VCC inputs may share a regulator
+- remove the DMA-mask workaround now that the cells have no OF nodes
+- drop the binding Reviewed-by tag, which covered the earlier parent-only
+  binding (requested by Conor Dooley)
+- Link to v10: https://patch.msgid.link/20260906-submit-ac200-mfd-v10-0-f522e8dc2bd4@gmail.com
 
-If priv->data_len is 0, devm_kzalloc() returns ZERO_SIZE_PTR (0x10) rather
-than NULL, so execution continues successfully to brcm_nvram_parse().
+Changes v9 -> v10:
+- combine the parent and function bindings into one complete binding patch
+  (requested by Conor Dooley)
+- introduce the complete MFD provider, IRQ controller and function cells in
+  one driver patch, reducing the series from four patches to two
+- retain the existing sign-off chains for the adapted binding and MFD work
+- allow enabled codec and TV encoder nodes when INTB is not connected;
+  require the parent IRQ path only when a TV encoder interrupt is declared
+  or the parent advertises an interrupt controller
+- add an unwired TV encoder example
+- move the existing 40 ms wait before constructing and publishing the
+  regmap, and clarify its origin in the vendor resume path
+- use automatic platform-device IDs so MFD children from multiple AC200
+  instances cannot collide
+- initialize the parent's DMA mask for its non-DMA children, avoiding
+  "DMA mask not set" warnings during child enumeration
+- explicitly request level-low when no upstream IRQ trigger is configured
+- keep INTB disabled until source masking and handler setup are complete,
+  and disable it before releasing the IRQ chip on failure or removal
+- narrow reset-preservation claims to avoiding a provider-initiated global
+  reset; supplier unbind still tears down consumers and releases clocks
+- Link to v9: https://patch.msgid.link/20260903-submit-ac200-mfd-v9-0-6b7ed278989c@gmail.com
 
-The driver then attempts to read the header:
+Changes v8 -> v9:
+- deassert common reset without first resetting the entire chip
+- leave common reset deasserted during removal and shutdown, avoiding a
+  provider-initiated chip-wide reset
+  (reported by Sashiko and queried by Lee Jones)
+- stop storing the regmap as unused driver data after dropping teardown
+  callbacks
+- describe the audio codec and TV encoder MFD children
+- add the AC200 interrupt definitions and shared regmap IRQ controller
+- register only enabled, DT-described codec and TV encoder function devices
+- retain Jernej Skrabec and Andre Przywara's authorship and sign-off chain
+  for the adapted child and MFD work
+- make the base provider depend on COMMON_CLK before child support is added
+- require an upstream interrupt when the parent is an interrupt controller
+- credit Jernej Skrabec in the module metadata
+- exercise child enumeration and parent-regmap access with temporary probes
+- rebase on the current MFD for-mfd-next branch
+- verify register-state preservation across supplier unbind and rebind
+- Link to v8: https://patch.msgid.link/20260902-submit-ac200-mfd-v8-0-2aa06720b8ac@gmail.com
 
-	struct brcm_nvram_header *header =3D (struct brcm_nvram_header *)priv->dat=
-a;
-	...
-	if (memcmp(header->magic, NVRAM_MAGIC, 4)) {
+Changes v7 -> v8:
+- identify the PHY series as the current regmap consumer
+- describe future MFD children and the MDIO/I2C split
+- store the regmap directly as driver data  (suggested by Lee Jones)
+- reset the chip from the remove callback  (suggested by Lee Jones)
+- drop the revision log and inherited-driver attribution  (suggested by Lee Jones)
+- add Krzysztof's Reviewed-by tag to the binding
+- rebase on the current MFD for-mfd-next branch
+- Link to v7: https://patch.msgid.link/20260811-submit-ac200-mfd-v7-0-8b06f552a4d7@gmail.com
 
-This dereferences ZERO_SIZE_PTR (0x10), which causes a page fault and kernel
-panic on devices with erased NVRAM.
+Changes v6 -> v7:
+- drop the managed external-syscon helper and AC200 syscon registration
+- leave the regmap attached to the I2C provider for direct device lookup
+- reduce the MFD series from three patches to two
+- Link to v6: https://patch.msgid.link/20260811-submit-ac200-mfd-v6-0-c5b1292c8498@gmail.com
 
-Could a check be added for priv->data_len =3D=3D 0 in the nvmem driver to p=
-revent
-this unrecoverable boot failure before enabling the node in the device tree?
+Changes v5 -> v6:
+- split the MFD work from the independently mergeable networking series
+- rebase on the MFD for-mfd-next branch
+- Link to v5: https://patch.msgid.link/20260809-submit-acx00-of-dynamic-v1-v5-0-bfa1f8518b28@gmail.com
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910001209.1164=
-65-1-rosenp@gmail.com?part=3D1
+---
+James Hilliard (2):
+      dt-bindings: mfd: x-powers: Add AC200
+      mfd: ac200: Add X-Powers AC200 support
+
+ .../devicetree/bindings/mfd/x-powers,ac200.yaml    | 168 +++++++++++++++
+ MAINTAINERS                                        |   8 +
+ drivers/mfd/Kconfig                                |  14 ++
+ drivers/mfd/Makefile                               |   1 +
+ drivers/mfd/ac200.c                                | 231 +++++++++++++++++++++
+ 5 files changed, 422 insertions(+)
+---
+base-commit: b07adc1a304c7ca9ac25a01051561538757363c9
+change-id: 20260811-submit-ac200-mfd-8bad6d09e285
+
+Best regards,
+--  
+James Hilliard <james.hilliard1@gmail.com>
+
