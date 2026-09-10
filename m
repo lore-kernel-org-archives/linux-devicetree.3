@@ -1,66 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B386A4B515E;
-	Thu, 10 Sep 2026 14:54:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CAB49E5F2
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:56:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052071; cv=none; b=PqFTH38cbiVihp+tWrYMVinCneLMPggAlSAjipHbgPlXs8//ItcO3dJtgC1lMM1mHrJY2iY/QDdvEKqaJG8BDxJsKavDDt8dbTlWmPgqrUBTyt89ntogBuHa2fckmPj900WBfMcJth2F7xTQnkM7p4EbBPR2a0satdUFWLMc+sY=
+	t=1789052199; cv=none; b=ahURv3u0S0Qe7sAKyjEMI/rfOYVXwpyQrCd+ukq8eU5Uv36aMKBivVowf71Ok7LtiGpP3Hly7eAZjnMDGg7dU0yhBmvidpsFIhbOmVZ+0Z1CWgHvXXw1k9eQSRlxvWh/DHRD0rJIXLMniwPO+hcX7qBDgkAoyJpFvj1UcAPWrk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052071; c=relaxed/simple;
-	bh=SHywRAVhjyiYdLuDV3sRyD12JjLrn5cULUb9fja5vKs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oXxU1OvtZf4/7m4t7Hw5n2Xhwk0F+923yTl8ygKWpDN7BsOB0HQ8MLwX+teSEZSsTI6tpHP6q5gxw7VkV5WBhzC/2riCWJigcEHrTRgSX2FDfvFp1aW0Djg1PydENK/1A2FPdKGHxe3r/fRKpgTeW5xS8i5DebRkjYL44Vlk3Oc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGMeZE7l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789052199; c=relaxed/simple;
+	bh=Ur1FK2Vb36Dlj83ptZ0RSokZjoGbnlY4jEOBvOGY4so=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ixuhuM+h3MTLD0fbXT62lkpKgjRd4gPvp3618MFaA9xkZaGsNsjRlIQzUg8aUwEt/l+j+4H5AqPV8T/NlIP3FvcmOhweVPl7kwYNwLaTo+3eTpEgugJVKYlcDsw1ZSBdZR54hzrpoxU0vV6zNcxMvjtrI+bQzsCjmUOcrfaCaVY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gud4YOhf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGMeZE7l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340DD1F008BC;
-	Thu, 10 Sep 2026 14:54:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gud4YOhf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B1DD1F0089A
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:56:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789052070;
-	bh=2S+7lOb5lQwJunwgugNvj9bFJbnkzgsbNZSE8mE1MKY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dGMeZE7l1V60yzw4gHb+09kXllETJUroPbH8Vp4Rbu5Kgng1++nD8cNPAKi3gPCZe
-	 NPUfE8L3JAYlzKvN1jJDeh8JEiD3AJbUt25O0HKYIOlBTbWRyUq4cncTbHXfzpZxZK
-	 7IFCUBQxUTqPkaKdkg+xO8xmwxBfkcUwkxaDeDGrR2VLE1krJaVCsVc8EYM8Gd9bte
-	 72bt3nn1ag2ZLomqDSyLLvgUt+A5/D0CmRDszXV/64aRY0VyjKq1mSh86Kr2WomlRU
-	 xlC1Rc49DgRjgVew7Hm+IO+VZA78G4RiRsDgtqr0ZYQHHYpJKxNlPmch7a4u0Vm92b
-	 qglAok8oF1eXQ==
-Date: Thu, 10 Sep 2026 16:54:19 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add QMP PCIe PHY support for
- Shikra
-Message-ID: <qesmpyfcl3lszmar5rrpzxc5zp7v4gup5xu4ypq6v5pt2wvqnf@oips226nedhu>
-References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com>
- <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
+	s=k20260515; t=1789052197;
+	bh=VQGnh1v+xWgpqyvd+v1a8KFIwYoiDSLdjcPF+i7yTr8=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=gud4YOhfwHB7qVYJ7wi7xRKAlCKWfl2s7BPemRw4LjXuk9medos1rib5UhBnJUaj9
+	 349/l3qbUpl2QGdAzLQnXdJwhTUCrmEiXWRM2Jy3386dP+eeZxw1Zhr4WidR3Wmdrt
+	 kMDoCNv7fw99UgB6ShRxJ06ORGDw+nshRCnHRm4Ham4hxyHcQBHA/65Z8vOGQxb/Dc
+	 ASud4JoQxLAb6cs/ahPZUoH7G06KlwruWFskHDZoVmiG+DlLAlKEBQ2Q9B/FNkI+C1
+	 DzA3zS0rj8UziRUmRefzoyEbQ+VpcLoUlQ2MMiwOMLDCdt6y3gEGBXXzkYmoAnvAWp
+	 KWBGjTeAQhmGQ==
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so8497881fa.1
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:56:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwKojXcjsDed5G2Y8wcwO4pysUT0IXYmudzYllD14fOI+ImHNg7avA5ihZ79k0VRkoZ29vNyczCiZo8@vger.kernel.org
+X-Gm-Message-State: AFuF++kqnNAYTKCiwYqcK2tx+otWsOuqRPGiPouwpFB5yBfPwSWLvbJ4
+	ry5eLJDjjjum/E5i7r3VywX+SkijcAuH3/gC9R+huiy6NyJFzF3J/Rq4PkJXZT0r927nxkkIn26
+	wVAXPPg094zqypBRVXu0npaYOoWCqazM=
+X-Received: by 2002:a05:651c:a181:b0:3a3:61ec:43c8 with SMTP id
+ 38308e7fff4ca-3a5913b346emr6027311fa.25.1789052195781; Thu, 10 Sep 2026
+ 07:56:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
+References: <20260910133519.459011-1-andre.przywara@arm.com> <20260910133519.459011-3-andre.przywara@arm.com>
+In-Reply-To: <20260910133519.459011-3-andre.przywara@arm.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Thu, 10 Sep 2026 22:56:21 +0800
+X-Gmail-Original-Message-ID: <CAGb2v64K0+Yo2spDgSLexeeq--kLRvt-94f+WSU05xWTCPCrWw@mail.gmail.com>
+X-Gm-Features: AcwNN1VUd6sDMk9t5-6JvMgkw7l_YsvlayUQ2EjayllqYZtgNrEVzXFuv7UPwfE
+Message-ID: <CAGb2v64K0+Yo2spDgSLexeeq--kLRvt-94f+WSU05xWTCPCrWw@mail.gmail.com>
+Subject: Re: [PATCH 2/7] pinctrl: sunxi: only use PortK special handling on A523
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Yixun Lan <dlan@gentoo.org>, 
+	Enzo Adriano <enzo.adriano.code@gmail.com>, 
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 12:56:04PM +0530, Sushrut Shree Trivedi wrote:
-> Add QMP PCIe PHY Gen2x1 support.
-> 
-> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+On Thu, Sep 10, 2026 at 9:35=E2=80=AFPM Andre Przywara <andre.przywara@arm.=
+com> wrote:
+>
+> The Allwinner A523 pinctrl IP requires an exception for addressing PortK,
+> since the registers for this GPIO bank did not fit anymore in the
+> existing MMIO frame. Since the A523 was also the first SoC to actually
+> implement PortK, we just enabled this quirk unconditionally.
+> Now the new Allwinner A733 changed the MMIO frame layout, so PortK can
+> and must be handled without any special code.
+>
+> Mark the special casing for PortK with the ELEVEN_BANKS quirk flag we
+> introduced, so that it will only be used on SoCs using the A523 pinctrl
+> IP.
+>
+> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
 
-- Mani
-
--- 
-மணிவண்ணன் சதாசிவம்
+> ---
+>  drivers/pinctrl/sunxi/pinctrl-sunxi.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/pinctrl/sunxi/pinctrl-sunxi.c b/drivers/pinctrl/sunx=
+i/pinctrl-sunxi.c
+> index bc6948e3fb495..2524e0b3a2a5a 100644
+> --- a/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+> +++ b/drivers/pinctrl/sunxi/pinctrl-sunxi.c
+> @@ -67,7 +67,7 @@ static u32 sunxi_bank_offset(const struct sunxi_pinctrl=
+ *pctl, u32 pin)
+>  {
+>         u32 offset =3D 0;
+>
+> -       if (pin >=3D PK_BASE) {
+> +       if (pin >=3D PK_BASE && (pctl->flags & SUNXI_PINCTRL_ELEVEN_BANKS=
+)) {
+>                 pin -=3D PK_BASE;
+>                 offset =3D PIO_BANK_K_OFFSET;
+>         }
+> --
+> 2.47.3
+>
