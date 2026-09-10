@@ -1,106 +1,92 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03DB34B5123;
-	Thu, 10 Sep 2026 13:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 559BB4A3D3B;
+	Thu, 10 Sep 2026 13:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047348; cv=none; b=cyJAWk5Txedkbm57EagZT9YlNejNUdnDWti3FkjBa3WgAzCrB8foeI6P5ma4o8yzBaDfwcXBjnsQe5LEWPDRiiorVB8xx4jzAOkfi5dMTXJfeWoV9KDo2O5eBLtuzoCEP3BRsl/hp7nbjJxlCk2QChO/3SXJG5dFfZhlkE9VyUw=
+	t=1789047366; cv=none; b=BXedFSebTpL/0ObGs9U7YUmyYX7OzWZh3xIvIg4Cg/v1OYfawjmfuf0t79QH1roOp1R4ruX/tIfS3PSez9U271uiiHCYgQ7198j7N6+EqcyurnyfauZ2n4CdyB09Crnbev35qLhyRyo8z/7IhsBLJL/KpQE4JaN3Bp1pxcmMTh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047348; c=relaxed/simple;
-	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=c5AgCKdSOajPpARccn3bvlTK7ykVjDHs5zB01EAmn/KqwZlqQuhVcKro6KzBwLYdlV0QwI5hzqm7a4n0A6bWeVAmFoQPRQcgTcmqzYll2+vc2WLwVXDcb6vfaaOyqmwkfN5H2U3F+ZFvcS3X/14voV3PP8nV/AwyB9pc3wqmjOQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WaLMUQSl; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789047366; c=relaxed/simple;
+	bh=y95iMjL+/4gPGyfqmJUXWWrWO3erfYszuzxma4S8pwY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hUQryWEdDA+9RQrLxyXFL3lvWUVxjBKLZhOuVUKh6q07KTZhyc2XIR+arA7ywmlzxXcau+8Vexinnohk/HL5ZOucmGaln/guR7vnmTo+I8EW5ipG00GMkgvY5kYwJHOSU8UzsqcHe3zf9RpkMi3uPPGoivALzqtFwcoKZGqnCjc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPykt444; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WaLMUQSl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789047345;
-	bh=WW3bgWtvchm/ZVcwcd6Is+/46qWg55ayuKIPjH66+G4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=WaLMUQSlhh3h07Nbscy1WypZiWeRgCtdUty5bDukiVtUWe+slwf2F+5mwo72TIszm
-	 6T6Q9GhSwTMpD21k4q6ue77OEJJfShmRKASXhWyGIHHquFBLPY/iDfVRqQk4OXHc5J
-	 pVYgJ8iLZbH4QE9D5TOqI0qtxsKUJBgF+TWOG4xR76WFh4n0Gbl25hw+KKg6WErh1G
-	 6DVeIKVnsb5hhNcsdjPAKN9gpUAfjTCorZdxvufBadjCL9MIeJ2fTcG8PrJG5byocv
-	 XAHTnomjWRar1KzjhajgPr2iG/PREbZllrHeEFekek6serh1cSVAc+rcCnZ++JXJFG
-	 R9osiRz2gQf2w==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 2FC8917E03E1;
-	Thu, 10 Sep 2026 15:35:43 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Thu, 10 Sep 2026 09:34:50 -0400
-Subject: [PATCH v2 8/8] arm64: dts: rockchip: Rename rk3588 HDMI audio
- cards
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPykt444"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1E861F000FF;
+	Thu, 10 Sep 2026 13:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789047365;
+	bh=tMx4N0gjhiphBW4hq+I1VHtDp7kBjsTy0u9rFYpARZo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZPykt4448AVQnP9XK8dpXi3XtreTlXxBp8TLXrZD+k5eL8VgTsPdUdsoxT7kJc0aP
+	 UncSnO4UV7BPvsbAyYYwJsOuTOw9nOOME+3Qj/9sXtzKFx3HxcCE/Oa6x9BXNwNIKU
+	 lC8dT6P9bszln+jR3wi0//uxhoTqcAgBEGLOnSHYp8j+b4ZJlZ0qN0rS9UV+SxoOq9
+	 aa14sIBa1R7HqxWlv3Ohhy80X4yUrH3PRge4tfelxhCgx3KP0XlOuJ/S4N4xsM6NUU
+	 N8KFmP1uY6Jxm6TEs+NjxCsQ+f+1MlScaN7v0pOCTBKd/v5C8SoP1hIcfwvXIcVkdw
+	 o110d4ap8bOdQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/4] ARM: dts: mediatek: mt8127: Add watchdog support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zakariya Hadrami" <zkh@mailbox.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org
+In-Reply-To: <20260910-mt8127-amazon-ford-basic-v5-3-3cb9eeaffd5c@mailbox.org>
+References: <20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org>
+ <20260910-mt8127-amazon-ford-basic-v5-3-3cb9eeaffd5c@mailbox.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 13:36:04 +0000
+Message-Id: <20260910133604.A1E861F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-8-1396a6168e20@collabora.com>
-References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
- Christian Hewitt <christianshewitt@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- David Summers <beagleboard@davidjohnsummers.uk>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Detlev Casanova <detlev.casanova@collabora.com>
-X-Mailer: b4 0.15.2
 
-Rename the two cards from "hdmi0"/"hdmi1" to "RK3588 HDMI0"/"RK3588
-HDMI1" so they identify the SoC in user-visible ALSA fields and match
-the naming scheme used across the rest of the Rockchip family.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The watchdog node is disabled by default in the SoC .dtsi, which is=
+ a device tree anti-pattern for internal IPs without board-specific depende=
+ncies.
+--
 
-Fixes: b8c6c136971c0 ("arm64: dts: rockchip: Add HDMI audio outputs for rk3588")
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
----
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi  | 2 +-
- arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+commit 00ce16ebfa121cfaa7d2f6798bebf7e7aabf4c90
+Author: Zakariya Hadrami <zkh@mailbox.org>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e0786..7892e18a7835 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -376,7 +376,7 @@ hdmi0_sound: hdmi0-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <128>;
--		simple-audio-card,name = "hdmi0";
-+		simple-audio-card,name = "RK3588 HDMI0";
- 		status = "disabled";
- 
- 		simple-audio-card,codec {
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-index b251bb129cdb..2bcf30d8a338 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
-@@ -11,7 +11,7 @@ hdmi1_sound: hdmi1-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <128>;
--		simple-audio-card,name = "hdmi1";
-+		simple-audio-card,name = "RK3588 HDMI1";
- 		status = "disabled";
- 
- 		simple-audio-card,codec {
+ARM: dts: mediatek: mt8127: Add watchdog support
 
--- 
-2.55.0
+This commit adds the watchdog node for MT8127 and explicitly disables it by
+default in the SoC dtsi.
 
+> diff --git a/arch/arm/boot/dts/mediatek/mt8127.dtsi b/arch/arm/boot/dts/m=
+ediatek/mt8127.dtsi
+> index bd61ec7e70c0c..9bdf55d2da479 100644
+> --- a/arch/arm/boot/dts/mediatek/mt8127.dtsi
+> +++ b/arch/arm/boot/dts/mediatek/mt8127.dtsi
+> @@ -99,6 +99,13 @@ soc {
+>  		compatible =3D "simple-bus";
+>  		ranges;
+> =20
+> +		watchdog: watchdog@10007000 {
+> +			compatible =3D "mediatek,mt8127-wdt", "mediatek,mt6589-wdt";
+> +			reg =3D <0 0x10007000 0 0x100>;
+> +			interrupts =3D <GIC_SPI 88 IRQ_TYPE_LEVEL_LOW>;
+> +			status =3D "disabled";
+
+[Severity: Low]
+Is it necessary to disable this watchdog by default?
+
+The watchdog timer is a core internal IP of the SoC that does not require
+board-specific configuration. Standard device tree practice is to omit
+status =3D "disabled" for internal IPs in the SoC .dtsi file.
+
+The commit message states "disable it by default as it was not present
+initially". Will this require every board file inheriting this .dtsi to
+redundantly set status =3D "okay"?
+
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-mt8127-ama=
+zon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org?part=3D3
