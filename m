@@ -1,103 +1,92 @@
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2670348F03E;
-	Thu, 10 Sep 2026 13:38:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD2A033B97D
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:40:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047543; cv=none; b=ExzUC4pWWLfbj2qNnA8tvl/+SnTJ5zQsKK+bd5a8LDuzzJ1vclbU48XdtAHZT0z2/Fn3PyDLmZz50JETUAW1Oj9xNPgi9HgshvNdfH0bumFlLJ4Ln8Oe/inlhnEIDe5SfgfVxJQdpcLYDOz865tCdeamIEQiZve6Iz6tiAsEKEk=
+	t=1789047625; cv=none; b=iPp1bJYT4iBp6vLWR0Vw+WP8ad7GZtIh3thYtg2omKusx27O10bzEX+MgPesJHExqe+AZl7yUdjJc6LYKXd27Xwpsv61pi+VO2f64xA+IhnY8yXtMwdkenwklL2Fs7wZO+2dYr/H/woUqSsmUG7b/a/JVgRy2yzHLejNBQOCRdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047543; c=relaxed/simple;
-	bh=qNQbWhzkJJssUJVitD2nzb/OS5KtUH+QbWhYXxuUlV4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mmSo2/KZvpFr7/eonGKJ7soIqp1HXacu55u1Bf/VKOKvqzlcOBwlT4CLY83t/ct8rUGUXvPKqGHIDs7+wRuqWCkvgvI6sBIQJ+2L2ZJN9GmCFIOM0LYE22tl8t6G5XE4RH1dzhq5FY5ciqrm7jVuof1etd7Z2qBtIm1Z+1jUxEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=AVM5p1SV; arc=none smtp.client-ip=80.241.56.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1789047625; c=relaxed/simple;
+	bh=ZVqhyUyXQYNVT+z97I/I7vh5jsHVtFJcH2XSvENEECY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HMh1RvHoJU8lPm0kA1dk4GavBC7n+J5RVc350Qx7cDZmbpKPUAtgPR1eGEqhJfwFbK2JebUiu8yd10vy4Fo0LJMq419jfuibT8+bYBPnq8UK6tGWQ563e/h/BrzyE+oiRaU0QdW+SSJP2IxYc+WKQb/tySWhcj8biaCoq8yYARs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D3VLOusu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="AVM5p1SV"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [10.196.197.202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4hgf0B2FPgzKnVM;
-	Thu, 10 Sep 2026 15:38:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1789047530;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=KUX5+gLyZAnP+hET6uf/pLlFw8Zwibdi/KIZTVJajXU=;
-	b=AVM5p1SVJTMybgY83sDrM8ghcdxBl9w7DmaxUYlPh5qWX7HHkdbzsQylsQRLzy0cOFPU9D
-	+Bxff/k8aRv7Ddt0x0in+04pTa5VfvYDCoVn3EhR4+kB6a0ZEtIFNK8YCjbuYY3GCVuS3n
-	yESj7lYVCqsYZ/mI2Sup5xhke19KMsez3MoRrNHaH6m6LRaaeF2EfEg8LqT1sPQXLhNgY5
-	L6smBxrBrwnnSIpfNAHRa5cWybNrhb9S6bkh8KH+4lU7z9dzhvVkqvG0tn4UEBQen5953v
-	tEYxajEOSWBdZF9rOTAMhbsHH6HTepUZl4s26b8y4ZDR1vp5K81HXruopDqxGw==
-Date: Thu, 10 Sep 2026 15:38:43 +0200
-From: Zakariya Hadrami <zkh@mailbox.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Matthias Brugger <matthias.bgg@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, zkh1@proton.me
-Subject: Re: [PATCH v4 4/4] ARM: dts: mediatek: Add basic support for Amazon
- ford board
-Message-ID: <aqKxMgAI4bPNx78kzjYD05-zkh@mailbox.org>
-References: <20260909-mt8127-amazon-ford-basic-v4-0-e9af5c420ab1@mailbox.org>
- <20260909-mt8127-amazon-ford-basic-v4-4-e9af5c420ab1@mailbox.org>
- <ab00e8c8-cbc2-4fe1-8900-f169aeab5a98@collabora.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D3VLOusu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1BDD41F000FF;
+	Thu, 10 Sep 2026 13:40:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789047623;
+	bh=YHsv+xzMRepljJBiBRgaTIe3ScYiN5lXYgdULgyTNBY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=D3VLOusu5Qey8nmPEKys7A5JY84V75+miBOgu4hm8SYO1/r84Bw0MOu/JMrcQgRoP
+	 Johzha9BdVWBL8y2CO13JmSQql4a5fSHgMpy9VVdG8gfmjdCNqZa8qIA+dtVoAej+a
+	 Fuiy0GmGWCjdV5t+RZoS285Qdy+23kYyMB3XWpyWakSelmrmc31yZxuVKiLxniKxxg
+	 /txlXYXbxgCry3GRxapnTbTXiAP6f9UNzhmoOWalWb8RQdChYo5izfjPNBRTLaDjag
+	 VjUDNOG8eCF3Y60F//0Ef8sxhBHXvGyiH/GQRMdYiZR91AkLnkcSRRaz+3TBWTx02B
+	 DBL4Mb2qFethg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 5/8] arm64: dts: rockchip: Rename rk3399 HDMI audio
+ card
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Detlev Casanova" <detlev.casanova@collabora.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-5-1396a6168e20@collabora.com>
+References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
+ <20260910-fix-rockchip-hdmi-audio-names-v2-5-1396a6168e20@collabora.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 13:40:22 +0000
+Message-Id: <20260910134023.1BDD41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ab00e8c8-cbc2-4fe1-8900-f169aeab5a98@collabora.com>
-X-MBO-RS-META: bxmk3mkmxrb34g5mrb17nipnddazm3fu
-X-MBO-RS-ID: d3b653577f41815733c
 
-On Thu, Sep 10, 2026 at 11:29:55AM +0200, AngeloGioacchino Del Regno wrote:
-> >diff --git a/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-> >new file mode 100644
-> >index 000000000000..8edad5482de2
-> >--- /dev/null
-> >+++ b/arch/arm/boot/dts/mediatek/mt8127-amazon-ford.dts
-> >@@ -0,0 +1,54 @@
-> >+// SPDX-License-Identifier: GPL-2.0
-> >+
-> >+/dts-v1/;
-> >+#include "mt8127.dtsi"
-> >+
-> >+/ {
-> >+	model = "MediaTek MT8127 Amazon Ford";
-> 
-> Please be friendlier with whoever reads this model string :-)
-> 
-> 	model = "Amazon Fire 7 2015 (Ford)";
-> 
-> that's better, isn't it?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] ALSA card rename causes userspace ABI breakage
+--
 
-My bad, sorry!
+commit d2106b3a23ffdceb3724e809b448fcb65bba2229
+Author: Detlev Casanova <detlev.casanova@collabora.com>
 
-This and the missing space in watchdog compatible fixed in v5.
-Link to v5: https://patch.msgid.link/20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org
+arm64: dts: rockchip: Rename rk3399 HDMI audio card
 
-Thank you very much!
+This commit renames the hdmi-sound ALSA card to "RK3399 HDMI" in the rk3399
+base device tree to better match naming conventions.
 
-> 
-> After applying the proposed change,
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> 
-> Cheers,
-> Angelo
-> 
-> >+	compatible = "amazon,ford", "mediatek,mt8127";
-> >+	chassis-type = "tablet";
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk3399-base.dtsi
+> index 49c68fe65de66..c46e58d4af0d4 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
+> @@ -2008,7 +2008,7 @@ hdmi_sound: hdmi-sound {
+>  		compatible =3D "simple-audio-card";
+>  		simple-audio-card,format =3D "i2s";
+>  		simple-audio-card,mclk-fs =3D <256>;
+> -		simple-audio-card,name =3D "hdmi-sound";
+> +		simple-audio-card,name =3D "RK3399 HDMI";
 
--- 
-Best regards,
-Zakariya
+[Severity: Critical]
+Does renaming the ALSA card cause a userspace ABI regression?
+
+The simple-audio-card,name property defines the ALSA card name exposed to
+userspace (e.g., in /proc/asound/cards and sysfs). Userspace audio services
+like PulseAudio, PipeWire, ALSA Use Case Manager (UCM), and ALSA state
+restoration (alsactl) rely on this exact string to identify the hardware,
+load correct routing profiles, and restore saved volume levels.
+
+Renaming it from hdmi-sound to RK3399 HDMI might break this ABI, leading to
+broken audio configurations or lost mixer states on kernel upgrade without
+proper deprecation.
+
+>  		status =3D "disabled";
+> =20
+>  		simple-audio-card,cpu {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-fix-rockch=
+ip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com?part=3D5
