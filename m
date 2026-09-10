@@ -1,198 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76CF46F48B;
-	Thu, 10 Sep 2026 11:24:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A9131195B
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 11:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039471; cv=none; b=qrssgC93tqdy4lrPPsdGjMm2kt9m+KbDXZBXpWE09p0h88wNSCqVfSbA07aJN32/1db0AtN1JMna23mC9IYthuj76iFz+4DuANabKF7F5rFHFJzNmDTnhJfPFPbOmgt87iTVK8yYP8FgBLtpTOa9nd9ZXyfI6i8mxTnlkbaXuBc=
+	t=1789039670; cv=none; b=Q6admu7n8AF6EW2wrUKJ88THgyoCt4MyPg3LJW5L9qT4H3ih4IUbW9/YlDImdRvHj/eAIY2fUJpz9UEwwG4f1fLRXBDU7qN/6SABEnzSWCWmEst1A9h+1Hwa4AphflcVeyH/oaujKT8Sr66KhAfnnfADWsjs8p6qZ4jVezNDAoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039471; c=relaxed/simple;
-	bh=U53K/s0RMCyYoc+aEK0RfYTAbGFsVsgjGR3vSMzJ3tU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lzEHVWCFypp5Dir32Rk73q2fxkhlze6RXqM1h4Jleptzo/HxyDxu/6x4XGD+9JTyz5Lv8jFxl3BILnOG3aJ29zfvokSP+TASIbS2ePLD0v6NTEsiBnGjqEouCTkgWr9QKi3IYIQGONG5KsbfLVghnjdYPfabUvoSBjNAyf9WHJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2ZXxYMr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789039670; c=relaxed/simple;
+	bh=4CrwJ5iXW29xR1B9ic/OTu6MoVXyZPeG0uhyIiSglP4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=j6l5PFbXdH1hbfakttoy0Ep9Ikb2NR1dtAXojj1CldinKNCdt8yOAXRZOhV27OHA87ARjT9LWd+Zlbcxdb3U4UWqvq/s1NH49UKre5xaXo/kXvGrZYDy7PRyvn5z3fSazjNLvO3MDdPmu0/DYU7XK4z5hyEOy3K4JN6q1Y5uyAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MJCXj8WS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=izux76Sz; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2ZXxYMr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989A81F00893;
-	Thu, 10 Sep 2026 11:24:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789039469;
-	bh=K1k3o3/J6R/KX1MVXsWRSnNHFxeXun8U/5rv0FODWwI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=j2ZXxYMreCA/KzXhZz1Wt3I28btbeEFVrRjPV26A8Aw9UZ3BghAhEJxp9Nb0KiXk6
-	 k64iHz2ANAE6e71uVeZcP/Ck2CG8kn38rW8mFCHovbxtvNy4GPFc9irLshM8IYgRN9
-	 6QQ1d4as02MH8jEP99AjpeYL3Drp9AEBF2SeVyo+8f1l1H87ALoX/wjzooV5Yvik53
-	 MBuVY/LU6nDTovNpN96vzRTJ9aha5ktvmTObVVm++NOckUPmv9wxrzpE30BKs9l9/+
-	 ESNI3ST2YnvGB45Mo9Rq7KU+D83qSwydsGZCnpS6Bdq6LffbI4rpHTVMrzHzCd7/VC
-	 38yB1OOec8TeA==
-Date: Thu, 10 Sep 2026 12:24:24 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Colin Huang <colin.huang2@amd.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Colin Huang <u8813345@gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
- and tda38725
-Message-ID: <aqKTZCPto32Ur-CI@squawk>
-References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
- <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MJCXj8WS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="izux76Sz"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789039667;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+CPMSwBIbKMNx+ykYOgoG6podj5+4wemD8bUPdP/A1E=;
+	b=MJCXj8WSkdJOU4kBrcYrtNh5iZ3/9EPbh3m+TCroD/mG+yyEGfIygEBbYNdWdwZsqsNL1g
+	rPZFMoica5ikNQ//JfZFbDA3+NHymVCaHZgH1QR+isaMRx3Q5toiDyWIC6AcDKRjYg8+lb
+	0x7iBWO4xzMRCSsV4DQnJ/aX8eU3vXY=
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-252-8XLV0aKNN1a8TLAiwrDVGA-1; Thu, 10 Sep 2026 07:27:46 -0400
+X-MC-Unique: 8XLV0aKNN1a8TLAiwrDVGA-1
+X-Mimecast-MFC-AGG-ID: 8XLV0aKNN1a8TLAiwrDVGA_1789039665
+Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so51899315e9.2
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 04:27:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789039665; x=1789644465; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+CPMSwBIbKMNx+ykYOgoG6podj5+4wemD8bUPdP/A1E=;
+        b=izux76SzTENHbSScXgbbMmRTlrqgdhguBEAikDl4vkPnICRo3adFI9u86//LjMm33q
+         DKiUX0a55TYWClXDZ1xZ3rn5HDrHwDnBbLxILzJRmRyCe41Wnly7QDEHoiIAQSCrveo1
+         mSBH2XtJe+2h3FiSM4n9muKLZYvGTDTwkq3i/ZiXKlLqQav1ebmkfft59OHyIoWpJSSA
+         vRb3fQxpdPYOfecic7kB5GG70aAFiDFJR/lINDdLwToB9fSR0+7yZLkRKZEkB74pPhe8
+         1XOxviH8qyGzo6MKES0Hf3o/6cJofGZMra1J/Af+23ZQkvpgHlIvKvUsRcxqX4E7Esj1
+         pjJA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789039665; x=1789644465;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+CPMSwBIbKMNx+ykYOgoG6podj5+4wemD8bUPdP/A1E=;
+        b=UXyJjl0k7M4CFQq8k4e/f8jOFQVa2rbJH3lxwZbs9U0C0V2eXXzW34JixpceKmnlej
+         KFKA9DZiTAmygfMMDX/buOzfLNpwg3XZ7PtB2FvvW3P/RWSoekb7hLxg1DXmXUOdSpYn
+         YTAc4XJoCfWSs6viCu8nmrdZxK2L2BSauW1BTUymRSxzMrfwJLSQB2Qutfk0RskEClNG
+         7nmHNiedGAL3AuXBPJIpdkiGgL0YDCM2NzpTAOJ9kAvWH5yMXxSfOnSQbc3f/YA5wzi6
+         4tdzjdqkWArx5NvLUtd3bsRAwMTe4fwMs+Ku6aZ5ywCgMQ+BNCg9nlCLclu/Ctq3RqHK
+         GHdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwIRWxqgjgoiQEI+GzGUi52z+Dzxk1pjZ+lxVftzMGNhYLX5RnO91cZl9luNmKrKWO7m/AMiM7yMJuT@vger.kernel.org
+X-Gm-Message-State: AFuF++mnQtlBf9DazDiAMbyDF9ip31dRVKGX2lpstbsHnTorp41RSidA
+	blXHQt8luawC/JxTmsRY2+GWdaAZ2SU7xzPRTuYvS1XeH5pMDSZqjx+XCWA5PS3AL58JZFLg9Hy
+	un8uKbM2OeFLQBLKfEUszaCLWHcyD0PqbI1dJ6XDKCA1Iwq/bKKp/4/BrQu4SlFwSUGHmkck=
+X-Gm-Gg: AYBFou2L/mKU1oYKGLKwUvPJFZamUZT0yIjj+jur6XjbPpcoT2UhuPz0ZNlLftPbwNS
+	gKD/OyRLjzhsGTvP4uONgpaP45hPqtFvnvgtyRdKqbZyDB8pjBIBRHkfUE2dLN8Kvqo011Psk/h
+	THPnMDKNtipVRu3dCgP6fOZRHJlrO32dJ5bTX3QIzxhjoWCVdAut5jFirtgPP+KB3U/5wZZQyoL
+	JM6uCCdVq/Pbeka0eJH+ZyIqmoW1U+3fpYYXr5DEASuy97H/mZYiuSnBYtkrXP77g8MsgP65zSZ
+	J65ZjBB4zVsPsujX93RxqA2oZda0PlY+7YHf50PGHwMG3tg5ztwsgHKXEayfdDSzUL+jHvhephz
+	HNJkqnDrkKrl0VcYvicGGP7KIn25bXFVLLfMMOJoVH3KUTJtfkmKf2xNTHYFIts+s/2255VzhwA
+	==
+X-Received: by 2002:a05:600c:1385:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49d258d85c0mr59112765e9.8.1789039665433;
+        Thu, 10 Sep 2026 04:27:45 -0700 (PDT)
+X-Received: by 2002:a05:600c:1385:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49d258d85c0mr59112385e9.8.1789039665038;
+        Thu, 10 Sep 2026 04:27:45 -0700 (PDT)
+Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm53665292f8f.10.2026.09.10.04.27.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 10 Sep 2026 04:27:44 -0700 (PDT)
+Message-ID: <013fffd2-6d59-4e99-8214-1377b1cb46bb@redhat.com>
+Date: Thu, 10 Sep 2026 13:27:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="MTvoOTKg1w0CtIdx"
-Content-Disposition: inline
-In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v7 3/3] w5100: detect carrier state using link
+ status bit and optional interrupt
+To: arthur@marmottus.net
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ arnd@arndb.de, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com
+References: <20260904-wiznet-link-gpio-v7-3-69f01b70c96f@marmottus.net>
+ <178895754151.219967.10801079239966954315@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178895754151.219967.10801079239966954315@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
---MTvoOTKg1w0CtIdx
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 9/9/26 2:39 PM, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 1 · Medium: 2 · Low: 1
+> 
+> - [High] On w5500 the carrier state is now sampled exactly once per ifup
+>   (and once per resume) from PHYCFGR, with no polling fallback and no…
 
-On Thu, Sep 10, 2026 at 02:18:55PM +0800, Colin Huang wrote:
-> From: Colin Huang <u8813345@gmail.com>
->=20
-> Add devicetree bindings for the Infineon TDA38740 and TDA38725
-> single-voltage synchronous buck regulators with PMBus interface.
->=20
-> Signed-off-by: Colin Huang <u8813345@gmail.com>
-> ---
->  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 87 ++++++++++++++++=
-++++++
->  1 file changed, 87 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38=
-740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.=
-yaml
-> new file mode 100644
-> index 000000000000..28e6ff9d9d9c
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
-> @@ -0,0 +1,87 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
-> +
-> +maintainers:
-> +  - Colin Huang <u8813345@gmail.com>
-> +
-> +description: |
-> +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
-> +  buck regulator with a PMBus interface designed for industrial use.
-> +
-> +  Datasheet:
-> +  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-=
-tda38725-datasheet-en.pdf
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: infineon,tda38740
-> +      - const: infineon,tda38725
-> +    description: |
-> +      The Infineon TDA38740 and TDA38725 share the same PMBus programming
-> +      model. Use infineon,tda38740 as the preferred compatible string;
-> +      infineon,tda38725 is kept as a compatibility alias.
+I read this one as 'with a bad config/devtree the eth could non functional'
+which does look a big deal to me...
 
-This is not how this should be done. Instead, tda38725 should list
-tda38740 as a fallback compatible. Take a look at the example schema for
-how this can be done.
-Otherwise, this looks okay to me.
+> - [Medium] `w5500_get_phycfgr_lnk()` returns a tri-state value (<0 on
+>   SPI/register read error, 0 link down, 1 link up), and its consumers…
+> - [Medium] The carrier state is computed and published by two
+>   unsynchronized contexts.
 
-pw-bot: changes-requested
+... but the above 2 looks relevant to me. Note that ordering the irq
+enabling and initial link detection is not enough, you need explicit
+synchronization.
 
-Thanks,
-Conor.
+Finally please note commit c82ff94592fb68f529afe63ca7f5ddb7dae4ba83, you
+should explicitly handle sashiko's comments.
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  infineon,vout-scale-micro:
-> +    description: |
-> +      Scaling factor applied to READ_VOUT telemetry.
-> +
-> +      TDA38740/25 pin strap parts are available in two flavors of
-> +      VOUT_SCALE_LOOP: 1:1 and 1:2.
-> +
-> +      For the 1:1 VOUT_SCALE_LOOP version, output voltage sense pins are
-> +      directly connected to the output, and no resistor divider is used.
-> +
-> +      For the 1:2 version, a resistor divider is typically used (for exa=
-mple,
-> +      499 ohms for both top and bottom resistors).
-> +
-> +      In some designs, users intentionally modify the feedback divider r=
-atio
-> +      to obtain an output voltage different from the internally configur=
-ed
-> +      VBOOT or VOUT value.
-> +
-> +      In such cases, the device telemetry (READ_VOUT) continues to report
-> +      the internally programmed voltage and does not reflect the actual
-> +      externally adjusted output voltage.
-> +
-> +      This property provides a multiplier to scale the reported telemetry
-> +      value so that the monitoring system reflects the actual output vol=
-tage.
-> +
-> +      The value shall be expressed in micro units where 1,000,000 repres=
-ents
-> +      a scaling factor of 1.0.
-> +
-> +      Example:
-> +        If actual Vout =3D 0.75V and READ_VOUT reports 0.7V:
-> +        scaling factor =3D 0.75 / 0.7 =3D 1.071
-> +        value =3D 1071000
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    default: 1000000
-> +    minimum: 100000
-> +    maximum: 2000000
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        sensor@40 {
-> +            compatible =3D "infineon,tda38740";
-> +            reg =3D <0x40>;
-> +            infineon,vout-scale-micro =3D <1071000>;
-> +        };
-> +    };
-> +
->=20
-> --=20
-> 2.34.1
->=20
+/P
 
---MTvoOTKg1w0CtIdx
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqKTZAAKCRB4tDGHoIJi
-0uLzAQCdFK45hCT4Cg0De/UHstM132es62S2wjB1mAuE3A/RowD/RfYWwCzGmrze
-CX3dPAce7mNZeQIym60Ia8RfYpwubwY=
-=uDIT
------END PGP SIGNATURE-----
-
---MTvoOTKg1w0CtIdx--
