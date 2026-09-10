@@ -1,182 +1,168 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B253B9D8D;
-	Thu, 10 Sep 2026 05:23:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA9C31C567;
+	Thu, 10 Sep 2026 05:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789017839; cv=none; b=NtjfW+MMc6wyMmib51EOVGII/IVMtUxfk4xzRAMU9S7gfn/0/3ugYKV3+7kxFOIvvSz5Q2hd4XFm0JYalPCLA9Y8oQt5qWmWrJBy/mmlpxhlpeOcDkEOoe6WmFA8PeOmCHbWkODn46bKO8yQknL0HYuwk2RNfuLo8NijiNdtCw0=
+	t=1789017921; cv=none; b=ciEX5ytRX5DPUsX21FML85HD0Hn6w8RYt89hVyrWnwHm/ZPhkBMsYukxilJutBq6lhzbQUu1VUZWpuykcN6PwK1skH/6fUE+JGMAz66RXBtkhpY+uKTB1vqnGwoCIJUrfP7wYcK2j5/sFrHFd2H++WHuDe2pLZS3QlzyL12RiME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789017839; c=relaxed/simple;
-	bh=rwyCzwzbGYbIYUr3KkZa7tK/XBTqHFsb6PcNgDfkLfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bFH65JULMpC1Fej5/ozwuoWtXxVIuUW9P8aTuMB35L9R6NI8BdpFHO2raUUlYTr335PO6v9vmKlzR40LA5QfbNjGaTBYuHDbfEW1VW2DlnKS1cxsO8l6RNUgBXybA2hAEkzp3YDMW8cl/ienNeZahvBT/jPEhzmuUYv8isM8JOA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=P8jnnJ96; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789017921; c=relaxed/simple;
+	bh=uZ+ssNGzeWn88XPZBM3YsBmV0LDaX6yeh90MmKOv5Hk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EAVLKuTIQn2BaUi3jx+27qIzyiE7+h8J1pUdh14JKvQ60hyT83E4W1Ra97Zv4duiMn3fb9RgivgQKJa+n7moEBB9UYsSY1VNrlLaH3kMo2yAmei5qaH9r88WYTo8CtRmJPzBgbeiCfZ+ioq4xc8giPR74TLwWDB0MMmO4tVr/0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=tzj8/bIy; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="P8jnnJ96"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BFC5C102E36;
-	Thu, 10 Sep 2026 07:23:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789017831; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=RyHAMGObrZ2W+LqPoNz/UDlskVqAfuHrAD8Veert9AY=;
-	b=P8jnnJ96+KUgJHiHbucVSZVx4CKShWIKHcpwRPIs9Y64mupOm7IGll/Qsz73qQEujH8mu3
-	crGhzHcJPPQHW5CHVHELrbJjygYERhQKyzHjMzLXlKtNJf1fQqVksJkN7OQHXDrwyZl/q2
-	Gz96t9AQGaIaMGs2R8ZnjHTAKl73QV95DaYDlromICoGpmioUkPdsZc60e+PChn+3Pydn+
-	liaNbiWl5bPKQjufTEQNpxS9tH6XNA+i3gq92KtBvbDtlSu2mdIR+OB5FPoaQcBClJJONs
-	9nWBhLrCvcuYsb21hru+zMydR2lfHKwDQ309kS12WcrbqlcRqCfnmEVzdG8nyA==
-From: Marek Vasut <marex@nabladev.com>
-To: linux-usb@vger.kernel.org
-Cc: Marek Vasut <marex@nabladev.com>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="tzj8/bIy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=gibson.dropbear.id.au; s=202608; t=1789017905;
+	bh=JR2Q4OdCncZTd7kV/GRzEYc5v6YjxwiMVH0HTM9z8k0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tzj8/bIyc01oRLQ5TCRuEFV7f2B1avVY0NuWkrfcxp/9nSrIvw7E3sYb2WjHYmKy4
+	 /yw+IkI9vOmjKwLladBuhuCHQkN0nwbzJSrx2ZKpWjK3fraWDtMYyEn9P5rWvMZcsV
+	 vfZEDEcpUL7IfP1quUK5n7Mgq2IwHYbtWhZrB+UVaZNI4sy455CeSBTagDYjfzN3zv
+	 vnhMAaDr9BfrE2s51Ha3S6lRMXq8+FR2+vPSd9NU2inV6PBjvd8s7Q6/DhqLM+Rfme
+	 Gl7vX5lvAzj/QhQggiEZrwTiWXEvt6YMgPLuDYwuPTTLaGPdXqNtCuJxxfWFsR4Krf
+	 sMwCVcYqvqPMQ==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4hgR2T6v40z4wKv; Thu, 10 Sep 2026 15:25:05 +1000 (AEST)
+Date: Thu, 10 Sep 2026 15:25:06 +1000
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	kernel@dh-electronics.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v5 2/2] usb: dwc3: dwc3-generic-plat: Add ST STM32MP2 DWC3 xHCI USB controller glue
-Date: Thu, 10 Sep 2026 07:22:41 +0200
-Message-ID: <20260910052340.246717-2-marex@nabladev.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260910052340.246717-1-marex@nabladev.com>
-References: <20260910052340.246717-1-marex@nabladev.com>
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 07/15] fdtdump: Handle unknown tags
+Message-ID: <aqI_KDZS9Kb6fwIG@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+ <20260826083146.304291-8-herve.codina@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="1XNe0gd8oWdHUCb+"
+Content-Disposition: inline
+In-Reply-To: <20260826083146.304291-8-herve.codina@bootlin.com>
 
-The ST STM32MP2 SoC contains one instance of DWC3 USB controller with
-glue logic wrapper around it controlled by syscon. Extend the generic
-DWC3 platform driver with ST STM32MP2 glue logic specifics.
+--1XNe0gd8oWdHUCb+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Signed-off-by: Marek Vasut <marex@nabladev.com>
----
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: Conor Dooley <conor+dt@kernel.org>
-Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Marek Vasut <marex@nabladev.com>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-Cc: Rob Herring <robh@kernel.org>
-Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: devicetree@vger.kernel.org
-Cc: kernel@dh-electronics.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-stm32@st-md-mailman.stormreply.com
-Cc: linux-usb@vger.kernel.org
----
-V2: No change
-V3: - Use generic over-current-active-low
-V4: - Include bitfield.h
-    - Split this from series arm64: dts: phy: st: usb: Add STM32MP2 USB support
-      https://lore.kernel.org/all/20260822074816.548662-1-marex@nabladev.com/
-V5: - Reorder usb2only_conf to improve readability
-    - Drop superfluous !!
-    - Add AB from Thinh
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 46 ++++++++++++++++++++++++++++
- 1 file changed, 46 insertions(+)
+On Wed, Aug 26, 2026 at 10:31:38AM +0200, Herve Codina wrote:
+> The structured tag value definition introduced recently gives the
+> ability to ignore unknown tags without any error when they are read.
+>=20
+> Add support for those structured tags in fdtdump and introduce a command
+> line option to dump unknown tags that should be ignored.
+>=20
+> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> ---
+>  fdtdump.c                              |  45 ++++++-
+>  tests/Makefile.tests                   |   3 +-
+>  tests/meson.build                      |   2 +
+>  tests/run_tests.sh                     |  41 +++++++
+>  tests/treegen.c                        | 162 +++++++++++++++++++++++++
+>  tests/unknown_tags_can_skip.dtb.expect |  29 +++++
+>  6 files changed, 278 insertions(+), 4 deletions(-)
+>  create mode 100644 tests/unknown_tags_can_skip.dtb.expect
+>=20
+> diff --git a/fdtdump.c b/fdtdump.c
+> index 0e7a2659..7a8b2784 100644
+> --- a/fdtdump.c
+> +++ b/fdtdump.c
+> @@ -44,7 +44,7 @@ static const char *tagname(uint32_t tag)
+>  #define dumpf(fmt, args...) \
+>  	do { if (debug) printf("// " fmt, ## args); } while (0)
+> =20
+> -static void dump_blob(void *blob, bool debug)
+> +static void dump_blob(void *blob, bool debug, int dump_unknown)
+>  {
+>  	uintptr_t blob_off =3D (uintptr_t)blob;
+>  	struct fdt_header *bph =3D blob;
+> @@ -146,20 +146,55 @@ static void dump_blob(void *blob, bool debug)
+>  			continue;
+>  		}
+> =20
+> +		if ((tag & FDT_TAG_STRUCTURED) && (tag & FDT_TAG_SKIP_SAFE)) {
+> +			sz =3D 0;
+> +			switch (tag & FDT_TAG_DATA_MASK) {
+> +			case FDT_TAG_DATA_NONE:
+> +				break;
+> +			case FDT_TAG_DATA_1CELL:
+> +				sz =3D FDT_CELLSIZE;
+> +				break;
+> +			case FDT_TAG_DATA_2CELLS:
+> +				sz =3D 2 * FDT_CELLSIZE;
+> +				break;
+> +			case FDT_TAG_DATA_VARLEN:
+> +				/* Get the length */
+> +				sz =3D fdt32_to_cpu(GET_CELL(p));
+> +				break;
+> +			}
+> +
+> +			if (dump_unknown) {
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07ce..2dce1f24615c8 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -7,6 +7,7 @@
-  * Inspired by dwc3-qcom.c and dwc3-of-simple.c
-  */
- 
-+#include <linux/bitfield.h>
- #include <linux/clk.h>
- #include <linux/platform_device.h>
- #include <linux/reset.h>
-@@ -22,6 +23,12 @@
- #define EIC7700_HSP_AXI_LP_XM_CSYSREQ	BIT(0)
- #define EIC7700_HSP_AXI_LP_XS_CSYSREQ	BIT(16)
- 
-+#define STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT	BIT(0)
-+#define STM32MP2_USB3DRCR_OVRCUR_POLARITY			BIT(1)
-+#define STM32MP2_USB3DRCR_VBUSEN_POLARITY			BIT(2)
-+#define STM32MP2_USB3DRCR_USB2ONLYH				BIT(3)
-+#define STM32MP2_USB3DRCR_USB2ONLYD				BIT(4)
-+
- struct dwc3_generic {
- 	struct device		*dev;
- 	struct dwc3		dwc;
-@@ -85,6 +92,39 @@ static int dwc3_spacemit_k1_init(struct dwc3_generic *dwc3g)
- 	return 0;
- }
- 
-+static int dwc3_stm32mp25_init(struct dwc3_generic *dwc3g)
-+{
-+	struct device *dev = dwc3g->dev;
-+	bool ovrcur_polarity_low = device_property_read_bool(dev, "over-current-active-low");
-+	bool prt_pwr_ctrl = device_property_read_bool(dev, "st,enable-port-power-control");
-+	bool vbusen_polarity_low = device_property_read_bool(dev, "st,vbusen-active-low");
-+	bool usb2only_conf = false;
-+	struct regmap *regmap;
-+	u32 drcr;
-+
-+	if (device_property_match_string(dev, "phy-names", "usb3-phy") < 0)
-+		usb2only_conf = true;
-+
-+	regmap = syscon_regmap_lookup_by_phandle_args(dev->of_node, "st,syscfg", 1, &drcr);
-+	if (IS_ERR(regmap))
-+		return dev_err_probe(dev, PTR_ERR(regmap), "No st,syscfg phandle specified\n");
-+
-+	return regmap_update_bits(regmap, drcr,
-+				  STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT |
-+				  STM32MP2_USB3DRCR_OVRCUR_POLARITY |
-+				  STM32MP2_USB3DRCR_VBUSEN_POLARITY |
-+				  STM32MP2_USB3DRCR_USB2ONLYD |
-+				  STM32MP2_USB3DRCR_USB2ONLYH,
-+				  FIELD_PREP(STM32MP2_USB3DRCR_HOST_PORT_POWER_CONTROL_PRESENT,
-+					     prt_pwr_ctrl) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_OVRCUR_POLARITY,
-+					     ovrcur_polarity_low) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_VBUSEN_POLARITY,
-+					     vbusen_polarity_low) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYD, usb2only_conf) |
-+				  FIELD_PREP(STM32MP2_USB3DRCR_USB2ONLYH, usb2only_conf));
-+}
-+
- static int dwc3_generic_probe(struct platform_device *pdev)
- {
- 	const struct dwc3_generic_config *plat_config;
-@@ -231,12 +271,18 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- 	.properties = DWC3_DEFAULT_PROPERTIES,
- };
- 
-+static const struct dwc3_generic_config stm32mp25_dwc3 =  {
-+	.init = dwc3_stm32mp25_init,
-+	.properties = DWC3_DEFAULT_PROPERTIES,
-+};
-+
- static const struct of_device_id dwc3_generic_of_match[] = {
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
- 	{ .compatible = "eswin,eic7700-dwc3", &eic7700_dwc3},
- 	{ .compatible = "starfive,jhb100-dwc3", },
-+	{ .compatible = "st,stm32mp25-dwc3", &stm32mp25_dwc3 },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, dwc3_generic_of_match);
--- 
-2.53.0
+I'd do this unconditionally: fdtdump is specifically for low-level and
+debug dumping of a tree.  If you want pretty printing, dtc -Odts is
+the thing to use.
 
+> +				printf("%*s// Unknown tag ignored: 0x%08"PRIx32", data len %d",
+> +				       depth * shift, "", tag, sz);
+
+"Unknown" seems redundant.  "ignored" is not really true - you're
+dumping its contents, which is all that fdtdump could be asked to do
+with it.  So I'd just say:
+
+	// Tag 0x<tag>: <data>
+
+Or maybe "Metadata tag" / "skippable tag" if we go with one of those
+terms as I suggested on an earlier patch.
+
+
+The rest of this LGTM, except for things that will need to change
+based on suggestions about the earlier patches in the series.
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--1XNe0gd8oWdHUCb+
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmqiPygACgkQzQJF27ox
+2GfoTQ//QOA/J4PlE8TBaJBxop6H1+sK3fYClmCzrm5Qt3Y9GZWouqW9wQoUHNuj
+3pzrHIpgthVl6z3QSv8q/m/jBP0hyLLCw3B83cy5I0Xu97Vf87hZhig04Ak5hJEw
+CBNN6InGpVcEyCr0pp8M07SXA6+btveYv1n2y9a78ljzAkL9N29xyJcg2jvcKyHi
+JpcpCfWu31C2bf5YUVQI1dXjr16KWir8HLBuN49QESqq69JdeCMYcVsvQnt2kT8U
+znjfz5vc87FahKKZyATxRWD1WKdxcvMmxa2Tdpthbi9REhJdaN5zXV1Y3Hvs9Amq
+8sdk/+e3B5eBrUJ34l8Fs0y3TH/pYftNt/mARB7nSq41XJcKJDuTMimbGIugU4lJ
+HSGheNY+qN1CJHEedo/n/aGUIF49Ueqhn/TsB6UYFZAbaYs9jj1yctNgtD5Klei4
+9WBTy0M6gzFeGUaUJB7EjTuHKmIYKxj1l1N/tlyDO5cbEe//7lI6VpBsYwQ2+x0I
+XWET4rlVT3zQLYiq0864E1zNQG8mjOT+BrzXnvbtPX+Mso1Qsax0es6YFIJmYGjo
+9phsSZP3MftRpBuGtozvBOU9ziO4P9p6xeyn325UWAtxKM/BVe2wYX/rJdjHEg47
+bynOQQmEBv0zSxWSA2vugkZYoPVYMI8+PK/tjdPUIDGiMBix1sc=
+=N2f9
+-----END PGP SIGNATURE-----
+
+--1XNe0gd8oWdHUCb+--
