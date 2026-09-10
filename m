@@ -1,103 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE2F4BB271;
-	Thu, 10 Sep 2026 15:51:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 315F44A8419;
+	Thu, 10 Sep 2026 15:54:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055479; cv=none; b=Yoy+k3u0nP68oQJKMdEDcZkzMcSTnP+EFcqmWVr2tMzw8OJGWeNs4ypAWEHXdEhIxqmejxGnJ7ymazzLxqINDt/nybKcsymSsvYd9imUc/A/UaVY1owXyKvSxzR7YPS0juaDlHSNPl70RTHn8Q6Y29KauNHp2UEhQ8L1AoqANHQ=
+	t=1789055642; cv=none; b=B4e9tyWt9B1HFiDkUS5mjptJzavZXvG4ohIaDT/lFuJ32rE5OLiSd8stPWAjvxrgXbGwNtDqaOri4tl1VUpPMo1qhyMaXWcjfKjw8kf7x5mK5F62pHZF/HxebLwBRuX4ObmbFlpTpaH8ILD87SXmhGnNxSCdMeZ7GaD+Eb3WPK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055479; c=relaxed/simple;
-	bh=W2hGv1Lcru20yCjX4R8ZXDurK3qwcvVfeW4sqbiK4AE=;
+	s=arc-20240116; t=1789055642; c=relaxed/simple;
+	bh=y15tVjuIpOkxFOtnQgQwuuNo79AxvLPn57cz3WK6kVc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HpydFf0wTXUL5LDdVTunkBt7akj2ks4USnesp7Vi9qOrDSYYUHoWuQJWnq7APnCmD9DIaksT+GcFsBXuOoRJEaJ3MUiacSDRjCoxO0uvSgAQNR5u0PZMYZtM7oa0JgCgkGuslkgV82YEFu0ER16bzvC8DSnbrAx9tqmCyP2DbOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M0sC2oZo; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=blWsq7alQrYtR9iuByIqJXGPXkiXMq4q1bCVTzl284eps18g/72Qco1BORO6NWPKkVrK1hQSit79UqcdjfRu1LYt+GxUl2YqeDAGGeOkV6w7Q5fZzNaoYl0a+UYziKHNb9onEhivZO7gHac9t7+DfbkdYtr6anRd9HdUzEz+VVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pv1tSWs7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M0sC2oZo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0AEF1F000FF;
-	Thu, 10 Sep 2026 15:51:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pv1tSWs7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8111F000FF;
+	Thu, 10 Sep 2026 15:53:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055477;
-	bh=t4gms4s00McJZzCyVBDIDyBx4Cvn+/tejggdvcXSlaw=;
+	s=k20260515; t=1789055640;
+	bh=Rhw/XB4oZMCuaT9L25oXSIHQQoDpEoegzurtGHYUhlM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M0sC2oZoHwmy3wBLpp4CDl+xs9p+v7h6EFeYlMiagVJ+1LGqiUQDcCQMVWYwNW8wU
-	 xyFrXtasiR2zO814iUUOO0IGxU2Tgfqdux/V7pA6T/p+E0rucZTiRP2w1Rq+xGrA8N
-	 REYIu4buvnVAmqdcxmLmb0MBd6Z/RrotRv70d+YdCM/OFU86msLFZCNHRKPxGuVgj2
-	 VGckrwaO//JwjaMWw0eZvWOU672PFSJmGgOr1x42KZ6tsHImmDcppfnGH4cWK5Ivt2
-	 GxutPfEPVljt0hMgYU6P0MTiRa8NOxpMqpaBji9AnIksKlISzSPgFELkkt7ggt13HU
-	 mK1gpPgZj+1wA==
-Date: Thu, 10 Sep 2026 16:51:12 +0100
-From: Lee Jones <lee@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Jan Carlo Roleda <jancarlo.roleda@analog.com>, conor+dt@kernel.org,
-	linux-leds@vger.kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v11 2/2] leds: ltc3208: Add driver for LTC3208
- Multidisplay LED Driver
-Message-ID: <20260910155112.GI1051768@google.com>
-References: <20260903-upstream-ltc3208-v11-0-28f5f0fd364e@analog.com>
- <20260903-upstream-ltc3208-v11-2-28f5f0fd364e@analog.com>
- <20260902235602.8112F1F000E9@smtp.kernel.org>
+	b=Pv1tSWs7ainajgYjsidtvlIdbZM9m8x7e6csAWxID/NPmmB5o3ArXkWrZvipXRaeC
+	 hq0kBETRmNeoP+zyEdGWNjFIAK8A5EyuJZQT7sKkNa3tvOZ6+Rx2s37xxKr3hdmlBs
+	 j4YI8+qgXsY7OXesAo55+bE4n43jnmwL1PrbpU5kyAKMf+c7mkJzChPpo5xmMhUcQX
+	 XbUUUasK8nQH2dyAE4wfLNfQa5w6ddQm+7vvsWy/9ocUCLFbV/IDZp8y02dirkpxl/
+	 1T8zPHdu+MEkXxTPC4m/ayQFm3Cz79GmQmAtngKrMaHbowbDrPoIXxKq4xxM8iDKlh
+	 mmGYWiOz/PQZA==
+Date: Thu, 10 Sep 2026 17:53:51 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 1/5] dt-bindings: phy: Add PHY_TYPE_EUSB2 definition
+Message-ID: <kwtken2y246g2se2bmn3uvxed2ynzxyseck6y2dlnjjn6icug5@p67crwakk4la>
+References: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
+ <20260905-eusb2-interrupt-v7-v7-1-820cf5377a70@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260902235602.8112F1F000E9@smtp.kernel.org>
+In-Reply-To: <20260905-eusb2-interrupt-v7-v7-1-820cf5377a70@oss.qualcomm.com>
 
-On Wed, 02 Sep 2026, sashiko-bot@kernel.org wrote:
+On Sat, Sep 05, 2026 at 08:59:05PM +0530, Krishna Kurapati wrote:
+> eUSB2 (Embedded USB2) is a MIPI Alliance standard for chip-to-chip USB2
+> signaling. Unlike standard USB2, which uses 3.3V signaling, eUSB2 uses
+> low-voltage differential signaling (~0.4V) and requires a repeater to
+> interface with external USB2 ports. Because of these differences, eUSB2
+> PHY initialization sequences, voltage tuning, and register configuration
+> are distinct from USB2.
+> 
+> Additionally, eUSB2 targets handle wakeup interrupts differently
+> depending on device speed when operating in host mode. According to the
+> eUSB2 specification, remote wakeup signaling in host mode is detected
+> via different data-line assertions based on the connected device speed:
+> 
+> - Low-speed devices: the host repeater drives eD+ to logic '1' upon
+>   detecting a K-state on the USB lines during remote wakeup (eUSB2
+>   spec, Section 5.5.14).
+> - Full-speed/high-speed devices: the host repeater drives eD- to
+>   logic '1' upon detecting a K-state during remote wakeup (eUSB2 spec,
+>    Sections 5.5.15 and 5.5.18).
+> 
+> Since the eUSB2 PHY's DP and DM lines need to be configured differently
+> from USB2 PHYs, controllers should be able to query the PHY type and
+> configure wakeup interrupts accordingly.
+> 
+> Add PHY_TYPE_EUSB2 to distinguish eUSB2 PHYs from standard USB2 PHYs.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Incorrect assignment of num_reg_defaults using a register address macro instead of ARRAY_SIZE.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Please review, explain or fix the Sashiko review(s).
-
-If this is a set, this request includes the other patches too.
-
-> --
-> 
-> commit 13fa42bec99e4f9ce4669e4a6a7c6f12807ee3a4
-> Author: Jan Carlo Roleda <jancarlo.roleda@analog.com>
-> 
-> leds: ltc3208: Add driver for LTC3208 Multidisplay LED Driver
-> 
-> This commit introduces a new kernel driver for the Analog Devices LTC3208
-> Multi-display LED driver. It configures the device via I2C and supports up
-> to 7 distinct LED channels with configurable current levels.
-> 
-> > diff --git a/drivers/leds/leds-ltc3208.c b/drivers/leds/leds-ltc3208.c
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/drivers/leds/leds-ltc3208.c
-> 
-> [ ... ]
-> 
-> > +static const struct regmap_config ltc3208_regmap_cfg = {
-> > +	.reg_bits = 8,
-> > +	.val_bits = 8,
-> > +	.max_register = LTC3208_REG_G_OPT,
-> > +	.cache_type = REGCACHE_FLAT_S,
-> > +	.reg_defaults = ltc3208_reg_defaults,
-> > +	.num_reg_defaults = LTC3208_REG_G_OPT,
-> 
-> [Severity: Low]
-> Does this code intentionally use a register address macro for the array length
-> instead of ARRAY_SIZE(ltc3208_reg_defaults)?
-> 
-> Because LTC3208_REG_G_OPT happens to evaluate to 7, it coincidentally matches
-> the exact number of elements in the ltc3208_reg_defaults array. However,
-> using a register address macro to specify an array length creates a brittle
-> semantic dependency. If elements are removed from the array, or if a register
-> with a different address is added in the future, this will result in an
-> incorrect size being passed to the regmap core.
-> 
-> -- 
-> Sashiko AI review � https://sashiko.dev/#/patchset/20260903-upstream-ltc3208-v11-0-28f5f0fd364e@analog.com?part=2
-> 
+- Mani
 
 -- 
-Lee Jones
+மணிவண்ணன் சதாசிவம்
