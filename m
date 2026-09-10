@@ -1,116 +1,198 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B713D472061
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 11:23:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76CF46F48B;
+	Thu, 10 Sep 2026 11:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039388; cv=none; b=Oej0QeJpVqljjE9Sc6uX6uTKsh/HTWO8i85QsLOt2f59RIUYekUULF0xCSyr7JZDWDugbeenHrSRUVaLU1+65HzQMMNrfxWF7GB8o2wW9ALooSiXER3ngIev/W7vqMXgaGeMQodgVWqhqsYFWtyJQ1Mf4gxFudkFX6mzP6yMoWA=
+	t=1789039471; cv=none; b=qrssgC93tqdy4lrPPsdGjMm2kt9m+KbDXZBXpWE09p0h88wNSCqVfSbA07aJN32/1db0AtN1JMna23mC9IYthuj76iFz+4DuANabKF7F5rFHFJzNmDTnhJfPFPbOmgt87iTVK8yYP8FgBLtpTOa9nd9ZXyfI6i8mxTnlkbaXuBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039388; c=relaxed/simple;
-	bh=0rLmdhugKR3AaWo1I6VkwG7mO4YyZDQnlj/ImdNHepI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YOuoRboAw5a2XcgxKlk4GAdNXSiWzK9Tg/cmExqlZ56dccHWTLbaDLlMiEHjO1NPWmWjI13Bq6bXALus4X4NWUwnxSYb7bsi5up/pbo8anaYxUrYySPKOPPrMl+Sgzmu1DUnJjS/DCRbn/Pf+vWbra9PH/X01Sl4LmcEGYX58ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CM1vYxNa; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789039471; c=relaxed/simple;
+	bh=U53K/s0RMCyYoc+aEK0RfYTAbGFsVsgjGR3vSMzJ3tU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lzEHVWCFypp5Dir32Rk73q2fxkhlze6RXqM1h4Jleptzo/HxyDxu/6x4XGD+9JTyz5Lv8jFxl3BILnOG3aJ29zfvokSP+TASIbS2ePLD0v6NTEsiBnGjqEouCTkgWr9QKi3IYIQGONG5KsbfLVghnjdYPfabUvoSBjNAyf9WHJM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2ZXxYMr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CM1vYxNa"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a996c8adf3so2828801a12.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 04:23:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789039385; x=1789644185; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o+RIOnrjfi5WjulGjMzj5AAE/stVLVJYNR0oKvYswt0=;
-        b=CM1vYxNaXshAAEj7vzxBBmb9MSd9ozKxeYsYazQDIZJovZiCWIqerAqF0/tnDEXY0e
-         2MeGKLVw/d3xqujrOkC5r4wyP15m9AT805po5NuMLjcvpvMajRmczEg3/DU5U/84yNrH
-         7KrzDUHMeacHADxH7Iq7+LxJjeRA0zqJO9aU92IFfRZVTC81IuSwXth3apm9QSe2Qr6R
-         ltozdJI2R4DZRcykGwIGPLoYeqIAdtnedvt2ZwUGsevyKYRYil9WF8f6n5mYyjgZq+b0
-         tJgrVogw2sxbSkCOyeDzmOPOPleiwl6CFy0kAea6NZPoEsnC127e6ubUOpxzeVV7CzE/
-         MUNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789039385; x=1789644185;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o+RIOnrjfi5WjulGjMzj5AAE/stVLVJYNR0oKvYswt0=;
-        b=HLSk7BXqcQz0yaXUdbdLqqJ6taJ7As/q33o/sN1BDXpX7hWVYHKk5hQwf1T6BAOcT7
-         cxz+sdhgATuBjQrszPIGc2YnFuo49UO8AV3bTVQ+8oJhHJb/pU1wB0ByNS7NurGHQcHW
-         jyFNkK/bbrtuiE+PSNss6q9lUGIz+0aGh87GReGuPukmFx9oGt4d67tRpAkgsOy/NMe5
-         /vOHv3pNO8IzT+Ly9WDDhgVR1mPEouAcU6aJEhwnusOuIBpSFe+q9Xy+vEXA1y2DLYoH
-         /FIyXTmwjWQnT1Qyf4ZVKtM0DZHkBGie/o9JlnwRCpC2lpSJuhc71GopYQylvpdDLrQ4
-         g3mA==
-X-Forwarded-Encrypted: i=1; AKwUvBzikWWmBA6k4lTAE6ET7bpiayiYGwcsmCdGJEUxcl9bOg0qYgTRYXxFXUk1EJ5jFifnTuxhuLiDrtPE@vger.kernel.org
-X-Gm-Message-State: AFuF++lpUvcIZzPXtOsR5h6CmLLp2gKAVd3xGbOGLkEpTffSLe6V31bk
-	W2qRs6w+v3UJebqf2pjijTmkXNXtLpmAeDIAL9EjZpSw6gkJmDfWuh/R
-X-Gm-Gg: AYBFou1EAReFEg6sndb++0NaFjOMXu3TSofZibAo8gX07oxY1xOC1504/K/+0uNBB3p
-	S++a7g42la6P5EpAggUcf3YL7rxUbxI5fEtubIRJDuCGiQm0RMja13pkiv0y5Y8b3M6RmggjBkS
-	saeLtfrWv84lI+BF0kS1VHYDfqGpcGc+qeBSMteodExs8JeAUW24I60cSUujS48u6uwPspYe9TR
-	+exeStXBE67l++SNFoapheCkXDvkK4fguSYRCVzZwo/yHXKx12hbLafhSZ+lM5hjX8IKmNluqcQ
-	vm4C0zm7+A03tm5+BSjg850R0NwgdISUlV6XSCSoJqxtpuDHN34sYXB17e99WwUFt8FcEQNZw7s
-	rR5xAA1u4bqDUHtm7kE+djsezS6ctwElXNayGsD07udDhua6H23sOMSO3DrftXasZd/bIlXH5Aq
-	AbZ6nqYf3NUWDphHZGCGPylwxAgzVfsA8bJwofjapPYkKvqWBXm7PKkQ62pUO2w4RDEDk2rXRkK
-	S+al6x7EtdoYpnYKuTRoaKYjwoL0H55McNLFw==
-X-Received: by 2002:a05:6402:4518:b0:6a6:8dd:c76b with SMTP id 4fb4d7f45d1cf-6a98df7ffd5mr9834225a12.1.1789039384622;
-        Thu, 10 Sep 2026 04:23:04 -0700 (PDT)
-Received: from [192.168.1.124] (89-172-245-174.adsl.net.t-com.hr. [89.172.245.174])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e68c42c2sm8194210a12.14.2026.09.10.04.23.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 04:23:03 -0700 (PDT)
-Message-ID: <51344c03-b651-40a1-8efb-f7e47c9f359c@gmail.com>
-Date: Thu, 10 Sep 2026 13:23:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2ZXxYMr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989A81F00893;
+	Thu, 10 Sep 2026 11:24:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789039469;
+	bh=K1k3o3/J6R/KX1MVXsWRSnNHFxeXun8U/5rv0FODWwI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=j2ZXxYMreCA/KzXhZz1Wt3I28btbeEFVrRjPV26A8Aw9UZ3BghAhEJxp9Nb0KiXk6
+	 k64iHz2ANAE6e71uVeZcP/Ck2CG8kn38rW8mFCHovbxtvNy4GPFc9irLshM8IYgRN9
+	 6QQ1d4as02MH8jEP99AjpeYL3Drp9AEBF2SeVyo+8f1l1H87ALoX/wjzooV5Yvik53
+	 MBuVY/LU6nDTovNpN96vzRTJ9aha5ktvmTObVVm++NOckUPmv9wxrzpE30BKs9l9/+
+	 ESNI3ST2YnvGB45Mo9Rq7KU+D83qSwydsGZCnpS6Bdq6LffbI4rpHTVMrzHzCd7/VC
+	 38yB1OOec8TeA==
+Date: Thu, 10 Sep 2026 12:24:24 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Colin Huang <colin.huang2@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Colin Huang <u8813345@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
+Message-ID: <aqKTZCPto32Ur-CI@squawk>
+References: <20260910-add-tda38740-and-tda38725-v3-0-3e87637da3d6@gmail.com>
+ <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: mailbox: qcom: Add MDM9607 APCS IPC
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Jassi Brar <jassisinghbrar@gmail.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260908081158.2399852-1-sinyavin@gmail.com>
- <47344b6d-d64c-43ef-9344-0409a434ee44@oss.qualcomm.com>
-Content-Language: en-US
-From: Dmitry Sinyavin <sinyavin@gmail.com>
-In-Reply-To: <47344b6d-d64c-43ef-9344-0409a434ee44@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="MTvoOTKg1w0CtIdx"
+Content-Disposition: inline
+In-Reply-To: <20260910-add-tda38740-and-tda38725-v3-1-3e87637da3d6@gmail.com>
 
-Hi Konrad,
+--MTvoOTKg1w0CtIdx
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for the review!
+On Thu, Sep 10, 2026 at 02:18:55PM +0800, Colin Huang wrote:
+> From: Colin Huang <u8813345@gmail.com>
+>=20
+> Add devicetree bindings for the Infineon TDA38740 and TDA38725
+> single-voltage synchronous buck regulators with PMBus interface.
+>=20
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> ---
+>  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 87 ++++++++++++++++=
+++++++
+>  1 file changed, 87 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38=
+740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.=
+yaml
+> new file mode 100644
+> index 000000000000..28e6ff9d9d9c
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+> @@ -0,0 +1,87 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +
+> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
+> +
+> +maintainers:
+> +  - Colin Huang <u8813345@gmail.com>
+> +
+> +description: |
+> +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
+> +  buck regulator with a PMBus interface designed for industrial use.
+> +
+> +  Datasheet:
+> +  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-=
+tda38725-datasheet-en.pdf
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: infineon,tda38740
+> +      - const: infineon,tda38725
+> +    description: |
+> +      The Infineon TDA38740 and TDA38725 share the same PMBus programming
+> +      model. Use infineon,tda38740 as the preferred compatible string;
+> +      infineon,tda38725 is kept as a compatibility alias.
 
-I based this on the downstream MDM9607 DT and clock driver (see 
-https://android.googlesource.com/kernel/msm.git/+/android-7.1.0_r0.3/arch/arm/boot/dts/qcom/mdm9607.dtsi): 
-the CPU mux/divider uses a separate register resource at 0x0b010008, and 
-the APCS mailbox register is at 0x0b011008. But I see your point, I 
-found SDX55 is using a layout very close to what you're proposing. That 
-design might be superior indeed, although both would work. Let me think 
-about it a bit more and come out with v2.
+This is not how this should be done. Instead, tda38725 should list
+tda38740 as a fallback compatible. Take a look at the example schema for
+how this can be done.
+Otherwise, this looks okay to me.
 
-Best regards,
-Dmitry
+pw-bot: changes-requested
 
+Thanks,
+Conor.
 
-08.09.2026 13:02, Konrad Dybcio wrote:
-> On 9/8/26 10:11 AM, Dmitry Sinyavin wrote:
->> The MDM9607 APCS IPC register is at offset 0x8 in the KPSS global block.
->> Its CPU clock controller is in a separate block, so the existing MSM8994
->> APCS match data can be used without registering a clock device.
-> 
-> Aren't you going to bind one to APCS though? IIRC the setup on MDM9607
-> is somewhat similar to the one on 8916, although naturally a bit simpler.
-> 
-> +Stephan may know more
-> 
-> Konrad
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  infineon,vout-scale-micro:
+> +    description: |
+> +      Scaling factor applied to READ_VOUT telemetry.
+> +
+> +      TDA38740/25 pin strap parts are available in two flavors of
+> +      VOUT_SCALE_LOOP: 1:1 and 1:2.
+> +
+> +      For the 1:1 VOUT_SCALE_LOOP version, output voltage sense pins are
+> +      directly connected to the output, and no resistor divider is used.
+> +
+> +      For the 1:2 version, a resistor divider is typically used (for exa=
+mple,
+> +      499 ohms for both top and bottom resistors).
+> +
+> +      In some designs, users intentionally modify the feedback divider r=
+atio
+> +      to obtain an output voltage different from the internally configur=
+ed
+> +      VBOOT or VOUT value.
+> +
+> +      In such cases, the device telemetry (READ_VOUT) continues to report
+> +      the internally programmed voltage and does not reflect the actual
+> +      externally adjusted output voltage.
+> +
+> +      This property provides a multiplier to scale the reported telemetry
+> +      value so that the monitoring system reflects the actual output vol=
+tage.
+> +
+> +      The value shall be expressed in micro units where 1,000,000 repres=
+ents
+> +      a scaling factor of 1.0.
+> +
+> +      Example:
+> +        If actual Vout =3D 0.75V and READ_VOUT reports 0.7V:
+> +        scaling factor =3D 0.75 / 0.7 =3D 1.071
+> +        value =3D 1071000
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    default: 1000000
+> +    minimum: 100000
+> +    maximum: 2000000
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        sensor@40 {
+> +            compatible =3D "infineon,tda38740";
+> +            reg =3D <0x40>;
+> +            infineon,vout-scale-micro =3D <1071000>;
+> +        };
+> +    };
+> +
+>=20
+> --=20
+> 2.34.1
+>=20
 
+--MTvoOTKg1w0CtIdx
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqKTZAAKCRB4tDGHoIJi
+0uLzAQCdFK45hCT4Cg0De/UHstM132es62S2wjB1mAuE3A/RowD/RfYWwCzGmrze
+CX3dPAce7mNZeQIym60Ia8RfYpwubwY=
+=uDIT
+-----END PGP SIGNATURE-----
+
+--MTvoOTKg1w0CtIdx--
