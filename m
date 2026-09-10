@@ -1,126 +1,114 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF6F36212C
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 20:49:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F383B71AA
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 20:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789073366; cv=none; b=NJudWDEzZ/5n6UVNcawNbApBlaYugpxrKOvBL6t2LoP7kyt7+8OVAXU3MitQuY8G6asJowfzE4dcmoHLTR2Q9rDeqbNP8UuLPccOh9s5wilTt33Ozc80ey8uQF0fXRO/pdO4DvVhHEPaULTRohaG4qbBEeVecLIewGV881wn5jk=
+	t=1789073595; cv=none; b=MMSh2l6nciAt+r1VUVguZRvDN/tNp44e2KAm1TkzPPKT1O3rwKgidxpZIsAd7GKM7ldcy/N5oyVmUPx1kEI4NZqKmKKGRP2cZ0oJFpVqUv/MI+B9bSy3azpe7lumYW1paMpzLKe7TBwxr7wHi2teR+JeFkYpvYWS/9sV5kkLVYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789073366; c=relaxed/simple;
-	bh=gUckIW+EHn+RDkTms5ptK58W6fnobAQfdWsm/8/18fw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l9xE/pe5mx0XAXB17Vi5SE8kc9mXP7zKhOcVOkcIoTY8DeOHaKhDeSrvW6QkfBXgzdABtIhrxG/jPNs0SgTxQ8FYfRhRIBvVZHLQX54uKFJL72+xVURmEiYdwchAAxASo1A+kG7dSeV/1On7K1WEdXzQag/6NSriyvHwSjDp24Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=FJvYqqct; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1789073595; c=relaxed/simple;
+	bh=1etk4KOXi29s0+VqLc6HiucY8F0vF73XSX3ZY6UDxlQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i69W9sid+Y0htMl+MT8rLT8i1EKiTwkdcuxA0vvup5xZ8wRO4K3bZcdD9fMLwsL/V+PIKxSvfG3OMVRSjyLYqASo+Tv5wjvd8OiuUahWA0q1KH0v4meD7HBdfvxaCoxE1oOAksnojtXALoVyRRfv+yz6miV3suXDsPJuODes384=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAS2Z78I; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="FJvYqqct"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49cca4ffdcfso2369565e9.0
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:49:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAS2Z78I"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-86323e4853aso18973b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:53:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1789073362; x=1789678162; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LD6/nMf/SCzxFaM5TR830BIT+ow88In2rb2lR6a4o9Q=;
-        b=FJvYqqctzWGFi1odEMtCbjcMArUSHlxqI7qXNKvlBhKvgeIVRwM35tu6Y+4yaIYY3w
-         A4P8f1dMRBY5WUU5gs6bjiqMpCGASD2yGN2KiRy7Ij8bw3C2DzPA1vV5hJN9uZQQNQ/N
-         EyOzO/+RvZRIN9LAPt4U0ZwimQ8Ycsx3aApcVq9gb0Gpu4qnBaO0VYcEoFUmN8j95aMb
-         8GTyLASrD8HCtkFgyfQt4qdFEvMAX2o2EYwB+OiF/PSBPrFY3a/dMASsyLZoF7Zv4w/Y
-         xWQC5seq98MKyuJHJ6z7vU6h1+A22Z+/MLj8NkTDX94fP1NxZ/JCcue20rgeZyrWJvuH
-         Lw6g==
+        d=gmail.com; s=20251104; t=1789073593; x=1789678393; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=a73flGMOwQ2zw+tC92cS5o7YqiRzKglgGjirm26OwL8=;
+        b=tAS2Z78IHB8vYGX0XrZituet/YZ55bFHQQvrAPRj+7ntMAC5kMr4nERJ8tnRUhDF7V
+         B4+KbAtkRWDsXvKVDeUGeUuSYz/ZNn1J+Nfk474tans9o2YkQY54HsXfP8a/8hIYzPRA
+         mYK0H7qbE9M63PX/k0I3GfLz6I19H9v7Ap8ytypZz80LS4DXlY07Dp2JaE1rlkNx1hF1
+         HCgdl+VJ7+1jzUZvMBB5gTpw2axtXbxsJdGimgDjloOkSBYTDHouJAWZEFsFRy7ckh9g
+         1URQwgeLYhFYLnhXAeCDOEPJB1c81v4g79daXrtEH2yVy/J2P+zvAFwnY+M8YqCVjtSj
+         8PvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789073362; x=1789678162;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LD6/nMf/SCzxFaM5TR830BIT+ow88In2rb2lR6a4o9Q=;
-        b=YLV1AF5Gy7OEM2U+52KPT150AR6P3u2WUfMg21tUkon9dKT0R9NrZnAM10PIEzIRyE
-         sXDWt+JyChrFrqmJTTCRNCnjgS4FFU39rKbcaXBcssHiBwE2qA9D3o5Mwo+GLuB01ShK
-         NMDTzVX/p96q5Jh2CB3qJ5MuM4O3bW++Wz1HCb/xezVd8rz9ZD6pUJILVeBFUUpSAPCe
-         rJkClbDFKvN7v+W6OCn46MJkTtaYjeE+wsmPcaR8mWyk2NASpm988il4TBaIF8HMrPU/
-         1kCiRC+57Lz9pHwit3bgzcRxEi22qH8MdIuuHOMxyJCXmeWtdtK2H/qjNqEBN6g2A4tH
-         VNdw==
-X-Forwarded-Encrypted: i=1; AKwUvBwp9NlifjfKh1YzO/YNG/AjGQbz8BcG/XfCz5x6Nt/K0VPTbald3tuXKmCAPYgkYtlmKzFRiH/2SIKg@vger.kernel.org
-X-Gm-Message-State: AFuF++liSgkDkZZOBzS+kgr14K/4AaBBXHMkOCsvFIpvgh94sXi2pj/x
-	8Z0GGEM4DNL844angI1UsTOmShWLq2B47fclVURsu00D/CehM/GZ7h4l59BFIUQPes8=
-X-Gm-Gg: AYBFou0gD/f/HTEEeq8Magg4V+PHmQLXTyqYSTeGpMFr/taPxZY/pa/jlETJLGI+1jU
-	0dcC7rErQC6qWHJVQJ76Vg4M6HfpLl+9cNjpqK84v9v3fYyXT/X4DlRZkL1U/s+XYIFjwsI7rk+
-	0zYHgX2BoZZNN18GlreqFyVgwh8SeVr3W44rEcZ/ryJRCM8gjsUpuYx465JpLRHMYkRWYBwAO2f
-	OOxMZatw8nou4k0yI2iuWnuBE78ltEo2c1NC7cENVz6gwRHX1SmRuvaob+0B2JVnjTy4Cva7iRw
-	durfamVag1Yp0imdxIHD8B7axvKraGTmTxJ/vtxqOIGLq58v3jTjsE4oS7vYX8e+943knaoOqk9
-	nuM1kSycrd0aoaGMaIg08doZlkMw/0zuAhbgFG/KGvddbQqmbXfs3B28Jbb7USXndQGYeZEfhTd
-	2X/yvff6ux9KWBM4gDJQhkn0hbrKSbJnqdEVv2rsMB7Qi/CFXM4Q==
-X-Received: by 2002:a05:600d:644a:20b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49e619837a5mr6892535e9.6.1789073362150;
-        Thu, 10 Sep 2026 13:49:22 -0700 (PDT)
-Received: from remote-01 ([84.17.55.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm828813f8f.35.2026.09.10.13.49.20
+        d=1e100.net; s=20251104; t=1789073593; x=1789678393;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=a73flGMOwQ2zw+tC92cS5o7YqiRzKglgGjirm26OwL8=;
+        b=V8EipFrLdrDpfV18CI6odUWs9YJBpIfVCIkcqHR1o9vu0fCckPMdz2lJI7yJ7SvL3M
+         abnjwHCbeaHI/7FASb6L4NhGO2bScw+069LV6Dq/hnL7eS0NPfs7QICE/mMmj26eVd11
+         POcpfldj1MzAqMu99gWk0kGFBGezF0EKGQiZ3Vld0dT1pUJVnZL5SN4qk0aNfrgmKryU
+         3mB4qHvpjQg+H5pDBtcJ6ADEaTa854yXZnfWxSLpNxU3wnK3de/JQzv1VvpVHJ1RDtiv
+         P40ARy7+MK8PxGCzNgwDCplWAKs9tKFdXNTwJEmuAHrm0Cs890Xae7jN0olCuAFCWApq
+         NrOw==
+X-Forwarded-Encrypted: i=1; AKwUvByQWqoJuPySo639Q7XDoVPGxaLYjTgIr12zNQUfh3MlOh3TJhgZdXO07e2Pzk6etYWtffiV5LSL/6OB@vger.kernel.org
+X-Gm-Message-State: AFuF++nL2ddbYreYGDOT18a3XqYe6K9itYSMydJFUP9+6j6C/TVzOvBj
+	NRVpNU1N1W3XQ7n0IzkUQuli/HsoiQ9ZaCEh5iUBGzmvKeod0tU9fx1n
+X-Gm-Gg: AYBFou0BC87HfsQBLXAdXxlrNV9xEXp4hfc18Qucr5f6Q6Cwim6N1vq2FcX9Fmd0Z57
+	Te0/TbRBqAQbqdweyf4G4gcG1dAAha6+qLHlsAo8IUm2/7hr9pDZG2SH6fv0OhIvvwGyzMccEj8
+	9TVGDrTt89tntDGvv/IehuumfwEdj+aGWfjGCjiZiVr79IfU/VLzWDGtR1SjLQJZcIBMeWkdkjc
+	iAHsklcF3V53+yzGFHv/NUw74s23RkUkeuOKGXPZxpnO9kZ73/IQyrENyJixs3gLLpDBLjXDEx8
+	lgMET03qtN95xFLIaHK43O33fz3Lw3iWqTLwgbZyGKVoSZ5MVU8UZvpweonCHcm47Eevrtln+IF
+	DflL9kpHrS2R+a2w17HuvlSX/CrV0BGAthf13TXhzGYkstjzBCURjDgQodq95E1WNRsy9jSH1pE
+	/f57if1iICr2gNdYEBtoy5DC/uv9wv9IRttu7v0CA47sqBEqHThSrUTflCxXrj7fvntpNF9zFns
+	AeW8BZbJWquWg==
+X-Received: by 2002:a05:6a00:4706:b0:842:4af4:3080 with SMTP id d2e1a72fcca58-86b2db09168mr433675b3a.1.1789073593092;
+        Thu, 10 Sep 2026 13:53:13 -0700 (PDT)
+Received: from [172.29.212.252] ([2409:40c2:5431:4168:e542:5202:be02:6ae4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b250bf3e6sm150822b3a.5.2026.09.10.13.53.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 13:49:21 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Aleksei Sviridkin <f@lex.la>,
-	andrew+netdev@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	ericwouds@gmail.com,
-	netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH net-next v2 0/7] net: mdio: an MDIO device driver for the Airoha EN8811H
-Date: Thu, 10 Sep 2026 20:49:16 +0000
-Message-ID: <20260910204916.1979445-1-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <44f163ed-8362-4aad-99c9-f8709dfbed76@lunn.ch>
-References: <20260908155707.4164559-1-f@lex.la> <44f163ed-8362-4aad-99c9-f8709dfbed76@lunn.ch> <20260910153757.2822676-1-f@lex.la>
+        Thu, 10 Sep 2026 13:53:12 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Subject: [PATCH 0/2] ARM: dts: keystone-k2g: Fix usb-nop-xceiv dtbs_check
+ warnings
+Date: Fri, 11 Sep 2026 02:22:49 +0530
+Message-Id: <20260911-ti-keystone-usb-phy-fix-v1-0-9f6e9cd649a3@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM2wqDMBCE4VeRve6CifSgr1K8qDqtqxAlm5SK+
+ O5Ge/kNzL+SwguUqmwlj6+oTC7BXDJq+5f7gKVLJpvbW14aw0F4xKJhcuCoDc/9wm/5sbEdgLJ
+ 43Isrpffskeaz/Kz/1tgMaMORo23bAREne817AAAA
+X-Change-ID: 20260911-ti-keystone-usb-phy-fix-12deee938735
+To: Nishanth Menon <nm@ti.com>, Santosh Shilimkar <ssantosh@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789073586; l=763;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=1etk4KOXi29s0+VqLc6HiucY8F0vF73XSX3ZY6UDxlQ=;
+ b=I58F2Ztvq5Yw4MKly35QrlL677tsLpM8s3BEC7GGLLbtmngGRS/qsw1o2QnO0jUDXBqppxWC0
+ z9Y/0+VNb2ABnG833oRMZ0sMVp2YAqbDcdPe6agtuKmZWdS5yaEXcZN
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-Two of the things I said I would do turned out not to be doable as
-stated.
+usb0_phy and usb1_phy fail dtbs_check because:
+- missing the required #phy-cells.
+- simple-bus wrapper that forces unnecessary reg.
 
-> It is fine. I would also add a select or depends on the PHY driver
-> Kconfig stanza to link it to the MDIO_AIROHA_EN8811H driver.
+Patch 1 adds #phy-cells with value 0 as required by binding.
+Patch 2 drops the wrapper and moves the PHYs to root.
 
-Kconfig refuses it:
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+Bhargav Joshi (2):
+      ARM: dts: keystone-k2g: Add required #phy-cells to usb-nop-xceiv nodes
+      ARM: dts: keystone-k2g: Move usb-phy nodes out of simple-bus
 
-  symbol AIR_EN8811H_PHY is implied by MDIO_AIROHA_EN8811H
-  symbol MDIO_AIROHA_EN8811H is implied by AIR_EN8811H_PHY
-  error: recursive dependency detected!
+ arch/arm/boot/dts/ti/keystone/keystone-k2g.dtsi | 24 +++++++++---------------
+ 1 file changed, 9 insertions(+), 15 deletions(-)
+---
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+change-id: 20260911-ti-keystone-usb-phy-fix-12deee938735
 
-The MDIO stanza already carries imply AIR_EN8811H_PHY, and that is the
-direction worth having, since the MCU driver on its own drives nothing.
-A select from the PHY side would be wrong anyway: a board that
-describes the chip as a plain PHY has no use for the MCU driver. It
-stays as it is unless you want the two swapped.
+Best regards,
+-- 
+Bhargav
 
-> The location is fine. MAINTAINERS need to list it. What you might want
-> to do is list it twice, once in the PHY driver MAINTAINERS record, and
-> again in the MDIO driver section.
-
-There is no PHY driver record to put it in. Neither air_en8811h.c nor
-the shared air_phy_lib.c is claimed by any entry, so the header sits in
-the MDIO record alone. I can add a record covering both files, but that
-puts my name on code I did not write. Tell me which you would rather
-see.
-
-The address check is in and the child bus now refuses anything that is
-not the address the core answers, with the node in the message:
-
-  ethernet-phy@e: address 14 is not answered here, only 13
