@@ -1,103 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791F5336EDA;
-	Thu, 10 Sep 2026 06:16:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867653A9620;
+	Thu, 10 Sep 2026 06:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020977; cv=none; b=sVUnKZk+v+geXmkkwSTyh23WWL8v+lDHBM8T3pHh41uitEIHvnITwKK+FDRJns7zcWf01064zyAVhiZUx9ZivQDoAiHUhF8PW+FB4aqKHaIywCXwnEeoeRG+/neueEZBO5ee1xp3fACBfJXe1Nkj+DSP8kpGyKaQPSakHDePsrg=
+	t=1789021006; cv=none; b=Z1qvphuSayEbNzJ7/N4JJQvsdy4VJ2e1T2hGwpdr23McKe30Mk4UZH0PGY1wn/Ur71ASKuv76j7FCAEo2LqAlUDD6KIOdaI6uskN34gtKj79wMgirOrAbq+Dp3njOW1CDQRQjGtSTpd8WW0Au+QSb8dGsvDoIH5N+HsyPX7GBK8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020977; c=relaxed/simple;
-	bh=qrxc/7Oog3gqBDDTkCKt+BTeOzQQPqNSQKv4OvPekCg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=II1lAOtv7JYcdLBZzcYgGpWZj8+kf9hV5l4SAlP39lko6mDruF3afEZEPvtrJtlfph3FjPDeKLr3cL6KVV+y7aAShZCFVuBSDnVgliGK3SJRehH+SeG9bkAYvSZE5dgA0HQI0cjN00YJ43XrDW1AbAWkEj+4Vf6aC5FlSu5Iok0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GvTN8V1W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789021006; c=relaxed/simple;
+	bh=zT7qID2iUvPep5sG5ztpyVK3IWq3vpMN1lQ0gwC0RK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dYroLlvr/c6O/YY4UCh1B0NcQtThy3E4WVLvORMRq8djb/XIjSHWGn//w8OdcX7mgWr3seTxtkued61oPNPDxVZbY9bT3vEPHWuRfdhuYis9g4BlZgQ5Y69k4ljWQY4+aVbq3ItUOWf02V1N5/+NdoKnKK+cepaLvKo5Duf63zI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kCCkdbHi; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GvTN8V1W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22B651F000FF;
-	Thu, 10 Sep 2026 06:16:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789020961;
-	bh=z37+gWReZh8poMDSrM7YkJxySwWXYwEl7OL/mi5UdYA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GvTN8V1Wf+43m7FwMbuRFm+Ibv/3Q5+kNxwAj7Zeg9LSszRcoIyZ5+6l9KHe477s1
-	 wUGql+InopnhUiT6PJ+PF6qd5mXfyDrQvC6NTjn/dxF2cf/PRPkbyRuQEIzi6wcWlv
-	 jwMikTj5iiYrCFHnvKXOo+j3+ZwjII5nxdOpQBVRMjAo6S+F25cVdfunhRRM0ub+gH
-	 o94J6rwdwPDgWOWMDXxEk3/HCnF1/9KOoG8FUezgjMAd7yB1BigR+5ZcCwx37fnk5G
-	 4Xc1Fo9Y2Dv+iHLvan7lWzSTl5tGl0hRXPghg1n9MdISkjheoxS2QYEp3OoBNGh8ji
-	 XjpDenytRX4ig==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/4] dt-bindings: rtc: Add NXP PCF8525 RTC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shiv Prakash Gupta" <shivprakash.gupta@nxp.com>
-Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, linux-watchdog@vger.kernel.org
-In-Reply-To: <20260910060912.2443551-2-shivprakash.gupta@nxp.com>
-References: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
- <20260910060912.2443551-2-shivprakash.gupta@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 06:16:00 +0000
-Message-Id: <20260910061601.22B651F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kCCkdbHi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789020999; x=1820556999;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=zT7qID2iUvPep5sG5ztpyVK3IWq3vpMN1lQ0gwC0RK4=;
+  b=kCCkdbHit7ga1XJg6ZnoUMfxW4X/QHDCKahuv8n8gpUrnH/o7K5WkS7K
+   LMaiKdg5b+BUM8lZid3SYyVzrqvJSWclY0dK4Lm7unQW1kVQhmD9aEkMI
+   nsqqsJ0suUODoqL6y+aXHYCK8guSjZRnSKDHmDJJY30h+87SqGWctODEJ
+   XLt0WxJX1RSZCqRFuAY0oWt/ssfScEemEu+zs7fi0AsS7hAvciC/ihWye
+   s2r+ddTq7AUr7RbX9P+2xfSec8CNsgJE78sxYkUL7aubSJL8DevMyyeoM
+   j0j5UGQ25EpzBxnZUH4pQHrMbPMgGQVORfeu+ByoQPnRp6PqJ9CAP+UCX
+   w==;
+X-CSE-ConnectionGUID: 0XSJyvWjTISkbceDawnqxg==
+X-CSE-MsgGUID: uTlQl6p0RPSXJNfXW+8ecg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106831396"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="106831396"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:16:35 -0700
+X-CSE-ConnectionGUID: m3BPGyf1SSC9cEObun3LLg==
+X-CSE-MsgGUID: QpyLLo3HSkWpKv9nxGUMIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="309790789"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:16:33 -0700
+Date: Thu, 10 Sep 2026 09:16:29 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 08/10] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
+ driver into two modules
+Message-ID: <aqJLPT_pIH2pbZaB@ashevche-desk.local>
+References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
+ <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `interrupt-names` property schema incorrectly rejects valid =
-hardware configurations where only INTB is connected.
---
+On Wed, Sep 09, 2026 at 05:18:51PM +0300, Ariana Lazar wrote:
+> Prepare the driver for the bus-specific code by refactoring into separate
+> files. The renamed file will contain the common DAC functionality shared by
+> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
+> driver was refactored into two modules: mcp47feb02-core.c and
+> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
+> DAC family on top of the current implementation.
 
-commit 620f353657ea4242bf73ac8431d118e755e9de62
-Author: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-Subject: dt-bindings: rtc: Add NXP PCF8525 RTC
+...
 
-This commit adds a Devicetree binding for the NXP PCF8525 I2C RTC. It=20
-describes properties for the device, including the optional INTA and INTB=20
-interrupts, crystal load capacitance, and temperature-compensation model.
-
-> diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml b/Doc=
-umentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
-> new file mode 100644
-> index 0000000000000..bee71ec3da808
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
-> @@ -0,0 +1,86 @@
-
-[ ... ]
-
-> +  interrupts:
-> +    minItems: 1
-> +    maxItems: 2
-> +    description:
-> +      INTA, followed by INTB when both interrupt outputs are connected.
+> +static int mcp47feb02_i2c_probe(struct i2c_client *client)
+> +{
+> +	const struct mcp47feb02_features *chip_features;
+> +	struct device *dev = &client->dev;
+> +	struct regmap *regmap;
 > +
-> +  interrupt-names:
-> +    minItems: 1
-> +    items:
-> +      - const: inta
-> +      - const: intb
+> +	chip_features = i2c_get_match_data(client);
+> +	if (!chip_features)
+> +		return dev_err_probe(dev, -ENODEV, "No I2C device found\n");
 
-[Severity: Medium]
-Does this interrupt-names array definition inadvertently prevent
-configurations where only intb is connected?=20
+Consider adding a patch that replaces ENODEV with ENODATA as we started doing
+in the other drivers. This will help to distinguish the source of the error.
+Also fix the error message accordingly. It's not about device.
 
-Using an items array with - const: inta at the first position and
-- const: intb at the second strictly requires the first item to be inta
-during dt_binding_check schema validation.
+> +	if (chip_features->have_eeprom)
+> +		regmap = devm_regmap_init_i2c(client, &mcp47feb02_regmap_config);
+> +	else
+> +		regmap = devm_regmap_init_i2c(client, &mcp47fvb02_regmap_config);
+> +
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap), "Error initializing I2C regmap\n");
+> +
+> +	return mcp47feb02_common_probe(chip_features, regmap);
+> +}
 
-If a device tree author specifies a single interrupt and uses
-interrupt-names =3D "intb" because only the INTB pin is routed to the SoC
-(for example, to be used solely for the watchdog), this schema will reject =
-it.
+...
 
-Would it be better to use oneOf to explicitly permit the valid combinations,
-or define the items using an enum so that intb is permitted at the first
-index?
+> +#ifndef __DRIVERS_IIO_DAC_MCP47FEB02_H__
+> +#define __DRIVERS_IIO_DAC_MCP47FEB02_H__
+> +
+> +#include <linux/pm.h>
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910060912.2443=
-551-1-shivprakash.gupta@nxp.com?part=3D1
++ regmap.h for struct regmap_config.
+
+> +#include <linux/types.h>
+
+> +#endif /* __DRIVERS_IIO_DAC_MCP47FEB02_H__ */
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
