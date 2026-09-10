@@ -1,1236 +1,141 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719143E025E
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:15:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E0538DC78;
+	Thu, 10 Sep 2026 09:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031705; cv=none; b=WT9ta+xuCbaGiJ8k3CkzoTFYGIwCAEgI6t2fgOS1rEhyjYlJxoE2aficW9xoyC6CmeN/fVCVozKrNdM8n5d0/hFjnTbZkARjGjJJ2SWkiFAX2fxv0U9FZixCCf+JOC5Ft17iIhkS0aPl6OHGx5biC8OPwlyuxCCH4Jyb5rGnG3M=
+	t=1789031798; cv=none; b=slZqwetRWxr4ilCk4I7ZqzmNmn++E2ZeLeMiHW6LvA4a44yI9Mtr3elWUAOgfb3pTdv1lg/GzEWyZ33S6Efbrzv1DBWFshqXAjI0XIeY2BpoleXheG0+WFhwZSYmOy++jQAzUqGcP6vUNh80zK8Gv95cgHW2ZN2+sjHU3mCicFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031705; c=relaxed/simple;
-	bh=ZFkPZuJGvqIbNNGyTykDN6HMDIRqCAEfKujhRGR8cJc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h5M7y0mR/PF9Sbmrgsh737mJK2wJAvgpPwnERWCA0QuoCsUeSQSDafJeBexLWVWJQxeyQVxGqSUT37arjr9WrOEM2iwUn/EdOmSdBRyxgNjBekLNi9EvAFcrUnCwJ7bXjJLrAVHfXhlP9LdjaIwj4q5GIn4CJZ9HqQW8zVWspY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aXrRIcJn; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789031798; c=relaxed/simple;
+	bh=GxEiQwXDBcebBVRE/dGiwDfd5iv2YE3skoV4kH1Bb+4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=nCe68lf/6gvwIKU9k2xSmJA0vezfzZ+7Xeb5j0UsRE+lH/8ZaqY8SW6Vo/kc2XOeJWXWALRnz8xjdpNq9i2QDGKUtpauvFkIwZl5KB8yQ6BSEIdCdzzoYbaDGs1UZEu5GsOo2QOiV1tHA2Q5qVfzAwq0rqBoB9F+KXcHavu1o9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=MUlcWjfo; arc=none smtp.client-ip=117.135.210.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aXrRIcJn"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so11033595e9.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 02:15:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789031699; x=1789636499; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9SI3M7G179GhEA3Znz3AUMzTlISfEPDr10Zpf0U0MI4=;
-        b=aXrRIcJnPGxxAaNXTni6A0egc4D1eR3hOpwsl8RfdZbjEHI43WHXyLTjvukY/v4CpX
-         FX/XoQIZsYXv98X8ZVA8Wqw8jFxe5MbFhkFTButC5cHFGbiRe5/VJ2SIh3zKgu9bL9vk
-         Kc5ktzifPALHKUkV/TFa4Oro0Mi3EDyBX234YCGGB3sNpVCUYd8/X54xyXfsIEBYXtNv
-         y7zs00NNUJeSySnxwtd1TysFR6jHePmYsG4ab2axmcI8CBaXT9JPPSjK2OEuqbcLoLMa
-         Nwc7jYFIRj4We/fblb3F7cjOmnHfN9JUgioohbYJWexN9ecs2x+e2AAvryqKWjlY/6XQ
-         YBGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789031699; x=1789636499;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9SI3M7G179GhEA3Znz3AUMzTlISfEPDr10Zpf0U0MI4=;
-        b=A1o4HKELMpg61jcGIA1sdeJgd7RkshannUhghIAF7ntPXA/uvnyoKnd4yZti3a2lTx
-         BttZvKjxkrIm+sbJ/QRpcvez/wgklnhqDPIFhHee5PnHxo3Ij5G9WZxMDEcYAGa4r6KB
-         imW/gHHBTCd8fOBGiy6TIPyNn4P8rEUV35+PZ23WaVMxmKTsSFSWx+Am80RT5BACPF0k
-         jHxNqRzThs5jqJx/zTwcey8ONQ0ksb15uV+UOUwUxwC8qqYDC+vi0q96z0/nkkjBOzeO
-         ZWin2aqjVAbNYbQU4QeqC958hAdomLbZEZqMlPu4eyuaezEPLjm8Yzyd3xbUvQqDcGFX
-         1mPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy2+9vRKgwAJbVNltf17PPGKckeC+ijKVFJ3rAvFrt+RdvNsvfkbk1W1GCDpLlGZPf1ny/FyQxLAqXi@vger.kernel.org
-X-Gm-Message-State: AFuF++msTnGDB4lmu1KIyIdvwwh9wPJ2t+ja6av0jP8G8cDqescGRZuW
-	TVErIUgI4tgQASs470ACvDvrJtPummHL1iCO9ULLrJ8QNxKnQB+0m7AO
-X-Gm-Gg: AYBFou1BXKIqgT6IxVyc4VljBM+qClnzCRIsy7649mg16pmG3L8E5hUC13eJzsS7Ywf
-	7+joPbfEDVNe8pbWjz3InBEM+SCd/+JMyMaTho7DM7LVefj7UeWcFgjRipjDplXQ7DjfalP4QBR
-	KBAMsJi3Kz+gPuLYwzlySdQNb0IQTbHJ8vYaJ0s2U+br6cGNt8P6Go2mImSKdf8XZI0PexWm0A5
-	sbjg3frV8bd6x3xm9dM3w7qvqZJ8T6CZDbfD0o7ufeg02Sw59LPTL0v+UxIyTuvXqGSmItpzci5
-	nuCmvp2V7t/lckFqeVLdhqWuBV3HYNxfZIiVhhZ10BQj0oL2AA2EAEp78MVqTA1StKxbXh7Ymun
-	43yJ6Gmb8mBCY3FDYL3QQ47w2fMRU8rQRL4Po/RFnLYsV9z3uKNCgWwkMeHnB0HoJZbBIMolNOY
-	dXpmt+i15JlDccg3k1ziTN7jZ4limJ6teud9AtawR+3uQql+Ow4TTZ1DHhTmNER2dYOoYm3/sHl
-	QQfVbidxJO5xw==
-X-Received: by 2002:a05:600c:154f:b0:49d:2607:4ada with SMTP id 5b1f17b1804b1-49d26074b9amr86172155e9.14.1789031699349;
-        Thu, 10 Sep 2026 02:14:59 -0700 (PDT)
-Received: from Empers0n ([193.23.219.104])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485885bbb51sm52065435f8f.30.2026.09.10.02.14.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 02:14:58 -0700 (PDT)
-From: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Henrik Rydberg <rydberg@bitmath.org>,
-	linux-input@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-Subject: [PATCH v2 2/2] Input: synaptics_tcm_i2c - add Synaptics TouchComm I2C touchscreen driver
-Date: Thu, 10 Sep 2026 16:14:05 +0700
-Message-ID: <20260910091405.354058-3-sevanevorotov29@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260910091405.354058-1-sevanevorotov29@gmail.com>
-References: <20260910091405.354058-1-sevanevorotov29@gmail.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="MUlcWjfo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=GxEiQwXDBcebBVRE/dGiwDfd5iv2YE3skoV4kH1Bb+4=; b=M
+	UlcWjfoQcsM6uozP2ZA+dhntJUpdxgTyCHJ4fHJkD2baaQI7sBKjOIxDj9Kz02PQ
+	cEosw9HrwtrGXEpLFVdECD1lMwuh2el5VjCveopyzgu17zVa7yclch3NEpEJ56I3
+	9L2wXCusqEIXl7kCHTwlTA9uueNLIAeQaGkVGejjZA=
+Date: Thu, 10 Sep 2026 17:15:30 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: "Long Zhao" <longzhao@ambarella.com>, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial <linux-serial@vger.kernel.org>,
+	LKML <linux-kernel@vger.kernel.org>
+Subject: Re:Re: [PATCH v6 11/13] serial: 8250_dw: add Ambarella CV75 quirks
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <07cdbec9-49af-d500-d93d-56bfcef9f490@linux.intel.com>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-11-e918514cb3b1@ambarella.com>
+ <07cdbec9-49af-d500-d93d-56bfcef9f490@linux.intel.com>
+X-NTES-SC: AL_Qu2TC/yYvk8o5iOZY+kcn0wRhug/UMa4u/sm3YNXc/0EqiX9+T4sR2RaDHjs89yCBiKngRWUTRFQw9phRId0Gm3e9H0k5+Fqn0tYhpt88g==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-ID: <5fdd9772.82f3.1a08a99cc94.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:cygvCgD3P5MydaJqQM5DAA--.42441W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxRKsHmqidTJgdAAA3+
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Add input touchscreen driver for Synaptics TouchComm (TCM) generation-1
-controllers connected over I2C that boot into application mode out of
-their own flash (such as the Synaptics S3908 fitted to the OnePlus 9RT).
-
-The driver supports:
-- Multi-touch reporting via input_mt framework
-- Configurable touch report layouts
-- Standard touchscreen properties (axis swapping/inversion)
-- Low-power wakeup gestures (double-tap to wake)
-- Deep sleep mode during system suspend
-
-Signed-off-by: Vsevolod Nevorotov <sevanevorotov29@gmail.com>
----
- MAINTAINERS                                   |    7 +
- drivers/input/touchscreen/Kconfig             |   15 +
- drivers/input/touchscreen/Makefile            |    1 +
- drivers/input/touchscreen/synaptics_tcm_i2c.c | 1066 +++++++++++++++++
- 4 files changed, 1089 insertions(+)
- create mode 100644 drivers/input/touchscreen/synaptics_tcm_i2c.c
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 0d7987278c0..aa20d9153ac 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -26125,6 +26125,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/regulator/silergy,sy8106a.yaml
- F:	drivers/regulator/sy8106a-regulator.c
- 
-+SYNAPTICS TOUCHCOMM I2C TOUCHSCREEN DRIVER
-+M:	Vsevolod Nevorotov <sevanevorotov29@gmail.com>
-+L:	linux-input@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/input/touchscreen/syna,s3908.yaml
-+F:	drivers/input/touchscreen/synaptics_tcm_i2c.c
-+
- SYNC FILE FRAMEWORK
- M:	Sumit Semwal <sumit.semwal@linaro.org>
- L:	linux-media@vger.kernel.org
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index 9b9ae8ac3f7..c58e3e4cc1c 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -1310,6 +1310,21 @@ config TOUCHSCREEN_SX8654
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called sx8654.
- 
-+config TOUCHSCREEN_SYNAPTICS_TCM_I2C
-+	tristate "Synaptics TouchComm I2C touchscreen"
-+	depends on I2C
-+	help
-+	  Say Y here if you have a Synaptics TouchComm (TCM) touch controller
-+	  attached over I2C, such as the S3908 found in the OnePlus 9RT.
-+
-+	  Only controllers that boot into application mode out of their own
-+	  flash are supported; there is no host firmware download.
-+
-+	  If unsure, say N.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called synaptics_tcm_i2c.
-+
- config TOUCHSCREEN_TPS6507X
- 	tristate "TPS6507x based touchscreens"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index bfd9de83389..a1debe134a0 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -86,6 +86,7 @@ obj-$(CONFIG_TOUCHSCREEN_STMPE)		+= stmpe-ts.o
- obj-$(CONFIG_TOUCHSCREEN_SUN4I)		+= sun4i-ts.o
- obj-$(CONFIG_TOUCHSCREEN_SUR40)		+= sur40.o
- obj-$(CONFIG_TOUCHSCREEN_SURFACE3_SPI)	+= surface3_spi.o
-+obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_TCM_I2C)	+= synaptics_tcm_i2c.o
- obj-$(CONFIG_TOUCHSCREEN_TI_AM335X_TSC)	+= ti_am335x_tsc.o
- obj-$(CONFIG_TOUCHSCREEN_TOUCHIT213)	+= touchit213.o
- obj-$(CONFIG_TOUCHSCREEN_TOUCHRIGHT)	+= touchright.o
-diff --git a/drivers/input/touchscreen/synaptics_tcm_i2c.c b/drivers/input/touchscreen/synaptics_tcm_i2c.c
-new file mode 100644
-index 00000000000..406db582f2c
---- /dev/null
-+++ b/drivers/input/touchscreen/synaptics_tcm_i2c.c
-@@ -0,0 +1,1066 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Synaptics TouchComm (TCM) I2C touchscreen driver.
-+ *
-+ * Covers TouchComm generation-1 controllers that boot into application mode out
-+ * of their own flash, i.e. the ones that need no host firmware download at
-+ * probe time. The Synaptics S3908 fitted to the OnePlus 9RT (oneplus,martini)
-+ * is one of those.
-+ *
-+ * Protocol, as implemented by the vendor driver:
-+ *
-+ *   A command is one plain I2C write of
-+ *
-+ *      [ cmd | len_lo | len_hi | payload... ]
-+ *
-+ *   A message -- both command responses and asynchronous reports -- is one
-+ *   plain I2C read of
-+ *
-+ *      [ 0xa5 | code | len_lo | len_hi | payload... | 0x5a ]
-+ *
-+ *   code <= 0x0f (and 0xff) is a status, so the message is a command response;
-+ *   code >= 0x10 is a report id.
-+ *
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/mt.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/interrupt.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/pm.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/unaligned.h>
-+
-+#define SYNA_MESSAGE_MARKER		0xa5
-+#define SYNA_MESSAGE_PADDING		0x5a
-+#define SYNA_HEADER_SIZE		4
-+
-+/*
-+ * Read length limit of the controller (RD_CHUNK_SIZE in the vendor driver).
-+ * One read may not exceed this, including the header.
-+ */
-+#define SYNA_RD_CHUNK_SIZE		64
-+
-+/* Commands. */
-+#define SYNA_CMD_IDENTIFY		0x02
-+#define SYNA_CMD_ENABLE_REPORT		0x05
-+#define SYNA_CMD_DISABLE_REPORT		0x06
-+#define SYNA_CMD_GET_APP_INFO		0x20
-+#define SYNA_CMD_GET_DYNAMIC_CONFIG	0x23
-+#define SYNA_CMD_SET_DYNAMIC_CONFIG	0x24
-+#define SYNA_CMD_GET_TOUCH_REPORT_CONFIG 0x25
-+#define SYNA_CMD_SET_TOUCH_REPORT_CONFIG 0x26
-+#define SYNA_CMD_ENTER_DEEP_SLEEP	0x2c
-+#define SYNA_CMD_EXIT_DEEP_SLEEP	0x2d
-+
-+/* Dynamic config IDs. */
-+#define SYNA_DC_IN_WAKEUP_GESTURE_MODE	0x09
-+#define SYNA_DC_GESTURE_MASK		0xfe
-+
-+/* Status codes, i.e. header codes of a command response. */
-+#define SYNA_STATUS_IDLE		0x00
-+#define SYNA_STATUS_OK			0x01
-+#define SYNA_STATUS_BUSY		0x02
-+#define SYNA_STATUS_CONTINUED_READ	0x03
-+#define SYNA_STATUS_ERROR		0x0f
-+#define SYNA_STATUS_INVALID		0xff
-+
-+/* Report ids. Anything >= SYNA_REPORT_IDENTIFY is a report, not a status. */
-+#define SYNA_REPORT_IDENTIFY		0x10
-+#define SYNA_REPORT_TOUCH		0x11
-+#define SYNA_REPORT_LOG			0x1d
-+
-+#define SYNA_MODE_APPLICATION		0x01
-+
-+/* Gesture opcodes & IDs. */
-+#define SYNA_GESTURE_DTAP		0x01
-+
-+/* Opcodes of the touch report config. */
-+enum syna_touch_report_code {
-+	SYNA_TOUCH_END				= 0,
-+	SYNA_TOUCH_FOREACH_ACTIVE_OBJECT	= 1,
-+	SYNA_TOUCH_FOREACH_OBJECT		= 2,
-+	SYNA_TOUCH_FOREACH_END			= 3,
-+	SYNA_TOUCH_PAD_TO_NEXT_BYTE		= 4,
-+	SYNA_TOUCH_TIMESTAMP			= 5,
-+	SYNA_TOUCH_OBJECT_N_INDEX		= 6,
-+	SYNA_TOUCH_OBJECT_N_CLASSIFICATION	= 7,
-+	SYNA_TOUCH_OBJECT_N_X_POSITION		= 8,
-+	SYNA_TOUCH_OBJECT_N_Y_POSITION		= 9,
-+	SYNA_TOUCH_OBJECT_N_Z			= 10,
-+	SYNA_TOUCH_OBJECT_N_X_WIDTH		= 11,
-+	SYNA_TOUCH_OBJECT_N_Y_WIDTH		= 12,
-+	SYNA_TOUCH_GESTURE_DOUBLE_TAP		= 16,
-+	SYNA_TOUCH_NUM_OF_ACTIVE_OBJECTS	= 24,
-+	SYNA_TOUCH_REPORT_GESTURE_SWIPE		= 193,
-+	SYNA_TOUCH_REPORT_GESTURE_CIRCLE	= 194,
-+	SYNA_TOUCH_REPORT_GESTURE_UNICODE	= 195,
-+	SYNA_TOUCH_REPORT_GESTURE_VEE		= 196,
-+	SYNA_TOUCH_REPORT_GESTURE_TRIANGLE	= 197,
-+	SYNA_TOUCH_REPORT_GESTURE_INFO		= 198,
-+	SYNA_TOUCH_REPORT_GESTURE_COORDINATE	= 199,
-+};
-+
-+/* Object classification. Anything other than LIFT counts as a contact. */
-+#define SYNA_OBJECT_LIFT		0
-+
-+#define SYNA_MAX_OBJECTS		16
-+#define SYNA_MAX_CONFIG_SIZE		128
-+#define SYNA_MAX_MESSAGE_SIZE		1024
-+
-+/* Vendor driver: POWERUP_TO_RESET_TIME and RESET_TO_NORMAL_TIME. */
-+#define SYNA_POWERUP_TO_RESET_MS	10
-+#define SYNA_RESET_TO_NORMAL_MS		1000
-+
-+#define SYNA_RESPONSE_TIMEOUT_MS	500
-+
-+struct syna_tcm_app_info {
-+	__le16 version;
-+	__le16 status;
-+	__le16 static_config_size;
-+	__le16 dynamic_config_size;
-+	__le16 app_config_start_write_block;
-+	__le16 app_config_size;
-+	__le16 max_touch_report_config_size;
-+	__le16 max_touch_report_payload_size;
-+	u8 customer_config_id[16];
-+	__le16 max_x;
-+	__le16 max_y;
-+	__le16 max_objects;
-+	__le16 num_of_buttons;
-+	__le16 num_of_image_rows;
-+	__le16 num_of_image_cols;
-+	__le16 has_hybrid_data;
-+} __packed;
-+
-+struct syna_object {
-+	u32 status;
-+	u32 x;
-+	u32 y;
-+	u32 z;
-+	u32 wx;
-+	u32 wy;
-+};
-+
-+struct syna_tcm {
-+	struct i2c_client *client;
-+	struct input_dev *input;
-+	struct touchscreen_properties prop;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[2];
-+
-+	/* Protects hardware I2C transfers and internal state */
-+	struct mutex lock;
-+	bool suspended;
-+	bool gesture_enabled;
-+	bool powered;
-+	u32 gesture_type;
-+
-+	/* Scratch for one I2C read, and the message assembled out of them. */
-+	u8 rxbuf[SYNA_RD_CHUNK_SIZE];
-+	u8 payload[SYNA_MAX_MESSAGE_SIZE];
-+	unsigned int payload_len;
-+	u8 code;
-+
-+	u8 cmdbuf[SYNA_MAX_CONFIG_SIZE + 3];
-+
-+	u8 config[SYNA_MAX_CONFIG_SIZE];
-+	unsigned int config_len;
-+
-+	u8 normal_config[SYNA_MAX_CONFIG_SIZE];
-+	unsigned int normal_config_len;
-+
-+	unsigned int max_objects;
-+	struct syna_object objects[SYNA_MAX_OBJECTS];
-+};
-+
-+/*
-+ * Low-power gesture report config matching the stock vendor driver:
-+ * Double-tap ID, gesture info, coordinates, and active object loop.
-+ */
-+static const u8 syna_gesture_config[] = {
-+	SYNA_TOUCH_GESTURE_DOUBLE_TAP,		8,
-+	SYNA_TOUCH_REPORT_GESTURE_INFO,		48,
-+	SYNA_TOUCH_REPORT_GESTURE_COORDINATE,	192,
-+	SYNA_TOUCH_FOREACH_ACTIVE_OBJECT,
-+	SYNA_TOUCH_OBJECT_N_INDEX,		4,
-+	SYNA_TOUCH_OBJECT_N_CLASSIFICATION,	4,
-+	SYNA_TOUCH_OBJECT_N_X_POSITION,		16,
-+	SYNA_TOUCH_OBJECT_N_Y_POSITION,		16,
-+	SYNA_TOUCH_FOREACH_END,
-+	SYNA_TOUCH_END,
-+};
-+
-+/*
-+ * Receive one whole message. On success ts->code holds the header code and the
-+ * first ts->payload_len bytes of ts->payload hold its payload.
-+ *
-+ * Must be called with ts->lock held.
-+ */
-+static int syna_recv_message(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	unsigned int total, copied, stream_remaining;
-+	int ret;
-+
-+	ret = i2c_master_recv(ts->client, ts->rxbuf, SYNA_RD_CHUNK_SIZE);
-+	if (ret < 0)
-+		return ret;
-+
-+	if (ret < SYNA_HEADER_SIZE) {
-+		dev_warn_ratelimited(dev, "i2c recv short read: %d\n", ret);
-+		return -EIO;
-+	}
-+
-+	if (ts->rxbuf[0] != SYNA_MESSAGE_MARKER) {
-+		dev_dbg(dev, "bad message marker 0x%02x\n", ts->rxbuf[0]);
-+		return -EPROTO;
-+	}
-+
-+	ts->code = ts->rxbuf[1];
-+	ts->payload_len = get_unaligned_le16(&ts->rxbuf[2]);
-+
-+	/*
-+	 * An idle or busy controller answers with a header and nothing behind
-+	 * it, whatever the length field happens to say.
-+	 */
-+	if (ts->code == SYNA_STATUS_IDLE || ts->code == SYNA_STATUS_BUSY ||
-+	    ts->code == SYNA_STATUS_CONTINUED_READ) {
-+		ts->payload_len = 0;
-+		return 0;
-+	}
-+
-+	if (ts->payload_len > sizeof(ts->payload)) {
-+		dev_err(dev, "message payload of %u bytes is too long\n",
-+			ts->payload_len);
-+		return -EMSGSIZE;
-+	}
-+
-+	/* Total bytes on wire for the message: header + payload + padding. */
-+	total = SYNA_HEADER_SIZE + ts->payload_len + 1;
-+	copied = min(ts->payload_len, SYNA_RD_CHUNK_SIZE - SYNA_HEADER_SIZE);
-+	memcpy(ts->payload, &ts->rxbuf[SYNA_HEADER_SIZE], copied);
-+
-+	if (total <= SYNA_RD_CHUNK_SIZE) {
-+		if (ts->rxbuf[total - 1] != SYNA_MESSAGE_PADDING) {
-+			dev_dbg(dev, "bad message padding 0x%02x\n",
-+				ts->rxbuf[total - 1]);
-+			return -EPROTO;
-+		}
-+		return 0;
-+	}
-+
-+	/*
-+	 * Continued read: remaining stream bytes (payload + trailing 0x5a
-+	 * padding) arrive in chunks with a 2-byte header (marker + code 0x03).
-+	 * Each continued-read transfer can carry up to SYNA_RD_CHUNK_SIZE - 2
-+	 * bytes of stream data.
-+	 */
-+	stream_remaining = total - SYNA_RD_CHUNK_SIZE;
-+	while (stream_remaining) {
-+		unsigned int chunk = min(stream_remaining,
-+					 (unsigned int)(SYNA_RD_CHUNK_SIZE - 2));
-+		unsigned int read_len = chunk + 2;
-+		unsigned int payload_chunk;
-+
-+		ret = i2c_master_recv(ts->client, ts->rxbuf, read_len);
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ret < read_len)
-+			return -EIO;
-+
-+		if (ts->rxbuf[0] != SYNA_MESSAGE_MARKER ||
-+		    ts->rxbuf[1] != SYNA_STATUS_CONTINUED_READ) {
-+			dev_err(dev, "bad continued-read header 0x%02x 0x%02x\n",
-+				ts->rxbuf[0], ts->rxbuf[1]);
-+			return -EPROTO;
-+		}
-+
-+		payload_chunk = min(chunk, ts->payload_len - copied);
-+		if (payload_chunk) {
-+			memcpy(&ts->payload[copied], &ts->rxbuf[2], payload_chunk);
-+			copied += payload_chunk;
-+		}
-+
-+		stream_remaining -= chunk;
-+
-+		if (!stream_remaining &&
-+		    ts->rxbuf[2 + chunk - 1] != SYNA_MESSAGE_PADDING) {
-+			dev_dbg(dev, "bad continued-read padding 0x%02x\n",
-+				ts->rxbuf[2 + chunk - 1]);
-+			return -EPROTO;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * syna_exec_command() - Issue a command and collect its response
-+ * @ts: Synaptics TCM device context
-+ * @cmd: Command opcode (SYNA_CMD_*)
-+ * @payload: Command payload buffer, or NULL
-+ * @len: Length of @payload in bytes
-+ *
-+ * Issue a command and collect its response into ts->payload. Reports that
-+ * arrive while waiting are dropped.
-+ *
-+ * Context: Must be called with @ts->lock held (except during probe before
-+ *          the interrupt handler is registered).
-+ * Return: 0 on success, or a negative errno.
-+ */
-+static int syna_exec_command(struct syna_tcm *ts, u8 cmd,
-+			     const u8 *payload, unsigned int len)
-+{
-+	struct device *dev = &ts->client->dev;
-+	unsigned long deadline;
-+	u8 *buf = ts->cmdbuf;
-+	int ret;
-+
-+	if (len + 3 > sizeof(ts->cmdbuf))
-+		return -EINVAL;
-+
-+	buf[0] = cmd;
-+	put_unaligned_le16(len, &buf[1]);
-+	if (len)
-+		memcpy(&buf[3], payload, len);
-+
-+	ret = i2c_master_send(ts->client, buf, len + 3);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write command 0x%02x: %d\n", cmd, ret);
-+		return ret;
-+	}
-+
-+	deadline = jiffies + msecs_to_jiffies(SYNA_RESPONSE_TIMEOUT_MS);
-+	do {
-+		usleep_range(15000, 20000);
-+
-+		ret = syna_recv_message(ts);
-+		if (ret == -EPROTO)
-+			continue;	/* controller not talking yet */
-+		if (ret < 0)
-+			return ret;
-+
-+		if (ts->code == SYNA_REPORT_IDENTIFY && cmd == SYNA_CMD_IDENTIFY)
-+			return 0;
-+
-+		if (ts->code >= SYNA_REPORT_IDENTIFY)
-+			continue;	/* a report, not our response */
-+
-+		switch (ts->code) {
-+		case SYNA_STATUS_OK:
-+			return 0;
-+		case SYNA_STATUS_IDLE:
-+		case SYNA_STATUS_BUSY:
-+			continue;
-+		default:
-+			dev_err(dev, "command 0x%02x failed with status 0x%02x\n",
-+				cmd, ts->code);
-+			return -EIO;
-+		}
-+	} while (time_before(jiffies, deadline));
-+
-+	dev_err(dev, "command 0x%02x timed out\n", cmd);
-+	return -ETIMEDOUT;
-+}
-+
-+static int syna_set_dynamic_config(struct syna_tcm *ts, u8 id, u16 value)
-+{
-+	u8 buf[3];
-+
-+	buf[0] = id;
-+	put_unaligned_le16(value, &buf[1]);
-+
-+	return syna_exec_command(ts, SYNA_CMD_SET_DYNAMIC_CONFIG, buf, sizeof(buf));
-+}
-+
-+/* Extract a big field of @bits from the report's bit stream at @offset. */
-+static u32 syna_get_bits(const u8 *buf, unsigned int buf_len,
-+			 unsigned int offset, unsigned int bits)
-+{
-+	unsigned int byte, bit, done = 0;
-+	u32 out = 0;
-+
-+	if (!bits || bits > 32 || bits > buf_len * 8 ||
-+	    offset > buf_len * 8 - bits)
-+		return 0;
-+
-+	byte = offset / 8;
-+	bit = offset % 8;
-+
-+	while (done < bits) {
-+		unsigned int avail = 8 - bit;
-+		unsigned int take = min(avail, bits - done);
-+		u8 val = (buf[byte] >> bit) & (0xff >> (8 - take));
-+
-+		out |= (u32)val << done;
-+		done += take;
-+		bit = 0;
-+		byte++;
-+	}
-+
-+	return out;
-+}
-+
-+/*
-+ * Walk the touch report config and unpack the report accordingly.
-+ */
-+static int syna_parse_touch_report(struct syna_tcm *ts)
-+{
-+	const u8 *cfg = ts->config;
-+	unsigned int idx = 0, loop_start = 0, loop_bits = 0;
-+	unsigned int offset = 0;	/* bit offset into the payload */
-+	unsigned int obj = 0;
-+	unsigned int seen = 0, active = 0;
-+	bool active_only = false, have_active_count = false;
-+	bool done = false;
-+	unsigned int i;
-+
-+	memset(ts->objects, 0, sizeof(ts->objects));
-+	ts->gesture_type = 0;
-+
-+	while (idx < ts->config_len && !done) {
-+		u8 code = cfg[idx++];
-+		unsigned int bits;
-+		u32 data;
-+
-+		switch (code) {
-+		case SYNA_TOUCH_END:
-+			done = true;
-+			continue;
-+
-+		case SYNA_TOUCH_FOREACH_ACTIVE_OBJECT:
-+		case SYNA_TOUCH_FOREACH_OBJECT:
-+			active_only = code == SYNA_TOUCH_FOREACH_ACTIVE_OBJECT;
-+			loop_start = idx;
-+			obj = 0;
-+			seen = 0;
-+			loop_bits = 0;
-+			for (i = idx; i < ts->config_len; i++) {
-+				if (cfg[i] == SYNA_TOUCH_FOREACH_END ||
-+				    cfg[i] == SYNA_TOUCH_END)
-+					break;
-+				if (cfg[i] == SYNA_TOUCH_PAD_TO_NEXT_BYTE)
-+					continue;
-+				if (++i < ts->config_len)
-+					loop_bits += cfg[i];
-+			}
-+			if (active_only && !have_active_count &&
-+			    offset + loop_bits > ts->payload_len * 8) {
-+				/* Not enough payload for even one object */
-+				if (i < ts->config_len && cfg[i] == SYNA_TOUCH_FOREACH_END)
-+					idx = i + 1;
-+				else
-+					idx = i;
-+			}
-+			continue;
-+
-+		case SYNA_TOUCH_FOREACH_END:
-+			if (!active_only) {
-+				if (++obj < ts->max_objects)
-+					idx = loop_start;
-+			} else if (have_active_count) {
-+				if (++seen < active)
-+					idx = loop_start;
-+			} else if (++seen < ts->max_objects &&
-+				   offset + loop_bits <= ts->payload_len * 8) {
-+				idx = loop_start;
-+			}
-+			continue;
-+
-+		case SYNA_TOUCH_PAD_TO_NEXT_BYTE:
-+			offset = ALIGN(offset, 8);
-+			continue;
-+		}
-+
-+		/* Everything else is (opcode, bit width). */
-+		if (idx >= ts->config_len || offset >= ts->payload_len * 8)
-+			break;
-+
-+		bits = cfg[idx++];
-+		data = syna_get_bits(ts->payload, ts->payload_len, offset, bits);
-+		offset += bits;
-+
-+		switch (code) {
-+		case SYNA_TOUCH_OBJECT_N_INDEX:
-+			if (data >= ts->max_objects || data >= SYNA_MAX_OBJECTS) {
-+				dev_dbg(&ts->client->dev,
-+					"object index %u out of range\n", data);
-+				return -ERANGE;
-+			}
-+			obj = data;
-+			break;
-+		case SYNA_TOUCH_NUM_OF_ACTIVE_OBJECTS:
-+			active = min_t(unsigned int, data, ts->max_objects);
-+			have_active_count = true;
-+			if (!active)
-+				done = true;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_CLASSIFICATION:
-+			ts->objects[obj].status = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_X_POSITION:
-+			ts->objects[obj].x = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_Y_POSITION:
-+			ts->objects[obj].y = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_Z:
-+			ts->objects[obj].z = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_X_WIDTH:
-+			ts->objects[obj].wx = data;
-+			break;
-+		case SYNA_TOUCH_OBJECT_N_Y_WIDTH:
-+			ts->objects[obj].wy = data;
-+			break;
-+		case SYNA_TOUCH_GESTURE_DOUBLE_TAP:
-+		case SYNA_TOUCH_REPORT_GESTURE_SWIPE:
-+		case SYNA_TOUCH_REPORT_GESTURE_CIRCLE:
-+		case SYNA_TOUCH_REPORT_GESTURE_UNICODE:
-+		case SYNA_TOUCH_REPORT_GESTURE_VEE:
-+		case SYNA_TOUCH_REPORT_GESTURE_TRIANGLE:
-+			ts->gesture_type = data;
-+			break;
-+		default:
-+			/* Timestamp, grip info, coordinates: skipped. */
-+			break;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static void syna_report_touch(struct syna_tcm *ts)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ts->max_objects; i++) {
-+		struct syna_object *obj = &ts->objects[i];
-+		bool down = obj->status != SYNA_OBJECT_LIFT;
-+
-+		if (down)
-+			dev_dbg(&ts->client->dev,
-+				"slot %u: %u,%u z=%u w=%ux%u class=%u\n",
-+				i, obj->x, obj->y, obj->z, obj->wx, obj->wy,
-+				obj->status);
-+
-+		input_mt_slot(ts->input, i);
-+		if (!input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down))
-+			continue;
-+
-+		touchscreen_report_pos(ts->input, &ts->prop, obj->x, obj->y, true);
-+		input_report_abs(ts->input, ABS_MT_PRESSURE, obj->z);
-+		input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR,
-+				 max(obj->wx, obj->wy));
-+		input_report_abs(ts->input, ABS_MT_TOUCH_MINOR,
-+				 min(obj->wx, obj->wy));
-+	}
-+
-+	input_mt_sync_frame(ts->input);
-+	input_sync(ts->input);
-+}
-+
-+static irqreturn_t syna_irq(int irq, void *data)
-+{
-+	struct syna_tcm *ts = data;
-+
-+	mutex_lock(&ts->lock);
-+
-+	if (syna_recv_message(ts) < 0) {
-+		mutex_unlock(&ts->lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (ts->code != SYNA_REPORT_TOUCH) {
-+		mutex_unlock(&ts->lock);
-+		return IRQ_HANDLED;
-+	}
-+
-+	if (syna_parse_touch_report(ts) == 0) {
-+		if (ts->suspended) {
-+			if (ts->gesture_type == SYNA_GESTURE_DTAP) {
-+				dev_dbg(&ts->client->dev,
-+					"wakeup gesture detected (type=0x%02x)\n",
-+					ts->gesture_type);
-+
-+				input_report_key(ts->input, KEY_WAKEUP, 1);
-+				input_sync(ts->input);
-+				input_report_key(ts->input, KEY_WAKEUP, 0);
-+				input_sync(ts->input);
-+
-+				pm_wakeup_event(&ts->client->dev, 0);
-+			}
-+		} else {
-+			syna_report_touch(ts);
-+		}
-+	}
-+
-+	mutex_unlock(&ts->lock);
-+	return IRQ_HANDLED;
-+}
-+
-+static int syna_power_on(struct syna_tcm *ts)
-+{
-+	int ret;
-+
-+	if (ts->powered)
-+		return 0;
-+
-+	/* Held in reset across power-up; the DT flag makes this drive low. */
-+	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+	if (ret)
-+		return ret;
-+
-+	ts->powered = true;
-+
-+	msleep(SYNA_POWERUP_TO_RESET_MS);
-+	gpiod_set_value_cansleep(ts->reset_gpio, 0);
-+	msleep(SYNA_RESET_TO_NORMAL_MS);
-+
-+	return 0;
-+}
-+
-+static void syna_power_off(struct syna_tcm *ts)
-+{
-+	if (!ts->powered)
-+		return;
-+
-+	gpiod_set_value_cansleep(ts->reset_gpio, 1);
-+	regulator_bulk_disable(ARRAY_SIZE(ts->supplies), ts->supplies);
-+	ts->powered = false;
-+}
-+
-+static void syna_power_off_action(void *data)
-+{
-+	struct syna_tcm *ts = data;
-+
-+	syna_power_off(ts);
-+}
-+
-+/*
-+ * Fallback touch report config installed only if the firmware comes up
-+ * without coordinates.
-+ */
-+static const u8 syna_default_config[] = {
-+	SYNA_TOUCH_FOREACH_ACTIVE_OBJECT,
-+	SYNA_TOUCH_OBJECT_N_INDEX,		4,
-+	SYNA_TOUCH_OBJECT_N_CLASSIFICATION,	4,
-+	SYNA_TOUCH_OBJECT_N_X_POSITION,		16,
-+	SYNA_TOUCH_OBJECT_N_Y_POSITION,		16,
-+	SYNA_TOUCH_OBJECT_N_Z,			8,
-+	SYNA_TOUCH_OBJECT_N_X_WIDTH,		12,
-+	SYNA_TOUCH_OBJECT_N_Y_WIDTH,		12,
-+	SYNA_TOUCH_FOREACH_END,
-+	SYNA_TOUCH_END,
-+};
-+
-+static bool syna_config_has_coords(const u8 *cfg, unsigned int len)
-+{
-+	bool x = false, y = false;
-+	unsigned int i;
-+
-+	for (i = 0; i < len; i++) {
-+		switch (cfg[i]) {
-+		case SYNA_TOUCH_END:
-+			return x && y;
-+		case SYNA_TOUCH_FOREACH_ACTIVE_OBJECT:
-+		case SYNA_TOUCH_FOREACH_OBJECT:
-+		case SYNA_TOUCH_FOREACH_END:
-+		case SYNA_TOUCH_PAD_TO_NEXT_BYTE:
-+			break;
-+		default:
-+			if (cfg[i] == SYNA_TOUCH_OBJECT_N_X_POSITION)
-+				x = true;
-+			else if (cfg[i] == SYNA_TOUCH_OBJECT_N_Y_POSITION)
-+				y = true;
-+			i++;	/* skip the bit width */
-+			break;
-+		}
-+	}
-+
-+	return x && y;
-+}
-+
-+static int syna_read_touch_report_config(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	int ret;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_GET_TOUCH_REPORT_CONFIG, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (!ts->payload_len || ts->payload_len > sizeof(ts->config)) {
-+		dev_err(dev, "implausible touch report config size %u\n",
-+			ts->payload_len);
-+		return -EPROTO;
-+	}
-+
-+	ts->config_len = ts->payload_len;
-+	memcpy(ts->config, ts->payload, ts->config_len);
-+
-+	dev_dbg(dev, "touch report config: %*ph\n", (int)ts->config_len, ts->config);
-+
-+	return 0;
-+}
-+
-+static int syna_setup(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	struct syna_tcm_app_info *app_info;
-+	unsigned int max_x = 0, max_y = 0;
-+	u8 report = SYNA_REPORT_TOUCH;
-+	int ret;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_IDENTIFY, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (ts->payload_len < 18)
-+		return -EPROTO;
-+
-+	dev_info(dev, "TouchComm v%u, mode 0x%02x, part %.16s\n",
-+		 ts->payload[0], ts->payload[1], &ts->payload[2]);
-+
-+	if (ts->payload[1] != SYNA_MODE_APPLICATION) {
-+		dev_err(dev,
-+			"controller is in mode 0x%02x, not application mode; this driver cannot download firmware\n",
-+			ts->payload[1]);
-+		return -ENODEV;
-+	}
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_GET_APP_INFO, NULL, 0);
-+	if (ret)
-+		return ret;
-+
-+	if (ts->payload_len < sizeof(*app_info))
-+		return -EPROTO;
-+
-+	app_info = (struct syna_tcm_app_info *)ts->payload;
-+	max_x = le16_to_cpu(app_info->max_x);
-+	max_y = le16_to_cpu(app_info->max_y);
-+	ts->max_objects = le16_to_cpu(app_info->max_objects);
-+
-+	if (!ts->max_objects)
-+		ts->max_objects = 10;
-+
-+	if (ts->max_objects > SYNA_MAX_OBJECTS) {
-+		dev_warn(dev, "clamping %u objects to %u\n",
-+			 ts->max_objects, SYNA_MAX_OBJECTS);
-+		ts->max_objects = SYNA_MAX_OBJECTS;
-+	}
-+
-+	if (!max_x || !max_y) {
-+		dev_err(dev, "touchscreen size not reported by firmware\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_info(dev, "%ux%u, %u touch objects\n", max_x + 1, max_y + 1,
-+		 ts->max_objects);
-+
-+	ret = syna_read_touch_report_config(ts);
-+	if (ret)
-+		return ret;
-+
-+	if (!syna_config_has_coords(ts->config, ts->config_len)) {
-+		dev_warn(dev,
-+			 "firmware touch report config carries no coordinates, installing our own\n");
-+
-+		ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+					syna_default_config,
-+					sizeof(syna_default_config));
-+		if (ret)
-+			return ret;
-+
-+		ret = syna_read_touch_report_config(ts);
-+		if (ret)
-+			return ret;
-+
-+		if (!syna_config_has_coords(ts->config, ts->config_len)) {
-+			dev_err(dev, "controller kept a config we cannot parse\n");
-+			return -ENODEV;
-+		}
-+	}
-+
-+	/* Cache the normal report config for restoring after gesture wakeup */
-+	ts->normal_config_len = ts->config_len;
-+	memcpy(ts->normal_config, ts->config, ts->normal_config_len);
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_ENABLE_REPORT, &report, 1);
-+	if (ret)
-+		return ret;
-+
-+	ts->input->name = "Synaptics TouchComm Touchscreen";
-+	ts->input->id.bustype = BUS_I2C;
-+
-+	input_set_capability(ts->input, EV_KEY, KEY_WAKEUP);
-+
-+	input_set_abs_params(ts->input, ABS_MT_POSITION_X, 0, max_x, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_POSITION_Y, 0, max_y, 0, 0);
-+	/*
-+	 * ABS_MT_PRESSURE (8-bit, 0-255) and ABS_MT_TOUCH_MAJOR/MINOR (12-bit,
-+	 * 0-4095) ranges are tailored for the S3908 / generation-1 family with
-+	 * the default touch report layout (syna_default_config).
-+	 */
-+	input_set_abs_params(ts->input, ABS_MT_PRESSURE, 0, 255, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_TOUCH_MAJOR, 0, 4095, 0, 0);
-+	input_set_abs_params(ts->input, ABS_MT_TOUCH_MINOR, 0, 4095, 0, 0);
-+
-+	touchscreen_parse_properties(ts->input, true, &ts->prop);
-+
-+	return input_mt_init_slots(ts->input, ts->max_objects,
-+				   INPUT_MT_DIRECT | INPUT_MT_DROP_UNUSED);
-+}
-+
-+static int syna_reinit_hw(struct syna_tcm *ts)
-+{
-+	struct device *dev = &ts->client->dev;
-+	u8 report = SYNA_REPORT_TOUCH;
-+	int ret;
-+
-+	syna_power_off(ts);
-+	ret = syna_power_on(ts);
-+	if (ret)
-+		return ret;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_IDENTIFY, NULL, 0);
-+	if (ret)
-+		goto err_power_off;
-+
-+	if (ts->payload_len < 18 || ts->payload[1] != SYNA_MODE_APPLICATION) {
-+		dev_err(dev, "controller not in application mode after recovery\n");
-+		ret = -ENODEV;
-+		goto err_power_off;
-+	}
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+				ts->normal_config, ts->normal_config_len);
-+	if (ret)
-+		goto err_power_off;
-+
-+	ret = syna_read_touch_report_config(ts);
-+	if (ret)
-+		goto err_power_off;
-+
-+	ret = syna_exec_command(ts, SYNA_CMD_ENABLE_REPORT, &report, 1);
-+	if (ret)
-+		goto err_power_off;
-+
-+	return 0;
-+
-+err_power_off:
-+	syna_power_off(ts);
-+	return ret;
-+}
-+
-+static int syna_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct syna_tcm *ts;
-+	int ret;
-+
-+	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-+	if (!ts)
-+		return -ENOMEM;
-+
-+	ts->client = client;
-+	ret = devm_mutex_init(dev, &ts->lock);
-+	if (ret)
-+		return ret;
-+
-+	i2c_set_clientdata(client, ts);
-+
-+	ts->input = devm_input_allocate_device(dev);
-+	if (!ts->input)
-+		return -ENOMEM;
-+
-+	ts->supplies[0].supply = "vdd";
-+	ts->supplies[1].supply = "avdd";
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ts->supplies),
-+				      ts->supplies);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get supplies\n");
-+
-+	ts->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(ts->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(ts->reset_gpio),
-+				     "failed to get reset GPIO\n");
-+
-+	ret = syna_power_on(ts);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to power up\n");
-+
-+	ret = devm_add_action_or_reset(dev, syna_power_off_action, ts);
-+	if (ret)
-+		return ret;
-+
-+	ret = syna_setup(ts);
-+	if (ret)
-+		return ret;
-+
-+	ret = input_register_device(ts->input);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to register input device\n");
-+
-+	if (device_property_read_bool(dev, "wakeup-source")) {
-+		ret = devm_device_init_wakeup(dev);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = devm_request_threaded_irq(dev, client->irq, NULL, syna_irq,
-+					IRQF_ONESHOT, "synaptics-tcm", ts);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to request IRQ %d\n",
-+				     client->irq);
-+
-+	return 0;
-+}
-+
-+static int syna_suspend(struct device *dev)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	struct syna_tcm *ts = i2c_get_clientdata(client);
-+	int ret;
-+
-+	disable_irq(client->irq);
-+	mutex_lock(&ts->lock);
-+
-+	if (device_may_wakeup(dev)) {
-+		/* Exit deep sleep if the controller was in sleep mode */
-+		ret = syna_exec_command(ts, SYNA_CMD_EXIT_DEEP_SLEEP, NULL, 0);
-+		if (ret && ret != -ETIMEDOUT)
-+			dev_dbg(dev, "exit deep sleep status: %d\n", ret);
-+
-+		/* Switch to gesture touch report layout */
-+		ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+					syna_gesture_config,
-+					sizeof(syna_gesture_config));
-+		if (ret)
-+			dev_warn(dev, "failed to set gesture report config: %d\n", ret);
-+
-+		ret = syna_read_touch_report_config(ts);
-+		if (ret)
-+			dev_warn(dev, "failed to read touch report config: %d\n", ret);
-+
-+		/* Enable Low Power Wakeup Gesture Mode */
-+		ret = syna_set_dynamic_config(ts, SYNA_DC_IN_WAKEUP_GESTURE_MODE, 1);
-+		if (ret)
-+			dev_warn(dev, "failed to enable wakeup gesture mode: %d\n", ret);
-+
-+		/* Set gesture mask: bit 0 = DTAP (double-tap to wake) */
-+		ret = syna_set_dynamic_config(ts, SYNA_DC_GESTURE_MASK, BIT(0));
-+		if (ret)
-+			dev_warn(dev, "failed to set gesture mask: %d\n", ret);
-+
-+		enable_irq_wake(client->irq);
-+		enable_irq(client->irq);
-+		ts->gesture_enabled = true;
-+	} else {
-+		/* Deep sleep mode when wakeup is disabled */
-+		ret = syna_exec_command(ts, SYNA_CMD_ENTER_DEEP_SLEEP, NULL, 0);
-+		if (ret)
-+			dev_warn(dev, "failed to enter deep sleep: %d\n", ret);
-+
-+		ts->gesture_enabled = false;
-+	}
-+
-+	ts->suspended = true;
-+	mutex_unlock(&ts->lock);
-+
-+	return 0;
-+}
-+
-+static int syna_resume(struct device *dev)
-+{
-+	struct i2c_client *client = to_i2c_client(dev);
-+	struct syna_tcm *ts = i2c_get_clientdata(client);
-+	int ret;
-+
-+	if (ts->gesture_enabled) {
-+		disable_irq(client->irq);
-+		mutex_lock(&ts->lock);
-+		disable_irq_wake(client->irq);
-+
-+		/* Exit Wakeup Gesture Mode */
-+		ret = syna_set_dynamic_config(ts, SYNA_DC_IN_WAKEUP_GESTURE_MODE, 0);
-+		if (ret)
-+			dev_warn(dev, "failed to disable wakeup gesture mode: %d\n", ret);
-+
-+		/* Restore normal touch report layout */
-+		ret = syna_exec_command(ts, SYNA_CMD_SET_TOUCH_REPORT_CONFIG,
-+					ts->normal_config,
-+					ts->normal_config_len);
-+		if (ret)
-+			dev_warn(dev, "failed to restore normal report config: %d\n", ret);
-+
-+		ret = syna_read_touch_report_config(ts);
-+		if (ret)
-+			dev_warn(dev, "failed to read touch report config: %d\n", ret);
-+
-+		ts->gesture_enabled = false;
-+		ts->suspended = false;
-+		enable_irq(client->irq);
-+	} else {
-+		mutex_lock(&ts->lock);
-+
-+		/* Wake up controller from deep sleep */
-+		ret = syna_exec_command(ts, SYNA_CMD_EXIT_DEEP_SLEEP, NULL, 0);
-+		if (ret) {
-+			dev_warn(dev, "failed to exit deep sleep (%d), recovering...\n", ret);
-+			ret = syna_reinit_hw(ts);
-+			if (ret) {
-+				dev_err(dev, "failed to recover controller: %d\n", ret);
-+				mutex_unlock(&ts->lock);
-+				return ret;
-+			}
-+		}
-+
-+		ts->suspended = false;
-+		enable_irq(client->irq);
-+	}
-+
-+	mutex_unlock(&ts->lock);
-+
-+	return 0;
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(syna_tcm_pm_ops, syna_suspend, syna_resume);
-+
-+static const struct i2c_device_id syna_tcm_i2c_id[] = {
-+	{ "synaptics-tcm" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, syna_tcm_i2c_id);
-+
-+static const struct of_device_id syna_tcm_of_match[] = {
-+	{ .compatible = "syna,s3908" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, syna_tcm_of_match);
-+
-+static struct i2c_driver syna_tcm_i2c_driver = {
-+	.driver = {
-+		.name = "synaptics-tcm-i2c",
-+		.of_match_table = syna_tcm_of_match,
-+		.pm = pm_sleep_ptr(&syna_tcm_pm_ops),
-+	},
-+	.probe = syna_probe,
-+	.id_table = syna_tcm_i2c_id,
-+};
-+module_i2c_driver(syna_tcm_i2c_driver);
-+
-+MODULE_DESCRIPTION("Synaptics TouchComm I2C touchscreen driver");
-+MODULE_AUTHOR("Vsevolod Nevorotov <sevanevorotov29@gmail.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0
+SGkgSWxwbywKClRoYW5rcyBmb3IgdGhlIHJldmlldy4KCkknbGwgZHJvcCB0aGUgc2VyaWFsX3Bv
+cnRfb3V0KCkgaGVyZSBhbmQgb25seSBrZWVwOgoJdXAtPmllciB8PSBkLT5wZGF0YS0+aWVyX21h
+c2s7CnNvIEVUT0kgc3RheXMgaW4gdGhlIHNoYWRvdyBhbmQgc2VyaWFsODI1MF9zZXRfaWVyKCkg
+cHJvZ3JhbXMgdGhlCmhhcmR3YXJlIGxhdGVyLgoKQmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0
+IDIwMjYtMDktMTAgMTY6NDQ6MzUsICJJbHBvIErDpHJ2aW5lbiIgPGlscG8uamFydmluZW5AbGlu
+dXguaW50ZWwuY29tPiB3cm90ZToKPk9uIEZyaSwgNCBTZXAgMjAyNiwgTG9uZyBaaGFvIHZpYSBC
+NCBSZWxheSB3cm90ZToKPgo+PiBGcm9tOiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5j
+b20+Cj4+IAo+PiBUaGUgQW1iYXJlbGxhIENWNzUgVUFSVCBpcyBBbWJhcmVsbGEgSVAsIG5vdCBh
+IFN5bm9wc3lzIERlc2lnbldhcmUKPj4gbGljZW5zZWQgYmxvY2suIEF0IHRoZSByZWdpc3RlciBs
+ZXZlbCBpdCBpcyBjbG9zZSBlbm91Z2ggdG8gRFcgQVBCIFVBUlQKPj4gdGhhdCBhIGZ1bGwgY3Vz
+dG9tIFVBUlQgZHJpdmVyIGlzIHVubmVjZXNzYXJ5OiByZXVzZSA4MjUwX2R3IHdpdGggYQo+PiBz
+bWFsbCBwbGF0Zm9ybSBxdWlyay4KPj4gCj4+IFF1aXJrczoKPj4gLSBrZWVwIElFUiBFVE9JIChi
+aXQgNSkgc2V0IGZvciBSWCB0aW1lb3V0IGJlaGF2aW91cgo+PiAtIHNraXAgc2V0X3JhdGU7IGJh
+dWQgY2xvY2sgaXMgbWFuYWdlZCBvdXRzaWRlIHRoZSBVQVJUIGJsb2NrCj4+IAo+PiBTaWduZWQt
+b2ZmLWJ5OiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+IC0tLQo+PiAgZHJp
+dmVycy90dHkvc2VyaWFsLzgyNTAvODI1MF9kdy5jIHwgMzQgKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrKysrKwo+PiAgMSBmaWxlIGNoYW5nZWQsIDM0IGluc2VydGlvbnMoKykKPj4gCj4+
+IGRpZmYgLS1naXQgYS9kcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2R3LmMgYi9kcml2ZXJz
+L3R0eS9zZXJpYWwvODI1MC84MjUwX2R3LmMKPj4gaW5kZXggNWZiYTkxM2YzMzAxLi5iMTVkZTQw
+ZDFlMmEgMTAwNjQ0Cj4+IC0tLSBhL2RyaXZlcnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfZHcuYwo+
+PiArKysgYi9kcml2ZXJzL3R0eS9zZXJpYWwvODI1MC84MjUwX2R3LmMKPj4gQEAgLTQzLDYgKzQz
+LDkgQEAKPj4gICNkZWZpbmUgUlpOMV9VQVJUX3hETUFDUl84X1dPUkRfQlVSU1QJKDIgPDwgMSkK
+Pj4gICNkZWZpbmUgUlpOMV9VQVJUX3hETUFDUl9CTEtfU1ooeCkJKCh4KSA8PCAzKQo+PiAgCj4+
+ICsvKiBBbWJhcmVsbGEgSUVSOiByZWNlaXZlIHRpbWVvdXQgaW50ZXJydXB0IGVuYWJsZSAqLwo+
+PiArI2RlZmluZSBBTUJBUkVMTEFfVUFSVF9JRVJfRVRPSQkJQklUKDUpCj4+ICsKPj4gIC8qIFF1
+aXJrcyAqLwo+PiAgI2RlZmluZSBEV19VQVJUX1FVSVJLX09DVEVPTgkJQklUKDApCj4+ICAjZGVm
+aW5lIERXX1VBUlRfUVVJUktfQVJNQURBXzM4WAlCSVQoMSkKPj4gQEAgLTYwLDYgKzYzLDcgQEAK
+Pj4gIAo+PiAgc3RydWN0IGR3ODI1MF9wbGF0Zm9ybV9kYXRhIHsKPj4gIAl1OCB1c3JfcmVnOwo+
+PiArCXU4IGllcl9tYXNrOwo+PiAgCXUzMiBjcHJfdmFsdWU7Cj4+ICAJdW5zaWduZWQgaW50IHF1
+aXJrczsKPj4gIH07Cj4+IEBAIC01NzIsNiArNTc2LDI3IEBAIHN0YXRpYyB2b2lkIGR3ODI1MF9w
+cmVwYXJlX3J4X2RtYShzdHJ1Y3QgdWFydF84MjUwX3BvcnQgKnApCj4+ICAJZHc4MjUwX3dyaXRl
+bF9leHQodXAsIFJaTjFfVUFSVF9SRE1BQ1IsIHZhbCk7Cj4+ICB9Cj4+ICAKPj4gK3N0YXRpYyBp
+bnQgZHc4MjUwX2llcl9tYXNrX3N0YXJ0dXAoc3RydWN0IHVhcnRfcG9ydCAqcCkKPj4gK3sKPj4g
+KwlzdHJ1Y3QgZHc4MjUwX2RhdGEgKmQgPSB0b19kdzgyNTBfZGF0YShwLT5wcml2YXRlX2RhdGEp
+Owo+PiArCXN0cnVjdCB1YXJ0XzgyNTBfcG9ydCAqdXAgPSB1cF90b191ODI1MHAocCk7Cj4+ICsJ
+aW50IHJldDsKPj4gKwo+PiArCXJldCA9IHNlcmlhbDgyNTBfZG9fc3RhcnR1cChwKTsKPj4gKwlp
+ZiAocmV0KQo+PiArCQlyZXR1cm4gcmV0Owo+PiArCj4+ICsJLyoKPj4gKwkgKiBBbWJhcmVsbGEg
+a2VlcHMgdmFyaWFudCBJRVIgYml0cyAoZS5nLiBFVE9JKSBzZXQgZm9yIGNvcnJlY3QgUlgKPj4g
+KwkgKiB0aW1lb3V0IGJlaGF2aW91ci4gRm9yY2UgdGhlbSBpbnRvIHRoZSA4MjUwIElFUiBzaGFk
+b3cgc28gbGF0ZXIKPj4gKwkgKiBnZW5lcmljIElFUiB1cGRhdGVzIGRvIG5vdCBjbGVhciB0aGVt
+Lgo+PiArCSAqLwo+PiArCXVwLT5pZXIgfD0gZC0+cGRhdGEtPmllcl9tYXNrOwo+PiArCXNlcmlh
+bF9wb3J0X291dChwLCBVQVJUX0lFUiwgdXAtPmllcik7Cj4KPnNlcmlhbDgyNTBfZG9fc3RhcnR1
+cCgpIHNlZW1zIHRvIGRlZmVyIElFUiB1cGRhdGUgb24gcHVycG9zZS4gSXMgaXQgZmluZSAKPnRv
+IG92ZXJyaWRlIHRoYXQgYmVoYXZpb3IgaGVyZT8KPgo+LS0gCj4gaS4KPgo+PiArCXJldHVybiAw
+Owo+PiArfQo+PiArCj4+ICBzdGF0aWMgdm9pZCBkdzgyNTBfcXVpcmtzKHN0cnVjdCB1YXJ0X3Bv
+cnQgKnAsIHN0cnVjdCBkdzgyNTBfZGF0YSAqZGF0YSkKPj4gIHsKPj4gIAl1bnNpZ25lZCBpbnQg
+cXVpcmtzID0gZGF0YS0+cGRhdGEtPnF1aXJrczsKPj4gQEAgLTYwNiw2ICs2MzEsOCBAQCBzdGF0
+aWMgdm9pZCBkdzgyNTBfcXVpcmtzKHN0cnVjdCB1YXJ0X3BvcnQgKnAsIHN0cnVjdCBkdzgyNTBf
+ZGF0YSAqZGF0YSkKPj4gIAkJcC0+c2VyaWFsX2luID0gZHc4MjUwX3NlcmlhbF9pbjMyOwo+PiAg
+CQlkYXRhLT51YXJ0XzE2NTUwX2NvbXBhdGlibGUgPSB0cnVlOwo+PiAgCX0KPj4gKwlpZiAoZGF0
+YS0+cGRhdGEtPmllcl9tYXNrKQo+PiArCQlwLT5zdGFydHVwID0gZHc4MjUwX2llcl9tYXNrX3N0
+YXJ0dXA7Cj4+ICB9Cj4+ICAKPj4gIHN0YXRpYyB2b2lkIGR3ODI1MF9yZXNldF9jb250cm9sX2Fz
+c2VydCh2b2lkICpkYXRhKQo+PiBAQCAtODc5LDYgKzkwNiwxMiBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGR3ODI1MF9wbGF0Zm9ybV9kYXRhIGR3ODI1MF9pbnRjMTBlZSA9IHsKPj4gIAkucXVpcmtz
+ID0gRFdfVUFSVF9RVUlSS19JRVJfS0lDSywKPj4gIH07Cj4+ICAKPj4gK3N0YXRpYyBjb25zdCBz
+dHJ1Y3QgZHc4MjUwX3BsYXRmb3JtX2RhdGEgZHc4MjUwX2FtYmFyZWxsYV9jdjc1X2RhdGEgPSB7
+Cj4+ICsJLnVzcl9yZWcgPSBEV19VQVJUX1VTUiwKPj4gKwkuaWVyX21hc2sgPSBBTUJBUkVMTEFf
+VUFSVF9JRVJfRVRPSSwKPj4gKwkucXVpcmtzID0gRFdfVUFSVF9RVUlSS19TS0lQX1NFVF9SQVRF
+LAo+PiArfTsKPj4gKwo+PiAgc3RhdGljIGNvbnN0IHN0cnVjdCBkdzgyNTBfcGxhdGZvcm1fZGF0
+YSBkdzgyNTBfdWx0cmFyaXNjX2RwMTAwMF9kYXRhID0gewo+PiAgCS51c3JfcmVnID0gRFdfVUFS
+VF9VU1IsCj4+ICAJLmNwcl92YWx1ZSA9IEZJRUxEX1BSRVBfQ09OU1QoRFdfVUFSVF9DUFJfQUJQ
+X0RBVEFfV0lEVEgsIDIpIHwKPj4gQEAgLTg4OSw2ICs5MjIsNyBAQCBzdGF0aWMgY29uc3Qgc3Ry
+dWN0IGR3ODI1MF9wbGF0Zm9ybV9kYXRhIGR3ODI1MF91bHRyYXJpc2NfZHAxMDAwX2RhdGEgPSB7
+Cj4+ICB9Owo+PiAgCj4+ICBzdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBkdzgyNTBf
+b2ZfbWF0Y2hbXSA9IHsKPj4gKwl7IC5jb21wYXRpYmxlID0gImFtYmFyZWxsYSxjdjc1LXVhcnQi
+LCAuZGF0YSA9ICZkdzgyNTBfYW1iYXJlbGxhX2N2NzVfZGF0YSB9LAo+PiAgCXsgLmNvbXBhdGli
+bGUgPSAic25wcyxkdy1hcGItdWFydCIsIC5kYXRhID0gJmR3ODI1MF9kd19hcGIgfSwKPj4gIAl7
+IC5jb21wYXRpYmxlID0gImNhdml1bSxvY3Rlb24tMzg2MC11YXJ0IiwgLmRhdGEgPSAmZHc4MjUw
+X29jdGVvbl8zODYwX2RhdGEgfSwKPj4gIAl7IC5jb21wYXRpYmxlID0gIm1hcnZlbGwsYXJtYWRh
+LTM4eC11YXJ0IiwgLmRhdGEgPSAmZHc4MjUwX2FybWFkYV8zOHhfZGF0YSB9LAo+PiAKPj4gCg==
 
