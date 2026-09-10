@@ -1,175 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8ED3C3F67
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:40:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558FA35202C;
+	Thu, 10 Sep 2026 09:40:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033241; cv=none; b=IS69HhdSSejyAkaubGSt9iJfJzZBtMc3j/3Q+DYOT7S9hx5w1juy7sGN2oKxbxc0+3q2SJaYDNu7+P+9/E5v5PYr11IobSb7paBoS0epvyvbwyBNvBw/BxJEmEqi7nIB9G12N93HZEQ3OXZPAtH4qROvrYeVGlNTlBQulGRnhXM=
+	t=1789033241; cv=none; b=ba1LvnuBhj4H4rDf78YHDRp0fvtPeVDHvVC7GjFeNho4k+BPCKyM8ARFY++oBviCxGJ58FQTxTFJhyk48BbO//orwUZ1tDDXAUogjO1YKFW64EHqVRb7M+oXJZZ5zZfngHK/iW5tJyBykA2OYm7BQdhbJkoID0yn/KkbTuz+krQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789033241; c=relaxed/simple;
-	bh=Ztj/TRgtePNFTKSn8FPj3Xks9t6QJdEhmDQUZHSi5Qk=;
+	bh=LR/vQ0CDduJgW1fBLWeOzTEltBus4xw83JGNL+OnNfQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Bu8cZfwCzQWj+WDbAZSSe7AlCEiue0/kOwDYMGDJNPpPCSBe5EXA48pZlgPqsTbDcpLEv0/3Aoi1Q5UyCXAL2hK0CmsLZ6+8CuphfGouAb9+vbCLVvZ/pYDpRvVJ5RR5dnq9bIHN7PgaHDbAhZzFSKzK4sDsckzUsRdBy078r68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJmbuNz7; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=s6+i7ZH4pnidsPTer08ZXLOT6puoP0um+KH1bQpa3fGcIAJ0MpfUqodsKnUIhbqCJuCrpqhnDEH0/z2YeCHofuMLKeRg+LTMyePkUscQySdbQHtdI83wpnUNGXcRf0Z4L6ggeBeLkpCA+iB73ZlrSDWG1WxM3vG614QXWV6x+lU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F6Sx++Qr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJmbuNz7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D43B1F00893;
-	Thu, 10 Sep 2026 09:40:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F6Sx++Qr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F6C71F00898;
+	Thu, 10 Sep 2026 09:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789033236;
-	bh=AblW3HlTcp2X4Z5WQJdWAiSLo3aOKERwFEQ7DNGb/ec=;
+	s=k20260515; t=1789033237;
+	bh=LR/vQ0CDduJgW1fBLWeOzTEltBus4xw83JGNL+OnNfQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SJmbuNz7WTDohsb9LlJdSIA4T3Iwlqm5d/cnr7NNoZ/cZ92YpeTDFEmUsJqvCGqfR
-	 za57psQLY6k54BwvjVAhXP1WBxPbf+g7l3M/qeMVZF0nOzBBJreA4Ho88OeX1+5muh
-	 eg7PDIROLPLmLp6XkzojuhyK6JGe5/tQsM9HOqhOVDyn+JoVrBkc5WQaVTwPJynSN4
-	 CHS2HBKz4T8oSBcSgvDTxX2u9qDuyyTQ3R2NuhhHs35iK61JoGX2ADifXgCahdnyVf
-	 NQmBXM0MVMaVvdwyfI3/iTlZIRvb581Lg5t0kWgbTVgPc+Ks4dC33rA9pXS+xCxCAN
-	 nyOx1jfVXgbSw==
+	b=F6Sx++QrsyPB78aiwkmCljpoaJqlXsyUm7qxBrj4o5dXWgNls4ctOUyswQVaAPV6u
+	 ZCVBrFg0WvRB1OLwfndUlKvtYBD7KiWPL459suqQ+JJBwU3hU2GmIc9M4e9Q5HSz/q
+	 q7VXpkb+73MR6vqMHgA5S1EkF+GHcxLDoly6ogSPSpxWnGN+oXvxBfKdJC6Shomkxe
+	 +7wwN3oDkRaQM09YEAvdbs3mUFN/cX5fhQtXVpFw5vX8QjFKlKPb+hztc8mRzdEkPB
+	 Y1YkVAPaT7U0ntBGbOfFFV5voICNENPHaFP/ekNqorVqxFZ+wxpsqNPXSvUkIyZ/70
+	 EC+q2vRP0V8xw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/12] phy: phy-mtk-dp: Migrate register offsets to
- SoC specific pdata
+Subject: Re: [PATCH v7 2/5] mfd: axp20x-i2c: Fix i2c instantiation
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
-Cc: robh@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260910092038.48291-5-angelogioacchino.delregno@collabora.com>
-References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
- <20260910092038.48291-5-angelogioacchino.delregno@collabora.com>
+To: "Jerome Brunet" <jbrunet@baylibre.com>
+Cc: lee@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20260910-axp318-regulator-v7-2-de720ceb9bac@baylibre.com>
+References: <20260910-axp318-regulator-v7-0-de720ceb9bac@baylibre.com>
+ <20260910-axp318-regulator-v7-2-de720ceb9bac@baylibre.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 09:40:35 +0000
-Message-Id: <20260910094036.3D43B1F00893@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 09:40:36 +0000
+Message-Id: <20260910094037.3F6C71F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+> Apparently this device never really supported i2c instantiation via
+> sysfs, because the driver does not even look at the i2c device data,
+> which are not set. It would only probe if the device matched through DT.
+>=20
+> Fix that for correctness, even-though it is probably useless.
+> Add the missing AXP323 while at it.
+>=20
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/r/20260717090209.2A09B1F000E9@smtp.kernel=
+.org
+> Fixes: 41751b033aaa ("mfd: axp20x-i2c: Add i2c-ids to fix module auto-loa=
+ding")
+> Acked-by: Chen-Yu Tsai <wens@kernel.org>
+> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
 
-New issues:
-- [High] Missing NULL check for `device_get_match_data()` leads to a NULL p=
-ointer dereference on manual sysfs bind.
-- [High] Overlapping devicetree reg property and hardcoded offset prevents =
-successful DT probe.
-
-Pre-existing issues:
-- [High] Potential NULL pointer dereference when accessing `dev->platform_d=
-ata` prior to validation.
---
-
-commit 6b41d18c7c7f31b8549b66b4262af72e2486491d
-Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-
-phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
-   =20
-In preparation for adding support for newer SoCs and for adding
-more capabilities to this driver in an efficient manner, migrate
-all of the hardcoded register offsets to SoC specific pdata and
-assign that for both DT and platform probing.
-
-> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
--mtk-dp.c
-> index d241004e28286..20974650d9409 100644
-> --- a/drivers/phy/mediatek/phy-mtk-dp.c
-> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-[ ... ]
-> @@ -170,12 +241,19 @@ static void mtk_dp_phy_legacy_remove_lookup(void *d=
-ata)
->  	phy_remove_lookup(phy, "dp", dev_name(dp_phy->dev));
->  }
-> =20
-> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data;
-> +
->  static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
-mtk_dp_phy *dp_phy)
->  {
->  	struct device *dev =3D &pdev->dev;
->  	struct phy *phy;
->  	int ret;
-> =20
-> +	/*
-> +	 * If legacy platform driver probe, assume this is MT8195 or compatible
-> +	 * with a devicetree that was not migrated to the new, proper bindings.
-> +	 */
-> +	dp_phy->pdata =3D &mt8195_dp_phy_data;
->  	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
->  	if (!dp_phy->regmap)
->  		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this dereference
-dev->platform_data before checking if it is NULL?
-
-If the driver is manually bound via sysfs or a module without platform data
-provided, it looks like it would crash immediately here:
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_legacy_probe() {
-    ...
-	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
-	if (!dp_phy->regmap)
-		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
-    ...
-}
-
-[ ... ]
-> @@ -235,6 +313,8 @@ static int mtk_dp_phy_probe(struct platform_device *p=
-dev)
->  	if (ret)
->  		return ret;
-> =20
-> +	dp_phy->pdata =3D device_get_match_data(dev);
-> +
->  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
->  	if (IS_ERR(phy))
->  		return dev_err_probe(dev, PTR_ERR(phy),
-
-[Severity: High]
-Could this result in a NULL pointer dereference?
-
-If the driver is manually bound (e.g., via driver_override in sysfs) to a
-device that possesses an of_node but does not match any entry in
-mtk_dp_phy_of_match, device_get_match_data() will return NULL.
-
-This NULL pointer would later be dereferenced when accessing dp_phy->pdata
-in mtk_dp_phy_init().
-
-[ ... ]
-> @@ -249,8 +329,15 @@ static int mtk_dp_phy_probe(struct platform_device *=
-pdev)
->  	return 0;
->  }
-> =20
-> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data =3D {
-> +	.off_dig_glb =3D 0x1000,
-> +	.off_dig_lane =3D (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
-> +	.regs_dig_glb =3D mt8195_phy_dig_glb_regs,
-> +	.regs_dig_lane =3D mt8195_phy_dig_lane_regs,
-> +};
-> +
-
-[Severity: High]
-Will these hardcoded offsets prevent a successful devicetree probe?
-
-The driver maps its devicetree reg resource using
-devm_platform_ioremap_resource() in mtk_dp_phy_probe():
-
-drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
-    ...
-	base =3D devm_platform_ioremap_resource(pdev, 0);
-	if (IS_ERR(base))
-		return PTR_ERR(base);
-    ...
-}
-
-If the DT reg maps the specific PHY region, the driver will still add
-0x1000 to the mapped base, accessing unmapped physical memory.=20
-
-If the DT reg maps the entire DP controller region to make the offsets work,
-devm_platform_ioremap_resource() will fail with -EBUSY because the parent DP
-driver already holds the request_mem_region lock.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910092038.4829=
-1-1-angelogioacchino.delregno@collabora.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-axp318-reg=
+ulator-v7-0-de720ceb9bac@baylibre.com?part=3D2
+
