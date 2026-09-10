@@ -1,62 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 162F63C277B;
-	Thu, 10 Sep 2026 08:38:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C2203CE0B4;
+	Thu, 10 Sep 2026 08:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789029487; cv=none; b=LyUPFJXxyR+FJleUqgsaMhuakcdNN7s/6NhRRts+A2vTZjkK1J9WooyNrYueyE9FdkCV88MV82q1bLWHRnkvvhVdocaawAunWEdzckPL0O5R7tN0dcrNmOMdw7BqjgT5ER5eCVMw2JogTwFSL1ILZ654DhkkJhOnuHZ9tHcOLMA=
+	t=1789029889; cv=none; b=dE2Kq7OQGdqo9TPgANfTrmqqINuPZdv0H5cECsgjMMj4nkRm5brKn3NFviup4ymTF395qLsXCNSJJ63AmMQO/XFd/HrNPzsZwhZDghff8uaN6uHBF4uSegCERKKVmxVws2V53AgCetCOSr6cwFOgOZvbALZJqFIidnKx4SOAmNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789029487; c=relaxed/simple;
-	bh=yOOXWXHM2+5YroYJ2g1ayyRggEFN5VM6tshAWAfszyI=;
+	s=arc-20240116; t=1789029889; c=relaxed/simple;
+	bh=6steEaS+aSY98rjuCle32JR/iEK4/3aZjQXaMN98YL8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J21bTT86lHCsSOZtMeRIHnF91RK1EbYXpjCYQnS557VPjETmCrClc6s4ItZCtStwP2N2GZkeEuZPIJ2L0lQratEVSN/zhhdqj49j+tUO5+0PZDNwOyFI45PcDyX0yQ1pMax+9rNHp+aBPLxUVSrvcXMu/Eo2xz8gVaev0EuG59Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dqDayxOB; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Pf8Q+GD6GElXc8KCSQMnPTDRmvEA2m7svWsYLsfW83QU3/We+o2f5yxs9I2xuCf79fAeVcRPUKssbgNAcqiVdW93O24Wwz58hqfkgjCkuKY3jJrmCu0vnKVk+HyTudAh/am58Hu1nvogJr9G6s9Kg7DoH5gSrgYA/whnSK/rtVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=orqnU6VV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dqDayxOB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1C261F000FF;
-	Thu, 10 Sep 2026 08:37:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="orqnU6VV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB4C1F000FF;
+	Thu, 10 Sep 2026 08:44:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789029478;
-	bh=EZGyD4HcrjDRUcR2xnLZUcoNWJUpQvPh9c9ez8Kckcc=;
+	s=k20260515; t=1789029888;
+	bh=Z6byc5daEPIFpWPF0nVQCstwhnFg/6jrnpDZCl6MYkY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dqDayxOBxh7RZhoahGQfIr5nqGXH1m09RD+JiuwnolPYrMt+KHGlvS9sqRNJrXINB
-	 AQ2AARvY1wPptsSFIQ4l/Mp6QDdD4MsSgiKeO5MuXqRMSmSZTY5eIt/faPDLK8jtQA
-	 KGAn403hcc0XarQhKfmXw5n5QfIxqO1LREKhekOND+u4NjMteJlota8eMUE+bPD6bO
-	 9SM8b6qVaEhkHHeZxrpmGfP/uTOBj4hTNR6CSPKaatn7SIg23PURpI/HPDRlt5yOP7
-	 8VS2JFKZEcCb/Wgds0zeLjWin3qqBM+h7QUWvcJlWtu3taZkeWKWkCu26ah+Pz81Lo
-	 LVrIAcdhmb+oQ==
-Date: Thu, 10 Sep 2026 10:37:55 +0200
+	b=orqnU6VV4icNRRtzJ/FJcCepKryxrvY/QYdmWEcZXQ79iSyDpdnIvtPv2FuWOSyyB
+	 AxdSpxKrX1xjIeRX7l6ehjP/l0E8mua6D9w0Hf7MZ1D9wm569p2fJbnQHgr87wNjIS
+	 Fjcu6EAV0W4gMJQYplo94xNSzowXWOmK8CNvBEi/8w6tD4UpR28rh7f9kK0IKQUOqv
+	 N3Nm955PlQnKPZaCkJJcEYMxAdafV6Sv9xhUcq45CeFJWi+dzOt9OseI+yAstOIESf
+	 nynUUAtyHyys6p5hl3WEPx2+wowGQ4IUwkSbbmRIgGNDFQS0s9ns0bujqb8ELq9WKY
+	 qc8ILTBSiCS0Q==
+Date: Thu, 10 Sep 2026 10:44:44 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing <kernel@esmil.dk>, 
-	Hal Feng <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-riscv@lists.infradead.org, Andy Yan <andyshrk@163.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Maud Spierings <maud_spierings@murena.io>, 
-	Graham Markall <hello@big-grey.co.uk>, Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH v3 18/19] riscv: dts: starfive: jh7110: Update DT for
- display subsystem
-Message-ID: <20260910-determined-fantastic-seriema-3ff701@quoll>
-References: <20260904-jh7110-clean-send-v3-0-484f9ae72715@samsung.com>
- <CGME20260904132743eucas1p1e02218d3fb38af95c3dd4bfa24904cab@eucas1p1.samsung.com>
- <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
+	Bryan O'Donoghue <bod@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH v6 02/13] dt-bindings: media: qcom,x1e80100-camss: Make
+ vdd-csiphy supplies optional
+Message-ID: <20260910-zippy-abiding-anteater-a5f1bb@quoll>
+References: <20260906-x1e-camss-csi2-phy-dtsi-v6-0-067f2ecc4630@linaro.org>
+ <20260906-x1e-camss-csi2-phy-dtsi-v6-2-067f2ecc4630@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -65,35 +49,20 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260904-jh7110-clean-send-v3-18-484f9ae72715@samsung.com>
+In-Reply-To: <20260906-x1e-camss-csi2-phy-dtsi-v6-2-067f2ecc4630@linaro.org>
 
-On Fri, Sep 04, 2026 at 03:27:19PM +0200, Michal Wilczynski wrote:
-> diff --git a/arch/riscv/boot/dts/starfive/jh7110.dtsi b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> index 9c3e4598747eb5541effe697044484715569a285..0f981f4c89586269b987be8591037c9461e04703 100644
-> --- a/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> +++ b/arch/riscv/boot/dts/starfive/jh7110.dtsi
-> @@ -290,12 +290,6 @@ gmac1_rmii_refin: gmac1-rmii-refin-clock {
->  		#clock-cells = <0>;
->  	};
->  
-> -	hdmitx0_pixelclk: hdmitx0-pixel-clock {
-> -		compatible = "fixed-clock";
-> -		clock-output-names = "hdmitx0_pixelclk";
-> -		#clock-cells = <0>;
-> -	};
-> -
->  	i2srx_bclk_ext: i2srx-bclk-ext-clock {
->  		compatible = "fixed-clock";
->  		clock-output-names = "i2srx_bclk_ext";
-> @@ -352,6 +346,13 @@ tdm_ext: tdm-ext-clock {
->  		#clock-cells = <0>;
->  	};
->  
-> +	xin24m: xin24m {
+On Sun, Sep 06, 2026 at 03:20:47PM +0100, Bryan O'Donoghue wrote:
+> The vdd-csiphy supplies power the CSIPHY blocks. CSIPHYs may be
+> described as standalone phy nodes carrying their own supplies, in which
+> case the CAMSS node has none. Make the supplies optional; existing DTS
+> remain valid.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>  Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml | 2 --
+>  1 file changed, 2 deletions(-)
 
-Other clocks are called foo-clock, so follow this as well (even though
-it does not follow recommended practice of clock-foo, but at least some
-consistency).
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
