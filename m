@@ -1,209 +1,115 @@
-Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E0064718C2
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 21:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131E44718C0
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 21:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789076331; cv=none; b=eo56vi+lFN2+PWWHCU73CLmfJbcN6LYJHEUuPGtFXCGGNWP3CgCs5aMVES0odn0Y8rXu27QgHotjNhX03hgWWewZc765PqdcSkUCEcpeYg44AMuBD9vFGox7CnN3yBrcqoaB7ja8FHGxnUNiux/+DueBgIT6ptwDsztmKJPEyU0=
+	t=1789076339; cv=none; b=Kk+DVft9MOU57ql2a5K1Oha8zqQ7mGd6ELQ4mDodRkcFLn2e785UjMy49mAq+zb2TeFoPyCCY7/IrmN8V1dmdDUPJA71SVfKtdg3p3UpBGEABL9ieCwHTG3AJFz2B8kpGfi4H2qFpXjUx2yYlEVqE3OxEZexO60GtY6n2WNkgYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789076331; c=relaxed/simple;
-	bh=TwF73I4ajjLYWDOyxKhP4935d9YqmNdNbY7Jf4XSCb8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cQZDGZ8V5vyc+25SACfLUm/sJIGPB/OPql+vLskK9j/3L9lvOLLQoIUFC+44aJ64cFTS7M2YJjwQZFVnk1jK9Om0gmqGiVIc3TGxIZF+Oz1BDRHTOfKkidtCxEXjQD+/1RKfg1bm4C9sPukyTl8EK6He3LGUBsDr1SzEPXLccLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=i5NOCd1k; arc=none smtp.client-ip=209.85.167.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789076339; c=relaxed/simple;
+	bh=IhoXtIPy27R9nmeBtoMiaiTsuzKkKC2i/cZ0nUhc11o=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:Cc:
+	 References:In-Reply-To; b=olUxRRUl18/avadFHroGVwGiHyu5dZVr2OXdtrTkvlLdgT6rI/UDT4W33jvtYGTtWinr5mP++wH1Ygk4tHc54HqDCfDdIkP3OoUY7nZgNx4T+easq/DhOrTxiEW8m8vLMOA3jZruJDAZzzQw4/sxac44qei/6Dr67WgsP9bGEQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Pqm5a8R0; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="i5NOCd1k"
-Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4b39befc6a8so229992b6e.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:38:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Pqm5a8R0"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so2834325e9.2
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:38:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789076328; x=1789681128; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TdEmSJjF4d66nV7pT4E9U+BV4p4vFJmFBRk0ViaHxC0=;
-        b=i5NOCd1kwtZAR70O/ZCm6dl1q4/scC/5Uta763/1v/+HtAPF6asAuoaFSUzlrvrQ1D
-         lsrGMLFvd9Qt/WljoeloD5FKKUuHGrTCJTciQ8kKJSchGYc03WXZmV+3zrR1HTySpFz/
-         zu7ZuCzzAdFLaEsy0UlELVmH3zpoLYADLCUuoalPNLqJpYE8rmo7vGqljBoCqRXekL07
-         iJfb4GqQFD3AoAD2AQjnTisitFuKw1EBWZq+XhzGzdRfapCh6P8uW5YE/om8MLSdLmlM
-         PmnSvTdt4bh83fTAvkejZFrfhPjSh4HfT9qpOfnUhTUasNacwK3INtBuTJflk+ycEeJu
-         6h9w==
+        d=linaro.org; s=google; t=1789076336; x=1789681136; darn=vger.kernel.org;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=0occsfLmodcsn9s1z8E/JBq4kBSFx1YK4S42OPyg7Rc=;
+        b=Pqm5a8R0mXbgsDDL/O2/yW2btDZvs0/DjC75To+H/bi1ZD9Y2sdE212B0dvDbj2H+L
+         L9eJV2i7ByR1aMWxud2SJnCkbUChCZzAdR72vxUFoHx5Wt+vvbd3d2aqAthw7nysFL9r
+         4V24TvlahaaGRM8NrCPUuQTHipOOlJz8UflPAY4kdmcszc6rKeRy+UDZ9JUlAfU5TpSn
+         8YD0sFf0uepyqOL4dDU4kEW/t5DRGJ3JzWu7sVYi+ar6w+APWvOqmPvtqUGhHJ1cMYD4
+         +4/vi7qgC+GiPZuqygcxp9ePvpjpUJYuUgYSs0E+hXV4VGa/m/4dsAPbzXFax3t9V+N3
+         gK2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789076328; x=1789681128;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TdEmSJjF4d66nV7pT4E9U+BV4p4vFJmFBRk0ViaHxC0=;
-        b=FKF/mqcaeRRYDsaI7WKrot4RUKTBeaA16kyGw0p5EliRtIrwPuZckfA/raPlvNCTOD
-         XUw5rNEqhW3+TKm6bzerInPLtywcoeIIGMtaSdwK9qVpeOGYhJP8zAswE0SN3V4oHyLk
-         VAkDEZGdjSdsc1U7hBV11J7rtoMNuanQxfPId89zJfnEmsbEhuVqrCw/JWk6yEwnSiCH
-         WvD0C6nTZP3+uiH42CFDiYc4Aj2GGVs80pQ2ivWdZL5MksZh/YHC0xScVyWKdHjtfPRy
-         EeVIJgaxWPwm4ALoJ+wAZV9eJAISXZ65ITq+mNT2C62PzmjJDdTy9DOl2dJbxh8jyaQp
-         T1xg==
-X-Forwarded-Encrypted: i=1; AKwUvBzcRvfUX1Rp2aJGuiQk4vvZFwv9kP9Ibow7bMGw8rTSovcsiPU2uBNWu9IbOOMk/SEat5Vq/UVr4t8C@vger.kernel.org
-X-Gm-Message-State: AFuF++kZDMk/IReWn/3yx7g+DAKgKnQqMOn2P78CplbNJpnP8OGdnNyA
-	N+XBRr6uom8AH38uQ8OXnYwPu9Mo+eW0cHfEE0ad4l+PL2RcMj8E4jH7FzQNhquQzrM=
-X-Gm-Gg: AYBFou0IWTXK5d8PvJ7E+t6kmpwlhftZJj5gVohRnmQU+Nat8rzaFZ4ykkZZwUyesIA
-	wT/AJrDFaTjo4DwOPihJnTiFaZERVzD4siV0oxTfgZglqR5N1t3mXJ893V9rSLqU/E5B16bMZfv
-	z6M9ND39tvNw0bsFfBUlelqC+n9qeKHjbOioiQ0sImZIbq9zr/FynXmSTKP8NwGEVNQQby39X1a
-	n9i39kPdUM4dpYBP4tj/ju1eJ3/MDbkfAh7MiLTP3WbcMajlPh+vXtij0rUqZHpQlIT5+VRgeqe
-	y/7hFA+jArOcC05RHQhZTZv2D1NYpG+zyZeqXZg34yoHQBbpb4NWkMLY4WzW61q3Ik/GA9l9rI0
-	eWjcpNBOsDb2konYCH608p2rnd2QfHoQAptzK6CmD8I3H6/KZnAaGAnBrCbFqzlfdjUjs5X+0co
-	Lu7HA9CdEnZ0XAILKJulZUuc+qmVcxUZ3cnZnOA6fyCndutZCqoOuEYOR0LsdWiuOe807ooD4nI
-	zuSjc8ukhTNyzgp/d9l7ToIAWuWSWo0tgZQHybqGI7NEJB5yB4=
-X-Received: by 2002:a05:6820:997:b0:6be:47ed:f3f8 with SMTP id 006d021491bc7-6c0b5ff5c8cmr733298eaf.0.1789076328077;
-        Thu, 10 Sep 2026 14:38:48 -0700 (PDT)
-Received: from ?IPV6:2600:8803:e7e4:500:fbf1:d0da:69e0:11a0? ([2600:8803:e7e4:500:fbf1:d0da:69e0:11a0])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c095e17791sm1189487eaf.2.2026.09.10.14.38.46
+        d=1e100.net; s=20251104; t=1789076336; x=1789681136;
+        h=in-reply-to:references:cc:to:from:subject:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0occsfLmodcsn9s1z8E/JBq4kBSFx1YK4S42OPyg7Rc=;
+        b=Hmf/tNDOKMQCwzUAcqXk41Tj2etuoL3+m1mJ00WsDs2bjzRiOS2hhbxVDw9+k7EVWt
+         sLgAHejkHG3RpF/EadxcWHcWcvUKfx0rIIKPGKBub0yNK0ygpTg0R/7sxbyzfeMqly3M
+         Sw10q6+XjbwEx4+cvbsi3jz4RpugBEB6OGFM3tO7cF4iT7xBM1xG3//XyXtCOdM3tOTz
+         HxoNdLmUZRRjUdAhV5JKr3pNSB/f+B2KEeSmaDGlkWDTXpQ1yE+LqSPEWS8d/cT/MFR/
+         GLkct71NKF7yH/TmuSo6KtMHt/e2igfmT00kG7Ryok/6kmBsuY9+9zrYAvh8YYDh8HPB
+         OCNQ==
+X-Forwarded-Encrypted: i=1; AKwUvByFW00WLFsAEsg3AxYZwpnDUPi8ssODJJlcYh0pgakpLM3IFJWqHNyaNo5fn3t61TGJIdDB1vHoLyuP@vger.kernel.org
+X-Gm-Message-State: AFuF++n7N5fO+XbcQZSbln/pQtBNh7rY1ArxcaEzTJw8XOrCDqWJ3Oge
+	soAWANc0iVOdhQyCRHW3izSuDd/W9BbL2bogJ447BiaMvbPwRkD9rpBN4YtFQtiH22g=
+X-Gm-Gg: AYBFou3GJc0P0sbhQ3MigNrF5qnOR0cYEOjb2dVIQiDFmrHgmNFyX9Fqkllkd79ib4u
+	OK9x5rxr0uoFIBPaV/EmrpdcCrR3V5BjvWZtoN3KvWiqtgdrprT1JNYtIpKWlwEuZeNJLCTpJZa
+	6be6xiAsq7++87T/Hfgio3Cp1PLTFH5d7+Nwb76Ffr8WZuAoe2r5LapNoKEtzsGy9RsRsOZRJQJ
+	V0NGjAsOti/u02IxEy5HkBFzDn6AN9mNOih5gO5xUPgtsPuZ7SJPUaiHPd41k0kAL70e20adiCO
+	pA6CmGO4f3aP+lEOZ8yg5JhBfS7ZRsyEB03W7FodBTEjJGLvbzeT85sqtQqw2uBP+ttGRDmveVs
+	UIG3/LmmuhXDoatNzVQlbZON67X4FNETdqcMepp+a68xdGpZfj9C6U7FImmkaaX6uNbVaueNCJ8
+	oBYAiVu35C9qruv+g9c1P76XqvU7i+/TjvHgJbnROmM4ixZvqg9BYahXFXrAtmUe56uvlbqTe0A
+	nzLMVN4K+uBEOyFzjMmWwMgM8pweFm0VPNw4ImV9sERBP2moV/y7TDFueQe
+X-Received: by 2002:a05:600c:1385:b0:49e:2a61:a17b with SMTP id 5b1f17b1804b1-49e619a0905mr8799185e9.5.1789076335948;
+        Thu, 10 Sep 2026 14:38:55 -0700 (PDT)
+Received: from localhost ([94.4.85.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e62227071sm4434585e9.3.2026.09.10.14.38.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 14:38:47 -0700 (PDT)
-Message-ID: <0505ad77-8ae8-44bb-88b8-210f5cba023f@baylibre.com>
-Date: Thu, 10 Sep 2026 16:38:46 -0500
+        Thu, 10 Sep 2026 14:38:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 03/10] iio: adc: add the ti-ads1262 driver
-To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260828-ads126x-v4-0-1dc27e9c0260@gmail.com>
- <20260828-ads126x-v4-3-1dc27e9c0260@gmail.com>
- <bc00d888-9944-4a22-88e3-8f4d7384d037@baylibre.com>
- <DL8IE3OUIUZ4.2SND39L7P03VL@gmail.com>
-Content-Language: en-US
-From: David Lechner <dlechner@baylibre.com>
-In-Reply-To: <DL8IE3OUIUZ4.2SND39L7P03VL@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Thu, 10 Sep 2026 22:38:53 +0100
+Message-Id: <DLBYMPDTOM7N.3I07C9Q0IJJ19@linaro.org>
+Subject: Re: [PATCH v3 0/2] Exynos850 ACPM SRAM devicetree node
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Sam Protsenko" <semen.protsenko@linaro.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>
+Cc: "Peter Griffin" <peter.griffin@linaro.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Alim Akhtar" <alim.akhtar@samsung.com>, "Tudor
+ Ambarus" <tudor.ambarus@linaro.org>, <linux-samsung-soc@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: aerc 0.21.0
+References: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
+In-Reply-To: <20260727-exynos850_sram-v3-0-8627a49188ec@linaro.org>
 
-On 9/6/26 3:17 PM, Kurt Borja wrote:
-> On Mon Aug 31, 2026 at 5:22 PM -03, David Lechner wrote:
->> On 8/28/26 1:38 AM, Kurt Borja wrote:
->>> Add the ti-ads1262 driver with initial support for the primary ADC
->>> (ADC1). The ADS1263 auxiliary ADC (ADC2) is handled by a separate driver
->>> and interoperability considerations were taken into account.
->>>
->>
->> ...
->>
->>> +#define ADS1262_FW_CHANNEL_COUNT		16
->>> +#define ADS1262_MON_CHANNEL_COUNT		4
->>> +#define ADS1262_REGMAP_WRITE_SZ			8
->>> +#define ADS1262_MONITOR_ADDR_OFFSET		100
->>
->> Where does this offset come from? I would make the address the value that
->> gets written to MUXP/MUXN. But it looks like we are using the same value
->> for the .channel, so setting .address to that would be redundant.
-> 
-> I'm using .address to map the firmware 'reg' to channels in
-> fwnode_xlate. That's why I would need to move the monitors forward. More
-> on this discussion below.
-> 
->>
->>> +
->>> +#define ADS1262_ADC1_RESOLUTION			32
->>> +
->>> +struct ads1262 {
->>> +	struct spi_device *spi;
->>> +	struct regmap *regmap;
->>> +	struct gpio_desc *start_gpiod;
->>> +	/* protects concurrent SPI transfers */
->>> +	struct mutex xfer_lock;
->>> +	/* protects channel state */
->>> +	struct mutex chan_lock;
->>> +	struct completion drdy;
->>> +	unsigned long clk_rate;
->>> +	u8 dev_id;
->>> +};
->>> +
->>> +static const char * const ads1262_device_id_to_name[] = {
->>> +	[ADS1262_DEV_ID] = "ads1262",
->>> +	[ADS1263_DEV_ID] = "ads1263",
->>> +};
->>> +
->>> +static const struct iio_chan_spec ads1262_monitor_chan_specs[] = {
->>> +	{
->>> +		.type = IIO_TEMP,
->>> +		.channel = ADS1262_INPMUX_TEMP,
->>> +		.channel2 = ADS1262_INPMUX_TEMP,
->>
->> Since these are the same, I would just not set .channel2 and later say
->> MUXN = spec->differential ? spec->channel2 : spec->channel. Same applies
->> to others below.
->>
->>> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 0,
->>> +		.scan_type = {
->>> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
->>> +			.realbits = ADS1262_ADC1_RESOLUTION,
->>> +			.storagebits = 32,
->>> +			.endianness = IIO_BE,
->>> +		},
->>> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
->>
->> Where is SCALE and OFFSET?
-> 
-> Missing.
-> 
-> I'm pretty sure I tested this channel though so maybe there's something
-> wrong in my tests.
+Hi all,
 
-I think it was just added in a later patch.
+On Mon Jul 27, 2026 at 2:23 PM BST, Alexey Klimov wrote:
+> Hi all,
+>
+> this is a small series that adds sram node required for ACPM communicatio=
+n.
+> Bindings update adds new compatible "samsung,exynos850-acpm-sram" there a=
+nd
+> excludes it from having child nodes and not required properties.
 
-> 
->>
->>> +	},
->>> +	{
->>> +		.type = IIO_VOLTAGE,
->>> +		.channel = ADS1262_INPMUX_AVDD,
->>> +		.channel2 = ADS1262_INPMUX_AVDD,
->>> +		.indexed = 1,
->>> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 1,
->>> +		.scan_type = {
->>> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
->>> +			.realbits = ADS1262_ADC1_RESOLUTION,
->>> +			.storagebits = 32,
->>> +			.endianness = IIO_BE,
->>> +		},
->>> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
->>> +	},
->>> +	{
->>> +		.type = IIO_VOLTAGE,
->>> +		.channel = ADS1262_INPMUX_DVDD,
->>> +		.channel2 = ADS1262_INPMUX_DVDD,
->>> +		.indexed = 1,
->>> +		.address = ADS1262_MONITOR_ADDR_OFFSET + 2,
->>> +		.scan_type = {
->>> +			.format = IIO_SCAN_FORMAT_SIGNED_INT,
->>> +			.realbits = ADS1262_ADC1_RESOLUTION,
->>> +			.storagebits = 32,
->>> +			.endianness = IIO_BE,
->>> +		},
->>> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
->>> +	},
->>> +	{
->>> +		.type = IIO_VOLTAGE,
->>> +		.channel = ADS1262_INPMUX_TDAC,
->>> +		.channel2 = ADS1262_INPMUX_TDAC,
->>
->> Hmm... a differential where channel == channel2 usually means a shorted
->> input. TDACP and TDACN can be controlled indepedantly, so really are two
->> separate channels.
-> 
-> They can be controlled independently but the user would have to define a
-> common mode channel for that. I went with this because its only a test
-> channel and we making these channels static. Otherwise we would have to
-> allow the TDAC channel in devicetree. Would that be preferable?
-> 
-Sounds like Jonathan is OK with it, so OK with me too to leave it as-is.
+Gentle ping.
 
+What is missing here? Should it be split into two separate coomits?
+There are no comments for at least a month.
+
+[..]
+
+> Alexey Klimov (2):
+>       dt-bindings: sram: Document samsung,exynos850-acpm-sram
+>       arm64: dts: exynos850: Add acpm SRAM node
+>
+>  Documentation/devicetree/bindings/sram/sram.yaml | 2 ++
+>  arch/arm64/boot/dts/exynos/exynos850.dtsi        | 5 +++++
+>  2 files changed, 7 insertions(+)
+> ---
+
+Thanks,
+Alexey
