@@ -1,91 +1,161 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 874E44AEBF9;
-	Thu, 10 Sep 2026 13:35:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C4754A2601;
+	Thu, 10 Sep 2026 13:35:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047345; cv=none; b=p7OvMtRiYxPFxZnxZu4aKYOsTmMtX2Q+w14u0qns5PIRn83bMWnII/myTQRa7g6Az0LPsHdViLIJEOcv8LkF+h23mXJtuVOjwsi/4oIb12MMYnHlbL1H+SDeKJ9ZLW1rUl+p9AbsFRdmlV1MaOi0QExc7BiQ6XiHQAnhHCJFSCs=
+	t=1789047348; cv=none; b=eqzztZUZZ8hW0n3T7Tr7uptqndDncp7yrUJEn9FS7uNwu5LAtMg23688jU9Hw3Yv2ioau5b5G0a2rURpgK5FCseQf+/5uuuJUYLf+RPxCnvc+tdjd+clqCc/YOrZnlS5FRbQ1wQW0x4d3jQpJgDxhdu4ITqwPNC5dKjtkoJ0QQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047345; c=relaxed/simple;
-	bh=nnQom02Ih1qwesbG7H+t6ImlBeovlhLhrwVE7x/9+zc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=s8B+rDksrfQMRjCz4QVnIwZa4nKLHP8wSwSQZb25P9d2h30ivtf9ySLXYlpP0x3BacRnewlM8bs0ZhFhdVkMDc3qWPRvRMgoA3Vy2LytDv/7t4o6JTzAP/T0qYeSehOvEyUo8hNvWrtT+GNZ6hXfMLUld5yleHfRafRZM24boU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=iSV8ptih; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789047348; c=relaxed/simple;
+	bh=afNw4mfmWPusnYCWAuWnIcZqwy8vQndi0BEvd7sUpx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HMFC7Mutp2kVK8WSqCTp3J3zTdeiaRSEv9vIKHl7qDfnoGDwtRD+eS3ajd0J02ZwOQ6DganWdYKt3nMMkYOD+aEEJEJXMCgvLkW9uWz8VMSNemoKOFIpFUqEH9i3GXL5vcBP2j3IdR4vqeBFed5cWDV6faFqlTXh1Tzjq8iYsPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=UfTRtROJ; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="iSV8ptih"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789047342;
-	bh=nnQom02Ih1qwesbG7H+t6ImlBeovlhLhrwVE7x/9+zc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=iSV8ptihFp7WCxm7ch7BNjgbQ3h09TdIlCvHTN7EjvyL/qBbmS1B4V3xf2ZC+R/Oi
-	 mVV9fVchze+fEFoCBkAPzGqwQ/6xVGGkLRB/j7WJQSU3DQbqb0fizFTc4ml3U2tI6W
-	 btLggQMJ54F1EZEDWRYJvNb95V0iscnLkBnMMliTPSKaGBmQld4WT6fEZPI1VOI2/Y
-	 1/SAsmwXZMBgwMMkFWltScA+Y7+bJ9sN57GAmUS1a23zDQBmpg3Cj2t3EVFW+rT/2v
-	 /F5HYwB+BqW9kTbYoLbm4uS7OZ++KB+tZwp9NOCAeFpjshqmvW/FEDeP+59QV+cMN8
-	 kdtxk43r0ZzXg==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D6A4517E0D81;
-	Thu, 10 Sep 2026 15:35:40 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Thu, 10 Sep 2026 09:34:49 -0400
-Subject: [PATCH v2 7/8] arm64: dts: rockchip: Rename rk3576 HDMI audio card
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="UfTRtROJ"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5978922D7;
+	Thu, 10 Sep 2026 06:35:42 -0700 (PDT)
+Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6DE663F528;
+	Thu, 10 Sep 2026 06:35:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789047346; bh=afNw4mfmWPusnYCWAuWnIcZqwy8vQndi0BEvd7sUpx8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=UfTRtROJp3o3h+kxey19i79i5p4qm5F7glE6bRJQrgIYbYioCZeEY5yrFrRBP1oFX
+	 Wge3Vj4qNIzetJJqDKqGYvcETFwerYkqYBLrSrmevjQS6lhgc77Hxa3AwQ+DgaBSbA
+	 K9PGVLIAGmHvsbT/PtW7vjT5XljEHaKEEa6SqU6U=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Yixun Lan <dlan@gentoo.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev
+Subject: [PATCH 7/7] pinctrl: sunxi: add support for the Allwinner A733
+Date: Thu, 10 Sep 2026 15:35:18 +0200
+Message-ID: <20260910133519.459011-8-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910133519.459011-1-andre.przywara@arm.com>
+References: <20260910133519.459011-1-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-7-1396a6168e20@collabora.com>
-References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
- Christian Hewitt <christianshewitt@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- David Summers <beagleboard@davidjohnsummers.uk>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Detlev Casanova <detlev.casanova@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Rename the card from "HDMI" to "RK3576 HDMI" so it identifies the SoC
-in user-visible ALSA fields and no longer collides with the identical
-"HDMI" string used by other Rockchip SoCs.
+The Allwinner A733 changes the layout of the pinctrl MMIO register
+frame, but stays otherwise rather close to the previous IP.
+The main PIO looks similar to the one in the A523, with ports B-K being
+implemented, each also with the same number of pins per port as on the
+A523.
 
-Fixes: 7f1561d82e3d3 ("arm64: dts: rockchip: Add RK3576 HDMI audio")
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+Use the DT based pinctrl driver to describe just the generic pinctrl
+properties, so advertise the number of pins per bank, interrupt
+capabilities and the new quirks. The actual function/mux assignment will
+be taken from the devicetree.
+
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3576.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/pinctrl/sunxi/Kconfig               |  5 +++
+ drivers/pinctrl/sunxi/Makefile              |  1 +
+ drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c | 50 +++++++++++++++++++++
+ 3 files changed, 56 insertions(+)
+ create mode 100644 drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-index b0c0d3c8b1b1..ca9cbf035265 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
-@@ -410,7 +410,7 @@ scmi_clk: protocol@14 {
+diff --git a/drivers/pinctrl/sunxi/Kconfig b/drivers/pinctrl/sunxi/Kconfig
+index dc62eba96348e..831bb1dc93738 100644
+--- a/drivers/pinctrl/sunxi/Kconfig
++++ b/drivers/pinctrl/sunxi/Kconfig
+@@ -141,4 +141,9 @@ config PINCTRL_SUN55I_A523_R
+ 	default ARM64 && ARCH_SUNXI
+ 	select PINCTRL_SUNXI
  
- 	hdmi_sound: hdmi-sound {
- 		compatible = "simple-audio-card";
--		simple-audio-card,name = "HDMI";
-+		simple-audio-card,name = "RK3576 HDMI";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <256>;
- 		status = "disabled";
-
++config PINCTRL_SUN60I_A733
++	bool "Support for the Allwinner A733 PIO"
++	default ARM64 && ARCH_SUNXI
++	select PINCTRL_SUNXI
++
+ endif
+diff --git a/drivers/pinctrl/sunxi/Makefile b/drivers/pinctrl/sunxi/Makefile
+index 951b3f1e4b4f1..3658c9d06b498 100644
+--- a/drivers/pinctrl/sunxi/Makefile
++++ b/drivers/pinctrl/sunxi/Makefile
+@@ -29,5 +29,6 @@ obj-$(CONFIG_PINCTRL_SUN50I_H616)	+= pinctrl-sun50i-h616.o
+ obj-$(CONFIG_PINCTRL_SUN50I_H616_R)	+= pinctrl-sun50i-h616-r.o
+ obj-$(CONFIG_PINCTRL_SUN55I_A523)	+= pinctrl-sun55i-a523.o
+ obj-$(CONFIG_PINCTRL_SUN55I_A523_R)	+= pinctrl-sun55i-a523-r.o
++obj-$(CONFIG_PINCTRL_SUN60I_A733)	+= pinctrl-sun60i-a733.o
+ obj-$(CONFIG_PINCTRL_SUN9I_A80)		+= pinctrl-sun9i-a80.o
+ obj-$(CONFIG_PINCTRL_SUN9I_A80_R)	+= pinctrl-sun9i-a80-r.o
+diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+new file mode 100644
+index 0000000000000..ca82f08a3a65b
+--- /dev/null
++++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+@@ -0,0 +1,50 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Allwinner A733 SoC pinctrl driver.
++ *
++ * Copyright (C) 2025 Arm Ltd.
++ */
++
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/of.h>
++#include <linux/of_device.h>
++#include <linux/pinctrl/pinctrl.h>
++
++#include "pinctrl-sunxi.h"
++
++static const u8 a733_nr_bank_pins[SUNXI_PINCTRL_MAX_BANKS] =
++/*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
++	{  0, 11, 17, 24, 16,  7, 15, 20, 17, 28, 26 };
++
++static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =
++/*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
++	{  0, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14};
++
++static struct sunxi_pinctrl_desc a733_pinctrl_data = {
++	.irq_banks = 10,
++	.irq_read_needs_mux = true,
++	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
++};
++
++static int a733_pinctrl_probe(struct platform_device *pdev)
++{
++	return sunxi_pinctrl_dt_table_init(pdev, a733_nr_bank_pins,
++					   a733_irq_bank_muxes,
++					   &a733_pinctrl_data,
++					   SUNXI_PINCTRL_NCAT3_REG_LAYOUT);
++}
++
++static const struct of_device_id a733_pinctrl_match[] = {
++	{ .compatible = "allwinner,sun60i-a733-pinctrl", },
++	{}
++};
++
++static struct platform_driver a733_pinctrl_driver = {
++	.probe	= a733_pinctrl_probe,
++	.driver	= {
++		.name		= "sun60i-a733-pinctrl",
++		.of_match_table	= a733_pinctrl_match,
++	},
++};
++builtin_platform_driver(a733_pinctrl_driver);
 -- 
-2.55.0
+2.47.3
 
