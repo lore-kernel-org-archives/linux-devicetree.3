@@ -1,313 +1,149 @@
-Received: from SE2P216CU007.outbound.protection.outlook.com (mail-koreacentralazon11021074.outbound.protection.outlook.com [40.107.42.74])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0CAC41D626
-	for <devicetree@vger.kernel.org>; Wed,  9 Sep 2026 23:53:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.42.74
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788998003; cv=fail; b=lBO4U0Qz1YkuOxG7xqzRuTetshAQC+/o0EPpt3sV1pPwTXuHKxxetMMKgThB8YmCfqQI4lnsLqfRXoKi9r4QiPm2WZeuKSH7zhDd62FUg9O+HzdtwGPGih8vlm4449EUsxSTnmmLWgZNuN5w1lufasr15Bg7x6gWScpbe+3l+XQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788998003; c=relaxed/simple;
-	bh=pJIph3Zy8OloQSvCNNyYHDKtVC3SPFqCTMlaTkkPmas=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BfTn4WCkTutPTdh0XvS/MRPc7N1N5cPwKZbQ7r3f67dDYAwmVJjFtoJ0wLoAAJIBA2BkVHVQl9ucNZaS5S2ZXykWZ0zQ0f5y6N4nflfwJGONxZdtmSDdTmXNXw0YhHiMbpIAnBSs5hdR5AcU53sYfGy2QfJYCEVHCssLys706Nw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=QxzzAxIc; arc=fail smtp.client-ip=40.107.42.74
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABC57188596;
+	Thu, 10 Sep 2026 00:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788998899; cv=none; b=dMBQwCy98VyYVwaRQR7ru7J4jnQ9RtKyCidiuL+1/0h5DkLH8nvyqC33q9IRF9o6+eHUUdNGo95Rt6qRmQT8jP5A8+2G2N5FpBSnUbMdFQu2nCFyy3yxMzBhbzSf3Dk9N2rfz5dsrX3wz6sR7UlUgpBJ9DlBBXQFn+MW7JvFwHM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788998899; c=relaxed/simple;
+	bh=VKHfl7s8/Cox3DT4BMgmSIEDDvLeE1jFuJEKP/DaXLs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VA5hhe4OMjeSgWRyTGvYHHImiDymt/eXb/dBkYUGH+NuB13EWOB+EstUsDx2Wr0w9B1VEx1mk3ySOJ+g7fbyVRx8Bb9Yuot/zcCRZf+jmFn2DaBqINmtooJBiqjm+Xov+paaB4hTHGFVxO/cvMV5pZGUMgCqZQNxbmWa4oKROGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=v/QIkzgR; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="QxzzAxIc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=iiiZyN2ov3/pquDgTUFoGrEkvbBgsiYGAB4RTzb83dvp0oYcFkA1AQl85SVqT/AioHHc4xTRuPFkUT214NCgNLNnfrIWk40Ca7On/s3sCrpbqfo7M8vf1fiMx1vNk/kv5KXGdTRAokvXl4Z/6CW7f18TwvX1YCO+crq/MewTBstBOmZqmj3ABNjdGtagPXgbnfijAql2iC1lvUrlZ7pr8pc0XuXpMr5Qnqkyugn8bejXkzvzPMgmhxer37RPNX27Xkliytc0+njNKH5mifOi+bH1WijXvB/nEBiW9wT6kIO93SyrV4ThYyqXNV05C6qr582cVcWbFBLGfjEZ6pVC0Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+rxfRXdgFO2XqkABisa4ygiMEKvX9FjQzmK9YFuG4XI=;
- b=OwxuFu3FvThx94kB5bskXSwoOXVlqjnfx42CLfGtIzheBfdnRFb2ZEmfbhnEsVrdu6y85x8hm6Lq9xEXd+HM/S4QUoIKG06LpOoLW+4Odmnta93P+2cvDpS4t6/WikHn+qbaoluWnACEQcTJ83IJD6eJ65wczxqY8PoyXC3+5Bm+zONLxgQuaxFGtkmoTUj2C7lCSqx+MV/Kw/u5wzBcSw0TAi89ynDqoNjM5H+SuJxy3nf4yHejaYJZALrvZVnubHMk+X34j+JgGOCjiJqhR8bdgDxcpnkatopRW02AoW8PvRkKP7XqFU3F1LQG3GhJ9kNxy5tb5Et0SbmMyFe1xg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
- header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=+rxfRXdgFO2XqkABisa4ygiMEKvX9FjQzmK9YFuG4XI=;
- b=QxzzAxIctGrz7Ze7HioxSSAu0LoPPU/IfBYJi/dp4mR6/tnFSX0ZsytbJHWa6TttH90KiyyqiJ/EdRlSQGRbFNX2EMdDFAHzr1MYtDE8qCdfkQqR4pAKXWbVQcrRBa0qvXgmZK8QpTGtZM4+0YX9p+Sw9UsYZIfM0JYkDXoxdpEXL8MNvKKD1b+sRIHaD0xF9fGnJunWil/KChXm/oDLBtiiqupCUdY9ITPzdX1SgHkmGgYoc/IjD6EAkMb2HiydhTYCukWX7+bt7yLsc98VI3Gswj34NkQSdl2/fcH796WVqrw2MEZPDbHdh21Y+55vDl2by8sX7AcJizh2skxpqg==
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
- by SE5P216MB3172.KORP216.PROD.OUTLOOK.COM (2603:1096:101:2fc::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 9 Sep
- 2026 23:53:16 +0000
-Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
- ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0406.007; Wed, 9 Sep 2026
- 23:53:16 +0000
-From: Nas Chung <nas.chung@chipsnmedia.com>
-To: Frank Li <Frank.li@oss.nxp.com>, "sashiko-reviews@lists.linux.dev"
-	<sashiko-reviews@lists.linux.dev>
-CC: "conor+dt@kernel.org" <conor+dt@kernel.org>, "robh@kernel.org"
-	<robh@kernel.org>, "media-ci@linuxtv.org" <media-ci@linuxtv.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH v7 3/9] media: chips-media: wave6: Add Wave6 VPU interface
-Thread-Topic: [PATCH v7 3/9] media: chips-media: wave6: Add Wave6 VPU
- interface
-Thread-Index: AQHdPDkr23ol+EHgZUqQjr0gKJp7ELa9/ugAgAh8VYCAAHjjMA==
-Date: Wed, 9 Sep 2026 23:53:15 +0000
-Message-ID:
- <SL2P216MB244106043878AAF2168CA81CFBB02@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
-References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
- <39115ce2f3d9cc18350cddc650b7cb40317e5ef3.1788496816.git.nas.chung@chipsnmedia.com>
- <20260904070450.80A561F00A3D@smtp.kernel.org>
- <aqGL22zVAFBY7BOS@lizhi-Precision-Tower-5810>
-In-Reply-To: <aqGL22zVAFBY7BOS@lizhi-Precision-Tower-5810>
-Accept-Language: en-US, ko-KR
-Content-Language: ko-KR
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SL2P216MB2441:EE_|SE5P216MB3172:EE_
-x-ms-office365-filtering-correlation-id: 559e6826-7c99-4acd-050a-08df0ecd8447
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|38070700021|4143699003|10067099003|6133799003|22082099003|18002099003|3023799007|56012099006;
-x-microsoft-antispam-message-info:
- kt29s0KjsRHqbJP2pZzOZ3QxlDsL8nwTMYOpyE9U7huWzJ3toF48TKGnP0NpM8a/zl5HuJ88bM/5jU3FIsbo8NsF6Lz8xF2yb0SmXEhqBKE7PXu8ILQTOS0pH1v4UEl3h0f4we9Fo8yudceG1/dTlBhD3XDIQnv6CXKsXP4TW6yGun2qH41SXQ0VAFEQiVdnTl8NXowufE1qwvTB65n63Hu2J1b6V6r/XsOv9QU2L4bW34PKb9sao3X5XuBeu2kfhjhGVZ4kFJ1aZhaAxZN+Va4WaGE3TcySMlTrapCOaTkM3PcRraOd6Ds65sUk96z+P9zjPrMF7bcOyttxgGP/E3Bio9uRXRFFjqnjW8ola18KqW89v+m4WwV1xBhwPhecfcBC100nijv0VDo1jUk5doxfdxNWD4KqmjT7xq+Xh5yw53jt+wG+iUcUeawLC8H/KnwmY8Nd6GLseToUdnG7k+gLcxNU1PHDuaiXrl6pwXEUQXSsIhrumWtRgti09g9g6sXMAyd3VyU7w3K09JPdJfswiAqv8YXNFLM8mZ8ck5Op8RXhlfn5XVe8L/WOGV0Z6Np5ZI8clYbIyKmir0X26qa6QQJJg5iMMGntcGKm37vYhhipepgnoa8J+MyFHKSqmb5LoTWJ6asHCKtqnQvJTlhMFCoPQ5JWch80k+sfZkY=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(38070700021)(4143699003)(10067099003)(6133799003)(22082099003)(18002099003)(3023799007)(56012099006);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?CPLJLkZLNc1z/8kdoFuNnNkULup+dCGwaDQpEoqNFkPiKEfl7mqDBbcenO0S?=
- =?us-ascii?Q?ZanQXZ7Y0yHxMrk1WpSAerMdcrEBCjkiRA+JFcVkFSztCxgPjXmksm1iExpg?=
- =?us-ascii?Q?tKiVfsw6IaWyZ8UniopxF5d/hjK8D4JvYOXdtYBc0vR/aA+HsenYqK+0XrMt?=
- =?us-ascii?Q?DvSWG84NrT7wyuqc75AF1nbHCz8is2tf3eNXE6w0YiWRD0nJubRGDmWdOS2L?=
- =?us-ascii?Q?3s2MS/TtGANDeG7u1S2tbylrDWBFkHCYxMEY5dJBfX+FONPqxa6k3cs7R8C0?=
- =?us-ascii?Q?jK7D0f5wfcsxkWcDBY9R/pnxoQr2jyCZ/5dFLkkuBGBYnuFW1T0eTIbT8CwP?=
- =?us-ascii?Q?GLoY47gDAvM+zOln1dHmNSvj2S7EadDXQBwjIf78fTpz3nmfP9KsP+ORvsLt?=
- =?us-ascii?Q?w/WAVAwU4yQ3KetaxhyWW8zkVd/Xyckfd9D3d1GbGoOSIG2VQtZocp87l+YM?=
- =?us-ascii?Q?WcL3HJmGs5DluDRqdwKSdL8bt+JIRd9A4gI8On/sat/guIYb8EaTLaQcse4A?=
- =?us-ascii?Q?L12Q7GgVTbKSjfl/0utOWmeL1QOgmkeX2oeIpnDwcoa/ece0BZD/w2dM+gPo?=
- =?us-ascii?Q?8y8RTjc3oUF6msV7UNJYMIXC83A/enr9quoHeAFikoSg8Xd1bXienaGeoSlq?=
- =?us-ascii?Q?3zN985lo4JluntAU7/L5jqVBQclEOKGS3nvquLa/V2HV1hJFBNQk/TwZvct6?=
- =?us-ascii?Q?Y7EaqEvugOUaCIu0L7kDjV7+ME/i3EtBPNXZHKFY/HbsVazqsmMwhL/XIbbq?=
- =?us-ascii?Q?wAozOEltvARvs3PlUaJyx6i9BMsm0AXnw1D5ANwFFBKz+xKJRnSsCKoXWwIz?=
- =?us-ascii?Q?S2xzF5ViiOZK0nhCzO3+HAcPMG4WtuompfsKz9Nja7uItDGy4O0Rv4CgA531?=
- =?us-ascii?Q?HQngCCB7O+icn+FfyMcnVLzd3Mq8wlGidVkJltD3tQ/0xpVi+otyVutkUFA1?=
- =?us-ascii?Q?2bLtOdHeaKWniMdKCqkoO/g1IS766LeNc3KCeSUG1aFAQpiChtmp7rVZOMV2?=
- =?us-ascii?Q?83eqQGq6YjCBFytxiH4jhzPefIOTvlDUvSTgZ87+Ccoe2UW9iSoF7AhF21vt?=
- =?us-ascii?Q?PTZ8CrUCIsAJ8KxRhaCSxHIi5Ia0/E52ZDyiwitHrmanfK8tMcoXjuiF7SKw?=
- =?us-ascii?Q?5YiKhmnKQg0WpUDxtY0U5Bb5L/rDfcdwoQCrkY3SSDv3jc09xq/uYXAXvjdY?=
- =?us-ascii?Q?uFGW6RltSh3qPip6jEcedZO1xziw1sySR+x9pFwh1SE+sSbQtRdBNR6hCDni?=
- =?us-ascii?Q?iv6Q0bwqoE6jzsTG2dequvwzVEy5IZ/R55FETWPqPhWJLIYEyWW46O5eaWO+?=
- =?us-ascii?Q?DR659+DHwrEb8OpTgu9pF1tPx5yL2g+JAaVssa0Zj4/WCoIRod2EJFdyuJDG?=
- =?us-ascii?Q?Q5V/B36q6Eie15ea3+gUNzsUk9Ct9/PGuWZvOOOhK6mTHJnl/LJqevIAnGXD?=
- =?us-ascii?Q?Lbn3Y5DCYrJ9poxvax+Xs+ky/Dyjv/9ydSs1gsQPNorDQ3cNU/k12Ep9WmMk?=
- =?us-ascii?Q?Fn9N0spqhvZSQkjYUgKysTQAa/fgQIl2QlYIdd0Q87atDgQRBWQEiV2xx4yD?=
- =?us-ascii?Q?2nRph/S4EEEg7oeTpZQoDcjHK9bRaVSCEfe1Xz7eRuuuv+FdDiEXEcbyOwf8?=
- =?us-ascii?Q?LMeaIHaw/42tZyNNQHpjnY5bn27Tww3Z1GjLYsMdaLwWNe4m62Zq/Lokib5C?=
- =?us-ascii?Q?1Dr934avgyBATJxj4q6IRdxo1CddtUnLbu3irWLaxWXAC6+JdDOCXnCP1RTM?=
- =?us-ascii?Q?5ZvSvPB8Fw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="v/QIkzgR"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 49304534027F;
+	Thu, 10 Sep 2026 02:08:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1788998889;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=NH0b+Egwzh/o9kmbIvhwo/o0FNy6nLtziohl7w27gtU=;
+	b=v/QIkzgRgBYR7f8UdAuRyBHRShvKhrzRVZlJBZwu3lcz2kmLElutx1onSproVxzO48cgVQ
+	BM7mv+YsBVcZzzC3IzC9Ix1mL+8Sy6p7Yj25dEXtqk2948oLUze0GO9qdZnuOAnUAuKKK+
+	oos4AU/px+IXqGYuT6aL4ofahogcjZ4=
+Message-ID: <195dd34f-63dc-4453-b158-487a408b711e@ixit.cz>
+Date: Thu, 10 Sep 2026 02:08:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: chipsnmedia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 559e6826-7c99-4acd-050a-08df0ecd8447
-X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Sep 2026 23:53:15.9701
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: TdhPUzHTStc81iEQg541+DKze1WU/zvbQ8KpxdvlG6Vv6so22gv0EIkxrdpCWXBFc6XPyuc1VahlFIAvvjsM9G5eqKHARzJ/PIRjOQ9yxDc=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE5P216MB3172
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] bq27xxx: support interchangeable OnePlus 6/6T fuel
+ gauges
+To: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, "Andrew F . Davis" <afd@ti.com>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi, Frank.
+On 10/09/2026 01:47, Rinat Muhamedgaliev wrote:
+> OnePlus 6 and OnePlus 6T battery packs may contain either a TI bq27411
+> or bq27541 fuel gauge. The DTS compatible used until now selects only
+> the bq27411 register map, while v2 proposed selecting bq27541 for every
+> device. Neither static choice supports both original and replacement
+> battery packs.
+> 
+> Add a generic ti,bq27xxx compatible and have the I2C driver issue the
+> DeviceType control command at probe time. It selects bq27411 for
+> DeviceType 0x0421 and bq27541 for 0x0541.
+> 
+> Tested on OnePlus 6T (fajita) with DeviceType 0x0541. After installing
+> the kernel and rebooting, the fuel gauge reported 4.360 V, 100% state
+> of charge, 27.8 C, and Full status.
+> 
+> Changes in v3:
+> - Replace the static bq27541 DTS change from v2 with runtime detection
+>    for both bq27411 and bq27541.
+> - Add the generic compatible to the binding and I2C driver.
+> - Split the change into binding, driver, and DTS patches.
 
->-----Original Message-----
->From: Frank Li <Frank.li@oss.nxp.com>
->Sent: Thursday, September 10, 2026 1:40 AM
->To: sashiko-reviews@lists.linux.dev
->Cc: Nas Chung <nas.chung@chipsnmedia.com>; conor+dt@kernel.org;
->robh@kernel.org; media-ci@linuxtv.org; devicetree@vger.kernel.org
->Subject: Re: [PATCH v7 3/9] media: chips-media: wave6: Add Wave6 VPU
->interface
->
->On Fri, Sep 04, 2026 at 07:04:50AM +0000, sashiko-bot@kernel.org wrote:
->> Thank you for your contribution! Sashiko AI review found 5 potential
->issue(s) to consider:
->> - [High] Integer underflow when calculating end index for frame buffer
->registration causes out-of-bounds hardware configuration.
->> - [High] Encoder frame buffer registration fails to group configuration
->commands, allowing array index overflow into adjacent MMIO registers.
->> - [Medium] Silent truncation of RGB chroma format due to mismatched
->bitmask.
->> - [Medium] Display buffers are silently ignored when the metadata array
->is full.
->> - [Medium] Hardcoded little-endian memory layout breaks compatibility
->with big-endian host architectures.
->> --
->
->Sorry, jump in at v7. Please fix AI report issues. or provide judgements
+Hello Rinat!
 
-OK, I'll reply inline to the Sashiko report.
+Happy to see this series.
 
->
->And please CC imx@lists.linux.dev next time.
+Did you managed to get someone with the original bq27411 to test it?
+Eventually we hang at on https://matrix.to/#/#sdm845:ixit.cz
 
-Sure.
+Thanks
+David
 
-Thanks,
-Nas.
+> 
+> Rinat Muhamedgaliev (3):
+>    dt-bindings: power: supply: bq27xxx: add generic compatible
+>    power: supply: bq27xxx: autodetect bq27411 and bq27541
+>    arm64: dts: qcom: sdm845-oneplus: use generic fuel gauge compatible
+> 
+>   .../bindings/power/supply/bq27xxx.yaml        |  1 +
+>   .../boot/dts/qcom/sdm845-oneplus-common.dtsi  |  4 +-
+>   .../dts/qcom/sdm845-oneplus-enchilada.dts     |  2 +-
+>   .../boot/dts/qcom/sdm845-oneplus-fajita.dts   |  2 +-
+>   drivers/power/supply/bq27xxx_battery_i2c.c    | 39 +++++++++++++++++++
+>   5 files changed, 44 insertions(+), 4 deletions(-)
+> 
 
->
->Frank
->>
->> commit 5d00a062981a74f9de3d4d2750b7f43dba64822e
->> Author: Nas Chung <nas.chung@chipsnmedia.com>
->>
->> media: chips-media: wave6: Add Wave6 VPU interface
->>
->> Add an interface layer to manage hardware register configuration and
->> communication with the Chips&Media Wave6 video codec IP.
->>
->> > diff --git a/drivers/media/platform/chips-media/wave6/wave6-hw.c
->b/drivers/media/platform/chips-media/wave6/wave6-hw.c
->> > --- /dev/null
->> > +++ b/drivers/media/platform/chips-media/wave6/wave6-hw.c
->> > @@ -0,0 +1,2030 @@
->> [ ... ]
->> > +static void wave6_dec_set_display_buffer(struct vpu_instance *inst,
->struct frame_buffer fb)
->> > +{
->> > +	struct dec_info *p_dec_info =3D &inst->codec_info->dec_info;
->> > +	int index;
->> > +
->> > +	for (index =3D 0; index < WAVE6_MAX_FBS; index++) {
->> > +		if (!p_dec_info->disp_buf[index].buf_y) {
->> > +			p_dec_info->disp_buf[index] =3D fb;
->> > +			p_dec_info->disp_buf[index].index =3D index;
->> > +			break;
->> > +		}
->> > +	}
->> > +}
->>
->> [Severity: Medium]
->> WAVE6_MAX_FBS is defined as 31. If userspace requests and registers 32
->> buffers, what happens when this loop completes without finding an empty
->> slot?
->>
->> Does this silently drop the tracking metadata for the buffer, leading to
->> failures later in wave6_vpu_dec_get_output_info() when it tries to match
->> the display buffer address?
->>
->> [ ... ]
->> > +int wave6_vpu_dec_register_frame_buffer(struct vpu_instance *inst)
->> > +{
->> [ ... ]
->> > +	fbc_remain =3D fbc_count;
->> > +	mv_remain =3D mv_count;
->> > +	group_num =3D DIV_ROUND_UP(max(fbc_count, mv_count), 16);
->> > +	for (i =3D 0; i < group_num; i++) {
->> > +		bool first_group =3D i =3D=3D 0;
->> > +		bool last_group =3D i =3D=3D group_num - 1;
->> > +		u32 set_fbc_num =3D (fbc_remain >=3D 16) ? 16 : fbc_remain;
->> > +		u32 set_mv_num =3D (mv_remain >=3D 16) ? 16 : mv_remain;
->> > +		u32 fbc_start_no =3D i * 16;
->> > +		u32 fbc_end_no =3D fbc_start_no + set_fbc_num - 1;
->> > +		u32 mv_start_no =3D i * 16;
->> > +		u32 mv_end_no =3D mv_start_no + set_mv_num - 1;
->>
->> [Severity: High]
->> If either fbc_count or mv_count is initially 0, or if they are uneven
->> and one depletes before the other in subsequent loop iterations,
->> set_fbc_num or set_mv_num becomes 0.
->>
->> Does this cause fbc_end_no or mv_end_no to underflow when subtracting 1,
->> sending invalid boundaries to the hardware?
->>
->> [ ... ]
->> > +int wave6_vpu_dec_register_display_buffer(struct vpu_instance *inst,
->struct frame_buffer fb)
->> > +{
->> [ ... ]
->> > +	reg_val =3D SET_DISP_COMMON_PIC_INFO_BWB_ON |
->> > +		  SET_DISP_COMMON_PIC_INFO_C_FMT_IDC(c_fmt_idc) |
->> > +		  SET_DISP_COMMON_PIC_INFO_PIXEL_ORDER(PIXEL_ORDER_INCREASING)
->|
->>
->> [Severity: Medium]
->> When the format is RGB, get_chroma_format_idc() returns C_FMT_IDC_RGB
->> which evaluates to 4 (binary 100).
->>
->> Since SET_DISP_COMMON_PIC_INFO_C_FMT_IDC uses a 2-bit mask, does this
->> silently truncate the value to 0 (C_FMT_IDC_YUV400) and misconfigure
->> the hardware for RGB displays?
->>
->> [ ... ]
->> > +int wave6_vpu_enc_register_frame_buffer(struct vpu_instance *inst)
->> > +{
->> [ ... ]
->> > +	for (idx =3D 0; idx < fbc_count; idx++) {
->> > +		vpu_write_reg(inst->dev, W6_CMD_SET_FB_FBC_Y(idx),
->fb_arr[idx].buf_y);
->> > +		vpu_write_reg(inst->dev, W6_CMD_SET_FB_FBC_C(idx),
->fb_arr[idx].buf_cb);
->> > +		vpu_write_reg(inst->dev, W6_CMD_SET_FB_FBC_CR(idx),
->fb_arr[idx].buf_cr);
->>
->> [Severity: High]
->> Unlike the decoder buffer registration which batches commands into group=
-s
->> of 16, this loop writes sequentially up to fbc_count.
->>
->> If fbc_count exceeds 16, could this overflow past the 16 available MMIO
->> slots for W6_CMD_SET_FB_FBC_Y (and others) and corrupt adjacent hardware
->> registers like W6_CMD_SET_FB_DEFAULT_CDF?
->>
->> [ ... ]
->> > diff --git a/drivers/media/platform/chips-media/wave6/wave6-regdefine.=
-h
->b/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
->> > --- /dev/null
->> > +++ b/drivers/media/platform/chips-media/wave6/wave6-regdefine.h
->> > @@ -0,0 +1,649 @@
->> [ ... ]
->> > +#define		SET_DISP_COMMON_PIC_INFO_C_FMT_IDC(x)
->	FIELD_PREP(GENMASK(25, 24), (x))
->>
->> [Severity: Medium]
->> As noted in wave6_vpu_dec_register_display_buffer(), this mask is only
->> 2 bits wide. Could this be extended to correctly support C_FMT_IDC_RGB
->> (which requires at least 3 bits to store value 4)?
->>
->> [ ... ]
->> > diff --git a/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.=
-h
->b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
->> > --- /dev/null
->> > +++ b/drivers/media/platform/chips-media/wave6/wave6-vpuconfig.h
->> > @@ -0,0 +1,72 @@
->> [ ... ]
->> > +#define HOST_ENDIAN			VDI_128BIT_LITTLE_ENDIAN
->> > +#define VPU_STREAM_ENDIAN		HOST_ENDIAN
->> > +#define VPU_USER_DATA_ENDIAN		HOST_ENDIAN
->> > +#define VPU_SOURCE_ENDIAN		HOST_ENDIAN
->>
->> [Severity: Medium]
->> Does hardcoding the host endianness to VDI_128BIT_LITTLE_ENDIAN break
->> stream decoding and encoding on big-endian architectures?
->>
->> Could this be set conditionally using standard kernel endianness macros
->> to support big-endian hosts?
->>
->> --
->> Sashiko AI review *
->https://sashiko.dev/#/patchset/cover.1788496816.git.nas.chung@chipsnmedia.=
-c
->om?part=3D3
