@@ -1,38 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F373E5EEB;
-	Thu, 10 Sep 2026 09:20:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E3B33ED3B4;
+	Thu, 10 Sep 2026 09:20:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032057; cv=none; b=qpyp6jf+RyIj78PbMv8cO2ECkHpzNooUYE01CjU9LMNGiW6dpsmcgwFmjthrMUYQNhVOxBEltCgpsylDvK0e8mLujuVHQNAuFLxfmGPpNVAMdGyhSEsBCyhEAwXEQu9ITBQ3o1wt0af2oRI/0EVSagbl/2qkDdhvON6HZYhPzTI=
+	t=1789032058; cv=none; b=agU3Uk7K4onFcgVuJ6iMtIi5krACSsxZKdNkExlBoLl2fNFjDK7D1+BLRp2r6vcbyZYR2TSraNHRVGKg+wUSZ2D8KaoO+4jSsKg1gyb7jh9CZ0st6JPlpyAQ7gF6CwQXNDOjBwll7lb9+xEbQ7J43p2FaqYLt65sk8ZUIkiBVZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032057; c=relaxed/simple;
-	bh=ldi6Shky0O6c0vEROLxXRj05CZhkaRERiTZ6JwZW9KI=;
+	s=arc-20240116; t=1789032058; c=relaxed/simple;
+	bh=sqJwfG+YalrOjRoK+Gfc7gM7SkpGIZzCbiNm29+2HH0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=srRruqkJPOfp02rXrEcyVXzw37J7+Zef16VexMA27lrPGCBWqczaIG0XywJuqLx07ArPUVcW+ztIBGRqlOnBA08mOtHGXuW2wfB++LRfc+B6rbdyr1PYYy8o9TvQQyo1oKL8CCQZTm5NtsKIbevLNTYEu8WS8gp7xM9jkJDYhm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=IHfc3naU; arc=none smtp.client-ip=148.251.105.195
+	 MIME-Version; b=MZQZvEWpKqnjoP/6R7dbapU/4Zh9GvBBGUEhSnt1i+n+vdqU+DXwATaPjV3Z84CWdK6nJDHyZrBRwC//W955MssSJn8JL+P7nkwqm852/Cfyco+5tjTAZLrOsYdYIJJBDVf3r9vr84lBfKWC+y27nrbXX1Lms2PKAi/Wb55BfIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ph7MS1xK; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="IHfc3naU"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ph7MS1xK"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789032052;
-	bh=ldi6Shky0O6c0vEROLxXRj05CZhkaRERiTZ6JwZW9KI=;
+	s=mail; t=1789032053;
+	bh=sqJwfG+YalrOjRoK+Gfc7gM7SkpGIZzCbiNm29+2HH0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=IHfc3naU2sTdrlLccr5+DCLCIjJoWe0kUxXNXNQjEMoLK9PD0lsRO/puVNMdMO4Li
-	 RvFRmLy2MO/fxxmLdsyr03MYursnj9MsQdFhxeVPoXzsPPnopCcEVwL45ScuLkDVtV
-	 OhNFjYXPfb48P35ThW4YS7KZGzcWnm/JxoIRuD7o3keHKCC0ktpJx1D3qVcw8McO6K
-	 GdfMa4E5sFvUbFtmjc7rpt0Iv71jcPB6S0mC3rTP45vltbY1pl1DWqEwNTRE9FXOqh
-	 gqXOUJXfLyg/dvViu2Un13X3Cm586lJFmAcITHgPQ8pQKBT0Sr9I5tUw4pKZxF5aRj
-	 aE5rf0pgW2/ZQ==
+	b=Ph7MS1xKK0uE2uNMDWcK95bH/+gvhOa/gZI1WpxlXit+ZAVon+fkSnikIvw9ohlZo
+	 KrsWb+R5OT/lQ2pRiONfcqHUIBPwruCihOfVKCIzW44NcaxNttAlDRBXiEtkMxlqdA
+	 ubf0M6aMkhxLAzab/Hn8F2BLMSXAqI1XalKqvk8O31bNVh/EmeJCkHxJzsgun9Q0tQ
+	 S/fuW+cLV7IrQby3vL9mtyTDA2e++9lVBlw2JoI7FYK84RjlvOKKSvJDse/vIjQ+Hr
+	 WpWG9hIYD3pmiwJrIqyadmU2n+IJWJ8YFidR0TqMOgkZa6l61nqek7AnGDy/2yY1XC
+	 0EB3ycNh/bBKg==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 986C117E0D7F;
-	Thu, 10 Sep 2026 11:20:51 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 792F417E125C;
+	Thu, 10 Sep 2026 11:20:52 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: mani@kernel.org
 Cc: chunfeng.yun@mediatek.com,
@@ -52,10 +52,11 @@ Cc: chunfeng.yun@mediatek.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	kernel@collabora.com
-Subject: [PATCH v4 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask to SoC data
-Date: Thu, 10 Sep 2026 11:20:37 +0200
-Message-ID: <20260910092038.48291-12-angelogioacchino.delregno@collabora.com>
+	kernel@collabora.com,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: [PATCH v4 12/12] phy: phy-mtk-dp: Add support for MT8196 eDP PHY
+Date: Thu, 10 Sep 2026 11:20:38 +0200
+Message-ID: <20260910092038.48291-13-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
 References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
@@ -67,76 +68,146 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for adding support for the eDP PHY found in newer
-SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
-data.
+The MT8196 SoC features an updated PHY IP compared to the older
+ones, and there is one that is specific to Embedded DisplayPort.
 
+Add support for the eDP PHY found in the MediaTek MT8196 SoC and
+all of its variants.
+
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 ---
- drivers/phy/mediatek/phy-mtk-dp.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/phy/mediatek/phy-mtk-dp.c | 66 ++++++++++++++++++++++++++++++-
+ 1 file changed, 65 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
-index 643666c454f4..30f9fa6e6b9b 100644
+index 30f9fa6e6b9b..6d06e1c39e3b 100644
 --- a/drivers/phy/mediatek/phy-mtk-dp.c
 +++ b/drivers/phy/mediatek/phy-mtk-dp.c
-@@ -220,6 +220,7 @@ struct mtk_dp_phya_imp_sel {
-  * @regs_ana_lane:  Register (layout) offsets for ana_lan
-  * @regs_dig_glb:   Register (layout) offsets for dig_glb
-  * @regs_dig_lane:  Register (layout) offsets for dig_lan
-+ * @mask_dig_tx_ln: Register mask for PHYD_TX_LN_EN field
-  * @val_dig_bitrate:IP Version specific register values for Bit Rate setting
-  * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
-  * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
-@@ -239,6 +240,9 @@ struct mtk_dp_phy_pdata {
- 	const u8 *regs_dig_glb;
- 	const u8 *regs_dig_lane;
+@@ -5,7 +5,7 @@
+  * Copyright (c) 2022, BayLibre Inc.
+  * Copyright (c) 2022, MediaTek Inc.
+  *
+- * Major refactoring
++ * Major refactoring and new SoCs support
+  * Copyright (c) 2026, Collabora Ltd.
+  *                     AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+  */
+@@ -43,6 +43,7 @@
+ #define TPLL_SSC_EN			BIT(3)
  
-+	/* Register masks */
-+	u32 mask_dig_tx_ln;
+ /* DP_PHYD_BIT_RATE */
++#define PHYD_DIG_RG_BIT_RATE_V2		GENMASK(3, 0)
+ #define PHYD_DIG_RG_BIT_RATE		GENMASK(1, 0)
+ 
+ /* DP_PHYD_SW_RST */
+@@ -63,6 +64,7 @@
+ 
+ /* DP_PHYD_TX_CTL_0 */
+ #define PHYD_TX_LN_EN			GENMASK(7, 4)
++#define PHYD_TX_LN_EN_V2		GENMASK(3, 0)
+ 
+ /* DP_PHYD_DRIVING_FORCE */
+ #define PHYD_DP_TX_FORCE_VOLT_SWING_EN	BIT(0)
+@@ -129,6 +131,16 @@
+ #define MT8195_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 6, 12, 0)
+ #define MT8195_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(8, 0)
+ 
++/* MT8196/MT6991: Logic State Change Point (LC TX C) */
++#define MT8196_DRIVING_PARAM_3_DEFAULT	BUILD_DRIVING_PARAM_0( 10, 12, 14, 17)
++#define MT8196_DRIVING_PARAM_4_DEFAULT	BUILD_DRIVING_PARAM_12(14, 17, 18, 18)
++#define MT8196_DRIVING_PARAM_5_DEFAULT	BUILD_DRIVING_PARAM_23(21, 24)
 +
- 	/* IP-Version specific register value arrays */
- 	const u8 *val_dig_bitrate;
++/* MT8196/MT6991: Positive Edge (LC TX CP) */
++#define MT8196_DRIVING_PARAM_6_DEFAULT	BUILD_DRIVING_PARAM_0( 0, 2, 4, 7)
++#define MT8196_DRIVING_PARAM_7_DEFAULT	BUILD_DRIVING_PARAM_12(0, 3, 6, 0)
++#define MT8196_DRIVING_PARAM_8_DEFAULT	BUILD_DRIVING_PARAM_23(3, 0)
++
+ enum mtk_dp_phya_ana_glb_regidx {
+ 	DP_PHYA_GLB_BIAS_GEN_0,
+ 	DP_PHYA_GLB_BIAS_GEN_1,
+@@ -184,6 +196,11 @@ static const u8 mt8195_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
+ 	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x2c,
+ };
  
-@@ -355,10 +359,10 @@ static int mtk_dp_phy_configure(struct phy *phy, union phy_configure_opts *opts)
++static const u8 mt8196_phy_dig_lane_regs[DP_PHYD_LAN_MAX] = {
++	[DP_PHYD_LAN_DRIVING_FORCE] = 0x30,
++	[DP_PHYD_LAN_DRIVING_PARAM_0] = 0x34,
++};
++
+ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
+ 	[DP_PHYD_PLL_CTL_0] = 0x10,
+ 	[DP_PHYD_PLL_CTL_1] = 0x14,
+@@ -193,6 +210,15 @@ static const u8 mt8195_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
+ 	[DP_PHYD_TX_CTL_0] = 0x44,
+ };
  
- 		val = 0;
- 		for (i = 0; i < opts->dp.lanes; i++)
--			val |= FIELD_PREP(PHYD_TX_LN_EN, BIT(i));
-+			val |= field_prep(pdata->mask_dig_tx_ln, BIT(i));
++static const u8 mt8196_phy_dig_glb_regs[DP_PHYD_GLOBAL_MAX] = {
++	[DP_PHYD_PLL_CTL_0] = 0x10,
++	[DP_PHYD_PLL_CTL_1] = 0x14,
++	[DP_PHYD_SW_RST] = 0x38,
++	[DP_PHYD_BIT_RATE] = 0x3c,
++	[DP_PHYD_AUX_RX_CTL] = 0x40,
++	[DP_PHYD_TX_CTL_0] = 0x74,
++};
++
+ static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
+ 	[DP_PHYD_BIT_RATE_RBR] = 0,
+ 	[DP_PHYD_BIT_RATE_HBR] = 1,
+@@ -200,6 +226,13 @@ static const u8 mt8195_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
+ 	[DP_PHYD_BIT_RATE_HBR3] = 3
+ };
  
- 		regmap_update_bits(dp_phy->regmap, pdata->off_dig_glb + reg_dig_tx_ctl,
--				   PHYD_TX_LN_EN, val);
-+				   pdata->mask_dig_tx_ln, val);
- 	}
++static const u8 mt8196_edp_phy_dig_bitrate_val[DP_PHYD_BIT_RATE_MAX] = {
++	[DP_PHYD_BIT_RATE_RBR] = 1,
++	[DP_PHYD_BIT_RATE_HBR] = 4,
++	[DP_PHYD_BIT_RATE_HBR2] = 7,
++	[DP_PHYD_BIT_RATE_HBR3] = 9
++};
++
+ /**
+  * struct mtk_dp_phya_imp_sel - Per-Lane Impedance Selection
+  * @pmos: Impedance selection for P-Channel MOSFET
+@@ -755,8 +788,39 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
+ 	},
+ };
  
- 	if (opts->dp.set_voltages) {
-@@ -422,7 +426,7 @@ static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
- 
- 	/* Get mask of currently enabled lane */
- 	regmap_read(dp_phy->regmap, pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0], &val);
--	val = FIELD_GET(PHYD_TX_LN_EN, val);
-+	val = field_get(pdata->mask_dig_tx_ln, val);
- 	if (val == 0)
- 		return 0;
- 
-@@ -433,7 +437,7 @@ static int mtk_dp_phy_disable_all_lanes(struct mtk_dp_phy *dp_phy)
- 
- 		regmap_clear_bits(dp_phy->regmap,
- 				  pdata->off_dig_glb + regs[DP_PHYD_TX_CTL_0],
--				  FIELD_PREP(PHYD_TX_LN_EN, BIT(lane_num)));
-+				  field_prep(pdata->mask_dig_tx_ln, BIT(lane_num)));
- 	} while (val);
- 
- 	return 0;
-@@ -730,6 +734,7 @@ static const struct mtk_dp_phy_pdata mt8195_dp_phy_data = {
- 	.regs_ana_lane = mt8195_phy_ana_lane_regs,
- 	.regs_dig_glb = mt8195_phy_dig_glb_regs,
- 	.regs_dig_lane = mt8195_phy_dig_lane_regs,
-+	.mask_dig_tx_ln = PHYD_TX_LN_EN,
- 	.val_dig_bitrate = mt8195_phy_dig_bitrate_val,
- 	.ana_bias_r = 15,
- 	.ana_cktx_imp = 8,
++static const struct mtk_dp_phy_pdata mt8196_edp_phy_data = {
++	.off_ana_glb = 0x400,
++	.off_ana_lane = (const u16[]) { 0x0, 0x100, 0x200, 0x300 },
++	.off_dig_glb = 0x1400,
++	.off_dig_lane = (const u16[]) { 0x1000, 0x1100, 0x1200, 0x1300 },
++	.regs_ana_glb = mt8195_phy_ana_glb_regs,
++	.regs_ana_lane = mt8195_phy_ana_lane_regs,
++	.regs_dig_glb = mt8196_phy_dig_glb_regs,
++	.regs_dig_lane = mt8196_phy_dig_lane_regs,
++	.mask_dig_tx_ln = PHYD_TX_LN_EN_V2,
++	.val_dig_bitrate = mt8196_edp_phy_dig_bitrate_val,
++	.ana_bias_r = 15,
++	.ana_cktx_imp = 8,
++	.ana_lanes_imp = {
++		.pmos = 8,
++		.nmos = 8,
++	},
++	.driving_params = (const u32[]) {
++		[0] = 0,
++		[1] = 0,
++		[2] = 0,
++		[3] = MT8196_DRIVING_PARAM_3_DEFAULT,
++		[4] = MT8196_DRIVING_PARAM_4_DEFAULT,
++		[5] = MT8196_DRIVING_PARAM_5_DEFAULT,
++		[6] = MT8196_DRIVING_PARAM_6_DEFAULT,
++		[7] = MT8196_DRIVING_PARAM_7_DEFAULT,
++		[8] = MT8196_DRIVING_PARAM_8_DEFAULT
++	},
++};
++
+ static const struct of_device_id mtk_dp_phy_of_match[] = {
+ 	{ .compatible = "mediatek,mt8195-dp-phy", .data = &mt8195_dp_phy_data },
++	{ .compatible = "mediatek,mt8196-edp-phy", .data = &mt8196_edp_phy_data },
+ 	{ /* sentinel */ }
+ };
+ MODULE_DEVICE_TABLE(of, mtk_dp_phy_of_match);
 -- 
 2.55.0
 
