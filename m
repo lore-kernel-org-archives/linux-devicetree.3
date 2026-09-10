@@ -1,207 +1,193 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E04DD4825AB
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:11:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8199B49CF29
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:11:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049496; cv=none; b=Bd1sBu/bk+99Amu/8fdjHQbfMSG9OaN089MkE0ZUT5VdHufeuXdpkyGmgyqH34dYLuYyqI2IvRvu/HlO1QWF8dPWlz7sb8T+KoMDxNt6RUxwqAz88xRNQ705zNki+sbzn/czACJuFzu+fkzkxAKYU4dzgRLCE0ddv5hrELbp/uM=
+	t=1789049497; cv=none; b=upMyOSTivMAkGeQZhzO/zEi+EDozvGs1qhmmZhYbMGzC5X46WfgmynsYzFjE5sp2Q0BxfK0pRDfYjWHErLQDNqJ3ifYOHhKlV64cuy3eQ63J64aVjjHPQ53By7l3y921ZuVe3EtHGJQMyVPwsheIqthKW4yUOhZ2z7zt38ImSLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049496; c=relaxed/simple;
-	bh=Ximzdc1RpRobDDM3DuRnnVrT+3EVWcNz/iOtMEJ1700=;
+	s=arc-20240116; t=1789049497; c=relaxed/simple;
+	bh=7P4Fwm9V27/vCJzqLRsCoQ113U3696cqrrG1J41lER4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PG93jqq0bNhRVbxp/3/8Mypv4f1+0ydRg5GDAdCLm32OWvpH1g2utTqQOR3I2IN295m73zIzdR+tiKeq38+laOqGIBSd54AOWKiJFp2qwR1WBHw6ajeGAOHce+KwTMesyxyRSqNpBFN8Yp4HTFuCQT8PsWtpytKB9IVYrDn5ByU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4HxojIa; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=shtN9BVY9uJlyomkA+4RHsO2OmTpkCcD7Uv91oNyi77q92qW0twOAzTtgLGzql3m02Z2XJP3E7cFGJzV4pcjIUY/BpB90k0NdDG7t2/+WW1bSGW5CAaecF82BKkcsoIouwrxUcI4Yh5B26Wi55+gRoaeoij2cRbuc02pNDibzj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=maPROU/S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4HxojIa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B8E11F0089A;
-	Thu, 10 Sep 2026 14:11:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="maPROU/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18AD01F000FF;
+	Thu, 10 Sep 2026 14:11:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049494;
-	bh=OSrkeMOGaK284GSDkqrCTA40sucBOwA/nSFnAQOtdEo=;
+	s=k20260515; t=1789049495;
+	bh=zrd355EEcEI3j8IYH6jV1gYwv0iJnFD+WHEWGPYXc2k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=d4HxojIaGHKMfOplqif1hBmIo+FWNwRLgeFvMsIG2Wf4D6inZYx9X6m14iAobmNs7
-	 9Z3vShSq9WmE4wInYMHbUxKl5MUfkHQQbKlOsYwbAmrt2pYqppa2TZGpLM/7Yve38d
-	 DM4zmrwN3XmkFl5S/atZz1Uy0w9BbajPknx55sh9Db/6kb8UHwEWsWnnc+8Cm6TCmR
-	 UlhuPE0J8x/MQ7aYaQhhGtM7GQaYKJ8Ob4A38sufS4ZrkAdQfDom5HsbaybdHx8rX9
-	 vnLEwg8PLeDDkE9ZMxwzev+32gWXTplwP70815ArGH9NZqQ4zXN6dbSI/OYiuaSpM1
-	 sU7Sg3xFFplFg==
+	b=maPROU/SQfHw3c1O5brXInq2TcPIeVVOpu9UI7P8vmn9Zp5Y+w79/FHlRcUC193HK
+	 mHv0Na5fkOtJDFEqlhTBPfU2LCYxumRaUQJ93lZQWj4hbSHJPOuxHVN5lWBVtN8uQO
+	 SeboEyb5Zn6iEEdjkvbQV9XjbxnBYMSAY79v68JYcQ9BiSWeyvwWnjuV1ZyL1Ekovr
+	 rxy8hHBc2eKwLRFwi/4zi0yTUnqtyqDQNwHzSlH7M8oMoJ4r6yzJZ9N2s0mK7YU97U
+	 iSVRShAWwCqICD5ZkGvR24zBQS8Z3DyBWfespRR7fTLlhkfD2P8NzpJ5Py6oJsMsE+
+	 RdBsLnUHPxfuA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 6/7] dt-bindings: net: dsa: mediatek,mt7530:
- add econet,en751221
+Subject: Re: [PATCH net-next 7/7] net: dsa: mediatek: support EN751221
+ switch
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260909140346.2861572-7-cjd@cjdns.fr>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260909140346.2861572-8-cjd@cjdns.fr>
 References: <20260909140346.2861572-1-cjd@cjdns.fr>
- <20260909140346.2861572-7-cjd@cjdns.fr>
+ <20260909140346.2861572-8-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 14:11:33 +0000
-Message-Id: <20260910141134.4B8E11F0089A@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 14:11:34 +0000
+Message-Id: <20260910141135.18AD01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] `mt753x_check_passthrough` implicitly bans valid standard DSA casc=
-ade and multi-CPU configurations for all MT753x switches.
-- [Medium] The binding introduces incomplete and overly restrictive validat=
-ion for the new en751221 switches, incorrectly using 'passthrough' terminol=
-ogy for a standard cascade link.
+- [High] Missing MDIO bus locking when `child_bus` is used in `core_write()=
+` and `core_rmw()`.
+- [High] TRGMII calibration races with the SoC switch's phylink state machi=
+ne, leading to concurrent modification of the SoC switch's PMCR register.
+- [Medium] Incorrect restoration array used for 'ondie' switch TRGMII calib=
+ration.
+- [Medium] Ignored parameters and out-of-bounds drive strength values in TR=
+GMII TX drive setup.
+- [Low] Unused parameters in `en751221_trgmii_cal_ok`.
 --
 
-commit 9f411b8347b2bd00011347f799ab43d47066ae33
+commit f83ec08496a229bd3e0f1b5361ff644674d8d493
 Author: Caleb James DeLisle <cjd@cjdns.fr>
+Subject: net: dsa: mediatek: support EN751221 switch
 
-dt-bindings: net: dsa: mediatek,mt7530: add econet,en751221
+Adds support for the on-die and MCM switches on the EcoNet EN751221, along
+with TRGMII link calibration between them.
 
-The EcoNet EN751221 MIPS SoC integrates an MT7530 switch memory-mapped
-in the SoC register space. It is similar to the econet,en7528-switch
-except that ports 0..3 are 10/100 only, port 4 has a gigabit PHY, and
-port 5 has no PHY, but is in some implementations connected to a
-downstream MT7530 multi-chip module via a TRGMII link.
-
-> diff --git a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.ya=
-ml b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> index e29fb86934981..106c4087528d7 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/mediatek,mt7530.yaml
-[ ... ]
-> @@ -223,6 +237,20 @@ $defs:
->                  phy-mode:
->                    const: internal
-> =20
-> +  mt7530-passthrough-dsa-port:
-> +    patternProperties:
-> +      "^(ethernet-)?ports$":
-> +        patternProperties:
-> +          "^(ethernet-)?port@[0-6]$":
-> +            if:
-> +              required: [ link ]
-> +            then:
-> +              properties:
-> +                reg:
-> +                  const: 6
-> +                phy-mode:
-> +                  const: trgmii
-> +
-
-[Severity: Medium]
-Does this block incorrectly enforce that any cascade link (port with 'link'
-property) must be on port 6?
-
-It appears this restricts any cascade link to port 6, breaking cascade links
-on port 5, and misapplies the passthrough terminology.
-
->    mt7530-dsa-port:
->      patternProperties:
->        "^(ethernet-)?ports$":
-> @@ -330,6 +358,7 @@ allOf:
->              - airoha,en7581-switch
->              - airoha,an7583-switch
->              - econet,en7528-switch
-> +            - econet,en751221-switch
->      then:
->        $ref: "#/$defs/builtin-dsa-port"
->        properties:
-
-[Severity: Medium]
-Does this block omit validation for the cascade link on port 5?
-
-The upstream switch uses this block, which only validates `ethernet` ports.
-Because its actual cascade link on port 5 uses `link`, it falls through with
-no `phy-mode` validation.
-
-> @@ -337,6 +366,16 @@ allOf:
->          mediatek,mcm: false
->          reset-names: false
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - econet,en751221
-> +    then:
-> +      $ref: "#/$defs/mt7530-passthrough-dsa-port"
-> +      required:
-> +        - mediatek,mcm
-> +
-
-[Severity: Medium]
-Does this apply an overly restrictive definition to the downstream switch?
-
-This block fails to reference `#/$defs/mt7530-dsa-port`, meaning its standa=
-rd
-CPU/user ports bypass `phy-mode` validation.
-
-
-Regarding a regression introduced in a prior patch within this same patchset
-(commit 1d284e3e71056b81f501b69bacab596eedd52079, "net: dsa: mediatek: add
-support for passthrough mode") that does not appear to be fixed by the end
-of the series:
-
-> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index 9a50a492e6f08..58190e13813c1 100644
 > --- a/drivers/net/dsa/mt7530.c
 > +++ b/drivers/net/dsa/mt7530.c
 [ ... ]
-> @@ -3397,6 +3446,76 @@ static int mt7988_setup(struct dsa_switch *ds)
->  	return mt7531_setup_common(ds);
->  }
-> =20
-> +/* 1 if passthrough, negative if error. */
-> +static int mt753x_check_passthrough(struct device *dev)
+> @@ -466,6 +476,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
+> +static bool
+> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg, int chan, int i)
 > +{
-[ ... ]
-> +	/*
-> +	 * A switch is considered passthrough if exactly two available
-> +	 * ports have an "ethernet" or "link" phandle.
-> +	 */
-> +	if (passthrough_ports > 2 ||
-> +	    (passthrough_ports =3D=3D 2 && enabled_ports !=3D 2)
-> +	) {
-> +		dev_err(dev, "Only two ports allowed in passthrough mode\n");
-> +		return -EINVAL;
-> +	}
+
+[Severity: Low]
+Are the chan and i parameters needed here? They appear to be unused within
+the function body.
+
+> +	u32 val =3D 0;
 > +
-> +	return passthrough_ports =3D=3D 2;
+> +	regmap_read(rx->regmap, reg, &val);
+[ ... ]
+> +static void
+> +en751221_set_tx_drive(struct mt7530_priv *priv, u8 drvp, u8 drvn, u8 clk=
+_drvp,
+> +		      u8 clk_drvn)
+> +{
+> +	int channel;
+> +
+> +	/* Tx driving for TRGMII path on SoC */
+> +	for (channel =3D 0; channel < NUM_TRGMII_CTRL; channel++)
+> +		regmap_write(priv->regmap, MT7530_TRGMII_TD_ODT(channel),
+> +			     TD_DM_DRVP(drvp) | TD_DM_DRVN(drvn));
+> +
+> +	/* Undocumented 6th channel, probably drive strength for clock line. */
+> +	regmap_write(priv->regmap, MT7530_TRGMII_TD_ODT(5), TD_DM_DRVP(drvp) |
+> +		     TD_DM_DRVN(drvn));
 > +}
 
-[Severity: High]
-Does this logic implicitly ban valid standard DSA cascade and multi-CPU
-configurations for all MT753x switches?
-
-This block increments `passthrough_ports` for any port with `ethernet` or
-`link` phandles. It incorrectly restricts any switch with exactly two
-CPU/cascade ports to strictly having zero user ports, breaking standard
-cascade setups.
+[Severity: Medium]
+Should this be using the clk_drvp and clk_drvn parameters instead of drvp
+and drvn? It looks like the intended clock drive parameters are being ignor=
+ed
+completely here.
 
 [ ... ]
-> @@ -3529,8 +3648,12 @@ EXPORT_SYMBOL_GPL(mt753x_table);
->  int
->  mt7530_probe_common(struct mt7530_priv *priv)
->  {
-> +	int passthrough =3D mt753x_check_passthrough(priv->dev);
->  	struct device *dev =3D priv->dev;
-> =20
-> +	if (passthrough < 0)
-> +		return passthrough;
-> +
+> +static void
+> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
+> +			   struct mt7530_priv *ondie, int ondie_port)
+> +{
+[ ... ]
+> +	/* BOTH: Put interfaces in a downed state */
+> +	mcr_down =3D PMCR_IFG_XMIT(PMCR_IFG_XMIT_64) | PMCR_MAC_MODE |
+> +		   MT7530_FORCE_MODE | PMCR_MAC_RX_EN | PMCR_BACKOFF_EN |
+> +		   PMCR_BACKPR_EN | PMCR_FORCE_SPEED_1000 | PMCR_FORCE_FDX;
+> +	regmap_write(ondie->regmap,  MT753X_PMCR_P(ondie_port), mcr_down);
+> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_down);
 
 [Severity: High]
-Does this unconditionally evaluate the faulty passthrough logic for all MT7=
-53x
-switches during probe?
+Is it safe to modify the SoC switch's PMCR register directly from the MCM
+switch's phylink execution context?=20
 
-Any switch with exactly 2 CPU/cascade ports and at least 1 user port will f=
-ail
-driver probe with `-EINVAL`, breaking networking functionality across the
-driver.
+The SoC switch has its own phylink state machine. If it concurrently runs
+mt753x_phylink_mac_link_up(), could it result in a data race that corrupts
+the PMCR register and breaks calibration assumptions?
+
+[ ... ]
+> +	/* BOTH: Set TX drive strength, MCM uses more */
+> +	en751221_set_tx_drive(ondie, 8, 8, 7, 7);
+> +	en751221_set_tx_drive(ext, 11, 11, 16, 16);
+
+[Severity: Medium]
+Does the value 16 fit in this hardware field?=20
+
+The caller is passing 16 for clk_drvp and clk_drvn, which appear to
+overflow the 4-bit fields defined by TD_DM_DRVP_MASK and TD_DM_DRVN_MASK.
+
+[ ... ]
+> +	/* MCM: Spread spectrum clock*/
+> +	core_clear(ext, CORE_PLL_GROUP8, RG_LCDDS_SSC_EN);
+
+[Severity: High]
+Could this call to core_clear() corrupt the MDIO bus during indirect MMD
+accesses?=20
+
+core_clear() relies on mt7530_mutex_lock(priv). If the MMIO-based switch is
+using priv->child_bus instead of priv->bus, mt7530_mutex_lock() will see
+priv->bus is NULL and silently return without locking:
+
+static void mt7530_mutex_lock(struct mt7530_priv *priv)
+{
+        if (priv->bus)
+                mutex_lock_nested(&priv->bus->mdio_lock, ...);
+}
+
+Would this leave the child_bus completely unlocked during the sequence
+of bus->write calls required for indirect MMD access, leading to data
+corruption on the MDIO bus?
+
+[ ... ]
+> +	/* BOTH: Collect and then zero every RX TAP */
+> +	for (channel =3D 0; channel < NUM_TRGMII_CTRL; channel++) {
+> +		reg_val =3D 0;
+> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
+> +		default_taps_ext[channel] =3D FIELD_GET(RD_TAP_MASK, reg_val);
+> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
+> +				  RD_TAP_MASK);
+> +
+> +		reg_val =3D 0;
+> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
+> +		default_taps_ondie[channel] =3D FIELD_GET(RD_TAP_MASK, reg_val);
+> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
+> +				  RD_TAP_MASK);
+> +	}
+> +
+> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ext);
+> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
+
+[Severity: Medium]
+Should this second call pass default_taps_ondie instead of default_taps_ext?
+
+If the calibration for the ondie receiver fails, it looks like it will fall
+back to the taps collected from the ext switch rather than its own, which
+might lead to a broken or unstable link.
+
+> +
+> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909140346.2861=
-572-1-cjd@cjdns.fr?part=3D6
+572-1-cjd@cjdns.fr?part=3D7
