@@ -1,37 +1,38 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B4F83D0934;
-	Thu, 10 Sep 2026 09:20:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 504823D9665;
+	Thu, 10 Sep 2026 09:20:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032046; cv=none; b=if/bVu7R/bH6uj2QVz/q3uZRDeB15EiLBR5gGGYqcA9hbYmSf0Uulf6dDe6xGEXrVsD2jBNbANxirsTI5MzwlJPExZBjSG+qTTVb1kIuLs/etKoaLYhzVWsn6k5xe2Y0iWXQ6+J1Z5G3AMbp//6z1itzdgmIZ0XuoTh0vHT3MHU=
+	t=1789032048; cv=none; b=F6QUIv5eiRlbHKSOCC90iiH/zsDrCVgfYY5Xhai2lIHYqXVqxZBelC6tB2OpxHDgZnm3aeHtYUHNm+KB78sDMhHFGReZV2yaskY0DqMZmlSeqX2QSRdmDYulUkvTpS0vXR/M4n06NZVRPvBsTZMbOO1tg6lxV+K9S28wEnh4pxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032046; c=relaxed/simple;
-	bh=kOX7qxdoIaNGQlJqEVTvsO2lJxLSfimYQdTf/38st6Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DYBx405zBv7VHj2+L+mV1TITO9K7Ymgbq8Bj288r9XceqYyR54J9H1/DGwZxYe0wX4zqxzUfWQZDz9umS3kHQ2g/55/z1nIJvUvCatJBvMKP0nbpAVjqlK+q7uzf2dZf3F0qsq1A95XMCrFJwUAN7OQyAEfL7U3JetMnysoiAyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=U3LPU7Fq; arc=none smtp.client-ip=148.251.105.195
+	s=arc-20240116; t=1789032048; c=relaxed/simple;
+	bh=3T1bI55DxPKUxrkKbaXUdzwvIf7IgcntNDx2QtDpXe8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qk/WIB2ow/lEgbU6Z35nWtzj1yHXdNi1nK/aBdV9UsGPDVjUY8VcwdBSpQUlbosCsVxll60CmNjqnoxbQIQnCn7fvahK8FXLCHacBfCb8ZvHSwt6Wcoww2dEsOtAyUtAltiRHYrWiTebRA0vRFvxtwGhtbNqTRSu7xqzf1gCBYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=C4oj1QqG; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="U3LPU7Fq"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="C4oj1QqG"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789032042;
-	bh=kOX7qxdoIaNGQlJqEVTvsO2lJxLSfimYQdTf/38st6Y=;
-	h=From:To:Cc:Subject:Date:From;
-	b=U3LPU7FqStDtB5+V9vaGVzVRaJJnMV+/gztlnhvBraOeJ5ARio0gSxVaS8fvoKFUx
-	 Ib26O6Y6fOcJWuL6ex/ERGRqSX/iKmGy9mMf52YJPm6Cnd09WkVpDJXk/76UPnThTS
-	 AQi69cyYEwjx72nD7iXDDJnzH80GJk6onXFMmTrgEvnvubTCF2x+hhn1G0mMHhLMax
-	 a0f41u1W3zvt8YGYGE9eU0cjCQ6RwjhepjaaEPkA921oUF06rFqSp44GhldlotjPyU
-	 P0NO8e1D7SblJQbPC5ctg0ZW156gmzc8zcHRWIlssJXYF+Uml2OcXPrWeW300w6GbG
-	 F8h6Rxf12Kl6g==
+	s=mail; t=1789032043;
+	bh=3T1bI55DxPKUxrkKbaXUdzwvIf7IgcntNDx2QtDpXe8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=C4oj1QqGfpW70EK+8nkaMyUbjYlaYjaM0XyaSUVOc51wD+Y8B0dhQDfJpqNbL65n4
+	 L0+tXVYa8lB9ZSm5YslAhr3INTzLcruGD7eo/e+WKd5t1VTwjLgDFRa1zZuATN84qb
+	 75WwwwzRXGBD1pXhlVj6uYfvv+Qg7O2q9QfTw3WtWyF1ZQGsqsGJU5Hk55mgP/oANH
+	 ojXC/dxgTy7ohJsR+x+DmLwZbwHguNY7+3YvENzE+gZK00Cr5PqicbPTk90xyleZGC
+	 3JsQ+JTdop5tliS3lNmdyvtEvI+XnoTIiO8lVYVWqTeoI1BIpyRPgHaLXUmpK+7Qxe
+	 UIgMa7LSUZ/GA==
 Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id C168D17E0917;
-	Thu, 10 Sep 2026 11:20:41 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A523117E0945;
+	Thu, 10 Sep 2026 11:20:42 +0200 (CEST)
 From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
 To: mani@kernel.org
 Cc: chunfeng.yun@mediatek.com,
@@ -51,11 +52,15 @@ Cc: chunfeng.yun@mediatek.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
-	kernel@collabora.com
-Subject: [PATCH v4 00/12] PHY: MediaTek DP PHY refactor and MT8196 eDP
-Date: Thu, 10 Sep 2026 11:20:26 +0200
-Message-ID: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
+	kernel@collabora.com,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: [PATCH v4 01/12] dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
+Date: Thu, 10 Sep 2026 11:20:27 +0200
+Message-ID: <20260910092038.48291-2-angelogioacchino.delregno@collabora.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
+References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -64,94 +69,106 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Changes in v4:
- - Removed error checking from all regmap_(bulk_){read,write} calls
-   as those are on MMIO and can't fail (Mani)
- - Changed some of the error prints in mtk_dp_phy_get_one_cal_para()
-   to dev_err_probe() (Mani, Sashiko)
+This adds bindings for the DisplayPort and Embedded DisplayPort
+PHYs found in the MediaTek MT8195 SoC (and variants of) and for
+the Embedded DisplayPort found in the MT8196 SoC (and variants).
 
-Changes in v3:
- - Added missing bitfield.h, pm_runtime.h includes (Sashiko)
- - Set calibration data before registering PHY (Sashiko)
- - Enable PM Runtime before creating PHY device (Sashiko)
- - Continue poweroff if some write fails, but still return failure
-   as that would be a partial poweroff anyway (Sashiko)
- - Added zero driving params to fix default calibration data setting (Sashiko)
- - Added NULL check on device_Get_match_data (Sashiko)
+This PHY supports varying impedance calibrations for the various
+signals to reach an optimal EYE signal pattern for any specific
+board(s), especially useful for very high bitrates such as HBR3
+and higher, depending on board design.
 
-Changes in v2:
- - Fixed register offsets for ANA phy in MT8196
- - Set/clear FORCE_VOLT_SWING_EN bit when configuring and resetting
-   the voltage swing registers
- - Fixed endianness issue in call to nvmem_read_u16 (Sashiko)
- - Added early exit during lanes disablement if none are enabled to
-   avoid out-of-bounds bitwise shift (Sashiko)
- - Removed useless call to pm_runtime_get_sync() in probe(), which
-   also fixes issues pointed out by Sashiko
- - Fixed wrong dig vs ana register array usage in power_on/off (Sashiko)
-
-
-This series performs major refactoring on the MediaTek DisplayPort PHY
-driver, makes it probe with devicetree instead of getting registered
-by the mtk_dp DRM driver, adds power_on/off() callbacks, and honors
-the phy configure opts' set_lanes and set_voltages for, respectively,
-varying the number of lanes and setting the voltage pre-emphasis and
-swing on the PHY, for each lane.
-
-This driver now also properly gets the PHY (EYE) Calibration Data from
-NVMEM (eFuse array) if provided, instead of getting it (improperly)
-injected by the mtk_dp driver.
-
-Additionally, all of the driving parameters calculations and most of
-the other register definitions were refactored to greatly enhance the
-human readability of this code.
-
-As a last step, this also transfers the register offsets for both the
-digital and analog phy registers in arrays assigned to soc specific
-data, in an effort to both introduce support for new minor revisions
-of the MediaTek DisplayPort PHY and to have a clearer view of the
-register related differences between those (for example, it is easily
-understandable that the analog part remained exactly the same between
-MT8195 and MT8196, but the digital part gets a slight update).
-
-Speaking of which, as a last step, this also adds support for the
-MT8196 SoC (and its derivatives), which uses this PHY only for its
-Embedded DisplayPort (eDP) IP (spoiler: the DP one seems to be way
-too different and requiring an entirely new PHY driver).
-
-In this state, this driver can also easily support the MT8189 SoC
-with a few lines of code: even though I do have clean code to add
-support for this one, I was not (*yet*) able to test it on upstream
-based kernels, and for this reason I decided to leave that one out
-for now (but it's coming later for sure).
-
-NOTE!
-Despite all the apparently breaking changes in the refactoring, full
-compatibility with older MTK_DP driver and with old devicetrees was
-retained and carefully tested on multiple platforms!
-
-P.S.: I am aware of the BUILD_DRIVING_PARAM_0( 0, 2, 4, 7) checkpatch
-warning and I didn't fix it in bigger favor of human readability.
-
-AngeloGioacchino Del Regno (12):
-  dt-bindings: phy: Document MT8195 and MT8196 DisplayPort PHYs
-  phy: phy-mtk-dp: Rename regs to regmap in struct mtk_dp_phy
-  phy: phy-mtk-dp: Allow probing with devicetree match
-  phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
-  phy: phy-mtk-dp: Implement power_on and power_off PHY callbacks
-  phy: phy-mtk-dp: Support set_lanes in configure and properly cleanup
-  phy: phy-mtk-dp: Support setting volt swing and preemphasis values
-  phy: phy-mtk-dp: Add support for digital and analog calibration
-  phy: phy-mtk-dp: Rewrite and document default driving param macros
-  phy: phy-mtk-dp: Add bitrate register val definitions to SoC data
-  phy: phy-mtk-dp: Add PHYD Lane EN register mask to SoC data
-  phy: phy-mtk-dp: Add support for MT8196 eDP PHY
-
- .../bindings/phy/mediatek,mt8195-dp-phy.yaml  |  77 ++
- drivers/phy/mediatek/phy-mtk-dp.c             | 832 ++++++++++++++++--
- 2 files changed, 812 insertions(+), 97 deletions(-)
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ .../bindings/phy/mediatek,mt8195-dp-phy.yaml  | 77 +++++++++++++++++++
+ 1 file changed, 77 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
 
+diff --git a/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+new file mode 100644
+index 000000000000..1c2dc4f03cd6
+--- /dev/null
++++ b/Documentation/devicetree/bindings/phy/mediatek,mt8195-dp-phy.yaml
+@@ -0,0 +1,77 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/phy/mediatek,mt8195-dp-phy.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: MediaTek SoC DisplayPort Transmitter PHY
++
++maintainers:
++  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
++
++properties:
++  compatible:
++    enum:
++      - mediatek,mt8195-dp-phy
++      - mediatek,mt8196-edp-phy
++
++  reg:
++    maxItems: 1
++
++  "#phy-cells":
++    const: 0
++
++  nvmem-cells:
++    description: PHY calibrations from eFuse for optimal EYE signal pattern
++    items:
++      - description: PHY-Global Reference Bias trim
++      - description: PHY-Global AUX Transmitter clock impedance adjustment
++      - description: Lane 0 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 0 Transmitter impedance selection (N-MOSFET)
++      - description: Lane 1 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 1 Transmitter impedance selection (N-MOSFET)
++      - description: Lane 2 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 2 Transmitter impedance selection (N-MOSFET)
++      - description: Lane 3 Transmitter impedance selection (P-MOSFET)
++      - description: Lane 3 Transmitter impedance selection (N-MOSFET)
++
++  nvmem-cell-names:
++    items:
++      - const: rbias-trim
++      - const: impedance-txclk
++      - const: impedance-lane0p
++      - const: impedance-lane0n
++      - const: impedance-lane1p
++      - const: impedance-lane1n
++      - const: impedance-lane2p
++      - const: impedance-lane2n
++      - const: impedance-lane3p
++      - const: impedance-lane3n
++
++  power-domains:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - "#phy-cells"
++
++additionalProperties: false
++
++examples:
++  - |
++    phy@1c500000 {
++        compatible = "mediatek,mt8195-dp-phy";
++        reg = <0x1c500000 0x2000>;
++        #phy-cells = <0>;
++        nvmem-cells = <&edp_glb_bias_trim>, <&edp_clktx_impsel>,
++                      <&edp_imp_ln0_pmos>, <&edp_imp_ln0_nmos>,
++                      <&edp_imp_ln1_pmos>, <&edp_imp_ln1_nmos>,
++                      <&edp_imp_ln2_pmos>, <&edp_imp_ln2_nmos>,
++                      <&edp_imp_ln3_pmos>, <&edp_imp_ln3_nmos>;
++        nvmem-cell-names = "rbias-trim", "impedance-txclk",
++                           "impedance-lane0p", "impedance-lane0n",
++                           "impedance-lane1p", "impedance-lane1n",
++                           "impedance-lane2p", "impedance-lane2n",
++                           "impedance-lane3p", "impedance-lane3n";
++    };
 -- 
 2.55.0
 
