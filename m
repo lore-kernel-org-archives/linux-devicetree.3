@@ -1,124 +1,167 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBFF4A485B;
-	Thu, 10 Sep 2026 15:07:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0694748EC88
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 15:08:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052883; cv=none; b=YImEWswPf/ibNq5G1efQHTa8btsKkuqyRsoCkiIt/H+HztR8OFuJqK7BtnKwfLfI/UYM+4ueqHa+g8+08SLizCswM3bp7lYHN1kMg6ZlG0eRo5pxSFkoykUV/KY4oj/PIasH1T1Xhb0k026FNelp79kkPxdmtajOSTPBWTKMp34=
+	t=1789052911; cv=none; b=lbE0QyxgSyMqQLXJwyuWOPkxA9ZDnY9jdHdZeiKtMU/iueTUh48FfYZL8Y0NwfVwDpxw8b2SRf72qJNOaWIe2sUTYT6c8wdtbNKeLRzciP56FXe1En36d2o2m6M61NAjYmQz1h8XGgq77CLNOjk1+STHnRjaz+H8mo+SWQXvu8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052883; c=relaxed/simple;
-	bh=ErwTpVinq47Bz5B3I6Trw0G9IjnA0HH1ShtsRhXmykM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R0tt3q91w8TETh6u1Ix1mFW2WDEGR0wCp+FxiFq/T4wOV2PsOHAO49NYxZ6wLclQSI9RPf2KhGLXSgrGtB5WRjzQgyUVeMN01bO+/cu/eenUaJGI+IudIfm8KqfQBMOK7JkOF95AJCrcXff29x7Y4DGXbOkGeW0+V1wd8lHJjyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=s87aifiY; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789052911; c=relaxed/simple;
+	bh=YSYs9LbmZU0PYWfoZXs1bLGfoTvd1+eohtoxmTIiqW8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZS23whwhsLMItFHDV9u35RBQHsG2ix6FmAIg52Yr3Ueb010lJyt+Ye/v5X0AbPAh9Z7SxeL5sHLHunZIdA4RlHzjfVXvEE5dC5PJqoH55wgc9PiidFB/JT0Xos0QldKncPzxbTVq6ENdLhWqd/yNFNkOEFH/ULIYoCZzFS5/lTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aQuUBOek; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="s87aifiY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=sAxry/9gxO8ra9Tc4i2+zGNNckg7kZCkH2Eff0cthwE=; b=s87aifiYli2n4g6vPxg0rGs/6G
-	VsxpkWgl2rFW3bWOpVaeOTJNOYzWTdFBPGepHGf4I65wXPy+jThikHXyZKiLVg+aZSzvI83DqQ/DU
-	rF89Eb92lJupn6o0wh8tJrfcJGRvVfzCNDKbZ63xYoGs6k7nFxuu3U8DXFobrRldKVhI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x4gNO-004Wa7-4q; Thu, 10 Sep 2026 17:07:46 +0200
-Date: Thu, 10 Sep 2026 17:07:46 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-Message-ID: <5bc95ef2-4e23-4c80-af17-07aa3643bebf@lunn.ch>
-References: <20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
- <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
- <371fe855-e21f-4d53-a13f-4486494c8ae1@lunn.ch>
- <42efedd837c1631b38849693e1d66bd2b1fb1529.camel@linutronix.de>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aQuUBOek"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49954b88fffso53118385e9.0
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 08:08:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789052903; x=1789657703; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/O88mD56SBzt1YvJ4sXCFFpkOs3XAqa1P/dxdZfqCQY=;
+        b=aQuUBOeksgHQbypXJpEW/M+bAEGXXM99yx4WFvRTQhDu8R0N/Dr1a8yfdVL52H2WAu
+         aSycI7wZ9reOyZ6xGDEsSYWShV7XzQSQ0JPQAePAlVN9xzu3udfWpaFXoNhB8kGGTOrH
+         5Mtgu5iXS64sEd46lvnWttwBwk0xxO9iER8xqSGWRNiXYMOqGum5+io+uJimfnaqYO95
+         WjUmjI5jFmkQYp12g2MFrCScqBYTh/QvOGfW7jasl9bFMyTc/02G8ibaNqEmvhQlBeyB
+         YcHtzLaY740pupKq0+vo5zg6t4yoT/i85DzCdH1IhbcW4FMb0d44F7r8mcbJt6hQdBCf
+         /JYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789052903; x=1789657703;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/O88mD56SBzt1YvJ4sXCFFpkOs3XAqa1P/dxdZfqCQY=;
+        b=c1uckckyj0nGf0qX0iaEIATb/CWE6qyQLHmAFMs9W7Cozdj33C5kIdcNpT+z8xMN87
+         9fKfE4n9L2gpkY5iivxw6h6FVVav4eDEo42pJwG5vyQuurdLLLU+HDfYBogL8W8BOeSC
+         RALTfPF+rq3fLFTVAmdc8iwp3oR/mNESM4Rmvp6DAAJCyW6G9JwSkDULTfuHnu08ObJN
+         2aaPUzU57xO4SK8BSxeRUKv15Izq4yN60KysCDJx4rCxwHpg1qos1UhO/BNxYx2/G1US
+         n216Mrhg12NjAYPL6vPzBh3XUkCxQLQ2fJfPSyISEEFfpsF+MVfgoJo+fVXD4ivO84SZ
+         UTuw==
+X-Forwarded-Encrypted: i=1; AKwUvBwJHGLc+CbIlMHSSo6V+kpIS+gUQnnqbvDip2AgvhBiLEN9k73Lnx+gZlrlhR+eigCmqLX1e2HXTGKr@vger.kernel.org
+X-Gm-Message-State: AFuF++n5FCm8htJjSCmCWC2yvo5otkNpz4BkVQWr8t0SzLkSKSUVoPyu
+	vON62u2NjewR5+ezjWM2tuHmBuJakM46ve/5jH0+ncSwiVrL6x1DBku0
+X-Gm-Gg: AYBFou1/g4uHVmOXxiFqTSSuVfbtZ+rIg9SFDXJACC6HOMVSX31FX7J+gQkg69ghOYv
+	nGkHx0SlZVzfTiYJ+EZqiOJ4YoUIOKFUKJdmRL+gFLPT3GJIjYbH+Fp501a16NsHYe5ai7L2rve
+	NFSFjtrvfGdlR3CFwz6PRbbm7BBbK88DAWD5oTfcjGX0HxiM6Lhl32eORkL64Up+WPloLoTnaMx
+	R5eZM/ZRV8/kVKru8ROiELDhVutIw1xtcgul26MVOwacbpcglkvJaCUURIVohHAi4rtqCrtFdzL
+	k3hwZJAyCKMR0LjF5t+8P3lyH+7ZmZUjx2mEao4zPjHFE5kQTOzyyvrfWtijYGa9iTVxrFyCTkW
+	3hnLsRtW9rvDHhYAvQ11j3+w+LwH8GlzipVyFYUt3aClEsyJS1JXcNd8AumvcvRccxAW7ZbCXfG
+	4eCvwR9ctyOU78hAEpc/cDDEcWxe7SSemP0PX8rDlwrQ4UEcxnjgxAhUkZWDbLuaQpYK5QXX/lz
+	1LZ3aMCAQW0pMJDe5Ucoza+DCFrEj0A
+X-Received: by 2002:a05:600c:4f12:b0:49c:fc6c:be00 with SMTP id 5b1f17b1804b1-49cfc6cbfcamr388041945e9.23.1789052902962;
+        Thu, 10 Sep 2026 08:08:22 -0700 (PDT)
+Received: from [10.25.218.197] ([128.77.115.158])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d24e01c66sm48739535e9.1.2026.09.10.08.08.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 08:08:21 -0700 (PDT)
+Message-ID: <a41510f0-8906-4698-9919-b65b40cc9b89@gmail.com>
+Date: Thu, 10 Sep 2026 08:08:18 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <42efedd837c1631b38849693e1d66bd2b1fb1529.camel@linutronix.de>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
+ support
+To: Ahmad Fatoum <a.fatoum@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Frank Li <Frank.Li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ elena.popa@nxp.com, consmin.stoica@nxp.com
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Pengutronix Kernel Team
+ <kernel@pengutronix.de>, imx@lists.linux.dev
+References: <20260909153943.1048-1-laurentiumihalcea111@gmail.com>
+ <20260909153943.1048-3-laurentiumihalcea111@gmail.com>
+ <f0136c29-e372-4ae9-972a-23d7a60d75e4@pengutronix.de>
+Content-Language: en-US
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+In-Reply-To: <f0136c29-e372-4ae9-972a-23d7a60d75e4@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thanks for this list.
 
-> ---
-> Global register block at 0x0000 (three registers currently used)
-> 	0x00 Core Version - Major and minor revision number (RO)
-> 	0x04 Licensed Features (RO)
-> 	0x08 Reserved
-> 	0x0C GUI Configuration - Implemented Features 0 (RO)
-> 	0x10 GUI Configuration - Implemented Features 1 (RO)
+Hi Ahmad,
 
-GUI? I assume this is not Graphical User Interface, but something
-else?
-
-> 	Licensed Features Register (RO) (Bits specify if the given
-> 	feature is enabled by license):
-> 	[31:27] - Maximum Number of Ports: These bits specify the maximum
-> 	number of ports licensed
-> 	[26:15] - Reserved
-> 	- ACL: Access Control List (ACL) feature
-> 	- LLDP: LLDP feature
-> 	- IEEE 802.1X
-> 	- IEEE 802.1AX-2008 - Link Aggregation
-> 	- IEEE 802.3br/IEEE 802.1Qbu - Preemption
-> 	- IEC 61158-4-2 - DLR
-> 	- IEC 62439-2 - MRP
-> 	- IGMP Snooping
-> 	- Port mirroring
-> 	- IEEE 802.1s - MSTP
-> 	- IEEE 802.1w - RSTP
-> 	- IEEE 1588 - Transparent Clock
-> 	- Switch mode: managed or unmanaged
-
-This is probably something which should be tested in the probe
-method. No point loading the driver if it cannot be managed.
-
-> 	- Secure Chip
-> 	- Time Limitation
-
-What do these two mean?
-
-> 	MDIO - Control
-> 	[26:16] - Bus selection: These bits specify the port number over
-> 	which MDIO operation is performed.
-
-10 bits, which allows more MDIO busses than ports!
-
-> > I also wounder at the name. Does the data sheet really call it DSA?
-> > 
+On 9/9/2026 9:20 AM, Ahmad Fatoum wrote:
+> Hi,
 > 
-> Yes, there is even a chapter describing Distributed Switch Architecture
-> (DSA) as "a subsystem that was primarily designed to support specific
-> vendor switches using Linux, ..." followed by information about "custom
-> DSA tagging".
+> On 9/9/26 5:39 PM, Laurentiu Mihalcea wrote:
+>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>>
+>> Add basic support for NXP's MR-NAVQ95 board. This board is designed for
+>> robotics applications (e.g. drones, rovers, humanoids, etc..) and has the
+>> following hardware feats (list is not exhaustive):
+>>
+>> * based on i.MX95 19x19 SoC
+>> * 64GB eMMC
+>> * up to 16GB of LPDDR5 memory
+>> * 1 x USB 2.0 TypeC
+>> * 1 x USB 3.0 TypeC
+>> * 1 x RJ45 port with RTL8211 PHY
+>>
+>> The support targets revision B of the board.
+>>
+>> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>> ---
+> 
+>> +	chosen {
+>> +		stdout-path = &lpuart1;
+> 
+> I would recommend instead "serial0:115200n8" here. This introduces no
+> change for Linux, but for other consumers of the device tree, they will
+> be able to agree on a common baudrate.
 
-Does the switch support the D in DSA?
+ACK, seems fine. If there's no other objections to this I'll make the switch
+in V5.
 
-> Yes, I agree that a feature structure will be needed once more fields
-> are used. I would prefer to keep the current interface for now and
-> introduce struct soce_features when another detected feature needs to be
-> retained. At the moment, it would contain only a single member.
+> 
+>> +	memory@80000000 {
+>> +		device_type = "memory";
+>> +		/* actual size filled in by the bootloader */
+>> +		reg = <0x0 0x80000000 0 0x80000000>;
+> 
+> If the board has at least 2G always, this is fine.
 
-O.K.
+the board only ships with 16GB LPDDR5 so yes, it'll always have at least 2GB.
+While the current size is fine, maybe it would be better to change it to 16GB?
+Will have to update the commit message as well since "up to 16GB of LPDDR5 memory"
+might be a bit misleading.
 
-	Andrew
+my other option was to leave the size set to 0x0 like some QCOM DTSIs seem to do.
+Not sure what the preferred way of handling this is?
+
+> 
+>> +&usdhc2 {
+>> +	bootph-pre-ram;
+>> +	bus-width = <4>;
+>> +	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
+>> +	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+>> +	pinctrl-1 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+>> +	pinctrl-2 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+>> +	pinctrl-3 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+>> +	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
+> 
+> Looks unexpected to have same pinctrl groups for the higher speeds.
+> Are higher speed modes even possible on this board?
+> 
+> If not, I would suggest dropping the extra states.
+
+The pin configuration is chosen to meet the timing requirements of the 200MHz
+state. Because of this, I would expect the configuration to be appropriate for
+lower frequencies as well.
+
+The intention is to use the same configuration as MX95-19x19-EVK since, from what
+I've been told, the trace lengths are similar to those of the EVK.
+
+Thanks for taking the time to review this! :)
+
