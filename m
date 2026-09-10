@@ -1,346 +1,201 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEB249B1E9
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:02:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C8C48E0FA
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:06:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789045329; cv=none; b=XbWyFWIElvh27jiDnbB/RTD6zCLoI7lja3pNvS4790bzC1poltsMLMOplvhE3+7YdK341LzZ0dJeqSeUhLu8ETe1IhtuxmakVujJwem/5CgwRmlt/s5Whu6udsdimQafW/5sxAaNi6+Xr0a7k+ihH+8uRSus2bW/LFV1gmCBA+8=
+	t=1789045620; cv=none; b=u9arql5tanQYisU/Gp5TCm3zoLpTrFJjvLlUhooP5N0WzN/p0KuvdRF+OyU0pD0tMgJubAtJvndm7Hk8pps+zxPX16HkmRN+GYVUN8ZTFlPPafQHuu66BiyzO4JQF091OQ44WFxKGxSDTLiUswGJ8lij8Hc8oDVIPykly8UuXvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789045329; c=relaxed/simple;
-	bh=pLuYTK+v9TIipu6ssPymi4hw6CAH2vc971YdKVn+N3g=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AE4uAJS96EhwCNxLQNIOa/9FcNc6IDhaspDfcuaXLh4+KSuvDAQs/uaOVi0JZq620KT0Rxg4KJ7JAsSLdpGPdAHnudlyFHntIsOmYtiZa3CqqTqQDPqUZ8ydHAP8jZCQLQweY0qhQArfFlDgLELT5OMsOqCxpOwHV4BpkcSEepY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OwPDvhSc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eInU5jHy; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789045620; c=relaxed/simple;
+	bh=j++54T3sUZ+8HaFYRaDy0ZlOlzbDf1s23ZOYnPY0yUI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=ZVzW5o4i8ggKo3KwL/OOALU7uUVuchPnixbwHArQ3pVk80yznQu2ccxAunUPozW9lWKCz2DfJw+zYdm+B0zwFSVkYrUfAAgsNZjieU8zBre3Kf+/+X28cZTPlt4nItY34pfkeVsXowkBOfe426j1DEwjzkqpjth1oDE+Qt8/n/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fgAJpA13; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OwPDvhSc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eInU5jHy"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68AC7qEU1087149
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:02:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NYH8lVh4dAKWqLbqknghnDZNnedz+edxJGyF0OFsIqU=; b=OwPDvhScpsjzwSB1
-	leEM3uuTcs/RL8xo2IEcKsh9pempGpNNli/rPWaFix3qOdNbbnGfmiNl2fFzFHt4
-	U7docxBTnmC2ZML/UBEX20u61+Qr4iBTEmNfppwApYB9MVYrJpBLyA6RGo1QhaQE
-	3QWIeMyDFNxXZKz0GKju/QNl2hW8KrMBC5UecvxFi3c5z/qSO9eyWjUaVqV9ghde
-	UQA5m68kZGpPLxXp+DPHIRapJouxeEcsSUidI/gKL2QD7KzdBrw5r+DkM0P/4/Aq
-	nmPElRBI5/8JHQQWM6oFq0YrPQNbWuuvr2WGw4XJ/UqD+bz8tNnTnfjxXzWRyUSq
-	GiaFUQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg3yxq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:02:04 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cee1ec30f2so86458955ad.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:02:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fgAJpA13"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4834977ae75so1262011f8f.3
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:06:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789045319; x=1789650119; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NYH8lVh4dAKWqLbqknghnDZNnedz+edxJGyF0OFsIqU=;
-        b=eInU5jHyKsfPvfWWJR1xT9sUTEVuuCkrG8dDetEqxu/4vPfuDaT+w3HOMLX50TY6VR
-         i6nAmrfXmCPNWv3hiZ2OWYWKX5MM8qwjjIqeITN1qAFisQpnfiRD/VgRGTicXLB1emIl
-         Msl6rSfVBBCpmk9imFY49cNumdp61h/Rr+PCWQDzB5q641p1TILGRu+jqixD8U6WqZzf
-         J9MsguDrxjQ0idZkPf04lPrSv2TscQpbF53vDMWXDPsIVGu5c8FFsZOGMQgnviC5XV/J
-         T2jWM57hL6chHRMU/DCEmBUS5fnDt5TAdtf2t4LwI5qpoK4mWrdhiZvHE/TaZJurhOrG
-         ky7A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789045319; x=1789650119;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1789045613; x=1789650413; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NYH8lVh4dAKWqLbqknghnDZNnedz+edxJGyF0OFsIqU=;
-        b=WCEExG2A0Ofk8fyZOJT5+cvIu8wwJGZr+iYNXeCdFOEdinB60ZgBbCbrPHSPDvwPll
-         o1fMlaLBPskCR59i2PobmNHPlMZj4ENKukSgvJrQV019HvKr7+aEV3uulyHDoiFbncS/
-         /sesIiVNsUHmFZip7m82ikmqZGQZueKvaT7GXjfsyTTH0qrakjQ73M9/ZGnRm6b4iIIW
-         Od5AEE81SBda7BMenKvhzM/CSYaoTwzRIVSolE307Nu3/W8C42XfXw20jNo0yamLaAXc
-         XiTD+wsMv0YGCWc7SfAJYnEH9HUfw0PWsVdSCJ5zhpEMTKilLrcY6jXY4D2rGQRRk1pE
-         AQ/w==
-X-Forwarded-Encrypted: i=1; AKwUvBw4qFKGyasSrLvS13dpDnapoC4yNlyxb/Y0r6KJb+uCM6bjRq+dxTAcP7S3Ze5Ufv4A03OphKWNh8eo@vger.kernel.org
-X-Gm-Message-State: AFuF++k3Uma2BG0852KKtNAi5vTdm5Ix5WzH8PIarYrQ2IzfS4BK/bZB
-	5S6yx4IDQIX0csznzYc3hmD1mAT8mfGw7csZRQCqIJ31JHB45/bZZoHOlcMq7EDnxLnAvH8LKkf
-	eI/zPeu9vwFDDdanpdFlWR/rTI7imrbHLxdlTvkMy807dKnDxR+Ty5nu0fumN6CQ4
-X-Gm-Gg: AYBFou2HQblXJAS3gCrcHlJ3Y84c7eLOlknV3yF/hg0GYvXsUFkUH1p3B0ygHW4rIE1
-	2456xgPd57e8XO5j6CKysODlFPsU1IpDwhw4AyveXV1+8alG428zdJkzNcu9m/4HOTsco3BoqgM
-	ucXnr71zqMja38J83L/3a2CLiwi/CQJHlFtVoTL7Lt3THXIS76y00fz99Cek/fEp019X8w2rhKC
-	X/mW4Mfia03noHEAViyw/BfVmnCSy1w+MW11hYX/40ke822w5P61M2in5fUcHvLiHagqUptT6XP
-	arhDGCDiaEEwTCQHIDgEkTbe/cRdD0IlmtOJy7/r4NrcDj3uVHH0xV1xg3Kdzk/b0QrjHryuuYh
-	rpKNKqoE+VHm7wa2NrH0URPDeqf+0ttkh2Tt8
-X-Received: by 2002:a17:902:db07:b0:2db:5ea1:8b04 with SMTP id d9443c01a7336-2db5ea18e2amr338986745ad.5.1789045307480;
-        Thu, 10 Sep 2026 06:01:47 -0700 (PDT)
-X-Received: by 2002:a17:902:db07:b0:2db:5ea1:8b04 with SMTP id d9443c01a7336-2db5ea18e2amr338952815ad.5.1789045277098;
-        Thu, 10 Sep 2026 06:01:17 -0700 (PDT)
-Received: from hu-apateriy-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1495b9f0sm88424805ad.20.2026.09.10.06.01.13
+        bh=s417j/ysygJZ4xE0jMBISIxl2zgVW4JEiLwZ40hycxA=;
+        b=fgAJpA13geelJvMo236lMup0m+UVq79aH2cHRkifKGekwSlg2wdMqhwx8yEcs3jubI
+         aQiLDugU7Ybtc1d+a3nPPlP7Ki2LO2ZJ1DKlWPRrEMv/FAlatVpC6jcnloRTz6vUrP+D
+         3ERhtVyC2o/FMu/xpKpuJVOQEqspvxCJqJqOiU1K89CJrcllk65/4xHuYq4SZRSgvUwD
+         LDvKt8NwjMkLhS5J+JRBZyPrmGuCOxo5EnMlQhFn0oFg5Q6LAkz9ZE5etDNqkM2Qfwvg
+         n2BV/u4h9ry1oVUXq/xsc217Cm+9j++B9s8Ln20p5/Xh+8dlEt1IoOQhuIuJGJPUrxGl
+         SEGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789045613; x=1789650413;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=s417j/ysygJZ4xE0jMBISIxl2zgVW4JEiLwZ40hycxA=;
+        b=OyRgOghUCXC2m3FDKWr5D/dsyjqT8/Nh2y8x+Yc4swvQhEuVuAKitxrbuhwEt6wJoZ
+         3IDrxQB5gABM9vZ+QI7IrN3J6wnMqr6k7NYlvUxTjQySdV8XiPK4PMEhK88O70NLX0n4
+         cEqhpKx84U8omZCvmO2fgSWl9nBE68jLWi0cNMnYZbBXAM/yYdMSSx1WaDzN36TjGKQz
+         jj0gzi3YGm3pWVqZs6/tGNKseuxOTUTt6T0omwHjjfGtuCsXyrvy96aA1nEKFw2JTywb
+         xAYnymM6S4Se5RHZd8emKXY2TDI1jRUQ0TiNIFbs4bDAlQsQTveRO+90PifqRZTjC6ro
+         dFZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwBhdwYy+KMhcBtjgs9/IEWKVGpQr+956QHBKsBwH9STF5zN+5X0FkQKpDoIJykdKlRl56szQn/3HBy@vger.kernel.org
+X-Gm-Message-State: AFuF++m0S1z+eZEB1OQn0KTHfUE9lnQtYLX7uJmfXXRrYJas1u9WS/Or
+	scUKdzOAaO6oE0TYz6Kx25oOO16eutee5irobtg33NNdyCmhMuyIti7H5FSjOBIP3WY=
+X-Gm-Gg: AYBFou1g1S2VFHldjrSoltJEA/8WQP9RDfCLPFnxVnsvFVP3U3cPBf7xNbVrVtGwIzG
+	SwLFJpf77lSJdwldby8UVgix5lAR51mkOesaE9UT807EfCk79ekSzqH+MTyEXhBfKehO1+lFisV
+	EpU9tZy0ZSSJea1+KSV+an7BF5dOqhWkmPMh2UxVoldfnLbjIKbwp8+QQFibcz+fCmzT1Kodwie
+	EmcduLLfhK9WJ8eeImEBD0E4z9p3xtpGzoxqBYkahYYxtqiaGSiFOXuYCW8zujFWOH6UwXRBfrn
+	b2Ytx1RM0/aHBVXpvQMyO8U1mZyAzhdPxdlaNhRMfmesrvTkI2ZncdLYaBC1NZUaruTFzjgFpUE
+	HuqOzCjnVcURX5y/NR/IP+sbG69qzr+Jeh8ujQlTQhHi09mZpprimcxyd3PxjmKLJqnV/mPjxc+
+	1C2L/A3iN/g/9yJm7VE8B9lRw2ZrJRPbr03epKMpe59Ehc2C86d5ypl46kPF+N0Cr63S11UmGMC
+	XWqde0at/wmCPAa4uJ5h+SDZvxG
+X-Received: by 2002:a05:6000:22c8:b0:484:3310:710d with SMTP id ffacd0b85a97d-485aae0e29amr22786196f8f.25.1789045613146;
+        Thu, 10 Sep 2026 06:06:53 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48588135600sm44969402f8f.2.2026.09.10.06.06.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 06:01:16 -0700 (PDT)
-From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 18:30:44 +0530
-Subject: [PATCH 2/2] soc: qcom: llcc: Add LLCC configuration for Nord
+        Thu, 10 Sep 2026 06:06:52 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>, Richard Cochran
+ <richardcochran@gmail.com>, Maxime Ripard <mripard@kernel.org>, Maxime
+ Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ Andre Przywara <andre.przywara@arm.com>
+Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Add support for Allwinner
+ A733 GMAC210
+In-Reply-To: <44d7840d-0cde-4022-937c-4c630398c45d@bootlin.com>
+References: <20260910-allwinner-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com>
+ <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
+ <44d7840d-0cde-4022-937c-4c630398c45d@bootlin.com>
+Date: Thu, 10 Sep 2026 15:06:51 +0200
+Message-ID: <1jqzj16ys4.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
-References: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
-In-Reply-To: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>,
-        zhangfei.gao@oss.qualcomm.com, shengchao.guo@oss.qualcomm.com
-X-Mailer: b4 0.13.0
-X-Authority-Analysis: v=2.4 cv=Vu62kO2n c=1 sm=1 tr=0 ts=6aa2aa4c cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=22uKg8MptKaIaSBHXdMA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-GUID: X1JAyAi-wGnGDnLvf0YMZqZ5RJxWW0xT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE1NiBTYWx0ZWRfXzBSyRxdJSTKD
- DW3AtPMeaXkCGdolAStY/ECr7NpCrnWaNgf2i4sIGrodkCjV+PteiLbcy4kNNJAC6xM5f6EchqQ
- mTKMzzgxaEfmoVOEV7EKpXzQUHuLQuydXPRFSex8wB0O6yxm/K0wzJig2wWaPqEy0jpF1752qwW
- SEgWNkVpGlXV4Z5wsC4pojdyK5Asxw92M3/MEdvcDDNAVHBOyxYBuWB4XdHSopmLZKdfn8YH2iw
- ZBmRA9hcsC00MhQBktQiEoPA8HMYm3LnC+QmNSprdM5tNcmoMX6F/ZOyqUduQYu2NsJl7GjIMIH
- Bb9itewq9Geskw0bpQBAv1mq7LbtulOoPWfiGxmTA8IQ2I6w5KQxYLdx4lC9CXvl4tf/dblKV94
- LrRDUfyxPl64Xo3DR51Fp4KEgsvHEeZBmUQGFn3gqeX4OfTRiVx7kQszHnrhPcmXU515RDE4egk
- 3vkfNVV6cCkYrjTP5Iw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE1NiBTYWx0ZWRfXxmOJaNQANZ/F
- VlqSRmJRZlcnULP1Q6Tne+yRnkR2Gje7zGa4qtq4BHJ5Z24Zt3wXvJfkKHI6hGWtx8IFXwR6vs9
- OfEkIaj3wJRC/bIeOhuJfy9N7+MHaXE=
-X-Proofpoint-ORIG-GUID: X1JAyAi-wGnGDnLvf0YMZqZ5RJxWW0xT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
- clxscore=1011 bulkscore=0 suspectscore=0 malwarescore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100156
+Content-Type: text/plain
 
-Add the sub-cache table for Nord, derived from the Nord AU (Safe IVI)
-SCT table and limited to the POR use cases that have a unique SCID and a
-usecase ID in llcc-qcom.h. Nord has the CFG0/CFG1 pairs and the full
-ALGO_ALLOC0..3 set, so it uses the v6 register offsets.
+On jeu. 10 sept. 2026 at 12:59, Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
 
-num_banks is set explicitly because LLCC_LB_CNT in LLCC_COMMON_STATUS0
-is four bits wide and cannot report sixteen banks; a wrong count makes
-the driver map a bank aperture in place of the broadcast region and abort
-on the first broadcast read. no_edac is set because the bootloader
-leaves the LLCC EDAC registers locked, as on Glymur.
+> Hi Jerome,
+>
+> On 9/10/26 12:25, Jerome Brunet wrote:
+>> The A733 GMAC210 is a DesignWare MAC 5.20 using an Allwinner glue close to
+>> the A523 GMAC200 already supported by this driver, with the following
+>> differences to handle:
+>> 
+>> * The glue configuration registers are a dedicated MMIO region of the
+>>   controller instead of a syscon register. This new register region
+>>   appears to be in the reset domain of stmmac's main reset. This requires
+>>   the glue driver to handle the reset rather than letting stmmac deal with
+>>   it.
+>> * The TX clock delay value is 5 bits wide, split over 2 register fields,
+>>   allowing delays up to 3100ps.
+>> * The DMA channels have their own interrupt lines, so the per-DMA-channel
+>>   interrupt mode is enabled, as the vendor SDK does.
+>> * TX LPI clock gating is supported, as the vendor SDK indicates. Follow
+>>   the PHY capability with STMMAC_FLAG_EN_TX_LPI_CLK_PHY_CAP rather than
+>>   forcing it on with the deprecated 'snps,en-tx-lpi-clockgating' DT
+>>   property.
+>> 
+>> Unlike the A523, both GMAC instances are supported by the same driver.
+>> 
+>> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+>
+> [...]
+>
+>> +
+>> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *pdev,
+>> +						struct plat_stmmacenet_data *plat)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	void __iomem *base;
+>> +	int ret;
+>> +
+>> +	base = devm_platform_ioremap_resource(pdev, 1);
+>> +	if (IS_ERR(base)) {
+>> +		dev_err_probe(dev, PTR_ERR(base), "unable to get glue memory region\n");
+>> +		return ERR_CAST(base);
+>> +	}
+>> +
+>> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
+>
+> Why check stmmac_ahb_rst, but not do anything with it ?
 
-Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
----
- drivers/soc/qcom/llcc-qcom.c       | 139 +++++++++++++++++++++++++++++++++++++
- include/linux/soc/qcom/llcc-qcom.h |   2 +
- 2 files changed, 141 insertions(+)
+Not strictly required, it was cheap to do and catch mis-configuration
+since the stmmac treat them as optional. I'll drop it
 
-diff --git a/drivers/soc/qcom/llcc-qcom.c b/drivers/soc/qcom/llcc-qcom.c
-index 5e45a10663c4..d7a42a8040a1 100644
---- a/drivers/soc/qcom/llcc-qcom.c
-+++ b/drivers/soc/qcom/llcc-qcom.c
-@@ -1054,6 +1054,128 @@ static const struct llcc_slice_config kaanapali_data[] = {
- 	   },
- };
- 
-+static const struct llcc_slice_config nord_data[] = {
-+	{
-+		.usecase_id = LLCC_CPUSS,
-+		.slice_id = 1,
-+		.max_cap = 3072,
-+		.priority = 0,
-+		.bonus_ways = 0xff,
-+		.activate_on_init = true,
-+		.write_scid_en = true,
-+		.write_scid_cacheable_en = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_CMPT,
-+		.slice_id = 34,
-+		.max_cap = 0,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_GPUHTW,
-+		.slice_id = 11,
-+		.max_cap = 512,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_GPU,
-+		.slice_id = 12,
-+		.max_cap = 2048,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.write_scid_en = true,
-+		.write_scid_cacheable_en = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_MMUHWT,
-+		.slice_id = 13,
-+		.max_cap = 1024,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.activate_on_init = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_CAMFW,
-+		.slice_id = 20,
-+		.max_cap = 512,
-+		.priority = 2,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_ECC,
-+		.slice_id = 26,
-+		.max_cap = 1536,
-+		.priority = 3,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.activate_on_init = true,
-+		.write_scid_en = true,
-+		.write_scid_cacheable_en = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_WRCACHE,
-+		.slice_id = 31,
-+		.max_cap = 2048,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.activate_on_init = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_LCPDARE,
-+		.slice_id = 30,
-+		.max_cap = 512,
-+		.priority = 3,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.activate_on_init = true,
-+		.alloc_oneway_en = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_COMPUTE1,
-+		.slice_id = 22,
-+		.max_cap = 0,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_PCIE_TCU,
-+		.slice_id = 15,
-+		.max_cap = 0,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.activate_on_init = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_GPU_LITTLE,
-+		.slice_id = 9,
-+		.max_cap = 2048,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.write_scid_en = true,
-+		.write_scid_cacheable_en = true,
-+		.vict_prio = true,
-+	}, {
-+		.usecase_id = LLCC_GPUHTW_LITTLE,
-+		.slice_id = 14,
-+		.max_cap = 512,
-+		.priority = 1,
-+		.fixed_size = true,
-+		.bonus_ways = 0xff,
-+		.vict_prio = true,
-+	},
-+};
-+
- static const struct llcc_slice_config sa8775p_data[] =  {
- 	{
- 		.usecase_id = LLCC_CPUSS,
-@@ -4484,6 +4606,17 @@ static const struct qcom_llcc_config glymur_cfg[] = {
- 	},
- };
- 
-+static const struct qcom_llcc_config nord_cfg[] = {
-+	{
-+		.sct_data	= nord_data,
-+		.size		= ARRAY_SIZE(nord_data),
-+		.reg_offset	= llcc_v6_reg_offset,
-+		.edac_reg_offset = &llcc_v6_edac_reg_offset,
-+		.num_banks	= 16,
-+		.no_edac	= true,
-+	},
-+};
-+
- static const struct qcom_llcc_config qcs615_cfg[] = {
- 	{
- 		.sct_data	= qcs615_data,
-@@ -4751,6 +4884,11 @@ static const struct qcom_sct_config glymur_cfgs = {
- 	.num_config	= ARRAY_SIZE(glymur_cfg),
- };
- 
-+static const struct qcom_sct_config nord_cfgs = {
-+	.llcc_config	= nord_cfg,
-+	.num_config	= ARRAY_SIZE(nord_cfg),
-+};
-+
- static const struct qcom_sct_config qcs615_cfgs = {
- 	.llcc_config	= qcs615_cfg,
- 	.num_config	= ARRAY_SIZE(qcs615_cfg),
-@@ -5693,6 +5831,7 @@ static const struct of_device_id qcom_llcc_of_match[] = {
- 	{ .compatible = "qcom,hawi-llcc", .data = &hawi_sct_cfgs },
- 	{ .compatible = "qcom,ipq5424-llcc", .data = &ipq5424_cfgs},
- 	{ .compatible = "qcom,kaanapali-llcc", .data = &kaanapali_cfgs},
-+	{ .compatible = "qcom,nord-llcc", .data = &nord_cfgs},
- 	{ .compatible = "qcom,qcs615-llcc", .data = &qcs615_cfgs},
- 	{ .compatible = "qcom,qcs8300-llcc", .data = &qcs8300_cfgs},
- 	{ .compatible = "qcom,qdu1000-llcc", .data = &qdu1000_cfgs},
-diff --git a/include/linux/soc/qcom/llcc-qcom.h b/include/linux/soc/qcom/llcc-qcom.h
-index 1ccc429401e8..713cb0221b14 100644
---- a/include/linux/soc/qcom/llcc-qcom.h
-+++ b/include/linux/soc/qcom/llcc-qcom.h
-@@ -74,6 +74,7 @@
- #define LLCC_CAMSRTIP	 73
- #define LLCC_CAMRTRF	 74
- #define LLCC_CAMSRTRF	 75
-+#define LLCC_GPU_LITTLE  80
- #define LLCC_OOBM_NS	 81
- #define LLCC_OOBM_S	 82
- #define LLCC_VIDEO_APV	 83
-@@ -85,6 +86,7 @@
- #define LLCC_CAM_OFE_STROV	 93
- #define LLCC_CPUSS_HEU	 94
- #define LLCC_PCIE_TCU	 97
-+#define LLCC_GPUHTW_LITTLE	 98
- #define LLCC_MDM_PNG_FIXED	 100
- #define LLCC_PPE_RXDESC		 101
- #define LLCC_PPE_RXFILL		 102
+>
+>> +		dev_err(dev, "missing required reset controls\n");
+>> +		return ERR_PTR(-EINVAL);
+>> +	}
+>> +
+>> +	/*
+>> +	 * The configuration registers are inside the controller
+>> +	 * reset domain, so the reset must happen before any write to them
+>> +	 * and should not be done again by stmmac or the configuration will
+>> +	 * be lost.
+>> +	 */
+>> +	ret = reset_control_assert(plat->stmmac_rst);
+>> +	if (!ret)
+>> +		ret = reset_control_deassert(plat->stmmac_rst);
+>> +
+>> +	if (ret) {
+>> +		dev_err_probe(dev, ret, "device reset failed\n");
+>> +		return ERR_PTR(ret);
+>> +	}
+>> +
+>> +	ret = devm_add_action_or_reset(dev, sun60i_gmac210_reset_assert,
+>> +				       plat->stmmac_rst);
+>> +	if (ret)
+>> +		return ERR_PTR(ret);
+>> +
+>> +	plat->stmmac_rst = NULL;
+>> +
+>> +	return devm_regmap_init_mmio(&pdev->dev, base, &sun60i_a733_regmap_cfg);
+>
+> I wonder if this is the first glue to face this...
+>
+> If you need further setup to be done after reset has been deasserted, I suggest
+> adding a dedicated callback in plat_stmmacenet_data, instead of doing this behind
+> the generic code's back.
+>
+> maybe something like "post_reset_init()", something like that ?
+>
+
+I'll check in this direction.
+
+The idea was to do things behind anything's back, more to handle the
+specifities of this SoC without polluting the rest. The timing seemed a
+bit sensitve. For example touching the other reset in here broke the
+link for some reason (recognize as GMII instead of RGMII)
+
+> the ->mac_setup already runs after reset, but isn't really for this type of usecase.
+>
+> For readability of the patch, maybe you should split this patch to first do the
+> a523 rework, then add a733 support.
+
+ok
+
+>
+> Thanks !
+>
+> Maxime
 
 -- 
-2.43.0
-
+Jerome
