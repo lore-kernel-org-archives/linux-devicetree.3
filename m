@@ -1,131 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDD573BE172
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:52:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4FD3BE172
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048343; cv=none; b=QCukePM48hfnzi8kfOy2ehpmKOcB7LDp4K92AsAUkMCECTv4uUTExiW3Eu5EWSdLVgMyD6vxMVtccjt71cpn21iF2f72azlHa6TYlW8We3iowaptxxDJs0NlRfqKHgRcdPuIKNT9pkLo9r96HDaK2yKeAMgq+GM2mCOo8MaYf8A=
+	t=1789048499; cv=none; b=UG/9sk/OoCe9O+MN64nLb2DuAbpLmpVaADBzqOBWNEo8znkLVJ6FTUD5yUEbq3Rqji2JHhwJhTT/gBoYd0st/WkprKhoIhqWc6+sJLT7Dt5C+CDYvGie26BPr8SVKP2KYx9e+JoioAY1LslJxnJkP5yFENSOyhDe2/kJvLNNTuc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048343; c=relaxed/simple;
-	bh=ECcqTe8E5JOErumIyQygUyTofOaXLaZrLZ2bsweOL7Q=;
+	s=arc-20240116; t=1789048499; c=relaxed/simple;
+	bh=P72gzsqfaTBy63t/hsuAYEZCQP6dXQviR486YDsqS/U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jXSdzJ0Zn0WgEHRG1sVwXULRWK1ow9MazCMmWjrXUINn9yUD4j/woGbL8xHG1m5y1TAf4tI6kQB8Jnex7D1BEKvE+jYxrQ3YdA6hCJ1b2yb5UX+P2MaxrrvKVLHgqbV4rK99e2rxF0PMSXU/Cc3PCjVfZM9GLIPdGb75zaAiFqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdCFJY5Y; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=NhgZDsz65bxkUTBxHIOb0CT4LOYR9Pmgh8tzOH+wYFN13HDBiwDRIar/5zPm9VvFv9u4Pj7Lxu4tn+FHD6QDiwec9sdxdAYEBCXtmUkjNM4+Nk29KOoUz1cF4vZgu24o+dS5tZwxqLGyAuLN9BrSlr9bHum+IVy+kRQAxwdZRK0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bgM88VGW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdCFJY5Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 495C31F000FF;
-	Thu, 10 Sep 2026 13:52:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bgM88VGW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 271BA1F00898;
+	Thu, 10 Sep 2026 13:54:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789048341;
-	bh=nnJIDuYBweIP0CobdJ8vZqTbh/MdiNO99BrrYyA3BGM=;
+	s=k20260515; t=1789048498;
+	bh=HvCK29U+LGiP9n0zi/7Ahz3Ui3w4UKgBNDzZOXpYR4U=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MdCFJY5YreTJw5AX/SXvn5mIxOFY/QA8E5fnhrhn2GpdphR8ZpzGaFXLbmq9M+hg6
-	 PMIqF7aH2NZ2SBg4fd5lJ/rA3bLpHyPktVDtpDjtONcjnSAjmtyPLMjU7DdRl8dyJj
-	 Z0d+GSfqi5pjJ/zeifSlrvL9mG551/8rIijFLloIPUQ/EztPX+GGPset4S8XesKXX2
-	 Gl2daOpxGYZyLGALVgUrhbm88/aM7BvGe83ZfQELbnXL0i/SPSQFWw4DIXVw0ZV9Va
-	 x+NsjvX0DcHOCTd6hPKbCheJ/0O7muuWxA5a43DqISZm2aH0BbUoCwXQqRhZ9hJrCC
-	 R9L1v+exXUx9g==
+	b=bgM88VGWT3ipYbRJdcBmpSRL/2wq8TzeCyrYlBJVjeqvwx8cePS7y6BV0jI6zv/q6
+	 +rp46qBEoa1s+1bcXjgqw2vyhyLO9HJ0d/ZUnPQQzvPvLHlNPkrFGDMahnpdo67zP4
+	 BZ08XVpVHyUE7o6wZ0O6Snpz+ERsUsXUfksxoIgHIKuLrC1noPMTYP+m7oJuHIXaCk
+	 HAfZD56TVvoZTBc2Ik7QJw4jrzctUuNzKqYvPNuZFhS0Dhb9zixbcYZeJbjtRt2JN9
+	 kvui0aFpQPfLe2pq2q6uMEPQnl64rlbe4VuD3RSGyRsqS0TvjBaXlB2s4gC6SQIJBG
+	 zRxgbkA0vKJsA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 25/34] arm64: dts: qcom: sdm845: Move PCIe phy and GPIOs
+Subject: Re: [PATCH 29/34] arm64: dts: qcom: sm8450: Move PCIe phy and GPIOs
  to root port node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910-root_port-v1-25-90a252ddbbfa@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260910-root_port-v1-29-90a252ddbbfa@oss.qualcomm.com>
 References: <20260910-root_port-v1-0-90a252ddbbfa@oss.qualcomm.com>
- <20260910-root_port-v1-25-90a252ddbbfa@oss.qualcomm.com>
+ <20260910-root_port-v1-29-90a252ddbbfa@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 13:52:20 +0000
-Message-Id: <20260910135221.495C31F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 13:54:57 +0000
+Message-Id: <20260910135458.271BA1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Missing phy_exit() on early error paths in PCIe port parsing funct=
-ions, leading to leaked initialized PHY state.
+- [High] Removing `phys` and `perst-gpios` from the root complex node break=
+s PCIe on older kernels.
+- [Medium] The commit message claims that `phy-names` was moved to the root=
+ port node, but it was completely dropped.
 --
 
-commit 7aa07cedc6576c48d7f1dd8ce61fd5bb50362173
+commit f7da5024671b8a2ed22694b38cd5eab69ebf0cdc
 Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-arm64: dts: qcom: sdm845: Move PCIe phy and GPIOs to root port node
+arm64: dts: qcom: sm8450: Move PCIe phy and GPIOs to root port node
 
-The PCIe phy reference and the perst/wake GPIO properties are
-per root port and belong in the root port node (pcie@0), not in the
-RC controller node. Move phys and phy-names from the controller to
-pcie0_port0 and pcie1_port0, adding labels to these nodes to allow
-board-level overrides. Move perst-gpios/wake-gpios from the
-controller overrides to the respective port nodes in the board files,
-renaming perst-gpios to reset-gpios to match the binding used in the
-root port context.
+This commit moves the PCIe phy references and the perst/wake GPIO properties
+from the PCIe root complex controller node to the root port node. It also
+renames perst-gpios to reset-gpios to match the root port binding context.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot=
-/dts/qcom/sdm845-db845c.dts
-> index 3e636926231d3..27a0b90d2b7ae 100644
-> --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-> +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
+> Move phys, phy-names, perst-gpios, and wake-gpios
+> from the controller to the existing pcieport0 and newly labeled
+> pcie1_port0, allowing board-level overrides.
+
+[Severity: Medium]
+The commit message claims that phy-names was moved to the root port node, b=
+ut
+looking at the changes to pcieport0 and pcie1_port0, it appears to have been
+completely dropped instead.
+
+While devm_of_phy_get() correctly retrieves the first PHY if no name is
+provided, this creates a mismatch between the patch's intent as documented
+and the implemented code.=20
+
+Should phy-names be added to the port nodes, or should the commit message be
+updated to reflect its removal?
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/q=
+com/sm8450.dtsi
+> index 7bc5f85e7ebc0..05e852ed7995c 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 [ ... ]
-> @@ -618,15 +618,17 @@ &mss_pil {
+> @@ -2017,12 +2017,6 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
 > =20
->  &pcie0 {
->  	status =3D "okay";
-> -	perst-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
-> -	wake-gpios =3D <&tlmm 134 GPIO_ACTIVE_LOW>;
+>  			power-domains =3D <&gcc PCIE_0_GDSC>;
+> =20
+> -			phys =3D <&pcie0_phy>;
+> -			phy-names =3D "pciephy";
 > -
->  	vddpe-3v3-supply =3D <&pcie0_3p3v_dual>;
-> =20
->  	pinctrl-names =3D "default";
->  	pinctrl-0 =3D <&pcie0_default_state>;
->  };
-> =20
-> +&pcie0_port0 {
-> +	reset-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
-> +	wake-gpios =3D <&tlmm 134 GPIO_ACTIVE_LOW>;
-> +};
-> +
+> -			perst-gpios =3D <&tlmm 94 GPIO_ACTIVE_LOW>;
+> -			wake-gpios =3D <&tlmm 96 GPIO_ACTIVE_LOW>;
+> -
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does this new device tree
-configuration expose a resource leak in the driver's error handling paths?
+Does removing phys and perst-gpios from the root complex node break backward
+compatibility for older kernels?
 
-Because the driver now dynamically evaluates qcom_pcie_parse_perst() during
-qcom_pcie_parse_port() for these root port nodes, what happens if these GPI=
-Os
-defer probing?
+Older kernels booting with this updated device tree might fail to initialize
+the PCIe controller if they lack the logic to parse child port nodes and
+strictly look for phys and perst-gpios in the root complex node.
 
-Looking at drivers/pci/controller/dwc/pcie-qcom.c in qcom_pcie_parse_port():
+Since Device Tree is considered a stable ABI, does this break forward
+compatibility (booting a newer DT on an older kernel) by not leaving a
+deprecated fallback in the parent node?
 
-	ret =3D qcom_pcie_parse_perst(pcie, port, node);
-	if (ret)
-		return ret;
-
-If this fails (e.g., returning -EPROBE_DEFER because GPIOs are not yet
-available), the function returns immediately. At this point, the newly pars=
-ed
-port has not been added to pcie->ports, so the caller's error handler fails
-to find it and doesn't call phy_exit(port->phy). Will this leak the initial=
-ized
-PHY state (such as regulator enable counts or unbalanced clock states) on e=
-very
-probe deferral attempt?
-
-A similar issue appears to be present in qcom_pcie_parse_legacy_binding():
-
-	port =3D devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
-	if (!port)
-		return -ENOMEM;
-
-Does returning -ENOMEM here leak the PHY state without reverting the earlier
-phy_init(phy) call?
+[ ... ]
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-root_port-=
-v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D25
+v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D29
