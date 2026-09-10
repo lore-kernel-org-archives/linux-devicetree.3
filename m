@@ -1,124 +1,107 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F34048F831
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A3E49F13A;
+	Thu, 10 Sep 2026 14:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050793; cv=none; b=K7GRC7WMz6TTnh3axnTsMEtW/SVfkQe1oMS5roMh1reTBF5Lu2JACIUafKkgwqeNotM7U2wrlExLJUspdezfTrOivZ3WYrodlkxAyOHY8TjA6hEqMc+HM70bx0/mVrSXX6FrJIVuUmEgIhWHH100sMok9q0RaYocisN5dlVC1p0=
+	t=1789051216; cv=none; b=LrEYYZY2PpbbAa3uOrESsfsggx8LMffy7BpOKB+ya8AzNIIkzkpeyvV85aY6SAkss/U2PfS54RbjvB8D+JEYxXLUjsPB7P/mYRKrHDo+y815BSPo7cvYz+d5O0KjI0hamAlHqKRolSOgUlKjcdF1LrOBEgV7G0hMfI73D0onNGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050793; c=relaxed/simple;
-	bh=SUENRTJhLPbN4I6eA/VBHUJ0VY/0q4ahijBhdl2mxuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bGT2eYskZnGgZMSBIwYjAHp1AMyViFKRFsT33sRqa7U3zhSKR4aIBRoxGiDs8kT/nMQMjiG/a/r9KPG26AIGPu4IjCNFyHi6xe18xRUunMqlHoGMwr2EUwD9yMezfc1UAPkUBrTNjnA+gZq/g630DNQWcahyyjT8eSRPykPAtDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AabnWLk2; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789051216; c=relaxed/simple;
+	bh=0aGXhr0wekYKe1daywekJhJJvQqGSqeH3iZtYj1ZthY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AsDTEP0sLjpxkB1gRLxuxClAZbB2B1V3cGM04GlVnVY9o+mc4Z9QRnDwzDMJeD+3VEHt/s+KabAbBDGKxCM71koeE9cmA2NXeDinrK369Ifp92zNtIbON/Z7DwkFj0mw38MfKibs76LXMGXonYduX4ak59iqC+JTJz23kXGw6RA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=r/GG4DaI; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AabnWLk2"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c2940d16190so252198166b.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:33:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789050789; x=1789655589; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DzU6DG6XG594yeHbl3kw8jAUPKuarqka9GmRxsQr0QE=;
-        b=AabnWLk2P9RrsSp++QSRAF/Om8PorYUupva24Zf4M7HPdW9jPbRPQ3itPg2sx+xF2M
-         BETWJimrVrcDYaC6eJqbAJaBUfoqMTfHLf8TZC430BZ6APbbYyatbNE1GubkTNF5mNGi
-         5kLIQvhYotB+Tx8MpMZ2Id3E/lMnaYcASA8qEXxCP1Zc3rA9FJa5SOK7Vc5V9Rxhlb3l
-         OwuIVfc3CXtMXOzMDIOmebDd+pWdh9CuKC7l0EdVd5LevmOK2p7yjMbR+91mLjCGb7xn
-         9HTN35O+KV/KHM8GhaJvlOeExYfC9mm/ce30ZBPqjgMnc3HWWjUmqXUP2xiLEoOoNd+q
-         IDeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789050789; x=1789655589;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DzU6DG6XG594yeHbl3kw8jAUPKuarqka9GmRxsQr0QE=;
-        b=rtBV2d1km24/6XxVo5kfhUYKLJfCuDml9ij4ZeXay/zUe+i6M7L5dEimTHbDUryFD1
-         AhO8wYuUkxK/k0rZISTQL9xUr29V7Pq4GL0OpuXK7Fwgy7Sf3pK+xg97UqncF2dvyJOG
-         iRR1K6D9o+GVTzMxDm8bfXm89S4BzLwEPJsoSVspAWgp89Dm5SHl7aBv6Jikw57gYdZo
-         VdC4B+WSwh3SZPcSIv5gdp9dNJDbZn3Si9A5Z/t0FVlL8EcKZgd1gEGVYo/tsqYq7lOJ
-         20crmQ6np3/vgiE4JSsQJhe/p7pXYC+KmjMEbTrzdFGEuUBGQh8FNssBmXgVBPVcpIrh
-         Gv0g==
-X-Forwarded-Encrypted: i=1; AKwUvBxj/gph+dVIgaWervbxEYhFzt9Wuvv++28xOyf0BK4wUoc6x5thH7ZvU4ZRh7rEKatT7n4mimZ2aJCL@vger.kernel.org
-X-Gm-Message-State: AFuF++nv0WwUrA+TSTnayF24FatJKkqP3UGfhCdlqHNZwl6zwRnspdQ1
-	jajA1NQnteD06nncJIMD/ir8eG4Ncr74jDGNAD4e9+rdNwvMS5QetC6OkzfEMeb7xesU+CpD
-X-Gm-Gg: AYBFou0amOdUzWafW0O8ZwEnNrOMeVQDesZGsVNOEYdthLxQaRuT+FVpAEU0Y5RKTcl
-	KYI+4hBqUQgehzjP3ICVOi1IyaDtbRclFwLAx/W2ETCooyJ0sMgWDltQtLPWzWNxStC0Oq6F/rj
-	f7gXTTzG23/FOpiX3OULkWtt8Hmk7yvjh71/nyRwX/T1ejNRMcfD6IYSIpED4ddmBH1JjAitSmf
-	fye8fI3UBj4b1h9vfYyhb7qD7KaHs7Fu6C20Phnv9JsZ4s+f3LmOoSqfOM6kU8c3btzZ2o6cmY5
-	khZYXK1ResBO7/MNjbNYN0XJewPXT8wmtQJ7ctdfVUaxGIxEemkErMH6Cf5N+2XpoBVqC+wc+pn
-	VbovgiwVtm4S79ooNs1qLPQJq+lONntTZfl2oV1Lqjo01Yr+vU4HZZCrXCSTuy84xxn2VVBhdDS
-	cBAL14YgiQUT12YQiB+KTM90teVGVFdArdPKW+hBgqWkzilEpzj+F7C51Mzd/7/QbyvKw=
-X-Received: by 2002:a17:907:724a:b0:c29:52dd:317c with SMTP id a640c23a62f3a-c2952dd43demr140890666b.30.1789050788988;
-        Thu, 10 Sep 2026 07:33:08 -0700 (PDT)
-Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c293d20e257sm204160566b.57.2026.09.10.07.33.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:33:08 -0700 (PDT)
-Date: Thu, 10 Sep 2026 17:33:04 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Neo Chang <YLCHANG2@nuvoton.com>
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz,
-	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
-	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-Subject: Re: [PATCH v10 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Message-ID: <aqK_oOpMAXVhxkHJ@stanley.mountain>
-References: <20260825021644.1203076-1-YLCHANG2@nuvoton.com>
- <20260825021644.1203076-3-YLCHANG2@nuvoton.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="r/GG4DaI"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hggLw54gHzKvsx;
+	Thu, 10 Sep 2026 16:40:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789051208;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NmE7gMRT3k8OSgZ+Z+9TzwYWeF1O1bwOiRIgbLOfJFY=;
+	b=r/GG4DaIVQoItrRs9+/edb4433qcvDHID1mWF4dYFvv7GbcYWWp40/85Opd4r8sJHLAP43
+	wHeSOC385FmkHg162YFcBVg/HOdP6UiLKHStSYwBvu5ps5ikltes9TjuHkRb12pVD0pkXj
+	ByXXQp9TMOU9IrkcMHZGp/4HZlfH80PrUgZlNU+fY46zAUuApVXHvxmGtq5hyXH61gd7+b
+	Jb+V+gY49YCjTxJUiKiExAVapa6V9MYG6Qm66JFL98oWOd2jVQzsXZCayQxsVQ/xauvDfk
+	9WjsFDZkQsSBGoUEi/DuMGy3M3eGyB2J6drFEq2SeXkpaEWe9cqKvIqSA9rc2A==
+Message-ID: <c74e6c95-2cd2-4123-a232-a372f7b48819@mailbox.org>
+Date: Thu, 10 Sep 2026 16:40:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260825021644.1203076-3-YLCHANG2@nuvoton.com>
+Subject: Re: [RFC][PATCH] arm64: dts: renesas: r8a779f0: Add GICv3 ITS and
+ update PCIe nodes
+To: Koichiro Den <den@valinux.co.jp>
+Cc: linux-pci@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org
+References: <20260909175922.161658-1-marek.vasut+renesas@mailbox.org>
+ <ulxyqbaodkunrodrqfev5a6idrc2x7yjkee4tpmwv45bthpfg3@c5yozpfqaou5>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <ulxyqbaodkunrodrqfev5a6idrc2x7yjkee4tpmwv45bthpfg3@c5yozpfqaou5>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-META: gtkr539excr6cu1pu9xqwmwtwpr8qaep
+X-MBO-RS-ID: 3948277c6ed69d606f3
 
-On Tue, Aug 25, 2026 at 10:16:44AM +0800, Neo Chang wrote:
-> +static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm = snd_soc_dapm_kcontrol_to_dapm(kcontrol);
-> +	struct snd_soc_component *component = snd_soc_dapm_to_component(dapm);
-> +	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(component);
-> +	struct soc_enum *e = (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item = ucontrol->value.enumerated.item;
-> +	int ret = 0;
-> +
-> +	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
-> +		dev_warn(nau8360->dev, "changing path is not allowed during playback");
-> +		return ret;
+Hello Den-san,
 
-This is another case where I would prefer return 0 or return -EINVAL.
+On 9/10/26 10:18 AM, Koichiro Den wrote:
+> On Wed, Sep 09, 2026 at 07:58:46PM +0200, Marek Vasut wrote:
+>> This SoC implements GIC600 with GICv3 ITS and PCIe host mode on this
+>> SoC can use it. Add GIC ITS node into GIC node, update interrupt-map
+>> and add msi-map into PCIe controller node.
+>>
+>> The GIC ITS does have master interface to issue transactions to RAM.
+>> The interface does support cacheable transactions, however, it does
+>> not support shareable attribute, because the AXI port signals are tied
+>> to inactive in this implementation. Therefore, add "dma-noncoherent"
+>> DT property into the GIC ITS subnode.
+>>
+>> The GIC redistributor does not have cacheable/shareable, therefore
+>> add "dma-noncoherent" DT property into the GIC node.
+>>
+>> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>> ---
+>> Cc: Conor Dooley <conor+dt@kernel.org>
+>> Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+>> Cc: Koichiro Den <den@valinux.co.jp>
+>> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+>> Cc: Magnus Damm <magnus.damm@gmail.com>
+>> Cc: Rob Herring <robh@kernel.org>
+>> Cc: devicetree@vger.kernel.org
+>> Cc: linux-kernel@vger.kernel.org
+>> Cc: linux-renesas-soc@vger.kernel.org
+>> ---
+>> NOTE: I am sending this as an RFC. Den-san, would you please test
+>>        whether this works correctly together with your Endpoint setup?
+>>        Especially whether the Host-side MSI change does not break it?
+>>        Thank you for your help!
+> 
+> Yes, I confirmed that it works fine with renesas-next-2026-09-09-v7.3-rc1
+> kernel.
+> 
+> Tested-by: Koichiro Den <den@valinux.co.jp>
 
-> +	}
-> +
-> +	mutex_lock(&nau8360->lock);
-> +
-> +	ret = snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
+Thank you!
 
-Not related to your patch but the comments to snd_soc_dapm_put_enum_double()
-say "Returns 0 for success." when really it returns true/false on success
-where true means it changed something and false means nothing changed.
-
-regards,
-dan carpenter
-
-> +	if (ret <= 0)
-> +		goto unlock;
-> +
-> +	nau8360_dsp_switch(component, snd_soc_enum_item_to_val(e, item[0]));
-> +
-> +unlock:
-> +	mutex_unlock(&nau8360->lock);
-> +
-> +	return ret;
-> +}
-
+-- 
+Best regards,
+Marek Vasut
