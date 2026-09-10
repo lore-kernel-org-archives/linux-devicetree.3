@@ -1,112 +1,116 @@
-Received: from mail.lysator.liu.se (mail.lysator.liu.se [130.236.254.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010CC49F12E;
-	Thu, 10 Sep 2026 14:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=130.236.254.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98C837DE84;
+	Thu, 10 Sep 2026 14:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049544; cv=none; b=CbDPXO4kqR0vgPz9MDq0gmTW+/9vRHPwPc3qkpBgvNurILbLCM46BSyFqxW9DYfEp1QG7y37quTeS/XiVx/hiaVbJl0tEEkUubABR9etsU9FxTzmCv//TJh5XdJ7wVNOHqWZzsz0e0m65OWnb1+zyGuzYiuUv9Oj1dDegiqZTRg=
+	t=1789049761; cv=none; b=KRvNjBx4ufS98GfOjLy5wXniziVnug/2BOR9sjQc1zEZJKRwFXmCkNCgdfDPVs2A2agsaxwQf2br5ymPnvOhkwrT5675RZKPd9fbxJSKucx6Cfx3WCidIqi9aYQPGH2nNqpAnDA6UCJdQSQPkdLsHvfHqm1rMeUFhgujtygKl24=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049544; c=relaxed/simple;
-	bh=VP0jnsYM53A/hkThoLaTmUkvWo8biCczugoQTC3714g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WErbfo0pAmJeeWmVPXRAQWnrY+vF8xgQLPC8drVvPdhyHVUjSc8ZA8xmMRpsDGExOY4D3Ltpp7jwsoC1F8Z2u6FvnFb+A7ZUqaDa2ioKtMUwxE6Nxq7KqBLLJOLc0SlHQhfxi+3CySj2VjcxSofVvqI1UgCZj0pAkwxzlj9MvcI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se; spf=pass smtp.mailfrom=lysator.liu.se; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=hFPF0DuG; dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b=hFPF0DuG; arc=none smtp.client-ip=130.236.254.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lysator.liu.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lysator.liu.se
+	s=arc-20240116; t=1789049761; c=relaxed/simple;
+	bh=NGknmsiTUNy76NnNSY6/J4LMDSoVi5VvWa9Y19mr2XU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=iZNt7o0XXq/sNmsHToSdJ6e3wIFMVgsq/rbnZZqHH6pKgCe0GPA5GmjwCIiR7MTsCtgzVspxST7J3eiTEYXj1r5uVvc+qcAFugqaMREIA7Ra2iIrTiRi6NIZr6IA9mOPm1pZ/V0f8F0t+AuQQ/4gQ/VnVjOjljjvEyAha35NRP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gESt60ah; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="hFPF0DuG";
-	dkim=pass (2048-bit key) header.d=lysator.liu.se header.i=@lysator.liu.se header.b="hFPF0DuG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789049539;
-	bh=VP0jnsYM53A/hkThoLaTmUkvWo8biCczugoQTC3714g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hFPF0DuGj7X9gmfTAsIrQS4IJcOzvMLRPEs/LgCqff4+YvX2oXsvgtBe6uzjBTB4p
-	 5aOHDdVALAESCW263b1qI6Wipxw34Na9VlYLNFQaZuXzonqYvSOoil26qpuuLEexfB
-	 DZfomcVNwtAXfRDun2XZEgSPMqh1ZlwnW6zYjduZO9QRWYbASX+hLwCM6gP6U1ra2X
-	 XiSPMKw8S7nimO3MkXGlrFA2jnfKyQd8QEotWkxhPIjZISHljf1n4j7gLMwTryvN2Q
-	 GGJwklrK7Pnjoj1z2qY2q5+KLBWwhPUYmDTXZcWYqwVSGIKix18R/OtIBCIikcPjXE
-	 RsObJiFy4o0Pg==
-Received: from mail.lysator.liu.se (localhost [127.0.0.1])
-	by mail.lysator.liu.se (Postfix) with ESMTP id 54E021947B;
-	Thu, 10 Sep 2026 16:12:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=lysator.liu.se;
-	s=2026; t=1789049539;
-	bh=VP0jnsYM53A/hkThoLaTmUkvWo8biCczugoQTC3714g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hFPF0DuGj7X9gmfTAsIrQS4IJcOzvMLRPEs/LgCqff4+YvX2oXsvgtBe6uzjBTB4p
-	 5aOHDdVALAESCW263b1qI6Wipxw34Na9VlYLNFQaZuXzonqYvSOoil26qpuuLEexfB
-	 DZfomcVNwtAXfRDun2XZEgSPMqh1ZlwnW6zYjduZO9QRWYbASX+hLwCM6gP6U1ra2X
-	 XiSPMKw8S7nimO3MkXGlrFA2jnfKyQd8QEotWkxhPIjZISHljf1n4j7gLMwTryvN2Q
-	 GGJwklrK7Pnjoj1z2qY2q5+KLBWwhPUYmDTXZcWYqwVSGIKix18R/OtIBCIikcPjXE
-	 RsObJiFy4o0Pg==
-Received: from gryt (81-225-28-11-no2391.tbcn.telia.com [81.225.28.11])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail.lysator.liu.se (Postfix) with ESMTPSA id 625451947A;
-	Thu, 10 Sep 2026 16:12:18 +0200 (CEST)
-Date: Thu, 10 Sep 2026 16:12:17 +0200
-From: Peter Rosin <peda@lysator.liu.se>
-To: Rob Herring <robh@kernel.org>
-Cc: Bhargav Joshi <j.bhargav.u@gmail.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Andrei Simion <andrei.simion@microchip.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com,
-	simona.toaca@nxp.com
-Subject: Re: [PATCH] ASoC: dt-bindings: tse850: Convert to DT schema
-Message-ID: <aqK6wSAgx6p1uO1w@gryt>
-References: <20260813-ti-axtensia-v1-1-768a1089fd5f@gmail.com>
- <d473d13e-bb5d-4d9b-b647-25a0b1b35364@lysator.liu.se>
- <20260814201806.GA2839748-robh@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gESt60ah"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BB91F000FF;
+	Thu, 10 Sep 2026 14:15:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789049759;
+	bh=8e1wqp4LmaFk8k9rzuJpCvedtwf/1AvJl5p0APNi+3U=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gESt60ah5/yXZxyjepZF0pmpnJpoIlFYFkvp8yrXMCzIMaaicvtmvQXx8DnyyV5Vq
+	 wdUaTwVcaNKrwvSv7qpMu6TI2qXGg/3LxO4H5gPmw0Z+iCqxI+NWKGbnx0SfM/xePA
+	 6eswJr0ViH1FT1HYnlbClJYwF2rvp3lqSNe8fawbp+cPcr3F7bHJcAnJqoeN7SjxaY
+	 EWGd/YP+NWpWXBisSVzwnyY4gCMBgUNKvW1Z2O2cweAPV4jqp3DWi4wmUl4v+0At85
+	 NR86PQrYen13vWvArOTKRvO80xVy9K//fb6dHB/RDM5Oe39XiyFXrLnaMlASR4ik/W
+	 3jJDprAHxsWBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 6/7] pinctrl: sunxi: a523-r: add a733-r compatible
+ string
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Andre Przywara" <andre.przywara@arm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20260910133519.459011-7-andre.przywara@arm.com>
+References: <20260910133519.459011-1-andre.przywara@arm.com>
+ <20260910133519.459011-7-andre.przywara@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 14:15:58 +0000
+Message-Id: <20260910141559.53BB91F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814201806.GA2839748-robh@kernel.org>
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Fri, Aug 14, 2026 at 03:18:06PM -0500, Rob Herring wrote:
-> On Thu, Aug 13, 2026 at 12:51:31PM +0200, Peter Rosin wrote:
-> > On 2026-08-13 01:33, Bhargav Joshi wrote:
-> > > Convert Axentia TSE-850 audio complex from text to DT schema. No
-> > > funcational changes.
-> > > 
-> > > Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
-> > > ---
-> > >  .../bindings/sound/axentia,tse850-pcm5142.txt      |  92 ------------------
-> > >  .../bindings/sound/axentia,tse850-pcm5142.yaml     | 104 +++++++++++++++++++++
-> > >  2 files changed, 104 insertions(+), 92 deletions(-)
-> 
-> 
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/sound/axentia,tse850-pcm5142.yaml#
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > +
-> > > +title: Axentia TSE-850 audio complex
-> > > +
-> > > +maintainers:
-> > > +  - Peter Rosin <peda@axentia.se>
-> > 
-> > Bzzzt, this is no longer the case. This binding is orphaned (as is its
-> > corresponding driver).
-> 
-> So we can remove them?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Not really my place to say, but if nothing has changed these devices will
-continue to run for many more years indeed. I predict that the poor soul
-doing the next update will suffer even more if the driver and bindings
-are removed.
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the static `desc=
+->npins` counter accumulates on probe deferral, causing out-of-bounds array=
+ reads with negative indices.
+--
 
-Cheers,
-Peter
+commit 0f0363ee56222ed4bd5f82e32e391a15a8e11f99
+Author: Andre Przywara <andre.przywara@arm.com>
+
+pinctrl: sunxi: a523-r: add a733-r compatible string
+
+Adds the allwinner,sun60i-a733-r-pinctrl compatible string to the A523-r
+pinctrl driver. The driver is reused for the A733-r IP since it shares a
+similar two-bank layout, with specific pinmux values provided by the DT.
+
+> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c b/drivers/pinc=
+trl/sunxi/pinctrl-sun55i-a523-r.c
+> index 9e07fbb5be7cb..dfdcfa740ecc9 100644
+> --- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+> +++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
+> @@ -40,6 +40,7 @@ static int a523_r_pinctrl_probe(struct platform_device =
+*pdev)
+> =20
+>  static const struct of_device_id a523_r_pinctrl_match[] =3D {
+>  	{ .compatible =3D "allwinner,sun55i-a523-r-pinctrl", },
+> +	{ .compatible =3D "allwinner,sun60i-a733-r-pinctrl", },
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the static desc->npins
+counter accumulate on probe deferral, causing out-of-bounds array reads with
+negative indices?
+
+When the driver is probed, it passes the statically allocated
+a523_r_pinctrl_data to sunxi_pinctrl_dt_table_init().
+
+In drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c:init_pins_table():
+
+	for (i =3D 0; i < SUNXI_PINCTRL_MAX_BANKS; i++) {
+		desc->npins +=3D pins_per_bank[i];
+
+If the probe fails later (e.g., -EPROBE_DEFER), desc->npins is not reset.
+On the next probe, it increments again, allocating a larger array but only
+initializing the first valid elements.
+
+Then prepare_function_table() iterates up to the accumulated desc->npins:
+
+	for (i =3D 0; i < npins; i++) {
+		struct sunxi_desc_pin *pin =3D &pins[i];
+		int bank =3D (pin->pin.number - pin_base) / PINS_PER_BANK;
+
+		if (irq_bank_muxes[bank]) {
+
+For uninitialized pins, pin->pin.number is 0. With a pin_base like 352
+(PL_BASE), the bank index becomes (0 - 352) / 32 =3D -11. This results
+in an out-of-bounds access irq_bank_muxes[-11].
+
+Furthermore, searching for a non-existent DT pin name will scan into the
+uninitialized elements, calling strcmp(NULL, name) and potentially panicking
+the kernel.
+
+>  	{}
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910133519.4590=
+11-1-andre.przywara@arm.com?part=3D6
