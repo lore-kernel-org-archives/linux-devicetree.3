@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBBE17A305
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 00:20:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902054BFE85
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 00:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788999656; cv=none; b=dpx+Z1Cdv6r8VHIzuC9Rk88ZKpfl1AlnQM8Oc7RCIDcBeYUiGbXswhLb367u+jb+2qaPg6IUtlDQTtXEmTQYnlVzOGvFWy6U2ojmXBRUhz6EEkxUHl90/9DzePNGDvs7VkUtM2qaXGwriOaXOQD5qy3fGweeSbWQknkFk/eUngs=
+	t=1788999687; cv=none; b=RUAq5su83Wwn8PoHjihfZBX+jQlhStW5LK8553mBTepwNk0wBggyoHeeAV9NfzoZZLuxuLaw7DE0Z9DFn1v8I3VJk4tMFtbFJ+oJx6R5aAZoF75DO9uGLznXwrEKY1x+6hBr6JiMzLuuEZExamvJDBiu4AHSaFLvtB4hf3+y+G8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788999656; c=relaxed/simple;
-	bh=8qNqzkPjSlOlt2ZMWZjpnS1ssVsvfncYdhLdYMDFNIg=;
+	s=arc-20240116; t=1788999687; c=relaxed/simple;
+	bh=GFW6Fqlwsl+9Fx8FFOTBd9s2rkers7nUgr8g/mpbT98=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p1zrcd9ZRz8vdPzSEHGffnjFOTy5VDU1mlFa8WTFx2JNMHrJ2DTm7RXGz2eh8sn70U5q8qU8uATU+gCX6aDo806D68QxaLDAt51nBhhKuGBeicN7UsRN3PxQgZGrgKqmEmRnRalzS3AqHyjmSZtmPx4UutUYZOk9/r9+cedWAQw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOtl/bHX; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=f19FDCv0E+UgtgmoZXT2Q5tU4gTZM0Du8+P08nvx/H5I4p99oMm9NO7X6z7iMddktMeeBVDmQEgGEkozKDb3PILvySGPjo1qzNUWugASNqSrOE5So94YP7IelCeNhWea4Jtu2TOTV0zrvxo/JZjR82H+6FikA4INfMymog1tang=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oNpmASHw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOtl/bHX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231CA1F000FF;
-	Thu, 10 Sep 2026 00:20:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oNpmASHw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E86301F000FF;
+	Thu, 10 Sep 2026 00:21:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788999655;
-	bh=j/s1Umy8gksN21jKhU7eyUqjYSwMIvP+6qTtZFOfowo=;
+	s=k20260515; t=1788999686;
+	bh=OwMHPt7ZyKMKcZ/wkuYOLfb9kSclNfhAFasAjF3TUZQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KOtl/bHXmxxhnbMoLai6h+6+gMH2tW82HFrEjFhP77NLhuLjd7yGyZZNiekkeZLec
-	 gs1XWPzFdxUOiRFYygVBmeVBtZI6AXACkYazd57nCdwIg9pzgt562JBGTVL+JWlHrE
-	 QON06ehBjBxEJfK1DIPrx588kWrlRXJUkLfpWIidsLhgN9CtLrgv6h6gALtVEo3imZ
-	 QnvVOGgo8XJ5F0gwO1+pBOTj6gB4AB5sYE7mMjGRYfWsiQoTQFsoyTUp4ncJp77jn+
-	 y/1YVyclj5h96nGwwGTbQKmaqkc5aeNICgK5JX6zIIJTJxaAoVCJS415wgqXazZXiZ
-	 FM7NiiN4oOshg==
+	b=oNpmASHwmcL7ejkyOZgK4FfY5/R9Q7821UBmP7Gyux8pkYqJasUM1xa4KUou9ak78
+	 mGPGYz57jmpBWc60cOd67F8RVs6tQWFvekloygRv13FuUYpqGiDkLn7CTs+dk/Su8p
+	 TFGBUvvnrH/sOGvZaMlgJjUHXh3BB169rGQdPJZqHSpEROImOg7GFE0x6RETmPMiTp
+	 UFoBvZ7dq5pN8pX5cp2M8iKY6mFJy0CaPllGlq5w6S7CTIa7DBeLFt7gZBfrQNA4GK
+	 afmnSU01K8z5P1tN/NNry+crIXvrCCh0idEVNL2tH0OZOJEKzVC63WPyLKGM5uIjte
+	 tM+2+L+j0TvfQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] ARM: dts: BCM5301X: R7000: add nvram node
+Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Rosen Penev" <rosenp@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910001300.117062-1-rosenp@gmail.com>
-References: <20260910001300.117062-1-rosenp@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260910001209.116465-1-rosenp@gmail.com>
+References: <20260910001209.116465-1-rosenp@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 00:20:54 +0000
-Message-Id: <20260910002055.231CA1F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 00:21:25 +0000
+Message-Id: <20260910002125.E86301F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,64 +47,77 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing length validation in `brcm_nvram_parse` allows for out-of-=
-bounds heap read/write and potential panics (preexisting).
+- [High] Zero-size allocation leads to a kernel panic if NVRAM is completel=
+y empty or uninitialized.
 --
 
-commit fcc6c069f7250c796767f24fbe9f085f9b0e3334
+commit 3e511df55083f5f3829311b665dd624ff8599e95
 Author: Rosen Penev <rosenp@gmail.com>
 
-ARM: dts: BCM5301X: R7000: add nvram node
+ARM: dts: BCM5301X: AC56U: add nvram node
 
-This commit adds the nvram node to the BCM4709 Netgear R7000 device tree
-and configures it for gmac0.
+This commit adds the brcm,nvram node to the bcm4708-asus-rt-ac56u device tr=
+ee.
+It configures it for gmac0, which is the only GMAC used on this board, and =
+sets
+the size based on a bootlog.
 
-> diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts b/arch/=
-arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-> index 24ba8f8f9bf36..0f3a00bc38c14 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
+> diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arch/=
+arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> index c80ac16ad9496..9ab618a097b1f 100644
+> --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
 > @@ -25,6 +25,15 @@ memory@0 {
 >  		      <0x88000000 0x08000000>;
 >  	};
 > =20
 > +	nvram@1c080000 {
 > +		compatible =3D "brcm,nvram";
-
-[Severity: High]
-This is a pre-existing issue, but adding this DTS node exposes the device t=
-o a
-missing length validation in the brcm_nvram driver.
-
-In drivers/nvmem/brcm_nvram.c:brcm_nvram_parse(), if the NVRAM flash is
-completely erased or uninitialized (e.g. all 0xFF or 0x00),
-brcm_nvram_copy_data() calculates priv->data_len as 0. This causes
-devm_kzalloc() to return ZERO_SIZE_PTR.
-
-Will the subsequent memcmp() dereference this invalid pointer and cause a
-panic?
-
-    if (memcmp(header->magic, NVRAM_MAGIC, 4)) {
-
-Furthermore, if len is larger than priv->data_len, it is validated against
-the mapped region size (priv->nvmem_size) instead of the allocated heap
-size:
-
-    if (len > priv->nvmem_size) {
-
-Can this lead to an out-of-bounds heap read and write in
-brcm_nvram_add_cells()?
-
-    tmp =3D priv->data[len - 1];
-    priv->data[len - 1] =3D '\0';
-
 > +		reg =3D <0x1c080000 0x180000>;
 > +
 > +		et0macaddr: et0macaddr {
 > +			#nvmem-cell-cells =3D <1>;
 > +		};
 > +	};
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but enabling the brcm,nvram node
+exposes a potential kernel panic in the nvmem driver if the NVRAM is
+completely empty or uninitialized.
+
+In drivers/nvmem/brcm_nvram.c:brcm_nvram_copy_data(), if the flash partition
+consists only of padding bytes (e.g., after an erase), the scanning loop
+decrements priv->data_len to 0:
+
+	for (priv->data_len =3D priv->nvmem_size;
+	     priv->data_len;
+	     priv->data_len--) {
+		if (readb(base + priv->data_len - 1) !=3D priv->padding_byte)
+			break;
+	}
+
+This results in a zero-byte allocation:
+
+	priv->data =3D devm_kzalloc(priv->dev, priv->data_len, GFP_KERNEL);
+
+If priv->data_len is 0, devm_kzalloc() returns ZERO_SIZE_PTR (0x10) rather
+than NULL, so execution continues successfully to brcm_nvram_parse().
+
+The driver then attempts to read the header:
+
+	struct brcm_nvram_header *header =3D (struct brcm_nvram_header *)priv->dat=
+a;
+	...
+	if (memcmp(header->magic, NVRAM_MAGIC, 4)) {
+
+This dereferences ZERO_SIZE_PTR (0x10), which causes a page fault and kernel
+panic on devices with erased NVRAM.
+
+Could a check be added for priv->data_len =3D=3D 0 in the nvmem driver to p=
+revent
+this unrecoverable boot failure before enabling the node in the device tree?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910001300.1170=
-62-1-rosenp@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910001209.1164=
+65-1-rosenp@gmail.com?part=3D1
