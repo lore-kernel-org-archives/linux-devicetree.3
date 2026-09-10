@@ -1,186 +1,110 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5619E598C17
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 19:31:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D816B5452A8;
+	Thu, 10 Sep 2026 19:35:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789068726; cv=none; b=FnIL13vdkTgERQkS1mJn6WuOhT+KdrQxkhysjoXMbVzMa4qy1zOJukPjvGYG6degUWgvrJdbHzcvHQuENb3XRvbQ/45g5jka9EHnltXw98oRsXDt0VS5+8RCYNLoHR9V39yZMMXAF2YfPGXge5rsl+Vf6W/+pUgdrvCk7nhgyTU=
+	t=1789068946; cv=none; b=azKI/MzwCc2e3ehPxEWJOL4VvOqd2TjdwdYDsAWZAVmuh8Lb8e7V/OxwJ2Guuy8qgcBG1oSu34PzDvoI2NiYjzfuVjdgCj90wD650ZQ5GyvEajQgxwe5vfcw6h5Ow4VpvWvDrFtA4TvNUNf6pEIOR2UBmnWPGsNwY2hLt49Ok6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789068726; c=relaxed/simple;
-	bh=RVscuzOwWBLYOqPI0VAq65UPbl5BzTBhY3MPWSu7TYU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LxGUrEoCIC9EyH8fgAHU/yxuo5yV2vZgQ9EBdjGIOcIkaD95rMyVI9QTy93EET060jN3Yfv9bk2HUhAg0MEq2/Iv9AYQGBcIutGfTuToPGinlZXzbE+FFa9pf8vdR8mlPEwRDjBOoG+2bwDCtiBeL2O3YC98u3cwhMWdOFIsGAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RosHvJK9; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789068946; c=relaxed/simple;
+	bh=rGQb6pWP3s8+ybob6/+wvJRTEta0FaX+zgcYWjwrBM8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UCbKhoQFGCU0Qa5jhT682qN10Y21sRF0Yq4jC0u+kIq0MIwUrc/qkdSc7Q7kKsDQLzzi93aXBFqIIopD4hk29mVsfZmmBsMlaRboPji9grUZp5hx50XimmJzetG4b2ttGMlrzE6x42CeeCpmPP2gP6bpcKRPdKu8/JDSq4tt3Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QHS9bb1g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RosHvJK9"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so70633b3a.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 12:31:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789068712; x=1789673512; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gEdV5Xs8ER2iH6ECRgXfLV1Fk4a++1FtqWHfmbg9CiM=;
-        b=RosHvJK9DLK0FlPnzknkm7VlHCbjT6fsYBPIZKcvabHTFuvKkmzNvbSYKIfikaqHtc
-         7fab1b9E0d3x7/+7bqzQqEkKybK8tvuS1RJM5+ez9HQ3ByWOxS1UTWx4CGZ428GgZPWL
-         mPBxWuS5QN4kF+LEajLA2p6ch7yrI86NwVxJoWW+3acLARqivoKzVNc8A3cPUa67JG8W
-         y+Y81VXs5tzI1Kr5aXGO2kiOfkfJe0LFJB/lG0LnzmLD0ihHV/iUTViFOXYhY1IO0KEJ
-         VwNx2nrsNwn+8yTFMvNE3/ZtaHG/9WrfezbUsXaTPuMioWUfYeRrrG9aOn/IRs0A2SMA
-         ppGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789068712; x=1789673512;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=gEdV5Xs8ER2iH6ECRgXfLV1Fk4a++1FtqWHfmbg9CiM=;
-        b=ppBtQ3EBykrpqy0dsunMmiZNHxc1BcISJTVOpnGt5V5bbWz62As8VYh+UZcp8LeXtK
-         kNejCLKeLSeZCQ/9lAtKz8/Lm1NerQkg1Kl7DNNEzK4C//bmLW76PrJERNbKA21Dg18+
-         LJYOkQWHWW/CQ4YqLqM+Ejn4croj/cukgq5uBKIsiUIQo5EQClu3ioor3Ri/ZgW3QwbP
-         7ijGv3Gf+xvU3rPXTqX0Ybwr1ubT4nMcfVboI7TZ84OVP28whI49TWsYER/7nUgj+8tS
-         fHypBzgzTssYoNwF1IwYYZapFOpv2MEQaFs6HCNgjMPcw1Sy4b8Mq7YHzglGIB/MkvLD
-         cqhg==
-X-Forwarded-Encrypted: i=1; AKwUvBxaHWkonSnytEGUF9e9ZmxlsBPPmpTNGdt8Gzb5NVS7jOLqjUHp77WXjiYH0lSmKPB4V386AfYCTEgo@vger.kernel.org
-X-Gm-Message-State: AFuF++lGDnlPm55Jg+O7G1D/qRaw0RgWBN+/+uz3dwNl4fYYUx7N1n6L
-	F90TbvyH0v9/DPCqbCwxJIHMUbsmTumD7AhAlzukeSjqQkk02QVjJTC+
-X-Gm-Gg: AYBFou2uFoBMH+5vNGGFui2NPNsHgscr/+b8PfUBCzB1Rz0iuBuQjSjXHGes4lBWw5Z
-	IWOt+QtPsORSOGofB91Y9NWu7WGt9CEO6R6XOOXDUu92sb5BYhzX4gktxvspDSOMgjxLvclxWvx
-	gvsoISblfcIYmLyFIhqUGwad82inxq9SCk7+S7lcDWfwoIbJa0J8nyRzjQXfOhtg1x2R6Dnl5cE
-	2lM6HnwKK6Knso377FCEKdlj+7YobQXcHG71ScCR5jUJYSb8vVma3QFGE2ir+61T5f61jCrOGJ4
-	R8LOOsH13G0MgB9guk66raVhlY5G0gRk4VVdGxe629tTpMowwdhPMLclEGQMERHEMFeCOneQVF3
-	CAWGh1RwaxOGcSg6ebdbvY59+oLhR1ceFkd5E0wV5RKWAmFiij0iRfL02KRctr02uS8g7FfjID7
-	3/qSBNGy+MGg78BKyK+3NOdLVeOQGfKDio7uqx1Y+h3rPjgNgrjg0KcD3HtDQKGQDFfTxQgPdO8
-	PUc+ysr+Y0SJVQiwYjUi4FGTLQZjBnZ3wHVWfAVNk8SUJS4
-X-Received: by 2002:a05:6a00:ba8d:b0:857:72ba:ff0f with SMTP id d2e1a72fcca58-86b34efaaebmr529838b3a.23.1789068712105;
-        Thu, 10 Sep 2026 12:31:52 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b2a5c052csm79353b3a.58.2026.09.10.12.31.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 12:31:51 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <c5fd98fc-2cfb-434a-8a81-3bf589049670@roeck-us.net>
-Date: Thu, 10 Sep 2026 12:31:49 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QHS9bb1g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AF061F000FF;
+	Thu, 10 Sep 2026 19:35:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789068944;
+	bh=NEHLUGTnGIvTiSnbPaTYiuHz7Py0xQtY1MUskUwmPWE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QHS9bb1g4bOEu914forL0x7kDO1MY6HoyQrVpJA2Zm2D1LVGbRvWNR+VyFLDiCt8N
+	 8QfYMhEEX+Kyhwi3OfUTg0Styezbdjj2ltVim1F1O3W2zHp7SODgeElbwy3NAZNPc5
+	 wiRrATApSFP8PeH/VYFIgvdZSOF+zS3qaGiLd7m9jRhljhA4bvbX9kj+3F9WuSJhGJ
+	 I2Zfaq9CfVBf39UClc+CFWuGgk9fK1saxN3UFa9EyAyGqormI/1bzY47F+OJWLwV5Q
+	 wt5/C2qFDN+hrYSbvscC+6dUrPNXBhvdnmDC7mKaFUphaTDcdGaf6UaSraPExJ/Aop
+	 7S5VLmQxxIptw==
+Date: Thu, 10 Sep 2026 14:35:41 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Florian Fainelli <florian.fainelli@broadcom.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, venkata.valluru@oss.qualcomm.com, 
+	Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v2 0/2] arm64: dts: qcom: Add RPi 7-inch DSI panel
+ overlays for Monaco/Lemans EVK
+Message-ID: <aqLGFfQ20mCGFkfl@baldur>
+References: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
-To: Arnd Bergmann <arnd@arndb.de>, Svyatoslav Ryhel <clamor95@gmail.com>,
- Arnd Bergmann <arnd@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Mark Brown <broonie@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Daniel Thompson <danielt@kernel.org>,
- Helge Deller <deller@gmx.de>, devicetree@vger.kernel.org,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- dri-devel@lists.freedesktop.org, Jonathan Cameron <jic23@kernel.org>,
- Jingoo Han <jingoohan1@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Lee Jones <lee@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Linus Walleij <linusw@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-doc@vger.kernel.org, linux-fbdev@vger.kernel.org,
- "open list:GPIO SUBSYSTEM" <linux-gpio@vger.kernel.org>,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-leds@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-rtc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev,
- Mauro Carvalho Chehab <mchehab@kernel.org>, mfd@lists.linux.dev,
- Michael Hennerich <michael.hennerich@analog.com>,
- patches@opensource.cirrus.com, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Sebastian Reichel <sre@kernel.org>,
- Support Opensource <support.opensource@diasemi.com>
-References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
- <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
- <7a92a79e-e22a-4e34-9f11-4086b88f62cc@roeck-us.net>
- <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <e33b42dc-1561-4819-b028-b13af9e7115b@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260907-rpi_dts_overlay-v2-0-a4989322ce00@oss.qualcomm.com>
 
-On 9/10/26 12:15, Arnd Bergmann wrote:
-> On Thu, Sep 10, 2026, at 20:38, Guenter Roeck wrote:
->>>
->> ...
->>> drivers/hwmon/ds620.c
->>> drivers/hwmon/f75375s.c
->>> drivers/hwmon/max1111.c
->>> drivers/hwmon/max197.c
->>
->> I missed the rationale for removing those, but then I don't really
->> mind either. I guess we'll hear if someone still uses any of those
->> drivers/chips.
+On Mon, Sep 07, 2026 at 12:03:52PM +0530, Shashank Maurya wrote:
+> Add device tree overlays to enable support for the Raspberry Pi 7-inch
+> DSI touchscreen panel on Qualcomm Monaco and Lemans EVK platforms.
 > 
-> None of these have devicetree support, and they are not usable
-> with any of the remaining board files.
+> The overlays configure the panel on the primary DSI interface using
+> a 2-lane DSI connection and instantiate the panel MCU on the
+> corresponding touchscreen I2C bus for each platform. The changes
+> allow the Raspberry Pi 7-inch display to be used as an external
+> display option on both EVKs without affecting the default platform
+> configuration.
 > 
->  From what I found:
+> ---
+> To: Bjorn Andersson <andersson@kernel.org>
+> To: Konrad Dybcio <konradybcio@kernel.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Florian Fainelli <florian.fainelli@broadcom.com>
+> To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+> Cc: linux-arm-msm@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-rpi-kernel@lists.infradead.org
+> Cc: linux-arm-kernel@lists.infradead.org
 > 
-> - da620 apparently never had any users upstream, though it does
->    not require platform data and is theoretically usable with
->    an external dtb
-> - f75375s was only used on iop32x (long gone)
-> - max197 was used on x86/elan/ts5500, which is still in the
->    tree but cannot be enabled anymore because it is a 486 class SoC.
->    I have sent a separate patch to remove that platform
-> - max1111 was used on spitz, which is on its way out for 7.4.
+> ---
+> Shashank Maurya (2):
+>       arm64: dts: qcom: monaco-evk: Add Raspberry Pi 7-inch DSI panel overlay
+>       arm64: dts: qcom: lemans-evk: Add Raspberry Pi 7-inch DSI panel overlay
 > 
+>  arch/arm64/boot/dts/qcom/Makefile                  |  4 ++
+>  .../dts/qcom/lemans-evk-raspberrypi-dsi-7inch.dtso | 83 ++++++++++++++++++++++
+>  .../dts/qcom/monaco-evk-raspberrypi-dsi-7inch.dtso | 82 +++++++++++++++++++++
+>  3 files changed, 169 insertions(+)
+> ---
+> base-commit: ed2647532a225739e86c7f236a2ce82764ec2772
+> change-id: 20260907-rpi_dts_overlay-58088ffce047
+> prerequisite-message-id: <20260907-rpi_reg-v2-0-0c59aa60d31f@oss.qualcomm.com>
 
-As I said, I don't have any issues with removing them. Note though
-that the ds620 driver (like many other hwmon drivers) does not require
-devicetree or platform data to work just fine.
+The two dts patches in this series clearly relates to those two
+regulator patches, which has received change requests.
 
-Thanks,
-Guenter
+I would have sent the 4 patches together in a series, but as you didn't
+you sent this series with unmet dependencies.
 
+All I can do now is reject this series as well. Please send v2 once the
+driver changes has been merged and you have validated this again.
+
+Regards,
+Bjorn
+
+> prerequisite-patch-id: 5212bf185b35c36ed8857a67f29e60386d59ac60
+> prerequisite-patch-id: 056a90b913170106a6f8c1feb2366ee83c4375b9
+> 
+> Best regards,
+> --  
+> Shashank Maurya <shashank.maurya@oss.qualcomm.com>
+> 
