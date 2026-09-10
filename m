@@ -1,73 +1,175 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB5B3ACEE2;
-	Thu, 10 Sep 2026 09:40:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A8ED3C3F67
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:40:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033232; cv=none; b=VGhyiJnFBY9Hdbw7VOLSLJEk+f2xZ5u9dxx5zR89lIlOO+m/B1qi9SyogBWHCmFeInqmIa8RV+eYXikH8DgUMMBxDsW01RfDJm/9/+pFxv6QRgCQh7YD5Zp3nyvfVxrCo39LKXQ1LATKDeZBl3sIZ4azxp5CCbauz+YnKPqU6I4=
+	t=1789033241; cv=none; b=IS69HhdSSejyAkaubGSt9iJfJzZBtMc3j/3Q+DYOT7S9hx5w1juy7sGN2oKxbxc0+3q2SJaYDNu7+P+9/E5v5PYr11IobSb7paBoS0epvyvbwyBNvBw/BxJEmEqi7nIB9G12N93HZEQ3OXZPAtH4qROvrYeVGlNTlBQulGRnhXM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033232; c=relaxed/simple;
-	bh=RvD2ug0Vi6XbAQLkFYkBqo+JQZg8I9DxBAHhk6dvnl8=;
+	s=arc-20240116; t=1789033241; c=relaxed/simple;
+	bh=Ztj/TRgtePNFTKSn8FPj3Xks9t6QJdEhmDQUZHSi5Qk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Odjb0lTBHvmYKug3+TX8Wzc7N1SJEOvC+orUdsSzfeXBXdCzFLqTXp3Aj1lUDvvAZxBiwC7j59gyIrJrV3SXkFqVY/MzUFDEPmgDaLYnfWKQHVfeQr02YNlGYf6azIMKBlAlYR1a3vdAxJcX+MWUPT0eYy4EFLO6asZVrA4GATw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vx48BZ50; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Bu8cZfwCzQWj+WDbAZSSe7AlCEiue0/kOwDYMGDJNPpPCSBe5EXA48pZlgPqsTbDcpLEv0/3Aoi1Q5UyCXAL2hK0CmsLZ6+8CuphfGouAb9+vbCLVvZ/pYDpRvVJ5RR5dnq9bIHN7PgaHDbAhZzFSKzK4sDsckzUsRdBy078r68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SJmbuNz7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vx48BZ50"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8791F000FF;
-	Thu, 10 Sep 2026 09:40:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SJmbuNz7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D43B1F00893;
+	Thu, 10 Sep 2026 09:40:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789033230;
-	bh=RvD2ug0Vi6XbAQLkFYkBqo+JQZg8I9DxBAHhk6dvnl8=;
+	s=k20260515; t=1789033236;
+	bh=AblW3HlTcp2X4Z5WQJdWAiSLo3aOKERwFEQ7DNGb/ec=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vx48BZ50fnYzqpQYGuZA5HCx/27Jn2H/U9ZtRJyhuYJ4AxisrkAjvXcuc7Ly0hila
-	 0tM05IP9lpRxLewrgyfNzcT8GMNI9jIYZVZK5cp8IJzFPs2N2AdeGJWVUttbRADKxb
-	 VdScu6RWYoAkeCT7dUOHUXVeucPdP75MgOS0WVPfwX+sJ6Vj1uFbCu2K4/V8qNJd6P
-	 VPdPONG/5jYsDeeQU+BPJYPqpt7nxQR0LqWtb/p57wEY+SEP9fa6jqF4TSr7pO8Lvi
-	 3rp+fqL9nkfyOIVhCaV/fWwlSH6Gnk1j+7ywmUMAikpBQHvhJocUXbX0U7pHYPlkkr
-	 UkeOjZB91K5dA==
+	b=SJmbuNz7WTDohsb9LlJdSIA4T3Iwlqm5d/cnr7NNoZ/cZ92YpeTDFEmUsJqvCGqfR
+	 za57psQLY6k54BwvjVAhXP1WBxPbf+g7l3M/qeMVZF0nOzBBJreA4Ho88OeX1+5muh
+	 eg7PDIROLPLmLp6XkzojuhyK6JGe5/tQsM9HOqhOVDyn+JoVrBkc5WQaVTwPJynSN4
+	 CHS2HBKz4T8oSBcSgvDTxX2u9qDuyyTQ3R2NuhhHs35iK61JoGX2ADifXgCahdnyVf
+	 NQmBXM0MVMaVvdwyfI3/iTlZIRvb581Lg5t0kWgbTVgPc+Ks4dC33rA9pXS+xCxCAN
+	 nyOx1jfVXgbSw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 4/5] mfd: axp20x: Add support for AXP318W PMIC
+Subject: Re: [PATCH v4 04/12] phy: phy-mtk-dp: Migrate register offsets to
+ SoC specific pdata
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: devicetree@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260910-axp318-regulator-v7-4-de720ceb9bac@baylibre.com>
-References: <20260910-axp318-regulator-v7-0-de720ceb9bac@baylibre.com>
- <20260910-axp318-regulator-v7-4-de720ceb9bac@baylibre.com>
+To: "AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>
+Cc: robh@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260910092038.48291-5-angelogioacchino.delregno@collabora.com>
+References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
+ <20260910092038.48291-5-angelogioacchino.delregno@collabora.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 09:40:29 +0000
-Message-Id: <20260910094030.2C8791F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 09:40:35 +0000
+Message-Id: <20260910094036.3D43B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> From: Andre Przywara <andre.przywara@arm.com>
->=20
-> The AXP318W is a PMIC chip produced by X-Powers, it can be connected to
-> an I2C bus.
->=20
-> It has a large number of regulators: 9(!) DCDC buck converters, and 28
-> LDOs, also some ADCs, interrupts, and a power key.
->=20
-> Describe the regmap and the MFD bits, along with the registers exposed
-> via I2C only. This covers the regulators and interrupts for now.
-> Advertise the device using the new compatible string.
->=20
-> We use just "318" for the internal identifiers, for easier typing and
-> less churn, but use "318W" for anything externally visible. If something
-> else other than the "AXP318W" shows up, that's an easy change then.
->=20
-> Reviewed-by: Chen-Yu Tsai <wens@kernel.org>
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Co-developed-by: Jerome Brunet <jbrunet@baylibre.com>
-> Signed-off-by: Jerome Brunet <jbrunet@baylibre.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+New issues:
+- [High] Missing NULL check for `device_get_match_data()` leads to a NULL p=
+ointer dereference on manual sysfs bind.
+- [High] Overlapping devicetree reg property and hardcoded offset prevents =
+successful DT probe.
+
+Pre-existing issues:
+- [High] Potential NULL pointer dereference when accessing `dev->platform_d=
+ata` prior to validation.
+--
+
+commit 6b41d18c7c7f31b8549b66b4262af72e2486491d
+Author: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+
+phy: phy-mtk-dp: Migrate register offsets to SoC specific pdata
+   =20
+In preparation for adding support for newer SoCs and for adding
+more capabilities to this driver in an efficient manner, migrate
+all of the hardcoded register offsets to SoC specific pdata and
+assign that for both DT and platform probing.
+
+> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy=
+-mtk-dp.c
+> index d241004e28286..20974650d9409 100644
+> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+[ ... ]
+> @@ -170,12 +241,19 @@ static void mtk_dp_phy_legacy_remove_lookup(void *d=
+ata)
+>  	phy_remove_lookup(phy, "dp", dev_name(dp_phy->dev));
+>  }
+> =20
+> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data;
+> +
+>  static int mtk_dp_phy_legacy_probe(struct platform_device *pdev, struct =
+mtk_dp_phy *dp_phy)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+>  	struct phy *phy;
+>  	int ret;
+> =20
+> +	/*
+> +	 * If legacy platform driver probe, assume this is MT8195 or compatible
+> +	 * with a devicetree that was not migrated to the new, proper bindings.
+> +	 */
+> +	dp_phy->pdata =3D &mt8195_dp_phy_data;
+>  	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
+>  	if (!dp_phy->regmap)
+>  		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
+
+[Severity: High]
+This isn't a bug introduced by this patch, but can this dereference
+dev->platform_data before checking if it is NULL?
+
+If the driver is manually bound via sysfs or a module without platform data
+provided, it looks like it would crash immediately here:
+
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_legacy_probe() {
+    ...
+	dp_phy->regmap =3D *(struct regmap **)dev->platform_data;
+	if (!dp_phy->regmap)
+		return dev_err_probe(dev, -EINVAL, "No platform data available\n");
+    ...
+}
+
+[ ... ]
+> @@ -235,6 +313,8 @@ static int mtk_dp_phy_probe(struct platform_device *p=
+dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	dp_phy->pdata =3D device_get_match_data(dev);
+> +
+>  	phy =3D devm_phy_create(dev, NULL, &mtk_dp_phy_dev_ops);
+>  	if (IS_ERR(phy))
+>  		return dev_err_probe(dev, PTR_ERR(phy),
+
+[Severity: High]
+Could this result in a NULL pointer dereference?
+
+If the driver is manually bound (e.g., via driver_override in sysfs) to a
+device that possesses an of_node but does not match any entry in
+mtk_dp_phy_of_match, device_get_match_data() will return NULL.
+
+This NULL pointer would later be dereferenced when accessing dp_phy->pdata
+in mtk_dp_phy_init().
+
+[ ... ]
+> @@ -249,8 +329,15 @@ static int mtk_dp_phy_probe(struct platform_device *=
+pdev)
+>  	return 0;
+>  }
+> =20
+> +static const struct mtk_dp_phy_pdata mt8195_dp_phy_data =3D {
+> +	.off_dig_glb =3D 0x1000,
+> +	.off_dig_lane =3D (const u16[]) { 0x1100, 0x1200, 0x1300, 0x1400 },
+> +	.regs_dig_glb =3D mt8195_phy_dig_glb_regs,
+> +	.regs_dig_lane =3D mt8195_phy_dig_lane_regs,
+> +};
+> +
+
+[Severity: High]
+Will these hardcoded offsets prevent a successful devicetree probe?
+
+The driver maps its devicetree reg resource using
+devm_platform_ioremap_resource() in mtk_dp_phy_probe():
+
+drivers/phy/mediatek/phy-mtk-dp.c:mtk_dp_phy_probe() {
+    ...
+	base =3D devm_platform_ioremap_resource(pdev, 0);
+	if (IS_ERR(base))
+		return PTR_ERR(base);
+    ...
+}
+
+If the DT reg maps the specific PHY region, the driver will still add
+0x1000 to the mapped base, accessing unmapped physical memory.=20
+
+If the DT reg maps the entire DP controller region to make the offsets work,
+devm_platform_ioremap_resource() will fail with -EBUSY because the parent DP
+driver already holds the request_mem_region lock.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-axp318-reg=
-ulator-v7-0-de720ceb9bac@baylibre.com?part=3D4
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910092038.4829=
+1-1-angelogioacchino.delregno@collabora.com?part=3D4
