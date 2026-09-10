@@ -1,95 +1,131 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0BF3AC0FC
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:11:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4D673DC4D8
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:14:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789031516; cv=none; b=SN0laJH+ceP5csLzZ17tIMJgBM9xteyujM6W0Gjc/DOMaga8m9q+PhmSAlLY3KfB4tBmJog5kSTukjWXSWpNW4dE6jEq1PvMoAFIFJuNjQXrnzoV3ZerFWHB0lUrBZwWdzXzYw7btb3bnvADD6meFUfKpECULZdCzk4VdAynl3w=
+	t=1789031672; cv=none; b=gNE2QEW0UIuvKGwm0c8KSznfYKGfBJTAlicjjVzkVgJkunXdpduIdVCCo/DXUhbki5Z8YKvOEb/V+JHccngh1KzJ4TJfIlfwm9ckjn0ATS3iA2foBXCWdNMJsfnZDQSQSk/GW4n/Hf8aJ8ZpnC5RkdYVRluLsAL24r1gwLZZM7g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789031516; c=relaxed/simple;
-	bh=bXm5Cfmda9rEtHcvdnpOqhj5TeaygiTj6KNxu971ruk=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=phbmVb9j9eOZnYVlpVNkwMFGDCwLwoiZ88VXBav4jQ6XlFo7u6ECJAPCzV+FeUNQQde47g/Q4XNeC9+x/hEI4c/BFV8P1soubGP19QcjPDNLKlOreAEPY1q025B5pt/3hcQw2vi4WQCCpFwPAaeAhAA1pBxfUg+J1bsyeVDYDeQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqTVI+Wf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789031672; c=relaxed/simple;
+	bh=c9D2/nHDAqK5FoksXQT86Fo/UpMFe70pB7tHxCU4N2g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MIy01oHDArPBkKSZxsmZgwOK1Uc71d0dld9LrLYwumSDLHCB8f6P+m2PGeB46Klo/5JjlXQr7iS5lClXLCc1FMDDtJPb6ACa0c+tl2i6IrT6Lle8DXNPY+g+6V98HNLunl517sKBRxlTlK7A1geoYyRH/c8vW9Rw8MX98/p4pps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GeHRSH8S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqTVI+Wf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2250D1F000FF
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:11:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GeHRSH8S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F25F1F000FF;
+	Thu, 10 Sep 2026 09:14:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789031515;
-	bh=bXm5Cfmda9rEtHcvdnpOqhj5TeaygiTj6KNxu971ruk=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=mqTVI+WfIRetFZGXQuuLKlTH1YZeOL1XOVSCgYB8qFxdR8PmsVYTG0h9cLNI+uSEk
-	 238/349oXwlYCmxpnvrhUxjIMuGOY9M1ENib0ogg2ygAS4SYAcUR2mMuDlgjcMrpLR
-	 jlycgpRjwUG7HrD0dXaBEysn02new+uq/MYl3Fk03QoxAxsyi9vuOssdAbAGbgoh3Z
-	 W/RjOEDK67mSEcjyscLZ+Jx+6N9ZE31nFb4ueAFyv77A1Z/HdiQJ0C+Vtm53KkYZF1
-	 aC3ELvEWD3pyfGSrRyYu4ymoNnZi7uux1W6ul2iaal7+vPKaQQtA4DBaLoNdr6egbR
-	 jwfaEh1oXSccQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff17443dso15483641fa.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 02:11:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw/GmW6uQcWAIYqVAd1Ktt7JlZh6BzO5T/k0l1TtmyS38aUHTLtkt0BKzEdkgiAKXBVKyfd3IBmn5L5@vger.kernel.org
-X-Gm-Message-State: AFuF++kQMhXZdNtO+EjNR2OcCunts2cP3Czw8ePMhbue8TZ+UKqSmUoY
-	h9QBXTaacZqEjZHtbZlbYuU37uF0MQPBA2ygyNodxW8aEY+x5/4tvHVmwzVd6xxmvt47AO/vrl5
-	+Mlf5UCsdqxKypy+M5hnRUr7O4+FZDb52zGyDwFOwxA==
-X-Received: by 2002:a05:6512:6184:b0:5b2:1de0:5ea2 with SMTP id
- 2adb3069b0e04-5b8986f684emr2334382e87.16.1789031513815; Thu, 10 Sep 2026
- 02:11:53 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 10 Sep 2026 02:11:51 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 10 Sep 2026 02:11:51 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <apgeSVMUQlwqFGEa@gamepc>
+	s=k20260515; t=1789031667;
+	bh=A9yGQw1GD4y4Pq8/OwHQUqdbJojgI2NMFhjlthG5IO8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GeHRSH8SdQJvFFPLCeqcbyxAYuncnFl+9wbiPXASPt0xPQwJs0NswVhaNiH21lVY9
+	 73Sz7xbe//OWB0Lu8EghmBwdrz+D9sc5D0qoC95WSyEAyrq7Vqao3lqs/jjJNU6iwv
+	 rPLXObPYrZuhsSKnIhVE9ASJvztHA/1bLUQJJgxKAufjyMfJCrlLi1mkVzbLAKOtLx
+	 vvy+wI/xjEBzBWqEOSkhHKw49Ne6kr/6FqJ2Taw9kn0Ki8xf302K9qT6BCp9pMFrw4
+	 Kios2ShSZiYqzkn0U6hJnvypxqmPZga/Tyveb5eNvABdw6hInFHlCpB4Za/R+gzYo0
+	 GFCqbvt42UQ1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 7/9] dt-bindings: iio: adc: renesas,r9a09g077-adc:
+ document DMA support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cosmin Tanislav" <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260910085430.3173166-8-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260910085430.3173166-1-cosmin-gabriel.tanislav.xa@renesas.com>
+ <20260910085430.3173166-8-cosmin-gabriel.tanislav.xa@renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 09:14:26 +0000
+Message-Id: <20260910091427.4F25F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1787830440.git.misha.zavertkin@mail.ru> <adce57b3797cae6f6a3486eb1d21c33be61f14dc.1787830440.git.misha.zavertkin@mail.ru>
- <CAMRc=Mf16PBE0=Udm+A--i2d1VoZCEC1=LNC2q=t8BwqtgZY0g@mail.gmail.com> <apgeSVMUQlwqFGEa@gamepc>
-Date: Thu, 10 Sep 2026 02:11:51 -0700
-X-Gmail-Original-Message-ID: <CAMRc=MfTTZKBRPGWi3Bu8n3V0y6TN6TR0izdxZ=Zt0mM2eN+_g@mail.gmail.com>
-X-Gm-Features: AcwNN1UsxsZc2HohvTmvUHy9FFHSATa8ekyZ4FxFWlxS8M0dUdohxyBtP8RPc9o
-Message-ID: <CAMRc=MfTTZKBRPGWi3Bu8n3V0y6TN6TR0izdxZ=Zt0mM2eN+_g@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] gpio: realtek-otto: add pinctrl support
-To: Michael Zavertkin <misha.zavertkin@mail.ru>
-Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Sander Vanheule <sander@svanheule.net>, Bert Vermeulen <bert@biot.com>, linux-gpio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, 2 Sep 2026 15:02:01 +0200, Michael Zavertkin
-<misha.zavertkin@mail.ru> said:
-> On Wed, Sep 02, 2026 at 11:27:50AM +0200, Bartosz Golaszewski wrote:
->> On Thu, Aug 27, 2026 at 4:29=E2=80=AFPM Michael Zavertkin
->> <misha.zavertkin@mail.ru> wrote:
->> >
->> > RTL9607C relies on pinctrl to mux SoC pins. Use pinctrl to request pin=
-s
->> > for GPIO.
->> > pinctrl driver for other SoCs might be implemented later.
->> >
->>
->> So for now shouldn't you make it conditional on the compatible for
->> this one model?
->>
->> Bart
->
-> It might, but enabling it for all will spare time if/when pin
-> controllers for other SoCs will be implemented. And it doesn't change
-> anything if pinctrl not enabled/provided for them.
->
->
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The IIO channel specifies `IIO_CPU` endianness for the DMA buffer,=
+ but the driver copies the raw hardware samples without converting them to =
+native CPU endianness.
+--
 
-Sashiko claims otherwise[1] so I had a look and it seems to me that it's
-correct saying we'll defer indefinitely for GPIO chips not backed by a pin
-controller.
+commit 7eb4eed24fc9164ecef6de1efee2ea6e90c109dc
+Author: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
 
-Bart
+iio: adc: rzt2h: implement DMA buffer support
 
-[1] https://sashiko.dev/#/patchset/cover.1787830440.git.misha.zavertkin%40m=
-ail.ru
+Implement buffered capture using a cyclic DMA transfer into a kfifo
+buffer to support continuous high-rate sampling.
+
+> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> index 95bcebdc02cb3..0460dffe189e2 100644
+> --- a/drivers/iio/adc/rzt2h_adc.c
+> +++ b/drivers/iio/adc/rzt2h_adc.c
+
+[ ... ]
+
+> @@ -151,6 +186,263 @@ static int rzt2h_adc_calibrate(struct rzt2h_adc *ad=
+c)
+>  	return 0;
+>  }
+> =20
+> +static void rzt2h_adc_push_period(struct iio_dev *indio_dev, u16 *period,
+> +				  dma_addr_t addr)
+> +{
+> +	struct rzt2h_adc *adc =3D iio_priv(indio_dev);
+> +	u16 *dst =3D adc->buf;
+> +	u16 *src =3D period;
+> +
+> +	dma_sync_single_for_cpu(adc->dev, addr, adc->dma.period_bytes,
+> +				DMA_FROM_DEVICE);
+> +
+> +	for (unsigned int sample =3D 0; sample < RZT2H_ADC_DMA_PERIOD_SAMPLES; =
+sample++) {
+> +		for (unsigned int i =3D 0; i < adc->dma.gather_len; i++)
+> +			dst[i] =3D src[adc->dma.gather[i]];
+
+[Severity: High]
+Does this code copy the raw hardware samples into the IIO buffer without
+converting them to native CPU endianness?
+
+If a user-space application enables the IIO buffer and reads samples from t=
+he
+ADC on a big-endian architecture, the hardware writes little-endian 16-bit
+words to DMA memory. This function appears to copy those raw little-endian
+bytes verbatim.
+
+[ ... ]
+
+> @@ -192,6 +489,12 @@ static const struct iio_chan_spec rzt2h_adc_chan_tem=
+plate =3D {
+>  	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>  			      BIT(IIO_CHAN_INFO_SCALE),
+>  	.type =3D IIO_VOLTAGE,
+> +	.scan_type =3D {
+> +		.sign =3D 'u',
+> +		.realbits =3D 12,
+> +		.storagebits =3D 16,
+> +		.endianness =3D IIO_CPU,
+> +	},
+>  };
+
+[Severity: High]
+Does setting endianness to IIO_CPU incorrectly inform the IIO core and
+userspace that the buffered data is in native CPU endianness?
+
+Because the channel is marked as IIO_CPU here, the IIO core and userspace
+assume the data is natively ordered. Combined with the verbatim copy in
+rzt2h_adc_push_period(), they might interpret the little-endian bytes
+incorrectly on big-endian CPUs, potentially leading to data corruption where
+applications read swapped bytes.
+
+Should the little-endian data be converted to CPU endianness before being
+pushed to the buffer, or should the scan type reflect the actual endianness
+of the hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910085430.3173=
+166-1-cosmin-gabriel.tanislav.xa@renesas.com?part=3D7
