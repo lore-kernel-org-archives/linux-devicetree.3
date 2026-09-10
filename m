@@ -1,138 +1,75 @@
-Received: from out198-19.us.a.mail.aliyun.com (out198-19.us.a.mail.aliyun.com [47.90.198.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF3E3A6EEC;
-	Thu, 10 Sep 2026 07:46:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C41223EC683;
+	Thu, 10 Sep 2026 07:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026418; cv=none; b=Z0hvZhl4BC2yjbHnrN+p7XDSddDQvV6XTTTjXqPOG+LgtI6bUVQxwARAl8awrwmhwCWOf1nFthmb81YIjX0Mp+28riHefP9K1f2GshOe3Zs7evBZhCUAyxhzcAnl2MjRdzo+LdtC43Me/KV1FQT7TkOQ99oQQxpohs/RIU2296E=
+	t=1789026822; cv=none; b=b+71ouHkaNlEix3JD0xPv+aLcEInHIHyEWatvV6CxoFnCF4iAudB7l/utRUqOcRiOGJVovA/edryXtBhkYbZg/iY+A8vUBwjdB1/W0rWXa2h9t9AOCZocdPoe+zqMF82LO5XaVSHv7K2MXCogE5qZb4J+tdgDmAcze5zjq+8y7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026418; c=relaxed/simple;
-	bh=goJTZWc3/Z6RtJ73HCKX+/B+S7fXYAJtedHBxpIsePQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=OqX4HhVH/JsfaL6qg3aD8b7bek9cmowGupd2y/BNw+h99/NGAtiRHSr9wI9Cm/WvM/JE8zTl7K64tL+ZJ6qvlvVJ+STj77HkOT8yl4lf1w8Q3tWkcdwsFmcSi7Newn5NQkYmpjbjvYEQMoBO7Li6wJGcTXrbBqW4xsOuAKshe4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com; spf=pass smtp.mailfrom=motor-comm.com; arc=none smtp.client-ip=47.90.198.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=motor-comm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=motor-comm.com
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08438314|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0565204-0.00345749-0.940022;FP=16780861628771732659|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=kyle.switch@motor-comm.com;NM=1;PH=DS;RN=18;RT=18;SR=0;TI=SMTPD_---.jAJ7K70_1789026394;
-Received: from motor-comm.com(mailfrom:kyle.switch@motor-comm.com fp:SMTPD_---.jAJ7K70_1789026394 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 10 Sep 2026 15:46:34 +0800
-From: Kyle Switch <kyle.switch@motor-comm.com>
-To: Frank.Sae@motor-comm.com,
-	andrew@lunn.ch,
-	hkallweit1@gmail.com,
-	linux@armlinux.org.uk,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org
-Cc: ming.xu@motor-comm.com,
-	xiaolin.xu@motor-comm.com,
-	jianmin.wang@motor-comm.com,
-	jie.han@motor-comm.com,
-	wei.zhang@gl-inet.com,
-	sijia.huang@gl-inet.com
-Subject: [PATCH v16 2/2] dt-bindings: net: Document Motorcomm YT8824 PHY package
-Date: Thu, 10 Sep 2026 15:46:24 +0800
-Message-Id: <20260910074624.2426899-3-kyle.switch@motor-comm.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260910074624.2426899-1-kyle.switch@motor-comm.com>
-References: <20260910074624.2426899-1-kyle.switch@motor-comm.com>
+	s=arc-20240116; t=1789026822; c=relaxed/simple;
+	bh=Lb763JLAmWQy9eT8v+rsJ/Yd1DfQWRXGh2TljQsYfgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mx1rb0VyCse7ltNqO/5Dm9LiOw1kSKeNZRLHjh4tZ+BaNWLLUWbaoteNZ5Zh6A8c9SbaEDmGSjsFMoGPNZ8yi5OcVbSmHhVPJOMdB3JMSioKrSdRiLP/TN6DcAkNm4gQ1tFsDKQ77M1BrdrnYVpHYZwaM6YT4d0G1G1TLFZ6odw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gT5IlIaa; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gT5IlIaa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893BE1F00893;
+	Thu, 10 Sep 2026 07:53:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789026821;
+	bh=8GSiH8iBWWjvRBjRlXsDozfrYORLZWIESZDVulaEmQ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=gT5IlIaa85flw+Z6fPOqWirbC+ux7vTYrFniAmr5Q+3j3J9XudwpLJbPW2u7zD57m
+	 I6pT8KqYFz23SnDZbv5eDK+axQBZLrTX6ZRw+ny/EeRCs4UtnnTfq0ok4KFNZKCPRK
+	 MGJ+FaDB1TmyOmUaD0gcCafFEVMafw40ZXTuUOKB/2u0JSPKxD5OTbscdkerOE+Dk3
+	 WXWIj/+mA/NIKDX4FljRQXRD1ifbveECeeddVuj8s1S9nKaV31/9xdhwrkKaYf/iGD
+	 pe2ELvMVbDqKj3Uv5ZoCtpsUSg75RD4MbDJRVQiUafk9hUpm1lgkcAjavif2Rpg0HH
+	 Gvn6excUOkGkQ==
+Date: Thu, 10 Sep 2026 09:53:32 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
+	devicetree@vger.kernel.org, Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 07/11] Bluetooth: hci_qca: Embed bt_power in struct
+ qca_serdev
+Message-ID: <22crvqe3gc4ui6iiur5u367omrwc5hrfgtd3mcod4tio3ybxgi@twxbmnnpz6id>
+References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com>
+ <20260904-monza-wireless-v6-7-d8c5042b3efd@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260904-monza-wireless-v6-7-d8c5042b3efd@oss.qualcomm.com>
 
-Document Motorcomm YT8824 PHY package.
+On Fri, Sep 04, 2026 at 05:42:22PM +0200, Loic Poulain wrote:
+> 'bt_power' is allocated dynamically only for a subset of SOC types, using a
+> switch on the SOC type that mirrors the one that follows it. This is about
+> to become pointless as the power sequencer path (used by M.2 modules) is
+> independent of the SOC type and needs 'bt_power' populated for any type.
+> 
+> Embed 'struct qca_power' directly in 'struct qca_serdev' instead of
+> allocating it separately. This drops the extra allocation and its dedicated
+> SOC-type switch, and removes the need for NULL checks on the pointer.
+> 
+> No functional change intended.
+> 
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 
-Motorcomm YT8824 Ethernet PHY is PHY package of 4 PHY-s.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Document the required property to make the PHY package correctly
-configure and work.
+- Mani
 
-Signed-off-by: Kyle Switch <kyle.switch@motor-comm.com>
----
- .../bindings/net/motorcomm,yt8824.yaml        | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-
-diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-new file mode 100644
-index 000000000000..9907a4a7e63e
---- /dev/null
-+++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
-@@ -0,0 +1,63 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/net/motorcomm,yt8824.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: MotorComm YT8824 Ethernet PHY
-+
-+maintainers:
-+  - Kyle Switch <kyle.switch@motor-comm.com>
-+
-+description: |
-+  Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHYs.
-+
-+$ref: ethernet-phy-package.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ethernet-phy-id4f51.e8b8
-+
-+  motorcomm,interface-mode:
-+    description: |
-+      PHY package interface mode.
-+    $ref: /schemas/types.yaml#/definitions/string
-+    enum:
-+      - internal
-+      - usxgmii
-+    default: internal
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    mdio {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        ethernet-phy-package@0 {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+            compatible = "ethernet-phy-id4f51.e8b8";
-+            reg = <9>;
-+
-+            motorcomm,interface-mode = "usxgmii";
-+
-+            ethernet-phy@4 {
-+                reg = <4>;
-+            };
-+
-+            ethernet-phy@5 {
-+                reg = <5>;
-+            };
-+
-+            ethernet-phy@6 {
-+                reg = <6>;
-+            };
-+
-+            ethernet-phy@7 {
-+                reg = <7>;
-+            };
-+        };
-+    };
 -- 
-2.25.1
-
+மணிவண்ணன் சதாசிவம்
