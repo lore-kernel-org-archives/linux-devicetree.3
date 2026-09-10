@@ -1,171 +1,283 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 470A23DA7C8;
-	Thu, 10 Sep 2026 07:09:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789024149; cv=none; b=jtUCxWh6k4p9yxzubKVTYdpmq/F/ugTdacroaJTomr5ucuUqjt46XVzG/WqcRdsQAP/6GgymretQ7t54peWQo8309JCSWi6mpatIKaAdjf1+tWL7xtzElR57yc1vxP5X+olKBkbzR8OGEkuaznvVEYi9yW90q5xiCAUXZyj0Ku8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789024149; c=relaxed/simple;
-	bh=YQkoOuX6WnLhx/AmQpe6x/iJf+IsXzH/a8NpwjXQ35I=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=nFvI5IqlIfrEXr8WhBx9aKPr7/AlEmoMAwlAZSaaaYXMpIOoPu3d0A9kY2W3yiHxfcXBaD0KXQb71hC5fhwDvEmYC9L3B8NK3hQwc/ZIpBy1jx65sVpvC9NGqtr5RZ5pzI37On/nJmEt/CZhorFInznpOiwZmlIiLF8HaRu04p4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.66])
-	by APP-01 (Coremail) with SMTP id qwCowADXqOx5V6JqeFCWBw--.33693S2;
-	Thu, 10 Sep 2026 15:08:43 +0800 (CST)
-Message-ID: <14f7fdf36a25b9669145b766becc6f32ef205320.camel@iscas.ac.cn>
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add
- support for nuvoton,ma35d1-dcu
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Joey Lu <a0987203069@gmail.com>, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com,
- simona@ffwll.ch, 	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Thu, 10 Sep 2026 15:08:41 +0800
-In-Reply-To: <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
-References: <20260908092840.225220-1-a0987203069@gmail.com>
-	 <20260908092840.225220-2-a0987203069@gmail.com>
-	 <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
-	 <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: base64
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D7B336895
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:11:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789024287; cv=pass; b=fBvwqKNH2xItO4sQPsk+6xEI+iYJcVidwxWVlIropm03m5u972yZwh2VtpUPiNK6TFSACXq6P4JoKN+rgglJpNbhZUhLIS/nvWAVuS8Znmb4xyuhX0FtUju97nzY01wsyhKgTe/sfMmjWLBd3lWYrf+dY+K+FXNg8AaLqXMF++k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789024287; c=relaxed/simple;
+	bh=IE7I7VDhYo0gcnWqMTBTWczlzaHH4n4GnuvfYzS9las=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Z6y9FXkpIRT5wj/wh/LVk57MxflPXJIVIwhaxhvQXieZT/Gmjy9Io5mmwNdaVnXK2V1dA4Ym80L6uuz2IjOWQ2kWF+8R1nDAOGZTrGPx2Sntv3VzH17IcXEZqymC5BkLUwZ3sKS/sYLYDyhZrRBt9Rwf4ubQc/jp3SLVx9klhA0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NMU0vD9Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T381WuJo; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NMU0vD9Q";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T381WuJo"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5Gd74162283
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:11:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	MQpBs+odCBgTDhFlVtMnY7R7uOtDQAidNcb/DTFOxkY=; b=NMU0vD9QYCqz7Kaq
+	sfKMCQHP1p550Gj1xDn13LdJvw/Vt59oX0tgJqTJFXK/VMHc0Lkvsxb/LZEqXAom
+	bB2PyuTQZlndRdMXVUj+7GczFRRqhQDb3ixRv1UlCws3NS9ufy+BXV0MzUlvdYzt
+	Ylx8OBwRBZ2wBm2uv08w+kVE6pjWkbZeStGDSLGsJU8vpTJBFX2bY3a4Kzf9z9Gd
+	byeu8Jv9dEoow04yKl3CzEh+jPpblbvFd5XRXlWZCGqi+qrPiinXR9FiozheUE3D
+	GONvETAIDnZi2grvDNIveRzFj5py27OeB8sTPmazllaUlVf791LVKROlazdBIVTa
+	w7wxzw==
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com [74.125.224.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg2ms0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:11:23 +0000 (GMT)
+Received: by mail-yx1-f72.google.com with SMTP id 956f58d0204a3-66988049306so8932880d50.1
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 00:11:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789024283; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GalBRHjiF1gWGV+bi+jFU9NnGWVn3mHPVX8EjXYcWiCqoQXKF60HfIRm2uQ9yr0fxn
+         bQjMkEt0o3wvxCQO2JVKVUlFHHz36tC3dK25RdQMEvP7ThUWA9C2gUGhH0oYcq759vwN
+         YqLJaPGySeR1wSiZR3Dz9CSDphYXqjf6LSm66ih58iLJZcO72nfE+Ak5t1s2Fojmfn0A
+         ZvYtT29ThFInf5W5aR9pCvPdYH+FXzKgznOXuYgEV5UGsfPMeFi6yNt8mfVEI0SeViMh
+         zz4ClxZi3/mdSYYEW+VRPzlQrFE1hbeGybRp7WW+pDX57ln7sqR0lR66mE1y6AKhIRR7
+         +WFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MQpBs+odCBgTDhFlVtMnY7R7uOtDQAidNcb/DTFOxkY=;
+        fh=Q6KN1bCRU8k9D98mHjOZnqryFsjAcdOrV5tG+4WcK1s=;
+        b=UJ9NyJSxeYqiH+Okz9aLcxsZJkYhAn+Gktovp23iGNwZsPbQ/2CG8gNiOooQv9V0RB
+         2gh7BbeO1VyJFjvE9jSNfWcCLrEt+6ovgj12ugsJ7yoOePAq89Y135SUswv+wQk5wG6k
+         Ey6AxzMxzlgIuPBduCWCSw8iTkr2Q5UT/wRkb3FZ8J3/BGmyJ6PpTnUoUSOrt/Y+dlhC
+         Uhvl9oZZDZ8kCuGBF7PClG2vGGsrH1NHy8dLlSz+Q17+ruPMNzhNLzSA8Vj/R+49CXJF
+         qFjQjbnJt4hHcHpMVth8ngC2gw2KZGysWdBZnrPhSelDmmTecqb7hpuQASGGjfvkYThi
+         G0ww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789024283; x=1789629083; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MQpBs+odCBgTDhFlVtMnY7R7uOtDQAidNcb/DTFOxkY=;
+        b=T381WuJoc7WERUnFOAXhojgSNlIBLAG4WMk6Lbg6vbCuRTcGYWfE2s1JicxcIuaWl4
+         06wMmdRiD60ZjJKIqevGq13SIec01C5soHSbL8FcfSIm0FQqI6bnfsr/lLLK85h6hXUD
+         TWljsKigIKFk6i/GLFsQTR9SibXtLpoIAxdqEWX1IW1AdW3c02qrYyjNH91XR6K3oSmI
+         CFbkc7BSOvkkt5+53dLmAE9z744dXeQkAjLcfOQ4myljufZv/rwaBaIuWCdgX0PP15fD
+         rTUvHGeNUKDDDuZyqH35q2M8KJ9hbKLYl2Qw15EFYzFGQz9J+qhIvWPsIb3ICWf2cbUD
+         9Cjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789024283; x=1789629083;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MQpBs+odCBgTDhFlVtMnY7R7uOtDQAidNcb/DTFOxkY=;
+        b=o+mG5PpjJ8gg1USzExeUqCRSYA9HR2o4XM8iBycNkGG2tH99ejcufF4XsI4VXqkXPh
+         BaxbhUdU7jeTqhsoWh+AEm6Ln47Yw+rvJ8+nLWkru893fyeS11+pJ5M98aKhm2fGT9n2
+         ICA6/yfP4yc8lvkK8d9gx7IhCoRR7e4n0y3fPGL/JAby3JRGsLhoFISmdOOwzh/CvYZ4
+         h7KRzcWftHv9PDSgYdw33UleqWTl1wnvGceA9OEMAMfD943sEAyy3v6J/tdTR+9pEIDc
+         9KlLgaVaJ0TlfNm9yJTMN59ToGY7B3KEZueQy+o2OzrH5yTw9LflCDUskUazoc0zIoDD
+         TEgQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTPH8funyHDc2VEmGQ2X4oTb1wFAQLxwKvb3xD4KGLC8Vpq+b0F95O1VLj5gIZgusGfZ5O69OTMcNv@vger.kernel.org
+X-Gm-Message-State: AFuF++nAjfpNmrrd+shb57EJIPoEOa/zlWt397koLoLjzkCEgPeLUvjW
+	VaLw2AIgftDyanTAjtYgmzoxNFak6JChd9MDzRA3b2tzkYLYOT4QYDuaHoAbU2fJfsEchfz69Pn
+	ARjV4cvb8V1VLaaPNmfLscvvt7tfdHbdczq/3VmRLyTv7k/0qeOuzJns8RNJ9bdbI1NBf20lxMy
+	RFJnLVo3J3CgwQ9AG5AxAIS8+WtC4oA5WtIFiSFSq9cgWglvU=
+X-Gm-Gg: AYBFou0U9KbYmGnldipawhGsM6YOGvyUGDZLWsk4670Qu1Om2OEbzOFaPT83mHTFJS6
+	G9uc1W+SCkQBrAoMCNPFBx+Y6t9H8iGQ4eVgZBEo2QDejL6zoWhmSDbep16GHRroogbZ4o9zCgY
+	PZkvAkpO28yvCCOu0iKk9YyuHctSVwv9wjUXzVgdd2MH6b4lOuhrBT3Yt6DQ==
+X-Received: by 2002:a05:690e:d41:b0:66f:a1e3:9c77 with SMTP id 956f58d0204a3-66fb58f831emr13555595d50.2.1789024283203;
+        Thu, 10 Sep 2026 00:11:23 -0700 (PDT)
+X-Received: by 2002:a05:690e:d41:b0:66f:a1e3:9c77 with SMTP id
+ 956f58d0204a3-66fb58f831emr13555588d50.2.1789024282836; Thu, 10 Sep 2026
+ 00:11:22 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-CM-TRANSID:qwCowADXqOx5V6JqeFCWBw--.33693S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3XFWfCF1rJFyDAFyxAF47Jwb_yoW7tr1rpF
-	9YyFWUJryrGrn3Xr1UKr1UJFyUJr1kJ3WDJr18XF1UJFsrJr12gr4Ygr1qgF1UXr48Jr1U
-	tF1jqr13Zr1ayFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPGb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFcxC0VAYjxAxZF0Ew4CEw7xC0wAC
-	Y4xI67k04243AVC20s07M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r
-	43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
-	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x
-	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8
-	JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIx
-	AIcVC2z280aVCY1x0267AKxVW8JVW8Jr1l6VACY4xI67k04243AbIYCTnIWIevJa73UjIF
-	yTuYvjxUgrHjUUUUU
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+References: <20260706161428.3764398-1-mukesh.ojha@oss.qualcomm.com> <20260713160754.1250988-3-mukesh.ojha@oss.qualcomm.com>
+In-Reply-To: <20260713160754.1250988-3-mukesh.ojha@oss.qualcomm.com>
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Date: Thu, 10 Sep 2026 12:41:11 +0530
+X-Gm-Features: AcwNN1UuJZypSHdyHXzQ4_kU6RGI9Uveem3lDvNPyuz26jeLuRfYKMB_4uImEoo
+Message-ID: <CAGptzHOWVAvzp8QXXnjfJ=Z9Hkfqh9ekpcZbPxm7CdMSkR1kWg@mail.gmail.com>
+Subject: Re: [PATCH v10 2/2] arm64: dts: qcom: kodiak: Add EL2 overlay
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=Vu62kO2n c=1 sm=1 tr=0 ts=6aa2581b cx=c_pps
+ a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=jaA2rcG_eHD-4mjPCPoA:9
+ a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
+X-Proofpoint-GUID: DU6nM7UkNKsRs4DnvybsQIqUtq9jFjfM
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA3NyBTYWx0ZWRfX8xbhp+KxiKlB
+ TLbKvSh7fdhPHc2pbJ6XPNJvcCeTMgwbg+DbG2LANtrx4xRZDNlADhHvzt5i0jtYlWmZ/yrnK/n
+ x6hk+BryEuJZb+0LB9dW+m85IhhTfybOMChORr7VjUdJTLUYNYk9fSuxFHDJr3GpzvAwGg21T6k
+ N/6O78ltsUsiU+gu75hYiQeebINz99zx9FYysgQK34O0LlLxdxXiELfiQLXmsZ8Gsm0HCp4Qa31
+ SVgvglCwHm72+6TTquCFasIzrX4vhqoUw+t/r1l7cyde007agz0aXRtvujRezpyzbyso3xR63IV
+ 7B0iExNF+vaYz5TLYL5qLzLlrX3rbsAq+WdSwvhh/Q7+XnWJsH67/8S5065y/ONciA+XYenZX29
+ vWWuC2MeEvvvwteUp5qBZZASIQEoOjoga6rRvXicdUMDIOsNSGg0GXlQmhDNWl+3hsqI3qxDTmt
+ /6f2IFKd6Ox7pYNVJ2g==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA3NyBTYWx0ZWRfX2C4ZMDIWH6PJ
+ cndnuTZdygNnkEECDDDDTkwmJr0SbqHWRArjmmJImQiNEJhHL2w7fbGuR8DENvHTh58WtQAUpWW
+ HOK7rH5VptNGiXLqeD5hSncpq/VfYQs=
+X-Proofpoint-ORIG-GUID: DU6nM7UkNKsRs4DnvybsQIqUtq9jFjfM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 lowpriorityscore=0
+ clxscore=1011 bulkscore=0 suspectscore=0 malwarescore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100077
 
-5ZyoIDIwMjYtMDktMTDlm5vnmoQgMDk6NTIgKzA4MDDvvIxKb2V5IEx15YaZ6YGT77yaCj4gCj4g
-SWNlbm93eSBaaGVuZyDmlrwgMjAyNi85Lzkg5LiL5Y2IIDAxOjQ0IOWvq+mBkzoKPiA+IOWcqCAy
-MDI2LTA5LTA45LqM55qEIDE3OjI4ICswODAw77yMSm9leSBMdeWGmemBk++8mgo+ID4gPiBBZGQg
-dGhlIE51dm90b24gTUEzNUQxIERDVWx0cmFMaXRlIChudXZvdG9uLG1hMzVkMS1kY3UpIHRvIHRo
-ZQo+ID4gPiBiaW5kaW5nLgo+ID4gPiBUaGUgRENVbHRyYUxpdGUgdXNlcyBvbmx5IGZvdXIgY2xv
-Y2tzIChjb3JlLCBheGksIGFoYiwgcGl4MCkgYW5kCj4gPiA+IG9uZQo+ID4gPiByZXNldCAoY29y
-ZSksIHdpdGggYSBzaW5nbGUgb3V0cHV0IHBvcnQuCj4gPiA+IAo+ID4gPiBUaGUgTUEzNUQxIGNs
-b2NrIGNvbnRyb2xsZXIgZ2F0ZXMgdGhlIGNvcmUsIEFYSSBhbmQgQUhCIGNsb2Nrcwo+ID4gPiB3
-aXRoIGEKPiA+ID4gc2luZ2xlIGJpdCwgYnV0IGVhY2ggcmVtYWlucyBhIGRpc3RpbmN0IGNsb2Nr
-IGxpbmUgZmVlZGluZyB0aGUgSVAKPiA+ID4gd2l0aAo+ID4gPiBpdHMgb3duIHJhdGUgY29uc3Ry
-YWludHMsIHNvIGFsbCBmb3VyIG11c3Qgc3RpbGwgYmUgbGlzdGVkCj4gPiA+IGluZGl2aWR1YWxs
-eQo+ID4gPiBpbiB0aGUgZGV2aWNldHJlZTsgY29yZSwgYXhpIGFuZCBhaGIgaGFwcGVuIHRvIHNo
-YXJlIHRoZSBzYW1lCj4gPiA+IGNsb2NrCj4gPiA+IHBoYW5kbGUuCj4gPiBUaGlzIGlzIHdlaXJk
-LCBidXQgSSBtdXN0IGFkbWl0IHRoYXQgd2UncmUgbGltaXRlZCBieSB0aGUgQ29tbW9uCj4gPiBD
-bG9jawo+ID4gRnJhbWV3b3JrIGhlcmUsIHNvIEkgY2Fubm90IGdpdmUgYSBiZXR0ZXIgc29sdXRp
-b24gZWl0aGVyLgo+ID4gCj4gPiBBbnl3YXkgbGV0J3Mgc2V0dGxlIHdpdGggdGhlIGN1cnJlbnQg
-cmVzdWx0Lgo+ID4gCj4gPiA+IE1vdmUgdGhlIGNsb2Nrcy9jbG9jay1uYW1lcyBtaW5JdGVtcyB0
-byA0IGFuZCByZXNldHMvcmVzZXQtbmFtZXMKPiA+ID4gbWluSXRlbXMgdG8gMSBhdCB0aGUgdG9w
-IGxldmVsLCBzaW5jZSB0aGF0IGlzIHRoZSBsb3dlc3QgY291bnQKPiA+ID4gYW55Cj4gPiA+IHN1
-cHBvcnRlZCB2YXJpYW50IG5lZWRzLsKgIEFkZCBhbiBhbGxPZi9pZiBibG9jayB0aGF0IHRpZ2h0
-ZW5zIHRoZQo+ID4gPiBjb25zdHJhaW50IGJhY2sgdXAgdG8gdGhlIGZpeGVkIDUtY2xvY2svMy1y
-ZXNldCB0b3BvbG9neSByZXF1aXJlZAo+ID4gPiBieQo+ID4gPiB0aGUgZXhpc3RpbmcgdGhlYWQs
-dGgxNTIwLWRjODIwMCBjb21wYXRpYmxlLCBhbmQgYW5vdGhlciBvbmUgdGhhdAo+ID4gPiBjYXBz
-Cj4gPiA+IHRoZSBuZXcgbnV2b3RvbixtYTM1ZDEtZGN1IGNvbXBhdGlibGUgYXQgdGhlIDQtY2xv
-Y2svMS1yZXNldAo+ID4gPiBjb3VudCBpdAo+ID4gPiBhY3R1YWxseSB3aXJlcyB1cC4KPiA+ID4g
-Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IEpvZXkgTHUgPGEwOTg3MjAzMDY5QGdtYWlsLmNvbT4KPiA+
-ID4gLS0tCj4gPiA+IMKgwqAuLi4vYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1s
-wqDCoMKgwqDCoCB8IDQ0Cj4gPiA+ICsrKysrKysrKysrKysrKysrKysKPiA+ID4gwqDCoDEgZmls
-ZSBjaGFuZ2VkLCA0NCBpbnNlcnRpb25zKCspCj4gPiA+IAo+ID4gPiBkaWZmIC0tZ2l0Cj4gPiA+
-IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2JpbmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24s
-ZGMueWFtbAo+ID4gPiBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9kaXNwbGF5
-L3ZlcmlzaWxpY29uLGRjLnlhbWwKPiA+ID4gaW5kZXggOTE5YTkwMDEyMjAxMi4uNzczOTY2Njc3
-ZDBmNCAxMDA2NDQKPiA+ID4gLS0tCj4gPiA+IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVlL2Jp
-bmRpbmdzL2Rpc3BsYXkvdmVyaXNpbGljb24sZGMueWFtbAo+ID4gPiArKysKPiA+ID4gYi9Eb2N1
-bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvZGlzcGxheS92ZXJpc2lsaWNvbixkYy55YW1s
-Cj4gPiA+IEBAIC0xNyw2ICsxNyw3IEBAIHByb3BlcnRpZXM6Cj4gPiA+IMKgwqDCoMKgwqAgaXRl
-bXM6Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0gZW51bToKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCAtIHRoZWFkLHRoMTUyMC1kYzgyMDAKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCAtIG51
-dm90b24sbWEzNWQxLWRjdQo+ID4gPiDCoMKgwqDCoMKgwqDCoCAtIGNvbnN0OiB2ZXJpc2lsaWNv
-bixkYyAjIERDIElQcyBoYXZlIGRpc2NvdmVyYWJsZQo+ID4gPiBJRC9yZXZpc2lvbgo+ID4gPiBy
-ZWdpc3RlcnMKPiA+ID4gwqAgCj4gPiA+IMKgwqDCoCByZWc6Cj4gPiA+IEBAIC0yNiw2ICsyNyw3
-IEBAIHByb3BlcnRpZXM6Cj4gPiA+IMKgwqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+ID4gwqAgCj4g
-PiA+IMKgwqDCoCBjbG9ja3M6Cj4gPiA+ICvCoMKgwqAgbWluSXRlbXM6IDQKPiA+ID4gwqDCoMKg
-wqDCoCBpdGVtczoKPiA+ID4gwqDCoMKgwqDCoMKgwqAgLSBkZXNjcmlwdGlvbjogREMgQ29yZSBj
-bG9jawo+ID4gPiDCoMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBETUEgQVhJIGJ1cyBjbG9j
-awo+ID4gPiBAQCAtMzQsNiArMzYsNyBAQCBwcm9wZXJ0aWVzOgo+ID4gPiDCoMKgwqDCoMKgwqDC
-oCAtIGRlc2NyaXB0aW9uOiBQaXhlbCBjbG9jayBvZiBvdXRwdXQgMQo+ID4gPiDCoCAKPiA+ID4g
-wqDCoMKgIGNsb2NrLW5hbWVzOgo+ID4gPiArwqDCoMKgIG1pbkl0ZW1zOiA0Cj4gPiA+IMKgwqDC
-oMKgwqAgaXRlbXM6Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0gY29uc3Q6IGNvcmUKPiA+ID4gwqDC
-oMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gPiA+IEBAIC00MiwxMiArNDUsMTQgQEAgcHJvcGVy
-dGllczoKPiA+ID4gwqDCoMKgwqDCoMKgwqAgLSBjb25zdDogcGl4MQo+ID4gPiDCoCAKPiA+ID4g
-wqDCoMKgIHJlc2V0czoKPiA+ID4gK8KgwqDCoCBtaW5JdGVtczogMQo+ID4gPiDCoMKgwqDCoMKg
-IGl0ZW1zOgo+ID4gPiDCoMKgwqDCoMKgwqDCoCAtIGRlc2NyaXB0aW9uOiBEQyBDb3JlIHJlc2V0
-Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IERNQSBBWEkgYnVzIHJlc2V0Cj4g
-PiA+IMKgwqDCoMKgwqDCoMKgIC0gZGVzY3JpcHRpb246IENvbmZpZ3VyYXRpb24gQUhCIGJ1cyBy
-ZXNldAo+ID4gPiDCoCAKPiA+ID4gwqDCoMKgIHJlc2V0LW5hbWVzOgo+ID4gPiArwqDCoMKgIG1p
-bkl0ZW1zOiAxCj4gPiA+IMKgwqDCoMKgwqAgaXRlbXM6Cj4gPiA+IMKgwqDCoMKgwqDCoMKgIC0g
-Y29uc3Q6IGNvcmUKPiA+ID4gwqDCoMKgwqDCoMKgwqAgLSBjb25zdDogYXhpCj4gPiA+IEBAIC03
-OSw2ICs4NCw0NSBAQCByZXF1aXJlZDoKPiA+ID4gwqDCoMKgIC0gcmVzZXQtbmFtZXMKPiA+ID4g
-wqDCoMKgIC0gcG9ydHMKPiA+ID4gwqAgCj4gPiA+ICthbGxPZjoKPiA+ID4gK8KgIC0gaWY6Cj4g
-PiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBjb21wYXRp
-YmxlOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNvbnRhaW5zOgo+ID4gPiArwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoCBjb25zdDogdGhlYWQsdGgxNTIwLWRjODIwMAo+ID4gPiArwqDCoMKgIHRo
-ZW46Cj4gPiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBj
-bG9ja3M6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWluSXRlbXM6IDUKPiA+ID4gKwo+ID4g
-PiArwqDCoMKgwqDCoMKgwqAgY2xvY2stbmFtZXM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAg
-bWluSXRlbXM6IDUKPiA+ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgwqAgcmVzZXRzOgo+ID4gPiAr
-wqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4gPiA+ICsKPiA+ID4gK8KgwqDCoMKgwqDC
-oMKgIHJlc2V0LW5hbWVzOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIG1pbkl0ZW1zOiAzCj4g
-PiA+ICsKPiA+ID4gK8KgIC0gaWY6Cj4gPiA+ICvCoMKgwqDCoMKgIHByb3BlcnRpZXM6Cj4gPiA+
-ICvCoMKgwqDCoMKgwqDCoCBjb21wYXRpYmxlOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgIGNv
-bnRhaW5zOgo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjb25zdDogbnV2b3RvbixtYTM1
-ZDEtZGN1Cj4gPiA+ICvCoMKgwqAgdGhlbjoKPiA+ID4gK8KgwqDCoMKgwqAgcHJvcGVydGllczoK
-PiA+ID4gK8KgwqDCoMKgwqDCoMKgIGNsb2NrczoKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBt
-YXhJdGVtczogNAo+ID4gPiArCj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBjbG9jay1uYW1lczoKPiA+
-ID4gK8KgwqDCoMKgwqDCoMKgwqDCoCBtYXhJdGVtczogNAo+ID4gPiArCj4gPiA+ICvCoMKgwqDC
-oMKgwqDCoCByZXNldHM6Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+
-ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgwqAgcmVzZXQtbmFtZXM6Cj4gPiA+ICvCoMKgwqDCoMKg
-wqDCoMKgwqAgbWF4SXRlbXM6IDEKPiA+IE1heWJlIGl0J3MgcmVhc29uYWJsZSB0byByZXN0cmlj
-dCBtYXggcG9ydCBjb3VudCB0byAxIGZvciBNQTM1RDE/Cj4gPiBBbHRob3VnaCBJIGFtIG5vdCBz
-dXJlIGFib3V0IGhvdyB0byBkbyB0aGlzLi4uCj4gPiAKPiA+IFRoYW5rcywKPiA+IEljZW5vd3kK
-PiDCoMKgSSBmb3VuZCB0aGUgc2FtZSBraW5kIG9mIHBlci1jb21wYXRpYmxlIHBvcnQgcmVzdHJp
-Y3Rpb24gYWxyZWFkeQo+IHVzZWQgCj4gdXBzdHJlYW0gaW4gcmVuZXNhcyxkdS55YW1sLCBlLmcu
-Ogo+IAo+IMKgwqAgwqAgwqAgwqAgcG9ydHM6Cj4gwqDCoCDCoCDCoCDCoCDCoCBwcm9wZXJ0aWVz
-Ogo+IMKgwqAgwqAgwqAgwqAgwqAgwqAgcG9ydEAyOiBmYWxzZQo+IMKgwqAgwqAgwqAgwqAgwqAg
-wqAgcG9ydEAzOiBmYWxzZQo+IMKgwqAgwqAgwqAgwqAgwqAgcmVxdWlyZWQ6Cj4gwqDCoCDCoCDC
-oCDCoCDCoCDCoCAtIHBvcnRAMAo+IMKgwqAgwqAgwqAgwqAgwqAgwqAgLSBwb3J0QDEKPiAKPiBB
-cHBsaWVkIHRvIG91ciBiaW5kaW5nLCB0aGF0IHdvdWxkIGxvb2sgbGlrZToKPiAKPiDCoMKgIMKg
-IMKgIMKgIHBvcnRzOgo+IMKgwqAgwqAgwqAgwqAgwqAgcHJvcGVydGllczoKPiDCoMKgIMKgIMKg
-IMKgIMKgIMKgIHBvcnRAMTogZmFsc2UKPiDCoMKgIMKgIMKgIMKgIMKgIHJlcXVpcmVkOgo+IMKg
-wqAgwqAgwqAgwqAgwqAgwqAgLSBwb3J0QDAKPiAKPiBpbiB0aGUgZXhpc3RpbmcgbnV2b3Rvbixt
-YTM1ZDEtZGN1IGFsbE9mL2lmL3RoZW4gYmxvY2ssIHNvIHNjaGVtYQo+IGNoZWNrcyAKPiB3b3Vs
-ZCByZWplY3QgYSBwb3J0QDEgbm9kZSBvbiB0aGlzIGNvbXBhdGlibGUgaW5zdGVhZCBvZiBzaWxl
-bnRseSAKPiBhY2NlcHRpbmcgaXQuCj4gCj4gSGFwcHkgdG8gYWRkIGl0IGlmIHlvdSdkIGxpa2Ug
-dGhlIHNjaGVtYSB0byBlbmZvcmNlIHRoaXMsIGJ1dCB3YW50ZWQKPiB0byAKPiBjaGVjayB3aGV0
-aGVyIHlvdSBjb25zaWRlciBpdCB3b3J0aCB0aGUgZXh0cmEgbGluZXMgZ2l2ZW4gaXQgZG9lc24n
-dCAKPiByZWZsZWN0IGFuIGFjdHVhbCBidWcgaW4gYW55IERUIHRvZGF5LiBMZXQgbWUga25vdyB3
-aGljaCB3YXkgeW91J2QgCj4gcHJlZmVyIGFuZCBJJ2xsIGZvbGQgaXQgaW50byB0aGUgbmV4dCB2
-ZXJzaW9uLgoKUGVyc29uYWxseSBJIHRoaW5rIHRoaXMgaXMgZ29vZCwgYnV0IG1heWJlIGFkZGlu
-ZyBpdCBhcyBhbiBhZGRpdGlvbmFsCnBhdGNoIGFmdGVyIG1lcmdpbmcgaXNuJ3QgYSBiaWcgcHJv
-YmxlbSwgYmVjYXVzZSB0aGlzIGp1c3QgcGxheXMgYXMKa2luZCBvZiBhIHNhZmV0eSBndWFyZC4K
-CldlbGwgdGhpcyBkZXBlbmRzIG9uIGhvdyBEVCBiaW5kaW5nIG1haW50YWluZXJzIHRoaW5rLCBi
-dXQgYXMgQ29ub3IgaGFzCmRyb3BwZWQgaGlzIEFjaywgdGhpcyBzaG91bGRuJ3QgYmUgYSBiaWcg
-aXNzdWUuCgpUaGFua3MsCkljZW5vd3kKCj4gCj4gVGhhbmtzLgo+ID4gPiArCj4gPiA+IMKgwqBh
-ZGRpdGlvbmFsUHJvcGVydGllczogZmFsc2UKPiA+ID4gwqAgCj4gPiA+IMKgwqBleGFtcGxlczoK
+Hey Folks,
 
+On Mon, Jul 13, 2026 at 9:38=E2=80=AFPM Mukesh Ojha
+<mukesh.ojha@oss.qualcomm.com> wrote:
+>
+> All existing Kodiak board variants run the Gunyah hypervisor, which
+> means Linux can only boot at EL1 on those devices. It is possible to
+> boot Linux at EL2 on these devices [1].
+>
+> When running under Gunyah, remote processor firmware IOMMU streams are
+> controlled by Gunyah. Without Gunyah, the IOMMU is managed by the
+> Linux running at EL2. Describe the firmware streams for each
+> remote processor in an EL2 overlay.
+>
+> Add an EL2-specific DT overlay and apply it to Kodiak IoT variant
+> devices to produce a -el2.dtb alongside the standard dtb. Modem and
+> media subsystems are not yet supported due to missing dependencies.
+> The GPU zap shader is disabled. In EL2 mode the kernel owns the
+> hardware watchdog, so it is enabled here. The wifi-firmware child
+> node describes the IOMMU stream for the WCN6750 firmware; the &wifi
+> node itself is left untouched so that platforms without WiFi are
+> unaffected by the overlay.
+>
+> [1] https://docs.qualcomm.com/bundle/publicresource/topics/80-70020-4/boo=
+t-developer-touchpoints.html#uefi
+>
+> Co-developed-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile        | 12 ++++++++
+>  arch/arm64/boot/dts/qcom/kodiak-el2.dtso | 39 ++++++++++++++++++++++++
+>  2 files changed, 51 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+>
 
+Any updates on this patch if this can be picked up for the next merge windo=
+w?
+
+-Sumit
+
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom=
+/Makefile
+> index 1c857bd7991b..22076579a50f 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -164,7 +164,11 @@ purwa-iot-evk-el2-dtbs     :=3D purwa-iot-evk.dtb x1=
+-el2.dtbo
+>
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D purwa-iot-evk-el2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcm6490-fairphone-fp5.dtb
+> +
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcm6490-idp.dtb
+> +qcm6490-idp-el2-dtbs :=3D qcm6490-idp.dtb kodiak-el2.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)        +=3D qcm6490-idp-el2.dtb
+> +
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcm6490-particle-tachyon.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcm6490-shift-otter.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs404-evb-1000.dtb
+> @@ -176,12 +180,20 @@ qcs615-ride-el2-dtbs :=3D qcs615-ride.dtb talos-el2=
+.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs615-ride-el2.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-radxa-dragon-q6a.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-rb3gen2.dtb
+> +qcs6490-rb3gen2-el2-dtbs :=3D qcs6490-rb3gen2.dtb kodiak-el2.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-rb3gen2-el2.dtb
+>
+>  qcs6490-rb3gen2-vision-mezzanine-dtbs :=3D qcs6490-rb3gen2.dtb qcs6490-r=
+b3gen2-vision-mezzanine.dtbo
+>  qcs6490-rb3gen2-industrial-mezzanine-dtbs :=3D qcs6490-rb3gen2.dtb qcs64=
+90-rb3gen2-industrial-mezzanine.dtbo
+>
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-rb3gen2-industrial-mezzanine=
+.dtb
+> +qcs6490-rb3gen2-industrial-mezzanine-el2-dtbs :=3D qcs6490-rb3gen2-indus=
+trial-mezzanine.dtb kodiak-el2.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-rb3gen2-industrial-mezzanine=
+-el2.dtb
+> +
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-rb3gen2-vision-mezzanine.dtb
+> +qcs6490-rb3gen2-vision-mezzanine-el2-dtbs :=3D qcs6490-rb3gen2-vision-me=
+zzanine.dtb kodiak-el2.dtbo
+> +dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-rb3gen2-vision-mezzanine-el2=
+.dtb
+> +
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-thundercomm-minipc-g1iot.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs6490-thundercomm-rubikpi3.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)        +=3D qcs8300-ride.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak-el2.dtso b/arch/arm64/boot/d=
+ts/qcom/kodiak-el2.dtso
+> new file mode 100644
+> index 000000000000..8daf7f02fd75
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> @@ -0,0 +1,39 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + *
+> + * Kodiak specific modifications required to boot in EL2.
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
+> +
+> +&gpu_zap_shader {
+> +       status =3D "disabled";
+> +};
+> +
+> +&remoteproc_adsp {
+> +       iommus =3D <&apps_smmu 0x1800 0x0>;
+> +};
+> +
+> +&remoteproc_cdsp {
+> +       iommus =3D <&apps_smmu 0x11a0 0x0400>;
+> +};
+> +
+> +&remoteproc_mpss {
+> +       status =3D "disabled";
+> +};
+> +
+> +&venus {
+> +       status =3D "disabled";
+> +};
+> +
+> +&watchdog {
+> +       status =3D "okay";
+> +};
+> +
+> +&wifi {
+> +       wifi-firmware {
+> +               iommus =3D <&apps_smmu 0x1c02 0x1>;
+> +       };
+> +};
+> --
+> 2.53.0
+>
