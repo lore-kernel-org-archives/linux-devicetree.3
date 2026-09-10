@@ -1,69 +1,68 @@
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7952A3B7B91
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25673A451F
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:53:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058965; cv=none; b=Qe093dU+/Ps0gCDO5lWs4xZmbR/bISLgDn5LDww5PSyEEvkZjN/orhgF4IA5RMTAIOJ3/Tj5snYL9eaKs6mMjCk91/BIk2rayOWgNvZy5fSebs5FGSw0/04JMGhJVeZv/l6cwA/dTVAWwtbeHDmHUuckZEAFBQagi44++wcah1I=
+	t=1789059241; cv=none; b=Gphu4cuWeMznl5su3ukBho6FXJBbPgU0DeZtjAVYUd+ZAdZVf1XfeB4NeidiIIGRKvrLr7/3JkinhCaWunXdAOCoWmSXcSlnZKb39AQv2EECI1ODhIDtlst69dT9ySno9VcYf39ET7C8XmaHv7DhyvDTvUG1rxe2r/6xLHQaHnY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058965; c=relaxed/simple;
-	bh=et0IgSAi65WntaNByaMxMnNVQe6qfEdQwD5tqMZuHTo=;
+	s=arc-20240116; t=1789059241; c=relaxed/simple;
+	bh=kFXFgOEhKlngjPkjJ1DPF1n2S680Kf5nf8debqxzhDE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AefX1XphLWapIAWqxYgolUQ12KfQpkktLwJCzQOM4B4Kmr8XduSQC3Mi+dRR6CJTokq7XmhxtTiQvKu7p59DfJFL1n8t2mozXcvoBm03PricpnXSK1rd/MUVwNvtpKoSHXMX4o5OlqpjXGkpgxr1WHqnNAsMLbxpMIK7OxZ7SDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=SRnYUbHo; arc=none smtp.client-ip=209.85.208.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
+	 In-Reply-To:Content-Type; b=oaqNNnu8eJi8eVgaE6omgdesL39Kdd9wxf43Asw+bM3S1hsEfYFwAnOojqv1/R0lkAaljDCDPjntxGCyJIfzYJr3zFp7pJotW8J1v96nl51EuIX3R9SyRjNt+uc4FhvoIq1NtmBFCNO7tslDOlFxKkLhL+T+eko4r1SVZL+gOkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkbaOgjG; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="SRnYUbHo"
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6a99ac0e91eso3639502a12.2
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:49:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkbaOgjG"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso40216a12.3
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:53:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pardini.net; s=google; t=1789058962; x=1789663762; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789059238; x=1789664038; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=trXMroz5mGRhnvsqxF0GR3hfGr2ispYPFG7I9RaBuY8=;
-        b=SRnYUbHo7aDB9qNwRUFjDbMAwui3H40oD1onMYwI1gpayJaSnAfFuRDBzlF4gPvlFy
-         jj2fbeha677dIuoVZcn3XP0oiO40vfM/V4YU1MuViYuGljApvrz602lvh/FbPyGl+zcD
-         fUWe7ivp73W1vein78q8BJPCNDianX2pd4qUnxVKK7etnaxLKVeK78e5K3KZU8THhS/8
-         ld8wyGx3PP3G8HTbBIhqKidnIk6IhCAqrG8ZrKtQhSVQmbmlfjW45F5PhXo/zrJ6QxzI
-         UMSAnzEwimnT5ECaRZvTFeMuisW9rVDWFsHOjhvLFKBfNmO/rReYFJCBuwLmbyocJNNI
-         Pdrw==
+        bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
+        b=ZkbaOgjGdWglyuAeA/8vTXybXRMKhA7y6BXpNjJvWodKab+dSXbrtTibFgGz7gWHoM
+         bxMTi1DXkWGgrnyjZ38f0irfgwpxaxeQyaj6Mc5tJW7jgnWynKTbut75kxEO/nJ1uXbt
+         kF5PgUgWU09jdA9gEAbRtmwAH9ECcxL9gSfswknqQqrl5p+U9VeKn9PIBLXZvs5+3NlE
+         OnRV5PiFcp/DJEl8bcWdkVYsSZR2L3K1wIBvfV2ni4xDB5OpMD0jJPVPZ+RrheXuj+7K
+         tIeF4L2w0vLDkA5lwC2sfG0YJM6sjoe/u8J/ofKLHyzY93uBjhE6X3S89MyDW90UiLCH
+         rEfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789058962; x=1789663762;
+        d=1e100.net; s=20251104; t=1789059238; x=1789664038;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=trXMroz5mGRhnvsqxF0GR3hfGr2ispYPFG7I9RaBuY8=;
-        b=BPmiymPc/DmjF6qJc7//H8r4XoON4HTRbXhRNofuyQrklpcvXrD9Uz7zt+4yulDjj4
-         TrLXy9Xk/fCEXpP3BmDaC77vnP92obqJ68kXCw33bCP9s+A5pmtbUhMh8oNhPpM7LRvy
-         kZhZiHKqte0BenPBt2Kgmw4/+ez0SeE/bURGPxIUy427WoT32cr0jLJzeRpmt8zFYYc1
-         SX1JdJKJvrbLtycAMYkl1fSQENn5ZIvCPviZzEo3CtAz3oHuPslio+4b7j1zwYDO11ag
-         ai3D+iWCjFxaSUklLOJXf97+gBp1VpGWC7tmjyAo0U1nN5JSwUhI4JHymkBTYw8IJWHI
-         qLpg==
-X-Gm-Message-State: AFuF++kv9DP6DAGhRycV6u8sLafQ+i+oMp/ID4SG1gfYHUpkR3s5rA30
-	lCcCMOorX84ge06xD99J2zULjmXSFM1zqCHy0leJl696J67xuEtJJ8jnsh1/3qprPIm4Rzt2H9V
-	u2bdrfoMD
-X-Gm-Gg: AYBFou182tV6r7bVi+y8BVddKnCI21Zp71HrxQ+lrI+uewznidoQgD+75OYZfoU6GiK
-	IDe+AUBZGiDPj6X9NPA3SeXYvb0ZQx15z3pbCHBmFB4/UNfaBrtBxjeCz/aaNQGjR/Y3hjH35LB
-	O+ZVFjzvR9tA2bo+ZDjWFwTVnnMD3kHOELl/kjrjcT1fjVOZNGwPV12IeJWUeZ7aC6qwZrbTASH
-	gOr/oSLwylHIjJl7UT5Z1KsrHohmgAmoi3jlcRThATd9ZfM2Rp+NeTB9eyu6g+dfJWAkCJ14Quq
-	UnubG+Ceh2WWFB8M3Q8UhJVPf6bop8blN5I010XeTU+8O+0I7CwmCczO8VKtzlUAtLJLaHhk7U/
-	XeUqrvYwnOUp8QkrKL6Jn+GBg7pQoGY+ffTp5oLFJYGk6Bn+XyMTcQg0sjyzmfRowpTz9XHVX3F
-	TPwdLVZRS/+i5COx4uL0e5qa+ohv3HdCzdQmtREXfipBOb0rV4sNV8dIQ6kHgZO8+rDc7V+f8MV
-	3Mb95ehGdyMOTW5MDb6KxA+WEcEf29ALxJLl5SWv9/bj/6ODzyFIptv3igrFw0SJTbW4HvGMpkI
-	gt4vRg9Nde48pBtQ/2TWX5dKSZYs1BrXltV4L5fgjiwClTqAunSeeK5SjA==
-X-Received: by 2002:a05:6402:2b9b:b0:6a9:a3a4:797d with SMTP id 4fb4d7f45d1cf-6a9a3a47b3fmr2194091a12.10.1789058961506;
-        Thu, 10 Sep 2026 09:49:21 -0700 (PDT)
-Received: from ?IPV6:2a02:a466:4d7a:0:8888:6b72:e1ae:406a? (2a02-a466-4d7a-0-8888-6b72-e1ae-406a.fixed6.kpn.net. [2a02:a466:4d7a:0:8888:6b72:e1ae:406a])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c294682fcfbsm143774066b.16.2026.09.10.09.49.20
+        bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
+        b=SDxoQlWMTPHxM5HI3I9rWqkziPVio9D3T3Vpgt4FDU3pZp/fr2/It7ZkAFoXqYj/Fo
+         Oz9hAGY20/zXMNtxAP8AfcpG4PWbC9Br7pRTsg6Z4FbMcXlkyLnuzrTDi0cPI/UGxqG4
+         27nWRi/TKyGOB56l+ww6/FWyDwhU2HTfH07O7n3mytwiVEKjNBPVCgnPSJOhsiAjzfHi
+         y6whNgVOezZj27lIylUT2bz+aSD1IizKfYbNOMwb4pomOo+Pw8C8YyaE97uvCIy4B1sZ
+         to2WUaLsv8SIttI5m5sa4gC3DJC870y3/6cXyiQWuLR7y0zrPJKbBESBafWH9SaRPqL9
+         cR0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwEjhWcl5KIqbXJnL9m29kJ+YFKF+patez8FZ+crGlWBZMcjNbden4D0o/WiEObZIRTx33ulOtL7xsf@vger.kernel.org
+X-Gm-Message-State: AFuF++m1eEUOnvXP9+Q5IlCv+NC2r0sTgy+AXUvMbg+z9jaNKEMF5jhu
+	uJ62EwjpM47dFtwaP/8kug0zIbCGydNJ21xkOc0w/k/hvGHZsjjZTkV/
+X-Gm-Gg: AYBFou28UqmTo3bH5zrgsX95DDZ3Lfy+Ys37OL3KDYo+etVfUGNybiHmmRrsuhoyAH3
+	toZW3Xu+cdDFMX/dc1s1TDCWRBvm6oFeuz4DkY1XBcd5ihyE5HLtaEv3xGfwjbw4IjzhJN/voRp
+	o5v+FCVul5sdxJUgKIY2O+1ecN3xcxBXvIHAYyuq9e3Ee8FefFZRy1Z4X0Geca0RZD6+NeA0hre
+	PjCx261gecA4YlAjJJgvS12HvDvMHtM1UD+LxZI7ZQc3UqimQ79GmJOV2DwFaz8lGKYtcUuTiIF
+	Dx0DjBqlaPyS8+HyTgWF4rtv/1szz7PzFTAkZOOhX7hmhYOP7yrrIzNnx6TDhaag9Oy3kYjBHYb
+	B+NWD5X1BJ9lo99mP5+onYSRcx3+91qmAVTCneY0T7n1OZGWt5iwgXnG4g7twuGgcJaH7UsXcOf
+	DFOgLestb6oRtXdyDxl6V4iE+F3GGHHkslwxqQA1zHiZbaXbXXbqTR3A+ig6K3BoSKtD6q0ZO1H
+	OyFqZXYGrplwmb7VX35M7J41I5Zgq2S6tlotAcVEKshfs8nUtECRSg=
+X-Received: by 2002:a05:6a21:1b85:b0:3d3:adbf:7779 with SMTP id adf61e73a8af0-3da3a0af14amr66467142637.21.1789059237749;
+        Thu, 10 Sep 2026 09:53:57 -0700 (PDT)
+Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c657156bsm10825a12.21.2026.09.10.09.53.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:49:20 -0700 (PDT)
-Message-ID: <08011075-364c-4520-857e-cd1acf955b53@pardini.net>
-Date: Thu, 10 Sep 2026 18:49:20 +0200
+        Thu, 10 Sep 2026 09:53:57 -0700 (PDT)
+Message-ID: <1ae22be2-b72e-4c23-9aff-ef1052a10c45@gmail.com>
+Date: Fri, 11 Sep 2026 00:53:52 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,74 +70,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP
- CPU ID
-To: Alexey Charkov <alchark@flipper.net>,
- Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Michael Walle <michael@walle.cc>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Finley Xiao <finley.xiao@rock-chips.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Ricardo Pardini <ricardo@pardini.net>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- stable@vger.kernel.org
-References: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+Subject: Re: [PATCH v2 3/3] arm64: dts: nuvoton: Add NuMaker board
+To: Miquel Raynal <miquel.raynal@bootlin.com>,
+ Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
+ openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
+ <20260904-perso-ma35d1-upstream-dts-v2-3-30ce255a401f@bootlin.com>
 Content-Language: en-US
-From: Ricardo Pardini <ricardo@pardini.net>
-In-Reply-To: <20260902-rk3576-otp-cpuid-mac-v2-0-e4b7fe2ab13f@flipper.net>
+From: Jacky Huang <ychuang570808@gmail.com>
+In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-3-30ce255a401f@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 02/09/2026 15:07, Alexey Charkov wrote:
-> Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
-> memory, and Rockchip bootloaders use it to give boards which have no
-> dedicated storage for a MAC address a stable one anyway: they hash the CPU
-> ID and patch the resulting addresses into the device tree they hand over.
-> 
-> Kernels started without that fixup, e.g. straight from the SPL in Falcon
-> mode or by any other loader which does not implement Rockchip's derivation,
-> fall back to random MAC addresses which change on every boot.
-> 
-> Formalize the derivation in the DT binding and add a Linux kernel driver
-> implementing it, so that a Linux image can use the same stable addresses
-> regardless of the boot flow.
-> 
-> Only RK3576 is wired up here, that being the SoC I can test on. Other
-> Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rather
-> than 0xa on RK3588, for instance - which makes supporting them a two-line
-> addition to the driver's match table plus the layout node.
-Hi Alexey,
+> Nuvoton MA35D SoC is used on the NuMaker SoM, itself plugged onto a
+> carrier board labelled NuMaker. Create a DTS including the SoM
+> description. As a first external component, mention the SPI NAND
+> connected to the Quad SPI controller.
+>
+> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+> ---
+>   arch/arm64/boot/dts/nuvoton/Makefile           |  1 +
+>   arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts | 42 ++++++++++++++++++++++++++
+>   2 files changed, 43 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/nuvoton/Makefile b/arch/arm64/boot/dts/nuvoton/Makefile
+> index 3bc9787801a5..4c82109c885a 100644
+> --- a/arch/arm64/boot/dts/nuvoton/Makefile
+> +++ b/arch/arm64/boot/dts/nuvoton/Makefile
+> @@ -1,4 +1,5 @@
+>   # SPDX-License-Identifier: GPL-2.0
+>   dtb-$(CONFIG_ARCH_MA35) += ma35d1-iot-512m.dtb
+> +dtb-$(CONFIG_ARCH_MA35) += ma35d1-numaker.dtb
+>   dtb-$(CONFIG_ARCH_MA35) += ma35d1-som-256m.dtb
+>   dtb-$(CONFIG_ARCH_NPCM) += nuvoton-npcm845-evb.dtb
+> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
+> new file mode 100644
+> index 000000000000..16c003998d3b
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
+> @@ -0,0 +1,42 @@
+> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
+> +/*
+> + * Copyright (C) 2025 Bootlin
+> + * Author: Miquel Raynal <miquel.raynal@bootlin.com>
+> + */
+> +
+> +/dts-v1/;
+> +#include "ma35d1-som-256m.dts"
+> +
+> +/ {
+> +       model = "Nuvoton MA35D1 NuMaker";
+> +       compatible = "nuvoton,ma35d1-numaker", "nuvoton,ma35d1-som", "nuvoton,ma35d1";
+> +};
+> +
+> +&pinctrl {
+> +       spi-grp {
+> +               pinctrl_qspi0: qspi0-pins {
+> +                       nuvoton,pins = <3 0 5>,
+> +                                      <3 1 5>,
+> +                                      <3 2 5>,
+> +                                      <3 3 5>,
+> +                                      <3 4 5>,
+> +                                      <3 5 5>;
+> +                       bias-disable;
+> +                       power-source = <1>;
+> +               };
+> +       };
+> +};
+> +
+> +&qspi0 {
+> +       pinctrl-names = "default";
+> +       pinctrl-0 = <&pinctrl_qspi0>;
+> +       status = "okay";
+> +
+> +       flash: flash@0 {
+> +               compatible = "spi-nand";
+> +               reg = <0>;
+> +               spi-max-frequency = <30000000>;
+> +               spi-rx-bus-width = <4>;
+> +               spi-tx-bus-width = <4>;
+> +       };
+> +};
+>
+> --
+> 2.54.0
+>
 
-I went off trying this on RK3588 and - exactly like you said - it 
-translates perfectly there, just with a different offset. Thanks!
+Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
 
-Not content, I went for RK356x as well - and that revealed what I think 
-is a snag.
-
-Both RK3576 and RK3588 currently describe their fixed cells as direct 
-children of the OTP node -- turns out that is the "legacy" way, which 
-works due to 'add_legacy_fixed_of_cells'.
-
-But RK356x/3528/3562, done more recently [1], use a single 
-'fixed-layout' with child cells; and there can only ever be one layout, 
-so we wouldn't be able to use the new layout for those.
-
-I imagine one way around it would be to allow such fixed cells also 
-under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and 
-adding patternProperties with '$ref: fixed-cell.yaml' in the binding, 
-similar to what fixed-layout.yaml does, but I'm unsure that would be a 
-good idea?
-
-Either way, thanks for this, it really helps with Falcon mode and edk2; 
-I can also use it for the fixed-function RTL8125 PCIe NICs I started 
-describing [2] (and will eventually send a v5).
-
-[1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
-[2] 
-https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-describe-dt-alias-v4-0-2bd38922d129@pardini.net/
-
-mvg,
-Ricardo
+Best regards,
+Jacky Huang
 
