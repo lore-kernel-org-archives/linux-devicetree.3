@@ -1,47 +1,47 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E241A3D7D86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE353DB303
 	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 02:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093092; cv=none; b=UfRcFMoUeVXwU/rWKigwsFoKYJ0nqCfojUrU32YDOG/SUH+AaOJp5916s+cNFDAcJsojL2x7sz8sTJDSwu9G8fvEPTWxnZWbG9PTaKOb0Dxs743A0ONyo7sTw7zsHtdK9z32Ej1qhtznCdEHhdvF5WR1Jnrfe9aku1rl00Zt4Zc=
+	t=1789093093; cv=none; b=Fy8eG3OUfRJ7N3Q/VpwIWg99GZOz4dOxexOT1Bj4hxpWVkzDQV0oEAkMVeVcGeUgMRuarDtvy4W3qUCWoSRjfxLDM5zU1MXmHj3q1tVDO4Hhwt2/9JBYk2a7MHAgXJnVNbMO2Eb3JyRe4rbONKt8a6AZKuoQQ1/QRurjggyQVGg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093092; c=relaxed/simple;
-	bh=Q4+PSDx6/s3fYpqtGntPkd23n1MmCP1JH2CydIJrigU=;
+	s=arc-20240116; t=1789093093; c=relaxed/simple;
+	bh=sb9XA5jIUBxmoa+Co1REyrkLnNvoLNEwcKFBsdJV6xo=;
 	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=iOtmumj35BmR1/mUtgQcPd+C0qXornaJMD70S2sD211Ruc6HjmvuwDT9bcYy+i4yJMuBkn472Tsx38Qxo+V9AALexXOr+Qn9fhJVLhlRqeZQ5V/AKHJoq5xWLL/3aX1hozv4ahs9HMRHXsWSmHaoDC+TmV7K7q/S7fPnfOD/Erk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=YBr9Jjd/; arc=none smtp.client-ip=203.254.224.24
+	 Content-Type:References; b=nRRMaaOp3/pZLeUur7RfdvLyZ1kkfLM84ZUsqEhIpnpM60WhIffw2aOMT1xfXC8GzVWkSlAgjkYGTDfMyKEqwduATJq4vibDlC/y0Q2V0O5+MdtnkyEfXibKENWPKwlV/CKubtHO4VyxSUUPriDAuX/0lyCPnNolqn+Ayw0wZGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=ZWEAKJZJ; arc=none smtp.client-ip=203.254.224.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="YBr9Jjd/"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="ZWEAKJZJ"
 Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260911021803epoutp01277b2a7190deab022b58d1cc192e4ee8~UIq4TvMte1798217982epoutp01D
+	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260911021803epoutp04f49c79cd686bca071637304199028e03~UIq410Q4A1516115161epoutp04-
 	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260911021803epoutp01277b2a7190deab022b58d1cc192e4ee8~UIq4TvMte1798217982epoutp01D
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260911021803epoutp04f49c79cd686bca071637304199028e03~UIq410Q4A1516115161epoutp04-
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
 	s=mail20170921; t=1789093083;
-	bh=zg3eP0xfFnnvxihTFudnitZKRaskOF78/ArFi6db/og=;
+	bh=NFtbyzYoNl/zCEgTU0VH6n/v1JONtCfMPfAx62T90jY=;
 	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=YBr9Jjd/tLDS1Ouh4n/oMQGiWDKNpbGQlREmjEcE+LQxLWn//O1g1A0TucHqfsMSu
-	 F8da5vcG1VJxlVfidpL0fdWJJfHkBwiJPyyCOSHtSGfsrbUCMAJg45wxrw2gt9aTX+
-	 HiR01uY/4uPMwJQYG1hLb0Fkre8b7JtboM8PPbVk=
-Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	b=ZWEAKJZJVgEC7eZ2jFl1u3xZ2Hhys6o8newPTd3nLC9fZ6xPEaB05tziAoTWtxTjr
+	 B4hpZh2sClxvvqyGaHKyBLlKOeTEFD1QXCpBKdO/pa+fsdU4/zxRPhX5y7+skWBvCb
+	 YoVT56EZh2H+0zs9SkMUcI3tx4OJ8LfU51XvgkUc=
+Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
 	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
-	20260911021802epcas5p1934405434cae972b5397d63c8a600c57~UIq38BlJh1486114861epcas5p1e;
-	Fri, 11 Sep 2026 02:18:02 +0000 (GMT)
+	20260911021803epcas5p125a2fd347d43b9bfdd2cf660e77fbc2b~UIq4dqRYd1230512305epcas5p1s;
+	Fri, 11 Sep 2026 02:18:03 +0000 (GMT)
 Received: from epcpadp2new (unknown [182.195.40.142]) by
-	epsnrtp04.localdomain (Postfix) with ESMTP id 4hgyrB4MHRz6B9mJ; Fri, 11 Sep
-	2026 02:18:02 +0000 (GMT)
+	epsnrtp02.localdomain (Postfix) with ESMTP id 4hgyrC15sTz2SSKZ; Fri, 11 Sep
+	2026 02:18:03 +0000 (GMT)
 Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
 	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260910145211epcas5p29abffd4523c683de3ac96c5e4a256097~T-UDI2d8c1658516585epcas5p2e;
-	Thu, 10 Sep 2026 14:52:11 +0000 (GMT)
+	20260910155949epcas5p25209000963122d8c73dc18152feeabee~UAPGFN7l72530325303epcas5p2N;
+	Thu, 10 Sep 2026 15:59:49 +0000 (GMT)
 Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip2.samsung.com
 	(KnoxPortal) with ESMTPA id
-	20260910145210epsmtip27121fb27835bf4e781e8446a54a80db1~T-UBsyo711915319153epsmtip2E;
-	Thu, 10 Sep 2026 14:52:10 +0000 (GMT)
+	20260910155947epsmtip28ec55c8ae2033e856b86e2b9ec9c545e~UAPEp86IB1332813328epsmtip2p;
+	Thu, 10 Sep 2026 15:59:47 +0000 (GMT)
 From: "Alim Akhtar" <alim.akhtar@samsung.com>
 To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>,
 	<linux-fsd@tesla.com>, "'Krzysztof	Kozlowski'" <krzk@kernel.org>, "'Peter
@@ -50,30 +50,31 @@ To: "'Krzysztof Kozlowski'" <krzysztof.kozlowski@oss.qualcomm.com>,
 Cc: <linux-arm-kernel@lists.infradead.org>,
 	<linux-samsung-soc@vger.kernel.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>
-In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-2-1b755a446b22@oss.qualcomm.com>
-Subject: RE: [PATCH 2/5] arm64: dts: fsd: evb: Correct node order
-Date: Thu, 10 Sep 2026 20:22:08 +0530
-Message-ID: <1860250540.01789093082598.JavaMail.epsvc@epcpadp2new>
+In-Reply-To: <20260909-dts-samsung-cleanup-strict-v1-4-1b755a446b22@oss.qualcomm.com>
+Subject: RE: [PATCH 4/5] arm64: dts: fsd: Re-order nodes to match coding
+ style
+Date: Thu, 10 Sep 2026 21:29:46 +0530
+Message-ID: <2084663827.61789093083145.JavaMail.epsvc@epcpadp2new>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQI+vGmeAYQ1M8KGwzLNRALcGC0DngJYshc/Afimduy14mOI0A==
+Thread-Index: AQI+vGmeAYQ1M8KGwzLNRALcGC0DngIGdcDsAfk7HAC15QOycA==
 Content-Language: en-us
-X-CMS-MailID: 20260910145211epcas5p29abffd4523c683de3ac96c5e4a256097
+X-CMS-MailID: 20260910155949epcas5p25209000963122d8c73dc18152feeabee
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 CMS-TYPE: 105P
 X-CPGSPASS: Y
 X-Hop-Count: 3
-X-CMS-RootMailID: 20260909141817epcas5p3ca45b73a93df14f08e47eb9beee485d6
+X-CMS-RootMailID: 20260909141824epcas5p28e392ad97ca2e5dae47a857272b5ea14
 References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.com>
-	<CGME20260909141817epcas5p3ca45b73a93df14f08e47eb9beee485d6@epcas5p3.samsung.com>
-	<20260909-dts-samsung-cleanup-strict-v1-2-1b755a446b22@oss.qualcomm.com>
+	<CGME20260909141824epcas5p28e392ad97ca2e5dae47a857272b5ea14@epcas5p2.samsung.com>
+	<20260909-dts-samsung-cleanup-strict-v1-4-1b755a446b22@oss.qualcomm.com>
 
 
 
@@ -88,52 +89,42 @@ References: <20260909-dts-samsung-cleanup-strict-v1-0-1b755a446b22@oss.qualcomm.
 > soc@vger.kernel.org; devicetree@vger.kernel.org; linux-
 > kernel@vger.kernel.org; Krzysztof Kozlowski
 > <krzysztof.kozlowski@oss.qualcomm.com>
-> Subject: [PATCH 2/5] arm64: dts: fsd: evb: Correct node order
-> 
-> Order nodes by name to fix dt-check-style warning:
-> 
->   fsd-evb.dts:61: [child-name-order] child node 'codec' out of name order
-> 
+> Subject: [PATCH 4/5] arm64: dts: fsd: Re-order nodes to match coding styl=
+e
+>=20
+> Re-order several top-level and MMIO nodes to match coding style - orderin=
+g
+> by name or by unit address, as pointed out by dt-check-style,
+> e.g.:
+>=20
+>   fsd.dtsi:981: [child-address-order] child node @10040000 out of address
+> order
+>   fsd.dtsi:315: [child-name-order] child node 'arm-pmu' out of name order
+>   fsd.dtsi:348: [child-name-order] child node 'clock' out of name order
+>=20
+> While moving chunks of code, also re-order a few properties (I2S, SPI and
+> CAN nodes) to fix:
+>=20
+>   fsd.dtsi:661: [property-order] property 'clocks' out of canonical order
+> (should sort before 'samsung,syscon-phandle')
+>   fsd.dtsi:936: [property-order] property 'pinctrl-names' must be placed =
+after
+> 'pinctrl-0'
+>   fsd.dtsi:936: [property-order] property 'pinctrl-names' out of canonica=
+l
+> order (should sort before 'samsung,spi-src-clk')
+>=20
+> Moving several nodes already creates unreviewable commit, thus reshufflin=
+g
+> the properties allows to skip changing the same line twice without loss o=
+f
+> readability.
+>=20
 > Signed-off-by: Krzysztof Kozlowski
 > <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
-Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
 
->  arch/arm64/boot/dts/tesla/fsd-evb.dts | 10 +++++-----
->  1 file changed, 5 insertions(+), 5 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> index 503abe52a81c..a1f3d3fbbf8b 100644
-> --- a/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> +++ b/arch/arm64/boot/dts/tesla/fsd-evb.dts
-> @@ -50,6 +50,11 @@ simple-audio-card,dai-link@0 {
->  			bitclock-master = <&tlv320aic3x>;
->  			frame-master = <&tlv320aic3x>;
-> 
-> +			codec {
-> +				sound-dai = <&tlv320aic3x>;
-> +				system-clock-frequency = <33000000>;
-> +			};
-> +
->  			cpu-0 {
->  				sound-dai = <&i2s_0 0>;
->  			};
-> @@ -57,11 +62,6 @@ cpu-0 {
->  			cpu-1 {
->  				sound-dai = <&i2s_0 1>;
->  			};
-> -
-> -			codec {
-> -				sound-dai = <&tlv320aic3x>;
-> -				system-clock-frequency = <33000000>;
-> -			};
->  		};
->  	};
->  };
-> 
-> --
-> 2.53.0
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
 
 
 
