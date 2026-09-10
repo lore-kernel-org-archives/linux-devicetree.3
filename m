@@ -1,348 +1,111 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFB833C37A3;
-	Thu, 10 Sep 2026 06:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C2E3B52EF;
+	Thu, 10 Sep 2026 06:11:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020597; cv=none; b=nlclO+GKDE5+4JkoQAaR5CjPngYkVEDrG8lGf0v7GgF7PJriTe7RoeAiw6wgCSVx4PjowL5hCuZ8NOb7DLAKLq2KIqI63RYS157hfdBxdOlAQE1iHGw/YFya6fHCnpuI7mjR6x0RlQtR+0g/fFGWv082fkrRcGqt6gYY3bkVyg4=
+	t=1789020678; cv=none; b=CBRVBzKsVSTX4tOr+aw64851Fj7wvYIM/nHuZhOgXvUn1sCGPQDsHY4v+SweVU/cFVjPVGen+AMIhhxTikeTVsyJLkABlbGd4MVw7CZ784aIoGqbLDDjQEE3Tax74R2HWwE/F3Bo/xGe/xz0SdlsF1bLqMXcgK3LNWgvQnR/pG8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020597; c=relaxed/simple;
-	bh=X0ylNUfyY2EdluJvR7UhHDvA6CCL61dTk8TBqJlBf5Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fjBsa5jj9MKBgOuFQ59QINo+rcdLTvIYdP5i1fj+ZV7NfHq8rqHYl49ikPrZIPd1CVE+UhkqA81eC0DTNn7ofNmEVBhIreRrbKO5fLdtDUJ88jFY/x7Bqvq0Cxa9GLVsvgTcMfQ3J4oxCf//vKFwgAi3KnNjyE4a6g/ERlyr4Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id E06BE1A00B1;
-	Thu, 10 Sep 2026 08:09:39 +0200 (CEST)
-Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id A8CAE1A00C1;
-	Thu, 10 Sep 2026 08:09:39 +0200 (CEST)
-Received: from lsv031125.swis.in-blr01.nxp.com (lsv031125.swis.in-blr01.nxp.com [10.12.177.172])
-	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 773F418000B6;
-	Thu, 10 Sep 2026 14:09:36 +0800 (+08)
-From: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-To: linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	alexandre.belloni@bootlin.com,
-	krzk+dt@kernel.org,
-	robh@kernel.org,
-	conor+dt@kernel.org,
-	linux@roeck-us.net,
-	wim@linux-watchdog.org
-Cc: vikash.bansal@nxp.com,
-	priyanka.jain@nxp.com,
-	lakshay.piplani@nxp.com,
-	Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-Subject: [PATCH v3 4/4] rtc: pcf8525: Add temperature sensor support via hwmon
-Date: Thu, 10 Sep 2026 11:39:12 +0530
-Message-Id: <20260910060912.2443551-5-shivprakash.gupta@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
-References: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
+	s=arc-20240116; t=1789020678; c=relaxed/simple;
+	bh=QwNridbtN+uHeClq4a+JVROnQE83dx90utjc+3oG40c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mCg/d2qOJlUYTfEzdKXOYEBcwVbxNfQz0p5xKLj1O7+qSO1wcDlgy08V9X5or1GyD4EjLAvhiBFpatIMgAzxTXe6PcAyna54E/R5h6KGwxI8Hczb6cgQ4ERoicjqNsxLQHwd9A2Xf7ALiyMKF8kkx9Gbc3Si0q/HURcLSMORA7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OPbOCxIJ; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OPbOCxIJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789020674; x=1820556674;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QwNridbtN+uHeClq4a+JVROnQE83dx90utjc+3oG40c=;
+  b=OPbOCxIJz0S6AqLUbPOGq3jLT/VWh9INCRZg05SK/bcQqWhzWQa04kA6
+   EEUDmSytBYb2ej9FwTgG+LTvbm6ovdotr+ivxxjux5Sf3Rj4p2wvETitF
+   VhVpO/g2/cV+Nc1T1ph9ovWXfVkX/g3VSDS8CM38Zh3V/hy2MUynPslzn
+   EIpAV3c08QVfZktZOc7h4asGnP4iGqupLPKxdFcGZKLDKH1pjVZTxYla2
+   jO8tJjKj0Sp0tkhslJxdUWwq7nXAyvAQjVdQKcwaacZ5dJWCKfuhN+te0
+   YhHDZLroP7Hk2FrtPH7HGDWxlCfyCP4FZrgyIEsg2Cdsh50Hyk1PSZsDr
+   w==;
+X-CSE-ConnectionGUID: nV91dn9bSN2qpXXnaiISRg==
+X-CSE-MsgGUID: ayE39PaBRlS36BozTsFF5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="93286547"
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="93286547"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:11:09 -0700
+X-CSE-ConnectionGUID: /gZHSE5NRS2DWmVQk9pBqA==
+X-CSE-MsgGUID: t4T+ut5mSA6TC3m5vQ+kdQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
+   d="scan'208";a="267846085"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:11:05 -0700
+Date: Thu, 10 Sep 2026 09:11:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 04/10] iio: dac: mcp47feb02: Increase EEPROM
+ Programming Write Cycle Time
+Message-ID: <aqJJ95_uvUowDbMo@ashevche-desk.local>
+References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
+ <20260909-mcp47feb02_refactor-v5-4-8b67bcab93d1@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260909-mcp47feb02_refactor-v5-4-8b67bcab93d1@microchip.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Register the PCF8525 internal temperature sensor through the hwmon
-interface when CONFIG_RTC_DRV_PCF8525_HWMON is enabled.
+On Wed, Sep 09, 2026 at 05:18:47PM +0300, Ariana Lazar wrote:
+> Increase the EEPROM write polling timeout to prevent -ETIMEDOUT errors and
+> incomplete nonvolatile write cycle, according to the time specified in the
+> datasheets (11-16 ms).
 
-Exposes temp1_input (millidegrees Celsius, read-only) and
-update_interval (milliseconds, read/write).
+...
 
-Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
-Signed-off-by: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
----
- drivers/rtc/Kconfig       |  15 +++
- drivers/rtc/rtc-pcf8525.c | 218 ++++++++++++++++++++++++++++++++++++++
- 2 files changed, 233 insertions(+)
+>  	ret = regmap_read_poll_timeout(data->regmap, MCP47FEB02_GAIN_CTRL_STATUS_REG_ADDR,
+>  				       eewa_val,
+>  				       !(eewa_val & MCP47FEB02_GAIN_BIT_STATUS_EEWA_MASK),
+> -				       USEC_PER_MSEC, USEC_PER_MSEC * 5);
+> +				       USEC_PER_MSEC, USEC_PER_MSEC * 1500);
 
-diff --git a/drivers/rtc/Kconfig b/drivers/rtc/Kconfig
-index 356c2d91e387..7b4195e712b0 100644
---- a/drivers/rtc/Kconfig
-+++ b/drivers/rtc/Kconfig
-@@ -524,6 +524,21 @@ config RTC_DRV_PCF8525
- 	  This driver can also be built as a module. If so, the module
- 	  will be called rtc-pcf8525.
- 
-+config RTC_DRV_PCF8525_HWMON
-+	bool "HWMON support for NXP PCF8525"
-+	depends on RTC_DRV_PCF8525 && HWMON && \
-+		   !(RTC_DRV_PCF8525=y && HWMON=m)
-+	default y
-+	help
-+	  Say Y here to expose the PCF8525 internal temperature
-+	  sensor through the HWMON interface.
-+
-+	  This option provides temperature input reporting and allows
-+	  the temperature measurement update interval to be configured
-+	  from userspace.
-+
-+	  The interface is registered only when HWMON support is enabled
-+
- config RTC_DRV_PCF85363
- 	tristate "NXP PCF85363"
- 	select REGMAP_I2C
-diff --git a/drivers/rtc/rtc-pcf8525.c b/drivers/rtc/rtc-pcf8525.c
-index c2eab983f1ff..a2958eb3a502 100644
---- a/drivers/rtc/rtc-pcf8525.c
-+++ b/drivers/rtc/rtc-pcf8525.c
-@@ -34,6 +34,7 @@
-  */
- 
- #include <linux/bcd.h>
-+#include <linux/hwmon.h>
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/device.h>
-@@ -179,6 +180,7 @@
- #define PCF8525_WD_MIN_HW_HEARTBEAT_MS	4000
- #define PCF8525_WD_VAL_STOP		0
- #define PCF8525_WD_DEFAULT_TIMEOUT_S	60
-+#define PCF8525_CLKOUT_TCR_MASK		GENMASK(7, 5)
- 
- #define PCF8525_REG_AGING_OFFSET_HI	0x26
- #define PCF8525_REG_AGING_OFFSET_LO	0x27
-@@ -374,6 +376,220 @@ static int pcf8525_rtc_set_offset(struct device *dev, long offset)
- 	return pcf8525_write_aging_offset(pcf8525, (s16)raw);
- }
- 
-+static int pcf8525_hwmon_read_temp(struct device *dev, long *temp)
-+{
-+	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
-+	unsigned int regval;
-+	int ret;
-+
-+	ret = regmap_read(pcf8525->regmap, PCF8525_REG_TEMP, &regval);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * PCF8525: signed 8-bit, 1 degree C per LSB.
-+	 * HWMON requires millidegree Celsius.
-+	 */
-+	*temp = (long)(s8)(u8)regval * 1000L;
-+
-+	return 0;
-+}
-+
-+static int pcf8525_hwmon_read_update_interval(struct device *dev, long *val)
-+{
-+	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
-+	unsigned int regval;
-+	unsigned int tcr;
-+	int ret;
-+
-+	ret = regmap_read(pcf8525->regmap, PCF8525_REG_CLKOUT, &regval);
-+	if (ret)
-+		return ret;
-+
-+	tcr = FIELD_GET(PCF8525_CLKOUT_TCR_MASK, regval);
-+
-+	switch (tcr) {
-+	case 0:
-+		*val = 32 * 60 * 1000L;
-+		break;
-+	case 1:
-+		*val = 16 * 60 * 1000L;
-+		break;
-+	case 2:
-+		*val = 8 * 60 * 1000L;
-+		break;
-+	case 3:
-+		*val = 4 * 60 * 1000L;
-+		break;
-+	case 4:
-+		*val = 2 * 60 * 1000L;
-+		break;
-+	default:
-+		*val = 60 * 1000L;
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int pcf8525_hwmon_write_update_interval(struct device *dev, long val)
-+{
-+	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
-+	unsigned int tcr;
-+
-+	switch (val) {
-+	case 32 * 60 * 1000L:
-+		tcr = 0;
-+		break;
-+	case 16 * 60 * 1000L:
-+		tcr = 1;
-+		break;
-+	case 8 * 60 * 1000L:
-+		tcr = 2;
-+		break;
-+	case 4 * 60 * 1000L:
-+		tcr = 3;
-+		break;
-+	case 2 * 60 * 1000L:
-+		tcr = 4;
-+		break;
-+	case 60 * 1000L:
-+		tcr = 5;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* Update only TCR[2:0]; preserve OTPR, CLKOE and COF[2:0]. */
-+	return regmap_update_bits(pcf8525->regmap, PCF8525_REG_CLKOUT,
-+				  PCF8525_CLKOUT_TCR_MASK,
-+				  FIELD_PREP(PCF8525_CLKOUT_TCR_MASK, tcr));
-+}
-+
-+static umode_t pcf8525_hwmon_is_visible(const void *data,
-+					enum hwmon_sensor_types type,
-+					u32 attr, int channel)
-+{
-+	switch (type) {
-+	case hwmon_chip:
-+		if (attr == hwmon_chip_update_interval)
-+			return 0644;
-+		break;
-+	case hwmon_temp:
-+		if (attr == hwmon_temp_input && channel == 0)
-+			return 0444;
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return 0;
-+}
-+
-+static int pcf8525_hwmon_read(struct device *dev,
-+			      enum hwmon_sensor_types type,
-+			      u32 attr, int channel, long *val)
-+{
-+	switch (type) {
-+	case hwmon_chip:
-+		if (attr == hwmon_chip_update_interval)
-+			return pcf8525_hwmon_read_update_interval(dev, val);
-+		break;
-+	case hwmon_temp:
-+		if (attr == hwmon_temp_input && channel == 0)
-+			return pcf8525_hwmon_read_temp(dev, val);
-+		break;
-+	default:
-+		break;
-+	}
-+
-+	return -EOPNOTSUPP;
-+}
-+
-+static int pcf8525_hwmon_write(struct device *dev,
-+			       enum hwmon_sensor_types type,
-+			       u32 attr, int channel, long val)
-+{
-+	if (type == hwmon_chip && attr == hwmon_chip_update_interval)
-+		return pcf8525_hwmon_write_update_interval(dev, val);
-+
-+	return -EOPNOTSUPP;
-+}
-+
-+static const struct hwmon_channel_info * const pcf8525_hwmon_info[] = {
-+	HWMON_CHANNEL_INFO(chip, HWMON_C_UPDATE_INTERVAL),
-+	HWMON_CHANNEL_INFO(temp, HWMON_T_INPUT),
-+	NULL
-+};
-+
-+static const struct hwmon_ops pcf8525_hwmon_ops = {
-+	.is_visible = pcf8525_hwmon_is_visible,
-+	.read = pcf8525_hwmon_read,
-+	.write = pcf8525_hwmon_write,
-+};
-+
-+static const struct hwmon_chip_info pcf8525_hwmon_chip_info = {
-+	.ops = &pcf8525_hwmon_ops,
-+	.info = pcf8525_hwmon_info,
-+};
-+
-+static void pcf8525_hwmon_disable_temp(void *data)
-+{
-+	struct pcf8525 *pcf8525 = data;
-+
-+	/* Disable temperature sensor to avoid draining the backup battery. */
-+	regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL5,
-+			   PCF8525_CTRL5_TEMP_RD_EN, 0);
-+}
-+
-+/*
-+ * Keep HWMON optional and non-fatal so RTC and watchdog registration remain
-+ * usable even if the temperature interface cannot be registered.
-+ */
-+static void pcf8525_hwmon_register(struct device *dev,
-+				   struct pcf8525 *pcf8525)
-+{
-+	struct device *hwmon_dev;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_RTC_DRV_PCF8525_HWMON))
-+		return;
-+
-+	/*
-+	 * Enable digital temperature readout first so that the hardware is
-+	 * ready before the sysfs attributes are exposed to userspace.  The
-+	 * previous order (register hwmon device first) left a window where
-+	 * a concurrent sysfs read would return invalid data, and left the
-+	 * device permanently broken if this step subsequently failed.
-+	 */
-+	ret = regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL5,
-+				 PCF8525_CTRL5_TEMP_RD_EN,
-+				 PCF8525_CTRL5_TEMP_RD_EN);
-+	if (ret) {
-+		dev_warn(dev, "failed to enable temperature readout: %d\n", ret);
-+		return;
-+	}
-+
-+	/*
-+	 * Register a devm cleanup action to disable TEMP_RD_EN when the
-+	 * driver is unbound, preventing the analog sensor from draining
-+	 * the backup battery after driver removal.
-+	 */
-+	if (devm_add_action_or_reset(dev, pcf8525_hwmon_disable_temp, pcf8525)) {
-+		dev_warn(dev, "failed to register HWMON cleanup action\n");
-+		return;
-+	}
-+
-+	/* Only expose sysfs attributes once the hardware is fully ready. */
-+	hwmon_dev = devm_hwmon_device_register_with_info(dev, "pcf8525",
-+							 pcf8525,
-+							 &pcf8525_hwmon_chip_info,
-+							 NULL);
-+	if (IS_ERR(hwmon_dev))
-+		dev_warn(dev, "failed to register HWMON device: %ld\n",
-+			 PTR_ERR(hwmon_dev));
-+}
-+
- static int pcf8525_read_time(struct device *dev, struct rtc_time *tm)
- {
- 	struct pcf8525 *pcf8525 = dev_get_drvdata(dev);
-@@ -1349,6 +1565,8 @@ static int pcf8525_probe(struct i2c_client *client)
- 	if (ret)
- 		return ret;
- 
-+	pcf8525_hwmon_register(dev, pcf8525);
-+
- 	return 0;
- }
- 
+While at it, make it clearer with
+
+				       1 * USEC_PER_MSEC, 1500 * USEC_PER_MSEC);
+
+(note that some editors marks numeric constants with distinguishable colour).
+
+>  	if (ret)
+>  		return ret;
+
+...
+
+>  	ret = regmap_read_poll_timeout(data->regmap, MCP47FEB02_GAIN_CTRL_STATUS_REG_ADDR, eewa_val,
+>  				       !(eewa_val & MCP47FEB02_GAIN_BIT_STATUS_EEWA_MASK),
+> -				       USEC_PER_MSEC, USEC_PER_MSEC * 5);
+> +				       USEC_PER_MSEC, USEC_PER_MSEC * 1500);
+
+Ditto.
+
+>  	if (ret)
+>  		return ret;
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
