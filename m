@@ -1,231 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F6C513565
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:59:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A60C5221C8
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 17:01:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059553; cv=none; b=iJo3VHj80F/vnkRVCMI9ki/6HuU0i35JncxoxzATXm1qFDB20VaqmviMnRUJcTfEW9kE/K8+6GynJXK3dAaEpVX+QvaFkriaOYC4BEi3xNOMpd4nQ3oiWyFaZEnWleAvPqog71FWN2iEkMC1CAL0/xvVH7SbKvkmvxU7ji65R28=
+	t=1789059685; cv=none; b=EiCKeqvtHqeEwrYO0JLKYxsw7xgnbkLrHX/Y5B9zj3ryMMQG956GES4aNM3XjnVyCIsRKGTdmq2x8prODjnqk/pSoB4s8Ef3pOmJWcroqjtaY623KJ4guMACeKlnxdyrJc83yQ6BSwDCRvBeIMssnJmYzBRAnILjWrDuhRhM7HY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059553; c=relaxed/simple;
-	bh=s00bcymjWKDPqjmrnUKqY+/zxsTl/oO2W5WAJysnfjc=;
+	s=arc-20240116; t=1789059685; c=relaxed/simple;
+	bh=mV482CVpK8049cBhDDzqu35+vqHQ2267Wy2AYia6JaY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KcsofwB7EvZEpHxeo9LdITTdBsoQ67XZJD/JZNHgHeoEIVBxnA3gjs3O1HbAVf1SM51hJ3CfOGRo1zvHfQEiKjVIcU98Rf3tiFZ/ncvNgOimNH5nwQcFgfdF6bU9X93uB+xTUhVFLslm8q5CLv6XG8TKf36p8RmE89MJHTiaYAg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SMAziVTN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YmkALO+EZ1KP+Rg5jS1uA2bGeL5EqBrofcM0QBbMkPRtrQdxpQQ6bBm/lMWHgYQ6NhWVM/ehAC0EgZYumlaZngg/pXBrAMwML+saNy/b32DtmATxr+5rJgZf5Lo8tCjUigfFxC/S/dW4Nk9nrKX8KobeucVU2laq5IFkBC/gkWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bVxeMC8y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SMAziVTN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 135791F00893;
-	Thu, 10 Sep 2026 16:59:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bVxeMC8y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 362821F00898;
+	Thu, 10 Sep 2026 17:01:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789059544;
-	bh=uUt3MBJJKXpXxszFETKAk9WC86KrwuQHMBF/uZSCym8=;
+	s=k20260515; t=1789059677;
+	bh=kY+GVroWx1JlpqpQcvefXY1PZSPw5qnhzP5wpxZYDXM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SMAziVTN1k/VpugvSnPgCswQ9ZvDtRp8PvCTlzfKjiaY7qGTic/U40CMN35zExufl
-	 jTqAdUMvYDE4fIVeO8hK2FPLgblLrGCJ0VgJbZL7E7N47NXxO0h51/iJbn3+QtzWYU
-	 QuWaRJFpAvBpGHnsTVcT+zkwny+NrX5UptARCnX/H2eSxfI95UBw68Q6GyGXcvJlqs
-	 +ZgH9pNQ2RklwvVSJdT55BLS3eH+iMALRy7dpjh4vQ2AajAE3RaSQJLFyeL4Xykr6C
-	 6quheM6ZilpUwPMpmLPEaDH/axhb1yMd8PBkoiqEt1XgexbnNHkFZ4g5262NCLN60v
-	 ysJOOnEHxyNoA==
+	b=bVxeMC8yXS6zNy8S+cah18BsvQ7ps4OYTinww7o40Kf4KkeQBnTEtiaZsllSXf7i/
+	 zj5vpwxzRbD3/81pURICYtkznKa3l6YOPMT0FcG8n9gHLxeEPW6FG3aqqT4sfl/5Mc
+	 HeRpsR5emMPMOwvukWdjIjGsmbLe2uRpDcHqQe6dX50ts6roCgATURDhLfIEf3z5ty
+	 NP6s++w60sU1sN/HPKXW50w49kGBF5yjJIjiPA2/X4bPp5FKHEP2jAXjznEYg1TCAW
+	 MnSxEzaXMDO1zAXYDUZVVzSpEeSWXuduO+KSECvunsvl7B/kuKTRsgO3bqIg8CfX2A
+	 KWR/miZvmaGFg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] usb: typec: tipd: Add sn201202x support
+Subject: Re: [PATCH net-next v11 3/4] net: dsa: microchip: Support Microchip
+ KSZ8995XA / KS8995XA
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910-tipd-ace3-v7-3-6c6ebe2193f2@chaosmail.tech>
-References: <20260910-tipd-ace3-v7-0-6c6ebe2193f2@chaosmail.tech>
- <20260910-tipd-ace3-v7-3-6c6ebe2193f2@chaosmail.tech>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260909-ks8995-to-ksz8-v11-3-0e04411a559d@kernel.org>
+References: <20260909-ks8995-to-ksz8-v11-0-0e04411a559d@kernel.org>
+ <20260909-ks8995-to-ksz8-v11-3-0e04411a559d@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 16:59:03 +0000
-Message-Id: <20260910165904.135791F00893@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 17:01:16 +0000
+Message-Id: <20260910170117.362821F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] Probe function fails to catch a 0 return value from of_irq_get_b=
-yname(), erroneously passing IRQ 0 to devm_request_irq().
-- [Medium] spmi_command_sleep() is called without waiting for the correspon=
-ding sleep interrupt in sn201202x_remove and the probe error path, causing =
-a teardown race.
-- [Low] devm_request_irq() is called with a NULL devname argument.
-
-Pre-existing issues:
-- [High] Calling disable_irq(0) when tps->irq is 0 and wakeup-source is def=
-ined.
+- [Medium] Hardware Reset Timeout: `ksz8_reset_switch()` erroneously applie=
+s a PHY reset to all ports, including the CPU port which lacks an internal =
+PHY.
 --
 
-commit 50826c85c86e2d8bfcd4558e78d047469a9a4cbf
-Author: Sasha Finkelstein <k@chaosmail.tech>
+commit 80bf0b7a0236c83f85f86b7cc57ef97388c5c06c
+Author: Linus Walleij <linusw@kernel.org>
 
-usb: typec: tipd: Add sn201202x support
+net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
 
-This commit adds support for the sn201202x (ACE3) controller, a tipd
-variant that uses a similar register map exposed over a logical register
-interface on the SPMI bus.
+This commit adds support for the Microchip KSZ8995XA switch in the KSZ
+driver. It implements hardware detection, MAC operations, and specific
+PHY reset and initialization sequences required for this legacy device.
 
-[ ... ]
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> index bdcc6f75d93fe..82145c9f1cc8c 100644
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-> @@ -1962,11 +1962,32 @@ static const struct tipd_data tipd_tps25750_data =
-=3D {
->  	.connect =3D tps6598x_connect,
->  };
+> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip=
+/ksz8.c
+> --- a/drivers/net/dsa/microchip/ksz8.c
+> +++ b/drivers/net/dsa/microchip/ksz8.c
+> @@ -253,7 +255,35 @@ static int ksz8463_reset_switch(struct ksz_device *d=
+ev)
 > =20
-> +static const struct tipd_data tipd_sn201202x_data =3D {
-> +	.irq_handler =3D cd321x_interrupt,
-
-[Severity: High]
-This is a pre-existing issue, but utilizing the tipd core suspend/resume=20
-infrastructure with a device that might not have an IRQ mapped can cause=20
-a system hang.
-
-If a device tree or ACPI config defines "wakeup-source" but lacks an "irq"=
-=20
-property, tps->irq will default to 0. During system suspend, tipd_suspend()=
-=20
-only checks tps->wakeup:
-
-drivers/usb/typec/tipd/core.c:tipd_suspend() {
-    ...
-    if (tps->wakeup) {
-        disable_irq(tps->irq);
-        enable_irq_wake(tps->irq);
-    }
-    ...
-}
-
-Will this cause disable_irq(0) and enable_irq_wake(0) to be called? On=20
-architectures like x86 where IRQ 0 is a critical system interrupt (the PIT=
-=20
-timer), disabling it can hang the kernel.
-
-> +	.irq_mask1 =3D APPLE_CD_REG_INT_POWER_STATUS_UPDATE |
-[ ... ]
-> diff --git a/drivers/usb/typec/tipd/spmi.c b/drivers/usb/typec/tipd/spmi.c
-> new file mode 100644
-> index 0000000000000..a165ec39a8ed8
-> --- /dev/null
-> +++ b/drivers/usb/typec/tipd/spmi.c
-[ ... ]
-> +static int sn201202x_probe(struct spmi_device *device)
-> +{
-[ ... ]
-> +	tps->irq =3D of_irq_get_byname(device->dev.of_node, "irq");
-> +	if (tps->irq < 0)
-> +		return tps->irq;
+>  static int ksz8_reset_switch(struct ksz_device *dev)
+>  {
+> -	if (ksz_is_ksz88x3(dev)) {
+> +	if (ksz_is_ksz8995xa(dev)) {
+> +		unsigned int port, reg, val;
+> +		int ret;
+> +
+> +		/* The KSZ8995XA switch itself cannot be reset by software, but
+> +		 * often boot loaders have fun with ports, so reset them. This
+> +		 * reset bit is self-clearing.
+> +		 */
+> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
+> +			ret =3D ksz_prmw8(dev, port, REG_PORT_STATUS_3,
+> +					PORT_PHY_SOFT_RESET,
+> +					PORT_PHY_SOFT_RESET);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+> +		/* IEEE 802.3 allows up to 500 ms for a PHY reset. */
+> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
+> +			reg =3D dev->dev_ops->get_port_addr(port, REG_PORT_STATUS_3);
+> +			ret =3D regmap_read_poll_timeout(ksz_regmap_8(dev), reg, val,
+> +						       !(val & PORT_PHY_SOFT_RESET),
+> +						       1000, 600000);
+> +			if (ret)
+> +				return ret;
+> +		}
 
 [Severity: Medium]
-Does this check miss the case where of_irq_get_byname() returns 0?=20
+Could this result in a timeout regression that fails switch initialization?
 
-If the device tree is malformed or IRQ mapping fails, of_irq_get_byname()=20
-can return 0. Passing IRQ 0 to devm_request_irq() can conflict with critica=
-l=20
-system interrupts instead of aborting the probe gracefully. Should this che=
-ck=20
-be <=3D 0?
+Both loops in ksz8_reset_switch() iterate over all ports up to
+dev->info->port_cnt, which is 5 for the KSZ8995XA, thereby including the
+CPU port. Since the CPU port lacks an internal PHY, writing to its
+REG_PORT_STATUS_3 targets an undefined or reserved register.
 
-> +	irq_select =3D of_irq_get_byname(device->dev.of_node, "select");
-> +	if (irq_select < 0)
-> +		return irq_select;
-> +	irq_sleep =3D of_irq_get_byname(device->dev.of_node, "sleep");
-> +	if (irq_sleep < 0)
-> +		return irq_sleep;
-> +	irq_wake =3D of_irq_get_byname(device->dev.of_node, "wake");
-> +	if (irq_wake < 0)
-> +		return irq_wake;
+If the hardware latches the written bit or does not return 0 when read
+back, the regmap_read_poll_timeout() call will hit its 600ms timeout
+and return -ETIMEDOUT, entirely aborting the setup sequence.
 
-[Severity: Medium]
-Similarly, do these checks also need to verify that the returned IRQs=20
-are not 0?
-
-> +
-> +	init_completion(&sn->select_completion);
-> +	init_completion(&sn->sleep_completion);
-> +	init_completion(&sn->wake_completion);
-> +
-> +	ret =3D devm_request_irq(&device->dev, irq_select, sn201202x_irq,
-> +			       0, NULL, &sn->select_completion);
-
-[Severity: Low]
-Is it intentional to pass NULL as the devname argument here?
-
-The IRQ name will appear as "(null)" in /proc/interrupts and tracing output=
-,=20
-which might degrade observability and debugging tools. Could a descriptive=
-=20
-string be provided instead?
-
-> +	if (ret)
-> +		return ret;
-> +	ret =3D devm_request_irq(&device->dev, irq_sleep, sn201202x_irq,
-> +			       0, NULL, &sn->sleep_completion);
-
-[Severity: Low]
-Does this also need a valid devname instead of NULL?
-
-> +	if (ret)
-> +		return ret;
-> +	ret =3D devm_request_irq(&device->dev, irq_wake, sn201202x_irq,
-> +			       0, NULL, &sn->wake_completion);
-
-[Severity: Low]
-Does this also need a valid devname instead of NULL?
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	spmi_device_set_drvdata(device, tps);
-> +	tps->regmap =3D devm_regmap_init_sn201202x(device, &tps6598x_regmap_con=
-fig);
-> +	if (IS_ERR(tps->regmap))
-> +		return PTR_ERR(tps->regmap);
-> +
-> +	ret =3D spmi_command_wakeup(device);
-> +	if (ret)
-> +		return ret;
-> +	if (!wait_for_completion_timeout(&sn->wake_completion, msecs_to_jiffies=
-(100)))
-> +		return -ETIMEDOUT;
-> +
-> +	ret =3D tipd_init(tps);
-> +	if (ret)
-> +		spmi_command_sleep(device);
-
-[Severity: Medium]
-Could this create a race condition during driver teardown on the error path?
-
-If the hardware is slow to enter sleep, the sleep interrupt might fire afte=
-r=20
-the IRQ handler is freed by devm when probe fails, potentially causing an=20
-unhandled interrupt. Should this wait for the sleep completion like the=20
-wakeup path does?
-
-> +	return ret;
-> +}
-> +
-> +static void sn201202x_remove(struct spmi_device *device)
-> +{
-> +	struct tps6598x *tps =3D spmi_device_get_drvdata(device);
-> +	struct sn201202x *sn =3D tps_to_sn(tps);
-> +
-> +	tipd_remove(tps);
-> +	spmi_command_sleep(sn->sdev);
-
-[Severity: Medium]
-Similarly, does this need synchronization with the sleep interrupt before=20
-remove completes?
-
-> +}
-[ ... ]
+Should these loops iterate up to dev->phy_port_cnt instead to avoid
+resetting non-existent PHYs?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-tipd-ace3-=
-v7-0-6c6ebe2193f2@chaosmail.tech?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-ks8995-to-=
+ksz8-v11-0-0e04411a559d@kernel.org?part=3D3
