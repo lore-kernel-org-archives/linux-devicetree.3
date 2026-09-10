@@ -1,373 +1,265 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtpbgsg2.qq.com (smtpbgsg2.qq.com [54.254.200.128])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69760415B7A
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:47:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9C333B635C;
+	Thu, 10 Sep 2026 09:51:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.254.200.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789033675; cv=none; b=rGZd5m8Nhq6ADpfFcXHAmBAk9KPxdKKA/AUe1X4Be+ONQyoLU6UeQGe2rq5LTV/73GXW3b4Qj1ybjDA64ST/id4TaVAEDfX1aCVltX+DVu9IqttmeXNfX1azE8cCHqJQXYdAuZiVGES0Ry66yJt97wo0qZofFKxkWISHSi2z62E=
+	t=1789033920; cv=none; b=pQBQNYkhK5VimojIVcUDwr6DN0tkWqsYnXk9YKlRmsU60c+GHT+jluR7A0Mnqml9O2FK9vJizxdUsbjhix4dOrif2bWryoTR4Ww8heECYSOwp1r1o3KMn8CDvXLgzAIdiShgtSliPFYyUm4vNq8SYSoEkvkm5g6+eW/2VpgfNxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789033675; c=relaxed/simple;
-	bh=KP1B8jmPIOUAYbYtsBM367GDomMQVaWtZeTmopGWkOM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LZgqkNrgD6dn+jDWIm6Cr9p8MkjJ4sOgYBUujjZpj2G4E5kbbcNqiyCldbFaCD0w+ZHZ8Hv3Jrfzv94aDh9LDwQp3hbtZzkGxz2AdtyQJyPUUY8SBvZpB6l5FD5K8C/Sc5cx3gVZZLhNpI1rSnNCJhKZ3EHoSaJOLjX1T/qqKBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FuvZc2MH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=az0OYXyp; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789033920; c=relaxed/simple;
+	bh=QbVfbTPjA+0nznXPLlbTkBA4zLLyJWykRgFpQ4H7JiA=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=tGdCAlgaEls2yC8GCA2iqVMdrs6JsarFWFrZ6of3qtm7vjbWeMiFLfifMDyas/wKQelcRwX0Rq6+tDbKBOokK5k+/z2vfa26QDKtYJg3iqPZqtM/ANKWRhmv3i046xWziVCKpd8wUOIWIp/x3wavmtZVeGCtFfsqcCZB3S11q68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=jlfHboen; arc=none smtp.client-ip=54.254.200.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FuvZc2MH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="az0OYXyp"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A8xaqf3468766
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:47:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fVUqAvMiB9JAsaFJB5FKDKFdZN1MylnMLuxwGAm+HZg=; b=FuvZc2MHQ9cEvqGF
-	84p70F59o6lOnIrTiMfDyuov0CLj4b1L+NniK/J06FL0qINneXSry620vsx5IVUu
-	wTSa5yeO9UYwJnP0tNKxfnQolqu75dP1IuW/xNIcVXQVFpyDAe/7JL60B52Sbf8c
-	lz371/RCXWoGDvvhJU+sdmRUKThkdwueCZhTmvWCAi6cQX91jURtNoKA/LYcy4MK
-	noXbuD3YVFfwG/2/K21jnyuFVtYX9Jqsxpp48Q3yXHgET+5SieypTdGbKvOAsIou
-	D99ezdB5rh0X7XatOHCFXDVHgwPcHi5SKxR6VyPkx1eyuwpZtoOIK3tPRMjiRwEf
-	YrFR5A==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gksh8r7f3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:47:50 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so99889375ad.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 02:47:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789033669; x=1789638469; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fVUqAvMiB9JAsaFJB5FKDKFdZN1MylnMLuxwGAm+HZg=;
-        b=az0OYXypBTQZbWUHPh6lcRXfrMEnSEmdfgufpIKntZLnUBkR/vDH7+J/cLCO49oSIY
-         5iL+rAYwsFviUZGNpE5gWTmJtKqRZyp9zbiVCG68ebEc7QIAKXtbEfUXnu23dgZ0BRDK
-         p+iEq3aTv0jFzqA/oY+vVITYIcX7D0V+3ERFuh/ipAgDn2yCvRlWNjuHPwRAGjsSwzfI
-         jKdpSYofni3JnibVUWD5Cnp1nwDsKzP7a0aDpDgM308VXTo5ZQbrpHO3/31myqEolEqU
-         xicQ/cAWzrjrVypuu0PXAxbBFOQgIy8VC0VW6jddn2+IaZUHdzcv4LReHiamzGe3rKlH
-         hSSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789033669; x=1789638469;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fVUqAvMiB9JAsaFJB5FKDKFdZN1MylnMLuxwGAm+HZg=;
-        b=Xb6QHU3c5fK4cH/9m75RDbfZVxZCBe+gdYf6AOP6Q19FNFHCimXe6TH/9Vv8XC42Ke
-         p509dBVWbS1WozhBoCn/JhSit+1zRgPy6m6quqPO90dfXJSXi4p+hlfTXgamnYlXKHUM
-         VSNJ+YP5xkjqyFiAKHWcB1R3KweKqzphk3DeDoFVYUNvziPo/Uot74KlrwhJIGmLC70U
-         xI1tlKRBds95AH3vuogJNL1FVNMoGZiAq0YUscUF05y0Wa4NxJwsuNCn4+o65fGWPf1r
-         tQKQUISd2lY3loerxglEhLiWj1dYmdm78qXV/K2gZqqWCxnkmyb0A6Yy0R9eQICkyl2+
-         D7kw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFrRBfBbe41i1enYPSDK5I3iOAMoCA8vJZ1VuoupZpAf298zr9nYjTtj8lqjIdlIZ6/DVg0ctljM6T@vger.kernel.org
-X-Gm-Message-State: AFuF++kUSsZTFPiUy6A4uLaXdkba2LuSB6Y+RwJ6ZrTxBi+nDSFAD77Q
-	AmyMq+VbUcvsqu71bUnBScP+2BAYXRTusa1kDMWk/u1/FubhXB6pCSSj1LMt9DXC6tE/2CZRiGm
-	FESXb4qw5n8PgJVJUDQKgewxJvTwAko/GyJQ7swDQtpif6z3DQ9/eQVl0IiSUtV2g
-X-Gm-Gg: AYBFou3nC6It0E3pq1j9yX/jfbK6I6gTshEGpHRpgxB9smHB/I/WVSxTW0vXyOYUShn
-	7Q4+oWKA+6o8NbIZk9sWrrlghnzOLOG9WVtPVMYyzFdOtpeG7pM1b2Zyf01ymIj3y+sVyU5rI84
-	cWRjeob1noLzpWBowHYg1Mu6DHtjkCTvbSknCC+vgTIvhNpLJxiSMOKUmHJQo8+wkKIK6tU2cX+
-	rEQ11ITr9rkF8ea6p3ydO3vJ5Z2xJ7zhBCeOolw8P27kBfmwqrsUlEjcYtIUaKfWqo177c5ZFBo
-	ZHXtzX5PuJRb+4J3pj6XnnACgotZdQ+cwlEt4U6hWcDEQ1me9EErpMvS79qTpPfBksP7mZ3uJce
-	JcTZltzyf7DJRggJ5IGpKJREdQGfeKneVSWtp
-X-Received: by 2002:a17:90b:2d07:b0:398:ceed:6d44 with SMTP id 98e67ed59e1d1-39b262abd26mr59783249a91.25.1789033669255;
-        Thu, 10 Sep 2026 02:47:49 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d07:b0:398:ceed:6d44 with SMTP id 98e67ed59e1d1-39b262abd26mr59783179a91.25.1789033668684;
-        Thu, 10 Sep 2026 02:47:48 -0700 (PDT)
-Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33987ccf483sm11941129eec.20.2026.09.10.02.47.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 02:47:48 -0700 (PDT)
-From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 15:16:57 +0530
-Subject: [PATCH v2 6/6] ASoC: qcom: lpass-va-macro: Add SoundWire
- microphone mux support
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="jlfHboen"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1789033872;
+	bh=/jYHDEeDj6mTSil5AM0ztwiU+xkuIqY7l4GjrURkwMI=;
+	h=Mime-Version:Date:Message-Id:Subject:From:To;
+	b=jlfHboencdVUt2pJfQtKOAB+6e5Ua3ZLRzn6l7ZA6XtNAEuWjYBlSCFNydW2y3CQp
+	 MztbtfMpdJ0Y5bYXe2KRkYYmqCUCzkmW2mF8Gk+HbznMuV8UAJtYD4jiTLXCtcYMsm
+	 6nexYAq5iUD8UPtCIyKxNL97JzAtrEfD6kSshZp4=
+X-QQ-mid: esmtpsz17t1789033870t1eda2e6e
+X-QQ-Originating-IP: f5kVe9DZlbg/hxKYwteXDSAPYMlVF5XmHtXimArN3mo=
+Received: from = ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 10 Sep 2026 17:51:07 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 9185703477099524702
+EX-QQ-RecipientCnt: 41
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-add_shikra_support-v2-6-fdd2129c696c@oss.qualcomm.com>
-References: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
-In-Reply-To: <20260910-add_shikra_support-v2-0-fdd2129c696c@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>
-Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789033635; l=8793;
- i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=KP1B8jmPIOUAYbYtsBM367GDomMQVaWtZeTmopGWkOM=;
- b=tAoTM+NNc/wOj/T59GNUa+VqadjqjnW8oz62MbPnezTia2VDh+NvlXtgv9MBcXpS27Bh0eIR+
- 4VtMR48cZwbA6lX76SRcHj9IZ/nYWGC5ljEFbzx5AV7rYWlKKgm9Dne
-X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
- pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Proofpoint-GUID: FSLFQVX8W58oeONALTkF2vLnpiIYuPv-
-X-Proofpoint-ORIG-GUID: FSLFQVX8W58oeONALTkF2vLnpiIYuPv-
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDExMSBTYWx0ZWRfXzg0stlcOWCIA
- 4OqLFnJR/nbKDbMAkONUJNcJbxtXcLACoDUzaWvsHbcdK9wu4KamvuyG9CbPoimOM4O9bV6r7X/
- wwBDRBVzMnetbykNI/hwsm02B8WaMsylkBUsIsuhTDHAybcUvmCb2CDlKKkcETZxLHrUCGfsWme
- 0KENaLare+qEovddiS3O14AsSXFl1kv/YTehCDGGpy++51GZrN4a4MYCq/L7ZKQbcFJ7WupRXPL
- c1EVuhlw4aaZrWvBzzqF0sMLIl0sefr3FQovcVMpkNspFaUHsZj11MXWuqEQLZVrWec6Q+hptlF
- Df4OJy8rCk93BoQDw0+FEFFoP/rDm+fe2lelGlBXhxUYT3/NHjxZl9LAWHNilx676JUnBPlq9SR
- xRvTbeBOtpWj9uhPvZVzz6hMm7BcmVtKPr+sd2Ehk5ShvHe4TzdOxNT4yYwbyqPAQxjPEXajqho
- j0eGoWzac8n2tk3uJig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDExMSBTYWx0ZWRfX1y9NdkW52JvP
- d/scxBceirEFqdK5N+cgDe6ILr+aFtwauBwtuHgKxNFodnDhdAXVXujIrCy7FhldIW/N2xMC6SF
- x2WaIcnr/fuXT1LfOgbmIqf7Pf0AzUY=
-X-Authority-Analysis: v=2.4 cv=a56lZkSF c=1 sm=1 tr=0 ts=6aa27cc6 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=76V9-zZnIusTmnIAdMMA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 impostorscore=0 priorityscore=1501 spamscore=0
- adultscore=0 malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609100111
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0;
+ micalg=pgp-sha512; protocol="application/pgp-signature"
+Date: Thu, 10 Sep 2026 17:51:04 +0800
+Message-Id: <DLBJKRFHSLZ7.3OKDAR8I7V7JE@linux.spacemit.com>
+Cc: <linux-pci@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <spacemit@lists.linux.dev>, "Yixun Lan" <dlan@gentoo.org>, "Longbin Li"
+ <looong.bin@gmail.com>
+Subject: Re: [PATCH v5 6/6] PCI: spacemit-k1: Add Spacemit K3 PCIe host
+ controller support
+From: "Troy Mitchell" <troy.mitchell@linux.spacemit.com>
+To: "Inochi Amaoto" <inochiama@gmail.com>, "Troy Mitchell"
+ <troy.mitchell@linux.spacemit.com>, "Jingoo Han" <jingoohan1@gmail.com>,
+ "Manivannan Sadhasivam" <mani@kernel.org>, "Lorenzo Pieralisi"
+ <lpieralisi@kernel.org>, =?utf-8?q?Krzysztof_Wilczy=C5=84ski?=
+ <kwilczynski@kernel.org>, "Rob Herring" <robh@kernel.org>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Paul
+ Walmsley" <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert
+ Ou" <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Frank Li"
+ <Frank.Li@nxp.com>, "Niklas Cassel" <cassel@kernel.org>, "Sherry Sun"
+ <sherry.sun@nxp.com>, "Arnd Bergmann" <arnd@arndb.de>, "Christian Bruel"
+ <christian.bruel@foss.st.com>, "Krishna Chaitanya Chundru"
+ <krishna.chundru@oss.qualcomm.com>, "Senchuan Zhang"
+ <zhangsenchuan@eswincomputing.com>, "Alex Elder" <elder@riscstar.com>,
+ "Xincheng Zhang" <zhangxincheng@ultrarisc.com>, "Randolph Lin"
+ <randolph@andestech.com>, "Siddharth Vadapalli" <s-vadapalli@ti.com>, "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>, "Vidya Sagar"
+ <vidyas@nvidia.com>, "Neil Armstrong" <neil.armstrong@linaro.org>, "Danilo
+ Krummrich" <dakr@kernel.org>,
+ =?utf-8?b?VXdlIEtsZWluZS1Lw7ZuaWcgKFRoZSBDYXBhYmxlIEh1Yik=?=
+ <u.kleine-koenig@baylibre.com>, "Pengpeng Hou" <pengpeng@iscas.ac.cn>,
+ "Anirudh Srinivasan" <asrinivasan@oss.tenstorrent.com>, "Gustavo Pimentel"
+ <gustavo.pimentel@synopsys.com>
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260907112606.465778-1-inochiama@gmail.com>
+ <20260907112606.465778-7-inochiama@gmail.com>
+ <DL940SRP94AG.408BKFWHDVY3@linux.spacemit.com>
+ <aqEOHmlKdKqQWYE8@inochi.infowork>
+In-Reply-To: <aqEOHmlKdKqQWYE8@inochi.infowork>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz3a-0
+X-QQ-XMAILINFO: NECtOrwCNQSlNrBcyK36z3/CtNp6rfTkNd6AVsc2jFgfzBvZfHVH9NJ0
+	tiYjkBxkfpKFTJzHTfJihAroeCJZ1zcjHAtMIU+ks+PyPM3CWcnASERQP4SDwDhuJPqbS0x
+	84thvWVVGmdWE9T1d+FL2g+/bwEsUBZVJQM42PRei5/zEhj8KlyJqoU/mJdXTqp26uyqUQX
+	k9VklKaoaxINtGYq5StIfQOQpumV0Q0eGPOSuAMR+9QjJD8lz96vOyJxr67Tvi081+mJJDh
+	miOeCXvPZp/diUzE6FitcpeRq5iSxvXT2TbDJXY9fDewkgU15GD+aVEJSaN96nSvzSafv/8
+	2yXhzIZalpGz3sCEEz0Hv36S0K/8xtwuZXggDonkDcLh66ryP3UCkHSdR6Q+Hm0ISVdPXaC
+	obrkVMBnJMiD22xmM3fr038nqFJf6seigS9xZF4rLxZ+y7GGsQAAbw9pm2C0z4Tz733qFqR
+	ApvYcnGwlhpWckFfMDFH9fwSuk3y63i4crj+bNsFISe9CgpKFeHq9bbBg8WHj1l1ckpuZK3
+	R6nPSnjmC7gvvQCnXkyI1Vl1IN5/5PR0XcHBAHwFsYTPXE7c/bOAD4ncMguxkMhth3J5gwh
+	AcuejJqhKwYGOfLUUibBwVQDCcUf4lYzLulk17C8CmGPL26Pgpq0RTyVsg87W1GMxOfRNOg
+	cZjy8po3lITvvrDhhptCZF2WLzlytlz+n+7QYyqqYtRIcoY3owprlPw3bX784hdIrHmeAl1
+	6b+r38UWALar1r2M93cpO2ANYrX4wpZX3PjwXOoXvXLllFLXzr1YIjr+y25m9XPqZcR5QVE
+	WmStf+0ALueHyJg7erXTEX7iyOkUTQlDMPdOeTgZ/y0+1U8vxjV9UVEnRdGJdbudsJCAncJ
+	BghkTcga83eimeRpYwXmnUiNPuSMc0IRRnA+Oy7EB51F33VoLkCwjSrBmzWHRDL2zlrAFAg
+	kUpSE0VJ8xhbM9Wn5hwbtq8PJjmgQBsXuHmglWCaXuTbHIwzcRVEViqHKRRg3eSneSNULhJ
+	2P6P4omiddX/29PP7nU4KxW0w09NHlMC0xYzcfagCWVweQ4FcEI9n5qENpYVhxS5NlbnUno
+	1xBWH0OGS0DMvZysNHNg/V9FsrCHwVb5g==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-The VA decimators can currently capture audio only from DMIC inputs.
-Add support for routing audio from SoundWire microphone (SMIC) inputs
-as well.
+--a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Update the decimator source selection logic to switch between DMIC and
-SMIC sources based on the active input path.
+On Wed Sep 9, 2026 at 3:51 PM +08, Inochi Amaoto wrote:
+> On Mon, Sep 07, 2026 at 09:14:23PM +0800, Troy Mitchell wrote:
+>> On Mon, Sep 7, 2026 at 07:26:05PM +0800, Inochi Amaoto wrote:
+>> > [...]
+>> >
+>> > @@ -303,6 +316,116 @@ static int k1_pcie_parse_port(struct k1_pcie *k1=
+)
+>> > [...]
+>> >
+>> > +static int k3_pcie_init(struct dw_pcie_rp *pp)
+>> > +{
+>> > +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
+>> > +	struct k1_pcie *k1 =3D to_k1_pcie(pci);
+>> > +	u32 reset_ctrl =3D k1->pmu_off + PCIE_CLK_RESET_CONTROL;
+>> > +	u32 val;
+>> > +	int ret;
+>> > +
+>> > +	regmap_clear_bits(k1->pmu, reset_ctrl, LTSSM_EN);
+>> > +
+>> > +	k1_pcie_toggle_soft_reset(k1);
+>> > +
+>> > +	/* K3: Set IGNORE_PERSTN and drive PERSTN_OE high (assert reset) */
+>> > +	regmap_update_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+>> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE | PCIE_PERSTN_OUT,
+>> > +			   PCIE_IGNORE_PERSTN | PCIE_PERSTN_OE);
+>> > +
+>> > +	ret =3D k1_pcie_enable_resources(k1);
+>> > +	if (ret)
+>> > +		goto failed_resources;
+>> > +
+>> > +	regmap_set_bits(k1->pmu, reset_ctrl, PCIE_AUX_PWR_DET);
+>> > +	regmap_clear_bits(k1->pmu, reset_ctrl, APP_HOLD_PHY_RST);
+>> > +
+>> > +	ret =3D phy_bulk_init(k1->phy_count, k1->phys);
+>> > +	if (ret)
+>> > +		goto failed_phy;
+>> > +
+>> > +	msleep(PCIE_T_PVPERL_MS);
+>> > +
+>> > +	regmap_set_bits(k1->pmu, k1->pmu_off + PCIE_CONTROL_LOGIC,
+>> > +			PCIE_PERSTN_OUT | PCIE_PERSTN_OE);
+>> > +
+>>=20
+>> Should we use pci->pe_rst when reset-gpios is provided, and keep the PMU=
+ path as
+>> a fallback? The SDK handles both cases. The DWC core requests that GPIO =
+with
+>> GPIOD_OUT_HIGH, but this path only releases PERST# through the PMU, so a=
+n
+>> endpoint using the GPIO would remain in reset.
+>>=20
+>
+> I do not think this should be included in this version. I found PICO-ITX
+> has no reset gpio support. This means I can not test this feature.
+>
+> I suggest adding this function when there is a board using this function.
+Agreed, we can defer GPIO reset support until a board needs it and
+we can test it. I checked again, and the SDK only added this support
+recently. It provides GPIO-controlled PERST# as an alternative to
+the native PERST# control through the PMU.
+>
+>> > [...]
+>> >
+>> > +	/* Finally, as a workaround, disable ASPM L1 */
+>> > +	k1_pcie_disable_aspm_l1(k1);
+>> > +
+>> > +	return 0;
+>> > +
+>>=20
+>> Would we also need to configure IOMMU bypass during initialization? The =
+SDK sets
+>> the PCIe A/B/C bypass bits in PMUA_PCIE_SUBSYS_MGMT when there is no usa=
+ble
+>> iommu-map. The proposed K3 PCIe DTS has no iommu-map, and I could not fi=
+nd the
+>> corresponding bypass setup in this series.
+>>=20
+>> Is bypass already guaranteed by firmware or the reset state, or should t=
+he
+>> driver set it here? My concern is that enumeration could succeed while e=
+ndpoint
+>> DMA still goes through an unconfigured IOMMU.
+>>=20
+>
+> I think the firmware should mark it bypassed as the default, at least
+> I have notice this behavior, but I am not sure whether it is the builtin
+> firmware or the uboot do this trick.
+I checked the register specification. The PCIe A/B/C IOMMU bypass
+bits reset to 1, so bypass is the hardware reset default and does
+not require firmware to enable it. That resolves my concern.
 
-Add a helper to detect whether a decimator is using a SoundWire microphone
-input. Use this information to skip DMIC-specific HPF programming sequences
-when the decimator is configured for an SMIC source.
+>
+>> > [...]
+>> >
+>> > +static int k3_pcie_parse_port(struct k1_pcie *k1)
+>> > +{
+>> > +	u32 status0, status1, status2;
+>> > +
+>> > +	/* This register require a RAW for cleanup */
+>> > +	status0 =3D readl_relaxed(k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
+>> > +	status1 =3D readl_relaxed(k1->link + INTR_STATUS);
+>> > +	status2 =3D readl_relaxed(k1->link + K3_ADDR_INTR_STATUS1);
+>> > +
+>> > +	writel_relaxed(status0, k1->link + K3_PHY_AHB_IRQSTATUS_INTX);
+>> > +	writel_relaxed(status1, k1->link + INTR_STATUS);
+>> > +	writel_relaxed(status2, k1->link + K3_ADDR_INTR_STATUS1);
+>> > +
+>> > +	return k1_pcie_parse_port(k1);
+>> > +}
+>> > +
+>>=20
+>> Are these status registers accessible before the controller clocks are e=
+nabled
+>> and resets released? k3_pcie_parse_port() runs before dw_pcie_host_init(=
+), which
+>> calls k3_pcie_init() to enable those resources.
+>>=20
+>
+> Yes they can. It is something interesting.
+>
+>> The SDK uses the same ordering, but I am not sure whether it relies on f=
+irmware
+>> leaving the registers accessible. If so, would it be safer to move this =
+clearing
+>> into k3_pcie_init(), after enabling the resources?
+>>=20
+>
+> In fact, I have no idea about which clock control this MMIO area, if it i=
+s dbi
+> clock (but I guest it is not), it is kind of weird for this clear and sho=
+uld
+> move to the init. Do you have some knowledge on this?
+I have not confirmed which clock controls this MMIO region yet.
+I have asked our clock team about its clock and reset dependencies
+and whether access before resource initialization is guaranteed.
+I will follow up once I have clarification.
 
-This enables VA decimators to capture audio from either DMIC or SoundWire
-microphone inputs.
+>
+> Regards,
+> Inochi
 
-Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
----
- sound/soc/codecs/lpass-va-macro.c | 124 ++++++++++++++++++++++++++++++++++----
- 1 file changed, 113 insertions(+), 11 deletions(-)
 
-diff --git a/sound/soc/codecs/lpass-va-macro.c b/sound/soc/codecs/lpass-va-macro.c
-index 8353921f7..46f35a984 100644
---- a/sound/soc/codecs/lpass-va-macro.c
-+++ b/sound/soc/codecs/lpass-va-macro.c
-@@ -249,6 +249,7 @@ enum {
- 	VA_MACRO_CLK_DIV_16,
- };
- 
-+
- #define VA_NUM_CLKS_MAX		3
- 
- struct va_macro {
-@@ -756,10 +757,16 @@ static int va_macro_put_dec_enum(struct snd_kcontrol *kcontrol,
- 		return -EINVAL;
- 	}
- 
--	if (val != 0)
--		snd_soc_component_update_bits(component, mic_sel_reg,
-+	if (val != 0) {
-+		if (strstr(widget->name, "SMIC"))
-+			snd_soc_component_update_bits(component, mic_sel_reg,
-+					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
-+					      CDC_VA_TX_PATH_ADC_DMIC_SEL_ADC);
-+		else
-+			snd_soc_component_update_bits(component, mic_sel_reg,
- 					      CDC_VA_TX_PATH_ADC_DMIC_SEL_MASK,
- 					      CDC_VA_TX_PATH_ADC_DMIC_SEL_DMIC);
-+	}
- 
- 	return snd_soc_dapm_put_enum_double(kcontrol, ucontrol);
- }
-@@ -940,6 +947,16 @@ static int va_macro_enable_dmic(struct snd_soc_dapm_widget *w,
- 	return 0;
- }
- 
-+static bool is_amic_enabled(struct snd_soc_component *comp, int decimator)
-+{
-+	u16 adc_mux_reg;
-+
-+	adc_mux_reg = CDC_VA_INP_MUX_ADC_MUX0_CFG1 +
-+		      VA_MACRO_ADC_MUX_CFG_OFFSET * decimator;
-+
-+	return snd_soc_component_read(comp, adc_mux_reg) & BIT(0);
-+}
-+
- static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
- 			       struct snd_kcontrol *kcontrol, int event)
- {
-@@ -949,7 +966,6 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
- 	u16 tx_gain_ctl_reg;
- 	u16 adpt_ctrl_reg;
- 	u8 hpf_cut_off_freq;
--
- 	struct va_macro *va = snd_soc_component_get_drvdata(comp);
- 
- 	decimator = w->shift;
-@@ -980,7 +996,8 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
- 		snd_soc_component_update_bits(comp, tx_vol_ctl_reg,
- 					      CDC_VA_TX_PATH_CLK_EN_MASK,
- 					      CDC_VA_TX_PATH_CLK_EN);
--		snd_soc_component_update_bits(comp, hpf_gate_reg,
-+		if (!is_amic_enabled(comp, decimator))
-+			snd_soc_component_update_bits(comp, hpf_gate_reg,
- 					      CDC_VA_TX_HPF_ZERO_GATE_MASK,
- 					      CDC_VA_TX_HPF_ZERO_GATE);
- 
-@@ -994,21 +1011,20 @@ static int va_macro_enable_dec(struct snd_soc_dapm_widget *w,
- 						      CF_MIN_3DB_150HZ << 5);
- 
- 			snd_soc_component_update_bits(comp, hpf_gate_reg,
--				      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
--				      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_REQ);
-+					      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
-+					      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_REQ);
- 
- 			/*
- 			 * Minimum 1 clk cycle delay is required as per HW spec
- 			 */
- 			usleep_range(1000, 1010);
- 
--			snd_soc_component_update_bits(comp,
--				hpf_gate_reg,
--				CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
--				0x0);
-+			if (!is_amic_enabled(comp, decimator))
-+				snd_soc_component_update_bits(comp, hpf_gate_reg,
-+						      CDC_VA_TX_HPF_CUTOFF_FREQ_CHANGE_MASK,
-+						      0x0);
- 		}
- 
--
- 		usleep_range(1000, 1010);
- 		snd_soc_component_update_bits(comp, hpf_gate_reg,
- 					      CDC_VA_TX_HPF_ZERO_GATE_MASK,
-@@ -1208,6 +1224,39 @@ static const char * const adc_mux_text[] = {
- 	"VA_DMIC", "SWR_MIC"
- };
- 
-+static const char * const smic_mux_text[] = {
-+	"ZERO", "SWR_MIC0", "SWR_MIC1", "SWR_MIC2", "SWR_MIC3",
-+	"SWR_MIC4", "SWR_MIC5", "SWR_MIC6", "SWR_MIC7"
-+};
-+
-+static SOC_ENUM_SINGLE_DECL(va_smic0_enum, CDC_VA_INP_MUX_ADC_MUX0_CFG0,
-+			0, smic_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(va_smic1_enum, CDC_VA_INP_MUX_ADC_MUX1_CFG0,
-+			0, smic_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(va_smic2_enum, CDC_VA_INP_MUX_ADC_MUX2_CFG0,
-+			0, smic_mux_text);
-+
-+static SOC_ENUM_SINGLE_DECL(va_smic3_enum, CDC_VA_INP_MUX_ADC_MUX3_CFG0,
-+			0, smic_mux_text);
-+
-+static const struct snd_kcontrol_new va_smic0_mux = SOC_DAPM_ENUM_EXT("va_smic0",
-+			 va_smic0_enum, snd_soc_dapm_get_enum_double,
-+			 va_macro_put_dec_enum);
-+
-+static const struct snd_kcontrol_new va_smic1_mux = SOC_DAPM_ENUM_EXT("va_smic1",
-+			 va_smic1_enum, snd_soc_dapm_get_enum_double,
-+			 va_macro_put_dec_enum);
-+
-+static const struct snd_kcontrol_new va_smic2_mux = SOC_DAPM_ENUM_EXT("va_smic2",
-+			 va_smic2_enum, snd_soc_dapm_get_enum_double,
-+			 va_macro_put_dec_enum);
-+
-+static const struct snd_kcontrol_new va_smic3_mux = SOC_DAPM_ENUM_EXT("va_smic3",
-+			 va_smic3_enum, snd_soc_dapm_get_enum_double,
-+			 va_macro_put_dec_enum);
-+
- static SOC_ENUM_SINGLE_DECL(va_dec0_enum, CDC_VA_INP_MUX_ADC_MUX0_CFG1,
- 		   0, adc_mux_text);
- static SOC_ENUM_SINGLE_DECL(va_dec1_enum, CDC_VA_INP_MUX_ADC_MUX1_CFG1,
-@@ -1343,6 +1392,11 @@ static const struct snd_soc_dapm_widget va_macro_dapm_widgets[] = {
- 	SND_SOC_DAPM_MUX("VA DMIC MUX2", SND_SOC_NOPM, 0, 0, &va_dmic2_mux),
- 	SND_SOC_DAPM_MUX("VA DMIC MUX3", SND_SOC_NOPM, 0, 0, &va_dmic3_mux),
- 
-+	SND_SOC_DAPM_MUX("VA SMIC MUX0", SND_SOC_NOPM, 0, 0, &va_smic0_mux),
-+	SND_SOC_DAPM_MUX("VA SMIC MUX1", SND_SOC_NOPM, 0, 0, &va_smic1_mux),
-+	SND_SOC_DAPM_MUX("VA SMIC MUX2", SND_SOC_NOPM, 0, 0, &va_smic2_mux),
-+	SND_SOC_DAPM_MUX("VA SMIC MUX3", SND_SOC_NOPM, 0, 0, &va_smic3_mux),
-+
- 	SND_SOC_DAPM_REGULATOR_SUPPLY("vdd-micb", 0, 0),
- 	SND_SOC_DAPM_INPUT("DMIC0 Pin"),
- 	SND_SOC_DAPM_INPUT("DMIC1 Pin"),
-@@ -1397,6 +1451,14 @@ static const struct snd_soc_dapm_widget va_macro_dapm_widgets[] = {
- 	SND_SOC_DAPM_INPUT("VA SWR_MIC5"),
- 	SND_SOC_DAPM_INPUT("VA SWR_MIC6"),
- 	SND_SOC_DAPM_INPUT("VA SWR_MIC7"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT0"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT1"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT2"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT3"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT4"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT5"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT6"),
-+	SND_SOC_DAPM_INPUT("VA SWR_INPUT7"),
- 
- 	SND_SOC_DAPM_MUX_E("VA DEC0 MUX", SND_SOC_NOPM, VA_MACRO_DEC0, 0,
- 			   &va_dec0_mux, va_macro_enable_dec,
-@@ -1487,6 +1549,46 @@ static const struct snd_soc_dapm_route va_audio_map[] = {
- 	{"VA DMIC MUX3", "DMIC6", "VA DMIC6"},
- 	{"VA DMIC MUX3", "DMIC7", "VA DMIC7"},
- 
-+	{"VA DEC0 MUX", "SWR_MIC", "VA SMIC MUX0"},
-+	{"VA SMIC MUX0", "SWR_MIC0", "VA SWR_INPUT0"},
-+	{"VA SMIC MUX0", "SWR_MIC1", "VA SWR_INPUT1"},
-+	{"VA SMIC MUX0", "SWR_MIC2", "VA SWR_INPUT2"},
-+	{"VA SMIC MUX0", "SWR_MIC3", "VA SWR_INPUT3"},
-+	{"VA SMIC MUX0", "SWR_MIC4", "VA SWR_INPUT4"},
-+	{"VA SMIC MUX0", "SWR_MIC5", "VA SWR_INPUT5"},
-+	{"VA SMIC MUX0", "SWR_MIC6", "VA SWR_INPUT6"},
-+	{"VA SMIC MUX0", "SWR_MIC7", "VA SWR_INPUT7"},
-+
-+	{"VA DEC1 MUX", "SWR_MIC", "VA SMIC MUX1"},
-+	{"VA SMIC MUX1", "SWR_MIC0", "VA SWR_INPUT0"},
-+	{"VA SMIC MUX1", "SWR_MIC1", "VA SWR_INPUT1"},
-+	{"VA SMIC MUX1", "SWR_MIC2", "VA SWR_INPUT2"},
-+	{"VA SMIC MUX1", "SWR_MIC3", "VA SWR_INPUT3"},
-+	{"VA SMIC MUX1", "SWR_MIC4", "VA SWR_INPUT4"},
-+	{"VA SMIC MUX1", "SWR_MIC5", "VA SWR_INPUT5"},
-+	{"VA SMIC MUX1", "SWR_MIC6", "VA SWR_INPUT6"},
-+	{"VA SMIC MUX1", "SWR_MIC7", "VA SWR_INPUT7"},
-+
-+	{"VA DEC2 MUX", "SWR_MIC", "VA SMIC MUX2"},
-+	{"VA SMIC MUX2", "SWR_MIC0", "VA SWR_INPUT0"},
-+	{"VA SMIC MUX2", "SWR_MIC1", "VA SWR_INPUT1"},
-+	{"VA SMIC MUX2", "SWR_MIC2", "VA SWR_INPUT2"},
-+	{"VA SMIC MUX2", "SWR_MIC3", "VA SWR_INPUT3"},
-+	{"VA SMIC MUX2", "SWR_MIC4", "VA SWR_INPUT4"},
-+	{"VA SMIC MUX2", "SWR_MIC5", "VA SWR_INPUT5"},
-+	{"VA SMIC MUX2", "SWR_MIC6", "VA SWR_INPUT6"},
-+	{"VA SMIC MUX2", "SWR_MIC7", "VA SWR_INPUT7"},
-+
-+	{"VA DEC3 MUX", "SWR_MIC", "VA SMIC MUX3"},
-+	{"VA SMIC MUX3", "SWR_MIC0", "VA SWR_INPUT0"},
-+	{"VA SMIC MUX3", "SWR_MIC1", "VA SWR_INPUT1"},
-+	{"VA SMIC MUX3", "SWR_MIC2", "VA SWR_INPUT2"},
-+	{"VA SMIC MUX3", "SWR_MIC3", "VA SWR_INPUT3"},
-+	{"VA SMIC MUX3", "SWR_MIC4", "VA SWR_INPUT4"},
-+	{"VA SMIC MUX3", "SWR_MIC5", "VA SWR_INPUT5"},
-+	{"VA SMIC MUX3", "SWR_MIC6", "VA SWR_INPUT6"},
-+	{"VA SMIC MUX3", "SWR_MIC7", "VA SWR_INPUT7"},
-+
- 	{ "VA DMIC0", NULL, "DMIC0 Pin" },
- 	{ "VA DMIC1", NULL, "DMIC1 Pin" },
- 	{ "VA DMIC2", NULL, "DMIC2 Pin" },
+--=20
+Troy Mitchell
 
--- 
-2.34.1
 
+--a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iIMEABYKACsWIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaqJ9iA0caUB0cm95LXku
+b3JnAAoJEJgJ74D5MzQvIEkBAI5lOSUmTC1KRnfbtQZq22dzmqYH4si4e04iOSyS
+qA0iAP4h5FpgcgN1hdhSj0naM37Eexy5IDGOkDub+ZEMcldRBQ==
+=7iXk
+-----END PGP SIGNATURE-----
+
+--a3226df17150e624bf4bd069700ca9c5fbc60f85bc86f72fb8331621a4e0--
