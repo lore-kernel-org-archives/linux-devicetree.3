@@ -1,127 +1,104 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E097C38F232;
-	Thu, 10 Sep 2026 15:23:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A043812F1
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 15:25:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789053841; cv=none; b=TJq8EnFXw6Bch4KUy7jF3rUfOBBq9EGgiZiUxfbzNSpDTRyeQMcEBCHEULUlM7AO+v1GolpNPriyJ0w4cIviBe6+YQBNStZsqVl1ukBYvk0ZKvnohhQlFjtO5qe9VMWcj7dN8BIxop5xPAbSqgo0ZKwSZI8UKOsrm284686AtPg=
+	t=1789053931; cv=none; b=Tdux6lLSCWJc5V6ll5CO/5RFPQR0OvW/76ZHzgTOLm2DP5BqC5Hc94FKwVVoZ+BMsr+nfXzC8EwENSBpdet7Z0CVRG3DEFEY8cNJcMWaE2NU8VV+6ifbyXsqVCNskAx9AalE/tz5IZ3yDL8d0ke+n6GL0ftkQZFoZUE9gvsWO+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789053841; c=relaxed/simple;
-	bh=AJLf0w2MP0N0+yUWTqolfEUFEKi+szr9GRVAR7TB2Fc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t/fEBkIDlTuesvsWbCH4tbzl3sty7aZZ/rrPIAv11Xkry0BSOOYnmJQV58nxrHb8gppddChuZDxuulifEfClgj/yW+3eNIemavDtoTgdDcWxVKfK3w5FNFU9zZfDbzUIZPNWa2ctaKZnS+SzLRcB9oLQ3BvQFjSm76OdwC0KWG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: laurentiumihalcea111@gmail.com
-X-PTX-Original-Recipient: robh@kernel.org
-X-PTX-Original-Recipient: krzk+dt@kernel.org
-X-PTX-Original-Recipient: conor+dt@kernel.org
-X-PTX-Original-Recipient: s.hauer@pengutronix.de
-X-PTX-Original-Recipient: frank.li@nxp.com
-X-PTX-Original-Recipient: festevam@gmail.com
-X-PTX-Original-Recipient: elena.popa@nxp.com
-X-PTX-Original-Recipient: consmin.stoica@nxp.com
-X-PTX-Original-Recipient: linux-arm-kernel@lists.infradead.org
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
-X-PTX-Original-Recipient: linux-kernel@vger.kernel.org
-X-PTX-Original-Recipient: kernel@pengutronix.de
-X-PTX-Original-Recipient: imx@lists.linux.dev
-Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
-	(Authenticated sender: afa@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 697642020A4;
-	Thu, 10 Sep 2026 17:23:50 +0200 (CEST)
-Message-ID: <818e023c-8a88-4736-9577-355e97da4466@pengutronix.de>
-Date: Thu, 10 Sep 2026 17:23:50 +0200
+	s=arc-20240116; t=1789053931; c=relaxed/simple;
+	bh=ue2XwvaaY1BH6h4BrDRWdNVMFgA+Lt2DPWtE0/QcRy8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lUE7Pjt3od1sTP1QpnLYKrg7nhB4RZFOzj9sgehMOyZhu3SBLfsDukqgUcjumHS/Wqerf07i1cb9aoVDzn4qL28E/JnNPhz988t1rKp1vfDeOrmC8ZebRyT60RFTam2vKgaIK50Pw8UKHC9eLp/RtUcdPGWnifs9MZ6R05Q6GJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5usHDjM; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5usHDjM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68671F00893;
+	Thu, 10 Sep 2026 15:25:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789053929;
+	bh=k8oIduNzxtiP2psQ2O+uzIaC1ODw+uGNdc9SwAer/o8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=P5usHDjMKLdho5qG1iq5dZW04lKiMuLm0Wz3XFABqPwcVxLHfm7hfEWSDarqxwJS/
+	 jnKebbX9b45h9SnlKsjxJSY0Z3OMwcZq7YLycPadzF1MCfj3qa33rLNK5VtzjzytJ3
+	 yjCeh+9bP7tp4+9qxakJ+twfEP/WOfnFP3tw0hiN0qQ6FuHwxOaQBOk0Z5cCJrzTJP
+	 jboC7b2IiKDMP7SsqC06w9bKun6gcpde16OH3GxI0PRaTlW+sHEDyPc7EIBMZlu8Q5
+	 SZ3LjUYcARBUkKgwI0LjHecJFY2WXVsyk3XevcQ6Lb0zXmhXiMAVqQ30ptP3B1WgQp
+	 2KmaRA4gHAPgA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 5/5] arm64: dts: st: add TAMP backup register in
+ stm32mp251.dtsi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Patrice Chotard" <patrice.chotard@foss.st.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260910-upstream_tamp_nvram_dts_part-v1-5-e2bca58a65f4@foss.st.com>
+References: <20260910-upstream_tamp_nvram_dts_part-v1-0-e2bca58a65f4@foss.st.com>
+ <20260910-upstream_tamp_nvram_dts_part-v1-5-e2bca58a65f4@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 15:25:28 +0000
+Message-Id: <20260910152528.B68671F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] arm64: dts: freescale: add MR-NAVQ95 basic board
- support
-To: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>,
- Frank Li <Frank.Li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
- elena.popa@nxp.com, consmin.stoica@nxp.com
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Pengutronix Kernel Team
- <kernel@pengutronix.de>, imx@lists.linux.dev
-References: <20260909153943.1048-1-laurentiumihalcea111@gmail.com>
- <20260909153943.1048-3-laurentiumihalcea111@gmail.com>
- <f0136c29-e372-4ae9-972a-23d7a60d75e4@pengutronix.de>
- <a41510f0-8906-4698-9919-b65b40cc9b89@gmail.com>
-From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Content-Language: en-US, de-DE, de-BE
-In-Reply-To: <a41510f0-8906-4698-9919-b65b40cc9b89@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-Hello,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] DT Schema Violation: additionalProperties not allowed in syscon node
+- [Low] Undocumented DT Binding: st,stm32mp25-tamp-nvram
+--
 
-On 9/10/26 5:08 PM, Laurentiu Mihalcea wrote:
-> 
-> Hi Ahmad,
-> 
-> On 9/9/2026 9:20 AM, Ahmad Fatoum wrote:
->> On 9/9/26 5:39 PM, Laurentiu Mihalcea wrote:
->>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
->>> +	memory@80000000 {
->>> +		device_type = "memory";
->>> +		/* actual size filled in by the bootloader */
->>> +		reg = <0x0 0x80000000 0 0x80000000>;
->>
->> If the board has at least 2G always, this is fine.
-> 
-> the board only ships with 16GB LPDDR5 so yes, it'll always have at least 2GB.
-> While the current size is fine, maybe it would be better to change it to 16GB?
-> Will have to update the commit message as well since "up to 16GB of LPDDR5 memory"
-> might be a bit misleading.
-> 
-> my other option was to leave the size set to 0x0 like some QCOM DTSIs seem to do.
-> Not sure what the preferred way of handling this is?
+commit d9b7574bfcac6134021b52991b2d481d5704a393
+Author: Simeon Marijon <simeon.marijon@foss.st.com>
 
-IMO, the DT should not claim a memory size that's less than what's
-available across variants. So either 2G, 16G or just dropping it is fine
-by me. No need to change this on my account.
+arm64: dts: st: add TAMP backup register in stm32mp251.dtsi
+   =20
+TAMP backup registers allow information sharing between different
+software components/execution levels. They are described individually
+as nvmem cells.
 
->>> +&usdhc2 {
->>> +	bootph-pre-ram;
->>> +	bus-width = <4>;
->>> +	cd-gpios = <&gpio3 0 GPIO_ACTIVE_LOW>;
->>> +	pinctrl-0 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
->>> +	pinctrl-1 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
->>> +	pinctrl-2 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
->>> +	pinctrl-3 = <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
->>> +	pinctrl-names = "default", "state_100mhz", "state_200mhz", "sleep";
->>
->> Looks unexpected to have same pinctrl groups for the higher speeds.
->> Are higher speed modes even possible on this board?
->>
->> If not, I would suggest dropping the extra states.
-> 
-> The pin configuration is chosen to meet the timing requirements of the 200MHz
-> state. Because of this, I would expect the configuration to be appropriate for
-> lower frequencies as well.
-> 
-> The intention is to use the same configuration as MX95-19x19-EVK since, from what
-> I've been told, the trace lengths are similar to those of the EVK.
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts=
+/st/stm32mp251.dtsi
+> index 9c63fdb5a885a..aa7ae8b6fd21c 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -2118,6 +2118,36 @@ rtc: rtc@46000000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		tamp: tamp@46010000 {
+> +			compatible =3D "st,stm32-tamp", "syscon", "simple-mfd";
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +			reg =3D <0x46010000 0x400>;
+> +			ranges;
+> +
+> +			nvram: nvram@46010100 {
 
-Ok. If you can actually attain higher rates this way, then nothing needs
-to be changed.
+[Severity: Low]
+Does this configuration trigger warnings during dtbs_check?
 
-> Thanks for taking the time to review this! :)
+The parent schema Documentation/devicetree/bindings/arm/stm32/st,stm32-sysc=
+on.yaml
+(which binds to st,stm32-tamp) strictly enforces additionalProperties: false
+without defining #address-cells, #size-cells, ranges, or any child nodes.
 
-Cheers,
-Ahmad
+> +				compatible =3D "st,stm32mp25-tamp-nvram";
 
--- 
-Pengutronix e.K.                  |                             |
-Steuerwalder Str. 21              | http://www.pengutronix.de/  |
-31137 Hildesheim, Germany         | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686  | Fax:   +49-5121-206917-5555 |
+[Severity: Low]
+Is this compatible string missing its corresponding YAML binding document?
 
+All new DT hardware bindings must be documented to avoid schema validation
+warnings during dtbs_check.
+
+> +				reg =3D <0x46010100 0x200>;
+> +				nvmem-layout {
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-upstream_t=
+amp_nvram_dts_part-v1-0-e2bca58a65f4@foss.st.com?part=3D5
