@@ -1,193 +1,213 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013032.outbound.protection.outlook.com [52.101.83.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8199B49CF29
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:11:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049497; cv=none; b=upMyOSTivMAkGeQZhzO/zEi+EDozvGs1qhmmZhYbMGzC5X46WfgmynsYzFjE5sp2Q0BxfK0pRDfYjWHErLQDNqJ3ifYOHhKlV64cuy3eQ63J64aVjjHPQ53By7l3y921ZuVe3EtHGJQMyVPwsheIqthKW4yUOhZ2z7zt38ImSLI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049497; c=relaxed/simple;
-	bh=7P4Fwm9V27/vCJzqLRsCoQ113U3696cqrrG1J41lER4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=shtN9BVY9uJlyomkA+4RHsO2OmTpkCcD7Uv91oNyi77q92qW0twOAzTtgLGzql3m02Z2XJP3E7cFGJzV4pcjIUY/BpB90k0NdDG7t2/+WW1bSGW5CAaecF82BKkcsoIouwrxUcI4Yh5B26Wi55+gRoaeoij2cRbuc02pNDibzj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=maPROU/S; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234E249DB9D;
+	Thu, 10 Sep 2026 14:11:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789049504; cv=fail; b=NrhlUBpFhGmStprFswdZV0cvjRYIPIFKp6ex9POvKhuYt4PTCGyMWLHdiebNTv7yDzpMMqIyoCHq2a0GAO2EWO5I4KkbSmQeHuHiP1f8j5RrdCtaubl6zvHDEcghKkDtxafLCxRx2a3lEMjys59H75VUDXviDEocKcpn7EyPtEQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789049504; c=relaxed/simple;
+	bh=oX5wImAFpXcuUUzGOEClkw2QE8m2Vl8tNi0/UF3nBB0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=I3n/rnKHqYT7XwRAKhGjkRFBBiM7XmVGK3V1NkmfEw9dHXQYyE5/nQai1EGb61shxytcg5rIxlXW0C4GYfaX1P9uwZIbrEgT0G7Mtvk3CCEwqSdv7JY6awESCZI/WQLyfYYZrSm8pjMRihaEyMhQX3fnJRfuVsEzRwxNVid2FPc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=TKMKhhXP; arc=fail smtp.client-ip=52.101.83.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="maPROU/S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18AD01F000FF;
-	Thu, 10 Sep 2026 14:11:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789049495;
-	bh=zrd355EEcEI3j8IYH6jV1gYwv0iJnFD+WHEWGPYXc2k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=maPROU/SQfHw3c1O5brXInq2TcPIeVVOpu9UI7P8vmn9Zp5Y+w79/FHlRcUC193HK
-	 mHv0Na5fkOtJDFEqlhTBPfU2LCYxumRaUQJ93lZQWj4hbSHJPOuxHVN5lWBVtN8uQO
-	 SeboEyb5Zn6iEEdjkvbQV9XjbxnBYMSAY79v68JYcQ9BiSWeyvwWnjuV1ZyL1Ekovr
-	 rxy8hHBc2eKwLRFwi/4zi0yTUnqtyqDQNwHzSlH7M8oMoJ4r6yzJZ9N2s0mK7YU97U
-	 iSVRShAWwCqICD5ZkGvR24zBQS8Z3DyBWfespRR7fTLlhkfD2P8NzpJ5Py6oJsMsE+
-	 RdBsLnUHPxfuA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 7/7] net: dsa: mediatek: support EN751221
- switch
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260909140346.2861572-8-cjd@cjdns.fr>
-References: <20260909140346.2861572-1-cjd@cjdns.fr>
- <20260909140346.2861572-8-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 14:11:34 +0000
-Message-Id: <20260910141135.18AD01F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="TKMKhhXP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eWBBLf0uXMPSD8FaX18V1zFVuNL7KwjnHC+htoTeeHiqCPaCZPdlYOXn2H/tWIuKDbmA6sFgO5+AzZujTvjsaVOtc+T9CKb5NZYUvBVJDwQGefnVcPQIh05n0DaYWZr1Q+9ZruW4JdPQVQpot9Nm0BZDOF0M5OUT8uOSv8yEMQHWgAWIuupH/C0tsPasq0vUNS6qHa79G8JPQn25IW2ZMBHk1cyz9vBQ/5ClE3XU/2PLJsxGtpEksvisWqaSThCHXXSyGsp/ROEDWcVYaD3OyJVnwFj4Jlgw7SdGHR2Mkp+nx479UW8EUaO5fb06zplZxVSYyLeaYZdg0NLy6xC6Hw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sACEsocuIMYSZAR84plwhGxHnJzEHPHQGooOE9frC9c=;
+ b=e67cl9RHlqQzqTPM4MocMVhzC/02JcdeXjvM8wpBL+KhXtsajLwv9AuZiwDRBQ0yRQTs/dNi3H8MdMTJcTnBaHizpP+0QkeCRfcuNDQsxGFjuZWAIdv9PQ0SCRxuf4Ug78RD2/TAv1CVNm9HuJqfyBP1Wc60CPxg8HY4I89Sfu4yfWymUKW8cOnHNdjZGrgYcQtHNW73Y70izwzDnW91sMNI6lXPGT0ywuYRMOUeoKuSIUphlqHbmz0y4tLm72kjf3BiyyT1ZbvkF6yIoNYzf/k0FNOw/bdcEVF4gesWlD/IzPyjz/QLPGODR6JZD4KtqCrW44wsRDUFnzlhYZB+1w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=st-md-mailman.stormreply.com
+ smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
+ header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sACEsocuIMYSZAR84plwhGxHnJzEHPHQGooOE9frC9c=;
+ b=TKMKhhXPLZ7kIRmNbKz5LCqb1wfg16NfEAKF2mIpFWujRmzSWrRJCOMCEmOiXeIc95Eu1KbS5LulsN2Yiggp6ucPJ0a67VHspI4PLBuF5kwy/B5Zjd0s8lSSsHk3qcJvL10w/QRXduKZEcEIs0b3FUd/ifTde/NwksHJRiVSKkRsmioSvGSSM5ym7bJ+it/WHdmIJgZ4pAqBojnrJID27vzZO/JjPJaLRxquGxKbvqQAO2souJP8KeQKIYgn+KvD3tKvd9xOxdxRyZIupQ1b+0zAl2RfS3hs8v6gyxf3p1Jn84wzpfK9OAsxqjNYo+N1iUguFSVtHHjFGDsQE98P3A==
+Received: from PA7P264CA0358.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:37c::14)
+ by AS4PR10MB5647.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:4f2::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.7; Thu, 10 Sep
+ 2026 14:11:38 +0000
+Received: from MI3PEPF00008481.eurprd02.prod.outlook.com
+ (2603:10a6:102:37c:cafe::ad) by PA7P264CA0358.outlook.office365.com
+ (2603:10a6:102:37c::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Thu, 10
+ Sep 2026 14:11:38 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ MI3PEPF00008481.mail.protection.outlook.com (10.167.240.168) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Thu, 10 Sep 2026 14:11:37 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 10 Sep
+ 2026 16:17:38 +0200
+Received: from localhost (10.48.87.93) by STKDAG1NODE1.st.com (10.75.128.132)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 10 Sep
+ 2026 16:11:36 +0200
+From: Patrice Chotard <patrice.chotard@foss.st.com>
+Date: Thu, 10 Sep 2026 16:11:22 +0200
+Subject: [PATCH 1/3] dt-bindings: nvmem: add binding for STM32MPX TAMP
+ backup registers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260910-upstream_nvram_reworked-v1-1-521c16175cef@foss.st.com>
+References: <20260910-upstream_nvram_reworked-v1-0-521c16175cef@foss.st.com>
+In-Reply-To: <20260910-upstream_nvram_reworked-v1-0-521c16175cef@foss.st.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Maxime Coquelin
+	<mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>, Srinivas Kandagatla
+	<srini@kernel.org>
+CC: Simeon Marijon <simeon.marijon@foss.st.com>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <devicetree@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	Patrice Chotard <patrice.chotard@foss.st.com>
+X-Mailer: b4 0.16.0
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008481:EE_|AS4PR10MB5647:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8fceb9c1-4ede-43cd-f707-08df0f456dbf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|36860700016|376014|23010399003|18002099003|22082099003|56012099006|3023799007|10067099003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	rgLLkIKVSX3WykRnoBcc1/1nEN+WpQz36m4ECi442Z6ekLXpJvTxgRBFvHtKBNXboqNYumezbMbhnHjjiYzk/ZRQbtyq7/FKiv5HjJGMhO1PPD4iJJbtfSYF6b3W1zxII15t3DkyrLVFRqa4CXZYoEE5pY9FQZq7si7nucNaBglzc54v/7VNWNk5MIBxCmvrV8X8hsJOKmAiHT2V2qYmtZUkGGFA4991nT0374agmNOzi7s2szLJvJu8c4HviLXvrv+2jY7sbdOiftrvzfw0HhMawUpLoQ48td0NQC2STweaKkMDBcIoQgLM19mGGP7zybQ4+7nopeakYO3kUJJ/75E70kUkCKK6ZcHY962o0M58T6umF/nRZ9zUb0vbrsnUo5OamcuUizLWwUkm8nenTBfns+OzihFVg7lqcPok7EH4C6em3o5mOZMoxmNDc96vb0etsgvtKPPV0L+IPO9aD0Wc2ttl5lqWP/7BGh3CBEs+Xs8dCbds+jwYU6cHlOg2gkh4SlSkQnMrYtryKMe2Jn4YhxFDeyhdUHGSquXk30AJ7pRmViKSgeYfb0kyAAL5sqcuVvuYeN+wyF//YHwaHqIkpb7bEhQ/kx2a1Pd/iRaJBdSingAVtmLOTq7mmT9mg69955oETCEbSYSnqUoyMg==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(36860700016)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(3023799007)(10067099003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ly9WkuSLXExz9wS6g3lUyXcD6t+ymOZnsfoZWmmbnYEEMYxNkVXhJI7bDLXevEymeJE6uZHAUXK/lifCCDAE373wstmwum0VrBvoEMzEXtTWIotPWxgVS9necSpeBGI+uXdSCjYrOFSLiAtbHqTXYbzGARkmd1dN24iFSb2PD0OitpPVzEHXTBhI4oNqcTkRREiQ6V2VCBW5GOKBQtMep5g8MXEiP1n+TfCEXY6sFGOg/WJRm06ObnY686vSY1LUinm75EjVne+9G5vOy5MRp8sU/nNrhv5l01c0zvYXZIaBR6TrEOQwNjCOIhqWFZnPcCXMX/dIVI7Mzfgtk9p6dfQtEJGtf+XVoVn8U7dYi39i5xBSf4gZE3/GhfLtgsLDRojqmsIudPHbDr5cgbiQq0hz4hozSTynw/jJ7kELQ6t+PKV3ZphFSWR9zt0gppEE
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 14:11:37.7541
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8fceb9c1-4ede-43cd-f707-08df0f456dbf
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF00008481.eurprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR10MB5647
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Missing MDIO bus locking when `child_bus` is used in `core_write()=
-` and `core_rmw()`.
-- [High] TRGMII calibration races with the SoC switch's phylink state machi=
-ne, leading to concurrent modification of the SoC switch's PMCR register.
-- [Medium] Incorrect restoration array used for 'ondie' switch TRGMII calib=
-ration.
-- [Medium] Ignored parameters and out-of-bounds drive strength values in TR=
-GMII TX drive setup.
-- [Low] Unused parameters in `en751221_trgmii_cal_ok`.
---
+From: Simeon Marijon <simeon.marijon@foss.st.com>
 
-commit f83ec08496a229bd3e0f1b5361ff644674d8d493
-Author: Caleb James DeLisle <cjd@cjdns.fr>
-Subject: net: dsa: mediatek: support EN751221 switch
+Adds the binding documentation for TAMP backup registers.
+The backup registers is a part of the TAMP device of STM32 MPU.
 
-Adds support for the on-die and MCM switches on the EcoNet EN751221, along
-with TRGMII link calibration between them.
+Signed-off-by: Simeon Marijon <simeon.marijon@foss.st.com>
+Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
+---
+ .../bindings/nvmem/st,stm32-tamp-nvram.yaml        | 57 ++++++++++++++++++++++
+ MAINTAINERS                                        |  7 +++
+ 2 files changed, 64 insertions(+)
 
-> --- a/drivers/net/dsa/mt7530.c
-> +++ b/drivers/net/dsa/mt7530.c
-[ ... ]
-> @@ -466,6 +476,251 @@ mt7531_pll_setup(struct mt7530_priv *priv)
-> +static bool
-> +en751221_trgmii_cal_ok(struct mt7530_priv *rx, u32 reg, int chan, int i)
-> +{
+diff --git a/Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml b/Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml
+new file mode 100644
+index 000000000000..4af3b88db566
+--- /dev/null
++++ b/Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml
+@@ -0,0 +1,57 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/nvmem/st,stm32-tamp-nvram.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: STMicroelectronics STM32 backup registers as NVMEM
++
++description: |
++  This represents STM32 backup registers area presented as nvmem cells.
++  This contains various information (e.g. boot mode passed to bootloaders).
++
++maintainers:
++  - Simeon Marijon <simeon.marijon@foss.st.com>
++  - Patrice Chotard <patrice.chotard@foss.st.com>
++
++allOf:
++  - $ref: nvmem.yaml#
++
++properties:
++  compatible:
++    enum:
++      - st,stm32mp15-tamp-nvram
++      - st,stm32mp25-tamp-nvram
++
++  reg:
++    description:
++      TAMP Registers bank location and size.
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    nvram: nvram@5c00a100 {
++      reg = <0x5c00a100 0x80>;
++      compatible = "st,stm32mp15-tamp-nvram";
++
++      nvmem-layout {
++        compatible = "fixed-layout";
++        #address-cells = <1>;
++        #size-cells = <1>;
++
++        /* Data cells */
++        wakeup_sec: tamp-bkp@0 {
++            reg = <0x0 0x4>;
++        };
++        boot_mode: tamp-bkp@50 {
++            /*see boot mode selection feature*/
++            reg = <0x50 0x4>;
++        };
++      };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3a19da74d00c..b634c037c229 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -26261,6 +26261,13 @@ F:	Documentation/arch/arm/stm32/stm32-dma-mdma-chaining.rst
+ F:	Documentation/devicetree/bindings/dma/stm32/
+ F:	drivers/dma/stm32/
+ 
++STM32 TAMP DRIVERS
++M:	Simeon Marijon <simeon.marijon@foss.st.com>
++M:	Patrice Chotard <patrice.chotard@foss.st.com>
++L:	linux-stm32@st-md-mailman.stormreply.com (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/nvmem/st,stm32-tamp-nvram.yaml
++
+ STM32 TIMER/LPTIMER DRIVERS
+ M:	Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+ S:	Maintained
 
-[Severity: Low]
-Are the chan and i parameters needed here? They appear to be unused within
-the function body.
+-- 
+2.43.0
 
-> +	u32 val =3D 0;
-> +
-> +	regmap_read(rx->regmap, reg, &val);
-[ ... ]
-> +static void
-> +en751221_set_tx_drive(struct mt7530_priv *priv, u8 drvp, u8 drvn, u8 clk=
-_drvp,
-> +		      u8 clk_drvn)
-> +{
-> +	int channel;
-> +
-> +	/* Tx driving for TRGMII path on SoC */
-> +	for (channel =3D 0; channel < NUM_TRGMII_CTRL; channel++)
-> +		regmap_write(priv->regmap, MT7530_TRGMII_TD_ODT(channel),
-> +			     TD_DM_DRVP(drvp) | TD_DM_DRVN(drvn));
-> +
-> +	/* Undocumented 6th channel, probably drive strength for clock line. */
-> +	regmap_write(priv->regmap, MT7530_TRGMII_TD_ODT(5), TD_DM_DRVP(drvp) |
-> +		     TD_DM_DRVN(drvn));
-> +}
-
-[Severity: Medium]
-Should this be using the clk_drvp and clk_drvn parameters instead of drvp
-and drvn? It looks like the intended clock drive parameters are being ignor=
-ed
-completely here.
-
-[ ... ]
-> +static void
-> +en751221_trgmii_pair_setup(struct mt7530_priv *ext, int ext_port,
-> +			   struct mt7530_priv *ondie, int ondie_port)
-> +{
-[ ... ]
-> +	/* BOTH: Put interfaces in a downed state */
-> +	mcr_down =3D PMCR_IFG_XMIT(PMCR_IFG_XMIT_64) | PMCR_MAC_MODE |
-> +		   MT7530_FORCE_MODE | PMCR_MAC_RX_EN | PMCR_BACKOFF_EN |
-> +		   PMCR_BACKPR_EN | PMCR_FORCE_SPEED_1000 | PMCR_FORCE_FDX;
-> +	regmap_write(ondie->regmap,  MT753X_PMCR_P(ondie_port), mcr_down);
-> +	regmap_write(ext->regmap, MT753X_PMCR_P(ext_port), mcr_down);
-
-[Severity: High]
-Is it safe to modify the SoC switch's PMCR register directly from the MCM
-switch's phylink execution context?=20
-
-The SoC switch has its own phylink state machine. If it concurrently runs
-mt753x_phylink_mac_link_up(), could it result in a data race that corrupts
-the PMCR register and breaks calibration assumptions?
-
-[ ... ]
-> +	/* BOTH: Set TX drive strength, MCM uses more */
-> +	en751221_set_tx_drive(ondie, 8, 8, 7, 7);
-> +	en751221_set_tx_drive(ext, 11, 11, 16, 16);
-
-[Severity: Medium]
-Does the value 16 fit in this hardware field?=20
-
-The caller is passing 16 for clk_drvp and clk_drvn, which appear to
-overflow the 4-bit fields defined by TD_DM_DRVP_MASK and TD_DM_DRVN_MASK.
-
-[ ... ]
-> +	/* MCM: Spread spectrum clock*/
-> +	core_clear(ext, CORE_PLL_GROUP8, RG_LCDDS_SSC_EN);
-
-[Severity: High]
-Could this call to core_clear() corrupt the MDIO bus during indirect MMD
-accesses?=20
-
-core_clear() relies on mt7530_mutex_lock(priv). If the MMIO-based switch is
-using priv->child_bus instead of priv->bus, mt7530_mutex_lock() will see
-priv->bus is NULL and silently return without locking:
-
-static void mt7530_mutex_lock(struct mt7530_priv *priv)
-{
-        if (priv->bus)
-                mutex_lock_nested(&priv->bus->mdio_lock, ...);
-}
-
-Would this leave the child_bus completely unlocked during the sequence
-of bus->write calls required for indirect MMD access, leading to data
-corruption on the MDIO bus?
-
-[ ... ]
-> +	/* BOTH: Collect and then zero every RX TAP */
-> +	for (channel =3D 0; channel < NUM_TRGMII_CTRL; channel++) {
-> +		reg_val =3D 0;
-> +		regmap_read(ext->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-> +		default_taps_ext[channel] =3D FIELD_GET(RD_TAP_MASK, reg_val);
-> +		regmap_clear_bits(ext->regmap, MT7530_TRGMII_RD(channel),
-> +				  RD_TAP_MASK);
-> +
-> +		reg_val =3D 0;
-> +		regmap_read(ondie->regmap, MT7530_TRGMII_RD(channel), &reg_val);
-> +		default_taps_ondie[channel] =3D FIELD_GET(RD_TAP_MASK, reg_val);
-> +		regmap_clear_bits(ondie->regmap, MT7530_TRGMII_RD(channel),
-> +				  RD_TAP_MASK);
-> +	}
-> +
-> +	en751221_trgmii_calibrate_direction(ondie, ext, default_taps_ext);
-> +	en751221_trgmii_calibrate_direction(ext, ondie, default_taps_ext);
-
-[Severity: Medium]
-Should this second call pass default_taps_ondie instead of default_taps_ext?
-
-If the calibration for the ondie receiver fails, it looks like it will fall
-back to the taps collected from the ext switch rather than its own, which
-might lead to a broken or unstable link.
-
-> +
-> +	dev_info(ondie->dev, "TRGMII inter-switch link initialized\n");
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909140346.2861=
-572-1-cjd@cjdns.fr?part=3D7
