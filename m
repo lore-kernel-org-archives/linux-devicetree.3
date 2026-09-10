@@ -1,74 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BA531C861D;
-	Thu, 10 Sep 2026 00:32:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DFFC2EEE7B;
+	Thu, 10 Sep 2026 00:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789000378; cv=none; b=s/lRNmoxhTnOnrAxtvk3ZaO1vSyb589NvMIRIph22+O3bfxzrvmpvPXAnQOCiQgtsQJjtcgJLtmNbq3Ed8YB63zvEQiBNNA/sI29vqCTd2FvCtY0QZoAiBSEbb7oxEgrK/eVpwLvNEW35xpztiY8f5588VP6A6L57gfOdI/Eono=
+	t=1789000830; cv=none; b=tNnUXj4J0Jwo4QgcT5ojnqIx+E+O20+me8WbmPHW/ZAp3MYFK/SZRpluTZvTcQ9D+IyLBXePdYvDRuKZl9p9xx71hfRl3af+Y3HXn/FwnNHhZaQ5s+D+nntBYqXqQC2qgP/MuSCoDfqHnuZeNCjkuJJRSLHDnL0NZS4fRK99bqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789000378; c=relaxed/simple;
-	bh=8cWv/vOTjLPbfseM45igA6i1DzOUG7FZcdu9UR3qHo4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s1NOb1YySFSlve6TvLBH/B2e9BA11TKnT3wbzjj3jR+JOr1FXV0lnw4WpZ9FmgB9WsCb9nYzTge9vrmydlzsvW0koD7N7quUsjSIVBtinlJ2RetDn6AqiQ/QjUmdA5rcg700aIUJ3cVevI3Qqa4PtyDCJ6l7rvck3hLPrffxIJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEz4hSrV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789000830; c=relaxed/simple;
+	bh=CPBwrW7AMHZbi49TGAepTGODqjPbJX/LSYLSbSicYqc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MwNv8/luK81gdXBVn3d2fRYcJKD+TqkyAe9zFBS+qotgoTMqLnzH2+zjwDwDrR2VxPUMrFCYvLxq7J+wDI+qxJdS0vPdHMNvwy1BF8y8Pbn00qBSzYgNo/vDbP/mZfWccv1dTzeJBLfLFKwSq2lHaeu03XGHE+uye6ffZyMv5SU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=W2e0+R+j; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEz4hSrV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C03E11F000FF;
-	Thu, 10 Sep 2026 00:32:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789000377;
-	bh=8cWv/vOTjLPbfseM45igA6i1DzOUG7FZcdu9UR3qHo4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mEz4hSrV6/O4pH/kYC1Ob00kznFhGWVvB79so9eA5e/8JQeKBgHeXq7VKqo1TO0PW
-	 p/z5ozyyOHtgLr0aNzLs7YnY7bGWs3Du0ML5d6iLLQly5E+9KNHt0QTnwbj14JJ4Nl
-	 8ixEvA34zv6xJz5idv2lqts20wLk5PKh4nFc0Y62jIvVTY4+KWZ17FWJkgiZBP7Gxm
-	 ZK04z/LaZOt0A+C5mQW4imqtrbQuB7O0TcR4Fkzwiy0ddW/Rn6Ox41zegN21FGg5Rv
-	 RXtnkw5TwgUuxXRfa6E9i3lK8iZEfxKmFcgpc6K8ksqslv87PSeGzNAlkRkzXECtXa
-	 Jax+69SrDPlOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 2/2] mfd: ac200: Add X-Powers AC200 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "James Hilliard" <james.hilliard1@gmail.com>
-Cc: mfd@lists.linux.dev, conor+dt@kernel.org, lee@kernel.org, robh@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <20260909-submit-ac200-mfd-v12-2-a44d6bc30a4f@gmail.com>
-References: <20260909-submit-ac200-mfd-v12-0-a44d6bc30a4f@gmail.com>
- <20260909-submit-ac200-mfd-v12-2-a44d6bc30a4f@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 00:32:56 +0000
-Message-Id: <20260910003256.C03E11F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="W2e0+R+j"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id ADACC40E58E;
+	Thu, 10 Sep 2026 02:40:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1789000824; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=LB4xOGwX5zRvsIqTiz17TCA8SFZm8FpI7B2jc9dy2MY=;
+	b=W2e0+R+j5MhtDmDdh4jEQPXtRn2UQUSpSayn4MrW/NP39/u/IvlpGWcZWJY4zwClYDQUzv
+	CVsbJXXCxEis6yeZPP8PhS628sxtAa6o2kSnhGKVTtHwpdxRpQz28T3jHfdNRl91JpJK17
+	j3zVTIrdKBxvtCCAe7rM1lZN6NChxCMcvus84hPhVafJRaSRoRAMD5QyaxC0qJKBFs3QpL
+	MIW5cpvlvw6UP9JuRNeY2KhE9XCW0Uo7HIwB/iO3ntqfdJ0G7GLezv3sWjJCW5gApBps7G
+	TYuqkcPWYJ0oE1S4QfMMEUd2tW284zNPKoiTo2oCEPB7vIC9GX4Nipve6uqmsg==
+Message-ID: <508e083a-2bee-4003-8ee9-e9b269b2821d@cjdns.fr>
+Date: Thu, 10 Sep 2026 02:40:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: econet: add EN751221
+ ethernet
+To: Matheus Sampaio Queiroga <srherobrine20@gmail.com>, lorenzo@kernel.org
+Cc: 25181214217@stu.xidian.edu.cn, andrew+netdev@lunn.ch,
+ angelogioacchino.delregno@collabora.com, b.larsson@gmx.com,
+ conor+dt@kernel.org, davem@davemloft.net, devicetree@vger.kernel.org,
+ dong100@mucse.com, edumazet@google.com, enelsonmoore@gmail.com,
+ han.junyang@zte.com.cn, hkallweit1@gmail.com, jes@trained-monkey.org,
+ krzk+dt@kernel.org, kuba@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
+ matthias.bgg@gmail.com, maxime.chevallier@bootlin.com, naseefkm@gmail.com,
+ netdev@vger.kernel.org, p.zabel@pengutronix.de, pabeni@redhat.com,
+ robh@kernel.org, vadim.fedorenko@linux.dev, wangruikang@iscas.ac.cn,
+ xuanzhuo@linux.alibaba.com
+References: <20260909212146.3184077-2-cjd@cjdns.fr>
+ <45cb6035-4d15-426d-bb3f-45d20b4201da@gmail.com>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <45cb6035-4d15-426d-bb3f-45d20b4201da@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> The X-Powers AC200 is a mixed-signal companion IC with a paged register
-> map accessed over I2C.
->=20
-> Enable and rate-lock the shared input clock, retain the vendor resume
-> path's 40 ms wait before creating the regmap and accessing registers, and
-> deassert the common reset. No minimum delay is documented. Set only the
-> deassert bit instead of forcing a reset cycle, avoiding a chip-wide reset
-> of unrelated function registers. Leave the common reset deasserted during
-> driver removal and system shutdown; function drivers own their block
-> resets. Supplier unbind still tears down linked consumers and releases
-> the provider's clock references.
->=20
-> Cache only the common page selector. Individual functions can reset
-> independently and invalidate their other registers, so leave all
-> functional registers volatile.
-> [ ... ]
->=20
-> Co-developed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
-> Signed-off-by: Andre Przywara <andre.przywara@arm.com>
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 10/09/2026 01:09, Matheus Sampaio Queiroga wrote:
+> Hello everyone, please excuse this email.
+>
+> In my opinion, the Ethernet driver for the Econet/Airoha MIPS SoCs 
+> should be merged with the existing Airoha driver.
+> i get PPE and xPON to start and work on the en7523, en751221, and en7528.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909-submit-ac2=
-00-mfd-v12-0-a44d6bc30a4f@gmail.com?part=3D2
 
+For my part, I don't agree with that opinion. When I first began 
+developing this driver, I first began trying to work on that driver and 
+I couldn't find a way that didn't lead to code which I consider ugly.
+
+The main differences in hardware are the number of RX/TX chains in the 
+QDMA, number of IRQ banks (we only have 1), QDMA register layout is very 
+different and we have fewer features, and we have two GDMs rather than 
+four. Also as I recall we have fewer channels available so QoS logic is 
+not drop-in.
+
+If someone proposed to me to add Airoha support to this driver, I 
+wouldn't want the same econet_qdma.c file supporting both platforms, and 
+in the Airoha driver the QDMA subsystem is more tightly coupled - so if 
+I maintained that driver, I would not want them merged at all.
+
+I added Lorenzo Bianconi the Airoha maintainer to this thread in case he 
+may have some thoughts on the topic.
+
+
+Thanks,
+
+Caleb
+
+
+>
+> With a discussion on the Openwrt forum,
+> it is said that integrating the en751627, en7528, and en7580 Ethernet 
+> drivers into the new EcoNet Ethernet driver.
+> These families are closer to what we already have in the Aiorha driver.
+>
+>
