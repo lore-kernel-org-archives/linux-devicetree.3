@@ -1,122 +1,178 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AA7377A84
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:57:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C86A41A4E4
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:58:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048661; cv=none; b=Q2LIQrVpuX72mCuWuEnb5EeuOPxYc8iMhR16srW3MEM3saTSJcAWfD2env6OZ0Q2BygytD/jHI7RcXnkdZE2+9OuOjYU7xi3m+CwoJRuy/p2CzV1fGB9gfsHwPa0cxGw9iaQrW+Pcb/5yx0OUVh2WWaiDvDcpfMKP/1GAg1XX/w=
+	t=1789048737; cv=none; b=t66xH38cNPIY4HuzDjv8MwtXK02IwwV6WL6Cg9l34NvkiRcC7cBQpzy5GWtlSRip2Wr+Dhbf4mOzDbGHJjLcvfZJu3thQP8OU1ro4yuJxD7MNSCE64sRemNurVopTNL1gVdSu2/cbcCnAjUyLFF5nmyOCxFOO7QJcQ0KN2q1HO8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048661; c=relaxed/simple;
-	bh=7pzS66mW6e3ALZNDynhB6cB41mv4jlT4ksSfm1l/Pu8=;
+	s=arc-20240116; t=1789048737; c=relaxed/simple;
+	bh=7VeLJRhgG0JRMUO3g/TnISnoJmz+ulN9yD/6m5blcrw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aijBC4JG7Vf8vzdtUFk2zo/fsWPUgE+wRSgjuVIcCJe+JwJwSK0/bzEySP8uOlZxy9NQ64SD855CA1ESEM2O+YPLddqWqVfUzzHjLcXoSJttbVIYAOB/V7z2frm1me19KUuXyBgu2tGyGHa79GtBDSZ1wYWfUT3z4l5q6LTpGo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QgJdYZxs; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mA0jtcQY9KT2ZZovrcnpLfOsQGaRrvwJLDNJkjkbma9qmhtDRyCJ7PJAZVKA3wUExsJeLEmqM/pw0zVhczGOjJ/5zIY3q7Gig8Rbkn4OT7D1t1AnMb6XiRY5R9+i2AdCBO2RpqX6ZpuSgM25UfKhXKQIwivoYH8oZx9dRKNiOR0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CYZjPoJR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QgJdYZxs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76CA21F000FF;
-	Thu, 10 Sep 2026 13:57:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CYZjPoJR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BBB31F000FF;
+	Thu, 10 Sep 2026 13:58:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789048659;
-	bh=WtVaw91JUmsf/WwTVF4TiXTMNSlQfX3sXEJl6ot7ZSM=;
+	s=k20260515; t=1789048735;
+	bh=VQQvg4EHgulNGhJ87Zve9DiwmcJ+rzLlhhxCe+wEwu4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QgJdYZxswdvQ4gdAO//CVCP1QXka1+w1+8hywHARqWMrKihn3aEMr3WgtkJ7+D0gq
-	 UqX6esDwF0bXfiMA47y1x3jqw+luj1xcn9/OuRa8rZeSfQ3Qpu3BMZANZ1c8AWhE5C
-	 WlVrSOcz9jCALEYrxXlpR93EI7tF77kEBXfiQC1iaXadGFg8LKA4EE6o3hjtZzlpxg
-	 QZGZ7ESPdtHXaFT2cOYw2LzN3Eg4sk3qESR4aDKU5JRfktVG5MV0XS28LrnPjbyfgQ
-	 fJgN+ELD7GYe1OJ1XZkQfIF6woQfxybobsw5AGrEAVOL5aB6U0/wNNyXPgAdxtx0W4
-	 02Hy+SXethwug==
+	b=CYZjPoJR1q896xI6X60VDKUgwPlWGSmKXNsg20pmv3W4n/41VVV5tR4opKk8vL1ID
+	 Zz3JCF6+GkFo0NHhXgNL54qEt859HxW4d7qjL7uODeO8kcdQvu0xaGfn1FHB9R6vY5
+	 KE4EqTftDWAty4LzffDgnvxLUlMHSgxUZzV2f6OukTAaLDKvkuSK3+eh1drZu7750m
+	 HWfw/1luvrX7/tzA/zTI44sXjaZhpqk9nQIP8LJGfamK1hDM+HRazWAijf2T36lqJZ
+	 d6NzxlqMslM+mgnIH9A2VI9M5OQ6nBjuXNlzHRxp3l4fttTdSyqY2MmiEaGBQEX8eK
+	 3xLUPcAQjcS5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 30/34] arm64: dts: qcom: talos: Move PCIe phy and GPIOs
- to root port node
+Subject: Re: [PATCH 32/34] arm64: dts: qcom: msm8996: Move PCIe phy and
+ GPIOs to root port node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260910-root_port-v1-30-90a252ddbbfa@oss.qualcomm.com>
+In-Reply-To: <20260910-root_port-v1-32-90a252ddbbfa@oss.qualcomm.com>
 References: <20260910-root_port-v1-0-90a252ddbbfa@oss.qualcomm.com>
- <20260910-root_port-v1-30-90a252ddbbfa@oss.qualcomm.com>
+ <20260910-root_port-v1-32-90a252ddbbfa@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 13:57:38 +0000
-Message-Id: <20260910135739.76CA21F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 13:58:54 +0000
+Message-Id: <20260910135855.5BBB31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
+New issues:
+- [Critical] Removing `phys`, `phy-names`, `perst-gpios`, and `wake-gpios` =
+from the PCIe root complex (controller) node breaks device tree backwards c=
+ompatibility with older kernels.
+- [Medium] The commit message falsely claims to move `phy-names` to the roo=
+t port nodes, but the property is completely omitted.
+
 Pre-existing issues:
-- [High] Moving `phys` and `reset-gpios` into the root port child node acti=
-vates a pre-existing PHY initialization resource leak in `qcom_pcie_parse_p=
-ort()` on probe deferral.
+- [High] Missing `phy_exit()` cleanup on error paths leads to unbalanced PH=
+Y initialization.
 --
 
-commit 97d4c74a5631a23e99d2209733340334556228ea
+commit eb9552cbeaad8284f5ba99a861cad696426a8167
 Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-arm64: dts: qcom: talos: Move PCIe phy and GPIOs to root port node
+arm64: dts: qcom: msm8996: Move PCIe phy and GPIOs to root port node
 
-This commit moves PCIe PHY and GPIO properties (perst/wake) from the RC
-controller node to the root port node (pcie@0) in device tree files for
-QCS615 and Talos.
+This commit updates the device tree bindings for the MSM8996 PCIe controlle=
+rs
+by moving the PHY references and PERST/WAKE GPIO properties from the Root
+Complex nodes into the child port nodes. It also renames the perst-gpios
+property to reset-gpios to match the binding used in the root port context.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs615-ride.dts b/arch/arm64/boot/d=
-ts/qcom/qcs615-ride.dts
-> index 43f110ba3a7c5..4edd2b1bb03af 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs615-ride.dts
-> +++ b/arch/arm64/boot/dts/qcom/qcs615-ride.dts
+> Move phys and phy-names from the controller to
+> pcie0_port0, pcie1_port0, and pcie2_port0, adding labels to these
+
+[Severity: Medium]
+The commit message claims that phy-names is moved to the pcieX_port0 nodes,
+but it appears to be completely omitted in the changes below. Is the commit
+message inaccurate, or was the property accidentally dropped?
+
 [ ... ]
-> @@ -444,15 +444,17 @@ &mdss_dsi0_phy {
->  };
+> diff --git a/arch/arm64/boot/dts/qcom/apq8096-db820c.dtsi b/arch/arm64/bo=
+ot/dts/qcom/apq8096-db820c.dtsi
+> --- a/arch/arm64/boot/dts/qcom/apq8096-db820c.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/apq8096-db820c.dtsi
+> @@ -458,23 +458,32 @@ hdmi_ddc_suspend: hdmi-ddc-suspend-state {
 > =20
->  &pcie {
-> -	perst-gpios =3D <&tlmm 101 GPIO_ACTIVE_LOW>;
-> -	wake-gpios =3D <&tlmm 100 GPIO_ACTIVE_LOW>;
-> -
->  	pinctrl-0 =3D <&pcie_default_state>;
->  	pinctrl-names =3D "default";
-> =20
+>  &pcie0 {
 >  	status =3D "okay";
+> -	perst-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
+>  	vddpe-3v3-supply =3D <&wlan_en>;
+>  	vdda-supply =3D <&vreg_l28a_0p925>;
 >  };
+
+[Severity: Critical]
+Does removing the legacy perst-gpios property from the pcie0 controller
+override cause a device tree backwards compatibility regression?
+
+Older kernels booting with this updated device tree might fail to initialize
+the PCIe controller because they cannot find the reset GPIOs on the Root
+Complex node.
+
+[ ... ]
+> diff --git a/arch/arm64/boot/dts/qcom/msm8996.dtsi b/arch/arm64/boot/dts/=
+qcom/msm8996.dtsi
+> --- a/arch/arm64/boot/dts/qcom/msm8996.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/msm8996.dtsi
+> @@ -1924,9 +1924,6 @@ pcie0: pcie@600000 {
+>  				      <0x0c100000 0x100000>;
+>  				reg-names =3D "parf", "dbi", "elbi","config";
 > =20
-> +&pcie_port0 {
-> +	reset-gpios =3D <&tlmm 101 GPIO_ACTIVE_LOW>;
+> -				phys =3D <&pciephy_0>;
+> -				phy-names =3D "pciephy";
+
+[Severity: Critical]
+Will removing these PHY bindings from the pcie0 controller node cause older
+kernel versions to fail to initialize the PCIe controller, since they may n=
+ot
+scan the child port nodes for the PHY properties?
+
+>  				#address-cells =3D <3>;
+>  				#size-cells =3D <2>;
+>  				ranges =3D <0x01000000 0x0 0x00000000 0x0c200000 0x0 0x100000>,
+> @@ -1975,11 +1972,13 @@ pcie0: pcie@600000 {
+>  						"bus_master",
+>  						"bus_slave";
+> =20
+> -				pcie@0 {
+> +				pcie0_port0: pcie@0 {
+>  					device_type =3D "pci";
+>  					reg =3D <0x0 0x0 0x0 0x0 0x0>;
+>  					bus-range =3D <0x01 0xff>;
+> =20
+> +					phys =3D <&pciephy_0>;
+> +
+
+[Severity: Medium]
+Should phy-names =3D "pciephy" be added here, as described in the commit
+message?
+
+[ ... ]
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does moving reset-gpios into
-the root port node activate a PHY resource leak during probe deferral?
+This is a pre-existing issue, but while reviewing the driver handling for
+these ports, is there a missing phy_exit() cleanup on error paths in
+drivers/pci/controller/dwc/pcie-qcom.c?
 
-In drivers/pci/controller/dwc/pcie-qcom.c, qcom_pcie_parse_port()
-successfully gets the PHY and calls phy_init(), which increments the
-init_count and enables clocks and regulators. Immediately afterward, it
-calls qcom_pcie_parse_perst(), which requests reset-gpios.
-
-If the GPIO controller probes later, this returns -EPROBE_DEFER:
+If probe defers due to GPIOs not being ready, the unbalanced PHY enable cou=
+nts
+will accumulate. In qcom_pcie_parse_port():
 
 drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_parse_port() {
-    ...
+	...
 	ret =3D qcom_pcie_parse_perst(pcie, port, node);
 	if (ret)
 		return ret;
-    ...
+	...
 }
 
-This error path returns without calling phy_exit() and without adding the
-port to the pcie->ports list. As a result, the cleanup path in
-qcom_pcie_parse_ports() also fails to invoke phy_exit().
+This early return bypasses PHY cleanup since the port is not yet added to t=
+he
+global list. Similarly, in qcom_pcie_parse_legacy_binding():
 
-This permanently leaks the phy_init() call on each probe deferral, meaning
-the underlying clocks and regulators will never be disabled, even on system
-suspend or driver unbind.
+drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_parse_legacy_binding() {
+	...
+	port =3D devm_kzalloc(dev, sizeof(*port), GFP_KERNEL);
+	if (!port)
+		return -ENOMEM;
+	...
+}
 
-> +	wake-gpios =3D <&tlmm 100 GPIO_ACTIVE_LOW>;
-> +};
-> +
-[ ... ]
+Could these early returns cause resource leaks of the PHY state initialized
+earlier?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-root_port-=
-v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D30
+v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D32
