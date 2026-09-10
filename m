@@ -1,78 +1,123 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74B91486647;
-	Thu, 10 Sep 2026 14:41:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C4B0489FD6;
+	Thu, 10 Sep 2026 14:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789051299; cv=none; b=kOC3PrpPIGPprCGXakDxh1anzmjCXBSa5EC5ZC1oJf511aYr7J4wprVUYZN3rZRzC7xoImCir7T/CKGA7BlP+3HYe0KgbKoMRkP00KSSDAKAF2WI2ee95uc7z44h8qOtgPaEy/dlXQtBXl51txSkMAKXuKDTtE2dgG9puH42zxM=
+	t=1789051339; cv=none; b=eYnEnl+4heWhRf/Q7ysGi0Ln5e48/RA+l/4SJvlakkt/qMUc/hsHPz+Q4tdP/SwHsuQZvnKTNooIqx2LyODTqjk2wOMI0MoYqHiDVvYj7B1/uiQlePhXagrSUF9NH2vtzoioNc80rx0mYLA635Drc+ZNMiRWu9kNAKFdD+Sd+48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789051299; c=relaxed/simple;
-	bh=NQhEknJQA8Ya6L5zdIqdUOsD85jIBAx1y0eYH103iRE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SIVxpfTh34phbtmWujLCiu0o27jo+wdJ4dC2xJbi0CKrt37bmseqpwdVqdTFSZJ4S3pdfFEv0zWjXG6owY4I1axrQhxA2hbdmhoeFEDEwD3NAvHUXiqqbqbtycCTNp5rNyLWecmeeME9V7s2Uf5P3d2qBh5WVpr3cGYEISznv0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=l/3pZbar; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789051339; c=relaxed/simple;
+	bh=qPqjuUdASs9Y65n69OhxSNlg/J55Ht5KUqLO2cTCHVk=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=fXqeOcOlgCADZvnLrqbRJY9NH8/9p4Ny+72cXQrLkIDhAfLn4r0AwPh0LiLsajnrAUZvmhOsaVNVdOHgOI4/UMuZMDtMJ8zSCmrAntK4hDJWB6/ViRtbocCq1lf6LxMUaznuWHaRbSiSLy06FFgPYQ+2ahmAFNKh3LE4FbupJkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=j22MncXL; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="l/3pZbar"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789051295;
-	bh=NQhEknJQA8Ya6L5zdIqdUOsD85jIBAx1y0eYH103iRE=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date:From;
-	b=l/3pZbarrLBIxC/Bgeh0sOVvNAHiwRlpACyCd/tvr6a1aDM1yE39N2cpwZK+VQkVE
-	 MgyWtOO0Dc/G1ZYcB3Qm2E1JLOY5QbBZm9ZMoR9VGyxl8WU4ADu2K1EFkl5j0Iad/6
-	 XiSMMocF2vJVEhsJ1ZOcck/zDrlzfTgL8Y4/YjcB/mFxDppjKilV/UtDKUyEpZP31Q
-	 mTKYy9+55otmsuxQ4ciXEEflpRBMZuFFQOBurS1VbeCxTqCCwf68d/vmE7JBrSXGzi
-	 NWXbHAsrvc2mgBb8+DDl0wZsc62pBjWjXdb1zlMM5WGG2NQrb7qk2p8HS+ZRws6USc
-	 ICkrBPI187SkA==
-Received: from IcarusMOD.eternityproject.eu (unknown [100.64.1.21])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: kholk11)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id D79DB17E05D3;
-	Thu, 10 Sep 2026 16:41:34 +0200 (CEST)
-From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-To: Matthias Brugger <matthias.bgg@gmail.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Sean Wang <sean.wang@mediatek.com>, 
- Wim Van Sebroeck <wim@linux-watchdog.org>, 
- Guenter Roeck <linux@roeck-us.net>, Zakariya Hadrami <zkh@mailbox.org>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-watchdog@vger.kernel.org, zkh1@proton.me, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org>
-References: <20260910-mt8127-amazon-ford-basic-v5-0-3cb9eeaffd5c@mailbox.org>
-Subject: Re: (subset) [PATCH v5 0/4] ARM: Basic support for Amazon ford
- tablet (MT8127)
-Message-Id: <178905129482.89344.17321319958555136692.b4-ty@b4>
-Date: Thu, 10 Sep 2026 16:41:34 +0200
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="j22MncXL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789051338; x=1820587338;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=qPqjuUdASs9Y65n69OhxSNlg/J55Ht5KUqLO2cTCHVk=;
+  b=j22MncXL8gq3H0/OpbAYkFuxZhAYpw9AyfSfIKgrGhLRtqMaQIYHFId8
+   NoXxtWW4qRr0K2v/0JnEQHWeSUIgVHWlcZEPCVRCmG+iFwTSLFRlaWvIj
+   r8O88JHe1LaCRRlaGqiEwP2MLf/Ri0PzTGoPkGytwK787wTqhnNPqi21c
+   lmLKqr6jenNePLpRjo4eXU1cj3B/2o74qIOQfJCCbc1TtnLEurmvIGVXR
+   SE0Au91JJFLaj9HULcx1w3Mgo6dV2wS+K6QEBJqcgkHR+OwKxoOaxEOBO
+   u5iH95APwNsBaQbtGzu9zuhAJqaFWwPrM2LfZaGJg9OBc/iaZphHv+Mjm
+   w==;
+X-CSE-ConnectionGUID: ++gFX0kJTeughVEf/8o8fA==
+X-CSE-MsgGUID: 9SI3P4RTS8GgOmBtetQaKg==
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="63425380"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 10 Sep 2026 07:42:17 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
+ chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Thu, 10 Sep 2026 07:42:16 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 10 Sep 2026 07:42:12 -0700
+Message-ID: <5ee1b3f9832621686adbde94324e7b6350254f37.camel@microchip.com>
+Subject: Re: [PATCH net-next v12 2/9] dt-bindings: net: lan9645x: add
+ LAN9645X switch bindings
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: <UNGLinuxDriver@microchip.com>, Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, "Simon
+ Horman" <horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung
+ Huh <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
+ Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
+	<daniel.machon@microchip.com>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Thu, 10 Sep 2026 16:42:12 +0200
+In-Reply-To: <f745c884-ecfd-4dbd-ae33-6b713f8ab73d@lunn.ch>
+References: <20260908-dsa_lan9645x_switch_driver_base-v12-0-2d6aa59350cd@microchip.com>
+	 <20260908-dsa_lan9645x_switch_driver_base-v12-2-2d6aa59350cd@microchip.com>
+	 <f745c884-ecfd-4dbd-ae33-6b713f8ab73d@lunn.ch>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
 
-On Thu, 10 Sep 2026 15:29:11 +0200, Zakariya Hadrami wrote:
-> This series of patches adds basic support for MT8127 SoC based Amazon ford
-> tablet.
+On Tue, 2026-09-08 at 14:59 +0200, Andrew Lunn wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> > rx/tx-internal-delay-ps is used to model a direct MAC to MAC fixed link=
+,
+> > using RGMII, where exactly one of them must supply the delay.
+> > Documentation/networking/phy.rst describes plain rgmii as the mode wher=
+e
+> > the MAC or the PCB adds the delay rather than the PHY.
+>=20
+> This is not correct. phy-mode 'rgmii' in DT means the PCB adds the
+> delay.
+>=20
+> If the value is not 'rgmii', then the MAC/PHY pair need to decided on
+> which adds the delay, and by convention, it is normally the PHY.
+>=20
+> Where it gets interesting is MAC to MAC, which you do see in
+> switches. Using rx/tx-internal-delay-ps makes a lot of sense in this
+> setting.
+>=20
+> The binding itself looks O.K, its just this commit message text which
+> is wrong.
+>=20
+>         Andrew
 
-Applied to v7.3-next/dts32, thanks!
+This is exactly intended to model the MAC to MAC fixed link situation.
+So no PHYs between, and one side needs to supply the delays.
 
-[2/4] dt-bindings: arm: mediatek: Add MT8127 Amazon ford
-      commit: f97be0d722ebef4de65a39813778f6ba62c2ac1e
-[3/4] ARM: dts: mediatek: mt8127: Add watchdog support
-      commit: 5e23e7d730c6e984e4f03c3b25e2188de9f4ba99
-[4/4] ARM: dts: mediatek: Add basic support for Amazon ford board
-      commit: 2e195497fc9fc0dd89cf95dab80a2d0486dab65b
+I had originally implemented this by using the phy interface mode to progra=
+m
+the MAC delays off of. This is what we had done previously in lan966x say.
 
-Cheers,
-Angelo
+But I was instructed that the modern approach is to use rx/tx-internal-dela=
+y-ps
+along with phy interface mode rgmii. There are a few other examples of
+dsa bindings doing this:
 
+Documentation/devicetree/bindings/net/dsa/microchip,lan937x.yaml
+Documentation/devicetree/bindings/net/dsa/realtek.yaml
 
+I will remove the paragraph from the commit message if that is wrong. I hav=
+e
+misunderstood that part of phy.rst.
+
+Thanks,
+Emil
