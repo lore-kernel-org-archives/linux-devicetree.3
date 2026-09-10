@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6FF4A8A3C
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 17:48:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1737256853C
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 17:56:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789062491; cv=none; b=tNwnWG4IybyUcE8Ts+6lDiEG390bB1dWhEm2ND28Y4O9WOp+OYa2YK0rVXpVtCTUhFem/KM0LqovPWFB1lAHv4o8yixP7mn2m1Hokcug68+ClsZkh9ungu5HHz88exexbO1dLVIKsay9K2d9CU26qp4GmcCzeFTtqeLQOJw+w/0=
+	t=1789063009; cv=none; b=czwQjWw+g3+o54f10mZna/JcrpDWqV8b3yW7eWx7yOnH7/vl16ia8WfWNjXPmd8p/e9xQfekIH+MJi9xigeI23rmZ5uh8dV7UbMI5suFmkJ+i2unqV9L+OT9H8jQ7KbSN8W40FPxJI/kL5zBdBHKzXAIQbNfrn2R/glIwCMBUzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789062491; c=relaxed/simple;
-	bh=bD//0WkGPVhxIPlupssabjviuS+RqqxisqEjKtqpfSA=;
+	s=arc-20240116; t=1789063009; c=relaxed/simple;
+	bh=TCIV94+iXWVjIY9v894kAiNBD52+4C8YHLAH3ze85TQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rBbwoRlBhg6sSBo6+dOmYpQDTlbWrn4ijAqBSkPcczly31S6KrqTu+JObLTN9/akuox3nq/zyFh3JW1zn0IaKTj0Vys0vOtYNtzXMM9KIRXmP2vGQuh/itRjMFO59WeNA8y15kvOt91Oty9cSq8Ds3suWZi3Vtzpz5HaJdeAuc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FyFwOXpY; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tIhevkwP3rTYMDcMjo+HhFNXEhb3WT1VOg3MlZ1IZUlGr1ouwyjAroxXlSiupoVG1rsRH06ULVlyy6N00qOzPkXn39nlvCRhYmqpJCSHbaExvZtkwZ6MYULec/n5E90hT30bEV5pBZ4UF/X4wlsdy5tVt9m0zjputFe4BZjHXU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1kN0fb8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FyFwOXpY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC76C1F000FF;
-	Thu, 10 Sep 2026 17:48:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1kN0fb8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA8F21F000FF;
+	Thu, 10 Sep 2026 17:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789062483;
-	bh=G6HueEuoe3zur8tf/blNF3CaqFPZ0G6OW0kXaKR8awI=;
+	s=k20260515; t=1789063008;
+	bh=HP53Vba8Rayg2LEK5CjELwEALBAQp+nESfoZvs8rmnw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FyFwOXpYkxiouoSXOi6RlemeWHwdWNjfDWw52KXG4bJDfiq9CybZnkupeoCutkoiH
-	 A8WoV3GoWFab0Aw9dGHLGODIcylA5MvE+xp8YBFoz5dHTUU3iksZux9KCBKV8Cc9bH
-	 KasKK5XK/SzCm+8CV+bnH0p9dV9tR4/SAcitqA5+OWTiq761My02e2mNN7jnmNpCyy
-	 r4zKkyvLHZVWGieZSGIxsRfGEWXg8QcZGZpMXcmjGBac3UdosUFIbkqILtYGgRHuIA
-	 9I0XaOOJzWGFPAbuZjZFkcJmU47pzkmsSBtKZ84PxgVosjMckVb8oHFUvp1/WRP3T1
-	 q8iWI/LeX+9kQ==
+	b=S1kN0fb8/B8KFLme1/ATAE5QG2PKPVXK8EOELNvvMC8bXUMKa4xVM80KmNb1fxJIS
+	 olPoIRLX8QkQqfSMREJ4bfBkhNx3Koc41utN6u9c+V5dvCxUIh4GJc2G2PIh8PzLYO
+	 IH/INwBdG9PA4mIybG2okBXv+2KtB19RMvieE95miZXSp95uLw68bMdgQ3BnRT8DUs
+	 HTCcBIsMcnP79AJI4CCOPo4HJHs10W5fePct8wf/wXlN7p9N/kC7cgZ2IwY/UPTGCP
+	 8HXE8L8ADKlvgoyv+yEQgM1JqUQ2BdA208oJDGZ3yEmVeIqy9wmou7s0L7vTXOzFSu
+	 XySZrxYTQl9Bw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 07/17] iio: adc: ad7768: Add power mode helper
+Subject: Re: [PATCH v7 05/17] iio: adc: Add AD7768 and AD7768-4 core support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Janani Sunil" <janani.sunil@analog.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260910-ad7768-driver-v7-7-7f70b07627e1@analog.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260910-ad7768-driver-v7-5-7f70b07627e1@analog.com>
 References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
- <20260910-ad7768-driver-v7-7-7f70b07627e1@analog.com>
+ <20260910-ad7768-driver-v7-5-7f70b07627e1@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 17:48:02 +0000
-Message-Id: <20260910174802.EC76C1F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 17:56:47 +0000
+Message-Id: <20260910175647.BA8F21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,79 +46,103 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Incorrect register value is written to the MCLK_DIV bitfield for M=
-EDIAN power mode, leading to hardware and software clock divergence.
+- [High] The AD7768_REG_CH_STANDBY register is incorrectly programmed using=
+ logical channel indices instead of physical channel bitmasks for the AD776=
+8-4 variant.
 --
 
-commit 52c81df3b6fbeb2c9857e18cf49af9fcfe8ebeae
+commit 09736b063e77e92595bbf9636bddc775b728127b
 Author: Janani Sunil <janani.sunil@analog.com>
 
-iio: adc: ad7768: Add power mode helper
+iio: adc: Add AD7768 and AD7768-4 core support
 
-Describe each power mode and its internal master-clock divisor in a
-table. Replace the open-coded fast-mode setup with a helper that records
-the active mode, preparing for dynamic mode selection.
+This commit adds core support for the AD7768 and AD7768-4 simultaneous
+sampling ADCs. It provides SPI protocol configuration, channels and input
+buffer parsing, IIO backend connection, and runtime PM support.
 
 > diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
-> index 44ba19fb20962..be815b8c6766e 100644
-> --- a/drivers/iio/adc/ad7768.c
+> new file mode 100644
+> index 0000000000000..3cb58c2554a31
+> --- /dev/null
 > +++ b/drivers/iio/adc/ad7768.c
 [ ... ]
-> @@ -102,6 +104,17 @@ enum ad7768_clock_source {
->  	AD7768_CLOCK_SOURCE_LVDS,
->  };
-> =20
-> +struct ad7768_power_mode_info {
-> +	unsigned int mode;
-> +	unsigned int mclk_div;
-> +};
-> +
-> +static const struct ad7768_power_mode_info ad7768_power_modes[] =3D {
-> +	{ .mode =3D AD7768_POWER_MODE_POWER_MODE_LOW, .mclk_div =3D 32 },
-> +	{ .mode =3D AD7768_POWER_MODE_POWER_MODE_MEDIAN, .mclk_div =3D 8 },
-> +	{ .mode =3D AD7768_POWER_MODE_POWER_MODE_FAST, .mclk_div =3D 4 },
-> +};
-> +
-[ ... ]
-> @@ -330,6 +344,32 @@ static int ad7768_sync(struct ad7768_state *st)
->  			       AD7768_DATA_CONTROL_SPI_SYNC);
->  }
-> =20
-> +static int ad7768_set_power_mode(struct ad7768_state *st,
-> +				 unsigned int mode_idx)
+> +static u8 ad7768_all_standby_mask(const struct ad7768_state *st)
 > +{
-> +	const struct ad7768_power_mode_info *mode_info;
-> +	int ret;
-> +
-> +	mode_info =3D &ad7768_power_modes[mode_idx];
-> +	ret =3D regmap_update_bits(st->regmap, AD7768_REG_POWER_MODE,
-> +				 AD7768_POWER_MODE_POWER_MODE_MSK |
-> +				 AD7768_POWER_MODE_MCLK_DIV_MSK,
-> +				 FIELD_PREP(AD7768_POWER_MODE_POWER_MODE_MSK,
-> +					    mode_info->mode) |
-> +				 FIELD_PREP(AD7768_POWER_MODE_MCLK_DIV_MSK,
-> +					    mode_info->mode));
+> +	return GENMASK(st->chip_info->num_channels - 1, 0);
+> +}
 
 [Severity: High]
-When configuring MEDIAN mode via ad7768_set_power_mode(), does this code
-inadvertently configure the MCLK_DIV bitfield using the power mode
-register value instead of the correct clock divider register code?
+Does this logic in ad7768_all_standby_mask() in drivers/iio/adc/ad7768.c
+compute the correct standby mask for the AD7768-4? The GENMASK macro returns
+a logical mask (0x0F for 4 channels), but shouldn't it return the physical
+mask (0x33, mapping to physical channels 0, 1, 4, 5)? Returning the logical
+mask here might cause issues with standby register updates for AD7768-4
+logical channels 2 and 3.
 
-For MEDIAN power mode, mode_info->mode is 0x2. Writing 0x2 to the MCLK_DIV
-bitfield sets the hardware divider to 4 (MCLK/4), instead of the expected
-divider of 8 (MCLK/8, which requires register value 0x1).
-
-Since ad7768_power_modes correctly defines mclk_div =3D 8 for MEDIAN mode, =
-the
-software will calculate output rates and delays based on a divider of 8, wh=
-ile
-the hardware runs twice as fast.
-
-> +	if (ret)
-> +		return ret;
+[ ... ]
+> +static int ad7768_update_scan_mode(struct iio_dev *indio_dev,
+> +				   const unsigned long *scan_mask)
+> +{
+> +	struct ad7768_state *st =3D iio_priv(indio_dev);
+> +	unsigned long channel_mask;
+> +	unsigned long standby_mask;
+> +	int ret;
 > +
-> +	ret =3D ad7768_sync(st);
+> +	channel_mask =3D ad7768_all_standby_mask(st);
+> +	standby_mask =3D channel_mask & ~*scan_mask;
+> +
+> +	/*
+> +	 * Crystal excitation requires channel 4 on AD7768 or channel 2 on
+> +	 * AD7768-4 to remain active.
+> +	 */
+> +	if (st->clock_source =3D=3D AD7768_CLOCK_SOURCE_XTAL)
+> +		__clear_bit(st->chip_info->num_channels / 2, &standby_mask);
+> +
+> +	ret =3D regmap_update_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> +				 channel_mask, standby_mask);
+
+[Severity: High]
+Could this update in ad7768_update_scan_mode() be writing to the wrong
+hardware bits? Because it uses the logical channel mask, it appears to write
+to reserved bits for the AD7768-4.=20
+
+Additionally, clearing st->chip_info->num_channels / 2 clears logical bit 2
+for the AD7768-4, but shouldn't it clear physical bit 4 to keep the XTAL cl=
+ock
+channel active? Failing to keep the correct physical channel active could s=
+top
+the master clock and break the device when using the XTAL clock source.
+
+[ ... ]
+> +static int ad7768_parse_config(struct iio_dev *indio_dev,
+> +			       struct device *dev)
+> +{
+[ ... ]
+> +	device_for_each_named_child_node_scoped(dev, child, "channel") {
+> +		u32 channel;
+> +
+> +		ret =3D fwnode_property_read_u32(child, "reg", &channel);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "Failed to parse reg of %pfwP\n",
+> +					     child);
+> +
+> +		if (channel >=3D st->chip_info->num_channels)
+> +			return dev_err_probe(dev, -ECHRNG,
+> +					     "Invalid channel %u in firmware\n",
+> +					     channel);
+> +
+> +		ret =3D regmap_clear_bits(st->regmap, AD7768_REG_CH_STANDBY,
+> +					BIT(channel));
+
+[Severity: High]
+Does this initialization in ad7768_parse_config() use the raw logical chann=
+el
+index instead of the physical mapping? By using BIT(channel) here, it looks
+like it writes to reserved bits instead of the actual physical channels for
+AD7768-4 channels 2 and 3, which could leave those channels permanently in
+standby and lead to data loss.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-ad7768-dri=
-ver-v7-0-7f70b07627e1@analog.com?part=3D7
+ver-v7-0-7f70b07627e1@analog.com?part=3D5
