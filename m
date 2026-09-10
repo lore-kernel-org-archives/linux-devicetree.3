@@ -1,198 +1,164 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A0D2498920
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D9D249BD73
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:11:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789049332; cv=none; b=WgoBEswnfUbdvk34jMHNSyF4J9ArESoUiwrvoIg9uw6wCCQnZ7rGQSiSmZPz/kssBjeZsyfJgYWCo3OH+tl3XKbB/9gP2ySvb3Z+X6NnskJp3nn5+K9Wxa2R+Cbfm5oq+k8DoSGVYyjXLKLvojvMlTnxzwE5oe78D0E8aTg06Co=
+	t=1789049495; cv=none; b=CTYtK/69Vcd2m5Kz3HLj52r3Z1pgFD/F7OuVphl0R845iBGF+/U8r85oUhgE2nsSqnv2UaFObEDSxZiV9UobRRquCKOweXsFuDmix7eyWzPS2UUFZBzmJ7cak9zf/7niKcqsyUnmwGqrzgdUM64RUg0ObyPCFJMQxA0UCfpber4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789049332; c=relaxed/simple;
-	bh=PJp7at6YbmABjQssQHHtns6pe+hmMVd0Nnzb//pLNGo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=A3IcJu2deqKKbjXz5tVjdlTfbKTMv7OWFxtHb8pzDPKbCdUENfv9id1JNdwiClMuBH3YO/lFB2gIfmANC5ourbh7MW0RWrWGsmgA9RgAvIhukS2oVr9FFdUSYzTDJbRfpRHohoOtkUH3nY09+lXKjyLzAV+fX0MlmDs58hYK0lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NIOO4oHB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A597FpSj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789049495; c=relaxed/simple;
+	bh=Hv3vW/LEWUkV+XtytW9GWZbXSGcMkJtqxF/UQhk9LQ4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YGRiAsjRb09gQQtN1HaEkANAec079wOFbdaVDuSmhPBEVEwYVywwGTXtYTcl8rGwxTJdqGvrd8kKqXCAHh6upX2OirnftYr8svT3klXC1BP8MknvbjPnpUfWLeIS6osh/SH9Nohg7Xb6vgINCBc7UQHcODeZtL49vf2Mkzvm668=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bcxedpik; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NIOO4oHB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A597FpSj"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68ADc3EC1067904
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:08:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=Xsa+f+27jsxypSSVPRpVMM
-	g/ju4l/7cO2PJaOMBUNws=; b=NIOO4oHBcIOSEwcH1CMpjqjIFnwbS4Tz5CqtIQ
-	5T1GEaxyl9UVtXKwKzitUiRK4FKyca8kxEgM8A2h5s3Opzhu8kIw/HNM4CzxBwXw
-	rfc+kbnAYvhF7LoNjpYfF+Wa/5f+nMydlPxOKf+HU/YbviuWVBlkSQgjtVQyhwa9
-	UuIwFKg/SyVCaxwQ48EhNucnbVT6kIU9iP8hBwDz3vzCSvCztGiIQkMLF5ZqlC1p
-	Z0jllnxuIa+5bSOJAaqYEUk3Blm+hhAM7AQpG1Xo23/psM0Y0s9CG20szoYO05vi
-	cRCftKkPqdubeXX0C5FKZ08+ZL2ebekXDR8X/Iw5aNcXcOBw==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkwkw84p6-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:08:47 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6bc8f608979so2570984eaf.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:08:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789049326; x=1789654126; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Xsa+f+27jsxypSSVPRpVMMg/ju4l/7cO2PJaOMBUNws=;
-        b=A597FpSj69HQ3Jd64jZWnr7EXJ6hj9htfyMU1kTnnixT4Fn86FRwLv5KMlm68LBhS3
-         4hnYGh8PUiXUh6r1gqzagyG1D6WLTu8EUL0gj3lDZKY6uPvTzz8hGQ5rbjkA0dTa6QIS
-         5j6HMHL/bNf4lAmuXvLywd5j8txskkE4+CCE4QI0Lb+OS+CVdVkOPwZnKsSqeHaFrSSY
-         9GM4nbxlhF4jD+L+RZLtJMkST4Zo1MsDXrjSk3Soi+9j4SMw1vOXYzuawj1o1ZIvJJ9p
-         whDt1ODphPLzfG4snXh4855Pgx1QhiGV8z8UMwaGGCEBEYcS05sp+0Iigw+HLwI5aUHB
-         2zag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789049326; x=1789654126;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=Xsa+f+27jsxypSSVPRpVMMg/ju4l/7cO2PJaOMBUNws=;
-        b=P+EIcsY49KarktP2XNT7352cYgDwLkFsYCJ7QekcHdgMMdKDA320CteONzRM24TDXU
-         FGzGwKF0bK3huxNQtg2M4X0NbKP3Rd02aDloSAKuoNb77+ggABvjY1XRoQSYFgpFVMp7
-         VCz8HaInSeL15QRU1VWJwZMMLTQsVzZT+gCFxbu8OkoLQNwoilQAWvRLxy04GKzmpML7
-         qSHRXqEYpiTO4CYd5le9foJ/JBW4VV4ZqHffmo+6MQrqKX/Fcv5JaqnDMa586LvcdgsG
-         hwOqdDxgPrlVAJzAi1g8isFdI14uiO5XSXQAtvHqyccPa/ne45kjne31OKMLwfgPC/PP
-         pu+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzcdgItu6mPRUCiCqR4+pSFB+vET3km5g3KbGBkFZqEs2ISjQC+lvsU67eIBvOy5QhdzTNcn+o1+Yj/@vger.kernel.org
-X-Gm-Message-State: AFuF++kwDHO/EHpvtsVkD7m3aKPX6EudAETo40Q7Dp6jP3aaRcMmfHnu
-	95cpaNitutdiRSUTs0t2KHrWcIyh2g6urFpjPgTjibnEVCHD2+Yp4D6cR7uZaIBOhb0SfI8tgnW
-	nBUWZ6IjBnod6saMXrbimYfqJzf/i5QI9lzNcFPVa91h2tUXzXoHVqBv8kq9h6EmQorHWNcJp
-X-Gm-Gg: AYBFou1SA6x1ZR3AeUnFanwkIvl7mywkLkKhNg0xH/a/wRzCAasEH6n89V42bg0jAlF
-	HslmXrcMeJevbGI00puLXIjuU8NjRpVyrmAzXQk0PEq4cXRSpHJzS1/DUaICJekguJ3AUVPeG+U
-	07rHhiTCG4DBWAplmPOeyfFOF22VyCDI7JXDRUTwFjtPAKsCgJFZkYRDJcWwfB+h2aCJm3BYtr+
-	GBjbw2H9JWV8EDUawF8UHAlDDN9vLkKev1Pp7qp6hGYsBaAnwpODc83Tkl8n148zCWnX7beHohu
-	hxBmq6gCq8JQQdM+43xcZIarVmns/oCXDIMlfSiXADeC0GYUwc0fe7tzY3pqEeHgGS8OvCzYKUb
-	niUf0EQ==
-X-Received: by 2002:a05:6820:812:b0:6be:4eb3:e1be with SMTP id 006d021491bc7-6be4eb3ed98mr5956676eaf.39.1789049326401;
-        Thu, 10 Sep 2026 07:08:46 -0700 (PDT)
-X-Received: by 2002:a05:6820:812:b0:6be:4eb3:e1be with SMTP id 006d021491bc7-6be4eb3ed98mr5956622eaf.39.1789049325769;
-        Thu, 10 Sep 2026 07:08:45 -0700 (PDT)
-Received: from [127.0.1.1] ([86.121.7.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c494basm69712295e9.12.2026.09.10.07.08.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:08:44 -0700 (PDT)
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Date: Thu, 10 Sep 2026 17:08:35 +0300
-Subject: [PATCH v3] arm64: dts: qcom: eliza-cqs-som: Enable Adreno A722 GPU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bcxedpik"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B22A51F00893;
+	Thu, 10 Sep 2026 14:11:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789049493;
+	bh=+Bfd4YcjXARryfwXtBEVgeES9jDcCdBPfceBU1ADTDQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Bcxedpikbz+UUd23aOQdfdLBytCCrLSV94Pk3PF8CAgwOGeoRjTcFY5W4h7SaMmkV
+	 LLOzq5nLLhDQr9Zt3fX/Wi7QD41Up9p6zIw2USsvgzDNYIaAVGGzVE0y5ZnleGodnF
+	 5x8YQfqLYWM8qpDqxFk83mR7jGCAv56BrClhuQfWPivmqgcQPnjKR5hcA8Nzfu2UK1
+	 PM1RoeIeiF8GtWOKIyruNmb4mp6v7sLOnqT1YfT0R/COlESHZBj/G/nHOMM/erX8HJ
+	 EWcEFalfTYgEvVbEg78hHqG7eHuX+08OwOy8FsEMKoUIwoc1dVQ/WGrIFEoe0UOrOb
+	 5o0+dINDrIYsg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next 5/7] net: dsa: mediatek: support MDIO switch
+ downstream of MMIO switch
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260909140346.2861572-6-cjd@cjdns.fr>
+References: <20260909140346.2861572-1-cjd@cjdns.fr>
+ <20260909140346.2861572-6-cjd@cjdns.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 14:11:32 +0000
+Message-Id: <20260910141132.B22A51F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-dts-qcom-eliza-evk-enable-gpu-v3-1-806bf0fc51de@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOK5omoC/43Oyw6CMBAF0F8hXTuEDq/gyv8wLtoyQJV3oVEJ/
- 27BjQsT3UxykztnZmGGRk2GHb2FjWS10V3rQnjwmKpEWxLo3GWGASZBFnDIJwOD6hqgWj8FkL0
- BtULWBGU/QxKHqHjIFQnOnNGPVOj77p8v72xmeSU1bejWqLSZuvGxP2D51vv3luXAQaQqLCSmM
- qLs1BnjD7Oo3Urju8G2kxY/UfyFokNjLqMYRZQEAr+g67q+AJpAGEA4AQAA
-X-Change-ID: 20260901-dts-qcom-eliza-evk-enable-gpu-6532c131cea1
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Abel Vesa <abel.vesa@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-0e65f
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1525;
- i=abel.vesa@oss.qualcomm.com; h=from:subject:message-id;
- bh=PJp7at6YbmABjQssQHHtns6pe+hmMVd0Nnzb//pLNGo=;
- b=owEBbQKS/ZANAwAKARtfRMkAlRVWAcsmYgBqornmBIN7oAX3fVfYgFv0vXR0ZXLqJyBqphYi4
- UaQeo0N90SJAjMEAAEKAB0WIQRO8+4RTnqPKsqn0bgbX0TJAJUVVgUCaqK55gAKCRAbX0TJAJUV
- VhFQD/0eyDEQSNWpja7ldWoi9sap4iQuBgCTYeeOgUrlRSKbfOYW8NO9m35fcHkCDM2om2qIVWQ
- 6w6e9/srQRV1LbaWfUxsK488G+22jlSQ8QWyQPqW2FrgeKthdUS8csvLZbVKOo2sVn04I9/ccAp
- YCylwhOhQjARXVmGWdPRao2+LJld8NI8NJssRoBcdj8H9dJdxko7VKNn1y/ljr9uFhzF9T5QTam
- cIZO2fP/0FDRhGIEoklEHE2voMJVUd6K8gFD2Vedbrd3T+RnXmAxL2KLQCDg238loqgVOtd8kfS
- iRkwpd/IAttyVU70UX9KhAeEOYbslwzHfEtV/fQD8CWjLcu5cSZbX6bBtmezwZ8jdHUdDPiq16R
- +aXfOapWKDxvBRHrGjJKOvf+ejBFJ+kCzVJnffR7YFuAf1Z1vRJqy8sraS7cNPtsGoYvyaylhpJ
- wmFN7KzZwe8uwqiH1CQi80ve/GwEKPzlkYSPa/HUaQi/MDuFCecTWWdP35ICr5aQ/qZqUYOcgXf
- cq8hSI+zKafNhAilwxZVVQA8aG3M7GUqcAg5Z9ROpprIvFT8LRs/DihG0CPa7ElcD+vhdCNhOBh
- dZXUXj192hyv0wpel1uMnpwgtdA7blNyLYnDYG339XAZ4DCEux1zY12fLDE5FTGA1TQF/0vW6S9
- f2SyQMVlrgMMaEw==
-X-Developer-Key: i=abel.vesa@oss.qualcomm.com; a=openpgp;
- fpr=6AFF162D57F4223A8770EF5AF7BF214136F41FAE
-X-Authority-Analysis: v=2.4 cv=EZNd0/mC c=1 sm=1 tr=0 ts=6aa2b9ef cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=dePp4Gl7O00gmbwhyVsZwA==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=cfKdWksii-jdlWvcsasA:9 a=QEXdDO2ut3YA:10
- a=WZGXeFmKUf7gPmL3hEjn:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDE3MCBTYWx0ZWRfXyZJt3Vtwptm+
- et11qb7x+7gn4ylfeB0A/CEZSK1viaCpXUSIwDd/7VGHwd3vzK/VqQ79Q+RVMP8VY8XM8WU/BjF
- 9wl97TTzRn8hHLZkcctsTNcRTM7jegY=
-X-Proofpoint-ORIG-GUID: Z3rvQqvmDJSdxca1QImwF62LMpDkh1YN
-X-Proofpoint-GUID: Z3rvQqvmDJSdxca1QImwF62LMpDkh1YN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDE3MCBTYWx0ZWRfXzMT2ZEO2CUco
- Rv4xojGhOLuMItQFT+I2ovTPd3o7sl6o94DPlGWWoGBDgOjC0IAin57XdO2AqYHQv0K5XOUso1Q
- gnkVCyuu4V0WV4TyH0mHsZJE2mUgs5NH0JK1CMRcDaNfGGPs5pJyXb0l1Wk6jPXAxz7hfLcvMSp
- GPC+Q9A+1yDPVqCuopeDiaFfBZs4hRjtKBVju2IHWUwVOBJkd3jZMPsWc32pFayR17Z6GiQkHU7
- UgFPzd5EtPbp/grEsvUvLaVjkUlDJVNS4Uyjby5jMCkHn1jai0rORhEyS+e2PwKZep1RyG0f07L
- A8SdwooIExXkAIfTyDw5B3Q6oC2G/PaMKLmDj8FdeTI6DjP4VECkZrCvBqkY8y1eNvTCSraalt0
- wT7H3G5fQ/GeD8NzAXNlQjdi/qnqbYER/6ncEFaySwcdifZGYPD+JYoIq+zTLRfYMeK69IP7xAw
- 4TG3GL8bzvJTCxWpX9g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-10_04,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 spamscore=0 phishscore=0 malwarescore=0 impostorscore=0
- priorityscore=1501 adultscore=0 suspectscore=0 bulkscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100170
 
-Enable the Adreno 722 GPU on the Eliza CQS SoM board and provide the zap
-shader firmware path.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Missing dsa_unregister_switch() on the error path in mt7988_probe(=
+) leads to a Use-After-Free in the DSA core.
+- [High] Race condition between mt7988_probe() and mt753x_setup() leading t=
+o double initialization of the MDIO bus.
+- [High] PHY IRQ setup is skipped when mt7530_setup_mdio() is called from m=
+t7988_probe() and the DSA tree is initially incomplete.
+- [Medium] Data race on the static variable idx when allocating MDIO bus ID=
+s in mt7530_setup_mdio().
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
----
-Changes in v3:
-- Rebased on next-20260909.
-- Moved the nodes in proper place, to preserve alphabetical order.
-- Link to v2: https://patch.msgid.link/20260902-dts-qcom-eliza-evk-enable-gpu-v2-1-51b452a460a2@oss.qualcomm.com
+commit ff8217ffff0d9218375ba11bf6c77febbfa2ceba
+Author: Caleb James DeLisle <cjd@cjdns.fr>
 
-Changes in v2:
-- Rebased on next-20260901.
-- Picked up Konrad's R-b tag.
-- Reworded commit message as Konrad suggested.
-- Fixed the zap shader firmware filename.
-- Link to v1: https://patch.msgid.link/20260901-dts-qcom-eliza-evk-enable-gpu-v1-1-a7c3fb27b4e9@oss.qualcomm.com
----
- arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+net: dsa: mediatek: support MDIO switch downstream of MMIO switch
+   =20
+This commit updates mt7530_setup_mdio() so it can be called multiple
+times and exports it. It then calls mt7530_setup_mdio() at the end
+of mt7988_probe() to allow a downstream MDIO switch to register
+when the upstream switch connects via MMIO.
 
-diff --git a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-index 5ef6c51618bf..fc2d419cfc09 100644
---- a/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-+++ b/arch/arm64/boot/dts/qcom/eliza-cqs-som.dtsi
-@@ -369,6 +369,14 @@ vreg_l7k: ldo7 {
- 	};
- };
- 
-+&gpu {
-+	status = "okay";
-+};
-+
-+&gpu_zap_shader {
-+	firmware-name = "qcom/eliza/gen71700_zap.mbn";
-+};
-+
- &pm7550ba_eusb2_repeater {
- 	vdd18-supply = <&vreg_l7b>;
- 	vdd3-supply = <&vreg_l17b>;
+> diff --git a/drivers/net/dsa/mt7530-mmio.c b/drivers/net/dsa/mt7530-mmio.c
+> index cf3bdb23a2d54..29fbd0fc50d1a 100644
+> --- a/drivers/net/dsa/mt7530-mmio.c
+> +++ b/drivers/net/dsa/mt7530-mmio.c
+> @@ -61,7 +61,12 @@ mt7988_probe(struct platform_device *pdev)
+>  	if (IS_ERR(priv->regmap))
+>  		return PTR_ERR(priv->regmap);
+> =20
+> -	return dsa_register_switch(priv->ds);
+> +	ret =3D dsa_register_switch(priv->ds);
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	return mt7530_setup_mdio(priv);
 
----
-base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
-change-id: 20260901-dts-qcom-eliza-evk-enable-gpu-6532c131cea1
+[Severity: High]
+Does this code leak the registered DSA switch on the error path?
 
-Best regards,
---  
-Abel Vesa <abel.vesa@oss.qualcomm.com>
+If mt7530_setup_mdio() fails, the probe function returns the error directly
+without calling dsa_unregister_switch(priv->ds).=20
 
+This can cause devres cleanup to free the priv->ds structure while the DSA
+subsystem still holds pointers to it, potentially leading to a use-after-fr=
+ee
+if the DSA core attempts to access the partially registered switch later.
+
+>  }
+> =20
+>  static void mt7988_remove(struct platform_device *pdev)
+
+[ ... ]
+
+> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+> index a165b4c8ed8d7..0c0c5358b8b80 100644
+> --- a/drivers/net/dsa/mt7530.c
+> +++ b/drivers/net/dsa/mt7530.c
+> @@ -2414,6 +2414,10 @@ mt7530_setup_mdio(struct mt7530_priv *priv)
+>  	static int idx;
+
+[Severity: Medium]
+Does this code have a data race on idx when allocating MDIO bus IDs?
+
+mt7988_probe() now calls mt7530_setup_mdio() directly without holding the
+dsa2_mutex.=20
+
+If multiple MMIO MT7530-compatible switches are probed concurrently, they
+could execute the unlocked idx++ at the same time, potentially generating
+duplicate MDIO bus IDs and causing sysfs registration to fail.
+
+>  	int ret =3D 0;
+> =20
+> +	/* Already done */
+> +	if (priv->child_bus)
+> +		return 0;
+
+[Severity: High]
+Can concurrent callers bypass this check and execute the MDIO setup logic
+twice?
+
+mt7988_probe() now calls mt7530_setup_mdio() outside of any lock. If a
+sibling switch completes the DSA tree concurrently, dsa_tree_setup() can
+call mt753x_setup() under the dsa2_mutex, which also calls
+mt7530_setup_mdio().=20
+
+Both threads could simultaneously observe priv->child_bus =3D=3D NULL, lead=
+ing
+to corrupted pointer states and duplicate MDIO bus registrations.
+
+
+[Severity: High]
+Will this early return permanently skip PHY IRQ setup if the DSA tree is
+initially incomplete?
+
+If mt7988_probe() calls mt7530_setup_mdio() while the DSA tree is incomplet=
+e,
+mt753x_setup() will not have run yet, so priv->irq_domain will be NULL and
+IRQ setup is skipped.
+
+Later, when the tree completes and mt753x_setup() is executed, it will set =
+up
+the irq_domain and call mt7530_setup_mdio() again.=20
+
+However, since priv->child_bus is already set from the earlier probe call,
+this check will return 0 immediately, and mt7530_setup_mdio_irq(priv) will
+never be executed for those ports.
+
+> +
+>  	mnp =3D of_get_child_by_name(np, "mdio");
+> =20
+>  	if (mnp && !of_device_is_available(mnp))
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260909140346.2861=
+572-1-cjd@cjdns.fr?part=3D5
