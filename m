@@ -1,125 +1,240 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867653A9620;
-	Thu, 10 Sep 2026 06:16:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021006; cv=none; b=Z1qvphuSayEbNzJ7/N4JJQvsdy4VJ2e1T2hGwpdr23McKe30Mk4UZH0PGY1wn/Ur71ASKuv76j7FCAEo2LqAlUDD6KIOdaI6uskN34gtKj79wMgirOrAbq+Dp3njOW1CDQRQjGtSTpd8WW0Au+QSb8dGsvDoIH5N+HsyPX7GBK8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021006; c=relaxed/simple;
-	bh=zT7qID2iUvPep5sG5ztpyVK3IWq3vpMN1lQ0gwC0RK4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dYroLlvr/c6O/YY4UCh1B0NcQtThy3E4WVLvORMRq8djb/XIjSHWGn//w8OdcX7mgWr3seTxtkued61oPNPDxVZbY9bT3vEPHWuRfdhuYis9g4BlZgQ5Y69k4ljWQY4+aVbq3ItUOWf02V1N5/+NdoKnKK+cepaLvKo5Duf63zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kCCkdbHi; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB44F3B27F6
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789021050; cv=pass; b=N70RQWl9RlifioNdck4mAsD69Iec47gKQB2Lcwc4/yLanVqdacBhSlzCAElIFbY3gH2zfuA04R4DDFkawkebzlvk7y02voev8eOCHTopIn4umwfbK8VAMebV0n3v91uLFr5f9Fq+ocj7UEXnAhn40Mte94hRw1FaXOiOby1ELJI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789021050; c=relaxed/simple;
+	bh=cPrLSyGwGLPmONlY2FTynuZ/8LkekDLtwBlnPe36bVk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ShRXX/+l8ImpXWhUsozKHudWg9+7O88oNy1cPdB9267wUUMn2VyLZ/cfUgIssa2KQFmZQ8439rGN08ang3d5prGbYk53450GpaJy4oR4C+hfXsevGlJ4DPGWKf9SgwygzhVckUCXGkvDazhfRjHQsq0w0AcXmmbmsS4CUNQIhho=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s3IRDFHO; arc=pass smtp.client-ip=209.85.217.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kCCkdbHi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789020999; x=1820556999;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=zT7qID2iUvPep5sG5ztpyVK3IWq3vpMN1lQ0gwC0RK4=;
-  b=kCCkdbHit7ga1XJg6ZnoUMfxW4X/QHDCKahuv8n8gpUrnH/o7K5WkS7K
-   LMaiKdg5b+BUM8lZid3SYyVzrqvJSWclY0dK4Lm7unQW1kVQhmD9aEkMI
-   nsqqsJ0suUODoqL6y+aXHYCK8guSjZRnSKDHmDJJY30h+87SqGWctODEJ
-   XLt0WxJX1RSZCqRFuAY0oWt/ssfScEemEu+zs7fi0AsS7hAvciC/ihWye
-   s2r+ddTq7AUr7RbX9P+2xfSec8CNsgJE78sxYkUL7aubSJL8DevMyyeoM
-   j0j5UGQ25EpzBxnZUH4pQHrMbPMgGQVORfeu+ByoQPnRp6PqJ9CAP+UCX
-   w==;
-X-CSE-ConnectionGUID: 0XSJyvWjTISkbceDawnqxg==
-X-CSE-MsgGUID: uTlQl6p0RPSXJNfXW+8ecg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="106831396"
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="106831396"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:16:35 -0700
-X-CSE-ConnectionGUID: m3BPGyf1SSC9cEObun3LLg==
-X-CSE-MsgGUID: QpyLLo3HSkWpKv9nxGUMIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,271,1779174000"; 
-   d="scan'208";a="309790789"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 09 Sep 2026 23:16:33 -0700
-Date: Thu, 10 Sep 2026 09:16:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 08/10] iio: dac: mcp47feb02: refactor MCP47FEB02 I2C
- driver into two modules
-Message-ID: <aqJLPT_pIH2pbZaB@ashevche-desk.local>
-References: <20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com>
- <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s3IRDFHO"
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7912ba58291so123833137.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 23:17:23 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789021039; cv=none;
+        d=google.com; s=arc-20260327;
+        b=C6r5kY1BNeNbAzBVSU4NFTPdPQHB1yzRqOVqpAXB3HNXLYBvvvK0SwFU8VwZ87zdRh
+         dwYVWZBxg31v5Csf98oVTMLna6t/C3gMjPqJDXXBH5lyK6euwmTQfRYnz0RubdchRZLm
+         bnGSFAq47+7v5IqZAq6VgBj0ty4STerxttVI+aE1xpmE/5nIknYpOTbcwCS/q6nNDl9H
+         bt7ZG5TllZrGcC2XKG6gvbrOx8lr8g5/+Zsrt/lmwZve/PefrOI4aIbgJP1cy0KfGt1q
+         MZSWtfB5RaN5WwBFfy3XE9CGUrlFejpTxfRKcGBFEv+2zT6djgMGu3Ry94RF9wFg/pb1
+         xfVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t+gu/5PaYwRoWH6FAJcX79bn4Lfhl+cAwZpfqQzFbKk=;
+        fh=kvYRr0VgE2GSdXOef7c0kwIt1VuryUR2w2HK51r7MXw=;
+        b=TvhMqo8s4RGdQteMtgH2v60fl/mFlrReOOLojnhhunzjJtpeIVmUz2SojzEplVgNZj
+         WoYy2RZeffoMNfhxb3XnCkN8MTbdwdkZNNuNdRLXSbgBVBmCfh4mYanx3c1rvTnuqlbg
+         03nYioCTdFN/FupPm+VaDei/8wbvXQm2hiJhUPFSA+weuXX4EdYNqqMEAgEW3NqxHDYV
+         B9MMR1pvxbZo0RppsIcj5ulDirDdzx7EH0r4JZufp2wP63Eutywo/kh5Uwy2/VkolrYx
+         Y+dm6HHye5KQzoU4FawNPMRXoHoALPXI+MfCqvCIIJJO1m+kzXFqllIYo90E66oDLQ3o
+         sGkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789021039; x=1789625839; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=t+gu/5PaYwRoWH6FAJcX79bn4Lfhl+cAwZpfqQzFbKk=;
+        b=s3IRDFHORWZQjwdW8fT9py5zLtdIu3NrcUBW8HwlshmHkVbq7hSqqQnn/JXiPd1oRB
+         MrjoTiU25YpaKxuU3fFnrY9y7J2Li1XRnfOMF0ZYVgkI0XYO/Wj8f/mzkR+9nhlX3NIR
+         +J0AQYTFrnxg2+Mr0eairAHic8ngLO5WMIJ8SoSIq4IQJiGqAyhHlkMmeDOT3ksQHYL1
+         mm3O4SkyotrikclbGD1ICnejW1wNu8YfX5TC1v0pM1z79Y6cqMwQaNekO9pRC4UOx4dZ
+         OaDm+JCSFl7phKSKvx5WwDTnZM38t1rDSHxrqcXdhggVw75ZLi/1+GmSCGTzjcBqOasa
+         Sk6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789021039; x=1789625839;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t+gu/5PaYwRoWH6FAJcX79bn4Lfhl+cAwZpfqQzFbKk=;
+        b=IBPm9AmWKVNDnGa472ZJQqt5u+eza3wC9YojxPR9uhMCMXD0eaCb4fMwKgCWGECcE4
+         mIKn4HB+7tn+u6dXLyNVX35RRYLzm9k/Ahmtm78lCMIRXGNpcF3yNWPCWl6J59Y2qXGs
+         rMutYoCsz8uuWRhJRwE7OEvys3ntfJ5uX5rpsMtfN/2jtEJHNklbq3HIhrNUspwafC/h
+         79RNIO3QES697rzYL6jA+eqttLwXM98YT8RnfaAK9HmNQrne7L3pxKpObR7PmID1dnvO
+         7ru2y0wbO9WOzmp7EAnR9yuSRXpEfNpWiC6fBQTnfiu0Fzp8S2cusM5prqqKevvGkcCq
+         fiew==
+X-Forwarded-Encrypted: i=1; AKwUvBwlwzWwnH9yfszhfo8WTt9myAxw3NpdHWT95rV8T5dXA6F7kVLTWsJZ5//Inydglauemh4MjW/1ItWq@vger.kernel.org
+X-Gm-Message-State: AFuF++nygx/BynLyVh7KtrVeH+Z6Hli9KFk0LCb0I7NZaX/1zBBoGp/7
+	6C7uaz02ysYNS6NP9Q1lA7F6ir2LLlQGnnfH3Mg9cWxm2U5bGB4Do0PX97EvyMgk2rpn+J2XhjG
+	MwIB42MoJJ7DFUdD4t2B+OQI/ipCakvA=
+X-Gm-Gg: AYBFou3OS8veG8OGOlWXrPx/DW9GptMH5oTnUAoEi6A3CiNc7fgM4lwzrn4QYy1q4IR
+	MUWZAOeMLDTlHcAilgGNzxv5k5O2x4KvAKYAXz5nH1BaVZ0a5fVIdpFAjqBCeV7cinWAEGjyX06
+	gBshSw1LBHFtNMHhBkNIbIzpCU4tCQAv602ZJuRh408xKxBBk9NLk5EHpbt3+T9B3zjDeHv1jg6
+	SwzPrbNTjvFzUA3gZny3e5Vw7o+/ygkqoc5IcaSsVXdDrQG0rYnjPz2nZcubDYjdv/7ZxzIQOs7
+	CYYYoLUu82h4H8AEF6nJBb3+2xsauoGPL7VS3rstu0rzNmhTUMOofjMkEcem3bRCJl4WZg==
+X-Received: by 2002:a05:6102:fa8:b0:78f:5bab:4761 with SMTP id
+ ada2fe7eead31-78f5bab4867mr6319524137.8.1789021039061; Wed, 09 Sep 2026
+ 23:17:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260909-mcp47feb02_refactor-v5-8-8b67bcab93d1@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260907-add-tda38740-and-tda38725-v2-0-1d051d63aa01@gmail.com>
+ <20260907-add-tda38740-and-tda38725-v2-1-1d051d63aa01@gmail.com> <20260907-kangaroo-ascend-d0541fbdc975@spud>
+In-Reply-To: <20260907-kangaroo-ascend-d0541fbdc975@spud>
+From: Colin Huang <u8813345@gmail.com>
+Date: Thu, 10 Sep 2026 14:17:05 +0800
+X-Gm-Features: AcwNN1WJnyA4tn7yoArv1afcfdYawuxDz1IlQc9gvSLXyiXSPW2rdMiDiRDwIWA
+Message-ID: <CAPBH0A9ULmcNV_SGf7GsywpdW_LZubkFY8hCrV7x_oXtv6-7dw@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
+To: Conor Dooley <conor@kernel.org>
+Cc: Colin Huang <colin.huang2@amd.com>, Guenter Roeck <linux@roeck-us.net>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 09, 2026 at 05:18:51PM +0300, Ariana Lazar wrote:
-> Prepare the driver for the bus-specific code by refactoring into separate
-> files. The renamed file will contain the common DAC functionality shared by
-> the MCP47FxBy1/2/4/8 I2C and MCP48FxBy1/2/4/8 SPI drivers. The MCP47FEB02
-> driver was refactored into two modules: mcp47feb02-core.c and
-> mcp47feb02-i2c.c in order to prepare the support for SPI MCP48FxBy1/2/4/8
-> DAC family on top of the current implementation.
+Conor Dooley <conor@kernel.org> =E6=96=BC 2026=E5=B9=B49=E6=9C=888=E6=97=A5=
+=E9=80=B1=E4=BA=8C =E4=B8=8A=E5=8D=881:03=E5=AF=AB=E9=81=93=EF=BC=9A
+>
+> On Mon, Sep 07, 2026 at 02:52:29PM +0800, Colin Huang wrote:
+> > From: Colin Huang <u8813345@gmail.com>
+> >
+> > Add devicetree bindings for the Infineon TDA38740 and TDA38725
+> > single-voltage synchronous buck regulators with PMBus interface.
+> >
+> > Signed-off-by: Colin Huang <u8813345@gmail.com>
+> > ---
+> >  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 82 ++++++++++++++=
+++++++++
+> >  1 file changed, 82 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda=
+38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda3874=
+0.yaml
+> > new file mode 100644
+> > index 000000000000..c9bf19902d3c
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.y=
+aml
+> > @@ -0,0 +1,82 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +
+> > +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
+> > +
+> > +maintainers:
+> > +  - Colin Huang <u8813345@gmail.com>
+> > +
+> > +description: |
+> > +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchrono=
+us
+> > +  buck regulator with a PMBus interface designed for industrial use.
+> > +
+> > +  Datasheet:
+> > +  https://www.infineon.com/row/public/documents/24/49/infineon-tda3874=
+0-tda38725-datasheet-en.pdf
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - infineon,tda38725
+> > +      - infineon,tda38740
+>
+> If the programming model for these devices doesn't differ, one should
+> fall back to the other.
+>
+Thanks for review.
+I will update.
 
-...
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  infineon,vout-scale-micro:
+> > +    description: |
+> > +      Scaling factor applied to READ_VOUT telemetry.
+> > +
+> > +      TDA38740/25 pin strap parts are available in two flavors of
+> > +      VOUT_SCALE_LOOP: 1:1 and 1:2.
+> > +
+> > +      For the 1:1 VOUT_SCALE_LOOP version, output voltage sense pins a=
+re
+> > +      directly connected to the output, and no resistor divider is use=
+d.
+> > +
+> > +      For the 1:2 version, a resistor divider is typically used (for e=
+xample,
+> > +      499 ohms for both top and bottom resistors).
+> > +
+> > +      In some designs, users intentionally modify the feedback divider=
+ ratio
+> > +      to obtain an output voltage different from the internally config=
+ured
+> > +      VBOOT or VOUT value.
+> > +
+> > +      In such cases, the device telemetry (READ_VOUT) continues to rep=
+ort
+> > +      the internally programmed voltage and does not reflect the actua=
+l
+> > +      externally adjusted output voltage.
+> > +
+> > +      This property provides a multiplier to scale the reported teleme=
+try
+> > +      value so that the monitoring system reflects the actual output v=
+oltage.
+> > +
+> > +      The value shall be expressed in micro units where 1,000,000 repr=
+esents
+> > +      a scaling factor of 1.0.
+> > +
+> > +      Example:
+> > +        If actual Vout =3D 0.75V and READ_VOUT reports 0.7V:
+> > +        scaling factor =3D 0.75 / 0.7 =3D 1.071
+> > +        value =3D 1071000
+> > +    $ref: /schemas/types.yaml#/definitions/uint32
+> > +    minimum: 100000
+> > +    maximum: 2000000
+>
+> This is not a required property, so you need a default.
+> pw-bot: changes-requested
+>
+> Thanks,
+> Conor.
+>
+Thanks.
+I will add the default.
 
-> +static int mcp47feb02_i2c_probe(struct i2c_client *client)
-> +{
-> +	const struct mcp47feb02_features *chip_features;
-> +	struct device *dev = &client->dev;
-> +	struct regmap *regmap;
-> +
-> +	chip_features = i2c_get_match_data(client);
-> +	if (!chip_features)
-> +		return dev_err_probe(dev, -ENODEV, "No I2C device found\n");
-
-Consider adding a patch that replaces ENODEV with ENODATA as we started doing
-in the other drivers. This will help to distinguish the source of the error.
-Also fix the error message accordingly. It's not about device.
-
-> +	if (chip_features->have_eeprom)
-> +		regmap = devm_regmap_init_i2c(client, &mcp47feb02_regmap_config);
-> +	else
-> +		regmap = devm_regmap_init_i2c(client, &mcp47fvb02_regmap_config);
-> +
-> +	if (IS_ERR(regmap))
-> +		return dev_err_probe(dev, PTR_ERR(regmap), "Error initializing I2C regmap\n");
-> +
-> +	return mcp47feb02_common_probe(chip_features, regmap);
-> +}
-
-...
-
-> +#ifndef __DRIVERS_IIO_DAC_MCP47FEB02_H__
-> +#define __DRIVERS_IIO_DAC_MCP47FEB02_H__
-> +
-> +#include <linux/pm.h>
-
-+ regmap.h for struct regmap_config.
-
-> +#include <linux/types.h>
-
-> +#endif /* __DRIVERS_IIO_DAC_MCP47FEB02_H__ */
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    i2c {
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <0>;
+> > +
+> > +        sensor@40 {
+> > +            compatible =3D "infineon,tda38740";
+> > +            reg =3D <0x40>;
+> > +            infineon,vout-scale-micro =3D <1071000>;
+> > +        };
+> > +    };
+> > +
+> >
+> > --
+> > 2.34.1
+> >
