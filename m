@@ -1,62 +1,103 @@
-Received: from mail-24424.protonmail.ch (mail-24424.protonmail.ch [109.224.244.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 331F03BB135
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791F5336EDA;
+	Thu, 10 Sep 2026 06:16:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789020816; cv=none; b=MaHjUa4jpc5zfUvKA0bWiECSYPn0C9IjPvaUXP7kMD0q/HvuddQJphAYTs8LeE0cCuIwCJgnJA5QmN/lA2NuR0cxHtNIEB3lb+njVHEqU5l0bc5qXGv36pDtra1/QYal+hJpn285IZxFgZ4xhc3C25D+N08RzYi1vqxhLxDOZX8=
+	t=1789020977; cv=none; b=sVUnKZk+v+geXmkkwSTyh23WWL8v+lDHBM8T3pHh41uitEIHvnITwKK+FDRJns7zcWf01064zyAVhiZUx9ZivQDoAiHUhF8PW+FB4aqKHaIywCXwnEeoeRG+/neueEZBO5ee1xp3fACBfJXe1Nkj+DSP8kpGyKaQPSakHDePsrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789020816; c=relaxed/simple;
-	bh=4DRjpTmqx3rm6I0hvi9f55+dQTsiCr0e/ow5gOW+LpY=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gl6cYzWI0cIpuQ3i/3ITr9dHMzMG3foJ6JzodRnGTbuNSf3wo5t/6PCUfy9e7amMhEBKkscqIRxQQn9EyLHWqGEh22Ev4cZoxh9TtJxg0nBcqwIB8rYziyhtl6Ydr4q+7Mh4YIMQY/A8E8DBM/HyzyHT18doBHrPfPhLGw5wopk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=hEx0l+z5; arc=none smtp.client-ip=109.224.244.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789020977; c=relaxed/simple;
+	bh=qrxc/7Oog3gqBDDTkCKt+BTeOzQQPqNSQKv4OvPekCg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=II1lAOtv7JYcdLBZzcYgGpWZj8+kf9hV5l4SAlP39lko6mDruF3afEZEPvtrJtlfph3FjPDeKLr3cL6KVV+y7aAShZCFVuBSDnVgliGK3SJRehH+SeG9bkAYvSZE5dgA0HQI0cjN00YJ43XrDW1AbAWkEj+4Vf6aC5FlSu5Iok0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GvTN8V1W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="hEx0l+z5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789020801; x=1789280001;
-	bh=Zd0oHaUPampheUnb5yp3fSoD46Zp5JgfaDgEyt/77nc=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=hEx0l+z5MazM82bsK0LQVJgbNwzldOr6D7oexcHVXrvG3G6Ut7o8b62vriwR+5SJ0
-	 YB8SDumn52wbJV6r6tr4h8WBBlzPCzoKG/i5CILdZ4aXHgw7dkDXshmHmm1GdNMeSQ
-	 dTRc5Rso1psDPR+y9pH8PGA/6S5VYD0Yev1L00VsGQ8w9aN++17WcVWPLl5cq8mHKt
-	 vXmarUU0bTdc/JA7KfuIWkdtth0noA2pgv/fi8qeLmscI8K/goOiWFzerv2x42dIQr
-	 9YSv5XeDII5b+LN2siBBb3KCs28YaUZLgjRoUPSKueDotjdzyob+FhrpUFaRPRamje
-	 VOyIy7uRVyOHA==
-Date: Thu, 10 Sep 2026 06:13:15 +0000
-To: Andrey Korshunov <razor1702@gmail.com>
-From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
-Cc: Chukun Pan <amadeus@jmu.edu.cn>, jensen <jensenhuang@friendlyarm.com>, "diederik@cknow-tech.com" <diederik@cknow-tech.com>, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY from the MDIO bus
-Message-ID: <VIvc1QJ9XRgfW_Po-U_fVw3BL7qNmB3Zrl4K3PXWt91BLhwpBHvwhN62PaVPq5YFX2VrZNkbrct8X3HfIBBvy1kbd9mQg9O_mGOrmoRLmcs=@proton.me>
-In-Reply-To: <20260909225002.976-1-razor1702@gmail.com>
-References: <20260909-r28s-upstream-v3-1-ee3e1a34a353@proton.me> <20260909225002.976-1-razor1702@gmail.com>
-Feedback-ID: 91982645:user:proton
-X-Pm-Message-ID: 6b1b673b5273e349cfb62c001e3957c12eff0c54
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GvTN8V1W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22B651F000FF;
+	Thu, 10 Sep 2026 06:16:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789020961;
+	bh=z37+gWReZh8poMDSrM7YkJxySwWXYwEl7OL/mi5UdYA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GvTN8V1Wf+43m7FwMbuRFm+Ibv/3Q5+kNxwAj7Zeg9LSszRcoIyZ5+6l9KHe477s1
+	 wUGql+InopnhUiT6PJ+PF6qd5mXfyDrQvC6NTjn/dxF2cf/PRPkbyRuQEIzi6wcWlv
+	 jwMikTj5iiYrCFHnvKXOo+j3+ZwjII5nxdOpQBVRMjAo6S+F25cVdfunhRRM0ub+gH
+	 o94J6rwdwPDgWOWMDXxEk3/HCnF1/9KOoG8FUezgjMAd7yB1BigR+5ZcCwx37fnk5G
+	 4Xc1Fo9Y2Dv+iHLvan7lWzSTl5tGl0hRXPghg1n9MdISkjheoxS2QYEp3OoBNGh8ji
+	 XjpDenytRX4ig==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/4] dt-bindings: rtc: Add NXP PCF8525 RTC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shiv Prakash Gupta" <shivprakash.gupta@nxp.com>
+Cc: linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, linux-rtc@vger.kernel.org, conor+dt@kernel.org, "Alexandre
+ Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, linux-watchdog@vger.kernel.org
+In-Reply-To: <20260910060912.2443551-2-shivprakash.gupta@nxp.com>
+References: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
+ <20260910060912.2443551-2-shivprakash.gupta@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 06:16:00 +0000
+Message-Id: <20260910061601.22B651F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Thanks for the test. It is better evidence than the Zero2 would have
-given on its own. The mechanism lives in the MDIO core instead of the board=
-:
-`__mdiobus_register()` releases the bus reset before `get_phy_device()` rea=
-ds
-the ID, and the two boards wire the same RTL8211F to mdio1 behind the same
-pin, so the R28S result carries to the Zero2. I have annotated the tag
-accordingly:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `interrupt-names` property schema incorrectly rejects valid =
+hardware configurations where only INTB is connected.
+--
 
-  Tested-by: Andrey Korshunov <razor1702@gmail.com> # NanoPi R28S
+commit 620f353657ea4242bf73ac8431d118e755e9de62
+Author: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
+Subject: dt-bindings: rtc: Add NXP PCF8525 RTC
 
-Good to know 2026.07 leaves the pin asserted as well. The commit message
-does not name a U-Boot release, so it stands as written.
+This commit adds a Devicetree binding for the NXP PCF8525 I2C RTC. It=20
+describes properties for the device, including the optional INTA and INTB=20
+interrupts, crystal load capacitance, and temperature-compensation model.
+
+> diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml b/Doc=
+umentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+> new file mode 100644
+> index 0000000000000..bee71ec3da808
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/rtc/nxp,pcf8525.yaml
+> @@ -0,0 +1,86 @@
+
+[ ... ]
+
+> +  interrupts:
+> +    minItems: 1
+> +    maxItems: 2
+> +    description:
+> +      INTA, followed by INTB when both interrupt outputs are connected.
+> +
+> +  interrupt-names:
+> +    minItems: 1
+> +    items:
+> +      - const: inta
+> +      - const: intb
+
+[Severity: Medium]
+Does this interrupt-names array definition inadvertently prevent
+configurations where only intb is connected?=20
+
+Using an items array with - const: inta at the first position and
+- const: intb at the second strictly requires the first item to be inta
+during dt_binding_check schema validation.
+
+If a device tree author specifies a single interrupt and uses
+interrupt-names =3D "intb" because only the INTB pin is routed to the SoC
+(for example, to be used solely for the watchdog), this schema will reject =
+it.
+
+Would it be better to use oneOf to explicitly permit the valid combinations,
+or define the items using an enum so that intb is permitted at the first
+index?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910060912.2443=
+551-1-shivprakash.gupta@nxp.com?part=3D1
