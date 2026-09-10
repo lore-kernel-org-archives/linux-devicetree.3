@@ -1,66 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893854AA1EC;
-	Thu, 10 Sep 2026 15:56:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE14A4828;
+	Thu, 10 Sep 2026 15:58:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789055788; cv=none; b=Sg5TrfYBbBw7A+KLwufAwUhCyoW4dZEPVllMjiYrKewEbJmI4HxNx8RF/+t3I5YiGPqZQxkXsNX/Ay0bbAnhDJ7jd6rh+tlmiM7VqX+z0+D+bnZnpV59viS81ldVHz13ieG9PI8aZFoG6Hidry5DlC1PH1e2CvsAhAL3v8CqQkE=
+	t=1789055915; cv=none; b=DN9NzEdI+awDcFLRXXAaMDNDuvlRVbDgDNwhgZD6np9FccPLQegyQuitX3Ua7eX+ExYMejOK3FJ6rm0OtxwA/owqGRb5Cvrn3q/5xvmzAlgEq7g69Ays58kGhSLwakCkpPU+wYNe/bjWZ2LP8sby7ElOS6eKlid/QWJn46GgLig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789055788; c=relaxed/simple;
-	bh=0wPBQuAwEqrykF9+xWfNkfzPr9buu9dW1edQKRxbT+k=;
+	s=arc-20240116; t=1789055915; c=relaxed/simple;
+	bh=mtivQnJuoyYZo/CHk4ap6/0IFAKN/CSN0eD/OxTrYQY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KtpRO7lIG4kIdwPQ3gDfC3E/a6aokoQgSCS2u0qk/dbCTPgGcU4dkv0a8Q4J0KiHeGKDjA+SUsIpPsP5Skzf5XLeK5Bv4QGMQbpNi+vmC57VuxTjs3ykvRhYJ+Zl+ActdBhMYz9y34UFsEpSfF1oXYpFRvKd4Ehw2YgIju2QaYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WN2nasbJ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=XsUYG1emo4HBP2vbANaQlKEUUlG/z6uGGbpswSqD5m9RLnsOKVyALK30A//HoQOPUjXFPOFkvT7gerAn9ACc9FGDyCPwZ5m4OEOUwWWRIr0P1H5lZs8Ti46tHa2SJSXUNPXtMR3obqtQ/XFFcSjVBwZaYDL8OEDKV0yPqPZH6mI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WhFVnzp5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WN2nasbJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0C61F000FF;
-	Thu, 10 Sep 2026 15:56:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WhFVnzp5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22A0A1F000FF;
+	Thu, 10 Sep 2026 15:58:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789055787;
-	bh=T0xOV2XeqOE1Qmp8JpFgC8m+9TTqK0Rb0vPMhfpsMmI=;
+	s=k20260515; t=1789055913;
+	bh=mtivQnJuoyYZo/CHk4ap6/0IFAKN/CSN0eD/OxTrYQY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WN2nasbJLrjKzbp+V4Q2gFjZkZhqtUqNA7JzY923WT4+pC5Rhy+8o2AuHb+IsLVl7
-	 lDYnNgSi6F3XJmcFQzAYmkrZb2Q7YRDuUnnX78xhExdNPPbtwpXlAWwD0Sr/jVAyCp
-	 Alzfpxd6rG/5Ds7PKIBzASRgs9055rLevso2px4hdX5C2nFbgm1/8HnnxwmFjh0AeJ
-	 AKmnBfMuSd3eEBbznDUOAerlRsSixpnU8uT68PE2fYauSuxL6VTRDiq2nkYTnwno2Q
-	 h+4ilMZfvJlFaFCem+gD5IolN+DELILMltgM8Xl/xAAqtL1/0k4Fry6jEFCXJ0dV0M
-	 PBqtxn9dttPrA==
-Date: Thu, 10 Sep 2026 17:56:18 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org
-Subject: Re: [PATCH v7 4/5] phy: qcom: m31-eusb2: Set phy type to EUSB2
-Message-ID: <zog5ubweep57jr6dokjuzr6eupd5uj3yb6pjyextx72bls2dbo@v2j4nwuigixt>
-References: <20260905-eusb2-interrupt-v7-v7-0-820cf5377a70@oss.qualcomm.com>
- <20260905-eusb2-interrupt-v7-v7-4-820cf5377a70@oss.qualcomm.com>
+	b=WhFVnzp50ZMzAinzBu3+V+LxJiL1ETZLztYuPRaNmD4TM4LKH/tAzaI2k4vHvEpre
+	 KxvckaZoIhhd9MHHc+efQJYCjh4tGIKCBWxLjXNmR94nJsyP9HlJRxsg5Rwiwby43X
+	 7u9k+c9OZpGPuWTZT6YPWziNRLZPks+rO19mGp5zbiLXc++8pB2lTvxzek1tRJssuq
+	 roSU2s26UpZfbbdc0ZX+Hc9873iqBs6UycCnsSn2KTOWvf/9VWMEaJx377cvOpi2gH
+	 CeR18u+EGJTzrdeammoAGOSALcrV9t9ITn16TSRjqTyJ3Sr3bbYqsf0inJDWZNr0yB
+	 k9t5c2vFTaNlA==
+Date: Thu, 10 Sep 2026 16:58:29 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Tapio Reijonen <tapio.reijonen@vaisala.com>
+Cc: Saravanan Sekar <sravanhome@gmail.com>,
+	Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 0/2] regulator: Add MPS MPQ4210 buck-boost regulator
+ support
+Message-ID: <cd0d2e42-5fbe-4cf9-81a7-cb102f543e67@sirena.org.uk>
+References: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tsE3q8oCInVXG8I9"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260905-eusb2-interrupt-v7-v7-4-820cf5377a70@oss.qualcomm.com>
+In-Reply-To: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
+X-Cookie: The star of riches is shining upon you.
 
-On Sat, Sep 05, 2026 at 08:59:08PM +0530, Krishna Kurapati wrote:
-> USB controllers like DWC3 are agnostic of the kind of phy (USB2/eUSB2)
-> connected to it. Set the phy type to EUSB2 to let the controller know
-> the phy type when queried during its probe.
-> 
-> Reviewed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+--tsE3q8oCInVXG8I9
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-- Mani
+On Thu, Sep 10, 2026 at 08:51:40AM +0000, Tapio Reijonen wrote:
 
--- 
-மணிவண்ணன் சதாசிவம்
+> One consequence of the hardware worth spelling out: the MPQ4210 does not
+> respond on the I2C bus while EN is deasserted. The enable GPIO is
+> therefore claimed and asserted before the first register access and held
+> for the lifetime of the device, rather than being handed to the core as
+> regulator_config::ena_gpiod, which would drop the bus along with the
+> output.
+
+This is what regmap's cache only mode is for.
+
+--tsE3q8oCInVXG8I9
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqi06QACgkQJNaLcl1U
+h9AwXwf9EhDfR+7s0wsF+PpKppfHYz5n4/Q4A48fnAZvCChWNjKGdobPaZxQry4x
+a9cejgulmZQuLjxj6dgurEKNodEyQaGeSR3hdhwQ4oPEL2ouqbgbeQML0qJDaIEi
+g/rIGulc8gk/2TbV9FNBZcnJcSJo9wW1pD3l+nnHvifNpMvFwuRf587nEJ9DvHGA
+YWZiBaer6qX5qbGSZpAkbWVgZVtsAIPchvTXPVEkZLFRoZ/rLSxWH8mBkBWZbg4L
+Qn9S8gmqo1jehPILbBIF+/cgfFfisdyIUdMuWWMjRYnVUaUzmzGO8ozLfQmDJtak
+9t3YgDAd1xNdbWCmwvq51M1ABOoBrw==
+=ZQQS
+-----END PGP SIGNATURE-----
+
+--tsE3q8oCInVXG8I9--
