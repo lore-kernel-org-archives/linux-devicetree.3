@@ -1,132 +1,230 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32A9131195B
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 11:27:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B04471CF9;
+	Thu, 10 Sep 2026 11:36:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789039670; cv=none; b=Q6admu7n8AF6EW2wrUKJ88THgyoCt4MyPg3LJW5L9qT4H3ih4IUbW9/YlDImdRvHj/eAIY2fUJpz9UEwwG4f1fLRXBDU7qN/6SABEnzSWCWmEst1A9h+1Hwa4AphflcVeyH/oaujKT8Sr66KhAfnnfADWsjs8p6qZ4jVezNDAoM=
+	t=1789040213; cv=none; b=hUvkmLRi2FFIkPIfJY77nI42Unn+0mcvm3kcuYcYWwnT7Oau1ziswKmfPB0cKGRJDggibg8KcHAN9/DYFpbALjoNTf+EPrHMnVM+oKYuX1mIQB8kRdwLgcU/KfA/0shFb6n3+lXM4FftykQsiLtYCPZCopAie95gZqGzx0uwKzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789039670; c=relaxed/simple;
-	bh=4CrwJ5iXW29xR1B9ic/OTu6MoVXyZPeG0uhyIiSglP4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j6l5PFbXdH1hbfakttoy0Ep9Ikb2NR1dtAXojj1CldinKNCdt8yOAXRZOhV27OHA87ARjT9LWd+Zlbcxdb3U4UWqvq/s1NH49UKre5xaXo/kXvGrZYDy7PRyvn5z3fSazjNLvO3MDdPmu0/DYU7XK4z5hyEOy3K4JN6q1Y5uyAo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=MJCXj8WS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=izux76Sz; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789040213; c=relaxed/simple;
+	bh=hzA+PKRN3l+0eV9u08hF04ntXIlnZzwgSTvjaGi2g28=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aZl9KADmZIs5FDiM1KbgAlWTqiPnDVaEb/R3uTksCG+8qZPEcr9cpUybTfmGbg2KpwauSUr5bUaAsxaTN3sTLg0AfHz7QznHOq82AZcck+dWj/MvCnxWfVbI3T4eSWOBfPxU+Rsjw4x0VwtdCFm71lByKtYMelhIXRQQIsOJmJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K1uZvkej; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="MJCXj8WS";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="izux76Sz"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789039667;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+CPMSwBIbKMNx+ykYOgoG6podj5+4wemD8bUPdP/A1E=;
-	b=MJCXj8WSkdJOU4kBrcYrtNh5iZ3/9EPbh3m+TCroD/mG+yyEGfIygEBbYNdWdwZsqsNL1g
-	rPZFMoica5ikNQ//JfZFbDA3+NHymVCaHZgH1QR+isaMRx3Q5toiDyWIC6AcDKRjYg8+lb
-	0x7iBWO4xzMRCSsV4DQnJ/aX8eU3vXY=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-252-8XLV0aKNN1a8TLAiwrDVGA-1; Thu, 10 Sep 2026 07:27:46 -0400
-X-MC-Unique: 8XLV0aKNN1a8TLAiwrDVGA-1
-X-Mimecast-MFC-AGG-ID: 8XLV0aKNN1a8TLAiwrDVGA_1789039665
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-49b0e6638e3so51899315e9.2
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 04:27:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789039665; x=1789644465; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+CPMSwBIbKMNx+ykYOgoG6podj5+4wemD8bUPdP/A1E=;
-        b=izux76SzTENHbSScXgbbMmRTlrqgdhguBEAikDl4vkPnICRo3adFI9u86//LjMm33q
-         DKiUX0a55TYWClXDZ1xZ3rn5HDrHwDnBbLxILzJRmRyCe41Wnly7QDEHoiIAQSCrveo1
-         mSBH2XtJe+2h3FiSM4n9muKLZYvGTDTwkq3i/ZiXKlLqQav1ebmkfft59OHyIoWpJSSA
-         vRb3fQxpdPYOfecic7kB5GG70aAFiDFJR/lINDdLwToB9fSR0+7yZLkRKZEkB74pPhe8
-         1XOxviH8qyGzo6MKES0Hf3o/6cJofGZMra1J/Af+23ZQkvpgHlIvKvUsRcxqX4E7Esj1
-         pjJA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789039665; x=1789644465;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+CPMSwBIbKMNx+ykYOgoG6podj5+4wemD8bUPdP/A1E=;
-        b=UXyJjl0k7M4CFQq8k4e/f8jOFQVa2rbJH3lxwZbs9U0C0V2eXXzW34JixpceKmnlej
-         KFKA9DZiTAmygfMMDX/buOzfLNpwg3XZ7PtB2FvvW3P/RWSoekb7hLxg1DXmXUOdSpYn
-         YTAc4XJoCfWSs6viCu8nmrdZxK2L2BSauW1BTUymRSxzMrfwJLSQB2Qutfk0RskEClNG
-         7nmHNiedGAL3AuXBPJIpdkiGgL0YDCM2NzpTAOJ9kAvWH5yMXxSfOnSQbc3f/YA5wzi6
-         4tdzjdqkWArx5NvLUtd3bsRAwMTe4fwMs+Ku6aZ5ywCgMQ+BNCg9nlCLclu/Ctq3RqHK
-         GHdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwIRWxqgjgoiQEI+GzGUi52z+Dzxk1pjZ+lxVftzMGNhYLX5RnO91cZl9luNmKrKWO7m/AMiM7yMJuT@vger.kernel.org
-X-Gm-Message-State: AFuF++mnQtlBf9DazDiAMbyDF9ip31dRVKGX2lpstbsHnTorp41RSidA
-	blXHQt8luawC/JxTmsRY2+GWdaAZ2SU7xzPRTuYvS1XeH5pMDSZqjx+XCWA5PS3AL58JZFLg9Hy
-	un8uKbM2OeFLQBLKfEUszaCLWHcyD0PqbI1dJ6XDKCA1Iwq/bKKp/4/BrQu4SlFwSUGHmkck=
-X-Gm-Gg: AYBFou2L/mKU1oYKGLKwUvPJFZamUZT0yIjj+jur6XjbPpcoT2UhuPz0ZNlLftPbwNS
-	gKD/OyRLjzhsGTvP4uONgpaP45hPqtFvnvgtyRdKqbZyDB8pjBIBRHkfUE2dLN8Kvqo011Psk/h
-	THPnMDKNtipVRu3dCgP6fOZRHJlrO32dJ5bTX3QIzxhjoWCVdAut5jFirtgPP+KB3U/5wZZQyoL
-	JM6uCCdVq/Pbeka0eJH+ZyIqmoW1U+3fpYYXr5DEASuy97H/mZYiuSnBYtkrXP77g8MsgP65zSZ
-	J65ZjBB4zVsPsujX93RxqA2oZda0PlY+7YHf50PGHwMG3tg5ztwsgHKXEayfdDSzUL+jHvhephz
-	HNJkqnDrkKrl0VcYvicGGP7KIn25bXFVLLfMMOJoVH3KUTJtfkmKf2xNTHYFIts+s/2255VzhwA
-	==
-X-Received: by 2002:a05:600c:1385:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49d258d85c0mr59112765e9.8.1789039665433;
-        Thu, 10 Sep 2026 04:27:45 -0700 (PDT)
-X-Received: by 2002:a05:600c:1385:b0:498:952:e276 with SMTP id 5b1f17b1804b1-49d258d85c0mr59112385e9.8.1789039665038;
-        Thu, 10 Sep 2026 04:27:45 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883959f0sm53665292f8f.10.2026.09.10.04.27.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 04:27:44 -0700 (PDT)
-Message-ID: <013fffd2-6d59-4e99-8214-1377b1cb46bb@redhat.com>
-Date: Thu, 10 Sep 2026 13:27:42 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K1uZvkej"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009761F000FF;
+	Thu, 10 Sep 2026 11:36:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789040211;
+	bh=ThJ5CqwafEWn7XoTc54OwhK6KqK1K1MTq5Aj8JGokpE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K1uZvkej+yYDPQfTsV+J/nVuEtDGZdVwjfbQyfu8myQADImAAivzhjpslJAL+FIfA
+	 W45dppLv8e1OYMmLHZfhyHtYnce4cCpq6D6XegQtCfxRJkID7/03s+gjVgAWbfjwvF
+	 eL8QNIe9dPU5edSzRcYiRbgqNJtuxbG7JDpeFcwPpY6k5YJnzX7B/BDTe7IWWq/yGN
+	 2XsXMXcARR9dvHzAbGuRzVk/sDILjxVtfLzOQSwPJ2BWfl8Pw8o94sPPt+gAevqfVf
+	 H92fervzHtQSbVUbot/jNt70T758gQHy8MEqotEJ4Ki9urRA+mBF4XMLoRk31exKPZ
+	 IpR7LOL8hlvwA==
+Date: Thu, 10 Sep 2026 12:36:45 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Shubham Patil <shubhamsanjay.patil@amd.com>,
+	alexandre.belloni@bootlin.com, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: i3c: xlnx: Add IBI and hot-join
+ capability properties
+Message-ID: <aqKWTT47S_zPzvbN@squawk>
+References: <20260908094257.3196120-1-shubhamsanjay.patil@amd.com>
+ <20260908094257.3196120-2-shubhamsanjay.patil@amd.com>
+ <20260908-groin-undivided-0af701135404@spud>
+ <aqGHlWpQjpHEft3j@SMW015318>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v7 3/3] w5100: detect carrier state using link
- status bit and optional interrupt
-To: arthur@marmottus.net
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- arnd@arndb.de, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, krzysztof.kozlowski@oss.qualcomm.com
-References: <20260904-wiznet-link-gpio-v7-3-69f01b70c96f@marmottus.net>
- <178895754151.219967.10801079239966954315@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <178895754151.219967.10801079239966954315@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="u9z4G+LSlEVaHeGX"
+Content-Disposition: inline
+In-Reply-To: <aqGHlWpQjpHEft3j@SMW015318>
 
-On 9/9/26 2:39 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 1 · Medium: 2 · Low: 1
-> 
-> - [High] On w5500 the carrier state is now sampled exactly once per ifup
->   (and once per resume) from PHYCFGR, with no polling fallback and no…
+--u9z4G+LSlEVaHeGX
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I read this one as 'with a bad config/devtree the eth could non functional'
-which does look a big deal to me...
+On Wed, Sep 09, 2026 at 11:21:41AM -0500, Frank Li wrote:
+> On Tue, Sep 08, 2026 at 06:54:31PM +0100, Conor Dooley wrote:
+> > On Tue, Sep 08, 2026 at 03:12:55PM +0530, Shubham Patil wrote:
+> > > In-Band Interrupt and Hot-Join are synthesis-time options of the AXI =
+I3C
+> > > IP. Describe them with two boolean properties.
+> > >
+> > > A Hot-Join request is acknowledged by the IBI machinery, so a hot-join
+> > > capable design is always IBI capable as well. Both events are reported
+> > > through the controller interrupt, which is therefore required whenever
+> > > the capability is present.
+> > >
+> > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
+> > > ---
+> > > Changes in V3:
+> > > - Move in-band-interrupt-capable and hot-join-capable into the common
+> > >   i3c.yaml schema and drop the xlnx, prefix.
+> > > - Keep dependencies in the AMD binding.
+> > > - Update the commit description accordingly.
+> > > - Conor Dooley acked v2 with the xlnx,-prefixed properties in the AMD
+> > >   binding [1].
+> > >   That Acked-by is not carried here: the names lost the vendor prefix
+> > >   and the definitions moved to i3c.yaml after Frank Li's comment.
+> > >   [1]:https://lore.kernel.org/all/20260824-tightwad-impose-4954765990=
+87@spud/
+> >
+> > I disagree with Frank. These properties make sense for Xilinx because it
+> > is an FPGA IP and synthesis options impact this. For other devices, this
+> > should be determined from the compatible.
+> > Please revert to how things were done in v2, especially as no rationale
+> > was provided for why these should be common.
+>=20
+> It is common problems, when IP intergrate by SOC, which may defeature some
+> part, It is not appeared now just because IBI and HJ have not enabled
+> widely.
+>=20
+> IBI and HJ is optional features of I3C. Ideally it should be indicated by
+> some registers. But not all vendor implement provide this CAP registers.
+>=20
+> IBI and HJ depend on some slow clocks, which monitor SDA line change.
+> Some instances of IP may not have such slow clocks. Some IP's IBI and HJ
+> use seperate IRQ line, but these irq line may not connect of difference
+> instances.
 
-> - [Medium] `w5500_get_phycfgr_lnk()` returns a tri-state value (<0 on
->   SPI/register read error, 0 link down, 1 link up), and its consumers…
-> - [Medium] The carrier state is computed and published by two
->   unsynchronized contexts.
+All of this should be able to be dealt with by appropriate use of
+specific compatibles.
 
-... but the above 2 looks relevant to me. Note that ordering the irq
-enabling and initial link detection is not enough, you need explicit
-synchronization.
+> like previous SPI vendor customized property, we takes efforts to convert
+> to common one and also meet back compatiblity problem at convert. I don't
+> want to do it again. This kind property is most likely as below.
 
-Finally please note commit c82ff94592fb68f529afe63ca7f5ddb7dae4ba83, you
-should explicitly handle sashiko's comments.
+What SPI controller specific properties are you talking about here?
+There are relatively few properties in spi-controller.yaml, and none of
+them deal with these kinds of capabilities.
 
-/P
+>=20
+> default: 	decide by comaptible string or hardware cap
+> force-disabled: force disable for some reason, like, miss connect irq line
+> or missed some clock, or IP bugs, or board desgin's some level shift chip
+> broken IBI/HJ timing requirements.
 
+Of these, only the last would be a valid reason for having a property
+for it. Missing interrupts, clocks or IP bugs should all be dealt with
+using device specific compatibles.
+If board wiring causes the breakage, the property may be more
+appropriate at the i3c device level rather than the controller given
+that wiring to some devices on the bus may not have the problems?
+That said, I think that problem should be dealt with when it arises,
+rather than starting a trend of adding capabilities properties at the
+controller level when I am not convinced that there's going to be other
+users in the same vein.
+
+Thanks,
+Conor.
+
+
+>=20
+> Frank
+>=20
+> >
+> > pw-bot: changes-requested
+> >
+> > Thanks,
+> > Conor.
+> >
+> > >
+> > > Changes in V2:
+> > > - Rename the properties to "xlnx,in-band-interrupt-capable" and
+> > >   "xlnx,hot-join-capable", and expand their descriptions.
+> > > - Express the interrupt requirement with dependencies: instead of an
+> > >   allOf/if-then clause.
+> > > ---
+> > >  Documentation/devicetree/bindings/i3c/i3c.yaml    | 15 +++++++++++++=
+++
+> > >  .../devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml |  6 ++++++
+> > >  2 files changed, 21 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/i3c/i3c.yaml b/Documen=
+tation/devicetree/bindings/i3c/i3c.yaml
+> > > index e25fa72fd7857..7430394cc6b9b 100644
+> > > --- a/Documentation/devicetree/bindings/i3c/i3c.yaml
+> > > +++ b/Documentation/devicetree/bindings/i3c/i3c.yaml
+> > > @@ -61,6 +61,21 @@ properties:
+> > >        Indicates that the system is accessible via this bus as an end=
+point for
+> > >        MCTP over I3C transport.
+> > >
+> > > +  in-band-interrupt-capable:
+> > > +    type: boolean
+> > > +    description:
+> > > +      The controller supports In-Band Interrupts. A target can reque=
+st
+> > > +      attention on SDA/SCL by driving its dynamic address during bus
+> > > +      arbitration, instead of using a dedicated side-band interrupt =
+line.
+> > > +
+> > > +  hot-join-capable:
+> > > +    type: boolean
+> > > +    description:
+> > > +      The controller supports Hot-Join. A target attached or powered=
+ up
+> > > +      after the bus is already running can announce itself using the
+> > > +      reserved Hot-Join address so the controller can assign it a dy=
+namic
+> > > +      address.
+> > > +
+> > >  required:
+> > >    - "#address-cells"
+> > >    - "#size-cells"
+> > > diff --git a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.y=
+aml b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > index 2caa245a86568..9480de3fe8e1d 100644
+> > > --- a/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > +++ b/Documentation/devicetree/bindings/i3c/xlnx,axi-i3c-1.0.yaml
+> > > @@ -37,6 +37,10 @@ required:
+> > >    - reg
+> > >    - clocks
+> > >
+> > > +dependentRequired:
+> > > +  hot-join-capable: [ in-band-interrupt-capable ]
+> > > +  in-band-interrupt-capable: [ interrupts ]
+> > > +
+> > >  allOf:
+> > >    - $ref: i3c.yaml#
+> > >
+> > > @@ -54,5 +58,7 @@ examples:
+> > >          interrupts =3D <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
+> > >          #address-cells =3D <3>;
+> > >          #size-cells =3D <0>;
+> > > +        hot-join-capable;
+> > > +        in-band-interrupt-capable;
+> > >      };
+> > >  ...
+> > > --
+> > > 2.34.1
+> > >
+>=20
+>=20
+
+--u9z4G+LSlEVaHeGX
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqKWTQAKCRB4tDGHoIJi
+0iJOAQC8eOJkK82i1/wTArxsBsu7JrEGjDFKq8k0XZV3od2KzAD/dVNEgZgMrJH7
+BUgqpRKcb56INesvFsFPgUJ8KnjY6wM=
+=fjec
+-----END PGP SIGNATURE-----
+
+--u9z4G+LSlEVaHeGX--
