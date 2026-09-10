@@ -1,128 +1,66 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11734AB1BD
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 14:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B386A4B515E;
+	Thu, 10 Sep 2026 14:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789052065; cv=none; b=kyB2czlQ18buCJesTLL+OO7QYHV7IorvzyTZBidJZcAdh2da0I9zXK34MqMFmiwjfSIJ9eutizjTwTCul3yiLulUC3+gmoxm/SF94e0AbOq5A3DYRqDK9iaW83RvuNYhztZ7fE5ISN4KBqMlr9VXymovSXivquOk49sYXS9+ucs=
+	t=1789052071; cv=none; b=PqFTH38cbiVihp+tWrYMVinCneLMPggAlSAjipHbgPlXs8//ItcO3dJtgC1lMM1mHrJY2iY/QDdvEKqaJG8BDxJsKavDDt8dbTlWmPgqrUBTyt89ntogBuHa2fckmPj900WBfMcJth2F7xTQnkM7p4EbBPR2a0satdUFWLMc+sY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789052065; c=relaxed/simple;
-	bh=MquNAT6A9LY0z5XBr75rwe1nLNnGi+rAfX3A8ukDpvA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qHXDL67LzfpV3A9iVf00nBknnWGCCzDw3zniMnXe8lK8Pg4WguPXyYDUCVNYmVGa0oyqmDF80oP9zAsgiAVD7yScpbs87rQ+qSMUIV8DEM6Sc7sGv2kCiP3wGIwUwU/46fzvqsfkP3u29iED9EBIB7Kqqifz1GTvfDedJjUUft0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=1DI1G3Qw; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1789052071; c=relaxed/simple;
+	bh=SHywRAVhjyiYdLuDV3sRyD12JjLrn5cULUb9fja5vKs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oXxU1OvtZf4/7m4t7Hw5n2Xhwk0F+923yTl8ygKWpDN7BsOB0HQ8MLwX+teSEZSsTI6tpHP6q5gxw7VkV5WBhzC/2riCWJigcEHrTRgSX2FDfvFp1aW0Djg1PydENK/1A2FPdKGHxe3r/fRKpgTeW5xS8i5DebRkjYL44Vlk3Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGMeZE7l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="1DI1G3Qw"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so11119739a12.2
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:54:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1789052061; x=1789656861; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=b4Lui4dl5qTw7CI3Pdg3YTOJV27r2TrFCzHImNPail0=;
-        b=1DI1G3QwZ5PdR1IHjQP33Z1KgiQXN7OvvSBR9O1MqZhykb1LmG/yqxZaL1ZyEJ9zZH
-         PDaFwJvVFFhfiUadwo3LddVdlvKgk+MsMkcZDZbdKZk2S+RQDqMO3bxxfcW+qmaa6wis
-         4LAy9Jw6H2xwsUK6xtQbQlwEFurAkEVkGUTpCUsmMmjhwN2mI9kNgyYlrl9a5p/L9Bc6
-         67OuNk6g6oNsRFtoY2AV0xOTtPCd5IHbjL9JO0xg7zYYJ1AM8guHnXlJxFdPhnGcKBV0
-         t2+uNE/IgnIxBodBIreYA+P5EaEdI5cA9RK5pF6g8Eqz4C3JUXUpC5eUDH4Ojw2M93X/
-         5Ndg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789052061; x=1789656861;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=b4Lui4dl5qTw7CI3Pdg3YTOJV27r2TrFCzHImNPail0=;
-        b=k3MgfpL7L3HFNfk3nlPiysFC4fhy2/C8lbwyXjtP6e165gjU9xLomJ1rru3oh0jBEq
-         3OooGAu5KSP0sBRuBOHLkYenjIMY+62ngQ9mHvkgSPtbZ9xH5AOZQCPsZYFB4Detxqxx
-         U42JuQQ9aiOFsTPIrs76OwmxsHyEGFyuvTTc6SGKwvYTRa2KQwVabiXP8JscbI1IEOJ0
-         QFyc7rYInDv3dYFfSGVFXvzGaZVTyd5KD6yYEMWT1m926cD5wWa7T686w26wYYoi8B+H
-         0iGENjK6IAa1dSM98g9hSlti2yZE2g8AZDWl5BAgdw18Nj3MVdpcepSG7d2WP0l6CfpD
-         UdaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx94Jzf0HZJ6sMuN5zd8YknMbU8yNfWGoaoPcavScHAgDx5TW4ye2no6JJCib/U3prZOI9JirVarmLC@vger.kernel.org
-X-Gm-Message-State: AFuF++nRZapuohMyqgEJNfaDkIbHHRz9OP/M8wAgurygvYfHX58hpRoI
-	KU400XZoEjWnBTa42mtrQ+r5se+FQ/QpUFPMuCkwIg75WPKvNpaIvrYjmCMiEizuq38=
-X-Gm-Gg: AYBFou0/X9k74P2cCaeM9PYs68MMjjyoYpr0KXOoNK+7YutyvN+NCDxbXOb/CXYzAEN
-	Y25KE2YLrP2pcUldWuJPSTBrgKI4ZwFRD96kvf8X94uVX92tp3GGPz5WDkEr8mlddZ4k9++mFk1
-	pwkTonjsXVWPSMwfADYIIHPkopOqZLcD1iBRfhYy5fjh/W5FugD0Pwg6NSyhD7usyn7eA/+y9Hi
-	ltJWfxSUx6fSb1fI0BCqGJn942xSzK6pGOrlmghXNjDLKx3HA6TD9jhnOVbJWL4oJ8yHF2qhHOl
-	5mhTLH6L1yRXw+KLPXswnWlQYKjCVFfCF5FBpELAQAoP/aCVUnT8ZMoyVpri04ML67FxGo96wKe
-	OyqL6qkNIx6iexa7dU2eGoRcq7/gCMva/qpTgVvlESJRvHzEyWWpxGh14peUbhTJitZmnEqkqRE
-	Vr5GPgUC1sSKepabFrZByj1HWyH3mu4XHZkZYY7Kk4IDRb+IKIiif9TiYdiIyhZHfi8KnwANyY+
-	dnTeWCArkecSzetaWHqLkACTtEN26LjY0Jw2HR+iUMr8lw3vG/lIeVV41Sdj2empdk=
-X-Received: by 2002:a05:6402:5003:b0:6a9:8ea3:6507 with SMTP id 4fb4d7f45d1cf-6a98ea36c7fmr4599746a12.30.1789052060890;
-        Thu, 10 Sep 2026 07:54:20 -0700 (PDT)
-Received: from [172.16.240.55] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a7e6c20c0fsm8849715a12.30.2026.09.10.07.54.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 07:54:20 -0700 (PDT)
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Date: Thu, 10 Sep 2026 16:54:18 +0200
-Subject: [PATCH 3/3] arm64: dts: qcom: qcm6490-fairphone-fp5: Fix DW9800K
- support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGMeZE7l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340DD1F008BC;
+	Thu, 10 Sep 2026 14:54:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789052070;
+	bh=2S+7lOb5lQwJunwgugNvj9bFJbnkzgsbNZSE8mE1MKY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dGMeZE7l1V60yzw4gHb+09kXllETJUroPbH8Vp4Rbu5Kgng1++nD8cNPAKi3gPCZe
+	 NPUfE8L3JAYlzKvN1jJDeh8JEiD3AJbUt25O0HKYIOlBTbWRyUq4cncTbHXfzpZxZK
+	 7IFCUBQxUTqPkaKdkg+xO8xmwxBfkcUwkxaDeDGrR2VLE1krJaVCsVc8EYM8Gd9bte
+	 72bt3nn1ag2ZLomqDSyLLvgUt+A5/D0CmRDszXV/64aRY0VyjKq1mSh86Kr2WomlRU
+	 xlC1Rc49DgRjgVew7Hm+IO+VZA78G4RiRsDgtqr0ZYQHHYpJKxNlPmch7a4u0Vm92b
+	 qglAok8oF1eXQ==
+Date: Thu, 10 Sep 2026 16:54:19 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add QMP PCIe PHY support for
+ Shikra
+Message-ID: <qesmpyfcl3lszmar5rrpzxc5zp7v4gup5xu4ypq6v5pt2wvqnf@oips226nedhu>
+References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com>
+ <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-b4-dw9800k_cleanup-v1-3-608255ea61ab@fairphone.com>
-References: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
-In-Reply-To: <20260910-b4-dw9800k_cleanup-v1-0-608255ea61ab@fairphone.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789052058; l=947;
- i=griffin.kroah@fairphone.com; s=20260910; h=from:subject:message-id;
- bh=MquNAT6A9LY0z5XBr75rwe1nLNnGi+rAfX3A8ukDpvA=;
- b=se1xMaa6rpRe1osYihYePmbAFEtpW0H4VSfKVR3ef9ziNFAgHHQJNLCgy4nJ5LuVD9CnbTt03
- ezkt/cxqzV+BRQNpBmHoWcwYfF0WKNTEHjOgG67NGDWr7f2ora7BkVq
-X-Developer-Key: i=griffin.kroah@fairphone.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
 
-Update the node for the DW9800K to have the correct attributes.
+On Mon, Aug 31, 2026 at 12:56:04PM +0530, Sushrut Shree Trivedi wrote:
+> Add QMP PCIe PHY Gen2x1 support.
+> 
+> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
 
-Now we correctly select SAC3 mode and other attributes with the newly
-updated device tree bindings.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
----
- arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-index fa4566df0a71..cc99590afe3a 100644
---- a/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-+++ b/arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts
-@@ -744,8 +744,9 @@ camera_imx858_dw9800k: actuator@e {
- 		reg = <0x0e>;
- 		vdd-supply = <&vreg_afvdd_2p8>;
- 
--		dongwoon,sac-mode = <1>;
--		dongwoon,vcm-prescale = <16>;
-+		dongwoon,sac-mode = <3>;
-+		dongwoon,clock-presc = <0>;
-+		dongwoon,timing-control = <16>;
- 	};
- 
- 	camera@29 {
+- Mani
 
 -- 
-2.55.0
-
+மணிவண்ணன் சதாசிவம்
