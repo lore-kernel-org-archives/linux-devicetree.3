@@ -1,172 +1,186 @@
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B25673A451F
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:53:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55863B6377
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789059241; cv=none; b=Gphu4cuWeMznl5su3ukBho6FXJBbPgU0DeZtjAVYUd+ZAdZVf1XfeB4NeidiIIGRKvrLr7/3JkinhCaWunXdAOCoWmSXcSlnZKb39AQv2EECI1ODhIDtlst69dT9ySno9VcYf39ET7C8XmaHv7DhyvDTvUG1rxe2r/6xLHQaHnY=
+	t=1789059398; cv=none; b=ghCiD/CnyZwAHaFyiaQTO++adGjrhUwk/DlBtxa+bxVbM9KSFDjYV/U/6OFXhOaPUxORY8P+qy3tco8u3uowkxNTYiRlR3kxLPlndiAnUq8weJYG5UmopOpUesl64k87XM9woWd+KL1Jgu2ltCf5MiX+p7TLxC9L+F9RMsmWlRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789059241; c=relaxed/simple;
-	bh=kFXFgOEhKlngjPkjJ1DPF1n2S680Kf5nf8debqxzhDE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=oaqNNnu8eJi8eVgaE6omgdesL39Kdd9wxf43Asw+bM3S1hsEfYFwAnOojqv1/R0lkAaljDCDPjntxGCyJIfzYJr3zFp7pJotW8J1v96nl51EuIX3R9SyRjNt+uc4FhvoIq1NtmBFCNO7tslDOlFxKkLhL+T+eko4r1SVZL+gOkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkbaOgjG; arc=none smtp.client-ip=209.85.215.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789059398; c=relaxed/simple;
+	bh=adgX/oms3NTLH7YsFj4WKj5O5AUU4KLAAqNys/66/6Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=c8qm/0Qr3GwQJn/XZONXi4E44kZ90yyxJB3lIycUds1Dew3T3rV2pjvI9kSYgPLoWJvfWshcn4FAEA6gegZfBsoEIkj4eodyRmwvC5NkHgiY3o4lcQmnnVmgCdwA0UKSXVFTpk3kuwiIORc2FATMVVDYR59O2oqA3DcEi+b9t4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IEx4kTu7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkbaOgjG"
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso40216a12.3
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:53:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789059238; x=1789664038; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
-        b=ZkbaOgjGdWglyuAeA/8vTXybXRMKhA7y6BXpNjJvWodKab+dSXbrtTibFgGz7gWHoM
-         bxMTi1DXkWGgrnyjZ38f0irfgwpxaxeQyaj6Mc5tJW7jgnWynKTbut75kxEO/nJ1uXbt
-         kF5PgUgWU09jdA9gEAbRtmwAH9ECcxL9gSfswknqQqrl5p+U9VeKn9PIBLXZvs5+3NlE
-         OnRV5PiFcp/DJEl8bcWdkVYsSZR2L3K1wIBvfV2ni4xDB5OpMD0jJPVPZ+RrheXuj+7K
-         tIeF4L2w0vLDkA5lwC2sfG0YJM6sjoe/u8J/ofKLHyzY93uBjhE6X3S89MyDW90UiLCH
-         rEfQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789059238; x=1789664038;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EtBz5QzHQc+Th2x67irNYDwYKHrb3yatIwwlwUzsjwc=;
-        b=SDxoQlWMTPHxM5HI3I9rWqkziPVio9D3T3Vpgt4FDU3pZp/fr2/It7ZkAFoXqYj/Fo
-         Oz9hAGY20/zXMNtxAP8AfcpG4PWbC9Br7pRTsg6Z4FbMcXlkyLnuzrTDi0cPI/UGxqG4
-         27nWRi/TKyGOB56l+ww6/FWyDwhU2HTfH07O7n3mytwiVEKjNBPVCgnPSJOhsiAjzfHi
-         y6whNgVOezZj27lIylUT2bz+aSD1IizKfYbNOMwb4pomOo+Pw8C8YyaE97uvCIy4B1sZ
-         to2WUaLsv8SIttI5m5sa4gC3DJC870y3/6cXyiQWuLR7y0zrPJKbBESBafWH9SaRPqL9
-         cR0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwEjhWcl5KIqbXJnL9m29kJ+YFKF+patez8FZ+crGlWBZMcjNbden4D0o/WiEObZIRTx33ulOtL7xsf@vger.kernel.org
-X-Gm-Message-State: AFuF++m1eEUOnvXP9+Q5IlCv+NC2r0sTgy+AXUvMbg+z9jaNKEMF5jhu
-	uJ62EwjpM47dFtwaP/8kug0zIbCGydNJ21xkOc0w/k/hvGHZsjjZTkV/
-X-Gm-Gg: AYBFou28UqmTo3bH5zrgsX95DDZ3Lfy+Ys37OL3KDYo+etVfUGNybiHmmRrsuhoyAH3
-	toZW3Xu+cdDFMX/dc1s1TDCWRBvm6oFeuz4DkY1XBcd5ihyE5HLtaEv3xGfwjbw4IjzhJN/voRp
-	o5v+FCVul5sdxJUgKIY2O+1ecN3xcxBXvIHAYyuq9e3Ee8FefFZRy1Z4X0Geca0RZD6+NeA0hre
-	PjCx261gecA4YlAjJJgvS12HvDvMHtM1UD+LxZI7ZQc3UqimQ79GmJOV2DwFaz8lGKYtcUuTiIF
-	Dx0DjBqlaPyS8+HyTgWF4rtv/1szz7PzFTAkZOOhX7hmhYOP7yrrIzNnx6TDhaag9Oy3kYjBHYb
-	B+NWD5X1BJ9lo99mP5+onYSRcx3+91qmAVTCneY0T7n1OZGWt5iwgXnG4g7twuGgcJaH7UsXcOf
-	DFOgLestb6oRtXdyDxl6V4iE+F3GGHHkslwxqQA1zHiZbaXbXXbqTR3A+ig6K3BoSKtD6q0ZO1H
-	OyFqZXYGrplwmb7VX35M7J41I5Zgq2S6tlotAcVEKshfs8nUtECRSg=
-X-Received: by 2002:a05:6a21:1b85:b0:3d3:adbf:7779 with SMTP id adf61e73a8af0-3da3a0af14amr66467142637.21.1789059237749;
-        Thu, 10 Sep 2026 09:53:57 -0700 (PDT)
-Received: from [172.19.1.47] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c657156bsm10825a12.21.2026.09.10.09.53.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:53:57 -0700 (PDT)
-Message-ID: <1ae22be2-b72e-4c23-9aff-ef1052a10c45@gmail.com>
-Date: Fri, 11 Sep 2026 00:53:52 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IEx4kTu7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 357181F000FF;
+	Thu, 10 Sep 2026 16:56:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789059396;
+	bh=GAeurZRep4J4j8eeFarOPRx9b8TtBM9ZejbCv06AcYU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IEx4kTu71K22kN++sy3PWtSLYOn2TkRSTCEI+vXlC8V140rnptbSKSVUI5aFKNUh2
+	 h1tfCnRR5TDDgXPt9hlo4dwIQWPBdKGa1DbZBL/EMI5+jobLmoofqKWYWAK3e5CX/W
+	 6H2Ta80zY7RIVhuRsJIpbNf8QrVOjFHsTrRA/Oejf0t9MWoclPViE0CKVg7HeYNqjA
+	 OLMXrivx4TweqDzIAGiIAkJ8HOJp1JpLpDEJd8kQZ+cO7YnQLXJ4XxKtskGqxGVCog
+	 V4M59hfSI2jN369lMP6gRhF/vG1ZAR8W7yFiY+AvbftB6wJSfSruTWzp5WZp9rCSJ/
+	 iaVlDSUfFRAvQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/3] usb: typec: tipd: Factor out i2c specifics
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260910-tipd-ace3-v7-2-6c6ebe2193f2@chaosmail.tech>
+References: <20260910-tipd-ace3-v7-0-6c6ebe2193f2@chaosmail.tech>
+ <20260910-tipd-ace3-v7-2-6c6ebe2193f2@chaosmail.tech>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 10 Sep 2026 16:56:35 +0000
+Message-Id: <20260910165636.357181F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] arm64: dts: nuvoton: Add NuMaker board
-To: Miquel Raynal <miquel.raynal@bootlin.com>,
- Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>,
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>,
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org,
- openbmc@lists.ozlabs.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260904-perso-ma35d1-upstream-dts-v2-0-30ce255a401f@bootlin.com>
- <20260904-perso-ma35d1-upstream-dts-v2-3-30ce255a401f@bootlin.com>
-Content-Language: en-US
-From: Jacky Huang <ychuang570808@gmail.com>
-In-Reply-To: <20260904-perso-ma35d1-upstream-dts-v2-3-30ce255a401f@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-> Nuvoton MA35D SoC is used on the NuMaker SoM, itself plugged onto a
-> carrier board labelled NuMaker. Create a DTS including the SoM
-> description. As a first external component, mention the SPI NAND
-> connected to the Quad SPI controller.
->
-> Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
-> ---
->   arch/arm64/boot/dts/nuvoton/Makefile           |  1 +
->   arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts | 42 ++++++++++++++++++++++++++
->   2 files changed, 43 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/nuvoton/Makefile b/arch/arm64/boot/dts/nuvoton/Makefile
-> index 3bc9787801a5..4c82109c885a 100644
-> --- a/arch/arm64/boot/dts/nuvoton/Makefile
-> +++ b/arch/arm64/boot/dts/nuvoton/Makefile
-> @@ -1,4 +1,5 @@
->   # SPDX-License-Identifier: GPL-2.0
->   dtb-$(CONFIG_ARCH_MA35) += ma35d1-iot-512m.dtb
-> +dtb-$(CONFIG_ARCH_MA35) += ma35d1-numaker.dtb
->   dtb-$(CONFIG_ARCH_MA35) += ma35d1-som-256m.dtb
->   dtb-$(CONFIG_ARCH_NPCM) += nuvoton-npcm845-evb.dtb
-> diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
-> new file mode 100644
-> index 000000000000..16c003998d3b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/nuvoton/ma35d1-numaker.dts
-> @@ -0,0 +1,42 @@
-> +// SPDX-License-Identifier: GPL-2.0-only OR MIT
-> +/*
-> + * Copyright (C) 2025 Bootlin
-> + * Author: Miquel Raynal <miquel.raynal@bootlin.com>
-> + */
-> +
-> +/dts-v1/;
-> +#include "ma35d1-som-256m.dts"
-> +
-> +/ {
-> +       model = "Nuvoton MA35D1 NuMaker";
-> +       compatible = "nuvoton,ma35d1-numaker", "nuvoton,ma35d1-som", "nuvoton,ma35d1";
-> +};
-> +
-> +&pinctrl {
-> +       spi-grp {
-> +               pinctrl_qspi0: qspi0-pins {
-> +                       nuvoton,pins = <3 0 5>,
-> +                                      <3 1 5>,
-> +                                      <3 2 5>,
-> +                                      <3 3 5>,
-> +                                      <3 4 5>,
-> +                                      <3 5 5>;
-> +                       bias-disable;
-> +                       power-source = <1>;
-> +               };
-> +       };
-> +};
-> +
-> +&qspi0 {
-> +       pinctrl-names = "default";
-> +       pinctrl-0 = <&pinctrl_qspi0>;
-> +       status = "okay";
-> +
-> +       flash: flash@0 {
-> +               compatible = "spi-nand";
-> +               reg = <0>;
-> +               spi-max-frequency = <30000000>;
-> +               spi-rx-bus-width = <4>;
-> +               spi-tx-bus-width = <4>;
-> +       };
-> +};
->
-> --
-> 2.54.0
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Reviewed-by: Jacky Huang <ychuang3@nuvoton.com>
+Pre-existing issues:
+- [High] `tipd_suspend()` and `tipd_resume()` blindly operate on IRQ 0 if t=
+he device has a `wakeup-source` property but no valid interrupt line.
+- [High] Probe failure in polling mode causes a Use-After-Free because `tps=
+->wq_poll` is queued but never canceled in the error path.
+- [High] Device is accessed over I2C before being taken out of reset during=
+ resume, causing a persistent failure.
+--
 
-Best regards,
-Jacky Huang
+commit 483e340a7e2db3c0bcd0902d89a807ddfbd80a8f
+Author: Alyssa Milburn <amilburn@zall.org>
 
+usb: typec: tipd: Factor out i2c specifics
+
+Make the core driver more bus-agnostic to prepare for SPMI variants of
+the tipd chip.
+
+> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
+> --- a/drivers/usb/typec/tipd/core.c
+> +++ b/drivers/usb/typec/tipd/core.c
+> @@ -1898,14 +1771,14 @@ static int tps6598x_probe(struct i2c_client *clie=
+nt)
+[ ... ]
+>  	if (tps->irq) {
+>  		ret =3D devm_request_threaded_irq(tps->dev, tps->irq, NULL,
+>  						tps->data->irq_handler,
+>  						IRQF_SHARED | IRQF_ONESHOT,
+>  						dev_name(tps->dev), tps);
+>  	} else {
+>  		dev_dbg(tps->dev, "no IRQ specified, using polling mode\n");
+>  		INIT_DELAYED_WORK(&tps->wq_poll, tps6598x_poll_work);
+> @@ -1916,13 +1789,12 @@ static int tps6598x_probe(struct i2c_client *clie=
+nt)
+>  	if (ret)
+>  		goto err_disconnect;
+
+[Severity: High]
+This is a pre-existing issue, but does this leak memory or cause a
+use-after-free if the probe fails while in polling mode?
+
+If the device is configured in polling mode (no IRQ specified) and the call
+to tps->data->connect() fails, ret holds a non-zero error code. The polling
+work tps->wq_poll is queued here, and then the code jumps to err_disconnect.
+
+Looking at the err_disconnect path in tipd_init():
+
+err_disconnect:
+        tps6598x_disconnect(tps, 0);
+err_unregister_port:
+        tps->data->unregister_port(tps);
+...
+        return ret;
+
+The error path returns without canceling the queued work. When devres frees
+the tps structure, the delayed work timer can still fire 500ms later, which
+would lead to a use-after-free when it accesses the freed memory.
+
+Could we add a cancel_delayed_work_sync() call in the error handling path?
+
+[ ... ]
+
+> -static int __maybe_unused tps6598x_suspend(struct device *dev)
+> +int tipd_suspend(struct tps6598x *tps)
+>  {
+>  	if (tps->wakeup) {
+> -		disable_irq(client->irq);
+> -		enable_irq_wake(client->irq);
+> +		disable_irq(tps->irq);
+> +		enable_irq_wake(tps->irq);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but could this blindly operate
+on IRQ 0 during system suspend?
+
+If a device is configured in polling mode, tps->irq is 0. If that device
+also has the wakeup-source property set in its device tree, tipd_suspend()
+will call disable_irq(0) and enable_irq_wake(0). On architectures where
+IRQ 0 is a system interrupt (such as the timer tick on x86), disabling it
+can cause a hang during suspend.
+
+[ ... ]
+
+>  	} else if (tps->reset) {
+>  		gpiod_set_value_cansleep(tps->reset, 1);
+>  	}
+> =20
+> -	if (!client->irq)
+> +	if (!tps->irq)
+>  		cancel_delayed_work_sync(&tps->wq_poll);
+> =20
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_GPL(tipd_suspend);
+> =20
+> -static int __maybe_unused tps6598x_resume(struct device *dev)
+> +int tipd_resume(struct tps6598x *tps)
+>  {
+>  	int ret;
+> =20
+>  	ret =3D tps6598x_check_mode(tps);
+
+[Severity: High]
+This is a pre-existing issue, but will this I2C read persistently fail
+during resume?
+
+In tipd_suspend(), if the device lacks a wakeup source but has a reset GPIO,
+it is put into reset. However, during tipd_resume(), the very first operati=
+on
+is a call to tps6598x_check_mode(tps), which attempts an I2C read.
+
+Since the device is still in reset when this I2C read is attempted, the read
+will fail and return an error early, leaving the device permanently in reset
+after a system suspend.
+
+[ ... ]
+
+>  	if (ret < 0)
+>  		return ret;
+> =20
+> @@ -2002,25 +1870,22 @@ static int __maybe_unused tps6598x_resume(struct =
+device *dev)
+>  	}
+> =20
+>  	if (tps->wakeup) {
+> -		disable_irq_wake(client->irq);
+> -		enable_irq(client->irq);
+> +		disable_irq_wake(tps->irq);
+> +		enable_irq(tps->irq);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but similar to the suspend path,
+will this operate on IRQ 0 if the device has a wakeup-source property but
+no valid interrupt line?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-tipd-ace3-=
+v7-0-6c6ebe2193f2@chaosmail.tech?part=3D2
