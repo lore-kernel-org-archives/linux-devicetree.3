@@ -1,209 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD4733D503;
-	Thu, 10 Sep 2026 14:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B58F391E43;
+	Thu, 10 Sep 2026 14:31:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789050653; cv=none; b=HL0KqahasHfLnd3m6VgyTDqW300OZE4MjFxiIdYpEBYsJLoxl5r+3VyGFAzhUTjJwg9S5nmhp+ZGPLtOsWjHRVsYxXT3CcQXwqekgrYnEDBC+eXyqFKVTNR8IYNbOJ3VpgX8tk3QOeIbFiI0X6OdiC0EoeD2M9PTBuE6Zf98Xj4=
+	t=1789050668; cv=none; b=r9Gawa97VW2fUftOaETkJ0mfAr6IZxqGh+DyLmWmTgMibRQsDs9ttc+7GkRbsh4ZoMIg2g8zWBCLrSu8HCwxRw2GzwBHUhH7i3oMklwJa9K4PXjxr8DkQiq7Mf8j2BOaRQ2TqX5cVf8/DAAvczeFcGUHTkK7T07VYitz+TLwbcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789050653; c=relaxed/simple;
-	bh=qGJjhW2tiqQ505Mcqfr/h4UQhciVjoCrFy8wVz1FUrw=;
+	s=arc-20240116; t=1789050668; c=relaxed/simple;
+	bh=TQV7TMBdjXuzMqe2zt+ZNX9y1pV3b9FZEE9+hKn6H88=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fscj80lRMUSibpruDyFTldZQoEajWnM4eNS/glO9bR8kWr1qBk4DB5cvalR35U4GDVwmpuhZFWalA3jF60cn9lMsy7lyOdWKlM8EluHUWb45T/WlbPmILomPq+47zeFuu+Vzc8Zy+6iiHbBjrYjl9ChJrDDz+NcN154s3P68Cpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LK6ynGKA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=M8QIVuQRoJYw70VLgEf/FZgd7YVAWkaHSjTaLsSvMofXahHIIYIjsY/j2k7YBT2Y0c2BbLYmWbmgWx0P/u7l/AQsd33/jtZtvRXvPvY2Q925s87IUAW9A+QXEWsNWPElNm53DfbEDDHzD3b5wvoTji5ur7yg25lSa1+IEH6gz1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oDv/CtRE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LK6ynGKA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAD6C1F00893;
-	Thu, 10 Sep 2026 14:30:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oDv/CtRE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B457C1F000FF;
+	Thu, 10 Sep 2026 14:31:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789050651;
-	bh=l8ybbom8pXjdltuZTVtaDU6ogFdQ7EbuCMLVvuB+9XM=;
+	s=k20260515; t=1789050667;
+	bh=F6nX85DmNqzMGljX4iCOhMDoKE7JfZJAMbsQSV8CxLo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LK6ynGKAR6qTxZ2iHXMQWD+/bui82jQRzhqLiv0sfhtWrJ5CCk+ibCnR2fH7Cspts
-	 GwHFkCuqUJacnLPptX7MSTaa52BESQfQM+q9VbR65MCMpmL4OQPdIMsC1wYx+bt/8V
-	 BuZ+Wg9Z3tqqROmOHIe3EtAvxPqWlw0KGMnQO+jR3GbCO7TcAZwx0EgfMa4I/9e7nL
-	 WLoZmrm3nIsq4OkxiDEyc1wz2GfQMyLWUbOk7wxQX/FYu/ADVOQFctonj7jZvdoHGO
-	 XcyOujTKfS/3oIrW59uYScBCwqMS32A0Kgx+g6v62f8iWhVFNUXTy4QXPvZPvuAVqs
-	 Wxv4pSBUbmVcw==
+	b=oDv/CtREoktS6M7rAzQvQqv3CmJ1wiyvurOIzT7tz+NCJkPfSD5VhFhpY0eEoJ3Gr
+	 Sw1m1jmlV4cbXMwxathDgQiowJNAsMzUPujgt/rNWU2rugbvavRnRaokuL4W3s9IEC
+	 Eju+dPL+ngIeP3wzWg8ikdDjw7g8/Na5mHA8f8wMGC9LRth1Xxki0F28o/t/IlDM9R
+	 aHcQZDDpgS7cOx3on+1favvQnKwI6I8e4zfuhz9bK4kg9e7oFkOsn2+NToxk2AMW3F
+	 cgCptrMfXaOPTVegZsxm9Xo7sSBLN/1dRYwJmYX9G6G4IY8vnhr+p9T7mK+PoqtCBL
+	 de5nejWAkYNZg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 7/7] pinctrl: sunxi: add support for the Allwinner A733
+Subject: Re: [PATCH v2 4/7] of: property: fw_devlink: Follow PWM nexus maps
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andre Przywara" <andre.przywara@arm.com>
-Cc: conor+dt@kernel.org, linux-sunxi@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260910133519.459011-8-andre.przywara@arm.com>
-References: <20260910133519.459011-1-andre.przywara@arm.com>
- <20260910133519.459011-8-andre.przywara@arm.com>
+To: "Ernest Van Hoecke" <ernestvanhoecke@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-4-17ac82dbe226@toradex.com>
+References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
+ <20260910-fw-devlink-nexus-ready-v2-4-17ac82dbe226@toradex.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 14:30:50 +0000
-Message-Id: <20260910143050.DAD6C1F00893@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 14:31:06 +0000
+Message-Id: <20260910143106.B457C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
-New issues:
-- [High] Incorrect mapping of logical to physical IRQ banks for NCAT3 layou=
-t breaks all A733 GPIO interrupts.
-- [Medium] Commit message contradicts code regarding pin counts per port.
-
 Pre-existing issues:
-- [High] Off-by-one logic in `irq_bank` assignment causes out-of-bounds arr=
-ay writes and reads when a SoC's first bank has no pins.
-- [High] Global static struct mutation across probe deferrals causes NULL p=
-ointer dereference and kernel panic.
+- [Critical] Missing bounds check in `of_parse_phandle_with_args_map` allow=
+s a malformed Devicetree to trigger a stack buffer overflow.
+- [High] Missing cycle detection in `of_parse_phandle_with_args_map` allows=
+ a malformed Devicetree to cause an infinite loop.
 --
 
-commit 8c3148d94675fca6724f59ce7243638c15e54f3b
-Author: Andre Przywara <andre.przywara@arm.com>
+commit 17ae1bc408452875cfad3c0d990add52c676f9b9
+Author: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-pinctrl: sunxi: add support for the Allwinner A733
+of: property: fw_devlink: Follow PWM nexus maps
 
-The Allwinner A733 changes the layout of the pinctrl MMIO register frame, b=
-ut
-stays otherwise rather close to the previous IP. The main PIO looks similar=
- to
-the one in the A523, with ports B-K being implemented, each also with the s=
-ame
-number of pins per port as on the A523.
+PWM consumers use of_parse_phandle_with_args_map() to resolve specifiers
+through pwm-map properties. fw_devlink instead parses the pwms property
+as a direct phandle reference, so it records the nexus node as the
+supplier rather than the mapped PWM provider.
 
-> The Allwinner A733 changes the layout of the pinctrl MMIO register
-> frame, but stays otherwise rather close to the previous IP.
-> The main PIO looks similar to the one in the A523, with ports B-K being
-> implemented, each also with the same number of pins per port as on the
-> A523.
+Use the map-aware parser for pwms so fw_devlink resolves the same
+provider as the PWM consumer API. Direct PWM references continue to work
+because the map-aware parser returns the original provider when no
+pwm-map property is present.
 
-[Severity: Medium]
-Are these pin counts actually identical? The commit message explicitly stat=
-es
-ports B-K are implemented with the same number of pins per port as the A523,
-but in the patch PB has 11 pins and PK has 26 pins. In contrast,=20
-a523_nr_bank_pins defines PB with 15 pins and PK with 24 pins.
+Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4jba=
+uradujrre@gc5nbdhhixaf/
 
-> diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctr=
-l/sunxi/pinctrl-sun60i-a733.c
-> new file mode 100644
-> index 0000000000000..ca82f08a3a65b
-> --- /dev/null
-> +++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-[ ... ]
-> +static const u8 a733_nr_bank_pins[SUNXI_PINCTRL_MAX_BANKS] =3D
-> +/*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
-> +	{  0, 11, 17, 24, 16,  7, 15, 20, 17, 28, 26 };
+> diff --git a/drivers/of/property.c b/drivers/of/property.c
+> index eba7e9fe6c386..a9c51d639a2b5 100644
+> --- a/drivers/of/property.c
+> +++ b/drivers/of/property.c
+> @@ -1426,7 +1435,7 @@ DEFINE_SIMPLE_PROP(extcon, "extcon", NULL)
+>  DEFINE_SIMPLE_PROP(nvmem_cells, "nvmem-cells", "#nvmem-cell-cells")
+>  DEFINE_SIMPLE_PROP(phys, "phys", "#phy-cells")
+>  DEFINE_SIMPLE_PROP(wakeup_parent, "wakeup-parent", NULL)
+> -DEFINE_SIMPLE_PROP(pwms, "pwms", "#pwm-cells")
+> +DEFINE_SIMPLE_NEXUS_PROP(pwms, "pwms", "pwm")
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but this change exposes a
+pre-existing stack buffer overflow in of_parse_phandle_with_args_map() by
+parsing pwms properties automatically during early boot.
+
+Does this code overflow initial_match_array[]?  If a provider node in a
+malformed Devicetree has a #pwm-cells property larger than MAX_PHANDLE_ARGS
+(16), list_size is read without bounds checking:
+
+drivers/of/base.c:of_parse_phandle_with_args_map() {
+    ...
+	/* Precalculate the match array - this simplifies match loop */
+	for (i =3D 0; i < list_size; i++)
+		initial_match_array[i] =3D cpu_to_be32(out_args->args[i]);
+    ...
+}
+
+Because fw_devlink now automatically calls parse_nexus_prop() and
+of_parse_phandle_with_args_map() for all pwms properties, this regression c=
+an
+now be trivially triggered without requiring consumer drivers to probe.
 
 [Severity: High]
-This is a pre-existing issue, but will setting PA to 0 pins cause an
-out-of-bounds array write later during initialization?
+This is also a pre-existing issue, but this patch similarly expands the att=
+ack
+surface by triggering it automatically during early boot via fw_devlink.
 
-When a SoC's first bank has 0 pins, prepare_function_table() processes PB
-(bank =3D 1) first. The initialization logic for irq_bank does this:
+Can this loop run infinitely if the Devicetree contains cyclic phandle maps?
 
-drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c:prepare_function_table() {
+When following <list>-map properties through nexus nodes, there is no cycle
+detection or maximum depth limit:
+
+drivers/of/base.c:of_parse_phandle_with_args_map() {
     ...
-    if (bank > last_bank)
-        irq_bank++;
-    func[lastfunc].muxval =3D irq_mux;
-    func[lastfunc].irqbank =3D irq_bank;
-    ...
-}
-
-Because bank (1) > last_bank (0), irq_bank increments from 0 to 1 before its
-first use. This shifts all subsequent banks by one, giving PK an irqbank of=
- 10.
-
-Later in sunxi_pinctrl_build_state():
-
-drivers/pinctrl/sunxi/pinctrl-sunxi.c:sunxi_pinctrl_build_state() {
-    ...
-    int irqnum =3D func->irqnum + func->irqbank * IRQ_PER_BANK;
-    pctl->irq_array[irqnum] =3D pin->pin.number;
+	while (cur) {
+		/* Get the <list>-map property */
+		map =3D of_get_property(cur, map_name, &map_len);
     ...
 }
 
-For PK, this calculates an irqnum up to 351. Since pctl->irq_array is
-allocated with exactly 320 elements (10 * 32), does this write past the end
-of the array? This can also cause an out-of-bounds read on desc->irq_bank_m=
-ap
-when handling PK interrupts.
-
-> +
-> +static const u8 a733_irq_bank_muxes[SUNXI_PINCTRL_MAX_BANKS] =3D
-> +/*	  PA  PB  PC  PD  PE  PF  PG  PH  PI  PJ  PK */
-> +	{  0, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14};
-> +
-> +static struct sunxi_pinctrl_desc a733_pinctrl_data =3D {
-> +	.irq_banks =3D 10,
-> +	.irq_read_needs_mux =3D true,
-> +	.io_bias_cfg_variant =3D BIAS_VOLTAGE_PIO_POW_MODE_SEL,
-> +};
-> +
-> +static int a733_pinctrl_probe(struct platform_device *pdev)
-> +{
-> +	return sunxi_pinctrl_dt_table_init(pdev, a733_nr_bank_pins,
-> +					   a733_irq_bank_muxes,
-> +					   &a733_pinctrl_data,
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is it safe to pass a statica=
-lly
-allocated structure to sunxi_pinctrl_dt_table_init() where its npins state =
-is
-mutated?
-
-In init_pins_table(), the pin counts are accumulated indefinitely:
-
-drivers/pinctrl/sunxi/pinctrl-sunxi-dt.c:init_pins_table() {
-    ...
-    for (i =3D 0; i < SUNXI_PINCTRL_MAX_BANKS; i++) {
-        desc->npins +=3D pins_per_bank[i];
-    ...
-}
-
-If the probe function defers, npins retains the accumulated value and doubl=
-es
-on the next probe attempt. While devm_kcalloc allocates an array for the
-doubled size, only the first elements are initialized.
-
-When fill_pin_function() iterates up to the doubled npins, will it call
-strcmp(pins[i].pin.name, name) on zero-initialized elements, triggering a
-NULL pointer dereference and kernel panic?
-
-> +					   SUNXI_PINCTRL_NCAT3_REG_LAYOUT);
-> +}
-
-[Severity: High]
-Does the SUNXI_PINCTRL_NCAT3_REG_LAYOUT incorrectly map logical to physical=
- IRQ
-banks, breaking all A733 GPIO interrupts?
-
-When an interrupt fires on A733, sunxi_pinctrl_irq_handler() loops over the
-logical IRQ bank indices (0 to 9) and calls sunxi_irq_status_reg_from_bank(=
-pctl, bank).
-
-However, the layout logic directly multiplies by the logical bank index:
-
-drivers/pinctrl/sunxi/pinctrl-sunxi.h:sunxi_irq_base_reg() {
-    ...
-    if (pctl->flags & SUNXI_PINCTRL_NCAT3_REG_LAYOUT)
-        return pctl->bank_offset + bank * pctl->bank_mem_size +
-               A733_IRQ_REGS_OFFSET;
-    ...
-}
-
-For the first IRQ bank (PB, logical index 0), this calculates the offset for
-physical bank 0 (PA). PA has no pins and no interrupts. The physical regist=
-ers
-for PB are at physical bank index 1. Because the mapping is bypassed, doesn=
-'t
-this cause the handler to read from the non-existent PA IRQ registers inste=
-ad
-of PB?
+If a pwm-map property contains cyclic references (e.g., node A maps to node=
+ B,
+and node B maps back to node A), could this cause a system hang or deadlock
+during boot?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910133519.4590=
-11-1-andre.przywara@arm.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-fw-devlink=
+-nexus-ready-v2-0-17ac82dbe226@toradex.com?part=3D4
