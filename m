@@ -1,90 +1,114 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26B1849EC76;
-	Thu, 10 Sep 2026 13:35:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id B61904A2056;
+	Thu, 10 Sep 2026 13:35:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047341; cv=none; b=TEYeH4OmyCJS43FejvSUfAxpSKBLxVBRccs0I8Zm2XZebRaqniwZEDAcDr88+I44uz1erquizVHmAInAaZuh6s9iAlwtggP7oQx0IeW1qWTxXfjPcjRcFWt/RYI4uRfFAVEUQ1HCgu0WggIhhqsTPIy9ZV+MIXU8ka1Vec7RWqw=
+	t=1789047342; cv=none; b=fQpK9zqS+C/Q0dEv7zmQrayK9E9aRWGiBMd7hICzHOJcl3TnmfwITeSgFX1mVmfiNz43ud9ClDeTULeujBJr27lMqYLbOeQXiucrHs37mgGlzP6Y32anbm2vH+Aw5f1nt+EVwCO8UmGs0H7Z1Ry6StiJNq9cY1DBPx6AhzZ9bCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047341; c=relaxed/simple;
-	bh=BoOMfIFPIGwvljgrOki6vDKw076yvIl6ObzO4+ZHHUc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DKEFMXdRmah2EYpGPWBzK2VCV7XRObzLVSCHNWMM0KDAMLsCRChfNntclbQgBsthOObtHZcLqhQt/KVrrhF5Hocwv7KUb/f31rSI4qNYToO/eK4aiL66VYOLOCJbOpSTx0Mkq6LlXfR9m6SHniOjAy4r6X9k+mmnfOV9LbtnLps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jM5VKKB2; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1789047342; c=relaxed/simple;
+	bh=hSa/tH8M8jk5gYes5gwVXQnH3e8X4j6HtduRWqIb3Ig=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=G08fhgnOLFfxJu/9kfbLE07Jay7PqO76juLVyNMMWuoQktlC6ID6K7WoqshgSf2/gT+lCo/GkFdke4qv7ARWGGyuKraERZxQQ7U6tWaPwnL1cL+S14Eyd4lPdPmTVIZM/eZ97Dhc6CO9kjUg8MFFnYNVQAQ96xzA8SBKLTAk8AQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=ufl9Fesw; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jM5VKKB2"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1789047338;
-	bh=BoOMfIFPIGwvljgrOki6vDKw076yvIl6ObzO4+ZHHUc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=jM5VKKB2jyUgY4IYCO7MPurWpDYnR+fBjdroLnWI0Yg0/nbJRpM+9qwo0IzmrV2Oh
-	 k527jf+d3ahA1ZQjz+UdRRzW7DEHuaNHBRtkdE09ZGS1SCA6CQ/hYmZGXTZA9cIbx6
-	 Q64dyBTGzEaBstnAnVgeYysW9DzQdVryv141RW5bg526lnpc0d41noBd3bIBhl6c/T
-	 DupbVcuzbImxI4ItXqN2ex/8ysyZZosGjUII4E7Al096LQul6OjhP45uFD3Jdbf5Du
-	 2tEUelr/19ewDPT8hHeUx1UdfF8fxZlbuLrDOnPyDQKjqFbZS0vP4V4MbrdYsiAgDm
-	 jGjgpGp2+vRhA==
-Received: from [192.168.0.15] (unknown [100.64.0.170])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: detlev)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 33D9C17E0EB0;
-	Thu, 10 Sep 2026 15:35:36 +0200 (CEST)
-From: Detlev Casanova <detlev.casanova@collabora.com>
-Date: Thu, 10 Sep 2026 09:34:47 -0400
-Subject: [PATCH v2 5/8] arm64: dts: rockchip: Rename rk3399 HDMI audio card
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="ufl9Fesw"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7DA1622C7;
+	Thu, 10 Sep 2026 06:35:36 -0700 (PDT)
+Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9220C3F528;
+	Thu, 10 Sep 2026 06:35:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789047340; bh=hSa/tH8M8jk5gYes5gwVXQnH3e8X4j6HtduRWqIb3Ig=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ufl9Fesw8ci7X2Kc4PTAqdtuKbfDNk+st4bNXYBhxmDMYOlz9TjgyfWh6sRuv1v9o
+	 4juU4bwHRWNchv+K9SsLkDg/Cjrt2THjC5Kz22Fx7iL3pImZJnbqHUC5HqcWb9bEJQ
+	 ZVD7Sy5FAi2WzcsvanRC8rC1EoFFOsxLHqa/1QnM=
+From: Andre Przywara <andre.przywara@arm.com>
+To: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: Jerome Brunet <jbrunet@baylibre.com>,
+	Yixun Lan <dlan@gentoo.org>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+	linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev
+Subject: [PATCH 5/7] dt-bindings: pinctrl: add compatible for Allwinner A733
+Date: Thu, 10 Sep 2026 15:35:16 +0200
+Message-ID: <20260910133519.459011-6-andre.przywara@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260910133519.459011-1-andre.przywara@arm.com>
+References: <20260910133519.459011-1-andre.przywara@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-5-1396a6168e20@collabora.com>
-References: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-In-Reply-To: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
- Christian Hewitt <christianshewitt@gmail.com>, 
- Robin Murphy <robin.murphy@arm.com>, 
- Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
- David Summers <beagleboard@davidjohnsummers.uk>
-Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, 
- Detlev Casanova <detlev.casanova@collabora.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Rename the card from "hdmi-sound" to "RK3399 HDMI" so it identifies
-the SoC in user-visible ALSA fields and matches the naming scheme
-used across the rest of the Rockchip family.
+The A733 contains a pin controller similar to previous SoCs, although
+with a change in the MMIO register frame layout.
+This SoC uses the new style of DT binding, where the pinmux values for
+each pin group are stored in the new "allwinner,pinmux" property in the
+DT node.
 
-Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+Add the new compatible to the existing A523 binding, since they share a
+lot of features, including the number of banks and clocks.
+
+Signed-off-by: Andre Przywara <andre.przywara@arm.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3399-base.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml     | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
-index 49c68fe65de6..c46e58d4af0d 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-base.dtsi
-@@ -2008,7 +2008,7 @@ hdmi_sound: hdmi-sound {
- 		compatible = "simple-audio-card";
- 		simple-audio-card,format = "i2s";
- 		simple-audio-card,mclk-fs = <256>;
--		simple-audio-card,name = "hdmi-sound";
-+		simple-audio-card,name = "RK3399 HDMI";
- 		status = "disabled";
+diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
+index f87b8274cc372..d7d0ba32ced4d 100644
+--- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun55i-a523-pinctrl.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/pinctrl/allwinner,sun55i-a523-pinctrl.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
  
- 		simple-audio-card,cpu {
-
+-title: Allwinner A523 Pin Controller
++title: Allwinner A523 & A733 Pin Controller
+ 
+ maintainers:
+   - Andre Przywara <andre.przywara@arm.com>
+@@ -28,6 +28,8 @@ properties:
+     enum:
+       - allwinner,sun55i-a523-pinctrl
+       - allwinner,sun55i-a523-r-pinctrl
++      - allwinner,sun60i-a733-pinctrl
++      - allwinner,sun60i-a733-r-pinctrl
+ 
+   reg:
+     maxItems: 1
+@@ -126,6 +128,7 @@ allOf:
+         compatible:
+           enum:
+             - allwinner,sun55i-a523-pinctrl
++            - allwinner,sun60i-a733-pinctrl
+ 
+     then:
+       properties:
+@@ -138,6 +141,7 @@ allOf:
+         compatible:
+           enum:
+             - allwinner,sun55i-a523-r-pinctrl
++            - allwinner,sun60i-a733-r-pinctrl
+ 
+     then:
+       properties:
 -- 
-2.55.0
+2.47.3
 
