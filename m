@@ -1,213 +1,177 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.22])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012050.outbound.protection.outlook.com [40.107.209.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3775130FF1D;
-	Thu, 10 Sep 2026 16:33:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.22
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058006; cv=none; b=t827zmfVv5lK9NFm0huekIZUTBfcPV1TeH1Dz78kadisMQAQakV9y+XCwuRwu+VOKVfA2yWRyLayiV0ykkxGQLUiOgD1y78KGAbvme3kxFpT8dVEZzkIk/85wt9XyvnTE1/P4L2QhhWgnwdioGbeuoaPdvD6tqNlXWLTK5xJ/Ww=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058006; c=relaxed/simple;
-	bh=+ayH1FX3kVunzMh8TkCRg4WHR+LOdAedYf19O/irScE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iJFTnvvSX/dyJv2VOGhnAFtVsn7I8yxP9hU69q9wEE1UKFaJFYmnVyXSzzvTbXb6l7UIzhfBn7mt0eByba23OwdghHfCpeXBW7GFOkTy6ytV3tQyuwsRABXqwaJ1709xjVSlm3Da/ygYhYngXKjbfCs9RkZKjLzx3GMv/aJDksM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=CsALhKGH; arc=none smtp.client-ip=212.227.17.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3253A9017;
+	Thu, 10 Sep 2026 16:36:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789058210; cv=fail; b=jGTb21R6mR6HMCet+4V3HZbwBZgjcFI9ZZlmcWGBniZXmfcJbjNhSXSBOghS8Q4TcaX7vivaH+n4nisaNC5Ul/KQVifxXUq4iszl2/HdHbMCqm+LPi5rFsfKD9SF4vsOTh4FpSXZ6Tdo7rT6OirU308iaf/Z7Gm3C73A47Ae9t8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789058210; c=relaxed/simple;
+	bh=9ugAZjCn7Arhe21GeVHVPXgOLWdezHQbeElsc6w3QOM=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=nvGUe+ur3XW0bTW7sJ4zKF5sQL7fq96tehrGZ0PBRJcFnrrAxC3G/QBqL2mb2Pvu4ajHKisS2XdzrTG4Iv/TB55TEnduo5R+TilHprW4Q6EZHBtq37lugSQllHzjp4/xiprFh+5GDYOtvEE3UsvCwcizI0FQ1sfmZUGgMDXhSOI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=OXjvUtLy; arc=fail smtp.client-ip=40.107.209.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="CsALhKGH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1789057996; x=1789662796; i=wahrenst@gmx.net;
-	bh=+ayH1FX3kVunzMh8TkCRg4WHR+LOdAedYf19O/irScE=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
-	 References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:cc:content-transfer-encoding:
-	 content-type:date:from:message-id:mime-version:reply-to:subject:
-	 to;
-	b=CsALhKGHgv1DMNVdAsHxGUQOKEbAyMAuYzAVafXOfp+iyx3rC1uqCCPysCHjbiPl
-	 BN8OPKUltuTiNBHXWSKe2wbHdx8aBB9Z+CGlHg7gscyl8eey1+2ZCzpieWxCiOusx
-	 01QUqoQVzrY/kudRT/ik3IU2DikLRR2Nzz1NVC0TSz+h/i5pR7K9KHLeOYrLpSHU0
-	 apJe5HhLHA3Wjsgqq3iRG3ZkIksNgVLJVW2t05grXdo8kVWXJOiwko4lzEaeXlN2x
-	 AS2DTYMbca6MiDW5BzKKjVF2RhEZJzq57fJ7db4t11zpn+uzmplrSIA89EvTPk2Z7
-	 maONeKfBUoW5DLt/Bw==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1MCKBm-1wvO3S2SW2-00Gw1q; Thu, 10
- Sep 2026 18:33:16 +0200
-Message-ID: <cae27e7c-1903-4a0c-aa80-b05f9f3d1d2c@gmx.net>
-Date: Thu, 10 Sep 2026 18:33:15 +0200
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="OXjvUtLy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dDD0bDMipeQ3soHREQKhxVnPTdDS24BuG6IUTgJ0t5JZj/7FRbTP9tnncwTsckGN7wXkjrz5IUMnCBZNxRKJGFDZ8xSWeD56/IvZHhZUePGil2LciMBBQJsMecdByVQ5VYU+Yj+ysyi+1cVycHQ+JaGAsB1b7qnBaQZtftC9RVcJFm/p0jDn7aHLlwiTVsHr7mx+e57/J1lxT2G1TyyWha6aa8BoNSLliW513+orpYbD2g/tQumL+EYRjW28bcGIEVvHLYLD8SS++LDlHUg17H1UQeofNhtbFJkKikF0B6Pnk8FZxPV2MqU71Jwn66qZB+GROhbgtdjOXODhHlFyDQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=lN8/HAZsF28bDcVnKLYaXSIR9cieJJdrRgfFc47zCjc=;
+ b=nJ/v0Zid7l6Jj1Ou9XPAevWKfeSegZfw8eJxsnBHd8uOneo2at+HrHr6Wpb0L0G1+3ZiTT44EMT/nW5udD9QOaH4IDNRu9+Fu/tqEnuw2SRqx8xWf0skJgjL6ACJazavug6j7w3AZDcBeEXBRymnaHvo1jaHRROnRtrW7kZVx1pmRNj1kFfCn7lZr25OTMyKp/1w+xYPJzHmIpDfiuFmPeN7ZIMsb+WMe5+X9V8KaM6Gk20lJERWPkS22egCOZVLmoMdA+JzcsPlQAS3yFKQC3OED7EMdUf9k0ujJlJKYULWpbtf926lw2bf7Qy7vii1eoPMLAgSOukoDTqUoLYKCw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=lN8/HAZsF28bDcVnKLYaXSIR9cieJJdrRgfFc47zCjc=;
+ b=OXjvUtLyTXZm3QxPTRwIbJXbN1d0WXfJDiYNu7ehv0vH1jNCh2XoBAFhOxPA84Nw3ZYmQ1MT1KZMeujqaWQNOawqaauW0MZARf5dCxuw31V2ZvgkTSZSsQzfk6aZIy1LpDMHL6wP06i8yiuIE3rOqDIvML+94K4kWVewBkJz4MPLuqdmFKI26li0xJGw7gRGheauYWQvv39i1UA4Eo+9/vre0DMFP/MnrFi+AWk2QnR1cuVhlMwSRFQBrnfQ7A8lGNm5/u47MACUjxZoFOq7XacGmiDAroawSrUZgKOzWueoryjNLqZaK5FqOeBO7Jmh53uTAvDOKrX+itngR1k6mw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ1PR12MB6051.namprd12.prod.outlook.com (2603:10b6:a03:48a::18)
+ by PH8PR12MB999321.namprd12.prod.outlook.com (2603:10b6:510:40e::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Thu, 10 Sep
+ 2026 16:36:47 +0000
+Received: from SJ1PR12MB6051.namprd12.prod.outlook.com
+ ([fe80::96e1:b300:7b78:d3a9]) by SJ1PR12MB6051.namprd12.prod.outlook.com
+ ([fe80::96e1:b300:7b78:d3a9%6]) with mapi id 15.21.0382.014; Thu, 10 Sep 2026
+ 16:36:46 +0000
+Message-ID: <c9ad15c1-10c0-4111-a143-baf72fccf1f2@nvidia.com>
+Date: Thu, 10 Sep 2026 17:36:41 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] arm64: tegra: Clean up AHUB on Tegra264
+To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Charan Pedumuru <charan.pedumuru@gmail.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Thierry Reding <treding@nvidia.com>
+References: <20260902-tegra-ahub-dt-cleanup-v1-0-028f3c5e72f6@nvidia.com>
+ <20260902-tegra-ahub-dt-cleanup-v1-7-028f3c5e72f6@nvidia.com>
+Content-Language: en-US
+From: Jon Hunter <jonathanh@nvidia.com>
+In-Reply-To: <20260902-tegra-ahub-dt-cleanup-v1-7-028f3c5e72f6@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AS9P194CA0026.EURP194.PROD.OUTLOOK.COM
+ (2603:10a6:20b:46d::34) To SJ1PR12MB6051.namprd12.prod.outlook.com
+ (2603:10b6:a03:48a::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: rtc: Add Raspberry Pi 5 RTC binding
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Sander Speetjens <sander.speetjens@gmail.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Jonathan Bell <jonathan@raspberrypi.com>, linux-rtc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20260909141300.1368790-1-sander.speetjens@gmail.com>
- <20260909141300.1368790-2-sander.speetjens@gmail.com>
- <4c237cd8-024f-405e-a00e-e22ff9529d08@kernel.org>
- <8cd19ae8-372b-444b-bd2a-dc01221b5896@kernel.org>
- <CAAOJLPHNGgC7B=7ESCifZ1FPcR6V=Hcg-q-aaVg_9M_-d6Fh2A@mail.gmail.com>
- <718e88b8-3f3b-410e-8e76-90c370ff920a@kernel.org>
-Content-Language: en-US
-From: Stefan Wahren <wahrenst@gmx.net>
-Autocrypt: addr=wahrenst@gmx.net; keydata=
- xjMEZ1dOJBYJKwYBBAHaRw8BAQdA7H2MMG3q8FV7kAPko5vOAeaa4UA1I0hMgga1j5iYTTvN
- IFN0ZWZhbiBXYWhyZW4gPHdhaHJlbnN0QGdteC5uZXQ+wo8EExYIADcWIQT3FXg+ApsOhPDN
- NNFuwvLLwiAwigUCZ1dOJAUJB4TOAAIbAwQLCQgHBRUICQoLBRYCAwEAAAoJEG7C8svCIDCK
- JQ4BAP4Y9uuHAxbAhHSQf6UZ+hl5BDznsZVBJvH8cZe2dSZ6AQCNgoc1Lxw1tvPscuC1Jd1C
- TZomrGfQI47OiiJ3vGktBc44BGdXTiQSCisGAQQBl1UBBQEBB0B5M0B2E2XxySUQhU6emMYx
- f5QR/BrEK0hs3bLT6Hb9WgMBCAfCfgQYFggAJhYhBPcVeD4Cmw6E8M000W7C8svCIDCKBQJn
- V04kBQkHhM4AAhsMAAoJEG7C8svCIDCKJxoA/i+kqD5bphZEucrJHw77ujnOQbiKY2rLb0pE
- aHMQoiECAQDVbj827W1Yai/0XEABIr8Ci6a+/qZ8Vz6MZzL5GJosAA==
-In-Reply-To: <718e88b8-3f3b-410e-8e76-90c370ff920a@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:dkbTynnLTZUsNIb4c9Q3WO41pMr8iiv7drOofwBgIYYXeYY9UYg
- nfBGblnKFxb5oZ++ZY4Y+OSFLxcDvKvINKp3QIs+UWiibTd3OpMsckPOOJVsR6PpiBlzVPX
- lImEZ4XPkCMn39HpeniisSsyB6b45SUIR7/1VA+xDC1JBMF2uYzGuZmuyqta1Kbg/Ugfo0y
- 6lo3rcKgzGFhJnLd7b+mQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:28hUPTmvF8o=;Lvawf45V1FHTBBTIqqDAiBKatLA
- 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
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PR12MB6051:EE_|PH8PR12MB999321:EE_
+X-MS-Office365-Filtering-Correlation-Id: cce5ea85-10f3-4b3e-0b33-08df0f59b493
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|1800799024|376014|366016|10067099003|22082099003|18002099003|11063799006|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	chsEPxlrNMTFKCOie9ka4wMMlpqKwa6B4CV01WBWT3oF0DGvO4bszsBdNyF5zU9SEfXmpMIXZT1zFwnQRngHzWt9siD67wGuKNVCoVWbRNLd4etDL2VnmFqwzi/PQNComD46e5xKcJzvgxXmn/1C7YfIJLCXrtxlmYXB0H3skEOMWQZv/R5Efyhkov/Mxvr4iYN0fEwyo/DqK+1i9JjO6ze0OzBMTi/eagc9I/RuhZ73K9hPS/cHcnv978Z3nw2UphX0khVSKHKbnQ427Ydb8pTn8Immb+QfrJuIkXGbPbh9BbK9TcZUmepZUmi7NuKecZgt6q/IKexMyY7WV4wQx7JvMaX+pngP1DI8JTJADmbldT53he3AhnevPMKBVnQlAiJHpMP0fRHTj0xhOU/GBjrosfhQ6rIdMUcN+gY5E7nSBKk0SbGKhk4hvGzqvOrb8hH5ZPIeil/HwVMrcRsLc5PAKb3Or06GwITgkoajCt5XWvGGA69LG5t//l/URmB6IzzKhj1FK2t/yLmNAHoxe2SMXaUHM/h0s8ax+NzGtKhlZBl0QSa+8dNE/x9b2GGyPzSgo8kkDrOLtgDe/rsUOxF0rnGllmkwBodQYtiBEKUlAktWjAhIwerxjF8/EvrBcN1son65ICys1e+ef2THAuAKPBilHI+e5Ye2FAvYm5w=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR12MB6051.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(366016)(10067099003)(22082099003)(18002099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?RVBOa0FUK2o2dXZwOVVLdmxSeUZIdy9rSU5IMnZyU3phZ1BxSTZYTW5XVnpp?=
+ =?utf-8?B?bzBZcG5GemRsRS9oeUF1WDdxb3p5YmVTd3JNdHo2eklKOGtieTN4YjVFRTVk?=
+ =?utf-8?B?djhNNFZiSHlIUUZ0SWlTVXZYYkk2b3pnUDFLdW5WQ3lUcDdzbjhGZzNkMHV1?=
+ =?utf-8?B?OWRzRG1lYVV2bk1aSHEzREZLWU5yckJjNEl2RUZibG1STzc1MUlxa0hwcnlZ?=
+ =?utf-8?B?R0Y4QUczdlRhSExGRnBTYjJUb3ZuV2hVV0lWdmpQSzIvZGhkTHQ5WTV5cFFL?=
+ =?utf-8?B?YitaV05LNFJYTC8rNThXK1ZNdVdpMHIvQTNMR0NaaDBnMERLQzJTMHpreUtI?=
+ =?utf-8?B?ZCt6cndJbEd5dFBFSTM4NVY1QkRqYTNablR0R2VpWDBlVCtRR0JEOHdxZ2I4?=
+ =?utf-8?B?UzRpZ0pqZzZvem1OTnp0OXB2TnlNTERjZ3o1dm1tTWpta0g5Z25ZQUJpektn?=
+ =?utf-8?B?bVcydTJ5VHZ6T2JPRXRqNnRSSU4zTmxQU01SYnI3Z1B5U3l0cjBBQ3drejdr?=
+ =?utf-8?B?NDFjQkV4RmtieVBqQzdYTTdpZWh0NVIxYnhuZ2VRSlpuQ3hDYjc5bm1lTTR2?=
+ =?utf-8?B?aTF6OHA0M1Nzdklxa2dFZGZUSmdhTkFlZjdTSTV5RXY2SDNTa1Y2NlhwRnZm?=
+ =?utf-8?B?YVZISUhnR0NPVVh3Z2F3amVxRzNWMzhubGN4MXhlVlhqYVNJV1Z1alB5MTdX?=
+ =?utf-8?B?QzZyakFic3EwMUQ0ZGpya2dvNE9FUXRjY3NNTEFGUEZXMEw3NllrUVZCN2RR?=
+ =?utf-8?B?TWZESUlpamVxUVR3YlJ2ZUI3WFdXUUdzb2tMZzJvVG9kemJLdW5EaENNWE9O?=
+ =?utf-8?B?NzNnT3ZNQ0VMZFZIN21LT3BGZStVekNEUHlmaDB6dTNoOS9EQzZEblhsUFYw?=
+ =?utf-8?B?ajhoZElQOFNvQXlpSWMzdjhzeDdBY0ZNM0g2dXJpRVh5aUdGbEVJMzE1blA2?=
+ =?utf-8?B?SGhuSXQ3UndHMU9BemdNNU44T1ErQW1IaDdLMVFHaWMrZ2JVUFh1Y1UxYnB0?=
+ =?utf-8?B?aXhlOHVCTERzOXo5K1dWVmNsNGZBbkNzUkdZRFNVRlZBTUMvV3FER1B0MGx1?=
+ =?utf-8?B?SFNmTlo4T3VEbHhHWSs0RWtaczhOVGZ4N05teWNKM21PcFhOaklUL3NuVW4x?=
+ =?utf-8?B?MGZBT1lPQ2IrWkxabHQzVEppS045U2dIandQYTNoZHBsUkRtUk5NbWdHYlJz?=
+ =?utf-8?B?K1ZuSTVyQmxkNjZhSVgvb2VlaVk1R2hBbVBqam95MU8wZjVqeXBuUFdTOWNP?=
+ =?utf-8?B?NC9RS0pHZ09WS3R5cWdmK1pmS3pZUXNFellqZ2dXMTU4d0hUUkt5Y1BQRndN?=
+ =?utf-8?B?aE9ma2RSRmhtYWdmUmtIdnF5NGQ4Q2R3U0lxdFhWcEZVTGtJNTJBbm0zTlJk?=
+ =?utf-8?B?WGtnWnp5YVc5bndMeGhBakNLYitodE9yQUN3K0pieFJFNTNna0J5RFVma002?=
+ =?utf-8?B?Q3lUcEJtWlZjelJCV3dZbkduSElyb1ErajlCczNMU3E4QTRoYUtDUUZ1eWVI?=
+ =?utf-8?B?Y1dWY2V3NE1iS1oyYVpzaFU1N3FQdkRaUmhrb1FuU0pTdFcxRFJXcFJlbzRH?=
+ =?utf-8?B?YW4zTXZacEQrY0xrSWpsRnUzYmtPOHhmdmx5allhR0F2MWxRRmVSUWZoYjdG?=
+ =?utf-8?B?MUEzUnRUWEhYZXQ4MlBJOE84OW1jT3V4UTFCMDZIa01LVzhtOUhSYVdJa01k?=
+ =?utf-8?B?dHM2Ly9mdEU4R2lLWGRHVWNlNFRHYnFjVS8yS25pRFhFcXJIR2RmYVk1bitl?=
+ =?utf-8?B?S08vZXFTeWhrUTNzQjEwdHdmU01Wb3dzeUlxc1FzVVRxTERleFo3Y0tkd2hJ?=
+ =?utf-8?B?bWExSUxnOGJCTHZ6WE1FMU9UY1VBN2hTdTgxRmphZTFpSkF0dkpwSjNDcVhH?=
+ =?utf-8?B?MU5CaklNOTNLU1cvRWswRVM1eVVDVURER1M1b283akVLSEZlRjV4Nlh1ZnQ4?=
+ =?utf-8?B?RWFXc3JaYzJLczBUSjFtK2lQbGRNdEtJVUFZZThHYmhmaTBFeXFpei9XaXZG?=
+ =?utf-8?B?bVRmSVNMbzIwM0dnRTZLeWlWTkxMTFhRZEVJZ1hnZjZIWEorbnJJUC9WU0lw?=
+ =?utf-8?B?VW4yL0s5WGZVTlhHK2xYWEdmRCt3SWVwSUYyN3J1YkZuTHZWWUVoZ2I0Vjhp?=
+ =?utf-8?B?M2dvZkUwa1ZSRmVuaUI3Qmw1VUZ1QldGOVRacEFrSFYyN3JwWUVRQWg5MGJC?=
+ =?utf-8?B?b2hib3FCK0E3WXgrWkZIZ1VpaE1OaWU0cVdNcG1lczRmZ0FaMEQ2bDRkd3V2?=
+ =?utf-8?B?YXRXS2dMUmRJRlVGc1FjbzVPaG4yVDdjdHk2dW1ONUxSUEtxQVJjbk1jNkpN?=
+ =?utf-8?B?VmRNVGNpWVhBS1NQejJ6eWcrbnNidFkvcG1qTkxzblBoWnkyRG1Vdz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cce5ea85-10f3-4b3e-0b33-08df0f59b493
+X-MS-Exchange-CrossTenant-AuthSource: SJ1PR12MB6051.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Sep 2026 16:36:46.8678
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: syfUuWzvr1PTPPVy3pQndLYkWd05eFsngVRenAiTy2A7rWHq3r+ac/QDF4M2qbOGCXDlnPpQjSSvfUGeg8C3qA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR12MB999321
 
-Am 10.09.26 um 09:08 schrieb Krzysztof Kozlowski:
-> On 09/09/2026 22:24, Sander Speetjens wrote:
->> Thanks for your response
->>
->>> And more important, where is any interface to actually control the RTC=
-?
->>> I see nothing, so your firmware is? Then this is not a separate device
->>> and you just added DTS for your driver, which is a no go (see writing
->>> bindings).
->> The RTC is a physical, battery-backed RTC, but the Raspberry Pi firmwar=
-e
->> exposes its register interface exclusively through the firmware mailbox=
-.
->> I initially used a firmware phandle so the RTC driver could obtain the
->> existing rpi_firmware instance.
-FWIW Based on the official announcement [1], the Renesas DA9091 is a=20
-PMIC which has been customized for Raspberry Pi. So currently there is=20
-no datasheet available (yet).
-But it's very likely that the GPU firmware of the BCM2712 communicate=20
-via I2C with this PMIC. Also this IC offers additional features like RTC=
-=20
-and power button. So this driver only handles the RTC part.
 
-Best regards
 
-[1] - https://www.raspberrypi.com/news/introducing-raspberry-pi-5/
->>
->> Based on your comment, I think it is more appropriate to model
->> the RTC as a child device of rpi-firmware,
->> referencing to the existing firmware clock/reset/power services,
->> and have the driver obtain the firmware interface from its parent
->> rather than adding a phandle solely for driver plumbing.
->> Which also means moving this to arm/bcm/raspberrypi,bcm2835-firmware.ya=
-ml
->>
-> Whether device has separate node, depends on it having dedicated
-> resources. I don't see such here, so unlikely it should have a node in
-> the first place (see writing bindings or DTS101 where exactly this
-> question is asked).
->
-> Best regards,
-> Krzysztof
+On 02/09/2026 11:17, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
+> 
+> Use #address-cells = <1> and #size-cells = <1> because we don't need
+> 64-bit register addressing for this hardware. While at it, also adjust
+> the ranges property to encompass the entire AHUB range as per the TRM.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
+> ---
+>   arch/arm64/boot/dts/nvidia/tegra264.dtsi | 118 +++++++++++++++----------------
+>   1 file changed, 59 insertions(+), 59 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> index 6b2e3a6ab810..4ed7dabafee5 100644
+> --- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> +++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
+> @@ -129,13 +129,13 @@ aconnect@9000000 {
+>   			power-domains = <&bpmp TEGRA264_POWER_DOMAIN_AUD>;
+>   			status = "disabled";
+
+...
+
+>   					ports {
+> @@ -1584,7 +1584,7 @@ sfc1_cif_out: endpoint {
+>   				tegra_sfc2: sfc@9710000 {
+>   					compatible = "nvidia,tegra264-sfc",
+>   							"nvidia,tegra210-sfc";
+> -					reg = <0x0 0x9710000 0x0 0x10000>;
+> +					reg = <0x9710000 x0 0x10000>;
+
+
+Looks like a typo crept in here 'x0' which is what kernelci is
+complaining about [0].
+
+Jon
+
+[0] https://lore.kernel.org/linux-tegra/178905234343.3919.16985173968804561026@kernelci.org/T/#u
+
+-- 
+nvpublic
 
