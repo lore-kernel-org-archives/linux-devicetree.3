@@ -1,87 +1,68 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32A731618B
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 01:37:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C626E6DCE1
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 01:53:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789004240; cv=none; b=bXHmX/RaGeLOzX9lvMCfTGy5KScioZSHvQxQIVvrd+WZnsO1kdodE3ag/NeO/Apr3ZntR3AmQviGVO7wzRdvZOjujZdtF36pQSLlak0WmZATtTyzSKkA2Rvp6l5yclwUJjNGs1schMXbq/SOOgP3pMLBlEPF32G0ulnkDfO+XcQ=
+	t=1789005186; cv=none; b=ux3mHYnxpCIxo48RZurHQOiqHdCRHCz0VnodyZZZb9eBYCiKZ1vBgychvF/bCLUKT9cEnkg2J7Y5iDiGK451/frlpb8l8GHhR4FDVCAQhj9kNqY5RWFCZ+m4phnFDlD4Rwy4Wo6+3NWpP2iTylZIyG2w/3UOVyunyhCroGLWMFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789004240; c=relaxed/simple;
-	bh=NQgzUm2oapDD9XOauvQ7sAF3oBMmE2JcTiMHT0AxIWo=;
+	s=arc-20240116; t=1789005186; c=relaxed/simple;
+	bh=SmcfkWeuLc3CpgSLYnogq8F5mXa3Fw44pJ9p5pnhX2U=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NqozucwQeN3m6foCx2vUDhcXI8TeUnegeboUn2adFo2dZVZS6sb23ri8990tzNSH6UAyovH10JW/BcBL1+g62jpfU2vHxWmW7sKSJQYqFx2vUdA3ag/e8O0W19nSfhpmV8Ct8dNh8yDkKhVZterQUAe13+RLNoSrdVd55M5Wlu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X9qqchTF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cQ7RS0tP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=Tqgmz8V12RhF44yOUqR0XyOXKhDa08r9dG5xu4NHn/fHKRRJ3e8suZ1arwhWspvzFEK3PyHQG0YYZvIIm6SVcVbWNtg27VM7xSnnTQRkh04IVOyc3ArSbTKTJgCTFH0DCQNye3cZvkdzViXCGkIJGPyzFuOgGw07lN/wk0lNKI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XK3OiMOQ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X9qqchTF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cQ7RS0tP"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 689M9UjZ3584763
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 01:37:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	U5296QULjbatYMz6kpvnqDY9ew8mUlm8s2jfQjulqY4=; b=X9qqchTFThwZILnx
-	WLAh78kMLrph0xponvvrQXZohS+3D67K0JIwO7Prm2SRLb+rC2F6A2119+ztrj1Q
-	ylXqkSIyJjtEGMRcpN/Fai9Sw4BNaWtS+BKTh72cQw3UTb1Vl11vz+QcpTzggSX5
-	t8j2DZg4jbOEC+6fkJ1NCCaGV7VT0f13EuJ64GrtWXi4LJfXyTUDg9zOegbUHJd5
-	6Juf6VhvzQAha7gvkmrnqmtbOC3u+U13LTdOLYJtAMkBPMD+3uh8mNPkmSc7VJAK
-	JD2j7Fl68ZmlOR0jGE0XkxDroabXxYEce/9lHUj9gqeDNM5p8Qe2lDNbb75EnwI7
-	lWlNew==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyg1fhb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 01:37:17 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-395543dc382so2499143a91.0
-        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 18:37:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XK3OiMOQ"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334ddcso8648255ad.0
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789004237; x=1789609037; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789005184; x=1789609984; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=U5296QULjbatYMz6kpvnqDY9ew8mUlm8s2jfQjulqY4=;
-        b=cQ7RS0tPOl2PLFHHVXTd1FNNZ5GKsnr0Es2dAwOuRmkSwsbmA5JVl2/OEPsFYPXoNP
-         vRtzzNRc7F3HUAzUy9CFEypqRFMFqfG/Iw8faZL6s3ICBrpTf9w8lDu5Ltm9mmsMKbdZ
-         1+9BZAu9ltmy3VYZhPRBeyatijukAyld34YNldMFIIxO8Keokr/OyiIo4iyGRRtnt4vd
-         wmlbrslyJVFfmeS+ftdNLBrNsJTuO2yqXHcKmGium3oezZ53FqKg1TtDAQPjUpIwV6Uf
-         C8T4GYsdT6b1c+6+/iUvsQ0lSVa5RLRxaNNydXKHDEl/kmZF2IIxOrz7An0fb05yvvpc
-         q28A==
+        bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
+        b=XK3OiMOQdpZYn6XiVZlnqJhl8XauhXCdvCSa9xSQN9wes0DpCqJ0/l3aDF57dPBnmn
+         dmLdCUB3DTMmI+WipvfVtgTttsLcLxYRzzMoHKxrkSfAFQxioEDpNO2M5EZLENKYaFTu
+         vBBXd04K5plFMIec7/zZX8Lj3C65Leo5GIg92h7L2n9OEdqWEigJbsJIpG/uffydRq8j
+         poAsh8xck1TRYyVe0z7A7/pL/Bm3uxtvx+XmIjHA+Tz8aTbkdgcjqLpZtvEWNEcv0SmF
+         d3eYswEqDxf5P7LM/BfXWP+f/Sor+XMHQna8nQvYEeGN/aqeDNvWbspdB/y/EbwNmYym
+         iSBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789004237; x=1789609037;
+        d=1e100.net; s=20251104; t=1789005184; x=1789609984;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=U5296QULjbatYMz6kpvnqDY9ew8mUlm8s2jfQjulqY4=;
-        b=rajRrHs6lEBTQuYDvcMmKKAioQF0z+0HUn0z5s0ovtvoIoHCWOiSbcMmznGbw+v2OF
-         po+CuqlV/WfT+Io/WehwrzdOY3FZ3rjUImDEuv8EhEcfLqW2MlizIX99FAlrUNEFD32x
-         bRcvYbXDJ6OBDwLPORQtLYx/ZSXe27vO8HymmQpVBnqJGUTkpbAqcNmsxrEIio08CL/D
-         hw9jQb2g/kdfce7ziEsz2Sg7u/nrLXW0UROZlKDU+ueZd3byOEPdYG9RP0t3OUR5B7Bh
-         cLuhrchNGHieos2zX++8570EEAvlusqFHl8I1v1pIB3W/N6O4xKmw1USqch2V4eRr/E3
-         y1IA==
-X-Forwarded-Encrypted: i=1; AKwUvBxql9NsV3UWbeNW/TuLCQgJTED+n/4H8RHbzuXebbhzt1ZnTbjMYsIdZJHNx9MLjHsGqMLsK2Kx5qNK@vger.kernel.org
-X-Gm-Message-State: AFuF++nssdZCNT5ORdFpWAWRKpKYFIGQjECT4mQvWzWbUPkLOoMlWUMD
-	zobZuYX41bo0ynmLhpLH7B0iLpIRCVFYmdHPSylpoRcu1g4EWErjoQ6gmX8q8Fnq0UZeGvx3CgP
-	aYNSh0znPIzFf+OMkm9IuBQ1Qw8vhoAnsRqRCpeyHvZS905+44MLNaFCu2tBu4iXP
-X-Gm-Gg: AYBFou0wv8YtiKaqm0MLiGVxnpEldHPCW8cReqPyy/AnnApVRbcS94MHuRx8uWsbyTD
-	/s/DH+evAI5tK8AvMI8JhCYy27xuSzGJUAoVzMaUZ/yH2pA6ZCaE88XAll2ZpcpcZ2fMcaaI77O
-	nM6nLZnCJdNpyDSfJ/ZGmVNqtchTbhhEnQIYmwe+tawxUGguDaCh86COEkhp5Eo4D2IcN3jijpi
-	Zto7tblLyn31ZzBzXG8EvBQLMLqOA6vdaQOyj7YCGNoNoFgPKXmWaN407PU0ISPCx23lk82HLcF
-	P5m4H1r/RYX506GyhyWn7TzWYUSCQB+35b2X9ep8LXlrIuG4VMTYG9zI5TIjwEU27oJRk9C99yg
-	V2KOhjk8neFV06E9qGxWDRb/bd3amCg==
-X-Received: by 2002:a17:90b:380a:b0:39b:2b10:d05c with SMTP id 98e67ed59e1d1-39d709e73a6mr5758515a91.5.1789004236767;
-        Wed, 09 Sep 2026 18:37:16 -0700 (PDT)
-X-Received: by 2002:a17:90b:380a:b0:39b:2b10:d05c with SMTP id 98e67ed59e1d1-39d709e73a6mr5758465a91.5.1789004236325;
-        Wed, 09 Sep 2026 18:37:16 -0700 (PDT)
-Received: from [192.168.1.132] ([70.95.199.79])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1433171a97esm52774345c88.12.2026.09.09.18.37.15
+        bh=B3AxC7gchtFJwmTqUc6Eo/wyWrQDc1+3uptrgZICrdw=;
+        b=Yz0XGrA3oqWEBGrqhuvIYBoIUaQXcnqeBRKCBcPtN1PuyG0w9V7VN4o9QlgXo7PAUA
+         CA6TSJ8dgN4ZPIFV/n/21a2vOHwyKSwamIFDx9qgkhEqFcvCYbAlt36wdK2JOUzPP+X3
+         EG3c/HxB7zhGNgxtzM7UG7cDZ4U/86wAvZVww6g1cS1UzBo13aEvo5g4CM7mSd6GPqbO
+         OqNk7SYRO/MPLl9PY+cTut8BjOWIqDLKblTZdKPF3kj1yvvBIe2h0we2MrcG5uF4t/jA
+         Sdd/BTJFjiyEM24xa7Nl0sPvktu6efYbW1+xIcXQ1R4h0Oz3Koz86vM639vtAKGhdiHq
+         crzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBziGV+tDlBbOxPUOf3+/AgVNNxRVzufp6hgiw+mzVD/7R5+U5z3DsKLtQf814UCob922MLocDZd+/g6@vger.kernel.org
+X-Gm-Message-State: AFuF++lMGK+b9X0E12ZNBXSPoe+ozSkTNx/NQYSuecSCzHiN8LTH7nV8
+	UFqdK4vRbI72Ho+Z07blAVhAEht6bV3teaESYNsMhP6BOJ3AiFgYa8Ly
+X-Gm-Gg: AYBFou3AiPd6h/ockVVYfbMAWvLvI7CfFXeqohrC0i9AwS+l6E5bvkKDqbFmYIFYOD5
+	WsblGVrB0kibrndD3TzeQSjhYynihFiUSIQwGwkFsV6SYW8+3CmQX3fnY7J1evDk+gxmOtqLF5r
+	IDoQA9h2Sf9bwER3duLnVKCTsbUbGFIv1H2vzCLI+vjC6pBwJGoDavWTxZBFMKECgF/z0h7WQJN
+	gGwhg9cVOlEIaGAe2xX71MlLHSjGuX5zL5pbzz80gRJJNUllohY1nmYrOPmNGQhbwHyEQDa8zKf
+	JCb0tT6Zgv42wFqamyN2iEfpW/QUEQA6FPcdB4B4BsIXeT5RntRJFJqhTZNARwk1rhH9x3ywNRR
+	/mCOxrAOsCqrtvZux+CCnyzgjCwnHn8yF+6w35XEJMXbh25HyjGhyddJ2cS9ag0I2GVa2JJb6jw
+	d66a6ZBenGbpylzfUXhlOS3RQc5zLD+eQHZAGwFTQhyiGc7c+MEtumx1oyA9u0biGeL91Wg07e+
+	G/aJcY/TJHvMHFnjVwy10iaVcvHNSXfZOzL3Sjxwz7A82wn4xtiXdE=
+X-Received: by 2002:a17:902:d58a:b0:2d9:4358:73ab with SMTP id d9443c01a7336-2dd07b9c78cmr64548885ad.19.1789005184028;
+        Wed, 09 Sep 2026 18:53:04 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1499d92dsm79698945ad.52.2026.09.09.18.53.00
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 09 Sep 2026 18:37:15 -0700 (PDT)
-Message-ID: <2ea2d992-d14d-4b26-91f3-c36a87acf82a@oss.qualcomm.com>
-Date: Wed, 9 Sep 2026 18:37:14 -0700
+        Wed, 09 Sep 2026 18:53:03 -0700 (PDT)
+Message-ID: <9d697240-3632-401f-aeba-c1fa5c2a29d4@gmail.com>
+Date: Thu, 10 Sep 2026 09:52:58 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,82 +70,182 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 6/8] usb: misc: qcom_eud: add role-based EUD control
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Rob Herring <robh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Peter Chen <peter.chen@kernel.org>
-References: <20260831030147.1500616-1-elson.serrao@oss.qualcomm.com>
- <20260831030147.1500616-7-elson.serrao@oss.qualcomm.com>
- <f23595ab-e0ef-40d8-998b-4cb0426ec166@oss.qualcomm.com>
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: verisilicon,dc: add support
+ for nuvoton,ma35d1-dcu
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org
+Cc: ychuang3@nuvoton.com, schung@nuvoton.com, yclu4@nuvoton.com,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260908092840.225220-1-a0987203069@gmail.com>
+ <20260908092840.225220-2-a0987203069@gmail.com>
+ <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
 Content-Language: en-US
-From: Elson Serrao <elson.serrao@oss.qualcomm.com>
-In-Reply-To: <f23595ab-e0ef-40d8-998b-4cb0426ec166@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=YZYodARf c=1 sm=1 tr=0 ts=6aa209cd cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=uHxescsG3rBdxcXwcPaeSg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=c3QgA-9rzyVlc7GNB-wA:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDAxNiBTYWx0ZWRfX0RcZ5Mic08Do
- Uk0cgkcSEMlvKJgXmXgU8ppXfssfjlOHEbWtuaa7sm0qPzy4SB+aS5jT7HIFHdQDEkywe8xT8m2
- 7rF4Z0AzdxznhJQuezPJau2z6o86eTs=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDAxNiBTYWx0ZWRfX6FOsV6hyRoxq
- a/goj6e0AUFGY4Wt/SGI4xgOY70kvgHzIj3TlNxVrvlUWX7MN4WLllrmaQPtdWK9JbUNIOPCEvo
- uRE66NoTnQLgww/B1kj73F69r0yGqCWbmbj4AvxmrBwCRmEfNYR6HnOnjJI9affP6nrRnuBtE2z
- K6gl3PnMzsl8eEbSQW6hnpMRDRCdTSq5ojRAZalPFA/VRhANyXTtBO+wFV6PBg6i3MEeebBC7o8
- jiSQXBoeTKv2bgQDoPoXqHm2yxff6gnUnI59pWtOnmHKhpe+BAbazG4HGBMAEl7hR3tnYUl+QXE
- ObO0GaUF5pjJ8qI5QznnrblqOJfXjEkMRbi/Ainv5ZYKTuMtgzVowBPGmZtI7Q8ldO0oyR9iNS5
- 6F2Y4iYqgAtf/88RM+dPSSOfDXNPgjKcnJ3Jqa/UCayYQmoM92Y3QvTEIy5cmdMReDvPZuRcbsD
- UlSlwJGS2C9Jm4ySnXQ==
-X-Proofpoint-GUID: BR9mCEHtkOGBTMlXTQ-BaGYbAz7R9BCZ
-X-Proofpoint-ORIG-GUID: BR9mCEHtkOGBTMlXTQ-BaGYbAz7R9BCZ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-09_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0
- bulkscore=0 phishscore=0 spamscore=0 clxscore=1015 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609100016
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <f74168b54fe8f070b7cfe79dc2fc83a63c2e8842.camel@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
 
+Icenowy Zheng 於 2026/9/9 下午 01:44 寫道:
+> 在 2026-09-08二的 17:28 +0800，Joey Lu写道：
+>> Add the Nuvoton MA35D1 DCUltraLite (nuvoton,ma35d1-dcu) to the
+>> binding.
+>> The DCUltraLite uses only four clocks (core, axi, ahb, pix0) and one
+>> reset (core), with a single output port.
+>>
+>> The MA35D1 clock controller gates the core, AXI and AHB clocks with a
+>> single bit, but each remains a distinct clock line feeding the IP
+>> with
+>> its own rate constraints, so all four must still be listed
+>> individually
+>> in the devicetree; core, axi and ahb happen to share the same clock
+>> phandle.
+> This is weird, but I must admit that we're limited by the Common Clock
+> Framework here, so I cannot give a better solution either.
+>
+> Anyway let's settle with the current result.
+>
+>> Move the clocks/clock-names minItems to 4 and resets/reset-names
+>> minItems to 1 at the top level, since that is the lowest count any
+>> supported variant needs.  Add an allOf/if block that tightens the
+>> constraint back up to the fixed 5-clock/3-reset topology required by
+>> the existing thead,th1520-dc8200 compatible, and another one that
+>> caps
+>> the new nuvoton,ma35d1-dcu compatible at the 4-clock/1-reset count it
+>> actually wires up.
+>>
+>> Signed-off-by: Joey Lu <a0987203069@gmail.com>
+>> ---
+>>   .../bindings/display/verisilicon,dc.yaml      | 44
+>> +++++++++++++++++++
+>>   1 file changed, 44 insertions(+)
+>>
+>> diff --git
+>> a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> index 919a900122012..773966677d0f4 100644
+>> --- a/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> +++ b/Documentation/devicetree/bindings/display/verisilicon,dc.yaml
+>> @@ -17,6 +17,7 @@ properties:
+>>       items:
+>>         - enum:
+>>             - thead,th1520-dc8200
+>> +          - nuvoton,ma35d1-dcu
+>>         - const: verisilicon,dc # DC IPs have discoverable ID/revision
+>> registers
+>>   
+>>     reg:
+>> @@ -26,6 +27,7 @@ properties:
+>>       maxItems: 1
+>>   
+>>     clocks:
+>> +    minItems: 4
+>>       items:
+>>         - description: DC Core clock
+>>         - description: DMA AXI bus clock
+>> @@ -34,6 +36,7 @@ properties:
+>>         - description: Pixel clock of output 1
+>>   
+>>     clock-names:
+>> +    minItems: 4
+>>       items:
+>>         - const: core
+>>         - const: axi
+>> @@ -42,12 +45,14 @@ properties:
+>>         - const: pix1
+>>   
+>>     resets:
+>> +    minItems: 1
+>>       items:
+>>         - description: DC Core reset
+>>         - description: DMA AXI bus reset
+>>         - description: Configuration AHB bus reset
+>>   
+>>     reset-names:
+>> +    minItems: 1
+>>       items:
+>>         - const: core
+>>         - const: axi
+>> @@ -79,6 +84,45 @@ required:
+>>     - reset-names
+>>     - ports
+>>   
+>> +allOf:
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: thead,th1520-dc8200
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          minItems: 5
+>> +
+>> +        clock-names:
+>> +          minItems: 5
+>> +
+>> +        resets:
+>> +          minItems: 3
+>> +
+>> +        reset-names:
+>> +          minItems: 3
+>> +
+>> +  - if:
+>> +      properties:
+>> +        compatible:
+>> +          contains:
+>> +            const: nuvoton,ma35d1-dcu
+>> +    then:
+>> +      properties:
+>> +        clocks:
+>> +          maxItems: 4
+>> +
+>> +        clock-names:
+>> +          maxItems: 4
+>> +
+>> +        resets:
+>> +          maxItems: 1
+>> +
+>> +        reset-names:
+>> +          maxItems: 1
+> Maybe it's reasonable to restrict max port count to 1 for MA35D1?
+> Although I am not sure about how to do this...
+>
+> Thanks,
+> Icenowy
+  I found the same kind of per-compatible port restriction already used 
+upstream in renesas,du.yaml, e.g.:
 
-On 9/1/2026 4:36 AM, Konrad Dybcio wrote:
-> On 8/31/26 5:01 AM, Elson Serrao wrote:
->> EUD functions by presenting itself as a USB device to the host PC and is
->> therefore only applicable when the port operates in device role. Keeping
->> EUD enabled in other roles provides no benefit and unnecessarily keeps
->> the associated PHY resources enabled. Furthermore, enabling EUD in host
->> role can cause the USB controller to misbehave because the EUD hub
->> supports only a single upstream-facing port.
-> 
-> [...]
-> 
->>  	struct eud_chip *chip = dev_get_drvdata(dev);
->> +	struct eud_path *path;
->>  	bool enable;
->>  	int ret;
->>  
->>  	if (kstrtobool(buf, &enable))
->>  		return -EINVAL;
->>  
->> +	guard(mutex)(&chip->state_lock);
-> 
-> GPT suggests port_store() should also take this lock.. I think that's
-> a valid concern
-> 
-Thanks for the review, and apologies for the delayed response.
+         ports:
+           properties:
+             port@2: false
+             port@3: false
+           required:
+             - port@0
+             - port@1
 
-I'll address this as well as the other relevant feedback from Sashiko in v8.
+Applied to our binding, that would look like:
 
-Thanks,
-Elson
+         ports:
+           properties:
+             port@1: false
+           required:
+             - port@0
+
+in the existing nuvoton,ma35d1-dcu allOf/if/then block, so schema checks 
+would reject a port@1 node on this compatible instead of silently 
+accepting it.
+
+Happy to add it if you'd like the schema to enforce this, but wanted to 
+check whether you consider it worth the extra lines given it doesn't 
+reflect an actual bug in any DT today. Let me know which way you'd 
+prefer and I'll fold it into the next version.
+
+Thanks.
+>> +
+>>   additionalProperties: false
+>>   
+>>   examples:
