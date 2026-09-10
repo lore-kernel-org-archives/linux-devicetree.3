@@ -1,131 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDCE43E44EB;
-	Thu, 10 Sep 2026 09:21:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A417C3932D9;
+	Thu, 10 Sep 2026 09:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789032099; cv=none; b=Ib6y/z55sZPBliyJ196o6Qpu6QsIsyErjHYIqEPLCXVy/x5BG4J0e/OC1BEqFn+wfVallPkvlWLY8/YDEUqxQSqf/S5uYdgDRW0X80+Zo9uausErw8EtZZ9+elcvIi+/J2JDFvJ+lmO0it7FLIlI5SfaYNfV4TwZfFuAoSrYh5g=
+	t=1789032443; cv=none; b=DNOh2iJDGJYBfjgdh0wtcIfLepxTi1bAfLSXiBY0Fb/ucB1kO6Drr68Fe9X/nRSq2Ks3TUl0+khwXVb7IIsPzE9oJnB7NmxoDfubU+oWaRJHqjG0GfNaKA3E8KsHSloJtIxDGGlpWTa207q6M0syK9bu2Hvwv9fAnh1RuxaL1EM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789032099; c=relaxed/simple;
-	bh=aCdo8Bbt4RuE2BEnSXUF/igiOBHVMvKWYIliqMf4Hnk=;
+	s=arc-20240116; t=1789032443; c=relaxed/simple;
+	bh=g9Cp6K2YW/0ojAZM+PERC3yWY2MaFiW9F9EZGEa+wq0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jZjdq5mYBL4xGQQ5nj8+BEGiyO/0oYHTt/755QpxeerOh4v8uzWFf3VCn7NBQ40gCR5NN1Al7LiLGNjTAPeVq14XOqHkwRlWOUdIFoEB7CHNqh4q5F9/T7VhJ2H6I7H2Uv9ya9SZOqSf3awCa85ReRWSQmtzVlqOBYIusj6iYEo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SWenu4/b; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oTMWPMTH6Y8G+fFzW6dotLdIuH47SXKRmCv/GEEmv0GBui4LCFmCmwnHQU0Mgi6kYMZl179tygq5HmO3D1yUpmYkMS7j0hiKOGVehwrjR6Aw09FQGwZkYobLT2rvqRDfwDNe8fHQr3luL7vvlJVOTJzqPDH1MW+QEN084+bHsIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X/DwY5Iy; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SWenu4/b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2DF1F000FF;
-	Thu, 10 Sep 2026 09:21:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789032097;
-	bh=etegQPhHDYYXKpgN5HhrDD3ja2BilOp/q9xebohgcXg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SWenu4/bhQp/ebHqQ47mZ8ttape8v/6aPUf2kjB/Ld/j9zBiWoVDmMFM2WXUeFpA4
-	 Tz4kQl6h6D02ibEHqRfMCGmzm4F4W385fd4iPw4EV/b0R7FrEPUyPOdgqYghnwGSlg
-	 wlCNkIv6fYWAYcTfK4O6DgrRMLRvCHdb42c6Z5fPxcblq5pU74lnZfaSijO4QJtgql
-	 XWi5JzunvwkhvBE8/kV9Y4Q9psgLSZ8fOLaxugK+zflWpyfdSLe5ID2gv+8YzALlTs
-	 DNEG/urmvrS21JPGf+b18of+CcOKc6HBFiQHYWy3kARa8VmrNDWDGEakhoATI6H2NQ
-	 gKLgojcgqTT1g==
-Date: Thu, 10 Sep 2026 11:21:34 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Christoph Hellwig <hch@infradead.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
-	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
-	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>, 
-	Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
-	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
-	Marek Szyprowski <m.szyprowski@samsung.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
-	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
-	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Saravana Kannan <saravanak@kernel.org>, Thierry Reding <thierry.reding@gmail.com>, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
-	linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-Subject: Re: [PATCH v6 04/12] arm64/mm: Export set_direct_map_*_noflush() APIs
-Message-ID: <aqJjL-kDfl2_wwHG@orome>
-References: <20260904-tegra-vpr-v6-0-79042cfa8de5@nvidia.com>
- <20260904-tegra-vpr-v6-4-79042cfa8de5@nvidia.com>
- <aqJFb3VtsYtnIa1c@infradead.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X/DwY5Iy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789032440; x=1820568440;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=g9Cp6K2YW/0ojAZM+PERC3yWY2MaFiW9F9EZGEa+wq0=;
+  b=X/DwY5Iy/2j8ziFdaKHzSaOBDjDyRNy5y/du+QcwaU+d5m3VIZtMoDsN
+   KW6Y7iKgtxh7Wbmv8Em90AjRjYLD76CmY9Z9eZkfjPscQQkUdAwXjsn8I
+   ykCLbPDjaInIiSdTVchRfTzqVtQ1NbAJkDcDBcpWPuLXY6LuCicgYJVMd
+   RV37g5QOAd6UYPB4bu9SihR3IbNnmQ91zhUboobw3gSUW6Lr+9hFF6D5C
+   C3RMkJ+dHNPEiG8YGvoF3Y37ptXSdiE0R5VhRbo2aKTDEhsZT+FVe0axd
+   0zz/FrXwBaCF241u7EqzW1ovEzTCwYbQW1jj+6eKXQIfCBBwNZ+dLzCg0
+   g==;
+X-CSE-ConnectionGUID: gAFrPp3VSOuuHGmX2LlD+Q==
+X-CSE-MsgGUID: yrUUlg1CTnin5KczD3M1lg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11900"; a="100068155"
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="100068155"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:27:09 -0700
+X-CSE-ConnectionGUID: 9Lk46I8cT22DEwuQeaU5Rw==
+X-CSE-MsgGUID: YmZZHAgjTGqItji2nmnofw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
+   d="scan'208";a="273537486"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.177])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Sep 2026 02:27:04 -0700
+Date: Thu, 10 Sep 2026 12:27:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: zl020895 <zl020895@163.com>
+Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH v6 11/13] serial: 8250_dw: add Ambarella CV75 quirks
+Message-ID: <aqJ35vMBiBZo2iUE@ashevche-desk.local>
+References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
+ <20260904-cv75-v5-v6-11-e918514cb3b1@ambarella.com>
+ <aqJrSnr0rwv4BOJ3@ashevche-desk.local>
+ <122573f8.8232.1a08a9765fc.Coremail.zl020895@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nc5ni6zymi4hrk6h"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aqJFb3VtsYtnIa1c@infradead.org>
+In-Reply-To: <122573f8.8232.1a08a9765fc.Coremail.zl020895@163.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Thu, Sep 10, 2026 at 05:12:52PM +0800, zl020895 wrote:
+
+> > Wondering if we should undo this in the port's .shutdown() callback.
+> I saw the shutdown path already covers it: dw8250_shutdown() calls
+> serial8250_do_shutdown(), which does
+> 	up->ier = 0;
+> 	serial_port_out(port, UART_IER, 0);
+> so both the IER shadow and hardware IER are cleared, including ETOI.
+
+Depending on the answer to Ilpo the enabling may need an updated comment
+summarising the above.
+
+> At 2026-09-10 16:33:14, "Andy Shevchenko" <andriy.shevchenko@linux.intel.com> wrote:
+> >On Fri, Sep 04, 2026 at 02:38:18PM +0800, Long Zhao via B4 Relay wrote:
+
+...
+
+> >> +	/*
+> >> +	 * Ambarella keeps variant IER bits (e.g. ETOI) set for correct RX
+> >> +	 * timeout behaviour. Force them into the 8250 IER shadow so later
+> >> +	 * generic IER updates do not clear them.
+> >> +	 */
+> >
+> >Wondering if we should undo this in the port's .shutdown() callback.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---nc5ni6zymi4hrk6h
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v6 04/12] arm64/mm: Export set_direct_map_*_noflush() APIs
-MIME-Version: 1.0
-
-On Wed, Sep 09, 2026 at 10:51:43PM -0700, Christoph Hellwig wrote:
-> On Fri, Sep 04, 2026 at 12:44:55PM +0200, Thierry Reding wrote:
-> > From: Thierry Reding <treding@nvidia.com>
-> >=20
-> > Drivers that use this may want to be built as a module, so export them.
->=20
-> That's one of the worst commit log ever.  No, we don't just export
-> core symbols dealing with the kernel direct map because
-> "Drivers that use this may want to be built as a module".
->=20
-> For one exporting this at all needs a very good justification and
-> not just hand waiving.  But more importantly if we can't avoid
-> exporting it, it needs to be exported at the tightest sensible
-> scope.  E.g. for a given module if it is so special, or a namespace
-> if it's not that special.  But in doubt we should have a proper
-> core abstraction instead of opening up direct map manipulation to
-> random modules.
-
-Fair points. In an earlier set of patches this was abstracted behind a
-set of set_memory_*() functions, modelled after set_memory_encrypted()
-and set_memory_decrypted(), which I think I'd still prefer, too.
-
-Is that more along the lines of what you had in mind?
-
-Thanks,
-Thierry
-
---nc5ni6zymi4hrk6h
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmqidpsACgkQ3SOs138+
-s6GwVg//eIawY/jpVU95C05IvqaJG4LAKMlyvX0vCt0yTbFrsPQhY7RDigfanDMo
-ycZhJCp/jyLprOkhxYEUmbLqCr6cn+5taI7LSQYIjkP+XRbG7rM7vYOynCANDeOS
-uvUxtRu/8HlB0epcBAco9xhyX6Orb7w61HB8DspHAB/maQpHwCg8ce2/etTREXvK
-qXc3uVrtfrsVNKgZgNtSuHcYX5NyIIwuNKc7rwiU+Q3EFcYAF3RpG6XCrncuKajI
-GReiAWqBsyzzgM93zbemv3DKjbQkqVBl2fSZzTeguSv5KrJnFFd6n+JnHpHMPQPJ
-gg6l3zWb7P8nlPRtlEJh87sNZJ3F8nVYStP5WpaCgjFDW5WrMcTTj/SBKMQqeroe
-tgGkEMSMZAew1mtkyy5v0oaaialjMZ7796mpFs9J5GZv1PilvW/3Gn7D91zK4Yii
-N923BVwEz9EnkPER42dP9AfLUCDE0lwc4A5t7ezgKbOKLXUIfDN6zlZe3jWQ6LO3
-ALOl0JSYvlMX2izpQ4Pyl0/CSFHa5im5+5+o734Ql7U0mBOfpYYziOfPE9NJg5Xm
-hINUJ4RiAi1x2e7iP05HqJutCO2hXPdalSnK5rzuosZjqma4SvMo/Ma1P7bcFkJw
-2WDAAeRbtHk8qNOioz1Kp3UhdQCwFSP9Wa5RAtfvrmhE1X5Ap8I=
-=EeFB
------END PGP SIGNATURE-----
-
---nc5ni6zymi4hrk6h--
