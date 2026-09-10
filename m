@@ -1,120 +1,179 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71C63AA50B;
-	Thu, 10 Sep 2026 04:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3238343887;
+	Thu, 10 Sep 2026 05:08:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789016105; cv=none; b=eVgcbdJbNETZUSKFud9u4vJtHQlf6711K4WFVpX/2WLIESuKGKATnt0JiE9ccRlftJ0YsvdwDUEqFFuXex9roFLkT58kti759d7aP4Em+NwuwGXgBbsuOnaLKYbSs+PrtZnJibKizOzHxiQLpVEzkdcs2WIxQI6xYxmN9nFwdzk=
+	t=1789016882; cv=none; b=UOD9FFHmjqIcG3h/2zckcAJR4KqpJGcNY5ihRPVjmyCVYC8nr5xL1HKuxsoFSUQ7b/1+R1xnXzTLqz7PYkUA8IYEF6gjAPe6BIuoTiz0z8khu8uiuMLkmBdt60cYrQtwXuFgZjbjO0CB86op55tC8QDkh5hO5iyfzes8X5Wcjrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789016105; c=relaxed/simple;
-	bh=KDE7UNTDJIQ2uWjvJCEGyTyC62DCbKod/dyQyTTUmHk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tkuDV9DBf98FvferxJb3Cazc4mfc/56Zyek88iUGQocqf+pjFqxWELQoE2l6amSkMRCsHQxgLoaWB5latHDBDLDuwtoHiNKax/ZdmfEwaek603E1yp/PV8OPTRwecQIvZFqFU4YF0+mfjITHmszFhhULf1r27wyYsvVRUUWVCso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RH1pdJKJ; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RH1pdJKJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D5071F000FF;
-	Thu, 10 Sep 2026 04:55:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789016104;
-	bh=4b8PYqv4VWkKA9hB1zFAscNK0cfZC015fuLfwpBZ3G4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RH1pdJKJSnU7hItjQj34V4BOEhh1rua9xC9Ylp7MDPO+gzzNAlBT5xtpwojTqa/vq
-	 IEUD4jxF/GrqOzUkQRP9W2jr171jumcvrhD0cMekeaUp9zyOHZOEFCBsAXU/ndRMnV
-	 cjweQ/SRZzgVc5XMoQpBYvEiLHYFFlcSvSUYawGlFMzYyYgM/DiqfnFQ2vastSO2Uv
-	 QydTfLtgZa3tp0odhE1T6SryJVNFW2z5KzAYSuK/vCeOCc152pJxHNRhQ2GAlIiY6x
-	 3QHhP5Sb5HvxGTyuibtDNZzoppawOi08mzbokCUAkp1iSriLXJqNBl9ILbjR3dchnE
-	 iHFHigmJiNvRw==
-Date: Thu, 10 Sep 2026 12:35:14 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Shubham Patil <shubhamsanjay.patil@amd.com>
-Cc: alexandre.belloni@bootlin.com, Frank.Li@nxp.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, michal.simek@amd.com,
-	radhey.shyam.pandey@amd.com
-Subject: Re: [PATCH v2 0/2] i3c: dw: Document optional core reset and drop
- redundant name
-Message-ID: <aqIzgh9hA7lcome_@xhacker>
-References: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
+	s=arc-20240116; t=1789016882; c=relaxed/simple;
+	bh=P9xZQ8AexF2JlkDQRD52FlL32Akd8HdDWHGBGfIXko8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uaaXKZpQX4kn9cu3fC+rW/aNA9XsNHqjLOaOVDtfD0ofjfm8dK1YsnXzhBEv1Oqxok4jFRWNZrkzxk3O+Dzg9edHMIge2cmzvgaRkcXelauBt85rYQvEt6t/PDWyyu50UHoPwBzAb/+Djm/UFpFVnklBwedFaEaUqUjqpCAIltw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Received: from inva020.nxp.com (localhost [127.0.0.1])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id EB7511A0370;
+	Thu, 10 Sep 2026 07:07:52 +0200 (CEST)
+Received: from aprdc01srsp001v.ap-rdc01.nxp.com (aprdc01srsp001v.ap-rdc01.nxp.com [165.114.16.16])
+	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B4A011A036C;
+	Thu, 10 Sep 2026 07:07:52 +0200 (CEST)
+Received: from lsv03900.swis.in-blr01.nxp.com (lsv03900.swis.in-blr01.nxp.com [10.12.177.15])
+	by aprdc01srsp001v.ap-rdc01.nxp.com (Postfix) with ESMTP id 7A7E5180006C;
+	Thu, 10 Sep 2026 13:07:51 +0800 (+08)
+From: Lakshay Piplani <lakshay.piplani@nxp.com>
+To: alexandre.belloni@bootlin.com,
+	linux-rtc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	wim@linux-watchdog.org,
+	linux-watchdog@vger.kernel.org,
+	linux@roeck-us.net
+Cc: vikash.bansal@nxp.com,
+	priyanka.jain@nxp.com,
+	Lakshay Piplani <lakshay.piplani@nxp.com>
+Subject: [PATCH v5 1/5] dt-bindings: rtc: nxp,pcf85363: add timestamp mode config
+Date: Thu, 10 Sep 2026 10:37:43 +0530
+Message-Id: <20260910050747.1901440-1-lakshay.piplani@nxp.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260720073510.1869623-1-shubhamsanjay.patil@amd.com>
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: ClamAV using ClamSMTP
 
-On Mon, Jul 20, 2026 at 01:05:08PM +0530, Shubham Patil wrote:
-> This series documents the optional core reset for the Synopsys
-> DesignWare I3C master and updates the driver to match the binding.
-> The DesignWare I3C master IP has a single core reset input. The
-> binding never documented this reset, and the driver looked it up by
-> the "core_rst" name even though a name is redundant for a single
-> reset line.
+NXP PCF85263/PCF85363 provides three timestamp registers (TSR1-TSR3)
+which latch the current time when a selected event occurs. Add a
+vendor specific property, nxp,timestamp-mode, to select the event
+source for each register.
 
-Hi DT maintainers,
+Also introduce a new header 'pcf85363-tsr.h' to expose
+macros for timestamp mode fields, improving readability
+of device tree file.
 
-AIUI, the dw i3c explicitly says there are three reset signals in
-total:
-core_rstn, for core
-presetn, for apb
-dmareset, for dma
+Signed-off-by: Lakshay Piplani <lakshay.piplani@nxp.com>
+Reviewed-by: Rob Herring <robh@kernel.org>
 
-and I'm adding apb reset suppport, given this series has been applied,
-we have three choices:
+---
+V4 -> V5:
+- No change
 
-1.revert patch2 and document the "core_rst" reset dt-binding. This
-equals to v1 of this series.
+V3 -> V4:
+- Added Reviewed-by tag in commit message (previously only in changelog) 
 
-2.add a patch to add the "core_rst" reset, but allow no reset name
+V2 -> V3:
+- No changes in v3
+- Added Reviewed-by: Rob Herring <robh@kernel.org>
 
-3.add a patch to add the "core" reset, but allow no reset name
+V1 -> V2:
+- Addressed review comments from Rob Herring:
+  * use $ref: /schemas/types.yaml#/definitions/uint32-array
+  * tuple form with exactly 3 items (TSR1/TSR2/TSR3), per items decimal enums
+  * define 'nxp,timestamp-mode' clearly
+  * drop watchdog related vendor properties
+  * remove watchdog related vendor properties from i2c example
+---
+---
+ .../devicetree/bindings/rtc/nxp,pcf85363.yaml | 23 ++++++++++++++-
+ include/dt-bindings/rtc/pcf85363-tsr.h        | 28 +++++++++++++++++++
+ 2 files changed, 50 insertions(+), 1 deletion(-)
+ create mode 100644 include/dt-bindings/rtc/pcf85363-tsr.h
 
-Which one do you prefer?
+diff --git a/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml b/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
+index 52aa3e2091e9..cf9c155162d6 100644
+--- a/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
++++ b/Documentation/devicetree/bindings/rtc/nxp,pcf85363.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/rtc/nxp,pcf85363.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Philips PCF85263/PCF85363 Real Time Clock
++title: NXP PCF85263/PCF85363 Real Time Clock
+ 
+ maintainers:
+   - Alexandre Belloni <alexandre.belloni@bootlin.com>
+@@ -39,6 +39,24 @@ properties:
+   start-year: true
+   wakeup-source: true
+ 
++  nxp,timestamp-mode:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    items:
++      - enum: [0, 1, 2] # TSR1: NONE, FE, LE
++        description: TSR1 mode
++      - enum: [0, 1, 2, 3, 4, 5] # TSR2: NONE, FB, LB, LV, FE, LE
++        description: TSR2 mode
++      - enum: [0, 1, 2, 3] # TSR3: NONE, FB, LB, LV
++        description: TSR3 mode
++    description: |
++      Defines timestamp modes for TSR1, TSR2, and TSR3.
++      Use macros from <dt-bindings/rtc/pcf85363-tsr.h>.
++
++      Each value corresponds to a mode constant:
++        - TSR1: NONE, FE, LE
++        - TSR2: NONE, FB, LB, LV, FE, LE
++        - TSR3: NONE, FB, LB, LV
++
+ required:
+   - compatible
+   - reg
+@@ -47,6 +65,7 @@ additionalProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/rtc/pcf85363-tsr.h>
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+@@ -56,5 +75,7 @@ examples:
+             reg = <0x51>;
+             #clock-cells = <0>;
+             quartz-load-femtofarads = <12500>;
++            wakeup-source;
++            nxp,timestamp-mode = <PCF85363_TSR1_FE PCF85363_TSR2_LB PCF85363_TSR3_LV>;
+         };
+     };
+diff --git a/include/dt-bindings/rtc/pcf85363-tsr.h b/include/dt-bindings/rtc/pcf85363-tsr.h
+new file mode 100644
+index 000000000000..1fb5b9b3601e
+--- /dev/null
++++ b/include/dt-bindings/rtc/pcf85363-tsr.h
+@@ -0,0 +1,28 @@
++/* SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause */
++/*
++ * Copyright 2025 NXP
++ */
++
++#ifndef _DT_BINDINGS_RTC_PCF85363_TSR_H
++#define _DT_BINDINGS_RTC_PCF85363_TSR_H
++
++/* TSR1 modes */
++#define PCF85363_TSR1_NONE 0x00
++#define PCF85363_TSR1_FE 0x01
++#define PCF85363_TSR1_LE 0x02
++
++/* TSR2 modes */
++#define PCF85363_TSR2_NONE 0x00
++#define PCF85363_TSR2_FB 0x01
++#define PCF85363_TSR2_LB 0x02
++#define PCF85363_TSR2_LV 0x03
++#define PCF85363_TSR2_FE 0x04
++#define PCF85363_TSR2_LE 0x05
++
++/* TSR3 modes */
++#define PCF85363_TSR3_NONE 0x00
++#define PCF85363_TSR3_FB 0x01
++#define PCF85363_TSR3_LB 0x02
++#define PCF85363_TSR3_LV 0x03
++
++#endif /* _DT_BINDINGS_RTC_PCF85363_TSR_H */
+-- 
+2.25.1
 
-Thanks
-
-> 
-> This series addresses both:
->   - Patch 1 documents the optional 'resets' property in the binding.
->     The reset is kept optional because the reset line is
->     integration-specific.
->   - Patch 2 removes the "core_rst" reset name from the driver and
->     looks the reset up by passing NULL, since the name is redundant
->     for a single reset.
-> 
-> Changes in v2:
-> - Updated commit description for binding patch
-> - Dropped reset-names from the binding
-> - Added driver patch to remove redundant reset name
-> 
-> Note:
-> The DesignWare I3C driver support was added by
-> commit 1dd728f5d4d4 ("i3c: master: Add driver for Synopsys DesignWare IP").
-> 
-> The original Synopsys DesignWare I3C binding was added by
-> commit 116e246a8bcd ("dt-binding: i3c: Document Synopsys DesignWare I3C"),
-> but it did not document the optional core reset.
-> ---
-> Shubham Patil (2):
->   dt-bindings: i3c: dw: Document missing optional core reset
->   i3c: master: dw: Drop redundant core reset name
-> 
->  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 3 +++
->  drivers/i3c/master/dw-i3c-master.c                            | 2 +-
->  2 files changed, 4 insertions(+), 1 deletion(-)
-> 
-> 
-> base-commit: a13c140cc289c0b7b3770bce5b3ad42ab35074aa
-> -- 
-> 2.34.1
-> 
-> 
-> -- 
-> linux-i3c mailing list
-> linux-i3c@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-i3c
