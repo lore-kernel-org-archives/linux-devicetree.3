@@ -1,163 +1,129 @@
-Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 608E84AEBC5
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 16:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.226
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAB13B7B91;
+	Thu, 10 Sep 2026 16:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789058811; cv=none; b=KpOnuDjIRGHZYe8oO7DMvn7XAPT3we4Jm+7aQyd3hRtr0kCdy6Y95hhW6ZWevTTD9ssIOmUBgz1cD55XAihXeaGr2HBFqVl/xLwSVi9t7FemQUvw97AaCZqL2PRdYXhTbitdLMIrjzPyorLx/+whUivAK2DrNrIPbPHC7o7LB4U=
+	t=1789058945; cv=none; b=u9yg+F7dPP+BjaS/G61qvK5PGo6bZuNMTQBO5BbX3M+FZ43Mw2mC8kXV/z71ZF1GIK+P4DyN4at+OEC1I+hFYkMLekuOC802DtGLuPohAADNa1mxPwYabhCixeA5SYp+DK46wlpuRr30V1ZHAFUGjh6vh0bK8KQPqUbjQBWwGeU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789058811; c=relaxed/simple;
-	bh=C0VDUY1Qn+GKhgB1OBz88lFhG+rPU6LKMkmDDE66l8I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kDK7rtzsGlznMtFNGv6bIhsFHPSUTCV0I57owz7gzECLZr4osE2wWbnqWttOs8jlOJl5JvFJliILVjMHWsXdRVWX66QMCtpJk9/ygOUHeQQ1MLDG1S89tKbUKmLq0bYJHq+hWgfyKSwC33uQiHa6NDnbRrVpAwb78ImT33f23Vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=QmBj1QCC; arc=none smtp.client-ip=209.85.215.226
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789058945; c=relaxed/simple;
+	bh=eORlhWAwiRfJuTnuq0ulVuM+TiRnVArI9BkOr1FpWOg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qna+i0ZaXyB93sIE9ARMUMNgsCGrWH4fNi1uqHnJMRv9ZzhCMvPxYTohmlsbVGEMK/nkVUslaI1DIM+E4kZS/T3fMTIeu/7pjLGjeFIg1gJ+dVg/wT/QE69qxtREIv3UBZYSz3Z9QpTrLLXUHAkMkleUDRMEgHCkhgP3pWuzklo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=NWqSmn84; arc=none smtp.client-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="QmBj1QCC"
-Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-c9d1fff21edso13359a12.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:46:44 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789058803; x=1789663603;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=E/hbBP8zfoX+TAOwTlTdxoBwUjk2GjRBIHrshh9UGEs=;
-        b=gVwtKSMPF3ZnJZWvzChdGROBW540+rj0By6CtwYz7mk0ptjt+N43RefHcR49pfc65J
-         94xubfz4+5cUCOU2fLC5a1AHIfrgD+qLmDSBfbWnjOcrd2d2rHfnbO8xFnpcIN+ZANfh
-         e1bDuv0aoUgje3o9CFos/X5JX+4o/j90l2NAk/CHCTxDOtGzEpGe4sk+D3kzozumQdhM
-         +BosdnlWQOC/S3Yjsyilyp+1WUWSdulMKqUnV9X77+2F9xBrYyJJ9QpywrhfN85UM5U7
-         FJ5iVZ6Lg9YHg7GwYTuBy56wxYyD5McIqLmw6Ygw8dQcb373XMo2+lC5IHGI2wtopk3r
-         Qj7A==
-X-Forwarded-Encrypted: i=1; AKwUvBx6c6aVYDLbb5Sqh8PJv99i/tXW/tf+B4LGRWqPTjLnVKivEy8pwcGCVxzNaZo0/4JjX8sXj7naQFXy@vger.kernel.org
-X-Gm-Message-State: AFuF++n5FfJH7zn/2lyxA/V6TIKO9cjOmpb6+nA7h7Qg7bootUZeKFeT
-	VCFP/9jQFxwKYRYg6LWbBIeGdGxyefg/uFSiYqksmCZyfYkkVibw2EtAFPNcmQRsl37uL5z0SoM
-	x8+R5/sRbfl1C3yQLB4RJDv/hpp21hio6eueXuFgeVXqbXBPMpm1R1zsGCxJJCv2n/32NoOWkaS
-	Gq5OgNViqpkDIHv/NSt358A6801O7Pm0Yl/q5pr4G1P0FULpuMeB42RL49wRTyvSBhlO2MrSkJQ
-	0kNzZdwcefa/LxZAwrf2Q==
-X-Gm-Gg: AYBFou2OoIgh2VGjGfuiXEUpLUIYCgBlYHFf6nxBA2HKE+fyqCx9+aYc5Q0oKJFHVia
-	dHp8SjkJlo7v5FLuoyGnTCbWlRPUZNDpVvvcMDAZSh3W/PCChnNTH1aHjb07m+GXIdRAn6sAjZr
-	jT6vcC24FSmqY2pdRoMupbEugdtzppeDXf86ddtnHeVkfz6YNkef+iX4/Azst+9BkwowTbHLXXz
-	g97hlKyv96Lnj62/x4/aCpCPMYu9CZmPcwxFRXOFhiShUCViyEpolVdWxiNDi1lZZ4hW9jresWA
-	mvKlmE83/5z0XwF74UopWTLGnE1GpdES1BYzNsX2jFHBphqpOdL0EbqiqZ4WHCehQVveJGm/2hd
-	WBgyz00dMcuUjF006bv+Tav3ZhFiyKbt+k4FHrlaimzRsAmCdpLuZCv4GmCzGM9iBIsqkKwGmDC
-	gCtowzegwlYItBuO3UZIAWOyBqkkUgk8fZ3+nt2xJ3NU0=
-X-Received: by 2002:a17:90b:5112:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-39bac13ba6bmr22605122a91.4.1789058802983;
-        Thu, 10 Sep 2026 09:46:42 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-125.dlp.protect.broadcom.com. [144.49.247.125])
-        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-39bae615e84sm1059189a91.0.2026.09.10.09.46.42
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:46:42 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2ce7dfd33ffso100898195ad.0
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 09:46:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789058801; x=1789663601; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E/hbBP8zfoX+TAOwTlTdxoBwUjk2GjRBIHrshh9UGEs=;
-        b=QmBj1QCCXb07LmuBHuTN9D0POjkIWvn5ZtgkZm7yiumaMnOc/EqT2O1ygZqQ4Z4I+j
-         G9NJtgQPxV5TELdsDBrDLhshFBdywctgJouk7qwWqvyhvtdLX5ecuxxXOAEg31eKn5Cc
-         zsIdmucUetFa4ppnrH+9LVa8lZG0pUeaBtdqg=
-X-Forwarded-Encrypted: i=1; AKwUvBx/D17hHgw8T/9z1m5Oqw9qdQKic06XMsWda2mpv4H0daQnvRJBtaKFTcTKyVecmPZsLutREGSlUDm4@vger.kernel.org
-X-Received: by 2002:a17:902:d48b:b0:2db:3d9a:173b with SMTP id d9443c01a7336-2dd2a1fe2a1mr5936125ad.9.1789058801149;
-        Thu, 10 Sep 2026 09:46:41 -0700 (PDT)
-X-Received: by 2002:a17:902:d48b:b0:2db:3d9a:173b with SMTP id d9443c01a7336-2dd2a1fe2a1mr5935245ad.9.1789058800733;
-        Thu, 10 Sep 2026 09:46:40 -0700 (PDT)
-Received: from [10.67.48.245] ([192.19.223.252])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db14ae36adsm90000605ad.76.2026.09.10.09.46.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 09:46:40 -0700 (PDT)
-Message-ID: <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
-Date: Thu, 10 Sep 2026 09:46:38 -0700
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="NWqSmn84"
+Received: by chaosmail.tech (Postfix) id DEA251C8DA7;
+	Thu, 10 Sep 2026 16:42:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1789058533;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=kQkb6gWom8B8sf7tnCB4kepo3gvA1Kc1t11RUjin2x4=;
+	b=NWqSmn84480UeJF9J6RCN9GKGbS33Grcs27E+i19Kw1VbjZtWRQEi1wSOX5Y/huA0s8Blf
+	z8deKig/ajq2YwDrBfCFMI/NG5/+bOLbz+BwNamVzoFScZB9l/f2eXdN5ejik0T9tUHgwT
+	wGoDvCUvXLS3aoh3+EFh/of4iBcpr24=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Subject: [PATCH v7 0/3] usb: typec: tipd: Add sn201202x (ACE3) support
+Date: Thu, 10 Sep 2026 18:42:06 +0200
+Message-Id: <20260910-tipd-ace3-v7-0-6c6ebe2193f2@chaosmail.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
-To: Rosen Penev <rosenp@gmail.com>, devicetree@vger.kernel.org
-Cc: Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
- <zajec5@gmail.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>,
- "moderated list:BROADCOM BCM5301X ARM ARCHITECTURE"
- <linux-arm-kernel@lists.infradead.org>,
- open list <linux-kernel@vger.kernel.org>
-References: <20260910001209.116465-1-rosenp@gmail.com>
-Content-Language: en-US, fr-FR
-From: Florian Fainelli <florian.fainelli@broadcom.com>
-Autocrypt: addr=florian.fainelli@broadcom.com; keydata=
- xsBNBFPAG8ABCAC3EO02urEwipgbUNJ1r6oI2Vr/+uE389lSEShN2PmL3MVnzhViSAtrYxeT
- M0Txqn1tOWoIc4QUl6Ggqf5KP6FoRkCrgMMTnUAINsINYXK+3OLe7HjP10h2jDRX4Ajs4Ghs
- JrZOBru6rH0YrgAhr6O5gG7NE1jhly+EsOa2MpwOiXO4DE/YKZGuVe6Bh87WqmILs9KvnNrQ
- PcycQnYKTVpqE95d4M824M5cuRB6D1GrYovCsjA9uxo22kPdOoQRAu5gBBn3AdtALFyQj9DQ
- KQuc39/i/Kt6XLZ/RsBc6qLs+p+JnEuPJngTSfWvzGjpx0nkwCMi4yBb+xk7Hki4kEslABEB
- AAHNMEZsb3JpYW4gRmFpbmVsbGkgPGZsb3JpYW4uZmFpbmVsbGlAYnJvYWRjb20uY29tPsLB
- IQQQAQgAywUCZWl41AUJI+Jo+hcKAAG/SMv+fS3xUQWa0NryPuoRGjsA3SAUAAAAAAAWAAFr
- ZXktdXNhZ2UtbWFza0BwZ3AuY29tjDAUgAAAAAAgAAdwcmVmZXJyZWQtZW1haWwtZW5jb2Rp
- bmdAcGdwLmNvbXBncG1pbWUICwkIBwMCAQoFF4AAAAAZGGxkYXA6Ly9rZXlzLmJyb2FkY29t
- Lm5ldAUbAwAAAAMWAgEFHgEAAAAEFQgJChYhBNXZKpfnkVze1+R8aIExtcQpvGagAAoJEIEx
- tcQpvGagWPEH/2l0DNr9QkTwJUxOoP9wgHfmVhqc0ZlDsBFv91I3BbhGKI5UATbipKNqG13Z
- TsBrJHcrnCqnTRS+8n9/myOF0ng2A4YT0EJnayzHugXm+hrkO5O9UEPJ8a+0553VqyoFhHqA
- zjxj8fUu1px5cbb4R9G4UAySqyeLLeqnYLCKb4+GklGSBGsLMYvLmIDNYlkhMdnnzsSUAS61
- WJYW6jjnzMwuKJ0ZHv7xZvSHyhIsFRiYiEs44kiYjbUUMcXor/uLEuTIazGrE3MahuGdjpT2
- IOjoMiTsbMc0yfhHp6G/2E769oDXMVxCCbMVpA+LUtVIQEA+8Zr6mX0Yk4nDS7OiBlvOwE0E
- U8AbwQEIAKxr71oqe+0+MYCc7WafWEcpQHFUwvYLcdBoOnmJPxDwDRpvU5LhqSPvk/yJdh9k
- 4xUDQu3rm1qIW2I9Puk5n/Jz/lZsqGw8T13DKyu8eMcvaA/irm9lX9El27DPHy/0qsxmxVmU
- pu9y9S+BmaMb2CM9IuyxMWEl9ruWFS2jAWh/R8CrdnL6+zLk60R7XGzmSJqF09vYNlJ6Bdbs
- MWDXkYWWP5Ub1ZJGNJQ4qT7g8IN0qXxzLQsmz6tbgLMEHYBGx80bBF8AkdThd6SLhreCN7Uh
- IR/5NXGqotAZao2xlDpJLuOMQtoH9WVNuuxQQZHVd8if+yp6yRJ5DAmIUt5CCPcAEQEAAcLB
- gQQYAQIBKwUCU8AbwgUbDAAAAMBdIAQZAQgABgUCU8AbwQAKCRCTYAaomC8PVQ0VCACWk3n+
- obFABEp5Rg6Qvspi9kWXcwCcfZV41OIYWhXMoc57ssjCand5noZi8bKg0bxw4qsg+9cNgZ3P
- N/DFWcNKcAT3Z2/4fTnJqdJS//YcEhlr8uGs+ZWFcqAPbteFCM4dGDRruo69IrHfyyQGx16s
- CcFlrN8vD066RKevFepb/ml7eYEdN5SRALyEdQMKeCSf3mectdoECEqdF/MWpfWIYQ1hEfdm
- C2Kztm+h3Nkt9ZQLqc3wsPJZmbD9T0c9Rphfypgw/SfTf2/CHoYVkKqwUIzI59itl5Lze+R5
- wDByhWHx2Ud2R7SudmT9XK1e0x7W7a5z11Q6vrzuED5nQvkhAAoJEIExtcQpvGagugcIAJd5
- EYe6KM6Y6RvI6TvHp+QgbU5dxvjqSiSvam0Ms3QrLidCtantcGT2Wz/2PlbZqkoJxMQc40rb
- fXa4xQSvJYj0GWpadrDJUvUu3LEsunDCxdWrmbmwGRKqZraV2oG7YEddmDqOe0Xm/NxeSobc
- MIlnaE6V0U8f5zNHB7Y46yJjjYT/Ds1TJo3pvwevDWPvv6rdBeV07D9s43frUS6xYd1uFxHC
- 7dZYWJjZmyUf5evr1W1gCgwLXG0PEi9n3qmz1lelQ8lSocmvxBKtMbX/OKhAfuP/iIwnTsww
- 95A2SaPiQZA51NywV8OFgsN0ITl2PlZ4Tp9hHERDe6nQCsNI/Us=
-In-Reply-To: <20260910001209.116465-1-rosenp@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23PQW7DIBAF0KtErEsFDAMmq96jygLDUFO1cWQcq
+ 1XkuxenixLVyy/m/RlurNCUqbDj4cYmWnLJ47kG+3RgYfDnN+I51syUUEZYhXzOl8h9IODCiT6
+ hFZTQsTp/mSjlr3vX6+k3l2v/TmHeCraJIZd5nL7vyxa5ze31LpILbqG+RDASOv9SLxnLp88fz
+ zOFgW3li2q5bbmqXIJGh7aPBnCXwx/vhGx5/RjvAFRSFLxOYZfrlpuW6+141yH2EoWTepdjw9X
+ DdqwclNYUoY8B0i43LX/YbionJ10C5x149Y+v6/oDBOIR8vQBAAA=
+X-Change-ID: 20260725-tipd-ace3-090bf570ef59
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>, 
+ Alyssa Milburn <amilburn@zall.org>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789058532; l=2883;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=eORlhWAwiRfJuTnuq0ulVuM+TiRnVArI9BkOr1FpWOg=;
+ b=2LzfSqo02MCBOz0gkLaY17VVxskwg1QQyN/q26jTLpgnzGtzxlwXRbkt9dnWiPwicudjM16cD
+ XSqz99084LIB/X+2Cq0ISLj32Wj/QTksz6ZIBr78378mYW6L0JMm4tw
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-On 9/9/26 17:12, Rosen Penev wrote:
-> Add it and set for gmac0, which is the only GMAC used on this board.
-> 
-> nvram size found from a random bootlog online.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
-> ---
->   v2: fix typo.
->   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 ++++++++++++++
->   1 file changed, 14 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> index c80ac16ad949..9ab618a097b1 100644
-> --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
-> @@ -25,6 +25,15 @@ memory@0 {
->   		      <0x88000000 0x08000000>;
->   	};
->   
-> +	nvram@1c080000 {
-> +		compatible = "brcm,nvram";
-> +		reg = <0x1c080000 0x180000>;
+Add support for sn201202x (a.k.a ACE3), an Apple-specific tps6598x
+variant that wraps the tps6598x core register set with a SPMI based
+regmap-like protocol, first appearing in Apple M3 devices. This series
+first makes the core parts bus-agnostic, and then adds the new SPMI
+interface as a custom regmap implementation.
 
-Why is not the nvram node moved to bcm5301x.dtsi given it is common to 
-all of the chips?
---
-Florian
+To simplify the merge strategy, the device tree entries will be sent
+in a future patch series.
+
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+Changes in v7:
+- Rebase on usb-testing
+- Link to v6: https://patch.msgid.link/20260826-tipd-ace3-v6-0-e919f39a93a2@chaosmail.tech
+
+Changes in v6:
+- Fix rebase issues
+- Link to v5: https://patch.msgid.link/20260821-tipd-ace3-v5-0-3244ed3bdc3f@chaosmail.tech
+
+Changes in v5:
+- Rebase on usb-next
+- Link to v4: https://patch.msgid.link/20260806-tipd-ace3-v4-0-79855b150914@chaosmail.tech
+
+Changes in v4:
+- Unexport variant data
+- One more debugfs-safety fix
+- Link to v3: https://patch.msgid.link/20260801-tipd-ace3-v3-0-8332f2eca4fc@chaosmail.tech
+
+Changes in v3:
+- Restore accidentally deleted static
+- Fix building with tracepoints
+- Sleep the device on failed probe
+- Link to v2: https://patch.msgid.link/20260727-tipd-ace3-v2-0-1345957bd635@chaosmail.tech
+
+Changes in v2:
+- Use a -core module instead of building everything twice
+- Fix completion handling
+- Make regmaps debugfs-safe
+- Link to v1: https://patch.msgid.link/20260725-tipd-ace3-v1-0-73202d36138a@chaosmail.tech
+
+---
+Alyssa Milburn (1):
+      usb: typec: tipd: Factor out i2c specifics
+
+Sasha Finkelstein (2):
+      dt-bindings: usb: tps6598x: Add sn201202x/ACE3
+      usb: typec: tipd: Add sn201202x support
+
+ Documentation/devicetree/bindings/usb/apple,sn201202x.yaml |  78 +++++++++++++++++++++++++++++++
+ MAINTAINERS                                                |   2 +
+ drivers/usb/typec/Makefile                                 |   1 +
+ drivers/usb/typec/tipd/Kconfig                             |  20 +++++++-
+ drivers/usb/typec/tipd/Makefile                            |  14 ++++--
+ drivers/usb/typec/tipd/core.c                              | 247 +++++++++++++++++++++++--------------------------------------------------------------------------
+ drivers/usb/typec/tipd/i2c.c                               | 107 ++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/typec/tipd/spmi.c                              | 300 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ drivers/usb/typec/tipd/tps6598x.h                          | 132 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 9 files changed, 705 insertions(+), 196 deletions(-)
+---
+base-commit: bbed88f72dbbb960080282de3b90ca0933fa6226
+change-id: 20260725-tipd-ace3-090bf570ef59
+
+Best regards,
+--  
+Sasha Finkelstein <k@chaosmail.tech>
+
