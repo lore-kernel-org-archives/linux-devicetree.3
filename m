@@ -1,144 +1,168 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2AE03493625;
-	Thu, 10 Sep 2026 13:35:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0455493D25;
+	Thu, 10 Sep 2026 13:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789047328; cv=none; b=Okjj7O+HyvoZfmNSCgg6nSBZrt0o57w2HL+R8RhGVY4rQAxMB6ff4o54fLICDeeZx9mWgaSYZsV8F078LnbjSMvQA6gLSAn6kGvH5iHYJN5NOtHGlBhW58xg5i/Emns/AWvb8816dp3IvvFjQIT+fpyKRJqXZF2SykeEMpWA2fE=
+	t=1789047330; cv=none; b=gXnT7eyYJJg09VeKgQFCAoFvnKQQeY+tUkzmIg407Hip3UydXXwB8IT/Ee0TAeRmVvPN5bebfCxjB0pWhCevsIsEIgZy1Jdzhk7EUUGlkmNZtV8/pqoawOvIKII9v1ndBnKZ1tCmlkPmvsPztEJW6KDN1zp0vE0B1MG94+alKAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789047328; c=relaxed/simple;
-	bh=HwQDBz5oLzKG9qLyiXZqxlvO7T32/h+XjqXU5wEETFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BzlxhyabZWnQnvu4Cbnmu3qdzoWrNgbkhn1t0sGVzEHVDTY9veO8tT2FpXVXD2UFTntZeaKufzr+A7WkP82E+3JRTYEXQEVMJBtO06CQLyfytQxZgXkT8DZXrCM7M7lj/aZ1K7JB9gLUb+Fin0tCasbO6OJXyUdf6ooFcQipOmw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=kaDox7Tv; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789047330; c=relaxed/simple;
+	bh=9C3JUCOwAQ1zEUDQ4Llz8iTa13vqDmi1w2+KMGh3JMs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZM6zJVC7WmqUyFm4GVaa1WYIqDnvTrvuKs4+VfXrb36SDVuxofJV8Lu6PGM6lGJnpZSX6WYt8Rs5nh0XkfBJRvvb+CUKi4s9hmmBhNDK4x9TivrHcQOdYy2eUuxr3YwkBJb+akEYIuBTfqiyp1lI5BTeqrn4/RorDnC7cGi/iAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=FiWwdYgr; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="kaDox7Tv"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id D9B72204C;
-	Thu, 10 Sep 2026 06:35:21 -0700 (PDT)
-Received: from e142021.fritz.box (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB7123F528;
-	Thu, 10 Sep 2026 06:35:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789047325; bh=HwQDBz5oLzKG9qLyiXZqxlvO7T32/h+XjqXU5wEETFo=;
-	h=From:To:Cc:Subject:Date:From;
-	b=kaDox7TvjHq/wLCyMuQdsXIbtx5DQsNGh6oyDgT/Cxvxv7vQRdS5r1UxLlsU8LSqJ
-	 TIOw8AIde6Yiqu5gR4NsOicFXr/Jc9q71hdDMzsKKlAsCNGeBJb1UaJkp4aCk+sooD
-	 wpvyIg4tLtxqqDtTqACV790BKbDzA3cExEwNs8JA=
-From: Andre Przywara <andre.przywara@arm.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
-	Yixun Lan <dlan@gentoo.org>,
-	Enzo Adriano <enzo.adriano.code@gmail.com>,
-	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
-	linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev
-Subject: [PATCH 0/7] pinctrl: sunxi: Add Allwinner A733 support
-Date: Thu, 10 Sep 2026 15:35:11 +0200
-Message-ID: <20260910133519.459011-1-andre.przywara@arm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="FiWwdYgr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789047326;
+	bh=9C3JUCOwAQ1zEUDQ4Llz8iTa13vqDmi1w2+KMGh3JMs=;
+	h=From:Subject:Date:To:Cc:From;
+	b=FiWwdYgrjexM6w7mybio42uRq+AB0nkNrHP2priZTT9Ej+ZktndbH3CD4MJxpRMjx
+	 D3lqb09j9qHQrbl3CvD876KdiceSBUzZEGHvuSm53/7JJHW6mms+Ad6Hc2rVt74J6S
+	 pvPVZCzWUeceGHmtg9uB7p9g5V1C5Z9NP8qq2fLUyQBhbWW0r0Diwm0Y+LNypolcy4
+	 efvXfqdbnl9JrmC1KIs1NqBd4n5rRLyQVl0QJWA67NaxrLx//eA9lwO+vS8oQPg1et
+	 XraCxVDecKRaUpLSKtw5jBzoBtObKhOZtYdAu+xzEBy0BnQVSjanNXSQB+uVPWT8/s
+	 ti3pc+BZczEIA==
+Received: from [192.168.0.15] (unknown [100.64.0.170])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: detlev)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 8565F17E03E1;
+	Thu, 10 Sep 2026 15:35:24 +0200 (CEST)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+Subject: [PATCH v2 0/8] arm(64): dts: rockchip: give HDMI sound cards
+ SoC-specific names
+Date: Thu, 10 Sep 2026 09:34:42 -0400
+Message-Id: <20260910-fix-rockchip-hdmi-audio-names-v2-0-1396a6168e20@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OQQ6CMBBFr0K6dkxbLEFX3sOwGNpBRoWSFoiGc
+ HcLXsDlS/5//y8iUmCK4pItItDMkX2fQB8yYVvs7wTsEgstdSHLXEHDbwjePm3LA7SuY8DJsYc
+ eO4pQWiXRFafGlCiSYwiUCrv/Vv04TvWD7LhJt0TLcfThsx+Y1Zb7d2tWIMHUyhgkafQ5v1r/e
+ mHtAx6t70S1rusXWIno/OAAAAA=
+X-Change-ID: 20260831-fix-rockchip-hdmi-audio-names-8c10ad64f58a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Johan Jonker <jbx6244@gmail.com>, Alex Bee <knaerzche@gmail.com>, 
+ Christian Hewitt <christianshewitt@gmail.com>, 
+ Robin Murphy <robin.murphy@arm.com>, 
+ Nicolas Frattaroli <frattaroli.nicolas@gmail.com>, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, 
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ David Summers <beagleboard@davidjohnsummers.uk>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, 
+ Detlev Casanova <detlev.casanova@collabora.com>
+X-Mailer: b4 0.15.2
 
-Hi,
+Hello !
 
-more than a year(!) after the RFC, now the first "proper" version of the
-pinctrl and GPIO IP support for the new Allwinner A733 SoC. I originally
-had planned to prepend the GPIO_GENERIC support [1] here, but there are
-quite some nasty details to solve there, and I don't want to jeopardise the
-hardware enablement for this SoC on this rework. LinusW, I hope you can
-forgive me for dropping this rework (just for this series), I still want
-to work on this, but it takes more time. I do understand this would make
-you to give up some of your leverage on this topic then, so please let me
-know if that's fine for you. I can elaborate on the GPIO_GENERIC
-problems if you like.
-So compared to the RFC this is mostly a rebase, dropping one patch that
-has already been merged (RFC PATCH 2/9 "pinctrl: sunxi: pass down flags
-to pinctrl routines"). I also dropped the patch that introduces the GPIO
-set/clear optimisation, using the new separate registers, as this would
-become obsolete with the adoption of GPIO_GENERIC.
-Changelog below, based on v7.3-rc1.
+Some Rockchip SoC that exposes HDMI audio through simple-audio-card
+currently expose a generic and inconsistent 'simple-audio-card,name':
+- HDMI on rk3066a, rk3288, rk3328, rk356x and rk3576
+- hdmi-sound on rk3399
+- hdmi[01] on rk3588
 
-[1] https://lore.kernel.org/linux-arm-kernel/20260313000652.11470-1-andre.przywara@arm.com/
+There is also rockchip,tinker-codec on rk3288.
 
-================================
-Add GPIO and pinctrl support for the new Allwinner A733 SoC.
-With all our abstractions and data structure driven code, life could
-have been so easy, but Allwinner decided to change the layout of the
-MMIO register frame, which requires all kinds of special handling and
-code changes here and there. Hopefully this new layout (which admittedly
-looks more future proof) will stay around for a while, but I am not
-holding my breath on this.
+That string is user-visible and it shows up in aplay -l,
+/proc/asound/cards and is what ALSA UCM, WirePlumber and PulseAudio
+match on when picking a profile for a card.
 
-In summary, the changes are:
-- Each GPIO bank now occupies 128 bytes instead of just 36 or 48.
-- PortA (not implemented on the A733) starts at offset 0x80, not at 0.
-- The non-bank specific registers are moved into this gap at the
-  beginning.
-- There are two new registers per bank, to set or clear bits in the GPIO
-  data register, to allow for single-write, lockless GPIO settings.
-- The drive level register is moved (to make room for the set/clr regs).
-- The IRQ registers are moved into the now bigger respective bank control
-  registers part, instead of being grouped separately, as before.
+As the names are not unique across boards (5 of them use HDMI), any
+userspace rule matching on the current name is ambiguous.
+alsa-ucm-conf.git has no upstream UCM profile matching "HDMI", 
+"hdmi-sound", "hdmi0" or "hdmi1" for Rockchip, precisely
+because such a name could match on the wrong hardware.
+It also prevents alsa-ucm to hav specific profiles per SoC.
 
-The series follows the usual pattern of refactoring first, to prepare
-for the new MMIO frame layout (patches 1-3), then using the changed code
-to enable support for this new generation, in patch 4/7.
-Patch 5/7 adds the new DT bindings, patch 6/7 enables the secondary
-controller, which curiously is not using the new layout, but looks very
-similar to the secondary A523 pin controller.
-The final patch 7/7 then adds the driver stub file, which just describes
-the GPIO bank configuration and lists the one quirk bit that engages the
-code changes added for the new layout.
+This series renames each card to "RK<SOC> HDMI[N]". The new names:
+- are unique inside the Rockchip family and self-describing,
+- fit the 16-char ALSA driver field after normalization
+  ("RK3588 HDMI1" -> driver "RK3588_HDMI1"),
+- give distributions a stable, unambiguous name to match UCM /
+  WirePlumber / PulseAudio rules on, which the current names cannot
+  provide.
 
-Please have a look, review and test.
-I tested this on a Cubie A7Z board.
+Because no upstream userspace configuration can match on the current
+names without misfiring on a different board, this rename does not
+regress any known userspace setup and allows reliable matching on the
+different SoCs.
+The tinker configuration is also not present in userspace tools.
+It also gives naming examples for future Rockchip SoC enablement work,
+which should avoid naming issues from now on.
 
-Cheers,
-Andre
+As similar rename was already previously accepted in commit 309598fca339
+("arm64: dts: rockchip: Use a readable audio card name on NanoPi M5"),
+which changed 'simple-audio-card,name' simply for aesthetic reasons.
 
-Changes in v1:
-- rebase on v7.3-rc1
-- drop already applied RFC patch 2/9
-- drop SET/CLEAR register patch
+Detlev.
 
+Signed-off-by: Detlev Casanova <detlev.casanova@collabora.com>
+---
+Changes in v2:
+- Fixed the ARM commit messages (instead of arm64)
+- Also rename rk3288-tinker
+- Separate rk3566 and rk3568 instead of using rk356x
+- Link to v1: https://patch.msgid.link/20260831-fix-rockchip-hdmi-audio-names-v1-0-5b155ae05293@collabora.com
 
-Andre Przywara (7):
-  pinctrl: sunxi: rename SUNXI_PINCTRL_NEW_REG_LAYOUT
-  pinctrl: sunxi: only use PortK special handling on A523
-  pinctrl: sunxi: refactor IRQ register accessors
-  pinctrl: sunxi: support A733 generation MMIO register layout
-  dt-bindings: pinctrl: add compatible for Allwinner A733
-  pinctrl: sunxi: a523-r: add a733-r compatible string
-  pinctrl: sunxi: add support for the Allwinner A733
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Heiko Stuebner <heiko@sntech.de>
+To: Johan Jonker <jbx6244@gmail.com>
+To: Christian Hewitt <christianshewitt@gmail.com>
+To: Alex Bee <knaerzche@gmail.com>
+To: David Summers <beagleboard@davidjohnsummers.uk>
+To: Robin Murphy <robin.murphy@arm.com>
+To: Nicolas Frattaroli <frattaroli.nicolas@gmail.com>
+To: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Detlev Casanova <detlev.casanova@collabora.com>
+Cc: kernel@collabora.com
+Cc: devicetree@vger.kernel.org
+Cc: linux-arm-kernel@lists.infradead.org
+Cc: linux-rockchip@lists.infradead.org
+Cc: linux-kernel@vger.kernel.org
 
- .../allwinner,sun55i-a523-pinctrl.yaml        |  6 +-
- drivers/pinctrl/sunxi/Kconfig                 |  5 ++
- drivers/pinctrl/sunxi/Makefile                |  1 +
- drivers/pinctrl/sunxi/pinctrl-sun20i-d1.c     |  2 +-
- drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c |  3 +-
- drivers/pinctrl/sunxi/pinctrl-sun55i-a523.c   |  2 +-
- drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c   | 50 +++++++++++++
- drivers/pinctrl/sunxi/pinctrl-sunxi.c         | 41 +++++++----
- drivers/pinctrl/sunxi/pinctrl-sunxi.h         | 71 +++++++++++++------
- 9 files changed, 139 insertions(+), 42 deletions(-)
- create mode 100644 drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
+---
+Detlev Casanova (8):
+      ARM: dts: rockchip: Rename rk3066a HDMI audio card
+      ARM: dts: rockchip: Rename rk3288-miqi HDMI audio card
+      ARM: dts: rockchip: Rename rk3288-tinker HDMI audio card
+      arm64: dts: rockchip: Rename rk3328 HDMI audio card
+      arm64: dts: rockchip: Rename rk3399 HDMI audio card
+      arm64: dts: rockchip: Rename rk3566 and rk3568 HDMI audio cards
+      arm64: dts: rockchip: Rename rk3576 HDMI audio card
+      arm64: dts: rockchip: Rename rk3588 HDMI audio cards
 
+ arch/arm/boot/dts/rockchip/rk3066a.dtsi        | 2 +-
+ arch/arm/boot/dts/rockchip/rk3288-miqi.dts     | 2 +-
+ arch/arm/boot/dts/rockchip/rk3288-tinker.dtsi  | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3328.dtsi       | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3399-base.dtsi  | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3566-base.dtsi  | 4 ++++
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi       | 4 ++++
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi  | 1 -
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi       | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi  | 2 +-
+ arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 2 +-
+ 11 files changed, 16 insertions(+), 9 deletions(-)
+---
+base-commit: 893e11787f78e43b534e252249ac3fff4d1333f8
+change-id: 20260831-fix-rockchip-hdmi-audio-names-8c10ad64f58a
 
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
--- 
-2.47.3
+Best regards,
+--  
+Detlev Casanova <detlev.casanova@collabora.com>
 
