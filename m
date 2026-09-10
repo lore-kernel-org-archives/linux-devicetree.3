@@ -1,113 +1,84 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01A5D488D92
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 12:44:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E80C3D16FD;
+	Thu, 10 Sep 2026 12:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789044281; cv=none; b=SGGI8TZhTg8LFdhj01kXFPlhJkCMBT1+waoksqESQ3VOFIEtXX3HoKCzNrbRoKLKi/E2f6n4BGCUFRyOzbRIQhgH6VpOgE49SHqPQlWUbNusBDFTDpere65xykgjNzKkmarTtVkY2aZH940LdM9DLFKqGUOev+VczbfAVGS2VhI=
+	t=1789044638; cv=none; b=LY3Rl46uOq498s9IvqUtKhrBoMvimAyjvkQ5KY31sMptuKirVeWiOxfpgqU6K+2kkm50p30s9xKcLmGU6byjX/gMaX3yMzWpdal29lYIiLczfwUMMCOSvNq946xopQdoGoA50yeJ/x1Imf8Ab54ro7NP1+pgCCS65PZL9Mbo+aY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789044281; c=relaxed/simple;
-	bh=3rPs3zLWmwVwvVVM+gpBKczZPikUN8Un/vHgeN1cX9o=;
+	s=arc-20240116; t=1789044638; c=relaxed/simple;
+	bh=Q33+AgLJXzUWN5MXZvERDWEKpSvIZq//bTAFISCS+44=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=To58QiBEdZiomUCebQVC0h1t7MfzQIUhDNzc94uL4qrr3u4zrvn4rq53i51YFpXtNQCq7eo2sNPAvmt1xS2TMuHbI+FbiCVTFoNvkoLagIEip/w8pjns8ysKAPT5ln+2UbYWblhGnOYrmUsnTo7OzQsVJXHLATUzp4Mgy6CYzeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F1z8vucA; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=sZMj1t/+WwWd59A0AbTfX96gsipLM/jrlrkY5QexYQmk5nPwZy/5tszmVvfY4Ct+kPTGqGlyC3n0i6DTe80f2Vm2cO/XUwdXP9auoU316iKWMPaM5vJ1ouRw1+0DT/UuMvrvMNddI6rUm8H0PY6EetWqO27UrwhqEvUv5o687sg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7vHTB1g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F1z8vucA"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b91369ef6so9633885e9.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 05:44:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789044276; x=1789649076; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3rPs3zLWmwVwvVVM+gpBKczZPikUN8Un/vHgeN1cX9o=;
-        b=F1z8vucAAaJS6wserE/YxUPorNq26A3L9sWyhoHpbv43UtLMoWrT1gpPSGj1ELGH1W
-         eu4zdMG3s0hEUb30uy9JNUd1CrwLyNwQqq671IG38FSrKjl4K3SNjRascB565gb4RubT
-         95Jj20n09J7wMdqx8Lzq6TVltlVx4X3TVQxFGzZ7wAoVa2G+AhHhEeYLtr6soK2a8+qa
-         7h0SSn0gF5ZcRTQh/VqsAPSAwe/hb2ogtVGutQSuQ9ri7ItTbwuOQDY+F2/ufNKKEQLD
-         Yp2oKYzV3iJ/g/9u2sDoCNq/w/z1p2dMl9hUHwPFR3K/+On4zXmtq18HME0EFu5iFqlj
-         uLWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789044276; x=1789649076;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3rPs3zLWmwVwvVVM+gpBKczZPikUN8Un/vHgeN1cX9o=;
-        b=m8N3hroACb0OA0lgDWIXYoozNCy31VPqw22ZWljXLAfCjYLrvX4VS1Vd7mIAyJVGe1
-         GNZO/9PoTLxRlIZ5lWzaPpXk5jsQq3HQWwy9wrOEE8314jR0RWn4OaYGBN9oeuNJ4ncH
-         09PygwVtO4/meSMmv+5RPVYDupoIZkaAmkEMrA7SOsvnBW6DZeyd3IvO8o5qcq8t3GtH
-         v2P074jRpwoaWQs81dR/9bWNCXMyDVWmokd9QwSMuJWmh+bcbTzlVF/zVxys6OFT/nLm
-         yosYjQnXqlfdhyp7EaJ8XDNSz7G27OeGyBS6gym9olvoqh8gp7RtQ7dyoZeSgAKP+XTd
-         Yb3Q==
-X-Forwarded-Encrypted: i=1; AKwUvByOf4/kua6aQJQohbWTpcjRhKnLWWWia9usGdwnsmJhYRH8Q5FUhpI7hIQxJzew6g4dPGKZfnH+RaPN@vger.kernel.org
-X-Gm-Message-State: AFuF++nJyvjXskObFRoYoA41uAL7k42rtZ8wcpkNDXcN25aU4stG7pWr
-	UxLp/Rt+uX2SQZu+cDtsDTb27HwCZk1+CSWaTicL0WNuckzRBUsxAYH8
-X-Gm-Gg: AYBFou2Z8F7Hbh2lmygGrcZ5PKowuMYl/6MWZsK7K45mRy4TfZUnfSdxLvuhbv1Bp+B
-	0FFtr1eBWaJA/eI1lVBm1hVfwyV8sZoniQxRUAawE/b7FID/CZABeGWID8yC4N0UWoFuJ5uOy/o
-	ahuFtKguooDDTXPMxgeeU0o0zQC0/EV1xV0cE9jTr5hsEvY2yZjPxL90Ylwaa4rS9KTvLjrVXyi
-	KmfxIhP6tSM/gskSopinrtU8UQht+7Z0rgRt8xkaBDlF5IaruZxW6VTeqcaX33gAVFafUaeBTjI
-	S1KHZkWnJsSWswOcFtuhvFO6KKnEz8xQzfCYeH4m76GECm9TZwnEV/W8hpUkfKFD3uhkPFu7iXo
-	9t+/Z1yXklNqnlB2LasvjkDo8G5ZgxtYnFdRFkGXnBoGEsRyKoH0M3HC1cBVRyHCb1UHHTYGKiY
-	cbyt5HSejsWXbhebwz3vAvNWOGbjS4NFnXzVrceFUvFsg4gkXVTmfTY09PLHtsXVvFZidk5TTd3
-	clHpwb1wVbncThEH46edu3c0OqLu0MnsAgvwUkmhPkpfw==
-X-Received: by 2002:a05:600c:45d5:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-49d258f1d5cmr135945565e9.7.1789044275597;
-        Thu, 10 Sep 2026 05:44:35 -0700 (PDT)
-Received: from localhost.localdomain (mob-109-113-160-48.net.vodafone.it. [109.113.160.48])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-49d20db6e76sm144440305e9.3.2026.09.10.05.44.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 10 Sep 2026 05:44:34 -0700 (PDT)
-From: Oleg Keri <okerixx@gmail.com>
-To: jishnu.prakash@oss.qualcomm.com
-Cc: konrad.dybcio@oss.qualcomm.com,
-	nihal.gupta@oss.qualcomm.com,
-	kamal.wadhwa@oss.qualcomm.com,
-	drajpura@qti.qualcomm.com,
-	lee@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	linux@gurudas.dev,
-	mfd@lists.linux.dev,
-	linux-arm-msm@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7vHTB1g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 172BE1F000FF;
+	Thu, 10 Sep 2026 12:50:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789044637;
+	bh=4QSctDRSj6GRip8jzNuQeWHWqzGiG2EhaH/zilXWj/4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M7vHTB1gxjOuodiIQbKUrQQoipZtkwAy4MM+BXZnd4QqKuRc/szaDtmU/AqB8MlS1
+	 WeQL2VBHTVeCSgQBA3tTWs8F0fqm0VM2nTu9Kt41vuAEEn1fQxpQ1ONNpy8oJ9rdEu
+	 /ELbWjj1jtvD2xhQitN2zURh8dF1ef4hQAv/hd0k16Q4YYZf2DfMmTGHwTRsJIKVKj
+	 GfWukCCEYathD5liSn2Et4xD+ybd6Is6tFAJ8OLf+SG6xgM42WXB7z3qT+ru0sakWL
+	 QS4Qnmp/vvB9c9ORxFLoCic1YLk38vQFnX0LkAI509zjiGGYGQ2C3a1Ogs+0b8bCeG
+	 AWwXfKz835tdw==
+From: matthias.bgg@kernel.org
+To: zkh@mailbox.org
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sean Wang <sean.wang@mediatek.com>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] mfd: qcom-pm8008: support PMICs with no interrupt line
-Date: Thu, 10 Sep 2026 14:44:23 +0200
-Message-ID: <178904426368.12167.11218867694394370234@gmail.com>
+	linux-watchdog@vger.kernel.org,
+	zkh1@proton.me,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [v4,2/4] dt-bindings: arm: mediatek: Add MT8127 Amazon ford
+Date: Thu, 10 Sep 2026 14:50:24 +0200
+Message-ID: <20260910125024.70078-1-matthias.bgg@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <f7af73ad-f09b-433f-929b-cd6d22e2afd5@oss.qualcomm.com>
-References: <f7af73ad-f09b-433f-929b-cd6d22e2afd5@oss.qualcomm.com>
+In-Reply-To: <20260909-mt8127-amazon-ford-basic-v4-2-e9af5c420ab1@mailbox.org>
+References: 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-On Thu, 10 Sep 2026 14:40:35 +0530
-Jishnu Prakash <jishnu.prakash@oss.qualcomm.com> wrote:
+> From: Zakariya Hadrami <zkh@mailbox.org>
+> 
+> Add entry for the MT8127 based Amazon ford tablet.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Zakariya Hadrami <zkh@mailbox.org>
 
-> Please note Mark has asked us to split the existing series, so we would
-> be sending out separate patch series soon for CAMSS support and PM8010
-> support.
+Reviewed-by: Matthias Brugger <matthias.bgg@gmail.com>
 
-Great, I'll test the PM8010 one as soon as it's out.
-
-> Just asking, have you noticed any boards doing this currently ?
-
-Only mine, and it's not upstream yet. Konrad's list is right - those are
-all real PM8008s.
-
-One correction to my earlier mail: the compatible does not change what
-gets written to the rail. set_voltage_sel() writes millivolts, so 1.8 V
-is 1800 in VSET either way. The wrong compatible only misdescribes the
-LDO's range to the regulator core. Sorry for overstating it.
-
-Thanks,
-Oleg
+> ---
+>  Documentation/devicetree/bindings/arm/mediatek.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+> diff --git a/Documentation/devicetree/bindings/arm/mediatek.yaml b/Documentation/devicetree/bindings/arm/mediatek.yaml
+> index cd4040ad3437..180e6e4948e7 100644
+> --- a/Documentation/devicetree/bindings/arm/mediatek.yaml
+> +++ b/Documentation/devicetree/bindings/arm/mediatek.yaml
+> @@ -122,6 +122,7 @@ properties:
+>            - const: mediatek,mt7988a
+>        - items:
+>            - enum:
+> +              - amazon,ford
+>                - mediatek,mt8127-moose
+>            - const: mediatek,mt8127
+>        - items:
+> 
