@@ -1,213 +1,167 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57A8403123;
-	Thu, 10 Sep 2026 12:25:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B38141D652
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 12:27:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789043131; cv=none; b=BvRijZMAM8cqyVdmvnIcZoPzACx56lnIxUT63JyJzV1PfXowFUiLK8199Ded+R0wSdiad0rTqS5JpXVwJVhIFgF1L2WpyiTlGhh8OnKQOyfmV3rIqdbR7VSleuhLEBduhvZtjn7RONTHqKaDNWnOYfTWv7KB1d5Ic+OmwTxFZL0=
+	t=1789043259; cv=none; b=L8n71BinMDtddSFNh+IBOjl0iVWlSDU9O8/js0DEA50MA71ErYzl4RNRA8zM9AyrwxzraoarmlJBBONKWBxXYzQX0/zt0vXnboCHxlMm5jlsfmF+Z4OMs5vL3wztEro4NT7UDM8nFMSFbAiTXhs7qzdFbrERuGhVpiZ69UkpdzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789043131; c=relaxed/simple;
-	bh=MTbeJ01FO9J17bRn1c8XUB7qT3+WXI4gOZk+nMm/nfc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=PLIW8KR5HZS2aUtrDjVnQL8vbL94eeoPv52AcBdhx53U/JtVLrEt2iWtQTApQLR+j6H2jGRfQo3MFvYki/uh6z5o+rpQldBfyKpMUKf6BDfiP7CvcuLCZYdYHiDb+Bfc5qb8GQNDFJb+rz60gZBWR0GZ/4rE3imgxYxbao3b748=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=Ud+OYh0B; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789043259; c=relaxed/simple;
+	bh=VmGihf/otJtnRtKQi0yPp8aYp/mbw6d7VxXe1RG7WjY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=WpavjHQNtlfjVw1Q1XolLrrEt5uoVnApgKjORP6+nclY1mADb536effHDVBnnfIC08Rt3LzkXmqzPzUQG2eJg0DwIMsfA3zqDo9/7HGw2XXzuAtsiU9lL441A/tD1X2TQuxDarvRCLkXIuFELaPujR/UD/2I/+D7Iwy61UtIOlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SSIRHNj+; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="Ud+OYh0B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789043134; x=1820579134;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=MTbeJ01FO9J17bRn1c8XUB7qT3+WXI4gOZk+nMm/nfc=;
-  b=Ud+OYh0B6MJYJk8ei4L0phnNSlP4Twcl5S+mkc00cMtUCp1Hc0+gMarn
-   Gnd47ERcFLyXBRxfOqEFxarfYunsHqjh86WR/3U+twan/W/dESf3mmwM8
-   9Mo3fQY6EtXNDKH8oMex3cGaGQVwmeQjascmF/Pz6ghS1I2vt53dErsMM
-   MlqA3Yr2acwuyHX3gzN5wdaKd0Jv0kDEoYbKiDJ6bWeNqdx3P8DTb28Mn
-   Z4ejXwDIEkzqCvTlCHz7i3xubQlxI8zo/EngV5f0eNUrDNJzR3vThAwyT
-   INwm1qhavLByUA8qqeQoYjHCV0yl3cM9Z2Iy3y9I+LamgsiumiEUur4/t
-   g==;
-X-CSE-ConnectionGUID: 4abtTWM1TV2omNHCNlEErg==
-X-CSE-MsgGUID: IfbE0zNeTWSylvZ/wUi8cQ==
-X-IronPort-AV: E=Sophos;i="6.27,95,1787036400"; 
-   d="scan'208";a="294821428"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 10 Sep 2026 05:25:33 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 10 Sep 2026 05:25:28 -0700
-Received: from [10.171.248.45] (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Thu, 10 Sep 2026 05:25:17 -0700
-Message-ID: <fe9feffe-5bf1-47c7-9b29-f289a0a2f5a2@microchip.com>
-Date: Thu, 10 Sep 2026 14:25:15 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SSIRHNj+"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso10292155a12.0
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 05:27:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789043256; x=1789648056; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=vmxR7CI2nXV3R+7df/uX9sx8R8vTa3P8FC2uXh93REI=;
+        b=SSIRHNj+sdmZwP2ZVvWX0rwNNDeXtFgbL9uAhnXf/s9ZC2XVfW/RUnA2gD6D0p13XB
+         kOkKUE2IueaS38UMv/9stFXDdnlHoqHDQYFOfQtgjsc/3tJz0qo/8TjFowFvhMynh4cY
+         8gJvprZaAWN/MFhKeaUZrB3isyG8haYQcO9SnD0Ribdk1n2KOOWmtjjg8K4UPlgeSIqA
+         ISXoQ2t6a8g/URKN57fJm/AuHR2VfmLZiUZ/AoIFEEfzDQcISYfVlZXMDTqOFS29pskk
+         j3kkXtC4IFtRpweUzrJ5WT4AEMxPU/5bIvW2y8hiyls786/0UqA3foiOU53USmNp+CGY
+         Azkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789043256; x=1789648056;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vmxR7CI2nXV3R+7df/uX9sx8R8vTa3P8FC2uXh93REI=;
+        b=QeWQwNABCeoJYCLzUaWbGw5uITRcR2BScx6a2/XTPYjW3HQkkuOC6WqrqVI4l9bSC+
+         KnEbno8lHmR8WfKu+E8gUUeGr2IzZhlHOlT4tgh2eyodv1Mwqv4Cy2uAw3TcHhgPB47i
+         SAwMJXr6YfJMrJdaRRBInzkzQv2KLqaPpW2SsgfIdP2qi7H2OFITALM4WBUKanMA4eks
+         g8gIgQiUO7RugAwEbZPMv9PaTdbb7FTykoPBU0w28sFpxFxr0GxY9j8jhqPI649NkmBq
+         FmmqpBfdT0vM/2ZlU+Omg2MtGuDy6N29x7Dj8GcvKVNKwHB/4gECOkCp5O5wW/KXdx0X
+         3weQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzEDCIqZrmuFUe3DtUmhOWfTfkA91WgC0nHcAhTy/hELOznoccWemnBCK+NpE/vJ7P/kPgtkJJsjBId@vger.kernel.org
+X-Gm-Message-State: AFuF++kS5y6bbgG6EE8WsZyRUaoKgY9vGWuZoxhcFJSAuAfPf+ThpeVX
+	T2OX8sIDGne7YQLfwpmeXcDuyD0KNz9T96vXlQ0cU74uMONcWeooJmKB
+X-Gm-Gg: AYBFou3iBPM7ux4lm6dqw9B9ypRY88MdPVz0B7KxlN1qFpLpGHwvjBjrdJq6QqzX3x1
+	ujvS9pHObMwaeaUB6mO+gr+pajqULoVgAPugPZ2Xi9Ww2TcmhfAi+ImO/CCPxn94jFyy1W1xs0x
+	ANRwz0fW3eYqA8zMcPI/h8VU7RqO6F9sMZkseJZNMz2vztPl7OUpNKDnD16vt8XT7Pk8WuTj2ha
+	+KpFXKOo58H4EEsv0dbVA/XrGhAxEuNKY4R//YX2EQ9D5KKS5IACjdJ1UDa74d9ukjQBb4pNUSr
+	C9iCqh7LZejlxboMBAcdvTlD/hBv3T9Kw37XnA2QQerICEfPH7URUNN+2RSmRYBSLQ/piMe5DRP
+	/VvEPDkDWfTPzR1hR0U6EMaGunvCPH7GMvHZveMu3l6jeC2Hqg/n+HjmXhIyzNHbqiZ71eUa+3c
+	7vN8mt4dkQUzZLvyiq0+J4xxgS0GyMtL+tUf8Bfo/FkZo4YBiXBKh7QzbFsA==
+X-Received: by 2002:a17:906:ef0a:b0:c20:21be:ea75 with SMTP id a640c23a62f3a-c260c7b6576mr1724975566b.8.1789043256130;
+        Thu, 10 Sep 2026 05:27:36 -0700 (PDT)
+Received: from [192.168.0.68] ([79.133.247.80])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2951217d12sm65136066b.44.2026.09.10.05.27.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 05:27:35 -0700 (PDT)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Subject: [PATCH RESEND v3 0/3] arm64: dts: qcom: sm7125-samsung: add
+ initial device tree for SM7125 Samsung platform
+Date: Thu, 10 Sep 2026 15:27:20 +0300
+Message-Id: <20260910-sm7125-samsung-v3-0-c467bea0fb9c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 12/13] ARM: at91: remove samv7 support
-To: Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Arnd
- Bergmann <arnd@kernel.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, Alexandre Belloni
-	<alexandre.belloni@bootlin.com>, Linus Walleij <linusw@kernel.org>, Russell
- King <linux@armlinux.org.uk>, Drew Fustini <fustini@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla
-	<sudeep.holla@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank
- Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix
- Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>,
-	Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, Maxime
- Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue
-	<alexandre.torgue@foss.st.com>, Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas
- Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, Roger
- Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, Sebastian
- Hesselbarth <sebastian.hesselbarth@gmail.com>, Gregory Clement
-	<gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>,
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Ethan Nelson-Moore
-	<enelsonmoore@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, "A.
- Sverdlin" <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Red Hat)"
-	<david@kernel.org>, Nicolas Pitre <npitre@baylibre.com>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<imx@lists.linux.dev>, <linux-stm32@st-md-mailman.stormreply.com>, Linux-OMAP
-	<linux-omap@vger.kernel.org>
-References: <20260908152808.3928630-1-arnd@kernel.org>
- <20260908152808.3928630-13-arnd@kernel.org>
- <20260908210947.GA519272-robh@kernel.org>
- <7608c487-390e-4526-a2ac-11f073c902c2@app.fastmail.com>
-From: Nicolas Ferre <nicolas.ferre@microchip.com>
-Content-Language: en-US, fr
-Organization: microchip
-In-Reply-To: <7608c487-390e-4526-a2ac-11f073c902c2@app.fastmail.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Stefan Hansson <newbyte@postmarketos.org>, 
+ ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, Erikas Bitovtas <xerikasxx@gmail.com>, 
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Vitalii Skorkin <nikroksm@mail.ru>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-On 08/09/2026 at 23:30, Arnd Bergmann wrote:
-> On Tue, Sep 8, 2026, at 23:09, Rob Herring wrote:
->>
->> Do you want to drop all the samv7 platform compatibles from at91.yaml?
->> Are there non-Linux users using DT?
-> 
-> I see that zephyr uses DT here, but it uses an incompatible
-> set of bindings, see
-> https://github.com/zephyrproject-rtos/zephyr/tree/main/dts/arm/atmel
-> 
-> I'm dropping the references from the binding now, and also from
-> Documentation/arch/arm/microchip.rst, which I had missed earlier.
+Samsung Galaxy A52/A72 are smartphones released in 2021 on SM7125
+(atoll) platform. This patch series introduces support for SM7125
+Samsung devices with the following components enabled:
+- Framebuffer
+- GPIO keys
+- Hall sensor
+- Vibrator
+- Regulators
+- Reset input
+- Real-time clock
+- SD card
+- UFS
+- USB
+Along with that, SM7125 was affected by a hang when launching SHM
+bridge. A similar issue was reported on a similar chipset:
+https://lore.kernel.org/all/20250721-sc7180-shm-hang-v1-1-99ad9ffeb5b4@trvn.ru/
+Add SM7125 to the qcom_tzmem_blacklist to avoid hangs when booting.
 
-Very good, thanks for having handling that Arnd.
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+---
+Changes in v3:
+- Updated copyright information.
+- Added tags given in v2.
+- Link to v2: https://patch.msgid.link/20260705-sm7125-samsung-v2-0-d3b17005ecb3@gmail.com
 
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
+Changes in v2:
+- Renamed regulator nodes to satisfy dtbs_check.
+- Renamed pin configurations for SD card to satisfy dtbs_check.
+- Moved rmtfs_mem to the common dtsi, shifted addresses 0x1000 to the
+  left and added "qcom,use-guard-pages".
+- Converted decimal 0 to hex 0x0 where applicable.
+- Pinctrl names are now listed after pinctrl themselves.
+- Renamed vol-up to button-vol-up to satisfy dtbs_check.
+- Framebuffer uses cont_splash_mem instead of retyping reg.
+- Removed pinctrl-names from vibrator.
+- Added a blank line at the top to the comment for &pm6150_pon
+- Added a comment explaining what the reserved gpio ranges are.
+- Added a blank line before "status = "okay"" where applicable.
+- Link to v1: https://patch.msgid.link/20260703-sm7125-samsung-v1-0-3e5f752048c1@gmail.com
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+To: Kees Cook <kees@kernel.org>
+To: Tony Luck <tony.luck@intel.com>
+To: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+
+---
+Erikas Bitovtas (2):
+      dt-bindings: arm: qcom: Document Samsung Galaxy A52/A72
+      arm64: dts: qcom: sm7125-samsung: add initial device tree
+
+Vitalii Skorkin (1):
+      firmware: qcom: tzmem: disable SHM bridge for SM7125 platform
+
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   2 +
+ arch/arm64/boot/dts/qcom/Makefile                  |   2 +
+ arch/arm64/boot/dts/qcom/sm7125-samsung-a52q.dts   |  20 +
+ arch/arm64/boot/dts/qcom/sm7125-samsung-a72q.dts   |  20 +
+ .../arm64/boot/dts/qcom/sm7125-samsung-common.dtsi | 536 +++++++++++++++++++++
+ drivers/firmware/qcom/qcom_tzmem.c                 |   1 +
+ 6 files changed, 581 insertions(+)
+---
+base-commit: ea2bff00da89d7767d677bb68470130ba96f4928
+change-id: 20260627-sm7125-samsung-b685d8b9cd40
 
 Best regards,
-   Nicolas
-
-> diff --git a/Documentation/arch/arm/microchip.rst b/Documentation/arch/arm/microchip.rst
-> index e721d855f2c9..b776a6656717 100644
-> --- a/Documentation/arch/arm/microchip.rst
-> +++ b/Documentation/arch/arm/microchip.rst
-> @@ -157,45 +157,6 @@ the Microchip website: http://www.microchip.com.
-> 
->             Coming soon
-> 
-> -    * ARM Cortex-M7 MCUs
-> -      - sams70 family
-> -
-> -        - sams70j19
-> -        - sams70j20
-> -        - sams70j21
-> -        - sams70n19
-> -        - sams70n20
-> -        - sams70n21
-> -        - sams70q19
-> -        - sams70q20
-> -        - sams70q21
-> -
-> -      - samv70 family
-> -
-> -        - samv70j19
-> -        - samv70j20
-> -        - samv70n19
-> -        - samv70n20
-> -        - samv70q19
-> -        - samv70q20
-> -
-> -      - samv71 family
-> -
-> -        - samv71j19
-> -        - samv71j20
-> -        - samv71j21
-> -        - samv71n19
-> -        - samv71n20
-> -        - samv71n21
-> -        - samv71q19
-> -        - samv71q20
-> -        - samv71q21
-> -
-> -          * Datasheet
-> -
-> -          http://ww1.microchip.com/downloads/en/DeviceDoc/SAM-E70-S70-V70-V71-Family-Data-Sheet-DS60001527D.pdf
-> -
-> -
->   Linux kernel information
->   ------------------------
->   Linux kernel mach directory: arch/arm/mach-at91
-> diff --git a/Documentation/devicetree/bindings/arm/atmel-at91.yaml b/Documentation/devicetree/bindings/arm/atmel-at91.yaml
-> index bf161e0950ea..d9b32a95b136 100644
-> --- a/Documentation/devicetree/bindings/arm/atmel-at91.yaml
-> +++ b/Documentation/devicetree/bindings/arm/atmel-at91.yaml
-> @@ -258,45 +258,6 @@ properties:
->             - const: microchip,lan9668
->             - const: microchip,lan966
-> 
-> -      - items:
-> -          - enum:
-> -              - atmel,sams70j19
-> -              - atmel,sams70j20
-> -              - atmel,sams70j21
-> -              - atmel,sams70n19
-> -              - atmel,sams70n20
-> -              - atmel,sams70n21
-> -              - atmel,sams70q19
-> -              - atmel,sams70q20
-> -              - atmel,sams70q21
-> -          - const: atmel,sams70
-> -          - const: atmel,samv7
-> -
-> -      - items:
-> -          - enum:
-> -              - atmel,samv70j19
-> -              - atmel,samv70j20
-> -              - atmel,samv70n19
-> -              - atmel,samv70n20
-> -              - atmel,samv70q19
-> -              - atmel,samv70q20
-> -          - const: atmel,samv70
-> -          - const: atmel,samv7
-> -
-> -      - items:
-> -          - enum:
-> -              - atmel,samv71j19
-> -              - atmel,samv71j20
-> -              - atmel,samv71j21
-> -              - atmel,samv71n19
-> -              - atmel,samv71n20
-> -              - atmel,samv71n21
-> -              - atmel,samv71q19
-> -              - atmel,samv71q20
-> -              - atmel,samv71q21
-> -          - const: atmel,samv71
-> -          - const: atmel,samv7
-> -
->   additionalProperties: true
-> 
->   ...
+--
+Erikas Bitovtas <xerikasxx@gmail.com>
+-- 
+Erikas Bitovtas <xerikasxx@gmail.com>
 
