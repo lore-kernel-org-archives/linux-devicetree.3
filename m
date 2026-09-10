@@ -1,74 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0A53C3BEF;
-	Thu, 10 Sep 2026 07:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FEE6388371
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 07:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789026873; cv=none; b=oK0zjjExpybn0l5/JjQUkQ2R2c1Fj/tPtHGFOm0B5TaoKsmjrSrWZcU27DM3muP1hwnhPEZC8XrtbSBTsz2O4ta2DjAM/bpTsJUzeSzVLKA6q1nYFUyjZrnRd4K5g1nkuvdL3NuZHfj7yRZ/X1/iHuKk1hQ/0FmJ/YfQXK7BLXE=
+	t=1789027121; cv=none; b=gh/1gC+YH9HA3TCtjOaen6jPQxo1xiGCeD748llhQHy7VBFhkgMck8/gyHoOpZWMuqdmX92cYDX08cldVmy01JGsK9QWxtAp9Rv8e3FCtoMIG6JFwvNBomj/1WnyBU6QKHXubrRdlmX38nqfIVQuo95UsN8h8iMgSbBXT1QlKjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789026873; c=relaxed/simple;
-	bh=wzYVt6KDz257EJoSY7Xa7I1AGsh1VYvqFP9yNZe4910=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kZjR4Al0y86fDH0aYwDBnbo+9XLmjEQWGy1BQ9t5DoyQhH1KrgS3QERIMfJJE6HxrQY5ubN+RWOu9JxRrzjuNVFGidIuLD7SDpVWiOusMzZ78aG7o8mZ8ZKY3JNGqLoyhzh8cpF4m7jyMHNIvXIs/cyCRiKdr0jzYVQz9QrvxJI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fCy4zQcB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789027121; c=relaxed/simple;
+	bh=d0KjsG7PoiJW82Yyf+OBWtqBaQmdJo4u7YvdxdXO6eQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=koGKCjkx9JEhsTGuyTxLwHDvDUlIeLjMFnKTb0O/WprFfKsvEQctC0qsD3w54Bd2iFSJQE2iLZ/4Qk3OSUxYk1OJ75ptFYy6dn8wAB8JydwbwqB1cLhlDm3cU9HWhhGwkheNgT/8lJTcWOyprhT40YZ5cRtL+Tt1/+yi/rvf6CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=SCmm4Pzp; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fCy4zQcB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 998011F000FF;
-	Thu, 10 Sep 2026 07:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789026871;
-	bh=kyAcgB3Yhj5yrKLfhRmq128yyl1v+dK+FKkCGLeuOdE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fCy4zQcB/Os3IU73rIuJJmO6buBTOCi1AkcEK97Jn/qdgcDVfVu3VWuGn4JJIaHZE
-	 vbdfY8EFDThc+boKAmlRvbLZH7BafOJUNCDFLNKkxXLnBjk4QYr9RvhVbJe5OvQcOq
-	 gFbg8bDQ9ZOlS9RNE8/0fYFXrgBxmkMtwLFakPWZr48db20YxA3LTS6plEQREU5K+g
-	 EvgIccdFtZktlrx6UNADfH3XrhYecOk+K9o5bdEKHqrx3kHDNQLbxI1gfIfRSCXbV5
-	 3QQWBoYrDH5aeoZ8PxFcvg5haukMizkyk2kGhXDduXi2lgTiimYwXqIDpJ78s5vHmA
-	 v/U9PT8CyT9RA==
-Date: Thu, 10 Sep 2026 09:54:22 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, 
-	Marcel Holtmann <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org, 
-	devicetree@vger.kernel.org, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v6 09/11] Bluetooth: hci_qca: Flatten struct qca_power
- into struct qca_serdev
-Message-ID: <tccqoknfwlqjwro2tzka5aka44xjdmjf236nw65evjvamfwhzg@x7explkeafvd>
-References: <20260904-monza-wireless-v6-0-d8c5042b3efd@oss.qualcomm.com>
- <20260904-monza-wireless-v6-9-d8c5042b3efd@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="SCmm4Pzp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id CB6E11A1A89;
+	Thu, 10 Sep 2026 07:58:31 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 981F3602B8;
+	Thu, 10 Sep 2026 07:58:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F3BA111C78276;
+	Thu, 10 Sep 2026 09:58:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789027110; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Kno+TMnYpO9Bgr0R12gJK4ROq1TV+XfvO4LtrnKGYOM=;
+	b=SCmm4PzpfNmNnzvKfuAWCpQuo1TCdyJ6GBwTA04Jsdof2FS3v0tCx1M8f8Q5l2B5RN2n1s
+	TqhTI+/Hd/MTxF6NCIBf114ZswXThqNCferqelme5/f+yq+RnV6NpIKz1kQVGDvIJ46ABA
+	S1ILjDutXKVQ/sWXUJbQ5I/gycZZX3eCf/fPACJUOuZgHEjLwFdtnf/cuuRTWZVTOdK6BH
+	mZLetKMbod9efOm+ButxrYT0WYr8A6rMiQYaiAwDsRB92SWeoW9pEr0f80WG9x+mXuVU+r
+	hLpk0tQ4Ba2+IoWBKp4gOdEmYKo5jO2GQrVJcgzPZ7ymAjWJNY/YlzQHH/tzXw==
+Date: Thu, 10 Sep 2026 09:58:23 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <20260910095823.1f5abc2b@bootlin.com>
+In-Reply-To: <aqJBOdFPJbDKHt_9@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-7-herve.codina@bootlin.com>
+	<aqJBOdFPJbDKHt_9@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260904-monza-wireless-v6-9-d8c5042b3efd@oss.qualcomm.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Fri, Sep 04, 2026 at 05:42:24PM +0200, Loic Poulain wrote:
-> struct qca_power currently only groups a handful of fields
-> (vreg_bulk, num_vregs, vregs_on, pwrseq) that are exclusively used
-> from struct qca_serdev, via its embedded bt_power member. The extra
-> indirection level does not provide any isolation or reuse benefit,
-> and just adds qcadev->bt_power.<field> noise throughout the driver.
+Hi david,
+
+On Thu, 10 Sep 2026 15:33:58 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+> On Wed, Aug 26, 2026 at 10:31:37AM +0200, Herve Codina wrote:
+> [snip]
+> > +#define FDT_TAG_CAN_SKIP(tag_data, tag_id) \
+> > +		(FDT_TAG_STRUCTURED | FDT_TAG_SKIP_SAFE | tag_data | tag_id)
+> > +
+> > +/* Tests reserved tags */
+> > +#define FDT_TEST_NONE_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_NONE, 0)
+> > +#define FDT_TEST_1CELL_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0)
+> > +#define FDT_TEST_2CELLS_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_2CELLS, 0)
+> > +#define FDT_TEST_VARLEN_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, 0)
+> > +#define FDT_TEST_NONE_NO_SKIP		FDT_TAG_NO_SKIP(FDT_TAG_DATA_NONE, 0)  
 > 
-> Drop struct qca_power and move its fields directly into
-> struct qca_serdev, updating qca_init_regulators() to take a
-> struct qca_serdev pointer instead. No functional change intended.
+> Sorry, missed until I saw the later treegen changes that this is
+> defining some specific tag values.
 > 
-> Suggested-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Given that, "Tests reserved tags" needs to be expanded to better
+> explain what these tags are for - what should readers do upon
+> encountering them, when should writers use it ("never, unless you're a
+> test case" is acceptable).
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+I would say, in both cases, consider them as "unknown" tags.
+And so:
+/*
+ * Tests reserved tags
+ * 
+ * When those tags are encountered they should be considered as "unknown"
+ * tags and rules related to "unknown" tags must be followed.
+ *
+ * Readers should skip them or fail depending on the SKIP_SAFE flag. Writers
+ * should never use those tags. Their usage is only acceptable in test cases.
+ */
 
-- Mani
+> 
+> It might be worth reserving a whole range of tag values for tests /
+> documentation / experimentation, rather than just a handful of
+> specific values.
+> 
+
+Ok. The range reservation will added be in the comment.
+
+/*
+ * Tests reserved tags
+ *
+ * A TAG_ID range in "structured tags" is reserved to tests tags.
+ * This tests reserved range is from tag_id 0 to tag_id 0x100.
+ *
+ * When those tags are encountered they should be considered as "unknown"
+ * tags and rules related to "unknown" tags must be followed.
+ *
+ * Readers should skip them or fail depending on the SKIP_SAFE flag. Writers
+ * should never use those tags. Their usage is only acceptable in test cases.
+ */
+
+Is it ok?
+
+Best regards,
+Hervé
+
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Hervé Codina, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
