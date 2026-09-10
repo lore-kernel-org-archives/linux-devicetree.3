@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76C82378D72
-	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:47:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4ECC490BED
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 13:48:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789048052; cv=none; b=REFZ6Oj8if4s3Kra1kxhH1Vcu0ZdyY79UK6ty5dxHzYGqsaMWdjTqMvXAtmRDKpGCE9qcY2peNTR+R5dQUKFiBMWN+cCgitCU5rBHZy/+2bB/y8e6WlVjl6zswjnx/CqiEkEt49pWpNu4HS2iJ7Zmc+fMNHvPRBNDyPyPBPLRGs=
+	t=1789048114; cv=none; b=gbvN257xpFzv3UyUt4kAYWVNwoVGJclRDZ1L6cdD/idfY2BspyWlvbNeS3hze8THx9UXzcPDEid7qJRlME0rpVUPcOfFb2pzfkCavKFMRtmB3s/15IOf0WnKnN5h8kCUb5F/lStWij7FTtGYD0wC8HsePWBwEOsBjF8+ys8ji7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789048052; c=relaxed/simple;
-	bh=vOeoPbgrp2iAfbKgbTi7d/hYd4cMkaHtOQgyXrVHbA0=;
+	s=arc-20240116; t=1789048114; c=relaxed/simple;
+	bh=R6+MsLqtAHUYXV3aJ/qVJg+bhpaAk4c5UrQmfsv9Hrw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qDKZggMREKd28sWyokEymboRSGDQ3uRKd3j4fYnMrQfaN5UuMs7iIXaRig2tuZimmgqq+CA0T/SMTXip0Fj0l8bdEizk+fGY1lmR73b4jQTobOtqIuPcvGPf+wAsfEjMyWZhBhUNCF7CcEW4QpiGqSL5jiG+FLH4T4h5L0U8+T4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bXX+Zlkf; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bJZrhcbIlGv+KbmaK0h6XaVenixSg3M3rIUxmf2zL7UREWG3zkKsHxbTKOTNJN6dDfj8pPWAtIY+tlKG9fpoB7HM595WyROGD9wq9OXC6iuu14T0cM0nR0JRNtelSueGjFoosAWdsOywMw46klJijRE6luCSOD49fneyu59rmGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jw3Y9sU2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bXX+Zlkf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C9A1F000FF;
-	Thu, 10 Sep 2026 13:47:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jw3Y9sU2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE8211F000FF;
+	Thu, 10 Sep 2026 13:48:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789048051;
-	bh=79EkR2ki9padIXI7SX9XoQ5rBxXDEY+vQwpE/YivCR0=;
+	s=k20260515; t=1789048112;
+	bh=gByiNwbYyHciSrIM5Nz45rbSrCJcLq09d0DpYTPU6wI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bXX+ZlkfH/0Rx21f/UNytcX3g5j1Eo6IgiFX9ejGFrfgHxM2LL8MF6X0uhfUbHe7+
-	 d0Hiv4pe6RMtHMdWGr5dSx98guBlyavD6FsjdUMNF8ri9iMahqYRM38xs6akrbZtVV
-	 YVbbCXZK2aq1mabcs5Q8nE0qunF2PXaLKOqU1y/QcU8sFBkvKmGWdZAGl+XYiT6D5s
-	 /J+wurt5m5+YiMLIh04cniCPQRy9xntgODHUP0Hj3e1nwczxHbhJRV6UoddNWIzj+n
-	 /jjR5exRJ5EZ8n/WjvLOiMBUZt0laG18ubVSHOoCl2qxqAlL0SfaZxHwMSGNNv4RRR
-	 msgkSlFb/zDUA==
+	b=jw3Y9sU2kFImtMTGKais0wyz3HCF385PqWtohl4tUi26lLv/vSP7ikE2vVHAENglL
+	 D6lxNlKLrCWIYSlPIXR3ngVrW0oH/M2TvzuEowlGYQ987YiwcKRIyuAtZpQmUgSW3M
+	 IvjxzGcKEn+1i1aQy0Eb7S2dvTbWqlVM3mOGcpNU11LE1GM4EiKTMbwREr92oosK5T
+	 Kfkl1Nu0Z21Q0FYVvcWjVve0XSG7jpLam+SEr6MsKCBUyvOO+4EaFmzVAaYs9wCRNq
+	 vzWUNDDL0Ofi0yzcHjU2TkVR5X87BjWaaAwlE4A0yu2yEbQI3apHyr9CkhH7vAMxK1
+	 E78ofI7cih/XQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 22/34] arm64: dts: qcom: qcs404: Move PCIe phy and GPIOs
- to root port node
+Subject: Re: [PATCH 24/34] arm64: dts: qcom: sc8180x: Move PCIe phy and
+ GPIOs to root port node
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260910-root_port-v1-22-90a252ddbbfa@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260910-root_port-v1-24-90a252ddbbfa@oss.qualcomm.com>
 References: <20260910-root_port-v1-0-90a252ddbbfa@oss.qualcomm.com>
- <20260910-root_port-v1-22-90a252ddbbfa@oss.qualcomm.com>
+ <20260910-root_port-v1-24-90a252ddbbfa@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 13:47:30 +0000
-Message-Id: <20260910134730.C9C9A1F000FF@smtp.kernel.org>
+Date: Thu, 10 Sep 2026 13:48:31 +0000
+Message-Id: <20260910134831.AE8211F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,38 +47,54 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The commit message incorrectly claims that `phy-names` is moved =
-to the root port node, but it is actually dropped.
+- [Medium] The commit message claims to move both `phys` and `phy-names` to=
+ the root port nodes, but `phy-names` is deleted entirely instead of being =
+moved.
 --
 
-commit 43e475189be13ef7a3db0e296715dd66a66766c9
+commit fb102e85b305ac3a25a018843f8ea1cc8f87f980
 Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
 
-arm64: dts: qcom: qcs404: Move PCIe phy and GPIOs to root port node
+arm64: dts: qcom: sc8180x: Move PCIe phy and GPIOs to root port node
 
-This commit moves the PCIe phy reference and perst GPIO property from the
-RC controller node to the root port node, renaming the GPIO to reset-gpios.
-It adds a label to the root port node to allow board-level overrides.
+This commit moves PCIe phy references and GPIO properties from the RC
+controller node to the root port node. It drops phys and phy-names
+from the controller node and adds phys to the root port node.
 
-> Move phys and phy-names from the controller to pcie0_port0,
-> adding a label to this node to allow board-level overrides.
+> arm64: dts: qcom: sc8180x: Move PCIe phy and GPIOs to root port node
+>
+> The PCIe phy reference and the perst/wake GPIO properties are
+> per root port and belong in the root port node (pcie@0), not in the
+> RC controller node. Move phys and phy-names from the controller to
+> pcie0_port0, pcie1_port0, pcie2_port0, and pcie3_port0, adding
 
 [Severity: Medium]
-The commit message states that phy-names is moved to pcie0_port0, but
-looking at the diff, it appears to be removed entirely rather than moved.
-Is this omission intentional since the driver might look up the PHY without
-a connection ID, and could the commit message be updated to reflect that it
-is dropped?
+The commit message claims to move both phys and phy-names to the root port
+nodes, but phy-names is deleted entirely instead of being moved.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs404.dtsi b/arch/arm64/boot/dts/q=
-com/qcs404.dtsi
-> --- a/arch/arm64/boot/dts/qcom/qcs404.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/qcs404.dtsi
-> @@ -1517,16 +1517,15 @@ pcie: pcie@10000000 {
-[ ... ]
-> -			phys =3D <&pcie_phy>;
+While dropping phy-names is technically correct and safe (the
+qcom,pcie-common.yaml DT binding marks phy-names as deprecated and
+explicitly states it is not required in the root port node), the commit mes=
+sage
+is factually inaccurate.
+
+Could the commit message be updated to document the intentional removal of =
+the
+deprecated property rather than claiming it was moved?
+
+> diff --git a/arch/arm64/boot/dts/qcom/sc8180x.dtsi b/arch/arm64/boot/dts/=
+qcom/sc8180x.dtsi
+> index de1b72b64d960..a85e3211958d1 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8180x.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sc8180x.dtsi
+> @@ -1779,17 +1779,17 @@ pcie0: pcie@1c00000 {
+>  					<&gem_noc MASTER_AMPSS_M0 0 &config_noc SLAVE_PCIE_0 0>;
+>  			interconnect-names =3D "pcie-mem", "cpu-pcie";
+> =20
+> -			phys =3D <&pcie0_phy>;
 > -			phy-names =3D "pciephy";
-> -
+>  			dma-coherent;
+> =20
 >  			status =3D "disabled";
 > =20
 > -			pcie@0 {
@@ -87,15 +103,46 @@ com/qcs404.dtsi
 >  				reg =3D <0x0 0x0 0x0 0x0 0x0>;
 >  				bus-range =3D <0x01 0xff>;
 > =20
-> +				phys =3D <&pcie_phy>;
+> +				phys =3D <&pcie0_phy>;
 > +
+>  				#address-cells =3D <3>;
+>  				#size-cells =3D <2>;
+>  				ranges;
 
 [Severity: Medium]
-As noted above, we add phys here in pcie0_port0 but omit phy-names which
-was present in the parent node. Does this child node also need the phy-names
-property to match the commit message, or is dropping it the intended behavi=
-or?
+As noted above, phys is moved to the pcie0_port0 node in
+arch/arm64/boot/dts/qcom/sc8180x.dtsi, but phy-names is conspicuously missi=
+ng,
+contradicting the commit message.
+
+[ ... ]
+
+> @@ -1898,17 +1898,17 @@ pcie3: pcie@1c08000 {
+>  					<&gem_noc MASTER_AMPSS_M0 0 &config_noc SLAVE_PCIE_3 0>;
+>  			interconnect-names =3D "pcie-mem", "cpu-pcie";
+> =20
+> -			phys =3D <&pcie3_phy>;
+> -			phy-names =3D "pciephy";
+>  			dma-coherent;
+> =20
+>  			status =3D "disabled";
+> =20
+> -			pcie@0 {
+> +			pcie3_port0: pcie@0 {
+>  				device_type =3D "pci";
+>  				reg =3D <0x0 0x0 0x0 0x0 0x0>;
+>  				bus-range =3D <0x01 0xff>;
+> =20
+> +				phys =3D <&pcie3_phy>;
+> +
+>  				#address-cells =3D <3>;
+>  				#size-cells =3D <2>;
+>  				ranges;
+
+[Severity: Medium]
+The same discrepancy applies to pcie3_port0, where phy-names is also omitte=
+d.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-root_port-=
-v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D22
+v1-0-90a252ddbbfa@oss.qualcomm.com?part=3D24
