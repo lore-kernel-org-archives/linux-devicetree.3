@@ -1,153 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1E3F3B3C0F;
-	Thu, 10 Sep 2026 06:20:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FEC313540
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789021232; cv=none; b=Gy21VYJQk4xvLHFb0Rn8kTgO5mdc3NlpGOQPufnOIa2H86edQ+brrVHs/mSrTJQ4NjP1AUHZNRqV0Gpg1PPQyWJ8pfswv2leN4ibqyJfCKiwUFtkfbfrf3F2QCD3+LoY7UK7hl7bJ7A8DwsUyHZ78UXuasUwrTr/92+khM/PklU=
+	t=1789021253; cv=none; b=cDoQfhG851hsP8wUhEgHGd5Mp3peRrFlqoKyHStl/viO8SJRmJreun79XrCPZlNFviyl+pOf9BE4GLAZDoJk101Uf4/GPb+5aM1Bgpw9bqnhDmsgMfQdUrFb6jtQRb9llWsUWHO7l/Nkn1Pa1pb6sJXWdmvoMGepMtmmq5SY8IY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789021232; c=relaxed/simple;
-	bh=6COYCb6K/ta7F8KU75M8uMgsuX5FTVMnxJFmHv9m/N0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uZ+Tx5+yNjMG5ImGxGnmep6TRujtqMAhh7qJ+fCoZNZSvNSePZJ99qPWHOWJMGoOBMXg7PhRWX+zpekZqc+1/5uMlZuMv9Uw9m4uovK4zC2VWMAi4OJoRirFhQm8t09uA7I0ZN74g+YyHOBgaCN9PHWd98XKkBF0cUp63NlCaws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TrymQb6G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789021253; c=relaxed/simple;
+	bh=Nzli8Pi5yo58CtlDylHzM+Mem6Z2JfVTDgKp9rmb7FE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uaJNZ5JGpVTJE2qiuOohh4YboIVEkLEvRAwdUoXr8wY3Oqx4yXSIDXPWkU315C3JwxajlbHfaB/xCb+uzsTINqq8f2zExq/hGxEXB6TVuXdnexe3weOcQW4GFukVBPTNx/RE29rrhrWUwL78FYOrBQAwO9yMe0hrxzrSfYjssIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o6bSDLPb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CgIErZ5Y; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TrymQb6G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DDF1F000FF;
-	Thu, 10 Sep 2026 06:20:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789021224;
-	bh=shlJxtnCsoUG3GCdlFP+qjOr4I/LJYkEWNn/8DPRCAI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TrymQb6GEV4bnot+r3QErDyErEAuwGtWwbRqbKWI6tTkJ/kRzeenju1hkcK15QnOS
-	 G3uhWjL2OuY7Nk+Cj4xF4STbrJeI7hP5EdibTLiKLeonHagfjPdmLECAd1VpoNFIr5
-	 thMz6wE0AU448TXBui/zenbSHtyTsGpWC2NEOHBnmQnKU1lJR2GlHZiPGGeNbk4cCE
-	 1NP21Ar9DOxIwji3Xi1OTPJJOR2gwQPAZEF6tJwJl7pR/xittyrM4r1waiISuwPQ2T
-	 VJy2zrTQRN3zD8/iboDn1mJC8kfilu5+OjJBmi7zRBuf3ccodVs65XTcdH0G9NHrO+
-	 bYTfyyYzOzecQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] rtc: pcf8525: Add temperature sensor support via
- hwmon
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shiv Prakash Gupta" <shivprakash.gupta@nxp.com>
-Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260910060912.2443551-5-shivprakash.gupta@nxp.com>
-References: <20260910060912.2443551-1-shivprakash.gupta@nxp.com>
- <20260910060912.2443551-5-shivprakash.gupta@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 10 Sep 2026 06:20:23 +0000
-Message-Id: <20260910062023.E7DDF1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o6bSDLPb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CgIErZ5Y"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68A5H1lf4142926
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:20:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=IMgojOZAp1zHy28WUhd6qU
+	yHHwf/BwfPPmDHrlPp4uY=; b=o6bSDLPbstbhjTLbpRSYAZtCstYY8ksoC+Ux2S
+	aIiir4/p+vqTjx9Y1OobJIb0T4qR3eACjSGyIn9KcfePN9jJyJcvs3aGVkM9N/Ai
+	4SpkrI8bFznR9XiRvXxYRDZ/gwlhxilj5733W7lI4ni/SU5a1mRYc6dgHNb0Kx2Y
+	cGDrkksXkhHwlZDmt6nq1cX+8A0RcP2nyLWiN7tXOBHf2gocgdHONFzggY50m2La
+	1ewB1nM8dgWmo7rKUsmWTpR5CynZ9GNSdsntzV4jcuuTtgwEJBNZxr0nkVL/k+Qy
+	YQ/fEAo17DWyMXBE7fFE9Gix66AbdBrald12laHV4LEvqfuw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkcyd2b6x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 06:20:47 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-39b6416441eso8450382a91.1
+        for <devicetree@vger.kernel.org>; Wed, 09 Sep 2026 23:20:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789021247; x=1789626047; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=IMgojOZAp1zHy28WUhd6qUyHHwf/BwfPPmDHrlPp4uY=;
+        b=CgIErZ5Yk33zUNC45Q++0bJi0BDHDUJTzcAglrCzFCJqJds2HgjA9ZwryBzKZ5GT7H
+         U+1o7PhcLrGKHL4m87QHQwpc25Bw6/GMo7o02MhbNPrBLgw1SRF0h1ca4WdpAz19/PNS
+         cCkJsr0Kpjeiw/a4ITtVGbguCIGAx26jq3OINAcWJC+jDbONWG6rZr8HxxR2slSy0sCK
+         Fiql9C7GpsTz5EKW8xFqNDXzh8r6E+BwCrIxAODtg817TDA7eBLdzVuD/F43anD8Ex/8
+         aAWeRKoyt8ZmUmNIKjLIJ6fSaYZnbi0Gh+mNDVNGBcQ0RWM28fMCK39wdavFjQC4nFc1
+         zyOQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789021247; x=1789626047;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=IMgojOZAp1zHy28WUhd6qUyHHwf/BwfPPmDHrlPp4uY=;
+        b=VaBLla93Vv+IhcE8FgFKLDt919EAO1kyqwFbMtxhOCfqzRG4uTzaXvkf7XeCAolZjS
+         FrSP9lR4vv1TRQ4X3i2ZE3uG9oehQmrvsWWT1bVwXicoX/zXndI6J/bH/BNt7QJwnHou
+         FaB7i/fxJ+oLPri+XzBrhsXiS39YoNXxnEOFH8UVhk8f2+cDskxmUC9xzDJLL2L3lIyu
+         2jpGJxn4RAgmEQSLeq97OmWsmA1VQ7Zqht/vs1QgNfSJcgodxdAdAeScCMK7rLDfgSh8
+         p3NQH8h6briuXugPCoJdTmeLhxh9BRhq7AqMDO4PYbvzONRKfLlPSyLEiJHClKCThWyl
+         xOaw==
+X-Forwarded-Encrypted: i=1; AKwUvBwcLC9wgXoL9vlwt578BMZMEhEI4xi3hv4pr2doO3Sss3rCIqyQTleX39sks11dz09ORD5+XOU8P2xm@vger.kernel.org
+X-Gm-Message-State: AFuF++n3aBBHQQuTEuQ3+u/LRxUtq0XbWeZx2fR+Q2+b2T0zcSKNH/tk
+	h848Up+TSSxps0FehWO4+n53Ky6nlSWyfd2N7snHE7EzFwDRfSJOd31o7w45EfyBH9T52gDN2Dy
+	+6uoV+FLII2cKWUJfn37eMAs2JcMexbGtwbk93hU8HuZcjwDchjNkcLtXFykxn+jOMNvrRH9c
+X-Gm-Gg: AYBFou1/iBHKSd8X+ERy3pU5DaHPfpwBYfNrF4ZPgKVvoVjU2C8M9djHS/fQHrKwVZX
+	FKwzHgOV5sxbsX4bk8cE5QMs5xO4MQIpmklk7bi+BWQ0CAqhDdIIPHbjfhrclZmhe+cGQ8ZvOSa
+	jbXfLLvxP7DOUSBFEl8kDdkqkSVj3xzVDwX0di65r7krfhSyr08l1aZ9+59f0GK2OoQHiYGYveX
+	4eF9vv56agFy0o8dr3Df1nkYLPqKMDGZRiaErP1OJ6GQy/33vFItoPE2njEqhFKTDZwsQKFLjtE
+	GGT88XC3KGFQMlYz2xiywSFeLvk8SJlP0Y9SMMDq44wFplyEOI44AYxQGm5IIVvRxuXvl+nkJI2
+	4jgySpIpuWw9ChDgJ1759XGf9SWzOqBEdF7XD
+X-Received: by 2002:a17:90a:d403:b0:39b:61f1:8032 with SMTP id 98e67ed59e1d1-39d70ae19f2mr8651309a91.16.1789021246930;
+        Wed, 09 Sep 2026 23:20:46 -0700 (PDT)
+X-Received: by 2002:a17:90a:d403:b0:39b:61f1:8032 with SMTP id 98e67ed59e1d1-39d70ae19f2mr8651247a91.16.1789021246424;
+        Wed, 09 Sep 2026 23:20:46 -0700 (PDT)
+Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339befe870sm54709946eec.30.2026.09.09.23.20.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 09 Sep 2026 23:20:45 -0700 (PDT)
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: [PATCH v2 0/2] soundwire: qcom: Add Shikra soundwire support
+Date: Thu, 10 Sep 2026 11:50:13 +0530
+Message-Id: <20260910-shikra_soundwire_support-v2-0-f98c9a6ea1e1@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAB1MomoC/yWNyw6CMBREf8V0bZuWN678D0NIpcVesRR7ATWEf
+ 7fAZpKTzMxZCGoPGsnltBCvZ0BwfYDofCKNkf1DU1CBScSjjJeCUzTQeVmjm3r1Aa9rnIbB+ZG
+ WmVKFiHmRJ5KE+eB1C9/9+lYdjNP9qZtx+9saBnB0/re7Z7H1Dk3GC5GncZKyWIgiIBXUOiOtl
+ Yp52QJDI6G7OkT2nuSrcdayEKRa1/UPnv6pf9IAAAA=
+X-Change-ID: 20260910-shikra_soundwire_support-96dd8130874a
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Srinivas Kandagatla <srini@kernel.org>,
+        Rao Mandadapu <quic_srivasam@quicinc.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Bard Liao <yung-chuan.liao@linux.intel.com>,
+        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789021241; l=2468;
+ i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
+ h=from:subject:message-id; bh=Nzli8Pi5yo58CtlDylHzM+Mem6Z2JfVTDgKp9rmb7FE=;
+ b=7Undh+yiyBlfrOJb5bqA53EWwjeC+ABvwYoSnbmVCMS4O0H+c3bqDNgVIKEIW9WxW57M1uVbM
+ 4Fc1YroyuqJBw9ZCdLKN7gBh7zOImaVvnDJZ2QbxDHSIx1I2V5ba0p/
+X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
+ pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
+X-Proofpoint-GUID: q6s58QEvMzZYhNcoE4Nwk9ir4faoRWgh
+X-Authority-Analysis: v=2.4 cv=ef+o7LEH c=1 sm=1 tr=0 ts=6aa24c3f cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8
+ a=QyXUC8HyAAAA:8 a=Q10Gi985DRLpIu94YWsA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22 a=FO4_E8m0qiDe52t0p3_H:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: q6s58QEvMzZYhNcoE4Nwk9ir4faoRWgh
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEwMDA2NCBTYWx0ZWRfX5aE+22Zq3ais
+ +Raamm/PugCIC/gVHjQRxvKDB5uT3ItBqzncq3iym87jZA3gjqDsrrU49JTpRz9d88vGc1jUTen
+ yYEmIq+Tc0f4G7bhlB0WxnHXPfQ7wT8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEwMDA2NCBTYWx0ZWRfX0gjpz5e4hIe+
+ 0AaBZ6Ubz4HfbUNadosir49MaMJbvEqSkWQ8XmJpvp88Dkpwo3gsV2cyOtLqZXxmePvdcsKDL7J
+ SKRZSIV3DpdQjjoIo0ZxKCUe+piscumnUvrbpjYlPTdJGhCVZtdcR+6CwkiZSIHJ8XJVdnN39BK
+ 4iesDe7TsHoEMaljJCOEFAABQ/We5wxWWGqPvF24QDN97zD417TK613uIRfenDuylUOGjJ53X8c
+ 2R8b2V3jA21YOjBRymBmlzflKJ6s/hk6fRR5SLWE8rhpk4E//46ogjbjBHMP0N4VqbNfqKc3YRW
+ ThUnkTrrQaC4Xxn9NX2v5Y5PNGvHYYGckZmrUMCzsVxot/qDuDiYqVI0I1bqsjMYjyWCcXkq4Rh
+ PnNMOb3VUeTygxG6JgVclfN9UpMN+LESR6PhrrXubwU/uDVSyB35Eb4tH49Vp4aQOQevmGwh7WE
+ vUpKHmzrr9xDcHDXcBw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-10_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 suspectscore=0 adultscore=0 priorityscore=1501
+ lowpriorityscore=0 clxscore=1015 phishscore=0 impostorscore=0 bulkscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609100064
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The RTC driver registers a hardware monitoring device directly i=
-nstead of using an auxiliary device driver, violating HWMON subsystem layer=
-ing guidelines.
-- [Medium] If hwmon device registration fails, the analog temperature senso=
-r is left permanently enabled, causing unnecessary backup battery drain.
-- [Medium] The analog temperature sensor is not disabled during system susp=
-end, causing continuous backup battery drain.
---
+This series adds support for the Shikra SoundWire controller.
 
-commit 8de48a2b8b05df0e0fd29e3c00baaf40c4a06d38
-Author: Shiv Prakash Gupta <shivprakash.gupta@nxp.com>
-Date:   Thu Sep 10 06:09:12 2026 +0000
+Unlike existing Qualcomm platforms, Shikra assigns the SoundWire master
+controller to EE0 instead of EE1. On SoundWire v2.0 and later hardware,
+FIFO, and status registers are banked per Execution Environment (EE),
+making the register layout dependent on the EE assignment.
 
-rtc: pcf8525: Add temperature sensor support via hwmon
+To support this difference, the series introduces a dedicated
+qcom,shikra-soundwire compatible and updates the driver to select
+the appropriate register layout based on SoC match data. Existing
+Soc's continue to use the default EE1 configuration without any
+functional changes.
 
-This commit adds hardware monitoring support for the PCF8525 internal
-temperature sensor. It registers the sensor via the hwmon interface to
-expose temperature reading and update interval configuration.
+Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+---
+Changes in v2:
+- Drop qcom,swr-master-ee-val DT property; the EE assignment is a
+  fixed SoC integration detail, not a board-level property. Encode
+  it in qcom_swrm_data match data instead and introduce a dedicated
+  qcom,shikra-soundwire compatible to select EE0 at probe time.
+- Remove the dt-bindings patch for qcom,swr-master-ee-val (no longer needed).
+- Apply EE stride offset to SWRM_V2_0_CLK_CTRL in qcom_swrm_init()
+  and swrm_runtime_resume() for correctness on EE0.
+- Remove the mmio guard from the INTERRUPT_CPU_EN write; always enable
+  CPU IRQs for the selected EE window.
+- Link to v1: https://patch.msgid.link/20260608175345.3118060-1-mohammad.rafi.shaik@oss.qualcomm.com
 
-> diff --git a/drivers/rtc/rtc-pcf8525.c b/drivers/rtc/rtc-pcf8525.c
-> index c2eab983f1ff0..a2958eb3a5026 100644
-> --- a/drivers/rtc/rtc-pcf8525.c
-> +++ b/drivers/rtc/rtc-pcf8525.c
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>
+To: Rao Mandadapu <quic_srivasam@quicinc.com>
+To: Vinod Koul <vkoul@kernel.org>
+To: Bard Liao <yung-chuan.liao@linux.intel.com>
+To: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-sound@vger.kernel.org
 
-[ ... ]
+---
+Mohammad Rafi Shaik (2):
+      dt-bindings: soundwire: qcom: add qcom,shikra-soundwire compatible
+      soundwire: qcom: add EE-aware register layout for Shikra
 
-> +static void pcf8525_hwmon_register(struct device *dev,
-> +				   struct pcf8525 *pcf8525)
-> +{
-> +	struct device *hwmon_dev;
-> +	int ret;
-> +
-> +	if (!IS_ENABLED(CONFIG_RTC_DRV_PCF8525_HWMON))
-> +		return;
-> +
-> +	/*
-> +	 * Enable digital temperature readout first so that the hardware is
-> +	 * ready before the sysfs attributes are exposed to userspace.  The
-> +	 * previous order (register hwmon device first) left a window where
-> +	 * a concurrent sysfs read would return invalid data, and left the
-> +	 * device permanently broken if this step subsequently failed.
-> +	 */
-> +	ret =3D regmap_update_bits(pcf8525->regmap, PCF8525_REG_CTRL5,
-> +				 PCF8525_CTRL5_TEMP_RD_EN,
-> +				 PCF8525_CTRL5_TEMP_RD_EN);
+ .../bindings/soundwire/qcom,soundwire.yaml         |  1 +
+ drivers/soundwire/qcom.c                           | 85 ++++++++++++++++++----
+ 2 files changed, 72 insertions(+), 14 deletions(-)
+---
+base-commit: c68a982815dcce5464e3bf2a31ac94f5146c04ca
+change-id: 20260910-shikra_soundwire_support-96dd8130874a
 
-[Severity: Medium]
-Once the temperature sensor is enabled here, it stays active for the lifeti=
-me
-of the device. Looking at pcf8525_suspend() in this file, it does not clear
-the PCF8525_CTRL5_TEMP_RD_EN bit.
+Best regards,
+--  
+Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-Does the analog temperature sensor need to be disabled during system suspend
-to prevent continuous backup battery drain while the system is asleep?
-
-> +	if (ret) {
-> +		dev_warn(dev, "failed to enable temperature readout: %d\n", ret);
-> +		return;
-> +	}
-> +
-> +	/*
-> +	 * Register a devm cleanup action to disable TEMP_RD_EN when the
-> +	 * driver is unbound, preventing the analog sensor from draining
-> +	 * the backup battery after driver removal.
-> +	 */
-> +	if (devm_add_action_or_reset(dev, pcf8525_hwmon_disable_temp, pcf8525))=
- {
-> +		dev_warn(dev, "failed to register HWMON cleanup action\n");
-> +		return;
-> +	}
-> +
-> +	/* Only expose sysfs attributes once the hardware is fully ready. */
-> +	hwmon_dev =3D devm_hwmon_device_register_with_info(dev, "pcf8525",
-> +							 pcf8525,
-> +							 &pcf8525_hwmon_chip_info,
-> +							 NULL);
-
-[Severity: Medium]
-According to the HWMON subsystem guidelines, shouldn't hardware monitoring
-functionality for multi-function devices be implemented as an auxiliary dev=
-ice
-driver residing in drivers/hwmon/ instead of being registered directly from
-drivers/rtc/?
-
-> +	if (IS_ERR(hwmon_dev))
-> +		dev_warn(dev, "failed to register HWMON device: %ld\n",
-> +			 PTR_ERR(hwmon_dev));
-
-[Severity: Medium]
-If hwmon device registration fails here, it only logs a warning and returns.
-
-Since the probe function ignores this failure and succeeds, the device rema=
-ins
-bound. Does this mean the devm cleanup action setup earlier will not execute
-until device removal, leaving the analog temperature sensor permanently
-enabled and unnecessarily draining the backup battery if hwmon registration
-fails?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910060912.2443=
-551-1-shivprakash.gupta@nxp.com?part=3D4
