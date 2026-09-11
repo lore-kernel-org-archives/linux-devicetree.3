@@ -1,143 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-175.mta0.migadu.com [91.218.175.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2271747F3BB;
-	Fri, 11 Sep 2026 12:57:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E599476CE7
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 13:04:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789131496; cv=none; b=EnjtoMMrvedSDnO24/EfaVvA2RuTg4DxFJBmmMa94mI2qmBXcuBhddzIRQKM8eM4EtUGvJk6ODGzuFyC/vyYaL2uIl8KGQU8qj7T/BZT7VUKCHvL0fcc/h2dM8/X1mu0Oq/GmeW3NiW+CfWnUwRpzzlxF5YSlb42IVZwfKpcOSQ=
+	t=1789131869; cv=none; b=p2RoYr9BJPLwAwEL37P2L8byC/b9fO4c+b5vyMA01DP2wotZ65XyBhE33o3169Al7Zl3nvUWpkNFgWn3GAxsmcw+U20CFrQUqGGaWSLkPvleL+fXgDuj58/fJGZ1XZRkoPfOAj84Fqddmv7mtI+u4ASkugvIzOFzRg/WO7bcc+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789131496; c=relaxed/simple;
-	bh=L39o9je2pRF3Ee/1VQ9cYHRACMSgblJcYDT9SNPwiYw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Btfl9HoOgaqb8NP9s6srObvXzB1RU4kHEEexR681q0T84/BusiF8I30wXpord7fRGaZQnhQpd4Xazv2AFAoRFkyT30pHTi2Bzr1fJSfIsRtP86A+LelFeFsyEYKpdFVMoAYPP52clvOc/fjkMId0hhZvDOka8PQmLVw0vPE2ztM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ngr7S5tV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789131869; c=relaxed/simple;
+	bh=PmYOkXyCWA/NCJ3Eaz4VkslDAeMkWeUxEDpJ52XTEKI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=fzjg8MAzSklUOSiaGhPapNK3gQ+x8PLxLKIwkxoWf5TAbAvlj4SNqkXZUuwTwX3wNCXuaUqV7Zvf/bevav5OmkFius6hPaFyNxZMpC6p0OccE21nDl4a31kd3ySsZh9EJ35fueD51McyoacnjwjsTHDBqKnReG/10yK5z5kohR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=SeZrlmTP; arc=none smtp.client-ip=91.218.175.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ngr7S5tV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3D241F00898;
-	Fri, 11 Sep 2026 12:57:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789131471;
-	bh=EdmRJCCaDZa1nBcr3H2N1qYwEdhuymVKhEFGMKEdU+k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ngr7S5tVBMBaQxLkItH0euI3RcZTH2yMPtzQ84xbpRe7x7e8oi9A9sdRvNDqhz55L
-	 eP5iCgGdM+grkmZzOF7BIF587oDRa+FUbCfSh+iW/3GUH4npUj16KHxP3wUMkvZHwI
-	 RHxunIY4VoRB8tLHiT8MjI7gcHwiaknyxUZcb+1sANp2qZKMQ5kHnme1v0fgAUMzqY
-	 fhqnmGqmLnwrwgy17Xa56tQrimbv+TIYqX79t0eGQKapJnurZedIcc1YLIKpnFBwQj
-	 9Amwmf4NyrU3UfwG3ikNCgj65N2Wl2fdN9bUwA92a7TRrL3HZzmTzcDGsph6tJih5h
-	 c4pUWdmyLISNg==
-Message-ID: <e5271c66-572a-40c1-a339-5aaf113544f7@kernel.org>
-Date: Fri, 11 Sep 2026 14:57:38 +0200
+	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="SeZrlmTP"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=PmYOkXyCWA/NCJ3Eaz4VkslDAeMkWeUxEDpJ52XTEKI=;
+ c=simple/simple; d=cknow-tech.com;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789131862; v=1; x=1789736662;
+ b=SeZrlmTPjOuIDx8MQtVUJroc0kBdPHhlX36ebOT/Pr2/wyxh5tP9osmuOzKkZiL+WbBVXdBW
+ 8Cc2YqItUGdmsUTl13eFk7wNqveN76dC3A76qYRPKM4GXx3VnbmWuD1Eg7Rucv0TIVWhuMdz8Tm
+ DOrW0gQIG9JuLcJ0Tp2JSYXIdZ4JmV3W+TOdIrxYWBhFziSxXorfVXkACkDvTEI8iQE0xlHub/l
+ F5jwMgZhBg6o5EuOwRBny5rHypS395QB3jlU5qWS5TUy21Y/v1QaHQ0pb3yN2KmwTplbC5uyAMv
+ V5cbtusEd30A+cvSQU/v8PMmftp8a4Zsvlg64Xfgr7xzA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id c06cdbb5f92d0953;
+	Fri, 11 Sep 2026 13:04:22 +0000
+X-Mizu-Trace-ID: c06cdbb5f92d0953
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 00/13] Ambarella CV75 SoC minimal bring-up
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>,
- Arnd Bergmann <arnd@arndb.de>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org
-Cc: Long Zhao <longzhao@ambarella.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Long Zhao <zl020895@163.com>, Lee Jones <lee@kernel.org>,
- mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260904-cv75-v5-v6-0-e918514cb3b1@ambarella.com>
- <1jwlt1ld6c.fsf@starbuckisacylon.baylibre.com>
- <46d21889-6b52-4c09-8f77-7c08dba93777@kernel.org>
- <1jld986j7m.fsf@starbuckisacylon.baylibre.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <1jld986j7m.fsf@starbuckisacylon.baylibre.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Date: Fri, 11 Sep 2026 15:04:21 +0200
+Message-Id: <DLCIBAHNWQ3M.KN3L9LK8HRU6@cknow-tech.com>
+Cc: "Sebastian Reichel" <sebastian.reichel@collabora.com>,
+ <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-rockchip@lists.infradead.org>
+Subject: Re: [PATCH v5 2/7] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on NanoPC-T6
+From: "Diederik de Haas" <diederik@cknow-tech.com>
+To: "Ricardo Pardini" <ricardo@pardini.net>, "Diederik de Haas"
+ <diederik@cknow-tech.com>, "Heiner Kallweit" <hkallweit1@gmail.com>,
+ <nic_swsd@realtek.com>, "Andrew Lunn" <andrew+netdev@lunn.ch>, "David S.
+ Miller" <davem@davemloft.net>, "Eric Dumazet" <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, "Paolo Abeni" <pabeni@redhat.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Heiko Stuebner" <heiko@sntech.de>
+X-Mailer: aerc 0.22.0-9-ge948bb7230f4
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net> <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-2-c1b9e5f10cd6@pardini.net> <DLCE8BRWYCBL.2UH33L4RQMAGN@cknow-tech.com> <bd032333-c557-4595-ae0c-6cb2971a9a86@pardini.net>
+In-Reply-To: <bd032333-c557-4595-ae0c-6cb2971a9a86@pardini.net>
 
-On 11/09/2026 14:55, Jerome Brunet wrote:
-> On ven. 04 sept. 2026 at 08:56, Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>> That is a lot of stuff mixed into a single series that could easily split
->>
->> Well, not easily, because each split patchset would rely on non-existing
->> CONFIG which could trigger warnings.
->>
->> Contributors follow here the correct and documented process of new SoC
->> platform, I don't get why now only this patchset has to be split...
-> 
-> Are you referring to this or something else ?
-> 
-> """
-> one patchset containing new arch/foo/Kconfig entry, DTS files, MAINTAINERS file entry and *optionally initial drivers* with their Devicetree bindings
-> """
+On Fri Sep 11, 2026 at 2:19 PM CEST, Ricardo Pardini wrote:
+> On 11/09/2026 11:52, Diederik de Haas wrote:
+>> On Thu Sep 10, 2026 at 10:07 PM CEST, Ricardo Pardini via B4 Relay wrote=
+:
+>>> From: Ricardo Pardini <ricardo@pardini.net>
+>>>
+>>> The FriendlyElec NanoPC-T6 carries two on-board Realtek RTL8125 NICs
+>>> behind pcie2x1l0 and pcie2x1l2.
 
-Yes
+Forgot to mention: thanks for this series :-)
 
-> 
-> No problem with that, I was merely trying to say that mixing 4 or 5 trees
-> in a single patchset is pushing it a little and it does not solve the
-> dependency problem you've mentioned, it just move it.
+>>> Describe the fixed function nodes and attach ethernet0/ethernet1
+>>> aliases, so that U-Boot's fdt_fixup_ethernet() can fill in the MAC
+>>> from its ethaddr/eth1addr env. The on-NIC EEPROMs on this board are
+>>> not pre-programmed with a unique MAC, so this gives a stable MAC
+>>> across boots that both U-Boot and the kernel agree on.
+>>>
+>>> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+>>> ---
+>>>   arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 30 +++++++++++++=
++++++++++
+>>>   1 file changed, 30 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/=
+arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+>>> index cfdb5c13f8606..550358a756618 100644
+>>> --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+>>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+>>> @@ -20,6 +20,8 @@ / {
+>>>   	compatible =3D "friendlyarm,nanopc-t6", "rockchip,rk3588";
+>>>  =20
+>>>   	aliases {
+>>> +		ethernet0 =3D &rtl_eth0;
+>>> +		ethernet1 =3D &rtl_eth1;
+>>>   		mmc0 =3D &sdhci;
+>>>   		mmc1 =3D &sdmmc;
+>>>   	};
+>>> @@ -644,6 +646,20 @@ &pcie2x1l0 {
+>>>   	pinctrl-names =3D "default";
+>>>   	pinctrl-0 =3D <&pcie2_0_rst>;
+>>=20
+>> The new pinctrl reference is ``pcie_25glan_perstb_b_pin``, so this patch=
+ needs
+>> to be rebased.
+>
+> Indeed; I sent v5 vs v7.3-rc2 which doesn't have your recent series=20
+> fixing those. I've rebased onto next-20260910 which does, will send in a=
+=20
+> v6 - but it's really just fuzz/context changes.
+>
+> I'll wait a bit until Heiner/Krysztof/Heiko chime in ref the binding and=
+=20
+> its wording as that has been contentious in the previous versions. And=20
+> who knows what Sashiko will find this time.
 
-It solves, because there is no dependency. Symbol is introduced in first
-commit on given branch, then used in second commit on the same branch
-and so on...
+Agreed, their feedback is more important.
 
-Just like every other new platform, I really do not get why this should
-be done differently.
+>>>   	status =3D "okay";
+>>> +
+>>> +	pcie@0,0 {
+>>> +		reg =3D <0x200000 0 0 0 0>;
+>>> +		#address-cells =3D <3>;
+>>> +		#size-cells =3D <2>;
+>>> +		ranges;
+>>> +		device_type =3D "pci";
+>>> +		bus-range =3D <0x21 0x2f>;
+>>> +
+>>> +		rtl_eth0: ethernet@0,0 {
+>>> +			compatible =3D "pci10ec,8125";
+>>> +			reg =3D <0x210000 0 0 0 0>;
+>>> +		};
+>>=20
+>> Described on page 23 of the schematic titled '2.5G Ethernet B' and ``U12=
+``
+>> (ie RTL8125BG) is connected to LAN2 which has ``ETH2`` as label on the c=
+ase.
+>
+> Confirmed.
+>
+>>=20
+>>> +	};
+>>>   };
+>>>  =20
+>>>   &pcie2x1l1 {
+>>> @@ -660,6 +676,20 @@ &pcie2x1l2 {
+>>>   	pinctrl-names =3D "default";
+>>>   	pinctrl-0 =3D <&pcie2_2_rst>;
+>>=20
+>> The new pinctrl reference is ``pcie_25glan_perstb_pin``.
+>
+> Will also be fixed by rebasing onto linux-next.
+>
+>>=20
+>>>   	status =3D "okay";
+>>> +
+>>> +	pcie@0,0 {
+>>> +		reg =3D <0x400000 0 0 0 0>;
+>>> +		#address-cells =3D <3>;
+>>> +		#size-cells =3D <2>;
+>>> +		ranges;
+>>> +		device_type =3D "pci";
+>>> +		bus-range =3D <0x41 0x4f>;
+>>> +
+>>> +		rtl_eth1: ethernet@0,0 {
+>>> +			compatible =3D "pci10ec,8125";
+>>> +			reg =3D <0x410000 0 0 0 0>;
+>>> +		};
+>>=20
+>> Described on page 22 of the schematic titled '2.5G Ethernet A' and ``U10=
+``
+>> (ie RTL8125BG) is connected to LAN1 which has ``ETH1`` as label on the c=
+ase.
+>>=20
+>> So this results in:
+>> ETH1 -> rtl_eth1
+>> ETH2 -> rtl_eth0
+>>=20
+>> This sounds like a recipe for confusion and/or potential future mistakes=
+.
+>> I think using ``rtl_eth1`` and ``rtl_eth2`` would be less confusing, but
+>> I'm fine with another construct which achieves a similar thing.
+>
+> Yeah, that will result in aliases `ethernet0 =3D &rtl_eth1;` and=20
+> `ethernet1 =3D &rtl_eth2;`. It could also be `rtl_lan1`/`rtl_lan2`, or as=
+=20
+> the schematics seems to to use the `_b` suffix, just `rtl_lan` and=20
+> `rtl_lan_b`, I don't mind. Raise if you do, otherwise I'll send v6 as=20
+> you suggested.
 
-Best regards,
-Krzysztof
+I'm not a fan of the `_b` suffix (also not in the schematic; without an
+`_a` suffix). Do the aliases have to be 0-based? If not, then `ethernet1`
+and `ethernet2` would be my preferred solution. If it needs to be 0-based
+then the off-by-one 'confusion' seems like the best solution.
+
+> Userspace will be off-by-one vs the printed case labels, thus _some_=20
+> confusion will remain, but it's already better than the current=20
+> enP2p33s0/enP4p65s0.
+
+Indeed :-)
+I triple checked whether my findings were correct before responding.
+
+Thanks to your series, I had a look at NanoPi R5S and found a few issues.
+There it's even worse:
+PCB/schematic: LAN1=3DGbE and 'WAN' on the case; LAN2=3D2.5GbE and LAN1 on =
+the
+case; LAN3=3D2.5GbE and LAN2 on the case.=20
+And those result in `end0`, `enp1s0` and `enP1p17s0` respectively :-P
+
+Cheers,
+  Diederik
