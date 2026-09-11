@@ -1,80 +1,83 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01386450909
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:34:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 899A9453A36
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:34:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112073; cv=none; b=j/0ZdQ/Kzau1WIJcCa6+vYlSuZa5RShfcyjn6zADZfsRL9Rn9Z+QogfXHec70YwB0sixVQp6JDEg3N5hEHFhKiSm4ic3YorZqHU6xpGWxtTIv6kKSQAT+wkTl1JDjwFW0P3t1Ft5nQ1rFKjY04a3pU8FgC3axDS82YAYj4WUufM=
+	t=1789112082; cv=none; b=nD723PInOadqqMU2+fLNNLUhykr8NZ+DIy3OGVnB8whp22xr3OzKQMX3omSYh9lIBOiwo2z4Jl6WFUk9oGDLNTOcGxDpLglzchdInpjdDgrKa5a70koHC7UkkpxmgVqOWMOsfalYi1I/TQUgJvvAyN0gDsb3kdgEJlZxwYU7KSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112073; c=relaxed/simple;
-	bh=/XV4B/ajZbMtzz75c2d90DGyrSxX/X4ZyRUZt/hQ2UU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g56ApUS5C70cTs4FoGOipzSOCm8OIbQ94kmfkeW3x+J6/jPkI2t3yYYt76jMvW1xRzhmN+rU2g90UWahrfvB5+05/q9yY0D8sxDq3hlRA1pAZGAOMvnkdALD2ekohoDD8KZAYsMCxb1ACVNRIAEDkGv2sNkFztkoX08G57/Zl94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U2eChdZI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BuFafCik; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1789112082; c=relaxed/simple;
+	bh=dNlCiFXswF1Fr7PLA3aiv3UeITCFkH2J/BpCPdFze04=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=neTFdcq1ld0JoDcfAm52jrLqakCk3hA7n/6C9669rSW58BHpA2UD29mrDgbNuubJdre5SZKhr0plrbMKotQIktGD3+g3RxehnPodCLoiw1vuZ7RmNimBjVOtX7vNHKmN5J0bIIohtDAp8Jchmw0DHgcNGJhjQ1AzGsmPW2LuPT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aPbK9oO1; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sa8njN6n; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U2eChdZI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BuFafCik"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B6kCdZ286206
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:34:27 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aPbK9oO1";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sa8njN6n"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B6kLZH2879736
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:34:31 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=BZWIut35apgwu/A34S2lk9HsAvN9vo1ftL5
-	tIIoGheA=; b=U2eChdZI4measUgiayoO7aIxmlc5D7onlACYoSWpmfuuJMAdOmG
-	s3CAHxiG3NLop1T9LhRTzuucmj/vrjTjrdkWYL9Uj+So4g2aiBAZPvoyVZnOxEuQ
-	Tdd3BMjVO3n2ChRiQv5VeT2mI1HfcnG/oMMrSqSN/sE2MmB8eklGLC75W0yDanSL
-	k6/KjywU+nco8X+eUGHXaRUKP2iOf+cKmkCtb8xjEN/pvvy0vSJ7Y0xzn69eTufb
-	zSbShNOnfW3yiML6l3rM2Qi0GShj25KBftUatGbK5cgfODaF+qoI+062wS5kXXLG
-	XyzNmBZRWJO34vApv2v6fawYmUtyxToxGqw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbf8gg87-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=vfNW1OxUfVz
+	0rEV2Xyz3S/A58KC8eNirMOoV11ylpYY=; b=aPbK9oO1d0Km4gxFf1hGuf0UYo0
+	0ct4QlfUk1t3Zk7zVYR67PehKlLuEWvoZwJYehxvtZygEuOd22Q8rgdrZ0Pvo82w
+	aXgDywtCT2WLMUANu09ydHXYmyPVBJQHTi/++cHG2sbU1JwovrsKcJ6bl+Vv24gk
+	k6w93oPMavVT7IZ1CS/u8QR+cE8bwdur94a4wxNeNWu0NV8ExV6V2zgMkfyqYOrO
+	wORPmFbTWmno08UK4d+SqgVx5xR6732bbSACfJBpU6CC+WR0AAff+xR5/c0+sjdC
+	3J0Ai1VLEUSImvztkW/CkoAs157nEx+0OH5YqmWcLjY+P/ah4J7S9U6iVtg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gkwvx41n6-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:34:26 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-399311947f6so1226800a91.0
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:34:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:34:31 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-39b90cc0d5cso883308a91.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:34:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789112066; x=1789716866; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BZWIut35apgwu/A34S2lk9HsAvN9vo1ftL5tIIoGheA=;
-        b=BuFafCik+Gbo7qLQyhageFIiXjda+NBZGwQ2A/EQqI4ohG70hQTjLrxqY4MmtRlRPc
-         iHPWSMBwUi3rb6INK0aX7EYS2UukrVeGltVwhw6K1kbT7RxPdD32zNggghrk6wBZieYP
-         HVHoWCf3MpM0jMyOxxHhzQYP5kCdOJSsbUfwL4/9ZUSS63TT6SJ0zkXrfsFmcPp2Fp7W
-         ncy45PvMfdlmEymoN22q6gypiw+e5mX65JLfQ0+hCLt0yzmSft9cuVrEKrgfRTCk+71U
-         BiQdMGxpigCo+PJ3DuX/ghk34CZJHMEEV5pNGhZHsLuLuxaPd5dK1viP8bVQMA3Qbovr
-         inyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789112066; x=1789716866;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1789112071; x=1789716871; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BZWIut35apgwu/A34S2lk9HsAvN9vo1ftL5tIIoGheA=;
-        b=PMASTCSRxL2gd7DBLflxejDKUD9oyxlOMjwIJN4h32KFo6d9G3CvBKbP5ALSlHOh3/
-         xKBlsQ+qI3+0zMbMTUdxujP02EMsnuS87p1LkJk/P80I4hCPYosQS+qgWIjRoj322Vig
-         SpBd5KsUiFJdlcBDtdPtPXlpor67xk0LMt780JKVeVmt7oAdSxBd5uB6yebvN/jKTLq9
-         6FoODYU+o9RcDOlJzJwoI5Ehe/tZZSfK+969F1/S9bFIjfCcWoUpCLpdyfhbO4IHpsuZ
-         Wbn5NiDdvcR+hv8+PQZwlV2VK27X97Yc97PZVMq5u9zE1f55DTkUBHejhJhzUxxBPiV5
-         E/IQ==
-X-Forwarded-Encrypted: i=1; AKwUvByeA1UHIrH29R0t5jbqTZO1GCqSgwcL2kbEq7o53lBqPFlmqgNK/vom/fB9Gd220UHuccUgioQ8SIQQ@vger.kernel.org
-X-Gm-Message-State: AFuF++kHTeZlYma4vukXpewnVkCogZPFb13OJQnkukftNC3uqzcf5YtW
-	6YGTVsK5Vu3TbOt6IRDr2H8HHC12CbNxyQMG44KvKrfgBowcrdFGDo4IncKMP7pGP2LgZkzPAY5
-	+CYNEnj/tCUZCmOFW5ld1p9oEB+6bZRmwvAPkDO0gkme1aF6WY54SwkO6PSLQpTz+
-X-Gm-Gg: AYBFou2xZUUMEigYth/UnyYYc30oQVvQ7wbT7Z8kBo9S9aMJ25bW1gWe1D3rtmteyHM
-	cJJbur/7gGdv4eRxRtYm+ldzQXv5pNxeMKfxDXIciDZ4IujHnDDZQ7z4SXrAU/q5VUKVXk+WohQ
-	AWrrgI7RJAsV4Anws4fImtFlCW9Ay2OHHKJexLMJTYpYfyqdYLYXPMnW9JzCRfChV/1YEof6N85
-	8/4Tj46dPVTxb9wpOXlLiT7ArFpCMj6/ALh5NFe9cTqF17Qf3QSLg7CENpVspoMGEvEuDNVW/9A
-	uZIKOI2NO6qx/AiAq0PV/2Zb9QvuwrYVR/NrskRDgdvH4dQmPvOlOt0j5gKB5huEF9Y2iQhGl5k
-	tTq5RQfehE+OeZ84p404V+7yM1/D901f+YPK6Qd1qCGGD+5pvOWxsyniqeV2u
-X-Received: by 2002:a17:90b:5287:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39d9c22e224mr5177688a91.20.1789112066305;
-        Fri, 11 Sep 2026 00:34:26 -0700 (PDT)
-X-Received: by 2002:a17:90b:5287:b0:398:9bd5:490d with SMTP id 98e67ed59e1d1-39d9c22e224mr5177632a91.20.1789112065734;
-        Fri, 11 Sep 2026 00:34:25 -0700 (PDT)
+        bh=vfNW1OxUfVz0rEV2Xyz3S/A58KC8eNirMOoV11ylpYY=;
+        b=Sa8njN6nA/UDi/lGSZ8likoPm8QF2FVdiSzF8M713w7NR6Z6vaIWYUq55nCpIgGiOk
+         +beHy22NG9hWhTOPlTVdSxl9xt0hCQwMUqk84/hqyYnAAJgYqP6dMfs6i1RLDHuCJBp4
+         azOyAsYdBjIs23TeTw2yWgUU6ac4vgGcWDWb2UxeK1f0UpkfSDwVDMx94fUy9++MohXQ
+         iVMc67J8SKmIzMZAL8vMY77KPAta/sp70lax8cjtdv+eehelQPB/sF80hlZpiegAWw4K
+         ex0t7Z7LhjRthLRuX1LrOs1nQwY4w9FeHx037oDjQMwkHDPpB3qAAQMLxuiuwWj5aQGi
+         2b9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789112071; x=1789716871;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vfNW1OxUfVz0rEV2Xyz3S/A58KC8eNirMOoV11ylpYY=;
+        b=fOgZGpfoL1QK3d0jAdMoHPdrd04hdMUBQ7noCo0JYFOhwS0t0hDi6pGkxMZIBQwJxK
+         woo68PK/g0QXqSa9CUiQXsimL+SesiwRwKSV8ocevDuZI68fSgXMIrzx/PQsvYm3r2Tv
+         E78LjgoDVvGAUlfwTV7yGtWX79a72JBg/6QxTEtRyaNFcDk8rr8QAgbIr5h1/2tXEWO0
+         UQ04GpyiU+sx3G+VJacuGGbOlijL0+vyPilShPFoQX5z62ueaYdxxN4xXBhTtNNODZ5v
+         OzUvXHecuqaTj/1XpJjIjEaxPWbIJMgT/TIjeXdd4ue5GyPuRMVnEpNCTDgWCE/HfIcQ
+         crPA==
+X-Forwarded-Encrypted: i=1; AKwUvByHw4ZfcLXIKAwv3fVovucSygD8EWa5TJ0fsX8WpfDeqgiIbd33c/+arQI757d8M8rBFlMGdyci0x+9@vger.kernel.org
+X-Gm-Message-State: AFuF++lUHGhRo0Vic4Rj7HlsY50Jk9tJc0RHkBE68gwnKBzqN/PuWe6c
+	aRul0kIzRT8+rEWH5xwLh1PgE8y1aAdYWjtW1ZalbLJsr3N0kT3qEaQcFOa67BkK94XClxCSi8X
+	IOjobWnG5GIgUXgYxF2PMbYiWmiXh6wSeJbbtqqRnvyJxRllt2OmT7jl58lGnoTnPZHh6iR760p
+	s=
+X-Gm-Gg: AYBFou2pUdMPbTJOg2ur9uIgNwfGtwcxT2WWkIU9Axm4qTvGoTZIGeTOy9N62cv1PGx
+	iIYS+l9kuqGYiHrBnkJW43za9sYi21kCWJ1vCw6bLj4fDbWdjMxoTzHLcGMU4QTcKiJYnA1GfBJ
+	Y4mBSZUVKhh8fewJT98znHeKu137qGTS4rAfJ6AaabMXP9snCaiP1OaK2WQDZYC3lh2kJ6MClwH
+	X2zp5c76IWw5YT2MYyqzYQarD7vfYasN4POqMo3Sv+JcHVhjSLCEIWmOK01H/aFhlzhli99zFXE
+	oEfCRk1Vr6nw3uw0i4rkKbquxPNjPapHhkW1Js/pqUL+ycfNQbwNmIbPr2nIv2xt+48k2kn3bpe
+	Smnj23iD6upDAsgnWgm5qpsz73yvaxdKL6hjB2Wv6vCblMsppMBxh5Hsi1S6X
+X-Received: by 2002:a17:90b:5605:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39d9bbc9177mr4679380a91.4.1789112070405;
+        Fri, 11 Sep 2026 00:34:30 -0700 (PDT)
+X-Received: by 2002:a17:90b:5605:b0:398:b17b:3bd2 with SMTP id 98e67ed59e1d1-39d9bbc9177mr4679322a91.4.1789112069869;
+        Fri, 11 Sep 2026 00:34:29 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365ba729dsm6163058c88.14.2026.09.11.00.34.21
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365ba729dsm6163058c88.14.2026.09.11.00.34.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 00:34:25 -0700 (PDT)
+        Fri, 11 Sep 2026 00:34:29 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
@@ -86,11 +89,14 @@ Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
         =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
         linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v2 RESEND 0/2] usb: typec: Add onsemi FUSB15201 support
-Date: Fri, 11 Sep 2026 15:34:12 +0800
-Message-ID: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v2 RESEND 1/2] dt-bindings: usb: Add onsemi FUSB15201 Type-C and PD controller
+Date: Fri, 11 Sep 2026 15:34:13 +0800
+Message-ID: <20260911073414.16711-2-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
+References: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -98,56 +104,208 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: Pn5k2vA8bq-cl3ViQm-5T5KtFIigJuwz
-X-Proofpoint-ORIG-GUID: Pn5k2vA8bq-cl3ViQm-5T5KtFIigJuwz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDEwNCBTYWx0ZWRfX7F+7pyG1HJdi
- 4LifLAiP1SkPdkV9K+E/8DoV44tkcU/+thF7xScbTXAZLXF47W2tWcyovgpVvvznYhd9KPRofSm
- TWw4bTV15jzcR+Ms2fR+CIow5G8wkUMvSHTN90I8i6Z3mWqlHrjEmsGmYH093zVBsyq1adRTW76
- S73tMOvR+BwHvp1twWNir21/5VsmgV9Gl9ogPnmZ2dKntGCelG76m1cZMjhF8w7Nwqhh2YSE3sX
- 748ZO7XDc9HKsBaYQV05ULM5YXbJN5YKn9Vp3Zpl8X9c1CzQafIQabYR0QEY4+nqNS2AuI30Uht
- 7Q+ZPHhRyYMk8aM7Y6WF1JdvZPQookb1L3wRt5yawthmgA5rWTtP+GYMMyunrlmMfOaml94/6AL
- ruwyHqiUQePG3W0B+W+lJugFaRwkvTB/P0fGALyAuO5D0GGJAxHshUWIeiJuOV1626i3L5G2d3h
- Y5vPscOuNUSOpHMkRiQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDEwNCBTYWx0ZWRfX9bgk1xz5zDDF
- gzGt+PZJ4oc2vB5+DA4a7XkLNq/nwPkBS4VDcdyLgWYLEy+b6y6svmkr39xUICeaav8zJi5E9pe
- 72PoqFi0ji+ZU8CGNAFJ1U65rpKLAlc=
-X-Authority-Analysis: v=2.4 cv=UJFIjyfy c=1 sm=1 tr=0 ts=6aa3af03 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDEwNCBTYWx0ZWRfX20tloIgVz4gf
+ pt+3sIcy2TgGyXgGpcNhtfE/A/BOG8LbVH7WX8kpPWuZWw+xAoFFL0dg8sRFrOnRPMM/6ywDJaP
+ Ije+vtg9WKaStErLE7l0x4ii1NyZRoV+NBUcPrWPpDdNOD0ZXznvsa/DDQpaGVEpIwgL50LBrdu
+ l98d3j0So8cB1jUyzFXVKU1uxs6QW0ntP4Rw9bjYPejB+NNC4PVh2XYJqOv9eudeg+wE9z128cl
+ fLXFT/OG4mMD3hXqTTBeYsI+J5IS+uli7XzFZpJ5GCGOh1Ty5wuOKRpubVxFZeD7xK1gfBOAgpJ
+ cfPXDu/PpjJI2nJH092mMwK8atjMQwI9sfvf22bVVj8L4AyGcXhXNxp5lrbumzyIpb96wthaV8A
+ Z/JVEg4bUNbDMDfK1Jv290vAEryNlDkDOzO+ko+S0Yupoeslly+brTdv6jlOKkZWKoj3MECkKha
+ XDdBvUopzFf2zXNmhlg==
+X-Proofpoint-ORIG-GUID: 4LRQ9wSM-KvpEqDAgjZvapnDRZ5Qdx23
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDEwNCBTYWx0ZWRfX8gtalBgI5l1Z
+ UZ99EIxP+X5itaUD5MlN2ZUlw6z3mOCzlA+9m2rLwMU3UHOLexdO9nC4Cp25vLuWdNXBBl1nMj2
+ s4yD4YTKYjZrcbmkoXlkpM3qIACb85k=
+X-Authority-Analysis: v=2.4 cv=AdkkjHXG c=1 sm=1 tr=0 ts=6aa3af07 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=Sth0529Ve8dJX5Jf890A:9 a=mQ_c8vxmzFEMiUWkPHU9:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=pw356RtDBc5WmomScbsA:9 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: 4LRQ9wSM-KvpEqDAgjZvapnDRZ5Qdx23
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-11_02,2026-09-09_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 adultscore=0
- malwarescore=0 suspectscore=0 impostorscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609110104
+ bulkscore=0 adultscore=0 spamscore=0 priorityscore=1501 impostorscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110104
 
-[ Resend to drop v1 Link tag from both patches ]
+The FUSB15201 is an autonomous dual-port USB Type-C and Power Delivery
+controller. It runs the Type-C state machine and the Power Delivery
+policy engine on an integrated microcontroller, and exposes only a
+status and command interface over I2C, so it is not a TCPC.
 
-The series adds a driver/binding for onsemi FUSB15201 which can be found
-on Qualcomm Nord reference design boards as a dual-port USB Type-C
-controller.
+Describe the two ports as addressed connector child nodes, so that a
+board which wires up only one of them can describe just that one.
 
-Changes for v2:
-- Drop include of <linux/mod_devicetable.h>
-- Link to v1: https://lore.kernel.org/all/20260902045938.184221-1-shengchao.guo@oss.qualcomm.com/
-
-Shawn Guo (2):
-  dt-bindings: usb: Add onsemi FUSB15201 Type-C and PD controller
-  usb: typec: Add onsemi FUSB15201 driver
-
- .../bindings/usb/onnn,fusb15201.yaml          | 152 +++++
- drivers/usb/typec/Kconfig                     |  17 +
- drivers/usb/typec/Makefile                    |   1 +
- drivers/usb/typec/fusb15201.c                 | 580 ++++++++++++++++++
- 4 files changed, 750 insertions(+)
+Assisted-by: LLM
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+---
+ .../bindings/usb/onnn,fusb15201.yaml          | 152 ++++++++++++++++++
+ 1 file changed, 152 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/usb/onnn,fusb15201.yaml
- create mode 100644 drivers/usb/typec/fusb15201.c
 
+diff --git a/Documentation/devicetree/bindings/usb/onnn,fusb15201.yaml b/Documentation/devicetree/bindings/usb/onnn,fusb15201.yaml
+new file mode 100644
+index 000000000000..09f2e964d3ef
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/onnn,fusb15201.yaml
+@@ -0,0 +1,152 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/onnn,fusb15201.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: onsemi FUSB15201 dual-port Type-C and Power Delivery controller
++
++maintainers:
++  - Shawn Guo <shengchao.guo@oss.qualcomm.com>
++
++description:
++  The FUSB15201 is an autonomous dual-port USB Type-C and Power Delivery
++  controller. It runs the Type-C state machine and the Power Delivery policy
++  engine on an integrated microcontroller, so the host is not involved in
++  Power Delivery messaging. Over I2C it reports the attach state, CC
++  orientation, data and power roles, faults and the VBUS voltage of each of
++  its two ports, and accepts commands to initiate data and power role swaps.
++
++  The two ports are described as connector child nodes, addressed 0 for port A
++  and 1 for port B. A board that wires up only one of the two ports describes
++  only the corresponding connector.
++
++properties:
++  compatible:
++    const: onnn,fusb15201
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++    description:
++      Interrupt line shared by both ports, driven by the I2C_INT pin. The pin
++      is active low and stays asserted until every pending interrupt has been
++      cleared, so it has to be described as level triggered.
++
++  '#address-cells':
++    const: 1
++
++  '#size-cells':
++    const: 0
++
++patternProperties:
++  '^connector@[01]$':
++    type: object
++    $ref: /schemas/connector/usb-connector.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      compatible:
++        const: usb-c-connector
++
++      reg:
++        maximum: 1
++        description:
++          0 for port A, 1 for port B.
++
++    required:
++      - reg
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - '#address-cells'
++  - '#size-cells'
++
++anyOf:
++  - required: [connector@0]
++  - required: [connector@1]
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        typec@50 {
++            compatible = "onnn,fusb15201";
++            reg = <0x50>;
++            interrupts-extended = <&pmic_gpios 8 IRQ_TYPE_LEVEL_LOW>;
++
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            connector@0 {
++                compatible = "usb-c-connector";
++                reg = <0>;
++                label = "USB-C0";
++                power-role = "dual";
++                data-role = "dual";
++                try-power-role = "sink";
++
++                ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    port@0 {
++                        reg = <0>;
++
++                        endpoint {
++                            remote-endpoint = <&usb_0_dwc3_hs>;
++                        };
++                    };
++
++                    port@1 {
++                        reg = <1>;
++
++                        endpoint {
++                            remote-endpoint = <&usb_0_qmpphy_ss>;
++                        };
++                    };
++                };
++            };
++
++            connector@1 {
++                compatible = "usb-c-connector";
++                reg = <1>;
++                label = "USB-C1";
++                power-role = "dual";
++                data-role = "dual";
++                try-power-role = "sink";
++
++                ports {
++                    #address-cells = <1>;
++                    #size-cells = <0>;
++
++                    port@0 {
++                        reg = <0>;
++
++                        endpoint {
++                            remote-endpoint = <&usb_1_dwc3_hs>;
++                        };
++                    };
++
++                    port@1 {
++                        reg = <1>;
++
++                        endpoint {
++                            remote-endpoint = <&usb_1_qmpphy_ss>;
++                        };
++                    };
++                };
++            };
++        };
++    };
++...
 -- 
 2.43.0
 
