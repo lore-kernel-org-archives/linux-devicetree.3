@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCE6F4457A6;
-	Fri, 11 Sep 2026 11:25:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 213F6457E5C;
+	Fri, 11 Sep 2026 11:25:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125927; cv=none; b=SzyR9faE2L24a3kzQxxx4XPMfzx8RFyZ+ej0jwRLZ6XGdBiBkGoJOD/dml+PdoXuJ24dMHVBRY2cDZpg5NgfvWE036g3Ny2XV2t9MVqqJC3kIzG/IKQPYFUv+v/GzxItr8Szh112u+o+mtfAtDg4kojplrq0LzDqw24/mcY9P3k=
+	t=1789125927; cv=none; b=iUKFLRwgX6nEbtPjqPhAN4NLCToDE/N7C7gmQ4Y5nPFAJcgC0VAb4kMbrFZutMyRwjWWXU0Jv81fFQQUXh4yEqoOSh8GN2r0J7uRGh1avz1+0ahNYL+twY8/zd3Jh/daXsVJOrHhU18LkZBtTsB9SKM1H+Qf0Bqg1BNwuaB2KsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789125927; c=relaxed/simple;
-	bh=9TXvv5+LY4xfEJb0CRlvOJtKXZ4kjAu/FFhCOzHGUjc=;
+	bh=kO4jNVxro618510vEcBdqU9dJR50/9uAtMyazRvYXQQ=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=oIQb+/snDrr4JXGMFINR9e6g1WLK2bu71ben2tjw3m/IJazy0rlVeI6REi7YvzEqiV1s5bomiud4dfQz2BPEowu5nsbmu/xorhwTuFyvQjouVVekPkuQjddqg+2Sf4hV8K2rJbDNf990+b2B657JVpjkEFPeLSVIC+ZPckU5d4o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JG3FUD5W; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=KNhyorvKEmVdACovYitZd4tRHjjfirrg62PyyoybCh3xJKcMR9+n533u/VdRLa/v6pO0PJPzg08aPHLw6bRjNbhIa4D4Qnln9Jjz47LsQsVuaPhoxj27v8GGQEUgva3wTu2Px6M4IECQjmbbG4LW3viflLgIDWBqbU2bI1dC2os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U9HORjxT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JG3FUD5W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FBC91F0089B;
-	Fri, 11 Sep 2026 11:25:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U9HORjxT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E1651F0089C;
+	Fri, 11 Sep 2026 11:25:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125918;
-	bh=Tat9mq7+c+2wVgjCeNs6A4pXm6W+juN5KefobLoQo9k=;
+	s=k20260515; t=1789125921;
+	bh=VqunXJGGS/PDbbgMJ0G/ODtjBROTqOXa86+5nrXhdNg=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=JG3FUD5WC0loPVITE99b8rSpPe+3pzbh5U+mDnRuYFnzgrcGV9L5vTYpNxPM8r2yy
-	 61P4MOcbwypVzEjjeviACdXahJxdqE8IGiXHqknf1gkEuk8i5q2hCQVOVpYPVc77dn
-	 FWadNFYGbMuMGRNwUob2IB3myd2Zi9fM/xoq2kWgegnUVNpLZVRIBG72w7aDnHHRkQ
-	 dFXDIHjdb8Xtp++DVFQft/+Gm0ihNoHsy8TMG9YKOADk6cdikRnX65RNrdivuu3Wk9
-	 mohBN1gswc2zLba12y3ePu1+VAmc4BGP8BEk6uKboTmXI0JK927sS2ieOOvP/4N6V0
-	 J8X7fa+IqlHrw==
-Subject: Re: [PATCH net-next v2 6/9] net: stmmac: qcom-ethqos: warn about
- legacy RGMII PHY modes
+	b=U9HORjxTZXihuesFPdMs4/VvG9NkowYEhQ+I/bxor1qZ/lCkR7hj5DW6NSp3IagBZ
+	 WMiEhfhfqoHnF5dktct9h6nDJKl0FPUuEfjrwEsJ3L3nE1hJKtFdJvQlWe7DI2cUq8
+	 0XiuzMOu/3pUbPaHASTrhUoLcrRZZnJdC6e+yHmumjclhz560bGet4LOuMQN1ZDf3E
+	 qSr/S361CYYFLLl3MZEmEtvgRM/gVbJ3maHvIk6cVNiojLhP9nwnqWD9uVryDb7tN0
+	 09W6LyXvxU5DkaxZmQ7oEsXlPjiukp+ZjLRpQ8evjC3GRqo6WanhTJsLcovtGyYNIZ
+	 JUyJWamM0zK7A==
+Subject: Re: [PATCH net-next v2 7/9] net: stmmac: qcom-ethqos: set initial
+ RGMII link clock to lowest speed
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -40,10 +40,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 11 Sep 2026 11:25:16 +0000
-Message-ID: <178912591683.219967.17377991068527504766@kernel.org>
-In-Reply-To: <20260908-shikra_ethernet-v2-6-bbe3389d0652@oss.qualcomm.com>
-References: <20260908-shikra_ethernet-v2-6-bbe3389d0652@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 11:25:19 +0000
+Message-ID: <178912591910.219967.8208494265030276950@kernel.org>
+In-Reply-To: <20260908-shikra_ethernet-v2-7-bbe3389d0652@oss.qualcomm.com>
+References: <20260908-shikra_ethernet-v2-7-bbe3389d0652@oss.qualcomm.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -59,83 +59,104 @@ issue(s) to consider:
 
 Critical: 0 · High: 0 · Medium: 1 · Low: 1
 
-- [Medium] Unactionable boot-time warning on every in-tree qcom ethqos
-  platform: the new dev_warn() in qcom_ethqos_probe() (dwmac-qcom-…
-- [Low] Commit message / code mismatch: the changelog of "net: stmmac:
-  qcom-ethqos: warn about legacy RGMII PHY modes" states that "existing…
+- [Medium] For legacy RGMII phy-modes (rgmii, rgmii-rxid, rgmii-txid) the
+  RGMII IO-macro DLL is programmed and its lock polled inside…
+- [Low] Commit message names the wrong callback: it states "fix_mac_speed
+  updates the rate once a link is established", but neither…
 
 --
 
-net: stmmac: qcom-ethqos: warn about legacy RGMII PHY modes
+net: stmmac: qcom-ethqos: set initial RGMII link clock to lowest speed
 
-This adds a probe-time dev_warn() in qcom_ethqos_probe() when the ethernet
-node uses one of the older RGMII phy-mode values, suggesting a move to
-"rgmii-id" with PHY-provided delays.  PHY_INTERFACE_MODE_RGMII_ID is split
-out of the shared case group so that it does not warn.
+The probe-time call to ethqos_set_clk_tx_rate() is changed from SPEED_1000
+to SPEED_10 so the RGMII link clock is not left at 250 MHz while no link is
+up.  Two questions below, one about the changelog wording and one about the
+first link-up path.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 53fb9de4d92c7..a92bf4a6a2dbd 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -764,9 +764,11 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
->  	ethqos->phy_mode = plat_dat->phy_interface;
->  	switch (ethqos->phy_mode) {
->  	case PHY_INTERFACE_MODE_RGMII:
-> -	case PHY_INTERFACE_MODE_RGMII_ID:
->  	case PHY_INTERFACE_MODE_RGMII_RXID:
->  	case PHY_INTERFACE_MODE_RGMII_TXID:
-> +		dev_warn(dev, "legacy RGMII phy-mode detected; consider upgrading to a newer DTB\n");
+> net: stmmac: qcom-ethqos: set initial RGMII link clock to lowest speed
+>
+> On probe the RGMII link clock is initialised at SPEED_1000, which
+> translates to a 250 MHz source clock even when no PHY link is present,
+> drawing unnecessary power.
+>
+> Initialise at SPEED_10 instead; fix_mac_speed updates the rate once
+> a link is established.
 
 [Severity: Low]
-The changelog says:
+Is "fix_mac_speed updates the rate once a link is established" the right
+callback name here?  Neither ethqos_fix_mac_speed_rgmii() nor
+ethqos_fix_mac_speed_sgmii() calls clk_set_rate() on ethqos->link_clk; the
+only clk_set_rate(ethqos->link_clk, ...) in the file is in
+ethqos_set_clk_tx_rate(), which probe installs as
+plat_dat->set_clk_tx_rate.
 
-    However, existing DTBs use "rgmii" and "rgmii-txid" and must remain
-    supported for backwards compatibility.
+stmmac_mac_link_up() invokes the two as separate callbacks, fix_mac_speed()
+first and set_clk_tx_rate() later:
 
-    Warn when either of these legacy PHY modes is used [...]
+	if (priv->plat->fix_mac_speed)
+		priv->plat->fix_mac_speed(priv->plat->bsp_priv, interface,
+					  speed, mode);
+	...
+	if (priv->plat->set_clk_tx_rate) {
+		ret = priv->plat->set_clk_tx_rate(priv->plat->bsp_priv,
+						priv->plat->clk_tx_i,
+						interface, speed);
 
-but the warning in qcom_ethqos_probe() is attached to a group of three case
-labels, so PHY_INTERFACE_MODE_RGMII_RXID also warns.
+Could the changelog name set_clk_tx_rate instead, so the ordering is not
+hidden?
 
-Is "rgmii-rxid" intended to be declared legacy as well?  The driver does
-treat these modes differently, for example in ethqos_rgmii_macro_init():
-
-	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_TXID)
-		phase_shift = 0;
-	else
-		phase_shift = RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN;
-
-so which phy-modes are being deprecated seems worth stating exactly in the
-commit message.
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> index a92bf4a6a2dbd..2471871562ed9 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+> @@ -814,7 +814,7 @@ static int qcom_ethqos_probe(struct platform_device *pdev)
+>  				     "Failed to get serdes phy\n");
+>  
+>  	ethqos_set_clk_tx_rate(ethqos, NULL, plat_dat->phy_interface,
+> -			       SPEED_1000);
+> +			       SPEED_10);
 
 [Severity: Medium]
-Is there an upstream DTB that this warning can point people at?  No in-tree
-device tree for this driver uses "rgmii-id", and this series does not touch
-arch/ at all, so every in-tree board hits the new warning on each probe:
+Does the first 1000 Mbps link-up now run the SDCC DLL bring-up with the
+probe-time 10 Mbps clock rate?
 
-  arch/arm64/boot/dts/qcom/qcs404-evb-4000.dts	phy-mode = "rgmii";
-  arch/arm64/boot/dts/qcom/sa8155p-adp.dts	phy-mode = "rgmii";
-  arch/arm64/boot/dts/qcom/sa8540p-ride.dts	phy-mode = "rgmii-txid";  (both MACs)
+For the legacy rgmii / rgmii-rxid / rgmii-txid modes,
+ethqos_fix_mac_speed_rgmii() enables the DLL and polls for lock:
 
-The binding example in Documentation/devicetree/bindings/net/qcom,ethqos.yaml
-also still uses:
+	if (speed != SPEED_100 && speed != SPEED_10) {
+		/* Set DLL_EN */
+		rgmii_setmask(ethqos, SDCC_DLL_CONFIG_DLL_EN,
+			      SDCC_HC_REG_DLL_CONFIG);
+		...
+		/* wait for DLL LOCK */
+		if (read_poll_timeout_atomic(rgmii_readl, val,
+					     val & SDC4_STATUS_DLL_LOCK,
+					     1000, 1000000, true,
+					     ethqos, SDC4_STATUS))
+			dev_err(dev, "Timeout while waiting for DLL lock\n");
+	}
 
-      phy-mode = "rgmii";
+and stmmac_mac_link_up() calls fix_mac_speed() before set_clk_tx_rate(), so
+at that point ethqos->link_clk is still at the rate programmed at probe.
+With SPEED_10 that is rgmii_clock(SPEED_10) = 2500000, doubled to 5 MHz for
+the non-rgmii-id modes by ethqos_set_clk_tx_rate(), where it used to be
+250 MHz:
 
-and the binding carries no phy-mode deprecation note, so the documented ABI
-still recommends what the driver now calls legacy.
+	/* Clock Rate Requirements:
+	 * MAC added delay: 250/50/5 Mhz for 1G/100M/10M
+	 * No MAC delay (DLL bypass): 250/25/2.5 Mhz for 1G/100M/10M
+	 */
 
-Converting those device trees is also the only way the advocated
-PHY-provided-delay path gets exercised, since ethqos_set_clk_tx_rate() stops
-doubling the link clock only for PHY_INTERFACE_MODE_RGMII_ID.  Would it make
-sense to convert the in-tree DTs (and the binding example/text) in the same
-series, or to hold off on the warning until a migration target exists?
+If the DLL cannot lock at that input rate, the poll busy-waits its full 1 s
+budget in the link-up path and then continues with an unlocked DLL, since
+fix_mac_speed() is not re-run after set_clk_tx_rate() raises the rate to
+250 MHz.
 
-> +		fallthrough;
-> +	case PHY_INTERFACE_MODE_RGMII_ID:
->  		plat_dat->fix_mac_speed = ethqos_fix_mac_speed_rgmii;
->  		break;
->  	case PHY_INTERFACE_MODE_2500BASEX:
+Note the driver itself skips the DLL enable/lock for SPEED_10 and
+SPEED_100, which suggests the block is expected to see the rate matching
+the negotiated speed.  Is a minimum DLL input frequency involved here, and
+if so should the probe-time rate stay high, or should the clock be raised
+before fix_mac_speed() runs?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
