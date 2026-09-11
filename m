@@ -1,105 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F88341A57C;
-	Fri, 11 Sep 2026 07:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 544213B14A5;
+	Fri, 11 Sep 2026 07:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789110403; cv=none; b=gQOU45UFiYxZ1j0iNYjgAgpd81mXaQusBP82EUVdnU8EuGRbFmfgzwoVCszmaC5UynUQiBz2beHHMq+ipXRlR5TW47gqk2aXo/ndDhJHgP9jB4IkE0tcGVSjo1jY9FcvAc46mGqNC0V2BBWuOjP71j7X3rkmeDkDq5wX04Y0YwY=
+	t=1789110445; cv=none; b=kysX63I2MDDmA5XyRi8q+59upKMMYnFG489R9FGMa7zBCLLPA2IL/qWRMmYa3dPUD/YxpdH08GRfCI6lgAxsSU34K6EhmfGGQsUeAbHn71aLk61v6U/vAG7yNGX+I4pWV+WGkpLt0ck5kn0quAuwTwXHwo8n9tJuAo31cNLw+Po=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789110403; c=relaxed/simple;
-	bh=63BNlMrAopZoRaJFpwWeRxReF1PPhtyCp1gjfvC+aL4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IQ+grJWI9FqtUx3ZVoBKbxnzPf/uYwtlibXRrlaJB5cZqUgH2iaXXYPezJejiCdeKKCq4q8JA36S8X32UoJCKDinJLX5+a5DkqOnP3bbgbqsJ1kMBrmdRBAHcSdFtRSwQJczZ4f+VW4eDD/itHLRmqC2vqxtwNqibaw2K8ktEPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHa89nWE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789110445; c=relaxed/simple;
+	bh=/r+7JOA1R6vkpZwZjiLfITCVpMqEL7ms+Lgs78wkPK8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a7AKVUpb45jbJhvgrtHHh3CP2NsS/pxhnA+gfC0gBhCPgZqy0ymP+sq3kFcggBTPMZj+i5GQ4bv+LeJvxzFUt/GSJ4ELhBZxdzaxaMpQJ9Qq876vPVKfIUfCGzdFp8Y6ziS0T+fVktk76Kj6QTOfbOO7TdEdmPBsrmXas4AmIGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tOqrpcJ8; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHa89nWE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD771F000FF;
-	Fri, 11 Sep 2026 07:06:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789110388;
-	bh=p4SjBmA6memojF+caErUQM70NDLjfNRw8C1EEAZ1YpM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kHa89nWElLvFjCVT8Jq1dGGKtHban6b1IgeG5cmr70sum/MhRRdsZsHJbZW13MmvX
-	 aA/HaOzo9tiEKy7mfEyYEwJGCHuR5WM7cY5rImidxyVeu8xy1wuDR2nKwQUL1d7C9+
-	 ubRYGq2V8OHt+tz7ioueeLm9l8WvEP0+ajcoRiosJ++FobY3XArYSEL4bgyv178hz3
-	 DI8OKrzfcIgHBViWMujwHzWz+auDeXxe+Kk+M3SEXugsgsWLXb7pRBcic8CXXnn/ct
-	 Ga0pdaGr1Cdg4ndOhrIlNnpUKw1JLAYPvKmJrXUztL3Hs2fQhR1QpF/sr0ejc7aoeK
-	 WfP3QRGpfwj0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vincent Jardin" <vjardin@free.fr>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20260911-for-upstream-nbxv3-dts-v4-3-2fd07d5575ab@free.fr>
-References: <20260911-for-upstream-nbxv3-dts-v4-0-2fd07d5575ab@free.fr>
- <20260911-for-upstream-nbxv3-dts-v4-3-2fd07d5575ab@free.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:06:27 +0000
-Message-Id: <20260911070628.6CD771F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tOqrpcJ8"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 489A963C;
+	Fri, 11 Sep 2026 09:05:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789110333;
+	bh=/r+7JOA1R6vkpZwZjiLfITCVpMqEL7ms+Lgs78wkPK8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=tOqrpcJ8PBOOuBIl5zseKneF37qtHkReKhqPNfjXPhAF0e7JFXjBd0KTXKhDo9dVx
+	 LzoTmcIX/O/WSdKITbBP/MT600p1PqMHGTmMLDt1U2CwoVhd8DvpqLjHPCU0Q4ezkP
+	 83vaa96Laiby10Z05/DnnsiRvMeHTXpO7PIUkX0E=
+Message-ID: <2489cf57-65f1-4502-86ae-1e3673899b87@ideasonboard.com>
+Date: Fri, 11 Sep 2026 10:07:07 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/6] drm/rcar-du: Add support for DSI pipelines with
+ DSC
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+References: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
+From: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260907-rcar-du-dsc-v6-0-f8ef711a7494@ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Ethernet PHY reset and interrupt lines are defined in GPIO contr=
-ollers but not consumed by the PHY nodes.
---
+Hi,
 
-commit 74f5aff92f5e16bafbb9e87c062e7805112769f9
-Author: Vincent Jardin <vjardin@free.fr>
+On 07/09/2026 12:29, Tomi Valkeinen wrote:
+> Some DSI pipelines have DSC (Display Stream Compression) IP block
+> between the DU and the DSI. Even if DSC is not needed, the IP must be
+> enabled for the DSI output to work.
+> 
+> This series adds a basic DSC driver, so that the DSC IP gets enabled in
+> bypass mode. This enables DisplayPort output on Sparrow Hawk board, as
+> the DP output comes from DSI and sn65dsi86 bridge, and also White Hawk
+> board's second mini-DP output.
+> 
+> Original series from Marek.
+> 
+> Note: I see that not every run of kms++'s kmstest gives me a picture on
+> my monitor. Sometimes the monitor seems to be trying to repeatedly sync,
+> but fails, and the screen stays black. However, I see this same issue on
+> WhiteHawk, which uses DSI0 pipeline, without DSC, so I think that is a
+> separate issue.
 
-arm64: dts: freescale: add Nodebox v3 CPU Module
+Pushed the first three patches to drm-misc-next. I'll leave the dts ones 
+to Geert.
 
-This commit adds the device tree for the Free Mobile Nodebox v3 CPU module
-built around the NXP LX2160A SoC.
+  Tomi
 
-> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/=
-arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-> new file mode 100644
-> index 0000000000000..143b24d69d629
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-
-[ ... ]
-
-> +&emdio1 {
-> +	status =3D "okay";
-> +
-> +	/* Microchip LAN8023 dual 10G PCS/retimer, Clause 45 only, one address =
-per slice */
-> +	lan8023_phy_s0: ethernet-phy@2 {
-> +		compatible =3D "ethernet-phy-ieee802.3-c45";
-> +		reg =3D <2>;
-> +	};
-> +
-> +	lan8023_phy_s1: ethernet-phy@3 {
-> +		compatible =3D "ethernet-phy-ieee802.3-c45";
-> +		reg =3D <3>;
-> +	};
-> +
-> +	rtl8211fd: ethernet-phy@6 {
-> +		compatible =3D "ethernet-phy-id001c.c916";
-> +		reg =3D <6>;
-> +	};
-> +};
-
-[Severity: Medium]
-Should these PHY nodes consume the reset and interrupt GPIOs defined elsewh=
-ere
-in this device tree?
-
-The lines "lan8023-mdint", "lan8023-rst", and "u1300-rtl8211fd-int#" are
-explicitly defined in other GPIO controllers in this file. Without the
-reset-gpios and interrupts properties in the PHY nodes, the PHY framework
-cannot reset the hardware during probe (which can lead to initialization
-failures if the PHY is left in an unknown state by the bootloader) and
-silently falls back to polling mode for link state changes.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-for-upstre=
-am-nbxv3-dts-v4-0-2fd07d5575ab@free.fr?part=3D3
