@@ -1,93 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A094730F92E;
-	Fri, 11 Sep 2026 14:05:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD682E6CB8;
+	Fri, 11 Sep 2026 14:09:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789135530; cv=none; b=ZKk/0EuuwZNZoD2X0tri5YswRN4iD/cPomul9aCdkXQOHctaYoD8yvcGyH9R98hpizj6TuNIekCgxMfHcUiuFLWzYxZPLb4j8BCa9tqC/OX8FWTM7pAyEX4ypO7LOxAMU4hhO6nBAL9d6OmullHmxICsNx0KglDYYZkX58sAclc=
+	t=1789135759; cv=none; b=RrZkxkBXU91j2LWEjIYBVN4rcNbzYV9qT2oZvtbrA+unOuGQng6uqHyTz4lWj2SqLt7He6KOu3fCqG/LluELyCbKTBIBt9h/vjiRvYW20HziZH7N+Ncj4ZMt/i7jNetyrQm8HDSwfhU6EDjukp8m93CytLx7x+dMdylap41OjzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789135530; c=relaxed/simple;
-	bh=dnnPP8P+q8r4eEm8AUNtq0yD8aIh7c+f9n6gFPjXE1c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cr9bj1NkN+vX2SDBnqpexC6BeEkYIRW/7OdYaTXZHMDKWHKKwiVSPucutG1ypyXD2ZqP3vZ8wTBIouq37W9+eAIKvjQjiDs753e2xuh7PNhgbF6YNFsvBAtnnej1or4euaPWpQoutvsTFvE2mt0isybxxQe4l+inzaCSw3/bQFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=acnVdEkV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789135759; c=relaxed/simple;
+	bh=zNol7FmjPS9rmxjCnBxr4opONpu1HajbU2ctnS/MWNc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MH7j8FnkkOYqbdPNqcD2xUmocEzeV/ZQYeMA1Z1kVL0fgKofz30N2KgwcizZo2r+lIEAPCSZ7qcWE+6hj5bHRQjOEHwhqLu+e5CoOe3Ix8cVJjkAawuRqHiD+c87GU06y9bBvdcWHx7HVCOiDzyJrgbF+W4cOGRyzjBbQeLf7T8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TwVXGBKR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="acnVdEkV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFD811F000FF;
-	Fri, 11 Sep 2026 14:05:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TwVXGBKR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49D3A1F000FF;
+	Fri, 11 Sep 2026 14:09:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789135529;
-	bh=dnnPP8P+q8r4eEm8AUNtq0yD8aIh7c+f9n6gFPjXE1c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=acnVdEkVuThQE19VWE8qs29kb4yY+tjGc89X+BRrTO5KYsPRGaDk8A1v7uSCCMCNS
-	 dL2veHOLqdLE1ffIVclAAjG45nFILvKIoyqyq/qPcxRroJQi0EQCc4M9DaFMdr+NYe
-	 w5zPL/idStCoSPAZ4DFyrlN1zV9XlInwc9LNKKseI5TwzNoR0Rcw3hp5b3p5ePwTYP
-	 7Q9t4ZAKangv/zmfwzTmoiA3O1WV8enbxVwJ1GSUavGvCXIOmH5o0oT/R+yK0iSjQu
-	 5fAZTRcu1vj8AiQbut7rjXJavMzhB0sRYk8So+xyL/8DCfP6WvrVbWb3DsQKU4L9bd
-	 wRLbz87TFUmKw==
-Date: Fri, 11 Sep 2026 15:05:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>, linux-sound@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/9] arm64: dts: qcom: shikra: Enable audio on EVK
- boards
-Message-ID: <feee7ac3-f5e5-4677-b44d-34be0c784110@sirena.org.uk>
-References: <20260910231642.1794948-1-mohammad.rafi.shaik@oss.qualcomm.com>
+	s=k20260515; t=1789135757;
+	bh=m4nY13lYhB54YcSfy4Sgq3Pndtv5xCgpqKPmcotpGak=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TwVXGBKRZ/sVnnju6I6eL9EYcCdGDVtr1dAkBsqFCXhS4YfIJiphbRLS8aPne/5j2
+	 g/i9AwfWm8smjABzjLJWaue+/qgLi5cqp464YaFwR8xl/ow5mrcnxGopGBNyS4ROpW
+	 mVGjtCsm02NNMmR/zVk7E3ecVhsKs74CClH5KZg5CdWtWIxLTBjmEsU9oFAa6WRqKK
+	 2O7Rfy73zJ7LbJRerMSA96fvag+qKp5Ytk6ZpQNq/OdSiX4R2Zjcp6qMbM5GctD1k4
+	 lB6l/7hfGm8QPqrV0GBg9egntC7r2thqF9rpYpFqSkbUFCVZiemKjkKtSNs+1iH4EM
+	 Kf/BXhsoAbH0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/4] hwmon: (pmbus/core) increase number of phases
+ and add new mask
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TnVubyBTw6E=?= <nuno.sa@analog.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
+References: <20260911-hwmon-max20826-support-v2-0-5e30cbd97d84@analog.com>
+ <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 14:09:16 +0000
+Message-Id: <20260911140917.49D3A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CsyL+oqxIPiQycsV"
-Content-Disposition: inline
-In-Reply-To: <20260910231642.1794948-1-mohammad.rafi.shaik@oss.qualcomm.com>
-X-Cookie: Close cover before striking.
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---CsyL+oqxIPiQycsV
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Pre-existing issues:
+- [High] The PMBus core driver iterates over `info->phases[page]` to access=
+ the `info->pfunc[phase]` array without verifying that the phase count is w=
+ithin the `PMBUS_PHASES` maximum. If a driver configures `info->phases[page=
+]` to a value larger than `PMBUS_PHASES`, it results in an out-of-bounds ar=
+ray read.
+--
 
-On Fri, Sep 11, 2026 at 04:46:33AM +0530, Mohammad Rafi Shaik wrote:
-> This series enables the Shikra audio path on EVK targets by adding the QAIF
-> CPU endpoint, GPR/APM/PRM services, SoundWire and LPASS macro nodes, and
-> board-level sound card wiring for CQM, CQS and IQS variants.
+commit f0d55dee29cf753f56d794471093af9c4d34634d
+Author: Nuno S=C3=A1 <nuno.sa@analog.com>
 
-> base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
-> prerequisite-patch-id: a056f645f45682f1008b321f5e639505f22bb979
-> prerequisite-patch-id: 3d5670d672ae08b8c534b7beed6f57c8b44e7b43
-> prerequisite-patch-id: 32a1efe2e364ee15c466f496b1ff3128e5326c66
-> prerequisite-patch-id: 1ddc51582586120795d86a2ff9f0aef20c0e891e
-> prerequisite-patch-id: 1e68cced9250cf9fdfbb8cdc27ee8ec47ada4a87
-> prerequisite-patch-id: 99245529321cadedd30d9e38845b53dba3725de8
+hwmon: (pmbus/core) increase number of phases and add new mask
 
-As I've said before could Qualcomm in general *please* stop sending me
-things that don't apply.
+This commit increases the maximum number of phases per page to 16 to support
+a new upcoming device. It also adds a new mask for controlling the source
+of the output voltage.
 
---CsyL+oqxIPiQycsV
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+> index 2cd3216b3cd95..920c1102ab6df 100644
+> --- a/drivers/hwmon/pmbus/pmbus.h
+> +++ b/drivers/hwmon/pmbus/pmbus.h
+[ ... ]
+> @@ -386,7 +387,7 @@ enum pmbus_sensor_classes {
+>  };
+> =20
+>  #define PMBUS_PAGES	32	/* Per PMBus specification */
+> -#define PMBUS_PHASES	10	/* Maximum number of phases per page */
+> +#define PMBUS_PHASES	16	/* Maximum number of phases per page */
 
------BEGIN PGP SIGNATURE-----
+[Severity: High]
+This isn't a bug introduced by this patch, but is it possible for a driver
+to configure a phase count larger than the new PMBUS_PHASES limit and
+cause an out-of-bounds read?
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqkCqMACgkQJNaLcl1U
-h9CvkQf/WVf75ELNnL0po+kiE+dtlmS7JEAUcKTCkgYzJtKLLCzQwlIgguNVzIfw
-AvQUi0oXqqGW/NpUBeo++WsHSZX4ZG8omuvBkd4ZGvFjqUz5LfovPTHxoJHNyOg+
-GvTje6kc6iuMlWjYI1p38qzYm91OCZm2i+IDScIMe8O6d7y0EcItV4ukVAq642IG
-sRIdWwcZ0XIJqsYCPoA6N59XIyfPiHgBG34q5StwByT8bOIjAXI9nt7TTQn1BZ6Z
-l9yB3BQLVfN1r+JeAiNVPN1EcUbscXysLzw8St7AARODtXSjd56aooIR3zXzjgSZ
-PyYYquCYBk0BqjWBT0pICOn3M2+WTw==
-=LEao
------END PGP SIGNATURE-----
+In drivers/hwmon/pmbus/pmbus_core.c:pmbus_add_sensor_attrs(), the loop
+uses the unvalidated info->phases[page] as an upper bound to access the
+statically dimensioned info->pfunc array (which is sized to PMBUS_PHASES):
 
---CsyL+oqxIPiQycsV--
+				for (phase =3D 0; phase < info->phases[page];
+				     phase++) {
+					if (!(info->pfunc[phase] & attrs->func))
+						continue;
+
+If a driver calls pmbus_do_probe() with a pmbus_driver_info struct where
+info->phases[page] > PMBUS_PHASES, it could result in reading past the
+array bounds.
+
+This might lead to a kernel oops during module probe or the creation of
+corrupted sysfs attributes by interpreting adjacent memory as functionality
+bitmasks.
+
+Since the core framework explicitly validates info->pages > PMBUS_PAGES to
+prevent similar overflows, should a similar bounds check be added for
+info->phases against PMBUS_PHASES in the core API?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-hwmon-max2=
+0826-support-v2-0-5e30cbd97d84@analog.com?part=3D1
