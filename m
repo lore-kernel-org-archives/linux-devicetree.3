@@ -1,198 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093473D4116;
-	Fri, 11 Sep 2026 11:25:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F8D44F55F;
+	Fri, 11 Sep 2026 11:26:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125932; cv=none; b=KTMFNHh5LeZorBwRu98b6GOmIt5GMOVceujrYDpLBn8T3Ijgj65XerJZU6tbRsz/3ax7j02vErTLTaisQsP4IomnV78n+GVu/NIkQbD4VUHrsLJNo2Ntad3luySwVntrKOZvAv6A6UJNoONO+Ceswsx/3KxLfE7G+0M3JyOI+Yc=
+	t=1789125975; cv=none; b=bqv1HMNosP6QfEUgNz78IpW3N6M+cDve1CBeSBZJ/hBzIXgqaWANduGwVhKKTtGindD756UQs1Ep5I0pRBhbf6XvZJirZ9vYC407MWk/zWfiwYcGF7Hivc1YePq345vO7C6xWHi4gwrhVA2ozyWmsr+/b2ycfTQkJUstsWf3c7c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125932; c=relaxed/simple;
-	bh=JGDTX2OStM2e37UgfWdfDt5r7ozgdUeUC3G7DcOvtvM=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pA6aBTtVik8177w9Y6zw4s+GXoIrl17t/3S61+WkW9+AfTwvCrP0yrqVO68YTAPCw+M3e5rFlYpVrqY+cSJfdEbqJ84hBqjAXy1dUM0OnRGsJ8ocCH3PQLXR8uTwysbEVEuDl0lt0vUFtwpMddrEZ8UPrBBR37mmGCDpFjM9/ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RdtyzogD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789125975; c=relaxed/simple;
+	bh=seBYEq9+qZkkQyai8CdB6lT7YtSbhi7app8kmUyqyNA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JTt5v5aj9dKJT/cHwxRudoFny77TzWgpX8Q022KbK67Hg9LaiVi5I/FBc6MeZk27pClhwsyNcuCq+bhdPuWWE7S5ppXxCraqR7F7YMBUCs1cQngt9I2RA79ANu/z9XaZoJWNWoajC3Diz9VmP+/FLnhz4UJoFTAKlx0NpacRISE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRXpBRdG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RdtyzogD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5F421F000FF;
-	Fri, 11 Sep 2026 11:25:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRXpBRdG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3239E1F00893;
+	Fri, 11 Sep 2026 11:26:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125923;
-	bh=Giz3DgoV1Kkxp/ItQMDYkJ9vVxOeemBUbGyOg9d1k88=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=RdtyzogDQ01XzqOUeKqOMt1W9a+vkJRa0bUdI0tJRjpEDw23pe71irCkBXep+h8HL
-	 NPjaj6HHcA3bTHZxcz9mW63lA5QtGQV4/jqH+L3vJejZe5+XjKOgvRZVyvimGSVWTR
-	 KR7sepXRjTkumHQdPTgKlyNL356VjyhA2XIGzA5ZAU345VmWeppoTOdJjmWGCs7dpa
-	 4OWiNyiqtn+58AVocIzrYnyxj74thlDyi1iAOZAMACvBRHjnA648E7RvpbVH8fn3ZN
-	 zG/NUkQIUGaTnJ27nRRwJQRewMdQuBJxkl/5aDpEB59QgE2Dlaq3t7MJGzq3T7VRf7
-	 NJybqGTqBGJ2w==
-Subject: Re: [PATCH net-next v2 8/9] net: stmmac: qcom-ethqos: add
- per-platform NOC clock voting
-From: netdev-bot+sashiko@kernel.org
-To: mohd.anwar@oss.qualcomm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
- konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
- joabreu@synopsys.com, maxime.chevallier@bootlin.com,
- mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org
-Date: Fri, 11 Sep 2026 11:25:21 +0000
-Message-ID: <178912592132.219967.18300009845024056442@kernel.org>
-In-Reply-To: <20260908-shikra_ethernet-v2-8-bbe3389d0652@oss.qualcomm.com>
-References: <20260908-shikra_ethernet-v2-8-bbe3389d0652@oss.qualcomm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789125967;
+	bh=LCLqVBrexOloJvj7eM+8M7WlA0mdNgqWtNJD7YSt1/w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XRXpBRdGZgz45tNOlLY3USvFRHQVA81g/jKooH2DMuOltKRAu/6WWBx5BKJ4Wg3/0
+	 1+UuOnMREWNuAB8QA/95mMhGVbUMKsRspKbYJib3dTbwRDLrb0xuoXJbNW1iKVNPsi
+	 STtoDg3PfV4F2AoMZS62y0a49tX8ICEbOS/T2E6vC1Zv2+ZkxL823mWc1e/YATHXpB
+	 5z5/BixW60b5ZyO7XjhzNlxyvGRCt1sRRE+F1oszdT0BwaiyXNyhNkB6lOxC4qIV9+
+	 uuM0v4RPRbFfHcJouT8gHEwJvVe68pINNJvxjjnUmLrVvXxwGtpi3rusLMuZQcrnI8
+	 iUeP7vkKie7bA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/8] watchdog: rzv2h: Propagate WDTDCR access errors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260911111731.3404308-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260911111731.3404308-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 11:26:06 +0000
+Message-Id: <20260911112607.3239E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
-
-- [Medium] New hard dependency on the PM_OPP subsystem is not expressed
-  in Kconfig.
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The error path in rzv2h_wdt_stop() leaves the watchdog unconfigure=
+d and missing a required delay after reset deassertion.
 --
 
-net: stmmac: qcom-ethqos: add per-platform NOC clock voting
+commit 3f7bad2568920b818b4bdb62349364febc443827
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-This adds an ethqos_noc_clk_cfg description so each compatible can declare
-its own set of System NOC clocks with per-clock rates. The clocks are
-acquired in probe via qcom_ethqos_init_noc_clks() and enabled/disabled
-alongside the link clock in ethqos_clks_config(), with an OPP table used to
-propagate the VDD_CX performance state.
+watchdog: rzv2h: Propagate WDTDCR access errors
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index 2471871562ed9..8871d28594116 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -7,6 +7,7 @@
->  #include <linux/platform_device.h>
->  #include <linux/phy.h>
->  #include <linux/phy/phy.h>
-> +#include <linux/pm_opp.h>
->  
->  #include "stmmac.h"
->  #include "stmmac_platform.h"
+The WDTDCR helpers currently access the register directly, but this will
+change to use regmap, which can fail. This commit propagates errors from
+rzt2h_wdt_wdtdcr_count_start() and rzt2h_wdt_wdtdcr_count_stop() and unwinds
+the resources if an error occurs.
 
+> diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
+> index 7c6a4855bd8ad..cbf414e0c9a3c 100644
+> --- a/drivers/watchdog/rzv2h_wdt.c
+> +++ b/drivers/watchdog/rzv2h_wdt.c
 [ ... ]
+> @@ -169,8 +179,13 @@ static int rzv2h_wdt_stop(struct watchdog_device *wd=
+ev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	if (priv->of_data->wdtdcr)
+> -		rzt2h_wdt_wdtdcr_count_stop(priv);
+> +	if (priv->of_data->wdtdcr) {
+> +		ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
+> +		if (ret) {
+> +			reset_control_deassert(priv->rstc);
+> +			return ret;
+> +		}
+> +	}
+> =20
+>  	pm_runtime_put(wdev->parent);
 
-> @@ -689,15 +703,51 @@ static int ethqos_mac_finish_serdes(struct net_device *ndev, void *priv,
->  static int ethqos_clks_config(void *priv, bool enabled)
->  {
->  	struct qcom_ethqos *ethqos = priv;
-> +	unsigned int i;
->  	int ret = 0;
->  
->  	if (enabled) {
-> +		if (ethqos->num_noc_clks) {
-> +			ret = dev_pm_opp_set_rate(&ethqos->pdev->dev,
-> +						  ethqos->noc_clk_rates[0]);
-> +			if (ret) {
-> +				dev_err(&ethqos->pdev->dev,
-> +					"NOC OPP rate set failed: %d\n", ret);
-> +				return ret;
-> +			}
+[Severity: High]
+Does this error path leave the hardware in an uninitialized state?
 
-[ ... ]
+When rzt2h_wdt_wdtdcr_count_stop() fails in rzv2h_wdt_stop(), the code calls
+reset_control_deassert() to bring the hardware out of reset. However, it
+does not include the mandatory udelay(3) wait for clock stabilization or
+restore the watchdog register configuration via rzv2h_wdt_setup().
 
-> @@ -734,6 +789,51 @@ static void ethqos_ptp_clk_freq_config(struct stmmac_priv *priv)
->  	netdev_dbg(priv->dev, "PTP rate %lu\n", plat_dat->clk_ptp_rate);
->  }
->  
-> +static void qcom_ethqos_noc_opp_cleanup(void *dev)
-> +{
-> +	dev_pm_opp_set_rate(dev, 0);
-> +}
-> +
-> +/* Some SoCs gate NOC access behind dedicated clocks. Acquire them here
-> + * so ethqos_clks_config() can enable/disable them at runtime. The OPP
-> + * table is used to propagate the required VDD_CX performance state via
-> + * dev_pm_opp_set_rate().
-> + */
-> +static int qcom_ethqos_init_noc_clks(struct qcom_ethqos *ethqos,
-> +				     const struct ethqos_emac_driver_data *data)
-> +{
+This leaves the hardware out of reset but unconfigured, which might trigger=
+ an
+immediate spurious reboot if default timeouts are active, or fail to reboot
+the system during a hang if the watchdog remains dormant.
 
-[ ... ]
+Could this error handling be updated to fully restore the previous watchdog
+state?
 
-> +	ret = devm_clk_bulk_get(dev, ethqos->num_noc_clks, ethqos->noc_clks);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get NOC clocks\n");
-> +
-> +	ret = devm_pm_opp_set_clkname(dev, data->noc_clk_cfg[0].id);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set OPP clock name\n");
-> +
-> +	ret = devm_pm_opp_of_add_table(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add OPP table\n");
-> +
-> +	ret = dev_pm_opp_set_rate(dev, data->noc_clk_cfg[0].rate);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to set initial NOC OPP rate\n");
-
-[Severity: Medium]
-Should DWMAC_QCOM_ETHQOS gain a PM_OPP dependency now that these calls are
-mandatory for compatibles that declare NOC clocks?
-
-The Kconfig entry currently reads:
-
-drivers/net/ethernet/stmicro/stmmac/Kconfig:
-config DWMAC_QCOM_ETHQOS
-	tristate "Qualcomm ETHQOS support"
-	default ARCH_QCOM
-	depends on OF && (ARCH_QCOM || COMPILE_TEST)
-
-There is no depends on PM_OPP and no select PM_OPP, and PM_OPP itself is a
-hidden symbol with no prompt:
-
-drivers/opp/Kconfig:
-config PM_OPP
-	bool
-
-so CONFIG_DWMAC_QCOM_ETHQOS=y with CONFIG_PM_OPP=n is a reachable
-configuration. In that case the stubs are used:
-
-include/linux/pm_opp.h:
-static inline int dev_pm_opp_set_rate(struct device *dev, unsigned long target_freq)
-{
-	return -EOPNOTSUPP;
-}
-...
-static inline int devm_pm_opp_of_add_table(struct device *dev)
-{
-	return -EOPNOTSUPP;
-}
-
-qcom_ethqos_probe() -> qcom_ethqos_init_noc_clks() ->
-devm_pm_opp_set_clkname() would then return -EOPNOTSUPP, and the
-dev_err_probe() above aborts probe with "Failed to set OPP clock name", so
-no netdev is registered for any compatible that sets num_noc_clks
-(qcom,shikra-ethqos, added later in this series).
-
-The same applies on the runtime path: ethqos_clks_config(priv, true)
-propagates the -EOPNOTSUPP from dev_pm_opp_set_rate() on every enable and
-resume.
-
-Would adding select PM_OPP (or depends on PM_OPP) to DWMAC_QCOM_ETHQOS, or
-tolerating -EOPNOTSUPP on the OPP path, be preferable here?
-
-> +
-> +	return devm_add_action_or_reset(dev, qcom_ethqos_noc_opp_cleanup, dev);
-> +}
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911111731.3404=
+308-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D3
