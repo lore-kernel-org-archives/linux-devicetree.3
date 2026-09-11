@@ -1,222 +1,378 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PUWP216CU001.outbound.protection.outlook.com (mail-koreasouthazon11020083.outbound.protection.outlook.com [52.101.156.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF3045D921
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:33:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115640; cv=none; b=T31jC3iyAPJ2ipHY6JhvYlCmEJ1HSPY6q+eQm/jFKJXha5OQlcKbj10UwD2X3re6a3Gm0Gssujb1w/Oh6BJExoBCJAT1Drjv+h5UMeorG7A8hcQthVpDVFTWwTxX7i2HgLlTOW0HEt4vWF+4b4SGDWM96UvD0ObiISYmWyYi2Y0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115640; c=relaxed/simple;
-	bh=HGKhaoZaWNhzHqAOBnUZoKE7Fx3fCqI+Ye/JrK/9WtY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:Content-Type:
-	 MIME-Version; b=ujMmLHF0qXKFX7KyXQ51BEQBM2Clm3oARqRJAq4Ij5HQlzUoR0dsq/CuX8sOrW/83CAmFqlSUMsgAWeM7vi1qnRiJ2LFXorL/RnbgHWmrq7YOazjk5U0WYNyG7kvKwZKB7gWM8Bk0RkP+0cKpghgo7RDlK6mlmTxV5ovLbjbsr4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JHe9Nkzm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XC2mffG9; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC14F255E43;
+	Fri, 11 Sep 2026 08:35:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.156.83
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789115754; cv=fail; b=qdD12O/7gxhFGYNIFm36ruV3SVAm5ayQXup+8+DznZdf0WKfKs8zKk4Pzu8jais+s35HcL0MRBljfTi7U20wLmTF4KvUKqgCNUDbisPtjiVbek2b5ffeYoAh6kh54iFdNqySvcC/wgeYKKJ56ToW4X4m+oQ+e2bUO/AoD0w7kXk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789115754; c=relaxed/simple;
+	bh=jichWoj+RqRDzInSqUp0m5P77a0l3jLXnsdfCy09P9E=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=GSetNEMkwor6IzvEyYib7uG2WcmLEHRfYPHO81JipzK5Thd1Iba/IUjT6AT0ZAetP2eeK9urFdFQ/TMo0JrgnF9Dw+0ntMKV6+g/bF1rhpepV7lvFHvj201w+Nm2PoBrIDfJl5Ec1qNM+gIU6Opekuvsj7I5uxdC+JH/Ija1K40=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com; spf=fail smtp.mailfrom=chipsnmedia.com; dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b=UyNJ0FjT; arc=fail smtp.client-ip=52.101.156.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chipsnmedia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=chipsnmedia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JHe9Nkzm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XC2mffG9"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7kpof3513943
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:33:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:subject:to; s=qcppdkim1; bh=H9L3Cj/P6SD
-	A1IrJ+9yQeaGiza1a6AR+tRIbA3GQ42k=; b=JHe9NkzmJKeU0fLCLlcxsnBFRdO
-	xl0ooUJaEKGmTDsyzp7s4Fq7XjuVpgki1Z97wonE/5CHgd9WH9ozgr8k82puhCdg
-	8V2SjYOzOaVa0Vu7DpZ98l+o+F1+IP3yX1FpWTIz6/l085zPIuDwny4ve1MPw4MQ
-	yY4fJi2u0Cyy1iPY8JrRVwwdhiTqOMBN6y09WCMAyzdUD/7kKk4LE0lgvX7uWjTS
-	0BlMKItF0/wz08mWP9+MmwfdRXSpUMMOSAQovCZaaTjE1xfDz0bH270QVAWkpX+O
-	314IeLHZEfDi4L0H+9f1qP9+DQZ5cTrNsAyn/b7KD3a2KZE7pcaR38zqNMQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd50qdr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:33:57 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e4f946461so124621585a.2
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 01:33:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789115637; x=1789720437; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=H9L3Cj/P6SDA1IrJ+9yQeaGiza1a6AR+tRIbA3GQ42k=;
-        b=XC2mffG96qoRUuAtni4WCOD+1khsV6E0D2g2SAFn+/ttZOLy5d9ZE1Nb/AxFc9fsTR
-         ydbd0ILdihLzECrM0ksH1+f3zQAzoq5bLCJg2xH11eXXasp15PDe3DqCxsUd4NPjg9WE
-         TtzKO7JnTNY/ZCOdmHag6Fvm5O7bcvoh/Z0utZE1WVi8nRxEwMCLGU+uowi/aHIw64OP
-         qxjJVGGgubE2seQZ32zBsKnp+zQwTJCSLR96TtnSDDViF/RtsL0mGj7BQGGrhnq6KU5s
-         8mrtgqDzXMuHAGVI+PlKPxv/N6Lo2qV5vuKGe62SeUG0qUDFKnS7q8MLpUXFdPRkWQLk
-         cX8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789115637; x=1789720437;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=H9L3Cj/P6SDA1IrJ+9yQeaGiza1a6AR+tRIbA3GQ42k=;
-        b=QRVEyOkhzFhOdveggZLEoroMMNKZ6uATGa2LyDhBzKkV+T1MNBn1VbkCbFi8IJTGby
-         Gb9+eZw0ujFY2MBwPjP3qHKbDkVgoHPzlnZpd46ZwvzBc6BgH6hFJKbZvp5ATmG5PILs
-         e/8p3ORPHGoXvXDwmeeEx3OBbjJTPufCRgfNXFAIpfCR8fWXjvyDlt8K81/zyuYlF47n
-         YVjlTamAEKCYiLKQgKP+3eVk6CNFPCaBZ6W7gOhakgb82oe/0K2smb3RmmPK+61+zfGi
-         4u/D6TSBsEIgvO9NBBbKBsmWznplWpEfjEf3B+b2ZAIgxTwZkYPT6S4g70Z4NnxC/jjb
-         YQLA==
-X-Forwarded-Encrypted: i=1; AKwUvBzu5MC9wQNmWrXqH/fpZBrfsGsjOpfG2wgXhB9H5EJLEV7RJYNND6bcFSp4dYK6+V6+NXZ3pkIMM5iI@vger.kernel.org
-X-Gm-Message-State: AFuF++kKNw0moVbja1u0U73ZQrXr9d1VrgP+dGrusw7inxNBxsgvw/SA
-	g5dVardoYeuutMNN/wLFWt2TM21v7XF51iauRpwhz2XlzYasB4xbpe8t18Q5EVf+hy4Z2nCtSkX
-	bwlr0DcPncv0z7zfspBmJvbAm5OzcyIJrfRkjzbJHzWh3DNC1KkAL6x2qsp+NgBuj
-X-Gm-Gg: AYBFou011uO+i4ej++nNEHXmGde62FXG5UpwFZhePWFzpmWVPkMgDd0uipdBXgKwnyy
-	ed+8Oj9KjCDX+95ltm8liEl6SVS4qMjO32P2HJy+7pRt7K49Uop3XaJraluctxexm+dO98wU5No
-	8A6HCT4LEM3ONRHncqnPPZIX5CrmxR/cvw3x4HpQD3wyUAcKrqebbG4OEpSrs11rAX4Qg+1MFao
-	nK1ujieN7MjvuK902XOHsVdNafFGHBsjZ+FvwGyqy1f1Kv37AAmsXmORPsAZxUe/TKw3uKC2rjT
-	v4934bQ0aKw//Gq4UR183aDE0TKYdDt+VOw1Ew5hmxPI7cOAIrIyrBnIlE1fF52jW35kVV0Vvo+
-	+WQiEIi6Z45tyhRgEGZioMJlMPCNMy9+wKQU8+bV8iSu5vP3hRalWIbxYbp8a1AEm9smooo0b5Q
-	==
-X-Received: by 2002:a05:620a:4150:b0:936:af9f:4c30 with SMTP id af79cd13be357-939ea16abecmr350861585a.25.1789115632049;
-        Fri, 11 Sep 2026 01:33:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:4150:b0:936:af9f:4c30 with SMTP id af79cd13be357-939ea16abecmr350859885a.25.1789115631561;
-        Fri, 11 Sep 2026 01:33:51 -0700 (PDT)
-Received: from [192.168.16.154] (host86-149-41-185.range86-149.btcentralplus.com. [86.149.41.185])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb34e608sm4560214f8f.23.2026.09.11.01.33.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 01:33:50 -0700 (PDT)
-Message-ID: <0b06e405f03ff521efc55ef1964726c8d8a11476.camel@oss.qualcomm.com>
-Subject: Re: [PATCH 0/7] Register MPM under CPU cluster power domain to
- manage RPM notification
-From: Christopher Obbard <chris.obbard@oss.qualcomm.com>
-To: sneh.mankad@oss.qualcomm.com
-Cc: andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
-        konradybcio@kernel.org, krzk+dt@kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        maz@kernel.org, robh@kernel.org, shawn.guo@linaro.org, tglx@kernel.org,
-        Dmitry Baryshkov
-	 <dmitry.baryshkov@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 09:33:49 +0100
-In-Reply-To: <20260713-b4-shikra_lpm_addition-v1-0-3d858df2cbbf@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=chipsnmedia.com header.i=@chipsnmedia.com header.b="UyNJ0FjT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Cr6vA08CM4t+xTJ5H568ckhfSka0Mcqwu/hb4oDUXRvh77dUl+v2vC1lscEejJPym2OdlgRqIFlFo9uTBq6PB53e02T8p5jNIcS6qDIcWaF+RBIakQA2F+RMyPgJkactCa1vVCcB/oiAkCbg8TtIAPQgLjrr3TY+QYpdWEGM08Dh9BNtP8VnB9ZIw7Tofbydeu6YLkTmrmWrWWy5VbC6eFPJT3p1DAo7nrdecWmMl3i7900YlWGyag+EVsYHcVAfgo2/AfJ39It6bOWAx7JwtHX0cbn2Plo0aKpOpE0uUAqpx/c3LO1MS5VkYW6Mvt8QQu8WtXH7aeGRFnJvx684DQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hmM/9KeHShqObjlEyB/51c475+G9ku/1YQDcHt6pJmE=;
+ b=neNTrWKhQp+FJFBmLs8IVBDSn12PxOZTTDLcAECS69K3WMNENcWDncQWnT0pF4pvlBMJe5bLy8AHtWXc67S3l18ulU4lbWzpMBIkwFdrrBalPYVtJSA2+6SIhp80g+YVvG1jyQvX9RU87QsXGdFIQbaTmyL6t0wdsSbgmOFL6RByMcjLS9UOhrmhxYGExS0sZ/dzI/OvMX4n93HvJNP+wpAU7cjsRANDR4GgpKeZ9QSblopitOZQyxtfuJeZMzYtHxQ/xcenAg+J+V0YV/Ix1cT6GTNl4/7tycNMyFARFuTpMEdRXqMzn5bEGEcpDnXysq0In1rRN9z+Zrl3XkzA7g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=chipsnmedia.com; dmarc=pass action=none
+ header.from=chipsnmedia.com; dkim=pass header.d=chipsnmedia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chipsnmedia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hmM/9KeHShqObjlEyB/51c475+G9ku/1YQDcHt6pJmE=;
+ b=UyNJ0FjTq84tJ7oB/HzaGQoHdLu8+PQeYR2OitiytequXaV3N09hPukCGoV1F8TSXQ7f9WRXgkcaH+JMPw6w8+OciM83pWRViHgldzXsAKkftN/jaHvZVDhCfhxy5ORqTh3tmx59xJ87xL63cEveIGGIoX62XMH56PvQav0ZIj9AW6qKsKJe7EvBt60/AMXo0xCKKA+/tNjtvrVvAt1iBBkaKFB91zmltrrXsmNzoJAcsMmKQsoyiqN7AHBmHecWYFhnpdWE6WBoZ8c+PSj5qb/XPKlOxoO5vRdmiPQkil2QXEMlHQQ4nBfEkB07EuUWS1I2lctWxsWNUB2trnhJJQ==
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM (2603:1096:101:1b9::8)
+ by PUVP216MB481266.KORP216.PROD.OUTLOOK.COM (2603:1096:301:170::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 08:35:46 +0000
+Received: from SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232]) by SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+ ([fe80::f234:3bc6:9197:8232%6]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 08:35:46 +0000
+From: Nas Chung <nas.chung@chipsnmedia.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+CC: "mchehab@kernel.org" <mchehab@kernel.org>, "hverkuil@xs4all.nl"
+	<hverkuil@xs4all.nl>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "shawnguo@kernel.org" <shawnguo@kernel.org>,
+	"s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-imx@nxp.com" <linux-imx@nxp.com>,
+	"linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "jackson.lee"
+	<jackson.lee@chipsnmedia.com>, "lafley.kim" <lafley.kim@chipsnmedia.com>,
+	"marek.vasut@mailbox.org" <marek.vasut@mailbox.org>, Ming Qian
+	<ming.qian@oss.nxp.com>
+Subject: RE: [PATCH v7 5/9] media: chips-media: wave6: Add Wave6 core driver
+Thread-Topic: [PATCH v7 5/9] media: chips-media: wave6: Add Wave6 core driver
+Thread-Index: AQHdPDksqJyR7EplN0y4kvt0BlfCQbbIUycAgACumrA=
+Date: Fri, 11 Sep 2026 08:35:46 +0000
+Message-ID:
+ <SL2P216MB2441946218CB8AEB1D07DEB2FBBE2@SL2P216MB2441.KORP216.PROD.OUTLOOK.COM>
+References: <cover.1788496816.git.nas.chung@chipsnmedia.com>
+ <e8323267420b8e8d29e71c7ea018759cb7298c8d.1788496816.git.nas.chung@chipsnmedia.com>
+ <aqMXumGHR9JjvVrf@lizhi-Precision-Tower-5810>
+In-Reply-To: <aqMXumGHR9JjvVrf@lizhi-Precision-Tower-5810>
+Accept-Language: en-US, ko-KR
+Content-Language: ko-KR
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=chipsnmedia.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SL2P216MB2441:EE_|PUVP216MB481266:EE_
+x-ms-office365-filtering-correlation-id: 7d013487-136a-4b72-4c78-08df0fdfacc7
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|7416014|1800799024|23010399003|56012099006|38070700021|4143699003|10067099003|18002099003|22082099003|6133799003;
+x-microsoft-antispam-message-info:
+ 3dL21L9/vD7LTfvUIafDMWt61eGyDH3vBDdWgJU3f+2CeSzTri/kI6Rosb/KxbgPhOBlDKX6DXKq5hQvESg112sjlu4l4vjRL/2Az0iFpunioaUzvioZlhAvuRZrMXc91eA4vSs70kFctWXaoaF7iXSOoVGKTQbaya3w9rm2xDtSsfzxuut36OlGU2KAGDULie6Y7WILx+D/6SFIKnbAjmGnqEdCKfvu603mQVz5QiN/x5Rp+vFUq4o9HVM6TD5VSFnb1lWNsWB3biOAOFEcZWEqYbo3tqoAW5IUBeqZOivzpIhli6wSdklp5fWySslaMHh9J7XyBDxU2QIO9cyRYe1V+Jt1nFF4d+bPeYqN80ezuSVa0hvmyWbMpBUXLlDGetaUQoCVv4MirRx7Rbp2ssusB7VBAqEDkjLwc/suYG7huGzfsNz0XeW2uxP0swJrBirHE+/gP3SnaY4OY3ttXnXccjTBofqNKe+yOR5shVd/6EtXmMj684I16gU7ZTe9APF4bK5GJRvLRSvBGyKz2U+UseLrDmhp+gbJj0n5+I50N6kstt1BAL+e/KPsndj75lLjsU+TgAGUcOVAb5j6hWLNxEAUeDOtaD7MAejgFlohqwDn6yCXBmOAlCZSBai2R2IwKO1xcDuxBUvK0Var1tAPSuNV+O6gFFIGPfn67ruP9MKwpS7vMSx+CnV/AD9uYRzA2/NKQVIfRUQ+TAODeBACbH90Rl6qux1I8caF70Q=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SL2P216MB2441.KORP216.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(1800799024)(23010399003)(56012099006)(38070700021)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?OGPB5C/v4iDu36ZzYprch3PHMzCaTjE9tZRB6nwlk1eh6ZJe3t37yg28F7x8?=
+ =?us-ascii?Q?LRlxFyd05avRq2tvlQpNddWcOT2YN+y3/KcPvrNdDZVlfowad4+9eyPD45/9?=
+ =?us-ascii?Q?bSMmfdlMy5AFUuw4Vk16q1Pn2Cz31lWg4ujIrQlff88JPUteqp7/DOMtcQAd?=
+ =?us-ascii?Q?q5bQqiU3nMGqf6Pmx3P5sI2rQA6KMnd1t+wkXt4IBHtO5zBOtiREskg55+PQ?=
+ =?us-ascii?Q?xd9AhegKEHCtH3TSrygl5wI3jsis7ujn4V8soqyxeNF9D/2ZiXqZ2Lv8m9kg?=
+ =?us-ascii?Q?2XmGkRtJ0b27wvpXm3MRGdg1VAg4tJpI6/6tArH/xog2G2LLvKzsHR5rHyD8?=
+ =?us-ascii?Q?ZbCBx13Ifnhs3uDmCyzle2piSC+Lfi+0HikY2lWq4bj6sAig6eT7zg+v9vbc?=
+ =?us-ascii?Q?MtO3btcwq2YRIOw3bYGZIQraonmgrZWJRh40EgXjm95N7jIlu+4OJjIhpdp/?=
+ =?us-ascii?Q?bdvTOA4/JALtIXilONu541R+ihuuqDO/hNZ2KseXiUuC0YcgvvaAbGRYNzJG?=
+ =?us-ascii?Q?IEOdc02lAGSgHv/QqXSAwdjPmmBG1SEDJdpDrK+nc8SU7j8vsSNfdjq5VBFr?=
+ =?us-ascii?Q?6IDFsPUspC7TFgvLfnLZ8JXHPv1AslJ/6tVAhqatwY0JUZudE+0/P1462RsW?=
+ =?us-ascii?Q?j25UhVTzGfzAOOOlgmHFMsIJ782fQo55zzq5OOHkXVSgdsSZ7rmeazTNQpIJ?=
+ =?us-ascii?Q?vNHWl5AI3E9TFUgI8eFTrFptZTasSbfUNyLmCuqkpXt/JZs8g2VwYAzmfSTZ?=
+ =?us-ascii?Q?LM+LVtKgeaGC7IECHn8QvWyqhQ2OJ59rOYu1pWVGOUY8Gz3DEaXqY9fOeCfr?=
+ =?us-ascii?Q?0QBRw0s88YBSMGb5aFdZXmQSeBDxpVCGeCWOU5kUygs4zExQUwH8XohKaAt2?=
+ =?us-ascii?Q?Q6N2gb1W5I3GbfoQrtV3JizmeV0U+WG8179zteCvBP2bN+ZCew+SORV4gJFw?=
+ =?us-ascii?Q?UDu0KwZ+QPO7hemvuNBKIJ1nyhqZoqpCXP5DQc7D+sB/TrKt35d4Y0OVKmrC?=
+ =?us-ascii?Q?0i4Ldwuj0X8Hl6n7S99+d5a5JTi3klfKP1PF1927nZC6J4mwONAyJ//0n4LR?=
+ =?us-ascii?Q?6hQFfleX86t4hGd3z3KNNb9Di6ASmEm6KHP+GBWnfuZ5rVQHxJDT4Nq1C5sn?=
+ =?us-ascii?Q?frZuE1pVVEO94CSpWJBTX69aeziFbaWd3qrSsbej6DI8Io0aWZBUR3cx61vA?=
+ =?us-ascii?Q?ewz0EIImMCcGKE/4VfcQWXjU4w9uOIlP4zrbP1+xvynYnwnQ9adeGVVhr16W?=
+ =?us-ascii?Q?LS+w+XA/xZJeCEMgs0K0cQc5mjJB6saBIcwzR3rHaQokbsXigA1lbfchXIeO?=
+ =?us-ascii?Q?MqadOmFPy7v/dv22I7SYT23c86fepnB+EcN5dbPuuHAVk2DK+/3mu3RayBEL?=
+ =?us-ascii?Q?zh/yV3VKoaof/Y4LW7ub/sKnCNKsriHteAQ/zs85EEDntmOhrSzSDQvB+ppn?=
+ =?us-ascii?Q?t6SNJXQfjq4eG1+SDMpRMtil9JKwchgi7LGY+3pUR+28qYeP7CujX/mHh9j0?=
+ =?us-ascii?Q?xhXLBSnY6C5bo/az3FgKTtc8c2cdlTXI0SvIgtKLkDo22n7X1Ycm7QcM0QHW?=
+ =?us-ascii?Q?DZxLdA7iH6YCNRAjDWfP8/6vqXJUKCcIy/YGuKyxIvly3oPdeGuhL366Iwll?=
+ =?us-ascii?Q?YzlIkgeJhs2a4NpUBvwM1/moB9rbYQbcLgeT9/H5zSi8eIEEb9fRa9Zq8m+h?=
+ =?us-ascii?Q?JXuX5JYGgSdV3V+fXEcAzMyV9vcCy29XHBshQcpV5+0V75HkjPhuYXXiVw5C?=
+ =?us-ascii?Q?xcatF1c4Sw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-10 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Proofpoint-GUID: X94GVIqg9aekt64sFgEOCGx2zmDRlYJd
-X-Proofpoint-ORIG-GUID: X94GVIqg9aekt64sFgEOCGx2zmDRlYJd
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDExOSBTYWx0ZWRfX9iELw3v0CZos
- WH0Ow8eFLZSB0sEmIWHT4FCLawvtU5vDQx0wbzeACeJsTSGkI9TkHdLKcC0a1n9h/EaQdw4bMVs
- at6VpMeRylvA0e8DFsEB1gMI9BEIxOk=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDExOSBTYWx0ZWRfX8MyHYDgXLnjc
- U+rYENOToZjZ8jRQpu1ZC/GIrvtNaxWJDZh/A1ZH8qvdZeu1DBuEc1arGse0SLsu8luZ3HgkHfZ
- gOX3HKMSjYVPmlKMlkwcwJ9MhiMFhqFp7DF7ixSHKBraktnRtVqITt+ymfs8kW0fVK9N2MTAzKE
- zKDHaSdlGJ7h//XQnIOrWOFZXkkMm8Fe80FCA4gkTcC44vwTi4JI61NIQ1z03zBhpdozT796ICG
- qQPWxvHvc/E54VnnKu5Y4OyjHbnrGC9eCbFfDzWWjIyFl2QkzDcswehhYcN0A3PAHg+n71oVtLY
- IqkG4tLXVGqnzdOjW4a/lTj/HlQ3WIRyGQTne9Deag+M9Rls1oVArap0Z39oN8l4d5e3SY/TB1M
- ADWqWPNd96JADrcOuuyNr3MWgW6H79mEX5LzwxBjyUZKxNDm5yzc3pXs8U7jHZzo4MGKJk5rekh
- Ghh/NKw19oMp8/4j8IQ==
-X-Authority-Analysis: v=2.4 cv=db0VTnXe c=1 sm=1 tr=0 ts=6aa3bcf5 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=1ZqYAqmp+mGnO5v9BrvPnw==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=hY6swonQLBBWNHD_PR8A:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110119
+X-OriginatorOrg: chipsnmedia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SL2P216MB2441.KORP216.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d013487-136a-4b72-4c78-08df0fdfacc7
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 08:35:46.0265
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4d70c8e9-142b-4389-b7f2-fa8a3c68c467
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7vFD3vsChzzUIaNe5Eds6ojFZgHVFr2BwHV7TPAI7e5qnYUhIyB3XWd7htSWJ1q6Y8wsmY1ZElkvXM7J0FYKQWqkWkpCaM8Lub+acJ3+Zmc=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUVP216MB481266
 
-Hi Sneh,
+Hi, Frank.
 
+>-----Original Message-----
+>From: Frank Li <Frank.li@oss.nxp.com>
+>Sent: Friday, September 11, 2026 5:49 AM
+>To: Nas Chung <nas.chung@chipsnmedia.com>
+>Cc: mchehab@kernel.org; hverkuil@xs4all.nl; robh@kernel.org;
+>krzk+dt@kernel.org; conor+dt@kernel.org; shawnguo@kernel.org;
+>s.hauer@pengutronix.de; linux-media@vger.kernel.org;
+>devicetree@vger.kernel.org; linux-kernel@vger.kernel.org; linux-imx@nxp.co=
+m;
+>linux-arm-kernel@lists.infradead.org; jackson.lee
+><jackson.lee@chipsnmedia.com>; lafley.kim <lafley.kim@chipsnmedia.com>;
+>marek.vasut@mailbox.org; Ming Qian <ming.qian@oss.nxp.com>
+>Subject: Re: [PATCH v7 5/9] media: chips-media: wave6: Add Wave6 core
+>driver
+>
+>On Fri, Sep 04, 2026 at 03:46:31PM +0900, Nas Chung wrote:
+>> Add the core driver for the Chips&Media Wave6 video codec IP.
+>>
+>> The hardware contains one control register region and four interface
+>> register regions for a shared video processing engine. This driver
+>> handles the interface register regions, each with its own MMIO range and
+>> interrupt, while relying on the control driver for firmware loading and
+>> shared resource management.
+>>
 
-> MPM irqchip needs to notify RPM (Resource Power Manager) processor to rea=
-d
-> the latest wake up capable interrupts when the CPU cluster is entering th=
-e
-> deepest idle state. This is done by sending IPC interrupt to RPM and is
-> implemented as .power_off() callback by registering MPM as parent power
-> domain to CPU cluster.
->=20
-> Such implementation introduces a hard probe dependency between MPM irqchi=
-p
-> and CPU cluster power domains. That is MPM irqchip needs to finish probe
-> before PSCI power domains are probed. MPM irqchip can be build as module
-> and can get later inserted where as PSCI power domains is not a module.
->=20
-> For in-built driver cases too PSCI domain gets probed first and later MPM
-> irqchip leading to failure of CPUidle states.
+...
 
-..snip..
+>> +static int wave6_vpu_core_probe(struct platform_device *pdev)
+>> +{
+>> +	struct vpu_core_device *core;
+>> +	const struct wave6_vpu_core_resource *res;
+>> +	int ret;
+>> +	int irq;
+>> +
+>> +	res =3D dev_get_platdata(&pdev->dev);
+>> +	if (!res)
+>> +		return -ENODEV;
+>> +
+>> +	ret =3D dma_set_mask_and_coherent(&pdev->dev, DMA_BIT_MASK(32));
+>> +	if (ret < 0) {
+>> +		dev_err(&pdev->dev, "failed to set DMA mask: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	core =3D devm_kzalloc(&pdev->dev, sizeof(*core), GFP_KERNEL);
+>> +	if (!core)
+>> +		return -ENOMEM;
+>> +
+>> +	ret =3D devm_mutex_init(&pdev->dev, &core->dev_lock);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret =3D devm_mutex_init(&pdev->dev, &core->hw_lock);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	spin_lock_init(&core->inst_lock);
+>> +	INIT_LIST_HEAD(&core->instances);
+>> +	dev_set_drvdata(&pdev->dev, core);
+>> +	core->dev =3D &pdev->dev;
+>> +	core->res =3D res;
+>> +
+>> +	if (pdev->dev.parent->driver && pdev->dev.parent->driver->name &&
+>> +	    !strcmp(pdev->dev.parent->driver->name,
+>WAVE6_VPU_PLATFORM_DRIVER_NAME))
+>
+>why need check this?
 
+I'll remove the condition in v8.
 
-> commit af5376a77e87 ("cpuidle: psci: Transition to the faux device
-> interface") transitioned cpuidle-psci to a faux device interface.
->=20
-> faux_device_create() calls faux_device_create_with_groups(), which ignore=
-s
-> the probe return value, and destroys the device if dev->driver is not set=
-.
+>
+>> +		core->vpu =3D dev_get_drvdata(pdev->dev.parent);
+>> +
+>> +	core->reg_base =3D devm_platform_ioremap_resource(pdev, 0);
+>> +	if (IS_ERR(core->reg_base))
+>> +		return PTR_ERR(core->reg_base);
+>> +
+>> +	ret =3D devm_clk_bulk_get_all(&pdev->dev, &core->clks);
+>> +	if (ret < 0)
+>> +		return dev_err_probe(&pdev->dev, ret, "failed to get
+>clocks\n");
+>> +
+>> +	core->num_clks =3D ret;
+>> +
+>> +	ret =3D kfifo_init(&core->irq_fifo, core->irq_buffer,
+>> +			 sizeof(core->irq_buffer));
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	irq =3D platform_get_irq(pdev, 0);
+>> +	if (irq < 0)
+>> +		return irq;
+>> +
+>> +	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
+>> +					wave6_vpu_core_irq,
+>> +					wave6_vpu_core_irq_thread,
+>> +					0, "vpu_irq", core);
+>> +	if (ret) {
+>> +		dev_err(&pdev->dev, "failed to request IRQ: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret =3D v4l2_device_register(&pdev->dev, &core->v4l2_dev);
+>> +	if (ret) {
+>> +		dev_err(&pdev->dev, "failed to register v4l2_dev: %d\n", ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	ret =3D wave6_vpu_init_m2m_dev(core);
+>> +	if (ret)
+>> +		goto err_v4l2_unregister;
+>> +
+>> +	core->temp_vbuf.size =3D ALIGN(W6_TEMPBUF_SIZE, 4096);
+>> +	ret =3D wave6_vdi_alloc_dma(core->dev, &core->temp_vbuf);
+>> +	if (ret) {
+>> +		dev_err(&pdev->dev, "failed to allocate temp_vbuf: %d\n",
+>ret);
+>> +		goto err_m2m_dev_release;
+>> +	}
+>> +
+>> +	core->debugfs =3D debugfs_lookup(WAVE6_VPU_DEBUGFS_DIR, NULL);
+>> +	if (!IS_ERR_OR_NULL(core->debugfs))
+>> +		dput(core->debugfs);
+>> +	else
+>> +		core->debugfs =3D debugfs_create_dir(WAVE6_VPU_DEBUGFS_DIR,
+>NULL);
+>> +
+>> +	pm_runtime_enable(&pdev->dev);
+>
+>devm_pm_runtime_enable()
 
-This is no longer true, see Commit 0606f2114e2d ("cpuidle: psci: Fix
-support for probe deferral by dropping the faux device").
+OK.
 
+>
+>> +
+>> +	if (core->res->codec_types & WAVE6_IS_DEC) {
+>> +		ret =3D wave6_vpu_dec_register_device(core);
+>> +		if (ret) {
+>> +			dev_err(&pdev->dev,
+>> +				"failed to register video_dev_dec: %d\n", ret);
+>> +			goto err_temp_vbuf_free;
+>> +		}
+>> +	}
+>> +	if (core->res->codec_types & WAVE6_IS_ENC) {
+>> +		ret =3D wave6_vpu_enc_register_device(core);
+>> +		if (ret) {
+>> +			dev_err(&pdev->dev,
+>> +				"failed to register video_dev_enc: %d\n", ret);
+>> +			goto err_dec_unreg;
+>> +		}
+>> +	}
+>> +
+>> +	dev_dbg(&pdev->dev, "Added wave6 driver with caps %s %s\n",
+>> +		core->res->codec_types & WAVE6_IS_ENC ? "'ENCODE'" : "",
+>> +		core->res->codec_types & WAVE6_IS_DEC ? "'DECODE'" : "");
+>> +
+>> +	return 0;
+>> +
+>> +err_dec_unreg:
+>> +	if (core->res->codec_types & WAVE6_IS_DEC)
+>> +		wave6_vpu_dec_unregister_device(core);
+>> +err_temp_vbuf_free:
+>> +	pm_runtime_disable(&pdev->dev);
+>> +	wave6_vdi_free_dma(&core->temp_vbuf);
+>> +err_m2m_dev_release:
+>> +	wave6_vpu_release_m2m_dev(core);
+>> +err_v4l2_unregister:
+>> +	v4l2_device_unregister(&core->v4l2_dev);
+>
+>can you try use devm_add_action_or_reset() to elimiate these error label?
 
-..snip..
+OK, I'll address this in v8.
 
+>
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static void wave6_vpu_core_remove(struct platform_device *pdev)
+>> +{
+>> +	struct vpu_core_device *core =3D dev_get_drvdata(&pdev->dev);
+>> +
+>> +	wave6_vpu_enc_unregister_device(core);
+>> +	wave6_vpu_dec_unregister_device(core);
+>> +	pm_runtime_disable(&pdev->dev);
+>> +	wave6_vdi_free_dma(&core->temp_vbuf);
+>> +	wave6_vpu_release_m2m_dev(core);
+>> +	v4l2_device_unregister(&core->v4l2_dev);
+>> +}
+>> +
+>> +static int wave6_vpu_core_runtime_suspend(struct device *dev)
+>> +{
+>> +	struct vpu_core_device *core =3D dev_get_drvdata(dev);
+>> +
+>> +	if (WARN_ON(!core))
+>> +		return -ENODEV;
+>> +
+>> +	/*
+>> +	 * Only call parent VPU put_vpu if the core has a parent and is
+>active.
+>> +	 * - core->vpu: prevent access in core without parent VPU.
+>> +	 * - core->active: execute sleep only after m2m streaming is started.
+>> +	 */
+>> +	if (core->vpu && core->active)
+>> +		core->vpu->put_vpu(core->vpu, core);
+>> +
+>> +	if (core->num_clks)
+>
+>Need check it. clk_bulk_disable_unprepare() is empty ops when num_clks is =
+0
 
-> Currently only 2 SoCs follow this method - Agatti and sm6375. Agatti has
-> CPU cluster power domain disabled, which is why idle-states are allowed t=
-o
-> function there.
+I'll drop the guard in v8.
 
-Please don't forget about the devices which use the SoC: For Agatti, the
-RB1 (qrb2210-rb1) and Arduino UnoQ (qrb2210-arduino-imola) are both
-setup
-with different power domains (off-topic: I believe this is something
-which can be reworked soon as the mpm driver could be in a better place
-than before? Didn't check.).
+>
+>> +		clk_bulk_disable_unprepare(core->num_clks, core->clks);
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static int wave6_vpu_core_runtime_resume(struct device *dev)
+>> +{
+>> +	struct vpu_core_device *core =3D dev_get_drvdata(dev);
+>> +	bool boot_vpu;
+>> +	int ret;
+>> +
+>> +	if (WARN_ON(!core))
+>> +		return -ENODEV;
+>> +
+>> +	if (core->num_clks) {
+>
+>need checkit. clk_bulk_prepare_enable() is empty ops when num_clks is 0
 
+Same here.
 
-> Move the RPM notification handling to the GENPD_NOTIFY_PRE_OFF callback a=
-nd
-> register MPM under the CPU cluster power domain.  Use runtime PM to repor=
-t
-> the default RPM_SUSPENDED state to genPD so that the CPU cluster power
-> domain can enter low power mode.
->=20
-> This will remove the dependency on probe ordering and allow individual CP=
-U
-> idle states, CPU cluster idle states and RPM notification to function
-> properly.
->=20
-> Also enable CPU and CPU cluster LPMs for Shikra.
->=20
-> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-> ---
-> Sneh Mankad (7):
->       dt-bindings: interrupt-controller: mpm: Document power-domains prop=
-erty
->       irqchip/irq-qcom-mpm: Register MPM under CPU cluster power domain
->       irqchip/irq-qcom-mpm: Prepare common access path for timer and pin =
-regs
->       irqchip/irq-qcom-mpm: Program wakeup timer when CPU cluster goes to=
- LPM
->       arm64: dts: qcom: sm6375: Make MPM device as part of CPU cluster do=
-main
->       arm64: dts: qcom: agatti: Do not mark MPM as power domain
->       arm64: dts: qcom: shikra: Add CPU idle states
+Thanks.
+Nas.
 
-
-
-I also noticed that patches 2 and 6 are a matched pair but sit four
-patches apart. Every commit in between leaves Agatti device with no
-working CPU idle and e.g. a bisect can land inside that window. Can you
-move the DTS changes first?
-
-
-Cheers!
-
-Chris
+>
+>Frank
