@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997B2468C3A;
-	Fri, 11 Sep 2026 08:46:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 257F446A607;
+	Fri, 11 Sep 2026 08:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116366; cv=none; b=gtQsN8dHD3bgkknXwcz7Ikdk6H5uSUbv+LhgWws0dpJPSJ87MU1HN01YdwnY9dAcq/0WN/E6GbZk1bOj0lLlApXAb1LTs90/UY5Yd4XyGT/MC4aL55aexB0Zqsp5spodmmzHPt/+d9IxaNXKvc1QXGm63vxqL2L60QlGr5veAy0=
+	t=1789116457; cv=none; b=I6+u+Vw+HaAsivh5RjyRakYoYev8bnv32bte5mP4rj5fvU5wJsIFJ71IccIlxIuGpXzQ1mh1cvjUkdA38wI4+K3Z8nkJVTZus/hW3DlKwOr+UiS7IBP7liy2RRftvLB9ebNPbGTXmZho+MhDh2Ro4hiwDkX5fg/upuPK2zH9d7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116366; c=relaxed/simple;
-	bh=qRZzlgdMJCpg5Htq/j+6uLKj7py8gemOhfvTlq0seLw=;
+	s=arc-20240116; t=1789116457; c=relaxed/simple;
+	bh=7EOqdFKzmjfnZ8DvCNTmopy1srbi5UbMA5ntQwsE5Xo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dam2KOcIvKskT6XKyv0vhM6OyIcoQHSYZtkSMl54hKmZtpU9/XLCpCijKBvbzm+EodEwY4HiedAtHaIhdziv8Q6J63Yq4P7rJlOcNlLpTGPLV6q3lsQIqZPMlfBLugvNExqQNSOyEBiPtCtUw289BlI5C/fdFWjjwd+nUOsvuTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M1ZvhnSn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZueQnroj2yH6IhlcNWQBDJdUuJ+nC4zId+cItxhGGIl2KvpKsYEyI1//O/Y0KttWA3oA9Gr4ViqtyaHjeXilVImbUkTvGUZ/04egSxBOD0B0doCPp1Vlaw6HXT5R9WmZNm3rW7Qa/Ehz0mLsPzTiPgaETkcNlAB08viR9R2bOa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q+tw+7VM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M1ZvhnSn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E121F000FF;
-	Fri, 11 Sep 2026 08:45:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q+tw+7VM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B11461F00893;
+	Fri, 11 Sep 2026 08:47:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789116360;
-	bh=CWURi/OAjUySGGOpW3UuHtRxYUZ6xZ7M+UQy5dsFeQ4=;
+	s=k20260515; t=1789116455;
+	bh=VYBG4Mo6VNUGeOVpP2EIFPgZriiFWbCLLDjsSAka0yw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=M1ZvhnSnPCYnIbKiz//1LTYVpGYRTCG0ldTO8J01KAz3bcCWF+OdZvvVHclSZHMsN
-	 9Qb0IAHVsI6wA2aFzjm3/ZwWpvJl6mxcMmtHCc3anBlfHAuufDwK+1DN5w1qPN2tcv
-	 TpAcApWYaPAN1xDWhrMK/FDFvggzU/WMcaQaGfs9mB7cj6kenI6JjX6no/y9qvlWxS
-	 FI7ZwqlBpR1pqsayHyd3PxgO+cdgvGr1pETtwbGQyJY5eFeMHzmAQ1DBiYHjK6Yswo
-	 NnzF+v1P2u1bZs4i8sINpu+p0tBOw5NqlfNC0ttMnTUyqVqLXesbmLIF6GH7Fr+3O9
-	 teHHlr6QF8JyQ==
-Date: Fri, 11 Sep 2026 10:45:56 +0200
+	b=Q+tw+7VMyjhr9XZKyqf54iyK+2UZHCuWsr7qOD3CFxioHsRwQJAPB0/ntqhCz4RoG
+	 YwkBBwjIZHs7TN36ruuwggOAffNCw3k2+u6wjWYa3GtBFoUAqX1VSt3iZFJOEzHzf6
+	 lKcRrTGKzReGEzpczxTCFEKHidH5bNJScRgFSJ2HXf6ihMEvL5q731YUBu6FCh2xqM
+	 wXjz71ZSQZ8J+cPrSiBTVjYB3ejmhwtY8ZIKN+da+PJhlyGX66HHIacWfUFvPsVuJD
+	 PpGpQSmRSeG64koWLA0zGzIYxSB+lAfOsR+y5aQGtYvhVd9D627FpUgDpMdk01Jtfm
+	 t73+UVn6avr9g==
+Date: Fri, 11 Sep 2026 10:47:31 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Saravanan Sekar <sravanhome@gmail.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] regulator: dt-bindings: Add MPS MPQ4210
-Message-ID: <20260911-gaur-of-satisfying-action-1a3b0f@quoll>
-References: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
- <20260910-mpq4210-regulator-v1-1-d37e208dfc8d@vaisala.com>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Francesco Dolcini <francesco.dolcini@toradex.com>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v1 1/7] dt-bindings: arm: fsl: Add Lino iMX91/iMX93
+Message-ID: <20260911-misty-gentle-macaque-6bebeb@quoll>
+References: <20260910101616.139270-1-francesco@dolcini.it>
+ <20260910101616.139270-2-francesco@dolcini.it>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,81 +47,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260910-mpq4210-regulator-v1-1-d37e208dfc8d@vaisala.com>
+In-Reply-To: <20260910101616.139270-2-francesco@dolcini.it>
 
-On Thu, Sep 10, 2026 at 08:51:41AM +0000, Tapio Reijonen wrote:
-> The MPQ4210 is a 40V synchronous four-switch buck-boost controller with
-> an I2C interface. Its output voltage is programmed through an 11-bit
-> feedback reference DAC covering 0 to 2.047V in 1mV steps, and is then
-> scaled by an external feedback resistor divider, so the divider ratio
-> has to be described in the device tree for the driver to translate
-> reference voltages into output voltages.
+On Thu, Sep 10, 2026 at 12:16:07PM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
 > 
-> The divider is given in ohms rather than the kilo ohms used by
-> mps,mp886x.yaml because the bottom resistor is not necessarily a whole
-> number of kilo ohms.
+> Add bindings for the Toradex Lino iMX91 and Lino iMX93 SoMs, based on
+> the NXP i.MX91 and i.MX93 SoCs, respectively.
 > 
-> The same divider scales the reference ramp rate, so unlike the other
-> bindings that scale by a feedback divider there is no portable value a
-> board can copy into regulator-ramp-delay. Describe how the selectable
-> rates are derived from the four reference slew rates, and show the
-> calculation in the example.
+> Lino SoMs use two board-to-board connectors to interface with a carrier
+> board. They can also be mounted on the Lino-Verdin Adapter, which
+> converts the Lino interface to the Toradex Verdin family pinout and
+> allows the SoM to be used with Verdin-compatible carrier boards.
 > 
-> Signed-off-by: Tapio Reijonen <tapio.reijonen@vaisala.com>
+> The Lino-Verdin Adapter also provides a Wi-Fi/Bluetooth module, an
+> Ethernet PHY and a GPIO expander.
+> 
+> Add compatibles for systems consisting of a Lino SoM mounted on a
+> Lino-Verdin Adapter and connected to either a Verdin Development Board
+> or a Dahlia carrier board.
+> 
+> Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx91
+> Link: https://www.toradex.com/computer-on-modules/lino-arm-family/nxp-imx93
+> Link: https://www.toradex.com/accessories/lino-verdin-adapter
+> Link: https://www.toradex.com/products/carrier-board/dahlia-carrier-board-kit
+> Link: https://www.toradex.com/products/carrier-board/verdin-development-board-kit
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
 > ---
->  .../devicetree/bindings/regulator/mps,mpq4210.yaml | 69 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 ++
->  2 files changed, 74 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml b/Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..e9e7a87e7533d0948927a459e9af711d1e07e572
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/mps,mpq4210.yaml
-> @@ -0,0 +1,69 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/mps,mpq4210.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Monolithic Power Systems MPQ4210 buck-boost regulator
-> +
-> +maintainers:
-> +  - Tapio Reijonen <tapio.reijonen@vaisala.com>
-> +
-> +description:
-> +  The MPQ4210 is a synchronous four-switch buck-boost controller with an I2C
-> +  interface. The output voltage is programmed through an 11-bit feedback
-> +  reference DAC and scaled by an external feedback resistor divider.
-> +
-> +  The controller ramps the feedback reference at 38, 50, 75 or 150 mV/ms.
-> +  The divider scales the ramp rate along with the voltage, so the output
-> +  ramp rates that regulator-ramp-delay can select are those values
-> +  multiplied by (R1 + R2) / R2.
-> +
-> +allOf:
-> +  - $ref: regulator.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: mps,mpq4210
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  enable-gpios:
-> +    description: GPIO connected to the EN pin. If absent, EN is assumed to
-> +      be permanently asserted.
-> +    maxItems: 1
-> +
-> +  mps,fb-voltage-divider:
-> +    description: An array of two integers containing the resistor values R1
-> +      and R2 of the output feedback voltage divider in ohms.
+>  Documentation/devicetree/bindings/arm/fsl.yaml | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
 
-Nope, use common property suffix - ohms.
-
-If this was applied, please send a fixup now.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
