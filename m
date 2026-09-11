@@ -1,112 +1,98 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C02D2367DF
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D6736E494
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139638; cv=none; b=GXdjGEJ6eSBL9l2dEp0t/tdqGvoszkJIgPMtPEZAKzlDm7gnQRLeoLCdEqSplFqM5OHxqAKOwPh0UGcirzLEc9W/qOPjYGbeaZxHEmSMqO5zmgXNNJh0J4WaQi1CqBYElDZ6ZRSH0/IItwY3HQTxl0H2gTUXkBmeziAfWnA0dwI=
+	t=1789139652; cv=none; b=KhgpffaDIApuMItLs4V6VL2CTmbyCkY/uHWyQmJ4OmHBacmITUeaTRCRPpZPYkube5dOi+83Llz8Q0S2nbeOVIUQJJURu+BREs3L65I6mNQz4Whj3AO4aBOjUEm5gB9/drejlgQY9Nt/pBsDrqvMT2xA8dUsSU2iN5hKKRIDvbA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139638; c=relaxed/simple;
-	bh=uq/WUuirl9LkveBlBap7y19BGfLqBJsaeerSYP8tut0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OojpFbojjp5+L/rBp9/BmdzGsDBjPS7PZ4MXNThfawoOtFsP8tHw7A8AbgkL62lGdAIy6gFxzWIc0NPWUATCwIZjgAvnAAoqD9wYaFpWdT1dgp8ao5QSea+ZplEcjwJdw791WMLEz2P7iSsNaYvLM46IIqhsRWPUjVO7zYZ6jco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ayrsyn0a; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789139652; c=relaxed/simple;
+	bh=3Oh1QZs/OsEt8dmcSJqqw6nEI4NhbzMAd5IKrmyOAlk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HgwJndOux5g+u/DkGIaZdP1EBS75/+i9a9aLREDv+Eldp7kYx3p/tf7kkYeH4qvXXNIRaqchn+ZUOaGvtkJ5CRpD6zQ3ZzSpxWjrXQoxttklcOV1dfw10JJNv7zgIEWE0nsQmcZmeL10UCnfWnE2otNlt/0nN5jiMLFAiaMgCV0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eEjEDmYe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ayrsyn0a"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 2F2F3C653FF
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:14:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 545B8601DE;
-	Fri, 11 Sep 2026 15:13:55 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 37B6811C7AFA9;
-	Fri, 11 Sep 2026 17:13:53 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789139634; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=zZngMg1fCLBrGuEL0fyeHrYu9D1J2Ahq2Mn+xR7GSjE=;
-	b=Ayrsyn0aAX9LhMS80a/W973tT1Vk8KiITQQBr9uCDIoV5VBVHdZYbu9oL777bxrCpP6I9g
-	BYew6UhOpO4syz+J5pwa4Jai29lSmO75EBUsl6AnOxABFy8p3pJfoQDaOTvjU7/weRozsC
-	xeBoANNnWws1ojF4HsVr64ZY3gH/3uhGJa0QDvVzSWyyvwFq4ExQmGCgDueY92OZkMR0uW
-	B4kBcwd88sPVJ42gIr/Qa02CouY5AqTQbIBDh3F6EfXdihbtZ/vzid2Kn0DF/GHGGI1CMS
-	cFaqR2lzq9YlnXmvJnaLkiZjiGGYttI7RMuT5N3u9XSVrknNpdKx3yzn5fUDog==
-Message-ID: <627a2d9f-3618-4615-9315-36c3766ca9a7@bootlin.com>
-Date: Fri, 11 Sep 2026 17:13:52 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eEjEDmYe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246031F000FF;
+	Fri, 11 Sep 2026 15:14:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789139650;
+	bh=G7UwGNzPKhq+YU7OtStbHuCxFIrc3jUtUDQbnOEBpVI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eEjEDmYewbpK7K7SUiEG5wTUjZbZL53SG4UmpiA8mElZtpPAx6U25w07Egz1VxZ4Y
+	 v3umdWAALnDQx0lQoCoVl7/M13gHIPDx2CLSrMejKYeM7uZJVAGjxndpbsMiN53tXj
+	 AAtPILdQdzFDvGxdWeU6PmKsarAxndcCnHXEy501Opoy1y01c1Xcrqy7Bz+W6yyXHt
+	 JVztlUMfYbEdqrj7jFeYCQNCpOb/HuPiTZGXODACxdRzM5l2Vzd6RKyJSBPqVAD0Iz
+	 f0dcUY9rZpQsp5BiCakXFGCWSedypUeUUzl5xVK3o6B4FaTUFVxtcfneauRXeKD3WE
+	 7yJ0XqEhWgAAA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Petko Manolov" <petko.manolov@konsulko.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260911150755.2803736-3-petko.manolov@konsulko.com>
+References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+ <20260911150755.2803736-3-petko.manolov@konsulko.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 15:14:09 +0000
+Message-Id: <20260911151410.246031F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm: dts: ti: omap: Prevent watchdog from being reset
- on kernel boot
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
- <20260911-omap4-wdt_boot-v1-3-637d778a4a1e@bootlin.com>
- <20260911093025.DBDD01F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Diogo Ivo <diogo.ivo@bootlin.com>
-In-Reply-To: <20260911093025.DBDD01F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message erroneously describes the Draeger M48 CPU mod=
+ule as an NXP i.MX6 based board, but the bindings correctly place it under =
+the Altera Cyclone 5 SoC platform.
+--
 
+commit 7e951377f9aeb640e72ba7c48aafcccf11752d1e
+Author: Petko Manolov <petko.manolov@konsulko.com>
 
-On 9/11/26 11:30 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] The patch exposes the system to unexpected reboots due to a 30-second window before the watchdog is idled, contrary to the '3 second window' claimed in the commit message.
-> --
-> 
-> commit 1abe23cd5472149baeeab9af481deaf65caccd1f
-> Author: Diogo Ivo <diogo.ivo@bootlin.com>
-> Subject: arm: dts: ti: omap: Prevent watchdog from being reset on kernel boot
-> 
-> This commit prevents the watchdog from being reset and idled during kernel
-> boot by adding the ti,no-reset-on-init property to the target-module node.
-> This is intended to provide a 3-second window for the watchdog driver to
-> probe without resetting the watchdog.
-> 
->> diff --git a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
->> index 4c78a0b28fab3..e061ea3fc8e70 100644
->> --- a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
->> +++ b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
->> @@ -1126,6 +1126,7 @@ target-module@4000 {			/* 0x4a314000, ap 7 18.0 */
->>   					<SYSC_IDLE_SMART>,
->>   					<SYSC_IDLE_SMART_WKUP>;
->>   			ti,syss-mask = <1>;
->> +			ti,no-reset-on-init;
-> 
-> [Severity: High]
-> Does adding this property unintentionally cause a regression where the system
-> experiences unexpected reboots due to a 30-second delay instead of the
-> intended 3-second window?
-> 
-> Adding ti,no-reset-on-init skips the immediate hardware reset and triggers the
-> delayed work fallback in sysc_probe():
-> 
-> drivers/bus/ti-sysc.c:sysc_probe() {
->      ...
->      schedule_delayed_work(&ddata->idle_work, 3000);
->      ...
-> }
-> 
-> Because schedule_delayed_work() takes its delay in jiffies rather than
-> milliseconds, passing 3000 evaluates to 3000 jiffies. On typical ARM
-> configurations where HZ=100 (the default), this results in a 30-second delay
-> instead of the expected 3 seconds.
-> 
-> This could lead to a boot loop if the bootloader configures a watchdog timeout
-> of less than 30 seconds and the system relies on the driver to stop it.
+dt-bindings: arm: altera: add Draeger M48 Module
 
-This is a valid point that I am not sure how to solve. I could change
-the hardcoded 3000 but I don't know if that is the way to go. Any help
-would be greatly appreciated.
+This commit adds a new device tree compatible string for the Draeger M48
+CPU module to the Altera device tree bindings.
 
-Diogo
+>     dt-bindings: arm: altera: add Draeger M48 Module
+>    =20
+>     Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
+>     based board.
+
+[Severity: Medium]
+Is the description of the board architecture accurate here? The commit mess=
+age
+states the hardware is an i.MX6 based board (an NXP architecture), but the
+patch correctly adds the compatible string under properties:compatible:oneOf
+in Documentation/devicetree/bindings/arm/altera.yaml, which places it under
+the Altera Cyclone 5 platform bindings.
+
+While a subsequent patch in the series confirms the board is indeed a Cyclo=
+ne 5
+device, it also repeats the same i.MX6 claim in its commit message.
+
+Should this regression in the commit description be corrected to prevent
+misleading architectural information from polluting the git history?
+
+> diff --git a/Documentation/devicetree/bindings/arm/altera.yaml b/Document=
+ation/devicetree/bindings/arm/altera.yaml
+> index 3030cf46fe74c..8ed1ba7335103 100644
+> --- a/Documentation/devicetree/bindings/arm/altera.yaml
+> +++ b/Documentation/devicetree/bindings/arm/altera.yaml
+> @@ -47,6 +47,7 @@ properties:
+>            - enum:
+>                - altr,socfpga-cyclone5-socdk
+>                - denx,mcvevk
+> +              - draeger,M48
+>                - ebv,socrates
+>                - macnica,sodia
+>                - novtech,chameleon96
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911150755.2803=
+736-1-petko.manolov@konsulko.com?part=3D2
