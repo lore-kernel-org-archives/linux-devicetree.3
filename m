@@ -1,154 +1,270 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5032825F988
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE17A436BD9
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111592; cv=none; b=rxsnJJE800Ud622rp2RcskdjjQvNC3aeDefT/1/jZrWgJqBCOaUbvSVB5ZPWy40A4bozElcd5QiXMQNxcVTC/nYlHRlC6iUvArA/GyUA+KaytNU3pcmeSosZGk/aInsuI/jEIZGSYgwT5hz8egoHiaTLZajksk8nQUIQ5i0nqIg=
+	t=1789111638; cv=none; b=gf0/2prjykU6OYGcQkkWa+6IbWko14s967v10d5bE/I4Nm8SCDSFzXmvWBF+VHHqqBpRHdKXJsLuI84T1OBFgbEK9Z63CKI9IhpF6uiQmjV7TfR+Kw/EKf2z86JM8sBP01U50aTdHcd4iNcribHzrVinMyalHZQymRVyCbiN1qQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111592; c=relaxed/simple;
-	bh=rZo4kyY0Y76IEd7jHHFyN/7oZ08oGYKJsxlI6R/hxGY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I35vJrriegJdfSc+P6pHCTbmT3eAyFPznzNN93Dw47CzMnMUfuM79rJ36lmhvcy3+gd3Ne9oHoGEsGLkEfZghY4+gPEch3F9F4mbhzQhN7kzMkWtHqFnh1tRrKd3OJZk6xcraFU/Bd3QACS1qZ4ELEW2g9ynYMGvPW+iYsw6yB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aE3pFWmd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dlRJw3zC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789111638; c=relaxed/simple;
+	bh=9LCSHI9dJmXTshg5eLes8LVmGe5qn+MubAPy/BL7Mt4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JCfn7Uq0a1j9WqiN4YDzlGy25Iltnky1A2SFWFiKBByj8T33wouxGCn7GYT9lvYbKIvTpNookTL73yp6yG5O8i03blSTU5wjZva8qhLZ0RM3EBx/C26un6hnrTMyq0jV7/LGNerW40CA400o0yKTeRB17X9/uuERNfmcutbysSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=B4JcEx1h; arc=none smtp.client-ip=209.85.215.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aE3pFWmd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dlRJw3zC"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B6kXFi3709551
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:26:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=t9Kgo58xxN35B1PorN+OPrTr
-	ld2F+horzEBlznhVNT8=; b=aE3pFWmd/suJkMvhi7LibpjTf9EAzPP+1o38X2A4
-	caNxZ6+X+oSPomgRDPW1gmOze3n/o5Hzh9km5aSB2yOa9jH84mUyEamHrV5w810+
-	znEbM+7mZJzzKXp6GS2Qq47IB62192fUYnBetkvXDIA6YnIp6IYMJKf6dJ+MuW3t
-	cCkMHBOrO9JMj2UbKf5MQ16hV4INMwuXAc4wJRuHLfvnVaBExQVBCq8t7HmBOLKB
-	pNTmO3oGIvMBAkJXqAYi3HbbOqivVkz4xeDW0IrGSEqiqNPcPqPRufX36QoS/Wzk
-	EIswpg0AOYZUltbFkerekLoY+qRyfJqvsjqUE0MfK6l/OA==
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com [209.85.215.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm5q41p3m-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:26:24 +0000 (GMT)
-Received: by mail-pg1-f198.google.com with SMTP id 41be03b00d2f7-cc11b5dd54dso1289561a12.3
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:26:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="B4JcEx1h"
+Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4b62d118aso721234a12.2
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789111584; x=1789716384; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t9Kgo58xxN35B1PorN+OPrTrld2F+horzEBlznhVNT8=;
-        b=dlRJw3zCY0lJJYHu9hLtpj2uz98uoKQ05vW9jGy93Lz6p1DpM/Zb3E1faMPG1xtNQ/
-         gkSfMmFojYAqjWVFcOlQxu8XpT6BVqM3ufgoNBNL7reFn925XKL+ComHGURkIcXKqXDN
-         Zg7gj8wELG4KfMN3S4VAv128pq6Uytdx1lGjbVtA7P280yyb+C5FF54oAHRFcrSUPvhS
-         jpJSf0bCvPy50rcIu/mlqSMXE6WXqCObBGakchwZdSQ3VWmVSVyqZc4Vmk68newNSYr9
-         MygkyYTKSoOw5WkDVyN0l2c7l+Q9ge4vQ++IwM0nx+qiHi4e9Xfv/hPk2OJCY8cxyNzG
-         lT+A==
+        d=gmail.com; s=20251104; t=1789111635; x=1789716435; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DSWkYiMfJ8v4uw6eOjZdWs71agTehwoYxv/jnWrsoXU=;
+        b=B4JcEx1hDuSeKhTCHtTabCuKYgIH2g1jqjeZEGicQhEfBs19FV412SZ7oQLe6ZAstv
+         6/Lpw1pAzRyHhXgXN7IcsEZtCFQ5g9KUewU63yAQpj2gRty8gW2sfcZ41J9k+fR+GAzn
+         0TKO/gj9ZKebxkpmsYN9QIswrz/7qQeaDJxAbSKxKgtOZafiUvMmZfq59niCYoc/V8xZ
+         6ELbYNoGP8TI2kvV1pixABVQifDPpbbo0B0+nCMkeDJKY+HPX25JdDJSTRhK14ZrPOfh
+         ykgrD7GDpbqMPH1fbFDJHn5Zd94ZwhNBjf3+E8Jsd/idMaW3jZABGNQy63th1VyhmSy4
+         Xv6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789111584; x=1789716384;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t9Kgo58xxN35B1PorN+OPrTrld2F+horzEBlznhVNT8=;
-        b=iJEXZbpe81XOn9o/cylTihwdsdJn5k/yzVEDRUhFG5n90l+1iJPOZ1cvflzvone66T
-         B0L7PssDTPIt1Vn7JOHTlOEdy7HHK/5idZmUBJOxyw/fBUy1IFtwYTa1ooT37dMKetA9
-         x+esAxuwQfrf+VZ7r4jFGhgMC9kmlBFrUkH8vfP0rjRHA4ppGUCRN7QZeDJn4Conr6oV
-         znDgAut0pM7erwVUHwFZ4iy4gf4dspwrDe4WFcRCjc4nud4FV2wxZdLM7j61Tr5Kfvnk
-         6ilhTPQ26GmwfpiM3e5nrL0TOTnJRAN6yupa463cSYMjxBMfoFZpiaXqnuQIYswEL5Wu
-         H+Lw==
-X-Forwarded-Encrypted: i=1; AKwUvBwYR4ZSjPDzvcWwGSITF2ClYF5PYtIWGQZ563bk1w2dSidMY7fl3aLeQF7za+RFoVm2ceKzf6TyHFCy@vger.kernel.org
-X-Gm-Message-State: AFuF++n1xoVpzaMG45dZKDQk8VU+ffnLL8UJeMZ6oeuOPV/xQgdG4MXF
-	xcIf+HM01igskcxNFkDSmq1I+y+Y9peZo9jUbEscZ6lQN/4lEiGvTTThfQfoLfrfqY+mTW6IZvX
-	gVEpjulm+GCVM7C2zVLonz9RW4q5WZj/VHWgiHmgxQLLbY3cW5AooAZPPvsCFO1qv
-X-Gm-Gg: AYBFou31mT7rMoPLSg2PrpRzdEah1N8ii+0aaU9BbbLJQKP04uypOoXf4EASaTn8zOs
-	vJ0xNzZA9TO6uTza4z39vTIpAJ4pc4lHKmFB8NGbkCZwv4Xoso9RmjhpOu+StveJ0D2v7B7Joca
-	ezOFk5ThhmE+CyFM8G5TftUyWYN8ZC/lnfY3oyZnY2/43i3LbxgrefZezQ+pgpDaTBc81WFIDZs
-	m7nDZFTpZvADINBhBqPu1JFk5QcF3kRbpnZF0/CkUfhXD417+nVbeW8xbylPn9xGt6J8CwGzPAi
-	hySnUwNbV1w7OnnVLOx9b9/wPdEx0mmp34YX/QVfk1JdjlPwiTnoZa1CMmVJx1mjcgxpQ9j9h+4
-	M4vDmue4IoORKO1QlQXxh0B6w7YyZBKUELD6UwzGc0OU=
-X-Received: by 2002:a05:6a20:1590:b0:3d3:ae50:97cb with SMTP id adf61e73a8af0-3daed84ecc8mr5704263637.24.1789111584001;
-        Fri, 11 Sep 2026 00:26:24 -0700 (PDT)
-X-Received: by 2002:a05:6a20:1590:b0:3d3:ae50:97cb with SMTP id adf61e73a8af0-3daed84ecc8mr5704218637.24.1789111583593;
-        Fri, 11 Sep 2026 00:26:23 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4ed64fcsm4632504eec.16.2026.09.11.00.26.19
+        d=1e100.net; s=20251104; t=1789111635; x=1789716435;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DSWkYiMfJ8v4uw6eOjZdWs71agTehwoYxv/jnWrsoXU=;
+        b=anqaepwyN4wSJROBT+qLanBKrgrKs3GWRpxFBfOTlVv+4+nLczj89nBfJ7ZRuyYl30
+         P5ZJkj2kMZbYauCZKOiGBQ2WcXBCsJ5JYDT6usMRitGgnawZXomgn2Q5IXeeYdASiRlG
+         ZjvB83zkeq1Ha8x21pmqmCX+9vqYuxTjdAvYoMEs2UkH9vpfAxkBuMTLBWMZ5OZiezFB
+         bBcmEAMBP2gLfU8PE9RGB0KbD13OzYzuhzD5ZeWx4slhCfHmPsOtMnKZt7CFGXZwGxFF
+         95L/Md47GzlZVTxu558O+TXJ8IyXFl8m956vH0AwcNZ8/Qg8A6187mOAKqAdQsKUM5/N
+         Vrdg==
+X-Forwarded-Encrypted: i=1; AKwUvBx3B/fgxsq3/vUfMGYYF7SqVY0w14HYpO69y4WtfMcIy/fOnArgLLJW5IW3qtYPTVKcEMrqh/S/h0VW@vger.kernel.org
+X-Gm-Message-State: AFuF++lWzhi7eo3g8j+6chq0y23AAyzUkxfALEy0CqlgeV7lUPxUsV+/
+	GpNMdYcFU4x6ynO/tsx7v1EqBWd5htLQ/0gU5ViGKYr/3PkE77K2XiTo
+X-Gm-Gg: AYBFou2N/2DOsN0UKINYcRFYWN9whqKSmPHPHpwOuGPtg/6XOg6646cQKpx2FPbgkqB
+	cTnsX3NszANOlZpYGUSaoooQmDniaw+fAO8POfXU2i8LFCEBsI68cw/TzBd8mXRYzcg8JGBC6Un
+	yXA/v6hSpAa939AWQFQfoQwJ4wzvrnb2QadpKYI176PLvitjEbbHoE+UmHUaQpVX2d5t0Vq3E4x
+	cPsbXN3OSWVwYn+Ylf7hYoQs62xTepfYYW5igrI0fhVe0kO7ZcB8mIxOJCD1aLO/JFoZvHNkoZg
+	vF/M/x2cW7jCYIORcMOCm39CFU3ulGSvIaqDenNJjkdaoadixwW4Zfzj1jp0/YFz1zomG0lZLw5
+	cdF7FjxhmHCk9Km6xEVZmhz2J6R+au0qFy/fpPs/Ozohg3Jl8OX7wFkdGyg3ZPnrrZVGyW2vMCV
+	CWB3vwYQ9jqfRPq5CFXM4g0ymi16qm0ZT3TiUa4A+meiTjLE+TKNhOpbQ4enft6eXqm0/mOZtHO
+	ABno9J5oloTBTC6NfQfP3Bkdca8bcjG/bIXMbbhc2ZSRNMmiG/Qs1UPTC39tInpEcnibved3fqM
+X-Received: by 2002:a05:6a21:e58d:b0:3d3:ae0f:5268 with SMTP id adf61e73a8af0-3daed38e438mr5837524637.20.1789111634934;
+        Fri, 11 Sep 2026 00:27:14 -0700 (PDT)
+Received: from cs00-MS-7C09.. (2001-b400-e381-6723-6ed9-0e2b-d17e-b72e.emome-ip6.hinet.net. [2001:b400:e381:6723:6ed9:e2b:d17e:b72e])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4e9a8a9sm4023136eec.13.2026.09.11.00.27.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 00:26:23 -0700 (PDT)
-Date: Fri, 11 Sep 2026 15:26:17 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
-        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: usb: Add onsemi FUSB15201 Type-C and
- PD controller
-Message-ID: <aqOtGbCUP8CsYknV@QCOM-aGQu4IUr3Y>
-References: <20260910091751.819264-1-shengchao.guo@oss.qualcomm.com>
- <20260910091751.819264-2-shengchao.guo@oss.qualcomm.com>
+        Fri, 11 Sep 2026 00:27:14 -0700 (PDT)
+From: hsyemail2@gmail.com
+X-Google-Original-From: syhuang3@nuvoton.com
+To: Guenter Roeck <linux@roeck-us.net>,
+	linux-hwmon@vger.kernel.org
+Cc: Sheng-Yuan Huang <syhuang3@nuvoton.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Jean Delvare <jdelvare@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v2] hwmon: (lm75) Add support for Nuvoton NCT7715
+Date: Fri, 11 Sep 2026 15:26:53 +0800
+Message-ID: <20260911072654.15722-1-syhuang3@nuvoton.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910091751.819264-2-shengchao.guo@oss.qualcomm.com>
-X-Proofpoint-GUID: Sg_0CS7s8ic1XRVdeYay8LkkLz4kKOAn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDEwMSBTYWx0ZWRfX/L1SoKNa2+xB
- 4cuzXOfjBrOeyrkegSF18YYOQFiC+dGG7u0PlfyzOEpJCZ5Slplgi/Ws3rgq2sPOjezcANMMjQy
- m+hiIs9P9Pe+zUz4YHTVAuYQKllWD6k=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDEwMSBTYWx0ZWRfX0n+hce2YjYPM
- j3Pa7FAVUBN2WC/LV7vDyxL6izbO+mNcJdWS0NgRHn1qVrDfX4/Or3q+A5GYuvnJU4O7MZpP7lV
- 0ti778F9CAY8aj5+94oC7LZ8MnhdNtVM0YJH598z1gHaEHA+dbd+WRlgQNBikqk4KPBUtE+hT8c
- lmVmQVTlRpvf9GyNRvEMELwK/bRBD9GsPrI4+77dw/UON82b0QWRRYvByDasjFeqF1hVBkm6SeX
- ooJ0TKcAcbZy5V+D2e6+ZOoNd9s1kolWNXm2WAmrn+38CoDuFR4b91tMHJ9BIa+ZggxMydGNuWt
- ywXejNHFhhsA/ZrlUwcUcnc3p43eYarPkZCYy0FnrDXlVgVFaTAcu7hXGdOmmOEshW84lDgbxMj
- aozThTlA/i1jNPTqrcq1zUTc5miNYUs8c0Mus3Ued0duUJvtCy57NTZl16a4uDWnZJW6ViL908Y
- qGj8tcKDbSR8XLfVm3w==
-X-Proofpoint-ORIG-GUID: Sg_0CS7s8ic1XRVdeYay8LkkLz4kKOAn
-X-Authority-Analysis: v=2.4 cv=Wsa+otfv c=1 sm=1 tr=0 ts=6aa3ad20 cx=c_pps
- a=Qgeoaf8Lrialg5Z894R3/Q==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=F_sypk6m7XziQz7B7UwA:9 a=CjuIK1q_8ugA:10
- a=x9snwWr2DeNwDh03kgHS:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_02,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 priorityscore=1501 suspectscore=0
- spamscore=0 bulkscore=0 impostorscore=0 clxscore=1015 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609110101
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 05:17:50PM +0800, Shawn Guo wrote:
-> The FUSB15201 is an autonomous dual-port USB Type-C and Power Delivery
-> controller. It runs the Type-C state machine and the Power Delivery
-> policy engine on an integrated microcontroller, and exposes only a
-> status and command interface over I2C, so it is not a TCPC.
-> 
-> Describe the two ports as addressed connector child nodes, so that a
-> board which wires up only one of them can describe just that one.
-> 
-> Assisted-by: LLM
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Link: https://lore.kernel.org/r/20260902045938.184221-2-shengchao.guo@oss.qualcomm.com
+From: Sheng-Yuan Huang <syhuang3@nuvoton.com>
 
-The link line shouldn't be there. Will resend.
+The Nuvoton NCT7715 is compatible with the LM75 temperature and
+limit register layout. Add support for the NCT7715, including its
+16-bit configuration register.
 
-Shawn
+Handle its conversion-rate field and shutdown bit separately, since
+their bit positions differ from the standard LM75 layout.
 
-> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Signed-off-by: Sheng-Yuan Huang <syhuang3@nuvoton.com>
+---
+v2:
+- Use the standard SMBus word representation for the NCT7715
+  configuration register, removing the NCT7715-specific byte swapping
+  and updating its configuration masks accordingly.
+
+ .../devicetree/bindings/hwmon/lm75.yaml       |  1 +
+ Documentation/hwmon/lm75.rst                  |  6 +++
+ drivers/hwmon/lm75.c                          | 52 ++++++++++++++++++-
+ 3 files changed, 57 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/hwmon/lm75.yaml b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+index b48bf3fd721f..832a8c5d83e9 100644
+--- a/Documentation/devicetree/bindings/hwmon/lm75.yaml
++++ b/Documentation/devicetree/bindings/hwmon/lm75.yaml
+@@ -31,6 +31,7 @@ properties:
+       - nxp,p3t1750
+       - nxp,p3t1755
+       - nxp,pct2075
++      - nuvoton,nct7715
+       - st,stds75
+       - st,stlm75
+       - microchip,tcn75
+diff --git a/Documentation/hwmon/lm75.rst b/Documentation/hwmon/lm75.rst
+index ca46754e028b..fac0b8f29ddc 100644
+--- a/Documentation/hwmon/lm75.rst
++++ b/Documentation/hwmon/lm75.rst
+@@ -150,6 +150,12 @@ Supported chips:
+ 
+                https://ams.com/documents/20143/36005/AS6200_DS000449_4-00.pdf
+ 
++  * Nuvoton NCT7715
++
++    Prefix: 'nct7715'
++
++    Addresses scanned: none
++
+ Author: Frodo Looijaard <frodol@dds.nl>
+ 
+ Description
+diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+index 2d2d752aeac9..ad7128629e56 100644
+--- a/drivers/hwmon/lm75.c
++++ b/drivers/hwmon/lm75.c
+@@ -39,6 +39,7 @@ enum lm75_type {		/* keep sorted in alphabetical order */
+ 	max6626,
+ 	max31725,
+ 	mcp980x,
++	nct7715,
+ 	p3t1750,
+ 	p3t1755,
+ 	pct2075,
+@@ -107,6 +108,15 @@ static const unsigned short normal_i2c[] = { 0x48, 0x49, 0x4a, 0x4b, 0x4c,
+ #define LM75_REG_MAX		0x03
+ #define PCT2075_REG_IDLE	0x04
+ 
++#define NCT7715_CONFIG_RESOLUTION_12_BIT	GENMASK(6, 5)
++#define NCT7715_CONFIG_SHUTDOWN			BIT(0)
++#define NCT7715_CONFIG_CONVERSION_RATE_MASK	GENMASK(15, 14)
++#define NCT7715_CONFIG_EXTENDED_MODE		BIT(12)
++#define NCT7715_CONFIG_RATE_0_25HZ		0
++#define NCT7715_CONFIG_RATE_1HZ			BIT(14)
++#define NCT7715_CONFIG_RATE_4HZ			BIT(15)
++#define NCT7715_CONFIG_RATE_8HZ			GENMASK(15, 14)
++
+ struct lm75_data {
+ 	const char *label;
+ 	struct regmap			*regmap;
+@@ -122,6 +132,10 @@ struct lm75_data {
+ /*-----------------------------------------------------------------------*/
+ 
+ static const u8 lm75_sample_set_masks[] = { 0 << 5, 1 << 5, 2 << 5, 3 << 5 };
++static const u16 nct7715_sample_set_masks[] = {
++	NCT7715_CONFIG_RATE_8HZ, NCT7715_CONFIG_RATE_4HZ,
++	NCT7715_CONFIG_RATE_1HZ, NCT7715_CONFIG_RATE_0_25HZ
++};
+ 
+ #define LM75_ALERT_POLARITY_HIGH_8_BIT	(BIT(2))
+ #define LM75_ALERT_POLARITY_HIGH_16_BIT	(BIT(2) << 8)
+@@ -259,6 +273,15 @@ static const struct lm75_params device_params[] = {
+ 		.sample_times = (unsigned int []){ 30, 60, 120, 240 },
+ 		.resolutions = (u8 []) {9, 10, 11, 12 },
+ 	},
++	[nct7715] = {
++		.config_reg_16bits = true,
++		.set_mask = NCT7715_CONFIG_RESOLUTION_12_BIT,
++		.clr_mask = NCT7715_CONFIG_EXTENDED_MODE,
++		.default_resolution = 12,
++		.default_sample_time = 250,
++		.num_sample_times = 4,
++		.sample_times = (unsigned int []){ 125, 250, 1000, 4000 },
++	},
+ 	[tmp100] = {
+ 		.set_mask = 3 << 5,	/* 12-bit mode */
+ 		.clr_mask = 1 << 7,	/* not one-shot mode */
+@@ -354,6 +377,11 @@ static inline long lm75_reg_to_mc(s16 temp, u8 resolution)
+ static inline int lm75_write_config(struct lm75_data *data, u16 set_mask,
+ 				    u16 clr_mask)
+ {
++	if (data->kind == nct7715)
++		return regmap_update_bits(data->regmap, LM75_REG_CONF,
++					  clr_mask | set_mask | NCT7715_CONFIG_SHUTDOWN,
++					  set_mask);
++
+ 	return regmap_update_bits(data->regmap, LM75_REG_CONF,
+ 				  clr_mask | set_mask | LM75_SHUTDOWN, set_mask);
+ }
+@@ -486,6 +514,13 @@ static int lm75_update_interval(struct device *dev, long val)
+ 		if (data->params->resolutions)
+ 			data->resolution = data->params->resolutions[index];
+ 		break;
++	case nct7715:
++		err = lm75_write_config(data, nct7715_sample_set_masks[index],
++					NCT7715_CONFIG_CONVERSION_RATE_MASK);
++		if (err)
++			return err;
++		data->sample_time = data->params->sample_times[index];
++		break;
+ 	case tmp112:
+ 	case as6200:
+ 		err = regmap_update_bits(data->regmap, LM75_REG_CONF,
+@@ -770,7 +805,7 @@ static int lm75_generic_probe(struct device *dev, const char *name,
+ 	data->orig_conf = status;
+ 
+ 	/* Enforce polarity active-low (default) or active-high (devicetree) */
+-	if (!data->params->config_reg_16bits)
++	if (!data->params->config_reg_16bits || data->kind == nct7715)
+ 		pol_mask = LM75_ALERT_POLARITY_HIGH_8_BIT;
+ 	else
+ 		pol_mask = LM75_ALERT_POLARITY_HIGH_16_BIT;
+@@ -848,6 +883,7 @@ static const struct i2c_device_id lm75_i2c_ids[] = {
+ 	{ .name = "max31725", .driver_data = max31725 },
+ 	{ .name = "max31726", .driver_data = max31725 },
+ 	{ .name = "mcp980x", .driver_data = mcp980x },
++	{ .name = "nct7715", .driver_data = nct7715 },
+ 	{ .name = "p3t1750", .driver_data = p3t1750 },
+ 	{ .name = "p3t1755", .driver_data = p3t1755 },
+ 	{ .name = "pct2075", .driver_data = pct2075 },
+@@ -972,6 +1008,10 @@ static const struct of_device_id lm75_of_match[] = {
+ 		.compatible = "nxp,pct2075",
+ 		.data = (void *)pct2075
+ 	},
++	{
++		.compatible = "nuvoton,nct7715",
++		.data = (void *)nct7715
++	},
+ 	{
+ 		.compatible = "st,stds75",
+ 		.data = (void *)stds75
+@@ -1129,13 +1169,21 @@ static int lm75_suspend(struct device *dev)
+ {
+ 	struct lm75_data *data = dev_get_drvdata(dev);
+ 
+-	return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTDOWN, LM75_SHUTDOWN);
++	if (data->kind == nct7715)
++		return regmap_update_bits(data->regmap, LM75_REG_CONF,
++					  NCT7715_CONFIG_SHUTDOWN,
++					  NCT7715_CONFIG_SHUTDOWN);
++	return regmap_update_bits(data->regmap, LM75_REG_CONF,
++				  LM75_SHUTDOWN, LM75_SHUTDOWN);
+ }
+ 
+ static int lm75_resume(struct device *dev)
+ {
+ 	struct lm75_data *data = dev_get_drvdata(dev);
+ 
++	if (data->kind == nct7715)
++		return regmap_update_bits(data->regmap, LM75_REG_CONF,
++					  NCT7715_CONFIG_SHUTDOWN, 0);
+ 	return regmap_update_bits(data->regmap, LM75_REG_CONF, LM75_SHUTDOWN, 0);
+ }
+ 
+-- 
+2.43.0
+
