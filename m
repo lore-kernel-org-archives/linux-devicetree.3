@@ -1,79 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF026450415
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:41:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78FE1450415;
+	Fri, 11 Sep 2026 07:42:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.184
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112487; cv=none; b=kk6Pj0eLsMNQ3hCJ70T7jVflxIZWNDxwvrwIxXSoBhNnkyM8OoDT/prSitQDprDNo74z9ORjXM5tDD/kjiaVmMOQG7kSkHIQ86vb8UFXEQmki3+hsrF14OW1rEPF6ISyqWNO2qyzbslC7gY1SU7hmZgEJZMq6GbB0L+k6kp71f0=
+	t=1789112547; cv=none; b=PtOBF6J8GKdmNHgWWdvzBYb+LK94bIM4Q8xJr8LvQ3YdhoQkzcTjN15zbE2nHGG5A2oxecYtfOVvbfP3A25Qit9xJhoFtjTqh8vZxlBEakWDbpeRS0ETF7y2FEbW6Wlgcy0zqYcuX6F+FC4+0jCqFCrkzM311q8HNmfIXw4DsfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112487; c=relaxed/simple;
-	bh=NO/OF5kdS6j1QF4/t6fTKO7uogCt4Zulz2Ll0FAdBeA=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gdwIdGuRkHAzog+aA5H+D7C3677fulS9q+jz6lFY5gQUIC87005lu6Zi7CuSkGkW8/jXr4LQ3H4NhYYr8tslz2ePgEEAF12Cf5ytec/cGK+tH/w514E8e3SoTqo1U7y0OVN0jTnUuASYCjmuUBWe6K9nrP0UNTF0W9tyaXfhJIg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5yIk1ZK; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5yIk1ZK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726DD1F0089D
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:41:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789112484;
-	bh=NO/OF5kdS6j1QF4/t6fTKO7uogCt4Zulz2Ll0FAdBeA=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=c5yIk1ZKQWrpT7q3tlD/FHemkJLrK2xQ6VBo/ec4kFurOeSlrzrTxfPO9eqAuR+Hl
-	 qK2A3lc5zvC/nELRwZQcTHViahP4SPrAd6jIsZOWamLOVQnit8A0TCiujvmEWRlgEw
-	 bi7UHpBk5QzSxUmZKfKdpQ/ivmaMi3ZM1elnqQPNoFSbOjkEMpxh4az/JVv5J9okjs
-	 ziPVt5QiBzjT9EdjLvKOl9+IzhkL4yzdF/eA/FSxxvQQcmyTDOqSPtgIDl7spjDnnm
-	 y01QdJ1ZQK+q+0gHE63FaXd16MAPmlFTQYv2UZisMsPW/owRW4sxdg5aDqutEQjetk
-	 uh2kpWsJt4Zyg==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a3156692c6so3953741fa.3
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:41:24 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy5bwN1qry0bEa7jEFmcQuy6lwUJxu++FWVYC6JGWPWLKD7zVBDwcNDOOs/Q/FHAHJEs43ZAgr043Yh@vger.kernel.org
-X-Gm-Message-State: AFuF++nBp82Yo6DyGyJPYWci9sm95mLqJAk8DqvD/WoEghZ3/ZRN3zZ4
-	CFSlTe4vxKdR/vLefc+G4yxHAdtAwW3+tWbqXKSxsiyBkznIZX2K2ERs3DSb54nMZE3lxeP5EzO
-	VJkAk4tFTnNc+QPjFWlK+Aqjp9yOK2bRv5orrqyxkYQ==
-X-Received: by 2002:a05:651c:31c6:b0:3a4:8913:a259 with SMTP id
- 38308e7fff4ca-3a5a52919e6mr2819641fa.29.1789112482986; Fri, 11 Sep 2026
- 00:41:22 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:41:20 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:41:20 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260910-ad7768-driver-v7-16-7f70b07627e1@analog.com>
+	s=arc-20240116; t=1789112547; c=relaxed/simple;
+	bh=BMkgbPKviKHC4rd29McGJoIAKL4ZtGWMSuVQcHUw27I=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=X9EKQh/c+soYs3ejAms/J7JW08ogfF9cyEoev41aTmVfqB1vkWoXbEAQXFm5BUrwJfsogffXd80I8+8e781Huk3+IlgFpErPeNrY8gKBIEhY5vfi+XGMLeWvxeigEMT2WtKKu2ztAFau4TdRLgbBDlLk3zC5IkE9/+32GAVwCII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.184
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from Atcsqr.andestech.com (localhost [127.0.0.2] (may be forged))
+	by Atcsqr.andestech.com with ESMTP id 68B7PxDH008840;
+	Fri, 11 Sep 2026 15:25:59 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from mail.andestech.com (atcpcs53.andestech.com [10.0.1.153])
+	by Atcsqr.andestech.com with ESMTPS id 68B7PY1v008516
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Fri, 11 Sep 2026 15:25:34 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs53.andestech.com
+ (10.0.1.153) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Fri, 11 Sep
+ 2026 15:25:34 +0800
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Fri, 11 Sep
+ 2026 15:25:33 +0800
+From: CL Wang <cl634@andestech.com>
+To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+CC: Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A .
+ R . Silva" <gustavoars@kernel.org>,
+        <tim609@andestech.com>, <cl634@andestech.com>,
+        <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH v6 0/2] dmaengine: atcdmac300: Add Andes ATCDMAC300 DMA driver
+Date: Fri, 11 Sep 2026 15:25:22 +0800
+Message-ID: <20260911072524.1297406-1-cl634@andestech.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com> <20260910-ad7768-driver-v7-16-7f70b07627e1@analog.com>
-Date: Fri, 11 Sep 2026 00:41:20 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mei5ZrOcW3B0mGw1woX3ws+q6t1jzR+Pv6_dKKRo7ZOvA@mail.gmail.com>
-X-Gm-Features: AcwNN1W5R2PpX2POIWzVZ_dgShbvNnsPO4gL5fI0M7B8ZSyCOdNjEzti7afKFRU
-Message-ID: <CAMRc=Mei5ZrOcW3B0mGw1woX3ws+q6t1jzR+Pv6_dKKRo7ZOvA@mail.gmail.com>
-Subject: Re: [PATCH v7 16/17] iio: adc: ad7768: Register GPIO auxiliary device
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
-	Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>, 
-	Randy Dunlap <rdunlap@infradead.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs53.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 68B7PxDH008840
 
-On Thu, 10 Sep 2026 19:36:34 +0200, Janani Sunil <janani.sunil@analog.com> said:
-> Register an auxiliary device when the AD7768 is described as a GPIO
-> controller. This allows the GPIO driver to share the parent regmap and
-> runtime power-management state.
->
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> ---
+This patch series adds support for the Andes ATCDMAC300 DMA controller,
+a memory-to-memory and peripheral DMA controller that provides
+scatter-gather, cyclic, and slave transfer capabilities.
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+The ATCDMAC300 IP is embedded in AndesCore-based platforms or SoCs
+such as AE350 and Qilai.
+
+Changes in v6:
+  - Rebase onto dmaengine/next; no functional changes from v5
+  - Fold the MAINTAINERS entry into the driver patch instead of carrying
+    it as a separate patch (series is now 2 patches)
+
+Changes in v5:
+  - Update copyright year to 2026
+  - Remove redundant headers (init.h, iopoll.h, mod_devicetable.h)
+  - Move atcdmac_init_iocp() before of_dma_controller_register() in probe
+  - Change builtin_platform_driver() to module_platform_driver()
+  - Implement .remove callback to support safe module unloading
+  - Update Kconfig entry from bool to tristate
+  - Add MODULE_AUTHOR, MODULE_DESCRIPTION, MODULE_LICENSE macros
+
+Changes in v4:
+  - Use items list format with descriptions for reg property in DT binding
+    as suggested by Conor Dooley
+  - Re-add Acked-by from Conor Dooley for DT binding patch
+
+Changes in v3:
+  - Rename DT binding file from andestech,qilai-dma.yaml to
+    andestech,ae350-dma.yaml
+  - Deprecate IP-core-based compatible usage and align with
+    SoC/platform-based strings
+  - Dropped Acked-by from Conor Dooley due to the above binding change
+  - Remove "andestech,atcdmac300" from of_device_id table
+  - Replace deprecated tasklet with threaded IRQ using
+    devm_request_threaded_irq() and IRQF_ONESHOT
+  - Update locking from spin_lock_bh() to spin_lock_irqsave()
+  - Use builtin_platform_driver() instead of module_platform_driver()
+  - Remove "select DMATEST" from Kconfig
+  - Add separate MAINTAINERS patch (patch 3/3)
+
+Please kindly review.
+
+CL Wang (2):
+  dt-bindings: dmaengine: Add support for ATCDMAC300 DMA engine
+  dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+
+ .../bindings/dma/andestech,ae350-dma.yaml     |   67 +
+ MAINTAINERS                                   |    6 +
+ drivers/dma/Kconfig                           |   11 +
+ drivers/dma/Makefile                          |    1 +
+ drivers/dma/atcdmac300.c                      | 1518 +++++++++++++++++
+ drivers/dma/atcdmac300.h                      |  296 ++++
+ 6 files changed, 1899 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+ create mode 100644 drivers/dma/atcdmac300.c
+ create mode 100644 drivers/dma/atcdmac300.h
+
+-- 
+2.34.1
+
