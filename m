@@ -1,182 +1,166 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D403F4DE6
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 12:10:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128618; cv=pass; b=lEDRNO4dOTMfABG6TfLw7852CNmOE1fzjI0DDwisjXK7hmOdNmfBn8wb8EHQk1vE4Ov1KA7f0cYY6devYV1tSDXyPzxYRMN/xveZjI693fGO+sTqpoYrfO+cIYEXLpdoGIiBHgiA5y8tRhwzYzoaQ224NRGVdOpvVQsKEnuzYOQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128618; c=relaxed/simple;
-	bh=s2doigL40MavgJYYi+6feoNcgx2hlI7yC6v15ZMkMkU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CluslAxh9AqjM4kVrtOj6TRm4POZ7MOPjK1ZWdUdHqJBzKQHw6uehwo7tMns8+qtv6dH22TguwWj451tRTNHrQUjE7J2IKhINlwetvVGzsHHqlGaPIxDFBYBxF698EDGcpp3PwS9uHYdzUH/H+oFIVWgfwvny5ZCyZsmOq0CjhI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UJnITs4I; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90C8377AA8;
+	Fri, 11 Sep 2026 12:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789128685; cv=none; b=fjpooV4DiKggIAPVPm2aqwWyT6F54KzqSLSsZ4auNeH/fwzfaaxWVVSOgUtSF+5nzexnupzCfQmEqZW8jWlxKFkcPF76+Dz9zXgxa79jftsKXOluU2YU5W95i1LV1oq8U4jN0VEoZn7NNRAcLuFR/t9sLChlPguxdr+GvIad/pI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789128685; c=relaxed/simple;
+	bh=qWvAj6q9qff1XmQhQodWtBa490kcfZfg8aWpElwKVg8=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=r/VcBwQb7UmDWvj2Ll48gEV4CcYgCqTE9mrCRSWhxwnJXW3+R6NzY4ljwQ8UE38p3ESL/sTSk4eReHm+27XdDrTzA8+Xn/j/C6QrDoiiAaZQZZRkxhYJQKTBndX99po1H9uA2vWDy5jnMJZSMwBI8G9suAY8tiP5TMUYrrsX5Lg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=jtAVBmD8; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UJnITs4I"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso12813265e9.2
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 05:10:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789128614; cv=none;
-        d=google.com; s=arc-20260327;
-        b=c6PYXnupkV7eQzcA6gYwpkpawgBVNkenPbAhU05lXNZm4j6VdCFH64ySa7lz1y4N7D
-         9dtoMIxN2CHXEV4V+O53bDp5zAZSefZN6N/kMyFyKDm3zrwkvuNA+ujWlPu3JgCf0wGL
-         YflNIkLdTaPL3GOrSWffJIiin3e0LA4GxNNEeMq34E7oQL/ma38+KWoMeCOprx56A3KN
-         Nt+oQlzL0JW96CBXP9a7S4H3WHJ/KpIGO39jiQdfLLckG6TwFtRKNL5U9aZkEvyR9NDr
-         /0bKOuRZiUyRy8wz6gDgMCkuaHjUgh06W+vIhUwktgZf+CoXyTVpS2WjQ9WxToBTKXUV
-         l+qQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=s3J8UlCAdANDfuXwyK75WO7Z8Tmd6ahY31LeseAlh3w=;
-        fh=pkPpsUj+qcNKdaTb9hj0oHiIqRW6l/+sn0XS0Q43m/0=;
-        b=RP9bLAhqu8YCDHshs2C8A1/5fYAGZXDOKHkeBhJG69mmj+KHLz+rjOuEkI2PpCXJZM
-         V5CVOlxHKamfemKDDNQHXeUBMmz4i9v4aP4xprPpIIQYUUqZnovreqTYJ7fvcYZFxunp
-         qrqe8ROcM7XJkI/TQGcS9GjgP+Ut61Ba2NRip3MpV2GBHtq0CIPmGQqzcnPRmlASwOEW
-         g3pBLIhQgCgpsmVjwFoZQGpHyfXssGqdhGXvffFXpgM4XD13sMYZ67wyMfiVRbEqvJL3
-         6WVENcWL54fMMVZnUTp21+L/9gqxdw1YWPpVTmtROwag4bZt+NnfaEjkYlipPZY2oyEU
-         nuiA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789128614; x=1789733414; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=s3J8UlCAdANDfuXwyK75WO7Z8Tmd6ahY31LeseAlh3w=;
-        b=UJnITs4IWqEYDrj2zmCXCQ9ra2nHSN0SEipTyEWmaag3pjKibnEWj/gft1gkd0nF2Y
-         qFOLDzFZ1SpnYGjxkHbWZO0Fvhh0k2/+TDGce9eiT/L7OkSFnXfoXPFCZFSz/mv2dm2h
-         1caNsLn/NvCFT2Ue+lYIBGdC8b9vuhOWxXmXAQeYXjEdcRzUW7fA5FGJqQPXCDYppITy
-         hPlJod6PbPG4DDizHOD6lit9aACK8bBfe8InWZu/D48PystHHco5vhUmRJdkdu2Q2I5R
-         fk+ppuLwO4J3AbXFqb8WXmvCUwDDH0tlCeMzMg3SFt/vi5S5ZWSrSjd/26W0XPWHq7hO
-         JMbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128614; x=1789733414;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=s3J8UlCAdANDfuXwyK75WO7Z8Tmd6ahY31LeseAlh3w=;
-        b=GUeAnh3mm2YovWbGS8RS5K+fhFQfyiEnJ+wMzaxXNtdvpkUuJxeSsafbwdFyfpZa7r
-         A+FLHfvgRkdOOInCgOiPnd8sh6c0GReuxMQpV4STxqTtFksJ8dx1sHNlvdFXIdmbC4Zr
-         YX4I2fzJlxZygYpGp5BZEPlOVdp0TDRq17sq5G9wu7dZAz95qdXnoIy2qzHK+XOKXVSr
-         5y+VUZ8OOg2iUgkTrYiy2HAwI7df2TklOQQaqURLW5FWoI9nB/phji54pAts6VPwvINc
-         o5cfqd+aBzXuYTbmh0gkr0IAfu4FmkTpLcott/22DsGLLewjjiQIlA0Rz61jPHeq34cq
-         TVgg==
-X-Forwarded-Encrypted: i=1; AKwUvBzOEZYSpPpptIkgmLcc9NSw2XgvyVPyMTHkQ/6g2Jntq/igvpg89QytWGhw60noPA0iPMelOkh7Y7yo@vger.kernel.org
-X-Gm-Message-State: AFuF++nPWl75EDtNl52UQiA++3a4WOc/PjFXgX+90chERI3mbwpUHQYE
-	W0E2RnvtUkPKlXWvacIQVuh0d93E684yTM1/IONDTj5v8pzkLDn6lqiPPuKnu0X/XfAjQOS1E5C
-	VDtg3J8sGumRyHUygnKF6rTigC+qxwaw=
-X-Gm-Gg: AYBFou3+5KRYFK1lB//fKUKZgLcJJGjjkF9SDzhT+qSojHnK+Ng8m1Ps7JHE2bm1r/D
-	DaurUkiIt7CCrkGZexFj/dkn4bptUr0xNcaje8/5mbuxmYpVrLgbQ+Jdmr196xTZt96nmenERHR
-	yA0fv/Ngmf/o0icyCU6rqPJ1sR8Ecd1GCEioO22NpwvzmB1qB9VDiQcMZ5C/0EnFLMZHF0K/ilF
-	GgMEMEVrZbSevWi04Or9hbK4JKmIw9c/atro+eGdkOySc20Abtk0Mazz4/N8uQ0eZ8s1Ktj4fpi
-	ZTvJ3T9EKYhflRWU/c+TtkAiXCABWoVcRW9ebSw5vH+IwV/6ux4MG8GSFIkpFgYbwye5oM7dR+b
-	qPijIht/6JpuZBhLgnRE7NpmkY4WNXgoL26inb++lEKvgkFmjIA1Sddivigz19ciCdlJuDavw3w
-	==
-X-Received: by 2002:a05:600c:3ba2:b0:49d:99:1d98 with SMTP id
- 5b1f17b1804b1-49e619881e3mr56892275e9.9.1789128614171; Fri, 11 Sep 2026
- 05:10:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="jtAVBmD8"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87FD6A8F56;
+	Fri, 11 Sep 2026 14:11:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789128680; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=q+wUGVC84NcfVhc1UyBgX5sHnxJ8szuBZMCoF16InyM=;
+	b=jtAVBmD8siFhUXI+RrN57Qg6ElzrMbhxWmTemCn17cTimDy9qiBfCHtH/dwFMYJApeq9mF
+	Hxe8PFsKjhhfV5DD1Niao2ZNrYsP+x61nnKMrRVvzavrmAJPpwOXOdZZfFF5UsBYzsJJh0
+	W79oI6dmlGzrG1wye5l+062wmTaPol60QkDeKtRMO9yFz8NHEA67sWFDeB0zoVJsBT/DPU
+	0CDS5htywcXHOwFBZS0dpQvboEfVheU5AbYuBKdE5ywOtiGQFsFmQ18jj6UFKkn1UuThMD
+	eb5eK7LBPElB5J7baBgLiTqiB2bB00w1O306WRn32VPhRUonk10Ie9OzIzfu+A==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260911111731.3404308-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260911113322.F03531F000FF@smtp.kernel.org>
-In-Reply-To: <20260911113322.F03531F000FF@smtp.kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 11 Sep 2026 13:09:47 +0100
-X-Gm-Features: AcwNN1X3EMrEnABSXEIebhNF9fcbF1O099DZU69vOon2jNzLHf0JqRb5x3-yA24
-Message-ID: <CA+V-a8uJLn1N5+ThxH4c67gO76ksuJeMFroDf-WHM_4QLuqt-A@mail.gmail.com>
-Subject: Re: [PATCH v5 8/8] arm64: dts: renesas: r9a09g087: Use CPG/MSSR
- syscon for WDTDCR access
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, conor+dt@kernel.org, 
-	wsa+renesas@sang-engineering.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 14:11:18 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, Simon Horman
+ <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v12 3/4] net: dsa: microchip: Support Microchip
+ KSZ8995XA / KS8995XA
+In-Reply-To: <20260911-ks8995-to-ksz8-v12-3-5c3422d0d72e@kernel.org>
+References: <20260911-ks8995-to-ksz8-v12-0-5c3422d0d72e@kernel.org>
+ <20260911-ks8995-to-ksz8-v12-3-5c3422d0d72e@kernel.org>
+Message-ID: <6fdac2ceffe33e0ee02b8a6768bf7492@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Sashiko,
+Hi Linus
 
-On Fri, Sep 11, 2026 at 12:33=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] Watchdog probe failure due to missing syscon compatible string i=
-n CPG/MSSR node and invalid physical memory bounds for the disjoint second =
-register region.
-> --
->
-> commit 026369134b14659a11e1791a537a1142aec5c877
-> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
->
-> This commit replaces the direct mapping of WDTDCR registers for watchdogs=
- with
-> a renesas,sysc phandle to the CPG/MSSR node. It updates wdt0-wdt5 to remo=
-ve
-> the second register region and use the syscon interface instead.
->
-> > diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/bo=
-ot/dts/renesas/r9a09g087.dtsi
-> > index e8d4f76949ccb..40ffe56a40353 100644
-> > --- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> > +++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> > @@ -327,61 +327,61 @@ channel1 {
-> >
-> >               wdt0: watchdog@80082000 {
-> >                       compatible =3D "renesas,r9a09g087-wdt", "renesas,=
-r9a09g077-wdt";
-> > -                     reg =3D <0 0x80082000 0 0x400>,
-> > -                           <0 0x81295100 0 0x04>;
-> > +                     reg =3D <0 0x80082000 0 0x400>;
->
-> [Severity: High]
-> Does this change cause a silent mismatch with the actual hardware topolog=
-y?
->
-> Generic syscons map only the first contiguous reg block. The driver compu=
-tes
-> the WDTDCR offset as 0x15100. Since the first CPG block mapped is typical=
-ly
-> 0x80280000 with size 0x10000, accessing 0x15100 either fails the regmap b=
-ounds
-> check or mistakenly accesses 0x80295100 instead of the previously configu=
-red
-> 0x81295100 located in the second CPG block.
->
-The syscon is registered in the CPG driver and the reported issue is a
-false positive.
+On 11.9.2026 11:09, Linus Walleij wrote:
+> This adds support for the Microchip KSZ8995XA also known as the
+> Micrel KS8995XA switch to the KSZ driver.
+> 
+> The KSZ8995XA shares family ID 0x95 and chip-ID nibble 0x0 with
+> the KS8995MA, so hardware detection cannot distinguish them. The
+> legacy "micrel,ks8995" compatible is therefore treated as KSZ8995XA.
+> No KS8995MA users are known, and KS8995E has no documented SPI
+> management interface. Neither MA nor E has been verified with this
+> driver.
+> 
+> The helper macros are named ksz_is_ksz8995xa() to make it
+> possible to add E and MA support in the future.
+> 
+> Wait for the self-clearing per-port PHY reset bits before continuing
+> with switch setup. Poll each port for up to 600 ms and allow an
+> additional millisecond for the PHYs to settle.
+> 
+> The KSZ8995XA has eight global TOS priority registers with one
+> bit per DSCP code point, providing two internal priority levels.
+> The registers are ordered in the opposite direction from the
+> other KSZ8 switches. Describe the two priorities in the chip
+> data, then augment the DCB helpers for this.
+> 
+> Practical testing also shows that its packet-size control bits use
+> the same semantics as the other KSZ8 switches. The polarity in the
+> manual appears to be wrong and makes the switch hang on big packets.
+> 
+> The legacy KS8995 driver also matches the Micrel compatibles for
+> KSZ8864 and KSZ8795. Add these to the KSZ SPI driver here and use
+> an exact tristate dependency to make the drivers mutually exclusive.
+> This transfers ownership atomically, avoiding module probe races and
+> gaps in driver coverage between patches.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
+> ---
 
-> >                       clocks =3D <&cpg CPG_CORE R9A09G087_CLK_PCLKL>;
-> >                       clock-names =3D "pclk";
-> >                       power-domains =3D <&cpg>;
-> > +                     renesas,sysc =3D <&cpg 0>;
->
-> [Severity: High]
-> Will the watchdog driver probe fail indefinitely here?
->
-> When the rzv2h_wdt driver uses syscon_regmap_lookup_by_phandle_args() to =
-parse
-> this renesas,sysc phandle, it evaluates syscon_node_to_regmap() on the cp=
-g
-> node.
->
-> Because the cpg node in r9a09g087.dtsi lacks the syscon compatible string=
-,
-> and the renesas-cpg-mssr driver doesn't register a custom regmap (e.g., v=
-ia
-> of_syscon_register_regmap()), the lookup fails and returns
-> ERR_PTR(-EPROBE_DEFER). This prevents the watchdog hardware from function=
-ing.
->
-The syscon is registered in the CPG driver and the issue reported is a
-false positive.
+> [...]
 
-Cheers,
-Prabhakar
+> diff --git a/drivers/net/dsa/microchip/ksz8.c 
+> b/drivers/net/dsa/microchip/ksz8.c
+> index 941ae9f66f70..4acce01ca063 100644
+> --- a/drivers/net/dsa/microchip/ksz8.c
+> +++ b/drivers/net/dsa/microchip/ksz8.c
+
+> [...]
+
+> 
+> +/*
+> + * Restricted operations for KSZ8995XA, so many things are not 
+> supported
+> + * by this old switch that we need diet DSA operations.
+> + */
+> +const struct dsa_switch_ops ksz8995xa_switch_ops = {
+> +	.get_tag_protocol	= ksz8995xa_get_tag_protocol,
+> +	.setup			= ksz8_setup,
+> +	.teardown		= ksz_teardown,
+> +	.phy_read		= ksz8_phy_read16,
+> +	.phy_write		= ksz8_phy_write16,
+> +	.phylink_get_caps	= ksz8_phylink_get_caps,
+> +	.port_setup		= ksz8_dsa_port_setup,
+> +	.port_bridge_join	= ksz_port_bridge_join,
+> +	.port_bridge_leave	= ksz_port_bridge_leave,
+> +	.port_set_mac_address	= ksz_port_set_mac_address,
+> +	.port_stp_state_set	= ksz_port_stp_state_set,
+> +	.port_pre_bridge_flags	= ksz_port_pre_bridge_flags,
+> +	.port_bridge_flags	= ksz_port_bridge_flags,
+> +	.port_fast_age		= ksz8_flush_dyn_mac_table,
+
+
+KSZ8995XA datasheet [1] (table 4-2) states fast-age enable as reg 0x03 
+bit 1,
+but ksz8_flush_dyn_mac_table() sets reg 0x02 bit 5. It needs an override
+similar to the existing one for KSZ8463, but accounting for XA's 800 us
+ageing time.
+
+> +	.port_mirror_add	= ksz8_port_mirror_add,
+> +	.port_mirror_del	= ksz8_port_mirror_del,
+> +	.port_change_mtu	= ksz8995xa_change_mtu,
+> +	.port_max_mtu		= ksz88xx_max_mtu,
+> +	.port_get_default_prio	= ksz_port_get_default_prio,
+> +	.port_set_default_prio	= ksz_port_set_default_prio,
+> +	.port_get_dscp_prio	= ksz_port_get_dscp_prio,
+> +	.port_add_dscp_prio	= ksz_port_add_dscp_prio,
+> +	.port_del_dscp_prio	= ksz_port_del_dscp_prio,
+> +	.port_get_apptrust	= ksz_port_get_apptrust,
+> +	.port_set_apptrust	= ksz_port_set_apptrust,
+
+If I read the datasheet correctly, PCP and DSCP priorities are or-ed,
+but ksz_port_set_apptrust() accepts both to be set (with PCP taking 
+precedence).
+Not sure if this would break anything though ...
+
+The other things look fine to me.
+
+> +};
+> +
+
+> [...]
+
+[1] 
+https://ww1.microchip.com/downloads/en/DeviceDoc/KSZ8995XA-Integrated-5-Port-10-100-QoS-Switch-DS00003677A.pdf
+
+Thanks,
+Nicolai
