@@ -1,232 +1,169 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011039.outbound.protection.outlook.com [52.101.65.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0E423B635C;
-	Fri, 11 Sep 2026 21:09:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789160988; cv=fail; b=aX6xt9yK7iIngeLYDdqb5Kb8esrCq+UQMbsKnZSC/igQMtMXHVcAe9NGSoOt7vTMZPGbzQO1irhbIarTmNSS0GALnN4IMOEAXJ2EM77u4h11MoD7hblHdy+PiMYLwCD84YAPlIevZZ2VZkZm5Uy//4nFgZagMkGD3XMl2sICVVE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789160988; c=relaxed/simple;
-	bh=4oIO8u/CXUN+sFy9VqDnA7SBcF6+DZKzknyoR2JrLxU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=EbCc92bhdx8RhFOcF5vLa39NTiyO5W7vN1SFTdHbly1H7hlUEMW6LM3P0DNmjYpV7geOWFmqCYxTNsQbpPaRT8pwL2YAaFdsWChOENXdnXJcaBSYpbOQW0KmYG8y9zNCofISch8ymj83PjEovcv1ywa+GyUaSfJD5Du7Tr11T5k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=XEKyvV2b; arc=fail smtp.client-ip=52.101.65.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A67A48640D
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 21:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789161677; cv=none; b=hmwGoQ9T7EqYfnOSagMbOxsXIB91OttRAqcdvgoM+iATFQxc/9Z38Vd+WLh+JlNBwuZ8veVcTY5zsuFBSGW8Y/nT4fRfBoFGqyVRFMfZtZEQryGkY/H+O4N43fZqN2mn0uEEAh3FlHFnFxS7Tm+2dYNFQeArCpS9iC+j4ZCSSZs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789161677; c=relaxed/simple;
+	bh=c21PgPKHOIxP9rG11c7WqJwD7hUOwv0oDlYhmLHwZRo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kDTMonnpKja2JVLLhWJZ9PdE4mfDV3M1Q4v+kcPUjBYl/vFotLbL8AnXXOXDtM61vrNKd+gFZrGeVsrigtEHqK8mJ0mQYSpb43O34sdzzjI1PwLoppfxic4Bep/3Ep0FU0fynFQqLfWnNv82EPUlBRMjoNfCGNSpXdaypU3ZFuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FSY4dmaP; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="XEKyvV2b"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YgFriERYVLvc05lNvNBgqzut/xOy37iBeqgCEuQ5JpjnAFCiv3Uk0qAJffBFqUevYi4CqifZB6UDJYXcik2mGjJ5AVJeiEFacjeq7UEkzOXcQumu3jZdRNhDwSQyFw14iKOgAYQzq1Mi/gdr7qPYQHyO7rKTQEQ0CZg4wXL5vMK2pDuZ5085fyBGAaT5YWa9BjesjGoDvRDr8ymRSrlztPEts6sM3jOWxLDQqGhsRfWPhCb+BcUxKN7eGWaDYqaNpbPnK+KecSFaTmh9NBnSx0wEcIEyV/H3++YJfI+P4LkMcYqsNOJ8R1ernJpvfo6UucI3Sq2ODbLDY3/Ypg3Cjg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=VfLkcYfM7u5aEuWbCbfkAYsUun/5v0qdzreRhQJ17W4=;
- b=nRHayyRjbk9kEVQ6tgreB9o8YlqPaHOyWPy3q7kxCLwPhIU2zlFurN/qwarwGt2J603OWD5wkHS9PXgZXBpgZaOE6OwlNz6f7rwHyx/WtM1mSoPAeYmP/qF7ARWQ52aRldPKhIo7ezyLNGIhSW69qYmvyAZMMFvH9/dRnSi6eudh92zAq/zAPM2LIBOo9Pea+LhjNGOlAWXlgTBvmTPoCN5wZfyDsdOwXgU/ut5fQUmr2hS9ZNP2d8d7jsE7dELI6KXel8Mvi21QgPPPIkoOcfxeKLle6mgWZVx9+aFnms920KKxE9KiClIeXLoHGYzPBs5gfQTVG3fNnoqeFp0ehw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=VfLkcYfM7u5aEuWbCbfkAYsUun/5v0qdzreRhQJ17W4=;
- b=XEKyvV2bX0GlCGh2/3TsNVVrMEr2JFtw+wOU2nPjo16R0z6Gge2rg3V0Ft0hagG9HfQ4XPlmiO4jgB1hPYLh4vdmD914RgziOnFSi6YSH54bBuYXEurU1rbT3d7eYz92W2wNTmObL+dUYMiyUd1auFJRrcMi1a9jsfHHVqbPr+TbMBs2xQ6/8QFZhpQu8HnqPVkXAUuCxvALGn1N3vTQHKa6l66o8+8i15jqIJuLqOZcCMauWNx1mrDuGKNC9yYj2b82Lk7aE3vLli9A3oeE0ZN/9qxATTtrmmU0vMipZZnkxIrcXLxhl/lM42SMGR/Uc3pOsFPuQLFxuk5o8fNXzg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB7617.eurprd04.prod.outlook.com (2603:10a6:20b:286::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 21:09:41 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 21:09:41 +0000
-Date: Fri, 11 Sep 2026 17:09:29 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Todor Tomov <todor.too@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v16 3/5] phy: core: Add devm_phy_get_by_of_node()
-Message-ID: <aqRuCfmgPqa5h0y4@lizhi-Precision-Tower-5810>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-3-f7bd68b5369f@linaro.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-3-f7bd68b5369f@linaro.org>
-X-ClientProxiedBy: PH7P220CA0157.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:510:33b::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FSY4dmaP"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa4c24cso4550466b.2
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 14:21:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1789161673; x=1789766473; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=YtkRxipFDL5icgX3Q2CLk2qBLGJiypsIowMqv9dIrjU=;
+        b=FSY4dmaPq3zayB2/byngQJJhHMDSjqVcprP5isek179cZq54dNfthG0UW0y+8i2pe/
+         QPpSny771G1pmat0i0M5X91kUE1e3RuiOAwmCeq8bcruR+nVJXJUVW5V3egIWmIHRvLU
+         Dc1OX7p2uWIE71g0mNLnGlZTaf/a0gRLW0JnnqT8xpif5JJEzWvoWg5sk4/+QJPi56hd
+         MtEeXQkqn34690CBapAZcSor57APmY8jHT02viNRA7AhlUgsB5uzL2SUz/gQeL+LaKox
+         VBUYqFMf94MTqgeijSOr4u4tSbGiOxK069nVOYuvXmtIeaIVpT5vrDy6NZotBugGO6PH
+         dMfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789161673; x=1789766473;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=YtkRxipFDL5icgX3Q2CLk2qBLGJiypsIowMqv9dIrjU=;
+        b=ZZEibbo6uKH7af6O3bQNiliuwJsFRhmRUWNttjGu5fFhycQopRFq3PwJ8atZnhEhqL
+         LROE8yBLWDxh6HNuv/KKibye0KuboGQxQqbKiq6nsPOdBtgkque8ATbfRDLhS3m5l0BD
+         4HOSOUHUZlm2g5PZVNLfQeG2deQzHTh0wEDbHO7rvgwZmLuCU8xyvH7+DkV38r9CsdKb
+         UN2Zc/rtp0H1Nyp2mHMQjJi4MK/rdj66eC96JKL9IudAJuxhVP98xPmXQh/sLsfE+sWk
+         /wGiMvjYzL0tQzgmMBz7pPI/nSRfblkKRxANVxoJ1+x4GCk5r5mYATHFqKBLv5sB/btr
+         hEPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxWW+OF+mJM4HLtRTMXDN1qDs4uyLVY3pasnWyc3HjGgBPnouPvz/n3Ycu7Lq3jZzM9OmQ3HCwHjuIS@vger.kernel.org
+X-Gm-Message-State: AFuF++myuSeBNO3VqZnweq94twdLuoCDHeLevyTIrux+gPdNhAD+VDdY
+	5QSKkB1AfAxxSpkEQG2pyYAI6mR7zynUEWS2iRM0GdWM7N7uP5S+cMMfj19++5PZpFQ=
+X-Gm-Gg: AYBFou2WO1F/CYxHMmW2cqaUp5Zz4PIbzW7+xlFh+pSA/l+C/K+JwEDKS+gXGynet9e
+	XwROcPOGkuiVYmb7X+gG29sHN3lP5xrxllLQ67H9XUwpkRkcE+Z8a1+g6tMkmkKoBYxGNOhu+U0
+	qaUGzj9imY/l/oZNa62wl66I931X0Xfe2SQPpvCPwSo1UOHofsl/e1HL7zlMyurm707YroEHZtZ
+	dKTEHYzNh1qR/ZzJ8RH3tMQbVhfZUbsDRZLg/AxXTnSWba4vgokt5qP8Z6V4QbsDiWwGwQocWQ5
+	XlLJKBbDzz1y9fhk7mFUF2zst53iXQTb21bBFPpbzyYTMTyDyNK1MVsD40iuiu9rdNurJcEmWXu
+	uEdU+koguyeY4ca68kJXE/TxMiPZsCTsY/bK66J4zeWH38ZtmuILPH1aB5RsMdCqpnZw9lvFV54
+	LGw+nI9wAMoDqYlYZiWbQrU0bGaUE0mZHEpfF8jwhQJwYLeYpZ5QZQc+ItX147xk1RG/gxutfoU
+	oMw7v5Yi8tdhjPsnnk6yz/c8tGGWWLoDUJdIj/owaD2D4sAfz0OixxHlGHr+f0yTyqZ4KK5VBli
+X-Received: by 2002:a17:906:478a:b0:c20:3402:bd35 with SMTP id a640c23a62f3a-c2985736d25mr5788366b.12.1789161673377;
+        Fri, 11 Sep 2026 14:21:13 -0700 (PDT)
+Received: from petegriffin.c.googlers.com (116.118.90.34.bc.googleusercontent.com. [34.90.118.116])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29660234f2sm126375166b.12.2026.09.11.14.21.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 14:21:12 -0700 (PDT)
+From: Peter Griffin <peter.griffin@linaro.org>
+Subject: [PATCH v2 0/2] Add arm-smmu-v3 support for Laguna SMMU silicon
+ erratum workaround
+Date: Fri, 11 Sep 2026 21:21:04 +0000
+Message-Id: <20260911-arm-smmu-v3-instcfg-override-v2-0-5804e4f400b5@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB7617:EE_
-X-MS-Office365-Filtering-Correlation-Id: 984bdb43-be3e-4649-1827-08df1048fee9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|7416014|376014|1800799024|366016|23010399003|4143699003|11063799006|56012099006|10067099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eiSVYMYoKl6jAJ36gHfnbCHShzahgUA7XfiQhvyRnil339Mf0m/ld6CLE1PqUdH0WM/hqF8vZ33si4AqDe5Dn5iQ/EnPONPN4OXKRGB8Qo5xJR4lwQfPRPubF0uZst1X/6d51uoHHi7VFDebhHhPkGkPJbtTFbdKYvHsj0M2RqwPHYJUsH8b1JbzTd7fUMpCLGNksffenvJwgn3/AmctBQuWxdwjMFEQ3elpbmbxGn10JwNi5qlLzpHyL0dE7FWvA2fpMsrBXOMKHHU6AqxOlDvLK9vK3lPti82iM25huatxbtdaqvRwgzkCqSlFgsMsLO8nw3UzOrllZV7bOm+J5CMd0bZ+d+vARr706VHas3vSd1yFR55UnhsM71M/BpuGq9Iokv6b1HroUzOkkeE9B9QuAc+vkL0NJyJPzmMNH/JqU9/d5agFvKwBcefpC0ogP3dLwFW1/WRhKvdww/UCWRjveEy47YBEREgAJ2SPo1q4mHIhnqJW32Tl98RTQL7sPgA3c0pPThQNWgTDq2K4fFFLwOELLh+EkdL6oYJeVn7KXqA8o/HqiDDmU/cC7zGL2AZlRRfN9GzAz7m3gX6JE5wcwL9+EtltUhb3EViiouKGnH7sxafzraMBmWb9/HpjF1G7/+Ghf7mc2GG8UnwO2W9/NClxak9b76aGhNXbIGM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(7416014)(376014)(1800799024)(366016)(23010399003)(4143699003)(11063799006)(56012099006)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?B4Z01PYrcR5Q99tuSy7lQnim8RFg7MVnLMbcjQXb4UT52fXXwBjiRWBLrQbq?=
- =?us-ascii?Q?+4qOoLQhSIuUfBV6uz6pNI890zymA1SsNLelMR3PLkGYwD45NZUl4w9SF6Rb?=
- =?us-ascii?Q?cBgBYL1OwTVXbul1y5ZAVT/1HQH/F9h8urf6neHCBRRmgK0UyEG22qDXzCEI?=
- =?us-ascii?Q?6VgxpO8grbbvxt8LFreZGSZii0fO/O/d1nmjEX0/cz3qNBNKUF4urdYvqTEO?=
- =?us-ascii?Q?IAD2pWQkVVZzE3XkD6zMqAeWfHXsCkwhgnwPswOJhB2luCtuM858to51Lb5J?=
- =?us-ascii?Q?5iiQVHt1shH7Sh/ebU+xDs439iqY/Vqz5QwPIr6cn3CT9nqJJAtaSdwfndix?=
- =?us-ascii?Q?2OrZI6tl2buivwDud6FYGzrfC6CplbmzI+PY1w++yJammhAPOU4O0Ui2Ah5A?=
- =?us-ascii?Q?riarQJSQG2w9fLb/WdYzRk06Pihni/YDmz/7Z5HXI0KRuFNhGK6kKx2n1j/i?=
- =?us-ascii?Q?wM4SM1NiW6a39JkbVWxuSC40ZgGcR05Q2TIdNA/w7UGoyiaJvetVY7yIKKMk?=
- =?us-ascii?Q?6644CFT4mz1O19GZ+4UaB2cTOmizz1jTzfQWsAvacVdQv2MM45az/ENghZl+?=
- =?us-ascii?Q?K6EzyyQmRWPb/r6VQAUNbRmT3WQra3/G0iKaVprr28LlTu/S0Q6oRNY3oNIo?=
- =?us-ascii?Q?c7WsSX9eIUFAu+9Mii6+aA6NLlHi0dBLMeFPfHLMZiDn/foR8sJ6rUm6ETSm?=
- =?us-ascii?Q?bALvrFoppGdD+En6UGIJGefV1+da4LS1H4LWgTgecQQSclJt6gH3j/YIYeQR?=
- =?us-ascii?Q?5DVEPeelz36nbRvlPpSmle6s9MmJcex5qy7sb906CqE47agT7JX50LfLVagx?=
- =?us-ascii?Q?x81KkeH3ZznBNGWIEXOtzkwpOTDmI7qk9x3+aTWlDt6IrHOEJPCaoUYqjEzE?=
- =?us-ascii?Q?gRrKIfsnT241jUaSZr1UvReaLL0FSAhkyxHJYzLFjLU1VoVf8mXjkzpnukhY?=
- =?us-ascii?Q?VyTwkxAYQIEfDshDglViNRhozChpyZvNkN9DyR4yAaPMfz1RedCrZoYpgdrE?=
- =?us-ascii?Q?h/swjUxnw1rK8WIYZNtbVidBSDyXBY7MhG/L6UiLVr/EUAasH3cIw8smc/Zw?=
- =?us-ascii?Q?8viFS2xEsuyVZ+uNvjdVRj6nZr29I/Mbscy+aYMIAvUOrzfNbIhvr+eAkwXR?=
- =?us-ascii?Q?Qv2I0tMU081twcaCMgEzJ+Tz4NvIxOCyc7uZGX7RL29J8c8ihwqe5RhaZlB0?=
- =?us-ascii?Q?ZofIdZR8KdqRvRwh86bqIRY9FX1+rYPiC5T4HjvpfCM3/ds6VNWAN3ZdL9s5?=
- =?us-ascii?Q?dQABJEEPwNl2yMlGYuRBgRsr95t4zPOOKQUvuWYU9fAyMkWQNkNOWJRw+ipc?=
- =?us-ascii?Q?zJPUDHgcNwionc3diKxUU7i8ArwdV2x3PqthGUUdyQ2ylecTgOAZrYauUCfH?=
- =?us-ascii?Q?98vpYQqL/NikXbaBLMlwhP79MQTNkeX6917RnxTALIW6Tmq+qiwx5AOFVMrZ?=
- =?us-ascii?Q?V3Y1BhxQ/0HuDkeLYwlCphmhzBCOLb1uDGF0jn1AYajHU8MoaLXxUTirLlq6?=
- =?us-ascii?Q?khxEhiDsKC9gyuYtP7l9k4T5bMrJ4wL295y0fCrreM7cZa15Jq0yU0uqWTDY?=
- =?us-ascii?Q?aZex/30DPyQxgk8F41Fdf6uw6FyBc913IdcRaIZy3u+GMllfELjWoxrWQLHV?=
- =?us-ascii?Q?xrX7rVRITAjvFU4ZpM3yt4iXhuoDAnTeFIumtvzP8xH1ORKmV+A6nw3VaqhU?=
- =?us-ascii?Q?trjPqHoF3DxMtL9uhn0RjMMOfQkgGGEy+AJsr0idvSnOhaaVcXJjgrkLRUsj?=
- =?us-ascii?Q?kXTwtp1ndVgEf3XdNLfzbdsDbIZRyIzc1fXyQwcXJzTELomrQ8OM?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 984bdb43-be3e-4649-1827-08df1048fee9
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 21:09:41.2335
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gVO2nVGwhqMUqZlndwF5QUt5Tuou9Rv2neVOIRtdKVcTn9M3HslCVNSOnqEyZ2RoBTFQLcGL//W2w8wf6MdNL+6avG4iRnqIE4e+nXK2I+1y43iyTdoFSp3Oet8ukpd5
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7617
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMBwpGoC/43NQQ6CMBCF4auQWTumFArGlfcwLApMYRJpzRQbD
+ eHuVk7g8nuL/20QSZgiXIsNhBJHDj5DnwoYZusnQh6zQSvdqFbXaGXBuCwvTBWyj+vgJgyJRHg
+ k7E1jlBt7R1UNOfEUcvw+8vcue+a4Bvkcb6n8rX+GU4kKqbWDq+3FGm1uD/ZWwjnIBN2+71+fp
+ QY7yQAAAA==
+X-Change-ID: 20260724-arm-smmu-v3-instcfg-override-b5650fdbfe34
+To: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Pranjal Shrivastava <praan@google.com>, 
+ Daniel Mentz <danielmentz@google.com>, Mostafa Saleh <smostafa@google.com>, 
+ linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ kernel-team@android.com, tudor.ambarus@linaro.org, andre.draszik@linaro.org, 
+ willmcvicker@google.com, jyescas@google.com, 
+ Peter Griffin <peter.griffin@linaro.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2438;
+ i=peter.griffin@linaro.org; h=from:subject:message-id;
+ bh=c21PgPKHOIxP9rG11c7WqJwD7hUOwv0oDlYhmLHwZRo=;
+ b=owEBbQKS/ZANAwAKAc7ouNYCNHK6AcsmYgBqpHDHRXghRdY6uBz63a5ApZqNJCpKlCLxF8jzV
+ 5/3SSiL7jyJAjMEAAEKAB0WIQQO/I5vVXh1DVa1SfzO6LjWAjRyugUCaqRwxwAKCRDO6LjWAjRy
+ usxOD/9TZnmjDxdAt4z+h8x9Bjg9ECMZxhknIg3DibsnTWsOJFDnVWfD0SOIpWiWOg/crqeJFnX
+ 6x2XWbd12BM0bZWsuArGA3ESu50pJBPil9ReIv/PUPft1PqLLsQeTf+z4kRS1RxLurUzsAZmHUr
+ U266fE+if9Ov8Z/MNicdH76HEQyihmaEtAGzOhMpbK41V/VX5FnnsFIJrJHaH62Ni1jO1+5miJ2
+ 5Mk6EKnc80okBZazcn26U87g9/flORVwGvddRO03VO0RQFt9Z7pkfJpM/uxN9sNJymtxAg4qJB9
+ 8GK90HECfopF7wdVkBWdy7jrM2/hRIUPprg8F63ET6Yo7EwCygOYzIC6Xagu134W6tVAKlgec2V
+ Yv+IA/VQ1pXtI41y4v6vXcfwnyFfvmM6hKH01CyxuES8JW3+/pDIGTEyeF+Uu3OVGkUdHrbl3K0
+ b3clvzMgMDqC5Cy8NmZ61QNLJEah535UXYM/3vWdg9pJjbXiwsoKGB1sXyX+vQIJIeBXahb/Yzc
+ 8RAvyCIjdHJrXjh3+0aEy2Nyzpz58wMj4L2OwVUGnPZ4C5c2Oi8NbNwt7fcZ0h/jLdjEPMgQl5Z
+ m7lBYdUanmvu/ZMYv64dnc6NJYMXmoQvmPh8TL37LwhXp/UaHdrnsv4aezmnif6CONBzNJmLq5G
+ JyL0noaCWqix8bg==
+X-Developer-Key: i=peter.griffin@linaro.org; a=openpgp;
+ fpr=0EFC8E6F5578750D56B549FCCEE8B8D6023472BA
 
-On Sun, Sep 06, 2026 at 12:52:04PM +0100, Bryan O'Donoghue wrote:
-> Add a devm variant of phy_get_by_of_node() to allow for the familiar
-> pattern of having devres automatically release resources on the driver's
-> exit path.
->
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->  drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
->  include/linux/phy/phy.h |  7 +++++++
->  2 files changed, 41 insertions(+)
->
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index 490a7cde6d40a..2e3581ecb42ee 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-> @@ -1050,6 +1050,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
->  }
->  EXPORT_SYMBOL_GPL(phy_get_by_of_node);
->
-> +/**
-> + * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
-> + * @dev: device requesting the PHY
-> + * @np: device_node of the PHY provider
-> + *
-> + * Returns phy associated with the device_node or ERR_PTR. devres manages
-> + * releasing resources.
-> + */
-> +struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
-> +{
-> +	struct phy **ptr, *phy;
-> +	struct device_link *link;
-> +
-> +	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
-> +	if (!ptr)
-> +		return ERR_PTR(-ENOMEM);
+Hi folks,
 
-Relate patches use devm_add_action_or_reset() instead manaully alloc
-devres_alloc().
+The Google Tensor G5 SoC (Laguna) has a silicon erratum with the SMMU
+integration where the AxPROT[2] signal is always 1, which makes all
+transactions appear as instructions.
 
-> +
-> +	phy = phy_get_by_of_node(np);
-> +	if (IS_ERR(phy)) {
-> +		devres_free(ptr);
-> +		return phy;
-> +	}
-> +
-> +	*ptr = phy;
-> +	devres_add(dev, ptr);
-> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
-> +	if (!link)
-> +		dev_dbg(dev, "failed to create device link to %s\n",
-> +			dev_name(phy->dev.parent));
+As a software workaround we make use of the INSTCFG override feature to
+force all incoming traffic to data.
 
-Is it okay to print dbg message()? suppose return NULL or some error?
+To enable this workaround, the "arm,instdata-override" DT property can be
+provided in the device tree entry for the SMMU, similar to how existing
+errata workarounds are handled by this driver.
 
-Frank
+The first patch in this series adds the DT bindings documentation for the
+property and the second patch adds the associated driver changes. The
+Laguna SMMU device tree changes will be sent separately (as that will
+go via Arm SoC tree).
 
-> +
-> +	return phy;
-> +}
-> +EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
-> +
->  /**
->   * phy_create() - create a new phy
->   * @dev: device that is creating the new phy
-> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> index 71c2e16397130..14b924a88411f 100644
-> --- a/include/linux/phy/phy.h
-> +++ b/include/linux/phy/phy.h
-> @@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
->  struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
->  				     int index);
->  struct phy *phy_get_by_of_node(struct device_node *np);
-> +struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
->  void of_phy_put(struct phy *phy);
->  void phy_put(struct device *dev, struct phy *phy);
->  void devm_phy_put(struct device *dev, struct phy *phy);
-> @@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
->  	return ERR_PTR(-ENOSYS);
->  }
->
-> +static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
-> +						  struct device_node *np)
-> +{
-> +	return ERR_PTR(-ENOSYS);
-> +}
-> +
->  static inline void of_phy_put(struct phy *phy)
->  {
->  }
->
-> --
-> 2.55.0
->
+Note existing silicon errata DT options in this driver tend to use a vendor
+prefix e.g. hisilicon,broken-prefetch-cmd or
+cavium,cn9900-broken-page1-regspace. But Rob agreed in the v1 thread that
+using "arm,instdata-override" makes sense here in case other SoCs need
+to use this.
+
+The Arm SMMU spec that documents the instcfg feature can be found at this
+link: https://developer.arm.com/documentation/ihi0070/ha/
+
+regards,
+
+Peter
+
+Signed-off-by: Peter Griffin <peter.griffin@linaro.org>
+---
+Changes in v2:
+- Add a more verbose commit message of the silicon errata issue (Will/Robin)
+- Make clear it is a silicon errata software workaround not a "feature" (Rob)
+- Fixup incorrect bracket (Sashiko / Nicolin)
+- Add a note about why "bypass" is not required in commit message (Nicolin)
+- Remove feature flag (Nicolin)
+- Move override feature/DT property sanity check closer to the
+  register read (Peter)
+- Rebase on next-20260911 
+- Link to v1: https://lore.kernel.org/r/20260724-arm-smmu-v3-instcfg-override-v1-0-e7acf4a8a525@linaro.org
+
+---
+Peter Griffin (2):
+      dt-bindings: iommu: arm,smmu-v3: Add arm,instdata-override property
+      iommu/arm-smmu-v3: Add support for arm,instdata-override DT property
+
+ .../devicetree/bindings/iommu/arm,smmu-v3.yaml     | 10 +++++++++
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.c        | 25 ++++++++++++++++++----
+ drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h        |  6 ++++++
+ 3 files changed, 37 insertions(+), 4 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260724-arm-smmu-v3-instcfg-override-b5650fdbfe34
+
+Best regards,
+-- 
+Peter Griffin <peter.griffin@linaro.org>
+
