@@ -1,76 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23AAE44F545
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:52:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95625457E5A
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113164; cv=none; b=siZIKqTtm9euz/7xH/Yt9QtUdBqmuNQjNDIX5o9g5JLNg7aXlvr7oA4kYKIVpzJ4AdB2sQCC8YbTzHfJcy+ftjlK0O1xyer5xHCO+/sevtA6tOCJY3jg9JFbZRc94cEjFk1JkcfZ7cw7At0Vtv+cB04AZdsHpNLVeWzteaPGjNY=
+	t=1789113232; cv=none; b=b1K/jXrL3qd7rMWqcYL3taQp/+6VwgteKZopgaC++uaWDM27cCKObXuttqfLEuhomuMS21Keispe3Er/Em/FHkarvSTDcb09Bbqk+rSLDPTEjkOSYOVZ26Qp37ymk2PJiwN4FXYDiL/vngNrFmFDMEaKvPxeKgkQ2oMSRc6FtOY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113164; c=relaxed/simple;
-	bh=mAy/mjo9ky8p0zKdUD9C54wYiJlR2G9xib1258FjWlg=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KRAE4+b5JEtISBmUal3M2M9LSTHWwjemq/HOGQgHZjIWt4DJwiShC88+ZUrgyacy2g+OuxpI013/xay1wyQrQ0G2iDVPFuegsPMFpb1+Dhi6UUQGGbDKbnz54RN3HuYeLIoFFc27QeBr+1/7tEezW1HNKtqMcPRIyaP4bH+KNjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBCejXNQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789113232; c=relaxed/simple;
+	bh=x9CLRY42PqaytON/BBM6ACJRDjTKu1ui0543N4jgI0E=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZvKYiJBWplLhslpFOq0Et3wEZz7VJEKO+Zrv0v8L6WpnD7mKg/wyh6T6USvdY7l0LrlXdKsBkiZzyjEIUSH5VBdCuxqPisIgHsT9WsywvJoNnrPKls1jYT4NDx/+5gKxD0hwjq+XAe8kKXnUs9keihzHUSEZCkJQF8KIWJRqTfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=1x4FiNJj; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBCejXNQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0949A1F000FF
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789113163;
-	bh=mAy/mjo9ky8p0zKdUD9C54wYiJlR2G9xib1258FjWlg=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=nBCejXNQsWQR/kbP8ofYrcVfv2aqnR/3tYIIQUNpPeUU/OvtlVDSgmWDJN8kto6zT
-	 WjZ7krJVZ75zGCFIpW1Sn03CQhjNWofZQyPD7gvktU7uNfWxymEyLEu4lrwtm5fclM
-	 pCpsZM+7a4Hw7C2c4JhTqEDh4s50/Z1V99+0m1tVOFgytvKNW6uLLAinunCFH7QxWt
-	 qZINxZfKBI4bD84Qm6jzD8TkEDuXYWMOY2rcSsKIJMS+bRGvsxVIUhPjN8M2CEZxV2
-	 DNyJwOF4FWXsAfAX8YuBfhkvM7s3UXYq7qpmOwJ001w5/HVHv7wEp64Zt7VCFhiZ6m
-	 6B69oVXtJzFDQ==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso870949e87.2
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:52:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByI74soyUcFerDVVWXTG2EhC0qr4uFH8DgsNF4SDIl0X6yKDHdYDSgKUO3/BkeXn2oTxGsENw6vBdFn@vger.kernel.org
-X-Gm-Message-State: AFuF++nCkNp2N91niFvQw3lsSq8p+IoRMKaafMdg6Hn5GIdHP6yhQ2im
-	D/n7vMvs0cjZeRAGjNH9yAEX0fVgAKg4CA7qKKNEndrp+y8mFHntqBR4XjSHHgTQeNS6m8exz0R
-	s26WSJPZluxOh1Rlorq+x2N5Ap7Ahmlg78t6g84Ab1g==
-X-Received: by 2002:a05:651c:43c4:20b0:3a3:7682:49a7 with SMTP id
- 38308e7fff4ca-3a5a5291cf0mr2127591fa.28.1789113161739; Fri, 11 Sep 2026
- 00:52:41 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:52:40 -0700
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 11 Sep 2026 00:52:40 -0700
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="1x4FiNJj"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 2AC84C653FA;
+	Fri, 11 Sep 2026 07:54:29 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6A391601DE;
+	Fri, 11 Sep 2026 07:53:47 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A93FD11C7AF8E;
+	Fri, 11 Sep 2026 09:53:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789113226; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=1jimcl3pdwhHCGx4G+jLWM1PzhhagK02dBVoH2hCI1Y=;
+	b=1x4FiNJjYvCMcm4fh5I+NrlgH0ZYMb/m0ikCQ27/1D05MD7rmr/QRQWVkPv/HDUhh+psVD
+	iz4Zeuyrf9HE/ba3wJnObM2cTCXZi6vGIP3AV1KM7H7kvMCPaLNoua/MYbtRhg998ookFj
+	vDFdNkb0Cp4CozGfLM0D1rh84WaA4z1Io+9tJKpKZHiuwVY5EH9kNK3a3R5EmbsvgVtZTf
+	faBKp+yrvyx2wbOD2fLlXOAxmlHuwG0GCLDynv4bTqy/RKygwQ8QsLUGMySGAiDWnSIknk
+	YGozv+xHK+5Ws4vvfEzqMnkvNjSOvqHytt8D+EPa01mmOTjMn4D0oOUFNSuhtA==
+Date: Fri, 11 Sep 2026 09:53:39 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
+ <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
+ Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
+ <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
+ <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
+ <Frank.Li@nxp.com>
+Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
+Message-ID: <20260911095339.14833b5d@bootlin.com>
+In-Reply-To: <aqJ7SC9s5z1FRML1@gractus.seuss>
+References: <20260826083146.304291-1-herve.codina@bootlin.com>
+	<20260826083146.304291-7-herve.codina@bootlin.com>
+	<aqJBOdFPJbDKHt_9@gractus.seuss>
+	<20260910095823.1f5abc2b@bootlin.com>
+	<aqJ7SC9s5z1FRML1@gractus.seuss>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260831-shikra-upstream-v2-0-406661d75afa@oss.qualcomm.com> <20260831-shikra-upstream-v2-4-406661d75afa@oss.qualcomm.com>
-Date: Fri, 11 Sep 2026 00:52:40 -0700
-X-Gmail-Original-Message-ID: <CAMRc=Mf=s2Q8z165ufJjj70TZPv7TFFF3b8QaTh1Uiz4r-64Og@mail.gmail.com>
-X-Gm-Features: AcwNN1WYfbMG0innksiJiNzSA1WdoA4NxNphoNZxr1Iyd160wvFBkOcClMlPLKs
-Message-ID: <CAMRc=Mf=s2Q8z165ufJjj70TZPv7TFFF3b8QaTh1Uiz4r-64Og@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] phy: qcom: qmp-pcie: Add QMP PCIe PHY support for Shikra
-To: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pci@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, 31 Aug 2026 09:26:04 +0200, Sushrut Shree Trivedi
-<sushrut.trivedi@oss.qualcomm.com> said:
-> Add QMP PCIe PHY Gen2x1 support.
->
-> Signed-off-by: Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>
-> ---
+Hi David,
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+On Thu, 10 Sep 2026 19:41:42 +1000
+David Gibson <david@gibson.dropbear.id.au> wrote:
+
+...
+> > > > +/* Tests reserved tags */
+> > > > +#define FDT_TEST_NONE_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_NONE, 0)
+> > > > +#define FDT_TEST_1CELL_CAN_SKIP		FDT_TAG_CAN_SKIP(FDT_TAG_DATA_1CELL, 0)
+> > > > +#define FDT_TEST_2CELLS_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_2CELLS, 0)
+> > > > +#define FDT_TEST_VARLEN_CAN_SKIP	FDT_TAG_CAN_SKIP(FDT_TAG_DATA_VARLEN, 0)
+> > > > +#define FDT_TEST_NONE_NO_SKIP		FDT_TAG_NO_SKIP(FDT_TAG_DATA_NONE, 0)    
+> > > 
+...
+
+> > 
+> > /*
+> >  * Tests reserved tags
+> >  *
+> >  * A TAG_ID range in "structured tags" is reserved to tests tags.
+> >  * This tests reserved range is from tag_id 0 to tag_id 0x100.
+> >  *
+> >  * When those tags are encountered they should be considered as "unknown"
+> >  * tags and rules related to "unknown" tags must be followed.
+> >  *
+> >  * Readers should skip them or fail depending on the SKIP_SAFE flag. Writers
+> >  * should never use those tags. Their usage is only acceptable in test cases.
+> >  */
+> > 
+> > Is it ok?  
+> 
+> I'd probably put the reserved range up high somewhere rather than
+> starting at 0.  Otherwise it looks good.
+> 
+> 
+
+Ok I will move the reserved range at an higher area and probable the
+highest possible area.
+
+Will choose also the highest possible value for FDT_TEST_NONE_NO_SKIP
+Indeed, this one is a non-skippable tag and so should use "old style"
+tag.
+
+Best regards.
+Hervé
