@@ -1,117 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B27FC443E4D
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:03:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F88341A57C;
+	Fri, 11 Sep 2026 07:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789110224; cv=none; b=UR5PqQmnQykBGKIjlh7erNSc35q3mx/zUJUc3X9HBvA9uxPVMl8hAPl24uFzh/4ehM0SkGhKhrZgRIODfibpjHGc1jtxuNF6cX88J1ZFeim5P2lB7czcJc0ztQsL+DE9PDMHsukMz8JASw9sjJJnj0VJ+JTgL0q2Y3tL3u8oTJQ=
+	t=1789110403; cv=none; b=gQOU45UFiYxZ1j0iNYjgAgpd81mXaQusBP82EUVdnU8EuGRbFmfgzwoVCszmaC5UynUQiBz2beHHMq+ipXRlR5TW47gqk2aXo/ndDhJHgP9jB4IkE0tcGVSjo1jY9FcvAc46mGqNC0V2BBWuOjP71j7X3rkmeDkDq5wX04Y0YwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789110224; c=relaxed/simple;
-	bh=VoucdhwPzYfj0mvumFVHeUEHYHMJVmOfrkKbiUakuZs=;
+	s=arc-20240116; t=1789110403; c=relaxed/simple;
+	bh=63BNlMrAopZoRaJFpwWeRxReF1PPhtyCp1gjfvC+aL4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dQPiiLnGnyX6nZqeLPzL7cUDmEn91Mux0JnLwzZHtGdhWbZilLkLTKE/+UyKC1zuHy08h2oCtgGhlhvNQ69WfbpXtI7qb76qJCKw2g6RGtMCciaLKEDuI3DWpmdWrVI2hw8lQuJizd8jYhjeIDsufAS7cunf6QvHVv7Vf8mZStY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dIrXlFbI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=IQ+grJWI9FqtUx3ZVoBKbxnzPf/uYwtlibXRrlaJB5cZqUgH2iaXXYPezJejiCdeKKCq4q8JA36S8X32UoJCKDinJLX5+a5DkqOnP3bbgbqsJ1kMBrmdRBAHcSdFtRSwQJczZ4f+VW4eDD/itHLRmqC2vqxtwNqibaw2K8ktEPo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHa89nWE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dIrXlFbI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B8B81F000FF;
-	Fri, 11 Sep 2026 07:03:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHa89nWE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CD771F000FF;
+	Fri, 11 Sep 2026 07:06:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789110216;
-	bh=/Uow//m9Oww0umnXVRnIai6FIChk4OGCHlEbFtXCkv0=;
+	s=k20260515; t=1789110388;
+	bh=p4SjBmA6memojF+caErUQM70NDLjfNRw8C1EEAZ1YpM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dIrXlFbIthz5E3ggHfDLtDN1uVEQS0/FlkKMZ6eO134QxhHllF8LEkEI3Bh6KPNud
-	 OEAbtW+RlqK0wQNwP96PuClQJFjXBN4IyNE/ok2Brt4M6246agspafDQ0j0XwEWiwT
-	 54AjGnylhK49JgYMwBlSU8FT01BxKxq8nHY62ODljPKPPzzLkdDmyN13oSFljYIDUd
-	 85HF6U/XzCj3AvOzFFpRmGOc4iqXmoTykYI0FAoOYBIqRt2VzrJEpmHxyaNM56BC17
-	 Wif0kTKGcOuhgwdmgw2noEgnGFdhJU/4on8M0v4LB6oC9AZ1uAHOZ3IXonK+TkU7zg
-	 DW0mCRFCXBqUw==
+	b=kHa89nWElLvFjCVT8Jq1dGGKtHban6b1IgeG5cmr70sum/MhRRdsZsHJbZW13MmvX
+	 aA/HaOzo9tiEKy7mfEyYEwJGCHuR5WM7cY5rImidxyVeu8xy1wuDR2nKwQUL1d7C9+
+	 ubRYGq2V8OHt+tz7ioueeLm9l8WvEP0+ajcoRiosJ++FobY3XArYSEL4bgyv178hz3
+	 DI8OKrzfcIgHBViWMujwHzWz+auDeXxe+Kk+M3SEXugsgsWLXb7pRBcic8CXXnn/ct
+	 Ga0pdaGr1Cdg4ndOhrIlNnpUKw1JLAYPvKmJrXUztL3Hs2fQhR1QpF/sr0ejc7aoeK
+	 WfP3QRGpfwj0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/8] arm64: dts: qcom: lemans: Add t-power-on-us
- property for PCIe root ports
+Subject: Re: [PATCH v4 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Chaitanya Chundru" <krishna.chundru@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260911-t_pwr_on-v1-2-c9eee197d082@oss.qualcomm.com>
-References: <20260911-t_pwr_on-v1-0-c9eee197d082@oss.qualcomm.com>
- <20260911-t_pwr_on-v1-2-c9eee197d082@oss.qualcomm.com>
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <20260911-for-upstream-nbxv3-dts-v4-3-2fd07d5575ab@free.fr>
+References: <20260911-for-upstream-nbxv3-dts-v4-0-2fd07d5575ab@free.fr>
+ <20260911-for-upstream-nbxv3-dts-v4-3-2fd07d5575ab@free.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:03:35 +0000
-Message-Id: <20260911070336.6B8B81F000FF@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 07:06:27 +0000
+Message-Id: <20260911070628.6CD771F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Logic Error / Dead Code: The newly added `t-power-on-us` property =
-is completely ignored
-- [Low] Missing DT Binding Documentation
+- [Medium] Ethernet PHY reset and interrupt lines are defined in GPIO contr=
+ollers but not consumed by the PHY nodes.
 --
 
-commit 821321f53e293af9b1a675f69406aacca48b199d
-Author: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
+commit 74f5aff92f5e16bafbb9e87c062e7805112769f9
+Author: Vincent Jardin <vjardin@free.fr>
 
-arm64: dts: qcom: lemans: Add t-power-on-us property for PCIe root ports
+arm64: dts: freescale: add Nodebox v3 CPU Module
 
-This commit attempts to fix improper L1.2 exit behavior by programming the
-T_POWER_ON value. It adds the t-power-on-us property to the PCIe root port
-nodes in the lemans device tree.
+This commit adds the device tree for the Free Mobile Nodebox v3 CPU module
+built around the NXP LX2160A SoC.
 
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
-com/lemans.dtsi
-> index 695eae1b72569..615a9bfda2377 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -2770,6 +2770,8 @@ pcieport0: pcie@0 {
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
->  				ranges;
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/=
+arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+> new file mode 100644
+> index 0000000000000..143b24d69d629
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+
+[ ... ]
+
+> +&emdio1 {
+> +	status =3D "okay";
 > +
-> +				t-power-on-us =3D <80>;
-
-[Severity: Low]
-Is this missing a corresponding update to the device tree binding
-documentation? This introduces the t-power-on-us property without
-documenting it in any Documentation/devicetree/bindings/ YAML file, which
-will cause dtbs_check to fail.
-
-[Severity: High]
-Will this property actually be parsed by the driver as structured?
-
-Since this child node lacks a phys property, devm_of_phy_get() will return
--ENODEV when qcom_pcie_parse_port() iterates over child nodes to parse the
-port properties.
-
-The fallback path, qcom_pcie_parse_legacy_binding(), successfully reads
-the PHY from the parent node, but it appears to never parse the new
-t-power-on-us property.
-
-Does this cause the value to be completely ignored during device probe,
-preventing the T_POWER_ON value from being programmed into hardware?
-
->  			};
->  		};
-> =20
-> @@ -2943,6 +2945,8 @@ pcie@0 {
->  				#address-cells =3D <3>;
->  				#size-cells =3D <2>;
->  				ranges;
+> +	/* Microchip LAN8023 dual 10G PCS/retimer, Clause 45 only, one address =
+per slice */
+> +	lan8023_phy_s0: ethernet-phy@2 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c45";
+> +		reg =3D <2>;
+> +	};
 > +
-> +				t-power-on-us =3D <80>;
+> +	lan8023_phy_s1: ethernet-phy@3 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c45";
+> +		reg =3D <3>;
+> +	};
+> +
+> +	rtl8211fd: ethernet-phy@6 {
+> +		compatible =3D "ethernet-phy-id001c.c916";
+> +		reg =3D <6>;
+> +	};
+> +};
 
-[Severity: High]
-Does this second child node also suffer from the same parsing fallback
-issue? Without a phys property on this node, the driver will likely
-ignore the new t-power-on-us property here as well.
+[Severity: Medium]
+Should these PHY nodes consume the reset and interrupt GPIOs defined elsewh=
+ere
+in this device tree?
 
->  			};
->  		};
->
+The lines "lan8023-mdint", "lan8023-rst", and "u1300-rtl8211fd-int#" are
+explicitly defined in other GPIO controllers in this file. Without the
+reset-gpios and interrupts properties in the PHY nodes, the PHY framework
+cannot reset the hardware during probe (which can lead to initialization
+failures if the PHY is left in an unknown state by the bootloader) and
+silently falls back to polling mode for link state changes.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-t_pwr_on-v=
-1-0-c9eee197d082@oss.qualcomm.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-for-upstre=
+am-nbxv3-dts-v4-0-2fd07d5575ab@free.fr?part=3D3
