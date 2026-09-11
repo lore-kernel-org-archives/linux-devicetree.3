@@ -1,341 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010062.outbound.protection.outlook.com [52.101.85.62])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353E844604E;
-	Fri, 11 Sep 2026 07:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113434; cv=none; b=JC/4mHzmQKwJ8xOnwX76u5+XIAKsa70o849S9ilcGFwaG8i/xrsDh2vgKk0AjFuderA3aybeE4vAV9X+FpDlW29um1DDwzGhUJeiBabrFgF7z3MyWLq6lTsaUpxG4oGQq0ml1S/q7jbw6+LsQZtXM09uOrUEqom1hTqG4UD79+o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113434; c=relaxed/simple;
-	bh=0cp+PvBCs5qPPeHzgDsTw+ZwZshDjpAYWxpaFS8t/kY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fX+4ebo/jP+wj8Ps8HCc4ySLleajX51rsaWw54/Awl2+vVc1+EH2VMjQBwwL2wewwttvdeKHAefWfcAmp7nJZ42uf1NL4U01WXN+xrIIf9GSnMwg+pQbdaRpdDBoqqt0htgf41yTbgHLLzOTxNn2q7WVBA/dG07BT7sjW5Iw3tM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpAZGAvA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B5394582D8;
+	Fri, 11 Sep 2026 07:59:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.62
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789113542; cv=fail; b=EiynBzhykEzfAspCCom2bfcn8la17M2ENUE3WnJiJ9xuh9ECN63x0isVBYps0mPNCLvnOf1AgEh8OkBvB0EGk8nRBaOTGIP7EXJd8HjjcnKyUH2ScZ7uZ03vFXAVt2PKL4ViUouUNkgYZrRLCMHC6MM/uQumC9lZWYNEOiqCvrY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789113542; c=relaxed/simple;
+	bh=DW2O860wcQKz6+wKHs17g2R09eHwu5VAp1StinTimZE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=RCnUCQ6sCS8lMAkCpvwYKfL958MrnBBZsBJ6FinCz8ysxZ3XLTzfuH4g+EbRoDi1wSEqT7HIx19Zs1z31H4yEluHRguOE8rnA+X9ZJbi4avm9h+7kX1D+ujoX0Cu0uZF4coJVLTdK8HvHXZlSYaPyUxR00+/zX9VI+sjmjbPAPQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=Aefpj1q6; arc=fail smtp.client-ip=52.101.85.62
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpAZGAvA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D361F000FF;
-	Fri, 11 Sep 2026 07:57:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789113433;
-	bh=hSZMb2gXwWsuxKewleo6zecix3FTzm0+APYyphtpIgI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KpAZGAvAfL5cenzZrBbc8s9A6qOF4+q5cPdz/IXSMV3X1hiVQDd7ZICExx4fywOtL
-	 /SeaoIu5gzmqUe/ZRozBXdD+SD9VyCn0llXTHw8qM54dMmVQ7P7ZXbJ1nHorAHbmho
-	 1QClwpSzAtpFAbfTOY4hTlO1VSQSozbLtY0PfHUzNVeQw/C60c876zjOv1e31tD+kr
-	 /PISCffRjYsjyuAxrJq4x8aaBZxix3L8wgDFs/tH4n5IzSi30VnErO+QqT1G1hgRj7
-	 2abP4TQeuIhSoB8vBQVGDwLhLUsSbU05eaeKTMVK3RwudQ9Ym8tsjDdp31DZJOQstD
-	 bq8zXAfgqd0eg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] dmaengine: atcdmac300: Add driver for Andes
- ATCDMAC300 DMA controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "CL Wang" <cl634@andestech.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260911072524.1297406-3-cl634@andestech.com>
-References: <20260911072524.1297406-1-cl634@andestech.com>
- <20260911072524.1297406-3-cl634@andestech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:57:12 +0000
-Message-Id: <20260911075712.A4D361F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="Aefpj1q6"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LDfKsWEMJeYokSSOJGlZnc5CvfJIsca60+c5WVTYhb9SWA6pWVUMESVsf04kkLKOL9uvyBMH7Yoxj57OOqTa3nb9cL3rIpoNOETYO5QIqqyJABJsSdbZwGfRpQH2p3XTI7IQ3yOgT04hbBDkpx8bH1Tv0XTshVQYxCtTdmCaa/fFrVIyVuXuw1J2iFCFW6U2K1T/Lq7Rmd6OBijWP7lhMDQwgg8ggoTZsBxr87HJTh7eIK2xx2OG0YouJYkkGGV/lQ8cLNYX/tBYVhHKU9WUH+xJCEd9ZVl5MrwfYYglhCSMYjIAf4aglgPXfvEzoM6FeM2/nxseafVBsZ8BwbohNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DW2O860wcQKz6+wKHs17g2R09eHwu5VAp1StinTimZE=;
+ b=ncnHtq/X6bOpIUEMf5X12JQIk6cIgm3T/xrFj0IYBlWYFJiMWv+EhftUPHzt7TsxjEPZk6U6W2IlSDXZPYKQ2dItcy2onrtq20S99IcYgp4mhy5LkeOI05Ril+NHnFwWqw7SPBTGnJFUimli4cGCCWEbMEoQtbcpF8tkuGcOqJkI9haVVPMq9uVgMexGe7wdLFX5zgJYJRCpIYoJpJttwe3Kji4TxVD1VUtsl2NUn7TSaLPvBPjIyqFKc3eQR1TgA3G5aN1d7Xu7XACTR/HxsU/7CPfc6a6PiTvUEN0vTkLMhnMB8PuFumzpXgs/qi0Qo62BEfJkQ/RVKZEBAA85Wg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DW2O860wcQKz6+wKHs17g2R09eHwu5VAp1StinTimZE=;
+ b=Aefpj1q6xy5ZuPDBApmWxL7/v6udPhED3CsmLT2wvtecFXzWyCe/phppLyxz0D+RkPhfDwhVm/bMCJrWLoJSCWTNemWcXe5lb0Tl3S6oEofEad4wQbl3o2f6jlihBF/PY3Lu3v3bMKrcSOqzw1jJUXbzB4vQct6WUZLYOw84npnJk327ZdmPGqRDgRlgf7DYjACLx3woN8s/8e+/oc7KJflqrPzcpcyhx82UKkE/a3/gYk7SXvZ/ibKBzBm1I73f9GFKtgCik/lFDyyWbpuSGNw3xKgYW08HgRGPrXdPslYm/FCM7wT196IzCSaDPN5akzpetbU3prmoiwyAsuboJA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
+ EAYPR03MB989276.namprd03.prod.outlook.com (2603:10b6:303:2c9::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 11 Sep
+ 2026 07:58:58 +0000
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 07:58:58 +0000
+Message-ID: <8e69bb7c-a98f-4a33-9e26-b6aa17f07ad6@altera.com>
+Date: Fri, 11 Sep 2026 15:58:53 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 2/4] arm64: dts: intel: agilex5: add USB3.1 controller
+ node
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <17405f3736bb2fb20456d00b7bb75ffa8c1311b9.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <20260911-courageous-ninja-gibbon-9f8b0d@quoll>
+Content-Language: en-US
+From: "NG, ADRIAN HO YIN" <adrian.ho.yin.ng@altera.com>
+In-Reply-To: <20260911-courageous-ninja-gibbon-9f8b0d@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR03CA0024.namprd03.prod.outlook.com
+ (2603:10b6:a03:33a::29) To DM8PR03MB6230.namprd03.prod.outlook.com
+ (2603:10b6:8:3c::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|EAYPR03MB989276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 778f10bd-03ed-4726-23ce-08df0fda8890
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|4143699003|10067099003|11063799006|56012099006|55112099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	9QJDVz0LFoaU9IISkI+nIWmyQa2dw6lDpzQFMb9NtIV2P6xpc+7r1N65qbBKR/3Tn+A6OOjQhjTrYZ5IP2hwV+8AJlNTlsKyG3lZt78YV17DIy8qBYMqoe+KApTsKMyVCzR0aTbR6P6Dbs8ix49S5Y1oEEAheV7pzL8U8gGnMitJ+MygF5W4rRjiIa3ejaw72iVOskyovDYHtuIsANhmCAhirO9UsK6b3xCoDzxwqdvMxL1H4CQAo1tNBMR/SHxdNW4m2EhCegEX/nfsbLZKtWS1qRoJ8pE8FGHW0BOBlmyNNYHMjlRCRmyrEeqBSepfiuRO3P0Iev+LPYe4lxiY7pznxrKghj5FiitkBg3Yk1lt+DAKaMhyiHZekT7vVZy8N0tD3oWlOi6Dq5Th7RyRGhgn1f9j613a9v0jjul9llam4w4+5fxdVVybRaWXcyGBwfmNmCVLWJ5wXMdWY/I+tQsDEKUcRvqOzO7mAULNX1ScHoew6j9MDKD+mePrI9w+1aUPCD8sOET77/Uch527lJEn2WMD153lII+9j4EYQS6sl78OFMUyeA0pp/y55DViiZrphZ+Zud5k8t7CXC8/tplt+yPzZ4ExlpEsFYTteQEnlpvnjQVMjWUFR34SRRqgyzLjlKdH7ktNL2mIBLCewKohl2ozibo842sSA856Ne0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WHdlYVdhUk5ORDB5S3IxV0dYWGJ5c3dlV25BMFFBQlNyQlRkWDAvWHNoNnhm?=
+ =?utf-8?B?MzV6eXlma1VBMnFuYVZNTXBMNHYveXZyeXFxcFlaa3c2a2FjZlg1WkJnWTJE?=
+ =?utf-8?B?N2dmMEM4ZjVUWElhcFROdXIxWEtYbXl2bWZ2U1pVTVN2d3Z5bXdyaFc1allH?=
+ =?utf-8?B?RUMzNitHRm4rdjc3dmNOSU9LbXVFdnZTa0p5dDhkKzBwYkh0UGNMZWQvd3A4?=
+ =?utf-8?B?VWZwdnFacGxxVk55T0cvMlVIUGtXRnJNSmtJbFNtcWJWRXBxNUl6ZUJ6N0xB?=
+ =?utf-8?B?YTdFczVMMFV2bGxhQmR0anpaZVFBeW9PTzhaVUlzU1h0czRyVkMvK1VibG9v?=
+ =?utf-8?B?WE50bTlReDBiL2trLzloU1dFY3FpYkU2cWNzMWQ2R25mdTJKS0ZOSFIyUGRC?=
+ =?utf-8?B?TXBUSVorMllEV3FhNXAwZUJtb20vOWFmMjRobDhQRHBuVGdWZ0puRzJjdVQ2?=
+ =?utf-8?B?RE9YSTQ2WnZoK3JiWkxhbENEV0dyTHFndndaaVc5NCs2N0Y3QTB1WnhuVEFt?=
+ =?utf-8?B?aEEyMjBjcXJENEZ6dG9Yd3FEdzl4OHM1RlllV001TEFVMGRMZFVpNW53ZzNE?=
+ =?utf-8?B?dUJ5QnlDWjFEcmxNSXRSeHhrTmNoR2ozT2lDdkpEcFhQaGYzRFpzUkZhdUFz?=
+ =?utf-8?B?bVRKR1Exdi82b1IzRXYxN1hXM2V6WjFzS1UvWGlqM0d3SEdWQ25kNDNVcUNu?=
+ =?utf-8?B?Q1ZqWS9ESk9JVGtHU1E0QUozelZvaEJvd3ZFUGtGVXVLUzh0eTlsUlM4UHRU?=
+ =?utf-8?B?MjNsbHplbzB0RzJxWW9LbnVScUhBb0NGK1c5SWpDYjc5dUowQk9YUnJzSVht?=
+ =?utf-8?B?Kzh1eGlIOEtNZk8vVW8xWHdCaDNRbnJpaTdiQlIwT3VRd243a3hzbGtkRDBP?=
+ =?utf-8?B?Y1VYQnNUSklTaWV1dnJINGNWSENocFZ1a0pwMUpKcGpOamFCWlkxNnJYNTFX?=
+ =?utf-8?B?SFhaNGRVL09nOC9nWHVSV3ZnVnJ2N0xFb1hvNkdFQnVHbStrMFhQVG1XUXVO?=
+ =?utf-8?B?ME1BNFRpcXBzU0R5RHZaMTF5ck1QbngydTRtOUNFRERUR1o2dzZMZC94c2Z1?=
+ =?utf-8?B?OVFScDRTeGZGU0RJbVpja29iVUlNSTNXdEJCN1FZbndDSFI0ZXhKZzlTbG0z?=
+ =?utf-8?B?ektrU1JZUHNmWkRhZWYya1NjaHR6Z0U0dGpPUzlEUURGUGs0OGxZMS8xUkdI?=
+ =?utf-8?B?akkyWGQwSCtkak16UTF2N0FNTk5BT21JZkFQYWYwRDVJNjlXRTl4K2d6d01l?=
+ =?utf-8?B?ZDNGYjhLS2dSSjBwZFQrZ05Pd3dvSFFDQ21VTyt4elZocHJ3dmRUc1VjK0Zu?=
+ =?utf-8?B?MDh5a2l2TUh2U3RjajI1STEzdnhXeGl5Nzc0cDhyTDJCV3d2bExiYlhJZ3p0?=
+ =?utf-8?B?dTk3TGxTT1NXUUV1aEI1Q2t2YTlQb0I2V29yc1NaMGJxM055c2JSKzBmdVE1?=
+ =?utf-8?B?bVNjTWNMK0Z5d3dnelZ5bnkzb21QR2UyT01UMVQ4WjZrMi9NeG1RTXQvazF4?=
+ =?utf-8?B?NitrK1BkS1VuZzNKK3E0Z2pHUXh6bEs4aXhtUVVsS0dLQk52b0JRNGtUQUlP?=
+ =?utf-8?B?ajZzaGRoQ0J4cmE5Tjd0aUhzM1JvOGZ1QWZzVU5uTnVtenBEK0VwcFllQnUv?=
+ =?utf-8?B?eWdmZmJSS0RqV2JVNHVwbmxlcWRhaGg5MGZ0a2YzcnZXcFdlYitQM0kzSGo4?=
+ =?utf-8?B?SS8yWWVKWko5YmxCbEJYVWIxdEpUMmxKMy95NGg3c0xnU1IwVHdQYmZCR1NU?=
+ =?utf-8?B?bmkzYkIrMStqS3MwRlNHRmt2NDE4eUhwbm1UYnN6Y3E4cU5uOFk2c2dlRE5m?=
+ =?utf-8?B?ZmpVaWk3Zi9WbmNSWDdVU29VdDMvMmh4U0Y2MEI5Tml2dHh6cnd2VTRld2Vy?=
+ =?utf-8?B?TnZtNm9iS20zS3VMNU5vVHc0ZFJwaVlaeHlJRjRaeUVrYlNjSFUxRzFqMEpR?=
+ =?utf-8?B?Q0pHb0NVbmhjdEptaDEvQUYzUlJmRTRQWXFBMWNteWEwQy91L0VuVHhxUGo0?=
+ =?utf-8?B?ZEx2T3NxbHoyMFA4SGplY1FNSHlKV1dDbTRYRUNDaitvVDNOVnlsVXRYcENZ?=
+ =?utf-8?B?MmxGR1QrS1BNNWY1N2xCYm9kVXhlazdYaFlBdWN2Tk81dFh2TVFiWVkvTGhX?=
+ =?utf-8?B?S3luMVBSL09Nb0VMMytqNDI2b3NYLzJWWXNKUWZWTDg5UFNKMmdCc0wyQnFr?=
+ =?utf-8?B?MGc5TzYzUVlhMlFpMGU2ZWhqejd6NTc5eEgvb3JoVGFJcEIySGFmWklIaU5G?=
+ =?utf-8?B?SHBJUWhiQ0F3QzVuMDEyblhrZ2l4cU84YUh6S0h2d1lJRlJmUlNXYlVoTzBt?=
+ =?utf-8?B?V1VITEhpNWxjMFVzcXhyc3BUMUNNZmhBOVk0c3FYOFdwankvbkh4b1JGMk5J?=
+ =?utf-8?Q?Y5JZlOAWa16/l0oo=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 778f10bd-03ed-4726-23ce-08df0fda8890
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 07:58:58.0398
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hMgK5j7T+xGs0oE8wlEISlgwLMHtHpduBdxwFXVcy/R2CkdgGrgA3lNLNMfWWFvgCh0MbcRavFO9MBIFNeouD9/Iwb9ZvTTDF8GFnDA/6zA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR03MB989276
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [Critical] Double-callback and Use-After-Free race in cyclic transfer com=
-pletion during channel termination.
-- [High] Masking pending hardware interrupts with software state (`used_cha=
-n`) causes an unacknowledged IRQ storm.
-- [High] The DMA device is exposed to clients before its IRQ handler and ca=
-che coherency (IOCP) are fully initialized.
-- [High] Polling for up to 100ms with interrupts disabled in `atcdmac_termi=
-nate_all` causes soft lockups.
-- [High] The channel-wide `cyclic` flag is sticky, and unconditional resume=
- restarts cause arbitrary DMA execution or kernel panics.
-- [High] Suspend/resume race with the threaded IRQ causes transfer desynchr=
-onization and hardware corruption.
-- [High] dmaengine API violation in `atcdmac_terminate_all`: invoking compl=
-etion callbacks for aborted transfers.
-- [High] System suspend times out and fails if a slave DMA channel is activ=
-ely waiting for peripheral data.
-- [High] Sleep-in-atomic bug on PREEMPT_RT due to using `spinlock_t` in har=
-dirq context.
-- [High] Kernel panic due to list_del_init() on an uninitialized list_head =
-in error paths.
-- [Medium] Writing a blanket clear mask to `REG_INT_STA` clears unhandled i=
-nterrupts, permanently losing them.
---
 
-commit e06d7bd262ebaa03646e2e3ac2876918f25083d4
-Author: CL Wang <cl634@andestech.com>
+On 9/11/2026 3:21 PM, Krzysztof Kozlowski wrote:
+> On Wed, Sep 09, 2026 at 01:04:38AM +0800, Adrian Ng Ho Yin wrote:
+>> Add a DTS node for the Synopsys DWC3 USB3.1 controller on the Agilex5 SoC.
+>> Place it under a simple-bus with a 40-bit dma-ranges window (#address-cells
+>> = 2) to match the USB DMA address width of the interconnect. Enable it in
+>> host mode on the SoCDK board.
+>>
+>> ref and suspend both use AGILEX5_USB31_SUSPEND_CLK because they share the
+>> same hardware clock source on this SoC.
+>>
+>> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> Same comments apply. From 5 revisions ago!
 
-dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+Hi Krzysztof
 
-This patch adds support for the Andes ATCDMAC300 DMA controller.
-The ATCDMAC300 is a memory-to-memory and peripheral DMA controller
-that provides scatter-gather, cyclic, and slave transfer capabilities.
+You are right! sorry for repeating this across revisions.
 
-> diff --git a/drivers/dma/atcdmac300.c b/drivers/dma/atcdmac300.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/dma/atcdmac300.c
-[ ... ]
-> +static struct atcdmac_desc *atcdmac_alloc_desc(struct dma_chan *chan,
-> +					       gfp_t gfp_flags)
-> +{
-> +	struct atcdmac_dmac *dmac =3D atcdmac_dev_to_dmac(chan->device);
-> +	struct atcdmac_desc *desc;
-> +	dma_addr_t phys;
-> +
-> +	desc =3D dma_pool_zalloc(dmac->dma_desc_pool, gfp_flags, &phys);
-> +	if (desc) {
-> +		INIT_LIST_HEAD(&desc->tx_list);
-> +		dma_async_tx_descriptor_init(&desc->txd, chan);
+v1 feedback was that DTS must not be mixed into a USB-targeted series.
+Splitting the USB3 add and USB0 removal into separate commits inside the
+same USB series did not address that; both are still SoC/arm64 DTS and
+belong outside the USB tree.
 
-[Severity: High]
-Does this code leave desc_node uninitialized?
+I will send v7 as two postings:
+1) USB only: dt-bindings + dwc3-generic-plat
+2) DTS only: Agilex5 USB3.1 node + SoCDK enable, and USB0 cleanup
 
-dma_pool_zalloc zeroes out the descriptor, leaving the pointers for desc_no=
-de
-as NULL since INIT_LIST_HEAD is not called for it. If a subsequent descript=
-or
-allocation fails (for instance, in atcdmac_prep_device_sg), the error path
-calls atcdmac_put_desc on the first descriptor.
+Thanks for the patience.
 
-This descends into atcdmac_put_desc_nolock, which performs list_del_init on
-desc_node, potentially causing a NULL pointer dereference on the
-uninitialized list head.
-
-[ ... ]
-> +static void atcdmac_put_desc_nolock(struct atcdmac_chan *dmac_chan,
-> +				    struct atcdmac_desc *desc)
-> +{
-[ ... ]
-> +		list_del_init(&desc->desc_node);
-
-[Severity: High]
-Can this trigger a NULL pointer dereference as described above?
-
-[ ... ]
-> +static void atcdmac_start_next_trans(struct atcdmac_chan *dmac_chan)
-> +{
-> +	struct atcdmac_desc *next_tx =3D NULL;
-> +	struct atcdmac_desc *dma_desc;
-> +
-> +	if (dmac_chan->cyclic) {
-> +		/* Get the next DMA descriptor from tx_list. */
-> +		dma_desc =3D atcdmac_get_active_head(dmac_chan);
-> +		dma_desc->at =3D dma_desc->at->next;
-
-[Severity: High]
-Could this dereference an invalid pointer if the active_list is empty?
-
-The channel-wide cyclic flag is sticky and is never cleared when a transfer
-is terminated. If atcdmac_start_next_trans is called (for example, during
-system resume) on a previously cyclic channel that is now idle, active_list
-will be empty.
-
-Using list_first_entry via atcdmac_get_active_head on an empty list returns
-a bogus pointer, leading to a fault when dma_desc->at is accessed.
-
-[ ... ]
-> +static void atcdmac_advance_work(struct atcdmac_chan *dmac_chan)
-> +{
-[ ... ]
-> +	if (dmac_chan->cyclic) {
-> +		if (!stop)
-> +			atcdmac_start_next_trans(dmac_chan);
-> +
-> +		spin_unlock_irqrestore(&dmac_chan->lock, flags);
-> +		res.result =3D DMA_TRANS_NOERROR;
-> +		dmaengine_desc_get_callback_invoke(&dma_desc->txd, &res);
-
-[Severity: Critical]
-Is there a use-after-free race here if atcdmac_terminate_all runs
-concurrently?
-
-dma_desc remains in the unlocked active_list while the channel lock is drop=
-ped
-to invoke the client callback. If another thread calls atcdmac_terminate_al=
-l,
-it will splice active_list, abort the channel, manually run the callback on
-dma_desc again, and return it to the free_list.
-
-Another CPU can then immediately reallocate the descriptor and overwrite the
-callback pointers while the first CPU is still reading them to execute, whi=
-ch
-could lead to arbitrary code execution.
-
-[Severity: High]
-Can this delayed threaded IRQ cause a double-start race with system resume?
-
-If a transfer finishes right before suspend, the hardware interrupt fires
-but the threaded IRQ handler may not execute before the system freezes. On
-resume, stop_mask is cleared and the transfer is restarted. When normal
-operations resume, this delayed threaded IRQ runs, finds stop cleared, and
-erroneously double-starts the transfer while it is already actively running.
-
-[ ... ]
-> +static irqreturn_t atcdmac_interrupt(int irq, void *dev_id)
-> +{
-> +	struct atcdmac_dmac *dmac =3D dev_id;
-> +	struct atcdmac_chan *dmac_chan;
-> +	unsigned int status;
-> +	unsigned int int_ch;
-> +	int ret =3D IRQ_NONE;
-> +	int i;
-> +
-> +	regmap_read(dmac->regmap, REG_INT_STA, &status);
-> +	int_ch =3D READ_ONCE(dmac->used_chan) & DMA_INT_ALL(status);
-
-[Severity: High]
-Does masking hardware interrupts with the software used_chan state risk an
-unacknowledged IRQ storm?
-
-If an interrupt fires for a channel where the software used_chan bit is 0
-(such as an abort interrupt triggered by atcdmac_terminate_all on an idle
-channel), int_ch evaluates to 0.
-
-The handler bypasses the clear routine and returns without acknowledging the
-hardware interrupt, potentially causing an infinite loop of interrupts.
-
-> +
-> +	while (int_ch) {
-> +		spin_lock(&dmac->lock);
-
-[Severity: High]
-Is it safe to use a standard spinlock_t in hardirq context here?
-
-On PREEMPT_RT kernels, spinlock_t is implemented as an RT mutex which can
-sleep. Locks acquired in genuine hardware interrupt context typically need
-to be typed as raw_spinlock_t to avoid scheduling while atomic.
-
-> +		dmac->used_chan =3D READ_ONCE(dmac->used_chan) & ~int_ch;
-> +		spin_unlock(&dmac->lock);
-> +		regmap_write(dmac->regmap, REG_INT_STA, DMA_INT_CLR(int_ch));
-
-[Severity: Medium]
-Does writing a blanket clear mask erase unhandled interrupts?
-
-The DMA_INT_CLR macro writes 1s to the TC, ABT, and ERR bits for the given
-channel, regardless of which interrupts were actually set in the status rea=
-d.
-If a new interrupt (like ERR) asserts after the status read but before this
-clear write, it gets cleared but never handled.
-
-[ ... ]
-> +static int atcdmac_terminate_all(struct dma_chan *chan)
-> +{
-[ ... ]
-> +	spin_lock_irqsave(&dmac_chan->lock, flags);
-> +	atcdmac_abort_chan(dmac_chan);
-> +	atcdmac_enable_chan(dmac_chan, 0);
-> +	ret =3D regmap_read_poll_timeout_atomic(dmac_chan->dma_dev->regmap,
-> +					      REG_CH_EN,
-> +					      val,
-> +					      !(val & BIT(dmac_chan->chan_id)),
-> +					      10,
-> +					      ATCDMAC_CHAN_TIMEOUT_US);
-
-[Severity: High]
-Can this cause a soft lockup by polling for up to 100ms with interrupts
-disabled?
-
-Calling regmap_read_poll_timeout_atomic with a 100,000us timeout while
-holding a spinlock in hardirq-disabled context can trigger the NMI watchdog
-and create extreme system latency spikes.
-
-[ ... ]
-> +	list_for_each_entry_safe(desc_cur, desc_next, &list, desc_node) {
-> +		atcdmac_run_tx_complete_actions(desc_cur, DMA_TRANS_ABORTED);
-
-[Severity: High]
-Is it permissible to invoke completion callbacks for aborted transfers?
-
-The dmaengine API explicitly prohibits executing callbacks for aborted
-descriptors because clients (such as ALSA) typically call terminate_all with
-their own stream locks held. Invoking the callback here can cause a deadlock
-when the client attempts to acquire the exact same lock.
-
-[ ... ]
-> +static int atcdmac_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	ret =3D dma_async_device_register(&dmac->dma_device);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D atcdmac_init_irq(pdev, dmac);
-> +	if (ret)
-> +		goto err_dma_async_register;
-> +
-> +	ret =3D atcdmac_init_iocp(pdev, dmac);
-
-[Severity: High]
-Are the DMA channels exposed to clients before the IRQ handler and cache
-coherency (IOCP) are fully initialized?
-
-dma_async_device_register makes the DMA channels immediately available to
-kernel clients. If a client immediately requests a channel and starts a
-transfer before atcdmac_init_irq and atcdmac_init_iocp execute, the transfer
-will run without cache snooping configured, which could lead to memory
-corruption.
-
-[ ... ]
-> +static int atcdmac_resume(struct device *dev)
-> +{
-[ ... ]
-> +	list_for_each_entry_safe(chan,
-> +				 chan_next,
-> +				 &dmac->dma_device.channels,
-> +				 device_node) {
-> +		dmac_chan =3D atcdmac_chan_to_dmac_chan(chan);
-> +		spin_lock_irqsave(&dmac_chan->lock, flags);
-> +		atcdmac_start_next_trans(dmac_chan);
-
-[Severity: High]
-Could this improperly restart idle cyclic channels?
-
-This unconditionally calls atcdmac_start_next_trans for every channel
-regardless of its active software state. If a channel was previously cyclic
-but is currently idle, it will cause a fault as described earlier when
-dereferencing the empty active_list.
-
-[ ... ]
-> +static int atcdmac_suspend(struct device *dev)
-> +{
-> +	struct atcdmac_dmac *dmac =3D dev_get_drvdata(dev);
-> +	int ret;
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&dmac->lock, flags);
-> +	dmac->stop_mask =3D BIT(dmac->num_ch) - 1;
-> +	spin_unlock_irqrestore(&dmac->lock, flags);
-> +	ret =3D atcdmac_wait_chan_idle(dmac,
-> +				     dmac->stop_mask,
-> +				     ATCDMAC_CHAN_TIMEOUT_US * dmac->num_ch);
-
-[Severity: High]
-Will system suspend time out and fail if a slave DMA channel is actively
-waiting for peripheral data?
-
-The suspend sequence sets a stop_mask that prevents software from chaining =
-the
-next descriptor, but does not pause actively running transfers. It then blo=
-cks
-waiting for all channels to report idle.
-
-If a DEV_TO_MEM slave channel is waiting for hardware flow control or
-incoming data, it will never complete. The polling loop will eventually time
-out, aborting the entire system sleep transition.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911072524.1297=
-406-1-cl634@andestech.com?part=3D2
+Best regards,
+Adrian
+>
+> Best regards,
+> Krzysztof
