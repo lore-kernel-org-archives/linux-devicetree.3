@@ -1,145 +1,341 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71AB8450412
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353E844604E;
+	Fri, 11 Sep 2026 07:57:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113354; cv=none; b=sRFrzrf85G20pMAnkUamV9ID4FjFIatU5OKXRJB94RMcyN+kq85BzOKaAz4o5hehlrKDUXttASJte7bnOCvqL3TNStMyRrq+IPIfMNuak/Rc0XdXIJ8jydFIGjT+UaK5VJshIp8R0KPCbzN3IGPf/dbzlz8lH8DiX+vAc2Mdd9s=
+	t=1789113434; cv=none; b=JC/4mHzmQKwJ8xOnwX76u5+XIAKsa70o849S9ilcGFwaG8i/xrsDh2vgKk0AjFuderA3aybeE4vAV9X+FpDlW29um1DDwzGhUJeiBabrFgF7z3MyWLq6lTsaUpxG4oGQq0ml1S/q7jbw6+LsQZtXM09uOrUEqom1hTqG4UD79+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113354; c=relaxed/simple;
-	bh=wJKsCd+DULH+slTkurspopCwYo4n15toOWpCG+aVaa8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s3NlFRcK0GKh4heMOymvLb41lt8G4YQIR8nkJ7MqysEI7N9lyf2Lh4Q+8yXwfy4RawFhLYbRQpzz7cDTv2vf73IQgaznd9qwzHxLZ0umiLW9Vg9L5UXTCkEzIPG6GYs3JkckkhSujLbbcqlDUyqGJewhjCjSVg0aUayKO9DaEBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Lz9RK+7p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JRACjTVS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789113434; c=relaxed/simple;
+	bh=0cp+PvBCs5qPPeHzgDsTw+ZwZshDjpAYWxpaFS8t/kY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fX+4ebo/jP+wj8Ps8HCc4ySLleajX51rsaWw54/Awl2+vVc1+EH2VMjQBwwL2wewwttvdeKHAefWfcAmp7nJZ42uf1NL4U01WXN+xrIIf9GSnMwg+pQbdaRpdDBoqqt0htgf41yTbgHLLzOTxNn2q7WVBA/dG07BT7sjW5Iw3tM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KpAZGAvA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Lz9RK+7p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JRACjTVS"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7ku4m3513995
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:55:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Tv5gm9TG8CS0iIOKyh/RrkkI
-	cny2+h907Gb8OirYh0I=; b=Lz9RK+7pS5h3Kv2nb9CwzdDyZHe6PHvTp7lvgO9P
-	eyDZwU8Z+qHGZ3YoPs9feSSp2nbkuhgIz607uQXEpb6E1kMRfRINxERL4p/D23Mh
-	3KP12Hl0o3Eg51JEd0mXdRKafTv6d5XfOv3cnrx0x21N63nfxDaQ8jY4VNbHEpfu
-	ht/Wt3Zg9UX/Avy9zL/GoLd8jmrFDoqRv5NoEArCD9ZJHIleslBQvYEERiluJo6q
-	MLQQ1V2d/l20RbW8Et0LqYTNGBzwBSsYYkgeL+Ad4PttJ4Gm8H2nSX5hN8AU23U/
-	ZHRqIIte/3VUh4RCPg6mmNOrQkylTXfuH7Nv70wz5qUWuw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbd50ju1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:55:51 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-939f3426a7cso32117985a.0
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:55:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789113351; x=1789718151; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Tv5gm9TG8CS0iIOKyh/RrkkIcny2+h907Gb8OirYh0I=;
-        b=JRACjTVScrUzApmo+NZxrbMpC/WIXnMYhKMEEuk4EppyvjmvRTqLSb59u7mw68454G
-         XgXuUJy5yR66Zt/wjbfv6Px8gxHEV880CKGI+F17EndtRnid029B5lZqHFibc8GLdnVU
-         HhKiq23BMHGGjD5cTx0RHOJ5DDDfb2hpZVrq5fGYOTBMT4AuFKt6ogmwT4kdMjUnWlJp
-         Yf7Ib+2k5YlWVFuh6jQGY4/QjvNwxkVYZJtUlDmVqG5dkIyHUpb5JQyUbUGvdjGgiROz
-         TpsMmUdLIey/tReo0HDTDNEPDCSfuGr6ZHTtCJX/3yEcaDVFN8kSbjSGkezEQamDp02l
-         c0UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789113351; x=1789718151;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Tv5gm9TG8CS0iIOKyh/RrkkIcny2+h907Gb8OirYh0I=;
-        b=sxb0baRfCMly3DVdRHjSDepCO7SRbjK7wR9aI/7f8XLYgj3DoJyniKEjGKTDa3e5uo
-         AI/gLW40zX6fqOaOb7dbzuUMlEkvf0EciwJgH1RW2C+d+oOTdtLQlrQgt/YFPiba8ucR
-         ApbrpSXnAg9aFj/NWhaxz1nnteeMAAaAiQfR+wX+gUXKlDNtKUvhLz+4NBUER7ThlIsv
-         SRQ3RKgw734ml7NgxxUyFyZcEu74EWbfkDahdRA0G9AEzgF39PcAmdUEoncPNRs66je9
-         c8lElcuq0Tdq+zQbgTg6e2CwXkKNO2CMaY8cYixq/bHEQwCN2yP175q34RetCp0hPMg3
-         N71g==
-X-Forwarded-Encrypted: i=1; AKwUvBwyiPf6gXt9+a7Ge2YD7x6NVmbR2KRX8wGJLZKGKqArba1VcjgA1VJqirUPKxHS5e8DFFNOV6kKOL2V@vger.kernel.org
-X-Gm-Message-State: AFuF++mT+22Yn/A06lc4aeHhY/dzh9+ijFenbXYdsmF2p9v7dMnndVJB
-	tPuth1xA3Dx/ZUBvORPkZ6XpC74cRuzq+g/xB3yrHCtjCxVDBTCG6b3dS4rYq0zadaE41h1aFu5
-	sV1niF69irCRJnCLObm2rYT1D/yXCgBNF0hx+qsfvfb+tjTTjguFQMTNdYIV7LX0w
-X-Gm-Gg: AYBFou0whCIHpDgCZD/6SxPbai10ddW6/nlBCBYzTmSXjiQc5XvqDk+38DF2c4erZ7D
-	nJV8GUwdssVPJ19ZbtflcbNXPE9HwGSTmcGUW/DFqXPkFH6j8fXgo+Yb3xgoSwlUI51/KD0zUoI
-	Df+f+2gyPozaYHvMlZGZM/HhHn9/FpBIOkT6waKPZvaHnxAOfvZxcooVK/xzTkxjV4OZcEj5EY3
-	7ejPhxexCvKVc589ITSoKDvr84omBuG1HJbrAyZVUacoq9aJL8sBmb/PexIKMaI7rEoq+GvZHZo
-	0ln+gKEpEnIjOd5ondDFsUZAM6tVOZUM/tSH2OgotuIGIDw7szccjNGsPyDjVk0vztfCE3bFCMg
-	mPLk0aF40sTJbeg==
-X-Received: by 2002:a05:620a:44c1:b0:936:c026:be61 with SMTP id af79cd13be357-939ea053551mr399416685a.13.1789113350567;
-        Fri, 11 Sep 2026 00:55:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:44c1:b0:936:c026:be61 with SMTP id af79cd13be357-939ea053551mr399413585a.13.1789113349986;
-        Fri, 11 Sep 2026 00:55:49 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32d3c7sm3968829f8f.10.2026.09.11.00.55.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 00:55:48 -0700 (PDT)
-Date: Fri, 11 Sep 2026 10:55:46 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Subject: Re: [PATCH v8 2/3] arm64: dts: qcom: Add support for usb nodes on
- Shikra
-Message-ID: <24kaa6oq6v22hnngrbyorkvr2nkmjj3pjuevniuopokoportww@nfx333n7zrak>
-References: <20260911-usb-shikra-v7-v8-0-851ee4bc0eec@oss.qualcomm.com>
- <20260911-usb-shikra-v7-v8-2-851ee4bc0eec@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KpAZGAvA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4D361F000FF;
+	Fri, 11 Sep 2026 07:57:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789113433;
+	bh=hSZMb2gXwWsuxKewleo6zecix3FTzm0+APYyphtpIgI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KpAZGAvAfL5cenzZrBbc8s9A6qOF4+q5cPdz/IXSMV3X1hiVQDd7ZICExx4fywOtL
+	 /SeaoIu5gzmqUe/ZRozBXdD+SD9VyCn0llXTHw8qM54dMmVQ7P7ZXbJ1nHorAHbmho
+	 1QClwpSzAtpFAbfTOY4hTlO1VSQSozbLtY0PfHUzNVeQw/C60c876zjOv1e31tD+kr
+	 /PISCffRjYsjyuAxrJq4x8aaBZxix3L8wgDFs/tH4n5IzSi30VnErO+QqT1G1hgRj7
+	 2abP4TQeuIhSoB8vBQVGDwLhLUsSbU05eaeKTMVK3RwudQ9Ym8tsjDdp31DZJOQstD
+	 bq8zXAfgqd0eg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/2] dmaengine: atcdmac300: Add driver for Andes
+ ATCDMAC300 DMA controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "CL Wang" <cl634@andestech.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, vkoul@kernel.org
+In-Reply-To: <20260911072524.1297406-3-cl634@andestech.com>
+References: <20260911072524.1297406-1-cl634@andestech.com>
+ <20260911072524.1297406-3-cl634@andestech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 07:57:12 +0000
+Message-Id: <20260911075712.A4D361F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911-usb-shikra-v7-v8-2-851ee4bc0eec@oss.qualcomm.com>
-X-Proofpoint-GUID: zUzRsFIxEyzngqKlSeU1COwJx4LRTtEo
-X-Proofpoint-ORIG-GUID: zUzRsFIxEyzngqKlSeU1COwJx4LRTtEo
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDEwOSBTYWx0ZWRfX+gk5ahBmdJKh
- MBCAV+bC6lAfdYu45EZJA9SZhPbJ39RSNhW0ZolydRXH7/dLxvksLJT5bJZp/vRBLUQ2JtMATkd
- PoJOCfZEtvdegwa09C9JeofdFWdAaRM=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDEwOSBTYWx0ZWRfX2sgJUbj/Fn+Z
- OXcNFq3oFvaiU/Lob8KRiGiViuwqWQ702hCDnSQMfoo8czYIzTrf81mOlpc5EpY65HQlpkKG5RT
- FOEFVxoOwbYX+wY054Dqb4edNBLcY4d0IpRfh+BPe91qa10lSRduQ2/pe4IQ7Sz0onJeAYdrpk0
- qKjOlxZTETCuJubvi8UUM+k1saBwn7J8Wq9QjdnYO3IFshJufF2f1tsPN5RcFIvv1V7q7BkJXYt
- fcemmJLsDhaf+gfIyaK2p4xWLoxAFRVWVyZ+x66qm25W/cxuLaxQzxBLUrU67icSwNn7znBM7js
- +MZ22a2txa/jTXXg2gWnJatEWs5Ts3vPwDsPVvRjGenr04tqk6K5AZbm2Xk62+VtOsXeiE+MvtQ
- UCocRcdjVTimDR4YJbtKlhcl7FrUk/PmhqC5auJervOxyMjkXs/OyHyMek5UgWV/jwM63+1rIXI
- 8fhZcSc7llNz8sU8nAA==
-X-Authority-Analysis: v=2.4 cv=db0VTnXe c=1 sm=1 tr=0 ts=6aa3b407 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=0h-yqrj4mlVLKWl0i98A:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015 lowpriorityscore=0
- spamscore=0 impostorscore=0 priorityscore=1501 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110109
 
-On 26-09-11 11:37:19, Komal Bajaj wrote:
-> From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> 
-> Add support for both USB controllers and their respective phys on Shikra.
-> 
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
+- [Critical] Double-callback and Use-After-Free race in cyclic transfer com=
+pletion during channel termination.
+- [High] Masking pending hardware interrupts with software state (`used_cha=
+n`) causes an unacknowledged IRQ storm.
+- [High] The DMA device is exposed to clients before its IRQ handler and ca=
+che coherency (IOCP) are fully initialized.
+- [High] Polling for up to 100ms with interrupts disabled in `atcdmac_termi=
+nate_all` causes soft lockups.
+- [High] The channel-wide `cyclic` flag is sticky, and unconditional resume=
+ restarts cause arbitrary DMA execution or kernel panics.
+- [High] Suspend/resume race with the threaded IRQ causes transfer desynchr=
+onization and hardware corruption.
+- [High] dmaengine API violation in `atcdmac_terminate_all`: invoking compl=
+etion callbacks for aborted transfers.
+- [High] System suspend times out and fails if a slave DMA channel is activ=
+ely waiting for peripheral data.
+- [High] Sleep-in-atomic bug on PREEMPT_RT due to using `spinlock_t` in har=
+dirq context.
+- [High] Kernel panic due to list_del_init() on an uninitialized list_head =
+in error paths.
+- [Medium] Writing a blanket clear mask to `REG_INT_STA` clears unhandled i=
+nterrupts, permanently losing them.
+--
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+commit e06d7bd262ebaa03646e2e3ac2876918f25083d4
+Author: CL Wang <cl634@andestech.com>
+
+dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+
+This patch adds support for the Andes ATCDMAC300 DMA controller.
+The ATCDMAC300 is a memory-to-memory and peripheral DMA controller
+that provides scatter-gather, cyclic, and slave transfer capabilities.
+
+> diff --git a/drivers/dma/atcdmac300.c b/drivers/dma/atcdmac300.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/dma/atcdmac300.c
+[ ... ]
+> +static struct atcdmac_desc *atcdmac_alloc_desc(struct dma_chan *chan,
+> +					       gfp_t gfp_flags)
+> +{
+> +	struct atcdmac_dmac *dmac =3D atcdmac_dev_to_dmac(chan->device);
+> +	struct atcdmac_desc *desc;
+> +	dma_addr_t phys;
+> +
+> +	desc =3D dma_pool_zalloc(dmac->dma_desc_pool, gfp_flags, &phys);
+> +	if (desc) {
+> +		INIT_LIST_HEAD(&desc->tx_list);
+> +		dma_async_tx_descriptor_init(&desc->txd, chan);
+
+[Severity: High]
+Does this code leave desc_node uninitialized?
+
+dma_pool_zalloc zeroes out the descriptor, leaving the pointers for desc_no=
+de
+as NULL since INIT_LIST_HEAD is not called for it. If a subsequent descript=
+or
+allocation fails (for instance, in atcdmac_prep_device_sg), the error path
+calls atcdmac_put_desc on the first descriptor.
+
+This descends into atcdmac_put_desc_nolock, which performs list_del_init on
+desc_node, potentially causing a NULL pointer dereference on the
+uninitialized list head.
+
+[ ... ]
+> +static void atcdmac_put_desc_nolock(struct atcdmac_chan *dmac_chan,
+> +				    struct atcdmac_desc *desc)
+> +{
+[ ... ]
+> +		list_del_init(&desc->desc_node);
+
+[Severity: High]
+Can this trigger a NULL pointer dereference as described above?
+
+[ ... ]
+> +static void atcdmac_start_next_trans(struct atcdmac_chan *dmac_chan)
+> +{
+> +	struct atcdmac_desc *next_tx =3D NULL;
+> +	struct atcdmac_desc *dma_desc;
+> +
+> +	if (dmac_chan->cyclic) {
+> +		/* Get the next DMA descriptor from tx_list. */
+> +		dma_desc =3D atcdmac_get_active_head(dmac_chan);
+> +		dma_desc->at =3D dma_desc->at->next;
+
+[Severity: High]
+Could this dereference an invalid pointer if the active_list is empty?
+
+The channel-wide cyclic flag is sticky and is never cleared when a transfer
+is terminated. If atcdmac_start_next_trans is called (for example, during
+system resume) on a previously cyclic channel that is now idle, active_list
+will be empty.
+
+Using list_first_entry via atcdmac_get_active_head on an empty list returns
+a bogus pointer, leading to a fault when dma_desc->at is accessed.
+
+[ ... ]
+> +static void atcdmac_advance_work(struct atcdmac_chan *dmac_chan)
+> +{
+[ ... ]
+> +	if (dmac_chan->cyclic) {
+> +		if (!stop)
+> +			atcdmac_start_next_trans(dmac_chan);
+> +
+> +		spin_unlock_irqrestore(&dmac_chan->lock, flags);
+> +		res.result =3D DMA_TRANS_NOERROR;
+> +		dmaengine_desc_get_callback_invoke(&dma_desc->txd, &res);
+
+[Severity: Critical]
+Is there a use-after-free race here if atcdmac_terminate_all runs
+concurrently?
+
+dma_desc remains in the unlocked active_list while the channel lock is drop=
+ped
+to invoke the client callback. If another thread calls atcdmac_terminate_al=
+l,
+it will splice active_list, abort the channel, manually run the callback on
+dma_desc again, and return it to the free_list.
+
+Another CPU can then immediately reallocate the descriptor and overwrite the
+callback pointers while the first CPU is still reading them to execute, whi=
+ch
+could lead to arbitrary code execution.
+
+[Severity: High]
+Can this delayed threaded IRQ cause a double-start race with system resume?
+
+If a transfer finishes right before suspend, the hardware interrupt fires
+but the threaded IRQ handler may not execute before the system freezes. On
+resume, stop_mask is cleared and the transfer is restarted. When normal
+operations resume, this delayed threaded IRQ runs, finds stop cleared, and
+erroneously double-starts the transfer while it is already actively running.
+
+[ ... ]
+> +static irqreturn_t atcdmac_interrupt(int irq, void *dev_id)
+> +{
+> +	struct atcdmac_dmac *dmac =3D dev_id;
+> +	struct atcdmac_chan *dmac_chan;
+> +	unsigned int status;
+> +	unsigned int int_ch;
+> +	int ret =3D IRQ_NONE;
+> +	int i;
+> +
+> +	regmap_read(dmac->regmap, REG_INT_STA, &status);
+> +	int_ch =3D READ_ONCE(dmac->used_chan) & DMA_INT_ALL(status);
+
+[Severity: High]
+Does masking hardware interrupts with the software used_chan state risk an
+unacknowledged IRQ storm?
+
+If an interrupt fires for a channel where the software used_chan bit is 0
+(such as an abort interrupt triggered by atcdmac_terminate_all on an idle
+channel), int_ch evaluates to 0.
+
+The handler bypasses the clear routine and returns without acknowledging the
+hardware interrupt, potentially causing an infinite loop of interrupts.
+
+> +
+> +	while (int_ch) {
+> +		spin_lock(&dmac->lock);
+
+[Severity: High]
+Is it safe to use a standard spinlock_t in hardirq context here?
+
+On PREEMPT_RT kernels, spinlock_t is implemented as an RT mutex which can
+sleep. Locks acquired in genuine hardware interrupt context typically need
+to be typed as raw_spinlock_t to avoid scheduling while atomic.
+
+> +		dmac->used_chan =3D READ_ONCE(dmac->used_chan) & ~int_ch;
+> +		spin_unlock(&dmac->lock);
+> +		regmap_write(dmac->regmap, REG_INT_STA, DMA_INT_CLR(int_ch));
+
+[Severity: Medium]
+Does writing a blanket clear mask erase unhandled interrupts?
+
+The DMA_INT_CLR macro writes 1s to the TC, ABT, and ERR bits for the given
+channel, regardless of which interrupts were actually set in the status rea=
+d.
+If a new interrupt (like ERR) asserts after the status read but before this
+clear write, it gets cleared but never handled.
+
+[ ... ]
+> +static int atcdmac_terminate_all(struct dma_chan *chan)
+> +{
+[ ... ]
+> +	spin_lock_irqsave(&dmac_chan->lock, flags);
+> +	atcdmac_abort_chan(dmac_chan);
+> +	atcdmac_enable_chan(dmac_chan, 0);
+> +	ret =3D regmap_read_poll_timeout_atomic(dmac_chan->dma_dev->regmap,
+> +					      REG_CH_EN,
+> +					      val,
+> +					      !(val & BIT(dmac_chan->chan_id)),
+> +					      10,
+> +					      ATCDMAC_CHAN_TIMEOUT_US);
+
+[Severity: High]
+Can this cause a soft lockup by polling for up to 100ms with interrupts
+disabled?
+
+Calling regmap_read_poll_timeout_atomic with a 100,000us timeout while
+holding a spinlock in hardirq-disabled context can trigger the NMI watchdog
+and create extreme system latency spikes.
+
+[ ... ]
+> +	list_for_each_entry_safe(desc_cur, desc_next, &list, desc_node) {
+> +		atcdmac_run_tx_complete_actions(desc_cur, DMA_TRANS_ABORTED);
+
+[Severity: High]
+Is it permissible to invoke completion callbacks for aborted transfers?
+
+The dmaengine API explicitly prohibits executing callbacks for aborted
+descriptors because clients (such as ALSA) typically call terminate_all with
+their own stream locks held. Invoking the callback here can cause a deadlock
+when the client attempts to acquire the exact same lock.
+
+[ ... ]
+> +static int atcdmac_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	ret =3D dma_async_device_register(&dmac->dma_device);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D atcdmac_init_irq(pdev, dmac);
+> +	if (ret)
+> +		goto err_dma_async_register;
+> +
+> +	ret =3D atcdmac_init_iocp(pdev, dmac);
+
+[Severity: High]
+Are the DMA channels exposed to clients before the IRQ handler and cache
+coherency (IOCP) are fully initialized?
+
+dma_async_device_register makes the DMA channels immediately available to
+kernel clients. If a client immediately requests a channel and starts a
+transfer before atcdmac_init_irq and atcdmac_init_iocp execute, the transfer
+will run without cache snooping configured, which could lead to memory
+corruption.
+
+[ ... ]
+> +static int atcdmac_resume(struct device *dev)
+> +{
+[ ... ]
+> +	list_for_each_entry_safe(chan,
+> +				 chan_next,
+> +				 &dmac->dma_device.channels,
+> +				 device_node) {
+> +		dmac_chan =3D atcdmac_chan_to_dmac_chan(chan);
+> +		spin_lock_irqsave(&dmac_chan->lock, flags);
+> +		atcdmac_start_next_trans(dmac_chan);
+
+[Severity: High]
+Could this improperly restart idle cyclic channels?
+
+This unconditionally calls atcdmac_start_next_trans for every channel
+regardless of its active software state. If a channel was previously cyclic
+but is currently idle, it will cause a fault as described earlier when
+dereferencing the empty active_list.
+
+[ ... ]
+> +static int atcdmac_suspend(struct device *dev)
+> +{
+> +	struct atcdmac_dmac *dmac =3D dev_get_drvdata(dev);
+> +	int ret;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&dmac->lock, flags);
+> +	dmac->stop_mask =3D BIT(dmac->num_ch) - 1;
+> +	spin_unlock_irqrestore(&dmac->lock, flags);
+> +	ret =3D atcdmac_wait_chan_idle(dmac,
+> +				     dmac->stop_mask,
+> +				     ATCDMAC_CHAN_TIMEOUT_US * dmac->num_ch);
+
+[Severity: High]
+Will system suspend time out and fail if a slave DMA channel is actively
+waiting for peripheral data?
+
+The suspend sequence sets a stop_mask that prevents software from chaining =
+the
+next descriptor, but does not pause actively running transfers. It then blo=
+cks
+waiting for all channels to report idle.
+
+If a DEV_TO_MEM slave channel is waiting for hardware flow control or
+incoming data, it will never complete. The polling loop will eventually time
+out, aborting the entire system sleep transition.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911072524.1297=
+406-1-cl634@andestech.com?part=3D2
