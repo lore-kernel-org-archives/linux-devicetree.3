@@ -1,162 +1,388 @@
-Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012058.outbound.protection.outlook.com [52.101.48.58])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7102445A29B;
-	Fri, 11 Sep 2026 07:59:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113572; cv=fail; b=GqRPyiQnB/es6V21p7LedlO3FUjcrOEvH3MmPFkU6o+AheuwNtcHGtA1EtPa88+TkUwNPE48Vo7ujLjH3U0p/u+tcSGThp0vdN52IX5sImNTHPJENpCHrTvcb5lSspG9NS+vn8zNAJLDmi3xZyhFOdbnjKVENCwedyy0KvQvkG8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113572; c=relaxed/simple;
-	bh=klhzcm68JxRt9kblDYpZEZYce+rIzaH7I4/xK5MfjXY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=k8s9Hc/KpOCWLWCY8ydAJrfAMFtt/cvx2+J4PpEa/s8hIq8IhR6iiGTs32pN08vuaGTlK2a3Ded5/XIJVgicnThSggelBfRwHO0Kjb55EIW7TqZyzD1hOSaMiQQjPvRc22ZeQ0fgAiVI2JRc4BD0zhtjM1h5Bca361WD4V/NM3o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=jrFYWQLV; arc=fail smtp.client-ip=52.101.48.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8CD45C719;
+	Fri, 11 Sep 2026 08:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789113655; cv=none; b=PckSz1KEZelJSKurm7YgdNlSGEcMgaSATy+S7gtquarR90wTHSu+3tXD11ydYmhpM8um9tSXgQUziuzn2dN0gGIS6AoCd8eVjVFGg92dGof817NScgMulzgg7lsUFYScdMmNi9GnPXJYz5Dwq1PR0woeVf5En+hMej5+GByIRSg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789113655; c=relaxed/simple;
+	bh=LfYvR29VTy8mN7xftSEO5JWBU3bWn97hBdtJ2Xqsi2g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e93944DR2mOONzfy95qmsneTdTGgkZkJw4yfwLU9Uopt9dTb5ok/P9tnEhA+HvN5LRgK0B4q8Lrq4zJhyqLpPazn4a7hegJSmuzxNVwrC/p9M2iOlbHcRP6C3L8D7Vgf1SJzONDg6u+Q21xfAZOAno0IA814yhwG65VT98CRzj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BApfalTH; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="jrFYWQLV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ffg+PJA2H92t/dRGT8ymoUwrh6awoZGWJHVOJWzHePpNP0IrBpr8gC6H4TudE9aPd7LrDucIu6KKL3PFgjcbQVWrCv/K1FtYvW2OBvAf2OEiUn9nNNduxWzErv3Ysh2AaqXcpkLAIMj5FCLEFOw/45lBjM4gLMbhUAwvSWWGKel9Ken9/qwEjmSQi4o2dcNBwr8vYFBQm0/e9YkR9aSDuBLqN7RepooigYLDWfThlAXV+ftiGdhlCmdPLlgVh+tldpxfFzk3qgskTexLYHKHbhW2GSZaOvqveGb5WsddVaOq5gF2sepfQ03wKARPRU7pCv5K4eTO2nL7/A/LXOk2HQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=klhzcm68JxRt9kblDYpZEZYce+rIzaH7I4/xK5MfjXY=;
- b=DHMPRPqbTjlXfSXlM2xd3JLLzuiG7dvOl9/dmaOne5JED4h9F6hA4zILakmAzZP0qGDr8cnzzAl+wFJUCLysSociciEb6KiL1JAhOavn+uoA5KCTPdVSNWxgoGKQYXcXcyUSSZP8aDR/TYx+ezNT/ljWxDWXt4P0rAuVF6O0L5MDXRhHPawwkLqp1mIFBLGku8OoIUYsaoNvSWOlK4P3/rZeVDvVqBeJr3bJW6ZcF4+Ocb5Y7jbEqWSf0JFmUcn1WSG6q8Npj7YurzB7akB0RoPOXFfnCc3PF2DBPdWmwx62OpSUvDPsvCdp8wDotwuy1TlnNmHE6JP8ljR3GDKOWA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=klhzcm68JxRt9kblDYpZEZYce+rIzaH7I4/xK5MfjXY=;
- b=jrFYWQLV9XEZvwNPsfLM1DB0BtSjm2eB/+iW/929rypxmTpD/MSWBtE9Nrrwfyg3A6UnlMZyHgvBFmJip4JzK6C6XZMawVd8AdBfMMG1q7TasuCYM0IJBFNnr65PlHse9UrkwQszUVsAKIvcIHa7aUEuxWgykig1fmeDfPmeIUiUr6GWd6UPhjHL6ix8+DB7EdH8KHS2KSF3K0pEpuX7zJ3VjngZRwbL5xUsdfvboJ5sfG3yn8/s2apJk5399GrT9Y7DIYbl+APP/5LRPob3LWSL8pK1mlBHzAupf3tkG3s6MeFDWi1w/owYXubmOJfF8hPPwcoI5pwc+bQgziPrmw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- EAYPR03MB989276.namprd03.prod.outlook.com (2603:10b6:303:2c9::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 11 Sep
- 2026 07:59:29 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 07:59:29 +0000
-Message-ID: <cb2831d3-8c64-4de0-b61b-4ca5a25baa83@altera.com>
-Date: Fri, 11 Sep 2026 15:59:25 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/4] arm64: dts: intel: agilex5: remove usb0 in Agilex5
- SoCDK
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
- <6c324c1953c6fb9e217e878bdd42c06bc4b6bceb.1788886615.git.adrian.ho.yin.ng@altera.com>
- <20260911-elephant-of-great-certainty-4e0bbf@quoll>
-Content-Language: en-US
-From: "NG, ADRIAN HO YIN" <adrian.ho.yin.ng@altera.com>
-In-Reply-To: <20260911-elephant-of-great-certainty-4e0bbf@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SJ0PR03CA0016.namprd03.prod.outlook.com
- (2603:10b6:a03:33a::21) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BApfalTH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789113654; x=1820649654;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=LfYvR29VTy8mN7xftSEO5JWBU3bWn97hBdtJ2Xqsi2g=;
+  b=BApfalTHNAuEHn4yG7dQR5hUI4LVrN4p9w3RTAiBoeMSb/WAgNt2qZio
+   CBMgmMWu93sgGTCvPTShfZIufEpvwekilyWbHMjqVBh9Uctg5j23mCjf5
+   fzXRehGevSkXZYDwIPtbxDL7IUOxn/n49Xb14/XT3VMBMPkQuDlyorjs4
+   XE4k8Q6/vjyrPeQoWOcjyhqnDY1cX3jaEIDOpAGOFg4bZ75aoarcYol9/
+   XtfxL6xA4T1Drwj9GDIi5U8aSphhxnv25GHzw8WaRhmpsUgV2HHjmstNO
+   V/S4qvOOTBbSKMbdYU+SvHA7NP9OeBcJi9L9ed/qRph+kplPWtR2Ij7RB
+   g==;
+X-CSE-ConnectionGUID: TN78N+hnTq2tuKidLoBHWA==
+X-CSE-MsgGUID: WAwhSOoHQamcGyy6u+VDng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="106942976"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="106942976"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:00:53 -0700
+X-CSE-ConnectionGUID: TfVD6kd3T6Gqs4uB4N1J+A==
+X-CSE-MsgGUID: BrJjrAMPT3SDYqanNsBwUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="296841626"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:00:50 -0700
+Date: Fri, 11 Sep 2026 11:00:47 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com, andy@kernel.org,
+	robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 2/2] iio: temperature: add support for Analog Devices
+ MAX30210
+Message-ID: <aqO1L748RVwHDLMU@ashevche-desk.local>
+References: <cover.1789032019.git.johnerasmusmari.geronimo@analog.com>
+ <1d3cdd6163923b1c537b8db49b833863ee6bf545.1789032019.git.johnerasmusmari.geronimo@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|EAYPR03MB989276:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6b9a8638-4590-4891-3680-08df0fda9b78
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|4143699003|10067099003|11063799006|56012099006|6133799003|55112099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eaJ0D1pujN1J3zOg5so3a7qw8b932gyX1EpZ2MllA6RJ0S8TnZ3Zy/khfF0do7CM+BZjU6YDYpAJNDU6hjCjvHgGKpqQPoj+6/8ioKxN7z5sb6n/etL3npKfFKO91i3F5DNqPINS+G05DFlYGw5aVhygNvRGhBKKwRg/48W92tC03b+6b1XhTzWZytuiPWgD8zdi9RfOtfAHKygqZsooevhg2hqCmZWmjVwrGTpR0vIoPDUyKV6p0KrbzYFQ2JcVZvFLO50qNdmhQzCZXxt2Vp9Pi9lhzMUd6rrcoWWDZnFVXE3h4AxaOTUicbSRRj2jbupDCOJQqQDxibVBebfCIQL0NKTxUS8mU2D2CAtXxW3Suog49yUycoFaK3iJusOR2Vznjf3+NF5ZDf9eWjtEOuHA8hBPcC6Df4pOYYhz8z/AUmXKoi3OI6XTcJ3WruMqqzLgQNOv0fXlyWiPZmkWSblp4pypczI15zc877H+vwKIqcwnnCJunqMIUI/yhRr3BcFfkXIZ3RWOq6eJbbBBU4XN+XS00wFagmudkeX9vLNxiU8ZpIlVluEelQm46U8tgHNj22KgL+KHW5m/rXfLqsw4oZ/8voIHH0NiHfGgPbDFTgSPw2aCxJyVi9mbb+D9MRdbfi9bx03T+qfTDwQcHw1hH3CrZuFma3uV0HJLYfo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(6133799003)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bGdoR1ZDREpTOUZwLzNYMjgzZmhhWXdUa0ZKQXVrYlMxeWx3NUNCMktUM09T?=
- =?utf-8?B?MDdBc0RmbndPQ3NvQ3VURlBwMlVnY09naElCdUtVQkxJeDJaVmpiVGNZRlV2?=
- =?utf-8?B?emc5WjltRFJyT08zcTdWSkRtMk9OSTR1SDJOWC83aTNiR1BpWlVrbW9WYTNs?=
- =?utf-8?B?V2FuUk5QSHZROFp1bEwzb2h5WnE3emxZZktWaFpJa2U0Umx2OGEwVDE5bkU1?=
- =?utf-8?B?bzRtL2VMcEU1SThVMVFLdXNTbUwxbEo0ZElGem93QmsvZ0FvWlk5U2x5Snh0?=
- =?utf-8?B?OEx1MmVJYkRTQjlldlhFMGlXeDRUUmY1T3dJWTA3ZmZuWFhBKzkzaEJoaER6?=
- =?utf-8?B?enZTekFOa3FHQUp1Z1VWVFBoSERjVXZTQXBIV1B6ak9iSFBZa1V6UDdGR2dY?=
- =?utf-8?B?aEl3MmZHSVNSa3lZRjNYcVhqTGN4YXBjckZkSGpEbzZWeUgxQk14Wkd3NTB4?=
- =?utf-8?B?Mlh1QVZZNjU2dUF4WkZlNnNPRHVBSFRsSHZRdFlaZGRJWWM4U2xWazFOSDZ3?=
- =?utf-8?B?cXhKdVBvSVUxYUhDSHF2Si9VZ2dXTDM5d3FqSTZCdVA4UHpyQ2tSZ2RCU2U4?=
- =?utf-8?B?MHdkdmhUd2gwWlFjQUhIcTJ6UGFSbERZWUpmRDgxRklhak94TFBiRFdWM0Zp?=
- =?utf-8?B?N1ZwL2RkWk1Rc1UxMUpOeE1KNHFNNDh0WkF3V0xRai9LYU5wLzhJREdGSENt?=
- =?utf-8?B?KzhoWE1jOEp4NXFkSjc1cVNEa0dJNS9YRllOWUZWMGpySDZFb2xXMlZ6d05K?=
- =?utf-8?B?eHA5S0lIZzRnb000VmJaa0laMU9hOHhrRnA0VUhCU1ZMUGIxTDlhVDNTK0pm?=
- =?utf-8?B?Z2xiMmhHTzBHV3dFaGJvb2pFMTBpRmw1bFFqeDZ3UkZEV2FGblFTeFphWVN6?=
- =?utf-8?B?c3RHT0szV29zRWlxYUFyOTQ3cTBPUDRJT0Z0aUZ4anJjaGgzWVpsT3c5UWZK?=
- =?utf-8?B?YjYyRnFQZDhxZGNkOWovdGdXTDgyQ1h2RGdzQUF6M21WaFVDUk1DRWZvZ3p0?=
- =?utf-8?B?T3NmczE3K2lWczN6MFhudWp3bFBnejRwUXhhSWRSRFJLZXpmSHFKeFFWc3BZ?=
- =?utf-8?B?aXMzRDN1Zm90Z2ExMVF2a0gxZTB1VDBseXBITkpHZHR5VmZFQWNRdG5GR1Yx?=
- =?utf-8?B?UVJtK01FUUtnUnptQkFhTzZHMVBaYy9SdVRrUnV3Q09xSm85WjVjWGJKVlBx?=
- =?utf-8?B?Nkl0VE96Z0ZGRnN2OVI3SWhLWmNaUGV5bUhyZ3B5aU5JUWpyNEJWVHowRG1P?=
- =?utf-8?B?NXF6T2hiMUp5ckFsdFVqS1NXMDZVVUJzR08yWFdlcVlxVnh1L043UkRuK05l?=
- =?utf-8?B?MVdkZWhQQnp5U01jRlBRNkRkcmpzaEpmeWpWRjR3KzE4NzFQbmY1WmpsYXN1?=
- =?utf-8?B?TzR0V2c3OE9VOFNPTUx1SXUyMlQ0bVpyM0JHNzB2RU9MMnF0M0xDbStieERD?=
- =?utf-8?B?OEtraWx5V1krcTFFZGlCL0tQb2xLOHJPbVhqN1FUOE9RS25sV1BveldvZitL?=
- =?utf-8?B?SFFwWWpaS0N5anZvSXRxWW0wQnNJZFBoZ2ZVUnJIY3MrZUxlelY1c2xORlNT?=
- =?utf-8?B?RWlOMWkwNTVVNDYyd2tZckppeEVpcytudFBnK2FXemNnMCtPMXMrUVRGb3VG?=
- =?utf-8?B?ODM5K0pyUy9CVHN0NCtVYlA4b0ZtR1NKbk9LQVY5UWhrekxPRi9ITUxqV3Fs?=
- =?utf-8?B?dnQ1VzhKMk1UcVY2N29UOGdqRllsZHArb1ZmRUw5WitQQjRyYnFoSFk0TU9F?=
- =?utf-8?B?dXo2NjVBeWpzcFF3Wmt1alF3WVB2RTR6WktUcEJpTXczT05sdGppNHk0MEVM?=
- =?utf-8?B?bnF3bXgrcmxMOEZtelZPL2RUem1ENXBjUW1YQ1Y2UHZiUExXdmJFRS9md3dT?=
- =?utf-8?B?OFZJTW5HdnVZSGFsbEM5Y0xjZzVBMXovbzByQ1dUWDVRSTYzUG9UbzVRME9C?=
- =?utf-8?B?U2QxVXhmdkZ5Z0hsK0F5RlovcVhlczRKRTRlVWVBMDZyRDVJejV5MEh4YlZD?=
- =?utf-8?B?UXM0akZsZnRmY3g2NVBlWStWL1NjNjBYRUgyT0VXQTloM0gzUlBUUmkvVkVF?=
- =?utf-8?B?K3p2TWZMaXlSZEgrSVFYMm9ySlFrRVRIR3VGS3cveDNaMGlzSE8vWm81WGpo?=
- =?utf-8?B?Y2VjQ2lDQTRmejVwcFk0c29tRzVsVnBnQjgwbit1eVEzWkxQdHdyWHYyS1NJ?=
- =?utf-8?B?RExiUm5sRk5Qc0ZBZXdQL0dRNHNNZXFlV1ZMQU1ZS1oydkoyU3lmd0dZYXdG?=
- =?utf-8?B?M1E2K1Qrbk1hSGxweTdIeThVL2dHZEdpNWdGQmtKS0E5elJBNEFnZEZTdStW?=
- =?utf-8?B?UytlS3NaY2VqTkpvOTc0WW10a2JSaWZnNUUvU21JWnBhUmp2TTh1bFl5Y2hu?=
- =?utf-8?Q?vIrYgg2v9bcfUerU=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6b9a8638-4590-4891-3680-08df0fda9b78
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 07:59:29.6983
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Fs43P4egu1+Yin0O4lNannRQ7m2prc+HUebVqb30UhPfXxzCPMv7wyVZdYb/E3/PP8FSKp1t5CirsO1EdX6My1BQga/iTQMbaCsGnezkAoY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR03MB989276
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1d3cdd6163923b1c537b8db49b833863ee6bf545.1789032019.git.johnerasmusmari.geronimo@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Fri, Sep 11, 2026 at 06:12:17AM +0800, John Erasmus Mari Geronimo wrote:
+> Add support for the Analog Devices MAX30210 I2C temperature
+> sensor.
+> 
+> The driver uses regmap for register access and integrates with
+> the IIO framework. It supports:
+> 
+> - Direct mode temperature conversion
+> - Configurable sampling frequency
+> - Threshold events
+> - FIFO operation with IIO kfifo buffer support
+> - Optional interrupt-driven data ready signaling
+> 
+> The device provides 16-bit signed temperature data and a
+> 64-sample FIFO.
+
+...
+
+Shouldn't Kconfig select REGMAP_I2C?
+
+...
+
+The header block doesn't fully follow IWYU.
+
++ array_size.h // ARRAY_SIZE()
++ bitops.h // BIT(), sign_extend32(), et cetera
+
+> +#include <linux/bitfield.h>
+
++ delay.h // fsleep()
+
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/i2c.h>
+
+> +#include <linux/iio/buffer.h>
+> +#include <linux/iio/events.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/kfifo_buf.h>
+> +#include <linux/iio/sysfs.h>
+
+It's better to group them out...
+
++ minmax.h // min*(), et cetera
+
+> +#include <linux/regmap.h>
+
++ types.h // uXX, __le16, et cetera
+
+> +#include <linux/unaligned.h>
+> +#include <linux/units.h>
+> +
+
+...somewhere here.
+
+...
+
+> +struct max30210_state {
+> +	struct regmap *regmap;
+
+> +	u8 watermark;
+
+I would swap to make it easier to read the array (which will be aligned).
+
+> +	/* Raw FIFO byte buffer */
+> +	u8 fifo_buf[MAX30210_FIFO_BYTES_PER_SAMPLE * MAX30210_FIFO_SIZE];
+> +};
+
+...
+
+> +static const struct regmap_config max30210_regmap = {
+> +	.reg_bits = 8,
+> +	.val_bits = 8,
+> +	.max_register = MAX30210_PART_ID_REG,
+
+No cache? Why?
+
+> +};
+
+...
+
+> +static void max30210_fifo_read(struct iio_dev *indio_dev)
+> +{
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	ret = regmap_bulk_read(st->regmap, MAX30210_FIFO_DATA_REG,
+> +			       st->fifo_buf,
+> +			       MAX30210_FIFO_BYTES_PER_SAMPLE * st->watermark);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Failed to read from fifo.\n");
+> +		return;
+> +	}
+> +
+> +	for (unsigned int i = 0; i < st->watermark; i++) {
+> +		u32 raw = get_unaligned_be24(&st->fifo_buf[MAX30210_FIFO_BYTES_PER_SAMPLE * i]);
+> +
+> +		if (raw == MAX30210_FIFO_INVAL_DATA) {
+> +			dev_err_ratelimited(&indio_dev->dev, "Invalid data\n");
+> +			continue;
+> +		}
+> +
+> +		s16 temp = (s16)FIELD_GET(MAX30210_FIFO_TEMP_MASK, raw);
+
+Defined variable at the proper space, also better to use sign_extend() instead
+of casting.
+
+> +
+> +		iio_push_to_buffers(indio_dev, &temp);
+> +	}
+> +}
+
+...
+
+> +static irqreturn_t max30210_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct iio_dev *indio_dev = dev_id;
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +	unsigned int status;
+> +	int ret;
+> +
+> +	ret = regmap_read(st->regmap, MAX30210_STATUS_REG, &status);
+> +	if (ret) {
+> +		dev_err(&indio_dev->dev, "Status read failed\n");
+
+Imagine if this is an intermittent issue, this will flood the logs very quickly.
+
+> +		return IRQ_NONE;
+> +	}
+> +
+> +	if (status & MAX30210_STATUS_A_FULL_MASK)
+> +		max30210_fifo_read(indio_dev);
+> +
+> +	if (status & MAX30210_STATUS_TEMP_HI_MASK)
+> +		iio_push_event(indio_dev,
+> +			       IIO_UNMOD_EVENT_CODE(IIO_TEMP, 0,
+> +						    IIO_EV_TYPE_THRESH,
+> +						    IIO_EV_DIR_RISING),
+> +			       iio_get_time_ns(indio_dev));
+> +
+> +	if (status & MAX30210_STATUS_TEMP_LO_MASK)
+> +		iio_push_event(indio_dev,
+> +			       IIO_UNMOD_EVENT_CODE(IIO_TEMP, 0,
+> +						    IIO_EV_TYPE_THRESH,
+> +						    IIO_EV_DIR_FALLING),
+> +			       iio_get_time_ns(indio_dev));
+> +
+> +	return IRQ_HANDLED;
+> +}
+
+...
+
+> +static int max30210_read_raw(struct iio_dev *indio_dev,
+> +			     struct iio_chan_spec const *chan, int *val,
+> +			     int *val2, long mask)
+> +{
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +	unsigned int uval;
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = 5;
+
+> +		*val2 = 1000;
+
+KILO? MILLI?
+
+> +		return IIO_VAL_FRACTIONAL;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		ret = regmap_read(st->regmap, MAX30210_TEMP_CONF_2_REG, &uval);
+> +		if (ret)
+> +			return ret;
+> +
+> +		uval = FIELD_GET(MAX30210_TEMPCONF2_TEMP_PERIOD_MASK, uval);
+> +
+> +		/*
+> +		 * TEMP_PERIOD is an index into the sampling frequency lookup
+> +		 * table. Clamp in case the register holds a reserved value.
+> +		 */
+> +		uval = min_t(unsigned int, uval, ARRAY_SIZE(max30210_samp_freq_avail) - 1);
+
+No min_t(). Also add a new temporary variable for the value from the register,
+so semantically uval wouldn't be overloaded.
+
+> +		*val = max30210_samp_freq_avail[uval][0];
+> +		*val2 = max30210_samp_freq_avail[uval][1];
+> +
+> +		return IIO_VAL_INT_PLUS_MICRO;
+> +	case IIO_CHAN_INFO_RAW: {
+> +		if (iio_buffer_enabled(indio_dev))
+> +			return -EBUSY;
+> +
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		ret = regmap_write(st->regmap, MAX30210_TEMP_CONV_REG,
+> +				   MAX30210_TEMPCONV_CONV_T_MASK);
+> +		if (ret)
+> +			return ret;
+> +
+> +		/*
+> +		 * Wait until CONVERT_T auto-clears.
+> +		 * Datasheet:
+> +		 *   tBIAS_WU = 260 µs
+> +		 *   tINT     = 8 ms
+> +		 *
+> +		 * Worst-case conversion ≈ 8.26 ms.
+> +		 * Use 10 ms timeout for margin.
+> +		 */
+> +		ret = regmap_read_poll_timeout(st->regmap, MAX30210_TEMP_CONV_REG, uval,
+> +					       !(uval & MAX30210_TEMPCONV_CONV_T_MASK),
+> +					       500,          /* poll every 500 µs */
+> +					       10000);       /* 10 ms timeout */
+
+10 * USEC_PER_MSEC (will require time.h to be included).
+
+> +		if (ret)
+> +			return ret;
+> +
+> +		return max30210_read_temp(st->regmap, MAX30210_TEMP_DATA_REG, val);
+> +	}
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static int max30210_write_raw(struct iio_dev *indio_dev,
+> +			      struct iio_chan_spec const *chan, int val,
+> +			      int val2, long mask)
+
+Split logically...
+
+			      struct iio_chan_spec const *chan,
+			      int val, int val2, long mask)
+
+(I am surprised that this is v3 and too many mistakes that linux-iio@ mailing
+ list is full of. You may take your time and read the mailing list archives to
+ understand the most common style and API mistakes in IIO contributions.)
+
+> +{
+> +	struct max30210_state *st = iio_priv(indio_dev);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ: {
+> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +			return -EBUSY;
+> +
+> +		if (val < 0 || val2 < 0)
+> +			return -EINVAL;
+> +
+> +		for (unsigned int i = 0; i < ARRAY_SIZE(max30210_samp_freq_avail); i++) {
+> +			if (val != max30210_samp_freq_avail[i][0] ||
+> +			    val2 != max30210_samp_freq_avail[i][1])
+> +				continue;
+> +
+> +			return regmap_update_bits(st->regmap, MAX30210_TEMP_CONF_2_REG,
+> +					MAX30210_TEMPCONF2_TEMP_PERIOD_MASK,
+> +					FIELD_PREP(MAX30210_TEMPCONF2_TEMP_PERIOD_MASK, i));
+> +		}
+> +
+> +		return -EINVAL;
+> +	}
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+...
+
+> +static ssize_t hwfifo_watermark_show(struct device *dev,
+> +				     struct device_attribute *devattr,
+> +				     char *buf)
+> +{
+> +	struct max30210_state *st = iio_priv(dev_to_iio_dev(dev));
+> +
+> +	return sysfs_emit(buf, "%d\n", st->watermark);
+> +}
+
+^^^ (here, see below)
+
+> +
+> +IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_min, "1");
+> +IIO_STATIC_CONST_DEVICE_ATTR(hwfifo_watermark_max,
+> +			     __stringify(MAX30210_FIFO_SIZE));
+
+> +static IIO_DEVICE_ATTR_RO(hwfifo_watermark, 0);
+
+Move this closer to the callback.
+
+...
+
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to enable vdd regulator.\n");
+
+It's fine to have it on a single line.
+
+...
+
+> +static const struct i2c_device_id max30210_id[] = {
+> +	{ "max30210" },
+
+C99 initialisers.
+
+> +	{ }
+> +};
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
-On 9/11/2026 3:22 PM, Krzysztof Kozlowski wrote:
-> On Wed, Sep 09, 2026 at 01:04:39AM +0800, Adrian Ng Ho Yin wrote:
->> The Agilex5 SoCDK daughter card only provides a USB3.1 interface (USB1).
->> USB0 is not connected or used on this board. Remove the USB0 node to avoid
->> unnecessary initialization and potential resource conflicts.
->>
->> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-> Same comments.
->
-> Respond to the feedback or implement it.
->
-> NAK
-Acknowledged — dropping this from the USB series.
-
-USB0 removal stays with the separate arm64 DTS posting (SoC/board
-enablement), not with the USB bindings/driver patches.
-
-Best regards,
-Adrian
->
-> Best regards,
-> Krzysztof
