@@ -1,48 +1,68 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F663E558A;
-	Fri, 11 Sep 2026 02:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 710CD3EB0F2;
+	Fri, 11 Sep 2026 02:25:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789093557; cv=none; b=PI4nsWs2jS02ReVP4I/vQc9Yg8ers5sScE8OJHV1OogUCnRZEaZhthI+dNqqFxFmYtJ4jpk1ub5cn+V3JUZUbnRyLZVjfZHo38Me5sLa3TRlR0WSUZUuWcKCqm1wnZH+UoFarwOZHeG7bgZlI/U7Khr8F9jQEuZ2Nw/sNAJsbzM=
+	t=1789093560; cv=none; b=W/5H0rX157/gyK2OgZONhGEGU6ETfjss+00k9ziEN6PBVrfP0ARz/7uNE87DahuljFoQ2EeHSxLclNgKdW8hb8KrG7FSTgcT65iT/MPLl5Mva5BeX1wwX/430P65MwdqeHdtlSikgVVw67sxcVATJ/LDELMiVEIyTikD0bKfIBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789093557; c=relaxed/simple;
-	bh=hp6OodtAUynjdx2g2HrN246zD4YtZ7S4F50wKUCVXQ0=;
+	s=arc-20240116; t=1789093560; c=relaxed/simple;
+	bh=+jp7NHtmx0KJMezZ8r8FNBTPRApkS/l6I9nsDcLuzwQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r9iLv/pN105WQwCUmuZSkC8sJlxgiPC31e6Pj1RkeNPsfQcGzMy5XET6jvSO54a1U6l0O0jEFKQs53+V3zx/aPcvOXoJ5RrKuXS0sABs6+UiA8hZCrXnxqzUZyIi4tOZAIE+yCXdBBj6byOM4SupGN0pcLr9UgKyPuT9AAyWBjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNqwHD5f; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cWXJE/G1cKZbHwQ0/fZufChMmcn9j2r2VQpz9vOwJ/pQRjlOOjPsVoxOV9B/se3Da7nEsYSY5yRURYmlgB2BgNU1jVoDzfRJ917DFv0BGfk4SiEeUGbPe2RZFgtGbROU1tH47obut360WPoEVWRzva/p6+z5GHArmBkDpGhOpkU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PXmcJWPu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNqwHD5f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7AA01F000FF;
-	Fri, 11 Sep 2026 02:25:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PXmcJWPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16FA11F0089D;
+	Fri, 11 Sep 2026 02:25:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789093555;
-	bh=TnzuPTd+YESZsW0yH9tFq86T6YmiGggM3uEO1KMk/dk=;
+	s=k20260515; t=1789093559;
+	bh=V6gJ2io6CHbZV+in01bmVOivcND1h8Ntdr8b0UjzLrA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JNqwHD5fASycc4OzcI+Y21zu53QCUt1b0WaqpmM331doh/2pEhT+uD75fnFsMTavf
-	 KH9AF6HIrbMF0HcLNtxurYiDz6bbcOscz1nKNYTYrW18nWCoHzum3pjXq6jmhG7j8Q
-	 +C6XYLZ/+AMSgrOlaieQb3Tt8zbpeoyUIleii+0g1Cqj5yW5rxOWi6hWqujylpGTTO
-	 ZEtOyu8xH/y029ds/QFTn7CWKpBrpGoOmpWcD5iQHeOywZkCHiMEwzbAfq1CxU0+cL
-	 6iKho8zPp1RSYxOzcbj0esghW2t60s5XSJpx4065C6uPUsUA5UlHCU2+fJN/mx56p+
-	 8BiffHulhOz/w==
+	b=PXmcJWPuqB09dI5WFH4TqhhcYaqNIF8hYst4Gnfo7DpAKjfSkchoYKUQdrvpzVWVR
+	 HdD+qlQzeP3xyBw136cuPKmObfMEvtlEkh1uL1X9XJ5UApKS+IKymnsresD9zrugNN
+	 WZDvaRv1Ghwq8ILWkREcibno363/XhJmLTdSbForq1X90SkmWig6fBRSFlR8qIdEER
+	 8kMLjRirPoVtKpuIn0d46jNSvINm1DNfKHzHqqkM5LSWqHkiYnKVQ/lDi9hPs02nzo
+	 RdbPUzZTXK3fIxVWQZqrXSwNl/CYxQ1sk+94Egw4zFvqoLdSM3/2jqfc3mHO/P2Sxo
+	 XUUlJf4kJGkVA==
 From: Bjorn Andersson <andersson@kernel.org>
 To: Konrad Dybcio <konradybcio@kernel.org>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
+	Ulf Hansson <ulfh@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Georgi Djakov <djakov@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Robert Marko <robimarko@gmail.com>,
+	Guru Das Srinagesh <linux@gurudas.dev>,
+	Taniya Das <taniya.das@oss.qualcomm.com>,
+	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>
 Cc: linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	Mukesh Savaliya <mukesh.savaliya@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v6 0/3] arm64: dts: qcom: eliza: Add CDSP support and enable it on MTP and CQS SoM
-Date: Thu, 10 Sep 2026 21:25:33 -0500
-Message-ID: <178909353845.920241.40613868733771348.b4-ty@kernel.org>
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH v5 00/15] Add initial support for Qualcomm Kuno SoC
+Date: Thu, 10 Sep 2026 21:25:35 -0500
+Message-ID: <178909353843.920241.15734171629938035637.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260904-dts-qcom-eliza-add-cdsp-v6-0-d4f38936902e@oss.qualcomm.com>
-References: <20260904-dts-qcom-eliza-add-cdsp-v6-0-d4f38936902e@oss.qualcomm.com>
+In-Reply-To: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
+References: <20260827-kuno-soc-support-v5-0-6d47636a8f09@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,24 +73,26 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Fri, 04 Sep 2026 15:21:39 +0300, Abel Vesa wrote:
-> Describe the CDSP node, the glink-edge and the related SMP2P, then enable
-> the CDSP on both the MTP and CQS SoM.
+On Thu, 27 Aug 2026 23:21:03 +0530, Hardeep Sharma wrote:
+> This series adds initial support for the Qualcomm Kuno SoC and the Kuno
+> IDP reference board.
 > 
-> FastRPC node will be sent later on, along with the ADSP related one.
+> Kuno is a 32-bit ARM (Cortex-A7) Qualcomm platform. This series brings up
+> the essential SoC infrastructure required to boot to a serial console:
 > 
-> Signed-off-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>   - Global Clock Controller (GCC) and RPMh clock controller
+>   - RPMh power domains
+>   - Interconnect (NoC) provider
+>   - TLMM pin controller
+>   - PDC interrupt controller and SCM firmware interface
+>   - Devicetree for the SoC and the Kuno IDP board
 > 
 > [...]
 
 Applied, thanks!
 
-[1/3] arm64: dts: qcom: eliza: Describe the CDSP remoteproc
-      commit: 2f8e44a9360f20b2f0442f5d001b14c3acdd796b
-[2/3] arm64: dts: qcom: eliza-mtp: Enable CDSP remoteproc
-      commit: 43c3561193b39e8b13aeabf459376631045c31ae
-[3/3] arm64: dts: qcom: eliza-cqs-som: Enable CDSP remoteproc
-      commit: e3ad048765a681a3ac97e8aae92398e678475cdf
+[14/15] dt-bindings: arm: qcom: Document Kuno IDP board
+        commit: e3fa925ca180aea34852e282211fea12501cb6c3
 
 Best regards,
 -- 
