@@ -1,174 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C96D36197E
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:18:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1AD36197E
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:18:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139908; cv=none; b=BICUyl120kj374T5VZSx2m6l39h2YnIVSCcN1dqV2S7xI9pBZibKVJ06zdWR6gXljHQeI61DFOaXZrsP38ZAk9Do3A3cIOdFRSFV87+5O66l2qym4dCSQnAoTZJWFCzJk+PH6NOoEWbU9QtbpVDxHgIcsW0mb806SeUTsToQPZw=
+	t=1789139919; cv=none; b=AYly4xhD3tJIYfkjVLA3ZK3dHmBmE3LfyGh2zL+PY1ieUqdPfEuviC2j8n1V7ENBclfU+LpDTlm7It+rUzO4nxUwXUv7E1BCrZ3znm50ZZYQ8QglBZUzxikiwvjYifDWKhi/68xmIydrA2oPVV5O/1PK5IMuESENfn2FN0VDyV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139908; c=relaxed/simple;
-	bh=VWNg5JSG3L7SC9mIFXblohyCYRkZKxseYfFzakMVww4=;
+	s=arc-20240116; t=1789139919; c=relaxed/simple;
+	bh=4nLjOq25lFXXovOEeKTaCJG78HbxZ1K2ijdyiGKmUq4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K2eGQUnD/74z/aUQrFsfT3j3DpIAShUZvxocZpKgA5NcSWK6A65lP72LqBGshaqTAtk0av7BIhb+EFPhLDkx7iEqHUj3pXIa1nOxErjGEw4MCn/6aYICdkz9GwZyzIT2YPdijKIYp8gCzn2mq/nnzPDxMbf1qLbdORyMpzcErP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHCWjw7m; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QrYMlAD8FL61cc8lBlR9HannJ9hPjJvsRKxqeYwMbO39gHo+YDr53lP25WxaUV3jEgtVOXkp6j5HNVJr/U6+chkeWtzhnPyf5FvsS26V8GBzwuBHsFezCQI6bWqEGz9Ppoaiyv7c/+rGmKOYYmxNuprOxT4ewQcQ43C/zf5+ST4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lShzmVyJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHCWjw7m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABB631F00893;
-	Fri, 11 Sep 2026 15:18:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lShzmVyJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709F41F000FF;
+	Fri, 11 Sep 2026 15:18:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789139906;
-	bh=eNNRohjBHrQzl0gji86ioiSxSA1KEZE/esp5PadfxZM=;
+	s=k20260515; t=1789139917;
+	bh=xkOpc1xdP7w1BTu9ySNQ92RGFnokjtwaqqh7M0TNNig=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kHCWjw7mF7Hr6SzRb1g+ySl1V4j1XkLKRQT9jRM8XmYYVzIqW1q1G8kq5ZBvXmavA
-	 sNDMiQfHtLb0vkSduo3RbvqvYYKLC7sqpnHfWPrtbDWtDwX3nM8PwaD2V8ZgYpVaID
-	 lSaDPrCr2DzfyAyfNUG3dxrbSE7ODawmUb17mGvEHZKTUJVscJVCwVN40VBFvCjtW0
-	 6TaXqhU4h2cqBaRslbooXFmvQGhxZm//9NrdzmHq0a4/Pj+VyYOIt9o0pKKFJLvorY
-	 2GRX1hSegOpXR0r7/MN9//em2rBj1mFF4X03vHFfefM/FToZlBO8mUoaxzsE1Jcvlh
-	 +noYCpBfeFm6w==
+	b=lShzmVyJPw29n+zpQ+ZwHHXTU7bsADn988VeeFYFlhOXHb42uqGejUXcAzP3ZcVHZ
+	 BxRxNPqeS+m5SefjcV/lJm5uZPn0p+dmQrqQzChW77GostYV+1ICC3l/Crvv22V3NM
+	 UZfuArVu/ZSaJDfZKLHEZBHmRIsj7dMW0EDdi01wHkex2DWAi0WK+YZKS4OJtbM9f7
+	 EXCL2k7iKheL3S4stFFOLaCDvtCHDVUUg5rJ0EbkP3Fqqw+xOhCbazBdFsGCV3J++h
+	 iiGkQS44I7n80rY64yse71W37m1+oq1ybal6iVaRPOay67wAGKQ5Ou0ct79HvslZvD
+	 cr1fSRe+D8MUg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/3] arm: dts: altera: add Draeger M48 CPU Module
+Subject: Re: [PATCH v5 2/4] clocksource/drivers: Add support for the Renesas
+ RZ/N1 timers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petko Manolov" <petko.manolov@konsulko.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260911150755.2803736-4-petko.manolov@konsulko.com>
-References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
- <20260911150755.2803736-4-petko.manolov@konsulko.com>
+To: =?utf-8?b?SGVydmUgQ29kaW5hIChTY2huZWlkZXIgRWxlY3RyaWMp?= <herve.codina@bootlin.com>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260911150456.893761-3-herve.codina@bootlin.com>
+References: <20260911150456.893761-1-herve.codina@bootlin.com>
+ <20260911150456.893761-3-herve.codina@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 15:18:26 +0000
-Message-Id: <20260911151826.ABB631F00893@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 15:18:37 +0000
+Message-Id: <20260911151837.709F41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Unsafe register access due to unconditional probing of FPGA-based =
-IPs without LWHPS2FPGA bridge enablement.
-- [Medium] Hardware description mismatch between commit message and device =
-tree.
-- [Low] Use of deprecated 'snps,nr-gpios' property instead of standard 'ngp=
-ios'.
-- [Low] The 'name' property is explicitly deprecated in device tree nodes.
+- [High] The 16-bit per-CPU timers will never be chosen over the arch timer=
+ due to their low rating, resulting in asymmetrical per-CPU tick devices.
+- [Medium] Clocksource and sched_clock return raw decreasing values if the =
+timer is a down-counter.
 --
 
-commit 45faa524ae6c9f608be9c1559da6ec21aff7dbea
-Author: Petko Manolov <petko.manolov@konsulko.com>
+commit 0389aacef8150cde2d480116d05b7b23c573015b
+Author: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
 
-arm: dts: altera: add Draeger M48 CPU Module
+clocksource/drivers: Add support for the Renesas RZ/N1 timers
 
-This commit adds a new device tree for the Draeger M48 CPU module.
+The Renesas RZ/N1 timer block controller is the controller in charge of
+timers available in the Renesas RZ/N1 SoCs family. This controller handles
+8 timers (6 16-bit, 2 32-bit). Each timer has its own interrupt and prescal=
+er.
 
->     Draeger M48 is a CPU module built around the NXP i.MX6q.
-
-[Severity: Medium]
-Is this description accurate? The device tree added in this patch clearly
-describes an Altera Cyclone V SoC, which contradicts the commit message
-stating it is built around the NXP i.MX6q.
-
-> diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48=
-.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
+> diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer=
+-rzn1.c
 > new file mode 100644
-> index 0000000000000..838708acb31bd
+> index 0000000000000..a66a045309f63
 > --- /dev/null
-> +++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-> @@ -0,0 +1,123 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-> +/*
-> + *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-> + */
-> +#include "socfpga_cyclone5.dtsi"
-> +
-> +/ {
-> +	model =3D "Draeger M48 Cyclone V SoC";
-> +	compatible =3D "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
-> +
-> +	chosen {
-> +		stdout-path =3D "serial0:115200n8";
-> +	};
-> +
-> +	memory@0 {
-> +		name =3D "memory";
-
-[Severity: Low]
-Is the "name" property needed here? According to the Device Tree
-Specification, nodes must be identified by their unit-name and properties
-like device_type or compatible. The name property is deprecated and
-generates compiler warnings.
-
-> +		device_type =3D "memory";
-> +		reg =3D <0x0 0x40000000>;
-> +	};
+> +++ b/drivers/clocksource/timer-rzn1.c
 
 [ ... ]
 
-> +	soc {
-> +		gpio3: gpio@ff202000 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			compatible =3D "snps,dw-apb-gpio";
-> +			reg =3D <0xff202000 0x20>;
+> +static u64 notrace rzn1_sched_read(void)
+> +{
+> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
+REG);
+> +}
+> +
+> +static u64 rzn1_clksrc_read(struct clocksource *cs)
+> +{
+> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
+REG);
+> +}
+
+[Severity: Medium]
+If the timer is a down-counter, will these functions return a decreasing va=
+lue?
+
+The clocksource and sched_clock cores require monotonically increasing valu=
+es.
+If the timer counts down, returning the raw value could cause the
+(now - last) & mask calculation to yield large forward time jumps, breaking
+system timekeeping and scheduling.
+
+[ ... ]
+
+> +static int rzn1_local_timer_starting_cpu(unsigned int cpu)
+> +{
+> +	struct rzn1_timer *timer;
+> +
+> +	/* We assign the first and second 16-bit timer as per-cpu timers. */
+> +	if (cpu >=3D 2)
+> +		return 0;
+> +
+> +	timer =3D &rzn1_tab_timers[cpu + RZN1_TIMER_BASE_INDEX_16BIT_TIMERS];
+
+[ ... ]
+
+> +static void rzn1_timer_clkevt_init_ced(struct rzn1_timer *timer, const c=
+har *name,
+> +				       int irq)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * 32-bit timers are fed with a 25 MHz clock directly derived from the
+> +	 * main PLL (1 GHz). The arch timer, ARMv7 CP15 in RZ/N1 SoCs, is fed
+> +	 * with to a 6.25 MHz clock.
+> +	 *
+> +	 * The clock of the RZ/N1 timers block is a stable one and the RZ/N1
+> +	 * timers have a higher resolution than the ARM CP15 one.
+> +	 *
+> +	 * Also those 32-bit RZ/N1 timers are assigned per-cpu.
+> +	 *
+> +	 * Use a high rating for the 32-bit RZ/N1 timers in order to have them
+> +	 * chosen by the system.
+> +	 */
+> +	timer->ced.rating =3D timer->width =3D=3D 16 ? 200 : 460;
 
 [Severity: High]
-Can this unconditional probing cause a bus error during early boot?
+Is it intentional that the 16-bit per-CPU timers are assigned a rating of 2=
+00?
 
-The dw-apb-gpio driver will probe this node because it defaults to status =
-=3D
-"okay". This hardcoded address (0xff202000) falls in the Cyclone V
-Lightweight HPS-to-FPGA (LWHPS2FPGA) memory window. If the FPGA is
-unprogrammed, or the bridge is disabled in the included socfpga.dtsi,
-accessing this region triggers a precise external data abort, crashing the
-kernel.
+In rzn1_local_timer_starting_cpu(), the 16-bit timers are explicitly assign=
+ed
+as the per-CPU tick devices. However, because the ARM arch timer typically =
+has
+a higher rating (400-450), won't the 16-bit timers always be outranked and
+ignored by the clockevents core?
 
-Should these IPs be explicitly nested under an fpga-region, or should the
-device tree guarantee bridge enablement?
-
-> +
-> +			portd: gpio-controller@0 {
-> +				compatible =3D "snps,dw-apb-gpio-port";
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				snps,nr-gpios =3D <2>;
-
-[Severity: Low]
-Does this violate the device tree bindings for snps,dw-apb-gpio? The
-snps,nr-gpios property is deprecated in favor of the standard ngpios
-property.
-
-> +				reg =3D <0>;
-> +			};
-> +		};
-> +
-> +		gpio4: gpio@ff202020 {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			compatible =3D "snps,dw-apb-gpio";
-> +			reg =3D <0xff202020 0x20>;
-
-[Severity: High]
-Similarly, can this access cause a bus error if the LWHPS2FPGA bridge is
-inactive or placed in reset?
-
-> +
-> +			porte: gpio-controller@0 {
-> +				compatible =3D "snps,dw-apb-gpio-port";
-> +				gpio-controller;
-> +				#gpio-cells =3D <2>;
-> +				snps,nr-gpios =3D <2>;
-
-[Severity: Low]
-Could this use the standard ngpios property instead of the deprecated
-snps,nr-gpios?
-
-> +				reg =3D <0>;
-> +			};
-> +		};
-> +	};
-> +};
+This appears to contradict the comment stating that 32-bit timers are assig=
+ned
+per-cpu, and could leave CPU 1 falling back to the arch timer while CPU 0
+might use the global 32-bit timer, resulting in asymmetrical per-CPU tick
+devices.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911150755.2803=
-736-1-petko.manolov@konsulko.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911150456.8937=
+61-1-herve.codina@bootlin.com?part=3D2
