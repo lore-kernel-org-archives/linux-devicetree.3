@@ -1,219 +1,194 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013027.outbound.protection.outlook.com [40.107.159.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129C94AA02C;
-	Fri, 11 Sep 2026 16:59:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789146009; cv=fail; b=jJ3PXBY9nJ0G55bn1GTVtojMkujZBo2xJ4fygbiFRwiRYbLt5jpelEeeXDMN4bUs2B+T8Z/G3GdJJ8v0BkdBE4KI+ahTtX+6h/N+8xCGdBu90k4mcXsgwHBxDDQ8+U9ZZwFKxKq18PmAAtfN+eLYMm5t/LYfE0lggcktgohf9SI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789146009; c=relaxed/simple;
-	bh=CAgtc5clOmaQwypEWmxHi5QQSklAFdlqbEPV5eIh6Jw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=oMuCUQRZkvdO8/B2Qgc6v+W9jGFQg8mugipfLD7CidPy0Zhn8KRRHfOIDcrZFuuuDtAPSOnlAKdr7F8VeDPS6pJXZB2mhTTs8sySREmg1KKzDu7ipABfqd4gGtejTbo+WVnpijWKSDOENkWEDDUlCGXhDxiEHXCN8xJmnjD0568=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=W0Z25iZf; arc=fail smtp.client-ip=40.107.159.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 034CC4A3D51
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 17:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789147556; cv=none; b=FQ65AKvRIeqDDdhYEZjqfIQ39MFkHSuiEZweZgrQXtXSHifvAgreJSQM0XteBrxUXdUnbk6bcJVHYbGbno0N+X0+PO49gnUgjcfBlLGoP6A6NFhwll2pVdO/rAfKe5bZJx2wmgzibDb8Or1PK3/Rcn6VUA79Uzz6Z66d6suJyZs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789147556; c=relaxed/simple;
+	bh=EIna21TClEpTv6sU11YFri+uCAOmnbQs4gkq3+Yi4uk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cmG40/b++W6peZhU+0RTdPjgqLhAbKzmf+R+B8dNQ5wb9rgDES3itKeXMvf8TFnd3mGu2a2SneExAI5sfJ6aFc0jVqbV3SD7NgiN1YKg+UIlsXguYjY6RTlMACX0qPaRnRmLzGtv/bleY4Y1scX9euSAVgBMH2xfgJwCOY9iDhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rVuD1rzr; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="W0Z25iZf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KDk4IcK6tHFjMacJ6Fvral4h1zgHAqqkhCr4iYXY+7Oulb0hzS4tL3dLHhgimcyOxCg83JWUeJBo3FS74wvNI+pZL7R9bf7BUohJBaS3zevFtd5J4PvRTt4njcicwpHKQOYjKUTlROjuTsKe4Px82FVd63F45dy8HxgvkHUVIf6XaBPOAaIXrQMM2MViCqd/w5fHhjGdYFPYwYSMqUTw4X+SEoMw4mq9B8USCg8sQPhGQ7jgt6CFxO1G8oSfp4fj0Iy2cOO6JsZ83dq+wEaeaR6TRjbHWQniQNKwhQGeeWKheLqebzLrHWMz0SBvrxSMGFKTKL4LD2xISLYkcbgfxQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GYDk4kQI2fd79w2FWsht7gGbtYChEDHGbDZdkSKsjzs=;
- b=yJApdW0s+zmvygwbAVNtoCXaHpyb/bmVCmk5vQ3CKMDkRFMDtGsvikdU4bbaOuwNeaUlZf4A6P1vv//OnJHIwJV2WcmKGVUFoESqc28ZRA229hKW9aomXZiNcdrk2dpUqva5uYnV7lkaiGoj2lXbZ926Ate3awVYKO9VOGX/GtdvLW+78qotPe3D1EDwCpRe51nX4AS/A20bJ19Y08izZ4NSr/bMKjYoexdFv3Q/woDRjvvIh8YTP1DyVg/k3xnpIYKp/s19+LJrKzREGqdua6mSANhLXL/LLZv8uG9f+kDyJHN1xEZ6+jlxWWtPEvPuZI8rbEVg5J47Fa2c6lsrTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GYDk4kQI2fd79w2FWsht7gGbtYChEDHGbDZdkSKsjzs=;
- b=W0Z25iZfA6uArVcNC/U0Jf4IlxvHIf90pjo42nb3SsTDbl9OswGD7QTw8jMOcaL8dCpVUR9xjvFUumGhyMkHie9WmzwO9FM9aNJpvN+wjl77JrP1f0/VyCFuGARBSX40ow4OiKmZRgV6VoWUIrANyfMr9AkmEzyChDsiMuJiYupnqjq2n8pEHdOIpa0QS4ujsIQ86Y9U+Z+5ZZZGzzOqSqujM7CCgsp3A5eF9upxy4zeRQiWGvCkqNhFFGJvYUuu6EzYawBo3OhaRCf5mTToRpE6pTeDNRWkIyzcosHmeXMK2+2VX8mCs7FNa55ah3oy2qE1Ou3bNxGmaMqtCw4xMg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by MI3PR04MB12439.eurprd04.prod.outlook.com (2603:10a6:290:74::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 16:59:50 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 16:59:50 +0000
-Date: Fri, 11 Sep 2026 11:59:40 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>
-Cc: Frieder Schrempf <frieder@fris.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
-	devicetree@vger.kernel.org, imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Eberhard Stoll <eberhard.stoll@kontron.de>
-Subject: Re: [PATCH 1/9] ARM: dts: imx6ul-kontron-bl-common: Replace UART3
- with DIP switch GPIOs
-Message-ID: <aqQzfBp1gzQccGWt@SMW015318>
-References: <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-0-4d0e8a75db79@kontron.de>
- <20260908-upstreaming-v7-2-imx-dt-improvements-08-26-v1-1-4d0e8a75db79@kontron.de>
- <aqGpZQlbFHD_-hVg@SMW015318>
- <e3b4c69f-6bfd-4765-b3b1-abf0958b5446@kontron.de>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <e3b4c69f-6bfd-4765-b3b1-abf0958b5446@kontron.de>
-X-ClientProxiedBy: PH7PR03CA0007.namprd03.prod.outlook.com
- (2603:10b6:510:339::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rVuD1rzr"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so1202379a91.2
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 10:25:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789147554; x=1789752354; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZkBe7WUuSrDM7uq5LTSTLslXHOwqfZgVboPet1pdmR0=;
+        b=rVuD1rzrF+L8OWjaL7LkT5Kbon4EXXtCngg6PjNFzEAUqBojaiegJ4ZEumKh4as7nn
+         5h2eQ7E+uVWctPtSEUYKz0WMFxmDLm55Uco2n9BE6fq9eB7ar0RFqb2WvkSmS6dkhlkX
+         l+hutYB7VcQeOqDXA6Uuq0Ux/Zy4NtlYGWNstnkvFjkrRuA8A0qFAF0JQR8QkaaaVRDY
+         loRJaRSeKX5y6eSn0aKh9FTq/ODLZnwZ9OHapLAxGYIyAdqhgZGlsg9z98OTkPPGS5xc
+         Sd/FrUx0Yaga9yBhhhVW2oF6zupcsxMQ1MyJGkKmoz8caIaqJQ1h+DsGpMqeWBFyAXKA
+         2c4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789147554; x=1789752354;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ZkBe7WUuSrDM7uq5LTSTLslXHOwqfZgVboPet1pdmR0=;
+        b=kjMsID+eQ/LzcIOT+affcp1jo4lWLnvJb5KOIt5WcqaWeRoRO+cAJ6MUca71F5/sId
+         utfjVPXHvFaE9cDJRwQyh0q21Xhp6IZEK54iD/wH+qRaDXESirFWRZQxcE5/uY+iLOMQ
+         7ZI3jpK7qKkDPzGbMNZYQMzI6kIBKNBmYSovK6MiE5hICMMSRooytIYWyMKLcULEnZWM
+         /pE1klkM8QZFiihCVTOeQz6XyALAOIy0JtP53l4OXCvjXpt80lVdbpQipsKeXBhfyUrD
+         LAAmWFJV+KYLAzBdlWRBx9KPPJJDLZBKKf9U5Wpuz7s+yFQ+BGGZu55tbOx78C1IwI6v
+         Umlg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBo/fxr5JbEBVJkcbnjSNCgMHe7JZerC2c1XEB0/t7AlVLOUzNYKhNoMFHi5TIYN7cCrYuAwZO1uZR@vger.kernel.org
+X-Gm-Message-State: AFuF++l4fM3S7FsducndlJrGim2ow5EfBL1/B9tPEa4A3Yvm4iRBBx0C
+	LbKb1G3143L7xSRpb/v/OnhOdZ/OOp/xOeTDrMR2xjuPiSwPDMtVnSLq
+X-Gm-Gg: AYBFou1Dw/9nMSg9MSB5B7qpjMQ6rgXVOgHYGzHdv5OduqioBlDS4Ypy/TnTa8szf5p
+	5WeM2TDwJTxDn0L8uM50kIWyzQa1HMo+h3Vx1lG0SXC2FhaUorInSbLx8YzQ1idYvWDMiFRC7IJ
+	bR64utdhSQKOELXoJraXdWzFX/7iQ8oL0muxhGmBoFQapExuUgU+rKMnl1ndzr8/AX+/zi4O4zk
+	vw2TrPggHSmpu1bcBhmxJa8Fwca7igWzUMEAkypWaNAdmG4xbPdJ7XcgdC3w2VCnFDp1El2OWjn
+	sTn10JPbSVuSyXIOtwr1mL/doDIQ309s1e+n1TzuvU10bh78rAZ1JmtoLXq2Zgmvkxg+82b1Bjr
+	uiEX7a4z2YHFwnf531fBqhYfW7EkcWXgVUPTLCEacMKQt0EBmOP9p7KMI0g52gEXhsnXjUldEjj
+	Bbtq64UR0PF0PYXCdHS9/cN/xTbUbqDypX2icaAKxuP/w9h+kLpSqpehoQNj9pB3065g0K4iDbw
+	+dATOJVTpBsPEIyu4B7z928qOhakjks43sOc/JYLiHpDUZ7
+X-Received: by 2002:a17:90b:278c:b0:398:e6b6:acc2 with SMTP id 98e67ed59e1d1-39d9c1b4d9amr9025809a91.12.1789147554299;
+        Fri, 11 Sep 2026 10:25:54 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4cf015csm8838529eec.4.2026.09.11.10.25.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 10:25:53 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <f1adea74-8f87-4442-aa12-18536cabec3c@roeck-us.net>
+Date: Fri, 11 Sep 2026 10:25:51 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|MI3PR04MB12439:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30b3a2e1-c42c-4c35-5b5f-08df102617ae
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|19092799006|1800799024|23010399003|7416014|376014|10067099003|18002099003|22082099003|56012099006|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	2tW7QWqZVIpVzJXBGlupaZlJek3S2KCFRw0vKOE5NpUtW4yGM1ZYa2jYefZsQocFqBJTM9iz7nAgQOZqcdMNHUEU40V81d0bcAFQrIUZlqMH2WR29pCjoPuns4KV1KlFdSxsRkEqN+H/qfgmWJOeJP7XAZxG+BvKtV6Y2ehD1PTxu6JSFF9z+BFEVoMqHLzBknC6Jl6XEHRaBe4AFihVe1AzTE/11i5gTx8t7AjhrzkdvBNiQwRUmbrih69nPPNyjHL+Syd8CkYJ55cExPZpmLsoixk4dSc0vuFBQBTW7jXqRsI9x6WjERfXSQ64T/oyHUhXLTGSaEr+KTeDSz11BOn/SQdYMwIHqPc+bJpadtdF3hJ6J82R1+sCRdOo0k+s2nvR7Do17+GWJKRDdyjIqBd4sQOLzcXwZnOLYM6uI9khtuzS50uzqICqCILF9wBBPZmkJE3xol0IBKkTcYPgB7JzAyxcg4nMEqWJg+iU9idHyEG666L9TQquaffKHzq++3xzEnz31J8IrMyhfySA0SNRAyP6HVDUfK/aKIyCfvURprO3Y4a4wmmeoUCu/Tubc90SN+bDi+Wf7MYVdpvX+wcRosV95wXabYZdU9o3hHDcZVV9z2But5eb/SbBaBidoPmC7PIruu0QGNQdQXDwPyBVgDTxasGufumIX0aHlmw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(23010399003)(7416014)(376014)(10067099003)(18002099003)(22082099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?cdORz4UsMmBo1lLHqAgH/6XDPGrLGJ7FRj2IVGwLyuxDcvm2FbVQhnfCpOag?=
- =?us-ascii?Q?Y5lsUstUUOo9cUy1oB/0Xr7BVC3g+MNpsCChO8DxqJ3I7LkQXbT77NwUoVGf?=
- =?us-ascii?Q?sZddE7NCUXeU5ptu8ajlWAgcn3gpCiAKUI19H/KvRqjogJchHTMtCSaSJMhV?=
- =?us-ascii?Q?GXybgMHsdN/cpa68Xr43OYfxRJciD91R8VVn0t0qYNgsnGr37KlC8GdlFRvl?=
- =?us-ascii?Q?12c9hsb2oep4/i60G3pKpIVZdtLd/v+0s1Ih2knsD6RLfo8yVHF6omuPirgx?=
- =?us-ascii?Q?H9DEg3/u5vdn4NdDL25XkVOCOVIeV6cN4MYFv8HemKHwN+ZSLk2otpgmjOhi?=
- =?us-ascii?Q?V8VIy8DT8e6P21rWlA770ATg/nKf5EOmC7gRnkwivs599Pmk6sLbosfMFxJ+?=
- =?us-ascii?Q?jtoT21Vy60j4haga7KaBejUBrqnLf/6YGwaRgfnlHh5ZecMYfY7L3vF28PLD?=
- =?us-ascii?Q?sXlA2XpB0bF53fOLXdWz3KTHSNzzT6+HblN+pqLP9lrPV5trMsmqMOm0b3RR?=
- =?us-ascii?Q?6jE6zYbtIPmH2mBIOn81bq+8XAHhfqP5R/C4vB7DDd5Bt+N7RLxWATgA9xuG?=
- =?us-ascii?Q?MnKrknevAE0Nj8WLk14KlGYfN8r+W2ZAmabfZg+oCpTVpyFHrt99eupBZjqb?=
- =?us-ascii?Q?V4PTHq9YSsADSjoWY0eU9CAT2xtJ1VnG9aFKg8rlYSmecKJKP3wkX83wEcdU?=
- =?us-ascii?Q?WXTNG0V/NtPKKD4jiOT/ne1A64nG1z23sdVE+OtICh10SJCTUNqLuUe9IJVS?=
- =?us-ascii?Q?GaOuH/2hfABb5nTjvcd/AibOPwDetagiMuYM1zcrFbuN66GJoAFQ6JJRVIi/?=
- =?us-ascii?Q?toGujbZWYEEEm+3QLYMOW2Qptn8SkgXXF8mNxHWQFuUcSksxIJ/TZfOu5kbz?=
- =?us-ascii?Q?NJWg2qqIctKazm1DpkWV9xh1CNn/5ykmb/KK6SHFZ2cLEOC8YargPfKLJNdd?=
- =?us-ascii?Q?tVEMazsQ0aBskDEUvXBQwjt3fIUx2KftLwC2YTPVC+tJVMj3pTjYu3jxa029?=
- =?us-ascii?Q?3SEBrFWJdPAd1YeZymIHgYDfzzhDdGWQvz+Idn5yWOBmmWlupWWgQHdFzzqy?=
- =?us-ascii?Q?R5ALdFunH5s6R2BhczHmR20xCryhrTV8yHkpsXNfgDi9n+unSXVpfi8hloFj?=
- =?us-ascii?Q?wgJgahllMex/adfMn6UlnSQyz1jGoYVSv92sC2AyP4/NdNO6nIPoK5z/rfrk?=
- =?us-ascii?Q?zxMVl/2Lmamuw3Dmo9bAwCo9p/WQw3qBnYP40I1do2sbbQJf+sP7GpzYOuCs?=
- =?us-ascii?Q?gJSvOOeGANYBcFwGSBES6UOfM5XSdlBCe5Q9arRyGdBfXgZb8umeghm/67vs?=
- =?us-ascii?Q?rkPm06jlSSfaCsqqJp0TPx1axZJnWFeDOhqJNf/NydSokC6FW7b3p/DPQs4j?=
- =?us-ascii?Q?rTVuDFgun9hp2dFxde11EpjmRrKrSdI3H0a6JtfYYzHafvKa2KcGWksAHio6?=
- =?us-ascii?Q?a4HcKBA6N69YOOTAHhXQAbewAVIIAw1xfZXqfLJWXs5PAMmij3VMIFjv5bfw?=
- =?us-ascii?Q?z8iAAKQ9kaxBvdYRWtTzkVnvotRDicC9odC17fZsFGXvG05Xaua5U84sM0UH?=
- =?us-ascii?Q?4FDV18eNxkAZ24yYlDP606NEsPAt+ldi/hbwTU1tnCc+acAjtNi2jdnYvlTv?=
- =?us-ascii?Q?qhXPRZYx9qtaItamZR2vBrQDZWEWrNnA4w7+S+wv+b0eO3AjXrMzMLWb5AHP?=
- =?us-ascii?Q?oH05/LStoRf2nKye/bluw6OnIFMSO33Z15OkM80AEBU1onLL9QgH9bzbRy6u?=
- =?us-ascii?Q?GNP8JHuc+Y4X1bBlgmVk2aL4oPimjMHJHcI4Mh3r94e0VOX0C98X?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30b3a2e1-c42c-4c35-5b5f-08df102617ae
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 16:59:50.5084
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LWgJ01J3w1/7XOU9pz0gHsVH++yUsxijlrgdX1878UF2RmuDeNLoW9xUmwRwLu9fwj7/YjxOLYh9eXPv+axXAyIWDrvSFX/TKjiTb4rVCKZylzTUWfB9tQpRUDk67xS6
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI3PR04MB12439
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] watchdog: omap: Preserve OMAP watchdog across boot to
+ detect faulty boots
+To: Diogo Ivo <diogo.ivo@bootlin.com>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade
+ <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>,
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-watchdog@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-omap@vger.kernel.org, devicetree@vger.kernel.org,
+ thomas.petazzoni@bootlin.com
+References: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
+ <407b9420-0ec6-4d95-960b-633677edf760@roeck-us.net>
+ <14eb1c72-fab0-445a-82f2-5851a855f723@bootlin.com>
+Content-Language: en-US
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <14eb1c72-fab0-445a-82f2-5851a855f723@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 10, 2026 at 09:05:14AM +0200, Frieder Schrempf wrote:
-> On 09.09.26 20:45, Frank Li wrote:
-> > On Tue, Sep 08, 2026 at 03:51:48PM +0200, Frieder Schrempf wrote:
-> >> From: Eberhard Stoll <eberhard.stoll@kontron.de>
-> >>
-> >> The latest board revision has DIP switches and lacks UART3 instead.
-> >> As the old revision has long been deprecated and not maintained
-> >> anymore, drop the support and reflect the current state of the
-> >> hardware. As the old revision hasn't been widely used, UART3 was
-> >> only available through an obscure extension connector and we have
-> >> carried this patch downstream for years, no users are expected to
-> >> be affected by this change.
-> >
-> > Remove "we have carried this patch downstream for years".
->
-> Ok.
->
-> >
-> >>
-> >> Signed-off-by: Eberhard Stoll <eberhard.stoll@kontron.de>
-> >> Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
-> >> ---
-> >>  .../boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi  | 21 +++++----------------
-> >>  1 file changed, 5 insertions(+), 16 deletions(-)
-> >>
-> >> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
-> >> index f4c45e964daf..a71669bef7d4 100644
-> >> --- a/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
-> >> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-kontron-bl-common.dtsi
-> >> @@ -172,13 +172,6 @@ &uart2 {
-> >>  	status = "okay";
-> >>  };
-> >>
-> >> -&uart3 {
-> >> -	pinctrl-names = "default";
-> >> -	pinctrl-0 = <&pinctrl_uart3>;
-> >> -	uart-has-rtscts;
-> >> -	status = "okay";
-> >> -};
-> >> -
-> >>  &uart4 {
-> >>  	pinctrl-names = "default";
-> >>  	pinctrl-0 = <&pinctrl_uart4>;
-> >> @@ -283,6 +276,11 @@ MX6UL_PAD_SNVS_TAMPER5__GPIO5_IO05	0x1b0b0	/* DOUT1 */
-> >>  			MX6UL_PAD_SNVS_TAMPER4__GPIO5_IO04	0x1b0b0	/* DIN1 */
-> >>  			MX6UL_PAD_SNVS_TAMPER1__GPIO5_IO01	0x1b0b0	/* DOUT2 */
-> >>  			MX6UL_PAD_SNVS_TAMPER0__GPIO5_IO00	0x1b0b0	/* DIN2 */
-> >> +
-> >> +			MX6UL_PAD_UART3_TX_DATA__GPIO1_IO24	0x1b0b0	/* CAN_ADR0 (DIP sw 1) */
-> >> +			MX6UL_PAD_UART3_RX_DATA__GPIO1_IO25	0x1b0b0	/* CAN_ADR1 (DIP sw 2) */
-> >> +			MX6UL_PAD_UART3_CTS_B__GPIO1_IO26	0x1b0b0	/* CAN_ADR2 (DIP sw 3) */
-> >> +			MX6UL_PAD_UART3_RTS_B__GPIO1_IO27	0x1b0b0	/* CAN_ADR3 (DIP sw 4) */
-> >
-> > supposed header overlay or real user should set it. otherwise, the real
-> > user set it will be failure because pin conflict.
->
-> Sorry, I can't figure out what you are suggesting here.
+On 9/11/26 08:17, Diogo Ivo wrote:
+> Hi Guenter,
+> 
+> On 9/11/26 4:29 PM, Guenter Roeck wrote:
+>> On 9/11/26 02:17, Diogo Ivo wrote:
+>>> Allow the OMAP watchdog to survive being stopped on kernel initialization
+>>> so it can detect a faulty boot in cases where the bootloader leaves it
+>>> running and the watchdog driver picks it up during kernel init.
+>>>
+>>> - Patch 1 removes a duplicate omap_wdt_start() call left behind by
+>>> cd004d8299f1 ("watchdog: Fix OMAP watchdog early handling"). This is
+>>> unrelated to the main goal of the series and can be picked up
+>>> independently.
+>>>
+>>> - Patch 2 adds support for reading the watchdog boot status. Probe now
+>>> checks whether the watchdog is already running and takes it over instead
+>>> of blindly stopping it based on early_enable alone. This introduces a
+>>> regression possibility, explained in detail in the patch's message.
+>>>
+>>> - Patch 3 marks the OMAP4 watchdog node ti,no-reset-on-init so the
+>>> ti-sysc driver stops resetting it. A detailed explaination of why is
+>>> also provided in the commit message of the patch.
+>>>
+>>> This series has been tested on a platform based on the VAR-SOM-OM44 from
+>>> Variscite, running a TI OMAP4460 SoC.
+>>>
+>> Please address the issues reported by Sashiko, or explain why they don't apply.
+> 
+> I have just replied to the Sashiko reviews but I'm not sure if you got
+> the replies as Sashiko did not include your e-mail in its review. If you
+> did not receive them please let me know and I can resend them. In
+> any case if you could give your opinion on the comments I left on the
+> patches about regressions that would be great as I think after the
+> Sashiko points are addressed that is the main blocker for this series.
+> 
+I did. I just wonder if the effort is worth the pain / cost.
 
-Please forget it.  I mess up.
+Is there an actual use case ? Is the problem you are trying to solve
+a real problem, or a theoretic one ? For example, the patches impose
+a hard boot delay of more than 30 ms in omap_wdt_is_running().
+Even though that could be optimized (there is no reason to wait
+that long; the value could change a microsecond after the first read),
+it is nevertheless a mandatory boot delay.
 
-Frank
->
-> >
-> > Frank
-> >>  		>;
-> >>  	};
-> >>
-> >> @@ -334,15 +332,6 @@ MX6UL_PAD_NAND_DATA07__UART2_DCE_RTS	0x1b0b1
-> >>  		>;
-> >>  	};
-> >>
-> >> -	pinctrl_uart3: uart3grp {
-> >> -		fsl,pins = <
-> >> -			MX6UL_PAD_UART3_TX_DATA__UART3_DCE_TX	0x1b0b1
-> >> -			MX6UL_PAD_UART3_RX_DATA__UART3_DCE_RX	0x1b0b1
-> >> -			MX6UL_PAD_UART3_CTS_B__UART3_DCE_CTS	0x1b0b1
-> >> -			MX6UL_PAD_UART3_RTS_B__UART3_DCE_RTS	0x1b0b1
-> >> -		>;
-> >> -	};
-> >> -
-> >>  	pinctrl_uart4: uart4grp {
-> >>  		fsl,pins = <
-> >>  			MX6UL_PAD_UART4_TX_DATA__UART4_DCE_TX	0x1b0b1
-> >>
-> >> --
-> >> 2.55.0
-> >>
-> >>
->
+Another concern is the impact and potential side effects of setting
+ti,no-reset-on-init (and the possible boot loop cause by it due to the odd
+30-second init delay). After this change, a running watchdog is no longer
+stopped. What happens on systems which do not load the watchdog at all
+(for example because the driver was not configured) ? Will that also cause
+a boot loop on such systems ?
+
+This is just a couple of problems introduced by this series. You better have
+a very good reason for it to warrant having to deal with the potential fallout.
+
+Thanks,
+Guenter
+
