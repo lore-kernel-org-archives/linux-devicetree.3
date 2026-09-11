@@ -1,96 +1,68 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D5644C4EA;
-	Fri, 11 Sep 2026 11:46:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F4149E12F;
+	Fri, 11 Sep 2026 11:52:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789127181; cv=none; b=DuLlgzId3vNmfYP4gNyvQLvg6mdfeBbZd6/SbKG4LlvxqyeQ70DLcrf24gQ/2tUN1j71qs4s5ayS5JKRxkX3L9+CC147tuF8SmHpisa8Q1ysEDnIdbcSVNqgWsYxvIKCQFr8p5q/QVcdTObGAfsO2tk7tkMtbpEM9wVOOv13zwQ=
+	t=1789127551; cv=none; b=okQgUn29qCX9AKgfoEN9fkCUGhXI5B+pBVHxnwQQh2fEY4dEleDg1UgYBUpXDNXqoyAYEAScWwBDqoAMA3P+NqYtjR5WSe03O7dRalt9kerbZeEI0ZJSgWfI32ucj16OjUfmJJZICz9Tt0vNfAfP85rGyfbU348H1yrjUTavQA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789127181; c=relaxed/simple;
-	bh=7/ABCwSBwMMpeasUmORhfP164RO5xe82KeiClgrI1pM=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=GEYTV9j4Pu6Q/K8oahHTuXEmvk2I9qQiaOXQ9VWcvAUPuB2rhLkJpbzhYqaxPVna8Je+QZntJv2K520Dx2y/4jJNmNvD06NO/78GMLESSoc9z6T75FKg2Z/9yKjO0pCntHXgwwvJ99/Crc+TJjlwadn058sQJSvrHGc73/YaTBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=UCRBgxNI; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1789127551; c=relaxed/simple;
+	bh=xr1iQ+0ANjD4AhlQ8mUQMXP92Uraxm4SQUClYbCEmdE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=siXATfEKa6D1FG8VfUhgDGXTEwMoZ47+1V2GjeaGmCIdMAqzInmfgWxuRbrNy2K/JDoGG5XHw3pVNaNn/I+QNuIGwFGgvuei74iEk+kaltwql5GH8M6damz2nrvS6NcwSnCXPxa5T8otc6FNBN2kZEi9JwomUEM4OcqieDuobjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=IS1534z5; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="UCRBgxNI"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CE0BFA379F;
-	Fri, 11 Sep 2026 13:46:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789127175; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=zxPnQIazV8qoWcjnPpuJi4EWHSazV4LFn9jV+FJ9yM8=;
-	b=UCRBgxNIvFi4YQ5kqI3E7U3tH9OKRHtIRXTa+ItbmNQqpUk/UmPLiTbaEwqJUj9+HGJoaL
-	F9Vr4lu4yL8kyCkf9Nevj6I8lZ+JikMUOzPY668hjhkQeyuIS2wMva3NekSPDQJtTpYva7
-	TYvhtIbac3o9ua3X3nzV8hvY27kf9WxYUY/6vJNwoosShBmHSDI2xOHgJfX12+ecJUC4rK
-	z1JiFMbnXKwvpwm6vSI//RziBmCq+D+hyG6XZit0u30rhd40b7DphbG4OUWkL3aTvN2dxL
-	FSA8g8L7pLEXPaunVd2shmIjAOO0jipY+jvM0mDOtXWHyQ9YLhnLx78qxx855Q==
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="IS1534z5"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=VnHi4B3D3EDHBd1o2lsdu30TZjWEe4IWwvich8nSuoI=; b=IS1534z5HHH3YbqZaAaY6//s+V
+	FaKchLDA/hWx9lgYhMTLy2UmrylUXiPH7z7R9U+CXM4o0s3jZy0fjv2c2fZXMFaeRJFMabnjhV1D6
+	AGvK8bwpW4kXcQioF91Zn2lxeF4Xe44H/GhsSJq0RNnW3nkd+KGEOsyJ+Ox4I8wrSEVQ=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x4znk-004gLh-Hw; Fri, 11 Sep 2026 13:52:16 +0200
+Date: Fri, 11 Sep 2026 13:52:16 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Switch <kyle.switch@motor-comm.com>
+Cc: Frank.Sae@motor-comm.com, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, ming.xu@motor-comm.com,
+	xiaolin.xu@motor-comm.com, jianmin.wang@motor-comm.com,
+	jie.han@motor-comm.com, wei.zhang@gl-inet.com,
+	sijia.huang@gl-inet.com
+Subject: Re: [PATCH v16 2/2] dt-bindings: net: Document Motorcomm YT8824 PHY
+ package
+Message-ID: <4246e368-42f5-4037-8882-6ad87a85724e@lunn.ch>
+References: <20260910074624.2426899-1-kyle.switch@motor-comm.com>
+ <20260910074624.2426899-3-kyle.switch@motor-comm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 13:46:14 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v12 2/4] net: dsa: tag_ks8995: Add the KS8995 tag
- handling
-In-Reply-To: <20260911-ks8995-to-ksz8-v12-2-5c3422d0d72e@kernel.org>
-References: <20260911-ks8995-to-ksz8-v12-0-5c3422d0d72e@kernel.org>
- <20260911-ks8995-to-ksz8-v12-2-5c3422d0d72e@kernel.org>
-Message-ID: <df9f07fa53c7c46debb927485138b6be@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910074624.2426899-3-kyle.switch@motor-comm.com>
 
-Hi Linus
+> +  motorcomm,interface-mode:
+> +    description: |
+> +      PHY package interface mode.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - internal
+> +      - usxgmii
+> +    default: internal
 
-On 11.9.2026 11:09, Linus Walleij wrote:
-> The KS8995 100Mbit switch can do proper DSA per-port tagging
-> with the proper set-up. This adds the code to handle ingress
-> and egress KS8995 tags.
-> 
-> The tagger is used by the KSZ8995XA support added later in this
-> series.
-> 
-> The tag is a modified 0x8100 ethertype tag where a bit in the
-> last nybble is set for each target port.
+You are not the first vendor to use usxgmii, a vendor property is not
+required.. e.g. fsl-ls1028a-qds-13bb.dtso.
 
-Nordic nit: nybble -> nibble
-
-> 
-> Always insert a distinct outer switch tag. User ports remove this
-> field on egress, so reusing an existing 802.1Q header would consume
-> the sender VLAN tag instead of preserving it.
-> 
-> Push any hardware-accelerated VLAN tag into the packet first. This
-> keeps the switch tag at offset 12 while retaining 802.1Q, 802.1ad and
-> stacked VLAN headers as inner payload, and avoids relying on a valid
-> SKB MAC header in direct transmit paths.
-> 
-> Rate-limit receive untagging errors so repeated failures cannot flood
-> the kernel log.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
-
-> [...]
-
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-
-Thanks,
-Nicolai
+	 Andrew
