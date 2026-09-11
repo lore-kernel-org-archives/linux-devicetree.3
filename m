@@ -1,76 +1,77 @@
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com [209.85.221.172])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ECE349C4DA
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 20:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E762F1A6834
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 20:35:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789158838; cv=none; b=QjUZ9DCFjL7cMXmCdiomP9sYqIgK0rykgbdPydPCcpHDQiP3Bt859oHMhBYUHoWtNNK8tM8mMDgWjXI0UIocxfXEnQ3B7B1sF9SKMsvUhlYsQUPiAodMhF3sJbx2+0OM5EXPKQD5aiQaeFWcGHQEQ3EhR9OrSqzTV2KgNb1K2p0=
+	t=1789158926; cv=none; b=DTzffcbH3Hc4XztesZ51ibMZvBUgU8SAphDlpGb38xi7urDIpIB/bTmG7O2lPIZvozlyWUlos8VySwcOA8qvKBbk9gbbDBcAeaW7baNhlADhAkj9ezMDhqI0WarVvG4rkIhk2m/op8RN3Cl4Fu21X2VKdpI3F5xR/uX5DM9x3ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789158838; c=relaxed/simple;
-	bh=iUQC8d5PfA0Ift8TUsn934+l9CrS8trXBwCeCv1ogsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=i+I3OpmhhyrnA9IVQntOwxzFc64BU2xPyDPfoTZhodND7A821ElL6y5mu41lltelEzEltx9kLE8vexx9Fx6VQUV6+eXxSt+7Vkug+jXoUnvAhaTVBj3yuPy+feOR2ijw5131UkjIJk0DLuPY3ukTsO+byE4tf0/p/2e85gUy4eA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pM0aKbzo; arc=none smtp.client-ip=209.85.221.172
+	s=arc-20240116; t=1789158926; c=relaxed/simple;
+	bh=JSzgZhVL1qDlrIcLzUkxaB2XJecqxdWMVW5p7bya/MI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oujDTrsU1C3eoRv7nhM6/GR51G3VjFBQIgFlujuF2ojNzVVU6hjSknNTr/5LGj1Diipf4jVQtzAJu9HHXoreUoHMntDi8IsnkMJNPXzvzj5KXox2OWyaDRjdmVWmIkDxueY3JSw/Hv6xhjatHbECkw0ETSgYxXQ6LsqyxQ9/fuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rYbYgtjD; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pM0aKbzo"
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5bf9506704fso837785e0c.2
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 13:33:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rYbYgtjD"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca06b03so1435065ad.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 13:35:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789158834; x=1789763634; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789158924; x=1789763724; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TNQAtUsfSHMHHKsvw6ndB+vrFH/q79ludt31IUIO6iA=;
-        b=pM0aKbzo2J4Wck1Su/Epn7xCkVaFf5o8NzhFNwvTF4FCgiE2P7dfvmd2tHB8M/n2ki
-         Tq9EDiyyL+q6xmot7O6mz+YkUxvoATlaTV/C7M22dB20F4aUhYwgZilqPajKvw8Xqy5E
-         BcYC17dbJSGOn0RIhQuc6IY9U1sO5kSJ7QqmlVLyDm2L/jNBMh1Et3TEtJeye+PIK/m9
-         SmNh8yuEtjJsu4FyPXMuo9pFnIr6zPpctrjmzQGwE+pm1Kgw4R4N20R1ahOQVlYobG6F
-         tqvQYyqfb1sMrunFuTL4PHcEB4fWHb4zRab/7fZJboxFZUQIMhE7NcWVm51mXGai0+LC
-         uwBw==
+        bh=kHBzfgquaXRWdYlhp+0HjCKIr2/nM/SVVPzQiQe/cr0=;
+        b=rYbYgtjDzS9fJpbxIy/1VtA/Yvcr+TlrBsAHzTiOT5qDglgX6rst0TsxRFw6oGuEF7
+         e6Cxgx34BHBYxpwVqtdNKKSq27IV+vN4iDaEhNrcRMe0+ipPVyJlfccGkrq5mvPfe0M4
+         4DfUjTEkQ7QXZ+5SnUHvKIcfcONkSPYQrGnrHpunhlFRjYIk33mgYOhYczEZXbvOXbuV
+         SHSr4pF91D+x9es7dQVHoFUwXVz3qLtXTgOdkSbd7WrVyiB/3oemAR+TMLl/QSQjWZhb
+         rb3kRPJ2p7UD0+cEMAlj581rnld6WAeHzj7ohxSAMi24njAYYWCpK0Zfe83ge+cUoN2X
+         TMAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789158834; x=1789763634;
+        d=1e100.net; s=20251104; t=1789158924; x=1789763724;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TNQAtUsfSHMHHKsvw6ndB+vrFH/q79ludt31IUIO6iA=;
-        b=n5V6TQyYNEknmNKD42Y9WWppBKHIi6r6ZPe/TMn9wjDFXFA4apFSvV0Tp1CEwLzLsz
-         F+EWrOkaWzesdvdATBi+VBWtQ/uuYxgAaW1YMJnYSNiLQNAFtx7+xdZT+l9An/Pb4CIY
-         IS4CWaMIr5WQJUIc7RvbFqyHUdBU11stUP1/qe/QlSznO1KsVkcV31egFhLzB6bzsNCt
-         nGAAqBWe+wOJI1WcVMUED/nE+36XwFxoKN9VYJncjWLNo3mCQpkXooMerzj6DrDGkjMd
-         mPClGWCdtm9vz96Wv3yZk0exrhcp58j6BdTFFKDkZAcGu0es8WsuTdhHV56KvqCzmdcR
-         hQZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzH0QSrRhJgsLTnu6xgAYrRNZaOm7/71kMWiKhPExCI+PqDuY9DO/NBhyEb5Ez/JoVaZwApSngiIGhu@vger.kernel.org
-X-Gm-Message-State: AFuF++k4ZeFu+W5Eo1F4UKw4yiFfc2GJyGClBshZgWY7bBd4skrHVVSO
-	gxe3H0sdi/R/kwQ0MPIYR8y+EKCVguM571Xd2GfpnANuq9Ip+Y4/WQ3a
-X-Gm-Gg: AYBFou3cjG7uk7nHmJ0PghWqMgZCzdBVQkmCgvBHRWDbUAueLXleDsyGHbIGTBloIC0
-	nAuiFJwFkJtjdEGvoHxYS0O1Dry59LUL2DL1i0TV/nWuVMzKF3g5W6GX7D35quYvFwPLhDNjuEA
-	pBViYYrqJPESgj7iodMUjZ7URwz0eOkpg5qn0HnXvORgzPYc4hU/uw2ROYkD41zZc+xABagxW5n
-	kmjgCqwuQxdRDyhsgTCiMkphOpdnakFoujZYSGjb+ei4hrbAOOf40IWcY2thknEGoBXFLV++yOB
-	uU04oKcvOt2BQHSx3IDAKdTJnjTc7Hq1zotK4lDVBMNHIt79U3SGpogTv17gm1uFZYOP6ZQGH1i
-	L7yOkl868ThMcNrXxA0taUEq/iQycIP2Ao5AlOa9UCVQhupdWIXa+F24S9Ugc3syh5i4Eh33Vmf
-	VSJGeVTE9v1yEVReN7PE2HDpjY/+6kfSSrhQ5ICu8+wiyYbernxVSI1BC3W4gKNULU
-X-Received: by 2002:a05:6122:6217:b0:5c8:46e3:ec57 with SMTP id 71dfb90a1353d-5c846e3ed98mr10169733e0c.1.1789158834008;
-        Fri, 11 Sep 2026 13:33:54 -0700 (PDT)
-Received: from frese.. ([189.60.169.129])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470e7ef4sm4187018e0c.9.2026.09.11.13.33.50
+        bh=kHBzfgquaXRWdYlhp+0HjCKIr2/nM/SVVPzQiQe/cr0=;
+        b=l7dmJB1Hs6cuxClDvT+3xBmb8deGttkP0B4JIwT600aT2ilbWmDn2SjEyLHW23pJBe
+         OsbNCIrgeiLeMk+9+i4EckvMAgFR68IR2ZThx8Puzf3r26fZ4b+zYWc7ljcjlFI3AuzA
+         4N9rK0P1Mnteg7x7WEpqc8GcQmCIHisYel2FufiE5l5Qzn5r0Q9/EHpjWxD6VNgHkNaI
+         GyzFUUsewQjVD3QrzdMztVEb4C3pIdRjjjdXJF+j3y0gy8cndv7YX0rttZvKKQetfquA
+         6+DRPznFCsAzV+9Loo+sLSQaZYSY8ZNUbtaFLCDOvCbP8rYqJhgWRiPaY7H8g4bDM12+
+         /DNg==
+X-Gm-Message-State: AFuF++ktf4EzKa0gkzR9FdMe/KaKYOdmZN1D0hyssHPtl1lYbbqsKHY9
+	DflXoIoGmxlV8UDgu8941UJ4ffKfP9eAAwckIL24DspdLm9Na/Xn7iFSgqTRrw==
+X-Gm-Gg: AYBFou1nDBJp1Oq6tAcwjBN/n0BvmO6Xo1NPSvNEEvaejHv9rkqD6MoT89L2bUdekNR
+	pfEKPzu1apxuX97Knee2DW9HOZWfPDoaJbtNXDead56LTvWUtwC3uJQ4SALOUNwU1QetY5cKkKI
+	rzAtL/G67c3+rw7wa6MsBYMuWJU+Go7X6+x2Uf4gq7JmwbcUSQRN8UU5i53PpDtn6g/5c4gDdGM
+	EOQpTeWkdQRx9o4P50xmmDamcvQkQEmb2LySZVJfXJep8YNXvd9SePwTKZOtSHXGvVL4E1CxMBR
+	lRxSjVZ2bxeRhXxjAqcIvSSwFqKFZ4d3NK5rN2sB8B8YFcJV+TMdquODePvfWy7DPh1djPT47NU
+	m9Sp9FbBtwKxwTSgyXINTjsVsJK68sHv1WpAwmpwBGVElV/8N1hr1/z3JZSqUE3SCvP8ErLZWqD
+	j/hC6YokZo3lYXQ24jcmmQu1ZBluFXhNKJXTcnEirsOY5RcuuK4U53qBNldnGJh2O07LNz0LxhZ
+	2wvbSSPxxAs5SyHYpYzBDZGY7OVa9na41nyH4eLrAII3fMkbNSqth4zWaBZm/DBPcgJukWulrfs
+	XJseSX7AogB0DE7o+EJjHp28jzA0R/E2lJH95RXHi/AIKGlE
+X-Received: by 2002:a17:903:2452:b0:2db:2c05:5d92 with SMTP id d9443c01a7336-2dd2a1fbb4fmr61652715ad.8.1789158924270;
+        Fri, 11 Sep 2026 13:35:24 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cca6b7bsm16865345ad.3.2026.09.11.13.35.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 13:33:53 -0700 (PDT)
-From: Enzo Frese <freseenzo@gmail.com>
-To: Rob Herring <robh@kernel.org>,
+        Fri, 11 Sep 2026 13:35:23 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+	Hauke Mehrtens <hauke@hauke-m.de>,
+	=?UTF-8?q?Rafa=C5=82=20Mi=C5=82ecki?= <zajec5@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	=?UTF-8?q?Noralf=20Tr=C3=B8nnes?= <noralf@tronnes.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Enzo Frese <freseenzo@gmail.com>
-Subject: [PATCH v2] dt-bindings: display: panel: mipi-dbi-spi: add sitronix,st7789v-tft28
-Date: Fri, 11 Sep 2026 17:33:42 -0300
-Message-ID: <20260911203342.76692-1-freseenzo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-arm-kernel@lists.infradead.org (moderated list:BROADCOM BCM5301X ARM ARCHITECTURE),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCHv2] ARM: dts: BCM5301X: R7000: add nvram node
+Date: Fri, 11 Sep 2026 13:35:22 -0700
+Message-ID: <20260911203522.105474-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -79,55 +80,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is a generic 2.8" 240x320 RGB LCD panel with a MIPI DBI compatible
-SPI interface, based on the Sitronix ST7789V controller. It is commonly
-sold by various resellers without an identifiable original manufacturer
-name printed on the PCB.
+Add it and set MAC for gmac2, to avoid having to handle in userspaace.
 
-A basic mipi-dbi-cmd[1] script to get the display running looks like
-this:
+nvram size found from a random bootlog online.
 
-$ cat sitronix,st7789v-tft28.txt
-command 0x11
-delay 120
-command 0x3a 0x55
-command 0xb2 0x05 0x05 0x00 0x33 0x33
-command 0xb7 0x75
-command 0xc2 0x01 0xff
-command 0xc3 0x13
-command 0xc4 0x20
-command 0xbb 0x22
-command 0xc5 0x20
-command 0xd0 0xa4 0xa1
-command 0xe0 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x44 0x45 0x0f 0x17 0x16 0x2b 0x33
-command 0xe1 0xd0 0x05 0x0a 0x09 0x08 0x05 0x2e 0x43 0x45 0x0f 0x16 0x16 0x2b 0x33
-command 0x36 0x00
-command 0x29
-command 0x21
-
-$ mipi-dbi-cmd sitronix,st7789v-tft28.bin sitronix,st7789v-tft28.txt
-
-Tested on a Raspberry Pi 4B using the panel-mipi-dbi driver.
-
-[1]: https://github.com/notro/panel-mipi-dbi
-
-Signed-off-by: Enzo Frese <freseenzo@gmail.com>
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
- .../devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml    | 1 +
- 1 file changed, 1 insertion(+)
+ v2: set gmac2 instead.
+ .../boot/dts/broadcom/bcm4709-netgear-r7000.dts    | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-index 6f0290c4e291..25c176b0098b 100644
---- a/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-@@ -75,6 +75,7 @@ properties:
-           - saef,sftc154b
-           - sainsmart18
-           - shineworld,lh133k
-+          - sitronix,st7789v-tft28
-       - const: panel-mipi-dbi-spi
+diff --git a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
+index 24ba8f8f9bf3..6ea845f3ac1d 100644
+--- a/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
++++ b/arch/arm/boot/dts/broadcom/bcm4709-netgear-r7000.dts
+@@ -25,6 +25,15 @@ memory@0 {
+ 		      <0x88000000 0x08000000>;
+ 	};
  
-   reg:
++	nvram@1c080000 {
++		compatible = "brcm,nvram";
++		reg = <0x1c080000 0x180000>;
++
++		et0macaddr: et0macaddr {
++			#nvmem-cell-cells = <1>;
++		};
++	};
++
+ 	leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -104,3 +113,8 @@ &usb3 {
+ &usb3_phy {
+ 	status = "okay";
+ };
++
++&gmac2 {
++	nvmem-cells = <&et0macaddr 0>;
++	nvmem-cell-names = "mac-address";
++};
 -- 
-2.43.0
+2.55.0
 
