@@ -1,206 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB9A3C1412
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 09:40:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66CB3C1F41
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 09:40:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119605; cv=none; b=Tfw4dfeogPwvBFmiD9SI1Pk/nalbZlwWfhR7Ex1vhRnPh5CguINAEetW8IM2kdxgW+03Wg6obLl57pq6BPV1/zT31dv8AtQzsBubMADN/x+sPKPEKs42Q4A+Q9BP/12MABg5WIiJHZtn0baJA61AKHwT3KkLuVkUymaOG8m1iuU=
+	t=1789119605; cv=none; b=MClDoEWtPnNT5gdyFsj/ZOdmuq5RHQXPum6yKBFsCoBnIwJEhd+crm3UWc2/LxkYOzc3z/r9wUsckGBzDwBf9T7UsNFuf6P0xJWT29DHGr57SyFd2+j43H1R8i6nt4C5awFunHAy6bZ6kF+zp5skapchf7NqbTAOO4RQj04Azl8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789119605; c=relaxed/simple;
-	bh=lwSjLSdWaZUoAJbH2zpPSo4/LBtWIqw82QxvM0EQLJw=;
+	bh=ae5BuzsAAFz1BZdRU0zhyS7agpnvRhJq2uSZE+kMC0k=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RQndOzcYE9dsjcSc6/eEAwFlKLoNs+/fvtNTljByw5Xei3Ikabwpz9UxWviHSZZSZtTx2cbF7o0rVQhoDsMOiSValTgTvhucNwiMqqftUUheT1LJfqHkJSEcHl6DvTRq8icJqgzXrqr+G2hb0A+UyPsjR0Xf+3WGI0XaBYkUZ50=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=enD6ckcE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=TLtVpzb+cwLTiZ7oMHULKWmvy5Ee9Sqh4fwoWu+mtCRW/Pmqc78a8Ak9NL+fjkez+BhAC5sHUjrHVpH2df/LaqcfMIGGa0mBirlo3weHnz1wOh3m9IWFdpcwjHfsj1si+vPpKUzFmV6MvQv9sG9Hk4bt6ocQtgYKF1PrMXMiiv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oe9hoj4t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="enD6ckcE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82F151F000FF;
-	Fri, 11 Sep 2026 09:40:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oe9hoj4t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987DD1F00893;
+	Fri, 11 Sep 2026 09:40:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789119602;
-	bh=BftRkx8dvQ4N6L4avwpp7fXXA80wZYEa3bFVxEXcvNs=;
+	bh=AEjIqpC44Qwa9WNEbDI1YGjvIvuFfGBO/K/4TMhcqAc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=enD6ckcEx3G52l/q2Wbdj4KyQkViW2Uzhr0Kt1cYV701U1nIIlxeWca9Gm9tZKNqx
-	 BIjD3QYDRr2AJA1y7YXa4P+r8eFmJCQZl9HkCNFe759xMgKnuW3E248EklS9C06rTs
-	 vgU4Ilh0dtWxiPDotcdbjB4wQISKvTp7noROltWTHsFz9QmL54CCl5AdtmCCsKC+Ys
-	 RX7mpIAlHiBdCBNEhIpAh1JHvvCAbwjwnkRLsRzwVw7RAjO9+o8AUFQt6fS9DSDgqN
-	 5EfbYkzVztDeEaWS5Um4Mkia7R/TWlVziT2r9JCI9pxRtjQWzFfSXSW0V6+Nsm2rQa
-	 zMzT3qGqIe61w==
+	b=oe9hoj4tlmLlcXBxP4HV9pO3RN6yVPXj+4fD2iVVVJz8HZ7uRGOqxz+b22P8mJdsW
+	 XqgHvci4Q+qmb+LbX3BmrcfTIpRWpjaQtLj2F9FL2S73Dh1DxMA7V6thg4PIsAyngG
+	 NFFIWcT3jcOo88DyBvvaKyKslXMFzE10CQy3go0CVA4IBwXb/NoBPK6jDBjl4SiSsl
+	 jZgHl6S5cA2zQxswuqk+Js5+DnLhezgPRgj8Uv4Wz71Zqi/MU/i6Qh/+z1vseSg/Ho
+	 aEPbTjPsbW0p+s2TzOY+LA9+XskIpa/rFzJbr+P77SvDXiejI/Up1N2TH+Wxe89Nae
+	 s2QYeO5ZPck+A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 08/10] ASoC: qcom: Add QAIF IRQ handling and platform
- register
+Subject: Re: [PATCH v6 06/10] ASoC: qcom: Switch lpass-cpu and qaif-cpu to
+ snd_soc_of_xlate_dai_name()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260911-b4-qaif-shikra-audio-v6-8-e9addb358201@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260911-b4-qaif-shikra-audio-v6-6-e9addb358201@oss.qualcomm.com>
 References: <20260911-b4-qaif-shikra-audio-v6-0-e9addb358201@oss.qualcomm.com>
- <20260911-b4-qaif-shikra-audio-v6-8-e9addb358201@oss.qualcomm.com>
+ <20260911-b4-qaif-shikra-audio-v6-6-e9addb358201@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 09:40:01 +0000
-Message-Id: <20260911094001.82F151F000FF@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 09:40:02 +0000
+Message-Id: <20260911094002.987DD1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Access of uninitialized stack memory `iommu_spec.args[0]` if the p=
-arsed device tree node specifies `#iommu-cells =3D <0>`.
-- [High] Improper error handling and missing resource teardown on failure p=
-aths in `qaif_platform_pcmops_trigger` and `qaif_platform_irq_op`.
-- [Medium] GENMASK underflow due to unchecked zero values for DMA stream co=
-unts.
+
+Pre-existing issues:
+- [High] Out-of-bounds write to mi2s_playback_sd_mode and mi2s_capture_sd_m=
+ode arrays due to missing bounds check on id.
 --
 
-commit c2987b134a7bc5719cab9cbf2c22298109505210
+commit 917cc500969311cb7669274beb9677b12b3a9990
 Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-ASoC: qcom: Add QAIF IRQ handling and platform register
+ASoC: qcom: Switch lpass-cpu and qaif-cpu to snd_soc_of_xlate_dai_name()
 
-Finish the QAIF PCM platform support so streams can be registered, started,
-stopped and serviced by DMA interrupts.
+Use the new generic snd_soc_of_xlate_dai_name() helper in lpass-cpu.c
+and qaif-cpu.c, and remove the local lpass implementation.
 
-> diff --git a/sound/soc/qcom/qaif-platform.c b/sound/soc/qcom/qaif-platfor=
-m.c
-> index 84ce3ad9a1f2d..762ba3eb65753 100644
-> --- a/sound/soc/qcom/qaif-platform.c
-> +++ b/sound/soc/qcom/qaif-platform.c
-> @@ -537,3 +537,395 @@ static int qaif_platform_copy(struct snd_soc_compon=
-ent *component,
+> diff --git a/sound/soc/qcom/lpass-cpu.c b/sound/soc/qcom/lpass-cpu.c
+> index 242bc16da36da..61efa45376cd8 100644
+> --- a/sound/soc/qcom/lpass-cpu.c
+> +++ b/sound/soc/qcom/lpass-cpu.c
 
 [ ... ]
 
-> +static int qaif_platform_irq_op(struct qaif_drv_data *drvdata, int dir,
-> +				enum qaif_irq_type irq_type, int idx,
-> +				enum qaif_irq_op op)
-> +{
+While reviewing this, I noticed a pre-existing issue in this file:
 
-[ ... ]
-
-> +	ret =3D regmap_write_bits(map, per_reg, bit, val);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D regmap_write_bits(map, xrun_reg, bit, val);
-> +	if (ret)
-> +		return ret;
+sound/soc/qcom/lpass-cpu.c:of_lpass_cpu_parse_dai_data() {
+    ...
+		ret =3D of_property_read_u32(node, "reg", &id);
+		if (ret || id < 0) {
+			dev_err(dev, "valid dai id not found: %d\n", ret);
+			continue;
+		}
+		if (id =3D=3D LPASS_DP_RX) {
+			data->hdmi_port_enable =3D 1;
+		} else if (is_cdc_dma_port(id)) {
+			data->codec_dma_enable =3D 1;
+		} else {
+			data->mi2s_playback_sd_mode[id] =3D
+				of_lpass_cpu_parse_sd_lines(dev, node,
+							    "qcom,playback-sd-lines");
+			data->mi2s_capture_sd_mode[id] =3D
+				of_lpass_cpu_parse_sd_lines(dev, node,
+						    "qcom,capture-sd-lines");
 
 [Severity: High]
-Does returning early here leave the error response interrupts enabled?
+This isn't a bug introduced by this patch, but is it possible for this code
+to overflow mi2s_playback_sd_mode[] and mi2s_capture_sd_mode[]?
 
-If regmap_write_bits() fails for xrun_reg, it returns immediately and skips
-writing to err_reg, which could leave the hardware in an inconsistent state.
+The id variable is read from the reg property of child device tree nodes.
+If id is not LPASS_DP_RX and not a CDC DMA port, it is directly used as an
+index into the arrays.
 
-> +	return regmap_write_bits(map, err_reg, bit, val);
-> +}
-> +
-> +static int qaif_platform_pcmops_trigger(struct snd_soc_component *compon=
-ent,
-> +					struct snd_pcm_substream *substream,
-> +					int cmd)
-> +{
+There doesn't seem to be a bounds check to ensure id is less than
+LPASS_MAX_MI2S_PORTS before the array accesses.
 
-[ ... ]
-
-> +	switch (cmd) {
-> +	case SNDRV_PCM_TRIGGER_START:
-> +	case SNDRV_PCM_TRIGGER_RESUME:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-
-[ ... ]
-
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACTL_ENABLE_BIT, QAIF_DMACTL_ENABLE_BIT);
-> +		if (ret) {
-> +			dev_err(soc_runtime->dev, "error enabling DMA: %d\n", ret);
-> +			return ret;
-> +		}
-> +		ret =3D qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-> +					   idx, QAIF_IRQ_ENABLE);
-> +		if (ret)
-> +			dev_err(soc_runtime->dev, "error enabling irq regs: %d\n", ret);
-> +		break;
-
-[Severity: High]
-If qaif_platform_irq_op() fails, this breaks out without rolling back the
-DMA enable bit. Can this leave the DMA engine running without interrupts?
-
-> +	case SNDRV_PCM_TRIGGER_STOP:
-> +	case SNDRV_PCM_TRIGGER_SUSPEND:
-> +	case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmactl_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACTL_ENABLE_BIT, 0);
-> +		if (ret) {
-> +			dev_err(soc_runtime->dev, "error disabling DMA: %d\n", ret);
-> +			return ret;
-> +		}
-
-[Severity: High]
-Does this early return leave the dynamic clock and interrupts enabled if
-the DMA disable step fails?
-
-> +		ret =3D regmap_update_bits(map,
-> +					 qaif_dmacfg_reg(v, idx, substream->stream, dai_id),
-> +					 QAIF_DMACFG_DYNCLK_BIT, 0);
-> +		if (ret)
-> +			dev_err(soc_runtime->dev, "error disabling dma_dynclk: %d\n", ret);
-> +		ret =3D qaif_platform_irq_op(drvdata, substream->stream, irq_type,
-> +					   idx, QAIF_IRQ_DISABLE);
-
-[Severity: High]
-If disabling the dynamic clock fails, is the error code in 'ret' masked by
-the subsequent assignment from qaif_platform_irq_op()?
-
-> +		if (ret)
-> +			dev_err(soc_runtime->dev, "error disabling irq regs: %d\n", ret);
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +	return ret;
-> +}
-
-[ ... ]
-
-> +int asoc_qcom_qaif_platform_register(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	ret =3D of_parse_phandle_with_args(pdev->dev.of_node,
-> +					 "iommus", "#iommu-cells", 0,
-> +					 &iommu_spec);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to parse iommus property\n");
-> +	sid =3D iommu_spec.args[0];
-
-[Severity: High]
-Does this code access uninitialized stack memory?
-
-If the parsed device tree node specifies #iommu-cells =3D <0>,
-of_parse_phandle_with_args() can succeed with args_count =3D 0 but does not
-populate the args array. This would leave iommu_spec.args[0] uninitialized
-when used as the SMMU Stream ID.
-
-> +	of_node_put(iommu_spec.np);
-> +	drvdata->smmu_csid_bits =3D sid & QAIF_CSID_MASK;
-
-[ ... ]
-
-Outside of the provided diff, in qaif_map_ee_resource():
-
-[Severity: Medium]
-Is there a risk of a GENMASK() underflow when mapping resources?
-
-If a variant specifies a DMA count like num_rddma as 0,
-GENMASK(v->num_rddma - 1, 0) is evaluated. This creates a negative high
-bit index parameter, leading to undefined behavior.
+Could this lead to memory corruption if a malformed or malicious device tree
+specifies a large reg value?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-b4-qaif-sh=
-ikra-audio-v6-0-e9addb358201@oss.qualcomm.com?part=3D8
+ikra-audio-v6-0-e9addb358201@oss.qualcomm.com?part=3D6
