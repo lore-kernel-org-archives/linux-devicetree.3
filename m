@@ -1,174 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C8E3EC81A;
-	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DE35469820
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:51:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116675; cv=none; b=YHdonp8MjEfjWLpQQthCt5IL8rI8E+SxUhpGOzgDD7DUwMuAdiVikvBXR/eWqc4m7R7BarKyAphhDFHmtmpQ1POGOZIAMeqVi9F1hj3iT6AHQoa0E0fr4yTKNo7j2hcD9k0ANHtTJRF9f1jvey4Pwaz5I11iTOmP1UDkw0x5owk=
+	t=1789116687; cv=none; b=fAdbrwfSK0cENBTpGTv/VRBSQScRcM3h+jBua0mYpNwuJPdSPXWnJQHLr+qQv26164rdYbuYUBquHCjgFx4PV1dH7g8J8OYXGdIjXF4IOGieIZvak4JQoe+MDB5qoZD4vthLX70w3rPCeA6uYd9bR3nAECsTBgiXX8+yvurzK44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116675; c=relaxed/simple;
-	bh=6Om9mmFoyilZ7jFsN4qGp2OOoGqOwvUDJXp2zNRLp+k=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CrdjMdR+UAJ6YV/yBss6quQQfC8Aw5lz1oZlayVWxlRi+5c5RIC3+ubsUd0AbOhe7+WhMbJ/DRy3a9RtntVnthhYT4KX0mQ9znKu3Wo3+ZyWUdM6HyuLo+UMy8qJOlu10bF53onpw/wJtv9sBeiZZqK2M6AcXHoJp0igJDsNJeg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jgx9aTYx; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jgx9aTYx"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CC14AC2BCB8;
-	Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789116674;
-	bh=6Om9mmFoyilZ7jFsN4qGp2OOoGqOwvUDJXp2zNRLp+k=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Jgx9aTYxluCSss6dcTipeMEk/+ocQA1Zq0771VYQvCRm73K9nAs0Ps/PJIbYnqYPA
-	 mglS23depKXOCYFG+3BF01q9dsvXh3Pa9Px9qDDnhsLjrLddm4bWiM7CxR5dcCNAha
-	 R8W9ADEtAtAw5iUBIaCSQT9C8SGklEbElTi/AihGD2cBqyGwbvs0lS3k/M/ZPI7fa6
-	 e2F5jxt3KHRnOwsDLg5u7OSOZf5zk4W+OguddhjAJUh34vvr61G52W/4njH9xuhMd7
-	 rEj8Zj5AnjN7u3szNHU8AvBQP7WZmsdQozby4Qhj3rjUYIBuHdhuK5wA0nO83sN0qQ
-	 JFrPY1GixpzkA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B50F5C88E56;
-	Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
-From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?= <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:02 +0300
-Subject: [PATCH RFC 05/10] dt-bindings: input: touchscreen: add Novatek
- NT36672A SPI touchscreen
+	s=arc-20240116; t=1789116687; c=relaxed/simple;
+	bh=h5QtskLdwN0aOposRJmsMlXcFaOCxlrGFlXawJuLUoE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gcctcPBiBwdGtU7N/byUmpKUnSlM+q4kmnLVrA5j8tSlWnXNb1bKw//wQgq6s67jVkBzBB4BKT9JOTUx1BhY786MaPubIUcehr5sj5Y8E2VP+x6QPEEbMM3zGuJ83qnKL9o5iGzNNvC6464x0EkKDbgZE85dKF6cgS60P2xYQks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so484564b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 01:51:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789116685; x=1789721485;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dFqCzfESKQLEVO0Bv6rt70nL97v3lPj6zjiKBmAFaxk=;
+        b=tMQSAgt4Q244U/lZdBNDX7IAbnjL9SwNwP7Zfr/Ed9zaQigKBOhTF/AZCRQE06+gz/
+         EOF/FbL6PDVK860NbfIajX8F6z2ii7k+/j2RHHkwDmB9OfstBTdH8y4JJVXAt2iLcs3e
+         FnAcVoVXPkjOInYzskHu1A52E1DUjgZIkXRRTH0pYTkgSq6R0XC+N01DWh+ZrNIGWgQQ
+         1jWqsowbKLQ74up1289/7CUOwMnbNxfN4fo+5UyZdQXZ/Thm3TPN93AAMgJAP4ZsuHAN
+         4vd+1I3gJQ5WwTrqTN3oCI2EWid06K+Bkn6iTRFqt28tGkNcZx+m8nBKWNyGydfuWhIy
+         x2cA==
+X-Forwarded-Encrypted: i=1; AKwUvBxhRu0p4FdswoHc/k/MWME6J6gEwPT8kTnXPcwE5B47lMEpp81aBBKG3e4gqSvjm6mxbwgYHgwsFDhd@vger.kernel.org
+X-Gm-Message-State: AFuF++l9NGC3dBKm2YNXHlNP2GtW9aSNFeDKfwYhxblYeTQ49WxOYw8S
+	5zTkmqZIl5KBOwV8Cep66AmlsyHJF/UZocgVkyynp8vuc7oIaUbgwBN5qM0H79ad
+X-Gm-Gg: AYBFou2YYeLBdRH7mRRQfRJ18m1uFl6ZcR4uPXM8aiJ03C+lsn+cx9b3q7BSmQ33SOP
+	SKx/6sn1Cce1OJ5ded6N8trEDThjLY83ZLatWPrDGrORJoRIDs1zuXgYWt8idFWqLDARSNSLMze
+	2nfM4ibfK8kS1eP9mH9j3S+Tw0zTiCAOX+B58RkM4vs0a/2LKm25w9P3BrE5R03C7Rvfo88pZRG
+	Qn/3c12WLuzjSDysupBOaAcwvGTKdqCgzvEk+Tp4U7zzn45FF5tm8wECDtYBgXpYDSamLjRUO7W
+	OZIm2fNjjEZuVafsKZ14rxIMvwgr3u6LxyR++b4NE/O+gE+VHM2VwzbRSkDY+NzG9WgpQaRzxk5
+	HSuNd7td2YlvuFTenI+3/XxRm0Vombd4qJ5gRQFw/cu1pbRh+ZmsRZRemG4IopS2MDjv2oz1QCF
+	gFPHCyq4xjkFsnD+5yPppgm8ZQcOj4gfpGOXKccU48ZlNTXSQrGh7+xtOJsaIKNZIPc+Hi3pYvQ
+	FAk0BTw4r9FBNUotOPjAlJkkX2yK4DjhGzwow==
+X-Received: by 2002:a05:6a00:2d9f:b0:857:72ba:ff11 with SMTP id d2e1a72fcca58-86b34f095b3mr4817205b3a.25.1789116684458;
+        Fri, 11 Sep 2026 01:51:24 -0700 (PDT)
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com. [74.125.227.140])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29cbb933sm778524b3a.41.2026.09.11.01.51.24
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 01:51:24 -0700 (PDT)
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334e72so5721365ad.1
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 01:51:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzEe7GP4UQhLec4rsaSd9UO1k7vdHLN2atR+GT9C/lvIkSysVBgO5M+WV+Ti1J7WyhS7TGmjQfwazqT@vger.kernel.org
+X-Received: by 2002:a05:6102:2907:b0:789:3f43:645b with SMTP id
+ ada2fe7eead31-792a83eee14mr1339655137.2.1789116307687; Fri, 11 Sep 2026
+ 01:45:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-5-0e68e63a18d4@gmail.com>
-References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
-In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
-To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
- Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Henrik Rydberg <rydberg@bitmath.org>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-fbdev@vger.kernel.org, linux-input@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=2624;
- i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=sMolpDLxRIIdnSgm3TbA2Rk80AV3J5bHq36firTsw6w=;
- b=IdFFml977ayIZ6L6YdvcMn4Ol1XAEqjQLb7pnMby8TGCu+zLBKLhmg7UlQUs5xSnl1+k1kmsw
- r7mj8P4/nAhDtshh4wuZCFJWI/hbuWGi9O8ZA3vRaQCfKB7kgS2ehfe
-X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
- pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
-X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
- with auth_id=1024
-X-Original-From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
-Reply-To: kavakliyigitcan@gmail.com
+References: <20260911073058.253000-1-den@valinux.co.jp>
+In-Reply-To: <20260911073058.253000-1-den@valinux.co.jp>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 11 Sep 2026 10:44:56 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+X-Gm-Features: AcwNN1U9x2Dw0_q7aq6BSLyw8iIHJUaRM391u6KpE8PvZrGWtybbNLMNuLVxPdU
+Message-ID: <CAMuHMdVAFq4izexG=Sf2i9dZdMMNLnb85AVgBazAFMtTA2jwxg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a779f0: Set UFS lane count
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Marek Vasut <marek.vasut@mailbox.org>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Palash Kambar <palash.kambar@oss.qualcomm.com>, Bart Van Assche <bvanassche@acm.org>, 
+	Shawn Lin <shawn.lin@rock-chips.com>, Manivannan Sadhasivam <mani@kernel.org>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <mkp@kernel.org>, scsi <linux-scsi@vger.kernel.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
+Hi Den-san,
 
-Add devicetree binding documentation for the Novatek NT36672A SPI
-touchscreen controller.
+CC ufs
 
-The binding supports standard SPI peripheral properties, interrupt
-configuration, the optional 'panel' phandle for DRM panel follower
-synchronization, and an optional 'firmware-name' property.
+Thanks for your patch!
 
-Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
----
- .../input/touchscreen/novatek,nt36672a-spi.yaml    | 66 ++++++++++++++++++++++
- 1 file changed, 66 insertions(+)
+On Fri, 11 Sept 2026 at 09:31, Koichiro Den <den@valinux.co.jp> wrote:
+> Since commit e72323f3b09f ("scsi: ufs: core: Configure only active lanes
+> during link"), the following error is observed on R-Car S4:
+>
+> ufshcd-renesas e6860000.ufs: Tx lane mismatch [config,reported] [2,1]
+> ufshcd-renesas e6860000.ufs: link startup failed -67
+> ufshcd-renesas e6860000.ufs: error -ENOLINK: Initialization failed with error -67
+> ufshcd-renesas e6860000.ufs: probe with driver ufshcd-renesas failed with error -67
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml b/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..0d89d60f2a93d26e2f7903371ecc6eb9ed683b33
---- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/novatek,nt36672a-spi.yaml
-@@ -0,0 +1,66 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/input/touchscreen/novatek,nt36672a-spi.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Novatek NT36672A SPI Touchscreen Controller
-+
-+maintainers:
-+  - Dmitry Torokhov <dmitry.torokhov@gmail.com>
-+
-+description:
-+  The Novatek NT36672A TDDI controller is connected over SPI for touchscreen
-+  interaction, with host-downloaded firmware into controller SRAM. It integrates
-+  with the display panel lifecycle using the DRM panel follower API.
-+
-+allOf:
-+  - $ref: touchscreen.yaml#
-+  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-+
-+properties:
-+  compatible:
-+    enum:
-+      - novatek,nt36672a-spi
-+      - novatek,nt36672a-ts
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  spi-max-frequency: true
-+
-+  panel:
-+    description: phandle of the display panel that this touchscreen follows.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  firmware-name:
-+    description: Name of the firmware file to load into controller SRAM.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+    spi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        touchscreen@0 {
-+            compatible = "novatek,nt36672a-spi";
-+            reg = <0>;
-+            spi-max-frequency = <4000000>;
-+            interrupts = <88 IRQ_TYPE_EDGE_RISING>;
-+            panel = <&panel>;
-+            touchscreen-size-x = <1080>;
-+            touchscreen-size-y = <2340>;
-+        };
-+    };
-+...
+This is very unfortunate...
 
--- 
-2.47.3
+> R-Car S4 has one UFS lane per direction, as described in section 152.1
+> of its hardware manual. Without lanes-per-direction, the UFS platform
+> driver defaults to two lanes.
+>
+> Previously, the core used PA_CONNECTEDRXDATALANES and
+> PA_CONNECTEDTXDATALANES to configure the link without checking them
+> against lanes-per-direction, so the missing property did not prevent
+> initialization.
+>
+> Explicitly set lanes-per-direction to 1, now that the validation is in
+> place.
+
+Given this breaks backwards compatibility with existing DTBs, I think
+this new check should be relaxed iff the DT property "lanes-per-direction" is
+not present. Are any other platforms affected?
+Possible solutions I see are:
+  1. Skip the check completely, like commit 06a34d9c1f47b923 ("scsi:
+     ufs: core: Skip link param validation when lanes_per_direction is
+     unset") does for ufshcd-pci?
+  2. Correct hba->lanes_per_direction based on the actual values of
+     PA_CONNECTED[RT]XDATALANES?
+
+Alternatively, ufshcd_init_lanes_per_dir() could override
+hba->lanes_per_direction to one if "lanes-per-direction" is missing
+and the device is compatible with renesas,r8a779f0-ufs.  Or perhaps
+hba->lanes_per_direction could be preset in ufs-renesas.c, and not
+overwritten by UFSHCD_DEFAULT_LANES_PER_DIRECTION when non-zero?
+
+> Fixes: 5235d551779d ("arm64: dts: renesas: r8a779f0: Add UFS node")
+> Cc: stable@vger.kernel.org # 7.2+
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+
+> --- a/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779f0.dtsi
+> @@ -901,6 +901,7 @@ ufs: ufs@e6860000 {
+>                         clocks = <&cpg CPG_MOD 1514>, <&ufs30_clk>;
+>                         clock-names = "fck", "ref_clk";
+>                         freq-table-hz = <200000000 200000000>, <38400000 38400000>;
+> +                       lanes-per-direction = <1>;
+>                         power-domains = <&sysc R8A779F0_PD_ALWAYS_ON>;
+>                         resets = <&cpg 1514>;
+>                         status = "disabled";
+>
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Works fine on S4SK, so
+Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Will queue in renesas-fixes for v7.3.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
