@@ -1,220 +1,162 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MW6PR02CU001.outbound.protection.outlook.com (mail-westus2azon11012058.outbound.protection.outlook.com [52.101.48.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B223D45D90A
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789113559; cv=none; b=nC753kqpK3xcCqMoqBuQi7ehF2MyCQXwP8x6md0nx+sp0nGLf2ZxBXM7KZIyYhxursdXO6dV7qcTmocmfJ09OB/eFY/PlgVXqKC4oGQH/WrsyGNLEtkYbqAjaxqeImsKOi/nYNp7EFOvSo0rBAN2PZ7AokDpiBp2WZKCkRBU1qA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789113559; c=relaxed/simple;
-	bh=wS+UZgMsfZshYLMMeKsNqXdGiAbQ2UhFZFFve51dv4E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iHZwkVq/Ri8DhwSlixCe1q1X0p+c0RHcNgtMjvez7XVVwEJdJrR6qfCN4ZAYHY0srPqhmWyzgiyZ/eGzov1PFTaOS0z+tzyIaxCGi0QnvFiWpKIdkQPC4EyF3kJlV0zEB/n+QHhSmy5WmRJueAQOMUyDKxe2O2MzI5j+Oe2/cw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KggMcM+Q; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P9ju7RUM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7102445A29B;
+	Fri, 11 Sep 2026 07:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.48.58
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789113572; cv=fail; b=GqRPyiQnB/es6V21p7LedlO3FUjcrOEvH3MmPFkU6o+AheuwNtcHGtA1EtPa88+TkUwNPE48Vo7ujLjH3U0p/u+tcSGThp0vdN52IX5sImNTHPJENpCHrTvcb5lSspG9NS+vn8zNAJLDmi3xZyhFOdbnjKVENCwedyy0KvQvkG8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789113572; c=relaxed/simple;
+	bh=klhzcm68JxRt9kblDYpZEZYce+rIzaH7I4/xK5MfjXY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=k8s9Hc/KpOCWLWCY8ydAJrfAMFtt/cvx2+J4PpEa/s8hIq8IhR6iiGTs32pN08vuaGTlK2a3Ded5/XIJVgicnThSggelBfRwHO0Kjb55EIW7TqZyzD1hOSaMiQQjPvRc22ZeQ0fgAiVI2JRc4BD0zhtjM1h5Bca361WD4V/NM3o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=jrFYWQLV; arc=fail smtp.client-ip=52.101.48.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KggMcM+Q";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P9ju7RUM"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7kkT63366331
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:59:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Ev/gSonR3enDh7oNOrxayRO0
-	dQ7G3IRgYUf6IT1P+vc=; b=KggMcM+QYPgQmdVELOJAHyfwY8HdlXCXNd8IeRaz
-	yogAQfN+1FoRF80rf7ZN7XR+qxQqndoENveRX0jtkPiBoxBag0/4T54FP3ERWJpU
-	wdbZXVPltW8WQHd4JkkrxsHXw8WE7pYrXpNkFsFJ7fcpEexczoMXVl9QHqcpa4wl
-	Gxo6IsZfQV7hlVGXN8vwwFzaFLXyzeZe7uVhBx7+b26hvJCF46yeoEv89nv+5Mgq
-	eV0Up1iaOFvvo3/bO8Azz0QmfemSDHQPFR5tFrC+LpjprPLOLWfKKAzL3IaR9YjK
-	dJ8JxTRr9GodTWGIf22AQYka2Lr7GySSl5Maf/tDQ7TE4Q==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm1k2arkh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:59:16 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-936708f129aso85902985a.0
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:59:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789113556; x=1789718356; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ev/gSonR3enDh7oNOrxayRO0dQ7G3IRgYUf6IT1P+vc=;
-        b=P9ju7RUM9WlrLAcI2+igDLYDS2hq4uGHip4kb3nnzuQlhyTq2URkHLzqqu+H9LfTvo
-         0uNY/ELLfWIViXbo0kfH8f4FysyHgh89YJD1L289OLzN+HVN7s2pI/Cp3gLQd48SobTv
-         KW2p8cud/vciqbXnR/IWT0dB14kr11ZGnfjeIHX+FUmB1jI/yfPzHAKU9A64YU8sCjVU
-         vd1V9FX8Mlg8N2tbVM2AETaXqeku2J+6tv5yL6AI3HajBU9yLqukbdWxnNx7Eiu+AKKi
-         wUyFvYd5nUbxEvI6F1+rDELFQSIvYgkwcN9GK620Q03o9yKVh8eg3VwEc7ujoluDA49G
-         aiTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789113556; x=1789718356;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ev/gSonR3enDh7oNOrxayRO0dQ7G3IRgYUf6IT1P+vc=;
-        b=an/RzdRD54bWCDxFEp9nAPEt2TfHCUuGWAaOcTOjON0Xn+hHP8Uw8HjylWoDyoXHfC
-         trsC7FXTATTV1+XpgBfk+++SSOIl4vOBJbysIz03Jj5KGVqfKpvUpyhYS7qxqMlHzw7G
-         TAmVdv34o6PKwzVIG2dJ+RiZOuJD+rbrxicO/xiVcAn20Vr+GI/mfKmPTHImhnwBEFU9
-         3VhMKtmRQqw2mTuyNR8VYwLBlKhoEFP8GLIvfjFyAT2SnCDYH7zK+McGl6FELseLWFOd
-         MplsK3Rb3EIuwE2zy+kSrBqR8JH174KcA4digq94ciyrpu+yp6X7ZTaccLI5rjR5g5MR
-         w7GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztL7RENO9V65VBCynMmQoAoAiOf6zOKIfRJA7lqOx0pTPX0RWgGmL877FFFKZ50rsSsnnVNUqaza+m@vger.kernel.org
-X-Gm-Message-State: AFuF++mJBtFt08zTai40/DVmYtfITN2ZhmWYweXz1L3dQ+pt+XStui6b
-	sMGBMt9DFEW+bIWCoEC9WiIpfw3magXBmQGXxerKnbZO2TwtpImMQDodMJQDP8ef8bXu97PJGy2
-	u6xQA0tj219oMULRbLBxDJbMGATElPJFyqAV8S4MkeKy2zv3XU+LdT/l6eGSzR0iP
-X-Gm-Gg: AYBFou1kFMn39s4z7ogNoPiI3n+DSgAuOAg8Z/rGhoB5UUZSl32PA6EX/wprHlxCBDD
-	4G381yQkqMs7ntx6GkYIYfF3FEQDHA+++4SNd0ayM3ury+eIg19D1ULZxspPkrIZEZWOkAQxWCr
-	qa/jjo0gGvRZUoNyiusXmuVCFuR9gqAu4eU/J2HQhe0EkCuJ9h8iQNWlS2eIfILx1RyRVquBiyA
-	THFOhJn4hywc7fEto7md156VmlT66NiO1N605qlhVpYtkx9tE8t4wGDDVh3gu2hbiCNAnd52ucf
-	2WJWllm4Amoa6f8grS1Wt9+xxhpt1ux8ibd4u4i0ApFBvjcJVSxiToovgCwzeaTG9dAkW/ki/Tk
-	+Y5gm51fXyliPyGM=
-X-Received: by 2002:a05:620a:4546:b0:939:57ca:7e08 with SMTP id af79cd13be357-939ea037874mr369307685a.2.1789113555571;
-        Fri, 11 Sep 2026 00:59:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:4546:b0:939:57ca:7e08 with SMTP id af79cd13be357-939ea037874mr369304685a.2.1789113555010;
-        Fri, 11 Sep 2026 00:59:15 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.170.232])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb35f3d9sm3681657f8f.35.2026.09.11.00.59.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 00:59:13 -0700 (PDT)
-Date: Fri, 11 Sep 2026 10:59:12 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Subject: Re: [PATCH v8 3/3] arm64: dts: qcom: shikra: Enable USB controllers
- and primary Type-C support
-Message-ID: <x2kka6ouwalb54bv4hxszoq2qdbctp3gx7qholeerxvbicrxwb@ww5rf7tnjaog>
-References: <20260911-usb-shikra-v7-v8-0-851ee4bc0eec@oss.qualcomm.com>
- <20260911-usb-shikra-v7-v8-3-851ee4bc0eec@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="jrFYWQLV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ffg+PJA2H92t/dRGT8ymoUwrh6awoZGWJHVOJWzHePpNP0IrBpr8gC6H4TudE9aPd7LrDucIu6KKL3PFgjcbQVWrCv/K1FtYvW2OBvAf2OEiUn9nNNduxWzErv3Ysh2AaqXcpkLAIMj5FCLEFOw/45lBjM4gLMbhUAwvSWWGKel9Ken9/qwEjmSQi4o2dcNBwr8vYFBQm0/e9YkR9aSDuBLqN7RepooigYLDWfThlAXV+ftiGdhlCmdPLlgVh+tldpxfFzk3qgskTexLYHKHbhW2GSZaOvqveGb5WsddVaOq5gF2sepfQ03wKARPRU7pCv5K4eTO2nL7/A/LXOk2HQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=klhzcm68JxRt9kblDYpZEZYce+rIzaH7I4/xK5MfjXY=;
+ b=DHMPRPqbTjlXfSXlM2xd3JLLzuiG7dvOl9/dmaOne5JED4h9F6hA4zILakmAzZP0qGDr8cnzzAl+wFJUCLysSociciEb6KiL1JAhOavn+uoA5KCTPdVSNWxgoGKQYXcXcyUSSZP8aDR/TYx+ezNT/ljWxDWXt4P0rAuVF6O0L5MDXRhHPawwkLqp1mIFBLGku8OoIUYsaoNvSWOlK4P3/rZeVDvVqBeJr3bJW6ZcF4+Ocb5Y7jbEqWSf0JFmUcn1WSG6q8Npj7YurzB7akB0RoPOXFfnCc3PF2DBPdWmwx62OpSUvDPsvCdp8wDotwuy1TlnNmHE6JP8ljR3GDKOWA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=klhzcm68JxRt9kblDYpZEZYce+rIzaH7I4/xK5MfjXY=;
+ b=jrFYWQLV9XEZvwNPsfLM1DB0BtSjm2eB/+iW/929rypxmTpD/MSWBtE9Nrrwfyg3A6UnlMZyHgvBFmJip4JzK6C6XZMawVd8AdBfMMG1q7TasuCYM0IJBFNnr65PlHse9UrkwQszUVsAKIvcIHa7aUEuxWgykig1fmeDfPmeIUiUr6GWd6UPhjHL6ix8+DB7EdH8KHS2KSF3K0pEpuX7zJ3VjngZRwbL5xUsdfvboJ5sfG3yn8/s2apJk5399GrT9Y7DIYbl+APP/5LRPob3LWSL8pK1mlBHzAupf3tkG3s6MeFDWi1w/owYXubmOJfF8hPPwcoI5pwc+bQgziPrmw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
+ EAYPR03MB989276.namprd03.prod.outlook.com (2603:10b6:303:2c9::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 11 Sep
+ 2026 07:59:29 +0000
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
+ 07:59:29 +0000
+Message-ID: <cb2831d3-8c64-4de0-b61b-4ca5a25baa83@altera.com>
+Date: Fri, 11 Sep 2026 15:59:25 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/4] arm64: dts: intel: agilex5: remove usb0 in Agilex5
+ SoCDK
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <6c324c1953c6fb9e217e878bdd42c06bc4b6bceb.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <20260911-elephant-of-great-certainty-4e0bbf@quoll>
+Content-Language: en-US
+From: "NG, ADRIAN HO YIN" <adrian.ho.yin.ng@altera.com>
+In-Reply-To: <20260911-elephant-of-great-certainty-4e0bbf@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SJ0PR03CA0016.namprd03.prod.outlook.com
+ (2603:10b6:a03:33a::21) To DM8PR03MB6230.namprd03.prod.outlook.com
+ (2603:10b6:8:3c::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911-usb-shikra-v7-v8-3-851ee4bc0eec@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=cM11IVeN c=1 sm=1 tr=0 ts=6aa3b4d4 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=po8fGBi+ks8MzcVQGuqtFQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=pLJJDYdFoZai2w-5wMIA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-GUID: ksFl3QWVIT2YXYuN3HcRYQwGd1C_XpMn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDExMCBTYWx0ZWRfX24xZ5m2Osu98
- V92SZGXb0amO28qPy3HgqFDy0Zsb2VoWL+8/x/nE/qlXYvBn9uV21vuF0UI7NkVonVkLVM5j8a0
- ZCUF6YjtUJmtV/piV5JTMetpZ4i+pjw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDExMCBTYWx0ZWRfX9EzFjMT4xSTB
- LoaJ96LPT9sPLLXN+7hRaZ/kZZ/sZgUCsx0oTbdT1HvqFHN9EVWEE9bbo17uDPWl39iWhwBIHEj
- voQmgLXaZXLUPTqvj8IJoPahx1p3dw8ia2wA3rj5hNXGWiefmGfuh3Hd7UcGflCGYAwSccE9hMK
- jUXwMO2oj4IXb9E3BXQ3sFB2CBrY97EmwNU7dWqDGyVUsIpGm4nEcnQXpxXOAZTjU4TDDpUGvGU
- mrJmJhi2lMF6so1Nlzd8HWiKe8Id0pZggRQq/PyQA5vcm1eOKjweoLzPMS1epd4vdFpcSwVXsFz
- pFJ6m8tUSJgDNFe1x20xjlGVYz0Zl0JIrsBZJpwgVMyW37SdCp4twq2Lo7Fbh/0ukdihDcvUaCB
- abwO+yyo5IWL/CdVUiXjfF6JVPIkwbnC18BHJy13BnT9JTuRF6/9I/nG0niDRBiZ3E/zWztHXgL
- i5vV7MoehP10z/jaGuA==
-X-Proofpoint-ORIG-GUID: ksFl3QWVIT2YXYuN3HcRYQwGd1C_XpMn
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0 bulkscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110110
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|EAYPR03MB989276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b9a8638-4590-4891-3680-08df0fda9b78
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|366016|376014|1800799024|4143699003|10067099003|11063799006|56012099006|6133799003|55112099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	eaJ0D1pujN1J3zOg5so3a7qw8b932gyX1EpZ2MllA6RJ0S8TnZ3Zy/khfF0do7CM+BZjU6YDYpAJNDU6hjCjvHgGKpqQPoj+6/8ioKxN7z5sb6n/etL3npKfFKO91i3F5DNqPINS+G05DFlYGw5aVhygNvRGhBKKwRg/48W92tC03b+6b1XhTzWZytuiPWgD8zdi9RfOtfAHKygqZsooevhg2hqCmZWmjVwrGTpR0vIoPDUyKV6p0KrbzYFQ2JcVZvFLO50qNdmhQzCZXxt2Vp9Pi9lhzMUd6rrcoWWDZnFVXE3h4AxaOTUicbSRRj2jbupDCOJQqQDxibVBebfCIQL0NKTxUS8mU2D2CAtXxW3Suog49yUycoFaK3iJusOR2Vznjf3+NF5ZDf9eWjtEOuHA8hBPcC6Df4pOYYhz8z/AUmXKoi3OI6XTcJ3WruMqqzLgQNOv0fXlyWiPZmkWSblp4pypczI15zc877H+vwKIqcwnnCJunqMIUI/yhRr3BcFfkXIZ3RWOq6eJbbBBU4XN+XS00wFagmudkeX9vLNxiU8ZpIlVluEelQm46U8tgHNj22KgL+KHW5m/rXfLqsw4oZ/8voIHH0NiHfGgPbDFTgSPw2aCxJyVi9mbb+D9MRdbfi9bx03T+qfTDwQcHw1hH3CrZuFma3uV0HJLYfo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(366016)(376014)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(6133799003)(55112099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bGdoR1ZDREpTOUZwLzNYMjgzZmhhWXdUa0ZKQXVrYlMxeWx3NUNCMktUM09T?=
+ =?utf-8?B?MDdBc0RmbndPQ3NvQ3VURlBwMlVnY09naElCdUtVQkxJeDJaVmpiVGNZRlV2?=
+ =?utf-8?B?emc5WjltRFJyT08zcTdWSkRtMk9OSTR1SDJOWC83aTNiR1BpWlVrbW9WYTNs?=
+ =?utf-8?B?V2FuUk5QSHZROFp1bEwzb2h5WnE3emxZZktWaFpJa2U0Umx2OGEwVDE5bkU1?=
+ =?utf-8?B?bzRtL2VMcEU1SThVMVFLdXNTbUwxbEo0ZElGem93QmsvZ0FvWlk5U2x5Snh0?=
+ =?utf-8?B?OEx1MmVJYkRTQjlldlhFMGlXeDRUUmY1T3dJWTA3ZmZuWFhBKzkzaEJoaER6?=
+ =?utf-8?B?enZTekFOa3FHQUp1Z1VWVFBoSERjVXZTQXBIV1B6ak9iSFBZa1V6UDdGR2dY?=
+ =?utf-8?B?aEl3MmZHSVNSa3lZRjNYcVhqTGN4YXBjckZkSGpEbzZWeUgxQk14Wkd3NTB4?=
+ =?utf-8?B?Mlh1QVZZNjU2dUF4WkZlNnNPRHVBSFRsSHZRdFlaZGRJWWM4U2xWazFOSDZ3?=
+ =?utf-8?B?cXhKdVBvSVUxYUhDSHF2Si9VZ2dXTDM5d3FqSTZCdVA4UHpyQ2tSZ2RCU2U4?=
+ =?utf-8?B?MHdkdmhUd2gwWlFjQUhIcTJ6UGFSbERZWUpmRDgxRklhak94TFBiRFdWM0Zp?=
+ =?utf-8?B?N1ZwL2RkWk1Rc1UxMUpOeE1KNHFNNDh0WkF3V0xRai9LYU5wLzhJREdGSENt?=
+ =?utf-8?B?KzhoWE1jOEp4NXFkSjc1cVNEa0dJNS9YRllOWUZWMGpySDZFb2xXMlZ6d05K?=
+ =?utf-8?B?eHA5S0lIZzRnb000VmJaa0laMU9hOHhrRnA0VUhCU1ZMUGIxTDlhVDNTK0pm?=
+ =?utf-8?B?Z2xiMmhHTzBHV3dFaGJvb2pFMTBpRmw1bFFqeDZ3UkZEV2FGblFTeFphWVN6?=
+ =?utf-8?B?c3RHT0szV29zRWlxYUFyOTQ3cTBPUDRJT0Z0aUZ4anJjaGgzWVpsT3c5UWZK?=
+ =?utf-8?B?YjYyRnFQZDhxZGNkOWovdGdXTDgyQ1h2RGdzQUF6M21WaFVDUk1DRWZvZ3p0?=
+ =?utf-8?B?T3NmczE3K2lWczN6MFhudWp3bFBnejRwUXhhSWRSRFJLZXpmSHFKeFFWc3BZ?=
+ =?utf-8?B?aXMzRDN1Zm90Z2ExMVF2a0gxZTB1VDBseXBITkpHZHR5VmZFQWNRdG5GR1Yx?=
+ =?utf-8?B?UVJtK01FUUtnUnptQkFhTzZHMVBaYy9SdVRrUnV3Q09xSm85WjVjWGJKVlBx?=
+ =?utf-8?B?Nkl0VE96Z0ZGRnN2OVI3SWhLWmNaUGV5bUhyZ3B5aU5JUWpyNEJWVHowRG1P?=
+ =?utf-8?B?NXF6T2hiMUp5ckFsdFVqS1NXMDZVVUJzR08yWFdlcVlxVnh1L043UkRuK05l?=
+ =?utf-8?B?MVdkZWhQQnp5U01jRlBRNkRkcmpzaEpmeWpWRjR3KzE4NzFQbmY1WmpsYXN1?=
+ =?utf-8?B?TzR0V2c3OE9VOFNPTUx1SXUyMlQ0bVpyM0JHNzB2RU9MMnF0M0xDbStieERD?=
+ =?utf-8?B?OEtraWx5V1krcTFFZGlCL0tQb2xLOHJPbVhqN1FUOE9RS25sV1BveldvZitL?=
+ =?utf-8?B?SFFwWWpaS0N5anZvSXRxWW0wQnNJZFBoZ2ZVUnJIY3MrZUxlelY1c2xORlNT?=
+ =?utf-8?B?RWlOMWkwNTVVNDYyd2tZckppeEVpcytudFBnK2FXemNnMCtPMXMrUVRGb3VG?=
+ =?utf-8?B?ODM5K0pyUy9CVHN0NCtVYlA4b0ZtR1NKbk9LQVY5UWhrekxPRi9ITUxqV3Fs?=
+ =?utf-8?B?dnQ1VzhKMk1UcVY2N29UOGdqRllsZHArb1ZmRUw5WitQQjRyYnFoSFk0TU9F?=
+ =?utf-8?B?dXo2NjVBeWpzcFF3Wmt1alF3WVB2RTR6WktUcEJpTXczT05sdGppNHk0MEVM?=
+ =?utf-8?B?bnF3bXgrcmxMOEZtelZPL2RUem1ENXBjUW1YQ1Y2UHZiUExXdmJFRS9md3dT?=
+ =?utf-8?B?OFZJTW5HdnVZSGFsbEM5Y0xjZzVBMXovbzByQ1dUWDVRSTYzUG9UbzVRME9C?=
+ =?utf-8?B?U2QxVXhmdkZ5Z0hsK0F5RlovcVhlczRKRTRlVWVBMDZyRDVJejV5MEh4YlZD?=
+ =?utf-8?B?UXM0akZsZnRmY3g2NVBlWStWL1NjNjBYRUgyT0VXQTloM0gzUlBUUmkvVkVF?=
+ =?utf-8?B?K3p2TWZMaXlSZEgrSVFYMm9ySlFrRVRIR3VGS3cveDNaMGlzSE8vWm81WGpo?=
+ =?utf-8?B?Y2VjQ2lDQTRmejVwcFk0c29tRzVsVnBnQjgwbit1eVEzWkxQdHdyWHYyS1NJ?=
+ =?utf-8?B?RExiUm5sRk5Qc0ZBZXdQL0dRNHNNZXFlV1ZMQU1ZS1oydkoyU3lmd0dZYXdG?=
+ =?utf-8?B?M1E2K1Qrbk1hSGxweTdIeThVL2dHZEdpNWdGQmtKS0E5elJBNEFnZEZTdStW?=
+ =?utf-8?B?UytlS3NaY2VqTkpvOTc0WW10a2JSaWZnNUUvU21JWnBhUmp2TTh1bFl5Y2hu?=
+ =?utf-8?Q?vIrYgg2v9bcfUerU=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b9a8638-4590-4891-3680-08df0fda9b78
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 07:59:29.6983
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Fs43P4egu1+Yin0O4lNannRQ7m2prc+HUebVqb30UhPfXxzCPMv7wyVZdYb/E3/PP8FSKp1t5CirsO1EdX6My1BQga/iTQMbaCsGnezkAoY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: EAYPR03MB989276
 
-On 26-09-11 11:37:20, Komal Bajaj wrote:
-> From: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> 
-> Enable USB controller nodes across Shikra platform device trees and add
-> primary Type-C controller wiring for CQM/CQS variants.
-> 
-> - Enable USB controller blocks for shikra-cqm-evk, shikra-cqs-evk
->   and shikra-iqs-evk
-> - Add Type-C support on the primary controller for CQM/CQS boards,
->   including role-switch and connector integration
-> 
-> Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  | 43 ++++++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi | 41 ++++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts  | 43 ++++++++++++++++++++++++++++
->  arch/arm64/boot/dts/qcom/shikra-evk.dtsi     | 12 ++++++++
->  arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts  | 23 +++++++++++++++
->  5 files changed, 162 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> index b112b21b1d79..286ea46d0c36 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> @@ -23,6 +23,14 @@ chosen {
->  	};
->  };
->  
-> +&pm4125_hs_in {
-> +	remote-endpoint = <&usb_1_dwc3_hs>;
-> +};
-> +
-> +&pm4125_ss_in {
-> +	remote-endpoint = <&usb_qmpphy_out>;
-> +};
-> +
->  &remoteproc_cdsp {
->  	firmware-name = "qcom/shikra/cdsp.mbn";
->  
-> @@ -57,3 +65,38 @@ &sdhc_1 {
->  
->  	status = "okay";
->  };
-> +
-> +&usb_1 {
-> +	dr_mode = "otg";
-> +};
-> +
-> +&usb_1_dwc3_hs {
-> +	remote-endpoint = <&pm4125_hs_in>;
-> +};
-> +
-> +&usb_1_hsphy {
-> +	vdd-supply = <&pm4125_l12>;
-> +	vdda-pll-supply = <&pm4125_l13>;
-> +	vdda-phy-dpdm-supply = <&pm4125_l21>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_qmpphy {
-> +	vdda-phy-supply = <&pm4125_l8>;
-> +	vdda-pll-supply = <&pm4125_l13>;
-> +
-> +	status = "okay";
-> +};
-> +
-> +&usb_qmpphy_out {
-> +	remote-endpoint = <&pm4125_ss_in>;
-> +};
-> +
-> +&usb_2_hsphy {
-> +	vdd-supply = <&pm4125_l12>;
-> +	vdda-pll-supply = <&pm4125_l13>;
-> +	vdda-phy-dpdm-supply = <&pm4125_l21>;
-> +
-> +	status = "okay";
-> +};
 
-To keep alphabetical order, please move usb_2_hsphy above usb_qmpphy.
+On 9/11/2026 3:22 PM, Krzysztof Kozlowski wrote:
+> On Wed, Sep 09, 2026 at 01:04:39AM +0800, Adrian Ng Ho Yin wrote:
+>> The Agilex5 SoCDK daughter card only provides a USB3.1 interface (USB1).
+>> USB0 is not connected or used on this board. Remove the USB0 node to avoid
+>> unnecessary initialization and potential resource conflicts.
+>>
+>> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> Same comments.
+>
+> Respond to the feedback or implement it.
+>
+> NAK
+Acknowledged — dropping this from the USB series.
 
-Same comment applies to other files.
+USB0 removal stays with the separate arm64 DTS posting (SoC/board
+enablement), not with the USB bindings/driver patches.
+
+Best regards,
+Adrian
+>
+> Best regards,
+> Krzysztof
