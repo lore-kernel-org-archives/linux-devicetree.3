@@ -1,232 +1,155 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06D136E48B
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C52C2BDC0E
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789139290; cv=none; b=lygtS3RHykgC8PC+fTwgKBjvAPZuj/Nsy72d+bWzkRKt//6vK6zvnYfrLafWnqEJJB5vib+DWx2E8da4ILDr0UJGL14JDXfc6cVcSGGUT7HJkKqfmYXEojVtOuIbCR6FGlHTD/fCk4dYmuvJAGuuvMYIJOCfVJQA5u5hMjzFXPM=
+	t=1789139409; cv=none; b=kKf5YjwI2CldDXshPfx2zwPZgrZ/IZQaksd0XxDITrPR1c694sTOnS5SH3wy1EmnoWoon08TMqIQrRh9/onID2wHFUzN5aYwAjm4B9oZJ8/cOSOjwKHa4uyFCxQgr9a1j/wik6nERTTbm5C4MgqlEvlxKeOMpNeMQeZqy+6PSLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789139290; c=relaxed/simple;
-	bh=JnGSVu3UDeZfs19aBLRbahGw8qa44K1IDS2nqJVBmxw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U9K7tKG3zaxLVrVA4i1dTzsP6l6F9QBnJidRouEmLPjibkjN5/J3tin1gH2ShIe+5LDFpEsfSCOpPrs2qXO02h/wg35QZHO549GbRy5quLCiYchg28X2qPvuHXcox+8MS2xTEMLtyLdTWHUmPgvufg4mNla0PohxRnFBZgITVfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=WYmvmoLC; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1789139409; c=relaxed/simple;
+	bh=Js9puJ50w+HI0MGuV6feMwOvX1HULotCJJa88JmArx4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A/GKpiiLHYQaLhrtXCCeBh7IAGL8lkYjpfOr0XuG+z+DMoiSFitFhST7KhwQMbVJMpJIzw/P07WqgJwzU8lkC8iV9cbjiAl3e9AdG6GSViSNk0Sxas2JnWZqsnFQ/tJglz8vL2SytaatEgyUGsvUIkeWdtUysz1isc21QcQS8gI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=CzV8wFrC; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="WYmvmoLC"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49d05d51553so10674035e9.2
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:08:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789139287; x=1789744087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fKoUQPl97tCE2V3tDl7BS8pogacuY1Z0BZO5HcUf/cc=;
-        b=WYmvmoLCFP5IAffDewSw284fIeyRKaUMFjmue1b0Xr3SIh1IgbbYA5/Wzq2NZfR1hY
-         F2l0a6zk5YF65gtGTip/wHKokkVC1W3tQeJWsxdZumNwRbjXVXcmY/Bvv+FZ2M0oudrs
-         3+ducTh0ew0Mn3thTnwEupxPfh+6oDqULKNd8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789139287; x=1789744087;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fKoUQPl97tCE2V3tDl7BS8pogacuY1Z0BZO5HcUf/cc=;
-        b=UB1EPwV/xzauTPJPdAp4sToB4zlndCTXqLC3IufG8aS5hKqGTj655M8sSdXK7kFuoI
-         EfdPODbyruSvNYpi578MRIB4tNQxzDNAWy31F41o9+55jeYWfYJAEZFAezEMBo9a+Wr6
-         VOsYPaTHmL+CHQ6F/3YF6cAULJiSSz41lTDsc++4vLSwMiaQ5HCczceQXsJFCQpy65uk
-         2FpQ8QbzOVnE5y6BX3Kz9kjyt/n9oqwqrTvuKX5kzgcZBujPU2BUVGsYbYZK3vjGcPim
-         fPLD3DDiYArJ6/rc4VZY42WhXjMatw728JfxUJp7RNTThSwzEblEdbThVisDjVp82fx8
-         jlqA==
-X-Gm-Message-State: AFuF++m0EwnUL54LcJHilPDJ4fOGFLHo/9mom25cJ8Q7CkwT95I+azHl
-	RUj1n0tDsvpxuLUFNVC1czoA0xV0vwZD2K6njtos+ShDityRhT3DFhLtD4p+dbHbeAM=
-X-Gm-Gg: AYBFou3NuWrvGptZ3QFNRTFYFFhyPgWta8yzKWfZ/o6gF/G9QKDd3crjHJfAET5Mi27
-	Ftdlog/eN6q+HK9gJ4I6C0/rJUbHp3mV9jkYrwa4pZX1UJ/oIXG1zCTFmivRGktlctxLVw8xC1k
-	Ysu9os2n5cKqvFDXtHh7Z3uAIpksS87Hb7d6IikiFXrTvIoPdfB6hDOBvPfzIVcxfptwgk8lnZZ
-	RUcNcPuuN0517tpQi9m70PGdjPZ5kLWznMvYvxXbz/g8FgQqp0qVVm7qe1WB00Mo+AY4dwtPaxm
-	w+PsXQv50EKyfDuuNppBO54E8wRs7iRzX5V+BJt0d8T+HK7LQ4N8JnPPDHTUdLidDkl6GAtoRjG
-	l+Fabrfe1ZdHSIpa+TijuVEiO6qUEcuH4HnWNk3Lx+WZnq2T3sA/oyHqBAUybdrJnHLd/q/1zov
-	yLKODHHdf0+Q1dAPewB5X8V/MdvUaaUtoKJiEwiBn5w3W2GEhUim560GpLH/F6cX5NTCZ+M6luD
-	O19yi0hyjPC0Jdp
-X-Received: by 2002:a05:600d:644a:20b0:493:bd2a:93be with SMTP id 5b1f17b1804b1-49e619837a5mr40907845e9.6.1789139287320;
-        Fri, 11 Sep 2026 08:08:07 -0700 (PDT)
-Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e60ababd5sm108933095e9.4.2026.09.11.08.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 08:08:06 -0700 (PDT)
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: linux-kernel@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	dinguyen@kernel.org,
-	Petko Manolov <petko.manolov@konsulko.com>
-Subject: [PATCH v4 3/3] arm: dts: altera: add Draeger M48 CPU Module
-Date: Fri, 11 Sep 2026 18:07:54 +0300
-Message-ID: <20260911150755.2803736-4-petko.manolov@konsulko.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260911150755.2803736-1-petko.manolov@konsulko.com>
-References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="CzV8wFrC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id F2FC2C63A0D
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:10:46 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 269F4601DE;
+	Fri, 11 Sep 2026 15:10:05 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E0E0C11C7AFA5;
+	Fri, 11 Sep 2026 17:09:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789139400; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=fWPlFRGwqG90pX/o9uM2pzX/j2BCy12aD2u87wsKGSM=;
+	b=CzV8wFrC2z+QxrqmY6vwcnSfhlo9mtA35GZi/WqNr81GIPHASRTvZ5KgaVsyMQHhmaSfvQ
+	RaqHG0c3w+Gm+icrd9evb2Rd3BYLTpC2LBz9W7Q3dF1hzrUArZkNjCFZhA3MqlpWSKxVVk
+	+W2aSoCgXyfSFCIvP1UtZnyXEs6SKdvqvxYI26Tenj7hpRusP9Ydq2KMMMYENr9/V/pmbY
+	mNUH5MbDwXVtu5G22DPvGLR/wjOkhSzMBUtxXZv5IJHSMAojr97TDojxzRuGcSWcS7W/FX
+	8yuaQ+w8L+YVNMSi6praYL8ZVpxSDEyhRBDvsmrbolxC6SAcuuGQCqnSKMtxig==
+Message-ID: <0db135f8-5c60-4368-9257-7a4dfc7ee73f@bootlin.com>
+Date: Fri, 11 Sep 2026 17:09:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] watchdog: omap: Remove duplicate start() with
+ early_init
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-watchdog@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260911-omap4-wdt_boot-v1-0-637d778a4a1e@bootlin.com>
+ <20260911-omap4-wdt_boot-v1-1-637d778a4a1e@bootlin.com>
+ <20260911092903.97BA41F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Diogo Ivo <diogo.ivo@bootlin.com>
+In-Reply-To: <20260911092903.97BA41F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Draeger M48 is a CPU module built around the NXP i.MX6q.
 
-Signed-off-by: Petko Manolov <petko.manolov@konsulko.com>
----
- arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
- .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 123 ++++++++++++++++++
- 2 files changed, 124 insertions(+)
- create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
 
-diff --git a/arch/arm/boot/dts/intel/socfpga/Makefile b/arch/arm/boot/dts/intel/socfpga/Makefile
-index 8df0976da01c..cdcea11abdfa 100644
---- a/arch/arm/boot/dts/intel/socfpga/Makefile
-+++ b/arch/arm/boot/dts/intel/socfpga/Makefile
-@@ -11,6 +11,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += \
- 	socfpga_arria10_mercury_aa1_st1_emmc.dtb \
- 	socfpga_arria10_mercury_aa1_st1_qspi.dtb \
- 	socfpga_arria10_mercury_aa1_st1_sdmmc.dtb \
-+	socfpga_cyclone5_draeger_m48.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_emmc.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_qspi.dtb \
- 	socfpga_cyclone5_mercury_sa1_pe1_sdmmc.dtb \
-diff --git a/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-new file mode 100644
-index 000000000000..838708acb31b
---- /dev/null
-+++ b/arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
-@@ -0,0 +1,123 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ *  (C) Copyright 2020 Draeger and Licensors, info@draeger.com
-+ */
-+#include "socfpga_cyclone5.dtsi"
-+
-+/ {
-+	model = "Draeger M48 Cyclone V SoC";
-+	compatible = "draeger,M48", "altr,socfpga-cyclone5", "altr,socfpga";
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	memory@0 {
-+		name = "memory";
-+		device_type = "memory";
-+		reg = <0x0 0x40000000>;
-+	};
-+
-+	aliases {
-+		/* this allow the ethaddr uboot environmnet variable contents
-+		 * to be added to the gmac0 device tree blob.
-+		 */
-+		ethernet0 = &gmac0;
-+	};
-+
-+	soc {
-+		gpio3: gpio@ff202000 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202000 0x20>;
-+
-+			portd: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+
-+		gpio4: gpio@ff202020 {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+			compatible = "snps,dw-apb-gpio";
-+			reg = <0xff202020 0x20>;
-+
-+			porte: gpio-controller@0 {
-+				compatible = "snps,dw-apb-gpio-port";
-+				gpio-controller;
-+				#gpio-cells = <2>;
-+				snps,nr-gpios = <2>;
-+				reg = <0>;
-+			};
-+		};
-+	};
-+};
-+
-+&gmac0 {
-+	status = "okay";
-+	phy-mode = "rgmii-id";
-+	rxc-skew-ps = <1860>;
-+	rxd0-skew-ps = <0>;
-+	rxd1-skew-ps = <0>;
-+	rxd2-skew-ps = <0>;
-+	rxd3-skew-ps = <0>;
-+	rxdv-skew-ps = <0>;
-+	txc-skew-ps = <900>;
-+	txd0-skew-ps = <0>;
-+	txd1-skew-ps = <0>;
-+	txd2-skew-ps = <0>;
-+	txd3-skew-ps = <0>;
-+	txen-skew-ps = <0>;
-+};
-+
-+&gpio0 {
-+	status = "okay";
-+};
-+
-+&gpio1 {
-+	status = "okay";
-+};
-+
-+&gpio2 {
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	status = "okay";
-+	clock-frequency = <100000>;
-+
-+	eeprom_mac: eeprom@50 {
-+		compatible = "atmel,24c08";
-+		reg = <0x50>;
-+		pagesize = <16>;
-+	};
-+};
-+
-+&mmc0 {
-+	status = "okay";
-+};
-+
-+&qspi {
-+	status = "okay";
-+
-+	flash: flash@0 {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		compatible = "micron,n25q256a", "jedec,spi-nor";
-+		reg = <0>;
-+
-+		/* chip select */
-+		spi-max-frequency = <100000000>;
-+		m25p,fast-read;
-+		cdns,read-delay = <4>;
-+		cdns,tshsl-ns = <50>;
-+		cdns,tsd2d-ns = <50>;
-+		cdns,tchsh-ns = <4>;
-+		cdns,tslch-ns = <4>;
-+	};
-+};
--- 
-2.47.3
+On 9/11/26 11:29 AM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] Asynchronous pm_runtime_put() is used immediately before pm_runtime_disable() in the probe error path.
+> - [High] PM runtime usage count and active hardware leaked on watchdog registration failure.
+> - [High] Incorrect teardown order in omap_wdt_remove() exposes the device to userspace accesses after runtime PM is disabled.
+> --
 
+For this patch all of Sashiko's comments are for pre-existing issues. I
+can take a look at them in a separate series but IMO this lies outside
+of the scope of this patch and does not influence its review.
+
+Diogo
+
+> commit 569cfe0fa3feafe4258fc44d697167c767425987
+> Author: Diogo Ivo <diogo.ivo@bootlin.com>
+> 
+> watchdog: omap: Remove duplicate start() with early_init
+>      
+> Commit cd004d8299f1 ("watchdog: Fix OMAP watchdog early handling")
+> reworked the handling of the early_enable parameter and added an
+> explicit call to omap_wdt_start() in case that parameter is true,
+> but left the call that was previously there, which became duplicate.
+>      
+> Fix this by removing the unnecessary duplicate call.
+> 
+>> diff --git a/drivers/watchdog/omap_wdt.c b/drivers/watchdog/omap_wdt.c
+>> index 95c7e44b7baac..f8a76df3c7882 100644
+>> --- a/drivers/watchdog/omap_wdt.c
+>> +++ b/drivers/watchdog/omap_wdt.c
+>> @@ -285,9 +285,6 @@ static int omap_wdt_probe(struct platform_device *pdev)
+>>   		readl_relaxed(wdev->base + OMAP_WATCHDOG_REV) & 0xFF,
+>>   		wdev->wdog.timeout);
+>>   
+>> -	if (early_enable)
+>> -		omap_wdt_start(&wdev->wdog);
+>> -
+>>   	pm_runtime_put(wdev->dev);
+>>   
+>>   	return 0;
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but does the error path for
+> watchdog_register_device() in omap_wdt_probe() initiate an asynchronous PM put
+> just before disabling PM runtime entirely?
+> 
+> drivers/watchdog/omap_wdt.c:omap_wdt_probe() {
+> 	...
+> 	ret = watchdog_register_device(&wdev->wdog);
+> 	if (ret) {
+> 		pm_runtime_put(wdev->dev);
+> 		pm_runtime_disable(wdev->dev);
+> 		return ret;
+> 	}
+> 	...
+> }
+> 
+> The asynchronous idle/suspend work is cancelled by pm_runtime_disable(), which
+> leaves the hardware in an incorrect power state.
+> 
+> Should this use pm_runtime_put_sync() instead to avoid this suspend
+> cancellation race condition?
+> 
+> [Severity: High]
+> This is a pre-existing issue, but does this same error path leak a PM runtime
+> usage count and leave active hardware running on watchdog registration failure?
+> 
+> The probe function starts the watchdog via omap_wdt_start() (which takes a PM
+> reference), but the error path only calls pm_runtime_put() once.
+> 
+> Does this fail to balance the second PM reference and leave the hardware timer
+> running without a registered device, which will inevitably lead to a system
+> reboot?
+> 
+> [Severity: High]
+> This is also a pre-existing issue, but does the teardown order in
+> omap_wdt_remove() expose the device to userspace accesses after runtime PM is
+> disabled?
+> 
+> drivers/watchdog/omap_wdt.c:omap_wdt_remove() {
+> 	pm_runtime_disable(wdev->dev);
+> 	watchdog_unregister_device(&wdev->wdog);
+> }
+> 
+> Concurrently, a userspace process with the watchdog open could trigger
+> omap_wdt_ping() or omap_wdt_start(). Because runtime PM is disabled,
+> pm_runtime_get_sync() fails to power on the hardware, but omap_wdt_start()
+> ignores the failure and proceeds to write to unclocked hardware registers
+> (OMAP_WATCHDOG_SPR).
+> 
+> Could this cause a kernel panic due to an imprecise external abort or bus fault?
+> 
+	
