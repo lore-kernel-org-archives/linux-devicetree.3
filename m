@@ -1,153 +1,126 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022081.outbound.protection.outlook.com [40.107.209.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75274BA1F4;
-	Fri, 11 Sep 2026 21:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B6943713C
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 22:11:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789162151; cv=fail; b=txw/WP2Md0Bqkm/yvG9Z/dlPAIh/9CmKFICBxX6HFns3SQBHBTRS0HKhXcih8Zm16hlyAJ5b6YYrz5QJaK6GwgAM3WUTun5YulRsAG784YqnMeGgt35G+LBGu4EprlIEcSOfAq+3i0wop2xpr9+oQc0NTqL39d5q7h2d6xXRia4=
+	t=1789164710; cv=pass; b=tjOWuKipRVjcTiheTfZcGW+4E7cOVDOiRYrwfvdX+jSgTr1B6sz3w4wu0+nmtEYgNQhMFJ9qgFD8u7xvqUMM36AV9rc9YLyrb02NFgSuVjZJqrVg4/7knBDh2gcN1NBi6/n4BVhIXQo9HPLxrqA15ev18imov2es6UkPeVW7uE8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789162151; c=relaxed/simple;
-	bh=zxxiHFeoTFgxoc0spEtnWDt7lbs3P+gGcOlYkyel8+I=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=NS4jQ96R2er264idXeLCwZleuZRTyPXARLI4iGtkKGCDd5ztESPIrkhfWGpOF5slepJhWAd5iE0HQPjeeN13vwppE+F2h+GwXL6pUvcqCz9RC35Wxl3a7xM1TkfZlYAEO+eUao81+o/aK28m41/WD4VXThpd0ewMW3icjAhOBog=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com; spf=fail smtp.mailfrom=rambus.com; dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b=JSm1wBdy; arc=fail smtp.client-ip=40.107.209.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rambus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=rambus.com
+	s=arc-20240116; t=1789164710; c=relaxed/simple;
+	bh=64DI/R3Fb3DmgLTAgL4BfcJDwxaJEMQAyDpP0IBKAGs=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=cizFV/V5RkVNOpcaQ0k+ntZFzO4vFjuzm1eQz0DjkHFdbKZrEOAIufFRVY1rXjdGAS97w1GNALDftPLY5xoNZcjjBHNDl6/LfFxNz6mupLMehBjBoMeEOfK9JwbVVcWAKe5HqH9+2D9icmjbvVJx1bpQr6fh8UHf5zdGykytLGo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=est.una.ac.cr; spf=pass smtp.mailfrom=est.una.ac.cr; dkim=pass (1024-bit key) header.d=est.una.ac.cr header.i=@est.una.ac.cr header.b=NZWQy7B7; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=est.una.ac.cr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.una.ac.cr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rambus.com header.i=@rambus.com header.b="JSm1wBdy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JwTEebsCniZ2ROnBBac5lsh+Cd1e3GMzVooq4AwS/fpVEwJkkEFL9yuSHNe6XCh3lDhwXTxHm4WFFM8JcdjKizqXZUhWRJ3E0nv4ZMYs4fT24QCSe3XIj21/g6qoMoEqyFDExBAy+4ywYoYysS9VMzDsYG9z5gxrW0KtezE2GmSoL9OPV/v1HhRLEtEFMgvqB5SY+r+KzkqLUjnytcmOapi1PlKFk4KxRJEH9FhJeVfSj6uTWj7uG5+isdtUIvpgeLbXGt1pPogtUsRXUE605iXVyCrLGoOwW0eN5r/35mBIluOEzFtznbkFb84cLfUVYKKI9ToXlA+wL9sIs4untw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QVB56YhnglpNFEROeYGpD4J4uZsyLLIQMC7gA4CtWCU=;
- b=J3FiXjlVdvbBXZcfKpuTyJjOt4sOCQ75QK8mCiTUpTtNfFEp4hYuhTO1laUWCSo2zbJHuEr5bPLNKpvKrGPeg7E6kLPE0bZEHQVoGzqH4pBvPnXlM6R0pIYmFOF/NfLtFdutgKN9/eJeyNDyRKI210jMGNkAvT5CfYJyHg770Qc7agm5KQl1l5IN4KSIxFDWZZy0kTwXyNqr0yLtFcZ8JSdBUGNiRi2FR2vpWdMek/zigUPA6thsq34ZnCe4HinlcWZ1bQ2TQZzu+F5+aF4nsRtJO93jcnlF/HB1VWvsziHU9A3DoEnvpWr8NerdFPmzYRHT+maphQ/7wFH2Le3aHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=rambus.com; dmarc=pass action=none header.from=rambus.com;
- dkim=pass header.d=rambus.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rambus.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QVB56YhnglpNFEROeYGpD4J4uZsyLLIQMC7gA4CtWCU=;
- b=JSm1wBdyTJ0aV55Qlm2W45gpYT0fgTDYGlg6O0VdPXG3O1DMUFv83DnzV4KVtT+6RkQvys9SWzzVbayobcz0jLzYusGSPmdEu0U8bgaTiw6k0h1uKXq2u/fIBiAYcD5wkUtfoJ75NfzOqHx35M70KOLY1RHywT07YH1TqLOhb2UYc+9+AJuCzWAMXYGhDZ9zmNtPnpAL74EOz//3vlITd6JqMNLsTCYLIZxMZjfVCRiOuw5LEXgiUcSrzxQH0LYknD8YZgmMsKJTJoLf8S2uXePVvKBvz0Wu95Bkbj5iTF0nX3brkm6/4RBcXSZMqf9eFL7LQGST33m2rw9GHampgQ==
-Received: from SA3PR04MB9001.namprd04.prod.outlook.com (2603:10b6:806:398::17)
- by BY5PR04MB6836.namprd04.prod.outlook.com (2603:10b6:a03:21b::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 21:29:06 +0000
-Received: from SA3PR04MB9001.namprd04.prod.outlook.com
- ([fe80::3da3:45d7:8860:e196]) by SA3PR04MB9001.namprd04.prod.outlook.com
- ([fe80::3da3:45d7:8860:e196%4]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 21:29:06 +0000
-From: "Ousherovitch, Alex" <aousherovitch@rambus.com>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-CC: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>, Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Palmer Dabbelt
-	<palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>, Rob Herring
-	<robh@kernel.org>, "Krishnamoorthy, Saravanakrishnan"
-	<skrishnamoorthy@rambus.com>, Shuah Khan <shuah@kernel.org>, Alexandre Ghiti
-	<alex@ghiti.fr>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"Wittenauer, Joel" <Joel.Wittenauer@cryptography.com>,
-	"linux-api@vger.kernel.org" <linux-api@vger.kernel.org>,
-	"linux-crypto@vger.kernel.org" <linux-crypto@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-	"linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>, Shuah
- Khan <skhan@linuxfoundation.org>, "Nguyen, Thi" <thin@rambus.com>
-Subject: RE: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Thread-Topic: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Thread-Index: AQHdNN9iaUPmaZ+DjEW1WtISsJVxD7bI4yWAgAEbzvA=
-Date: Fri, 11 Sep 2026 21:29:06 +0000
-Message-ID:
- <SA3PR04MB900105B881F46FD7B90F7E3BD7BE2@SA3PR04MB9001.namprd04.prod.outlook.com>
-References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-5-aousherovitch@rambus.com>
- <aqOEL-YUVFuThcmf@gondor.apana.org.au>
-In-Reply-To: <aqOEL-YUVFuThcmf@gondor.apana.org.au>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=rambus.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SA3PR04MB9001:EE_|BY5PR04MB6836:EE_
-x-ms-office365-filtering-correlation-id: ec3da269-a28c-4916-f681-08df104bb573
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003|38070700021;
-x-microsoft-antispam-message-info:
- K62nuIPoWtqRidPJAkIkPf1vKJPKZrr8zvO7O5qmhpMEcNIsURiMSC4IselObxhka3JAWnHwSPaFjeWVKBK9z3AaDAH/vH9PWwu8kpZydsKweS5i8ZU833oUQQnuye0I6lG0IwyYAaOJV8noX4YH4Q+3EVcmJD6i0HSV34KXUWoZF0p2LrTbaPU1iTN00FxEFmcBRwLPHTu+sKOp4PtYEFHD1gC2XNFtgkKKLb79e/IRfc6isg8PXR1HZR7z6stFjPPDNaK9y+lTepWuERo1D82KvIrSqjqkVcD39OGdlOcY9E8eb2JngVm+SAKbuc0WA47NWt+ZlnJzRaD4IfFr9wYi7Q4Y0o9VLwhtdInJgoKvfHU0s2gDDazKWjZM1GEdAf26T9SR/AadRql2NYPnw1dYsB0blWf875R45h9Lbe75gH3ul8odxfIjLX9JA1WCX+laQZFQONpb5KAx9Sv/Bt8FNKSU+S1KvoUV0EUKJazygckdqXrzUj7n+Zxsr9crSGcpMsi2tSDDpSS0lBfdtpr4m3N7OOH9fpOrCBQ9HpZS5RzQLGBpdePtXfygv8DUoMS26iSkmCAP02v+s+lBrnxaJykPCTowqH8Ku1u7Ta/R+GOipUSrCfNOYH86uYSXZKF2uwEEuCVdOQrfvBe6+f5oNG+7+XFRwyAefhZitujNosT3v+sbV2nCVBdeKEtCicGXJO/pQ2Ku0etV6w1FKpdhXAsqayLztR5rK+9km94=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA3PR04MB9001.namprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?bBhwwm/bI6NcnbMZwkGILQFqR/cwZYge3EBtrSZ1Z8HwEz79YlXDXAd8PdSZ?=
- =?us-ascii?Q?hnXQQw1ytS2C75xWXklZnkmi+C6PBL/fRsY9PuP5NtowT5MRe8wWI6mTtGx5?=
- =?us-ascii?Q?9zux4TM9aqFZlFCMoNJR6q5JwgFpZo6WlxYfZ/r+e2XkHpux96M95mvjFBzq?=
- =?us-ascii?Q?x8B+No5WKQPBhByJ2JObfsoejGUFd7NZuTFq8/gTPlgp59ZnI3CrvXgFB8Nx?=
- =?us-ascii?Q?kNIQQVwg0JrVbLmBHF9Iuj2Un+cmcicaZdffkISMHeQ2iVpODw31JsQ+m7sO?=
- =?us-ascii?Q?OHCnX5yGBKJRUmSeiim4sr7g3uLpeFa7uJ4G9GxfY1tY6GWCOUtIgPJrq2dG?=
- =?us-ascii?Q?JQZC9wU3heVRUSYcH8qVZP/Bx/Rr3KWUqiKW/6YCtUr6Qshn7HbAYdklEInD?=
- =?us-ascii?Q?f9WP7thkLHDHkKF8zbWICtVAg2RofkEJrpQAAjaX1Me0H2GTsno0wqwxqE+Y?=
- =?us-ascii?Q?2SjBQR3L9wJvbrIe6Zzo5Y1SPM6/IhD8piOHRvKvT07zJn8K/hoxxJ2ajduT?=
- =?us-ascii?Q?98ej7hjW1tdThiM/N4NG32EX6BtLzFOve9bainvr4w4YkJ5xw4KeStvo2B9+?=
- =?us-ascii?Q?uzPznL815vQsUKo4mYxulhi3Pt+gnDm8PBzVdlsP7x31aMppG68287J7SqzA?=
- =?us-ascii?Q?V5PSarZAiN7t6qChswRkQfaz6ILQzbkLajCZs8H7m2jUEb4Ozol8yGSkt+Cy?=
- =?us-ascii?Q?MEcuwJSHYqzK+boJ1/Ra43zVJA70ikEGEx1kYC5Pqsqxu1CLzWUfck2z8m3w?=
- =?us-ascii?Q?h19fN3IRtnWkS/oyOoBs5dDg9IYQEjd4vv/CQN/vZiX7fqRbLf5o3kHOM2un?=
- =?us-ascii?Q?2KDCPPxs8V84MUcoWNPdTA3mWFuuidDPntwz7SH8LfFK3uekiPer1dmaz13V?=
- =?us-ascii?Q?C/Z5XRkN1j67Ptf1pYSZNuu7RyVwHsdwKcLHzwWFkOkLAJ4q75owyDkzS67F?=
- =?us-ascii?Q?NHucn0oFp2KuP2H+MjDeQztO6sjl1JU09oL2PrmDOQkrF4RGZaEWnYrVttAx?=
- =?us-ascii?Q?G4cZnHNu0ycLwORuSfRS6HCq4y9Ke+JorNUxW21y56LNG+dQ+wyDl1ygy2Mx?=
- =?us-ascii?Q?Vm5O06O5gshAYNmHFTTu/WWAzErUw3+fmSWPIbou4b/v3KgbZyM2YQwzOUeS?=
- =?us-ascii?Q?N/C+u66Tk7IIxtDOc/gW8/vWaON6TwNnDfaOMJGa7oim9iwukUIBfFEE5Rmo?=
- =?us-ascii?Q?7bbjBaZNSiT+EohnI/xk8EQPQCI8vgDxduJDfD4lCZSLXShVaQUnCJx1wcr8?=
- =?us-ascii?Q?206onyq90oacmam2TDD/3jxymS9y/uLyzg/u6uXLy6NBa06879qRY/VMjjJR?=
- =?us-ascii?Q?DlpuXUUS5o/eykdc/y5/VL1tP8o0JAMu/hz3+boJuGLtNke89ly4uRwUMyxL?=
- =?us-ascii?Q?z5AYZenl1iy4AKcpvFT+lmaX6qhqrVnxXcLuYAecK1QwESi9I41RoFjnsrZq?=
- =?us-ascii?Q?sQxmX5IbhjSI/t6MKGAH4ylAmvqg8E4IHUgfYmuuY2QSwglZIWVuSgi5kAM8?=
- =?us-ascii?Q?/lZTOy8857q7IFybyV+kHDsVyEUX7NBT3glvfd8wHBI4VABbPDgYVENb2flS?=
- =?us-ascii?Q?JRA6C8NhON/veiiAjHxzaa3Xjyttcy8ObwDxLbkHGfOgG1mHZ9I0g964yH0i?=
- =?us-ascii?Q?UABbDGR1BiGOy0fVhSaYTWoYNbtkD/CJ8MzHJgQr+kQpDwBPiRXuYXQ3N3g0?=
- =?us-ascii?Q?r551MDeDD/1ZjgIhwLyQ1uql1qBKNGs0nVmxPlfNFP+viVcUBWdbWgCyU6+7?=
- =?us-ascii?Q?PpLnnUf7nA=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=est.una.ac.cr header.i=@est.una.ac.cr header.b="NZWQy7B7"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c29667ed561so186169066b.2
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:11:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789164706; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BtZ2ztg4sr4kj2FTMLY8SdFYw66cdycP637xIx7/twkwqGfV8CwDb58TWRiwS5nU9s
+         NzZF8HuHMr2XK+TK2uM7nAdJhc9ZViDAnmIWNj30v0WQr+41WRgFcK5fZfAj40SyF6+g
+         NVwCEvpnUWUk6nCLHZZPdvXEXzqP1dlT9fKq1WpRaIgzXFJhCH6iacebXuJIXDNePDuO
+         C/9EFPqiTFt6lJ+MbpHemNNb6PG8pRxSQ27TfnHve3CXHomYQCb8qNJzohAZ9TUaJjrp
+         OaLNdg/SF5GhK7EcmY+fIXIc+rZtiSZRT65cY/Mm0+/k02PrSuCMc+XBn4YXfQb07QQq
+         fpHw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=jmcmRooIJWZcfOxhhMxU11ULm5mq/IM7NKssWyEliKc=;
+        fh=I8LKTGFEBmDY9ClPyVxHtcJfVnNV627BlGsm1ekuKkk=;
+        b=nAV38noVw9Lo2IJut2Rn6ZMIIh0rZUr9GCWMRsj+cZ/Ed/8NnS3pNM6ivVB9yNuGBr
+         s/ili/aD7CN0e7NAVvqJ9V7UA1MiDH2Gp+txtcYNnz8WiYzjT8tC4ucH15JLWU0y6nkB
+         fqSFh58pehT44eps/JMgKryg0shlk79tCFlX0XtxgRZWIUatbNg75SyF3fGGmWx6zj0M
+         f90BYd1ZDG03G8ENW+NrgG1A+BqPsNh53fVH0pcIqtvrw5oOfWUM/JbJTWLK6JxxnJPB
+         Ju52G1VLvw+/AKQY7kB4EUMkJO0pUazYE3DXYuxwFEJus3PLAO5hAGqv3fPHfcsNbMYK
+         KAQg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=est.una.ac.cr; s=google; t=1789164706; x=1789769506; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jmcmRooIJWZcfOxhhMxU11ULm5mq/IM7NKssWyEliKc=;
+        b=NZWQy7B7P93Z9mSBPSH+yYNv5GOfYfJz9elcgc+dYbOUuy7ltpPx4xu3paNzLSfmNl
+         gyS4D6gAGTcJuEwH35o2mGdoLJWESStdgahUVzNC5tZNFTR2nFjXthHK1QpyQ+DvrC1T
+         c48CAYfJ7SjRNMn1OObgwrpELo8FjPI0hTmqI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789164706; x=1789769506;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jmcmRooIJWZcfOxhhMxU11ULm5mq/IM7NKssWyEliKc=;
+        b=I9tgyTFMN4CiufXa/1XW78VJxRVEL0AmFOB3e7ERlnVhBP6mO7I/jNqosMPcmDGuc5
+         Dx5tqePc8Gb5Im/i6wsGfDXUNA2exKP9YHBJEw4Q1SNV+V+asQfEECNG1ZubOv7n5Zzz
+         BTq3hMN9UPWSe03iZRiyWIiWQzmAIwaFZ1R9Ji++hfljkbmUcOufvoMSzPLFOckcZQWh
+         AQDcSjq+j16ZiJ/503EuD7VIHSUuon95FduN4Da2fIEmoNzdUtugSofltBECdwlkYcDq
+         y4/l0ZAISxRggjShHou29YcUWj4OKKrze46/b7gaa7i+HQ74v/T5a+nJKt3Mr/yVbziX
+         vM0A==
+X-Forwarded-Encrypted: i=1; AKwUvBx+ymZcs3Q8uedAfoD09LRatmEY+GwCSYMo8TEDaUtRURFSrDJltjVoLnkceGAKRQlugiHyOTjpB6rg@vger.kernel.org
+X-Gm-Message-State: AFuF++lrrTTsLGb+DnEfv/SnknjZN+sFxr9D6EC1XnKSIBqsrPVBLn9m
+	ysGirdDiMqIDGgVXVoyC6g/zvzDISZBlcWSZrNDmmLREwzprKYBKC7WR/ZQ3qBSZItz2DVba9pd
+	TwHNUtOl7E77Wlz431UndTASn3GPm9Co69szAcZrG3A==
+X-Gm-Gg: AYBFou25UfFCKfELvWWqlFskjK3eiEAH+89ZZvc5cGFiiW7oWPeHMuK4MMKcFFkmUHd
+	RR+khT3QjjREtzkKYoHo2Z0judJRuIiAkjm/etGvdfYpPTzoTJcCfXovG0efp/L60S9DQ3zMKrf
+	7An4U/pqfgFF2kXeE7sROl8P735MD6OGuTztqzU034gKLtZNPUS1Y344Y+D1PVXE1UysdO/JMwD
+	Icf3i4oOWlaZDbmSV3E3HjM58sC1dIP94QKM9gb80lGg4UhVY/03DR7RZgdOGBNdb7i7PWFIr8B
+	XQFOmsw5SEMqUs7GQveF5e/gWWD7Kecp1tjmSAFNB82lCEhSiW7TNSz0chdCCh28LELqAkvtce5
+	4MqHPLN8oay4=
+X-Received: by 2002:a17:907:1c10:b0:c29:286e:2e3e with SMTP id
+ a640c23a62f3a-c29666d5f9dmr280604466b.38.1789164706055; Fri, 11 Sep 2026
+ 15:11:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: rambus.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SA3PR04MB9001.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ec3da269-a28c-4916-f681-08df104bb573
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Sep 2026 21:29:06.2137
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: bd0ba799-c2b9-413c-9c56-5d1731c4827c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: utTWSI8OSUGXLBt894sZh2rit7D8lJbLq7CqLyuEREJ9CGGIsR/R72EAoMfT4DR8pchHYyn3R9hvIzWDJ9NmIXRSUWhe+792Ni7n9GdltS4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR04MB6836
+From: Avalon Vargas Centeno <avalon.vargas.centeno@est.una.ac.cr>
+Date: Fri, 11 Sep 2026 16:11:34 -0600
+X-Gm-Features: AcwNN1UKz1EzNqNrYibLG4EW7is5QWZ2Va82YNgb4e5YpYrggY_-TnFTnLexsys
+Message-ID: <CAGXpr54Bn9Wf24asY2RcXgBNLy1A16=U1mtFx7mKeNK4CCOCYQ@mail.gmail.com>
+Subject: [RFC] Dell Inspiron 7441 AUO0BA4 panel backlight: PWM configuration
+To: linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, devicetree@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, val@packett.cool, 
+	bryan.odonoghue@linaro.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Sep 11, 2026 at 02:31:43PM +1000, Herbert Xu wrote:
-> Please drop block buffering in new drivers.  The Crypto API handles
-> this for you.  Take a look at the aspeed driver for an example.
+Hello,
 
-Done for v5.  The SHA-2/SHA-3/SHAKE, SM3 and cSHAKE ahash drivers now
-set CRYPTO_AHASH_ALG_BLOCK_ONLY and let the Crypto API buffer partial
-blocks (modelled on drivers/crypto/aspeed).  The hand-rolled holdback
-is gone.
-Since BLOCK_ONLY's buffering is scatterlist-based, these drivers also
-drop CRYPTO_ALG_REQ_VIRT.
-cSHAKE stays cra_blocksize 1 as an XOF, so the HC core buffers the
-sub-rate remainder across its context save/restore.
+On my Dell Inspiron 14 Plus 7441 (BIOS 2.16.0, aarch64 Linux 7.2.4,
+NixOS), the AUO B140QAX01.H / AUO0BA4 panel originally exposed an unusable
+dp_aux_backlight with max_brightness 0. GNOME could not adjust brightness.
 
-Thanks,
-Alex
+Panel DPCD bytes at 0x700-0x72f:
+
+  05 9b 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  00 00 02 00 0a 04 0a 00 1b 00 0d 2f 03 ff ff 03
+
+The capability bits indicate PWM brightness setting rather than AUX
+brightness setting. Inspection of the local panel-edp and DP helper code
+suggests that this capability combination can leave the AUX backlight
+maximum at zero. This is a code-path inference, not a separately verified
+generic DRM driver bug.
+
+A privileged GPIO snapshot showed PMK8550 GPIO5 already routed to func3
+by firmware, with no Linux PWM provider registered. VREG_EDP_3P3 was enabled.
+
+A local DT overlay enables pmk8550_pwm, configures PMK8550 GPIO5 func3,
+adds a pwm-backlight using channel 0 and vreg_edp_3p3, and connects it to
+the existing eDP panel. The existing panel enable GPIO is preserved.
+The chosen period is 4266537 ns, borrowed from the upstream ThinkPad T14s
+LCD setup; it is not a measured Dell firmware period. The brightness curve
+is linear with 101 values and default index 80.
+
+Validation status: the overlay compiled and applied, and its connection
+was checked in the compiled DTB. Physical brightness adjustment and
+suspend/resume have been tested successfully on this laptop. But I have not
+measured the PWM waveform or tested other panel variants.
+
+I can provide the small overlay and further test results. I would also
+appreciate advice on the correct Dell PWM period and whether the
+zero-range AUX backlight
+behavior should be handled separately in the display helpers. Thanks
