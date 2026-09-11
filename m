@@ -1,98 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFB2B46A608;
-	Fri, 11 Sep 2026 13:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31DF8381E85;
+	Fri, 11 Sep 2026 13:32:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133233; cv=none; b=iZNBtAUcT1lp6IeXmc7WQC8P1QL+lsoe4HFYESwukKMl+FSwd+2+BMJePRQvdiXXxz5pnAb0QkdZY3KZstqvXRCuZggN4MDnu4RbHUkFk4fpD246B25pFE/o7IUelh9pRua5m5jBRxzw62oozc904fyEB5HlVhiFZVR2XhQvZ50=
+	t=1789133557; cv=none; b=lGqFbXz+SgsFYvVfArPkIJ5w0X9l+a365fl9QRaw7KGizLdndBSJ8V3Vcr1TwMlsFIoybVJOSTTIGcr94lyT8WJJAQH99azgc8Ywon5MsdJ09+eRbf6LPo4BzmEbz34xyn+GUnUCzl1w1eZZGRx8ygaGqcxEZ8Ou1LwfYo9nAr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133233; c=relaxed/simple;
-	bh=cW6PKn+6+4e7/lSR61GmFodOnPolMv/AkFrVOlhTUnE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=K4rLwTJn7AjatWoTVp8AGXHResmpVUv559hYEAhhqUPodpPcd7ExzwBPillRNWFQCILbDZ/LeWpaIYgW5nq+/h4AXNaITuEUFY1sO9WS2WzDNP7GLPguICiUQZHoB4KurJWod+vCr9cypHvHrbXqrexfw+laf2DMjv9a5Yn7I2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nufB1YKe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789133557; c=relaxed/simple;
+	bh=LFzh7LWOzSlpj7r2dxLA2mkmiyjKSJygs60oZ2yUeGw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pi32qE9rnPO/nKRPmP+GsWceW+auHBvfrf7NYRIo8kzBlnsfdkiSVXsfmJ/FSN/Ulpk04fRR0fVd8i1KvSIuvrWfuzQWKvPxrYkkNb32hxbjbUEnPxGs2KXd0vDcecOulrGKwmkwmfj0EGqgaqpe+qPYZLhDAyTUsvlVIPymyCc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XP9aC55C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nufB1YKe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D8461F000FF;
-	Fri, 11 Sep 2026 13:27:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XP9aC55C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 736A21F000FF;
+	Fri, 11 Sep 2026 13:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789133232;
-	bh=Kk+Jgg2uXnvP7keYH4LDRdrvoJhsl3CdguN650y+ouQ=;
-	h=From:Date:Subject:To:Cc;
-	b=nufB1YKePIOX6Avm7I8fn8kblBc6cNy4wpuSpNRXHyuoFTMqHkGg1eO1xln3rY/Pq
-	 963DpyPCqdyhi6X2H6buY9nWAd/67RDLwMd+xsH1BuaGuPjyXV9tpkoa3Tu4KQ5Ai2
-	 Q3/663qn2IcxpZSdmu0vc9DXeedb4y8yWRDRE//xi/vLQhlx2fkw/csUg3luRj5/d7
-	 +5PPQIyD7sWzg4NingmWv/aYTtKZitA27KO/iBV2CUsVW4ar2PsuVYzu8yfZSGtTgp
-	 ZydIVwdlzVa0ilzVEpY7lDWITsYKH0eO/fijbPSrjIMxjCl/pg3/yMui8Vg2ziXXWT
-	 8LGUDrKL+e12Q==
-From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Fri, 11 Sep 2026 15:27:03 +0200
-Subject: [PATCH] arm64: dts: qcom: glymur-asus-zenbook-a16: Remove
- RTC-through-EFIvars
+	s=k20260515; t=1789133554;
+	bh=uirpkPnM2HG9bZd+R/1x89vey7kgMMJP9N/VMKiq/Q0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XP9aC55ClmeuvOvoJ0Br5qPo30fBjCxSWtMadP0wWFz8VHBMMxF2xZahMcqdoAjLN
+	 pPgdsq6e4Nqm7nmv8kra7FcfQB1LBp5cFfgshPx7ZvUqp3rJDg1M2i+S6LLS6PuBv+
+	 P4w9Ps6F5AWkfPnNCyVr8DxlZGBNkg9S5Pv226DhIrn1nIzI+MQLxkh7rMyELF5gwF
+	 Q60Y48eW8AGEywyN2M0EnaSSpj5K2MKKaIf0yYKzXG4KakNVNEILVecYd0UH0RY4aU
+	 QmOuHwqJGdgOyVjo/tYWUNG7aDOT73NrboOznUwkYlwP8i04/C7yKHEOyzCK14YCyS
+	 oH8JTCflNCzwA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] Input: synaptics-rmi4: Support drm_panel_follower
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Konrad Dybcio" <konradybcio@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20260911-topic-rmi4_panel_follower-v1-2-c1b2cf1cdb62@oss.qualcomm.com>
+References: <20260911-topic-rmi4_panel_follower-v1-0-c1b2cf1cdb62@oss.qualcomm.com>
+ <20260911-topic-rmi4_panel_follower-v1-2-c1b2cf1cdb62@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 13:32:33 +0000
+Message-Id: <20260911133234.736A21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260911-topic-remove_uefivar_rtc_a16-v1-1-0967d8d4b3a6@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWRtIYqnRq0gJ6WTUEWzKJA1C6
- d2Nunzw+RtkEqYMl24DocqZ09xgDh3gI8x3UhybwWo76LMxqqSFUQm9UiW/0o1rEC8FfTCDckc
- X4wltb5yGtlikBe/f/jr+ndfpSVi+T9j3DwbL20OAAAAA
-X-Change-ID: 20260911-topic-remove_uefivar_rtc_a16-838dd7c24180
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- Greg Ociepka <greg@ferrisoft.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789133228; l=1192;
- i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=2B9T8QtBzpmUol37jsog1kgKNP3vTSpNz3HhR+qMRP4=;
- b=z8bXE8jEx7KRO/PgYr+rrjGE0v+3/dRcBF9yFVbnBBU4IHFfrtnl/Uv2XbGTj0ZTT1YEjQzAT
- IfXaGhPpBa/DveMLU0XHBPGU2NmZvoWE+ANk3075vkPxCQBRy4UIBOr
-X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
- pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Concurrent I2C accesses can wedge the hardware during panel power-=
+on because `page_mutex` is not held during the startup delay.
+--
 
-This machine, unlike older Snapdragon laptops, doesn't feature an EFI
-variable to denote the system time. Remove the property that suggests
-it does.
+commit 31e9aa4b11936c658845014c2ef2567c8d7947f3
+Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-Fixes: e8fbbca94db7 ("arm64: dts: qcom: glymur: Add Asus Zenbook A16 (UX3607OA)")
-Reported-by: Greg Ociepka <greg@ferrisoft.com>
-Closes: https://lore.kernel.org/linux-arm-msm/20260821181148.1642208-1-greg@ferrisoft.com/
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts | 1 -
- 1 file changed, 1 deletion(-)
+Input: synaptics-rmi4: Support drm_panel_follower
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-index 939e1a927a79..82b9fb237c6a 100644
---- a/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-+++ b/arch/arm64/boot/dts/qcom/glymur-asus-zenbook-a16-ux3607oa.dts
-@@ -861,7 +861,6 @@ nvme_reg_en: nvme-reg-en-state {
- };
- 
- &pmk8850_rtc {
--	qcom,uefi-rtc-info;
- 	qcom,no-alarm;
- };
- 
+Many RMI4 implementations are present on in-cell panels with very tight pow=
+er
+sequencing requirements, normally handled by the DRM panel driver in Linux.
+This commit adds support for drm_panel_follower to handle that dependency.
 
----
-base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
-change-id: 20260911-topic-remove_uefivar_rtc_a16-838dd7c24180
+> diff --git a/drivers/input/rmi4/rmi_i2c.c b/drivers/input/rmi4/rmi_i2c.c
+> index e11d0acb9b96d..84877030aefe9 100644
+> --- a/drivers/input/rmi4/rmi_i2c.c
+> +++ b/drivers/input/rmi4/rmi_i2c.c
+[ ... ]
+> @@ -187,17 +191,99 @@ static void rmi_i2c_regulator_bulk_disable(void *da=
+ta)
+[ ... ]
+> +static int rmi_i2c_panel_prepared(struct drm_panel_follower *follower)
+> +{
+> +	struct rmi_i2c_xport *rmi_i2c =3D container_of(follower,
+> +						    struct rmi_i2c_xport,
+> +						    panel_follower);
+> +	int error;
+> +
+> +	error =3D regulator_bulk_enable(ARRAY_SIZE(rmi_i2c->supplies),
+> +				      rmi_i2c->supplies);
+> +	if (error)
+> +		return error;
+> +	rmi_i2c->powered =3D true;
+> +
+> +	msleep(rmi_i2c->startup_delay);
+> +
+> +	/* The page-select register is reset when the sensor loses power. */
+> +	mutex_lock(&rmi_i2c->page_mutex);
 
-Best regards,
---  
-Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+[Severity: High]
+Can concurrent I2C accesses wedge the hardware during panel power-on because
+page_mutex is not held during this startup delay?
 
+The drm_panel_follower subsystem calls rmi_i2c_panel_prepared()
+asynchronously when the display panel turns on. Since userspace is not
+frozen during this event, a process reading a world-readable RMI sysfs
+attribute (such as update_status, which calls
+rmi_f34v7_check_command_status() then rmi_read_block()) or interacting
+with /dev/rmi0 can invoke rmi_i2c_read_block().
+
+Because rmi_i2c->powered is set to true before the msleep(), and page_mutex
+is not held during the delay, a concurrent rmi_i2c_read_block() can acquire
+page_mutex and issue an i2c_transfer() to the sensor while it is still in
+the middle of its hardware boot sequence.
+
+Does this early I2C access violate the strict timing requirements and leave
+the touchscreen completely unresponsive until a reboot or driver reload?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-topic-rmi4=
+_panel_follower-v1-0-c1b2cf1cdb62@oss.qualcomm.com?part=3D2
