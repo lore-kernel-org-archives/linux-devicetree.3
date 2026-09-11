@@ -1,73 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E873CCFD2;
-	Fri, 11 Sep 2026 09:54:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 182B912AAF1;
+	Fri, 11 Sep 2026 09:57:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120464; cv=none; b=YUI4AJBkveChMEaUjxoOMlNI/GK4ezvmulflgEJG8CJRBFHMniqXaUFZBcZ1P0dtWuEZtfyv9by8iKYa1zHoGflbBQfteC1tp5g8grMuLuBVFYM2zj57NXZ1v4E/bvg9N+iblZnqOJ+HJHT6ltz07rKaSjLouMq2Gy8XvDZ+J98=
+	t=1789120637; cv=none; b=qzLVkHtWSKBXYNTZeSGx2nYp4ZXVPkD8shrlEvSrW/haZLGoWwb6gR5DQCEjSOvqVorG+5yhKTrvtx5k8JELjRjMdWJXcOnGVvHOZ4u8erYjH4/8xlyr32PYiCLQqO/cCf/V+4hUbtjsGDFOJLSp5lUH/VeD4BHQ6gxUyMBZs8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120464; c=relaxed/simple;
-	bh=bM2wHSiiSeFCRKYko1CirAyLyeDa46YTeoLTGWq1y+c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OScehgH/VpnWJdBz7Xmtr5jN9VoTzoXtWNbNhUrtz7H6FBtdzrBOQMyRz+t9WHK+t3fMgWxw/z3kn1cmGbduLOlhzWuKRrg+iyugBoHfMG2y9r30jx/7X/9l4WyBWduOTLekbY1ZBZ1j7FpbTWvgbVnF9qklqwKu7AVOvYRUiHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJWSiX6+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789120637; c=relaxed/simple;
+	bh=0Mb2jec7SC/M2jGZ8yCvAiTQM3VLRz8n562F616cniU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=cz+XQKL1FUOAoEyfrgYZqfL69KFtsgSExh2ok8DuGVKPafTOilUkC28nLx3PIMrdmc+Yg48GTyccNj3kZKraOnTagNNp9Fb+nI9JdtBhoa1qga1itOxydJrB1Uy6+c0kE2+Jcyu5W180w8YV2476olRED65Rn5XuuuYE+0hITJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mebtXxCf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJWSiX6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08F831F000FF;
-	Fri, 11 Sep 2026 09:54:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mebtXxCf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAC931F00893;
+	Fri, 11 Sep 2026 09:57:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789120462;
-	bh=KGhhtu7tqF7T3iJOmPXuXzr2PA4boW8KCvw3UK1n3+Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eJWSiX6+S2qPrvRMUM632hPQcNhKD7uCBbPsLx/GCWrHft23LoVhrNdcjlBjeRGnm
-	 2cgxXnMrk2YC8ORAGAUcgO7oVrZTiUqikpZHvbqe/46mYE+ulDCGm3xb8M8r6wxqD4
-	 DsepSXNx1a/0oXvrH7shmNEZhuqu8wkHd9wQqzovGlF9bMnTYtVA9EJVRv5GANzy3l
-	 +yY27VL0mS9g24n2aisDTmQRwx+SUK3vmfACw7fxE1TkXRKwKOtiTRX/T6R1oz3vJB
-	 7dBKTlan/KUoMbx3RkMNpS5fa3a/0ciTWavxT6BDh+zCc+cYeaQOD98ntNd0Vf82cZ
-	 Cl3UkfHfsm3AQ==
-Message-ID: <1f61bd22-4e1d-44ae-b4d6-9426fb9dfddf@kernel.org>
-Date: Fri, 11 Sep 2026 04:54:21 -0500
+	s=k20260515; t=1789120635;
+	bh=8P2Yw1kZDR+cr2UnfAN0wqpuuU89nW1sv8/eiS1R53o=;
+	h=From:Date:Subject:To:Cc;
+	b=mebtXxCfiWhdPcfHCAS53tpaRBtXhOCKse8AtKiHcK/d38aYXjplfjhjKfIElr6EZ
+	 K/J1ckW6962153sNc29KyfHmoxMSfnvqWgwAQRcvqVM5OXBXJyelOzW1UjWr7Tjfzt
+	 zFCnmYPYOba1LXs4ubVesIedaOqJZEZKmmWcFmPSNe7vptrKe+bafbDMIRshqKUx31
+	 Wnw1DqwBQaDj2HN7pBg1wNkHoGvf7REIQOzhMWwSImkWjFm5R/o+DY6dJa7RD1RCkU
+	 5mBHBN4CsulrpCvqF0kD+0sVlKc0OmhzRVZXyn5E6Ol1+fco4VovNLH2s5s6FaF9X8
+	 3rmW8vGkxd8qQ==
+From: Konrad Dybcio <konradybcio@kernel.org>
+Date: Fri, 11 Sep 2026 11:57:08 +0200
+Subject: [PATCH] arm64: dts: qcom: sdm845-tama: Enable RGB and flash LEDs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v3 3/3] Add socfpga devicetree for Draeger's M48 board.
-Content-Language: en-US
-To: Petko Manolov <petko.manolov@konsulko.com>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org
-References: <20260909111513.2259643-1-petko.manolov@konsulko.com>
- <20260909111513.2259643-4-petko.manolov@konsulko.com>
- <0b682ab0-731d-49dc-a7f8-64c4d71bed71@kernel.org>
- <20260911092541.GE722@carbon.k.g>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20260911092541.GE722@carbon.k.g>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-topic-tama_leds-v1-1-863badcf5ac5@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrA0kCmntVUQkJpN2xD8yUYTg3
+ U3b5bd4LwFjIGR4FQkCHsS0LhmqLMB+zPJGQS4bKllp2Sgl4rqRFdHMpp/QsWi0GvTDP2tnJeR
+ qC+jp/B3b7m/ehxFt/G7gum4L/EOEcwAAAA==
+X-Change-ID: 20260911-topic-tama_leds-961b67f83dc0
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789120632; l=2038;
+ i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
+ bh=/JF6095MFfLX7dBYa9Gw/FT+t9CO981tE8qLl1dYW6o=;
+ b=Pv4bHSD6tRa3uwojyj7JkGOTI5IbfzBstggudIesCQPA/BpnCxulD9luuqdr0vO4H7gaoB6rF
+ 0+9IWDKESiACWbHzoHCRqHqnBYeg19jb/wzqtNlL4bMDY88tHssd76S
+X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
+ pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
+All of the XZ2/3 series devices have a front RGB notification LED and
+a single rear camera flash LED. Describe them.
 
-On 9/11/26 04:25, Petko Manolov wrote:
-> On 26-09-09 08:36:14, Dinh Nguyen wrote:
->>
->> On 9/9/26 06:15, Petko Manolov wrote:
->>>
->>> +				bank-name = "SYNC_I";
->>
->> bank-name? I don't see it documented anywhere.
-> 
-> These DTs come from u-boot where it is documented.  What would be the correct
-> approach: to drop the property or document it?
-> 
+Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+---
+ .../boot/dts/qcom/sdm845-sony-xperia-tama.dtsi     | 43 ++++++++++++++++++++++
+ 1 file changed, 43 insertions(+)
 
-DTs come from Linux, not the other way around. I don't see "bank-name" 
-documented anywhere in the bindings document :
-Documentation/devicetree/bindings/gpio/snps,dw-apb-gpio.yaml
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+index 05e5a3674e5f..dd38ed73da1f 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-sony-xperia-tama.dtsi
+@@ -5,6 +5,7 @@
+ 
+ #include <dt-bindings/arm/qcom,ids.h>
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ #include "sdm845.dtsi"
+@@ -618,6 +619,19 @@ snapshot_n: snapshot-n-state {
+ 	};
+ };
+ 
++&pmi8998_flash {
++	status = "okay";
++
++	led-0 {
++		function = LED_FUNCTION_FLASH;
++		color = <LED_COLOR_ID_WHITE>;
++		led-sources = <1>, <2>;
++		led-max-microamp = <100000>;
++		flash-max-microamp = <625000>;
++		flash-max-timeout-us = <1280000>;
++	};
++};
++
+ &pmi8998_gpios {
+ 	cam_io_en: cam-io-en-state {
+ 		pins = "gpio12";
+@@ -629,6 +643,35 @@ cam_io_en: cam-io-en-state {
+ 	};
+ };
+ 
++&pmi8998_lpg {
++	qcom,power-source = <1>;
++
++	status = "okay";
++
++	multi-led {
++		color = <LED_COLOR_ID_RGB>;
++		function = LED_FUNCTION_STATUS;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		led@3 {
++			reg = <3>;
++			color = <LED_COLOR_ID_BLUE>;
++		};
++
++		led@4 {
++			reg = <4>;
++			color = <LED_COLOR_ID_GREEN>;
++		};
++
++		led@5 {
++			reg = <5>;
++			color = <LED_COLOR_ID_RED>;
++		};
++	};
++};
++
+ &pmi8998_wled {
+ 	default-brightness = <800>;
+ 	qcom,switching-freq = <800>;
 
-I don't see how the property is getting used in the driver.
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260911-topic-tama_leds-961b67f83dc0
 
-Dinh
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+
