@@ -1,205 +1,214 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 123C0584954;
-	Fri, 11 Sep 2026 19:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789156485; cv=fail; b=o/Mp/nw0lTiPkdFi/+N6r8IWWohw2F9BUc0MLXL4nlJQoMagz9k51HGnVFzF2Sr5ssgY681dJ6TBZS/KjdQghLrPdTlrOl/AhmAE1NTs628095iqCLMSdh8/Hg+pFPZyzAwtaozdCcWv9ee3llsMOJocBfMHYPFbKbEhrQIbryI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789156485; c=relaxed/simple;
-	bh=t00p61eTwhakLzX61P4I8zZvVhQXqMqcyJr/YT1VCSA=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LO6Q80v+kxN0iZBp2Fw3pp87IOQ+owSgb43GuBg+lkhk+bH+HBGp5QUG8uW9h9DPHAR+St+f8doPLpWafds8a4wYcMtBdI9UC5DqkTx10KrkE/JuRwuhYpPYkk20hfPrgVcOK7ETU/upDVtSV9b5BLCqlP5mllLb5bsqqx87Mo4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=SPnbvNVe; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=N+scZKeJ; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680C45867D4;
+	Fri, 11 Sep 2026 20:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789156824; cv=none; b=k6+nZVb8zK4tgHvdHusoWyWQ7La0CDZnIwJv0Kg8H9Wg2MhAqqXFb1ohCMG6smjn9n52FGImx24ML/OUJcJctW3p90Zn4ylr6+HoiPMFEI9Y4i3mAh0rlQQSBc4NEqcPh/m4T7J8gBzAAzqpECpm8jJ88fsQ5COyfBwpOkM0NEg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789156824; c=relaxed/simple;
+	bh=rECwwr5MXHKaAAu4Xm/MT/O2bAAImWhJ2GQb9tEFs1Q=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=vGcCkOD7MFyT2mR0cwgNHH5w2L7A/M4MUS2SmYYZ1POsFxJFBk8hf48j2LRLuTK1XaJLDIN3whD2wo5y428VLAqlWSoTqKvijP1NCL1XZ6YdY1W/GGiqNjrh1PBLLXYUq4ux02F5/77vRm4KeixHmrNqSZayhYnndsukWvwZlUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=yrm7Efo2; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="SPnbvNVe";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="N+scZKeJ"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68BHV0vZ213733;
-	Fri, 11 Sep 2026 14:54:29 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=vgiI0AQHBIw49JSUi4ZkzCBoj6J+Qgx1DZH87DmdB
-	fQ=; b=SPnbvNVeBl7lyVSyQzlDQ2z88F0HzSTOMz8zlIYVEnglxcltXDEatP/aY
-	ca4Z433gArwb6V5EcbWbJ//wCwU4JSwvWjU8/EdVTHv0qEZq9DSTeIEwjajiDjtF
-	Z1fEYRiybZG+rlFBQye+Po89IY5nDBZZF16lLgr+NzpF2j/F1o0BcVYB2wQ3uLwu
-	5EsfgHAWknZOza6vhhmk2KYnCdqETNhGAQ1Hre4IbxNH/JEVZBM0bUcSgy6aD9pj
-	G6z3XWvmCau2avcdfCxQ724Qx+BcgRbYgIiJXPyA0pFtHfoaygejTR9uNzeKwJOj
-	PWD89/f8xb7inRLmSh3nBBizLID6A==
-Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012064.outbound.protection.outlook.com [52.101.53.64])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gm3yyy0dt-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Fri, 11 Sep 2026 14:54:28 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=wUWtYSbobrO7jWYMAXjMfoqwWcKhUtCMmoihssQ5VZPsDWGg6lYg9jOcZ4/rrJQY9JXFjhH7vG4u+r2wg02QTK3qShKC0yfaMUzZ5OrY/AO7xCIFxgYU7okqTFizZclvTulLC4tSozEKxwYPe1+CsbgTv24ac90//H26z13hgVVd9krOVqtjJpbdE/xyIg3TB9ZszZ6UDwGDomXFi7y4xzzWGoXaG1ZXZ5lzx61U1xEbT9pi3WCvqHCDpeb8M61VnNjBtahIHRB9MmkBkzVzlzhd39dwXey4HpL0i6pjzWtGOQi8XPhpSJVbt39DsFk4ZF32BMRBcOW8MmOTpJysYA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vgiI0AQHBIw49JSUi4ZkzCBoj6J+Qgx1DZH87DmdBfQ=;
- b=vW1tSAmqzqcygVSsesSShBmToKXlniQl627pJx4E2WIahFdLJCYVEAMQoFkcSSSkR3NZphCPgVqN32Npd1bXxhQru+5t5SuKm73o4aJaU2lBFHkmI7mFXrDvw9E5IMtJx0dxOAisX6z7m+zg+AJkrBfdN1iKbQRMIDT9lI1EAQwoif4j7QsUab7bJqOFPLn7Yy758D6mCaEP3buGy8bnubZzMAIMDGf2Eevhsfggt4Drg1IPEAunogMPyWm/p0Ftslj+393YEjdiIkjSh8Vm1rBIVQheEtPPbk6VL5kdaGa6EoNqF7GITBPEitySDlWstDVVKvH96EnQglJNNS3y0w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vgiI0AQHBIw49JSUi4ZkzCBoj6J+Qgx1DZH87DmdBfQ=;
- b=N+scZKeJpmrU3BAtNkvXB0CSpUtuLsLFjjyaTYIV2PLm6Z6SDVys0NbyIYmqpnDYQ7TPOlxCr06gagGRvi8eorPC+u7OLtlgypFlcxs43tBggZTtXhS0co/pAnlaa7MS8oeakMYoPMOfWRWvq3zuZ7zfu4SG5RTqvY0m6RVa4TM=
-Received: from SJ0PR05CA0144.namprd05.prod.outlook.com (2603:10b6:a03:33d::29)
- by SN7PR10MB6666.namprd10.prod.outlook.com (2603:10b6:806:298::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.4; Fri, 11 Sep
- 2026 19:54:24 +0000
-Received: from BY1PEPF0001AE16.namprd04.prod.outlook.com
- (2603:10b6:a03:33d:cafe::57) by SJ0PR05CA0144.outlook.office365.com
- (2603:10b6:a03:33d::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.6 via Frontend Transport; Fri, 11
- Sep 2026 19:54:24 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- BY1PEPF0001AE16.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 19:54:23 +0000
-Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 11 Sep
- 2026 14:53:34 -0500
-Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE211.ent.ti.com
- (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Fri, 11 Sep
- 2026 14:53:34 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
- (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Fri, 11 Sep 2026 14:53:34 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68BJrY5F1697448;
-	Fri, 11 Sep 2026 14:53:34 -0500
-From: Nishanth Menon <nm@ti.com>
-To: <u-kumar1@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>,
-        <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-        "Leonardo
- Costa" <leoreis.costa@gmail.com>
-CC: Nishanth Menon <nm@ti.com>, <leonardo.costa@toradex.com>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
-Date: Fri, 11 Sep 2026 14:53:33 -0500
-Message-ID: <178915640725.2344659.5177315397956352413.b4-ty@b4>
-X-Mailer: git-send-email 2.47.0
-In-Reply-To: <20260909181332.1081552-1-leoreis.costa@gmail.com>
-References: <20260909181332.1081552-1-leoreis.costa@gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="yrm7Efo2"
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id A204B5341057;
+	Fri, 11 Sep 2026 22:00:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1789156812;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=6lIj0wihb2vxUd4EDj1/K0TDCkWxUQEoZDfJjbMQzdg=;
+	b=yrm7Efo2D2GjHRvHVmd+F0NKsJsr15M/6xv/1ztrPx9z6TOJ5Y8MNmyKlCngBtF37E5gfs
+	OpZdbpFdnLJyTZVS1MBjTeO3zykDmWmCqtPKj/bbhcbZQjZk2Jvtw5KwZjjsN5lsa0M+BU
+	9e1WOKkwlRVIvaGDwA7n8TrZP6VdzAc=
+Message-ID: <f5f6e231-ff11-45cf-af30-9db346ba5f97@ixit.cz>
+Date: Fri, 11 Sep 2026 22:00:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel
+ gauge compatible
+To: Andrew Davis <afd@ti.com>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
+ <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
+ <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF0001AE16:EE_|SN7PR10MB6666:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9f19bd5e-a84f-4aba-3ecb-08df103e7a4e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|82310400026|1800799024|36860700016|376014|10067099003|3023799007|56012099006|18002099003|22082099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	ZwNEN1MZYV8qxzhvfVmhMlqjC5bhmnYoDNWk9aMovC1wjsXAJu1pSnfSR4gyDHB1o4J6gS5WG02jwuREAB1ELyte8RfucQjh+Oshuz9dN8uzG5LaGHw+XQlp3TkydCaE4NCZeMo/sREZZyuWLnTK0Aq5Gibe75OhPJnHrBGvUljwWHvlTiBJjmx4hWi1fMhvMh5h3ZkcEGF1e+1V5QFkQsSqxXnJ+neCd3KC1Nn+q73fmIIvKgO3NQTFbqgCym8R+m0JsKyPDdY5EOnBcRmO+uuvZZ8V2aJXFfTwe+8k2t9LJsMTFIgTF5E9EH+Fr5jzCNYuu0kKXRBjisuyqpAcncvri0olDrs6umrpkS3h9Pc/M5aPE6JO2/hdnJdonbTrlrCjHTimQcC5zkC7kTlBL6NrCX+y9Z6qfbx0Cxrh0kAGRbSX/lKEJ19PT79MnozSVWJGbas3xU9Q7TSn4S2TYXSmXxwdtyVSuxl+eZjrZncyjeR4FSJDTQ4uMacaRFqSKMlyukflFqxY30stOyPwpjZECDxoE+rMOkJafL1s2mnTtiMt092/e9e667mFL4HrwfFd3Bwh7xgMBBC8UoitNE8QAEX2+ibT+FaELGtq1NGP6yZLd5//Md4HfCQFq6746sWp/RfPYnn4bTKTRTHXNZ0SUeDI3ZTKXkdgOv3x0p5cZw3ATOQhmEMIJ+QugexgpP7TdeeHZb4tjYjdFm0Inw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(1800799024)(36860700016)(376014)(10067099003)(3023799007)(56012099006)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/PJmUF1Os8+6gvsQC3dOnsDJro+OCPsjPiFZIn03uvGqWHxtcszFWYcZ7nh3VEx0o9Y0ayCUWL2y+mwblam8VctbASzmrgflzYOVUWBPgBruf77Y6uwoR2weiCGgcEOMynbGbF0gNWSVzgDtouzoJsnBvvRtOscFzx9KwRgq05MKZPX9t5kWvX9JagKtHw/dbSrvc9zK5JJvf251yQOKVu7ikG17Lry5v7otJpGOmSOzwQvN/Ryx1a5U3lE0i97FM5uUTO4v4CvX3opAKICwiQMqwlhj0r/fZxlimFhBeZTjco+RM0vcrVqzESy1XDWxprWoqvjrOburEc1QMWstFPHFw7Ma1kRoPVdjZa49c5pyIvhKJV4Vr8GzT9PDuiJtaBheGS1cAf9hTdlaYm3HCsie5n58lkRo6gGrsbMD8tLS8daxySYF68KO8Ws5XNMd
-X-Exchange-RoutingPolicyChecked:
-	CEw4NXXND3W3K0PJ0IrkiUBQjGCXFWs2OudJsGnN5gswD/l/9rNqcRMEzAW8Ekf2wrrBE34f4Ru9SEUhlQ3wNjVwJKHv+9UYMfZAnKA+oyhAl9jJCZSt/uctGn1Rh4tik9a+sDhz3ZbhZ4g3CI0vX4l5seZTrHRa0jOGsYVSYE82/K6xtY8GJAQHzrKgIuMob1HuC8oVtDx3Kay9F84eYQvWhV38dofnjtodaJ9MgGNIAWCMVGQMYna8RbdU/fA1siapP2cDZArNzuhgFXngUAIjxfYb55UpkBckwf8iMa59OZfm5rkmzzUu6wDPKYRNKYHL4Nk0dFvz/UyUZCYHhg==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 19:54:23.4563
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9f19bd5e-a84f-4aba-3ecb-08df103e7a4e
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF0001AE16.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6666
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDI4MSBTYWx0ZWRfX5lWCs5/TQjVk
- 7PR9ra9C/yvpclA0kwaCszwwCORh0spBu7jFLsQxSvHgRAJlzJ52fZ4B787vjLhqR9h/70VWgCA
- hIR9WdQ/wrTze4XuxSphgDyCrjAruNw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDI4MSBTYWx0ZWRfXwn5GaxW0wZar
- csO0Lf/Eu9T/OSGi70eCEQ9ufUPrhQDN4euhLZszuJBONKecd7tPZe3Udqp/60H5BjwHA5xcVbc
- Dz/8vkEU+FgIULzsH689Z7nVbzoKb624gbY26NwM9ngHhn7FSpK86pC9DXUL1I2MRPksWlMR6rF
- uxmLU2hNKiHdFWxrUCPXqbAL8PTkj/q/8EawkPDTbZzCCppi26GIPq/Wu3HlVS9tVTkacYnvutl
- brxQnKzwqkXPLu1s2Ptq+JzIM+QH0sHcSBISfE8fnDGR+iB4uDtNBCiaf/36TRx74QMrX5xGeMx
- iBs+vokbm5PqvG0ZumVyuVMmpuvr+1P8XkHhd3RcVchsH9XgmG43r4/UIyAs5vcysodX1d/Gc7O
- MySDBczH3UG9nrro8Tzi08JmsNZVPPxAoFmReAm0nsFVGY+KObpFWUiDDUrX5CkQi239R5paQAU
- ohGrp4WBPOT7MPZwfkw==
-X-Authority-Analysis: v=2.4 cv=Y8FtIReN c=1 sm=1 tr=0 ts=6aa45c74 cx=c_pps
- a=BYzTVJwijQ+wlo0xVi9Hgw==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
- a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
- a=o1kACPpZKAZCWsj7fAYA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: dXYYSeKgOdxyhkEbn8ObOk34lfxqOvJI
-X-Proofpoint-ORIG-GUID: dXYYSeKgOdxyhkEbn8ObOk34lfxqOvJI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-11_06,2026-09-11_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 impostorscore=0 phishscore=0 bulkscore=0
- priorityscore=1501 spamscore=0 lowpriorityscore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110281
 
-Hi Leonardo Costa,
 
-On Wed, 09 Sep 2026 15:12:09 -0300, Leonardo Costa wrote:
-> Add a device tree overlay for the Toradex DSI to LVDS Adapter with the
-> Toradex Capacitive Touch Display 10.1" LVDS V2. The adapter connects to the
-> Aquila DSI_1 interface. It is based on the Texas Instruments SN65DSI84
-> DSI-to-LVDS bridge and drives an Opto Logic SCX1001511GGC49 10.1" WXGA TFT
-> LCD LVDS panel. Touch input is provided by an ILITEK ILI251x capacitive
-> touch controller.
+
+On 11/09/2026 15:37, Andrew Davis wrote:
+> On 9/11/26 3:21 AM, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 10, 2026 at 02:47:44AM +0300, Rinat Muhamedgaliev wrote:
+>>> OnePlus 6 and OnePlus 6T battery packs may contain either a TI
+>>> bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
+>>> so the driver can select the register map from DeviceType at probe
+>>> time.
+>>>
+>>> Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
+>>> after booting the new kernel, the battery reported 4.360 V, 100% state
+>>> of charge, 27.8 C, and Full status.
+>>>
+>>> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+>>
+>> What is the bug here? Your commit msg should be specific about it.
+>>
 > 
-> [...]
+> Commit msg seems pretty clear about the bug (to me at least), the DT
+> says the fuel gauge is a BQ27411 but that isn't the case, some shipped
+> with a BQ27541 fuel gauge.
+> 
+> (I do agree though this shouldn't have a fixes tag as back-porting this
+> without also back-porting the driver-side change would break users)
+> 
+> Since these fuel gauges often live on the battery pack and not the
+> device itself, folks changing their batteries might end up with
+> different fuel gauges, so having some detection method is going to
+> be helpful.
+> 
+> Rinat,
+> 
+> I'm not familiar with the bootflow on these devices, but is this something
+> you could detect in the bootloader and fixup the DT before it is passed
+> to kernel? That way the kernel gets a DT with the correct and specific
+> compatible to start with?
 
-I have applied the following to branch ti-k3-dts-next on [1].
-Thank you!
+Hello Andrew:
 
-[1/1] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to LVDS adapter with the 10.1" V2 display
-      commit: 0717c94b493171f350f113545f765cd3b71adc50
+There are two possible bootflows:
+a) from fastboot (we can't do anything)
+b) from intermediate u-boot (we could do this)
 
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent up the chain during
-the next merge window (or sooner if it is a relevant bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
+While your suggestion seems to be the most correct, I'm not sure the 
+"complexity" here outweighs the pros of simply reporting
 
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
+deb_warn your phones has different charging chip
 
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
+and switching the behavior to the "replacement part" here.
 
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
+In the future we'll need to add u-boot logic because of camera focus, where the 
+focus in some phones is on different i2c addr + from different vendor, where we 
+cannot do it so simply as here.
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
--- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+What do you think?
+
+David>
+> Andrew
+> 
+>>>
+>>> Signed-off-by: Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+>>> ---
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi   | 4 ++--
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts | 2 +-
+>>>   arch/arm64/boot/dts/qcom/sdm845-oneplus-fajita.dts    | 2 +-
+>>>   3 files changed, 4 insertions(+), 4 deletions(-)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/ 
+>>> arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> index 948a0dd..8c5cd94 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+>>> @@ -790,8 +790,8 @@ &i2c10 {
+>>>       status = "okay";
+>>>       clock-frequency = <100000>;
+>>> -    bq27441_fg: bq27441-battery@55 {
+>>> -        compatible = "ti,bq27411";
+>>> +    bq27xxx_fg: fuel-gauge@55 {
+>>> +        compatible = "ti,bq27xxx";
+>>
+>> And this is just breaking all users without any explanation.
+>>
+>>
+>>
+>>>           status = "okay";
+>>>           reg = <0x55>;
+>>>       };
+>>> diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts b/arch/ 
+>>> arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> index 5f01115..cf40842 100644
+>>> --- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> +++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-enchilada.dts
+>>> @@ -44,7 +44,7 @@ main_cam_ois: main-cam-ois-regulator {
+>>>       };
+>>>   };
+>>> -&bq27441_fg {
+>>> +&bq27xxx_fg {
+>>
+>> No, irrelevant to the supposed bug here.
+>>
+>> Best regards,
+>> Krzysztof
+>>
+> 
 
