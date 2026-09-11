@@ -1,217 +1,225 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F3A43F8D9
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 12:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128741; cv=pass; b=KqvuxRLE0fWHzWxHdaRRp17SHfNKRhcDMfid+Ivks+6oqiWArciCsmCSi6753+3oy4BFFHFI42HttwG522Q/2fDINx07lMG835TUQME1LcBsUlVkXHMFaqxukljlTvRQYwS8MAc+T8Z3I6IkonkBo7m9LfY7vidWrWb20KCwYkc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128741; c=relaxed/simple;
-	bh=y0XIFCeENQJqN8g/vbt7VAjbJq+Nz3Xv9yF4zfVVk+g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QwEs5AJf3BpLZIND30mQdg3yPWBpWbvObyNaaY5Di50o6DQP893Q5MG1U5x5+WkrJF7J3k1eV8abNSh/iYTFCGWZy4l+W/JN7C9NRFaFedPFlq2Py8SS/M2uG8dfQokbkwX8oTiLoXZc3RCCSEJBZZIBNBhoXpusrBgWO3lixhA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5qY8lxc; arc=pass smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FEE49E137
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 12:19:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789129176; cv=none; b=JuNCnxZv2l5WOt/1OHWeZHSF95cARIQgDJCFObHNXH5HnyZx6X30rGD1PD3CuB6m3HBIeAN6+/uxDMtHoj7DKPHKjAUnsrd/wazKl6mf8syfFOt9T2yHGb4h6JDM/O/ITMBSc/aePP4FpmA/+BIVlOaHM3cy3bzQp7SYKlApjlA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789129176; c=relaxed/simple;
+	bh=Qh8HX4SG8hlVTvvatY2+gdSsGr1WlvqLeOHOcENmNDg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A2MxtAoGeBkuPEHBIg5eWcDEXAEx9hylz2g8J1IuyN9NyqslxodLS0Q0UkARjI0MpqVudLLitlvRXu8gxwP8ejY60BGr+NdvQSuvo/swxlRSqoMwrXqKJnceYhMTj49IynaG57fiN9YokUrEkEspE8u+BLDxt3m60g+7ROoV+Yk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net; spf=pass smtp.mailfrom=pardini.net; dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b=ASqMI9/8; arc=none smtp.client-ip=74.125.228.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pardini.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pardini.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5qY8lxc"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so4290555e9.0
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 05:12:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789128737; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZzLrf3fqWeJ4UjQUa6HnsvG9eLAZH1XCDXPgjgabT4+JNgvhunNJ6H4vX9NOw0AVhF
-         lL3CPcBeEhS9Ze2NYpNHAVJH2it/2fN63a21EJYNK/RWYZthmLQDCC2e16AeXJox2fJH
-         t9GBWlTu8awmcwqqyHvIcUsvJcDGUDHm1EglUCecS5W1gP0GM5SOvSa21M1EzMx2kJ6c
-         XdhJgdOQ06sUPTXWwJNshiBG0+lYuECWspoiu0j6pteZ9gvhUQlnOvQXwDtKooBjKpbX
-         h8bTwQYs68yiZZSRKr5+Ba8s0tqmGxvdkk5l/KDRWmlZl7hKYvwTxWagb8crLMH5wvKC
-         bP/w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lNwnWJHPLgasWdBDmLTUGAni7FNn6xt21s/9H9MyjEs=;
-        fh=c+PbEk8LwpxIyKySa6ko5RtI9PQq28LZhTuL56gha1c=;
-        b=A3cwhgiOFcmV4nDwUGh8k42pZCMWyFPKB/PsSn0K0mZoTJnIYqHttK9Pg3gLr9oYKe
-         ew/+sURXXTcWGxnzuL5r9hz29MKqyWM2qPvjZxElMIsVJXjONAOUpfoG7iPjW36MivfG
-         eH45IwnLwcVuHG1/uMNQoIc4JkOw5Z2h6IyNbO7sKWspLg21eBIC0F0x2G6tBhTTwQzy
-         bfc6yisw2pEic91Cntv7ybP5FyjahCsL+Zl1wVZaNYTTtI55TDZfWC/L38bePJQO/9uW
-         bUBHD7wNTZiwism+1dNc6p7P1XGPylyWALKkOesLirBhknNsNlhakxKFNvB04FbBimH6
-         2u+Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=pardini.net header.i=@pardini.net header.b="ASqMI9/8"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso1474275a12.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 05:19:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789128737; x=1789733537; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=lNwnWJHPLgasWdBDmLTUGAni7FNn6xt21s/9H9MyjEs=;
-        b=V5qY8lxcYRx5ZkIgRmvJ9ikvQM9tfa1YVpHh6YCgYiAmdE6HSAt5KOhaMYdaJQQzCa
-         Hj8dI0T54rgkj+2XeN0gpFjo6DOZTdu57sTzoCn3XKHn2mBfyk+agK9tVCBoAb0iXt17
-         C2toev6+JdfrF7feTUBAheboKY64UOpMslY9Lm4C+7aN9yKRFPFwgGh6YdYrnG8YAijH
-         46Kl1Dmxsbwmn+KtFd6qxEFx8cf3gsjhCjpQFjkLcyrBkIgJGbf9LFt2qbLk+aT8dosn
-         sVjlm3KmBoAKqRT0EqZVfLydjEQTE+uKcqmtqBAvS5bFW0KntWKPlVV9CSwsCPir5FBt
-         9XFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128737; x=1789733537;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=pardini.net; s=google; t=1789129161; x=1789733961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=lNwnWJHPLgasWdBDmLTUGAni7FNn6xt21s/9H9MyjEs=;
-        b=lj5nPUUpqz9yzHlCFPvoAQMpn1FjKrfJy/HR1DKMfKwNfjGFdg9pYu1yf2Hoxq29Rl
-         5Ze2yt0wYvdLHwng+Tt1zn5SxnsNu0JqvsEzi6lFoSopNGTjFL2rnRbnuoREjw4VyFon
-         FqvD5HbnTwJndyW3wdhTYXqVMANzqy8I1PraBfXF505ZMjClal89hoZDRVVJNoDydbcq
-         RbMqowCtjkaDPXvXOOj/UpcXXGoWG1vRXfLSDeYKKe9/TH1DoZUDsDxxCzw2aPDxaBip
-         qAI32LM+oyUV4V6y9BxHAuMFhTd8HOXtZBdSSvHoe1YV5zDYInq8vAdxPNqFBXLIeLCa
-         yUZw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQajtxxfhGGByXCdUyQDIjwtOuXR4qaS1bXgw4MlwLaMZ3gWkc5hWkcK7GjuhVpkyDKsYU0K3BaBli@vger.kernel.org
-X-Gm-Message-State: AFuF++nAFjt7UTMN72WV8lbKtUN6u2nk88zwUuNAny1OvEm2PxRvoNBy
-	J8jPj/JrCm8fp0+JKS3kC61a/26XWloC7L0xcERkDLtWnG1KtZVZrtIY8haPIS3z6k2jb95DVmk
-	UMZoj92gU+EkksboL8nwEQzvyRFPMx3U=
-X-Gm-Gg: AYBFou3z8ldXXXWmlJp4LV7EVKlmtTlN2rTdaKMH0/nJJpXtLL2iJDGeDSJuKYG37Yx
-	MboVt3pLje5GI+I5XvRfkZAv7TjoGy2CjwMyPrkED0ySB369eWt5FONgTh19GN5lwyNd45525dt
-	A5iFM6LLpSM+XK+pd5+8JDekRCxNFIqfSZcylOVLdxW+cujRurTR/n+QFEpGKN4G7bAmMVtrXCx
-	sC13xOgPyOSLjogncdWE9zU2+NXxjrEJtX8PNhmHmfz8G2xynNLXSZrX+4f6IkCAbXx18Z9ix6M
-	P3iyV5GuisAqxh98gb8lT0XUt5qhJt9RS8uB3KAP6PyoXjdCkTtd4xvqe4DnZcjpC9RrIyyc7rZ
-	58s2hlF6JOkJ5KK0Lod6OzLh/wRB2PK9ppV7ixZPt6uguxOkARRyYYZWHT9UaPZSoijBuQ6IGdt
-	k+x0mW0hXc
-X-Received: by 2002:a05:600c:1385:b0:499:a5c8:c6f3 with SMTP id
- 5b1f17b1804b1-49e61878ab9mr68367055e9.3.1789128736767; Fri, 11 Sep 2026
- 05:12:16 -0700 (PDT)
+        bh=PL874DxmWdEEz+/Ho1XLM1gCTFYGrhEvvkDpUQlsjxY=;
+        b=ASqMI9/8k23f1Ib/KP9IkEMywegZw/62+20wGo/4MF18r5nzgKfXBd0diYk68p5OD3
+         L+j2VWyJvh/axrrRgZ3dtKTw2MgTwx1aLBL988qJ2+/I+eng4j5If8OFYdJbBfwwJrIC
+         UzD06MGLj6+D69WMrn1FFTFy9d0AEffPSl2xK2L4M5carM+s55ux6NdNzxCDmwkRDmf6
+         me4WtCO89elIEfo89GIn+TPTw2J0lgm3R76nf0BdFoMYeIkyWrOUmwaRpOY/nRUo7S3S
+         XrrM9Tb5TAGj40yh78QwAQTxnj597S2cOLdW946hK7IfCTtjkeqU17KRWobgiORNjVme
+         /3aA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789129161; x=1789733961;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=PL874DxmWdEEz+/Ho1XLM1gCTFYGrhEvvkDpUQlsjxY=;
+        b=ctxzM3rCwCfJHKneQlAZ6FaZh7sloNAFsuXdWUN/jwhmesP7/bQbKy53PTt6g+Ergm
+         8mB+7sr+amk5Yv/0ABF4kvlHeDGD6MvZHsk8I4512YFLG3sOV6o20TX0ALbNErGM94YY
+         BTGS/l6ZmB3Xombnao4C0x4buWzmJgwQrMBcu8uqH3VQbFD3eum+YbjQCrld1YRS8FSZ
+         ICy1EHjgwLaqCZZCdT6911PYI86gulVDWRDZwgMyQ5nqwI+gXsXQyh1ILPadX/gd6Tdw
+         I9yWL8iuWAwEYIRL18XtJX3hN1CsZalDTfsfZHtFA/qK9EWFPikGS9Q9D8XD6DQZs3L7
+         llLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwF3hdYyF9jmkqAWRlpxbxjLoAoxeMCf3ykQG0BYxFvAXUbQHq46J5QdHUwsYtPzN69xouz79BHn/yN@vger.kernel.org
+X-Gm-Message-State: AFuF++lNl9RDHdFwyxK9zWZBsS4/0v7J71uV42TD7DdC3Y4zVbu3Fkue
+	IFSpwU4WvMF/0rrDsAgniFJt7hdtsldYGnqnngV/57IyCJLzIn/6RWs6ZPmDFyRkVw==
+X-Gm-Gg: AYBFou0fkA9Lw6IkSkSNSSzU35MFUQHhtZN63RtUTL6TnrK706dwpivcI8MEFQ4nUKN
+	1Omaq+yB3iot563kahAK9qv3FVUm3nm9B0UtZiDKinijgnWdjcGutZJlXbedKCF3Aa0Tlm0AhQP
+	7a7uSWC9BIOO6oYAsvWjUukPlEpUoJQLE70UxcMdqY4mSsfURw37Jj+XCEFXJh7l72C5XjL9e+v
+	M7w4BKWsUqe16MHteChOQDCq4R7tgCP0710lleN0yNhBk5qgW+Dsy4tiB0Xnp0EmMR2dSo0asYu
+	2SDEiLElPKS+FU6F8uBdP0KSvpoNjblQ16eWgbQduYKJNhJZLmhUW8ywaNHrnpWeWc5fh+HX/i0
+	e6GupGWaVY0b/z278NqnwZxC0/kHT24i0GF3KPj+SPD6jRPk2/uMbg9Auydh5O8qMdI/EXKudQh
+	WapOuYcmqBLetPn9aRQp836pn15QPdNxaEH3W3oZpz1D7ezEWO1LMgcUQf3mXxRlqa9e04mTxDI
+	ML98o4xrB7vXwF7jr2Zeg40b0y2XSizhjZMLRqnp5L2UwCKPB7LCHuQ8AZtUMFxKTE0Eq1PyqcQ
+	hX8/vwZcqD/scFmJQ4VAmHwDgtnkxdEmpAT69yXkOrDVoEk=
+X-Received: by 2002:a05:6402:42d2:b0:6a9:b203:f410 with SMTP id 4fb4d7f45d1cf-6a9b5694f10mr1718054a12.21.1789129160539;
+        Fri, 11 Sep 2026 05:19:20 -0700 (PDT)
+Received: from ?IPV6:2a02:a466:4d7a:0:d90f:783f:2e2e:893d? (2a02-a466-4d7a-0-d90f-783f-2e2e-893d.fixed6.kpn.net. [2a02:a466:4d7a:0:d90f:783f:2e2e:893d])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b594f0fasm778079a12.25.2026.09.11.05.19.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 05:19:20 -0700 (PDT)
+Message-ID: <bd032333-c557-4595-ae0c-6cb2971a9a86@pardini.net>
+Date: Fri, 11 Sep 2026 14:19:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260911111731.3404308-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260911112713.355FA1F00893@smtp.kernel.org>
-In-Reply-To: <20260911112713.355FA1F00893@smtp.kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 11 Sep 2026 13:11:50 +0100
-X-Gm-Features: AcwNN1XOUOwZDNjKd0fMCAdW1pC8fPronyNs541sSWVf7U32M71-UP3UfDUWtnw
-Message-ID: <CA+V-a8vH1yC_7V2F9HGMaP2QhuyU+qSXd_J2BAvn5aT-0CH61A@mail.gmail.com>
-Subject: Re: [PATCH v5 4/8] watchdog: rzv2h: Use pm_runtime_put_sync()
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, linux-watchdog@vger.kernel.org, 
-	wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 2/7] arm64: dts: rockchip: describe PCIe RTL8125
+ Ethernet on NanoPC-T6
+To: Diederik de Haas <diederik@cknow-tech.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, nic_swsd@realtek.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org
+References: <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-0-c1b9e5f10cd6@pardini.net>
+ <20260910-rk3588-dts-rtl-eth-describe-dt-alias-v5-2-c1b9e5f10cd6@pardini.net>
+ <DLCE8BRWYCBL.2UH33L4RQMAGN@cknow-tech.com>
+Content-Language: en-US
+From: Ricardo Pardini <ricardo@pardini.net>
+In-Reply-To: <DLCE8BRWYCBL.2UH33L4RQMAGN@cknow-tech.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Sashiko,
+On 11/09/2026 11:52, Diederik de Haas wrote:
+> On Thu Sep 10, 2026 at 10:07 PM CEST, Ricardo Pardini via B4 Relay wrote:
+>> From: Ricardo Pardini <ricardo@pardini.net>
+>>
+>> The FriendlyElec NanoPC-T6 carries two on-board Realtek RTL8125 NICs
+>> behind pcie2x1l0 and pcie2x1l2.
+>>
+>> Describe the fixed function nodes and attach ethernet0/ethernet1
+>> aliases, so that U-Boot's fdt_fixup_ethernet() can fill in the MAC
+>> from its ethaddr/eth1addr env. The on-NIC EEPROMs on this board are
+>> not pre-programmed with a unique MAC, so this gives a stable MAC
+>> across boots that both U-Boot and the kernel agree on.
+>>
+>> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+>> ---
+>>   arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 30 ++++++++++++++++++++++
+>>   1 file changed, 30 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+>> index cfdb5c13f8606..550358a756618 100644
+>> --- a/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+>> +++ b/arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi
+>> @@ -20,6 +20,8 @@ / {
+>>   	compatible = "friendlyarm,nanopc-t6", "rockchip,rk3588";
+>>   
+>>   	aliases {
+>> +		ethernet0 = &rtl_eth0;
+>> +		ethernet1 = &rtl_eth1;
+>>   		mmc0 = &sdhci;
+>>   		mmc1 = &sdmmc;
+>>   	};
+>> @@ -644,6 +646,20 @@ &pcie2x1l0 {
+>>   	pinctrl-names = "default";
+>>   	pinctrl-0 = <&pcie2_0_rst>;
+> 
+> The new pinctrl reference is ``pcie_25glan_perstb_b_pin``, so this patch needs
+> to be rebased.
 
-On Fri, Sep 11, 2026 at 12:27=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
->
-> Pre-existing issues:
-> - [High] Incomplete fix: rzv2h_wdt_stop() still uses asynchronous pm_runt=
-ime_put() during driver unbind, risking a race with pm_runtime_disable().
-> - [High] Kernel panic from division by zero when the optional 'oscclk' is=
- missing from the device tree.
-> - [High] Missing NULL check for of_device_get_match_data() return value l=
-eads to a NULL pointer dereference.
-> --
->
-> commit a446e675679ece36ef9554b71239f1b2c12cce73
-> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> watchdog: rzv2h: Use pm_runtime_put_sync()
->
-> pm_runtime_put() may trigger the idle check after pm_runtime_disable()
-> is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
-> runtime PM active.
->
-> Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
->
-> > diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.=
-c
-> > index cbf414e0c9a3c..4a5a856060e91 100644
-> > --- a/drivers/watchdog/rzv2h_wdt.c
-> > +++ b/drivers/watchdog/rzv2h_wdt.c
-> > @@ -270,7 +270,7 @@ static int rzt2h_wdt_wdtdcr_init(struct platform_de=
-vice *pdev,
-> >
-> >       ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
-> >
-> > -     pm_runtime_put(&pdev->dev);
-> > +     pm_runtime_put_sync(&pdev->dev);
-> >
-> >       return ret;
-> >  }
->
-> [Severity: High]
-> This isn't a bug introduced by this patch, but it seems there is another
-> instance of this same issue in rzv2h_wdt_stop(). During module unbind, th=
-e
-> devres cleanup triggers watchdog_unregister_device(), which calls
-> rzv2h_wdt_stop(). This function issues an asynchronous pm_runtime_put():
->
-> drivers/watchdog/rzv2h_wdt.c:rzv2h_wdt_stop() {
->         ...
->         if (priv->of_data->wdtdcr) {
->                 ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
->                 if (ret) {
->                         reset_control_deassert(priv->rstc);
->                         return ret;
->                 }
->         }
->
->         pm_runtime_put(wdev->parent);
->         ...
-> }
->
-> Should this also use pm_runtime_put_sync() to ensure the idle check compl=
-etes
-> before the devres cleanup calls pm_runtime_disable()?
->
-Agreed, I will update rzv2h_wdt_stop() to use pm_runtime_put_sync() call.
+Indeed; I sent v5 vs v7.3-rc2 which doesn't have your recent series 
+fixing those. I've rebased onto next-20260910 which does, will send in a 
+v6 - but it's really just fuzz/context changes.
 
-> [Severity: High]
-> This is a pre-existing issue, but I noticed a potential NULL pointer
-> dereference in rzv2h_wdt_probe(). The return value of
-> of_device_get_match_data() is not checked:
->
-> drivers/watchdog/rzv2h_wdt.c:rzv2h_wdt_probe() {
->         ...
->         priv->of_data =3D of_device_get_match_data(dev);
->         ...
->         switch (priv->of_data->count_source) {
->         ...
-> }
->
-> If the driver is bound via sysfs without device tree match data, could
-> priv->of_data be NULL here and cause a crash?
->
-> [Severity: High]
-> This is a pre-existing issue, but could the clock rate calculation result=
- in a
-> division by zero?
->
-> drivers/watchdog/rzv2h_wdt.c:rzv2h_wdt_probe() {
->         ...
->         priv->oscclk =3D devm_clk_get_optional_enabled(dev, "oscclk");
->         ...
->         switch (priv->of_data->count_source) {
->         case COUNT_SOURCE_LOCO:
->                 count_clk =3D priv->oscclk;
->                 break;
->         ...
->         priv->wdev.max_hw_heartbeat_ms =3D (MILLI * priv->of_data->timeou=
-t_cycles *
->                                           priv->of_data->cks_div) / clk_g=
-et_rate(count_clk);
->         ...
-> }
->
-> If the optional 'oscclk' is omitted in the device tree, priv->oscclk will=
- be
-> NULL. When count_clk is assigned this NULL clock, clk_get_rate(count_clk)
-> safely returns 0. Will this cause a kernel panic due to division by zero?
->
-As replied in the previous patch, I will add a new patch to check the
-clock rate to avoid division by zero.
+I'll wait a bit until Heiner/Krysztof/Heiko chime in ref the binding and 
+its wording as that has been contentious in the previous versions. And 
+who knows what Sashiko will find this time.
 
-Cheers,
-Prabhakar
+> 
+>>   	status = "okay";
+>> +
+>> +	pcie@0,0 {
+>> +		reg = <0x200000 0 0 0 0>;
+>> +		#address-cells = <3>;
+>> +		#size-cells = <2>;
+>> +		ranges;
+>> +		device_type = "pci";
+>> +		bus-range = <0x21 0x2f>;
+>> +
+>> +		rtl_eth0: ethernet@0,0 {
+>> +			compatible = "pci10ec,8125";
+>> +			reg = <0x210000 0 0 0 0>;
+>> +		};
+> 
+> Described on page 23 of the schematic titled '2.5G Ethernet B' and ``U12``
+> (ie RTL8125BG) is connected to LAN2 which has ``ETH2`` as label on the case.
+
+Confirmed.
+
+> 
+>> +	};
+>>   };
+>>   
+>>   &pcie2x1l1 {
+>> @@ -660,6 +676,20 @@ &pcie2x1l2 {
+>>   	pinctrl-names = "default";
+>>   	pinctrl-0 = <&pcie2_2_rst>;
+> 
+> The new pinctrl reference is ``pcie_25glan_perstb_pin``.
+
+Will also be fixed by rebasing onto linux-next.
+
+> 
+>>   	status = "okay";
+>> +
+>> +	pcie@0,0 {
+>> +		reg = <0x400000 0 0 0 0>;
+>> +		#address-cells = <3>;
+>> +		#size-cells = <2>;
+>> +		ranges;
+>> +		device_type = "pci";
+>> +		bus-range = <0x41 0x4f>;
+>> +
+>> +		rtl_eth1: ethernet@0,0 {
+>> +			compatible = "pci10ec,8125";
+>> +			reg = <0x410000 0 0 0 0>;
+>> +		};
+> 
+> Described on page 22 of the schematic titled '2.5G Ethernet A' and ``U10``
+> (ie RTL8125BG) is connected to LAN1 which has ``ETH1`` as label on the case.
+> 
+> So this results in:
+> ETH1 -> rtl_eth1
+> ETH2 -> rtl_eth0
+> 
+> This sounds like a recipe for confusion and/or potential future mistakes.
+> I think using ``rtl_eth1`` and ``rtl_eth2`` would be less confusing, but
+> I'm fine with another construct which achieves a similar thing.
+
+Yeah, that will result in aliases `ethernet0 = &rtl_eth1;` and 
+`ethernet1 = &rtl_eth2;`. It could also be `rtl_lan1`/`rtl_lan2`, or as 
+the schematics seems to to use the `_b` suffix, just `rtl_lan` and 
+`rtl_lan_b`, I don't mind. Raise if you do, otherwise I'll send v6 as 
+you suggested.
+
+Userspace will be off-by-one vs the printed case labels, thus _some_ 
+confusion will remain, but it's already better than the current 
+enP2p33s0/enP4p65s0.
+
+> 
+> Cheers,
+>    Diederik
+> 
+>> +	};
+>>   };
+>>   
+>>   &pcie30phy {
+> 
+
+Thanks,
+Ricardo
+
