@@ -1,183 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295C445FFAB
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:38:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E03A8371D11;
+	Fri, 11 Sep 2026 08:40:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115925; cv=none; b=lctnFbscZxV8iqepHgwbS1kzbEc8Ka76um/5cJPEE5SDs744LplfH01eAZuDU+xYcy7633vXqOi6iWN+Lv/2yBcEVch55mZutOmowkTvQqvw5PajGcVW4yxNxqFUbf2qJt1/+sFZi94Y3H2XuWx1OzhXAb9MAs2Y9iYc0aEUvpg=
+	t=1789116007; cv=none; b=FLkfwYNlDjpss/6+zqP7thwHlyRLR8UnL1WH2V94TItCI8u4QoK3LCLgfW6ATDqOICGUaoqedDniX4FhBSLoWUtbBaTMuzVWpvy1476f/cI8jov6+iukVXYNIBxKcyBhD+F0UMVarOU6pKIA34YTathQ+vOvpZpqYiC/Z0wg4So=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115925; c=relaxed/simple;
-	bh=EmC3f78Xd7UWrHx2XBzEL5rO/1FtzKEyqWL1s6gXTq8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=c395ec0/qRcxehoV/imb46unThPl4ejYSj4m319y3260eMyXv0Jcz16O+eOcES3sFAMR++KitTX6anJuFbOpTcHxrw1ye2UxxXNw/k6mHDMpUB8DVlek2iNOeleJsDnJTHOKIxDWAf7WL5WPo8uASAOtZoOsx6q0cNgxn4bbDe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kl9gM3Q0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789116007; c=relaxed/simple;
+	bh=Asw33f3GumBAq6FxPBT4oBU8UdfCUgzjqdFqoIg+Zbk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tLEZnUZYjUGtauj6jAQTaIdhzddKB2nSufBTb6Fh7i53Rtj5zcvZD1Et8+/xTuwn7nd6w6qxrZTNQOVTmF5JtDtIc6FUdyp0buurrmUk56SHnmko7g3Tu4tajsvZgqWoDX1wfjuqAiLWNOG9nONY3tRty1VsYdK91aSrLhYY1MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i3/kHqhR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kl9gM3Q0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 829071F000FF;
-	Fri, 11 Sep 2026 08:38:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i3/kHqhR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BB251F000FF;
+	Fri, 11 Sep 2026 08:40:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789115923;
-	bh=EU4t0GdLYfH+AB9TmcAvgJlDtdIr/qHFDD4vtwuQDDs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kl9gM3Q0G17zNE97ZKMLA3B8a1KsB/4Druh/sZgHKKjG6WAgaI1BiKnywTLPFS7h2
-	 8Ytm1UcHrmp1eK7YC2MxAe66LTi4f1Xk0KxMMcV75E4J3P+KUm4g2P9fN6Ml9qWvbO
-	 WP7h3Pt0GN+HV6/Q3hxej8atFRc6tlsnWkyvs5/cIm7Jsz5xgB+XizSxeA8o7upI1i
-	 t6Sc5aN5Jb2Fzr/1bMj7J4uC+EvJkhLBVmVOFS6SKbsdpiQTt1FzWdagrOTpXWPpO3
-	 1FO8EzmICvjXniQarDothy2Pi2bFFnJLMqeWDrdJaX8akc3gEAo8YNJdhQ8kSZECNW
-	 xDUOHyOtZzdxQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: soundwire: qcom: describe multi-master
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <d7b3d0618f20d18f714217d9604a7c09a3539578.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
-References: <cover.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
- <d7b3d0618f20d18f714217d9604a7c09a3539578.1789114385.git.srinivas.kandagatla@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 08:38:43 +0000
-Message-Id: <20260911083843.829071F000FF@smtp.kernel.org>
+	s=k20260515; t=1789116004;
+	bh=PDOYUZuwtgUUJzgYfKVjJWmdacaawYw2JsVspJdfnrQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=i3/kHqhR53owCXIE+AZPwhEvBlH72W/6CygfGPnC/8NOEqwPJAJCXNNt2M7GOG6a5
+	 VyjlqVXng/IzsMQO6rweVR0aZd8fRDebl7MANzX4aRt56n10DIn9WeBiuAY1fF6zBi
+	 oGM1VCd+pH9l7kdET+iSYXcsiDOhH6LdgtjP/hTknIh/tYbQtcoHQt/8xMNqD8W5/z
+	 E/AHM7KdIHAV5NO9WpRFBPijXYpL81NRaP3bdqE8TiiNLJSaiX1UwW0CI0EQp6y4zO
+	 Ijy1YO6eApSc8StiN6RIHx5HZqjBitUTmpoiSWx990GZoi0Mdzrd4StmADKXUMPtte
+	 vg65tBS3CIsHA==
+Date: Fri, 11 Sep 2026 10:40:00 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Chang Yu <marcus.yu.56@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	Joshua Crofts <joshua.crofts1@gmail.com>, David Lechner <dlechner@baylibre.com>, 
+	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Shi Hao <i.shihao.999@gmail.com>, 
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: light: add as7343
+Message-ID: <20260911-judicious-pearl-millipede-ee949a@quoll>
+References: <20260910063813.56419-1-marcus.yu.56@gmail.com>
+ <20260910063813.56419-2-marcus.yu.56@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910063813.56419-2-marcus.yu.56@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Missing `-cells` property definition for `qcom,multi-master-peer` =
-causing dt-schema validation failures.
-- [High] Undeclared `qcom,ports-ch-mask` property referenced in conditional=
- block breaks `dt_binding_check`.
-- [Medium] Single-master configuration block fails to explicitly forbid mul=
-ti-master properties, silently allowing incomplete multi-master nodes.
-- [Medium] Commit message explicitly lists two properties but the code adds=
- three.
---
+On Wed, Sep 09, 2026 at 11:38:12PM -0700, Chang Yu wrote:
+> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
+> with i2c address of 0x39.
+> 
+> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
+> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> ---
+> Changes in v3:
+>  - Add missing include for gpio.
+>  - Expand GPIO descrption to include hardware synchronization.
+>  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
+> 
+> Changes in v2:
+>  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
+>  - Fix node name and unit address mismatch.
+>  - Include MAINTAINERS changes.
+> 
 
-commit f97a4adf5082bcb22d04e3fb5cc90da2b743d260
-Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+You need to address Sashiko review.
 
-dt-bindings: soundwire: qcom: describe multi-master
+Best regards,
+Krzysztof
 
-This commit adds properties to describe multi-master mode in v3.1.0+ Qualco=
-mm
-SoundWire IPs. It defines roles and peer relationships for logical buses us=
-ing
-multiple DATA lanes.
-
-> v3.1.0+ Qualcomm SoundWire IPs can be paired to expose one logical
-> bus with more than two DATA lanes. Add the two properties that
-> describe such a pair:
->=20
->   qcom,multi-master-mode  role in the pair ("primary" or "dependent")
->   qcom,multi-master-peer  <phandle, bus-port-offset> to the other IP
-
-[Severity: Medium]
-This isn't a bug, but there is a slight inconsistency in the commit message.
-It mentions adding two properties, while the patch actually introduces three
-properties, adding num-lanes as well. Should the commit message be updated =
-to
-reflect the third property?
-
-> diff --git a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.y=
-aml b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> index 8e6973fa229c9..34ce8caec0a86 100644
-> --- a/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-> +++ b/Documentation/devicetree/bindings/soundwire/qcom,soundwire.yaml
-[ ... ]
-> +  qcom,multi-master-peer:
-> +    description:
-> +      Peers in multi-master mode. Each entry is a
-> +      <peer-phandle, bus-port-offset> pair. Peer N's DPn slots
-> +      1, 2, 3, ... occupy bus ports (offset+1), (offset+2), ...
-> +    $ref: /schemas/types.yaml#/definitions/phandle-array
-> +    items:
-> +      items:
-> +        - description: peer phandle
-> +        - description: bus port offset (last primary-local port)
-> +    minItems: 1
-
-[Severity: High]
-Because qcom,multi-master-peer is defined as a phandle-array, doesn't the
-referenced target node need a corresponding #qcom,multi-master-peer-cells
-property for dt-schema to parse the arguments?
-
-Since the schema uses unevaluatedProperties: false and does not define
-#qcom,multi-master-peer-cells globally, it creates a situation where adding
-the cells property fails schema validation, but omitting it causes dtbs_che=
-ck
-to fail. Can this be resolved by declaring the -cells property in this sche=
-ma?
-
-[ ... ]
->  allOf:
->    - $ref: soundwire-controller.yaml#
-> =20
-> +  # Single-master (no qcom,multi-master-mode): needs port config.
-> +  - if:
-> +      not:
-> +        required:
-> +          - qcom,multi-master-mode
-> +    then:
-> +      required:
-> +        - '#sound-dai-cells'
-> +        - qcom,ports-offset1
-> +        - qcom,ports-offset2
-
-[Severity: Medium]
-If a user writes an incomplete multi-master device tree node and forgets to
-include the qcom,multi-master-mode property, will it silently pass validati=
-on
-here as a single-master configuration?
-
-Since qcom,multi-master-peer and num-lanes are globally declared,
-unevaluatedProperties: false won't catch them. Would it be safer to explici=
-tly
-forbid the multi-master properties in this single-master block by setting
-qcom,multi-master-peer: false and num-lanes: false?
-
-[ ... ]
-> +  # Multi-master dependent: contributes DATA lanes
-> +  - if:
-> +      properties:
-> +        qcom,multi-master-mode:
-> +          const: dependent
-> +      required:
-> +        - qcom,multi-master-mode
-> +    then:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: qcom,soundwire-v3.1.0
-> +        '#sound-dai-cells': false
-> +        qcom,din-ports: false
-> +        qcom,dout-ports: false
-> +        qcom,ports-word-length: false
-> +        qcom,ports-sinterval-low: false
-> +        qcom,ports-sinterval: false
-> +        qcom,ports-offset1: false
-> +        qcom,ports-offset2: false
-> +        qcom,ports-lane-control: false
-> +        qcom,ports-block-pack-mode: false
-> +        qcom,ports-hstart: false
-> +        qcom,ports-hstop: false
-> +        qcom,ports-block-group-count: false
-> +        qcom,ports-ch-mask: false
-
-[Severity: High]
-Does qcom,ports-ch-mask need to be globally declared in the top-level
-properties block?
-
-The dtschema meta-schema requires all properties evaluated in
-if/then/properties blocks to be declared globally, and qcom,ports-ch-mask d=
-oes
-not seem to be present in this file or inherited from soundwire-controller.=
-yaml.
-Won't this cause make dt_binding_check to fail with an undeclared property
-error?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1789114385.gi=
-t.srinivas.kandagatla@oss.qualcomm.com?part=3D1
