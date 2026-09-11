@@ -1,154 +1,143 @@
-Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010029.outbound.protection.outlook.com [52.101.46.29])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2951466B01;
-	Fri, 11 Sep 2026 09:05:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.29
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789117554; cv=fail; b=QR2M3bPwlfW0aj5V99eML6plig9DTLyqUeQ4Vna9y1w8XERBFnNioMFEORmCPM/PzDtfraIGOAQg2TtNLR5K8zRSqSM0Wc6T1sPTH7O0p7xL6zU6MuXAx8ed2UZY3Mzor1MjpnoCe67Q151YX5OL9jP2DVh0fLkcotGmq86Cpps=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789117554; c=relaxed/simple;
-	bh=SelO8Vwnwp+VLht81Hq0QbVNHgLZEqjupD2cP2nc/dY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Grb8tN409zViwu96L8tJz6G69aeEa7cZO41X6R9lTBecWOK7uujw/AYDzp3JFKKknQJ4NnmZ3mGa7jHO1TfvYqxb6IU8PcoeniZILy/qDolD6vW33KMKN8MDMtLmZXo6GEfwO/ePj+0YEkfzcRdWHhm/kCYdvA3jo1a+q977tqI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=tg/M7Od4; arc=fail smtp.client-ip=52.101.46.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C49B146983B
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 09:07:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789117652; cv=none; b=UYGjjezClsL6zT44pF32dNnTal/B8185XRzSSuE3RziofRbCiIkni3075smTm+uezomfK3wm+UA6J3gxk0FYjnlv9VPe5sljfzl3OkYrijq+xJ1pNHD0IkkXAJ7jrdYLR5tHRRPj/AVQXV8vRB2Em6BIddFKFzh5vp9HTxhpTkk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789117652; c=relaxed/simple;
+	bh=/dL3pCPr3MM7dPLehJhDV3xFjQwplqUCQL5XgTxif+k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PgngvEOsgdt77czrDk8rznJDAdPP8MWEVVe3I7YEmPG0T61X0VLExNu7VzpBMasY0oSkWGIXSI4lf/VRRfpfLMehfKLmF2HSNaSy8VqELlGdVhehtn6Xc1RALYeWRPCTKSWYpQW6Hi1OcXUEUS8pCDXEoKLyS1JXbq5VH2BOLzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ozwuuEUQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="tg/M7Od4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q8uvdHtEorCBJlPmQiRc3WmKoLm+zY2HOv9yyAadQFNZ9CcfMaMU6EOV2a0tf68bpBH7cEMJcImh+50Yfql5s/jxLRo8cLlbeDVVCLUolxIQ8/BMtXD0LgH+IuxAJ9/79Xsuz2VXeFFi6AkDXT71F72xcS9T2I4Nr2j/qa4x0i/NbsiCzz9R9cUcbsFaxinYYBoItjkqWQKKhCFkP5Ch5TWVgJU04BsxkqkdBDANzyD+ZpEoBCTR2za9yGChQffX3aE3gOyOuJgU7ILgvHzWx6JYDSrwCl5AVGLjcujadRlWCahcD7WJpJ+A8J1rv8aWZmTvDF87hP8yjZgdldonFg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TpLVCjbftZqX6j5Uvx2Mmuajrsgx0daZYrVW1SI7ZH8=;
- b=viTxxSqmnbMpFE+0KK7U2g6l9WPjzVTd5VK/xi5XRtkBi2o2AwK0NYBLaoVCss96k4HHS+hmq1ef+RFSf/B4efWaY2JjxNY8eIg4VtIyrg3d/2u98jY7pezVO5verHyCJJSO2Cu4cWRg5xnbCyA7V9ZBKHW/b09UFudKHdXQj7c8eF6kkqqnqtxFN89jTZV+AOG47/w3ojOkC/BwwgyPlxHiX51E/WCugNfNAofADSJhB8na3FdMqyB1iqu5D87QfI7DtsZWjdDpfLtD20ZG2LD6nGcv1Sp8GdqflpMCR0jiS8yzWddG5jf+BCTJMeALEQbNokGiPZGb31yYo0YGgQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TpLVCjbftZqX6j5Uvx2Mmuajrsgx0daZYrVW1SI7ZH8=;
- b=tg/M7Od4vcNBUtd+Gr5XfJ46xU39v+aqp7Q7nbiPYhlsq2qUYjleeHXKdqtB3IJUh92K74TbKXUrMAxTQx6OnNd3Czg7sumCXWlRfn5hczrUX4TPhju/uSiRLFw19htIucNABgyY98ryVDQEdJ5I6S3mnCEhCFfFhI+qPM7Hw36ODb+KeZi16tmElTDGpTY3IKFNe1p6hivk4xjp0dGz0Os6fMHXEEq7c6ofBXw59RkjLlNM0BigRIIQ8HL29l2izgoDTs6w+Co4H7hDTmuME5/VUjhHjwz0tVNTZO+iSzzRlk71EQN+8hXw4Hwg2/EFqtRKJy7+VBlWXYwhvM3MfA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
- SJ0PR03MB6326.namprd03.prod.outlook.com (2603:10b6:a03:390::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.10; Fri, 11 Sep
- 2026 09:05:51 +0000
-Received: from DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
- ([fe80::abad:9d80:7a13:9542%3]) with mapi id 15.21.0406.007; Fri, 11 Sep 2026
- 09:05:51 +0000
-From: adrian.ho.yin.ng@altera.com
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Subject: [PATCH v7 2/2] usb: dwc3: add Altera Agilex5 support to generic platform driver
-Date: Fri, 11 Sep 2026 17:04:53 +0800
-Message-ID: <8eb26a0c7f3724b748a07fa016efad937d2a0a56.1789114385.git.adrian.ho.yin.ng@altera.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <cover.1789114385.git.adrian.ho.yin.ng@altera.com>
-References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com> <cover.1789114385.git.adrian.ho.yin.ng@altera.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SI2P153CA0009.APCP153.PROD.OUTLOOK.COM
- (2603:1096:4:140::18) To DM8PR03MB6230.namprd03.prod.outlook.com
- (2603:10b6:8:3c::13)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ozwuuEUQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CBE1F00898
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 09:07:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789117650;
+	bh=/VGcQS0ZeRYJfc9e784tdLXi12bCcFoGI0t9ozoHPBo=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ozwuuEUQ8Z5se6zO5/fvu0pYLAOc5jGBs3n7Ao8KmKbvgwFVyNUnWcGSZguymLUAt
+	 RVKzsVQaratM2qCL/JX11MdyergavYIT/AlSFNnuGbejufqwsbMAaHjmmUCx7QSWAX
+	 gkSSivPrnNsep6lmjwegM8eFlO37g5AD3iliEMWZVSB9ellqVprjaNTpKigOOglQX4
+	 A07yKT36YEPA0DyRIxKNtXe/lzyMTs9aSi5aHQJz7Dato7ohCLajMILy+cSmGin6G+
+	 dg8cO5vN/lLlf3Dj3aYxfuGDuqOkh2HnLG2wOopDnvUs9h4DBtVxyeNV0hoAqF2pr+
+	 wf2Osx0fo8QlA==
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5b568dae0e8so685130e87.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 02:07:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwvdX+uuKD1aISZKo3b5ebl62Na/Kr06R0Ngde79XGDgF49WCoWdgCzCfU4KWKp+o1o1XKjc7jAPTbN@vger.kernel.org
+X-Gm-Message-State: AFuF++nmfKu1FIvHlbxfBcI065VHPyaL050LWPpQVFn4Tc4AMLcbcQVg
+	x6/QyHCgHQ6eT5B5jZ9p0Rlw9839KGb5vejUcqiZr6DFo/Zzwwtw8XpyVplAZTLe2thlBhmQ841
+	+wV9bZAGaosz8fxxo60fCB0lmU3FfLDY=
+X-Received: by 2002:a05:6512:3054:b0:5b6:1a7c:fd99 with SMTP id
+ 2adb3069b0e04-5b8a0348f4fmr751726e87.63.1789117648568; Fri, 11 Sep 2026
+ 02:07:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|SJ0PR03MB6326:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e254796-9ef2-43af-d6f2-08df0fe3e061
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|10067099003|6133799003|22082099003|18002099003|55112099003|11063799006|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	hKM1OUwOKZ7q2QTWuiV7xsa1gBAWjJ7egmfu9dmIRzo0LjhY0a3+Z+Op2/DuXXjTFexVzv2ZdHdMPGE2TCT8wa6ss9bq1QTpm4sbmnF0s17XHMrug9ZLf3GHgjU5YGCdeAvTNBU+DJMA+Gy1BFAvxdEF6JFxpk1QeWtM+ZQuYLf7zB0oF+5K7itEfOOsYDbGl+LaUHW1obb6NWt3iPljiB1BDFBsVLMQWohpSp9ONJxz13bnPiu1z82vSOBWvHSTYgiJnaBT9TTJ3qr9q1FWZMSwHKgcgR+dkQeOgd4cRYDHa4lynkMLfQcpQUo3lzwyDt6lxOnFnWquk6W6ws5xLVbld4dCJxHQ3wELHMiDENiEz/3Mx7jt1lNx/5Gs+XYRREnwcsOXdLK+k/U59bMRK5nfkiA8OqsdE25VY/f2On2rLuKIsBZnvlxZ+oFM8wYv2CPLXQ0HvZHjZ8e9vOI7T+CF4+2btMP5Y+XI7SNFgm1tlsQ2/14Npx6j5iR/i3MSbavFpL1zX4pMun3FY8hK9WYtOXh7kJ30fLhfyuEULrZy9Jarh80hASduBhNIYvO5BAGAdc5OPXvZoFW1fFg08QA0rtAXkY9HD8V7Q68YN36Py8kG9rTeOgl4DJ6VEfMe273mohTcnRSBQ1qb9szyVJF6tXUTOTl7A5TPXkBZ8OI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(10067099003)(6133799003)(22082099003)(18002099003)(55112099003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Y8i9CoIEqLZWwcQ+eYgj1TkZYcOpysS1XUBAfEJpc2J2BI9GIOgILBASHnvU?=
- =?us-ascii?Q?mw2S8xX1TzuZvsVXofHVsbsVOe/rfNC6VHlHC0qHD7RHtXAwBKF0LVmUxUxa?=
- =?us-ascii?Q?rHdcDYp1XTeUvyz0SAiUgV/TOdA8Sod2Pr26IXQtU3sogJ6JVfQuCX+2njPC?=
- =?us-ascii?Q?UaMfxHo3FPZDdU8mZ74kPjWHwn4GNqNA6kX4h8IZdAC8xFHDIMD7JSqL4RYJ?=
- =?us-ascii?Q?M/W08zMPGaRb/qiEJ6kbo2o0OwaA4DjQqyU+XeCUMGIp2NgYOvsfXGQW1igm?=
- =?us-ascii?Q?Yr04hGiCjwt+uAtjNwmMTx6LuFYqHk4ChGlZeZh2N0WT19xqX5X73z+Qa6v7?=
- =?us-ascii?Q?5W/JL9BM3MNpsR7jpm4fem9xmenjqHNX+mwClP0sCRqEN3mtvBEXKnR7Wsh0?=
- =?us-ascii?Q?TYsMiPdUd1VBk0voUkEPcK0jgMci54TcS1us+/I+TfzXVki5ZNyq2exVIX0I?=
- =?us-ascii?Q?F6P7fvQJxXWYU+nUyFywCTVoKQWn56Sqvf9YYFcGPQieJLUzjwjhZBHn3C6w?=
- =?us-ascii?Q?f57TlAlfDhViEyTBcUIfXDeUqf8bGwFK4vJllVQA0FL+F/2Y5o8zwAaTXzvr?=
- =?us-ascii?Q?yHVRDsdG3O5swQa/M4rEkAxGuXPmKKgHwd9UhbDlM5nrzCSOQXaNP6sDzlYN?=
- =?us-ascii?Q?s+vIBF1jpd1c3Vea+LomDsPa5eeAsVxYtcRMOHzNnh+NWoAE/GxbPWs4ok/n?=
- =?us-ascii?Q?kjiJeclkufTN1y1dWpgSGyd1nQVPucV1GsrI2rwUlak6K5pCCCwZH/sRjgy6?=
- =?us-ascii?Q?PBgZ2WvZFNdg/9Mbaj/DkKsXbTV26o05AqQIijNeBlp8tntHRys3KhgNtmXQ?=
- =?us-ascii?Q?APlk/kGZzyjyVWrDM2JHeG3/h7QSP5mgO94M2OSNzYt8UlnuoDcZQwLNQJUa?=
- =?us-ascii?Q?wSSdNI5oAt/bfzD8eRzESTxhGJZ38duz655MG1OEgPyS5mCiMOnuieDmGcPf?=
- =?us-ascii?Q?1F68hOLIigKU1Vs+SOZ4XSZBa78YtnttYqh+XtFJBZSGiHed+VWVrbbMYSuB?=
- =?us-ascii?Q?ss0JCt17CqBUK+mpQx+Hd8oiVAFWHi5UuoXj0kzhIL5NSMjaRsuNSzqrR2zW?=
- =?us-ascii?Q?oyA4yJ5xjI0yFQhoTnax840LcpZMcM/ELHyxNpCyo7V/CwnLPIiEKexGZao4?=
- =?us-ascii?Q?ie9j8DRaVmk1qI++lipvtME7aivW/kNkVNWI0BW2sFwEAWsG+7CmLVJ9BbyB?=
- =?us-ascii?Q?BV7Oqlrrq7nM6pkel+geaO5eZvM8F7MHYGVzSbsa2GPrLRXxP7P6jVqp4OVd?=
- =?us-ascii?Q?4gN66+/uSRCsNpAJ2BHQx5VBZSclKI5qqQgQPqrfxoGSmDvX7X1yBp4Ify5e?=
- =?us-ascii?Q?JszLLMyn2O6lTSBMSTrMIe5zqo+76K31nNAEKPHIIGwsfRpYEXBJsUxF+zYz?=
- =?us-ascii?Q?aXh+mLqPpgve9XTWHrTzlfaHh4U5CzOoSZkLkIn8wVqwKbctrsb0M9LaRr+w?=
- =?us-ascii?Q?CdoAYbkNL6ObOtSGC+Qa21G2HW3VUSvNLG4tYpqvVQPYilSTNZ8zUK6bVNh9?=
- =?us-ascii?Q?17U+qtZCoW6p7z+s2pwNBM+6SVx6YQ27DTMATttoHkt6tehaNZ9hOxRQlrDy?=
- =?us-ascii?Q?1qds4XsUhFrIhg7gk3JrmTesYjmJVLQsZL0TH4l/ddpH4P716+dJiJ6CDz3t?=
- =?us-ascii?Q?ODuEZWc0NKdQcGOsc4twFNjxX/t0clpvdWv7z5aS++lLgjzaTod6EdCNsBCt?=
- =?us-ascii?Q?78Yu+l+fPWZFBKMgoN6UO7O/Ly+owrjX9v8rh7cMwoPpjkanxLHbyqLnRn/m?=
- =?us-ascii?Q?lOOKviRkoQzFxYpEnJlN35LfQMBs+Fo=3D?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e254796-9ef2-43af-d6f2-08df0fe3e061
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 09:05:50.9976
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4+mUxHFZZPYi728p0ZuuT+lXSWYlGWhW+qVgOZQn/NycsQRosEe2TeVEJehj5X7l7AJfrrVHfoJY3+pPg+JFtLSLHlpY7ZxTiiYV00x+IKg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6326
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
+ <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
+In-Reply-To: <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 11 Sep 2026 11:07:16 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
+X-Gm-Features: AcwNN1VlOYTrU3ZTl5zPPP6nearnDuFcxxJJedZ2i25yyIxB1qlTUVLyGBWuTQs
+Message-ID: <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+To: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Russell King <linux@armlinux.org.uk>
+Cc: Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+On Fri, Sep 11, 2026 at 5:44=E2=80=AFAM Ethan Nelson-Moore
+<enelsonmoore@gmail.com> wrote:
 
-Add the "altr,agilex5-dwc3" compatible string to dwc3-generic-plat so the
-Agilex5 USB3.1 DWC3 controller can probe through the generic DWC3 platform
-glue.
+> Because I think it's cool that the kernel still supports actual Acorn
+> hardware, I patched gcc 16.2 to restore ARMv3m support:
+> https://github.com/EthanNelson-Moore/gcc-arm-retro
 
-Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
-Acked-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
----
- drivers/usb/dwc3/dwc3-generic-plat.c | 1 +
- 1 file changed, 1 insertion(+)
+For the record: I also think this is cool.
 
-diff --git a/drivers/usb/dwc3/dwc3-generic-plat.c b/drivers/usb/dwc3/dwc3-generic-plat.c
-index ca69ac0eb07c..8781d7ec6b9e 100644
---- a/drivers/usb/dwc3/dwc3-generic-plat.c
-+++ b/drivers/usb/dwc3/dwc3-generic-plat.c
-@@ -232,6 +232,7 @@ static const struct dwc3_generic_config eic7700_dwc3 =  {
- };
- 
- static const struct of_device_id dwc3_generic_of_match[] = {
-+	{ .compatible = "altr,agilex5-dwc3", },
- 	{ .compatible = "spacemit,k1-dwc3", &spacemit_k1_dwc3},
- 	{ .compatible = "spacemit,k3-dwc3", },
- 	{ .compatible = "fsl,ls1028a-dwc3", &fsl_ls1028_dwc3},
--- 
-2.49.GIT
+One question: is ARMv3m there in Clang/LLVM? I only
+know that we have ARMv4t.
 
+To the bigger question.
+
+The community has a built in tension around this:
+
+- One camp that are enthusiast like yourself. That kind of people
+  are running the show inside arch/m68k on Amigas and Ataris.
+
+- One camp who get their paycheck from present day companies
+  and constantly on top of the latest technology. As can be
+  seen Qualcomm just taped out a brand new ARMv7 SoC
+  named Kuno, for example.
+
+As you can see this leads to a bit of tension.
+
+What I'm after here is not one camp is doing the right thing
+and the other one is not, because that inevitably boils down
+to the question of what is the meaning of life. Or "what is fun"
+actually (Torvalds wrote a book named "just for fun") and
+either case could be argued to be quite fun, or meaningful.
+
+> I am working on a clocksource driver, which uses both timers (to
+> hopefully fix the awful time drift), and removes the dependency on
+> LEGACY_TIMER_TICK.
+>
+> I also have patches for several cleanups to Risc PC-related code.
+
+As SoC maintainers I think we want to hear about a plan to
+migrate RiscPC to device tree should it stay supported. And I
+do not think it is that hard to achieve with the right focus by the
+right people.
+
+Actually testing it on actual hardware would be a further
+requirement, so we're not doing dreamscapes here.
+
+I want to heat from Russell on this.
+
+The ARM kernel started as a passionate project by him, on that very
+machine, and he should decide if we keep it going.
+
+IIUC the Clang/LLVM compiler has essentially solved the compiler
+issue.
+
+> I am aware that this has no actual use case, but it was fun. No LLM
+> was used for any part of the work.
+
+My position is that using LLMs is good in many ways because
+when used right by the right people it allows us to keep a wider
+range of hardware supported.
+
+Yours,
+Linus Walleij
