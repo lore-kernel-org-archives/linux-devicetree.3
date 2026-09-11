@@ -1,701 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch [109.224.244.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72AE40EBB6;
-	Fri, 11 Sep 2026 10:02:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E44303CF678;
+	Fri, 11 Sep 2026 10:10:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789120980; cv=none; b=TJwY0x+9ELCWGRDHnTMBq2WVtGYjG6C5adtLRKsKn0uArcEkj+EESRm5snvYpZb9o+kCt+s7X3UEE9i5DrtHiIUTMkIOLTf4tPNy27BKHmLyqJFwGym4fgcZdU3GbW40UxyAnnQhkfWJOdq+x8WH5k8+e7NBFvP3aYer7LX1Yis=
+	t=1789121455; cv=none; b=e98G82q+DgaT9qGj5+CrvSImOsK1QmqB8sKaPsZCgvtV+7KoZv92CtX9Uvp0NDHrLwP28r7q8jJb09MQ7+WRZfHNJmThQLMjdNb32kyCcOLQFXW00aPU2UGPq3KKD+D6vSwXrmyul6WlkGzXnRMRuJF7HAL6a5LNHG+AqYG7qZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789120980; c=relaxed/simple;
-	bh=NDFasX7f5O77tue5nZiVpOSge3mAPGUl0jJk43QC0GQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=M70OrodduLBUTDe56qvBE4urutNXQ4FDACaz9FX2y9G+Ub9Mp9rAcjSOrO0YKwIpyAvQftwOQ4mHmcXeEzwPa2z8Fb253ag8O+WHp9dLeDvIpFqlFjeT6X7xSMrgZz3HQEIuh+OBc8Ni4HCCPCkDuyxnG/fLMla6b5F0BL7dkvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Tkr1lEgH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789121455; c=relaxed/simple;
+	bh=MSWevP53C8Q6MrXfciBdxj/Cdx8QYxWtWbfw+VGEZ2M=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=UC0dc2e/lLIBADLsGQXadUo3qMY4Hwn9uWFXudq49RozrVpsL94AI0ej5v7NYzU9cTSDTK9anbcPNLCXct0f03t4sO6/XnC4N8F4s89KMIGOCO01t2GMqv2vz24xM9c+7H6KcFsqWbehlwq1SAOlNstFYnVRM/ff7NbN8gpcJsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Z5RSvMEK; arc=none smtp.client-ip=109.224.244.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Tkr1lEgH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C303DC2BCFB;
-	Fri, 11 Sep 2026 10:02:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789120978;
-	bh=NDFasX7f5O77tue5nZiVpOSge3mAPGUl0jJk43QC0GQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Tkr1lEgHap+NpXu86YHPBk/T8iCtcM1N2J++4nwBW8MG8WRQA1GY03pOqDnFtXYTH
-	 2f3sD0YuTlPzA066k9bea+jLnZKyiS4Cbvu3m1b4n6y3N9FVAH+BXTp4o4V0UOhcc1
-	 BVe5Rz1NTFQDzaFFLYde9VJ9xv3mDo2iShnX0n/8OZxh7TwVqY5+o4nDAYmAX7q4PR
-	 w91vXOAIvrD/T1PMFghEvFjkj9IH5HZF7SM4ut79OPvr8pCBOAarZ7T+n+sQHT2wCc
-	 f9a2rxzC/eMAay2tZoikXS3Z9evszpME7U3IzPv+qUYPSEjuzPzEvihTTXnKfG6XG+
-	 yfnuPvvsqgrQQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A5A16C88E4A;
-	Fri, 11 Sep 2026 10:02:58 +0000 (UTC)
-From: =?utf-8?q?=E5=AE=89=E5=AE=B9_via_B4_Relay?= <devnull+HystericalDragons.proton.me@kernel.org>
-Date: Fri, 11 Sep 2026 18:02:45 +0800
-Subject: [PATCH v4 2/4] arm64: dts: rockchip: Split out the common NanoPi
- RK3528 parts
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Z5RSvMEK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail; t=1789121442; x=1789380642;
+	bh=TR16N+4ADKrFb2rQCDGPtxGouDfb08VqJfQdDPg1AHY=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Z5RSvMEKdVV48+7XYNH7tcrORPbnewIZTKfKlcC8ybImIlghjfTx6vAJeaaBCdEPh
+	 RDotQMQQWKj2gLXqU05EyW+lqe6P7gWsA0WihbKJotPYk9D6XyvFD9U8UP4Oj58lVC
+	 GknWEAVeXUUICmnAdU2DNwH/4soaNdTKigYLIgaZ3ZzFU9vDPxAhRNOVpzl7M2knZA
+	 IhUySoVrKsiyiYETYgbywxlwzRz5REjbkTGrUvhm9SU/pCZxiXkjwEm0L6/ETlA6AS
+	 mgcnWTr5Nb+bWEPJjwBPIEvRjFEl89w4eqxuCau7D9FoiCd6qPWmyJKy7eO8F7H4Gb
+	 4YYsKu1TdHMQQ==
+Date: Fri, 11 Sep 2026 10:10:37 +0000
+To: Chukun Pan <amadeus@jmu.edu.cn>
+From: =?utf-8?B?5a6J5a65?= <HystericalDragons@proton.me>
+Cc: Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "diederik@cknow-tech.com" <diederik@cknow-tech.com>, Heiko Stuebner <heiko@sntech.de>, jensen <jensenhuang@friendlyarm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org" <linux-rockchip@lists.infradead.org>, "jonas@kwiboo.se" <jonas@kwiboo.se>
+Subject: Re: [PATCH v3 1/5] arm64: dts: rockchip: Reset the NanoPi Zero2 PHY from the MDIO bus
+Message-ID: <8wGuvZ3pQ9BL5NIu1j8OzFUTjHePGJcrftcKEe0xkosyORLPJUmdHI7nOCC8o187x1s8ev84HLiBKdNjqQvu3U3upIeSp2A4AImHdD4DOuw=@proton.me>
+In-Reply-To: <20260911065500.3145846-1-amadeus@jmu.edu.cn>
+References: <20260909225002.976-1-razor1702@gmail.com> <20260911065500.3145846-1-amadeus@jmu.edu.cn>
+Feedback-ID: 91982645:user:proton
+X-Pm-Message-ID: ca164b9d304b3858ce2f8f1bdc7902d6623f2398
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-r28s-upstream-v4-2-fb6c85f226d4@proton.me>
-References: <20260911-r28s-upstream-v4-0-fb6c85f226d4@proton.me>
-In-Reply-To: <20260911-r28s-upstream-v4-0-fb6c85f226d4@proton.me>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Chukun Pan <amadeus@jmu.edu.cn>, Jonas Karlman <jonas@kwiboo.se>, 
- jensen <jensenhuang@friendlyarm.com>, 
- Andrey Korshunov <razor1702@gmail.com>, 
- Diederik de Haas <diederik@cknow-tech.com>, 
- =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=14628;
- i=HystericalDragons@proton.me; h=from:subject:message-id;
- bh=VQNKFK/7WLlIKiODmRr2dRbp9QoC8D3CcasFo2DcVuU=;
- b=owGbwMvMwCUmepz3XUtTHjvjabUkhqzFFy9W/pGYalH0tmH5jrLrRzf+Xv/VOyTfc+Jd244Dq
- 9tvOjS87ihlYRDjYpAVU2SR3VQdKbQqemYRi9RxmDmsTCBDGLg4BWAiEzcy/M+I/SG99h2XwIZv
- Hpn9Vlvu3Z07oaFgzU6R8GOJCad2a0QwMrzjlDuxUH9FzOfZU0U1WEx+GTksOy6gOWf6h3qLOew
- TDFkB
-X-Developer-Key: i=HystericalDragons@proton.me; a=openpgp;
- fpr=1DB27B5912AA5B9972041AC715C70DEE84826E07
-X-Endpoint-Received: by B4 Relay for HystericalDragons@proton.me/default
- with auth_id=1004
-X-Original-From: =?utf-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Reply-To: HystericalDragons@proton.me
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: 安容 <HystericalDragons@proton.me>
+Oh, sorry. You are right, and so was Jonas in his review of the identical H=
+28K patch. I should think twice that thread before doing it. I was too hast=
+y and failed to reflect the suggestion I had received. GPIO4_C2 resets the =
+PHY, not the bus, and describing it under &mdio1 also breaks U-Boot, which =
+reads `reset-gpios` from the PHY node ( `drivers/net/phy/phy.c` ) and lacks=
+ support for bus-level resets.
 
-The FriendlyElec NanoPi Zero2 and the NanoPi R28S share their power
-tree, storage, RGMII Ethernet, RTC and debug console. Move those parts
-into rk3528-nanopi.dtsi so the NanoPi R28S can reuse them, and leave
-only the board specific nodes in the NanoPi Zero2 devicetree.
+I had only tested generic-rk3528 and didn't check whether a nanopi-zero2-rk=
+3528 target existed. Checking my own setup afterward, the R28S I develop on=
+ has indeed been booting a board-specific U-Boot target with the PHY-node r=
+eset all along, exactly as you pointed out.
 
-Suggested-by: Chukun Pan <amadeus@jmu.edu.cn>
-Signed-off-by: 安容 <HystericalDragons@proton.me>
----
- .../boot/dts/rockchip/rk3528-nanopi-zero2.dts      | 271 +-------------------
- arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi    | 279 +++++++++++++++++++++
- 2 files changed, 280 insertions(+), 270 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-index 97d85124d2..48e4273872 100644
---- a/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi-zero2.dts
-@@ -2,41 +2,13 @@
- 
- /dts-v1/;
- 
--#include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
--#include <dt-bindings/pwm/pwm.h>
--#include "rk3528.dtsi"
-+#include "rk3528-nanopi.dtsi"
- 
- / {
- 	model = "FriendlyElec NanoPi Zero2";
- 	compatible = "friendlyarm,nanopi-zero2", "rockchip,rk3528";
- 
--	aliases {
--		ethernet0 = &gmac1;
--		i2c1 = &i2c1;
--		mmc0 = &sdhci;
--		mmc1 = &sdmmc;
--		serial0 = &uart0;
--	};
--
--	chosen {
--		stdout-path = "serial0:1500000n8";
--	};
--
--	adc-keys-0 {
--		compatible = "adc-keys";
--		io-channels = <&saradc 0>;
--		io-channel-names = "buttons";
--		keyup-threshold-microvolt = <1800000>;
--		poll-interval = <100>;
--
--		button-maskrom {
--			label = "MASK";
--			linux,code = <KEY_SETUP>;
--			press-threshold-microvolt = <0>;
--		};
--	};
--
- 	adc-keys-1 {
- 		compatible = "adc-keys";
- 		io-channels = <&saradc 1>;
-@@ -83,66 +55,6 @@ vcc0v6_ddr: regulator-0v6-vcc-ddr {
- 		vin-supply = <&vcc5v0_sys>;
- 	};
- 
--	vdd_0v9: regulator-0v9-vdd {
--		compatible = "regulator-fixed";
--		regulator-name = "vdd_0v9";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <900000>;
--		regulator-max-microvolt = <900000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_ddr: regulator-1v1-vcc-ddr {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_ddr";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1100000>;
--		regulator-max-microvolt = <1100000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc_1v8: regulator-1v8-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_1v8";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <1800000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc_3v3: regulator-3v3-vcc {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc_3v3";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vcc3v3_sd: regulator-3v3-vcc-sd {
--		compatible = "regulator-fixed";
--		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_pwren_l>;
--		regulator-name = "vcc3v3_sd";
--		regulator-min-microvolt = <3300000>;
--		regulator-max-microvolt = <3300000>;
--		vin-supply = <&vcc_3v3>;
--	};
--
--	vcc5v0_sys: regulator-5v0-vcc-sys {
--		compatible = "regulator-fixed";
--		regulator-name = "vcc5v0_sys";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <5000000>;
--		regulator-max-microvolt = <5000000>;
--	};
--
- 	usb2_host_5v: regulator-5v0-usb2-host {
- 		compatible = "regulator-fixed";
- 		enable-active-high;
-@@ -154,112 +66,9 @@ usb2_host_5v: regulator-5v0-usb2-host {
- 		regulator-max-microvolt = <5000000>;
- 		vin-supply = <&vcc5v0_sys>;
- 	};
--
--	vccio_sd: regulator-vccio-sd {
--		compatible = "regulator-gpio";
--		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
--		regulator-name = "vccio_sd";
--		regulator-min-microvolt = <1800000>;
--		regulator-max-microvolt = <3300000>;
--		states = <1800000 0x0>, <3300000 0x1>;
--		vin-supply = <&vcc5v0_sys>;
--	};
--
--	vdd_arm: regulator-vdd-arm {
--		compatible = "pwm-regulator";
--		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_arm";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <746000>;
--		regulator-max-microvolt = <1201000>;
--		regulator-settling-time-up-us = <250>;
--	};
--
--	vdd_logic: regulator-vdd-logic {
--		compatible = "pwm-regulator";
--		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
--		pwm-supply = <&vcc5v0_sys>;
--		regulator-name = "vdd_logic";
--		regulator-always-on;
--		regulator-boot-on;
--		regulator-min-microvolt = <705000>;
--		regulator-max-microvolt = <1006000>;
--		regulator-settling-time-up-us = <250>;
--	};
--};
--
--&cpu0 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu1 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu2 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&cpu3 {
--	cpu-supply = <&vdd_arm>;
--};
--
--&gmac1 {
--	clock_in_out = "output";
--	phy-handle = <&rgmii_phy>;
--	phy-mode = "rgmii-id";
--	phy-supply = <&vcc_3v3>;
--	pinctrl-names = "default";
--	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
--		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
--	status = "okay";
--};
--
--&gpu {
--	mali-supply = <&vdd_logic>;
--	status = "okay";
--};
--
--&i2c1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&i2c1m0_xfer>;
--	status = "okay";
--
--	hym8563: rtc@51 {
--		compatible = "haoyu,hym8563";
--		reg = <0x51>;
--		#clock-cells = <0>;
--		interrupt-parent = <&gpio4>;
--		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&rtc_int_l>;
--		wakeup-source;
--	};
--};
--
--&mdio1 {
--	rgmii_phy: ethernet-phy@1 {
--		compatible = "ethernet-phy-ieee802.3-c22";
--		reg = <0x1>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&gmac1_rstn_l>;
--		reset-assert-us = <20000>;
--		reset-deassert-us = <100000>;
--		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
--	};
- };
- 
- &pinctrl {
--	ethernet {
--		gmac1_rstn_l: gmac1-rstn-l {
--			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	leds {
- 		led1: led1 {
- 			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -270,22 +79,6 @@ led_sys: led-sys {
- 		};
- 	};
- 
--	rtc {
--		rtc_int_l: rtc-int-l {
--			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
--		};
--	};
--
--	sdmmc {
--		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
--			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--
--		sdmmc_pwren_l: sdmmc-pwren-l {
--			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	usb {
- 		usb20_host1_pwren: usb20-host1-pwren {
- 			rockchip,pins = <4 RK_PB5 RK_FUNC_GPIO &pcfg_pull_none>;
-@@ -293,52 +86,6 @@ usb20_host1_pwren: usb20-host1-pwren {
- 	};
- };
- 
--&pwm1 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm1m0_pins>;
--	status = "okay";
--};
--
--&pwm2 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&pwm2m0_pins>;
--	status = "okay";
--};
--
--&saradc {
--	vref-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdhci {
--	bus-width = <8>;
--	cap-mmc-highspeed;
--	mmc-hs200-1_8v;
--	no-sd;
--	no-sdio;
--	non-removable;
--	vmmc-supply = <&vcc_3v3>;
--	vqmmc-supply = <&vcc_1v8>;
--	status = "okay";
--};
--
--&sdmmc {
--	bus-width = <4>;
--	cap-mmc-highspeed;
--	cap-sd-highspeed;
--	disable-wp;
--	sd-uhs-sdr104;
--	vmmc-supply = <&vcc3v3_sd>;
--	vqmmc-supply = <&vccio_sd>;
--	status = "okay";
--};
--
--&uart0 {
--	pinctrl-names = "default";
--	pinctrl-0 = <&uart0m0_xfer>;
--	status = "okay";
--};
--
- &usb_host0_ehci {
- 	status = "okay";
- };
-@@ -347,23 +94,7 @@ &usb_host0_ohci {
- 	status = "okay";
- };
- 
--&usb_host0_xhci {
--	extcon = <&usb2phy>;
--	maximum-speed = "high-speed";
--	phys = <&usb2phy_otg>;
--	phy-names = "usb2-phy";
--	status = "okay";
--};
--
--&usb2phy {
--	status = "okay";
--};
--
- &usb2phy_host {
- 	phy-supply = <&usb2_host_5v>;
- 	status = "okay";
- };
--
--&usb2phy_otg {
--	status = "okay";
--};
-diff --git a/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-new file mode 100644
-index 0000000000..8d9d0056a0
---- /dev/null
-+++ b/arch/arm64/boot/dts/rockchip/rk3528-nanopi.dtsi
-@@ -0,0 +1,279 @@
-+// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
-+/*
-+ * Common parts of the FriendlyElec RK3528 boards: NanoPi Zero2 and NanoPi R28S.
-+ */
-+
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/pwm/pwm.h>
-+#include "rk3528.dtsi"
-+
-+/ {
-+	aliases {
-+		ethernet0 = &gmac1;
-+		i2c1 = &i2c1;
-+		mmc0 = &sdhci;
-+		mmc1 = &sdmmc;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:1500000n8";
-+	};
-+
-+	adc-keys-0 {
-+		compatible = "adc-keys";
-+		io-channels = <&saradc 0>;
-+		io-channel-names = "buttons";
-+		keyup-threshold-microvolt = <1800000>;
-+		poll-interval = <100>;
-+
-+		button-maskrom {
-+			label = "MASK";
-+			linux,code = <KEY_SETUP>;
-+			press-threshold-microvolt = <0>;
-+		};
-+	};
-+
-+	vdd_0v9: regulator-0v9-vdd {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vdd_0v9";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <900000>;
-+		regulator-max-microvolt = <900000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_ddr: regulator-1v1-vcc-ddr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_ddr";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1100000>;
-+		regulator-max-microvolt = <1100000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc_1v8: regulator-1v8-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_1v8";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc_3v3: regulator-3v3-vcc {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc_3v3";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vcc3v3_sd: regulator-3v3-vcc-sd {
-+		compatible = "regulator-fixed";
-+		gpios = <&gpio4 RK_PA1 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_pwren_l>;
-+		regulator-name = "vcc3v3_sd";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&vcc_3v3>;
-+	};
-+
-+	vcc5v0_sys: regulator-5v0-vcc-sys {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc5v0_sys";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+	};
-+
-+	vccio_sd: regulator-vccio-sd {
-+		compatible = "regulator-gpio";
-+		gpios = <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&sdmmc_vol_ctrl_h>;
-+		regulator-name = "vccio_sd";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		states = <1800000 0x0>, <3300000 0x1>;
-+		vin-supply = <&vcc5v0_sys>;
-+	};
-+
-+	vdd_arm: regulator-vdd-arm {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm1 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_arm";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <746000>;
-+		regulator-max-microvolt = <1201000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+
-+	vdd_logic: regulator-vdd-logic {
-+		compatible = "pwm-regulator";
-+		pwms = <&pwm2 0 5000 PWM_POLARITY_INVERTED>;
-+		pwm-supply = <&vcc5v0_sys>;
-+		regulator-name = "vdd_logic";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <705000>;
-+		regulator-max-microvolt = <1006000>;
-+		regulator-settling-time-up-us = <250>;
-+	};
-+};
-+
-+&cpu0 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu1 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu2 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&cpu3 {
-+	cpu-supply = <&vdd_arm>;
-+};
-+
-+&gmac1 {
-+	clock_in_out = "output";
-+	phy-handle = <&rgmii_phy>;
-+	phy-mode = "rgmii-id";
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&rgmii_miim>, <&rgmii_tx_bus2>, <&rgmii_rx_bus2>,
-+		    <&rgmii_rgmii_clk>, <&rgmii_rgmii_bus>;
-+	status = "okay";
-+};
-+
-+&gpu {
-+	mali-supply = <&vdd_logic>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1m0_xfer>;
-+	status = "okay";
-+
-+	hym8563: rtc@51 {
-+		compatible = "haoyu,hym8563";
-+		reg = <0x51>;
-+		#clock-cells = <0>;
-+		interrupt-parent = <&gpio4>;
-+		interrupts = <RK_PC1 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&rtc_int_l>;
-+		wakeup-source;
-+	};
-+};
-+
-+&mdio1 {
-+	rgmii_phy: ethernet-phy@1 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gmac1_rstn_l>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
-+	};
-+};
-+
-+&pinctrl {
-+	ethernet {
-+		gmac1_rstn_l: gmac1-rstn-l {
-+			rockchip,pins = <4 RK_PC2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+
-+	rtc {
-+		rtc_int_l: rtc-int-l {
-+			rockchip,pins = <4 RK_PC1 RK_FUNC_GPIO &pcfg_pull_up>;
-+		};
-+	};
-+
-+	sdmmc {
-+		sdmmc_pwren_l: sdmmc-pwren-l {
-+			rockchip,pins = <4 RK_PA1 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+
-+		sdmmc_vol_ctrl_h: sdmmc-vol-ctrl-h {
-+			rockchip,pins = <4 RK_PB6 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+&pwm1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm1m0_pins>;
-+	status = "okay";
-+};
-+
-+&pwm2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pwm2m0_pins>;
-+	status = "okay";
-+};
-+
-+&saradc {
-+	vref-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdhci {
-+	bus-width = <8>;
-+	cap-mmc-highspeed;
-+	mmc-hs200-1_8v;
-+	no-sd;
-+	no-sdio;
-+	non-removable;
-+	vmmc-supply = <&vcc_3v3>;
-+	vqmmc-supply = <&vcc_1v8>;
-+	status = "okay";
-+};
-+
-+&sdmmc {
-+	bus-width = <4>;
-+	cap-mmc-highspeed;
-+	cap-sd-highspeed;
-+	disable-wp;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc3v3_sd>;
-+	vqmmc-supply = <&vccio_sd>;
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0m0_xfer>;
-+	status = "okay";
-+};
-+
-+&usb_host0_xhci {
-+	extcon = <&usb2phy>;
-+	maximum-speed = "high-speed";
-+	phys = <&usb2phy_otg>;
-+	phy-names = "usb2-phy";
-+	status = "okay";
-+};
-+
-+&usb2phy {
-+	status = "okay";
-+};
-+
-+&usb2phy_otg {
-+	status = "okay";
-+};
-
--- 
-2.55.0
+I have droped this patch. And the remaining four only add R28S support. Tha=
+nk you for you sharp point of view.
 
 
+On Friday, September 11, 2026 at 2:55 PM, Chukun Pan <amadeus@jmu.edu.cn> w=
+rote:
+
+> Hi,
+>=20
+> >  &mdio1 {
+> > +=09reset-delay-us =3D <20000>;
+> > +=09reset-gpios =3D <&gpio4 RK_PC2 GPIO_ACTIVE_LOW>;
+> > +=09reset-post-delay-us =3D <100000>;
+>=20
+> This is an incorrect change, see also: [1]
+> Since you are using mainline U-Boot 2026.07, you should have
+> already noticed that nanopi-zero2-rk3528 is available.
+> Therefore, the nanopi-zero2-rk3528 target should be used
+> instead of generic-rk3528.
+>=20
+> [1] https://lore.kernel.org/lkml/1e8da54f-ef87-4d31-9a0a-17c0ff66bee0@kwi=
+boo.se/
+> 
