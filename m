@@ -1,124 +1,148 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F58C389104
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 18:48:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789152515; cv=none; b=Ckf/GazBzS9qDNU6DmotMuhfO/TIuU+MeEfUrpU64J6N8KB4CHznrMFHMdk+o94MkvArNujFczLvciLFsdECOayzI7i219eDbGecMaUkLRT4WOIuvFPKyupgYM/WcCMsvMWeJClX8yVwMh5I00qwnhaXY6UZW0ul4V/ri/0QSGA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789152515; c=relaxed/simple;
-	bh=hBlg7e02+t/YM6pIvJRIeAr5Jw7Vd/I+qWWjA/9gkT8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Krw9tzn2HnPm+QmpJ53zyu+aKJIEZU8eBPmlBo+QSy/qB0r3QfwWWqLgGje5MPcJN5qFRxiabzyRvYP45nkFWWlqIjKHja/7YoWdxFlbxSnjTa1aygnmQXB8mMlI7P8viRYwDcCbj1uYkZJbjoWziDVopmC5Ew7SMiVCUc+/RjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AY2qXBt+; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13F023F104F
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 18:50:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789152656; cv=pass; b=W+02jSvLuSVfJmpCUtiWTfLTyS482Tn7OyUpxY+Cw12O6eR26bBE2H3qSNJBrlcRpu0VJM8wsYQHOfov7kwtzy2ix1/RtUVll2Obt8PEMLEWRT1PwzxE+qs6IZpR46eR2Oh/WDui7ZeRIKxOQn4x8cPJ5g0bSqezE2oeJ1Au7vU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789152656; c=relaxed/simple;
+	bh=RtqsMSgbSK0DoXzM/jOKS0u9JMf6ypFVGoks8rGZP34=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rjmjsA3N1pjW35RUP+Wjuk83mEvySp6Dv+NJ8ARcVjitbti60gUwZ5Xv/55oEqByFf7V+64dYoMD48E68zkqpEe17wQc2PneMEEDfjROBgNaSkglYTRIQ1i0QZBeJDm+lBN/L1lYUofT7+Gqpc/bD+EF8dyQke0O34eV9PDCWKE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Z67J7PON; arc=pass smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AY2qXBt+"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e65b1cc29so2880085e9.1
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 11:48:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Z67J7PON"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso43391166b.1
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 11:50:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789152653; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qSuM8EO9ZlLWE7TwC9qdon0kIYjbbxchzWSEViEr+x3fz/GLOuYlPh6je+E6TZqLa5
+         hhDm4AObislDdJ6x20cj/Vfes/jlyurnbxoOgXDKn2EqNhEbJePcHE/PvjCo+vcleSlY
+         0FaIlfu2IUxBUXk5XL3l5+BWeMupz52h2e2M8+9eh8PHJE10NTLDDFkYgqbBQh6aBjq7
+         FyXnCe9w504NKVo/1OB73jTFTbbBt5LFf/dSgvryz37b3wg96IK3JTGVcMjPbYdOjxq1
+         6vyzbRZ0BSDtrZnyd5n1mAWsbKtV8CKceK1ot8UyUL4H5ZtyennT+2moBIWwangxLW76
+         pZxw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
+        fh=LUDUp6kystYAd6+sGXHHcom8a6eah/CeGcyBUouT6j4=;
+        b=mIeH0sGYWv1pYWhowbq2FVoapTvZwwizsYcz+DQiVSlvzTFKLfIVcwd0jes11/SLmR
+         EVDwewhbb5AY+EsodX47T28W9fm86vskcpLlFmoqfJVPtMIHFOxOYpvtr03CcwtUlv8y
+         ZJOOC8ZOZ7MiYMYFPinfIGoeZsqeJkMLXglkg6bjZzbux8TPthPkHcgAjmK8NaBXi5EW
+         YhRI680yFcJbCmngkgI0keqwkSzZedU0jHuIwetqxeIfRVAZZFvv9Yf2eWDlK2WGVl2O
+         QpoMIpHC5iN6pD6tIAySxIfdPbFUzP3+yB1vOcTGkS+aaVnouHPcHXcZbJAp5gV5p6sK
+         Ae5Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789152511; x=1789757311; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789152653; x=1789757453; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hBlg7e02+t/YM6pIvJRIeAr5Jw7Vd/I+qWWjA/9gkT8=;
-        b=AY2qXBt+01lhHGjrXrxvRoTuHtT4DSIhV64PDjJF75a3gvWX7FQVAggm2W6Fdf6XsS
-         LDg/lr3eoAx6ZRKnDFEUCJ27EsX7ghAYlHwzz0ZWYUNVOWnIBKwx5h/MdrxyiAupmIhU
-         my3yTbBUeZP99yplxRjx4pThRWNSPaKtvdoYQ6eH+0vWe7PNdoJ9vBdZV5d4rVc0KOsJ
-         V9wTsQTc5biP2R6vhWy7WEe7YIYc6KjuVyXtTqrIGAC4+PcJIt4Q3yuJt/HZ0A6/+FXk
-         Fki4iOwXFyiNTbFeHvMRlaxMBe8xpgXzmCJf2CswcTxjtrxoRoumnOGCswoCxyWNgmjn
-         vb7A==
+        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
+        b=Z67J7PONtf4j90DVRuIUDXP1J+SojR1pWnezXkF8esU1lwCUc/BQMoBFPuBwRrCJdO
+         xjpH53Y+SYsEL74cXMUEhjqb7wCR1tYlsWRuTsp1LmZclofVXQ2uPBFJ2wpBpkQxbmEH
+         uC6UsLiUaZPuKURFv9rku4t2XjNNSZHtjrQUl0dWix0wm3RCFOGYDrFFfkY1tyx852ip
+         WxNMv8siY3637rcO+OSP/lUPndtusgAvaF7Mt528SW4fwE+FFcpJh9WmRk/vwwuOyRSv
+         KrxgpuB9JwK5WnBkVmTisFg8wmlLovMznmAotZG9Ts/RAwI+oq2rffyRXaBhL5bH4KZu
+         tucA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789152511; x=1789757311;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1789152653; x=1789757453;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hBlg7e02+t/YM6pIvJRIeAr5Jw7Vd/I+qWWjA/9gkT8=;
-        b=S/DJSkONxHcgx/VdYK6vyUHwIrfwYdyNF5ITRRqN0VnnbWf/uPMCIENEpnAnqdJepL
-         JUMt5WRJYFguQeFNSGEIpjcyel3vR3q938hVoqvyw9s4lupu4HjonCg2uQ94ZERCcANU
-         p2qbf0KfSaEyvF2c3FFuesSO5o1i35jxaDl1rkP6PYhoQrynYCtvm7a96q9OCTn1sc1Q
-         ktRP1OdmBrQtvKO2YxrLU/gJKjk8zqiHTI4FIli1aDoSnKfL7ghdV4yvUWZVqiuk/cO4
-         v3HLrlu5iTLpgowG/sQadc7KQxEZJVYly6TUvqxgksgHpR09V13dzEMYG1VWtviMENkP
-         jkgg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFN8VK1ZHXM+7hZga6W7737k4h0rcjGT5z1k2f+c4RnNeAO+/GaOmx9aQhpssx9EeMkCqq92hGzD4y@vger.kernel.org
-X-Gm-Message-State: AFuF++lLehFzZ+kXuxZIIeTqzT0p5lUF++irBjuDWdWTRLWl/Z5W/dOR
-	S3BomZKyGd4zchwNA2gFOYsicCrDG8xKEKny/l+yeRWYmSLOcEJanM3ZDQ7W7hx9fDY=
-X-Gm-Gg: AYBFou1hwSJaaqx9SsmrBNyfMeBZCizerzw3xJrXoLksq7q3Z0RyIOfXzfy/Sv18iby
-	ntCvw/p1PIug3wO5P9cQwipnQJbLD2Regoaz6TV4r6LVifbPsdvvRZ2RjlpoPxA2r/tXVQLT5Nr
-	5FBpt6cmX+V4IU/g+Qd6z1E64BtdjwfNeZaHh08Q11RgcQOMbuvUu+2kCPLbEp0gKha/oZEWSwn
-	eYdPiHP6xoyhDEZwaqvXvlDkCorImL3G2FeuWKZM/TjTNYv9UF4faKnrk5r4xCrweOT2WqJYjM2
-	NnlCi7Y/YiZP15b56DLxHrGLdBBuz6N/AbLaoESlEUar4t2e1rM0HSnd33UjipPu8dC2UWwZ4La
-	6BSHaVYQzLYUYzx77lxZrFDDfcp7HqlaR49c4I2fuapCqwOG+8XCBnVnwsiNZmzZjjThBOBrAW2
-	gdMitrzgiV8foLXhBYqyr4Ff8NXl7Q1tA4irlPyT2B/wcb17QSMHuJ0P1wY6sd5+by7D/LnDTqG
-	r74
-X-Received: by 2002:a05:600c:4693:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-49e619bec89mr124169185e9.6.1789152510907;
-        Fri, 11 Sep 2026 11:48:30 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-49d26d49d57sm167326945e9.14.2026.09.11.11.48.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 11:48:30 -0700 (PDT)
-Date: Fri, 11 Sep 2026 20:48:28 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Tapio Reijonen <tapio.reijonen@vaisala.com>
-Cc: Saravanan Sekar <sravanhome@gmail.com>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 2/2] regulator: Add MPS MPQ4210 buck-boost regulator
- driver
-Message-ID: <aqRMb8q7BT3uZ9iF@monoceros>
-References: <20260910-mpq4210-regulator-v1-0-d37e208dfc8d@vaisala.com>
- <20260910-mpq4210-regulator-v1-2-d37e208dfc8d@vaisala.com>
+        bh=ypEeHjBqTijbQav3RLhdA7zJA9N6dFormi6rhg8jlO0=;
+        b=n6Xd4s2Sc/06JVX0fflVeNPiF+vfsSm0guWa8gKBDOHPoEW643/GXHEUqoNyy/T+Ib
+         GegKwqRCcDDI0nqj3hWqHXVzy11QLuNc8Qz7Kayg763fWVFySeNb0vdEtyES2DllIq9N
+         HpbjfI8PtCcK7ucKXSIP0w2Nigut9e4QAEKGtNaqn3pSj8KJRKMpLYpJoz3fiCn8T0kD
+         5CkMo6dB5NQEggeXOOQdXojdd1tUy0ce8ADYcdUQL8OblLdid93zF0QvLBilS3lLQlYx
+         tqj4CPrKXqstf9PTwCxiEwSXg65ZkMZ/Yz8IM/IK5Y3KpoPZ+wWWeslpduODuyIGhAoA
+         vB4w==
+X-Gm-Message-State: AFuF++kf7WWpTg/Ch8rVI0MTaIQm74lN7HuXgXWNWo1sdnbNyS+RZkG5
+	ENQbyZarfADBjmaEsNFx54uPAoDQG+Y1ot25Rpdmy+60L2Qlnf4RCM+6IQdTFmPItPICfIM3LUd
+	51BSw7UsqKx3NzaYx/bElGhyqBGVDZEk=
+X-Gm-Gg: AYBFou1XDpPycQ1+H1W2IRZtRcY4yJgqvCxNcfBNOKT/WgWXOLhSCybNT+3bbroeNIg
+	GN43tB64zGTED9B1XpSmZGBgYg3d0cY73UDWdcIHD7qkUhgDOLzCnZd63g3wRmKwK3eqsKplTjN
+	P/7jF4ewOkNhis+eK4tQ/33xZ8UFwzvWpdRodfdrVEwxFZKTrhXPDlWNpDCcrcE54eiqbzcI+tG
+	A7yp0Q4rHw/uQ8oXfFQ9nLWok7SZ65V12/0EPD5nvIDOHtgXz5oHuBSwrG1ehTBT94NvWVC4Bjz
+	xJALVpCqLXgzR1qc/OjL6GlqGBodRY/VZ1uGmnuSDOSha+cv7MycdRV9R5c9jL+hjNayvyTmYUr
+	A5YrANFt3kCvMWMZ02vuTAybvOaAPkny4HKWCcFhz0raMNIKV37UnMZVqaiLsL9Crflftp+Ur6Y
+	36BzN9S2rs7f6Sh7qZWFBMDl/NYTT+vMno2MFUJXS43P+D5TlGrZJippqy3NBvx8LxTljNpZX4e
+	OLf
+X-Received: by 2002:a17:907:7211:b0:c29:53ba:a4cd with SMTP id
+ a640c23a62f3a-c29666f90fdmr483569066b.11.1789152653082; Fri, 11 Sep 2026
+ 11:50:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="mrlar3tkipxi5k6z"
-Content-Disposition: inline
-In-Reply-To: <20260910-mpq4210-regulator-v1-2-d37e208dfc8d@vaisala.com>
+References: <20260910001209.116465-1-rosenp@gmail.com> <6a65465e-f860-434f-9dad-59d9538c97b8@broadcom.com>
+ <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
+In-Reply-To: <CAKxU2N-DJS+ZotHsgami8pc2tnC2+V3nL4JZrqgf=rpTpFHNEA@mail.gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Fri, 11 Sep 2026 11:50:42 -0700
+X-Gm-Features: AcwNN1UBWpQbvDkHrDHhG5kJOPM-dImHVyKgKakwlCkD2k7qVSn-bXfs2dvbyzk
+Message-ID: <CAKxU2N_Z9OHUx4LBmxU+8GZ3_vFYTVuCt04P4XwjyfkRBZ8AOQ@mail.gmail.com>
+Subject: Re: [PATCHv2] ARM: dts: BCM5301X: AC56U: add nvram node
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: devicetree@vger.kernel.org, Hauke Mehrtens <hauke@hauke-m.de>, 
+	=?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	"moderated list:BROADCOM BCM5301X ARM ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>, 
+	open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Thu, Sep 10, 2026 at 11:56=E2=80=AFAM Rosen Penev <rosenp@gmail.com> wro=
+te:
+>
+> On Thu, Sep 10, 2026 at 9:46=E2=80=AFAM Florian Fainelli
+> <florian.fainelli@broadcom.com> wrote:
+> >
+> > On 9/9/26 17:12, Rosen Penev wrote:
+> > > Add it and set for gmac0, which is the only GMAC used on this board.
+> > >
+> > > nvram size found from a random bootlog online.
+> > >
+> > > Signed-off-by: Rosen Penev <rosenp@gmail.com>
+> > > ---
+> > >   v2: fix typo.
+> > >   .../boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts    | 14 +++++++++++=
++++
+> > >   1 file changed, 14 insertions(+)
+> > >
+> > > diff --git a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts b/a=
+rch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > > index c80ac16ad949..9ab618a097b1 100644
+> > > --- a/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > > +++ b/arch/arm/boot/dts/broadcom/bcm4708-asus-rt-ac56u.dts
+> > > @@ -25,6 +25,15 @@ memory@0 {
+> > >                     <0x88000000 0x08000000>;
+> > >       };
+> > >
+> > > +     nvram@1c080000 {
+> > > +             compatible =3D "brcm,nvram";
+> > > +             reg =3D <0x1c080000 0x180000>;
+> >
+> > Why is not the nvram node moved to bcm5301x.dtsi given it is common to
+> > all of the chips?
+> To avoid probe errors on hardware where sizes are unknown.
+I looked at this again. It makes no sense to centralize:
 
---mrlar3tkipxi5k6z
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/2] regulator: Add MPS MPQ4210 buck-boost regulator
- driver
-MIME-Version: 1.0
++       nvram@1c080000 {
++               compatible =3D "brcm,nvram";
++               reg =3D <0x1c080000 0x180000>;
 
-Hello,
-
-On Thu, Sep 10, 2026 at 08:51:42AM +0000, Tapio Reijonen wrote:
-> +#include <linux/i2c.h>
-> [...]
-> +#include <linux/mod_devicetable.h>
-
-Please don't add new includes for <linux/mod_devicetable.h>, this header
-is supposed to go away. For i2c_device_id and of_device_id you can rely
-on <linux/i2c.h> to provide both. If you want to go full iwyu use
-<linux/device-id/i2c.h> and <linux/device-id/of.h> respectively.
-
-Best regards
-Uwe
-
---mrlar3tkipxi5k6z
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmqkTPkACgkQj4D7WH0S
-/k6gSgf/Rpe/v2jHPCvYEnv4fmlUk5h0i4KXQEgWNdKhGO2rjLnSUMju6dcPBhnv
-zee9/u9WMjUkKWpBr+WOrKZbRg34Yxkxi410Sw6PE1erxlF3qUaLAF/15ST72gPK
-DK75kf+00j/k/wYIMRVCjrhyoHH+QsgCTwQgGudzZtl0qK+wcq/T7j6v5WcUWbNG
-T8uUW7WIrh6DpxmNs6FgklXCxSqcBqKuQYt0ToNwN3nNpwZ0uFDqR80GIx5y3seX
-IfcACpuy70FNWoL9tzDGzPgETvRjHp59LQhr8vEViHB00egK+mq3Hff6ddGpR4bt
-8//wDpKe9ljrhJY1tktqW6w/Pc39iA==
-=AM1P
------END PGP SIGNATURE-----
-
---mrlar3tkipxi5k6z--
+The reg and @ values are correct here but not for all devices. There's
+also nvram@1e3f0000 and nvram@1e1f0000 as examples.
+> > --
+> > Florian
