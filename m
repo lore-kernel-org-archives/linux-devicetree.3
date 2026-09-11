@@ -1,64 +1,58 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE09330568B;
-	Fri, 11 Sep 2026 05:24:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569A239022A;
+	Fri, 11 Sep 2026 05:33:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789104282; cv=none; b=bge4D3vUyb8G/p2m2MP6hgIHcbExSupr/kJZExPZPClVbhijUNNYi6Nkhf/RXrqg9MqCsViycGlS5gWphYjCvVAeUKNL8EEhB9FhS+usy/fhDNzTY30rwIeyh0/t1fiQlY6mxF+hoL0TSvjZdocjSsJMK+XbyiLNDcKbVky8A7E=
+	t=1789104802; cv=none; b=MNEy04z+heQkAXpa2gPIwa7hqcjSiX/W9ggYwvDovfRVsaRcqfbqzqleYjo4RA1jI4Lx/rxW1T0N+xZUuA/QfVZggCY/vz/7LJjpSNDZ1uFVTggoDa8Mpk43bvmgXTVsuFPj7HFKQqzBk5ZY/xlcfQ1+1A58e1vx0LldoDOJJyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789104282; c=relaxed/simple;
-	bh=K/lFXyXnlzmVr7ZpusjKtGIQx986K//AXPUXiJed/Ro=;
+	s=arc-20240116; t=1789104802; c=relaxed/simple;
+	bh=zGZ3uu0S3y/uYm1Kg1dxuSxHdKPYJr/SNR1QnCOeyQU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rBeSoIEZb4DiudWOeP4gn2Of2F08x0bnB2l9lxn5xzrrHh4PoXOZL2hBgkoDB+UL67kOeo9yRS0BFAtcNOJ+goTCjSKzXYq+JCUCQButRf1XZnKSZJhKnTOksZyX2aa3o1KRLfYe8zb4EalRO6J6xoHeRE1wR48Kjy87gzuXRLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=JbPSjiN/; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6bwgf0qX9vFtniz6DQnSSwRI+Q9/mvn2oC3/Fn/YkiCzHBE3Y2qq4BDYzZ2sFEpP/EbfU+wkgH68iTX13OMjKCbIAfVFcanfY675HDCFzMzvmhRl4m5FhT2LqDLeKXH7tS9mVeR4kA3flV24wEwSglIFiF1555yQGxOzRBsZo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=TIMa3c6G; arc=none smtp.client-ip=180.181.231.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="JbPSjiN/"
-Received: from francesco-nb (unknown [185.12.129.179])
-	by mail11.truemail.it (Postfix) with ESMTPA id 65D9822A64;
-	Fri, 11 Sep 2026 07:24:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789104277;
-	bh=HD7CwDSBdI7ApvW9myNSUssqtq9jDio3I05Sz3qKMAk=; h=From:To:Subject;
-	b=JbPSjiN/w4LO9ADIbdIKV/vFf+H2SWOFS8oSWFQKzh0kkEmEYcB13lBle3Kq7WHAo
-	 WJyVffgJeIcbtVWFM+wZIobEHtAbTcg/S8HA2TI3INwZwmVfSy5lW3CzMUC/NHgima
-	 2UpgOO7EcyxRxRlHThqRfxuUGRZXVAZGTPNu45AhJaFILlEemwYWMvsKXLKHTxzEN9
-	 Xhl4VaMtisNJTMuLbZPBSv9dodVRnOtylbZSVL/luVqHgE4BHjECsF8DiCD3QsOnpf
-	 4ZCAr3TWcncmfn/oMCF4ojhGFOPbtBgCMtkimt3OXaHdqwB8+w9v0Algi1A0PpFMNH
-	 Axg//UkbZ0wUg==
-Date: Fri, 11 Sep 2026 07:24:28 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="TIMa3c6G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
+	from:content-type:reply-to; bh=PdKT3mgg1Pb/Jdrfl1nwELxR2cBte3Dqhgwz6ZyzOwI=; 
+	b=TIMa3c6GeA4fZd4f2E6nP97mtVPGZ6Brs0UF+lS5YEA2cywF320gAH8RDdDBChvD0RddqlPLGhx
+	WXuqzHhDm7t+Tnm/GAwrHmIPWaWJYaB3qnhyhJX9tQYv+NSi0i6fA7FMT4jiDiibym1Z/YaSlFztO
+	q7hR/B3xMXUs++aaDluo+STuZciNdkyZ1ufV1DOwBsHTmOAU73PMqgfI2Nr74K+Zu0MrcI7PRUuuq
+	JEFjXcSp/CSDwOVHvAT8fmCF7rzl/e8WKLWFeFtY0a40Y+1SXFc8qNHDYZ4t8afbW8+UCeAVsHuKw
+	IPkVSKsec5vXBCXbyEZztjYGKnN5+0fEruBg==;
+Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
+	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
+	id 1x4tsi-0000000CuDA-1MAD;
+	Fri, 11 Sep 2026 13:33:01 +0800
+Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 15:33:00 +1000
+Date: Fri, 11 Sep 2026 15:33:00 +1000
+From: Herbert Xu <herbert@gondor.apana.org.au>
+To: Thorsten Blum <blum@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
-	Daniel Schultz <d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
-	Siddharth Vadapalli <s-vadapalli@ti.com>,
-	Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Devarsh Thakkar <devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Stefano Radaelli <stefano.radaelli21@gmail.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Vishal Mahaveer <vishalm@ti.com>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Sebin Francis <sebin.francis@ti.com>,
-	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
-	Hari Nagalla <hnagalla@ti.com>
-Subject: Re: [PATCH v8 9/9] arm64: dts: ti: Add wkup R5F nodes to pre-ram
- bootphase
-Message-ID: <20260911052428.GB5377@francesco-nb>
-References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
- <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com>
+	"David S. Miller" <davem@davemloft.net>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Wensheng Wang <wenswang@yeah.net>, Frank Li <Frank.Li@nxp.com>,
+	Cosmo Chou <chou.cosmo@gmail.com>, Colin Huang <u8813345@gmail.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Antoni Pokusinski <apokusinski01@gmail.com>,
+	Eddie James <eajames@linux.ibm.com>,
+	Dixit Parmar <dixitparmar19@gmail.com>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-crypto@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH 1/2] dt-bindings: trivial-devices: add atmel,atecc608a
+Message-ID: <aqOSjDb1FeLv9Po4@gondor.apana.org.au>
+References: <20260830220151.21469-3-blum@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -67,41 +61,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com>
+In-Reply-To: <20260830220151.21469-3-blum@kernel.org>
 
-Hello Markus
-
-On Thu, Sep 03, 2026 at 02:39:30PM +0200, Markus Schneider-Pargmann (TI) wrote:
-> For IO+DDR the wkup_r5fss0_core0 and the
-> wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
-> setup is done. These are used to read the lpm metadata region in
-> which data is stored to resume. This needs to be done before RAM is
-> in use to avoid overwriting data.
+On Mon, Aug 31, 2026 at 12:01:51AM +0200, Thorsten Blum wrote:
+> Add an entry for ATECC608A.
 > 
-> Add the bootph-pre-ram flag to the wkup_r5fss0_core0 node in both
-> ipc-firmware dtsi files and to the lpm metadata region nodes of the
-> AM62A and AM62P boards.
-> 
-> The board level bootph-pre-ram flag of k3-am62d2-evm.dts becomes
-> redundant with the dtsi-wide flag and is dropped.
-> 
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-...
+> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
-> index 45ab9d947b3a..8976c0424cd1 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
-> @@ -184,6 +184,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
->  			compatible = "shared-dma-pool";
->  			reg = <0x00 0x9ca08000 0x00 0x1000>;
->  			no-map;
-> +			bootph-pre-ram;
->  		};
-
-verdin-am62p has the various bootph tags only in the U-Boot dtsi
-(k3-am62p5-verdin-wifi-dev-u-boot.dtsi) as of now, I am not convinced it
-is a good idea to just add this single one here.
-
-Francesco
-
+All applied.  Thanks.
+-- 
+Email: Herbert Xu <herbert@gondor.apana.org.au>
+Home Page: http://gondor.apana.org.au/~herbert/
+PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
