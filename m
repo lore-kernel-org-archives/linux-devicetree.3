@@ -1,67 +1,69 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013056.outbound.protection.outlook.com [40.107.159.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57E12571A0;
-	Fri, 11 Sep 2026 14:32:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.56
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789137145; cv=fail; b=pC9ibat4g13ZlwwSAmcLvMh3YDaB/82nyZHW3aHWrtkefD/JO9wrBpB/IjoYqvQuY64nqqGqpEzsOD38LW11upQhjmrqP6WVwiybS0hu0b2dHWi36sd0x0Dlrp+HBKWPB/KbopeFDQuz/flU7maq+yziwZtFT7diZ514mr1hzU0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789137145; c=relaxed/simple;
-	bh=tLj2n2GHzdQrZ/3Vl6JLo/L1GQBOSjRo17fuKKbHd5k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=kEoFk//RQzGq42QR+7Sn0n7H5KwBhHQQZLAGSRfpfbTC1kM1r5JQFIOz99RG81MmpT2veWhlexVvv9ndGejd23OD90/1qSb6pgwb08iREXp4A3ojeK2KpsXTg5AtSR7GQmv7+RtDIE64iJjM0/aKHp+zbGWpqUZ2xPi0GG+ONB8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=GKozD6OG; arc=fail smtp.client-ip=40.107.159.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4CE340412
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 14:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789137162; cv=none; b=Ufl7QZ/x4GHZgDL20QpK3JzSk7xCE7HDV3xFY4bwVuLgCnWiMEdX0063JXIk9F++GaLTPJLgOYG/Yzxtznv1spIGno1cG4WIY9JHM02eUjMMQ9bih8aWNRn4k4tqKu9sExbEv+H74II0sYKAD984ZVRUHkuxBP8nmqzMLd0uZmY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789137162; c=relaxed/simple;
+	bh=92ip7+Ug0GQM2KeYbnMmAsYIHtULVob27HuCA9KByVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XWiSMTEPcCgGFrvGrsI7eG37lKqp1AeFPTdu+WuwOyDTQn+x9QO3ma8Ar+vIgB9PIHL3OTBrXa85VhuCisXwIQl868LxDpfg8H7EB0nBWmnVLaNTgVDHPAycuujZ0EawoGY/Qt1+rUgs3dMJxZR5ojNADBRryAzGBC27b8ybc6E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VCYCPqIb; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="GKozD6OG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NegV+/s6n97TKZ24QrbHq0lmHx9wYAXJ5ftJb/3MWu/YQimV24niEKYtiPq/pR1BVNzZrCNPgWPS39amPNvuEHZpSuk6A3mn8XtgpM3vkzHwrteCfGo8BMYYrbvhVzrYwrQSqZZXUjm9KjWmQ6ZxFFDvK+wZl4ny+qx1oRY1M2a2OX4eH0vtSRVdRILDH7OGbfIyppHTOAbb0z/UOKFtLTGj7xem2N1fLAJoWvHETWh3xWsexIvKbD5FTL8CPc/COPModND77zLS4sdiXSxI9y1aN2EnFx9G8NNPEkxMzST9Cn/KAUUygoJmQFhvLYm37b0j6sYPcIGaSZzH+mpkRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WwZ2l4hjswq0AK3l0AV1y0acLIE7iuAHVI6ig6MpxP8=;
- b=PiPaUic8Jb6Gq8Rd/IxBYa1k6hAoodDETrTodKKcPmE2NoC9zO1A6AQTVJy1/uUolzaVoZYmLdzP7J+ElKq9dMpMMBFQJvUd1lNd2DE0NjW25B91xEx4pwRHKh0BiffVHg5jN+opraPMLz+ywocolReoywH4hGFYzaCXkMmJsyhNJqVtTJOt4sjJRoK8KGf3uZjN3NcIrbT5ytARR2V39cEVhwFblRmkZ1zOmcFA3Vzk3FEQBBO4kytlVe2XtIIrK2IlCGx5wAqRYW/qp5Jz1aSGREo/PWzyztSZqVGnaUHycQ1Yk5d/2Wq5CGOypZpt3WaD3TXeL+VRSjpkDty3jQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=amarulasolutions.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WwZ2l4hjswq0AK3l0AV1y0acLIE7iuAHVI6ig6MpxP8=;
- b=GKozD6OG3g/trtbrRlLvf6JTlDcQnP2ur8wC2aLwWxVZF0KdfM5ZW+Z5fXnq9rcoltuWcRbgdaTc+5Z4B/0JW6WPFHB1+IcnF6oGDow7tcko/Rcf+rKUWTfJp/jsIwLwDep9D6CBpyqT+8omKIgyj68NxD18TEkWBHk5JJvO3Z/FvdQ/Zm1SNmV9vgFebySnNx36X7CCkZRCjvHJHxwfhJlw/U/zBle425Ne57DFcAreLJvImiHzarW/+RtiYOCV6tOtX8OvbxlErgGek/KjhFFwi3pmlrzR1J7SdCLFbQZ9E0XrSCv3JCKIIYmdYxXXKP4zNIkH84I0zks58EimbQ==
-Received: from AM8P191CA0010.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:21a::15)
- by AS8PR10MB6796.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5ba::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
- 2026 14:32:16 +0000
-Received: from DB1PEPF000509F5.eurprd02.prod.outlook.com
- (2603:10a6:20b:21a:cafe::a2) by AM8P191CA0010.outlook.office365.com
- (2603:10a6:20b:21a::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
- Sep 2026 14:32:14 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB1PEPF000509F5.mail.protection.outlook.com (10.167.242.151) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 14:32:14 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
- 2026 16:38:16 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
- 2026 16:32:13 +0200
-Message-ID: <adc7f285-6269-487e-bbcf-d157da49f379@foss.st.com>
-Date: Fri, 11 Sep 2026 16:32:12 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VCYCPqIb"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-85377c8bc96so910394b3a.3
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:32:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789137161; x=1789741961; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eDSeR52nH6vtqDm1Vifi4FBumjLYLejrsEt3Rb0TzvM=;
+        b=VCYCPqIbUKCdy/bUkyvPkGzwNdMxHppRPawocx9SvjPqiGsW2JhP3taFZJlTLfGRDj
+         Txbb0ZgfafBpJ+W/CKpX2mkKp8yz6orEUwyPmyDgGFLc6l4vqMgQJXPck1vrRlDPR06u
+         uaPAi4Jb+XVrgYw7oAfl2D/y2Z/qV1tuXajc75ARnWAq9ewQpo5N9gWetQGoVnqWdm7c
+         2faw1VwYAJp+vZkStoqeuK7LCbJR1rivJ72Oy+NbHnRML3HsvgvMDTKJQSCV2iePNXIU
+         HCKcJUFvcUliiA40RYC4BpgoEAAH5wBNxsg77cSoHfAE46VAOmvBZtDitpDBYGSJuoZS
+         ZBNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789137161; x=1789741961;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=eDSeR52nH6vtqDm1Vifi4FBumjLYLejrsEt3Rb0TzvM=;
+        b=EoF1VqS2wgszaqaw4gmxxfegfg3bjanO73VrjHZxkSd8vA6zKFqCBZi48VqLcv78Eb
+         3rDD4p+gjRBU6qBzIhQND4VqJ9dorxXA6hu9Q2vvw4n5enCeZGwcYIj/bnOAdeiCZler
+         VWwokoKzz35OE5RY+gxSs4L6XGrcqz2N4AmRKP5CuzvfCxKKFm+HPEXKuVdTddk0v9a9
+         1q3GpnxQ2kMNWuYfxQrLX7cwsj9j3SEJaf57M3pLGNybmubyixbLXlepFi6xrWZ+uL3D
+         oSm8e/xColUPxgWzjyYx+S7Y39iWey2EYHYdzsZEbIH7PpfXLzjgqQVYLKxQe5wScev3
+         SxCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzPmQja/bmwF0/WCTZJ1Y5zjJSvI7n1q9Ee8ghjX9ULMCVIyNr1dvxo2BoGMnjNJ1kwb3YO4zDCrLUd@vger.kernel.org
+X-Gm-Message-State: AFuF++lUPDttV0NPRljmC+XO0I9pSN8qAktZcGAmVYWd59mN5r0Lx4eB
+	6n8A1WvFz5wbDQWHiigaE7JfXRvBRU5YsTfKECtCQ2ANZ1CD4dcUz9IC
+X-Gm-Gg: AYBFou0ltZHzsLrhx18XWqiaOTFvopuB/kPBkrC4yTJduSqCxtHzocco/plDlkEUXT9
+	gCS4IfQ0qNBiVdXYR0AOdPgaQChc2rSVW/s787rG5lV8eCvGb8g3VFeOOngehtTHDHpYgIlG64k
+	HxwhMNhX35+Z4fpiFemRUiIVtNyVqlg797mBGEoVCij0Xn72qrkUI8Hc4p7dM6sCAvF++BfdwYB
+	UhyX+scAhEJbhLX7eZRmbjeKn91URCSlOzTa7CsmcbIivuKF4bb5AXAuw5kCPsuPTfWdIyhTQkD
+	OKbNTf5A9H1od8HREI8Lg9QeVt+l4e3KC2cJAmmhKlhu2D4EovcnUf/WFGy/Hy5a3ue2QPzQgTB
+	Vpbf/BQQflgrXbynZNMpyV7Cz6onNZ+97Jq3Q+acP6itVB36iufdnOsLQvh9DIaIQAUhOkjHT9p
+	ILKTfyOT9U2JiIQhTolWUA95nus/JR82WsgHCbMLZAOPL7T2ln/omrdUJAufk1UA+LYinVxbshi
+	CRFQPtIoz165y8FET3Q0dG33yFWOq7K0OsJBL+xSQwVAsR9EhSqYwhYC78=
+X-Received: by 2002:a05:6a00:190f:b0:845:cf73:c1d8 with SMTP id d2e1a72fcca58-86b3092551emr6956168b3a.14.1789137160779;
+        Fri, 11 Sep 2026 07:32:40 -0700 (PDT)
+Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b41d74fd5sm1135687b3a.2.2026.09.11.07.32.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 11 Sep 2026 07:32:39 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Message-ID: <88b90584-703a-429b-a6bf-445b26289f2d@roeck-us.net>
+Date: Fri, 11 Sep 2026 07:32:39 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,85 +71,121 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH 1/3] ARM: dts: stm32: add missed
- arm,num-irq-priority-bits for stm32f429
-To: Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	<linux-kernel@vger.kernel.org>
-CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, "Rob
- Herring" <robh@kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>
-References: <20260820092143.44829-1-dario.binacchi@amarulasolutions.com>
+Subject: Re: [PATCH v2 1/4] hwmon: (pmbus/core) increase number of phases and
+ add new mask
+To: sashiko-reviews@lists.linux.dev, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>
+Cc: linux-hwmon@vger.kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, robh@kernel.org
+References: <20260911-hwmon-max20826-support-v2-0-5e30cbd97d84@analog.com>
+ <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
+ <20260911140917.49D3A1F000FF@smtp.kernel.org>
 Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260820092143.44829-1-dario.binacchi@amarulasolutions.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB1PEPF000509F5:EE_|AS8PR10MB6796:EE_
-X-MS-Office365-Filtering-Correlation-Id: c011128e-2067-4d20-2868-08df10117967
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|82310400026|23010399003|1800799024|10067099003|3023799007|18002099003|22082099003|11063799006|56012099006|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	NP5mS3DuWol3BKCRgtQl65S2FBdC/IaOax0BvaAvIAkHd/C2PaCmMLexmf38LQGwfAxOYRvbd06lYYP9l6Vw6ImHOJ7M8vGpIjLYEYdBLMcVOop3zE7+AEYSzu0ZlHLQrf+WCvfRFNxjvYQmN6sh3GEx3jA7Os3zPhK5L0qm03AC0byRGDHS49Q7M7hmQ7uEwAgdj+D0nVsLdN3zqEr4m+u5moHfy5ZsP1DSgYaE1tPuT42pJke1QO2u/G0ckN2zP2DBeIwx/kdnggueHXQknKmu8uvTs8gJHNiy9ojWFU3uDMsgKs5078cDkNJEHFxOIucvg7xe6YlxzcF+ru1ij+2Iefzyk1NNd39gBHyJD92yubuha4vcEASwRxIdW9gi1YyFBi77MnjFribqhTp/mefLCvsIg+JWkFZ7OWA3/ZZK9e9c9nSGIUie0X+lGzSCwIhCxOHGwrEW8ZRScaihztIKqoMKaU1pBNcKSkCWpEDU9R3YSXrYnoY1LyiMDOvDyhuThkxjLMJHpWA/Ak4Ec3Fop+1jqgR19SbO9/OTbDJLpREI3tYZ/7mwpTG+ueMXvHXytOXgZsI5WfDfuH/wswB89IIMMk9I8WVL5BzdbL+6stgEZG9HOvPrnU1vUZimG+XPz7eWFkZtx7X/B0Fx1FK2nTcNB1FnvQ+MmX3o/EQ=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(82310400026)(23010399003)(1800799024)(10067099003)(3023799007)(18002099003)(22082099003)(11063799006)(56012099006)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	5ZLu+CFE3y0+17TjmuFgVyCSvBV6897eB8cvfeyidhkX/ci8gvR2H2IzJ1Y7X9bXihw12UAupRY33ts8wAyfaXAXpRe8zU4ERmvWIxhwAgNkJNgJecnEF7w3ozcFqQ9O0fpuxg+F58w6kHX5vtzLidPrwgQvd6T17jQ0JszMuGvaNalOas45Mc5luJyJxQD1THe2PT+g9X4fDl0aClfTdw/7ZhgJly/Zyqf0EvytJiWEUIue40FwkD9kT+1nbMKiOQzmrsI1WXAoay2GLZA9zK8ODNLYk8+xamjdRthj4+uR2f9QU/nQxT8stIkz+QoIwoYWufgXkkikaGIj5siISFXBVSbZ1x5qxP7MUaTMRdO25yNn9RokjE/5Vp6UUNhDYEAghooCkYHr/hX6NCntKWiPRRfVECBZa7IIQOwitmk0pZI3PoB2sCjoHznTORaP
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 14:32:14.5937
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c011128e-2067-4d20-2868-08df10117967
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DB1PEPF000509F5.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6796
+From: Guenter Roeck <linux@roeck-us.net>
+Autocrypt: addr=linux@roeck-us.net; keydata=
+ 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
+ np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
+In-Reply-To: <20260911140917.49D3A1F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Dario,
+On 9/11/26 07:09, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [High] The PMBus core driver iterates over `info->phases[page]` to access the `info->pfunc[phase]` array without verifying that the phase count is within the `PMBUS_PHASES` maximum. If a driver configures `info->phases[page]` to a value larger than `PMBUS_PHASES`, it results in an out-of-bounds array read.
+> --
+> 
+> commit f0d55dee29cf753f56d794471093af9c4d34634d
+> Author: Nuno Sá <nuno.sa@analog.com>
+> 
+> hwmon: (pmbus/core) increase number of phases and add new mask
+> 
+> This commit increases the maximum number of phases per page to 16 to support
+> a new upcoming device. It also adds a new mask for controlling the source
+> of the output voltage.
+> 
+>> diff --git a/drivers/hwmon/pmbus/pmbus.h b/drivers/hwmon/pmbus/pmbus.h
+>> index 2cd3216b3cd95..920c1102ab6df 100644
+>> --- a/drivers/hwmon/pmbus/pmbus.h
+>> +++ b/drivers/hwmon/pmbus/pmbus.h
+> [ ... ]
+>> @@ -386,7 +387,7 @@ enum pmbus_sensor_classes {
+>>   };
+>>   
+>>   #define PMBUS_PAGES	32	/* Per PMBus specification */
+>> -#define PMBUS_PHASES	10	/* Maximum number of phases per page */
+>> +#define PMBUS_PHASES	16	/* Maximum number of phases per page */
+> 
+> [Severity: High]
+> This isn't a bug introduced by this patch, but is it possible for a driver
+> to configure a phase count larger than the new PMBUS_PHASES limit and
+> cause an out-of-bounds read?
+> 
+> In drivers/hwmon/pmbus/pmbus_core.c:pmbus_add_sensor_attrs(), the loop
+> uses the unvalidated info->phases[page] as an upper bound to access the
+> statically dimensioned info->pfunc array (which is sized to PMBUS_PHASES):
+> 
+> 				for (phase = 0; phase < info->phases[page];
+> 				     phase++) {
+> 					if (!(info->pfunc[phase] & attrs->func))
+> 						continue;
+> 
+> If a driver calls pmbus_do_probe() with a pmbus_driver_info struct where
+> info->phases[page] > PMBUS_PHASES, it could result in reading past the
+> array bounds.
+> 
+> This might lead to a kernel oops during module probe or the creation of
+> corrupted sysfs attributes by interpreting adjacent memory as functionality
+> bitmasks.
+> 
+> Since the core framework explicitly validates info->pages > PMBUS_PAGES to
+> prevent similar overflows, should a similar bounds check be added for
+> info->phases against PMBUS_PHASES in the core API?
+> 
 
-On 8/20/26 11:21, Dario Binacchi wrote:
-> Add missed arm,num-irq-priority-bits to fix below CHECK_DTBS warning:
-> 
-> arch/arm/boot/dts/st/stm32f429-disco.dtb: interrupt-controller@e000e100 (arm,armv7m-nvic): 'arm,num-irq-priority-bits' is a required property
-> 	from schema $id: http://devicetree.org/schemas/interrupt-controller/arm,nvic.yaml
-> 
-> Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-> ---
-> 
->   arch/arm/boot/dts/st/stm32f429.dtsi | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/arch/arm/boot/dts/st/stm32f429.dtsi b/arch/arm/boot/dts/st/stm32f429.dtsi
-> index ad91b74ddd0d..f94500cd90cc 100644
-> --- a/arch/arm/boot/dts/st/stm32f429.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32f429.dtsi
-> @@ -794,6 +794,10 @@ rng: rng@50060800 {
->   	};
->   };
->   
-> +&nvic {
-> +	arm,num-irq-priority-bits = <4>;
-> +};
-> +
->   &systick {
->   	clocks = <&rcc 1 SYSTICK>;
->   	status = "okay";
-> ---
-> base-commit: a4ff2be345d0abc943da8dd8da98151843b750dc
-> branch: stm32-nvic-irq-priority-bits
-> 
+Makes sense, but I would not give that high severity, and definitely not part
+of this series.
 
-Do you really want this patch ? MCU boards are deprecated.
+Guenter
 
-Regards
-Alex
