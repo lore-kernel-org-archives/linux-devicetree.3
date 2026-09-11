@@ -1,66 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE54833A6F1;
-	Fri, 11 Sep 2026 05:20:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE09330568B;
+	Fri, 11 Sep 2026 05:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789104017; cv=none; b=Zf1+sOZHtUVBngDN4F+POnqqd2pSPVFme/IOjvRxFjZvCdTkyGwkgDMmh9TBJPrIMiLTn3UbkNvb9h6ZaMXSBoUmgD6UuL3MDt9vOmRM4IBniV/QYmfhljVlVd6G9JGQM3rzC+1jhq0s+D9RlVKhfuaEWb845XPgsLGxdtrN0bE=
+	t=1789104282; cv=none; b=bge4D3vUyb8G/p2m2MP6hgIHcbExSupr/kJZExPZPClVbhijUNNYi6Nkhf/RXrqg9MqCsViycGlS5gWphYjCvVAeUKNL8EEhB9FhS+usy/fhDNzTY30rwIeyh0/t1fiQlY6mxF+hoL0TSvjZdocjSsJMK+XbyiLNDcKbVky8A7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789104017; c=relaxed/simple;
-	bh=v+BpL7w60o6w3gJVynoZ3cLeuos+xpoHpbCgWu1iWJs=;
+	s=arc-20240116; t=1789104282; c=relaxed/simple;
+	bh=K/lFXyXnlzmVr7ZpusjKtGIQx986K//AXPUXiJed/Ro=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=odutfyZLBX/ifrJ+jfyTq9Nehx7MLAEj8x3LSSw2bx8QF4DpbMI7GvUrrGmI6wvGoF9b+oHN76mrIzUqC0hdtOsrouI4zoUIC22LAaj6Jsbph53bL9knlI5PosoJs2v4OKF5QAWlg9gltNs2XFPethhSFemxxKAup8GGttws9qU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4bAq3t6; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rBeSoIEZb4DiudWOeP4gn2Of2F08x0bnB2l9lxn5xzrrHh4PoXOZL2hBgkoDB+UL67kOeo9yRS0BFAtcNOJ+goTCjSKzXYq+JCUCQButRf1XZnKSZJhKnTOksZyX2aa3o1KRLfYe8zb4EalRO6J6xoHeRE1wR48Kjy87gzuXRLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=JbPSjiN/; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4bAq3t6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7DED1F000FF;
-	Fri, 11 Sep 2026 05:20:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789104016;
-	bh=zQkaItX0xqo5kFCTOPQvErm+zlth+OHMFg4BhhYP06c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m4bAq3t6xGNaDJIAUQZb5j72asbrzo3kHL9Z95osZGv0FSm+lI+GiTji1/5h9z5Na
-	 SdjWZapU5O7ZCqDBU0DO09eDrxABIvz97cYjMC5Sdlvhjd4X65ZXLa4WMgQxwLAfnw
-	 p9jylw7kLyiJSZgPD1NI/ALAdP0vRi3xXBZRcwL5Hn+liVDz3xBDuD7GQCAElU31VC
-	 Jf0bkgZ6zZAIaQATdwkyLAjemkhynonHl+/zp5qmoYsh5h7rdN9VHgJv7mr/2eJp+2
-	 s2LQia0fpY/ORQRx0byN3JPmVrc3YfSs2jFAg80Z/4xUVfwd49977V0nZhvvgkZL11
-	 oY7j5hhsHvZlg==
-Date: Fri, 11 Sep 2026 07:20:06 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, matthias.bgg@gmail.com, 
-	chunkuang.hu@kernel.org, p.zabel@pengutronix.de, justin.yeh@mediatek.com, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, kernel@collabora.com
-Subject: Re: [PATCH v4 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask
- to SoC data
-Message-ID: <dcywgc2ccerd6h7rsib5dak2tmanhy6tnbl3fuzvl4ni2ua2lw@jiqbmfni7uou>
-References: <20260910092038.48291-1-angelogioacchino.delregno@collabora.com>
- <20260910092038.48291-12-angelogioacchino.delregno@collabora.com>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="JbPSjiN/"
+Received: from francesco-nb (unknown [185.12.129.179])
+	by mail11.truemail.it (Postfix) with ESMTPA id 65D9822A64;
+	Fri, 11 Sep 2026 07:24:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789104277;
+	bh=HD7CwDSBdI7ApvW9myNSUssqtq9jDio3I05Sz3qKMAk=; h=From:To:Subject;
+	b=JbPSjiN/w4LO9ADIbdIKV/vFf+H2SWOFS8oSWFQKzh0kkEmEYcB13lBle3Kq7WHAo
+	 WJyVffgJeIcbtVWFM+wZIobEHtAbTcg/S8HA2TI3INwZwmVfSy5lW3CzMUC/NHgima
+	 2UpgOO7EcyxRxRlHThqRfxuUGRZXVAZGTPNu45AhJaFILlEemwYWMvsKXLKHTxzEN9
+	 Xhl4VaMtisNJTMuLbZPBSv9dodVRnOtylbZSVL/luVqHgE4BHjECsF8DiCD3QsOnpf
+	 4ZCAr3TWcncmfn/oMCF4ojhGFOPbtBgCMtkimt3OXaHdqwB8+w9v0Algi1A0PpFMNH
+	 Axg//UkbZ0wUg==
+Date: Fri, 11 Sep 2026 07:24:28 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, Judith Mendez <jm@ti.com>,
+	Daniel Schultz <d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Devarsh Thakkar <devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Vishal Mahaveer <vishalm@ti.com>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Sebin Francis <sebin.francis@ti.com>,
+	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev,
+	Hari Nagalla <hnagalla@ti.com>
+Subject: Re: [PATCH v8 9/9] arm64: dts: ti: Add wkup R5F nodes to pre-ram
+ bootphase
+Message-ID: <20260911052428.GB5377@francesco-nb>
+References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
+ <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260910092038.48291-12-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-9-74c650dfdea6@baylibre.com>
 
-On Thu, Sep 10, 2026 at 11:20:37AM +0200, AngeloGioacchino Del Regno wrote:
-> In preparation for adding support for the eDP PHY found in newer
-> SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
-> data.
+Hello Markus
+
+On Thu, Sep 03, 2026 at 02:39:30PM +0200, Markus Schneider-Pargmann (TI) wrote:
+> For IO+DDR the wkup_r5fss0_core0 and the
+> wkup_r5fss0_core0_lpm_metadata_region need to be accessed before RAM
+> setup is done. These are used to read the lpm metadata region in
+> which data is stored to resume. This needs to be done before RAM is
+> in use to avoid overwriting data.
 > 
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+> Add the bootph-pre-ram flag to the wkup_r5fss0_core0 node in both
+> ipc-firmware dtsi files and to the lpm metadata region nodes of the
+> AM62A and AM62P boards.
+> 
+> The board level bootph-pre-ram flag of k3-am62d2-evm.dts becomes
+> redundant with the dtsi-wide flag and is dropped.
+> 
+> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
+...
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+> index 45ab9d947b3a..8976c0424cd1 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-am62p-verdin.dtsi
+> @@ -184,6 +184,7 @@ wkup_r5fss0_core0_lpm_metadata_region: memory@9ca08000 {
+>  			compatible = "shared-dma-pool";
+>  			reg = <0x00 0x9ca08000 0x00 0x1000>;
+>  			no-map;
+> +			bootph-pre-ram;
+>  		};
 
-- Mani
+verdin-am62p has the various bootph tags only in the U-Boot dtsi
+(k3-am62p5-verdin-wifi-dev-u-boot.dtsi) as of now, I am not convinced it
+is a good idea to just add this single one here.
 
--- 
-மணிவண்ணன் சதாசிவம்
+Francesco
+
