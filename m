@@ -1,105 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B948351C11;
-	Fri, 11 Sep 2026 07:40:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF026450415
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112456; cv=none; b=hWfSVv9hgwrWTCojw80rlIU2QCrN6ueT0+Tzu/6+3Z1YJ5w2aitWFoV2RelR5eCB1+9fZYXpjc9r+WnU6tYA8J0Xon7cBngdvdBSTYRCELZUOpAgPbSase06biBfv+BtY0+LABjPJRFqQpXq3ltV4S7MpYQVKTKtUUsg5/FW2TU=
+	t=1789112487; cv=none; b=kk6Pj0eLsMNQ3hCJ70T7jVflxIZWNDxwvrwIxXSoBhNnkyM8OoDT/prSitQDprDNo74z9ORjXM5tDD/kjiaVmMOQG7kSkHIQ86vb8UFXEQmki3+hsrF14OW1rEPF6ISyqWNO2qyzbslC7gY1SU7hmZgEJZMq6GbB0L+k6kp71f0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112456; c=relaxed/simple;
-	bh=R5wxaNKrg71z+75jammPME83OCmUpIl8l0z5l0+4eNk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cyNWH0Lihe/ALMoi2BRMOCubHg/3O9vVBJn5rbbRyYP67IqSIeU3K6WLwU+ve1GcFgz/TLqxFs4IgHE400/KP/9ET9DHTDMfDX+dduO+NQ+QNPgBGASUg0zYHkaHlz/uv5WH0F/pDIrJu7N2IxlMToEbd6PzjotB7Ilzxy7aZZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F/VvUQUq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789112487; c=relaxed/simple;
+	bh=NO/OF5kdS6j1QF4/t6fTKO7uogCt4Zulz2Ll0FAdBeA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gdwIdGuRkHAzog+aA5H+D7C3677fulS9q+jz6lFY5gQUIC87005lu6Zi7CuSkGkW8/jXr4LQ3H4NhYYr8tslz2ePgEEAF12Cf5ytec/cGK+tH/w514E8e3SoTqo1U7y0OVN0jTnUuASYCjmuUBWe6K9nrP0UNTF0W9tyaXfhJIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5yIk1ZK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F/VvUQUq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E8D1F000FF;
-	Fri, 11 Sep 2026 07:40:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5yIk1ZK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726DD1F0089D
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789112454;
-	bh=3X4Q/qVSKTvwNUXG/DimCnGpYGGuhCfxpDGtJtnHIXY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F/VvUQUq+117PpIonPG4VCdlurKp522tgSHO7aRtSW12vVlXizVBFRVOLesdO4+9R
-	 lqlX9yWl4YT7r1ChkOODSC+x07WkudeuqVp75bWFzCSRIxkjudm3NsrMqhr3JRtHrh
-	 TGl+vI23NDZ7nZ3kQhelzZb/R7ubKkJTuZ1Z3uIepqa4a7Pja/X8ye308KThk7RjA/
-	 7NR3WgWNaonSBLfKyVjuQJYMLmGYFu3plXJL8DHHyYlvQBStnJDIFn/cJPiFBA7uzL
-	 LbxIIdnFyiGleeVSe4SLPWRHwLuHBv5z2LxXDXgnZivy122N69MXHPJkvKwNrDtHro
-	 +APwUUWqsD8+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] hwmon: (lm75) Add support for Nuvoton NCT7715
-Reply-To: sashiko-reviews@lists.linux.dev
-To: hsyemail2@gmail.com
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20260911072654.15722-1-syhuang3@nuvoton.com>
-References: <20260911072654.15722-1-syhuang3@nuvoton.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:40:52 +0000
-Message-Id: <20260911074054.65E8D1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789112484;
+	bh=NO/OF5kdS6j1QF4/t6fTKO7uogCt4Zulz2Ll0FAdBeA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=c5yIk1ZKQWrpT7q3tlD/FHemkJLrK2xQ6VBo/ec4kFurOeSlrzrTxfPO9eqAuR+Hl
+	 qK2A3lc5zvC/nELRwZQcTHViahP4SPrAd6jIsZOWamLOVQnit8A0TCiujvmEWRlgEw
+	 bi7UHpBk5QzSxUmZKfKdpQ/ivmaMi3ZM1elnqQPNoFSbOjkEMpxh4az/JVv5J9okjs
+	 ziPVt5QiBzjT9EdjLvKOl9+IzhkL4yzdF/eA/FSxxvQQcmyTDOqSPtgIDl7spjDnnm
+	 y01QdJ1ZQK+q+0gHE63FaXd16MAPmlFTQYv2UZisMsPW/owRW4sxdg5aDqutEQjetk
+	 uh2kpWsJt4Zyg==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a3156692c6so3953741fa.3
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 00:41:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy5bwN1qry0bEa7jEFmcQuy6lwUJxu++FWVYC6JGWPWLKD7zVBDwcNDOOs/Q/FHAHJEs43ZAgr043Yh@vger.kernel.org
+X-Gm-Message-State: AFuF++nBp82Yo6DyGyJPYWci9sm95mLqJAk8DqvD/WoEghZ3/ZRN3zZ4
+	CFSlTe4vxKdR/vLefc+G4yxHAdtAwW3+tWbqXKSxsiyBkznIZX2K2ERs3DSb54nMZE3lxeP5EzO
+	VJkAk4tFTnNc+QPjFWlK+Aqjp9yOK2bRv5orrqyxkYQ==
+X-Received: by 2002:a05:651c:31c6:b0:3a4:8913:a259 with SMTP id
+ 38308e7fff4ca-3a5a52919e6mr2819641fa.29.1789112482986; Fri, 11 Sep 2026
+ 00:41:22 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:41:20 -0700
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Fri, 11 Sep 2026 00:41:20 -0700
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260910-ad7768-driver-v7-16-7f70b07627e1@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com> <20260910-ad7768-driver-v7-16-7f70b07627e1@analog.com>
+Date: Fri, 11 Sep 2026 00:41:20 -0700
+X-Gmail-Original-Message-ID: <CAMRc=Mei5ZrOcW3B0mGw1woX3ws+q6t1jzR+Pv6_dKKRo7ZOvA@mail.gmail.com>
+X-Gm-Features: AcwNN1W5R2PpX2POIWzVZ_dgShbvNnsPO4gL5fI0M7B8ZSyCOdNjEzti7afKFRU
+Message-ID: <CAMRc=Mei5ZrOcW3B0mGw1woX3ws+q6t1jzR+Pv6_dKKRo7ZOvA@mail.gmail.com>
+Subject: Re: [PATCH v7 16/17] iio: adc: ad7768: Register GPIO auxiliary device
+To: Janani Sunil <janani.sunil@analog.com>
+Cc: linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <u.kleine-koenig@baylibre.com>, 
+	Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Olivier Moysan <olivier.moysan@foss.st.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>, 
+	Randy Dunlap <rdunlap@infradead.org>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, 10 Sep 2026 19:36:34 +0200, Janani Sunil <janani.sunil@analog.com> said:
+> Register an auxiliary device when the AD7768 is described as a GPIO
+> controller. This allows the GPIO driver to share the parent regmap and
+> runtime power-management state.
+>
+> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> ---
 
-Pre-existing issues:
-- [High] Incorrect polarity mask used for 16-bit configuration registers, m=
-odifying a reserved bit instead of the actual polarity (POL) bit.
---
-
-commit 7db614efb67592440d087e96063e9c50c4ebec00
-Author: Sheng-Yuan Huang <syhuang3@nuvoton.com>
-
-hwmon: (lm75) Add support for Nuvoton NCT7715
-
-This commit adds support for the Nuvoton NCT7715 sensor, which is largely
-compatible with the LM75 layout. It introduces a 16-bit configuration
-register handling for this specific chip, including unique conversion-rate =
-and
-shutdown bit mappings.
-
-> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
-> index 2d2d752aeac9d..ad7128629e56c 100644
-> --- a/drivers/hwmon/lm75.c
-> +++ b/drivers/hwmon/lm75.c
-[ ... ]
-> @@ -770,7 +805,7 @@ static int lm75_generic_probe(struct device *dev, con=
-st char *name,
->  	data->orig_conf =3D status;
-> =20
->  	/* Enforce polarity active-low (default) or active-high (devicetree) */
-> -	if (!data->params->config_reg_16bits)
-> +	if (!data->params->config_reg_16bits || data->kind =3D=3D nct7715)
->  		pol_mask =3D LM75_ALERT_POLARITY_HIGH_8_BIT;
->  	else
->  		pol_mask =3D LM75_ALERT_POLARITY_HIGH_16_BIT;
-
-[Severity: High]
-This is a pre-existing issue, but does this logic in lm75_generic_probe()
-apply an incorrect polarity mask for existing 16-bit sensors?=20
-
-By adding the bypass for nct7715, it avoids the issue for the new chip, but
-it appears the mask used for other 16-bit chips like TMP112 or AS6200=20
-(LM75_ALERT_POLARITY_HIGH_16_BIT, defined as BIT(10)) targets Byte 2, bit 2=
-.=20
-
-Since the SMBus word read natively places Byte 1 (containing the POL bit at=
-=20
-bit 2) into the lower 8 bits, using BIT(10) might modify a reserved bit=20
-instead of the actual polarity bit.=20
-
-This could cause the thermal alert polarity configuration to silently fail
-when a device tree configuration sets ti,alert-polarity-active-high for an
-existing 16-bit LM75-compatible chip, breaking thermal alerts.
-
-Could the mask for 16-bit registers be corrected for all devices instead of=
-=20
-just bypassing it for the nct7715?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911072654.1572=
-2-1-syhuang3@nuvoton.com?part=3D1
+Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
