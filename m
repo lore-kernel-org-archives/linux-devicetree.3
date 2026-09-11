@@ -1,147 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from out-2uec-a106.jellyfish.systems (out-2uec-a106.jellyfish.systems [63.250.43.106])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A0B310645
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 16:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449654A3F0C
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 16:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.250.43.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789145345; cv=none; b=MNl2fPnUA/osv/3Dbnv8N7ZQvh7pvs14/vXBiGLicTOAwTxBNFC7H0V6I2FIDW1ca3xYeA714GY8jZnnfP50Wditr3CmkEpF490gvtKma2A4gbUy6PEoSOUqLSUtn5zUCJ73jJtzfz42LgUDRbZN6e2hc613UXem8+YUiWKJtEE=
+	t=1789145424; cv=none; b=IDH4piXVIZdtD7UQ43TyO9d8Ei7PQN+HpU1Wo5E91LK036RJZkWg20+vHE8eF6igYbHt7P3GrbiOuBZa7mXqPhypQecrebGsfXvs8abWc8npZH4J6WOY51F8QBj5uhGfOIvGs2UVqxathE6JQ3Y7K4JIOEoa3Vaz1hp4Lc9GvIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789145345; c=relaxed/simple;
-	bh=d4s+s96VHQJpmGfJ08n1vuewhhd5qlHxrKFWrCFa278=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mHI7nmIkD2Z+1EZr+CNtlir+L08fCGc5V5goq6Ji8OwA7E7aIICLWoZe1BffXajndfazycAMhcAPym+4pw7lYHwqjIP14ISaGznwvXCjylvGB/nPnL8Wizn+wQmqTP66E1v+xLoqp4Qa9lJ7w2lQ3q9/jZdeGKlro0AaD34a5R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NT7Q4/rP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NT7Q4/rP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5DA61F000FF;
-	Fri, 11 Sep 2026 16:49:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789145343;
-	bh=hCY1U7eVhNOclZLfD4E/0Di9zUdB1FWXUXi/a+htYIs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NT7Q4/rPs3IyvzhcjNghUlT9OVUQ9ZpaM59gIjE7wkwnEBazQOsdKdMqZRQUGST+4
-	 YZJXfMyu7gwWpYJ9O8eUL1yReBZRbb6kTFP4xmz9/bAGywX7zodrtFrFSlTcbEgDw3
-	 fPT/hHraPLVmlJC8Wnuv5Wo9wmAzLe1dulOSeL3QIcVsBxV43WbMQfKLWRkNOv00vY
-	 0l0s50lVaot8135VQ8bIplGYlmrPPPvptRXFQqAz6b+90IkH2XYriR8SJoefWMnvvf
-	 UvUtvgAzmA1wkVeNSsXGQzHE4zyVVUB9z+8zqB0bvZ6l2SKcMq9ek2Z5gQxafLctrw
-	 VOLFWA5z95+Dw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 4/4] arm64: dts: qcom: Add PMIC thermal support for
- Shikra IQ2390S SoM platform
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260911-shikra_adc_support-v6-4-e4b2da5cd55c@oss.qualcomm.com>
-References: <20260911-shikra_adc_support-v6-0-e4b2da5cd55c@oss.qualcomm.com>
- <20260911-shikra_adc_support-v6-4-e4b2da5cd55c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 16:49:02 +0000
-Message-Id: <20260911164902.A5DA61F000FF@smtp.kernel.org>
+	s=arc-20240116; t=1789145424; c=relaxed/simple;
+	bh=x47TK3jUwh3i8c5UgD8DnvakrZ5m0a2pfrY9ATBcHGU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dVs313V8YbF0YWaHgp4F/dC6j1nSAKSyi5RsLMPYrDjbInlH4sHPM5VQ46y2niZuVkkagRa7cm2GrTJYfvM4jHRNWQOIktSv8750hFjanmjfGt1a+vf5NhuPrd2njqA+WdJ3ax/cAnX9Kf188o8/iwb4V2S22wsXwbkAdx3svXE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net; spf=pass smtp.mailfrom=catcrafts.net; arc=none smtp.client-ip=63.250.43.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=catcrafts.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=catcrafts.net
+Received: from mail.privateemail.com (unknown [87.215.145.39])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4hhL4H3ZJzzyQ9;
+	Fri, 11 Sep 2026 16:44:47 +0000 (UTC)
+From: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jorijn van der Graaf <jorijnvdgraaf@catcrafts.net>,
+	Mark Brown <broonie@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>,
+	Ravi Hothi <ravi.hothi@oss.qualcomm.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+	Julian Braha <julianbraha@gmail.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Luca Weiss <luca.weiss@fairphone.com>,
+	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: add the Qualcomm WCD9378 audio codec
+Date: Fri, 11 Sep 2026 18:44:40 +0200
+Message-ID: <20260911164440.101533-1-jorijnvdgraaf@catcrafts.net>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260730-impartial-angelic-harrier-ab9192@quoll>
+References: <20260729000649.263426-1-jorijnvdgraaf@catcrafts.net> <20260729000649.263426-2-jorijnvdgraaf@catcrafts.net> <20260730-impartial-angelic-harrier-ab9192@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Envelope-From: jorijnvdgraaf@catcrafts.net
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The pinctrl configuration for the PMIC ADC incorrectly sets up PMI=
-C GPIO2 and GPIO3 for analog input, but the configured ADC channels are act=
-ually mapped to read from PMIC GPIO1 and GPIO4.
---
+On Thu, Jul 30, 2026 at 09:09:48AM +0200, Krzysztof Kozlowski wrote:
+> As pointed out by RFC from Srini, this binding/node is not correct. It
+> is a fake node to solve (real) power sequencing issues, but Srini's SDCA
+> patchset points that this should be part of TX.
+> 
+> Bindings should be complete. It is fine to have them incomplete of
+> missing features and extend later, but it is not fine to have them with
+> incorrect and incompatible solution.
+> 
+> Therefore this needs to be sorted out for both patchset - this and SDCA
+> version of WCD9378 codec.
 
-commit 16888acda3cf4c853fe7f5fde0d880b0e2116d1a
-Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+I am withdrawing this series. Ravi Hothi (Cc) has RX support working on
+top of it and will take it over from here.
 
-arm64: dts: qcom: Add PMIC thermal support for Shikra IQ2390S SoM platform
+I cannot test the RX path on my hardware, which I personally require
+for all my patches.
 
-This commit adds ADC channels for system thermistors which are used for
-thermal mitigation. It also adds ADC_TM nodes for pa/quiet/msm thermistors
-along with their thermal zones.
-
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi b/arch/arm64/bo=
-ot/dts/qcom/shikra-iqs-som.dtsi
-> index e119ace54e588..a6769364c1921 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-som.dtsi
-[ ... ]
-> @@ -76,7 +115,81 @@ vreg_pmu_ch1: ldo4 {
->  	};
->  };
-> =20
-> +&pm8150_adc {
-> +	pinctrl-0 =3D <&pm8150_adc_gpio2_default>, <&pm8150_adc_gpio3_default>;
-> +	pinctrl-names =3D "default";
-
-[Severity: High]
-Does this incorrectly assign the pinctrl states for GPIO2 and GPIO3,
-rather than GPIO1 and GPIO4?
-
-As seen in the channels defined below, the gnss_therm and pa_therm are
-mapped to read from ADC5_GPIO1_100K_PU and ADC5_GPIO4_100K_PU.
-
-> +
-> +	channel@4d {
-> +		reg =3D <ADC5_AMUX_THM1_100K_PU>;
-> +		label =3D "msm_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +
-> +	channel@4e {
-> +		reg =3D <ADC5_AMUX_THM2_100K_PU>;
-> +		label =3D "quiet_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +
-> +	channel@52 {
-> +		reg =3D <ADC5_GPIO1_100K_PU>;
-> +		label =3D "gnss_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +
-> +	channel@55 {
-> +		reg =3D <ADC5_GPIO4_100K_PU>;
-> +		label =3D "pa_therm";
-> +		qcom,ratiometric;
-> +		qcom,hw-settle-time =3D <200>;
-> +		qcom,pre-scaling =3D <1 1>;
-> +	};
-> +};
-[ ... ]
->  &pm8150_gpios {
-> +	pm8150_adc_gpio2_default: pm8150-adc-gpio2-state {
-> +		pins =3D "gpio2";
-> +		function =3D PMIC_GPIO_FUNC_NORMAL;
-> +		bias-high-impedance;
-> +	};
-> +
-> +	pm8150_adc_gpio3_default: pm8150-adc-gpio3-state {
-> +		pins =3D "gpio3";
-> +		function =3D PMIC_GPIO_FUNC_NORMAL;
-> +		bias-high-impedance;
-> +	};
-
-[Severity: High]
-Should these pinctrl states configure GPIO1 and GPIO4 instead?
-
-Without high-impedance configuration on GPIO1 and GPIO4, their default
-digital states or internal biases might interfere with the analog thermistor
-voltage. This can result in incorrect temperature readings, potentially
-causing the system to either overheat or spuriously shut down.
-
-> +
->  	vol_up_n: vol-up-n-state {
->  		pins =3D "gpio6";
->  		function =3D PMIC_GPIO_FUNC_NORMAL;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-shikra_adc=
-_support-v6-0-e4b2da5cd55c@oss.qualcomm.com?part=3D4
+Thanks,
+Jorijn
