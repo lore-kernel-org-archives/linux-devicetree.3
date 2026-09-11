@@ -1,139 +1,103 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90FD14334C9
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C47645560F;
+	Fri, 11 Sep 2026 08:28:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789115261; cv=none; b=Z/HOhGOfglq8HbkfS97LNTHDYhdsd9wj5tbQ8qT1jnyVq0CbdX1DnVtUOB3DG3pNP2HSNT2LrGAYkB4okiJYimVpzfAedmMyJ03FD3oBFB1Oh9VDr39bzMnShlcWPKOYDeabztLyoZBu0C8ix51qWZH2cXqnIiiieFeT3jtvyCo=
+	t=1789115332; cv=none; b=VYb7yaa8SBCVNDxXvbLhL3EgfusAom/9dwZO0XUpDWRHiUMuROuGSMh6sDGlsMbD/oo6UxeaQH0L1p9PMlquL+GyAqkDFKkyMPdqdt32GyJuHWl54ybazxl4Qif5iz+2ypGNAvUwSKN4IdH9lWywKL0/j0h8e0mRS+SZroJ+62c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789115261; c=relaxed/simple;
-	bh=ZiLEUyTUk1N3CKNtzjm8jTBPQyHlJ2Cm5nKgeQ+TGHo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h/4WtGyLqbwsA43AuG0KSDFSRcodyepZzaP7ORvmya8oBdSLHDsi4RQe5+ro7ZkdJ6vH++vxeXbv1bqYzSXk1N8K5T05BMPy4vaF73KVoTB0DhML2Mj7a/ZFyeftCHwKFL7gUj2ZUJYLYwlkUZroVxjryyHTyU8w8pNn3E/a9ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-X-PTX-Original-Recipient: ychuang570808@gmail.com
-X-PTX-Original-Recipient: zychennvt@gmail.com
-X-PTX-Original-Recipient: conor+dt@kernel.org
-X-PTX-Original-Recipient: robh@kernel.org
-X-PTX-Original-Recipient: sashiko-reviews@lists.linux.dev
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 3C2CD20100D;
-	Fri, 11 Sep 2026 10:27:36 +0200 (CEST)
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1x4wbg-000OGG-0K;
-	Fri, 11 Sep 2026 10:27:36 +0200
-Received: from pengutronix.de (unknown [185.104.138.144])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id EE8F9599FEE;
-	Fri, 11 Sep 2026 05:56:34 +0000 (UTC)
-Date: Fri, 11 Sep 2026 07:56:29 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Jacky Huang <ychuang570808@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, Zi-Yu Chen <zychennvt@gmail.com>, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH v3] arm64: dts: nuvoton: ma35d1: add CAN nodes
-Message-ID: <20260911-frisky-imperial-elephant-3336e4-mkl@pengutronix.de>
-References: <20260908014526.413399-1-zychennvt@gmail.com>
- <20260908015435.7DE071F00A3A@smtp.kernel.org>
- <853110ab-1bd8-41cc-9b82-cc28002c0bed@gmail.com>
+	s=arc-20240116; t=1789115332; c=relaxed/simple;
+	bh=Hp6Oz9sNuMG2k+i7B0+dNTO/+y2pO5GzZRg3Z2yhjLs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=L3DqBWRlzNCGy03BZWMX4Ph6JuZ+eSmjRXy4dyi+rUGUUJXR3KXomXlje9AN9ldKRtoiR6RT5tpgohAKPgeYGpBAn9XDUqoa2MygMFX7zlRcu957Hrw30RpkY0saTcD682B4/gQIXfcwmFjUzT4UloScgc/5A90C+8UkWmZhWww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=q9GqzSFT; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="q9GqzSFT"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D35EEC2BCF4;
+	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789115331;
+	bh=Hp6Oz9sNuMG2k+i7B0+dNTO/+y2pO5GzZRg3Z2yhjLs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=q9GqzSFT0gRvLjCZlMLX3TC0aec6jJEz3OMwX+UhLYI/Tk+uk2LUgMD9kv4Rz9SWQ
+	 XIjUYilEcjWvTwD4y/z85cjpupr+SRXnJyoQKNWboseeQ1lKAgkwhV63DI856DlwYL
+	 h/gBcLFvZCopvI/sd2utpXA2bJbayJ2vmJmcT5s0rKd7VlFmAWMFJTTb76lN+Ibfyq
+	 Oncb9aELeKMdj53gGRoI+uV6s9XGdVBPpbjMiPVKbz3NxmRMzHR8k3239LcjKn+idY
+	 GttkDwNVNg6YM4BjBKBsqzCBy2SuumX8hev0xLtJ3C1nBZlJVoCYKKSJ+rgOxnLv8I
+	 QeGUdwogFUiYA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B40E9C79FA1;
+	Fri, 11 Sep 2026 08:28:51 +0000 (UTC)
+From: Chuan Liu via B4 Relay <devnull+chuan.liu.amlogic.com@kernel.org>
+Date: Fri, 11 Sep 2026 16:28:28 +0800
+Subject: [PATCH 01/10] dt-bindings: soc: amlogic: Add compatible to support
+ more SoCs
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wbjm735kz2knxz3e"
-Content-Disposition: inline
-In-Reply-To: <853110ab-1bd8-41cc-9b82-cc28002c0bed@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260911-more-socs-to-support-clk_measure-v1-1-940e269aa52f@amlogic.com>
+References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Chuan Liu <chuan.liu@amlogic.com>
+X-Mailer: b4 0.14.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789115329; l=1253;
+ i=chuan.liu@amlogic.com; s=20240902; h=from:subject:message-id;
+ bh=cohyDpjVw0jD9doFV5tm/XEidv0ja/sUaS7qt5A3x+8=;
+ b=+zRqxruOYTQd2GWbHMyhce6LqqsCixdgV8s7tFf1e7uXuhtRdOC4Qbns3oWiIJK2gcihR6bq4
+ IhjH2to1X/2CqUefRZCrhxwbaNuxHIzjijPh9TGjnL5GH1DbkKXt/oJ
+X-Developer-Key: i=chuan.liu@amlogic.com; a=ed25519;
+ pk=fnKDB+81SoWGKW2GJNFkKy/ULvsDmJZRGBE7pR5Xcpo=
+X-Endpoint-Received: by B4 Relay for chuan.liu@amlogic.com/20240902 with
+ auth_id=203
+X-Original-From: Chuan Liu <chuan.liu@amlogic.com>
+Reply-To: chuan.liu@amlogic.com
+
+From: Chuan Liu <chuan.liu@amlogic.com>
+
+Add clk-measure compatible for amlogic A5, A4, S7, S7D, S6 and A9 SoCs.
+
+Although the clk-measure IP itself has little hardware difference across
+SoCs, the clock inputs connected to the clk-measure block vary between
+SoCs. Therefore, it is difficult to fall back to the configuration used
+by previous SoCs.
+
+Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
+---
+ .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml          | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+index b1200e6940ac..125be01e3b2c 100644
+--- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
++++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+@@ -26,6 +26,12 @@ properties:
+       - amlogic,s4-clk-measure
+       - amlogic,a1-clk-measure
+       - amlogic,t7-clk-measure
++      - amlogic,a5-clk-measure
++      - amlogic,a4-clk-measure
++      - amlogic,s7-clk-measure
++      - amlogic,s7d-clk-measure
++      - amlogic,s6-clk-measure
++      - amlogic,a9-clk-measure
+ 
+   reg:
+     maxItems: 1
+
+-- 
+2.42.0
 
 
---wbjm735kz2knxz3e
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v3] arm64: dts: nuvoton: ma35d1: add CAN nodes
-MIME-Version: 1.0
-
-On 11.09.2026 10:15:21, Jacky Huang wrote:
-> > [ ... ]
-> > > @@ -244,6 +244,58 @@ gpion: gpio@340 {
-> > >                        };
-> > >                };
-> > >
-> > > +             can0: can@403c0000 {
-> > > +                     compatible =3D "bosch,m_can";
-> > > +                     reg =3D <0x0 0x403c0000 0x0 0x200>, <0x0 0x403c=
-0200 0x0 0x2000>;
-> > > +                     reg-names =3D "m_can", "message_ram";
-> > > +                     interrupts =3D <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
-> > > +                                  <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-> > > +                     interrupt-names =3D "int0", "int1";
-> > > +                     clocks =3D <&clk HCLK3>, <&clk CAN0_GATE>;
-> > > +                     clock-names =3D "hclk", "cclk";
-> > > +                     bosch,mram-cfg =3D <0x0 4 4 32 32 32 8 8>;
-> > > +                     status =3D "disabled";
-> > > +             };
-> > [Severity: Medium]
-> > Should this node include the hardware resets property (e.g.,
-> > resets =3D <&sys MA35D1_RESET_CANFD0>;)?
-> >
-> > Without the hardware reset line, the bosch,m_can driver cannot perform a
-> > hardware reset of the CAN controllers during probe or interface toggles.
-> > It must rely solely on software initialization, which can fail to fully
-> > recover the controller if the bootloader or a prior crashed state left
-> > the hardware in an unpredictable state.
-> >
-> > This omission pattern is identically repeated across the newly added ca=
-n1,
-> > can2, and can3 nodes below.
->
-> The reset property is optional for the MA35D1 CAN nodes.
-
-yes, but....
-
-> The bosch,m_can binding does not require a reset property, and the
-> m_can driver obtains the reset control through
-> devm_reset_control_get_optional_shared().
->
-> The MA35D1 CAN controllers also operate correctly without explicit
-> CAN reset properties in the existing platform DTS. Therefore, no
-> change is required for this patch.
-
-=2E..we've observed that the SW reset doesn't clear the CAN state and
-error counters, see commit 9271d0ea07c2 ("can: m_can: add support for
-optional reset") for details. As your SoC has a reset line connected to
-the M_CAN IP core, please add it to the dtsi.
-
-regards,
-Marc
-
---=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---wbjm735kz2knxz3e
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCaqOX9wAKCRDMOmT6rpmt
-0m5sAQDe8rpJRlj59JnXeh7uUHfFHP/ofivVRJiOXEAdam4QsQEA2wqvKefFKh7t
-gb/iyr+i/u/xI4v+NxR8FxerA6Vh0gU=
-=Kk71
------END PGP SIGNATURE-----
-
---wbjm735kz2knxz3e--
