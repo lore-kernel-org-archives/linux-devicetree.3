@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9963F438466;
-	Fri, 11 Sep 2026 11:25:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32D852E542C;
+	Fri, 11 Sep 2026 11:25:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125920; cv=none; b=tSJmjPfIaNExQjg5aMoAHuj6Z+OQlwon9Vkkm42YIu7TbtjSnW+IIRgJlh5NdYQZ2qgApljvkj5Vq/YOCXc6tTe7TdyozouXTwb2LBNDrvGDaCS4qHvROb73x3VhWyDXPIQRcXYXwXYxMeQQYJkUgrQoP0zbCX9buobaZTHyBOY=
+	t=1789125922; cv=none; b=Tyd12w4GnfYHs1VxgfoAqFwcXi6Le0E1y3mCW36MW37FD1foIjQRZxLE7Dw1jJzfBNWnusLkPAhEgULKgMk3JrE+fHE2XgKnQOjz4rfYhUcIDm1dP2wjEDfzzKw1GSHqjnyQiXc8dd6+Fixwb22yaDOVarYrykwH9g3DBz6qUkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125920; c=relaxed/simple;
-	bh=YDO07ty55SZ/h7MjtNA43/8iHCK9KahWWNct3aH0gzk=;
+	s=arc-20240116; t=1789125922; c=relaxed/simple;
+	bh=gpQK8zE9sxbzsaKQyc/Cqi/MOsTF+aD1TrpANQUTZhM=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kKzb2XBfjoHRGCCct61aKoD8WFTCZG1By7/QQohUdTnm24J+qJoKdzs+eD5xUIrfKw4nPEcFxB3T2PXQ6aW4BTAli6p+nb1N+y/XO6uhfHbzIVVhW9H6lJZ5045jp4dh7fCoJNT/dajVWsFLY93NCAHersju1LWMNqHZi6b9moo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XczocO6d; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=GbKLd2X/OGcVLa90KDItQqug2l/FyobAB8WzYbaETHAyXg270h0K7rR3hA8b0deVGWnNBbK4cWbIqLb0A0zgdVVE79/UTkKhRAERvNbE37+UPEaqqaugj6JCselci8RuwWLQtvOGL0nlIj/SG4pINRMlgYH2wsw/N7wB4oyhIvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBV/WqE1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XczocO6d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75D4F1F00893;
-	Fri, 11 Sep 2026 11:25:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBV/WqE1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3291F00899;
+	Fri, 11 Sep 2026 11:25:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125908;
-	bh=UTTG8yan6yVoKZGPEDLowwJNC987s9yGpXDxZ0pvHPw=;
+	s=k20260515; t=1789125912;
+	bh=rKouco8/yNm0gBoTUKavYASU9EWlitA5dDOKirGScbk=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XczocO6d55CVKrVVPATsFg2zy9sPS0Jxt22hCBVDF65gfZ3jm+YUfeomUJzOzLD3B
-	 ntD0sMYNbEZML9W0CoFx1p7KeP5KBaNFZMAAKVS/r6cNo3EMEEQPtTNg17I/t3pFl0
-	 yI0TiH3T5LZHy5pkGtpARjkzt7WIuOaS7rwAX9VeQSqaQEFRJJO/81gKVYj2zdZkGB
-	 OHqSUoGDPsn+1fJgxNlmvjs3WcnjRZIC5Yw9oJGqec1HtJL6sWJs4Ldd1s409E5xsF
-	 +cB3TdRh8iFYJER57+PZA4jVz3IFW9pg8usW7WPNeinfvYgirww97B88N5c+fFNssD
-	 HR29fmBvobvSg==
-Subject: Re: [PATCH net-next v2 1/9] dt-bindings: net: ti,dp83867: add supply
- properties
+	b=fBV/WqE1dSL+wlc8I8clbjJeywFqIe4YN/xQX6mZMq9yQpdk6IkeXHCn2VzGB9781
+	 ZGbzxC0urNvdKoO4O5GE7WNa5KAlLkzlmCV4sTNL4lRwCR8B11rC9qy8yn4CWqYIK3
+	 eJIabMuUAH2P36dkh+KeMy+HB4CiRZ+RfpdeXDC5yS8Bunxz+8x8PSHKdKKr91Jr1Q
+	 kIFwdIqwPa8AyefV1yoXJ4dE7cDH59X4hQX9Fl0OPGngJBmuw6CSCiHVFb0bYP4KeY
+	 DSShphr1s11Rk5LGw2syNvxKMGlLRehxI8wuDvC3DMdrkoSkAHMRxIHkS1HtFkU37p
+	 fVpkYMhkl2+bQ==
+Subject: Re: [PATCH net-next v2 3/9] dt-bindings: net: qcom,ethqos: add
+ qcom,shikra-ethqos compatible
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -40,10 +40,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 11 Sep 2026 11:25:07 +0000
-Message-ID: <178912590701.219967.15448701667812128746@kernel.org>
-In-Reply-To: <20260908-shikra_ethernet-v2-1-bbe3389d0652@oss.qualcomm.com>
-References: <20260908-shikra_ethernet-v2-1-bbe3389d0652@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 11:25:10 +0000
+Message-ID: <178912591096.219967.12828338145381099454@kernel.org>
+In-Reply-To: <20260908-shikra_ethernet-v2-3-bbe3389d0652@oss.qualcomm.com>
+References: <20260908-shikra_ethernet-v2-3-bbe3389d0652@oss.qualcomm.com>
 X-sashiko-severity: Low
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -54,74 +54,134 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issue(s) to consider:
 
-Critical: 0 · High: 0 · Medium: 0 · Low: 1
+Critical: 0 · High: 0 · Medium: 0 · Low: 2
 
-- [Low] Reported concern (assessed INVALID): the binding patch adds four
-  regulator-consumer properties (vdda-2p5-supply, vdd-1p0-supply,…
+- [Low] Documentation/devicetree/bindings/net/qcom,ethqos.yaml: the new
+  `if: compatible contains qcom,shikra-ethqos` block makes `operating-…
+- [Low] Concern (verified as resolved within this series): the binding
+  adds `qcom,shikra-ethqos` with six mandatory clocks (including `axi-…
 
 --
 
-dt-bindings: net: ti,dp83867: add supply properties
+dt-bindings: net: qcom,ethqos: add qcom,shikra-ethqos compatible
 
-This documents four regulator consumer properties for the DP83867 PHY
-(vdda-2p5-supply, vdd-1p0-supply, vdda-1p8-supply and vddio-supply),
-matching the two-supply and three-supply configurations described in the
-datasheet plus the separate VDDIO rail.  Documentation-only change, no
-code is touched.
+This adds the qcom,shikra-ethqos compatible to the qcom,ethqos and
+snps,dwmac schemas, and introduces an if/else block that constrains Shikra
+to six clocks (adding axi-noc and pcie-tile-axi-noc) while keeping the
+existing compatibles at four. The Shikra branch also makes
+operating-points-v2 mandatory.
 
-No Link: tags present in the commit header.
+A couple of questions below.
 
-> diff --git a/Documentation/devicetree/bindings/net/ti,dp83867.yaml b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> index 4bc1f98fd9fe5..e78f08ded3d0d 100644
-> --- a/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> +++ b/Documentation/devicetree/bindings/net/ti,dp83867.yaml
-> @@ -118,6 +118,20 @@ properties:
->        Transmitt FIFO depth- see dt-bindings/net/ti-dp83867.h for applicable
->        values.
->  
-> +  vdda-2p5-supply:
-> +    description: 2.5V analog supply (connected to the VDDA2P5 pins).
-> +
-> +  vdd-1p0-supply:
-> +    description: 1.0V digital core supply (connected to the VDD1P0 pins).
-> +
-> +  vdda-1p8-supply:
-> +    description: 1.8V analog supply (connected to the VDDA1P8 pins).
-> +
-> +  vddio-supply:
-> +    description: |
-> +      I/O supply (connected to the VDDIO pins). The supply can be 1.8V,
-> +      2.5V or 3.3V.
-> +
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> index 423959cb928d9..ad2cc706fa740 100644
+> --- a/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ethqos.yaml
+
+[ ... ]
+
+> @@ -32,6 +29,7 @@ properties:
+>            - qcom,qcs404-ethqos
+>            - qcom,sa8775p-ethqos
+>            - qcom,sc8280xp-ethqos
+> +          - qcom,shikra-ethqos
+>            - qcom,sm8150-ethqos
 
 [Severity: Low]
-One thing that came up while reading this in isolation: at this commit
-drivers/net/phy/dp83867.c has no regulator API usage, so the four new
-properties describe DT ABI with no in-tree consumer yet.  Is that
-intentional for this patch of the series?
+At this commit there is no driver side for this compatible:
+qcom_ethqos_match[] in drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
+has no qcom,shikra-ethqos entry, and nothing acquires axi-noc or
+pcie-tile-axi-noc or registers an OPP table.
 
-Checking the rest of the series answers it, so this looks fine as posted.
-The following patch, "net: phy: dp83867: add regulator supply management",
-adds dp83867_power_on() with:
+Checking the rest of the series shows this is closed later by "net: stmmac:
+qcom-ethqos: add per-platform NOC clock voting" and "net: stmmac:
+qcom-ethqos: add Shikra EMAC support", which add:
 
-  static const char * const supply_names[] = {
-          "vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+  { .compatible = "qcom,shikra-ethqos", .data = &shikra_data},
+
+and
+
+  static const struct ethqos_noc_clk_cfg shikra_noc_clks[] = {
+	{ "axi-noc", 120000000 },
+	{ "pcie-tile-axi-noc", 120000000 },
+	{ "stmmaceth", 120000000 },
   };
-  ...
-          ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
 
-and dp83867_probe() calls dp83867_power_on() before dp83867_of_init() and
-before any register programming in dp83867_config_init(), with the
-datasheet stabilization delay applied there.  The supply IDs match the
-property names documented here exactly, and the enable reference taken by
-devm_regulator_get_enable_optional() keeps the regulator core's late
-cleanup from turning the rails back off.
+along with qcom_ethqos_init_noc_clks() doing devm_clk_bulk_get() plus
+devm_pm_opp_of_add_table() and dev_pm_opp_set_rate(). The clock-names order
+here (rgmii as the fourth name) also matches shikra_data, which does not
+override link_clk_name.
 
-So no change is being requested here; noting it only in case the
-documentation is meant to land ahead of the driver change.
+So this looks consistent with the series as a whole; noting it only because
+the binding lands ahead of its consumer and the intermediate bisect point
+has no driver support.
+
+[ ... ]
+
+> @@ -92,6 +99,41 @@ required:
+>    - clock-names
+>    - reg-names
+>  
+> +allOf:
+> +  - $ref: snps,dwmac.yaml#
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,shikra-ethqos
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 6
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: pclk
+> +            - const: ptp_ref
+> +            - const: rgmii
+> +            - const: axi-noc
+> +            - const: pcie-tile-axi-noc
+> +      required:
+> +        - operating-points-v2
+
+[Severity: Low]
+The commit message says the OPP table is there so its required-opps can
+"vote VDD_CX to SVS when the NOC clocks are enabled". Should power-domains
+be in this required list as well?
+
+The required-opps vote only reaches a genpd if the consumer device has one
+attached. In drivers/opp/core.c, _set_required_opps() starts with:
+
+	struct device **devs = opp_table->required_devs;
+	...
+	if (!devs)
+		return 0;
+
+and required_devs[] is only populated via _opp_set_required_dev(), reached
+from genpd_set_required_opp_dev() in drivers/pmdomain/core.c during genpd
+attach, i.e. only when the node has a power-domains phandle. Even past that
+point, dev_pm_domain_set_performance_state() in drivers/base/power/common.c
+does:
+
+	if (dev->pm_domain && dev->pm_domain->set_performance_state)
+		return dev->pm_domain->set_performance_state(dev, state);
+
+	return 0;
+
+power-domains is already permitted through the snps,dwmac.yaml $ref (it is
+declared there as power-domains: maxItems: 1), so unevaluatedProperties:
+false is not in the way; it is simply not required.
+
+As written, a Shikra node with operating-points-v2 and no power-domains
+passes dt_binding_check, and at runtime the CX performance-state request is
+silently skipped while the NOC clocks still run at 120 MHz. No in-tree DTS
+is affected today since there is no Shikra DTS yet.
+
+[ ... ]
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
