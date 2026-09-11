@@ -1,232 +1,232 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F98944160D
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 11:17:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32770443C3E;
+	Fri, 11 Sep 2026 11:25:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125501; cv=none; b=VMWSJgBsnVzgbPp5YtT8dgh1v/fzdKPZ/wzaxx+L1yUJcG7m5cwkieM9sQrMY2BLFLZq6HJPnjPFLfS/b1kaD02/UuNSVUEhcu5hmjXUolQuyXVCNyXxtcjIyZxrXps9PrfTxDMaS1+Ks/CdGqz0L+CRbPNpWlf30WbNr6FwY+c=
+	t=1789125920; cv=none; b=mZ9u5d33KTeIGYorTLLIRV+PqsSDg0m+lq33g86uEExbhb8IB6loGDGX4gx5m6xvf/AzNseBebBzjmD/IId1HLQCqiG4/PYIoCi8Mvwd6tkA8zuvZ58jgKcMSu3nwcT3P0dpjtbfIOKbiS8EPlIq3y6IxZ0XLygkwgHeAFVlhNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125501; c=relaxed/simple;
-	bh=M0s5qNvm6lgULK2n8QPcCEFSAsT+ro/ADdWPoCKHveU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=powU3C8m2c2HONjuZuynHnDY75VL4ShcnFxToWE9HZYM1FVvAZL3Xx4sNkH3vaN20BkZxsFrRxFocZtmsuibVHLO+6vQjnHyT8kiXo98PGQjEpV78C1DGEGIVDtwGOwjUd9DaFnM6CKWOONeDIRIKcl1o2uuOLmTh/5ve+ecg30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AarCKnUS; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789125920; c=relaxed/simple;
+	bh=sNetw9RCwWxkZx0SL7tXOlbpncfL+27wC5H+2xrw2XA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bI/vM1CNAOC6p49AuCutsQCqMH3qkpEiBA7v+MxezEHtFsIHYbpE3DcViVw0Huyxu9f9f2b1joSIhF9H2wfIBU6sJL5r5C0Mi73Ihp1Uap0CoQGTydOkUhYLm1io5Gn0DtGgyisQgdoX9RvKiELeov6gD/7EGRAd748LVu1agj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SI09aKvb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AarCKnUS"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso535492f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 04:17:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789125469; x=1789730269; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p4YPgDFVhAPV2YkfLlZc7dMgt04j5FYtenK3LnM0C1E=;
-        b=AarCKnUSfJOClWAvJ+OrAx55BwAHtyhCbm3WDAcb40MVl5HiPbrLCCFgrSQMH0XEK2
-         vUiE2Wn5KPH9bJS97Qz4Ou3U69Iku/Hvu7GHdDjjmmDba1ebtEvqEpq1r4vksdiPUptU
-         XxQvdxixVZtcBO0g1y3SUXpm3g+tWMaTnreQ1P5STqXxYtm1tdmzDzDlaMlRgi+q0j68
-         Lpba6uJiY/LU6YvWgElL+n09DAAyyLqdJfOujv5FOv0KoU81rHircYuppQ2d7gfEJ1Wm
-         zu9hZGlV2h8lVEbuy1DuFGM2fTqVnZQHywjF0a3TjWQmUpxoEiuWJzk1Nr8OBJUxsyeW
-         a7+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789125469; x=1789730269;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p4YPgDFVhAPV2YkfLlZc7dMgt04j5FYtenK3LnM0C1E=;
-        b=dmK+Xkozj1Fv8XU79bf5J1fW+zD112gg5+pF/OA6DG61nGf5zBXOQ5tux0noyWLU+A
-         NiiqcS1SbbEm4D4wMVYcw2W6K1C5LFibE3toOPSYC8JwV7jJXT6YqC9OEmAbj0SrJIBl
-         uEJ2kONCkuQX5jNuU01Omd0zpOtoRpHhQm+37GPNc4bsxyaFbDbT5hISrnjicYtdJ1OM
-         80Et4b8wtM3Qy7xsNi3ptvVMwseF9t8DLSomAmM30GDWjm95e97pq73bNHwhMW56ggDZ
-         viG9MeaN8qHqaxKDrK6cWLNsMtMiTuUHMZwaZ39qJaUZaE8tBDcz/QFV+Qn4vJ4/9Lev
-         SABw==
-X-Forwarded-Encrypted: i=1; AKwUvBz6bMrq/NE1Kju+4B6xrszaX9QFQ3OBD6ivHK2p2wI6MHwWwgfN1XVIgNu6OtMWjq7rVMOVZOa3L6g+@vger.kernel.org
-X-Gm-Message-State: AFuF++mIDSpBTITEuuKhyFJka0YfxyQzk1mlwPrJ7MYopVjDiVj3Plb/
-	hd1QA3Di4PSbbOB6TlALkA4ITlmq3U5i/Q5t/Xw4QxWL5ec1/hz4VC9FywTTTf5Hsl4=
-X-Gm-Gg: AYBFou1+gt6Jc19ntiY3iPwzbCaFxqU+fFfz/f15BBzp7bI7eIh49CljctGndUxi4j5
-	BmKUiHQoqL1YMBMpSRQtVGB2PRuMmJmZIduiD9KDvmae889n5keE5yX+/PxC35rkAe6O42/xvjc
-	GSxmRL16TUxtWJo2hpyxq0VdZ9Hj8cZNwjg3LOx65zfuA5ayIZIxOOjkHmRmNqkQCn0ZTzVxHrY
-	MwVJOTYD5hBi/Yld4oxGLGON4RK7rvHYNZan0QSzJWFvUJ4aoYR35etg4ZzNrH7arnVVafG4MsN
-	4nVQjCC+CBTq4vLwNhvk/KyRZKbAAidtQ+tLHknc1opz8UXqcFSwwFCh4XDm1WJ0yhKd3qDQ4xC
-	iNTxTFbT6/CkfV40cFk/jakLbFWU4lI6bYOsa4OVFw/Gnqp6/oXBVDMGn1VRSnyKfvc1IdYzlUP
-	9JzkROndrKrOJYAmOZaTIA9UJmcFZ5PQ5gT4UZudRZLuGvmV7PulzB3PmbLK7QbOPxtTddkewMY
-	n8yEJpdFPDRVblloJ/x9GnGySgDYq5Pg54/Xe565XiuBdIhiKeOqv0O7GgijtvuL95nJMq56iAQ
-	fEgI0ln6Xgpbjk08r4+L8ytxqEURbg==
-X-Received: by 2002:adf:f2c9:0:b0:482:e22f:a2b2 with SMTP id ffacd0b85a97d-486eb303657mr3242321f8f.20.1789125468686;
-        Fri, 11 Sep 2026 04:17:48 -0700 (PDT)
-Received: from iku.example.org ([2a06:5906:61b:2d00:3de1:9f21:e874:3931])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm5438182f8f.5.2026.09.11.04.17.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 04:17:48 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v5 5/8] watchdog: rzv2h: Convert WDTDCR handling to regmap
-Date: Fri, 11 Sep 2026 12:17:28 +0100
-Message-ID: <20260911111731.3404308-6-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SI09aKvb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789631F000FF;
+	Fri, 11 Sep 2026 11:25:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789125910;
+	bh=RdZP/6HNOuGBfq2kgLhrIqIEX1HgQSuvTX9uOX9/bCI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SI09aKvb19Mvv4ssXbRp4wFHGaW2N671Rf1nnDOT+y2Nm2tVd7B9FxrDZ+l+uI51y
+	 agZNpWtEZkl2xrM/fzbGYzqi9WLKIiQpxtXoLLPCCblFr2xgStLUVy04qClUn1a01p
+	 6aHwHI/RvHSlz4BkxExeJvLLYKtBnSLXmBpX8h6mW47HGt6xtridct2fHyk5LVIS/P
+	 I2Y8/IHkVU3vS8RqtqJFQXYDYS3T4cimG383r+UekX6M/SHdEV3BH9pWaa6m51BWfT
+	 o0zbAoeAp7Q5WF70JDoeIvyz5H5zGuTFNcxOOnvON/iYdNK6aMFAYbwV/IzuZOHZVv
+	 pdrFS8HZ0N6jg==
+Subject: Re: [PATCH net-next v2 2/9] net: phy: dp83867: add regulator supply
+ management
+From: netdev-bot+sashiko@kernel.org
+To: mohd.anwar@oss.qualcomm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, afd@ti.com, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, richardcochran@gmail.com, andersson@kernel.org,
+ konradybcio@kernel.org, alexandre.torgue@foss.st.com, peppe.cavallaro@st.com,
+ joabreu@synopsys.com, maxime.chevallier@bootlin.com,
+ mcoquelin.stm32@gmail.com, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org
+Date: Fri, 11 Sep 2026 11:25:09 +0000
+Message-ID: <178912590907.219967.12393486261427611719@kernel.org>
+In-Reply-To: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
+References: <20260908-shikra_ethernet-v2-2-bbe3389d0652@oss.qualcomm.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-Convert the WDTDCR register access from raw readl/writel variants over to
-the regmap framework using devm_regmap_init_mmio().
+Critical: 0 · High: 1 · Medium: 1 · Low: 1
 
-This conversion serves as a preparatory refactoring step. It allows the
-driver to subsequently support syscon-based system controllers natively
-by passing along alternative regmap handles without forcing messy
-architectural branching at runtime.
+- [High] The rail enable sequence is placed in the PHY driver's probe
+  (dp83867_probe() -> dp83867_power_on(),…
+- [Medium] In dp83867_power_on() (drivers/net/phy/dp83867.c:723-748) the
+  variable `count` is incremented for every return value of 0 from…
+- [Low] dp83867_power_on() wraps its entire body in `#ifdef CONFIG_OF`
+  (drivers/net/phy/dp83867.c:725-746) although nothing inside uses an OF…
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
-v4->v5:
-- Handled the regmap locking in the driver and introduced nolock
-  version to be used in the restart path.
+--
 
-v2->v3:
-- Dropped unwinding changes to patch#1.
-- Set use_raw_spinlock to true in regmap config as certain watchdog operations
-  runs in an atomic panic context.
----
- drivers/watchdog/rzv2h_wdt.c | 54 ++++++++++++++++++++++++++----------
- 1 file changed, 39 insertions(+), 15 deletions(-)
+net: phy: dp83867: add regulator supply management
 
-diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index 4a5a856060e9..550112446db4 100644
---- a/drivers/watchdog/rzv2h_wdt.c
-+++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -4,6 +4,7 @@
-  *
-  * Copyright (C) 2024 Renesas Electronics Corporation.
-  */
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/io.h>
-@@ -12,7 +13,9 @@
- #include <linux/of.h>
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
- #include <linux/reset.h>
-+#include <linux/spinlock.h>
- #include <linux/units.h>
- #include <linux/watchdog.h>
- 
-@@ -65,7 +68,8 @@ struct rzv2h_of_data {
- 
- struct rzv2h_wdt_priv {
- 	void __iomem *base;
--	void __iomem *wdtdcr;
-+	struct regmap *wdtdcr_regmap;
-+	spinlock_t regmap_lock; /* Protects access to the wdtdcr_regmap */
- 	struct clk *pclk;
- 	struct clk *oscclk;
- 	struct reset_control *rstc;
-@@ -89,20 +93,19 @@ static int rzv2h_wdt_ping(struct watchdog_device *wdev)
- 
- static int rzt2h_wdt_wdtdcr_count_stop(struct rzv2h_wdt_priv *priv)
- {
--	u32 reg = readl(priv->wdtdcr + WDTDCR);
-+	guard(spinlock_irqsave)(&priv->regmap_lock);
-+	return regmap_set_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
-+}
- 
--	writel(reg | WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
--
--	return 0;
-+static inline int rzt2h_wdt_wdtdcr_count_start_nolock(struct rzv2h_wdt_priv *priv)
-+{
-+	return regmap_clear_bits(priv->wdtdcr_regmap, WDTDCR, WDTDCR_WDTSTOPCTRL);
- }
- 
- static int rzt2h_wdt_wdtdcr_count_start(struct rzv2h_wdt_priv *priv)
- {
--	u32 reg = readl(priv->wdtdcr + WDTDCR);
--
--	writel(reg & ~WDTDCR_WDTSTOPCTRL, priv->wdtdcr + WDTDCR);
--
--	return 0;
-+	guard(spinlock_irqsave)(&priv->regmap_lock);
-+	return rzt2h_wdt_wdtdcr_count_start_nolock(priv);
- }
- 
- static void rzv2h_wdt_setup(struct watchdog_device *wdev, u16 wdtcr)
-@@ -235,8 +238,11 @@ static int rzv2h_wdt_restart(struct watchdog_device *wdev,
- 			WDTCR_RPES_75 | WDTCR_TOPS_1024);
- 
- 	if (priv->of_data->wdtdcr) {
--		/* best effort, ignore ret */
--		rzt2h_wdt_wdtdcr_count_start(priv);
-+		/*
-+		 * Best effort, ignore return value and use the unlocked
-+		 * variant of the function to avoid potential deadlocks.
-+		 */
-+		rzt2h_wdt_wdtdcr_count_start_nolock(priv);
- 	}
- 
- 	rzv2h_wdt_ping(wdev);
-@@ -255,14 +261,32 @@ static const struct watchdog_ops rzv2h_wdt_ops = {
- 	.restart = rzv2h_wdt_restart,
- };
- 
-+static const struct regmap_config rzv2h_wdtdcr_regmap_config = {
-+	.name = "wdtdcr",
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = WDTDCR,
-+	.max_register_is_0 = true,
-+	.disable_locking = true,
-+};
-+
- static int rzt2h_wdt_wdtdcr_init(struct platform_device *pdev,
- 				 struct rzv2h_wdt_priv *priv)
- {
-+	void __iomem *wdtdcr;
- 	int ret;
- 
--	priv->wdtdcr = devm_platform_ioremap_resource(pdev, 1);
--	if (IS_ERR(priv->wdtdcr))
--		return PTR_ERR(priv->wdtdcr);
-+	wdtdcr = devm_platform_ioremap_resource(pdev, 1);
-+	if (IS_ERR(wdtdcr))
-+		return PTR_ERR(wdtdcr);
-+
-+	spin_lock_init(&priv->regmap_lock);
-+
-+	priv->wdtdcr_regmap = devm_regmap_init_mmio(&pdev->dev, wdtdcr,
-+						    &rzv2h_wdtdcr_regmap_config);
-+	if (IS_ERR(priv->wdtdcr_regmap))
-+		return PTR_ERR(priv->wdtdcr_regmap);
- 
- 	ret = pm_runtime_resume_and_get(&pdev->dev);
- 	if (ret)
+This adds dp83867_power_on(), called from dp83867_probe(), which walks four
+supply names with devm_regulator_get_enable_optional() and, if any of them
+returned success, sleeps 200 ms for the datasheet post power-up
+stabilisation.  A few questions about the new function below.
+
+> diff --git a/drivers/net/phy/dp83867.c b/drivers/net/phy/dp83867.c
+> index 88255e92b4cdb..dbeee7cad6f0c 100644
+> --- a/drivers/net/phy/dp83867.c
+> +++ b/drivers/net/phy/dp83867.c
+
+[ ... ]
+
+> @@ -719,9 +720,41 @@ static int dp83867_resume(struct phy_device *phydev)
+>  	return 0;
+>  }
+>  
+> +static int dp83867_power_on(struct phy_device *phydev)
+> +{
+> +#ifdef CONFIG_OF
+
+[Severity: Low]
+Is CONFIG_OF the right predicate here?  Nothing inside the guard uses an OF
+API, only devm_regulator_get_enable_optional(), dev_err_probe() and
+fsleep().
+
+On CONFIG_OF=n the whole body disappears and dp83867_power_on() becomes
+"return 0", so supplies that the regulator core would resolve through the
+non-DT lookup path (regulator_lookup_by_name() in _regulator_get(), taken
+when dev_of_node(dev) is NULL) are never enabled, and errors including
+-EPROBE_DEFER are never propagated.
+
+The rest of this file uses #if IS_ENABLED(CONFIG_OF_MDIO) for its genuinely
+OF-dependent code (dp83867_of_init_io_impedance()).  Would keying this on
+the regulator API instead, or dropping the guard entirely since the
+!CONFIG_REGULATOR stub already makes the calls harmless, be more accurate?
+
+> +	static const char * const supply_names[] = {
+> +		"vdda-2p5", "vdd-1p0", "vdda-1p8", "vddio",
+> +	};
+> +	struct device *dev = &phydev->mdio.dev;
+> +	u32 count = 0;
+> +	int i, ret;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(supply_names); i++) {
+> +		ret = devm_regulator_get_enable_optional(dev, supply_names[i]);
+> +		if (!ret)
+> +			count++;
+> +		else if (ret != -ENODEV)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to enable %s supply\n",
+> +					     supply_names[i]);
+> +	}
+> +
+> +	/* Datasheet section 6.6 suggests a 200ms post power-up stabilization */
+> +	if (count)
+> +		fsleep(200000);
+> +#endif
+
+[Severity: Medium]
+Can count reliably mean "a rail was newly powered up" here?
+
+With CONFIG_REGULATOR=n the API is a stub that can never return -ENODEV:
+
+include/linux/regulator/consumer.h:
+	static inline int devm_regulator_get_enable_optional(struct device *dev,
+							     const char *id)
+	{
+		return 0;
+	}
+
+so all four lookups "succeed", count == 4, and every DP83867 probe pays
+fsleep(200000), which for usecs >= USLEEP_RANGE_UPPER_BOUND lands in
+msleep(200).  DP83867_PHY in drivers/net/phy/Kconfig has no
+depends on REGULATOR, so this is a valid configuration.
+
+With CONFIG_REGULATOR=y, _devm_regulator_get_enable() in
+drivers/regulator/devres.c returns the result of regulator_enable():
+
+	ret = regulator_enable(r);
+	if (!ret)
+		ret = devm_add_action_or_reset(dev, &regulator_action_disable, r);
+
+and regulator_enable() also returns 0 for a rail that is already on
+(always-on/boot-on, enabled by the bootloader, or shared with another
+consumer), so the 200 ms wait is taken on every probe or re-bind merely
+because the rails are described in DT, with no off->on transition.
+
+Both cases seem to disagree with the commit message:
+
+> Absent supplies are silently skipped, so boards
+> that do not describe them are unaffected.
+
+and
+
+> When any supply is newly enabled the driver sleeps for 200 ms before
+> returning.
+
+Should the delay instead be gated on something that actually distinguishes
+an off->on transition?
+
+> +	return 0;
+> +}
+> +
+>  static int dp83867_probe(struct phy_device *phydev)
+>  {
+>  	struct dp83867_private *dp83867;
+> +	int ret;
+> +
+> +	ret = dp83867_power_on(phydev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: High]
+Can this call site ever power up a DP83867 whose rails are off at boot,
+which is the board class the commit message describes?
+
+phy_driver->probe() runs only after the PHY has been identified over MDIO.
+For a DT node without an explicit "ethernet-phy-idXXXX.YYYY" compatible,
+fwnode_mdiobus_register_phy() takes the scanning path:
+
+drivers/net/mdio/fwnode_mdio.c:fwnode_mdiobus_register_phy() {
+	is_c45 = fwnode_device_is_compatible(child, "ethernet-phy-ieee802.3-c45");
+	if (is_c45 || fwnode_get_phy_id(child, &phy_id))
+		phy = get_phy_device(bus, addr, is_c45);
+	else
+		phy = phy_device_create(bus, addr, phy_id, 0, NULL);
+}
+
+and get_phy_device() -> get_phy_c22_id() gives up on an unpowered PHY:
+
+drivers/net/phy/phy_device.c:get_phy_c22_id() {
+	/* If the phy_id is mostly Fs, there is no device there */
+	if ((*phy_id & 0x1fffffff) == 0x1fffffff)
+		return -ENODEV;
+}
+
+With the rails off no phy_device with the TI ID is created, so this driver
+never binds and dp83867_power_on() never runs.  In the case where the driver
+does bind after a scan, the rails were already on, so the enable is a no-op
+and the 200 ms is dead time on every bind.  Would this power-up need to
+happen before MDIO identification (MDIO bus / reset-and-power stage) to have
+the intended effect?  The only configuration where the new code can power a
+dark PHY appears to be a DT node carrying an explicit phy-id compatible so
+the ID read is skipped, and the binding example added earlier in the series
+in Documentation/devicetree/bindings/net/ti,dp83867.yaml uses the scanned
+form.
+
+There is a second consequence of using the devm form here.
+devm_regulator_get_enable_optional() installs regulator_action_disable() via
+devres, so unbinding the PHY driver, or a later failure in dp83867_probe(),
+disables these rails while the mdio device stays registered.  Does that
+leave subsequent register access (generic PHY fallback, re-scan, ethtool)
+talking to a powered-off device?
+
+>  
+>  	dp83867 = devm_kzalloc(&phydev->mdio.dev, sizeof(*dp83867),
+>  			       GFP_KERNEL);
+
 -- 
-2.55.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
