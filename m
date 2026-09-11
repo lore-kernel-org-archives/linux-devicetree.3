@@ -1,63 +1,65 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2FC13D4116
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 11:17:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0B71D7E5C
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 11:17:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125481; cv=none; b=Hrev2fFKImfuAwNXCy06v4jjYS6UYHZ1Gy9IeuTvOuBid3BGFXAmzvYA4DndRoPXK+6fonkfRkC3yvNqpwDwjt2sJttHRJ7EE8eQ/ohorTYADUmB8iqYVIumSv/bFE4nQVP26LL4OQM/Tm9UY/kXEvzpy77XZoVDzHIEP7yR0RI=
+	t=1789125482; cv=none; b=ZVbG+timze7HkzgV64Fsf0/AsD/ctKXTvOrurFScd590SMdUtvYJx6w82DuSOxeJoodLhjF4v+L0VKfhSviNtIYPcDcFcmOCVx4fPhUnntXwM5Ldzub/hzBdwKTd0EbQQyT6jFa1FZjiz2N/f4I8VKbjNM8Domcok5oGuK25xx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125481; c=relaxed/simple;
-	bh=BP803oURR/lN8mCs4lhT55YLQxArhtFJ/cLKl3zfk0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fHQiV5bbHnsJ+LoPxQ4CUfuYMUyt+tx6ZiulpaPOI3G/E/ZvJDf/5P7ubeaL4BmjuBuZ6IuF2oblyOnE7dxkosVPd4D5708Urpgb7QlAVc91nbbA2Ltan4E359gEik0ff0HqcYSAoqoradJg3az1LTbA5OZb4Bv4IewcXrFA3RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MgxYvuu9; arc=none smtp.client-ip=209.85.208.46
+	s=arc-20240116; t=1789125482; c=relaxed/simple;
+	bh=KyfbDt9czf3+HI+uydLbr5vC6KLYpGEYKOcYxmAcr6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mCjAvXsUtc/gHGeJK6JtsocpzbBQjnHPR06NHYyZLlKJmcqp2wprtpBhswytfKU77JJHpsTmD0NG4pw0KRJABxUWDB1chvkaDVKwdOPuzu2KbaWg/48V/jmYeey57ZcJ+x8k6e8fMsc9QNDoZAdefBELeRAqdT8HvAkU0KuUOeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r0X4IQvx; arc=none smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MgxYvuu9"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-69f7fa1c548so1249841a12.2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r0X4IQvx"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6356256so238143f8f.1
         for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 04:17:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1789125465; x=1789730265; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EGymmArXv4evJmXGsdnDdmakRi+qhuX+cQlFqwWpb8A=;
-        b=MgxYvuu9WAINZLrlXY8oj0LQQuraqCWwcCOdzY9kBKp0x05pNms4Y4IzU60eQWEIZP
-         GDQmVmp6vJv6OAbTwzu+0q4lOtskFY+TnUz0VVOHMGgm4zhNAz/vfyKicym3949kPmSz
-         z8teXUI8Y1Qk31epJ9SGu0Q1tjZV5VF8hc5u+djkhw6nyLt/5BW6pR9UmIne3P+bZEMp
-         ggM3GrDIsyhLlkkaECUSP9mMQmNa3ejndFyBDv0WhFtq+5cadX21ZEfr811Q8FViyDm/
-         nga6/H1pwgyxpYdlB2RugXzXMSdCgOy6dM0K6fdFU0g2IndkT/T2t5r8JXRumEftn8md
-         JCQg==
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sS5eU6IT9I1jv6dzRX1Sx143P1BXIUwdXxgwRP/Lqvw=;
+        b=r0X4IQvxCbzOW7exDOnA1OsWQcSLxZqsqsHwW8aGQ0DzV60jQb0CzskZwoaPJguVa0
+         hKVjlfgoAWRArRODmBt8vP3foAen9RgAcH07orqHTl6tWRqqI8ufudSpZ7X1Kt4If48b
+         aHOJcckHTlOw9m6nlnjTR2mdA0GxXSq/Jgs0/UgPmdTDjdXU1FANzTWvglQ/Wy9mXBlB
+         M2cXIBX/XTiChYZBmp8k2GXY2imu0mRMqJyuUqb8Fl8dBftQmvBEzpHD1idaGZtWjAKt
+         K0gsZSzmPtET6G/QdpuCEKVjDZRjfII8JUdcO8oeXG+A28h6fb+WMdzRJklL+dTG7HNN
+         wPSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1789125465; x=1789730265;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EGymmArXv4evJmXGsdnDdmakRi+qhuX+cQlFqwWpb8A=;
-        b=AWBQnAxxH3ePq/PnOvUNoJEJuGJD/j8dgmLAfneAm0jQghbum58P+1UlldxvRstooY
-         snqm4U8eZBZWD7hhh4YEN2HAJKV4RIKH2BxGsk5aii78DEM88hwyIVAhfYvXej5F/fXj
-         VCJAEUmH155lfkKkuQfbKpx9Rw5DsZyKsMCTe7k/bGDI2kyZ6iXaSCZPQKQUz+cRVHjL
-         xCnPtQbU/+Tf0CbiXgufHku8Eh6EVMkIQnVjgRPFX8sFkOENsyglTDJp00ytZDnnpptq
-         7o061et3m12wwtg1q5/WRHe4QVgTO2fWSn94U2A10IkPmQGgnzpJd2NDPCrBS9xG8PLy
-         UIow==
-X-Forwarded-Encrypted: i=1; AKwUvBz+n9yNQLA3uvCc5hC8u7D0oHTNLLVWXM9JEcIMEdJmjPcD7cGUkppfDvXARAYPlpXvxoxVXNLpdxUG@vger.kernel.org
-X-Gm-Message-State: AFuF++k9P2VY18WvJCIkLUfGFtRcadPWvT3JpNp9OvPn1tre6/GUlrp3
-	nXcttd79P7iQW+JYkubEiw6ebuOh0xkPEeyUdLfT3ErEcNrw1k3SK3NY
-X-Gm-Gg: AYBFou34p6mrLqYIs5/Vzdr3IEi7oflH8aHhbBEGvbgT2DUnemlLYn+AvEJKID0eOYs
-	tCW/aDTXL5VDMVEqYmedYtDki/8Bqra3t73rx1XQbO5BeUo1VMJTeEqKgAQJWHgOk6Kezl8aEnG
-	VO0/JJdPvTPtsL7/C8VKOpbmqju451IrWlrQJqlogqR62WaKx5/6sRUmKRFAyff/xW0H1w7RKnK
-	1lxLWPdlMVrPJlDL/TUTgz4N3Tiyg0ifDAQ4GmUirpVUa911nsXaPtgyyekqg7VJlWGNRwAJ2KH
-	Lez658vvk+bOhaE1G3VcG0BfQP62xLtW6lA5Kseni97wXLKhFe1Iskwe0WYahXThGLbzNr34cWN
-	3spRXFp85yzIjlaK0GWTCYoMW1zd79q3kg0X7axiU3aF5+KX+l7H5F56e5rNZKYEDYR9uf9/Mlo
-	3vmrd7tWVRY6lqlRWQ9T2CcZRBN6cJXiTZad7hs7qOCfp/UfJdZAKg6nOq377QLQzsWjAlLgNLQ
-	NFyacJIBJdnIjNokEE0wPhCJld9vK4nOox62URZWi+TtO5jP1+nmZYfIHGGtmPu7KKRsF+N7TAH
-	gMgRIN6NYnPRj3cHZXA=
-X-Received: by 2002:a05:6402:1587:b0:6a6:584:d9e7 with SMTP id 4fb4d7f45d1cf-6a9b5626b12mr1656298a12.15.1789125463808;
-        Fri, 11 Sep 2026 04:17:43 -0700 (PDT)
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sS5eU6IT9I1jv6dzRX1Sx143P1BXIUwdXxgwRP/Lqvw=;
+        b=ksiJbgM2WEl1z/Ebhz5+ncw+o+ZxYzBLJ3fiiZet5+C9cbpfothdI5qjDPQi/msbjm
+         +MQV+3B9D6SO2CVmm/ZQPmNDBQzx/b/Y5xxy/3oOWJ7VCukrx1lUdgIrwW7zRGMCX4P/
+         47F4kr75wLZ+jXQwAwpfoAZ9FqD60yt6dG6zxVAtORDz7lG7Y4w9o0uyfQwB3JBv0Md2
+         b2XFFuLtfdD3jCnUFIpQ5q1mTHbitq9KDqd3ELTCZHOTVklXwxqLzx7sAs59TxE9FDi3
+         bv4yCuAuYrBmvQDsjQyrUHNfiSgZQRvVvIo5y67Jaw+nNdqGQ68HLzLP52F6eAETD9l3
+         CZrw==
+X-Forwarded-Encrypted: i=1; AKwUvBxGGvRWA2tZVbyd7GDjn795E9nJkkzwP3gPLHgwn8NOxOhQMNCkUC9hQ8pGK9pDUa7jcNKvg7rp4huG@vger.kernel.org
+X-Gm-Message-State: AFuF++nK3kvQUjUhGf9jC48zfIHxhEn7NyFWFjESqUSx4FnH94FB7qQa
+	bc3Fsu2sjg1RrLoTHM1gvIyui5/uRm7rmo4vB6HiCLnXWkUdfIasXYS8
+X-Gm-Gg: AYBFou3d5i823nCslbPwNs0z3x4X51icigO230QR/d3vzn6SnJ4GBwbDIXr8VxVz3Dm
+	dacSemWvNC6d6FBDVVREQ0tZudiSa5E/pgM4lcDpFSSDwgRMSmfJ66VyLzoscogpqjSUzZp5qXq
+	N8veYY3H0pcPtqfYKXRldOakHyMAy+eqzD/yzIJ7tAZ123lCmxJdVzfWEW7/uw9ysR6aI5bimKj
+	IAsPACLdHyqMKe/SGup/1wfZKXHZkLSHTBzbBYtYwoLryDYvQ15+RWvSTQamKrhLSSAr+Cy7E1R
+	O9qamFWeqziKxaA3ZyBhsasurlDOVgCCpdSsiQfFANtb0zLAncgD/2ZkDDwb2AvChf9h9U87R9g
+	e5J0+q1lk3wjw4Ltnas4JQnbOjCDupb8Bh65S+VQO8UD+gnh84ued+dXi8lxAUd/sgQ/UFeA9+X
+	jBHlLmtXLjIqohAlQV79drhgJKC0B81mnzf66DmJrxY4izMrfdsR0YTwFD9ixAhDtXX+xdnmFcf
+	AeH8YictoUlxx1T3p0arUXDpf/WURre9eYEKjg2ygs/W7tb0HA/ZR8WCoaP7hbzyWQhyL4z86Wt
+	tym/Bj4nfyGOp6l/vp6Ue+ykAf+xbA==
+X-Received: by 2002:a05:600c:3b1f:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-49e60f6955cmr48817515e9.4.1789125464885;
+        Fri, 11 Sep 2026 04:17:44 -0700 (PDT)
 Received: from iku.example.org ([2a06:5906:61b:2d00:3de1:9f21:e874:3931])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm5438182f8f.5.2026.09.11.04.17.42
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf23sm5438182f8f.5.2026.09.11.04.17.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 11 Sep 2026 04:17:43 -0700 (PDT)
+        Fri, 11 Sep 2026 04:17:44 -0700 (PDT)
 From: Prabhakar <prabhakar.csengg@gmail.com>
 X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -76,10 +78,12 @@ Cc: linux-renesas-soc@vger.kernel.org,
 	Biju Das <biju.das.jz@bp.renesas.com>,
 	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v5 0/8] Add syscon support for Renesas WDT driver
-Date: Fri, 11 Sep 2026 12:17:23 +0100
-Message-ID: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v5 1/8] watchdog: rzv2h: Drop enabling clocks in the restart handler
+Date: Fri, 11 Sep 2026 12:17:24 +0100
+Message-ID: <20260911111731.3404308-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,51 +94,68 @@ Content-Transfer-Encoding: 8bit
 
 From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Hi all,
+The watchdog restart handler runs from do_kernel_restart() with
+interrupts disabled and after smp_send_stop() has halted the other CPUs.
+Calling clk_enable() from the !watchdog_active() path takes the clock
+framework's global enable_lock. If a stopped CPU held this lock, the
+CPU executing the restart handler can spin indefinitely and prevent the
+watchdog from resetting the system.
 
-This series adds syscon support for the Renesas RZ/T2H and RZ/N2H SoCs in
-the WDT driver. The WDTDCR register is part of the CPG/MSSR block for
-which the CPG driver registers SYSC regmap. WDT driver now uses this
-syscon to access the WDTDCR register.
+Keep pclk and oscclk enabled for the lifetime of the watchdog device by
+using devm_clk_get_enabled() and devm_clk_get_optional_enabled().
+Remove the conditional clock enable/disable operations from the restart
+handler so it does not acquire any clock framework locks.
 
-These patches were part of two seprate series [0] and [1], out of which
-certain patches have been queued separately, so I have included rest of
-the patches into this single series.
-
-Merge startegy, as the WDT driver and DTSI changes are interdependent
-maybe the driver patches can go via renesas-soc.
-
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+---
 v4->v5:
-- patch #1 is new addressing Sashiko's comments to avoid potential deadlock
-- patch #4 is new addressing Sashiko's comments
-- Dropped checking rzt2h_wdt_wdtdcr_count_start() return value in
-  restart path.
-- Handled the regmap locking in the driver and introduced nolock
-  version to be used in the restart path.
-- Added review-by tag.
+- New patch
+---
+ drivers/watchdog/rzv2h_wdt.c | 19 +++----------------
+ 1 file changed, 3 insertions(+), 16 deletions(-)
 
-[0] https://lore.kernel.org/all/20260817192540.423994-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-[1] https://lore.kernel.org/all/20260814191415.2110732-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
-
-Cheers,
-Prabhakar
-
-Lad Prabhakar (8):
-  watchdog: rzv2h: Drop enabling clocks in the restart handler
-  watchdog: rzv2h: Drop WDTRCR_RSTIRQS define
-  watchdog: rzv2h: Propagate WDTDCR access errors
-  watchdog: rzv2h: Use pm_runtime_put_sync()
-  watchdog: rzv2h: Convert WDTDCR handling to regmap
-  watchdog: rzv2h: Add syscon support for WDTDCR
-  arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR access
-  arm64: dts: renesas: r9a09g087: Use CPG/MSSR syscon for WDTDCR access
-
- arch/arm64/boot/dts/renesas/r9a09g077.dtsi |  24 ++--
- arch/arm64/boot/dts/renesas/r9a09g087.dtsi |  24 ++--
- drivers/watchdog/Kconfig                   |   1 +
- drivers/watchdog/rzv2h_wdt.c               | 134 +++++++++++++++------
- 4 files changed, 122 insertions(+), 61 deletions(-)
-
+diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
+index 3b6abb66a1da..bd86da71b0eb 100644
+--- a/drivers/watchdog/rzv2h_wdt.c
++++ b/drivers/watchdog/rzv2h_wdt.c
+@@ -191,22 +191,9 @@ static int rzv2h_wdt_restart(struct watchdog_device *wdev,
+ 	int ret;
+ 
+ 	if (!watchdog_active(wdev)) {
+-		ret = clk_enable(priv->pclk);
+-		if (ret)
+-			return ret;
+-
+-		ret = clk_enable(priv->oscclk);
+-		if (ret) {
+-			clk_disable(priv->pclk);
+-			return ret;
+-		}
+-
+ 		ret = reset_control_deassert(priv->rstc);
+-		if (ret) {
+-			clk_disable(priv->oscclk);
+-			clk_disable(priv->pclk);
++		if (ret)
+ 			return ret;
+-		}
+ 	} else {
+ 		/*
+ 		 * Writing to the WDT Control Register (WDTCR) or WDT Reset
+@@ -290,11 +277,11 @@ static int rzv2h_wdt_probe(struct platform_device *pdev)
+ 	if (IS_ERR(priv->base))
+ 		return PTR_ERR(priv->base);
+ 
+-	priv->pclk = devm_clk_get_prepared(dev, "pclk");
++	priv->pclk = devm_clk_get_enabled(dev, "pclk");
+ 	if (IS_ERR(priv->pclk))
+ 		return dev_err_probe(dev, PTR_ERR(priv->pclk), "Failed to get pclk\n");
+ 
+-	priv->oscclk = devm_clk_get_optional_prepared(dev, "oscclk");
++	priv->oscclk = devm_clk_get_optional_enabled(dev, "oscclk");
+ 	if (IS_ERR(priv->oscclk))
+ 		return dev_err_probe(dev, PTR_ERR(priv->oscclk), "Failed to get oscclk\n");
+ 
 -- 
 2.55.0
 
