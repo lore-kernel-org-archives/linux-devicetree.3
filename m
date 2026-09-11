@@ -1,209 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA19450406
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 866D04570FF;
+	Fri, 11 Sep 2026 07:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112867; cv=none; b=ab72qceTAY/27shS6W4w5XOuokYy2sg1+hKS5K/2TtCF/ILZZNj7F48uVvpHkTLG+cqQKlqGsy5b76/8VC2Fx3h5b/eb6Pss3hjpLhs43XODB6je/BTFBpWksreMyGg+QFZQiDf+FXoNywnjGJmaKUN6L9BDUIBYZ3dTc6Fzprg=
+	t=1789112882; cv=none; b=ilTbRL9tc2MyAgeP9LB9j6p9y6FkH8SHTCIoocrtu+GGfw3CAwHbjI2KGXolCBggdYjxEHJCLjb3eQ8FrkkEGRBR11HELh9ywzuvI6dtPdtKL6RpL9LLJkPXGWXD/5CJq0j25tpCtcqkRBGDJ+kKNjxCUzv9ePMeVunog+hPRpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112867; c=relaxed/simple;
-	bh=ZAF7/Z/W14YsiYPnpK6br4OmllFz2BNQppIG9qI6HLo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Q43gBfwP67+/fXCZTqzGci1VoA3iZKrW2wzB8mrC/DCe+VpyO1Q1uT3GWVLTs7aKTcFuJC103/phqCkdI0WsEE60Di7WfJ2mYec852/cWI0SI0ONVz6Nz7J7nns9klI+9EFGMK49iWgh813PTZlceQoLNgVN2F0GYq8dqwLPY9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DV/n9MRg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789112882; c=relaxed/simple;
+	bh=ruI4u/j0531/L6p3OmQduRDVD6eAPgK4O4B88AoufBA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iBd5uq7rEvXDgjXrrUqhBX2zUGnt0wHTu27ISgYuReI/li8fAfCIJB40dT62aN0dqR5gTkpABmUNc4tqfLQlx3V+e7bhjOa1TQr1I8zf0n19TdffpNKBX/3GnStRDsmIbKGUWSJPv/G0fIcXN0ZTkGu44K5BtZF3M+1TQFWm0bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fKTBOdIU; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DV/n9MRg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0AA601F000FF;
-	Fri, 11 Sep 2026 07:47:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789112865;
-	bh=k93uoZnMQuOWpfjn7jQ1AQ/DRwUUhPe0HhVRshORLuo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DV/n9MRgAPbJ6nvC+xnGWeOd0PrtXKfEf36UkYdIWdQUa6MZcQacrymm79TLacZrs
-	 H9QywoFO384133rP3eyqKeXmFaVhQRRj7nvPmJkAvtn44bMMMRGiN4CWFK+O8Q2ura
-	 4GweeEu62vE8uUDyGYHfinLKJ6EZQNiDynr9e47F2I8ddZ+CgytPrx05CYYpZnWBrC
-	 W7I3cqeUHnpQym0um8EFDOt9X5XDJFL2r21bUzbtbSGg4g8SJz+1VHcvkCtVtlcsmS
-	 sxtr0wKpB5CbAe6SlPUyz+63Xivd/GyuOyGKBuxwIqeYOvMmXyRcUjW8YydtCq8QQX
-	 Y+JlPHX2sjlgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 RESEND 2/2] usb: typec: Add onsemi FUSB15201 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260911073414.16711-3-shengchao.guo@oss.qualcomm.com>
-References: <20260911073414.16711-1-shengchao.guo@oss.qualcomm.com>
- <20260911073414.16711-3-shengchao.guo@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:47:44 +0000
-Message-Id: <20260911074745.0AA601F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fKTBOdIU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1789112876;
+	bh=ruI4u/j0531/L6p3OmQduRDVD6eAPgK4O4B88AoufBA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fKTBOdIU38tZS6iAx4RsuMRR2ViORWzbPsH7zJy86cIpgB4cIE44WdjoNAB7ftLGg
+	 yCzwD6mJnjfFT+WTcPyUvTIGEWFZdZ+nBiWg0gfNeCmmtCzqBgAfItQf/JjNXFJPJn
+	 Fo8kOgX3+W3tkS4r6kahQdKQBnagoxFo1mrT2q6+0e0pSnPyn+eoIi4VZMDMXFZN2p
+	 E1YNUMCmSiBe+xtyuSLIK2XTt/iI+1PhbvYwQnS0kdaSGR0oVsddaGabEvS/vkySdW
+	 3MHOtl0slIOUkVT0VUw/HDSpvtlkc2tg6FilUKX+tAc3E08DZlcuIuXWqGwwy0J1bQ
+	 YX5GHHosJw7xA==
+Received: from [100.64.1.21] (unknown [100.64.1.21])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	(Authenticated sender: kholk11)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 6886417E0CA6;
+	Fri, 11 Sep 2026 09:47:55 +0200 (CEST)
+Message-ID: <87408499-de7e-4359-a2ea-d997abd1d0c4@collabora.com>
+Date: Fri, 11 Sep 2026 09:47:54 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 11/12] phy: phy-mtk-dp: Add PHYD Lane EN register mask
+ to SoC data
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: chunfeng.yun@mediatek.com, vkoul@kernel.org, neil.armstrong@linaro.org,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ matthias.bgg@gmail.com, chunkuang.hu@kernel.org, p.zabel@pengutronix.de,
+ justin.yeh@mediatek.com, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, kernel@collabora.com
+References: <20260707154245.198361-1-angelogioacchino.delregno@collabora.com>
+ <20260707154245.198361-12-angelogioacchino.delregno@collabora.com>
+ <cydeh263kd5o2un27oeplqx2phe7vzhxvk53kr7dbvtplazafv@rs37qtkhguhj>
+ <4e658914-7a17-444b-b20b-8d8b647238b5@collabora.com>
+ <m3fpa2igwmsnsxhhxtg5hubsmxbn2vmzcpo4hwacs66z52x5ll@xrl5kac2qmtk>
+From: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Content-Language: en-US
+In-Reply-To: <m3fpa2igwmsnsxhhxtg5hubsmxbn2vmzcpo4hwacs66z52x5ll@xrl5kac2qmtk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Dangling fwnode pointer in the Type-C port device due to missing r=
-eference increment.
-- [Medium] Data race on driver state and hardware updates during probe.
-- [Medium] Unhandled hardware interrupts may cause an IRQ storm.
---
+On 9/11/26 07:15, Manivannan Sadhasivam wrote:
+> On Thu, Sep 10, 2026 at 11:05:39AM +0200, AngeloGioacchino Del Regno wrote:
+>> On 9/9/26 19:25, Manivannan Sadhasivam wrote:
+>>> On Tue, Jul 07, 2026 at 05:42:44PM +0200, AngeloGioacchino Del Regno wrote:
+>>>> In preparation for adding support for the eDP PHY found in newer
+>>>> SoCs, transfer the register mask for PHYD_TX_LN_EN to SoC specific
+>>>> data.
+>>>>
+>>>> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+>>>> ---
+>>>>    drivers/phy/mediatek/phy-mtk-dp.c | 13 +++++++++----
+>>>>    1 file changed, 9 insertions(+), 4 deletions(-)
+>>>>
+>>>> diff --git a/drivers/phy/mediatek/phy-mtk-dp.c b/drivers/phy/mediatek/phy-mtk-dp.c
+>>>> index 4603f28d1466..f5aadc5fdc42 100644
+>>>> --- a/drivers/phy/mediatek/phy-mtk-dp.c
+>>>> +++ b/drivers/phy/mediatek/phy-mtk-dp.c
+>>>> @@ -220,6 +220,7 @@ struct mtk_dp_phya_imp_sel {
+>>>>     * @regs_ana_lane:  Register (layout) offsets for ana_lan
+>>>>     * @regs_dig_glb:   Register (layout) offsets for dig_glb
+>>>>     * @regs_dig_lane:  Register (layout) offsets for dig_lan
+>>>> + * @mask_dig_tx_ln: Register mask for PHYD_TX_LN_EN field
+>>>>     * @val_dig_bitrate:IP Version specific register values for Bit Rate setting
+>>>>     * @ana_bias_r:     Internal resistance "R" Selection Settings (global)
+>>>>     * @ana_cktx_imp:   TX Clock Impedance Selection Settings (global)
+>>>> @@ -239,6 +240,9 @@ struct mtk_dp_phy_pdata {
+>>>>    	const u8 *regs_dig_glb;
+>>>>    	const u8 *regs_dig_lane;
+>>>> +	/* Register masks */
+>>>
+>>> Duplicate comment. With this removed,
+>>>
+>>
+>> Sorry but I think you didn't understand what the comments are there: the kerneldoc
+>> is used to describe the structure, of course, but the comments in between are used
+>> as a way to describe (and kind of enforce) the order of members.
+>>
+>> /* Register offsets */
+>> u16 member1;
+>> u16 member2;
+>> ....
+>>
+>> /* Register maps */
+>> const u8 *regs1;
+>> const u8 *regs2;
+>> ...
+>>
+>> /* Register masks */
+>> u32 mask1;
+>> u32 mask2;
+>> ....
+>>
+>> etc.
+>>
+>> Does that make sense now? :-)
+>>
+> 
+> Yes it does. Sorry for the oversight
+> 
+> - Mani
+> 
 
-commit 8e96d9a2937eced73eec22a51fca02079409de61
-Author: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-usb: typec: Add onsemi FUSB15201 driver
+No worries, it just happens to everyone from time to time :-)
 
-This commit adds a new driver for the onsemi FUSB15201 dual-port USB Type-C=
-=20
-and Power Delivery controller. It registers a Type-C port for each connecto=
-r=20
-described in the firmware, reporting attach/detach events and roles, and=20
-drives the USB role switch for OTG support.
-
-> diff --git a/drivers/usb/typec/fusb15201.c b/drivers/usb/typec/fusb15201.c
-> new file mode 100644
-> index 0000000000000..897b2fabc449e
-> --- /dev/null
-> +++ b/drivers/usb/typec/fusb15201.c
-
-[ ... ]
-
-> +static irqreturn_t fusb15201_irq(int irq, void *data)
-> +{
-> +	struct fusb15201 *chip =3D data;
-> +	irqreturn_t ret =3D IRQ_NONE;
-> +	unsigned int i;
-> +
-> +	guard(mutex)(&chip->lock);
-> +
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		struct fusb15201_port *port =3D &chip->ports[i];
-> +		unsigned int pending;
-> +
-> +		if (!port->port)
-> +			continue;
-> +
-> +		if (regmap_read(chip->regmap, FUSB15201_REG_INTERRUPT(i),
-> +				&pending))
-> +			continue;
-> +
-> +		pending &=3D FUSB15201_INT_ALL;
-> +		if (!pending)
-> +			continue;
-> +
-> +		/* Write one to clear */
-> +		regmap_write(chip->regmap, FUSB15201_REG_INTERRUPT(i), pending);
-
-[Severity: Medium]
-Will this leave unknown interrupt bits permanently asserted, causing an IRQ
-storm? If the hardware asserts an unhandled interrupt bit, it is masked out
-from `pending` before the 'write one to clear' operation, so it is never
-cleared.
-
-[ ... ]
-
-> +static int fusb15201_register_port(struct fusb15201 *chip,
-> +				   struct fwnode_handle *fwnode)
-> +{
-> +	struct fusb15201_port *port;
-> +	unsigned int index;
-> +	int ret;
-
-[ ... ]
-
-> +	port->cap.revision =3D USB_TYPEC_REV_2_0;
-> +	port->cap.orientation_aware =3D true;
-> +	port->cap.driver_data =3D port;
-> +	port->cap.ops =3D &fusb15201_typec_ops;
-> +
-> +	port->port =3D typec_register_port(chip->dev, &port->cap);
-
-[Severity: High]
-Does this create a dangling pointer to the fwnode?
-
-The fwnode passed into typec_register_port() via `port->cap` is from
-the device_for_each_child_node_scoped() iterator in fusb15201_probe().
-Since the Type-C class does not take its own reference to the fwnode when
-saving it to the device structure, the fwnode becomes a dangling pointer as
-soon as the loop iteration ends and the scoped reference is dropped.
-
-[ ... ]
-
-> +static int fusb15201_hw_init(struct fusb15201 *chip)
-> +{
-> +	bool source_only =3D true;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		struct fusb15201_port *port =3D &chip->ports[i];
-> +
-> +		if (!port->port) {
-> +			/* Nothing describes this port, keep it quiet. */
-> +			ret =3D regmap_write(chip->regmap,
-> +					   FUSB15201_REG_INT_MASK(i),
-> +					   FUSB15201_INT_ALL);
-> +			if (ret)
-> +				return ret;
-> +
-> +			continue;
-> +		}
-> +
-> +		if (port->cap.type !=3D TYPEC_PORT_SRC)
-> +			source_only =3D false;
-> +
-> +		ret =3D regmap_write(chip->regmap, FUSB15201_REG_INT_MASK(i), 0);
-
-[Severity: Medium]
-Does writing 0 unmask all interrupt bits for the active port, including any
-undocumented ones? If the hardware asserts an unhandled interrupt, it might
-not be cleared in fusb15201_irq() because it gets masked out, potentially
-leading to an IRQ storm.
-
-[ ... ]
-
-> +static int fusb15201_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct fusb15201 *chip;
-> +	unsigned int i, nports =3D 0;
-> +	int ret;
-
-[ ... ]
-
-> +	ret =3D fusb15201_hw_init(chip);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to initialise\n");
-> +
-> +	/* Seed the Type-C class with the current state before arming the IRQ */
-> +	for (i =3D 0; i < FUSB15201_NUM_PORTS; i++) {
-> +		if (chip->ports[i].port)
-> +			fusb15201_hw_update(&chip->ports[i]);
-> +	}
-
-[Severity: Medium]
-Can this race with concurrent sysfs operations?
-
-fusb15201_hw_update() updates shared driver state (like `port->status`)
-without holding `chip->lock`.
-
-Meanwhile, since the port is already registered and exposed to sysfs,
-userspace can concurrently access it, invoking fusb15201_dr_set() ->
-fusb15201_command(), which correctly acquires `chip->lock` but reads
-the racing `port->status`.
-
-> +
-> +	ret =3D devm_request_threaded_irq(dev, client->irq, NULL, fusb15201_irq,
-> +					IRQF_ONESHOT, dev_name(dev), chip);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to request irq\n");
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911073414.1671=
-1-1-shengchao.guo@oss.qualcomm.com?part=3D2
+Cheers,
+Angelo
