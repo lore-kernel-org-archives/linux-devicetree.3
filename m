@@ -1,128 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04999457E57
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:47:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F784582CB
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:47:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112825; cv=none; b=F0WMu+uHNbom0pLQwLo/SnNP3hHxN5sACet1KBmwGJ2q6BhJ3VfuJo0GWzNF9QOterYbzbraayIZIWQLltqgNuLZGedSW38ktClIQQr4kOL5TI+kXeIpL4lJ+oMkIjQmMemplc+q+EvaBn0L34LvP64P/edD+VzniQPDt7jFod0=
+	t=1789112825; cv=none; b=tkrs/iNDxn4+rFo5DLhrfZjzQHwMk0LAtdaTKPxOeIC7AeL7MuQVG10yf2E5QFYfRArd+GKIf4i4DhkoioG4/eeT66gP1RlQJSzf5F+OuQ5jEqcGEpi/tR+aBszofrErJltLYTMFP8f27w2N/sP1C/0ZcZPNFax58nyk6KcUdis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789112825; c=relaxed/simple;
-	bh=7qAR0d5nUJ4Z2NOjJBKfSaTNgZb/a9W2bDyVVHrss08=;
+	bh=0pbVGJR+g1rTYOb4GNtw3TMdQWTX62sGySXJqhDTsXc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=U7sb3HVfytEb1zXvLVZP5iF6u1wogjKuvRG9sTmUkPBRL7I8mjjEx7pXeBPCLD/7pFaswOu2mNTtBfel6jnNmBKp2/+btXBVOBgocZrKa/Yi/xO/o7unJ2ztmy0XaUIdy3ITFnhjTnuoirGGcBrQUVs1N+wVbr2wtQLRIlEH9RE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dAzrRcEK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pKh7qg5An/IWlUKiWFumKJwaLpYBqT6KDfEyGVtbW/Xs2eEmTz5IkUg9NlSownMu8xyCnxqyfRaK8eOdPP02hBaQnLBSjHrJD+uQReyl/2le12mHD+e+Ow5tfhXlSQf4X5ksYN3dMljvTA0Q/67b5XRkkil6SsyRunU8I0GBO90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jbaxo9nG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dAzrRcEK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E36B1F000FF;
-	Fri, 11 Sep 2026 07:47:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jbaxo9nG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235ED1F00893;
+	Fri, 11 Sep 2026 07:47:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789112823;
-	bh=FXkFQaXHBosI6nOSGpFvUGYOa0q+nku8D3Ly0vylLRk=;
+	s=k20260515; t=1789112824;
+	bh=iJaYRVpNQggPMAdfZwHLz3+csL4ulyujetDMhUylWkU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dAzrRcEKiYsB3UySc052oX2idJTOq4tnXcr1BywdY5hueY2MXZI5vlJDMrqLMIZ8Z
-	 E4mTnMSjmTQOxnhsTpfH2aPwIWGUUXjpNivl7dAZzUIideH0zHV9lE3xscEPbAhMGL
-	 /SgdRja/+2PGgy4lPZbBQ2tVVa2Ig4K0A3mVNseaN0/FQiKkEfVfpkO8HYqVN9USEm
-	 hkUVYRiz39rJ2hEojbsSmJ56wzxjHuXXiAhWNA5R/YHzjiB/iA0Uj/DlPxHl0FAKWr
-	 lDXG+WHU6lloPCKoqSdyyW7StHECmfOooe4SEL44rIWGCYV9RVh5pGSeVzOyvFvMIu
-	 1pBgJ0z3tCl4A==
+	b=Jbaxo9nGZDTcTNxdQhON39kEF3IBgQW5EoGdozIM0KLASuAmBvLt0txuTjTS2jzx7
+	 XFCWTBCk4cFG3v5p5oqmLR8zEIAyDV0eRFFuE/k1qzf0NFZTRIQKmDdQ2yboKxY7EI
+	 ezYIRsWv0JZ9q2UEAlbuVCWKtJt1slMF+geMMnC7g30KmsNwAMKD05cO0lXBbanVc2
+	 MkOSrYisQkyj9qyWyIoIIUztwSMnuIZ0Qg5/gvEVzZ63odByBQslk+2LIoAzcszmL2
+	 ZoKJCXHlCT8zYjyZJ8DB40FscYzojh/K/EauH5BSwTN8CPylrTRg59ucwNtQwqa3Od
+	 z1b7C1SC3gdEg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v16 1/2] net: phy: Add driver for Motorcomm Quad 2.5GbE
- phy
+Subject: Re: [PATCH v16 2/2] dt-bindings: net: Document Motorcomm YT8824 PHY
+ package
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyle Switch" <kyle.switch@motor-comm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260910074624.2426899-2-kyle.switch@motor-comm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260910074624.2426899-3-kyle.switch@motor-comm.com>
 References: <20260910074624.2426899-1-kyle.switch@motor-comm.com>
- <20260910074624.2426899-2-kyle.switch@motor-comm.com>
+ <20260910074624.2426899-3-kyle.switch@motor-comm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:47:02 +0000
-Message-Id: <20260911074703.4E36B1F000FF@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 07:47:03 +0000
+Message-Id: <20260911074704.235ED1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] Missing `return 0;` on success path causes unintended execution =
-of error cleanup code.
+- [Medium] Misuse of a standard hardware PHY ID string as the compatible st=
+ring for an Ethernet PHY package container node.
+- [Low] Mismatch between the node name unit-address and its 'reg' property =
+in the example.
+- [Low] The YAML binding completely omits the 'required' block, failing to =
+enforce mandatory properties.
 --
 
-commit 9c78ead4e6ec97a6c3f67882266f516e5930cc7c
+commit 086492b3eff200332b4ab4eddc5f5f7362981d4f
 Author: Kyle Switch <kyle.switch@motor-comm.com>
 
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
+dt-bindings: net: Document Motorcomm YT8824 PHY package
 
-This commit adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-existing motorcomm driver. It implements the phy_package helpers to handle
-the shared top extended register space and introduces a new exported phylib
-helper, genphy_c45_template_testmode.
+Motorcomm YT8824 Ethernet PHY is a PHY package of 4 PHY-s. This commit
+documents the required property to make the PHY package correctly configure
+and work.
 
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index c5a2cda8d31bd..d535fd384e7bb 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
+> diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml =
+b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> new file mode 100644
+> index 0000000000000..9907a4a7e63e8
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
 [ ... ]
-> +static int yt8824_internal_config_init_paged(struct phy_device *phydev)
-> +{
-[ ... ]
-> +	ret =3D genphy_c45_template_testmode
-> +		(phydev, YT8824_UTP_TEMPLATE_TEST_MODE1);
-> +	if (ret)
-> +		goto err_restore_normal;
-> +	/* reset */
-> +	ret =3D phy_modify(phydev, MII_BMCR, BMCR_RESET | BMCR_ANENABLE,
-> +			 BMCR_RESET | BMCR_ANENABLE);
-> +	if (ret < 0)
-> +		goto err_restore_normal;
-> +	ret =3D phy_read_poll_timeout(phydev, MII_BMCR, val,
-> +				    !(val & BMCR_RESET),
-> +				    50000, 600000, true);
-> +	if (ret < 0)
-> +		goto err_restore_normal;
-> +
-> +	ret =3D genphy_c45_template_testmode
-> +		(phydev, YT8824_UTP_TEMPLATE_TEST_NORMAL);
-> +	if (ret < 0)
-> +		goto err_restore_normal;
-> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - ethernet-phy-id4f51.e8b8
 
 [Severity: Medium]
-Does this code accidentally fall through into the error cleanup path?
+Does this misuse a standard hardware PHY ID string as the compatible string
+for an Ethernet PHY package container node?
 
-In yt8824_internal_config_init_paged(), the success path executes=20
-genphy_c45_template_testmode() but misses a return statement before the=20
-err_restore label. As a result, it unconditionally falls through to:
+dt-schema selects bindings based on the compatible property. Because
+ethernet-phy-id4f51.e8b8 is an ID format strictly reserved for individual
+hardware PHY child nodes (as defined by the pattern in ethernet-phy.yaml),
+using it for the parent package container causes dt-schema to incorrectly
+apply this package schema to individual child PHY nodes when running make
+dt_binding_check on device trees containing these PHYs.
 
-err_restore:
-	r =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-
-This will inadvertently clear the BMCR_PDOWN bit at the end of the=20
-initialization function instead of keeping it in the expected power-down
-state until it is explicitly resumed. Sister functions like=20
-yt8824_extern_config_utp_init_paged() appear to handle this correctly by
-including a return 0; statement here.
-
-> +err_restore:
-> +	r =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-> +	if (ret >=3D 0 && r < 0)
-> +		ret =3D r;
-> +	return ret;
 > +
-> +err_restore_normal:
-> +	r =3D genphy_c45_template_testmode(phydev,
-> +					 YT8824_UTP_TEMPLATE_TEST_NORMAL);
-> +	if (ret >=3D 0 && r < 0)
-> +		ret =3D r;
-> +	r =3D phy_modify(phydev, MII_BMCR, BMCR_PDOWN, 0);
-> +	if (ret >=3D 0 && r < 0)
-> +		ret =3D r;
-> +	return ret;
-> +}
+> +  motorcomm,interface-mode:
+> +    description: |
+> +      PHY package interface mode.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum:
+> +      - internal
+> +      - usxgmii
+> +    default: internal
+> +
+> +unevaluatedProperties: false
+> +
+
+[Severity: Low]
+Does this YAML binding completely omit the required block, failing to enfor=
+ce
+mandatory properties?
+
+Standard Device Tree schema design mandates that mandatory properties,
+specifically compatible, be explicitly listed in a required block. Without
+it, the schema validation will not enforce the presence of the compatible
+property on matching nodes, leading to incomplete validation.
+
+> +examples:
+> +  - |
+> +    mdio {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        ethernet-phy-package@0 {
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +            compatible =3D "ethernet-phy-id4f51.e8b8";
+> +            reg =3D <9>;
+
+[Severity: Low]
+Is there a mismatch between the node name unit-address and its reg property
+in this example?
+
+The example block defines the node as ethernet-phy-package@0 but specifies
+reg =3D <9>. The Device Tree specification requires that the unit address in
+the node name (the part after @) must exactly match the first address
+specified in the reg property. This will cause a unit_address_vs_reg or
+simple_bus_reg warning during compilation and validation.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910074624.2426=
-899-1-kyle.switch@motor-comm.com?part=3D1
+899-1-kyle.switch@motor-comm.com?part=3D2
