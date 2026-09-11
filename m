@@ -1,126 +1,163 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14B6943713C
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 22:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789164710; cv=pass; b=tjOWuKipRVjcTiheTfZcGW+4E7cOVDOiRYrwfvdX+jSgTr1B6sz3w4wu0+nmtEYgNQhMFJ9qgFD8u7xvqUMM36AV9rc9YLyrb02NFgSuVjZJqrVg4/7knBDh2gcN1NBi6/n4BVhIXQo9HPLxrqA15ev18imov2es6UkPeVW7uE8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789164710; c=relaxed/simple;
-	bh=64DI/R3Fb3DmgLTAgL4BfcJDwxaJEMQAyDpP0IBKAGs=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=cizFV/V5RkVNOpcaQ0k+ntZFzO4vFjuzm1eQz0DjkHFdbKZrEOAIufFRVY1rXjdGAS97w1GNALDftPLY5xoNZcjjBHNDl6/LfFxNz6mupLMehBjBoMeEOfK9JwbVVcWAKe5HqH9+2D9icmjbvVJx1bpQr6fh8UHf5zdGykytLGo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=est.una.ac.cr; spf=pass smtp.mailfrom=est.una.ac.cr; dkim=pass (1024-bit key) header.d=est.una.ac.cr header.i=@est.una.ac.cr header.b=NZWQy7B7; arc=pass smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=est.una.ac.cr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.una.ac.cr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2C5470EA9
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 22:15:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789164915; cv=none; b=MA1MgeRdjpB5QRMs3lYSHrrNToKFM5N95w3zzaptUWSFVzwnZ7gNJiP0F7RwZylnIJD4uuNJfLD8WGSl9xTf92t2XR3oKZ3nKRQlBqQV1730OmUKty4br6WnfRZqo9pQX/Q2oQBmO3ujdijW0w4S9+lMF4MhuPfZikGg/CLI30M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789164915; c=relaxed/simple;
+	bh=PWDc5RQ3INoxq0fo7alWh++0I6W5IGuIRf0MFpXSV8s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=h1MXQE+4mqEgBaaKruebnQ8vr2oS3Y0r4PH1Jkb/gN7Xvm5thFiAe+7s3eGrbaopd8Ptqfbap8mNTO4rDkrAszqqQikuQsVSf2Z1s7jXIqQUoiBcLZoxbQ4bWdwCINx12VNJH6lbnz3EVhG4hcFlGWTyVVypRp4SHRhTD+NmqUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=KXrunn0H; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=est.una.ac.cr header.i=@est.una.ac.cr header.b="NZWQy7B7"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c29667ed561so186169066b.2
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:11:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789164706; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BtZ2ztg4sr4kj2FTMLY8SdFYw66cdycP637xIx7/twkwqGfV8CwDb58TWRiwS5nU9s
-         NzZF8HuHMr2XK+TK2uM7nAdJhc9ZViDAnmIWNj30v0WQr+41WRgFcK5fZfAj40SyF6+g
-         NVwCEvpnUWUk6nCLHZZPdvXEXzqP1dlT9fKq1WpRaIgzXFJhCH6iacebXuJIXDNePDuO
-         C/9EFPqiTFt6lJ+MbpHemNNb6PG8pRxSQ27TfnHve3CXHomYQCb8qNJzohAZ9TUaJjrp
-         OaLNdg/SF5GhK7EcmY+fIXIc+rZtiSZRT65cY/Mm0+/k02PrSuCMc+XBn4YXfQb07QQq
-         fpHw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=jmcmRooIJWZcfOxhhMxU11ULm5mq/IM7NKssWyEliKc=;
-        fh=I8LKTGFEBmDY9ClPyVxHtcJfVnNV627BlGsm1ekuKkk=;
-        b=nAV38noVw9Lo2IJut2Rn6ZMIIh0rZUr9GCWMRsj+cZ/Ed/8NnS3pNM6ivVB9yNuGBr
-         s/ili/aD7CN0e7NAVvqJ9V7UA1MiDH2Gp+txtcYNnz8WiYzjT8tC4ucH15JLWU0y6nkB
-         fqSFh58pehT44eps/JMgKryg0shlk79tCFlX0XtxgRZWIUatbNg75SyF3fGGmWx6zj0M
-         f90BYd1ZDG03G8ENW+NrgG1A+BqPsNh53fVH0pcIqtvrw5oOfWUM/JbJTWLK6JxxnJPB
-         Ju52G1VLvw+/AKQY7kB4EUMkJO0pUazYE3DXYuxwFEJus3PLAO5hAGqv3fPHfcsNbMYK
-         KAQg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="KXrunn0H"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49d1fb0cf5eso2894685e9.3
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:15:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=est.una.ac.cr; s=google; t=1789164706; x=1789769506; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jmcmRooIJWZcfOxhhMxU11ULm5mq/IM7NKssWyEliKc=;
-        b=NZWQy7B7P93Z9mSBPSH+yYNv5GOfYfJz9elcgc+dYbOUuy7ltpPx4xu3paNzLSfmNl
-         gyS4D6gAGTcJuEwH35o2mGdoLJWESStdgahUVzNC5tZNFTR2nFjXthHK1QpyQ+DvrC1T
-         c48CAYfJ7SjRNMn1OObgwrpELo8FjPI0hTmqI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789164706; x=1789769506;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+        d=baylibre.com; s=google; t=1789164911; x=1789769711; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=jmcmRooIJWZcfOxhhMxU11ULm5mq/IM7NKssWyEliKc=;
-        b=I9tgyTFMN4CiufXa/1XW78VJxRVEL0AmFOB3e7ERlnVhBP6mO7I/jNqosMPcmDGuc5
-         Dx5tqePc8Gb5Im/i6wsGfDXUNA2exKP9YHBJEw4Q1SNV+V+asQfEECNG1ZubOv7n5Zzz
-         BTq3hMN9UPWSe03iZRiyWIiWQzmAIwaFZ1R9Ji++hfljkbmUcOufvoMSzPLFOckcZQWh
-         AQDcSjq+j16ZiJ/503EuD7VIHSUuon95FduN4Da2fIEmoNzdUtugSofltBECdwlkYcDq
-         y4/l0ZAISxRggjShHou29YcUWj4OKKrze46/b7gaa7i+HQ74v/T5a+nJKt3Mr/yVbziX
-         vM0A==
-X-Forwarded-Encrypted: i=1; AKwUvBx+ymZcs3Q8uedAfoD09LRatmEY+GwCSYMo8TEDaUtRURFSrDJltjVoLnkceGAKRQlugiHyOTjpB6rg@vger.kernel.org
-X-Gm-Message-State: AFuF++lrrTTsLGb+DnEfv/SnknjZN+sFxr9D6EC1XnKSIBqsrPVBLn9m
-	ysGirdDiMqIDGgVXVoyC6g/zvzDISZBlcWSZrNDmmLREwzprKYBKC7WR/ZQ3qBSZItz2DVba9pd
-	TwHNUtOl7E77Wlz431UndTASn3GPm9Co69szAcZrG3A==
-X-Gm-Gg: AYBFou25UfFCKfELvWWqlFskjK3eiEAH+89ZZvc5cGFiiW7oWPeHMuK4MMKcFFkmUHd
-	RR+khT3QjjREtzkKYoHo2Z0judJRuIiAkjm/etGvdfYpPTzoTJcCfXovG0efp/L60S9DQ3zMKrf
-	7An4U/pqfgFF2kXeE7sROl8P735MD6OGuTztqzU034gKLtZNPUS1Y344Y+D1PVXE1UysdO/JMwD
-	Icf3i4oOWlaZDbmSV3E3HjM58sC1dIP94QKM9gb80lGg4UhVY/03DR7RZgdOGBNdb7i7PWFIr8B
-	XQFOmsw5SEMqUs7GQveF5e/gWWD7Kecp1tjmSAFNB82lCEhSiW7TNSz0chdCCh28LELqAkvtce5
-	4MqHPLN8oay4=
-X-Received: by 2002:a17:907:1c10:b0:c29:286e:2e3e with SMTP id
- a640c23a62f3a-c29666d5f9dmr280604466b.38.1789164706055; Fri, 11 Sep 2026
- 15:11:46 -0700 (PDT)
+        bh=srhabopEjDrPGbNiaixTBBq3q3UYUb7b5seSM2Uisn8=;
+        b=KXrunn0H++rtxAT5P89YqtdLALsAOg8nnkfM8BxbgeoKsKxtQYW/sPRA3FAc4i1fen
+         OkQzihu837mwuEEaFR5K1oNKzt5cujjsaVqfZz15zjviGJuuZomtdY/Z2nlpxAlDyyjj
+         BVIiDmA/1k3JyObs3Z8FLdV7TVeRXkFvUcc6OZpzE4x1WpX1wgdU8dYWLAN0WfoYUPIK
+         7EM2h6n7Mo7/bhwmPzMQgq/aaMB2tWUE4/D5yFFrT1J3dH0Ok7TvbIBzgyuCFblcXgwn
+         TLWe5o07XJVC9fpqGS1eP63B002ue+ZULQi5HCemHoupFqgwRfv9/4cFCt14OeuUrqtx
+         ccSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789164911; x=1789769711;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=srhabopEjDrPGbNiaixTBBq3q3UYUb7b5seSM2Uisn8=;
+        b=CnoES1pJat9mBtEznW5zH9sLtFWJb3/xrt0RalDi/97SLx90hmEfEKiJbdPq1dRGLF
+         ofYY/sIzYQZE0ISaBIlvouqtCn9TwrcwYPzrpv4L9RSsQTMowebEnD4ziltPsV1X3oJB
+         5wmpPtiDqgAcJs2CceJI9ODmmKmqY/2XlOYG/yFixc3nlGRNQOCVSI8oNxyIgqJGOjPS
+         hOouzVGaOJ63MkTpo8vGVxW5JGAWkklsf0c1QRFNLdrcwPAipNIiFIf2k8aU/3wXCssu
+         k0cmM0H3H8HV+DjhxnU6R/aBKGEkZIcMO4uT9KvsGf03s4BbOMJe1nC5MJojiycXam+T
+         ZmPg==
+X-Forwarded-Encrypted: i=1; AKwUvBxIrxl7SUGrUPRwzSoGFQx1dLOMmFn5LghaOhiDVkWCkqr9ivOZeM8Ue46KSpjpNdbTWm3f6pLKMGry@vger.kernel.org
+X-Gm-Message-State: AFuF++mA2fKlG1rLoF4WhH/TeslJalsaOGghv0Cid2Inl2Zvbyqc7PHb
+	PUV7HZPuBC4MA38+sn7vO/V+9D5snAqsNE1zzJ+c6FK0IyDx6Z9uEcYnsVIU8/RxLWA=
+X-Gm-Gg: AYBFou0WskOo5AtQfcNh3BknJ6f//L1EcS6+5fvZIafmLHbdrTOv7/CVl8pnZC1bLVk
+	/5Zp4xO5p6UBALDoULdASpLul2SAhMZTZtrPirPra7G0QOPdtpx400GsmJPY53wdH3uSCPKKGvA
+	E6CgU339dehGqLlqe2otQhp5ajdiiEvOe5YR0fya1t7KWKktL4oer7egc8DghOkeUROQQqr34oJ
+	bE4k/aW6j6TzzpzzLbmyfODKKVW5FtZu0WsPQ/ENLu/2X4qEpj83CsldR1hTKe93vBAmA3l7Cib
+	gbiTPeCzEekZ7I71yfNKDVDQJp2mRClzYSztVbzltl0TU50E0KG1a4gir/EZwiOzGavRNkwc8tR
+	VZcunKOGc5IUEbYOXfu2XalSAM7XDkmRGe1HzgjmJojf4OoAf73UEBWSEWlrX+bYpDCbygMTjUv
+	5nnfI4wh21o/Gu8t4tdhonq4NU6oqwy2m56dVdpx9RGUvLYUCsoI2dSfCgQms6WtaVxFa77Faq7
+	UTj
+X-Received: by 2002:a05:600c:3513:b0:493:f140:c3fb with SMTP id 5b1f17b1804b1-49e619c0357mr123658065e9.7.1789164911027;
+        Fri, 11 Sep 2026 15:15:11 -0700 (PDT)
+Received: from [127.0.1.1] ([151.42.87.32])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49d26c2a419sm202882745e9.7.2026.09.11.15.15.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 15:15:10 -0700 (PDT)
+From: Valerio Setti <vsetti@baylibre.com>
+Subject: [PATCH 0/6] ASoC: meson: gx: add base support for I2S audio input
+Date: Sat, 12 Sep 2026 00:14:30 +0200
+Message-Id: <20260912-audin-v1-0-7fbefe928711@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Avalon Vargas Centeno <avalon.vargas.centeno@est.una.ac.cr>
-Date: Fri, 11 Sep 2026 16:11:34 -0600
-X-Gm-Features: AcwNN1UKz1EzNqNrYibLG4EW7is5QWZ2Va82YNgb4e5YpYrggY_-TnFTnLexsys
-Message-ID: <CAGXpr54Bn9Wf24asY2RcXgBNLy1A16=U1mtFx7mKeNK4CCOCYQ@mail.gmail.com>
-Subject: [RFC] Dell Inspiron 7441 AUO0BA4 panel backlight: PWM configuration
-To: linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org, devicetree@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, val@packett.cool, 
-	bryan.odonoghue@linaro.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEZ9pGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC2ND3cTSlMw8XcvkxKQkE1OD5GRLEyWg2oKi1LTMCrA50bEQfnFpUlZ
+ qcglIs1JtLQAVIgntaQAAAA==
+X-Change-ID: 20260831-audin-9cabb450cc94
+To: Jerome Brunet <jbrunet@baylibre.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3226; i=vsetti@baylibre.com;
+ h=from:subject:message-id; bh=PWDc5RQ3INoxq0fo7alWh++0I6W5IGuIRf0MFpXSV8s=;
+ b=owGbwMvMwCV2z3ty7kUrRgbG02pJDFlLanOaRdZMWiury/nzTfOTv99ijh7ZIG6rNWFa9b6ZK
+ 3/UeT+M6ChlYRDjYpAVU2RhmX7vd0Gp2kPjhJMFMHNYmUCGMHBxCsBEAo8x/A/Z9ERcTLvnivwC
+ h9+mV8XKT96fcuzu+WOqXI3LGX5Jh01m+J9+cd8XMRsXcV1mrd9NDN5LohSW15geuMURO3uHM5d
+ TDjcA
+X-Developer-Key: i=vsetti@baylibre.com; a=openpgp;
+ fpr=0497DEFB707526E13360C970DE4B936DD13A0100
 
-Hello,
+This series is the 2nd part of the initial RFC [1] proposed to add audio
+input support to the Meson GX SoCs. After the AIU reshaping series [2] that
+has recently been merged, this one adds the audio input path itself.
 
-On my Dell Inspiron 14 Plus 7441 (BIOS 2.16.0, aarch64 Linux 7.2.4,
-NixOS), the AUO B140QAX01.H / AUO0BA4 panel originally exposed an unusable
-dp_aux_backlight with max_brightness 0. GNOME could not adjust brightness.
+The biggest change from the RFC concerns the I2S data formatter. Previously
+it was a DT node owning a single register, which was deemed an invalid
+binding. There is now a single audin node owning the whole audio input
+register range; it instantiates the widget for the I2S data formatter,
+following the solution already used by AIU, and then probes its DT child
+nodes implementing the FIFOs. This lets the three FIFO instances share
+one driver.
 
-Panel DPCD bytes at 0x700-0x72f:
+Resulting capture topology is:
+  pads --> AIU I2S Encoder -> AUDIN I2S Formatter -> AUDIN FIFO -> RAM
 
-  05 9b 91 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
-  00 00 02 00 0a 04 0a 00 1b 00 0d 2f 03 ff ff 03
+This series includes all the changes related to this work (dt-bindings,
+drivers and device-tree) in order to give the full picture in one single
+place.
 
-The capability bits indicate PWM brightness setting rather than AUX
-brightness setting. Inspection of the local panel-edp and DP helper code
-suggests that this capability combination can leave the AUX backlight
-maximum at zero. This is a code-path inference, not a separately verified
-generic DRM driver bug.
+Unfortunately, since no Meson GXBB/GXL board available in the tree feature
+an I2S capture capable codec, this work cannot be directly tested out of
+the box. To test it an external codec must be connected to the SoC.
+When working on this series, a custom hat board with an NXP SGTL5000 codec
+has been plugged on top of an Odroid-C2 (GXBB). The last commit of this
+series fully details all the device-tree changes which are required to
+finalize the support for this scenario.
+With this hardware configuration it has been possible to succeffully
+validate the implementation with:
+- alsa tools (arecord)
+- pcm-tests
 
-A privileged GPIO snapshot showed PMK8550 GPIO5 already routed to func3
-by firmware, with no Linux PWM provider registered. VREG_EDP_3P3 was enabled.
+[1]: https://lore.kernel.org/linux-sound/20260411-audin-rfc-v2-0-4c8a6ec5fcab@baylibre.com/
+[2]: https://lore.kernel.org/linux-sound/20260610-reshape-aiu-as-axg-v2-0-cac3663a8b51@baylibre.com/
 
-A local DT overlay enables pmk8550_pwm, configures PMK8550 GPIO5 func3,
-adds a pwm-backlight using channel 0 and vreg_edp_3p3, and connects it to
-the existing eDP panel. The existing panel enable GPIO is preserved.
-The chosen period is 4266537 ns, borrowed from the upstream ThinkPad T14s
-LCD setup; it is not a measured Dell firmware period. The brightness curve
-is linear with 101 values and default index 80.
+Signed-off-by: Valerio Setti <vsetti@baylibre.com>
+---
+Valerio Setti (6):
+      dt-bindings: sound: amlogic: add schemas for audin components
+      ASoC: meson: add audin main module and I2S formatter
+      ASoC: meson: add audin FIFO driver
+      ASoC: meson: aiu: add I2S Capture DAI
+      ASoC: meson: gx-card: add support for audin FIFO
+      arm64: dts: amlogic: gx: add nodes for audin and its FIFOs
 
-Validation status: the overlay compiled and applied, and its connection
-was checked in the compiled DTB. Physical brightness adjustment and
-suspend/resume have been tested successfully on this laptop. But I have not
-measured the PWM waveform or tested other panel variants.
+ .../sound/amlogic,meson-gx-audin-fifo.yaml         |  52 +++
+ .../bindings/sound/amlogic,meson-gx-audin.yaml     |  96 +++++
+ arch/arm64/boot/dts/amlogic/meson-gx.dtsi          |  35 ++
+ arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |  22 +
+ arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |  22 +
+ sound/soc/meson/Kconfig                            |  14 +
+ sound/soc/meson/Makefile                           |   5 +
+ sound/soc/meson/aiu.c                              |   7 +
+ sound/soc/meson/audin-fifo.c                       | 466 +++++++++++++++++++++
+ sound/soc/meson/audin-formatter-i2s.c              | 174 ++++++++
+ sound/soc/meson/audin.c                            | 109 +++++
+ sound/soc/meson/audin.h                            |  14 +
+ sound/soc/meson/gx-card.c                          |  16 +-
+ 13 files changed, 1025 insertions(+), 7 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260831-audin-9cabb450cc94
 
-I can provide the small overlay and further test results. I would also
-appreciate advice on the correct Dell PWM period and whether the
-zero-range AUX backlight
-behavior should be handled separately in the display helpers. Thanks
+Best regards,
+--  
+Valerio Setti <vsetti@baylibre.com>
+
