@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC169414410;
-	Fri, 11 Sep 2026 11:25:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9125B44160D;
+	Fri, 11 Sep 2026 11:25:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789125922; cv=none; b=p2Jrnzf2JhVEeaAjfdvI7LJqlzf/pqnQcb0lnaljPKVVbP10cNVtMXsaukXVMiPpLzpIT70WhigUzScnMtye1A9SyppOQ4A3EvEQer6DBsL8nPW4U0Bg8+PNlcRrCZhV4PkZYawpQ1UWARmKsRqIcsWgyyhqkvWTSuxMqvoxAfg=
+	t=1789125927; cv=none; b=WhYAwu+VuMW4koF3tWGuIxI7ZyH95pvFuOQDwByu7S6gP0qZCdL3n5/KbyK6ORmnWatbAqmJkweUxJnkejODe5KAEuI0kGUq2q7Q09uk7erLI+D6ubkGPELDkfErIFEiRY9TgxU4iyLygrt+rDEtGKtvY0IMn2DS+7mmqVYRPfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789125922; c=relaxed/simple;
-	bh=e14eJTzKX4kmkLwHu3F8ZSoavSYgb1HnKf7GSyUN4ts=;
+	s=arc-20240116; t=1789125927; c=relaxed/simple;
+	bh=rqKiCJf3gWsUbRPQca/CAN0RIfrbcNqytLiv5lKTl48=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ktnx/4S9z9WQi5oeqy4LSRDWCwX3DbGuehJHYSRz2eJvwfoWdTpqITKFffE06Frk+2Ee04H/dxxJmJ9j6g5g65JVALLaxXunxWEW6bsISXdTxB1z92AhZtY9MAWUc+3K9SIIruGueZW2cN7znz2Qxsat8NG5t+kcHzAi0ljZ2Ps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2582l49; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=LSHiSc17quTksGu+iGj0PLRmq30ME7XqzrJZK9+tWmMBd4uRZSNYcB5maNd5qmGHu/PObcxusEA5z9drh16io3uDycONBJsussb8wxGjTNzf1ztgPLhBkIzNIt5iZT6j5yvLUvon8NoVkGcY2TYhUbPXr3BPTobZureDJnYYXeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l7bL2UuA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2582l49"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C3321F00898;
-	Fri, 11 Sep 2026 11:25:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l7bL2UuA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5684F1F0089A;
+	Fri, 11 Sep 2026 11:25:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789125914;
-	bh=+i4xJvJbpZzCybARuAVvhYy0NukRF5a36xdEaqg/UOk=;
+	s=k20260515; t=1789125916;
+	bh=1//qZSRS+hJDa1tgu3tfHEnaKnJO5kTUToo92WITcnw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=B2582l490FLyblbokIDflmio7hWcERSDpKlYd8VL+OChurbUdUVkzSLtGF4bTFFZv
-	 LTR1AH0wX7FJa3oJxIj+mQpFCMU9nSIRiehf96dZF5W3gtbFXmYhJiU4YPGD4/hfeh
-	 5bJoVZOiSaj70v7tLHaztGCtJerUKT4TFlnnzUUns8iyKMfJzGMZlSMUUkgGuxvPjX
-	 es6h3tlXL87uL/vskOkTDR+SX3Jvu+uRUq628dX1HNdSzXUvn27eO9gTGh5phzUAZt
-	 M0k5x+zTpEAj8zNjyrjw8fuduasacX/KYpk18jvHFkEgQY7TJtGBWpw+ZhgxSpcrHM
-	 hg3I8LSMl8agg==
-Subject: Re: [PATCH net-next v2 4/9] net: stmmac: qcom-ethqos: convert
- ethqos_rgmii_macro_init() to void
+	b=l7bL2UuAQ1c3GP2ytUeLyrlGQHpnk5WC+NnS9brjNa0bRHl7O4QKofRDC2BaWPghk
+	 x3QC5gqWbA4v48oPtcpSJwKUNDi6Rx1AqeoC+O2wggnnd7K7nM2MT+3JAOXT5aUg6P
+	 +d98xToerqvUMxy4OgLgrd93RoscyQvn19UigUVBL8wRgyz5z4l096nIEy1Zz5Szw4
+	 7d7cMmUMfKiJ9E0tRbqB5rmLSimtNFD/wkcqk/+vuUJzzLGkYOttesMqBicC9CIDwz
+	 DE0u02m3kOXAsb45YmdAuCha6/rXTbPpsywdvkNjRVOZ6GqHpVWplIr3+FS8ADyNBX
+	 BUk3h90Z5kmfw==
+Subject: Re: [PATCH net-next v2 5/9] net: stmmac: qcom-ethqos: fix RGMII_ID
+ mode to use DLL bypass
 From: netdev-bot+sashiko@kernel.org
 To: mohd.anwar@oss.qualcomm.com
 Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
@@ -40,10 +40,10 @@ Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
  linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-stm32@st-md-mailman.stormreply.com,
  linux-arm-kernel@lists.infradead.org
-Date: Fri, 11 Sep 2026 11:25:12 +0000
-Message-ID: <178912591286.219967.4678568368277035940@kernel.org>
-In-Reply-To: <20260908-shikra_ethernet-v2-4-bbe3389d0652@oss.qualcomm.com>
-References: <20260908-shikra_ethernet-v2-4-bbe3389d0652@oss.qualcomm.com>
+Date: Fri, 11 Sep 2026 11:25:14 +0000
+Message-ID: <178912591493.219967.8863321460780410702@kernel.org>
+In-Reply-To: <20260908-shikra_ethernet-v2-5-bbe3389d0652@oss.qualcomm.com>
+References: <20260908-shikra_ethernet-v2-5-bbe3389d0652@oss.qualcomm.com>
 X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
@@ -59,121 +59,97 @@ issue(s) to consider:
 
 Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-- [Medium] In `ethqos_rgmii_macro_init()`
-  (drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c) the patch…
+- [Medium] The patch is worded as a bug fix ("fix RGMII_ID mode to use
+  DLL bypass", "Also fix ethqos_set_clk_tx_rate()") for two user-visible…
 
 --
 
-net: stmmac: qcom-ethqos: convert ethqos_rgmii_macro_init() to void
+net: stmmac: qcom-ethqos: fix RGMII_ID mode to use DLL bypass
 
-The patch changes ethqos_rgmii_macro_init() to return void because its only
-caller ignores the return value, and it drops the speed validation from that
-function on the grounds that the same check exists higher up the call stack.
+For phy-mode = "rgmii-id" the driver now powers down the DLL, sets DDR
+bypass and programs the IO_MACRO through a new
+ethqos_rgmii_id_macro_init() helper instead of running the generic DLL
+init.  It also stops doubling the link clock rate at 100M/10M in that
+mode, and drops RGMII_ID from the TX phase-shift suppression in
+ethqos_rgmii_macro_init().
 
 > diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> index ac7d6d3e205a1..44270c25d874f 100644
+> index 44270c25d874f..53fb9de4d92c7 100644
 > --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
 > +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-qcom-ethqos.c
-> @@ -371,9 +371,8 @@ static int ethqos_dll_configure(struct qcom_ethqos *ethqos)
->  	return 0;
->  }
->  
-> -static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
-> +static void ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
->  {
-> -	struct device *dev = &ethqos->pdev->dev;
->  	unsigned int prg_rclk_dly, loopback;
->  	unsigned int phase_shift;
->  
-> @@ -384,11 +383,6 @@ static int ethqos_rgmii_macro_init(struct qcom_ethqos *ethqos, int speed)
->  	/* Select RGMII, write 0 to interface select */
->  	rgmii_clrmask(ethqos, RGMII_CONFIG_INTF_SEL, RGMII_IO_MACRO_CONFIG);
->  
-> -	if (speed != SPEED_1000 && speed != SPEED_100 && speed != SPEED_10) {
-> -		dev_err(dev, "Invalid speed %d\n", speed);
-> -		return -EINVAL;
-> -	}
-> -
-
-[Severity: Medium]
-The commit message says "the speed validation duplicates a check higher up
-the call stack".  Which check is that referring to?
-
-The only path here is:
-
-  stmmac_mac_link_up()
-    -> priv->plat->fix_mac_speed()
-      -> ethqos_fix_mac_speed_rgmii()
-        -> ethqos_rgmii_macro_init()
-
-stmmac_mac_link_up() only bails out in the default arm of its speed switch:
-
-	case SPEED_2500:
-		if (interface == PHY_INTERFACE_MODE_USXGMII)
-			ctrl |= priv->hw->link.xgmii.speed2500;
-		else
-			ctrl |= priv->hw->link.speed2500;
-		break;
-	...
-	default:
-		netdev_err(priv->dev,
-			   "unsupported speed %s on %s, leaving the MAC disabled\n",
-			   phy_speed_to_str(speed), phy_modes(interface));
-		return;
-	}
-
-	if (priv->plat->fix_mac_speed)
-		priv->plat->fix_mac_speed(priv->plat->bsp_priv, interface,
-					  speed, mode);
-
-so SPEED_2500 and everything above it are accepted and forwarded verbatim to
-fix_mac_speed() regardless of the interface mode.
-
-ethqos_fix_mac_speed_rgmii() does no RGMII-specific speed validation either;
-it only distinguishes speed == SPEED_1000 from speed == SPEED_100/SPEED_10
-while restoring POR values and bringing up the DLL, then passes speed
-straight through.
-
-So the removed test rejected speeds that are invalid for RGMII, while what
-remains upstream only rejects speeds the core does not recognise at all.
-Are these really the same check?
-
-A speed above 1000 does appear reachable on an RGMII port through a fixed
-link.  phylink_parse_fixedlink() keeps the requested speed even when it does
-not match the validated supported set:
-
-	if (c) {
-		...
-	} else {
-		phylink_warn(pl, "fixed link %s duplex %dMbps not recognised\n",
-			     pl->link_config.duplex == DUPLEX_FULL ? "full" : "half",
-			     pl->link_config.speed);
-	}
-
-and phylink_get_fixed_state() then hands that speed to mac_link_up() via
-*state = pl->link_config.  With phy-mode = "rgmii" plus
-fixed-link { speed = <2500>; full-duplex; }, does 2500 now reach
-ethqos_rgmii_macro_init() and silently take the non-1000 branches
-(BYPASS_TX_ID_EN set, POS_NEG_DATA_SEL and PROG_SWAP cleared,
-PRG_RCLK_DLY_CODE = 5, RX_PROG_SWAP cleared on pre-GE3 parts) while neither
-MAX_SPD_PRG_2 nor MAX_SPD_PRG_9 is programmed, with the DLL already locked
-by the caller?
-
-The "Invalid speed %d" dev_err() was the only indication that the RGMII
-configuration is unsupported.  Would it make sense to move the check into
-ethqos_fix_mac_speed_rgmii(), before the POR restore and the DLL
-reset/enable sequence, rather than dropping it?
-
-For reference, no later patch in this series reinstates a speed check:
-ethqos_fix_mac_speed_rgmii() and ethqos_rgmii_macro_init() still accept any
-speed at the end of the series, and the newly added
-ethqos_rgmii_id_macro_init() is equally unvalidated.
-
->  	rgmii_setmask(ethqos, RGMII_CONFIG_DDR_MODE, RGMII_IO_MACRO_CONFIG);
->  
->  	if (speed == SPEED_1000) {
 
 [ ... ]
+
+> @@ -183,7 +186,15 @@ static int ethqos_set_clk_tx_rate(void *bsp_priv, struct clk *clk_tx_i,
+>  	if (rate < 0)
+>  		return rate;
+>  
+> -	return clk_set_rate(ethqos->link_clk, rate * 2);
+> +	/* Clock Rate Requirements:
+> +	 * MAC added delay: 250/50/5 Mhz for 1G/100M/10M
+> +	 * No MAC delay (DLL bypass): 250/25/2.5 Mhz for 1G/100M/10M
+> +	 */
+> +	if (ethqos->phy_mode != PHY_INTERFACE_MODE_RGMII_ID ||
+> +	    speed == SPEED_1000)
+> +		rate *= 2;
+> +
+> +	return clk_set_rate(ethqos->link_clk, rate);
+>  }
+
+[ ... ]
+
+> @@ -493,6 +539,21 @@ static void ethqos_fix_mac_speed_rgmii(void *bsp_priv,
+>  
+>  	ethqos_set_func_clk_en(ethqos);
+>  
+> +	/* For rgmii-id mode, the PHY should add the required delays.
+> +	 * Therefore, power down the DLL and program it in bypass mode.
+> +	 * Program the IO_MACRO as per the settings recommended by the
+> +	 * programming guide for bypass mode. This will ensure that the
+> +	 * MAC core doesn't add any additional delays.
+> +	 */
+> +	if (ethqos->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+> +		rgmii_setmask(ethqos, SDCC_DLL_CONFIG_PDN, SDCC_HC_REG_DLL_CONFIG);
+> +		rgmii_setmask(ethqos, SDCC_USR_CTL_DDR_BYPASS, SDCC_USR_CTL);
+> +
+> +		ethqos_rgmii_id_macro_init(ethqos, speed);
+> +
+> +		return;
+> +	}
+> +
+
+[Severity: Medium]
+The changelog describes this as two functional corrections, "fix RGMII_ID
+mode to use DLL bypass" and "Also fix ethqos_set_clk_tx_rate() to not
+double the clock rate in bypass mode at 100M/10M", but there is no Fixes:
+tag.  Should one be added?
+
+Both defects look reachable before this patch.  qcom_ethqos_probe() accepts
+PHY_INTERFACE_MODE_RGMII_ID and installs the affected callback:
+
+	case PHY_INTERFACE_MODE_RGMII_ID:
+	case PHY_INTERFACE_MODE_RGMII_RXID:
+	case PHY_INTERFACE_MODE_RGMII_TXID:
+		plat_dat->fix_mac_speed = ethqos_fix_mac_speed_rgmii;
+
+so an rgmii-id link previously ran the full DLL init and had the RX delay
+programmed by ethqos_rgmii_macro_init() through
+SDCC_DDR_CONFIG_PRG_RCLK_DLY / SDCC_DDR_CONFIG_EXT_PRG_RCLK_DLY, and also
+got rate * 2 from ethqos_set_clk_tx_rate().
+
+The partial mitigation for the TX side came in with 164a9ebe9742 ("net:
+stmmac: dwmac-qcom-ethqos: Respect phy-mode and TX delay"), which only
+suppressed RGMII_CONFIG2_TX_CLK_PHASE_SHIFT_EN and left the RX delay and
+the doubled rate in place.  Would that commit, or the original driver
+commit, be the right Fixes: target here?
+
+Related question: which platform reproduces the misprogramming, and on
+which hardware was the new bypass register sequence in
+ethqos_rgmii_id_macro_init() validated?  Grepping arch/arm64/boot/dts/qcom
+turns up no ethqos node using phy-mode = "rgmii-id" (only sa8540p-ride.dts,
+which uses "rgmii-txid"), so it is hard to tell from the changelog who is
+affected and what the backport risk is.  Could that be stated in the commit
+message?
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908-shikra_ethernet-v2-0-bbe3389d0652%40oss.qualcomm.com
