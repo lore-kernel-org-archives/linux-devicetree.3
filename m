@@ -1,99 +1,140 @@
-Received: from relay2-d.mail.gandi.net (relay2-d.mail.gandi.net [217.70.183.194])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BEE8493D37;
-	Fri, 11 Sep 2026 15:57:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.70.183.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B35940B10D
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:59:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789142228; cv=none; b=UBeR4WBUEhWU+ChaS1uFhZLv6d+sQKdUgJxt1RVK4rTFUceaFWOEU+KgHFBw1UmEPqASHQmo+cWw3ou/PsftDFtg7BsOXDpkXuEqP2Qj/K3GDSsLrD64oae+bClKcNV4cdTilC36DqyLBtwtxbNnFYkDGqzQa5esmMJjXA2j3DM=
+	t=1789142395; cv=none; b=tcO9mp1/QKkUtQSlnWV/w0037hIXOAObmMj4faAgG+vKQnjYlCutwt2dZGNlwjiTaaucMoyy09FvmamJIrt6pW6yIMpPxCycdyedi/LOPkaJ0fCH5QvdngAWSVBee4Of4VbR0Rfw0OQwEv+RbxMf3vkmsjFJWZoDWz+H3poZ+WA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789142228; c=relaxed/simple;
-	bh=nEcTvLu+k18d1hRUpJWufqfN+bwvM+IxOHQj4EafRvs=;
-	h=Date:From:To:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ePHxg5DsxdxV1NfsvU6OQMGTLCnSpWkVcaMmPp6vXKHwP0xuxqpaZ/sPi3RAEiYCpm3QRPJfis6aG1G25O0hhsGT57OHVar4WyWBkGkVK+JkS2nPHrYKL0ud5BcthmU36bXO5ySO9JfpmUJHbgHg2ACBI5pb5rJuSrsV0Ws5bQc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net; spf=pass smtp.mailfrom=marmottus.net; dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b=g+fuztgb; arc=none smtp.client-ip=217.70.183.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=marmottus.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marmottus.net
+	s=arc-20240116; t=1789142395; c=relaxed/simple;
+	bh=Xy9e9OQ4Zrq0BG3idFmHBw8k7j3vNhfGg76yiPsUcpw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JZ8NKK1+Azrr3jiae+BpJPoQT+GvuTU56v0SmpR5dq2tlQth6DmG/Sj4CMN3pSA5JraWoCVZIbivwvtMLpe9P77G3Lk6mhgBWvViHVmEvAVjvz5H0LUKT8yPqspTuKMSPB8cf/JZCLhBd9UOcPW+UEwyL6Q8nNJ66BLiINj3NcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TLM+tlPC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marmottus.net header.i=@marmottus.net header.b="g+fuztgb"
-Received: by mail.gandi.net (Postfix) with ESMTPSA id E18243EDB0;
-	Fri, 11 Sep 2026 15:57:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marmottus.net;
-	s=gm1; t=1789142223; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:  references:references;
-	bh=U6Uyil1BKKeEyc6ra/UxHlW3xO4ewl39s/DeYDLNNgE=;
-	b=g+fuztgbqQ6F7ZOhJDhBL20UUTVdhRFaFtBDk9DsdPPkFmnzOv7droXKOJU9g3hSHn1JkY
-	bS+oyWy9QdC0JWxNtkZx2f4A4NefX+54m2GuUya1BvKH4Xy3itXg4dzbtbzX/HAJttPlBf
-	DNZ6MxLBPUMwkaONuv81G6lNXct8+HvU2S7vS/eFBeRWPrD20wfOn3+kSB5GvPKc5BAws3
-	5p6dD+ZO837fSWbqpvnkF8AQJstEwiPxIKDI8G4iOzhKdgon6BAJ5pKbjJguCVzQx8jl5z
-	8weiEpd36KUSflko3PD24hdFN4WuBFNrVsYVV10HQh1XF2NVkwVWCsH7yM/4nA==
-Date: Fri, 11 Sep 2026 17:56:59 +0200
-From: Arthur Crepin Leblond <arthur@marmottus.net>
-To: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, arnd@arndb.de, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com
-Subject: Re: [PATCH net-next v7 2/3] dt-bindings: net: wiznet,w5100: add link
- status interrupt
-Message-ID: <20260911155659.GA32745@marmottus.net>
-Reply-To: arthur@marmottus.net
-References: <20260904-wiznet-link-gpio-v7-2-69f01b70c96f@marmottus.net>
- <178895754004.219967.902137420360139647@kernel.org>
- <20260911153325.GB9585@marmottus.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TLM+tlPC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B2421F000FF;
+	Fri, 11 Sep 2026 15:59:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789142394;
+	bh=e1ZkIJ7dgQuKeYMRuEnRCVfbeVmVIydE09qYycLBhmM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TLM+tlPCNKZrtiagr0tyafKrRRijAYaEmSdfTfcRbRijg2M9x1vzVuXCzVrBBTWP6
+	 siMWbT6ATQioBw2Uy95PUTzEOgPOsX/x6Qw01NS2TVq3E5HxKX/j4FiKJ/S2NqhGJY
+	 jsWXrFQR4UdjWhG38/W1hSIr45tbl7FDezCKo5+Uj6LaBTiFqn8VAYzaTIZTo3dC7X
+	 MJv6srlOyLcFoxnfNSWh8zstQz/nubQsbiZ43HLkKMzAlLhQJTBFL/Nztd9XW/wI4N
+	 ddd8X918+b4flL/uXsnllwXEbBkpA2aU10RdDtNOJvqbKPlBPPF93idp8XsUmNmBCn
+	 4cgc1bfmar8yA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 04/17] drm/msm/dpu: Add support for DPU 12.1 on Nord
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
+Cc: olteanv@gmail.com, devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, conor+dt@kernel.org, linux-phy@lists.infradead.org
+In-Reply-To: <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
+References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 11 Sep 2026 15:59:53 +0000
+Message-Id: <20260911155953.7B2421F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260911153325.GB9585@marmottus.net>
-X-GND-Sasl: arthur@marmottus.net
-X-GND-Score: 0
-X-GND-Cause: dmFkZTGCKCepkROQ6Ut0n5AAcNt5583BVqXmeqbkCcKk0QQr6S3GR74ATnFnxdmhJExv3OEBUnq+OkEyFSIayRT1Ips1HzSle96eQeGfodcyefYdQcslT3JkhItA+z1cR8y9H+ZoJW3ew/AxSMR7tTMwkOo+FWBVjwhtk8RmMJ+lh652wBs8LIxZA0AymrGDCkcNZfsN95D7nVxZZdI8GtC3Vno8ySbCFHc5kDa26OtFQNWT3eqYK2VyJ/FiRYUw3HEmfKguPqmgqvRLsSCK/tkHr0x24V7wYrLDtDMkE8tgBYiJIVw0ytkrNSGmy4rksOBu9YfuzZB28niFurLT0cy+uWXCbnGp4955XlCWMfyQRWwNYkvTt0rBr0lD8oKWAit/C3Pf0G+w54yu/tCnbujOAjc/uHF1N0hEmNJvW8x2r3peqw8RvxQB+ctTMc8Go43fwuzJzPrArUJQHQXy5STyZTxz6ZRvCGLH/Qagp3ErFD5fWWQuVBJTPSsQHO6FCrpw5HRMqxYcS4WCDPpg8LIUHXx0Wp92fQHRFWSXCxxR32ZV6U8IDOc3Vb4DC9K0wn/DXhkjG/EYBOsF9+ZUE4NeZkzPYjJUFOhd7Lu0ypbyUqdxPbEkqFlUAlCi4XaD52dbQWwKeR++EpDd744WAFgK/GVA3RYVDpdEsCzejWUhuPpbcA
-X-GND-State: clean
 
-On Fri, Sep 11, 2026 at 05:33:35PM +0200, Arthur Crepin Leblond wrote:
->On Wed, Sep 09, 2026 at 12:39:00PM +0000, netdev-bot+sashiko@kernel.org wrote:
->>Should the item count be tied to the compatible string, for example:
->>
->> allOf:
->>   - if:
->>       properties:
->>         compatible:
->>           contains:
->>             enum:
->>               - wiznet,w5100
->>               - wiznet,w5200
->>     then:
->>       properties:
->>         interrupts:
->>           maxItems: 1
->>
->>The driver side of the series treats index 1 as w5500-only:
->>
->>drivers/net/ethernet/wiznet/w5100.c:w5100_probe() {
->>   ...
->>   priv->link_irq = ops->chip_id == W5500 ?
->>                    fwnode_irq_get(dev_fwnode(dev), 1) : -ENODEV;
->>   ...
->>}
->>
->>with w5100_get_link() returning a hardcoded 1 for the parts that have no
->>PHYCFGR link-status register.  So for w5100/w5200 a second interrupt in DT
->>would validate but then be silently ignored, since fwnode_irq_get() is
->>never called for index 1 on those chip ids.
->
->Let me update this and have it conditional and re-request a review
->from the devicetree people.
->
->Arthur
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Adding `INTF_9` and `INTF_10` without corresponding entries in `en=
+um dpu_hw_intr_reg` causes the `MDP_INTFn_INTR()` macro to silently alias w=
+ith legacy DSI TEAR interrupts, leading to fatal unclocked hardware accesse=
+s.
+- [High] Including inferred, unverified dummy register addresses and bus ma=
+pper IDs in an upstream hardware catalog.
+--
 
-Or maybe updating the description of the top level interrupts is
-enough, the same way it is done in example-schema.yaml?
+commit bd1cb43210104c822d361350ae75f5b63854edc7
+Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 
-Arthur
+drm/msm/dpu: Add support for DPU 12.1 on Nord
+
+This commit adds the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1=
+),
+a DP-only chip with 8 DSPP blocks, 2 writeback blocks, 8 interfaces and 2 DP
+controllers. It extends the interface enum with INTF_9 and INTF_10 and adds
+inferred hardware catalog entries marked with FIXME.
+
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h b/driv=
+ers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+> new file mode 100644
+> index 0000000000000..8eb18752f3c4b
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
+[ ... ]
+> +static const struct dpu_wb_cfg nord_wb[] =3D {
+> +	{
+> +		.name =3D "wb_1", .id =3D WB_1,
+> +		.base =3D 0x64800, .len =3D 0x2c8, /* FIXME(REG_ADDR): inferred */
+> +		.features =3D WB_SDM845_MASK,
+> +		.format_list =3D wb2_formats_rgb_yuv,
+> +		.num_formats =3D ARRAY_SIZE(wb2_formats_rgb_yuv),
+> +		.xin_id =3D 7, /* FIXME(XIU_MAP): inferred */
+
+[Severity: High]
+Is it safe to include inferred register base addresses and bus mapper IDs t=
+hat
+haven't been verified against actual hardware?
+
+When the driver probes on Nord, it will unconditionally map and access these
+unverified addresses. If the inferred base address is incorrect, accessing
+this region will likely hit invalid physical memory and cause an immediate
+bus error.
+
+[ ... ]
+> +static const struct dpu_intf_cfg nord_intf[] =3D {
+> +	{
+[ ... ]
+> +		.name =3D "intf_4", .id =3D INTF_4,
+> +		.base =3D 0x38000, .len =3D 0x4bc, /* FIXME(REG_ADDR): new, stride +0x=
+1000 */
+
+[Severity: High]
+Similarly here, will accessing this unverified INTF_4 base address cause a
+system crash if the guessed stride is incorrect for this SoC?
+
+[ ... ]
+> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/dr=
+m/msm/disp/dpu1/dpu_hw_mdss.h
+> index 0e65bf5ddc4a6..7eccb4d2c65ef 100644
+> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
+> @@ -226,6 +226,8 @@ enum dpu_intf {
+>  	INTF_6,
+>  	INTF_7,
+>  	INTF_8,
+> +	INTF_9,
+> +	INTF_10,
+>  	INTF_MAX
+>  };
+
+[Severity: High]
+Does adding INTF_9 and INTF_10 without updating enum dpu_hw_intr_reg cause
+an interrupt mapping collision?
+
+Looking at MDP_INTFn_INTR in dpu_hw_interrupts.h:
+
+#define MDP_INTFn_INTR(intf)    (MDP_INTF0_INTR + (intf - INTF_0))
+
+When this maps INTF_9 (index 10) and INTF_10 (index 11), they evaluate to
+offsets 12 and 13 respectively. In enum dpu_hw_intr_reg, offsets 12 and 13
+are already mapped to MDP_INTF1_TEAR_INTR and MDP_INTF2_TEAR_INTR.
+
+During driver probe, dpu_hw_intr_init() uses this macro to populate the
+irq_mask. Since Nord is DP-only and explicitly lacks the INTF_1 and INTF_2
+hardware blocks, will dpu_clear_irqs() iterating over this mask attempt to
+write to unmapped TEAR registers and cause an unrecoverable bus fault?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-nord-drv-d=
+t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D4
