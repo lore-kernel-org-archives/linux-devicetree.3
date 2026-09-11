@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DF4457E7F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876A846984B;
 	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116675; cv=none; b=gFF0Xtj9R6URGEopZoW+E6bDQzjnAxVGL+jsHfZUPVLBx2fjVT4fA5cENva1LKIRQS9JtZp0BUz5hFBno74bcucLSNBsi/ppzjCkAGlVb+Go6BCO+qOLU6DUA8UCJA1htlBQyNdQjuyKu82dNlLnJECjrlYg6/mPvHIO5oGUlgY=
+	t=1789116675; cv=none; b=kS6sEv8tcH+PD0Ltku8Lf2wnzLd94BEOp1hx4ZKZP898D+oH98Q3KSxJdHLuGYbQ4K1Ej/sb0PpdYJRuwvs/zyKOqwBj+1W6wDJLIijEoecNMQ5bmLXaRoDMpJsIMfA06btiKGFc4MZ9n55FAw/CHODmsP2TF1gZLBrHDly5NxM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789116675; c=relaxed/simple;
-	bh=Hm5UgdxOKs4EzgGRfysTmdMaB7U/SfJ1G/Cdqf0HRuU=;
+	bh=DY3nAZEw7IwIcK7ATvLcXz2X/NgGx+ZUSaAnsbH9oD0=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RejD5mAdXTVSnUJRhOFENIBD57u6zZkBbi7/TlBmVhWO78UdDICX6xPW2FwU+UnRigdfXBTaKLpFAQZszRexLiUiY4F8gB77+T0kD+nHUpWlS4g9lHivaYpYmES0bBj1pUWYi5wvc04H3jWJu1PioIPEl7cxsjlHcmS/PoYPLsQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=uPYANlzL; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=G9m8csvKl79A+E0FL8BHmd+PFG/uTCf8nzpQjlX3hHmkr0lENYDsxX/pfXbs9Ef02l4CtnIE2eY2hH1Lki1/kmPz8zjmRVXxOkCVAak9jbOH9iHsnkmo68S6vXUQ+WUQE8OqibbYNrEyA1zIaa8NzTnSn09x0RTOIkAg2cjSTf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vIOQPc9o; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="uPYANlzL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id BDD07C2BD05;
-	Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vIOQPc9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 44BECC2BCF4;
+	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789116674;
-	bh=Hm5UgdxOKs4EzgGRfysTmdMaB7U/SfJ1G/Cdqf0HRuU=;
+	s=k20201202; t=1789116675;
+	bh=DY3nAZEw7IwIcK7ATvLcXz2X/NgGx+ZUSaAnsbH9oD0=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=uPYANlzLwXDTYkWNJ76OqedN/OFG63d9oGEZsrsiNK7RHEZDEwSwktnrrlbfVRxCG
-	 QlunbUZ92xJW2cUtmP+eolcm1otlVdNpLZIthVL3txTg6qklHqniT7RH5sCe45CMhj
-	 tYjF/aZDi6KdkZK0MdJ/A8/XotikF4i7aNoyqLhf5q9mUxpwIUacH/5uXRkXjJ2Qz4
-	 UqFxgpcwMxPFDEM7P+JYQhKtVpe3oBpjLnyyGm3jwQfTXqNU9C03qvYoV1uz8sbGzr
-	 2CqBIoMvlLkqIx1Rsf4DFG7hxWgkEMrQDBO8KxU3V7kSuwXBaqYkaS491cd/Rt+r55
-	 YSXrJ+SY7APwA==
+	b=vIOQPc9oHsAb5NAMCqQSY2ZC9ZWES3F1I+WL1UMX6w0fWakBt6wCJ8/BpvamaPKBA
+	 GztFcpozC1ZOMwR/pHj4OXDiXjuaPoY/SPUe1BVCqlaY00PsilXrVmt4qqRjLG2to+
+	 F2MNSekiB/ZaIfTcsueZR+hqhaQq65rIM8N+ExzP0mV1zg7kibl4/pTDICNwOcy1rp
+	 ABb7U8WTkS+dcJoj68T5nK/LNcfOzCTSrE3U700Vp4WwzPo660EKT3JaMWOZ+iJoSE
+	 KjknH85+1JDXx+v532KClu9oP+OQpplH3a+lvwqypOUY6QaI1QRaTlQQNtPgx8RvK2
+	 3HNXYLpAtT9rQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A3050C88E57;
-	Fri, 11 Sep 2026 08:51:14 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F9C3C88E53;
+	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?= <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:01 +0300
-Subject: [PATCH RFC 04/10] drm/panel: novatek-nt36672a: add Tianma FHD+
- video mode panel
+Date: Fri, 11 Sep 2026 11:51:07 +0300
+Subject: [PATCH RFC 10/10] arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable
+ display, backlight and touchscreen
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-4-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-10-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=8274;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=3582;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=hZNePY1tgLgGDhJlBHE8AhCXwjmbp4/rJdgWSLDow9Q=;
- b=C+ciPbyMZVAEuncYYE2u1di4xZ9AFgGKCptzeBvt0TRacT655SrBowEZXKQ98r9WOyP65qB4j
- AqhdovXIjwFAHQXfvn9XxDAykUtKO+IkdmNhFKTvW82eb5kIvOUbkow
+ bh=x7HUi8j9WM0O66VRg2zaqPmBSUKqKlYUrg3o+6fVUMA=;
+ b=0p7Sw0WODkPHyr6uYaCxqJhHD15HpgWvncYsEcFoTIdse3nMrsA429rybhBMBFN9lnbCG75i0
+ EoyAv2U5cNvCyIAm66vhUwtwyvhJf5el9hJ1LDQvAl6pw6l7r3yALhq
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -83,235 +83,149 @@ Reply-To: kavakliyigitcan@gmail.com
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-Add support for the 1080x2340 Tianma video mode panel with Novatek
-NT36672A driver IC found in the Xiaomi Redmi Note 8 (ginkgo / SM6125).
+Enable the display subsystem (MDSS/MDP/DSI0), Kinetic KTD3136 backlight,
+and Novatek NT36672A SPI touchscreen on the Xiaomi Redmi Note 8 (ginkgo).
 
-Changes:
-- Add 1080x2340 display mode timings (183.025 MHz pixel clock)
-- Add verified DCS initialization sequences for pages 0x25, 0x20, 0x24,
-  0x26, and user command page 0x10
-- Add standard DRM panel .enable and .disable callbacks to coordinate
-  display on/off commands with active DSI video stream
-- Set prepare_prev_first = true for host controller synchronization
-- Optimize power-on reset sequence to nominal 10ms timings
+Hardware nodes added:
+- Fixed LCDB regulators (lcdb_lab and lcdb_ibb at +/- 5.5V)
+- MDSS and DSI0 with Tianma 1080x2340 FHD+ video panel
+- I2C1 backlight node at 0x36 with PMI632 GPIO 6 hardware enable
+- SPI2 touchscreen node at CS0 with GPIO 88 interrupt and panel follower
+  reference
+- Touchscreen active pinctrl definition on GPIO 88
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-novatek-nt36672a.c | 141 ++++++++++++++++++++-----
- 1 file changed, 117 insertions(+), 24 deletions(-)
+ .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 100 +++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
 
-diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-index 464d9ce47d87dc857c3a565a63156ac79ddeb30c..b69213790441f204016895a391b58f676762b1aa 100644
---- a/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-+++ b/drivers/gpu/drm/panel/panel-novatek-nt36672a.c
-@@ -34,7 +34,7 @@ static const char * const nt36672a_regulator_names[] = {
- 	"vddneg",
+diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+index 59042a5937535c4acda064fa0f865f4f5a52d01b..f4b9e2092a814e56cdc23218025cb4166dec110a 100644
+--- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
+@@ -26,11 +26,30 @@ / {
+ 	chassis-type = "handset";
+ 
+ 	qcom,msm-id = <QCOM_ID_SM6125 0x10000>;
++	qcom,board-id = <34 0>, <34 1>, <34 2>, <34 3>, <34 4>, <0 0>;
+ 
+ 	aliases {
+ 		serial0 = &uart4;
+ 	};
+ 
++	lcdb_lab: regulator-lcdb-lab {
++		compatible = "regulator-fixed";
++		regulator-name = "lcdb_lab";
++		regulator-min-microvolt = <5500000>;
++		regulator-max-microvolt = <5500000>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
++	lcdb_ibb: regulator-lcdb-ibb {
++		compatible = "regulator-fixed";
++		regulator-name = "lcdb_ibb";
++		regulator-min-microvolt = <5500000>;
++		regulator-max-microvolt = <5500000>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
+ 	chosen {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -356,6 +375,13 @@ irled@1 {
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <30 4>;
++
++	ts_int_active: ts-int-active-state {
++		pins = "gpio88";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-pull-up;
++	};
  };
  
--static unsigned long const nt36672a_regulator_enable_loads[] = {
-+static const unsigned long nt36672a_regulator_enable_loads[] = {
- 	62000,
- 	100000,
- 	100000
-@@ -92,18 +92,12 @@ static int nt36672a_panel_unprepare(struct drm_panel *panel)
- 	if (pinfo->desc->send_deinit_cmds)
- 		pinfo->desc->send_deinit_cmds(&dsi_ctx);
- 
--	/* Reset error to continue with display off even if send_cmds failed */
-+	/* Reset error to continue power-down even if send_cmds failed */
- 	dsi_ctx.accum_err = 0;
--	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
--	/* Reset error to continue power-down even if display off failed */
--	dsi_ctx.accum_err = 0;
--
--	/* 120ms delay required here as per DCS spec */
--	msleep(120);
- 
- 	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
- 
--	/* 0x3C = 60ms delay */
-+	/* 60ms delay as per DCS spec */
- 	msleep(60);
- 
- 	nt36672a_panel_power_off(panel);
-@@ -120,15 +114,14 @@ static int nt36672a_panel_power_on(struct nt36672a_panel *pinfo)
- 		return ret;
- 
- 	/*
--	 * As per downstream kernel, Reset sequence of Tianma FHD panel requires the panel to
--	 * be out of reset for 10ms, followed by being held in reset for 10ms. But for Android
--	 * AOSP, we needed to bump it upto 200ms otherwise we get white screen sometimes.
--	 * FIXME: Try to reduce this 200ms to a lesser value.
-+	 * Reset sequence: 10ms out of reset, 10ms held in reset, 10ms out of reset.
- 	 */
--	gpiod_set_value(pinfo->reset_gpio, 1);
--	msleep(200);
--	gpiod_set_value(pinfo->reset_gpio, 0);
--	msleep(200);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
-+	usleep_range(10000, 11000);
-+	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+	usleep_range(10000, 11000);
- 
- 	return 0;
- }
-@@ -146,19 +139,41 @@ static int nt36672a_panel_prepare(struct drm_panel *panel)
- 
- 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
- 
--	/* 0x46 = 70 ms delay */
--	mipi_dsi_msleep(&dsi_ctx, 70);
--
--	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+	/* 80 ms delay as per DCS spec / downstream timing */
-+	msleep(80);
- 
- 	/* Send rest of the init cmds */
- 	if (pinfo->desc->send_init_cmds_2)
- 		pinfo->desc->send_init_cmds_2(&dsi_ctx);
- 
--	mipi_dsi_msleep(&dsi_ctx, 120);
--
- 	if (dsi_ctx.accum_err < 0)
--		gpiod_set_value(pinfo->reset_gpio, 0);
-+		gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt36672a_panel_enable(struct drm_panel *panel)
-+{
-+	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
-+
-+	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+
-+	/* Frame settling delay */
-+	msleep(20);
-+
-+	return dsi_ctx.accum_err;
-+}
-+
-+static int nt36672a_panel_disable(struct drm_panel *panel)
-+{
-+	struct nt36672a_panel *pinfo = to_nt36672a_panel(panel);
-+	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->link };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+
-+	/* 120ms delay as per DCS spec */
-+	msleep(120);
- 
- 	return dsi_ctx.accum_err;
- }
-@@ -189,6 +204,8 @@ static int nt36672a_panel_get_modes(struct drm_panel *panel,
- static const struct drm_panel_funcs panel_funcs = {
- 	.unprepare = nt36672a_panel_unprepare,
- 	.prepare = nt36672a_panel_prepare,
-+	.enable = nt36672a_panel_enable,
-+	.disable = nt36672a_panel_disable,
- 	.get_modes = nt36672a_panel_get_modes,
+ &uart4 {
+@@ -369,3 +395,77 @@ &usb3 {
+ &usb_dwc3_hs {
+ 	remote-endpoint = <&pmi632_hs_in>;
  };
- 
-@@ -404,6 +421,79 @@ static const struct nt36672a_panel_desc tianma_fhd_video_panel_desc = {
- 	.send_deinit_cmds = tianma_fhd_video_send_deinit_cmds,
- };
- 
-+static void tianma_ginkgo_send_init_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	/* Page 0x25 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x25);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x18, 0x96);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x05, 0x04);
 +
-+	/* Page 0x20 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x20);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x78, 0x01);
-+
-+	/* Page 0x24 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x24);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x82, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x84, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x88, 0x13);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8a, 0x31);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8e, 0xe4);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x8f, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x90, 0x80);
-+
-+	/* Page 0x26 init */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x26);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xfb, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xa9, 0x12);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xaa, 0x10);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xae, 0x8a);
-+
-+	/* Page 0x10 (User command page) */
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xff, 0x10);
-+}
-+
-+static void tianma_ginkgo_send_post_on_cmds(struct mipi_dsi_multi_context *dsi_ctx)
-+{
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0xb0, 0x01);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x35, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x68, 0x04, 0x03);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x51, 0xb8);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x2c);
-+	mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x55, 0x00);
-+}
-+
-+static const struct drm_display_mode tianma_ginkgo_fhd_video_mode = {
-+	.clock		= 183025,
-+
-+	.hdisplay	= 1080,
-+	.hsync_start	= 1080 + 90,
-+	.hsync_end	= 1080 + 90 + 2,
-+	.htotal		= 1080 + 90 + 2 + 120,
-+
-+	.vdisplay	= 2340,
-+	.vsync_start	= 2340 + 10,
-+	.vsync_end	= 2340 + 10 + 3,
-+	.vtotal		= 2340 + 10 + 3 + 8,
-+
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
++&mdss {
++	status = "okay";
 +};
 +
-+static const struct nt36672a_panel_desc tianma_ginkgo_fhd_video_panel_desc = {
-+	.display_mode = &tianma_ginkgo_fhd_video_mode,
-+	.panel_name = "tianma-ginkgo-fhd-video",
-+	.width_mm = 67,
-+	.height_mm = 145,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_LPM,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.lanes = 4,
-+	.send_init_cmds_1 = tianma_ginkgo_send_init_cmds,
-+	.send_init_cmds_2 = tianma_ginkgo_send_post_on_cmds,
++&mdss_mdp {
++	status = "okay";
 +};
 +
- static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- {
- 	struct device *dev = &pinfo->link->dev;
-@@ -428,6 +518,8 @@ static int nt36672a_panel_add(struct nt36672a_panel *pinfo)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
- 
-+	pinfo->base.prepare_prev_first = true;
++&mdss_dsi0_phy {
++	vdds-supply = <&vreg_l7a>;
++	status = "okay";
++};
 +
- 	drm_panel_add(&pinfo->base);
- 
- 	return 0;
-@@ -481,6 +573,7 @@ static void nt36672a_panel_remove(struct mipi_dsi_device *dsi)
- 
- static const struct of_device_id tianma_fhd_video_of_match[] = {
- 	{ .compatible = "tianma,fhd-video", .data = &tianma_fhd_video_panel_desc },
-+	{ .compatible = "tianma,fhd-video-ginkgo", .data = &tianma_ginkgo_fhd_video_panel_desc },
- 	{ },
- };
- MODULE_DEVICE_TABLE(of, tianma_fhd_video_of_match);
++&mdss_dsi0 {
++	vdda-supply = <&vreg_l18a>;
++	status = "okay";
++
++	panel: panel@0 {
++		compatible = "tianma,fhd-video-ginkgo", "novatek,nt36672a";
++		reg = <0>;
++
++		reset-gpios = <&tlmm 90 GPIO_ACTIVE_LOW>;
++		vddio-supply = <&vreg_l9a>;
++		vddpos-supply = <&lcdb_lab>;
++		vddneg-supply = <&lcdb_ibb>;
++		backlight = <&backlight>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel_in>;
++	data-lanes = <0 1 2 3>;
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&i2c1 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	backlight: backlight@36 {
++		compatible = "kinetic,ktd3136";
++		reg = <0x36>;
++		enable-gpios = <&pmi632_gpios 6 GPIO_ACTIVE_HIGH>;
++		default-brightness = <2047>;
++		max-brightness = <2047>;
++	};
++};
++
++&spi2 {
++	status = "okay";
++
++	touchscreen@0 {
++		compatible = "novatek,nt36672a-spi", "novatek,nt36672a-ts";
++		reg = <0>;
++		spi-max-frequency = <4000000>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <88 IRQ_TYPE_EDGE_RISING>;
++		pinctrl-0 = <&ts_int_active>;
++		pinctrl-names = "default";
++		panel = <&panel>;
++		touchscreen-size-x = <1080>;
++		touchscreen-size-y = <2340>;
++	};
++};
 
 -- 
 2.47.3
