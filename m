@@ -1,184 +1,146 @@
-Received: from mail-pj2-f8.google.com (mail-pj2-f8.google.com [74.125.227.136])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F9633E51CB
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 06:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A2E342F6F8
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 06:38:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789108673; cv=none; b=FTktV6Z5RC7v4V/mu36izpis8gVtYmt48Ne8M3Dg3VX9X8ducsAIhFupUIbzZkZPZNjvUpvnKATNnLq++3O4sdvIdA9OGU0h4Y9cd/C+IYsC7IFbZQi38tkKU1+jgredP2qwbllI5AMNtRDrf7ztG791sG1KKKZeWxsCerDoviU=
+	t=1789108738; cv=none; b=DskhA8F5ztBEwX0D+gdjFiGlf70NQkNEnuKgkkM4pyMhmonGg8tQdT+ITheAE/2mu6PXvACizs1Ws7rYhsoS8PvEvbvwA3hgI4DDosdnQu4T2vB6PBlMhFvZjgmKTN9PICSCS5GvKcynVLMw3u79PHMVZcLBX8MFEJLjxAboA1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789108673; c=relaxed/simple;
-	bh=Wr8Otja+SAbVp8kxHQbqxZW6hY/phYxsRrIKuP8VCzo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gaYadKQ/h2FgISGmkh7kdk/WZzW4CdUbdc1VSbb9hwPnwLfkREsl/klXZ6A/hS/44BFOI8RuZCv3c50V+/V7xrqBPoCv5lBdMfO1ZqcQIOZLtKfMijnAfiKxLEt9J/HMWoVysKeHVNJmPrKp/N+r19tHHKXdJEOhMYQXFpVusIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DuHBrfNU; arc=none smtp.client-ip=74.125.227.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789108738; c=relaxed/simple;
+	bh=boItcdYNRLaSDuwJMrKPnlUGr8rAib5wS1PhfwnS8Tg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WtAmoevKIM4rBPr6Maw8oOxLvwoAwfm3mUQxeIasVM+ymBiZhPOcHUELFBv2P6pu/YRyqN66mPS3I3bMYaaNl+h9mE94lb19WoNLIbdHe4M3LuBMyXwyCqN+MIdr78MCuKvkSELk3R01R/qSxtiJBj/E/IVVYNG99PZuPu+ZX0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VnDl+VIV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y/j8LAIl; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DuHBrfNU"
-Received: by mail-pj2-f8.google.com with SMTP id 98e67ed59e1d1-39b456fc4cbso316707a91.1
-        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 23:37:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VnDl+VIV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y/j8LAIl"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B4vG2s2422197
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 06:38:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=Ob8ae5B5IDk8sQgR+LZlULkW
+	3J30ZZBC9EfolVLI+LE=; b=VnDl+VIVtzAQ4bhwY9DN+xH1ZvS9blAeL5TWt84b
+	M6ZE8am+zOFdLdyb0OBeS3hgJGIi9s9aWP/ZR43pGGiHSenOCkdH5856efFJRVkW
+	eVKCbyxyVhOZrGGZe4T4fbANn0l5GP4OadHTcOPRGWs41ypj1qcdJuJIxhmI1PYN
+	4ifY/7RPiM5NL3Cp0sxIZXKhczAoWvVyjuSJ4y3yII7K/U/VPpe3Sa3ZyK3RNdc2
+	6Jo+PfUowgJ1S8jIS6E1BmqFfUx7Iipn4HNXH3tQ9MSKMilorEzPgz/yS/8nfvDk
+	sFDwNgosuEBbKIPW+4xHQpMdh3GqbqX3e5xKsbVknBD0Lw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gm729h7bu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 06:38:44 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2db050d469fso26750315ad.0
+        for <devicetree@vger.kernel.org>; Thu, 10 Sep 2026 23:38:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789108664; x=1789713464; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vFqFJVoBVN5kZfJxUCTmdBnEcYhE5q7ZSLbJrzghpqw=;
-        b=DuHBrfNU3zux1FRBQK5+vShBxlCTNneQMGwublIT1qZHpDOWUuoF0zrVldCzSdQVqV
-         /GR6bRRI11UfwSAVDOvD08OH+bAltAHITcu9HLAIwFsHX6OqNhypQ/z/s+YBYbCW6jwB
-         dUkm4k2pnUnotPDdyFCC93KFmi/yCoXhpeIWctPdfFO/asolG9XF0N3hC4h/aMNBoIlg
-         fvDTGqOPXbN1Y1lfALtnfRwzWhxAa+nRZWA23kC7pIXTK8t5Fxrih4mJU2Jnl3liyXAd
-         InlQXOV1fYdKyFGqBy+bSMlQ2E91PW9NlTwP5Zbwvh4dmy2Ue6AbmUNMX2faiH0g24b3
-         Ytmw==
+        d=oss.qualcomm.com; s=google; t=1789108724; x=1789713524; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ob8ae5B5IDk8sQgR+LZlULkW3J30ZZBC9EfolVLI+LE=;
+        b=Y/j8LAIl0ulYZ4m5SXTEYW0FQsSj0zbczzUnXE5Bnh/6UTMahoeCJrcRh6ml3JGfEk
+         Fl0CnFb1opzhgYVh7xnbyL0QrxBK6uZ7IlNrl1h0paLX4lNO3CK8Lx5RHxHNBNdf1vmQ
+         HXO0uCjI610+DyiYGgzLFwoWBlYq67JFbHECFp66Bg/SLBNCGcGk/+b8XfQLES5pn981
+         JEolgYJ0YvDxxgkLc4Pj3pNGNIWhDhsXP7hXKW5q71PRcK51XrZQKOHQEKeaXLUrIDii
+         0ObdAuKd/7q7mGBAyG3cPYBAYVNp/ILxpA1hm0Pmte7hBJW+MQQEJbopTmgF84ybSwrr
+         0PBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789108664; x=1789713464;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vFqFJVoBVN5kZfJxUCTmdBnEcYhE5q7ZSLbJrzghpqw=;
-        b=CDhNUli9QxlWLL1Hr4kVP8XF31PFxXHBfiun8khONhuig80UjH38lE1n0O1u/SA+WO
-         FZXXphFXgLeTwGDYeP4SxUxCxMMXBqyh1LREMRl/AEjnrwOCeVtXw8pyH51AIRXj/MLD
-         0V5FAKBR8cjyb6vl0SmsQSQw3rutAWLyNVajGmj4CYX1NbyP3KMwmnzhEBbqwXUPAf4n
-         QTCyidqx4/2RNlMeKrAiEoRM/GUibk22wBdWuvUgxCQM0/RjyJAhUFuN3oa27c0edcJm
-         woXf0x+ONGKQ94F7aoGUODaOvVCagG4VuKPRxGL/F6xmlBI06btvwirB/QRs1dcH8qFW
-         IoJg==
-X-Forwarded-Encrypted: i=1; AKwUvBxokQGmQ+081xtRrGhpeW/iAnAJVB+RMQo6VMVgjIrTr/Zuk1BIWoycjl+paTfyhn6FRS4Psg4clG8S@vger.kernel.org
-X-Gm-Message-State: AFuF++nAaIpCNOGi6uGNB7dpY4ZFVibOmjOTd2/9kemq3ShbhHoqy9AB
-	CjfKb4qySN5jTQjYqLHRcdl7UD9igXHhDGDosPA0M8SoubGiDnVa8O0F
-X-Gm-Gg: AYBFou3b/ARa3gJWtlVqx1Ok2HiVdpjMvqPTM54osuRGF1VaDCMk7uH8BOWwb0TBBgm
-	jNMyFTBPjWXHc9ApKIFwe2zdeODgKo9hS0IykjzarwhIGO+PpuH2fGWr6i5NkjAF7EX2oSj55d5
-	jQOTMTAWj/SbujRtPV2U75YRJd7MtdMEafZtmuVKpnWJdLhpwYZ9BQ58C1ocX+cntC6ZNlqZGS0
-	N+H5upnUfma1lFbSSCof5LOL+pWyVtonM/xFg7LHFZ6Be4Unar4Rn0aXZcu/CKye1G3zqHqy+8p
-	6Q2vyN0pnvb/MFCOgnOLn8fbHVEhTXA4vQERAoWgY0ygSesbgB/jJ4T5GAa0xe/5fr+Y5jvN/K3
-	Y7J0nNXbdnHeKyW43VMoH/z9tcsjUv6aET3nUSs+i/DOYcWfK2Dup6SqdUdPiT3E3v3E1AGkdLZ
-	qwDWckgZWiglrsWChp6Y8ReJ4Ld5vJbbmAL+vsYQpFZBPkPonQbsYNUp08y3s/pfAqUBw/tNRjK
-	Bhl+g==
-X-Received: by 2002:a17:90b:548f:b0:392:b509:b1a5 with SMTP id 98e67ed59e1d1-39d9c1db3d4mr4983638a91.14.1789108663538;
-        Thu, 10 Sep 2026 23:37:43 -0700 (PDT)
-Received: from [10.125.112.20] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39da6016718sm783381a91.15.2026.09.10.23.37.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 10 Sep 2026 23:37:42 -0700 (PDT)
-Message-ID: <cbbe6ba0-5ee2-4597-92b8-3257e152be75@gmail.com>
-Date: Fri, 11 Sep 2026 14:37:37 +0800
+        d=1e100.net; s=20251104; t=1789108724; x=1789713524;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ob8ae5B5IDk8sQgR+LZlULkW3J30ZZBC9EfolVLI+LE=;
+        b=NebGs7dv7R92DQEnlEtadzAM+dMwTG5CttMtykE2FPf+M51U1cGmHVeXSNgp4CV3cF
+         BibHznQXTyet60qKD8sA3Gj6c/4J5yHlwCRtK21FQO1ak2+d7GHD2x4UbF/zuCwLZBrQ
+         EqD05Ib+TXRjsQID20liWGo2BGtKDd6S3qHeYihUDrsqptDX6c9R6Be1U7Q2lR388a+u
+         5RY8xdtthpoChfyjaH/YEVbF5zhmQOf4ODG6nQZCoVpNs4fpEDkrtTMQa5rPUhkZy4ff
+         v8EaBC4wiP6c4AhUH0q2t1kgYsHgD07UT6iHT05hJGIT4gEes42OTfsZFPGDHiGxaVip
+         nYZw==
+X-Forwarded-Encrypted: i=1; AKwUvBzpm24hw0yb3SSZURMqIacbBx+BxmrukG6SEBQxFvFP7VxuafzFKLdIOV8feifz3DbXs1p45OADvLUn@vger.kernel.org
+X-Gm-Message-State: AFuF++l51RJ/UV1CUkPWAt6hZbqtu8zS+4uP+bPChAHCiwsQ9dAiDK9P
+	1MmR9KJXzne+yYhRaWZEYGFrsbr/3C9uZvhBXT0V4/7Fdq4heUFcj5nxRMNQOEUdgVG7ds7OUzX
+	RM1KpAfbXfLnkkzG1nqiH+vo0RweT6lYPMs3EHwQc0aXnVP/h2HjKXtLSBYlGG8cW
+X-Gm-Gg: AYBFou05+cdmmddeSU1abRbPdO77XFEGWGhDovGV4HIvtcwrS2Za+xpjfpxV35ImbV0
+	0+yAqWch3Y45/rrKSr3Q3SyhYVoblB3oExa2LuyCRAF41uT4SmnYTMlXcIwZTeb8b7USRm7o7UV
+	ncoi9R/h6i7MUSGH2iZwAYPY5XAGtnzvZ7ESLrTMAgAmxmymZ3Gi3M8QyCBifL5cOqkm9FdQX0b
+	zkT/uMV8fwDZxHoshYh2d/gRgo4//u/wQvM10IzoHAoIDPX52dORVZmo6GEzdmLjuYaR+H9LKxB
+	Zu31gqd9fN04YyWAHLU8PpN7kv4hCiWPz21VczmM+xmugMbuK0q3irtqvwG9H1jTmw3CP5om6OO
+	ObzTe5xYRJivu4giaH4WluYrgTRx2tt4yG7KDkvU8KNY=
+X-Received: by 2002:a17:90b:4ec7:b0:398:a649:8fa3 with SMTP id 98e67ed59e1d1-39d77b770ccmr11591574a91.23.1789108723658;
+        Thu, 10 Sep 2026 23:38:43 -0700 (PDT)
+X-Received: by 2002:a17:90b:4ec7:b0:398:a649:8fa3 with SMTP id 98e67ed59e1d1-39d77b770ccmr11591525a91.23.1789108723200;
+        Thu, 10 Sep 2026 23:38:43 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33ba4fa50e3sm3835825eec.29.2026.09.10.23.38.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 10 Sep 2026 23:38:42 -0700 (PDT)
+Date: Fri, 11 Sep 2026 14:38:37 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        devicetree@vger.kernel.org, zhangfei.gao@oss.qualcomm.com
+Subject: Re: [PATCH 2/2] soc: qcom: llcc: Add LLCC configuration for Nord
+Message-ID: <aqOh7Wgoj7VnM9X1@QCOM-aGQu4IUr3Y>
+References: <20260910-nord_llcc-v1-0-30fd1cca65fe@oss.qualcomm.com>
+ <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] of: reserved_mem: skip init for regions whose
- early reservation failed
-To: Marek Szyprowski <m.szyprowski@samsung.com>, robh@kernel.org,
- saravanak@kernel.org, rppt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Cc: akpm@linux-foundation.org
-References: <20260818092420.2859026-1-chenwandun1@gmail.com>
- <CGME20260818092438eucas1p20115e5d33908e32ef4433cb246da8098@eucas1p2.samsung.com>
- <20260818092420.2859026-2-chenwandun1@gmail.com>
- <72074a49-2963-4f96-b939-79bf95a829cb@samsung.com>
- <af87036b-0809-4880-b088-545780b4d963@gmail.com>
- <7a964778-adc3-4186-9122-3858bb61c372@samsung.com>
- <7dd9e1c3-ddc8-482e-a560-e8dc4f2f0aac@gmail.com>
- <518729f2-db28-4af5-8ed3-9985c124db3e@samsung.com>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <518729f2-db28-4af5-8ed3-9985c124db3e@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910-nord_llcc-v1-2-30fd1cca65fe@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDA5MCBTYWx0ZWRfXwoPwhKh6s2aJ
+ YauEt9wL6yWlYlo03XVQFtOJN3iRKFwkItOBcvkbIh6aG7ws8wjJxfKsf0+kAMYhl+42iGvc7QA
+ yL4I5UVP4iNmnCN/7I7O0bxDhZMPO/s=
+X-Proofpoint-GUID: aNFE480VzvobrwcHMhvyvYIf9Uy27Zts
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDA5MCBTYWx0ZWRfX3ERgPVrn3SUh
+ GCHv1Lq7Bh6RVXvD0YDZ3JI7qWgM60JYHMC4Tv3CiN+BNLX2Yft9obkC414Bd08+1lsH0+AVnYH
+ NYgJp3k9thZvCWZWxWeJ14sToHgzsIHGeoIBH3ufp0p2A9jExlYRYunQjDy9cnzl+0Zlg9ZEVpy
+ 3GWKPoYcC853RBp8lhSeCijCjue6gnR3pTlx7QyaPPR+URFAV2dR83i7YFckTlnAx1p1seFtazx
+ So71ktywevjqLYNhfl8A8LoPNukjXzVuKXWdYrfNa4FnrJXW7WQNdWl/GeTYCxD5MFApDoovM4l
+ 4I7C5ogMuc8GYI07DMEftYpDj8MBR2u1bf3Ow/EEYQdBn3Ec4KF6DMCa/I+wDVdmVG4cKXIuLem
+ rfYr9Ct9XJs0JZFXrjA0tbEmvw3HXMstEAvW01Rs7n4ZaIKhh1UeZE2UMvZsQCk0SkY0FsSbB1i
+ uJN9Xya9KOxhGqCz1YA==
+X-Proofpoint-ORIG-GUID: aNFE480VzvobrwcHMhvyvYIf9Uy27Zts
+X-Authority-Analysis: v=2.4 cv=AfwkjHXG c=1 sm=1 tr=0 ts=6aa3a1f4 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=OxrQ4fpuk6iiGASJZ2MA:9 a=CjuIK1q_8ugA:10 a=ZXulRonScM0A:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_02,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609110090
 
-
-
-On 9/10/26 23:20, Marek Szyprowski wrote:
-> On 10.09.2026 12:55, Wandun wrote:
->> On 9/4/26 16:49, Marek Szyprowski wrote:
->>> On 31.08.2026 15:04, Wandun wrote:
->>>> On 8/26/26 21:14, Marek Szyprowski wrote:
->>>>> On 18.08.2026 11:24, Wandun Chen wrote:
->>>>>> From: Wandun Chen <chenwandun@lixiang.com>
->>>>>>
->>>>>> __reserved_mem_reserve_reg() discards the error from
->>>>>> early_init_dt_reserve_memory() and returns 0 unconditionally, so the
->>>>>> caller counts the node in total_reserved_mem_cnt and the late scan
->>>>>> initializes it without checking whether the early reservation actually
->>>>>> succeeded. A region whose reservation failed is then handed to a
->>>>>> device assuming the memory is protected.
->>>>>>
->>>>>> Propagate the error so failed reservations are no longer counted, and
->>>>>> record the failed nodes so fdt_scan_reserved_mem_late() can skip them.
->>>>>>
->>>>>> Recording the failed nodes explicitly is necessary because
->>>>>> fdt_scan_reserved_mem_late() rescans the DT independently. It cannot
->>>>>> tell from memblock whether early reservation succeeded.
->>>>>>
->>>>>> The failed-node array is bounded by MAX_RESERVED_REGIONS, the number
->>>>>> of static regions is not bounded by it, so on overflow the extra nodes
->>>>>> fall back to being initialized, which is the current behavior.
->>>>> I'm not very keen on such partial solution. Indeed we have no place to
->>>>>
->>>>> store the result of the early init call, but we can check if the given
->>>>>
->>>>> region has been earlier marked in memblock as reserved or no-map in
->>>>>
->>>>> fdt_scan_reserved_mem_late(). If those attributes don't match the
->>>>>
->>>>> region can be simply skipped then.
->>>> Considering the later patches that reject reservations for overlapping
->>>> nodes, checking the memblock state in fdt_scan_reserved_mem_late() may
->>>> produce false positives.
->>>>
->>>> For example, if region A is reserved first and region B is a subset of
->>>> A, reserving B will fail because it overlaps with A (in patch 02/03).
->>>> However, during fdt_scan_reserved_mem_late(), B will still appear to
->>>> be reserved because its range is already covered by A. As a result,
->>>> B would be initialized even though its own reservation failed, which
->>>> is contrary to the intended behavior.
->>> Imho the overlapping reserved regions are some kind of configuration 
->>> mismatch and it is enough to detect them. fdt_scan_reserved_mem_late()
->>> can first store all regions to dynamic reserved_mem array, then check
->>> for overlaps, and only then initialize those, which don't overlap and
->>> have proper memblock attributes?
->> Thanks a lot for reviewing this series.
->>
->> I did try this approach, and it looks clean. The overlap check works
->> well for regions within /reserved-memory. But there's one case I
->> couldn't make it handle, where it seems to still produce a false
->> positive, please correct me if I'm missing something.
->>
->> For example, region A is reserved before /reserved-memory nodes are
->> processed. A is not a /reserved-memory node, so it never appears in
->> the reserved_mem array. Now region B in /reserved-memory is a subset
->> of A. At early reservation, patch 02/03 rejects B due to the overlap.
->> But at the late scan, B's range already appears reserved (covered by A),
->> so it looks like a successful reservation and gets initialized.
->>
->> The root issue is that the late scan can only tell whether a region is
->> reserved, but it can't tell whether the reservation was made by
->> /reserved-memory node itself or by something else. Maybe we still need
->> to record during the early reservation stage.
-> Then maybe it will be easier and cleaner just to add a new flag to 
-> memblock_flags (see include/linux/memblock.h) and mark each successfully
-> reserved region with it? There are some spare bits there.
-
-I really like this idea, it's cleaner and directly solves the
-"late scan can't tell who reserved the region" problem. Combining your
-two suggestions gives a clean and simple approach, and I'll implement it
-in v3.
-
-One concern: a reserved region carrying the new flag won't merge with a
-reserved region wihtout it, so memblock.memory and memblock.reserved may
-end up with more regions than today. When fdt_scan_reserved_mem() runs,
-memblock is not allowed to resize, so if regions in memblock.reserved or
-memblock.memory are exhausted, panic will occur.
-The default regions number of memblock.memory/memblock.reserved is
-INIT_MEMBLOCK_RESERVED_REGIONS, it can be raised if a platform actually
-hits it, so I don't think this blocks the approach, what's your view?
-
-Best regards,
-Wandun
+On Thu, Sep 10, 2026 at 06:30:44PM +0530, Anurag Pateriya wrote:
+> Add the sub-cache table for Nord, derived from the Nord AU (Safe IVI)
+> SCT table and limited to the POR use cases that have a unique SCID and a
+> usecase ID in llcc-qcom.h. Nord has the CFG0/CFG1 pairs and the full
+> ALGO_ALLOC0..3 set, so it uses the v6 register offsets.
 > 
-> Best regards
+> num_banks is set explicitly because LLCC_LB_CNT in LLCC_COMMON_STATUS0
+> is four bits wide and cannot report sixteen banks; a wrong count makes
+> the driver map a bank aperture in place of the broadcast region and abort
+> on the first broadcast read. no_edac is set because the bootloader
+> leaves the LLCC EDAC registers locked, as on Glymur.
+> 
+> Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
 
+Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
