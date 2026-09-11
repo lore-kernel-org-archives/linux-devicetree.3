@@ -1,96 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28323DCDBD
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:49:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF813F5BC5;
+	Fri, 11 Sep 2026 08:49:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116577; cv=none; b=gw5bzZC+xCNj2ZLHSHnFQbfTJg/5PuEsgP/t72jCmxbqxvr8UgNccftqNtvE0+OXz6A3/x65TNlpnivICGwNnbc+OncvuD5AJWpD/LJpu6yFHXO/2uJMiVcQ2B+HF8WkokzJ2mEsHSbnR0nHnfXuTrxyk4285gWjeZjvp1Yrnzg=
+	t=1789116600; cv=none; b=fJ4mhgVEnZwAGq9kYX6rIPqOXkxBqRO0Y8C1Dbxte4nxRBm4AyMMLojugS3LC8I4sSH88WowN0wGftxnArJGa4h7LjqWRVvbx2e8zCymh71BGpPjmDHfpbVmZfW0OJwfhdDwDecMUrUjvLYA2d2OWxj0ArLiyWSMVRy9qACzNK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789116577; c=relaxed/simple;
-	bh=+vmfmvXtqTVnFBR6ySnh8/OnnCIoycHuq314wwE0VN8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N+hsRXFevHqNognrQQKuPvQ821OyZxDH00HpRo7BRR4+GNDG9ZabHYe3s3OoJu1lFtRLK4gYF31mGEk5MmouugIh/6eQLOMY/TgDkQfoUWq7eukw8noA49sVxxRjmSoEBBLqbLrwbv8O5QcjSC77Q1+n8Ei4j68CMYT+alR9yBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYbcollS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789116600; c=relaxed/simple;
+	bh=3NhHLWVmt+gs/rZOfVUr+KaH4csZME4/acqF82d4dAs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a4WcvLhVOHLkYtMYf7P2u1AjPmeVfhHzoVkc8YqcENX+FJiV45LwILCREWJEUyVPJ7nii57V0+VMStU4IT6prMGB/KXNnC8NDXUr9Gm3XO2c1YgRk/KBnNkap1Xvf0LpTxIMr0pZkcq98mgh3rcOiC8YiTqhVxz16eXFzIQQpy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwQcgq3+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYbcollS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F0EB1F000FF;
-	Fri, 11 Sep 2026 08:49:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwQcgq3+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14B9A1F000FF;
+	Fri, 11 Sep 2026 08:49:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789116575;
-	bh=Z3zPBXhBZwF8l6YDJsg9thaKvvDUfxTSxomlsnwLkKY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RYbcollSOeKHeqbkKD/GJZsog92ATPdnARRc/8hL0cbOpPpB/+J3XzcrRyPiQQrH7
-	 /0P4VAqthXqeDYX69MEAnUkVmgOwB+f0Gf+27vpVPx4RkElKyvTb7U51ErFlWxYK4W
-	 uwvuKn5aRym+T6GIUTN0NZe4jKeB5FlMgEFOe9hmKx1DGnEdM0kZjg9Kfdxho74UtB
-	 Z2Ow22jniRP4CwLgrYyK8m/pXOhaIOASZdyYai5DGj6w8pLRmywaJioYDzgT1xMc/X
-	 S2RhGN0IUlqKvx+hoAr0S+PdYhLMb+O6JGLgv1Y6d0ZC9PKFtz1/pQoEOMRYAgLuI3
-	 BD687AtbNpi+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: msm8994-octagon: Remove
- ad7147_captouch
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260911-topic-lumia_drop_captouch-v1-1-6f92f1f3c6d3@oss.qualcomm.com>
-References: <20260911-topic-lumia_drop_captouch-v1-1-6f92f1f3c6d3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 08:49:34 +0000
-Message-Id: <20260911084935.4F0EB1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789116599;
+	bh=c5wojoNR/9MT1OzH90KMZIuqpJeR8FtHDdJSM7U0YaY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MwQcgq3+m4OrOCr8xlerHt0z8cvtCfjiHsLlUTdsBLwuJ35w9T8NI+hL7ayt/rCr6
+	 7O7eahn605Pq4tFYHAjPOU5cjyfoXufzc5dHDDXQspYefaSOedXZDScYJGc7oxnY5x
+	 8Wf+E0gGXydz9s7avCnrhHzFRfUf3u470KoSO3MZtUcQhDS2qQz5MtgVwdMM1v7MrG
+	 PDS1Q9NE6apivNOG2OPTo/Vbt8+mJINKTrizvYsOFM97aUIliTSrUjab5EH8wXo2Ie
+	 +dgBv2wtixIh15eEi6x3lil4keXZhkld2xdXLRm6l/boxl9yRsMaeM4WfVWqLnE//W
+	 xDJU0b0pUzmVg==
+Date: Fri, 11 Sep 2026 10:49:55 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Colin Huang <colin.huang2@amd.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Randy Dunlap <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Colin Huang <u8813345@gmail.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: hwmon: pmbus: Add Infineon tda38740
+ and tda38725
+Message-ID: <20260911-placid-clever-lizard-de1258@quoll>
+References: <20260910-add-tda38740-and-tda38725-v4-0-dbae7fabce09@gmail.com>
+ <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260910-add-tda38740-and-tda38725-v4-1-dbae7fabce09@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The pinctrl nodes `grip_default` and `grip_sleep` were left behind =
-and are now orphaned after their only consumer was removed.
---
+On Thu, Sep 10, 2026 at 08:35:50PM +0800, Colin Huang wrote:
+> From: Colin Huang <u8813345@gmail.com>
+> 
+> Add devicetree bindings for the Infineon TDA38740 and TDA38725
+> single-voltage synchronous buck regulators with PMBus interface.
+> 
+> Signed-off-by: Colin Huang <u8813345@gmail.com>
+> ---
+>  .../bindings/hwmon/pmbus/infineon,tda38740.yaml    | 46 ++++++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+> new file mode 100644
+> index 000000000000..28eeb85f13df
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,tda38740.yaml
+> @@ -0,0 +1,46 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +
 
-commit 8167d39c59a24f7cde908c6c1d4da051dc5c0ffb
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+There is no blank line here. Do not come with own style (like your
+version 1).
 
-arm64: dts: qcom: msm8994-octagon: Remove ad7147_captouch
-   =20
-This node lacks dt-bindings, producing warnings and is reportedly only
-present on prototype hardware. The commit removes it to get rid of the warn=
-ings.
+> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,tda38740.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Infineon TDA38740 and TDA38725 PMBus Synchronous Buck Regulator
+> +
+> +maintainers:
+> +  - Colin Huang <u8813345@gmail.com>
+> +
+> +description: |
+> +  The Infineon TDA38740/TDA38725 is a 40A/25A single-voltage synchronous
+> +  buck regulator with a PMBus interface designed for industrial use.
+> +
+> +  Datasheet:
+> +  https://www.infineon.com/row/public/documents/24/49/infineon-tda38740-tda38725-datasheet-en.pdf
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - infineon,tda38725
+> +      - infineon,tda38740
 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8994-msft-lumia-octagon.dtsi b/a=
-rch/arm64/boot/dts/qcom/msm8994-msft-lumia-octagon.dtsi
-> index 7ace3540ef0a0..4da448f17133e 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8994-msft-lumia-octagon.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/msm8994-msft-lumia-octagon.dtsi
-> @@ -377,19 +377,6 @@ &blsp1_uart2 {
->  &blsp2_i2c1 {
->  	status =3D "okay";
-> =20
-> -	sideinteraction: touch@2c {
-> -		compatible =3D "adi,ad7147_captouch";
-> -		reg =3D <0x2c>;
-> -
-> -		pinctrl-names =3D "default", "sleep";
-> -		pinctrl-0 =3D <&grip_default>;
-> -		pinctrl-1 =3D <&grip_sleep>;
+I don't see how you responded to Conor's feedback.
 
-[Severity: Low]
-Since this touch node was their only consumer, the grip_default and
-grip_sleep pinctrl nodes are now orphaned. Should their definitions
-also be removed from the device tree?
+Best regards,
+Krzysztof
 
-> -
-> -		interrupts =3D <&tlmm 96 IRQ_TYPE_EDGE_FALLING>;
-> -
-> -		vcc-supply =3D <&vreg_l18a_2p85>;
-> -	};
-> -
->  	/*
->  	 * The QPDS-T900/QPDS-T930 is a customized part built for Nokia
->  	 * by Avago. It is very similar to the Avago APDS-9930 with some
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-topic-lumi=
-a_drop_captouch-v1-1-6f92f1f3c6d3@oss.qualcomm.com?part=3D1
