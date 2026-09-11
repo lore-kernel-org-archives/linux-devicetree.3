@@ -1,165 +1,81 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E211A3160;
-	Fri, 11 Sep 2026 13:39:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D41A489FC1;
+	Fri, 11 Sep 2026 13:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789133985; cv=none; b=PKKa4EtFLJ/OyWowJL29KDLlluR5ifajCFcXarma0IbT4v+HmmnJmQaXIF8RGbp6qyUpUtTrLy9gLxeG8qtyLHCIgI2KK2PUB+fgc2z6JzCHas0PmMPvTXi18as0JCZtHZBnFyYvPIRDgy+xdwJoM9wnJc+9LImIUJ6Ofy80OwE=
+	t=1789134273; cv=none; b=TZ+fAmdizqG1+zVUZDTE8XKrMXsZW3spEStvnNQM9cavOiT/FfatAX9BacTBUiwTcr0n0d+ywWe5usjdNyGnl8xxU/k5QcCfydW+MpG1/ZklxLUxDpJqigcl8lkGozUS6GtOwLHxhQfEAIlHAnuKnpgbmtdESKxv+2HxS2mCY2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789133985; c=relaxed/simple;
-	bh=PNYXgyMDUY5bMW1ZSxLuNPSzkeTTQt9eT//zOuecSYU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=rHAkC2UfG+Hzvd+OG3vh9JC5KjPlJK99cKusETTKEV8TC0f0SpoPXDs7/6uQcH/jYjKbecsaVnN46IQGlQ7O3bu533vd54BorKFeO1caVCF0R+Ss1JYqOewu1AYFlM3aXTcGwK9gMrZmo4qCSsSpcjPHMT3GWPJ2FOT81Z5axSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=bTARfYGq; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=VvHVfYsp; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1789134273; c=relaxed/simple;
+	bh=YeYAtuD/sLM4sPqo5BWasoU8wnLpTPHhI2k10ajfJlk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GAFExr/VS6lIzc+dAlph0Dp6iCrYaG6KKdGBPM5JI+Iz/z6wIGtrWXdSzNMwfiCPucDeETEmugsQE58B8uJF74dszG1BoPmgSJlKq8Tim3Cee3vcDsf9oPyFmOXGfMTI4mIGl56CoD1OinlRpjL9gWCKiQZ389sXQ2igQP0NCCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=RSTz/0gA; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="bTARfYGq";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="VvHVfYsp"
-Message-ID: <64630356f2313d95c2d4a249d52c97d90e1504ef.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1789133979;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uBI8A7N63tfooEoifK+8mpYyVON44PxmUCXA3J1l9dA=;
-	b=bTARfYGq5GqxZQUDcFmz55jKi+oj8Ru3ObVKKtPEv2qrjj+JFx8RMG6xeNQynrIQmYL1tg
-	njVUsJsHqmuZxzHlOmk5T7zL4mKxVdvOlBROGtWMLVKbz1bYtJJJZs6edPjg5hlGSEvrmU
-	eJsd+rfWmKXVpxloAK3ayOQIcn0oRwFh9SB9tAumiyPPL2eN7OkoDrdmeuu9au9Jv31Siq
-	nuMxL5OVHt7E7ZBESKjrKOEg+dj21DkIiNrtXRRduQfrOjVIVgHKnR4nE8Y51wYBIyaKO3
-	Zbp8dbvqfMuM9nqaJNfaSgsusQ6qzTFd8MeZS7vSFzbmqkpc16QdynBLkjttbg==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1789133979;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uBI8A7N63tfooEoifK+8mpYyVON44PxmUCXA3J1l9dA=;
-	b=VvHVfYspSGx1Z1w/qkMjiQeJywotKUsXn2p++5W3GcunBUQm9fP9F8aXxPycVU4IJ+Ndku
-	4P6ijX+wQn2gD2DQ==
-Subject: Re: [PATCH net-next v2 4/4] net: dsa: soce: Add basic support for
- SoC-e switch IP cores
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Vladimir Oltean <olteanv@gmail.com>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Russell King
- <linux@armlinux.org.uk>,  devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,  Martin Kaistra
- <martin.kaistra@linutronix.de>, Benedikt Spranger <b.spranger@linutronix.de>
-Date: Fri, 11 Sep 2026 15:39:34 +0200
-In-Reply-To: <5bc95ef2-4e23-4c80-af17-07aa3643bebf@lunn.ch>
-References: 
-	<20260903-devel-vstrassheim-soce-dsa-ml-v2-0-fb0587cb466b@linutronix.de>
-	 <20260903-devel-vstrassheim-soce-dsa-ml-v2-4-fb0587cb466b@linutronix.de>
-	 <371fe855-e21f-4d53-a13f-4486494c8ae1@lunn.ch>
-	 <42efedd837c1631b38849693e1d66bd2b1fb1529.camel@linutronix.de>
-	 <5bc95ef2-4e23-4c80-af17-07aa3643bebf@lunn.ch>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="RSTz/0gA"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 645B31FFA6;
+	Fri, 11 Sep 2026 15:44:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1789134268;
+	bh=87iJ8eoqZ3OPjJLYPFsUWmmff1ZXOWQWTIDzAIwLa2g=; h=From:To:Subject;
+	b=RSTz/0gA+qVD2TkRN/w0AOOqP5mSRoWI1xWj8h4KhN4ELdP1BREkv1ckj771WzcWu
+	 jWnZ5ZBbqUDiul0YwaRF7jg9kg56X/o9b84uE9aX0AVL5+JfwjoqcOt4IlAurZDRWD
+	 coxkNt38kC5mcvDiuG3jEXL/8ngzEAuBUE+xA1gXlO53cFTC3s0H93FxAy+7EUBf8C
+	 BgTUILscT1U0Vr5l97H2yN2Up1QZY81jPSsz8v/6h0vkFuIS1q06CNEAKxlUXH2nZm
+	 PH+CMxSB+qtmGYhcNc8mqd+66npeUKc9ee5181+g3WhhAr1bOyx6rGGlLI3yfgm9St
+	 B09Yy8umRY+3w==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ARM: dts: imx7-colibri-iris-v2: drop no-op delete-property
+Date: Fri, 11 Sep 2026 15:44:09 +0200
+Message-ID: <20260911134410.178847-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-10 at 17:07 +0200, Andrew Lunn wrote:
-> Thanks for this list.
->=20
-> > ---
-> > Global register block at 0x0000 (three registers currently used)
-> > 	0x00 Core Version - Major and minor revision number (RO)
-> > 	0x04 Licensed Features (RO)
-> > 	0x08 Reserved
-> > 	0x0C GUI Configuration - Implemented Features 0 (RO)
-> > 	0x10 GUI Configuration - Implemented Features 1 (RO)
->=20
-> GUI? I assume this is not Graphical User Interface, but something
-> else?
->=20
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-It actually stands for Graphical User Interface. This refers to
-configuration in a graphical IDE, where the bitstream is customised and
-synthesized.
-"Implemented Features" can be enabled/disabled and configured there by
-clicking on the respective checkboxes or options within the graphical
-interface.
+usdhc1 never has a "keep-power-in-suspend" property set anywhere in
+its inheritance chain, so this /delete-property/ is a no-op left over
+since it was introduced.
 
-> > 	Licensed Features Register (RO) (Bits specify if the given
-> > 	feature is enabled by license):
-> > 	[31:27] - Maximum Number of Ports: These bits specify the maximum
-> > 	number of ports licensed
-> > 	[26:15] - Reserved
-> > 	- ACL: Access Control List (ACL) feature
-> > 	- LLDP: LLDP feature
-> > 	- IEEE 802.1X
-> > 	- IEEE 802.1AX-2008 - Link Aggregation
-> > 	- IEEE 802.3br/IEEE 802.1Qbu - Preemption
-> > 	- IEC 61158-4-2 - DLR
-> > 	- IEC 62439-2 - MRP
-> > 	- IGMP Snooping
-> > 	- Port mirroring
-> > 	- IEEE 802.1s - MSTP
-> > 	- IEEE 802.1w - RSTP
-> > 	- IEEE 1588 - Transparent Clock
-> > 	- Switch mode: managed or unmanaged
->=20
-> This is probably something which should be tested in the probe
-> method. No point loading the driver if it cannot be managed.
->=20
+Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Assisted-by: LLM
+---
+ arch/arm/boot/dts/nxp/imx/imx7-colibri-iris-v2.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-"DSA" functionality is already tested and according to the
-documentation, this excludes unmanaged variants. Therefore, I wouldn't
-add an additional test for this.
-
-> > 	- Secure Chip
-> > 	- Time Limitation
->=20
-> What do these two mean?
->=20
-
-Took me some time to find this info. These are license-protection
-features. "Security Chip" authenticates the IP license using an external
-1-Wire security device, while "Time Limitation" restricts evaluation
-licenses to a configured operating period. Neither is relevant to the
-driver.
-
-> > 	MDIO - Control
-> > 	[26:16] - Bus selection: These bits specify the port number over
-> > 	which MDIO operation is performed.
->=20
-> 10 bits, which allows more MDIO busses than ports!
-
-Actually 11 bits. However, too much. This may be a documentation error,
-since the original driver also used only bits 20:16. I will clarify
-this and if it's true, somehow address it as part of the MDIO/mux
-rework.
-
->=20
-> > > I also wounder at the name. Does the data sheet really call it DSA?
-> > >=20
-> >=20
-> > Yes, there is even a chapter describing Distributed Switch Architecture
-> > (DSA) as "a subsystem that was primarily designed to support specific
-> > vendor switches using Linux, ..." followed by information about "custom
-> > DSA tagging".
->=20
-> Does the switch support the D in DSA?
->=20
-
-Not as far as I understand. The hardware provides custom frame tagging
-between the CPU and a single switch. I found no indication that it
-supports cascaded switch trees or encodes a target switch identity in
-the tag.
-
->=20
-Thanks,
-Vasilij
-
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7-colibri-iris-v2.dtsi b/arch/arm/boot/dts/nxp/imx/imx7-colibri-iris-v2.dtsi
+index 1111111..2222222 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7-colibri-iris-v2.dtsi
++++ b/arch/arm/boot/dts/nxp/imx/imx7-colibri-iris-v2.dtsi
+@@ -106,7 +106,6 @@
+ /* Colibri MMC/SD, UHS-I capable uSD slot */
+ &usdhc1 {
+ 	cap-power-off-card;
+-	/delete-property/ keep-power-in-suspend;
+ 	/delete-property/ no-1-8-v;
+ 	vmmc-supply = <&reg_3v3_vmmc>;
+ 	status = "okay";
+--
+2.45.0
 
