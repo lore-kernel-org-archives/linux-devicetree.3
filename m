@@ -1,48 +1,86 @@
-Received: from ironport.ite.com.tw (60-251-196-230.hinet-ip.hinet.net [60.251.196.230])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBCE42E8DC;
-	Fri, 11 Sep 2026 10:18:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.251.196.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75BAB41228D
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 10:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789121923; cv=none; b=Sv3C8K8ueLjt8poao7afwA/lrnm/cZdW7nKcdVhW6uONE4pD3ro+a4z/PqsWwhk3hnsWXRHTOuwbx3uXxmPb+untHRPZBs/utdRyHIdNo7PWjxAcLKlreMEYvMEugLMZUXIHWyFeOnqpG5SlE+DB0n0Kxy0BQ88c2zyd5ZLH974=
+	t=1789121975; cv=none; b=NYGgeCBCFvT9e8mvoSCt5mz9YIHnPL85StudRdeDxb/WuK3WWj5/F7xmV2qxLmuZYLzumuwULKV/7A3vV2mv38kRVyBYgMYmxXPSDqlo8ZymcOF9QaHMK/DTmL2a9YUknGN1Xhg8JwZrrgVZGJ74TxNZmz8HB8UPllUlTxqwX2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789121923; c=relaxed/simple;
-	bh=NlNrje7LTfvXp7maV9lhHlpG6QvShtPIWuZFdjTrN7s=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HbA3g59Nx4NojAMej/O8Y13QlN2owB6w5MIVEVeSPBmE2oO0WvtqALqce7Qoa+B0Wux06hCP9A+i3QZsSITXVXZZijlBjnX4HSohpdpFANoIKer81n2baibMr4+HhH2VnMWEqDjw25jpz7OCHFpCMEQEmu1Iheg3Ko53GqpNOjE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw; spf=pass smtp.mailfrom=ite.com.tw; dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b=FCTQn9LP; arc=none smtp.client-ip=60.251.196.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ite.com.tw
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ite.com.tw
+	s=arc-20240116; t=1789121975; c=relaxed/simple;
+	bh=3l/uI9OLyqRLWrTfCZNHNfE6QewbrNbl0gZSzNJVuUU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KYgN57hDACaBV+hY1k/nmb/QRAOi92pZuVzkF2L8YGI2hF9A1amCuh9EJV4vXyEXLGIjbtNKZeO4L5MbpHEXRaosk2j5sKz5JUCfn80rRpVrhGBK7de4Wt8f2b3umD70KJsdgmPA6EnxeJmPxYqjhe6xIM/6DS4I4ImH4P0AxKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YcbZadmX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SwXa7Cy0; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ite.com.tw header.i=@ite.com.tw header.b="FCTQn9LP"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YcbZadmX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SwXa7Cy0"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68B7kmEW423699
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 10:19:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=R0/zG07kT3QtxUbuc9FfqQ
+	PsCy5wzyWfyugpD7RCpLo=; b=YcbZadmXsXRNqDu07utYr1TZ1lA2cW93AA0GNn
+	iMI9d1WITg8+hYOpP7aeubNQVn0GQylKYppz4tBlla924JWC4+7hLDI/1jaZTKiO
+	Pl6VOHPAXhY2ZVXBm/X+1So08jjYO2NL1CUMT45OHCvA9RxAnq4HMBbdCrNWc+7k
+	xbFeW2HFpiVQhpE2EZ+0AGmJKnTnHRtMICCEnsU5FC3feIBzJbIzp2vHDqZq9Dt4
+	khRJUmOpl3QcShy3maqhOmyD9GZ0jJsDXrZ9UE7MUyb+thrTMmZmSrZKVRATR44N
+	ApFfbK9S7KraWIO90F3cMLhYa01s6lQR0RJ1SxFbK5eDXtIg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmbf8h671-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 10:19:31 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-939f27c80a3so75544785a.1
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 03:19:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=ite.com.tw; s=dkim;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=n2p3zCH+NtyA5f7Fe13NEUPsv2WiyBHrv9a2BtmJwZE=;
-  b=FCTQn9LPxlxIhM72ac9p4VVN8wBhbH2Cven2Oq9dY/FmKJ/WQcGl0HnT
-   wqsXyjAeEdXHkBttRh7PpGhR/zjD8kmpID9rtojcseTdQDScMrR37zPdL
-   bZOhkSKBJ1do0t/xwz04udfcM2LJWnat345ljUQzfhul7li3pHBv1uqIJ
-   RQhnTPNQMWGZ+e+J4z1Q+kIFcmy1ZCTtJsxdz4WqeIqqx1DYehXLRKlx4
-   W4Pm+EY3wSDUz90m4tVtgqKjjUjdMAdxOgd1X/43thQfGWyu6ECkJjt1b
-   XPhpMrXbXmgQ7m1/3NHcvjZsRw9PZU+tSWMHmq9yW238DWrxYzZSRnQcp
-   Q==;
-X-CSE-ConnectionGUID: qtUFtQivTcW+k9nqZUi0bQ==
-X-CSE-MsgGUID: 8vJsIZOaQMCHUkQH9oQppA==
-Received: from unknown (HELO mse.ite.com.tw) ([192.168.35.30])
-  by ironport.ite.com.tw with ESMTP; 11 Sep 2026 18:17:22 +0800
-Received: from jiraproxy.ite.com.tw (jira.internal.ite.com.tw [192.168.35.200])
-	by mse.ite.com.tw with ESMTP id 68BAHHrD037153;
-	Fri, 11 Sep 2026 18:17:17 +0800 (+08)
-	(envelope-from ite_pd@ite.com.tw)
-Received: from [127.0.1.1] (ITE01791W10.internal.ite.com.tw [192.168.37.107])
-	by jiraproxy.ite.com.tw (Postfix) with ESMTP id 6F1682D58;
-	Fri, 11 Sep 2026 18:17:16 +0800 (CST)
-From: Amber Kao <ite_pd@ite.com.tw>
-Subject: [PATCH 0/2] usb: typec: ucsi: Add ITE IT5271 series and
- DisplayPort alt mode support
-Date: Fri, 11 Sep 2026 18:17:56 +0800
-Message-Id: <20260911-ucsi-itepd-it527x-v1-0-14c8041afb53@ite.com.tw>
+        d=oss.qualcomm.com; s=google; t=1789121971; x=1789726771; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=R0/zG07kT3QtxUbuc9FfqQPsCy5wzyWfyugpD7RCpLo=;
+        b=SwXa7Cy0XaS5s/WY+MxIidPgC4a+iZQlWI+6YKPg0Jy2wxxrwfereI53Iz0Uxgqmka
+         SMIwUsmZZC7pR/iQdM+DmKnmGXPwvvtRCqFczhCzDCDAxhzVd9a5suvqM3NUGQrYmlBF
+         fxt+Z8f/xzlNp46Tl7/Vx6CCKj2OQfxSi2y/1+Fs+EHgqIS16/k8DPYnS2QVWYib/3uh
+         IW6/3PHDFlt6nYrB/LhErvffQsXSzHgiPJSIAPHHdFMlEAlOrf+XQRnizsIwF6cU4ajG
+         9r4fU1vEALcUirgX/9bP9Ls7hJt3eg1GjAAmXKz4jt3Ww4JQcJPNr5BEWOndfuUmhtFs
+         wtng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789121971; x=1789726771;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=R0/zG07kT3QtxUbuc9FfqQPsCy5wzyWfyugpD7RCpLo=;
+        b=iyHXviykOz/3Xm+bhJJGoPHA4lmtex5nDClDkNhFu1m1u+GZicmJPrq3ZdiQemDa9i
+         t5DnQvpJxCW9cZzMdBKB3YgKLZ+QKwfW/zzL0RScWcd5UyaTjeyXhrzqd45FUt5grBfN
+         gBqFe+BCEGfFcjTZvRm0fsQmIcFIyr6bwdYiYNoPwQ8wJnElFfyvXHfmLtofYE/8UZuY
+         Ubq4i5xBDXXr1/130jDUBDkCIlffyWYqAbI9TGRwfjBL8TNwHtTRmO7fl2fIsgxjFLkI
+         2w7TitM0KXNvER3mrwBFw7zmHRJURrX2NrGn8KbtLCiUUKwICMuZjHkecA8suV+OlJsV
+         i/qA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9uaKXkFOc4eq7bhdyTJRynOphWHlqOkxXLS5GsxXvanDfunWu/r8CM4U+/GxrdPiAosVZ7+XEJH2s@vger.kernel.org
+X-Gm-Message-State: AFuF++lQ7gUY+z+7HewBlldbu4DpyP0KYAAdd5jNomsGyK9zdDoAO1e5
+	t2kd+M4Ffe11AKDwWu/hKn917V+AseLGpM3mRhgDBJunxq456j8rOUGNjteUXlue+e6rUO48LZK
+	Z0h557CUtImkBxbBEo513D6Gyk5UX2/I7dUKuaA07Fxi2obwvWTTyuRySdAkCkU/p
+X-Gm-Gg: AYBFou0tOzwMZXvL2eOGgsSS45uEWEqwArh3HpsxPAiZlbK89jxcTDL52J7pRsxxmha
+	IK9xPrEoho+guGc+6fi0YC2ctJ2yiqwD/ktnvna/qwOxgfeNqbyyVmnY0pEWhY0dM1bClOJkdVF
+	3ELGeZrEi8kDgdgUkmG39RJSa9qJHtFV7hQgG9oXh5CSzf0ttaN9pA+xFoxQK2vJhmd7YZuuK2H
+	I5BYGumvqykvQufHdYCxbZqbRVP1ag3rjI/V9qcNPoffMOhx5S4158xlqWhTF+ljRdPQ8jrFUp/
+	wVfOlNy4RatpJmX0yrw2CtqyxmQbSo1DFaoEhVZJbNojRCQKkbA08wBpfLzG2m82GJBeiWFy1WR
+	jA7SBkRGDSV823WZKxYs2EM8=
+X-Received: by 2002:a05:620a:43a3:b0:939:aabd:bcb7 with SMTP id af79cd13be357-939e9efcb3amr428009985a.26.1789121970668;
+        Fri, 11 Sep 2026 03:19:30 -0700 (PDT)
+X-Received: by 2002:a05:620a:43a3:b0:939:aabd:bcb7 with SMTP id af79cd13be357-939e9efcb3amr428006385a.26.1789121970317;
+        Fri, 11 Sep 2026 03:19:30 -0700 (PDT)
+Received: from [127.0.1.1] ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6576122bsm41989585e9.2.2026.09.11.03.19.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 03:19:29 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH 00/10] arm64: dts: exynos: Few strict dt-style-check
+ cleanups
+Date: Fri, 11 Sep 2026 12:19:08 +0200
+Message-Id: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,55 +89,110 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBCF4avIrDUxTSiuIhZtDcYC6SAScXfF5
- iXf4v0XCAUmgTq5INDBwsscgWkCfrTzQIq7aNCZLrIKUe1eWPFGaxc31+ZUuSuNLdAadA7ibw3
- U8/k1m/a37G4iv70huO8HnbhiuHUAAAA=
-X-Change-ID: 20260911-ucsi-itepd-it527x-5b87a61a71bb
-To: Amber Kao <amber.kao@ite.com.tw>, Jeson Yang <jeson.yang@ite.com.tw>,
-        Yaode Fang <Yaode.Fang@ite.com.tw>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Rob Herring <robh@kernel.org>,
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXNwQrCMAyA4VcZORtYp4j6KuKhTeKMaDaaVoSxd
+ 7fq8bv8/wIuWcXh1C2Q5aWukzWETQd0izYKKjfD0A/7/hgCph1ycfT49Goj0kOi1Rm9ZKWCNFl
+ Rq8IofIjMiThuA7TanOWq79/pfPnba7oLlW8e1vUDf+FcxYsAAAA=
+X-Change-ID: 20260911-b4-dts-samsung-cleanup-strict-continued-ed8addbcda31
+To: Jesper Nilsson <jesper.nilsson@axis.com>,
+        Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, Amber Kao <ite_pd@ite.com.tw>
-X-Mailer: b4 0.15.2
-X-MAIL:mse.ite.com.tw 68BAHHrD037153
+        Peter Griffin <peter.griffin@linaro.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+        Tudor Ambarus <tudor.ambarus@linaro.org>,
+        Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>
+Cc: linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
+        linux-arm-kernel@axis.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2178;
+ i=krzysztof.kozlowski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=3l/uI9OLyqRLWrTfCZNHNfE6QewbrNbl0gZSzNJVuUU=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqo9WkbigijgzSCRuQNSOIRr1rGuWGDT76rKNzT
+ krVAAxPWjKJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqPVpAAKCRDBN2bmhouD
+ 14KDD/9OZ56pJjMJxchjiHVJke89vPGIavObIaxQ+1RR7VDLzc79myeI6P4ZU0dHYhe5NSf9fLw
+ gGTtFdVLbeD/nR24yar7reNktZz66JugLdx41t4Xt+3/xtfEG6KwTLAyqvXS13C1hxa+skschFK
+ dH3tkdjOotbAOQv0eCBo0UBBjzHTELSs+EaUVo2dqGVXmmDTspnwlw+/Qf0NgH83W0W2E6i5rGP
+ ycnHVkfwA3oktEEBcSVUAd/apH8FJsDpAuFn8/+Emix6T12POgq1XSraI6q89LOGWxxQajFputb
+ IZUbdp9EV9NIdGvxrNkFrv0Vl7ZV77TxgqR1xr0O+t42oPPSoVbz41JN2PMC71SPsMJAq/3YAno
+ j2mYrYNhaUuqONzgnd7AXKsGdKgd3MlVyOmi5O4F3fSk6I6XvT+fgasgnbnsgVsmfUHUT/8nRFw
+ zpzQHl8s7bg03V7WhjF8n4jSZYhzMUZX0nz9ZzjTWwrf+dCYZbkz9iUNnOnD0BZvN07YnKKvsyy
+ l+4y1hL7qmLG2mX48KmHS4eMyN2y/M+VC8lrfi92P3NdbJt0m0GeSQUDgXWKhMjqpKgLN5asTkQ
+ xpPLfFA1ua0Lfl1ERZhKImrpqoii704bWvr643YQ7WAHHqx6YkdYHpy3hueJW6GcHgPPsFFzuYO
+ NXw0hNehurw6m4A==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp;
+ fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+X-Proofpoint-GUID: uyj2SMt7ryarYgrMkjiS45OgNir3NysQ
+X-Proofpoint-ORIG-GUID: uyj2SMt7ryarYgrMkjiS45OgNir3NysQ
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTExMDE0MyBTYWx0ZWRfXz7kkvdjYj9De
+ pTW3p2Eo1m8jcsmbUMOAPvjAFkNid55xebTwzDl2AtvpOQlb5hfG31vHRpwTm1Rl1500Ux1m/e9
+ g6jUsoA7pfUpVyOVlaFM72vTDFIAl8fd3BCsKPPKHXf+aEG3bVXUQzIwWQ8G9NWrFaTfAgZdRCo
+ odN05/p9fEcC10bDJqOvrv0+KNBxLfpWejXPninV2MyqUrwF++HEVI1cemYCKg9lT1/okCWT42g
+ wjg8eugHm1RwgNWLZv4kAnhaNZRKA/ObtTEd0euBnvCvdAig7GsprqV2dMzLhPmWDFBRSJGoOsn
+ R7Y3jo1XPvb4Vyl4jnzvSfl7cMaVX7AyoM+T4XHnJPHBmF8KcQQyPgBxDqnyJZmh1JYYFAtK3a5
+ 5CzHpxYAldIvPc/cylYoxhCnMAvQ98v4RbDaeGzl037NC7XPezwOIeTArIwVvO0aaKk6hQabebP
+ uIMzjnApBzzKjlh0UHA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTExMDE0MyBTYWx0ZWRfX3hWJeVRiKVjo
+ CkT2GpyFeuxXADYPD5v2wJD9KaWy8xIKwXRd+rtfXEvIQ/Q4PcjFBD7fn87euZYToPg6eoNrM9n
+ G0rRYILLv3b5oDQdTTS9Lcf0NZ792po=
+X-Authority-Analysis: v=2.4 cv=UJFIjyfy c=1 sm=1 tr=0 ts=6aa3d5b3 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=qxZVzdGA1PWmyomorPcA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-11_03,2026-09-09_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 phishscore=0 bulkscore=0 spamscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 impostorscore=0 clxscore=1015
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609110143
 
-This series extends the itepd UCSI driver with support for the ITE
-IT5271 series controllers, and adds DisplayPort alternate mode
-handling.
+Not yet complete, more files will follow. I probably won't re-order all
+Exynos5433 soc nodes by unit address because it is way too disruptive.
 
-The IT5271 series shares the same programming interface as the
-IT8851/IT8853. The IT5272 and IT5274 drive two Type-C connectors, and
-the IT5273 and IT5274 additionally support EPR.
+Best regards,
+Krzysztof
 
-For DisplayPort alternate mode, the driver queries the current
-alternate mode from the PPM, configures the Type-C mux and retimer
-accordingly, and reports HPD state and HPD IRQ through the DRM
-auxiliary HPD bridge.
-
-This series depends on the following series, which has not been picked
-up yet:
-
-  https://lore.kernel.org/linux-usb/20260807-ucsi-itepd-v7-0-998ac11ed0ef@ite.com.tw/
-
-Signed-off-by: Amber Kao <ite_pd@ite.com.tw>
 ---
-Amber Kao (2):
-      dt-bindings: usb: ite,it8851: Add IT5271 series support
-      usb: typec: ucsi: itepd: Add DisplayPort alternate mode support
+Krzysztof Kozlowski (10):
+      arm64: dts: exynos: axis: Re-order nodes to match coding style
+      arm64: dts: exynos: axis: Re-order properties to match coding style
+      arm64: dts: exynos: gs101: Re-order properties to match coding style
+      arm64: dts: exynos: gs101: Re-order nodes to match coding style
+      [RFT] arm64: dts: exynos2200-g0s: Drop chosen address/size cells
+      arm64: dts: exynos2200-g0s: Re-order properties to match coding style
+      arm64: dts: exynos2200: Drop redundant blank lines
+      arm64: dts: exynos5433: Re-order nodes to match coding style
+      arm64: dts: exynos5433: Re-order properties to match coding style
+      arm64: dts: exynos7870: Re-order properties to match coding style
 
- .../devicetree/bindings/usb/ite,it8851.yaml        |  72 +++-
- drivers/usb/typec/ucsi/Kconfig                     |  10 +-
- drivers/usb/typec/ucsi/ucsi_itepd.c                | 405 ++++++++++++++++++++-
- 3 files changed, 467 insertions(+), 20 deletions(-)
+ arch/arm64/boot/dts/exynos/axis/artpec8.dtsi       |  36 ++--
+ arch/arm64/boot/dts/exynos/axis/artpec9.dtsi       |  36 ++--
+ arch/arm64/boot/dts/exynos/exynos2200-g0s.dts      |   8 +-
+ arch/arm64/boot/dts/exynos/exynos2200-pinctrl.dtsi |   2 -
+ arch/arm64/boot/dts/exynos/exynos2200.dtsi         |   1 -
+ .../boot/dts/exynos/exynos5433-tm2-common.dtsi     |  93 +++++----
+ arch/arm64/boot/dts/exynos/exynos5433.dtsi         | 232 ++++++++++-----------
+ .../arm64/boot/dts/exynos/exynos7870-a2corelte.dts |  39 ++--
+ arch/arm64/boot/dts/exynos/exynos7870-j5y17lte.dts |  34 +--
+ arch/arm64/boot/dts/exynos/exynos7870-j6lte.dts    |  34 +--
+ arch/arm64/boot/dts/exynos/exynos7870-j7xelte.dts  |  35 ++--
+ arch/arm64/boot/dts/exynos/exynos7870-on7xelte.dts |  39 ++--
+ arch/arm64/boot/dts/exynos/exynos7870.dtsi         | 108 +++++-----
+ .../boot/dts/exynos/google/gs101-pixel-common.dtsi |  40 ++--
+ arch/arm64/boot/dts/exynos/google/gs101.dtsi       |  96 ++++-----
+ 15 files changed, 421 insertions(+), 412 deletions(-)
 ---
-base-commit: 3c4aafdfefdc69285d7d4f11d7944f56083fdd8e
-change-id: 20260911-ucsi-itepd-it527x-5b87a61a71bb
+base-commit: e224ecb509d7a636a89bebab8d47239f83294448
+change-id: 20260911-b4-dts-samsung-cleanup-strict-continued-ed8addbcda31
 
 Best regards,
 --  
-Amber Kao <ite_pd@ite.com.tw>
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
