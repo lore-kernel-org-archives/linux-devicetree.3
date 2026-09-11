@@ -1,197 +1,71 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5B940862C
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:17:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D2344C662;
+	Fri, 11 Sep 2026 07:21:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111037; cv=none; b=AqGmrtnc+VYxlX9RuUGMtnmc1TgiizfiL+deql7H985eF7cgz1G/hkVXHkK3XEJ7ke35Ls+KWVodG+vmKY5PF23qUZ54tJ95OWz2VCFFJUhiVTw8vNIplti4p4AkbCaHzbP2RrCohIaVZN2czpkKa3vnTRWKqn5b2pzUgdCxXpc=
+	t=1789111286; cv=none; b=PGASzMV4W5JKmf+VC6QnOQFX+Hgr+VPxtfKRwFKa5rUGgIaAUeu/UUndmUgXP/UtNs/t2DjP26yqF7M9icW28zq2DHRoNb/+8VVk7GYiVdNBAVyV9LA6bx3mJg3r1yay+mfLFPNVzzaIWj9R2C+73gwqGUVZ1gy4rjmcTViZM0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111037; c=relaxed/simple;
-	bh=BK3dlvngstI3umiXDRzLNUucgQ2XGaLh5BwddIA1ISg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hx8U/rVox8rtMnpERePDEjp/wi55JBZdGwy7o+TEUd4q5mfhnQLjrROUZ08mq9/igUxuLrXW4+4yKAk9i0YLzw+EZC/kQbnRas+f78n05GHMP0LFwK1pzpKWgh/QWgn2E3UB6fgFSkCi52+HkoNQHRYHIdCCloLeTG9Dsx8C5fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wRmWHrV0; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789111286; c=relaxed/simple;
+	bh=rNlr3tnJ5jZxFQ6d8h88tXGyOADzGkZQF1pl/F1xmAc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gFPRyF3OYcjMeq0wUvwGMnCjAIBfLCY8iFWrddzbKLoPdgafmAIbV+RcSHmdyWlg7OIlcZUMQp6ji/g4jD9p6E7Md9KG7v2LyVaX+oFMyzrRY0VylHX5VUAPT8hsCZj0wOVnrZRMgFyO0x0cfFzBx5//gK1X9cA2l8378FGHni4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNUveuZu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wRmWHrV0"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id F40A6C653F6;
-	Fri, 11 Sep 2026 07:17:44 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 4F943601DE;
-	Fri, 11 Sep 2026 07:17:03 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B07FD11C7AF71;
-	Fri, 11 Sep 2026 09:16:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789111022; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=rK46VMEMdF8Kt3Ij0bWA2tQwXOC4yj7vrdn5ZbcHpDE=;
-	b=wRmWHrV02SaMUt6qmuCvBo+KvX3yDK+nCATU6V0KPQHtxlB92SqgQr+KLlLVBIq96bII49
-	/KIPxLCBCky9OGVowP0CG3kmcyI6f0TP3Ei5riJq4pxHylFo9JjKO59yw0YotY5Bpc/Hg5
-	Hv+Em7Uc4syKYmHPZW368VWVQp36jy23rs8kzwR96GaKrkL0RBZU1slH+2RykrtXGIuVx5
-	jxwv/jWN4zdEB25N+Oua9DJHJ+0e7YUyBi3nXKhi/vg6MLGzVxOaWPRd/bR2/y2C4x/eUi
-	y0q8q1Kdo8W/vZWOESiFd4BDWqDXeU6hl2azsGFVbGjBdfRuucuTB6kL5eRBjg==
-Date: Fri, 11 Sep 2026 09:16:53 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: David Gibson <david@gibson.dropbear.id.au>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, David Lechner <dlechner@baylibre.com>,
- Ayush Singh <ayush@beagleboard.org>, Geert Uytterhoeven
- <geert@linux-m68k.org>, devicetree-compiler@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree-spec@vger.kernel.org, Hui Pu <hui.pu@gehealthcare.com>, Ian Ray
- <ian.ray@gehealthcare.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Frank Li
- <Frank.Li@nxp.com>
-Subject: Re: [PATCH v3 06/15] Introduce structured tag value definition
-Message-ID: <20260911091653.37b22b0f@bootlin.com>
-In-Reply-To: <aqJ5OhJcv4k-ZAj8@gractus.seuss>
-References: <20260826083146.304291-1-herve.codina@bootlin.com>
-	<20260826083146.304291-7-herve.codina@bootlin.com>
-	<aqI3KnnQnUytqkEc@gractus.seuss>
-	<20260910094126.4bf4cae6@bootlin.com>
-	<aqJ5OhJcv4k-ZAj8@gractus.seuss>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNUveuZu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 246591F000FF;
+	Fri, 11 Sep 2026 07:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789111278;
+	bh=mhwepqDvkhQvBOfX7hfNjS0pa6bknwpbmJ6wXLxOzNc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZNUveuZug9anBBVMumZG8RcbFZ4JYSRFDofahuscD2MiGhPSKwjWPapUmaVDzTfft
+	 NorvRixBeOL0B/P76Z+QDQji5WSxZ9c3giN0GCVWdiLI78Ji1JLuzckCcGFuQUDKqC
+	 JJi4u915+qgHMfKK0YuOmufl4DTVVLUqC2Q41Gv8cmtzxtq8p+sA9ZWG4r3Dgi8TFy
+	 VPz6f5MlrT7kZ84yHouK4gUS00pX4Hna8tI0X3xgPRb5stI+mOYfMmlYWOw8cUoD5h
+	 XNV1HOl4RBv19EbttmGke7Py0WROra2ePMwL/XFUjrWv/pkiJP7afT/JlsXptXNu1B
+	 UJrWWqDDHlRIQ==
+Date: Fri, 11 Sep 2026 09:21:14 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Dinh Nguyen <dinguyen@kernel.org>, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 1/4] dt-bindings: usb: add Altera Agilex5 DWC3
+ controller
+Message-ID: <20260911-nondescript-toucan-of-perspective-6bd8bd@quoll>
+References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <44ba8639fb41b7c576c0795cb1474a6797754600.1788886615.git.adrian.ho.yin.ng@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <44ba8639fb41b7c576c0795cb1474a6797754600.1788886615.git.adrian.ho.yin.ng@altera.com>
 
-Hi David,
-
-On Thu, 10 Sep 2026 19:32:48 +1000
-David Gibson <david@gibson.dropbear.id.au> wrote:
-
-> On Thu, Sep 10, 2026 at 09:41:26AM +0200, Herve Codina wrote:
-> > Hi David,
-> > 
-> > On Thu, 10 Sep 2026 14:51:08 +1000
-> > David Gibson <david@gibson.dropbear.id.au> wrote:
-> >   
-> > > On Wed, Aug 26, 2026 at 10:31:37AM +0200, Herve Codina wrote:  
-> > > > The goal of structured tag values is to ease the introduction of new
-> > > > tags in future releases with the capability for an already existing
-> > > > release to ignore those structured tags. In order to do that data length
-> > > > related to the unknown tag needs to be identified.
-> > > > 
-> > > > Also add a flag to tell an old release if this tag can be simply skipped
-> > > > or must lead to an error.    
-> > > 
-> > > I suggested/insisted on this in the past, but I've since realised this
-> > > isn't actually useful.  The "structured tag" format is only useful
-> > > because it allows you to skip over unknown tags, which means there's
-> > > no point using it for ags that can't be skipped.  If we need new tags
-> > > that can't be safely skipped, they can be added as old-style tags
-> > > instead.
-> > >
-> > > In which case "old style" versus "new style" is no longer a good
-> > > characterization: they would exist side by side, so the distinction is
-> > > more "skippable" versus "non skippable" tags.  Which suggests that
-> > > "skippable tags" or "metadata tags" might be a better term than
-> > > "structured tags" - that would focus more on the why than the how.  
-> > 
-> > Do you mean that the SKIP_SAFE bit should be removed ?  
+On Wed, Sep 09, 2026 at 01:04:37AM +0800, Adrian Ng Ho Yin wrote:
+> Add a binding for the Altera Agilex5 SoC integration of the Synopsys DWC3
+> USB controller (compatible "altr,agilex5-dwc3"), covering clocks, resets,
+> PHYs, and optional IOMMU support.
 > 
-> Yes.
-
-So, in that case the term "skippable" tags makes sense.
-
-Any non-skippable tag are then defined using the "old style".
-
-The only non-skippable tag that will be introduce later by addons is
-FDT_BEGIN_NODE_REF (patch 51/71 [1]).
-
-Data related to this tag is the symbol name and so a string.
-
-Using the "old style" for this tag, I will remove the 32-bit data lengh.
-The next tag will be after the end of string '\0' + potential alignment.
-
-This is consistent with "old style" tags which have a string as data. Indedd
-no 32-bit data lengh were present for those "old style" tags.
-
-Does it make sense on your side?
-
-[1] https://lore.kernel.org/all/20260826094950.1088288-52-herve.codina@bootlin.com/
-
+> Clock names follow the snps,dwc3.yaml example order (bus_early, ref,
+> suspend). Reset names use core/ecc. On this SoC ref and suspend are the
+> same hardware source, so the example reuses AGILEX5_USB31_SUSPEND_CLK.
 > 
-> > I like the defined structure with the DATA_LEN_ENCODING part. Even for tags
-> > which are not "skippable".
-> > 
-> > This ensures a kind of standardized format for all future tags instead of a 
-> > specific definition (related to the length of the data) for each new tag.  
-> 
-> If we were designing the dtb format from scratch, I'd agree.  But
-> given we already have what we have I think the drawbacks of
-> introducing a second way of doing tags outweighs the benefits.
-> 
-> > For this kind of information related to the length of data, I prefer a global
-> > rule instead of tag-specific rules.  
-> 
-> Right, but it can't truly be global, because we have the existing
-> tags.
-> 
-> > > > Structured tag value is defined on 32bit and is defined as follow:
-> > > > 
-> > > >   Bits  | 31 | 30        | 29             28 | 27    0|
-> > > >   ------+----+-----------+-------------------+--------+
-> > > >   Fields| 1  | SKIP_SAFE | DATA_LEN_ENCODING | TAG_ID |
-> > > >   ------+----+-----------+-------------------+--------+
-> > > > 
-> > > > Bit 31 is always set to 1 to identify a structured tag value.
-> > > > 
-> > > > Bit 30 (SKIP_SAFE) is set to 1 if the tag can be safely ignored when its
-> > > > TAG_ID value is not a known value (unknown tag). If the SKIP_SAFE bit is
-> > > > set to 0 this tag must not be ignored and an error should be reported
-> > > > when its TAG_ID value is not a known value (unknown tag).
-> > > > 
-> > > > Bits 29..28 (DATA_LEN_ENCODING) indicates the length of the data related
-> > > > to the tag. Following values are possible:
-> > > >   - 0b00: No data.
-> > > >           The tag is followed by the next tag value.    
-> > > 
-... 
-> > > >   - 0b11: Data length encoding
-> > > >           The tag is followed by a cell (u32) indicating the size of the
-> > > >           data. This size is given in bytes. Data are available right
-> > > >           after this cell.
-> > > > 
-> > > >           The next tag is available after the data. Padding is present
-> > > >           after the data in order to have the next tag aligned on 32bits.
-> > > >           This padding is not included in the size of the data.    
-> > > 
-> > > I'm guessing the 1 & 2 cell cases are pretty common so it saves a
-> > > moderate amount of dtb size to have this encoding.  However, it does
-> > > come at the cost of greater code complexity.  Is it worth it?  I'm
-> > > willing to believe it is, but I think the case needs to be made.  
-> > 
-> > In term of code complexity, FDT_PROPDATA_PHANDLE introduced in the addons
-> > series, patch 7/74 [0], is a 1-cell (or 1-fdt32) "structured" tag.
-> > 
-> > It can be compared with FDT_PROPDATA_PHANDLE_REF, introduced in patch 11/74 [1].
-> > FDT_PROPDATA_PHANDLE_REF is a "Data length encoding" tag.
-> > 
-> > Modifications in libfdt/fdt.c are pretty similar for both tags.  
-> 
-> Right, it won't be in the case of specific tag handling.  It's the
-> general case skipping that's more complex, because it has to consider
-> both cases.
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> ---
+>  .../bindings/usb/altr,agilex5-dwc3.yaml       | 112 ++++++++++++++++++
+>  1 file changed, 112 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/altr,agilex5-dwc3.yaml
 
-I don't understand. What do you mean ?
-
-Current implementation for skipping tags is not so complex.
-
-Do you mean that we should avoid the DATA_LEN_ENCODING and always have the
-32-bit value right after the tag to give the size for all "skippable" tags?
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
-Hervé
+Krzysztof
+
