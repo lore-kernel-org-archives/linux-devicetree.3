@@ -1,77 +1,78 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30BD12F5A0E;
-	Fri, 11 Sep 2026 04:32:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F01D356744;
+	Fri, 11 Sep 2026 04:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789101128; cv=none; b=j++8IlKfal9VpCh19YB0+wFw60sRzUlPwdDhZSM/oFue/TFVdB5sFTyQkXXtmL2qM/YZM0tNGKqEUQA5DiZbpua0hW6F7jNvqpbvatqSh/gxEnnbBfK3vyabLfZYyQuT97pssWV/wQxW0DUjGnv40wCzu8/fmcd9EvGqz6Qej28=
+	t=1789102123; cv=none; b=kmwVd4k35CZ5KObYqafJH2MHPYmABVa7F6AYZ7UjTHOKFZCuIGS/WPSn8rbin5ZLGDHDjHzrYVTNVfx53dc6UESocZmZzPZcvfewmiRU9BJ6N3tDYejZ6biEAmxVLJNB27nFzY+mrFDagQwixy1G5gZAQlyLjomHXuFokmwAJwQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789101128; c=relaxed/simple;
-	bh=cEScVFGDdkbeR+3r7iH2a8OUoRNNEg4QrEzRNMPhI3k=;
+	s=arc-20240116; t=1789102123; c=relaxed/simple;
+	bh=xpNWKFpSH5VCnkaKxbI2BsnUqQtG/D5zDfXSE9IQ23Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bJk4ECCR9GIIqVCFqFs1z2z0uOX9MnYxkXws42ZekQ+4HM/+EU3keiVnVHp7SED2q62Fi8QtIb5xlqGARETAgfYsJWFuDbeVUB5WO7ICBPg4J75EvaSPvDq5S2DOa/EpLvvQD3kVdwHmKWYc/+VOCRor4jCaF+9R9L79V0I2OkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=f4AKmI0S; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	 Content-Type:Content-Disposition:In-Reply-To; b=svzTsizZlAebPF+AYz2lsWQHeCC/KZvt+0TVhuDRz91NQJgx/B/DrDrYhNjVPVras7H05HvoqBMXBy1jMi1Tz69Lg9RkanCdBVMrLgNnuFusikrqqolwbkolH/GPMsOneLIJB8PAh0lFLr/urQEc2UmYdidPDzay2hCyoYFEEoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NI349AAc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="f4AKmI0S"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=YKpfvW0m7fMGPwroikXgrjlEkqn9S1O/EG9PiSNdpjs=; 
-	b=f4AKmI0SRdE8F+kpVQXiub5fRB7v/nIJ2L3G5tkE0IFsgd3K5CaDIQI3l0p6UZbJ2mO3DjrYlbi
-	mwMOSsi1YjJvikFFyKFw84u7aOz8+H3rMWlPaKAxz6HCbmXt6Ks7qZfJyo/9beOxaupITxz4wWd54
-	j2YL0NVc9k8WR4GaxdmtC9sUVr/uqoFmjw63bokCWOsuCmOTimCzaqm6zyJFLcH1qWw9BprNSOn41
-	XtLLUsVM8HzahjPISNGoNcffLAgI4iKEBcI61DQnEo3QcG9qnDnm5rG7I0BmJ7ej8pNVX5IXlAWyJ
-	qIwseeWShWs2Q0+zzrLpuBeXusz+FN1H6SPQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x4svP-0000000CtQw-0BeT;
-	Fri, 11 Sep 2026 12:31:44 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 11 Sep 2026 14:31:43 +1000
-Date: Fri, 11 Sep 2026 14:31:43 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Alex Ousherovitch <aousherovitch@rambus.com>
-Cc: Albert Ou <aou@eecs.berkeley.edu>, Conor Dooley <conor+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Saravanakrishnan Krishnamoorthy <skrishnamoorthy@rambus.com>,
-	Shuah Khan <shuah@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>,
-	devicetree@vger.kernel.org,
-	Joel Wittenauer <Joel.Wittenauer@cryptography.com>,
-	linux-api@vger.kernel.org, linux-crypto@vger.kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, linux-riscv@lists.infradead.org,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Thi Nguyen <thin@rambus.com>
-Subject: Re: [PATCH v4 04/19] crypto: cmh - add SHA-2/SHA-3/SHAKE ahash
-Message-ID: <aqOEL-YUVFuThcmf@gondor.apana.org.au>
-References: <20260825221539.255951-1-aousherovitch@rambus.com>
- <20260825221539.255951-5-aousherovitch@rambus.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NI349AAc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2DEFD1F000FF;
+	Fri, 11 Sep 2026 04:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789102121;
+	bh=RaXFWVIpvAkOv1rcgY9dD8QXcM4oemFc0hyj3zavRUA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NI349AAc/ODtnuILo5pX58UGJTDu1tN53uvlC/rIvS+tAkKqxzP34A2l+WGFi1QAL
+	 pwmrad245PjqAVsTM7A1UmFgvpmloSc0oBAoPo+hDmmZixO+OWEt5yrgR7cK/+3DDP
+	 QZXDAoWqVk+esncXCVqHD2QmyyrCtoe8EHSzGn9ggbcgG14BJgy1cZqivZvdkFycW2
+	 gVOpanlG2hvH+ocO1OZ3v3ruWemtYk7jzQMkXOAT2ZtrzkJvyD4I76Q9yC6ZH3nAaE
+	 JbkxJxXpFdcQtX9dyHUp98ge7ThUUmmHXQ1tcVeAGQvqOjgRuTYTpMwXZJX0cDcAkB
+	 EbZHkZeauoF/g==
+Date: Fri, 11 Sep 2026 06:48:34 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v4 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: make
+ qcom,hawi-cdsp-pas standalone
+Message-ID: <nfhfmzqpdvv5uebpt32yjsg3tmdkvgn3awpmjg7bafx5vbyju4@7rvn6e5rzsp5>
+References: <20260910150638.3270162-1-mukesh.ojha@oss.qualcomm.com>
+ <20260910150638.3270162-2-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260825221539.255951-5-aousherovitch@rambus.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260910150638.3270162-2-mukesh.ojha@oss.qualcomm.com>
 
-On Tue, Aug 25, 2026 at 03:15:23PM -0700, Alex Ousherovitch wrote:
->
-> +/*
-> + * .update -- buffer incoming data, submit full blocks to HW.
+On Thu, Sep 10, 2026 at 08:36:37PM +0530, Mukesh Ojha wrote:
+> qcom,hawi-cdsp-pas was initially grouped as a fallback to
+> qcom,sm8550-cdsp-pas on the assumption of hardware-level compatibility.
+> Bringup revealed that the NSP proxy power domain on Hawi requires a
+> specific RPMH performance level that the sm8550 driver data does not
+> provide, breaking the compatibility contract the fallback string implies.
+> Maili CDSP shares the same NSP power domain topology as Hawi and must
+> fall back to qcom,hawi-cdsp-pas rather than qcom,sm8550-cdsp-pas to
+> inherit the correct cx/mxc/nsp power-domain constraint.
+> 
+> Remove qcom,hawi-cdsp-pas from the sm8550-cdsp-pas fallback items block,
+> add it to the standalone compatible enum, and extend the existing
+> cx/mxc/nsp power-domain constraint to cover it explicitly. Move
+> qcom,maili-cdsp-pas from the sm8550-cdsp-pas fallback to a new
+> hawi-cdsp-pas fallback items block; it is covered by the hawi
+> cx/mxc/nsp constraint implicitly via the contains check.
+> 
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-Please drop block buffering in new drivers.  The Crypto API handles
-this for you.  Take a look at the aspeed driver for an example.
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Cheers,
+- Mani
+
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+மணிவண்ணன் சதாசிவம்
