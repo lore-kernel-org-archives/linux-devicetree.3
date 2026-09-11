@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 876A846984B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7880F46983B;
 	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789116675; cv=none; b=kS6sEv8tcH+PD0Ltku8Lf2wnzLd94BEOp1hx4ZKZP898D+oH98Q3KSxJdHLuGYbQ4K1Ej/sb0PpdYJRuwvs/zyKOqwBj+1W6wDJLIijEoecNMQ5bmLXaRoDMpJsIMfA06btiKGFc4MZ9n55FAw/CHODmsP2TF1gZLBrHDly5NxM=
+	t=1789116675; cv=none; b=T9CJCaJuMeAtFdMOeqtP1EPTL/essd/TLu2Nh4I5JkZutZeQX7FwdR148Dus6OWpJx4l3drr9l6Gw2DL6uQMLzosqZd6Y7p20aEiWUSD+gXePEi+BTRdKJpVPTOfVmFDlCxNoVjpfn6VMYV3CoicK6OzmwILg4Z4ZNRXL87NMVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789116675; c=relaxed/simple;
-	bh=DY3nAZEw7IwIcK7ATvLcXz2X/NgGx+ZUSaAnsbH9oD0=;
+	bh=FiLswTYIe/LqmY30AgSoR9eS3pvfA9pwqRy+7MrBhKs=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G9m8csvKl79A+E0FL8BHmd+PFG/uTCf8nzpQjlX3hHmkr0lENYDsxX/pfXbs9Ef02l4CtnIE2eY2hH1Lki1/kmPz8zjmRVXxOkCVAak9jbOH9iHsnkmo68S6vXUQ+WUQE8OqibbYNrEyA1zIaa8NzTnSn09x0RTOIkAg2cjSTf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vIOQPc9o; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ct7Sh6HYG+2K5hqrPtT5Yc8Zp7w+gZO2+K3dh47mi4VGKUeLmITrgbDkUXoLF50/4EPFzckTaeoeszwqD3al+7BCPqql1G7TDTaWjSIbYLqCZ1njsL9KkPjgfRTYnCG4eEb+73yr8PlQhCRlVmGnY8oagrFFErdIgfFntljKIJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U8Xc+N/H; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vIOQPc9o"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 44BECC2BCF4;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U8Xc+N/H"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 268A2C4AF0D;
 	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789116675;
-	bh=DY3nAZEw7IwIcK7ATvLcXz2X/NgGx+ZUSaAnsbH9oD0=;
+	bh=FiLswTYIe/LqmY30AgSoR9eS3pvfA9pwqRy+7MrBhKs=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=vIOQPc9oHsAb5NAMCqQSY2ZC9ZWES3F1I+WL1UMX6w0fWakBt6wCJ8/BpvamaPKBA
-	 GztFcpozC1ZOMwR/pHj4OXDiXjuaPoY/SPUe1BVCqlaY00PsilXrVmt4qqRjLG2to+
-	 F2MNSekiB/ZaIfTcsueZR+hqhaQq65rIM8N+ExzP0mV1zg7kibl4/pTDICNwOcy1rp
-	 ABb7U8WTkS+dcJoj68T5nK/LNcfOzCTSrE3U700Vp4WwzPo660EKT3JaMWOZ+iJoSE
-	 KjknH85+1JDXx+v532KClu9oP+OQpplH3a+lvwqypOUY6QaI1QRaTlQQNtPgx8RvK2
-	 3HNXYLpAtT9rQ==
+	b=U8Xc+N/HDBK9F8k6fWrFk8gB7GQY1knZVpL3PvOdaqEmVcIVNa+lShDZFGrK9p9yH
+	 EM/zbhWUN/tWZbK/7cKohX+2N1E25LyGSBzniboKR2FdbT1/C5mDOEAidvGMjA3rNG
+	 7w9gvpvl4bvFexGkiKCq/RtqhUlDg+21CEgike7v1nqbngSvvMOE2dC5n6zif2jd+G
+	 2+xwAgwejrmYDrpBHBjbibxIksJqapndROQ58jVx5RiPxFOLmlcv4Bs4Pi7Pj37ZTM
+	 7P6CnUNW9+W3pIvHWKISx8+sz6xwC8zmmce5K+kqz/uPzuqZ0DLAAfLyibGBtpEu2q
+	 KV88LhKO9rUmA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2F9C3C88E53;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 04238C88E56;
 	Fri, 11 Sep 2026 08:51:15 +0000 (UTC)
 From: =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI_via_B4_Relay?= <devnull+kavakliyigitcan.gmail.com@kernel.org>
-Date: Fri, 11 Sep 2026 11:51:07 +0300
-Subject: [PATCH RFC 10/10] arm64: dts: qcom: sm6125-xiaomi-ginkgo: enable
- display, backlight and touchscreen
+Date: Fri, 11 Sep 2026 11:51:05 +0300
+Subject: [PATCH RFC 08/10] drm/msm/dsi: make command and video mode
+ configuration mutually exclusive
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260911-ginkgo-submission-final-v1-10-0e68e63a18d4@gmail.com>
+Message-Id: <20260911-ginkgo-submission-final-v1-8-0e68e63a18d4@gmail.com>
 References: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 In-Reply-To: <20260911-ginkgo-submission-final-v1-0-0e68e63a18d4@gmail.com>
 To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
@@ -69,11 +69,11 @@ Cc: dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
  =?utf-8?q?Y=C4=B0=C4=9E=C4=B0TCAN_KAVAKLI?= <kavakliyigitcan@gmail.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=3582;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789116671; l=1765;
  i=kavakliyigitcan@gmail.com; s=20260911; h=from:subject:message-id;
- bh=x7HUi8j9WM0O66VRg2zaqPmBSUKqKlYUrg3o+6fVUMA=;
- b=0p7Sw0WODkPHyr6uYaCxqJhHD15HpgWvncYsEcFoTIdse3nMrsA429rybhBMBFN9lnbCG75i0
- EoyAv2U5cNvCyIAm66vhUwtwyvhJf5el9hJ1LDQvAl6pw6l7r3yALhq
+ bh=Us+uRTzRjQ6VYzVCqSZeacYfhPldhSoALLrWybl6TfU=;
+ b=PJ3ocNCyABkNjnqrQLKKE8IN0UZxDZIuONeU9q+5JR84OpiNeg9UQcKEQhp7AhlsGlsLCFhGj
+ M9VD6VXm4RMCG/mkfHl+ViesebYjNHZ+5t10GnPFPnMJ7wxPj4YC+yf
 X-Developer-Key: i=kavakliyigitcan@gmail.com; a=ed25519;
  pk=W2GaxVotULs2vAjRMMLheaDtMMYs4037zO1LVVfFtPI=
 X-Endpoint-Received: by B4 Relay for kavakliyigitcan@gmail.com/20260911
@@ -83,149 +83,44 @@ Reply-To: kavakliyigitcan@gmail.com
 
 From: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 
-Enable the display subsystem (MDSS/MDP/DSI0), Kinetic KTD3136 backlight,
-and Novatek NT36672A SPI touchscreen on the Xiaomi Redmi Note 8 (ginkgo).
+In dsi_op_mode_config(), entering video mode sets DSI_CTRL_VID_MODE_EN
+without clearing DSI_CTRL_CMD_MODE_EN, and entering command mode sets
+DSI_CTRL_CMD_MODE_EN without clearing DSI_CTRL_VID_MODE_EN.
 
-Hardware nodes added:
-- Fixed LCDB regulators (lcdb_lab and lcdb_ibb at +/- 5.5V)
-- MDSS and DSI0 with Tianma 1080x2340 FHD+ video panel
-- I2C1 backlight node at 0x36 with PMI632 GPIO 6 hardware enable
-- SPI2 touchscreen node at CS0 with GPIO 88 interrupt and panel follower
-  reference
-- Touchscreen active pinctrl definition on GPIO 88
+Ensure explicit mutual exclusion by clearing the opposing enable bit
+when switching operational modes to prevent hardware bus collisions.
 
 Signed-off-by: YİĞİTCAN KAVAKLI <kavakliyigitcan@gmail.com>
 ---
- .../boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi | 100 +++++++++++++++++++++
- 1 file changed, 100 insertions(+)
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-index 59042a5937535c4acda064fa0f865f4f5a52d01b..f4b9e2092a814e56cdc23218025cb4166dec110a 100644
---- a/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6125-xiaomi-ginkgo-common.dtsi
-@@ -26,11 +26,30 @@ / {
- 	chassis-type = "handset";
- 
- 	qcom,msm-id = <QCOM_ID_SM6125 0x10000>;
-+	qcom,board-id = <34 0>, <34 1>, <34 2>, <34 3>, <34 4>, <0 0>;
- 
- 	aliases {
- 		serial0 = &uart4;
- 	};
- 
-+	lcdb_lab: regulator-lcdb-lab {
-+		compatible = "regulator-fixed";
-+		regulator-name = "lcdb_lab";
-+		regulator-min-microvolt = <5500000>;
-+		regulator-max-microvolt = <5500000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
-+	lcdb_ibb: regulator-lcdb-ibb {
-+		compatible = "regulator-fixed";
-+		regulator-name = "lcdb_ibb";
-+		regulator-min-microvolt = <5500000>;
-+		regulator-max-microvolt = <5500000>;
-+		regulator-boot-on;
-+		regulator-always-on;
-+	};
-+
- 	chosen {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -356,6 +375,13 @@ irled@1 {
- 
- &tlmm {
- 	gpio-reserved-ranges = <0 4>, <30 4>;
-+
-+	ts_int_active: ts-int-active-state {
-+		pins = "gpio88";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-up;
-+	};
- };
- 
- &uart4 {
-@@ -369,3 +395,77 @@ &usb3 {
- &usb_dwc3_hs {
- 	remote-endpoint = <&pmi632_hs_in>;
- };
-+
-+&mdss {
-+	status = "okay";
-+};
-+
-+&mdss_mdp {
-+	status = "okay";
-+};
-+
-+&mdss_dsi0_phy {
-+	vdds-supply = <&vreg_l7a>;
-+	status = "okay";
-+};
-+
-+&mdss_dsi0 {
-+	vdda-supply = <&vreg_l18a>;
-+	status = "okay";
-+
-+	panel: panel@0 {
-+		compatible = "tianma,fhd-video-ginkgo", "novatek,nt36672a";
-+		reg = <0>;
-+
-+		reset-gpios = <&tlmm 90 GPIO_ACTIVE_LOW>;
-+		vddio-supply = <&vreg_l9a>;
-+		vddpos-supply = <&lcdb_lab>;
-+		vddneg-supply = <&lcdb_ibb>;
-+		backlight = <&backlight>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&mdss_dsi0_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&mdss_dsi0_out {
-+	remote-endpoint = <&panel_in>;
-+	data-lanes = <0 1 2 3>;
-+};
-+
-+&qupv3_id_0 {
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	backlight: backlight@36 {
-+		compatible = "kinetic,ktd3136";
-+		reg = <0x36>;
-+		enable-gpios = <&pmi632_gpios 6 GPIO_ACTIVE_HIGH>;
-+		default-brightness = <2047>;
-+		max-brightness = <2047>;
-+	};
-+};
-+
-+&spi2 {
-+	status = "okay";
-+
-+	touchscreen@0 {
-+		compatible = "novatek,nt36672a-spi", "novatek,nt36672a-ts";
-+		reg = <0>;
-+		spi-max-frequency = <4000000>;
-+		interrupt-parent = <&tlmm>;
-+		interrupts = <88 IRQ_TYPE_EDGE_RISING>;
-+		pinctrl-0 = <&ts_int_active>;
-+		pinctrl-names = "default";
-+		panel = <&panel>;
-+		touchscreen-size-x = <1080>;
-+		touchscreen-size-y = <2340>;
-+	};
-+};
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 7e4e3718b536c92dc555de213042857379499447..b9e2867d435a3ad8b6db6b57c440bbd827180b6e 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -1094,7 +1094,9 @@ static void dsi_timing_setup(struct msm_dsi_host *msm_host, bool is_bonded_dsi)
+ 		dsi_write(msm_host, REG_DSI_ACTIVE_HSYNC,
+ 			DSI_ACTIVE_HSYNC_START(hs_start) |
+ 			DSI_ACTIVE_HSYNC_END(hs_end));
+-		dsi_write(msm_host, REG_DSI_ACTIVE_VSYNC_HPOS, 0);
++		dsi_write(msm_host, REG_DSI_ACTIVE_VSYNC_HPOS,
++			DSI_ACTIVE_VSYNC_HPOS_START(hs_start) |
++			DSI_ACTIVE_VSYNC_HPOS_END(vs_end));
+ 		dsi_write(msm_host, REG_DSI_ACTIVE_VSYNC_VPOS,
+ 			DSI_ACTIVE_VSYNC_VPOS_START(vs_start) |
+ 			DSI_ACTIVE_VSYNC_VPOS_END(vs_end));
+@@ -1168,8 +1170,10 @@ static void dsi_op_mode_config(struct msm_dsi_host *msm_host,
+ 					DSI_IRQ_MASK_VIDEO_DONE, 0);
+ 	} else {
+ 		if (video_mode) {
++			dsi_ctrl &= ~DSI_CTRL_CMD_MODE_EN;
+ 			dsi_ctrl |= DSI_CTRL_VID_MODE_EN;
+ 		} else {		/* command mode */
++			dsi_ctrl &= ~DSI_CTRL_VID_MODE_EN;
+ 			dsi_ctrl |= DSI_CTRL_CMD_MODE_EN;
+ 			dsi_intr_ctrl(msm_host, DSI_IRQ_MASK_CMD_MDP_DONE, 1);
+ 		}
 
 -- 
 2.47.3
