@@ -1,150 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DE025776;
-	Fri, 11 Sep 2026 10:25:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6372369206
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 10:28:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789122350; cv=none; b=sn4jKcDrVyyjX7UmwdV0bBh3q1Ax0PoX80/38zTVnyhMG8Kb4FIdC7D/oLWtmWrXeAq/62qO7wUkyBYWmoRXdBtGuWmA7Ms6d3hSnTZx0/7DOxi+DVgwgNZl2o1EEWpueXXJ3gFQ5wqp9g2mgSHD1j5XuUgiWbfpYw38MQHy97s=
+	t=1789122517; cv=none; b=ozeeMTQ7My4M0RPX5TCFsiyqNUDAEFGlclAX8pKFXxFaWIKm5j4E6ofoHuUZ1zm38Ho/Y4qDdRuYYm/WUbqeN97XY7YlUdvu3rJ0FQQHQAPYO3E3GhODBzUxmN/scMMqPvYZgQv2BQ9qDH12ChFoysky7Wj3IspugJkgm4E5kKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789122350; c=relaxed/simple;
-	bh=1j10lVz9ztdLzz1VqqwL4Xu4TzfFZhref/B8LBC0Xnw=;
+	s=arc-20240116; t=1789122517; c=relaxed/simple;
+	bh=GM1PuozTLYc+z/2c8+lHMS5QELvWyWj89Z2WU0PFXsU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KWj93+wx4AXtSzRt+heVrv+u1My8d05r1iQZ4C2glFah/RkYqwQ2nxv9Gxx9o3BPEgh9CaEPH3BmjGqB9NSf147z2e0PAzLNirrXORmCDDxEAWm8cwWs4nEgDRC/2McjH26CuIrUYDlYmGYBkBVqbQd1R7OalNcl0xYEfMaOh+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKuD3+HJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=M5HDalbHedlWA6JKQGR4KOsTKzQxbW5Kh1f8mASXrdSrtKEmzeZQLPAHkKXQpqYRDINkB2C5Z1l6lZ+w7V1RhFiCOLm0MaUuxjLJiWr9oC/Ly0L1D4Nw/DqXdrBkI46VRbUXsjC59SnHc76RSJXUPCmbZAWQG/wvJtQNaJ/90as=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGiCu3jb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKuD3+HJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AABB81F000FF;
-	Fri, 11 Sep 2026 10:25:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGiCu3jb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37AA21F000FF;
+	Fri, 11 Sep 2026 10:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789122349;
-	bh=Xm8LpErDgPLwVyb/O9eV1KPkABEqE0lOrqlk7CzKl2w=;
+	s=k20260515; t=1789122515;
+	bh=h/VeX4BuS4DtvV97f5MWXQ8gNGGKuVV9qTmsjDki7s4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aKuD3+HJYcw04ugsm/HD5ZRGKrPJPIY0rhXqbdux7VqZcRhCcIZdmnhfCLBBYFeqC
-	 n/dsm+alqUHQzkmvRvXJE40Jr/SEBbMeF/wxJhlLJfYmz0UPrIf4x3hagy9f377xEw
-	 4nmDKKu0hYHCTEblu/fAUD7KcUWXGv1YDPoKvw+q//MSPJrGrKE/VZYG55MqWLnP6G
-	 wx4QPuKYEnryFnjLhUFM/Yn4uZL/Z2dt+YXM5OROoJTuJXx2ni6/JFem9oS7sr8SWW
-	 TSdnKPwpGC87sDgc1jRHvmsnY2ZwX6gSnw82UfKDuCIyzR6Sz20a8b01fvM3oqzK76
-	 isKGCZGvv88tA==
+	b=KGiCu3jbOhX7s5P87WwN9YtQPWlaA2+jTxpH1m+NvPsFP5vOPakS599FnKVBWn+19
+	 0LOa4GGlrzmxZ/vUPnNj+/6rTzrOW+R/eSBVFw1vX9FxArmM8Kn0+RsrPt6VaNV1iD
+	 2MgRt5DIrPyc8Rrr2fP9vbON4CmnZTY365SWRhm1O92u3wmChPeLg/u/6TOGQFr1sm
+	 i3R1GgefH0eHwtiqWY7OGoWEwoN90wgqmBpV4KKrr4LtrrfeSsGslw6B2edAescpBt
+	 1Cqa5KatLZrcg5mo2UsBhkZG/dR1deAMDrf/ewd/23gH0vKWAKrYZDKobHAWjkqISM
+	 ydcS/VkHra9fQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 2/2] net: stmmac: Add support for Allwinner
- A733 GMAC210
+Subject: Re: [PATCH 08/10] arm64: dts: exynos5433: Re-order nodes to match
+ coding style
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jerome Brunet" <jbrunet@baylibre.com>
-Cc: linux-sunxi@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
-References: <20260910-allwinner-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com>
- <20260910-allwinner-a733-gmac-support-v2-2-4f4a1e520c23@baylibre.com>
+To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-8-9aa55051c42b@oss.qualcomm.com>
+References: <20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com>
+ <20260911-b4-dts-samsung-cleanup-strict-continued-v1-8-9aa55051c42b@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 10:25:48 +0000
-Message-Id: <20260911102548.AABB81F000FF@smtp.kernel.org>
+Date: Fri, 11 Sep 2026 10:28:34 +0000
+Message-Id: <20260911102835.37AA21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Writing to the GMAC configuration MMIO registers before the requir=
-ed AHB reset is deasserted and bus clocks are enabled will cause a bus faul=
-t (synchronous external abort) and hang the system.
-- [Medium] Hardware configuration programmed into the controller's glue reg=
-isters will be lost if the power domain is cycled during suspend, because t=
-he driver lacks a resume callback.
+- [High] Reordering device tree `cpu` nodes by unit-address changes the log=
+ical CPU numbering, fragmenting cluster groupings and breaking userspace ex=
+pectations.
 --
 
-commit b1b91e273360986b68768571246550826028aa8d
-Author: Jerome Brunet <jbrunet@baylibre.com>
+commit 42e710983fc6263e0bd5798117a1ac4661f1ffa1
+Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-net: stmmac: Add support for Allwinner A733 GMAC210
+arm64: dts: exynos5433: Re-order nodes to match coding style
 
-This commit adds support for the A733 GMAC210 controller, introducing
-a dedicated MMIO region for glue configuration registers. It handles TX
-clock delays, enables per-DMA-channel interrupts, and configures TX LPI
-clock gating.
+This patch reorders nodes in the Exynos 5433 device tree to alphabetical or=
+der
+to comply with DT style checks. In doing so, it moves the Cortex-A57 cpu no=
+des
+to appear before the Cortex-A53 cpu nodes.
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c b/drivers=
-/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-> index 862df173d963f..3d434a52fb02d 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-sun55i.c
+> diff --git a/arch/arm64/boot/dts/exynos/exynos5433.dtsi b/arch/arm64/boot=
+/dts/exynos/exynos5433.dtsi
+> index d318c87effaa6..3e67d9091a191 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos5433.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos5433.dtsi
 [ ... ]
-> @@ -37,17 +38,99 @@
-[ ... ]
-> +static struct regmap *sun60i_gmac210_get_regmap(struct platform_device *=
-pdev,
-> +						struct plat_stmmacenet_data *plat)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	base =3D devm_platform_ioremap_resource(pdev, 1);
-> +	if (IS_ERR(base)) {
-> +		dev_err_probe(dev, PTR_ERR(base), "unable to get glue memory region\n"=
-);
-> +		return ERR_CAST(base);
-> +	}
-> +
-> +	if (!plat->stmmac_rst || !plat->stmmac_ahb_rst) {
-> +		dev_err(dev, "missing required reset controls\n");
-> +		return ERR_PTR(-EINVAL);
-> +	}
+> @@ -90,136 +90,136 @@ core3 {
+>  			};
+>  		};
+> =20
+> -		cpu0: cpu@100 {
+> +		cpu4: cpu@0 {
+>  			device_type =3D "cpu";
+> -			compatible =3D "arm,cortex-a53";
+> +			compatible =3D "arm,cortex-a57";
 
 [Severity: High]
-Does this leave the AHB reset asserted during register access?
+Does reordering these nodes by unit-address change the logical CPU numbering
+and fragment the cluster groupings?
 
-The driver verifies that plat->stmmac_ahb_rst is present, but it does
-not appear to deassert it before returning the regmap or performing
-writes.
+During boot, arch/arm64/kernel/smp.c:of_parse_and_init_cpus() iterates thro=
+ugh
+the CPU nodes in the exact order they appear in the device tree. The boot C=
+PU
+(A53 cpu@100) always receives logical ID 0.
 
+Before this patch, the A53 nodes appeared first, yielding contiguous logical
+IDs 0-3 for the A53 cores and 4-7 for the A57 cores.
+
+Because this patch moves the A57 nodes (cpu@0 through cpu@3) before the
+remaining A53 nodes, the kernel will assign logical IDs 1-4 to the A57 cores
+and 5-7 to the remaining A53 cores.
+
+Could this fragment the logical clusters into A53: 0, 5, 6, 7 and A57:
+1, 2, 3, 4, breaking userspace expectations (like thermal daemons or taskset
+configurations) that expect logical CPUs 0-3 to be the little cores and 4-7=
+ to
+be the big cores?
+
+>  			enable-method =3D "psci";
 [ ... ]
-> @@ -118,11 +212,7 @@ static int sun55i_gmac200_probe(struct platform_devi=
-ce *pdev)
->  	if (IS_ERR(plat_dat))
->  		return PTR_ERR(plat_dat);
-> =20
-> -	/* BSP disables it */
-> -	plat_dat->flags |=3D STMMAC_FLAG_SPH_DISABLE;
-> -	plat_dat->host_dma_width =3D 32;
-> -
-> -	ret =3D sun55i_gmac200_setup(pdev, plat_dat, data);
-
-[Severity: High]
-Can writing to the controller's MMIO region here trigger a synchronous
-external abort?
-
-sun55i_gmac200_setup() calls regmap_write() on the glue configuration
-registers. However, at this point, the AHB reset has not been deasserted,
-and the mbus clock is only enabled below this call.
-
-Accessing an ARM SoC peripheral's MMIO registers while its reset is
-asserted or its bus clocks are disabled typically results in a bus fault
-and a system hang.
-
->  	if (ret)
->  		return ret;
-> =20
-> @@ -138,8 +228,27 @@ static int sun55i_gmac200_probe(struct platform_devi=
-ce *pdev)
->  	return devm_stmmac_pltfr_probe(pdev, plat_dat, &stmmac_res);
->  }
-
-[Severity: Medium]
-Will the hardware configuration be lost after a system suspend?
-
-The commit message notes that the glue configuration registers are in the
-controller's reset domain. When the system enters suspend (e.g., S2RAM),
-power is cycled and these registers will likely revert to their hardware
-defaults.
-
-Since the driver writes this configuration exactly once during probe in
-sun55i_gmac200_setup(), and there is no resume callback assigned (e.g.,
-via plat_dat->resume) to restore it on wake, could this lead to a
-silent network failure after system resume?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260910-allwinner-=
-a733-gmac-support-v2-0-4f4a1e520c23@baylibre.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-b4-dts-sam=
+sung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com?part=3D8
