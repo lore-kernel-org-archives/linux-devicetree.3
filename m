@@ -1,166 +1,217 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90C8377AA8;
-	Fri, 11 Sep 2026 12:11:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128685; cv=none; b=fjpooV4DiKggIAPVPm2aqwWyT6F54KzqSLSsZ4auNeH/fwzfaaxWVVSOgUtSF+5nzexnupzCfQmEqZW8jWlxKFkcPF76+Dz9zXgxa79jftsKXOluU2YU5W95i1LV1oq8U4jN0VEoZn7NNRAcLuFR/t9sLChlPguxdr+GvIad/pI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128685; c=relaxed/simple;
-	bh=qWvAj6q9qff1XmQhQodWtBa490kcfZfg8aWpElwKVg8=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=r/VcBwQb7UmDWvj2Ll48gEV4CcYgCqTE9mrCRSWhxwnJXW3+R6NzY4ljwQ8UE38p3ESL/sTSk4eReHm+27XdDrTzA8+Xn/j/C6QrDoiiAaZQZZRkxhYJQKTBndX99po1H9uA2vWDy5jnMJZSMwBI8G9suAY8tiP5TMUYrrsX5Lg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=jtAVBmD8; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02F3A43F8D9
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 12:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789128741; cv=pass; b=KqvuxRLE0fWHzWxHdaRRp17SHfNKRhcDMfid+Ivks+6oqiWArciCsmCSi6753+3oy4BFFHFI42HttwG522Q/2fDINx07lMG835TUQME1LcBsUlVkXHMFaqxukljlTvRQYwS8MAc+T8Z3I6IkonkBo7m9LfY7vidWrWb20KCwYkc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789128741; c=relaxed/simple;
+	bh=y0XIFCeENQJqN8g/vbt7VAjbJq+Nz3Xv9yF4zfVVk+g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QwEs5AJf3BpLZIND30mQdg3yPWBpWbvObyNaaY5Di50o6DQP893Q5MG1U5x5+WkrJF7J3k1eV8abNSh/iYTFCGWZy4l+W/JN7C9NRFaFedPFlq2Py8SS/M2uG8dfQokbkwX8oTiLoXZc3RCCSEJBZZIBNBhoXpusrBgWO3lixhA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5qY8lxc; arc=pass smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="jtAVBmD8"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 87FD6A8F56;
-	Fri, 11 Sep 2026 14:11:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1789128680; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=q+wUGVC84NcfVhc1UyBgX5sHnxJ8szuBZMCoF16InyM=;
-	b=jtAVBmD8siFhUXI+RrN57Qg6ElzrMbhxWmTemCn17cTimDy9qiBfCHtH/dwFMYJApeq9mF
-	Hxe8PFsKjhhfV5DD1Niao2ZNrYsP+x61nnKMrRVvzavrmAJPpwOXOdZZfFF5UsBYzsJJh0
-	W79oI6dmlGzrG1wye5l+062wmTaPol60QkDeKtRMO9yFz8NHEA67sWFDeB0zoVJsBT/DPU
-	0CDS5htywcXHOwFBZS0dpQvboEfVheU5AbYuBKdE5ywOtiGQFsFmQ18jj6UFKkn1UuThMD
-	eb5eK7LBPElB5J7baBgLiTqiB2bB00w1O306WRn32VPhRUonk10Ie9OzIzfu+A==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5qY8lxc"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b6so4290555e9.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 05:12:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789128737; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZzLrf3fqWeJ4UjQUa6HnsvG9eLAZH1XCDXPgjgabT4+JNgvhunNJ6H4vX9NOw0AVhF
+         lL3CPcBeEhS9Ze2NYpNHAVJH2it/2fN63a21EJYNK/RWYZthmLQDCC2e16AeXJox2fJH
+         t9GBWlTu8awmcwqqyHvIcUsvJcDGUDHm1EglUCecS5W1gP0GM5SOvSa21M1EzMx2kJ6c
+         XdhJgdOQ06sUPTXWwJNshiBG0+lYuECWspoiu0j6pteZ9gvhUQlnOvQXwDtKooBjKpbX
+         h8bTwQYs68yiZZSRKr5+Ba8s0tqmGxvdkk5l/KDRWmlZl7hKYvwTxWagb8crLMH5wvKC
+         bP/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=lNwnWJHPLgasWdBDmLTUGAni7FNn6xt21s/9H9MyjEs=;
+        fh=c+PbEk8LwpxIyKySa6ko5RtI9PQq28LZhTuL56gha1c=;
+        b=A3cwhgiOFcmV4nDwUGh8k42pZCMWyFPKB/PsSn0K0mZoTJnIYqHttK9Pg3gLr9oYKe
+         ew/+sURXXTcWGxnzuL5r9hz29MKqyWM2qPvjZxElMIsVJXjONAOUpfoG7iPjW36MivfG
+         eH45IwnLwcVuHG1/uMNQoIc4JkOw5Z2h6IyNbO7sKWspLg21eBIC0F0x2G6tBhTTwQzy
+         bfc6yisw2pEic91Cntv7ybP5FyjahCsL+Zl1wVZaNYTTtI55TDZfWC/L38bePJQO/9uW
+         bUBHD7wNTZiwism+1dNc6p7P1XGPylyWALKkOesLirBhknNsNlhakxKFNvB04FbBimH6
+         2u+Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789128737; x=1789733537; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lNwnWJHPLgasWdBDmLTUGAni7FNn6xt21s/9H9MyjEs=;
+        b=V5qY8lxcYRx5ZkIgRmvJ9ikvQM9tfa1YVpHh6YCgYiAmdE6HSAt5KOhaMYdaJQQzCa
+         Hj8dI0T54rgkj+2XeN0gpFjo6DOZTdu57sTzoCn3XKHn2mBfyk+agK9tVCBoAb0iXt17
+         C2toev6+JdfrF7feTUBAheboKY64UOpMslY9Lm4C+7aN9yKRFPFwgGh6YdYrnG8YAijH
+         46Kl1Dmxsbwmn+KtFd6qxEFx8cf3gsjhCjpQFjkLcyrBkIgJGbf9LFt2qbLk+aT8dosn
+         sVjlm3KmBoAKqRT0EqZVfLydjEQTE+uKcqmtqBAvS5bFW0KntWKPlVV9CSwsCPir5FBt
+         9XFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789128737; x=1789733537;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lNwnWJHPLgasWdBDmLTUGAni7FNn6xt21s/9H9MyjEs=;
+        b=lj5nPUUpqz9yzHlCFPvoAQMpn1FjKrfJy/HR1DKMfKwNfjGFdg9pYu1yf2Hoxq29Rl
+         5Ze2yt0wYvdLHwng+Tt1zn5SxnsNu0JqvsEzi6lFoSopNGTjFL2rnRbnuoREjw4VyFon
+         FqvD5HbnTwJndyW3wdhTYXqVMANzqy8I1PraBfXF505ZMjClal89hoZDRVVJNoDydbcq
+         RbMqowCtjkaDPXvXOOj/UpcXXGoWG1vRXfLSDeYKKe9/TH1DoZUDsDxxCzw2aPDxaBip
+         qAI32LM+oyUV4V6y9BxHAuMFhTd8HOXtZBdSSvHoe1YV5zDYInq8vAdxPNqFBXLIeLCa
+         yUZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwQajtxxfhGGByXCdUyQDIjwtOuXR4qaS1bXgw4MlwLaMZ3gWkc5hWkcK7GjuhVpkyDKsYU0K3BaBli@vger.kernel.org
+X-Gm-Message-State: AFuF++nAFjt7UTMN72WV8lbKtUN6u2nk88zwUuNAny1OvEm2PxRvoNBy
+	J8jPj/JrCm8fp0+JKS3kC61a/26XWloC7L0xcERkDLtWnG1KtZVZrtIY8haPIS3z6k2jb95DVmk
+	UMZoj92gU+EkksboL8nwEQzvyRFPMx3U=
+X-Gm-Gg: AYBFou3z8ldXXXWmlJp4LV7EVKlmtTlN2rTdaKMH0/nJJpXtLL2iJDGeDSJuKYG37Yx
+	MboVt3pLje5GI+I5XvRfkZAv7TjoGy2CjwMyPrkED0ySB369eWt5FONgTh19GN5lwyNd45525dt
+	A5iFM6LLpSM+XK+pd5+8JDekRCxNFIqfSZcylOVLdxW+cujRurTR/n+QFEpGKN4G7bAmMVtrXCx
+	sC13xOgPyOSLjogncdWE9zU2+NXxjrEJtX8PNhmHmfz8G2xynNLXSZrX+4f6IkCAbXx18Z9ix6M
+	P3iyV5GuisAqxh98gb8lT0XUt5qhJt9RS8uB3KAP6PyoXjdCkTtd4xvqe4DnZcjpC9RrIyyc7rZ
+	58s2hlF6JOkJ5KK0Lod6OzLh/wRB2PK9ppV7ixZPt6uguxOkARRyYYZWHT9UaPZSoijBuQ6IGdt
+	k+x0mW0hXc
+X-Received: by 2002:a05:600c:1385:b0:499:a5c8:c6f3 with SMTP id
+ 5b1f17b1804b1-49e61878ab9mr68367055e9.3.1789128736767; Fri, 11 Sep 2026
+ 05:12:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 11 Sep 2026 14:11:18 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v12 3/4] net: dsa: microchip: Support Microchip
- KSZ8995XA / KS8995XA
-In-Reply-To: <20260911-ks8995-to-ksz8-v12-3-5c3422d0d72e@kernel.org>
-References: <20260911-ks8995-to-ksz8-v12-0-5c3422d0d72e@kernel.org>
- <20260911-ks8995-to-ksz8-v12-3-5c3422d0d72e@kernel.org>
-Message-ID: <6fdac2ceffe33e0ee02b8a6768bf7492@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260911111731.3404308-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260911112713.355FA1F00893@smtp.kernel.org>
+In-Reply-To: <20260911112713.355FA1F00893@smtp.kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 11 Sep 2026 13:11:50 +0100
+X-Gm-Features: AcwNN1XOUOwZDNjKd0fMCAdW1pC8fPronyNs541sSWVf7U32M71-UP3UfDUWtnw
+Message-ID: <CA+V-a8vH1yC_7V2F9HGMaP2QhuyU+qSXd_J2BAvn5aT-0CH61A@mail.gmail.com>
+Subject: Re: [PATCH v5 4/8] watchdog: rzv2h: Use pm_runtime_put_sync()
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, linux-watchdog@vger.kernel.org, 
+	wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus
+Hi Sashiko,
 
-On 11.9.2026 11:09, Linus Walleij wrote:
-> This adds support for the Microchip KSZ8995XA also known as the
-> Micrel KS8995XA switch to the KSZ driver.
-> 
-> The KSZ8995XA shares family ID 0x95 and chip-ID nibble 0x0 with
-> the KS8995MA, so hardware detection cannot distinguish them. The
-> legacy "micrel,ks8995" compatible is therefore treated as KSZ8995XA.
-> No KS8995MA users are known, and KS8995E has no documented SPI
-> management interface. Neither MA nor E has been verified with this
-> driver.
-> 
-> The helper macros are named ksz_is_ksz8995xa() to make it
-> possible to add E and MA support in the future.
-> 
-> Wait for the self-clearing per-port PHY reset bits before continuing
-> with switch setup. Poll each port for up to 600 ms and allow an
-> additional millisecond for the PHYs to settle.
-> 
-> The KSZ8995XA has eight global TOS priority registers with one
-> bit per DSCP code point, providing two internal priority levels.
-> The registers are ordered in the opposite direction from the
-> other KSZ8 switches. Describe the two priorities in the chip
-> data, then augment the DCB helpers for this.
-> 
-> Practical testing also shows that its packet-size control bits use
-> the same semantics as the other KSZ8 switches. The polarity in the
-> manual appears to be wrong and makes the switch hang on big packets.
-> 
-> The legacy KS8995 driver also matches the Micrel compatibles for
-> KSZ8864 and KSZ8795. Add these to the KSZ SPI driver here and use
-> an exact tristate dependency to make the drivers mutually exclusive.
-> This transfers ownership atomically, avoiding module probe races and
-> gaps in driver coverage between patches.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
+On Fri, Sep 11, 2026 at 12:27=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 3 potential issu=
+e(s) to consider:
+>
+> Pre-existing issues:
+> - [High] Incomplete fix: rzv2h_wdt_stop() still uses asynchronous pm_runt=
+ime_put() during driver unbind, risking a race with pm_runtime_disable().
+> - [High] Kernel panic from division by zero when the optional 'oscclk' is=
+ missing from the device tree.
+> - [High] Missing NULL check for of_device_get_match_data() return value l=
+eads to a NULL pointer dereference.
+> --
+>
+> commit a446e675679ece36ef9554b71239f1b2c12cce73
+> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> watchdog: rzv2h: Use pm_runtime_put_sync()
+>
+> pm_runtime_put() may trigger the idle check after pm_runtime_disable()
+> is run as part of devm_pm_runtime_enable()'s cleanup action, leaving
+> runtime PM active.
+>
+> Use pm_runtime_put_sync() to ensure the idle check runs synchronously.
+>
+> > diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.=
+c
+> > index cbf414e0c9a3c..4a5a856060e91 100644
+> > --- a/drivers/watchdog/rzv2h_wdt.c
+> > +++ b/drivers/watchdog/rzv2h_wdt.c
+> > @@ -270,7 +270,7 @@ static int rzt2h_wdt_wdtdcr_init(struct platform_de=
+vice *pdev,
+> >
+> >       ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
+> >
+> > -     pm_runtime_put(&pdev->dev);
+> > +     pm_runtime_put_sync(&pdev->dev);
+> >
+> >       return ret;
+> >  }
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but it seems there is another
+> instance of this same issue in rzv2h_wdt_stop(). During module unbind, th=
+e
+> devres cleanup triggers watchdog_unregister_device(), which calls
+> rzv2h_wdt_stop(). This function issues an asynchronous pm_runtime_put():
+>
+> drivers/watchdog/rzv2h_wdt.c:rzv2h_wdt_stop() {
+>         ...
+>         if (priv->of_data->wdtdcr) {
+>                 ret =3D rzt2h_wdt_wdtdcr_count_stop(priv);
+>                 if (ret) {
+>                         reset_control_deassert(priv->rstc);
+>                         return ret;
+>                 }
+>         }
+>
+>         pm_runtime_put(wdev->parent);
+>         ...
+> }
+>
+> Should this also use pm_runtime_put_sync() to ensure the idle check compl=
+etes
+> before the devres cleanup calls pm_runtime_disable()?
+>
+Agreed, I will update rzv2h_wdt_stop() to use pm_runtime_put_sync() call.
 
-> [...]
+> [Severity: High]
+> This is a pre-existing issue, but I noticed a potential NULL pointer
+> dereference in rzv2h_wdt_probe(). The return value of
+> of_device_get_match_data() is not checked:
+>
+> drivers/watchdog/rzv2h_wdt.c:rzv2h_wdt_probe() {
+>         ...
+>         priv->of_data =3D of_device_get_match_data(dev);
+>         ...
+>         switch (priv->of_data->count_source) {
+>         ...
+> }
+>
+> If the driver is bound via sysfs without device tree match data, could
+> priv->of_data be NULL here and cause a crash?
+>
+> [Severity: High]
+> This is a pre-existing issue, but could the clock rate calculation result=
+ in a
+> division by zero?
+>
+> drivers/watchdog/rzv2h_wdt.c:rzv2h_wdt_probe() {
+>         ...
+>         priv->oscclk =3D devm_clk_get_optional_enabled(dev, "oscclk");
+>         ...
+>         switch (priv->of_data->count_source) {
+>         case COUNT_SOURCE_LOCO:
+>                 count_clk =3D priv->oscclk;
+>                 break;
+>         ...
+>         priv->wdev.max_hw_heartbeat_ms =3D (MILLI * priv->of_data->timeou=
+t_cycles *
+>                                           priv->of_data->cks_div) / clk_g=
+et_rate(count_clk);
+>         ...
+> }
+>
+> If the optional 'oscclk' is omitted in the device tree, priv->oscclk will=
+ be
+> NULL. When count_clk is assigned this NULL clock, clk_get_rate(count_clk)
+> safely returns 0. Will this cause a kernel panic due to division by zero?
+>
+As replied in the previous patch, I will add a new patch to check the
+clock rate to avoid division by zero.
 
-> diff --git a/drivers/net/dsa/microchip/ksz8.c 
-> b/drivers/net/dsa/microchip/ksz8.c
-> index 941ae9f66f70..4acce01ca063 100644
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
-
-> [...]
-
-> 
-> +/*
-> + * Restricted operations for KSZ8995XA, so many things are not 
-> supported
-> + * by this old switch that we need diet DSA operations.
-> + */
-> +const struct dsa_switch_ops ksz8995xa_switch_ops = {
-> +	.get_tag_protocol	= ksz8995xa_get_tag_protocol,
-> +	.setup			= ksz8_setup,
-> +	.teardown		= ksz_teardown,
-> +	.phy_read		= ksz8_phy_read16,
-> +	.phy_write		= ksz8_phy_write16,
-> +	.phylink_get_caps	= ksz8_phylink_get_caps,
-> +	.port_setup		= ksz8_dsa_port_setup,
-> +	.port_bridge_join	= ksz_port_bridge_join,
-> +	.port_bridge_leave	= ksz_port_bridge_leave,
-> +	.port_set_mac_address	= ksz_port_set_mac_address,
-> +	.port_stp_state_set	= ksz_port_stp_state_set,
-> +	.port_pre_bridge_flags	= ksz_port_pre_bridge_flags,
-> +	.port_bridge_flags	= ksz_port_bridge_flags,
-> +	.port_fast_age		= ksz8_flush_dyn_mac_table,
-
-
-KSZ8995XA datasheet [1] (table 4-2) states fast-age enable as reg 0x03 
-bit 1,
-but ksz8_flush_dyn_mac_table() sets reg 0x02 bit 5. It needs an override
-similar to the existing one for KSZ8463, but accounting for XA's 800 us
-ageing time.
-
-> +	.port_mirror_add	= ksz8_port_mirror_add,
-> +	.port_mirror_del	= ksz8_port_mirror_del,
-> +	.port_change_mtu	= ksz8995xa_change_mtu,
-> +	.port_max_mtu		= ksz88xx_max_mtu,
-> +	.port_get_default_prio	= ksz_port_get_default_prio,
-> +	.port_set_default_prio	= ksz_port_set_default_prio,
-> +	.port_get_dscp_prio	= ksz_port_get_dscp_prio,
-> +	.port_add_dscp_prio	= ksz_port_add_dscp_prio,
-> +	.port_del_dscp_prio	= ksz_port_del_dscp_prio,
-> +	.port_get_apptrust	= ksz_port_get_apptrust,
-> +	.port_set_apptrust	= ksz_port_set_apptrust,
-
-If I read the datasheet correctly, PCP and DSCP priorities are or-ed,
-but ksz_port_set_apptrust() accepts both to be set (with PCP taking 
-precedence).
-Not sure if this would break anything though ...
-
-The other things look fine to me.
-
-> +};
-> +
-
-> [...]
-
-[1] 
-https://ww1.microchip.com/downloads/en/DeviceDoc/KSZ8995XA-Integrated-5-Port-10-100-QoS-Switch-DS00003677A.pdf
-
-Thanks,
-Nicolai
+Cheers,
+Prabhakar
