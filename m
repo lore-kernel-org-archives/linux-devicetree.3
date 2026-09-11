@@ -1,113 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CB274718FA
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:48:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D383149F135
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 15:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789141684; cv=none; b=mZrnZUrEHQ8nO2nETyaZKLiAvIO4drndbfiKIGlWt94Lzw/0WWS0iuDKJEnIw/yoLsShgksXEeKz9Vtw8ZFG2X10Yy7GemzorPWyvKQg8j/+9rG7/1PE4pxFA4eMsmxEBOUyddew7UUETY4KR4ofsmP58m1qlW8IzHOn7BaBAQA=
+	t=1789141721; cv=none; b=Dhz63U8eqqs9RLMb0hnNMfXODbrsZ5kj65yeJwTttUr91s+guC5OKlnxxm6XgyasuiSeFhxhEix/xN7CAY7lXFHBVVCS2uccaIn5xh/XWH6fs0Gz9HoF5868egBxREvwDoUQOa8oeB6LktK4nm7WOYZlCWl1OmBWyOHn+ux4YkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789141684; c=relaxed/simple;
-	bh=uYdc3QlF+AdfeiDoc6H/72Z8/smu/8wRvVPjckdFz/g=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KfYTqX0hbmO07OSAebbGpqPjGuX2mQCIkn5GFxwINEndhMvyGih5cUu8zrGQA5WoJVTvlffZSm/1dDHgg/6noTwF5qtug59yfP96rE1Is4Z8zt5k//VgTeiUXwzNwd+Q0bBIrWgHvDgbfCG2lY45WmBHjIP0XfpFBOdQIdC+GRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuL64Pzy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789141721; c=relaxed/simple;
+	bh=HWLDosx9tKEhnC2IOciqOd6B3i5lfzYFrLHy2jKKZqM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d0JRzS0BCgIJtDkxfYQQnJtuWVOLtAINkUfe9e5/DNFSTw9IT9HnzGVpy5GumAVit3xioKiMuPhUZaYReb2bN0yEVaTVN2VPxrXKFgYp3o3zpw43z1YvrqvXrsW1E+CPyr36UtDJ2luaSzLmY99jOQxHbM2nkRqGEwEg8fCLeVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=q+/hXGEL; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=tKOl5tJv; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuL64Pzy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D5BC1F000FF;
-	Fri, 11 Sep 2026 15:48:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789141682;
-	bh=29OprxAPqi5wkQdmCwOPfHZCMWnAwiooD7Yj6cqzeLg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kuL64PzyQOhfjeyezsUmcH6IbvRMFPwATuvG3P31zI/l3c0nPO4f59yuJ/2NwvU/W
-	 OnwJY1mu/xY3ohQeoN/KHbQKe7Z+08uxQwmPB1icFTlyaS1VKJeTzalXlZ5XVnulDa
-	 kUbe0utMqcVxlg2gUEzBsl0OINE5QFfbyP2793r/hGcCa1/5HzeQxoMKnAQTwwcOSZ
-	 7xYaw2NmTlOo3xJNWgf/fOtd/oQpjIlv2sl7YalwpvMoVUu7e8Rq+i7paYSMsgmMc/
-	 /ieOdOVDS5gnDZULosHgqAFC4VA7m18Hei41pZHDH0nt1r6gtNDKmycLN0ByMxBuZL
-	 KOo0bXsrRCnxw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 01/17] dt-bindings: phy: qcom,edp-phy: Document Nord eDP
- PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, dri-devel@lists.freedesktop.org, olteanv@gmail.com, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260911-nord-drv-dt-v1-1-e25c073cf1b6@oss.qualcomm.com>
-References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-1-e25c073cf1b6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 15:48:01 +0000
-Message-Id: <20260911154801.7D5BC1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="q+/hXGEL";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="tKOl5tJv"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789141714; bh=QMo9x+UVp6QFMjOyUeSIYDU
+	RSjXGI7qKSJjYZZMw6bs=; b=q+/hXGELKbkCSjrWOmS2U9Qp9ieFNzBImzwmsbnpiAMKy0xD81
+	VFXTg7NLhdERBCFAmTHhhee09f8eQUPQ4Y8o52ZZ8bCPa69WrUh9l3lJpOfhjeMyZmRnB9R3gK1
+	piyui5wOfrg3L/cfL06otfsXBY198g4QakEyNSgzGpSUJJSlLcSx163FxzAXG+QoWuUaLIjiDt4
+	fYKemAxRD6pSKtqRS5pgqOx9odD5emP7Hcl1DHJpeVuebepCN7KtRRHpLD6PlTOGbbCDLy9P3+W
+	fCG+LRYCgRaZ63Gu8PkUnSqia2R5vis8cX9iKqhw12HhBFbsTakMObj28T6Fal131cQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789141714; bh=QMo9x+UVp6QFMjOyUeSIYDU
+	RSjXGI7qKSJjYZZMw6bs=; b=tKOl5tJvAyydy8E9nYGZWW3uHpyW0xzs+rQ6HqIJsbgtBkuOhi
+	s90MeIJUu3CJSMNpA99A+FIEjS6nhg8bGlBA==;
+Message-ID: <d7e15309-8069-45ec-92a6-24ea113a537a@mainlining.org>
+Date: Fri, 11 Sep 2026 18:48:33 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] drivers: gpu: drm: panel: Add BOE NT51021 driver
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+ <20260911-qcom-novatek-nt51021-panels-v2-2-135e3190a7fb@mainlining.org>
+ <20260911154433.BD65B1F00893@smtp.kernel.org>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260911154433.BD65B1F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The new compatible string 'qcom,nord-dp-phy' is omitted from the=
- 'allOf' conditional block that enforces the 3-clock constraint, causing it=
- to fall back to the incorrect 2-clock constraint.
---
 
-commit 325c210ca82765c8807b8dc10d9ca6c4f986b06b
-Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+11.09.2026 18:44, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Ignored return values from `devm_drm_panel_add()` and `devm_mipi_dsi_attach()` leading to silent probe failures.
+> --
+>
+> commit d977b7bfeacd8104619cc818002d70a48f32aad3
+> Author: Nickolay Goppen <setotau@mainlining.org>
+>
+>      drivers: gpu: drm: panel: Add BOE NT51021 driver
+>      
+>      Add driver for BOE NT51021-based 8-inch and 10-inch DSI video mode
+>      panels used in Xiaomi Mi Pad 4 and Mi Pad 4 Plus (xiaomi-clover)
+>      tablets.
+>
+>> diff --git a/drivers/gpu/drm/panel/panel-novatek-nt51021.c b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+>> new file mode 100644
+>> index 0000000000000..61dd283769a75
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/panel/panel-novatek-nt51021.c
+> [ ... ]
+>
+>> +static int nt51021_novatek_probe(struct mipi_dsi_device *dsi)
+>> +{
+>> +	struct device *dev = &dsi->dev;
+>> +	struct novatek_nt51021_desc *ctx;
+>> +	int ret;
+> [ ... ]
+>
+>> +	ret = drm_panel_of_backlight(&ctx->panel);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to get backlight\n");
+>> +
+>> +	devm_drm_panel_add(dev, &ctx->panel);
+>> +
+>> +	ret = devm_mipi_dsi_attach(dev, dsi);
+>> +
+>> +	return 0;
+>> +}
+> [Severity: High]
+> Does this code silently ignore initialization failures?
+>
+> In nt51021_novatek_probe(), the return value of devm_drm_panel_add() is
+> discarded. Additionally, the return value of devm_mipi_dsi_attach() is saved
+> to the ret variable, but then the function unconditionally returns 0.
+>
+> If either devm_drm_panel_add() or devm_mipi_dsi_attach() fails, the probe
+> function will incorrectly report success. Should the code check these return
+> values and propagate any errors?
+Didn't notice that, thanks
 
-dt-bindings: phy: qcom,edp-phy: Document Nord eDP PHY
+-- 
+Best regards,
+Nickolay
 
-This commit adds the compatible string for the eDP PHY found on the
-Qualcomm Nord SoC.
-
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml b/Do=
-cumentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> index 0bf8bf4f66acf..91d7a5c8e19af 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,edp-phy.yaml
-> @@ -19,6 +19,7 @@ properties:
->      oneOf:
->        - enum:
->            - qcom,glymur-dp-phy
-> +          - qcom,nord-dp-phy
-
-[Severity: Medium]
-Will this compatible string incorrectly fall back to the 2-clock constraint?
-
-Looking at the allOf block later in this file, recent hardware generations
-requiring 3 clocks are explicitly enumerated:
-
-allOf:
-  - if:
-      properties:
-        compatible:
-          enum:
-            - qcom,glymur-dp-phy
-            - qcom,sa8775p-edp-phy
-            - qcom,x1e80100-dp-phy
-    then:
-      properties:
-        clocks:
-          minItems: 3
-          maxItems: 3
-    else:
-      properties:
-        clocks:
-          minItems: 2
-          maxItems: 2
-
-Since the Nord PHY utilizes a 38.4 MHz CXO reference clock, should
-qcom,nord-dp-phy be added to the enum in the allOf conditional block?
-
-Without it, device trees providing the necessary 3 clocks (aux, cfg_ahb, re=
-f)
-might fail schema validation, while incomplete ones providing only 2 clocks
-could silently pass via the else fallback.
-
->            - qcom,sa8775p-edp-phy
->            - qcom,sc7280-edp-phy
->            - qcom,sc8180x-edp-phy
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-nord-drv-d=
-t-v1-0-e25c073cf1b6@oss.qualcomm.com?part=3D1
