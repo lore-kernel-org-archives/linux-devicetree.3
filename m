@@ -1,160 +1,175 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356A843CEF5
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 12:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D9DA43F8D9
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 12:08:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789128022; cv=pass; b=A3NtFJDmYrXaOEA5owXIzjnDDEHq0DaPyorPgrcrxXFknMwVvhnmL064IpqJu4Q0GItdi1aXfhIYotYAEUZYgknmFJstJmw4kyfxcWx+jnWebvIkQ1xV34y61npf8WHzVVCW8xCLSwvfJbiod+T4mrxy1IejMbjimer+09UBmzE=
+	t=1789128536; cv=pass; b=p8XAKp9uhrfpQ4TvuQMtA79xK2jZrrhJ8VJQuqXp5yRZpO3lu1dorMRonvGoF6Rft3kOHzKikxz+IWwAwPmdrpoQC/3YQSbHpnoI4iO9u5IjnQlnbrdYfA9b7a92BFtFsHDK9M4bdsibpvNrQ5VLd2g1sNc+RzrcTEJNx7xQ+zk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789128022; c=relaxed/simple;
-	bh=3SyHymAnrjlvPO2mb9pb0A4ZCmnI2yTAOAi1u/9obmE=;
+	s=arc-20240116; t=1789128536; c=relaxed/simple;
+	bh=Wmo70Z4UFocZYeFKwLQnXi18nLpqHlJJiS4uZANg4Tw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=StexulJ3c5q9QDXyyltRxnWJfdGNH7HyTw/MdInCWpQiA1viTKPCd73cFNvrVkgDOhOsgYLZkVOaG+vUUOJsis53QOhJUy/VknkQOll+joihPWjTO6ht5Mxwh3YBxQFrcqm5+dSMYsaSGZq/tHChiiHhwuu1/SXhApcydfqHFJg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XsjxNPWK; arc=pass smtp.client-ip=74.125.227.140
+	 To:Cc:Content-Type; b=N+Uz37iruSuIILgK8UM34lXz1/tW0wP/mOt7FCIKyoRF3bKJX1dyqup7PujPyLF52c8Q3w59aCy+ZNLZ6QAF+KiM8PS1MazE8ljbQ9FTDI9JowEaQnonddwXqlUpTKyD7mNJhZp8qBpRpTahjj56+hyRuFuaOHx4WRDUBYVnng8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nib5DIgK; arc=pass smtp.client-ip=74.125.225.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XsjxNPWK"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398beb616f5so265779a91.1
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 05:00:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789128018; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nib5DIgK"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843cedd129so500898f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 05:08:53 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789128532; cv=none;
         d=google.com; s=arc-20260327;
-        b=HzjLWBBI3LE9SLsZs/S8Mm8VEN5H+xtzd7q8ECHKCzrmr1NtSwRig6sniMv9bMseWB
-         OWHkkqrpaaNso2OdLAaCnNi658akl/Lgk9V/6ToJgPVu1KBCYIhyEyQ4j2UlFtx9UZIO
-         BQT/amEpzkfghRJYciMF0c/jlYlUg+Nro2V5QXjHAu8T5eABM5pQiroK2ymr+FG9GZ7l
-         SQ9NiGyzuUxiTM3tmDvb2rS3hGHzAvzKkfD8LTOfRzB12rBec7qN/jmJ1pFt0t1XWDLu
-         rQkvdvvO8biNNOY24H84NCxprhZOmiNKGGsiozAvUAIBcO+O0gGEQ/GgL8NXFmqeTFDZ
-         rb+Q==
+        b=YIVopWETWfzdmiF75QzfFN8Vz0bHTn8u7sMCgksa6cG6UaCmnthXIA6xwllw3KMsaw
+         ArSAYaGMLd3kICJV7ehg/Reb4XxcOJbq0xBx8ZHlJG2YGwWPdSGKlPCK65VpCzJ95qLO
+         rZlsJPJBesGbGLf6AjG79SmuB0fzWlkv5fIpEPhqRf2KPRo39ZwHJrNKuaXd0GltTA7k
+         Ff8s/nhnGwWvcRj7MIpPySTmvRQ6KTLVIYT3mLTohw8UrnHmhEQFpJDmBM/cx2t+w9xT
+         Fllof7EvE3Jb7YEMt+/nUFWg556cQq+m/Pm+HS+5ix9f3bgmCAu1nx6b+GJZkUMwYi9Z
+         zwJA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=jU9kvyfbvdodjOEWNhAyWrD9R6/DXaJ1BcW1aCO08yw=;
-        fh=D43nIITBLs9DfPNjiOy49Xc9PnLQZiPsFS+6o9M4adg=;
-        b=ZOwivXiNRod3lyYIaDU7cmei57/xH+i7YoFtx4gFEmavBogNmBZs95EgoJjNUcNhaR
-         xJOt5vk0dBRNhT1uSoIZCohIBFU4joWrWoa4VafhHg+0Ap9oWhS8CfrMYYLJGDSKb4Ob
-         WtHX1YrlDMotMBf9Ku1V5yd3y7cWFVCo8WLtUlsIBoieOaIJoz/85e9DYejyAaikQ402
-         RRsh/wUXhOyra+c2DOdGRxFXXFLXe0035AW8jVWr0rGl4vKVV2RzutzFMLUMfpVl2LNQ
-         VCga6tMMecUur35tD35FIE7yJMQiKQhnLYRz5MEGNgX9GXLXD4Ms6IY0P8I4gIx9aN2D
-         7Zdg==;
+        bh=BPsynQVkg6+ImOI5Ts+zsO7EhceaQ1Rk9XjAnwab6s0=;
+        fh=vSgiMh8ofMlk/Fma1GomkDDHdCOS6A1Bwmnv9NdEo6E=;
+        b=fB3fm7/FCnipunDlsOXLGD98YcIlKmvnyRRAH+8mUqvBL3wz/Sj/VCZaweWEvB6B4Z
+         Wa3NuEf0bI0H+86FCNkLBbTdvmqBjd6V7naOjd7EKbuH5+u3Kil0YTkAtf33xcUJsEno
+         o6fDw3sae914v7pHGcdsfQfx2Ik/4RHWPHTmoIUL6Wym/RxgMCFoHyA3+eeRs9c2uN/I
+         idcstA2jXb6vwf+2+D3KZYfUuUnXkYMUTZhDS0D4+dlKvCWLEzccM5m7SnpJK7jogV7N
+         MtGZglo5j/JKXeIpNx+zPnnZ/QYwM7zGtl5dUXXT0E/lGPDQxNoHaoS0LhujfKvUzN14
+         iU/g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789128018; x=1789732818; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789128532; x=1789733332; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jU9kvyfbvdodjOEWNhAyWrD9R6/DXaJ1BcW1aCO08yw=;
-        b=XsjxNPWKVU+SEBQ4ttILvNxW1KOKWAyxwUkq4ow+OPnVU8LDga3zj55RaGYg8ikKXB
-         pgG5rYGLaEi88C33CMbFLS4X7GO2lfDXcFTGeJ5q/dvM5QMooREgH7dm1vMCmzF6wWLf
-         6/tBMFihkrnnaTn0lILpm3orBG+z/tHpZj+7NajSMUWhA0TJgbPnBVT+BB67vAVCtxzs
-         UtlPpBYods1rLXxvo+ws+5v5KbiQW4mc8iurg91vXm6Gtr2JBsRbAvdK7QLWCpBuK++d
-         9K9vy5O2Od/WRtoCyL/tWdSvu6M8yW3HmKFXmINI6GNm3zdf2zfkZZQpti1V9b4N0woN
-         US7Q==
+        bh=BPsynQVkg6+ImOI5Ts+zsO7EhceaQ1Rk9XjAnwab6s0=;
+        b=nib5DIgK/xinL14VkYrNajaEI/6NEt5Tj1uIsC22pegDGMGsbxNy5chXjsVaxwTbRr
+         xqG05yY0OD77sY0Hvv4DfMVkYYoJ9M/pwYQq9AaeporqY/FHTXvBDQUUui5LYxWCfFNR
+         AYNCFlUP5Nkq2bQ+UD7RQOg73YTyaGndFiWTiRj1FUzOFYqKiyJWW4V78NvfqK4kOQ7c
+         O09C0R8kp79ZvipCujz4FE4CnF/g0xYF5cxgOryDR5nzKRB6Jw90I2PSvMTYai2L7KEp
+         41jroZu8PDo246om+zZBaRT6Vi1LK543iQpYWXzVsmu787d/PbTQP9EyANN/Yw98QS6P
+         6hkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789128018; x=1789732818;
+        d=1e100.net; s=20251104; t=1789128532; x=1789733332;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jU9kvyfbvdodjOEWNhAyWrD9R6/DXaJ1BcW1aCO08yw=;
-        b=hmLUBHPsMzkR/VgINsLq/K5j354KAHbPNjRUGi5mwOXs2cROi/1N2HoB0Zg20Ro5Xj
-         XGY0oQpAz9sOQg8hsjzwwCCuV4BVyWDnnsK+lJPfNBJY5ybTQSxemxLqDqCQO/FxRstl
-         nB9TlBdocGlH4QT/+SE9rEvW93XxeVqjimpmU6LQSLrFKpKKTCkUBrWVoCh9hcsyYH7G
-         1SPLp10/WV++eRSNLqkl5c6TjdYQnq6S8q+7Al8UZ3vyqUnbN4mD2WKzOEOSjI04DfzW
-         uobarFjdCFAX0matGmHzIPvppHTn5rjHDTDi1CsFB54TAu8sytE/XwFxcjM0s9XBM6cA
-         WRRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkSzdzut1mJf4vfuxpQQ4ME18IRtNcUVRFxD6YzQqcACIWuObhaiDs01tMoFInmx0XwB+hY1wgci69@vger.kernel.org
-X-Gm-Message-State: AFuF++lRhSl8Jfj4BZvV5lbl1BnwMVB3Tce8RTD+dt+r5asBGW7tle6y
-	wDGmzKA46CWQYLJB/hfxKTbKZgqHCXcY944f3d9mL5vSy+algt9JwgYrsYzdMq9+Q5PGGviIbQJ
-	1uB3nJHgR2oEaB6j/VeIRze7ajQ51Lc0=
-X-Gm-Gg: AYBFou2qgB8n/Eh+TobHDjUueebaJR2K583rPxdoG7iplWrRcun0/41dyZrGR1eGNB3
-	07XqxjAfDIgeqoiDH8bd9tgMSaY3K2YYBk1PzB4priTitQArFFkVSVnP0ZbuvfQgfakiwEO3ap1
-	9xj97INQUkOlH8XryUGcNCSfKS/AGSjthXWkpIkhPiZadoy72JaWw0VrNpaHWxVoeP0Y4YcqCGG
-	/+YlhITgUkLbolfTYdPR7h7r3h7YHr5BQvaS4PZcTg31VlpsrM+oVBovEph+V+bll8EBmYQt8WT
-	d/GITcunCKKUiY7itSjwnCYX1YSdixEbrtz2KVvtLC1XKuY0WhlRejwhH0irsh37Qss0MGNLUVU
-	I7kDd6BhMQllAfx83ykQybGZKDlJrHWhhvm8358o7ohpnq/vFTIEZnp3936a+1Lcy7L4=
-X-Received: by 2002:a17:90b:5108:b0:38f:657:6823 with SMTP id
- 98e67ed59e1d1-39d97f392d3mr3889515a91.8.1789128018117; Fri, 11 Sep 2026
- 05:00:18 -0700 (PDT)
+        bh=BPsynQVkg6+ImOI5Ts+zsO7EhceaQ1Rk9XjAnwab6s0=;
+        b=NIp6gGCicsT7G1IowC/oou1A7r0jY1xF6laxHunKSIBS/LyserA8FAF/BRCLlDICL+
+         qNU6YiY5lvR/LC2f9ix8VMvw0PYARbTgUvgGnr/6ZRzszn6SWwzX4rrSqamq6aPtHNBo
+         bh/55vQdFJHpl2qL/1mCd953k3C7hk88NWcDFqdrkbyeuR2Hrl8JDd6ci71vXYltes6F
+         yuZjcKbr4QyF4n7DKapBQ32h9Plv5e+6TRGM7Uk5DiWeKR6/MKPgkeR+rqVxgVztXe9n
+         WAnbkdMFwgCtqy806dZPnVXtugP/xrD/CXXKB55GdBF/MCHrS8nAjbizKaHQiIOrhE5p
+         zm3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzzXZ8yI+XxEb/7p755sezRE6Ksh2S/92YEEpcIKseJB5udoC6DenVBHXD5+eibnp0TYEuve7M26hK+@vger.kernel.org
+X-Gm-Message-State: AFuF++kmasoGZLmu4kTsRtqGHLGmeqsZRqcuOkIwxf5/XUe8tiUVo5D4
+	SgX+6PCfC/Gn/BBszGexkMv0R1r4s/qahRwIfj/9vhCP/jihAj29NM8PgSrVziLDDc9/l5p8756
+	8Gm9nCBlf24KnVPQOGr/wnV6eBK3T2rCztu7iLkKD3Q==
+X-Gm-Gg: AYBFou1+wGmsAx6+57FAkM3cv7F4MmZVkXZP8XEwNxwpenzkBoDhKMciSPjMJ+neEVK
+	AKy/e8aBNP3WjhXAkYGAcEZLTLRrTHuXQ9T1kIRv7Ia2k3Z+dNydotFBXfz7i5sY7lixJC1rLjS
+	vRr2eF1nnfd2rDT2M8e28VrP4DWLjzL1YBf8TigJhSfnlna80+mk8sHwXs23RiPY0UWLdv/KqNO
+	R5mDm86vTP/2sjRMI384zsnv3Z/X3/TaMZ/b6422uMqm7103kiXBxbrgpCGOV4LWd7dmrWvsztv
+	61gMH+7pVoli1tVx9vd5d2KxC3h7jAxcwfQYXsxthnPQMoMz2ossiLdNa6cR1lAzpYsIf8+c9D4
+	4wf4SoOURUIijk5lkRsB+L3LM1TnR8SL0I17yAsCXM6Hyfb3mqA33rTLDD7nlnjgVPgs3WauQrA
+	==
+X-Received: by 2002:a5d:64ea:0:b0:486:e91d:9f99 with SMTP id
+ ffacd0b85a97d-486eb2e40c3mr8765403f8f.10.1789128532269; Fri, 11 Sep 2026
+ 05:08:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903-topic-am62a-ioddr-dt-v6-19-v8-0-74c650dfdea6@baylibre.com>
- <20260903-topic-am62a-ioddr-dt-v6-19-v8-6-74c650dfdea6@baylibre.com>
-In-Reply-To: <20260903-topic-am62a-ioddr-dt-v6-19-v8-6-74c650dfdea6@baylibre.com>
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-Date: Fri, 11 Sep 2026 09:00:01 -0300
-X-Gm-Features: AcwNN1UryKTs1Lw-KY6R7BmulMcgHb-91PJOnn7PiBP850ZNAVItrIcXBzp-x6o
-Message-ID: <CAK+owog22cPgYj9muDUJXcTx+k9eBmPz1jfi8D9cx3H-xo1mKQ@mail.gmail.com>
-Subject: Re: [PATCH v8 6/9] arm64: dts: ti: var-som-am62p: Fix wkup R5F memory
- region size
-To: "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
-Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <nick.desaulniers+lkml@gmail.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, Judith Mendez <jm@ti.com>, 
-	Daniel Schultz <d.schultz@phytec.de>, Andrew Davis <afd@ti.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, Devarsh Thakkar <devarsht@ti.com>, 
-	Beleswar Padhi <b-padhi@ti.com>, Francesco Dolcini <francesco.dolcini@toradex.com>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Vishal Mahaveer <vishalm@ti.com>, 
-	Kevin Hilman <khilman@baylibre.com>, Sebin Francis <sebin.francis@ti.com>, 
-	Kendall Willis <k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	llvm@lists.linux.dev, Hari Nagalla <hnagalla@ti.com>
+References: <20260911111731.3404308-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20260911111731.3404308-8-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260911113216.3810F1F00893@smtp.kernel.org>
+In-Reply-To: <20260911113216.3810F1F00893@smtp.kernel.org>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Fri, 11 Sep 2026 13:08:25 +0100
+X-Gm-Features: AcwNN1WzhLhKvgeum0uiJ1v9nMlDLxD4oK7UJnbzkS0PJFF9qRryrARMqpujyiM
+Message-ID: <CA+V-a8tHoShO+NXrsYaOvW3C68khLY=+S8xpyKRjOvo757LO2A@mail.gmail.com>
+Subject: Re: [PATCH v5 7/8] arm64: dts: renesas: r9a09g077: Use CPG/MSSR
+ syscon for WDTDCR access
+To: sashiko-reviews@lists.linux.dev
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
+	devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 3, 2026 at 9:40=E2=80=AFAM Markus Schneider-Pargmann (TI)
-<msp@baylibre.com> wrote:
+Hi sashiko,
+
+On Fri, Sep 11, 2026 at 12:32=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 >
-> The wkup_r5fss0_core0_memory_region was reserved with
-> 0x01e00000 but the MCU SDK linker for the wkup R5F firmware on
-> AM62P defines the DM code/data DDR footprint differently:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] The transition to using a syscon regmap for WDTDCR access is bro=
+ken, preventing the watchdog from probing and containing an out-of-bounds r=
+egmap access flaw.
+> --
 >
->     /* DDR for DM R5F code/data [ size 27 MiB + 396 KB ] */
->     DDR                         : ORIGIN =3D 0x9CAA5000 LENGTH =3D 0x1B63=
-000
+> commit 0e87a2089f722e3ac7bcab46cff76d445536d9fd
+> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> Subject: arm64: dts: renesas: r9a09g077: Use CPG/MSSR syscon for WDTDCR a=
+ccess
 >
-> which results in an end at 0x9e608000. For this memory region which
-> starts at 0x9c900000 this means a length of:
+> This patch replaces the direct mapping of individual WDTDCR registers for
+> watchdogs wdt0-wdt5 with a new "renesas,sysc" phandle property pointing
+> to the CPG/MSSR block. The watchdog driver is expected to use a unified
+> syscon regmap interface for these accesses.
 >
->     0x9e608000 - 0x9c900000 =3D 0x1d08000
+> > diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/bo=
+ot/dts/renesas/r9a09g077.dtsi
+> > index 40494159831d8..ad5189d55cef2 100644
+> > --- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+> > @@ -327,61 +327,61 @@ channel1 {
+> >
+> >               wdt0: watchdog@80082000 {
+> >                       compatible =3D "renesas,r9a09g077-wdt";
+> > -                     reg =3D <0 0x80082000 0 0x400>,
+> > -                           <0 0x81295100 0 0x04>;
+> > +                     reg =3D <0 0x80082000 0 0x400>;
+> >                       clocks =3D <&cpg CPG_CORE R9A09G077_CLK_PCLKL>;
+> >                       clock-names =3D "pclk";
+> >                       power-domains =3D <&cpg>;
+> > +                     renesas,sysc =3D <&cpg 0>;
 >
-> Link: https://github.com/TexasInstruments/mcupsdk-core-k3/blob/k3_main/ex=
-amples/drivers/ipc/ipc_rpmsg_echo_linux/am62px-sk/wkup-r5fss0-0_freertos/ti=
--arm-clang/linker.cmd
-> Fixes: 571562e76458 ("arm64: dts: ti: Add support for Variscite VAR-SOM-A=
-M62P")
-> Signed-off-by: Markus Schneider-Pargmann (TI) <msp@baylibre.com>
-> ---
->  arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> [Severity: High]
+> Does this node successfully acquire a syscon regmap from the cpg node?
 >
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi b/arch/arm64/b=
-oot/dts/ti/k3-am62p5-var-som.dtsi
-> index 8a8dec80cb30..3d1a2c5bc464 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62p5-var-som.dtsi
-> @@ -71,7 +71,7 @@ wkup_r5fss0_core0_dma_memory_region: r5f-dma-memory@9c8=
-00000 {
+> The cpg node lacks the "syscon" compatible string in its definition:
 >
->                 wkup_r5fss0_core0_memory_region: r5f-memory@9c900000 {
->                         compatible =3D "shared-dma-pool";
-> -                       reg =3D <0x00 0x9c900000 0x00 0x01e00000>;
-> +                       reg =3D <0x00 0x9c900000 0x00 0x01d08000>;
->                         no-map;
+>                 cpg: clock-controller@80280000 {
+>                         compatible =3D "renesas,r9a09g077-cpg-mssr";
+>                         reg =3D <0 0x80280000 0 0x10000>,
+>                               <0 0x81280000 0 0x10000>;
+>                         ...
 >                 };
 >
+> Without the "syscon" compatible string, syscon_node_to_regmap() will retu=
+rn
+> -EPROBE_DEFER indefinitely, preventing the watchdog driver from probing.
 >
-> --
-> 2.55.0
+> Furthermore, will the generic syscon regmap allow access to the WDTDCR
+> registers in the second memory region?
 >
+> The generic syscon framework only maps the first reg resource region, whi=
+ch
+> the cpg node defines as 0x10000 bytes. The watchdog driver calculates a
+> WDTDCR offset of 0x15100 via:
+>
+> drivers/watchdog/rzv2h_wdt.c:RZT2H_SYS_BLOCK1()
+> #define RZT2H_SYS_BLOCK1(n)     (BIT(16) | (0x5100 + (n) * 4))
+>
+> This offset exceeds the max_register limit (0xFFFC) of the generic syscon
+> regmap. When rzt2h_wdt_wdtdcr_count_stop() passes this offset to
+> regmap_set_bits(), the regmap core will reject the write with -EINVAL.
+>
+The syscon is registered in the CPG driver and the issue reported is a
+false positive.
 
-Reviewed-by: Stefano Radaelli <stefano.r@variscite.com>
-
-Thanks!
+Cheers,
+Prabhakar
