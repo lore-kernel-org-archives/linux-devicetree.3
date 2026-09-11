@@ -1,71 +1,123 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A7F4AEBC4;
-	Fri, 11 Sep 2026 18:10:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6C9A4AE10F
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 18:15:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789150215; cv=none; b=ct4a9iF9IqrVG9OyHLN6jSaG+pgfXKGzDgRwCpK1g5Uecc2+wpiC99yy8nUkeS3ewBnkoZFROwDNdT4dcHC2o/f+Qi6TLBG6H8+IaSYKXik5vTR2SNT9WgbIxm0JN+H61nkqasmRlXcZJDQoIl+JHJPnQ10gwpiPTMJnF+eZx44=
+	t=1789150514; cv=none; b=iiePisV+lCFZxhzPBRnXyKw0cvYsbHxPA2pnxh7b31r2vXu+PQztE4Y7yc9RoRrMQMxFG5cFs+YWn54XbFaK5PlhIObdc1IMYpuyS6TlQReO9XQoMa+2/bdIdb5K3OtDHCQ/obW5HCY69Mn3ahwje9G5trgUu9j8bjKZgfajOlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789150215; c=relaxed/simple;
-	bh=P56sGtJ8Djp3z7uGYz7K/bRh+Bonq43cI5XEAgw/okg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O6tcap/fY/OyQl/sf92adIB9Rl95QPpyQrLkrU15MLe8/t0Em2XYG8RwvriVNGJmII/0DqoI0EFH0rNTyB2bqxqj5gvx3g+H+8qK/hfM0HIlPy40h2RZ7ThfSxAKcw68Ugmm2PwJfHfpoGBOBmcGIqfoJhQcgQSgBIBHEvK8Tgw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=G7jxFTOI; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789150514; c=relaxed/simple;
+	bh=Mgahn01sS5gczturDy/G4PNaMknNPNwtvnNftWb1g/A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dqpDxoAailF+ptUErnjlDwtvFKE7FpUkZQW3NDYuF10aP0RdyYXMPO/GahUmnk6f/C39CSMEBDuj6BQh4DofPD3J/TEoL6VZsB+5n0AWm50HkUa54PI2K11mDQCGVa6Z6264NE04jO4aw/5FkW6+cQk9kSFZyc1pbhd3/yfo/zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U6dcLPin; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="G7jxFTOI"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0C2BE10327B;
-	Fri, 11 Sep 2026 20:10:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789150204;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=mQrma2LURwgBlfZT2emMUrj5BCk1p1v6AScmI3ULZLk=;
-	b=G7jxFTOI+nFLXuX9a6xdxGOgwyMQbM/aKI4ahgSKjW53Dx/lLOw1bpLY4Sw4bpwlR5crDt
-	s305K6iI67A1Skcf65juGH1OAM3PAYUYEpGzQsMo/Q+FTF0Z8bgZXnIvBnwbpinqBugUxU
-	ueDHFhSLkPnhW2lWx4dEdu5GuVPnonPZLdu8P2YZ0wYiiwmLecndAGMt3Anw2Y5Z+wXgra
-	uyhLEN3DwCgnRrq25l9JGAsFd71A6A/JbDF+4QAN2cODo0ura/rDYdYPDbqPsgTIGdKFJF
-	HKeCELxPW16YxhKQssl7kYqsT1ZKnzOOTF4WOiOwCfoAGBdBsGamY7Ycp6YJ6w==
-Message-ID: <40827aa9-e7a9-42ee-a004-96d530e377e0@nabladev.com>
-Date: Fri, 11 Sep 2026 20:10:02 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U6dcLPin"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B34291F00893
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 18:15:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789150510;
+	bh=6+jUOnuRGVnXKnZ3KWqfUO9v4zUR2jeqpm+66XJzwFQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=U6dcLPinpaKlwlRALrFH4RPaWbGAHDSK/SLwpMlzm/w5iG3i8NNdsnbyhZrHSdLKy
+	 awwaN4tpz59egQpc/0FaXrxMN2dbDBZWlDNLr0HbcQZoK+DUMe4j1EvLT95qzJvJsf
+	 ji48B6gC+cswel50BzsT/YqnhjE3T/rrX3IDZ5DITGs/xUw9cb00akcnFjgqlUQAQB
+	 PqQsS4sJAaLi/yR73kgZNZR0jSp/bDeqvAHtuUfeCLc3ZEwh9BMk5A6n9IPvOzcYpQ
+	 PW0cEHcJh3uCODO5ez78rt9j3ZmPVEk59DU5shcGBzlIAgVTJMBYAO2cxRBdXl9z+N
+	 NTjSRYD1CId4A==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b8996d65a3so1366417e87.2
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 11:15:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwd4sCv+KdvHnb/Wg5UZjJ+pgVSik+t0oX6ZF7+PBSm+tqQbKmLZ7ESrmyDJ+9McAEEwc0OCckAK4Dd@vger.kernel.org
+X-Gm-Message-State: AFuF++k6aK1c21eoUm03q5BBRKQtG3ujmCHE0ltYPUidLYmf0Y+eMKkT
+	EGUs47ZOslsyntzDrMjFJybaLgU0Bjhp1MQi5blUnyr82NEETfprVVAllbnWlphro85DQN9DJFQ
+	pse5AjQfNa+c1FABd0Kze9GzcbpGQjYg=
+X-Received: by 2002:a05:6512:618c:b0:5b6:183c:5c8b with SMTP id
+ 2adb3069b0e04-5b8a0311474mr1248761e87.41.1789150508682; Fri, 11 Sep 2026
+ 11:15:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] arm64: dts: st: add vrefint calibration on stm32mp23
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- Patrice Chotard <patrice.chotard@foss.st.com>,
- Olivier Moysan <olivier.moysan@foss.st.com>
-References: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
- <20260911-adc-stm32mp25-v1-v1-4-cef26eecdef2@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <20260911-adc-stm32mp25-v1-v1-4-cef26eecdef2@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
+ <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
+ <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com> <CAFr9PX=_FmMdR4TeP+tqURZdZCTjw8UYxAxeszs_vcpTbX+_aw@mail.gmail.com>
+In-Reply-To: <CAFr9PX=_FmMdR4TeP+tqURZdZCTjw8UYxAxeszs_vcpTbX+_aw@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 11 Sep 2026 20:14:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WjZ27WNa2xIf0xCkX2Q7TecAH1yvD-cA-Z7rRTMeFdlwjxtS93LAQhgdg
+Message-ID: <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com>
+Subject: Re: [PATCH 03/13] ARM: remove riscpc
+To: daniel@0x0f.com
+Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
+	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
+	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
+	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
+	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
+	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
+	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, imx@lists.linux.dev, 
+	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
+	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/11/26 5:51 PM, Fabrice Gasnier wrote:
-> From: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> Describe vrefint calibration cell to be retrieved by ADCs through bsec,
-> on STM32MP23.
-> 
-> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
-> Signed-off-by: Patrice Chotard <patrice.chotard@foss.st.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-You have to implant Co-developed-by into this , please fix globally.
+On Fri, Sep 11, 2026 at 4:38=E2=80=AFPM Daniel Palmer <daniel@0x0f.com> wro=
+te:
+> On Fri, 11 Sept 2026 at 18:11, Linus Walleij <linusw@kernel.org> wrote:
+
+> > - One camp that are enthusiast like yourself. That kind of people
+> >   are running the show inside arch/m68k on Amigas and Ataris.
+>
+> I have SMP working on m68k (dual 68040, real hardware) among other
+> oddities. I think some people would get a kick out of seeing it but
+> also I think some people would also ask why we can't just delete
+> everything that isn't arm64/amd64/riscv. I'm putting off sending
+> patches like that to avoid everything getting deleted. :)
+
+I have actually thought about SMP on m68k from time to time,
+because there is Swedish hardware with enough memory to run
+Linux with SMP like that (DIAB SMP m68k Unix computers).
+
+I would say using generic entry would be a prerequisite for
+doing m68k SMP so we don't introduce *more* entry
+oddities, but after that I'm game.
+
+With generic entry in front I think it should just be merged,
+but that is me personally.
+
+As SoC maintainer I see that m68k has a lot of technical debt
+like drivers under arch/m68k and no proper hardware description
+(such as device tree) nor is it migrated to the actually standard
+board file structure (fwnode) which we use when we have no
+other description style.
+
+There are things like
+amiints.c, cia.c, ataints.c, q40ints.c etc that should be in
+drivers/irqchip. So many time.c that should be in
+drivers/clocksource/* and many other unmodern things.
+
+Albeit I think actually going and fixing that can't be super-hard
+in the age of LLMs. So listing things like this likely will just make
+someone go and do it. :D
+
+Yours,
+Linus Walleij
