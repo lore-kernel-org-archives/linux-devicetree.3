@@ -1,96 +1,181 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013035.outbound.protection.outlook.com [52.101.83.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57D135200F;
-	Fri, 11 Sep 2026 08:18:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789114724; cv=none; b=QgUlM0cuIG6zrIudzrKNMzCdQwRrkDqRR3D+6j5AJDi4MsdXf8yKTo9slIq4+vpDr+z9R/n1o+ZEuEavM5bXhYTNiqxfYsXC+G0CmknBqN82Zf59RKGm38Tplmu6zec19IduUSLFoxweXncL/krnX2ZjN/PtSFoxRQQEMf4B+Go=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789114724; c=relaxed/simple;
-	bh=nDXv6Y96Q8Iewfya/R7dSrOBB1xFG/BWPpt4OScrzHA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FgiLVJbj9Ia50ACjNIVwAHrXZ7Q7JKZzEV5KNWkIdyoLt7pSwM9ECSfveuzA/pPfY2hIU3hhK2NyJxjFCOCypAlCv4CgGlRC6QJ7Dyq1L7HHgcQk50s9z40hqNUTNEvZX+CkJWp8jiXEGHVfQmpV6ZSZJYm2qB82+7fLU2DD7dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=T637TzRm; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C442525A2C6
+	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 08:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789114739; cv=fail; b=VjHW8rEMZRnL9qyfxqoGq7XuxOQjUSzYeDdzBuzGFkY87ij2EAGXVOohdbRUhLYlgPf1sDcwUdsyRcVXmtooEdnpxHQge7WpKcGDan1ClFmT/DeE+bKQEE9AvJhDVxGsexCsjKu1n+Fid4WGAmVlU7K6zXVPwEEP+KahE4X/0OU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789114739; c=relaxed/simple;
+	bh=VRCPk5KFw56+LoPvZ8JXlBUsMCYkv8mbmJUaz2B2zgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=eXzxfvPFMyuJZ0VfWGvl3dG57OYTKpugyp8GSvNNtj7oTHZBezfIlr4CgGTa276jAprezy0xXZxRRP7t8HMYMexUAXhhCY4zefybanio2ySAD9cMjrIVNd9NWxOn1hKcEpNdjvVZcuKcH6bbOrdaGmPEfeX0o6tVdq2cPMM4p8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=K2NDsazV; arc=fail smtp.client-ip=52.101.83.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="T637TzRm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789114723; x=1820650723;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=nDXv6Y96Q8Iewfya/R7dSrOBB1xFG/BWPpt4OScrzHA=;
-  b=T637TzRmgny8cYKbYhegfmcBDMAFqwOSSuhyKCfPo1RmNfZf0zSzYJ2n
-   4ZJeaq9bZBMVkHG6XKvjGQ5p/U7pk6DmCbQDVtfNUbWpy9rGsjmHW+cj8
-   y73eN3UW0YZvnSXj/MID3T1jxa+NLcZ3frAHrVDQEly5p9jEhtAj7kzN1
-   XbITcJKTMM5Vml0GsTx16CSEqaLPUPk9xYVG8AuYIdHNspKLwp0UBBmqV
-   RcytKoKEYii1zc45wHhBx8OrvgXVE6c2ngwOLGX5+VEriulJYyA55TpQH
-   Xy+cNhSA1nLDNHQSJwedBTRw8d3Z4smegEK/8goaYjKJtb7ha6oCiARpw
-   A==;
-X-CSE-ConnectionGUID: BgeS5zbtRNSaTaHFjScptg==
-X-CSE-MsgGUID: ZzQbmHruTdOEMI6yJj5Qqw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="115115579"
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="115115579"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:18:42 -0700
-X-CSE-ConnectionGUID: S84+z6GjS8GGPHn2UPBX0g==
-X-CSE-MsgGUID: XkbMB2YNS7m9l9RD3Ljf/Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
-   d="scan'208";a="296844468"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 01:18:37 -0700
-Date: Fri, 11 Sep 2026 11:18:34 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Randy Dunlap <rdunlap@infradead.org>, linux@analog.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-doc@vger.kernel.org, jananisunil.dev@gmail.com,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>
-Subject: Re: [PATCH v7 03/17] iio: backend: Add support for CRC
-Message-ID: <aqO5WmC2TjXVduBA@ashevche-desk.local>
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
- <20260910-ad7768-driver-v7-3-7f70b07627e1@analog.com>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="K2NDsazV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AIXulKgAINdcAFN9SAPHemItEnpKiFS0PSgrA1nUch8c94wx1ad5QhgttDp1ePO3E/uuf4NrEBATigFGZnkxb73tfCnXboK7r1RSHCs+uFX+8soh9WfhfIrFS5cMmBrpBA1SkLuyt3mUVLwFWjE+wSFadcFdUjfB1at7ZszUMQexc9Ua8AAVuaWKpJgYd0JV0bY31/zULZLOf5f0Gh5NqiX1UfFTM0ceVcVlKuYF+MEYhV+sPSquDHq7cCf+pZxLS8i6pDYvRG5PS0D9e6y6DVexdp2nTFqhUtl5gM69uFI4RZ7xtkq0e9299WSE4eLtdv1pASCpVWZtogBuetagkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=76LEf+CsrdRNo2c4fJHmloM03r/15RWoIeAwm1vMIPM=;
+ b=Byn2FcEdoSHOnCnaYn2MwUX+Axk77MKzsRpipzoqLBEn+GZ0qd9Q88IMEKxa5e0lDLCpC5oBMS3n3fiCGxJjAr3SouFkTNO9bwMWpLOe1HiAHA/+eN2k+snrWtuXagPK8InwKf1qUMtcioVBN677TdruVtHZCfea1y8zYnJVeYcnADjxu3dl6aGi61LJuUrcTjyyPslT58gXLgZo5mIBkv7TgQLmVLCAZNbi/fKssPfVO4TauMpoldbTObmzdAXMlMVOwr8k+zct5j488fcYrBZNCoGrDQbDZyzEtnTAZcBnlV9Etw/fULpz9pwupWnkZpPz1+RdjMeHeE9rXr74Kg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=76LEf+CsrdRNo2c4fJHmloM03r/15RWoIeAwm1vMIPM=;
+ b=K2NDsazVtWYGkuWhcMrsJyJrzYnTysQfNBTeV0r3FuZae2zqnfKxcYGSjk2OMRYW8Y0VxmqRBmAzHu1D9hEbWA1oTMt/2Oqrfnfcichlh+P/mkdQATy0ZFV8ImLcmU2sQ2CWGMcaLsE+pkIFs7e7V4SzkZbjduh59+xWbO9rVNVYxN0bup9QRjzVohzG7TBLj3eWezLrlbP4vOwiVu65Uni5yqNytO92zRqpeFPShFVqouOJktL6DFrsYx0tmOhIEVhyD/xB7xsx7ynvXaLA+tRq2jtO0rfopHOFIJXO4HkzzxX6nFf1IDhYuPqiBZeshhRlos3YDkllDWyZ86Wokw==
+Received: from AS4P190CA0030.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5d0::20)
+ by DB3PR10MB6812.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:438::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.9; Fri, 11 Sep
+ 2026 08:18:53 +0000
+Received: from CPH1EPF0000051F.eurprd04.prod.outlook.com
+ (2603:10a6:20b:5d0:cafe::93) by AS4P190CA0030.outlook.office365.com
+ (2603:10a6:20b:5d0::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.9 via Frontend Transport; Fri, 11
+ Sep 2026 08:18:53 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ CPH1EPF0000051F.mail.protection.outlook.com (10.167.241.234) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.5 via Frontend Transport; Fri, 11 Sep 2026 08:18:52 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
+ 2026 10:24:54 +0200
+Received: from [10.252.12.102] (10.252.12.102) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 11 Sep
+ 2026 10:18:51 +0200
+Message-ID: <702db76b-fb98-4944-95c7-b050f19af5fc@foss.st.com>
+Date: Fri, 11 Sep 2026 10:18:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260910-ad7768-driver-v7-3-7f70b07627e1@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/5] ARM: dts: stm32: add TAMP backup register in
+ stm32mp151.dtsi
+To: <sashiko-reviews@lists.linux.dev>
+CC: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+References: <20260910-upstream_tamp_nvram_dts_part-v1-0-e2bca58a65f4@foss.st.com>
+ <20260910-upstream_tamp_nvram_dts_part-v1-2-e2bca58a65f4@foss.st.com>
+ <20260910152630.428241F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20260910152630.428241F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000051F:EE_|DB3PR10MB6812:EE_
+X-MS-Office365-Filtering-Correlation-Id: a6651c93-d3c3-4b53-446b-08df0fdd50ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|23010399003|36860700016|82310400026|10067099003|5023799004|56012099006|18002099003|22082099003|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	a5tyWoZ+C1/7x3H1XLG3xs5dNY7G1Ql6dpaHv6LXaouUlc85p9+2CtNCaQUlF7+ivynoQMTrUhh5zNOVJbHk57rVZB4Y/bgl0QBNCZFELj3IWwyu/RIW+dfXx2mH7OYpVWljWh72VjmMkYIDvaNwch7/Xcw4TjWyWZL7SpnU3bMyFH2oPEABFNUEgHyV/W8Oop8RvcShIEBwuCr+oD4FGRIu8CnZH7WW4EjeVzNM7vPU7/pa9QDJCoF+qBpvdjcA5bdvzDLYp07f3F60eF8iJ/mz7wwSNNOZLzAwRWziQDbwIITv4htKZc8f9pjj9VDPK2A97hTWU4ys4LBg5WX7ukOPU282zpRKUw1pDXgG6m6j2bDmcxJvC4STgiqVX12u9qta5QQdYgx9lqQ15QbjPohmPuRpt/8d2yk2YHjQtRMcHTTIOrpG5vcXzzMXbZjyVtAbZOaOo6hvWu1p5bUsvzsL7+l0kPxVCRRFIMVqwk64M+rAjPI57PQ59NqSOwwO8qKGXco9nDvu9/f87Ctl7+wXZ2KfW1wZCXbKhDCg/2b5ZVA4kQql+BpbvVIWQTVB72wjNyXgXCMWVmTjBE45EVyAWaIDa7P93z0GcODovsUNKdcmkqaaNa7cgE1SbQZ2PdUXZo6ubSSp7FGA8n91JR7DguLgomL3p8xj0RtTbA2ZZkP2Eiplgq8VNAxW1C4xRpwwRfyH1QIEU9XmsUYrHw==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(36860700016)(82310400026)(10067099003)(5023799004)(56012099006)(18002099003)(22082099003)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	q5DUur35fDAD6q22jpqNZSVWMoXrOGnA8zpj6xidLIl6qKaF/W+kOorj0t2Fq/3oMU4O6aytoskEPlQxDtIaVqeCZH+s21oFo/iuoyNm/QYte7Kg3DF5tnZf/RVZeZfo9xgCaIMQceCyv/dRU2o15CymWec5T7Ya3ErlA0NHohnlNcWPop82Spd5LXJrbDuNjo4CC8/5imk1hYkmZTtq02o3OYEAQ9E7DuRu3OWxSZhzV+CmPBRcUYFUmSnPG6f2kx1Jnhku/agvepH5jByadlnokvD/x6srqJOc7lECXAg5ewYWvc9LsTAjUNrQb/3rPsBh8GqDAPY6fBTTUU6xLaH5YpSh0j4WLU5y7gkUN7x/VRBfTsPvq5a7DeCDJRwcZtsecl1rQAGFTD8/AK/sMHJ4DZgtwf51hLs6MasCKSKaL0fDujWgc+QBHSQf5fOH
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Sep 2026 08:18:52.8928
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a6651c93-d3c3-4b53-446b-08df0fdd50ee
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000051F.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB3PR10MB6812
 
-On Thu, Sep 10, 2026 at 07:36:21PM +0200, Janani Sunil wrote:
-> Add a backend operation to enable or disable direction-specific CRC
-> handling. On input data paths, the backend handles CRC data generated by
-> the frontend. On output data paths, the backend generates CRC data for
-> the frontend to verify.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
--- 
-With Best Regards,
-Andy Shevchenko
+On 9/10/26 17:26, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Low] The compatible string "st,stm32mp15-tamp-nvram" is introduced without any corresponding DT binding documentation.
+> - [Low] The comment 'SHA-0x100' is a corrupted reference to 'SHA-256', resulting from an accidental search-and-replace of '256' to '0x100'.
+> --
+> 
+> commit 143934b850adb47535f66b1f12ec54c5c90f65e6
+> Author: Simeon Marijon <simeon.marijon@foss.st.com>
+> 
+> ARM: dts: stm32: add TAMP backup register in stm32mp151.dtsi
+> 
+> TAMP backup registers allow information sharing between different software
+> components/execution levels. They are described individually as nvmem cells.
+> 
+>> diff --git a/arch/arm/boot/dts/st/stm32mp151.dtsi b/arch/arm/boot/dts/st/stm32mp151.dtsi
+>> index 84f68e8563d85..0ad75e0108394 100644
+>> --- a/arch/arm/boot/dts/st/stm32mp151.dtsi
+>> +++ b/arch/arm/boot/dts/st/stm32mp151.dtsi
+>> @@ -2060,7 +2060,89 @@ i2c6: i2c@5c009000 {
+>>  
+>>  		tamp: tamp@5c00a000 {
+>>  			compatible = "st,stm32-tamp", "syscon", "simple-mfd";
+>> +			#address-cells = <1>;
+>> +			#size-cells = <1>;
+>>  			reg = <0x5c00a000 0x400>;
+>> +			ranges;
+>> +
+>> +			nvram: nvram@5c00a100 {
+>> +				compatible = "st,stm32mp15-tamp-nvram";
+> 
+> [Severity: Low]
+> Is there missing device tree binding documentation for this new compatible
+> string? dt_binding_check validation will fail because
+> "st,stm32mp15-tamp-nvram" is undocumented.
 
+This new compatibale has been introduced by this patch under review: https://patchwork.kernel.org/project/linux-arm-kernel/patch/20260910-upstream_nvram_reworked-v1-1-521c16175cef@foss.st.com/
+
+> 
+>> +				reg = <0x5c00a100 0x80>;
+>> +
+>> +				nvmem-layout {
+>> +					compatible = "fixed-layout";
+>> +					#address-cells = <1>;
+>> +					#size-cells = <1>;
+> 
+> [ ... ]
+> 
+>> +					m4_wakeup_area_length: tamp-bkp@5c {
+>> +						/* see cortex-m4 wake up feature */
+>> +						reg = <0x5c 0x4>;
+>> +					};
+>> +
+>> +					m4_wakeup_area_hash: tamp-bkp@60 {
+>> +						/* SHA-0x100 value see Cortex-M4 wake up feature */
+> 
+> [Severity: Low]
+> Was there an accidental search-and-replace here? The comment says
+> "SHA-0x100", which seems to be a corrupted reference to "SHA-256", likely
+> resulting from a bulk replace of decimal 256 to hex 0x100.
+> 
+>> +						reg = <0x60 0x20>;
+>> +					};
+>> +				};
+>> +			};
+>>  		};
+> 
 
