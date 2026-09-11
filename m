@@ -1,112 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7E5D455182
-	for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 07:43:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF23456E1C;
+	Fri, 11 Sep 2026 07:45:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789112601; cv=none; b=YwwRepnrb4HqLbPhh26wTJIDNAssILVNjCMZCLw5sl/ulPfzTgbX/C/9HT1AsJvwK4aUkXRzbsLjEEUkbRPCJURVDROl2FnH/NBHx0jpt/W1r1wmCklusxql8wHW/W8uoVc1Lm0ppirlT5/OiB4urxTKIcECwOTGGzz3kFa2h9o=
+	t=1789112757; cv=none; b=k0pxaaBmEc0Bb6FEiVOyRxV1vA2n6iTY9ZNvuJabWC5mAKf/pAis+5o4xLSPyKWui0pRCScdWD9eixOMlb+W/C9CeIuoKfUbotInzBFYQn3KW6VKFz4VamHj5dJsyz8/O1l+BTi9Yruujfzjt2i+PVyQ8Rzses4q2PHkrYInn1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789112601; c=relaxed/simple;
-	bh=5ChWbFIC5IStbQYg22U9PeCTu/RbG/HOgMXms+fRUQU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=I1ZocY4W280w2Ys9PnCFJAdHGWaiMyFSi1UAZMRjBfhzTuhiL7i9YKVr0Br7sUisZ5xMtqaIAL217kFhRAaxEJrlxjH4Ci7ALt0kO/cBRirZ2F4v6YW0gV0LuHwtRw0CIZsh7E0I4UPvfOi8uXzGvYaK1/2y3EpUzGRyfQUopmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WM4g31/V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789112757; c=relaxed/simple;
+	bh=P613Qqkim9tvF/YDkqzlliqzWipz8NQJSKUjolASpwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ev7RDoSNc3WptDYTRF/g8Lqz6zIXThL80bfQlOn4X4Mpwfbp/SUk1UEjm14dC6vgGTqc4iCHoLTqxPc9Z+zAqiSY51nQ346xDUEEtl00H+GnoNeoR2hzOfw0TPj8zCVfqlsZE1aEnFpVIYokD2sQoBH0pLjzBpwc5ZKZzh6F3yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E0TlGE9e; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WM4g31/V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFB1D1F000FF;
-	Fri, 11 Sep 2026 07:43:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789112592;
-	bh=qo8lCZzrr0jxFPdwpJP9YznMpKDuoy7361WCAbPF1h8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WM4g31/Vrf+RLfX0eR2i5egUY8hD/mjFbMY327xFJsN/xmf+yhsy+FSPwt+sb0nxy
-	 NrL9QIRMNI8SjPnYzDyFmq0pK/P/vlU22SZMXwPrhWOe6vnUBBR2aYl69oApj/eKtr
-	 TnjbzfEyCVWBm6mbEGW2y073731wvx7QgARI5P0W1PQiiEGaV8EUuf9O+F3aOoX6jH
-	 +FmJpj86kyZUrxUjGYUKWwsEN5V0dnJ0VneXPk9nlkkqmvJIIBzYAdzKZRO3EBq2HB
-	 NNMgOMSiddo97vMNQT9bYsmfGRqWq0H00Emmd5DHtg3QtNFFp077hljv8bmdolSX2Y
-	 RucSydDKx4weA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] Revert "dt-bindings: display: panel: panel-simple: Add
- lg,sw49410 compatible"
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
-References: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 07:43:11 +0000
-Message-Id: <20260911074311.BFB1D1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E0TlGE9e"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789112756; x=1820648756;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=P613Qqkim9tvF/YDkqzlliqzWipz8NQJSKUjolASpwk=;
+  b=E0TlGE9ewCoetNG79Ulvg6ocO5dIBeATNtUraDYNn+obW8drK8hsIYPF
+   hwSx3gy/M+qZrJBQnFvp3FJGNrbMZrQt7Jjs2LvTyP0BuotPLq5U3+9MF
+   pdTwuW5k1Xf6ehd+cmmPgXnAp4p+go8rfwWVjqxYvu6O24ym9AM5jJVLC
+   0b3U8PnIQmLtHjwRsNJD5LqWWXLHQhufsBRbwyLFaeFy6Ywc61MzNXo+S
+   KBrK9AmReYkMWU5+fcZO05mHlPVw38dwADG09K+RL2UKoHUNvb0pwDO0Z
+   YgZEu74PvMQddMo4vJmJ176zZzXb8ydQ0Sd/uBd12y1MLgp3qjx5Tt6pr
+   w==;
+X-CSE-ConnectionGUID: 0IGW2WqPQu2UyqU05JV5wQ==
+X-CSE-MsgGUID: nMCU+pUuQem1bg6yFaW1pQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11901"; a="93440933"
+X-IronPort-AV: E=Sophos;i="6.27,96,1787036400"; 
+   d="scan'208";a="93440933"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 00:45:55 -0700
+X-CSE-ConnectionGUID: tSCyyJeiTOqZcPiDZfekrA==
+X-CSE-MsgGUID: lj9+AHTzS82HOYdYLsMCqQ==
+X-ExtLoop1: 1
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.80])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Sep 2026 00:45:53 -0700
+Date: Fri, 11 Sep 2026 10:45:50 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	krzk+dt@kernel.org, jic23@kernel.org, dlechner@baylibre.com,
+	nuno.sa@analog.com, Michael.Hennerich@analog.com, andy@kernel.org,
+	robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 0/2] Add support for Analog Devices MAX30210
+Message-ID: <aqOxriLHqs7E6c2j@ashevche-desk.local>
+References: <20260304122509.67931-1-johnerasmusmari.geronimo@analog.com>
+ <cover.1789032019.git.johnerasmusmari.geronimo@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1789032019.git.johnerasmusmari.geronimo@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Reverting the 'lg,sw49410' compatible from panel-simple.yaml lea=
-ves the corresponding in-tree device tree node with an undocumented compati=
-ble string, causing a dtbs_check warning.
---
+On Fri, Sep 11, 2026 at 06:12:15AM +0800, John Erasmus Mari Geronimo wrote:
+> Add IIO support and device-tree bindings for the Analog Devices MAX30210
+> low-power digital temperature sensor.
 
-commit 28eecf951716dcb353efba4db6671dff19420f95
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+This doesn't explain why a brand new driver is required. We have already tons
+of maxXXXX drivers in the same folder, do they not suit to host the support of
+a new device?
 
-Revert "dt-bindings: display: panel: panel-simple: Add lg,sw49410 compatibl=
-e"
+> Changes since v2:
+> - Fix FIFO byte-count handling and sample decoding.
+> - Fix IIO debug register read/write access.
+> - Validate event threshold values and sampling-frequency register values.
+> - Return the correct sampling-frequency format and reject direct reads while
+>   buffered capture is enabled.
+> - Clean up the Kconfig entry and device-tree supply declaration.
 
-This reverts the addition of the lg,sw49410 compatible string from the
-panel-simple bindings. The commit states the panel needs more specific
-handling and that the intended compatible was supposed to contain both
-the display panel name and driver IC model number.
+Changelog would be good to have a link to the previous version on
+lore.kernel.org.
 
-Link: https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@p=
-ostmarketos.org/
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> Moreover, the other compatible that didn't make it in the end landed in
-> the Qualcomm tree some time ago, instead of the one this revert
-> removes, so it's not even used.
 
-[Severity: Medium]
-Is this statement accurate?
-
-Looking at arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts, this compatible
-string appears to be actively used by the display_panel node:
-
-arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts:display_panel {
-        ...
-        compatible =3D "lg,sw49410-lh609qh1", "lg,sw49410";
-        ...
-}
-
-> diff --git a/Documentation/devicetree/bindings/display/panel/panel-simple=
-.yaml b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> index 3d1cc11ba3aa4..de722f45f862a 100644
-> --- a/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/panel-simple.yaml
-
-[ ... ]
-
-> @@ -206,8 +206,6 @@ properties:
->        - lemaker,bl035-rgb-002
->          # LG 7" (800x480 pixels) TFT LCD panel
->        - lg,lb070wv8
-> -        # LG 6.1" (1440x3120) IPS LCD panel
-> -      - lg,sw49410
-
-[Severity: Medium]
-Does removing this documentation leave the in-tree device tree node in
-arch/arm64/boot/dts/qcom/sdm845-lg-judyln.dts completely undocumented?
-
-Running make dtbs_check on the tree with this revert applied will complain
-about the undocumented compatible strings lg,sw49410-lh609qh1 and lg,sw49410
-for this panel node, resulting in a schema validation error.
-
->          # Logic Technologies LT161010-2NHC 7" WVGA TFT Cap Touch Module
->        - logictechno,lt161010-2nhc
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-topic-lg_s=
-w49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com?part=3D1
