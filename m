@@ -1,45 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA1183C0A02;
-	Fri, 11 Sep 2026 07:27:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9954457DA;
+	Fri, 11 Sep 2026 07:29:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789111648; cv=none; b=Sn0YppOjw/6XxleIkMbZQs6thVzlDbljH1z7GBiwtugv+ot7PFxsqdC8cnACqgaIzhRty2zlpIpBqXeqHcZQj7W2hei8OhqE/NHFr9OkcqrEoYZQNtY6yV6DWUqnTsVgefevO/Xl8q6TVPA/lEaMOGdeDVldxGhY4EORLAUtu9o=
+	t=1789111754; cv=none; b=Krg68QzVZtCzj+rOKKPsx8mrseSl2kILlBgqm/ZDm+/O1wo4jQNT7iMqz18AKdghrCzU+oYp3+sKLDkIYjwMyfQBMl6tTCGQWdQuC9ATmceliGZYFEpW3a8gfAoYdAN7HCz94rrVaOE1CgKTUc0my9co64SHv15to7hIlI5qxt0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789111648; c=relaxed/simple;
-	bh=poqSaq7eYvpyqsPiicaLp9CNB7na4y/oTjJatJRK1vQ=;
+	s=arc-20240116; t=1789111754; c=relaxed/simple;
+	bh=H2vKcrBeOf2KlTyDuSxatl6hblqRzQ/Id/Mhlhp6OU8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FYi2RtO2RwLlNEVag+ZHN/0oLHwJeJRw4HS+uQZq6t4LDSu1twyba8lqpnKqXHT9WTX+KHB9JRCH1peigxmbJhYuhQsefJjX1AShyM2ZxFP9F78mxPnOp0ws69hPw4j8YP9S9NllvJksPh0HxlsKxw1iJuolTSZFCfwhBV+F+yk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhVJSvK0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=byCQeiydHZVq5zSakx9kvShP63qIM2Qm3yGqFxYzz7Nf/ySk2NCkb2DRONTpZ3MTB3W41KhhV3SbfEQUscO+kUIHo8i7aL0rXCjEkmQ1E1Aom6smnLBF7Cxejx00hqnmG64VMBFv05yIx3Z+ZkBvbdKMeZlzooSVIuELM/jh+hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JwEzf1jc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhVJSvK0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C95E1F00893;
-	Fri, 11 Sep 2026 07:27:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JwEzf1jc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F2F51F0089B;
+	Fri, 11 Sep 2026 07:29:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789111646;
-	bh=x64dhSbRG3976W/AFnDoWQ3i6kbUl3GlicYHKb29MTc=;
+	s=k20260515; t=1789111752;
+	bh=K7ria4gLd+ljva1/e0Ar6F7V+sxjRDUrOLPcuYFX6jY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XhVJSvK0Wn8UaoKxFrtHGjmyng3OL9S+DoVjRfqoYFJ1H5lsCHwiBTguwrk1HW5pV
-	 H/IjBJcpPHR1ZScHQSQlnY/UEOCBN/9tC0xMZuLYJJqe5z9d9UxXWXMZu5GQWhcQ4z
-	 AJAi5TZlMb+0G2cCp46CT4A26y188MC1AgmclTsgbQ3XAiJvLjnJrJBL3y+TB07Gr8
-	 OaXE05A50TRz9KZbrzojPPcjT6rLNMc4wr0VHA6MO1wdslBwI6oAzK2KxTVBbRa2/j
-	 p6JCZ2DrB3mosPY96c56pGYXsg8lTni7mKcVB975lq0FQm6BCe1TXR+/2HqRZEsRBK
-	 OhvRGjdccornQ==
-Date: Fri, 11 Sep 2026 09:27:23 +0200
+	b=JwEzf1jcwuPKInyZ9nq4F14+sjSSTGypdVJp++aFsELS2MKVdraMJCcHuiSmdtczs
+	 VbsoVgg1JJ8mgrJFqAzTyhlzHfyrIkfwR/ikPB5DVkIkHSqZSdixAeDn+BkUn90Lrn
+	 wPpPneVWkc4GBILmJDkzy38HJhnEwr6GpbqyrC40FTWJCqTszzFMO+7ZMrIhrZ8dGH
+	 kVaQzmm4/43VHNrWsK9KjjOzhO8TDVQIEcanRhWVxYmRf16jJCSjjeE8DwlUItPPQe
+	 6ypnqU8YlXPewuq0UJCtu7veuUiuOxLTF15GdrUlh7qoP8qA6+amKPGb+UG8+hA7Go
+	 zYlbRk7DKh1sA==
+Date: Fri, 11 Sep 2026 09:29:09 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Roman Vivchar <rva333@protonmail.com>
-Cc: Yong Wu <yong.wu@mediatek.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, iommu@lists.linux.dev, linux-mediatek@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 1/3] dt-bindings: iommu: mediatek: add mt6572
-Message-ID: <20260911-khaki-squirrel-of-sufficiency-ccd82e@quoll>
-References: <20260909-6572-iommu-v1-0-de261da09fb2@protonmail.com>
- <20260909-6572-iommu-v1-1-de261da09fb2@protonmail.com>
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+	Alex Elder <elder@riscstar.com>, Daniel Thompson <daniel@riscstar.com>, 
+	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v5 1/5] dt-bindings: PCI: toshiba,tc9563: Document
+ embedded GPIO controller
+Message-ID: <20260911-leech-of-ultimate-force-b08f28@quoll>
+References: <20260909-pci-tc9563-aux-v5-0-c9b33f56c8d3@oss.qualcomm.com>
+ <20260909-pci-tc9563-aux-v5-1-c9b33f56c8d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,18 +52,23 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260909-6572-iommu-v1-1-de261da09fb2@protonmail.com>
+In-Reply-To: <20260909-pci-tc9563-aux-v5-1-c9b33f56c8d3@oss.qualcomm.com>
 
-On Wed, Sep 09, 2026 at 05:14:05PM +0300, Roman Vivchar wrote:
-> Add compatible string and header file for mt6572 IOMMU support.
+On Wed, Sep 09, 2026 at 04:55:53PM +0200, Lorenzo Bianconi wrote:
+> The TC9563 PCIe switch embeds a GPIO controller providing 37 GPIO
+> lines, accessed through the switch's I2C interface.
 > 
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> The controller is integrated in the switch rather than being a separate
+> device, so expose it by adding the gpio-controller and #gpio-cells
+> properties to the switch node itself, and extend the example to show
+> the downstream ports' reset-gpios being driven from those lines.
+> 
+> Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 > ---
->  .../devicetree/bindings/iommu/mediatek,iommu.yaml  |  3 +++
->  .../memory/mediatek,mt6572-memory-port.h           | 26 ++++++++++++++++++++++
->  2 files changed, 29 insertions(+)
+>  Documentation/devicetree/bindings/pci/toshiba,tc9563.yaml | 14 +++++++++++++-
+>  1 file changed, 13 insertions(+), 1 deletion(-)
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
