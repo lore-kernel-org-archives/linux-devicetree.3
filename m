@@ -1,162 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A7F388390;
-	Fri, 11 Sep 2026 09:41:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31691F91E3;
+	Fri, 11 Sep 2026 09:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789119685; cv=none; b=pLpOLjwGz+bnKaWt8Fam0qcZA1KeuGPftCZMjZ5XbJR2tKEiAVuM4MFazbDoTYaeVrKHSe+4RMW9XpSzYRJ220b7UjEKy/9RF3QnkqsqA4kQ59VocLXfQNnYs8QeBjDWPKDVkhla1YfcmJdhYiKGaxWlQpbW5B4UuTNnUn+BLIY=
+	t=1789119922; cv=none; b=uCiKmq0T1IlvSzIkrvfoxmxSagdRJEjyaG6Hewq55RvcWno1QlS9mKWwT7ZR5lU56YU8Zk65Tp65ezAclt1ui2uAZjgDBPbuDfXXrp/K70st34ewyKEeXRxvwpRA8hEMS12wZ1OolUZaufu6QDIId/d/QOsMGR/MUkh7xw70VrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789119685; c=relaxed/simple;
-	bh=FeLQQDdl4G6lNidOgqRusTwmXPdHY3TiP21Pxf82dbo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R/ZsaRj3C0NRjH/y/9wub5XTG53LaUWOxu3vOvsDTx39if8m9PG7tDWvJj6kgYESIuyOF+CF7AQhGmQcxIhbPBMe5PBMDAFWPRDJHksiPgidvnj66wPMsEDYnyJ2vlNylB3enIUlv+RSoXgQYH2wz0xi5OtWjdevTvzQkxkg03s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2aO/NU9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789119922; c=relaxed/simple;
+	bh=AQjnisJP24hyrCD9AxpdLLMafK7ZjlxORRjMfAqen48=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=DugcvRqNdil3z91nAf8aW4IhGDP2OvPkQzDoU6nZXoAPax2SXsbATplGYi1+SrJNTIvdRWZJzoPhHWdGZ+xazmsahey8ZtACAWWYd195DFgzb7PFnvgRCCW1H3556vTz6ySSeqwHwn75B/Ymxn4G77XOvJPYIuCACHKGSUtfjq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bTp5ZVbv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2aO/NU9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 913011F000FF;
-	Fri, 11 Sep 2026 09:41:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bTp5ZVbv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5CB41F000FF;
+	Fri, 11 Sep 2026 09:45:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789119683;
-	bh=KjzVaDYVg+QtYBvhx348szYv5nAarKYVoA2qyu7mHXs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j2aO/NU9wF45DN359iVvqAEsDPVHckFfe/K5g6MXNDji0BqUxmFYTirCqWTr4tqbl
-	 8pR+blDvZqLCSy6RhpzHHabflECO0Jgsjf7jnnXtpPnESMdsivZMW2qLBnEgCqxfJn
-	 Hntyr49prYejvuXu7p3KePFxUFwV94b384anl9TKo+rJV/WLj89siGjYoAb9KNJQ1Y
-	 U9v/5wp4xNAMpSbXhNkMbXxG0CeGMWlI2ZAHaHY0DlZfHqrifio8vg0kGaq47BxwRY
-	 eKFvxdsUkCVfH58N7LKrUwxxzkHuuF89MM7XhJNvxTkAeUfZztoYz7YoiXMICaF3Ak
-	 N6BOKm9eY287A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] serial: 8250_dw: Add ti,tda54-uart quirk to skip
- empty FIFO read
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Moteen Shah" <m-shah@ti.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-serial@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260911092529.306082-3-m-shah@ti.com>
-References: <20260911092529.306082-1-m-shah@ti.com>
- <20260911092529.306082-3-m-shah@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 11 Sep 2026 09:41:23 +0000
-Message-Id: <20260911094123.913011F000FF@smtp.kernel.org>
+	s=k20260515; t=1789119921;
+	bh=kK9cfd+AD/dt67wv8V2sR5uRACb7SCGAIFjPlX0iQ/g=;
+	h=Date:Subject:To:References:From:In-Reply-To;
+	b=bTp5ZVbvHgfrig6nkdLIfz1EtqgdZYJ49sVQMOTblspvSa9ZcyKBpM7LsPVUXmKQA
+	 Rvrs89KqM2bx5gpYHX92lh/qUtydMtzuVLyh89SMm2ryJmkW6ahZRFTStaM5/hiTXY
+	 bwxCh6zp7JmZDoI22WYKHL/XpaMb1TTg+CK6S88Qo5hPrsMddTVp5Mey9owFLQeWqC
+	 KdT8Fcu8IXBQILlzoJFJfQEknZ0FLDgVrztQO/COWNKmwSOE+i9UotJVwmSrNT8IE/
+	 Vy9EkIk7bCC9bz4Th9aLuDDkQc/HLU0mCCccoVadK1RaLdCpz7o1OSFGKM65tOGWo4
+	 pmr9s0XY1v+8Q==
+Message-ID: <7055515a-8892-4fc2-ab5c-81283e40e054@kernel.org>
+Date: Fri, 11 Sep 2026 04:45:19 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v3] arm64: dts: altera: Move all SoCFPGA files to
+ dts/altera
+Content-Language: en-US
+To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <47719884b157863b2253b415daa447b417cd3419.1789048358.git.evon.chiam@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <47719884b157863b2253b415daa447b417cd3419.1789048358.git.evon.chiam@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
 
-New issues:
-- [High] The quirk avoids reading an empty FIFO in the IRQ handler, but gen=
-eric 8250 core code performs unconditional empty FIFO reads during port sta=
-rtup and shutdown, which will still trigger a data abort on this hardware.
 
-Pre-existing issues:
-- [High] pm_runtime_enable() is called after serial port registration, viol=
-ating callback timing rules.
---
+On 9/10/26 09:16, evon.chiam@altera.com wrote:
+> From: "Chiam, Evon" <evon.chiam@altera.com>
+> 
+> The dts/intel/ directory contains two distinct families:
+> - Altera SoCFPGA platforms (Stratix 10, Agilex, Agilex5, Agilex72,
+>    Agilex7M, N5X)
+> - Intel Keembay
+> 
+> All Altera SoCFPGA device trees already have a home in dts/altera/
+> (Stratix 10 has been there since the directory was introduced). Move
+> the remaining SoCFPGA DTS/DTSI files from dts/intel/ to dts/altera/
+> to consolidate all Altera SoCFPGA device trees under a single
+> directory. Only the Keembay files remain in dts/intel/.
+> 
+> Also drop the stale SoCFPGA MAINTAINERS path for
+> arch/arm64/boot/dts/intel/. Keembay DT files there remain covered
+> by ARM/INTEL KEEMBAY ARCHITECTURE
+> 
+> All inter-file includes are relative so no include paths need to
+> change. The set of DTBs produced by dtbs_install is unchanged; they
+> are simply built from dts/altera/ instead of dts/intel/.
+> 
+> No compatible strings or DTS/DTSI contents are modified; the device
+> tree move is rename-only.
+> 
+> Link: https://lore.kernel.org/all/cd16fb78-551e-4630-83d6-a44a68e2e411@kernel.org/
+> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
+> ---
+> Changes in v3:
+> - Drop stale SoCFPGA MAINTAINERS F: entry for arch/arm64/boot/dts/intel/
+> 
+> Changes in v2:
+> - Reworded commit subject to drop redundant "device trees" and phrase
+>    the move as "to dts/altera"
+> 
+> v1 patch link:
+> https://lore.kernel.org/all/802bf0d27fbff9b1ddb6b9fc323a1a9f8f050f74.1788512748.git.evon.chiam@altera.com/
+> 
+>   MAINTAINERS                                        |  1 -
+>   arch/arm64/boot/dts/altera/Makefile                | 14 +++++++++++++-
+>   .../boot/dts/{intel => altera}/socfpga_agilex.dtsi |  0
+>   .../{intel => altera}/socfpga_agilex3_socdk.dts    |  0
+>   .../dts/{intel => altera}/socfpga_agilex5.dtsi     |  0
+>   .../{intel => altera}/socfpga_agilex5_socdk.dts    |  0
+>   .../socfpga_agilex5_socdk_013b.dts                 |  0
+>   .../socfpga_agilex5_socdk_modular.dts              |  0
+>   .../socfpga_agilex5_socdk_nand.dts                 |  0
+>   .../dts/{intel => altera}/socfpga_agilex72.dtsi    |  0
+>   .../{intel => altera}/socfpga_agilex72_socdk.dts   |  0
+>   .../{intel => altera}/socfpga_agilex7m_socdk.dts   |  0
+>   .../dts/{intel => altera}/socfpga_agilex_n6000.dts |  0
+>   .../dts/{intel => altera}/socfpga_agilex_socdk.dts |  0
+>   .../socfpga_agilex_socdk_emmc.dts                  |  0
+>   .../socfpga_agilex_socdk_nand.dts                  |  0
+>   .../dts/{intel => altera}/socfpga_n5x_socdk.dts    |  0
+>   arch/arm64/boot/dts/intel/Makefile                 | 12 ------------
+>   18 files changed, 13 insertions(+), 14 deletions(-)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex.dtsi (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex3_socdk.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5.dtsi (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_013b.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_modular.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_nand.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72.dtsi (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72_socdk.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex7m_socdk.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_n6000.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk_emmc.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk_nand.dts (100%)
+>   rename arch/arm64/boot/dts/{intel => altera}/socfpga_n5x_socdk.dts (100%)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 15011f5752a9..98f374ae7586 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -3590,7 +3590,6 @@ F:	arch/arm/boot/dts/intel/socfpga/
+>   F:	arch/arm/configs/socfpga_defconfig
+>   F:	arch/arm/mach-socfpga/
+>   F:	arch/arm64/boot/dts/altera/
+> -F:	arch/arm64/boot/dts/intel/
+>   
+Please separate this change into a separate patch. Otherwise, LGTM.
 
-commit 31fb31567ebe4c6e4b9eb7b2826e35722f3e46f5
-Author: Moteen Shah <m-shah@ti.com>
-serial: 8250_dw: Add ti,tda54-uart quirk to skip empty FIFO read
-
-This commit adds a quirk to the 8250_dw driver for the ti,tda54-uart. The
-quirk skips an empty FIFO read during an RX_TIMEOUT interrupt condition. Th=
-is
-is intended to avoid triggering a data abort on the TDA54 IP, which crashes
-when reading an empty FIFO.
-
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/=
-8250_dw.c
-> index 51d026f20825a..f97cc3dfbab4a 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-
-[ ... ]
-
-> @@ -436,7 +437,7 @@ static int dw8250_handle_irq(struct uart_port *p)
->  	 * This problem has only been observed so far when not in DMA mode
->  	 * so we limit the workaround only to non-DMA mode.
->  	 */
-> -	if (!up->dma && rx_timeout) {
-> +	if (!(quirks & DW_UART_QUIRK_SKIP_RX_TIMEOUT_READ) && !up->dma && rx_ti=
-meout) {
-
-[Severity: High]
-The quirk avoids reading an empty FIFO in the IRQ handler, but will this
-fully protect the hardware from data aborts?
-
-The generic 8250 core code performs unconditional empty FIFO reads during
-port startup and shutdown. For example, serial8250_clear_interrupts()
-unconditionally reads UART_RX, and serial8250_do_shutdown() does the same
-immediately after clearing FIFOs.
-
-Won't opening or closing the TTY device still trigger a data abort on the
-TDA54 IP due to these core empty FIFO reads?
-
->  		status =3D serial_lsr_in(up);
-> =20
->  		if (!(status & (UART_LSR_DR | UART_LSR_BI)))
-
-[ ... ]
-
-> @@ -888,6 +889,11 @@ static const struct dw8250_platform_data dw8250_ultr=
-arisc_dp1000_data =3D {
->  	.quirks =3D DW_UART_QUIRK_CPR_VALUE,
->  };
-> =20
-> +static const struct dw8250_platform_data dw8250_tda54 =3D {
-> +	.usr_reg =3D DW_UART_USR,
-> +	.quirks =3D DW_UART_QUIRK_SKIP_RX_TIMEOUT_READ,
-> +};
-> +
->  static const struct of_device_id dw8250_of_match[] =3D {
->  	{ .compatible =3D "snps,dw-apb-uart", .data =3D &dw8250_dw_apb },
->  	{ .compatible =3D "cavium,octeon-3860-uart", .data =3D &dw8250_octeon_3=
-860_data },
-> @@ -895,6 +901,7 @@ static const struct of_device_id dw8250_of_match[] =
-=3D {
->  	{ .compatible =3D "renesas,rzn1-uart", .data =3D &dw8250_renesas_rzn1_d=
-ata },
->  	{ .compatible =3D "sophgo,sg2044-uart", .data =3D &dw8250_skip_set_rate=
-_data },
->  	{ .compatible =3D "starfive,jh7100-uart", .data =3D &dw8250_skip_set_ra=
-te_data },
-> +	{ .compatible =3D "ti,tda54-uart", .data =3D &dw8250_tda54 },
-
-[Severity: High]
-This is a pre-existing issue, but does dw8250_probe() violate the runtime PM
-callback timing rules, which could cause a boot deadlock when this new
-compatible device is probed?
-
-dw8250_probe() calls serial8250_register_8250_port(), which synchronously
-invokes the dw8250_do_pm() callback. This happens before pm_runtime_enable()
-is called at the end of the probe function:
-
-drivers/tty/serial/8250/8250_dw.c:dw8250_probe() {
-	...
-	data->data.line =3D serial8250_register_8250_port(up);
-	if (data->data.line < 0)
-		return data->data.line;
-
-	platform_set_drvdata(pdev, data);
-
-	pm_runtime_enable(dev);
-	...
-}
-
-Since dw8250_do_pm() uses pm_runtime_get_sync() before runtime PM is enable=
-d,
-could this cause a circular dependency and hung worker threads during device
-registration?
-
->  	{ .compatible =3D "ultrarisc,dp1000-uart", .data =3D &dw8250_ultrarisc_=
-dp1000_data },
->  	{ /* Sentinel */ }
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911092529.3060=
-82-1-m-shah@ti.com?part=3D2
+Dinh
