@@ -1,161 +1,138 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E438E2D5C83
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 01:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789176586; cv=pass; b=HF7ex7uutkNVNakw8eC2YmGsGa20zLQ+QDvNKkBZDFvPpQz5YPjSHWER3N1J0eM+5RjH/CnEcY71Cz6+EVTCTSUBgdgsXKqZW/I6OSSP8UwtBPhcKeGUkkalbFAGzdxaxk/0wEKReoM+ouNzg03VK/3QWrQUuc+cjv5G90Q4Qxc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789176586; c=relaxed/simple;
-	bh=MqFZZ1MZCCOk3B2AWbqhU4vVtD/Z+SwXDy5HKI6vso0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=obWk63JuHcJczXJv5yqv1IHbsm7EMlPChMQ7ry+l9fs0kNl4x7bCrzZ/RI5ImuYdjQTnFSr5kcK1icPabz8XhqC0vw9PXqfie+7iWCPltfzJp0iahxxYj78BASX8ZCk4+16kt4AKXWcBPAlVA8k1a0R2Qojb59Ou5Y32rbcAQZI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=0x0f.com header.i=@0x0f.com header.b=QAqLa2iA; arc=pass smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=0x0f.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBF9311597
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 01:39:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789177163; cv=none; b=Cw7cdBW+Ys/svRxi5WbIoIApMwmLNS8TrUY/NBMr/oIQGffPzIJeBvro8qWY2+h+/qbyx93+9kdrIgcoOvtkdXOK0f80i2wbnVUIpc4O58wRpj45qBUoY5RCNiJ5EFQRHJe1bMJ5Wt7a0R4m0cZL0RqQXafKpE2kj3joZ2Jz4UQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789177163; c=relaxed/simple;
+	bh=ptpKRlILh3vy2G4ftYKshvhPYqbk/M3xp8SzkyOJ56E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I8gxIUxBgr1W4h7+pbUQK3x4sw/g+raNpgQJ8W9I5m/5keLa+/gdxZdkfQ/vrrmsmpsOTSNP1wvKBfv6hpVwCp5DvL389wUmoVa25AexVe7XcejhPxQOK3yhbmcFDSo5/dh7tezuPzi7kT9tw0T1Em8g6uYZIqibVrBX1B4S4d0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SOgVdFjI; arc=none smtp.client-ip=74.125.224.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=0x0f.com header.i=@0x0f.com header.b="QAqLa2iA"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f9bso4937855ad.3
-        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 18:29:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789176583; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JY5JcF3pIH1eRHpewqH6mlaOXxotJYJ9rXaOSl8jm5AgTXcdmgc0rbl1dR4SsZOcPp
-         CAdulMegaomN6mSaMMDMknvTGH1tlHmzpAQyzQHMOSo0owIg6sScFLjkrtr9InBmOzJs
-         yzoq2TvMJvICuYTJNoPrmPNKTPfNtw59yfb6KDhkdyb8y0oPV3EroZSZDJABzWGM9/HU
-         Kj47Sga0UomllCI0cgoV9ck0pdJ+DDM305Uw8d8f/nZO+Fo9o5gVJrPA0EShYS8/M9UT
-         sgWSEJ2y1/NqKceMrmvxuKpTOJh3fSqThdDiojznIib/ERwkKUaR6LMtAluXTOsstIfs
-         O0bw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=MqFZZ1MZCCOk3B2AWbqhU4vVtD/Z+SwXDy5HKI6vso0=;
-        fh=dOlmkjiYu8E0rZOxrHyxNlW5jv7ApZonWvm1m+bPBIU=;
-        b=ioVfihojShjJDVu741rbUctxRpsjZ5WStnp7RGIjvsTLxuFBd2Qsx2PRUBdAYkgjn+
-         kwNfxy0mQximofxOw1s2y1deBmt3cLY8J2ryJClUzCw7AvwGwuLqzjS4E86DW5rYhxff
-         /7WHyZxlRfUNWahq/3zuQYst04yM7xDBjnYHxxAv4x6eNzIL306LqG/DI+wSoFmNAmDa
-         ysfVMsPKyEmRLeN5zIXE23pbult1XBHMywCvhRikRg13QugpzfBA8esMtxcuXVq/B2gd
-         LDNSMTCwOyMNorJUd9w+LMPnkoTl+1Zl/Ag093e50Aql4FbWWBaYcwlUDYKKhNAiNUc7
-         teMQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SOgVdFjI"
+Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-6712f981ef2so1186580d50.3
+        for <devicetree@vger.kernel.org>; Fri, 11 Sep 2026 18:39:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=0x0f.com; s=google; t=1789176583; x=1789781383; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MqFZZ1MZCCOk3B2AWbqhU4vVtD/Z+SwXDy5HKI6vso0=;
-        b=QAqLa2iAbwvbRxmC6B/DPpQl65ZVNzEquWN6wGgAhav0o7h1rYsToOePhjX5FWfOwV
-         2QVaUBzUttmd9Bo86TSJ6STiOqDzCq4lJcczZXWAE7fbGVZ3m8PWgwWu+anMzWklqRTP
-         /wcfwddYmq2X1nPNtWMdy+IL2+QUWEynTsNoA=
+        d=gmail.com; s=20251104; t=1789177160; x=1789781960; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i8SziI5Cbw/9BaPigJwwxI7zbv9V+0J2bjlfJq82EFc=;
+        b=SOgVdFjIKremXvtCBctMP8r3y6iYMRuDH9zg7f3oif/NmgOgQ4G05+MZEiw5+9YCmx
+         ipR/ki32tnHVEyozmrS4MJKE0icOmEcPFUvoT2iMR536z2H9NtR5wY+9+kbqc2dUkKq5
+         kBN8oRquxd3alPLjkWNVppiYPJTUbcLkejXYzUhtUlUVo1XZrMENehSJXYBSNnN0/+vY
+         g23o+NX+M5oashRo4MwsCoeHqCglu0satQI8CogvJ+X0uuOnfYy1zVHN6RXMQoKYCCvk
+         L/qjpSE7ufLjPp+U721KcNdIrXeQI8RMNAnRNLAuo/wVs7tCGzyQDCsnwAlfXEGLRbNd
+         7yJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789176583; x=1789781383;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=MqFZZ1MZCCOk3B2AWbqhU4vVtD/Z+SwXDy5HKI6vso0=;
-        b=aKWc5j7hkyWO5BxGZFjvy58+UD9LuD84ra1i/pqTER1YJsbPyjwGK2AqiqagpQcaRA
-         nBIFAXFIxCV4kUXoIgyxfaTJe3QsPvVa1Grcwa4lvG/7Y5T2OxlPHZPuwZ9afHz4Wjmu
-         RaTEvH/8XC/m4ZQ5C28yjfUbcMFYq+5WyHlU5R6bBVshlK5mikIFlrrpBkLiXnDYUBjO
-         JFYThaVClj+HGQGjnxA9nak3+JMZMTN0RNMaImpjGkJp/ph8chSbwQxbOgJUCUd7B89T
-         cZIIqywOcuFQnOTsYbnXy+BoN74l3h6/wbxQu6Bk3uj5t+Z3hRsaU+IH0nxnGKBkoHbA
-         lrxg==
-X-Forwarded-Encrypted: i=1; AKwUvBykKjEvw3c/FWangHMF6YiuV0Hmyiv76F69yuYvLL4gkU0JTg2DXLKCM/FGH2cUR71REwAWEK8I6XzZ@vger.kernel.org
-X-Gm-Message-State: AFuF++k2Ak4Lo6ZVmMeP/R5GM9sdZ8H3q6sqwD2EMGLt0Kwb/1vVBsbz
-	G35YkrNDRETBbBkFusCXLPunowh4isMxj+NqxtwaZBqEcOKqXQYlmmAsYnfcyPT1mPSMVGnsgbY
-	oc7Tj2XbzqGh2RWAdn7czMfvkyn+ZLJwkKi1LAJsFFA==
-X-Gm-Gg: AYBFou2yXnsWk+sf5x8XKZ3ev7Jh18XAkjHWZavn9jImpX2lkHkEmjS+T4PwgL0gY9u
-	/7/LjLsM8eJz66aM5zIDa4TP1phIIIUCODJVR3IEsdFxhA0bVK9rNDBfi8aakf4Y5zmzEgAYAxp
-	QBrGfGT5WGF2B4Su2PEFf+6FFKsqVkpXiEhq4367RfQ54m9EEIwH2symxA5NuryM9EykApV115M
-	xtS7uD77O2d5/R4tisGVZN4UVbXijVvjcRw15LoIgdgUza3IUDGIKz2f7f9NvMNnN6Q3xTvDPpK
-	Y4EOo/zimnMNvYHM2c4/pMCKUzJd1C6bBYNeoykdJn548VJjgHM0Tg==
-X-Received: by 2002:a17:90b:4fc2:b0:381:6c5:3f63 with SMTP id
- 98e67ed59e1d1-39d9bc42d1bmr12376403a91.6.1789176583130; Fri, 11 Sep 2026
- 18:29:43 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789177160; x=1789781960;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i8SziI5Cbw/9BaPigJwwxI7zbv9V+0J2bjlfJq82EFc=;
+        b=O2pNPV6TjmbT06Qixi6WhGXbhU2B0FJnxVGaLArcWfiL56H6oXf0WoFwCo2+LhXXxi
+         RxiIs8reEfe5mdR5LnYpI57jtHHftfGxOwvgp00JG6bVKqVY4I0KT74FKAni/Iu/S5R9
+         yH6XeGHkjAqz95JLwv8Aqr6i1beCmYL/tpdCnaEh57x30HEArStNzJi8iARYEr2wmDZc
+         /N5tyLMIzRe/8Lh40Mz6J8wjp3oEaa4cy8s64GHlfhLDX3aOYan9Jn/vIH1qoWlqHG2j
+         2TuSL7JgrS8XoYAcLGB7Vn2wFPUL377UAK3w0GqaH+Qj0nawh6NUcmpVBO9ANHVKZGhA
+         q/gg==
+X-Forwarded-Encrypted: i=1; AKwUvBxbE5TB3WLos95YSYcLoGE74z94OXLmDxaQhwPaDdAjEW6AzWBAxlsEtlEBRx50ozM9yZfYwXzC2yuG@vger.kernel.org
+X-Gm-Message-State: AFuF++lIgT7gcM1c+puvhHHitNKD54S0vXUvdPtZWy6gaPJdpo5T+JM+
+	NWVz0yxXpr9+TSFiYpc31Tgpzg+5u8FSstqAovpQGnI5VOWXnApFkA+t
+X-Gm-Gg: AYBFou02EAYhs2es97t3IdAGUHEAO+1PMYugdmm67DWYTiahl2gnmDu8++T0YczpXWx
+	oV9tdSbDP6jXjULt/st/vMhYgJJYtk/hlESnHmEvA3aAX2q9P8FWeH7ZjlpeQDqMFuUgDdeL/VY
+	3+gShEfKLsD1I1X/60qwO14BmzgVLy7dCd6u5yAvuK5PL7AfIOx5zqk1MwUCPuFCfrfVOf3i6WX
+	d/DLCFoGgtOluMnc2uQdvYDy11zlg7GCkbdc+mMgMwW5Lhn1pdMa4V2EIBSccJ5NL0v7463XZOJ
+	aDpi1FQ39SArv/iO259Gypw3vPqHFDE1E3NBMRVUcZw4YrEm8M2S72BhWA8OAIqMuoxwe0xNPLd
+	mi1jdhVmqeGRUPCZS4qqT4qeO7OecsLKnkcrspVBff7bZTNsCDm5ccWXol/RLVqDOyQdlD41p/e
+	XT4khtybPYxT6TwnZ8AcuV3VXPiqL+vwu0NAXJXGuzbDBg7d05dCsE8g==
+X-Received: by 2002:a53:d950:0:b0:66f:c24c:98bf with SMTP id 956f58d0204a3-671246d16b1mr2103008d50.46.1789177159642;
+        Fri, 11 Sep 2026 18:39:19 -0700 (PDT)
+Received: from localhost ([2600:1700:5431:250::3e])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125df315fsm1751757d50.9.2026.09.11.18.39.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 11 Sep 2026 18:39:18 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Andy Shevchenko <andy@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] Add support for AS7343 multi-spectral sensor
+Date: Fri, 11 Sep 2026 18:39:10 -0700
+Message-ID: <20260912013912.51887-1-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260908152808.3928630-1-arnd@kernel.org> <20260908152808.3928630-4-arnd@kernel.org>
- <CADkSEUjYhRk-ezaXZkHzFTFQnySFSisKtZfEP-_NtLnQF+6-1Q@mail.gmail.com>
- <CAD++jL=ysmPgs8yKH5KBobuv-eeCHHgZwvo1kvHOFuTwhkaOew@mail.gmail.com>
- <CAFr9PX=_FmMdR4TeP+tqURZdZCTjw8UYxAxeszs_vcpTbX+_aw@mail.gmail.com> <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com>
-In-Reply-To: <CAD++jL=zaF1zcTv6Mta5Xw69WeLC30NRcH0_pkSkLJJ0UtnZHQ@mail.gmail.com>
-From: Daniel Palmer <daniel@0x0f.com>
-Date: Sat, 12 Sep 2026 10:29:30 +0900
-X-Gm-Features: AcwNN1UYIuhyU3FVES8GlXYNI9phDxlCK3dBrZsiSwUakZtphqfaiRPyo96Awf4
-Message-ID: <CAFr9PX=tVOzqGU4k0zSzXheuU5z5LZi4LSGdUvjChrSTrbyjJg@mail.gmail.com>
-Subject: Re: [PATCH 03/13] ARM: remove riscpc
-To: Linus Walleij <linusw@kernel.org>
-Cc: Ethan Nelson-Moore <enelsonmoore@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Arnd Bergmann <arnd@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Drew Fustini <fustini@kernel.org>, 
-	Arnd Bergmann <arnd@arndb.de>, Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liviu Dudau <liviu.dudau@arm.com>, Sudeep Holla <sudeep.holla@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Vladimir Zapolskiy <vz@mleia.com>, Stefan Agner <stefan@agner.ch>, 
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
-	Aaro Koskinen <aaro.koskinen@iki.fi>, Andreas Kemnade <andreas@kemnade.info>, 
-	Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>, 
-	Tony Lindgren <tony@atomide.com>, Nicolas Ferre <nicolas.ferre@microchip.com>, 
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>, Andrew Lunn <andrew@lunn.ch>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Gregory Clement <gregory.clement@bootlin.com>, Robert Jarzmik <robert.jarzmik@free.fr>, 
-	Kristoffer Ericson <kristoffer.ericson@gmail.com>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Alexander Sverdlin <alexander.sverdlin@siemens.com>, Shawn Guo <shawnguo@kernel.org>, 
-	Karl Mehltretter <kmehltretter@gmail.com>, "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Nicolas Pitre <npitre@baylibre.com>, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-stm32@st-md-mailman.stormreply.com, linux-omap@vger.kernel.org, 
-	Ian Molton <spyro@f2s.com>, Jens Axboe <axboe@kernel.dk>, Helge Deller <deller@gmx.de>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, "Paul E. McKenney" <paulmck@kernel.org>, linux-block@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+This series adds initial support for the AMS AS7343 14-channel
+multi-spectral sensor.
 
-On Sat, 12 Sept 2026 at 03:15, Linus Walleij <linusw@kernel.org> wrote:
-> I would say using generic entry would be a prerequisite for
-> doing m68k SMP so we don't introduce *more* entry
-> oddities, but after that I'm game.
+The sensor has 14 optical channels (11 visible + NIR + clear +
+flicker) in total. This initial driver supports reading raw counts
+from all 12 spectral channels (11 visible + NIR) via sysfs and basic
+power management.
 
-I have started this for one part of the m68k tree (68000), but it's
-one of those things that is hard/frustrating to test on real hardware.
-For the last few weeks I've had claude create a QEMU that can boot all
-of the m68k supported machines to Linux, Netbsd and their original OS.
-It already found this:
-https://lore.kernel.org/linux-m68k/20260828094940.3882602-1-daniel@0x0f.com/
+Not yet supported:
+- Configurable integration time and gain
+- Interrupt support
+- Clear (VIS) channel and flicker detection
 
-> As SoC maintainer I see that m68k has a lot of technical debt
-> like drivers under arch/m68k and no proper hardware description
-> (such as device tree)
+Patch 1 adds device tree bindings.
+Patch 2 adds the driver.
 
-I have m68k machines using devicetree... :)
+Testing was performed on a Raspberry Pi 4.
 
-> There are things like
-> amiints.c, cia.c, ataints.c, q40ints.c etc that should be in
-> drivers/irqchip. So many time.c that should be in
-> drivers/clocksource/* and many other unmodern things.
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
 
-Would be easier with devicetree. But is anyone crazy enough to go
-through the pain of merging the devicetree support and then arguing
-about devicetree bindings for each of those drivers only to be told
-m68k should just be removed?
+Changes in v4:
+  - Fix led-max-microamp property in dt bindings.
+  - Use REGCACHE_MAPLE and add volatile table.
+  - Use PM_RUNTIME_ACQUIRE* when resuming.
 
-> Albeit I think actually going and fixing that can't be super-hard
-> in the age of LLMs. So listing things like this likely will just make
-> someone go and do it. :D
+Changes in v3:
+  - Fix gpio description and example in dt.
+  - Only start measurements after suspend action has been registered.
+  - Add a mutex and pm_runtime_resume_and_get before reading measurements.
 
-Once you have an emulator that the LLM can operate it can do the
-change/build/test/debug cycle all on its own.
-With a test harness it can even test the changes work on the real hardware.
-But I don't think that's enough to convince people the changes are
-worth reviewing/merging.
+Changes in v2:
+  - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
+  - Adjust the default gain to x256 and integration time to 50.1ms as
+  recommended by the datasheet.
+  - Use read_label instead of .extend
+  - Remove all unused scan_index related constants.
 
-Cheers,
+Chang Yu (2):
+  dt-bindings: iio: light: add as7343
+  iio: light: add AS7343 multi-spectral sensor driver
 
-Daniel
+ .../bindings/iio/light/ams,as7343.yaml        |  72 +++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/light/Kconfig                     |  11 +
+ drivers/iio/light/Makefile                    |   1 +
+ drivers/iio/light/as7343.c                    | 434 ++++++++++++++++++
+ 5 files changed, 525 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+ create mode 100644 drivers/iio/light/as7343.c
+
+-- 
+2.55.0
+
