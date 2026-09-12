@@ -1,88 +1,148 @@
-Received: from mta0.migadu.com (out-2.mta0.migadu.com [91.218.175.2])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5D8236167B
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 15:48:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67241478E25
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 15:51:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228140; cv=none; b=PuP2lsp8KKeevBr0jJnqmBB+ZuxHrUaG8UQHvSoHPBcXTvK8zGJovgvF5OisU9aHmiyHSGJfGR3grEV+akB6yCRD87krZLiumVxXm+e/+tH/v2MQT6n16/TJTjLSK3xuuh/3a55NL9zXlNDSEWkjeo2TJFfLzjYsRDbphM148H8=
+	t=1789228264; cv=none; b=jOV/nSBTdREwY/VrTSfLgEHNz/oHJD2OVLCJHj6BS3vLQYwm4eKShhLJEME7GCZkRqsFWHUt/955MUwc7uyTnTaPiPbVIoy9ITQLnNczwJJCo7mSRq6qP3qFx6cqYPoY9TEcp+p3NpNvYknsLLbZK+rrak6FMOqH/O53bYgzcSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228140; c=relaxed/simple;
-	bh=7Xxdw0BpYVeSsVYvjnUMpQGHZK67v9pQzvF+pta/r2k=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=nh+DwWI2Ne8oLt9stdTzypwFry6EuJErpBA07egWVWS3x6xO7sKu45Zt3c3DFSH7xseeC4oNGsGKg2eGkpwaQfkMJVVWULKFn/Y7sGhxl0OooLRV4VTLxi0yk4lGluwAvd9Gx3+OK8SOjg31Mo4RYi3oB0I7n0nsRek9SmsqMik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com; spf=pass smtp.mailfrom=cknow-tech.com; dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b=jtWBlZvu; arc=none smtp.client-ip=91.218.175.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=cknow-tech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cknow-tech.com
+	s=arc-20240116; t=1789228264; c=relaxed/simple;
+	bh=jYjhr9lQehwgsoB55McaT2/qQLnqXw43VwwgAETPBqE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=m4XsJL6XifoDPA9CX8HV+XZtpwRIzI2jR6OAG0V8Wq+jV6PoWPV0cievS0AioTnjd2pwhJGUYNpQ8fH9GJnzTO7FvAAvxF2nQqX9YjtSHpb3692x32KZLJMiYedvk/OufL2HeW4feIrf59gfqCvL64pNIs9rQBGvgJJxwbeoYc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=B5Z+lMD3; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cknow-tech.com header.i=@cknow-tech.com header.b="jtWBlZvu"
-X-Envelope-To: devicetree@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7Xxdw0BpYVeSsVYvjnUMpQGHZK67v9pQzvF+pta/r2k=;
- c=simple/simple; d=cknow-tech.com;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789228135; v=1; x=1789832935;
- b=jtWBlZvuvS7+BgGr4dZSQnEoaFTAqoHZWo6YPzn/vDM9GNWzVDcTl2BhEe6g+dwbTRNTvbnd
- RZavAPp0l7kVXvovMev9f/5LS9mng2aTS0kPhhWwUalRtyugeUCWTmiFF4j/jUrVECRwMS3RhSC
- iqNtBV6xanaGzUlH1blXIkHTnkAjx1T3VtQDmMusmhQR7r7WuBx769LptoJivx1UgrCNnvuNxjj
- 7wtkB8dg1nsfcYiANnors7R+d8rH34krSDFUr9xX6Rf4PL3TU0O4wO/CZcJL4IOkmmKfucXjQVy
- +wY9PVMEHd9n7XRJNqAh+xxYgPqz/uxZYOAexsulVUBdg==
-X-Envelope-To: devicetree@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 835f230ca6fc7137;
-	Sat, 12 Sep 2026 15:48:55 +0000
-X-Mizu-Trace-ID: 835f230ca6fc7137
-X-Migadu-Flow: FLOW_OUT
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="B5Z+lMD3"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so226793f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 08:51:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1789228260; x=1789833060; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WYsEok5/6RpeOa0+UdPPhWNeU1Av3CpfKIsBFwLi6qQ=;
+        b=B5Z+lMD3RMMj7NVb/nfYAe9DpW00iaTkHgayOvY05B8q+8RkWJk6fAJAFkb72iwiyJ
+         O0loOWoDYolpvpWZ5rVs4/SMg/Hz8YlSiFAsBG050eftDr4RIAPy7rizLvbYtovn9VCt
+         bTGVVGCEq9a9FBCXkMQpCMeTXNmsJRuonxg8zcxKzn1lOpAxlhanYHYOks4Edg4VnJ3r
+         lMJ6JlJyjpGetWqBo0FiaciOd3HPSKCLtxZvR6XrXercqClTkajUAvcu/sQRUq8JRPHg
+         56uZDjTmeeoO38w5PIPxUFX1f+AwvlGvySbq2/PCPeeEJuqXqURiupMHDE6d7SRoV3ff
+         uDkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789228260; x=1789833060;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WYsEok5/6RpeOa0+UdPPhWNeU1Av3CpfKIsBFwLi6qQ=;
+        b=guPdVmCMgBDLF4vHO4tv/Srp0cbyNYoODTpufkA8Mdbq5kl86i2OOUz045aDfRiXhQ
+         gOVTjaSTXSDj3TVT0aqvGSS8eeaSa75/32k9CkBLD/G3wiDTHb2E818YpfDRMLZtyvu0
+         XrkvSph4f8sUDL704s1MciL8yltmKEYUDi4TXdA/ludgg3RdIp41kSJiYpXlTZdTTpMh
+         BaNqBlTmIhRH0jgUn7MIKKvZ3S/lfOmyEWxtn2mKOU2GXuWcALTOUvnnfTGjc07Y7oGx
+         Tjx2B0wDXKXy2NhqnrXNxS7MPVmDQQMlCPX1GTieoSa8CWWpfMpchauO0QOism4VQSMb
+         LafA==
+X-Forwarded-Encrypted: i=1; AKwUvByx9X7JSJo58m3hqlrrG1Funpk/ozvYT+O2Zi7ivvQsnj+AOfRTPqRmqRVdFi2xgCo9UvrIgu/0HMWu@vger.kernel.org
+X-Gm-Message-State: AFuF++lc1FwkxkD24jT0T/ZRovovnVu2sc3VFvc9KTQ+vySqS+8XeBBa
+	Bko/m3jqaYkAJLkUJZWjfCE9CeCcUtbiw8JpgmYd5Dno27sbPot8AmE8TcRxAtvheL4=
+X-Gm-Gg: AYBFou3S7scIQjwVsfwQLe7tDyiS3uL2LamhUzdVWuYXM0S5KCJnBLYIZ2xsgieJzM2
+	AXOd8GGewutQo3Xiw2OIK4GdmbEh3n7TXv0FCjJDzCzGykGHCWOcEhTPMVQaF0OADdgkO2Ycycp
+	EXZIApyYS66IhE3gkJXgqL+WGrgkRSMbrevOKHsxU+RyVxI+XP7hd7EXzbSgz365ELEFzBGItfb
+	nEKIQj6qiQegxYwUrJB7Bkfk7DDPflQMrFLUYqryvkWb2rEc8v6a9eP47exLgnfdacCsOfVD4d9
+	cRL4FOii7QPu1K6K9XEhfEOH/NUmSG62Q10PYavzkrx2cbBZloZYnn6PUPrL+77ZzWbmdRV1Iiu
+	uqc9fFD5R+4JE4hUTgBxmlAcbVsw6t50GxCm1JAHPzjVih6TuahBsn//jcVisNVt3LQwhbzj3Iv
+	A4qfIm9amRDGhTV9jQ+2V67jmUqthvSEdvgMznkdRERFHUys/3oyc2GZzGUKqlPLhIjZCgLzu1t
+	0/61ugQReMNAOa/2G3q072Jmbpo
+X-Received: by 2002:a05:600c:8b8b:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49e6cbfeee9mr26096875e9.20.1789228260689;
+        Sat, 12 Sep 2026 08:51:00 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e636f7fa2sm154001915e9.15.2026.09.12.08.50.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:51:00 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: tanure@linux.com, Brian Masney <bmasney@redhat.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Stephen Boyd <sboyd@kernel.org>,
+ Brian Masney <bmasney+clk@redhat.com>, Chuan Liu <chuan.liu@amlogic.com>,
+ Jian Hu <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>,
+ linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] clk: meson: t7: don't mark sys_ampipe_nand as
+ critical
+In-Reply-To: <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
+References: <20260905153234.133217-1-tanure@linux.com>
+ <20260905153234.133217-5-tanure@linux.com> <aqSX-kUvYaixESxe@redhat.com>
+ <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
+Date: Sat, 12 Sep 2026 17:50:55 +0200
+Message-ID: <1jcxui79k0.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 12 Sep 2026 17:48:52 +0200
-Message-Id: <DLDGFSSZUIKQ.19CS0SRKYOKOJ@cknow-tech.com>
-Cc: "Ricardo Pardini" <ricardo@pardini.net>, <devicetree@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] arm64: dts: rockchip: Fix i2c6 clock-frequency on
- NanoPC-T6
-From: "Diederik de Haas" <diederik@cknow-tech.com>
-To: "Diederik de Haas" <diederik@cknow-tech.com>, "Heiko Stuebner"
- <heiko@sntech.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>
-X-Mailer: aerc 0.22.0-9-ge948bb7230f4
-References: <20260911152911.2088363-1-diederik@cknow-tech.com>
- <2071782.usQuhbGJ8B@phil> <DLDEGZ68QQ19.1MJEB7QOK4G7T@cknow-tech.com>
-In-Reply-To: <DLDEGZ68QQ19.1MJEB7QOK4G7T@cknow-tech.com>
 
-On Sat Sep 12, 2026 at 4:16 PM CEST, Diederik de Haas wrote:
-> On Sat Sep 12, 2026 at 2:41 PM CEST, Heiko Stuebner wrote:
->> Am Freitag, 11. September 2026, 17:28:33 Mitteleurop=C3=A4ische Sommerze=
-it schrieb Diederik de Haas:
->>> The i2c6 bus needs to run at 200kHz, because at the default frequency o=
-f
->>> 100kHz it may fail to find the RTC resulting in warnings/errors like
->>>=20
->>>   rtc-hym8563 6-0051: no valid clock/calendar values available
->>>   rtc-hym8563 6-0051: hctosys: unable to read the hardware clock
->>>=20
->>> But only sometimes. This should not happen when there is a battery back=
-ing
->>> the RTC, yet it does ... sometimes.
+On sam. 12 sept. 2026 at 08:50, Lucas Tanure <tanure@linux.com> wrote:
+
+> On Sat, Sep 12, 2026 at 1:08=E2=80=AFAM Brian Masney <bmasney@redhat.com>=
+ wrote:
 >>
->> I'm confused, shouldn't a slower clock always work?
->> Like I understand how a clock that is too fast can cause issues due
->> to hardware limitations, but running the bus slower somehow shouldn't
->> cause issues?
->
-> Impeccable timing ... as I was just about to retract this patch.
->
-> So please ignore/drop this and sorry for the noise.
+>> Hi Lucas,
+>>
+>> On Sat, Sep 05, 2026 at 04:32:34PM +0100, Lucas Tanure wrote:
+>> > sys_ampipe_nand clocks the pipeline stage inserted in the bus path
+>> > between the SD/eMMC controllers and the NIC_MATRIX fabric. It does have
+>> > identifiable consumers - the three MMC controllers - so marking it
+>> > critical was the wrong tool: the clock should be referenced from the
+>> > consumer nodes and claimed by the mmc driver instead.
+>> >
+>> > Drop the CLK_IS_CRITICAL flag and update the comment accordingly.
+>> > sys_am2axi0..2 remain critical as they clock the AXI DMA bus itself and
+>> > have no single identifiable consumer.
+>> >
+>> > Assisted-by: Claude:claude-fable-5
+>> > Signed-off-by: Lucas Tanure <tanure@linux.com>
+>> > ---
+>> > This patch depends on the MMC controllers actually referencing the clo=
+ck:
+>> > the dt-bindings, mmc driver and t7 DTS changes adding the "pipeline"
+>> > clock must land before this patch, otherwise the boot hangs and memory
+>> > corruption this clock caused are reintroduced.
+>>
+>> This series should be merged together in one tree? Which tree? I can
+>> provide an Acked-by if it should go through the mmc tree.
+>>
+>> Brian
+>>
+> It's definitely best to keep the series together in one tree to avoid
+> boot regressions,
+> but I think the clk tree is the better fit since the core changes
+> revolve around clock logic.
+> Could you accept it ?
 
-https://github.com/rockchip-linux/kernel/commit/815c9a084e62d700ab5487974b6=
-3035e772a29a4
-"remove the buf[0] & HYM8563_SEC_VL, it's unsuitable for some hym8563.
-set rtc init time for first power on."
+No. This applies on top of another change already queued in the amlogic
+clock tree. It can't go through the MMC tree at the moment.
 
-I guess I have 'some hym8563' in both my NanoPC-T6 LTS & Plus :-/
-The one in my NanoPi R5S works great, so I'll just use/depend on that one.
+This clock is not critical in mainline right now, so
+1) I could merge this and it and in practice there would be no
+   regression. The problem you had would still be there until the MMC
+   change lands
+
+2) Or you can wait for the MMC stuff to land and re-submit this in
+   the next cycle.
+
+Your choice. IMO, (1) is fine.
+
+>
+> thanks
+> lucas
+
+--=20
+Jerome
