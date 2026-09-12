@@ -1,285 +1,124 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1B72D0C75;
-	Sat, 12 Sep 2026 11:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159B84746A9;
+	Sat, 12 Sep 2026 11:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789213233; cv=none; b=MveRhsWD0BJxLqZZstdFEl0cufkxBoqFKlOh5LG4aZI+pJcF5tNm2w6GaWkD2vWYhKqNHFFa5c/6lLMQojfrUVAwROkYO5cdMlQrVO4sT5vQq8R3WpDA81v3YuDp1MWn4sXCSLBBXpXq/fDENkOz2YeMDZlb5LxWWbxVDaL/MNc=
+	t=1789213456; cv=none; b=f9HkrrsZLRFDS0/KCWz5oXxn6uh3RJpYa+7PeWDNOG5gSzF/Q1LGJWHv0a2FHjfaoTwVq2QArLC7JkkbcSI6cDvBoC+iU1mcw/rJuNaW8T2lopygQ479wo2zK2PeLED4DQ6+lwQOOiH9GtM5HwzRd0WWuiYftnCK9iHJOHABddw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789213233; c=relaxed/simple;
-	bh=+tDQ00MovbM6m1LVpJeHQpOmVzDfXySemAfwdxWNZ7Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A1bPaWA9iSd0+0JNxf1GT4sHBEpFI0LarpLvcICaejSrFV8i0LNNx4iAr+vFY1UfLyPO/LZO3vLCaWWGlDDlJfvPIfkVixDJirDgomR2JaO3O6sIoVxnbpJxsTHHK/Qd34qDFbUWcnOsN3+GNnFopV14orhqOqqI8iY8568deyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WVW5JgWe; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789213456; c=relaxed/simple;
+	bh=F4ifACABzT+ldoGIxrbQkNdUoxTM641otPczDJPqHvU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HAH0bB9eHC2Ii3f/w2PmtPtpLHUEFXEMllu+yLM2vj/OAq1Kotpzbu/151PyvTfrvP28z+ebcde73zQ1BSguQssAjAuu74+1PYXWQ0R1ywB9cXhClQubdgXsINVqQDHDf3fqCAdj/2AHzDWUMEqKwHDzWwSZqK1x1lMTk8b3nQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=epBz1+xx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WVW5JgWe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789213231; x=1820749231;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=+tDQ00MovbM6m1LVpJeHQpOmVzDfXySemAfwdxWNZ7Q=;
-  b=WVW5JgWehLnbi3D5Vdq2Q/GTpZewHYYQ4H0TpDnk8QZnrE2lloCsE+hi
-   vSXy7QhOwCbDGIle8kSU8+CpIp92UXCzIpGzirO8Rlt/suF86JfyExnQj
-   C0yRL4MYNrmbPc0oLwPZMslATURBG3UT/QQ+5jiv9ClRMiTiLKoYsVzu7
-   QxDr3iH0eqnNsKdlE1xlqtu6sgpVTs0jB9LVt4PLLtZwbgBY+odYDWfmk
-   AqWecszzGnVrdmfFZ/kgm1uckVelluLzixYO91fF5ejQidW3Ut20frhXc
-   13yGnkAhDTJXyeMEC2W/bmH694aekJ8IGnKjNKQVkflLFdUI71Wj4qspj
-   Q==;
-X-CSE-ConnectionGUID: FKnYLFP7Riqrp9kotjcYuw==
-X-CSE-MsgGUID: eIwVOXaUTKu9fHxCxo7FgA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="89696688"
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="89696688"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 04:40:31 -0700
-X-CSE-ConnectionGUID: +TJJVwuBT+2ABcPbtyeUTQ==
-X-CSE-MsgGUID: oOiIx21WRByWkJufTotS1w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
-   d="scan'208";a="302062380"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.238])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 04:40:27 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 33849120EA9;
-	Sat, 12 Sep 2026 14:40:32 +0300 (EEST)
-Date: Sat, 12 Sep 2026 14:40:32 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
-Message-ID: <aqU6MPoOvhAEHOeI@kekkonen.localdomain>
-References: <20260908-mira016-v4-0-1950504c131c@ideasonboard.com>
- <20260908-mira016-v4-1-1950504c131c@ideasonboard.com>
- <ap_EWstoCsLOkZ6x@kekkonen.localdomain>
- <ap_0yL-JatdVDaXG@zed>
- <ap_2Jhqc3vlmkmci@kekkonen.localdomain>
- <aqEJk6dKWuyMLLRt@zed>
- <aqEUTAAhwI09JOuR@kekkonen.localdomain>
- <aqEsceb73f5ysKmK@zed>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="epBz1+xx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D130C1F000FF;
+	Sat, 12 Sep 2026 11:44:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789213453;
+	bh=mdJy32ogPg3obq1vBcOeTI2xDZdT+88XVi3sYSuizrs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=epBz1+xxfWvGvzIjES7Lhc+iu808KmND7CEJqwCuNPsG5UBE3yyul3Rfblw53GKYI
+	 mF+H4T2/9gHJfJi/D7y8MYKCo+MQTiWN5GrB5GaqrOYqXNoTHX6WkZrIJa8LOD2MUk
+	 Is4rnwNpgoQ7Jb049KH1PhT7TwL9F+L8x587qVDPXIiYMMW0BmPwCucRY9lsbJC/VK
+	 48icbwtyVn8bh/ZBXFBHOW+ULnCQtjSfPQ3DgAlq3VoWczu2LeeKzcHx17Ej+euvE9
+	 w+VehfJyKQtfuz06hiBLvN+PzmbEZ6qJcYFG4sRkf41T/EDgmEYOcGg3iNWLDbPjgC
+	 TWiuDYNm9VqWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v50 1/7] Documentation/firmware: add imx/se to
+ other_interfaces
+Reply-To: sashiko-reviews@lists.linux.dev
+To: pankaj.gupta@oss.nxp.com
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <20260912-imx-se-if-v50-1-80834ef510d3@nxp.com>
+References: <20260912-imx-se-if-v50-0-80834ef510d3@nxp.com>
+ <20260912-imx-se-if-v50-1-80834ef510d3@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 11:44:12 +0000
+Message-Id: <20260912114412.D130C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqEsceb73f5ysKmK@zed>
 
-Hi Jacopo,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The documented signal handling design drops successful responses f=
+or completed hardware commands, breaking non-idempotent operations.
+- [Low] The ASCII sequence diagram for concurrent ELE_STORAGE_OPEN_REQ ioct=
+ls uses confusing and incorrectly directed arrows, misrepresenting the flow=
+ of operations.
+--
 
-On Wed, Sep 09, 2026 at 11:56:27AM +0200, Jacopo Mondi wrote:
-> Hi Sakari
-> 
-> On Wed, Sep 09, 2026 at 11:09:48AM +0300, Sakari Ailus wrote:
-> > Hi Jacopo,
-> >
-> > On Wed, Sep 09, 2026 at 09:35:52AM +0200, Jacopo Mondi wrote:
-> > > Sakari,
-> > >
-> > > On Tue, Sep 08, 2026 at 02:48:54PM +0300, Sakari Ailus wrote:
-> > > > Hi Jacopo,
-> > > >
-> > > > On Tue, Sep 08, 2026 at 01:46:11PM +0200, Jacopo Mondi wrote:
-> > > > > Hi Sakari
-> > > > >
-> > > > > On Tue, Sep 08, 2026 at 11:16:26AM +0300, Sakari Ailus wrote:
-> > > > > > Hi Jacopo,
-> > > > > >
-> > > > > > On Tue, Sep 08, 2026 at 09:57:23AM +0200, Jacopo Mondi wrote:
-> > > > > > > Add bindings for the ams OSRAM Mira016 image sensor.
-> > > > > > >
-> > > > > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > > > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > > > > > > ---
-> > > > > > >  .../devicetree/bindings/media/i2c/ams,mira016.yaml | 97 ++++++++++++++++++++++
-> > > > > > >  MAINTAINERS                                        |  7 ++
-> > > > > > >  2 files changed, 104 insertions(+)
-> > > > > > >
-> > > > > > > diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > > > > new file mode 100644
-> > > > > > > index 000000000000..49a606fca6cb
-> > > > > > > --- /dev/null
-> > > > > > > +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira016.yaml
-> > > > > > > @@ -0,0 +1,97 @@
-> > > > > > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > > > > > > +%YAML 1.2
-> > > > > > > +---
-> > > > > > > +$id: http://devicetree.org/schemas/media/i2c/ams,mira016.yaml#
-> > > > > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > > > > +
-> > > > > > > +title: AMS 0.16 MP NIR enhanced global shutter image sensor
-> > > > > > > +
-> > > > > > > +maintainers:
-> > > > > > > +  - Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > > > > > > +  - Philippe Baetens <philippebaetens@gmail.com>
-> > > > > > > +
-> > > > > > > +description:
-> > > > > > > +  Mira016 is a 0.16 MP NIR enhanced global shutter image sensor designed for 2D
-> > > > > > > +  and 3D consumer and industrial machine vision applications. The sensor is
-> > > > > > > +  compliant to the MIPI CSI-2 v1.3 protocol interface and the D-PHY v1.2
-> > > > > > > +  physical layer specifications to transmit the image data to the host
-> > > > > > > +  processor. It uses one data lane and one clock lane operating up to 1.5 Gbps.
-> > > > > > > +
-> > > > > > > +allOf:
-> > > > > > > +  - $ref: /schemas/media/video-interface-devices.yaml#
-> > > > > > > +
-> > > > > > > +properties:
-> > > > > > > +  compatible:
-> > > > > > > +    const: ams,mira016
-> > > > > > > +
-> > > > > > > +  reg:
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  clocks:
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  vdd28-supply:
-> > > > > > > +    description:
-> > > > > > > +      I/O voltage supply, 2.8 volts
-> > > > > > > +
-> > > > > > > +  vdd11-supply:
-> > > > > > > +    description:
-> > > > > > > +      I/O voltage supply, 1.1 volts
-> > > > > > > +
-> > > > > > > +  reset-gpios:
-> > > > > > > +    description: Sensor reset (RST_N) GPIO
-> > > > > > > +    maxItems: 1
-> > > > > > > +
-> > > > > > > +  port:
-> > > > > > > +    $ref: /schemas/graph.yaml#/$defs/port-base
-> > > > > > > +    additionalProperties: false
-> > > > > > > +    description:
-> > > > > > > +      Video output port
-> > > > > > > +
-> > > > > > > +    properties:
-> > > > > > > +      endpoint:
-> > > > > > > +        $ref: /schemas/media/video-interfaces.yaml#
-> > > > > > > +        unevaluatedProperties: false
-> > > > > > > +
-> > > > > > > +        properties:
-> > > > > > > +          data-lanes:
-> > > > > > > +            items:
-> > > > > > > +              - const: 1
-> > > > > >
-> > > > > > The device obviously supports non-continuous clock mode (and that's what
-> > > > > > the driver also only does right now) but as the continous clock mode is
-> > > > > > required by CSI-2, I presume the device can do both.
-> > > > > >
-> > > > > > So I think you should have
-> > > > > >
-> > > > > >              clock-noncontinuous: true
-> > > > > >
-> > > > > > here.
-> > > > > >
-> > > > >
-> > > > > Maybe I'm confused (again, after 10 or so years of doing this) by the
-> > > > > usage of unevaluatedProperties/additionalProperties, but if I read
-> > > > > Documentation/devicetree/bindings/writing-schema.rst right
-> > > > >
-> > > > >   * unevaluatedProperties: false
-> > > > >       Used when this binding references other schema whose all properties
-> > > > >       should be allowed.
-> > > > >
-> > > > > Means all properties from video-interfaces.yaml are accepted (which is
-> > > > > imho very wrong, but it's a battle with dt maintainers I don't want to
-> > > > > start again).
-> > > >
-> > > > I guess you should have
-> > > >
-> > > > 		additionalProperties: false
-> > > >
-> > > > too?
-> > > >
-> > >
-> > > Where exactly do you mean ?
-> > >
-> > > I don't think I can have additionalProperties: and
-> > > unevaluatedProperties: in the same node, do I ?
-> >
-> > Yes, these are mutually exclusive.
-> >
-> > >
-> > > It's been a long time ago when we discussed with dt-maintainers what
-> > > the policy should have been for endpoints that reference
-> > > video-interfaces.yaml.
-> > >
-> > > To me, the most sensible thing was to use "additionalProperties: false"
-> > > and explicitly allow the supported properties, instead of allowing all
-> > > of them. However dt maintainers had a different opinion (for reasons I
-> > > honestly can't remember) and I think we have stabilized on the
-> > > following pattern
-> > >
-> > >         port:
-> > >           $ref: /schemas/graph.yaml#/$defs/port-base
-> > >           additionalProperties: false
-> > >
-> > >           properties:
-> > >             endpoint:
-> > >               $ref: /schemas/media/video-interfaces.yaml#
-> > >               unevaluatedProperties: false
-> > >
-> > >               properties:
-> > >                 ...
-> > >
-> > > All the most recently merged bindings in media/i2c have this pattern
-> > >
-> > > 42f83a32259a ("dt-bindings: media: i2c: Add Sony IMX678")
-> > > 097d2be74ad0 ("dt-bindings: media: i2c: document Omnivision OV08D10 CMOS image sensor")
-> > > 631dd79305ab ("dt-bindings: media: i2c: Add ov2732 image sensor")
-> > >
-> > > I feel like I'm missing something obvious, otherwise I don't see why
-> > > this binding should be different ?
-> >
-> > Good question. Perhaps there was no specific thought given on
-> > non-contiguous clock support? I guess most of the above should probably
-> > specify it, even if the driver doesn't support it.
-> 
-> Maybe I'm still missing something, but using
-> 'unevaluatedProperties: false' and referencing video-interfaces.yaml
-> means you can include all properties from there (which, again, I think
-> it's wrong, but allows you to specify continous/non-continuous clock
-> support).
-> 
-> >
-> > There's a good example of doing this in
-> > Documentation/devicetree/bindings/media/i2c/ovti,ov5670.yaml, you're listed
-> > as the maintainer there. :-)
-> 
-> eheh, that binding has 'additionalProperties: false' which means you
-> have to list properties you accept.
-> 
-> This would be my preferred approach, but if my recollection is
-> correct, we stabilized on using 'unevaluatedProperties: false' after
-> discussing it with dt maintainers.
-> 
-> Does anyone have a different recollection ?
+commit c9bb0d9967cd15b4acd5ef648fe93b131b0a638a
+Author: Pankaj Gupta <pankaj.gupta@nxp.com>
 
-I don't have such a recollection albeit I'm not sure I recall more than
-this was probably discussed at some point. :-) What I do prefer however is
-to be able to say what is relevant for a given device. There are lots of
-properties there in video-interfaces.yaml that aren't for nearly every
-device (node).
+Documentation/firmware: add imx/se to other_interfaces
 
-(It's been in my plan to better separate these based in physical interfaces
-etc. but so far it's been just a plan. Even that won't make this issue go
-entirely away though.)
+This commit documents the i.MX SoC Service layer and C_DEV driver for=20
+secure enclaves like the NXP EdgeLock Enclave. It details MU=20
+communication, character device usage, and synchronization protocols.
 
--- 
-Kind regards,
+> diff --git a/Documentation/driver-api/firmware/other_interfaces.rst b/Doc=
+umentation/driver-api/firmware/other_interfaces.rst
+> index 06ac89adaafba..984ee3ecc8dc2 100644
+> --- a/Documentation/driver-api/firmware/other_interfaces.rst
+> +++ b/Documentation/driver-api/firmware/other_interfaces.rst
 
-Sakari Ailus
+[ ... ]
+
+> +      |                    |                      |  [B gets lock]   |
+> +      |                    |                      |--STORAGE_OPEN_REQ->
+> +      |                    |                      |  [FW rejects:    |
+> +      |                    |                      |   one storage    |
+> +      |                    |                      |   at a time]     |
+> +      |                    |                      |<--ERROR_RSP------|
+
+[Severity: Low]
+Is this diagram accurate? The arrows seem to originate from FW and point
+directly to Userspace B, bypassing the Kernel column. Does this misrepresent
+the flow of operations by implying firmware directly interacts with userspa=
+ce?
+
+> +      |                    |  se_val_rsp_hdr_n_status: -EPERM        |
+> +      |                    |  fw_api_specific_ops not called         |
+> +      |                    |<--ioctl -EPERM-to B------------------->|
+
+[ ... ]
+
+> +      |                    |<--CMD_RSP------------|
+> +      |  wait_for_completion_interruptible()      |
+> +      |  wakes: signal seen -> -ERESTARTSYS       |
+> +      |                    |                      |
+> +      |            [response is in rx_msg:        |
+> +      |             validate with                 |
+> +      |             se_val_rsp_hdr_n_status()]    |
+> +      |            [fw_api_specific_ops()         |
+> +      |             (is_cmd_interrupted=3Dtrue):    |
+> +      |             for SESSION_OPEN: record      |
+> +      |             handle, close session via     |
+> +      |             se_close_session(), clear;    |
+> +      |             for STORAGE_OPEN: record      |
+> +      |             handle, close storage via     |
+> +      |             se_close_storage(), return 0] |
+> +      |            err =3D -EINTR                   |
+> +      |            (not -ERESTARTSYS:             |
+> +      |             prevents VFS auto-restart)    |
+> +      |<--ioctl -EINTR-----|                      |
+
+[Severity: High]
+Could returning an error (-EINTR) to userspace for a hardware command that
+successfully completed cause userspace to incorrectly assume the operation
+was aborted?
+
+For non-idempotent operations (like incrementing a monotonic counter or
+generating a key), could this lead to userspace erroneously retrying and
+double-executing the operation in hardware?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-imx-se-if-=
+v50-0-80834ef510d3@nxp.com?part=3D1
