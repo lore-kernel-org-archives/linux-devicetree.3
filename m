@@ -1,69 +1,69 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3985C274B46
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 14:58:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71EF42F7F17
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 15:11:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789225097; cv=none; b=FdF4lYMUwsw/9If0325TxThXNtNkpqXPgDVkfxWfunxjn5lRzlCe4yxxEwrHL8LGVS+mlIyPHXnPIQoOF+dTcrw/wC5yzzlN1QwtesX5LYyXZigVHsKWCj0JwplGlQLBRyn03sDatuWrrA1/LxWQoAQCNKQbs94KbHewWibCHU0=
+	t=1789225864; cv=none; b=Is6ruAIBcZOHWAkURMbiVs1pgt801stE4AdXM6nhap/X0JPldnk582kEj8uY5Hoxk9NqoV0T4yVftu7X/qmig4nfKDkrwUld0D2m0yJJ8PT1QCHkhpUIQh80Yd0BzX9aLbe25QxT/YIUHDvpNZadZ85JPxkAsDMObsss+/cyNXE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789225097; c=relaxed/simple;
-	bh=DwQh+/xadZ9FUW5QShYxj1ADN6uyUnr/Nr2NR81o4E8=;
+	s=arc-20240116; t=1789225864; c=relaxed/simple;
+	bh=454gOSjSPXq1dlADuv5BT6iCdaMAuIelnQuaGmfZOwA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nELOIPkVSn0f3fvgkt5hYogqcijQIyQq1IwGIMdpJaJ8SYPXsuNghDVruZO/4IxJnS31/aihi3FOBxqfebHmgiCRLyfnoxalC3oYANXP+dPFQH4WbdovVofEDH+mbhte641oyulMIwGkxnHyUNXTYEhmyc53FWDhAayvTQZJFvw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oXorFWqg; arc=none smtp.client-ip=74.125.228.12
+	 In-Reply-To:Content-Type; b=BIfEzWMqdGxhcm1kEa8H+3aKnusWfdmTJAKHce+/9bzxcVeErB/Xs/LyPTMC81lL+V7VZrjHvN3Xvwu7X97hR0jReqmWAdAsurWMk6hDrDfcnt7pkK6+n3rNCOpOJns/R1wBTpc3tT7BajyTPmfj8rdiwtpqn7Wzg1O66tKlyTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CoIAAmjm; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oXorFWqg"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc3so345287a12.3
-        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 07:58:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CoIAAmjm"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso886079a12.0
+        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 08:11:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789225095; x=1789829895; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789225861; x=1789830661; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
-        b=oXorFWqgDGyP+nYVgVBAWOn/wU1VBE7qJlC+OkIRA0T/A6ijBSJ/4JtzxAay7P/x+k
-         QOxk9PxRxVwkf0D8Nmm4UasqDbB2nHYSW7/x7PJ+I6ETKkMYSkP30CHFEA6VPWIAOgUQ
-         8r0S1/O5UnfY0VM6xrXELfpY89N5jCaI3wYnl7O89R3pIAyRm0h1m1ihC8QKssRYYUE8
-         d7kJv6CPQj6PhYd6GrUd29udWPQPwazUqLwNtaGCJ4hayoxbgKbdBuxTkekXMBp1rg8u
-         4/09INvlynMD9HHHEFghjFlBz/tmgnmKBzVJBhPZEH92oKcfI9z4JPxIiZCEuy9iL2Kh
-         LZBQ==
+        bh=lwWJbmOTPaeL9kmJZ34Rm916nOQbLgwTXi0dTNNuCMI=;
+        b=CoIAAmjmk2S4f/ZChAm9MrULOCt9GzJbPZGWEvs4kVTg6NmoiSgAvE3VMn7FENX3xg
+         0u6WzJY1HQHdpiWoh1RlRDsPA0N+UrCZrRxNYs//El8JW4sqJDJEhCXBJahTWuV2S8in
+         Cs58/vJU7hhcQiqpXZfb0pVjcmYo98jgk7cFz0ZfTQMuBeXRdc5hooJikho8crOuaNML
+         F0taJtqbdAy8PLJh/NczDm+Ns8H9/F+HUSaahvL5zC1XAe0nE6PLnZyDTcYfs1bC5pIF
+         zds1qLtBTuKph5vJ2etshSpq6ubHe4SXxvtFLCc7E+gQlArfEVRTpRyRAIadrQYZPnZG
+         hiBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789225095; x=1789829895;
+        d=1e100.net; s=20251104; t=1789225861; x=1789830661;
         h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=eg+Cx2mHq8xuMsQFumf2bryL3EVhVNeWJmOvxvc1Pb8=;
-        b=Ohxuy8t1RqMoDrpWA8LHVsNUaVLdLN/l+DDkcV/M/ReSYCwiXEaM16CVFj+0XfHuUJ
-         Y/9nurEmUlY69iHIRNd3mj5AyOJnQH/xlzqDv+t+/e4QKuk6SRNzHrUhCOy2Hwg4AhSn
-         PgTAdsx81Q3b0VazommsG77Rs6pwtPVyRPeRKT6TGURciCi7kEAvmhA5E12MAgaU5QlH
-         y3FKpdO/oUsZ+Xz5N+vWBrL0u/zHn5LX/ADbwtcT8MQUlCKHiGYxd9yI4aHm9sgqXduF
-         pnFQ5zjtGggePYDnKT0BBxb55lAPBk+7RySbJ4LMxHrg4Agy82YCBVp8i4qDtklcnolD
-         lolw==
-X-Forwarded-Encrypted: i=1; AKwUvBxHOSZkHWwnsOfL9BSyjA46DKu84g0E5Eh7fGUv8T+0HVJ2WrLsg0EI5SCBM/pEIi4c8DuKKKmi99uv@vger.kernel.org
-X-Gm-Message-State: AFuF++kVvdrPl02BYGZK8PXCGeu4LowB8kZOnWOlBRpcbieNtOlF2/LB
-	iGNNQrMM9eOzWsgbCsFLpByPuC3ZrQUO/HysGAQpQPmYBpUNhGkpaCELradB4O08
-X-Gm-Gg: AYBFou3WisEKh455BxWUjPvB3aKPqcNWkB7sOKbcLjXLyr00JLtoQFCoPr4czXpiP7N
-	b7BjzPh81I1C7OYQTkBM/+XeYV6MT7dj+VhNfXGLk+TwcotX0QzoR+86V7eM4WT5izkRD8lPekQ
-	g9DJqcmF31YQAGLXXiC9dRcY37f+/W1cn+7QP97BxgxyRQMKKRMiO6C7RnJlFJfWIIXrwzz6ZqM
-	JBNehyrg4vDnIGBGW1VNikyn2EFWLzQ+b8J9nVIHWvD1GqeKOKJ+yy0PP9HzJigu5zwtDnL5ZXC
-	ugnjhXy8zPvLOPyXbkGdyHV9SCVh+NotMAOV33SwESrlvTQrlFxk0M9LczPx9n0qFIFX7dlL8xt
-	ppY0nKs26sB4+ll0dbjXz8E9ahI3V96kZSFHv1rGBUBiy0QMYi1pFkeyWc+E1raloR/QgVYPvmC
-	TvI4jvgefTfoSw5gHay+TuI9h6lCMl2CzsLz0R+CoLZ48aliNbNsDnztbmJ4hEuItCOfGfoNidR
-	eU5fpOXPysX0E0So3iNQrE+VFEdwmupeOYIVOA7cqsSmCmo
-X-Received: by 2002:a17:90b:53cf:b0:380:540:d499 with SMTP id 98e67ed59e1d1-39dbbeb3c67mr5634290a91.6.1789225095539;
-        Sat, 12 Sep 2026 07:58:15 -0700 (PDT)
+        bh=lwWJbmOTPaeL9kmJZ34Rm916nOQbLgwTXi0dTNNuCMI=;
+        b=F9nvWCRMjKRU1KQISYlbvBaav3+n2/Ri3t+gCPS+hQ/WRaqzboYM9ALoVlmCGbDRy7
+         sfVLmWDYXxa9VV7VjkWxbl7QVPuF7X2ICBT3UFPReWQLQoiKk6eMpcHX2yQTTICaa+Uv
+         1SMjhGXwAVS0Wj0L2/6+mlFGS1l0ILf20O9KNI5lyVK1HjWhisy5YlR8Gzi3VJp4+28m
+         ooqUG5ArOs2Utrlw/8FT6nxLIXnWU7dSkZSE42QzgvTXq8WwlPxubPV0bXCV7qlEaU6x
+         vyp6ITyYxp9mC/OqoRJXJj1cd0Yk2RrVbpb/MOl+DVtarjgcGhOaB94YmoFPIiJVOoLY
+         1Ypg==
+X-Forwarded-Encrypted: i=1; AKwUvBxBAjBwcMqtCYbh8Da7eLjVSjNk0k/4BTB6FhXnmTAVedcZE3BCSGmtAXO4q9o0hm+B9Ueqo6P5FDB2@vger.kernel.org
+X-Gm-Message-State: AFuF++mMAc6QzeGyCZx1TY65BqM0udMC1/Qpqja0ZzWfoyE1cjvalLNk
+	FstC0zIdeOKbMdfnWkH6KscfNyFYdoBeVwQ3DQtFAk1Mvsx8+QkT86Ak
+X-Gm-Gg: AYBFou0oFc435kfrN9YTUG3eSXVKTvD67wjFaJpro0EodE2QqSTL1koWWLV0nbaiQhh
+	aoZBLwdWwS+IyacGZ8SpeCfGwV5MnDtaW3XC5LzkxjFf9dLCIfz4Jrel9TiDYqB0BWW4hzo46e0
+	qSPxAl/iy9qWU5npR/o9K4hNpCd0fwhO9tPYqO/Wp/6j0zgnv1o/5aDb0MDiBuf3NmsPu0zgoCN
+	0RQ1HuCRljoCDKKLm0/LA/JkZQT3C3okSzZsK2J3Rb4SEdJpvJVk0GsVVpDLAf/JJg0EsDBZwQr
+	s8RWEwI8R2LFhPwLgscpwU7BGx5Mcvvb4tnf8z/TxUFrJLRk3B5LF8dmYMBhZNBNnkk6DzcmGPJ
+	KFFjTzh8zWiuhJ/4pK1C2lFtwu2+EVAkOD0CvOIIG4jTZwUHHd8lhcPWbwzVmcpgzPByyZwHySQ
+	QsbPpedAlhkdr1mXiXYfoqoQW5iVWNVDafUm1S4rigLidmVqbj8vFFyXu+Ea9ZvPBZDZBVUzvZn
+	Infj2lGaWVdrqPuXMCNh46b4Xeo24hTcseTTLU0G/4XevA7
+X-Received: by 2002:a17:90b:1f8e:b0:398:b88c:2b7b with SMTP id 98e67ed59e1d1-39d9bd9917cmr18150781a91.8.1789225860997;
+        Sat, 12 Sep 2026 08:11:00 -0700 (PDT)
 Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d9d554220sm3250791a91.2.2026.09.12.07.58.14
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d994cf9a6sm10595547a91.10.2026.09.12.08.10.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 07:58:15 -0700 (PDT)
+        Sat, 12 Sep 2026 08:11:00 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <33b90bab-8562-4638-a981-70f11459d380@roeck-us.net>
-Date: Sat, 12 Sep 2026 07:58:13 -0700
+Message-ID: <c89f582d-57fe-40d5-835b-5e5ce38daccb@roeck-us.net>
+Date: Sat, 12 Sep 2026 08:10:59 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,7 +71,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
+Subject: Re: [PATCH v1 6/6] hwmon: (peci/dimmtemp) Add support for Granite
  Rapids (GNR)
 To: Changhuang Liang <changhuang.liang@starfivetech.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -81,7 +81,7 @@ Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
  devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
  Philipp Zabel <p.zabel@pengutronix.de>
 References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
- <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+ <20260903133408.110847-7-changhuang.liang@starfivetech.com>
 Content-Language: en-US
 From: Guenter Roeck <linux@roeck-us.net>
 Autocrypt: addr=linux@roeck-us.net; keydata=
@@ -127,79 +127,68 @@ Autocrypt: addr=linux@roeck-us.net; keydata=
  F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
  FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
  np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260903133408.110847-6-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260903133408.110847-7-changhuang.liang@starfivetech.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 9/3/26 06:34, Changhuang Liang wrote:
-> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver. The GNR
-> platform does not support the core mask scan via PCI local read, so
-> handle this case explicitly by returning -EPERM and skipping the core
-> mask initialization.
+> Add support for Granite Rapids (GNR) platform in PECI DIMM temperature
+> monitoring driver.
 > 
-> Define new cpu_info structure for GNR with minimum PECI revision 0x40 and
-> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
+> The GNR platform has different DIMM topology from previous generations,
+> with 12 channel ranks (CHAN_RANK_MAX_ON_GNR) and 2 DIMM indexes per
+> channel. Define these new constants and update CHAN_RANK_MAX to use
+> the GNR value since it represents the maximum across all supported
+> platforms.
+> 
+> I am not sure whether it differs from previous models, but on GNR,
+> requests to read DIMM temperature thresholds (DIMM_TEMP_MAX/
+> DIMM_TEMP_CRIT) via PECI are rejected with completion code 0x90
+> (invalid request). To handle this, the read_thresholds callback is not
+> defined for GNR, and the visibility logic is updated to skip exposing
+> the max and crit temperature attributes when thresholds are not
+> supported.
+> 
+
+Are you sure this doesn't just require different parameter conversion
+when calling peci_pci_local_read() ? The translation from dimm_order
+and chan_rank to the register number seems to be different for each
+architecture.
+
+> The minimum PECI revision required for GNR is 0x40.
 > 
 > Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>   drivers/hwmon/peci/dimmtemp.c | 36 +++++++++++++++++++++++++++++++----
+>   1 file changed, 32 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/hwmon/peci/dimmtemp.c b/drivers/hwmon/peci/dimmtemp.c
+> index bd3e8715dfec..9e98effeb928 100644
+> --- a/drivers/hwmon/peci/dimmtemp.c
+> +++ b/drivers/hwmon/peci/dimmtemp.c
+> @@ -34,8 +34,10 @@
+>   #define DIMM_IDX_MAX_ON_SPR	2
+>   #define CHAN_RANK_MAX_ON_EMR	8
+>   #define DIMM_IDX_MAX_ON_EMR	2
+> +#define CHAN_RANK_MAX_ON_GNR	12
+> +#define DIMM_IDX_MAX_ON_GNR	2
+>   
+> -#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_HSX
+> +#define CHAN_RANK_MAX		CHAN_RANK_MAX_ON_GNR
+>   #define DIMM_IDX_MAX		DIMM_IDX_MAX_ON_HSX
+>   #define DIMM_NUMS_MAX		(CHAN_RANK_MAX * DIMM_IDX_MAX)
+>   
+> @@ -125,6 +127,9 @@ static int update_thresholds(struct peci_dimmtemp *priv, int dimm_no)
+>   	if (!peci_sensor_need_update(&priv->dimm[dimm_no].thresholds.state))
+>   		return 0;
+>   
+> +	if (!priv->gen_info->read_thresholds)
+> +		return -EOPNOTSUPP;
+> +
 
-The series does not suggest how it should be applied. Technically I could
-apply this and the subsequent patch. However, it depends on the use of "gnr"
-for Granite Rapids which is introduced with earlier patches of the series,
-so it will have to wait or be applied together with the rest of the patches.
-
-For my reference:
-
-Reviewed-by: Guenter Roeck <linux@roeck-us.net>
+This check is unnecessary: The attributes are marked as not visible
+if read_thresholds is NULL, and this code will never be called.
 
 Thanks,
 Guenter
-> ---
->   drivers/hwmon/peci/cputemp.c | 20 ++++++++++++++++++++
->   1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
-> index 457089c561b4..43e52a6db79b 100644
-> --- a/drivers/hwmon/peci/cputemp.c
-> +++ b/drivers/hwmon/peci/cputemp.c
-> @@ -339,6 +339,17 @@ static int init_core_mask(struct peci_cputemp *priv)
->   	u32 data;
->   	int ret;
->   
-> +	/*
-> +	 * Some platforms (e.g. Granite Rapids) do not expose the RESOLVED_CORES
-> +	 * register over PECI - per-core temperatures are simply not available.
-> +	 */
-> +	if (!reg) {
-> +		dev_dbg(priv->dev,
-> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
-> +			peci_dev->info.x86_vfm);
-> +		return -EOPNOTSUPP;
-> +	}
-> +
->   	/* Get the RESOLVED_CORES register value */
->   	switch (peci_dev->info.x86_vfm) {
->   	case INTEL_ICELAKE_X:
-> @@ -543,6 +554,11 @@ static const struct cpu_info cpu_emr = {
->   	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
->   };
->   
-> +static const struct cpu_info cpu_gnr = {
-> +	.min_peci_revision = 0x40,
-> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
-> +};
-> +
->   static const struct auxiliary_device_id peci_cputemp_ids[] = {
->   	{
->   		.name = "peci_cpu.cputemp.hsx",
-> @@ -576,6 +592,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
->   		.name = "peci_cpu.cputemp.emr",
->   		.driver_data = (kernel_ulong_t)&cpu_emr,
->   	},
-> +	{
-> +		.name = "peci_cpu.cputemp.gnr",
-> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
-> +	},
->   	{ }
->   };
->   MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
 
