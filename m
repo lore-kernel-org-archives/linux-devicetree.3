@@ -1,162 +1,96 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2598301486
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 23:08:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F882381B0F
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 23:11:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789254532; cv=none; b=opoI5iiz5NSqthHqCPzGsT9B1oG8gThkizUAxRaUhMI3T45DlOqa9Becw3k1Yo2X/48ZcLQ69tJgmGV0LVmSA2I3kX6XunHX8pNTtkueZlBdeVL6VQUPuZmEJtCzzt4X86qIbZdgTzEFCg3mblSOyktV5TuebHC08KRYzvWuIx4=
+	t=1789254669; cv=none; b=P7vydhH5R59gu1CqHarLLBn2Ws/fBHLel3qlu1H7ZPdDpUQjwb5p6NE4+n585ykDNY9Akk1OXY4kfH/2i+HDqxEQC7n79sSLJNAJB+SVeVXrRsN9PXJlttAXNUwg82mgum5Gwb1fwYubu3Ofv0fxvcXKSCWwU9dK4T1J9L8E9Lk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789254532; c=relaxed/simple;
-	bh=JBDEzamj2PwxfWI39gEDVSRoKeLBosMADu2OyKmmhpM=;
+	s=arc-20240116; t=1789254669; c=relaxed/simple;
+	bh=QASvcJxlRpZVHUKCzhwO0Eyz9TplB30ytL7smacFUiU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NoV4QyfUSZYINK5VwQNcwHE+OddjMJ8oD2Nr8/3iz3pmT4kam+dJCahWKQ9CBRA7aHdJacsUA2CP9ArknJDRN6ui4lfdvwLETg2TLkVpahI08CnskJcP35ZPn0Ho/1KM7YtqVGPjFemJoRzLfVaHcV8daT2xRW5Fe3MTywG2oBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Httl12Ua; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=esUCQXiuFbD/Dg/hFjda8lgsyvjJMecgrjdighK7Jbc9HuWHe5yHwNypP2VLW/zkipBiWtfUCYq60qSaP+9s4WuFDdm56Q/Wn/O282xjF6yd2k2wOvG8+Ha7nkeiDFwyrHF7mD36SW9fWlRkQAMZa4eiqebsEpL+ai3Lo2BC4sc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N2669mvC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Httl12Ua"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049661F000FF;
-	Sat, 12 Sep 2026 23:08:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N2669mvC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF67E1F000FF;
+	Sat, 12 Sep 2026 23:11:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789254531;
-	bh=LtALdiBjrxkf+oVhYEt9gGQblx8tuzi4dr7FK4XsAFg=;
+	s=k20260515; t=1789254667;
+	bh=JoYIn5Fkv3+b1LmvR/Lw7CHgcsQotv5Qt6WBCLc9Nzg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Httl12UavMS06PMxhX/RtwMOrCAm0skqULJEHnaybXFf5v9XO/PY7jVDf1/GPWdA/
-	 4GoH27CA8CeDu93Vy4CpoHnfwjctFmO8iVOqePxqGv1qbXQiFfIexj1mkLqZ6wlScn
-	 gHiY87VtjzZXyAr+WXgmxB4/JfB+UWLShb9uaR0i/2ER4pqLSf+qbrTEAktoWD2jtH
-	 adZSFg59HO/i4PhbspxCCLpCYzQZ6h6mwnfbxvRFbQeORo8JiY/tw9hIPFrL+if9LF
-	 NJZc+IsKpKmPVhT6FonVH+Re7fkSi0AbBo4ADdhjjq+EpWhhjp6GvDE86ia24aeoNe
-	 L8QA+U7iKMOBg==
+	b=N2669mvCilT5ESfVjYBgoe8NsNaxpUogFKMSh5yEYPrDahE10HDJec6JFR10Dz0iE
+	 4gAFIwIOmzyfC64kHPmbtzQu0pcmigCPkXEWog4ZjV6tF0rxGtxvh+aMC1uq5tVjXd
+	 ZSZfD3iyo6dMpIYUm6zNdLRQY9ZuZwKaMulBfbivAqYjq5vNeDgzLcweMJV+nYNLWs
+	 s6P+tbAF4EVYLdBWBYArJoT945A4CJ53Xvo+FkqLBIPjNNoofbeuAufcUQJgg2N+Ig
+	 yA2wJ5V4K2IdLzoq2OFXeUzfdblIXaBcoik0ArQd2e2tGoIM+EkJVEKYJra57aifUf
+	 FlgPRuMsBlMoQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 4/8] usb: misc: qcom_eud: add per-path role switch
- support
+Subject: Re: [PATCH v8 8/8] arm64: dts: qcom: kodiak: Desribe EUD UTMI
+ routing and connector mapping
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260912225301.3396556-5-elson.serrao@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260912225301.3396556-9-elson.serrao@oss.qualcomm.com>
 References: <20260912225301.3396556-1-elson.serrao@oss.qualcomm.com>
- <20260912225301.3396556-5-elson.serrao@oss.qualcomm.com>
+ <20260912225301.3396556-9-elson.serrao@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 23:08:50 +0000
-Message-Id: <20260912230851.049661F000FF@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 23:11:06 +0000
+Message-Id: <20260912231106.EF67E1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-
-New issues:
-- [Medium] The driver registers its USB role switch with the incorrect fwno=
-de for legacy device trees, preventing USB connectors from finding the swit=
-ch.
-- [Medium] Dangling fwnode pointer in the registered USB role switch due to=
- missing device node refcount increment.
-
-Pre-existing issues:
-- [High] The hardirq handler calls a function that sleeps, leading to a ker=
-nel panic.
+- [Medium] Enabling EUD by default causes endless probe deferral on boards =
+where usb_1 is disabled
 --
 
-commit 9414ff0b2c9f7c78a66f0bce1fe95af108a567fa
+commit f996caeceb74900c278431f664f8ba097d1904a7
 Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-usb: misc: qcom_eud: add per-path role switch support
+arm64: dts: qcom: kodiak: Desribe EUD UTMI routing and connector mapping
 
-The EUD hardware can support multiple High-Speed USB paths, each connected
-to different USB controllers. Restructure the driver to support per-path
-role switches and remove the chip-level role switch. Additionally, remove
-the unnecessary role switch call from enable_eud().
+This commit updates the EUD description in Kodiak boards to explicitly model
+the topology using an EUD path child node and adds a role-switch declaratio=
+n.
+It enables the EUD node by default and maps the USB connector endpoint to
+the EUD instead of directly to the USB controller.
 
-> diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index 868725ad35e09..5e2034fb11ab5 100644
-> --- a/drivers/usb/misc/qcom_eud.c
-> +++ b/drivers/usb/misc/qcom_eud.c
+> diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
+com/kodiak.dtsi
+> index f2da3706d5c88..6c64dc9902e47 100644
+> --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
 [ ... ]
-> @@ -270,12 +273,15 @@ static irqreturn_t handle_eud_irq(int irq, void *da=
-ta)
-
-[Severity: High]
-This is a pre-existing issue and was not introduced by the patch under
-review, but does handle_eud_irq() end up sleeping in a hardirq context?
-
-Looking at the driver's interrupt handling, handle_eud_irq() is the
-primary hardirq handler (top-half). When it receives an EUD_INT_SAFE_MODE
-interrupt, it calls pet_eud():
-
-drivers/usb/misc/qcom_eud.c:handle_eud_irq() {
-    ...
-	case EUD_INT_SAFE_MODE:
-		pet_eud(chip);
-		return IRQ_HANDLED;
-    ...
-}
-
-However, pet_eud() invokes readl_poll_timeout() which internally calls
-usleep_range() and attempts to sleep:
-
-drivers/usb/misc/qcom_eud.c:pet_eud() {
-    ...
-		ret =3D readl_poll_timeout(chip->base + EUD_REG_SW_ATTACH_DET,
-					reg, (reg =3D=3D 0), 1, 100);
-    ...
-}
-
-Can this lead to a kernel panic due to scheduling while atomic when the
-hardware generates a safe mode interrupt?
-
->  static irqreturn_t handle_eud_irq_thread(int irq, void *data)
->  {
-[ ... ]
-> @@ -327,14 +356,59 @@ static int eud_init_path(struct eud_chip *chip, str=
-uct device_node *np)
-[ ... ]
-> +	role_sw_desc.fwnode =3D of_fwnode_handle(np);
+> @@ -4753,16 +4747,30 @@ eud: eud@88e0000 {
+>  			      <0 0x88e2000 0 0x1000>;
+>  			interrupts-extended =3D <&pdc 11 IRQ_TYPE_LEVEL_HIGH>;
+> =20
+> -			status =3D "disabled";
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
 
 [Severity: Medium]
-When processing a legacy device tree, does this assign the wrong fwnode
-to the role switch?
+Does removing status =3D "disabled" here cause endless probe deferral on bo=
+ards
+where usb_1 is left disabled?
 
-In a legacy DT, np points to the ports node instead of the main eud
-device node. By setting the fwnode to the ports node here, the role
-switch is registered with that specific fwnode.
+By enabling the eud node by default for all kodiak-based boards, the EUD
+driver will attempt to probe and find the role switch for the downstream
+usb_1 controller. On boards that do not enable usb_1 (such as
+qcs6490-vicharak-axon-mini.dts and qcs6490-radxa-dragon-q6a.dts), the
+controller driver never probes and does not register a role switch.
 
-However, when a connector driver searches for its remote role switch,
-of_fwnode_graph_get_port_parent() explicitly skips nodes named "ports" and
-returns the parent device node instead. Does this mismatch cause the
-connector framework to fail to find the EUD's role switch, breaking the
-role-relay functionality on platforms using legacy DT bindings?
-
-> +	role_sw_desc.set =3D eud_role_switch_set;
-> +	role_sw_desc.driver_data =3D path;
-> +	snprintf(path->name, sizeof(path->name), "eud-path%u", path_num);
-> +	role_sw_desc.name =3D path->name;
-> +
-> +	path->eud_sw =3D usb_role_switch_register(chip->dev, &role_sw_desc);
-
-[Severity: Medium]
-Does this leave a dangling fwnode pointer in the registered USB role switch?
-
-Looking at eud_probe(), it iterates over child nodes using:
-
-for_each_child_of_node_scoped(np, child) {
-    ret =3D eud_init_path(chip, child);
-    ...
-}
-
-The child device node pointer is passed to eud_init_path() as np, where
-its fwnode is directly passed to usb_role_switch_register().
-usb_role_switch_register() stores the fwnode but does not increment its
-reference count.
-
-Since for_each_child_of_node_scoped() automatically drops the reference on
-the child node when the loop advances or exits, does the registered
-role switch retain a pointer to a device node with a decremented reference
-count? For dynamic DT overlays, could this lead to a Use-After-Free upon
-role switch removal or sysfs access?
+This causes the EUD driver to explicitly return -EPROBE_DEFER. Since the
+dependency is disabled, the EUD driver will defer forever and linger in the
+deferred probe list.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912225301.3396=
-556-1-elson.serrao@oss.qualcomm.com?part=3D4
+556-1-elson.serrao@oss.qualcomm.com?part=3D8
