@@ -1,113 +1,122 @@
-Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D368A2F617C
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 04:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1D0F2868AB;
+	Sat, 12 Sep 2026 04:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789187512; cv=none; b=sJLnyF0BzCZck4mFX9Yzehe2g26z7V8B1bSdxkDqZm0OLxwAe091bSRh2D7rEvfFBSDCRgkC1wkUYcPVDxZa0UgilFpSwwP7XzahJ24r9zJAAVFilG5RU68gUmXOa4bJjHjenJxTNyQlmU6LTZFGpzUb0okPbl+SM8e82nntcno=
+	t=1789188158; cv=none; b=txH5iCamW7wur13+2k3M9/xIK+FzVFmLeL9ijGAtnBkcdMad93hkMCgGS+WwHhofcLnN/AnpSiPqn5KnmEtq9Wk8xEBZflJZYL9sUrefocK6UCbCbDBLGRcW5u5Rmtu1UGmvK1jJmR79Uuv5Lx668hx/ZBkWi/vXgLdiu+ABZ3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789187512; c=relaxed/simple;
-	bh=sfKCzdxaib4+pasocL4R9qT+1CZ6GpvPWb0b0BSuC3E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c5ChJ5Bf1SMC9QxwF+X05wTiVd416M1tWGym4gmokVHqB3UHqkVcW534Dhv+tCEWfa2jsaw/q20KMjvVIZ6NsazThb8qP2D+YdxeV8HlzyjPWseBBWDvaKF9Obi4HymZD2+ac4RvhAxxV68QB7e9XD0wFCKAk0FbL4vKlpkb3es=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=t+5szApF; arc=none smtp.client-ip=109.224.244.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
+	s=arc-20240116; t=1789188158; c=relaxed/simple;
+	bh=yTO9OSTvjFkr7sdR5D+3UeqqsBhJT2AZXn7hakiE8xI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fxzKGxJf9/kAgTJGzIT6PrSyJ0Xsh0CtvmigvSAWb314BQlRNLVw9Y8l5qyYRCXNx/1n2kb2R4+NWSgPBvbxnnR9/t9f8OPs+4Q5yi9n187IHOeq3qMy3fdj8D30BFpkxa/tgjLF6F6g9VoUYCsv9JpnHGx1Wq7m89lHh0YGRmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GWI4ixwh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="t+5szApF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
-	s=protonmail3; t=1789187500; x=1789446700;
-	bh=sSqoYH0c21mEhcvpAIK0bj7Pj0T2Ip9t6Lb6uBWDPEM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=t+5szApFwbaQf07puBq1wdaNfHt8OmNvVMBDX4683NUam9S1ARn5ywllB5KVYes/n
-	 LiQitvej4j4I5gUR2kQGK3Ln/bkUQhBtNQb55cXh52qgs7BCDIs/KrMJt2E6f323xW
-	 DskuLMkmX5LSPZiYGvlb0J6EA5O2zEziPdrAvouxyZ9JSj2Ze4RbbN++P9HIFSs0z8
-	 aAOsd2tqv0fgx8rQFBohaVDnoZzqUE+hHHdgwJ3P5RwjK+Nm67rbTchIGkJgtRRldL
-	 /pjzky2+aT6ft+bqtGJvppgBlyA4oQGpQQMVvOS08sW6pVgrudpjcgLKtJ2P5O3GVq
-	 Q3EHZXTL1UpCg==
-X-Pm-Submission-Id: 4hhdln4Rlvz1DDLV
-From: Angel J <iamanaws@httpd.dev>
-To: linux-pci@vger.kernel.org,
-	bhelgaas@google.com
-Cc: robh@kernel.org,
-	herve.codina@bootlin.com,
-	lizhi.hou@amd.com,
-	andrea.porta@suse.com,
-	florian.fainelli@broadcom.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	stable@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	Angel J <iamanaws@httpd.dev>
-Subject: [PATCH v2] PCI: of_property: Omit bus properties without a subordinate bus
-Date: Fri, 11 Sep 2026 21:31:06 -0700
-Message-ID: <20260912043106.10715-1-iamanaws@httpd.dev>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260911230420.26244-1-iamanaws@httpd.dev>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GWI4ixwh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D4581F000FF;
+	Sat, 12 Sep 2026 04:42:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789188156;
+	bh=VNZTe9Xe+aZPNBcIUPlVnByCjnVY+Ig+eRF7EPKjzQE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GWI4ixwh+uCBFXa6Fmwk4tfEu4skJV4ERquTjbjbygyZz9MHTzwTNLACE/8opem3D
+	 sZzJNOG0neTiy2noQ/dBQw48Wdgv2f6q/Wj9wwiw60Tlgvd/RZp9TVARPu34akBO+R
+	 Ub67nhJGmj9NkJiNZz+33CqiNbeXxkixlzbcsIOY87UROD7XXwuJ0EthIN2D2Y9/h7
+	 35grDKvK0dqskkbdLIvsTmWZwJCu/ZzDdaWi+Clx7sZ3OEIS4e24H0IfVa5OyKb45f
+	 f3xX/kOKaZ5dg7VpXjBPRovhMoXx95Vm8IWPkEVHjAt+kTboen4Cyko3I8JTFkW6FV
+	 XeSoTgNMKKkOA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2] PCI: of_property: Omit bus properties without a
+ subordinate bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Angel J" <iamanaws@httpd.dev>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260912043106.10715-1-iamanaws@httpd.dev>
 References: <20260911230420.26244-1-iamanaws@httpd.dev>
+ <20260912043106.10715-1-iamanaws@httpd.dev>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 04:42:35 +0000
+Message-Id: <20260912044236.3D4581F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-A device can satisfy pci_is_bridge() without having a subordinate bus.
-The dynamic OF helpers for bus-range and interrupt-map dereference
-pdev->subordinate without checking it.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On a Dell XPS 8940, device 0000:00:00.0 [8086:4c43] has no subordinate
-bus, and enabling CONFIG_PCI_DYNAMIC_OF_NODES causes an early boot hang.
+Pre-existing issues:
+- [High] Potential kernel panic due to unhandled kasprintf() memory allocat=
+ion failure in of_pci_prop_compatible().
+--
 
-Generate bus-range and interrupt-map only when a subordinate bus exists.
-Keep the node and its remaining properties for bridges without one.
+commit ad6194f8ec3f58cf7279c3746e014412e0aad530
+Author: Angel J <iamanaws@httpd.dev>
 
-Boot-tested on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y. The
-system boots and the node for 00:00.0 retains device_type, reg and
-compatible. The other bridges retain their nodes and bus ranges.
+PCI: of_property: Omit bus properties without a subordinate bus
 
-Fixes: 407d1a51921e ("PCI: Create device tree node for bridge")
-Cc: stable@vger.kernel.org
-Signed-off-by: Angel J <iamanaws@httpd.dev>
----
-Changes in v2:
-- Keep the dynamic OF node and skip only bus-range and interrupt-map
-  when no subordinate bus exists, following review of v1.
-- Tested on Linux 6.18.44 with the v1 guard removed.
+This commit updates of_pci_add_properties() to only generate bus-range and
+interrupt-map properties when a subordinate bus is present. This prevents an
+early boot hang on devices that satisfy pci_is_bridge() but lack a
+subordinate bus.
 
- drivers/pci/of_property.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+> diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
+> index 75a358f73e694..acd2e0f70f01b 100644
+> --- a/drivers/pci/of_property.c
+> +++ b/drivers/pci/of_property.c
+> @@ -361,13 +361,15 @@ int of_pci_add_properties(struct pci_dev *pdev, str=
+uct of_changeset *ocs,
+>  		if (ret)
+>  			return ret;
+> =20
+> -		ret =3D of_pci_prop_bus_range(pdev, ocs, np);
+> -		if (ret)
+> -			return ret;
+> +		if (pdev->subordinate) {
+> +			ret =3D of_pci_prop_bus_range(pdev, ocs, np);
+> +			if (ret)
+> +				return ret;
+> =20
+> -		ret =3D of_pci_prop_intr_map(pdev, ocs, np);
+> -		if (ret)
+> -			return ret;
+> +			ret =3D of_pci_prop_intr_map(pdev, ocs, np);
+> +			if (ret)
+> +				return ret;
+> +		}
+>  	} else {
+>  		ret =3D of_pci_prop_intr_ctrl(pdev, ocs, np);
+>  		if (ret)
 
-diff --git a/drivers/pci/of_property.c b/drivers/pci/of_property.c
-index 75a358f73..acd2e0f70 100644
---- a/drivers/pci/of_property.c
-+++ b/drivers/pci/of_property.c
-@@ -361,13 +361,15 @@ int of_pci_add_properties(struct pci_dev *pdev, struct of_changeset *ocs,
- 		if (ret)
- 			return ret;
- 
--		ret = of_pci_prop_bus_range(pdev, ocs, np);
--		if (ret)
--			return ret;
-+		if (pdev->subordinate) {
-+			ret = of_pci_prop_bus_range(pdev, ocs, np);
-+			if (ret)
-+				return ret;
- 
--		ret = of_pci_prop_intr_map(pdev, ocs, np);
--		if (ret)
--			return ret;
-+			ret = of_pci_prop_intr_map(pdev, ocs, np);
-+			if (ret)
-+				return ret;
-+		}
- 	} else {
- 		ret = of_pci_prop_intr_ctrl(pdev, ocs, np);
- 		if (ret)
--- 
-2.54.0
+[Severity: High]
+This is a pre-existing issue, but I noticed a potential problem in
+of_pci_prop_compatible(), which is called later in this same function.
 
+Can kasprintf() return NULL here under memory pressure?
+
+drivers/pci/of_property.c:of_pci_prop_compatible() {
+    ...
+    compat_strs[PROP_COMPAT_PCI_VVVV_DDDD] =3D
+        kasprintf(GFP_KERNEL, "pci%x,%x", pdev->vendor, pdev->device);
+    ...
+}
+
+If this happens, the compat_strs array will contain a NULL pointer.
+When this array is passed to of_changeset_add_prop_string_array():
+
+drivers/pci/of_property.c:of_pci_prop_compatible() {
+    ...
+    ret =3D of_changeset_add_prop_string_array(ocs, np, "compatible",
+                                             compat_strs, PROP_COMPAT_NUM);
+    ...
+}
+
+Does the changeset API assume all string pointers are valid, leading to a
+NULL pointer dereference in strlen() when it iterates over the array?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912043106.1071=
+5-1-iamanaws@httpd.dev?part=3D1
