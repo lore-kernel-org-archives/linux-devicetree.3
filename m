@@ -1,244 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7B4A2F260C
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 21:51:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C630F39061C;
+	Sat, 12 Sep 2026 22:21:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789249872; cv=none; b=fR099Dpm5YWCqOtYs7VFSvqp9qlLx5AkG16NYyBmU0ZGbastMOJCHcijIpVKpstFLUBLPH+JZggqtZ+lBDnODcyMbKWAYdy4NEgNcuxn6D/1d5Rr+vd8u+5LDoXOcp/nMNNhx97fs939fV1Dyxsitkk8HzowLBpBs+cLdLVUhB0=
+	t=1789251664; cv=none; b=HRLRBqlPqXYQKn/0NcNlQkpYv84aS2xuk409J784xaqmGKsfTVoAxex7+hamY3Z1mezMhEopbiTCz+kmLaBvWMBQ0RMRNyHkjQEg6uh7idme378XZ855juxaC3xPyFKWc/wIHFB3L2W9QGlub2SzXSbdCAPNJHVmg2Hx6wxZuX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789249872; c=relaxed/simple;
-	bh=rbT75H1lsy1RaCAet2cgoLZm6xWlqwLvTKYvj+QQlTE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GXnwItntdp00KBynih3UG9hNdckAnVST1YdP4Ec5vw5G69buHVXH9EcsvISCTvWOpPgfVJn0VZDFEFjJmNQ+mPtxoiEwjCIzZZXvRkYDdaKkQ+Ud3intfyaDqDldmWtEV10nnqr3/FX6srL/xMUpNO+Fe+N2BoqQoVjtgB0PPNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+KumAr9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789251664; c=relaxed/simple;
+	bh=jJN5bbmJG6+W8ZaAl9RR52OiGtP0jEKBmRMAckxoXiM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=aJe6HCLeEcaYPMYTJDo6bj52O4C4tN9/S/pJQ+nuxskJRaZYMGv/KJlET++t6zOUyeerAhGe7S1q8c9iuQ3BMZPp4tgAzfaoYtqM/d2uJ+98i0Myg33FwevRkgp9GRgF1P/rzFIYzEFpyw8oWzz9UatbWIXSpAj7k4XKeWMNeXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BHhPvzDn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+KumAr9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11BDF1F000FF;
-	Sat, 12 Sep 2026 21:51:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BHhPvzDn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 434821F000FF;
+	Sat, 12 Sep 2026 22:20:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789249870;
-	bh=9jrO3ISx16DPzQFK9jfhtyUZGNd29MvajPGtBZs8QZw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i+KumAr9aO5hw94gUoQIvvpojPVlV68MAqmqZR3B9iWrBptQsr3tYKg/yLcyceLRD
-	 PeDfVmqQEa4dLS2JCtxgH+39VIHaK8hJic6+J80pN7zZh6ryrNviGlwgNfQ3BSNTlE
-	 o2F79oZCYFk97AsKdBq10+/eeOb/Xdwhvh1qyg2SrFtkS0Iw50HLJMOK5y+tzApJov
-	 UgsyLk0rCFh8HeciWjd8BGiBTw/Ph0e4IiekyT0Na9uNXl8vJ0eq+NEAxNccRtrqob
-	 qqUEtYIkbTAZRIe/UJP/YaiUaO74Ip+ebwSgLQ0lToW5KMDHik+oA0MgiMIE3RY5Sd
-	 v3iuyTVctP2gA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
- DSI to HDMI driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: mohit.dsor@oss.qualcomm.com
-Cc: conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20260913-lt9611c-v7-v14-2-534b43a07662@oss.qualcomm.com>
-References: <20260913-lt9611c-v7-v14-0-534b43a07662@oss.qualcomm.com>
- <20260913-lt9611c-v7-v14-2-534b43a07662@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 21:51:09 +0000
-Message-Id: <20260912215110.11BDF1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789251662;
+	bh=A9T5TqugoZpwriYm80tITfJ7eL5e79XFR+RGRlWT3Yo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BHhPvzDnmzwpQttZFmPMZf/UutFNeY/Degy6vahXXbV7Z6hNGc9MkvFE+rdhQJ6MU
+	 VAw3b4RYQvofx2lNTbeX4zkZRnpelNzwDei0UTSd3ZGNIs/4odMQ67B9LiiARuySxb
+	 U6BER7d7wfXohAn2tXbzGwa2wiTRgp4c4+hrPC/Fg2mvopBtYwKpfuJcqo2gQktz/i
+	 UBA340zyHxS9IBLWpHZ7ZP/iBROp/81WLbTAUh34hL3mGOOjez8TZZyGHIC4Q8vD6X
+	 SvDJPAFOvk+SgEr6vR+aGc41krBbPQbYbAOql8ew7alD2jpnrmyuGLi/805cAMk+g3
+	 S6DFuxrkx8D2Q==
+Date: Sat, 12 Sep 2026 23:20:47 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Arnd Bergmann" <arnd@arndb.de>
+Cc: "Svyatoslav Ryhel" <clamor95@gmail.com>, "Arnd Bergmann"
+ <arnd@kernel.org>, "Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+ "Bartosz Golaszewski" <brgl@kernel.org>, "Mark Brown" <broonie@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Daniel Thompson"
+ <danielt@kernel.org>, "Helge Deller" <deller@gmx.de>,
+ devicetree@vger.kernel.org, "Dmitry Torokhov" <dmitry.torokhov@gmail.com>,
+ dri-devel@lists.freedesktop.org, "Jingoo Han" <jingoohan1@gmail.com>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Lee Jones" <lee@kernel.org>,
+ "Liam Girdwood" <lgirdwood@gmail.com>, "Linus Walleij" <linusw@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, "open list:GPIO SUBSYSTEM"
+ <linux-gpio@vger.kernel.org>, linux-hwmon@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-watchdog@vger.kernel.org, "Guenter Roeck" <linux@roeck-us.net>,
+ linuxppc-dev@lists.ozlabs.org, llvm@lists.linux.dev, "Mauro Carvalho
+ Chehab" <mchehab@kernel.org>, mfd@lists.linux.dev, "Michael Hennerich"
+ <michael.hennerich@analog.com>, patches@opensource.cirrus.com, "Pavel
+ Machek" <pavel@kernel.org>, "Rob Herring" <robh@kernel.org>, "Sebastian
+ Reichel" <sre@kernel.org>, "Support Opensource"
+ <support.opensource@diasemi.com>
+Subject: Re: [PATCH 08/14] mfd: remove unused aat2870 driver
+Message-ID: <20260912232047.19c4cb10@jic23-hlaptop>
+In-Reply-To: <11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+References: <CAPVz0n0ryOns2sCJE_jFana9MVzwEj1QZuPEa8FNhGbHXnMB+A@mail.gmail.com>
+	<11652e5e-053e-45b0-98a0-0c1cb2aeedc4@app.fastmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
-- [High] The driver fails to invoke the DRM HDMI state helper to flush info=
-frames to the hardware during a modeset.
-- [High] Missing polling for flash page program completion before writing t=
-he next page.
-- [High] Hardware reset causes silent desynchronization of the regmap page =
-selector cache, leading to corrupt I2C accesses.
-- [High] Incorrect interrupt clear sequence inadvertently asserts clear sig=
-nals for other pending interrupts.
-- [Medium] The bridge driver completely omits an `atomic_disable` (or `disa=
-ble`) callback, preventing the hardware from being powered down during DPMS=
- off.
-- [Low] Data race when accessing `lt9611c->fw_version` concurrently.
---
+On Thu, 10 Sep 2026 20:14:15 +0200
+"Arnd Bergmann" <arnd@arndb.de> wrote:
 
-commit 00cae86a0097b37f64f26f28bf0a922224a6461d
-Author: Sunyun Yang <syyang@lontium.com>
+> On Thu, Sep 10, 2026, at 18:40, Svyatoslav Ryhel wrote:
+> > __ 
+> > Hello Arnd! May you please spare AAT2870 from being removed? I have a 
+> > device which uses aat2870 (LG Optimus 2X P990 Tegra 2, not upstreamed 
+> > yet, but in process as well) and atm I am working on converting this 
+> > driver to use OF. Thank you!  
+> 
+> Sure, I have removed this patch from my series now.
+> 
+> > P. S. If you are planning to remove more old drivers, please CC me in 
+> > since I may be interested in some additional driver upgrades for 
+> > devices I own.  
+> 
+> Please have a look at
+> 
+> https://git.kernel.org/pub/scm/linux/kernel/git/soc/soc.git/log/?h=board-remove-7.3
+> 
+> I tried to be careful about figuring out exactly which drivers are
+> unused, but I'm sure there are still a few false positive and false
+> negative ones in there. I've added the current list of driver files below,
+> let me know if you see something that shouldn't be there.
+Hi Arnd
 
-drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+For I2C and SPI at least, there doesn't need to be explicit
+device tree support as long as they have defaults when platform
+data isn't there. Those two buses will happily bind based on
+a dt-compatible and their i2c_device_id or spi_device_id tables
+for example.
 
-This commit introduces a DRM bridge driver for the Lontium LT9611C(EX/UXD)
-MIPI DSI to HDMI converter chips. The driver supports single or dual MIPI D=
-SI
-inputs, I2S/SPDIF audio, and handles HDMI infoframes alongside I2C-based
-firmware flashing and power management.
+So unless they fail to probe (some might?) we don't have
+a clear signal on whether they are in use via DT or not.
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..fbd6209287998
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-[ ... ]
-> +static int lt9611c_write_data(struct lt9611c *lt9611c, const struct firm=
-ware *fw, size_t addr)
-> +{
-[ ... ]
-> +		for (unsigned int i =3D 0; i < LT_PAGE_SIZE; i++) {
-> +			size_t index =3D num * LT_PAGE_SIZE + i;
-> +			u8 value =3D (index < size) ? data[index] : 0xff;
-> +			int ret;
-> +
-> +			ret =3D regmap_write(lt9611c->regmap, 0xe059, value);
-> +			if (ret < 0) {
-> +				dev_err(dev, "write error at page %u, index %u\n", num, i);
-> +				return ret;
-> +			}
-> +		}
-> +
-> +		lt9611c_wren(lt9611c);
-> +		lt9611c_sram_to_flash(lt9611c, addr);
-> +
-> +		addr +=3D LT_PAGE_SIZE;
-> +	}
-> +
-> +	lt9611c_wrdi(lt9611c);
+For vast majority of IIO drivers we don't have an upstream
+DTS as there is no clear motivation for anyone to upstream
+the dts for a random industrial control board or similar.
 
-[Severity: High]
-Does this sequence overwrite the SRAM buffer over I2C while the internal SPI
-flash controller is still programming the previous page? It appears there i=
-s no
-delay or polling for the flash program command to complete before looping b=
-ack
-to write the next page's data to SRAM, which might silently corrupt the fla=
-shed
-firmware.
+> drivers/iio/adc/ad7266.c
+No to dropping this.
 
-[ ... ]
-> +static int lt9611c_firmware_upgrade(struct lt9611c *lt9611c)
-> +{
-[ ... ]
-> +	ret =3D lt9611c_write_data(lt9611c, fw, 0);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to write firmware data\n");
-> +		goto out_unlock;
-> +	}
-> +
-> +	ret =3D lt9611c_write_crc(lt9611c, fw_crc, FW_SIZE - 1);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to write firmware crc\n");
-> +		goto out_unlock;
-> +	}
-> +
-> +	lt9611c_reset(lt9611c);
-> +	ret =3D lt9611c_upgrade_result(lt9611c, fw_crc);
+Has fallbacks and should bind just fine  No one ever
+bothered adding an of_device_id table because it isn't
+needed. Fine to rip out the platform data support as nothing is
+using that.
 
-[Severity: High]
-Could the hard reset immediately following the CRC flash write command abor=
-t the
-final write while it is still in-flight? Polling for completion before rese=
-tting
-might be necessary here as well.
+This is a production part that is likely being used in new designs.
 
-[ ... ]
-> +static void lt9611c_reset(struct lt9611c *lt9611c)
-> +{
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 1);
-> +	usleep_range(10000, 12000);
-> +
-> +	gpiod_set_value_cansleep(lt9611c->reset_gpio, 0);
-> +	msleep(400);
-> +}
+> drivers/iio/adc/ad7791.c
+No to dropping this one.
 
-[Severity: High]
-Will the physical reset clear the chip's internal page register back to 0
-without updating the regmap cache? Regmap's internal cache of the page
-selector could become desynchronized, causing subsequent register accesses =
-to
-skip setting the page if it matches the cached value, but occurring on the
-wrong hardware page. This would affect accesses in probe, firmware_upgrade,
-and bridge_resume.
+I'm fine with ripping out the platform data but this again
+has defaults and may well be in use via DT. Antoniu from
+Analog was doing some cleanup on this recently so I'd guess
+they probably still at least somewhat care and some of the
+supported parts are still in production (e.g. the AD7788)
 
-[ ... ]
-> +static irqreturn_t lt9611c_irq_thread_handler(int irq, void *dev_id)
-> +{
-[ ... ]
-> +	if (!(irq_status & BIT(0)))
-> +		return IRQ_NONE;
-> +
-> +	/* Clear interrupt: hardware requires two writes with delay */
-> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & BIT(0));
-> +	usleep_range(10000, 12000);
-> +	regmap_write(lt9611c->regmap, 0xe0df, irq_status & (~BIT(0)));
+> drivers/iio/adc/ad7793.c
+Maybe. Analog devices ack needed.
 
-[Severity: High]
-Is the second regmap_write unintentionally asserting clear signals for other
-pending interrupts? If other interrupts are pending (for example, BIT(1) is=
- set
-in irq_status), irq_status & (~BIT(0)) will write a 1 to those bits in the
-clear register. This might permanently assert their clear signals without e=
-ver
-deasserting them.
+Production part but this one indeed fails to probe.  Analog
+folk, do you want to fix this one up?
 
-[ ... ]
-> +static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					 struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	mode =3D &crtc_state->adjusted_mode;
-> +
-> +	lt9611c_video_setup(lt9611c, mode);
-> +}
+> drivers/iio/adc/ad7887.c
+No to dropping this.
 
-[Severity: High]
-Should this enable path invoke drm_atomic_helper_connector_hdmi_update_info=
-frames
-to flush the infoframes to the hardware? Without this call, it seems the
-registered infoframe callbacks are never triggered, preventing AVI and other
-infoframes from being transmitted during a modeset.
+Production part - should work fine with defaults in driver.
+Could like the others drop the platform data handling.
 
-[ ... ]
-> +static const struct drm_bridge_funcs lt9611c_bridge_funcs =3D {
-> +	.attach =3D lt9611c_bridge_attach,
-> +	.detect =3D lt9611c_bridge_detect,
-> +	.edid_read =3D lt9611c_bridge_edid_read,
-> +	.atomic_enable =3D lt9611c_bridge_atomic_enable,
-> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
+> drivers/iio/adc/lp8788_adc.c
+Probably
 
-[Severity: Medium]
-Is the omission of an atomic_disable (or disable) callback intentional? It
-appears this leaves the bridge permanently active and internal PHYs powered
-even when the display pipeline is blanked or during DPMS off.
+Sub driver of an MFD.  I'm fine with that going if we know
+the mfd is no longer in use.
 
-[ ... ]
-> +static ssize_t firmware_store(struct device *dev, struct device_attribut=
-e *attr,
-> +				      const char *buf, size_t len)
-> +{
-[ ... ]
-> +	lt9611c_lock(lt9611c);
-> +	lt9611c->fw_version =3D lt9611c_read_version(lt9611c);
-> +	lt9611c_unlock(lt9611c);
-[ ... ]
-> +	return len;
-> +}
-> +
-> +static ssize_t firmware_show(struct device *dev, struct device_attribute=
- *attr, char *buf)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +
-> +	return sysfs_emit(buf, "0x%04x\n", lt9611c->fw_version);
-> +}
+> drivers/iio/adc/lpc18xx_adc.c
+> drivers/iio/dac/lpc18xx_dac.c
+Probably
 
-[Severity: Low]
-Could this result in a data race on lt9611c->fw_version? The variable is wr=
-itten
-under lt9611c_lock in firmware_store(), but it is read here in firmware_sho=
-w()
-without any locking.
+Likewise these two.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-lt9611c-v7=
--v14-0-534b43a07662@oss.qualcomm.com?part=3D2
+> drivers/iio/frequency/ad9523.c
+Maybe. Analog Devices ack needed.
+
+Fails to probe without platform data and marked not recomended
+for new designs. If we get an Ack from Analog devices folk
+I'm fine with this one going away.
+
+Jonathan
+
