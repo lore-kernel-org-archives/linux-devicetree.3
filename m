@@ -1,84 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-128.mta0.migadu.com [91.218.175.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C575A1531C8;
-	Sat, 12 Sep 2026 00:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87A12DAFDE
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 01:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789171732; cv=none; b=WPZkt0EyQsLhWvN/z++IYCNE7ICko0ftmuf//8ORWXFdXqcracDsvmtdBr9GIBGQxPlUI8M0jrpTsAnij/mZdaZKwzjpyAvI8ZWSWeLGbbXtkacBkgPTw0H5+gUOC+4ND4DCpc9P1akqs0NHuWbh2/+xxb011/RlVqPt+MRmjyU=
+	t=1789174855; cv=none; b=rjOPfvva+HGAds/t8g9TCwpWQjuS4rNmn8UJiO5AEszDdPOiAEthJnBdmFXy10vbtuBReRQ6fFUqo8YEFSGL8u9nVzAysKXKElwcsUYOPpOLBqxUGju0BbkogxTmHFcz3bWwU27L5SRydgqj9kA1H15vvZ5vHjYmzb5831VM4cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789171732; c=relaxed/simple;
-	bh=2ZkF654R7XSlQFkUaEAYRtIWvVu6Q3LNH/mvUlhmnNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UOHwdG2JDlHYX8ejl8E/sftbi5WqmlAr9PEbZGzrw+OieXYqjDkhypyrr7RjZoFR17gHt1tihqynMomFrrW9KC9vyxA2i/nitRbRVY8Z9fFKAlZ5/8yH6rkjjrdJExEhDbZ+Xh/V5XrHqKNeKr/+8IicYMl6yLE7G8lYMBmFbHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0Oq/tER; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789174855; c=relaxed/simple;
+	bh=jk8Y1OKbEqWlj0AgT45RSv9xPVBl7UcHySE9J9nq9+0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LMNzC+c0fHngH/8F4ISlvL7ASzAiw9ic1RE/SR9qPpRX7nZ2Lm0EW46alnrzGONuW1IAz4ucXWpJWyq5fQiXE+cuqQgC0NQWLYC9nkGTp+TFkQcSQ3hM+dlhwVYsEiQXIiYiusM+C/GxWWYk+jYuTpiXs6+OpBmEZ/IfKS3h/io=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=vQIrkiXw; arc=none smtp.client-ip=91.218.175.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0Oq/tER"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B72761F00898;
-	Sat, 12 Sep 2026 00:08:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789171731;
-	bh=PKOjMDXQRwMnjwfHSFSVSkvHj3xfpBDTda3CqhlJen8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Q0Oq/tERW2zN2geFXSdG5TcvRwsirw2cC4ORPsqyD8VIM5+1uPIUu/MPj6FLSXxIi
-	 PVULcXYpZ69OJIEcvRU+1VkvTyj84g2mEh5bz+fUkRVFtMGRrL4LO7Zo+Hobc+ptu+
-	 7eG5T2TlTJg58ugjY9vvZlLMTOPtOqkH6x9K9upMQ0Ea95JC5vrPpbCLtR8lDlLbAA
-	 LkCDuxnYw2xdicd9PWl4JtDEgXtp6/i6QzaCRVIToqM1hTPA76deOh1yUndeAU4dDc
-	 Jqt4Jtn2rtnlYk9d0cNqPSswzsY8lRHWyo6/2AQxisdkxBIzo2P+Zehe46xLSuo0mj
-	 kPV+muiZswLBA==
-Date: Fri, 11 Sep 2026 17:08:50 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: netdev@vger.kernel.org, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, pabeni@redhat.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
- chester.a.unal@arinc9.com, daniel@makrotopia.org, linux@armlinux.org.uk,
- arinc.unal@arinc9.com, Landen.Chao@mediatek.com, dqfext@gmail.com,
- sean.wang@mediatek.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, naseefkm@gmail.com, b.larsson@gmx.com
-Subject: Re: [PATCH net-next 7/7] net: dsa: mediatek: support EN751221
- switch
-Message-ID: <20260911170850.05cfb134@kernel.org>
-In-Reply-To: <20260909140346.2861572-8-cjd@cjdns.fr>
-References: <20260909140346.2861572-1-cjd@cjdns.fr>
-	<20260909140346.2861572-8-cjd@cjdns.fr>
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="vQIrkiXw"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jk8Y1OKbEqWlj0AgT45RSv9xPVBl7UcHySE9J9nq9+0=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789174851; v=1; x=1789779651;
+ b=vQIrkiXwTuETeOzw1yGg84ykJ2Agku2YnJB0pynCtMt1iPLT0GacjyzIgJU/efSLl97WPd+N
+ dYpweb6BeMVvcbJyFcp9BjMt2dy9cVy5Jmpartl8kZszfNb6KJI+vf4T2o4z7QN1ShacLg+g38V
+ eywdr+hxhtqQsus/9wFpwxdAING8kHpmnwZPjN7mqkMrq9+a2XMxuzBOe+SB/jgWJNK1eqrl7rx
+ koFfx2dBei+Z0V72K98fvXml6pHGOb74ibWzyx+25KtayO8zrY1GU+h4nSZTydlC9pajtR80TcO
+ hhF9iNPGdxzAwzi3UFI8X782quMh90ucNKWuh4c9rB80w==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 77080e2825881367;
+	Sat, 12 Sep 2026 01:00:41 +0000
+X-Mizu-Trace-ID: 77080e2825881367
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <0049ee8a-d9b2-4692-9494-5a8f054accaa@packett.cool>
+Date: Fri, 11 Sep 2026 22:00:33 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC] Dell Inspiron 7441 AUO0BA4 panel backlight: PWM
+ configuration
+To: Avalon Vargas Centeno <avalon.vargas.centeno@est.una.ac.cr>,
+ linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org,
+ bryan.odonoghue@linaro.org
+References: <CAGXpr54Bn9Wf24asY2RcXgBNLy1A16=U1mtFx7mKeNK4CCOCYQ@mail.gmail.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <CAGXpr54Bn9Wf24asY2RcXgBNLy1A16=U1mtFx7mKeNK4CCOCYQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Wed,  9 Sep 2026 14:03:46 +0000 Caleb James DeLisle wrote:
-> The EcoNet EN751221 has either one, or two, onboard MT7530 switches.
-> Every implementation of this SoC has one switch on die with the CPU,
-> but some chips - notably those with a "G" in the name, have a second
-> MT7530 as an MCM module.
->=20
-> The on-die MT7530 has 4 FE ports and 1 GE port. The MCM switch has all
-> gigabit ports.
->=20
-> The MCM switch connects to the SoC switch via a TRGMII link from port
-> 5 on the SoC switch to port 6 on the MCM switch. This link undergoes
-> calibration on startup.
->=20
-> All known devices with the MCM present do not make any use of the ports
-> on the on-die switch, it is put into "passthrough" mode in which all
-> traffic is shuttled between port 6 and port 5 without alteration of the
-> DSA tags.
->=20
-> Add support for both the on-die and the MCM switch, and calibration of
-> the TRGMII link between them.
 
-../drivers/net/dsa/mt7530.c: In function =E2=80=98en751221_trgmii_pair_setu=
-p=E2=80=99:
-../drivers/net/dsa/mt7530.c:593:12: warning: variable =E2=80=98default_taps=
-_ondie=E2=80=99 set but not used [-Wunused-but-set-variable=3D]
-  593 |         u8 default_taps_ondie[NUM_TRGMII_CTRL];
-      |            ^~~~~~~~~~~~~~~~~~
---=20
-pw-bot: cr
+On 9/11/26 7:11 PM, Avalon Vargas Centeno wrote:
+> Hello,
+>
+> On my Dell Inspiron 14 Plus 7441 (BIOS 2.16.0, aarch64 Linux 7.2.4,
+> NixOS), the AUO B140QAX01.H / AUO0BA4 panel originally exposed an unusable
+> dp_aux_backlight with max_brightness 0. GNOME could not adjust brightness.
+>
+> Panel DPCD bytes at 0x700-0x72f:
+>
+>    05 9b 91 00 00 00 00 00 00 00 00 00 00 00 00 00
+>    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>    00 00 02 00 0a 04 0a 00 1b 00 0d 2f 03 ff ff 03
+>
+> The capability bits indicate PWM brightness setting rather than AUX
+> brightness setting. Inspection of the local panel-edp and DP helper code
+> suggests that this capability combination can leave the AUX backlight
+> maximum at zero. This is a code-path inference, not a separately verified
+> generic DRM driver bug.
+> [..]
+
+Weird. I know someone who has a B140QAX01.H in a 7445 (that's how I've 
+added it to edp_panels) and they did not have that problem, aux 
+backlight worked fine…
+
+panel-edp does not seem to care about DPCD indicating PWM; if the 
+brightness property is present in the device tree it *will* be used, and 
+AUX is used as a fallback if the external DT-provided brightness was 
+absent. If we really need to support this (without adding more 
+devicetrees), I guess we could add some opt-in prefer-aux-brightness 
+thing..
+
+~val
+
