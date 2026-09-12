@@ -1,201 +1,187 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9237B27EC7C;
-	Sat, 12 Sep 2026 10:25:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E246627EC7C
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 10:26:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208755; cv=none; b=LCFguhx1sDRINV+gpoXykuubjOYFS1kAZsMUZVOMYI7rDVLr5McQRlLBCsn0H4Xy1xvPGTz0tEjuvnsNH7YgaaE8Fv8KMJFppuwMDxaQncxnQ0k4hy2KzZfE7MB23eWwZ+q8N7hULE6VuRo/BO1UcV4D+KQ3ZxTnld9Mn/+4EgU=
+	t=1789208766; cv=none; b=atpfFJjx0D3+Sz4GborCFG9PoBxEQrzfuKjxWhwqj9k6MdEjYKHuJXMOGvOdlUnj7/bof+h+hP08utE+ZTYauXVYOBUBENQkjxDcPRomlkCRQHPVP8jF30UO6qDjSDteTPqLo93gggnOFENKoTze/LmQZencU+jxkTT7hxIuWXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208755; c=relaxed/simple;
-	bh=eqe+0oyBfwwiDPXBm6T1yEoyCTynnJXvTivRorgg22g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P2RAhMcUYSP8cn0DUsmkECMu1M7z3vsYj9YDw/0kKylHXzd3DUG9SXQR5eYvESdW4TC7MH538wIzpFbiY0XMRwNFLRrN8Gshge27vP4OGXW0OnBA2vHqnIpq5UfuBIRX6KYo6EYKlpWFQmy2Dsh8wDZApiJd6EzBmbQDh+6QlJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z+zNXvfx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789208766; c=relaxed/simple;
+	bh=/MuLzlmB23+bqAvycez041qJ1nNU47TvC51Sea4cppg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ThVr6eeO6VW+rPnGmIuXJJa5ztZO3WRBqOA+eioOPEJwdFwETEQIHhkB4bfF1Ri3LettL2n4B2qRcOice9Olh+eQlg+iTUdd0DOzV+wUUGFdHq1j8kIlGT2osTf5uM6QCKvATVZB5Gt1ELgApOUTzUVcp0kdx59b9cExZTUWUiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNcyzT49; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z+zNXvfx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6AEC1F00893;
-	Sat, 12 Sep 2026 10:25:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNcyzT49"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 61B371F000FF;
+	Sat, 12 Sep 2026 10:26:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789208754;
-	bh=suJ0uS71GsbfhhW6sx+FaUUox5/Huy7H+9ZmclYomm4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Z+zNXvfxYwdcwi+fNVkkIbEFOlOdsa2H6Z9v82HV3yqZQTntAMXfOzeUh1OJiLL4D
-	 JgKEvVtr0XBXVpYRJbY0CpEC4VPq5oHoo83EW7+EtDlO0L26igZ7xE9+jHPSUvXX9D
-	 Q5qwa5PMS0mgHaR2WXDM9BwyaO66ht9zWkWvtGFfIOkt5PH+akb0+J9iKhMF7Fw8co
-	 6jiopUYKBeCeW7XT126kbOCc1Lmg2cPe/YJPwGzaOicT0svJPD3Jnc3zcrPf10B5Dc
-	 ORDovhaMBzakCvvvldPllZ8xPkIhoJwZSxCpt8g30XAw+JhsF6ctKM3RlRod9UwVTI
-	 /NGMqEI46ltOQ==
-Date: Sat, 12 Sep 2026 11:25:48 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Minda Chen <minda.chen@starfivetech.com>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@wdc.com>,
-	Bart Van Assche <bvanassche@acm.org>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>,
-	Ajay Neeli <ajay.neeli@amd.com>,
-	"James E . J . Bottomley" <James.Bottomley@hansenpartnership.com>,
-	"Martin K . Petersen" <martin.petersen@oracle.com>,
-	Arnd Bergmann <arnd@arndb.de>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Rob Herring <robh+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] scsi: ufs: dt-bindings: starfive: Add UFS Host
- Controller for JHB100 soc
-Message-ID: <aqUorPJziAtWeSG0@squawk>
-References: <20260911102359.83288-1-minda.chen@starfivetech.com>
- <20260911102359.83288-2-minda.chen@starfivetech.com>
+	s=k20260515; t=1789208763;
+	bh=JNKzbqERxhaicP4EyKgnD73Gzxmj1qgZkP/zT01py90=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZNcyzT495SLvKRiR4FqEOh1ma/O8K1wBE9JyrrZC2NMDE5Xs7gOLKmPAI8x5e7QXr
+	 wSYM+TheBOBYzS5nqB+kFw4HDmS3nmkg2/DrDAZc/Kp3l5KxEwNI6tu+AKCbQti9T8
+	 am2xyn3PNdyfNfs9ENghLFDaTIJOx/WCn+2ULx1BVzObA2LzHRYRmdNxyj6X83szPI
+	 yKzJjtwMJllwdR4hwmX5UrzHb8cHG0BZ9beINAFXdOta2LuBFK8ri37gJQsIB+KRI4
+	 fkBDvnvOk5f05awyKqayvKbmDajqsoeG0I7uN6rI2htJ6FoM85gvFyUchEyv1TK568
+	 nL69diceQKe4w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC 4/5] optee: riscv: add asynchronous notifications
+ over the signal bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260912-rpmi-tee-service-grp-dev-v1-4-1d1d35c2a859@oss.qualcomm.com>
+References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
+ <20260912-rpmi-tee-service-grp-dev-v1-4-1d1d35c2a859@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 10:26:02 +0000
+Message-Id: <20260912102603.61B371F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="E4vetuRmcDP9RnWo"
-Content-Disposition: inline
-In-Reply-To: <20260911102359.83288-2-minda.chen@starfivetech.com>
 
---E4vetuRmcDP9RnWo
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Reusing the `rx` buffer without validating `msg.data.out_response_=
+len` allows stale data to trigger an infinite loop in the threaded IRQ hand=
+ler.
+- [High] Failing to drain pending signals on error paths (such as dynamic m=
+emory allocation failure) leads to an interrupt storm.
+- [Medium] Swallowing `-EPROBE_DEFER` from `platform_get_irq_optional` perm=
+anently disables async notifications on unfavorable driver probe orders.
+--
 
-On Fri, Sep 11, 2026 at 06:23:57PM +0800, Minda Chen wrote:
-> Add devicetree document for UFS Host Controller StarFive JHB100 SoC.
-> The UFS controller is based on the Synopsys DesignWare UFS controller.
->=20
-> Signed-off-by: Minda Chen <minda.chen@starfivetech.com>
-> ---
->  .../bindings/ufs/starfive,jhb100-ufs.yaml     | 71 +++++++++++++++++++
->  MAINTAINERS                                   |  5 ++
->  2 files changed, 76 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/ufs/starfive,jhb100=
--ufs.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.ya=
-ml b/Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
-> new file mode 100644
-> index 000000000000..a65cc9455a85
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
-> @@ -0,0 +1,71 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/ufs/starfive,jhb100-ufs.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Starfive Universal Flash Storage (UFS) Controller
-> +
-> +maintainers:
-> +  - Minda Chen <minda.chen@starfivetech.com>
-> +
-> +allOf:
-> +  - $ref: ufs-common.yaml
-> +
-> +properties:
-> +  compatible:
-> +    const: starfive,jhb100-ufs
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    items:
-> +      - const: main
-> +
-> +  resets:
-> +    items:
-> +      - description: UFS main reset
-> +      - description: UFS PHY reset
-> +
-> +  reset-names:
-> +    items:
-> +      - const: main
-> +      - const: phy
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  starfive,syscon:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      The phandle to System Register Controller syscon node.
+commit 0300738ec4be7419d301effc706a11f0f885fbcb
+Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-This should probably say "that contains xyz" where xyz is the thing that
-you need up access in your driver. The jhb100 has a large number of
-syscons, so knowing what to look for here is essential! (although
-realistically you'll set this in jhb100.dtsi and noone will have to look
-it up themselves)
+optee: riscv: add asynchronous notifications over the signal bus
 
-Otherwise,
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+This commit adds asynchronous notification support using the RPMI TEE signal
+bus. It sets up a signal bus between OP-TEE and Linux, using the platform
+interrupt as the availability doorbell.
 
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - resets
-> +  - reset-names
-> +  - interrupts
-> +  - starfive,syscon
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    ufs@11b10000 {
-> +        compatible =3D "starfive,jhb100-ufs";
-> +        reg =3D <0x11b10000 0x20000>;
-> +        interrupts =3D <105>;
-> +        clocks =3D <&syscrg 4>;
-> +        clock-names =3D "main";
-> +        resets =3D <&syscrg 10>,
-> +                 <&syscrg 7>;
-> +        reset-names =3D "main", "phy";
-> +        starfive,syscon =3D <&syscon>;
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index fc320b373656..10b0d0839ca4 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28095,6 +28095,11 @@ L:	linux-scsi@vger.kernel.org
->  S:	Maintained
->  F:	drivers/ufs/host/ufs-renesas.c
+> diff --git a/drivers/tee/optee/optee_riscv.c b/drivers/tee/optee/optee_ri=
+scv.c
+> index 72c9eb85f4fed..b9bb813adef50 100644
+> --- a/drivers/tee/optee/optee_riscv.c
+> +++ b/drivers/tee/optee/optee_riscv.c
+[ ... ]
+> @@ -852,6 +856,242 @@ static int optee_riscv_do_call_with_arg(struct tee_=
+context *ctx,
+>  	return optee_riscv_yielding_call(ctx, in, rpc_arg, system_thread);
+>  }
 > =20
-> +UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER STARFIVE
-> +M:	Minda Chen <minda.chen@starfivetech.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/ufs/starfive,jhb100-ufs.yaml
+> +/*
+> + * 5b. Asynchronous notification over the signal bus
+[ ... ]
+> +static bool optee_riscv_retrieve_signals(struct optee *optee)
+> +{
+> +	bool do_bottom_half =3D false;
+> +	size_t max_signals =3D optee->riscv.sender_signals;
+> +	struct rpmi_tee_signal_retrieve_resp *rx;
+> +	struct rpmi_mbox_message msg;
+> +	size_t rx_len;
+> +	u32 flags;
 > +
->  UNIWILL LAPTOP DRIVER
->  M:	Armin Wolf <W_Armin@gmx.de>
->  L:	platform-driver-x86@vger.kernel.org
-> --=20
-> 2.17.1
->=20
+> +	rx_len =3D struct_size(rx, signal, max_signals);
+> +	rx =3D kzalloc(rx_len, GFP_KERNEL);
+> +	if (!rx)
+> +		return false;
 
---E4vetuRmcDP9RnWo
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: High]
+What happens to the level-triggered hardware interrupt if this memory
+allocation fails?
 
------BEGIN PGP SIGNATURE-----
+If kzalloc() fails, we abort without draining the pending signals from the
+firmware. However, looking at notif_irq_handler() below, it will
+unconditionally return IRQ_HANDLED. Will this unmask an uncleared
+level-triggered interrupt, causing an immediate interrupt storm?
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaqUorAAKCRB4tDGHoIJi
-0gcdAQDsmQDTi5UxtOtDUn/z/tvkLPR6wxggvel0JcLarSftcAD/fTHQtqCGusgb
-UU3aWxTBuahJd+pECSS11GWWhR3Ewwc=
-=OKh5
------END PGP SIGNATURE-----
+> +
+> +	do {
+> +		u32 status, n, i;
+> +
+> +		rpmi_mbox_init_send_with_response(&msg,
+> +						  RPMI_TEE_SRV_SIGNAL_RETRIEVE,
+> +						  NULL, 0, rx, rx_len);
+> +		if (optee_riscv_send(optee, &msg))
+> +			break;
+> +
+> +		status =3D le32_to_cpu(rx->status);
 
---E4vetuRmcDP9RnWo--
+[Severity: High]
+Does this loop properly validate the actual payload length of the response?
+
+Since the rx buffer is reused in this loop, if the RPMI firmware returns a
+truncated or empty response, it seems we might read stale fields (like
+status, signal_len, and flags) left over from the previous iteration.
+
+Could this lead to an infinite loop if the stale flags still contain the
+RPMI_TEE_SIGNAL_RETRIEVE_MORE_AVAILABLE bit?
+
+> +		if (status =3D=3D (u32)RPMI_ERR_NO_DATA)
+> +			break;
+> +		if (status)
+> +			break;
+> +
+> +		n =3D min_t(u32, le32_to_cpu(rx->signal_len), max_signals);
+> +		for (i =3D 0; i < n; i++) {
+> +			u32 value =3D le32_to_cpu(rx->signal[i]);
+> +
+> +			if (value =3D=3D OPTEE_ABI_ASYNC_NOTIF_BOTTOM_HALF)
+> +				do_bottom_half =3D true;
+> +			else
+> +				optee_notif_send(optee, value);
+> +		}
+> +
+> +		flags =3D le32_to_cpu(rx->flags);
+> +	} while (flags & RPMI_TEE_SIGNAL_RETRIEVE_MORE_AVAILABLE);
+> +
+> +	kfree(rx);
+> +
+> +	return do_bottom_half;
+> +}
+> +
+> +static irqreturn_t notif_irq_handler(int irq, void *dev_id)
+> +{
+> +	struct optee *optee =3D dev_id;
+> +
+> +	if (optee_riscv_retrieve_signals(optee))
+> +		queue_work(optee->riscv.notif_wq, &optee->riscv.notif_work);
+> +
+> +	return IRQ_HANDLED;
+> +}
+[ ... ]
+> @@ -1291,6 +1532,13 @@ static int optee_riscv_probe(struct platform_devic=
+e *pdev)
+>  	if (rc)
+>  		goto err_close_ctx;
+> =20
+> +	if (sec_caps & OPTEE_ABI_SEC_CAP_ASYNC_NOTIF) {
+> +		rc =3D optee_riscv_async_notif_init(pdev, optee);
+> +		if (rc)
+> +			dev_warn(dev, "Failed to initialize async notifications: %d\n",
+> +				 rc);
+> +	}
+
+[Severity: Medium]
+Is it intentional to swallow errors from optee_riscv_async_notif_init() her=
+e?
+
+If the interrupt controller driver is probed after OP-TEE,
+platform_get_irq_optional() inside optee_riscv_async_notif_init() will retu=
+rn
+-EPROBE_DEFER.
+
+By swallowing this error code instead of returning it to the driver core,
+won't we permanently disable async notifications for this boot session on
+unfavorable probe orders?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-rpmi-tee-s=
+ervice-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com?part=3D4
