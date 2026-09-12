@@ -1,131 +1,133 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45CBC47CA77
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 12:28:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC2834E75A
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 12:37:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216117; cv=none; b=k0/GBWxow2hQdIfsLJRZUs8VUwjvIGSsXhFXNWymw4q90mDLB++sgF6kkFlOhNQl59FpAA+GK9t+Xm6XlQ5BR6AYeHvBS7rYXH6ome0NUIxIe1Xr56ArWoM1wp+LC4yJ1263ysGYahffDBDHLjpm9Gsht3KxJKTpE0s89i9khlA=
+	t=1789216662; cv=none; b=sT2UrWg+cjHq1wwo1LHtSFr/V50yYwsxBxF7/gAfK2mlqB1qbn77Z7Ve3HM5iqVXHr2+gCcteFdqKtR936R99dO9dyl5cJZK6XAOucofptK18Kj37eV2o8pzBwHlYb8V20DTVvKPB5iecZslBW4dRWuDwcU/lyYbX+8LSO/Ljpg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789216117; c=relaxed/simple;
-	bh=yUyedlztWXbA3lwvxrO/styw1IzAPB86ioonRT5zCKQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eW1vylMhIW+2pnsokOhwWClVZbKc3q9Qnx/JURI5ecBgba1dhEmg9oyjd4/vlfnXT0DeuuY2w9lw4jJFmK9LnuGsJTcSG8A0kdUwbWPwb4PlM7wjWHs5FUe3723fio7JLRvrbE/ifEL/80SuCBX/WCXTYsR5quGutR+lKBgPo5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQMGHtNX; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789216662; c=relaxed/simple;
+	bh=w+ShKUqh2xpifO+kuTLSyOfXVXUUIq2WMgOmzl83kxQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ki2yuw8klJdF285F9Zd623Kv5CvQ+wtHkmyfhG+zyPs7ztUu1cIaEhkDZ386PVCyL3qoco4gYyCRH5HvQAmHShM6TXOKdmC/Pi+FxapE/WgOZKo511dl5b9X7BSKdmW9R1yWJ6DjC/SHXwlsKha0oRJc3zbL+3EfT0GlIhaK+ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7oAgsSC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQMGHtNX"
-Received: by mail-pz2-f42.google.com with SMTP id d2e1a72fcca58-85469b35601so204377b3a.3
-        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 05:28:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789216114; x=1789820914; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NujR5wP2r0gRxOSsqzPbYYRli2E0gkVnbRP1/4DKQ0s=;
-        b=FQMGHtNXnLSv3hx05ZffmV9mTCQwmOmkig6m+l4oAeJJIyusqLx6maD60McHA53IG4
-         CohFJbO11R593vSPuqvVtGgMDf3U5sjV2ZH6FeSihHI99PXnltnrUZZGBUWpoayo4XhZ
-         8x1HLTsiuskSsls5XWpQ9F+1s6lioJnZRA4FBy5bjwKUi/cHnyqMOelT+CPIctt5K2ZX
-         Zvub1Rox9JK8pmnKpIYhd9lRD1+LtCzIl04rAYW/vRt0c/dBp95fe0T5g3VVAuSBGDgv
-         yyZEg9QScLZcxDMF90TZIQG34imUmf5DEtIy6L2dI5Nl7gR0Pbzgoiherc8KKVElmZTG
-         asHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789216114; x=1789820914;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NujR5wP2r0gRxOSsqzPbYYRli2E0gkVnbRP1/4DKQ0s=;
-        b=kU1+ye2M7FMiAZcI8oVYsKh4upgnNHHqCtXD6BstmqFCbnX433PD8Uq/I2baGbhdLI
-         3V0hAundCX4/VX3QTKB8H2iGK8d3NXlV4mnpUU6K4e9MckLClRgA1nMr8LsxBq7gLM/m
-         xGpLnoCf648RxOwbeqSsOcAURAWnViBfg3THaXX3/TJkvl362DlI2kU7JCGJzJWMzpfp
-         9gF7IsXFO/BHu9WCJsmX5akTVnwuOD+we/KNaxbyxTQaZf3uG9eg1pU/HjPx5azmjuYA
-         wfFWvhwhagFuxTt+qHId/hpTZ74fE3kx5QZWh71NbaHCs1SPh1gaVSRWXLxr7IMCLEs9
-         E1Pw==
-X-Forwarded-Encrypted: i=1; AKwUvBxtx37n3mHdJZlqHwLdgXXy7aVXUBV6ngYNElC1RfjjuRjck5VBv3YF2R1Aw/JwqNw3ox4Zgvw/QYgh@vger.kernel.org
-X-Gm-Message-State: AFuF++knVPgIG/W/uvR86KvfyHftvwWJAfXEtgJ7nawDlwa3Ya4nKOz7
-	4XE3IDHOKOFC+QwccEWoGQauiv/k0Q+pIYH0/LNRGXWMa6ahOwCYR7VZ
-X-Gm-Gg: AYBFou0tzHTpBTD+YTKWSwYQRPADkGcZsu3cWoahZL9BDaihEydCFbrB8YCpeH+2qsX
-	VcPODjVzcpOVGBozD/AMZfNDdevdMSFx+BT31ifm2WNS0NyuTUCD+t6uoqalhM1buRY62v3oORU
-	BoRUGi0ca1cwRRX9R2u6zKfbPLIl5tt21H2bH2+5mhsh2UgFaBlCMAQjjvQ3FL2qO5wOzPKHk9k
-	hChJAA9GtD21OBMVu/nIO6w79J+iIu+aw2AK99TE31zpHz58WGJRqViplYJXsQuSK6BmQDA9DB1
-	veoVxOoQrUsnpS6jjy8jA6Eg40A8k7+MdUcPl9Qr9f+d2+4gNMEWbHimuPdpdxGmRxSKUN1dftd
-	lRBLvbl/6UzQCUwMSznebmnyTX/1DUjGf7det8YM66mMVf9DtuvHOgVFj8SbQ/ip0meAe4Pkku4
-	7ZQLLotxWuzy/ZyAJqoXtKc9xwt+VF1rDlE8ofz9hN2huw9SKLL+2fWZcPsD+cpxs=
-X-Received: by 2002:a05:6300:6684:b0:3bf:9b3d:61bb with SMTP id adf61e73a8af0-3db0e1f7d7bmr4991615637.16.1789216114472;
-        Sat, 12 Sep 2026 05:28:34 -0700 (PDT)
-Received: from [127.0.0.2] ([2404:c0:701d:4e35:aab7:8c01:68f1:4912])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c65b1a63sm2512427a12.31.2026.09.12.05.28.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 05:28:33 -0700 (PDT)
-From: Reza Kurniawan <imkyufie@gmail.com>
-Date: Sat, 12 Sep 2026 12:27:34 +0000
-Subject: [PATCH 2/2] arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB
- support (peripheral mode)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7oAgsSC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A2B1F000FF;
+	Sat, 12 Sep 2026 12:37:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789216661;
+	bh=N8X331gW733PRHZj3C50GrjGKJSQPoh8k6QWTMTVNqs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=e7oAgsSCnuSnzlAx95ifCxcQKNKUezB2JHJWTietSr8r+Vsk0/og8h4zFvC6FYUfM
+	 d0tq0T7EoQr0FyAoaSXCOqShGfgy+i1PfZOPiq7M1Dx8sfDDcXW/B8f3/US+bvNagG
+	 7XhXaKxf6qFTb7WMLRvKva6A4084wFEto6TmWqMgWYLxDpS2zpE0KxNtq6CQj1iFxZ
+	 ltui+6y0sHPmQxZbXn2diwCcBTkfUlKBfqSDC9erNnOnZgLIzOUdIuXv/1SxsZliQ5
+	 9Iq0CPwKHR4PHYTQrk2BeRbiaBuscuFHJ4s9PdIJVBjgV68ee9GO0o2Qzge2yeXjt7
+	 7Vr0+fh8XY/1g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] power: supply: bq256xx: Expose VBUS state through
+ extcon
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Reza Kurniawan" <imkyufie@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260912-riva-usb-v1-1-0acd5cf8c62a@gmail.com>
+References: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
+ <20260912-riva-usb-v1-1-0acd5cf8c62a@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 12:37:40 +0000
+Message-Id: <20260912123740.B9A2B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260912-riva-usb-v1-2-0acd5cf8c62a@gmail.com>
-References: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
-In-Reply-To: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
-To: Sebastian Reichel <sre@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- Reza Kurniawan <imkyufie@gmail.com>
-X-Mailer: b4 0.15.2
 
-Enable USB node and PHY. Since VBUS is wired to the charger IC, also
-set extcon of the USB node to inform the USB driver of cable events
-emitted by the charger driver.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Missing Kconfig dependency for EXTCON causes build failures, or ru=
+ntime probe regression when CONFIG_EXTCON is disabled.
+--
 
-Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
----
- arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++++++++++++++-
- 1 file changed, 16 insertions(+), 1 deletion(-)
+commit 6faa47b2b9aa55be622397291bdc7fb836f78d0c
+Author: Reza Kurniawan <imkyufie@gmail.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-index 7c323214a..c47aad978 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts
-@@ -69,7 +69,7 @@ power-monitor@55 {
- 		monitored-battery = <&battery>;
- 	};
- 
--	charger@6b {
-+	bq25601_charger: charger@6b {
- 		compatible = "ti,bq25601";
- 		reg = <0x6b>;
- 		interrupts-extended = <&tlmm 61 IRQ_TYPE_EDGE_FALLING>;
-@@ -89,3 +89,18 @@ bq25601_int_default: bq25601-int-default-state {
- 		bias-pull-up;
- 	};
- };
-+
-+&usb {
-+	dr_mode = "peripheral";
-+	extcon = <&bq25601_charger>;
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	vdd-supply = <&pm8937_l2>;
-+	vdda1p8-supply = <&pm8937_l7>;
-+	vdda3p3-supply = <&pm8937_l13>;
-+
-+	status = "okay";
-+};
+power: supply: bq256xx: Expose VBUS state through extcon
 
--- 
-2.55.0
+This commit adds support to report VBUS state changes through the extcon=20
+subsystem for the bq256xx charger. This allows USB controllers to sense=20
+power input presence on devices where the VBUS session comparator is not=20
+directly wired.
 
+> diff --git a/drivers/power/supply/bq256xx_charger.c b/drivers/power/suppl=
+y/bq256xx_charger.c
+> index 4b1f81b1ed867..46b036be38dd8 100644
+> --- a/drivers/power/supply/bq256xx_charger.c
+> +++ b/drivers/power/supply/bq256xx_charger.c
+
+[ ... ]
+
+> @@ -1554,6 +1586,40 @@ static int bq256xx_power_supply_init(struct bq256x=
+x_device *bq,
+>  	return 0;
+>  }
+> =20
+> +static const unsigned int bq256xx_usb_extcon_cable[] =3D {
+> +	EXTCON_USB,
+> +	EXTCON_NONE,
+> +};
+> +
+> +static int bq256xx_extcon_init(struct bq256xx_device *bq)
+> +{
+> +	unsigned int charger_status_0;
+> +	int ret;
+> +
+> +	bq->edev =3D devm_extcon_dev_allocate(bq->dev, bq256xx_usb_extcon_cable=
+);
+> +	if (IS_ERR(bq->edev)) {
+> +		dev_err(bq->dev, "Failed to allocate extcon device\n");
+> +		return PTR_ERR(bq->edev);
+
+[Severity: High]
+When the extcon configuration is disabled, the dummy inline implementation=
+=20
+of devm_extcon_dev_allocate in extcon-provider.h returns -ENOSYS. Will=20
+this cause bq256xx_extcon_init in drivers/power/supply/bq256xx_charger.c=20
+to immediately return a fatal error on systems without extcon support?
+
+> +	}
+> +
+> +	ret =3D devm_extcon_dev_register(bq->dev, bq->edev);
+
+[ ... ]
+
+> @@ -1743,6 +1809,12 @@ static int bq256xx_probe(struct i2c_client *client)
+>  	if (!IS_ERR_OR_NULL(bq->usb3_phy))
+>  		usb_register_notifier(bq->usb3_phy, &bq->usb_nb);
+> =20
+> +	ret =3D bq256xx_extcon_init(bq);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register extcon device\n");
+> +		return ret;
+
+[Severity: High]
+Because the -ENOSYS error propagates here, does this unconditionally abort=
+=20
+the entire driver probe in bq256xx_probe when extcon is disabled?
+
+Since extcon appears to be an optional feature for exposing VBUS state,=20
+should this missing dependency be handled more gracefully, perhaps by=20
+treating -ENOSYS as non-fatal or adding a proper dependency in the build=20
+configuration?
+
+> +	}
+> +
+>  	if (client->irq) {
+>  		ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
+>  						bq256xx_irq_handler_thread,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-riva-usb-v=
+1-0-0acd5cf8c62a@gmail.com?part=3D1
