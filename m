@@ -1,21 +1,68 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f0.google.com (mail-oo2-f0.google.com [74.125.231.128])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 018C8427F91;
-	Sat, 12 Sep 2026 17:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 046B639FCC5
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 18:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.128
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789235006; cv=none; b=SzCDww3u3+vldT0lO/WURYBaJsNFCcZgtSfIiR5tgsn4iAWVX/SHEdTtegeTwYlRUdyEurvmEo92AnwLjOizgG+pDRQKvnI145y/LevrV/pTxsoMHHmX7h9ybRRM+W4yc79AFyZ5JcvMtQbTqgYrdQ2fVk3K0aFhCiZsnnBWFKc=
+	t=1789237149; cv=none; b=AeNA7wg2dO0veXBe47x+bWX72YhP3gUDEKukwVqBwyIj6WhcdF7nYy6cqPqh78sry7swgwWl7d+OM3Fp+0QpvuyA5qeko+V1gR9MWfq0N6BWkkKAPKrtVk4g1VMlj/ZJVoxf6IqQVIlLlH2xB1lZL1KEIwgnptww2lyqgBgztjo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789235006; c=relaxed/simple;
-	bh=p9xNgzyOOGjC3nneFi7FF9dS3gReLqfYyME7Rxt17rs=;
+	s=arc-20240116; t=1789237149; c=relaxed/simple;
+	bh=eXah0/8yiozeIQkstc64apVlDIhMk0HX27N9Ddbe8J8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R6FIqNU1UmlDxmhq5eFbL0d75mQUOAcBcbABLajhDKAAbxK4qSS+IzHB2/FsmCUn3EbuJ0+tXD5WYb0jSvlPyYUYp6dhse5yASyRbcQpYPO7HZNVecgdcaWIX9teE85rN4E8TDiMNAMm5P2yFNO7UZDioGAZRDkC3YJURPr+Gwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Message-ID: <506c188c-2518-4d2e-aff6-336a8dbbb65a@mainlining.org>
-Date: Sat, 12 Sep 2026 20:42:12 +0300
+	 In-Reply-To:Content-Type; b=mqgdxahaBuS2jO55sgFVquRl9NCEVP3Zoj+FV47i9qtCHRoPa2boD4M0UPrC4ucfU10xfPmaz8sqfAgBt4/Q0gt3PVR6LzKOwkXQkoR8nCJsqW/gwQZVjkFbeC2D9/ulsAEHHpIFYznTRqPKqIy9JYQqXl1/0PcykeDZI/CshEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XDqyaT7f; arc=none smtp.client-ip=74.125.231.128
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XDqyaT7f"
+Received: by mail-oo2-f0.google.com with SMTP id 46e09a7af769-804795653f9so247341a34.0
+        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 11:19:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789237147; x=1789841947; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7VGIYZo7HUmxuRC6xiRDT2Kb9by85XHCuXQlDG3DRrk=;
+        b=XDqyaT7fzgIiJGxvJhgOJk4NF+5+xxNePSDMUgBE2x67rXHARQ0KlvuWT45SnSi6aF
+         Jcz0HPWnpstEAgkfUBUCVD6jIM3YufE09xO7FTgE9kPqg1K2zGkD0nlbAXckvIZaSMHW
+         QYuxIxIVkoP+3Qnexa8qCqPXaN7nwqeJep3VRDVuxFJF/gN9ChvuWEgL8vaUiqoPZ3xf
+         V44inNwgArvzF1lpLMhutflS1axzFv5d4KwUjWcR+JPRQ6Dbh+CekMza/7KL7+WZYUG0
+         dwtdKy8Z1nLq4FZX4sHWOpTR7hrD7W9SayBYEkH0jjwM/SRnYkYmNJqrNwz8n2YCwowi
+         EV9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789237147; x=1789841947;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7VGIYZo7HUmxuRC6xiRDT2Kb9by85XHCuXQlDG3DRrk=;
+        b=f/nsQnDoz7jZ9KujC7w/xsnuschLQSvlvrVmFshGKiMpWqem8f21fx8st+BS9p8vEN
+         jasphAuPMcLG0z99zyd9oo3t3ZUXjulGIQrt+p5BwQW8wopOvdy4dMOwmG7cViUhzxbE
+         uWRQeWQhepHP6eRl9gLyVWhgc/JSeZHvq3dqRbILUoXbfYaAdlVpwmMsGJvJ4sD56HR4
+         iov1MyoseOvXF2eXf07EBZBaEDS5oOYgeWqXrextPoK/UpxbYh7Mk3T6zJQe9QUNDvZM
+         G/tiINKd9dIQFD6DcSU8jvrmFcJydBUvgb/46oEzTnHTajnHrWVSU0+39cAlqL9BaBQw
+         vXrw==
+X-Forwarded-Encrypted: i=1; AKwUvBw5ItF2ytPDTkBXsmrtyz0H5mu+slzhXZjwX4Nybqh1Eys0lI0lxemzFeX04JPJqjqk8pN0SNLn8HGM@vger.kernel.org
+X-Gm-Message-State: AFuF++mrQveKRhsWduSDvQBV8VOfHnhv28Aa2AqZesvYlKA0DzOrreH4
+	1Sx8BqtTYnc+el3Gg5NaRLGkAxkFpyN1J1WLcwTr0EuzI7uVBR3f3r8Q
+X-Gm-Gg: AYBFou0YUxOHAinpSsqly0YXn0hfvzDH+2xoHSf6ABQBIEiSQz0jDUSK89Za4WyO5P7
+	TxcSlqF6YbgaFz5TsiTwzb+ezcNKNeKiH10tmwRqNU0HXryE4dszUr11E5us/1QBAi7gslrlO8x
+	tzwPQ/04Sh4xj3QYcpg4bg+Q46VPkBUdnz8TdECUGepo7and0d5S6Csm1tvREFf+Jlvj0cTaPlL
+	aZMwH5+xXxaS0+C85f/B1z8Lpfwxhk84t3z4vpyObKNvpgHJ4nlFqI6VLDXQhSIHznTFJKfhAK6
+	N7dQOPfTonNca8rB3PH6xNqNdARzLsbi/s//BCpi4IS4f9762+xcbmYmnJN9dR8B80TqIo/HEMM
+	VTs/NEOKwa/5dyeADAuFdu9MNlZ9Ss4cwZZTktjXgo5bbmNClLqDQOkg1Q74cZ1hCZHkruIQijq
+	wekxGyR4r2tr4kHH1exl0e3TiPvaU14W0gAU+tUHOdrCm4TyLrtnaHoe20djawdYKva7KJeT+P8
+	z8KpbW33sLhEZsE
+X-Received: by 2002:a05:6830:6d44:b0:801:21a3:f304 with SMTP id 46e09a7af769-805a0c42350mr2098949a34.20.1789237146911;
+        Sat, 12 Sep 2026 11:19:06 -0700 (PDT)
+Received: from ?IPV6:2600:8804:5716:d800::b712? ([2600:8804:5716:d800::b712])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-803f60fe54asm6787312a34.15.2026.09.12.11.19.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 12 Sep 2026 11:19:06 -0700 (PDT)
+Message-ID: <a214e0d4-b25c-4606-8a46-6a697cfdb1d0@gmail.com>
+Date: Sat, 12 Sep 2026 13:19:04 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -23,51 +70,26 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 20/20] arm64: dts: qcom: generalmobile-shamrock: new
- device
-To: David Heidelberg <david@ixit.cz>
-Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
+Subject: Re: [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
+To: Nickolay Goppen <setotau@mainlining.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>, Dang Huynh <danct12@riseup.net>,
- phone-devel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-mmc@vger.kernel.org,
- iommu@lists.linux.dev, mfd@lists.linux.dev, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, Krzysztof Kozlowski <krzk@kernel.org>,
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
- <20260912-msm8952-initial-support-v1-20-0e742578b524@mainlining.org>
- <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>
+References: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+ <56dcdf77-2a82-4efc-888b-736f512e63f5@gmail.com>
+ <6fc67e27-a36c-4974-96e4-1f68b85b3114@mainlining.org>
 Content-Language: en-US
-In-Reply-To: <9d2c5d44-206f-4ae9-b340-ba1994e234bf@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
+From: Ryan Brue <ryanbrue.dev@gmail.com>
+In-Reply-To: <6fc67e27-a36c-4974-96e4-1f68b85b3114@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-Hi David,
-
-I will fix all of these in v2.
-Thanks a lot for review.
-
-Best regards,
-Muzaffer Kadir
+On 9/12/26 7:05 AM, Nickolay Goppen wrote:
+> Maybe I can incorporate your panel to my driver. 
+Ack, sending out the patches on top of yours now. Thank you!
