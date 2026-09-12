@@ -1,133 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC2834E75A
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 12:37:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5344E21D00A;
+	Sat, 12 Sep 2026 12:41:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789216662; cv=none; b=sT2UrWg+cjHq1wwo1LHtSFr/V50yYwsxBxF7/gAfK2mlqB1qbn77Z7Ve3HM5iqVXHr2+gCcteFdqKtR936R99dO9dyl5cJZK6XAOucofptK18Kj37eV2o8pzBwHlYb8V20DTVvKPB5iecZslBW4dRWuDwcU/lyYbX+8LSO/Ljpg=
+	t=1789216901; cv=none; b=MEqsKmsJh/OkSmjm56Bf+HVpr2qdZDrizTmPwFXHjJFdxc+IHJzqTpyjmcO2gnzCVzMK9tAdwdQs0QWE0elJCEBhRktskBkgYFWPYNYqeECGLywn4INOk5UaRUlGw5/JaAK0YNHCIOX2Lk3uE/JycAruawt0lyh9hAu73I2ITTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789216662; c=relaxed/simple;
-	bh=w+ShKUqh2xpifO+kuTLSyOfXVXUUIq2WMgOmzl83kxQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ki2yuw8klJdF285F9Zd623Kv5CvQ+wtHkmyfhG+zyPs7ztUu1cIaEhkDZ386PVCyL3qoco4gYyCRH5HvQAmHShM6TXOKdmC/Pi+FxapE/WgOZKo511dl5b9X7BSKdmW9R1yWJ6DjC/SHXwlsKha0oRJc3zbL+3EfT0GlIhaK+ws=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e7oAgsSC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789216901; c=relaxed/simple;
+	bh=g/pEqhnkpHm0z8rgEAHyFA5daCvErBvF4/BNaXixSoY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hnd+LQ/UU9ZpEGj7hVKKJNQW10cAiXmKOyJwhnD+mg4OWcg0wBStQp148tbdMVekbMxfifaPNInnsZHa3a9XzwexTQ6UtLw9O/5N4qmqGeaZuc6p4eEnWWagUD9IGRGkqPhM+9StaOHBDfiElcHFaCYkFjabLHipIIE/b74Yl2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=YUi0DHbq; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e7oAgsSC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9A2B1F000FF;
-	Sat, 12 Sep 2026 12:37:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789216661;
-	bh=N8X331gW733PRHZj3C50GrjGKJSQPoh8k6QWTMTVNqs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=e7oAgsSCnuSnzlAx95ifCxcQKNKUezB2JHJWTietSr8r+Vsk0/og8h4zFvC6FYUfM
-	 d0tq0T7EoQr0FyAoaSXCOqShGfgy+i1PfZOPiq7M1Dx8sfDDcXW/B8f3/US+bvNagG
-	 7XhXaKxf6qFTb7WMLRvKva6A4084wFEto6TmWqMgWYLxDpS2zpE0KxNtq6CQj1iFxZ
-	 ltui+6y0sHPmQxZbXn2diwCcBTkfUlKBfqSDC9erNnOnZgLIzOUdIuXv/1SxsZliQ5
-	 9Iq0CPwKHR4PHYTQrk2BeRbiaBuscuFHJ4s9PdIJVBjgV68ee9GO0o2Qzge2yeXjt7
-	 7Vr0+fh8XY/1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] power: supply: bq256xx: Expose VBUS state through
- extcon
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Reza Kurniawan" <imkyufie@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260912-riva-usb-v1-1-0acd5cf8c62a@gmail.com>
-References: <20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com>
- <20260912-riva-usb-v1-1-0acd5cf8c62a@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 12:37:40 +0000
-Message-Id: <20260912123740.B9A2B1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="YUi0DHbq"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=vcYxdHFVaT3A3UhEJHDH4JKBcMrG+Bk4FHzp8MJW9wI=; b=YUi0DHbq1FTxQjpS3c8/wRf/Xv
+	HZHktQqIgqe3hnLAURzxfaJnJY9kgm4aE4fWVmP23VbsnkdwErBetYiisLpdDTZVsCXR4ZqyIJL+5
+	5R9UE5xmokeGp9rX62xphcRPYBjgjjlJ+Hl+CBzQjJTh+N92yprp/PZ8XG1fv0sTo3PSwVKjOruUe
+	wvzYtJ3b9w5HlL48Z5EKWY8jbwDJcl79+sPEW722V5Lz6tUyG9oU3XmDkL4XtZP2xJWcXPXHljn63
+	P0A4trSTeWklI64l+GCLIUbRuPeXhk0/wP1KLXRtYzPmNfPEovNbbzpQ1bQRair6imQp8KVqQQGWZ
+	z3CsikYA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Diederik de Haas <diederik@cknow-tech.com>
+Cc: Ricardo Pardini <ricardo@pardini.net>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Diederik de Haas <diederik@cknow-tech.com>
+Subject:
+ Re: [PATCH] arm64: dts: rockchip: Fix i2c6 clock-frequency on NanoPC-T6
+Date: Sat, 12 Sep 2026 14:41:32 +0200
+Message-ID: <2071782.usQuhbGJ8B@phil>
+In-Reply-To: <20260911152911.2088363-1-diederik@cknow-tech.com>
+References: <20260911152911.2088363-1-diederik@cknow-tech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Missing Kconfig dependency for EXTCON causes build failures, or ru=
-ntime probe regression when CONFIG_EXTCON is disabled.
---
+Am Freitag, 11. September 2026, 17:28:33 Mitteleurop=C3=A4ische Sommerzeit =
+schrieb Diederik de Haas:
+> The i2c6 bus needs to run at 200kHz, because at the default frequency of
+> 100kHz it may fail to find the RTC resulting in warnings/errors like
+>=20
+>   rtc-hym8563 6-0051: no valid clock/calendar values available
+>   rtc-hym8563 6-0051: hctosys: unable to read the hardware clock
+>=20
+> But only sometimes. This should not happen when there is a battery backing
+> the RTC, yet it does ... sometimes.
 
-commit 6faa47b2b9aa55be622397291bdc7fb836f78d0c
-Author: Reza Kurniawan <imkyufie@gmail.com>
+I'm confused, shouldn't a slower clock always work?
+Like I understand how a clock that is too fast can cause issues due
+to hardware limitations, but running the bus slower somehow shouldn't
+cause issues?
 
-power: supply: bq256xx: Expose VBUS state through extcon
 
-This commit adds support to report VBUS state changes through the extcon=20
-subsystem for the bq256xx charger. This allows USB controllers to sense=20
-power input presence on devices where the VBUS session comparator is not=20
-directly wired.
+Heiko
 
-> diff --git a/drivers/power/supply/bq256xx_charger.c b/drivers/power/suppl=
-y/bq256xx_charger.c
-> index 4b1f81b1ed867..46b036be38dd8 100644
-> --- a/drivers/power/supply/bq256xx_charger.c
-> +++ b/drivers/power/supply/bq256xx_charger.c
 
-[ ... ]
-
-> @@ -1554,6 +1586,40 @@ static int bq256xx_power_supply_init(struct bq256x=
-x_device *bq,
->  	return 0;
->  }
-> =20
-> +static const unsigned int bq256xx_usb_extcon_cable[] =3D {
-> +	EXTCON_USB,
-> +	EXTCON_NONE,
-> +};
-> +
-> +static int bq256xx_extcon_init(struct bq256xx_device *bq)
-> +{
-> +	unsigned int charger_status_0;
-> +	int ret;
-> +
-> +	bq->edev =3D devm_extcon_dev_allocate(bq->dev, bq256xx_usb_extcon_cable=
-);
-> +	if (IS_ERR(bq->edev)) {
-> +		dev_err(bq->dev, "Failed to allocate extcon device\n");
-> +		return PTR_ERR(bq->edev);
-
-[Severity: High]
-When the extcon configuration is disabled, the dummy inline implementation=
-=20
-of devm_extcon_dev_allocate in extcon-provider.h returns -ENOSYS. Will=20
-this cause bq256xx_extcon_init in drivers/power/supply/bq256xx_charger.c=20
-to immediately return a fatal error on systems without extcon support?
-
-> +	}
-> +
-> +	ret =3D devm_extcon_dev_register(bq->dev, bq->edev);
-
-[ ... ]
-
-> @@ -1743,6 +1809,12 @@ static int bq256xx_probe(struct i2c_client *client)
->  	if (!IS_ERR_OR_NULL(bq->usb3_phy))
->  		usb_register_notifier(bq->usb3_phy, &bq->usb_nb);
-> =20
-> +	ret =3D bq256xx_extcon_init(bq);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register extcon device\n");
-> +		return ret;
-
-[Severity: High]
-Because the -ENOSYS error propagates here, does this unconditionally abort=
-=20
-the entire driver probe in bq256xx_probe when extcon is disabled?
-
-Since extcon appears to be an optional feature for exposing VBUS state,=20
-should this missing dependency be handled more gracefully, perhaps by=20
-treating -ENOSYS as non-fatal or adding a proper dependency in the build=20
-configuration?
-
-> +	}
-> +
->  	if (client->irq) {
->  		ret =3D devm_request_threaded_irq(dev, client->irq, NULL,
->  						bq256xx_irq_handler_thread,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-riva-usb-v=
-1-0-0acd5cf8c62a@gmail.com?part=3D1
