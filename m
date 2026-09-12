@@ -1,115 +1,92 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5C3393DC7
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 20:45:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E515133A9F3;
+	Sat, 12 Sep 2026 21:14:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789245918; cv=none; b=prm2s6Fwwy5U6lEVLU9dCaFr4SsUuC8zj6NGRwduiraiRZceyFeDyAtFbpjVAXEYyhCXZGVlIkX44IljBMtvmKeQN9ap+i4XrhKc7h8jTBoGAsyN9qZBxPhzYNkCml1TTuKXDA/pUMzwkNvE/5P7jv1YA/D6dqQJLeSEB+akihg=
+	t=1789247662; cv=none; b=hmxq6G/nJkcKHFHraI1gaVPdrStcxZVDjxOEzfymvv98pfzE+xUqe0F9IzmEdRwe52GHjrfoqcnrnNmg/fXOSJcjRNMPXDPzFLwLNczW0xmiyGNjBvmGMyzayEhzFY9rMmR56L/4BhfJvicq++mjwGPOha/Q2iyKvAWoLEC9F8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789245918; c=relaxed/simple;
-	bh=mdLhA5ufzgFyJdjNbB3mIf3qPlihGQXIZmLrkRF/DdY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h8wn54SwTej+Bg7QAYA206QfXiWE70P9nEskGpGu3icBi4a9q9pUGMdvu65vZXMYqFWV2NG+BAasrU55VRpoUFQ1bvN4cx803pGFk2R3PSnUj2tygyfIYMfsJSh2OhyvUWfDgObUuX626f8yiTB8G03vdK5QUG5M5GINj8IPdWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=G0+WTvy+; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
+	s=arc-20240116; t=1789247662; c=relaxed/simple;
+	bh=O4Xjrp3WUipsxtIk9jCqAED4vSyEsx3wRpQ/nSkM3QA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HOKY/F0xB0o35ZvDKMIT4XnD0eFd4pVY8d3+Opq102HYaWn49Ocq366Xc1U8lKDSJRA5Z8W1aYp6BinrJV7L4a+CQ7PPMNO9XGynLGdzKwZj1CHamKZSw/YS844DIBqiMTTEz/YsnQpQm1AqDq7aDXVOKKgO/QFALh9wVMbfigQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N53qReGz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="G0+WTvy+"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 9B146240027
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 22:45:06 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1789245906;
-	bh=IZpVwh8CIc0ifvK7yjvQ1M5nK/aIW/l8aBs8zK338c4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
-	 Content-Transfer-Encoding:From;
-	b=G0+WTvy+2rf/ljuurTIEcsXgbldAH3629kcjx2bPHXO3vNqm3Gm/SDuG7YqslS3ON
-	 T7s7dH9t/Yvw8U1VSmb3RB9ED5WmmA9lT7Ig2v/mc7j1uHikp2f5xkhplKyezsNPC0
-	 xK5DrsRh2V7c37nIo5jf44dtWTDp/FGkKJ2DHUVzjSSPB0hQClYCeMItxFnAPUF4Cw
-	 unfk+D98yNRb8+crDPq7PJHvM83ZItoYmDMRPmkUhpDbHdx4yQbepV3TH3jWgz9ah+
-	 CajndEa1Svwc978ktskeNXDfkRSYHGAKbk1vkrRxhcIq/rFTowIiRunYb6MBP/gf+y
-	 eg8IhxqV6s1yw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4hj3M534q8z9rxB;
-	Sat, 12 Sep 2026 22:45:05 +0200 (CEST)
-From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
-To: alexandre.torgue@foss.st.com,
-	mcoquelin.stm32@gmail.com
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] arm64: dts: st: enable eMMC on stm32mp257f-dk
-Date: Sat, 12 Sep 2026 20:45:06 +0000
-Message-ID: <20260912204454.219606-4-mateusz.nowicki@posteo.net>
-In-Reply-To: <20260912204454.219606-1-mateusz.nowicki@posteo.net>
-References: <20260912204454.219606-1-mateusz.nowicki@posteo.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N53qReGz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9F41F00893;
+	Sat, 12 Sep 2026 21:14:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789247660;
+	bh=/8//k2tt/DAzpaRSDYkVVEJC0drkQwp8Q2YveHgNVO8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=N53qReGzBEacqG0KFHEgGPHjZ40KVMKr9Esf+xzdtWIEqd+J56EQYz5Kox6MjxFEW
+	 zpqxX4EjeLZs1rlUuRn+pq5DbHIeetnzjoS8P9zCNzA3gq6OdYQJZGAMX6bIc7JDoy
+	 4EpZPckk6jYw3bGyGSDoTFtvc58ClGFJe40byLOU9Y/DCP6pd60GIkmH2QRHPrpn5m
+	 Dy+Bwu5u8LBgt5xre1asnF8kI3naoQKogFJTxv/S6VxZMeLairz/honP1TMGxGaebx
+	 Tdz3yOXUVI6GcxqwVXFpyGEGxPkjtAyfs1b/xxoF1BVToIzXIE6TzgG964O9ug2oJf
+	 7hyWIbuk/wNnQ==
+Message-ID: <158e15df-f8a0-43a0-9f92-fd4e64b06b1f@kernel.org>
+Date: Sat, 12 Sep 2026 23:14:14 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] Initial Apple Silicon A18 Pro device trees and
+ dt-bindings
+To: Yureka Lilian <yureka@cyberchaos.dev>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
+ Hector Martin <marcan@marcan.st>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Wim Van Sebroeck <wim@linux-watchdog.org>,
+ Guenter Roeck <linux@roeck-us.net>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-watchdog@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260911-apple-a18-pro-initial-devicetrees-v2-0-08d06cf011d4@cyberchaos.dev>
+Content-Language: en-US
+From: Sven Peter <sven@kernel.org>
+In-Reply-To: <20260911-apple-a18-pro-initial-devicetrees-v2-0-08d06cf011d4@cyberchaos.dev>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Enable the 8-Gbyte eMMC v5.1 connected to SDMMC2 with an 8-bit bus.
-Faster 1.8V modes are not enabled as they could not be tested yet.
 
-Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
----
- arch/arm64/boot/dts/st/stm32mp257f-dk.dts | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-index 8daf3dfd5133..8c6aabac367e 100644
---- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-+++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
-@@ -21,6 +21,8 @@ / {
- 	aliases {
- 		ethernet0 = &ethernet1;
- 		serial0 = &usart2;
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
- 	};
- 
- 	chosen {
-@@ -231,6 +233,10 @@ scmi_vddio1: regulator@0 {
- 		regulator-min-microvolt = <1800000>;
- 		regulator-max-microvolt = <3300000>;
- 	};
-+	scmi_vddio2: regulator@1 {
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
- 	scmi_vddcore: regulator@11 {
- 		reg = <VOLTD_SCMI_STPMIC2_BUCK2>;
- 		regulator-name = "vddcore";
-@@ -279,6 +285,21 @@ &sdmmc1 {
- 	status = "okay";
- };
- 
-+&sdmmc2 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc2_b8_pins_a>;
-+	pinctrl-1 = <&sdmmc2_b8_od_pins_a>;
-+	pinctrl-2 = <&sdmmc2_b8_sleep_pins_a>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	st,neg-edge;
-+	bus-width = <8>;
-+	status = "okay";
-+	vmmc-supply = <&scmi_vdd_emmc>;
-+	vqmmc-supply = <&scmi_vddio2>;
-+};
-+
- &usart2 {
- 	pinctrl-names = "default", "idle", "sleep";
- 	pinctrl-0 = <&usart2_pins_a>;
--- 
-2.55.0
+On 9/11/26 18:58, Yureka Lilian wrote:
+> Hi,
+>
+> This series adds initial device trees and dt-bindings for the A18 Pro
+> (t8140) SoC and the MacBook Neo (the only Mac using this SoC).
+> It only covers a minimal amount of hardware, but is nontheless useful
+> for further development work. The hardware added here has remained
+> largely unchanged from the earlier generation Apple Silicon Macs.
+>
+> Similar to the M4 devices, changes to the m1n1 bootloader are required
+> to boot Linux on the MacBook Neo.
+> Also, SMP boot depends on further patches to avoid WFI and WFIT
+> instructions [1][2].
+>
+> Merge strategy:
+>
+> Since there are no actual driver changes in this series, we'd prefer to
+> merge the dt-bindings changes through the apple-soc tree once Acked by
+> the respective maintainers.
+>
+> Link[1]: https://lore.kernel.org/all/20260804-arm64-idle-param-v3-1-d10f8159062b@cyberchaos.dev/
+> Link[2]: https://lore.kernel.org/all/20260811-idreg-override-wfxt-v1-1-1c71228d0719@cyberchaos.dev/
+> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
+> ---
+
+there's a single typo in one commit message, otherwise for the entire 
+series:
+
+Reviewed-by: Sven Peter <sven@kernel.org>
+
+
+Sven
 
