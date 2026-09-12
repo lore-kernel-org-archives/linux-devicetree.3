@@ -1,208 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD7EA1EB5FD
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 07:22:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D9537F8DD;
+	Sat, 12 Sep 2026 07:47:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789197739; cv=none; b=IlyXbUE8i5RTuVqpi/5UdoOGUUEY0fGrNH78rVE2fcdIabrnnFl0UU8c+LHj+F2cxVcAd/6K4RX4lYeMDJXMAwzZD+zI/9rkFk5wnrX58Ulv10ltBtoXjuaKdhp/u4udvzWoyJbPml9ZhrXisFEhRxijMiNUp9cEXnTBmJv+H4c=
+	t=1789199264; cv=none; b=RziEV23Z9ucJmn+oVqvc104qyWho1m14Vm/2V15SlaFRh5cMWtCcSTUgjnR4Pj72sOL7S7j3VsNgd9yyBCifl/a8ncTqew4+7EbZQna1rlT75ZD2KZTx2R0hd9V/o0MV+NdKJ3yPJd7zXyZ5SlqDaSueLxgUIWXnrapQiFQ1z6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789197739; c=relaxed/simple;
-	bh=pPBTCWmj/e+btpuNolKvxiuMA0GUTDsQd0T5fEEGSY4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EkbuTuSGNQ/1N9hKPnj9dxRYqud2His/Zq6aqRD5cFy1d81RTZsQxSI7ya6Ni7RVuk6XoqdEaRi2GmiVEvUS9DZh9XGeDSoaN9QHYkdEr9YdTrN3PjuQJRsE7QCDyWqXtVvf9dlSEj+XNGF6yNyDR9oEvh3z4LMbBtr5WaIj7eA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MFp+mLuB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789199264; c=relaxed/simple;
+	bh=R/Wd26fZOArpDS0VCiW2VIg+U6TfjdnRy5lUqkHrXds=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WovVo9mYxiJBzjipr8aelWmajXIt6nulIgM+VAZuokirvODZHbejitYqvnwlEOJHYCI2Div7mLAy4URthlVLFfbH6wOaGoDwJQTlSI+I6Nyn2+8kLNy95pqV0ntCOdILw+EzMth4FsaYdZ63AOJOME/vGQxDdmD6GZkPrgOWXfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/uoTbdk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MFp+mLuB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 390FB1F000FF;
-	Sat, 12 Sep 2026 07:22:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/uoTbdk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CDB1F000FF;
+	Sat, 12 Sep 2026 07:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789197737;
-	bh=ceAkGjp0+Uny6h95sQ8LyWRvR6nOs9CTcdhKkM9xRzw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MFp+mLuBbGeGFW/fU8zEgFm0rzOoBq/LCApHbfwJ68ttLMRyNaGs8rlbPNX04gYOp
-	 hHsTrH/245vP36ivqN+OX4ikKoZrkBvzoIXfOTlVN8gJmdR5Kfy8Q7y/OJPXYEczbW
-	 H3wB2aerwe0Wkphkv/Vzo/gBlCD8dTVviBivYHEDb3m5eMjXrYq/pw2ggsvQbJSWFn
-	 SQPObhcKKOVD3w8l8F4aq57LBLDqLEIjp+gpM/YDrOl0xTljh/NsLW5AJKiAtziV8o
-	 JSSB10a1gx9Ss19J0QlDDckzdGzeS66LCmE/sdc+hx5r4EaWdyx2TbQCs2BLhHSpHX
-	 SnFUONUFd0G+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 12/14] accel/rocket: add RK3576 NPU (RKNN) support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jiaxing Hu" <gahing@gahingwoo.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260912065053.1519165-13-gahing@gahingwoo.com>
-References: <20260912065053.1519165-1-gahing@gahingwoo.com>
- <20260912065053.1519165-13-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 07:22:16 +0000
-Message-Id: <20260912072217.390FB1F000FF@smtp.kernel.org>
+	s=k20260515; t=1789199263;
+	bh=fEk/+hjIO0JPeORZMXigoTsG7Twv5Bvnn+lcX8uIdUA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=j/uoTbdkemp1lTBkEdp7a5iePn6loWnzURddGH+pHmbp3TdI+Ht9vKB5+5HDaMkTz
+	 4XMNQMCixVIjSJgIUIpdDJkP3e+Zk7Zp6DLG8R0pbbNCMi+vNKMW8vXDXOqhrK+f5T
+	 4ubb7OTc080BSuVU8WcfJykWnX7f5Z0WoVW04LQG4n3ICAqaFQYrolJW1Id7gDkGyT
+	 9XdoNxIDMO+1FxLFBT1mCMBpRGz0RyDmtz4V9EskILs09SHmK1bOxAd64LIXEduN84
+	 G01WKPddNVoqYjlumTombMlc6OK9zmDzR1HpVKwt+t7qHgrMeljIhAzddIk6rPIX4a
+	 HVtiSFigUNPcQ==
+Message-ID: <0e917c61-8be9-4919-9173-0dd92e1c0d22@kernel.org>
+Date: Sat, 12 Sep 2026 09:47:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sdm845-oneplus: use generic fuel
+ gauge compatible
+To: Andrew Davis <afd@ti.com>,
+ Rinat Muhamedgaliev <rinat.muhamedgaliev@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ David Heidelberg <david@ixit.cz>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260829205258.26955-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-1-rinat.muhamedgaliev@gmail.com>
+ <20260909234744.1177153-4-rinat.muhamedgaliev@gmail.com>
+ <20260911-relaxed-dexterous-hummingbird-72dfbe@quoll>
+ <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <6c45cfd5-ac37-4f8e-bde3-0391512df982@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On 11/09/2026 15:37, Andrew Davis wrote:
+> On 9/11/26 3:21 AM, Krzysztof Kozlowski wrote:
+>> On Thu, Sep 10, 2026 at 02:47:44AM +0300, Rinat Muhamedgaliev wrote:
+>>> OnePlus 6 and OnePlus 6T battery packs may contain either a TI
+>>> bq27411 or bq27541 fuel gauge. Use the generic ti,bq27xxx compatible
+>>> so the driver can select the register map from DeviceType at probe
+>>> time.
+>>>
+>>> Tested on OnePlus 6T (fajita) with a bq27541 (DeviceType 0x0541):
+>>> after booting the new kernel, the battery reported 4.360 V, 100% state
+>>> of charge, 27.8 C, and Full status.
+>>>
+>>> Fixes: 12dfb002ca01 ("arm64: dts: qcom: sdm845-oneplus-*: add fuel gauge")
+>>
+>> What is the bug here? Your commit msg should be specific about it.
+>>
+> 
+> Commit msg seems pretty clear about the bug (to me at least), the DT
+> says the fuel gauge is a BQ27411 but that isn't the case, some shipped
+> with a BQ27541 fuel gauge.
+> 
+> (I do agree though this shouldn't have a fixes tag as back-porting this
+> without also back-porting the driver-side change would break users)
 
-Pre-existing issues:
-- [Critical] The driver improperly tracks active RKNN cores using a sequent=
-ial counter (`rdev->num_cores`) to index into the fixed-size `rdev->cores` =
-array. Unbinding a core decrements the counter without shifting array eleme=
-nts, causing subsequent binds to overwrite active core structures and leadi=
-ng to skipped cleanup (use-after-free) and driver state corruption.
-- [High] 64-bit IOVA task->regcmd is silently truncated to 32 bits, despite=
- 40-bit DMA mask.
---
+But different model is not a bug by itself. If devices are compatible
+how would it be a bug? if everything is working fine with different
+model how would that be a bug?
 
-commit f9d20327e89caf3b9bf4ada2ba21cb2dc6201353
-Author: Jiaxing Hu <gahing@gahingwoo.com>
 
-accel/rocket: add RK3576 NPU (RKNN) support
-
-This commit adds support for the RK3576 NPU by introducing new SoC-specific
-definitions, clock/reset handling, PM domains, and adapting hardware task
-control structures.
-
-Link: https://lore.kernel.org/all/4f300b78-d96d-4d98-8819-dc292b0c9b97@rock=
--chips.com/
-
-> diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/roc=
-ket_drv.c
-> --- a/drivers/accel/rocket/rocket_drv.c
-> +++ b/drivers/accel/rocket/rocket_drv.c
-[ ... ]
-> @@ -231,13 +231,23 @@ static void rocket_remove(struct platform_device *p=
-dev)
->  static const struct rocket_soc_data rk3588_soc_data =3D {
->  	.num_clks =3D 4,
->  	.num_resets =3D 2,
-> +	.multi_power_domain =3D false,
-> +	.task_con_16bit =3D false,
->  };
-> =20
-> -static const struct of_device_id dt_match[] =3D {
-> +static const struct rocket_soc_data rk3576_soc_data =3D {
-> +	.num_clks =3D 6,
-> +	.num_resets =3D 1,
-> +	.multi_power_domain =3D true,
-> +	.task_con_16bit =3D true,
-> +};
-> +
-> +const struct of_device_id rocket_dt_match[] =3D {
->  	{ .compatible =3D "rockchip,rk3588-rknn-core", .data =3D &rk3588_soc_da=
-ta },
-> +	{ .compatible =3D "rockchip,rk3576-rknn-core", .data =3D &rk3576_soc_da=
-ta },
->  	{}
->  };
-> -MODULE_DEVICE_TABLE(of, dt_match);
-> +MODULE_DEVICE_TABLE(of, rocket_dt_match);
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but the way the driver tracks
-active RKNN cores using rdev->num_cores appears to have a flaw that can
-cause state corruption and a use-after-free.
-
-If multiple cores are probed, and an intermediate core is unbound,
-rocket_remove() decrements the counter without shifting the remaining
-elements in the rdev->cores array to fill the gap:
-
-drivers/accel/rocket/rocket_drv.c:rocket_remove() {
-    ...
-    rocket_core_fini(&rdev->cores[core]);
-    rdev->num_cores--;
-    ...
-}
-
-If another core is then probed, rocket_probe() allocates a slot based on the
-decremented num_cores, causing the newly bound core to overwrite the
-existing, active core structure:
-
-drivers/accel/rocket/rocket_drv.c:rocket_probe() {
-    ...
-    unsigned int core =3D rdev->num_cores;
-    dev_set_drvdata(&pdev->dev, rdev);
-    rdev->cores[core].rdev =3D rdev;
-    ...
-}
-
-When find_core_for_dev() is later called to unbind the overwritten core, it
-fails to find it, which aborts rocket_remove() and leaks resources like the
-running DRM scheduler thread. Eventually, when the driver is unloaded, the
-memory containing the active thread is freed, leading to a use-after-free
-crash.
-
-Could we fix the core array management to handle unbinding properly?
-
-[ ... ]
-> diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/roc=
-ket_job.c
-> --- a/drivers/accel/rocket/rocket_job.c
-> +++ b/drivers/accel/rocket/rocket_job.c
-[ ... ]
-> @@ -142,10 +166,17 @@ static void rocket_job_hw_submit(struct rocket_core=
- *core, struct rocket_job *jo
->  	rocket_pc_writel(core, INTERRUPT_MASK, PC_INTERRUPT_MASK_DPU_0 | PC_INT=
-ERRUPT_MASK_DPU_1);
->  	rocket_pc_writel(core, INTERRUPT_CLEAR, PC_INTERRUPT_CLEAR_DPU_0 | PC_I=
-NTERRUPT_CLEAR_DPU_1);
-> =20
-> -	rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-> -					 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-> -					 PC_TASK_CON_TASK_NUMBER(1) |
-> -					 PC_TASK_CON_TASK_PP_EN(1));
-> +	if (core->soc->task_con_16bit)
-> +		rocket_pc_writel(core, TASK_CON,
-> +				 RK3576_PC_TASK_CON_LAST_LAYER_CLEAR |
-> +				 RK3576_PC_TASK_CON_COUNT_CLEAR |
-> +				 RK3576_PC_TASK_CON_PP_EN |
-> +				 RK3576_PC_TASK_CON_TASK_NUMBER(1));
-> +	else
-> +		rocket_pc_writel(core, TASK_CON, PC_TASK_CON_RESERVED_0(1) |
-> +						 PC_TASK_CON_TASK_COUNT_CLEAR(1) |
-> +						 PC_TASK_CON_TASK_NUMBER(1) |
-> +						 PC_TASK_CON_TASK_PP_EN(1));
-
-[Severity: High]
-This is a pre-existing issue, but I noticed there is a potential 32-bit
-truncation of a 64-bit IOVA in the hardware submission logic just above this
-code in rocket_job_hw_submit().
-
-The driver configures a 40-bit DMA mask in rocket_core_init():
-
-drivers/accel/rocket/rocket_core.c:rocket_core_init() {
-    ...
-    err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
-    ...
-}
-
-However, the UAPI struct restricts the IOVA to 32 bits:
-
-include/uapi/drm/rocket_accel.h:drm_rocket_task {
-    ...
-    __u32 regcmd;
-    ...
-}
-
-When userspace populates drm_rocket_task.regcmd, the __u32 type silently
-truncates addresses greater than 4GB. The kernel then writes this truncated=
-=20
-address to the 32-bit BASE_ADDRESS hardware register:
-
-drivers/accel/rocket/rocket_job.c:rocket_job_hw_submit() {
-    ...
-    rocket_pc_writel(core, BASE_ADDRESS, task->regcmd);
-    ...
-}
-
-Can this lead to IOMMU translation faults, device hangs, or memory corrupti=
-on
-if an unprivileged userspace process allocates enough memory to receive an
-IOVA greater than 4GB?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912065053.1519=
-165-1-gahing@gahingwoo.com?part=3D12
+Best regards,
+Krzysztof
