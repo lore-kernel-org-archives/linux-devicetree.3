@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 727C4288B2
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 10:27:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F15733689D
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 10:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789208850; cv=none; b=kpEaXb5OaZmTT06WgBc+ra6ZkvBH7AVhZG8H2OxVtmOWzyiu+cCkH+1yjLsKE3we65NQ0razsGP5FHCyxGM8VwrWoLFNFm9hzzkbqZpQoi4Lwmp7fOWeRc8kl8WcWjlexVvfXbn8F6ORig8lEtbqNC1zTrhLwYeIDi1HXsAhJ4o=
+	t=1789209011; cv=none; b=N+q05OC8vGPLg0Bq/14vpczymc3qt/bbCCoXH1KWFvhSvkbNjOnDP/kw6dMcwftcIMOtHpXIaURqZX5SBkE3PV/OIcnEHrSPVigPR2kA9/qPWY1QSJoY0gYdEaTZL2Lb/lYVhkB39Y0dUqksbBra6WRRS9Ll3HUmiALpu3W87rc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789208850; c=relaxed/simple;
-	bh=c83bTX8md/JC+4CmWAgWqLF+wvBwX96+KeqR8FVxH7Y=;
+	s=arc-20240116; t=1789209011; c=relaxed/simple;
+	bh=P1/p25eafvQVTrawhR/lBfVRByNPgSAPZYazzH6KBkk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Jk7DsPH5syqGusbZK8NQgxRB3Oty40jtvXsDxqFvp1zM9ERkH5cbS3HUF8aFkOv1o/9g6I5hJOGJRjTViiSkn/o0j4MLPNFEL1u0iCWBcMLQGIil8oin8uKVkCRrVQ8/CAhyEziz9R+ruKYF3NiVptXHv/D6cH9gL5lxUXq8FHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYhlKoHM; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=UZQt9Gi5NTlwjtn9XKd4da/RiF9pk+a02F9zRYAwe2JLcW37aiH//KcN1BV9e2k4sgpZfDpOBkHOye6vnCnwjxUzyIHdVcsYVRMArHkZJnj1XLusKef1rMz4O5hglMdMP8GfpVo7nxmcjiP5LrisZjf/bLDcSulbNTJZK3nFLt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b8kc5p2q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYhlKoHM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F3D41F00893;
-	Sat, 12 Sep 2026 10:27:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b8kc5p2q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFB8B1F00893;
+	Sat, 12 Sep 2026 10:30:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789208849;
-	bh=xeN3mIOeq0oA43LR9HIAFWKaAPQ3U3PSmV/5p+5aWJY=;
+	s=k20260515; t=1789209010;
+	bh=3N7FkWN84fVPlDmMkAHr4EDn/ERc/v2ey9bx+bpN5iA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kYhlKoHMVRQJbVjJA7TdJJS60ynIH+sUxWIJfrcbePCo/wv697Y3dRiAD7kCLvnar
-	 bDLponW88aXScdqx4PZxqZaDeKgbGcWyakU1MlRa2cdi3Ciw3jC9ZEQ5Dnoj5inktw
-	 PvgieaVb4zs4+KxdmmSqSXKLSrfmgM95qBG0Bs3/aFM6jCOclqqavGzua2TIQWBLeo
-	 RDz5xXIsj/YWDpA4Evo3OH6mOcg1M/J/KLCHgHEOxj1ft7AW0BpaAHZwL/NHMJpRgt
-	 yxMXUgO/DAUoqCzA3kkpoH3OGiy9dfEsgZPpLDkggtbDYI54Eg2wSpIy+AxkwVI0LT
-	 IT0rhQZFzWq/w==
+	b=b8kc5p2qwHNPo/QB8nWUz597HRJxxcjWjD1lKGMl4UmkIXSgEmLjVq6hGWrg9y5Th
+	 Usv6tceWYyFjOew5Lyul53L1D9wPHbnbJjmvaXGoslwTZ9SXlFNtchENRrMbGnYlbP
+	 9z7dBF9QLFhverTk5eF6GQaE1MM2ddYZ6wfHQkU4itAL5a48Gv/paWCLd7llQKZWXL
+	 j1I4Hn2x+pd2Zlh6Qyy3pMM242A3Ge8moUCn/eDyBWBJVRQ3F49ZDlppcE92JshFXy
+	 WDFNvvMcpN2E9YubBIk4eruezMzNGoCJ4QmTalxQlTey7Aqy8WZ7rr95Mm1jszrc4W
+	 XjE4VEaL3zx6g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/5] optee: riscv: add RPMI TEE service group
- transport
+Subject: Re: [PATCH RFC 3/5] optee: riscv: enable persistent shared argument
+ cache
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260912-rpmi-tee-service-grp-dev-v1-1-1d1d35c2a859@oss.qualcomm.com>
+In-Reply-To: <20260912-rpmi-tee-service-grp-dev-v1-3-1d1d35c2a859@oss.qualcomm.com>
 References: <20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com>
- <20260912-rpmi-tee-service-grp-dev-v1-1-1d1d35c2a859@oss.qualcomm.com>
+ <20260912-rpmi-tee-service-grp-dev-v1-3-1d1d35c2a859@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 10:27:28 +0000
-Message-Id: <20260912102729.1F3D41F00893@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 10:30:09 +0000
+Message-Id: <20260912103009.CFB8B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,174 +47,108 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The driver incorrectly maps Linux logical CPU IDs to DT mailbox ch=
-annels and incorrectly sizes the channel array using `num_possible_cpus()`,=
- breaking on sparse CPU masks and differing logical/physical mappings.
-- [Medium] Tristate configuration bug causes `optee_riscv.o` to be built as=
- a separate, useless module and silently disables the feature when `CONFIG_=
-RISCV_SBI_MPXY_MBOX` is built as a module (`=3Dm`).
+
+New issues:
+- [High] Missing .system_session callback in optee_riscv_clnt_ops leads to =
+-EINVAL and potential deadlocks in SCMI.
+
+Pre-existing issues:
+- [High] Preexisting heap out-of-bounds write and newly reachable memory ex=
+haustion in optee_get_msg_arg() when Secure World provides a large rpc_para=
+m_count.
 --
 
-commit 24671dee2dd22fa1cba0bfbc89feb8174b438236
+commit 4888de794792f9ffe4984b86932a02db3b6e5b62
 Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-optee: riscv: add RPMI TEE service group transport
+optee: riscv: enable persistent shared argument cache
 
-Add an OP-TEE transport for RISC-V using the RPMI TEE service group over
-the SBI MPXY mailbox framework.
-
-> diff --git a/drivers/tee/optee/Makefile b/drivers/tee/optee/Makefile
-> index ad7049c1c1072..925b8ec7ef688 100644
-> --- a/drivers/tee/optee/Makefile
-> +++ b/drivers/tee/optee/Makefile
-> @@ -9,6 +9,7 @@ optee-objs +=3D supp.o
->  optee-objs +=3D device.o
->  optee-objs +=3D smc_abi.o
->  optee-objs +=3D ffa_abi.o
-> +optee-$(CONFIG_RISCV_SBI_MPXY_MBOX) +=3D optee_riscv.o
-
-[Severity: Medium]
-Will this fail to link the object into the main optee module when built as
-a tristate module?
-
-If CONFIG_RISCV_SBI_MPXY_MBOX is built as a module (=3Dm), this adds
-optee_riscv.o to optee-m rather than optee-objs, creating a separate
-optee_riscv.ko module instead of properly linking it into optee.ko.
-
-[ ... ]
-
-> diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_=
-private.h
-> index aefe1e6f56891..8d22d65e087be 100644
-> --- a/drivers/tee/optee/optee_private.h
-> +++ b/drivers/tee/optee/optee_private.h
-[ ... ]
-> @@ -426,5 +453,12 @@ int optee_smc_abi_register(void);
->  void optee_smc_abi_unregister(void);
->  int optee_ffa_abi_register(void);
->  void optee_ffa_abi_unregister(void);
-> +#ifdef CONFIG_RISCV_SBI_MPXY_MBOX
-> +int optee_riscv_abi_register(void);
-> +void optee_riscv_abi_unregister(void);
-> +#else
-> +static inline int optee_riscv_abi_register(void) { return -EOPNOTSUPP; }
-> +static inline void optee_riscv_abi_unregister(void) { }
-> +#endif
-
-[Severity: Medium]
-Does this silently disable ABI registration when built as a module?
-
-If CONFIG_RISCV_SBI_MPXY_MBOX is =3Dm, Kbuild defines
-CONFIG_RISCV_SBI_MPXY_MBOX_MODULE instead. This causes the macro to evaluate
-to false, compiling optee.ko against the dummy ABI stub and silently
-dropping the feature.
-
-[ ... ]
+This commit uses the OP-TEE shared argument cache when the secure world
+advertises OPTEE_ABI_SEC_CAP_ARG_OFFSET. It allows the argument structure
+to reside at an offset within a registered shared-memory buffer to reuse
+buffers across calls.
 
 > diff --git a/drivers/tee/optee/optee_riscv.c b/drivers/tee/optee/optee_ri=
 scv.c
-> new file mode 100644
-> index 0000000000000..0fe4edf92fc9b
-> --- /dev/null
+> index 36115326486d6..72c9eb85f4fed 100644
+> --- a/drivers/tee/optee/optee_riscv.c
 > +++ b/drivers/tee/optee/optee_riscv.c
 [ ... ]
-> +static int optee_riscv_send(struct optee *optee, struct rpmi_mbox_messag=
-e *msg)
-> +{
-> +	int cpu, ret;
+> @@ -1219,6 +1220,15 @@ static int optee_riscv_probe(struct platform_devic=
+e *pdev)
+>  		goto err_free_channels;
+>  	}
+> =20
+> +	/*
+> +	 * If OP-TEE can read the argument struct from an offset into a shared
+> +	 * memory buffer, cache and reuse one buffer across calls instead of
+> +	 * creating a fresh parcel per call. This is the persistent pool that
+> +	 * matches the FF-A OPTEE_FFA_SEC_CAP_ARG_OFFSET path.
+> +	 */
+> +	if (sec_caps & OPTEE_ABI_SEC_CAP_ARG_OFFSET)
+> +		arg_cache_flags |=3D OPTEE_SHM_ARG_SHARED;
 > +
-> +	cpu =3D get_cpu();
-> +	if (cpu >=3D optee->riscv.nr_chan || !optee->riscv.chan[cpu]) {
 
 [Severity: High]
-Can this index out of bounds on systems with sparse CPU topologies?
+This is a pre-existing issue, but there appears to be a heap out-of-bounds
+write and memory exhaustion in optee_get_msg_arg() when the Secure World
+provides a large rpc_param_count. This becomes actively reachable memory
+exhaustion when OPTEE_SHM_ARG_SHARED is enabled here.
 
-Because cpu is a logical ID from get_cpu(), it can be greater than or equal
-to num_possible_cpus() on architectures with non-contiguous CPU IDs. This
-would cause optee_riscv_send() to reject valid harts and route messages to
-the wrong physical channel.
+During probe, optee_riscv_exchange_caps() reads out[1] into rpc_param_count,
+which can be up to 255. optee_msg_arg_size() then calculates a required size
+sz that can exceed SHM_ENTRY_SIZE (which is hardcoded to PAGE_SIZE).
 
-> +		put_cpu();
-> +		return -ENODEV;
-> +	}
-> +	ret =3D rpmi_mbox_send_message(optee->riscv.chan[cpu], msg);
-> +	put_cpu();
-> +
-> +	return ret;
-> +}
+In optee_get_msg_arg() in drivers/tee/optee/call.c:
+
+    res =3D tee_shm_alloc_kernel_buf(ctx, SHM_ENTRY_SIZE);
+    ...
+    memset(ma, 0, sz);
+
+Does this blindly allocate exactly SHM_ENTRY_SIZE bytes but then
+unconditionally zero-fill sz bytes, leading to an out-of-bounds write?
+
+Furthermore, because this patch explicitly enables OPTEE_SHM_ARG_SHARED, the
+cache logic in optee_get_msg_arg() computes:
+
+    args_per_entry =3D SHM_ENTRY_SIZE / sz;
+
+If sz > SHM_ENTRY_SIZE, args_per_entry evaluates to 0.
+
+This makes the cache reuse condition bit < args_per_entry (evaluated as
+bit < 0) always false. Does this silently drop the allocation reference into
+the cache list and allocate a fresh page on every TEE call without ever
+reusing them, leading to memory exhaustion?
+
 [ ... ]
-> +static int optee_riscv_request_channels(struct optee *optee)
-> +{
-> +	struct device *dev =3D optee->riscv.dev;
-> +	int nr_mboxes;
-> +	unsigned int cpuid;
-> +
-> +	nr_mboxes =3D of_count_phandle_with_args(dev->of_node, "mboxes",
-> +					       "#mbox-cells");
-> +	if (nr_mboxes !=3D optee->riscv.nr_chan)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Expected %u mailbox channels, got %d\n",
-> +				     optee->riscv.nr_chan, nr_mboxes);
-> +
-> +	for (cpuid =3D 0; cpuid < optee->riscv.nr_chan; cpuid++) {
-> +		optee->riscv.chan[cpuid] =3D
-> +			mbox_request_channel(optee->riscv.client, cpuid);
+> @@ -1266,7 +1276,7 @@ static int optee_riscv_probe(struct platform_device=
+ *pdev)
+>  	atomic_set(&optee->riscv.next_nonce, 0);
+>  	optee_cq_init(&optee->call_queue, 0);
+>  	optee_supp_init(&optee->supp);
+> -	optee_shm_arg_cache_init(optee, 0);
+> +	optee_shm_arg_cache_init(optee, arg_cache_flags);
+>  	mutex_init(&optee->rpmb_dev_mutex);
+>  	platform_set_drvdata(pdev, optee);
 
 [Severity: High]
-Does this incorrectly assume a 1:1 identity mapping between the Linux logic=
-al
-CPU ID sequence and the hardware hart order?
+While enabling the persistent shared argument cache here, does the
+optee_riscv_clnt_ops structure in drivers/tee/optee/optee_riscv.c lack the
+.system_session callback?
 
-Using the loop counter cpuid as the DT property index maps logical IDs
-directly to hardware channels, which will route messages incorrectly if the
-topology is sparse or harts are disabled.
+The SCMI OP-TEE transport relies on tee_client_system_session() to mark its
+sessions as system threads, which prevents thread exhaustion and deadlocks
+under heavy load.
 
-> +		if (IS_ERR(optee->riscv.chan[cpuid])) {
-> +			int ret =3D PTR_ERR(optee->riscv.chan[cpuid]);
-> +
-> +			optee->riscv.chan[cpuid] =3D NULL;
-> +			return dev_err_probe(dev, ret,
-> +					     "Failed to request channel %u\n",
-> +					     cpuid);
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int optee_riscv_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct rpmi_mbox_message msg;
-> +	struct mbox_client *client;
-> +	struct optee *optee;
-> +	u32 servicegroup_id;
-> +	unsigned int nr_cpus;
-> +	int ret;
-> +
-> +	nr_cpus =3D num_possible_cpus();
-> +	if (!nr_cpus)
-> +		return dev_err_probe(dev, -ENODEV, "No harts found\n");
-> +
-[ ... ]
-> +	optee->riscv.dev =3D dev;
-> +	optee->riscv.client =3D client;
-> +	optee->riscv.nr_chan =3D nr_cpus;
-> +	optee->riscv.chan =3D kcalloc(nr_cpus, sizeof(*optee->riscv.chan),
-> +				    GFP_KERNEL);
+tee_client_system_session() unconditionally depends on the
+tee_driver_ops->system_session callback. Without this callback assigned
+(e.g. .system_session =3D optee_system_session), calls from the SCMI driver
+fail with -EINVAL.
 
-[Severity: High]
-Is num_possible_cpus() the right size for this array?
-
-Since the array is later indexed by the logical CPU ID in
-optee_riscv_send(), it should likely be sized by nr_cpu_ids instead to
-prevent out-of-bounds access vulnerabilities.
-
-> +	if (!optee->riscv.chan) {
-> +		ret =3D -ENOMEM;
-> +		goto err_free_optee;
-> +	}
+Could this force it to fall back to a non-system session and lead to deadlo=
+cks
+if SCMI is needed for power management during normal OP-TEE tasks?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-rpmi-tee-s=
-ervice-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com?part=3D1
+ervice-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com?part=3D3
