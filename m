@@ -1,148 +1,106 @@
 Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67241478E25
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 15:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A7A227FB37
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 16:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789228264; cv=none; b=jOV/nSBTdREwY/VrTSfLgEHNz/oHJD2OVLCJHj6BS3vLQYwm4eKShhLJEME7GCZkRqsFWHUt/955MUwc7uyTnTaPiPbVIoy9ITQLnNczwJJCo7mSRq6qP3qFx6cqYPoY9TEcp+p3NpNvYknsLLbZK+rrak6FMOqH/O53bYgzcSI=
+	t=1789229853; cv=none; b=ogSPi9QDwrurhW1uDqdhScWdsa5L0QyYOGVWZuSxcI0v4OXWwObtNlYvRV7y2P1Oiv81tcrLUXGKVx8YAH5ykvb/qAEgocFIazrzlbOBY/uAIy0MLTs57bWeei4GBe4N4MJGKDc2BFgzp9sAwI6oRw+geFS2QUdozP3vmvPgQwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789228264; c=relaxed/simple;
-	bh=jYjhr9lQehwgsoB55McaT2/qQLnqXw43VwwgAETPBqE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=m4XsJL6XifoDPA9CX8HV+XZtpwRIzI2jR6OAG0V8Wq+jV6PoWPV0cievS0AioTnjd2pwhJGUYNpQ8fH9GJnzTO7FvAAvxF2nQqX9YjtSHpb3692x32KZLJMiYedvk/OufL2HeW4feIrf59gfqCvL64pNIs9rQBGvgJJxwbeoYc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=B5Z+lMD3; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1789229853; c=relaxed/simple;
+	bh=Jqw79SmqLYkewooIG0Ms5tC1rgyoHKKJFJs076jCzQQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LkjqOLKrt6JLPPLTxfUAYbfoxAj3H5IHH6tpHWnF0rAvJdqL2j/XTccjblBARSBJfkirB40LckrsGllrfWk4Q1+VJPimn4+YqWz+zq7pLRvbLA69LELAXi4yJtSrUh39d1VIqNyMqY4z8FcQlFv6w0vUQ5jFz2jluLg8WqDsBpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xepfy9qN; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="B5Z+lMD3"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so226793f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 08:51:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xepfy9qN"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843c3ea1f6so232945f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 09:17:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1789228260; x=1789833060; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WYsEok5/6RpeOa0+UdPPhWNeU1Av3CpfKIsBFwLi6qQ=;
-        b=B5Z+lMD3RMMj7NVb/nfYAe9DpW00iaTkHgayOvY05B8q+8RkWJk6fAJAFkb72iwiyJ
-         O0loOWoDYolpvpWZ5rVs4/SMg/Hz8YlSiFAsBG050eftDr4RIAPy7rizLvbYtovn9VCt
-         bTGVVGCEq9a9FBCXkMQpCMeTXNmsJRuonxg8zcxKzn1lOpAxlhanYHYOks4Edg4VnJ3r
-         lMJ6JlJyjpGetWqBo0FiaciOd3HPSKCLtxZvR6XrXercqClTkajUAvcu/sQRUq8JRPHg
-         56uZDjTmeeoO38w5PIPxUFX1f+AwvlGvySbq2/PCPeeEJuqXqURiupMHDE6d7SRoV3ff
-         uDkQ==
+        d=gmail.com; s=20251104; t=1789229848; x=1789834648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jqw79SmqLYkewooIG0Ms5tC1rgyoHKKJFJs076jCzQQ=;
+        b=Xepfy9qNZjaG0hYkcJVpkJU6/tOJ27m+bV2j1zZTU50TNUsfdjh3XLVHQZAGbe/Bqx
+         zNn7lYJCMJXHrOFJe1DH3YHduovvnGHbqTVVzoK6sU2szGMagSmXuBJKpYEkU7tF25RM
+         H6kkcIDxsZXDQb53s3Re9wEQDmHABqb2Th76Wlcx33Qtrsq+BpTppGG7zeTP6vENlhHp
+         jJu+zqzRHw4FECFSpm5W75VsLnMdTLYn0f8yns2mfVtLYpaPIMnq8rHzsLGBa6lNr54k
+         ZLWIjGxScGY/uoz+rc0iT+fHmibaFCiAA01blaLGMICEz8LZihTuYbW9vlrLCZNa9Z84
+         +J5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789228260; x=1789833060;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1789229848; x=1789834648;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WYsEok5/6RpeOa0+UdPPhWNeU1Av3CpfKIsBFwLi6qQ=;
-        b=guPdVmCMgBDLF4vHO4tv/Srp0cbyNYoODTpufkA8Mdbq5kl86i2OOUz045aDfRiXhQ
-         gOVTjaSTXSDj3TVT0aqvGSS8eeaSa75/32k9CkBLD/G3wiDTHb2E818YpfDRMLZtyvu0
-         XrkvSph4f8sUDL704s1MciL8yltmKEYUDi4TXdA/ludgg3RdIp41kSJiYpXlTZdTTpMh
-         BaNqBlTmIhRH0jgUn7MIKKvZ3S/lfOmyEWxtn2mKOU2GXuWcALTOUvnnfTGjc07Y7oGx
-         Tjx2B0wDXKXy2NhqnrXNxS7MPVmDQQMlCPX1GTieoSa8CWWpfMpchauO0QOism4VQSMb
-         LafA==
-X-Forwarded-Encrypted: i=1; AKwUvByx9X7JSJo58m3hqlrrG1Funpk/ozvYT+O2Zi7ivvQsnj+AOfRTPqRmqRVdFi2xgCo9UvrIgu/0HMWu@vger.kernel.org
-X-Gm-Message-State: AFuF++lc1FwkxkD24jT0T/ZRovovnVu2sc3VFvc9KTQ+vySqS+8XeBBa
-	Bko/m3jqaYkAJLkUJZWjfCE9CeCcUtbiw8JpgmYd5Dno27sbPot8AmE8TcRxAtvheL4=
-X-Gm-Gg: AYBFou3S7scIQjwVsfwQLe7tDyiS3uL2LamhUzdVWuYXM0S5KCJnBLYIZ2xsgieJzM2
-	AXOd8GGewutQo3Xiw2OIK4GdmbEh3n7TXv0FCjJDzCzGykGHCWOcEhTPMVQaF0OADdgkO2Ycycp
-	EXZIApyYS66IhE3gkJXgqL+WGrgkRSMbrevOKHsxU+RyVxI+XP7hd7EXzbSgz365ELEFzBGItfb
-	nEKIQj6qiQegxYwUrJB7Bkfk7DDPflQMrFLUYqryvkWb2rEc8v6a9eP47exLgnfdacCsOfVD4d9
-	cRL4FOii7QPu1K6K9XEhfEOH/NUmSG62Q10PYavzkrx2cbBZloZYnn6PUPrL+77ZzWbmdRV1Iiu
-	uqc9fFD5R+4JE4hUTgBxmlAcbVsw6t50GxCm1JAHPzjVih6TuahBsn//jcVisNVt3LQwhbzj3Iv
-	A4qfIm9amRDGhTV9jQ+2V67jmUqthvSEdvgMznkdRERFHUys/3oyc2GZzGUKqlPLhIjZCgLzu1t
-	0/61ugQReMNAOa/2G3q072Jmbpo
-X-Received: by 2002:a05:600c:8b8b:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-49e6cbfeee9mr26096875e9.20.1789228260689;
-        Sat, 12 Sep 2026 08:51:00 -0700 (PDT)
-Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e636f7fa2sm154001915e9.15.2026.09.12.08.50.59
+        bh=Jqw79SmqLYkewooIG0Ms5tC1rgyoHKKJFJs076jCzQQ=;
+        b=M6sNjuuBg3mwf4XDoEOYeIz7idWdPgZ+VkSGO5lrPqPIbi7rOI6zlW5NMyXm8Wkkrx
+         4cI/31CpN9apQbou71Mjdrc8Ju/Md5DUUxATEDmdFsUx80KMZufHEvvjsh6KJ6kFGU3p
+         sEeZyZ9FUkjhxO+FwEURLSMtepbF/6o0IyaCxX9m4QaXKW2wggquctrm2ZcY6z4pOOAJ
+         cFITUi4oU8QQUdezDlJ6c0rgvnj4sJczInFBIuOZtYvSmAy+PD2+KiSf8fEjQ6Z3xYCP
+         ldNCrofqpnvkW/HHzNiprr98d1AWnhW2vnttcKuZv3RHJHrStSnTBgxkZrJuT+UinA4L
+         zRCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzD9lsJPLBEdrNbssE4Wysx701ccwsQA2+Yk6+flhorLVnIBxrwR/iW7elSs2JZezthNbsoQhQXIEpW@vger.kernel.org
+X-Gm-Message-State: AFuF++kpKKlWbjdjhamoi+2qlXzbeYHadXEWuREhgnr3/1bRFUrVSlii
+	NWNQs/xuN9duWXHltnxe6xUNV5SdUSA14ZGcUa9JOFqzFN52U2TDUICW
+X-Gm-Gg: AYBFou3K8Fw3jexu9RvyYiIl3SobErNBwn+6jSnOnEQheemRc4bFHK7BYmOjt48SLys
+	F8/9qpC1FZOxjYrZuBLdw+/JgetQ9rm/c8ByWQ6xmQQumTVlyPo5SWIHdaAcVKsBzDfnOeUt23r
+	TNwVem5OIGRZpeKshLPWxkttrWFL2jwPCR7ojjFBVe866eMZfgZq/pX6CHbsqsS1Z0VNuYZfL9R
+	5bqKB7ToyywhtjFdx7Uwij1trStdKwZOjgN/ryQNvpuldWbqCkP2knhmnZSGRp9uqKBl33iRnsF
+	TeTnK5FiUAUSuq3HmtbGdv/ybrqqhAnjRsDNluE5HpHZ4EzTG/I5z0mK7UDDB0HdM63GUvLheWa
+	Jb1CRGS/ig9JuXMHlw8UKVXNUf31hzSJhyJZmxRmnlHLnNtdYiBticIsv0WSKDsYSz40hkG+6LW
+	dhfZqS2wz9PX9PCpvDYj67KuaPQm6p/HOzW2bASASsfn7KsHdYpp3Yz0cKxC6C5zg7mGjscyqM0
+	Kt1N9d65CImQFpijyc+vbBjOWjZWjBaHUbF/hufGmZCU14QYK6NZA==
+X-Received: by 2002:a5d:5d83:0:b0:486:f040:2e0e with SMTP id ffacd0b85a97d-486f6d4ab19mr2656641f8f.42.1789229847393;
+        Sat, 12 Sep 2026 09:17:27 -0700 (PDT)
+Received: from cachyos-x8664 (159.red-83-38-226.dynamicip.rima-tde.net. [83.38.226.159])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb33ee8bsm13567448f8f.15.2026.09.12.09.17.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 08:51:00 -0700 (PDT)
-From: Jerome Brunet <jbrunet@baylibre.com>
-To: tanure@linux.com, Brian Masney <bmasney@redhat.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
- Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
- <khilman@baylibre.com>, Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>, Stephen Boyd <sboyd@kernel.org>,
- Brian Masney <bmasney+clk@redhat.com>, Chuan Liu <chuan.liu@amlogic.com>,
- Jian Hu <jian.hu@amlogic.com>, Ronald Claveau <linux-kernel-dev@aliel.fr>,
- linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/4] clk: meson: t7: don't mark sys_ampipe_nand as
- critical
-In-Reply-To: <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
-References: <20260905153234.133217-1-tanure@linux.com>
- <20260905153234.133217-5-tanure@linux.com> <aqSX-kUvYaixESxe@redhat.com>
- <CAJX_Q+2vpcFw-5evCkykwWo6jbHvKvQ4XjYt_EKFyJuQm_ES5g@mail.gmail.com>
-Date: Sat, 12 Sep 2026 17:50:55 +0200
-Message-ID: <1jcxui79k0.fsf@starbuckisacylon.baylibre.com>
+        Sat, 12 Sep 2026 09:17:18 -0700 (PDT)
+From: German <germanpapulindez@gmail.com>
+To: lsa.uz@pm.me
+Cc: andre.gilerson@gmail.com,
+	conor+dt@kernel.org,
+	dan.scally@ideasonboard.com,
+	devicetree@vger.kernel.org,
+	germanpapulindez@gmail.com,
+	hansg@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org,
+	sakari.ailus@linux.intel.com
+Subject: cause of the image error in Gnome Snapshot [PATCH v3 0/3] media: Add support for the Sony IMX681
+Date: Sat, 12 Sep 2026 18:16:12 +0200
+Message-ID: <20260912161614.93775-1-germanpapulindez@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260909203717.90605-1-lsa.uz@pm.me>
+References: <20260909203717.90605-1-lsa.uz@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On sam. 12 sept. 2026 at 08:50, Lucas Tanure <tanure@linux.com> wrote:
+From: German Pablo Lindo <germanpapulindez@gmail.com>
 
-> On Sat, Sep 12, 2026 at 1:08=E2=80=AFAM Brian Masney <bmasney@redhat.com>=
- wrote:
->>
->> Hi Lucas,
->>
->> On Sat, Sep 05, 2026 at 04:32:34PM +0100, Lucas Tanure wrote:
->> > sys_ampipe_nand clocks the pipeline stage inserted in the bus path
->> > between the SD/eMMC controllers and the NIC_MATRIX fabric. It does have
->> > identifiable consumers - the three MMC controllers - so marking it
->> > critical was the wrong tool: the clock should be referenced from the
->> > consumer nodes and claimed by the mmc driver instead.
->> >
->> > Drop the CLK_IS_CRITICAL flag and update the comment accordingly.
->> > sys_am2axi0..2 remain critical as they clock the AXI DMA bus itself and
->> > have no single identifiable consumer.
->> >
->> > Assisted-by: Claude:claude-fable-5
->> > Signed-off-by: Lucas Tanure <tanure@linux.com>
->> > ---
->> > This patch depends on the MMC controllers actually referencing the clo=
-ck:
->> > the dt-bindings, mmc driver and t7 DTS changes adding the "pipeline"
->> > clock must land before this patch, otherwise the boot hangs and memory
->> > corruption this clock caused are reintroduced.
->>
->> This series should be merged together in one tree? Which tree? I can
->> provide an Acked-by if it should go through the mmc tree.
->>
->> Brian
->>
-> It's definitely best to keep the series together in one tree to avoid
-> boot regressions,
-> but I think the clk tree is the better fit since the core changes
-> revolve around clock logic.
-> Could you accept it ?
+I think i found (at least in my system) why Gnome Snapshot dosent work, i dont know if this error is also present on your machine with the patches, so i have organiced this message with commands for you to be able to directly copy-paste them and make tests
 
-No. This applies on top of another change already queued in the amlogic
-clock tree. It can't go through the MMC tree at the moment.
+There are resolution in wich the cammera works fine like:
+qcam --stream "width=1280,height=720" the resolution that uses google meet
+qcam --stream "width=640,height=480" resolution on a web camera test online
+qcam whithout the stream parameter, which has a cuality of 3836 × 2640
 
-This clock is not critical in mainline right now, so
-1) I could merge this and it and in practice there would be no
-   regression. The problem you had would still be there until the MMC
-   change lands
+But there are some that experience the violet and lines error i reported o my previous test
+qcam --stream "width=1920,height=1080" this one is the resolution gnome snapshot uses
+qcam --stream "width=1440,height=810"
+qcam --stream "width=960,height=540"
 
-2) Or you can wait for the MMC stuff to land and re-submit this in
-   the next cycle.
-
-Your choice. IMO, (1) is fine.
-
->
-> thanks
-> lucas
-
---=20
-Jerome
+I hope this helps in the development of the driver
