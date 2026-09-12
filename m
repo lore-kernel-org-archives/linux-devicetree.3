@@ -1,102 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC314746B8;
-	Sat, 12 Sep 2026 11:46:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F712390CBE;
+	Sat, 12 Sep 2026 11:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789213572; cv=none; b=hpYBJgKBW2ZwqOD74ZldCcAVYZROVbZSNDbWoPjJZKE7gHL9odSKPJ6IF+xS1fG/CpTaA0kEyK6P1YcCpGiKCTf74r5p9WPbSfQOigYVVE4/kVY5J8sCePikKNifFi1nr4ljXkU8fQnFvak1fMwV2fqHQ0ho0ayPiVPds3mWyjU=
+	t=1789213674; cv=none; b=AF18PEAYaF8oKllhs48TKVKYcwHXcvLHRCE2J/o8XVlKXoNV2DJBBc9k/ed5naZBtsWPHjIcQmpD+ASJo14NMbUwpm2+1vu/IEUqu84TJLnSaf2Drm7u3CZO0pm5mRJ+3gQiOtTl7UJ+FeV+8YHnhqlTXMtCWgsiTO+kD+YPyL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789213572; c=relaxed/simple;
-	bh=Cxkw6T1BkcuVg0olYkWU9508hC4PU7vHafZ/RqOItRw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tQRGKhTl1PncOFV46JwD5H2LGlKDFYaIiVEJ1VOxY7q/gbkvYwlODPXw9UUEH8wLtPd1OvsA2RG2EaVLx++faIsPxg3HNkbduQnFXdGB7NHh8f+mizpTfz9Am3HkjUzCMqvUH20kwaqmT9sIoPnS8xeCg6IGMgGuaC/8OVVV3ks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRuwQLI8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789213674; c=relaxed/simple;
+	bh=3X6dEV24yH9mLcYAeMRhh3slUxfFXhRuPH5sUwN08Rw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=siG+tQicqz1yYLSSWNPNbEeb45Eitz/mwK7+VR9L9D+Ny+XcylOzaGtXcFVEviP7htP7ZCwKvQjXg/F+ohwiq2mFDBlCwiD845LitS7Ebggx0WCg4OfKtJ+NEtXdIHoNCNfhpmLJzloEuFlDjeoSLmtZwBA4StdHYdfgTyZoHNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XEZG//MH; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRuwQLI8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAB9C1F00893;
-	Sat, 12 Sep 2026 11:46:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789213571;
-	bh=O88S8l6R+j2urQ64+eHrke/qthP/tOpu/uAUYl84knM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GRuwQLI8AmhAGB2NJRyoGn3BW113WdWO9Tdi0eEWR2QmLjgz89Xqxei3Tk3EucCP3
-	 XwQElGhSkPcs8KmmMyjO30U9MYm457lgjUrvbLT2leP4pMgO5Eh7Ei5fDNwVGRa/bx
-	 xdRHtg0kOmXx4C/XizkoHc5cQBIaBNGMXDn+cKOb0TyHUjwoBG28UGqvzFOgzA2o0G
-	 sP5yAFNjFmtj/22bzRcFxrwkmGn6K/tXGsMXL683fD6Ohq/K/5sIX/gshFtAoodKvq
-	 SQltAoet+h3rxr1X2fm7+VeTeca5+OF0iJr5Jp1c4mX7w8I5RSYLSnv/yyWi7umaq5
-	 5OHpC8+qcai5w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v50 3/7] firmware: imx: add driver for NXP EdgeLock
- Enclave
-Reply-To: sashiko-reviews@lists.linux.dev
-To: pankaj.gupta@oss.nxp.com
-Cc: Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev
-In-Reply-To: <20260912-imx-se-if-v50-3-80834ef510d3@nxp.com>
-References: <20260912-imx-se-if-v50-0-80834ef510d3@nxp.com>
- <20260912-imx-se-if-v50-3-80834ef510d3@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 11:46:10 +0000
-Message-Id: <20260912114610.DAB9C1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XEZG//MH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789213673; x=1820749673;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=3X6dEV24yH9mLcYAeMRhh3slUxfFXhRuPH5sUwN08Rw=;
+  b=XEZG//MHfAJkEOA/oSy3i7H853w/n5ySHdx+Et9zKCWRKDnQsKdVhfe2
+   M/JTvWTb53Kjm/tDI5x8hJkN2NtIB6RwjRetT9w9kU3QZwB9g0l0ixQIA
+   43y6GqQWvJksaS1FisCoqJWhk2gp9SRcxvqrkjzUF1ooY5fwSLE8RGlf3
+   1lbjAUBG7kxBZKsUsQ4wqAGtY2+R/ek8VjYPeIc0qRat1LGfbfSmjDOEh
+   KC50PChDJ5fnecjUMJ3Wt6AnqzMCIUMmmmp4snE6nqr+lmebSfVfkjtak
+   kI0snS6aczYBmIoBreF+jwgXG2kVTwJXxFhcIpdGFFb+/EbEK8vqwWkQW
+   g==;
+X-CSE-ConnectionGUID: qSdwN8TITLWACQHMOGNvKw==
+X-CSE-MsgGUID: MN9RwsOjRdGd9540i6Op7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11902"; a="101176436"
+X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
+   d="scan'208";a="101176436"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 04:47:52 -0700
+X-CSE-ConnectionGUID: CsUZZu1TSKasNDqLO6rOag==
+X-CSE-MsgGUID: momP4OePRKSrm0EETY3h+w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,99,1787036400"; 
+   d="scan'208";a="277423628"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.238])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Sep 2026 04:47:49 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id EDDA8120EA9;
+	Sat, 12 Sep 2026 14:47:52 +0300 (EEST)
+Date: Sat, 12 Sep 2026 14:47:52 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <aqU76D0njKfZyd1O@kekkonen.localdomain>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
+ <ap-1tDtGCWGc9Hvs@zed>
+ <ap_DfdHTa0cQe1LH@kekkonen.localdomain>
+ <ap_TUa3D0-ZGnrXy@zed>
+ <ap_fLLHSEmw0J8yN@kekkonen.localdomain>
+ <ap_kY7s1545jn1xz@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ap_kY7s1545jn1xz@zed>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Failing with `-ENOMEM` when `of_gen_pool_get` returns NULL break=
-s probe ordering and prevents the driver from binding if the SRAM pool prob=
-es later.
---
+On Tue, Sep 08, 2026 at 12:34:00PM +0200, Jacopo Mondi wrote:
+> > > > > > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> > > > > > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> > > > > > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > > > >
+> > > > > > > Instead of callind v4l2_fwnode_endpoint_free() here and above, I'd add a
+> > > > > > > label for error handling.
+> > > > > > >
+> > > > > >
+>                    ^
+>                    |-- Here ?
 
-commit 88805176a44f81db2011a6e6ac5791578da01f8f
-Author: Pankaj Gupta <pankaj.gupta@nxp.com>
+Yes, please.
 
-firmware: imx: add driver for NXP EdgeLock Enclave
-
-This commit adds an MU-based communication interface for the secure enclave.
-The NXP hardware IP for secure-enclaves, like Edgelock Enclave (ELE), is
-embedded in the SoC to support features like HSM, SHE & V2X.
-
-> diff --git a/drivers/firmware/imx/se_ctrl.c b/drivers/firmware/imx/se_ctr=
-l.c
-> new file mode 100644
-> index 0000000000000..0013c960ec43d
-> --- /dev/null
-> +++ b/drivers/firmware/imx/se_ctrl.c
-
-[ ... ]
-
-> +static int se_if_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	if (if_node->pool_name) {
-> +		priv->mem_pool =3D of_gen_pool_get(dev->of_node, if_node->pool_name, 0=
-);
-> +		if (!priv->mem_pool)
-> +			return dev_err_probe(dev, -ENOMEM,
-> +					     "Unable to get sram pool =3D %s.\n",
-> +					     if_node->pool_name);
-> +	}
-
-[Severity: Medium]
-Could this prevent the driver from binding if the SRAM pool probes later?
-
-During system boot, if the SRAM driver defers its probe (for example, due to
-pending clock or regulator dependencies), of_gen_pool_get() will return NUL=
-L.
-
-By unconditionally returning -ENOMEM here, does the secure enclave driver
-permanently abort its initialization in se_if_probe() instead of returning
--EPROBE_DEFER to try again later? This would break all dependent functional=
-ity
-like HSM, SHE, and V2X on configurations where the SRAM pool probes later.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-imx-se-if-=
-v50-0-80834ef510d3@nxp.com?part=3D3
+-- 
+Sakari Ailus
