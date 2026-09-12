@@ -1,68 +1,68 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com [209.85.215.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0B8344DAA
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 14:20:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD6331B10B
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 14:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789222823; cv=none; b=YePrN4Aogu39h3+tFeg9FUi3R0TP9MY2e9/HyFHddMT92mKTfFQDnjuwgxCSBUx7jMor4OFA63FmocUjbitvX701A/DSZQo1XQCkB9UxeGzwIVV8e7n5RUxpMyngomqlfRdkl7jn/lLOJJS2G3y6Oxam+n3TC7ZShpd1HBRg8zM=
+	t=1789222864; cv=none; b=iA8AUPUKIBAJJEJctOkidn3tJ/YiR0FGAojzVVgITdJa20AHU6LUndrf4jnvyORnn6+U3lungT17oPVLVxCKzx5XiwpWSKz8PrlpiKxlnVn4OgNSNpFEbp/qQthXzdWreCnMUEJYzBCILTVURcI+dUZMfgAkHt5Ia/IYK4Xwb+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789222823; c=relaxed/simple;
-	bh=biqxF2WqF9FsEWFi0SeRE5ItXS6SATDbQxMgWQtNwgc=;
+	s=arc-20240116; t=1789222864; c=relaxed/simple;
+	bh=Uiy8nevCbQFi+tO7PRMHhK5e5/ieop6sXofJo9kMfiU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lO61woYv011jiT29ijbdewwmAWvF29Lv91MqZE5skPH+3cmYlH0FgQW3xPoIeHTtnVKo1EnHmYekLbotvfvc8JWHgesZbPIdPSHZHMUeL2HhrJbjZ5iho9tRNJpGv5V2kGZihmiMSchB5Ed/5j0xac+QMapJGxNKmuH25sJd/P0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X9wS6sgy; arc=none smtp.client-ip=74.125.228.12
+	 Content-Type:Content-Disposition:In-Reply-To; b=KDEYsScAjTRLNIrE+ocmw+EEv6TjXltWQnjceQZVrnnWwa90hgojodh/MWxDjPjD2Exee88t/gws3IGhIz4p+/CBxTI4i56vaafHwp0oWKJdyYmBcQacO4fbJACLyBvKLg8p2TmQOaaSDbSXQ9J2IaEkBA8rRiQEwer+Jwo0DMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S4eW1a/W; arc=none smtp.client-ip=209.85.215.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X9wS6sgy"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4aa0f1a94so367441a12.2
-        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 07:20:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S4eW1a/W"
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cbee846deecso2692074a12.1
+        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 07:21:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789222821; x=1789827621; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789222863; x=1789827663; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=we0ycuhD13NPMWrxsYvOqSZt4f6T+4762jU+NZLRKXc=;
-        b=X9wS6sgyPv70YucXExX/1Ce4CRnkgEBlcbO4tXFe2BDHC5ArRqa3qtidYPXbc+Eb86
-         t0mtTuUgnC3wg6ofDeOJ0aTvX3bUhY5Ktd7u/+uecMOcrv+vBAhjk/aq9zz+u/HFyO+/
-         j35JVG5kq7mNh+HuEE3Yye9zQxxnTCTJ+GuoOyhGUkS5sUPnXXGr4/ZHm0BPUWIbpty1
-         Kq4WauWQpzAb/3mjBQtH6WP4wQm4W4uV+2X8I5QHGgF3Jgx7UaiH3mOKt2who7ft2dck
-         plOwJ3A5714iuVwbgSw5ymHhx7MgqNunxTATC7VsY4aQe6zVBWd+3OgROJDd1P+Xs1Yr
-         XOsA==
+        bh=tHeNLogRQjCpZaDFq26lFx7YUh4OKGaTu/lrQFFabec=;
+        b=S4eW1a/WJY0sJgpNhNHwz+iZxFN9+fQfwkTp+5w+SI9Jz1DZ/bgSz1PUpzGrdwh4n0
+         39gFa2CbNbIs+iPErSwVki75FdeEfL5ljaoF4EYJcLLvo/NolOiX7t4adSSyeG6FvVQi
+         XRYaVqrzmNC0fzpLBeKP1AqQD2O+uEaPSRg9knE6D71ABERtBBwA4ChfGdstUj/QwOcr
+         RdVwEE3wrqWGzq5sDo9nei6OaESl272McGEKQX0zHSOmqhxsi6tRgM+cEdvjFkurmxML
+         b14xXksmhv8pjJs7SVGXU2NJNsr/1n/L8tCDvbT7BHdAoWIzY/80V+ZcWj8uaFL1b5W+
+         zPCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789222821; x=1789827621;
+        d=1e100.net; s=20251104; t=1789222863; x=1789827663;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=we0ycuhD13NPMWrxsYvOqSZt4f6T+4762jU+NZLRKXc=;
-        b=GdWnd4mBJr3ekF4o2Pmy+MeON5iI8jeV8peOw968Ofge8a2d3IwRrRTGTFQ8JuRw/P
-         ELIGYkocgzOiB8D7JjUbd4LLc3B9fNCxE7sZ0XsUvxlHK3QbgdBHSNaNhFaeczyK6l73
-         WmSE517lTwODoWjyvHPjzMhtOP7aYmU91RavuQSVFRHqEyPOoMuZqoTUiPiLv4XhYMbk
-         XEWKXVbQNRcHuHJBIthLYsG54sMXvVxfiJxgx+h7Xn4DOWmjtKzO4rfnUHJ+IDg1EbjN
-         wI1sMw3bdTCs/0wBIlHa6yLcrU6W5bE2pnO8YLiRWchj8IMyT9pVM9mjKt2uyEozc7KA
-         IEWQ==
-X-Forwarded-Encrypted: i=1; AKwUvByP+pgWkJScsn/EfhutLqoZPpi0zTv/TA51vXxnZ70WnBfg6LkyLjxdDa60UemIeRZCwhWpKXp70sMn@vger.kernel.org
-X-Gm-Message-State: AFuF++mK44fnBKskQ454w6WX+2G87tQlYJs8knvAuTbEDHoc+6dKqnUN
-	NQo4Ykwsp0sH79ycfMVVXRazSVnPvjM90ZD0h372Zp8fQI0pCupXiDtH
-X-Gm-Gg: AYBFou0hF37glAq9mCBbGsTnybc59C9xjnvpd2uXxYY1e1FOixPcWPCa42XGQTpffyy
-	r3uYyE+NfJPikRNYfcYeEJoJDC79+vLmdQMjX75PZ77/hCNCqko9XTlmr/wt3MjpJ4UXLO4KhzY
-	cQYSBiqxpgbKVzdVQGiWn5jFNd94p60ek92ViywMKlYJpwAREnE7+/e5wSfk2arDb7WaqH37lSQ
-	VToxrTL1ox02yNgmadcsx2EYG7XQQqov3s/59wRrWCEDSselMAXSrowxTZZUPYe+rb+POMZqcRm
-	axvDaZLLDBziwhkIyI0o2Us9soXraj+sO52wuR6o1UL1cAFKbHB9GrsnfOGev5m5szFcUAHt1Oi
-	ZQc1MTrglSgQQofgVI4z/8qoSBsFzWsgFwTJekgSLF5sUbNJII3yzw1q1E087LGcTE0R+ET0og+
-	LRR/5mm3oezUB4iowfBRbB8ccqpUYKfLNGzix1TsoQxCBMiaf/rEjHO5fidNlQ3YqtplQaLvtMJ
-	pNlXsNjq6Zx
-X-Received: by 2002:a17:90b:2dcd:b0:398:dcfe:967a with SMTP id 98e67ed59e1d1-39dbc6d53e5mr5724044a91.17.1789222821301;
-        Sat, 12 Sep 2026 07:20:21 -0700 (PDT)
+        bh=tHeNLogRQjCpZaDFq26lFx7YUh4OKGaTu/lrQFFabec=;
+        b=CzToX2nsm9ynNBjVKHSX6JlmsDvFQ4OoTQhPyUzTUGUsLftIIcvCINUZ2J5qUx92D0
+         l4QxK44WfI39dJ7mApR1puujSkGF3EXHPOAg93c70fUXBvWUpwg6RD/wuL+TyNlHA4R7
+         KBnyg2hYD6SNx6ScTERUopH/YfAHqEIIDChxCUm712JoY7HZc/PrcoA+26WaxE3yZVKM
+         eumT1dx5Qdzbm5TTNk/mOS/NRnTQOvjHylcwjG47nBsDT8qzcHY8/e1PRUaC5vZYv/WT
+         S+DFtqlHCXoL7NVOqgkmcJkw1Y5XCKSZ9PVLB6JVOxGhpHtKk/qvBLi+htiIW6sfnp9a
+         CdJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzM6VWtb3vlBBmcWSzlRND6xjzsIE8sdqe7ZHdJbwK5vkdV2WinHAmFfwy9iFDZMA3upgnG7J1GJItz@vger.kernel.org
+X-Gm-Message-State: AFuF++mCMfo7ZVi/5GjTe1EUq9cdn0IcgaM47BmScDJ/TacQZcsNEKJL
+	ckNb7Lvm3y+VfrGeUrBYS0noSiWsS3xKE0IypHdWfigIOg2jrAULsVu3
+X-Gm-Gg: AYBFou0IDZGVnkWwuSDYLIBb3oA94z5HrUZ/GvR4gvvtL81XzqoQcMfWRrGlvzXeKAR
+	cUymUKB4cPB/QQuSx0cY35GyZ8N1tJYzRnDfm/wDmm7eIUcs3wVxnpl/fY52N9IcP72XkYuw5Px
+	YI3zd0c6875gGrmt3rJEgcYIUCTAdoNKyAPJQKPEW7hPY8WgopB0sUJdWSG6KcwqJWPA/ziXXEL
+	XptrrF1LhsTnUV1S+MJp2eGt4jZQ80tdfiYLGr/upv7QZHCH98zS/+w/UGyWrkFYN34SgaYAaVm
+	4DvQmVQ2JyWaulTK4tQ4V1IJeglOEAI9aq7mVjqA7gaSe5IstO468OHnffeZJ4LtpxXKEn8SsL1
+	b4dCSZ45o5e5cUYMMYT7P0ab6uMhta1JVXZo4/iyESZuRMnr9M+1JBP+bdeAt+ohMxpsI0/pYY9
+	Bi1tbdzfn5Ex0tIVTzGoiZvqkrrZXIlohGzgyIo1JXJVLiSNuU8b5fU13vDgFBXdZyhEVw1JhE/
+	xyra8cRtPAj
+X-Received: by 2002:a17:90b:5823:b0:398:bdb0:adb7 with SMTP id 98e67ed59e1d1-39d9c0aad8dmr16717402a91.16.1789222862658;
+        Sat, 12 Sep 2026 07:21:02 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95994375sm10641268a91.17.2026.09.12.07.20.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d95994375sm10643910a91.17.2026.09.12.07.21.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 07:20:20 -0700 (PDT)
+        Sat, 12 Sep 2026 07:21:01 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Sat, 12 Sep 2026 07:20:19 -0700
+Date: Sat, 12 Sep 2026 07:21:00 -0700
 From: Guenter Roeck <linux@roeck-us.net>
 To: Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>
 Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
@@ -73,11 +73,11 @@ Cc: linux-hwmon@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Jonathan Corbet <corbet@lwn.net>,
 	Shuah Khan <skhan@linuxfoundation.org>,
 	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v2 1/4] hwmon: (pmbus/core) increase number of phases and
- add new mask
-Message-ID: <5d6bb7de-5cd2-4708-b894-fe8648a9c49c@roeck-us.net>
+Subject: Re: [PATCH v2 2/4] hwmon: (pmbus/core) Add mapping function to
+ pmbus_read_block_data()
+Message-ID: <a4e0335f-7724-4bbe-b624-2aef0990dc8c@roeck-us.net>
 References: <20260911-hwmon-max20826-support-v2-0-5e30cbd97d84@analog.com>
- <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
+ <20260911-hwmon-max20826-support-v2-2-5e30cbd97d84@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,14 +87,16 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-hwmon-max20826-support-v2-1-5e30cbd97d84@analog.com>
+In-Reply-To: <20260911-hwmon-max20826-support-v2-2-5e30cbd97d84@analog.com>
 
-On Fri, Sep 11, 2026 at 02:53:37PM +0100, Nuno Sá wrote:
-> Increase the number of phases to 16 as a new upcoming device supports
-> such a number.
+On Fri, Sep 11, 2026 at 02:53:38PM +0100, Nuno Sá wrote:
+> This is in preparation for adding support to a device which needs to
+> use it's own read_block implementation.
 > 
-> While at it, add a new mask for controlling the source of the output
-> voltage.
+> The MAX20826 family is one such device. When not in PMBus page mode, each
+> of its two rails sits at a different I2C address, so selecting the rail
+> cannot be done through pmbus_set_page() and has to be handled by the
+> driver.
 > 
 > Signed-off-by: Nuno Sá <nuno.sa@analog.com>
 
