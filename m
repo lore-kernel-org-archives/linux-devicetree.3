@@ -1,114 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FCE37757A
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 23:12:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3371B6D08
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 23:16:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789254774; cv=none; b=j5hnOBH1otHC7ypWWuMogoEoN4vksMFy9La6jZ2iOOWu1SXXq/t43x042vRnlL3upgW1TCz7YZviwbg5MOQcJ3sFoF02/3+1KB3yBE4+ubRWFUvIuiAqmPBFtYTp4Xr8LN3EFzbXPqQWOk38V/mdhG5aZQAqR5J/G1aF6Yx0qNk=
+	t=1789255012; cv=none; b=QadnQckPD8tOV6UkAZG/JFk+O/ymuP08hY5erlDTzgmag8/80ywPN7ZGbhjoBWtAgSCja2lRQVTb2Zt2MendP/QmSlD9qkfE5L3zhChKW1xa/5IBFefql5ZyLpCWDUQqXf4J2VXlrJkt9oSFnlB7ZiJyikZTgf9VINmhpvk1ua0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789254774; c=relaxed/simple;
-	bh=78CjYAI5vEjSw2g5XR9RVeaDfUES/hud8Wg2lGx3qe8=;
+	s=arc-20240116; t=1789255012; c=relaxed/simple;
+	bh=y/y8JG3Rw2ukD/6cPnUBr2BPVnIF6abZsZldEpskO4g=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kobsUOp9RBzm4UPHEti+DCj9A87xQy0kqFGpIFuXk8rBnARhcnsG1Bmgrm9sDKouGbCN//rSIhhQpZRXN3l7vc89sWBKRAeddvzXpJdUlfPazc5WR8s+w+S9hcUX1dPRu6pA7+R4o8qgaDqOdK2avmBc9EZR/9UZWnbTq0JavN0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/vFnuiq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=j/S/CAysqo9Czh7BqRtacUz0l/ukrHXcu3Pk6926J6FVWofZDO8CtYMmkRN8KsEtckWBPDHIvvS8OsYwf9/Nx2hzqOGjmhL5UaQnn/n5ASGzEegyttV0Y4+37ezsbIYivoXBV0BLfbqNBQMJt4/VDdsYEBLi7SStmW0qVDC4O6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HVPQg1Hk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/vFnuiq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163761F000FF;
-	Sat, 12 Sep 2026 23:12:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HVPQg1Hk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 375C71F000FF;
+	Sat, 12 Sep 2026 23:16:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789254773;
-	bh=FkK3LJZFW2vJvCOul1qYZojco27Ltz+vNl3aNlOpOdA=;
+	s=k20260515; t=1789255010;
+	bh=O991C9+HSrtJEWcXV3DSCr4HP42HWZvkvXQDqGD4WgI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=K/vFnuiqsMPy2jByQS4PnWBW4xW5X4Q1MBwbKykTP9Hsg7NJiN9vGBhUaIiWs3tAu
-	 M1Jyqw8GZWULORTr9h5oY0jMraDVguOMRjB4+2t7XFqgitzTbkY3UO4uPA1alEDqel
-	 fuDLBXydX3W8fX8ILJKn59TQXnf5v6wI2GZRu1kvcwHOmkJi6c1wslkIkPQmFlDOhr
-	 ykUY431iW/1O9qWJkdgbupqY/B2LvuAPeJH5L1BqVwujtIavzhmAo56O2PuStDDhy3
-	 O6c2DSjDPIYs55WmNqKUg2xSBI6IvFW4fP7DkBnO+fffbGsLVULVCxMpMR60bG7Bit
-	 a9KnR54B4RJ1w==
+	b=HVPQg1HkWwYdPnuy5ILA+KBiKCXCmhIRZdYp8m4ECK9MzYC0Y4/dEnkIJ7YF/BL5/
+	 bzLQ8LRxSj+cCIoF13XW4F9ZqKHF8mNzJptR4GiUENDl3hSPNkZAgTiWp+ikpK7451
+	 82IsVRh1lPpk55Bl4ic9WmKf9y5UchLWqmiCuVIBBpKfGeNFppyy8uWO9DnP1zFhKq
+	 qTjhAB55MEcLNGzdRvz0P6x57pkAxU+xlF4L5Uawnh2fOjQf3E29u4YB6fKAp0LXBC
+	 GxrF1uSDH2tENEdv5LjWxnHm5696QS5tEqYie8XLvuytLeJzS9wQndl9FkFt45V+vW
+	 rmOOnTJDuTWzQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 7/8] usb: misc: qcom_eud: fix virtual attach/detach
- event handling
+Subject: Re: [PATCH v8 3/8] usb: misc: qcom_eud: add per-path High-Speed PHY
+ control
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Elson Serrao" <elson.serrao@oss.qualcomm.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260912225301.3396556-8-elson.serrao@oss.qualcomm.com>
+In-Reply-To: <20260912225301.3396556-4-elson.serrao@oss.qualcomm.com>
 References: <20260912225301.3396556-1-elson.serrao@oss.qualcomm.com>
- <20260912225301.3396556-8-elson.serrao@oss.qualcomm.com>
+ <20260912225301.3396556-4-elson.serrao@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 23:12:52 +0000
-Message-Id: <20260912231253.163761F000FF@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 23:16:49 +0000
+Message-Id: <20260912231650.375C71F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
 
+New issues:
+- [Medium] Early return in disable_eud skips PHY disablement, leaking High-=
+Speed PHY resources.
+
 Pre-existing issues:
-- [Medium] Disabling EUD while virtually detached leaves the USB controller=
- stuck in a disconnected state.
+- [High] Calling readl_poll_timeout from a hardirq handler sleeps in atomic=
+ context.
 --
 
-commit 29002e5f224d237570095828a981e93ede8860c1
+commit 895071c1614ba92a198085df0882e77e4e133a74
 Author: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
-usb: misc: qcom_eud: fix virtual attach/detach event handling
+usb: misc: qcom_eud: add per-path High-Speed PHY control
 
-EUD provides virtual USB attach/detach events to simulate cable plug/unplug
-while maintaining the physical debug connection. This commit fixes virtual
-detach handling by setting the USB role to NONE instead of HOST.
+EUD hardware can support multiple High-Speed USB paths, each routed
+through its own PHY. This patch restructures the driver to implement
+per-path PHY management, ensuring that the PHY for the currently selected
+path is properly initialized and powered.
+
+Reviewed-by: Peter Chen <peter.chen@kernel.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Signed-off-by: Elson Serrao <elson.serrao@oss.qualcomm.com>
 
 > diff --git a/drivers/usb/misc/qcom_eud.c b/drivers/usb/misc/qcom_eud.c
-> index 1ed81e0c7dc8e..423320cdc704a 100644
+> index 25a6a8f110ec8..868725ad35e09 100644
 > --- a/drivers/usb/misc/qcom_eud.c
 > +++ b/drivers/usb/misc/qcom_eud.c
-> @@ -313,10 +313,26 @@ static irqreturn_t handle_eud_irq_thread(int irq, v=
-oid *data)
->  	if (!chip->enabled || path->curr_role !=3D USB_ROLE_DEVICE)
->  		goto out;
+[ ... ]
+> @@ -75,6 +135,8 @@ static int disable_eud(struct eud_chip *priv)
+>  		return ret;
 > =20
-> [ ... ]
->  	if (chip->usb_attached)
->  		ret =3D usb_role_switch_set_role(path->controller_sw, USB_ROLE_DEVICE);
->  	else
-> -		ret =3D usb_role_switch_set_role(path->controller_sw, USB_ROLE_HOST);
-> +		ret =3D usb_role_switch_set_role(path->controller_sw, USB_ROLE_NONE);
+>  	writel(0, priv->base + EUD_REG_CSR_EUD_EN);
+> +	eud_phy_disable(priv);
+> +
+>  	return 0;
+>  }
 
 [Severity: Medium]
-This is a pre-existing issue, but does disabling EUD while virtually detach=
-ed
-leave the USB controller stuck in a disconnected state?
+Does this early return bypass the newly introduced PHY disablement on error?
 
-If EUD is enabled via sysfs, a physical connection is made, EUD triggers a
-virtual detach (setting the controller role to NONE), and a user disables
-EUD via the enable sysfs node.
+If qcom_scm_io_writel() fails, the function returns early and skips
+eud_phy_disable(priv). Will this leave the High-Speed PHY resources
+initialized and powered on, leaking the hardware state?
 
-The driver disables EUD, but no role restoration is performed for
-path->controller_sw to reflect the physical path->curr_role:
+[ ... ]
 
-drivers/usb/misc/qcom_eud.c:enable_store() {
-    ...
-	} else {
-		ret =3D disable_eud(chip);
-		if (ret) {
-			dev_err(chip->dev, "failed to disable eud\n");
-			return ret;
-		}
-	}
-    ...
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to call
+readl_poll_timeout() from a hardirq handler?
+
+When the EUD_INT_SAFE_MODE hardware interrupt fires, the primary hardirq
+handler directly calls pet_eud():
+
+drivers/usb/misc/qcom_eud.c:handle_eud_irq() {
+	...
+	case EUD_INT_SAFE_MODE:
+		pet_eud(chip);
+		return IRQ_HANDLED;
 }
 
-Does the controller remain functionally disconnected (USB_ROLE_NONE) despite
-being physically connected (USB_ROLE_DEVICE) until a physical unplug and
-replug occurs?
+Which then calls readl_poll_timeout() with a non-zero delay:
 
->  	if (ret)
->  		dev_err(chip->dev, "failed to set role switch\n");
+drivers/usb/misc/qcom_eud.c:pet_eud() {
+	...
+	ret =3D readl_poll_timeout(chip->base + EUD_REG_SW_ATTACH_DET,
+				reg, (reg =3D=3D 0), 1, 100);
+	...
+}
+
+Since readl_poll_timeout() internally uses usleep_range() which sleeps,
+can this cause a panic or deadlock by sleeping in an atomic context?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912225301.3396=
-556-1-elson.serrao@oss.qualcomm.com?part=3D7
+556-1-elson.serrao@oss.qualcomm.com?part=3D3
