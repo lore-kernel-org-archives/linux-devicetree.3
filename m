@@ -1,127 +1,154 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E417738736C
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 09:10:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F374C2F7F19;
+	Sat, 12 Sep 2026 09:19:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789204229; cv=none; b=RdbT4jYcyBMeOGHP0DnUoV+Of/cw931mE9QbJMAYeyBc+rgsA0qjVPdeAqwB8vHnxfcA63Al6n/40Q4YVlq0rxMbers7jM6qey1gwZMrg2rgzEDfQ4f/cMjqqZRDJ9VzXPUhSd1b9o8bCnx934QAkFqrELqx/75zhhOTVJ//Wj0=
+	t=1789204743; cv=none; b=f/tbCrWBHpxal82oxgnvkiTs4awCrpun2D00mDll+AXqkMeSlOdvOoNYaEN/MS8i3nGSvjwx9NPAIPNq9QRlcYLBZztxRG7PD0l6ppaqO15gZ+ml1vY30ad5u9ws+pU4CDjRlo6xVsb3XZIIJVPRmUguSIn7PebXrVS6atk64z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789204229; c=relaxed/simple;
-	bh=m/HikDUC1TZk0ypoq6DD5yhqAI06x5zFxbJSOynyJaM=;
+	s=arc-20240116; t=1789204743; c=relaxed/simple;
+	bh=5QkPjsmyDhVoyR4w2ZV6txQxEc5lKnvTib5OvDc00c8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NNXSt8+3HCju6k2CLtTiYdF/D+aoE00132Yb+bjMQefWg6ve7Gdrn+vw+BxEGdpCVhJPo8vX4mxXGS6exZQMRJpg0Hynwt9JhA46tExHynCq0AgRY/lGD9BBH30g1HUhfSXNXNSWKF0kqwmuLmVfuAtdXrUhxncu6baREgVvFT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ja3yyzG9; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=okaNHFWhakWac6wG1zm8arWqf1AkagWE/BHiusq+2wmERO1arpJ6unbdyzcgjUCr88foPnMXSmhCaD4nJtbXIYrArj8+h0VsYaY15HAA+/T1FSeTSEzrjQ1n1Iu4NdRTfu2KPBoIo01x4vrAQqLz9z/CmUIRnS/i0hDE2/vjHr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FgvxPJoM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ja3yyzG9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691EA1F00893;
-	Sat, 12 Sep 2026 09:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FgvxPJoM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A01C1F00893;
+	Sat, 12 Sep 2026 09:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789204227;
-	bh=x1a1rOMGMfISdBlkbuH6/fH/eMTUnMxNj82/0hjOpr4=;
+	s=k20260515; t=1789204741;
+	bh=lAsIpe806HlPTUSZ5kaRH5I/tDePjdmxr4OhX7PnnO8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ja3yyzG9e2y7Ej2o+BWXvWAJO7zwIms4w7H29UHXrecjWg3NMb/lMmZSdapC/+Ff2
-	 Mw+cCII1A7H+NPAuqV/JVNKxI2+iVjMTAHMfTGtau3NNp0W4G7lUmC5ClGx2l+JZUy
-	 HUCIx54haOM7iofzINr/OAHOIowIIeAHSeXv+/v3UxoT+DIiii1WkpBC0Eky6fs676
-	 xIXM8vw6wS7+AxW9G131dxPaDOYTUYYNyI4ENc6JYx68e0Jv1rPgGAtO6bbWukJSuc
-	 G1836AThfbsdqx0/zyLBwaeWmC+rIRf/B7x1IshiJXA8sQK0RX2I8UnYvnpy3OsoUw
-	 7U8Te94/IcLEA==
+	b=FgvxPJoMZ2rV4b5CcrBvyYOtxy9O6Pm2TC7vFv5d+i3fL7sgTZCrkP3LPdt7wIDRX
+	 v+rHQvRBYBgYMEiOajkDbGCWBadIGhD3QbbPg2PA0VuNApThauf1JJ8ljESxJ8C2Yb
+	 F140PAXLMm1VoJJV2It8n92E8UNC1jRLTCqreUfUFk3FSijJgsnE9Yyps3+FfqxMCz
+	 XedMjP+Nph2LV52SYhane6WpDgTIxWwtaN1z53CXkNyyi/HXGetFv3XL+XQztK5sw6
+	 VWl382hMQaroIyITY8Hs6QQGXnEl6IXsNhJYLu7Cm0NSu4hmoU4Os+dhfWZeofBSPJ
+	 Vn4w3Il1oNDFQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 3/4] net: dsa: microchip: Support Microchip
- KSZ8995XA / KS8995XA
+Subject: Re: [PATCH RFC 14/20] drm: msm: mdp5: Add MDP5 configuration for
+ MSM8952
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260911-ks8995-to-ksz8-v12-3-5c3422d0d72e@kernel.org>
-References: <20260911-ks8995-to-ksz8-v12-0-5c3422d0d72e@kernel.org>
- <20260911-ks8995-to-ksz8-v12-3-5c3422d0d72e@kernel.org>
+To: "Muzaffer Kadir" <muzafferkadir@mainlining.org>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, linux-input@vger.kernel.org, robh@kernel.org, lee@kernel.org, dri-devel@lists.freedesktop.org, mfd@lists.linux.dev, conor+dt@kernel.org, dmitry.torokhov@gmail.com
+In-Reply-To: <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
+References: <20260912-msm8952-initial-support-v1-0-0e742578b524@mainlining.org>
+ <20260912-msm8952-initial-support-v1-14-0e742578b524@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 12 Sep 2026 09:10:26 +0000
-Message-Id: <20260912091027.691EA1F00893@smtp.kernel.org>
+Date: Sat, 12 Sep 2026 09:19:00 +0000
+Message-Id: <20260912091901.4A01C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] The PHY soft reset loop in `ksz8_reset_switch` unconditionally i=
-ssues a soft reset and polls for it to self-clear on all ports, including t=
-he CPU port which lacks an internal PHY. This risks causing a probe timeout=
- on the KSZ8995XA if the reserved register latches the bit.
+- [Critical] Missing designated initializers in the lm.base array maps the =
+LM3 base address to the wrong index, causing register corruption.
+- [Critical] Defining `.pipe_cursor` with a Layer Mixer offset (`0x440DC`) =
+causes the driver to incorrectly program LM cursor registers as if they wer=
+e a standard SSPP pipe, trashing the configuration.
+- [High] Inconsistent MDP_PIPE_CAP_SW_PIX_EXT capability between pipe_curso=
+r and main pipes.
 --
 
-commit d45e85fe8d15053b235725e1e75c154fee3c35c3
-Author: Linus Walleij <linusw@kernel.org>
+commit fb5220e24e57b56379d9ec75eb6d29f391529a7b
+Author: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+drm: msm: mdp5: Add MDP5 configuration for MSM8952
 
-This commit adds support for the Microchip KSZ8995XA switch to the KSZ driv=
-er.
-It introduces hardware detection, a dedicated PHY soft reset workaround for
-this older switch, and configures the switch for its specific legacy featur=
-es.
+Add the mdp5_cfg_hw entry for MDP5 version v1.12 found on MSM8952.
 
-> diff --git a/drivers/net/dsa/microchip/ksz8.c b/drivers/net/dsa/microchip=
-/ksz8.c
-> index 941ae9f66f70b..4acce01ca0631 100644
-> --- a/drivers/net/dsa/microchip/ksz8.c
-> +++ b/drivers/net/dsa/microchip/ksz8.c
+> diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c b/drivers/gpu/drm/m=
+sm/disp/mdp5/mdp5_cfg.c
+> index 7c91fc1915f39..d34c94d6f7e2e 100644
+> --- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> +++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_cfg.c
+> @@ -744,6 +744,86 @@ static const struct mdp5_cfg_hw msm8x76_config =3D {
+
 [ ... ]
-> @@ -253,7 +255,35 @@ static int ksz8463_reset_switch(struct ksz_device *d=
-ev)
-> =20
->  static int ksz8_reset_switch(struct ksz_device *dev)
->  {
-> -	if (ksz_is_ksz88x3(dev)) {
-> +	if (ksz_is_ksz8995xa(dev)) {
-> +		unsigned int port, reg, val;
-> +		int ret;
-> +
-> +		/* The KSZ8995XA switch itself cannot be reset by software, but
-> +		 * often boot loaders have fun with ports, so reset them. This
-> +		 * reset bit is self-clearing.
-> +		 */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
-> +			ret =3D ksz_prmw8(dev, port, REG_PORT_STATUS_3,
-> +					PORT_PHY_SOFT_RESET,
-> +					PORT_PHY_SOFT_RESET);
-> +			if (ret)
-> +				return ret;
-> +		}
 
-[Severity: Medium]
-Does this loop incorrectly include the MAC-only CPU port?=20
+> +static const struct mdp5_cfg_hw msm8952_config =3D {
+> +	.name =3D "msm8952",
 
-Since dev->info->port_cnt is 5 for the KSZ8995XA, this iterates over ports
-0 through 4. Port 4 is the CPU port, which does not have an internal PHY.
-Does writing PORT_PHY_SOFT_RESET to REG_PORT_STATUS_3 on the CPU port write
-to a reserved register?
+[ ... ]
 
-> +
-> +		/* IEEE 802.3 allows up to 500 ms for a PHY reset. */
-> +		for (port =3D 0; port < dev->info->port_cnt; port++) {
-> +			reg =3D dev->dev_ops->get_port_addr(port, REG_PORT_STATUS_3);
-> +			ret =3D regmap_read_poll_timeout(ksz_regmap_8(dev), reg, val,
-> +						       !(val & PORT_PHY_SOFT_RESET),
-> +						       1000, 600000);
-> +			if (ret)
-> +				return ret;
-> +		}
+> +	.pipe_cursor =3D {
+> +		.count =3D 1,
+> +		.base =3D { 0x440DC },
 
-[Severity: Medium]
-Will this polling loop timeout on the CPU port if the hardware latches the
-written bit?
+[Severity: Critical]
+This isn't a bug introduced by this patch, but copying this configuration
+defines a Layer Mixer offset (0x440DC) for an SSPP pipe.
 
-Since the CPU port lacks the PHY logic to execute the reset and self-clear
-the bit, it might hang indefinitely and fail the probe with -ETIMEDOUT.
-Should this loop (and the write loop above) be restricted to
-dev->phy_port_cnt instead of dev->info->port_cnt?
+Does this cause the driver to incorrectly program LM cursor registers as if
+they were a standard SSPP pipe?
+
+During cursor plane updates via mdp5_hwpipe_mode_set(), standard SSPP macros
+like REG_MDP5_PIPE_* will treat 0x440DC as the SSPP base.
+REG_MDP5_PIPE_OUT_XY (offset 0x10) will write to 0x440DC + 0x10 =3D 0x440EC
+(LM_CURSOR_FORMAT), and REG_MDP5_PIPE_SRC_SIZE (offset 0x0) overwrites
+LM_CURSOR_STRIDE. This misalignment destroys the LM cursor configurations
+and causes hardware faults.
+
+> +		.caps =3D MDP_PIPE_CAP_HFLIP	|
+> +			MDP_PIPE_CAP_VFLIP	|
+> +			MDP_PIPE_CAP_SW_PIX_EXT	|
+> +			MDP_PIPE_CAP_CURSOR	|
+> +			0,
+> +	},
+
+[Severity: High]
+This isn't a bug introduced by this patch, but copying this configuration
+leaves an inconsistent MDP_PIPE_CAP_SW_PIX_EXT capability between
+pipe_cursor and the main pipes.
+
+Are we exposing Software Pixel Extension capabilities on the cursor pipe
+while main pipes lack it?
+
+If the SoC does not support Software Pixel Extension,
+mdp5_plane_atomic_update() will call mdp5_write_pixel_ext() and write to
+non-existent SW_PIX_EXT registers when programming the cursor pipe,
+triggering a Synchronous External Abort. If it does support it, the main
+planes are underutilizing the hardware.
+
+> +	.lm =3D {
+> +		.count =3D 2,
+> +		.base =3D { 0x44000, 0x47000 },
+> +		.instances =3D {
+> +				{ .id =3D 0, .pp =3D 0, .dspp =3D 0,
+> +				  .caps =3D MDP_LM_CAP_DISPLAY, },
+> +				{ .id =3D 3, .pp =3D -1, .dspp =3D -1,
+> +				  .caps =3D MDP_LM_CAP_WB },
+> +			     },
+
+[Severity: Critical]
+This isn't a bug introduced by this patch, but copying this configuration
+leaves the lm.base array initialized sequentially without designated
+initializers.
+
+Will this map the LM3 base address to the wrong index and cause register
+corruption?
+
+Because lm.base is initialized sequentially as { 0x44000, 0x47000 },
+base[0] becomes 0x44000 and base[1] becomes 0x47000. The remaining indices,
+including base[3], are implicitly initialized to 0.
+
+When the driver creates a mixer for LM3 (since its .id is 3), atomic commits
+will cause REG_MDP5_LM_OUT_SIZE(3) to resolve to __offset_LM(3). This
+returns mdp5_cfg->lm.base[3], which evaluates to 0x0. Writes to LM3
+registers will thus write to SOC offset 0x0, corrupting the global MDP
+configuration registers.
+
+Should this use designated initializers for the base array to ensure base[3]
+is mapped correctly?
 
 [ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260911-ks8995-to-=
-ksz8-v12-0-5c3422d0d72e@kernel.org?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-msm8952-in=
+itial-support-v1-0-0e742578b524@mainlining.org?part=3D14
