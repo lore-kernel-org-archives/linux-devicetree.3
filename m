@@ -1,201 +1,132 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2C8191F93
-	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 15:13:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EB643314B7
+	for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 15:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789226031; cv=none; b=PF3Rz4Ye5AZOZvPhMzK6wYLWij3iXkg/e8+tFdirQUN/vhiTcrhnkoOr0p1VPEjNjd8+qFnfPHTma20QuYZb+uV1FvWjk2lrN+/sVYflxFkSBi873WD/CbAbF6dRDK1BtfvkR6v+tEQbfwRKLDlFj2btg6AGqOLxhvo/c3RurvQ=
+	t=1789226323; cv=none; b=pbhPT9n20AseYF9ems/wCYDVJcZqOtxiUbgZvTKbFdL7SBxz2LV+zoAYszxCFu/Rrirux+J7p89rAcLhrWv/0EeQKw89JH80AprQg3VVgyrpfk9ZEt4tWhQL5O35TjJu183yKXlMVIsUmWlTqATPerAzKzLrtTtQ0TQnWHUikL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789226031; c=relaxed/simple;
-	bh=nkzZC4O3ba+qnaj9PyoG2dWmmfwTuprT6RMLwOebYh4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jW0h/UFHg+9D7lDYMjsbY3lRazRLnhfmyXCpRwwZF9+w6ClPNe7C24vJDssWutdNH0QV7kWek6I01jECvfDpEDzREMXuZOb50UJJVjnpdmjGWFWIy8UO6X7aYTeOwaSx4pufKYWV56DPWc7UZTgIfrwCPL+A6Q66FFyqp6TQ6BQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o0ipokmm; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789226323; c=relaxed/simple;
+	bh=HO8dOn5XSt8bUjw1LP6GJ0iDeCxa9iOwIjXje+HTSwQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QpV5Ko7xb//53JqiNfcoG9wLfC60x+OExiE4g8BsOGpVBsBpzXD2Bj1ZJNXH/uQ8AwHqGIh7N4XpD6V3RdxjMzMrfJzj5CaIMXr74yJpw+DNYjjjmHF7YBcOw43nTuPadzW7FS0sPNzgST77GBgO0GooKI912q3cIY3+h5ASB/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pqe3OtfQ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o0ipokmm"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so704355a91.3
-        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 08:13:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pqe3OtfQ"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccda24afso507572a91.3
+        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 08:18:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789226029; x=1789830829; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NZJ+Pa3NsYZTQTTHYy8H/tv0MO/NVxIE9LyyFhhiPi8=;
-        b=o0ipokmmlTflHvxBa4P57AV63fufbCWCZdMjnJc6qGFV3BOg6H6B7m6rd2SM8JRhHu
-         hWAx2HYdz7vsv0qYbg9Ix0VR0DuyjBagnZoUAw/rmMSK/ddpdiL6+c0zkRW+jZeUQ2MW
-         2PqlialXAtFVA21Eri37CiX9OPIETXgJldQJN/IKh2U5DFpoQObkg1ooFH76b+ztdR14
-         36EuOi3N6WvT+Pg6bmoKdnGDVdKq2D44mKeS/iyf/VX5wJ01J5xgpq9Wk1x034MMo3iN
-         gSTPotz5cwMBSE3G3zRim8a/24z6k12EoUOZ1sltMAR6uqYTdsCQIlMFm1PZshCAs5B6
-         Of2g==
+        d=gmail.com; s=20251104; t=1789226320; x=1789831120; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=zHFsO42ibf5oQHYbBFQXH2drbhJs53f8vZr6nPk5Rs0=;
+        b=Pqe3OtfQJi+ClP/ac1dtXPl53r5lKNPM9+yGoyE1YQzJZ1K4eURSF75K4fBP9hUA0G
+         uBXG2SJMhX9G7h5nCsvuOEQ6R8ZBG/MVaDsab4+HOtrwiTPPSg9ufrdbeos0J5Zg3fut
+         4cVaGN8aHOedQLHLKmszhJz6Z6wwg1ANErYWHo8QJ54WlaMx9qmrXMF/7ORG2Gpi2+vX
+         1/o6GHu3VttaK7xAJWXmYFx8x9udyE+rKsJPi29L0pziZcXdUbeQzfuoK/GjuTxP0R0C
+         z9WBt9TsjmhHX/6HXgHa7EWw6+IIPOJxVXpiFr91zGYGT9CJo0mrtZP/z4AffsD+bSG6
+         0QdA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789226029; x=1789830829;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+        d=1e100.net; s=20251104; t=1789226320; x=1789831120;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=NZJ+Pa3NsYZTQTTHYy8H/tv0MO/NVxIE9LyyFhhiPi8=;
-        b=XkPAwkFs9nyugurKyd7umoTIYxiZFT26zWFJ+xfadLXDS4CVNPozBLk/gIknsRZ24W
-         DyYbM9WeCfVEt50PCeIEB5WwMZS8qgICtL0/KSWToKsNsT1WO0Ko2pb201BPG5rdVh5h
-         Wr3iaCjyCBX0J2M/7LwcynANUgvhdhtmMquPbsTJEJSDUQwKAFAp2oxTsoTJ1ZO+mHfc
-         fNfX0FDzopVZJgP0L5Nbux1aaioFLGICCeh7wFgvLfSeAb45ZIPDMPrUzkkA7hD6cq5W
-         FO9JsDoxC+JQczPj7yagazIkhjq3xcicoE5UswwVq+z2acFYN06N/rvDNDx7K9Waah0O
-         JPaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwpRCKp0Z6iB8wY0N1pp11cUB1JLs103VgBybduanbbyi/0J+3o2+q63N/QbRwWTW2r4ZUmJEtPAPxE@vger.kernel.org
-X-Gm-Message-State: AFuF++mirCbKuws916Sj3hSUJolz9Md6vJQHPiQomKp79YSaHFrgZfDW
-	rm3b4Xp4UhmQiDkx0aRpj7dN19toao/ynKW3e4b//nlJ/Rm+ZT9Nr1MB
-X-Gm-Gg: AYBFou3Y5l0HbBV0bEX8VwaoKRZf+9FusCL0VqeDdIejxtnrOnR/SEwMRYaPfigaJ6P
-	pLQY/vv3rCSDMg1WJSweyj3Jz3MmEII9geZRCYSQRj0Hy2GDV1tQ/UdPFupvPOJ50MdFvCF0i1J
-	o4mgqktCYNjnt3ThtCPVISV1JEVcEs2sqj5iGBpnKsGSwHrpZHEpnjksOAHcTylMzEdmWfZj8j/
-	soeVjmkVpvcfFwfT+WLsZM+onIYRVHqQ6T/nRKnOZfNWoeqrFJFAPWC3nTz8eMEIjGtZmpQ0k+r
-	FjJvVnobzZmUTf1u2x7Q5SxpaFi+HtWHBhksd3r03GLVJ+GUCirE/vw9OHBHNj3Pbu3ezZHS0O2
-	WjsH8OmtnBDDHwnFZPpDXDB8NpjVtTxXEFoYSoOzobmO+ggzpOSF39XtmfHaVxJOuCnsLkv2Z1t
-	gVBjcVJwmjJrJQ15tFqRc4JLhi1E99dhm5qHepqzj5c42lUDEZrZxxQ2jJDfXANRQyZZQGNAwbl
-	mAkYGztVpA/11Dn60fqFP1xiNdFbCKVlhCt6Qt0JsrzuDszlzrb29wslcM=
-X-Received: by 2002:a17:90b:3147:b0:398:ab03:95b2 with SMTP id 98e67ed59e1d1-39d9bee5d69mr16001778a91.10.1789226029163;
-        Sat, 12 Sep 2026 08:13:49 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39db41a7adfsm5718476a91.1.2026.09.12.08.13.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 12 Sep 2026 08:13:48 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <b47789a3-731e-44c4-a954-e9352529cdf5@roeck-us.net>
-Date: Sat, 12 Sep 2026 08:13:47 -0700
+        bh=zHFsO42ibf5oQHYbBFQXH2drbhJs53f8vZr6nPk5Rs0=;
+        b=mBFvMJofHeWMNqvQZ3VuD5nfy54h1Z01sm/JKaf3UU3F/mF/giVdPe8zrU7VUofQnS
+         UdC5rzp2AlnMlXgAiVuHMpMa3Yi9xqD7M8HVlwKgJXgQsOQuMbOF8Rs+BDVGN6X290ts
+         lp8vg62Djyja5lFbt1tWzI8aJm6klXwH5euDH5xcqJxm/W3h3lwlEjMqDXI6p76vx3IJ
+         cyVH84bNswfOg8lX5Tz3jzSiFlPzRlBlWdgp6eSAIwz1GrTNdsU7Nsa4OFUALHJ4vX9P
+         kUH6xByZxsXGcd9pY1jZiGiFzcwJ/e2x6luogCWfMihTygyjOWcwvd4F3BQa/HtdJxAp
+         1Fgw==
+X-Forwarded-Encrypted: i=1; AKwUvBwind5GkIEEtvPMR+hGN8jKGb4OTitn1s30T4bKWJZjSMtIOjvvI22VZOBqOViS+khkEjIbbGyGcp4r@vger.kernel.org
+X-Gm-Message-State: AFuF++n1ErTv/ZKYS4spJAUyt5AD3ur0CW932qMnAyFha3EE+IeV0+A9
+	5BMgyEDIDdA5pwMGodNCGk0U0XZqk3+LJNL6vA5IU86zvI86YyNNpOtN
+X-Gm-Gg: AYBFou194xkaDORAuM+B3o/eKJ6wEqIwOl1JDSG08sng0BavMn6KUr6FQeD8t9qwZCF
+	nAFgrhnwN59oyT3VFK6h6sXtUYrQS+fvSw1VmApNL8EfzI5HqBjzQxdeCsabkWZssJy/B7nw8GW
+	Z8E89GpqmYwZltdVaWYF9xs5NSiC6CituWpFjaXdMD3rB0omz8NsAqP1qEHcZRNrbISyGuyq+6D
+	4dZqCV5oQ0md7IsqLXAKwQcCF4bPNpRVa6eLPU+omNssz0G90qlpvvWbFEk7UDuueBFGKEg2h4p
+	Pk5b7OeQvxSlHOyF2Tr7jLGuES2dkrQtYUaoyNFH5s2pxh62Xq5aoS6g8aWrc+TyLxCHwG6AJ3g
+	mX/CQowPtKHfbuyNpondgEm1GvrvfP9MWY4Xb2zgOQ38s2BqHiu4idunsAGn68FwEtGoEiOEB8X
+	pU3fHnlZOE+8LC0qzu5cPPhkllGf7jyiFlMMif5ODzsU2H2lP4GDmPfDzX9QoR2+0=
+X-Received: by 2002:a17:90b:582b:b0:39d:9b53:112a with SMTP id 98e67ed59e1d1-39d9c378f02mr17421863a91.23.1789226320389;
+        Sat, 12 Sep 2026 08:18:40 -0700 (PDT)
+Received: from [127.0.0.2] ([2404:c0:701d:4e35:f53f:aaab:9e63:54e8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39d951d1056sm10635924a91.7.2026.09.12.08.18.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 12 Sep 2026 08:18:39 -0700 (PDT)
+From: Reza Kurniawan <imkyufie@gmail.com>
+Subject: [PATCH v2 0/2] Enable USB support (peripheral mode) for Xiaomi
+ Redmi 5A (riva)
+Date: Sat, 12 Sep 2026 22:18:10 +0700
+Message-Id: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 5/6] hwmon: (peci/cputemp) Add support for Granite
- Rapids (GNR)
-To: Changhuang Liang <changhuang.liang@starfivetech.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Iwona Winiarska <iwona.winiarska@intel.com>
-Cc: openbmc@lists.ozlabs.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>
-References: <20260903133408.110847-1-changhuang.liang@starfivetech.com>
- <20260903133408.110847-6-changhuang.liang@starfivetech.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- xsFNBE6H1WcBEACu6jIcw5kZ5dGeJ7E7B2uweQR/4FGxH10/H1O1+ApmcQ9i87XdZQiB9cpN
- RYHA7RCEK2dh6dDccykQk3bC90xXMPg+O3R+C/SkwcnUak1UZaeK/SwQbq/t0tkMzYDRxfJ7
- nyFiKxUehbNF3r9qlJgPqONwX5vJy4/GvDHdddSCxV41P/ejsZ8PykxyJs98UWhF54tGRWFl
- 7i1xvaDB9lN5WTLRKSO7wICuLiSz5WZHXMkyF4d+/O5ll7yz/o/JxK5vO/sduYDIlFTvBZDh
- gzaEtNf5tQjsjG4io8E0Yq0ViobLkS2RTNZT8ICq/Jmvl0SpbHRvYwa2DhNsK0YjHFQBB0FX
- IdhdUEzNefcNcYvqigJpdICoP2e4yJSyflHFO4dr0OrdnGLe1Zi/8Xo/2+M1dSSEt196rXaC
- kwu2KgIgmkRBb3cp2vIBBIIowU8W3qC1+w+RdMUrZxKGWJ3juwcgveJlzMpMZNyM1jobSXZ0
- VHGMNJ3MwXlrEFPXaYJgibcg6brM6wGfX/LBvc/haWw4yO24lT5eitm4UBdIy9pKkKmHHh7s
- jfZJkB5fWKVdoCv/omy6UyH6ykLOPFugl+hVL2Prf8xrXuZe1CMS7ID9Lc8FaL1ROIN/W8Vk
- BIsJMaWOhks//7d92Uf3EArDlDShwR2+D+AMon8NULuLBHiEUQARAQABzTJHdWVudGVyIFJv
- ZWNrIChMaW51eCBhY2NvdW50KSA8bGludXhAcm9lY2stdXMubmV0PsLBgQQTAQIAKwIbAwYL
- CQgHAwIGFQgCCQoLBBYCAwECHgECF4ACGQEFAmgrMyQFCSbODQkACgkQyx8mb86fmYGcWRAA
- oRwrk7V8fULqnGGpBIjp7pvR187Yzx+lhMGUHuM5H56TFEqeVwCMLWB2x1YRolYbY4MEFlQg
- VUFcfeW0OknSr1s6wtrtQm0gdkolM8OcCL9ptTHOg1mmXa4YpW8QJiL0AVtbpE9BroeWGl9v
- 2TGILPm9mVp+GmMQgkNeCS7Jonq5f5pDUGumAMguWzMFEg+Imt9wr2YA7aGen7KPSqJeQPpj
- onPKhu7O/KJKkuC50ylxizHzmGx+IUSmOZxN950pZUFvVZH9CwhAAl+NYUtcF5ry/uSYG2U7
- DCvpzqOryJRemKN63qt1bjF6cltsXwxjKOw6CvdjJYA3n6xCWLuJ6yk6CAy1Ukh545NhgBAs
- rGGVkl6TUBi0ixL3EF3RWLa9IMDcHN32r7OBhw6vbul8HqyTFZWY2ksTvlTl+qG3zV6AJuzT
- WdXmbcKN+TdhO5XlxVlbZoCm7ViBj1+PvIFQZCnLAhqSd/DJlhaq8fFXx1dCUPgQDcD+wo65
- qulV/NijfU8bzFfEPgYP/3LP+BSAyFs33y/mdP8kbMxSCjnLEhimQMrSSo/To1Gxp5C97fw5
- 3m1CaMILGKCmfI1B8iA8zd8ib7t1Rg0qCwcAnvsM36SkrID32GfFbv873bNskJCHAISK3Xkz
- qo7IYZmjk/IJGbsiGzxUhvicwkgKE9r7a1rOwU0ETofVZwEQALlLbQeBDTDbwQYrj0gbx3bq
- 7kpKABxN2MqeuqGr02DpS9883d/t7ontxasXoEz2GTioevvRmllJlPQERVxM8gQoNg22twF7
- pB/zsrIjxkE9heE4wYfN1AyzT+AxgYN6f8hVQ7Nrc9XgZZe+8IkuW/Nf64KzNJXnSH4u6nJM
- J2+Dt274YoFcXR1nG76Q259mKwzbCukKbd6piL+VsT/qBrLhZe9Ivbjq5WMdkQKnP7gYKCAi
- pNVJC4enWfivZsYupMd9qn7Uv/oCZDYoBTdMSBUblaLMwlcjnPpOYK5rfHvC4opxl+P/Vzyz
- 6WC2TLkPtKvYvXmdsI6rnEI4Uucg0Au/Ulg7aqqKhzGPIbVaL+U0Wk82nz6hz+WP2ggTrY1w
- ZlPlRt8WM9w6WfLf2j+PuGklj37m+KvaOEfLsF1v464dSpy1tQVHhhp8LFTxh/6RWkRIR2uF
- I4v3Xu/k5D0LhaZHpQ4C+xKsQxpTGuYh2tnRaRL14YMW1dlI3HfeB2gj7Yc8XdHh9vkpPyuT
- nY/ZsFbnvBtiw7GchKKri2gDhRb2QNNDyBnQn5mRFw7CyuFclAksOdV/sdpQnYlYcRQWOUGY
- HhQ5eqTRZjm9z+qQe/T0HQpmiPTqQcIaG/edgKVTUjITfA7AJMKLQHgp04Vylb+G6jocnQQX
- JqvvP09whbqrABEBAAHCwWUEGAECAA8CGwwFAmgrMyQFCSbODQkACgkQyx8mb86fmYHlgg/9
- H5JeDmB4jsreE9Bn621wZk7NMzxy9STxiVKSh8Mq4pb+IDu1RU2iLyetCY1TiJlcxnE362kj
- njrfAdqyPteHM+LU59NtEbGwrfcXdQoh4XdMuPA5ADetPLma3YiRa3VsVkLwpnR7ilgwQw6u
- dycEaOxQ7LUXCs0JaGVVP25Z2hMkHBwx6BlW6EZLNgzGI2rswSZ7SKcsBd1IRHVf0miwIFYy
- j/UEfAFNW+tbtKPNn3xZTLs3quQN7GdYLh+J0XxITpBZaFOpwEKV+VS36pSLnNl0T5wm0E/y
- scPJ0OVY7ly5Vm1nnoH4licaU5Y1nSkFR/j2douI5P7Cj687WuNMC6CcFd6j72kRfxklOqXw
- zvy+2NEcXyziiLXp84130yxAKXfluax9sZhhrhKT6VrD45S6N3HxJpXQ/RY/EX35neH2/F7B
- RgSloce2+zWfpELyS1qRkCUTt1tlGV2p+y2BPfXzrHn2vxvbhEn1QpQ6t+85FKN8YEhJEygJ
- F0WaMvQMNrk9UAUziVcUkLU52NS9SXqpVg8vgrO0JKx97IXFPcNh0DWsSj/0Y8HO/RDkGXYn
- FDMj7fZSPKyPQPmEHg+W/KzxSSfdgWIHF2QaQ0b2q1wOSec4Rti52ohmNSY+KNIW/zODhugJ
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260903133408.110847-6-changhuang.liang@starfivetech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQqDMBBFryKzbkocULSr3qO4iONEp1QtiQaL5
+ O41dtvlg/ff38GzE/Zwy3ZwHMTLPB2AlwxoMFPPSrqDATWWus5ROQlGrb5VTDVbLKiqCoJDfzu
+ 2sp2pR/Njv7ZPpiXtkzGIX2b3Ob9Cnrw/2ZArrbShriBbUYnm3o9GXleaR2hijF/0IOPhsgAAA
+ A==
+X-Change-ID: 20260912-riva-usb-ec9ef25c885c
+To: Sebastian Reichel <sre@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ Reza Kurniawan <imkyufie@gmail.com>
+X-Mailer: b4 0.15.2
 
-On 9/3/26 06:34, Changhuang Liang wrote:
-> Add Granite Rapids (GNR) CPU support to the PECI cputemp driver. The GNR
-> platform does not support the core mask scan via PCI local read, so
-> handle this case explicitly by returning -EPERM and skipping the core
-> mask initialization.
-> 
+The purpose of this series is to enable the device to act as a USB peripheral.
+It enables USB-related DT nodes (controller and PHY) and modifies the
+charger driver (BQ256XX) to expose its VBUS state through extcon.
 
-After reading the next patch of the series: Are you sure that this is
-the case, or is it possible that Granite Rapids just uses a different
-access mechanism to provide the information ?
+Driver change is required since the device has its VBUS connected to the
+charger IC, which means cable connection/disconnection events must be fed
+from the charger IC, to the controller driver to dynamically enable/disable
+the USB gadget functionality.
 
-Thanks,
-Guenter
+Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+---
+Changes in v2:
+- Make extcon feature optional
 
-> Define new cpu_info structure for GNR with minimum PECI revision 0x40 and
-> the thermal margin conversion function dts_ten_dot_six_to_millidegree().
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
-> ---
->   drivers/hwmon/peci/cputemp.c | 20 ++++++++++++++++++++
->   1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/hwmon/peci/cputemp.c b/drivers/hwmon/peci/cputemp.c
-> index 457089c561b4..43e52a6db79b 100644
-> --- a/drivers/hwmon/peci/cputemp.c
-> +++ b/drivers/hwmon/peci/cputemp.c
-> @@ -339,6 +339,17 @@ static int init_core_mask(struct peci_cputemp *priv)
->   	u32 data;
->   	int ret;
->   
-> +	/*
-> +	 * Some platforms (e.g. Granite Rapids) do not expose the RESOLVED_CORES
-> +	 * register over PECI - per-core temperatures are simply not available.
-> +	 */
-> +	if (!reg) {
-> +		dev_dbg(priv->dev,
-> +			"resolved cores scan is not supported on vendor-family-model 0x%x\n",
-> +			peci_dev->info.x86_vfm);
-> +		return -EOPNOTSUPP;
-> +	}
-> +
->   	/* Get the RESOLVED_CORES register value */
->   	switch (peci_dev->info.x86_vfm) {
->   	case INTEL_ICELAKE_X:
-> @@ -543,6 +554,11 @@ static const struct cpu_info cpu_emr = {
->   	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
->   };
->   
-> +static const struct cpu_info cpu_gnr = {
-> +	.min_peci_revision = 0x40,
-> +	.thermal_margin_to_millidegree = &dts_ten_dot_six_to_millidegree,
-> +};
-> +
->   static const struct auxiliary_device_id peci_cputemp_ids[] = {
->   	{
->   		.name = "peci_cpu.cputemp.hsx",
-> @@ -576,6 +592,10 @@ static const struct auxiliary_device_id peci_cputemp_ids[] = {
->   		.name = "peci_cpu.cputemp.emr",
->   		.driver_data = (kernel_ulong_t)&cpu_emr,
->   	},
-> +	{
-> +		.name = "peci_cpu.cputemp.gnr",
-> +		.driver_data = (kernel_ulong_t)&cpu_gnr,
-> +	},
->   	{ }
->   };
->   MODULE_DEVICE_TABLE(auxiliary, peci_cputemp_ids);
+- Link to v1: https://patch.msgid.link/20260912-riva-usb-v1-0-0acd5cf8c62a@gmail.com
+
+To: Sebastian Reichel <sre@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Abel Vesa <abelvesa@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Reza Kurniawan (2):
+      power: supply: bq256xx: Expose VBUS state through extcon
+      arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB support (peripheral mode)
+
+ arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++-
+ drivers/power/supply/Kconfig                     |  1 +
+ drivers/power/supply/bq256xx_charger.c           | 96 ++++++++++++++++++++++--
+ 3 files changed, 105 insertions(+), 9 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260912-riva-usb-ec9ef25c885c
+
+Best regards,
+--  
+Reza Kurniawan <imkyufie@gmail.com>
 
