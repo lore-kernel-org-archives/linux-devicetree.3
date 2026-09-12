@@ -1,116 +1,139 @@
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D8B847C107;
-	Sat, 12 Sep 2026 13:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9792E7631;
+	Sat, 12 Sep 2026 13:44:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789220498; cv=none; b=KyKERcIwXjdU+xM2qhx781eSyHnvauPqT+j2xyRlxb+x9Bf4X2pUoKIXd2LNYYg9E+nTSjV3jTp4G2ovAhvgk0l/ICeK/L29v+BV4YAkc0UBQ5ixLJMHWrUQyTp+yGPtCTw6oV6k14ER8oy/dfevdhCfZnlSD+S9YAeKuwWdz1k=
+	t=1789220659; cv=none; b=O2t0XGpNBGo3jYwqUWZ+AKsO43V0KasaJ4ykGqyaNudcgSdVsGBcrX/Hq8rZO3utMRsEJCuaUvcenbe/mebnVgsLodcfczKMmLUF5QcBt0LyxiWofa8GuJpOTsxh29YVsM8VvMPxD4A/udW4kmzlrmD8s+bTE8rkqIbe97YTIF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789220498; c=relaxed/simple;
-	bh=sFsCH8XysqDEg1LSVkE9x/UFUMp31MIAyt5dqKW58dM=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Y2+GLkbd8Egn7+UqGhYfCyvNiZWCp6XyQDAW+s2v9qxIB5wjI5Xa2xY2lf0v3helGga9O91J1SpbXHL89X5hlgQlcLK/zfxbAE4JDZ7SQQ4VRpBYs7ri+Dh/dhGdahFKqv5GSj45mjU2BGcdjQ+jjqGNVM/W+hLu+1tAYZ6Y5/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Ldbr/Ra+; arc=none smtp.client-ip=185.70.43.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1789220659; c=relaxed/simple;
+	bh=raYOzNJNftyNcGK5NFUzBqq9joPnkbHyVpKlg+MYvoo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=G3Cc+ie52oBvl6mumlFTmtoEhqp/jV5EDXsdXkUiaxDjUSHmSeGz8FwBPxxg5mov+JX0smT63JtEtjvKbUiTnD62787H5RpdWJpYX3AnFuRXXINVRQre8QRnDDe9ehu5jlRiPB5mSTxU1Faj0V+gn5zD5KQq6931Rn3lC/yhXGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ql9fbDPu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Ldbr/Ra+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail; t=1789220489; x=1789479689;
-	bh=hMFZ/DhTLbyMTJSv5E5VJ6nGgBCir088xR8Ufmezdsk=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Ldbr/Ra+ZFurW1tIaYoVumFDWIdyon7YQm9cPKWdvGRcMAAI1tUsq37nIJip2UAXr
-	 Yd2lumChW/FwcGOl4OSdfaZGO8dfViVDpFalwcrPKseu2KLsAKuGp4e2AParwrSgPp
-	 Aw2CPn7rVLL6EKs+gV468n1J1j/XuF4dvbHJjKmKrJ2zjbSQcuKXQ6xLCtby9/7crr
-	 M1VV86JJa7CTlQpWZV5PStSEazfBPcsNsg8RocGQ76Tna7JOV5/8SZJgXcBQnyalzi
-	 WPUbAShp91zp6mrlGg7nvcLHhwRyXE+Q0jprYXtlyP5cafStjeU4rXCvRW6s+jr5du
-	 pTcGYJA/a+bOw==
-Date: Sat, 12 Sep 2026 13:41:23 +0000
-To: "andersson@kernel.org" <andersson@kernel.org>, "konradybcio@kernel.org" <konradybcio@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>
-From: Martin <hemisputnik@proton.me>
-Cc: "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, hemisputnik <hemisputnik@proton.me>
-Subject: [PATCH] arm64: dts: qcom: msm8917-xiaomi-wingtech: enable flash LED
-Message-ID: <20260912134056.3347741-1-hemisputnik@proton.me>
-Feedback-ID: 150620256:user:proton
-X-Pm-Message-ID: 8452db8322bfa719371867a2bc3565e112cfd1ae
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ql9fbDPu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9E8E1F00893;
+	Sat, 12 Sep 2026 13:44:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789220658;
+	bh=viHVWO0CCV9KxpqbJIg6gFw+p2CcGWuaCFW/13N12aY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ql9fbDPu//5uGXebc1/VdSowcY+MAwSutdOplCMGl1IvxazODY9gJLLx5a6xVsQBs
+	 eUge7fKiasGpvg8FmbSKmILdxS/cOwoDHMJKl/Ev+UKLRNXJn+KF9Amzel3Z75ITr1
+	 r63XKm6OTx7idB2K+2zou5OXv//CftKEqaPLFslTMKdkvTdLJemu0Q7DuPaF73hI9D
+	 uaVXKW21K0eZL4GITto9d2EN2sizuTaUK78NCvjlB/1//d8qu1ZHxoRJ5HPX7yBlZL
+	 wK0bkNBEUPr1fP8rIl3rt0xIHw2G5lE7BaIfPOn+Y9meGR9fxQJ28BooPi+mKgIpt6
+	 E/4ifp72WjQAg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: freescale: add Nodebox v3 CPU Module
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vincent Jardin" <vjardin@free.fr>
+Cc: imx@lists.linux.dev, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260912-for-upstream-nbxv3-dts-v5-3-ead604dba61b@free.fr>
+References: <20260912-for-upstream-nbxv3-dts-v5-0-ead604dba61b@free.fr>
+ <20260912-for-upstream-nbxv3-dts-v5-3-ead604dba61b@free.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 12 Sep 2026 13:44:17 +0000
+Message-Id: <20260912134417.C9E8E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-From: hemisputnik <hemisputnik@proton.me>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Ethernet PHY nodes are missing hardware interrupt and reset prop=
+erties despite the hardware lines being explicitly routed and documented.
+--
 
-Add SGM3780 flash LED controller to msm8917-xiaomi-wingtech device tree.
+commit 15177a59c196f0e48927f297cc2ef90524059103
+Author: Vincent Jardin <vjardin@free.fr>
 
-Although the devices this device tree describes have a SGM3780, the
-existing driver for SGM3140 is compatible with it, hence why there is a
-fallback for it.
+arm64: dts: freescale: add Nodebox v3 CPU Module
 
-While there is no camera suppport in the device tree at the moment, having
-this allows using the LED as a torch.
+This commit introduces device tree support for the Free Mobile Nodebox v3 C=
+PU
+module. The module is built around the NXP LX2160A SoC and includes support
+for various interfaces including Ethernet, I2C, and PCI.
 
-Tested on Xiaomi Redmi 5A (xiaomi-riva).
+> diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/=
+arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+> new file mode 100644
+> index 0000000000000..ca4fb5329c0b2
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
+[ ... ]
+> +&emdio1 {
+> +	status =3D "okay";
+> +
+> +	/* Microchip LAN8023 dual 10G PCS/retimer, Clause 45 only, one address =
+per slice */
+> +	lan8023_phy_s0: ethernet-phy@2 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c45";
+> +		reg =3D <2>;
+> +	};
+> +
+> +	lan8023_phy_s1: ethernet-phy@3 {
+> +		compatible =3D "ethernet-phy-ieee802.3-c45";
+> +		reg =3D <3>;
+> +	};
+> +
+> +	rtl8211fd: ethernet-phy@6 {
+> +		compatible =3D "ethernet-phy-id001c.c916";
+> +		reg =3D <6>;
+> +	};
+> +};
 
-Signed-off-by: hemisputnik <hemisputnik@proton.me>
----
- .../dts/qcom/msm8917-xiaomi-wingtech.dtsi     | 23 +++++++++++++++++++
- 1 file changed, 23 insertions(+)
+[Severity: Medium]
+Should these Ethernet PHY nodes include hardware interrupt and reset
+properties?
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi b/arch/a=
-rm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
-index 69eda5f42c06..c0b5094efced 100644
---- a/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
-+++ b/arch/arm64/boot/dts/qcom/msm8917-xiaomi-wingtech.dtsi
-@@ -7,6 +7,7 @@
-=20
- #include <dt-bindings/arm/qcom,ids.h>
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
- #include "msm8917.dtsi"
- #include "pm8937.dtsi"
-=20
-@@ -25,6 +26,20 @@ pwm_backlight: backlight {
- =09=09default-brightness-level =3D <128>;
- =09};
-=20
-+=09flash-led-controller {
-+=09=09compatible =3D "sgmicro,sgm3780", "sgmicro,sgm3140";
-+=09=09enable-gpios =3D <&tlmm 93 GPIO_ACTIVE_HIGH>;
-+=09=09flash-gpios =3D <&tlmm 90 GPIO_ACTIVE_HIGH>;
-+
-+=09=09pinctrl-0 =3D <&flash_led_default>;
-+=09=09pinctrl-names =3D "default";
-+
-+=09=09led {
-+=09=09=09function =3D LED_FUNCTION_FLASH;
-+=09=09=09color =3D <LED_COLOR_ID_WHITE>;
-+=09=09};
-+=09};
-+
- =09chosen {
- =09=09#address-cells =3D <2>;
- =09=09#size-cells =3D <2>;
-@@ -306,6 +321,14 @@ tsp_int_rst_default: tsp-int-rst-default-state {
- =09=09drive-strength =3D <8>;
- =09=09bias-pull-up;
- =09};
-+
-+=09flash_led_default: flash-led-default-state {
-+=09=09pins =3D "gpio90", "gpio93";
-+=09=09function =3D "gpio";
-+=09=09drive-strength =3D <2>;
-+=09=09bias-disable;
-+=09=09output-high;
-+=09};
- };
-=20
- &wcnss {
+Without the interrupts property, the kernel PHY state machine will fall back
+to a 1-second polling interval, which increases latency and wastes CPU cycl=
+es.
+Missing reset-gpios prevents the kernel from resetting the PHYs during prob=
+e,
+leaving initialization reliant on the bootloader.
+
+The hardware lines appear to be explicitly routed and documented below in t=
+he
+gpio-line-names arrays.
+
+[ ... ]
+> +&gpio2 {
+> +	gpio-line-names =3D
+> +		"lan8023-mdint",
+> +		"i2c2-alert#", "i2c4-alert#", "i2c6-alert#",
+> +		"u800-tca9539-int#",
+> +		"spi3-alert#",
+> +		"wake0", "wake1",
+> +		"carrier-hot#",
+> +		"u1300-rtl8211fd-int#",
+[ ... ]
+> +	u800: gpio@75 {
+> +		compatible =3D "ti,tca9539";
+> +		reg =3D <0x75>;
+> +		#gpio-cells =3D <2>;
+> +		#interrupt-cells =3D <2>;
+> +		gpio-controller;
+> +		gpio-line-names =3D
+> +			"carrier-gpio0", "carrier-gpio1",
+> +			"carrier-gpio2", "carrier-gpio3",
+> +			"carrier-gpio4", "carrier-gpio5",
+> +			"carrier-gpio6", "carrier-gpio7",
+> +			"carrier-gpio8", "carrier-gpio9",
+> +			"carrier-gpio10", "carrier-gpio11",
+> +			"", "", "",
+> +			"lan8023-rst";
+
+Is it intentional that lan8023-mdint and u1300-rtl8211fd-int# are defined
+in &gpio2, and lan8023-rst is defined in u800, but they aren't linked to
+their respective PHY nodes in &emdio1?
+
 --=20
-2.55.0
-
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260912-for-upstre=
+am-nbxv3-dts-v5-0-ead604dba61b@free.fr?part=3D3
