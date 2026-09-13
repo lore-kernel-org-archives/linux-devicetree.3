@@ -1,448 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f9.google.com (mail-ed2-f9.google.com [74.125.228.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822E22D9EE4;
-	Sun, 13 Sep 2026 18:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789322404; cv=none; b=qBaHxhfLF6BgeWfZ1a60fyi11sxaCNrVI0AszsAYhEhYMr1ixfKS3ZDWzoexaOxzt1gBeEiFKtvfhtci4AVPa8/c7YGJBbpf89PSojiXPzWS0W4hZYdKcoBOvDpxE0S/De5M4fU1NWb6wlKZ9jLLjot+wzWYKy2Q6ecMTGFJ48g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789322404; c=relaxed/simple;
-	bh=F7PSpKrhhhyXKqIb4JKht12wYRH7i89Nyif3me99vdw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=F1Cd2kq3Nw6jgYhFHwxI29fjhvihS07hMdBGXzmbpD4jpfaanuNPXqUKgugi6hI4eDhhrSLKajggzfE4Nw60A1qWFjoVIwLdtfh3H+75dRiYuJkUawW2pBLr0P+ewxD6ENv8ZmAQ8s6dn0OFwOXxfdg321zoE5deGIG3R3Uum7A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocC/OXuN; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D406737E5EE
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 18:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.73
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789322732; cv=pass; b=i45m2dADe959rla0TYfWcpxgaw+rukd9VblHT9Jtit79hkcodTdwPHfHDJl6JK4BXIquzSx1+QjCxBKKS7zkd15tao3Nq4MA/EGxYXDP0Jf0AvQOpcHUF9ZFVKhvVXnf7QCP8FqGCY0d20gxerTG0tyyaYHbu8vmeavygzSZG60=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789322732; c=relaxed/simple;
+	bh=KOtTHl2ZUyPFirhy28Jx459Kdjt3u5AIiEGb5zEvRoU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kw0b+9Z4gc4+U5e/0D+oizXvb5Ly31YHKYuy0bhjlBzhpVs9WT8B3Tkn3E/WrUgG8ftohUQdYJDJDfRspPSKvtt3Wv4KUeHKqDos4HcftlKd7iqNNRZjgSYgfQtqWOHsk/2LaJZjkWYiUYJ1geIHvZbNLcnB2wpOtZnAUH5BYmE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwVKQ+0F; arc=pass smtp.client-ip=74.125.228.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocC/OXuN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DF5D1F000FF;
-	Sun, 13 Sep 2026 17:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789322401;
-	bh=xwIqWdCPAdBnvKM2xMaWZb+9TtIoEAcJaPBaro/VthA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ocC/OXuN/+9OBcYqkBbrDOk1wpDOwAJu3HJiXt50AmeelBa8CC/N+d1dAJUxi4x21
-	 dV3rb9hXonCR2SpdYNhaRBM15JslsGtdrs8UaEi9gJCbIsBRCVEMY6Gk0+0icLhkop
-	 ltpQTDjyXdm7lhaZA0TNFIF98TazZiTdxI8C7tGRlfo+fDyVfzUIHNK0l7Gz5jQpvb
-	 hEeC2wjug1v15LOGp1YSfRQq/p6E+/MRe0V6tIX1/a/Qp9FZNW7Dd+Zkxz6KGjubJS
-	 zVUWp3g7DEgajUOa2nl6jSwShnRsy0arSaNj5iOCT+wLpvdYvKFkZfal0AZVKoeb8h
-	 5keK8h60uwBsA==
-Date: Sun, 13 Sep 2026 18:59:55 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
-Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <krzk+dt@kernel.org>, <dlechner@baylibre.com>, <nuno.sa@analog.com>,
- <Michael.Hennerich@analog.com>, <andy@kernel.org>, <robh@kernel.org>,
- <conor+dt@kernel.org>
-Subject: Re: [PATCH v3 2/2] iio: temperature: add support for Analog Devices
- MAX30210
-Message-ID: <20260913185955.13f5a37c@jic23-hlaptop>
-In-Reply-To: <1d3cdd6163923b1c537b8db49b833863ee6bf545.1789032019.git.johnerasmusmari.geronimo@analog.com>
-References: <cover.1789032019.git.johnerasmusmari.geronimo@analog.com>
-	<1d3cdd6163923b1c537b8db49b833863ee6bf545.1789032019.git.johnerasmusmari.geronimo@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwVKQ+0F"
+Received: by mail-ed2-f9.google.com with SMTP id 4fb4d7f45d1cf-6a99cd510ecso1269837a12.1
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 11:05:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789322729; cv=none;
+        d=google.com; s=arc-20260327;
+        b=H2e3Ske4s7PBU9C+JJzg6FzFJ0yWKoTtZr3blbNH2VtSbfVvBS1jQ+ldEY5EhtVN2Q
+         siQqbICU6GPw/x9OJP1mhkqYCAn4AqFZ8IAiU+gAoIi8aT5XjBvgeUdqk4RQTyQXJWaY
+         7CmbDW85UA8fxMbAgKkRFCG2a+6MBPeZtRjrSjr4L6KWbHvQuIpQUcPeYT2JlbV5xJ9k
+         oWbtdavxZwrRwL/XRB3wR/JaORbEz4UOSpBL63Ms8hyKNPgf7T2RFKK/GOjzGSTFF5B1
+         W48Oj8AObHY94gTloYGfZmt8zx/NVG+3KmhqkuV+vDZUFGPsTlo9waUNKpTcAezZrpc3
+         CAEw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
+        fh=BCsL1GNOqLt37qoLa5mnNuMjOg0UlpabDZ25nJOuWEg=;
+        b=Zlo1rzts8PAgd5EitXAMSdAybf75L7iAliL8TMTtm6tF+U+dHTi2cE8mxiHco4Lccd
+         yOShiC6+BQMA7h2Kwf685oMWV7CLiTJC44igNrMRms/WtNLzeIaJd6E8N841nvcL0eT/
+         yxmic/XyTho0moragNqHHkOJZR9TUhf9DPSIVrCVrSubDd6VD+GJv92maMbr/IbTmoNH
+         83zOi8zh1AcgWo55rJra9Vfo6YxhzWbYcBOindksA/IhJ1npD/BYe9U2gogwz83ettAh
+         UsF3rCBq9gnoLvOGt4tb20SU5FgeWxzhSDStbiZIlqx0gOFvhTgp6GgYHZfETzGaoagQ
+         Qg6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789322729; x=1789927529; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
+        b=rwVKQ+0F0DdS0df6dM9p9aohkCPIkNm5KD8cfoEBV5HG31OdXaJdHGRjPDhoMG/9GI
+         Q4QJUVHKeDKIAyd5OyiLkJgwMcJQQA9GNDV3CspsvaQHkM5+m/Xs72qPIu76ShzPo/0C
+         j9xDT8YE2wprh2jeCzlljoQMhV5UwS4COYu86vzAJV+q3x9gTtnIwMgY6ocG6fnHDhtQ
+         Mn/YbWF7jGWtpu1uONLNihvsU662fdj/ocsHTQH8pcvNMvuE+vfQLADoQ70O1gsyRnVJ
+         Pn5LRObB1lX2uW0AUN3xyV6znLe/QuoikZoBspl+zmH75ltPt/pkT7WmH7k9w6lRwphq
+         zt8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789322729; x=1789927529;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
+        b=XEQdXgObgzL4OfSGcH/KejH8aVepDUBCMykFbjn8npT52GEd9oy5ezqn418+5lZK1+
+         qDrpz1gfsuX56BHSYrpE38ZImZISxsE/obB2coksz/qK9pDlUsT6D6ONqiTH5poWdMWj
+         uh6kuX5EX6SJJJg/L2ItroPyHVWdCPIhvD9Yn4IgunNn36io/iZcLOXDq8cIsrO2Y2Q1
+         ktJLgx3n0Fbs5OO4xAl4Ln7oL5llZdrrbD4Lv6i9W2gdQbT5ggWOhD5m+lU03WqO7Ixv
+         PspkiRejPqrCmwdOPWCGeHahhuRQEFATTB3jyCdsOi0t42vMWoE7jtQJg4P0XBwF0F9W
+         xMkQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwlUkNuB/XJw3VtILwiX6VuNYfyh8BJN68bXMkQ+NwqNEb/2OMm1SYV3e3LDdXCRTv2S52FwvpeYATO@vger.kernel.org
+X-Gm-Message-State: AFuF++lGASenXgeGnKITSZvD8u9l8/3YAvvY14JBjEweFXwlqkQIuFf3
+	9gWNyBY0mBCu0QeBLd/heQvwQRaCxLhJQh8Dz94t5m0oTvjtddPMURPq1+hR1rhLUi71ZL4HtBS
+	fdjd8CrTetID/UG346aW7BJw5OdzqQx4=
+X-Gm-Gg: AYBFou2yrnCOZ4LIjc1nKG2g/+q8zcS6/LLHs/HXg9Un8hI4KIXcCHIHlWQNxFHwfHq
+	CiFZpH7AQU5o9cozc8Gj06vujxDQFvI3xL9ofeCaix5oS+HzYgrYcepW5pZlfIC2eQaDFZl0J8I
+	4Yo1H9fLhQuvCuxbk4Vdw8dhhHrrDDQPaSAPSbKJlNMy9qwVNiS6TmeeRcVVrJtqfnb1dbEai5g
+	A3/3pGHd2VNsQ0dB+L9KpUKHzkwOnrMk5PORv6RJaI4T8Ihut3U+YAelKDo5+zYJlYQQEiw+tJS
+	54fFW1+7GR+ulGYhRTBuecWC3TbdGcX28L4kFWvliki7wz8oWYsV9Lnnhg==
+X-Received: by 2002:a17:907:d109:b0:c29:3e59:fd03 with SMTP id
+ a640c23a62f3a-c2966732c9cmr1353966666b.18.1789322728959; Sun, 13 Sep 2026
+ 11:05:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260907153713.2572547-11-coiaprant@gmail.com> <20260912201332.127297-1-kuba@kernel.org>
+In-Reply-To: <20260912201332.127297-1-kuba@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Mon, 14 Sep 2026 02:05:16 +0800
+X-Gm-Features: AcwNN1XgxVngHvtMFNhv7y3qMtC3nxI3TV6XULwbytRJ0h4SCX-LBQfd6V3fGRY
+Message-ID: <CALj3r0jBCoX=GRTrshY7QJO3Vykrbx+1NgE=zOV3S+WLLBNM2w@mail.gmail.com>
+Subject: Re: [PATCH net-next v4 09/10] arm64: dts: rockchip:
+ rk3568-photonicat: enable SGMII LAN port
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	heiko@sntech.de, vkoul@kernel.org, maxime.chevallier@bootlin.com, 
+	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
+	prabhakar.mahadev-lad.rj@bp.renesas.com, romain.gantois@bootlin.com, 
+	hkallweit1@gmail.com, neil.armstrong@linaro.org, linux@armlinux.org.uk, 
+	shawn.lin@rock-chips.com, david@ixit.cz, netdev@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 11 Sep 2026 06:12:17 +0800
-John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com> wrote:
+Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
+=A5=E5=91=A8=E6=97=A5 04:13=E5=86=99=E9=81=93=EF=BC=9A
+> > @@ -242,6 +243,7 @@ &combphy1 {
+> >
+> >  &combphy2 {
+> >       status =3D "okay";
+> > +     rockchip,sgmii-mac-sel =3D <0>;
+> >  };
+>
+> [Severity: Low]
+> The changelog says:
+>
+>   "Enable combphy2 with rockchip,sgmii-mac-sel =3D <0> to route the SGMII
+>    interface to GMAC0."
+>
+> Is that description accurate?  In the baseline the node already reads:
+>
+>   &combphy2 {
+>           status =3D "okay";
+>   };
+>
+> so the only new thing here is the rockchip,sgmii-mac-sel property.  Could
+> the wording be adjusted to say the property is added to an already enable=
+d
+> combphy2?
 
-> Add support for the Analog Devices MAX30210 I2C temperature
-> sensor.
->=20
-> The driver uses regmap for register access and integrates with
-> the IIO framework. It supports:
->=20
-> - Direct mode temperature conversion
-> - Configurable sampling frequency
-> - Threshold events
-> - FIFO operation with IIO kfifo buffer support
-> - Optional interrupt-driven data ready signaling
->=20
-> The device provides 16-bit signed temperature data and a
-> 64-sample FIFO.
->=20
-> Signed-off-by: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analo=
-g.com>
-Hi John
+You're right. combphy2 is already status =3D "okay" in the baseline; this
+patch only adds the rockchip,sgmii-mac-sel property to it. I'll fix the
+wording to say the property is added to an already-enabled combphy2.
 
-Various comments inline
+> [Severity: Low]
+> This isn't a bug, but the new properties do not follow the ordering used =
+by
+> the rest of this file, where properties come roughly alphabetically and
+> status is last.  Here rockchip,sgmii-mac-sel lands after status, in &gmac=
+0
+> below pcs-handle comes before managed, and in the new &xpcs override stat=
+us
+> is first with phys/phy-names after it.  Compare the existing &gmac1
+> override, which ends with status =3D "okay";.  Could these be reordered?
 
-Jonathan
+I'll reorder the properties to follow the file's convention (roughly
+alphabetical, with status last)
 
-> diff --git a/drivers/iio/temperature/max30210.c b/drivers/iio/temperature=
-/max30210.c
-> new file mode 100644
-> index 0000000000000..07ff85d6d4848
-> --- /dev/null
-> +++ b/drivers/iio/temperature/max30210.c
-> @@ -0,0 +1,689 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Analog Devices MAX30210 I2C Temperature Sensor driver
-> + *
-> + * Copyright 2026 Analog Devices Inc.
-> + */
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/iio/buffer.h>
-> +#include <linux/iio/events.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/kfifo_buf.h>
-> +#include <linux/iio/sysfs.h>
-> +#include <linux/regmap.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
-> +
-> +#define MAX30210_STATUS_REG		0x00
-Up to you but I'm very much a fan of register address and fields together
-in the code, using a bit of extra whitespace to make it obvious what
-is going on. E.g.=20
-#define MAX30210_STATUS_REG		0x00
-#define   MAX30210_STATUS_A_FULL_MASK   BIT(7)
-#define   MAX30210_STATUS_TEMP_RDY_MASK BIT(6)
-#define   MAX30210_STATUS_TEMP_DEC_MASK BIT(5)
-#define   MAX30210_STATUS_TEMP_INC_MASK BIT(4)
-#define   MAX30210_STATUS_TEMP_LO_MASK  BIT(3)
-#define   MAX30210_STATUS_TEMP_HI_MASK  BIT(2)
-#define   MAX30210_STATUS_PWR_RDY_MASK  BIT(0)
-#define MAX30210_INT_EN_REG		0x02
-...
+> > @@ -350,6 +391,25 @@ rgmii_phy: ethernet-phy@3 {
+> >               reset-gpios =3D <&gpio4 RK_PC0 GPIO_ACTIVE_LOW>;
+> >               rx-internal-delay-ps =3D <1500>;
+> >               tx-internal-delay-ps =3D <1500>;
+> > +
+> > +             leds {
+> > +                     #address-cells =3D <1>;
+> > +                     #size-cells =3D <0>;
+> > +
+> > +                     led@1 {
+> > +                             reg =3D <1>;
+> > +                             color =3D <LED_COLOR_ID_AMBER>;
+> > +                             function =3D LED_FUNCTION_WAN;
+> > +                             default-state =3D "keep";
+> > +                     };
+> > +
+> > +                     led@2 {
+> > +                             reg =3D <2>;
+> > +                             color =3D <LED_COLOR_ID_GREEN>;
+> > +                             function =3D LED_FUNCTION_WAN;
+> > +                             default-state =3D "keep";
+> > +                     };
+> > +             };
+> >       };
+> >  };
+>
+> [Severity: Low]
+> This hunk describes the LEDs of the pre-existing RGMII WAN PHY on &mdio1,
+> which is already functional and unaffected by the SGMII enablement.  The
+> changelog justifies it only with:
+>
+>   "Also add LED configuration for the existing RGMII PHY on mdio1 for
+>    consistency."
+>
+> Would it be preferable to split this into its own patch, so this commit
+> contains only the SGMII LAN port enablement?
 
-That means everything related to the register is one place
-which saves me jumping around when reviewing.
+The LED configuration for both PHYs is kept in this patch because the
+two PHYs are the same Motorcomm family wired identically on this board,
+and describing them together keeps the two mdio nodes consistent. The
+change is purely descriptive and does not affect the SGMII enablement.
 
-> +#define MAX30210_INT_EN_REG		0x02
-> +#define MAX30210_FIFO_DATA_REG		0x08
-> +#define MAX30210_FIFO_CONF_1_REG	0x09
-> +#define MAX30210_FIFO_CONF_2_REG	0x0A
-> +#define MAX30210_SYS_CONF_REG		0x11
-> +#define MAX30210_PIN_CONF_REG		0x12
-> +#define MAX30210_TEMP_ALM_HI_REG	0x22
-> +#define MAX30210_TEMP_ALM_LO_REG	0x24
-> +#define MAX30210_TEMP_INC_THRESH_REG	0x26
-> +#define MAX30210_TEMP_DEC_THRESH_REG	0x27
-> +#define MAX30210_TEMP_CONF_1_REG	0x28
-> +#define MAX30210_TEMP_CONF_2_REG	0x29
-> +#define MAX30210_TEMP_CONV_REG		0x2A
-> +#define MAX30210_TEMP_DATA_REG		0x2B
-> +#define MAX30210_TEMP_SLOPE_REG		0x2D
-> +#define MAX30210_UNIQUE_ID_REG		0x30
-> +#define MAX30210_PART_ID_REG		0xFF
-> +
-> +#define MAX30210_STATUS_A_FULL_MASK   BIT(7)
-> +#define MAX30210_STATUS_TEMP_RDY_MASK BIT(6)
-> +#define MAX30210_STATUS_TEMP_DEC_MASK BIT(5)
-> +#define MAX30210_STATUS_TEMP_INC_MASK BIT(4)
-> +#define MAX30210_STATUS_TEMP_LO_MASK  BIT(3)
-> +#define MAX30210_STATUS_TEMP_HI_MASK  BIT(2)
-> +#define MAX30210_STATUS_PWR_RDY_MASK  BIT(0)
-> +
-> +#define MAX30210_FIFOCONF1_A_FULL_MASK		GENMASK(5, 0)
-> +#define MAX30210_FIFOCONF1_FLUSH_FIFO_MASK	BIT(4)
-> +
-> +#define MAX30210_SYSCONF_RESET_MASK		BIT(0)
+That said, if you prefer it split out, I can move the mdio1 LED
+description into a separate patch in v4.
 
-We often drop the MASK postfix for single bit flags where
-the meaning is obvious like this one.
-#define MAX30210_SYSCONF_RESET			BIT(0)
-Is fine and feels more normal when you use it in the code.
+> > @@ -586,3 +646,13 @@ &xin32k {
+> >       pinctrl-names =3D "default";
+> >       pinctrl-0 =3D <&clk32k_out1>;
+> >  };
+> > +
+> > +&xpcs {
+> > +     status =3D "okay";
+> > +     phys =3D <&combphy2 PHY_TYPE_SGMII>;
+> > +     phy-names =3D "serdes";
+> > +};
+>
+> [Severity: Medium]
+> Should phys/phy-names live in rk3568.dtsi rather than in each board file?
+>
+> The binding lists them as required properties of the XPCS node:
+>
+>   Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
+>   required:
+>     - compatible
+>     - reg
+>     - "#address-cells"
+>     - "#size-cells"
+>     - clocks
+>     - clock-names
+>     - phys
+>     - phy-names
+>     - power-domains
+>
+> but the SoC node in arch/arm64/boot/dts/rockchip/rk3568.dtsi has neither:
+>
+>   xpcs: pcs@fda00000 {
+>           compatible =3D "rockchip,rk3568-xpcs";
+>           #address-cells =3D <1>;
+>           #size-cells =3D <0>;
+>           reg =3D <0x0 0xfda00000 0x0 0x200000>;
+>           clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+>           clock-names =3D "csr", "eee";
+>           power-domains =3D <&power RK3568_PD_PIPE>;
+>           status =3D "disabled";
+>
+> Does this mean every rk3568 dtb reports pcs@fda00000 as missing the requi=
+red
+> phys and phy-names under make CHECK_DTBS=3Dy, including boards that do no=
+t
+> enable the XPCS?
+>
+> The XPCS to combphy2 connection is internal to the SoC, so each board tha=
+t
+> enables it will have to repeat the same phandle, as this patch does.  Cou=
+ld
+> phys =3D <&combphy2 PHY_TYPE_SGMII>; and phy-names =3D "serdes"; be moved=
+ into
+> the dtsi node instead?
 
-Be careful though when doing this.  Sometimes a field is simply
-one that takes only values 0 and 1 but is not representing a boolean.
-Those ones need the _MASK postfix and use of FIELD_GET / FIELD_PREP.
-A recent example of that was a register bank selector in another driver.
-There were only two banks so it was one bit but the code was easier
-to read with it being via FIELD_PREP(_BANK_MASK, 0) etc
+As replied in the earlier patch, the SerDes connection is board-specific
+(some boards use combphy1 for SGMII, others use combphy2), so it cannot
+be moved into rk3568.dtsi.
 
-> +
-> +#define MAX30210_PINCONF_EXT_CNV_EN_MASK	BIT(7)
-> +#define MAX30210_PINCONF_EXT_CVT_ICFG_MASK	BIT(6)
-> +#define MAX30210_PINCONF_INT_FCFG_MASK		GENMASK(3, 2)
-> +#define MAX30210_PINCONF_INT_OCFG_MASK		GENMASK(1, 0)
-
-> +
-> +static int max30210_read_raw(struct iio_dev *indio_dev,
-> +			     struct iio_chan_spec const *chan, int *val,
-> +			     int *val2, long mask)
-> +{
-> +	struct max30210_state *st =3D iio_priv(indio_dev);
-> +	unsigned int uval;
-> +	int ret;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		*val =3D 5;
-> +		*val2 =3D 1000;
-> +
-> +		return IIO_VAL_FRACTIONAL;
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		ret =3D regmap_read(st->regmap, MAX30210_TEMP_CONF_2_REG, &uval);
-> +		if (ret)
-> +			return ret;
-> +
-> +		uval =3D FIELD_GET(MAX30210_TEMPCONF2_TEMP_PERIOD_MASK, uval);
-> +
-> +		/*
-> +		 * TEMP_PERIOD is an index into the sampling frequency lookup
-> +		 * table. Clamp in case the register holds a reserved value.
-> +		 */
-> +		uval =3D min_t(unsigned int, uval, ARRAY_SIZE(max30210_samp_freq_avail=
-) - 1);
-
-min() without very good reasons.
-
-> +
-> +		*val =3D max30210_samp_freq_avail[uval][0];
-> +		*val2 =3D max30210_samp_freq_avail[uval][1];
-> +
-> +		return IIO_VAL_INT_PLUS_MICRO;
-> +	case IIO_CHAN_INFO_RAW: {
-> +		if (iio_buffer_enabled(indio_dev))
-> +			return -EBUSY;
-> +
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		ret =3D regmap_write(st->regmap, MAX30210_TEMP_CONV_REG,
-> +				   MAX30210_TEMPCONV_CONV_T_MASK);
-> +		if (ret)
-> +			return ret;
-> +
-> +		/*
-> +		 * Wait until CONVERT_T auto-clears.
-> +		 * Datasheet:
-> +		 *   tBIAS_WU =3D 260 =C2=B5s
-> +		 *   tINT     =3D 8 ms
-> +		 *
-> +		 * Worst-case conversion =E2=89=88 8.26 ms.
-> +		 * Use 10 ms timeout for margin.
-> +		 */
-> +		ret =3D regmap_read_poll_timeout(st->regmap, MAX30210_TEMP_CONV_REG, u=
-val,
-> +					       !(uval & MAX30210_TEMPCONV_CONV_T_MASK),
-> +					       500,          /* poll every 500 =C2=B5s */
-> +					       10000);       /* 10 ms timeout */
-> +		if (ret)
-> +			return ret;
-> +
-> +		return max30210_read_temp(st->regmap, MAX30210_TEMP_DATA_REG, val);
-> +	}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-> +
-> +static int max30210_write_raw(struct iio_dev *indio_dev,
-> +			      struct iio_chan_spec const *chan, int val,
-> +			      int val2, long mask)
-> +{
-> +	struct max30210_state *st =3D iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ: {
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		if (val < 0 || val2 < 0)
-> +			return -EINVAL;
-
-Not important but I'd move this check before the DIRECT_MODE claim
-as it has nothing to do with device state.
-
-> +
-> +		for (unsigned int i =3D 0; i < ARRAY_SIZE(max30210_samp_freq_avail); i=
-++) {
-> +			if (val !=3D max30210_samp_freq_avail[i][0] ||
-> +			    val2 !=3D max30210_samp_freq_avail[i][1])
-> +				continue;
-> +
-> +			return regmap_update_bits(st->regmap, MAX30210_TEMP_CONF_2_REG,
-> +					MAX30210_TEMPCONF2_TEMP_PERIOD_MASK,
-> +					FIELD_PREP(MAX30210_TEMPCONF2_TEMP_PERIOD_MASK, i));
-> +		}
-> +
-> +		return -EINVAL;
-> +	}
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-
-> +
-> +static int max30210_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct max30210_state *st =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	/* Enable FIFO-full interrupt */
-
-More comments to think about whether they add anything useful over
-the code.  If they do maybe the defines need their names to be
-tweaked!  E.g. ALMOST_FULL would be clearer.  You don't need
-to exactly match datasheets where space demands etc may have
-lead to things getting too abbreviated to be useful!
-
-> +	ret =3D regmap_set_bits(st->regmap, MAX30210_INT_EN_REG,
-> +			      MAX30210_STATUS_A_FULL_MASK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Flush FIFO before starting autonomous conversions */
-> +	ret =3D regmap_set_bits(st->regmap, MAX30210_FIFO_CONF_2_REG,
-> +			      MAX30210_FIFOCONF1_FLUSH_FIFO_MASK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Start autonomous temperature conversion */
-> +	return regmap_write(st->regmap, MAX30210_TEMP_CONV_REG,
-> +			    MAX30210_TEMPCONV_AUTO_MASK | MAX30210_TEMPCONV_CONV_T_MASK);
-
-If you do use MASK prefix, then I'd expect to always have FIELD_PREP()
-involved.  So another reason to drop _MASK from these things
-that have obvious meaning without.  Even then I'd be temped
-to use FIELD_PREP simply to align with the off case I mention below.
-
-> +}
-> +
-> +static int max30210_buffer_postdisable(struct iio_dev *indio_dev)
-> +{
-> +	struct max30210_state *st =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	/* Stop autonomous conversion */
-
-Not obvious why you'd write the whole register. Perhaps
-specify that 0 as
-
-FIELD_PREP(MAX30210_TEMP_CONV_AUTO, 0) |
-FIELD_PREP(MAX30210_TEMP_CONV_T, 0),
-
-Compiler can flatten that to 0.
-
-
-> +	ret =3D regmap_write(st->regmap, MAX30210_TEMP_CONV_REG, 0x0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Flush FIFO */
-> +	ret =3D regmap_set_bits(st->regmap, MAX30210_FIFO_CONF_2_REG,
-> +			      MAX30210_FIFOCONF1_FLUSH_FIFO_MASK);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Disable FIFO-full interrupt */
-> +	return regmap_clear_bits(st->regmap, MAX30210_INT_EN_REG,
-> +				 MAX30210_STATUS_A_FULL_MASK);
-
-Similar to below, the use of _MASK postfix for a flag like this to
-me makes the code harder to read because I feel a need to go check
-that it is just one bit.  Anyhow, that applies in lots of places.
-
-> +}
-
-
-> +static int max30210_setup(struct max30210_state *st, struct device *dev)
-> +{
-> +	struct gpio_desc *powerdown_gpio;
-> +	unsigned int val;
-> +	int ret;
-> +
-> +	/* Optional hardware reset via powerdown GPIO */
-
-That is kind of obvious from the code so I'd drop the comment.
-
-> +	powerdown_gpio =3D devm_gpiod_get_optional(dev, "powerdown",
-> +						 GPIOD_OUT_HIGH);
-It is fine to go a bit long on lines if it helps readability.
-Here the gain is minor but it's only a few chars long.
-
-> +	if (IS_ERR(powerdown_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(powerdown_gpio),
-> +				     "failed to request powerdown GPIO\n");
-> +
-> +	if (powerdown_gpio) {
-> +		/* Deassert powerdown to power up device */
-> +		gpiod_set_value(powerdown_gpio, 0);
-> +	} else {
-> +		/* Software reset fallback */
-Also obvious.  Check all your comments for ones that are saying things
-that are naturally true.
-
-> +		ret =3D regmap_set_bits(st->regmap, MAX30210_SYS_CONF_REG,
-> +				      MAX30210_SYSCONF_RESET_MASK);
-
-Comment at the top about use of _MASK postfix was from seeing this line.
-
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	/*
-> +	 * Datasheet Figure 6:
-> +	 * tPU max =3D 700 =C2=B5s after power-up or reset before device is rea=
-dy.
-> +	 */
-> +	fsleep(700);
-> +
-> +	/* Clear status byte */
-
-This is a good comment so keep it. Not obvious to anyone seeing the code
-that the register is read to clear.
-
-> +	return regmap_read(st->regmap, MAX30210_STATUS_REG, &val);
-> +}
-> +
-> +static int max30210_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct iio_dev *indio_dev;
-> +	struct max30210_state *st;
-> +	int ret;
-> +
-> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_SMBUS_BYTE_DATA))
-> +		return -EOPNOTSUPP;
-When I see one of these I immediate search for uses of smbus
-functions to check it's right.  Obviously here they are all hidden
-by regmap which got me wondering why it wasn't regmap doing this
-check...  So=20
-https://elixir.bootlin.com/linux/v7.2.5/source/drivers/base/regmap/regmap-i=
-2c.c#L350
-for val_bits =3D 8 and reg_bits =3D 8 there are two possible paths.
-	else if (config->val_bits =3D=3D 8 && config->reg_bits =3D=3D 8 &&
-		 i2c_check_functionality(i2c->adapter,
-					 I2C_FUNC_SMBUS_I2C_BLOCK))
-		bus =3D &regmap_i2c_smbus_i2c_block;
-	}
-or
-	else if (config->val_bits =3D=3D 8 && config->reg_bits =3D=3D 8 &&
-		 i2c_check_functionality(i2c->adapter,
-					 I2C_FUNC_SMBUS_BYTE_DATA))
-		bus =3D &regmap_smbus_byte;
-	}
-
-The first one relies on auto increment behaviour for multi reg reads.
-The second doesn't.  I guess this works because a device that doesn't
-do autoincrement reads won't have a driver that issues them.
-
-Anyhow upshot is it is already checked, so you don't need another check
-in the driver.  At somepoint I'll do a sweep for these and remove
-any that might get cut and paste into new drivers.
-
-> +
-> +	indio_dev =3D devm_iio_device_alloc(dev, sizeof(*st));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-
-
+Best,
+Coia
