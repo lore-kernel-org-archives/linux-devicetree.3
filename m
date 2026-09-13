@@ -1,256 +1,155 @@
-Received: from mail-ed2-f9.google.com (mail-ed2-f9.google.com [74.125.228.73])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D406737E5EE
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 18:05:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.73
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789322732; cv=pass; b=i45m2dADe959rla0TYfWcpxgaw+rukd9VblHT9Jtit79hkcodTdwPHfHDJl6JK4BXIquzSx1+QjCxBKKS7zkd15tao3Nq4MA/EGxYXDP0Jf0AvQOpcHUF9ZFVKhvVXnf7QCP8FqGCY0d20gxerTG0tyyaYHbu8vmeavygzSZG60=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789322732; c=relaxed/simple;
-	bh=KOtTHl2ZUyPFirhy28Jx459Kdjt3u5AIiEGb5zEvRoU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kw0b+9Z4gc4+U5e/0D+oizXvb5Ly31YHKYuy0bhjlBzhpVs9WT8B3Tkn3E/WrUgG8ftohUQdYJDJDfRspPSKvtt3Wv4KUeHKqDos4HcftlKd7iqNNRZjgSYgfQtqWOHsk/2LaJZjkWYiUYJ1geIHvZbNLcnB2wpOtZnAUH5BYmE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwVKQ+0F; arc=pass smtp.client-ip=74.125.228.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32ED3AA9D8
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 18:10:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789323060; cv=none; b=Y30SStblajPn0Q4c+GPqjo4YQfEITXXkkDdDeH5Fki4C1GBNRgeSvn98JbhT2NpSP4FK8Uq56W7CiUK9EoDgg6XPQC3QcnK+A4lQzKfM+XwsJcRCnx8M/EQZ3nSuH+MaKhoE5whSNHLQuBW9HPSl6RLusthXuzUarxhcdepxkSc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789323060; c=relaxed/simple;
+	bh=c8U0I6Z/B1mX2JrYuQnWGMmtxYuEY0zzYmBpdRmxwVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EfRhJirjpAj5tsmCZSu5CEcSRyheuQ92evE1qfRg4U59EH9iHadtH4hLohkuD3VC/m9aZthhjzPDurrVYvWcUHD3md6LO+bVEjKM+3qDsRRpTz99eLyrBoqgn5KAxSlIB9IBakoEZIbs/qxPBga8+D8/JW7tDGdYvV26h0CaeJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RICXjEuk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iQW2nsrc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwVKQ+0F"
-Received: by mail-ed2-f9.google.com with SMTP id 4fb4d7f45d1cf-6a99cd510ecso1269837a12.1
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 11:05:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789322729; cv=none;
-        d=google.com; s=arc-20260327;
-        b=H2e3Ske4s7PBU9C+JJzg6FzFJ0yWKoTtZr3blbNH2VtSbfVvBS1jQ+ldEY5EhtVN2Q
-         siQqbICU6GPw/x9OJP1mhkqYCAn4AqFZ8IAiU+gAoIi8aT5XjBvgeUdqk4RQTyQXJWaY
-         7CmbDW85UA8fxMbAgKkRFCG2a+6MBPeZtRjrSjr4L6KWbHvQuIpQUcPeYT2JlbV5xJ9k
-         oWbtdavxZwrRwL/XRB3wR/JaORbEz4UOSpBL63Ms8hyKNPgf7T2RFKK/GOjzGSTFF5B1
-         W48Oj8AObHY94gTloYGfZmt8zx/NVG+3KmhqkuV+vDZUFGPsTlo9waUNKpTcAezZrpc3
-         CAEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
-        fh=BCsL1GNOqLt37qoLa5mnNuMjOg0UlpabDZ25nJOuWEg=;
-        b=Zlo1rzts8PAgd5EitXAMSdAybf75L7iAliL8TMTtm6tF+U+dHTi2cE8mxiHco4Lccd
-         yOShiC6+BQMA7h2Kwf685oMWV7CLiTJC44igNrMRms/WtNLzeIaJd6E8N841nvcL0eT/
-         yxmic/XyTho0moragNqHHkOJZR9TUhf9DPSIVrCVrSubDd6VD+GJv92maMbr/IbTmoNH
-         83zOi8zh1AcgWo55rJra9Vfo6YxhzWbYcBOindksA/IhJ1npD/BYe9U2gogwz83ettAh
-         UsF3rCBq9gnoLvOGt4tb20SU5FgeWxzhSDStbiZIlqx0gOFvhTgp6GgYHZfETzGaoagQ
-         Qg6w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RICXjEuk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iQW2nsrc"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DI3wOx2397709
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 18:10:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	c8U0I6Z/B1mX2JrYuQnWGMmtxYuEY0zzYmBpdRmxwVk=; b=RICXjEukhZO4uJoY
+	LQ3HEWS8Ooxa+CF6s1fOjaYpsJazgBl+8YjrALJ2s9EPJFvAyenNlvM/H89xDCZa
+	hmltTIs+btYHy9Tg8d2tE2OzhDfMoD1M0rHK9h43AwCWHrekxuC3zcMMwcQbcghq
+	6ln8MA5z1b7anYZaxxdeYZIbgjsw0ZBK3gRQd4vV+ZPipR76jjd21Z7Z4lQK3/1j
+	yTtkghUeg3ACq18DJz+2B15uaObcqKiyiHBBqxDrFWe+Ke/dpOo8+9r9r6J/DXXG
+	D7j9FWmnMydRNEZd9LoPNNKslu9HoeuaepNcWTBYyM1rIpGfCJrEnEK2r0q4zZvy
+	LtI0nw==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c3v0y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 18:10:45 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-396901263b6so5400594a91.2
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 11:10:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789322729; x=1789927529; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
-        b=rwVKQ+0F0DdS0df6dM9p9aohkCPIkNm5KD8cfoEBV5HG31OdXaJdHGRjPDhoMG/9GI
-         Q4QJUVHKeDKIAyd5OyiLkJgwMcJQQA9GNDV3CspsvaQHkM5+m/Xs72qPIu76ShzPo/0C
-         j9xDT8YE2wprh2jeCzlljoQMhV5UwS4COYu86vzAJV+q3x9gTtnIwMgY6ocG6fnHDhtQ
-         Mn/YbWF7jGWtpu1uONLNihvsU662fdj/ocsHTQH8pcvNMvuE+vfQLADoQ70O1gsyRnVJ
-         Pn5LRObB1lX2uW0AUN3xyV6znLe/QuoikZoBspl+zmH75ltPt/pkT7WmH7k9w6lRwphq
-         zt8w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789322729; x=1789927529;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1789323045; x=1789927845; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=voliItkzs3OtrnJtmbhCv1xhQ+FU+qBLL3OO/h9nssc=;
-        b=XEQdXgObgzL4OfSGcH/KejH8aVepDUBCMykFbjn8npT52GEd9oy5ezqn418+5lZK1+
-         qDrpz1gfsuX56BHSYrpE38ZImZISxsE/obB2coksz/qK9pDlUsT6D6ONqiTH5poWdMWj
-         uh6kuX5EX6SJJJg/L2ItroPyHVWdCPIhvD9Yn4IgunNn36io/iZcLOXDq8cIsrO2Y2Q1
-         ktJLgx3n0Fbs5OO4xAl4Ln7oL5llZdrrbD4Lv6i9W2gdQbT5ggWOhD5m+lU03WqO7Ixv
-         PspkiRejPqrCmwdOPWCGeHahhuRQEFATTB3jyCdsOi0t42vMWoE7jtQJg4P0XBwF0F9W
-         xMkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwlUkNuB/XJw3VtILwiX6VuNYfyh8BJN68bXMkQ+NwqNEb/2OMm1SYV3e3LDdXCRTv2S52FwvpeYATO@vger.kernel.org
-X-Gm-Message-State: AFuF++lGASenXgeGnKITSZvD8u9l8/3YAvvY14JBjEweFXwlqkQIuFf3
-	9gWNyBY0mBCu0QeBLd/heQvwQRaCxLhJQh8Dz94t5m0oTvjtddPMURPq1+hR1rhLUi71ZL4HtBS
-	fdjd8CrTetID/UG346aW7BJw5OdzqQx4=
-X-Gm-Gg: AYBFou2yrnCOZ4LIjc1nKG2g/+q8zcS6/LLHs/HXg9Un8hI4KIXcCHIHlWQNxFHwfHq
-	CiFZpH7AQU5o9cozc8Gj06vujxDQFvI3xL9ofeCaix5oS+HzYgrYcepW5pZlfIC2eQaDFZl0J8I
-	4Yo1H9fLhQuvCuxbk4Vdw8dhhHrrDDQPaSAPSbKJlNMy9qwVNiS6TmeeRcVVrJtqfnb1dbEai5g
-	A3/3pGHd2VNsQ0dB+L9KpUKHzkwOnrMk5PORv6RJaI4T8Ihut3U+YAelKDo5+zYJlYQQEiw+tJS
-	54fFW1+7GR+ulGYhRTBuecWC3TbdGcX28L4kFWvliki7wz8oWYsV9Lnnhg==
-X-Received: by 2002:a17:907:d109:b0:c29:3e59:fd03 with SMTP id
- a640c23a62f3a-c2966732c9cmr1353966666b.18.1789322728959; Sun, 13 Sep 2026
- 11:05:28 -0700 (PDT)
+        bh=c8U0I6Z/B1mX2JrYuQnWGMmtxYuEY0zzYmBpdRmxwVk=;
+        b=iQW2nsrc9/v6reg7pTlKP131ZFTviiVUFKS1CMPzZqyjtFO7K+RglBH1nOKiOjoXy3
+         cD7TAMPRWfaJXAEO9BwlQgkCjaTxMaOtfghIf8MgIQlokMPetfTMkFuKwYmoPiJwe7/c
+         x6i5Sem+h559mJCVXFCJZZ3uj4tyd6pRXolIvJv4aKTP4IghFRBVpM5tcecWAv29GtTD
+         zqhtv1gwRcl/h/FCC8WxOyTeCS+sZkTpGIuFrEnSPAHL7az7yaAgeb4Nh2v2cqlIOtbl
+         WAvg4nfreb+/0UAKEGWzLQ6IJDcucIAY+wREld3M5y4algv0ohPpYyVqWtEgDFPCTuCd
+         ugAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789323045; x=1789927845;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c8U0I6Z/B1mX2JrYuQnWGMmtxYuEY0zzYmBpdRmxwVk=;
+        b=AKY1lshil53yR3tP45uDUezPFl+TMwveYVVDRJjyBtpio5UueHsKPfJADlUo8zNRym
+         adMUvMZZ/940pIDeWiSfYjGOVRATJgypyKWvRJ1eIU1K/7tlRlZqOlxbbjROdwxnBRQB
+         BabHgjPm29uTFBvEL7zlVl0MAMSijLIfy58z4Mw28xJxMJt11QT429a6Uvai2Ihcs1rl
+         /8C84GIA/obKRNEhXl9VMqohomIGkjBT9rbqkJ6hGpeQfuRPFTF3/64RPhP8p1A84puh
+         9JPpcDUEyZvBlrrNhjtPD4MahONFVGmprjEAXh3M0zaErrki71rohNKhaAp21YtAWWfq
+         HPoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ7d5xd8/ra5Ff9IUxuQblGh5PcchcSrDYFGlW268iVYTpgn8A/2uscqM4nkKEOkXelVsZLncXdqt6@vger.kernel.org
+X-Gm-Message-State: AFuF++lGkEiDezZLCg1zzVLZHJqL1zvORHv/FKAhJlA9nKA2lkb1FkdL
+	BhNGcqdDd2vn53LaIFeKEJuq2P6cQBK51jKQGl67qaECKx40LpEaoZI9m0Lfsbh3ZPp691RXTFt
+	OD+Mqd25dK0D3rYDPhY+wxlDw7p7hbIDZF6mjf1LvcLeLbEtvZS4woqOjo/NlS1+iCF3ZuDeT
+X-Gm-Gg: AYBFou0V5ljqUMUB8vqrmzo1OYB2c7kqgKc0rq3iueWbHpUvjxw1lOwtFPyYJHF0rzr
+	dd2hBuRE2/HiJsbrNO5OHW5XVrWPAK2zgmQdFI4P8dDw4g6t+I1RzLM3+hg3sjNFIX7rzyyqXcK
+	hBlb/vPdZmXMrSBLtKg1uBoKtzFx6Z9xmO2Fbu8+tBb0k+c1FG44/7+UgJZB4ELi0Zjx4W1zA37
+	/MYMgRYwbfx4ObrEzatlHQRvaMzmZzusInbIR1SzsVaVkcnVMvgTiAIGBgdtiwPQ/NJ1kdhuUTO
+	3uo//w6F9IflPT7+15bx0v+lGGrS3aH+oY+2Exmur7sHw1JGVE+Z9jc0QdGiqx2ZlfpKM1u3IyU
+	1jTCpr5Dwa2SOv2mg8oqdS7tllpca2bE=
+X-Received: by 2002:a17:90b:28cd:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-39d9b983602mr25214232a91.0.1789323044649;
+        Sun, 13 Sep 2026 11:10:44 -0700 (PDT)
+X-Received: by 2002:a17:90b:28cd:b0:38e:c7b0:84ad with SMTP id 98e67ed59e1d1-39d9b983602mr25214188a91.0.1789323044251;
+        Sun, 13 Sep 2026 11:10:44 -0700 (PDT)
+Received: from [192.168.29.166] ([49.43.234.155])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14365b8137fsm20539816c88.9.2026.09.13.11.10.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 13 Sep 2026 11:10:43 -0700 (PDT)
+Message-ID: <44dde4c9-e4f1-498e-8247-94e03e85c521@oss.qualcomm.com>
+Date: Sun, 13 Sep 2026 23:40:36 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907153713.2572547-11-coiaprant@gmail.com> <20260912201332.127297-1-kuba@kernel.org>
-In-Reply-To: <20260912201332.127297-1-kuba@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Mon, 14 Sep 2026 02:05:16 +0800
-X-Gm-Features: AcwNN1XgxVngHvtMFNhv7y3qMtC3nxI3TV6XULwbytRJ0h4SCX-LBQfd6V3fGRY
-Message-ID: <CALj3r0jBCoX=GRTrshY7QJO3Vykrbx+1NgE=zOV3S+WLLBNM2w@mail.gmail.com>
-Subject: Re: [PATCH net-next v4 09/10] arm64: dts: rockchip:
- rk3568-photonicat: enable SGMII LAN port
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	heiko@sntech.de, vkoul@kernel.org, maxime.chevallier@bootlin.com, 
-	mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
-	prabhakar.mahadev-lad.rj@bp.renesas.com, romain.gantois@bootlin.com, 
-	hkallweit1@gmail.com, neil.armstrong@linaro.org, linux@armlinux.org.uk, 
-	shawn.lin@rock-chips.com, david@ixit.cz, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-phy@lists.infradead.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: soc: qcom: stats: Add compatible for
+ Shikra
+To: Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Maulik Shah <quic_mkshah@quicinc.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260907-shikra_stats-v4-0-3825351f9740@oss.qualcomm.com>
+ <20260907-shikra_stats-v4-1-3825351f9740@oss.qualcomm.com>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <20260907-shikra_stats-v4-1-3825351f9740@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: MchJu1a27cdbsQjjdGRIClA46mEG8YHm
+X-Proofpoint-GUID: MchJu1a27cdbsQjjdGRIClA46mEG8YHm
+X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa6e725 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=1XLMJXld7+1tWuaUSnCLHA==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=WlaKPkoLHFrkzAxCTu8A:9 a=QEXdDO2ut3YA:10
+ a=rl5im9kqc5Lf4LNbBjHf:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDI1NyBTYWx0ZWRfX6TNLbswHQGs/
+ l2xjFJRCauL4JRuRqMR7IC/r8yoGU446flrQTRdg9GkuO6sfhOPzqv6EJ53YUMaM3v17WX97DEu
+ k3X4FktDJfyYDLxIszhQVFu57TesHgT0/b2XQ4pYy3aBES2FVtok8thmMX234n3pYnVVgGMk4A5
+ No1Bswkxu+IWMXyu8jqCz8ZW4WBJ2RNL7Rbb8PN+THu04KKd8eo6b8Yp3qB8w966JnaATiZcByW
+ xY7osGUY16ZR4nfIJqsqYFFTtRkgIbybFD1GCMCsh1BWj51ulNayklVYlcCeSyvAiGnqTf0b9Dy
+ /bXbkS/pEPQFnLpzoLWrta9hgcs3iuWCEdvT4qrH3NRgF6XhbCj0UyO+viTMgtiAE25zXa/k34P
+ igC51gwtMDaSpuWvu35JfDtotNDvGZ53fCB2+Zee+hMoGJ040YOmOAlIvkJ1K0mY8+RSew9Teno
+ T5UHr4YUunWdeCkdljw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDI1NyBTYWx0ZWRfX1s7hloD4zs4v
+ O2L//XLnkssrt0ud99yeSjq8OudiDO5JWuRNMh+reUbwY5eqiuQMwpsVnB0UGkBdp3qZedvaVC9
+ otpgITasOPKU7vkFZ3aneiDt1dJAFx4=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_06,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130257
 
-Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8813=E6=97=
-=A5=E5=91=A8=E6=97=A5 04:13=E5=86=99=E9=81=93=EF=BC=9A
-> > @@ -242,6 +243,7 @@ &combphy1 {
-> >
-> >  &combphy2 {
-> >       status =3D "okay";
-> > +     rockchip,sgmii-mac-sel =3D <0>;
-> >  };
+On 9/7/2026 7:17 PM, Sneh Mankad wrote:
+> SoC LPM stats are present in RPM MSGRAM and subsystem LPM stats are present
+> in SMEM for Shikra.
 >
-> [Severity: Low]
-> The changelog says:
+> A generic "qcom,rpm-stats" compatible only reads SoC LPM stats like vmin
+> and vlow.
 >
->   "Enable combphy2 with rockchip,sgmii-mac-sel =3D <0> to route the SGMII
->    interface to GMAC0."
+> Document shikra rpm compatible to read subsystem LPM stats too along with
+> SoC LPM stats.
 >
-> Is that description accurate?  In the baseline the node already reads:
+> Keep "qcom,rpm-stats" as a fallback for RPM targets, so that SoC level
+> stats are still shown even without subsystem level stats support. A plain
+> enum can't express that, since it caps compatible at one item. Add a oneOf
+> branch with items for this pattern.
 >
->   &combphy2 {
->           status =3D "okay";
->   };
->
-> so the only new thing here is the rockchip,sgmii-mac-sel property.  Could
-> the wording be adjusted to say the property is added to an already enable=
-d
-> combphy2?
+> Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
 
-You're right. combphy2 is already status =3D "okay" in the baseline; this
-patch only adds the rockchip,sgmii-mac-sel property to it. I'll fix the
-wording to say the property is added to an already-enabled combphy2.
-
-> [Severity: Low]
-> This isn't a bug, but the new properties do not follow the ordering used =
-by
-> the rest of this file, where properties come roughly alphabetically and
-> status is last.  Here rockchip,sgmii-mac-sel lands after status, in &gmac=
-0
-> below pcs-handle comes before managed, and in the new &xpcs override stat=
-us
-> is first with phys/phy-names after it.  Compare the existing &gmac1
-> override, which ends with status =3D "okay";.  Could these be reordered?
-
-I'll reorder the properties to follow the file's convention (roughly
-alphabetical, with status last)
-
-> > @@ -350,6 +391,25 @@ rgmii_phy: ethernet-phy@3 {
-> >               reset-gpios =3D <&gpio4 RK_PC0 GPIO_ACTIVE_LOW>;
-> >               rx-internal-delay-ps =3D <1500>;
-> >               tx-internal-delay-ps =3D <1500>;
-> > +
-> > +             leds {
-> > +                     #address-cells =3D <1>;
-> > +                     #size-cells =3D <0>;
-> > +
-> > +                     led@1 {
-> > +                             reg =3D <1>;
-> > +                             color =3D <LED_COLOR_ID_AMBER>;
-> > +                             function =3D LED_FUNCTION_WAN;
-> > +                             default-state =3D "keep";
-> > +                     };
-> > +
-> > +                     led@2 {
-> > +                             reg =3D <2>;
-> > +                             color =3D <LED_COLOR_ID_GREEN>;
-> > +                             function =3D LED_FUNCTION_WAN;
-> > +                             default-state =3D "keep";
-> > +                     };
-> > +             };
-> >       };
-> >  };
->
-> [Severity: Low]
-> This hunk describes the LEDs of the pre-existing RGMII WAN PHY on &mdio1,
-> which is already functional and unaffected by the SGMII enablement.  The
-> changelog justifies it only with:
->
->   "Also add LED configuration for the existing RGMII PHY on mdio1 for
->    consistency."
->
-> Would it be preferable to split this into its own patch, so this commit
-> contains only the SGMII LAN port enablement?
-
-The LED configuration for both PHYs is kept in this patch because the
-two PHYs are the same Motorcomm family wired identically on this board,
-and describing them together keeps the two mdio nodes consistent. The
-change is purely descriptive and does not affect the SGMII enablement.
-
-That said, if you prefer it split out, I can move the mdio1 LED
-description into a separate patch in v4.
-
-> > @@ -586,3 +646,13 @@ &xin32k {
-> >       pinctrl-names =3D "default";
-> >       pinctrl-0 =3D <&clk32k_out1>;
-> >  };
-> > +
-> > +&xpcs {
-> > +     status =3D "okay";
-> > +     phys =3D <&combphy2 PHY_TYPE_SGMII>;
-> > +     phy-names =3D "serdes";
-> > +};
->
-> [Severity: Medium]
-> Should phys/phy-names live in rk3568.dtsi rather than in each board file?
->
-> The binding lists them as required properties of the XPCS node:
->
->   Documentation/devicetree/bindings/net/pcs/rockchip-dwxpcs.yaml
->   required:
->     - compatible
->     - reg
->     - "#address-cells"
->     - "#size-cells"
->     - clocks
->     - clock-names
->     - phys
->     - phy-names
->     - power-domains
->
-> but the SoC node in arch/arm64/boot/dts/rockchip/rk3568.dtsi has neither:
->
->   xpcs: pcs@fda00000 {
->           compatible =3D "rockchip,rk3568-xpcs";
->           #address-cells =3D <1>;
->           #size-cells =3D <0>;
->           reg =3D <0x0 0xfda00000 0x0 0x200000>;
->           clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
->           clock-names =3D "csr", "eee";
->           power-domains =3D <&power RK3568_PD_PIPE>;
->           status =3D "disabled";
->
-> Does this mean every rk3568 dtb reports pcs@fda00000 as missing the requi=
-red
-> phys and phy-names under make CHECK_DTBS=3Dy, including boards that do no=
-t
-> enable the XPCS?
->
-> The XPCS to combphy2 connection is internal to the SoC, so each board tha=
-t
-> enables it will have to repeat the same phandle, as this patch does.  Cou=
-ld
-> phys =3D <&combphy2 PHY_TYPE_SGMII>; and phy-names =3D "serdes"; be moved=
- into
-> the dtsi node instead?
-
-As replied in the earlier patch, the SerDes connection is board-specific
-(some boards use combphy1 for SGMII, others use combphy2), so it cannot
-be moved into rk3568.dtsi.
-
-Best,
-Coia
+Reviewed-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
