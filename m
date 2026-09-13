@@ -1,136 +1,233 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A591A3166
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 01:35:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1365D28D831;
+	Sun, 13 Sep 2026 02:38:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789263320; cv=none; b=UOrRzkXmSxVgGAjSpatoqKSBhua4sXNoIU163yrNjAL28uSsvHb5RSAL1Un5qNBaTzLzPDc91t07WCThl72j4hzFsVAywnKcsIJV3AqfCjRaL4DHoYcq272eWcRaAgp/DHofa35a0xNA8Y2XJzLygp1ptyzKbOBC5uSC+PwqSJM=
+	t=1789267089; cv=none; b=X3ySJxTjgML/zZQYNAVt6Tp+w33vCi983Fxx1OdLviJ7UmP08zmOgBiBwBFtLWDoMggwbGVSKh0hYFBceBN2iiKBx0ZGg/B4+uhpC4AuRNWZ3AyKBLEAmIni99mpFfeIcPyRQLuAD1X1rdFfxyQL8WnWB77ulVtgSY8wxRvh3xY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789263320; c=relaxed/simple;
-	bh=Db83873sN3SXgiHC0h9NYbSzB6Bu6ea93IS7nKpR7q4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YbTXgdSty7DYvFHPmrgOf+xIitznAuYAyIilLOr6iRkU4NwPn81JswDQJy+Bl7APyl95bjatUcmwqbr0RhbjLePc2Jx4xfRZpbahjP/BQ0FlkWTO8lilI2/MdYQ0cn97lAqswv3Wr963B/9hk+4hxPkRuM/QV2fuKajSRQXj8RM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pzd6slRG; arc=none smtp.client-ip=209.85.128.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789267089; c=relaxed/simple;
+	bh=ZnOgLdspKp6PXfMxtUeiK8FG0a+Ot0kQxnHtZbQFrOY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=liwuCg4NfwdiUJE3BA1ibm5sMhrtRzXqV2rPVNXOtMHlVCdeelWXevtR70PlqEFxTAOz7U/XrfjJYD5OZ5cZKDqXwbl5+MggjOwRdtFHV5LjK55oAXOtrp88UU/NmQwoAdVLHgX4wmwLEacfBgJHEF2+vg8Ea0M+bCtJYk7fMoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nj0J70qJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pzd6slRG"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-8588583a7c3so19488347b3.2
-        for <devicetree@vger.kernel.org>; Sat, 12 Sep 2026 18:35:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789263318; x=1789868118; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SghHtqWEl3yUniEKr5HgjMzb/SeKVcYU3LbBYVGh0EA=;
-        b=Pzd6slRGjYMOdywhbkAOA2dUKpt+LsZfNt/LS8TuKS9+Hup/Rye/UEJ+jOAyiWoX2H
-         8udSO0XigokQZF6h/NcrAZNsaJ9eiIngAOCWVAyh+YWso6ydXmojKSqdilOuCyx1Q07k
-         9lgN5UzkYnoNxkI9D5K+prWnp7PxC7vrKmOfXc8Tm1dOK02Kw61OdPDx7Zj5S3eIGVww
-         CSFrsIk6NvBIjhYiIEnwPoZRbjG1h0IJy0menVwVcjWOSU9L1gluj4WnFwyQvophVPnx
-         pTaSHX9z09dQTfXf/iKSCbVXBVqMTdPMRpe1c4V713JjIsxXFGxzKk7DSNVYSUziDIdB
-         Qevg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789263318; x=1789868118;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SghHtqWEl3yUniEKr5HgjMzb/SeKVcYU3LbBYVGh0EA=;
-        b=P0I+dHKaYO4Upmuw8vH5ethoXHBY6bYTDIFme2FLPRT0igSZCTOPGz48wTH2OcUTEG
-         t3/1jnCtFwIuB3Pos5hSH0jyOJEavZmUJ2gJ7vf4GJ75YzfLgmjOsl6hjV7slrujrIVZ
-         trI3FCqbLjjZ9+aOPuR629FU0IBOm/TUX+ULWkTChacrYP1xNNeBglvhhFMVYsIBzUGq
-         Ux5mxrU7h2TAlqKjiYhL2nS+sNLVIlEpKuuSQGNZ/FH0fKSd0ny1HlzzaR22QBVipgFx
-         0HiUj5ryXPCq1VGCLI1ElZ7ccJ9a78tAJ62WpuyKM2RwoOxiYHlWU2ZAhfW/5gK9fLbH
-         HMXg==
-X-Forwarded-Encrypted: i=1; AKwUvByONuPaFH5UqQkbbjEo9t+jx/lJ9cN/Aq2of4Ve0/NiP9H8NNJ0NX8GOYwVgH8l4WF18MCPHkBYObBq@vger.kernel.org
-X-Gm-Message-State: AFuF++noqnUgyssR8RI8amPt6yJ6zd1HWYnPb9GGy5ppMLRGmsRw5uvw
-	y69cCi6aQEWLnDf5+HNrxF41Vpl7kmOJ3mjmjZ9NaEXQqZOzPxBVRUhv
-X-Gm-Gg: AYBFou22oUtrFNJjXwrKH6Bgm/bti2Bgd/BvmZjuPVk3g/o3xNH0Fwqs4ZSFmGU5t7H
-	U10h9XtmiQiRMj8TkvIHwVSmtTPxoNikuibbwKYsoncfx2FKJLv3QDdcQt0Sb37z1pnryeYIEOc
-	I8cSvejYFwuNmj5CPm1D2EpugcE+gNuW7hWbI0BocaGLPJ1M9SGwC3dn/7CzlXti55RwA4Xni83
-	oLGhNeylV9RhF+8Zu7XrQCbp3CgHrLSzBelBVb1/IdfNvKSs7StN0bwnovLwUs13s04GWNhU4zz
-	EjbKZmbdIdKg7sm94aemzYdzngv6wfVjvq8OEW3F/v+4/CR3SWATSf+MhXhU4ItXoglB7v1P2l+
-	j1gH2A6nQ2cCJeNRD8a6v2LtiFDEzIiQSJiUemj0SxqwzQ+66c+vDDTt2CBnG7bDKsU2/Dt5Fm5
-	adAjkZoaCxDGq7hQH+tuYgjXU34wbZnsyV/HhkaCTmclrrPBkyUXUQbg==
-X-Received: by 2002:a05:690e:1518:b0:671:16e9:6a5 with SMTP id 956f58d0204a3-671245bc479mr2857955d50.26.1789263318274;
-        Sat, 12 Sep 2026 18:35:18 -0700 (PDT)
-Received: from gmail.com ([2600:1700:5431:250::3e])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67125df3180sm2857982d50.7.2026.09.12.18.35.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 12 Sep 2026 18:35:17 -0700 (PDT)
-Date: Sat, 12 Sep 2026 18:35:14 -0700
-From: Chang Yu <marcus.yu.56@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chang Yu <marcus.yu.56@gmail.com>, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shi Hao <i.shihao.999@gmail.com>,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <aqX90oniPRdsu5jp@gmail.com>
-References: <20260912013912.51887-1-marcus.yu.56@gmail.com>
- <20260912013912.51887-2-marcus.yu.56@gmail.com>
- <20260913015652.029475d2@jic23-hlaptop>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nj0J70qJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7283FC2BCB9;
+	Sun, 13 Sep 2026 02:38:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789267088;
+	bh=ZnOgLdspKp6PXfMxtUeiK8FG0a+Ot0kQxnHtZbQFrOY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=nj0J70qJxSnBMzMZH6IR+yNTiaFQK8q4LkiI6FESAldQJNZyE7Wpq6tle7cWjnVrA
+	 zBtmmV7JAo++CG5JIrgRQtFoQePB9Bw/0hBb0c609ndxA8k/sW5yk6A6rneoyWX+LJ
+	 BhKu4QCDzsWywdxbAfOBHxBugB4fkDyxrRHmpHBIRu+6zZMLTpNVR/Lj7qBYvMpy66
+	 FAg79gLFbNd4vXYj/XEg70L4hIMJPqGGi18TeOgvmYUnjtUNIeAGhGwd0fPoajJZXa
+	 zMzEcRyKOSIpI7mmRRCaWoQceXUGeY7zUNOHyPNBowlsbBWQCadNpM0jwW7J1onxKT
+	 hVWunlH6eewnA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4A002C88E5A;
+	Sun, 13 Sep 2026 02:38:08 +0000 (UTC)
+From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
+Subject: [PATCH v7 0/3] Samsung Expressatt: Camera Flash
+Date: Sat, 12 Sep 2026 19:38:07 -0700
+Message-Id: <20260912-expressatt_camera_flash-v7-0-e1fd2edc8d84@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913015652.029475d2@jic23-hlaptop>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XR32rCMBQG8FcpuV4k/2NkjL3HGHKanKxh1m5NL
+ Yr47ov1wq7gdvmFnN+XQ84kY58wk011Jj2OKaduX4J9qohvYP+BNIWSiWDCMMkMxeNXjznDMGw
+ 9tNjDNu4gN5RLzzVYJSwAKdPlVkzHSX57v+Uevw+lYLgdkvbKTAWb6nnytbAznw7dwTefeKKjo
+ Jwy5YIHxaOX8PrRQtqtfNe+XLtqyEhLaNOwqUa7EuTa2KQ8dP1pWm3kU+W/W4ylh9bcOROtDzG
+ Ee9NkjmLm8PVjRxRHe1E7MEIGXy8dOXPEH++RxUGrUQe9do7FpaNmjuSPHVWcyNG5qKzSXC4df
+ Xc0k48dXRyntVCaGbDOLR0zc3795sIxxQnIIteMCYVq7lwulx/fCOLTmAIAAA==
+X-Change-ID: 20260306-expressatt_camera_flash-13c15a7427aa
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, David Heidelberg <david@ixit.cz>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789267087; l=5616;
+ i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
+ bh=ZnOgLdspKp6PXfMxtUeiK8FG0a+Ot0kQxnHtZbQFrOY=;
+ b=sP4WXXThtqcRH2L60jl8kDIxLzzTTNrY+FCptx+CJiD8G2aOtAnBHF6RfWOhw52NBybIE/cj+
+ VwgkWELg9tRBelLN5av60WPhv3EDEItrmLEi/qPDL102G4qrc0RXQLP
+X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
+ pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
+X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
+ auth_id=211
+X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
+Reply-To: guptarud@gmail.com
 
-Hi Jonathan,
+This small series adds camera flash to an existing similar mainline
+driver and adds it to the Samsung Expressatt's DTS
 
-A quick comment inline.
+// Tests
 
-On Sun, Sep 13, 2026 at 01:56:52AM +0100, Jonathan Cameron wrote:
-> On Fri, 11 Sep 2026 18:39:11 -0700
-> Chang Yu <marcus.yu.56@gmail.com> wrote:
-> 
-> > +    description:
-> > +      The driver current for the external LED connected to the LDR pin.
-> > +    minimum: 4000
-> > +    maximum: 258000
-> > +    multipleOf: 2000
-> > +    default: 12000
-> > +
-> > +  sync-gpios:
-> > +    description: |
-> > +      Optional GPIO pin that can be used either as a synchronization input to
-> > +      start/stop measurement or as an external start/stop signal for
-> > +      synchronizing with the connected LED.
-> 
-> So the datasheet starts referring to using this for some level of sync
-> but then only actually treats it as as a gpio (maybe I'm missing something).
-> Any idea what that stuff about start/stop is talking about?
-> 
-> The only thing I can find about this is the device diagram in figure 13 that has the GPIO
-> wired to the led driver and the automatic measurement engine.
-> 
-That's what I got from the datasheet as well. They don't describe how to
-use the GPIO pin to perform synchronizations at all.
+// # Navigate to LED
+sudo su
+cd /sys/class/leds/white:flash
 
-The adafruit arduino driver
-(https://github.com/adafruit/Adafruit_AS7343/blob/main/Adafruit_AS7343.cpp)
-is slightly more helpful - the GPIO in output mode signals when the
-spectral measurement starts. Unfortunately no information about input
-mode.
+// # Should stay at dim brightness
+echo 1 > brightness
+echo 1 > brightness
+echo 1 > brightness
+echo 1 > brightness
+echo 0 > brightness           # LED_OFF
 
-> > +    maxItems: 1
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vdd-supply
-> > +
-> > +additionalProperties: false
-> 
-> 
+// # Max Brightness
+echo 50 > brightness
+echo 0 > brightness           # LED_OFF
+echo 99 > brightness
+echo 0 > brightness           # LED_OFF
+echo 1000 > brightness
+echo 0 > brightness           # LED_OFF
+echo 100 > brightness
+echo 0 > brightness           # LED_OFF
+
+// # Should increase in brightness
+for i in $(seq 1 16); do echo $i > brightness; sleep 1; done
+echo 0 > brightness           # LED_OFF
+
+// # Test flash strobe (rt8515_led_flash_strobe_set)
+cat max_flash_timeout          # check max
+echo 200000 > flash_timeout    # 200ms
+echo 1 > flash_strobe          # strobe ON → brightness_commit + timer
+cat flash_strobe               # should read 1, then 0 after timeout
+sleep 1
+cat flash_strobe               # should be 0 (timer fired)
+
+// # Test manual strobe cancel
+echo 1 > flash_strobe ; echo 0 > flash_strobe          # immediate off
+
+// # Check regulator error handling
+dmesg | tail -20                     # look for any "failed to turn off LED" msgs
+
+// # Multiple strobes shouldn't cause errors
+echo 200000 > flash_timeout
+echo 1 > flash_strobe
+echo 1 > flash_strobe
+sleep 1
+cat flash_strobe
+dmesg | tail -20
+
+// # Multiple strobes shouldn't cause errors (extreme test)
+for i in $(seq 1 500); do echo 1 > flash_strobe; echo 0 > flash_strobe; done
+dmesg | tail -20
+
+// # Test minimal timeout (turns on briefly)
+echo 1 > flash_timeout
+echo 1 > flash_strobe
+sleep 0.1
+cat flash_strobe
+dmesg | tail -20
+
+// # Flash strobe overrides brightness and flashes at full brightness
+echo 200000 > flash_timeout
+echo 1 > brightness
+echo 1 > flash_strobe
+sleep 1
+cat flash_strobe
+cat brightness
+dmesg | tail -20
+
+Downstream reference:
+Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-12.0-YNG4N/drivers/leds/Makefile#L51
+Link: https://github.com/LineageOS/android_kernel_samsung_d2/blob/stable/cm-12.0-YNG4N/arch/arm/mach-msm/board-apexq-camera.c#L591
+
+Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
+---
+Changes in v7:
+- address Lee's comments
+- PM8921_MPP_S4 instead of PM8921_GPIO_S4 for the MPP4 power-source
+- Link to v6: https://lore.kernel.org/r/20260527-expressatt_camera_flash-v6-0-de0f150024e4@gmail.com
+
+Changes in v6:
+- Address Lee Jones's comments:
+    - formatting
+    - use cancel_delayed_work_sync()
+- Link to v5: https://lore.kernel.org/r/20260503-expressatt_camera_flash-v5-0-95524506a799@gmail.com
+
+Changes in v5:
+- Address Lee Jones's comments:
+    - formatting
+    - use devm_regulator_get_optional()
+    - use a workqueue instead of a timer
+    - previously we were validating ent-gpios xor vin-supply at probe,
+        but was removed. update the commit msg to reflect this
+- Link to v4: https://lore.kernel.org/r/20260331-expressatt_camera_flash-v4-0-f1e99f474513@gmail.com
+
+Changes in v4:
+- Driver:
+    - revert function renames
+    - add comment to use flash instead if torch pin not available
+- Link to v3: https://lore.kernel.org/r/20260326-expressatt_camera_flash-v3-0-e75e5d58990f@gmail.com
+
+Changes in v3:
+- DTS:
+    - Renamed and reordered nodes
+- Driver:
+    - Use regulator_is_enabled() instead of reg_enabled
+    - remove ent xor vin check
+    - remove rt->reg == -ENODEV check
+    - rename functions to reflect what they do and added ret's
+    - Fixed: LED was increasing in brightness when setting the same
+        brightness multiple times
+- Link to v2: https://lore.kernel.org/r/20260318-expressatt_camera_flash-v2-0-5c2b9a623dcb@gmail.com
+
+Changes in v2:
+- dt-bindings: Explain the hardware and not the driver
+- **/*: Use vin-supply instead of unlock-gpio
+- expressatt DTS: Reorder pinctrl-*
+- expressatt DTS: Define rfs-ohms to a default (couldn't find
+                  information about this)
+- Link to v1: https://lore.kernel.org/r/20260306-expressatt_camera_flash-v1-0-b1996f7cdfdd@gmail.com
+
+To: Lee Jones <lee@kernel.org>
+To: Pavel Machek <pavel@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Linus Walleij <linusw@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-leds@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+
+---
+Rudraksha Gupta (3):
+      dt-bindings: leds: rt8515: Support single-GPIO flash ICs with vin supply
+      leds: flash: rt8515: Support single-GPIO flash ICs with vin supply
+      ARM: dts: qcom: msm8960: expressatt: Add camera flash
+
+ .../devicetree/bindings/leds/richtek,rt8515.yaml   |  34 ++++-
+ .../dts/qcom/qcom-msm8960-samsung-expressatt.dts   |  44 ++++++
+ drivers/leds/flash/leds-rt8515.c                   | 147 +++++++++++++++------
+ 3 files changed, 184 insertions(+), 41 deletions(-)
+---
+base-commit: 237a1c39e8dfd3e1c6f1f023eea37a48ec04cc63
+change-id: 20260306-expressatt_camera_flash-13c15a7427aa
+prerequisite-message-id: <20260527-expressatt-touchkey-v2-1-049dca41fc3a@gmail.com>
+prerequisite-patch-id: 2b24e9ba47500ef05d38e37b40d8ca2dceb4716a
+
+Best regards,
+--  
+Rudraksha Gupta <guptarud@gmail.com>
+
+
