@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073783B7B7B
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:03:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7DD3B8105
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:05:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789326234; cv=none; b=uj7SZwXowxpz3UwDE+htxkCM8QUvUgNcFshrdfCyBvYhldXUoFzGnmg4LCQlkVsVCi71k2o1VvMvQ6U+IHUtZvgAeyhVzDkZO3J3Izp5GXvqBISxaavfkGdkDNaRzNVm07sDAHUn3jKEZKM6rIhcxxAnm/SwcXdEUupczVqMKxQ=
+	t=1789326349; cv=none; b=ptaDlioA1btbmPzMQRHOLZtsWH9jr9qFHoS+xocFx5MT+ZkrjDAo+aVumWetIG0VvYF90h15XknlCoqQq8uzL6dGxx6av35UkJWtgjcCdZhbV6ZWmNQIBCaw8KNJ8jAeE4RpRHySjTJVIOcFromg4KzcI5KAslRrGiNda++C03Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789326234; c=relaxed/simple;
-	bh=qaWUeovq0KiFfOYovBOkWgHmqe1V0kNVL3szsxaJZVM=;
+	s=arc-20240116; t=1789326349; c=relaxed/simple;
+	bh=k2A+FX+iK3wYpfkQZEMC5Und8al4xVRSMUX0EeZZ2Vo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rNYme1GSx7toQvt2QvOOG53vimexGcKclyQdvxUiDwppn/A2kJMmUVna7YMdD7z/FTYqnbdGLw8qZ247ZtNyIXZ+Xbw1f8mJvD36ZB1U5i+WnUALDqYutBq0q0tEriMFDi6d+RHcxcdpF2El/yR+iOrW4p50smVbT7bfuXBn3SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EnbQ4cAU; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LsPvT2mu+ziyXwUSlEevZvhkJ/Fq2eq1jyPwK5C6vCWi+um+3evuon4+joG0nkL2hqQslmgNKTVfK8KF6Mnd/L8UKX+ik9184i7/FpKAyxhnSFYwsOLKDb598B29tVwJvH6etuy500nyLTwpSk2gF0cJRsgDnn/p1kIGMett/Lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CUGlKNSk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EnbQ4cAU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA60B1F000FF;
-	Sun, 13 Sep 2026 19:03:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CUGlKNSk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DC61F000FF;
+	Sun, 13 Sep 2026 19:05:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789326232;
-	bh=9VtF0m50UDrSwwyXpqVIV4yS6FbZG0vILkqvMa05+u0=;
+	s=k20260515; t=1789326348;
+	bh=VSDyBfnoo01tA82YL6X/0aPHKkWHp3LyFQ2FIdnYFq4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EnbQ4cAU/YpilD789UnaIwI7Kzj+/TK5Xx/LTAXbt/IBK99Fsrglnn8kLFivRBbXy
-	 RCqQR3nd1aIj8BdqgEXKz2a5opxlbNeyd3jzzT932RwG8AgIlwnZBNhPIm2aCbCDSj
-	 aC6Xm169EWJz73wc7jriJk4Gd7MNsIq8OFOCLie1AzuvrhVaj/KvL6bxPCkBskHtdM
-	 pYSM0zld4/QPqdpoFRFdrBGovX9Nr+dkxoRyxUPpweiJBAKXlVRGaoMgAbgwf1aBVY
-	 wlWFKmtLpYr8wTB4XslQp2narmeKI0yJkHOgmxSqAzlF2snb8J6NTPLvSvBWSEmnfS
-	 NpInW9SMHiGeA==
+	b=CUGlKNSkBZ+uU1ZJU7lIj4U5cOg5gSJDVltaCEP/J/LuNTr+4gwzlrlUKqX+rfiOM
+	 tvewQHML+Czg8k4OKJCaEyqYU2cwANuM/ESJbmAdQEI+hqbp2DnIpqlfP2ez1Id6Mf
+	 LSVo0ALVCOdonqJPD3hNZBnymmUjWETbz5Ze/+wudA3DE8hPtMEemT+u5u19DDlaAk
+	 6xxznTSGQuzFv5YAd75glHAiP4jyYmSaVKGf+Mw4hJiKegRrTMrxQC4svCu9xPJx8b
+	 SHFQV5FUNjDYRUokr5BaYliu/qrO5ItVskx7DKevaf97BCer3uOdKxTbbticXGY5KK
+	 yQMCRNB/Cy2qw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 02/13] dt-bindings: media: qcom,sm8550-iris: Add
- context bank subnodes
+Subject: Re: [PATCH v4 09/13] arm64: dts: qcom: sm8550: Add Iris context
+ bank subnodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org
-In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-2-9b9074a73c41@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-9-9b9074a73c41@oss.qualcomm.com>
 References: <20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com>
- <20260914-vpu_iommu_iova_handling-v4-2-9b9074a73c41@oss.qualcomm.com>
+ <20260914-vpu_iommu_iova_handling-v4-9-9b9074a73c41@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 19:03:51 +0000
-Message-Id: <20260913190351.EA60B1F000FF@smtp.kernel.org>
+Date: Sun, 13 Sep 2026 19:05:47 +0000
+Message-Id: <20260913190547.E4DC61F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,65 +49,81 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Missing subnode updates for the Milos Iris VPU enforce a DoS-vulne=
-rable SMMU configuration.
+- [High] Failure to skip address and size cells for non-matching nodes when=
+ parsing `iommu-addresses`.
 --
 
-commit 63b882fd7198eab0ac9d5c0a3932a253f2082c86
+commit a702abacb77d093fbe2f72280c242fce5e476787
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-dt-bindings: media: qcom,sm8550-iris: Add context bank subnodes
+arm64: dts: qcom: sm8550: Add Iris context bank subnodes
 
-This commit updates the sm8550-iris device tree binding to move SMMU stream
-definitions into separate context bank subnodes. This addresses an issue wh=
-ere
-placing all streams in a single top-level iommus property failed to prevent
-non-pixel buffers from landing in the restricted low 600MB of IOVA space,
-which caused unhandled SMMU page faults and system reboots.
+The VPU issues DMA through several SMMU streams, and the hardware does
+not give every stream the same addressable range. The non-pixel stream
+cannot address the low 600MB of IOVA space, while the pixel stream can
+address the full range. This patch moves the address range restriction
+to specific VPU streams represented as subnodes.
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
-l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 0400ca1bff05d..6ee9d23554cff 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -98,10 +98,10 @@ required:
->    - interconnect-names
->    - resets
->    - reset-names
-> -  - iommus
-
-[Severity: High]
-This is a pre-existing issue, but does the qcom,milos-iris.yaml binding
-also need to be updated to support this fix?
-
-Currently, qcom,milos-iris.yaml still mandates a top-level iommus property
-under the required block:
-
-Documentation/devicetree/bindings/media/qcom,milos-iris.yaml:
-required:
-  - compatible
-...
-  - iommus
-
-Device trees for Milos cannot adopt the subnode fix without failing schema
-validation. This forces the DoS-vulnerable monolithic SMMU configuration
-where unprivileged userspace or remote video playback can trigger VPU
-processing and DMA allocations below 600MB, resulting in SMMU page faults
-and spontaneous reboots.
-
-The SM8750 VPU update was successfully resolved in follow-up commit
-"dt-bindings: media: qcom,sm8750-iris: Add context bank subnodes", but
-Milos appears to remain unaddressed.
-
-Should qcom,milos-iris.yaml be updated to remove the top-level iommus
-requirement similarly to this file?
-
->    - dma-coherent
-> =20
->  allOf:
+> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
+com/sm8550.dtsi
+> index 23604436add30..60164b853ae07 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
 
 [ ... ]
 
+> @@ -3701,6 +3699,19 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ON=
+LY>,
+>  			 */
+>  			status =3D "disabled";
+> =20
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <1>;
+> +			dma-ranges =3D <0x0 0x0 0x0 0xe0000000>;
+> +
+> +			non-pixel {
+> +				iommus =3D <&apps_smmu 0x1940 0x0>;
+> +				iommu-ranges =3D <0x25800000 0xba800000>;
+> +			};
+> +
+> +			pixel {
+> +				iommus =3D <&apps_smmu 0x1947 0x0>;
+> +			};
+> +
+
+[Severity: High]
+This isn't a bug introduced by this patch, but it is a pre-existing High
+severity issue that requires fixing.
+
+Will this device tree layout expose a parser desynchronization in the IOMMU
+code when handling nodes?
+
+If an iommu-addresses property contains entries for multiple devices, the
+parser fails to skip address and size cells for non-matching nodes:
+
+drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
+			if (np =3D=3D dev->of_node) {
+				int prot =3D IOMMU_READ | IOMMU_WRITE;
+				...
+				maps =3D of_translate_dma_region(np, maps, &iova, &length);
+				...
+			}
+}
+
+Because there is no else branch to advance the maps pointer past the
+address and size cells for non-matching nodes, if the parser encounters a
+phandle for a different device first, it evaluates np =3D=3D dev->of_node as
+false.
+
+In the next loop iteration, the parser then misinterprets the first address
+cell of the skipped entry as the next phandle.
+
+Could this desynchronization cause the parser to miss IOMMU reserved region=
+s,
+allowing the IOMMU allocator to allocate IOVA addresses that overlap with
+reserved physical memory regions and resulting in SMMU faults or memory
+corruption?
+
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-vpu_iommu_=
-iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com?part=3D2
+iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com?part=3D9
