@@ -1,924 +1,593 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CCD239022E
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 12:18:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DDF03E5EC7
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 12:29:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789301934; cv=none; b=TliOq4iIjUeTuby1hi6eLpqW9TDBuvlQYBFVAaqkL0VBgCyWzX8aO261ur0IMzc311zgSQrJX7Vay40cIx8k+dmCb9yccMC/PTfVdWkJ0OUSZGGJY9cfntcLQmd4jeTjsJkO7L3In+oKSWP58oA2t6VLRGCcIQiO8NX0/OzODmM=
+	t=1789302565; cv=none; b=Pj8uVlyWVAYiID8rc+MsZ4c6WpohBOQwZJZKXmcOdXPotS6da8O40UeXQYFP4fbn9ozpVVER/N2ZFtE9mcYIN3bgPVfTd/hxtX9d2TlUNojxLJo24beXtaatdFwAANDqk7figZRJnkWf7/3+nEZC5PaFHIJscjX8m8XkHcAKev8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789301934; c=relaxed/simple;
-	bh=eZrm9VgPDfvj9NnGaY/C3bGlOsNzm2Q/fr2DsEYcE3s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=G7CalwEDU8OtIFgmxDjd43rZm+dGjG5yus6Yj7LBl3MMgTglt/9tPsSCDX+l1YJNVyW2wijfbZyljMk5pKjLQNA2x65FU6Rr40TzSiMRvkJKEiytkFpu0M76JX0enJQAJCQNWtxKOg+MlQt/y4JiHuVbdtwNuQB1GnuJOxSpNfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tbxihx3w; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789302565; c=relaxed/simple;
+	bh=dtColQ6xcMXO4logDq8zc5aPqUludyyojnRXOSBbTaQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LoFyTqGhlqvdt8bVT5vo9fnDVC70emsxECx40C2vb/j7WqUHAft2OdcrtCMrjOw65xIn/jgp3mhM6lU4SwnXouIvBZGc7wtLT67GhJnR58b9CcxVKMWwU6/pCeYZdc6N9bL9cbL+nm9yUWlRC/xkEPGYg2v0r23UTVdii9NDgRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CWhe4EEe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D2NJLgfB; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tbxihx3w"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f635552aso835191f8f.2
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 05:18:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CWhe4EEe";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D2NJLgfB"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DAUMie1688677
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 12:29:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=YcmOpwt92HDUENUGVh2+egoobFb0eJL0TcD
+	jFi3bpMU=; b=CWhe4EEegVUcauLjgbK3tSGXxHSSxbEKyPM0HEFi4fdk0fJsEV7
+	yln1VSpbQovb9iCHIkN4/eFJEqkl6Ix+ay/eWESkQHTPmLdUyOox1v3iRYnjIQ6c
+	v54IlQTqcLQ0JIgtaba+cHn8OGAe7PKtmai0RORxRMLl1dFMlLMnCOttqazIRK36
+	GXJq5/s5dYWjNGrvHKA0I+IyC0FgqtXAIsYKBNYKO6po3SANFZIYwTy7TUNqzQez
+	vzUHPFzYBZ7bXc2kJlwCxTyUO684eiu0fu8yfJNKd90kGY6+RHa1rTxHnkx8gQVQ
+	sdSaKU3YcDkcSo3agMbMyipVliihBzfJ5qw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9cb77u-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 12:29:21 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a1b824e84so58525285a.2
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 05:29:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789301928; x=1789906728; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=q8szB8DqOyKitYp7jPFMXf9uh6tzDvRuFilkb29yz70=;
-        b=Tbxihx3wStb1K03OaXNqWggND5m/aUaratKs4eY9wXjtAqVCM1mo3jByzCuvT71Yqw
-         RxnGCVevMYngdGRKYich5bb2am9Wx5vG5cuxpu4FQ30WEIoiOI0KfThVYOOmX8RRTYYl
-         u+dzxyw1u7V0X4ObPYbi2roc1OvbN4yvTlVmiIfU4Bhlp5OtqujgE7mBx0HdJp5uronk
-         ogUEQbAOkrZoDXxGIXqM8B6/QygyKIciCQM/2dE3beFA9M3IXxScUHJqrgVcihhLB/ip
-         Iz+bVXEzOhFEOISznhlR6IslpW9eZhPV8mQlRdQSLedpND9NKpowv9SW2+74P3EoXEZr
-         gXLQ==
+        d=oss.qualcomm.com; s=google; t=1789302561; x=1789907361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YcmOpwt92HDUENUGVh2+egoobFb0eJL0TcDjFi3bpMU=;
+        b=D2NJLgfBaQAp4n5bnnbjcD3tRUTvJB1Wcg3viUEZrgLrbnwTF6Vse85ysJqH/klG41
+         pn2lle8cHyODs7FZvE7hZ8b6KespeHZLiXV2tDGtDaBEFYjPcD6zD7w8Me6UK80t86ZP
+         tt1SYDKG3T++qoDSl3ouq0S7IzP0wXUnXbHh1p+A1W9soYwnYcgrl20j6+/vpi9/YKNY
+         kctLPA3iwzGYTIAxF5cd6tKqdwmKRiB9LO0hZmFE1SvC4rlwCB8Guo/4O8BxH36ryQ64
+         7hxyZPckKbAYcBo341bulhu8skpXoSTau7j5OoiGVmZsC2/FasnjhyMbM8kb5e/cAURt
+         ljeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789301928; x=1789906728;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q8szB8DqOyKitYp7jPFMXf9uh6tzDvRuFilkb29yz70=;
-        b=MBC1rbhP7TSDHXHuDZEFwOrLWfevZ+0l4dDEJ9gI+hSjLGdMvh3EAxvE5jl7Q3PEgi
-         GytgJ8KAdyU1URx1Fs6tCw32wCE3MOVRMZlikZtcnuIVnxJNLsJ0q4IjHEnOR/UCatxT
-         tA/TlBNcVia1ob7oX3nSAwCJM+EvZxCWRhht6ouwuSxXzkq82dP8nZ5PCUEcw3rd3YEv
-         fwTUUll+Rs2WoKlvz062g64xXXwjTA4UUXoyDi8Hb2liYusVcs9FmrXtySyItW+aOdtE
-         oIDCx97UQSvR5/h4cud7eq0/Q104m+vJZElyLfN4u36faH53o19rijWXuRGVVqi1eOh4
-         Jn/g==
-X-Forwarded-Encrypted: i=1; AKwUvBzlNwxIiJdX2tA0nbks7R9yDBW7H/+54L0t4K6++qd6a59KYL7Iptu7t4UXychJLqGGuKiILFZ5wCPC@vger.kernel.org
-X-Gm-Message-State: AFuF++nEC2qShf331umrg5KE5Zpscvz0kN6Km0V713n41wkHULpO3k41
-	ev8Yb5Ba0bGJ5so8zyTeybEU6tjY/fkrcIw7VdKIMgkaZAPo+DOJGSwR
-X-Gm-Gg: AYBFou1CPEe4Av3RoOffzhBUSpq8z/HFxpX8iEDxbOyDNI2750PSuv6OAdjzR82IE4j
-	Sm5W3NV0Kj9NeZpUjO+Vuj0UPsHGH26IpiLhBnLK9SwPAaB41UA/bz2GABhf7/S9K/4rNGzFZpP
-	QuSk3wTWsAAxxWVRGpqTB4+Tir+pBpDEjUwmt85jZ3nspI/WUGxmBnjESbuFrqdHTywyAH2k+39
-	IuqTiRQ5vWe3MkY+zGXPIe9K0YJcrehKBM/9L20oWqkW1guOX6vzV6MtTAzY9gMGFr2mKGpZ+08
-	z8hz5p+rCxSofPZI9LUrWHWwmEnQvLWnwXbbb9XGa9llxUhEipzN9bbZnsnQgYqDsK/meXbmyOc
-	d5gAAfH92qSUCpF/5ixnTle75tvpOl3tnWGThyYLWisWnsciCP2FWw7wCo3R7kXIW8D2/3t5LeX
-	89QQAF6KMgg6676uPHNX7qC6uMsVdGm2gUUmFGK0co8bANyenOPxTozI8YUBffTvgL9/w+VfBFc
-	v6g14X2grs2nII=
-X-Received: by 2002:a05:6000:402a:b0:486:f4ba:58d6 with SMTP id ffacd0b85a97d-486f6bedeb7mr5941438f8f.12.1789301927305;
-        Sun, 13 Sep 2026 05:18:47 -0700 (PDT)
-Received: from [127.0.1.1] ([2001:4bb8:107:bfd1:de2c:7b4b:8652:b761])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm20241141f8f.2.2026.09.13.05.18.45
+        d=1e100.net; s=20251104; t=1789302561; x=1789907361;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YcmOpwt92HDUENUGVh2+egoobFb0eJL0TcDjFi3bpMU=;
+        b=LunAzkTZ+6RewkIhDMf9VLxaX5o487/AhhqCc2WA3Io45NgboATQ81Q7FFreSgQQva
+         cpbKyHEbwPlrUPL9BgYqUYn+SpJdiH1Mt4JrcGE/akZCYe4XOaKHJmdXIhf4FAFnhJca
+         PGa1+mwpAPcKkO6gyRZglYMsw5ZVizznvsFgXlgAH8zrWnY2+dTr4ypWC5QPZtNoXR11
+         rhidmX27MSctSY5GhDHChhZymA522C2u+c+24JV7YXyyVFx6wmysfA4dKMa5DlZurkbx
+         TaELcMjwBREvC5WPOyV6So1fe+nq76o0qHpX4bapGM6P52HEkwPelvIF3hn3syx5K1XC
+         AZuA==
+X-Forwarded-Encrypted: i=1; AKwUvBz4lrg5/GolANYibdYBohBcMK6ySxHI5uwNEHJVMDYseHwSJkO1Deow3At/IgnPmpRoEBJqNg322hee@vger.kernel.org
+X-Gm-Message-State: AFuF++lWcxT9zNC/2izXnClg6HgswJeV39hB7HSakvE5/2gnaTUh8epG
+	oI6WhKHJpvlluHSTJgxxPuP2fDbul8Z/WzJ4+3SfhvSdGJlzIu1KdnN73Q5DVOtuyvLNdkRI9Pb
+	0FjTQQe+FdjmvPC08RFwDJOswvGR3X7PVm4UjrBgkqaladJJxy5NW+XSQj01WSmo+
+X-Gm-Gg: AYBFou2Rp9idlpKhwYUOjqhzmAVXfaU/WGkU3o0mO3Jqh83w4ZnsnyLt+FEUt9li4rk
+	Iq8+3RsaX1bclpqYyhVBtlygidb4AfxFEbKWFkwHQYbMRcaUPUQ+t4S2iGDCZa41THvY/cWq/mj
+	AoBBb1s+Yayb1TfKIKr8et3euVffdvM64EI1l4kNUstcvUzr1fgSO8gJWgiwjtsDkRFlgdRxlk9
+	/xDcprbkK1tHxVFNX1BXWHmsVMMk3EHD2hk/S+mZwA3bxNWh3MHHaEzYsHTnuqdtCqQaZeQA81N
+	4abJRI+icWIRbv8D94PIHZXHl/W8zZi/dpxf/T0j8z7kfq/r7fL7SWDI3YHuhbvRzB8eNtauBbV
+	md8AKK3A9wmQJark=
+X-Received: by 2002:a05:620a:2844:b0:937:6de8:b40 with SMTP id af79cd13be357-939ea0a01e0mr1662707685a.15.1789302560912;
+        Sun, 13 Sep 2026 05:29:20 -0700 (PDT)
+X-Received: by 2002:a05:620a:2844:b0:937:6de8:b40 with SMTP id af79cd13be357-939ea0a01e0mr1662702785a.15.1789302560406;
+        Sun, 13 Sep 2026 05:29:20 -0700 (PDT)
+Received: from quoll ([178.197.219.214])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e6ca584f8sm129106545e9.6.2026.09.13.05.29.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 05:18:46 -0700 (PDT)
-From: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Date: Sun, 13 Sep 2026 14:18:24 +0200
-Subject: [PATCH v10 4/4] iio: light: veml6031x00: add support for events
- and trigger
+        Sun, 13 Sep 2026 05:29:19 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Justin Chen <justin.chen@broadcom.com>,
+        Florian Fainelli <florian.fainelli@broadcom.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Hans Ulli Kroll <ulli.kroll@googlemail.com>,
+        Linus Walleij <linusw@kernel.org>,
+        =?UTF-8?q?Cl=C3=A9ment=20L=C3=A9ger?= <clement.leger@bootlin.com>,
+        Vladimir Oltean <olteanv@gmail.com>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King <linux@armlinux.org.uk>,
+        Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+        Masami Hiramatsu <mhiramat@kernel.org>, Felix Fietkau <nbd@nbd.name>,
+        Lorenzo Bianconi <lorenzo@kernel.org>,
+        Ryder Lee <ryder.lee@mediatek.com>,
+        Shayne Chen <shayne.chen@mediatek.com>,
+        Sean Wang <sean.wang@mediatek.com>,
+        Johannes Berg <johannes@sipsolutions.net>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Geert Uytterhoeven <geert+renesas@glider.be>,
+        Magnus Damm <magnus.damm@gmail.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Robert Foss <rfoss@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        "G. Jaya Kumaran" <vineetha.g.jaya.kumaran@intel.com>,
+        Claudiu Manoil <claudiu.manoil@nxp.com>,
+        Alexandre Belloni <alexandre.belloni@bootlin.com>,
+        Alex Elder <elder@kernel.org>,
+        Siddharth Vadapalli <s-vadapalli@ti.com>,
+        Roger Quadros <rogerq@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        bcm-kernel-feedback-list@broadcom.com, netdev@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        linux-renesas-soc@vger.kernel.org, linux-wireless@vger.kernel.org,
+        linux-mediatek@lists.infradead.org, ath10k@lists.infradead.org
+Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH net-next] dt-bindings: net: Use consistent indentation in the example
+Date: Sun, 13 Sep 2026 14:29:11 +0200
+Message-ID: <20260913122910.99457-3-krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260913-veml6031x00-v10-4-adbc26c30d3d@gmail.com>
-References: <20260913-veml6031x00-v10-0-adbc26c30d3d@gmail.com>
-In-Reply-To: <20260913-veml6031x00-v10-0-adbc26c30d3d@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
- Jonathan Cameron <jic23@kernel.org>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789301917; l=24576;
- i=javier.carrasco.cruz@gmail.com; s=20260111; h=from:subject:message-id;
- bh=eZrm9VgPDfvj9NnGaY/C3bGlOsNzm2Q/fr2DsEYcE3s=;
- b=Vqhe+v5G6R8Nb72uIY/x7/x3Pa5IL91J/n713RQWTHajvogsN4+CdjD1HZgw/1lcDRbUSJiV0
- WN9VJJTmQD+BJMIkG2dWRNvlOMV4VCMLQ62l7LS/TG9jH407ag6P7TA
-X-Developer-Key: i=javier.carrasco.cruz@gmail.com; a=ed25519;
- pk=Lge8w8xidNSf/INy7JAIbAW+Hezkp3nsBh2OjKL7lLU=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=17121; i=krzysztof.kozlowski@oss.qualcomm.com;
+ h=from:subject; bh=dtColQ6xcMXO4logDq8zc5aPqUludyyojnRXOSBbTaQ=;
+ b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqppcWSq0kjQmYfZa6fZ5vwkyF5njnBIT8C5pD8
+ 8gkY80ed1uJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaqaXFgAKCRDBN2bmhouD
+ 1y6+D/9fxWEV0Eru/pm/ICe5eFyffWQa9aVLd+zvNsvwUcex8IPCalnvut3zudNHHVDMm4OhwCz
+ OM1F4ZRsQRLttw08aeGTbIhLz3t9qbyY1TXQxbz91koe3LC6UbkZbxwYi22lrcSkXaPWXthcmCs
+ 9LqDz68uBAAhcG3QJ/70SEKYOrX1k9oIAflxARlegdBvtnsEvrGuYnNOuefEIkaRASZgioJma6T
+ Oy5/VVtGjXvEVKOCrYwxoPVKEdh3YYXmHyUbWt/GLkcH/5ESvb8n5jGaFP1R4pKezneTJvkXwb7
+ pQQfomdaNj9qYmP8oPlsXoaqAAUkX7mkZRt2JESoOfqeK+0YBesDBk3QkvRJZQectVfPMNffvsx
+ RmTGLPNzVuGAbbTrkeBhNqUfsPKwkOxBEVfit/XXk6P0DJcs/8ewZL/6rpzcBSkNS6OeYVInevA
+ 3EWv0EDRw3GOU5+LBFS+nIJe3o78uL7A24ng1nD5ejjjATHjzUHWIbsg+hH30NNJM0gJFbRlJim
+ sjs7vuoGTC1nCNdRLe0Yu0C1LVpdCH69Ft+CwB4/FETgJxqzPRqlMZKcJOpuEpPhjtl0a8fRb76
+ hAFCz3GxcOIE3lcaHKTx6TSUfIAb3WmT8bwuCUHt+NcJdUkscmIz0sovM/J/5Dpz93RrXhnAZnY U5F8Ff2dpmT+T3A==
+X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=e+mT2qp/ c=1 sm=1 tr=0 ts=6aa69721 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=+bKQE0WJfmhK2875HamI0Q==:17
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=xF3cmUhYqvfMUIrrNTsA:9 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDE3OCBTYWx0ZWRfX+MAr+EVusm+Z
+ XzmnbrLPSq1PBW10IAjQ1+k90s/zrXAEts0iMQgCbw7XzQMI1Wx97+sTZptNr7rjjpI5raOReKi
+ QA95QJzeyzIaz4tV1vhcnB435REq8JA=
+X-Proofpoint-ORIG-GUID: L7trtzsSx3sl01TL3RGP79NdY07QTlVW
+X-Proofpoint-GUID: L7trtzsSx3sl01TL3RGP79NdY07QTlVW
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDE3OCBTYWx0ZWRfX2d2MEU8mCjXd
+ ODxkJgUSvoNJYNh6NacCunXdTITAO1I8vMeNmmC2zR8dDU15fkUQetVakmD5YbA1yl0hMbFxxYA
+ uCkZaTi6kpIo0/1kuEzbHFAX9v6KTZmQXX2xLnxGeHWFcNqfZRZCRm4351/DL5kU5ASB9k9TyqF
+ 7jaqFAKoGZg+Yi+NnA+DcMVMLF0Es0gmtSfhOBznFp5wCN1HcbTsj/4OYbpI91zR257hKH/gF/n
+ 9jSW5+KviVuJBZK+6NSKfDeI04Xy1/5xXxHVvf1xitbG2xvrfBbO5LTQnV0gVzSChPDtyvWNVJh
+ sEkSoHWRiCVzqR6eo46Lg3m8Fib0g07x7zEZF+ag+lC7EMYvQIlMKzCoxmwHvy3dgcYeTNs26kR
+ TR6ihfUas2ZPinNcs6QdXCb8hPtUe2cHBYlDyeyAxEgCGZ+EkqJUjbepeu1bwQCkjDTeo4RksAa
+ ara73du4Ihh79fsfVyg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-13_04,2026-09-11_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 clxscore=1015 phishscore=0 impostorscore=0 spamscore=0
+ suspectscore=0 bulkscore=0 lowpriorityscore=0 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130178
 
-The device provides a shared interrupt line to notify events and
-data ready.
+Correct indentation in the examples to consistent 2- or 4-spaces
+indentation to fix dt-check-style warnings ("example 0
+[indent-consistent] indent mismatch ...").  Preferred is 4-spaces, but
+re-indenting entire example just for that is too much churn.
 
-Add support for configurations with and without an interrupt line,
-providing events and trigger support when an interrupt line is available.
-
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/iio/light/veml6031x00.c | 604 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 597 insertions(+), 7 deletions(-)
+ .../bindings/net/brcm,asp-v2.0.yaml           |  2 +-
+ .../bindings/net/cortina,gemini-ethernet.yaml | 52 ++++++--------
+ .../bindings/net/dsa/renesas,rzn1-a5psw.yaml  |  4 +-
+ .../bindings/net/intel,dwmac-plat.yaml        |  6 +-
+ .../devicetree/bindings/net/mdio-gpio.yaml    | 16 ++---
+ .../bindings/net/mscc,vsc7514-switch.yaml     |  8 +--
+ .../devicetree/bindings/net/qcom,ipa.yaml     | 10 +--
+ .../bindings/net/realtek,rtl82xx.yaml         |  6 +-
+ .../bindings/net/socionext,uniphier-ave4.yaml | 32 ++++-----
+ .../bindings/net/ti,cpsw-switch.yaml          | 70 +++++++++----------
+ .../bindings/net/wireless/mediatek,mt76.yaml  | 32 ++++-----
+ .../bindings/net/wireless/qcom,ath10k.yaml    |  2 +-
+ 12 files changed, 114 insertions(+), 126 deletions(-)
 
-diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
-index 3d5a27a0baae..085a6e2ff717 100644
---- a/drivers/iio/light/veml6031x00.c
-+++ b/drivers/iio/light/veml6031x00.c
-@@ -15,6 +15,7 @@
- #include <linux/i2c.h>
- #include <linux/interrupt.h>
- #include <linux/limits.h>
-+#include <linux/lockdep.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
- #include <linux/pm_runtime.h>
-@@ -25,6 +26,9 @@
- #include <asm/byteorder.h>
+diff --git a/Documentation/devicetree/bindings/net/brcm,asp-v2.0.yaml b/Documentation/devicetree/bindings/net/brcm,asp-v2.0.yaml
+index a3db6d594c8c..7fcc564e820c 100644
+--- a/Documentation/devicetree/bindings/net/brcm,asp-v2.0.yaml
++++ b/Documentation/devicetree/bindings/net/brcm,asp-v2.0.yaml
+@@ -123,7 +123,7 @@ examples:
+             phy0: ethernet-phy@1 {
+                 reg = <1>;
+             };
+-       };
++        };
  
- #include <linux/iio/iio.h>
-+#include <linux/iio/events.h>
-+#include <linux/iio/sysfs.h>
-+#include <linux/iio/trigger.h>
- #include <linux/iio/iio-gts-helper.h>
- #include <linux/iio/triggered_buffer.h>
- #include <linux/iio/trigger_consumer.h>
-@@ -32,16 +36,28 @@
- /* Device registers */
- #define VEML6031X00_REG_CONF0       0x00
- #define VEML6031X00_REG_CONF1       0x01
-+#define VEML6031X00_REG_WH_L        0x04
-+#define VEML6031X00_REG_WH_H        0x05
-+#define VEML6031X00_REG_WL_L        0x06
-+#define VEML6031X00_REG_WL_H        0x07
- #define VEML6031X00_REG_ALS_L       0x10
- #define VEML6031X00_REG_ALS_H       0x11
- #define VEML6031X00_REG_IR_L        0x12
- #define VEML6031X00_REG_IR_H        0x13
- #define VEML6031X00_REG_ID_L        0x14
- #define VEML6031X00_REG_ID_H        0x15
-+#define VEML6031X00_REG_INT         0x17
+         mdio@ce14 {
+             compatible = "brcm,asp-v2.1-mdio";
+diff --git a/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml b/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
+index f0b5bea2458d..da9bc170cd54 100644
+--- a/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
++++ b/Documentation/devicetree/bindings/net/cortina,gemini-ethernet.yaml
+@@ -87,18 +87,6 @@ examples:
+     #include <dt-bindings/interrupt-controller/irq.h>
+     #include <dt-bindings/clock/cortina,gemini-clock.h>
+     #include <dt-bindings/reset/cortina,gemini-reset.h>
+-    mdio0: mdio {
+-      #address-cells = <1>;
+-      #size-cells = <0>;
+-      phy0: ethernet-phy@1 {
+-        reg = <1>;
+-        device_type = "ethernet-phy";
+-      };
+-      phy1: ethernet-phy@3 {
+-        reg = <3>;
+-        device_type = "ethernet-phy";
+-      };
+-    };
  
- /* Bit masks for specific functionality */
- #define VEML6031X00_CONF0_SD        BIT(0)
-+#define VEML6031X00_CONF0_AF_TRIG   BIT(2)
-+#define VEML6031X00_CONF0_AF        BIT(3)
- #define VEML6031X00_CONF1_IR_SD     BIT(7)
-+#define VEML6031X00_INT_TH_H        BIT(1)
-+#define VEML6031X00_INT_TH_L        BIT(2)
-+#define VEML6031X00_INT_DRDY        BIT(3)
-+#define VEML6031X00_INT_MASK \
-+	(VEML6031X00_INT_TH_L | VEML6031X00_INT_TH_H | VEML6031X00_INT_DRDY)
+     ethernet@60000000 {
+         compatible = "cortina,gemini-ethernet";
+@@ -110,28 +98,28 @@ examples:
+         ranges;
  
- #define VEML6031X00_GAIN_SEL(pd_div4, gain) (((pd_div4) << 2) | (gain))
+         gmac0: ethernet-port@0 {
+-                compatible = "cortina,gemini-ethernet-port";
+-                reg = <0x60008000 0x2000>, /* Port 0 DMA/TOE */
+-                      <0x6000a000 0x2000>; /* Port 0 GMAC */
+-                interrupt-parent = <&intcon>;
+-                interrupts = <1 IRQ_TYPE_LEVEL_HIGH>;
+-                resets = <&syscon GEMINI_RESET_GMAC0>;
+-                clocks = <&syscon GEMINI_CLK_GATE_GMAC0>;
+-                clock-names = "PCLK";
+-                phy-mode = "rgmii";
+-                phy-handle = <&phy0>;
++            compatible = "cortina,gemini-ethernet-port";
++            reg = <0x60008000 0x2000>, /* Port 0 DMA/TOE */
++                  <0x6000a000 0x2000>; /* Port 0 GMAC */
++            interrupt-parent = <&intcon>;
++            interrupts = <1 IRQ_TYPE_LEVEL_HIGH>;
++            resets = <&syscon GEMINI_RESET_GMAC0>;
++            clocks = <&syscon GEMINI_CLK_GATE_GMAC0>;
++            clock-names = "PCLK";
++            phy-mode = "rgmii";
++            phy-handle = <&phy0>;
+         };
  
-@@ -53,8 +69,10 @@ enum veml6031x00_scan {
+         gmac1: ethernet-port@1 {
+-                compatible = "cortina,gemini-ethernet-port";
+-                reg = <0x6000c000 0x2000>, /* Port 1 DMA/TOE */
+-                      <0x6000e000 0x2000>; /* Port 1 GMAC */
+-                interrupt-parent = <&intcon>;
+-                interrupts = <2 IRQ_TYPE_LEVEL_HIGH>;
+-                resets = <&syscon GEMINI_RESET_GMAC1>;
+-                clocks = <&syscon GEMINI_CLK_GATE_GMAC1>;
+-                clock-names = "PCLK";
+-                phy-mode = "rgmii";
+-                phy-handle = <&phy1>;
++            compatible = "cortina,gemini-ethernet-port";
++            reg = <0x6000c000 0x2000>, /* Port 1 DMA/TOE */
++                  <0x6000e000 0x2000>; /* Port 1 GMAC */
++            interrupt-parent = <&intcon>;
++            interrupts = <2 IRQ_TYPE_LEVEL_HIGH>;
++            resets = <&syscon GEMINI_RESET_GMAC1>;
++            clocks = <&syscon GEMINI_CLK_GATE_GMAC1>;
++            clock-names = "PCLK";
++            phy-mode = "rgmii";
++            phy-handle = <&phy1>;
+         };
+     };
+diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+index ea285ef3e64f..fab6aa6237e9 100644
+--- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
++++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
+@@ -127,8 +127,8 @@ examples:
+                 phy-mode = "internal";
  
- struct veml6031x00_rf {
- 	struct regmap_field *gain;
-+	struct regmap_field *int_en;
- 	struct regmap_field *it;
- 	struct regmap_field *pd_div4;
-+	struct regmap_field *pers;
- };
+                 fixed-link {
+-                  speed = <1000>;
+-                  full-duplex;
++                    speed = <1000>;
++                    full-duplex;
+                 };
+             };
+         };
+diff --git a/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml b/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
+index 62c1da36a2b5..d1522216d32b 100644
+--- a/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
++++ b/Documentation/devicetree/bindings/net/intel,dwmac-plat.yaml
+@@ -91,9 +91,9 @@ examples:
+         snps,tx-queues-to-use = <2>;
+         snps,tx-sched-wrr;
+         queue0 {
+-           snps,weight = <0x10>;
+-           snps,dcb-algorithm;
+-           snps,priority = <0x0>;
++            snps,weight = <0x10>;
++            snps,dcb-algorithm;
++            snps,priority = <0x0>;
+         };
  
- struct veml6031x00_chip {
-@@ -65,6 +83,7 @@ struct veml6031x00_chip {
- struct veml6031x00_data {
- 	struct iio_gts gts;
- 	struct regmap *regmap;
-+	struct iio_trigger *trig;
- 	struct veml6031x00_rf rf;
- 	const struct veml6031x00_chip *chip;
- 	/*
-@@ -73,6 +92,14 @@ struct veml6031x00_data {
- 	 * consistent set.
- 	 */
- 	struct mutex scale_lock;
-+	/*
-+	 * Serialize access to irq enable/disable by events and trigger
-+	 * (shared line).
-+	 */
-+	struct mutex irq_lock;
-+	unsigned int interrupt_users;
-+	bool ev_en;
-+	bool trig_en;
- };
+         queue1 {
+diff --git a/Documentation/devicetree/bindings/net/mdio-gpio.yaml b/Documentation/devicetree/bindings/net/mdio-gpio.yaml
+index eb4171a1940e..36e51aaae9c0 100644
+--- a/Documentation/devicetree/bindings/net/mdio-gpio.yaml
++++ b/Documentation/devicetree/bindings/net/mdio-gpio.yaml
+@@ -45,13 +45,13 @@ examples:
+     };
  
- static const struct iio_itime_sel_mul veml6031x00_it_sel[] = {
-@@ -107,6 +134,17 @@ static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
- 	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_GAIN_2_000),
- };
+     mdio0: mdio {
+-      compatible = "virtual,mdio-gpio";
+-      #address-cells = <1>;
+-      #size-cells = <0>;
+-      gpios = <&qe_pio_a 11>,
+-              <&qe_pio_c 6>;
+-      ethphy0: ethernet-phy@0 {
+-        reg = <0>;
+-      };
++        compatible = "virtual,mdio-gpio";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        gpios = <&qe_pio_a 11>,
++                <&qe_pio_c 6>;
++        ethphy0: ethernet-phy@0 {
++            reg = <0>;
++        };
+     };
+ ...
+diff --git a/Documentation/devicetree/bindings/net/mscc,vsc7514-switch.yaml b/Documentation/devicetree/bindings/net/mscc,vsc7514-switch.yaml
+index 86a9c3fc76c8..d825130b54b4 100644
+--- a/Documentation/devicetree/bindings/net/mscc,vsc7514-switch.yaml
++++ b/Documentation/devicetree/bindings/net/mscc,vsc7514-switch.yaml
+@@ -197,10 +197,10 @@ examples:
+             <0x71040000 0x10000>,
+             <0x71050000 0x10000>,
+             <0x71060000 0x10000>;
+-            reg-names = "sys", "rew", "qs", "ptp", "port0", "port1",
+-            "port2", "port3", "port4", "port5", "port6",
+-            "port7", "port8", "port9", "port10", "qsys",
+-            "ana", "s0", "s1", "s2";
++      reg-names = "sys", "rew", "qs", "ptp", "port0", "port1",
++                  "port2", "port3", "port4", "port5", "port6",
++                  "port7", "port8", "port9", "port10", "qsys",
++                  "ana", "s0", "s1", "s2";
  
-+static IIO_CONST_ATTR(in_illuminance_thresh_either_period_available, "1 2 4 8");
-+
-+static struct attribute *veml6031x00_event_attributes[] = {
-+	&iio_const_attr_in_illuminance_thresh_either_period_available.dev_attr.attr,
-+	NULL
-+};
-+
-+static const struct attribute_group veml6031x00_event_attr_group = {
-+	.attrs = veml6031x00_event_attributes,
-+};
-+
- /*
-  * The shutdown bits (SD and ALS_IR_SD) are in different registers, and both
-  * must be updated when changing the device power state.
-@@ -135,6 +173,23 @@ static void veml6031x00_als_shutdown_action(void *data)
- 		dev_warn(dev, "Failed to shut down device: %d\n", ret);
- }
+       ethernet-ports {
+         #address-cells = <1>;
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipa.yaml b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+index 68ec76fe4473..38e3830512fe 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipa.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+@@ -246,14 +246,14 @@ examples:
+         qcom,remote-pid = <5>;
  
-+static const struct iio_event_spec veml6031x00_event_spec[] = {
-+	{
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_RISING,
-+		.mask_separate = BIT(IIO_EV_INFO_VALUE),
-+	}, {
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_FALLING,
-+		.mask_separate = BIT(IIO_EV_INFO_VALUE),
-+	}, {
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_EITHER,
-+		.mask_separate = BIT(IIO_EV_INFO_PERIOD) |
-+				 BIT(IIO_EV_INFO_ENABLE),
-+	},
-+};
-+
- static const struct iio_chan_spec veml6031x00_channels[] = {
- 	{
- 		.type = IIO_LIGHT,
-@@ -169,9 +224,47 @@ static const struct iio_chan_spec veml6031x00_channels[] = {
- 	IIO_CHAN_SOFT_TIMESTAMP(VEML6031X00_SCAN_TIMESTAMP),
- };
+         ipa_smp2p_out: ipa-ap-to-modem {
+-                qcom,entry-name = "ipa";
+-                #qcom,smem-state-cells = <1>;
++            qcom,entry-name = "ipa";
++            #qcom,smem-state-cells = <1>;
+         };
  
-+static const struct iio_chan_spec veml6031x00_channels_irq[] = {
-+	{
-+		.type = IIO_LIGHT,
-+		.address = VEML6031X00_REG_ALS_L,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-+				      BIT(IIO_CHAN_INFO_INT_TIME) |
-+				      BIT(IIO_CHAN_INFO_SCALE),
-+		.info_mask_separate_available = BIT(IIO_CHAN_INFO_INT_TIME) |
-+						BIT(IIO_CHAN_INFO_SCALE),
-+		.event_spec = veml6031x00_event_spec,
-+		.num_event_specs = ARRAY_SIZE(veml6031x00_event_spec),
-+		.scan_index = VEML6031X00_SCAN_ALS,
-+		.scan_type = {
-+			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-+			.realbits = 16,
-+			.storagebits = 16,
-+			.endianness = IIO_LE,
-+		},
-+	},
-+	{
-+		.type = IIO_INTENSITY,
-+		.address = VEML6031X00_REG_IR_L,
-+		.modified = 1,
-+		.channel2 = IIO_MOD_LIGHT_IR,
-+		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-+		.scan_index = VEML6031X00_SCAN_IR,
-+		.scan_type = {
-+			.format = IIO_SCAN_FORMAT_UNSIGNED_INT,
-+			.realbits = 16,
-+			.storagebits = 16,
-+			.endianness = IIO_LE,
-+		},
-+	},
-+	IIO_CHAN_SOFT_TIMESTAMP(VEML6031X00_SCAN_TIMESTAMP),
-+};
-+
- static const struct regmap_range veml6031x00_readable_ranges[] = {
- 	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF1),
-+	regmap_reg_range(VEML6031X00_REG_WH_L, VEML6031X00_REG_WL_H),
- 	regmap_reg_range(VEML6031X00_REG_ALS_L, VEML6031X00_REG_ID_H),
-+	regmap_reg_range(VEML6031X00_REG_INT, VEML6031X00_REG_INT),
- };
+         ipa_smp2p_in: ipa-modem-to-ap {
+-                qcom,entry-name = "ipa";
+-                interrupt-controller;
+-                #interrupt-cells = <2>;
++            qcom,entry-name = "ipa";
++            interrupt-controller;
++            #interrupt-cells = <2>;
+         };
+     };
  
- static const struct regmap_access_table veml6031x00_readable_table = {
-@@ -181,6 +274,7 @@ static const struct regmap_access_table veml6031x00_readable_table = {
+diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+index 45033c31a2d5..07b39ef1fc62 100644
+--- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
++++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+@@ -91,8 +91,8 @@ examples:
+         #size-cells = <0>;
  
- static const struct regmap_range veml6031x00_writable_ranges[] = {
- 	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF1),
-+	regmap_reg_range(VEML6031X00_REG_WH_L, VEML6031X00_REG_WL_H),
- };
+         ethphy1: ethernet-phy@1 {
+-                reg = <1>;
+-                realtek,clkout-disable;
+-                realtek,aldps-enable;
++            reg = <1>;
++            realtek,clkout-disable;
++            realtek,aldps-enable;
+         };
+     };
+diff --git a/Documentation/devicetree/bindings/net/socionext,uniphier-ave4.yaml b/Documentation/devicetree/bindings/net/socionext,uniphier-ave4.yaml
+index 4eb63b303cff..8c8622160abb 100644
+--- a/Documentation/devicetree/bindings/net/socionext,uniphier-ave4.yaml
++++ b/Documentation/devicetree/bindings/net/socionext,uniphier-ave4.yaml
+@@ -121,22 +121,22 @@ examples:
+   - |
+     ether: ethernet@65000000 {
+         compatible = "socionext,uniphier-ld20-ave4";
+-                reg = <0x65000000 0x8500>;
+-                interrupts = <0 66 4>;
+-                phy-mode = "rgmii";
+-                phy-handle = <&ethphy>;
+-                clock-names = "ether";
+-                clocks = <&sys_clk 6>;
+-                reset-names = "ether";
+-                resets = <&sys_rst 6>;
+-                socionext,syscon-phy-mode = <&soc_glue 0>;
++        reg = <0x65000000 0x8500>;
++        interrupts = <0 66 4>;
++        phy-mode = "rgmii";
++        phy-handle = <&ethphy>;
++        clock-names = "ether";
++        clocks = <&sys_clk 6>;
++        reset-names = "ether";
++        resets = <&sys_rst 6>;
++        socionext,syscon-phy-mode = <&soc_glue 0>;
  
- static const struct regmap_access_table veml6031x00_writable_table = {
-@@ -192,6 +286,7 @@ static const struct regmap_range veml6031x00_volatile_ranges[] = {
- 	/* AF_TRIG in CONF0 is volatile */
- 	regmap_reg_range(VEML6031X00_REG_CONF0, VEML6031X00_REG_CONF0),
- 	regmap_reg_range(VEML6031X00_REG_ALS_L, VEML6031X00_REG_IR_H),
-+	regmap_reg_range(VEML6031X00_REG_INT, VEML6031X00_REG_INT),
- };
+-                mdio {
+-                        #address-cells = <1>;
+-                        #size-cells = <0>;
++        mdio {
++            #address-cells = <1>;
++            #size-cells = <0>;
  
- static const struct regmap_access_table veml6031x00_volatile_table = {
-@@ -199,6 +294,15 @@ static const struct regmap_access_table veml6031x00_volatile_table = {
- 	.n_yes_ranges = ARRAY_SIZE(veml6031x00_volatile_ranges),
- };
+-                        ethphy: ethernet-phy@1 {
+-                                reg = <1>;
+-                        };
+-                };
++            ethphy: ethernet-phy@1 {
++                reg = <1>;
++            };
+         };
++    };
+diff --git a/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml b/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml
+index 8b5da602a2e8..4d24dadfaa5d 100644
+--- a/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml
++++ b/Documentation/devicetree/bindings/net/ti,cpsw-switch.yaml
+@@ -192,50 +192,50 @@ examples:
+         interrupt-names = "rx_thresh", "rx", "tx", "misc";
  
-+static const struct regmap_range veml6031x00_precious_ranges[] = {
-+	regmap_reg_range(VEML6031X00_REG_INT, VEML6031X00_REG_INT),
-+};
-+
-+static const struct regmap_access_table veml6031x00_precious_table = {
-+	.yes_ranges = veml6031x00_precious_ranges,
-+	.n_yes_ranges = ARRAY_SIZE(veml6031x00_precious_ranges),
-+};
-+
- static const struct regmap_config veml6031x00_regmap_config = {
- 	.name = "veml6031x00_regmap",
- 	.reg_bits = 8,
-@@ -206,13 +310,20 @@ static const struct regmap_config veml6031x00_regmap_config = {
- 	.rd_table = &veml6031x00_readable_table,
- 	.wr_table = &veml6031x00_writable_table,
- 	.volatile_table = &veml6031x00_volatile_table,
--	.max_register = VEML6031X00_REG_ID_H,
-+	.precious_table = &veml6031x00_precious_table,
-+	.max_register = VEML6031X00_REG_INT,
- 	.cache_type = REGCACHE_MAPLE,
- };
+         ethernet-ports {
+-                #address-cells = <1>;
+-                #size-cells = <0>;
++            #address-cells = <1>;
++            #size-cells = <0>;
  
-+static const struct reg_field veml6031x00_rf_int_en =
-+	REG_FIELD(VEML6031X00_REG_CONF0, 1, 1);
-+
- static const struct reg_field veml6031x00_rf_it =
- 	REG_FIELD(VEML6031X00_REG_CONF0, 4, 6);
+-                cpsw_port1: port@1 {
+-                        reg = <1>;
+-                        label = "port1";
+-                        mac-address = [ 00 00 00 00 00 00 ];
+-                        phys = <&phy_gmii_sel 1>;
+-                        phy-handle = <&ethphy0_sw>;
+-                        phy-mode = "rgmii";
+-                        ti,dual-emac-pvid = <1>;
+-                };
++            cpsw_port1: port@1 {
++                reg = <1>;
++                label = "port1";
++                mac-address = [ 00 00 00 00 00 00 ];
++                phys = <&phy_gmii_sel 1>;
++                phy-handle = <&ethphy0_sw>;
++                phy-mode = "rgmii";
++                ti,dual-emac-pvid = <1>;
++            };
  
-+static const struct reg_field veml6031x00_rf_pers =
-+	REG_FIELD(VEML6031X00_REG_CONF1, 1, 2);
-+
- static const struct reg_field veml6031x00_rf_gain =
- 	REG_FIELD(VEML6031X00_REG_CONF1, 3, 4);
+-                cpsw_port2: port@2 {
+-                        reg = <2>;
+-                        label = "wan";
+-                        mac-address = [ 00 00 00 00 00 00 ];
+-                        phys = <&phy_gmii_sel 2>;
+-                        phy-handle = <&ethphy1_sw>;
+-                        phy-mode = "rgmii";
+-                        ti,dual-emac-pvid = <2>;
+-                };
++            cpsw_port2: port@2 {
++                reg = <2>;
++                label = "wan";
++                mac-address = [ 00 00 00 00 00 00 ];
++                phys = <&phy_gmii_sel 2>;
++                phy-handle = <&ethphy1_sw>;
++                phy-mode = "rgmii";
++                ti,dual-emac-pvid = <2>;
++            };
+         };
  
-@@ -236,11 +347,21 @@ static int veml6031x00_regfield_init(struct veml6031x00_data *data)
- 		return PTR_ERR(rm_field);
- 	rf->it = rm_field;
+         davinci_mdio_sw: mdio@1000 {
+-                compatible = "ti,cpsw-mdio","ti,davinci_mdio";
+-                reg = <0x1000 0x100>;
+-                clocks = <&gmac_clkctrl DRA7_GMAC_GMAC_CLKCTRL 0>;
+-                clock-names = "fck";
+-                #address-cells = <1>;
+-                #size-cells = <0>;
+-                bus_freq = <1000000>;
++            compatible = "ti,cpsw-mdio","ti,davinci_mdio";
++            reg = <0x1000 0x100>;
++            clocks = <&gmac_clkctrl DRA7_GMAC_GMAC_CLKCTRL 0>;
++            clock-names = "fck";
++            #address-cells = <1>;
++            #size-cells = <0>;
++            bus_freq = <1000000>;
  
-+	rm_field = devm_regmap_field_alloc(dev, map, veml6031x00_rf_int_en);
-+	if (IS_ERR(rm_field))
-+		return PTR_ERR(rm_field);
-+	rf->int_en = rm_field;
-+
- 	rm_field = devm_regmap_field_alloc(dev, map, veml6031x00_rf_pd_div4);
- 	if (IS_ERR(rm_field))
- 		return PTR_ERR(rm_field);
- 	rf->pd_div4 = rm_field;
+-                ethphy0_sw: ethernet-phy@0 {
+-                        reg = <0>;
+-                };
++            ethphy0_sw: ethernet-phy@0 {
++                reg = <0>;
++            };
  
-+	rm_field = devm_regmap_field_alloc(dev, map, veml6031x00_rf_pers);
-+	if (IS_ERR(rm_field))
-+		return PTR_ERR(rm_field);
-+	rf->pers = rm_field;
-+
- 	return 0;
- }
+-                ethphy1_sw: ethernet-phy@1 {
+-                        reg = <1>;
+-                };
++            ethphy1_sw: ethernet-phy@1 {
++                reg = <1>;
++            };
+         };
  
-@@ -341,6 +462,31 @@ static int veml6031x00_set_it(struct iio_dev *iio, int val, int val2)
- 	return veml6031x00_write_gain(data, gain_sel);
- }
- 
-+static int veml6031x00_read_period(struct iio_dev *iio, int *val)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	unsigned int regval;
-+	int ret;
-+
-+	ret = regmap_field_read(data->rf.pers, &regval);
-+	if (ret)
-+		return ret;
-+
-+	*val = BIT(regval);
-+
-+	return IIO_VAL_INT;
-+}
-+
-+static int veml6031x00_write_period(struct iio_dev *iio, int val)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	if (val < 0 || val > 8 || !is_power_of_2(val))
-+		return -EINVAL;
-+
-+	return regmap_field_write(data->rf.pers, ilog2(val));
-+}
-+
- static int veml6031x00_set_scale(struct iio_dev *iio, int val, int val2)
- {
- 	struct veml6031x00_data *data = iio_priv(iio);
-@@ -395,6 +541,55 @@ static int veml6031x00_get_scale(struct veml6031x00_data *data, int *val, int *v
- 	return IIO_VAL_INT_PLUS_NANO;
- }
- 
-+static int veml6031x00_read_th(struct iio_dev *iio, enum iio_event_direction dir,
-+			       int *val, int *val2)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	__le16 regval;
-+	int ret;
-+
-+	if (dir == IIO_EV_DIR_RISING)
-+		ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_WH_L,
-+				       &regval, sizeof(regval));
-+	else
-+		ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_WL_L,
-+				       &regval, sizeof(regval));
-+	if (ret)
-+		return ret;
-+
-+	*val = le16_to_cpu(regval);
-+
-+	return IIO_VAL_INT;
-+}
-+
-+static int veml6031x00_write_th(struct iio_dev *iio, enum iio_event_direction dir,
-+				int val, int val2)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	__le16 regval;
-+	int ret;
-+
-+	if (val < 0 || val > U16_MAX || val2)
-+		return -EINVAL;
-+
-+	regval = cpu_to_le16(val);
-+
-+	if (dir == IIO_EV_DIR_RISING) {
-+		ret = regmap_bulk_write(data->regmap, VEML6031X00_REG_WH_L,
-+					&regval, sizeof(regval));
-+		if (ret)
-+			dev_dbg(dev, "Failed to set high threshold %d\n", ret);
-+	} else {
-+		ret = regmap_bulk_write(data->regmap, VEML6031X00_REG_WL_L,
-+					&regval, sizeof(regval));
-+		if (ret)
-+			dev_dbg(dev, "Failed to set low threshold %d\n", ret);
-+	}
-+
-+	return ret;
-+}
-+
- static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_type type,
- 				   int *val)
- {
-@@ -509,13 +704,243 @@ static int veml6031x00_write_raw_get_fmt(struct iio_dev *indio_dev,
- 	}
- }
- 
-+static int veml6031x00_set_interrupt(struct veml6031x00_data *data, bool state)
-+	__must_hold(&data->irq_lock)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&data->irq_lock);
-+
-+	if (state) {
-+		data->interrupt_users++;
-+		if (data->interrupt_users > 1)
-+			return 0;
-+	} else {
-+		if (!data->interrupt_users)
-+			return 0;
-+
-+		data->interrupt_users--;
-+		if (data->interrupt_users > 0)
-+			return 0;
-+	}
-+
-+	ret = regmap_field_write(data->rf.int_en, state);
-+	if (ret) {
-+		if (state)
-+			data->interrupt_users--;
-+		else
-+			data->interrupt_users++;
-+	}
-+
-+	return ret;
-+}
-+
-+static int veml6031x00_read_event_val(struct iio_dev *iio,
-+				      const struct iio_chan_spec *chan,
-+				      enum iio_event_type type,
-+				      enum iio_event_direction dir,
-+				      enum iio_event_info info,
-+				      int *val, int *val2)
-+{
-+	switch (type) {
-+	case IIO_EV_TYPE_THRESH:
-+		if (dir == IIO_EV_DIR_EITHER && info == IIO_EV_INFO_PERIOD)
-+			return veml6031x00_read_period(iio, val);
-+
-+		return veml6031x00_read_th(iio, dir, val, val2);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int veml6031x00_write_event_val(struct iio_dev *iio,
-+				       const struct iio_chan_spec *chan,
-+				       enum iio_event_type type,
-+				       enum iio_event_direction dir,
-+				       enum iio_event_info info,
-+				       int val, int val2)
-+{
-+	switch (info) {
-+	case IIO_EV_INFO_VALUE:
-+		return veml6031x00_write_th(iio, dir, val, val2);
-+	case IIO_EV_INFO_PERIOD:
-+		return veml6031x00_write_period(iio, val);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int veml6031x00_read_event_config(struct iio_dev *iio,
-+					 const struct iio_chan_spec *chan,
-+					 enum iio_event_type type,
-+					 enum iio_event_direction dir)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	return data->ev_en;
-+}
-+
-+static int veml6031x00_event_enable(struct veml6031x00_data *data)
-+{
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = veml6031x00_set_interrupt(data, true);
-+	if (ret) {
-+		pm_runtime_put_autosuspend(dev);
-+		return ret;
-+	}
-+
-+	data->ev_en = true;
-+
-+	return 0;
-+}
-+
-+static int veml6031x00_event_disable(struct veml6031x00_data *data)
-+{
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	ret = veml6031x00_set_interrupt(data, false);
-+	if (ret)
-+		return ret;
-+
-+	data->ev_en = false;
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
-+}
-+
-+static int veml6031x00_write_event_config(struct iio_dev *iio,
-+					  const struct iio_chan_spec *chan,
-+					  enum iio_event_type type,
-+					  enum iio_event_direction dir,
-+					  bool state)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	/* avoid multiple increments/decrements from one source */
-+	if (state == data->ev_en)
-+		return 0;
-+
-+	if (state)
-+		return veml6031x00_event_enable(data);
-+
-+	return veml6031x00_event_disable(data);
-+}
-+
-+static void veml6031x00_disable_event_action(void *arg)
-+{
-+	struct veml6031x00_data *data = arg;
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	if (!data->ev_en)
-+		return;
-+
-+	ret = veml6031x00_set_interrupt(data, false);
-+	if (ret)
-+		dev_err(dev, "Failed to disable events: %d\n", ret);
-+	else
-+		data->ev_en = false;
-+
-+	pm_runtime_put_sync(dev);
-+}
-+
- static const struct iio_info veml6031x00_info = {
- 	.read_raw = veml6031x00_read_raw,
- 	.read_avail = veml6031x00_read_avail,
- 	.write_raw = veml6031x00_write_raw,
- 	.write_raw_get_fmt = veml6031x00_write_raw_get_fmt,
-+	.read_event_value = veml6031x00_read_event_val,
-+	.write_event_value = veml6031x00_write_event_val,
-+	.read_event_config = veml6031x00_read_event_config,
-+	.write_event_config = veml6031x00_write_event_config,
-+	.event_attrs = &veml6031x00_event_attr_group,
- };
- 
-+static const struct iio_info veml6031x00_info_no_irq = {
-+	.read_raw = veml6031x00_read_raw,
-+	.read_avail = veml6031x00_read_avail,
-+	.write_raw = veml6031x00_write_raw,
-+	.write_raw_get_fmt = veml6031x00_write_raw_get_fmt,
-+};
-+
-+static irqreturn_t veml6031x00_irq(int irq, void *private)
-+{
-+	struct iio_dev *iio = private;
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	s64 timestamp;
-+	unsigned int regval;
-+	int ret;
-+	bool trigger_poll;
-+
-+	ret = pm_runtime_get_if_active(dev);
-+	if (ret <= 0)
-+		return IRQ_NONE;
-+
-+	scoped_guard(mutex, &data->irq_lock) {
-+		ret = regmap_read(data->regmap, VEML6031X00_REG_INT, &regval);
-+		if (ret) {
-+			dev_dbg(dev, "Failed to read interrupt register %d\n", ret);
-+			pm_runtime_put(dev);
-+			return IRQ_NONE;
-+		}
-+
-+		if (!(regval & VEML6031X00_INT_MASK)) {
-+			pm_runtime_put(dev);
-+			return IRQ_NONE;
-+		}
-+
-+		timestamp = iio_get_time_ns(iio);
-+
-+		if (data->ev_en &&
-+		    (regval & (VEML6031X00_INT_TH_H | VEML6031X00_INT_TH_L))) {
-+			if (regval & VEML6031X00_INT_TH_H)
-+				iio_push_event(iio,
-+					       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0,
-+								    IIO_EV_TYPE_THRESH,
-+								    IIO_EV_DIR_RISING),
-+					       timestamp);
-+			if (regval & VEML6031X00_INT_TH_L)
-+				iio_push_event(iio,
-+					       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, 0,
-+								    IIO_EV_TYPE_THRESH,
-+								    IIO_EV_DIR_FALLING),
-+					       timestamp);
-+		}
-+
-+		trigger_poll = data->trig_en && (regval & VEML6031X00_INT_DRDY);
-+	}
-+
-+	/*
-+	 * iio_trigger_poll_nested() must be called with irq_lock released:
-+	 * it runs trig_handler() synchronously in this thread, which calls
-+	 * reenable() on completion, and that callback also takes irq_lock.
-+	 * iio_pollfunc_store_time() is not called for our own trigger, so the
-+	 * timestamp is stored here.
-+	 */
-+	if (trigger_poll) {
-+		iio->pollfunc->timestamp = timestamp;
-+		iio_trigger_poll_nested(data->trig);
-+	}
-+
-+	pm_runtime_put(dev);
-+
-+	return IRQ_HANDLED;
-+}
-+
- static int veml6031x00_buffer_preenable(struct iio_dev *iio)
- {
- 	struct veml6031x00_data *data = iio_priv(iio);
-@@ -551,11 +976,85 @@ static int veml6031x00_buffer_postdisable(struct iio_dev *iio)
- 	return 0;
- }
- 
-+static int __veml6031x00_set_trigger_state(struct veml6031x00_data *data,
-+					   bool state)
-+	__must_hold(&data->irq_lock)
-+{
-+	int ret;
-+
-+	lockdep_assert_held(&data->irq_lock);
-+
-+	ret = veml6031x00_set_interrupt(data, state);
-+	if (ret)
-+		return ret;
-+
-+	/* The AF bit must be updated before updating AF_TRIG */
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF, state);
-+	if (ret)
-+		goto disable_trigger;
-+
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF_TRIG, state);
-+	if (ret) {
-+		regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				   VEML6031X00_CONF0_AF, false);
-+		goto disable_trigger;
-+	}
-+
-+	data->trig_en = state;
-+
-+	return 0;
-+
-+disable_trigger:
-+	data->trig_en = false;
-+	if (state)
-+		veml6031x00_set_interrupt(data, false);
-+	return ret;
-+}
-+
-+static int veml6031x00_set_trigger_state(struct iio_trigger *trig, bool state)
-+{
-+	struct iio_dev *iio = iio_trigger_get_drvdata(trig);
-+	struct veml6031x00_data *data = iio_priv(iio);
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	if (state == data->trig_en)
-+		return 0;
-+
-+	return __veml6031x00_set_trigger_state(data, state);
-+}
-+
- static const struct iio_buffer_setup_ops veml6031x00_buffer_setup_ops = {
- 	.preenable = veml6031x00_buffer_preenable,
- 	.postdisable = veml6031x00_buffer_postdisable,
- };
- 
-+static void veml6031x00_trigger_reenable(struct iio_trigger *trig)
-+{
-+	struct iio_dev *iio = iio_trigger_get_drvdata(trig);
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	int ret;
-+
-+	guard(mutex)(&data->irq_lock);
-+
-+	if (!data->trig_en)
-+		return;
-+
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF_TRIG, true);
-+	if (ret)
-+		dev_err(regmap_get_device(data->regmap),
-+			"Failed to reenable trigger: %d\n", ret);
-+}
-+
-+static const struct iio_trigger_ops veml6031x00_trigger_ops = {
-+	.validate_device = iio_trigger_validate_own_device,
-+	.set_trigger_state = veml6031x00_set_trigger_state,
-+	.reenable = veml6031x00_trigger_reenable,
-+};
-+
- static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
- {
- 	struct iio_poll_func *pf = p;
-@@ -609,6 +1108,84 @@ static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
- 	return 0;
- }
- 
-+static int veml6031x00_hw_init(struct veml6031x00_data *data)
-+{
-+	struct regmap *map = data->regmap;
-+	struct device *dev = regmap_get_device(map);
-+	unsigned int val;
-+	__le16 regval;
-+	int ret;
-+
-+	ret = regmap_assign_bits(data->regmap, VEML6031X00_REG_CONF0,
-+				 VEML6031X00_CONF0_AF | VEML6031X00_CONF0_AF_TRIG, 0);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to disable trigger\n");
-+
-+	regval = 0;
-+	ret = regmap_bulk_write(map, VEML6031X00_REG_WL_L, &regval, sizeof(regval));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to set low threshold\n");
-+
-+	regval = cpu_to_le16(U16_MAX);
-+	ret = regmap_bulk_write(map, VEML6031X00_REG_WH_L, &regval, sizeof(regval));
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to set high threshold\n");
-+
-+	ret = regmap_field_write(data->rf.int_en, 0);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_read(map, VEML6031X00_REG_INT, &val);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to clear interrupts\n");
-+
-+	return 0;
-+}
-+
-+static int veml6031x00_setup_trigger(struct iio_dev *iio)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+
-+	data->trig = devm_iio_trigger_alloc(dev, "%s-drdy%d",
-+					    iio->name, iio_device_id(iio));
-+	if (!data->trig)
-+		return -ENOMEM;
-+
-+	data->trig->ops = &veml6031x00_trigger_ops;
-+	iio_trigger_set_drvdata(data->trig, iio);
-+
-+	return devm_iio_trigger_register(dev, data->trig);
-+}
-+
-+static int veml6031x00_init_iiodev(struct i2c_client *i2c, struct iio_dev *iio)
-+{
-+	struct veml6031x00_data *data = iio_priv(iio);
-+	struct device *dev = regmap_get_device(data->regmap);
-+	int ret;
-+
-+	iio->name = data->chip->name;
-+	iio->modes = INDIO_DIRECT_MODE;
-+
-+	if (!i2c->irq) {
-+		iio->channels = veml6031x00_channels;
-+		iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
-+		iio->info = &veml6031x00_info_no_irq;
-+
-+		return 0;
-+	}
-+
-+	iio->channels = veml6031x00_channels_irq;
-+	iio->num_channels = ARRAY_SIZE(veml6031x00_channels_irq);
-+	iio->info = &veml6031x00_info;
-+
-+	ret = veml6031x00_setup_trigger(iio);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, veml6031x00_disable_event_action, data);
-+}
-+
- static int veml6031x00_probe(struct i2c_client *i2c)
- {
- 	struct device *dev = &i2c->dev;
-@@ -631,17 +1208,15 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return ret;
- 
-+	ret = devm_mutex_init(dev, &data->irq_lock);
-+	if (ret)
-+		return ret;
-+
- 	data->regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
- 	if (IS_ERR(data->regmap))
- 		return dev_err_probe(dev, PTR_ERR(data->regmap),
- 				     "Failed to set regmap\n");
- 
--	iio->name = data->chip->name;
--	iio->channels = veml6031x00_channels;
--	iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
--	iio->modes = INDIO_DIRECT_MODE;
--	iio->info = &veml6031x00_info;
--
- 	ret = veml6031x00_regfield_init(data);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to init regfield\n");
-@@ -669,6 +1244,10 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return ret;
- 
-+	ret = veml6031x00_hw_init(data);
-+	if (ret)
-+		return ret;
-+
- 	/* Max resolution = 6.9632 lx/cnt for gain = 0.125 and IT = 3.125ms */
- 	ret = devm_iio_init_iio_gts(dev, 6, 963200000,
- 				    veml6031x00_gain_sel,
-@@ -679,6 +1258,10 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to init IIO GTS\n");
- 
-+	ret = veml6031x00_init_iiodev(i2c, iio);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to initialize IIO device\n");
-+
- 	ret = devm_iio_triggered_buffer_setup(dev, iio,
- 					      iio_pollfunc_store_time,
- 					      veml6031x00_trig_handler,
-@@ -686,6 +1269,13 @@ static int veml6031x00_probe(struct i2c_client *i2c)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to register triggered buffer\n");
- 
-+	if (i2c->irq) {
-+		ret = devm_request_threaded_irq(dev, i2c->irq, NULL, veml6031x00_irq,
-+						IRQF_ONESHOT, iio->name, iio);
-+		if (ret)
-+			return dev_err_probe(dev, ret, "Failed to request IRQ\n");
-+	}
-+
- 	ret = devm_iio_device_register(dev, iio);
- 	if (ret)
- 		return dev_err_probe(dev, ret, "Failed to register IIO device\n");
-
+         cpts {
+-                clocks = <&gmac_clkctrl DRA7_GMAC_GMAC_CLKCTRL 25>;
+-                clock-names = "cpts";
++            clocks = <&gmac_clkctrl DRA7_GMAC_GMAC_CLKCTRL 25>;
++            clock-names = "cpts";
+         };
+     };
+diff --git a/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml b/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml
+index ae6b97cdc44b..bf4116b057d2 100644
+--- a/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/mediatek,mt76.yaml
+@@ -325,22 +325,22 @@ examples:
+           r0 {
+             regdomain = "FCC";
+             txpower-5g {
+-               b0 {
+-                   channels = <36 48>;
+-                   rates-ofdm = /bits/ 8 <23 23 23 23 23 23 23 23>;
+-                   rates-mcs = /bits/ 8 <1 23 23 23 23 23 23 23 23 23 23>,
+-                               /bits/ 8 <3 22 22 22 22 22 22 22 22 22 22>;
+-                   rates-ru = /bits/ 8 <3 22 22 22 22 22 22 22 22 22 22 22 22>,
+-                              /bits/ 8 <4 20 20 20 20 20 20 20 20 20 20 20 20>;
+-               };
+-               b1 {
+-                   channels = <100 181>;
+-                   rates-ofdm = /bits/ 8 <14 14 14 14 14 14 14 14>;
+-                   rates-mcs = /bits/ 8  <4 14 14 14 14 14 14 14 14 14 14>;
+-                   txs-delta = <12 9 6>;
+-                   rates-ru = /bits/ 8  <7 14 14 14 14 14 14 14 14 14 14 14 14>;
+-               };
+-             };
++              b0 {
++                channels = <36 48>;
++                rates-ofdm = /bits/ 8 <23 23 23 23 23 23 23 23>;
++                rates-mcs = /bits/ 8 <1 23 23 23 23 23 23 23 23 23 23>,
++                            /bits/ 8 <3 22 22 22 22 22 22 22 22 22 22>;
++                rates-ru = /bits/ 8 <3 22 22 22 22 22 22 22 22 22 22 22 22>,
++                           /bits/ 8 <4 20 20 20 20 20 20 20 20 20 20 20 20>;
++              };
++              b1 {
++                channels = <100 181>;
++                rates-ofdm = /bits/ 8 <14 14 14 14 14 14 14 14>;
++                rates-mcs = /bits/ 8  <4 14 14 14 14 14 14 14 14 14 14>;
++                txs-delta = <12 9 6>;
++                rates-ru = /bits/ 8  <7 14 14 14 14 14 14 14 14 14 14 14 14>;
++              };
++            };
+           };
+         };
+       };
+diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
+index e667d78b3ab3..a52cb8a0d409 100644
+--- a/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
++++ b/Documentation/devicetree/bindings/net/wireless/qcom,ath10k.yaml
+@@ -408,4 +408,4 @@ examples:
+                           "msi15",
+                           "legacy";
+         ieee80211-freq-limit = <5470000 5875000>;
+-      };
++    };
 -- 
-2.43.0
+2.53.0
 
