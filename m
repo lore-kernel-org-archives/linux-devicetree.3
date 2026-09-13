@@ -1,129 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7DD3B8105
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:05:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DB703EB80D
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 19:06:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789326349; cv=none; b=ptaDlioA1btbmPzMQRHOLZtsWH9jr9qFHoS+xocFx5MT+ZkrjDAo+aVumWetIG0VvYF90h15XknlCoqQq8uzL6dGxx6av35UkJWtgjcCdZhbV6ZWmNQIBCaw8KNJ8jAeE4RpRHySjTJVIOcFromg4KzcI5KAslRrGiNda++C03Y=
+	t=1789326375; cv=none; b=KEmY4C9EcdOeg8IJNnvR/H1lanlUrKz5/LM6ICigJ74Bvup3L4JpMd7piLffFs3A7rnFnK8nrMhuPtMpyDflNuDeIaRvlkMNP4Y71lp1cgsCLRKOYeKHpBB3K/IX6BOPl4VhQ+CLdZB1qmtNhXSa7Fas5w5ZLQzOuQ4vFtM3Q8o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789326349; c=relaxed/simple;
-	bh=k2A+FX+iK3wYpfkQZEMC5Und8al4xVRSMUX0EeZZ2Vo=;
+	s=arc-20240116; t=1789326375; c=relaxed/simple;
+	bh=5ZtNBIL5Oz5l6KwxgNiCivaiN+2ncftCI67Ykvr+Zp4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LsPvT2mu+ziyXwUSlEevZvhkJ/Fq2eq1jyPwK5C6vCWi+um+3evuon4+joG0nkL2hqQslmgNKTVfK8KF6Mnd/L8UKX+ik9184i7/FpKAyxhnSFYwsOLKDb598B29tVwJvH6etuy500nyLTwpSk2gF0cJRsgDnn/p1kIGMett/Lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CUGlKNSk; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pFfwvqtKrk+ciOmbDygKnjbVdSTqfcMbtCXKhRy2H7Izu7FXVhfHfpBnJ+pCsQtlAwfmWjWK+ukGx3ASBHzWzO2/duQZ2EAT606uUgTruDW09sGi6e39CUX06RBsZG7V65jRHLtTTa//WmDqnBLAcQhZYxZKm5DvAUsjuvYrRvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gFUjSS0s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CUGlKNSk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4DC61F000FF;
-	Sun, 13 Sep 2026 19:05:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gFUjSS0s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40E41F000FF;
+	Sun, 13 Sep 2026 19:06:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789326348;
-	bh=VSDyBfnoo01tA82YL6X/0aPHKkWHp3LyFQ2FIdnYFq4=;
+	s=k20260515; t=1789326374;
+	bh=wmpGOXueapyPAUjDOvE9RvkWavKtnR39qIO/vsqo3Zs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CUGlKNSkBZ+uU1ZJU7lIj4U5cOg5gSJDVltaCEP/J/LuNTr+4gwzlrlUKqX+rfiOM
-	 tvewQHML+Czg8k4OKJCaEyqYU2cwANuM/ESJbmAdQEI+hqbp2DnIpqlfP2ez1Id6Mf
-	 LSVo0ALVCOdonqJPD3hNZBnymmUjWETbz5Ze/+wudA3DE8hPtMEemT+u5u19DDlaAk
-	 6xxznTSGQuzFv5YAd75glHAiP4jyYmSaVKGf+Mw4hJiKegRrTMrxQC4svCu9xPJx8b
-	 SHFQV5FUNjDYRUokr5BaYliu/qrO5ItVskx7DKevaf97BCer3uOdKxTbbticXGY5KK
-	 yQMCRNB/Cy2qw==
+	b=gFUjSS0sIMSEGI72m6KDnGQA8wq+K/SMDq7TWeB8k9+0z+hZEWbb7pwr0A6qsTxGu
+	 NuEsKDEZ6KeOOFkMlC1MN7fUT/VJcuGlTy2nrXkuvwk8Vc00aZJfT3tugEXNmz7Yfc
+	 WBt/MrT27b88jsUQmyntmAQ2mUwL2ewjF1YMlA9D9OZg7aw4ebfColw2m7DvqzqyzR
+	 nRF3OUmLog7TTQMQcTlNMsRTcJHNwolEK3zhPEB9hIxlAGYyvKIjpEtf1o7Ah4krCG
+	 yoVdMnr+iCDbY1tfnw9DarjoeLERGV98dUpaGnWCFMbr9jcvK/JStMzUhD7LlhADC+
+	 ji5cI+cHAZfSQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 09/13] arm64: dts: qcom: sm8550: Add Iris context
- bank subnodes
+Subject: Re: [PATCH v4 05/13] media: iris: Add non-pixel and pixel context
+ bank devices
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-9-9b9074a73c41@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260914-vpu_iommu_iova_handling-v4-5-9b9074a73c41@oss.qualcomm.com>
 References: <20260914-vpu_iommu_iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com>
- <20260914-vpu_iommu_iova_handling-v4-9-9b9074a73c41@oss.qualcomm.com>
+ <20260914-vpu_iommu_iova_handling-v4-5-9b9074a73c41@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 19:05:47 +0000
-Message-Id: <20260913190547.E4DC61F000FF@smtp.kernel.org>
+Date: Sun, 13 Sep 2026 19:06:13 +0000
+Message-Id: <20260913190613.C40E41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Failure to skip address and size cells for non-matching nodes when=
- parsing `iommu-addresses`.
+- [High] Use-After-Free of `iris_core` structure due to devres and asynchro=
+nous V4L2 file closures.
+- [High] Race condition in probe exposes video device before initialization=
+, causing NULL dereference.
+- [High] `iris_remove()` destroys `core->lock` without acquiring it, leadin=
+g to a race condition with concurrent file closure.
 --
 
-commit a702abacb77d093fbe2f72280c242fce5e476787
+commit 06944aa24efc3154b815139f80472c743bbbd5e1
 Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-arm64: dts: qcom: sm8550: Add Iris context bank subnodes
+media: iris: Add non-pixel and pixel context bank devices
 
-The VPU issues DMA through several SMMU streams, and the hardware does
-not give every stream the same addressable range. The non-pixel stream
-cannot address the low 600MB of IOVA space, while the pixel stream can
-address the full range. This patch moves the address range restriction
-to specific VPU streams represented as subnodes.
+This commit adds helper functions to create and clean up "non-pixel" and
+"pixel" context bank devices from device tree subnodes. It sets up the cont=
+ext
+banks prior to video device registration to ensure proper DMA addressable
+range routing, preventing SMMU page faults and spontaneous reboots.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sm8550.dtsi b/arch/arm64/boot/dts/q=
-com/sm8550.dtsi
-> index 23604436add30..60164b853ae07 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8550.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/sm8550.dtsi
-
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index e4acf4a74f944..debd1f0e57038 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
 [ ... ]
-
-> @@ -3701,6 +3699,19 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ON=
-LY>,
->  			 */
->  			status =3D "disabled";
+> @@ -207,6 +268,8 @@ static void iris_remove(struct platform_device *pdev)
 > =20
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <1>;
-> +			dma-ranges =3D <0x0 0x0 0x0 0xe0000000>;
-> +
-> +			non-pixel {
-> +				iommus =3D <&apps_smmu 0x1940 0x0>;
-> +				iommu-ranges =3D <0x25800000 0xba800000>;
-> +			};
-> +
-> +			pixel {
-> +				iommus =3D <&apps_smmu 0x1947 0x0>;
-> +			};
+>  	v4l2_device_unregister(&core->v4l2_dev);
+> =20
+> +	iris_deinit_cb_devs(core);
 > +
 
 [Severity: High]
-This isn't a bug introduced by this patch, but it is a pre-existing High
-severity issue that requires fixing.
+This is a pre-existing issue, but does iris_remove() allow a use-after-free
+of core if a userspace process keeps the device node open?
 
-Will this device tree layout expose a parser desynchronization in the IOMMU
-code when handling nodes?
+The core structure is allocated with devm_kzalloc() in iris_probe(),
+meaning it is freed automatically when the driver unbinds. However,
+iris_remove() runs to completion and does not block for active file
+descriptors to close.
 
-If an iommu-addresses property contains entries for multiple devices, the
-parser fails to skip address and size cells for non-matching nodes:
+If userspace holds the file descriptor open during an unbind event and later
+closes it, iris_close() is invoked, which dereferences the freed memory:
 
-drivers/iommu/of_iommu.c:of_iommu_get_resv_regions() {
-			if (np =3D=3D dev->of_node) {
-				int prot =3D IOMMU_READ | IOMMU_WRITE;
-				...
-				maps =3D of_translate_dma_region(np, maps, &iova, &length);
-				...
-			}
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_close() {
+    ...
+    iris_check_num_queued_internal_buffers(inst, V4L2_BUF_TYPE_VIDEO_OUTPUT=
+_MPLANE);
+    ...
 }
 
-Because there is no else branch to advance the maps pointer past the
-address and size cells for non-matching nodes, if the parser encounters a
-phandle for a different device first, it evaluates np =3D=3D dev->of_node as
-false.
+>  	mutex_destroy(&core->lock);
 
-In the next loop iteration, the parser then misinterprets the first address
-cell of the skipped entry as the next phandle.
+[Severity: High]
+This isn't a bug introduced by this patch, but is it safe to destroy
+core->lock here unconditionally?
 
-Could this desynchronization cause the parser to miss IOMMU reserved region=
-s,
-allowing the IOMMU allocator to allocate IOVA addresses that overlap with
-reserved physical memory regions and resulting in SMMU faults or memory
-corruption?
+If iris_remove() executes concurrently with a file closure, iris_close()
+can acquire this lock via iris_remove_session():
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_remove_session() {
+    mutex_lock(&core->lock);
+    list_for_each_entry_safe(iter, temp, &core->instances, list) {
+    ...
+    mutex_unlock(&core->lock);
+}
+
+Destroying the mutex while it might be held by another thread violates lock=
+ing
+rules and can lead to corruption when the racing thread releases the lock.
+
+>  }
+> =20
+[ ... ]
+> @@ -269,10 +332,14 @@ static int iris_probe(struct platform_device *pdev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	ret =3D v4l2_device_register(dev, &core->v4l2_dev);
+> +	ret =3D iris_init_cb_devs(core);
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D v4l2_device_register(dev, &core->v4l2_dev);
+> +	if (ret)
+> +		goto err_cb_deinit;
+> +
+>  	ret =3D iris_register_video_device(core, DECODER);
+
+[Severity: High]
+This is a pre-existing issue, but is there a race condition here that expos=
+es
+the video device to userspace before initialization is complete?
+
+iris_register_video_device() calls video_register_device(), making the
+/dev/videoX node visible, and then sets video_set_drvdata(). If userspace
+races to open the device node in between, video_drvdata() could return NULL.
+
+Additionally, PM runtime enablement in iris_probe() happens after the device
+is registered:
+
+drivers/media/platform/qcom/iris/iris_probe.c:iris_probe() {
+    ...
+    pm_runtime_use_autosuspend(core->dev);
+    ret =3D devm_pm_runtime_enable(core->dev);
+    ...
+}
+
+If iris_open() is called by userspace before this completes, it attempts to
+dereference core->dev (which could be NULL if video_set_drvdata() hasn't
+executed yet), leading to a kernel panic:
+
+drivers/media/platform/qcom/iris/iris_vidc.c:iris_open() {
+    struct iris_core *core =3D video_drvdata(filp);
+    ...
+    ret =3D pm_runtime_resume_and_get(core->dev);
+    ...
+}
+
+>  	if (ret)
+>  		goto err_v4l2_unreg;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260914-vpu_iommu_=
-iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com?part=3D9
+iova_handling-v4-0-9b9074a73c41@oss.qualcomm.com?part=3D5
