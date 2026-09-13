@@ -1,93 +1,79 @@
-Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.73])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A88309EE2;
-	Sun, 13 Sep 2026 09:54:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D7E30D41B
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 10:13:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=121.127.44.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789293281; cv=none; b=JLDujWlmhN9st6aEMPeVNhVtBKITaxNNTvdmWGqN5vKgcRR4U3EokdkR+dykS+P7iCL58bR3UcSktUyxbgebURAuxzjzwuEkk+YbTVkglePBXDNQdBwttyP/A8y4VqmqwR6gGdSX47cRGDDDtx2o4wowejsuPLCkBsrWhlbedz4=
+	t=1789294424; cv=none; b=EdZlFfwVhFoZv2Bbe5MpTNN5SYy0cuuxxKLIaFRdjaNd9uToUrj4OOWFX7nNjXbpX+luNAnG/T0R0zTZ61IUkIDvHzMsjB09MFth/3AzDTxgzEStxW32xnOwgqax9IrrIW/kKfCEmfgWrPaK1m/rorNuG+KbVbt8qkpk2sblYbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789293281; c=relaxed/simple;
-	bh=q43/sb9n50B3AtpKAIGs7p4wTxhXp9QDvV9VFd/lJ44=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ey6gXh+3IpHBv1+NOOB+xAvTACn6axlDsyII9I6qPm+TpnvFij/zhmEeIPeFzY7OsMD4t+71ikJFWesRM7IqCuD0lD8OWLkdUKAv9kbIWQi6+9H/bCXQecbzAaoD0FH2cMPwngXokI1CNWJ60OuuCdktLnPhweSq9FLQJtqYI1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=YI4avdcQ; arc=none smtp.client-ip=31.31.198.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
+	s=arc-20240116; t=1789294424; c=relaxed/simple;
+	bh=c8fRolluBpzlmKYIPFO1LQAFbf99+jpwkEHb3QaledY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MseT0MZ9KfYCcuwEcjGNh4/LFzDuOnFpyT5ucV5pGU8DHxHl9mQtPW//9KZgrEZPI11AcGrjmcDfLl70QrWM2KRQrkMYJAofH855TYfVMA0jckXK071kk0b09aWTDrh2JUqQaTCQgzA2NjqXuL1LkLZVhd0GlC6oGboNEFz4J/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org; dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b=xIjgYLl4; arc=none smtp.client-ip=121.127.44.73
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lineageos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.lineageos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="YI4avdcQ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
-	s=dkim; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:References:
-	Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=1kSaukhH+aq/s3s0///qjM3E4iFd6eKQKLQRVCZexAM=; b=YI4avdcQ3bpefrDNPXxoYGAuZ9
-	+SVYeimN8SOvPLapzEXpWP5XcmzruB4l0r9ZukeSPa/rwiag/YevcW9b2tgh6yx1VZdrb1BJZpZ+y
-	gVWh2VPuOnjhdNSsenZmnS5qqzVe2hshIKi2C2UUSq7jIsIOBYFYXXvtuef0OuUDIccs=;
-Received: 
-	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(envelope-from <alexeymin@minlexx.ru>)
-	id 1x5guq-0000000Fei3-1Qpc;
-	Sun, 13 Sep 2026 12:54:29 +0300
-Message-ID: <ad3c2af3-f92d-4818-9c58-00ac04373503@minlexx.ru>
-Date: Sun, 13 Sep 2026 12:54:26 +0300
+	dkim=pass (1024-bit key) header.d=lineageos.org header.i=@lineageos.org header.b="xIjgYLl4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lineageos.org;
+ h=Content-Transfer-Encoding: MIME-Version: Message-ID: Date: Subject: Cc:
+ To: From; q=dns/txt; s=fe-2eefaa527c; t=1789294416;
+ bh=X8oskerCed8wtBDGD8uooyhBJeVpFkgbAxTk0qH3hVM=;
+ b=xIjgYLl4vzKnqcmpl7i32OBJgaZE4PFTyXODeOCxWQS69eHv13kxSSzbG9EjXY70dx/9y8TzN
+ yY52haLgleUMJ3yXUWFKzILWWUV8CV7HmTqzgU7FW9fqbSRt1DrgOHw9XiHwnQQbI417o6/SmN4
+ t+ZgVTdbVNki9jqmy8yf/lM=
+X-Forward-Email-ID: 6aa6774f5d6bf3657bd82a22
+X-Forward-Email-Sender: rfc822; tturner@lineageos.org,
+ smtp.forwardemail.net, 121.127.44.73
+X-Forward-Email-Version: 2.14.2
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+From: Thomas Turner <tturner@lineageos.org>
+To: semen.protsenko@linaro.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	peter.griffin@linaro.org
+Cc: alim.akhtar@samsung.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	thomas_turner@talktalk.net,
+	alexey.klimov@linaro.org
+Subject: [PATCH 0/2] Add Samsung Galaxy A21s support
+Date: Sun, 13 Sep 2026 11:13:29 +0100
+Message-ID: <20260913101331.198835-1-tturner@lineageos.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/3] Add driver for Novatek NT35596S panel
-To: David Heidelberg <david@ixit.cz>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Alexey Minnekhanov <alexeymin@postmarketos.org>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Molly Sophia <mollysophia379@gmail.com>,
- Arnaud Ferraris <arnaud.ferraris@collabora.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-References: <20250913-nt35596s-v6-0-b5deb05e04af@ixit.cz>
- <477ff72a-fe0b-4c23-8448-a0ec87c7e039@oss.qualcomm.com>
- <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
-Content-Language: en-US
-From: Alexey Minnekhanov <alexeymin@minlexx.ru>
-In-Reply-To: <2e2cdb59-1b0e-435e-917a-0490fad29879@ixit.cz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 11.09.2026 23:10, David Heidelberg wrote:
-> 
-> X> Ok, I found out in the meantime that Alexey is working on refactoring
-> X> nt36672a, so we’ll coordinate. I’ll likely need to rebase this 
-> changeset on
-> X> top of the refactored nt36672a, or possibly move it into a separate 
-> driver.
-> X>
-> X> See https://github.com/sdm660-mainline/linux/pull/114/commits
-> 
-> I think it fits even more after refactoring. I hope Alexey will post the
-> refactorings soon.
-> 
-> I'm afraid Alexey didn't :) (+Cc)
-> 
-> David
-> 
-> P.S. I don't have the hardware so I don't want to do a risky changes.
-> 
+Hi all,
 
-The rework: https://patchwork.kernel.org/series/1163701/
+This is a small patch series which adds support to the Samsung Galaxy
+A21s. This device is part of the Exynos850 SoC and its device tree is
+very loosely based on the e850-95 one.
 
-But there will be at least v2, I'm feeling it..
+Thomas Turner (2):
+  dt-bindings: arm: samsung: Add compatible for Samsung Galaxy A21s
+    (SM-A217F)
+  arm64: dts: exynos: Add initial support for Samsung Galaxy A21s
+    (SM-A217F)
 
---
-Regards,
-Alexey Minnekhanov
+ .../bindings/arm/samsung/samsung-boards.yaml  |   1 +
+ arch/arm64/boot/dts/exynos/Makefile           |   1 +
+ .../arm64/boot/dts/exynos/exynos850-a217f.dts | 193 ++++++++++++++++++
+ arch/arm64/boot/dts/exynos/exynos850.dtsi     |   2 +-
+ 4 files changed, 196 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/exynos/exynos850-a217f.dts
+
+-- 
+2.47.3
+
