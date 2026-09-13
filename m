@@ -1,107 +1,167 @@
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3151FBC8C;
-	Sun, 13 Sep 2026 03:04:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFF5033C188;
+	Sun, 13 Sep 2026 03:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789268663; cv=none; b=uObHNWF+qo7nE90FKQZYWwJdN4onKosimRuvPJUd+uvByH+WwfauUld7+/ufjroYU1SrM18uMrEXNSqc2KZfGMOMowt6F2eSyAEjlTbtwRN7n2+OLRXyAwWmTt/WHE5jAQZE3Dcu6nJ/FPNASTBZ8beiWx2jsSAKv7KCRz/6Gbs=
+	t=1789268885; cv=none; b=pMFwXOkOI7IFjmRz/Amm+tdF20B+vuj05CF5aHasCtfPcf0N4zmKLuMDAy1PJdvot2+ZHARMy7pcLgNDUGdImj9QRZRaIbvEz8fAXjnd3xPY/BMC3DU0Vq2e0BAhl4d8Qt3rHsBbmJmaNtmb5uFYtU6/qNKT9+Ys/JubwLHwsVs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789268663; c=relaxed/simple;
-	bh=gRRkKE0fulyNwqplE8fkM64FWgkQMqJLaKEoav16UYA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=utDaUWQVX5vzSWQRc1euD6TzckXGFtYmXyN9LANcmMCqI0qqKPR772SLS8ravccvzXdMT2TSI3cPBDqHGYnQyEexLguIHLXkepv3cngVj0v0MYEGOp0iWjpJQYg4egK1J2y75mGuCQyy1+OQ0n7tgApylD37mtKxqj7dFLe3kME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=ImCoAi7F; arc=none smtp.client-ip=178.251.229.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	s=arc-20240116; t=1789268885; c=relaxed/simple;
+	bh=3DpC5fAqPzgDVYnJ4QOP27eZciLZfkNkbE4TdtLp4gY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=iTVnBfIzHgQMRcmBYCqnU4SdYb7aG5WYs+5w7mDgLQuyXFU8gmC0lksYJT/aOOHOO/xU/1J8FUcDm2twCgxsmQHMWQEdUwqbhL518MWVUX9FKaf/giyWdSdKT3Pl4C2x2wsyAPSt/Y5FKZ3qeP5pIvH5uIgIfcgIKQv+fw7rmno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oaa4gO4F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="ImCoAi7F"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 33256103CE0;
-	Sun, 13 Sep 2026 05:04:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789268659;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=kMD9p5TTIjgCEBU21mlko+Fs1QpjbWq8gAPH4kWw+U8=;
-	b=ImCoAi7FcXODL5F2t+gDvjcxKKHiullY1lFwR7bYIZ2AGgwbXkaMyiY/8vAO+rXcaSGhov
-	8bXjhqHfIA69Ipl67lhWOsMkcngtcLtsC+4TehWSLq4thztJPbm35hLSrPH+zdgQLoHBkb
-	s3jlAQ4dI/SPDFtYa33K88i6jkb3uBA16uPgbhGulms4LyTdgyIDbjPvwf9ePPGgg46LaP
-	9OgEDGELfW+VnktC1W3BxD+T8DF7EKAjTos6iVacfbwxRc9XwfIYzxqOe4yq77Hc++xTbZ
-	bxisJaVJNqmF/SRAYKjvNXdAjA4hTsc+xNNhy/GZXC6DfTrnAnJKm7z+6OURZA==
-Message-ID: <f80845ae-9ab8-474e-89b2-80ac3fbd184c@nabladev.com>
-Date: Fri, 11 Sep 2026 17:54:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oaa4gO4F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B21F1F000FF;
+	Sun, 13 Sep 2026 03:08:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789268883;
+	bh=QfRWUQCp+Q9jZWQdZZIZ+ZqK7VdJimPtv9TXeKqBn7g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Oaa4gO4FbG6dwppp2A3ab7SdRzilnBk/R0hmIGU3lxFZDENPF7krAMbXN5L2HPocy
+	 lKMxoA28NRQl7opHvLcrEGjHfeOajKSzxEkd2gC6kbnMWnNjxVJ7aVy3dco9+5Sbr+
+	 NkH10R8HZGA+spTvcc7HfPglHmNy5rnVRss4nnrMV0uHjeW/kU5vBtK2qz4rbVIw/H
+	 omX2decLigXEsqeSAa2CY4rlbk8JRJN6HZKTi8HJ2KADvr6HYLdg6U2sf35VtcpYMx
+	 RBKmu1Yiv7X85bxxxegZTxBrtF2aAZ3jNTuXK1zzzztb7lDlEUKNtAe5v+BX1DDxdz
+	 U8bprd4dW1pZQ==
+Date: Sun, 13 Sep 2026 04:08:01 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "Maxime Coquelin" <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Marek Vasut
+ <marex@nabladev.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+ Cheick Traore <cheick.traore-ext@st.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>
+Subject: Re: [PATCH 1/8] dt-bindings: iio: adc: stm32-adc: add support for
+ stm32mp23 and stm32mp25
+Message-ID: <20260913040801.30e07d4c@jic23-hlaptop>
+In-Reply-To: <20260911-adc-stm32mp25-v1-v1-1-cef26eecdef2@foss.st.com>
+References: <20260911-adc-stm32mp25-v1-v1-0-cef26eecdef2@foss.st.com>
+	<20260911-adc-stm32mp25-v1-v1-1-cef26eecdef2@foss.st.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: xilinx: Document ifm ZynqMP
- VHIP6 EvalBoard
-To: Michal Simek <michal.simek@amd.com>, linux-arm-kernel@lists.infradead.org
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260909182641.165383-1-marex@nabladev.com>
- <082df9b0-0517-4580-8ba8-cf6f4d3e0713@amd.com>
- <1c39be54-c931-40a2-a806-fa963b2188ec@nabladev.com>
- <e305b607-76ca-489c-b27f-bf45b6fdb59c@amd.com>
- <7b957072-df73-4fab-91ba-9835285ff8c5@nabladev.com>
- <a0d23fc9-6f7b-4c19-9f6f-9cc0c7cce3f5@amd.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <a0d23fc9-6f7b-4c19-9f6f-9cc0c7cce3f5@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 9/11/26 10:38 AM, Michal Simek wrote:
-> 
-> 
-> On 9/11/26 01:39, Marek Vasut wrote:
->> On 9/10/26 9:17 AM, Michal Simek wrote:
->>
->>>>>> +++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
->>>>>> @@ -44,6 +44,11 @@ properties:
->>>>>>             - const: xlnx,zynq-zed
->>>>>>             - const: xlnx,zynq-7000
->>>>>> +      - items:
->>>>>> +          - const: ifm,zynqmp-vhip6-evalboard
->>>>>> +          - const: ifm,zynqmp-vhip6
->>>>>> +          - const: xlnx,zynqmp
->>>>>> +
->>>>>>         - items:
->>>>>>             - enum:
->>>>>>                 - xlnx,zynqmp-zc1751
->>>>>
->>>>> Can you please provide any link to public documentation about this 
->>>>> board?
->>>>> I wasn't able to find anything through google..
->>>>
->>>> I do not know whether there is any, it is an internal board from 
->>>> which other boards get derived.
->>>>
->>>> What would you like to know ?
->>>
->>> I would like to know value for me to maintain it. Why should I care 
->>> about board which don't have any public documentation and none can buy? 
->>
->> I think because the users of this board actually do benefit from 
->> having the support upstream, instead of having to lug around random 
->> downstream patches in assorted state of decay.
->>
->>> There will be thousands of similar boards out there and I am 
->>> definitely not going to have all of them in the tree.
->> Why not ? There are users who benefit from having their board support 
->> upstream. This is what other SoC vendors do as well, it does not seem 
->> to be a problem, rather it is a good indicator that the SoC has users 
->> who care about it and about upstream.
-> 
-> If there is public documentation about it I don't have any problem with it.
+On Fri, 11 Sep 2026 17:51:23 +0200
+Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
 
-I do not think there is, but no public documentation is the case with 
-many boards/DTs that are upstream, and it does not diminish their 
-usefulness to their users.
+> Add stm32mp23 and stm32mp25 compatibles. Three ADCs can be found on
+> these SoCs, split into two blocks:
+> - ADC12 are tightly coupled (common registers).
+> - ADC3 is managed independently.
+> Each ADC is a 12-bits successive approximation analog-to-digital converter,
+> with up to 20 multiplexed channels that can be configured as single ended
+> or differential.
+> 
+> New property "st,adc-trigger-sel " allow to make the difference between
+> the ADCs and to apply the correct trigger configuration.
+> 
+> STM32 ADC may be in a power domain: allow a single 'power-domains'.
+> 
+> Restrict the last channel (19), as it is wired directly to ADC Vref+.
+> It's meaningless to have direct measurement. Internal Vref with
+> calibration data from bsec (nvmem) must be used instead e.g. vrefint.
+> Restrict deprecated properties (st,adc-channels, st,adc-diff-channels,
+> st,min-sample-time-nsecs).
+> 
+> Co-developed-by: Cheick Traore <cheick.traore-ext@st.com>
+> Signed-off-by: Cheick Traore <cheick.traore-ext@st.com>
+> Co-developed-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
 
-What do you need to know ?
+Hi Fabrice, all,
+
+> ---
+>  .../devicetree/bindings/iio/adc/st,stm32-adc.yaml  | 106 ++++++++++++++++++---
+>  1 file changed, 94 insertions(+), 12 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> index c4c4575d3fa9..0e0ceaa3d8d6 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-adc.yaml
+> @@ -23,11 +23,18 @@ maintainers:
+>  
+>  properties:
+>    compatible:
+> -    enum:
+> -      - st,stm32f4-adc-core
+> -      - st,stm32h7-adc-core
+> -      - st,stm32mp1-adc-core
+> -      - st,stm32mp13-adc-core
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - st,stm32f4-adc-core
+> +              - st,stm32h7-adc-core
+> +              - st,stm32mp1-adc-core
+> +              - st,stm32mp13-adc-core
+> +      - items:
+> +          - enum:
+> +              - st,stm32mp23-adc-core
+> +              - st,stm32mp25-adc-core
+> +          - const: st,stm32-adc-core
+
+What is this?  Given these all vary in features
+why would we fallback to a generic match for
+these new compatibles?
+
+
+
+>  additionalProperties: false
+>  
+>  required:
+> @@ -239,11 +276,18 @@ patternProperties:
+>  
+>      properties:
+>        compatible:
+> -        enum:
+> -          - st,stm32f4-adc
+> -          - st,stm32h7-adc
+> -          - st,stm32mp1-adc
+> -          - st,stm32mp13-adc
+> +        oneOf:
+> +          - items:
+> +              - enum:
+> +                  - st,stm32f4-adc
+> +                  - st,stm32h7-adc
+> +                  - st,stm32mp1-adc
+> +                  - st,stm32mp13-adc
+> +          - items:
+> +              - enum:
+> +                  - st,stm32mp23-adc
+> +                  - st,stm32mp25-adc
+> +              - const: st,stm32-adc
+
+Similar to above, what is this?
+
+
+> @@ -344,6 +388,12 @@ patternProperties:
+>          items:
+>            - const: vrefint
+>  
+> +      st,adc-trigger-sel:
+> +        description: Selects the HW trigger configuration available on this ADC
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        enum: [0, 1]
+
+Magic value that is meaningless to see in a dts.  If they
+are effectively not compatible, give them different compatibles and
+drop this property.  I'm unconvinced this property is more
+useful than that given just how opaque the description is.
+
+
+
