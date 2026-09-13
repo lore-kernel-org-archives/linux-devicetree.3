@@ -1,156 +1,120 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B9513B14B4
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 07:28:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789284513; cv=pass; b=JQtneArErcRvasXhkqHbVB/jwXJDewUVEr/doEfSehntEGnz0BQJ2IUmS+wFY4sUmNAItXGcC62J7jc+JZV6FWcC6ZjDPA5Xkp130PQ+yUg8Kex3fQZjy0OdGSG8ed2Z8oW5BMQi/dJFiGatc4f/ltXEeHYrLEpxNVvpwlnyGvw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789284513; c=relaxed/simple;
-	bh=p2soD2Rf2OOF+LUQb8CpDj5kTsG2MF+pujWfnBktrnk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NjTQODH7V68uFP3cy3NV2yq2XeukX01E787+H9P6DhK7UNaT25wlLhvl6aVIVaxtB2dc3tt31F8GziDNoZVbKcQl0Kr0g4HjZlkVrR0GOt2nzyHvdM7u4/R4qdeyI/JOsAzuWPriyiCJSAZwpYd/e4Zw64dEGNZ4j5PkETKf76o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ViQrhRB0; arc=pass smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671072DAFDE;
+	Sun, 13 Sep 2026 07:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789284984; cv=none; b=BZbOG8vsuBX+gz4kERWlsQtYluepNtOSZuXHHdWoR2vjP6S19a0d8Qlv7vAm5zjJ46WA/3kU/9dmZ/yDOW6deJ8Xxj4H6Pm6AIIbYsSFi1Y4Yv9rBDdhJh2yu000ugNll1tO4GqV3W9iwEY952f5I+sNtu/2hMxi2qAyBjk5o1w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789284984; c=relaxed/simple;
+	bh=AF1nVqFiVtL/ybi471NGkZRVrzVG3CboWNC8EjY7tdQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GJlSzXOigMdgn1/nlupdb86TjVGH3WD7717tSjRLLzNbrDEbViUCxTggCp39GxnG4yCErkRAXW83U6CaGMiaCNaUy+W3D/KbqMxgfzN5FCv6ZMNj+J/URYhk6+gaxKXF14r6tTtTohZj8tSqIJxUHn7Xjf5nrFQIrDHSNpf0OL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bsB8Wh8N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ViQrhRB0"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398e9698a70so2370412a91.0
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 00:28:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789284512; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C0x3+C9g4yBhgD2AYzzjzJo2hF9cc3jcIqCR+UmeCylvwnIZgn3jcXvcIIcSzp7PBS
-         mERSVuJeoYD+5ZWH9AiA9eN6xNzTfUIeIMgKk+JOvIv0I6YRZ6vk+gm6MJeX0aKEU/5Q
-         hJyJsfldc1oembclblWxoEnjB3ubqD/ALQ6rPSi3v5xRhbrdcTeP89mLqe33WSP79lkI
-         sTikNIR23jmWWDGj1Rc5KQjGqH4Gnfs3DFtu78dhrD8sL7mkuBhFZJ5bDbqMxKFVsMxh
-         3oN8bDdgVL+tTvQBOUYuezwHPIULHjDOtjIY8nFXvJf9DuWPoG8sjoFVIBxrGVWgz1c4
-         WrMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=t9KdgDPH4/QtIY2XZ0YGTbjGCPHiA7KxT6UVJQtqV98=;
-        fh=EI9yn+sFDNq2DnmtDcrrCt0eQFNiLKsb4cWgwCgUKzk=;
-        b=MWjlylR+08ePMwey/8mgi6NGpdvUNPAMKDaUyIU8dyFgic+DTm2kusyjwxC5fyQy1w
-         ue96x5cYc6Iwobgx+mqRT3K/wDK0EY9xyktwf5TjWhzWNkZ9rSCJsrhhoPblRYDrINKv
-         Ebm1zXmx4NPNI5+ZSTzMEZ2tTt8YGgOxHdwfVBrsRuXya0q6uzvIII5XtJ4AukteL8Dc
-         W7A8bcVN0c9kUy4spNN9D8RSQ4Uda01RwsinWLuZd3hCdOHc/TAfnDKbYUWdG+Pvux8U
-         deEp0XpsF1+Hu1LumINdIP0vri+JHG5uKgellVslWsfvoGQaHpmJ8QC4vG0GKG2aZMVh
-         l1tQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789284512; x=1789889312; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=t9KdgDPH4/QtIY2XZ0YGTbjGCPHiA7KxT6UVJQtqV98=;
-        b=ViQrhRB02slxwxYgNDAivKcv2CGHVX5NwhyNfHNuK4rIMbqZEcylply6gVS5WXYPkW
-         JCPbxKryRJ/IrIvlsyLxjx/oMPvEqfdUluAk/nZLX93uVI8Ck7fbte21VrNlIiMCSc7W
-         7DJvqjg1H2/TA0O5aVwPnJGSQorvde/mMqwaDI5TmyLWCB5yBnsKXMegom3T1dpS8QsB
-         n3tz8pC/Omy4h3lUTbH+syAOIZcjbN8FRikv5N1BmfcKTwTwLmYG+s3g9wYY0X9gHBv/
-         +Dd5GZssyieK0QmlIvlTSb7LX+B0UktdIfNNtOT1TFRI3E5dHHPlAzlgtR3xxKQ1fwRz
-         +S8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789284512; x=1789889312;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t9KdgDPH4/QtIY2XZ0YGTbjGCPHiA7KxT6UVJQtqV98=;
-        b=EY8LcD5oQyoePiZNewHb5Kq+HlsZ7PW3BiIaLvfd0A6dDfLCyE1e79X3EgLU7+6APh
-         GwN1JO9siwr3ixvG7GrZKAImeqjs7L/Sj924eJJX69/XnI867MDkT03Aj7htgAF29GCh
-         xCZHvDWo0nb+/SasfTYRPZdp1AADYo9wVRLl2MavqyjxyRO6xH2gPbrfX6Gfsp5X7rhx
-         FvdmJ4LA9suYsFyQrRxm8jod0c41LkRzMATcv2EX/QR+/RF2+tYXr72/vyp6PadUoIOo
-         jycRwRUSkY0Lov4wnxM3qSYNiihzwSXoSMaE18nVtsqcmFZXJnsBkbtfyob5kcZh8ojm
-         JHfw==
-X-Forwarded-Encrypted: i=1; AKwUvBwl7SgnBUBBlsUSTpdDy3b8kYfZHS3P9a3QBCTppwVu7a2f/0nWc4xLmwBCt09+pdpkpBbgb/Z7zm8S@vger.kernel.org
-X-Gm-Message-State: AFuF++nVbIiYkhpIhxLIQA07VDjLyEcHZGL3qmICCoNfKcTDnf7dBGLw
-	HjBjNOtVV1aUbKe0rFN6fDjoxlRV9HNdfYEzUjngA5bWrqIRVCDG+1XtMYRKe1tu6UfnuxEPq11
-	nIBKbEDnHXHqJROhXKiDAihZFKqJ8e+k=
-X-Gm-Gg: AYBFou1x9bmmlFwo7g8rzz4hn/0Kd1G23JHqQE2v/YAYFOMmtL+T1fk9uOGEpGo3zIf
-	4ZECDm+225OtCm6yGAmujZoOdCBn8FoSPDsPwGJ5hQpsyybDwPZks/tFkHGezecrfO1bO9OyEkD
-	BslGMnlGoMswJx0dljXDQawATWv2NzfQyztFGk1ebtaEfmbOd7ARNAycoKohh3qIl0g370IN3LJ
-	9mR2MZRhMl1d75MCyIsKQ/BQDzQn7KAejsz9+mIcBAP4cADIEjiNOGpKdlpcRGeSjv7RQrLv25P
-	NffJaCMT04Nn/N5XOPvtB2kjDKw05NI9g/Gvb+jbCckw9LyYdqDPtPoFkoFayjQe8N4l0i5xa2W
-	uUMEanEb8G0vf6YymFNcqqugiMI8p0Yx8eblNGv8K
-X-Received: by 2002:a17:90b:3885:b0:398:c794:ca26 with SMTP id
- 98e67ed59e1d1-39d9c3944aamr19707975a91.25.1789284511690; Sun, 13 Sep 2026
- 00:28:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bsB8Wh8N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECDA41F000FF;
+	Sun, 13 Sep 2026 07:36:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789284982;
+	bh=8Y2/7CMjQ/DZOySznmOszsigsk8t8gz8U8RegR7W2h0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=bsB8Wh8NTlJ/ggedtfF1VHereHzWUBLrf1eKG/5wv7m/Ld1KHHtE/96zfMx0SzbzE
+	 3LX05J9ibKQQRyWcY4EjGSkWbd3NAEUa2KbCg23I1Cejsg6YHUNRYLjIs/gLV8esjI
+	 j8oNi9pt5amA08H0LWzOl859fiHda8JlkmG7AVMSAXaLDdAM7u02YcAm0St7k1965M
+	 JLBqsnYZ3E+Hap07R7N722Hz2WVGQebVh9V7K07hZrpUfeQkf8B/Nu5f8YhLeQ0zvU
+	 xx+s3XlQwKM5qxiADbs/0kwBkgbtHRG+jt3dko3kczLCD/h8yBU2/Ys6XutcDxxEHN
+	 aPNag/aTxgbiw==
+Message-ID: <2d469af2-ad3e-45fd-a672-edbba4321654@kernel.org>
+Date: Sun, 13 Sep 2026 09:36:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820050608.5440-1-kimjinseob88@gmail.com> <20260821033334.400af4d3@jic23-huawei>
-In-Reply-To: <20260821033334.400af4d3@jic23-huawei>
-From: Kim Jinseob <kimjinseob88@gmail.com>
-Date: Sun, 13 Sep 2026 16:28:19 +0900
-X-Gm-Features: AcwNN1XcNBJwG8gWKMDEIRzhlwe-EM9NIJU5D9mnXUFN01Obu2gnIbb9GqvbVzc
-Message-ID: <CALMSewLdDGApqiJZGdTjKdj7RqLKahf66kjrJ5nRHCpj5p+V5A@mail.gmail.com>
-Subject: Re: [PATCH v8 0/5] iio: add Open Sensor Fusion IIO driver
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, dlechner@baylibre.com, nuno.sa@analog.com, 
-	andy@kernel.org, linux-kernel@vger.kernel.org, rdunlap@infradead.org, 
-	joshua.crofts1@gmail.com, u.kleine-koenig@baylibre.com, julianbraha@gmail.com, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, grondon@gmail.com, 
-	devicetree@vger.kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, 
-	linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/1] ARM: dts: imx53: drop fallback compatible
+ "dlg,da9052"
+To: Frank.Li@oss.nxp.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+ "open list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
+ <imx@lists.linux.dev>,
+ "moderated list:ARM/FREESCALE IMX / MXC / LAYERSCAPE ARM ARCHIT..."
+ <linux-arm-kernel@lists.infradead.org>,
+ open list <linux-kernel@vger.kernel.org>
+Cc: Conor Dooley <conor@kernel.org>
+References: <20260902191324.2084035-1-Frank.Li@oss.nxp.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260902191324.2084035-1-Frank.Li@oss.nxp.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Jonathan
+On 02/09/2026 21:13, Frank.Li@oss.nxp.com wrote:
+> From: Frank Li <Frank.Li@nxp.com>
+> 
+> The "dlg,da9053-aa" compatible string is not compatible with "dlg,da9052".
+> 
+> DA9052 vs DA9053-AA Differences (from da9052-regulator.c)
+> 1. BUCK4 Voltage Range (only regulator table difference)
+> 		DA9052 BUCK4	DA9053-AA BUCK4
+> Min voltage	1800 mV		950 mV
+> Max voltage	3600 mV		2525 mV
+> Step size	50 mV		25 mV
 
-> What this cover letter is missing is any info on maturity of the
-> specification.  Is this at a stage where merging it to Linux
-> makes sense, or are there still elements on the spec side that need
-> to be resolved?
 
-my intention is to preserve compatibility across firmware updates by
-keeping existing message layouts, lengths and field meanings, including
-units, unchanged. Incompatible changes would require a new protocol
-major and corresponding driver support.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The remaining specification work is to reconcile the draft differences
-on reserved fields, extensions and magnetometer units. I will document
-the agreed rules and compatibility policy in a versioned specification
-referenced by v10.
-
-Thanks,
-
-Jinseob
-
-2026=EB=85=84 8=EC=9B=94 21=EC=9D=BC (=EA=B8=88) =EC=98=A4=EC=A0=84 11:33, =
-Jonathan Cameron <jic23@kernel.org>=EB=8B=98=EC=9D=B4 =EC=9E=91=EC=84=B1:
->
-> On Thu, 20 Aug 2026 14:06:03 +0900
-> Jinseob Kim <kimjinseob88@gmail.com> wrote:
->
-> > Open Sensor Fusion (OSF) is a physical sensor board that reports
-> > measurements over UART.  Add a serdev driver using the generic
-> > "opensensorfusion,osf" compatible.
-> >
-> > The compatible is intentionally independent of a board model or firmwar=
-e
-> > revision.  A fixed wire header carries the protocol version, while a
-> > capability report discovers the available sensors and channels at runti=
-me.
-> > Supported capabilities are exposed as four IIO devices: accelerometer,
-> > gyroscope, magnetometer, and temperature.
-> >
->
-> Sashiko has one reasonable sounding comment
-> https://sashiko.dev/#/patchset/20260820050608.5440-1-kimjinseob88%40gmail=
-.com
->
-> What this cover letter is missing is any info on maturity of the
-> specification.  Is this at a stage where merging it to Linux
-> makes sense, or are there still elements on the spec side that need
-> to be resolved?
->
-> I'll take a fresh look anyway given it has been a while since
-> the last version, but others may make their decisions based on that
-> statement of how mature things are.
->
-> Jonathan
+Best regards,
+Krzysztof
