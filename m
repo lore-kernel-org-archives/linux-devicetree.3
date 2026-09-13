@@ -1,86 +1,85 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC490DF72
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 23:45:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FDD2FF675
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 23:47:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789343144; cv=none; b=oIfLTXXaNDqrJ9BITy6hCObHzFppwmdOfzB2NfsK4TH2vo4gHYvrUyZTYcUAiR23d4+/Kj+hk7Olr6zotged+8lI+GeCDZTCmaSLNus8JesymRWi+RIl4tr6N7WWcEZ1eXPFR6Frz1+5m08vuO4BXYNZG5Q4CNyyJnE9J2/LBag=
+	t=1789343248; cv=none; b=pHjZ1sMxm+3Zy3fvwwkEkkr888xAnkGCx2Y4ZmSiPO+DB55ir/IeBDb1DCrmVOp4N97by0FOCjSjkBYaSrfpHK+SHl0BkGBYgNmjaEgsDpdbGghGDwn4nThbcMogXfpDbCmv9xM12+gw/fPF4uWpphifqIAtY/CvXYloRtuaZLo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789343144; c=relaxed/simple;
-	bh=yXFvV0Ggop2ZibwPGTNJmuedQlW2oGstZVTd/hQr0p4=;
+	s=arc-20240116; t=1789343248; c=relaxed/simple;
+	bh=zANzVCAprn9b4vOB7ZnqBQISuHyZ8f0zuVKXch8qKcI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E5IlrgGbTX8d+i/nlID48i/tSuAPkGkCl1LOzEAFAnCpI+X7oJPVcswFwNjSzWA58jGrUPwuhhZEj6H5REj9D5rF20Dm3SUYIjE8c22HiJaeAuMrKlKlq1EGiLymFOYknVs+siaLkoVOdHR77L4Jbgnbfk6hPOcwELZfo0EtbI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KjAgGAPg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FRGERaCe; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZQ0lW9eX5IWN5bSGqktjMR4YoGxNd6b11IRxILEjuT9fS+WHzaoyf0OWDSQZvgsfcakkl6hf4f+Ww7lK+6rrJmjpgBWpYmbz+ChGPpn0kyQXb6xXuBXJ0WSqO6MIbjdmqBT0+kDrmjcZ4EpJyp21ohB9GZ7qQP1+c4ORSQK6UsQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hx+8GYib; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VdaqPbiZ; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KjAgGAPg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FRGERaCe"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DNYpVD3067035
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 23:45:40 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hx+8GYib";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VdaqPbiZ"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68DNZ7RU3653941
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 23:47:25 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	uIppl4N+WY/n0iZ5p2U3JRnXKjA+shABwFxLcxaGkwU=; b=KjAgGAPgJi7FdI5q
-	zV6N+B45qD/7OXwGt9z25VG2mJnd/R7JOWIPMyXqWy3jy6M5OWpRVcpuGgxfSR4X
-	rEw2WLHVFtXS038NM+dfDYFZnnpXiHQNNwXz0cLO1zFKt1jyGR5ExR8vWI4ETZV7
-	d5t759RW1ZTGzPuPfFsox9LZHopxsXV/BnWrAGliICLDSbmtmv026YA8meEFoHhu
-	mebAjiS5d6L0mqJyk2tRAUgjzIji2XnIPyYWX0PhmlOVNpQy97YO06rOTwCiU7dK
-	a7nBFuRbte/LkpwLgdxU8qCgJh+Tl8sBsHz2wAu3OgkvHB1sRny0mOg7Ku+/zRR9
-	Q7p72A==
-Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9c4cm9-1
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=cmOd/wtJBwDY+aB9upH1uIT8
+	B7lNgLS/AKryTS4QZfQ=; b=hx+8GYib+ZSJR2XplPITMr2FMSVazDbcRgI1G5C0
+	MZrAOyPg3Ub5sE3XWE/7QYp8XUCb65kofTRdd6UyY7xmGpOQNq+mtAXV406YoN8t
+	sRAEub4enFRNX5Eqo0WoHPOUw7QAzSEJMoy6wJgvsmPjOVlq1GH0FsheffvcZO+y
+	iMIFhMq/lahMqvzqGo/fdcgtsCxWOb3SAXMXxiHlsOjxJFH5IlMQX4bi79k6ERdu
+	LGdxL0N4r3p8g3aUZzl5EWgg0Pv1y9z6UD/9Ta5dJ7HMEd23WlxWPOzcN4s42R5Y
+	fc3RuWZIK1QdPn21WPFCWnPKGwipDY0JsOpSq1j6qSQaAw==
+Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gmy9dmceq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 23:45:40 +0000 (GMT)
-Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-78d25a8ff32so760729137.2
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 16:45:40 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 23:47:25 +0000 (GMT)
+Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-980c3b71002so2089247241.3
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 16:47:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789343140; x=1789947940; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uIppl4N+WY/n0iZ5p2U3JRnXKjA+shABwFxLcxaGkwU=;
-        b=FRGERaCeCDuHHMF8sM4UhcNNOJDh/BspAj+XMVDyZnibF4I0NLJD705Eqkj71SkBq8
-         VedbcKXwTHa7GU2cAS7ftka31vAH1ft9lVvx5D0m+5YrxvFoJ3oHapJK3Ho7uYa8Qhqd
-         Cek0IZRX77jqMuAhaQdBTp7GH/JmjYyf1RosGOOom00oni/+Zv2d9/Yx0UmB8bcx1vHJ
-         hHabqJeUbw+SsxC0M0LEXCqy2Xxk7I28QjzWmiOFoLTUNyvjjY/2xul2CsWZHmnjowsd
-         ZzNpWtvS4HPEUNQNVpX/QSyhYepHIYh2trs0QUXdbgGzizYjln7NZgWfw7IG8JiFx5vw
-         1CJw==
+        d=oss.qualcomm.com; s=google; t=1789343245; x=1789948045; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cmOd/wtJBwDY+aB9upH1uIT8B7lNgLS/AKryTS4QZfQ=;
+        b=VdaqPbiZIZZ3ZPB611qfKMvbVAEbqEVz3zIwPXR6e1v5g8WKnVXmZSdh1/4wB7z/GW
+         Wao5wSZ9I5PrrUvZ6DE8kSM5tZ0kWg8Yawx5Nfd65hJCDuNXDwlqTJAtFG2hugA42ErQ
+         KSTs0PBUSJZQRhRbZM6XHAIMh803ivcNDXUMVKxSauZFY7U2RIyrY0ulUU/C6mWsQPdG
+         PIxpuPvS+nKk5WuvZLMiYLQMDSyCV1EmjHYbbgznCZbmEbHbKVuYcuRjPQ0w6rP3xrsn
+         W7Qb9txwfa6NrqnL7m4/xGhuB0CEYW65NOLm3aVp5hF1iO6mP+AB6I/E43lckEa18cB4
+         8E7A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789343140; x=1789947940;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=uIppl4N+WY/n0iZ5p2U3JRnXKjA+shABwFxLcxaGkwU=;
-        b=rOc73zdvbTIB3+T+wqI9SLM/wjOEU1zvCl5Jhn4Vjgb1mvLsOmHvfMg+CxBaYp6j/L
-         8nPWwzIL1SCOHAMYzzMy51XP7XsDZgwjItI8Jwvq6NnMp5VjitFNaV6yq0NjfUHNXxbp
-         7xo8XwmyujbN71MxgibCzIl7ot9jxa07Fe15E/DSkBhFClWRYLySKuUhDuUfAjVKX3pz
-         LpgbnkljQOdI6vh7eeYt5gPtcEP8ymtpB2xeL/WHOWEuGMbfzkeuM21v/vg4VDp9RHLS
-         3t0N/F4ZpEZSIMl3kVHnz29ZlvHpHRgYGX9jfdC1TnTHSZIEMIBU1wl91+XnVkwWg+7+
-         R/AA==
-X-Forwarded-Encrypted: i=1; AKwUvBw9pzZdeA5awS8zhmBvZMe9VCr+FK+5iikqf5N6o8gUZ7mvKf36oCaNJH6oPSN8f9xSWzQwk0GAyY0P@vger.kernel.org
-X-Gm-Message-State: AFuF++kjX42uwQJa3bPMX6zD9jecAd1EXsdhCkjHMdrv109MoXlPAKUH
-	+3J7fgMDHBS3pQUc05VLLtpdkv4OAltVgvr3ckDv8AbI4lzYiulUQS4IoptmKuP1bH4LujUaH64
-	HOlW93f0JVqa9/ImgglMZG8Aw/EiuiXhGjg9T93U+QtALwK9VXuaODf6npyxK4uFS
-X-Gm-Gg: AYBFou2wHn+ufNcxIewqyu4/75WmY8ZO/lUDZnPyj9u5W2QiJ2llPph586s2vFSFAgP
-	BOZFoJGyjr6yVWoWuDp/VUWgOC5NXAYg8ZOJfBKy7ZWHg2i4JAxSo/flSkoF2RSsd/AIJXP8WwP
-	fklMlY9/X7iMx8nJ7pziPNWCzB671TpIzBLNVLV4kKGYo6tvT/mCZSX9WrJ9ylErD9sPj+NB44m
-	wQ8C6+FUHTL6qayjbtBRDCYlZjLqhDm3RudeIrGZMHjwVk/vYzHf+Xhn3KuXVilQG1OaKVqK0P0
-	cedrV0foEnri0T1DWuf2/utZ9//Tf+jN3fpAZaIFsa01cPAul4mK7LkSjxdLNbda8ScKmTcdbNz
-	xpYvdDm3XsexuTeHTjIpDIiLj9dTIeqhAqOw4kUJfaswpA83lPognAcEV/SjUwiakV03XDH6rLp
-	NsUVSTvLPbRGxI
-X-Received: by 2002:a05:6102:5607:b0:790:c7bb:43fd with SMTP id ada2fe7eead31-79b5bf316f7mr8986137.8.1789343139668;
-        Sun, 13 Sep 2026 16:45:39 -0700 (PDT)
-X-Received: by 2002:a05:6102:5607:b0:790:c7bb:43fd with SMTP id ada2fe7eead31-79b5bf316f7mr8976137.8.1789343139111;
-        Sun, 13 Sep 2026 16:45:39 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1789343245; x=1789948045;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cmOd/wtJBwDY+aB9upH1uIT8B7lNgLS/AKryTS4QZfQ=;
+        b=Q4x0xD4Q17JM+cV/e7DsMVXts/8nprtE52eyjnxWHvc5MWJpJL51zV9W2LDJtkN0lX
+         BiNL4S7AM3GklffZf1LO0e/UWVRkxsC8S2WWx2F0sQTF7GIzioOivuOqfmChMmZFbuY3
+         YAx7u4TCeZtoTyJZkokwfDaOuR0CoD7aRjUc1UiFB2S5MLCPnMtvRD922zoFfIj40/yd
+         oXuOgV5rztQUL3eOP2jkYtyIPMo8How34T5mkBPVFcWT0tzwjoIHZE/Uh1cqEzNVhV0b
+         0xw6PsUbjd+onyyrA4Si7eOl9oKMFsHGAkzcBiyqh0+Ah4NCFTxPRI5z8XMQ3zMT4s+2
+         tZQQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8KWcza6jIch7OZjyBHg4VJTLbQ6nzOR851JkzyrZFu5lRtZmhecIp/gurZUMnaGcW1xrWfKZpt4/u@vger.kernel.org
+X-Gm-Message-State: AFuF++mw6pgIvrJzadakIZiXWIZNz/9ZcC4QFmDuqZzhrKdKojMbPVRG
+	D5AbxK3h1YxDSYcKEbw4xqK0Vecd0RRynX80vfJiS30HuJGQhGGzoJhM5pwVYTkiBkLUDKwjqzG
+	YexH4KtouABSYhw6GWn0E7Hj+ab55pg2VwqMD/LUoClvSsrzuYbo+B/7w+NyjZTMl
+X-Gm-Gg: AYBFou20g65Bi0hKGZEg+o8GldRk1FPL+6e+JIqwYFuQOE0Jo3WvS9gy2wHcx+BW2/P
+	9rN0OBf2tl00tATMv3DQCpnsLv9IsS8C/FuYU02p0IfeMWjeg79R05/Rg7T2zvCY6OKPVf4KeE8
+	igEnaULTox5hJ3/++cu3NUAMyReQQMBcNlpQCfdBQjbaCceuhrJe6ph3dLdyXvIKmRTd1N4aVuW
+	vXuRAEHV8zTpPqBisz6+odngbq6d2o/A+YNziMbQJkAKMCK+03tWvI6dEMComTv6aFPqaD/G/ZB
+	RGOXJM+qNg9KfGLN48EVzJaSX0tzIT1DAbVHBaZ0Dg06O3DCoqcEQJ9OGwHOnrW+LrbgHMWTL9F
+	LJZt44Iw7NnrrHC+9zI2DOZU14jM6uM3bBLdQS3qTwg1MlX/w4W8S0Vl3FASYNE4txh1lVsamzy
+	SB70M8KQKxYmmM
+X-Received: by 2002:a05:6102:918:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-79b57cb42f6mr40904137.5.1789343244864;
+        Sun, 13 Sep 2026 16:47:24 -0700 (PDT)
+X-Received: by 2002:a05:6102:918:b0:786:dfa:c5ea with SMTP id ada2fe7eead31-79b57cb42f6mr40887137.5.1789343244498;
+        Sun, 13 Sep 2026 16:47:24 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a04568f2sm2075707e87.19.2026.09.13.16.45.35
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a33263e0sm21888431fa.15.2026.09.13.16.47.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 16:45:37 -0700 (PDT)
-Date: Mon, 14 Sep 2026 02:45:34 +0300
+        Sun, 13 Sep 2026 16:47:21 -0700 (PDT)
+Date: Mon, 14 Sep 2026 02:47:18 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Nabige Aala <nabige.aala@oss.qualcomm.com>
 Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -103,356 +102,77 @@ Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
         freedreno@lists.freedesktop.org,
         Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
         Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH 04/17] drm/msm/dpu: Add support for DPU 12.1 on Nord
-Message-ID: <bqoezyuyrjiawudbwxybvjpdun5f3fmhhzukdeg2holuc2mykq@oa5mhoylopz7>
+Subject: Re: [PATCH 05/17] drm/msm: mdss: Add support for MDSS on Nord
+Message-ID: <xmrrgh62hk4kdhfxt4xa5ngn7kc4f3p44dpvf2yfqdhkoxlis6@iftzpwpcc3qk>
 References: <20260911-nord-drv-dt-v1-0-e25c073cf1b6@oss.qualcomm.com>
- <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
+ <20260911-nord-drv-dt-v1-5-e25c073cf1b6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260911-nord-drv-dt-v1-4-e25c073cf1b6@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: QEl5df5t1Y8KeCu5XpMC97-iBv6BXZxU
-X-Proofpoint-GUID: QEl5df5t1Y8KeCu5XpMC97-iBv6BXZxU
-X-Authority-Analysis: v=2.4 cv=c5Y+0h9l c=1 sm=1 tr=0 ts=6aa735a4 cx=c_pps
- a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
+In-Reply-To: <20260911-nord-drv-dt-v1-5-e25c073cf1b6@oss.qualcomm.com>
+X-Proofpoint-GUID: rdVAS9vdR5WO1H1VaAsF0A6eec-IkrU0
+X-Proofpoint-ORIG-GUID: rdVAS9vdR5WO1H1VaAsF0A6eec-IkrU0
+X-Authority-Analysis: v=2.4 cv=NelzRGD4 c=1 sm=1 tr=0 ts=6aa7360d cx=c_pps
+ a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=99Y8_FLkFjoiQTscg30A:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=ODZdjJIeia2B_SHc_B0f:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDM0MSBTYWx0ZWRfXwnmGMjI1KW4D
- Ipn/yIfxyTDqFHuFxVXdsolsKKEiC0JIgX19cNouAzqCkMkIsAiufOsF65yhCcmlxKn6wpmROZi
- pB40POIpT/bBjxfiYNZlPk5IvVRwF72ZAD8E6Oakqt1NcCboX/NMnbeQFECrRxU40xS5mBurYfU
- iO9gKC6olsxxiazEAluR0Fo+ge3wi4QKjN332J7wLZpJ23Fc+uGRVRUQzeYTKRmuRxViDC9J1jA
- TfhfSLDMiIbto2ywbn0EZL3mq+ia77mkw+zk0IwAZ2m1ZiPXXjE6aiUeoRdvGlpmeJdUa6fC8R4
- SE5McYzEVmbdb3yNn6ET6IRmMEfDD0d0nelJJ7cIvor7U46b5RJLan0Wbvli/LTAvXejq3412br
- TUUJ+I4mIhUDqJlbMX2qo/dJaRBP2YT+xrz+RrABrtvBuTKvlaE077hlwxTDtxwAHpMvuRWfyfk
- l2uzCuN7e2YlgzY3m/g==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDM0MSBTYWx0ZWRfX54u6bHFULiB7
- vzDyHS8iEHNAAGaKfgFGmgywPuOTXIhwEoTlSz8P1TFFwh94iY41CKx35Z5lfdwz8ZLNi/8D7v0
- dwwIGDdZuanCW1zTzXpl58qktWhnNBk=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=EUspDBNiAAAA:8
+ a=ReDZFTIDzEE4zWO0opkA:9 a=CjuIK1q_8ugA:10 a=TOPH6uDL9cOC6tEoww4z:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTEzMDM0MSBTYWx0ZWRfX4e3WKxg7+lGg
+ qXMXMvmR4RG0PHMY+kqZnrywi9/tb9A2f2Ad1FjoM5tFZqq+MOKIHR+ROuFwETh3Qi+CQVVwfkA
+ dtpt5gNkBL2/8f3S9JmHPHAY86y3jn8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTEzMDM0MSBTYWx0ZWRfX67Jyt3mPBxjo
+ uqQYuCx+HQfkd1uBY3gMUiwXXF1BBJpln09h962ZmjcqeF/rSWolRizv6PMXXAfqtdIc143frOd
+ kKwuSAmIBLM5Ur7GfgykbjE0ZiNUnJitKqbv72LAXQWWWtsHqtJ0WT3pi2/D4ggPACzqn2Q/vp1
+ SfSMX57B8+ZxaY89nuSrf0RQOlRuuaxrvk3dTWdJlw7G3/bgSFmZXgS9XlSyt0bWUgwR51PS1p1
+ c9pJe9gh54JWz1a+yu+GyqE9nrRjx2VP4OCsD0IyqAnxWVd4/xnWCCSTMDXyfixOtAzEw6FlAws
+ Cb1fV+9WeHcraB2H5DEsVCA3/73C7xycb5ssEX7uvPR625gH8BLn465lJnq2PIbi3SnVN3Fd97s
+ OgnQvFhs+HfAMsfdHY1I6gXmnu3R/RKvagt1BnRX+6nYN9hbryCeuobYxWAR+idl3E1XghQ6+1p
+ Mwra4E476hBIMx6N3og==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-13_07,2026-09-13_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- impostorscore=0 suspectscore=0 malwarescore=0 phishscore=0 spamscore=0
+ bulkscore=0 adultscore=0 impostorscore=0 priorityscore=1501 clxscore=1015
+ spamscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609130341
 
-On Fri, Sep 11, 2026 at 09:06:35PM +0530, Nabige Aala wrote:
+On Fri, Sep 11, 2026 at 09:06:36PM +0530, Nabige Aala wrote:
 > From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 > 
-> Add the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1, DPU
-> 1499A). Nord is DP-only with no DSI, and provides 8 DSPP blocks, 2
-> writeback blocks, 8 interfaces and 2 DP controllers.
-> 
-> Extend enum dpu_intf with INTF_9 and INTF_10, which Nord is the first
-> platform to use.
-> 
-> Note: register addresses and xin_id values in the catalog are borrowed
-> from sm8750 and precedent platforms and are marked with FIXME(REG_ADDR)
-> and FIXME(XIU_MAP); they need verification against a real Nord register
-> map before production use.
+> Add the MDSS compatible for the Qualcomm Nord SoC, reusing the 57 MBps
+> register bus bandwidth setting shared with the other recent platforms.
+
+Why?
+
 > 
 > Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
 > Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
 > ---
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h  | 588 +++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
->  5 files changed, 593 insertions(+)
+>  drivers/gpu/drm/msm/msm_mdss.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
-> new file mode 100644
-> index 000000000000..8eb18752f3c4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h
-> @@ -0,0 +1,588 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +/*
-> + * Copyright (c) 2025 Qualcomm Innovation Center, Inc. All rights reserved.
-
-Follow the guidelines please.
-
-> + * Copyright (c) 2015-2018, 2020 The Linux Foundation. All rights reserved.
-
-Oh, really?
-
-> + */
-> +
-> +#ifndef _DPU_12_1_NORD_H
-> +#define _DPU_12_1_NORD_H
-> +
-> +/*
-> + * NORD DPU 12.1 catalog header. Generated from hardware summary YAML for
-> + * MDSS 12.1 - DPU 1499A (Nordschleife). This is a DP-only chip with no DSI.
-
-You already said that in the commit message.
-
-> + *
-> + * All register addresses and xin_id values below are borrowed from the
-> + * reference chip (sm8750, MDSS 12.0) and precedent chips (Lemans, Glymur).
-> + * Nord's YAML provides only block counts and feature statements, not addresses.
-> + * See FIXME(REG_ADDR) markers throughout for borrowed values requiring
-> + * verification against a real Nord register map before production use.
-
-What? You work at Qualcomm and you can't verify this against the memory
-map? Please cross-check it and also the number of blocks, hardware
-capabilities, etc.
-
-> + *
-> + * Key differences vs sm8750:
-> + * - 8 DSPP blocks (4 full + 4 lite) vs sm8750's 4
-> + * - 2 writeback blocks (WB1, WB2) vs sm8750's 1 (WB2)
-> + * - 8 interfaces (INTF_0,3,4,6,7,8,9,10) vs sm8750's 4 (INTF_0,1,2,3)
-> + * - 2 DP controllers (DP0, DP1) vs sm8750's 1 (DP0 only)
-> + * - No DSI (removed entirely)
-
-No need to. If you want, put it into the commit message.
-
-> + */
-> +
-> +
-> +static const struct dpu_lm_cfg nord_lm[] = {
-> +	{
-> +		.name = "lm_0", .id = LM_0,
-> +		.base = 0x44000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_1,
-> +		.pingpong = PINGPONG_0,
-> +		.dspp = DSPP_0,
-> +	}, {
-> +		.name = "lm_1", .id = LM_1,
-> +		.base = 0x45000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_0,
-> +		.pingpong = PINGPONG_1,
-> +		.dspp = DSPP_1,
-> +	}, {
-> +		.name = "lm_2", .id = LM_2,
-> +		.base = 0x46000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_3,
-> +		.pingpong = PINGPONG_2,
-> +		.dspp = DSPP_2,
-> +	}, {
-> +		.name = "lm_3", .id = LM_3,
-> +		.base = 0x47000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_2,
-> +		.pingpong = PINGPONG_3,
-> +		.dspp = DSPP_3,
-> +	}, {
-> +		.name = "lm_4", .id = LM_4,
-> +		.base = 0x48000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_5,
-> +		.pingpong = PINGPONG_4,
-
-No DSPP's?
-
-> +	}, {
-> +		.name = "lm_5", .id = LM_5,
-> +		.base = 0x49000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_4,
-> +		.pingpong = PINGPONG_5,
-> +	}, {
-> +		.name = "lm_6", .id = LM_6,
-> +		.base = 0x4a000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_7,
-> +		.pingpong = PINGPONG_6,
-> +	}, {
-> +		.name = "lm_7", .id = LM_7,
-> +		.base = 0x4b000, .len = 0x400,
-> +		.features = MIXER_MSM8998_MASK,
-> +		.sblk = &sm8750_lm_sblk,
-> +		.lm_pair = LM_6,
-> +		.pingpong = PINGPONG_7,
-> +	},
-> +};
-> +
-> +/*
-> + * Nord has 8 DSPP blocks: 4 full-featured (DSPP0-3) and 4 lite variants
-> + * (DSPP4-7). The driver has no separate lite-DSPP struct, so all 8 are
-> + * modeled with the same dpu_dspp_cfg/dpu_dspp_sblk structure. Lite variants
-> + * have reduced features, but this is handled at runtime via feature flags,
-> + * not via separate catalog entries.
-
-Is it really handled? I don't see it.
-
-> + * FIXME(REG_ADDR): DSPP4-7 base addresses extended via 0x2000 stride from
-> + * sm8750's DSPP3 base (0x5a000). Verify against real Nord register map.
-
-ROFL. Who is going to verify those?
-
-> + */
-> +static const struct dpu_dspp_cfg nord_dspp[] = {
-> +	{
-> +		.name = "dspp_0", .id = DSPP_0,
-> +		.base = 0x54000, .len = 0x1800,
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_1", .id = DSPP_1,
-> +		.base = 0x56000, .len = 0x1800,
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_2", .id = DSPP_2,
-> +		.base = 0x58000, .len = 0x1800,
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_3", .id = DSPP_3,
-> +		.base = 0x5a000, .len = 0x1800,
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_4", .id = DSPP_4,
-> +		.base = 0x5c000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_5", .id = DSPP_5,
-> +		.base = 0x5e000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_6", .id = DSPP_6,
-> +		.base = 0x60000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
-> +		.sblk = &sm8750_dspp_sblk,
-> +	}, {
-> +		.name = "dspp_7", .id = DSPP_7,
-> +		.base = 0x62000, .len = 0x1800, /* FIXME(REG_ADDR): lite variant */
-> +		.sblk = &sm8750_dspp_sblk,
-> +	},
-> +};
-> +
-
-[...]
-
-> +
-> +/*
-> + * NOTE: Each display compression engine (DCE) contains dual hard
-> + * slice DSC encoders so both share same base address but with
-> + * its own different sub block address. Nord retains sm8750's
-> + * topology of 8 DSC instances (2 per DCE × 4).
-
-Tell your AI to stop adding useless comments.
-
-> + */
-> +static const struct dpu_dsc_cfg nord_dsc[] = {
-> +	{
-> +		.name = "dce_0_0", .id = DSC_0,
-> +		.base = 0x80000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_0_1", .id = DSC_1,
-> +		.base = 0x80000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_1,
-> +	}, {
-> +		.name = "dce_1_0", .id = DSC_2,
-> +		.base = 0x81000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_1_1", .id = DSC_3,
-> +		.base = 0x81000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_1,
-> +	}, {
-> +		.name = "dce_2_0", .id = DSC_4,
-> +		.base = 0x82000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_2_1", .id = DSC_5,
-> +		.base = 0x82000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_1,
-> +	}, {
-> +		.name = "dce_3_0", .id = DSC_6,
-> +		.base = 0x83000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_0,
-> +	}, {
-> +		.name = "dce_3_1", .id = DSC_7,
-> +		.base = 0x83000, .len = 0x8,
-> +		.features = BIT(DPU_DSC_NATIVE_42x_EN),
-> +		.sblk = &sm8750_dsc_sblk_1,
-> +	},
-> +};
-> +
-> +/*
-> + * Nord has 2 writeback blocks: WB2 (matches sm8750) and WB1 (new).
-> + * WB1 base and xin_id are inferred via stride from existing WB pattern.
-> + * FIXME(REG_ADDR): WB1 base address inferred as 0x65000 - 0x2c8 stride.
-> + * FIXME(XIU_MAP): WB1 xin_id set to 7; verify against real hardware map.
-
-ROFL
-
-> + */
-> +static const struct dpu_wb_cfg nord_wb[] = {
-> +	{
-> +		.name = "wb_1", .id = WB_1,
-> +		.base = 0x64800, .len = 0x2c8, /* FIXME(REG_ADDR): inferred */
-> +		.features = WB_SDM845_MASK,
-> +		.format_list = wb2_formats_rgb_yuv,
-> +		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
-> +		.xin_id = 7, /* FIXME(XIU_MAP): inferred */
-> +		.maxlinewidth = 4096,
-> +		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 3),
-> +	}, {
-> +		.name = "wb_2", .id = WB_2,
-> +		.base = 0x65000, .len = 0x2c8,
-> +		.features = WB_SDM845_MASK,
-> +		.format_list = wb2_formats_rgb_yuv,
-> +		.num_formats = ARRAY_SIZE(wb2_formats_rgb_yuv),
-> +		.xin_id = 6,
-> +		.maxlinewidth = 4096,
-> +		.intr_wb_done = DPU_IRQ_IDX(MDP_SSPP_TOP0_INTR, 4),
-> +	},
-> +};
-> +
-> +/*
-> + * Nord has 8 active interfaces (INTF_0,3,4,6,7,8,9,10) with no DSI.
-> + * DP0 connects to INTF_0, INTF_3, INTF_6, INTF_7 (4 ports for MST).
-> + * DP1 connects to INTF_4, INTF_8, INTF_9, INTF_10 (4 ports for MST).
-> + * Interfaces 1, 2, 5 are skipped (removed from sm8750).
-> + * All interface base addresses extend the stride from sm8750.
-> + * FIXME(REG_ADDR): INTF_4,6,7,8,9,10 addresses inferred via 0x1000 stride.
-
-Same ROFL. No. Do your job, please.
-
-> diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> index 0e65bf5ddc4a..7eccb4d2c65e 100644
-> --- a/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> +++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h
-> @@ -226,6 +226,8 @@ enum dpu_intf {
->  	INTF_6,
->  	INTF_7,
->  	INTF_8,
-> +	INTF_9,
-> +	INTF_10,
-
-This just broke DSI tearing support. See enum dpu_hw_intr_reg
-
->  	INTF_MAX
->  };
->  
+> diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
+> index 9087c4b290db..90bcc8c28dc2 100644
+> --- a/drivers/gpu/drm/msm/msm_mdss.c
+> +++ b/drivers/gpu/drm/msm/msm_mdss.c
+> @@ -531,6 +531,7 @@ static const struct of_device_id mdss_dt_match[] = {
+>  	{ .compatible = "qcom,kaanapali-mdss", .data = &data_57k },
+>  	{ .compatible = "qcom,milos-mdss", .data = &data_14k },
+>  	{ .compatible = "qcom,msm8998-mdss", .data = &data_76k8 },
+> +	{ .compatible = "qcom,nord-mdss", .data = &data_57k },
+>  	{ .compatible = "qcom,qcm2290-mdss", .data = &data_76k8 },
+>  	{ .compatible = "qcom,qcs8300-mdss", .data = &data_74k },
+>  	{ .compatible = "qcom,sa8775p-mdss", .data = &data_74k },
+> 
+> -- 
+> 2.34.1
+> 
 
 -- 
 With best wishes
