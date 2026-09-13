@@ -1,95 +1,110 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7064E39E9C8
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 13:32:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DF4C1BD9C9;
+	Sun, 13 Sep 2026 14:07:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789306338; cv=none; b=VgWX6vP6WCA+UD5DeDY2H6+hyJwm+6ReSZWXmWLIh/+iBPM0muD18tBO2QeUF4ZGL0WnoQF08SEhHGMsj5SAyEzbcSZ615VZWNuy1z8Czhg8TK3ZrjcroyxzZ1/iIwgmLNBxOcqe2ksIzod4IfzUOKLnNEOQiryTsDZhmH+HIzY=
+	t=1789308458; cv=none; b=YPfaD4UlklOoNw5uzF3+NUrp4NKd1WoX/IXo0gEzJaTLReYzDAGOAl1jHErBnJ1WuOm0fFA39tA0qHUdPBUcXc9tflbafqZ2rLSn+QIlpklSBJfPQTfn49mp3wf4FC9aJBpTT011spLjBgmi9yRFSCU7bfTyL5K09EOqPadh3YA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789306338; c=relaxed/simple;
-	bh=tacF+0/UgVgf1ZF2kBFCF17soFgwFERlvzcI1lOcP4g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d3HxhbBRpy79Eb9SPjl+m8kSWO/qcjbFkIteGZpVofoX3QP54fMiMSz/GwuqhMmafQNGDc7xQfrm/Om0dxsAYv3K4U0kvYU56VCfTfnOfqQYu/tRZW9frW2CpTI8hMj8fXTAALR0Tr+A9Fr7b+QhJqYOajaNynPK4eHiqfLeahQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=RfJqYLFk; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
+	s=arc-20240116; t=1789308458; c=relaxed/simple;
+	bh=ixc7W2hEoJHFHQTWH/TSY9pqmLaZyw3GY8SzVD68ZTg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cQpYGuUvAIbBo+2cfI6tIFSex8/yfPS6j4yfmjhAWlhnrRVhaxliB+42qu0d22xw7pQlOrUr7H2whZLSV0uGbJ6j8mpsYWxzLsGNxKh75htLPid55GrC/l/aX4d1CS7TE3d8gbgm9OM8plALIExp7bPcLjnWRXfM/krvxrnutKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Dfq0amYD; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=XvtL4TNd; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="RfJqYLFk"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1eso225486266b.1
-        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 06:32:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=konsulko.com; s=google; t=1789306335; x=1789911135; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VWrnyKIL/nI3FCiUVdAFpShSwUN32IQc4eQdP+H1XA0=;
-        b=RfJqYLFkf8SlvZ96xG8i9WqC13j8EKnF90tzaYo/pjf7wCsczu8/q5nJC4qlMgChGw
-         97xIX25acdQM3Wb72varKNKwt7iVGfsspGXrdjMorSCeXkbTO1sgZs1G6BHqmgouNzba
-         eDr7fitugbYs/JJJmYCbfJIT9nQ3+HY+41v14=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789306335; x=1789911135;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VWrnyKIL/nI3FCiUVdAFpShSwUN32IQc4eQdP+H1XA0=;
-        b=g8jJxAWLakcdE6Ythd7Vx9OEhhdmsgaqc76IU3Y69kfTF9EvxrGdM+2Ov8b0qcUtVz
-         CSecKrQXY2Cbyi9JKujdB3lcFIVsP8E7ttaZ25Siyc9DzXm5Ey+6G99vIco0nup1X9BY
-         /EK5Wg9iW5jnzqa0kXAZ0ow1NiSgcPBQ3LQHqcBTnvEi3MwSx0/eJ7O8o/L0C/buA82T
-         7Do0bx5OuJYDAE9VLXQut3i9umEUgxektB5wpJVz2XHUN0NlBJg5PU31tMk8N1JkmdIK
-         DsMUNolemx17o0wwwMnHtVigRYc+hl4cHOo+4L+OXqkdqqiVQh/3j9IvlDba3qgLTnLn
-         F6Ig==
-X-Forwarded-Encrypted: i=1; AKwUvBwEKb2R9gOC/Sw6v+fgPMjF2PM+KQQMSDBCM7TW02leWOd2R9zvwuDJFcU9tjXPEkcILFGDt0DnKfay@vger.kernel.org
-X-Gm-Message-State: AFuF++nTrx6tAGMSmY038YAGmTnkZoxH0H7ScJd/j5JI/D/o86rJK15t
-	PoJALDcRV3qy0j2sUtEQg0+Xke4m7Djz/K7SJmBfF//XO7qpU/yROyVEilw3TI1nesq10/MLrYK
-	+R39s
-X-Gm-Gg: AYBFou1psUHlAvUhHRB1fHGmX2GmEufLdozxhlxFo7F8dmF7IhP5vu2e7s8KuiDfCJw
-	tb9SlMWNXjnAY7s+EEtWZNBYbofkoE38NT1uJ0PGnenaB5bGx0Mns3GxY3QYwxcABb7X67KhPdg
-	9ATr7VJ4oTPFqUVHW85DNHoDhqdb8i/+hdS3H/VS/mtgutEkOwbKI7H9tVYcYWU3IlN1egQ7sFL
-	Ys26aqUPvHHvuo8g2N7WhopMAKQmNyoWp6aDl75suvDP6R7IG/CzydgbR3HcV5l785MECDjNSLH
-	U7yb2b7vFK+zJfAzj5k6mWhM8SiC2RqJBf7j4/gCEcN/983yonnOk+BVkxlB2/YrWvmsT7x31z2
-	aTVJ3nwyUUnSmLayPzeSz0I2G2iWOSsqZCu/HdUiS0cgvriScVtY5PTkGeBK55II4Fnm5yyoK0/
-	4tleikBwMOlgGsp29arwg5YvxLEe2ljlJhojQsXu3zyrK0J5pqOE3A1783lPUkWVqpoF9xkWlvm
-	kZGKOM=
-X-Received: by 2002:a17:907:724d:b0:c25:5114:c832 with SMTP id a640c23a62f3a-c29665acdeemr1293801966b.3.1789306335536;
-        Sun, 13 Sep 2026 06:32:15 -0700 (PDT)
-Received: from cabron.k.g ([95.111.117.177])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4cf01sm296633166b.1.2026.09.13.06.32.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 13 Sep 2026 06:32:15 -0700 (PDT)
-Date: Sun, 13 Sep 2026 16:32:14 +0300
-From: Petko Manolov <petko.manolov@konsulko.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	dinguyen@kernel.org
-Subject: Re: [PATCH v4 2/3] dt-bindings: arm: altera: add Draeger M48 Module
-Message-ID: <20260913133214.GF20345@cabron.k.g>
-References: <20260911150755.2803736-1-petko.manolov@konsulko.com>
- <20260911150755.2803736-3-petko.manolov@konsulko.com>
- <20260913-perky-resolute-badger-6c5e96@quoll>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Dfq0amYD";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="XvtL4TNd"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789308422; bh=d/FolRGNwV32g+HDDqmcEuE
+	qeqSAhKnzy/VVhQSphPs=; b=Dfq0amYD7lqUXWfFx93w4ioc3qhc+HEuljkNQpRBpXb4Ixfms3
+	yqh/Sdety5Q+OHNvY8dPP+DRbzt4j9INnUML2CM4vPlMJuCw01bbtbHbRyJci5PiAfteBa9o480
+	f/J/BaAlSabfFZdDsPOgQ4jZdWGSjuo5ES8rgYzc1CGcLiPIf3tTh4agQKoCQy4AbqQ4qZkdruG
+	ZFj4n2zEHkibItCLSVFcfd+QPWgqHGS/wXnKLvDyii2oLo6bX8z2elT/UgJOMsPmw7oRVZs9wey
+	HWoCnsOaPABY+GaajFK/AShljO1TAVrRwtfCRcR8MZof9uXZt6/fFs+1+r4/Mx8OyyQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1789308422; bh=d/FolRGNwV32g+HDDqmcEuE
+	qeqSAhKnzy/VVhQSphPs=; b=XvtL4TNdgfsTIiFHDl2M1wEhabYb8ybL7dnap4Ui7FyTxyTJWE
+	e7DggnBYSjnYrV0PgOAaTNI8N7/xVUTAKYBw==;
+Message-ID: <0c8527cc-2ed9-444f-b113-223f117e635b@mainlining.org>
+Date: Sun, 13 Sep 2026 17:07:00 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913-perky-resolute-badger-6c5e96@quoll>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
+To: Ryan Brue <ryanbrue.dev@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
+ <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-mediatek@lists.infradead.org
+References: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <20260912-add-boe-tv101wum-nm0-v1-0-3057a08e8b80@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 26-09-13 11:18:16, Krzysztof Kozlowski wrote:
-> On Fri, Sep 11, 2026 at 06:07:53PM +0300, Petko Manolov wrote:
-> > Add DT compatible string for Draeger's M48 CPU Module, an i.MX6
-> > based board.
-> 
-> Sashiko comment is valid.
 
-Sashiko doesn't know that this is indeed an i.MX6q board with the Altera FPGA as
-a separate module, that is secondary to the NXP SoC.
+12.09.2026 21:22, Ryan Brue wrote:
+> This series depends on the following series:
+> [PATCH v2 0/3] Novatek NT51021 DSI panel IC driver
+> https://lore.kernel.org/all/20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org/
+>
+> The BOE TV101WUM-NM0 is a 10.1" panel present in the Amazon Fire HD 10
+> (2017) tablet. It differs from the BOE panels in the dependent series in
+> key ways:
+>
+> - The pin count is 51 instead of 46
+> - The vendor asks for SYNC_EVENT_VDO_MODE with cont_clock=1 instead of
+> burst mode.
+> - Different timings and flags expected.
+>
+> The init sequence, flags and timings are mostly adapted straight from
+> Amazon's vendor kernel.
+>
+> Tested on the Amazon Fire HD 10 (2017) driven by mediatek-drm: 1200x1920
+> at 62.5 Hz across a cold boot, display off and on cycles and a
+> suspend/resume, with the MIPI TX PLL reading back at the intended rate
+> every time.
+>
+> Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
+> ---
+> Ryan Brue (2):
+>        dt-bindings: display: panel: add the BOE TV101WUM-NM0
+>        drm/panel: novatek-nt51021: add the BOE TV101WUM-NM0
+>
+>   .../bindings/display/panel/novatek,nt51021.yaml    |  1 +
+>   drivers/gpu/drm/panel/panel-novatek-nt51021.c      | 66 +++++++++++++++++++++-
+>   2 files changed, 65 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 5e036ce12de91c6fd674dad33b169c6150be2a7a
+> change-id: 20260912-add-boe-tv101wum-nm0-da01c4474db6
+> prerequisite-message-id: <20260911-qcom-novatek-nt51021-panels-v2-0-135e3190a7fb@mainlining.org>
+> prerequisite-patch-id: d8b58f07dc5c9e1fcf7c51a14b48eddca2e09090
+> prerequisite-patch-id: 79dfdac7b7fa79f7d05a5f3849909c9a7f956398
+> prerequisite-patch-id: 79c01de4e67563772dde152cd4c4d0c568b14d17
+>
+> Best regards,
+> --
+> Ryan Brue <ryanbrue.dev@gmail.com>
+I will incorporate this series into my series and add Co-developed-by to 
+the patches and your name and email to maintainers.
 
-What do you want me to put in the commit message so that everyone is happy?
+-- 
+Best regards,
+Nickolay
 
-
-		Petko
