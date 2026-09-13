@@ -1,170 +1,260 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88E69381AF1;
-	Sun, 13 Sep 2026 20:52:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B010D266581
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 21:03:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789332732; cv=none; b=K4KeNi53L2FtJl1byUmg+gffDdXyEXMcVbj31Wst1qyrpVLh7q0hx6TPUgAkqdPEfNkR18DldtPvWuwMU33GDJyVo1/NL3ThHtcGM8ifl0YdnVx/doUd+M29CcKtBmAltyeUjkMwgxl3yIqVscUBNCM5HOk7KwGDuMUI1p2wYpY=
+	t=1789333428; cv=none; b=roJfOK8w5/sN2r+8/0x7yAkWd/XSVeRcgb2hx4FChM6UHptGsRRSvdSge4hTaT7IQiKJifrPI6MhWAZToS39TTs79WnV4NaMgTqSqJTmFOfPSTlXcCpMsg/gZVn7J9UA9PXt6eTniA7t+7Ip8mK053a03pkF7IPPe2PY8pCtodI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789332732; c=relaxed/simple;
-	bh=MCGdrRYJULoLW56qLOMGtzGYAB4mtYZNs/cTtMAHWJE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=cJYHCq+KPUnzJEQE9Y4KYfDn2/mr0sJHzRmTaUKsUlIzgzefjoLKXTPGsN+5wnJfEjbEMMkaF97W7dHWuxZ/+HW42KRJq6uNDaRgtLI36jbYVcK7TSHHtE2LronMqwVgvsqivVgfuU5RFxC6K4bLeorFaeSvRbxQScjkZobGUIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0J8vaU9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789333428; c=relaxed/simple;
+	bh=CD1/VOiRwriLJt9gbPWe/u94z1MBy2XiAUrwotmfEB8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=OksqidbJbVC1VL2x9NNRnEyJ1a21T5puc0e+glf/rFPRMLZ7wUyWYYfXUyxpHFFV25uHOtAf63CoamgwUE6ZxXbn7NR2uwxfBXlTRg1Z+6z/hRc51PJMqGaMza6d9ZpHkEQSi31ZAjLszUmW0Rh5CG4BoLLWL7fvxsnl//00WoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqu7aIFu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0J8vaU9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050351F008A0;
-	Sun, 13 Sep 2026 20:52:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqu7aIFu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 01E811F000FF;
+	Sun, 13 Sep 2026 21:03:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789332731;
-	bh=TjVxCbAEbneiu/1aE0gLYluR9jIDsZDKOOpdr+iR0XE=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=g0J8vaU9xrYyiFPapyiUf3C14jq16odOght7ZahZtp9mtWKE8fYiyTRnflF5Gch6e
-	 Vxl8foPvNJNzqIidKvAH2A1vFjoGFNMujDFJXmVYWq1S3HUjVN27zGOM1EFRIp52OE
-	 XQckZ3fmAigg6vapR/FWE/DK7Fc6v4RaQRCMC5+t2vODqWwo9iNZjD3HpstTzhwBEX
-	 W2IFhLbLxiFVhF68ExCXYyfKIZBl9je9vyvy6+pA0naOXeCPtStalIV/GcrT6JNrXp
-	 uKWppiObzbvnQiZ+pzzXgZq3N5sNJWr9QP5OY55F4v0A5tv76P7cdrhph19+vackT9
-	 LPAPcxxBeBLaQ==
+	s=k20260515; t=1789333426;
+	bh=Ir7rkjOuWgcSse8tdIzu3c3qaH5zji3o2q/UfqRcDj0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jqu7aIFu0I3r0cpnPqoUv9mthvux6deHWGy3FlTou7J8cP8zkKwz+zUel0j1aKAxm
+	 D7iqt4c2Ea2Ue/sVtmBr+qayYp0KVy3862CuBnziuTXxaXeIJr725iiYaWO4dD+dBf
+	 F8McesQSNHlWE1DTcbd+54l9GZT0Km0nrawZ9wiF7I2G2gZxX0AOS/ExR0M3c5yI30
+	 zNApcQxipjAECMd14kc1sIGRyTVwMAAoNtXZskOtp2vcXmr6BdwUJfek+Yj8rzVnmw
+	 W0LRbKyDNViqgGNg72Yj6nbpZD9rq7WD7r2afiqXvYro0IGd+BIdD0CEps1dVtdIfy
+	 1O4uVp0BSaZ8Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Leander Kieweg" <kieweg.leander@gmail.com>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260913205007.118552-3-kieweg.leander@gmail.com>
+References: <20260913205007.118552-1-kieweg.leander@gmail.com>
+ <20260913205007.118552-3-kieweg.leander@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 13 Sep 2026 21:03:45 +0000
+Message-Id: <20260913210346.01E811F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v7 07/17] iio: adc: ad7768: Add power mode helper
-From: Jonathan Cameron <jic23@kernel.org>
-To: Janani Sunil <janani.sunil@analog.com>
-Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Michael Hennerich <Michael.Hennerich@analog.com>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Olivier Moysan <olivier.moysan@foss.st.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, Michael Walle <mwalle@kernel.org>, 
- Randy Dunlap <rdunlap@infradead.org>, linux@analog.com, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org, 
- linux-doc@vger.kernel.org, jananisunil.dev@gmail.com, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-In-Reply-To: <20260910-ad7768-driver-v7-7-7f70b07627e1@analog.com>
-References: <20260910-ad7768-driver-v7-0-7f70b07627e1@analog.com>
- <20260910-ad7768-driver-v7-7-7f70b07627e1@analog.com>
-Date: Sun, 13 Sep 2026 21:51:54 +0100
-Message-Id: <178933271416.413489.11205164036404426330.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3314;
- i=jonathan.cameron@oss.qualcomm.com; h=from:subject:message-id;
- bh=MCGdrRYJULoLW56qLOMGtzGYAB4mtYZNs/cTtMAHWJE=;
- b=owEBfwKA/ZANAwAKAVSFNJnE9BaIAcsmYgBqpwz46oOaWYRMAG9k1e6lx5HlIKM4n5ceFM89y
- dPDpFFjxmeJAkUEAAEKAC8WIQRuKWazh4QGUpEmgbFUhTSZxPQWiAUCaqcM+BEcamljMjNAa2Vy
- bmVsLm9yZwAKCRBUhTSZxPQWiGpPEACi+0LPpq6PeXMDHlykkQnggBbE3g8ggsjfm5lOnIrs/GO
- 2Y6KyM8edwnqQxChG2ixaIfM9HOvRo3WUi2iR1A4CVKbi2qS27TRVG5t+YIUiNVIxDx3tMucymT
- Abk1fLPkS1Rf0+AIKi/ggBZWdHzcazkVWNroiLKF2zXhsfCb4auSx4H69rioVjoRZEu5BHXuOGv
- 0Baakzsfg0Xnz+Vmjp2pKU9jJbxQupLaKLa+vJ4nX0xCkJA2gtUBx3RE9MZ5ftihFgpBrKCc71Y
- 5FLRJ88x1wMGMt+3sLQ3TFLqLW0FThl2/3h6rkdwBqS55ujkS/nAClaYLqwzGPWbX6NtgZqb9ZY
- Z2Lw9I85dQDg0Lx5dORCCnnGKkwdL0gCapipDQn/J99Z2GUJoED0yZwVS9TB5qHrtqfaIlEOMtk
- LNVZ6s8shP34soW5Xc0hyQknYQHjCHRz2pvfaATVLjkpCoT3LihBXqTzTSTfFhDO6hi0r94k6Fx
- sMjLoef7dwFgCN4AB9XvGdbAhANygNq7NoebANvXZxUWJR8sJ7/e9lhY56I5vDhjAkS/tbJ2L3K
- AfBfYHNBg64FIP3ORQFGXzKYm7sqMBTVWCJsUJqXU6Yxllz6B+LMCmppy8qnc/LWZW/x6JiLNm7
- 0YihU9LPZwBlz/+cY2vulQmJatB5RYdVh18237w==
-X-Developer-Key: i=jonathan.cameron@oss.qualcomm.com; a=openpgp;
- fpr=6E2966B387840652912681B154853499C4F41688
 
-> Describe each power mode and its internal master-clock divisor in a
-> table. Replace the open-coded fast-mode setup with a helper that records
-> the active mode, preparing for dynamic mode selection.
-> 
-> Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Calling a sleeping function in an atomic context (plane atomic upd=
+ate callback).
+- [High] Missing drm_atomic_helper_shutdown() in driver removal and missing=
+ .shutdown hooks.
+- [High] Infinite interrupt storm leading to a CPU hard lockup upon PCI dev=
+ice removal (missing 0xFFFFFFFF check).
+- [High] Kernel panic via unaligned memory access in `glanda_blit_rect` due=
+ to unvalidated framebuffer pitch.
+--
 
-This is just highlighting some feedback from sashiko.
-I have very little idea what it is talking about!
+commit 17ab32ed9422ea6f511ee3ba92be0492625b8e06
+Author: Leander Kieweg <kieweg.leander@gmail.com>
 
-If it is garbage, just reply to say so.
+    drm/glanda: Add initial DRM driver for GlandaGPU
+   =20
+    Introduce the core DRM/KMS driver for GlandaGPU. This driver
+    supports basic modesetting, atomic updates via shadow plane helpers,
+    and optional QEMU PCI probing alongside the platform driver.
 
-Thanks,
+> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
+dagpu.c
+> new file mode 100644
+> index 0000000000000..bc954eb6d4412
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/glandagpu.c
 
-Jonathan
+[ ... ]
 
->
-> diff --git a/drivers/iio/adc/ad7768.c b/drivers/iio/adc/ad7768.c
-> index 44ba19fb2096..be815b8c6766 100644
-> --- a/drivers/iio/adc/ad7768.c
-> +++ b/drivers/iio/adc/ad7768.c
-> @@ -41,6 +41,8 @@
->  #define AD7768_REG_POWER_MODE				0x04
->  #define   AD7768_SLEEP_MODE_MSK				BIT(7)
->  #define   AD7768_POWER_MODE_POWER_MODE_MSK		GENMASK(5, 4)
-> +#define     AD7768_POWER_MODE_POWER_MODE_LOW		0x0
-> +#define     AD7768_POWER_MODE_POWER_MODE_MEDIAN		0x2
->  #define     AD7768_POWER_MODE_POWER_MODE_FAST		0x3
->  #define   AD7768_POWER_MODE_LVDS_ENABLE			BIT(3)
->  #define   AD7768_POWER_MODE_MCLK_DIV_MSK		GENMASK(1, 0)
-> @@ -102,6 +104,17 @@ enum ad7768_clock_source {
->  	AD7768_CLOCK_SOURCE_LVDS,
->  };
->  
-> +struct ad7768_power_mode_info {
-> +	unsigned int mode;
-> +	unsigned int mclk_div;
-> +};
+> @@ -107,17 +107,17 @@ static void glanda_blit_rect(struct glanda_device *=
+gdev,
+> +		u32 __iomem *dst =3D (u32 __iomem *)gdev->vram_base +
+> +				   (size_t)dst_y * GLANDA_WIDTH + dst_clip->x1;
+> +		size_t src_off =3D (size_t)src_y * src_pitch +
+> +				 (size_t)(dst_clip->x1 - dst_off_x) * sizeof(u32);
 > +
-> +static const struct ad7768_power_mode_info ad7768_power_modes[] = {
-> +	{ .mode = AD7768_POWER_MODE_POWER_MODE_LOW, .mclk_div = 32 },
-> +	{ .mode = AD7768_POWER_MODE_POWER_MODE_MEDIAN, .mclk_div = 8 },
-> +	{ .mode = AD7768_POWER_MODE_POWER_MODE_FAST, .mclk_div = 4 },
-> +};
-> +
->  struct ad7768_precharge_config {
->  	bool prebufp_en;
->  	bool prebufn_en;
-> @@ -127,6 +140,7 @@ struct ad7768_state {
->  	const struct ad7768_chip_info *chip_info;
->  	struct iio_backend *back;
->  	unsigned int vref_uV[2];
-> +	unsigned int power_mode_idx;
->  
->  	__be16 d16 __aligned(IIO_DMA_MINALIGN);
->  };
-> @@ -330,6 +344,32 @@ static int ad7768_sync(struct ad7768_state *st)
->  			       AD7768_DATA_CONTROL_SPI_SYNC);
->  }
->  
-> +static int ad7768_set_power_mode(struct ad7768_state *st,
-> +				 unsigned int mode_idx)
-> +{
-> +	const struct ad7768_power_mode_info *mode_info;
-> +	int ret;
-> +
-> +	mode_info = &ad7768_power_modes[mode_idx];
-> +	ret = regmap_update_bits(st->regmap, AD7768_REG_POWER_MODE,
-> +				 AD7768_POWER_MODE_POWER_MODE_MSK |
-> +				 AD7768_POWER_MODE_MCLK_DIV_MSK,
-> +				 FIELD_PREP(AD7768_POWER_MODE_POWER_MODE_MSK,
-> +					    mode_info->mode) |
-> +				 FIELD_PREP(AD7768_POWER_MODE_MCLK_DIV_MSK,
-> +					    mode_info->mode));
+> +		for (x =3D 0; x < width; x++) {
+> +			u32 pixel =3D iosys_map_rd(src, src_off + x * sizeof(u32), u32);
 
-Sashiko:
 [Severity: High]
-When configuring MEDIAN mode via ad7768_set_power_mode(), does this code
-inadvertently configure the MCLK_DIV bitfield using the power mode
-register value instead of the correct clock divider register code?
+Does this code risk an unaligned memory access and a kernel panic?
 
-For MEDIAN power mode, mode_info->mode is 0x2. Writing 0x2 to the MCLK_DIV
-bitfield sets the hardware divider to 4 (MCLK/4), instead of the expected
-divider of 8 (MCLK/8, which requires register value 0x1).
+Userspace can specify an arbitrary framebuffer pitch via the
+DRM_IOCTL_MODE_ADDFB2 ioctl, and the DRM core does not enforce byte alignme=
+nt
+on fb->pitches[0].
 
-Since ad7768_power_modes correctly defines mclk_div = 8 for MEDIAN mode, the
-software will calculate output rates and delays based on a divider of 8, while
-the hardware runs twice as fast.
--
-I haven't looked into this one so please check it out.
+If src_pitch is not a multiple of 4, src_off could be an unaligned byte
+offset. Because the iosys_map_rd() macro casts directly to a 32-bit pointer
+and dereferences it, this could cause an Alignment Fault and kernel panic on
+architectures with strict alignment requirements.
 
--- 
-Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
+[ ... ]
+
+> @@ -136,10 +136,10 @@ static void glanda_plane_atomic_update(struct drm_p=
+lane *plane,
+> +	struct drm_atomic_helper_damage_iter iter;
+> +	struct drm_rect damage;
+> +	int dst_off_x, dst_off_y;
+> +	int ret, idx;
+> +
+> +	ret =3D drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
+> +	if (ret)
+> +		return;
+
+[Severity: High]
+Could this result in calling a sleeping function from an atomic context?
+
+The glanda_plane_atomic_update() function executes in an atomic context
+during non-blocking commits where sleeping is strictly forbidden.
+
+Because drm_gem_fb_begin_cpu_access() waits on DMA fences and acquires
+mutexes, it can sleep. This could lead to might_sleep() warnings, system
+instability, or deadlocks. Should CPU access be prepared beforehand in
+a begin_fb_access or prepare_fb hook instead?
+
+[ ... ]
+
+> @@ -162,6 +162,6 @@ static void glanda_plane_atomic_update(struct drm_pla=
+ne *plane,
+> +
+> +	drm_dev_exit(idx);
+> +out_drm_gem_fb_end_cpu_access:
+> +	drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+> +}
+
+[Severity: High]
+Can this end_cpu_access call also sleep in the atomic update callback?
+
+[ ... ]
+
+> @@ -282,10 +282,10 @@ static const struct drm_connector_funcs glanda_conn=
+ector_funcs =3D {
+> +	.atomic_duplicate_state =3D drm_atomic_helper_connector_duplicate_state,
+> +	.atomic_destroy_state =3D drm_atomic_helper_connector_destroy_state,
+> +};
+> +
+> +static const struct drm_mode_config_funcs glanda_mode_config_funcs =3D {
+> +	.fb_create =3D drm_gem_fb_create_with_dirty,
+> +	.atomic_check =3D drm_atomic_helper_check,
+> +	.atomic_commit =3D drm_atomic_helper_commit,
+> +};
+
+[Severity: High]
+Does the lack of a custom validation wrapper here allow the unaligned pitch
+issue in glanda_blit_rect() to occur?
+
+Hooking fb_create directly to drm_gem_fb_create_with_dirty() without a
+custom wrapper means the driver does not enforce pitch alignment during
+framebuffer creation.
+
+[ ... ]
+
+> @@ -306,10 +306,10 @@ static irqreturn_t glanda_irq_handler(int irq, void=
+ *dev_id)
+> +	struct glanda_device *gdev =3D dev_id;
+> +	u32 isr, ier;
+> +
+> +	if (!gdev || !gdev->mmio_base)
+> +		return IRQ_NONE;
+> +
+> +	isr =3D readl(gdev->mmio_base + REG_ISR);
+> +	ier =3D readl(gdev->mmio_base + REG_IER);
+> +
+> +	if (!(isr & ier))
+> +		return IRQ_NONE;
+
+[Severity: High]
+Could this cause an infinite interrupt storm and a CPU hard lockup if the P=
+CI
+device is removed?
+
+When a PCI device is removed (e.g. hot-unplug), MMIO reads return all 1s
+(0xFFFFFFFF). Since !(0xFFFFFFFF & 0xFFFFFFFF) evaluates to false, this
+handler would not return IRQ_NONE.
+
+Instead, it would process a fake VSYNC, write 0xFFFFFFFF back, and return
+IRQ_HANDLED. If the IRQ line is shared and asserted by another device, the
+kernel's spurious interrupt detector will not disable the broken line,
+potentially causing a hard lockup.
+
+[ ... ]
+
+> @@ -522,10 +522,10 @@ static int glanda_drm_init(struct glanda_device *gd=
+ev, int irq)
+> +	return 0;
+> +}
+> +
+> +/* Shared teardown, mirrors glanda_drm_init() */
+> +static void glanda_drm_fini(struct glanda_device *gdev)
+> +{
+> +	drm_dev_unplug(&gdev->drm);
+> +}
+
+[Severity: High]
+Is a call to drm_atomic_helper_shutdown() missing here?
+
+Unregistering the DRM device without shutting down the atomic helpers means
+the display pipeline is not turned off. The active drm_crtc_state and
+drm_plane_state would not transition to a disabled state, leaving
+framebuffers pinned and resulting in memory leaks.
+
+[ ... ]
+
+> @@ -575,10 +575,10 @@ static const struct of_device_id glanda_of_match[] =
+=3D {
+> +	{ }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(of, glanda_of_match);
+> +
+> +static struct platform_driver glandagpu_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "glandagpu",
+> +		.of_match_table =3D glanda_of_match,
+> +	},
+> +	.probe =3D glandagpu_probe,
+> +	.remove =3D glandagpu_remove,
+> +};
+
+[Severity: High]
+Does this platform driver need a .shutdown callback?
+
+Without a .shutdown callback, the display hardware remains active during
+system halt or reboot, which can cause the device to continue scanning out
+VRAM inappropriately across reboots or kexecs.
+
+[ ... ]
+
+> @@ -613,10 +613,10 @@ static const struct pci_device_id glanda_pci_ids[] =
+=3D {
+> +	{ PCI_DEVICE(PCI_VENDOR_ID_REDHAT_QUMRANET, PCI_DEVICE_ID_GLANDA_GPU) },
+> +	{ }
+> +};
+> +
+> +MODULE_DEVICE_TABLE(pci, glanda_pci_ids);
+> +
+> +static struct pci_driver glandagpu_pci_driver =3D {
+> +	.name =3D "glandagpu-pci",
+> +	.id_table =3D glanda_pci_ids,
+> +	.probe =3D glandagpu_pci_probe,
+> +	.remove =3D glandagpu_pci_remove,
+> +};
+
+[Severity: High]
+Is the .shutdown callback also missing from the PCI driver?
+
+Similar to the platform driver, omitting this callback prevents the display
+from being gracefully disabled on shutdown.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913205007.1185=
+52-1-kieweg.leander@gmail.com?part=3D2
