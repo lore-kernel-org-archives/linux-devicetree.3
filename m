@@ -1,119 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sm24.hosting.reg.ru (sm24.hosting.reg.ru [31.31.198.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79B043B14B4;
-	Sun, 13 Sep 2026 06:12:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D55022D8370;
+	Sun, 13 Sep 2026 06:23:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.31.198.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789279976; cv=none; b=sGzqyRtg28BF+aM74jWojeOnw03ZIdEsPjuMW+bKOME5A88JRCMV2imcMLl+hDaywY9nhEOFiZBXHCCK6qRIgDJnIEPym37yRJPbGnkawDlFec4qO4mzqDbgCS15sH9/dda6nZhXrOMlyLZypzQhCGpdEZswHBYsC/PZzg6QMqg=
+	t=1789280633; cv=none; b=jLq6AVeu/f2o5CBsLlsub9I73TnRX7RNi+PkLX9wtJ/OcLbsD0YwXKwNMVwp8fUSC7ApUVBSz7xa+1GRqvPTCmt8LmQJTE8EX1cf696f5DKJqFkNDzZYkum28Kr+KrS5/RO9p/1cxU+a/M0efklxNxiBrotvbcq+N58nR2U4hvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789279976; c=relaxed/simple;
-	bh=hlRAfz052thwIwNAZA77TLcD4d+HAFAJUCMq+2ACYrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W6FuRCmiKx6fzPUtasHdxmMV5loTIIQ17bgyFtJXO/9B53d4GxVijJllWQAQv4hH60uBy/l6hSKFkMDul5vbI+D7q5c4utY7DveUUa3CtTp5rg4wdebisLsihJcSGoiiPnUayi8da0mHBsz5rZndorQPaVaZRo4ixPp8TSbl4+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e6vlzCgQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789280633; c=relaxed/simple;
+	bh=nzpakTyWjs8MvKY1d+8y4cgiK+ntyRaDC8/XJNkQLLE=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gQh/XbpT7yh8Pwy8BeTjm9LrMLU2BX2JR9Y0sVlaw8O3dmX76BVVQ8ffB5JWK6heQPRvVMgfN4wpqm6Yb7OETIyBkHgTLZNjadIFd6Yg43UY0kiQOMO6aBTPC95fLFxin2TgW6pqhI+HhV5oVbdzfjkEkZB7mumZaMJ+kK0w0VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru; spf=none smtp.mailfrom=minlexx.ru; dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b=fXtyPWq/; arc=none smtp.client-ip=31.31.198.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=minlexx.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=minlexx.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e6vlzCgQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F5801F000FF;
-	Sun, 13 Sep 2026 06:12:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789279973;
-	bh=QSyp8ho+krENqcCqtD8mgyjv4BFYhN5HZH/k2CfA1Ng=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=e6vlzCgQxDcz90hMbxxtPxhE5h6HGH8zwsWBdGGRaKLvrFT+nIe8nz3ZvQRB+j7F2
-	 x6SOK8+qlefol7r0HAOcQWmBJEC6aIMfI8WXFk7+3Z3etJo5jO2wcsJgM1npW0I9AH
-	 lcpJCt5Gl+64CUja4L+jhQ9M/6vwlJafenyvM5Y8Ske2LFD8eCPZca6k+EGpMt5E+6
-	 P5r9ba03wrq81uEUp4+x2E3YEuNJOJsDcsWfov8CaNctjBKq0Cr+4V6LN+5xsvdfN4
-	 7Mm2vwZwLAPOEGMAnGhnzyb6xav268b2VIhPzWTkflt5UNbdOgPPyB5fWev6MdgSCF
-	 i0/nqVEdriAJQ==
-Date: Sun, 13 Sep 2026 11:42:48 +0530
-From: Vinod Koul <vkoul@kernel.org>
-To: Herman van Hazendonk <github.com@herrie.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
-	linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	llvm@lists.linux.dev, konrad.dybcio@oss.qualcomm.com,
-	dmitry.baryshkov@oss.qualcomm.com
-Subject: Re: [PATCH v3 0/2] phy: qcom: usb-hs: MSM8x60 vendor ULPI init
-Message-ID: <aqY-4ExEFebqU0ZP@parshuram>
-References: <20260616-submit-phy-usb-hs-vendor-init-seq-v3-0-7d21fb1d1484@herrie.org>
+	dkim=pass (1024-bit key) header.d=minlexx.ru header.i=@minlexx.ru header.b="fXtyPWq/"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=minlexx.ru;
+	s=dkim; h=Cc:To:Content-Transfer-Encoding:Content-Type:MIME-Version:
+	Message-Id:Date:Subject:From:Sender:Reply-To:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=b041m3FFV3xdV8s944Kse+crSg3aFNdjdNDNILp69A4=; b=fXtyPWq/YGUFONUzpiG87CI0mR
+	9nnElNXy7anUt0s0ipfiYloqOk39cCde2mMT28j3DRe2AqM7blvG+8uEqzO5zSj+MzpvjGQxx4/0z
+	O8g87KXtRaD/RafjxsDowd84g04K+kw1VJjmh1kvbiX56c2F4OIMWWm87v94rhLjid4w=;
+Received: 
+	by sm24.hosting.reg.ru with esmtpsa (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(envelope-from <alexeymin@minlexx.ru>)
+	id 1x5cu2-0000000Dxg1-2GZR;
+	Sun, 13 Sep 2026 08:37:24 +0300
+From: Alexey Minnekhanov <alexeymin@minlexx.ru>
+Subject: [PATCH 0/9] drm/panel: novatek-nt36672a: Extend with 5 new panels
+Date: Sun, 13 Sep 2026 08:36:32 +0300
+Message-Id: <20260913-nt36672a-panels-v1-0-ce097402c6ea@minlexx.ru>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260616-submit-phy-usb-hs-vendor-init-seq-v3-0-7d21fb1d1484@herrie.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5EMBCA4VeROWvCoI19FXFoGYxIVzqIRLy77
+ jp+h/+/QCgwCXySCwIdLPz1EXmaQDdZP5LiPhowQ53VOSq/FVobtGq1nhZRVJTWoDbGuQpitQY
+ a+Pwfm/a17G6mbvtt4L4fOkZSOnMAAAA=
+X-Change-ID: 20260912-nt36672a-panels-e34a72677bb5
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: David Heidelberg <david@ixit.cz>, Joel Selvaraj <foss@joelselvaraj.com>, 
+ Chintan Patel <chintanlike@gmail.com>, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ phone-devel@vger.kernel.org, Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ Richard Acayan <mailingradian@gmail.com>, 
+ iAboothahir <aboothahirpkd@gmail.com>
+X-Mailer: b4 0.16.0
 
-On 16-06-26, 15:26, Herman van Hazendonk wrote:
-> v3 (this round):
->  - Re-introduce a much smaller DT binding patch following Konrad's
->    "do we have values for MTP/QRD" question and Dmitry's
->    "qcom,hsdrvslope (or similarly named) property in DT" suggestion.
->  - Survey of every MSM8x60-class downstream tree I could reach --
->    Qualcomm reference (SURF/FFA/Fluid/Dragon/Fusion via
->    board-msm8x60.c on android.googlesource.com), Samsung Galaxy S2
->    family (Q1 / Celox / Dali / generic 8x60 MTP), Sony MSM8660
->    (sony-kernel-msm8660), HTC MSM8660 ports
->    (shooter / holiday / pyramid / doubleshot / shooter_u / ruby) and
->    HP TouchPad -- shows that pre-emphasis, CDR auto-reset and SE1
->    gating values are *identical* across every reference board.
->    Only the 4-bit HS driver slope in reg 0x32 [3:0] varies.
->  - Patch 1/2 adds a single qcom,hs-drv-slope DT property (u32,
->    range 0..15) gated to the qcom,usb-hs-phy-msm8660 compatible.
->  - Patch 2/2 hardcodes the three platform-wide writes in the driver
->    behind the same compatible match, consumes qcom,hs-drv-slope for
->    the board-specific bits, and leaves the silicon default in place
->    when the property is absent -- which matches Qualcomm's own MTP,
->    Samsung and Sony reference behaviour.
->  - The bit-level meaning we *do* have comes from Code Aurora's
->    downstream arch/arm/mach-msm/include/mach/msm_hsusb_hw.h, which
->    Samsung and HP both shipped byte-for-byte identical.
->  - Per Dmitry's request, both commit messages call out explicitly
->    that there is no public Qualcomm documentation describing how the
->    4-bit slope value maps to an actual slew rate / V/ns / %.  The
->    field is an opaque hardware control; boards must copy the value
->    from their vendor / downstream kernel as a measured-per-layout
->    knob, not a derived one.
-> 
-> v2:
->  - Dropped the original qcom,vendor-init-seq DT property entirely
->    and folded all the vendor-register programming into the driver
->    behind the qcom,usb-hs-phy-msm8660 compatible.
->  - HS driver slope was hardcoded in v2.  v3 promotes that one
->    varying value to a DT property as Dmitry requested.
-> 
-> Companion TouchPad DTS work (flipping the PHY compatible from
-> "qcom,usb-hs-phy-apq8064" to "qcom,usb-hs-phy-msm8660" and adding
-> qcom,hs-drv-slope = <5>) will be sent separately with the rest of
-> the apq8060-tenderloin DT series.
-> 
-> On-device validation (HP TouchPad / APQ8060):
->  - Booted with v3 + the upcoming DTS hookup.  PHY driver bound,
->    msm_hsusb HS link came up at high-speed.  No regression vs the v2
->    hardcoded build.
-> 
-> Build / schema verification:
->  - dt_binding_check DT_SCHEMA_FILES=.../qcom,usb-hs-phy.yaml: clean.
->  - dtbs_check on qcom-apq8060-dragonboard.dtb and
->    qcom-msm8960-cdp.dtb (the two existing in-tree usb-hs-phy
->    consumers): clean.
->  - drivers/phy/qualcomm/phy-qcom-usb-hs.o builds clean.
->  - checkpatch.pl --strict: no warnings on either patch.
+These series make the driver for novatek-nt36672-based panels more
+easily extensible and add support for 5 new panels to it, used in
+4 different smartphones, all based on NT36672A:
 
-Hey, this fails to apply for me, can you please rebase on phy/next and
-send
+ * Shenchao panel used in Xiaomi Redmi Note 7 (xiaomi-lavender), the
+  exact model string is unknown
+ * Tianma TL063FVMCA01-00 for Xiaomi Redmi Note 7 (xiaomi-lavender)
+ * Tianma TL063FVMC43-02 for Xiaomi Redmi Note 6 Pro (xiaomi-tulip)
+ * Tianma TL060FVXS16-00 for Xiaomi Mi A2 smartphone (xiaomi-jasmine)
+ * TXD TXDI600YANPA-43V3 Asus Zenfone Max Pro M1 (asus-x00td).
 
--- 
-~Vinod
+Combining two init sequences into one was previously briefly
+discussed in [1].
+
+[1] https://lore.kernel.org/all/20260523035734.6602-1-chintanlike@gmail.com/
+
+Signed-off-by: Alexey Minnekhanov <alexeymin@minlexx.ru>
+---
+Alexey Minnekhanov (9):
+      dt-bindings: vendor-prefixes: Add Shenzhen TXD Technology Co., Ltd.
+      dt-bindings: vendor-prefixes: Add Shenzhen Zhuohong Electronic
+      dt-bindings: display: novatek,nt36672a: Add 5 new panels
+      drm/panel: novatek-nt36672a: Set driver name to novatek for consistency
+      drm/panel: novatek-nt36672a: Combine two init callbacks into one
+      drm/panel: novatek-nt36672a: Add 3 panels used in Xiaomi phones
+      drm/panel: novatek-nt36672a: Add Tianma panel for Xiaomi Mi A2
+      drm/panel: novatek-nt36672a: Add panel for Asus Zenfone Max Pro M1
+      MAINTAINERS: Add Alexey Minnekhanov as maintainer for NT36672A panel
+
+ .../bindings/display/panel/novatek,nt36672a.yaml   |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   4 +
+ MAINTAINERS                                        |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt36672a.c     | 549 +++++++++++++++++++--
+ 4 files changed, 531 insertions(+), 28 deletions(-)
+---
+base-commit: 68142f986ff04b2b70b31db00f719bf690f64a9a
+change-id: 20260912-nt36672a-panels-e34a72677bb5
+
+Best regards,
+--  
+Alexey Minnekhanov <alexeymin@minlexx.ru>
+
