@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A612348C7C;
-	Sun, 13 Sep 2026 09:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC8A348C7C;
+	Sun, 13 Sep 2026 09:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789290138; cv=none; b=ntIt/G1SNvTSrWzdUUS6IvIR8YoDTx5ZIWF4E9RttBwafKIfKYY4NtIHNz8umfPTJZ0CpYz5f8heW4HIlllUjOSQmEEdKYh3KdthE4UyuJNKQF72vT6AOo3qeaAYmLgafB1z7BT6kTg3AViwhSwHaGwEulBGs39UniwPr8YnHfw=
+	t=1789290236; cv=none; b=sNCExle9lb++GmpSkPXATrRnEvpJtbYPLQGw0pWBzt+gj9lVHEccHyR4M2EEKOvj96lN8AM8pckqn2wn3K1KfbLegwbc/phnBPB4nJloEADxvsJp4RUVZ6/vJw2Tx5r6gBzgfV4H2cJk3O09vgsX7fd62ogfj9vQ7vGOkQ4yf8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789290138; c=relaxed/simple;
-	bh=nXv6ndA7zeGK+jZSLxvfpzCe+24JiYV5mTMN5XXMlmg=;
+	s=arc-20240116; t=1789290236; c=relaxed/simple;
+	bh=s7FNHjOA38LQ1O46rmec34YUBzRGFpAorX8iHulUSLE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qFpY7n3io8QK6OK47MazQFOqsqPu7Q1Nbz1F6r7e+oJFlXQLNzX2Da5fO5KiYBFoBtyRj8O+QWkmMwG1JiAexsPrVrs0Ryi7GPIO7lmec+r91dZJPzxSYNkhkXSn+Xy6GdzVSzexZVWgZ3VuJxB8YgVbsVN/S4r9J4OrfWsXFY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqGlnhW5; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kDE2CHk9JFJjEZ4rKhlYSQktTWJwzQEm8l3SXIKWUiYe7GfxVTFofOJNf23Zx0VD9jdldI0tT8KmHpKU3tnOViruEUjYNtFirqsLHWxyPbPeNRJYu0lKuCzkF2fROYPW2yx4+HY8SFYbX109d1i1n+t/ZqJkDlXbVakZRxgPEBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DA8LP5ll; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqGlnhW5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989E31F00893;
-	Sun, 13 Sep 2026 09:02:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DA8LP5ll"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDE8C1F000FF;
+	Sun, 13 Sep 2026 09:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789290137;
-	bh=+QgNccPks/y5EiUIaW30j5t0+tXeWFsnPvbGtZbENV8=;
+	s=k20260515; t=1789290235;
+	bh=HOCVCoUbZ3n/ApxFbJdyqu/tiiYlAtevu9P9fyqmEWo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SqGlnhW5et2E74vIhmPM8wAsQ3mBbGzl12yVa0lpWYSM03XO26ERPdeYvcg4C6u51
-	 DBzPjVne51Rj21eL3qrVxlGUSVakh9ozHXr2ndeW3jhglB5g/4QihRIlJc9zAf+Ioe
-	 RynUuR9tn9INyJgpv4khUwMb+1IjaT9ZImnnJn5vmlUK2QFvuN+hyx3XxMgQwZKjOg
-	 YQD1VyQmey39ZN3r3yGQGRr9eC/JQt2boly6YoAgai1OpGyGifuOmS3SLwgzPFr6KT
-	 IWKwqnulOD99EgD1jbF4FO20ZJlDTUqF/5CbXuYi9A91zoKoPg8VJLzWjBTQ8aCutb
-	 Nfw6IPfTUF8HQ==
-Date: Sun, 13 Sep 2026 11:02:14 +0200
+	b=DA8LP5lleW298yNT/I3q4vqLVtG60kVYWFGIdHbGeitPHZw3N5aKTd5JB7sIfLcjd
+	 23xpU5kKtO2bqa3Ln4h+0HEQUHddp8GSNcvJ7kvJ9n+TiCkKQmKdLrkuWRU+LduKiN
+	 0/P4yuP1kiB1cmlamRZbZQme2JRS7tIKOU+1wrPhzCRtpLfJh/28vGKBk3drZPkHlR
+	 jqjza0d7Hs/rVd7dLsmqmDPuvVeAMHLze7SEp+fOJJvTly682/m6scTeR5d/V3GYNt
+	 YJ5A0ytlK0m1B6rCm1CrazlfXBX8yMXN04s39tCVkE8LpMcFplVkQ6JMAlpx1FPeXb
+	 ci2rgPu86TapQ==
+Date: Sun, 13 Sep 2026 11:03:52 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Konrad Dybcio <konradybcio@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Paul Sajna <sajattack@postmarketos.org>, Rob Herring <robh@kernel.org>, 
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH] Revert "dt-bindings: display: panel: panel-simple: Add
- lg,sw49410 compatible"
-Message-ID: <20260913-succinct-spiffy-chimera-32b06b@quoll>
-References: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 01/10] dt-bindings: soc: amlogic: Add compatible to
+ support more SoCs
+Message-ID: <20260913-resilient-terrier-of-sympathy-e50c85@quoll>
+References: <20260911-more-socs-to-support-clk_measure-v1-0-940e269aa52f@amlogic.com>
+ <20260911-more-socs-to-support-clk_measure-v1-1-940e269aa52f@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,40 +48,33 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260911-topic-lg_sw49410_revert-v1-1-c9385a9e1926@oss.qualcomm.com>
+In-Reply-To: <20260911-more-socs-to-support-clk_measure-v1-1-940e269aa52f@amlogic.com>
 
-On Fri, Sep 11, 2026 at 09:36:48AM +0200, Konrad Dybcio wrote:
-> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+On Fri, Sep 11, 2026 at 04:28:28PM +0800, Chuan Liu wrote:
+> Add clk-measure compatible for amlogic A5, A4, S7, S7D, S6 and A9 SoCs.
 > 
-> This patch had been applied before the review has concluded. The panel
-
-"Commit foo bar had been applied..."
-
-> needs more specific handling than the one provided by panel-simple and
-> the intended compatible was supposed to contain both the display panel
-> name and the driver IC model number.
-
-You miss subject prefixes. It is "dt-bindings: dispaly: panel-simple:
-Revert something".
-
+> Although the clk-measure IP itself has little hardware difference across
+> SoCs, the clock inputs connected to the clk-measure block vary between
+> SoCs. Therefore, it is difficult to fall back to the configuration used
+> by previous SoCs.
 > 
-> Moreover, the other compatible that didn't make it in the end landed in
-> the Qualcomm tree some time ago, instead of the one this revert
-> removes, so it's not even used.
-> 
-> See the link for reference.
-> 
-> This reverts commit a74c2e55ab66519ffa2069ac9ae83cd937bff4c4.
-> 
-> Link: https://lore.kernel.org/all/20260614-judyln-panel-v3-2-07f4134441bd@postmarketos.org/
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Chuan Liu <chuan.liu@amlogic.com>
 > ---
-> Paul, please resubmit your bindings patch with the proper compatible
-> and let's get it merged.
+>  .../bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml          | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+> index b1200e6940ac..125be01e3b2c 100644
+> --- a/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+> +++ b/Documentation/devicetree/bindings/soc/amlogic/amlogic,meson-gx-clk-measure.yaml
+> @@ -26,6 +26,12 @@ properties:
+>        - amlogic,s4-clk-measure
+>        - amlogic,a1-clk-measure
+>        - amlogic,t7-clk-measure
+> +      - amlogic,a5-clk-measure
 
-lg,sw49410 is already used, so instead new binding should be posted
-moving this one from panel-simple.  Revert does not solve anything -
-changes one warning into other one.
+Why is a5 after a1? Are you all adding here to the end of the list all
+the time?
 
 Best regards,
 Krzysztof
