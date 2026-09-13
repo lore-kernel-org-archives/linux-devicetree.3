@@ -1,143 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A110F2F8EB0
-	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:53:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789311197; cv=none; b=Q2vMi8+BTgxWSABR0bEHDdLKe2zBzPM+usX58TbDhmjEpD6KNzPHrP+D4q7R2fujSjWXzfvpG7ukLLjea8MbEBakoYtzGk2st0C7XnzTh0xZ040VBTFByLgRHKqAREA+pX+KLFZG92uy5wgs93eGdy72L4TqlrH8CsHmk2KYcj8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789311197; c=relaxed/simple;
-	bh=unQCWB8mlBOHFX6T0aaVCE6djqON6w24wYfneHfmYRE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TIvPGjyx2xNOETpCh5q+xK2wBxHSkLXDWe+L8x9p4n94hiMy07+DvEnu+g0ZnPOCAbohUssY7nV3lRYLekOVecmLMmrU0zgHXZSljNl6655aIvDSJeP56auH3RhXz0Nl5kMHWrgFqd4Nz4yKuNwajVQyg1xjsQ11f0C6Ks28mfE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwZ55Kz8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2D42F260C
+	for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 14:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789311304; cv=pass; b=VBg+eFcW+swPQnMD/SJ3UrKD6xKAKwwf57Z1Uxr+gn5suMFlmHdWNVlwRx1UJkw58EfBBOQdVvGWH84trislSJvbipbPyk/47dqPZqngKyye9sSr33DzYLpubkfHJMIpUXOXrj2azSV03CC4AQm5VPxdfiEmEoveFDiS0x+oDI4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789311304; c=relaxed/simple;
+	bh=Y1BhGJHbMK4MjP/cN4ZM+JrQmO+vvsB3JIjaBa6CnxU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=UXbbx65TaJiRgTelhvwGrcewDddAUutE1kJJYaZtVeIOAonyrxHg15smTqVoVhhz/JA69AQcSTYoMsvmSqg1hRNZ23jeAy/UUqneZiOL2HN7b/HUN9poVniPfR2ZV6maZClAExSKWS3TPS7Yc5iOYexEm3GrSXMwlPh+oXrqczM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KpMkWsR8; arc=pass smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwZ55Kz8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2A51F000FF;
-	Sun, 13 Sep 2026 14:53:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789311196;
-	bh=THXMB0cwhof3F6EMJ7XVjHsXE/pd+3MulSn+hRcf4Fw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HwZ55Kz8uakXOzpd3kdwnb5MqgpOrWSKr4LYVXTuiVwO6LlZkxD6qp01c1769S4M/
-	 ab3OzqlheoGd0co54Tyvok7Dk3Wyz/1VHDnyZPk8rZU5Fb/Usi6VFYFOzrX/Iam4+Z
-	 bZru8gBLqEXcCpDQPbMB4mwmibZjM99ywxbHNs0dqWtbbco5RqtOEva5xde9en6oB3
-	 b9QkM8+cRCktl94iN7/Tcn5llRksMbAC9b5zb1vIuRhMlO7mubhRck6Ob0kDHWTdXV
-	 KSw0b2vLFgnI8w/9iRSalkfG6/7mjEOidRrG7BRhHL/+nXoIHOoMS9mwHWZexgdj2c
-	 orThekKzKKGEw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/5] usb: dwc3: qcom: Modify interrupt handling for
- eUSB2 Phy targets
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krishna Kurapati" <krishna.kurapati@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, vkoul@kernel.org
-In-Reply-To: <20260913-eusb2-interrupt-v8-v8-5-0f505b9c394b@oss.qualcomm.com>
-References: <20260913-eusb2-interrupt-v8-v8-0-0f505b9c394b@oss.qualcomm.com>
- <20260913-eusb2-interrupt-v8-v8-5-0f505b9c394b@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 13 Sep 2026 14:53:15 +0000
-Message-Id: <20260913145315.BD2A51F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KpMkWsR8"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-46a63c34533so1468383fac.1
+        for <devicetree@vger.kernel.org>; Sun, 13 Sep 2026 07:55:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789311301; cv=none;
+        d=google.com; s=arc-20260327;
+        b=awPmkM6JU5o23AQZ803IeUQC/xlWFUN6XtP7DqHYleaRbug3qgTWnRWisj7YVFPIIt
+         OnGKKCfKUx7jhH3XrQj4MHxCenREfHoqQZluqzmSaltfBvIkbRirWk8F1KdNqkJgbtoW
+         WWYg8WSRIoyQl0eIlrvf5/rPEgvT/jHozQzlQjZkW37DBAZF2VxZ9U/rDCZDxRz/fJgt
+         mR1M/V0uZYY7WecWP2Wf1L22nj/b39LWnc8yBJqtBB2pr5DyKBQuwiOmVXbyc2zekqd7
+         9YzJxIdSWWRvDMM+7z48bMr0OTKm5YLjFJ1Bf94y8eQblPmJXGgV629IeT1LbeBpn7kC
+         g2Gw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=zdUN+QWwa8fyRs0dHBEhiU+fM2pLoHcOi5IEgZOWjak=;
+        fh=h0cXP4Ewc6LQnl3op2CXqjjJ2RIdRTClnjjxEkp0xTg=;
+        b=mrS42l8qzGQYCBWiPkqxTuKBncaz+OgJIyF2JHuhSQdmodr6qhJ9Wc2T5/8C0/8ZeU
+         ED1pV8Xtf0c53qGcgNdFcLMfb9iKA2f0zEz6ARR2snXtXmLe3PM5t4PubRkVmqblO3Ch
+         W4LWqPi5G3BAhCKSl0Ba/F5ew8EiyZK+aHnEsbkJNiGSu5ddECpivwQ5dlZzC6Z/ELVu
+         QVkGBYV5jffksGRDXLYric9WiBkYiWnpOBP2EADzSGjswI5gBmLPxneOxOoeUPZpibZS
+         sqOYFJE52FZ9xUsMm4cKlIHR402tYhG/dJR9Zk3rYIoJCKpulWO3VavVFj7MvXPo5pkA
+         BbQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789311301; x=1789916101; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zdUN+QWwa8fyRs0dHBEhiU+fM2pLoHcOi5IEgZOWjak=;
+        b=KpMkWsR8x0+DcLM9Jg80po8fuvhJ+0Zbpjv416bXkgzwmctMwcnpGh8bCPX2vTrpNv
+         IbCqabAm1fMR859nzkRMTvaCLawFCGNx6exYQePo2/Tl6Jrw3SrYcyxNjcYEhFLqYpby
+         TbuPrxNxdj0XbGsXhtPnN0HHRgzxBFtDsflGgoc6cavHowWrZTJMczZ5NCZcZSm4zlDH
+         wvqmxeluet/YKJ7dn2DlR9usafRFmAz3URNjTd8iJPczXT31M4x5lMrDlud8kNDapkXc
+         7EvbKmdM16rtr58cgl9IjDopdPHW/D4G07yOVAf5q6Si/SJeLgw4TPhI2hx7N1/bZx5t
+         XSqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789311301; x=1789916101;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zdUN+QWwa8fyRs0dHBEhiU+fM2pLoHcOi5IEgZOWjak=;
+        b=MRX+gIqHlPzuYdKjfIpNVslXeyh6PP5gCe+r7pusVSf+VrAgYv4aiQcu0+xb/KX2Xx
+         8EwSV0nNpFXYldeAEusQ6znGdZBADfa+If6bFpGilxdd3VxpOwkuC85QEIDgaElGjIzk
+         ktQ8G6EhnD9O6VKvcQN3Lq8NgbizyRla3c5P7MN5mG9D4OSlpCAo2dcbHtNPm5dmdt4E
+         1BJ6K02OE2huj5W7fcGxMyP66s1kTxtfRJokbCeT0QLGs1PI109mipMazi0cuBTd0guD
+         f1Hn9XSOfRJRcTUrTfMNZYNF+d3uD/aLGEhNRc+9CFxve4Uv56akt6dqAqX4c1Ymgc5o
+         +dPA==
+X-Forwarded-Encrypted: i=1; AKwUvByUqCC1teA+cZEaITi6+9KQ2cSKuPvHdNlOn2hdvBe0SCT1G1dO6VeArnqKybNArtsJxF0r5D6C9DJh@vger.kernel.org
+X-Gm-Message-State: AFuF++lb6yOoq7sAUfwuHN7zWzGGfNkqcIsY6ElszibBFh2pKEYYq62t
+	FkeOJlU8pRTf9IqFbOlEfDsUPzCg59DsGkgZQglcUuyvaPB5vX2x0QPDc7bG5L68Pcb+kjtkNpf
+	3E/mdgE6ELhHlTLuE/o395qeUmuamQtS+4dmh
+X-Gm-Gg: AYBFou0nWtSBys7FRdYq/SKS0lmWLGp8Op+scsMcyPfGBCgsQ1XUpwEOpPiJksdoDzw
+	Lrtw/pL9DGMHrp5W3MyRAnrhCRDLLZmLs79r5Uqs9ml8UvUyDeJ/eA82vwtDIyBblqHkyRcl45y
+	G30PPmwsAb543ncFFt5GLno44zdd31SXCIDnufkmzCwFm2rxxVbwwfeSlnUMwgtSxgMM3ymmIOQ
+	YQHEuISqEpOibc/5CZyXHANERdusuuQf4Sj5NSw381WnoS0qeODFZEHe7ZjIA742yiCZEsmrxPd
+	ungViGF5LYn+/iU2b/bDQzBlMa3kKp1+GC6Vfs+BAqsp1CSZfBBh6QKSXwnY5LQxO6BbEoP52K8
+	j+POAq6O38a4Yjw==
+X-Received: by 2002:a05:6820:2213:b0:6b2:69bf:c8d7 with SMTP id
+ 006d021491bc7-6c24c3c74ddmr3477590eaf.10.1789311301456; Sun, 13 Sep 2026
+ 07:55:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260823111959.17029-1-amit.barzilai22@gmail.com>
+ <20260823111959.17029-2-amit.barzilai22@gmail.com> <20260823112814.896AE1F000E9@smtp.kernel.org>
+ <8733vhmk4p.fsf@ocarina.mail-host-address-is-not-set>
+In-Reply-To: <8733vhmk4p.fsf@ocarina.mail-host-address-is-not-set>
+From: Amit Barzilai <amit.barzilai22@gmail.com>
+Date: Sun, 13 Sep 2026 17:54:49 +0300
+X-Gm-Features: AcwNN1XXW1xsHHvqDyl6Kgqlf_EPuqEBtUOLVnrobbG5_xucG5tBFGj0BV3mYoM
+Message-ID: <CAOEgbEqd6pGUL6o2CbyePUWm=NBy1GJJaOm+_7rg3CsEGqEfYw@mail.gmail.com>
+Subject: Re: [PATCH v5 1/6] dt-bindings: display: Add Solomon SSD1351 OLED controller
+To: Javier Martinez Canillas <javierm@redhat.com>, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Thu, Sep 10, 2026 at 2:16=E2=80=AFPM Javier Martinez Canillas
+<javierm@redhat.com> wrote:
+>
+> sashiko-bot@kernel.org writes:
+>
+> >> +allOf:
+> >> +  - $ref: solomon,ssd-common.yaml#
+> >> +
+> >> +properties:
+> >> +  compatible:
+> >> +    enum:
+> >> +      - solomon,ssd1351
+> >
+> > [Severity: Low]
+> > Should this properties block also declare default values for solomon,wi=
+dth
+> > and solomon,height?
+> >
+> > Other bindings that include solomon,ssd-common.yaml, such as
+> > solomon,ssd133x.yaml, establish default geometry values for their speci=
+fic
+> > compatible strings in this block. Without these default values, device =
+trees
+> > that omit the width and height properties will lack a schema-defined de=
+fault
+> > geometry.
+> >
+> > --
+> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260823111959.=
+17029-1-amit.barzilai22@gmail.com?part=3D1
+> >
+>
+> I think Sashiko is correct here. Let's include the default values in the
+> DT binding schema to be consistent to what is done in the other bindings.
 
-New issues:
-- [High] Probe fails unconditionally if CONFIG_GENERIC_PHY is disabled beca=
-use the error check misses -ENOSYS.
+I included them in v1, Krzysztof mentioned that they should be removed
+since they are deducible from the compatible:
+https://lore.kernel.org/dri-devel/20260611-psychedelic-funky-foxhound-a8e39=
+d@quoll/
 
-Pre-existing issues:
-- [High] Missing lock and lifecycle protection when accessing xHCI drvdata =
-leads to NULL pointer dereference during concurrent driver unbind.
---
-
-commit fda37af83fa24f9ca3c0472a4d6f4d45d01b3ce6
-Author: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-
-usb: dwc3: qcom: Modify interrupt handling for eUSB2 Phy targets
-
-This patch modifies the interrupt handling for eUSB2 PHY targets in host
-mode to configure wakeup interrupts differently based on the connected devi=
-ce
-speed. The driver now queries the PHY type and configures DP/DM edge
-interrupts accordingly.
-
-> diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-> index ac68b4218b56b..e6b6beb38fcba 100644
-> --- a/drivers/usb/dwc3/dwc3-qcom.c
-> +++ b/drivers/usb/dwc3/dwc3-qcom.c
-[ ... ]
-> @@ -683,6 +705,17 @@ static int dwc3_qcom_probe(struct platform_device *p=
-dev)
->  	if (ignore_pipe_clk)
->  		dwc3_qcom_select_utmi_clk(qcom);
-> =20
-> +	phy =3D devm_of_phy_get_by_index(dev, dev->of_node, 0);
-> +	if (IS_ERR(phy)) {
-> +		if (PTR_ERR(phy) !=3D -ENODEV) {
-
-[Severity: High]
-Will this unconditionally fail to probe when CONFIG_GENERIC_PHY is disabled?
-
-If the kernel is built without generic PHY support, devm_of_phy_get_by_inde=
-x()
-returns ERR_PTR(-ENOSYS). Since this check only allows -ENODEV as a benign
-error, an -ENOSYS return will cause the driver to invoke dev_err_probe() and
-abort initialization.
-
-Should this check also handle -ENOSYS to allow graceful fallback when
-the PHY subsystem is disabled, similar to how the DWC3 core handles it?
-(e.g., if (PTR_ERR(phy) !=3D -ENODEV && PTR_ERR(phy) !=3D -ENOSYS))
-
-> +			ret =3D dev_err_probe(dev, PTR_ERR(phy),
-> +					    "failed to get usb2 phy\n");
-> +			goto clk_disable;
-> +		}
-> +		phy =3D NULL;
-> +	}
-> +	qcom->has_eusb2_phy =3D (phy_get_type(phy) =3D=3D PHY_TYPE_EUSB2);
-> +
->  	qcom->mode =3D usb_get_dr_mode(dev);
-
-While reviewing the driver context, I noticed a pre-existing issue in the
-surrounding codebase:
-
-drivers/usb/dwc3/dwc3-qcom.c:dwc3_qcom_read_usb2_speed() {
-    ...
-	/*
-	 * FIXME: Fix this layering violation.
-	 */
-	hcd =3D platform_get_drvdata(dwc->xhci);
-
-#ifdef CONFIG_USB
-	udev =3D usb_hub_find_child(hcd->self.root_hub, port_index + 1);
-    ...
-}
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this missing lifecycle
-protection for the xHCI drvdata lead to a NULL pointer dereference?
-
-If the child xhci-plat driver fails to probe, or if a user unbinds it via s=
-ysfs
-(e.g., echo xhci-hcd > /sys/bus/platform/drivers/xhci-hcd/unbind), the driv=
-er
-core calls dev_set_drvdata(dev, NULL). This releases the PM usage count and
-causes the parent dwc3-qcom controller to enter runtime suspend.
-
-When dwc3_qcom_runtime_suspend() then calls dwc3_qcom_read_usb2_speed(), it
-blindly retrieves the now-NULL drvdata via platform_get_drvdata() and
-immediately dereferences it when accessing hcd->self.root_hub.
-
-Could this race condition trigger a kernel panic during a concurrent driver
-unbind?
+I personally agree with Krzysztof, but I won't die on this hill.
+Let me know which way you'd like this to go.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260913-eusb2-inte=
-rrupt-v8-v8-0-0f505b9c394b@oss.qualcomm.com?part=3D5
+Thanks,
+Amit
